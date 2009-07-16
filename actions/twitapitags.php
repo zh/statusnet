@@ -48,31 +48,31 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
  * @link      http://laconi.ca/
  */
 
- class TwitapigroupsAction extends TwitterapiAction
+ class TwitapitagsAction extends TwitterapiAction
  {
 
      function timeline($args, $apidata)
      {
          parent::handle($args);
 
-         common_debug("in groups api action");
+         common_debug("in tags api action");
 
          $this->auth_user = $apidata['user'];
-         $group = $this->get_group($apidata['api_arg'], $apidata);
+         $tag = $apidata['api_arg'];
 
-         if (empty($group)) {
+         if (empty($tag)) {
              $this->clientError('Not Found', 404, $apidata['content-type']);
              return;
          }
 
          $sitename   = common_config('site', 'name');
-         $title      = sprintf(_("%s timeline"), $group->nickname);
+         $title      = sprintf(_("Notices tagged with %s"), $tag);
          $taguribase = common_config('integration', 'taguri');
-         $id         = "tag:$taguribase:GroupTimeline:".$group->id;
-         $link       = common_local_url('showgroup',
-             array('nickname' => $group->nickname));
-         $subtitle   = sprintf(_('Updates from %1$s on %2$s!'),
-             $group->nickname, $sitename);
+         $id         = "tag:$taguribase:TagTimeline:".$tag;
+         $link       = common_local_url('tag',
+             array('tag' => $tag));
+         $subtitle   = sprintf(_('Updates tagged with %1$s on %2$s!'),
+             $tag, $sitename);
 
          $page     = (int)$this->arg('page', 1);
          $count    = (int)$this->arg('count', 20);
@@ -80,8 +80,8 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
          $since_id = (int)$this->arg('since_id', 0);
          $since    = $this->arg('since');
 
-         $notice = $group->getNotices(($page-1)*$count,
-             $count, $since_id, $max_id, $since);
+         # XXX: support max_id, since_id, and since arguments
+         $notice = Notice_tag::getStream($tag, ($page-1)*$count, $count + 1);
 
          switch($apidata['content-type']) {
           case 'xml':
@@ -94,11 +94,11 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
           case 'atom':
              if (isset($apidata['api_arg'])) {
                  $selfuri = common_root_url() .
-                     'api/laconica/groups/timeline/' .
+                     'api/laconica/tags/timeline/' .
                          $apidata['api_arg'] . '.atom';
              } else {
                  $selfuri = common_root_url() .
-                  'api/laconica/groups/timeline.atom';
+                  'api/laconica/tags/timeline.atom';
              }
              $this->show_atom_timeline($notice, $title, $id, $link,
                  $subtitle, $suplink, $selfuri);

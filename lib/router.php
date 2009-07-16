@@ -403,6 +403,15 @@ class Router
                     array('action' => 'api',
                           'apiaction' => 'groups'));
 
+        // Tags
+        $m->connect('api/laconica/tags/:method/:argument',
+                    array('action' => 'api',
+                          'apiaction' => 'tags'));
+
+        $m->connect('api/laconica/tags/:method',
+                    array('action' => 'api',
+                          'apiaction' => 'tags'));
+
         // search
         $m->connect('api/search.atom', array('action' => 'twitapisearchatom'));
         $m->connect('api/search.json', array('action' => 'twitapisearchjson'));

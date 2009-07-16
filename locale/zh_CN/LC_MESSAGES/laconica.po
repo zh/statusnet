@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: identi.ca\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-25 16:24+0000\n"
-"PO-Revision-Date: 2009-02-11 07:27+0000\n"
-"Last-Translator: zhangfei <zhangfeisky@126.com>\n"
+"PO-Revision-Date: 2009-04-28 22:31+0000\n"
+"Last-Translator: doubliu <doubliu@gmail.com>\n"
 "Language-Team: i18n-zh <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -75,6 +75,25 @@ msgid ""
 "\n"
 "Sincerely, %2$s\n"
 msgstr ""
+"%1$s 邀请你加入 %2$s (%3$s).\n"
+"\n"
+"%2$s 是一个能让你和你认识的、感兴趣的人保持联系的微博客服务。 \n"
+"你可以和你认识的人分享你的近况、想法或者你的网络生活。你也可以结交有共同兴趣的新朋友。\n"
+"\n"
+"%1$s 说:\n"
+"\n"
+"%4$s\n"
+"\n"
+"你可以在这里查阅 %1$s's 的资料 %2$s :\n"
+"\n"
+"%5$s\n"
+"\n"
+"如果你想使用这个服务，请点击一下链接接受邀请。\n"
+"%6$s\n"
+"\n"
+"如果你不愿意，请跳过这条信息。感谢您的耐心和时间。\n"
+"\n"
+"诚挚的感谢, %2$s\n"
 
 #: ../lib/mail.php:124 lib/mail.php:124 lib/mail.php:126 lib/mail.php:241
 #, php-format
@@ -378,7 +397,7 @@ msgstr "头像已更新。"
 msgid ""
 "Awaiting confirmation on this address. Check your Jabber/GTalk account for a "
 "message with further instructions. (Did you add %s to your buddy list?)"
-msgstr ""
+msgstr "正在等待这个地址的确认。请查阅你Jabber/GTalk的帐户看有没有收到进一步的指示。（你是否已经添加 %s为你的好友？）"
 
 #: ../actions/emailsettings.php:54 actions/emailsettings.php:55
 msgid ""
@@ -524,6 +543,15 @@ msgid ""
 "\n"
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
+"恭喜， %s! 欢迎来到 %%%%site.name%%%%. 这里，你需要\n"
+"\n"
+"* 查看你的资料Go to [your profile](%s) 发布你的第一条消息.\n"
+"* 填加 [Jabber/GTalk address](%%%%action.imsettings%%%%) 然后你可以通过即时消息平台发布信息。\n"
+"* [Search for people](%%%%action.peoplesearch%%%%) 你认识的或和你有共同兴趣的朋友。 \n"
+"* 更新你的 [profile settings](%%%%action.profilesettings%%%%) 告诉大家更多关于你的情况。 \n"
+"* 请阅读 [online docs](%%%%doc.help%%%%) 有的功能也许你还不熟悉。\n"
+"\n"
+"感谢您的注册，希望您喜欢这个服务。"
 
 #: ../actions/finishopenidlogin.php:91 actions/finishopenidlogin.php:97
 #: actions/finishopenidlogin.php:119 lib/action.php:330
@@ -1152,6 +1180,8 @@ msgid ""
 "(%%action.register%%) a new account, or try [OpenID](%%action.openidlogin%"
 "%). "
 msgstr ""
+"请使用你的帐号和密码登入。没有帐号？[注册](%%action.register%%) 一个新帐号, 或使用 "
+"[OpenID](%%action.openidlogin%%). "
 
 #: ../lib/util.php:308 lib/util.php:324 lib/action.php:332
 msgid "Logout"
@@ -1181,7 +1211,7 @@ msgstr "设置 %%site.name%% 发送的邮件。"
 #: ../actions/showstream.php:300 actions/showstream.php:315
 #: actions/showstream.php:480
 msgid "Member since"
-msgstr "注册于"
+msgstr "用户始于"
 
 #: ../actions/userrss.php:70 actions/userrss.php:67 actions/userrss.php:72
 #, php-format
@@ -2307,6 +2337,8 @@ msgid ""
 "register%%) a new  account. If you already have an account  on a [compatible "
 "microblogging site](%%doc.openmublog%%),  enter your profile URL below."
 msgstr ""
+"要订阅，你可以登录 (%%action.login%%), 或注册(%%action.register%%) "
+"一个新帐号。如果你已经有在另一个兼容的微博客的帐号(%%doc.openmublog%%),  请填入你资料的互联网地址URL."
 
 #: ../actions/twitapifriendships.php:163 actions/twitapifriendships.php:167
 #: actions/twitapifriendships.php:132
@@ -3348,16 +3380,16 @@ msgstr "Twitter 设置"
 #: actions/avatarsettings.php:124 actions/avatarsettings.php:199
 #: actions/grouplogo.php:198 actions/grouplogo.php:258
 msgid "Original"
-msgstr ""
+msgstr "原来的"
 
 #: actions/avatarsettings.php:139 actions/avatarsettings.php:211
 #: actions/grouplogo.php:209 actions/grouplogo.php:270
 msgid "Preview"
-msgstr ""
+msgstr "预览"
 
 #: actions/avatarsettings.php:225 actions/grouplogo.php:284
 msgid "Crop"
-msgstr ""
+msgstr "剪裁"
 
 #: actions/avatarsettings.php:248 actions/deletenotice.php:133
 #: actions/emailsettings.php:224 actions/grouplogo.php:307
@@ -3374,11 +3406,11 @@ msgstr "会话标识有问题，请重试。"
 
 #: actions/avatarsettings.php:303 actions/grouplogo.php:360
 msgid "Pick a square area of the image to be your avatar"
-msgstr ""
+msgstr "请选择一块方形区域作为你的头像"
 
 #: actions/avatarsettings.php:327 actions/grouplogo.php:384
 msgid "Lost our file data."
-msgstr ""
+msgstr "文件数据丢失"
 
 #: actions/avatarsettings.php:334 actions/grouplogo.php:391
 #: classes/User_group.php:112
@@ -3407,51 +3439,51 @@ msgstr "没有找到此ID的信息。"
 #: actions/block.php:111
 #, fuzzy
 msgid "Block user"
-msgstr "未找到用户"
+msgstr "阻止用户"
 
 #: actions/block.php:129
 #, fuzzy
 msgid "Are you sure you want to block this user? "
-msgstr "确定要删除这条通告吗？"
+msgstr "确定要阻止该用户吗？"
 
 #: actions/block.php:162
-#, fuzzy
 msgid "You have already blocked this user."
-msgstr "您已订阅这些用户："
+msgstr "您已成功阻止该用户："
 
 #: actions/block.php:167
 msgid "Failed to save block information."
-msgstr ""
+msgstr "保存阻止信息失败。"
 
 #: actions/confirmaddress.php:159
-#, fuzzy, php-format
+#, php-format
 msgid "The address \"%s\" has been "
-msgstr "地址被移除。"
+msgstr "该地址 \"%s\" 已被"
 
 #: actions/deletenotice.php:73
 #, fuzzy
 msgid "You are about to permanently delete a notice. "
-msgstr "您选择了永久删除通告。这样做是无法恢复的。"
+msgstr "您将要永久删除这条通告。"
 
 #: actions/disfavor.php:94
-#, fuzzy
 msgid "Add to favorites"
-msgstr "%s 的收藏的聚合"
+msgstr "加入收藏"
 
 #: actions/editgroup.php:54
 #, php-format
 msgid "Edit %s group"
-msgstr ""
+msgstr "编辑 %s 组"
 
 #: actions/editgroup.php:66 actions/groupbyid.php:72 actions/grouplogo.php:66
 #: actions/joingroup.php:60 actions/newgroup.php:65 actions/showgroup.php:100
+#, fuzzy
 msgid "Inboxes must be enabled for groups to work"
-msgstr ""
+msgstr "使用组功能前必须使能邮箱"
 
+# before login, the user don't even see any Chinese translation. Anyway. This may be good for the future.
 #: actions/editgroup.php:71 actions/grouplogo.php:71 actions/newgroup.php:70
 #, fuzzy
 msgid "You must be logged in to create a group."
-msgstr "您必须登录才能邀请其他人使用 %s"
+msgstr "您必须登录才能创建组 %s"
 
 #: actions/editgroup.php:87 actions/grouplogo.php:87
 #: actions/groupmembers.php:76 actions/joingroup.php:81
@@ -3463,44 +3495,39 @@ msgstr "没有昵称。"
 #: actions/editgroup.php:99 actions/groupbyid.php:88 actions/grouplogo.php:100
 #: actions/groupmembers.php:83 actions/joingroup.php:88
 #: actions/showgroup.php:128
-#, fuzzy
 msgid "No such group"
-msgstr "未找到用户"
+msgstr "没有这个组"
 
 #: actions/editgroup.php:106 actions/editgroup.php:165
 #: actions/grouplogo.php:107
-#, fuzzy
 msgid "You must be an admin to edit the group"
-msgstr "您必须登录才能邀请其他人使用 %s"
+msgstr "只有admin才能编辑这个组"
 
 #: actions/editgroup.php:157
 msgid "Use this form to edit the group."
-msgstr ""
+msgstr "使用这个表单来编辑组"
 
 #: actions/editgroup.php:179 actions/newgroup.php:130 actions/register.php:156
 #, fuzzy
 msgid "Nickname must have only lowercase letters "
-msgstr "昵称只能使用小写字母和数字，不包含空格。"
+msgstr "昵称只能使用小写字母"
 
 #: actions/editgroup.php:198 actions/newgroup.php:149
-#, fuzzy
 msgid "description is too long (max 140 chars)."
-msgstr "个人小传过长(不能超过140字符)。"
+msgstr "描述过长(不能超过140字符)。"
 
 #: actions/editgroup.php:218
-#, fuzzy
 msgid "Could not update group."
-msgstr "无法更新用户。"
+msgstr "无法更新组"
 
 #: actions/editgroup.php:226
-#, fuzzy
 msgid "Options saved."
-msgstr "设置已保存。"
+msgstr "选项已保存。"
 
 #: actions/emailsettings.php:107 actions/imsettings.php:108
-#, fuzzy, php-format
+#, php-format
 msgid "Awaiting confirmation on this address. "
-msgstr "等待确认此电话号码。"
+msgstr "正在等待这个地址的确认。"
 
 #: actions/emailsettings.php:139 actions/smssettings.php:150
 #, fuzzy
@@ -3514,7 +3541,7 @@ msgstr "如果收到私人信息，发邮件通知我。"
 
 #: actions/emailsettings.php:168
 msgid "Allow friends to nudge me and send me an email."
-msgstr ""
+msgstr "允许朋友们呼叫并给我发送邮件。"
 
 #: actions/emailsettings.php:321
 #, fuzzy
@@ -3528,21 +3555,21 @@ msgstr "验证码已被发送到您新增的即时通讯帐号。您必须允许
 
 #: actions/facebookhome.php:110
 msgid "Server error - couldn't get user!"
-msgstr ""
+msgstr "服务器报错 -- 无法找到该用户。"
 
 #: actions/facebookhome.php:196
 #, php-format
 msgid "If you would like the %s app to automatically update "
-msgstr ""
+msgstr "如果你想使用 %s 程序自动更新"
 
 #: actions/facebookhome.php:213 actions/facebooksettings.php:137
 #, php-format
 msgid "Allow %s to update my Facebook status"
-msgstr ""
+msgstr "允许 %s 更新我Facebook 的状态"
 
 #: actions/facebookhome.php:218
 msgid "Skip"
-msgstr ""
+msgstr "跳过"
 
 #: actions/facebookhome.php:235
 #, fuzzy
@@ -3551,7 +3578,7 @@ msgstr "没有内容！"
 
 #: actions/facebookhome.php:295 lib/action.php:870 lib/facebookaction.php:399
 msgid "Pagination"
-msgstr ""
+msgstr "分页"
 
 #: actions/facebookhome.php:304 lib/action.php:879 lib/facebookaction.php:408
 #, fuzzy
@@ -3566,7 +3593,7 @@ msgstr "之前 »"
 #: actions/facebookinvite.php:70
 #, php-format
 msgid "Thanks for inviting your friends to use %s"
-msgstr ""
+msgstr "感谢您邀请朋友使用 %s"
 
 #: actions/facebookinvite.php:72
 #, fuzzy
@@ -3576,7 +3603,7 @@ msgstr "已发送邀请给这些人："
 #: actions/facebookinvite.php:96
 #, fuzzy, php-format
 msgid "You have been invited to %s"
-msgstr "您已得到确认。输入"
+msgstr "您已被邀请到 %s"
 
 #: actions/facebookinvite.php:105
 #, fuzzy, php-format
@@ -3586,17 +3613,17 @@ msgstr "%s 好友的聚合"
 #: actions/facebookinvite.php:113
 #, php-format
 msgid "Friends already using %s:"
-msgstr ""
+msgstr "已经正在使用 %s 的朋友："
 
 #: actions/facebookinvite.php:130
 #, php-format
 msgid "Send invitations"
-msgstr ""
+msgstr "发出邀请"
 
 #: actions/facebookremove.php:56
 #, fuzzy
 msgid "Couldn't remove Facebook user."
-msgstr "无法移除 Twitter 用户。"
+msgstr "无法移除 facebook用户。"
 
 #: actions/facebooksettings.php:65
 #, fuzzy
@@ -3604,9 +3631,8 @@ msgid "There was a problem saving your sync preferences!"
 msgstr "会话标识有问题，请重试。"
 
 #: actions/facebooksettings.php:67
-#, fuzzy
 msgid "Sync preferences saved."
-msgstr "首选项已保存。"
+msgstr "同步选项已保存。"
 
 #: actions/facebooksettings.php:90
 #, fuzzy
@@ -3625,17 +3651,16 @@ msgstr "个人信息"
 
 #: actions/facebooksettings.php:108
 msgid "A string to prefix notices with."
-msgstr ""
+msgstr "消息以一字符串为前缀。"
 
 #: actions/facebooksettings.php:124
 #, php-format
 msgid "If you would like %s to automatically update "
-msgstr ""
+msgstr "如果你希望 %s 自动更新。"
 
 #: actions/facebooksettings.php:147
-#, fuzzy
 msgid "Sync preferences"
-msgstr "首选项"
+msgstr "同步设置"
 
 #: actions/favor.php:94 lib/disfavorform.php:140
 #, fuzzy
@@ -3661,77 +3686,77 @@ msgstr "显示上周以来最流行的标签"
 #: actions/featured.php:69 lib/featureduserssection.php:82
 #: lib/publicgroupnav.php:87
 msgid "Featured users"
-msgstr ""
+msgstr "推荐用户"
 
 #: actions/featured.php:71
 #, php-format
 msgid "Featured users, page %d"
-msgstr ""
+msgstr "推荐用户，第 %d 页"
 
 #: actions/featured.php:99
 #, php-format
 msgid "A selection of some of the great users on %s"
-msgstr ""
+msgstr "%s 优秀用户摘选"
 
 #: actions/finishremotesubscribe.php:188
 msgid "That user has blocked you from subscribing."
-msgstr ""
+msgstr "那个用户阻止了你的订阅。"
 
 #: actions/groupbyid.php:79
 msgid "No ID"
-msgstr ""
+msgstr "没有ID"
 
 #: actions/grouplogo.php:138 actions/grouplogo.php:191
 msgid "Group logo"
-msgstr ""
+msgstr "组logo"
 
 #: actions/grouplogo.php:149
 msgid "You can upload a logo image for your group."
-msgstr ""
+msgstr "你可以给你的组上载一个logo图。"
 
 #: actions/grouplogo.php:448
-#, fuzzy
 msgid "Logo updated."
-msgstr "头像已更新。"
+msgstr "logo已更新。"
 
 #: actions/grouplogo.php:450
 #, fuzzy
 msgid "Failed updating logo."
-msgstr "更新头像失败。"
+msgstr "更新logo失败。"
 
 #: actions/groupmembers.php:93 lib/groupnav.php:91
 #, php-format
 msgid "%s group members"
-msgstr ""
+msgstr "%s 组成员"
 
 #: actions/groupmembers.php:96
 #, php-format
 msgid "%s group members, page %d"
-msgstr ""
+msgstr "%s 组成员, 第 %d 页"
 
 #: actions/groupmembers.php:111
 msgid "A list of the users in this group."
-msgstr ""
+msgstr "该组成员列表。"
 
 #: actions/groups.php:62 actions/showstream.php:518 lib/publicgroupnav.php:79
 #: lib/subgroupnav.php:96
 msgid "Groups"
-msgstr ""
+msgstr "组"
 
 #: actions/groups.php:64
 #, php-format
 msgid "Groups, page %d"
-msgstr ""
+msgstr "组，第 %d 页"
 
 #: actions/groups.php:90
 #, php-format
+#, fuzzy
 msgid "%%%%site.name%%%% groups let you find and talk with "
-msgstr ""
+msgstr "%%%%site.name%%%% 组你可以查找并联络"
 
 #: actions/groups.php:106 actions/usergroups.php:124 lib/groupeditform.php:123
 #, fuzzy
 msgid "Create a new group"
-msgstr "创建新帐号"
+msgstr "创建新组"
 
 #: actions/groupsearch.php:57
 #, fuzzy, php-format
@@ -3740,19 +3765,18 @@ msgid ""
 msgstr "在 %%site.name%% 的用户信息中搜索，可以搜索姓名、未知和爱好。"
 
 #: actions/groupsearch.php:63
-#, fuzzy
 msgid "Group search"
-msgstr "搜索用户"
+msgstr "组检索"
 
 #: actions/imsettings.php:70
 #, fuzzy
 msgid "You can send and receive notices through "
-msgstr "无法向此用户发送消息。"
+msgstr "收发可以通过"
 
 #: actions/imsettings.php:120
 #, php-format
 msgid "Jabber or GTalk address, "
-msgstr ""
+msgstr "Jabber 或者 GTalk 地址, "
 
 #: actions/imsettings.php:147
 #, fuzzy
@@ -3760,33 +3784,32 @@ msgid "Send me replies through Jabber/GTalk "
 msgstr "通过Jabber/GTalk发送通告。"
 
 #: actions/imsettings.php:321
-#, fuzzy, php-format
+#, php-format
 msgid "A confirmation code was sent "
-msgstr "没有验证码"
+msgstr "确认消息已经发送"
 
 #: actions/joingroup.php:65
 #, fuzzy
 msgid "You must be logged in to join a group."
-msgstr "您必须登录才能邀请其他人使用 %s"
+msgstr "您必须登录才能加入组。"
 
 #: actions/joingroup.php:95
-#, fuzzy
 msgid "You are already a member of that group"
-msgstr "您已订阅这些用户："
+msgstr "您已经是该组成员"
 
 #: actions/joingroup.php:128
 #, fuzzy, php-format
 msgid "Could not join user %s to group %s"
-msgstr "无法订阅用户：未找到。"
+msgstr "无法把 %s 用户添加到 %s 组"
 
 #: actions/joingroup.php:135
 #, fuzzy, php-format
 msgid "%s joined group %s"
-msgstr "%s 的收藏 / %s"
+msgstr "%s 加入 %s 组"
 
 #: actions/leavegroup.php:60
 msgid "Inboxes must be enabled for groups to work."
-msgstr ""
+msgstr "邮箱必须使能组才能工作。"
 
 #: actions/leavegroup.php:65
 #, fuzzy
@@ -3794,9 +3817,8 @@ msgid "You must be logged in to leave a group."
 msgstr "您必须登录才能邀请其他人使用 %s"
 
 #: actions/leavegroup.php:88
-#, fuzzy
 msgid "No such group."
-msgstr "未找到此消息。"
+msgstr "没有这个组。"
 
 #: actions/leavegroup.php:95
 #, fuzzy
@@ -3821,28 +3843,27 @@ msgstr "无法订阅用户：未找到。"
 #: actions/leavegroup.php:145
 #, php-format
 msgid "%s left group %s"
-msgstr ""
+msgstr "%s 离开群 %s"
 
 #: actions/login.php:225 lib/facebookaction.php:304
 msgid "Login to site"
-msgstr ""
+msgstr "登录"
 
 #: actions/microsummary.php:69
 msgid "No current status"
-msgstr ""
+msgstr "没有当前状态"
 
 #: actions/newgroup.php:53
 msgid "New group"
-msgstr ""
+msgstr "新组"
 
 #: actions/newgroup.php:115
 msgid "Use this form to create a new group."
-msgstr ""
+msgstr "使用此表格创建组。"
 
 #: actions/newgroup.php:177
-#, fuzzy
 msgid "Could not create group."
-msgstr "无法创建收藏。"
+msgstr "无法创建组。"
 
 #: actions/newgroup.php:191
 #, fuzzy
@@ -3860,26 +3881,25 @@ msgid "Don't send a message to yourself; "
 msgstr "无法向此用户发送消息。"
 
 #: actions/newnotice.php:166
-#, fuzzy
 msgid "Notice posted"
-msgstr "通告"
+msgstr "消息已发布。"
 
 #: actions/newnotice.php:200 classes/Channel.php:163
 msgid "Ajax Error"
-msgstr ""
+msgstr "Ajax错误"
 
 #: actions/nudge.php:85
 msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set his email yet."
-msgstr ""
+msgstr "此用户不允许振铃呼叫或者还没有确认或设置TA的电子邮件。"
 
 #: actions/nudge.php:94
 msgid "Nudge sent"
-msgstr ""
+msgstr "振铃呼叫发出。"
 
 #: actions/nudge.php:97
 msgid "Nudge sent!"
-msgstr ""
+msgstr "振铃呼叫已经发出！"
 
 #: actions/openidlogin.php:97
 #, fuzzy
@@ -3898,25 +3918,24 @@ msgstr "Twitter 设置"
 
 #: actions/othersettings.php:71
 msgid "Manage various other options."
-msgstr ""
+msgstr "管理其他选项。"
 
 #: actions/othersettings.php:93
 msgid "URL Auto-shortening"
-msgstr ""
+msgstr "URL自动缩短"
 
 #: actions/othersettings.php:112
-#, fuzzy
 msgid "Service"
-msgstr "搜索"
+msgstr "服务"
 
 #: actions/othersettings.php:113
 msgid "Automatic shortening service to use."
-msgstr ""
+msgstr "要使用的自动缩短服务。"
 
 #: actions/othersettings.php:144
 #, fuzzy
 msgid "URL shortening service is too long (max 50 chars)."
-msgstr "语言过长(不能超过50个字符)。"
+msgstr "URL缩短服务超长(最多50个字符)。"
 
 #: actions/passwordsettings.php:69
 #, fuzzy
@@ -3936,12 +3955,12 @@ msgstr "不是有效的电子邮件"
 #: actions/peopletag.php:47
 #, php-format
 msgid "Users self-tagged with %s - page %d"
-msgstr ""
+msgstr "用户自加标签 %s - 第 %d 页"
 
 #: actions/peopletag.php:91
 #, php-format
 msgid "These are users who have tagged themselves \"%s\" "
-msgstr ""
+msgstr "这些是自我标识为 \"%s\"  的用户"
 
 #: actions/profilesettings.php:91
 #, fuzzy
@@ -3951,7 +3970,7 @@ msgstr "未知的帐号"
 #: actions/profilesettings.php:124
 msgid ""
 "Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
-msgstr ""
+msgstr "你的标签 (字母letters, 数字numbers, -, ., 和 _), 以逗号或空格分隔"
 
 #: actions/profilesettings.php:144
 #, fuzzy
@@ -3984,6 +4003,8 @@ msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
 "blogging) service "
 msgstr ""
+"这里是 %%site.name%%,一个微博客 [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
+"blogging) 服务"
 
 #: actions/publictagcloud.php:57
 #, fuzzy
@@ -3993,15 +4014,15 @@ msgstr "公开的聚合"
 #: actions/publictagcloud.php:63
 #, php-format
 msgid "These are most popular recent tags on %s "
-msgstr ""
+msgstr "这些是最近的 %s 流行标签 "
 
 #: actions/publictagcloud.php:119
 msgid "Tag cloud"
-msgstr ""
+msgstr "标签云聚集"
 
 #: actions/register.php:139 actions/register.php:349
 msgid "Sorry, only invited people can register."
-msgstr ""
+msgstr "对不起，请邀请那些能注册的人。"
 
 #: actions/register.php:149
 #, fuzzy
@@ -4010,7 +4031,7 @@ msgstr "您必须同意此授权方可注册。"
 
 #: actions/register.php:286
 msgid "With this form you can create "
-msgstr ""
+msgstr "使用这个表格你可以创建"
 
 #: actions/register.php:368
 #, fuzzy
@@ -4054,12 +4075,12 @@ msgstr "(您将立即收到一封电子邮件，含有"
 
 #: actions/remotesubscribe.php:166 actions/remotesubscribe.php:171
 msgid "That's a local profile! Login to subscribe."
-msgstr ""
+msgstr "那是一个本地资料！需要登录才能订阅。"
 
 #: actions/replies.php:118
 #, fuzzy, php-format
 msgid "Replies to %s, page %d"
-msgstr "%s 的回复"
+msgstr "%s 的回复，第 % 页"
 
 #: actions/showfavorites.php:79
 #, fuzzy, php-format
@@ -4069,22 +4090,22 @@ msgstr "%s 收藏的通告"
 #: actions/showgroup.php:77 lib/groupnav.php:85
 #, php-format
 msgid "%s group"
-msgstr ""
+msgstr "%s 组"
 
 #: actions/showgroup.php:79
 #, php-format
 msgid "%s group, page %d"
-msgstr ""
+msgstr "%s 组, 第 %d 页"
 
 #: actions/showgroup.php:206
 #, fuzzy
 msgid "Group profile"
-msgstr "没有这份通告。"
+msgstr "组资料"
 
 #: actions/showgroup.php:251 actions/showstream.php:278
 #: actions/tagother.php:119 lib/grouplist.php:134 lib/profilelist.php:133
 msgid "URL"
-msgstr ""
+msgstr "URL 互联网地址"
 
 #: actions/showgroup.php:262 actions/showstream.php:289
 #: actions/tagother.php:129 lib/grouplist.php:145 lib/profilelist.php:144
@@ -4094,7 +4115,7 @@ msgstr "通告"
 
 #: actions/showgroup.php:270
 msgid "Group actions"
-msgstr ""
+msgstr "组动作"
 
 #: actions/showgroup.php:323
 #, fuzzy, php-format
@@ -4110,11 +4131,11 @@ msgstr "注册于"
 #: actions/showstream.php:442 actions/showstream.php:524 lib/section.php:95
 #: lib/tagcloudsection.php:71
 msgid "(None)"
-msgstr ""
+msgstr "（没有）"
 
 #: actions/showgroup.php:370
 msgid "All members"
-msgstr ""
+msgstr "所有成员"
 
 #: actions/showgroup.php:378
 #, php-format
@@ -4122,6 +4143,8 @@ msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
 "wikipedia.org/wiki/Micro-blogging) service "
 msgstr ""
+"**%s** 是一个 %%%%site.name%%%% 的用户组,一个微博客服务 [micro-"
+"blogging](http://en.wikipedia.org/wiki/Micro-blogging)"
 
 #: actions/showmessage.php:98
 #, fuzzy
@@ -4145,7 +4168,7 @@ msgstr "用户没有个人信息。"
 
 #: actions/showstream.php:240 actions/tagother.php:81
 msgid "Photo"
-msgstr ""
+msgstr "相片"
 
 #: actions/showstream.php:317
 #, fuzzy
@@ -4169,7 +4192,7 @@ msgstr "订阅者"
 
 #: actions/showstream.php:533
 msgid "All groups"
-msgstr ""
+msgstr "所有组"
 
 #: actions/showstream.php:542
 #, php-format
@@ -4177,6 +4200,8 @@ msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
 "wikipedia.org/wiki/Micro-blogging) service "
 msgstr ""
+"**%s** 有一个帐号在 %%%%site.name%%%%, 一个微博客服务 [micro-"
+"blogging](http://en.wikipedia.org/wiki/Micro-blogging)"
 
 #: actions/smssettings.php:128
 #, fuzzy
@@ -4226,7 +4251,7 @@ msgstr "订阅者"
 #: actions/subscribers.php:52
 #, php-format
 msgid "%s subscribers, page %d"
-msgstr ""
+msgstr "%s 订阅者, 第 %d 页"
 
 #: actions/subscribers.php:63
 #, fuzzy
@@ -4271,7 +4296,7 @@ msgstr "带 %s 标签的通告"
 #: actions/tag.php:66
 #, php-format
 msgid "Messages tagged \"%s\", most recent first"
-msgstr ""
+msgstr "有 \"%s\" 标签的消息，最近的排序在前"
 
 #: actions/tagother.php:33
 #, fuzzy
@@ -4297,7 +4322,7 @@ msgstr "标签"
 msgid ""
 "Tags for this user (letters, numbers, -, ., and _), comma- or space- "
 "separated"
-msgstr ""
+msgstr "给这个用户加注标签 (字母letters, 数字numbers, -, ., and _), 逗号或空格分隔"
 
 #: actions/tagother.php:164
 #, fuzzy
@@ -4307,7 +4332,7 @@ msgstr "会话标识有问题，请重试。"
 #: actions/tagother.php:191
 msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
-msgstr ""
+msgstr "你只能给你订阅的人或订阅你的人加标签。"
 
 #: actions/tagother.php:198
 #, fuzzy
@@ -4316,7 +4341,7 @@ msgstr "无法保存头像"
 
 #: actions/tagother.php:233
 msgid "Use this form to add tags to your subscribers or subscriptions."
-msgstr ""
+msgstr "使用这个表格给你的关注者或你的订阅加注标签。"
 
 #: actions/tagrss.php:35
 #, fuzzy
@@ -4330,11 +4355,11 @@ msgstr "带 %s 标签的通告"
 
 #: actions/twitapiblocks.php:47
 msgid "Block user failed."
-msgstr ""
+msgstr "阻止用户失败。"
 
 #: actions/twitapiblocks.php:69
 msgid "Unblock user failed."
-msgstr ""
+msgstr "取消阻止用户失败。"
 
 #: actions/twitapiusers.php:48
 #, fuzzy
@@ -4363,7 +4388,7 @@ msgstr "Twitter 设置"
 
 #: actions/twittersettings.php:327
 msgid "Username must have only numbers, "
-msgstr ""
+msgstr "用户名只能有数字，"
 
 #: actions/twittersettings.php:341
 #, fuzzy, php-format
@@ -4393,12 +4418,12 @@ msgstr "退订"
 #: actions/usergroups.php:63
 #, php-format
 msgid "%s groups"
-msgstr ""
+msgstr "%s 群组"
 
 #: actions/usergroups.php:65
 #, php-format
 msgid "%s groups, page %d"
-msgstr ""
+msgstr "%s 群组, 第 %d 页"
 
 #: classes/Notice.php:104
 #, fuzzy
@@ -4408,27 +4433,23 @@ msgstr "保存通告时出错。"
 #: classes/Notice.php:109
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
-msgstr ""
+msgstr "你在短时间里发布了过多的消息，请深呼吸，过几分钟再发消息。"
 
 #: classes/Notice.php:116
-#, fuzzy
 msgid "You are banned from posting notices on this site."
-msgstr ""
-"您的新的发布用的地址是 %1$s。\n"
-"\n"
+msgstr "在这个网站你被禁止发布消息。"
 
 #: lib/accountsettingsaction.php:108
-#, fuzzy
 msgid "Upload an avatar"
-msgstr "更新头像失败。"
+msgstr "上载一个头像。"
 
 #: lib/accountsettingsaction.php:119
 msgid "Other"
-msgstr ""
+msgstr "其他"
 
 #: lib/accountsettingsaction.php:120
 msgid "Other options"
-msgstr ""
+msgstr "其他选项"
 
 #: lib/action.php:130
 #, fuzzy, php-format
@@ -4437,41 +4458,40 @@ msgstr "%s (%s)"
 
 #: lib/action.php:145
 msgid "Untitled page"
-msgstr ""
+msgstr "无标题页"
 
 #: lib/action.php:316
 msgid "Primary site navigation"
-msgstr ""
+msgstr "主站导航"
 
 #: lib/action.php:322
 msgid "Personal profile and friends timeline"
-msgstr ""
+msgstr "个人资料及朋友年表"
 
 #: lib/action.php:325
 msgid "Search for people or text"
-msgstr ""
+msgstr "检索人或文字"
 
 #: lib/action.php:328
-#, fuzzy
 msgid "Account"
-msgstr "关于"
+msgstr "帐号"
 
 #: lib/action.php:328
 #, fuzzy
 msgid "Change your email, avatar, password, profile"
-msgstr "修改密码"
+msgstr "修改资料"
 
 #: lib/action.php:330
 msgid "Connect to IM, SMS, Twitter"
-msgstr ""
+msgstr "与IM，手机短信，Twitter的连接"
 
 #: lib/action.php:332
 msgid "Logout from the site"
-msgstr ""
+msgstr "登出本站"
 
 #: lib/action.php:335
 msgid "Login to the site"
-msgstr ""
+msgstr "登入本站"
 
 #: lib/action.php:338
 #, fuzzy
@@ -4495,7 +4515,7 @@ msgstr "新通告"
 
 #: lib/action.php:417
 msgid "Local views"
-msgstr ""
+msgstr "本地显示"
 
 #: lib/action.php:472
 #, fuzzy
@@ -4505,28 +4525,28 @@ msgstr "新通告"
 #: lib/action.php:562
 #, fuzzy
 msgid "Secondary site navigation"
-msgstr "订阅"
+msgstr "次项站导航"
 
 #: lib/action.php:602 lib/action.php:623
 msgid "Laconica software license"
-msgstr ""
+msgstr "Laconica软件注册证"
 
 #: lib/action.php:630
 msgid "All "
-msgstr ""
+msgstr "全部"
 
 #: lib/action.php:635
 msgid "license."
-msgstr ""
+msgstr "注册证"
 
 #: lib/blockform.php:123 lib/blockform.php:153
 #, fuzzy
 msgid "Block this user"
-msgstr "未找到用户"
+msgstr "阻止该用户"
 
 #: lib/blockform.php:153
 msgid "Block"
-msgstr ""
+msgstr "阻止"
 
 #: lib/disfavorform.php:114 lib/disfavorform.php:140
 #, fuzzy
@@ -4536,16 +4556,16 @@ msgstr "%s 收藏的通告"
 #: lib/facebookaction.php:268
 #, php-format
 msgid "To use the %s Facebook Application you need to login "
-msgstr ""
+msgstr "你需要登录方能使用%sFacebook程序"
 
 #: lib/facebookaction.php:271
 #, fuzzy
 msgid " a new account."
-msgstr "创建新帐号"
+msgstr "一个新帐号"
 
 #: lib/facebookaction.php:557 lib/mailbox.php:214 lib/noticelist.php:354
 msgid "Published"
-msgstr ""
+msgstr "已发布"
 
 #: lib/favorform.php:114 lib/favorform.php:140
 #, fuzzy
@@ -4554,7 +4574,7 @@ msgstr "%s 收藏的通告"
 
 #: lib/feedlist.php:64
 msgid "Export data"
-msgstr ""
+msgstr "导出数据"
 
 #: lib/galleryaction.php:121
 #, fuzzy
@@ -4563,7 +4583,7 @@ msgstr "%s 标签的聚合"
 
 #: lib/galleryaction.php:131
 msgid "All"
-msgstr ""
+msgstr "全部"
 
 #: lib/galleryaction.php:137
 #, fuzzy
@@ -4572,11 +4592,11 @@ msgstr "标签"
 
 #: lib/galleryaction.php:138
 msgid "Choose a tag to narrow list"
-msgstr ""
+msgstr "选择标签缩小清单"
 
 #: lib/galleryaction.php:139
 msgid "Go"
-msgstr ""
+msgstr "执行"
 
 #: lib/groupeditform.php:148
 #, fuzzy
@@ -4586,7 +4606,7 @@ msgstr "您的主页、博客或在其他站点的URL"
 #: lib/groupeditform.php:151
 #, fuzzy
 msgid "Description"
-msgstr "订阅"
+msgstr "描述"
 
 #: lib/groupeditform.php:153
 #, fuzzy
@@ -4601,39 +4621,39 @@ msgstr "你的位置，格式类似\"城市，省份，国家\""
 
 #: lib/groupnav.php:84 lib/searchgroupnav.php:84
 msgid "Group"
-msgstr ""
+msgstr "组"
 
 #: lib/groupnav.php:100
 msgid "Admin"
-msgstr ""
+msgstr "admin管理员"
 
 #: lib/groupnav.php:101
 #, php-format
 msgid "Edit %s group properties"
-msgstr ""
+msgstr "编辑 %s群选项"
 
 #: lib/groupnav.php:106
 #, fuzzy
 msgid "Logo"
-msgstr "登出"
+msgstr "Logo图标"
 
 #: lib/groupnav.php:107
 #, php-format
 msgid "Add or edit %s logo"
-msgstr ""
+msgstr "添加或编辑 %s 图标"
 
 #: lib/groupsbymemberssection.php:71
 msgid "Groups with most members"
-msgstr ""
+msgstr "人气最旺的群"
 
 #: lib/groupsbypostssection.php:71
 msgid "Groups with most posts"
-msgstr ""
+msgstr "消息最多的群"
 
 #: lib/grouptagcloudsection.php:56
 #, php-format
 msgid "Tags in %s group's notices"
-msgstr ""
+msgstr "这个组所发布的消息的标签"
 
 #: lib/htmloutputter.php:104
 #, fuzzy
@@ -4662,7 +4682,7 @@ msgstr "创建新帐号"
 
 #: lib/logingroupnav.php:82
 msgid "Login or register with OpenID"
-msgstr ""
+msgstr "使用openID登录或注册"
 
 #: lib/mail.php:175
 #, php-format
@@ -4670,6 +4690,8 @@ msgid ""
 "Hey, %s.\n"
 "\n"
 msgstr ""
+"你好，%s.\n"
+"\n"
 
 #: lib/mail.php:236
 #, fuzzy, php-format
@@ -4679,12 +4701,12 @@ msgstr "%1$s 开始关注您的 %2$s 信息。"
 #: lib/mail.php:254
 #, fuzzy, php-format
 msgid "Location: %s\n"
-msgstr "位置：%s"
+msgstr "位置：%s\n"
 
 #: lib/mail.php:256
 #, fuzzy, php-format
 msgid "Homepage: %s\n"
-msgstr "主页：%s"
+msgstr "主页：%s\n"
 
 #: lib/mail.php:258
 #, php-format
@@ -4692,30 +4714,28 @@ msgid ""
 "Bio: %s\n"
 "\n"
 msgstr ""
+"自传Bio: %s\n"
+"\n"
 
 #: lib/mail.php:461
-#, fuzzy, php-format
+#, php-format
 msgid "You've been nudged by %s"
-msgstr "您已得到确认。输入"
+msgstr "%s 振铃呼叫你"
 
 #: lib/mail.php:465
 #, fuzzy, php-format
 msgid "%1$s (%2$s) is wondering what you are up to "
-msgstr ""
-"%1$s (%2$s) 发送了新的私人信息：\n"
-"\n"
+msgstr "%1$s (%2$s) 发送了新的私人信息："
 
 #: lib/mail.php:555
 #, fuzzy, php-format
 msgid "%1$s just added your notice from %2$s"
-msgstr ""
-"%1$s 收藏了您的 %2$s 通告。\n"
-"\n"
+msgstr "%1$s 收藏了您的 %2$s 通告"
 
 #: lib/mailbox.php:229 lib/noticelist.php:380
 #, fuzzy
 msgid "From"
-msgstr " 从 "
+msgstr "从 "
 
 #: lib/messageform.php:110
 #, fuzzy
@@ -4759,29 +4779,29 @@ msgstr "删除"
 
 #: lib/nudgeform.php:116
 msgid "Nudge this user"
-msgstr ""
+msgstr "呼叫这个用户"
 
 #: lib/nudgeform.php:128
 msgid "Nudge"
-msgstr ""
+msgstr "呼叫"
 
 #: lib/nudgeform.php:128
 #, fuzzy
 msgid "Send a nudge to this user"
-msgstr "无法向此用户发送消息。"
+msgstr "呼叫这个用户"
 
 #: lib/personaltagcloudsection.php:56
 #, fuzzy, php-format
 msgid "Tags in %s's notices"
-msgstr "用户没有通告。"
+msgstr "%s's 的消息的标签"
 
 #: lib/profilelist.php:182
 msgid "(none)"
-msgstr ""
+msgstr "(none 没有)"
 
 #: lib/publicgroupnav.php:76
 msgid "Public"
-msgstr ""
+msgstr "公告"
 
 #: lib/publicgroupnav.php:80
 msgid "User groups"
@@ -4813,12 +4833,12 @@ msgstr "搜索用户信息"
 
 #: lib/section.php:89
 msgid "Untitled section"
-msgstr ""
+msgstr "无标题章节"
 
 #: lib/subgroupnav.php:81
 #, fuzzy, php-format
 msgid "People %s subscribes to"
-msgstr "远程订阅"
+msgstr "%s 订阅的人"
 
 #: lib/subgroupnav.php:89
 #, fuzzy, php-format
@@ -4828,7 +4848,7 @@ msgstr "订阅 %s"
 #: lib/subgroupnav.php:97
 #, php-format
 msgid "Groups %s is a member of"
-msgstr ""
+msgstr "%s 组是成员组成了"
 
 #: lib/subgroupnav.php:104
 #, fuzzy, php-format
@@ -4851,17 +4871,18 @@ msgid "None"
 msgstr "否"
 
 #: lib/topposterssection.php:74
+#, fuzzy
 msgid "Top posters"
-msgstr ""
+msgstr "灌水精英"
 
 #: lib/unblockform.php:120 lib/unblockform.php:150
 #, fuzzy
 msgid "Unblock this user"
-msgstr "未找到用户"
+msgstr "取消阻止次用户"
 
 #: lib/unblockform.php:150
 msgid "Unblock"
-msgstr ""
+msgstr "取消阻止"
 
 #: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
 #, fuzzy

@@ -116,6 +116,11 @@ class ConversationAction extends Action
 
         $cnt = $ct->show();
     }
+
+    function isReadOnly()
+    {
+        return true;
+    }
 }
 
 /**

@@ -193,5 +193,18 @@ class File extends Memcached_DataObject
 
         return 'http://'.$server.$path.$filename;
     }
+
+    function isEnclosure(){
+        if(isset($this->filename)){
+            return true;
+        }
+        $notEnclosureMimeTypes = array('text/html','application/xhtml+xml');
+        $mimetype = strtolower($this->mimetype);
+        $semicolon = strpos($mimetype,';');
+        if($semicolon){
+            $mimetype = substr($mimetype,0,$semicolon);
+        }
+        return(! in_array($mimetype,$notEnclosureMimeTypes));
+    }
 }
 

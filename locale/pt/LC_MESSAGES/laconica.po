@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-25 16:24+0000\n"
-"PO-Revision-Date: 2009-02-02 03:45+0000\n"
-"Last-Translator: Tiago Faria <gouki@goukihq.org>\n"
+"PO-Revision-Date: 2009-05-28 14:56+0000\n"
+"Last-Translator: Rui de Brito Mendes <rbritomendes@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,7 +40,7 @@ msgstr "de"
 #: actions/twitapistatuses.php:347
 #, php-format
 msgid "%1$s / Updates replying to %2$s"
-msgstr "%1$s / Actualizações respondendo a %2$s"
+msgstr "%1$s / Actualizações em resposta a %2$s"
 
 #: ../actions/invite.php:168 actions/invite.php:176 actions/invite.php:211
 #, php-format
@@ -79,11 +79,11 @@ msgid ""
 msgstr ""
 "%1$s convidou-o a juntar-se a ele no %2$s (%3$s).\n"
 "\n"
-"%2$s é um serviço de micro-blogging que lhe permite deixar actualizado "
-"pessoas que conheço e que lhe interessam.\n"
+"%2$s é um serviço de micro-blogging que o deixa actualizado com pessoas que "
+"conhece e que lhe interessam.\n"
 "\n"
-"Também pode partilhar notícias suas, pensamentos or a sua vida online com "
-"pessoas que conheça. É também ideal para conhecer pessoas com interesses "
+"Também pode partilhar notícias suas, pensamentos, ou a sua vida online com "
+"pessoas que o conheça. É também ideal para conhecer pessoas com interesses "
 "semelhantes aos seus.\n"
 "\n"
 "%1$s disse:\n"
@@ -187,7 +187,7 @@ msgid ""
 "to confirm your email address.)"
 msgstr ""
 "(Deverá receber uma mensagem por email dentro de momentos, com instrucções "
-"como confirmar o seu endereço de email.)"
+"sobre como confirmar o seu endereço de email.)"
 
 #: ../lib/util.php:257 lib/util.php:273 lib/action.php:605
 #, php-format
@@ -212,7 +212,7 @@ msgstr ". Os colaboradores devem ser citados usando nome completo ou apelido."
 #: actions/finishopenidlogin.php:101 actions/profilesettings.php:100
 #: lib/groupeditform.php:139
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
-msgstr "1-64 letras ou números, sem pontuação ou espaços"
+msgstr "1-64 letras minúsculas ou números, sem pontuação ou espaços"
 
 #: ../actions/register.php:152 actions/register.php:166
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
@@ -248,8 +248,8 @@ msgid ""
 "inbox (and spam box!) for the code and instructions on how to use it."
 msgstr ""
 "Um código de confirmação foi enviado para o endereço de email fornecido. "
-"Procure na sua 'Caixa de Entrada' (e caixa de spam) a mensagem com o código "
-"e instrucções."
+"Procure na sua 'Caixa de Entrada' (e caixa de spam) pelo email com o código "
+"e instrucções de utilização."
 
 #: ../actions/smssettings.php:216 actions/smssettings.php:224
 msgid ""
@@ -459,13 +459,13 @@ msgstr "Não é possível remover a mensagem."
 #: actions/updateprofile.php:123
 #, php-format
 msgid "Can't read avatar URL '%s'"
-msgstr "Não é possível ler o avatar URL '%s'"
+msgstr "Não é possível ler o URL do avatar '%s'"
 
 #: ../actions/password.php:85 ../actions/recoverpassword.php:300
 #: actions/profilesettings.php:404 actions/recoverpassword.php:313
 #: actions/passwordsettings.php:169 actions/recoverpassword.php:347
 msgid "Can't save new password."
-msgstr "Não é possível salvar a nova password."
+msgstr "Não é possível guardar a nova password."
 
 #: ../actions/emailsettings.php:57 ../actions/imsettings.php:58
 #: ../actions/smssettings.php:62 actions/emailsettings.php:58
@@ -497,7 +497,7 @@ msgstr "Modificar"
 #: ../lib/settingsaction.php:88 lib/settingsaction.php:88
 #: lib/accountsettingsaction.php:114
 msgid "Change email handling"
-msgstr ""
+msgstr "Alterar email handling"
 
 #: ../actions/password.php:32 actions/profilesettings.php:36
 #: actions/passwordsettings.php:58
@@ -563,6 +563,19 @@ msgid ""
 "\n"
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
+"Parabéns, %s! Bemvindo ao %%%%site.name%%%%. A partir de agora deverá...\n"
+"\n"
+"* Ir ao [seu perfil](%s) e enviar a primeira mensagem.\n"
+"* Adicionar uma [Endereço Jabber/GTalk](%%%%action.imsettings%%%%) de forma "
+"a poder enviar notações através de mensagens instantâneas.\n"
+"* [Procurar por pessoas](%%%%action.peoplesearch%%%%) que conheça ou "
+"partilhem os seus interesses. \n"
+"* Actualizar o seu perfil [Opções de perfil](%%%%action.profilesettings%%%%) "
+"para contar mais acerca de si aos outros. \n"
+"* Ler os [documentos online](%%%%doc.help%%%%) para conhecer todas as "
+"funcionalidades que tenha perdido. \n"
+"\n"
+"Obrigado por se registar e esperamos que se divirta usando este serviço."
 
 #: ../actions/finishopenidlogin.php:91 actions/finishopenidlogin.php:97
 #: actions/finishopenidlogin.php:119 lib/action.php:330
@@ -581,38 +594,38 @@ msgstr "Contacto"
 #: ../lib/openid.php:178 lib/openid.php:178 lib/openid.php:187
 #, php-format
 msgid "Could not create OpenID form: %s"
-msgstr ""
+msgstr "Não foi possível criar o formulário de OpenID: %s"
 
 #: ../actions/twitapifriendships.php:60 ../actions/twitapifriendships.php:76
 #: actions/twitapifriendships.php:60 actions/twitapifriendships.php:76
 #: actions/twitapifriendships.php:48 actions/twitapifriendships.php:64
 #, php-format
 msgid "Could not follow user: %s is already on your list."
-msgstr ""
+msgstr "Não foi possível seguir utilizador: %s já está na sua lista."
 
 #: ../actions/twitapifriendships.php:53 actions/twitapifriendships.php:53
 #: actions/twitapifriendships.php:41
 msgid "Could not follow user: User not found."
-msgstr ""
+msgstr "Não foi possível seguir utilizador: Utilizador não encontrado."
 
 #: ../lib/openid.php:160 lib/openid.php:160 lib/openid.php:169
 #, php-format
 msgid "Could not redirect to server: %s"
-msgstr ""
+msgstr "Não foi possível redireccionar para o servidor: %s"
 
 #: ../actions/updateprofile.php:162 actions/updateprofile.php:163
 #: actions/updateprofile.php:166
 msgid "Could not save avatar info"
-msgstr ""
+msgstr "Não foi possível guardar a info do avatar "
 
 #: ../actions/updateprofile.php:155 actions/updateprofile.php:156
 #: actions/updateprofile.php:159
 msgid "Could not save new profile info"
-msgstr ""
+msgstr "Não foi possível guardar a nova info do perfil"
 
 #: ../lib/subs.php:54 lib/subs.php:61 lib/subs.php:72
 msgid "Could not subscribe other to you."
-msgstr ""
+msgstr "Não foi possível subscrever outros a si."
 
 #: ../lib/subs.php:46 lib/subs.php:46 lib/subs.php:57
 msgid "Could not subscribe."
@@ -622,11 +635,12 @@ msgstr "Não foi possível subscrever. "
 #: actions/recoverpassword.php:111
 msgid "Could not update user with confirmed email address."
 msgstr ""
+"Não foi possivel actualizar utilizador com endereço de email confirmado."
 
 #: ../actions/finishremotesubscribe.php:99
 #: actions/finishremotesubscribe.php:101 actions/finishremotesubscribe.php:114
 msgid "Couldn't convert request tokens to access tokens."
-msgstr ""
+msgstr "Não foi possível converter os tokens de requisição em tokens de acesso."
 
 #: ../actions/confirmaddress.php:84 ../actions/emailsettings.php:234
 #: ../actions/imsettings.php:218 ../actions/smssettings.php:241
@@ -635,21 +649,21 @@ msgstr ""
 #: actions/confirmaddress.php:126 actions/emailsettings.php:375
 #: actions/imsettings.php:357 actions/smssettings.php:370
 msgid "Couldn't delete email confirmation."
-msgstr ""
+msgstr "Não foi possível apagar a confirmação do email."
 
 #: ../lib/subs.php:103 lib/subs.php:116 lib/subs.php:134
 msgid "Couldn't delete subscription."
-msgstr ""
+msgstr "Não foi possível apagar a subscrição."
 
 #: ../actions/twitapistatuses.php:93 actions/twitapistatuses.php:98
 #: actions/twitapistatuses.php:84
 msgid "Couldn't find any statuses."
-msgstr ""
+msgstr "Não foi possivel encontrar algum estado."
 
 #: ../actions/remotesubscribe.php:127 actions/remotesubscribe.php:136
 #: actions/remotesubscribe.php:178
 msgid "Couldn't get a request token."
-msgstr ""
+msgstr "Não foi possível obter um token de requisição."
 
 #: ../actions/emailsettings.php:205 ../actions/imsettings.php:187
 #: ../actions/smssettings.php:206 actions/emailsettings.php:223
@@ -657,12 +671,12 @@ msgstr ""
 #: actions/emailsettings.php:337 actions/imsettings.php:311
 #: actions/smssettings.php:325
 msgid "Couldn't insert confirmation code."
-msgstr ""
+msgstr "Não foi possível inserir o código de confirmação."
 
 #: ../actions/finishremotesubscribe.php:180
 #: actions/finishremotesubscribe.php:182 actions/finishremotesubscribe.php:218
 msgid "Couldn't insert new subscription."
-msgstr ""
+msgstr "Não foi possível inserir nova subscrição."
 
 #: ../actions/profilesettings.php:184 ../actions/twitapiaccount.php:96
 #: actions/profilesettings.php:299 actions/twitapiaccount.php:94
@@ -673,13 +687,13 @@ msgstr "Não foi possível salvar o perfil."
 #: ../actions/profilesettings.php:161 actions/profilesettings.php:276
 #: actions/profilesettings.php:279
 msgid "Couldn't update user for autosubscribe."
-msgstr ""
+msgstr "Não foi possível actualizar o utilizador para auto-subscrição."
 
 #: ../actions/emailsettings.php:280 ../actions/emailsettings.php:294
 #: actions/emailsettings.php:298 actions/emailsettings.php:312
 #: actions/emailsettings.php:440 actions/emailsettings.php:462
 msgid "Couldn't update user record."
-msgstr ""
+msgstr "Não foi possível actualizar o registo do utilizador."
 
 #: ../actions/confirmaddress.php:72 ../actions/emailsettings.php:156
 #: ../actions/emailsettings.php:259 ../actions/imsettings.php:138
@@ -695,164 +709,164 @@ msgstr ""
 #: actions/profilesettings.php:259 actions/smssettings.php:266
 #: actions/smssettings.php:408
 msgid "Couldn't update user."
-msgstr ""
+msgstr "Não foi possível actualizar o utilizador."
 
 #: ../actions/finishopenidlogin.php:84 actions/finishopenidlogin.php:90
 #: actions/finishopenidlogin.php:112
 msgid "Create"
-msgstr ""
+msgstr "Criar"
 
 #: ../actions/finishopenidlogin.php:70 actions/finishopenidlogin.php:76
 #: actions/finishopenidlogin.php:98
 msgid "Create a new user with this nickname."
-msgstr ""
+msgstr "Criar um novo utilizador com esta alcunha."
 
 #: ../actions/finishopenidlogin.php:68 actions/finishopenidlogin.php:74
 #: actions/finishopenidlogin.php:96
 msgid "Create new account"
-msgstr ""
+msgstr "Criar nova conta"
 
 #: ../actions/finishopenidlogin.php:191 actions/finishopenidlogin.php:197
 #: actions/finishopenidlogin.php:231
 msgid "Creating new account for OpenID that already has a user."
-msgstr ""
+msgstr "Criar nova conta para OpenID que já possui um utilizador."
 
 #: ../actions/imsettings.php:45 actions/imsettings.php:46
 #: actions/imsettings.php:100
 msgid "Current confirmed Jabber/GTalk address."
-msgstr ""
+msgstr "Endereço do Jabber/GTalk já confirmado."
 
 #: ../actions/smssettings.php:46 actions/smssettings.php:46
 #: actions/smssettings.php:100
 msgid "Current confirmed SMS-enabled phone number."
-msgstr ""
+msgstr "Número de telefone com serviço SMS activo já confirmado."
 
 #: ../actions/emailsettings.php:44 actions/emailsettings.php:45
 #: actions/emailsettings.php:99
 msgid "Current confirmed email address."
-msgstr ""
+msgstr "Endereço de email já confirmado."
 
 #: ../actions/showstream.php:356 actions/showstream.php:367
 msgid "Currently"
-msgstr ""
+msgstr "Actualmente"
 
 #: ../classes/Notice.php:72 classes/Notice.php:86 classes/Notice.php:91
 #, php-format
 msgid "DB error inserting hashtag: %s"
-msgstr ""
+msgstr "Ocorreu um erro na base de dados ao inserir a hashtag: %s"
 
 #: ../lib/util.php:1061 lib/util.php:1110 classes/Notice.php:698
 #, php-format
 msgid "DB error inserting reply: %s"
-msgstr ""
+msgstr "Ocorreu um erro na base de dados ao inserir a resposta: %s"
 
 #: ../actions/deletenotice.php:41 actions/deletenotice.php:41
 #: actions/deletenotice.php:79
 msgid "Delete notice"
-msgstr ""
+msgstr "Apagar mensagem"
 
 #: ../actions/profilesettings.php:51 ../actions/register.php:172
 #: actions/profilesettings.php:84 actions/register.php:186
 #: actions/profilesettings.php:114
 msgid "Describe yourself and your interests in 140 chars"
-msgstr ""
+msgstr "Descreva-se e aos seus interesses em 140 caracteres"
 
 #: ../actions/register.php:158 ../actions/register.php:161
 #: ../lib/settingsaction.php:87 actions/register.php:172
 #: actions/register.php:175 lib/settingsaction.php:87 actions/register.php:381
 #: actions/register.php:385 lib/accountsettingsaction.php:113
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: ../actions/emailsettings.php:59 actions/emailsettings.php:60
 #: actions/emailsettings.php:115
 msgid "Email Address"
-msgstr ""
+msgstr "Endereço de Email"
 
 #: ../actions/emailsettings.php:32 actions/emailsettings.php:32
 #: actions/emailsettings.php:60
 msgid "Email Settings"
-msgstr ""
+msgstr "Definições do Email"
 
 #: ../actions/register.php:73 actions/register.php:80 actions/register.php:163
 msgid "Email address already exists."
-msgstr ""
+msgstr "Endereço de Email já existe."
 
 #: ../lib/mail.php:90 lib/mail.php:90 lib/mail.php:173
 msgid "Email address confirmation"
-msgstr ""
+msgstr "Confirmação do Endereço de Email"
 
 #: ../actions/emailsettings.php:61 actions/emailsettings.php:62
 #: actions/emailsettings.php:117
 msgid "Email address, like \"UserName@example.org\""
-msgstr ""
+msgstr "Endereço de Email, como \"nomedeutilizador@exemplo.org\""
 
 #: ../actions/invite.php:129 actions/invite.php:137 actions/invite.php:174
 msgid "Email addresses"
-msgstr ""
+msgstr "Endereços de Email"
 
 #: ../actions/recoverpassword.php:191 actions/recoverpassword.php:197
 #: actions/recoverpassword.php:231
 msgid "Enter a nickname or email address."
-msgstr ""
+msgstr "Introduza uma alcunha ou um endereço de email"
 
 #: ../actions/smssettings.php:64 actions/smssettings.php:64
 #: actions/smssettings.php:119
 msgid "Enter the code you received on your phone."
-msgstr ""
+msgstr "Introduza o código que recebeu no seu telefone."
 
 #: ../actions/userauthorization.php:137 actions/userauthorization.php:144
 #: actions/userauthorization.php:161
 msgid "Error authorizing token"
-msgstr ""
+msgstr "Erro ao autorizar token"
 
 #: ../actions/finishopenidlogin.php:253 actions/finishopenidlogin.php:259
 #: actions/finishopenidlogin.php:297
 msgid "Error connecting user to OpenID."
-msgstr ""
+msgstr "Erro ao ligar utilizador ao OpenID."
 
 #: ../actions/finishaddopenid.php:78 actions/finishaddopenid.php:78
 #: actions/finishaddopenid.php:126
 msgid "Error connecting user."
-msgstr ""
+msgstr "Erro ao ligar utilizador."
 
 #: ../actions/finishremotesubscribe.php:151
 #: actions/finishremotesubscribe.php:153 actions/finishremotesubscribe.php:166
 msgid "Error inserting avatar"
-msgstr ""
+msgstr "Erro ao inserir avatar"
 
 #: ../actions/finishremotesubscribe.php:143
 #: actions/finishremotesubscribe.php:145 actions/finishremotesubscribe.php:158
 msgid "Error inserting new profile"
-msgstr ""
+msgstr "Erro ao inserir novo perfil"
 
 #: ../actions/finishremotesubscribe.php:167
 #: actions/finishremotesubscribe.php:169 actions/finishremotesubscribe.php:182
 msgid "Error inserting remote profile"
-msgstr ""
+msgstr "Erro ao inserir perfil remoto"
 
 #: ../actions/recoverpassword.php:240 actions/recoverpassword.php:246
 #: actions/recoverpassword.php:280
 msgid "Error saving address confirmation."
-msgstr ""
+msgstr "Erro ao guardar confirmação do endereço."
 
 #: ../actions/userauthorization.php:140 actions/userauthorization.php:147
 #: actions/userauthorization.php:164
 msgid "Error saving remote profile"
-msgstr ""
+msgstr "Erro ao guardar perfil remoto"
 
 #: ../lib/openid.php:226 lib/openid.php:226 lib/openid.php:235
 msgid "Error saving the profile."
-msgstr ""
+msgstr "Erro ao guardar o perfil."
 
 #: ../lib/openid.php:237 lib/openid.php:237 lib/openid.php:246
 msgid "Error saving the user."
-msgstr ""
+msgstr "Erro ao guardar o utilizador."
 
 #: ../actions/password.php:80 actions/profilesettings.php:399
 #: actions/passwordsettings.php:164
 msgid "Error saving user; invalid."
-msgstr ""
+msgstr "Erro ao guardar utilizador; inválido."
 
 #: ../actions/login.php:47 ../actions/login.php:73
 #: ../actions/recoverpassword.php:307 ../actions/register.php:98
@@ -860,70 +874,72 @@ msgstr ""
 #: actions/register.php:108 actions/login.php:112 actions/login.php:138
 #: actions/recoverpassword.php:354 actions/register.php:198
 msgid "Error setting user."
-msgstr ""
+msgstr "Erro ao configurar utilizador."
 
 #: ../actions/finishaddopenid.php:83 actions/finishaddopenid.php:83
 #: actions/finishaddopenid.php:131
 msgid "Error updating profile"
-msgstr ""
+msgstr "Erro ao actualizar o perfil."
 
 #: ../actions/finishremotesubscribe.php:161
 #: actions/finishremotesubscribe.php:163 actions/finishremotesubscribe.php:176
 msgid "Error updating remote profile"
-msgstr ""
+msgstr "Erro ao actualizar o perfil remoto"
 
 #: ../actions/recoverpassword.php:80 actions/recoverpassword.php:80
 #: actions/recoverpassword.php:86
 msgid "Error with confirmation code."
-msgstr ""
+msgstr "Erro no código de confirmação."
 
 #: ../actions/finishopenidlogin.php:89 actions/finishopenidlogin.php:95
 #: actions/finishopenidlogin.php:117
 msgid "Existing nickname"
-msgstr ""
+msgstr "Alcunha já existente"
 
 #: ../lib/util.php:326 lib/util.php:342 lib/action.php:570
 msgid "FAQ"
-msgstr ""
+msgstr "FAQ"
 
 #: ../actions/avatar.php:115 actions/profilesettings.php:352
 #: actions/avatarsettings.php:397
 msgid "Failed updating avatar."
-msgstr ""
+msgstr "Falha ao actualizar avatar."
 
 #: ../actions/all.php:61 ../actions/allrss.php:64 actions/all.php:61
 #: actions/allrss.php:64 actions/all.php:75 actions/allrss.php:107
 #, php-format
 msgid "Feed for friends of %s"
-msgstr ""
+msgstr "Feed para os amigos de %s"
 
 #: ../actions/replies.php:65 ../actions/repliesrss.php:80
 #: actions/replies.php:65 actions/repliesrss.php:66 actions/replies.php:134
 #: actions/repliesrss.php:71
 #, php-format
 msgid "Feed for replies to %s"
-msgstr ""
+msgstr "Feed para as respostas a %s"
 
 #: ../actions/tag.php:55 actions/tag.php:55 actions/tag.php:61
 #, php-format
 msgid "Feed for tag %s"
-msgstr ""
+msgstr "Feed para a tag %s"
 
 #: ../lib/searchaction.php:105 lib/searchaction.php:105
 #: lib/searchgroupnav.php:83
 msgid "Find content of notices"
-msgstr ""
+msgstr "Encontrar conteúdo dos mensagens"
 
 #: ../lib/searchaction.php:101 lib/searchaction.php:101
 #: lib/searchgroupnav.php:81
 msgid "Find people on this site"
-msgstr ""
+msgstr "Encontrar pessoas neste site"
 
 #: ../actions/login.php:122
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
 msgstr ""
+"Por razões de segurança, por favor reintroduza o seu nome de utilizador e "
+"palavra-passe antes de alterar as suas configurações."
 
 #: ../actions/profilesettings.php:44 ../actions/register.php:164
 #: actions/profilesettings.php:77 actions/register.php:178
@@ -931,7 +947,7 @@ msgstr ""
 #: actions/showgroup.php:235 actions/showstream.php:262
 #: actions/tagother.php:105 lib/groupeditform.php:142
 msgid "Full name"
-msgstr ""
+msgstr "Nome Completo"
 
 #: ../actions/profilesettings.php:98 ../actions/register.php:79
 #: ../actions/updateprofile.php:93 actions/profilesettings.php:213
@@ -940,50 +956,50 @@ msgstr ""
 #: actions/profilesettings.php:202 actions/register.php:171
 #: actions/updateprofile.php:97
 msgid "Full name is too long (max 255 chars)."
-msgstr ""
+msgstr "Nome completo é demasiado longo (máx. 255 caracteres)."
 
 #: ../lib/util.php:322 lib/util.php:338 lib/action.php:344 lib/action.php:566
 msgid "Help"
-msgstr ""
+msgstr "Ajuda"
 
 #: ../lib/util.php:298 lib/util.php:314 lib/action.php:322
 #: lib/facebookaction.php:200
 msgid "Home"
-msgstr ""
+msgstr "Início"
 
 #: ../actions/profilesettings.php:46 ../actions/register.php:167
 #: actions/profilesettings.php:79 actions/register.php:181
 #: actions/profilesettings.php:107 actions/register.php:396
 #: lib/groupeditform.php:146
 msgid "Homepage"
-msgstr ""
+msgstr "Página Principal"
 
 #: ../actions/profilesettings.php:95 ../actions/register.php:76
 #: actions/profilesettings.php:210 actions/register.php:83
 #: actions/editgroup.php:192 actions/newgroup.php:143
 #: actions/profilesettings.php:199 actions/register.php:168
 msgid "Homepage is not a valid URL."
-msgstr ""
+msgstr "A Homepage inserida não é um URL válido."
 
 #: ../actions/emailsettings.php:91 actions/emailsettings.php:98
 #: actions/emailsettings.php:173
 msgid "I want to post notices by email."
-msgstr ""
+msgstr "Quero postar mensagens por email."
 
 #: ../lib/settingsaction.php:102 lib/settingsaction.php:96
 #: lib/connectsettingsaction.php:104
 msgid "IM"
-msgstr ""
+msgstr "IM"
 
 #: ../actions/imsettings.php:60 actions/imsettings.php:61
 #: actions/imsettings.php:118
 msgid "IM Address"
-msgstr ""
+msgstr "Endereço IM"
 
 #: ../actions/imsettings.php:33 actions/imsettings.php:33
 #: actions/imsettings.php:59
 msgid "IM Settings"
-msgstr ""
+msgstr "Definições de IM"
 
 #: ../actions/finishopenidlogin.php:88 actions/finishopenidlogin.php:94
 #: actions/finishopenidlogin.php:116
@@ -991,104 +1007,113 @@ msgid ""
 "If you already have an account, login with your username and password to "
 "connect it to your OpenID."
 msgstr ""
+"Se já tem uma conta, inicie sessão com o seu nome de utilizador e palavra-"
+"passe para a ligar ao seu OpenID."
 
 #: ../actions/openidsettings.php:45
 msgid ""
 "If you want to add an OpenID to your account, enter it in the box below and "
 "click \"Add\"."
 msgstr ""
+"Se quiser adicionar um OpenID à sua conta, introduza-o na caixa a baixo e "
+"clique em \"Adicionar\"."
 
 #: ../actions/recoverpassword.php:137
 msgid ""
 "If you've forgotten or lost your password, you can get a new one sent to the "
 "email address you have stored  in your account."
 msgstr ""
+"Se você se esqueceu ou perdeu a sua palavra-passe, você pode receber uma "
+"nova que será enviada para o endereço de email que tem configurado na sua "
+"conta."
 
 #: ../actions/emailsettings.php:67 ../actions/smssettings.php:76
 #: actions/emailsettings.php:68 actions/smssettings.php:76
 #: actions/emailsettings.php:127 actions/smssettings.php:140
 msgid "Incoming email"
-msgstr ""
+msgstr "Email a receber"
 
 #: ../actions/emailsettings.php:283 actions/emailsettings.php:301
 #: actions/emailsettings.php:443
 msgid "Incoming email address removed."
-msgstr ""
+msgstr "O endereço de email de recepção removido."
 
 #: ../actions/password.php:69 actions/profilesettings.php:388
 #: actions/passwordsettings.php:153
 msgid "Incorrect old password"
-msgstr ""
+msgstr "Palavra-passe antiga incorrecta"
 
 #: ../actions/login.php:67 actions/login.php:67 actions/facebookhome.php:131
 #: actions/login.php:132
 msgid "Incorrect username or password."
-msgstr ""
+msgstr "Nome de utilizador ou palavra-passe incorrecta"
 
 #: ../actions/recoverpassword.php:265
 msgid ""
 "Instructions for recovering your password have been sent to the email "
 "address registered to your account."
 msgstr ""
+"As instruções para a recuperação da palavra-passe foram enviadas para o "
+"endereço de email registado na sua conta."
 
 #: ../actions/updateprofile.php:114 actions/updateprofile.php:115
 #: actions/updateprofile.php:118
 #, php-format
 msgid "Invalid avatar URL '%s'"
-msgstr ""
+msgstr "URL do avatar inválido '%s'"
 
 #: ../actions/invite.php:55 actions/invite.php:62 actions/invite.php:70
 #, php-format
 msgid "Invalid email address: %s"
-msgstr ""
+msgstr "Endereço de email inválido: %s"
 
 #: ../actions/updateprofile.php:98 actions/updateprofile.php:99
 #: actions/updateprofile.php:102
 #, php-format
 msgid "Invalid homepage '%s'"
-msgstr ""
+msgstr "Página principal inválida '%s'"
 
 #: ../actions/updateprofile.php:82 actions/updateprofile.php:83
 #: actions/updateprofile.php:86
 #, php-format
 msgid "Invalid license URL '%s'"
-msgstr ""
+msgstr "URL de licença inválido '%s'"
 
 #: ../actions/postnotice.php:61 actions/postnotice.php:62
 #: actions/postnotice.php:66
 msgid "Invalid notice content"
-msgstr ""
+msgstr "Conteúdo da mensagem inválido"
 
 #: ../actions/postnotice.php:67 actions/postnotice.php:68
 #: actions/postnotice.php:72
 msgid "Invalid notice uri"
-msgstr ""
+msgstr "URI da mensagem inválido"
 
 #: ../actions/postnotice.php:72 actions/postnotice.php:73
 #: actions/postnotice.php:77
 msgid "Invalid notice url"
-msgstr ""
+msgstr "URL da mensagem inválido"
 
 #: ../actions/updateprofile.php:87 actions/updateprofile.php:88
 #: actions/updateprofile.php:91
 #, php-format
 msgid "Invalid profile URL '%s'."
-msgstr ""
+msgstr "URL do perfil inválido '%s'."
 
 #: ../actions/remotesubscribe.php:96 actions/remotesubscribe.php:105
 #: actions/remotesubscribe.php:135
 msgid "Invalid profile URL (bad format)"
-msgstr ""
+msgstr "URL de perfil inválido (formato incorrecto)"
 
 #: ../actions/finishremotesubscribe.php:77
 #: actions/finishremotesubscribe.php:79 actions/finishremotesubscribe.php:80
 msgid "Invalid profile URL returned by server."
-msgstr ""
+msgstr "URL do perfil devolvido pelo servidor inválido."
 
 #: ../actions/avatarbynickname.php:37 actions/avatarbynickname.php:37
 #: actions/avatarbynickname.php:69
 msgid "Invalid size."
-msgstr ""
+msgstr "Tamanho inválido."
 
 #: ../actions/finishopenidlogin.php:235 ../actions/register.php:93
 #: ../actions/register.php:111 actions/finishopenidlogin.php:241
@@ -1096,24 +1121,24 @@ msgstr ""
 #: actions/finishopenidlogin.php:279 actions/register.php:193
 #: actions/register.php:211
 msgid "Invalid username or password."
-msgstr ""
+msgstr "Nome de utilizador ou palavra-passe inválido."
 
 #: ../actions/invite.php:79 actions/invite.php:86 actions/invite.php:102
 msgid "Invitation(s) sent"
-msgstr ""
+msgstr "Contive(s) enviado(s)"
 
 #: ../actions/invite.php:97 actions/invite.php:104 actions/invite.php:136
 msgid "Invitation(s) sent to the following people:"
-msgstr ""
+msgstr "Convite(s) enviado(s) para as seguintes pessoas:"
 
 #: ../lib/util.php:306 lib/util.php:322 lib/facebookaction.php:207
 #: lib/subgroupnav.php:103
 msgid "Invite"
-msgstr ""
+msgstr "Convidar"
 
 #: ../actions/invite.php:123 actions/invite.php:130 actions/invite.php:104
 msgid "Invite new users"
-msgstr ""
+msgstr "Convidar novos utilizadores"
 
 #: ../lib/util.php:261 lib/util.php:277 lib/action.php:609
 #, php-format
@@ -1126,7 +1151,7 @@ msgstr ""
 #: ../actions/imsettings.php:173 actions/imsettings.php:181
 #: actions/imsettings.php:296
 msgid "Jabber ID already belongs to another user."
-msgstr ""
+msgstr "O Jabber ID introduzido já pertence a outro utilizador."
 
 #: ../actions/imsettings.php:62 actions/imsettings.php:63
 #, php-format
@@ -1138,12 +1163,12 @@ msgstr ""
 #: ../actions/profilesettings.php:57 actions/profilesettings.php:90
 #: actions/profilesettings.php:128
 msgid "Language"
-msgstr ""
+msgstr "Linguagem"
 
 #: ../actions/profilesettings.php:113 actions/profilesettings.php:228
 #: actions/profilesettings.php:217
 msgid "Language is too long (max 50 chars)."
-msgstr ""
+msgstr "Linguagem introduzida é muito longa (máx. 50 caracteres)."
 
 #: ../actions/profilesettings.php:52 ../actions/register.php:173
 #: actions/profilesettings.php:85 actions/register.php:187
@@ -1152,7 +1177,7 @@ msgstr ""
 #: actions/tagother.php:113 lib/groupeditform.php:156 lib/grouplist.php:126
 #: lib/profilelist.php:125
 msgid "Location"
-msgstr ""
+msgstr "Localidade"
 
 #: ../actions/profilesettings.php:104 ../actions/register.php:85
 #: ../actions/updateprofile.php:108 actions/profilesettings.php:219
@@ -1161,7 +1186,7 @@ msgstr ""
 #: actions/profilesettings.php:208 actions/register.php:177
 #: actions/updateprofile.php:112
 msgid "Location is too long (max 255 chars)."
-msgstr ""
+msgstr "Localidade é muito longa (máx. 255 caracteres)."
 
 #: ../actions/login.php:97 ../actions/login.php:106
 #: ../actions/openidlogin.php:68 ../lib/util.php:310 actions/login.php:97
@@ -1171,13 +1196,13 @@ msgstr ""
 #: lib/facebookaction.php:315 lib/logingroupnav.php:75
 #, php-format
 msgid "Login"
-msgstr ""
+msgstr "Entrar"
 
 #: ../actions/openidlogin.php:44 actions/openidlogin.php:52
 #: actions/openidlogin.php:62
 #, php-format
 msgid "Login with an [OpenID](%%doc.openid%%) account."
-msgstr ""
+msgstr "Entrar com conta [OpenID](%%doc.openid%%)"
 
 #: ../actions/login.php:126
 #, php-format
@@ -1186,10 +1211,13 @@ msgid ""
 "(%%action.register%%) a new account, or try [OpenID](%%action.openidlogin%"
 "%). "
 msgstr ""
+"Entrar com o seu nome de utilizador e palavra passe. Não está registado "
+"ainda?[Registe-se](%%action.register%%), ou tente entrar com "
+"[OpenID](%%action.openidlogin%%). "
 
 #: ../lib/util.php:308 lib/util.php:324 lib/action.php:332
 msgid "Logout"
-msgstr ""
+msgstr "Sair"
 
 #: ../actions/register.php:166 actions/register.php:180
 #: actions/register.php:393
@@ -1199,7 +1227,7 @@ msgstr ""
 #: ../actions/login.php:110 actions/login.php:110 actions/login.php:245
 #: lib/facebookaction.php:320
 msgid "Lost or forgotten password?"
-msgstr ""
+msgstr "Perdeu ou esqueceu-se da palavra-passe?"
 
 #: ../actions/emailsettings.php:80 ../actions/smssettings.php:89
 #: actions/emailsettings.php:81 actions/smssettings.php:89
@@ -1215,12 +1243,12 @@ msgstr ""
 #: ../actions/showstream.php:300 actions/showstream.php:315
 #: actions/showstream.php:480
 msgid "Member since"
-msgstr ""
+msgstr "Membro desde"
 
 #: ../actions/userrss.php:70 actions/userrss.php:67 actions/userrss.php:72
 #, php-format
 msgid "Microblog by %s"
-msgstr ""
+msgstr "Microblog por %s"
 
 #: ../actions/smssettings.php:304
 #, php-format
@@ -1239,7 +1267,7 @@ msgstr ""
 #: actions/emailsettings.php:83 actions/smssettings.php:91
 #: actions/emailsettings.php:142 actions/smssettings.php:152
 msgid "New"
-msgstr ""
+msgstr "Novo"
 
 #: ../lib/mail.php:144 lib/mail.php:144 lib/mail.php:286
 #, php-format
@@ -1254,7 +1282,7 @@ msgstr ""
 #: ../actions/finishopenidlogin.php:71 actions/finishopenidlogin.php:77
 #: actions/finishopenidlogin.php:99
 msgid "New nickname"
-msgstr ""
+msgstr "Nova alcunha"
 
 #: ../actions/newnotice.php:87 actions/newnotice.php:96
 #: actions/newnotice.php:68
@@ -1265,11 +1293,11 @@ msgstr ""
 #: actions/profilesettings.php:180 actions/recoverpassword.php:185
 #: actions/passwordsettings.php:101 actions/recoverpassword.php:219
 msgid "New password"
-msgstr ""
+msgstr "Nova palavra-passe"
 
 #: ../actions/recoverpassword.php:314
 msgid "New password successfully saved. You are now logged in."
-msgstr ""
+msgstr "Nova palavra-passe foi guardada com sucesso. Está agora conectado."
 
 #: ../actions/login.php:101 ../actions/profilesettings.php:41
 #: ../actions/register.php:151 actions/login.php:101
@@ -1279,7 +1307,7 @@ msgstr ""
 #: actions/showstream.php:251 actions/tagother.php:95
 #: lib/facebookaction.php:308 lib/groupeditform.php:137
 msgid "Nickname"
-msgstr ""
+msgstr "Alcunha"
 
 #: ../actions/finishopenidlogin.php:175 ../actions/profilesettings.php:110
 #: ../actions/register.php:69 actions/finishopenidlogin.php:181
@@ -1288,7 +1316,7 @@ msgstr ""
 #: actions/newgroup.php:134 actions/profilesettings.php:214
 #: actions/register.php:159
 msgid "Nickname already in use. Try another one."
-msgstr ""
+msgstr "Alcunha já em uso. Tente outra diferente."
 
 #: ../actions/finishopenidlogin.php:165 ../actions/profilesettings.php:88
 #: ../actions/register.php:67 ../actions/updateprofile.php:77
@@ -1297,27 +1325,27 @@ msgstr ""
 #: actions/finishopenidlogin.php:205 actions/profilesettings.php:192
 #: actions/updateprofile.php:81
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
-msgstr ""
+msgstr "Alcunha só deve conter letras minúsculas e números. Sem espaços."
 
 #: ../actions/finishopenidlogin.php:170 actions/finishopenidlogin.php:176
 #: actions/finishopenidlogin.php:210
 msgid "Nickname not allowed."
-msgstr ""
+msgstr "Alcunha não permitida."
 
 #: ../actions/remotesubscribe.php:72 actions/remotesubscribe.php:81
 #: actions/remotesubscribe.php:106
 msgid "Nickname of the user you want to follow"
-msgstr ""
+msgstr "Alcunha do utilizador que pretende seguir"
 
 #: ../actions/recoverpassword.php:162 actions/recoverpassword.php:167
 #: actions/recoverpassword.php:186
 msgid "Nickname or email"
-msgstr ""
+msgstr "Alcunha ou email"
 
 #: ../actions/deletenotice.php:59 actions/deletenotice.php:60
 #: actions/block.php:147 actions/deletenotice.php:118
 msgid "No"
-msgstr ""
+msgstr "Não"
 
 #: ../actions/imsettings.php:156 actions/imsettings.php:164
 #: actions/imsettings.php:279
@@ -1337,7 +1365,7 @@ msgstr ""
 #: ../actions/smssettings.php:316 actions/smssettings.php:324
 #: actions/smssettings.php:486
 msgid "No code entered"
-msgstr ""
+msgstr "Nenhum código introduzido"
 
 #: ../actions/confirmaddress.php:33 actions/confirmaddress.php:33
 #: actions/confirmaddress.php:75
@@ -1367,12 +1395,12 @@ msgstr ""
 #: ../actions/finishremotesubscribe.php:65
 #: actions/finishremotesubscribe.php:67 actions/finishremotesubscribe.php:68
 msgid "No nickname provided by remote server."
-msgstr ""
+msgstr "Nenhuma alcunha fornecida pelo servidor remoto."
 
 #: ../actions/avatarbynickname.php:27 actions/avatarbynickname.php:27
 #: actions/avatarbynickname.php:59 actions/leavegroup.php:81
 msgid "No nickname."
-msgstr ""
+msgstr "Nenhuma alcunha."
 
 #: ../actions/emailsettings.php:222 ../actions/imsettings.php:206
 #: ../actions/smssettings.php:229 actions/emailsettings.php:240
@@ -1380,12 +1408,12 @@ msgstr ""
 #: actions/emailsettings.php:363 actions/imsettings.php:345
 #: actions/smssettings.php:358
 msgid "No pending confirmation to cancel."
-msgstr ""
+msgstr "Nenhuma confirmação pendente para cancelar."
 
 #: ../actions/smssettings.php:176 actions/smssettings.php:184
 #: actions/smssettings.php:294
 msgid "No phone number."
-msgstr ""
+msgstr "Nenhum numero de telefone."
 
 #: ../actions/finishremotesubscribe.php:72
 #: actions/finishremotesubscribe.php:74 actions/finishremotesubscribe.php:75
@@ -1395,19 +1423,19 @@ msgstr ""
 #: ../actions/recoverpassword.php:226 actions/recoverpassword.php:232
 #: actions/recoverpassword.php:266
 msgid "No registered email address for that user."
-msgstr ""
+msgstr "Nenhum endereço de email registado para esse utilizador."
 
 #: ../actions/userauthorization.php:49 actions/userauthorization.php:55
 #: actions/userauthorization.php:57
 msgid "No request found!"
-msgstr ""
+msgstr "Nenhum pedido encontrado!"
 
 #: ../actions/noticesearch.php:64 ../actions/peoplesearch.php:64
 #: actions/noticesearch.php:69 actions/peoplesearch.php:69
 #: actions/groupsearch.php:81 actions/noticesearch.php:104
 #: actions/peoplesearch.php:85
 msgid "No results"
-msgstr ""
+msgstr "Nenhum resultado"
 
 #: ../actions/avatarbynickname.php:32 actions/avatarbynickname.php:32
 #: actions/avatarbynickname.php:64
@@ -1418,12 +1446,12 @@ msgstr ""
 #: actions/twitapistatuses.php:520 actions/twitapifavorites.php:112
 #: actions/twitapistatuses.php:446
 msgid "No status found with that ID."
-msgstr ""
+msgstr "Nenhum estado encontrado com esse ID."
 
 #: ../actions/twitapistatuses.php:555 actions/twitapistatuses.php:478
 #: actions/twitapistatuses.php:418
 msgid "No status with that ID found."
-msgstr ""
+msgstr "Nenhum estado com esse ID encontrado."
 
 #: ../actions/openidsettings.php:135 actions/openidsettings.php:144
 #: actions/openidsettings.php:222
@@ -4710,19 +4738,19 @@ msgstr "O utilizador bloqueou-o."
 
 #: lib/subscribeform.php:115 lib/subscribeform.php:139
 msgid "Subscribe to this user"
-msgstr ""
+msgstr "Subscrever este utilizador"
 
 #: lib/tagcloudsection.php:56
 msgid "None"
-msgstr ""
+msgstr "Nenhum"
 
 #: lib/topposterssection.php:74
 msgid "Top posters"
-msgstr ""
+msgstr "Top posters"
 
 #: lib/unblockform.php:120 lib/unblockform.php:150
 msgid "Unblock this user"
-msgstr ""
+msgstr "Desbloquear este utilizador"
 
 #: lib/unblockform.php:150
 msgid "Unblock"
@@ -4730,4 +4758,4 @@ msgstr "Desbloquear"
 
 #: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
 msgid "Unsubscribe from this user"
-msgstr ""
+msgstr "Des-Subscrever deste utilizador"

@@ -186,6 +186,21 @@ class TwitterapiAction extends Action
             $twitter_status['favorited'] = false;
         }
 
+        # Enclosures
+        $attachments = $notice->attachments();
+        $twitter_status['attachments']=array();
+        if($attachments){
+            foreach($attachments as $attachment){
+                if ($attachment->isEnclosure()) {
+                    $enclosure=array();
+                    $enclosure['url']=$attachment->url;
+                    $enclosure['mimetype']=$attachment->mimetype;
+                    $enclosure['size']=$attachment->size;
+                    $twitter_status['attachments'][]=$enclosure;
+                }
+            }
+        }
+
         if ($include_user) {
             # Don't get notice (recursive!)
             $twitter_user = $this->twitter_user_array($profile, false);
@@ -218,11 +233,13 @@ class TwitterapiAction extends Action
         if($attachments){
             $entry['enclosures']=array();
             foreach($attachments as $attachment){
-                $enclosure=array();
-                $enclosure['url']=$attachment->url;
-                $enclosure['mimetype']=$attachment->mimetype;
-                $enclosure['size']=$attachment->size;
-                $entry['enclosures'][]=$enclosure;
+                if ($attachment->isEnclosure()) {
+                    $enclosure=array();
+                    $enclosure['url']=$attachment->url;
+                    $enclosure['mimetype']=$attachment->mimetype;
+                    $enclosure['size']=$attachment->size;
+                    $entry['enclosures'][]=$enclosure;
+                }
             }
         }
 

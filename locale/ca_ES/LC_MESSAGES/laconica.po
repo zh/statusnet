@@ -3,20 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-25 16:24+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2009-06-12 09:18+0000\n"
+"Last-Translator: animarval <animarval@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: ../actions/noticesearchrss.php:64 actions/noticesearchrss.php:68
 #: actions/noticesearchrss.php:88
@@ -36,18 +34,18 @@ msgstr ""
 #: ../actions/showstream.php:400 ../lib/stream.php:109
 #: actions/showstream.php:418 lib/mailbox.php:164 lib/stream.php:76
 msgid " from "
-msgstr ""
+msgstr " de "
 
 #: ../actions/twitapistatuses.php:478 actions/twitapistatuses.php:412
 #: actions/twitapistatuses.php:347
 #, php-format
 msgid "%1$s / Updates replying to %2$s"
-msgstr ""
+msgstr "%1$s / Notificacions contestant a %2$s"
 
 #: ../actions/invite.php:168 actions/invite.php:176 actions/invite.php:211
 #, php-format
 msgid "%1$s has invited you to join them on %2$s"
-msgstr ""
+msgstr "%1$s t'ha convidat us ha convidat a unir-te al grup %2$s"
 
 #: ../actions/invite.php:170
 #, php-format
@@ -79,6 +77,31 @@ msgid ""
 "\n"
 "Sincerely, %2$s\n"
 msgstr ""
+"%1$s us ha convidat a unir-vos a %2$s (%3$s).\n"
+"\n"
+"%2$s és un servei de micro-blogging que us permetrà estar al dia amb gent "
+"que conegueu i gent que us interessi.\n"
+"\n"
+"Podeu també compartir notícies sobre vosaltres mateixos, el que penseu, o la "
+"vostra vida a la xarxa amb gent que conegueu. És també força bo per "
+"conèixer nova gent amb qui compartir els vostres interessos.\n"
+"\n"
+"%1$s said:\n"
+"\n"
+"%4$s\n"
+"\n"
+"You can see %1$s's profile page on %2$s here:\n"
+"\n"
+"%5$s\n"
+"\n"
+"If you'd like to try the service, click on the link below to accept the "
+"invitation.\n"
+"\n"
+"%6$s\n"
+"\n"
+"If not, you can ignore this message. Thanks for your patience and your time.\n"
+"\n"
+"Sincerely, %2$s\n"
 
 #: ../lib/mail.php:124 lib/mail.php:124 lib/mail.php:126 lib/mail.php:241
 #, php-format
@@ -106,7 +129,7 @@ msgstr ""
 #: actions/twitapistatuses.php:350
 #, php-format
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
-msgstr ""
+msgstr "%1$s notificacions que responen a notificacions de %2$s / %3$s."
 
 #: ../actions/shownotice.php:45 actions/shownotice.php:45
 #: actions/shownotice.php:161
@@ -118,7 +141,7 @@ msgstr "estat de %1$s a %2$s"
 #: actions/invite.php:99 actions/invite.php:123 actions/invite.php:131
 #, php-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #: ../actions/publicrss.php:62 actions/publicrss.php:48
 #: actions/publicrss.php:90
@@ -139,30 +162,32 @@ msgstr "%s i amics"
 #: actions/twitapistatuses.php:33
 #, php-format
 msgid "%s public timeline"
-msgstr ""
+msgstr "%s línia temporal pública"
 
 #: ../lib/mail.php:206 lib/mail.php:212 lib/mail.php:411
 #, php-format
 msgid "%s status"
-msgstr ""
+msgstr "%s estat"
 
 #: ../actions/twitapistatuses.php:338 actions/twitapistatuses.php:265
 #: actions/twitapistatuses.php:199
 #, php-format
 msgid "%s timeline"
-msgstr ""
+msgstr "%s línia temporal"
 
 #: ../actions/twitapistatuses.php:52 actions/twitapistatuses.php:52
 #: actions/twitapistatuses.php:36
 #, php-format
 msgid "%s updates from everyone!"
-msgstr ""
+msgstr "%s notificacions de tots!"
 
 #: ../actions/register.php:213
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
 msgstr ""
+"(Hauries de rebre un missatge per correu electrònic d'aquí uns moments, amb "
+"instruccions sobre com confirmar la teva direcció de correu electrònic.)"
 
 #: ../lib/util.php:257 lib/util.php:273 lib/action.php:605
 #, php-format
@@ -194,6 +219,7 @@ msgstr ""
 #: ../actions/register.php:152 actions/register.php:166
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
 msgstr ""
+"1-64 lletres en minúscula o números, sense puntuacions ni espais. Requerit."
 
 #: ../actions/password.php:42 actions/profilesettings.php:181
 #: actions/passwordsettings.php:102
@@ -208,7 +234,7 @@ msgstr "6 o més caràcters, i no te n'oblidis!"
 #: ../actions/register.php:154 actions/register.php:168
 #: actions/register.php:373
 msgid "6 or more characters. Required."
-msgstr ""
+msgstr "6 o més caràcters. Requerit."
 
 #: ../actions/imsettings.php:197 actions/imsettings.php:205
 #, php-format
@@ -224,12 +250,18 @@ msgid ""
 "A confirmation code was sent to the email address you added. Check your "
 "inbox (and spam box!) for the code and instructions on how to use it."
 msgstr ""
+"S'ha enviat un codi de confirmació al correu electrònic que has afegit. "
+"Revisa la teva safata d'entrada (i la carpeta de spam!) per veure aquest "
+"codi i les instruccions per utilitzar-lo."
 
 #: ../actions/smssettings.php:216 actions/smssettings.php:224
 msgid ""
 "A confirmation code was sent to the phone number you added. Check your inbox "
 "(and spam box!) for the code and instructions on how to use it."
 msgstr ""
+"S'ha enviat un codi de confirmació al número de telèfon has afegit. Revisa "
+"la teva safata d'entrada (i la carpeta de spam!) per veure aquest codi i les "
+"instruccions per utilitzar-lo."
 
 #: ../actions/twitapiaccount.php:49 ../actions/twitapihelp.php:45
 #: ../actions/twitapistatuses.php:88 ../actions/twitapistatuses.php:259
@@ -251,7 +283,7 @@ msgstr ""
 #: actions/twitapistatuses.php:402 actions/twitapistatuses.php:429
 #: actions/twitapiusers.php:32
 msgid "API method not found!"
-msgstr ""
+msgstr "No s'ha trobat el mètode API!"
 
 #: ../actions/twitapiaccount.php:57 ../actions/twitapiaccount.php:113
 #: ../actions/twitapiaccount.php:119 ../actions/twitapiblocks.php:28
@@ -274,7 +306,7 @@ msgstr ""
 #: actions/twitapinotifications.php:31 actions/twitapinotifications.php:37
 #: actions/twitapistatuses.php:562
 msgid "API method under construction."
-msgstr ""
+msgstr "Mètode API en construcció."
 
 #: ../lib/util.php:324 lib/util.php:340 lib/action.php:568
 msgid "About"
@@ -303,7 +335,7 @@ msgstr "Afegir OpenID"
 #: ../lib/settingsaction.php:97 lib/settingsaction.php:91
 #: lib/accountsettingsaction.php:117
 msgid "Add or remove OpenIDs"
-msgstr ""
+msgstr "Afegir o eliminar OpenIDs"
 
 #: ../actions/emailsettings.php:38 ../actions/imsettings.php:39
 #: ../actions/smssettings.php:39 actions/emailsettings.php:39
@@ -315,7 +347,7 @@ msgstr "Adreça"
 
 #: ../actions/invite.php:131 actions/invite.php:139 actions/invite.php:176
 msgid "Addresses of friends to invite (one per line)"
-msgstr ""
+msgstr "Direccions d'amic per convidar (una per línia)"
 
 #: ../actions/showstream.php:273 actions/showstream.php:288
 #: actions/showstream.php:422
@@ -350,7 +382,7 @@ msgstr "Ja estàs subscrit!"
 #: ../actions/deletenotice.php:54 actions/deletenotice.php:55
 #: actions/deletenotice.php:113
 msgid "Are you sure you want to delete this notice?"
-msgstr ""
+msgstr "N'estàs segur que vols eliminar aquesta notificació?"
 
 #: ../actions/userauthorization.php:77 actions/userauthorization.php:83
 #: actions/userauthorization.php:81
@@ -368,6 +400,8 @@ msgstr ""
 msgid ""
 "Automatically subscribe to whoever subscribes to me (best for non-humans)"
 msgstr ""
+"Automàticament subscriure's a qualsevol que ho estigui a tu mateix (ideal "
+"per no-humans)"
 
 #: ../actions/avatar.php:32 ../lib/settingsaction.php:90
 #: actions/profilesettings.php:34 actions/avatarsettings.php:65
@@ -395,14 +429,15 @@ msgid ""
 "Awaiting confirmation on this address. Check your inbox (and spam box!) for "
 "a message with further instructions."
 msgstr ""
+"Esperant a confirmar aquesta direcció. Revisa la teva safata d'entrada (i la "
+"carpeta de spam!) per al missatge amb les instruccions."
 
 #: ../actions/smssettings.php:58 actions/smssettings.php:58
 #: actions/smssettings.php:111
 msgid "Awaiting confirmation on this phone number."
-msgstr ""
+msgstr "Esperant confirmació per aquest número de telèfon."
 
 #: ../lib/util.php:1318 lib/util.php:1452
-#, fuzzy
 msgid "Before »"
 msgstr "Anterior »"
 
@@ -422,7 +457,7 @@ msgstr "La biografia és massa llarga (màx. 140 caràcters)."
 
 #: ../lib/deleteaction.php:41 lib/deleteaction.php:41 lib/deleteaction.php:69
 msgid "Can't delete this notice."
-msgstr ""
+msgstr "No es pot esborrar la notificació."
 
 #: ../actions/updateprofile.php:119 actions/updateprofile.php:120
 #: actions/updateprofile.php:123
@@ -456,7 +491,7 @@ msgstr "Impossible normalitzar aquest Jabber ID"
 #: ../actions/emailsettings.php:181 actions/emailsettings.php:199
 #: actions/emailsettings.php:311
 msgid "Cannot normalize that email address"
-msgstr ""
+msgstr "No es pot normalitzar aquesta direcció de correu electrònic"
 
 #: ../actions/password.php:45 actions/profilesettings.php:184
 #: actions/passwordsettings.php:110
@@ -466,7 +501,7 @@ msgstr "Canviar"
 #: ../lib/settingsaction.php:88 lib/settingsaction.php:88
 #: lib/accountsettingsaction.php:114
 msgid "Change email handling"
-msgstr ""
+msgstr "Canviar correu electrònic"
 
 #: ../actions/password.php:32 actions/profilesettings.php:36
 #: actions/passwordsettings.php:58
@@ -475,12 +510,12 @@ msgstr "Canviar contrasenya"
 
 #: ../lib/settingsaction.php:94 lib/accountsettingsaction.php:111
 msgid "Change your password"
-msgstr ""
+msgstr "Canviar la teva contrasenya"
 
 #: ../lib/settingsaction.php:85 lib/settingsaction.php:85
 #: lib/accountsettingsaction.php:105
 msgid "Change your profile settings"
-msgstr ""
+msgstr "Canviar les preferències del teu perfil"
 
 #: ../actions/password.php:43 ../actions/recoverpassword.php:181
 #: ../actions/register.php:155 ../actions/smssettings.php:65
@@ -507,7 +542,7 @@ msgstr "Confirmació cancel·lada."
 #: ../actions/smssettings.php:63 actions/smssettings.php:63
 #: actions/smssettings.php:118
 msgid "Confirmation code"
-msgstr ""
+msgstr "Codi de confirmació"
 
 #: ../actions/confirmaddress.php:38 actions/confirmaddress.php:38
 #: actions/confirmaddress.php:80
@@ -532,6 +567,19 @@ msgid ""
 "\n"
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
+"Felicitats, %s! I benvingut/da a %%%%site.name%%%%. Des d'aquí, podries...\n"
+"\n"
+"* Anar al teu [teu perfil](%s) i publicar el teu primer missatge.\n"
+"* Afegir una [direcció Jabber/GTalk](%%%%action.imsettings%%%%) i així poder "
+"publicar les notificacions a través de missatgeria instantània.\n"
+"* [Buscar gent](%%%%action.peoplesearch%%%%) que puguis conèixer o que "
+"comparteixi els teus interessos. \n"
+"* Actualitzar les [preferències del teu "
+"perfil](%%%%action.profilesettings%%%%) per explicar als demés més sobre tu. "
+"* Llegir els [documents de la xarxa](%%%%doc.help%%%%) per conèixer les "
+"característiques del nostre servei. \n"
+"\n"
+"Gràcies per registrar-te i esperem que gaudeixis d'aquest servei."
 
 #: ../actions/finishopenidlogin.php:91 actions/finishopenidlogin.php:97
 #: actions/finishopenidlogin.php:119 lib/action.php:330
@@ -558,11 +606,12 @@ msgstr "No s'ha pogut crear el formulari OpenID: %s"
 #, php-format
 msgid "Could not follow user: %s is already on your list."
 msgstr ""
+"No pots subscriure't de nou a aquest usuari: %s ja està a la teva llista."
 
 #: ../actions/twitapifriendships.php:53 actions/twitapifriendships.php:53
 #: actions/twitapifriendships.php:41
 msgid "Could not follow user: User not found."
-msgstr ""
+msgstr "No pots subscriure't a aquest usuari: L'usuari no existeix."
 
 #: ../lib/openid.php:160 lib/openid.php:160 lib/openid.php:169
 #, php-format
@@ -581,16 +630,16 @@ msgstr "No s'ha pogut guardar la informació del nou perfil"
 
 #: ../lib/subs.php:54 lib/subs.php:61 lib/subs.php:72
 msgid "Could not subscribe other to you."
-msgstr ""
+msgstr "No pots subscriure a un altre a tu mateix."
 
 #: ../lib/subs.php:46 lib/subs.php:46 lib/subs.php:57
 msgid "Could not subscribe."
-msgstr ""
+msgstr "No pots subscriure."
 
 #: ../actions/recoverpassword.php:102 actions/recoverpassword.php:105
 #: actions/recoverpassword.php:111
 msgid "Could not update user with confirmed email address."
-msgstr ""
+msgstr "No es pot actualitzar l'usuari amb el correu electrònic confirmat"
 
 #: ../actions/finishremotesubscribe.php:99
 #: actions/finishremotesubscribe.php:101 actions/finishremotesubscribe.php:114
@@ -613,7 +662,7 @@ msgstr "No s'ha pogut eliminar la subscripció."
 #: ../actions/twitapistatuses.php:93 actions/twitapistatuses.php:98
 #: actions/twitapistatuses.php:84
 msgid "Couldn't find any statuses."
-msgstr ""
+msgstr "No es pot trobar cap estatus."
 
 #: ../actions/remotesubscribe.php:127 actions/remotesubscribe.php:136
 #: actions/remotesubscribe.php:178
@@ -642,13 +691,13 @@ msgstr "No s'ha pogut guardar el perfil."
 #: ../actions/profilesettings.php:161 actions/profilesettings.php:276
 #: actions/profilesettings.php:279
 msgid "Couldn't update user for autosubscribe."
-msgstr ""
+msgstr "No es pot actualitzar l'usuari per autosubscriure."
 
 #: ../actions/emailsettings.php:280 ../actions/emailsettings.php:294
 #: actions/emailsettings.php:298 actions/emailsettings.php:312
 #: actions/emailsettings.php:440 actions/emailsettings.php:462
 msgid "Couldn't update user record."
-msgstr ""
+msgstr "No s'ha pogut actualitzar el registre de l'usuari."
 
 #: ../actions/confirmaddress.php:72 ../actions/emailsettings.php:156
 #: ../actions/emailsettings.php:259 ../actions/imsettings.php:138
@@ -694,12 +743,12 @@ msgstr "Adreça actual Jabber/Gtalk confirmada."
 #: ../actions/smssettings.php:46 actions/smssettings.php:46
 #: actions/smssettings.php:100
 msgid "Current confirmed SMS-enabled phone number."
-msgstr ""
+msgstr "Número de telèfon actualment confirmat i activat per SMS."
 
 #: ../actions/emailsettings.php:44 actions/emailsettings.php:45
 #: actions/emailsettings.php:99
 msgid "Current confirmed email address."
-msgstr ""
+msgstr "Correu electrònic confirmat actualment."
 
 #: ../actions/showstream.php:356 actions/showstream.php:367
 msgid "Currently"
@@ -708,7 +757,7 @@ msgstr "Actualment"
 #: ../classes/Notice.php:72 classes/Notice.php:86 classes/Notice.php:91
 #, php-format
 msgid "DB error inserting hashtag: %s"
-msgstr ""
+msgstr "Hashtag de l'error de la base de dades:%s"
 
 #: ../lib/util.php:1061 lib/util.php:1110 classes/Notice.php:698
 #, php-format
@@ -718,7 +767,7 @@ msgstr "Error de BD en inserir resposta: %s"
 #: ../actions/deletenotice.php:41 actions/deletenotice.php:41
 #: actions/deletenotice.php:79
 msgid "Delete notice"
-msgstr ""
+msgstr "Eliminar nota."
 
 #: ../actions/profilesettings.php:51 ../actions/register.php:172
 #: actions/profilesettings.php:84 actions/register.php:186
@@ -736,12 +785,12 @@ msgstr "Correu electrònic"
 #: ../actions/emailsettings.php:59 actions/emailsettings.php:60
 #: actions/emailsettings.php:115
 msgid "Email Address"
-msgstr ""
+msgstr "Direcció de correu electrònic"
 
 #: ../actions/emailsettings.php:32 actions/emailsettings.php:32
 #: actions/emailsettings.php:60
 msgid "Email Settings"
-msgstr ""
+msgstr "Configuració del correu electrònic"
 
 #: ../actions/register.php:73 actions/register.php:80 actions/register.php:163
 msgid "Email address already exists."
@@ -754,11 +803,11 @@ msgstr "Confirmació de l'adreça de correu electrònic"
 #: ../actions/emailsettings.php:61 actions/emailsettings.php:62
 #: actions/emailsettings.php:117
 msgid "Email address, like \"UserName@example.org\""
-msgstr ""
+msgstr "Correu electrònic, com Email address, like \"UserName@example.org\""
 
 #: ../actions/invite.php:129 actions/invite.php:137 actions/invite.php:174
 msgid "Email addresses"
-msgstr ""
+msgstr "Direcció de correu electrònic"
 
 #: ../actions/recoverpassword.php:191 actions/recoverpassword.php:197
 #: actions/recoverpassword.php:231
@@ -768,7 +817,7 @@ msgstr "Escriu un sobrenom o una adreça de correu electrònic."
 #: ../actions/smssettings.php:64 actions/smssettings.php:64
 #: actions/smssettings.php:119
 msgid "Enter the code you received on your phone."
-msgstr ""
+msgstr "Escriu el codi que has rebut en el teu telèfon mòbil."
 
 #: ../actions/userauthorization.php:137 actions/userauthorization.php:144
 #: actions/userauthorization.php:161
@@ -876,17 +925,17 @@ msgstr "Feed per a respostes a %s"
 #: ../actions/tag.php:55 actions/tag.php:55 actions/tag.php:61
 #, php-format
 msgid "Feed for tag %s"
-msgstr ""
+msgstr "Feed per a l'etiqueta %s"
 
 #: ../lib/searchaction.php:105 lib/searchaction.php:105
 #: lib/searchgroupnav.php:83
 msgid "Find content of notices"
-msgstr ""
+msgstr "Trobar contingut de les notes"
 
 #: ../lib/searchaction.php:101 lib/searchaction.php:101
 #: lib/searchgroupnav.php:81
 msgid "Find people on this site"
-msgstr ""
+msgstr "Trobar gent en aquest lloc"
 
 #: ../actions/login.php:122
 msgid ""
@@ -939,12 +988,12 @@ msgstr "La pàgina personal no és un URL vàlid."
 #: ../actions/emailsettings.php:91 actions/emailsettings.php:98
 #: actions/emailsettings.php:173
 msgid "I want to post notices by email."
-msgstr ""
+msgstr "Vull publicar notificacions per correu electrònic."
 
 #: ../lib/settingsaction.php:102 lib/settingsaction.php:96
 #: lib/connectsettingsaction.php:104
 msgid "IM"
-msgstr ""
+msgstr "Missatgeria Instantània"
 
 #: ../actions/imsettings.php:60 actions/imsettings.php:61
 #: actions/imsettings.php:118
@@ -978,17 +1027,19 @@ msgid ""
 "If you've forgotten or lost your password, you can get a new one sent to the "
 "email address you have stored  in your account."
 msgstr ""
+"Si has oblidat o has perdut la teva contrasenya, pots obtenir-ne una de nova "
+"que t'enviarem al correu electrònic que tinguis posat  al teu compte."
 
 #: ../actions/emailsettings.php:67 ../actions/smssettings.php:76
 #: actions/emailsettings.php:68 actions/smssettings.php:76
 #: actions/emailsettings.php:127 actions/smssettings.php:140
 msgid "Incoming email"
-msgstr ""
+msgstr "Correu electrònic entrant"
 
 #: ../actions/emailsettings.php:283 actions/emailsettings.php:301
 #: actions/emailsettings.php:443
 msgid "Incoming email address removed."
-msgstr ""
+msgstr "Eliminat el correu electrònic entrant."
 
 #: ../actions/password.php:69 actions/profilesettings.php:388
 #: actions/passwordsettings.php:153
@@ -1017,7 +1068,7 @@ msgstr "L'URL de l'avatar '%s' és invàlid"
 #: ../actions/invite.php:55 actions/invite.php:62 actions/invite.php:70
 #, php-format
 msgid "Invalid email address: %s"
-msgstr ""
+msgstr "Correu electrònic invàlid: %s"
 
 #: ../actions/updateprofile.php:98 actions/updateprofile.php:99
 #: actions/updateprofile.php:102
@@ -1077,20 +1128,20 @@ msgstr "Nom d'usuari o contrasenya invàlids."
 
 #: ../actions/invite.php:79 actions/invite.php:86 actions/invite.php:102
 msgid "Invitation(s) sent"
-msgstr ""
+msgstr "Invitació(ons) enviada(des)"
 
 #: ../actions/invite.php:97 actions/invite.php:104 actions/invite.php:136
 msgid "Invitation(s) sent to the following people:"
-msgstr ""
+msgstr "Invitació(ons) enviada(des) a la següent gent:"
 
 #: ../lib/util.php:306 lib/util.php:322 lib/facebookaction.php:207
 #: lib/subgroupnav.php:103
 msgid "Invite"
-msgstr ""
+msgstr "Invitar"
 
 #: ../actions/invite.php:123 actions/invite.php:130 actions/invite.php:104
 msgid "Invite new users"
-msgstr ""
+msgstr "Invitar nous usuaris"
 
 #: ../lib/util.php:261 lib/util.php:277 lib/action.php:609
 #, php-format
@@ -1121,12 +1172,12 @@ msgstr ""
 #: ../actions/profilesettings.php:57 actions/profilesettings.php:90
 #: actions/profilesettings.php:128
 msgid "Language"
-msgstr ""
+msgstr "Idioma"
 
 #: ../actions/profilesettings.php:113 actions/profilesettings.php:228
 #: actions/profilesettings.php:217
 msgid "Language is too long (max 50 chars)."
-msgstr ""
+msgstr "L'idioma és massa llarg (màx 50 caràcters)."
 
 #: ../actions/profilesettings.php:52 ../actions/register.php:173
 #: actions/profilesettings.php:85 actions/register.php:187
@@ -1180,7 +1231,7 @@ msgstr "Sortir"
 #: ../actions/register.php:166 actions/register.php:180
 #: actions/register.php:393
 msgid "Longer name, preferably your \"real\" name"
-msgstr ""
+msgstr "Nom llarg, preferiblement el teu nom \"real\""
 
 #: ../actions/login.php:110 actions/login.php:110 actions/login.php:245
 #: lib/facebookaction.php:320
@@ -1190,13 +1241,13 @@ msgstr "Contrasenya oblidada o perduda?"
 #: ../actions/emailsettings.php:80 ../actions/smssettings.php:89
 #: actions/emailsettings.php:81 actions/smssettings.php:89
 msgid "Make a new email address for posting to; cancels the old one."
-msgstr ""
+msgstr "Posar un nou correu electrònic per publicar; cancel·lar l'antic."
 
 #: ../actions/emailsettings.php:27 actions/emailsettings.php:27
 #: actions/emailsettings.php:71
 #, php-format
 msgid "Manage how you get email from %%site.name%%."
-msgstr ""
+msgstr "Gestionar com reps correus de %%site.name%%."
 
 #: ../actions/showstream.php:300 actions/showstream.php:315
 #: actions/showstream.php:480
@@ -1214,6 +1265,9 @@ msgid ""
 "Mobile carrier for your phone. If you know a carrier that accepts SMS over "
 "email but isn't listed here, send email to let us know at %s."
 msgstr ""
+"Capacitat per al teu telèfon mòbil. Si vostè coneix una companyia que "
+"accepti SMS a través del correu electrònic, però no està a la llista, "
+"envia'ns un correu electrònic per fer-nos-ho saber %s."
 
 #: ../actions/finishopenidlogin.php:79 ../actions/register.php:188
 #: actions/finishopenidlogin.php:85 actions/register.php:202
@@ -1225,17 +1279,17 @@ msgstr "El meu text i els meus fitxers estan disponibles sota "
 #: actions/emailsettings.php:83 actions/smssettings.php:91
 #: actions/emailsettings.php:142 actions/smssettings.php:152
 msgid "New"
-msgstr ""
+msgstr "Nou"
 
 #: ../lib/mail.php:144 lib/mail.php:144 lib/mail.php:286
 #, php-format
 msgid "New email address for posting to %s"
-msgstr ""
+msgstr "Nou correu electrònic per publicar a %s"
 
 #: ../actions/emailsettings.php:297 actions/emailsettings.php:315
 #: actions/emailsettings.php:465
 msgid "New incoming email address added."
-msgstr ""
+msgstr "Nou correu electrònic entrant afegit."
 
 #: ../actions/finishopenidlogin.php:71 actions/finishopenidlogin.php:77
 #: actions/finishopenidlogin.php:99
@@ -1305,7 +1359,7 @@ msgstr "Sobrenom o correu electrònic"
 #: ../actions/deletenotice.php:59 actions/deletenotice.php:60
 #: actions/block.php:147 actions/deletenotice.php:118
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: ../actions/imsettings.php:156 actions/imsettings.php:164
 #: actions/imsettings.php:279
@@ -1320,12 +1374,12 @@ msgstr "Cap petició d'autorització!"
 #: ../actions/smssettings.php:181 actions/smssettings.php:189
 #: actions/smssettings.php:299
 msgid "No carrier selected."
-msgstr ""
+msgstr "No s'ha sel·leccionat cap transport."
 
 #: ../actions/smssettings.php:316 actions/smssettings.php:324
 #: actions/smssettings.php:486
 msgid "No code entered"
-msgstr ""
+msgstr "No hi ha cap codi entrat"
 
 #: ../actions/confirmaddress.php:33 actions/confirmaddress.php:33
 #: actions/confirmaddress.php:75
@@ -1341,7 +1395,7 @@ msgstr "Cap contingut!"
 #: ../actions/emailsettings.php:174 actions/emailsettings.php:192
 #: actions/emailsettings.php:304
 msgid "No email address."
-msgstr ""
+msgstr "No hi ha cap direcció de correu electrònic."
 
 #: ../actions/userbyid.php:32 actions/userbyid.php:32 actions/userbyid.php:70
 msgid "No id."
@@ -1350,7 +1404,7 @@ msgstr "Cap identificador."
 #: ../actions/emailsettings.php:271 actions/emailsettings.php:289
 #: actions/emailsettings.php:430
 msgid "No incoming email address."
-msgstr ""
+msgstr "No hi ha cap direcció de correu electrònic entrant."
 
 #: ../actions/finishremotesubscribe.php:65
 #: actions/finishremotesubscribe.php:67 actions/finishremotesubscribe.php:68
@@ -1373,7 +1427,7 @@ msgstr "Cap confirmació pendent per a cancel·lar."
 #: ../actions/smssettings.php:176 actions/smssettings.php:184
 #: actions/smssettings.php:294
 msgid "No phone number."
-msgstr ""
+msgstr "No hi ha cap número de telèfon."
 
 #: ../actions/finishremotesubscribe.php:72
 #: actions/finishremotesubscribe.php:74 actions/finishremotesubscribe.php:75
@@ -1406,12 +1460,12 @@ msgstr "Cap mida."
 #: actions/twitapistatuses.php:520 actions/twitapifavorites.php:112
 #: actions/twitapistatuses.php:446
 msgid "No status found with that ID."
-msgstr ""
+msgstr "No s'ha trobat cap estatus amb aquesta ID."
 
 #: ../actions/twitapistatuses.php:555 actions/twitapistatuses.php:478
 #: actions/twitapistatuses.php:418
 msgid "No status with that ID found."
-msgstr ""
+msgstr "No s'ha trobat cap estatus amb la ID trobada."
 
 #: ../actions/openidsettings.php:135 actions/openidsettings.php:144
 #: actions/openidsettings.php:222
@@ -1470,7 +1524,7 @@ msgstr "No existeix aquest usuari."
 #: ../actions/recoverpassword.php:211 actions/recoverpassword.php:217
 #: actions/recoverpassword.php:251
 msgid "No user with that email address or username."
-msgstr ""
+msgstr "No hi ha cap usuari amb aquesta direcció o usuari."
 
 #: ../lib/gallery.php:80 lib/gallery.php:85
 msgid "Nobody to show!"
@@ -1484,14 +1538,14 @@ msgstr "No és un codi de recuperació."
 #: ../scripts/maildaemon.php:50 scripts/maildaemon.php:50
 #: scripts/maildaemon.php:53
 msgid "Not a registered user."
-msgstr ""
+msgstr "Usuari no registrat."
 
 #: ../lib/twitterapi.php:226 ../lib/twitterapi.php:247
 #: ../lib/twitterapi.php:332 lib/twitterapi.php:391 lib/twitterapi.php:418
 #: lib/twitterapi.php:502 lib/twitterapi.php:448 lib/twitterapi.php:476
 #: lib/twitterapi.php:566
 msgid "Not a supported data format."
-msgstr ""
+msgstr "Format de data no suportat."
 
 #: ../actions/imsettings.php:167 actions/imsettings.php:175
 #: actions/imsettings.php:290
@@ -1505,7 +1559,7 @@ msgstr "OpenID no vàlid."
 #: ../actions/emailsettings.php:185 actions/emailsettings.php:203
 #: actions/emailsettings.php:315
 msgid "Not a valid email address"
-msgstr ""
+msgstr "No és una direcció de correu electrònic vàlida."
 
 #: ../actions/register.php:63 actions/register.php:70 actions/register.php:152
 msgid "Not a valid email address."
@@ -1551,7 +1605,7 @@ msgstr "Resposta inesperada!"
 #: ../actions/twitapistatuses.php:422 actions/twitapistatuses.php:361
 #: actions/twitapistatuses.php:309
 msgid "Not found"
-msgstr ""
+msgstr "No s'ha trobat"
 
 #: ../actions/finishaddopenid.php:29 ../actions/logout.php:33
 #: ../actions/newnotice.php:29 ../actions/subscribe.php:28
@@ -1576,7 +1630,7 @@ msgstr "No estàs subscrit!"
 #: ../actions/opensearch.php:35 actions/opensearch.php:35
 #: actions/opensearch.php:67
 msgid "Notice Search"
-msgstr ""
+msgstr "Cerca de notificacions"
 
 #: ../actions/showstream.php:82 actions/showstream.php:82
 #: actions/showstream.php:180 actions/showstream.php:187
@@ -1600,7 +1654,7 @@ msgstr "Avisos"
 #: actions/tag.php:81 actions/tag.php:41
 #, php-format
 msgid "Notices tagged with %s"
-msgstr ""
+msgstr "Aviso etiquetats amb %s"
 
 #: ../actions/password.php:39 actions/profilesettings.php:178
 #: actions/passwordsettings.php:97
@@ -1665,7 +1719,7 @@ msgstr "Configuració OpenID"
 
 #: ../actions/invite.php:135 actions/invite.php:143 actions/invite.php:180
 msgid "Optionally add a personal message to the invitation."
-msgstr ""
+msgstr "Opcionalment pots afegir un missatge a la invitació."
 
 #: ../actions/avatar.php:84 actions/profilesettings.php:321
 #: lib/imagefile.php:75
@@ -1712,12 +1766,12 @@ msgstr "Les contrasenyes no coincideixen."
 #: ../lib/searchaction.php:100 lib/searchaction.php:100
 #: lib/searchgroupnav.php:80
 msgid "People"
-msgstr ""
+msgstr "Gent"
 
 #: ../actions/opensearch.php:33 actions/opensearch.php:33
 #: actions/opensearch.php:64
 msgid "People Search"
-msgstr ""
+msgstr "Cercar gent"
 
 #: ../actions/peoplesearch.php:33 actions/peoplesearch.php:33
 #: actions/peoplesearch.php:58
@@ -1730,11 +1784,11 @@ msgstr "Personal"
 
 #: ../actions/invite.php:133 actions/invite.php:141 actions/invite.php:178
 msgid "Personal message"
-msgstr ""
+msgstr "Missatge personal"
 
 #: ../actions/smssettings.php:69 actions/smssettings.php:69
 msgid "Phone number, no punctuation or spaces, with area code"
-msgstr ""
+msgstr "Número de telèfon, no puntuació ni espais, en l'àrea del codi"
 
 #: ../actions/userauthorization.php:78
 msgid ""
@@ -1771,7 +1825,7 @@ msgstr "Preferències guardades."
 #: ../actions/profilesettings.php:57 actions/profilesettings.php:90
 #: actions/profilesettings.php:129
 msgid "Preferred language"
-msgstr ""
+msgstr "Preferència d'idioma"
 
 #: ../lib/util.php:328 lib/util.php:344 lib/action.php:572
 msgid "Privacy"
@@ -1816,17 +1870,17 @@ msgstr "Línia temporal pública"
 #: ../actions/imsettings.php:79 actions/imsettings.php:80
 #: actions/imsettings.php:153
 msgid "Publish a MicroID for my Jabber/GTalk address."
-msgstr ""
+msgstr "Publica una MicroID per a la meva direcció de Jabber/GTalk."
 
 #: ../actions/emailsettings.php:94 actions/emailsettings.php:101
 #: actions/emailsettings.php:178
 msgid "Publish a MicroID for my email address."
-msgstr ""
+msgstr "Publica una MicroID per al meu correu electrònic."
 
 #: ../actions/tag.php:75 ../actions/tag.php:76 actions/tag.php:75
 #: actions/tag.php:76
 msgid "Recent Tags"
-msgstr ""
+msgstr "Etiquetes recents"
 
 #: ../actions/recoverpassword.php:166 actions/recoverpassword.php:171
 #: actions/recoverpassword.php:190
@@ -1853,12 +1907,12 @@ msgstr "Registrar-se"
 #: ../actions/register.php:28 actions/register.php:28
 #: actions/finishopenidlogin.php:196 actions/register.php:90
 msgid "Registration not allowed."
-msgstr ""
+msgstr "Registre no permès."
 
 #: ../actions/register.php:200 actions/register.php:214
 #: actions/register.php:67
 msgid "Registration successful"
-msgstr ""
+msgstr "Registre satisfactori"
 
 #: ../actions/userauthorization.php:120 actions/userauthorization.php:127
 #: actions/userauthorization.php:144
@@ -1932,21 +1986,21 @@ msgstr "Restablir contrasenya"
 #: ../lib/settingsaction.php:99 lib/settingsaction.php:93
 #: actions/subscriptions.php:123 lib/connectsettingsaction.php:107
 msgid "SMS"
-msgstr ""
+msgstr "SMS"
 
 #: ../actions/smssettings.php:67 actions/smssettings.php:67
 #: actions/smssettings.php:126
 msgid "SMS Phone number"
-msgstr ""
+msgstr "Número de telèfon pels SMS"
 
 #: ../actions/smssettings.php:33 actions/smssettings.php:33
 #: actions/smssettings.php:58
 msgid "SMS Settings"
-msgstr ""
+msgstr "Configuració SMS"
 
 #: ../lib/mail.php:219 lib/mail.php:225 lib/mail.php:437
 msgid "SMS confirmation"
-msgstr ""
+msgstr "Confirmació SMS"
 
 #: ../actions/recoverpassword.php:182 actions/recoverpassword.php:188
 #: actions/recoverpassword.php:222
@@ -1956,7 +2010,7 @@ msgstr "Igual a la contrasenya de dalt"
 #: ../actions/register.php:156 actions/register.php:170
 #: actions/register.php:377
 msgid "Same as password above. Required."
-msgstr ""
+msgstr "Igual a la contrasenya de dalt. Requerit."
 
 #: ../actions/emailsettings.php:97 ../actions/imsettings.php:81
 #: ../actions/profilesettings.php:67 ../actions/smssettings.php:100
@@ -2003,7 +2057,7 @@ msgstr ""
 #: ../actions/smssettings.php:296 actions/smssettings.php:304
 #: actions/smssettings.php:457
 msgid "Select a carrier"
-msgstr ""
+msgstr "Selecciona un transport"
 
 #: ../actions/invite.php:137 ../lib/util.php:1172 actions/invite.php:145
 #: lib/util.php:1306 lib/util.php:1731 actions/invite.php:182
@@ -2016,11 +2070,15 @@ msgstr "Enviar"
 #: actions/emailsettings.php:132 actions/smssettings.php:145
 msgid "Send email to this address to post new notices."
 msgstr ""
+"Enviar correu electrònic a aquesta direcció per publicar noves "
+"notificacions."
 
 #: ../actions/emailsettings.php:88 actions/emailsettings.php:89
 #: actions/emailsettings.php:152
 msgid "Send me notices of new subscriptions through email."
 msgstr ""
+"Envia'm notificacions quan algú nou se'm subscrigui, al meu correu "
+"electrònic."
 
 #: ../actions/imsettings.php:70 actions/imsettings.php:71
 #: actions/imsettings.php:137
@@ -2032,10 +2090,14 @@ msgid ""
 "Send me notices through SMS; I understand I may incur exorbitant charges "
 "from my carrier."
 msgstr ""
+"Enviar-me avisos a través de SMS; puc entendre que això repercutirà en una "
+"exorbitant càrrega del meu transport."
 
 #: ../actions/imsettings.php:76 actions/imsettings.php:77
 msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
 msgstr ""
+"Envia'm respostes a través de Jabber/GTalk de la gent a la que no estic "
+"subscrita."
 
 #: ../lib/util.php:304 lib/util.php:320 lib/facebookaction.php:215
 msgid "Settings"
@@ -2048,7 +2110,7 @@ msgstr "Configuració guardada."
 
 #: ../actions/tag.php:60 actions/tag.php:60
 msgid "Showing most popular tags from the last week"
-msgstr ""
+msgstr "Mostrant les etiquetes més populars de l'última setmana"
 
 #: ../actions/finishaddopenid.php:66 actions/finishaddopenid.php:66
 #: actions/finishaddopenid.php:114
@@ -2064,12 +2126,12 @@ msgstr "Alguna cosa estranya ha passat."
 #: ../scripts/maildaemon.php:58 scripts/maildaemon.php:58
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
-msgstr ""
+msgstr "Perdó, no hi ha un correu electrònic entrant permès."
 
 #: ../scripts/maildaemon.php:54 scripts/maildaemon.php:54
 #: scripts/maildaemon.php:57
 msgid "Sorry, that is not your incoming email address."
-msgstr ""
+msgstr "Perdó, aquest no és el teu correu electrònic entrant permès."
 
 #: ../lib/util.php:330 lib/util.php:346 lib/action.php:574
 msgid "Source"
@@ -2129,11 +2191,11 @@ msgstr "Error del sistema en pujar el fitxer."
 #: actions/tagother.php:147 actions/tagother.php:207 lib/profilelist.php:162
 #: lib/profilelist.php:164
 msgid "Tags"
-msgstr ""
+msgstr "Etiquetes"
 
 #: ../lib/searchaction.php:104 lib/searchaction.php:104
 msgid "Text"
-msgstr ""
+msgstr "Text"
 
 #: ../actions/noticesearch.php:34 actions/noticesearch.php:34
 #: actions/noticesearch.php:67
@@ -2157,7 +2219,7 @@ msgstr "Aquest codi de confirmació no és per a tu!"
 
 #: ../actions/emailsettings.php:191 actions/emailsettings.php:209
 msgid "That email address already belongs to another user."
-msgstr ""
+msgstr "Aquest correu electrònic pertany a un altre usuari."
 
 #: ../actions/avatar.php:80 actions/profilesettings.php:317
 #: lib/imagefile.php:71
@@ -2172,12 +2234,12 @@ msgstr "Aquest ja és el teu Jabber ID."
 #: ../actions/emailsettings.php:188 actions/emailsettings.php:206
 #: actions/emailsettings.php:318
 msgid "That is already your email address."
-msgstr ""
+msgstr "Aquest ja és el teu correu electrònic."
 
 #: ../actions/smssettings.php:188 actions/smssettings.php:196
 #: actions/smssettings.php:306
 msgid "That is already your phone number."
-msgstr ""
+msgstr "Aquest ja és el teu número de telèfon."
 
 #: ../actions/imsettings.php:233 actions/imsettings.php:241
 #: actions/imsettings.php:381
@@ -2187,12 +2249,12 @@ msgstr "Aquest no és el teu Jabber ID."
 #: ../actions/emailsettings.php:249 actions/emailsettings.php:267
 #: actions/emailsettings.php:397
 msgid "That is not your email address."
-msgstr ""
+msgstr "Aquest no és el teu correu electrònic"
 
 #: ../actions/smssettings.php:257 actions/smssettings.php:265
 #: actions/smssettings.php:393
 msgid "That is not your phone number."
-msgstr ""
+msgstr "Aquest no és el teu número de telèfon."
 
 #: ../actions/emailsettings.php:226 ../actions/imsettings.php:210
 #: actions/emailsettings.php:244 actions/imsettings.php:218
@@ -2203,12 +2265,12 @@ msgstr "Aquesta adreça de missatgeria instantània és incorrecta."
 #: ../actions/smssettings.php:233 actions/smssettings.php:241
 #: actions/smssettings.php:362
 msgid "That is the wrong confirmation number."
-msgstr ""
+msgstr "Aquest és un número de confirmació incorrecte."
 
 #: ../actions/smssettings.php:191 actions/smssettings.php:199
 #: actions/smssettings.php:309
 msgid "That phone number already belongs to another user."
-msgstr ""
+msgstr "Aquest número de telèfon pertany a un altre usuari."
 
 #: ../actions/newnotice.php:49 ../actions/twitapistatuses.php:408
 #: actions/newnotice.php:49 actions/twitapistatuses.php:330
@@ -2219,7 +2281,7 @@ msgstr "Massa llarg. La longitud màxima és de 140 caràcters."
 #: ../actions/twitapiaccount.php:74 actions/twitapiaccount.php:72
 #: actions/twitapiaccount.php:62
 msgid "That's too long. Max notice size is 255 chars."
-msgstr ""
+msgstr "Massa llarg. La longitud màxima és de 255 caràcters."
 
 #: ../actions/confirmaddress.php:92 actions/confirmaddress.php:92
 #, php-format
@@ -2275,6 +2337,7 @@ msgstr "Aquestes són les persones que escoltes."
 msgid ""
 "These people are already users and you were automatically subscribed to them:"
 msgstr ""
+"Aquestes persona ja són usuaris i tu estàs subscrit automàticament a ells:"
 
 #: ../actions/recoverpassword.php:88
 msgid "This confirmation code is too old. Please start again."
@@ -2305,7 +2368,7 @@ msgstr ""
 #: actions/twitapistatuses.php:511 actions/twitapifavorites.php:97
 #: actions/twitapifriendships.php:85 actions/twitapistatuses.php:436
 msgid "This method requires a POST or DELETE."
-msgstr ""
+msgstr "Aquest mètode requereix POST o DELETE."
 
 #: ../actions/twitapiaccount.php:65 ../actions/twitapifriendships.php:44
 #: ../actions/twitapistatuses.php:381 actions/twitapiaccount.php:63
@@ -2314,7 +2377,7 @@ msgstr ""
 #: actions/twitapidirect_messages.php:122 actions/twitapifriendships.php:32
 #: actions/twitapistatuses.php:244
 msgid "This method requires a POST."
-msgstr ""
+msgstr "Aquest mètode requereix POST."
 
 #: ../lib/util.php:164 lib/util.php:246
 msgid "This page is not available in a media type you accept"
@@ -2323,12 +2386,12 @@ msgstr "Aquesta pàgina no està disponible en un tipus de mèdia que acceptis."
 #: ../actions/profilesettings.php:63 actions/profilesettings.php:96
 #: actions/profilesettings.php:138
 msgid "Timezone"
-msgstr ""
+msgstr "Franja horària"
 
 #: ../actions/profilesettings.php:107 actions/profilesettings.php:222
 #: actions/profilesettings.php:211
 msgid "Timezone not selected."
-msgstr ""
+msgstr "Franja horària no seleccionada."
 
 #: ../actions/remotesubscribe.php:43
 #, php-format
@@ -2345,7 +2408,7 @@ msgstr ""
 #: ../actions/twitapifriendships.php:163 actions/twitapifriendships.php:167
 #: actions/twitapifriendships.php:132
 msgid "Two user ids or screen_names must be supplied."
-msgstr ""
+msgstr "Dos ids d'usuari o screen_names has de ser substituïts."
 
 #: ../actions/profilesettings.php:48 ../actions/register.php:169
 #: actions/profilesettings.php:81 actions/register.php:183
@@ -2376,7 +2439,7 @@ msgstr "Restabliment de contrasenya inesperat."
 
 #: ../index.php:57 index.php:57 actions/recoverpassword.php:202
 msgid "Unknown action"
-msgstr ""
+msgstr "Acció desconeguda"
 
 #: ../actions/finishremotesubscribe.php:58
 #: actions/finishremotesubscribe.php:60 actions/finishremotesubscribe.php:61
@@ -2416,24 +2479,24 @@ msgstr "Format d'imatge no suportat."
 #: ../lib/settingsaction.php:100 lib/settingsaction.php:94
 #: lib/connectsettingsaction.php:108
 msgid "Updates by SMS"
-msgstr ""
+msgstr "Actualitzacions per SMS"
 
 #: ../lib/settingsaction.php:103 lib/settingsaction.php:97
 #: lib/connectsettingsaction.php:105
 msgid "Updates by instant messenger (IM)"
-msgstr ""
+msgstr "Actualitzacions per Missatgeria Instantània"
 
 #: ../actions/twitapistatuses.php:241 actions/twitapistatuses.php:158
 #: actions/twitapistatuses.php:129
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
-msgstr ""
+msgstr "Actualitzacions de %1$s i amics a %2$s!"
 
 #: ../actions/twitapistatuses.php:341 actions/twitapistatuses.php:268
 #: actions/twitapistatuses.php:202
 #, php-format
 msgid "Updates from %1$s on %2$s!"
-msgstr ""
+msgstr "Actualitzacions de %1$s a %2$s!"
 
 #: ../actions/avatar.php:68 actions/profilesettings.php:161
 #: actions/avatarsettings.php:162 actions/grouplogo.php:232
@@ -2454,12 +2517,14 @@ msgstr ""
 
 #: ../lib/settingsaction.php:91
 msgid "Upload a new profile image"
-msgstr ""
+msgstr "Carregar una nova imatge per al perfil"
 
 #: ../actions/invite.php:114 actions/invite.php:121 actions/invite.php:154
 msgid ""
 "Use this form to invite your friends and colleagues to use this service."
 msgstr ""
+"Utilitza aquest formulari per convidar els teus amics i col·legues perquè "
+"utilitzin aquest servei."
 
 #: ../actions/register.php:159 ../actions/register.php:162
 #: actions/register.php:173 actions/register.php:176
@@ -2497,12 +2562,12 @@ msgstr "Sobrenom de l'usuari"
 
 #: ../actions/twitapiusers.php:75 actions/twitapiusers.php:80
 msgid "User not found."
-msgstr ""
+msgstr "No s'ha trobat l'usuari."
 
 #: ../actions/profilesettings.php:63 actions/profilesettings.php:96
 #: actions/profilesettings.php:139
 msgid "What timezone are you normally in?"
-msgstr ""
+msgstr "Quina franja horària seria normal ser?"
 
 #: ../lib/util.php:1159 lib/util.php:1293 lib/noticeform.php:141
 #, php-format
@@ -2532,7 +2597,7 @@ msgstr "Mida d'imatge incorrecta per a '%s'"
 #: actions/block.php:148 actions/deletenotice.php:122
 #: actions/deletenotice.php:141
 msgid "Yes"
-msgstr ""
+msgstr "Sí"
 
 #: ../actions/finishaddopenid.php:64 actions/finishaddopenid.php:64
 #: actions/finishaddopenid.php:112
@@ -2544,6 +2609,8 @@ msgid ""
 "You are about to permanently delete a notice.  Once this is done, it cannot "
 "be undone."
 msgstr ""
+"Estàs a punt d'eliminar permanentment una notificació.  Una vegada ho facis, "
+"no ho podràs desfer."
 
 #: ../actions/recoverpassword.php:31 actions/recoverpassword.php:31
 #: actions/recoverpassword.php:36
@@ -2552,12 +2619,12 @@ msgstr "Ja t'has connectat!"
 
 #: ../actions/invite.php:81 actions/invite.php:88 actions/invite.php:120
 msgid "You are already subscribed to these users:"
-msgstr ""
+msgstr "Ja estàs subscrit a aquests usuaris:"
 
 #: ../actions/twitapifriendships.php:128 actions/twitapifriendships.php:128
 #: actions/twitapifriendships.php:105
 msgid "You are not friends with the specified user."
-msgstr ""
+msgstr "No ets amic dels usuaris que has especificat."
 
 #: ../actions/password.php:27
 msgid "You can change your password here. Choose a good one!"
@@ -2572,6 +2639,8 @@ msgstr "Pots crear un nou compte i començar a enviar avisos."
 #, php-format
 msgid "You can receive SMS messages through email from %%site.name%%."
 msgstr ""
+"Pots rebre missatges SMS a través del teu coreu electrònic des de "
+"%%site.name%%."
 
 #: ../actions/openidsettings.php:86
 msgid ""
@@ -2625,22 +2694,34 @@ msgid ""
 "Faithfully yours,\n"
 "%4$s"
 msgstr ""
+"Tens una nova direcció per publicar a %1$s.\n"
+"\n"
+"Envia un correu electrònic a %2$s per publicar un nou missatge.\n"
+"\n"
+"Més instruccions per al correu electrònic a %3$s.\n"
+"\n"
+"Sincerament teus,\n"
+"%4$s"
 
 #: ../actions/twitapistatuses.php:612 actions/twitapistatuses.php:537
 #: actions/twitapistatuses.php:463
 msgid "You may not delete another user's status."
-msgstr ""
+msgstr "No pots eliminar l'estatus d'un altre usuari."
 
 #: ../actions/invite.php:31 actions/invite.php:31 actions/invite.php:39
 #, php-format
 msgid "You must be logged in to invite other users to use %s"
 msgstr ""
+"Has d'estar dins del servei per poder convidar altres usuaris a utilitzar-lo "
+"%s"
 
 #: ../actions/invite.php:103 actions/invite.php:110 actions/invite.php:142
 msgid ""
 "You will be notified when your invitees accept the invitation and register "
 "on the site. Thanks for growing the community!"
 msgstr ""
+"Seràs avisat quan les teves invitacions siguin acceptades i els teus "
+"convidats es registrin al lloc. Gràcies per fer créixer la comunitat."
 
 #: ../actions/recoverpassword.php:149
 msgid "You've been identified. Enter a  new password below. "
@@ -2713,7 +2794,7 @@ msgstr "fa una hora"
 #: ../actions/showstream.php:423 ../lib/stream.php:132
 #: actions/showstream.php:441 lib/stream.php:99
 msgid "delete"
-msgstr ""
+msgstr "eliminar"
 
 #: ../actions/noticesearch.php:130 ../actions/showstream.php:408
 #: ../lib/stream.php:117 actions/noticesearch.php:136
@@ -2735,12 +2816,11 @@ msgstr "repeteix la contrasenya anterior"
 #: ../actions/twitapistatuses.php:755 actions/twitapistatuses.php:678
 #: actions/twitapistatuses.php:555
 msgid "unsupported file type"
-msgstr ""
+msgstr "tipus de fitxer no suportat"
 
 #: ../lib/util.php:1309 lib/util.php:1443
-#, fuzzy
 msgid "« After"
-msgstr "« Següent"
+msgstr "« Posterior"
 
 #: actions/deletenotice.php:74 actions/disfavor.php:43
 #: actions/emailsettings.php:127 actions/favor.php:45
@@ -2757,66 +2837,71 @@ msgstr "« Següent"
 #: actions/subscribe.php:46 actions/unblock.php:65 actions/unsubscribe.php:43
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
+"Sembla que hi ha hagut un problema amb la teva sessió. Prova-ho de nou, si "
+"us plau."
 
 #: actions/disfavor.php:55 actions/disfavor.php:81
 msgid "This notice is not a favorite!"
-msgstr ""
+msgstr "Aquesta notificació no és un favorit!"
 
 #: actions/disfavor.php:63 actions/disfavor.php:87
 msgid "Could not delete favorite."
-msgstr ""
+msgstr "No pots eliminar favorits."
 
 #: actions/disfavor.php:72 lib/favorform.php:140
 msgid "Favor"
-msgstr ""
+msgstr "Favorit"
 
 #: actions/emailsettings.php:92
 msgid "Send me email when someone adds my notice as a favorite."
 msgstr ""
+"Envia'm un correu electrònic quan algú afegeixi una nota meva com a favorit."
 
 #: actions/emailsettings.php:95 actions/emailsettings.php:163
 msgid "Send me email when someone sends me a private message."
-msgstr ""
+msgstr "Envia'm un correu electrònic quan algú m'envii un missatge privat."
 
 #: actions/favor.php:53 actions/twitapifavorites.php:142 actions/favor.php:81
 #: actions/twitapifavorites.php:118
 msgid "This notice is already a favorite!"
-msgstr ""
+msgstr "Aquesta nota ja és favorita."
 
 #: actions/favor.php:60 actions/twitapifavorites.php:151
 #: classes/Command.php:132 actions/favor.php:86
 #: actions/twitapifavorites.php:125 classes/Command.php:152
 msgid "Could not create favorite."
-msgstr ""
+msgstr "No es pot crear favorit."
 
 #: actions/favor.php:70
 msgid "Disfavor"
-msgstr ""
+msgstr "Desfavorit"
 
 #: actions/favoritesrss.php:60 actions/showfavorites.php:47
 #: actions/favoritesrss.php:100 actions/showfavorites.php:77
 #, php-format
 msgid "%s favorite notices"
-msgstr ""
+msgstr "%s notificacions favorites"
 
 #: actions/favoritesrss.php:64 actions/favoritesrss.php:104
 #, php-format
 msgid "Feed of favorite notices of %s"
-msgstr ""
+msgstr "Feed de notes favorites de %s"
 
 #: actions/inbox.php:28 actions/inbox.php:59
 #, php-format
 msgid "Inbox for %s - page %d"
-msgstr ""
+msgstr "Safata d'entrada per %s - pàgina %d"
 
 #: actions/inbox.php:30 actions/inbox.php:62
 #, php-format
 msgid "Inbox for %s"
-msgstr ""
+msgstr "Safata d'entrada per %s"
 
 #: actions/inbox.php:53 actions/inbox.php:115
 msgid "This is your inbox, which lists your incoming private messages."
 msgstr ""
+"Aquesta és la teva safata d'entrada, que et mostrarà els teus missatges "
+"privats."
 
 #: actions/invite.php:178 actions/invite.php:213
 #, php-format
@@ -2824,95 +2909,99 @@ msgid ""
 "%1$s has invited you to join them on %2$s (%3$s).\n"
 "\n"
 msgstr ""
+"%1$s t'ha convidat a participar a %2$s (%3$s).\n"
+"\n"
 
 #: actions/login.php:104 actions/login.php:235 actions/openidlogin.php:108
 #: actions/register.php:416
 msgid "Automatically login in the future; "
-msgstr ""
+msgstr "Accedir automàticament en el futur; "
 
 #: actions/login.php:122 actions/login.php:264
 msgid "For security reasons, please re-enter your "
-msgstr ""
+msgstr "Per raons de seguretat, si us plau torna a escriure la teva "
 
 #: actions/login.php:126 actions/login.php:268
 msgid "Login with your username and password. "
-msgstr ""
+msgstr "Entra amb el teu usuari i contrasenya. "
 
 #: actions/newmessage.php:58 actions/twitapidirect_messages.php:130
 #: actions/twitapidirect_messages.php:141
 msgid "That's too long. Max message size is 140 chars."
-msgstr ""
+msgstr "És massa llarg. Màxim del missatge és 140 caràcters."
 
 #: actions/newmessage.php:65 actions/newmessage.php:128
 msgid "No recipient specified."
-msgstr ""
+msgstr "No has especificat el destinatari."
 
 #: actions/newmessage.php:68 actions/newmessage.php:113
 #: classes/Command.php:206 actions/newmessage.php:131
 #: actions/newmessage.php:168 classes/Command.php:237
 msgid "You can't send a message to this user."
-msgstr ""
+msgstr "No pots enviar un missatge a aquest usuari."
 
 #: actions/newmessage.php:71 actions/twitapidirect_messages.php:146
 #: classes/Command.php:209 actions/twitapidirect_messages.php:158
 #: classes/Command.php:240
 msgid ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
-msgstr ""
+msgstr "No t'enviïs missatges a tu mateix, simplement dir-te això."
 
 #: actions/newmessage.php:108 actions/microsummary.php:62
 #: actions/newmessage.php:163
 msgid "No such user"
-msgstr ""
+msgstr "Aquest usuari no existeix"
 
 #: actions/newmessage.php:117 actions/newmessage.php:67
 msgid "New message"
-msgstr ""
+msgstr "Nou missatge"
 
 #: actions/noticesearch.php:95 actions/noticesearch.php:146
 msgid "Notice without matching profile"
-msgstr ""
+msgstr "Notificar sense especificar perfil"
 
 #: actions/openidsettings.php:28 actions/openidsettings.php:70
 #, php-format
 msgid "[OpenID](%%doc.openid%%) lets you log into many sites "
-msgstr ""
+msgstr "[OpenID](%%doc.openid%%) et permet accedir a molts llocs web "
 
 #: actions/openidsettings.php:46 actions/openidsettings.php:96
 msgid "If you want to add an OpenID to your account, "
-msgstr ""
+msgstr "Si vols afegit un OpenID al teu compte, "
 
 #: actions/openidsettings.php:74
 msgid "Removing your only OpenID would make it impossible to log in! "
-msgstr ""
+msgstr "Eliminant la teva única OpenID et serà impossible accedir-hi! "
 
 #: actions/openidsettings.php:87 actions/openidsettings.php:143
 msgid "You can remove an OpenID from your account "
-msgstr ""
+msgstr "Pots eliminar un OpenID del teu compte "
 
 #: actions/outbox.php:28 actions/outbox.php:58
 #, php-format
 msgid "Outbox for %s - page %d"
-msgstr ""
+msgstr "Safata de sortida per %s - pàgina %d"
 
 #: actions/outbox.php:30 actions/outbox.php:61
 #, php-format
 msgid "Outbox for %s"
-msgstr ""
+msgstr "Safata de sortida per %s"
 
 #: actions/outbox.php:53 actions/outbox.php:116
 msgid "This is your outbox, which lists private messages you have sent."
 msgstr ""
+"Aquesta és la teva safata de sortida, que et mostrarà els missatges privats "
+"que has enviat."
 
 #: actions/peoplesearch.php:28 actions/peoplesearch.php:52
 #, php-format
 msgid ""
 "Search for people on %%site.name%% by their name, location, or interests. "
-msgstr ""
+msgstr "Cercar gent a %%site.name%% pel seu nom, localització, o interessos. "
 
 #: actions/profilesettings.php:27 actions/profilesettings.php:69
 msgid "You can update your personal profile info here "
-msgstr ""
+msgstr "Pots actualitzar la informació del teu perfil aquí "
 
 #: actions/profilesettings.php:115 actions/remotesubscribe.php:320
 #: actions/userauthorization.php:159 actions/userrss.php:76
@@ -2920,35 +3009,35 @@ msgstr ""
 #: actions/grouplogo.php:177 actions/remotesubscribe.php:367
 #: actions/userauthorization.php:176 actions/userrss.php:82
 msgid "User without matching profile"
-msgstr ""
+msgstr "Usuari sense perfil coincident"
 
 #: actions/recoverpassword.php:91 actions/recoverpassword.php:97
 msgid "This confirmation code is too old. "
-msgstr ""
+msgstr "El codi de confirmació és massa antic. "
 
 #: actions/recoverpassword.php:141 actions/recoverpassword.php:152
 msgid "If you've forgotten or lost your"
-msgstr ""
+msgstr "Si has oblidat o perdut el teu"
 
 #: actions/recoverpassword.php:154 actions/recoverpassword.php:158
 msgid "You've been identified. Enter a "
-msgstr ""
+msgstr "Has estat identificat. Entra "
 
 #: actions/recoverpassword.php:169 actions/recoverpassword.php:188
 msgid "Your nickname on this server, "
-msgstr ""
+msgstr "El teu nom d'usuari en aquest servidor, "
 
 #: actions/recoverpassword.php:271 actions/recoverpassword.php:304
 msgid "Instructions for recovering your password "
-msgstr ""
+msgstr "Instruccions per recuperar la teva contrasenya "
 
 #: actions/recoverpassword.php:327 actions/recoverpassword.php:361
 msgid "New password successfully saved. "
-msgstr ""
+msgstr "La nova contrasenya s'ha guardat satisfactòriament. "
 
 #: actions/register.php:95 actions/register.php:180
 msgid "Password must be 6 or more characters."
-msgstr ""
+msgstr "La contrasenya hauria de ser d'entre 6 a més caràcters."
 
 #: actions/register.php:216
 #, php-format
@@ -2956,102 +3045,105 @@ msgid ""
 "Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may "
 "want to..."
 msgstr ""
+"Felicitats, %s! I benvingut/da a %%%%site.name%%%%. Des d'aquí, potser "
+"vols..."
 
 #: actions/register.php:227
 msgid "(You should receive a message by email momentarily, with "
 msgstr ""
+"(Hauries de rebre un missatge per correu electrònic d'aquí uns moments, amb "
 
 #: actions/remotesubscribe.php:51 actions/remotesubscribe.php:74
 #, php-format
 msgid "To subscribe, you can [login](%%action.login%%),"
-msgstr ""
+msgstr "Per subscriure't, pots [accedir] (%%action.login%%),"
 
 #: actions/showfavorites.php:61 actions/showfavorites.php:145
 #, php-format
 msgid "Feed for favorites of %s"
-msgstr ""
+msgstr "Feed per favorits de %s"
 
 #: actions/showfavorites.php:84 actions/twitapifavorites.php:85
 #: actions/showfavorites.php:202 actions/twitapifavorites.php:59
 msgid "Could not retrieve favorite notices."
-msgstr ""
+msgstr "No s'ha pogut recuperar els avisos de favorits."
 
 #: actions/showmessage.php:33 actions/showmessage.php:81
 msgid "No such message."
-msgstr ""
+msgstr "No existeix el missatge."
 
 #: actions/showmessage.php:42
 msgid "Only the sender and recipient may read this message."
-msgstr ""
+msgstr "Només el remitent i el receptor poden llegir aquest missatge."
 
 #: actions/showmessage.php:61 actions/showmessage.php:108
 #, php-format
 msgid "Message to %1$s on %2$s"
-msgstr ""
+msgstr "Missatge per a %1$s a %2$s"
 
 #: actions/showmessage.php:66 actions/showmessage.php:113
 #, php-format
 msgid "Message from %1$s on %2$s"
-msgstr ""
+msgstr "Missatge de %1$s a %2$s"
 
 #: actions/showstream.php:154
 msgid "Send a message"
-msgstr ""
+msgstr "Enviar un missatge"
 
 #: actions/smssettings.php:312 actions/smssettings.php:464
 #, php-format
 msgid "Mobile carrier for your phone. "
-msgstr ""
+msgstr "Transport per al teu telèfon. "
 
 #: actions/twitapidirect_messages.php:76 actions/twitapidirect_messages.php:68
 #, php-format
 msgid "Direct messages to %s"
-msgstr ""
+msgstr "Missatges directes a %s"
 
 #: actions/twitapidirect_messages.php:77 actions/twitapidirect_messages.php:69
 #, php-format
 msgid "All the direct messages sent to %s"
-msgstr ""
+msgstr "Tots els missatges directes enviats a %s"
 
 #: actions/twitapidirect_messages.php:81 actions/twitapidirect_messages.php:73
 msgid "Direct Messages You've Sent"
-msgstr ""
+msgstr "Missatges directes que has enviat"
 
 #: actions/twitapidirect_messages.php:82 actions/twitapidirect_messages.php:74
 #, php-format
 msgid "All the direct messages sent from %s"
-msgstr ""
+msgstr "Tots els missatges directes enviats per %s"
 
 #: actions/twitapidirect_messages.php:128
 #: actions/twitapidirect_messages.php:137
 msgid "No message text!"
-msgstr ""
+msgstr "No hi ha text al missatge!"
 
 #: actions/twitapidirect_messages.php:138
 #: actions/twitapidirect_messages.php:150
 msgid "Recipient user not found."
-msgstr ""
+msgstr "No has escrit cap usuari receptor."
 
 #: actions/twitapidirect_messages.php:141
 #: actions/twitapidirect_messages.php:153
 msgid "Can't send direct messages to users who aren't your friend."
-msgstr ""
+msgstr "No pots enviar missatges directes a usuaris que no siguin amics teus."
 
 #: actions/twitapifavorites.php:92 actions/twitapifavorites.php:66
 #, php-format
 msgid "%s / Favorites from %s"
-msgstr ""
+msgstr "%s / Favorits de %s"
 
 #: actions/twitapifavorites.php:95 actions/twitapifavorites.php:69
 #, php-format
 msgid "%s updates favorited by %s / %s."
-msgstr ""
+msgstr "%s actualitzacions favorites per %s / %s."
 
 #: actions/twitapifavorites.php:187 lib/mail.php:275
 #: actions/twitapifavorites.php:164 lib/mail.php:553
 #, php-format
 msgid "%s added your notice as a favorite"
-msgstr ""
+msgstr "%s ha afegit la teva nota com a favorita"
 
 #: actions/twitapifavorites.php:188 lib/mail.php:276
 #: actions/twitapifavorites.php:165
@@ -3060,230 +3152,236 @@ msgid ""
 "%1$s just added your notice from %2$s as one of their favorites.\n"
 "\n"
 msgstr ""
+"%1$s acaba d'afegir la teva nota des de %2$s com a favorita.\n"
+"\n"
 
 #: actions/twittersettings.php:27
 msgid ""
 "Add your Twitter account to automatically send your notices to Twitter, "
 msgstr ""
+"Afegit el teu compte Twitter per tal d'enviar automàticament les teves notes "
+"a Twitter, "
 
 #: actions/twittersettings.php:41 actions/twittersettings.php:60
 msgid "Twitter settings"
-msgstr ""
+msgstr "Configuració Twitter"
 
 #: actions/twittersettings.php:48 actions/twittersettings.php:105
 msgid "Twitter Account"
-msgstr ""
+msgstr "Compte Twitter"
 
 #: actions/twittersettings.php:56 actions/twittersettings.php:113
 msgid "Current verified Twitter account."
-msgstr ""
+msgstr "Compte Twitter verificat actualment."
 
 #: actions/twittersettings.php:63
 msgid "Twitter Username"
-msgstr ""
+msgstr "Usuari Twitter"
 
 #: actions/twittersettings.php:65 actions/twittersettings.php:123
 msgid "No spaces, please."
-msgstr ""
+msgstr "No espais, si us plaus."
 
 #: actions/twittersettings.php:67
 msgid "Twitter Password"
-msgstr ""
+msgstr "Contrasenya Twitter"
 
 #: actions/twittersettings.php:72 actions/twittersettings.php:139
 msgid "Automatically send my notices to Twitter."
-msgstr ""
+msgstr "Automàticament envia les meves notes a Twitter."
 
 #: actions/twittersettings.php:75 actions/twittersettings.php:146
 msgid "Send local \"@\" replies to Twitter."
-msgstr ""
+msgstr "Envia respostes locals '@' a Twitter."
 
 #: actions/twittersettings.php:78 actions/twittersettings.php:153
 msgid "Subscribe to my Twitter friends here."
-msgstr ""
+msgstr "Subscriure'm als meus amics de Twitter aquí."
 
 #: actions/twittersettings.php:122
 msgid ""
 "Username must have only numbers, upper- and lowercase letters, and "
 "underscore (_). 15 chars max."
 msgstr ""
+"El nom d'usuari sols pot contenir números, lletres en majúscules i "
+"minúscules, i guions baixos (_). 15 caràcters màxim."
 
 #: actions/twittersettings.php:128 actions/twittersettings.php:334
 msgid "Could not verify your Twitter credentials!"
-msgstr ""
+msgstr "No es poden verificar les teves credencials de Twitter!"
 
 #: actions/twittersettings.php:137
 #, php-format
 msgid "Unable to retrieve account information for \"%s\" from Twitter."
-msgstr ""
+msgstr "No es pot recuperar la informació del compte per \"%s\" de Twitter."
 
 #: actions/twittersettings.php:151 actions/twittersettings.php:170
 #: actions/twittersettings.php:348 actions/twittersettings.php:368
 msgid "Unable to save your Twitter settings!"
-msgstr ""
+msgstr "No s'ha pogut guardar la teva configuració de Twitter!"
 
 #: actions/twittersettings.php:174 actions/twittersettings.php:376
 msgid "Twitter settings saved."
-msgstr ""
+msgstr "Configuració de Twitter guardada."
 
 #: actions/twittersettings.php:192 actions/twittersettings.php:395
 msgid "That is not your Twitter account."
-msgstr ""
+msgstr "Aquest no és el teu compte de Twitter."
 
 #: actions/twittersettings.php:200 actions/twittersettings.php:208
 #: actions/twittersettings.php:403
 msgid "Couldn't remove Twitter user."
-msgstr ""
+msgstr "No es pot eliminar aquest usuari de Twitter."
 
 #: actions/twittersettings.php:212 actions/twittersettings.php:407
 msgid "Twitter account removed."
-msgstr ""
+msgstr "Compte de Twitter eliminat."
 
 #: actions/twittersettings.php:225 actions/twittersettings.php:239
 #: actions/twittersettings.php:428 actions/twittersettings.php:439
 #: actions/twittersettings.php:453
 msgid "Couldn't save Twitter preferences."
-msgstr ""
+msgstr "No es poden guardar les preferències de Twitter."
 
 #: actions/twittersettings.php:245 actions/twittersettings.php:461
 msgid "Twitter preferences saved."
-msgstr ""
+msgstr "Preferències de Twitter guardades."
 
 #: actions/userauthorization.php:84 actions/userauthorization.php:86
 msgid "Please check these details to make sure "
-msgstr ""
+msgstr "Si us plau verifica aquests detalls per estar-ne segur/a "
 
 #: actions/userauthorization.php:324 actions/userauthorization.php:340
 msgid "The subscription has been authorized, but no "
-msgstr ""
+msgstr "La subscripció s'ha autoritzat, però no "
 
 #: actions/userauthorization.php:334 actions/userauthorization.php:351
 msgid "The subscription has been rejected, but no "
-msgstr ""
+msgstr "La subscripció ha estat rebutjada, però no "
 
 #: classes/Channel.php:113 classes/Channel.php:132 classes/Channel.php:151
 msgid "Command results"
-msgstr ""
+msgstr "Resultats de les comandes"
 
 #: classes/Channel.php:148 classes/Channel.php:204
 msgid "Command complete"
-msgstr ""
+msgstr "Comanda completada"
 
 #: classes/Channel.php:158 classes/Channel.php:215
 msgid "Command failed"
-msgstr ""
+msgstr "Comanda fallida"
 
 #: classes/Command.php:39 classes/Command.php:44
 msgid "Sorry, this command is not yet implemented."
-msgstr ""
+msgstr "Perdona, aquesta comanda no està implementada."
 
 #: classes/Command.php:96 classes/Command.php:113
 #, php-format
 msgid "Subscriptions: %1$s\n"
-msgstr ""
+msgstr "Subscripcions: %1$s\n"
 
 #: classes/Command.php:125 classes/Command.php:242 classes/Command.php:145
 #: classes/Command.php:276
 msgid "User has no last notice"
-msgstr ""
+msgstr "L'usuari no té última nota"
 
 #: classes/Command.php:146 classes/Command.php:166
 msgid "Notice marked as fave."
-msgstr ""
+msgstr "Nota marcada com a favorita."
 
 #: classes/Command.php:166 classes/Command.php:189
 #, php-format
 msgid "%1$s (%2$s)"
-msgstr ""
+msgstr "%1$s (%2$s)"
 
 #: classes/Command.php:169 classes/Command.php:192
 #, php-format
 msgid "Fullname: %s"
-msgstr ""
+msgstr "Nom complet: %s"
 
 #: classes/Command.php:172 classes/Command.php:195
 #, php-format
 msgid "Location: %s"
-msgstr ""
+msgstr "Localització: %s"
 
 #: classes/Command.php:175 classes/Command.php:198
 #, php-format
 msgid "Homepage: %s"
-msgstr ""
+msgstr "Pàgina web: %s"
 
 #: classes/Command.php:178 classes/Command.php:201
 #, php-format
 msgid "About: %s"
-msgstr ""
+msgstr "Sobre tu: %s"
 
 #: classes/Command.php:200 classes/Command.php:228
 #, php-format
 msgid "Message too long - maximum is 140 characters, you sent %d"
-msgstr ""
+msgstr "Missatge massa llarg - màxim és 140 caràcters, tu has enviat %d"
 
 #: classes/Command.php:214 classes/Command.php:245
 #, php-format
 msgid "Direct message to %s sent"
-msgstr ""
+msgstr "Missatge directe per a %s enviat"
 
 #: classes/Command.php:216 classes/Command.php:247
 msgid "Error sending direct message."
-msgstr ""
+msgstr "Error al enviar el missatge directe."
 
 #: classes/Command.php:263 classes/Command.php:300
 msgid "Specify the name of the user to subscribe to"
-msgstr ""
+msgstr "Especifica el nom de l'usuari a que vols subscriure't"
 
 #: classes/Command.php:270 classes/Command.php:307
 #, php-format
 msgid "Subscribed to %s"
-msgstr ""
+msgstr "Subscrit a %s"
 
 #: classes/Command.php:288 classes/Command.php:328
 msgid "Specify the name of the user to unsubscribe from"
-msgstr ""
+msgstr "Especifica el nom de l'usuari del que vols deixar d'estar subscrit"
 
 #: classes/Command.php:295 classes/Command.php:335
 #, php-format
 msgid "Unsubscribed from %s"
-msgstr ""
+msgstr "Has deixat d'estar subscrit a %s"
 
 #: classes/Command.php:310 classes/Command.php:330 classes/Command.php:353
 #: classes/Command.php:376
 msgid "Command not yet implemented."
-msgstr ""
+msgstr "Comanda encara no implementada."
 
 #: classes/Command.php:313 classes/Command.php:356
 msgid "Notification off."
-msgstr ""
+msgstr "Notificacions off."
 
 #: classes/Command.php:315 classes/Command.php:358
 msgid "Can't turn off notification."
-msgstr ""
+msgstr "No es poden posar en off les notificacions."
 
 #: classes/Command.php:333 classes/Command.php:379
 msgid "Notification on."
-msgstr ""
+msgstr "Notificacions on."
 
 #: classes/Command.php:335 classes/Command.php:381
 msgid "Can't turn on notification."
-msgstr ""
+msgstr "No es poden posar en on les notificacions."
 
 #: classes/Command.php:344 classes/Command.php:392
 msgid "Commands:\n"
-msgstr ""
+msgstr "Comandes:\n"
 
 #: classes/Message.php:53 classes/Message.php:56
 msgid "Could not insert message."
-msgstr ""
+msgstr "No s'ha pogut inserir el missatge."
 
 #: classes/Message.php:63 classes/Message.php:66
 msgid "Could not update message with new URI."
-msgstr ""
+msgstr "No s'ha pogut inserir el missatge amb la nova URI."
 
 #: lib/gallery.php:46
 msgid "User without matching profile in system."
-msgstr ""
+msgstr "L'usuari no té cap perfil que coincideixi en aquest sistema."
 
 #: lib/mail.php:147 lib/mail.php:289
 #, php-format
@@ -3291,11 +3389,13 @@ msgid ""
 "You have a new posting address on %1$s.\n"
 "\n"
 msgstr ""
+"Tens una nova direcció per publicar a %1$s.\n"
+"\n"
 
 #: lib/mail.php:249 lib/mail.php:508
 #, php-format
 msgid "New private message from %s"
-msgstr ""
+msgstr "Nou missatge privat de %s"
 
 #: lib/mail.php:253 lib/mail.php:512
 #, php-format
@@ -3303,88 +3403,89 @@ msgid ""
 "%1$s (%2$s) sent you a private message:\n"
 "\n"
 msgstr ""
+"%1$s (%2$s) t'ha enviat un nou missatge privat:\n"
+"\n"
 
 #: lib/mailbox.php:43 lib/mailbox.php:89
 msgid "Only the user can read their own mailboxes."
-msgstr ""
+msgstr "Només l'usuari pot llegir les seves safates de correu."
 
 #: lib/openid.php:195 lib/openid.php:203
 msgid "This form should automatically submit itself. "
-msgstr ""
+msgstr "Aquest formulari s'ha d'enviar automàticament. "
 
 #: lib/personal.php:65 lib/personalgroupnav.php:113
 msgid "Favorites"
-msgstr ""
+msgstr "Favorits"
 
 #: lib/personal.php:66 lib/personalgroupnav.php:114
 #, php-format
 msgid "%s's favorite notices"
-msgstr ""
+msgstr "%s's notes favorites"
 
 #: lib/personal.php:66 lib/personalgroupnav.php:114
 msgid "User"
-msgstr ""
+msgstr "Usuari"
 
 #: lib/personal.php:75 lib/personalgroupnav.php:123
 msgid "Inbox"
-msgstr ""
+msgstr "Safata d'entrada"
 
 #: lib/personal.php:76 lib/personalgroupnav.php:124
 msgid "Your incoming messages"
-msgstr ""
+msgstr "Els teus missatges rebuts"
 
 #: lib/personal.php:80 lib/personalgroupnav.php:128
 msgid "Outbox"
-msgstr ""
+msgstr "Safata de sortida"
 
 #: lib/personal.php:81 lib/personalgroupnav.php:129
 msgid "Your sent messages"
-msgstr ""
+msgstr "Els teus missatges enviats"
 
 #: lib/settingsaction.php:99 lib/connectsettingsaction.php:110
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #: lib/settingsaction.php:100 lib/connectsettingsaction.php:111
 msgid "Twitter integration options"
-msgstr ""
+msgstr "Opcions d'integració amb Twitter"
 
 #: lib/util.php:1718 lib/messageform.php:139 lib/noticelist.php:422
 msgid "To"
-msgstr ""
+msgstr "A"
 
 #: scripts/maildaemon.php:45 scripts/maildaemon.php:48
 msgid "Could not parse message."
-msgstr ""
+msgstr "No es pot analitzar el missatge."
 
 #: actions/all.php:63 actions/facebookhome.php:162
-#, fuzzy, php-format
+#, php-format
 msgid "%s and friends, page %d"
-msgstr "%s i amics"
+msgstr "%s i amics, pàgina %d"
 
 #: actions/avatarsettings.php:76
 msgid "You can upload your personal avatar."
-msgstr ""
+msgstr "Pots pujar el teu avatar personal."
 
 #: actions/avatarsettings.php:117 actions/avatarsettings.php:191
 #: actions/grouplogo.php:250
-#, fuzzy
 msgid "Avatar settings"
-msgstr "Configuració"
+msgstr "Configuració de l'avatar"
 
 #: actions/avatarsettings.php:124 actions/avatarsettings.php:199
 #: actions/grouplogo.php:198 actions/grouplogo.php:258
 msgid "Original"
-msgstr ""
+msgstr "Original"
 
 #: actions/avatarsettings.php:139 actions/avatarsettings.php:211
 #: actions/grouplogo.php:209 actions/grouplogo.php:270
 msgid "Preview"
-msgstr ""
+msgstr "Previsualitzar"
 
 #: actions/avatarsettings.php:225 actions/grouplogo.php:284
 msgid "Crop"
-msgstr ""
+msgstr "Crop"
 
 #: actions/avatarsettings.php:248 actions/deletenotice.php:133
 #: actions/emailsettings.php:224 actions/grouplogo.php:307
@@ -3396,595 +3497,563 @@ msgstr ""
 #: actions/subedit.php:38 actions/twittersettings.php:290
 #: actions/userauthorization.php:39
 msgid "There was a problem with your session token. "
-msgstr ""
+msgstr "Ha ocorregut un error amb la teva sessió. "
 
 #: actions/avatarsettings.php:303 actions/grouplogo.php:360
 msgid "Pick a square area of the image to be your avatar"
 msgstr ""
+"Selecciona un quadrat de l'àrea de la imatge que vols que sigui el teu "
+"avatar."
 
 #: actions/avatarsettings.php:327 actions/grouplogo.php:384
 msgid "Lost our file data."
-msgstr ""
+msgstr "S'ha perdut el nostre fitxer de dades."
 
 #: actions/avatarsettings.php:334 actions/grouplogo.php:391
 #: classes/User_group.php:112
-#, fuzzy
 msgid "Lost our file."
-msgstr "No existeix aquest avís."
+msgstr "Hem perdut el nostre arxiu."
 
 #: actions/avatarsettings.php:349 actions/avatarsettings.php:383
 #: actions/grouplogo.php:406 actions/grouplogo.php:440
 #: classes/User_group.php:129 classes/User_group.php:161
 msgid "Unknown file type"
-msgstr ""
+msgstr "Tipus de fitxer desconegut"
 
 #: actions/block.php:69 actions/subedit.php:46 actions/unblock.php:70
 msgid "No profile specified."
-msgstr ""
+msgstr "No s'ha especificat perfil."
 
 #: actions/block.php:74 actions/subedit.php:53 actions/tagother.php:46
 #: actions/unblock.php:75
 msgid "No profile with that ID."
-msgstr ""
+msgstr "No hi ha cap perfil amb aquesta ID."
 
 #: actions/block.php:111
-#, fuzzy
 msgid "Block user"
-msgstr "No existeix aquest usuari."
+msgstr "Usuari bloquejat."
 
 #: actions/block.php:129
 msgid "Are you sure you want to block this user? "
-msgstr ""
+msgstr "N'estàs segur/a que vols bloquejar aquest usuari? "
 
 #: actions/block.php:162
-#, fuzzy
 msgid "You have already blocked this user."
-msgstr "Ja t'has connectat!"
+msgstr "Ja havies bloquejat aquest usuari."
 
 #: actions/block.php:167
 msgid "Failed to save block information."
-msgstr ""
+msgstr "Error al guardar la informació del block."
 
 #: actions/confirmaddress.php:159
-#, fuzzy, php-format
+#, php-format
 msgid "The address \"%s\" has been "
-msgstr "L'adreça ha estat eliminada."
+msgstr "L'adreça \"%s\" ha estat eliminada "
 
 #: actions/deletenotice.php:73
 msgid "You are about to permanently delete a notice. "
-msgstr ""
+msgstr "Estàs a punt d'eliminar permanentment una notificació. "
 
 #: actions/disfavor.php:94
 msgid "Add to favorites"
-msgstr ""
+msgstr "Afegir a favorits"
 
 #: actions/editgroup.php:54
 #, php-format
 msgid "Edit %s group"
-msgstr ""
+msgstr "Editar el grup %s"
 
 #: actions/editgroup.php:66 actions/groupbyid.php:72 actions/grouplogo.php:66
 #: actions/joingroup.php:60 actions/newgroup.php:65 actions/showgroup.php:100
 msgid "Inboxes must be enabled for groups to work"
-msgstr ""
+msgstr "La safata d'entrada ha d'estar habilitat per als grups de treball"
 
 #: actions/editgroup.php:71 actions/grouplogo.php:71 actions/newgroup.php:70
 msgid "You must be logged in to create a group."
-msgstr ""
+msgstr "Has d'haver entrat per crear un grup."
 
 #: actions/editgroup.php:87 actions/grouplogo.php:87
 #: actions/groupmembers.php:76 actions/joingroup.php:81
 #: actions/showgroup.php:121
-#, fuzzy
 msgid "No nickname"
 msgstr "Cap sobrenom."
 
 #: actions/editgroup.php:99 actions/groupbyid.php:88 actions/grouplogo.php:100
 #: actions/groupmembers.php:83 actions/joingroup.php:88
 #: actions/showgroup.php:128
-#, fuzzy
 msgid "No such group"
-msgstr "No existeix aquest avís."
+msgstr "No existeix tal grup"
 
 #: actions/editgroup.php:106 actions/editgroup.php:165
 #: actions/grouplogo.php:107
 msgid "You must be an admin to edit the group"
-msgstr ""
+msgstr "Has de ser admin per editar aquest grup"
 
 #: actions/editgroup.php:157
 msgid "Use this form to edit the group."
-msgstr ""
+msgstr "Utilitza aquest formulari per editar el grup."
 
 #: actions/editgroup.php:179 actions/newgroup.php:130 actions/register.php:156
-#, fuzzy
 msgid "Nickname must have only lowercase letters "
 msgstr ""
 "El sobrenom ha de tenir només lletres minúscules i números i no pot tenir "
-"espais."
+"espais. "
 
 #: actions/editgroup.php:198 actions/newgroup.php:149
-#, fuzzy
 msgid "description is too long (max 140 chars)."
-msgstr "La biografia és massa llarga (màx. 140 caràcters)."
+msgstr "la descripció és massa llarga (màx. 140 caràcters)."
 
 #: actions/editgroup.php:218
-#, fuzzy
 msgid "Could not update group."
-msgstr "No s'ha pogut actualitzar l'usuari."
+msgstr "No s'ha pogut actualitzar el grup."
 
 #: actions/editgroup.php:226
-#, fuzzy
 msgid "Options saved."
 msgstr "Configuració guardada."
 
 #: actions/emailsettings.php:107 actions/imsettings.php:108
-#, fuzzy, php-format
+#, php-format
 msgid "Awaiting confirmation on this address. "
-msgstr "Error amb el codi de confirmació."
+msgstr "Esperant el codi de confirmació en aquesta direcció. "
 
 #: actions/emailsettings.php:139 actions/smssettings.php:150
 msgid "Make a new email address for posting to; "
-msgstr ""
+msgstr "Indicar una nova direcció de correu electrònic per publicar; "
 
 #: actions/emailsettings.php:157
 msgid "Send me email when someone "
-msgstr ""
+msgstr "Envia'm un correu electrònic quan algú "
 
 #: actions/emailsettings.php:168
 msgid "Allow friends to nudge me and send me an email."
-msgstr ""
+msgstr "Permetre que els amics em reclamin i m'enviïn un correu electrònic."
 
 #: actions/emailsettings.php:321
-#, fuzzy
 msgid "That email address already belongs "
-msgstr "L'adreça de correu electrònic ja existeix."
+msgstr "L'adreça de correu electrònic ja pertany "
 
 #: actions/emailsettings.php:343
-#, fuzzy
 msgid "A confirmation code was sent to the email address you added. "
 msgstr ""
 "S'ha enviat un codi de confirmació a l'adreça de missatgeria instantània que "
-"has afegit. Has d'acceptar que %s et pugui enviar missatges."
+"has afegit. "
 
 #: actions/facebookhome.php:110
 msgid "Server error - couldn't get user!"
-msgstr ""
+msgstr "Error del servidor - no es pot obtenir l'usuari!"
 
 #: actions/facebookhome.php:196
 #, php-format
 msgid "If you would like the %s app to automatically update "
-msgstr ""
+msgstr "Si vols l'aplicació %s per actualitzar automàticament "
 
 #: actions/facebookhome.php:213 actions/facebooksettings.php:137
 #, php-format
 msgid "Allow %s to update my Facebook status"
-msgstr ""
+msgstr "Permetre %s actualitzar el meu estat a Facebook"
 
 #: actions/facebookhome.php:218
 msgid "Skip"
-msgstr ""
+msgstr "Saltar"
 
 #: actions/facebookhome.php:235
-#, fuzzy
 msgid "No notice content!"
 msgstr "Cap contingut!"
 
 #: actions/facebookhome.php:295 lib/action.php:870 lib/facebookaction.php:399
 msgid "Pagination"
-msgstr ""
+msgstr "Paginació"
 
 #: actions/facebookhome.php:304 lib/action.php:879 lib/facebookaction.php:408
-#, fuzzy
 msgid "After"
-msgstr "« Següent"
+msgstr "Posteriors"
 
 #: actions/facebookhome.php:312 lib/action.php:887 lib/facebookaction.php:416
-#, fuzzy
 msgid "Before"
-msgstr "Anterior »"
+msgstr "Anteriors"
 
 #: actions/facebookinvite.php:70
 #, php-format
 msgid "Thanks for inviting your friends to use %s"
-msgstr ""
+msgstr "Gràcies per convidar els teus amics a utilitzar %s"
 
 #: actions/facebookinvite.php:72
 msgid "Invitations have been sent to the following users:"
-msgstr ""
+msgstr "Les invitacions han estat enviades als següents usuaris:"
 
 #: actions/facebookinvite.php:96
 #, php-format
 msgid "You have been invited to %s"
-msgstr ""
+msgstr "Has estat convidat a %s"
 
 #: actions/facebookinvite.php:105
-#, fuzzy, php-format
+#, php-format
 msgid "Invite your friends to use %s"
-msgstr "Feed per a amics de %s"
+msgstr "Convidar els teus amics a utilitzar %s"
 
 #: actions/facebookinvite.php:113
 #, php-format
 msgid "Friends already using %s:"
-msgstr ""
+msgstr "Amics ja utilitzant %s:"
 
 #: actions/facebookinvite.php:130
 #, php-format
 msgid "Send invitations"
-msgstr ""
+msgstr "Enviar invitacions"
 
 #: actions/facebookremove.php:56
-#, fuzzy
 msgid "Couldn't remove Facebook user."
-msgstr "No s'ha pogut actualitzar l'usuari."
+msgstr "No s'ha pogut eliminar l'usuari de Facebook."
 
 #: actions/facebooksettings.php:65
 msgid "There was a problem saving your sync preferences!"
-msgstr ""
+msgstr "Ha ocorregut un problema al guardar les preferències de sincronització!"
 
 #: actions/facebooksettings.php:67
-#, fuzzy
 msgid "Sync preferences saved."
-msgstr "Preferències guardades."
+msgstr "Preferències de sincronització guardades."
 
 #: actions/facebooksettings.php:90
 msgid "Automatically update my Facebook status with my notices."
 msgstr ""
+"Actualitzar automàticament el meu estat a Facebook amb les meves "
+"notificacions."
 
 #: actions/facebooksettings.php:97
 msgid "Send \"@\" replies to Facebook."
-msgstr ""
+msgstr "Envia \"@\" respostes a Facebook."
 
 #: actions/facebooksettings.php:106
-#, fuzzy
 msgid "Prefix"
-msgstr "Perfil"
+msgstr "Prefix"
 
 #: actions/facebooksettings.php:108
 msgid "A string to prefix notices with."
-msgstr ""
+msgstr "La frase que serveixi de prefix a les notes."
 
 #: actions/facebooksettings.php:124
 #, php-format
 msgid "If you would like %s to automatically update "
-msgstr ""
+msgstr "Si vols que %s s'actualitzi automàticament "
 
 #: actions/facebooksettings.php:147
-#, fuzzy
 msgid "Sync preferences"
-msgstr "Preferències"
+msgstr "Preferències de sincronització"
 
 #: actions/favor.php:94 lib/disfavorform.php:140
 msgid "Disfavor favorite"
-msgstr ""
+msgstr "Desfavoritar favorit"
 
 #: actions/favorited.php:65 lib/popularnoticesection.php:76
 #: lib/publicgroupnav.php:91
-#, fuzzy
 msgid "Popular notices"
-msgstr "No existeix aquest avís."
+msgstr "Notificacions populars"
 
 #: actions/favorited.php:67
-#, fuzzy, php-format
+#, php-format
 msgid "Popular notices, page %d"
-msgstr "No existeix aquest avís."
+msgstr "Notificacions populars, pàgina %d"
 
 #: actions/favorited.php:79
 msgid "The most popular notices on the site right now."
-msgstr ""
+msgstr "Les notificacions més populars en aquest lloc ara mateix."
 
 #: actions/featured.php:69 lib/featureduserssection.php:82
 #: lib/publicgroupnav.php:87
 msgid "Featured users"
-msgstr ""
+msgstr "Usuaris destacats"
 
 #: actions/featured.php:71
 #, php-format
 msgid "Featured users, page %d"
-msgstr ""
+msgstr "Usuaris destacats, pàgina %d"
 
 #: actions/featured.php:99
 #, php-format
 msgid "A selection of some of the great users on %s"
-msgstr ""
+msgstr "Una selecció d'alguns dels millors usuaris a %s"
 
 #: actions/finishremotesubscribe.php:188
 msgid "That user has blocked you from subscribing."
-msgstr ""
+msgstr "Aquest usuari t'ha bloquejat com a subscriptor."
 
 #: actions/groupbyid.php:79
 msgid "No ID"
-msgstr ""
+msgstr "No ID"
 
 #: actions/grouplogo.php:138 actions/grouplogo.php:191
 msgid "Group logo"
-msgstr ""
+msgstr "Logo del grup"
 
 #: actions/grouplogo.php:149
 msgid "You can upload a logo image for your group."
-msgstr ""
+msgstr "Pots pujar una imatge de logo per al grup."
 
 #: actions/grouplogo.php:448
-#, fuzzy
 msgid "Logo updated."
-msgstr "Avatar actualitzat."
+msgstr "Logo actualitzat."
 
 #: actions/grouplogo.php:450
-#, fuzzy
 msgid "Failed updating logo."
-msgstr "Error en actualitzar avatar."
+msgstr "Error en actualitzar logo."
 
 #: actions/groupmembers.php:93 lib/groupnav.php:91
 #, php-format
 msgid "%s group members"
-msgstr ""
+msgstr "%s membre/s en el grup"
 
 #: actions/groupmembers.php:96
 #, php-format
 msgid "%s group members, page %d"
-msgstr ""
+msgstr "%s membre/s en el grup, pàgina %d"
 
 #: actions/groupmembers.php:111
 msgid "A list of the users in this group."
-msgstr ""
+msgstr "La llista dels usuaris d'aquest grup."
 
 #: actions/groups.php:62 actions/showstream.php:518 lib/publicgroupnav.php:79
 #: lib/subgroupnav.php:96
 msgid "Groups"
-msgstr ""
+msgstr "Grups"
 
 #: actions/groups.php:64
 #, php-format
 msgid "Groups, page %d"
-msgstr ""
+msgstr "Grups, pàgina %d"
 
 #: actions/groups.php:90
 #, php-format
 msgid "%%%%site.name%%%% groups let you find and talk with "
-msgstr ""
+msgstr "%%%%site.name%%%% grups amb qui pots trobar i parlar "
 
 #: actions/groups.php:106 actions/usergroups.php:124 lib/groupeditform.php:123
-#, fuzzy
 msgid "Create a new group"
-msgstr "Crear nou compte"
+msgstr "Crear nou grup"
 
 #: actions/groupsearch.php:57
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Search for groups on %%site.name%% by their name, location, or description. "
-msgstr ""
-"Troba gent a %%site.name%% per nom, ubicació o interessos. Separa els termes "
-"de cerca amb espais; han de ser majors a 3 caràcters."
+msgstr "Troba grups a %%site.name%% per nom, ubicació o descripció. "
 
 #: actions/groupsearch.php:63
-#, fuzzy
 msgid "Group search"
-msgstr "Cerca de gent"
+msgstr "Cercar grup"
 
 #: actions/imsettings.php:70
 msgid "You can send and receive notices through "
-msgstr ""
+msgstr "Pots enviar i rebre notificacions a través de "
 
 #: actions/imsettings.php:120
 #, php-format
 msgid "Jabber or GTalk address, "
-msgstr ""
+msgstr "Adreça Jabber o GTalk, "
 
 #: actions/imsettings.php:147
-#, fuzzy
 msgid "Send me replies through Jabber/GTalk "
 msgstr "Enviar-me avisos per Jabber/GTalk."
 
 #: actions/imsettings.php:321
-#, fuzzy, php-format
+#, php-format
 msgid "A confirmation code was sent "
-msgstr "Cap codi de confirmació."
+msgstr "Un codi de confirmació ha estat enviat "
 
 #: actions/joingroup.php:65
 msgid "You must be logged in to join a group."
-msgstr ""
+msgstr "Has d'haver entrat per participar en un grup."
 
 #: actions/joingroup.php:95
-#, fuzzy
 msgid "You are already a member of that group"
-msgstr "Ja t'has connectat!"
+msgstr "Ja ets membre d'aquest grup"
 
 #: actions/joingroup.php:128
-#, fuzzy, php-format
+#, php-format
 msgid "Could not join user %s to group %s"
-msgstr "No s'ha pogut redirigir al servidor: %s"
+msgstr "No s'ha pogut afegir l'usuari %s al grup %s"
 
 #: actions/joingroup.php:135
 #, php-format
 msgid "%s joined group %s"
-msgstr ""
+msgstr "%s s'ha pogut afegir al grup %s"
 
 #: actions/leavegroup.php:60
 msgid "Inboxes must be enabled for groups to work."
 msgstr ""
+"Les safates d'entrada han d'estar activades per entrar a formar part dels "
+"grups."
 
 #: actions/leavegroup.php:65
 msgid "You must be logged in to leave a group."
-msgstr ""
+msgstr "Has d'haver entrat per a poder marxar d'un grup."
 
 #: actions/leavegroup.php:88
-#, fuzzy
 msgid "No such group."
-msgstr "No existeix aquest avís."
+msgstr "No s'ha trobat el grup."
 
 #: actions/leavegroup.php:95
-#, fuzzy
 msgid "You are not a member of that group."
-msgstr "No ens vas enviar aquest perfil"
+msgstr "No ets membre d'aquest grup."
 
 #: actions/leavegroup.php:100
 msgid "You may not leave a group while you are its administrator."
-msgstr ""
+msgstr "No pots abandonar aquest grup mentre en sigui l'administrador."
 
 #: actions/leavegroup.php:130
 msgid "Could not find membership record."
-msgstr ""
+msgstr "No s'han trobat registres dels membres."
 
 #: actions/leavegroup.php:138
-#, fuzzy, php-format
+#, php-format
 msgid "Could not remove user %s to group %s"
-msgstr "No s'ha pogut crear el formulari OpenID: %s"
+msgstr "No s'ha pogut eliminar l'usuari %s del grup %s"
 
 #: actions/leavegroup.php:145
 #, php-format
 msgid "%s left group %s"
-msgstr ""
+msgstr "%s ha abandonat el grup %s"
 
 #: actions/login.php:225 lib/facebookaction.php:304
 msgid "Login to site"
-msgstr ""
+msgstr "Accedir al lloc"
 
 #: actions/microsummary.php:69
 msgid "No current status"
-msgstr ""
+msgstr "No té cap estatus ara mateix"
 
 #: actions/newgroup.php:53
 msgid "New group"
-msgstr ""
+msgstr "Nou grup"
 
 #: actions/newgroup.php:115
 msgid "Use this form to create a new group."
-msgstr ""
+msgstr "Utilitza aquest formulari per crear un nou grup."
 
 #: actions/newgroup.php:177
-#, fuzzy
 msgid "Could not create group."
-msgstr "No s'ha pogut guardar la informació de l'avatar"
+msgstr "No s'ha pogut crear el grup."
 
 #: actions/newgroup.php:191
-#, fuzzy
 msgid "Could not set group membership."
-msgstr "No s'ha pogut crear la subscripció."
+msgstr "No s'ha pogut establir la pertinença d'aquest grup."
 
 #: actions/newmessage.php:119 actions/newnotice.php:132
-#, fuzzy
 msgid "That's too long. "
-msgstr "Aquest fitxer és massa gran."
+msgstr "Això és massa llarg. "
 
 #: actions/newmessage.php:134
 msgid "Don't send a message to yourself; "
-msgstr ""
+msgstr "No t'enviïs missatges a tu mateix; "
 
 #: actions/newnotice.php:166
-#, fuzzy
 msgid "Notice posted"
-msgstr "Avisos"
+msgstr "Notificació publicada"
 
 #: actions/newnotice.php:200 classes/Channel.php:163
 msgid "Ajax Error"
-msgstr ""
+msgstr "Ajax Error"
 
 #: actions/nudge.php:85
 msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set his email yet."
 msgstr ""
+"Aquest usuari no permet reclamacions o no ha confirmar encara cap correu "
+"electrònic."
 
 #: actions/nudge.php:94
 msgid "Nudge sent"
-msgstr ""
+msgstr "Reclamació enviada"
 
 #: actions/nudge.php:97
 msgid "Nudge sent!"
-msgstr ""
+msgstr "Reclamació enviada!"
 
 #: actions/openidlogin.php:97
-#, fuzzy
 msgid "OpenID login"
 msgstr "Accés OpenID"
 
 #: actions/openidsettings.php:128
-#, fuzzy
 msgid "Removing your only OpenID "
 msgstr "Eliminar OpenID"
 
 #: actions/othersettings.php:60
-#, fuzzy
 msgid "Other Settings"
-msgstr "Configuració"
+msgstr "Altres configuracions"
 
 #: actions/othersettings.php:71
 msgid "Manage various other options."
-msgstr ""
+msgstr "Gestionar altres vàries opcions."
 
 #: actions/othersettings.php:93
 msgid "URL Auto-shortening"
-msgstr ""
+msgstr "Auto-escurçament de la URL"
 
 #: actions/othersettings.php:112
-#, fuzzy
 msgid "Service"
-msgstr "Cercar"
+msgstr "Servei"
 
 #: actions/othersettings.php:113
 msgid "Automatic shortening service to use."
-msgstr ""
+msgstr "Servei d'auto-escurçament a utilitzar."
 
 #: actions/othersettings.php:144
-#, fuzzy
 msgid "URL shortening service is too long (max 50 chars)."
-msgstr "La ubicació és massa llarga (màx. 255 caràcters)."
+msgstr "El servei d'auto-escurçament d'URL és massa llarga (màx. 50 caràcters)."
 
 #: actions/passwordsettings.php:69
-#, fuzzy
 msgid "Change your password."
 msgstr "Canviar contrasenya"
 
 #: actions/passwordsettings.php:89
-#, fuzzy
 msgid "Password change"
-msgstr "Contrasenya guardada."
+msgstr "Contrasenya canviada."
 
 #: actions/peopletag.php:35
-#, fuzzy, php-format
+#, php-format
 msgid "Not a valid people tag: %s"
-msgstr "Adreça de correu electrònic no vàlida."
+msgstr "Etiqueta no vàlida per a la gent: %s"
 
 #: actions/peopletag.php:47
 #, php-format
 msgid "Users self-tagged with %s - page %d"
-msgstr ""
+msgstr "Usuaris que s'han etiquetat %s - pàgina %d"
 
 #: actions/peopletag.php:91
 #, php-format
 msgid "These are users who have tagged themselves \"%s\" "
-msgstr ""
+msgstr "Aquests són usuaris que s'han etiquetat ells mateixos \"%s\" "
 
 #: actions/profilesettings.php:91
-#, fuzzy
 msgid "Profile information"
-msgstr "Perfil desconegut"
+msgstr "Informació del perfil"
 
 #: actions/profilesettings.php:124
 msgid ""
 "Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
 msgstr ""
+"Etiquetes per a tu mateix (lletres, números, -, ., i _), per comes o separat "
+"por espais"
 
 #: actions/profilesettings.php:144
 msgid "Automatically subscribe to whoever "
-msgstr ""
+msgstr "Automàticament subscriure's a tothom "
 
 #: actions/profilesettings.php:229 actions/tagother.php:176
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid tag: \"%s\""
-msgstr "La pàgina personal '%s' és invàlida"
+msgstr "Etiqueta no vàlida: \"%s\""
 
 #: actions/profilesettings.php:311
-#, fuzzy
 msgid "Couldn't save tags."
-msgstr "No s'ha pogut guardar el perfil."
+msgstr "No s'han pogut guardar les etiquetes."
 
 #: actions/public.php:107
-#, fuzzy, php-format
+#, php-format
 msgid "Public timeline, page %d"
-msgstr "Línia temporal pública"
+msgstr "Línia temporal pública, pàgina %d"
 
 #: actions/public.php:173
 msgid "Could not retrieve public stream."
-msgstr ""
+msgstr "No s'ha pogut recuperar la conversa pública."
 
 #: actions/public.php:220
 #, php-format
@@ -3992,140 +4061,128 @@ msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
 "blogging) service "
 msgstr ""
+"Això és %%site.name%%, un servei de "
+"[microblogging](http://ca.wikipedia.org/wiki/Microblogging) "
 
 #: actions/publictagcloud.php:57
-#, fuzzy
 msgid "Public tag cloud"
-msgstr "Feed del flux públic"
+msgstr "Núvol públic d'etiquetes"
 
 #: actions/publictagcloud.php:63
 #, php-format
 msgid "These are most popular recent tags on %s "
-msgstr ""
+msgstr "Aquestes són les etiquetes recents més populars a %s "
 
 #: actions/publictagcloud.php:119
 msgid "Tag cloud"
-msgstr ""
+msgstr "Núvol d'etiquetes"
 
 #: actions/register.php:139 actions/register.php:349
 msgid "Sorry, only invited people can register."
-msgstr ""
+msgstr "Ho senti, però només la gent convidada pot registrar-se."
 
 #: actions/register.php:149
-#, fuzzy
 msgid "You can't register if you don't "
-msgstr "No pots registrar-te si no estàs d'acord amb la llicència."
+msgstr "No pots registrar-te si no "
 
 #: actions/register.php:286
 msgid "With this form you can create "
-msgstr ""
+msgstr "Amb aquest formulari pots crear "
 
 #: actions/register.php:368
-#, fuzzy
 msgid "1-64 lowercase letters or numbers, "
 msgstr ""
-"1-64 lletres en minúscula o números, sense signes de puntuació o espais"
+"1-64 lletres en minúscula o números, sense signes de puntuació o espais, "
 
 #: actions/register.php:382 actions/register.php:386
-#, fuzzy
 msgid "Used only for updates, announcements, "
-msgstr ""
-"Utilitzat només per a actualitzacions, anuncis i recuperació de contrasenyes"
+msgstr "Utilitzat només per a actualitzacions, anuncis, "
 
 #: actions/register.php:398
-#, fuzzy
 msgid "URL of your homepage, blog, "
-msgstr "URL del teu web, blog o perfil en un altre lloc"
+msgstr "URL del teu web, blog o perfil en un altre lloc, "
 
 #: actions/register.php:404
-#, fuzzy
 msgid "Describe yourself and your "
-msgstr "Explica'ns alguna cosa sobre tu i els teus interessos en 140 caràcters"
+msgstr "Explica'ns alguna cosa sobre tu "
 
 #: actions/register.php:410
-#, fuzzy
 msgid "Where you are, like \"City, "
-msgstr "On ets, per exemple \"Ciutat, Estat (o Regió), País\""
+msgstr "On ets, per exemple \"Ciutat, "
 
 #: actions/register.php:432
-#, fuzzy
 msgid " except this private data: password, "
-msgstr ""
-"excepte les següents dades privades: contrasenya, adreça de correu "
-"electrònic, adreça de missatgeria instantània, número de telèfon."
+msgstr " excepte les següents dades privades: contrasenya, "
 
 #: actions/register.php:471
 #, php-format
 msgid "Congratulations, %s! And welcome to %%%%site.name%%%%. "
-msgstr ""
+msgstr "Felicitats, %s! I benvingut/da a %%%%site.name%%%%. "
 
 #: actions/register.php:495
 msgid "(You should receive a message by email "
-msgstr ""
+msgstr "(Hauries de rebre un missatge per correu electrònic "
 
 #: actions/remotesubscribe.php:166 actions/remotesubscribe.php:171
 msgid "That's a local profile! Login to subscribe."
-msgstr ""
+msgstr "Aquest és un perfil local! Entra per subscriure-t'hi."
 
 #: actions/replies.php:118
-#, fuzzy, php-format
+#, php-format
 msgid "Replies to %s, page %d"
-msgstr "Respostes a %s"
+msgstr "Respostes a %s, pàgina %d"
 
 #: actions/showfavorites.php:79
 #, php-format
 msgid "%s favorite notices, page %d"
-msgstr ""
+msgstr "%s notificacions favorites, pàgina %d"
 
 #: actions/showgroup.php:77 lib/groupnav.php:85
 #, php-format
 msgid "%s group"
-msgstr ""
+msgstr "%s grup"
 
 #: actions/showgroup.php:79
 #, php-format
 msgid "%s group, page %d"
-msgstr ""
+msgstr "%s grup, pàgina %d"
 
 #: actions/showgroup.php:206
-#, fuzzy
 msgid "Group profile"
-msgstr "No existeix aquest avís."
+msgstr "Perfil del grup"
 
 #: actions/showgroup.php:251 actions/showstream.php:278
 #: actions/tagother.php:119 lib/grouplist.php:134 lib/profilelist.php:133
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: actions/showgroup.php:262 actions/showstream.php:289
 #: actions/tagother.php:129 lib/grouplist.php:145 lib/profilelist.php:144
-#, fuzzy
 msgid "Note"
 msgstr "Avisos"
 
 #: actions/showgroup.php:270
 msgid "Group actions"
-msgstr ""
+msgstr "Accions del grup"
 
 #: actions/showgroup.php:323
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s group"
-msgstr "Feed d'avisos de %s"
+msgstr "Feed d'avisos del grup %s"
 
 #: actions/showgroup.php:357 lib/groupnav.php:90
-#, fuzzy
 msgid "Members"
-msgstr "Membre des de"
+msgstr "Membres"
 
 #: actions/showgroup.php:363 actions/showstream.php:413
 #: actions/showstream.php:442 actions/showstream.php:524 lib/section.php:95
 #: lib/tagcloudsection.php:71
 msgid "(None)"
-msgstr ""
+msgstr "(Cap)"
 
 #: actions/showgroup.php:370
 msgid "All members"
-msgstr ""
+msgstr "Tots els membres"
 
 #: actions/showgroup.php:378
 #, php-format
@@ -4133,50 +4190,49 @@ msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
 "wikipedia.org/wiki/Micro-blogging) service "
 msgstr ""
+"**%s** és un grup d'usuaris a %%%%site.name%%%%, un servei de "
+"[microblogging](http://ca.wikipedia.org/wiki/Microblogging)"
 
 #: actions/showmessage.php:98
 msgid "Only the sender and recipient "
-msgstr ""
+msgstr "Només el remitent i el destinatari "
 
 #: actions/showstream.php:73
 #, php-format
 msgid "%s, page %d"
-msgstr ""
+msgstr "%s, pàgina %d"
 
 #: actions/showstream.php:143
-#, fuzzy
 msgid "'s profile"
-msgstr "Perfil"
+msgstr "perfil"
 
 #: actions/showstream.php:236 actions/tagother.php:77
-#, fuzzy
 msgid "User profile"
-msgstr "L'usuari no té perfil."
+msgstr "Perfil de l'usuari"
 
 #: actions/showstream.php:240 actions/tagother.php:81
 msgid "Photo"
-msgstr ""
+msgstr "Foto"
 
 #: actions/showstream.php:317
 msgid "User actions"
-msgstr ""
+msgstr "Accions de l'usuari"
 
 #: actions/showstream.php:342
 msgid "Send a direct message to this user"
-msgstr ""
+msgstr "Enviar un missatge directe a aquest usuari"
 
 #: actions/showstream.php:343
 msgid "Message"
-msgstr ""
+msgstr "Missatge"
 
 #: actions/showstream.php:451
-#, fuzzy
 msgid "All subscribers"
-msgstr "Subscriptors"
+msgstr "Tots els subscriptors"
 
 #: actions/showstream.php:533
 msgid "All groups"
-msgstr ""
+msgstr "Tots els grups"
 
 #: actions/showstream.php:542
 #, php-format
@@ -4184,481 +4240,448 @@ msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
 "wikipedia.org/wiki/Micro-blogging) service "
 msgstr ""
+"**%s** té un compte a %%%%site.name%%%%, un servei de "
+"[microblogging](http://ca.wikipedia.org/wiki/Microblogging) "
 
 #: actions/smssettings.php:128
-#, fuzzy
 msgid "Phone number, no punctuation or spaces, "
-msgstr ""
-"1-64 lletres en minúscula o números, sense signes de puntuació o espais"
+msgstr "Número de telèfon, sense puntuacions ni espais, "
 
 #: actions/smssettings.php:162
-#, fuzzy
 msgid "Send me notices through SMS; "
-msgstr "Enviar-me avisos per Jabber/GTalk."
+msgstr "Enviar-me avisos per SMS; "
 
 #: actions/smssettings.php:335
-#, fuzzy
 msgid "A confirmation code was sent to the phone number you added. "
-msgstr "Aquest codi de confirmació no és per a tu!"
+msgstr ""
+"El codi de confirmació s'ha enviat al número de telèfon que tens afegit. "
 
 #: actions/smssettings.php:453
 msgid "Mobile carrier"
-msgstr ""
+msgstr "Transport mòbil"
 
 #: actions/subedit.php:70
-#, fuzzy
 msgid "You are not subscribed to that profile."
-msgstr "No ens vas enviar aquest perfil"
+msgstr "No estàs subscrit a aquest perfil."
 
 #: actions/subedit.php:83
-#, fuzzy
 msgid "Could not save subscription."
-msgstr "No s'ha pogut crear la subscripció."
+msgstr "No s'ha pogut guardar la subscripció."
 
 #: actions/subscribe.php:55
-#, fuzzy
 msgid "Not a local user."
 msgstr "No existeix aquest usuari."
 
 #: actions/subscribe.php:69
-#, fuzzy
 msgid "Subscribed"
-msgstr "Subscriure's"
+msgstr "Subscrit"
 
 #: actions/subscribers.php:50
-#, fuzzy, php-format
+#, php-format
 msgid "%s subscribers"
-msgstr "Subscriptors"
+msgstr "%s subscriptors"
 
 #: actions/subscribers.php:52
 #, php-format
 msgid "%s subscribers, page %d"
-msgstr ""
+msgstr "%s subscriptors, pàgina %d"
 
 #: actions/subscribers.php:63
-#, fuzzy
 msgid "These are the people who listen to "
-msgstr "Aquestes són les persones que escolten els avisos de %s."
+msgstr "Aquestes són les persones que escolten "
 
 #: actions/subscribers.php:67
-#, fuzzy, php-format
+#, php-format
 msgid "These are the people who "
-msgstr "Aquestes són les persones que escolten els avisos de %s."
+msgstr "Aquestes són les persones que "
 
 #: actions/subscriptions.php:52
-#, fuzzy, php-format
+#, php-format
 msgid "%s subscriptions"
-msgstr "Totes les subscripcions"
+msgstr "%s subscripcions"
 
 #: actions/subscriptions.php:54
-#, fuzzy, php-format
+#, php-format
 msgid "%s subscriptions, page %d"
-msgstr "Totes les subscripcions"
+msgstr "%s subscripcions, pàgina %d"
 
 #: actions/subscriptions.php:65
-#, fuzzy
 msgid "These are the people whose notices "
-msgstr "Aquestes són les persones que %s escolta."
+msgstr "Aquestes són les persones les notícies dels quals "
 
 #: actions/subscriptions.php:69
-#, fuzzy, php-format
+#, php-format
 msgid "These are the people whose "
-msgstr "Aquestes són les persones que escolten els avisos de %s."
+msgstr "Aquestes són les persones les quals"
 
 #: actions/subscriptions.php:122
-#, fuzzy
 msgid "Jabber"
-msgstr "Cap Jabber ID."
+msgstr "Jabber"
 
 #: actions/tag.php:43
-#, fuzzy, php-format
+#, php-format
 msgid "Notices tagged with %s, page %d"
-msgstr "Microblog de %s"
+msgstr "Notificació etiquetada amb %s, pàgina %d"
 
 #: actions/tag.php:66
 #, php-format
 msgid "Messages tagged \"%s\", most recent first"
-msgstr ""
+msgstr "Missatges etiquetats \"%s\", més recents primer"
 
 #: actions/tagother.php:33
-#, fuzzy
 msgid "Not logged in"
 msgstr "No connectat."
 
 #: actions/tagother.php:39
-#, fuzzy
 msgid "No id argument."
-msgstr "No existeix aquest document."
+msgstr "No argument de la id."
 
 #: actions/tagother.php:65
 #, php-format
 msgid "Tag %s"
-msgstr ""
+msgstr "Etiqueta %s"
 
 #: actions/tagother.php:141
 msgid "Tag user"
-msgstr ""
+msgstr "Etiqueta usuari"
 
 #: actions/tagother.php:149
 msgid ""
 "Tags for this user (letters, numbers, -, ., and _), comma- or space- "
 "separated"
 msgstr ""
+"Etiquetes per aquest usuari (lletres, números,, -, ., i _), comes o separat "
+"per espais"
 
 #: actions/tagother.php:164
 msgid "There was a problem with your session token."
-msgstr ""
+msgstr "Ha ocorregut algun problema amb la teva sessió."
 
 #: actions/tagother.php:191
 msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
 msgstr ""
+"Només pots etiquetar gent a la que estiguis subscrit o que s'hagin subscrit "
+"a tu."
 
 #: actions/tagother.php:198
-#, fuzzy
 msgid "Could not save tags."
-msgstr "No s'ha pogut guardar la informació de l'avatar"
+msgstr "No s'han pogut guardar les etiquetes."
 
 #: actions/tagother.php:233
 msgid "Use this form to add tags to your subscribers or subscriptions."
 msgstr ""
+"Utilitza aquest formulari per afegir etiquetes als teus subscriptors i "
+"subscripcions."
 
 #: actions/tagrss.php:35
-#, fuzzy
 msgid "No such tag."
-msgstr "No existeix aquest avís."
+msgstr "No existeix aquesta etiqueta."
 
 #: actions/tagrss.php:66
-#, fuzzy, php-format
+#, php-format
 msgid "Microblog tagged with %s"
-msgstr "Microblog de %s"
+msgstr "Microblog etiquetat com %s"
 
 #: actions/twitapiblocks.php:47
 msgid "Block user failed."
-msgstr ""
+msgstr "Ha fallat el bloqueig d'usuari."
 
 #: actions/twitapiblocks.php:69
 msgid "Unblock user failed."
-msgstr ""
+msgstr "Ha fallat el desbloqueig d'usuari."
 
 #: actions/twitapiusers.php:48
-#, fuzzy
 msgid "Not found."
-msgstr "Cap petició trobada!"
+msgstr "No s'ha trobat."
 
 #: actions/twittersettings.php:71
 msgid "Add your Twitter account to automatically send "
-msgstr ""
+msgstr "Afegeix el teu compte Twitter per automàticament enviar "
 
 #: actions/twittersettings.php:119
 msgid "Twitter user name"
-msgstr ""
+msgstr "Usuari Twitter"
 
 #: actions/twittersettings.php:126
-#, fuzzy
 msgid "Twitter password"
-msgstr "Nova contrasenya"
+msgstr "Contrasenya Twitter"
 
 #: actions/twittersettings.php:228
 msgid "Twitter Friends"
-msgstr ""
+msgstr "Amics Twitter"
 
 #: actions/twittersettings.php:327
 msgid "Username must have only numbers, "
-msgstr ""
+msgstr "Nom d'usuari sols pot contenir números, "
 
 #: actions/twittersettings.php:341
-#, fuzzy, php-format
+#, php-format
 msgid "Unable to retrieve account information "
-msgstr "No s'ha pogut eliminar la confirmació de correu electrònic."
+msgstr "No s'ha pogut obtenir informació del compte "
 
 #: actions/unblock.php:108
-#, fuzzy
 msgid "Error removing the block."
-msgstr "Error en guardar l'usuari."
+msgstr "Error al moure el block."
 
 #: actions/unsubscribe.php:50
-#, fuzzy
 msgid "No profile id in request."
-msgstr "Cap URL de perfil retornar pel servidor."
+msgstr "No id en el perfil sol·licitat."
 
 #: actions/unsubscribe.php:57
-#, fuzzy
 msgid "No profile with that id."
-msgstr "Perfil remot sense perfil corresponent"
+msgstr "No hi ha cap perfil amb aquesta id."
 
 #: actions/unsubscribe.php:71
-#, fuzzy
 msgid "Unsubscribed"
-msgstr "Cancel·lar subscripció"
+msgstr "No subscrit"
 
 #: actions/usergroups.php:63
 #, php-format
 msgid "%s groups"
-msgstr ""
+msgstr "%s grups"
 
 #: actions/usergroups.php:65
 #, php-format
 msgid "%s groups, page %d"
-msgstr ""
+msgstr "%s grups, pàgina %d"
 
 #: classes/Notice.php:104
-#, fuzzy
 msgid "Problem saving notice. Unknown user."
-msgstr "Problema en guardar l'avís."
+msgstr "Problema al guardar la notificació. Usuari desconegut."
 
 #: classes/Notice.php:109
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
+"Masses notificacions massa ràpid; pren un respir i publica de nou en uns "
+"minuts."
 
 #: classes/Notice.php:116
 msgid "You are banned from posting notices on this site."
-msgstr ""
+msgstr "Ha estat bandejat de publicar notificacions en aquest lloc."
 
 #: lib/accountsettingsaction.php:108
-#, fuzzy
 msgid "Upload an avatar"
-msgstr "Error en actualitzar avatar."
+msgstr "Pujar un avatar"
 
 #: lib/accountsettingsaction.php:119
 msgid "Other"
-msgstr ""
+msgstr "Altres"
 
 #: lib/accountsettingsaction.php:120
 msgid "Other options"
-msgstr ""
+msgstr "Altres opcions"
 
 #: lib/action.php:130
 #, php-format
 msgid "%s - %s"
-msgstr ""
+msgstr "%s - %s"
 
 #: lib/action.php:145
 msgid "Untitled page"
-msgstr ""
+msgstr "Pàgina sense titol"
 
 #: lib/action.php:316
 msgid "Primary site navigation"
-msgstr ""
+msgstr "Navegació primària del lloc"
 
 #: lib/action.php:322
 msgid "Personal profile and friends timeline"
-msgstr ""
+msgstr "Perfil personal i línia temporal dels amics"
 
 #: lib/action.php:325
 msgid "Search for people or text"
-msgstr ""
+msgstr "Cercar gent o text"
 
 #: lib/action.php:328
-#, fuzzy
 msgid "Account"
-msgstr "Sobre"
+msgstr "Compte"
 
 #: lib/action.php:328
 msgid "Change your email, avatar, password, profile"
-msgstr ""
+msgstr "Canviar correu electrònic, avatar, contrasenya, perfil"
 
 #: lib/action.php:330
 msgid "Connect to IM, SMS, Twitter"
-msgstr ""
+msgstr "Connectar a missatgeria instantània, SMS, Twitter"
 
 #: lib/action.php:332
 msgid "Logout from the site"
-msgstr ""
+msgstr "Sortir d'aquest lloc"
 
 #: lib/action.php:335
 msgid "Login to the site"
-msgstr ""
+msgstr "Accedir a aquest lloc"
 
 #: lib/action.php:338
-#, fuzzy
 msgid "Create an account"
 msgstr "Crear nou compte"
 
 #: lib/action.php:341
-#, fuzzy
 msgid "Login with OpenID"
-msgstr "No existeix aquest compte OpenID."
+msgstr "Accedir amb OpenID"
 
 #: lib/action.php:344
-#, fuzzy
 msgid "Help me!"
-msgstr "Ajuda"
+msgstr "Ajuda'm"
 
 #: lib/action.php:362
-#, fuzzy
 msgid "Site notice"
-msgstr "Nou avís"
+msgstr "Avís del lloc"
 
 #: lib/action.php:417
 msgid "Local views"
-msgstr ""
+msgstr "Vistes locals"
 
 #: lib/action.php:472
-#, fuzzy
 msgid "Page notice"
-msgstr "Nou avís"
+msgstr "Notificació pàgina"
 
 #: lib/action.php:562
-#, fuzzy
 msgid "Secondary site navigation"
-msgstr "Subscripcions"
+msgstr "Navegació del lloc secundària"
 
 #: lib/action.php:602 lib/action.php:623
 msgid "Laconica software license"
-msgstr ""
+msgstr "Llicència del programari Laconica"
 
 #: lib/action.php:630
 msgid "All "
-msgstr ""
+msgstr "Tot "
 
 #: lib/action.php:635
 msgid "license."
-msgstr ""
+msgstr "llicència."
 
 #: lib/blockform.php:123 lib/blockform.php:153
-#, fuzzy
 msgid "Block this user"
-msgstr "No existeix aquest usuari."
+msgstr "Bloquejar aquest usuari"
 
 #: lib/blockform.php:153
 msgid "Block"
-msgstr ""
+msgstr "Bloquejar"
 
 #: lib/disfavorform.php:114 lib/disfavorform.php:140
 msgid "Disfavor this notice"
-msgstr ""
+msgstr "Deixar de tenir favorita aquesta notificació"
 
 #: lib/facebookaction.php:268
 #, php-format
 msgid "To use the %s Facebook Application you need to login "
-msgstr ""
+msgstr "Per utilitzar la Aplicació de Facebook %s necessites haver accedit "
 
 #: lib/facebookaction.php:271
-#, fuzzy
 msgid " a new account."
-msgstr "Crear nou compte"
+msgstr " un nou compte."
 
 #: lib/facebookaction.php:557 lib/mailbox.php:214 lib/noticelist.php:354
-#, fuzzy
 msgid "Published"
-msgstr "Públic"
+msgstr "Publicat"
 
 #: lib/favorform.php:114 lib/favorform.php:140
-#, fuzzy
 msgid "Favor this notice"
-msgstr "No existeix aquest avís."
+msgstr "Fer favorita aquesta notificació"
 
 #: lib/feedlist.php:64
 msgid "Export data"
-msgstr ""
+msgstr "Exportar data"
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"
-msgstr ""
+msgstr "Filtre d'etiquetes"
 
 #: lib/galleryaction.php:131
 msgid "All"
-msgstr ""
+msgstr "Tot"
 
 #: lib/galleryaction.php:137
 msgid "Tag"
-msgstr ""
+msgstr "Etiqueta"
 
 #: lib/galleryaction.php:138
 msgid "Choose a tag to narrow list"
-msgstr ""
+msgstr "Elegeix una etiqueta para reduir la llista"
 
 #: lib/galleryaction.php:139
 msgid "Go"
-msgstr ""
+msgstr "Anar"
 
 #: lib/groupeditform.php:148
-#, fuzzy
 msgid "URL of the homepage or blog of the group or topic"
-msgstr "URL del teu web, blog o perfil en un altre lloc"
+msgstr "URL del teu web, blog del grup u tema"
 
 #: lib/groupeditform.php:151
-#, fuzzy
 msgid "Description"
-msgstr "Subscripcions"
+msgstr "Descripció"
 
 #: lib/groupeditform.php:153
-#, fuzzy
 msgid "Describe the group or topic in 140 chars"
-msgstr "Explica'ns alguna cosa sobre tu i els teus interessos en 140 caràcters"
+msgstr "Descriu el grup amb 140 caràcters"
 
 #: lib/groupeditform.php:158
-#, fuzzy
 msgid ""
 "Location for the group, if any, like \"City, State (or Region), Country\""
-msgstr "On ets, per exemple \"Ciutat, Estat (o Regió), País\""
+msgstr "Localització del grup, si n'hi ha, com \"Ciutat, Estat (o Regió), País\""
 
 #: lib/groupnav.php:84 lib/searchgroupnav.php:84
 msgid "Group"
-msgstr ""
+msgstr "Grup"
 
 #: lib/groupnav.php:100
 msgid "Admin"
-msgstr ""
+msgstr "Admin"
 
 #: lib/groupnav.php:101
 #, php-format
 msgid "Edit %s group properties"
-msgstr ""
+msgstr "Editar propietats del grup %s"
 
 #: lib/groupnav.php:106
-#, fuzzy
 msgid "Logo"
-msgstr "Sortir"
+msgstr "Logo"
 
 #: lib/groupnav.php:107
 #, php-format
 msgid "Add or edit %s logo"
-msgstr ""
+msgstr "Afegir o editar logo %s"
 
 #: lib/groupsbymemberssection.php:71
 msgid "Groups with most members"
-msgstr ""
+msgstr "Grups amb més membres"
 
 #: lib/groupsbypostssection.php:71
 msgid "Groups with most posts"
-msgstr ""
+msgstr "Grups amb més entrades"
 
 #: lib/grouptagcloudsection.php:56
 #, php-format
 msgid "Tags in %s group's notices"
-msgstr ""
+msgstr "Etiquetes en les notificacions del grup %s"
 
 #: lib/htmloutputter.php:104
-#, fuzzy
 msgid "This page is not available in a "
-msgstr "Aquesta pàgina no està disponible en un tipus de mèdia que acceptis."
+msgstr "Aquesta pàgina no està disponible en "
 
 #: lib/joinform.php:114
-#, fuzzy
 msgid "Join"
 msgstr "Inici de sessió"
 
 #: lib/leaveform.php:114
-#, fuzzy
 msgid "Leave"
-msgstr "Guardar"
+msgstr "Abandonar"
 
 #: lib/logingroupnav.php:76
-#, fuzzy
 msgid "Login with a username and password"
-msgstr "Nom d'usuari o contrasenya invàlids."
+msgstr "Accedir amb el nom d'usuari i contrasenya"
 
 #: lib/logingroupnav.php:79
-#, fuzzy
 msgid "Sign up for a new account"
 msgstr "Crear nou compte"
 
 #: lib/logingroupnav.php:82
 msgid "Login or register with OpenID"
-msgstr ""
+msgstr "Accedir o registrar-se amb OpenID"
 
 #: lib/mail.php:175
 #, php-format
@@ -4666,21 +4689,23 @@ msgid ""
 "Hey, %s.\n"
 "\n"
 msgstr ""
+"Ei, %s.\n"
+"\n"
 
 #: lib/mail.php:236
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s is now listening to "
-msgstr "%1$s ara està escoltant els teus avisos a %2$s."
+msgstr "%1$s ara està escoltant "
 
 #: lib/mail.php:254
-#, fuzzy, php-format
+#, php-format
 msgid "Location: %s\n"
-msgstr "Ubicació"
+msgstr "Ubicació: %s\n"
 
 #: lib/mail.php:256
-#, fuzzy, php-format
+#, php-format
 msgid "Homepage: %s\n"
-msgstr "Pàgina personal"
+msgstr "Pàgina personal: %s\n"
 
 #: lib/mail.php:258
 #, php-format
@@ -4688,82 +4713,80 @@ msgid ""
 "Bio: %s\n"
 "\n"
 msgstr ""
+"Biografia: %s\n"
+"\n"
 
 #: lib/mail.php:461
 #, php-format
 msgid "You've been nudged by %s"
-msgstr ""
+msgstr "Has estat reclamat per %s"
 
 #: lib/mail.php:465
 #, php-format
 msgid "%1$s (%2$s) is wondering what you are up to "
-msgstr ""
+msgstr "%1$s (%2$s) vol saber què estàs fent "
 
 #: lib/mail.php:555
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s just added your notice from %2$s"
-msgstr "%1$s ara està escoltant els teus avisos a %2$s."
+msgstr "%1$s ha afegit la teva notificació des de %2$s."
 
 #: lib/mailbox.php:229 lib/noticelist.php:380
 msgid "From"
-msgstr ""
+msgstr "Des de"
 
 #: lib/messageform.php:110
 msgid "Send a direct notice"
-msgstr ""
+msgstr "Enviar notificació directa"
 
 #: lib/noticeform.php:125
-#, fuzzy
 msgid "Send a notice"
-msgstr "Nou avís"
+msgstr "Enviar notificació"
 
 #: lib/noticeform.php:152
-#, fuzzy
 msgid "Available characters"
-msgstr "6 o més caràcters"
+msgstr "Caràcters disponibles"
 
 #: lib/noticelist.php:426
-#, fuzzy
 msgid "in reply to"
-msgstr "en resposta a..."
+msgstr "en resposta a"
 
 #: lib/noticelist.php:447 lib/noticelist.php:450
 msgid "Reply to this notice"
-msgstr ""
+msgstr "respondre a aquesta nota"
 
 #: lib/noticelist.php:451
-#, fuzzy
 msgid "Reply"
-msgstr "resposta"
+msgstr "Respondre"
 
 #: lib/noticelist.php:471 lib/noticelist.php:474
 msgid "Delete this notice"
-msgstr ""
+msgstr "Eliminar aquesta nota"
 
 #: lib/noticelist.php:474
 msgid "Delete"
-msgstr ""
+msgstr "Eliminar"
 
 #: lib/nudgeform.php:116
 msgid "Nudge this user"
-msgstr ""
+msgstr "Reclamar aquest usuari"
 
 #: lib/nudgeform.php:128
 msgid "Nudge"
-msgstr ""
+msgstr "Reclamar"
 
 #: lib/nudgeform.php:128
 msgid "Send a nudge to this user"
-msgstr ""
+msgstr "Enviar una reclamació a aquest usuari"
 
 #: lib/personaltagcloudsection.php:56
 #, php-format
 msgid "Tags in %s's notices"
-msgstr ""
+msgstr "Etiquetes en les notificacions de %s's"
 
 #: lib/profilelist.php:182
 msgid "(none)"
-msgstr ""
+msgstr "(cap)"
 
 #: lib/publicgroupnav.php:76
 msgid "Public"
@@ -4771,84 +4794,79 @@ msgstr "Públic"
 
 #: lib/publicgroupnav.php:80
 msgid "User groups"
-msgstr ""
+msgstr "Grups d'usuaris"
 
 #: lib/publicgroupnav.php:82 lib/publicgroupnav.php:83
 msgid "Recent tags"
-msgstr ""
+msgstr "Etiquetes recents"
 
 #: lib/publicgroupnav.php:86
 msgid "Featured"
-msgstr ""
+msgstr "Destacat"
 
 #: lib/publicgroupnav.php:90
-#, fuzzy
 msgid "Popular"
-msgstr "Cerca de gent"
+msgstr "Popular"
 
 #: lib/searchgroupnav.php:82
-#, fuzzy
 msgid "Notice"
 msgstr "Avisos"
 
 #: lib/searchgroupnav.php:85
 msgid "Find groups on this site"
-msgstr ""
+msgstr "Trobar un grup en aquest lloc"
 
 #: lib/section.php:89
 msgid "Untitled section"
-msgstr ""
+msgstr "Secció sense títol"
 
 #: lib/subgroupnav.php:81
-#, fuzzy, php-format
+#, php-format
 msgid "People %s subscribes to"
-msgstr "Subscripció remota"
+msgstr "Persones %s subscrites a"
 
 #: lib/subgroupnav.php:89
-#, fuzzy, php-format
+#, php-format
 msgid "People subscribed to %s"
-msgstr "Subscripció remota"
+msgstr "Persones subscrites a %s"
 
 #: lib/subgroupnav.php:97
 #, php-format
 msgid "Groups %s is a member of"
-msgstr ""
+msgstr "%s grups són membres de"
 
 #: lib/subgroupnav.php:104
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
-msgstr ""
+msgstr "Convidar amics i companys perquè participin a %s"
 
 #: lib/subs.php:53
-#, fuzzy
 msgid "User has blocked you."
-msgstr "L'usuari no té perfil."
+msgstr "Un usuari t'ha bloquejat."
 
 #: lib/subscribeform.php:115 lib/subscribeform.php:139
-#, fuzzy
 msgid "Subscribe to this user"
-msgstr "Subscripció autoritzada"
+msgstr "Subscriure's a aquest usuari"
 
 #: lib/tagcloudsection.php:56
 msgid "None"
-msgstr ""
+msgstr "Cap"
 
 #: lib/topposterssection.php:74
 msgid "Top posters"
-msgstr ""
+msgstr "Que més publiquen"
 
 #: lib/unblockform.php:120 lib/unblockform.php:150
-#, fuzzy
 msgid "Unblock this user"
-msgstr "No existeix aquest usuari."
+msgstr "Desbloquejar aquest usuari"
 
 #: lib/unblockform.php:150
 msgid "Unblock"
-msgstr ""
+msgstr "Desbloquejar"
 
 #: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
 msgid "Unsubscribe from this user"
-msgstr ""
+msgstr "Deixar d'estar subscrit des d'aquest usuari"
 
 #, fuzzy
 #~ msgid "Delete my account"
