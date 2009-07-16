@@ -18,7 +18,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: Error.php,v 1.3 2005/03/23 02:35:35 alan_k Exp $
+ * @version    CVS: $Id: Error.php 277015 2009-03-12 05:51:03Z alan_k $
  * @link       http://pear.php.net/package/DB_DataObject
  */
   
