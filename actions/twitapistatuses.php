@@ -396,8 +396,14 @@ class TwitapistatusesAction extends TwitterapiAction
         } else {
             // XXX: Twitter just sets a 404 header and doens't bother
             // to return an err msg
-            $this->clientError(_('No status with that ID found.'),
-                404, $apidata['content-type']);
+            $deleted = Deleted_notice::staticGet($notice_id);
+            if (!empty($deleted)) {
+                $this->clientError(_('Status deleted.'),
+                                   410, $apidata['content-type']);
+            } else {
+                $this->clientError(_('No status with that ID found.'),
+                                   404, $apidata['content-type']);
+            }
         }
     }
 
