@@ -535,3 +535,15 @@ create table session (
     index session_modified_idx (modified)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table deleted_notice (
+
+    id integer primary key comment 'identity of notice',
+    profile_id integer not null comment 'author of the notice',
+    uri varchar(255) unique key comment 'universally unique identifier, usually a tag URI',
+    created datetime not null comment 'date the notice record was created',
+    deleted datetime not null comment 'date the notice record was created',
+
+    index deleted_notice_profile_id_idx (profile_id)
+
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
