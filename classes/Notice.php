@@ -74,7 +74,21 @@ class Notice extends Memcached_DataObject
         $this->blowFavesCache(true);
         $this->blowSubsCache(true);
 
+        // For auditing purposes, save a record that the notice
+        // was deleted.
+
+        $deleted = new Deleted_notice();
+
+        $deleted->id         = $this->id;
+        $deleted->profile_id = $this->profile_id;
+        $deleted->uri        = $this->uri;
+        $deleted->created    = $this->created;
+        $deleted->deleted    = common_sql_now();
+
         $this->query('BEGIN');
+
+        $deleted->insert();
+
         //Null any notices that are replies to this notice
         $this->query(sprintf("UPDATE notice set reply_to = null WHERE reply_to = %d", $this->id));
         $related = array('Reply',
