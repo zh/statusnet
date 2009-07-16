@@ -84,7 +84,13 @@ class ShownoticeAction extends OwnerDesignAction
         $this->notice = Notice::staticGet($id);
 
         if (empty($this->notice)) {
-            $this->clientError(_('No such notice.'), 404);
+            // Did we used to have it, and it got deleted?
+            $deleted = Deleted_notice::staticGet($id);
+            if (!empty($deleted)) {
+                $this->clientError(_('Notice deleted.'), 410);
+            } else {
+                $this->clientError(_('No such notice.'), 404);
+            }
             return false;
         }
 
