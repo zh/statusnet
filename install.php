@@ -43,8 +43,8 @@ function checkPrereqs()
         $pass = false;
     }
 
-    if (version_compare(PHP_VERSION, '5.0.0', '<')) {
-            ?><p class="error">Require PHP version 5 or greater.</p><?php
+    if (version_compare(PHP_VERSION, '5.2.3', '<')) {
+            ?><p class="error">Require PHP version 5.2.3 or greater.</p><?php
 		    $pass = false;
     }
 
