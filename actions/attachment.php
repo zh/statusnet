@@ -104,7 +104,7 @@ class AttachmentAction extends Action
             'type'=>'application/json+oembed',
             'href'=>common_local_url(
                 'api',
-                array('apiaction'=>'laconica','method'=>'oembed.json'),
+                array('apiaction'=>'oembed','method'=>'oembed.json'),
                 array('url'=>
                     common_local_url('attachment',
                         array('attachment' => $this->attachment->id)))),
@@ -113,7 +113,7 @@ class AttachmentAction extends Action
             'type'=>'text/xml+oembed',
             'href'=>common_local_url(
                 'api',
-                array('apiaction'=>'laconica','method'=>'oembed.xml'),
+                array('apiaction'=>'oembed','method'=>'oembed.xml'),
                 array('url'=>
                     common_local_url('attachment',
                         array('attachment' => $this->attachment->id)))),

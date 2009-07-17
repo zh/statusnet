@@ -279,14 +279,14 @@ class ShownoticeAction extends OwnerDesignAction
             'type'=>'application/json+oembed',
             'href'=>common_local_url(
                 'api',
-                array('apiaction'=>'laconica','method'=>'oembed.json'),
+                array('apiaction'=>'oembed','method'=>'oembed.json'),
                 array('url'=>$this->notice->uri)),
             'title'=>'oEmbed'),null);
         $this->element('link',array('rel'=>'alternate',
             'type'=>'text/xml+oembed',
             'href'=>common_local_url(
                 'api',
-                array('apiaction'=>'laconica','method'=>'oembed.xml'),
+                array('apiaction'=>'oembed','method'=>'oembed.xml'),
                 array('url'=>$this->notice->uri)),
             'title'=>'oEmbed'),null);
     }
