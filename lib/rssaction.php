@@ -112,6 +112,9 @@ class Rss10Action extends Action
 
                 if (!common_check_user($nickname, $password)) {
                     # basic authentication failed
+                    list($proxy, $ip) = common_client_ip();
+
+                    common_log(LOG_WARNING, "Failed RSS auth attempt, nickname = $nickname, proxy = $proxy, ip = $ip.");
                     $this->show_basic_auth_error();
                     return;
                 }
