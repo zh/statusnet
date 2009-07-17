@@ -113,6 +113,11 @@ class Router
 
         $m->connect('main/tagother/:id', array('action' => 'tagother'));
 
+        $m->connect('main/:method',
+                    array('action' => 'api',
+                          'method' => 'oembed(.xml|.json)?',
+                          'apiaction' => 'oembed'));
+
         // these take a code
 
         foreach (array('register', 'confirmaddress', 'recoverpassword') as $c) {
@@ -389,6 +394,10 @@ class Router
                           'apiaction' => 'help'));
 
         // laconica
+
+        $m->connect('api/laconica/:method',
+                    array('action' => 'api',
+                          'apiaction' => 'laconica'));
 
         $m->connect('api/laconica/:method',
                     array('action' => 'api',
