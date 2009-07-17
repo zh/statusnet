@@ -266,7 +266,7 @@ class Router
         $m->connect('api/statuses/:method/:argument',
                     array('action' => 'api',
                           'apiaction' => 'statuses'),
-                    array('method' => '(user_timeline|friends_timeline|replies|mentions|show|destroy|friends|followers)'));
+                    array('method' => '(|user_timeline|friends_timeline|replies|mentions|show|destroy|friends|followers)'));
 
         // users
 
@@ -393,6 +393,24 @@ class Router
         $m->connect('api/laconica/:method',
                     array('action' => 'api',
                           'apiaction' => 'laconica'));
+
+        // Groups
+        $m->connect('api/laconica/groups/:method/:argument',
+                    array('action' => 'api',
+                          'apiaction' => 'groups'));
+
+        $m->connect('api/laconica/groups/:method',
+                    array('action' => 'api',
+                          'apiaction' => 'groups'));
+
+        // Tags
+        $m->connect('api/laconica/tags/:method/:argument',
+                    array('action' => 'api',
+                          'apiaction' => 'tags'));
+
+        $m->connect('api/laconica/tags/:method',
+                    array('action' => 'api',
+                          'apiaction' => 'tags'));
 
         // search
         $m->connect('api/search.atom', array('action' => 'twitapisearchatom'));

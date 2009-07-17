@@ -3,29 +3,25 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-25 16:24+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2009-07-07 22:07+0000\n"
+"Last-Translator: Tomas Kral <tomas.kral@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+"X-Generator: Pootle 1.1.0\n"
 
+# jak přeložit stream?
 #: ../actions/noticesearchrss.php:64 actions/noticesearchrss.php:68
 #: actions/noticesearchrss.php:88
 #, fuzzy, php-format
 msgid " Search Stream for \"%s\""
-msgstr ""
-"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-"Hledej ve Streamu \"%s\"\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+msgstr " Hledej \"%s\" ve Streamu"
 
 #: ../actions/finishopenidlogin.php:82 ../actions/register.php:191
 #: actions/finishopenidlogin.php:88 actions/register.php:205
@@ -33,12 +29,13 @@ msgstr ""
 msgid ""
 " except this private data: password, email address, IM address, phone number."
 msgstr ""
-"až na tyto privátní data: heslo, emailová adresa, IM adresa, telefonní číslo."
+" až na tyto privátní data: heslo, emailová adresa, IM adresa, telefonní "
+"číslo."
 
 #: ../actions/showstream.php:400 ../lib/stream.php:109
 #: actions/showstream.php:418 lib/mailbox.php:164 lib/stream.php:76
 msgid " from "
-msgstr ""
+msgstr " od "
 
 #: ../actions/twitapistatuses.php:478 actions/twitapistatuses.php:412
 #: actions/twitapistatuses.php:347
@@ -861,20 +858,14 @@ msgstr "Nahrávání obrázku selhalo."
 #: actions/allrss.php:64 actions/all.php:75 actions/allrss.php:107
 #, fuzzy, php-format
 msgid "Feed for friends of %s"
-msgstr ""
-"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-"Feed přítel uživatele: %s\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+msgstr "Feed přítel uživatele: %s"
 
 #: ../actions/replies.php:65 ../actions/repliesrss.php:80
 #: actions/replies.php:65 actions/repliesrss.php:66 actions/replies.php:134
 #: actions/repliesrss.php:71
 #, fuzzy, php-format
 msgid "Feed for replies to %s"
-msgstr ""
-"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-"Feed odpovědí na %s\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+msgstr "Feed odpovědí na %s"
 
 #: ../actions/tag.php:55 actions/tag.php:55 actions/tag.php:61
 #, php-format
@@ -1581,10 +1572,7 @@ msgstr ""
 #: actions/showstream.php:192
 #, fuzzy, php-format
 msgid "Notice feed for %s"
-msgstr ""
-"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-"Feed sdělení pro %s\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+msgstr "Feed sdělení pro %s"
 
 #: ../actions/shownotice.php:39 actions/shownotice.php:39
 #: actions/shownotice.php:94
@@ -1808,10 +1796,7 @@ msgstr "Neznámý profil"
 #: ../actions/public.php:54 actions/public.php:54 actions/public.php:124
 #, fuzzy
 msgid "Public Stream Feed"
-msgstr ""
-"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-"Veřejný Stream Feed\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+msgstr "Veřejný Stream Feed"
 
 #: ../actions/public.php:33 actions/public.php:33 actions/public.php:109
 #: lib/publicgroupnav.php:77
@@ -1985,10 +1970,7 @@ msgstr "Hledat"
 #: actions/noticesearch.php:127
 #, fuzzy
 msgid "Search Stream Feed"
-msgstr ""
-"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-"Hledat ve Stream Feed\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+msgstr "Hledat ve Stream Feed"
 
 #: ../actions/noticesearch.php:30 actions/noticesearch.php:30
 #: actions/noticesearch.php:57
@@ -3602,10 +3584,7 @@ msgstr ""
 #: actions/facebookinvite.php:105
 #, fuzzy, php-format
 msgid "Invite your friends to use %s"
-msgstr ""
-"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-"Feed přítel uživatele: %s\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+msgstr "Feed přítel uživatele: %s"
 
 #: actions/facebookinvite.php:113
 #, php-format
@@ -4001,10 +3980,7 @@ msgstr ""
 #: actions/publictagcloud.php:57
 #, fuzzy
 msgid "Public tag cloud"
-msgstr ""
-"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-"Veřejný Stream Feed\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+msgstr "Veřejný Stream Feed"
 
 #: actions/publictagcloud.php:63
 #, php-format
@@ -4115,10 +4091,7 @@ msgstr ""
 #: actions/showgroup.php:323
 #, fuzzy, php-format
 msgid "Notice feed for %s group"
-msgstr ""
-"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-"Feed sdělení pro %s\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+msgstr "Feed sdělení pro %s"
 
 #: actions/showgroup.php:357 lib/groupnav.php:90
 #, fuzzy
@@ -4682,12 +4655,12 @@ msgstr "%1 od teď naslouchá tvým sdělením v %2"
 #: lib/mail.php:254
 #, fuzzy, php-format
 msgid "Location: %s\n"
-msgstr "Umístění"
+msgstr "Umístění %s\n"
 
 #: lib/mail.php:256
 #, fuzzy, php-format
 msgid "Homepage: %s\n"
-msgstr "Moje stránky"
+msgstr "Moje stránky: %s\n"
 
 #: lib/mail.php:258
 #, php-format

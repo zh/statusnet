@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-25 16:24+0000\n"
-"PO-Revision-Date: 2009-02-07 22:33+0000\n"
-"Last-Translator: Jimmy Volatile <spam@useful.no>\n"
+"PO-Revision-Date: 2009-04-09 22:44+0000\n"
+"Last-Translator: Charlie Ball <staselig@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -82,7 +82,7 @@ msgstr ""
 #: ../lib/mail.php:124 lib/mail.php:124 lib/mail.php:126 lib/mail.php:241
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
-msgstr ""
+msgstr "%1$s lytter nå til dine notiser på %2$s."
 
 #: ../lib/mail.php:126
 #, php-format
@@ -94,6 +94,12 @@ msgid ""
 "Faithfully yours,\n"
 "%4$s.\n"
 msgstr ""
+"%1$s lytter nå til dine notiser på %2$s.\n"
+"\n"
+"\t%3$s\n"
+"\n"
+"Mvh,\n"
+"%4$s.\n"
 
 #: ../actions/twitapistatuses.php:482 actions/twitapistatuses.php:415
 #: actions/twitapistatuses.php:350
@@ -105,19 +111,19 @@ msgstr ""
 #: actions/shownotice.php:161
 #, php-format
 msgid "%1$s's status on %2$s"
-msgstr ""
+msgstr "%1$s sin status på %2$s"
 
 #: ../actions/invite.php:84 ../actions/invite.php:92 actions/invite.php:91
 #: actions/invite.php:99 actions/invite.php:123 actions/invite.php:131
 #, php-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #: ../actions/publicrss.php:62 actions/publicrss.php:48
 #: actions/publicrss.php:90
 #, php-format
 msgid "%s Public Stream"
-msgstr ""
+msgstr "%s Offentlig Strøm"
 
 #: ../actions/all.php:47 ../actions/allrss.php:60
 #: ../actions/twitapistatuses.php:238 ../lib/stream.php:51 actions/all.php:47
@@ -132,7 +138,7 @@ msgstr "%s og venner"
 #: actions/twitapistatuses.php:33
 #, php-format
 msgid "%s public timeline"
-msgstr ""
+msgstr "%s sin offentlige tidslinje"
 
 #: ../lib/mail.php:206 lib/mail.php:212 lib/mail.php:411
 #, php-format
@@ -143,13 +149,13 @@ msgstr "%s status"
 #: actions/twitapistatuses.php:199
 #, php-format
 msgid "%s timeline"
-msgstr ""
+msgstr "%s tidslinje"
 
 #: ../actions/twitapistatuses.php:52 actions/twitapistatuses.php:52
 #: actions/twitapistatuses.php:36
 #, php-format
 msgid "%s updates from everyone!"
-msgstr "%s oppdatering fra alle!"
+msgstr "%s oppdateringer fra alle!"
 
 #: ../actions/register.php:213
 msgid ""
@@ -165,15 +171,17 @@ msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
 "broughtby%%](%%site.broughtbyurl%%). "
 msgstr ""
+"**%%site.name%%** er en mikroblogging-tjeneste av "
+"[%%site.broughtby%%](%%site.broughtbyurl%%). "
 
 #: ../lib/util.php:259 lib/util.php:275 lib/action.php:607
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
-msgstr ""
+msgstr "**%%site.name%%** er en mikroblogging-tjeneste. "
 
 #: ../lib/util.php:274 lib/util.php:290
 msgid ". Contributors should be attributed by full name or nickname."
-msgstr ""
+msgstr ". Bidragsytere burde være etterfulgt av fullt navn eller brukernavn."
 
 #: ../actions/finishopenidlogin.php:73 ../actions/profilesettings.php:43
 #: actions/finishopenidlogin.php:79 actions/profilesettings.php:76
@@ -181,10 +189,14 @@ msgstr ""
 #: lib/groupeditform.php:139
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr ""
+"1-64 småbokstaver eller nummer, ingen punktum eller mellomrom (ei heller æøå "
+"og lign.)"
 
 #: ../actions/register.php:152 actions/register.php:166
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
 msgstr ""
+"1-64 småbokstaver eller nummer, ingen punktum eller mellomrom (ei heller æøå "
+"og lign.) Påkrevd."
 
 #: ../actions/password.php:42 actions/profilesettings.php:181
 #: actions/passwordsettings.php:102
@@ -194,7 +206,7 @@ msgstr "6 eller flere tegn"
 #: ../actions/recoverpassword.php:180 actions/recoverpassword.php:186
 #: actions/recoverpassword.php:220
 msgid "6 or more characters, and don't forget it!"
-msgstr "6 eller flere tegn. Og ikke glem det, nå!"
+msgstr "6 eller flere tegn. Og ikke glem det!"
 
 #: ../actions/register.php:154 actions/register.php:168
 #: actions/register.php:373
@@ -207,12 +219,16 @@ msgid ""
 "A confirmation code was sent to the IM address you added. You must approve %"
 "s for sending messages to you."
 msgstr ""
+"En bekreftelseskode ble sendt til lynmeldingsadressen du la til. Du må "
+"godkjenne %s for å sende meldinger til deg."
 
 #: ../actions/emailsettings.php:213 actions/emailsettings.php:231
 msgid ""
 "A confirmation code was sent to the email address you added. Check your "
 "inbox (and spam box!) for the code and instructions on how to use it."
 msgstr ""
+"En bekreftelseskode ble sendt til lynmeldingsadressen du la til. Sjekk "
+"innboksen din (og søppel-posten!) for koden, og hvordan du skal bruke den."
 
 #: ../actions/smssettings.php:216 actions/smssettings.php:224
 msgid ""
@@ -240,7 +256,7 @@ msgstr ""
 #: actions/twitapistatuses.php:402 actions/twitapistatuses.php:429
 #: actions/twitapiusers.php:32
 msgid "API method not found!"
-msgstr ""
+msgstr "API-metode ikke funnet!"
 
 #: ../actions/twitapiaccount.php:57 ../actions/twitapiaccount.php:113
 #: ../actions/twitapiaccount.php:119 ../actions/twitapiblocks.php:28
@@ -263,7 +279,7 @@ msgstr ""
 #: actions/twitapinotifications.php:31 actions/twitapinotifications.php:37
 #: actions/twitapistatuses.php:562
 msgid "API method under construction."
-msgstr ""
+msgstr "API-metode under utvikling."
 
 #: ../lib/util.php:324 lib/util.php:340 lib/action.php:568
 msgid "About"
@@ -292,7 +308,7 @@ msgstr "Legg til OpenID"
 #: ../lib/settingsaction.php:97 lib/settingsaction.php:91
 #: lib/accountsettingsaction.php:117
 msgid "Add or remove OpenIDs"
-msgstr ""
+msgstr "Legg til eller slett OpenID"
 
 #: ../actions/emailsettings.php:38 ../actions/imsettings.php:39
 #: ../actions/smssettings.php:39 actions/emailsettings.php:39
@@ -304,7 +320,7 @@ msgstr "Adresse"
 
 #: ../actions/invite.php:131 actions/invite.php:139 actions/invite.php:176
 msgid "Addresses of friends to invite (one per line)"
-msgstr ""
+msgstr "Adresser til venner som skal inviteres (én per linje)"
 
 #: ../actions/showstream.php:273 actions/showstream.php:288
 #: actions/showstream.php:422
@@ -321,7 +337,7 @@ msgstr "Alle oppdateringer for %s"
 #: actions/noticesearchrss.php:90
 #, php-format
 msgid "All updates matching search term \"%s\""
-msgstr ""
+msgstr "Alle oppdateringer som passer søket: \"%s\""
 
 #: ../actions/finishopenidlogin.php:29 ../actions/login.php:31
 #: ../actions/openidlogin.php:29 ../actions/register.php:30
@@ -330,16 +346,16 @@ msgstr ""
 #: actions/finishopenidlogin.php:34 actions/login.php:77
 #: actions/openidlogin.php:30 actions/register.php:92
 msgid "Already logged in."
-msgstr "Allerede logget inn."
+msgstr "Allerede innlogget."
 
 #: ../lib/subs.php:42 lib/subs.php:42 lib/subs.php:49
 msgid "Already subscribed!."
-msgstr ""
+msgstr "Allerede abonnert!"
 
 #: ../actions/deletenotice.php:54 actions/deletenotice.php:55
 #: actions/deletenotice.php:113
 msgid "Are you sure you want to delete this notice?"
-msgstr ""
+msgstr "Er du sikker på at du vil slette denne notisen?"
 
 #: ../actions/userauthorization.php:77 actions/userauthorization.php:83
 #: actions/userauthorization.php:81
@@ -355,18 +371,18 @@ msgstr ""
 #: ../actions/profilesettings.php:65 actions/profilesettings.php:98
 msgid ""
 "Automatically subscribe to whoever subscribes to me (best for non-humans)"
-msgstr "Abonner "
+msgstr "Abonner automatisk på de som abonnerer på meg (best for ikke-mennesker)"
 
 #: ../actions/avatar.php:32 ../lib/settingsaction.php:90
 #: actions/profilesettings.php:34 actions/avatarsettings.php:65
 #: actions/showgroup.php:209 lib/accountsettingsaction.php:107
 msgid "Avatar"
-msgstr "Avatar"
+msgstr "Brukerbilde"
 
 #: ../actions/avatar.php:113 actions/profilesettings.php:350
 #: actions/avatarsettings.php:395
 msgid "Avatar updated."
-msgstr "Avataren har blitt oppdatert."
+msgstr "Brukerbildet har blitt oppdatert."
 
 #: ../actions/imsettings.php:55 actions/imsettings.php:56
 #, php-format
@@ -380,6 +396,8 @@ msgid ""
 "Awaiting confirmation on this address. Check your inbox (and spam box!) for "
 "a message with further instructions."
 msgstr ""
+"Venter på bekreftelse av adressen. Sjekk innboksen din (og søppel-post!) for "
+"melding med videre veiledning."
 
 #: ../actions/smssettings.php:58 actions/smssettings.php:58
 #: actions/smssettings.php:111
@@ -403,17 +421,17 @@ msgstr "Bio"
 #: actions/profilesettings.php:205 actions/register.php:174
 #: actions/updateprofile.php:107
 msgid "Bio is too long (max 140 chars)."
-msgstr "Bioen er for lang (max 140 tegn)"
+msgstr "Bioen er for lang (maks 140 tegn)."
 
 #: ../lib/deleteaction.php:41 lib/deleteaction.php:41 lib/deleteaction.php:69
 msgid "Can't delete this notice."
-msgstr ""
+msgstr "Kan ikke slette notisen."
 
 #: ../actions/updateprofile.php:119 actions/updateprofile.php:120
 #: actions/updateprofile.php:123
 #, php-format
 msgid "Can't read avatar URL '%s'"
-msgstr ""
+msgstr "Kan ikke lese brukerbilde URL '%s'"
 
 #: ../actions/password.php:85 ../actions/recoverpassword.php:300
 #: actions/profilesettings.php:404 actions/recoverpassword.php:313
@@ -441,7 +459,7 @@ msgstr ""
 #: ../actions/emailsettings.php:181 actions/emailsettings.php:199
 #: actions/emailsettings.php:311
 msgid "Cannot normalize that email address"
-msgstr ""
+msgstr "Kan ikke normalisere den e-postadressen"
 
 #: ../actions/password.php:45 actions/profilesettings.php:184
 #: actions/passwordsettings.php:110
@@ -451,7 +469,7 @@ msgstr "Endre"
 #: ../lib/settingsaction.php:88 lib/settingsaction.php:88
 #: lib/accountsettingsaction.php:114
 msgid "Change email handling"
-msgstr ""
+msgstr "Endre e-post håndtering"
 
 #: ../actions/password.php:32 actions/profilesettings.php:36
 #: actions/passwordsettings.php:58
@@ -460,12 +478,12 @@ msgstr "Endre passord"
 
 #: ../lib/settingsaction.php:94 lib/accountsettingsaction.php:111
 msgid "Change your password"
-msgstr ""
+msgstr "Endre passordet ditt"
 
 #: ../lib/settingsaction.php:85 lib/settingsaction.php:85
 #: lib/accountsettingsaction.php:105
 msgid "Change your profile settings"
-msgstr ""
+msgstr "Endre profil instillingene dine"
 
 #: ../actions/password.php:43 ../actions/recoverpassword.php:181
 #: ../actions/register.php:155 ../actions/smssettings.php:65
@@ -497,7 +515,7 @@ msgstr "Bekreftelseskode"
 #: ../actions/confirmaddress.php:38 actions/confirmaddress.php:38
 #: actions/confirmaddress.php:80
 msgid "Confirmation code not found."
-msgstr ""
+msgstr "Bekreftelseskode ikke funnet."
 
 #: ../actions/register.php:202
 #, php-format
@@ -517,6 +535,19 @@ msgid ""
 "\n"
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
+"Gratulerer, %s! Og velkommen til %%%%site.name%%%%. Herfra vil du kanskje...\n"
+"\n"
+"* Gå til [din profil](%s) og sende din første notis.\n"
+"* Legge til en [Jabber/GTalk addresse](%%%%action.imsettings%%%%) så du kan "
+"sende notiser fra lynmeldinger.\n"
+"* [Søke etter brukere](%%%%action.peoplesearch%%%%) that you may know or "
+"that share your interests. \n"
+"* Update your [profile settings](%%%%action.profilesettings%%%%) to tell "
+"others more about you. \n"
+"* Read over the [online docs](%%%%doc.help%%%%) for features you may have "
+"missed. \n"
+"\n"
+"Thanks for signing up and we hope you enjoy using this service."
 
 #: ../actions/finishopenidlogin.php:91 actions/finishopenidlogin.php:97
 #: actions/finishopenidlogin.php:119 lib/action.php:330
@@ -526,7 +557,7 @@ msgstr "Koble til"
 #: ../actions/finishopenidlogin.php:86 actions/finishopenidlogin.php:92
 #: actions/finishopenidlogin.php:114
 msgid "Connect existing account"
-msgstr ""
+msgstr "Koble til eksisterende konto"
 
 #: ../lib/util.php:332 lib/util.php:348 lib/action.php:576
 msgid "Contact"
@@ -557,7 +588,7 @@ msgstr ""
 #: ../actions/updateprofile.php:162 actions/updateprofile.php:163
 #: actions/updateprofile.php:166
 msgid "Could not save avatar info"
-msgstr "Klarte ikke å lagre avatar-informasjonen"
+msgstr "Klarte ikke å lagre brukerbilde-informasjonen"
 
 #: ../actions/updateprofile.php:155 actions/updateprofile.php:156
 #: actions/updateprofile.php:159
@@ -575,7 +606,7 @@ msgstr ""
 #: ../actions/recoverpassword.php:102 actions/recoverpassword.php:105
 #: actions/recoverpassword.php:111
 msgid "Could not update user with confirmed email address."
-msgstr ""
+msgstr "Klarte ikke å oppdatere bruker med bekreftet e-post."
 
 #: ../actions/finishremotesubscribe.php:99
 #: actions/finishremotesubscribe.php:101 actions/finishremotesubscribe.php:114
@@ -654,7 +685,7 @@ msgstr "Klarte ikke å oppdatere bruker."
 #: ../actions/finishopenidlogin.php:84 actions/finishopenidlogin.php:90
 #: actions/finishopenidlogin.php:112
 msgid "Create"
-msgstr ""
+msgstr "Opprett"
 
 #: ../actions/finishopenidlogin.php:70 actions/finishopenidlogin.php:76
 #: actions/finishopenidlogin.php:98
@@ -1603,18 +1634,12 @@ msgstr ""
 msgid "OpenID URL"
 msgstr "OpenID-URL"
 
-# -#-#-#-
-#  laconica.po#-#-#-#-
-#  eller autentifikasjon?
 #: ../actions/finishaddopenid.php:42 ../actions/finishopenidlogin.php:103
 #: actions/finishaddopenid.php:42 actions/finishopenidlogin.php:109
 #: actions/finishaddopenid.php:88 actions/finishopenidlogin.php:130
 #, fuzzy
 msgid "OpenID authentication cancelled."
-msgstr ""
-"#-#-#-#-#  laconica.po  #-#-#-#-#\n"
-"OpenID-autentifisering avbrutt.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+msgstr "OpenID-autentifisering avbrutt."
 
 #: ../actions/finishaddopenid.php:46 ../actions/finishopenidlogin.php:107
 #: actions/finishaddopenid.php:46 actions/finishopenidlogin.php:113
@@ -4565,7 +4590,7 @@ msgstr ""
 #: lib/mail.php:256
 #, fuzzy, php-format
 msgid "Homepage: %s\n"
-msgstr "Hjemmesiden"
+msgstr "Hjemmesiden: %s\n"
 
 #: lib/mail.php:258
 #, php-format

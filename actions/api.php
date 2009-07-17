@@ -127,7 +127,9 @@ class ApiAction extends Action
                                 'help/downtime_schedule',
                                 'laconica/version',
                                 'laconica/config',
-                                'laconica/wadl');
+                                'laconica/wadl',
+                                'tags/timeline',
+                                'groups/timeline');
 
         static $bareauth = array('statuses/user_timeline',
                                  'statuses/friends_timeline',

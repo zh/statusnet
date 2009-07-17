@@ -186,6 +186,21 @@ class TwitterapiAction extends Action
             $twitter_status['favorited'] = false;
         }
 
+        # Enclosures
+        $attachments = $notice->attachments();
+        $twitter_status['attachments']=array();
+        if($attachments){
+            foreach($attachments as $attachment){
+                if ($attachment->isEnclosure()) {
+                    $enclosure=array();
+                    $enclosure['url']=$attachment->url;
+                    $enclosure['mimetype']=$attachment->mimetype;
+                    $enclosure['size']=$attachment->size;
+                    $twitter_status['attachments'][]=$enclosure;
+                }
+            }
+        }
+
         if ($include_user) {
             # Don't get notice (recursive!)
             $twitter_user = $this->twitter_user_array($profile, false);
@@ -218,11 +233,13 @@ class TwitterapiAction extends Action
         if($attachments){
             $entry['enclosures']=array();
             foreach($attachments as $attachment){
-                $enclosure=array();
-                $enclosure['url']=$attachment->url;
-                $enclosure['mimetype']=$attachment->mimetype;
-                $enclosure['size']=$attachment->size;
-                $entry['enclosures'][]=$enclosure;
+                if ($attachment->isEnclosure()) {
+                    $enclosure=array();
+                    $enclosure['url']=$attachment->url;
+                    $enclosure['mimetype']=$attachment->mimetype;
+                    $enclosure['size']=$attachment->size;
+                    $entry['enclosures'][]=$enclosure;
+                }
             }
         }
 
@@ -771,6 +788,34 @@ class TwitterapiAction extends Action
         } else {
             $nickname = common_canonical_nickname($id);
             return User::staticGet('nickname', $nickname);
+        }
+    }
+
+    function get_group($id, $apidata=null)
+    {
+        if (empty($id)) {
+
+            if (is_numeric($this->arg('id'))) {
+                return User_group::staticGet($this->arg('id'));
+            } else if ($this->arg('id')) {
+                $nickname = common_canonical_nickname($this->arg('id'));
+                return User_group::staticGet('nickname', $nickname);
+            } else if ($this->arg('group_id')) {
+                // This is to ensure that a non-numeric user_id still
+                // overrides screen_name even if it doesn't get used
+                if (is_numeric($this->arg('group_id'))) {
+                    return User_group::staticGet('id', $this->arg('group_id'));
+                }
+            } else if ($this->arg('group_name')) {
+                $nickname = common_canonical_nickname($this->arg('group_name'));
+                return User_group::staticGet('nickname', $nickname);
+            }
+
+        } else if (is_numeric($id)) {
+            return User_group::staticGet($id);
+        } else {
+            $nickname = common_canonical_nickname($id);
+            return User_group::staticGet('nickname', $nickname);
         }
     }
 
