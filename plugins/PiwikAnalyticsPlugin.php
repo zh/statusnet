@@ -87,18 +87,25 @@ class PiwikAnalyticsPlugin extends Plugin
 
     function onEndShowScripts($action)
     {
-        $js1 = 'var pkBaseURL = (("https:" == document.location.protocol) ? "https://'.
-                $this->piwikroot.'" : "http://'.$this->piwikroot.
-                '"); document.write(unescape("%3Cscript src=\'" + pkBaseURL + "piwik.js\''.
-                ' type=\'text/javascript\'%3E%3C/script%3E"));';
-        $js2 = 'piwik_action_name = ""; piwik_idsite = '.$this->piwikid.
-               '; piwik_url = pkBaseURL + "piwik.php"; piwik_log(piwik_action_name, piwik_idsite, piwik_url);';
-        $action->elementStart('script', array('type' => 'text/javascript'));
-        $action->raw($js1);
-        $action->elementEnd('script');
-        $action->elementStart('script', array('type' => 'text/javascript'));
-        $action->raw($js2);
-        $action->elementEnd('script');
+        $piwikCode = <<<ENDOFPIWIK
+
+<!-- Piwik -->
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://{$this->piwikroot}" : "http://{$this->piwikroot}");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 4);
+    piwikTracker.trackPageView();
+    piwikTracker.enableLinkTracking();
+} catch( err ) {}
+</script>
+<!-- End Piwik Tag -->
+
+ENDOFPIWIK;
+
+        $action->raw($piwikCode);
         return true;
     }
 }
