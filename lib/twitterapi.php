@@ -188,15 +188,18 @@ class TwitterapiAction extends Action
 
         # Enclosures
         $attachments = $notice->attachments();
-        $twitter_status['attachments']=array();
-        if($attachments){
-            foreach($attachments as $attachment){
+
+        if (!empty($attachments)) {
+
+            $twitter_status['attachments'] = array();
+
+            foreach ($attachments as $attachment) {
                 if ($attachment->isEnclosure()) {
-                    $enclosure=array();
-                    $enclosure['url']=$attachment->url;
-                    $enclosure['mimetype']=$attachment->mimetype;
-                    $enclosure['size']=$attachment->size;
-                    $twitter_status['attachments'][]=$enclosure;
+                    $enclosure = array();
+                    $enclosure['url'] = $attachment->url;
+                    $enclosure['mimetype'] = $attachment->mimetype;
+                    $enclosure['size'] = $attachment->size;
+                    $twitter_status['attachments'][] = $enclosure;
                 }
             }
         }
