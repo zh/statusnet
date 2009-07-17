@@ -369,6 +369,9 @@ class TwitterapiAction extends Action
             case 'text':
                 $this->element($element, null, common_xml_safe_str($value));
                 break;
+            case 'attachments':
+                $this->show_xml_attachments($twitter_status['attachments']);
+                break;
             default:
                 $this->element($element, null, $value);
             }
@@ -387,6 +390,20 @@ class TwitterapiAction extends Action
             }
         }
         $this->elementEnd($role);
+    }
+
+    function show_xml_attachments($attachments) {
+        if (!empty($attachments)) {
+            $this->elementStart('attachments', array('type' => 'array'));
+            foreach ($attachments as $attachment) {
+                $attrs = array();
+                $attrs['url'] = $attachment['url'];
+                $attrs['mimetype'] = $attachment['mimetype'];
+                $attrs['size'] = $attachment['size'];
+                $this->element('enclosure', $attrs, '');
+            }
+            $this->elementEnd('attachments');
+        }
     }
 
     function show_twitter_rss_item($entry)
