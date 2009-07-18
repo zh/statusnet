@@ -32,7 +32,7 @@ $helptext = <<<END_OF_TRIM_HELP
 Batch script for retrieving Twitter messages from foreign service.
 
   -i --id      Identity (default 'generic')
-    
+
 END_OF_TRIM_HELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
@@ -60,6 +60,15 @@ require_once INSTALLDIR . '/lib/daemon.php';
 class TwitterStatusFetcher extends Daemon
 {
     private $_children = array();
+
+    function __construct($id=null, $daemonize=true)
+    {
+        parent::__construct($daemonize);
+
+        if ($id) {
+            $this->set_id($id);
+        }
+    }
 
     /**
      * Name of this daemon
@@ -639,6 +648,8 @@ if (have_option('i')) {
 } else {
     $id = null;
 }
+
+common_debug("id set to $id");
 
 $fetcher = new TwitterStatusFetcher($id);
 $fetcher->runOnce();
