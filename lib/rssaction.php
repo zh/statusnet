@@ -39,6 +39,7 @@ class Rss10Action extends Action
     var $creators = array();
     var $limit = DEFAULT_RSS_LIMIT;
     var $notices = null;
+    var $tags_already_output = array();
 
     /**
      * Constructor
@@ -273,6 +274,12 @@ class Rss10Action extends Action
             foreach ($tags as $tag)
             {
                 $tagpage = common_local_url('tag', array('tag' => $tag));
+
+                if ( in_array($tag, $this->tags_already_output) ) {
+                    $this->element('ctag:tagged', array('rdf:resource'=>$tagpage.'#concept'));
+                    continue;
+                }
+
                 $tagrss  = common_local_url('tagrss', array('tag' => $tag));
                 $this->elementStart('ctag:tagged');
                 $this->elementStart('ctag:Tag', array('rdf:about'=>$tagpage.'#concept', 'ctag:label'=>$tag));
@@ -280,6 +287,8 @@ class Rss10Action extends Action
                 $this->element('rdfs:seeAlso', array('rdf:resource'=>$tagrss));
                 $this->elementEnd('ctag:Tag');
                 $this->elementEnd('ctag:tagged');
+
+                $this->tags_already_output[] = $tag;
             }
         }
         $this->elementEnd('item');
