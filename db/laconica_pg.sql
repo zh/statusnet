@@ -1,3 +1,4 @@
+
 /* local and remote users have profiles */
 
 create sequence profile_seq;
@@ -184,7 +185,7 @@ create table token (
 
 create table nonce (
     consumer_key varchar(255) not null /* comment 'unique identifier, root URL' */,
-    tok char(32) not null /* comment 'identifying value' */,
+    tok char(32) /* comment 'buggy old value, ignored' */,
     nonce char(32) null /* comment 'buggy old value, ignored */,
     ts integer not null /* comment 'timestamp sent' values are epoch, and only used internally */,
 
