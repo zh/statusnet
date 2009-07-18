@@ -320,6 +320,8 @@ class Rss10Action extends Action
                                               'http://rdfs.org/sioc/ns#',
                                               'xmlns:sioct' =>
                                               'http://rdfs.org/sioc/types#',
+                                              'xmlns:rdfs' =>
+                                              'http://www.w3.org/2000/01/rdf-schema#',
                                               'xmlns:laconica' =>
                                               'http://laconi.ca/ont/',
                                               'xmlns' => 'http://purl.org/rss/1.0/'));
