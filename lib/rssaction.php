@@ -234,6 +234,11 @@ class Rss10Action extends Action
             $replyurl = common_local_url('shownotice', array('notice' => $notice->reply_to));
             $this->element('sioc:reply_of', array('rdf:resource' => $replyurl));
         }
+        if (!empty($notice->conversation)) {
+            $conversationurl = common_local_url('conversation',
+                                         array('id' => $notice->conversation));
+            $this->element('sioc:has_discussion', array('rdf:resource' => $conversationurl));
+        }
         $attachments = $notice->attachments();
         if($attachments){
             foreach($attachments as $attachment){
