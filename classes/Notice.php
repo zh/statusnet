@@ -873,7 +873,7 @@ class Notice extends Memcached_DataObject
                 if ($cnt > 0) {
                     $qry .= ', ';
                 }
-                $qry .= '('.$id.', '.$this->id.', '.$source.', "'.$this->created.'") ';
+                $qry .= '('.$id.', '.$this->id.', '.$source.", '".$this->created. "') ";
                 $cnt++;
                 if (rand() % NOTICE_INBOX_SOFT_LIMIT == 0) {
                     Notice_inbox::gc($id);
@@ -899,10 +899,14 @@ class Notice extends Memcached_DataObject
     {
         $user = new User();
 
+	if(common_config('db','quote_identifiers'))
+	    $user_table = '"user"';
+	else $user_table = 'user';
+
         $qry =
           'SELECT id ' .
-          'FROM user JOIN subscription '.
-          'ON user.id = subscription.subscriber ' .
+	  'FROM '. $user_table .' JOIN subscription '.
+	  'ON '. $user_table .'.id = subscription.subscriber ' .
           'WHERE subscription.subscribed = %d ';
 
         $user->query(sprintf($qry, $this->profile_id));
