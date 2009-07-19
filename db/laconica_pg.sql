@@ -376,6 +376,20 @@ create table profile_block (
 
 );
 
+create sequence design_seq;
+create table design (
+    id bigint default nextval('design_seq') /* comment 'design ID'*/,
+    backgroundcolor integer /* comment 'main background color'*/ ,
+    contentcolor integer /*comment 'content area background color'*/ ,
+    sidebarcolor integer /*comment 'sidebar background color'*/ ,
+    textcolor integer /*comment 'text color'*/ ,
+    linkcolor integer /*comment 'link color'*/,
+    backgroundimage varchar(255) /*comment 'background image, if any'*/,
+    disposition int default 1 /*comment 'bit 1 = hide background image, bit 2 = display background image, bit 4 = tile background image'*/,
+    primary key (id)
+);
+
+
 create sequence user_group_seq;
 create table user_group (
 
@@ -391,6 +405,8 @@ create table user_group (
     homepage_logo varchar(255) /* comment 'homepage (profile) size logo' */,
     stream_logo varchar(255) /* comment 'stream-sized logo' */,
     mini_logo varchar(255) /* comment 'mini logo' */,
+    design_id integer /*comment 'id of a design' */ references design(id),
+
 
     created timestamp not null default CURRENT_TIMESTAMP /* comment 'date this record was created' */,
     modified timestamp /* comment 'date this record was modified' */
@@ -487,18 +503,25 @@ create table file_to_post (
     unique(file_id, post_id)
 );
 
-create sequence design_seq;
-create table design (
-    id bigint default nextval('design_seq') /* comment 'design ID'*/,
-    backgroundcolor integer /* comment 'main background color'*/ ,
-    contentcolor integer /*comment 'content area background color'*/ ,
-    sidebarcolor integer /*comment 'sidebar background color'*/ ,
-    textcolor integer /*comment 'text color'*/ ,
-    linkcolor integer /*comment 'link color'*/,
-    backgroundimage varchar(255) /*comment 'background image, if any'*/,
-    disposition int default 1 /*comment 'bit 1 = hide background image, bit 2 = display background image, bit 4 = tile background image'*/,
-    primary key (id)
+create table group_block (
+   group_id integer not null /* comment 'group profile is blocked from' */ references user_group (id),
+   blocked integer not null /* comment 'profile that is blocked' */references profile (id),
+   blocker integer not null /* comment 'user making the block'*/ references "user" (id),
+   modified timestamp /* comment 'date of blocking'*/ ,
+
+   primary key (group_id, blocked)
 );
+
+create table group_alias (
+
+   alias varchar(64) /* comment 'additional nickname for the group'*/ ,
+   group_id integer not null /* comment 'group profile is blocked from'*/ references user_group (id),
+   modified timestamp /* comment 'date alias was created'*/,
+   primary key (alias)
+
+);
+create index group_alias_group_id_idx on group_alias (group_id);
+
 
 /* Textsearch stuff */
 
