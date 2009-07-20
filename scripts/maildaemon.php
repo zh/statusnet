@@ -299,25 +299,37 @@ class MailerDaemon
 
         $attachments = array();
 
+        $this->extract_part($parsed,$msg,$attachments);
+
+        return array($from, $to, $msg, $attachments);
+    }
+
+    function extract_part($parsed,&$msg,&$attachments){
         if ($parsed->ctype_primary == 'multipart') {
-            foreach ($parsed->parts as $part) {
-                if ($part->ctype_primary == 'text' &&
-                    $part->ctype_secondary == 'plain') {
-                    $msg = $part->body;
-                }else{
-                    if ($part->body) {
-			$attachment = tmpfile();
-			fwrite($attachment, $part->body);
-                        $attachments[] = $attachment;
-                    }
+            if($parsed->ctype_secondary == 'alternative'){
+                $altmsg = $this->extract_msg_from_multipart_alternative_part($parsed);
+                if(!empty($altmsg)) $msg = $altmsg;
+            }else{
+                foreach($parsed->parts as $part){
+                    $this->extract_part($part,$msg,$attachments);
                 }
             }
-        } else if ($type == 'text/plain') {
+        } else if ($parsed->ctype_primary == 'text'
+            && $parsed->ctype_secondary=='plain') {
             $msg = $parsed->body;
-        } else {
-            $this->unsupported_type($type);
+        }else if(!empty($parsed->body)){
+            $attachment = tmpfile();
+            fwrite($attachment, $parsed->body);
+            $attachments[] = $attachment;
         }
-        return array($from, $to, $msg, $attachments);
+    }
+
+    function extract_msg_from_multipart_alternative_part($parsed){
+        foreach ($parsed->parts as $part) {
+            $this->extract_part($part,$msg,$attachments);
+        }
+        //we don't want any attachments that are a result of this parsing
+        return $msg;
     }
 
     function unsupported_type($type)
