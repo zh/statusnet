@@ -211,7 +211,7 @@ class Router
                     array('tag' => '[a-zA-Z0-9]+'));
         $m->connect('tag/:tag',
                     array('action' => 'tag'),
-                    array('tag' => '[a-zA-Z0-9]+'));
+                    array('tag' => '[\pL\pN_\-\.]{1,64}'));
 
         $m->connect('peopletag/:tag',
                     array('action' => 'peopletag'),
