@@ -97,11 +97,11 @@ class Notice extends Memcached_DataObject
     function saveTags()
     {
         /* extract all #hastags */
-        $count = preg_match_all('/(?:^|\s)#([A-Za-z0-9_\-\.]{1,64})/', strtolower($this->content), $match);
+        $count = preg_match_all('/(?:^|\s)#([\pL\pN_\-\.]{1,64})/', strtolower($this->content), $match);
         if (!$count) {
             return true;
         }
-
+ 
         /* Add them to the database */
         foreach(array_unique($match[1]) as $hashtag) {
             /* elide characters we don't want in the tag */
