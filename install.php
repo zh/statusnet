@@ -70,17 +70,16 @@ function checkPrereqs()
 	     $pass = false;
 	}
 
-	if (!is_writable(INSTALLDIR.'/avatar/')) {
-         ?><p class="error">Cannot write avatar directory: <code><?php echo INSTALLDIR; ?>/avatar/</code></p>
-	       <p>On your server, try this command: <code>chmod a+w <?php echo INSTALLDIR; ?>/avatar/</code></p>
-         <?
-	     $pass = false;
-	}
-	if (!is_writable(INSTALLDIR.'/background/')) {
-         ?><p class="error">Cannot write background directory: <code><?php echo INSTALLDIR; ?>/background/</code></p>
-	       <p>On your server, try this command: <code>chmod a+w <?php echo INSTALLDIR; ?>/background/</code></p>
-         <?
-	     $pass = false;
+	// Check the subdirs used for file uploads
+	$fileSubdirs = array('avatar', 'background', 'file');
+	foreach ($fileSubdirs as $fileSubdir) {
+		$fileFullPath = INSTALLDIR."/$fileSubdir/";
+		if (!is_writable($fileFullPath)) {
+    	     ?><p class="error">Cannot write <?php echo $fileSubdir; ?> directory: <code><?php echo $fileFullPath; ?></code></p>
+		       <p>On your server, try this command: <code>chmod a+w <?php echo $fileFullPath; ?></code></p>
+    	     <?
+		     $pass = false;
+		}
 	}
 
 	return $pass;
