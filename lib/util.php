@@ -414,9 +414,9 @@ function common_replace_urls_callback($text, $callback, $notice_id = null) {
     $regex = '#'.
     '(?:'.
         '(?:'.
-            '(?:https?|ftps?|mms|rtsp|gopher|news|nntp|telnet|wais|file|prospero|webcal|xmpp|irc)://'.
+            '(?:https?|ftps?|mms|rtsp|gopher|news|nntp|telnet|wais|file|prospero|webcal|irc)://'.
             '|'.
-            '(?:mailto|aim|tel):'.
+            '(?:mailto|aim|tel|xmpp):'.
         ')'.
         '[^.\s]+\.[^\s]+'.
         '|'.
