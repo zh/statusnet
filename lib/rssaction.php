@@ -193,24 +193,6 @@ class Rss10Action extends Action
         }
     }
 
-    // XXX: Surely there should be a common function to do this?
-    function extract_tags ($string)
-    {
-        $count = preg_match_all('/(?:^|\s)#([A-Za-z0-9_\-\.]{1,64})/', strtolower($string), $match);
-        if (!count)
-        {
-            return array();
-        }
-
-        $rv = array();
-        foreach ($match[1] as $tag)
-        {
-            $rv[] = common_canonical_tag($tag);
-        } 
-
-        return array_unique($rv);
-    }
-	 
     function showItem($notice)
     {
         $profile = Profile::staticGet($notice->profile_id);
@@ -269,26 +251,28 @@ class Rss10Action extends Action
                 $this->element('sioc:links_to', array('rdf:resource'=>$attachment->url));
             }
         }
-        $tags = $this->extract_tags($notice->content);
-        if (!empty($tags)) {
-            foreach ($tags as $tag)
-            {
-                $tagpage = common_local_url('tag', array('tag' => $tag));
+
+        $tag = new Notice_tag();
+        $tag->notice_id = $notice->id;
+        if ($tag->find()) {
+            $entry['tags']=array();
+            while ($tag->fetch()) {
+                $tagpage = common_local_url('tag', array('tag' => $tag->tag));
 
                 if ( in_array($tag, $this->tags_already_output) ) {
                     $this->element('ctag:tagged', array('rdf:resource'=>$tagpage.'#concept'));
                     continue;
                 }
 
-                $tagrss  = common_local_url('tagrss', array('tag' => $tag));
+                $tagrss  = common_local_url('tagrss', array('tag' => $tag->tag));
                 $this->elementStart('ctag:tagged');
-                $this->elementStart('ctag:Tag', array('rdf:about'=>$tagpage.'#concept', 'ctag:label'=>$tag));
+                $this->elementStart('ctag:Tag', array('rdf:about'=>$tagpage.'#concept', 'ctag:label'=>$tag->tag));
                 $this->element('foaf:page', array('rdf:resource'=>$tagpage));
                 $this->element('rdfs:seeAlso', array('rdf:resource'=>$tagrss));
                 $this->elementEnd('ctag:Tag');
                 $this->elementEnd('ctag:tagged');
 
-                $this->tags_already_output[] = $tag;
+                $this->tags_already_output[] = $tag->tag;
             }
         }
         $this->elementEnd('item');

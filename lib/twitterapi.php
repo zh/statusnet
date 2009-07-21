@@ -265,6 +265,18 @@ class TwitterapiAction extends Action
             }
         }
 */
+
+        // Tags/Categories
+        $tag = new Notice_tag();
+        $tag->notice_id = $notice->id;
+        if ($tag->find()) {
+            $entry['tags']=array();
+            while ($tag->fetch()) {
+                $entry['tags'][]=$tag->tag;
+            }
+        }
+        $tag->free();
+
         // RSS Item specific
         $entry['description'] = $entry['content'];
         $entry['pubDate'] = common_date_rfc2822($notice->created);
@@ -441,6 +453,12 @@ class TwitterapiAction extends Action
         if($entry['enclosures']){
             $enclosure = $entry['enclosures'][0];
             $this->element('enclosure', array('url'=>$enclosure['url'],'type'=>$enclosure['mimetype'],'length'=>$enclosure['size']), null);
+        }
+        
+        if($entry['tags']){
+            foreach($entry['tags'] as $tag){
+                $this->element('category', null,$tag);
+            }
         }
 
         $this->elementEnd('item');
