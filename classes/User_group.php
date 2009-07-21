@@ -275,11 +275,14 @@ class User_group extends Memcached_DataObject
         // XXX: cache this
 
         $user = new User();
+        if(common_config('db','quote_identifiers'))
+            $user_table = '"user"';
+        else $user_table = 'user';
 
         $qry =
           'SELECT id ' .
-          'FROM user JOIN group_member '.
-          'ON user.id = group_member.profile_id ' .
+          'FROM '. $user_table .' JOIN group_member '.
+          'ON '. $user_table .'.id = group_member.profile_id ' .
           'WHERE group_member.group_id = %d ';
 
         $user->query(sprintf($qry, $this->id));

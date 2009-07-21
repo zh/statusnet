@@ -25,19 +25,18 @@ define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('MAXCHILDREN', 2);
 define('POLL_INTERVAL', 60); // in seconds
 
-$shortoptions = 'i::';
-$longoptions = array('id::');
+$shortoptions = 'di::';
+$longoptions = array('id::', 'debug');
 
 $helptext = <<<END_OF_TRIM_HELP
 Batch script for retrieving Twitter messages from foreign service.
 
-  -i --id      Identity (default 'generic')
-    
+  -i --id              Identity (default 'generic')
+  -d --debug           Debug (lots of log output)
+
 END_OF_TRIM_HELP;
 
-require_once INSTALLDIR.'/scripts/commandline.inc';
-
-require_once INSTALLDIR . '/lib/common.php';
+require_once INSTALLDIR .'/scripts/commandline.inc';
 require_once INSTALLDIR . '/lib/daemon.php';
 
 /**
@@ -61,6 +60,15 @@ class TwitterStatusFetcher extends Daemon
 {
     private $_children = array();
 
+    function __construct($id=null, $daemonize=true)
+    {
+        parent::__construct($daemonize);
+
+        if ($id) {
+            $this->set_id($id);
+        }
+    }
+
     /**
      * Name of this daemon
      *
@@ -80,6 +88,11 @@ class TwitterStatusFetcher extends Daemon
 
     function run()
     {
+        if (defined('SCRIPT_DEBUG')) {
+            common_debug($this->name() .
+                ': debugging log output enabled.');
+        }
+
         do {
 
             $flinks = $this->refreshFlinks();
@@ -638,6 +651,10 @@ if (have_option('i')) {
     $id = $args[0];
 } else {
     $id = null;
+}
+
+if (have_option('d') || have_option('debug')) {
+    define('SCRIPT_DEBUG', true);
 }
 
 $fetcher = new TwitterStatusFetcher($id);

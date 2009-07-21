@@ -39,6 +39,7 @@ class Rss10Action extends Action
     var $creators = array();
     var $limit = DEFAULT_RSS_LIMIT;
     var $notices = null;
+    var $tags_already_output = array();
 
     /**
      * Constructor
@@ -234,6 +235,11 @@ class Rss10Action extends Action
             $replyurl = common_local_url('shownotice', array('notice' => $notice->reply_to));
             $this->element('sioc:reply_of', array('rdf:resource' => $replyurl));
         }
+        if (!empty($notice->conversation)) {
+            $conversationurl = common_local_url('conversation',
+                                         array('id' => $notice->conversation));
+            $this->element('sioc:has_discussion', array('rdf:resource' => $conversationurl));
+        }
         $attachments = $notice->attachments();
         if($attachments){
             foreach($attachments as $attachment){
@@ -268,6 +274,12 @@ class Rss10Action extends Action
             foreach ($tags as $tag)
             {
                 $tagpage = common_local_url('tag', array('tag' => $tag));
+
+                if ( in_array($tag, $this->tags_already_output) ) {
+                    $this->element('ctag:tagged', array('rdf:resource'=>$tagpage.'#concept'));
+                    continue;
+                }
+
                 $tagrss  = common_local_url('tagrss', array('tag' => $tag));
                 $this->elementStart('ctag:tagged');
                 $this->elementStart('ctag:Tag', array('rdf:about'=>$tagpage.'#concept', 'ctag:label'=>$tag));
@@ -275,6 +287,8 @@ class Rss10Action extends Action
                 $this->element('rdfs:seeAlso', array('rdf:resource'=>$tagrss));
                 $this->elementEnd('ctag:Tag');
                 $this->elementEnd('ctag:tagged');
+
+                $this->tags_already_output[] = $tag;
             }
         }
         $this->elementEnd('item');
@@ -320,6 +334,8 @@ class Rss10Action extends Action
                                               'http://rdfs.org/sioc/ns#',
                                               'xmlns:sioct' =>
                                               'http://rdfs.org/sioc/types#',
+                                              'xmlns:rdfs' =>
+                                              'http://www.w3.org/2000/01/rdf-schema#',
                                               'xmlns:laconica' =>
                                               'http://laconi.ca/ont/',
                                               'xmlns' => 'http://purl.org/rss/1.0/'));

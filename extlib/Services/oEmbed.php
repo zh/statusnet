@@ -162,7 +162,7 @@ class Services_oEmbed
         }
 
         if ($this->options[self::OPTION_API] === null) {
-            $this->options[self::OPTION_API] = $this->discover();
+            $this->options[self::OPTION_API] = $this->discover($url);
         } 
     }
 
@@ -319,7 +319,7 @@ class Services_oEmbed
             }
         } 
 
-        return (isset($ret['json']) ? $ret['json'] : array_pop($ret));
+        return (isset($ret['application/json']) ? $ret['application/json'] : array_pop($ret));
     }
 
     /**

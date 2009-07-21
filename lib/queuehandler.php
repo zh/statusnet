@@ -29,7 +29,6 @@ define('QUEUE_HANDLER_HIT_IDLE', 0);
 
 class QueueHandler extends Daemon
 {
-    var $_id = 'generic';
 
     function __construct($id=null, $daemonize=true)
     {
@@ -53,16 +52,6 @@ class QueueHandler extends Daemon
     function name()
     {
         return strtolower($this->class_name().'.'.$this->get_id());
-    }
-
-    function get_id()
-    {
-        return $this->_id;
-    }
-
-    function set_id($id)
-    {
-        $this->_id = $id;
     }
 
     function transport()

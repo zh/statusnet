@@ -129,6 +129,11 @@ class Router
             $m->connect('index.php?action=' . $action, array('action' => $action));
         }
 
+        $m->connect('main/:method',
+                    array('action' => 'api',
+                          'method' => 'oembed(.xml|.json)?',
+                          'apiaction' => 'oembed'));
+
         // settings
 
         foreach (array('profile', 'avatar', 'password', 'openid', 'im',
@@ -389,6 +394,10 @@ class Router
                           'apiaction' => 'help'));
 
         // laconica
+
+        $m->connect('api/laconica/:method',
+                    array('action' => 'api',
+                          'apiaction' => 'laconica'));
 
         $m->connect('api/laconica/:method',
                     array('action' => 'api',

@@ -171,4 +171,5 @@ class TwitapilaconicaAction extends TwitterapiAction
         parent::handle($args);
         $this->serverError(_('API method under construction.'), 501);
     }
+
 }

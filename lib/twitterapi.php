@@ -186,19 +186,22 @@ class TwitterapiAction extends Action
             $twitter_status['favorited'] = false;
         }
 
-        # Enclosures
+        // Enclosures
         $attachments = $notice->attachments();
-        $twitter_status['attachments']=array();
-        if($attachments){
-            foreach($attachments as $attachment){
-                if ($attachment->isEnclosure()) {
-                    $enclosure=array();
-                    $enclosure['url']=$attachment->url;
-                    $enclosure['mimetype']=$attachment->mimetype;
-                    $enclosure['size']=$attachment->size;
-                    $twitter_status['attachments'][]=$enclosure;
-                }
+        $enclosures = array();
+
+        foreach ($attachments as $attachment) {
+            if ($attachment->isEnclosure()) {
+                 $enclosure = array();
+                 $enclosure['url'] = $attachment->url;
+                 $enclosure['mimetype'] = $attachment->mimetype;
+                 $enclosure['size'] = $attachment->size;
+                 $enclosures[] = $enclosure;
             }
+        }
+
+        if (!empty($enclosures)) {
+            $twitter_status['attachments'] = $enclosures;
         }
 
         if ($include_user) {
@@ -215,7 +218,7 @@ class TwitterapiAction extends Action
         $profile = $notice->getProfile();
         $entry = array();
 
-        # We trim() to avoid extraneous whitespace in the output
+        // We trim() to avoid extraneous whitespace in the output
 
         $entry['content'] = common_xml_safe_str(trim($notice->rendered));
         $entry['title'] = $profile->nickname . ': ' . common_xml_safe_str(trim($notice->content));
@@ -228,7 +231,26 @@ class TwitterapiAction extends Action
         $entry['updated'] = $entry['published'];
         $entry['author'] = $profile->getBestName();
 
-        # Enclosure
+        // Enclosures
+        $attachments = $notice->attachments();
+        $enclosures = array();
+
+        foreach ($attachments as $attachment) {
+            if ($attachment->isEnclosure()) {
+                 $enclosure = array();
+                 $enclosure['url'] = $attachment->url;
+                 $enclosure['mimetype'] = $attachment->mimetype;
+                 $enclosure['size'] = $attachment->size;
+                 $enclosures[] = $enclosure;
+            }
+        }
+
+        if (!empty($enclosures)) {
+            $entry['enclosures'] = $enclosures;
+        }
+
+/*
+        // Enclosure
         $attachments = $notice->attachments();
         if($attachments){
             $entry['enclosures']=array();
@@ -242,8 +264,8 @@ class TwitterapiAction extends Action
                 }
             }
         }
-
-        # RSS Item specific
+*/
+        // RSS Item specific
         $entry['description'] = $entry['content'];
         $entry['pubDate'] = common_date_rfc2822($notice->created);
         $entry['guid'] = $entry['link'];
@@ -369,6 +391,9 @@ class TwitterapiAction extends Action
             case 'text':
                 $this->element($element, null, common_xml_safe_str($value));
                 break;
+            case 'attachments':
+                $this->show_xml_attachments($twitter_status['attachments']);
+                break;
             default:
                 $this->element($element, null, $value);
             }
@@ -387,6 +412,20 @@ class TwitterapiAction extends Action
             }
         }
         $this->elementEnd($role);
+    }
+
+    function show_xml_attachments($attachments) {
+        if (!empty($attachments)) {
+            $this->elementStart('attachments', array('type' => 'array'));
+            foreach ($attachments as $attachment) {
+                $attrs = array();
+                $attrs['url'] = $attachment['url'];
+                $attrs['mimetype'] = $attachment['mimetype'];
+                $attrs['size'] = $attachment['size'];
+                $this->element('enclosure', $attrs, '');
+            }
+            $this->elementEnd('attachments');
+        }
     }
 
     function show_twitter_rss_item($entry)

@@ -83,7 +83,7 @@ class FinishopenidloginAction extends Action
     function showContent()
     {
         if (!empty($this->message_text)) {
-            $this->element('p', null, $this->message);
+            $this->element('div', array('class' => 'error'), $this->message_text);
             return;
         }
 
