@@ -318,9 +318,12 @@ class MailerDaemon
             && $parsed->ctype_secondary=='plain') {
             $msg = $parsed->body;
         }else if(!empty($parsed->body)){
-            $attachment = tmpfile();
-            fwrite($attachment, $parsed->body);
-            $attachments[] = $attachment;
+            if(common_config('attachments', 'uploads')){
+                //only save attachments if uploads are enabled
+                $attachment = tmpfile();
+                fwrite($attachment, $parsed->body);
+                $attachments[] = $attachment;
+            }
         }
     }
 
