@@ -73,7 +73,7 @@ class GroupTagCloudSection extends TagCloudSection
         $quoted = array();
 
         foreach ($names as $name) {
-            $quoted[] = "\"$name\"";
+            $quoted[] = "'$name'";
         }
 
         $namestring = implode(',', $quoted);

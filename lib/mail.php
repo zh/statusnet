@@ -121,7 +121,7 @@ function mail_notify_from()
 
         $domain = mail_domain();
 
-        $notifyfrom = common_config('site', 'name') .' <noreply@'.$domain.'>';
+        $notifyfrom = '"'.common_config('site', 'name') .'" <noreply@'.$domain.'>';
     }
 
     return $notifyfrom;

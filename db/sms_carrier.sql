@@ -60,4 +60,5 @@ VALUES
     (100112, 'Cincinnati Bell Wireless', '%s@gocbw.com', now()),
     (100113, 'T-Mobile Germany', '%s@t-mobile-sms.de', now()),
     (100114, 'Vodafone Germany', '%s@vodafone-sms.de', now()),
-    (100115, 'E-Plus', '%s@smsmail.eplus.de', now());
+    (100115, 'E-Plus', '%s@smsmail.eplus.de', now()),
+    (100116, 'Cellular South', '%s@csouth1.com', now());

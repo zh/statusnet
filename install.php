@@ -48,7 +48,7 @@ function checkPrereqs()
 		    $pass = false;
     }
 
-    $reqs = array('gd', 'mysql', 'curl',
+    $reqs = array('gd', 'curl',
                   'xmlwriter', 'mbstring',
                   'gettext');
 
@@ -58,6 +58,10 @@ function checkPrereqs()
 		    $pass = false;
         }
     }
+    if (!checkExtension('pgsql') && !checkExtension('mysql')) {
+      ?><p class="error">Cannot find mysql or pgsql extension. You need one or the other: <code><?php echo $req; ?></code></p><?php
+                    $pass = false;
+    }
 
 	if (!is_writable(INSTALLDIR)) {
          ?><p class="error">Cannot write config file to: <code><?php echo INSTALLDIR; ?></code></p>
@@ -66,17 +70,16 @@ function checkPrereqs()
 	     $pass = false;
 	}
 
-	if (!is_writable(INSTALLDIR.'/avatar/')) {
-         ?><p class="error">Cannot write avatar directory: <code><?php echo INSTALLDIR; ?>/avatar/</code></p>
-	       <p>On your server, try this command: <code>chmod a+w <?php echo INSTALLDIR; ?>/avatar/</code></p>
-         <?
-	     $pass = false;
-	}
-	if (!is_writable(INSTALLDIR.'/background/')) {
-         ?><p class="error">Cannot write background directory: <code><?php echo INSTALLDIR; ?>/background/</code></p>
-	       <p>On your server, try this command: <code>chmod a+w <?php echo INSTALLDIR; ?>/background/</code></p>
-         <?
-	     $pass = false;
+	// Check the subdirs used for file uploads
+	$fileSubdirs = array('avatar', 'background', 'file');
+	foreach ($fileSubdirs as $fileSubdir) {
+		$fileFullPath = INSTALLDIR."/$fileSubdir/";
+		if (!is_writable($fileFullPath)) {
+    	     ?><p class="error">Cannot write <?php echo $fileSubdir; ?> directory: <code><?php echo $fileFullPath; ?></code></p>
+		       <p>On your server, try this command: <code>chmod a+w <?php echo $fileFullPath; ?></code></p>
+    	     <?
+		     $pass = false;
+		}
 	}
 
 	return $pass;
@@ -127,7 +130,15 @@ function showForm()
                 <p class="form_guide">Database hostname</p>
             </li>
             <li>
-                <label for="host">Database</label>
+            
+                <label for="dbtype">Type</label>
+                <input type="radio" name="dbtype" id="fancy-mysql" value="mysql" checked='checked' /> MySQL<br />
+                <input type="radio" name="dbtype" id="dbtype-pgsql" value="pgsql" /> PostgreSQL<br />
+                <p class="form_guide">Database type</p>
+            </li>
+
+            <li>
+                <label for="database">Name</label>
                 <input type="text" id="database" name="database" />
                 <p class="form_guide">Database name</p>
             </li>
@@ -139,7 +150,7 @@ function showForm()
             <li>
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" />
-                <p class="form_guide">Database password</p>
+                <p class="form_guide">Database password (optional)</p>
             </li>
         </ul>
         <input type="submit" name="submit" class="submit" value="Submit" />
@@ -163,6 +174,7 @@ function handlePost()
 
 <?php
     $host     = $_POST['host'];
+    $dbtype   = $_POST['dbtype'];
     $database = $_POST['database'];
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -191,64 +203,28 @@ function handlePost()
 		$fail = true;
     }
 
-    if (empty($password)) {
-        updateStatus("No password specified.", true);
-		$fail = true;
-    }
+//     if (empty($password)) {
+//         updateStatus("No password specified.", true);
+// 		$fail = true;
+//     }
 
     if (empty($sitename)) {
         updateStatus("No sitename specified.", true);
 		$fail = true;
     }
 
-	if($fail){
-		showForm();
-	    return;
-	}
-
-    updateStatus("Starting installation...");
-    updateStatus("Checking database...");
-    $conn = mysql_connect($host, $username, $password);
-    if (!$conn) {
-        updateStatus("Can't connect to server '$host' as '$username'.", true);
-        showForm();
-        return;
-    }
-    updateStatus("Changing to database...");
-    $res = mysql_select_db($database, $conn);
-    if (!$res) {
-        updateStatus("Can't change to database.", true);
-        showForm();
-        return;
-    }
-    updateStatus("Running database script...");
-    $res = runDbScript(INSTALLDIR.'/db/laconica.sql', $conn);
-    if ($res === false) {
-        updateStatus("Can't run database script.", true);
-        showForm();
-        return;
-    }
-    foreach (array('sms_carrier' => 'SMS carrier',
-                   'notice_source' => 'notice source',
-                   'foreign_services' => 'foreign service')
-             as $scr => $name) {
-        updateStatus(sprintf("Adding %s data to database...", $name));
-        $res = runDbScript(INSTALLDIR.'/db/'.$scr.'.sql', $conn);
-        if ($res === false) {
-            updateStatus(sprintf("Can't run %d script.", $name), true);
+    if($fail){
             showForm();
-            return;
-        }
-    }
-    updateStatus("Writing config file...");
-    $sqlUrl = "mysqli://$username:$password@$host/$database";
-    $res = writeConf($sitename, $sqlUrl, $fancy);
-    if (!$res) {
-        updateStatus("Can't write config file.", true);
-        showForm();
         return;
     }
-    updateStatus("Done!");
+    
+    switch($dbtype) {
+      case 'mysql':    mysql_db_installer($host, $database, $username, $password, $sitename);
+      break;
+      case 'pgsql':    pgsql_db_installer($host, $database, $username, $password, $sitename);
+      break;
+      default:
+    }
     if ($path) $path .= '/';
     updateStatus("You can visit your <a href='/$path'>new Laconica site</a>.");
 ?>
@@ -256,7 +232,106 @@ function handlePost()
 <?php
 }
 
-function writeConf($sitename, $sqlUrl, $fancy)
+function pgsql_db_installer($host, $database, $username, $password, $sitename) {
+  $connstring = "dbname=$database host=$host user=$username";
+
+  //No password would mean trust authentication used.
+  if (!empty($password)) {
+    $connstring .= " password=$password";
+  }
+  updateStatus("Starting installation...");
+  updateStatus("Checking database...");
+  $conn = pg_connect($connstring);
+
+  updateStatus("Running database script...");
+  //wrap in transaction;
+  pg_query($conn, 'BEGIN');
+  $res = runDbScript(INSTALLDIR.'/db/laconica_pg.sql', $conn, 'pgsql');
+  
+  if ($res === false) {
+      updateStatus("Can't run database script.", true);
+      showForm();
+      return;
+  }
+  foreach (array('sms_carrier' => 'SMS carrier',
+                'notice_source' => 'notice source',
+                'foreign_services' => 'foreign service')
+          as $scr => $name) {
+      updateStatus(sprintf("Adding %s data to database...", $name));
+      $res = runDbScript(INSTALLDIR.'/db/'.$scr.'.sql', $conn, 'pgsql');
+      if ($res === false) {
+          updateStatus(sprintf("Can't run %d script.", $name), true);
+          showForm();
+          return;
+      }
+  }
+  pg_query($conn, 'COMMIT');
+
+  updateStatus("Writing config file...");
+  if (empty($password)) {
+    $sqlUrl = "pgsql://$username@$host/$database";
+  }
+  else {
+    $sqlUrl = "pgsql://$username:$password@$host/$database";
+  }
+  $res = writeConf($sitename, $sqlUrl, $fancy, 'pgsql');
+  if (!$res) {
+      updateStatus("Can't write config file.", true);
+      showForm();
+      return;
+  }
+  updateStatus("Done!");
+      
+}
+
+function mysql_db_installer($host, $database, $username, $password, $sitename) {
+  updateStatus("Starting installation...");
+  updateStatus("Checking database...");
+
+  $conn = mysql_connect($host, $username, $password);
+  if (!$conn) {
+      updateStatus("Can't connect to server '$host' as '$username'.", true);
+      showForm();
+      return;
+  }
+  updateStatus("Changing to database...");
+  $res = mysql_select_db($database, $conn);
+  if (!$res) {
+      updateStatus("Can't change to database.", true);
+      showForm();
+      return;
+  }
+  updateStatus("Running database script...");
+  $res = runDbScript(INSTALLDIR.'/db/laconica.sql', $conn);
+  if ($res === false) {
+      updateStatus("Can't run database script.", true);
+      showForm();
+      return;
+  }
+  foreach (array('sms_carrier' => 'SMS carrier',
+                'notice_source' => 'notice source',
+                'foreign_services' => 'foreign service')
+          as $scr => $name) {
+      updateStatus(sprintf("Adding %s data to database...", $name));
+      $res = runDbScript(INSTALLDIR.'/db/'.$scr.'.sql', $conn);
+      if ($res === false) {
+          updateStatus(sprintf("Can't run %d script.", $name), true);
+          showForm();
+          return;
+      }
+  }
+      
+      updateStatus("Writing config file...");
+      $sqlUrl = "mysqli://$username:$password@$host/$database";
+      $res = writeConf($sitename, $sqlUrl, $fancy);
+      if (!$res) {
+          updateStatus("Can't write config file.", true);
+          showForm();
+          return;
+      }
+      updateStatus("Done!");
+    }
+function writeConf($sitename, $sqlUrl, $fancy, $type='mysql')
 {
     $res = file_put_contents(INSTALLDIR.'/config.php',
                              "<?php\n".
@@ -264,11 +339,13 @@ function writeConf($sitename, $sqlUrl, $fancy)
                              "\$config['site']['name'] = \"$sitename\";\n\n".
                              ($fancy ? "\$config['site']['fancy'] = true;\n\n":'').
                              "\$config['db']['database'] = \"$sqlUrl\";\n\n".
+                             ($type == 'pgsql' ? "\$config['db']['quote_identifiers'] = true;\n\n" .
+                             "\$config['db']['type'] = \"$type\";\n\n" : '').
                              "?>");
     return $res;
 }
 
-function runDbScript($filename, $conn)
+function runDbScript($filename, $conn, $type='mysql')
 {
     $sql = trim(file_get_contents($filename));
     $stmts = explode(';', $sql);
@@ -277,8 +354,13 @@ function runDbScript($filename, $conn)
         if (!mb_strlen($stmt)) {
             continue;
         }
-        $res = mysql_query($stmt, $conn);
+        if ($type == 'mysql') {
+          $res = mysql_query($stmt, $conn);
+        } elseif ($type=='pgsql') {
+          $res = pg_query($conn, $stmt);
+        }
         if ($res === false) {
+            updateStatus("FAILED SQL: $stmt");
             return $res;
         }
     }
