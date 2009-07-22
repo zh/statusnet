@@ -28,7 +28,8 @@
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 
 $helptext = <<<ENDOFHELP
-getvaliddaemons.php - print out the currently configured PID directory
+getvaliddaemons.php - print out a list of valid daemons that should be started
+by the startdaemons script
 
 ENDOFHELP;
 
