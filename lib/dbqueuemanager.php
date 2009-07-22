@@ -88,7 +88,9 @@ class DBQueueManager extends QueueManager
 
         do {
             $qi = Queue_item::top($queue);
-            if (!empty($qi)) {
+            if (empty($qi)) {
+	    	sleep(1);
+            } else {
                 $notice = Notice::staticGet('id', $qi->notice_id);
                 if (!empty($notice)) {
                     $result = $notice;
