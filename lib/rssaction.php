@@ -97,6 +97,31 @@ class Rss10Action extends Action
     {
         // Parent handling, including cache check
         parent::handle($args);
+
+        if (common_config('site', 'private')) {
+            if (!isset($_SERVER['PHP_AUTH_USER'])) {
+
+                # This header makes basic auth go
+                header('WWW-Authenticate: Basic realm="Laconica RSS"');
+
+                # If the user hits cancel -- bam!
+                $this->show_basic_auth_error();
+                return;
+            } else {
+                $nickname = $_SERVER['PHP_AUTH_USER'];
+                $password = $_SERVER['PHP_AUTH_PW'];
+
+                if (!common_check_user($nickname, $password)) {
+                    # basic authentication failed
+                    list($proxy, $ip) = common_client_ip();
+
+                    common_log(LOG_WARNING, "Failed RSS auth attempt, nickname = $nickname, proxy = $proxy, ip = $ip.");
+                    $this->show_basic_auth_error();
+                    return;
+                }
+            }
+        }
+
         // Get the list of notices
         if (empty($this->tag)) {
             $this->notices = $this->getNotices($this->limit);
@@ -104,6 +129,18 @@ class Rss10Action extends Action
             $this->notices = $this->getTaggedNotices($this->tag, $this->limit);
         }
         $this->showRss();
+    }
+
+    function show_basic_auth_error()
+    {
+        header('HTTP/1.1 401 Unauthorized');
+        header('Content-Type: application/xml; charset=utf-8');
+        $this->startXML();
+        $this->elementStart('hash');
+        $this->element('error', null, 'Could not authenticate you.');
+        $this->element('request', null, $_SERVER['REQUEST_URI']);
+        $this->elementEnd('hash');
+        $this->endXML();
     }
 
     /**
