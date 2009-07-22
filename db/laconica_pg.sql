@@ -72,6 +72,8 @@ create table "user" (
     autosubscribe integer default 0 /* comment 'automatically subscribe to users who subscribe to us' */,
     urlshorteningservice varchar(50) default 'ur1.ca' /* comment 'service to use for auto-shortening URLs' */,
     inboxed integer default 0 /* comment 'has an inbox been created for this user?' */, 
+    design_id integer /* comment 'id of a design' */references design(id),
+    viewdesigns integer default 1 /* comment 'whether to view user-provided designs'*/,
     created timestamp not null default CURRENT_TIMESTAMP /* comment 'date this record was created' */,
     modified timestamp /* comment 'date this record was modified' */
 
