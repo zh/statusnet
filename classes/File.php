@@ -136,7 +136,7 @@ class File extends Memcached_DataObject
             return sprintf(_('A file this large would exceed your user quota of %d bytes.'), common_config('attachments', 'user_quota'));
         }
 
-        $query .= ' month(modified) = month(now()) and year(modified) = year(now())';
+        $query .= ' AND month(modified) = month(now()) and year(modified) = year(now())';
         $this->query($query);
         $this->fetch();
         $total = $this->total + $fileSize;
