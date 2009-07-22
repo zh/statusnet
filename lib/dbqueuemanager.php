@@ -55,7 +55,8 @@ class DBQueueManager extends QueueManager
     {
         while (true) {
             $this->_log(LOG_DEBUG, 'Checking for notices...');
-            $notice = $this->_nextItem($queue, null);
+            $timeout = $handler->timeout();
+            $notice = $this->_nextItem($queue, $timeout);
             if (empty($notice)) {
                 $this->_log(LOG_DEBUG, 'No notices waiting; idling.');
                 // Nothing in the queue. Do you
@@ -87,7 +88,9 @@ class DBQueueManager extends QueueManager
 
         do {
             $qi = Queue_item::top($queue);
-            if (!empty($qi)) {
+            if (empty($qi)) {
+	    	sleep(1);
+            } else {
                 $notice = Notice::staticGet('id', $qi->notice_id);
                 if (!empty($notice)) {
                     $result = $notice;

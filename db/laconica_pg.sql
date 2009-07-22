@@ -441,7 +441,6 @@ create table group_inbox (
     group_id integer not null /* comment 'group receiving the message' references user_group (id) */,
     notice_id integer not null /* comment 'notice received' references notice (id) */,
     created timestamp not null default CURRENT_TIMESTAMP /* comment 'date the notice was created' */,
-
     primary key (group_id, notice_id)
 );
 create index group_inbox_created_idx on group_inbox using btree(created);
@@ -456,7 +455,9 @@ create table file (
     size integer, 
     title varchar(255), 
     date integer, 
-    protected integer
+    protected integer,
+    filename text /* comment 'if a local file, name of the file' */,
+    modified timestamp default CURRENT_TIMESTAMP /* comment 'date this record was modified'*/
 );
 
 create sequence file_oembed_seq;

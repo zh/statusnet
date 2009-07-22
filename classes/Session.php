@@ -106,14 +106,11 @@ class Session extends Memcached_DataObject
     {
         self::logdeb("garbage collection (maxlifetime = $maxlifetime)");
 
-        $epoch = time() - $maxlifetime;
-
-        $qry = 'DELETE FROM session ' .
-          'WHERE modified < "'.$epoch.'"';
+        $epoch = common_sql_date(time() - $maxlifetime);
 
         $session = new Session();
-
-        $result = $session->query($qry);
+        $session->whereAdd('modified < "'.$epoch.'"');
+        $result = $session->delete(DB_DATAOBJECT_WHEREADD_ONLY);
 
         self::logdeb("garbage collection result = $result");
     }

@@ -404,7 +404,7 @@ function common_render_text($text)
 
     $r = preg_replace('/[\x{0}-\x{8}\x{b}-\x{c}\x{e}-\x{19}]/', '', $r);
     $r = common_replace_urls_callback($r, 'common_linkify');
-    $r = preg_replace('/(^|\(|\[|\s+)#([A-Za-z0-9_\-\.]{1,64})/e', "'\\1#'.common_tag_link('\\2')", $r);
+    $r = preg_replace('/(^|\(|\[|\s+)#([\pL\pN_\-\.]{1,64})/e', "'\\1#'.common_tag_link('\\2')", $r);
     // XXX: machine tags
     return $r;
 }
@@ -414,9 +414,9 @@ function common_replace_urls_callback($text, $callback, $notice_id = null) {
     $regex = '#'.
     '(?:'.
         '(?:'.
-            '(?:https?|ftps?|mms|rtsp|gopher|news|nntp|telnet|wais|file|prospero|webcal|xmpp|irc)://'.
+            '(?:https?|ftps?|mms|rtsp|gopher|news|nntp|telnet|wais|file|prospero|webcal|irc)://'.
             '|'.
-            '(?:mailto|aim|tel):'.
+            '(?:mailto|aim|tel|xmpp):'.
         ')'.
         '[^.\s]+\.[^\s]+'.
         '|'.
