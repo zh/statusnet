@@ -464,8 +464,7 @@ create table file (
 
 create sequence file_oembed_seq;
 create table file_oembed (
-    id bigint default nextval('file_oembed_seq') primary key /* comment 'unique identifier' */,
-    file_id bigint unique,
+    file_id bigint default nextval('file_oembed_seq') primary key /* comment 'unique identifier' */,
     version varchar(20),
     type varchar(20),
     provider varchar(50),
