@@ -480,8 +480,7 @@ create table file_oembed (
 
 create sequence file_redirection_seq;
 create table file_redirection (
-    id bigint default nextval('file_redirection_seq') primary key /* comment 'unique identifier' */,
-    url varchar(255) unique, 
+    url varchar(255) primary key, 
     file_id bigint, 
     redirections integer, 
     httpcode integer
