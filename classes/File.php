@@ -122,6 +122,7 @@ class File extends Memcached_DataObject
     }
 
     function isRespectsQuota($user,$fileSize) {
+
         if ($fileSize > common_config('attachments', 'file_quota')) {
             return sprintf(_('No file may be larger than %d bytes ' .
                              'and the file you sent was %d bytes. Try to upload a smaller version.'),
@@ -135,8 +136,7 @@ class File extends Memcached_DataObject
         if ($total > common_config('attachments', 'user_quota')) {
             return sprintf(_('A file this large would exceed your user quota of %d bytes.'), common_config('attachments', 'user_quota'));
         }
-
-        $query .= ' AND month(modified) = month(now()) and year(modified) = year(now())';
+        $query .= ' AND EXTRACT(month FROM file.modified) = EXTRACT(month FROM now()) and EXTRACT(year FROM file.modified) = EXTRACT(year FROM now())';
         $this->query($query);
         $this->fetch();
         $total = $this->total + $fileSize;
