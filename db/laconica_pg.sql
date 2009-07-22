@@ -488,8 +488,7 @@ create table file_redirection (
 
 create sequence file_thumbnail_seq;
 create table file_thumbnail (
-    id bigint default nextval('file_thumbnail_seq') primary key /* comment 'unique identifier' */,
-    file_id bigint unique, 
+    file_id bigint primary key, 
     url varchar(255) unique, 
     width integer, 
     height integer 
@@ -497,11 +496,10 @@ create table file_thumbnail (
 
 create sequence file_to_post_seq;
 create table file_to_post (
-    id bigint default nextval('file_to_post_seq') primary key /* comment 'unique identifier' */,
     file_id bigint, 
     post_id bigint, 
 
-    unique(file_id, post_id)
+    primary key (file_id, post_id)
 );
 
 create table group_block (
