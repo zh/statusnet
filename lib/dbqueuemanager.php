@@ -89,7 +89,7 @@ class DBQueueManager extends QueueManager
         do {
             $qi = Queue_item::top($queue);
             if (empty($qi)) {
-	    	sleep(1);
+                sleep(1);
             } else {
                 $notice = Notice::staticGet('id', $qi->notice_id);
                 if (!empty($notice)) {
@@ -120,7 +120,7 @@ class DBQueueManager extends QueueManager
         } else {
             if (empty($qi->claimed)) {
                 $this->_log(LOG_WARNING, 'Reluctantly releasing unclaimed queue item '.
-                           'for '.$notice->id.', queue '.$queue);
+                            'for '.$notice->id.', queue '.$queue);
             }
             $qi->delete();
             $qi->free();
@@ -147,7 +147,7 @@ class DBQueueManager extends QueueManager
         } else {
             if (empty($qi->claimed)) {
                 $this->_log(LOG_WARNING, 'Ignoring failure for unclaimed queue item '.
-                           'for '.$notice->id.', queue '.$queue);
+                            'for '.$notice->id.', queue '.$queue);
             } else {
                 $orig = clone($qi);
                 $qi->claimed = null;
