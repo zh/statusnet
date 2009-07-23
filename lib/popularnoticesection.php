@@ -74,11 +74,7 @@ class PopularNoticeSection extends NoticeSection
         $offset = 0;
         $limit  = NOTICES_PER_SECTION + 1;
 
-        if (common_config('db', 'type') == 'pgsql') {
-            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-        } else {
-            $qry .= ' LIMIT ' . $offset . ', ' . $limit;
-        }
+        $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
 
         $notice = Memcached_DataObject::cachedQuery('Notice',
                                                     sprintf($qry, common_config('popular', 'dropoff')),

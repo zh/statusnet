@@ -199,7 +199,7 @@ class Profile extends Memcached_DataObject
         $query .= ' order by id DESC';
 
         if (!is_null($offset)) {
-            $query .= " limit $offset, $limit";
+            $query .= " LIMIT $limit OFFSET $offset";
         }
 
         $notice->query($query);
@@ -360,7 +360,6 @@ class Profile extends Memcached_DataObject
             $c->set(common_cache_key('profile:subscription_count:'.$this->id), $cnt);
         }
 
-        common_debug("subscriptionCount == $cnt");
         return $cnt;
     }
 
@@ -385,7 +384,6 @@ class Profile extends Memcached_DataObject
             $c->set(common_cache_key('profile:subscriber_count:'.$this->id), $cnt);
         }
 
-        common_debug("subscriberCount == $cnt");
         return $cnt;
     }
 
@@ -407,7 +405,6 @@ class Profile extends Memcached_DataObject
             $c->set(common_cache_key('profile:fave_count:'.$this->id), $cnt);
         }
 
-        common_debug("faveCount == $cnt");
         return $cnt;
     }
 
@@ -430,7 +427,6 @@ class Profile extends Memcached_DataObject
             $c->set(common_cache_key('profile:notice_count:'.$this->id), $cnt);
         }
 
-        common_debug("noticeCount == $cnt");
         return $cnt;
     }
 

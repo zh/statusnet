@@ -129,6 +129,11 @@ class Router
             $m->connect('index.php?action=' . $action, array('action' => $action));
         }
 
+        $m->connect('main/:method',
+                    array('action' => 'api',
+                          'method' => 'oembed(.xml|.json)?',
+                          'apiaction' => 'oembed'));
+
         // settings
 
         foreach (array('profile', 'avatar', 'password', 'openid', 'im',
@@ -206,7 +211,7 @@ class Router
                     array('tag' => '[a-zA-Z0-9]+'));
         $m->connect('tag/:tag',
                     array('action' => 'tag'),
-                    array('tag' => '[a-zA-Z0-9]+'));
+                    array('tag' => '[\pL\pN_\-\.]{1,64}'));
 
         $m->connect('peopletag/:tag',
                     array('action' => 'peopletag'),
@@ -389,6 +394,10 @@ class Router
                           'apiaction' => 'help'));
 
         // laconica
+
+        $m->connect('api/laconica/:method',
+                    array('action' => 'api',
+                          'apiaction' => 'laconica'));
 
         $m->connect('api/laconica/:method',
                     array('action' => 'api',

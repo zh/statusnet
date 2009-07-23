@@ -24,6 +24,7 @@ if (!defined('LACONICA')) {
 class Daemon
 {
     var $daemonize = true;
+    var $_id = 'generic';
 
     function __construct($daemonize = true)
     {
@@ -33,6 +34,16 @@ class Daemon
     function name()
     {
         return null;
+    }
+
+    function get_id()
+    {
+        return $this->_id;
+    }
+
+    function set_id($id)
+    {
+        $this->_id = $id;
     }
 
     function background()

@@ -194,6 +194,9 @@ class RecoverpasswordAction extends Action
                         'or your registered email address.'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
+        $this->element('input', array('name' => 'recover',
+                                      'type' => 'hidden',
+                                      'value' => _('Recover')));
         $this->submit('recover', _('Recover'));
         $this->elementEnd('fieldset');
         $this->elementEnd('form');

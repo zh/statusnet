@@ -443,7 +443,7 @@ class User extends Memcached_DataObject
               'SELECT notice.* ' .
               'FROM notice JOIN subscription ON notice.profile_id = subscription.subscribed ' .
               'WHERE subscription.subscriber = %d ' .
-              'AND notice.is_local != ' . NOTICE_GATEWAY;
+              'AND notice.is_local != ' . Notice::GATEWAY;
             return Notice::getStream(sprintf($qry, $this->id),
                                      'user:notices_with_friends:' . $this->id,
                                      $offset, $limit, $since_id, $before_id,

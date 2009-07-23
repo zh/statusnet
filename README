@@ -134,7 +134,7 @@ Prerequisites
 The following software packages are *required* for this software to
 run correctly.
 
-- PHP 5.2.x. It may be possible to run this software on earlier
+- PHP 5.2.3+. It may be possible to run this software on earlier
   versions of PHP, but many of the functions used are only available
   in PHP 5.2 or above.
 - MySQL 5.x. The Laconica database is stored, by default, in a MySQL
@@ -262,13 +262,16 @@ especially if you've previously installed PHP/MySQL packages.
    that user's default group instead. As a last resort, you can create
    a new group like "mublog" and add the Web server's user to the group.
 
-4. You should also take this moment to make your avatar subdirectory
-   writeable by the Web server. An insecure way to do this is:
+4. You should also take this moment to make your avatar, background, and
+   file subdirectories writeable by the Web server. An insecure way to do
+   this is:
 
    	  chmod a+w /var/www/mublog/avatar
+   	  chmod a+w /var/www/mublog/background
+   	  chmod a+w /var/www/mublog/file
 
-   You can also make the avatar directory writeable by the Web server
-   group, as noted above.
+   You can also make the avatar, background, and file directories
+   writeable by the Web server group, as noted above.
 
 5. Create a database to hold your microblog data. Something like this
    should work:

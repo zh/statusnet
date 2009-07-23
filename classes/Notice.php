@@ -32,7 +32,6 @@ define('NOTICE_CACHE_WINDOW', 61);
 define('NOTICE_LOCAL_PUBLIC', 1);
 define('NOTICE_REMOTE_OMB', 0);
 define('NOTICE_LOCAL_NONPUBLIC', -1);
-define('NOTICE_GATEWAY', -2);
 
 define('MAX_BOXCARS', 128);
 
@@ -62,6 +61,8 @@ class Notice extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+    const GATEWAY = -2;
 
     function getProfile()
     {
@@ -111,13 +112,21 @@ class Notice extends Memcached_DataObject
     function saveTags()
     {
         /* extract all #hastags */
-        $count = preg_match_all('/(?:^|\s)#([A-Za-z0-9_\-\.]{1,64})/', strtolower($this->content), $match);
+        $count = preg_match_all('/(?:^|\s)#([\pL\pN_\-\.]{1,64})/', strtolower($this->content), $match);
         if (!$count) {
             return true;
         }
+        
+        //turn each into their canonical tag
+        //this is needed to remove dupes before saving e.g. #hash.tag = #hashtag
+        $hashtags = array();
+        for($i=0; $i<count($match[1]); $i++) {
+             $hashtags[] = common_canonical_tag($match[1][$i]);
+        }
 
+ 
         /* Add them to the database */
-        foreach(array_unique($match[1]) as $hashtag) {
+        foreach(array_unique($hashtags) as $hashtag) {
             /* elide characters we don't want in the tag */
             $this->saveTag($hashtag);
         }
@@ -126,8 +135,6 @@ class Notice extends Memcached_DataObject
 
     function saveTag($hashtag)
     {
-        $hashtag = common_canonical_tag($hashtag);
-
         $tag = new Notice_tag();
         $tag->notice_id = $this->id;
         $tag->tag = $hashtag;
@@ -887,7 +894,7 @@ class Notice extends Memcached_DataObject
                 if ($cnt > 0) {
                     $qry .= ', ';
                 }
-                $qry .= '('.$id.', '.$this->id.', '.$source.', "'.$this->created.'") ';
+                $qry .= '('.$id.', '.$this->id.', '.$source.", '".$this->created. "') ";
                 $cnt++;
                 if (rand() % NOTICE_INBOX_SOFT_LIMIT == 0) {
                     Notice_inbox::gc($id);
@@ -913,10 +920,14 @@ class Notice extends Memcached_DataObject
     {
         $user = new User();
 
+	if(common_config('db','quote_identifiers'))
+	    $user_table = '"user"';
+	else $user_table = 'user';
+
         $qry =
           'SELECT id ' .
-          'FROM user JOIN subscription '.
-          'ON user.id = subscription.subscriber ' .
+	  'FROM '. $user_table .' JOIN subscription '.
+	  'ON '. $user_table .'.id = subscription.subscriber ' .
           'WHERE subscription.subscribed = %d ';
 
         $user->query(sprintf($qry, $this->profile_id));
