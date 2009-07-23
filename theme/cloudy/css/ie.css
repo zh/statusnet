@@ -8,6 +8,16 @@ color:#fff;
 background-color:#ddffcc;
 }
 
+#form_notice .form_note + label {
+position:absolute;
+top:25px;
+left:83%;
+text-indent:-9999px;
+height:16px;
+width:16px;
+display:block;
+}
+
 #aside_primary {
 width:181px;
 }
@@ -31,4 +41,14 @@ top:158px;
 #subscriptions #content,
 #subscribers #content {
 padding-top:138px;
+}
+
+.notice {
+z-index:1;
+}
+.notice:hover {
+z-index:9999;
+}
+.notice .thumbnail img {
+z-index:9999;
 }

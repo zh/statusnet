@@ -1,4 +1,3 @@
-
 /* local and remote users have profiles */
 
 create sequence profile_seq;
@@ -41,6 +40,19 @@ create table sms_carrier (
     modified timestamp /* comment 'date this record was modified ' */
 );
 
+create sequence design_seq;
+create table design (
+    id bigint default nextval('design_seq') /* comment 'design ID'*/,
+    backgroundcolor integer /* comment 'main background color'*/ ,
+    contentcolor integer /*comment 'content area background color'*/ ,
+    sidebarcolor integer /*comment 'sidebar background color'*/ ,
+    textcolor integer /*comment 'text color'*/ ,
+    linkcolor integer /*comment 'link color'*/,
+    backgroundimage varchar(255) /*comment 'background image, if any'*/,
+    disposition int default 1 /*comment 'bit 1 = hide background image, bit 2 = display background image, bit 4 = tile background image'*/,
+    primary key (id)
+);
+
 /* local users */
 
 create table "user" (
@@ -72,6 +84,8 @@ create table "user" (
     autosubscribe integer default 0 /* comment 'automatically subscribe to users who subscribe to us' */,
     urlshorteningservice varchar(50) default 'ur1.ca' /* comment 'service to use for auto-shortening URLs' */,
     inboxed integer default 0 /* comment 'has an inbox been created for this user?' */, 
+    design_id integer /* comment 'id of a design' */references design(id),
+    viewdesigns integer default 1 /* comment 'whether to view user-provided designs'*/,
     created timestamp not null default CURRENT_TIMESTAMP /* comment 'date this record was created' */,
     modified timestamp /* comment 'date this record was modified' */
 
@@ -376,20 +390,6 @@ create table profile_block (
 
 );
 
-create sequence design_seq;
-create table design (
-    id bigint default nextval('design_seq') /* comment 'design ID'*/,
-    backgroundcolor integer /* comment 'main background color'*/ ,
-    contentcolor integer /*comment 'content area background color'*/ ,
-    sidebarcolor integer /*comment 'sidebar background color'*/ ,
-    textcolor integer /*comment 'text color'*/ ,
-    linkcolor integer /*comment 'link color'*/,
-    backgroundimage varchar(255) /*comment 'background image, if any'*/,
-    disposition int default 1 /*comment 'bit 1 = hide background image, bit 2 = display background image, bit 4 = tile background image'*/,
-    primary key (id)
-);
-
-
 create sequence user_group_seq;
 create table user_group (
 
@@ -441,7 +441,6 @@ create table group_inbox (
     group_id integer not null /* comment 'group receiving the message' references user_group (id) */,
     notice_id integer not null /* comment 'notice received' references notice (id) */,
     created timestamp not null default CURRENT_TIMESTAMP /* comment 'date the notice was created' */,
-
     primary key (group_id, notice_id)
 );
 create index group_inbox_created_idx on group_inbox using btree(created);
@@ -456,13 +455,14 @@ create table file (
     size integer, 
     title varchar(255), 
     date integer, 
-    protected integer
+    protected integer,
+    filename text /* comment 'if a local file, name of the file' */,
+    modified timestamp default CURRENT_TIMESTAMP /* comment 'date this record was modified'*/
 );
 
 create sequence file_oembed_seq;
 create table file_oembed (
-    id bigint default nextval('file_oembed_seq') primary key /* comment 'unique identifier' */,
-    file_id bigint unique,
+    file_id bigint default nextval('file_oembed_seq') primary key /* comment 'unique identifier' */,
     version varchar(20),
     type varchar(20),
     provider varchar(50),
@@ -478,8 +478,7 @@ create table file_oembed (
 
 create sequence file_redirection_seq;
 create table file_redirection (
-    id bigint default nextval('file_redirection_seq') primary key /* comment 'unique identifier' */,
-    url varchar(255) unique, 
+    url varchar(255) primary key, 
     file_id bigint, 
     redirections integer, 
     httpcode integer
@@ -487,8 +486,7 @@ create table file_redirection (
 
 create sequence file_thumbnail_seq;
 create table file_thumbnail (
-    id bigint default nextval('file_thumbnail_seq') primary key /* comment 'unique identifier' */,
-    file_id bigint unique, 
+    file_id bigint primary key, 
     url varchar(255) unique, 
     width integer, 
     height integer 
@@ -496,11 +494,10 @@ create table file_thumbnail (
 
 create sequence file_to_post_seq;
 create table file_to_post (
-    id bigint default nextval('file_to_post_seq') primary key /* comment 'unique identifier' */,
     file_id bigint, 
     post_id bigint, 
 
-    unique(file_id, post_id)
+    primary key (file_id, post_id)
 );
 
 create table group_block (

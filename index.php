@@ -165,7 +165,8 @@ function main()
 
     if (!$user && common_config('site', 'private') &&
         !in_array($action, array('login', 'openidlogin', 'finishopenidlogin',
-                                 'recoverpassword', 'api', 'doc', 'register'))) {
+                                 'recoverpassword', 'api', 'doc', 'register')) &&
+        !preg_match('/rss$/', $action)) {
         common_redirect(common_local_url('login'));
         return;
     }

@@ -98,13 +98,21 @@ class Notice extends Memcached_DataObject
     function saveTags()
     {
         /* extract all #hastags */
-        $count = preg_match_all('/(?:^|\s)#([A-Za-z0-9_\-\.]{1,64})/', strtolower($this->content), $match);
+        $count = preg_match_all('/(?:^|\s)#([\pL\pN_\-\.]{1,64})/', strtolower($this->content), $match);
         if (!$count) {
             return true;
         }
+        
+        //turn each into their canonical tag
+        //this is needed to remove dupes before saving e.g. #hash.tag = #hashtag
+        $hashtags = array();
+        for($i=0; $i<count($match[1]); $i++) {
+             $hashtags[] = common_canonical_tag($match[1][$i]);
+        }
 
+ 
         /* Add them to the database */
-        foreach(array_unique($match[1]) as $hashtag) {
+        foreach(array_unique($hashtags) as $hashtag) {
             /* elide characters we don't want in the tag */
             $this->saveTag($hashtag);
         }
@@ -113,8 +121,6 @@ class Notice extends Memcached_DataObject
 
     function saveTag($hashtag)
     {
-        $hashtag = common_canonical_tag($hashtag);
-
         $tag = new Notice_tag();
         $tag->notice_id = $this->id;
         $tag->tag = $hashtag;
