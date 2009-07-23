@@ -59,7 +59,7 @@ class Fave extends Memcached_DataObject
              $qry =  'SELECT fave.* FROM fave ';
              $qry .= 'INNER JOIN notice ON fave.notice_id = notice.id ';
              $qry .= 'WHERE fave.user_id = ' . $user_id . ' ';
-             $qry .= 'AND notice.is_local != ' . NOTICE_GATEWAY . ' ';
+             $qry .= 'AND notice.is_local != ' . Notice::GATEWAY . ' ';
         }
 
         if ($since_id != 0) {

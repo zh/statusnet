@@ -32,7 +32,7 @@ $helptext = <<<END_OF_TRIM_HELP
 Batch script for retrieving Twitter messages from foreign service.
 
   -i --id      Identity (default 'generic')
-    
+
 END_OF_TRIM_HELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
@@ -317,7 +317,7 @@ class TwitterStatusFetcher extends Daemon
             $notice->rendered   = common_render_content($notice->content, $notice);
             $notice->source     = 'twitter';
             $notice->reply_to   = null; // XXX lookup reply
-            $notice->is_local   = NOTICE_GATEWAY;
+            $notice->is_local   = Notice::GATEWAY;
 
             if (Event::handle('StartNoticeSave', array(&$notice))) {
                 $id = $notice->insert();
