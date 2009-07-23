@@ -199,7 +199,7 @@ class Profile extends Memcached_DataObject
         $query .= ' order by id DESC';
 
         if (!is_null($offset)) {
-            $query .= " limit $offset, $limit";
+            $query .= " LIMIT $limit OFFSET $offset";
         }
 
         $notice->query($query);
