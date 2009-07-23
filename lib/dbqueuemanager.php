@@ -22,7 +22,6 @@
  * @category  QueueManager
  * @package   Laconica
  * @author    Evan Prodromou <evan@controlyourself.ca>
- * @author    Sarven Capadisli <csarven@controlyourself.ca>
  * @copyright 2009 Control Yourself, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
@@ -86,10 +85,14 @@ class DBQueueManager extends QueueManager
         $start = time();
         $result = null;
 
+        $sleeptime = 1;
+
         do {
             $qi = Queue_item::top($queue);
             if (empty($qi)) {
-                sleep(1);
+                $this->_log(LOG_DEBUG, "No new queue items, sleeping $sleeptime seconds.");
+                sleep($sleeptime);
+                $sleeptime *= 2;
             } else {
                 $notice = Notice::staticGet('id', $qi->notice_id);
                 if (!empty($notice)) {
@@ -100,6 +103,7 @@ class DBQueueManager extends QueueManager
                     $qi->free();
                     $qi = null;
                 }
+                $sleeptime = 1;
             }
         } while (empty($result) && (is_null($timeout) || (time() - $start) < $timeout));
 
