@@ -934,7 +934,6 @@ float:left;
 font-size:0.95em;
 width:16px;
 float:right;
-display:none;
 }
 .notices li:hover div.notice-options {
 display:block;
@@ -982,6 +981,10 @@ border:0;
 .notice-options .notice_delete a {
 text-decoration:none;
 padding-left:16px;
+}
+
+.notice-options .notice_reply .notice_id {
+display:none;
 }
 
 .notice-options form input.submit {
