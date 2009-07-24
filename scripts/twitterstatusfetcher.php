@@ -330,7 +330,7 @@ class TwitterStatusFetcher extends Daemon
             $notice->rendered   = common_render_content($notice->content, $notice);
             $notice->source     = 'twitter';
             $notice->reply_to   = null; // XXX lookup reply
-            $notice->is_local   = NOTICE_GATEWAY;
+            $notice->is_local   = Notice::GATEWAY;
 
             if (Event::handle('StartNoticeSave', array(&$notice))) {
                 $id = $notice->insert();

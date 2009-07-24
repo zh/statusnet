@@ -32,7 +32,6 @@ define('NOTICE_CACHE_WINDOW', 61);
 define('NOTICE_LOCAL_PUBLIC', 1);
 define('NOTICE_REMOTE_OMB', 0);
 define('NOTICE_LOCAL_NONPUBLIC', -1);
-define('NOTICE_GATEWAY', -2);
 
 define('MAX_BOXCARS', 128);
 
@@ -62,6 +61,8 @@ class Notice extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+    const GATEWAY = -2;
 
     function getProfile()
     {
