@@ -414,9 +414,12 @@ width:518px;
 min-height:322px;
 padding:20px;
 float:left;
-border-radius-topleft:4px;
--moz-border-radius-topleft:4px;
--webkit-border-top-left-radius:4px;
+border-radius:4px;
+-moz-border-radius:4px;
+-webkit-border-radius:4px;
+border-radius-topright:0;
+-moz-border-radius-topright:0;
+-webkit-border-top-right-radius:0;
 border-style:solid;
 border-width:1px;
 }
@@ -484,7 +487,7 @@ width:16px;
 height:16px;
 }
 #form_notice #notice_data-attach {
-left:34.6%;
+left:40%;
 padding:0;
 height:16px;
 }
@@ -528,9 +531,12 @@ float:left;
 #form_notice .success {
 float:left;
 clear:both;
-width:81.5%;
+width:83.5%;
 margin-bottom:0;
 line-height:1.618;
+position:absolute;
+top:87px;
+left:0;
 }
 #form_notice #notice_data-attach_selected code {
 float:left;
