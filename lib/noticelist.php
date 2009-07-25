@@ -453,17 +453,12 @@ class NoticeListItem extends Widget
         if (common_logged_in()) {
             $reply_url = common_local_url('newnotice',
                                           array('replyto' => $this->profile->nickname));
-
-            $this->out->elementStart('dl', 'notice_reply');
-            $this->out->element('dt', null, _('Reply to this notice'));
-            $this->out->elementStart('dd');
             $this->out->elementStart('a', array('href' => $reply_url,
+                                                'class' => 'notice_reply',
                                                 'title' => _('Reply to this notice')));
             $this->out->text(_('Reply'));
             $this->out->element('span', 'notice_id', $this->notice->id);
             $this->out->elementEnd('a');
-            $this->out->elementEnd('dd');
-            $this->out->elementEnd('dl');
         }
     }
 
