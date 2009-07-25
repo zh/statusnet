@@ -479,13 +479,9 @@ class NoticeListItem extends Widget
         if ($user && $this->notice->profile_id == $user->id) {
             $deleteurl = common_local_url('deletenotice',
                                           array('notice' => $this->notice->id));
-            $this->out->elementStart('dl', 'notice_delete');
-            $this->out->element('dt', null, _('Delete this notice'));
-            $this->out->elementStart('dd');
             $this->out->element('a', array('href' => $deleteurl,
+                                           'class' => 'notice_delete',
                                            'title' => _('Delete this notice')), _('Delete'));
-            $this->out->elementEnd('dd');
-            $this->out->elementEnd('dl');
         }
     }
 
