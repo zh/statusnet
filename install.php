@@ -243,6 +243,14 @@ function pgsql_db_installer($host, $database, $username, $password, $sitename) {
   updateStatus("Checking database...");
   $conn = pg_connect($connstring);
 
+  //ensure database encoding is UTF8
+  $record = pg_fetch_object(pg_query($conn, 'SHOW server_encoding'));
+  if ($record->server_encoding != 'UTF8') {
+    updateStatus("Laconica requires UTF8 character encoding. Your database is ". htmlentities($record->server_encoding));
+    showForm();
+    return false;
+  }
+
   updateStatus("Running database script...");
   //wrap in transaction;
   pg_query($conn, 'BEGIN');
