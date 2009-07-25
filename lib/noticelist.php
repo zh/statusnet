@@ -357,19 +357,14 @@ class NoticeListItem extends Widget
             preg_match('/^http/', $this->notice->uri)) {
             $noticeurl = $this->notice->uri;
         }
-        $this->out->elementStart('dl', 'timestamp');
-        $this->out->element('dt', null, _('Published'));
-        $this->out->elementStart('dd', null);
         $this->out->elementStart('a', array('rel' => 'bookmark',
+                                            'class' => 'timestamp',
                                             'href' => $noticeurl));
         $dt = common_date_iso8601($this->notice->created);
         $this->out->element('abbr', array('class' => 'published',
                                           'title' => $dt),
                             common_date_string($this->notice->created));
-
         $this->out->elementEnd('a');
-        $this->out->elementEnd('dd');
-        $this->out->elementEnd('dl');
     }
 
     /**
