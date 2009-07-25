@@ -379,8 +379,8 @@ class NoticeListItem extends Widget
     function showNoticeSource()
     {
         if ($this->notice->source) {
-            $this->out->elementStart('dl', 'device');
-            $this->out->element('dt', null, _('From'));
+            $this->out->elementStart('span', 'source');
+            $this->out->text(_('from'));
             $source_name = _($this->notice->source);
             switch ($this->notice->source) {
              case 'web':
@@ -389,22 +389,22 @@ class NoticeListItem extends Widget
              case 'omb':
              case 'system':
              case 'api':
-                $this->out->element('dd', null, $source_name);
+                $this->out->element('span', 'device', $source_name);
                 break;
              default:
                 $ns = Notice_source::staticGet($this->notice->source);
                 if ($ns) {
-                    $this->out->elementStart('dd', null);
+                    $this->out->elementStart('span', 'device');
                     $this->out->element('a', array('href' => $ns->url,
                                                    'rel' => 'external'),
                                         $ns->name);
-                    $this->out->elementEnd('dd');
+                    $this->out->elementEnd('span');
                 } else {
-                    $this->out->element('dd', null, $source_name);
+                    $this->out->element('span', 'device', $source_name);
                 }
                 break;
             }
-            $this->out->elementEnd('dl');
+            $this->out->elementEnd('span');
         }
     }
 
