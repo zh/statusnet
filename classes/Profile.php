@@ -461,4 +461,79 @@ class Profile extends Memcached_DataObject
             $c->delete(common_cache_key('profile:notice_count:'.$this->id));
         }
     }
+
+    function delete()
+    {
+        $this->_deleteNotices();
+        $this->_deleteSubscriptions();
+        $this->_deleteMessages();
+        $this->_deleteTags();
+        $this->_deleteBlocks();
+
+        $related = array('Avatar',
+                         'Reply',
+                         'Group_member',
+                         );
+
+        foreach ($related as $cls) {
+            $inst = new $cls();
+            $inst->profile_id = $this->id;
+            $inst->delete();
+        }
+
+        parent::delete();
+    }
+
+    function _deleteNotices()
+    {
+        $notice = new Notice();
+        $notice->profile_id = $this->id;
+
+        if ($notice->find()) {
+            while ($notice->fetch()) {
+                $other = clone($notice);
+                $other->delete();
+            }
+        }
+    }
+
+    function _deleteSubscriptions()
+    {
+        $sub = new Subscription();
+        $sub->subscriber = $this->id;
+        $sub->delete();
+
+        $subd = new Subscription();
+        $subd->subscribed = $this->id;
+        $subd->delete();
+    }
+
+    function _deleteMessages()
+    {
+        $msg = new Message();
+        $msg->from_profile = $this->id;
+        $msg->delete();
+
+        $msg = new Message();
+        $msg->to_profile = $this->id;
+        $msg->delete();
+    }
+
+    function _deleteTags()
+    {
+        $tag = new Profile_tag();
+        $tag->tagged = $this->id;
+        $msg->delete();
+    }
+
+    function _deleteBlocks()
+    {
+        $block = new Profile_block();
+        $block->blocked = $this->id;
+        $block->delete();
+
+        $block = new Group_block();
+        $block->blocked = $this->id;
+        $block->delete();
+    }
 }

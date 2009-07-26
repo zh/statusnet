@@ -685,4 +685,47 @@ class User extends Memcached_DataObject
     {
         return Design::staticGet('id', $this->design_id);
     }
+
+    function delete()
+    {
+        $profile = $this->getProfile();
+        $profile->delete();
+
+        $related = array('Fave',
+                         'User_openid',
+                         'Confirm_address',
+                         'Remember_me',
+                         'Foreign_link',
+                         'Invitation',
+                         );
+
+        if (common_config('inboxes', 'enabled')) {
+            $related[] = 'Notice_inbox';
+        }
+
+        foreach ($related as $cls) {
+            $inst = new $cls();
+            $inst->user_id = $this->id;
+            $inst->delete();
+        }
+
+        $this->_deleteTags();
+
+        parent::delete();
+    }
+
+    function _deleteTags()
+    {
+        $tag = new Profile_tag();
+        $tag->tagger = $this->id;
+        $tag->delete();
+    }
+
+    function _deleteBlocks()
+    {
+        $block = new Profile_block();
+        $block->blocker = $this->id;
+        $block->delete();
+        // XXX delete group block? Reset blocker?
+    }
 }
