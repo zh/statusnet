@@ -595,7 +595,8 @@ function common_tag_link($tag)
 
 function common_canonical_tag($tag)
 {
-    return strtolower(str_replace(array('-', '_', '.'), '', $tag));
+  $tag = mb_convert_case($tag, MB_CASE_LOWER, "UTF-8");
+  return str_replace(array('-', '_', '.'), '', $tag);
 }
 
 function common_valid_profile_tag($str)
