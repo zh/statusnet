@@ -135,7 +135,7 @@ function main($usercount, $noticeavg, $subsavg, $tagmax)
 
 $usercount  = (have_option('u', 'users')) ? get_option_value('u', 'users') : 100;
 $noticeavg  = (have_option('n', 'notices')) ? get_option_value('n', 'notices') : 100;
-$subsavg    = (have_option('b', 'subscriptions')) ? get_option_value('b', 'subscriptions') : min($usercount/20, 10);
+$subsavg    = (have_option('b', 'subscriptions')) ? get_option_value('b', 'subscriptions') : max($usercount/20, 10);
 $tagmax     = (have_option('t', 'tags')) ? get_option_value('t', 'tags') : 10000;
 $userprefix = (have_option('x', 'prefix')) ? get_option_value('x', 'prefix') : 'testuser';
 
