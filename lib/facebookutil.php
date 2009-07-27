@@ -193,14 +193,16 @@ function facebookBroadcastNotice($notice)
                 $facebook->api_client->users_setStatus($status, $fbuid, false, true);
             }
         } catch(FacebookRestClientException $e) {
-            common_log(LOG_ERR, $e->getMessage());
+
+            $code = $e->getCode();
+
+            common_log(LOG_ERR, 'Facebook returned error code ' .
+                $code . ': ' . $e->getMessage());
             common_log(LOG_ERR,
                 'Unable to update Facebook status for ' .
                 "$user->nickname (user id: $user->id)!");
 
-            $code = $e->getCode();
-
-            if ($code >= 200) {
+            if ($code == 200 || $code == 250) {
 
                 // 200 The application does not have permission to operate on the passed in uid parameter.
                 // 250 Updating status requires the extended permission status_update or publish_stream.
@@ -216,7 +218,8 @@ function facebookBroadcastNotice($notice)
         try {
             updateProfileBox($facebook, $flink, $notice);
         } catch(FacebookRestClientException $e) {
-            common_log(LOG_WARNING, $e->getMessage());
+            common_log(LOG_ERR, 'Facebook returned error code ' .
+                $e->getCode() . ': ' . $e->getMessage());
             common_log(LOG_WARNING,
                 'Unable to update Facebook profile box for ' .
                 "$user->nickname (user id: $user->id).");
