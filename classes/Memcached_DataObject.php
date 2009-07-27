@@ -241,10 +241,19 @@ class Memcached_DataObject extends DB_DataObject
     function _connect()
     {
         global $_DB_DATAOBJECT;
-        $exists = !empty($this->_database_dsn_md5) &&
-          isset($_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5]);
+
+        $sum = $this->_getDbDsnMD5();
+
+        if (!empty($_DB_DATAOBJECT['CONNECTIONS'][$sum]) &&
+            !PEAR::isError($_DB_DATAOBJECT['CONNECTIONS'][$sum])) {
+            $exists = true;
+        } else {
+            $exists = false;
+       }
+
         $result = parent::_connect();
-        if (!$exists) {
+
+        if ($result && !$exists) {
             $DB = &$_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
             if (common_config('db', 'type') == 'mysql' &&
                 common_config('db', 'utf8')) {
@@ -258,7 +267,61 @@ class Memcached_DataObject extends DB_DataObject
                 }
             }
         }
+
         return $result;
     }
 
+    // XXX: largely cadged from DB_DataObject
+
+    function _getDbDsnMD5()
+    {
+        if ($this->_database_dsn_md5) {
+            return $this->_database_dsn_md5;
+        }
+
+        $dsn = $this->_getDbDsn();
+
+        if (is_string($dsn)) {
+            $sum = md5($dsn);
+        } else {
+            /// support array based dsn's
+            $sum = md5(serialize($dsn));
+        }
+
+        return $sum;
+    }
+
+    function _getDbDsn()
+    {
+        global $_DB_DATAOBJECT;
+
+        if (empty($_DB_DATAOBJECT['CONFIG'])) {
+            DB_DataObject::_loadConfig();
+        }
+
+        $options = &$_DB_DATAOBJECT['CONFIG'];
+
+        // if the databse dsn dis defined in the object..
+
+        $dsn = isset($this->_database_dsn) ? $this->_database_dsn : null;
+
+        if (!$dsn) {
+
+            if (!$this->_database) {
+                $this->_database = isset($options["table_{$this->__table}"]) ? $options["table_{$this->__table}"] : null;
+            }
+
+            if ($this->_database && !empty($options["database_{$this->_database}"]))  {
+                $dsn = $options["database_{$this->_database}"];
+            } else if (!empty($options['database'])) {
+                $dsn = $options['database'];
+            }
+        }
+
+        if (!$dsn) {
+            throw new Exception("No database name / dsn found anywhere");
+        }
+
+        return $dsn;
+    }
 }
