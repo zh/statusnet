@@ -219,9 +219,9 @@ function handlePost()
     }
     
     switch($dbtype) {
-      case 'mysql':    mysql_db_installer($host, $database, $username, $password, $sitename);
+      case 'mysql':    mysql_db_installer($host, $database, $username, $password, $sitename, $fancy);
       break;
-      case 'pgsql':    pgsql_db_installer($host, $database, $username, $password, $sitename);
+      case 'pgsql':    pgsql_db_installer($host, $database, $username, $password, $sitename, $fancy);
       break;
       default:
     }
@@ -232,7 +232,7 @@ function handlePost()
 <?php
 }
 
-function pgsql_db_installer($host, $database, $username, $password, $sitename) {
+function pgsql_db_installer($host, $database, $username, $password, $sitename, $fancy) {
   $connstring = "dbname=$database host=$host user=$username";
 
   //No password would mean trust authentication used.
@@ -298,7 +298,7 @@ function pgsql_db_installer($host, $database, $username, $password, $sitename) {
       
 }
 
-function mysql_db_installer($host, $database, $username, $password, $sitename) {
+function mysql_db_installer($host, $database, $username, $password, $sitename, $fancy) {
   updateStatus("Starting installation...");
   updateStatus("Checking database...");
 
