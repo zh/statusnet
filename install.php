@@ -77,7 +77,7 @@ function checkPrereqs()
 		if (!is_writable($fileFullPath)) {
     	     ?><p class="error">Cannot write <?php echo $fileSubdir; ?> directory: <code><?php echo $fileFullPath; ?></code></p>
 		       <p>On your server, try this command: <code>chmod a+w <?php echo $fileFullPath; ?></code></p>
-    	     <?
+	     <?php
 		     $pass = false;
 		}
 	}
