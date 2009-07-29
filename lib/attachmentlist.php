@@ -340,7 +340,12 @@ class Attachment extends AttachmentListItem
             case 'video':
             case 'link':
                 if (!empty($this->oembed->html)) {
-                    $this->out->raw($this->oembed->html);
+                    require_once INSTALLDIR.'/extlib/htmLawed/htmLawed.php';
+                    $config = array(
+                        'safe'=>1,
+                        'elements'=>'*+object+embed');
+                    $this->out->raw(htmLawed($this->oembed->html,$config));
+                    //$this->out->raw($this->oembed->html);
                 }
                 break;
 

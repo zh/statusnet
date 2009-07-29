@@ -216,7 +216,7 @@ class InviteAction extends CurrentUserDesignAction
         $recipients = array($email);
 
         $headers['From'] = mail_notify_from();
-        $headers['To'] = $email;
+        $headers['To'] = trim($email);
         $headers['Subject'] = sprintf(_('%1$s has invited you to join them on %2$s'), $bestname, $sitename);
 
         $body = sprintf(_("%1\$s has invited you to join them on %2\$s (%3\$s).\n\n".
