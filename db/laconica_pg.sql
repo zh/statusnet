@@ -519,6 +519,16 @@ create table group_alias (
 );
 create index group_alias_group_id_idx on group_alias (group_id);
 
+create table session (
+
+    id varchar(32) primary key /* comment 'session ID'*/,
+    session_data text /* comment 'session data'*/,
+    created timestamp not null DEFAULT CURRENT_TIMESTAMP /* comment 'date this record was created'*/,
+    modified integer DEFAULT extract(epoch from CURRENT_TIMESTAMP) /* comment 'date this record was modified'*/ 
+);
+
+create index session_modified_idx on session (modified);
+
 
 /* Textsearch stuff */
 

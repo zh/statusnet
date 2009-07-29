@@ -317,6 +317,9 @@ class MailerDaemon
         } else if ($parsed->ctype_primary == 'text'
             && $parsed->ctype_secondary=='plain') {
             $msg = $parsed->body;
+            if(strtolower($parsed->ctype_parameters['charset']) != "utf-8"){
+                $msg = utf8_encode($msg);
+            }
         }else if(!empty($parsed->body)){
             if(common_config('attachments', 'uploads')){
                 //only save attachments if uploads are enabled
