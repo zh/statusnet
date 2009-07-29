@@ -129,11 +129,6 @@ class Router
             $m->connect('index.php?action=' . $action, array('action' => $action));
         }
 
-        $m->connect('main/:method',
-                    array('action' => 'api',
-                          'method' => 'oembed(.xml|.json)?',
-                          'apiaction' => 'oembed'));
-
         // settings
 
         foreach (array('profile', 'avatar', 'password', 'openid', 'im',
@@ -479,6 +474,11 @@ class Router
                     array('nickname' => '[a-zA-Z0-9]{1,64}'));
 
         Event::handle('RouterInitialized', array($m));
+
+        $m->connect('main/:method',
+                    array('action' => 'api',
+                          'method' => 'oembed(.xml|.json)?',
+                          'apiaction' => 'oembed'));
 
         return $m;
     }
