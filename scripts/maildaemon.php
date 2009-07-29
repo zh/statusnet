@@ -301,7 +301,7 @@ class MailerDaemon
 
         $this->extract_part($parsed,$msg,$attachments);
 
-        return array($from, $to, $msg, $attachments);
+        return array($from, $to, utf8_encode($msg), $attachments);
     }
 
     function extract_part($parsed,&$msg,&$attachments){
