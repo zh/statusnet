@@ -122,9 +122,7 @@ class FBConnectPlugin extends Plugin
                                     FB_RequireFeatures(
                                         ["XFBML"],
                                             function() {
-                                                FB.init("%s", "../xd_receiver.html",
-                                                 {"doNotUseCachedConnectState":true });
-
+                                                FB.init("%s", "../xd_receiver.html");
                                             }
                                         ); }
 
@@ -222,7 +220,7 @@ class FBConnectPlugin extends Plugin
                 try {
 
                     $facebook = getFacebook();
-                    $fbuid    = $facebook->api_client->users_getLoggedInUser();
+                    $fbuid    = $facebook->get_loggedin_user();
 
                 } catch (Exception $e) {
                     common_log(LOG_WARNING,
