@@ -55,26 +55,38 @@ class Design extends Memcached_DataObject
 
     function showCSS($out)
     {
-        try {
+        $css = '';
 
-            $bgcolor = new WebColor($this->backgroundcolor);
-            $ccolor  = new WebColor($this->contentcolor);
-            $sbcolor = new WebColor($this->sidebarcolor);
-            $tcolor  = new WebColor($this->textcolor);
-            $lcolor  = new WebColor($this->linkcolor);
+        $bgcolor = Design::toWebColor($this->backgroundcolor);
 
-        } catch (WebColorException $e) {
-            // This shouldn't happen
-            common_log(LOG_ERR, "Unable to create color for design $id.",
-                __FILE__);
+        if (!empty($bgcolor)) {
+            $css .= 'body { background-color: #' . $bgcolor->hexValue() . ' }' . "\n";
         }
 
-        $css  = 'body { background-color: #' . $bgcolor->hexValue() . ' }' . "\n";
-        $css .= '#content, #site_nav_local_views .current a { background-color: #';
-        $css .= $ccolor->hexValue() . '} '."\n";
-        $css .= '#aside_primary { background-color: #'. $sbcolor->hexValue() . ' }' . "\n";
-        $css .= 'html body { color: #'. $tcolor->hexValue() . ' }'. "\n";
-        $css .= 'a { color: #' . $lcolor->hexValue() . ' }' . "\n";
+        $ccolor  = Design::toWebColor($this->contentcolor);
+
+        if (!empty($ccolor)) {
+            $css .= '#content, #site_nav_local_views .current a { background-color: #';
+            $css .= $ccolor->hexValue() . '} '."\n";
+        }
+
+        $sbcolor = Design::toWebColor($this->sidebarcolor);
+
+        if (!empty($sbcolor)) {
+            $css .= '#aside_primary { background-color: #'. $sbcolor->hexValue() . ' }' . "\n";
+        }
+
+        $tcolor  = Design::toWebColor($this->textcolor);
+
+        if (!empty($tcolor)) {
+            $css .= 'html body { color: #'. $tcolor->hexValue() . ' }'. "\n";
+        }
+
+        $lcolor  = Design::toWebColor($this->linkcolor);
+
+        if (!empty($lcolor)) {
+            $css .= 'a { color: #' . $lcolor->hexValue() . ' }' . "\n";
+        }
 
         if (!empty($this->backgroundimage) &&
             $this->disposition & BACKGROUND_ON) {
@@ -88,8 +100,25 @@ class Design extends Memcached_DataObject
                 '); ' . $repeat . ' background-attachment:fixed; }' . "\n";
         }
 
-        $out->element('style', array('type' => 'text/css'), $css);
+        if (0 != mb_strlen($css)) {
+            $out->element('style', array('type' => 'text/css'), $css);
+        }
+    }
 
+    static function toWebColor($color)
+    {
+        if (is_null($color)) {
+            return null;
+        }
+
+        try {
+            return new WebColor($color);
+        } catch (WebColorException $e) {
+            // This shouldn't happen
+            common_log(LOG_ERR, "Unable to create color for design $id.",
+                __FILE__);
+            return null;
+        }
     }
 
     static function filename($id, $extension, $extra=null)
@@ -152,4 +181,33 @@ class Design extends Memcached_DataObject
         }
     }
 
+    /**
+     * Return a design object based on the configured site design.
+     *
+     * @return Design a singleton design object for the site.
+     */
+
+    static function siteDesign()
+    {
+        static $siteDesign = null;
+
+        if (empty($siteDesign)) {
+
+            $siteDesign = new Design();
+
+            $attrs = array('backgroundcolor',
+                           'contentcolor',
+                           'sidebarcolor',
+                           'textcolor',
+                           'linkcolor',
+                           'backgroundimage',
+                           'disposition');
+
+            foreach ($attrs as $attr) {
+                $siteDesign->$attr = common_config('design', $attr);
+            }
+        }
+
+        return $siteDesign;
+    }
 }
