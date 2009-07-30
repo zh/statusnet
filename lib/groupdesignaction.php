@@ -50,26 +50,6 @@ class GroupDesignAction extends Action {
     var $group = null;
 
     /**
-      * Show the groups's design stylesheet
-      *
-      * @return nothing
-      */
-     function showStylesheets()
-     {
-         parent::showStylesheets();
-
-         $user = common_current_user();
-
-         if (empty($user) || $user->viewdesigns) {
-             $design = $this->getDesign();
-
-             if (!empty($design)) {
-                 $design->showCSS($this);
-             }
-         }
-     }
-
-    /**
      * A design for this action
      *
      * if the group attribute has been set, returns that group's
@@ -80,10 +60,12 @@ class GroupDesignAction extends Action {
 
     function getDesign()
     {
-        if (empty($this->group)) {
-            return null;
+        if (!empty($this->group)) {
+            $design = $this->group->getDesign();
+            if (!empty($design)) {
+                return $design;
+            }
         }
-
-        return $this->group->getDesign();
+        return parent::getDesign();
     }
 }
