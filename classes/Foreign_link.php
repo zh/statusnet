@@ -14,6 +14,7 @@ class Foreign_link extends Memcached_DataObject
     public $foreign_id;                      // bigint(8)  primary_key not_null unsigned
     public $service;                         // int(4)  primary_key not_null
     public $credentials;                     // varchar(255)
+    public $token;                           // varchar(255)
     public $noticesync;                      // tinyint(1)   not_null default_1
     public $friendsync;                      // tinyint(1)   not_null default_2
     public $profilesync;                     // tinyint(1)   not_null default_1
