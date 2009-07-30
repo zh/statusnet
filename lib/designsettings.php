@@ -182,7 +182,7 @@ class DesignSettingsAction extends AccountSettingsAction
                                           'class' => 'swatch',
                                           'maxlength' => '7',
                                           'size' => '7',
-                                          'value' => '#' . $bgcolor->hexValue()));
+                                          'value' => ''));
             $this->elementEnd('li');
 
             $ccolor = new WebColor($design->contentcolor);
@@ -195,7 +195,7 @@ class DesignSettingsAction extends AccountSettingsAction
                                           'class' => 'swatch',
                                           'maxlength' => '7',
                                           'size' => '7',
-                                          'value' => '#' . $ccolor->hexValue()));
+                                          'value' => ''));
             $this->elementEnd('li');
 
             $sbcolor = new WebColor($design->sidebarcolor);
@@ -208,7 +208,7 @@ class DesignSettingsAction extends AccountSettingsAction
                                         'class' => 'swatch',
                                         'maxlength' => '7',
                                         'size' => '7',
-                                        'value' => '#' . $sbcolor->hexValue()));
+                                        'value' => ''));
             $this->elementEnd('li');
 
             $tcolor = new WebColor($design->textcolor);
@@ -221,7 +221,7 @@ class DesignSettingsAction extends AccountSettingsAction
                                         'class' => 'swatch',
                                         'maxlength' => '7',
                                         'size' => '7',
-                                        'value' => '#' . $tcolor->hexValue()));
+                                        'value' => ''));
             $this->elementEnd('li');
 
             $lcolor = new WebColor($design->linkcolor);
@@ -234,7 +234,7 @@ class DesignSettingsAction extends AccountSettingsAction
                                          'class' => 'swatch',
                                          'maxlength' => '7',
                                          'size' => '7',
-                                         'value' => '#' . $lcolor->hexValue()));
+                                         'value' => ''));
             $this->elementEnd('li');
 
         } catch (WebColorException $e) {
