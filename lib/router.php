@@ -113,6 +113,16 @@ class Router
 
         $m->connect('main/tagother/:id', array('action' => 'tagother'));
 
+        $m->connect('main/oembed.xml',
+                    array('action' => 'api',
+                          'method' => 'oembed.xml',
+                          'apiaction' => 'oembed'));
+
+        $m->connect('main/oembed.json',
+                    array('action' => 'api',
+                          'method' => 'oembed.json',
+                          'apiaction' => 'oembed'));
+
         // these take a code
 
         foreach (array('register', 'confirmaddress', 'recoverpassword') as $c) {
@@ -474,11 +484,6 @@ class Router
                     array('nickname' => '[a-zA-Z0-9]{1,64}'));
 
         Event::handle('RouterInitialized', array($m));
-
-        $m->connect('main/:method',
-                    array('action' => 'api',
-                          'method' => 'oembed(.xml|.json)?',
-                          'apiaction' => 'oembed'));
 
         return $m;
     }
