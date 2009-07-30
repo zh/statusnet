@@ -113,7 +113,9 @@ class File extends Memcached_DataObject
 
         if (empty($x)) {
             $x = File::staticGet($file_id);
-            if (empty($x)) die('Impossible!');
+            if (empty($x)) {
+                throw new ServerException("Robin thinks something is impossible.");
+            }
         }
 
         File_to_post::processNew($file_id, $notice_id);
