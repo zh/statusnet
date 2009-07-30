@@ -7,6 +7,35 @@
  * @link      http://laconi.ca/
  */
 $(document).ready(function() {
+    function InitColors(i, E) {
+        switch (parseInt(E.id.slice(-1))) {
+            case 1: default:
+                $(E).val(rgb2hex($('body').css('background-color')));
+                break;
+            case 2:
+                $(E).val(rgb2hex($('#content').css('background-color')));
+                break;
+            case 3:
+                $(E).val(rgb2hex($('#aside_primary').css('background-color')));
+                break;
+            case 4:
+                $(E).val(rgb2hex($('html body').css('color')));
+                break;
+            case 5:
+                $(E).val(rgb2hex($('a').css('color')));
+                break;
+        }
+    }
+
+    function rgb2hex(rgb) {
+        rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+        function hex(x) {
+            hexDigits = new Array("0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F");
+            return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
+        }
+        return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+    }
+
     function UpdateColors(S) {
         C = $(S).val();
         switch (parseInt(S.id.slice(-1))) {
@@ -55,7 +84,7 @@ $(document).ready(function() {
 
         f = $.farbtastic('#color-picker', SynchColors);
         swatches = $('#settings_design_color .swatch');
-
+        swatches.each(InitColors);
         swatches
             .each(SynchColors)
             .blur(function() {
