@@ -217,9 +217,10 @@ class TwitterapiAction extends Action
     {
         $twitter_group=array();
         $twitter_group['id']=$group->id;
+        $twitter_group['url']=$group->permalink();
         $twitter_group['nickname']=$group->nickname;
         $twitter_group['fullname']=$group->fullname;
-        $twitter_group['url']=$group->url;
+        $twitter_group['homepage_url']=$group->homepage_url;
         $twitter_group['original_logo']=$group->original_logo;
         $twitter_group['homepage_logo']=$group->homepage_logo;
         $twitter_group['stream_logo']=$group->stream_logo;
