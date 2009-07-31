@@ -27,6 +27,7 @@ $(document).ready(function() {
         }
     }
 
+    /* rgb2hex written by R0bb13 <robertorebollo@gmail.com> */
     function rgb2hex(rgb) {
         rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
         function hex(x) {
