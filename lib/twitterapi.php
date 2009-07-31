@@ -213,6 +213,25 @@ class TwitterapiAction extends Action
         return $twitter_status;
     }
 
+    function twitter_group_array($group)
+    {
+        $twitter_group=array();
+        $twitter_group['id']=$group->id;
+        $twitter_group['nickname']=$group->nickname;
+        $twitter_group['fullname']=$group->fullname;
+        $twitter_group['url']=$group->url;
+        $twitter_group['original_logo']=$group->original_logo;
+        $twitter_group['homepage_logo']=$group->homepage_logo;
+        $twitter_group['stream_logo']=$group->stream_logo;
+        $twitter_group['mini_logo']=$group->mini_logo;
+        $twitter_group['homepage']=$group->homepage;
+        $twitter_group['description']=$group->description;
+        $twitter_group['location']=$group->location;
+        $twitter_group['created']=$this->date_twitter($group->created);
+        $twitter_group['modified']=$this->date_twitter($group->modified);
+        return $twitter_group;
+    }
+
     function twitter_rss_entry_array($notice)
     {
         $profile = $notice->getProfile();
@@ -411,6 +430,15 @@ class TwitterapiAction extends Action
             }
         }
         $this->elementEnd('status');
+    }
+
+    function show_twitter_xml_group($twitter_group)
+    {
+        $this->elementStart('group');
+        foreach($twitter_group as $element => $value) {
+            $this->element($element, null, $value);
+        }
+        $this->elementEnd('group');
     }
 
     function show_twitter_xml_user($twitter_user, $role='user')
@@ -637,6 +665,22 @@ class TwitterapiAction extends Action
         $this->show_json_objects($statuses);
 
         $this->end_document('json');
+    }
+
+    function show_single_json_group($group)
+    {
+        $this->init_document('json');
+        $twitter_group = $this->twitter_group_array($group);
+        $this->show_json_objects($twitter_group);
+        $this->end_document('json');
+    }
+
+    function show_single_xml_group($group)
+    {
+        $this->init_document('xml');
+        $twitter_group = $this->twitter_group_array($group);
+        $this->show_twitter_xml_group($twitter_group);
+        $this->end_document('xml');
     }
 
     // Anyone know what date format this is?

@@ -51,6 +51,32 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
  class TwitapigroupsAction extends TwitterapiAction
  {
 
+     function show($args, $apidata)
+     {
+         parent::handle($args);
+
+         common_debug("in groups api action");
+
+         $this->auth_user = $apidata['user'];
+         $group = $this->get_group($apidata['api_arg'], $apidata);
+
+         if (empty($group)) {
+             $this->clientError('Not Found', 404, $apidata['content-type']);
+             return;
+         }
+
+         switch($apidata['content-type']) {
+          case 'xml':
+             $this->show_single_xml_group($group);
+             break;
+          case 'json':
+             $this->show_single_json_group($group);
+             break;
+          default:
+             $this->clientError(_('API method not found!'), $code = 404);
+         }
+     }
+
      function timeline($args, $apidata)
      {
          parent::handle($args);
