@@ -69,9 +69,8 @@ class TwittersettingsAction extends ConnectSettingsAction
 
     function getInstructions()
     {
-        return _('Add your Twitter account to automatically send '.
-                 ' your notices to Twitter, ' .
-                 'and subscribe to Twitter friends already here.');
+        return _('Connect your Twitter account to share your updates ' .
+         'with your Twitter friends and vice-versa.');
     }
 
     /**
@@ -93,7 +92,7 @@ class TwittersettingsAction extends ConnectSettingsAction
 
         $flink = Foreign_link::getByUserID($user->id, TWITTER_SERVICE);
 
-        if ($flink) {
+        if (!empty($flink)) {
             $fuser = $flink->getForeignUser();
         }
 
@@ -102,73 +101,61 @@ class TwittersettingsAction extends ConnectSettingsAction
                                           'class' => 'form_settings',
                                           'action' =>
                                           common_local_url('twittersettings')));
-        $this->elementStart('fieldset', array('id' => 'settings_twitter_account'));
-        $this->element('legend', null, _('Twitter Account'));
+
         $this->hidden('token', common_session_token());
-        if ($fuser) {
+
+
+        if (empty($fuser)) {
+
+            $this->elementStart('fieldset', array('id' => 'settings_twitter_account'));
             $this->elementStart('ul', 'form_data');
-            $this->elementStart('li', array('id' => 'settings_twitter_remove'));
-            $this->element('span', 'twitter_user', $fuser->nickname);
-            $this->element('a', array('href' => $fuser->uri), $fuser->uri);
-            $this->element('p', 'form_note',
-                           _('Current verified Twitter account.'));
-            $this->hidden('flink_foreign_id', $flink->foreign_id);
-            $this->elementEnd('li');
+            $this->elementStart('li', array('id' => 'settings_twitter_login_button'));
+            $this->element('a', array('href' => common_local_url('twitterauthorization')),
+                'Connect my Twitter account');
+                $this->elementEnd('li');
             $this->elementEnd('ul');
-            $this->submit('remove', _('Remove'));
+            $this->elementEnd('fieldset');
+
         } else {
+
+            $this->elementStart('fieldset',
+                                array('id' => 'settings_twitter_preferences'));
+            $this->element('legend', null, _('Preferences'));
+
             $this->elementStart('ul', 'form_data');
-            $this->elementStart('li', array('id' => 'settings_twitter_login'));
-            $this->input('twitter_username', _('Twitter user name'),
-                         ($this->arg('twitter_username')) ?
-                         $this->arg('twitter_username') :
-                         $profile->nickname,
-                         _('No spaces, please.')); // hey, it's what Twitter says
+            $this->elementStart('li');
+            $this->checkbox('noticesend',
+                    _('Automatically send my notices to Twitter.'),
+                    ($flink) ?
+                    ($flink->noticesync & FOREIGN_NOTICE_SEND) :
+                    true);
             $this->elementEnd('li');
             $this->elementStart('li');
-            $this->password('twitter_password', _('Twitter password'));
-            $this->elementend('li');
-            $this->elementEnd('ul');
-        }
-        $this->elementEnd('fieldset');
+            $this->checkbox('replysync',
+                    _('Send local "@" replies to Twitter.'),
+                    ($flink) ?
+                    ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) :
+                    true);
+            $this->elementEnd('li');
+            $this->elementStart('li');
+            $this->checkbox('friendsync',
+                    _('Subscribe to my Twitter friends here.'),
+                    ($flink) ?
+                    ($flink->friendsync & FOREIGN_FRIEND_RECV) :
+                    false);
+            $this->elementEnd('li');
 
-        $this->elementStart('fieldset',
-                            array('id' => 'settings_twitter_preferences'));
-        $this->element('legend', null, _('Preferences'));
-
-        $this->elementStart('ul', 'form_data');
-        $this->elementStart('li');
-        $this->checkbox('noticesend',
-                        _('Automatically send my notices to Twitter.'),
-                        ($flink) ?
-                        ($flink->noticesync & FOREIGN_NOTICE_SEND) :
-                        true);
-        $this->elementEnd('li');
-        $this->elementStart('li');
-        $this->checkbox('replysync',
-                        _('Send local "@" replies to Twitter.'),
-                        ($flink) ?
-                        ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) :
-                        true);
-        $this->elementEnd('li');
-        $this->elementStart('li');
-        $this->checkbox('friendsync',
-                        _('Subscribe to my Twitter friends here.'),
-                        ($flink) ?
-                        ($flink->friendsync & FOREIGN_FRIEND_RECV) :
-                        false);
-        $this->elementEnd('li');
-
-        if (common_config('twitterbridge','enabled')) {
+            if (common_config('twitterbridge','enabled')) {
             $this->elementStart('li');
             $this->checkbox('noticerecv',
-                            _('Import my Friends Timeline.'),
-                            ($flink) ?
-                            ($flink->noticesync & FOREIGN_NOTICE_RECV) :
-                            false);
+                    _('Import my Friends Timeline.'),
+                    ($flink) ?
+                    ($flink->noticesync & FOREIGN_NOTICE_RECV) :
+                    false);
             $this->elementEnd('li');
-        } else {
+
             // preserve setting even if bidrection bridge toggled off
+
             if ($flink && ($flink->noticesync & FOREIGN_NOTICE_RECV)) {
                 $this->hidden('noticerecv', true, 'noticerecv');
             }
@@ -181,11 +168,13 @@ class TwittersettingsAction extends ConnectSettingsAction
         } else {
             $this->submit('add', _('Add'));
         }
+
         $this->elementEnd('fieldset');
+    }
 
-        $this->showTwitterSubscriptions();
+    $this->showTwitterSubscriptions();
 
-        $this->elementEnd('form');
+    $this->elementEnd('form');
     }
 
     /**

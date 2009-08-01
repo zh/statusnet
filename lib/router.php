@@ -88,6 +88,10 @@ class Router
 
         $m->connect('doc/:title', array('action' => 'doc'));
 
+        // Twitter
+
+        $m->connect('twitter/authorization', array('action' => 'twitterauthorization'));
+
         // facebook
 
         $m->connect('facebook', array('action' => 'facebookhome'));
