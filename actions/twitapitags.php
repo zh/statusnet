@@ -88,8 +88,7 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
              $this->show_xml_timeline($notice);
              break;
           case 'rss':
-             $this->show_rss_timeline($notice, $title, $link,
-                 $subtitle, $suplink);
+             $this->show_rss_timeline($notice, $title, $link, $subtitle);
              break;
           case 'atom':
              if (isset($apidata['api_arg'])) {
@@ -101,7 +100,7 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
                   'api/laconica/tags/timeline.atom';
              }
              $this->show_atom_timeline($notice, $title, $id, $link,
-                 $subtitle, $suplink, $selfuri);
+                 $subtitle, null, $selfuri);
              break;
           case 'json':
              $this->show_json_timeline($notice);
