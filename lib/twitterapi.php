@@ -479,12 +479,12 @@ class TwitterapiAction extends Action
         $this->element('link', null, $entry['link']);
 
         # RSS only supports 1 enclosure per item
-        if($entry['enclosures']){
+        if(array_key_exists('enclosures', $entry) and !empty($entry['enclosures'])){
             $enclosure = $entry['enclosures'][0];
             $this->element('enclosure', array('url'=>$enclosure['url'],'type'=>$enclosure['mimetype'],'length'=>$enclosure['size']), null);
         }
         
-        if($entry['tags']){
+        if(array_key_exists('tags', $entry)){
             foreach($entry['tags'] as $tag){
                 $this->element('category', null,$tag);
             }
