@@ -1410,20 +1410,21 @@ function common_client_ip()
         return null;
     }
 
-    if ($_SERVER['HTTP_X_FORWARDED_FOR']) {
-        if ($_SERVER['HTTP_CLIENT_IP']) {
+    if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
+        if (array_key_exists('HTTP_CLIENT_IP', $_SERVER)) {
             $proxy = $_SERVER['HTTP_CLIENT_IP'];
         } else {
             $proxy = $_SERVER['REMOTE_ADDR'];
         }
         $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
     } else {
-        if ($_SERVER['HTTP_CLIENT_IP']) {
+        $proxy = null;
+        if (array_key_exists('HTTP_CLIENT_IP', $_SERVER)) {
             $ip = $_SERVER['HTTP_CLIENT_IP'];
         } else {
             $ip = $_SERVER['REMOTE_ADDR'];
         }
     }
 
-    return array($ip, $proxy);
+    return array($proxy, $ip);
 }
