@@ -2,6 +2,8 @@
 
 require_once('OAuth.php');
 
+class OAuthClientCurlException extends Exception { }
+
 class TwitterOAuthClient
 {
     public static $requestTokenURL = 'https://twitter.com/oauth/request_token';
@@ -54,6 +56,16 @@ class TwitterOAuthClient
         return $twitter_user;
     }
 
+    function statuses_update($status, $in_reply_to_status_id = null)
+    {
+        $url = 'https://twitter.com/statuses/update.json';
+        $params = array('status' => $status,
+            'in_reply_to_status_id' => $in_reply_to_status_id);
+        $response = $this->oAuthPost($url, $params);
+        $status = json_decode($response);
+        return $status;
+    }
+
     function oAuthGet($url)
     {
         $request = OAuthRequest::from_consumer_and_token($this->consumer,
@@ -91,19 +103,26 @@ class TwitterOAuthClient
             // Twitter is strict about accepting invalid "Expect" headers
 
             CURLOPT_HTTPHEADER => array('Expect:')
-            );
+        );
 
-            if (isset($params)) {
-                $options[CURLOPT_POST] = true;
-                $options[CURLOPT_POSTFIELDS] = $params;
-            }
+        if (isset($params)) {
+            $options[CURLOPT_POST] = true;
+            $options[CURLOPT_POSTFIELDS] = $params;
+        }
 
-            $ch = curl_init($url);
-            curl_setopt_array($ch, $options);
-            $response = curl_exec($ch);
-            curl_close($ch);
+        $ch = curl_init($url);
+        curl_setopt_array($ch, $options);
+        $response = curl_exec($ch);
 
-            return $response;
+        if ($response === false) {
+            $msg  = curl_error($ch);
+            $code = curl_errno($ch);
+            throw new OAuthClientCurlException($msg, $code);
+        }
+
+        curl_close($ch);
+
+        return $response;
     }
 
 }
