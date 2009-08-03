@@ -191,6 +191,7 @@ class Action extends HTMLOutputter // lawsuit
     function showStylesheets()
     {
         if (Event::handle('StartShowStyles', array($this))) {
+
             if (Event::handle('StartShowLaconicaStyles', array($this))) {
                 $this->element('link', array('rel' => 'stylesheet',
                                              'type' => 'text/css',
@@ -209,6 +210,7 @@ class Action extends HTMLOutputter // lawsuit
                                              'media' => 'print'));
                 Event::handle('EndShowLaconicaStyles', array($this));
             }
+
             if (Event::handle('StartShowUAStyles', array($this))) {
                 $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
                                'href="'.theme_path('css/ie.css', 'base').'?version='.LACONICA_VERSION.'" /><![endif]');
@@ -222,6 +224,21 @@ class Action extends HTMLOutputter // lawsuit
                 $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
                                'href="'.theme_path('css/ie.css', null).'?version='.LACONICA_VERSION.'" /><![endif]');
                 Event::handle('EndShowUAStyles', array($this));
+            }
+
+            if (Event::handle('StartShowDesign', array($this))) {
+
+                $user = common_current_user();
+
+                if (empty($user) || $user->viewdesigns) {
+                    $design = $this->getDesign();
+
+                    if (!empty($design)) {
+                        $design->showCSS($this);
+                    }
+                }
+
+                Event::handle('EndShowDesign', array($this));
             }
             Event::handle('EndShowStyles', array($this));
         }
@@ -1073,5 +1090,16 @@ class Action extends HTMLOutputter // lawsuit
     function getFeeds()
     {
         return null;
+    }
+
+    /**
+     * A design for this action
+     *
+     * @return Design a design object to use
+     */
+
+    function getDesign()
+    {
+        return Design::siteDesign();
     }
 }

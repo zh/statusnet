@@ -94,14 +94,6 @@ $config =
         array('name' => 'Just another Laconica microblog',
               'server' => $_server,
               'theme' => 'default',
-              'design' =>
-              array('backgroundcolor' => '#CEE1E9',
-                    'contentcolor' => '#FFFFFF',
-                    'sidebarcolor' => '#C8D1D5',
-                    'textcolor' => '#000000',
-                    'linkcolor' => '#002E6E',
-                    'backgroundimage' => null,
-                    'disposition' => 1),
               'path' => $_path,
               'logfile' => null,
               'logo' => null,
@@ -264,6 +256,14 @@ $config =
         'sessions' =>
         array('handle' => false, // whether to handle sessions ourselves
               'debug' => false), // debugging output for sessions
+        'design' =>
+        array('backgroundcolor' => null, // null -> 'use theme default'
+              'contentcolor' => null,
+              'sidebarcolor' => null,
+              'textcolor' => null,
+              'linkcolor' => null,
+              'backgroundimage' => null,
+              'disposition' => null),
         );
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
@@ -279,6 +279,10 @@ $config['db'] =
         'db_driver' => 'DB', # XXX: JanRain libs only work with DB
         'quote_identifiers' => false,
         'type' => 'mysql' );
+
+// Backward compatibility
+
+$config['site']['design'] =& $config['design'];
 
 if (function_exists('date_default_timezone_set')) {
     /* Work internally in UTC */
