@@ -961,9 +961,6 @@ sslserver: use an alternate server name for SSL URLs, like
 shorturllength: Length of URL at which URLs in a message exceeding 140
                 characters will be sent to the user's chosen
                 shortening service.
-design: a default design (colors and background) for the site.
-        Sub-items are: backgroundcolor, contentcolor, sidebarcolor,
-        textcolor, linkcolor, backgroundimage, disposition.
 dupelimit: minimum time allowed for one person to say the same thing
            twice. Default 60s. Anything lower is considered a user
            or UI error.
@@ -1428,6 +1425,20 @@ notify third-party servers of updates.
 
 notify: an array of URLs for ping endpoints. Default is the empty
         array (no notification).
+
+design
+------
+
+Default design (colors and background) for the site. Actual appearance
+depends on the theme.  Null values mean to use the theme defaults.
+
+backgroundcolor: Hex color of the site background.
+contentcolor: Hex color of the content area background.
+sidebarcolor: Hex color of the sidebar background.
+textcolor: Hex color of all non-link text.
+linkcolor: Hex color of all links.
+backgroundimage: Image to use for the background.
+disposition: Flags for whether or not to tile the background image.
 
 Plugins
 =======

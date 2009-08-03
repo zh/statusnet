@@ -53,26 +53,6 @@ class OwnerDesignAction extends Action {
     var $user = null;
 
     /**
-      * Show the owner's design stylesheet
-      *
-      * @return nothing
-      */
-     function showStylesheets()
-     {
-         parent::showStylesheets();
-
-         $user = common_current_user();
-
-         if (empty($user) || $user->viewdesigns) {
-             $design = $this->getDesign();
-
-             if (!empty($design)) {
-                 $design->showCSS($this);
-             }
-         }
-     }
-
-    /**
      * A design for this action
      *
      * if the user attribute has been set, returns that user's
@@ -83,10 +63,15 @@ class OwnerDesignAction extends Action {
 
     function getDesign()
     {
-        if (empty($this->user)) {
-            return null;
+        if (!empty($this->user)) {
+
+            $design = $this->user->getDesign();
+
+            if (!empty($design)) {
+                return $design;
+            }
         }
 
-        return $this->user->getDesign();
+        return parent::getDesign();
     }
 }
