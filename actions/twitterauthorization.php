@@ -67,39 +67,57 @@ class TwitterauthorizationAction extends Action
 
         if (empty($this->oauth_token)) {
 
-            // Get a new request token and authorize it
+            try {
 
-            $client = new TwitterOAuthClient();
-            $req_tok = $client->getRequestToken();
+                // Get a new request token and authorize it
 
-            // Sock the request token away in the session temporarily
+                $client = new TwitterOAuthClient();
+                $req_tok = $client->getRequestToken();
 
-            $_SESSION['twitter_request_token'] = $req_tok->key;
-            $_SESSION['twitter_request_token_secret'] = $req_tok->key;
+                // Sock the request token away in the session temporarily
 
-            $auth_link = $client->getAuthorizeLink($req_tok);
+                $_SESSION['twitter_request_token'] = $req_tok->key;
+                $_SESSION['twitter_request_token_secret'] = $req_tok->key;
+
+                $auth_link = $client->getAuthorizeLink($req_tok);
+
+            } catch (TwitterOAuthClientException $e) {
+                $msg = sprintf('OAuth client cURL error - code: %1s, msg: %2s',
+                           $e->getCode(), $e->getMessage());
+                $this->serverError(_('Couldn\'t link your Twitter account.'));
+            }
+
             common_redirect($auth_link);
 
         } else {
 
-            // Check to make sure Twitter sent us the same request token we sent
+            // Check to make sure Twitter returned the same request
+            // token we sent them
 
             if ($_SESSION['twitter_request_token'] != $this->oauth_token) {
                 $this->serverError(_('Couldn\'t link your Twitter account.'));
             }
 
-            $client = new TwitterOAuthClient($_SESSION['twitter_request_token'],
-                $_SESSION['twitter_request_token_secret']);
+            try {
 
-            // Exchange the request token for an access token
+                $client = new TwitterOAuthClient($_SESSION['twitter_request_token'],
+                                 $_SESSION['twitter_request_token_secret']);
 
-            $atok = $client->getAccessToken();
+                // Exchange the request token for an access token
 
-            // Save the access token and Twitter user info
+                $atok = $client->getAccessToken();
 
-            $client = new TwitterOAuthClient($atok->key, $atok->secret);
+                // Save the access token and Twitter user info
 
-            $twitter_user = $client->verify_credentials();
+                $client = new TwitterOAuthClient($atok->key, $atok->secret);
+
+                $twitter_user = $client->verify_credentials();
+
+            } catch (OAuthClientException $e) {
+                $msg = sprintf('OAuth client cURL error - code: %1s, msg: %2s',
+                           $e->getCode(), $e->getMessage());
+                $this->serverError(_('Couldn\'t link your Twitter account.'));
+            }
 
             $user = common_current_user();
 
