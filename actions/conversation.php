@@ -167,6 +167,8 @@ class ConversationTree extends NoticeList
 
     function _buildTree()
     {
+        $cnt = 0;
+
         $this->tree  = array();
         $this->table = array();
 

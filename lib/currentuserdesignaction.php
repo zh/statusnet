@@ -47,33 +47,10 @@ if (!defined('LACONICA')) {
 
 class CurrentUserDesignAction extends Action
 {
-
-    /**
-      * Show the user's design stylesheet
-      *
-      * @return nothing
-      */
-
-     function showStylesheets()
-     {
-         parent::showStylesheets();
-
-         $user = common_current_user();
-
-         if (empty($user) || $user->viewdesigns) {
-             $design = $this->getDesign();
-
-             if (!empty($design)) {
-                 $design->showCSS($this);
-             }
-         }
-     }
-
     /**
      * A design for this action
      *
-     * if the user attribute has been set, returns that user's
-     * design.
+     * Returns the design preferences for the current user.
      *
      * @return Design a design object to use
      */
@@ -82,11 +59,15 @@ class CurrentUserDesignAction extends Action
     {
         $cur = common_current_user();
 
-        if (empty($cur)) {
-            return null;
+        if (!empty($cur)) {
+
+            $design = $cur->getDesign();
+
+            if (!empty($design)) {
+                return $design;
+            }
         }
 
-        return $cur->getDesign();
+        return parent::getDesign();
     }
-
 }
