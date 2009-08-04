@@ -25,7 +25,7 @@ $(document).ready(function(){
 		var counter = $("#notice_text-count");
 		counter.text(remaining);
 
-		if (remaining <= 0) {
+		if (remaining < 0) {
 			$("#form_notice").addClass("warning");
 		} else {
 			$("#form_notice").removeClass("warning");
