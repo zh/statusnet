@@ -191,7 +191,7 @@ class TwitterStatusFetcher extends Daemon
     {
         $flink = new Foreign_link();
 
-        $flink->service = 1; // Twitter
+        $flink->service = TWITTER_SERVICE;
 
         $flink->orderBy('last_noticesync');
 
@@ -241,35 +241,33 @@ class TwitterStatusFetcher extends Daemon
 
     function getTimeline($flink)
     {
-        if (empty($flink)) {
+         if (empty($flink)) {
             common_log(LOG_WARNING,
                 "Can't retrieve Foreign_link for foreign ID $fid");
             return;
         }
 
-        $fuser = $flink->getForeignUser();
-
-        if (empty($fuser)) {
-            common_log(LOG_WARNING, "Unmatched user for ID " .
-                $flink->user_id);
-            return;
-        }
-
         if (defined('SCRIPT_DEBUG')) {
             common_debug('Trying to get timeline for Twitter user ' .
-                "$fuser->nickname ($flink->foreign_id).");
+                $flink->foreign_id);
         }
 
         // XXX: Biggest remaining issue - How do we know at which status
         // to start importing?  How many statuses?  Right now I'm going
         // with the default last 20.
 
-        $url = 'http://twitter.com/statuses/friends_timeline.json';
+        $client = new TwitterOAuthClient($flink->token, $flink->credentials);
 
-        $timeline_json = get_twitter_data($url, $fuser->nickname,
-            $flink->credentials);
+        $timeline = null;
 
-        $timeline = json_decode($timeline_json);
+        try {
+            $timeline = $client->statuses_friends_timeline();
+        } catch (OAuthClientCurlException $e) {
+            common_log(LOG_WARNING,
+                       'OAuth client unable to get friends timeline for user ' .
+                       $flink->user_id . ' - code: ' .
+                       $e->getCode() . 'msg: ' . $e->getMessage());
+        }
 
         if (empty($timeline)) {
             common_log(LOG_WARNING, "Empty timeline.");
@@ -303,7 +301,7 @@ class TwitterStatusFetcher extends Daemon
         $id = $this->ensureProfile($status->user);
         $profile = Profile::staticGet($id);
 
-        if (!$profile) {
+        if (empty($profile)) {
             common_log(LOG_ERR,
                 'Problem saving notice. No associated Profile.');
             return null;
@@ -318,7 +316,7 @@ class TwitterStatusFetcher extends Daemon
 
         // check to see if we've already imported the status
 
-        if (!$notice) {
+        if (empty($notice)) {
 
             $notice = new Notice();
 
