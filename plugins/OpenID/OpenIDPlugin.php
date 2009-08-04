@@ -99,4 +99,24 @@ class OpenIDPlugin extends Plugin
 
         return true;
     }
+
+    function onAutoload($cls)
+    {
+        switch ($cls)
+        {
+         case 'OpenidloginAction':
+         case 'FinishopenidloginAction':
+         case 'FinishaddopenidAction':
+         case 'XrdsAction':
+         case 'PublicxrdsAction':
+         case 'OpenidsettingsAction':
+            require_once(INSTALLDIR.'/plugins/OpenID/' . strtolower(mb_substr($cls, 0, -6)) . '.php');
+            return false;
+         case 'User_openid':
+            require_once(INSTALLDIR.'/plugins/OpenID/User_openid.php');
+            return false;
+         default:
+            return true;
+        }
+    }
 }
