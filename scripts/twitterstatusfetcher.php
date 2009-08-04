@@ -356,7 +356,7 @@ class TwitterStatusFetcher extends Daemon
         $profileurl = 'http://twitter.com/' . $user->screen_name;
         $profile = Profile::staticGet('profileurl', $profileurl);
 
-        if ($profile) {
+        if (!empty($profile) {
             if (defined('SCRIPT_DEBUG')) {
                 common_debug("Profile for $profile->nickname found.");
             }
@@ -394,7 +394,7 @@ class TwitterStatusFetcher extends Daemon
             // check for remote profile
             $remote_pro = Remote_profile::staticGet('uri', $profileurl);
 
-            if (!$remote_pro) {
+            if (empty($remote_pro)) {
 
                 $remote_pro = new Remote_profile();
 
