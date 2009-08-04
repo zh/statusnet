@@ -158,6 +158,12 @@ StartShowBody: called before showing the <body> element and children
 EndShowBody: called after showing the <body> element (and </body>)
 - $action: action object being shown
 
+StartHeadChildren: called before showing the children of <head> element (after <head> tag)
+- $action: action object being shown
+
+EndHeadChildren: called after showing the children of <head> element (before </head>)
+- $action: action object being shown
+
 StartPersonalGroupNav: beginning of personal group nav menu
 - $action: action object being shown
 

@@ -120,14 +120,17 @@ class Action extends HTMLOutputter // lawsuit
     {
         // XXX: attributes (profile?)
         $this->elementStart('head');
-        $this->showTitle();
-        $this->showShortcutIcon();
-        $this->showStylesheets();
-        $this->showScripts();
-        $this->showOpenSearch();
-        $this->showFeeds();
-        $this->showDescription();
-        $this->extraHead();
+        if (Event::handle('StartHeadChildren', array($this))) {
+            $this->showTitle();
+            $this->showShortcutIcon();
+            $this->showStylesheets();
+            $this->showScripts();
+            $this->showOpenSearch();
+            $this->showFeeds();
+            $this->showDescription();
+            $this->extraHead();
+            Event::handle('EndHeadChildren', array($this));
+        }
         $this->elementEnd('head');
     }
 
