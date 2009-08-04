@@ -32,7 +32,7 @@ if (!defined('LACONICA')) {
 }
 
 require_once INSTALLDIR.'/lib/accountsettingsaction.php';
-require_once INSTALLDIR.'/lib/openid.php';
+require_once INSTALLDIR.'/plugins/OpenID/openid.php';
 
 /**
  * Settings for OpenID

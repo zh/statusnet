@@ -19,7 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-require_once(INSTALLDIR.'/classes/User_openid.php');
+require_once(INSTALLDIR.'/plugins/OpenID/User_openid.php');
 
 require_once('Auth/OpenID.php');
 require_once('Auth/OpenID/Consumer.php');

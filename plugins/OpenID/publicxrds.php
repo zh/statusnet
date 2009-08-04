@@ -33,7 +33,7 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/openid.php';
+require_once INSTALLDIR.'/plugins/OpenID/openid.php';
 
 /**
  * Public XRDS for OpenID
