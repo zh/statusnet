@@ -50,8 +50,7 @@ class Router
     var $m = null;
     static $inst = null;
     static $bare = array('requesttoken', 'accesstoken', 'userauthorization',
-                         'postnotice', 'updateprofile', 'finishremotesubscribe',
-                         'finishopenidlogin', 'finishaddopenid');
+                         'postnotice', 'updateprofile', 'finishremotesubscribe');
 
     static function get()
     {
@@ -76,7 +75,6 @@ class Router
 
         $m->connect('', array('action' => 'public'));
         $m->connect('rss', array('action' => 'publicrss'));
-        $m->connect('xrds', array('action' => 'publicxrds'));
         $m->connect('featuredrss', array('action' => 'featuredrss'));
         $m->connect('favoritedrss', array('action' => 'favoritedrss'));
         $m->connect('opensearch/people', array('action' => 'opensearch',
@@ -131,7 +129,6 @@ class Router
 
         // exceptional
 
-        $m->connect('main/openid', array('action' => 'openidlogin'));
         $m->connect('main/remote', array('action' => 'remotesubscribe'));
         $m->connect('main/remote?nickname=:nickname', array('action' => 'remotesubscribe'), array('nickname' => '[A-Za-z0-9_-]+'));
 
@@ -141,7 +138,7 @@ class Router
 
         // settings
 
-        foreach (array('profile', 'avatar', 'password', 'openid', 'im',
+        foreach (array('profile', 'avatar', 'password', 'im',
                        'email', 'sms', 'twitter', 'userdesign', 'other') as $s) {
             $m->connect('settings/'.$s, array('action' => $s.'settings'));
         }
@@ -434,7 +431,7 @@ class Router
         // user stuff
 
         foreach (array('subscriptions', 'subscribers',
-                       'nudge', 'xrds', 'all', 'foaf',
+                       'nudge', 'all', 'foaf',
                        'replies', 'inbox', 'outbox', 'microsummary') as $a) {
             $m->connect(':nickname/'.$a,
                         array('action' => $a),
