@@ -23,13 +23,13 @@ EndShowStyles: End showing Style links; good place to add custom styles
 StartShowLaconicaStyles: Showing Laconica Style links
 - $action: the current action
 
-EndShowLaconicaStyles: End showing Laconica Style links;  good place to add handheld or JavaScript dependant styles
+EndShowLaconicaStyles: End showing Laconica tyle links;  good place to add handheld or JavaScript dependent styles
 - $action: the current action
 
-StartShowUAStyles: Showing custom UA Style links
+StartShowUAStyles: Showing custom User-Agent style links
 - $action: the current action
 
-EndShowUAStyles: End showing custom UA Style links; good place to add user-agent (e.g., filter, -webkit, -moz) specific styles
+EndShowUAStyles: End showing custom User-Agent links; good place to add user-agent (e.g., filter, -webkit, -moz) specific styles
 - $action: the current action
 
 StartShowScripts: Showing JavaScript links
@@ -145,3 +145,75 @@ SensitiveAction: determines if an action is 'sensitive' and should use SSL
 LoginAction: determines if an action is a 'login' action (OK for public view in private mode)
 - $action: name of the action, like 'register'
 - $login: flag for whether this is a login action
+
+StartShowHead: called before showing the <head> element and children
+- $action: action object being show
+
+EndShowHead: called after showing the <head> element (and </head>)
+- $action: action object being shown
+
+StartShowBody: called before showing the <body> element and children
+- $action: action object being shown
+
+EndShowBody: called after showing the <body> element (and </body>)
+- $action: action object being shown
+
+StartPersonalGroupNav: beginning of personal group nav menu
+- $action: action object being shown
+
+EndPersonalGroupNav: end of personal group nav menu (good place to add a menu item)
+- $action: action object being shown
+
+StartEndHTML: just before the </html> tag
+- $action: action object being shown
+
+EndEndHTML: just after the </html> tag
+- $action: action object being shown
+
+StartShowDesign: just before showing a site, user, or group design
+- $action: action object being shown
+
+EndShowDesign: just after showing a site, user, or group design
+- $action: action object being shown
+
+StartShowExportData: just before showing the <div> with export data (feeds)
+- $action: action object being shown
+
+EndShowExportData: just after showing the <div> with export data (feeds)
+- $action: action object being shown
+
+StartShowPageNotice: just before showing the page notice (instructions or error)
+- $action: action object being shown
+
+EndShowPageNotice: just after showing the page notice (instructions or error)
+- $action: action object being shown
+
+StartShowPageTitle: just before showing the main h1 title of a page (only for registration)
+- $action: action object being shown
+
+StartProfileFormData: just before showing text entry fields on profile settings page
+- $action: action object being shown
+
+EndProfileFormData: just after showing text entry fields on profile settings page
+- $action: action object being shown
+
+StartProfileSaveForm: before starting to save a profile settings form
+- $action: action object being shown
+
+EndProfileSaveForm: after saving a profile settings form (after commit, no profile or user object!)
+- $action: action object being shown
+
+StartRegistrationFormData: just before showing text entry fields on registration page
+- $action: action object being shown
+
+EndRegistrationFormData: just after showing text entry fields on registration page
+- $action: action object being shown
+
+StartRegistrationTry: before validating and saving a new user
+- $action: action object being shown
+
+EndRegistrationTry: after saving a new user (note: no profile or user object!)
+- $action: action object being shown
+
+StartNewQueueManager: before trying to start a new queue manager; good for plugins implementing new queue manager classes
+- $qm: empty queue manager to set
