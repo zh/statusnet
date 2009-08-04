@@ -250,8 +250,7 @@ class LoginAction extends Action
         } else {
             return _('Login with your username and password. ' .
                      'Don\'t have a username yet? ' .
-                     '[Register](%%action.register%%) a new account, or ' .
-                     'try [OpenID](%%action.openidlogin%%). ');
+                     '[Register](%%action.register%%) a new account.');
         }
     }
 

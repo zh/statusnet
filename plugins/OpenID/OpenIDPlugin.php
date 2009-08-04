@@ -171,4 +171,29 @@ class OpenIDPlugin extends Plugin
         }
         return true;
     }
+
+    function onEndShowPageNotice($action)
+    {
+        $name = $action->trimmed('action');
+
+        switch ($name)
+        {
+         case 'register':
+            $instr = '(Have an [OpenID](http://openid.net/)? ' .
+              'Try our [OpenID registration]'.
+              '(%%action.openidlogin%%)!)';
+            break;
+         case 'login':
+            $instr = '(Have an [OpenID](http://openid.net/)? ' .
+              'Try our [OpenID login]'.
+              '(%%action.openidlogin%%)!)';
+            break;
+         default:
+            return true;
+        }
+
+        $output = common_markup_to_html($instr);
+        $action->raw($output);
+        return true;
+    }
 }
