@@ -4,7 +4,7 @@
  */
 require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
-class User_openid extends Memcached_DataObject 
+class User_openid extends Memcached_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -22,4 +22,15 @@ class User_openid extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+    static function hasOpenID($user_id)
+    {
+        $oid = new User_openid();
+
+        $oid->user_id = $user_id;
+
+        $cnt = $oid->find();
+
+        return ($cnt > 0);
+    }
 }

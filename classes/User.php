@@ -670,17 +670,6 @@ class User extends Memcached_DataObject
         return $profile;
     }
 
-    function hasOpenID()
-    {
-        $oid = new User_openid();
-
-        $oid->user_id = $this->id;
-
-        $cnt = $oid->find();
-
-        return ($cnt > 0);
-    }
-
     function getDesign()
     {
         return Design::staticGet('id', $this->design_id);

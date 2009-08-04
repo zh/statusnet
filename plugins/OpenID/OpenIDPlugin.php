@@ -156,4 +156,19 @@ class OpenIDPlugin extends Plugin
         $action->element('meta', array('http-equiv' => 'X-XRDS-Location',
                                        'content' => common_local_url('publicxrds')));
     }
+
+    /**
+     * Redirect to OpenID login if they have an OpenID
+     *
+     * @return boolean whether to continue
+     */
+
+    function onRedirectToLogin($action, $user)
+    {
+        if (!empty($user) && User_openid::hasOpenID($user->id)) {
+            common_redirect(common_local_url('openidlogin'), 303);
+            return false;
+        }
+        return true;
+    }
 }
