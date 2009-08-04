@@ -715,14 +715,10 @@ function common_relative_profile($sender, $nickname, $dt=null)
 
 function common_local_url($action, $args=null, $params=null, $fragment=null)
 {
-    static $sensitive = array('login', 'register', 'passwordsettings',
-                              'twittersettings', 'finishopenidlogin',
-                              'finishaddopenid', 'api');
-
     $r = Router::get();
     $path = $r->build($action, $args, $params, $fragment);
 
-    $ssl = in_array($action, $sensitive);
+    $ssl = common_is_sensitive($action);
 
     if (common_config('site','fancy')) {
         $url = common_path(mb_substr($path, 1), $ssl);
@@ -734,6 +730,20 @@ function common_local_url($action, $args=null, $params=null, $fragment=null)
         }
     }
     return $url;
+}
+
+function common_is_sensitive($action)
+{
+    static $sensitive = array('login', 'register', 'passwordsettings',
+                              'twittersettings', 'finishopenidlogin',
+                              'finishaddopenid', 'api');
+    $ssl = null;
+
+    if (Event::handle('SensitiveAction', array($action, &$ssl))) {
+        $ssl = in_array($action, $sensitive);
+    }
+
+    return $ssl;
 }
 
 function common_path($relative, $ssl=false)

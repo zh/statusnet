@@ -137,3 +137,8 @@ EndAccountSettingsNav: After showing the account settings menu
 
 Autoload: When trying to autoload a class
 - $cls: the class being sought. A plugin might require_once the file for the class.
+
+SensitiveAction: determines if an action is 'sensitive' and should use SSL
+- $action: name of the action, like 'login'
+- $sensitive: flag for whether this is a sensitive action
+
