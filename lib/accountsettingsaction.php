@@ -98,38 +98,42 @@ class AccountSettingsNav extends Widget
 
     function show()
     {
-        # action => array('prompt', 'title')
-        $menu =
-          array('profilesettings' =>
-                array(_('Profile'),
-                      _('Change your profile settings')),
-                'avatarsettings' =>
-                array(_('Avatar'),
-                      _('Upload an avatar')),
-                'passwordsettings' =>
-                array(_('Password'),
-                      _('Change your password')),
-                'emailsettings' =>
-                array(_('Email'),
-                      _('Change email handling')),
-                'openidsettings' =>
-                array(_('OpenID'),
-                      _('Add or remove OpenIDs')),
-                'userdesignsettings' =>
-                array(_('Design'),
-                      _('Design your profile')),
-                'othersettings' =>
-                array(_('Other'),
-                      _('Other options')));
-
         $action_name = $this->action->trimmed('action');
         $this->action->elementStart('ul', array('class' => 'nav'));
 
-        foreach ($menu as $menuaction => $menudesc) {
-            $this->action->menuItem(common_local_url($menuaction),
-				    $menudesc[0],
-				    $menudesc[1],
-				    $action_name === $menuaction);
+        if (Event::handle('StartAccountSettingsNav', array(&$this->action))) {
+
+            $menu =
+              array('profilesettings' =>
+                    array(_('Profile'),
+                          _('Change your profile settings')),
+                    'avatarsettings' =>
+                    array(_('Avatar'),
+                          _('Upload an avatar')),
+                    'passwordsettings' =>
+                    array(_('Password'),
+                          _('Change your password')),
+                    'emailsettings' =>
+                    array(_('Email'),
+                          _('Change email handling')),
+                    'openidsettings' =>
+                    array(_('OpenID'),
+                          _('Add or remove OpenIDs')),
+                    'userdesignsettings' =>
+                    array(_('Design'),
+                          _('Design your profile')),
+                    'othersettings' =>
+                    array(_('Other'),
+                          _('Other options')));
+
+            foreach ($menu as $menuaction => $menudesc) {
+                $this->action->menuItem(common_local_url($menuaction),
+                                        $menudesc[0],
+                                        $menudesc[1],
+                                        $action_name === $menuaction);
+            }
+
+            Event::handle('EndAccountSettingsNav', array(&$this->action));
         }
 
         $this->action->elementEnd('ul');
