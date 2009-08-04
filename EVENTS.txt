@@ -223,3 +223,7 @@ EndRegistrationTry: after saving a new user (note: no profile or user object!)
 
 StartNewQueueManager: before trying to start a new queue manager; good for plugins implementing new queue manager classes
 - $qm: empty queue manager to set
+
+RedirectToLogin: event when we force a redirect to login (like when going to a settings page on a remembered login)
+- $action: action object being shown
+- $user: current user
