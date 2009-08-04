@@ -80,7 +80,7 @@ class TwitterauthorizationAction extends Action
                 $_SESSION['twitter_request_token_secret'] = $req_tok->key;
 
                 $auth_link = $client->getAuthorizeLink($req_tok);
-
+                
             } catch (TwitterOAuthClientException $e) {
                 $msg = sprintf('OAuth client cURL error - code: %1s, msg: %2s',
                            $e->getCode(), $e->getMessage());
