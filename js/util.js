@@ -264,10 +264,6 @@ function NoticeReplySet(nick,id) {
 				var len = text.val().length;
 				text.get(0).setSelectionRange(len,len);
 				text.get(0).focus();
-			} else if (text.get(0).createTextRange) {
-				var range = text.createTextRange();
-				range.collapse(false);
-				range.select();
 			}
 			return false;
 		}
