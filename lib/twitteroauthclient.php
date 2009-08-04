@@ -39,4 +39,23 @@ class TwitterOAuthClient extends OAuthClient
         return $status;
     }
 
+    function statuses_friends_timeline($since_id = null, $max_id = null,
+                                       $cnt = null, $page = null) {
+
+        $url = 'http://twitter.com/statuses/friends_timeline.json';
+        $params = array('since_id' => $since_id,
+                        'max_id' => $max_id,
+                        'count' => $cnt,
+                        'page' => $page);
+        $qry = http_build_query($params);
+
+        if (!empty($qry)) {
+            $url .= "?$qry";
+        }
+
+        $response = $this->oAuthGet($url);
+        $statuses = json_decode($response);
+        return $statuses;
+    }
+
 }
