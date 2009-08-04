@@ -92,7 +92,7 @@ class LoginGroupNav extends Widget
                                     _('Login or register with OpenID'),
                                     $action_name === 'openidlogin');
 
-            Event::handle('EndLoginGroupNav', array(&$menu));
+            Event::handle('EndLoginGroupNav', array(&$this->action));
         }
 
         $this->action->elementEnd('ul');
