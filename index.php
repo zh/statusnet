@@ -107,8 +107,7 @@ function checkMirror($action_obj)
 
 function isLoginAction($action)
 {
-    static $loginActions =  array('login', 'openidlogin', 'finishopenidlogin',
-                                  'recoverpassword', 'api', 'doc', 'register');
+    static $loginActions =  array('login', 'recoverpassword', 'api', 'doc', 'register');
 
     $login = null;
 

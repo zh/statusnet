@@ -129,4 +129,17 @@ class OpenIDPlugin extends Plugin
             return true;
         }
     }
+
+    function onLoginAction($action, &$login)
+    {
+        switch ($action)
+        {
+         case 'openidlogin':
+         case 'finishopenidlogin':
+            $login = true;
+            return false;
+         default:
+            return true;
+        }
+    }
 }
