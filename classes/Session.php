@@ -108,11 +108,24 @@ class Session extends Memcached_DataObject
 
         $epoch = common_sql_date(time() - $maxlifetime);
 
+        $ids = array();
+
         $session = new Session();
         $session->whereAdd('modified < "'.$epoch.'"');
-        $result = $session->delete(DB_DATAOBJECT_WHEREADD_ONLY);
+        $session->selectAdd();
+        $session->selectAdd('id');
 
-        self::logdeb("garbage collection result = $result");
+        $session->find();
+
+        while ($session->fetch()) {
+            $ids[] = $session->id;
+        }
+
+        $session->free();
+
+        foreach ($ids as $id) {
+            self::destroy($id);
+        }
     }
 
     static function setSaveHandler()

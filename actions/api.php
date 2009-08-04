@@ -130,6 +130,7 @@ class ApiAction extends Action
                                 'laconica/wadl',
                                 'tags/timeline',
                                 'oembed/oembed',
+                                'groups/show',
                                 'groups/timeline');
 
         static $bareauth = array('statuses/user_timeline',
