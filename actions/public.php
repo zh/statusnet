@@ -101,8 +101,6 @@ class PublicAction extends Action
     {
         parent::handle($args);
 
-        header('X-XRDS-Location: '. common_local_url('publicxrds'));
-
         $this->showPage();
     }
 
@@ -141,22 +139,6 @@ class PublicAction extends Action
                                                array('apiaction' => 'statuses',
                                                      'method' => 'public_timeline.atom')),
                               _('Public Stream Feed (Atom)')));
-    }
-
-    /**
-     * Extra head elements
-     *
-     * We include a <meta> element linking to the publicxrds page, for OpenID
-     * client-side authentication.
-     *
-     * @return void
-     */
-
-    function extraHead()
-    {
-        // for client side of OpenID authentication
-        $this->element('meta', array('http-equiv' => 'X-XRDS-Location',
-                                     'content' => common_local_url('publicxrds')));
     }
 
     /**

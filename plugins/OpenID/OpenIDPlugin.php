@@ -142,4 +142,18 @@ class OpenIDPlugin extends Plugin
             return true;
         }
     }
+
+    /**
+     * We include a <meta> element linking to the publicxrds page, for OpenID
+     * client-side authentication.
+     *
+     * @return void
+     */
+
+    function onEndHeadChildren($action)
+    {
+        // for client side of OpenID authentication
+        $action->element('meta', array('http-equiv' => 'X-XRDS-Location',
+                                       'content' => common_local_url('publicxrds')));
+    }
 }
