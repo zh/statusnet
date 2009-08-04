@@ -66,9 +66,6 @@ class OpenIDPlugin extends Plugin
     {
         $m->connect('main/openid', array('action' => 'openidlogin'));
         $m->connect('settings/openid', array('action' => 'openidsettings'));
-        $m->connect(':nickname/xrds',
-                    array('action' => 'xrds'),
-                    array('nickname' => '[a-zA-Z0-9]{1,64}'));
         $m->connect('xrds', array('action' => 'publicxrds'));
         $m->connect('index.php?action=finishopenidlogin', array('action' => 'finishopenidlogin'));
         $m->connect('index.php?action=finishaddopenid', array('action' => 'finishaddopenid'));

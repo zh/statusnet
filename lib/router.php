@@ -431,7 +431,7 @@ class Router
         // user stuff
 
         foreach (array('subscriptions', 'subscribers',
-                       'nudge', 'all', 'foaf',
+                       'nudge', 'all', 'foaf', 'xrds',
                        'replies', 'inbox', 'outbox', 'microsummary') as $a) {
             $m->connect(':nickname/'.$a,
                         array('action' => $a),
