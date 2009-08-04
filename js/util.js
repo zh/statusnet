@@ -257,7 +257,7 @@ function NoticeReplySet(nick,id) {
 	if (nick.match(rgx_username)) {
 		replyto = "@" + nick + " ";
 		if ($("#notice_data-text").length) {
-			$("#notice_data-text").val(replyto);
+			$("#notice_data-text").val(replyto + $("#notice_data-text").val());
 			$("#form_notice input#notice_in-reply-to").val(id);
 			$("#notice_data-text").focus();
 			return false;
