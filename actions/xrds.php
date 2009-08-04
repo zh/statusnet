@@ -1,7 +1,7 @@
 <?php
 
 /**
- * XRDS for OpenID
+ * XRDS for OpenMicroBlogging
  *
  * PHP version 5
  *
@@ -36,7 +36,7 @@ if (!defined('LACONICA')) {
 require_once INSTALLDIR.'/lib/omb.php';
 
 /**
- * XRDS for OpenID
+ * XRDS for OpenMicroBlogging
  *
  * @category Action
  * @package  Laconica
