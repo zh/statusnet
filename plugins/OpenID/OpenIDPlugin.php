@@ -119,4 +119,17 @@ class OpenIDPlugin extends Plugin
             return true;
         }
     }
+
+    function onSensitiveAction($action, &$ssl)
+    {
+        switch ($action)
+        {
+         case 'finishopenidlogin':
+         case 'finishaddopenid':
+            $ssl = true;
+            return false;
+         default:
+            return true;
+        }
+    }
 }

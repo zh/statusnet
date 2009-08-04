@@ -735,8 +735,7 @@ function common_local_url($action, $args=null, $params=null, $fragment=null)
 function common_is_sensitive($action)
 {
     static $sensitive = array('login', 'register', 'passwordsettings',
-                              'twittersettings', 'finishopenidlogin',
-                              'finishaddopenid', 'api');
+                              'twittersettings', 'api');
     $ssl = null;
 
     if (Event::handle('SensitiveAction', array($action, &$ssl))) {
