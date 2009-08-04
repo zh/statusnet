@@ -75,4 +75,16 @@ class OpenIDPlugin extends Plugin
 
         return true;
     }
+
+    function onEndLoginGroupNav(&$action)
+    {
+        $action_name = $action->trimmed('action');
+
+        $action->menuItem(common_local_url('openidlogin'),
+                          _('OpenID'),
+                          _('Login or register with OpenID'),
+                          $action_name === 'openidlogin');
+
+        return true;
+    }
 }

@@ -87,11 +87,6 @@ class LoginGroupNav extends Widget
                                         $action_name === 'register');
             }
 
-            $this->action->menuItem(common_local_url('openidlogin'),
-                                    _('OpenID'),
-                                    _('Login or register with OpenID'),
-                                    $action_name === 'openidlogin');
-
             Event::handle('EndLoginGroupNav', array(&$this->action));
         }
 
