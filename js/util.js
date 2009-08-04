@@ -256,10 +256,19 @@ function NoticeReplySet(nick,id) {
 	rgx_username = /^[0-9a-zA-Z\-_.]*$/;
 	if (nick.match(rgx_username)) {
 		replyto = "@" + nick + " ";
-		if ($("#notice_data-text").length) {
-			$("#notice_data-text").val(replyto + $("#notice_data-text").val());
+		var text = $("#notice_data-text");
+		if (text.length) {
+			text.val(replyto + text.val());
 			$("#form_notice input#notice_in-reply-to").val(id);
-			$("#notice_data-text").focus();
+			if (text.get(0).setSelectionRange) {
+				var len = text.val().length;
+				text.get(0).setSelectionRange(len,len);
+				text.get(0).focus();
+			} else if (text.get(0).createTextRange) {
+				var range = text.createTextRange();
+				range.collapse(false);
+				range.select();
+			}
 			return false;
 		}
 	}
