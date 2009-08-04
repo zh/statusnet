@@ -134,3 +134,6 @@ StartAccountSettingsNav: Before showing the account settings menu
 
 EndAccountSettingsNav: After showing the account settings menu
 - $action: the current action
+
+Autoload: When trying to autoload a class
+- $cls: the class being sought. A plugin might require_once the file for the class.

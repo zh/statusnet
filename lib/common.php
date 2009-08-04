@@ -381,17 +381,19 @@ require_once INSTALLDIR.'/lib/serverexception.php';
 
 define('NICKNAME_FMT', VALIDATE_NUM.VALIDATE_ALPHA_LOWER);
 
-function __autoload($class)
+function __autoload($cls)
 {
-    if ($class == 'OAuthRequest') {
+    if (file_exists(INSTALLDIR.'/classes/' . $cls . '.php')) {
+        require_once(INSTALLDIR.'/classes/' . $cls . '.php');
+    } else if (file_exists(INSTALLDIR.'/lib/' . strtolower($cls) . '.php')) {
+        require_once(INSTALLDIR.'/lib/' . strtolower($cls) . '.php');
+    } else if (mb_substr($cls, -6) == 'Action' &&
+               file_exists(INSTALLDIR.'/actions/' . strtolower(mb_substr($cls, 0, -6)) . '.php')) {
+        require_once(INSTALLDIR.'/actions/' . strtolower(mb_substr($cls, 0, -6)) . '.php');
+    } else if ($cls == 'OAuthRequest') {
         require_once('OAuth.php');
-    } else if (file_exists(INSTALLDIR.'/classes/' . $class . '.php')) {
-        require_once(INSTALLDIR.'/classes/' . $class . '.php');
-    } else if (file_exists(INSTALLDIR.'/lib/' . strtolower($class) . '.php')) {
-        require_once(INSTALLDIR.'/lib/' . strtolower($class) . '.php');
-    } else if (mb_substr($class, -6) == 'Action' &&
-               file_exists(INSTALLDIR.'/actions/' . strtolower(mb_substr($class, 0, -6)) . '.php')) {
-        require_once(INSTALLDIR.'/actions/' . strtolower(mb_substr($class, 0, -6)) . '.php');
+    } else {
+        Event::handle('Autoload', array(&$cls));
     }
 }
 
