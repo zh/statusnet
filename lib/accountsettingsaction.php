@@ -116,9 +116,6 @@ class AccountSettingsNav extends Widget
                     'emailsettings' =>
                     array(_('Email'),
                           _('Change email handling')),
-                    'openidsettings' =>
-                    array(_('OpenID'),
-                          _('Add or remove OpenIDs')),
                     'userdesignsettings' =>
                     array(_('Design'),
                           _('Design your profile')),

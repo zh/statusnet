@@ -87,4 +87,16 @@ class OpenIDPlugin extends Plugin
 
         return true;
     }
+
+    function onEndAccountSettingsNav(&$action)
+    {
+        $action_name = $action->trimmed('action');
+
+        $action->menuItem(common_local_url('openidsettings'),
+                          _('OpenID'),
+                          _('Add or remove OpenIDs'),
+                          $action_name === 'openidsettings');
+
+        return true;
+    }
 }
