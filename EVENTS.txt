@@ -142,3 +142,6 @@ SensitiveAction: determines if an action is 'sensitive' and should use SSL
 - $action: name of the action, like 'login'
 - $sensitive: flag for whether this is a sensitive action
 
+LoginAction: determines if an action is a 'login' action (OK for public view in private mode)
+- $action: name of the action, like 'register'
+- $login: flag for whether this is a login action

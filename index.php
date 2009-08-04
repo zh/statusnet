@@ -105,6 +105,20 @@ function checkMirror($action_obj)
     }
 }
 
+function isLoginAction($action)
+{
+    static $loginActions =  array('login', 'openidlogin', 'finishopenidlogin',
+                                  'recoverpassword', 'api', 'doc', 'register');
+
+    $login = null;
+
+    if (Event::handle('LoginAction', array($action, &$login))) {
+        $login = in_array($action, $loginActions);
+    }
+
+    return $login;
+}
+
 function main()
 {
     // quick check for fancy URL auto-detection support in installer.
@@ -164,8 +178,7 @@ function main()
     // parts of the site, redirect to login
 
     if (!$user && common_config('site', 'private') &&
-        !in_array($action, array('login', 'openidlogin', 'finishopenidlogin',
-                                 'recoverpassword', 'api', 'doc', 'register')) &&
+        !isLoginAction($action) &&
         !preg_match('/rss$/', $action)) {
         common_redirect(common_local_url('login'));
         return;
