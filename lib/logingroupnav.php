@@ -69,26 +69,30 @@ class LoginGroupNav extends Widget
 
     function show()
     {
-        // action => array('prompt', 'title')
-        $menu = array();
-
-        $menu['login'] = array(_('Login'),
-                         _('Login with a username and password'));
-        if (!(common_config('site','closed') || common_config('site','inviteonly'))) {
-            $menu['register'] = array(_('Register'),
-                                _('Sign up for a new account'));
-        }
-        $menu['openidlogin'] = array(_('OpenID'),
-                               _('Login or register with OpenID'));
-
         $action_name = $this->action->trimmed('action');
+
         $this->action->elementStart('ul', array('class' => 'nav'));
 
-        foreach ($menu as $menuaction => $menudesc) {
-            $this->action->menuItem(common_local_url($menuaction),
-                                    $menudesc[0],
-                                    $menudesc[1],
-                                    $action_name === $menuaction);
+        if (Event::handle('StartLoginGroupNav', array(&$this->action))) {
+
+            $this->action->menuItem(common_local_url('login'),
+                                    _('Login'),
+                                    _('Login with a username and password'),
+                                    $action_name === 'login');
+
+            if (!(common_config('site','closed') || common_config('site','inviteonly'))) {
+                $this->action->menuItem(common_local_url('register'),
+                                        _('Register'),
+                                        _('Sign up for a new account'),
+                                        $action_name === 'register');
+            }
+
+            $this->action->menuItem(common_local_url('openidlogin'),
+                                    _('OpenID'),
+                                    _('Login or register with OpenID'),
+                                    $action_name === 'openidlogin');
+
+            Event::handle('EndLoginGroupNav', array(&$menu));
         }
 
         $this->action->elementEnd('ul');
