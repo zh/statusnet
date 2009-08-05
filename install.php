@@ -163,7 +163,7 @@ E_O_T;
 function updateStatus($status, $error=false)
 {
 ?>
-                <li <?php echo ($error) ? 'class="error"': ''; ?>><?print $status;?></li>
+                <li <?php echo ($error) ? 'class="error"': ''; ?>><?php echo $status;?></li>
 
 <?php
 }
