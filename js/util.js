@@ -25,7 +25,7 @@ $(document).ready(function(){
 		var counter = $("#notice_text-count");
 		counter.text(remaining);
 
-		if (remaining <= 0) {
+		if (remaining < 0) {
 			$("#form_notice").addClass("warning");
 		} else {
 			$("#form_notice").removeClass("warning");
@@ -244,7 +244,7 @@ function NoticeReply() {
         $('#content .notice').each(function() {
             var notice = $(this)[0];
             $($('.notice_reply', notice)[0]).click(function() {
-                var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname');
+                var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname.uid');
                 NoticeReplySet(nickname.text(), $($('.notice_id', notice)[0]).text());
                 return false;
             });
@@ -256,10 +256,15 @@ function NoticeReplySet(nick,id) {
 	rgx_username = /^[0-9a-zA-Z\-_.]*$/;
 	if (nick.match(rgx_username)) {
 		replyto = "@" + nick + " ";
-		if ($("#notice_data-text").length) {
-			$("#notice_data-text").val(replyto);
+		var text = $("#notice_data-text");
+		if (text.length) {
+			text.val(replyto + text.val());
 			$("#form_notice input#notice_in-reply-to").val(id);
-			$("#notice_data-text").focus();
+			if (text.get(0).setSelectionRange) {
+				var len = text.val().length;
+				text.get(0).setSelectionRange(len,len);
+				text.get(0).focus();
+			}
 			return false;
 		}
 	}

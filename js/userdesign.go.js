@@ -27,13 +27,14 @@ $(document).ready(function() {
         }
     }
 
+    /* rgb2hex written by R0bb13 <robertorebollo@gmail.com> */
     function rgb2hex(rgb) {
         rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-        function hex(x) {
-            hexDigits = new Array("0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F");
-            return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
-        }
-        return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+        return '#' + dec2hex(rgb[1]) + dec2hex(rgb[2]) + dec2hex(rgb[3]);
+    }
+    function dec2hex(x) {
+        hexDigits = new Array('0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F');
+        return isNaN(x) ? '00' : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
     }
 
     function UpdateColors(S) {
