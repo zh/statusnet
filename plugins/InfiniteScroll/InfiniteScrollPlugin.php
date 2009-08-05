@@ -40,11 +40,7 @@ class InfiniteScrollPlugin extends Plugin
 
     function onEndShowScripts($action)
     {
-        $action->element('script',
-            array('type' => 'text/javascript',
-            'src'  => common_path('plugins/InfiniteScroll/jquery.infinitescroll.min.js')),
-            '');
-
+        $action->script('plugins/InfiniteScroll/jquery.infinitescroll.min.js');
         $loading_image = common_path('plugins/InfiniteScroll/ajax-loader.gif');
         $js_string = <<<EOT
 <script type="text/javascript">
