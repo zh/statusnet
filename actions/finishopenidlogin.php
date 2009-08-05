@@ -217,7 +217,7 @@ class FinishopenidloginAction extends Action
 
         if (!Validate::string($nickname, array('min_length' => 1,
                                                'max_length' => 64,
-                                               'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
+                                               'format' => NICKNAME_FMT))) {
             $this->showForm(_('Nickname must have only lowercase letters and numbers and no spaces.'));
             return;
         }
@@ -389,7 +389,7 @@ class FinishopenidloginAction extends Action
     {
         if (!Validate::string($str, array('min_length' => 1,
                                           'max_length' => 64,
-                                          'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
+                                          'format' => NICKNAME_FMT))) {
             return false;
         }
         if (!User::allowed_nickname($str)) {
