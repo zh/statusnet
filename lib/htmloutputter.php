@@ -109,8 +109,13 @@ class HTMLOutputter extends XMLOutputter
         header('Content-Type: '.$type);
 
         $this->extraHeaders();
-
-        $this->startXML('html');
+        if( ! substr($type,0,strlen('text/html'))=='text/html' ){
+            // Browsers don't like it when <?xml it output for non-xhtml documents
+            $this->xw->startDocument('1.0', 'UTF-8');
+        }
+        if ($doc) {
+            $this->xw->writeDTD('html', $public, $system);
+        }
 
         $language = $this->getLanguage();
 
