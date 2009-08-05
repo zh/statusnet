@@ -107,7 +107,7 @@ class Design extends Memcached_DataObject
 
     static function toWebColor($color)
     {
-        if (is_null($color)) {
+        if ($color == null) {
             return null;
         }
 
@@ -115,7 +115,7 @@ class Design extends Memcached_DataObject
             return new WebColor($color);
         } catch (WebColorException $e) {
             // This shouldn't happen
-            common_log(LOG_ERR, "Unable to create color for design $id.",
+            common_log(LOG_ERR, "Unable to create color for design $this->id.",
                 __FILE__);
             return null;
         }
