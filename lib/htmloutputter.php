@@ -340,6 +340,42 @@ class HTMLOutputter extends XMLOutputter
     }
 
     /**
+     * output a script (almost always javascript) tag
+     *
+     * @param string $src          relative or absolute script path
+     * @param string $type         'type' attribute value of the tag
+     *
+     * @return void
+     */
+    function script($src, $type='text/javascript')
+    {
+        $this->element('script', array('type' => $type,
+                                               'src' => common_path($src) . '?version=' . LACONICA_VERSION),
+                               ' ');
+    }
+
+    /**
+     * output a css link
+     *
+     * @param string $relative     relative path within the theme directory
+     * @param string $theme        'theme' that contains the stylesheet
+     * @param string media         'media' attribute of the tag
+     *
+     * @return void
+     */
+    function cssLink($relative,$theme,$media)
+    {
+        if (!$theme) {
+            $theme = common_config('site', 'theme');
+        }
+
+        $this->element('link', array('rel' => 'stylesheet',
+                                'type' => 'text/css',
+                                'href' => theme_path($relative, $theme) . '?version=' . LACONICA_VERSION,
+                                'media' => $media));
+    }
+
+    /**
      * output an HTML textarea and associated elements
      *
      * @param string $id           element ID, must be unique on page
