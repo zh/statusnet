@@ -193,21 +193,12 @@ class Action extends HTMLOutputter // lawsuit
         if (Event::handle('StartShowStyles', array($this))) {
 
             if (Event::handle('StartShowLaconicaStyles', array($this))) {
-                $this->element('link', array('rel' => 'stylesheet',
-                                             'type' => 'text/css',
-                                             'href' => theme_path('css/display.css', null) . '?version=' . LACONICA_VERSION,
-                                             'media' => 'screen, projection, tv'));
+                $this->cssLink('css/display.css',null,'screen, projection, tv');
                 if (common_config('site', 'mobile')) {
-                    $this->element('link', array('rel' => 'stylesheet',
-                                                 'type' => 'text/css',
-                                                 'href' => theme_path('css/mobile.css', 'base') . '?version=' . LACONICA_VERSION,
-                                                 // TODO: "handheld" CSS for other mobile devices
-                                                 'media' => 'only screen and (max-device-width: 480px)')); // Mobile WebKit
+                    // TODO: "handheld" CSS for other mobile devices
+                    $this->cssLink('css/mobile.css','base','only screen and (max-device-width: 480px)'); // Mobile WebKit
                 }
-                $this->element('link', array('rel' => 'stylesheet',
-                                             'type' => 'text/css',
-                                             'href' => theme_path('css/print.css', 'base') . '?version=' . LACONICA_VERSION,
-                                             'media' => 'print'));
+                $this->cssLink('css/print.css','base','print');
                 Event::handle('EndShowLaconicaStyles', array($this));
             }
 
@@ -253,26 +244,14 @@ class Action extends HTMLOutputter // lawsuit
     {
         if (Event::handle('StartShowScripts', array($this))) {
             if (Event::handle('StartShowJQueryScripts', array($this))) {
-                $this->element('script', array('type' => 'text/javascript',
-                                               'src' => common_path('js/jquery.min.js')),
-                               ' ');
-                $this->element('script', array('type' => 'text/javascript',
-                                               'src' => common_path('js/jquery.form.js')),
-                               ' ');
-
-                $this->element('script', array('type' => 'text/javascript',
-                                               'src' => common_path('js/jquery.joverlay.min.js')),
-                               ' ');
-
+                $this->script('js/jquery.min.js');
+                $this->script('js/jquery.form.js');
+                $this->script('js/jquery.joverlay.min.js');
                 Event::handle('EndShowJQueryScripts', array($this));
             }
             if (Event::handle('StartShowLaconicaScripts', array($this))) {
-                $this->element('script', array('type' => 'text/javascript',
-                                               'src' => common_path('js/xbImportNode.js')),
-                               ' ');
-                $this->element('script', array('type' => 'text/javascript',
-                                               'src' => common_path('js/util.js?version='.LACONICA_VERSION)),
-                               ' ');
+                $this->script('js/xbImportNode.js');
+                $this->script('js/util.js');
                 // Frame-busting code to avoid clickjacking attacks.
                 $this->element('script', array('type' => 'text/javascript'),
                                'if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');

@@ -311,13 +311,7 @@ class DesignSettingsAction extends AccountSettingsAction
     function showStylesheets()
     {
         parent::showStylesheets();
-        $farbtasticStyle =
-          common_path('theme/base/css/farbtastic.css?version='.LACONICA_VERSION);
-
-        $this->element('link', array('rel' => 'stylesheet',
-                                     'type' => 'text/css',
-                                     'href' => $farbtasticStyle,
-                                     'media' => 'screen, projection, tv'));
+        $this->cssLink('css/farbtastic.css','base','screen, projection, tv');
     }
 
     /**
@@ -330,13 +324,8 @@ class DesignSettingsAction extends AccountSettingsAction
     {
         parent::showScripts();
 
-        $farbtasticPack = common_path('js/farbtastic/farbtastic.js');
-        $userDesignGo   = common_path('js/userdesign.go.js');
-
-        $this->element('script', array('type' => 'text/javascript',
-                                       'src' => $farbtasticPack));
-        $this->element('script', array('type' => 'text/javascript',
-                                       'src' => $userDesignGo));
+        $this->script('js/farbtastic/farbtastic.js');
+        $this->script('js/farbtastic/farbtastic.go.js');
     }
 
     /**
