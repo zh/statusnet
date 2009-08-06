@@ -54,6 +54,18 @@ require_once INSTALLDIR . '/lib/parallelizingdaemon.php';
 
 class SyncTwitterFriendsDaemon extends ParallelizingDaemon
 {
+    /**
+     *  Constructor
+     *
+     * @param string  $id           the name/id of this daemon
+     * @param int     $interval     sleep this long before doing everything again
+     * @param int     $max_children maximum number of child processes at a time
+     * @param boolean $debug        debug output flag
+     *
+     * @return void
+     *
+     **/
+
     function __construct($id = null, $interval = 60,
                          $max_children = 2, $debug = null)
     {
@@ -71,6 +83,12 @@ class SyncTwitterFriendsDaemon extends ParallelizingDaemon
         return ('synctwitterfriendsdaemon.' . $this->_id);
     }
 
+    /**
+     * Find all the Twitter foreign links for users who have requested
+     * automatically subscribing to their Twitter friends locally.
+     *
+     * @return array flinks an array of Foreign_link objects
+     */
     function getObjects()
     {
         $flinks = array();
@@ -236,8 +254,6 @@ class SyncTwitterFriendsDaemon extends ParallelizingDaemon
     }
 
 }
-
-declare(ticks = 1);
 
 $id    = null;
 $debug = null;

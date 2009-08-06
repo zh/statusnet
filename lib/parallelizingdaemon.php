@@ -87,7 +87,7 @@ class ParallelizingDaemon extends Daemon
     function run()
     {
         if (isset($this->_debug)) {
-            echo $this->name() . " - debugging output enabled.\n";
+            echo $this->name() . " - Debugging output enabled.\n";
         }
 
         do {
@@ -107,9 +107,10 @@ class ParallelizingDaemon extends Daemon
                 if ($pid) {
 
                     // Parent
+
                     if (isset($this->_debug)) {
                         echo $this->name() .
-                          " (parent) forked new child - pid $pid.\n";
+                          " - Forked new child - pid $pid.\n";
 
                     }
 
@@ -120,22 +121,25 @@ class ParallelizingDaemon extends Daemon
                     // Child
 
                     // Do something with each object
+
                     $this->childTask($o);
 
                     exit();
                 }
 
                 // Remove child from ps list as it finishes
+
                 while (($c = pcntl_wait($status, WNOHANG OR WUNTRACED)) > 0) {
 
                     if (isset($this->_debug)) {
-                        echo $this->name() . " child $c finished.\n";
+                        echo $this->name() . " - Child $c finished.\n";
                     }
 
                     $this->removePs($this->_children, $c);
                 }
 
                 // Wait! We have too many damn kids.
+
                 if (sizeof($this->_children) >= $this->_max_children) {
 
                     if (isset($this->_debug)) {
@@ -158,7 +162,7 @@ class ParallelizingDaemon extends Daemon
             while (($c = pcntl_wait($status, WUNTRACED)) > 0) {
 
                 if (isset($this->_debug)) {
-                    echo $this->name() . " child $c finished.\n";
+                    echo $this->name() . " - Child $c finished.\n";
                 }
 
                 $this->removePs($this->_children, $c);
