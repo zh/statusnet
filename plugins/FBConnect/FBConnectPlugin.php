@@ -152,10 +152,7 @@ class FBConnectPlugin extends Plugin
     {
 
         if ($this->reqFbScripts($action)) {
-
-            $action->element('link', array('rel' => 'stylesheet',
-                'type' => 'text/css',
-                'href' => common_path('plugins/FBConnect/FBConnectPlugin.css')));
+            $action->cssLink('plugins/FBConnect/FBConnectPlugin.css');
         }
     }
 
