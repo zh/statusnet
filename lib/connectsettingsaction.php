@@ -99,25 +99,27 @@ class ConnectSettingsNav extends Widget
     function show()
     {
         # action => array('prompt', 'title')
-        $menu =
-          array('imsettings' =>
-                array(_('IM'),
-                      _('Updates by instant messenger (IM)')),
-                'smssettings' =>
-                array(_('SMS'),
-                      _('Updates by SMS')),
-                'twittersettings' =>
-                array(_('Twitter'),
-                      _('Twitter integration options')));
+        $menu = array();
+        if (common_config('xmpp', 'enabled')) {
+            $menu['imsettings'] =
+              array(_('IM'),
+                    _('Updates by instant messenger (IM)'));
+        }
+        if (common_config('sms', 'enabled')) {
+            $menu['smssettings'] =
+              array(_('SMS'),
+                    _('Updates by SMS'));
+        }
+        if (common_config('twitter', 'enabled')) {
+            $menu['twittersettings'] =
+              array(_('Twitter'),
+                    _('Twitter integration options'));
+        }
 
         $action_name = $this->action->trimmed('action');
         $this->action->elementStart('ul', array('class' => 'nav'));
 
         foreach ($menu as $menuaction => $menudesc) {
-            if ($menuaction == 'imsettings' &&
-                !common_config('xmpp', 'enabled')) {
-                continue;
-            }
             $this->action->menuItem(common_local_url($menuaction),
 				    $menudesc[0],
 				    $menudesc[1],

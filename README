@@ -1228,6 +1228,22 @@ enabled: Set to true to enable. Default false.
 server: a string with the hostname of the sphinx server.
 port: an integer with the port number of the sphinx server.
 
+sms
+---
+
+For SMS integration.
+
+enabled: Whether to enable SMS integration. Defaults to true. Queues
+         should also be enabled.
+
+twitter
+-------
+
+For Twitter integration
+
+enabled: Whether to enable Twitter integration. Defaults to true.
+         Queues should also be enabled.
+
 integration
 -----------
 

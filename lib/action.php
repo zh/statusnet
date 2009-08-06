@@ -402,6 +402,14 @@ class Action extends HTMLOutputter // lawsuit
     function showPrimaryNav()
     {
         $user = common_current_user();
+        $connect = '';
+        if (common_config('xmpp', 'enabled')) {
+            $connect = 'imsettings';
+        } else if (common_config('sms', 'enabled')) {
+            $connect = 'smssettings';
+        } else if (common_config('twitter', 'enabled')) {
+            $connect = 'twittersettings';
+        }
 
         $this->elementStart('dl', array('id' => 'site_nav_global_primary'));
         $this->element('dt', null, _('Primary site navigation'));
@@ -413,12 +421,9 @@ class Action extends HTMLOutputter // lawsuit
                                 _('Home'), _('Personal profile and friends timeline'), false, 'nav_home');
                 $this->menuItem(common_local_url('profilesettings'),
                                 _('Account'), _('Change your email, avatar, password, profile'), false, 'nav_account');
-                if (common_config('xmpp', 'enabled')) {
-                    $this->menuItem(common_local_url('imsettings'),
-                                    _('Connect'), _('Connect to IM, SMS, Twitter'), false, 'nav_connect');
-                } else {
-                    $this->menuItem(common_local_url('smssettings'),
-                                    _('Connect'), _('Connect to SMS, Twitter'), false, 'nav_connect');
+                if ($connect) {
+                    $this->menuItem(common_local_url($connect),
+                                    _('Connect'), _('Connect to services'), false, 'nav_connect');
                 }
                 if (common_config('invite', 'enabled')) {
                     $this->menuItem(common_local_url('invite'),
