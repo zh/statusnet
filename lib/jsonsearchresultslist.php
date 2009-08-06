@@ -207,7 +207,7 @@ class ResultItem
         $replier_profile = null;
 
         if ($this->notice->reply_to) {
-            $reply = Notice::staticGet(intval($notice->reply_to));
+            $reply = Notice::staticGet(intval($this->notice->reply_to));
             if ($reply) {
                 $replier_profile = $reply->getProfile();
             }
@@ -224,7 +224,7 @@ class ResultItem
 
         $user = User::staticGet('id', $this->profile->id);
 
-        $this->iso_language_code = $this->user->language;
+        $this->iso_language_code = $user->language;
 
         $this->source = $this->getSourceLink($this->notice->source);
 
