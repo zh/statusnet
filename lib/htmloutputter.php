@@ -368,7 +368,7 @@ class HTMLOutputter extends XMLOutputter
      *
      * @return void
      */
-    function cssLink($src,$theme,$media)
+    function cssLink($src,$theme=null,$media=null)
     {
         if (!$theme) {
             $theme = common_config('site', 'theme');
