@@ -111,8 +111,8 @@ class FavoritesrssAction extends Rss10Action
                    'link' => common_local_url('showfavorites',
                                         array('nickname' =>
                                         $user->nickname)),
-                   'description' => sprintf(_('Feed of favorite notices of %s'), 
-                                        $user->nickname));
+                   'description' => sprintf(_('Updates favored by %1$s on %2$s!'),
+                                        $user->nickname, common_config('site', 'name')));
         return $c;
     }
 
