@@ -58,4 +58,44 @@ class TwitterOAuthClient extends OAuthClient
         return $statuses;
     }
 
+    function statuses_friends($id = null, $user_id = null, $screen_name = null,
+                              $page = null)
+    {
+        $url = "https://twitter.com/statuses/friends.json";
+
+        $params = array('id' => $id,
+                        'user_id' => $user_id,
+                        'screen_name' => $screen_name,
+                        'page' => $page);
+        $qry = http_build_query($params);
+
+        if (!empty($qry)) {
+            $url .= "?$qry";
+        }
+
+        $response = $this->oAuthGet($url);
+        $ids = json_decode($response);
+        return $ids;
+    }
+
+    function friends_ids($id = null, $user_id = null, $screen_name = null,
+                         $page = null)
+    {
+        $url = "https://twitter.com/friends/ids.json";
+
+        $params = array('id' => $id,
+                        'user_id' => $user_id,
+                        'screen_name' => $screen_name,
+                        'page' => $page);
+        $qry = http_build_query($params);
+
+        if (!empty($qry)) {
+            $url .= "?$qry";
+        }
+
+        $response = $this->oAuthGet($url);
+        $ids = json_decode($response);
+        return $ids;
+    }
+
 }
