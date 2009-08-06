@@ -370,9 +370,6 @@ class HTMLOutputter extends XMLOutputter
      */
     function cssLink($src,$theme=null,$media=null)
     {
-        if (!$theme) {
-            $theme = common_config('site', 'theme');
-        }
         $url = parse_url($src);
         if(! ($url->scheme || $url->host || $url->query || $url->fragment))
         {
