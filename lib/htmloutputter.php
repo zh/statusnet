@@ -349,29 +349,38 @@ class HTMLOutputter extends XMLOutputter
      */
     function script($src, $type='text/javascript')
     {
+        $url = parse_url($src);
+        if(! ($url->scheme || $url->host || $url->query || $url->fragment))
+        {
+            $src = common_path($src) . '?version=' . LACONICA_VERSION;
+        }
         $this->element('script', array('type' => $type,
-                                               'src' => common_path($src) . '?version=' . LACONICA_VERSION),
+                                               'src' => $src),
                                ' ');
     }
 
     /**
      * output a css link
      *
-     * @param string $relative     relative path within the theme directory
+     * @param string $src     relative path within the theme directory, or an absolute path
      * @param string $theme        'theme' that contains the stylesheet
      * @param string media         'media' attribute of the tag
      *
      * @return void
      */
-    function cssLink($relative,$theme,$media)
+    function cssLink($src,$theme,$media)
     {
         if (!$theme) {
             $theme = common_config('site', 'theme');
         }
-
+        $url = parse_url($src);
+        if(! ($url->scheme || $url->host || $url->query || $url->fragment))
+        {
+            $src = theme_path($src) . '?version=' . LACONICA_VERSION;
+        }
         $this->element('link', array('rel' => 'stylesheet',
                                 'type' => 'text/css',
-                                'href' => theme_path($relative, $theme) . '?version=' . LACONICA_VERSION,
+                                'href' => $src,
                                 'media' => $media));
     }
 
