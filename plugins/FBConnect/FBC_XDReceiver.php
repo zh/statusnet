@@ -56,10 +56,7 @@ class FBC_XDReceiverAction extends Action
                                           'lang' => $language));
         $this->elementStart('head');
         $this->element('title', null, 'cross domain receiver page');
-        $this->element('script',
-            array('src' =>
-                'http://static.ak.connect.facebook.com/js/api_lib/v0.4/XdCommReceiver.debug.js',
-                'type' => 'text/javascript'), '');
+        $this->script('http://static.ak.connect.facebook.com/js/api_lib/v0.4/XdCommReceiver.debug.js');
         $this->elementEnd('head');
         $this->elementStart('body');
         $this->elementEnd('body');

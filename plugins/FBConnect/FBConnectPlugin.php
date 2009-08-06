@@ -144,11 +144,7 @@ class FBConnectPlugin extends Plugin
     function onEndShowFooter($action)
     {
         if ($this->reqFbScripts($action)) {
-
-            $action->element('script',
-                array('type' => 'text/javascript',
-                      'src'  => 'http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php'),
-                      '');
+            $action->script('http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php');
         }
     }
 
