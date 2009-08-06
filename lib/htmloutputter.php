@@ -376,7 +376,11 @@ class HTMLOutputter extends XMLOutputter
         $url = parse_url($src);
         if(! ($url->scheme || $url->host || $url->query || $url->fragment))
         {
-            $src = theme_path($src) . '?version=' . LACONICA_VERSION;
+            if(file_exists(theme_file($src,$theme))){
+               $src = theme_path($src, $theme) . '?version=' . LACONICA_VERSION;
+            }else{
+               $src = common_path($src);
+            }
         }
         $this->element('link', array('rel' => 'stylesheet',
                                 'type' => 'text/css',
