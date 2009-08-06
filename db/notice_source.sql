@@ -22,6 +22,7 @@ VALUES
     ('IdentiFox','IdentiFox','http://www.bitbucket.org/uncryptic/identifox/', now()),
     ('identitwitch','IdentiTwitch','http://richfish.org/identitwitch/', now()),
     ('LaTwit','LaTwit','http://latwit.mac65.com/', now()),
+    ('LiveTweeter', 'LiveTweeter', 'http://addons.songbirdnest.com/addon/1204', now()),
     ('livetweeter', 'livetweeter', 'http://addons.songbirdnest.com/addon/1204', now()),
     ('maisha', 'Maisha', 'http://maisha.grango.org/', now()),
     ('mbpidgin','mbpidgin','http://code.google.com/p/microblog-purple/', now()),
