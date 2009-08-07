@@ -131,6 +131,8 @@ class ApiAction extends Action
                                 'tags/timeline',
                                 'oembed/oembed',
                                 'groups/show',
+                                'groups/timeline',
+                                'groups/list_all',
                                 'groups/timeline');
 
         static $bareauth = array('statuses/user_timeline',
@@ -140,7 +142,8 @@ class ApiAction extends Action
                                  'statuses/mentions',
                                  'statuses/followers',
                                  'favorites/favorites',
-                                 'friendships/show');
+                                 'friendships/show',
+                                 'groups/list_groups');
 
         $fullname = "$this->api_action/$this->api_method";
 

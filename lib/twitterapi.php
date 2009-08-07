@@ -233,6 +233,24 @@ class TwitterapiAction extends Action
         return $twitter_group;
     }
 
+    function twitter_rss_group_array($group)
+    {
+        $entry = array();
+        $entry['content']=$group->description;
+        $entry['title']=$group->nickname;
+        $entry['link']=$group->permalink();
+        $entry['published']=common_date_iso8601($group->created);
+        $entry['updated']==common_date_iso8601($group->modified);
+        $taguribase = common_config('integration', 'groupuri');
+        $entry['id'] = "group:$groupuribase:$entry[link]";
+
+        $entry['description'] = $entry['content'];
+        $entry['pubDate'] = common_date_rfc2822($group->created);
+        $entry['guid'] = $entry['link'];
+
+        return $entry;
+    }
+
     function twitter_rss_entry_array($notice)
     {
         $profile = $notice->getProfile();
@@ -644,6 +662,65 @@ class TwitterapiAction extends Action
 
     }
 
+    function show_rss_groups($group, $title, $link, $subtitle)
+    {
+
+        $this->init_document('rss');
+
+        $this->elementStart('channel');
+        $this->element('title', null, $title);
+        $this->element('link', null, $link);
+        $this->element('description', null, $subtitle);
+        $this->element('language', null, 'en-us');
+        $this->element('ttl', null, '40');
+
+        if (is_array($group)) {
+            foreach ($group as $g) {
+                $twitter_group = $this->twitter_rss_group_array($g);
+                $this->show_twitter_rss_item($twitter_group);
+            }
+        } else {
+            while ($group->fetch()) {
+                $twitter_group = $this->twitter_rss_group_array($group);
+                $this->show_twitter_rss_item($twitter_group);
+            }
+        }
+
+        $this->elementEnd('channel');
+        $this->end_twitter_rss();
+    }
+
+    function show_atom_groups($group, $title, $id, $link, $subtitle=null, $selfuri=null)
+    {
+
+        $this->init_document('atom');
+
+        $this->element('title', null, $title);
+        $this->element('id', null, $id);
+        $this->element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), null);
+
+        if (!is_null($selfuri)) {
+            $this->element('link', array('href' => $selfuri,
+                'rel' => 'self', 'type' => 'application/atom+xml'), null);
+        }
+
+        $this->element('updated', null, common_date_iso8601('now'));
+        $this->element('subtitle', null, $subtitle);
+
+        if (is_array($group)) {
+            foreach ($group as $g) {
+                $this->raw($g->asAtomEntry());
+            }
+        } else {
+            while ($group->fetch()) {
+                $this->raw($group->asAtomEntry());
+            }
+        }
+
+        $this->end_document('atom');
+
+    }
+
     function show_json_timeline($notice)
     {
 
@@ -666,6 +743,52 @@ class TwitterapiAction extends Action
         $this->show_json_objects($statuses);
 
         $this->end_document('json');
+    }
+
+    function show_json_groups($group)
+    {
+
+        $this->init_document('json');
+
+        $groups = array();
+
+        if (is_array($group)) {
+            foreach ($group as $g) {
+                $twitter_group = $this->twitter_group_array($g);
+                array_push($groups, $twitter_group);
+            }
+        } else {
+            while ($group->fetch()) {
+                $twitter_group = $this->twitter_group_array($group);
+                array_push($groups, $twitter_group);
+            }
+        }
+
+        $this->show_json_objects($groups);
+
+        $this->end_document('json');
+    }
+
+    function show_xml_groups($group)
+    {
+
+        $this->init_document('xml');
+        $this->elementStart('groups', array('type' => 'array'));
+
+        if (is_array($group)) {
+            foreach ($group as $g) {
+                $twitter_group = $this->twitter_group_array($g);
+                $this->show_twitter_xml_group($twitter_group);
+            }
+        } else {
+            while ($group->fetch()) {
+                $twitter_group = $this->twitter_group_array($group);
+                $this->show_twitter_xml_group($twitter_group);
+            }
+        }
+
+        $this->elementEnd('groups');
+        $this->end_document('xml');
     }
 
     function show_single_json_group($group)
