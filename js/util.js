@@ -23,7 +23,9 @@ $(document).ready(function(){
 		var currentLength = $("#notice_data-text").val().length;
 		var remaining = maxLength - currentLength;
 		var counter = $("#notice_text-count");
-		counter.text(remaining);
+		if (counter.text() != String(remaining)) {
+			counter.text(remaining);
+		}
 
 		if (remaining < 0) {
 			$("#form_notice").addClass("warning");
