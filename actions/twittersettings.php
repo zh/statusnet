@@ -85,6 +85,12 @@ class TwittersettingsAction extends ConnectSettingsAction
 
     function showContent()
     {
+        if (!common_config('twitter', 'enabled')) {
+            $this->element('div', array('class' => 'error'),
+                           _('Twitter is not available.'));
+            return;
+        }
+
         $user = common_current_user();
 
         $profile = $user->getProfile();
