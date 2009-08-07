@@ -88,9 +88,10 @@ class UserrssAction extends Rss10Action
         $c = array('url' => common_local_url('userrss',
                                              array('nickname' =>
                                                    $user->nickname)),
-                   'title' => $user->nickname,
+                   'title' => sprintf(_('%s timeline'), $user->nickname),
                    'link' => $profile->profileurl,
-                   'description' => sprintf(_('Microblog by %s'), $user->nickname));
+                   'description' => sprintf(_('Updates from %1$s on %2$s!'),
+                                            $user->nickname, common_config('site', 'name')));
         return $c;
     }
 

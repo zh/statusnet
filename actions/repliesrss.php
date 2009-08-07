@@ -68,7 +68,8 @@ class RepliesrssAction extends Rss10Action
                    'link' => common_local_url('replies',
                                               array('nickname' =>
                                                     $user->nickname)),
-                   'description' => sprintf(_('Feed for replies to %s'), $user->nickname));
+                   'description' => sprintf(_('Replies to %1$s on %2$s!'),
+                                              $user->nickname, common_config('site', 'name')));
         return $c;
     }
 
