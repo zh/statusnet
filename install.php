@@ -180,6 +180,9 @@ function handlePost()
     $password = $_POST['password'];
     $sitename = $_POST['sitename'];
     $fancy    = !empty($_POST['fancy']);
+    $server = $_SERVER['HTTP_HOST'];
+    $path = substr(dirname($_SERVER['PHP_SELF']), 1);
+    
 ?>
     <dl class="system_notice">
         <dt>Page notice</dt>
@@ -219,20 +222,42 @@ function handlePost()
     }
     
     switch($dbtype) {
-      case 'mysql':    mysql_db_installer($host, $database, $username, $password, $sitename, $fancy);
-      break;
-      case 'pgsql':    pgsql_db_installer($host, $database, $username, $password, $sitename, $fancy);
-      break;
-      default:
+        case 'mysql':
+            $db = mysql_db_installer($host, $database, $username, $password);
+            break;
+        case 'pgsql':
+            $db = pgsql_db_installer($host, $database, $username, $password);
+            break;
+        default:
     }
-    if ($path) $path .= '/';
-    updateStatus("You can visit your <a href='/$path'>new Laconica site</a>.");
+    
+    if (!$db) {
+        // database connection failed, do not move on to create config file.
+        return false;
+    }
+    
+    updateStatus("Writing config file...");
+    $res = writeConf($sitename, $server, $path, $fancy, $db);
+    
+    if (!$res) {
+        updateStatus("Can't write config file.", true);
+        showForm();
+        return;
+    }
+    
+    /*
+        TODO https needs to be considered
+    */
+    $link = "http://".$server.'/'.$path;
+    
+    updateStatus("Laconica has been installed at $link");
+    updateStatus("You can visit your <a href='$link'>new Laconica site</a>.");
 ?>
 
 <?php
 }
 
-function pgsql_db_installer($host, $database, $username, $password, $sitename, $fancy) {
+function pgsql_db_installer($host, $database, $username, $password) {
   $connstring = "dbname=$database host=$host user=$username";
 
   //No password would mean trust authentication used.
@@ -265,7 +290,7 @@ function pgsql_db_installer($host, $database, $username, $password, $sitename, $
   if ($res === false) {
       updateStatus("Can't run database script.", true);
       showForm();
-      return;
+      return false;
   }
   foreach (array('sms_carrier' => 'SMS carrier',
                 'notice_source' => 'notice source',
@@ -276,29 +301,24 @@ function pgsql_db_installer($host, $database, $username, $password, $sitename, $
       if ($res === false) {
           updateStatus(sprintf("Can't run %d script.", $name), true);
           showForm();
-          return;
+          return false;
       }
   }
   pg_query($conn, 'COMMIT');
 
-  updateStatus("Writing config file...");
   if (empty($password)) {
     $sqlUrl = "pgsql://$username@$host/$database";
   }
   else {
     $sqlUrl = "pgsql://$username:$password@$host/$database";
   }
-  $res = writeConf($sitename, $sqlUrl, $fancy, 'pgsql');
-  if (!$res) {
-      updateStatus("Can't write config file.", true);
-      showForm();
-      return;
-  }
-  updateStatus("Done!");
-      
+  
+  $db = array('type' => 'pgsql', 'database' => $sqlUrl);
+  
+  return $db;
 }
 
-function mysql_db_installer($host, $database, $username, $password, $sitename, $fancy) {
+function mysql_db_installer($host, $database, $username, $password) {
   updateStatus("Starting installation...");
   updateStatus("Checking database...");
 
@@ -306,21 +326,21 @@ function mysql_db_installer($host, $database, $username, $password, $sitename, $
   if (!$conn) {
       updateStatus("Can't connect to server '$host' as '$username'.", true);
       showForm();
-      return;
+      return false;
   }
   updateStatus("Changing to database...");
   $res = mysql_select_db($database, $conn);
   if (!$res) {
       updateStatus("Can't change to database.", true);
       showForm();
-      return;
+      return false;
   }
   updateStatus("Running database script...");
   $res = runDbScript(INSTALLDIR.'/db/laconica.sql', $conn);
   if ($res === false) {
       updateStatus("Can't run database script.", true);
       showForm();
-      return;
+      return false;
   }
   foreach (array('sms_carrier' => 'SMS carrier',
                 'notice_source' => 'notice source',
@@ -331,35 +351,44 @@ function mysql_db_installer($host, $database, $username, $password, $sitename, $
       if ($res === false) {
           updateStatus(sprintf("Can't run %d script.", $name), true);
           showForm();
-          return;
+          return false;
       }
   }
       
-      updateStatus("Writing config file...");
       $sqlUrl = "mysqli://$username:$password@$host/$database";
-      $res = writeConf($sitename, $sqlUrl, $fancy);
-      if (!$res) {
-          updateStatus("Can't write config file.", true);
-          showForm();
-          return;
-      }
-      updateStatus("Done!");
-    }
-function writeConf($sitename, $sqlUrl, $fancy, $type='mysql')
+      $db = array('type' => 'mysql', 'database' => $sqlUrl);
+      return $db;
+}
+
+function writeConf($sitename, $server, $path, $fancy, $db)
 {
-    $res = file_put_contents(INSTALLDIR.'/config.php',
-                             "<?php\n".
-                             "if (!defined('LACONICA')) { exit(1); }\n\n".
-                             "\$config['site']['name'] = \"$sitename\";\n\n".
-                             ($fancy ? "\$config['site']['fancy'] = true;\n\n":'').
-                             "\$config['db']['database'] = \"$sqlUrl\";\n\n".
-                             ($type == 'pgsql' ? "\$config['db']['quote_identifiers'] = true;\n\n" .
-                             "\$config['db']['type'] = \"$type\";\n\n" : '').
-                             "?>");
+    // assemble configuration file in a string
+    $cfg =  "<?php\n".
+            "if (!defined('LACONICA')) { exit(1); }\n\n".
+            
+            // site name
+            "\$config['site']['name'] = '$sitename';\n\n".
+            
+            // site location
+            "\$config['site']['server'] = '$server';\n".
+            "\$config['site']['path'] = '$path'; \n\n".
+            
+            // checks if fancy URLs are enabled
+            ($fancy ? "\$config['site']['fancy'] = true;\n\n":'').
+            
+            // database
+            "\$config['db']['database'] = '{$db['database']}';\n\n".
+            ($type == 'pgsql' ? "\$config['db']['quote_identifiers'] = true;\n\n":'').
+            "\$config['db']['type'] = '{$db['type']}';\n\n".
+            
+            "?>";
+    // write configuration file out to install directory
+    $res = file_put_contents(INSTALLDIR.'/config.php', $cfg);
+
     return $res;
 }
 
-function runDbScript($filename, $conn, $type='mysql')
+function runDbScript($filename, $conn, $type = 'mysql')
 {
     $sql = trim(file_get_contents($filename));
     $stmts = explode(';', $sql);
@@ -368,10 +397,15 @@ function runDbScript($filename, $conn, $type='mysql')
         if (!mb_strlen($stmt)) {
             continue;
         }
-        if ($type == 'mysql') {
-          $res = mysql_query($stmt, $conn);
-        } elseif ($type=='pgsql') {
-          $res = pg_query($conn, $stmt);
+        switch ($type) {
+        case 'mysql':
+            $res = mysql_query($stmt, $conn);
+            break;
+        case 'pgsql':
+            $res = pg_query($conn, $stmt);
+            break;
+        default:
+            updateStatus("runDbScript() error: unknown database type ". $type ." provided.");
         }
         if ($res === false) {
             updateStatus("FAILED SQL: $stmt");
