@@ -97,8 +97,8 @@ class ShownoticeAction extends OwnerDesignAction
 
         $this->user = User::staticGet('id', $this->profile->id);
 
-        if (empty($this->user)) {
-            $this->serverError(_('Not a local notice'), 500);
+        if (! $this->notice->is_local) {
+            common_redirect($this->notice->uri);
             return false;
         }
 
