@@ -73,7 +73,7 @@ function handleError($error)
     exit(-1);
 }
 
-function checkMirror($action_obj)
+function checkMirror($action_obj, $args)
 {
     global $config;
 
@@ -198,7 +198,7 @@ function main()
     } else {
         $action_obj = new $action_class();
 
-        checkMirror($action_obj);
+        checkMirror($action_obj, $args);
 
         try {
             if ($action_obj->prepare($args)) {
