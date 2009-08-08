@@ -844,9 +844,9 @@ class TwitterapiAction extends Action
         $this->endXML();
     }
 
-    function show_profile($profile, $content_type='xml', $notice=null)
+    function show_profile($profile, $content_type='xml', $notice=null, $includeStatuses=true)
     {
-        $profile_array = $this->twitter_user_array($profile, true);
+        $profile_array = $this->twitter_user_array($profile, $includeStatuses);
         switch ($content_type) {
         case 'xml':
             $this->show_twitter_xml_user($profile_array);

@@ -82,9 +82,7 @@ class FBConnectPlugin extends Plugin
 
             $action->extraHeaders();
 
-            $action->startXML('html',
-                '-//W3C//DTD XHTML 1.0 Strict//EN',
-                'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
+            $action->startXML('html');
 
             $language = $action->getLanguage();
 
@@ -146,11 +144,7 @@ class FBConnectPlugin extends Plugin
     function onEndShowFooter($action)
     {
         if ($this->reqFbScripts($action)) {
-
-            $action->element('script',
-                array('type' => 'text/javascript',
-                      'src'  => 'http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php'),
-                      '');
+            $action->script('http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php');
         }
     }
 
@@ -158,10 +152,7 @@ class FBConnectPlugin extends Plugin
     {
 
         if ($this->reqFbScripts($action)) {
-
-            $action->element('link', array('rel' => 'stylesheet',
-                'type' => 'text/css',
-                'href' => common_path('plugins/FBConnect/FBConnectPlugin.css')));
+            $action->cssLink('plugins/FBConnect/FBConnectPlugin.css');
         }
     }
 

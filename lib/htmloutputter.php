@@ -109,10 +109,11 @@ class HTMLOutputter extends XMLOutputter
         header('Content-Type: '.$type);
 
         $this->extraHeaders();
-
-        $this->startXML('html',
-                        '-//W3C//DTD XHTML 1.0 Strict//EN',
-                        'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
+        if( ! substr($type,0,strlen('text/html'))=='text/html' ){
+            // Browsers don't like it when <?xml it output for non-xhtml documents
+            $this->xw->startDocument('1.0', 'UTF-8');
+        }
+        $this->xw->writeDTD('html', $public, $system);
 
         $language = $this->getLanguage();
 
@@ -336,6 +337,55 @@ class HTMLOutputter extends XMLOutputter
                                       'class' => $cls,
                                       'value' => $label,
                                       'title' => $title));
+    }
+
+    /**
+     * output a script (almost always javascript) tag
+     *
+     * @param string $src          relative or absolute script path
+     * @param string $type         'type' attribute value of the tag
+     *
+     * @return void
+     */
+    function script($src, $type='text/javascript')
+    {
+        $url = parse_url($src);
+        if(! ($url->scheme || $url->host || $url->query || $url->fragment))
+        {
+            $src = common_path($src) . '?version=' . LACONICA_VERSION;
+        }
+        $this->element('script', array('type' => $type,
+                                               'src' => $src),
+                               ' ');
+    }
+
+    /**
+     * output a css link
+     *
+     * @param string $src     relative path within the theme directory, or an absolute path
+     * @param string $theme        'theme' that contains the stylesheet
+     * @param string media         'media' attribute of the tag
+     *
+     * @return void
+     */
+    function cssLink($src,$theme=null,$media=null)
+    {
+        if (!$theme) {
+            $theme = common_config('site', 'theme');
+        }
+        $url = parse_url($src);
+        if(! ($url->scheme || $url->host || $url->query || $url->fragment))
+        {
+            if(file_exists(theme_file($src,$theme))){
+               $src = theme_path($src, $theme) . '?version=' . LACONICA_VERSION;
+            }else{
+               $src = common_path($src);
+            }
+        }
+        $this->element('link', array('rel' => 'stylesheet',
+                                'type' => 'text/css',
+                                'href' => $src,
+                                'media' => $media));
     }
 
     /**
