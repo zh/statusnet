@@ -257,10 +257,10 @@ function NoticeReply() {
 function NoticeReplySet(nick,id) {
 	rgx_username = /^[0-9a-zA-Z\-_.]*$/;
 	if (nick.match(rgx_username)) {
-		replyto = "@" + nick + " ";
 		var text = $("#notice_data-text");
 		if (text.length) {
-			text.val(replyto + text.val());
+			replyto = "@" + nick + " ";
+			text.val(replyto + text.val().replace(RegExp(replyto, 'i'), ''));
 			$("#form_notice input#notice_in-reply-to").val(id);
 			if (text.get(0).setSelectionRange) {
 				var len = text.val().length;
