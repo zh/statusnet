@@ -173,7 +173,7 @@ class ShowfavoritesAction extends OwnerDesignAction
             }
         }
         else {
-            $message = sprintf(_('%s hasn\'t added any notices to his favorites yet. Why not [register an account](%%%%action.register%%%%) and then post something interesting they would add to thier favorites :)'), $this->user->nickname);
+            $message = sprintf(_('%s hasn\'t added any notices to his favorites yet. Why not [register an account](%%%%action.register%%%%) and then post something interesting they would add to their favorites :)'), $this->user->nickname);
         }
 
         $this->elementStart('div', 'guide');
