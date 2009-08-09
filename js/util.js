@@ -17,21 +17,41 @@
  */
 
 $(document).ready(function(){
+	var counterBlackout = false;
+	
 	// count character on keyup
 	function counter(event){
 		var maxLength = 140;
 		var currentLength = $("#notice_data-text").val().length;
 		var remaining = maxLength - currentLength;
 		var counter = $("#notice_text-count");
-		if (counter.text() != String(remaining)) {
-			counter.text(remaining);
-		}
+		
+		if (remaining.toString() != counter.text()) {
+		    if (!counterBlackout || remaining == 0) {
+                        if (counter.text() != String(remaining)) {
+                            counter.text(remaining);
+		        }
 
-		if (remaining < 0) {
-			$("#form_notice").addClass("warning");
-		} else {
-			$("#form_notice").removeClass("warning");
-		}
+                        if (remaining < 0) {
+                            $("#form_notice").addClass("warning");
+                        } else {
+                            $("#form_notice").removeClass("warning");
+                        }
+                        // Skip updates for the next 500ms.
+                        // On slower hardware, updating on every keypress is unpleasant.
+                        if (!counterBlackout) {
+                            counterBlackout = true;
+                            window.setTimeout(clearCounterBlackout, 500);
+                        }
+                    }
+                }
+	}
+	
+	function clearCounterBlackout() {
+		// Allow keyup events to poke the counter again
+		counterBlackout = false;
+		// Check if the string changed since we last looked
+		counter(null);
 	}
 
 	function submitonreturn(event) {
