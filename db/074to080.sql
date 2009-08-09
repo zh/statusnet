@@ -17,7 +17,7 @@ alter table user_group
 
 create table file (
     id integer primary key auto_increment,
-    url varchar(255) comment 'destination URL after following redirections',
+    url varchar(2047) comment 'destination URL after following redirections',
     mimetype varchar(50) comment 'mime type of resource',
     size integer comment 'size of resource when available',
     title varchar(255) comment 'title of resource when available',
