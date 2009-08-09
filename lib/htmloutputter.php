@@ -350,7 +350,7 @@ class HTMLOutputter extends XMLOutputter
     function script($src, $type='text/javascript')
     {
         $url = parse_url($src);
-        if(! ($url->scheme || $url->host || $url->query || $url->fragment))
+        if( empty($url->scheme) && empty($url->host) && empty($url->query) && empty($url->fragment))
         {
             $src = common_path($src) . '?version=' . LACONICA_VERSION;
         }
@@ -371,7 +371,7 @@ class HTMLOutputter extends XMLOutputter
     function cssLink($src,$theme=null,$media=null)
     {
         $url = parse_url($src);
-        if(! ($url->scheme || $url->host || $url->query || $url->fragment))
+        if( empty($url->scheme) && empty($url->host) && empty($url->query) && empty($url->fragment))
         {
             if(file_exists(theme_file($src,$theme))){
                $src = theme_path($src, $theme) . '?version=' . LACONICA_VERSION;
