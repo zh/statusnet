@@ -116,13 +116,13 @@ class FBConnectPlugin extends Plugin
             // but we actually do, for IE and Safari. Gar.
 
             $html = sprintf('<script type="text/javascript">
-                                window.onload = function () {
+                                $(document).ready(function () {
                                     FB_RequireFeatures(
                                         ["XFBML"],
                                             function() {
                                                 FB.init("%s", "../xd_receiver.html");
                                             }
-                                        ); }
+                                        ); });
 
                                 function goto_login() {
                                     window.location = "%s";
