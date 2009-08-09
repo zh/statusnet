@@ -116,6 +116,8 @@ class RegisterAction extends Action
      *
      * Checks if registration is closed and shows an error if so.
      *
+     * Checks if only OpenID is allowed and redirects to openidlogin if so.
+     *
      * @param array $args $_REQUEST data
      *
      * @return void
@@ -127,6 +129,8 @@ class RegisterAction extends Action
 
         if (common_config('site', 'closed')) {
             $this->clientError(_('Registration not allowed.'));
+        } else if (common_config('site', 'openidonly')) {
+            common_redirect(common_local_url('openidlogin'));
         } else if (common_logged_in()) {
             $this->clientError(_('Already logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {

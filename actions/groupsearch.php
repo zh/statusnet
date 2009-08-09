@@ -82,7 +82,8 @@ class GroupsearchAction extends SearchAction
                 $message = _('If you can\'t find the group you\'re looking for, you can [create it](%%action.newgroup%%) yourself.');
             }
             else {
-                $message = _('Why not [register an account](%%action.register%%) and [create the group](%%action.newgroup%%) yourself!');
+                $message = sprintf(_('Why not [register an account](%%%%action.%s%%%%) and [create the group](%%%%action.newgroup%%%%) yourself!'),
+                                   (!common_config('site','openidonly')) ? 'register' : 'openidlogin');
             }
             $this->elementStart('div', 'guide');
             $this->raw(common_markup_to_html($message));

@@ -436,12 +436,17 @@ class Action extends HTMLOutputter // lawsuit
                                 _('Logout'), _('Logout from the site'), false, 'nav_logout');
             }
             else {
-                if (!common_config('site', 'closed')) {
-                    $this->menuItem(common_local_url('register'),
-                                    _('Register'), _('Create an account'), false, 'nav_register');
+                if (!common_config('site', 'openidonly')) {
+                    if (!common_config('site', 'closed')) {
+                        $this->menuItem(common_local_url('register'),
+                                        _('Register'), _('Create an account'), false, 'nav_register');
+                    }
+                    $this->menuItem(common_local_url('login'),
+                                    _('Login'), _('Login to the site'), false, 'nav_login');
+                } else {
+                    $this->menuItem(common_local_url('openidlogin'),
+                                    _('OpenID'), _('Login with OpenID'), false, 'nav_openid');
                 }
-                $this->menuItem(common_local_url('login'),
-                                _('Login'), _('Login to the site'), false, 'nav_login');
             }
             $this->menuItem(common_local_url('doc', array('title' => 'help')),
                             _('Help'), _('Help me!'), false, 'nav_help');

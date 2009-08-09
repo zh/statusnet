@@ -358,7 +358,9 @@ class ShowstreamAction extends ProfileAction
             }
         }
         else {
-            $message .= sprintf(_('Why not [register an account](%%%%action.register%%%%) and then nudge %s or post a notice to his or her attention.'), $this->user->nickname);
+            $message .= sprintf(_('Why not [register an account](%%%%action.%s%%%%) and then nudge %s or post a notice to his or her attention.'),
+                                (!common_config('site','openidonly')) ? 'register' : 'openidlogin',
+                                $this->user->nickname);
         }
 
         $this->elementStart('div', 'guide');
@@ -387,8 +389,10 @@ class ShowstreamAction extends ProfileAction
         if (!(common_config('site','closed') || common_config('site','inviteonly'))) {
             $m = sprintf(_('**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
                  'based on the Free Software [Laconica](http://laconi.ca/) tool. ' .
-                 '[Join now](%%%%action.register%%%%) to follow **%s**\'s notices and many more! ([Read more](%%%%doc.help%%%%))'),
-                 $this->user->nickname, $this->user->nickname);
+                 '[Join now](%%%%action.%s%%%%) to follow **%s**\'s notices and many more! ([Read more](%%%%doc.help%%%%))'),
+                 $this->user->nickname,
+                 (!common_config('site','openidonly')) ? 'register' : 'openidlogin',
+                 $this->user->nickname);
         } else {
             $m = sprintf(_('**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
                  'based on the Free Software [Laconica](http://laconi.ca/) tool. '),
