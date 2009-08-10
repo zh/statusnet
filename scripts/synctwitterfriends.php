@@ -80,7 +80,7 @@ class SyncTwitterFriendsDaemon extends ParallelizingDaemon
 
     function name()
     {
-        return ('synctwitterfriendsdaemon.' . $this->_id);
+        return ('synctwitterfriends.' . $this->_id);
     }
 
     /**

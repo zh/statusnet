@@ -44,6 +44,7 @@ if(common_config('twitterbridge','enabled')) {
 }
 echo "ombqueuehandler.php ";
 echo "twitterqueuehandler.php ";
+echo "synctwitterfriends.php ";
 echo "facebookqueuehandler.php ";
 echo "pingqueuehandler.php ";
 echo "smsqueuehandler.php ";
