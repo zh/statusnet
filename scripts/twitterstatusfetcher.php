@@ -166,7 +166,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         $timeline = null;
 
         try {
-            $timeline = $client->statuses_friends_timeline();
+            $timeline = $client->statusesFriendsTimeline();
         } catch (OAuthClientCurlException $e) {
             common_log(LOG_WARNING, $this->name() .
                        ' - OAuth client unable to get friends timeline for user ' .
@@ -175,7 +175,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         }
 
         if (empty($timeline)) {
-            common_log(LOG_WARNING, $this->name .  " - Empty timeline.");
+            common_log(LOG_WARNING, $this->name() .  " - Empty timeline.");
             return;
         }
 

@@ -48,7 +48,6 @@ if (!defined('LACONICA')) {
  */
 class TwitterauthorizationAction extends Action
 {
-
     /**
      * Initialize class members. Looks for 'oauth_token' parameter.
      *
@@ -114,12 +113,13 @@ class TwitterauthorizationAction extends Action
             // Get a new request token and authorize it
 
             $client  = new TwitterOAuthClient();
-            $req_tok = $client->getRequestToken();
+            $req_tok = 
+              $client->getRequestToken(TwitterOAuthClient::$requestTokenURL);
 
             // Sock the request token away in the session temporarily
 
             $_SESSION['twitter_request_token']        = $req_tok->key;
-            $_SESSION['twitter_request_token_secret'] = $req_tok->key;
+            $_SESSION['twitter_request_token_secret'] = $req_tok->secret;
 
             $auth_link = $client->getAuthorizeLink($req_tok);
 
@@ -155,12 +155,12 @@ class TwitterauthorizationAction extends Action
 
             // Exchange the request token for an access token
 
-            $atok = $client->getAccessToken();
+            $atok = $client->getAccessToken(TwitterOAuthClient::$accessTokenURL);
 
             // Test the access token and get the user's Twitter info
 
             $client       = new TwitterOAuthClient($atok->key, $atok->secret);
-            $twitter_user = $client->verify_credentials();
+            $twitter_user = $client->verifyCredentials();
 
         } catch (OAuthClientException $e) {
             $msg = sprintf('OAuth client cURL error - code: %1$s, msg: %2$s',

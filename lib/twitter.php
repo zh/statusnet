@@ -165,7 +165,7 @@ function broadcast_twitter($notice)
         $status = null;
 
         try {
-            $status = $client->statuses_update($statustxt);
+            $status = $client->statusesUpdate($statustxt);
         } catch (OAuthClientCurlException $e) {
 
             if ($e->getMessage() == 'The requested URL returned error: 401') {

@@ -145,7 +145,7 @@ class SyncTwitterFriendsDaemon extends ParallelizingDaemon
         $client = new TwitterOAuthClient($flink->token, $flink->credentials);
 
         try {
-            $friends_ids = $client->friends_ids();
+            $friends_ids = $client->friendsIds();
         } catch (OAuthCurlException $e) {
             common_log(LOG_WARNING, $this->name() .
                        ' - cURL error getting friend ids ' .
@@ -174,7 +174,7 @@ class SyncTwitterFriendsDaemon extends ParallelizingDaemon
         for ($i = 1; $i <= $pages; $i++) {
 
         try {
-            $more_friends = $client->statuses_friends(null, null, null, $i);
+            $more_friends = $client->statusesFriends(null, null, null, $i);
         } catch (OAuthCurlException $e) {
             common_log(LOG_WARNING, $this->name() .
                        ' - cURL error getting Twitter statuses/friends ' .
