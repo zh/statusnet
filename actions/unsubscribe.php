@@ -1,16 +1,5 @@
 <?php
-/**
- * Unsubscribe handler
- *
- * PHP version 5
- *
- * @category Action
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Robin Millette <millette@controlyourself.ca>
- * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
- *
+/*
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
@@ -28,20 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) {
-    exit(1);
-}
-
-/**
- * Unsubscribe handler
- *
- * @category Action
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Robin Millette <millette@controlyourself.ca>
- * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
- */
 class UnsubscribeAction extends Action
 {
 
@@ -56,18 +31,16 @@ class UnsubscribeAction extends Action
         $user = common_current_user();
 
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            common_redirect(common_local_url('subscriptions',
-                                             array('nickname' => $user->nickname)));
+            common_redirect(common_local_url('subscriptions', array('nickname' => $user->nickname)));
             return;
         }
 
-        /* Use a session token for CSRF protection. */
+        # CSRF protection
 
         $token = $this->trimmed('token');
 
         if (!$token || $token != common_session_token()) {
-            $this->clientError(_('There was a problem with your session token. ' .
-                                 'Try again, please.'));
+            $this->clientError(_('There was a problem with your session token. Try again, please.'));
             return;
         }
 
@@ -80,7 +53,7 @@ class UnsubscribeAction extends Action
 
         $other = Profile::staticGet('id', $other_id);
 
-        if (!$other) {
+        if (!$other_id) {
             $this->clientError(_('No profile with that id.'));
             return;
         }
@@ -103,8 +76,8 @@ class UnsubscribeAction extends Action
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {
-            common_redirect(common_local_url('subscriptions',
-                                             array('nickname' => $user->nickname)),
+            common_redirect(common_local_url('subscriptions', array('nickname' =>
+                                                                    $user->nickname)),
                             303);
         }
     }
