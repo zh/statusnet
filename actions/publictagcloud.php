@@ -72,7 +72,8 @@ class PublictagcloudAction extends Action
             $message .= _('Be the first to post one!');
         }
         else {
-            $message .= _('Why not [register an account](%%action.register%%) and be the first to post one!');
+            $message .= sprintf(_('Why not [register an account](%%%%action.%s%%%%) and be the first to post one!'),
+                                (!common_config('site','openidonly')) ? 'register' : 'openidlogin');
         }
 
         $this->elementStart('div', 'guide');

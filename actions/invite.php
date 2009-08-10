@@ -235,7 +235,7 @@ class InviteAction extends CurrentUserDesignAction
                         common_root_url(),
                         $personal,
                         common_local_url('showstream', array('nickname' => $user->nickname)),
-                        common_local_url('register', array('code' => $invite->code)));
+                        common_local_url((!common_config('site', 'openidonly')) ? 'register' : 'openidlogin', array('code' => $invite->code)));
 
         mail_send($recipients, $headers, $body);
     }

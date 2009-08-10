@@ -72,11 +72,13 @@ class LoginGroupNav extends Widget
         // action => array('prompt', 'title')
         $menu = array();
 
-        $menu['login'] = array(_('Login'),
-                         _('Login with a username and password'));
-        if (!(common_config('site','closed') || common_config('site','inviteonly'))) {
-            $menu['register'] = array(_('Register'),
-                                _('Sign up for a new account'));
+        if (!common_config('site','openidonly')) {
+            $menu['login'] = array(_('Login'),
+                             _('Login with a username and password'));
+            if (!(common_config('site','closed') || common_config('site','inviteonly'))) {
+                $menu['register'] = array(_('Register'),
+                                    _('Sign up for a new account'));
+            }
         }
         $menu['openidlogin'] = array(_('OpenID'),
                                _('Login or register with OpenID'));
