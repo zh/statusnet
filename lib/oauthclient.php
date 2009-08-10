@@ -121,8 +121,6 @@ class OAuthClient
             $authorize_url .= '&oauth_callback=' . urlencode($oauth_callback);
         }
 
-        common_debug("$authorize_url");
-        
         return $authorize_url;
     }
 

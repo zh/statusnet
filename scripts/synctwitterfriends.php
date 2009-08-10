@@ -142,7 +142,9 @@ class SyncTwitterFriendsDaemon extends ParallelizingDaemon
     {
         $friends = array();
 
-        $client = new TwitterOAuthClient($flink->token, $flink->credentials);
+        $token = TwitterOAuthClient::unpackToken($flink->credentials);
+
+        $client = new TwitterOAuthClient($token->key, $token->secret);
 
         try {
             $friends_ids = $client->friendsIds();

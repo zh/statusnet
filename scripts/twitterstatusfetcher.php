@@ -161,7 +161,9 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         // to start importing?  How many statuses?  Right now I'm going
         // with the default last 20.
 
-        $client = new TwitterOAuthClient($flink->token, $flink->credentials);
+        $token = TwitterOAuthClient::unpackToken($flink->credentials);
+
+        $client = new TwitterOAuthClient($token->key, $token->secret);
 
         $timeline = null;
 

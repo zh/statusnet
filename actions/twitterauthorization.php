@@ -113,7 +113,7 @@ class TwitterauthorizationAction extends Action
             // Get a new request token and authorize it
 
             $client  = new TwitterOAuthClient();
-            $req_tok = 
+            $req_tok =
               $client->getRequestToken(TwitterOAuthClient::$requestTokenURL);
 
             // Sock the request token away in the session temporarily
@@ -198,8 +198,10 @@ class TwitterauthorizationAction extends Action
         $flink->user_id     = $user->id;
         $flink->foreign_id  = $twitter_user->id;
         $flink->service     = TWITTER_SERVICE;
-        $flink->token       = $access_token->key;
-        $flink->credentials = $access_token->secret;
+
+        $creds = TwitterOAuthClient::packToken($access_token);
+
+        $flink->credentials = $creds;
         $flink->created     = common_sql_now();
 
         // Defaults: noticesync on, everything else off

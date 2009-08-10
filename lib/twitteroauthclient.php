@@ -64,6 +64,23 @@ class TwitterOAuthClient extends OAuthClient
                             $oauth_token, $oauth_token_secret);
     }
 
+    // XXX: the following two functions are to support the horrible hack
+    // of using the credentils field in Foreign_link to store both
+    // the access token and token secret.  This hack should go away with
+    // 0.9, in which we can make DB changes and add a new column for the
+    // token itself.
+
+    static function packToken($token)
+    {
+        return implode(chr(0), array($token->key, $token->secret));
+    }
+
+    static function unpackToken($str)
+    {
+        $vals = explode(chr(0), $str);
+        return new OAuthToken($vals[0], $vals[1]);
+    }
+
     /**
      * Builds a link to Twitter's endpoint for authorizing a request token
      *
