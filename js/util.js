@@ -55,10 +55,13 @@ $(document).ready(function(){
 	}
 
 	function submitonreturn(event) {
-		if (event.keyCode == 13) {
+		if (event.keyCode == 13 || event.keyCode == 10) {
+			// iPhone sends \n not \r for 'return'
 			$("#form_notice").submit();
 			event.preventDefault();
 			event.stopPropagation();
+			$("#notice_data-text").blur();
+			$("body").focus();
 			return false;
 		}
 		return true;
