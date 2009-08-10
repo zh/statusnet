@@ -122,7 +122,7 @@ class FBConnectPlugin extends Plugin
                                     FB_RequireFeatures(
                                         ["XFBML"],
                                             function() {
-                                                FB.Facebook.init("%s", "../xd_receiver.html");
+                                                FB.init("%s", "../xd_receiver.html");
                                             }
                                         ); }
 
@@ -220,11 +220,11 @@ class FBConnectPlugin extends Plugin
                 try {
 
                     $facebook = getFacebook();
-                    $fbuid    = getFacebook()->get_loggedin_user();
+                    $fbuid    = $facebook->get_loggedin_user();
 
                 } catch (Exception $e) {
                     common_log(LOG_WARNING,
-                        'Problem getting Facebook client: ' .
+                        'Problem getting Facebook user: ' .
                             $e->getMessage());
                 }
 
@@ -297,9 +297,9 @@ class FBConnectPlugin extends Plugin
                 $title =  _('Logout from the site');
                 $text = _('Logout');
 
-                $html = sprintf('<li id="nav_logout"><a href="%s" title="%s" ' .
-                    'onclick="FB.Connect.logout(function() { goto_logout() })">%s</a></li>',
-                    $logout_url, $title, $text);
+                $html = sprintf('<li id="nav_logout"><a href="#" title="%s" ' .
+                    'onclick="FB.Connect.logoutAndRedirect(\'%s\');">%s</a></li>',
+                    $title, $logout_url, $text);
 
                 $action->raw($html);
 
