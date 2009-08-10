@@ -140,7 +140,7 @@ function common_have_session()
 function common_ensure_session()
 {
     $c = null;
-    if (array_key_exists(session_name(), $_COOKIE)) {
+    if (array_key_exists(session_name, $_COOKIE)) {
         $c = $_COOKIE[session_name()];
     }
     if (!common_have_session()) {
