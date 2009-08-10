@@ -204,10 +204,7 @@ class Design extends Memcached_DataObject
                            'disposition');
 
             foreach ($attrs as $attr) {
-                $val = common_config('design', $attr);
-                if ($val !== false) {
-                    $siteDesign->$attr = $val;
-                }
+                $siteDesign->$attr = common_config('design', $attr);
             }
         }
 
