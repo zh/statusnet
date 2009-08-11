@@ -7,6 +7,8 @@ jQuery(document).ready(function($){
     navSelector     : "div.pagination",
     contentSelector : "#notices_primary",
     itemSelector    : "ol.notices"
+    },function(){
+        NoticeAttachments();
     });
 });
 
