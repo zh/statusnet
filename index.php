@@ -184,7 +184,8 @@ function main()
 
     if (!$user && common_config('site', 'private')) {
         $public_actions = array('openidlogin', 'finishopenidlogin',
-                                'recoverpassword', 'api', 'doc');
+                                'recoverpassword', 'api', 'doc',
+                                'opensearch');
         $login_action = 'openidlogin';
         if (!common_config('site', 'openidonly')) {
             $public_actions[] = 'login';
