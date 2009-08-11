@@ -396,7 +396,7 @@ class AvatarsettingsAction extends AccountSettingsAction
         parent::showScripts();
 
         if ($this->mode == 'crop') {
-            $this->script('js/jcrop/jquery.Jcrop.pack.js');
+            $this->script('js/jcrop/jquery.Jcrop.min.js');
             $this->script('js/jcrop/jquery.Jcrop.go.js');
         }
     }
