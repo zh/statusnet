@@ -692,11 +692,11 @@ function mail_facebook_app_removed($user)
     $site_name = common_config('site', 'name');
 
     $subject = sprintf(
-        _('Your %1$s Facebook application access has been disabled.',
+        _('Your %1\$s Facebook application access has been disabled.',
             $site_name));
 
     $body = sprintf(_("Hi, %1\$s. We're sorry to inform you that we are " .
-        'unable to update your Facebook status from %2$s, and have disabled ' .
+        'unable to update your Facebook status from %2\$s, and have disabled ' .
         'the Facebook application for your account. This may be because ' .
         'you have removed the Facebook application\'s authorization, or ' .
         'have deleted your Facebook account.  You can re-enable the ' .
