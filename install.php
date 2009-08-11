@@ -378,7 +378,7 @@ function writeConf($sitename, $server, $path, $fancy, $db)
             
             // database
             "\$config['db']['database'] = '{$db['database']}';\n\n".
-            ($type == 'pgsql' ? "\$config['db']['quote_identifiers'] = true;\n\n":'').
+            ($db['type'] == 'pgsql' ? "\$config['db']['quote_identifiers'] = true;\n\n":'').
             "\$config['db']['type'] = '{$db['type']}';\n\n".
             
             "?>";
