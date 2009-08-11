@@ -193,6 +193,21 @@ function main()
         }
         if (!in_array($action, $public_actions) &&
             !preg_match('/rss$/', $action)) {
+
+            // set returnto
+            $rargs =& common_copy_args($args);
+            unset($rargs['action']);
+            if (common_config('site', 'fancy')) {
+                unset($rargs['p']);
+            }
+            if (array_key_exists('submit', $rargs)) {
+                unset($rargs['submit']);
+            }
+            foreach (array_keys($_COOKIE) as $cookie) {
+                unset($rargs[$cookie]);
+            }
+            common_set_returnto(common_local_url($action, $rargs));
+
             common_redirect(common_local_url($login_action));
             return;
         }
