@@ -36,7 +36,7 @@ alter table user_group
 create sequence file_seq;
 create table file (
     id bigint default nextval('file_seq') primary key /* comment 'unique identifier' */,
-    url varchar(2047) unique,
+    url varchar(255) unique, 
     mimetype varchar(50), 
     size integer, 
     title varchar(255), 
