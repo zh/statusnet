@@ -450,8 +450,10 @@ class Action extends HTMLOutputter // lawsuit
             }
             $this->menuItem(common_local_url('doc', array('title' => 'help')),
                             _('Help'), _('Help me!'), false, 'nav_help');
-            $this->menuItem(common_local_url('peoplesearch'),
-                            _('Search'), _('Search for people or text'), false, 'nav_search');
+            if ($user || !common_config('site', 'private')) {
+                $this->menuItem(common_local_url('peoplesearch'),
+                                _('Search'), _('Search for people or text'), false, 'nav_search');
+            }
             Event::handle('EndPrimaryNav', array($this));
         }
         $this->elementEnd('ul');
