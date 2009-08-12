@@ -114,7 +114,6 @@ class StatsCommand extends Command
 
 class FavCommand extends Command
 {
-
     var $other = null;
 
     function __construct($user, $other)
@@ -158,6 +157,108 @@ class FavCommand extends Command
 
         $channel->output($this->user, _('Notice marked as fave.'));
     }
+
+}
+class JoinCommand extends Command
+{
+    var $other = null;
+
+    function __construct($user, $other)
+    {
+        parent::__construct($user);
+        $this->other = $other;
+    }
+
+    function execute($channel)
+    {
+
+        $nickname = common_canonical_nickname($this->other);
+        $group    = User_group::staticGet('nickname', $nickname);
+        $cur      = $this->user;
+
+        if (!$group) {
+            $channel->error($cur, _('No such group.'));
+            return;
+        }
+
+        if ($cur->isMember($group)) {
+            $channel->error($cur, _('You are already a member of that group'));
+            return;
+        }
+        if (Group_block::isBlocked($group, $cur->getProfile())) {
+          $channel->error($cur, _('You have been blocked from that group by the admin.'));
+            return;
+        }
+
+        $member = new Group_member();
+
+        $member->group_id   = $group->id;
+        $member->profile_id = $cur->id;
+        $member->created    = common_sql_now();
+
+        $result = $member->insert();
+        if (!$result) {
+          common_log_db_error($member, 'INSERT', __FILE__);
+          $channel->error($cur, sprintf(_('Could not join user %s to group %s'),
+                                       $cur->nickname, $group->nickname));
+          return;
+        }
+
+        $channel->output($cur, sprintf(_('%s joined group %s'),
+                                              $cur->nickname,
+                                              $group->nickname));
+    }
+
+}
+class DropCommand extends Command
+{
+    var $other = null;
+
+    function __construct($user, $other)
+    {
+        parent::__construct($user);
+        $this->other = $other;
+    }
+
+    function execute($channel)
+    {
+
+        $nickname = common_canonical_nickname($this->other);
+        $group    = User_group::staticGet('nickname', $nickname);
+        $cur      = $this->user;
+
+        if (!$group) {
+            $channel->error($cur, _('No such group.'));
+            return;
+        }
+
+        if (!$cur->isMember($group)) {
+            $channel->error($cur, _('You are not a member of that group.'));
+            return;
+        }
+
+        $member = new Group_member();
+
+        $member->group_id   = $group->id;
+        $member->profile_id = $cur->id;
+
+        if (!$member->find(true)) {
+          $channel->error($cur,_('Could not find membership record.'));
+          return;
+        }
+        $result = $member->delete();
+        if (!$result) {
+          common_log_db_error($member, 'INSERT', __FILE__);
+          $channel->error($cur, sprintf(_('Could not remove user %s to group %s'),
+                                       $cur->nickname, $group->nickname));
+          return;
+        }
+
+        $channel->output($cur, sprintf(_('%s left group %s'),
+                                              $cur->nickname,
+                                              $group->nickname));
+    }
+
 }
 
 class WhoisCommand extends Command
@@ -392,6 +493,8 @@ class HelpCommand extends Command
                            "get <nickname> - get last notice from user\n".
                            "whois <nickname> - get profile info on user\n".
                            "fav <nickname> - add user's last notice as a 'fave'\n".
+                           "join <group> - join group\n".
+                           "drop <group> - leave group\n".
                            "stats - get your stats\n".
                            "stop - same as 'off'\n".
                            "quit - same as 'off'\n".
