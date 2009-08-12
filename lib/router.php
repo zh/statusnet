@@ -117,15 +117,8 @@ class Router
 
         $m->connect('main/tagother/:id', array('action' => 'tagother'));
 
-        $m->connect('main/oembed.xml',
-                    array('action' => 'api',
-                          'method' => 'oembed.xml',
-                          'apiaction' => 'oembed'));
-
-        $m->connect('main/oembed.json',
-                    array('action' => 'api',
-                          'method' => 'oembed.json',
-                          'apiaction' => 'oembed'));
+        $m->connect('main/oembed',
+                    array('action' => 'oembed'));
 
         // these take a code
 
