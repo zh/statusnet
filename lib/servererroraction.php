@@ -52,6 +52,7 @@ require_once INSTALLDIR.'/lib/error.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://laconi.ca/
  */
+
 class ServerErrorAction extends ErrorAction
 {
     function __construct($message='Error', $code=500)
@@ -66,6 +67,10 @@ class ServerErrorAction extends ErrorAction
                                505 => 'HTTP Version Not Supported');
 
         $this->default = 500;
+
+        // Server errors must be logged.
+
+        common_log(LOG_ERR, "ServerErrorAction: $code $message");
     }
 
     // XXX: Should these error actions even be invokable via URI?
