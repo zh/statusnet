@@ -59,6 +59,7 @@ class PublicAction extends Action
      */
 
     var $page = null;
+    var $notice;
 
     function isReadOnly($args)
     {
@@ -83,6 +84,18 @@ class PublicAction extends Action
         }
 
         common_set_returnto($this->selfUrl());
+
+        $this->notice = Notice::publicStream(($this->page-1)*NOTICES_PER_PAGE,
+                                       NOTICES_PER_PAGE + 1);
+
+        if (!$this->notice) {
+            $this->serverError(_('Could not retrieve public stream.'));
+            return;
+        }
+
+        if($this->page > 0 && $this->notice->N == 0){
+            $this->serverError(_('No such page'),$code=404);
+        }
 
         return true;
     }
@@ -204,15 +217,7 @@ class PublicAction extends Action
 
     function showContent()
     {
-        $notice = Notice::publicStream(($this->page-1)*NOTICES_PER_PAGE,
-                                       NOTICES_PER_PAGE + 1);
-
-        if (!$notice) {
-            $this->serverError(_('Could not retrieve public stream.'));
-            return;
-        }
-
-        $nl = new NoticeList($notice, $this);
+        $nl = new NoticeList($this->notice, $this);
 
         $cnt = $nl->show();
 
