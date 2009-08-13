@@ -82,6 +82,12 @@ class OpenidsettingsAction extends AccountSettingsAction
 
     function showContent()
     {
+        if (!common_config('openid', 'enabled')) {
+            $this->element('div', array('class' => 'error'),
+                           _('OpenID is not available.'));
+            return;
+        }
+
         $user = common_current_user();
 
         $this->elementStart('form', array('method' => 'post',

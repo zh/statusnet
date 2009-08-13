@@ -329,14 +329,22 @@ class RegisterAction extends Action
         } else if ($this->error) {
             $this->element('p', 'error', $this->error);
         } else {
-            $instr =
-              common_markup_to_html(_('With this form you can create '.
-                                      ' a new account. ' .
-                                      'You can then post notices and '.
-                                      'link up to friends and colleagues. '.
-                                      '(Have an [OpenID](http://openid.net/)? ' .
-                                      'Try our [OpenID registration]'.
-                                      '(%%action.openidlogin%%)!)'));
+            if (common_config('openid', 'enabled')) {
+                $instr =
+                  common_markup_to_html(_('With this form you can create '.
+                                          ' a new account. ' .
+                                          'You can then post notices and '.
+                                          'link up to friends and colleagues. '.
+                                          '(Have an [OpenID](http://openid.net/)? ' .
+                                          'Try our [OpenID registration]'.
+                                          '(%%action.openidlogin%%)!)'));
+            } else {
+                $instr =
+                  common_markup_to_html(_('With this form you can create '.
+                                          ' a new account. ' .
+                                          'You can then post notices and '.
+                                          'link up to friends and colleagues.'));
+            }
 
             $this->elementStart('div', 'instructions');
             $this->raw($instr);
