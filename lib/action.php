@@ -443,8 +443,7 @@ class Action extends HTMLOutputter // lawsuit
                     }
                     $this->menuItem(common_local_url('login'),
                                     _('Login'), _('Login to the site'), false, 'nav_login');
-                }
-                if (common_config('openid', 'enabled')) {
+                } else {
                     $this->menuItem(common_local_url('openidlogin'),
                                     _('OpenID'), _('Login with OpenID'), false, 'nav_openid');
                 }
