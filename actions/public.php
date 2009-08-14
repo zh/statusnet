@@ -93,7 +93,7 @@ class PublicAction extends Action
             return;
         }
 
-        if($this->page > 1 && $this->notice->N == 0){
+        if($this->page > 0 && $this->notice->N == 0){
             $this->serverError(_('No such page'),$code=404);
         }
 

@@ -48,7 +48,6 @@ require_once INSTALLDIR.'/lib/feedlist.php';
 class RepliesAction extends OwnerDesignAction
 {
     var $page = null;
-    var $notice;
 
     /**
      * Prepare the object
@@ -84,13 +83,6 @@ class RepliesAction extends OwnerDesignAction
         $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
         common_set_returnto($this->selfUrl());
-
-        $this->notice = $this->user->getReplies(($this->page-1) * NOTICES_PER_PAGE,
-             NOTICES_PER_PAGE + 1);
-
-        if($this->page > 1 && $this->notice->N == 0){
-            $this->serverError(_('No such page'),$code=404);
-        }
 
         return true;
     }
@@ -167,7 +159,10 @@ class RepliesAction extends OwnerDesignAction
 
     function showContent()
     {
-        $nl = new NoticeList($this->notice, $this);
+        $notice = $this->user->getReplies(($this->page-1) * NOTICES_PER_PAGE,
+                                          NOTICES_PER_PAGE + 1);
+
+        $nl = new NoticeList($notice, $this);
 
         $cnt = $nl->show();
         if (0 === $cnt) {

@@ -114,29 +114,6 @@ class ShowfavoritesAction extends OwnerDesignAction
 
         common_set_returnto($this->selfUrl());
 
-        $cur = common_current_user();
-
-        if (!empty($cur) && $cur->id == $this->user->id) {
-
-            // Show imported/gateway notices as well as local if
-            // the user is looking at his own favorites
-
-            $this->notice = $this->user->favoriteNotices(($this->page-1)*NOTICES_PER_PAGE,
-                                                   NOTICES_PER_PAGE + 1, true);
-        } else {
-            $this->notice = $this->user->favoriteNotices(($this->page-1)*NOTICES_PER_PAGE,
-                                                   NOTICES_PER_PAGE + 1, false);
-        }
-
-        if (empty($this->notice)) {
-            $this->serverError(_('Could not retrieve favorite notices.'));
-            return;
-        }
-
-        if($this->page > 1 && $this->notice->N == 0){
-            $this->serverError(_('No such page'),$code=404);
-        }
-
         return true;
     }
 
@@ -216,7 +193,26 @@ class ShowfavoritesAction extends OwnerDesignAction
 
     function showContent()
     {
-        $nl = new NoticeList($this->notice, $this);
+        $cur = common_current_user();
+
+        if (!empty($cur) && $cur->id == $this->user->id) {
+
+            // Show imported/gateway notices as well as local if
+            // the user is looking at his own favorites
+
+            $notice = $this->user->favoriteNotices(($this->page-1)*NOTICES_PER_PAGE,
+                                                   NOTICES_PER_PAGE + 1, true);
+        } else {
+            $notice = $this->user->favoriteNotices(($this->page-1)*NOTICES_PER_PAGE,
+                                                   NOTICES_PER_PAGE + 1, false);
+        }
+
+        if (empty($notice)) {
+            $this->serverError(_('Could not retrieve favorite notices.'));
+            return;
+        }
+
+        $nl = new NoticeList($notice, $this);
 
         $cnt = $nl->show();
         if (0 == $cnt) {
