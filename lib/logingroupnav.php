@@ -80,8 +80,10 @@ class LoginGroupNav extends Widget
                                     _('Sign up for a new account'));
             }
         }
-        $menu['openidlogin'] = array(_('OpenID'),
-                               _('Login or register with OpenID'));
+        if (common_config('openid', 'enabled')) {
+            $menu['openidlogin'] = array(_('OpenID'),
+                                   _('Login or register with OpenID'));
+        }
 
         $action_name = $this->action->trimmed('action');
         $this->action->elementStart('ul', array('class' => 'nav'));
