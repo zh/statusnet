@@ -82,6 +82,10 @@ $(document).ready(function(){
 	// XXX: refactor this code
 
 	var favoptions = { dataType: 'xml',
+					   beforeSubmit: function(data, target, options) {
+					   							$(target).addClass('processing');
+												return true;
+											  },
 					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
 												var dis = new_form.id;
 												var fav = dis.replace('disfavor', 'favor');
@@ -91,6 +95,10 @@ $(document).ready(function(){
 					 };
 
 	var disoptions = { dataType: 'xml',
+					   beforeSubmit: function(data, target, options) {
+					   							$(target).addClass('processing');
+												return true;
+											  },
 					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
 												var fav = new_form.id;
 												var dis = fav.replace('favor', 'disfavor');
