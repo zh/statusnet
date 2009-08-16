@@ -66,7 +66,7 @@ class OpensearchAction extends Action
             $type       = 'noticesearch';
             $short_name = _('Notice Search');
         }
-        header('Content-Type: text/html');
+        header('Content-Type: application/opensearchdescription+xml');
         $this->startXML();
         $this->elementStart('OpenSearchDescription', array('xmlns' => 'http://a9.com/-/spec/opensearch/1.1/'));
         $short_name =  common_config('site', 'name').' '.$short_name;
