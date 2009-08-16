@@ -21,6 +21,9 @@ if (!defined('LACONICA')) { exit(1); }
 
 class TagAction extends Action
 {
+
+    var $notice;
+
     function prepare($args)
     {
         parent::prepare($args);
@@ -41,6 +44,12 @@ class TagAction extends Action
         $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
         common_set_returnto($this->selfUrl());
+
+        $this->notice = Notice_tag::getStream($this->tag, (($this->page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
+
+        if($this->page > 1 && $this->notice->N == 0){
+            $this->serverError(_('No such page'),$code=404);
+        }
 
         return true;
     }
@@ -94,9 +103,7 @@ class TagAction extends Action
 
     function showContent()
     {
-        $notice = Notice_tag::getStream($this->tag, (($this->page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
-
-        $nl = new NoticeList($notice, $this);
+        $nl = new NoticeList($this->notice, $this);
 
         $cnt = $nl->show();
 
