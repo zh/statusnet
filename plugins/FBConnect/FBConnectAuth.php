@@ -38,20 +38,14 @@ class FBConnectauthAction extends Action
     function prepare($args) {
         parent::prepare($args);
 
-        try {
+        $this->fbuid = getFacebook()->get_loggedin_user();
 
-            $this->fbuid = getFacebook()->get_loggedin_user();
-
-            if ($this->fbuid > 0) {
-                $this->fb_fields = $this->getFacebookFields($this->fbuid,
-                    array('first_name', 'last_name', 'name'));
-            } else {
-                common_debug("No Facebook User found.");
-            }
-
-        } catch (Exception $e) {
-            common_log(LOG_WARNING, 'Problem getting Facebook uid: ' .
-                $e->getMessage());
+        if ($this->fbuid > 0) {
+            $this->fb_fields = $this->getFacebookFields($this->fbuid,
+                                                        array('first_name', 'last_name', 'name'));
+        } else {
+            $this->clientError(_('You must be logged into Facebook to ' .
+                                 'use Facebook Connect.'));
         }
 
         return true;
