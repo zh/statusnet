@@ -190,7 +190,7 @@ class ShownoticeAction extends OwnerDesignAction
     {
         parent::handle($args);
 
-        if ($this->notice->is_local == 0) {
+        if ($this->notice->is_local == Notice::REMOTE_OMB) {
             if (!empty($this->notice->url)) {
                 common_redirect($this->notice->url, 301);
             } else if (!empty($this->notice->uri) && preg_match('/^https?:/', $this->notice->uri)) {

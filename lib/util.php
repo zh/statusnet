@@ -854,8 +854,8 @@ function common_enqueue_notice($notice)
         $transports[] = 'jabber';
     }
 
-    if ($notice->is_local == NOTICE_LOCAL_PUBLIC ||
-        $notice->is_local == NOTICE_LOCAL_NONPUBLIC) {
+    if ($notice->is_local == Notice::LOCAL_PUBLIC ||
+        $notice->is_local == Notice::LOCAL_NONPUBLIC) {
         $transports = array_merge($transports, $localTransports);
         if ($xmpp) {
             $transports[] = 'public';
