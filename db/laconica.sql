@@ -331,7 +331,7 @@ create table message (
     uri varchar(255) unique key comment 'universally unique identifier',
     from_profile integer not null comment 'who the message is from' references profile (id),
     to_profile integer not null comment 'who the message is to' references profile (id),
-    content varchar(140) comment 'message content',
+    content text comment 'message content',
     rendered text comment 'HTML version of the content',
     url varchar(255) comment 'URL of any attachment (image, video, bookmark, whatever)',
     created datetime not null comment 'date this record was created',
