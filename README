@@ -967,6 +967,9 @@ shorturllength: Length of URL at which URLs in a message exceeding 140
 dupelimit: minimum time allowed for one person to say the same thing
            twice. Default 60s. Anything lower is considered a user
            or UI error.
+textlimit: default max size for texts in the site. Defaults to 140,
+           null means no limit. Can be fine-tuned for notices, messages,
+           profile bios and group descriptions.
 
 db
 --
@@ -1269,6 +1272,8 @@ banned: an array of usernames and/or profile IDs of 'banned' profiles.
         The site will reject any notices by these users -- they will
         not be accepted at all. (Compare with blacklisted users above,
         whose posts just won't show up in the public stream.)
+biolimit: max character length of bio; null means to use the site
+          text limit default.
 
 newuser
 -------
@@ -1365,6 +1370,8 @@ Options for group functionality.
 
 maxaliases: maximum number of aliases a group can have. Default 3. Set
             to 0 or less to prevent aliases in a group.
+desclimit: maximum number of characters to allow in group descriptions.
+           null (default) means to use the site-wide text limits.
 
 oohembed
 --------
@@ -1442,6 +1449,22 @@ textcolor: Hex color of all non-link text.
 linkcolor: Hex color of all links.
 backgroundimage: Image to use for the background.
 disposition: Flags for whether or not to tile the background image.
+
+notice
+------
+
+Configuration options specific to notices.
+
+contentlimit: max length of the plain-text content of a notice.
+              Default is null, meaning to use the site-wide text limit.
+
+message
+-------
+
+Configuration options specific to messages.
+
+contentlimit: max length of the plain-text content of a message.
+              Default is null, meaning to use the site-wide text limit.
 
 Plugins
 =======

@@ -113,7 +113,9 @@ $config =
               'ssl' => 'never',
               'sslserver' => null,
               'shorturllength' => 30,
-              'dupelimit' => 60), # default for same person saying the same thing
+              'dupelimit' => 60, # default for same person saying the same thing
+              'textlimit' => 140,
+              ),
         'syslog' =>
         array('appname' => 'laconica', # for syslog
               'priority' => 'debug', # XXX: currently ignored
@@ -137,7 +139,8 @@ $config =
         array('blacklist' => array(),
               'featured' => array()),
         'profile' =>
-        array('banned' => array()),
+        array('banned' => array(),
+              'biolimit' => null),
         'avatar' =>
         array('server' => null,
               'dir' => INSTALLDIR . '/avatar/',
@@ -246,7 +249,8 @@ $config =
         'filecommand' => '/usr/bin/file',
         ),
         'group' =>
-        array('maxaliases' => 3),
+        array('maxaliases' => 3,
+              'desclimit' => null),
         'oohembed' => array('endpoint' => 'http://oohembed.com/oohembed/'),
         'search' =>
         array('type' => 'fulltext'),
@@ -261,6 +265,10 @@ $config =
               'linkcolor' => null,
               'backgroundimage' => null,
               'disposition' => null),
+        'notice' =>
+        array('contentlimit' => null),
+        'message' =>
+        array('contentlimit' => null),
         );
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
