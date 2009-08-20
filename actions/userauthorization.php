@@ -1,5 +1,16 @@
 <?php
-/*
+/**
+ * Let the user authorize a remote subscription request
+ *
+ * PHP version 5
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ *
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
@@ -17,9 +28,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-require_once(INSTALLDIR.'/lib/omb.php');
+require_once INSTALLDIR.'/lib/omb.php';
+require_once INSTALLDIR.'/extlib/libomb/service_provider.php';
+require_once INSTALLDIR.'/extlib/libomb/profile.php';
 define('TIMESTAMP_THRESHOLD', 300);
 
 class UserauthorizationAction extends Action
@@ -32,42 +47,58 @@ class UserauthorizationAction extends Action
         parent::handle($args);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            # CSRF protection
+            /* Use a session token for CSRF protection. */
             $token = $this->trimmed('token');
             if (!$token || $token != common_session_token()) {
-                $params = $this->getStoredParams();
-                $this->showForm($params, _('There was a problem with your session token. '.
-                                        'Try again, please.'));
+                $srv = $this->getStoredParams();
+                $this->showForm($srv->getRemoteUser(), _('There was a problem ' .
+                                        'with your session token. Try again, ' .
+                                        'please.'));
                 return;
             }
-            # We've shown the form, now post user's choice
+            /* We've shown the form, now post user's choice. */
             $this->sendAuthorization();
         } else {
             if (!common_logged_in()) {
-                # Go log in, and then come back
+                /* Go log in, and then come back. */
                 common_set_returnto($_SERVER['REQUEST_URI']);
 
                 common_redirect(common_local_url('login'));
                 return;
             }
 
+            $user    = common_current_user();
+            $profile = $user->getProfile();
+            if (!$profile) {
+                common_log_db_error($user, 'SELECT', __FILE__);
+                $this->serverError(_('User without matching profile'));
+                return;
+            }
+
+            /* TODO: If no token is passed the user should get a prompt to enter
+               it according to OAuth Core 1.0. */
             try {
-                $this->validateRequest();
-                $this->storeParams($_GET);
-                $this->showForm($_GET);
-            } catch (OAuthException $e) {
+                $this->validateOmb();
+                $srv = new OMB_Service_Provider(
+                        profile_to_omb_profile($_GET['omb_listener'], $profile),
+                        omb_oauth_datastore());
+
+                $remote_user = $srv->handleUserAuth();
+            } catch (Exception $e) {
                 $this->clearParams();
                 $this->clientError($e->getMessage());
                 return;
             }
 
+            $this->storeParams($srv);
+            $this->showForm($remote_user);
         }
     }
 
     function showForm($params, $error=null)
     {
         $this->params = $params;
-        $this->error = $error;
+        $this->error  = $error;
         $this->showPage();
     }
 
@@ -79,23 +110,24 @@ class UserauthorizationAction extends Action
     function showPageNotice()
     {
         $this->element('p', null, _('Please check these details to make sure '.
-                                    'that you want to subscribe to this user\'s notices. '.
-                                    'If you didn\'t just ask to subscribe to someone\'s notices, '.
-                                    'click "Reject".'));
+                                    'that you want to subscribe to this ' .
+                                    'user\'s notices. If you didn\'t just ask ' .
+                                    'to subscribe to someone\'s notices, '.
+                                    'click “Reject”.'));
     }
 
     function showContent()
     {
         $params = $this->params;
 
-        $nickname = $params['omb_listenee_nickname'];
-        $profile = $params['omb_listenee_profile'];
-        $license = $params['omb_listenee_license'];
-        $fullname = $params['omb_listenee_fullname'];
-        $homepage = $params['omb_listenee_homepage'];
-        $bio = $params['omb_listenee_bio'];
-        $location = $params['omb_listenee_location'];
-        $avatar = $params['omb_listenee_avatar'];
+        $nickname = $params->getNickname();
+        $profile  = $params->getProfileURL();
+        $license  = $params->getLicenseURL();
+        $fullname = $params->getFullname();
+        $homepage = $params->getHomepage();
+        $bio      = $params->getBio();
+        $location = $params->getLocation();
+        $avatar   = $params->getAvatarURL();
 
         $this->elementStart('div', array('class' => 'profile'));
         $this->elementStart('div', 'entity_profile vcard');
@@ -172,11 +204,14 @@ class UserauthorizationAction extends Action
                                           'id' => 'userauthorization',
                                           'class' => 'form_user_authorization',
                                           'name' => 'userauthorization',
-                                          'action' => common_local_url('userauthorization')));
+                                          'action' => common_local_url(
+                                                         'userauthorization')));
         $this->hidden('token', common_session_token());
 
-        $this->submit('accept', _('Accept'), 'submit accept', null, _('Subscribe to this user'));
-        $this->submit('reject', _('Reject'), 'submit reject', null, _('Reject this subscription'));
+        $this->submit('accept', _('Accept'), 'submit accept', null,
+                      _('Subscribe to this user'));
+        $this->submit('reject', _('Reject'), 'submit reject', null,
+                      _('Reject this subscription'));
         $this->elementEnd('form');
         $this->elementEnd('li');
         $this->elementEnd('ul');
@@ -186,191 +221,27 @@ class UserauthorizationAction extends Action
 
     function sendAuthorization()
     {
-        $params = $this->getStoredParams();
+        $srv = $this->getStoredParams();
 
-        if (!$params) {
+        if (is_null($srv)) {
             $this->clientError(_('No authorization request!'));
             return;
         }
 
-        $callback = $params['oauth_callback'];
-
-        if ($this->arg('accept')) {
-            if (!$this->authorizeToken($params)) {
-                $this->clientError(_('Error authorizing token'));
-            }
-            if (!$this->saveRemoteProfile($params)) {
-                $this->clientError(_('Error saving remote profile'));
-            }
-            if (!$callback) {
-                $this->showAcceptMessage($params['oauth_token']);
-            } else {
-                $newparams = array();
-                $newparams['oauth_token'] = $params['oauth_token'];
-                $newparams['omb_version'] = OMB_VERSION_01;
-                $user = User::staticGet('uri', $params['omb_listener']);
-                $profile = $user->getProfile();
-                if (!$profile) {
-                    common_log_db_error($user, 'SELECT', __FILE__);
-                    $this->serverError(_('User without matching profile'));
-                    return;
-                }
-                $newparams['omb_listener_nickname'] = $user->nickname;
-                $newparams['omb_listener_profile'] = common_local_url('showstream',
-                                                                   array('nickname' => $user->nickname));
-                if (!is_null($profile->fullname)) {
-                    $newparams['omb_listener_fullname'] = $profile->fullname;
-                }
-                if (!is_null($profile->homepage)) {
-                    $newparams['omb_listener_homepage'] = $profile->homepage;
-                }
-                if (!is_null($profile->bio)) {
-                    $newparams['omb_listener_bio'] = $profile->bio;
-                }
-                if (!is_null($profile->location)) {
-                    $newparams['omb_listener_location'] = $profile->location;
-                }
-                $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
-                if ($avatar) {
-                    $newparams['omb_listener_avatar'] = $avatar->url;
-                }
-                $parts = array();
-                foreach ($newparams as $k => $v) {
-                    $parts[] = $k . '=' . OAuthUtil::urlencode_rfc3986($v);
-                }
-                $query_string = implode('&', $parts);
-                $parsed = parse_url($callback);
-                $url = $callback . (($parsed['query']) ? '&' : '?') . $query_string;
-                common_redirect($url, 303);
-            }
+        $accepted = $this->arg('accept');
+        try {
+            list($val, $token) = $srv->continueUserAuth($accepted);
+        } catch (Exception $e) {
+            $this->clientError($e->getMessage());
+            return;
+        }
+        if ($val !== false) {
+            common_redirect($val, 303);
+        } elseif ($accepted) {
+            $this->showAcceptMessage($token);
         } else {
-            if (!$callback) {
-                $this->showRejectMessage();
-            } else {
-                # XXX: not 100% sure how to signal failure... just redirect without token?
-                common_redirect($callback, 303);
-            }
+            $this->showRejectMessage();
         }
-    }
-
-    function authorizeToken(&$params)
-    {
-        $token_field = $params['oauth_token'];
-        $rt = new Token();
-        $rt->tok = $token_field;
-        $rt->type = 0;
-        $rt->state = 0;
-        if ($rt->find(true)) {
-            $orig_rt = clone($rt);
-            $rt->state = 1; # Authorized but not used
-            if ($rt->update($orig_rt)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    # XXX: refactor with similar code in finishremotesubscribe.php
-
-    function saveRemoteProfile(&$params)
-    {
-        # FIXME: we should really do this when the consumer comes
-        # back for an access token. If they never do, we've got stuff in a
-        # weird state.
-
-        $nickname = $params['omb_listenee_nickname'];
-        $fullname = $params['omb_listenee_fullname'];
-        $profile_url = $params['omb_listenee_profile'];
-        $homepage = $params['omb_listenee_homepage'];
-        $bio = $params['omb_listenee_bio'];
-        $location = $params['omb_listenee_location'];
-        $avatar_url = $params['omb_listenee_avatar'];
-
-        $listenee = $params['omb_listenee'];
-        $remote = Remote_profile::staticGet('uri', $listenee);
-
-        if ($remote) {
-            $exists = true;
-            $profile = Profile::staticGet($remote->id);
-            $orig_remote = clone($remote);
-            $orig_profile = clone($profile);
-        } else {
-            $exists = false;
-            $remote = new Remote_profile();
-            $remote->uri = $listenee;
-            $profile = new Profile();
-        }
-
-        $profile->nickname = $nickname;
-        $profile->profileurl = $profile_url;
-
-        if (!is_null($fullname)) {
-            $profile->fullname = $fullname;
-        }
-        if (!is_null($homepage)) {
-            $profile->homepage = $homepage;
-        }
-        if (!is_null($bio)) {
-            $profile->bio = $bio;
-        }
-        if (!is_null($location)) {
-            $profile->location = $location;
-        }
-
-        if ($exists) {
-            $profile->update($orig_profile);
-        } else {
-            $profile->created = DB_DataObject_Cast::dateTime(); # current time
-            $id = $profile->insert();
-            if (!$id) {
-                return false;
-            }
-            $remote->id = $id;
-        }
-
-        if ($exists) {
-            if (!$remote->update($orig_remote)) {
-                return false;
-            }
-        } else {
-            $remote->created = DB_DataObject_Cast::dateTime(); # current time
-            if (!$remote->insert()) {
-                return false;
-            }
-        }
-
-        if ($avatar_url) {
-            if (!$this->addAvatar($profile, $avatar_url)) {
-                return false;
-            }
-        }
-
-        $user = common_current_user();
-
-        $sub = new Subscription();
-        $sub->subscriber = $user->id;
-        $sub->subscribed = $remote->id;
-        $sub->token = $params['oauth_token']; # NOTE: request token, not valid for use!
-        $sub->created = DB_DataObject_Cast::dateTime(); # current time
-
-        if (!$sub->insert()) {
-            return false;
-        }
-
-        return true;
-    }
-
-    function addAvatar($profile, $url)
-    {
-        $temp_filename = tempnam(sys_get_temp_dir(), 'listenee_avatar');
-        copy($url, $temp_filename);
-        $imagefile = new ImageFile($profile->id, $temp_filename);
-        $filename = Avatar::filename($profile->id,
-                                     image_type_to_extension($imagefile->type),
-                                     null,
-                                     common_timestamp());
-        rename($temp_filename, Avatar::path($filename));
-        return $profile->setOriginal($filename);
     }
 
     function showAcceptMessage($tok)
@@ -378,26 +249,28 @@ class UserauthorizationAction extends Action
         common_show_header(_('Subscription authorized'));
         $this->element('p', null,
                        _('The subscription has been authorized, but no '.
-                         'callback URL was passed. Check with the site\'s instructions for '.
-                         'details on how to authorize the subscription. Your subscription token is:'));
+                         'callback URL was passed. Check with the site\'s ' .
+                         'instructions for details on how to authorize the ' .
+                         'subscription. Your subscription token is:'));
         $this->element('blockquote', 'token', $tok);
         common_show_footer();
     }
 
-    function showRejectMessage($tok)
+    function showRejectMessage()
     {
         common_show_header(_('Subscription rejected'));
         $this->element('p', null,
                        _('The subscription has been rejected, but no '.
-                         'callback URL was passed. Check with the site\'s instructions for '.
-                         'details on how to fully reject the subscription.'));
+                         'callback URL was passed. Check with the site\'s ' .
+                         'instructions for details on how to fully reject ' .
+                         'the subscription.'));
         common_show_footer();
     }
 
     function storeParams($params)
     {
         common_ensure_session();
-        $_SESSION['userauthorizationparams'] = $params;
+        $_SESSION['userauthorizationparams'] = serialize($params);
     }
 
     function clearParams()
@@ -409,138 +282,65 @@ class UserauthorizationAction extends Action
     function getStoredParams()
     {
         common_ensure_session();
-        $params = $_SESSION['userauthorizationparams'];
+        $params = unserialize($_SESSION['userauthorizationparams']);
         return $params;
-    }
-
-    # Throws an OAuthException if anything goes wrong
-
-    function validateRequest()
-    {
-        /* Find token.
-           TODO: If no token is passed the user should get a prompt to enter it
-                 according to OAuth Core 1.0 */
-        $t = new Token();
-        $t->tok = $_GET['oauth_token'];
-        $t->type = 0;
-        if (!$t->find(true)) {
-            throw new OAuthException("Invalid request token: " . $_GET['oauth_token']);
-        }
-
-        $this->validateOmb();
-        return true;
     }
 
     function validateOmb()
     {
-        foreach (array('omb_version', 'omb_listener', 'omb_listenee',
-                       'omb_listenee_profile', 'omb_listenee_nickname',
-                       'omb_listenee_license') as $param)
-        {
-            if (!isset($_GET[$param]) || is_null($_GET[$param])) {
-                throw new OAuthException("Required parameter '$param' not found");
-            }
-        }
-        # Now, OMB stuff
-        $version = $_GET['omb_version'];
-        if ($version != OMB_VERSION_01) {
-            throw new OAuthException("OpenMicroBlogging version '$version' not supported");
-        }
         $listener = $_GET['omb_listener'];
+        $listenee = $_GET['omb_listenee'];
+        $nickname = $_GET['omb_listenee_nickname'];
+        $profile  = $_GET['omb_listenee_profile'];
+
         $user = User::staticGet('uri', $listener);
         if (!$user) {
-            throw new OAuthException("Listener URI '$listener' not found here");
+            throw new Exception("Listener URI '$listener' not found here");
         }
         $cur = common_current_user();
         if ($cur->id != $user->id) {
-            throw new OAuthException("Can't add for another user!");
-        }
-        $listenee = $_GET['omb_listenee'];
-        if (!Validate::uri($listenee) &&
-            !common_valid_tag($listenee)) {
-            throw new OAuthException("Listenee URI '$listenee' not a recognizable URI");
-        }
-        if (strlen($listenee) > 255) {
-            throw new OAuthException("Listenee URI '$listenee' too long");
+            throw new Exception('Can\'t subscribe for another user!');
         }
 
         $other = User::staticGet('uri', $listenee);
         if ($other) {
-            throw new OAuthException("Listenee URI '$listenee' is local user");
+            throw new Exception("Listenee URI '$listenee' is local user");
         }
 
         $remote = Remote_profile::staticGet('uri', $listenee);
         if ($remote) {
-            $sub = new Subscription();
+            $sub             = new Subscription();
             $sub->subscriber = $user->id;
             $sub->subscribed = $remote->id;
             if ($sub->find(true)) {
-                throw new OAuthException("Already subscribed to user!");
+                throw new Exception('You are already subscribed to this user.');
             }
         }
-        $nickname = $_GET['omb_listenee_nickname'];
-        if (!Validate::string($nickname, array('min_length' => 1,
-                                               'max_length' => 64,
-                                               'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
-            throw new OAuthException('Nickname must have only letters and numbers and no spaces.');
-        }
-        $profile = $_GET['omb_listenee_profile'];
-        if (!common_valid_http_url($profile)) {
-            throw new OAuthException("Invalid profile URL '$profile'.");
+
+        if ($profile == common_profile_url($nickname)) {
+            throw new Exception("Profile URL '$profile' is for a local user.");
         }
 
-        if ($profile == common_local_url('showstream', array('nickname' => $nickname))) {
-            throw new OAuthException("Profile URL '$profile' is for a local user.");
-        }
-
-        $license = $_GET['omb_listenee_license'];
-        if (!common_valid_http_url($license)) {
-            throw new OAuthException("Invalid license URL '$license'.");
-        }
+        $license      = $_GET['omb_listenee_license'];
         $site_license = common_config('license', 'url');
         if (!common_compatible_license($license, $site_license)) {
-            throw new OAuthException("Listenee stream license '$license' not compatible with site license '$site_license'.");
-        }
-        # optional stuff
-        $fullname = $_GET['omb_listenee_fullname'];
-        if ($fullname && mb_strlen($fullname) > 255) {
-            throw new OAuthException("Full name '$fullname' too long.");
-        }
-        $homepage = $_GET['omb_listenee_homepage'];
-        if ($homepage && (!common_valid_http_url($homepage) || mb_strlen($homepage) > 255)) {
-            throw new OAuthException("Invalid homepage '$homepage'");
-        }
-        $bio = $_GET['omb_listenee_bio'];
-        if ($bio && mb_strlen($bio) > 140) {
-            throw new OAuthException("Bio too long '$bio'");
-        }
-        $location = $_GET['omb_listenee_location'];
-        if ($location && mb_strlen($location) > 255) {
-            throw new OAuthException("Location too long '$location'");
+            throw new Exception("Listenee stream license '$license' is not " .
+                                "compatible with site license '$site_license'.");
         }
         $avatar = $_GET['omb_listenee_avatar'];
         if ($avatar) {
             if (!common_valid_http_url($avatar) || strlen($avatar) > 255) {
-                throw new OAuthException("Invalid avatar URL '$avatar'");
+                throw new Exception("Invalid avatar URL '$avatar'");
             }
             $size = @getimagesize($avatar);
             if (!$size) {
-                throw new OAuthException("Can't read avatar URL '$avatar'");
-            }
-            if ($size[0] != AVATAR_PROFILE_SIZE || $size[1] != AVATAR_PROFILE_SIZE) {
-                throw new OAuthException("Wrong size image at '$avatar'");
+                throw new Exception("Can't read avatar URL '$avatar'.");
             }
             if (!in_array($size[2], array(IMAGETYPE_GIF, IMAGETYPE_JPEG,
                                           IMAGETYPE_PNG))) {
-                throw new OAuthException("Wrong image type for '$avatar'");
+                throw new Exception("Wrong image type for '$avatar'");
             }
-        }
-        $callback = $_GET['oauth_callback'];
-        if ($callback && !common_valid_http_url($callback)) {
-            throw new OAuthException("Invalid callback URL '$callback'");
-        }
-        if ($callback && $callback == common_local_url('finishremotesubscribe')) {
-            throw new OAuthException("Callback URL '$callback' is for local site.");
         }
     }
 }
+?>

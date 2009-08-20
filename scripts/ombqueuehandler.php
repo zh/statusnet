@@ -57,7 +57,7 @@ class OmbQueueHandler extends QueueHandler
             $this->log(LOG_DEBUG, 'Ignoring remote notice ' . $notice->id);
             return true;
         } else {
-            return omb_broadcast_remote_subscribers($notice);
+            return omb_broadcast_notice($notice);
         }
     }
 
