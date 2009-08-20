@@ -6,7 +6,7 @@ create table profile (
     fullname varchar(255) comment 'display name',
     profileurl varchar(255) comment 'URL, cached so we dont regenerate',
     homepage varchar(255) comment 'identifying URL',
-    bio varchar(140) comment 'descriptive biography',
+    bio text comment 'descriptive biography',
     location varchar(255) comment 'physical location',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
