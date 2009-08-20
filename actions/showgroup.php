@@ -130,8 +130,18 @@ class ShowgroupAction extends GroupDesignAction
         $this->group = User_group::staticGet('nickname', $nickname);
 
         if (!$this->group) {
-            $this->clientError(_('No such group'), 404);
-            return false;
+            $alias = Group_alias::staticGet('alias', $nickname);
+            if ($alias) {
+                $args = array('id' => $alias->group_id);
+                if ($this->page != 1) {
+                    $args['page'] = $this->page;
+                }
+                common_redirect(common_local_url('groupbyid', $args), 301);
+                return false;
+            } else {
+                $this->clientError(_('No such group'), 404);
+                return false;
+            }
         }
 
         common_set_returnto($this->selfUrl());
