@@ -7,3 +7,6 @@ alter table message
 alter table profile
      modify column bio text comment 'descriptive biography';
 
+alter table user_group
+     modify column description text comment 'group description';
+

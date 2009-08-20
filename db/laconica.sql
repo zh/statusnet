@@ -380,7 +380,7 @@ create table user_group (
     nickname varchar(64) unique key comment 'nickname for addressing',
     fullname varchar(255) comment 'display name',
     homepage varchar(255) comment 'URL, cached so we dont regenerate',
-    description varchar(140) comment 'descriptive biography',
+    description text comment 'group description',
     location varchar(255) comment 'related physical location, if any',
 
     original_logo varchar(255) comment 'original size logo',
