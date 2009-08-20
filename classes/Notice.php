@@ -44,7 +44,7 @@ class Notice extends Memcached_DataObject
     public $id;                              // int(4)  primary_key not_null
     public $profile_id;                      // int(4)   not_null
     public $uri;                             // varchar(255)  unique_key
-    public $content;                         // varchar(140)
+    public $content;                         // text()
     public $rendered;                        // text()
     public $url;                             // varchar(255)
     public $created;                         // datetime()   not_null
@@ -55,9 +55,7 @@ class Notice extends Memcached_DataObject
     public $conversation;                    // int(4)
 
     /* Static get */
-    function staticGet($k,$v=NULL) {
-        return Memcached_DataObject::staticGet('Notice',$k,$v);
-    }
+    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Notice',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
