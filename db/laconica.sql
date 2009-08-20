@@ -110,7 +110,7 @@ create table notice (
     id integer auto_increment primary key comment 'unique identifier',
     profile_id integer not null comment 'who made the update' references profile (id),
     uri varchar(255) unique key comment 'universally unique identifier, usually a tag URI',
-    content varchar(140) comment 'update content',
+    content text comment 'update content',
     rendered text comment 'HTML version of the content',
     url varchar(255) comment 'URL of any attachment (image, video, bookmark, whatever)',
     created datetime not null comment 'date this record was created',
