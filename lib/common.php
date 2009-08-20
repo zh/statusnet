@@ -82,7 +82,7 @@ if (isset($server)) {
 if (isset($path)) {
     $_path = $path;
 } else {
-    $_path = array_key_exists('SCRIPT_NAME', $_SERVER) ?
+    $_path = (array_key_exists('SERVER_NAME', $_SERVER) && array_key_exists('SCRIPT_NAME', $_SERVER)) ?
       _sn_to_path($_SERVER['SCRIPT_NAME']) :
     null;
 }
