@@ -13,7 +13,7 @@ class User_group extends Memcached_DataObject
     public $nickname;                        // varchar(64)  unique_key
     public $fullname;                        // varchar(255)
     public $homepage;                        // varchar(255)
-    public $description;                     // varchar(140)
+    public $description;                     // text()
     public $location;                        // varchar(255)
     public $original_logo;                   // varchar(255)
     public $homepage_logo;                   // varchar(255)
