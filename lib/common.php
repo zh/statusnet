@@ -21,6 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 define('LACONICA_VERSION', '0.9.0dev');
 
+// XXX: move these to class variables
+
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
 define('AVATAR_MINI_SIZE', 24);
@@ -387,26 +389,6 @@ if (!$config['openid']['enabled']) {
     $config['site']['openidonly'] = false;
 }
 
-// XXX: how many of these could be auto-loaded on use?
-
-require_once 'Validate.php';
-require_once 'markdown.php';
-
-require_once INSTALLDIR.'/lib/util.php';
-require_once INSTALLDIR.'/lib/action.php';
-require_once INSTALLDIR.'/lib/theme.php';
-require_once INSTALLDIR.'/lib/mail.php';
-require_once INSTALLDIR.'/lib/subs.php';
-require_once INSTALLDIR.'/lib/Shorturl_api.php';
-require_once INSTALLDIR.'/lib/twitter.php';
-
-require_once INSTALLDIR.'/lib/clientexception.php';
-require_once INSTALLDIR.'/lib/serverexception.php';
-
-// XXX: other formats here
-
-define('NICKNAME_FMT', VALIDATE_NUM.VALIDATE_ALPHA_LOWER);
-
 function __autoload($cls)
 {
     if (file_exists(INSTALLDIR.'/classes/' . $cls . '.php')) {
@@ -422,6 +404,32 @@ function __autoload($cls)
         Event::handle('Autoload', array(&$cls));
     }
 }
+
+// XXX: how many of these could be auto-loaded on use?
+// XXX: note that these files should not use config options
+// at compile time since DB config options are not yet loaded.
+
+require_once 'Validate.php';
+require_once 'markdown.php';
+
+require_once INSTALLDIR.'/lib/util.php';
+require_once INSTALLDIR.'/lib/action.php';
+require_once INSTALLDIR.'/lib/theme.php';
+require_once INSTALLDIR.'/lib/mail.php';
+require_once INSTALLDIR.'/lib/subs.php';
+require_once INSTALLDIR.'/lib/Shorturl_api.php';
+require_once INSTALLDIR.'/lib/twitter.php';
+
+require_once INSTALLDIR.'/lib/clientexception.php';
+require_once INSTALLDIR.'/lib/serverexception.php';
+
+// Load settings from database; note we need autoload for this
+
+Config::loadSettings();
+
+// XXX: other formats here
+
+define('NICKNAME_FMT', VALIDATE_NUM.VALIDATE_ALPHA_LOWER);
 
 // Give plugins a chance to initialize in a fully-prepared environment
 

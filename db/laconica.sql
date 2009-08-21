@@ -547,3 +547,13 @@ create table deleted_notice (
     index deleted_notice_profile_id_idx (profile_id)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table config (
+
+    section varchar(32) comment 'configuration section',
+    setting varchar(32) comment 'configuration setting',
+    value varchar(255) comment 'configuration value',
+
+    constraint primary key (section, setting)
+
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
