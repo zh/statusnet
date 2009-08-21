@@ -57,13 +57,46 @@ class UpdateprofileAction extends Action
      */
     function prepare($argarray)
     {
-        parent::prepare($argarray);
-        $license      = $_POST['omb_listenee_license'];
-        $site_license = common_config('license', 'url');
-        if (!common_compatible_license($license, $site_license)) {
-            $this->clientError(sprintf(_('Listenee stream license ‘%s’ is not '.
-                                          'compatible with site license ‘%s’.'),
-                                       $license, $site_license);
+        $version = $req->get_parameter('omb_version');
+        if ($version != OMB_VERSION_01) {
+            $this->clientError(_('Unsupported OMB version'), 400);
+            return false;
+        }
+        # First, check to see if listenee exists
+        $listenee =  $req->get_parameter('omb_listenee');
+        $remote = Remote_profile::staticGet('uri', $listenee);
+        if (!$remote) {
+            $this->clientError(_('Profile unknown'), 404);
+            return false;
+        }
+        # Second, check to see if they should be able to post updates!
+        # We see if there are any subscriptions to that remote user with
+        # the given token.
+
+        $sub = new Subscription();
+        $sub->subscribed = $remote->id;
+        $sub->token = $token->key;
+        if (!$sub->find(true)) {
+            $this->clientError(_('You did not send us that profile'), 403);
+            return false;
+        }
+
+        $profile = Profile::staticGet('id', $remote->id);
+        if (!$profile) {
+            # This one is our fault
+            $this->serverError(_('Remote profile with no matching profile'), 500);
+            return false;
+        }
+        $nickname = $req->get_parameter('omb_listenee_nickname');
+        if ($nickname && !Validate::string($nickname, array('min_length' => 1,
+                                                            'max_length' => 64,
+                                                            'format' => NICKNAME_FMT))) {
+            $this->clientError(_('Nickname must have only lowercase letters and numbers and no spaces.'));
+            return false;
+        }
+        $license = $req->get_parameter('omb_listenee_license');
+        if ($license && !common_valid_http_url($license)) {
+            $this->clientError(sprintf(_("Invalid license URL '%s'"), $license));
             return false;
         }
         return true;
@@ -83,4 +116,3 @@ class UpdateprofileAction extends Action
         }
     }
 }
-?>

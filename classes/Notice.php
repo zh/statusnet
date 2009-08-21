@@ -29,10 +29,6 @@ require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 define('NOTICE_CACHE_WINDOW', 61);
 
-define('NOTICE_LOCAL_PUBLIC', 1);
-define('NOTICE_REMOTE_OMB', 0);
-define('NOTICE_LOCAL_NONPUBLIC', -1);
-
 define('MAX_BOXCARS', 128);
 
 class Notice extends Memcached_DataObject
@@ -60,7 +56,11 @@ class Notice extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    const GATEWAY = -2;
+    /* Notice types */ 
+    const LOCAL_PUBLIC    =  1;
+    const REMOTE_OMB      =  0;
+    const LOCAL_NONPUBLIC = -1;
+    const GATEWAY         = -2;
 
     function getProfile()
     {
@@ -146,7 +146,7 @@ class Notice extends Memcached_DataObject
     }
 
     static function saveNew($profile_id, $content, $source=null,
-                            $is_local=1, $reply_to=null, $uri=null, $created=null) {
+                            $is_local=Notice::LOCAL_PUBLIC, $reply_to=null, $uri=null, $created=null) {
 
         $profile = Profile::staticGet($profile_id);
 
@@ -189,7 +189,7 @@ class Notice extends Memcached_DataObject
 
         if (($blacklist && in_array($profile_id, $blacklist)) ||
             ($source && $autosource && in_array($source, $autosource))) {
-            $notice->is_local = -1;
+            $notice->is_local = Notice::LOCAL_NONPUBLIC;
         } else {
             $notice->is_local = $is_local;
         }
@@ -521,7 +521,7 @@ class Notice extends Memcached_DataObject
 
     function blowPublicCache($blowLast=false)
     {
-        if ($this->is_local == 1) {
+        if ($this->is_local == Notice::LOCAL_PUBLIC) {
             $cache = common_memcache();
             if ($cache) {
                 $cache->delete(common_cache_key('public'));
@@ -787,10 +787,11 @@ class Notice extends Memcached_DataObject
         }
 
         if (common_config('public', 'localonly')) {
-            $notice->whereAdd('is_local = 1');
+            $notice->whereAdd('is_local = ' . Notice::LOCAL_PUBLIC);
         } else {
-            # -1 == blacklisted
-            $notice->whereAdd('is_local != -1');
+            # -1 == blacklisted, -2 == gateway (i.e. Twitter)
+            $notice->whereAdd('is_local !='. Notice::LOCAL_NONPUBLIC);
+            $notice->whereAdd('is_local !='. Notice::GATEWAY);
         }
 
         if ($since_id != 0) {

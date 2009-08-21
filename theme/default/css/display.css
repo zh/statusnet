@@ -66,7 +66,7 @@ div.notice-options input,
 .entity_nudge p,
 .form_settings input.form_action-primary,
 .form_make_admin input.submit {
-color:#002E6E;
+color:#002FA7;
 }
 
 .notice,
@@ -223,6 +223,10 @@ background:transparent url(../../base/images/icons/twotone/green/favourite.gif) 
 .notice-options form.form_disfavor input.submit {
 background:transparent url(../../base/images/icons/twotone/green/disfavourite.gif) no-repeat 0 45%;
 }
+.notice-options form.form_favor.processing input.submit,
+.notice-options form.form_disfavor.processing input.submit {
+background:transparent url(../../base/images/icons/icon_processing.gif) no-repeat 0 45%;
+}
 .notice-options .notice_delete {
 background:transparent url(../../base/images/icons/twotone/green/trash.gif) no-repeat 0 45%;
 }
@@ -234,9 +238,6 @@ opacity:0.4;
 .notices li:hover div.entry-content,
 .notices li:hover div.notice-options {
 opacity:1;
-}
-div.entry-content {
-color:#333333;
 }
 div.notice-options a,
 div.notice-options input {

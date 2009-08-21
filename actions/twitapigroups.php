@@ -51,6 +51,103 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
  class TwitapigroupsAction extends TwitterapiAction
  {
 
+     function list_groups($args, $apidata)
+     {
+         parent::handle($args);
+         
+         common_debug("in groups api action");
+         
+         $this->auth_user = $apidata['user'];
+         $user = $this->get_user($apidata['api_arg'], $apidata);
+
+         if (empty($user)) {
+             $this->clientError('Not Found', 404, $apidata['content-type']);
+             return;
+         }
+
+         $page     = (int)$this->arg('page', 1);
+         $count    = (int)$this->arg('count', 20);
+         $max_id   = (int)$this->arg('max_id', 0);
+         $since_id = (int)$this->arg('since_id', 0);
+         $since    = $this->arg('since');
+         $group = $user->getGroups(($page-1)*$count,
+             $count, $since_id, $max_id, $since);
+
+         $sitename   = common_config('site', 'name');
+         $title      = sprintf(_("%s's groups"), $user->nickname);
+         $taguribase = common_config('integration', 'taguri');
+         $id         = "tag:$taguribase:Groups";
+         $link       = common_root_url();
+         $subtitle   = sprintf(_("groups %s is a member of on %s"), $user->nickname, $sitename);
+
+         switch($apidata['content-type']) {
+         case 'xml':
+             $this->show_xml_groups($group);
+             break;
+         case 'rss':
+             $this->show_rss_groups($group, $title, $link, $subtitle);
+             break;
+         case 'atom':
+             $selfuri = common_root_url() . 'api/laconica/groups/list/' . $user->id . '.atom';
+             $this->show_atom_groups($group, $title, $id, $link,
+                 $subtitle, $selfuri);
+             break;
+         case 'json':
+             $this->show_json_groups($group);
+             break;
+         default:
+             $this->clientError(_('API method not found!'), $code = 404);
+             break;
+         }
+     }
+
+     function list_all($args, $apidata)
+     {
+         parent::handle($args);
+         
+         common_debug("in groups api action");
+         
+         $page     = (int)$this->arg('page', 1);
+         $count    = (int)$this->arg('count', 20);
+         $max_id   = (int)$this->arg('max_id', 0);
+         $since_id = (int)$this->arg('since_id', 0);
+         $since    = $this->arg('since');
+
+         /*	 TODO:
+         Use the $page, $count, $max_id, $since_id, and $since parameters
+         */
+         $group = new User_group();
+         $group->orderBy('created DESC');
+         $group->find();
+
+         $sitename   = common_config('site', 'name');
+         $title      = sprintf(_("%s groups"), $sitename);
+         $taguribase = common_config('integration', 'taguri');
+         $id         = "tag:$taguribase:Groups";
+         $link       = common_root_url();
+         $subtitle   = sprintf(_("groups on %s"), $sitename);
+
+         switch($apidata['content-type']) {
+         case 'xml':
+             $this->show_xml_groups($group);
+             break;
+         case 'rss':
+             $this->show_rss_groups($group, $title, $link, $subtitle);
+             break;
+         case 'atom':
+             $selfuri = common_root_url() . 'api/laconica/groups/list_all.atom';
+             $this->show_atom_groups($group, $title, $id, $link,
+                 $subtitle, $selfuri);
+             break;
+         case 'json':
+             $this->show_json_groups($group);
+             break;
+         default:
+             $this->clientError(_('API method not found!'), $code = 404);
+             break;
+         }
+     }
+
      function show($args, $apidata)
      {
          parent::handle($args);

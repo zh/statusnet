@@ -132,9 +132,10 @@ class groupRssAction extends Rss10Action
         $c = array('url' => common_local_url('grouprss',
                                              array('nickname' =>
                                                    $group->nickname)),
-                   'title' => $group->nickname,
+                   'title' => sprintf(_('%s timeline'), $group->nickname),
                    'link' => common_local_url('showgroup', array('nickname' => $group->nickname)),
-                   'description' => sprintf(_('Microblog by %s group'), $group->nickname));
+                   'description' => sprintf(_('Updates from members of %1$s on %2$s!'),
+                                            $group->nickname, common_config('site', 'name')));
         return $c;
     }
 

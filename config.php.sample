@@ -38,6 +38,8 @@ $config['site']['path'] = 'laconica';
 // $config['site']['closed'] = true;
 // Only allow registration for people invited by another user
 // $config['site']['inviteonly'] = true;
+// Only allow registrations and logins through OpenID
+// $config['site']['openidonly'] = true;
 // Make the site invisible to  non-logged-in users
 // $config['site']['private'] = true;
 
@@ -96,6 +98,9 @@ $config['sphinx']['port'] = 3312;
 // $config['xmpp']['password'] = 'blahblahblah';
 // $config['xmpp']['public'][] = 'someindexer@example.net';
 // $config['xmpp']['debug'] = false;
+
+// Disable OpenID
+// $config['openid']['enabled'] = false;
 
 // Turn off invites
 // $config['invite']['enabled'] = false;
@@ -164,6 +169,15 @@ $config['sphinx']['port'] = 3312;
 // $config['memcached']['server'] = 'localhost';
 // $config['memcached']['port'] = 11211;
 
+// Disable post-by-email
+// $config['emailpost']['enabled'] = false;
+
+// Disable SMS
+// $config['sms']['enabled'] = false;
+
+// Disable Twitter integration
+// $config['twitter']['enabled'] = false;
+
 // Twitter integration source attribute. Note: default is Laconica
 // $config['integration']['source'] = 'Laconica';
 
@@ -172,6 +186,10 @@ $config['sphinx']['port'] = 3312;
 // NOTE: if you enable this you must also set $config['avatar']['path']
 //
 // $config['twitterbridge']['enabled'] = true;
+
+// Twitter OAuth settings
+// $config['twitter']['consumer_key']    = 'YOURKEY';
+// $config['twitter']['consumer_secret'] = 'YOURSECRET';
 
 // Edit throttling. Off by default. If turned on, you can only post 20 notices
 // every 10 minutes. Admins may want to play with the settings to minimize inconvenience for
@@ -243,5 +261,6 @@ $config['sphinx']['port'] = 3312;
 // $config['attachments']['user_quota'] = 50000000;
 // $config['attachments']['monthly_quota'] = 15000000;
 // $config['attachments']['uploads'] = true;
+// $config['attachments']['path'] = "/file/";
 
 // $config['oohembed']['endpoint'] = 'http://oohembed.com/oohembed/';

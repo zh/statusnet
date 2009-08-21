@@ -82,9 +82,7 @@ class FBConnectPlugin extends Plugin
 
             $action->extraHeaders();
 
-            $action->startXML('html',
-                '-//W3C//DTD XHTML 1.0 Strict//EN',
-                'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
+            $action->startXML('html');
 
             $language = $action->getLanguage();
 
@@ -118,13 +116,13 @@ class FBConnectPlugin extends Plugin
             // but we actually do, for IE and Safari. Gar.
 
             $html = sprintf('<script type="text/javascript">
-                                window.onload = function () {
+                                $(document).ready(function () {
                                     FB_RequireFeatures(
                                         ["XFBML"],
                                             function() {
                                                 FB.init("%s", "../xd_receiver.html");
                                             }
-                                        ); }
+                                        ); });
 
                                 function goto_login() {
                                     window.location = "%s";
@@ -146,11 +144,7 @@ class FBConnectPlugin extends Plugin
     function onEndShowFooter($action)
     {
         if ($this->reqFbScripts($action)) {
-
-            $action->element('script',
-                array('type' => 'text/javascript',
-                      'src'  => 'http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php'),
-                      '');
+            $action->script('http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php');
         }
     }
 
@@ -158,10 +152,7 @@ class FBConnectPlugin extends Plugin
     {
 
         if ($this->reqFbScripts($action)) {
-
-            $action->element('link', array('rel' => 'stylesheet',
-                'type' => 'text/css',
-                'href' => common_path('plugins/FBConnect/FBConnectPlugin.css')));
+            $action->cssLink('plugins/FBConnect/FBConnectPlugin.css');
         }
     }
 
@@ -223,7 +214,7 @@ class FBConnectPlugin extends Plugin
                     $fbuid    = $facebook->get_loggedin_user();
 
                 } catch (Exception $e) {
-                    common_log(LOG_WARNING,
+                    common_log(LOG_WARNING, 'Facebook Connect Plugin - ' .
                         'Problem getting Facebook user: ' .
                             $e->getMessage());
                 }
@@ -351,7 +342,7 @@ class FBConnectPlugin extends Plugin
     }
 
     function onStartLogout($action)
-    {
+{
         $action->logout();
         $fbuid = $this->loggedIn();
 
@@ -360,8 +351,9 @@ class FBConnectPlugin extends Plugin
                 $facebook = getFacebook();
                 $facebook->expire_session();
             } catch (Exception $e) {
-                common_log(LOG_WARNING, 'Could\'t logout of Facebook: ' .
-                    $e->getMessage());
+                common_log(LOG_WARNING, 'Facebook Connect Plugin - ' .
+                           'Could\'t logout of Facebook: ' .
+                           $e->getMessage());
             }
         }
 
@@ -385,7 +377,8 @@ class FBConnectPlugin extends Plugin
             }
 
         } catch (Exception $e) {
-            common_log(LOG_WARNING, "Facebook client failure requesting profile pic!");
+            common_log(LOG_WARNING, 'Facebook Connect Plugin - ' .
+                       "Facebook client failure requesting profile pic!");
         }
 
        return $url;

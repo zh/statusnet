@@ -25,12 +25,14 @@ class ArrayWrapper
 {
     var $_items = null;
     var $_count = 0;
+    var $N = 0;
     var $_i = -1;
 
     function __construct($items)
     {
         $this->_items = $items;
         $this->_count = count($this->_items);
+        $this->N = $this->_count;
     }
 
     function fetch()

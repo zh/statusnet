@@ -43,7 +43,12 @@ if(common_config('twitterbridge','enabled')) {
     echo "twitterstatusfetcher.php ";
 }
 echo "ombqueuehandler.php ";
-echo "twitterqueuehandler.php ";
+if (common_config('twitter', 'enabled')) {
+    echo "twitterqueuehandler.php ";
+    echo "synctwitterfriends.php ";
+}
 echo "facebookqueuehandler.php ";
 echo "pingqueuehandler.php ";
-echo "smsqueuehandler.php ";
+if (common_config('sms', 'enabled')) {
+    echo "smsqueuehandler.php ";
+}

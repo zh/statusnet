@@ -115,8 +115,8 @@ class AllrssAction extends Rss10Action
                    'link' => common_local_url('all',
                                              array('nickname' =>
                                                    $user->nickname)),
-                   'description' => sprintf(_('Feed for friends of %s'),
-                                            $user->nickname));
+                   'description' => sprintf(_('Updates from %1$s and friends on %2$s!'),
+                                            $user->nickname, common_config('site', 'name')));
         return $c;
     }
 

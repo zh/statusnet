@@ -17,6 +17,8 @@
  */
 
 $(document).ready(function(){
+	var counterBlackout = false;
+	
 	// count character on keyup
 	function counter(event){
          if (maxLength <= 0) {
@@ -25,20 +27,43 @@ $(document).ready(function(){
 		var currentLength = $("#notice_data-text").val().length;
 		var remaining = maxLength - currentLength;
 		var counter = $("#notice_text-count");
-		counter.text(remaining);
+		
+		if (remaining.toString() != counter.text()) {
+		    if (!counterBlackout || remaining == 0) {
+                        if (counter.text() != String(remaining)) {
+                            counter.text(remaining);
+		        }
 
-		if (remaining <= 0) {
-			$("#form_notice").addClass("warning");
-		} else {
-			$("#form_notice").removeClass("warning");
-		}
+                        if (remaining < 0) {
+                            $("#form_notice").addClass("warning");
+                        } else {
+                            $("#form_notice").removeClass("warning");
+                        }
+                        // Skip updates for the next 500ms.
+                        // On slower hardware, updating on every keypress is unpleasant.
+                        if (!counterBlackout) {
+                            counterBlackout = true;
+                            window.setTimeout(clearCounterBlackout, 500);
+                        }
+                    }
+                }
+	}
+	
+	function clearCounterBlackout() {
+		// Allow keyup events to poke the counter again
+		counterBlackout = false;
+		// Check if the string changed since we last looked
+		counter(null);
 	}
 
 	function submitonreturn(event) {
-		if (event.keyCode == 13) {
+		if (event.keyCode == 13 || event.keyCode == 10) {
+			// iPhone sends \n not \r for 'return'
 			$("#form_notice").submit();
 			event.preventDefault();
 			event.stopPropagation();
+			$("#notice_data-text").blur();
+			$("body").focus();
 			return false;
 		}
 		return true;
@@ -67,6 +92,10 @@ $(document).ready(function(){
 	// XXX: refactor this code
 
 	var favoptions = { dataType: 'xml',
+					   beforeSubmit: function(data, target, options) {
+					   							$(target).addClass('processing');
+												return true;
+											  },
 					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
 												var dis = new_form.id;
 												var fav = dis.replace('disfavor', 'favor');
@@ -76,6 +105,10 @@ $(document).ready(function(){
 					 };
 
 	var disoptions = { dataType: 'xml',
+					   beforeSubmit: function(data, target, options) {
+					   							$(target).addClass('processing');
+												return true;
+											  },
 					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
 												var fav = new_form.id;
 												var dis = fav.replace('favor', 'disfavor');
@@ -258,7 +291,7 @@ function NoticeReply() {
         $('#content .notice').each(function() {
             var notice = $(this)[0];
             $($('.notice_reply', notice)[0]).click(function() {
-                var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname');
+                var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname.uid');
                 NoticeReplySet(nickname.text(), $($('.notice_id', notice)[0]).text());
                 return false;
             });
@@ -269,11 +302,16 @@ function NoticeReply() {
 function NoticeReplySet(nick,id) {
 	rgx_username = /^[0-9a-zA-Z\-_.]*$/;
 	if (nick.match(rgx_username)) {
-		replyto = "@" + nick + " ";
-		if ($("#notice_data-text").length) {
-			$("#notice_data-text").val(replyto);
+		var text = $("#notice_data-text");
+		if (text.length) {
+			replyto = "@" + nick + " ";
+			text.val(replyto + text.val().replace(RegExp(replyto, 'i'), ''));
 			$("#form_notice input#notice_in-reply-to").val(id);
-			$("#notice_data-text").focus();
+			if (text.get(0).setSelectionRange) {
+				var len = text.val().length;
+				text.get(0).setSelectionRange(len,len);
+				text.get(0).focus();
+			}
 			return false;
 		}
 	}

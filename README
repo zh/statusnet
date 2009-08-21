@@ -553,25 +553,53 @@ our kind of hacky home-grown DB-based queue solution. See the "queues"
 config section below for how to configure to use STOMP. As of this
 writing, the software has been tested with ActiveMQ (
 
-Twitter Friends Syncing
------------------------
+Twitter Bridge
+--------------
 
-As of Laconica 0.6.3, users may set a flag in their settings ("Subscribe
-to my Twitter friends here" under the Twitter tab) to have Laconica
-attempt to locate and subscribe to "friends" (people they "follow") on
-Twitter who also have accounts on your Laconica system, and who have
-previously set up a link for automatically posting notices to Twitter.
+* OAuth
 
-Optionally, there is a script (./scripts/synctwitterfriends.php), meant
-to be run periodically from a job scheduler (e.g.: cron under Unix), to
-look for new additions to users' friends lists. Note that the friends
-syncing only subscribes users to each other, it does not unsubscribe
-users when they stop following each other on Twitter.
+As of 0.8.1, OAuth is used to to access protected resources on Twitter
+instead of HTTP Basic Auth.  To use Twitter bridging you will need
+to register your instance of Laconica as an application on Twitter
+(http://twitter.com/apps), and update the following variables in your
+config.php with the consumer key and secret Twitter generates for you:
 
-Sample cron job:
+      $config['twitter']['consumer_key']    = 'YOURKEY';
+      $config['twitter']['consumer_secret'] = 'YOURSECRET';
 
-# Update Twitter friends subscriptions every half hour
-0,30 * * * * /path/to/php /path/to/laconica/scripts/synctwitterfriends.php>&/dev/null
+When registering your application with Twitter set the type to "Browser"
+and your Callback URL to:
+
+      http://example.org/mublog/twitter/authorization
+
+The default access type should be, "Read & Write".
+
+* Importing statuses from Twitter
+
+To allow your users to import their friends' Twitter statuses, you will
+need to enable the bidirectional Twitter bridge in config.php:
+
+      $config['twitterbridge']['enabled'] = true;
+
+and run the TwitterStatusFetcher daemon (scripts/twitterstatusfetcher.php).
+Additionally, you will want to set the integration source variable,
+which will keep notices posted to Twitter via Laconica from looping
+back.  The integration source should be set to the name of your
+application, exactly as you specified it on the settings page for your
+Laconica application on Twitter, e.g.:
+
+      $config['integration']['source'] = 'YourApp';
+
+* Twitter Friends Syncing
+
+Users may set a flag in their settings ("Subscribe to my Twitter friends
+here" under the Twitter tab) to have Laconica attempt to locate and
+subscribe to "friends" (people they "follow") on Twitter who also have
+accounts on your Laconica system, and who have previously set up a link
+for automatically posting notices to Twitter.
+
+As of 0.8.0, this is no longer accomplished via a cron job. Instead you
+must run the SyncTwitterFriends daemon (scripts/synctwitterfreinds.php).
 
 Built-in Facebook Application
 -----------------------------
@@ -940,6 +968,8 @@ closed: If set to 'true', will disallow registration on your site.
 	the service, *then* set this variable to 'true'.
 inviteonly: If set to 'true', will only allow registration if the user
 	    was invited by an existing user.
+openidonly: If set to 'true', will only allow registrations and logins
+	    through OpenID.
 private: If set to 'true', anonymous users will be redirected to the
          'login' page. Also, API methods that normally require no
          authentication will require it. Note that this does not turn
@@ -1170,6 +1200,14 @@ For configuring invites.
 
 enabled: Whether to allow users to send invites. Default true.
 
+openid
+------
+
+For configuring OpenID.
+
+enabled: Whether to allow users to register and login using OpenID. Default
+	 true.
+
 tag
 ---
 
@@ -1230,6 +1268,30 @@ instead of your database server to search for users and notices.
 enabled: Set to true to enable. Default false.
 server: a string with the hostname of the sphinx server.
 port: an integer with the port number of the sphinx server.
+
+emailpost
+---------
+
+For post-by-email.
+
+enabled: Whether to enable post-by-email. Defaults to true. You will
+         also need to set up maildaemon.php.
+
+sms
+---
+
+For SMS integration.
+
+enabled: Whether to enable SMS integration. Defaults to true. Queues
+         should also be enabled.
+
+twitter
+-------
+
+For Twitter integration
+
+enabled: Whether to enable Twitter integration. Defaults to true.
+         Queues should also be enabled.
 
 integration
 -----------
