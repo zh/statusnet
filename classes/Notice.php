@@ -152,7 +152,7 @@ class Notice extends Memcached_DataObject
 
         $final = common_shorten_links($content);
 
-        if (mb_strlen($final) > 140) {
+        if (Notice::contentTooLong($final)) {
             common_log(LOG_INFO, 'Rejecting notice that is too long.');
             return _('Problem saving notice. Too long.');
         }
