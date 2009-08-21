@@ -62,7 +62,7 @@ class DocAction extends Action
         $this->title  = $this->trimmed('title');
         $this->output = null;
 
-        if (Event::handle('StartLoadDoc', &$this->title, &$this->output)) {
+        if (Event::handle('StartLoadDoc', array(&$this->title, &$this->output))) {
 
             $this->filename = INSTALLDIR.'/doc-src/'.$this->title;
             if (!file_exists($this->filename)) {
@@ -73,7 +73,7 @@ class DocAction extends Action
             $c = file_get_contents($this->filename);
             $this->output = common_markup_to_html($c);
 
-            Event::handle('EndLoadDoc', $this->title, &$this->output);
+            Event::handle('EndLoadDoc', array($this->title, &$this->output));
         }
 
         $this->showPage();
