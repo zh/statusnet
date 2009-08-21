@@ -42,7 +42,7 @@ class UTF8FixerUpper
     {
         $this->args = $args;
 
-        if (array_key_exists('max_date', $args)) {
+        if (!empty($args['max_date'])) {
             $this->max_date = strftime('%Y-%m-%d %H:%M:%S', strtotime($args['max_date']));
         } else {
             $this->max_date = strftime('%Y-%m-%d %H:%M:%S', time());

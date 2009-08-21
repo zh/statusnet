@@ -214,7 +214,7 @@ class FBConnectPlugin extends Plugin
                     $fbuid    = $facebook->get_loggedin_user();
 
                 } catch (Exception $e) {
-                    common_log(LOG_WARNING,
+                    common_log(LOG_WARNING, 'Facebook Connect Plugin - ' .
                         'Problem getting Facebook user: ' .
                             $e->getMessage());
                 }
@@ -342,7 +342,7 @@ class FBConnectPlugin extends Plugin
     }
 
     function onStartLogout($action)
-    {
+{
         $action->logout();
         $fbuid = $this->loggedIn();
 
@@ -351,8 +351,9 @@ class FBConnectPlugin extends Plugin
                 $facebook = getFacebook();
                 $facebook->expire_session();
             } catch (Exception $e) {
-                common_log(LOG_WARNING, 'Could\'t logout of Facebook: ' .
-                    $e->getMessage());
+                common_log(LOG_WARNING, 'Facebook Connect Plugin - ' .
+                           'Could\'t logout of Facebook: ' .
+                           $e->getMessage());
             }
         }
 
@@ -376,7 +377,8 @@ class FBConnectPlugin extends Plugin
             }
 
         } catch (Exception $e) {
-            common_log(LOG_WARNING, "Facebook client failure requesting profile pic!");
+            common_log(LOG_WARNING, 'Facebook Connect Plugin - ' .
+                       "Facebook client failure requesting profile pic!");
         }
 
        return $url;

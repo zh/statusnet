@@ -186,9 +186,9 @@ class FBConnectSettingsAction extends ConnectSettingsAction
                 $facebook->clear_cookie_state();
 
             } catch (Exception $e) {
-                common_log(LOG_WARNING,
-                    'Couldn\'t clear Facebook cookies: ' .
-                        $e->getMessage());
+                common_log(LOG_WARNING, 'Facebook Connect Plugin - ' .
+                           'Couldn\'t clear Facebook cookies: ' .
+                           $e->getMessage());
             }
 
             $this->showForm(_('You have disconnected from Facebook.'), true);
