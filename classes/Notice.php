@@ -1352,4 +1352,20 @@ class Notice extends Memcached_DataObject
             return $last->id;
         }
     }
+
+    static function maxContent()
+    {
+        $contentlimit = common_config('notice', 'contentlimit');
+        // null => use global limit (distinct from 0!)
+        if (is_null($contentlimit)) {
+            $contentlimit = common_config('site', 'textlimit');
+        }
+        return $contentlimit;
+    }
+
+    static function contentTooLong($content)
+    {
+        $contentlimit = self::maxContent();
+        return ($contentlimit > 0 && !empty($content) && (mb_strlen($content) > $contentlimit));
+    }
 }
