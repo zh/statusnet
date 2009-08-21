@@ -144,9 +144,10 @@ class NewmessageAction extends Action
         } else {
             $content_shortened = common_shorten_links($this->content);
 
-            if (mb_strlen($content_shortened) > 140) {
-                $this->showForm(_('That\'s too long. ' .
-                    'Max message size is 140 chars.'));
+            if (Message::contentTooLong($content_shortened)) {
+                $this->showForm(sprintf(_('That\'s too long. ' .
+                                          'Max message size is %d chars.'),
+                                        Message::maxContent()));
                 return;
             }
         }

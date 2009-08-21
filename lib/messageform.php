@@ -140,12 +140,19 @@ class MessageForm extends Form
                                               'rows' => 4,
                                               'name' => 'content'),
                             ($this->content) ? $this->content : '');
-        $this->out->elementStart('dl', 'form_note');
-        $this->out->element('dt', null, _('Available characters'));
-        $this->out->element('dd', array('id' => 'notice_text-count'),
-                            '140');
-        $this->out->elementEnd('dl');
 
+        $contentLimit = Message::maxContent();
+
+        $this->out->element('script', array('type' => 'text/javascript'),
+                            'maxLength = ' . $contentLimit . ';');
+
+        if ($contentLimit > 0) {
+            $this->out->elementStart('dl', 'form_note');
+            $this->out->element('dt', null, _('Available characters'));
+            $this->out->element('dd', array('id' => 'notice_text-count'),
+                                $contentLimit);
+            $this->out->elementEnd('dl');
+        }
     }
 
     /**
