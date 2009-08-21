@@ -570,7 +570,8 @@ function common_linkify($url) {
 
 function common_shorten_links($text)
 {
-    if (mb_strlen($text) <= 140) return $text;
+    $maxLength = Notice::maxContent();
+    if ($maxLength == 0 || mb_strlen($text) <= $maxLength) return $text;
     return common_replace_urls_callback($text, array('File_redirection', 'makeShort'));
 }
 
