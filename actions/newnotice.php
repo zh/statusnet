@@ -162,9 +162,10 @@ class NewnoticeAction extends Action
             $this->clientError(_('No content!'));
         } else {
             $content_shortened = common_shorten_links($content);
-            if (mb_strlen($content_shortened) > 140) {
-                $this->clientError(_('That\'s too long. '.
-                                     'Max notice size is 140 chars.'));
+            if (Notice::contentTooLong($content_shortened)) {
+                $this->clientError(sprintf(_('That\'s too long. '.
+                                             'Max notice size is %d chars.'),
+                                           Notice::maxContent()));
             }
         }
 
@@ -241,9 +242,10 @@ class NewnoticeAction extends Action
             $short_fileurl = common_shorten_url($fileurl);
             $content_shortened .= ' ' . $short_fileurl;
 
-            if (mb_strlen($content_shortened) > 140) {
+            if (Notice::contentTooLong($content_shortened)) {
                 $this->deleteFile($filename);
-                $this->clientError(_('Max notice size is 140 chars, including attachment URL.'));
+                $this->clientError(sprintf(_('Max notice size is %d chars, including attachment URL.'),
+                                           Notice::maxContent()));
             }
 
             // Also, not sure this is necessary -- Zach

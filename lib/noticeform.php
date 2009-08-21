@@ -83,7 +83,7 @@ class NoticeForm extends Form
 
         $this->action  = $action;
         $this->content = $content;
-        
+
         if ($user) {
             $this->user = $user;
         } else {
@@ -117,7 +117,6 @@ class NoticeForm extends Form
         return common_local_url('newnotice');
     }
 
-
     /**
      * Legend of the Form
      *
@@ -127,7 +126,6 @@ class NoticeForm extends Form
     {
         $this->out->element('legend', null, _('Send a notice'));
     }
-
 
     /**
      * Data elements
@@ -145,11 +143,20 @@ class NoticeForm extends Form
                                               'rows' => 4,
                                               'name' => 'status_textarea'),
                             ($this->content) ? $this->content : '');
-        $this->out->elementStart('dl', 'form_note');
-        $this->out->element('dt', null, _('Available characters'));
-        $this->out->element('dd', array('id' => 'notice_text-count'),
-                            '140');
-        $this->out->elementEnd('dl');
+
+        $contentLimit = Notice::maxContent();
+
+        $this->out->element('script', array('type' => 'text/javascript'),
+                            'maxLength = ' . $contentLimit . ';');
+
+        if ($contentLimit > 0) {
+            $this->out->elementStart('dl', 'form_note');
+            $this->out->element('dt', null, _('Available characters'));
+            $this->out->element('dd', array('id' => 'notice_text-count'),
+                                $contentLimit);
+            $this->out->elementEnd('dl');
+        }
+
         if (common_config('attachments', 'uploads')) {
             $this->out->element('label', array('for' => 'notice_data-attach'),_('Attach'));
             $this->out->element('input', array('id' => 'notice_data-attach',
