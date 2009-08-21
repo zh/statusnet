@@ -67,4 +67,20 @@ class Message extends Memcached_DataObject
 
         return $msg;
     }
+
+    static function maxContent()
+    {
+        $desclimit = common_config('message', 'contentlimit');
+        // null => use global limit (distinct from 0!)
+        if (is_null($desclimit)) {
+            $desclimit = common_config('site', 'textlimit');
+        }
+        return $desclimit;
+    }
+
+    static function contentTooLong($content)
+    {
+        $contentlimit = self::maxContent();
+        return ($contentlimit > 0 && !empty($content) && (mb_strlen($content) > $contentlimit));
+    }
 }
