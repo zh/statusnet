@@ -76,11 +76,10 @@ class FinishremotesubscribeAction extends Action
 
         /* Create user objects for both users. Do it early for request
            validation. */
-        $listenee = $service->getListeneeURI();
-        $user = User::staticGet('uri', $listenee);
+        $user = User::staticGet('uri', $service->getListeneeURI());
 
         if (!$user) {
-            $this->clientError(_('User being listened to doesn\'t exist.'));
+            $this->clientError(_('User being listened to does not exist.'));
             return;
         }
 
@@ -91,21 +90,31 @@ class FinishremotesubscribeAction extends Action
             return;
         }
 
+        $remote = Remote_profile::staticGet('uri', $service->getListenerURI());
+
+        $profile = Profile::staticGet($remote->id);
+
+        if ($user->hasBlocked($profile)) {
+            $this->clientError(_('That user has blocked you from subscribing.'));
+            return;
+        }
+
         /* Perform the handling itself via libomb. */
         try {
-            $service->finishAuthorization($listenee);
+            $service->finishAuthorization();
         } catch (OAuthException $e) {
             if ($e->getMessage() == 'The authorized token does not equal the ' .
                                     'submitted token.') {
-                $this->clientError(_('Not authorized.'));
+                $this->clientError(_('You are not authorized.'));
                 return;
             } else {
-                $this->clientError(_('Couldn\'t convert request token to ' .
+                $this->clientError(_('Could not convert request token to ' .
                                      'access token.'));
                 return;
             }
         } catch (OMB_RemoteServiceException $e) {
-            $this->clientError(_('Unknown version of OMB protocol.'));
+            $this->clientError(_('Remote service uses unknown version of ' .
+                                 'OMB protocol.'));
             return;
         } catch (Exception $e) {
             common_debug('Got exception ' . print_r($e, true), __FILE__);
@@ -115,8 +124,6 @@ class FinishremotesubscribeAction extends Action
 
         /* The service URLs are not accessible from datastore, so setting them
            after insertion of the profile. */
-        $remote = Remote_profile::staticGet('uri', $service->getListenerURI());
-
         $orig_remote = clone($remote);
 
         $remote->postnoticeurl    =

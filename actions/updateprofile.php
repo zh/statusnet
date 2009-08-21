@@ -48,9 +48,31 @@ require_once INSTALLDIR.'/extlib/libomb/service_provider.php';
 class UpdateprofileAction extends Action
 {
 
+    /**
+     * For initializing members of the class.
+     *
+     * @param array $argarray misc. arguments
+     *
+     * @return boolean true
+     */
+    function prepare($argarray)
+    {
+        parent::prepare($argarray);
+        $license      = $_POST['omb_listenee_license'];
+        $site_license = common_config('license', 'url');
+        if (!common_compatible_license($license, $site_license)) {
+            $this->clientError(sprintf(_('Listenee stream license ‘%s’ is not '.
+                                          'compatible with site license ‘%s’.'),
+                                       $license, $site_license);
+            return false;
+        }
+        return true;
+    }
+
     function handle($args)
     {
         parent::handle($args);
+
         try {
             $srv = new OMB_Service_Provider(null, omb_oauth_datastore(),
                                             omb_oauth_server());
