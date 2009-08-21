@@ -196,4 +196,30 @@ class OpenIDPlugin extends Plugin
         $action->raw($output);
         return true;
     }
+
+    function onStartLoadDoc(&$title, &$output)
+    {
+        if ($title == 'openid')
+        {
+            $filename = INSTALLDIR.'/plugins/OpenID/doc-src/openid';
+
+            $c = file_get_contents($filename);
+            $output = common_markup_to_html($c);
+            return false; // success!
+        }
+
+        return true;
+    }
+
+    function onEndLoadDoc($title, &$output)
+    {
+        if ($title == 'help')
+        {
+            $menuitem = '* [OpenID](%%doc.openid%%) - what OpenID is and how to use it with this service';
+
+            $output .= common_markup_to_html($menuitem);
+        }
+
+        return true;
+    }
 }
