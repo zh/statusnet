@@ -301,7 +301,8 @@ class User_group extends Memcached_DataObject
     static function maxDescription()
     {
         $desclimit = common_config('group', 'desclimit');
-        if (empty($desclimit)) {
+        // null => use global limit (distinct from 0!)
+        if (is_null($desclimit)) {
             $desclimit = common_config('site', 'textlimit');
         }
         return $desclimit;
@@ -310,6 +311,6 @@ class User_group extends Memcached_DataObject
     static function descriptionTooLong($desc)
     {
         $desclimit = self::maxDescription();
-        return (!empty($desclimit) && !empty($desc) && (mb_strlen($desc) > $desclimit));
+        return ($desclimit > 0 && !empty($desc) && (mb_strlen($desc) > $desclimit));
     }
 }
