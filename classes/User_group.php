@@ -297,4 +297,19 @@ class User_group extends Memcached_DataObject
 
         return $ids;
     }
+
+    static function maxDescription()
+    {
+        $desclimit = common_config('group', 'desclimit');
+        if (empty($desclimit)) {
+            $desclimit = common_config('site', 'textlimit');
+        }
+        return $desclimit;
+    }
+
+    static function descriptionTooLong($desc)
+    {
+        $desclimit = self::maxDescription();
+        return (!empty($desclimit) && !empty($desc) && (mb_strlen($desc) > $desclimit));
+    }
 }
