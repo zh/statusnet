@@ -5,26 +5,28 @@ require_once 'OAuth.php';
 /**
  * Data access interface
  *
- * This interface specifies data access methods libomb needs. It
- * should be implemented by libomb users.
- * OMB_Datastore is libomb’s main interface to the application’s data.
+ * This interface specifies data access methods libomb needs. It should be
+ * implemented by libomb users. OMB_Datastore is libomb’s main interface to the
+ * application’s data. Objects corresponding to this interface are used in
+ * OMB_Service_Provider and OMB_Service_Consumer.
+ *
+ * Note that it’s implemented as a class since OAuthDataStore is as well a
+ * class, though only declaring methods.
+ *
+ * OMB_Datastore extends OAuthDataStore with two OAuth-related methods for token
+ * revoking and authorizing and all OMB-related methods.
+ * Refer to OAuth.php for a complete specification of OAuth-related methods.
  *
  * It is the user’s duty to signal and handle errors. libomb does not check
  * return values nor handle exceptions. It is suggested to use exceptions.
  * Note that lookup_token and getProfile return null if the requested object
  * is not available. This is NOT an error and should not raise an exception.
  * Same applies for lookup_nonce which returns a boolean value. These methods
- * may nevertheless throw an exception, for example in case of a storage error.
+ * may nevertheless throw an exception, for example in case of a storage errors.
  *
- * Objects corresponding to this interface are used in OMB_Service_Provider and
- * OMB_Service_Consumer.
- *
- * OMB_Datastore extends OAuthDataStore with two OAuth-related methods for token
- * revoking and authorizing and all OMB-related methods.
- * Refer to OAuth.php for a complete specification of OAuth-related methods.
- *
- * Note that it’s implemented as a class since OAuthDataStore is as well a
- * class, though only declaring methods.
+ * Most of the parameters passed to these methods are unescaped and unverified
+ * user input. Therefore they should be handled with extra care to avoid
+ * security problems like SQL injections.
  *
  * PHP version 5
  *
@@ -59,7 +61,7 @@ class OMB_Datastore extends OAuthDataStore {
    * Revokes the authorization token specified by $token_key.
    * Throws exceptions in case of error.
    *
-   * @param string $token_key The token to be revoked
+   * @param string $token_key The key of the token to be revoked
    *
    * @access public
    **/
@@ -73,7 +75,7 @@ class OMB_Datastore extends OAuthDataStore {
    * Authorizes the authorization token specified by $token_key.
    * Throws exceptions in case of error.
    *
-   * @param string $token_key The token to be authorized
+   * @param string $token_key The key of the token to be authorized
    *
    * @access public
    **/

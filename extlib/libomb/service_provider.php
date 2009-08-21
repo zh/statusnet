@@ -111,6 +111,12 @@ class OMB_Service_Provider {
    * Throws exceptions on failures. Returns an OMB_Profile object representing
    * the remote user.
    *
+   * The OMB_Profile passed to the constructor of OMB_Service_Provider should
+   * not represent the user specified in the authorization request, but the one
+   * currently logged in to the service. This condition being satisfied,
+   * handleUserAuth will check whether the listener specified in the request is
+   * identical to the logged in user.
+   *
    * @access public
    *
    * @return OMB_Profile The profile of the soon-to-be subscribed, i. e. remote
@@ -150,6 +156,10 @@ class OMB_Service_Provider {
     /* Store given callback for later use. */
     if (isset($_GET['oauth_callback']) && $_GET['oauth_callback'] !== '') {
       $this->callback = $_GET['oauth_callback'];
+      if (!OMB_Helper::validateURL($this->callback)) {
+        throw OMB_RemoteServiceException::forRequest(OAUTH_ENDPOINT_AUTHORIZE,
+                                              'Invalid callback URL specified');
+      }
     }
     $this->remote_user = OMB_Profile::fromParameters($_GET, 'omb_listenee');
 
@@ -205,13 +215,16 @@ class OMB_Service_Provider {
   /**
    * Echo an access token
    *
-   * Outputs an access token for the query found in $_GET or $_POST.
+   * Outputs an access token for the query found in $_POST. OMB 0.1 specifies
+   * that the access token request has to be a POST even if OAuth allows GET as
+   * well.
    *
    * @access public
    **/
   public function writeAccessToken() {
     OMB_Helper::removeMagicQuotesFromRequest();
-    echo $this->getOAuthServer()->fetch_access_token(OAuthRequest::from_request());
+    echo $this->getOAuthServer()->fetch_access_token(
+                                            OAuthRequest::from_request('POST'));
   }
 
   /**
@@ -235,7 +248,8 @@ class OMB_Service_Provider {
   /**
    * Handle a postnotice request
    *
-   * Handles a postnotice request posted to this service.
+   * Handles a postnotice request posted to this service. Saves the notice
+   * through the OMB_Datastore.
    *
    * @access public
    *
@@ -264,7 +278,7 @@ class OMB_Service_Provider {
   protected function handleOMBRequest($uri) {
 
     OMB_Helper::removeMagicQuotesFromRequest();
-    $req = OAuthRequest::from_request();
+    $req = OAuthRequest::from_request('POST');
     $listenee =  $req->get_parameter('omb_listenee');
 
     try {

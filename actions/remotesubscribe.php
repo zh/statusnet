@@ -153,12 +153,11 @@ class RemotesubscribeAction extends Action
         $this->profile_url = $this->trimmed('profile_url');
 
         if (!$this->profile_url) {
-            $this->showForm(_('No such user.'));
+            $this->showForm(_('No such user'));
             return;
         }
 
-        if (!Validate::uri($this->profile_url,
-                           array('allowed_schemes' => array('http', 'https')))) {
+        if (!common_valid_http_url($this->profile_url)) {
             $this->showForm(_('Invalid profile URL (bad format)'));
             return;
         }
@@ -176,14 +175,14 @@ class RemotesubscribeAction extends Action
         if ($service->getServiceURI(OAUTH_ENDPOINT_REQUEST) ==
             common_local_url('requesttoken') ||
             User::staticGet('uri', $service->getRemoteUserURI())) {
-            $this->showForm(_('That\'s a local profile! Login to subscribe.'));
+            $this->showForm(_('That’s a local profile! Login to subscribe.'));
             return;
         }
 
         try {
             $service->requestToken();
         } catch (OMB_RemoteServiceException $e) {
-            $this->showForm(_('Couldn\'t get a request token.'));
+            $this->showForm(_('Couldn’t get a request token.'));
             return;
         }
 

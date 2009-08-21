@@ -47,12 +47,28 @@ require_once INSTALLDIR.'/extlib/libomb/service_provider.php';
  */
 class PostnoticeAction extends Action
 {
+    /**
+     * For initializing members of the class.
+     *
+     * @param array $argarray misc. arguments
+     *
+     * @return boolean true
+     */
+    function prepare($argarray)
+    {
+        parent::prepare($argarray);
+        try {
+            $this->checkNotice();
+        } catch (Exception $e) {
+            $this->clientError($e->getMessage());
+            return false;
+        }
+        return true;
+    }
+
     function handle($args)
     {
         parent::handle($args);
-        if (!$this->checkNotice()) {
-            return;
-        }
         try {
             $srv = new OMB_Service_Provider(null, omb_oauth_datastore(),
                                             omb_oauth_server());
@@ -67,10 +83,15 @@ class PostnoticeAction extends Action
     {
         $content = common_shorten_links($_POST['omb_notice_content']);
         if (mb_strlen($content) > 140) {
-            $this->clientError(_('Invalid notice content'), 400);
-            return false;
+            throw new Exception(_('The notice content is too long.'));
         }
-        return true;
+        $license      = $_POST['omb_notice_license'];
+        $site_license = common_config('license', 'url');
+        if ($license && !common_compatible_license($license, $site_license)) {
+            throw new Exception(sprintf(_('Notice license ‘%s’ is not ' .
+                                          'compatible with site license ‘%s’.'),
+                                        $license, $site_license));
+        }
     }
 }
 ?>

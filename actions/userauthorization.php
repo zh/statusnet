@@ -80,7 +80,7 @@ class UserauthorizationAction extends Action
             try {
                 $this->validateOmb();
                 $srv = new OMB_Service_Provider(
-                        profile_to_omb_profile($_GET['omb_listener'], $profile),
+                        profile_to_omb_profile($user->uri, $profile),
                         omb_oauth_datastore());
 
                 $remote_user = $srv->handleUserAuth();
@@ -111,8 +111,8 @@ class UserauthorizationAction extends Action
     {
         $this->element('p', null, _('Please check these details to make sure '.
                                     'that you want to subscribe to this ' .
-                                    'user\'s notices. If you didn\'t just ask ' .
-                                    'to subscribe to someone\'s notices, '.
+                                    'user’s notices. If you didn’t just ask ' .
+                                    'to subscribe to someone’s notices, '.
                                     'click “Reject”.'));
     }
 
@@ -249,7 +249,7 @@ class UserauthorizationAction extends Action
         common_show_header(_('Subscription authorized'));
         $this->element('p', null,
                        _('The subscription has been authorized, but no '.
-                         'callback URL was passed. Check with the site\'s ' .
+                         'callback URL was passed. Check with the site’s ' .
                          'instructions for details on how to authorize the ' .
                          'subscription. Your subscription token is:'));
         $this->element('blockquote', 'token', $tok);
@@ -261,7 +261,7 @@ class UserauthorizationAction extends Action
         common_show_header(_('Subscription rejected'));
         $this->element('p', null,
                        _('The subscription has been rejected, but no '.
-                         'callback URL was passed. Check with the site\'s ' .
+                         'callback URL was passed. Check with the site’s ' .
                          'instructions for details on how to fully reject ' .
                          'the subscription.'));
         common_show_footer();
@@ -295,16 +295,19 @@ class UserauthorizationAction extends Action
 
         $user = User::staticGet('uri', $listener);
         if (!$user) {
-            throw new Exception("Listener URI '$listener' not found here");
+            throw new Exception(sprintf(_('Listener URI ‘%s’ not found here'),
+                                        $listener));
         }
-        $cur = common_current_user();
-        if ($cur->id != $user->id) {
-            throw new Exception('Can\'t subscribe for another user!');
+
+        if (strlen($listenee) > 255) {
+            throw new Exception(sprintf(_('Listenee URI ‘%s’ is too long.'),
+                                        $listenee));
         }
 
         $other = User::staticGet('uri', $listenee);
         if ($other) {
-            throw new Exception("Listenee URI '$listenee' is local user");
+            throw new Exception(sprintf(_('Listenee URI ‘%s’ is a local user.'),
+                                        $listenee));
         }
 
         $remote = Remote_profile::staticGet('uri', $listenee);
@@ -318,27 +321,34 @@ class UserauthorizationAction extends Action
         }
 
         if ($profile == common_profile_url($nickname)) {
-            throw new Exception("Profile URL '$profile' is for a local user.");
+            throw new Exception(sprintf(_('Profile URL ‘%s’ is for a local user.'),
+                                        $profile));
+
         }
 
         $license      = $_GET['omb_listenee_license'];
         $site_license = common_config('license', 'url');
         if (!common_compatible_license($license, $site_license)) {
-            throw new Exception("Listenee stream license '$license' is not " .
-                                "compatible with site license '$site_license'.");
+            throw new Exception(sprintf(_('Listenee stream license ‘%s’ is not ' .
+                                          'compatible with site license ‘%s’.'),
+                                        $license, $site_license));
         }
+
         $avatar = $_GET['omb_listenee_avatar'];
         if ($avatar) {
             if (!common_valid_http_url($avatar) || strlen($avatar) > 255) {
-                throw new Exception("Invalid avatar URL '$avatar'");
+                throw new Exception(sprintf(_('Avatar URL ‘%s’ is not valid.'),
+                                            $avatar));
             }
             $size = @getimagesize($avatar);
             if (!$size) {
-                throw new Exception("Can't read avatar URL '$avatar'.");
+                throw new Exception(sprintf(_('Can’t read avatar URL ‘%s’.'),
+                                            $avatar));
             }
             if (!in_array($size[2], array(IMAGETYPE_GIF, IMAGETYPE_JPEG,
                                           IMAGETYPE_PNG))) {
-                throw new Exception("Wrong image type for '$avatar'");
+                throw new Exception(sprintf(_('Wrong image type for avatar URL '.
+                                              '‘%s’.'), $avatar));
             }
         }
     }
