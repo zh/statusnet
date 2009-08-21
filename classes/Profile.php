@@ -463,7 +463,7 @@ class Profile extends Memcached_DataObject
 
     static function maxBio()
     {
-        $biolimit = common_config('message', 'biolimit');
+        $biolimit = common_config('profile', 'biolimit');
         // null => use global limit (distinct from 0!)
         if (is_null($biolimit)) {
             $biolimit = common_config('site', 'textlimit');
