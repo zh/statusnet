@@ -141,9 +141,10 @@ class Twitapidirect_messagesAction extends TwitterapiAction
                 $code = 406, $apidata['content-type']);
         } else {
             $content_shortened = common_shorten_links($content);
-            if (mb_strlen($content_shortened) > 140) {
-                $this->clientError(_('That\'s too long. Max message size is 140 chars.'),
-                    $code = 406, $apidata['content-type']);
+            if (Message::contentTooLong($content_shortened)) {
+                $this->clientError(sprintf(_('That\'s too long. Max message size is %d chars.'),
+                                           Message::maxContent()),
+                                   $code = 406, $apidata['content-type']);
                 return;
             }
         }
