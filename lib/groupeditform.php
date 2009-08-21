@@ -163,9 +163,15 @@ class GroupEditForm extends Form
                           _('URL of the homepage or blog of the group or topic'));
         $this->out->elementEnd('li');
         $this->out->elementStart('li');
+        $desclimit = User_group::maxDescription();
+        if ($desclimit == 0) {
+            $descinstr = _('Describe the group or topic');
+        } else {
+            $descinstr = sprintf(_('Describe the group or topic in %d characters'), $desclimit);
+        }
         $this->out->textarea('description', _('Description'),
                              ($this->out->arg('description')) ? $this->out->arg('description') : $description,
-                             _('Describe the group or topic in 140 chars'));
+                             $descinstr);
         $this->out->elementEnd('li');
         $this->out->elementStart('li');
         $this->out->input('location', _('Location'),
