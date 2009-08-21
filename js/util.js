@@ -19,7 +19,9 @@
 $(document).ready(function(){
 	// count character on keyup
 	function counter(event){
-		var maxLength = 140;
+         if (maxLength <= 0) {
+              return;
+         }
 		var currentLength = $("#notice_data-text").val().length;
 		var remaining = maxLength - currentLength;
 		var counter = $("#notice_text-count");
@@ -42,12 +44,20 @@ $(document).ready(function(){
 		return true;
 	}
 
-	if ($("#notice_data-text").length) {
-		$("#notice_data-text").bind("keyup", counter);
-		$("#notice_data-text").bind("keydown", submitonreturn);
+     // define maxLength if it wasn't defined already
 
-		// run once in case there's something in there
-		counter();
+    if (typeof(maxLength) == "undefined") {
+         maxLength = 140;
+    }
+
+	if ($("#notice_data-text").length) {
+         if (maxLength > 0) {
+              $("#notice_data-text").bind("keyup", counter);
+              // run once in case there's something in there
+              counter();
+         }
+
+		$("#notice_data-text").bind("keydown", submitonreturn);
 
         if($('body')[0].id != 'conversation') {
             $("#notice_data-text").focus();
@@ -185,7 +195,9 @@ $(document).ready(function(){
 																				}
 																				else {
 																					$("#notice_data-text").val("");
-																					counter();
+                                                                                     if (maxLength > 0) {
+                                                                                          counter();
+                                                                                     }
 																				}
 																			}
 																		}
@@ -225,7 +237,9 @@ $(document).ready(function(){
     												$("#notice_data-attach").val("");
     												$("#notice_in-reply-to").val("");
                                                     $('#notice_data-attach_selected').remove();
-                                                    counter();
+                                                     if (maxLength > 0) {
+                                                          counter();
+                                                     }
 												}
 												$("#form_notice").removeClass("processing");
 												$("#notice_action-submit").removeAttr("disabled");
