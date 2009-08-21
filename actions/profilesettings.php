@@ -109,9 +109,16 @@ class ProfilesettingsAction extends AccountSettingsAction
                          _('URL of your homepage, blog, or profile on another site'));
             $this->elementEnd('li');
             $this->elementStart('li');
+            $maxBio = Profile::maxBio();
+            if ($maxBio > 0) {
+                $bioInstr = sprintf(_('Describe yourself and your interests in %d chars'),
+                                    $maxBio);
+            } else {
+                $bioInstr = _('Describe yourself and your interests');
+            }
             $this->textarea('bio', _('Bio'),
                             ($this->arg('bio')) ? $this->arg('bio') : $profile->bio,
-                            _('Describe yourself and your interests in 140 chars'));
+                            $bioInstr);
             $this->elementEnd('li');
             $this->elementStart('li');
             $this->input('location', _('Location'),
@@ -202,8 +209,9 @@ class ProfilesettingsAction extends AccountSettingsAction
             } else if (!is_null($fullname) && mb_strlen($fullname) > 255) {
                 $this->showForm(_('Full name is too long (max 255 chars).'));
                 return;
-            } else if (!is_null($bio) && mb_strlen($bio) > 140) {
-                $this->showForm(_('Bio is too long (max 140 chars).'));
+            } else if (Profile::bioTooLong($bio)) {
+                $this->showForm(sprintf(_('Bio is too long (max %d chars).'),
+                                        Profile::maxBio()));
                 return;
             } else if (!is_null($location) && mb_strlen($location) > 255) {
                 $this->showForm(_('Location is too long (max 255 chars).'));
