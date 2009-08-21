@@ -35,7 +35,6 @@ if (!defined('LACONICA'))
 require_once INSTALLDIR.'/lib/facebookutil.php';
 require_once INSTALLDIR.'/lib/noticeform.php';
 
-
 class FacebookAction extends Action
 {
 
@@ -95,34 +94,13 @@ class FacebookAction extends Action
 
     function showStylesheets()
     {
-        // Add a timestamp to the file so Facebook cache wont ignore our changes
-        $ts = filemtime(INSTALLDIR.'/theme/base/css/display.css');
-
-    $this->element('link', array('rel' => 'stylesheet',
-               'type' => 'text/css',
-               'href' => theme_path('css/display.css', 'base') . '?ts=' . $ts));
-
-        $theme = common_config('site', 'theme');
-
-        $ts = filemtime(INSTALLDIR. '/theme/' . $theme .'/css/display.css');
-
-        $this->element('link', array('rel' => 'stylesheet',
-                                     'type' => 'text/css',
-                                     'href' => theme_path('css/display.css', null) . '?ts=' . $ts));
-
-        $ts = filemtime(INSTALLDIR.'/theme/base/css/facebookapp.css');
-
-        $this->element('link', array('rel' => 'stylesheet',
-                                     'type' => 'text/css',
-                                     'href' => theme_path('css/facebookapp.css', 'base') . '?ts=' . $ts));
+        $this->cssLink('css/display.css', 'base');
+        $this->cssLink('css/facebookapp.css', 'base');
     }
 
     function showScripts()
     {
-        // Add a timestamp to the file so Facebook cache wont ignore our changes
-        $ts = filemtime(INSTALLDIR.'/js/facebookapp.js');
-
-        $this->element('script', array('src' => common_path('js/facebookapp.js') . '?ts=' . $ts));
+        $this->script('js/facebookapp.js');
     }
 
     /**
@@ -201,7 +179,6 @@ class FacebookAction extends Action
 
     }
 
-
     // Make this into a widget later
     function showLocalNav()
     {
@@ -261,7 +238,6 @@ class FacebookAction extends Action
         $this->endHTML();
     }
 
-
     function showInstructions()
     {
 
@@ -277,8 +253,13 @@ class FacebookAction extends Action
         $this->elementStart('dd');
         $this->elementStart('p');
         $this->text(sprintf($loginmsg_part1, common_config('site', 'name')));
-        $this->element('a',
-            array('href' => common_local_url('register')), _('Register'));
+        if (!common_config('site', 'openidonly')) {
+            $this->element('a',
+                array('href' => common_local_url('register')), _('Register'));
+        } else {
+            $this->element('a',
+                array('href' => common_local_url('openidlogin')), _('Register'));
+        }
         $this->text($loginmsg_part2);
     $this->elementEnd('p');
         $this->elementEnd('dd');
@@ -286,7 +267,6 @@ class FacebookAction extends Action
         $this->elementEnd('dl');
         $this->elementEnd('div');
     }
-
 
     function showLoginForm($msg = null)
     {
@@ -331,7 +311,6 @@ class FacebookAction extends Action
         $this->elementEnd('div');
 
     }
-
 
     function updateProfileBox($notice)
     {
@@ -414,7 +393,6 @@ class FacebookAction extends Action
         $this->xw->openURI('php://output');
     }
 
-
     /**
      * Generate pagination links
      *
@@ -473,8 +451,9 @@ class FacebookAction extends Action
         } else {
             $content_shortened = common_shorten_links($content);
 
-            if (mb_strlen($content_shortened) > 140) {
-                $this->showPage(_('That\'s too long. Max notice size is 140 chars.'));
+            if (Notice::contentTooLong($content_shortened)) {
+                $this->showPage(sprintf(_('That\'s too long. Max notice size is %d chars.'),
+                                        Notice::maxContent()));
                 return;
             }
         }

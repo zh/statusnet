@@ -103,8 +103,8 @@ class ShownoticeAction extends OwnerDesignAction
 
         $this->user = User::staticGet('id', $this->profile->id);
 
-        if (empty($this->user)) {
-            $this->serverError(_('Not a local notice'), 500);
+        if (! $this->notice->is_local) {
+            common_redirect($this->notice->uri);
             return false;
         }
 
@@ -196,7 +196,7 @@ class ShownoticeAction extends OwnerDesignAction
     {
         parent::handle($args);
 
-        if ($this->notice->is_local == 0) {
+        if ($this->notice->is_local == Notice::REMOTE_OMB) {
             if (!empty($this->notice->url)) {
                 common_redirect($this->notice->url, 301);
             } else if (!empty($this->notice->uri) && preg_match('/^https?:/', $this->notice->uri)) {
@@ -284,16 +284,16 @@ class ShownoticeAction extends OwnerDesignAction
         $this->element('link',array('rel'=>'alternate',
             'type'=>'application/json+oembed',
             'href'=>common_local_url(
-                'api',
-                array('apiaction'=>'oembed','method'=>'oembed.json'),
-                array('url'=>$this->notice->uri)),
+                'oembed',
+                array(),
+                array('format'=>'json','url'=>$this->notice->uri)),
             'title'=>'oEmbed'),null);
         $this->element('link',array('rel'=>'alternate',
             'type'=>'text/xml+oembed',
             'href'=>common_local_url(
-                'api',
-                array('apiaction'=>'oembed','method'=>'oembed.xml'),
-                array('url'=>$this->notice->uri)),
+                'oembed',
+                array(),
+                array('format'=>'xml','url'=>$this->notice->uri)),
             'title'=>'oEmbed'),null);
     }
 }

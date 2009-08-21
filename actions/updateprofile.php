@@ -1,5 +1,16 @@
 <?php
-/*
+/**
+ * Handle an updateprofile action
+ *
+ * PHP version 5
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ *
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
@@ -17,34 +28,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-require_once(INSTALLDIR.'/lib/omb.php');
+require_once INSTALLDIR.'/lib/omb.php';
+require_once INSTALLDIR.'/extlib/libomb/service_provider.php';
 
+/**
+ * Handle an updateprofile action
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ */
 class UpdateprofileAction extends Action
 {
-    
-    function handle($args)
-    {
-        parent::handle($args);
-        try {
-            common_remove_magic_from_request();
-            $req = OAuthRequest::from_request('POST', common_local_url('updateprofile'));
-            # Note: server-to-server function!
-            $server = omb_oauth_server();
-            list($consumer, $token) = $server->verify_request($req);
-            if ($this->update_profile($req, $consumer, $token)) {
-                header('HTTP/1.1 200 OK');
-                header('Content-type: text/plain');
-                print "omb_version=".OMB_VERSION_01;
-            }
-        } catch (OAuthException $e) {
-            $this->serverError($e->getMessage());
-            return;
-        }
-    }
 
-    function update_profile($req, $consumer, $token)
+    /**
+     * For initializing members of the class.
+     *
+     * @param array $argarray misc. arguments
+     *
+     * @return boolean true
+     */
+    function prepare($argarray)
     {
         $version = $req->get_parameter('omb_version');
         if ($version != OMB_VERSION_01) {
@@ -79,7 +90,7 @@ class UpdateprofileAction extends Action
         $nickname = $req->get_parameter('omb_listenee_nickname');
         if ($nickname && !Validate::string($nickname, array('min_length' => 1,
                                                             'max_length' => 64,
-                                                            'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
+                                                            'format' => NICKNAME_FMT))) {
             $this->clientError(_('Nickname must have only lowercase letters and numbers and no spaces.'));
             return false;
         }
@@ -88,96 +99,20 @@ class UpdateprofileAction extends Action
             $this->clientError(sprintf(_("Invalid license URL '%s'"), $license));
             return false;
         }
-        $profile_url = $req->get_parameter('omb_listenee_profile');
-        if ($profile_url && !common_valid_http_url($profile_url)) {
-            $this->clientError(sprintf(_("Invalid profile URL '%s'."), $profile_url));
-            return false;
-        }
-        # optional stuff
-        $fullname = $req->get_parameter('omb_listenee_fullname');
-        if ($fullname && mb_strlen($fullname) > 255) {
-            $this->clientError(_("Full name is too long (max 255 chars)."));
-            return false;
-        }
-        $homepage = $req->get_parameter('omb_listenee_homepage');
-        if ($homepage && (!common_valid_http_url($homepage) || mb_strlen($homepage) > 255)) {
-            $this->clientError(sprintf(_("Invalid homepage '%s'"), $homepage));
-            return false;
-        }
-        $bio = $req->get_parameter('omb_listenee_bio');
-        if ($bio && mb_strlen($bio) > 140) {
-            $this->clientError(_("Bio is too long (max 140 chars)."));
-            return false;
-        }
-        $location = $req->get_parameter('omb_listenee_location');
-        if ($location && mb_strlen($location) > 255) {
-            $this->clientError(_("Location is too long (max 255 chars)."));
-            return false;
-        }
-        $avatar = $req->get_parameter('omb_listenee_avatar');
-        if ($avatar) {
-            if (!common_valid_http_url($avatar) || strlen($avatar) > 255) {
-                $this->clientError(sprintf(_("Invalid avatar URL '%s'"), $avatar));
-                return false;
-            }
-            $size = @getimagesize($avatar);
-            if (!$size) {
-                $this->clientError(sprintf(_("Can't read avatar URL '%s'"), $avatar));
-                return false;
-            }
-            if ($size[0] != AVATAR_PROFILE_SIZE || $size[1] != AVATAR_PROFILE_SIZE) {
-                $this->clientError(sprintf(_("Wrong size image at '%s'"), $avatar));
-                return false;
-            }
-            if (!in_array($size[2], array(IMAGETYPE_GIF, IMAGETYPE_JPEG,
-                                          IMAGETYPE_PNG))) {
-                $this->clientError(sprintf(_("Wrong image type for '%s'"), $avatar));
-                return false;
-            }
-        }
+        return true;
+    }
 
-        $orig_profile = clone($profile);
+    function handle($args)
+    {
+        parent::handle($args);
 
-        /* Use values even if they are an empty string. Parsing an empty string in
-           updateProfile is the specified way of clearing a parameter in OMB. */
-        if (!is_null($nickname)) {
-            $profile->nickname = $nickname;
-        }
-        if (!is_null($profile_url)) {
-            $profile->profileurl = $profile_url;
-        }
-        if (!is_null($fullname)) {
-            $profile->fullname = $fullname;
-        }
-        if (!is_null($homepage)) {
-            $profile->homepage = $homepage;
-        }
-        if (!is_null($bio)) {
-            $profile->bio = $bio;
-        }
-        if (!is_null($location)) {
-            $profile->location = $location;
-        }
-
-        if (!$profile->update($orig_profile)) {
-            $this->serverError(_('Could not save new profile info'), 500);
-            return false;
-        } else {
-            if ($avatar) {
-                $temp_filename = tempnam(sys_get_temp_dir(), 'listenee_avatar');
-                copy($avatar, $temp_filename);
-                $imagefile = new ImageFile($profile->id, $temp_filename);
-                $filename = Avatar::filename($profile->id,
-                                     image_type_to_extension($imagefile->type),
-                                     null,
-                                     common_timestamp());
-                rename($temp_filename, Avatar::path($filename));
-                if (!$profile->setOriginal($filename)) {
-                    $this->serverError(_('Could not save avatar info'), 500);
-                    return false;
-                }
-            }
-            return true;
+        try {
+            $srv = new OMB_Service_Provider(null, omb_oauth_datastore(),
+                                            omb_oauth_server());
+            $srv->handleUpdateProfile();
+        } catch (Exception $e) {
+            $this->serverError($e->getMessage());
+            return;
         }
     }
 }

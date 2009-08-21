@@ -25,8 +25,28 @@ require_once INSTALLDIR.'/lib/feedlist.php';
 
 class AllAction extends ProfileAction
 {
+    var $notice;
+
     function isReadOnly($args)
     {
+        return true;
+    }
+
+    function prepare($args)
+    {
+        parent::prepare($args);
+        $cur = common_current_user();
+
+        if (!empty($cur) && $cur->id == $this->user->id) {
+            $this->notice = $this->user->noticeInbox(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+        } else {
+            $this->notice = $this->user->noticesWithFriends(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+        }
+
+        if($this->page > 1 && $this->notice->N == 0){
+            $this->serverError(_('No such page'),$code=404);
+        }
+
         return true;
     }
 
@@ -88,7 +108,9 @@ class AllAction extends ProfileAction
             }
         }
         else {
-            $message .= sprintf(_('Why not [register an account](%%%%action.register%%%%) and then nudge %s or post a notice to his or her attention.'), $this->user->nickname);
+            $message .= sprintf(_('Why not [register an account](%%%%action.%s%%%%) and then nudge %s or post a notice to his or her attention.'),
+                                (!common_config('site','openidonly')) ? 'register' : 'openidlogin',
+                                $this->user->nickname);
         }
 
         $this->elementStart('div', 'guide');
@@ -98,15 +120,7 @@ class AllAction extends ProfileAction
 
     function showContent()
     {
-        $cur = common_current_user();
-
-        if (!empty($cur) && $cur->id == $this->user->id) {
-            $notice = $this->user->noticeInbox(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
-        } else {
-            $notice = $this->user->noticesWithFriends(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
-        }
-
-        $nl = new NoticeList($notice, $this);
+        $nl = new NoticeList($this->notice, $this);
 
         $cnt = $nl->show();
 

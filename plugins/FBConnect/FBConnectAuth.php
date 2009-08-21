@@ -31,27 +31,25 @@ require_once INSTALLDIR . '/plugins/FBConnect/FBConnectPlugin.php';
 
 class FBConnectauthAction extends Action
 {
-
     var $fbuid      = null;
     var $fb_fields  = null;
 
     function prepare($args) {
         parent::prepare($args);
 
-        try {
+        $this->fbuid = getFacebook()->get_loggedin_user();
 
-            $this->fbuid = getFacebook()->get_loggedin_user();
+        if ($this->fbuid > 0) {
+            $this->fb_fields = $this->getFacebookFields($this->fbuid,
+                                                        array('first_name', 'last_name', 'name'));
+        } else {
+            list($proxy, $ip) = common_client_ip();
 
-            if ($this->fbuid > 0) {
-                $this->fb_fields = $this->getFacebookFields($this->fbuid,
-                    array('first_name', 'last_name', 'name'));
-            } else {
-                common_debug("No Facebook User found.");
-            }
+            common_log(LOG_WARNING, 'Facebook Connect Plugin - ' .
+                       "Failed auth attempt, proxy = $proxy, ip = $ip.");
 
-        } catch (Exception $e) {
-            common_log(LOG_WARNING, 'Problem getting Facebook uid: ' .
-                $e->getMessage());
+            $this->clientError(_('You must be logged into Facebook to ' .
+                                 'use Facebook Connect.'));
         }
 
         return true;
@@ -69,8 +67,9 @@ class FBConnectauthAction extends Action
             if (!empty($flink)) {
 
                 // User already has a linked Facebook account and shouldn't be here
-                common_debug('There is already a local user (' . $flink->user_id .
-                    ') linked with this Facebook (' . $this->fbuid . ').');
+                common_debug('Facebook Connect Plugin - ' .
+                             'There is already a local user (' . $flink->user_id .
+                             ') linked with this Facebook (' . $this->fbuid . ').');
 
                 // We don't want these cookies
                 getFacebook()->clear_cookie_state();
@@ -101,7 +100,8 @@ class FBConnectauthAction extends Action
             } else if ($this->arg('connect')) {
                 $this->connectNewUser();
             } else {
-                common_debug(print_r($this->args, true), __FILE__);
+                common_debug('Facebook Connect Plugin - ' .
+                             print_r($this->args, true));
                 $this->showForm(_('Something weird happened.'),
                                 $this->trimmed('newname'));
             }
@@ -211,7 +211,6 @@ class FBConnectauthAction extends Action
 
     function createNewUser()
     {
-
         if (common_config('site', 'closed')) {
             $this->clientError(_('Registration not allowed.'));
             return;
@@ -238,7 +237,7 @@ class FBConnectauthAction extends Action
 
         if (!Validate::string($nickname, array('min_length' => 1,
                                                'max_length' => 64,
-                                               'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
+                                               'format' => NICKNAME_FMT))) {
             $this->showForm(_('Nickname must have only lowercase letters and numbers and no spaces.'));
             return;
         }
@@ -274,7 +273,8 @@ class FBConnectauthAction extends Action
         common_set_user($user);
         common_real_login(true);
 
-        common_debug("Registered new user $user->id from Facebook user $this->fbuid");
+        common_debug('Facebook Connect Plugin - ' .
+                     "Registered new user $user->id from Facebook user $this->fbuid");
 
         common_redirect(common_local_url('showstream', array('nickname' => $user->nickname)),
                         303);
@@ -292,8 +292,9 @@ class FBConnectauthAction extends Action
 
         $user = User::staticGet('nickname', $nickname);
 
-        if ($user) {
-            common_debug("Legit user to connect to Facebook: $nickname");
+        if (!empty($user)) {
+            common_debug('Facebook Connect Plugin - ' .
+                         "Legit user to connect to Facebook: $nickname");
         }
 
         $result = $this->flinkUser($user->id, $this->fbuid);
@@ -303,7 +304,8 @@ class FBConnectauthAction extends Action
             return;
         }
 
-        common_debug("Connected Facebook user $this->fbuid to local user $user->id");
+        common_debug('Facebook Connnect Plugin - ' .
+                     "Connected Facebook user $this->fbuid to local user $user->id");
 
         common_set_user($user);
         common_real_login(true);
@@ -317,12 +319,13 @@ class FBConnectauthAction extends Action
 
         $result = $this->flinkUser($user->id, $this->fbuid);
 
-        if (!$result) {
+        if (empty($result)) {
             $this->serverError(_('Error connecting user to Facebook.'));
             return;
         }
 
-        common_debug("Connected Facebook user $this->fbuid to local user $user->id");
+        common_debug('Facebook Connect Plugin - ' .
+                     "Connected Facebook user $this->fbuid to local user $user->id");
 
         // Return to Facebook connection settings tab
         common_redirect(common_local_url('FBConnectSettings'), 303);
@@ -330,16 +333,18 @@ class FBConnectauthAction extends Action
 
     function tryLogin()
     {
-        common_debug("Trying Facebook Login...");
+        common_debug('Facebook Connect Plugin - ' .
+                     "Trying login for Facebook user $this->fbuid.");
 
         $flink = Foreign_link::getByForeignID($this->fbuid, FACEBOOK_CONNECT_SERVICE);
 
-        if ($flink) {
+        if (!empty($flink)) {
             $user = $flink->getUser();
 
             if (!empty($user)) {
 
-                common_debug("Logged in Facebook user $flink->foreign_id as user $user->id ($user->nickname)");
+                common_debug('Facebook Connect Plugin - ' .
+                             "Logged in Facebook user $flink->foreign_id as user $user->id ($user->nickname)");
 
                 common_set_user($user);
                 common_real_login(true);
@@ -348,7 +353,8 @@ class FBConnectauthAction extends Action
 
         } else {
 
-            common_debug("No flink found for fbuid: $this->fbuid");
+            common_debug('Facebook Connect Plugin - ' .
+                         "No flink found for fbuid: $this->fbuid - new user");
 
             $this->showForm(null, $this->bestNewNickname());
         }
@@ -418,7 +424,7 @@ class FBConnectauthAction extends Action
     {
         if (!Validate::string($str, array('min_length' => 1,
                                           'max_length' => 64,
-                                          'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
+                                          'format' => NICKNAME_FMT))) {
             return false;
         }
         if (!User::allowed_nickname($str)) {
@@ -444,7 +450,8 @@ class FBConnectauthAction extends Action
             return reset($infos);
 
         } catch (Exception $e) {
-            common_log(LOG_WARNING, "Facebook client failure when requesting " .
+            common_log(LOG_WARNING, 'Facebook Connect Plugin - ' .
+                       "Facebook client failure when requesting " .
                 join(",", $fields) . " on uid " . $fb_uid .
                     " : ". $e->getMessage());
             return null;

@@ -350,11 +350,10 @@ class NoticeListItem extends Widget
 
     function showNoticeLink()
     {
-        $noticeurl = common_local_url('shownotice',
+        if($this->notice->is_local){
+            $noticeurl = common_local_url('shownotice',
                                       array('notice' => $this->notice->id));
-        // XXX: we need to figure this out better. Is this right?
-        if (strcmp($this->notice->uri, $noticeurl) != 0 &&
-            preg_match('/^http/', $this->notice->uri)) {
+        }else{
             $noticeurl = $this->notice->uri;
         }
         $this->out->elementStart('a', array('rel' => 'bookmark',

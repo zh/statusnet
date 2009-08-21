@@ -6,7 +6,7 @@ create table profile (
     fullname varchar(255) comment 'display name',
     profileurl varchar(255) comment 'URL, cached so we dont regenerate',
     homepage varchar(255) comment 'identifying URL',
-    bio varchar(140) comment 'descriptive biography',
+    bio text comment 'descriptive biography',
     location varchar(255) comment 'physical location',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
@@ -110,7 +110,7 @@ create table notice (
     id integer auto_increment primary key comment 'unique identifier',
     profile_id integer not null comment 'who made the update' references profile (id),
     uri varchar(255) unique key comment 'universally unique identifier, usually a tag URI',
-    content varchar(140) comment 'update content',
+    content text comment 'update content',
     rendered text comment 'HTML version of the content',
     url varchar(255) comment 'URL of any attachment (image, video, bookmark, whatever)',
     created datetime not null comment 'date this record was created',
@@ -331,7 +331,7 @@ create table message (
     uri varchar(255) unique key comment 'universally unique identifier',
     from_profile integer not null comment 'who the message is from' references profile (id),
     to_profile integer not null comment 'who the message is to' references profile (id),
-    content varchar(140) comment 'message content',
+    content text comment 'message content',
     rendered text comment 'HTML version of the content',
     url varchar(255) comment 'URL of any attachment (image, video, bookmark, whatever)',
     created datetime not null comment 'date this record was created',
@@ -380,7 +380,7 @@ create table user_group (
     nickname varchar(64) unique key comment 'nickname for addressing',
     fullname varchar(255) comment 'display name',
     homepage varchar(255) comment 'URL, cached so we dont regenerate',
-    description varchar(140) comment 'descriptive biography',
+    description text comment 'group description',
     location varchar(255) comment 'related physical location, if any',
 
     original_logo varchar(255) comment 'original size logo',
@@ -545,5 +545,15 @@ create table deleted_notice (
     deleted datetime not null comment 'date the notice record was created',
 
     index deleted_notice_profile_id_idx (profile_id)
+
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table config (
+
+    section varchar(32) comment 'configuration section',
+    setting varchar(32) comment 'configuration setting',
+    value varchar(255) comment 'configuration value',
+
+    constraint primary key (section, setting)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;

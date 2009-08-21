@@ -21,6 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 define('LACONICA_VERSION', '0.9.0dev');
 
+// XXX: move these to class variables
+
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
 define('AVATAR_MINI_SIZE', 24);
@@ -82,7 +84,7 @@ if (isset($server)) {
 if (isset($path)) {
     $_path = $path;
 } else {
-    $_path = array_key_exists('SCRIPT_NAME', $_SERVER) ?
+    $_path = (array_key_exists('SERVER_NAME', $_SERVER) && array_key_exists('SCRIPT_NAME', $_SERVER)) ?
       _sn_to_path($_SERVER['SCRIPT_NAME']) :
     null;
 }
@@ -109,11 +111,14 @@ $config =
               'broughtbyurl' => null,
               'closed' => false,
               'inviteonly' => false,
+              'openidonly' => false,
               'private' => false,
               'ssl' => 'never',
               'sslserver' => null,
               'shorturllength' => 30,
-              'dupelimit' => 60), # default for same person saying the same thing
+              'dupelimit' => 60, # default for same person saying the same thing
+              'textlimit' => 140,
+              ),
         'syslog' =>
         array('appname' => 'laconica', # for syslog
               'priority' => 'debug', # XXX: currently ignored
@@ -137,7 +142,8 @@ $config =
         array('blacklist' => array(),
               'featured' => array()),
         'profile' =>
-        array('banned' => array()),
+        array('banned' => array(),
+              'biolimit' => null),
         'avatar' =>
         array('server' => null,
               'dir' => INSTALLDIR . '/avatar/',
@@ -169,6 +175,8 @@ $config =
               'host' => null, # only set if != server
               'debug' => false, # print extra debug info
               'public' => array()), # JIDs of users who want to receive the public stream
+        'openid' =>
+        array('enabled' => true),
         'invite' =>
         array('enabled' => true),
         'sphinx' =>
@@ -183,11 +191,20 @@ $config =
         array('piddir' => '/var/run',
               'user' => false,
               'group' => false),
+        'emailpost' =>
+        array('enabled' => true),
+        'sms' =>
+        array('enabled' => true),
+        'twitter' =>
+        array('enabled' => true),
         'twitterbridge' =>
         array('enabled' => false),
         'integration' =>
         array('source' => 'Laconica', # source attribute for Twitter
               'taguri' => $_server.',2009'), # base for tag URIs
+	'twitter' =>
+	array('consumer_key'    => null,
+	      'consumer_secret' => null),
         'memcached' =>
         array('enabled' => false,
               'server' => 'localhost',
@@ -246,7 +263,8 @@ $config =
         'filecommand' => '/usr/bin/file',
         ),
         'group' =>
-        array('maxaliases' => 3),
+        array('maxaliases' => 3,
+              'desclimit' => null),
         'oohembed' => array('endpoint' => 'http://oohembed.com/oohembed/'),
         'search' =>
         array('type' => 'fulltext'),
@@ -261,6 +279,10 @@ $config =
               'linkcolor' => null,
               'backgroundimage' => null,
               'disposition' => null),
+        'notice' =>
+        array('contentlimit' => null),
+        'message' =>
+        array('contentlimit' => null),
         );
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
@@ -361,25 +383,11 @@ if ($_db_name != 'laconica' && !array_key_exists('ini_'.$_db_name, $config['db']
     $config['db']['ini_'.$_db_name] = INSTALLDIR.'/classes/laconica.ini';
 }
 
-// XXX: how many of these could be auto-loaded on use?
+// Ignore openidonly if OpenID is disabled
 
-require_once 'Validate.php';
-require_once 'markdown.php';
-
-require_once INSTALLDIR.'/lib/util.php';
-require_once INSTALLDIR.'/lib/action.php';
-require_once INSTALLDIR.'/lib/theme.php';
-require_once INSTALLDIR.'/lib/mail.php';
-require_once INSTALLDIR.'/lib/subs.php';
-require_once INSTALLDIR.'/lib/Shorturl_api.php';
-require_once INSTALLDIR.'/lib/twitter.php';
-
-require_once INSTALLDIR.'/lib/clientexception.php';
-require_once INSTALLDIR.'/lib/serverexception.php';
-
-// XXX: other formats here
-
-define('NICKNAME_FMT', VALIDATE_NUM.VALIDATE_ALPHA_LOWER);
+if (!$config['openid']['enabled']) {
+    $config['site']['openidonly'] = false;
+}
 
 function __autoload($cls)
 {
@@ -396,6 +404,32 @@ function __autoload($cls)
         Event::handle('Autoload', array(&$cls));
     }
 }
+
+// XXX: how many of these could be auto-loaded on use?
+// XXX: note that these files should not use config options
+// at compile time since DB config options are not yet loaded.
+
+require_once 'Validate.php';
+require_once 'markdown.php';
+
+require_once INSTALLDIR.'/lib/util.php';
+require_once INSTALLDIR.'/lib/action.php';
+require_once INSTALLDIR.'/lib/theme.php';
+require_once INSTALLDIR.'/lib/mail.php';
+require_once INSTALLDIR.'/lib/subs.php';
+require_once INSTALLDIR.'/lib/Shorturl_api.php';
+require_once INSTALLDIR.'/lib/twitter.php';
+
+require_once INSTALLDIR.'/lib/clientexception.php';
+require_once INSTALLDIR.'/lib/serverexception.php';
+
+// Load settings from database; note we need autoload for this
+
+Config::loadSettings();
+
+// XXX: other formats here
+
+define('NICKNAME_FMT', VALIDATE_NUM.VALIDATE_ALPHA_LOWER);
 
 // Give plugins a chance to initialize in a fully-prepared environment
 

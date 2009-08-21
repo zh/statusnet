@@ -43,8 +43,7 @@ API key and secret to your Laconica config.php file:
 Finally, to enable the plugin, add the following stanza to your
 config.php:
 
-    require_once(INSTALLDIR.'/plugins/FBConnect/FBConnectPlugin.php');
-    $fbc = new FBConnectPlugin();
+    addPlugin('FBConnect');
 
 To try out the plugin, fire up your browser and connect to:
 

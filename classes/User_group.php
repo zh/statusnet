@@ -13,7 +13,7 @@ class User_group extends Memcached_DataObject
     public $nickname;                        // varchar(64)  unique_key
     public $fullname;                        // varchar(255)
     public $homepage;                        // varchar(255)
-    public $description;                     // varchar(140)
+    public $description;                     // text()
     public $location;                        // varchar(255)
     public $original_logo;                   // varchar(255)
     public $homepage_logo;                   // varchar(255)
@@ -296,5 +296,62 @@ class User_group extends Memcached_DataObject
         $user->free();
 
         return $ids;
+    }
+
+    static function maxDescription()
+    {
+        $desclimit = common_config('group', 'desclimit');
+        // null => use global limit (distinct from 0!)
+        if (is_null($desclimit)) {
+            $desclimit = common_config('site', 'textlimit');
+        }
+        return $desclimit;
+    }
+
+    static function descriptionTooLong($desc)
+    {
+        $desclimit = self::maxDescription();
+        return ($desclimit > 0 && !empty($desc) && (mb_strlen($desc) > $desclimit));
+    }
+
+    function asAtomEntry($namespace=false, $source=false)
+    {
+        $xs = new XMLStringer(true);
+
+        if ($namespace) {
+            $attrs = array('xmlns' => 'http://www.w3.org/2005/Atom',
+                           'xmlns:thr' => 'http://purl.org/syndication/thread/1.0');
+        } else {
+            $attrs = array();
+        }
+
+        $xs->elementStart('entry', $attrs);
+
+        if ($source) {
+            $xs->elementStart('source');
+            $xs->element('title', null, $profile->nickname . " - " . common_config('site', 'name'));
+            $xs->element('link', array('href' => $this->permalink()));
+        }
+
+        if ($source) {
+            $xs->elementEnd('source');
+        }
+
+        $xs->element('title', null, $this->nickname);
+        $xs->element('summary', null, $this->description);
+
+        $xs->element('link', array('rel' => 'alternate',
+                                   'href' => $this->permalink()));
+
+        $xs->element('id', null, $this->permalink());
+
+        $xs->element('published', null, common_date_w3dtf($this->created));
+        $xs->element('updated', null, common_date_w3dtf($this->modified));
+
+        $xs->element('content', array('type' => 'html'), $this->description);
+
+        $xs->elementEnd('entry');
+
+        return $xs->getString();
     }
 }

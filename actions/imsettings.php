@@ -84,6 +84,12 @@ class ImsettingsAction extends ConnectSettingsAction
 
     function showContent()
     {
+        if (!common_config('xmpp', 'enabled')) {
+            $this->element('div', array('class' => 'error'),
+                           _('IM is not available.'));
+            return;
+        }
+
         $user = common_current_user();
         $this->elementStart('form', array('method' => 'post',
                                           'id' => 'form_settings_im',

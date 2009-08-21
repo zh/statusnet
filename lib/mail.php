@@ -596,32 +596,44 @@ function mail_notify_attn($user, $notice)
     $bestname = $sender->getBestName();
 
     common_init_locale($user->language);
-
+	
+	if ($notice->conversation != $notice->id) {
+		$conversationEmailText = "The full conversation can be read here:\n\n".
+								 "\t%5\$s\n\n ";
+		$conversationUrl 	   = common_local_url('conversation',
+                                 array('id' => $notice->conversation)).'#notice-'.$notice->id;
+	} else {
+		$conversationEmailText = "%5\$s";
+		$conversationUrl = null;
+	}
+	
     $subject = sprintf(_('%s sent a notice to your attention'), $bestname);
-
-    $body = sprintf(_("%1\$s just sent a notice to your attention (an '@-reply') on %2\$s.\n\n".
+	
+	$body = sprintf(_("%1\$s just sent a notice to your attention (an '@-reply') on %2\$s.\n\n".
                       "The notice is here:\n\n".
                       "\t%3\$s\n\n" .
                       "It reads:\n\n".
                       "\t%4\$s\n\n" .
+                      $conversationEmailText .
                       "You can reply back here:\n\n".
-                      "\t%5\$s\n\n" .
+                      "\t%6\$s\n\n" .
                       "The list of all @-replies for you here:\n\n" .
-                      "%6\$s\n\n" .
+                      "%7\$s\n\n" .
                       "Faithfully yours,\n" .
                       "%2\$s\n\n" .
-                      "P.S. You can turn off these email notifications here: %7\$s\n"),
-                    $bestname,
-                    common_config('site', 'name'),
+                      "P.S. You can turn off these email notifications here: %8\$s\n"),
+                    $bestname,//%1
+                    common_config('site', 'name'),//%2
                     common_local_url('shownotice',
-                                     array('notice' => $notice->id)),
-                    $notice->content,
+                                     array('notice' => $notice->id)),//%3
+                    $notice->content,//%4
+					$conversationUrl,//%5
                     common_local_url('newnotice',
-                                     array('replyto' => $sender->nickname)),
+                                     array('replyto' => $sender->nickname)),//%6
                     common_local_url('replies',
-                                     array('nickname' => $user->nickname)),
-                    common_local_url('emailsettings'));
-
+                                     array('nickname' => $user->nickname)),//%7
+                    common_local_url('emailsettings'));//%8
+	
     common_init_locale();
     mail_to_user($user, $subject, $body);
 }
@@ -645,13 +657,14 @@ function mail_twitter_bridge_removed($user)
 
     $subject = sprintf(_('Your Twitter bridge has been disabled.'));
 
-    $body = sprintf(_("Hi, %1\$s. We're sorry to inform you that your " .
-        'link to Twitter has been disabled. Your Twitter credentials ' .
-        'have either changed (did you recently change your Twitter ' .
-        'password?) or you have otherwise revoked our access to your ' .
-        "Twitter account.\n\n" .
-        'You can re-enable your Twitter bridge by visiting your ' .
-        "Twitter settings page:\n\n\t%2\$s\n\n" .
+    $site_name = common_config('site', 'name');
+
+    $body = sprintf(_('Hi, %1$s. We\'re sorry to inform you that your ' .
+        'link to Twitter has been disabled. We no longer seem to have ' .
+    'permission to update your Twitter status. (Did you revoke ' .
+    '%3$s\'s access?)' . "\n\n" .
+    'You can re-enable your Twitter bridge by visiting your ' .
+    "Twitter settings page:\n\n\t%2\$s\n\n" .
         "Regards,\n%3\$s\n"),
         $profile->getBestName(),
         common_local_url('twittersettings'),

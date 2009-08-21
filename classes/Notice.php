@@ -29,10 +29,6 @@ require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 define('NOTICE_CACHE_WINDOW', 61);
 
-define('NOTICE_LOCAL_PUBLIC', 1);
-define('NOTICE_REMOTE_OMB', 0);
-define('NOTICE_LOCAL_NONPUBLIC', -1);
-
 define('MAX_BOXCARS', 128);
 
 class Notice extends Memcached_DataObject
@@ -44,7 +40,7 @@ class Notice extends Memcached_DataObject
     public $id;                              // int(4)  primary_key not_null
     public $profile_id;                      // int(4)   not_null
     public $uri;                             // varchar(255)  unique_key
-    public $content;                         // varchar(140)
+    public $content;                         // text()
     public $rendered;                        // text()
     public $url;                             // varchar(255)
     public $created;                         // datetime()   not_null
@@ -55,14 +51,16 @@ class Notice extends Memcached_DataObject
     public $conversation;                    // int(4)
 
     /* Static get */
-    function staticGet($k,$v=NULL) {
-        return Memcached_DataObject::staticGet('Notice',$k,$v);
-    }
+    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Notice',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    const GATEWAY = -2;
+    /* Notice types */ 
+    const LOCAL_PUBLIC    =  1;
+    const REMOTE_OMB      =  0;
+    const LOCAL_NONPUBLIC = -1;
+    const GATEWAY         = -2;
 
     function getProfile()
     {
@@ -148,13 +146,13 @@ class Notice extends Memcached_DataObject
     }
 
     static function saveNew($profile_id, $content, $source=null,
-                            $is_local=1, $reply_to=null, $uri=null, $created=null) {
+                            $is_local=Notice::LOCAL_PUBLIC, $reply_to=null, $uri=null, $created=null) {
 
         $profile = Profile::staticGet($profile_id);
 
         $final = common_shorten_links($content);
 
-        if (mb_strlen($final) > 140) {
+        if (Notice::contentTooLong($final)) {
             common_log(LOG_INFO, 'Rejecting notice that is too long.');
             return _('Problem saving notice. Too long.');
         }
@@ -191,7 +189,7 @@ class Notice extends Memcached_DataObject
 
         if (($blacklist && in_array($profile_id, $blacklist)) ||
             ($source && $autosource && in_array($source, $autosource))) {
-            $notice->is_local = -1;
+            $notice->is_local = Notice::LOCAL_NONPUBLIC;
         } else {
             $notice->is_local = $is_local;
         }
@@ -523,7 +521,7 @@ class Notice extends Memcached_DataObject
 
     function blowPublicCache($blowLast=false)
     {
-        if ($this->is_local == 1) {
+        if ($this->is_local == Notice::LOCAL_PUBLIC) {
             $cache = common_memcache();
             if ($cache) {
                 $cache->delete(common_cache_key('public'));
@@ -789,10 +787,11 @@ class Notice extends Memcached_DataObject
         }
 
         if (common_config('public', 'localonly')) {
-            $notice->whereAdd('is_local = 1');
+            $notice->whereAdd('is_local = ' . Notice::LOCAL_PUBLIC);
         } else {
-            # -1 == blacklisted
-            $notice->whereAdd('is_local != -1');
+            # -1 == blacklisted, -2 == gateway (i.e. Twitter)
+            $notice->whereAdd('is_local !='. Notice::LOCAL_NONPUBLIC);
+            $notice->whereAdd('is_local !='. Notice::GATEWAY);
         }
 
         if ($since_id != 0) {
@@ -1353,5 +1352,21 @@ class Notice extends Memcached_DataObject
         if (!empty($last)) {
             return $last->id;
         }
+    }
+
+    static function maxContent()
+    {
+        $contentlimit = common_config('notice', 'contentlimit');
+        // null => use global limit (distinct from 0!)
+        if (is_null($contentlimit)) {
+            $contentlimit = common_config('site', 'textlimit');
+        }
+        return $contentlimit;
+    }
+
+    static function contentTooLong($content)
+    {
+        $contentlimit = self::maxContent();
+        return ($contentlimit > 0 && !empty($content) && (mb_strlen($content) > $contentlimit));
     }
 }

@@ -428,13 +428,7 @@ class GrouplogoAction extends GroupDesignAction
     function showStylesheets()
     {
         parent::showStylesheets();
-        $jcropStyle =
-          common_path('theme/base/css/jquery.Jcrop.css?version='.LACONICA_VERSION);
-
-        $this->element('link', array('rel' => 'stylesheet',
-                                     'type' => 'text/css',
-                                     'href' => $jcropStyle,
-                                     'media' => 'screen, projection, tv'));
+        $this->cssLink('css/jquery.Jcrop.css','base','screen, projection, tv');
     }
 
     /**
@@ -448,13 +442,8 @@ class GrouplogoAction extends GroupDesignAction
         parent::showScripts();
 
         if ($this->mode == 'crop') {
-            $jcropPack = common_path('js/jcrop/jquery.Jcrop.pack.js');
-            $jcropGo   = common_path('js/jcrop/jquery.Jcrop.go.js');
-
-            $this->element('script', array('type' => 'text/javascript',
-                                           'src' => $jcropPack));
-            $this->element('script', array('type' => 'text/javascript',
-                                           'src' => $jcropGo));
+            $this->script('js/jcrop/jquery.Jcrop.min.js');
+            $this->script('js/jcrop/jquery.Jcrop.go.js');
         }
     }
 

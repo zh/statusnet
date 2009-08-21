@@ -86,6 +86,10 @@ class Router
 
         $m->connect('doc/:title', array('action' => 'doc'));
 
+        // Twitter
+
+        $m->connect('twitter/authorization', array('action' => 'twitterauthorization'));
+
         // facebook
 
         $m->connect('facebook', array('action' => 'facebookhome'));
@@ -111,15 +115,8 @@ class Router
 
         $m->connect('main/tagother/:id', array('action' => 'tagother'));
 
-        $m->connect('main/oembed.xml',
-                    array('action' => 'api',
-                          'method' => 'oembed.xml',
-                          'apiaction' => 'oembed'));
-
-        $m->connect('main/oembed.json',
-                    array('action' => 'api',
-                          'method' => 'oembed.json',
-                          'apiaction' => 'oembed'));
+        $m->connect('main/oembed',
+                    array('action' => 'oembed'));
 
         // these take a code
 
@@ -406,6 +403,28 @@ class Router
                           'apiaction' => 'laconica'));
 
         // Groups
+        //'list' has to be handled differently, as php will not allow a method to be named 'list'
+        $m->connect('api/laconica/groups/list/:argument',
+                    array('action' => 'api',
+                          'method' => 'list_groups',
+                          'apiaction' => 'groups'));
+        foreach (array('xml', 'json', 'rss', 'atom') as $e) {
+            $m->connect('api/laconica/groups/list.' . $e,
+                    array('action' => 'api',
+                          'method' => 'list_groups.' . $e,
+                          'apiaction' => 'groups'));
+        }
+
+        $m->connect('api/laconica/groups/:method',
+                    array('action' => 'api',
+                          'apiaction' => 'statuses'),
+                    array('method' => '(list_all|)(\.(atom|rss|xml|json))?'));
+
+        $m->connect('api/statuses/:method/:argument',
+                    array('action' => 'api',
+                          'apiaction' => 'statuses'),
+                    array('method' => '(|user_timeline|friends_timeline|replies|mentions|show|destroy|friends|followers)'));
+
         $m->connect('api/laconica/groups/:method/:argument',
                     array('action' => 'api',
                           'apiaction' => 'groups'));

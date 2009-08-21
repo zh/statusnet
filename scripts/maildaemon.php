@@ -66,9 +66,10 @@ class MailerDaemon
         }
         $msg = $this->cleanup_msg($msg);
         $msg = common_shorten_links($msg);
-        if (mb_strlen($msg) > 140) {
-            $this->error($from,_('That\'s too long. '.
-                'Max notice size is 140 chars.'));
+        if (Notice::contentTooLong($msg)) {
+            $this->error($from, sprintf(_('That\'s too long. '.
+                                          'Max notice size is %d chars.'),
+                                        Notice::maxContent()));
         }
         $fileRecords = array();
         foreach($attachments as $attachment){
@@ -78,9 +79,9 @@ class MailerDaemon
                 die('error() should trigger an exception before reaching here.');
             }
             $filename = $this->saveFile($user, $attachment,$mimetype);
-            
+
             fclose($attachment);
-            
+
             if (empty($filename)) {
                 $this->error($from,_('Couldn\'t save file.'));
             }
@@ -96,9 +97,10 @@ class MailerDaemon
             $short_fileurl = common_shorten_url($fileurl);
             $msg .= ' ' . $short_fileurl;
 
-            if (mb_strlen($msg) > 140) {
+            if (Notice::contentTooLong($msg)) {
                 $this->deleteFile($filename);
-                $this->error($from,_('Max notice size is 140 chars, including attachment URL.'));
+                $this->error($from, sprintf(_('Max notice size is %d chars, including attachment URL.'),
+                                            Notice::maxContent()));
             }
 
             // Also, not sure this is necessary -- Zach
@@ -123,7 +125,7 @@ class MailerDaemon
         $stream  = stream_get_meta_data($attachment);
         if (copy($stream['uri'], $filepath) && chmod($filepath,0664)) {
             return $filename;
-        } else {   
+        } else {
             $this->error(null,_('File could not be moved to destination directory.' . $stream['uri'] . ' ' . $filepath));
         }
     }
@@ -152,7 +154,7 @@ class MailerDaemon
     }
 
     function maybeAddRedir($file_id, $url)
-    {   
+    {
         $file_redir = File_redirection::staticGet('url', $url);
 
         if (empty($file_redir)) {
@@ -273,7 +275,7 @@ class MailerDaemon
     }
 
     function attachFile($notice, $filerec)
-    {   
+    {
         File_to_post::processNew($filerec->id, $notice->id);
 
         $this->maybeAddRedir($filerec->id,
@@ -385,5 +387,7 @@ class MailerDaemon
     }
 }
 
-$md = new MailerDaemon();
-$md->handle_message('php://stdin');
+if (common_config('emailpost', 'enabled')) {
+    $md = new MailerDaemon();
+    $md->handle_message('php://stdin');
+}

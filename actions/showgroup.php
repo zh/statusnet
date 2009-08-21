@@ -130,8 +130,18 @@ class ShowgroupAction extends GroupDesignAction
         $this->group = User_group::staticGet('nickname', $nickname);
 
         if (!$this->group) {
-            $this->clientError(_('No such group'), 404);
-            return false;
+            $alias = Group_alias::staticGet('alias', $nickname);
+            if ($alias) {
+                $args = array('id' => $alias->group_id);
+                if ($this->page != 1) {
+                    $args['page'] = $this->page;
+                }
+                common_redirect(common_local_url('groupbyid', $args), 301);
+                return false;
+            } else {
+                $this->clientError(_('No such group'), 404);
+                return false;
+            }
         }
 
         common_set_returnto($this->selfUrl());
@@ -440,8 +450,9 @@ class ShowgroupAction extends GroupDesignAction
             $m = sprintf(_('**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
                 'based on the Free Software [Laconica](http://laconi.ca/) tool. Its members share ' .
                 'short messages about their life and interests. '.
-                '[Join now](%%%%action.register%%%%) to become part of this group and many more! ([Read more](%%%%doc.help%%%%))'),
-                     $this->group->nickname);
+                '[Join now](%%%%action.%s%%%%) to become part of this group and many more! ([Read more](%%%%doc.help%%%%))'),
+                     $this->group->nickname,
+                     (!common_config('site','openidonly')) ? 'register' : 'openidlogin');
         } else {
             $m = sprintf(_('**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
                 'based on the Free Software [Laconica](http://laconi.ca/) tool. Its members share ' .

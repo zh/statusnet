@@ -35,14 +35,13 @@ class Profile extends Memcached_DataObject
     public $fullname;                        // varchar(255)  multiple_key
     public $profileurl;                      // varchar(255)
     public $homepage;                        // varchar(255)  multiple_key
-    public $bio;                             // varchar(140)  multiple_key
+    public $bio;                             // text()  multiple_key
     public $location;                        // varchar(255)  multiple_key
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=null)
-    { return Memcached_DataObject::staticGet('Profile',$k,$v); }
+    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Profile',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
@@ -460,5 +459,21 @@ class Profile extends Memcached_DataObject
         if (!empty($c)) {
             $c->delete(common_cache_key('profile:notice_count:'.$this->id));
         }
+    }
+
+    static function maxBio()
+    {
+        $biolimit = common_config('profile', 'biolimit');
+        // null => use global limit (distinct from 0!)
+        if (is_null($biolimit)) {
+            $biolimit = common_config('site', 'textlimit');
+        }
+        return $biolimit;
+    }
+
+    static function bioTooLong($bio)
+    {
+        $biolimit = self::maxBio();
+        return ($biolimit > 0 && !empty($bio) && (mb_strlen($bio) > $biolimit));
     }
 }

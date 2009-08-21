@@ -247,7 +247,7 @@ class LoginAction extends Action
             return _('For security reasons, please re-enter your ' .
                      'user name and password ' .
                      'before changing your settings.');
-        } else {
+        } else if (common_config('openid', 'enabled')) {
             return _('Login with your username and password. ' .
                      'Don\'t have a username yet? ' .
                      '[Register](%%action.register%%) a new account.');

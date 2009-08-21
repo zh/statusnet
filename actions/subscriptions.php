@@ -174,14 +174,26 @@ class SubscriptionsListItem extends SubscriptionListItem
             return;
         }
 
+        if (!common_config('xmpp', 'enabled') && !common_config('sms', 'enabled')) {
+            return;
+        }
+
         $this->out->elementStart('form', array('id' => 'subedit-' . $this->profile->id,
                                           'method' => 'post',
                                           'class' => 'form_subscription_edit',
                                           'action' => common_local_url('subedit')));
         $this->out->hidden('token', common_session_token());
         $this->out->hidden('profile', $this->profile->id);
-        $this->out->checkbox('jabber', _('Jabber'), $sub->jabber);
-        $this->out->checkbox('sms', _('SMS'), $sub->sms);
+        if (common_config('xmpp', 'enabled')) {
+            $this->out->checkbox('jabber', _('Jabber'), $sub->jabber);
+        } else {
+            $this->out->hidden('jabber', $sub->jabber);
+        }
+        if (common_config('sms', 'enabled')) {
+            $this->out->checkbox('sms', _('SMS'), $sub->sms);
+        } else {
+            $this->out->hidden('sms', $sub->sms);
+        }
         $this->out->submit('save', _('Save'));
         $this->out->elementEnd('form');
         return;

@@ -86,9 +86,10 @@ class NoticesearchrssAction extends Rss10Action
     {
         $q = $this->trimmed('q');
         $c = array('url' => common_local_url('noticesearchrss', array('q' => $q)),
-                   'title' => common_config('site', 'name') . sprintf(_(' Search Stream for "%s"'), $q),
+                   'title' => sprintf(_('Updates with "%s"'), $q),
                    'link' => common_local_url('noticesearch', array('q' => $q)),
-                   'description' => sprintf(_('All updates matching search term "%s"'), $q));
+                   'description' => sprintf(_('Updates matching search term "%1$s" on %2$s!'),
+                                            $q, common_config('site', 'name')));
         return $c;
     }
 

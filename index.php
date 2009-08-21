@@ -73,7 +73,7 @@ function handleError($error)
     exit(-1);
 }
 
-function checkMirror($action_obj)
+function checkMirror($action_obj, $args)
 {
     global $config;
 
@@ -120,6 +120,25 @@ function isLoginAction($action)
 
 function main()
 {
+    // fake HTTP redirects using lighttpd's 404 redirects
+    if (strpos($_SERVER['SERVER_SOFTWARE'], 'lighttpd') !== false) {
+        $_lighty_url = $base_url.$_SERVER['REQUEST_URI'];
+        $_lighty_url = @parse_url($_lighty_url);
+
+        if ($_lighty_url['path'] != '/index.php' && $_lighty_url['path'] != '/') {
+            $_lighty_path = preg_replace('/^'.preg_quote(common_config('site','path')).'\//', '', substr($_lighty_url['path'], 1));
+            $_SERVER['QUERY_STRING'] = 'p='.$_lighty_path;
+            if ($_lighty_url['query'])
+                $_SERVER['QUERY_STRING'] .= '&'.$_lighty_url['query'];
+            parse_str($_lighty_url['query'], $_lighty_query);
+            foreach ($_lighty_query as $key => $val) {
+                $_GET[$key] = $_REQUEST[$key] = $val;
+            }
+            $_GET['p'] = $_REQUEST['p'] = $_lighty_path;
+        }
+    }
+    $_SERVER['REDIRECT_URL'] = preg_replace("/\?.+$/", "", $_SERVER['REQUEST_URI']);
+
     // quick check for fancy URL auto-detection support in installer.
     if (isset($_SERVER['REDIRECT_URL']) && (preg_replace("/^\/$/","",(dirname($_SERVER['REQUEST_URI']))) . '/check-fancy') === $_SERVER['REDIRECT_URL']) {
         die("Fancy URL support detection succeeded. We suggest you enable this to get fancy (pretty) URLs.");
@@ -191,7 +210,7 @@ function main()
     } else {
         $action_obj = new $action_class();
 
-        checkMirror($action_obj);
+        checkMirror($action_obj, $args);
 
         try {
             if ($action_obj->prepare($args)) {

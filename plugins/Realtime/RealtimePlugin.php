@@ -84,9 +84,7 @@ class RealtimePlugin extends Plugin
         $scripts = $this->_getScripts();
 
         foreach ($scripts as $script) {
-            $action->element('script', array('type' => 'text/javascript',
-                                             'src' => $script),
-                         ' ');
+            $action->script($script);
         }
 
         $user = common_current_user();
@@ -201,8 +199,8 @@ class RealtimePlugin extends Plugin
 
     function _getScripts()
     {
-        return array(common_path('plugins/Realtime/realtimeupdate.js'),
-                     common_path('plugins/Realtime/json2.js'));
+        return array('plugins/Realtime/realtimeupdate.js',
+                     'plugins/Realtime/json2.js');
     }
 
     function _updateInitialize($timeline, $user_id)

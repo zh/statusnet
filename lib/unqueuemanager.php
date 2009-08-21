@@ -39,7 +39,7 @@ class UnQueueManager
          case 'omb':
             if ($this->_isLocal($notice)) {
                 require_once(INSTALLDIR.'/lib/omb.php');
-                omb_broadcast_remote_subscribers($notice);
+                omb_broadcast_notice($notice);
             }
             break;
          case 'public':
@@ -79,7 +79,7 @@ class UnQueueManager
 
     function _isLocal($notice)
     {
-        return ($notice->is_local == NOTICE_LOCAL_PUBLIC ||
-                $notice->is_local == NOTICE_LOCAL_NONPUBLIC);
+        return ($notice->is_local == Notice::LOCAL_PUBLIC ||
+                $notice->is_local == Notice::LOCAL_NONPUBLIC);
     }
 }

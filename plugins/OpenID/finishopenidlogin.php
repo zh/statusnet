@@ -30,7 +30,9 @@ class FinishopenidloginAction extends Action
     function handle($args)
     {
         parent::handle($args);
-        if (common_is_real_login()) {
+        if (!common_config('openid', 'enabled')) {
+            common_redirect(common_local_url('login'));
+        } else if (common_is_real_login()) {
             $this->clientError(_('Already logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $token = $this->trimmed('token');
@@ -217,7 +219,7 @@ class FinishopenidloginAction extends Action
 
         if (!Validate::string($nickname, array('min_length' => 1,
                                                'max_length' => 64,
-                                               'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
+                                               'format' => NICKNAME_FMT))) {
             $this->showForm(_('Nickname must have only lowercase letters and numbers and no spaces.'));
             return;
         }
@@ -389,7 +391,7 @@ class FinishopenidloginAction extends Action
     {
         if (!Validate::string($str, array('min_length' => 1,
                                           'max_length' => 64,
-                                          'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
+                                          'format' => NICKNAME_FMT))) {
             return false;
         }
         if (!User::allowed_nickname($str)) {
