@@ -445,24 +445,32 @@ function common_replace_urls_callback($text, $callback, $notice_id = null) {
         '(?:[:/][^\s]*)?'.
     ')'.
     '#ix';
-    preg_match_all($regex, $text, $matches);
-    // Then clean up what the regex left behind
-    $offset = 0;
-    foreach($matches[1] as $url) {
-        // Call user specified func
-        if (empty($notice_id)) {
-            $modified_url = call_user_func($callback, $url);
-        } else {
-            $modified_url = call_user_func($callback, array($url, $notice_id));
-        }
 
-        // Replace it!
-        $start = mb_strpos($text, $url, $offset);
-        $text = mb_substr($text, 0, $start).$modified_url.mb_substr($text, $start + mb_strlen($url), mb_strlen($text));
-        $offset = $start + mb_strlen($modified_url);
+    $callback_helper = curry(callback_helper, 3);
+    return preg_replace_callback($regex, $callback_helper($callback,$notice_id) ,$text);
+}
+
+function callback_helper($callback, $notice_id, $matches) {
+    if(empty($notice_id)){
+        return $callback($matches[1],$notice_id);
+    }else{
+        return $callback($matches[1]);
     }
+}
 
-    return $text;
+function curry($func, $arity) {
+    return create_function('', "
+        \$args = func_get_args();
+        if(count(\$args) >= $arity)
+            return call_user_func_array('$func', \$args);
+        \$args = var_export(\$args, 1);
+        return create_function('','
+            \$a = func_get_args();
+            \$z = ' . \$args . ';
+            \$a = array_merge(\$z,\$a);
+            return call_user_func_array(\'$func\', \$a);
+        ');
+    ");
 }
 
 function common_linkify($url) {
