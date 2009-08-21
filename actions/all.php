@@ -108,9 +108,7 @@ class AllAction extends ProfileAction
             }
         }
         else {
-            $message .= sprintf(_('Why not [register an account](%%%%action.%s%%%%) and then nudge %s or post a notice to his or her attention.'),
-                                (!common_config('site','openidonly')) ? 'register' : 'openidlogin',
-                                $this->user->nickname);
+            $message .= sprintf(_('Why not [register an account](%%%%action.register%%%%) and then nudge %s or post a notice to his or her attention.'), $this->user->nickname);
         }
 
         $this->elementStart('div', 'guide');

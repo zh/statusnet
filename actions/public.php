@@ -178,8 +178,7 @@ class PublicAction extends Action
         }
         else {
             if (! (common_config('site','closed') || common_config('site','inviteonly'))) {
-                $message .= sprintf(_('Why not [register an account](%%%%action.%s%%%%) and be the first to post!'),
-                                    (!common_config('site','openidonly')) ? 'register' : 'openidlogin');
+                $message .= _('Why not [register an account](%%action.register%%) and be the first to post!');
             }
 	}
 
@@ -226,11 +225,9 @@ class PublicAction extends Action
     function showAnonymousMessage()
     {
         if (! (common_config('site','closed') || common_config('site','inviteonly'))) {
-            $m = sprintf(_('This is %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
-                           'based on the Free Software [Laconica](http://laconi.ca/) tool. ' .
-                           '[Join now](%%%%action.%s%%%%) to share notices about yourself with friends, family, and colleagues! ' .
-                           '([Read more](%%%%doc.help%%%%))'),
-                         (!common_config('site','openidonly')) ? 'register' : 'openidlogin');
+	    $m = _('This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
+                  'based on the Free Software [Laconica](http://laconi.ca/) tool. ' .
+                  '[Join now](%%action.register%%) to share notices about yourself with friends, family, and colleagues! ([Read more](%%doc.help%%))');
         } else {
             $m = _('This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
                    'based on the Free Software [Laconica](http://laconi.ca/) tool.');

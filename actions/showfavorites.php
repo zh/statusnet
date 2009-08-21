@@ -196,9 +196,7 @@ class ShowfavoritesAction extends OwnerDesignAction
             }
         }
         else {
-            $message = sprintf(_('%s hasn\'t added any notices to his favorites yet. Why not [register an account](%%%%action.%s%%%%) and then post something interesting they would add to their favorites :)'),
-                               $this->user->nickname,
-                               (!common_config('site','openidonly')) ? 'register' : 'openidlogin');
+            $message = sprintf(_('%s hasn\'t added any notices to his favorites yet. Why not [register an account](%%%%action.register%%%%) and then post something interesting they would add to their favorites :)'), $this->user->nickname);
         }
 
         $this->elementStart('div', 'guide');

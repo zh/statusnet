@@ -111,7 +111,6 @@ $config =
               'broughtbyurl' => null,
               'closed' => false,
               'inviteonly' => false,
-              'openidonly' => false,
               'private' => false,
               'ssl' => 'never',
               'sslserver' => null,

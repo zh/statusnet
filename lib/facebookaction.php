@@ -253,13 +253,8 @@ class FacebookAction extends Action
         $this->elementStart('dd');
         $this->elementStart('p');
         $this->text(sprintf($loginmsg_part1, common_config('site', 'name')));
-        if (!common_config('site', 'openidonly')) {
-            $this->element('a',
-                array('href' => common_local_url('register')), _('Register'));
-        } else {
-            $this->element('a',
-                array('href' => common_local_url('openidlogin')), _('Register'));
-        }
+        $this->element('a',
+            array('href' => common_local_url('register')), _('Register'));
         $this->text($loginmsg_part2);
     $this->elementEnd('p');
         $this->elementEnd('dd');

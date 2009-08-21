@@ -63,11 +63,7 @@ class UserauthorizationAction extends Action
                 /* Go log in, and then come back. */
                 common_set_returnto($_SERVER['REQUEST_URI']);
 
-                if (!common_config('site', 'openidonly')) {
-                    common_redirect(common_local_url('login'));
-                } else {
-                    common_redirect(common_local_url('openidlogin'));
-                }
+                common_redirect(common_local_url('login'));
                 return;
             }
 
