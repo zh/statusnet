@@ -460,4 +460,20 @@ class Profile extends Memcached_DataObject
             $c->delete(common_cache_key('profile:notice_count:'.$this->id));
         }
     }
+
+    static function maxBio()
+    {
+        $biolimit = common_config('message', 'biolimit');
+        // null => use global limit (distinct from 0!)
+        if (is_null($biolimit)) {
+            $biolimit = common_config('site', 'textlimit');
+        }
+        return $biolimit;
+    }
+
+    static function bioTooLong($bio)
+    {
+        $biolimit = self::maxBio();
+        return ($biolimit > 0 && !empty($bio) && (mb_strlen($bio) > $biolimit));
+    }
 }
