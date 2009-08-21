@@ -227,3 +227,11 @@ StartNewQueueManager: before trying to start a new queue manager; good for plugi
 RedirectToLogin: event when we force a redirect to login (like when going to a settings page on a remembered login)
 - $action: action object being shown
 - $user: current user
+
+StartLoadDoc: before loading a help doc (hook this to show your own documentation)
+- $title: title of the document
+- $output: HTML output to show
+
+EndLoadDoc: after loading a help doc (hook this to modify other documentation)
+- $title: title of the document
+- $output: HTML output to show

@@ -58,12 +58,24 @@ class DocAction extends Action
     function handle($args)
     {
         parent::handle($args);
-        $this->title    = $this->trimmed('title');
-        $this->filename = INSTALLDIR.'/doc-src/'.$this->title;
-        if (!file_exists($this->filename)) {
-            $this->clientError(_('No such document.'));
-            return;
+
+        $this->title  = $this->trimmed('title');
+        $this->output = null;
+
+        if (Event::handle('StartLoadDoc', &$this->title, &$this->output)) {
+
+            $this->filename = INSTALLDIR.'/doc-src/'.$this->title;
+            if (!file_exists($this->filename)) {
+                $this->clientError(_('No such document.'));
+                return;
+            }
+
+            $c = file_get_contents($this->filename);
+            $this->output = common_markup_to_html($c);
+
+            Event::handle('EndLoadDoc', $this->title, &$this->output);
         }
+
         $this->showPage();
     }
 
@@ -93,9 +105,7 @@ class DocAction extends Action
      */
     function showContent()
     {
-        $c      = file_get_contents($this->filename);
-        $output = common_markup_to_html($c);
-        $this->raw($output);
+        $this->raw($this->output);
     }
 
     /**
