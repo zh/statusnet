@@ -413,15 +413,16 @@ function common_replace_urls_callback($text, $callback, $notice_id = null) {
     // Start off with a regex
     $regex = '#'.
     '(?:^|\s+)('.
-        '(?:'.
-            '(?:https?|ftps?|mms|rtsp|gopher|news|nntp|telnet|wais|file|prospero|webcal|irc)://'.
-            '|'.
-            '(?:mailto|aim|tel|xmpp):'.
-        ')?'.
-        '(?:'.
-        '(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'. //IPv4
-        '|(?:'.
-            '(?:[0-9a-f]{1,4}:){1,1}(?::[0-9a-f]{1,4}){1,6}|'. //IPv6
+        '(?:'. //Known protocols
+            '(?:'.
+                '(?:https?|ftps?|mms|rtsp|gopher|news|nntp|telnet|wais|file|prospero|webcal|irc)://'.
+                '|'.
+                '(?:mailto|aim|tel|xmpp):'.
+            ')\S+'.
+        ')'.
+        '|(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'. //IPv4
+        '|(?:'. //IPv6
+            '(?:[0-9a-f]{1,4}:){1,1}(?::[0-9a-f]{1,4}){1,6}|'.
             '(?:[0-9a-f]{1,4}:){1,2}(?::[0-9a-f]{1,4}){1,5}|'.
             '(?:[0-9a-f]{1,4}:){1,3}(?::[0-9a-f]{1,4}){1,4}|'.
             '(?:[0-9a-f]{1,4}:){1,4}(?::[0-9a-f]{1,4}){1,3}|'.
@@ -438,45 +439,57 @@ function common_replace_urls_callback($text, $callback, $notice_id = null) {
             '(?:[0-9a-f]{1,4}:){1,4}(?::[0-9a-f]{1,4}){1,1}:(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}|'.
             '(?:(?:[0-9a-f]{1,4}:){1,5}|:):(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}|'.
             ':(?::[0-9a-f]{1,4}){1,5}:(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}'.
-        ')|'.
-        '(?:[^.\s/:]+\.)+'. //DNS
-        '(?:museum|travel|onion|[a-z]{2,4})'.
+        ')|(?:'. //DNS
+            '\S+\.(?:museum|travel|onion|local|[a-z]{2,4})'.
         ')'.
-        '(?:[:/][^\s]*)?'.
-    ')'.
+        '(?:[:/]\S*)?'.
+    ')(?:$|\s+)'.
     '#ix';
 
-    $callback_helper = curry(callback_helper, 3);
-    return preg_replace_callback($regex, $callback_helper($callback,$notice_id) ,$text);
+//preg_match_all($regex,$text,$matches);
+//print_r($matches);
+//die("here");
+    return preg_replace_callback($regex, curry(callback_helper,$callback,$notice_id) ,$text);
 }
 
-function callback_helper($callback, $notice_id, $matches) {
+function callback_helper($matches, $callback, $notice_id) {
+    $spaces_left = (strlen($matches[0]) - strlen(ltrim($matches[0])));
+    $spaces_right = (strlen($matches[0]) - strlen(rtrim($matches[0])));
     if(empty($notice_id)){
-        return $callback($matches[1],$notice_id);
+        $result = call_user_func_array($callback,$matches[1]);
     }else{
-        return $callback($matches[1]);
+        $result = call_user_func_array($callback, array($matches[1],$notice_id) );
     }
+    return str_repeat(' ',$spaces_left) . $result . str_repeat(' ',$spaces_right);
 }
 
-function curry($func, $arity) {
-    return create_function('', "
-        \$args = func_get_args();
-        if(count(\$args) >= $arity)
-            return call_user_func_array('$func', \$args);
-        \$args = var_export(\$args, 1);
-        return create_function('','
-            \$a = func_get_args();
-            \$z = ' . \$args . ';
-            \$a = array_merge(\$z,\$a);
-            return call_user_func_array(\'$func\', \$a);
-        ');
-    ");
+function curry($fn) {
+    //TODO switch to a PHP 5.3 function closure based approach if PHP 5.3 is used
+    $args = func_get_args();
+    array_shift($args);
+    $id = uniqid('_partial');
+    $GLOBALS[$id] = array($fn, $args);
+    return create_function(
+        '',
+        '
+        $args = func_get_args();
+        return call_user_func_array(
+        $GLOBALS["'.$id.'"][0],
+        array_merge(
+            $args,
+            $GLOBALS["'.$id.'"][1]));
+    ');
 }
 
 function common_linkify($url) {
     // It comes in special'd, so we unspecial it before passing to the stringifying
     // functions
     $url = htmlspecialchars_decode($url);
+
+   if(strpos($url, '@')!==false && strpos($url, ':')===false){
+       //url is an email address without the mailto: protocol
+       return XMLStringer::estring('a', array('href' => "mailto:$url", 'rel' => 'external'), $url);
+   }
 
     $canon = File_redirection::_canonUrl($url);
 
