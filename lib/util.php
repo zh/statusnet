@@ -1152,7 +1152,8 @@ function common_negotiate_type($cprefs, $sprefs)
 function common_config($main, $sub)
 {
     global $config;
-    return isset($config[$main][$sub]) ? $config[$main][$sub] : false;
+    return (array_key_exists($main, $config) &&
+            array_key_exists($sub, $config[$main])) ? $config[$main][$sub] : false;
 }
 
 function common_copy_args($from)
