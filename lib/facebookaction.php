@@ -35,7 +35,6 @@ if (!defined('LACONICA'))
 require_once INSTALLDIR.'/lib/facebookutil.php';
 require_once INSTALLDIR.'/lib/noticeform.php';
 
-
 class FacebookAction extends Action
 {
 
@@ -201,7 +200,6 @@ class FacebookAction extends Action
 
     }
 
-
     // Make this into a widget later
     function showLocalNav()
     {
@@ -261,7 +259,6 @@ class FacebookAction extends Action
         $this->endHTML();
     }
 
-
     function showInstructions()
     {
 
@@ -286,7 +283,6 @@ class FacebookAction extends Action
         $this->elementEnd('dl');
         $this->elementEnd('div');
     }
-
 
     function showLoginForm($msg = null)
     {
@@ -331,7 +327,6 @@ class FacebookAction extends Action
         $this->elementEnd('div');
 
     }
-
 
     function updateProfileBox($notice)
     {
@@ -414,7 +409,6 @@ class FacebookAction extends Action
         $this->xw->openURI('php://output');
     }
 
-
     /**
      * Generate pagination links
      *
@@ -473,8 +467,9 @@ class FacebookAction extends Action
         } else {
             $content_shortened = common_shorten_links($content);
 
-            if (mb_strlen($content_shortened) > 140) {
-                $this->showPage(_('That\'s too long. Max notice size is 140 chars.'));
+            if (Notice::contentTooLong($content_shortened)) {
+                $this->showPage(sprintf(_('That\'s too long. Max notice size is %d chars.'),
+                                        Notice::maxContent()));
                 return;
             }
         }
