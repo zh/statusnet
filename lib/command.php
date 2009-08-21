@@ -211,16 +211,20 @@ class MessageCommand extends Command
     function execute($channel)
     {
         $other = User::staticGet('nickname', common_canonical_nickname($this->other));
+
         $len = mb_strlen($this->text);
+
         if ($len == 0) {
             $channel->error($this->user, _('No content!'));
             return;
-        } else if ($len > 140) {
-            $content = common_shorten_links($content);
-            if (mb_strlen($content) > 140) {
-                $channel->error($this->user, sprintf(_('Message too long - maximum is 140 characters, you sent %d'), $len));
-                return;
-            }
+        }
+
+        $this->text = common_shorten_links($this->text);
+
+        if (Message::contentTooLong($this->text)) {
+            $channel->error($this->user, sprintf(_('Message too long - maximum is %d characters, you sent %d'),
+                                                 Message::maxContent(), mb_strlen($this->text)));
+            return;
         }
 
         if (!$other) {
