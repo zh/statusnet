@@ -30,9 +30,7 @@ class FinishopenidloginAction extends Action
     function handle($args)
     {
         parent::handle($args);
-        if (!common_config('openid', 'enabled')) {
-            common_redirect(common_local_url('login'));
-        } else if (common_is_real_login()) {
+        if (common_is_real_login()) {
             $this->clientError(_('Already logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $token = $this->trimmed('token');

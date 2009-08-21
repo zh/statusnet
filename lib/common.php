@@ -175,8 +175,6 @@ $config =
               'host' => null, # only set if != server
               'debug' => false, # print extra debug info
               'public' => array()), # JIDs of users who want to receive the public stream
-        'openid' =>
-        array('enabled' => true),
         'invite' =>
         array('enabled' => true),
         'sphinx' =>
@@ -381,12 +379,6 @@ $_db_name = substr($config['db']['database'], strrpos($config['db']['database'],
 
 if ($_db_name != 'laconica' && !array_key_exists('ini_'.$_db_name, $config['db'])) {
     $config['db']['ini_'.$_db_name] = INSTALLDIR.'/classes/laconica.ini';
-}
-
-// Ignore openidonly if OpenID is disabled
-
-if (!$config['openid']['enabled']) {
-    $config['site']['openidonly'] = false;
 }
 
 function __autoload($cls)
