@@ -66,7 +66,7 @@ class PostnoticeAction extends Action
     function checkNotice()
     {
         $content = common_shorten_links($_POST['omb_notice_content']);
-        if (mb_strlen($content) > 140) {
+        if (Notice::contentTooLong($content)) {
             $this->clientError(_('Invalid notice content'), 400);
             return false;
         }
