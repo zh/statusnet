@@ -412,13 +412,13 @@ function common_render_text($text)
 function common_replace_urls_callback($text, $callback, $notice_id = null) {
     // Start off with a regex
     $regex = '#'.
-    '(?:^|\s+)('.
+    '(?:^|[\s\(\)\[\]\{\}]+)('.
         '(?:'. //Known protocols
             '(?:'.
                 '(?:https?|ftps?|mms|rtsp|gopher|news|nntp|telnet|wais|file|prospero|webcal|irc)://'.
                 '|'.
                 '(?:mailto|aim|tel|xmpp):'.
-            ')\S+'.
+            ')[^\s\(\)\[\]\{\}]+'.
         ')'.
         '|(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'. //IPv4
         '|(?:'. //IPv6
@@ -442,25 +442,23 @@ function common_replace_urls_callback($text, $callback, $notice_id = null) {
         ')|(?:'. //DNS
             '\S+\.(?:museum|travel|onion|local|[a-z]{2,4})'.
         ')'.
-        '(?:[:/]\S*)?'.
-    ')(?:$|\s+)'.
+        '([^\s\(\)\[\]\{\}]*)'.
+    ')'.
     '#ix';
-
-//preg_match_all($regex,$text,$matches);
-//print_r($matches);
-//die("here");
     return preg_replace_callback($regex, curry(callback_helper,$callback,$notice_id) ,$text);
 }
 
 function callback_helper($matches, $callback, $notice_id) {
-    $spaces_left = (strlen($matches[0]) - strlen(ltrim($matches[0])));
-    $spaces_right = (strlen($matches[0]) - strlen(rtrim($matches[0])));
+    $pos = strpos($matches[0],$matches[1]);
+    $left = substr($matches[0],0,$pos);
+    $right = substr($matches[0],$pos+strlen($matches[1]));
+    
     if(empty($notice_id)){
         $result = call_user_func_array($callback,$matches[1]);
     }else{
         $result = call_user_func_array($callback, array($matches[1],$notice_id) );
     }
-    return str_repeat(' ',$spaces_left) . $result . str_repeat(' ',$spaces_right);
+    return $left . $result . $right;
 }
 
 function curry($fn) {
