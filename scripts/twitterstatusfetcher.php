@@ -99,13 +99,6 @@ class TwitterStatusFetcher extends Daemon
 
             foreach ($flinks as $f) {
 
-                // We have to disconnect from the DB before forking so
-                // each sub-process will open its own connection and
-                // avoid stomping on the others
-
-                $conn = &$f->getDatabaseConnection();
-                $conn->disconnect();
-
                 $pid = pcntl_fork();
 
                 if ($pid == -1) {
@@ -125,7 +118,24 @@ class TwitterStatusFetcher extends Daemon
                 } else {
 
                     // Child
+
+                    // Each child ps needs its own DB connection
+
+                    // Note: DataObject::getDatabaseConnection() creates
+                    // a new connection if there isn't one already
+
+                    global $_DB_DATAOBJECT;
+                    $conn = &$f->getDatabaseConnection();
+
                     $this->getTimeline($f);
+
+                    $conn->disconnect();
+
+                    // XXX: Couldn't find a less brutal way to blow
+                    // away a cached connection
+
+                    unset($_DB_DATAOBJECT['CONNECTIONS']);
+
                     exit();
                 }
 
@@ -189,7 +199,10 @@ class TwitterStatusFetcher extends Daemon
 
     function refreshFlinks()
     {
+        global $_DB_DATAOBJECT;
+
         $flink = new Foreign_link();
+        $conn = &$flink->getDatabaseConnection();
 
         $flink->service = TWITTER_SERVICE;
 
@@ -214,6 +227,9 @@ class TwitterStatusFetcher extends Daemon
 
         $flink->free();
         unset($flink);
+
+        $conn->disconnect();
+        unset($_DB_DATAOBJECT['CONNECTIONS']);
 
         return $flinks;
     }
@@ -299,6 +315,7 @@ class TwitterStatusFetcher extends Daemon
     function saveStatus($status, $flink)
     {
         $id = $this->ensureProfile($status->user);
+
         $profile = Profile::staticGet($id);
 
         if (empty($profile)) {
@@ -356,7 +373,7 @@ class TwitterStatusFetcher extends Daemon
         $profileurl = 'http://twitter.com/' . $user->screen_name;
         $profile = Profile::staticGet('profileurl', $profileurl);
 
-        if ($profile) {
+        if (!empty($profile)) {
             if (defined('SCRIPT_DEBUG')) {
                 common_debug("Profile for $profile->nickname found.");
             }
