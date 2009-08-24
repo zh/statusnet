@@ -412,63 +412,73 @@ function common_render_text($text)
 function common_replace_urls_callback($text, $callback, $notice_id = null) {
     // Start off with a regex
     $regex = '#'.
-    '(?:^|\s+)('.
+    '(?:^|[\s\(\)\[\]\{\}]+)'.
+        '('.
         '(?:'.
-            '(?:https?|ftps?|mms|rtsp|gopher|news|nntp|telnet|wais|file|prospero|webcal|irc)://'.
-            '|'.
-            '(?:mailto|aim|tel|xmpp):'.
-        ')?'.
-        '(?:'.
-        '(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'. //IPv4
-        '|(?:'.
-            '(?:[0-9a-f]{1,4}:){1,1}(?::[0-9a-f]{1,4}){1,6}|'. //IPv6
-            '(?:[0-9a-f]{1,4}:){1,2}(?::[0-9a-f]{1,4}){1,5}|'.
-            '(?:[0-9a-f]{1,4}:){1,3}(?::[0-9a-f]{1,4}){1,4}|'.
-            '(?:[0-9a-f]{1,4}:){1,4}(?::[0-9a-f]{1,4}){1,3}|'.
-            '(?:[0-9a-f]{1,4}:){1,5}(?::[0-9a-f]{1,4}){1,2}|'.
-            '(?:[0-9a-f]{1,4}:){1,6}(?::[0-9a-f]{1,4}){1,1}|'.
-            '(?:(?:[0-9a-f]{1,4}:){1,7}|:):|'.
-            ':(?::[0-9a-f]{1,4}){1,7}|'.
-            '(?:(?:(?:[0-9a-f]{1,4}:){6})(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3})|'.
-            '(?:(?:[0-9a-f]{1,4}:){5}[0-9a-f]{1,4}:(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3})|'.
-            '(?:[0-9a-f]{1,4}:){5}:[0-9a-f]{1,4}:(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}|'.
-            '(?:[0-9a-f]{1,4}:){1,1}(?::[0-9a-f]{1,4}){1,4}:(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}|'.
-            '(?:[0-9a-f]{1,4}:){1,2}(?::[0-9a-f]{1,4}){1,3}:(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}|'.
-            '(?:[0-9a-f]{1,4}:){1,3}(?::[0-9a-f]{1,4}){1,2}:(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}|'.
-            '(?:[0-9a-f]{1,4}:){1,4}(?::[0-9a-f]{1,4}){1,1}:(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}|'.
-            '(?:(?:[0-9a-f]{1,4}:){1,5}|:):(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}|'.
-            ':(?::[0-9a-f]{1,4}){1,5}:(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}'.
-        ')|'.
-        '(?:[^.\s/:]+\.)+'. //DNS
-        '(?:museum|travel|onion|[a-z]{2,4})'.
+            '(?:'. //Known protocols
+                '(?:'.
+                    '(?:https?|ftps?|mms|rtsp|gopher|news|nntp|telnet|wais|file|prospero|webcal|irc)://'.
+                    '|'.
+                    '(?:mailto|aim|tel|xmpp):'.
+                ')[^\s\/]+'.
+            ')'.
+            '|(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'. //IPv4
+            '|(?:'. //IPv6
+                '(?:(?:(?:[0-9A-Fa-f]{1,4}:){7}(?:(?:[0-9A-Fa-f]{1,4})|:))|(?:(?:[0-9A-Fa-f]{1,4}:){6}(?::|(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})|(?::[0-9A-Fa-f]{1,4})))|(?:(?:[0-9A-Fa-f]{1,4}:){5}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:){4}(?::[0-9A-Fa-f]{1,4}){0,1}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:){3}(?::[0-9A-Fa-f]{1,4}){0,2}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:){2}(?::[0-9A-Fa-f]{1,4}){0,3}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:)(?::[0-9A-Fa-f]{1,4}){0,4}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?::(?::[0-9A-Fa-f]{1,4}){0,5}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})))'.
+            ')|(?:'. //DNS
+                '\S+\.(?:museum|travel|onion|local|[a-z]{2,4})'.
+            ')'.
         ')'.
-        '(?:[:/][^\s]*)?'.
+        '(?:'.
+            '$|(?:'.
+                '/[^\s\(\)\[\]\{\}]*'.
+            ')'.
+        ')'.
     ')'.
     '#ix';
-    preg_match_all($regex, $text, $matches);
-    // Then clean up what the regex left behind
-    $offset = 0;
-    foreach($matches[1] as $url) {
-        // Call user specified func
-        if (empty($notice_id)) {
-            $modified_url = call_user_func($callback, $url);
-        } else {
-            $modified_url = call_user_func($callback, array($url, $notice_id));
-        }
+    return preg_replace_callback($regex, curry(callback_helper,$callback,$notice_id) ,$text);
+}
 
-        // Replace it!
-        $start = mb_strpos($text, $url, $offset);
-        $text = mb_substr($text, 0, $start).$modified_url.mb_substr($text, $start + mb_strlen($url), mb_strlen($text));
-        $offset = $start + mb_strlen($modified_url);
+function callback_helper($matches, $callback, $notice_id) {
+    $pos = strpos($matches[0],$matches[1]);
+    $left = substr($matches[0],0,$pos);
+    $right = substr($matches[0],$pos+strlen($matches[1]));
+    
+    if(empty($notice_id)){
+        $result = call_user_func_array($callback,$matches[1]);
+    }else{
+        $result = call_user_func_array($callback, array($matches[1],$notice_id) );
     }
+    return $left . $result . $right;
+}
 
-    return $text;
+function curry($fn) {
+    //TODO switch to a PHP 5.3 function closure based approach if PHP 5.3 is used
+    $args = func_get_args();
+    array_shift($args);
+    $id = uniqid('_partial');
+    $GLOBALS[$id] = array($fn, $args);
+    return create_function(
+        '',
+        '
+        $args = func_get_args();
+        return call_user_func_array(
+        $GLOBALS["'.$id.'"][0],
+        array_merge(
+            $args,
+            $GLOBALS["'.$id.'"][1]));
+    ');
 }
 
 function common_linkify($url) {
     // It comes in special'd, so we unspecial it before passing to the stringifying
     // functions
     $url = htmlspecialchars_decode($url);
+
+   if(strpos($url, '@')!==false && strpos($url, ':')===false){
+       //url is an email address without the mailto: protocol
+       return XMLStringer::estring('a', array('href' => "mailto:$url", 'rel' => 'external'), $url);
+   }
 
     $canon = File_redirection::_canonUrl($url);
 
