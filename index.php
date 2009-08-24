@@ -182,12 +182,36 @@ function main()
     // If the site is private, and they're not on one of the "public"
     // parts of the site, redirect to login
 
-    if (!$user && common_config('site', 'private') &&
-        !in_array($action, array('login', 'openidlogin', 'finishopenidlogin',
-                                 'recoverpassword', 'api', 'doc', 'register')) &&
-        !preg_match('/rss$/', $action)) {
-        common_redirect(common_local_url('login'));
-        return;
+    if (!$user && common_config('site', 'private')) {
+        $public_actions = array('openidlogin', 'finishopenidlogin',
+                                'recoverpassword', 'api', 'doc',
+                                'opensearch');
+        $login_action = 'openidlogin';
+        if (!common_config('site', 'openidonly')) {
+            $public_actions[] = 'login';
+            $public_actions[] = 'register';
+            $login_action = 'login';
+        }
+        if (!in_array($action, $public_actions) &&
+            !preg_match('/rss$/', $action)) {
+
+            // set returnto
+            $rargs =& common_copy_args($args);
+            unset($rargs['action']);
+            if (common_config('site', 'fancy')) {
+                unset($rargs['p']);
+            }
+            if (array_key_exists('submit', $rargs)) {
+                unset($rargs['submit']);
+            }
+            foreach (array_keys($_COOKIE) as $cookie) {
+                unset($rargs[$cookie]);
+            }
+            common_set_returnto(common_local_url($action, $rargs));
+
+            common_redirect(common_local_url($login_action));
+            return;
+        }
     }
 
     $action_class = ucfirst($action).'Action';

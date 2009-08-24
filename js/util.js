@@ -17,26 +17,51 @@
  */
 
 $(document).ready(function(){
+	var counterBlackout = false;
+	
 	// count character on keyup
 	function counter(event){
 		var maxLength = 140;
 		var currentLength = $("#notice_data-text").val().length;
 		var remaining = maxLength - currentLength;
 		var counter = $("#notice_text-count");
-		counter.text(remaining);
+		
+		if (remaining.toString() != counter.text()) {
+		    if (!counterBlackout || remaining == 0) {
+                        if (counter.text() != String(remaining)) {
+                            counter.text(remaining);
+		        }
 
-		if (remaining < 0) {
-			$("#form_notice").addClass("warning");
-		} else {
-			$("#form_notice").removeClass("warning");
-		}
+                        if (remaining < 0) {
+                            $("#form_notice").addClass("warning");
+                        } else {
+                            $("#form_notice").removeClass("warning");
+                        }
+                        // Skip updates for the next 500ms.
+                        // On slower hardware, updating on every keypress is unpleasant.
+                        if (!counterBlackout) {
+                            counterBlackout = true;
+                            window.setTimeout(clearCounterBlackout, 500);
+                        }
+                    }
+                }
+	}
+	
+	function clearCounterBlackout() {
+		// Allow keyup events to poke the counter again
+		counterBlackout = false;
+		// Check if the string changed since we last looked
+		counter(null);
 	}
 
 	function submitonreturn(event) {
-		if (event.keyCode == 13) {
+		if (event.keyCode == 13 || event.keyCode == 10) {
+			// iPhone sends \n not \r for 'return'
 			$("#form_notice").submit();
 			event.preventDefault();
 			event.stopPropagation();
+			$("#notice_data-text").blur();
+			$("body").focus();
 			return false;
 		}
 		return true;
@@ -57,6 +82,10 @@ $(document).ready(function(){
 	// XXX: refactor this code
 
 	var favoptions = { dataType: 'xml',
+					   beforeSubmit: function(data, target, options) {
+					   							$(target).addClass('processing');
+												return true;
+											  },
 					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
 												var dis = new_form.id;
 												var fav = dis.replace('disfavor', 'favor');
@@ -66,6 +95,10 @@ $(document).ready(function(){
 					 };
 
 	var disoptions = { dataType: 'xml',
+					   beforeSubmit: function(data, target, options) {
+					   							$(target).addClass('processing');
+												return true;
+											  },
 					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
 												var fav = new_form.id;
 												var dis = fav.replace('favor', 'disfavor');
@@ -255,10 +288,10 @@ function NoticeReply() {
 function NoticeReplySet(nick,id) {
 	rgx_username = /^[0-9a-zA-Z\-_.]*$/;
 	if (nick.match(rgx_username)) {
-		replyto = "@" + nick + " ";
 		var text = $("#notice_data-text");
 		if (text.length) {
-			text.val(replyto + text.val());
+			replyto = "@" + nick + " ";
+			text.val(replyto + text.val().replace(RegExp(replyto, 'i'), ''));
 			$("#form_notice input#notice_in-reply-to").val(id);
 			if (text.get(0).setSelectionRange) {
 				var len = text.val().length;

@@ -79,7 +79,7 @@ class UnQueueManager
 
     function _isLocal($notice)
     {
-        return ($notice->is_local == NOTICE_LOCAL_PUBLIC ||
-                $notice->is_local == NOTICE_LOCAL_NONPUBLIC);
+        return ($notice->is_local == Notice::LOCAL_PUBLIC ||
+                $notice->is_local == Notice::LOCAL_NONPUBLIC);
     }
 }

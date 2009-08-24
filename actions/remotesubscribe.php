@@ -71,11 +71,13 @@ class RemotesubscribeAction extends Action
         if ($this->err) {
             $this->element('div', 'error', $this->err);
         } else {
-            $inst = _('To subscribe, you can [login](%%action.login%%),' .
-                      ' or [register](%%action.register%%) a new ' .
-                      ' account. If you already have an account ' .
-                      ' on a [compatible microblogging site](%%doc.openmublog%%), ' .
-                      ' enter your profile URL below.');
+            $inst = sprintf(_('To subscribe, you can [login](%%%%action.%s%%%%),' .
+                              ' or [register](%%%%action.%s%%%%) a new ' .
+                              ' account. If you already have an account ' .
+                              ' on a [compatible microblogging site](%%doc.openmublog%%), ' .
+                              ' enter your profile URL below.'),
+                            (!common_config('site','openidonly')) ? 'login' : 'openidlogin',
+                            (!common_config('site','openidonly')) ? 'register' : 'openidlogin');
             $output = common_markup_to_html($inst);
             $this->elementStart('div', 'instructions');
             $this->raw($output);

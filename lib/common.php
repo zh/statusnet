@@ -47,6 +47,9 @@ require_once('PEAR.php');
 require_once('DB/DataObject.php');
 require_once('DB/DataObject/Cast.php'); # for dates
 
+if (!function_exists('gettext')) {
+    require_once("php-gettext/gettext.inc");
+}
 require_once(INSTALLDIR.'/lib/language.php');
 
 // This gets included before the config file, so that admin code and plugins
@@ -82,7 +85,7 @@ if (isset($server)) {
 if (isset($path)) {
     $_path = $path;
 } else {
-    $_path = array_key_exists('SCRIPT_NAME', $_SERVER) ?
+    $_path = (array_key_exists('SERVER_NAME', $_SERVER) && array_key_exists('SCRIPT_NAME', $_SERVER)) ?
       _sn_to_path($_SERVER['SCRIPT_NAME']) :
     null;
 }
@@ -109,6 +112,7 @@ $config =
               'broughtbyurl' => null,
               'closed' => false,
               'inviteonly' => false,
+              'openidonly' => false,
               'private' => false,
               'ssl' => 'never',
               'sslserver' => null,
@@ -169,6 +173,8 @@ $config =
               'host' => null, # only set if != server
               'debug' => false, # print extra debug info
               'public' => array()), # JIDs of users who want to receive the public stream
+        'openid' =>
+        array('enabled' => true),
         'invite' =>
         array('enabled' => true),
         'sphinx' =>
@@ -183,6 +189,12 @@ $config =
         array('piddir' => '/var/run',
               'user' => false,
               'group' => false),
+        'emailpost' =>
+        array('enabled' => true),
+        'sms' =>
+        array('enabled' => true),
+        'twitter' =>
+        array('enabled' => true),
         'twitterbridge' =>
         array('enabled' => false),
         'integration' =>
@@ -362,6 +374,12 @@ $_db_name = substr($config['db']['database'], strrpos($config['db']['database'],
 
 if ($_db_name != 'laconica' && !array_key_exists('ini_'.$_db_name, $config['db'])) {
     $config['db']['ini_'.$_db_name] = INSTALLDIR.'/classes/laconica.ini';
+}
+
+// Ignore openidonly if OpenID is disabled
+
+if (!$config['openid']['enabled']) {
+    $config['site']['openidonly'] = false;
 }
 
 // XXX: how many of these could be auto-loaded on use?

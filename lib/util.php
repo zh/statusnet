@@ -412,93 +412,73 @@ function common_render_text($text)
 function common_replace_urls_callback($text, $callback, $notice_id = null) {
     // Start off with a regex
     $regex = '#'.
-    '(?:'.
+    '(?:^|[\s\(\)\[\]\{\}]+)'.
+        '('.
         '(?:'.
-            '(?:https?|ftps?|mms|rtsp|gopher|news|nntp|telnet|wais|file|prospero|webcal|irc)://'.
-            '|'.
-            '(?:mailto|aim|tel|xmpp):'.
+            '(?:'. //Known protocols
+                '(?:'.
+                    '(?:https?|ftps?|mms|rtsp|gopher|news|nntp|telnet|wais|file|prospero|webcal|irc)://'.
+                    '|'.
+                    '(?:mailto|aim|tel|xmpp):'.
+                ')[^\s\/]+'.
+            ')'.
+            '|(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'. //IPv4
+            '|(?:'. //IPv6
+                '(?:(?:(?:[0-9A-Fa-f]{1,4}:){7}(?:(?:[0-9A-Fa-f]{1,4})|:))|(?:(?:[0-9A-Fa-f]{1,4}:){6}(?::|(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})|(?::[0-9A-Fa-f]{1,4})))|(?:(?:[0-9A-Fa-f]{1,4}:){5}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:){4}(?::[0-9A-Fa-f]{1,4}){0,1}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:){3}(?::[0-9A-Fa-f]{1,4}){0,2}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:){2}(?::[0-9A-Fa-f]{1,4}){0,3}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:)(?::[0-9A-Fa-f]{1,4}){0,4}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?::(?::[0-9A-Fa-f]{1,4}){0,5}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})))'.
+            ')|(?:'. //DNS
+                '\S+\.(?:museum|travel|onion|local|[a-z]{2,4})'.
+            ')'.
         ')'.
-        '[^.\s]+\.[^\s]+'.
-        '|'.
-        '(?:[^.\s/:]+\.)+'.
-        '(?:museum|travel|[a-z]{2,4})'.
-        '(?:[:/][^\s]*)?'.
+        '(?:'.
+            '$|(?:'.
+                '/[^\s\(\)\[\]\{\}]*'.
+            ')'.
+        ')'.
     ')'.
     '#ix';
-    preg_match_all($regex, $text, $matches);
+    return preg_replace_callback($regex, curry(callback_helper,$callback,$notice_id) ,$text);
+}
 
-    // Then clean up what the regex left behind
-    $offset = 0;
-    foreach($matches[0] as $orig_url) {
-        $url = htmlspecialchars_decode($orig_url);
-
-        // Make sure we didn't pick up an email address
-        if (preg_match('#^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$#i', $url)) continue;
-
-        // Remove surrounding punctuation
-        $url = trim($url, '.?!,;:\'"`([<');
-
-        // Remove surrounding parens and the like
-        preg_match('/[)\]>]+$/', $url, $trailing);
-        if (isset($trailing[0])) {
-            preg_match_all('/[(\[<]/', $url, $opened);
-            preg_match_all('/[)\]>]/', $url, $closed);
-            $unopened = count($closed[0]) - count($opened[0]);
-
-            // Make sure not to take off more closing parens than there are at the end
-            $unopened = ($unopened > mb_strlen($trailing[0])) ? mb_strlen($trailing[0]):$unopened;
-
-            $url = ($unopened > 0) ? mb_substr($url, 0, $unopened * -1):$url;
-        }
-
-        // Remove trailing punctuation again (in case there were some inside parens)
-        $url = rtrim($url, '.?!,;:\'"`');
-
-        // Make sure we didn't capture part of the next sentence
-        preg_match('#((?:[^.\s/]+\.)+)(museum|travel|[a-z]{2,4})#i', $url, $url_parts);
-
-        // Were the parts capitalized any?
-        $last_part = (mb_strtolower($url_parts[2]) !== $url_parts[2]) ? true:false;
-        $prev_part = (mb_strtolower($url_parts[1]) !== $url_parts[1]) ? true:false;
-
-        // If the first part wasn't cap'd but the last part was, we captured too much
-        if ((!$prev_part && $last_part)) {
-            $url = mb_substr($url, 0 , mb_strpos($url, '.'.$url_parts['2'], 0));
-        }
-
-        // Capture the new TLD
-        preg_match('#((?:[^.\s/]+\.)+)(museum|travel|[a-z]{2,4})#i', $url, $url_parts);
-
-        $tlds = array('ac', 'ad', 'ae', 'aero', 'af', 'ag', 'ai', 'al', 'am', 'an', 'ao', 'aq', 'ar', 'arpa', 'as', 'asia', 'at', 'au', 'aw', 'ax', 'az', 'ba', 'bb', 'bd', 'be', 'bf', 'bg', 'bh', 'bi', 'biz', 'bj', 'bm', 'bn', 'bo', 'br', 'bs', 'bt', 'bv', 'bw', 'by', 'bz', 'ca', 'cat', 'cc', 'cd', 'cf', 'cg', 'ch', 'ci', 'ck', 'cl', 'cm', 'cn', 'co', 'com', 'coop', 'cr', 'cu', 'cv', 'cx', 'cy', 'cz', 'de', 'dj', 'dk', 'dm', 'do', 'dz', 'ec', 'edu', 'ee', 'eg', 'er', 'es', 'et', 'eu', 'fi', 'fj', 'fk', 'fm', 'fo', 'fr', 'ga', 'gb', 'gd', 'ge', 'gf', 'gg', 'gh', 'gi', 'gl', 'gm', 'gn', 'gov', 'gp', 'gq', 'gr', 'gs', 'gt', 'gu', 'gw', 'gy', 'hk', 'hm', 'hn', 'hr', 'ht', 'hu', 'id', 'ie', 'il', 'im', 'in', 'info', 'int', 'io', 'iq', 'ir', 'is', 'it', 'je', 'jm', 'jo', 'jobs', 'jp', 'ke', 'kg', 'kh', 'ki', 'km', 'kn', 'kp', 'kr', 'kw', 'ky', 'kz', 'la', 'lb', 'lc', 'li', 'lk', 'lr', 'ls', 'lt', 'lu', 'lv', 'ly', 'ma', 'mc', 'md', 'me', 'mg', 'mh', 'mil', 'mk', 'ml', 'mm', 'mn', 'mo', 'mobi', 'mp', 'mq', 'mr', 'ms', 'mt', 'mu', 'museum', 'mv', 'mw', 'mx', 'my', 'mz', 'na', 'name', 'nc', 'ne', 'net', 'nf', 'ng', 'ni', 'nl', 'no', 'np', 'nr', 'nu', 'nz', 'om', 'org', 'pa', 'pe', 'pf', 'pg', 'ph', 'pk', 'pl', 'pm', 'pn', 'pr', 'pro', 'ps', 'pt', 'pw', 'py', 'qa', 're', 'ro', 'rs', 'ru', 'rw', 'sa', 'sb', 'sc', 'sd', 'se', 'sg', 'sh', 'si', 'sj', 'sk', 'sl', 'sm', 'sn', 'so', 'sr', 'st', 'su', 'sv', 'sy', 'sz', 'tc', 'td', 'tel', 'tf', 'tg', 'th', 'tj', 'tk', 'tl', 'tm', 'tn', 'to', 'tp', 'tr', 'travel', 'tt', 'tv', 'tw', 'tz', 'ua', 'ug', 'uk', 'us', 'uy', 'uz', 'va', 'vc', 've', 'vg', 'vi', 'vn', 'vu', 'wf', 'ws', 'ye', 'yt', 'yu', 'za', 'zm', 'zw');
-
-        if (!in_array($url_parts[2], $tlds)) continue;
-
-        // Make sure we didn't capture a hash tag
-        if (strpos($url, '#') === 0) continue;
-
-        // Put the url back the way we found it.
-        $url = (mb_strpos($orig_url, htmlspecialchars($url)) === FALSE) ? $url:htmlspecialchars($url);
-
-        // Call user specified func
-        if (empty($notice_id)) {
-            $modified_url = call_user_func($callback, $url);
-        } else {
-            $modified_url = call_user_func($callback, array($url, $notice_id));
-        }
-
-        // Replace it!
-        $start = mb_strpos($text, $url, $offset);
-        $text = mb_substr($text, 0, $start).$modified_url.mb_substr($text, $start + mb_strlen($url), mb_strlen($text));
-        $offset = $start + mb_strlen($modified_url);
+function callback_helper($matches, $callback, $notice_id) {
+    $pos = strpos($matches[0],$matches[1]);
+    $left = substr($matches[0],0,$pos);
+    $right = substr($matches[0],$pos+strlen($matches[1]));
+    
+    if(empty($notice_id)){
+        $result = call_user_func_array($callback,$matches[1]);
+    }else{
+        $result = call_user_func_array($callback, array($matches[1],$notice_id) );
     }
+    return $left . $result . $right;
+}
 
-    return $text;
+function curry($fn) {
+    //TODO switch to a PHP 5.3 function closure based approach if PHP 5.3 is used
+    $args = func_get_args();
+    array_shift($args);
+    $id = uniqid('_partial');
+    $GLOBALS[$id] = array($fn, $args);
+    return create_function(
+        '',
+        '
+        $args = func_get_args();
+        return call_user_func_array(
+        $GLOBALS["'.$id.'"][0],
+        array_merge(
+            $args,
+            $GLOBALS["'.$id.'"][1]));
+    ');
 }
 
 function common_linkify($url) {
     // It comes in special'd, so we unspecial it before passing to the stringifying
     // functions
     $url = htmlspecialchars_decode($url);
+
+   if(strpos($url, '@')!==false && strpos($url, ':')===false){
+       //url is an email address without the mailto: protocol
+       return XMLStringer::estring('a', array('href' => "mailto:$url", 'rel' => 'external'), $url);
+   }
 
     $canon = File_redirection::_canonUrl($url);
 
@@ -884,8 +864,8 @@ function common_enqueue_notice($notice)
         $transports[] = 'jabber';
     }
 
-    if ($notice->is_local == NOTICE_LOCAL_PUBLIC ||
-        $notice->is_local == NOTICE_LOCAL_NONPUBLIC) {
+    if ($notice->is_local == Notice::LOCAL_PUBLIC ||
+        $notice->is_local == Notice::LOCAL_NONPUBLIC) {
         $transports = array_merge($transports, $localTransports);
         if ($xmpp) {
             $transports[] = 'public';

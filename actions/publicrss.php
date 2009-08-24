@@ -86,9 +86,9 @@ class PublicrssAction extends Rss10Action
     {
         $c = array(
               'url' => common_local_url('publicrss')
-            , 'title' => sprintf(_('%s Public Stream'), common_config('site', 'name'))
+            , 'title' => sprintf(_('%s public timeline'), common_config('site', 'name'))
             , 'link' => common_local_url('public')
-            , 'description' => sprintf(_('All updates for %s'), common_config('site', 'name')));
+            , 'description' => sprintf(_('%s updates from everyone!'), common_config('site', 'name')));
         return $c;
     }
 

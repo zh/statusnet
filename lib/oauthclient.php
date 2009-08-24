@@ -1,54 +1,152 @@
 <?php
+/**
+ * Laconica, the distributed open-source microblogging tool
+ *
+ * Base class for doing OAuth calls as a consumer
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Action
+ * @package   Laconica
+ * @author    Zach Copley <zach@controlyourself.ca>
+ * @copyright 2008 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
+ */
 
-require_once('OAuth.php');
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-class OAuthClientCurlException extends Exception { }
+require_once 'OAuth.php';
 
+/**
+ * Exception wrapper for cURL errors
+ *
+ * @category Integration
+ * @package  Laconica
+ * @author   Zach Copley <zach@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ *
+ */
+class OAuthClientCurlException extends Exception
+{
+}
+
+/**
+ * Base class for doing OAuth calls as a consumer
+ *
+ * @category Integration
+ * @package  Laconica
+ * @author   Zach Copley <zach@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ *
+ */
 class OAuthClient
 {
     var $consumer;
     var $token;
 
+    /**
+     * Constructor
+     *
+     * Can be initialized with just consumer key and secret for requesting new
+     * tokens or with additional request token or access token
+     *
+     * @param string $consumer_key       consumer key
+     * @param string $consumer_secret    consumer secret
+     * @param string $oauth_token        user's token
+     * @param string $oauth_token_secret user's secret
+     *
+     * @return nothing
+     */
     function __construct($consumer_key, $consumer_secret,
                          $oauth_token = null, $oauth_token_secret = null)
     {
         $this->sha1_method = new OAuthSignatureMethod_HMAC_SHA1();
-        $this->consumer = new OAuthConsumer($consumer_key, $consumer_secret);
-        $this->token = null;
+        $this->consumer    = new OAuthConsumer($consumer_key, $consumer_secret);
+        $this->token       = null;
 
         if (isset($oauth_token) && isset($oauth_token_secret)) {
             $this->token = new OAuthToken($oauth_token, $oauth_token_secret);
         }
     }
 
-    function getRequestToken()
+    /**
+     * Gets a request token from the given url
+     *
+     * @param string $url OAuth endpoint for grabbing request tokens
+     *
+     * @return OAuthToken $token the request token
+     */
+    function getRequestToken($url)
     {
-        $response = $this->oAuthGet(TwitterOAuthClient::$requestTokenURL);
+        $response = $this->oAuthGet($url);
         parse_str($response);
         $token = new OAuthToken($oauth_token, $oauth_token_secret);
         return $token;
     }
 
-    function getAuthorizeLink($request_token, $oauth_callback = null)
+    /**
+     * Builds a link that can be redirected to in order to
+     * authorize a request token.
+     *
+     * @param string     $url            endpoint for authorizing request tokens
+     * @param OAuthToken $request_token  the request token to be authorized
+     * @param string     $oauth_callback optional callback url
+     *
+     * @return string $authorize_url the url to redirect to
+     */
+    function getAuthorizeLink($url, $request_token, $oauth_callback = null)
     {
-        $url = TwitterOAuthClient::$authorizeURL . '?oauth_token=' .
+        $authorize_url = $url . '?oauth_token=' .
             $request_token->key;
 
         if (isset($oauth_callback)) {
-            $url .= '&oauth_callback=' . urlencode($oauth_callback);
+            $authorize_url .= '&oauth_callback=' . urlencode($oauth_callback);
         }
 
-        return $url;
+        return $authorize_url;
     }
 
-    function getAccessToken()
+    /**
+     * Fetches an access token
+     *
+     * @param string $url OAuth endpoint for exchanging authorized request tokens
+     *                     for access tokens
+     *
+     * @return OAuthToken $token the access token
+     */
+    function getAccessToken($url)
     {
-        $response = $this->oAuthPost(TwitterOAuthClient::$accessTokenURL);
+        $response = $this->oAuthPost($url);
         parse_str($response);
         $token = new OAuthToken($oauth_token, $oauth_token_secret);
         return $token;
     }
 
+    /**
+     * Use HTTP GET to make a signed OAuth request
+     *
+     * @param string $url OAuth endpoint
+     *
+     * @return mixed the request
+     */
     function oAuthGet($url)
     {
         $request = OAuthRequest::from_consumer_and_token($this->consumer,
@@ -59,6 +157,14 @@ class OAuthClient
         return $this->httpRequest($request->to_url());
     }
 
+    /**
+     * Use HTTP POST to make a signed OAuth request
+     *
+     * @param string $url    OAuth endpoint
+     * @param array  $params additional post parameters
+     *
+     * @return mixed the request
+     */
     function oAuthPost($url, $params = null)
     {
         $request = OAuthRequest::from_consumer_and_token($this->consumer,
@@ -70,6 +176,14 @@ class OAuthClient
             $request->to_postdata());
     }
 
+    /**
+     * Make a HTTP request using cURL.
+     *
+     * @param string $url    Where to make the
+     * @param array  $params post parameters
+     *
+     * @return mixed the request
+     */
     function httpRequest($url, $params = null)
     {
         $options = array(
@@ -89,7 +203,7 @@ class OAuthClient
         );
 
         if (isset($params)) {
-            $options[CURLOPT_POST] = true;
+            $options[CURLOPT_POST]       = true;
             $options[CURLOPT_POSTFIELDS] = $params;
         }
 

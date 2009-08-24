@@ -47,7 +47,11 @@ class UserauthorizationAction extends Action
                 # Go log in, and then come back
                 common_set_returnto($_SERVER['REQUEST_URI']);
 
-                common_redirect(common_local_url('login'));
+                if (!common_config('site', 'openidonly')) {
+                    common_redirect(common_local_url('login'));
+                } else {
+                    common_redirect(common_local_url('openidlogin'));
+                }
                 return;
             }
 
@@ -481,7 +485,7 @@ class UserauthorizationAction extends Action
         $nickname = $_GET['omb_listenee_nickname'];
         if (!Validate::string($nickname, array('min_length' => 1,
                                                'max_length' => 64,
-                                               'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
+                                               'format' => NICKNAME_FMT))) {
             throw new OAuthException('Nickname must have only letters and numbers and no spaces.');
         }
         $profile = $_GET['omb_listenee_profile'];

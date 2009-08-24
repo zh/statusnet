@@ -31,8 +31,6 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/twitterapi.php';
-
 /**
  * Oembed provider implementation
  *
@@ -46,16 +44,12 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
  * @link      http://laconi.ca/
  */
 
-class TwitapioembedAction extends TwitterapiAction
+class OembedAction extends Action
 {
 
-    function oembed($args, $apidata)
+    function handle($args)
     {
-        parent::handle($args);
-
         common_debug("in oembed api action");
-
-        $this->auth_user = $apidata['user'];
 
         $url = $args['url'];
         if( substr(strtolower($url),0,strlen(common_root_url())) == strtolower(common_root_url()) ){
@@ -131,8 +125,7 @@ class TwitapioembedAction extends TwitterapiAction
                 default:
                     $this->serverError(_("$path not supported for oembed requests"), 501);
             }
-
-            switch($apidata['content-type']){
+            switch($args['format']){
                 case 'xml':
                     $this->init_document('xml');
                     $this->elementStart('oembed');
@@ -151,12 +144,11 @@ class TwitapioembedAction extends TwitterapiAction
                     if($oembed['thumbnail_url']) $this->element('thumbnail_url',null,$oembed['thumbnail_url']);
                     if($oembed['thumbnail_width']) $this->element('thumbnail_width',null,$oembed['thumbnail_width']);
                     if($oembed['thumbnail_height']) $this->element('thumbnail_height',null,$oembed['thumbnail_height']);
-                    
 
                     $this->elementEnd('oembed');
                     $this->end_document('xml');
                     break;
-                case 'json':
+                case 'json': case '':
                     $this->init_document('json');
                     print(json_encode($oembed));
                     $this->end_document('json');
@@ -164,10 +156,51 @@ class TwitapioembedAction extends TwitterapiAction
                 default:
                     $this->serverError(_('content type ' . $apidata['content-type'] . ' not supported'), 501);
             }
-            
         }else{
             $this->serverError(_('Only ' . common_root_url() . ' urls over plain http please'), 404);
         }
     }
-}
 
+    function init_document($type)
+    {
+        switch ($type) {
+        case 'xml':
+            header('Content-Type: application/xml; charset=utf-8');
+            $this->startXML();
+            break;
+        case 'json':
+            header('Content-Type: application/json; charset=utf-8');
+
+            // Check for JSONP callback
+            $callback = $this->arg('callback');
+            if ($callback) {
+                print $callback . '(';
+            }
+            break;
+        default:
+            $this->serverError(_('Not a supported data format.'), 501);
+            break;
+        }
+    }
+
+    function end_document($type='xml')
+    {
+        switch ($type) {
+        case 'xml':
+            $this->endXML();
+            break;
+        case 'json':
+            // Check for JSONP callback
+            $callback = $this->arg('callback');
+            if ($callback) {
+                print ')';
+            }
+            break;
+        default:
+            $this->serverError(_('Not a supported data format.'), 501);
+            break;
+        }
+        return;
+    }
+
+}

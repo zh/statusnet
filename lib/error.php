@@ -72,7 +72,7 @@ class ErrorAction extends Action
         $status_string = $this->status[$this->code];
         header('HTTP/1.1 '.$this->code.' '.$status_string);
     }
-    
+
     /**
      * Display content.
      *
@@ -97,11 +97,11 @@ class ErrorAction extends Action
     {
         return true;
     }
-    
-    function showPage() 
+
+    function showPage()
     {
         parent::showPage();
-        
+
         // We don't want to have any more output after this
         exit();
     }

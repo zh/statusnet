@@ -126,6 +126,10 @@ class AccountSettingsNav extends Widget
         $this->action->elementStart('ul', array('class' => 'nav'));
 
         foreach ($menu as $menuaction => $menudesc) {
+            if ($menuaction == 'openidsettings' &&
+                !common_config('openid', 'enabled')) {
+                continue;
+            }
             $this->action->menuItem(common_local_url($menuaction),
 				    $menudesc[0],
 				    $menudesc[1],

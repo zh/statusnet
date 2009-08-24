@@ -95,34 +95,13 @@ class FacebookAction extends Action
 
     function showStylesheets()
     {
-        // Add a timestamp to the file so Facebook cache wont ignore our changes
-        $ts = filemtime(INSTALLDIR.'/theme/base/css/display.css');
-
-    $this->element('link', array('rel' => 'stylesheet',
-               'type' => 'text/css',
-               'href' => theme_path('css/display.css', 'base') . '?ts=' . $ts));
-
-        $theme = common_config('site', 'theme');
-
-        $ts = filemtime(INSTALLDIR. '/theme/' . $theme .'/css/display.css');
-
-        $this->element('link', array('rel' => 'stylesheet',
-                                     'type' => 'text/css',
-                                     'href' => theme_path('css/display.css', null) . '?ts=' . $ts));
-
-        $ts = filemtime(INSTALLDIR.'/theme/base/css/facebookapp.css');
-
-        $this->element('link', array('rel' => 'stylesheet',
-                                     'type' => 'text/css',
-                                     'href' => theme_path('css/facebookapp.css', 'base') . '?ts=' . $ts));
+        $this->cssLink('css/display.css', 'base');
+        $this->cssLink('css/facebookapp.css', 'base');
     }
 
     function showScripts()
     {
-        // Add a timestamp to the file so Facebook cache wont ignore our changes
-        $ts = filemtime(INSTALLDIR.'/js/facebookapp.js');
-
-        $this->element('script', array('src' => common_path('js/facebookapp.js') . '?ts=' . $ts));
+        $this->script('js/facebookapp.js');
     }
 
     /**
@@ -277,8 +256,13 @@ class FacebookAction extends Action
         $this->elementStart('dd');
         $this->elementStart('p');
         $this->text(sprintf($loginmsg_part1, common_config('site', 'name')));
-        $this->element('a',
-            array('href' => common_local_url('register')), _('Register'));
+        if (!common_config('site', 'openidonly')) {
+            $this->element('a',
+                array('href' => common_local_url('register')), _('Register'));
+        } else {
+            $this->element('a',
+                array('href' => common_local_url('openidlogin')), _('Register'));
+        }
         $this->text($loginmsg_part2);
     $this->elementEnd('p');
         $this->elementEnd('dd');

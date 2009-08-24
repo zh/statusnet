@@ -103,18 +103,18 @@ class AttachmentAction extends Action
         $this->element('link',array('rel'=>'alternate',
             'type'=>'application/json+oembed',
             'href'=>common_local_url(
-                'api',
-                array('apiaction'=>'oembed','method'=>'oembed.json'),
-                array('url'=>
+                'oembed',
+                array(),
+                array('format'=>'json', 'url'=>
                     common_local_url('attachment',
                         array('attachment' => $this->attachment->id)))),
             'title'=>'oEmbed'),null);
         $this->element('link',array('rel'=>'alternate',
             'type'=>'text/xml+oembed',
             'href'=>common_local_url(
-                'api',
-                array('apiaction'=>'oembed','method'=>'oembed.xml'),
-                array('url'=>
+                'oembed',
+                array(),
+                array('format'=>'xml','url'=>
                     common_local_url('attachment',
                         array('attachment' => $this->attachment->id)))),
             'title'=>'oEmbed'),null);

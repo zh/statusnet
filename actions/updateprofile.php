@@ -79,7 +79,7 @@ class UpdateprofileAction extends Action
         $nickname = $req->get_parameter('omb_listenee_nickname');
         if ($nickname && !Validate::string($nickname, array('min_length' => 1,
                                                             'max_length' => 64,
-                                                            'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
+                                                            'format' => NICKNAME_FMT))) {
             $this->clientError(_('Nickname must have only lowercase letters and numbers and no spaces.'));
             return false;
         }

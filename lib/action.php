@@ -193,21 +193,12 @@ class Action extends HTMLOutputter // lawsuit
         if (Event::handle('StartShowStyles', array($this))) {
 
             if (Event::handle('StartShowLaconicaStyles', array($this))) {
-                $this->element('link', array('rel' => 'stylesheet',
-                                             'type' => 'text/css',
-                                             'href' => theme_path('css/display.css', null) . '?version=' . LACONICA_VERSION,
-                                             'media' => 'screen, projection, tv'));
+                $this->cssLink('css/display.css',null,'screen, projection, tv');
                 if (common_config('site', 'mobile')) {
-                    $this->element('link', array('rel' => 'stylesheet',
-                                                 'type' => 'text/css',
-                                                 'href' => theme_path('css/mobile.css', 'base') . '?version=' . LACONICA_VERSION,
-                                                 // TODO: "handheld" CSS for other mobile devices
-                                                 'media' => 'only screen and (max-device-width: 480px)')); // Mobile WebKit
+                    // TODO: "handheld" CSS for other mobile devices
+                    $this->cssLink('css/mobile.css','base','only screen and (max-device-width: 480px)'); // Mobile WebKit
                 }
-                $this->element('link', array('rel' => 'stylesheet',
-                                             'type' => 'text/css',
-                                             'href' => theme_path('css/print.css', 'base') . '?version=' . LACONICA_VERSION,
-                                             'media' => 'print'));
+                $this->cssLink('css/print.css','base','print');
                 Event::handle('EndShowLaconicaStyles', array($this));
             }
 
@@ -253,26 +244,14 @@ class Action extends HTMLOutputter // lawsuit
     {
         if (Event::handle('StartShowScripts', array($this))) {
             if (Event::handle('StartShowJQueryScripts', array($this))) {
-                $this->element('script', array('type' => 'text/javascript',
-                                               'src' => common_path('js/jquery.min.js')),
-                               ' ');
-                $this->element('script', array('type' => 'text/javascript',
-                                               'src' => common_path('js/jquery.form.js')),
-                               ' ');
-
-                $this->element('script', array('type' => 'text/javascript',
-                                               'src' => common_path('js/jquery.joverlay.min.js')),
-                               ' ');
-
+                $this->script('js/jquery.min.js');
+                $this->script('js/jquery.form.js');
+                $this->script('js/jquery.joverlay.min.js');
                 Event::handle('EndShowJQueryScripts', array($this));
             }
             if (Event::handle('StartShowLaconicaScripts', array($this))) {
-                $this->element('script', array('type' => 'text/javascript',
-                                               'src' => common_path('js/xbImportNode.js')),
-                               ' ');
-                $this->element('script', array('type' => 'text/javascript',
-                                               'src' => common_path('js/util.js?version='.LACONICA_VERSION)),
-                               ' ');
+                $this->script('js/xbImportNode.js');
+                $this->script('js/util.js');
                 // Frame-busting code to avoid clickjacking attacks.
                 $this->element('script', array('type' => 'text/javascript'),
                                'if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
@@ -423,6 +402,14 @@ class Action extends HTMLOutputter // lawsuit
     function showPrimaryNav()
     {
         $user = common_current_user();
+        $connect = '';
+        if (common_config('xmpp', 'enabled')) {
+            $connect = 'imsettings';
+        } else if (common_config('sms', 'enabled')) {
+            $connect = 'smssettings';
+        } else if (common_config('twitter', 'enabled')) {
+            $connect = 'twittersettings';
+        }
 
         $this->elementStart('dl', array('id' => 'site_nav_global_primary'));
         $this->element('dt', null, _('Primary site navigation'));
@@ -434,12 +421,9 @@ class Action extends HTMLOutputter // lawsuit
                                 _('Home'), _('Personal profile and friends timeline'), false, 'nav_home');
                 $this->menuItem(common_local_url('profilesettings'),
                                 _('Account'), _('Change your email, avatar, password, profile'), false, 'nav_account');
-                if (common_config('xmpp', 'enabled')) {
-                    $this->menuItem(common_local_url('imsettings'),
-                                    _('Connect'), _('Connect to IM, SMS, Twitter'), false, 'nav_connect');
-                } else {
-                    $this->menuItem(common_local_url('smssettings'),
-                                    _('Connect'), _('Connect to SMS, Twitter'), false, 'nav_connect');
+                if ($connect) {
+                    $this->menuItem(common_local_url($connect),
+                                    _('Connect'), _('Connect to services'), false, 'nav_connect');
                 }
                 if (common_config('invite', 'enabled')) {
                     $this->menuItem(common_local_url('invite'),
@@ -452,17 +436,24 @@ class Action extends HTMLOutputter // lawsuit
                                 _('Logout'), _('Logout from the site'), false, 'nav_logout');
             }
             else {
-                if (!common_config('site', 'closed')) {
-                    $this->menuItem(common_local_url('register'),
-                                    _('Register'), _('Create an account'), false, 'nav_register');
+                if (!common_config('site', 'openidonly')) {
+                    if (!common_config('site', 'closed')) {
+                        $this->menuItem(common_local_url('register'),
+                                        _('Register'), _('Create an account'), false, 'nav_register');
+                    }
+                    $this->menuItem(common_local_url('login'),
+                                    _('Login'), _('Login to the site'), false, 'nav_login');
+                } else {
+                    $this->menuItem(common_local_url('openidlogin'),
+                                    _('OpenID'), _('Login with OpenID'), false, 'nav_openid');
                 }
-                $this->menuItem(common_local_url('login'),
-                                _('Login'), _('Login to the site'), false, 'nav_login');
             }
             $this->menuItem(common_local_url('doc', array('title' => 'help')),
                             _('Help'), _('Help me!'), false, 'nav_help');
-            $this->menuItem(common_local_url('peoplesearch'),
-                            _('Search'), _('Search for people or text'), false, 'nav_search');
+            if ($user || !common_config('site', 'private')) {
+                $this->menuItem(common_local_url('peoplesearch'),
+                                _('Search'), _('Search for people or text'), false, 'nav_search');
+            }
             Event::handle('EndPrimaryNav', array($this));
         }
         $this->elementEnd('ul');

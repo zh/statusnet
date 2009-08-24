@@ -80,6 +80,12 @@ class SmssettingsAction extends ConnectSettingsAction
 
     function showContent()
     {
+        if (!common_config('sms', 'enabled')) {
+            $this->element('div', array('class' => 'error'),
+                           _('SMS is not available.'));
+            return;
+        }
+
         $user = common_current_user();
 
         $this->elementStart('form', array('method' => 'post',
