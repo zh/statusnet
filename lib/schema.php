@@ -47,15 +47,65 @@ if (!defined('LACONICA')) {
 
 class Schema
 {
-    protected $db = null;
+    static $_single = null;
+    protected $conn = null;
+
+    protected function __construct()
+    {
+        // XXX: there should be an easier way to do this.
+        $user = new User();
+        $this->conn = $user->getDatabaseConnection();
+        $user->free();
+        unset($user);
+    }
 
     static function get()
     {
-
+        if (empty(self::$_single)) {
+            self::$_single = new Schema();
+        }
+        return self::$_single;
     }
 
     public function getTableDef($name)
     {
+        $res =& $this->conn->query('DESCRIBE ' . $name);
+
+        if (PEAR::isError($res)) {
+            throw new Exception($res->getMessage());
+        }
+
+        $td = new TableDef();
+
+        $td->name    = $name;
+        $td->columns = array();
+
+        $row = array();
+
+        while ($res->fetchInto($row, DB_FETCHMODE_ASSOC)) {
+
+            $cd = new ColumnDef();
+
+            $cd->name = $row['Field'];
+
+            $packed = $row['Type'];
+
+            if (preg_match('/^(\w+)\((\d+)\)$/', $packed, $match)) {
+                $cd->type = $match[1];
+                $cd->size = $match[2];
+            } else {
+                $cd->type = $packed;
+            }
+
+            $cd->nullable = ($row['Null'] == 'YES') ? true : false;
+            $cd->key      = $row['Key'];
+            $cd->default  = $row['Default'];
+            $cd->extra    = $row['Extra'];
+
+            $td->columns[] = $cd;
+        }
+
+        return $td;
     }
 
     public function getColumnDef($table, $column)
@@ -114,6 +164,10 @@ class ColumnDef
     public $name;
     public $type;
     public $size;
+    public $nullable;
+    public $key;
+    public $default;
+    public $extra;
 }
 
 class IndexDef
