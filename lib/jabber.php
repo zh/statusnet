@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * utility functions for Jabber/GTalk/XMPP messages
  *
@@ -20,9 +20,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Network
- * @package   Laconica
+ * @package   StatusNet
  * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2008 Control Yourself, Inc.
+ * @copyright 2008 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
  */
@@ -67,7 +67,7 @@ function jabber_normalize_jid($jid)
 }
 
 /**
- * the JID of the Jabber daemon for this Laconica instance
+ * the JID of the Jabber daemon for this StatusNet instance
  *
  * @return string JID of the Jabber daemon
  */
@@ -309,7 +309,7 @@ function jabber_special_presence($type, $to=null, $show=null, $status=null)
  * who have Jabber addresses, and have Jabber notification enabled, and
  * have this subscription enabled for Jabber. It also sends the notice to
  * all recipients of @-replies who have Jabber addresses and Jabber notification
- * enabled. This is really the heart of Jabber distribution in Laconica.
+ * enabled. This is really the heart of Jabber distribution in StatusNet.
  *
  * @param Notice $notice The notice to broadcast
  *

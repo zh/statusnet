@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Base class for RSS 1.0 feed actions
  *
@@ -20,10 +20,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Mail
- * @package   Laconica
+ * @package   StatusNet
  * @author    Evan Prodromou <evan@controlyourself.ca>
  * @author    Earle Martin <earle@downlode.org>
- * @copyright 2008-9 Control Yourself, Inc.
+ * @copyright 2008-9 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
  */
@@ -102,7 +102,7 @@ class Rss10Action extends Action
             if (!isset($_SERVER['PHP_AUTH_USER'])) {
 
                 # This header makes basic auth go
-                header('WWW-Authenticate: Basic realm="Laconica RSS"');
+                header('WWW-Authenticate: Basic realm="StatusNet RSS"');
 
                 # If the user hits cancel -- bam!
                 $this->show_basic_auth_error();

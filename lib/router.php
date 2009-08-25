@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * URL routing utilities
  *
@@ -20,9 +20,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  URL
- * @package   Laconica
+ * @package   StatusNet
  * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2009 Control Yourself, Inc.
+ * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
  */
@@ -39,7 +39,7 @@ require_once 'Net/URL/Mapper.php';
  * Cheap wrapper around Net_URL_Mapper
  *
  * @category URL
- * @package  Laconica
+ * @package  StatusNet
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://laconi.ca/

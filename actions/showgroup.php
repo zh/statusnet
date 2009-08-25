@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Group main page
  *
@@ -20,10 +20,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Group
- * @package   Laconica
+ * @package   StatusNet
  * @author    Evan Prodromou <evan@controlyourself.ca>
  * @author    Sarven Capadisli <csarven@controlyourself.ca>
- * @copyright 2008-2009 Control Yourself, Inc.
+ * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
  */
@@ -41,7 +41,7 @@ define('MEMBERS_PER_SECTION', 27);
  * Group main page
  *
  * @category Group
- * @package  Laconica
+ * @package  StatusNet
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://laconi.ca/
@@ -448,14 +448,14 @@ class ShowgroupAction extends GroupDesignAction
     {
         if (!(common_config('site','closed') || common_config('site','inviteonly'))) {
             $m = sprintf(_('**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
-                'based on the Free Software [Laconica](http://laconi.ca/) tool. Its members share ' .
+                'based on the Free Software [StatusNet](http://laconi.ca/) tool. Its members share ' .
                 'short messages about their life and interests. '.
                 '[Join now](%%%%action.%s%%%%) to become part of this group and many more! ([Read more](%%%%doc.help%%%%))'),
                      $this->group->nickname,
                      (!common_config('site','openidonly')) ? 'register' : 'openidlogin');
         } else {
             $m = sprintf(_('**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
-                'based on the Free Software [Laconica](http://laconi.ca/) tool. Its members share ' .
+                'based on the Free Software [StatusNet](http://laconi.ca/) tool. Its members share ' .
                 'short messages about their life and interests. '),
                      $this->group->nickname);
         }

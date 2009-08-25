@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - a distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -323,7 +323,7 @@ class RemotesubscribeAction extends Action
 
         $result = $fetcher->post($req->get_normalized_http_url(),
                                  $req->to_postdata(),
-                                 array('User-Agent: Laconica/' . LACONICA_VERSION));
+                                 array('User-Agent: StatusNet/' . LACONICA_VERSION));
         if ($result->status != 200) {
             return null;
         }

@@ -1,8 +1,8 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
- * Laconica-only extensions to the Twitter-like API
+ * StatusNet-only extensions to the Twitter-like API
  *
  * PHP version 5
  *
@@ -20,9 +20,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Twitter
- * @package   Laconica
+ * @package   StatusNet
  * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2008 Control Yourself, Inc.
+ * @copyright 2008 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
  */
@@ -34,14 +34,14 @@ if (!defined('LACONICA')) {
 require_once INSTALLDIR.'/lib/twitterapi.php';
 
 /**
- * Laconica-specific API methods
+ * StatusNet-specific API methods
  *
  * This class handles all /laconica/ API methods.
  *
  * @category  Twitter
- * @package   Laconica
+ * @package   StatusNet
  * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2008 Control Yourself, Inc.
+ * @copyright 2008 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
  */
@@ -51,7 +51,7 @@ class TwitapilaconicaAction extends TwitterapiAction
     /**
      * A version stamp for the API
      *
-     * Returns a version number for this version of Laconica, which
+     * Returns a version number for this version of StatusNet, which
      * should make things a bit easier for upgrades.
      * URL: http://identi.ca/api/laconica/version.(xml|json)
      * Formats: xml, json
@@ -87,7 +87,7 @@ class TwitapilaconicaAction extends TwitterapiAction
      * Dump of configuration variables
      *
      * Gives a full dump of configuration variables for this instance
-     * of Laconica, minus variables that may be security-sensitive (like
+     * of StatusNet, minus variables that may be security-sensitive (like
      * passwords).
      * URL: http://identi.ca/api/laconica/config.(xml|json)
      * Formats: xml, json

@@ -1,8 +1,8 @@
 #!/usr/bin/env php
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2009, Control Yourself, Inc.
+ * StatusNet - a distributed open-source microblogging tool
+ * Copyright (C) 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -25,7 +25,7 @@ define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 $helptext = <<<ENDOFHELP
 fixup_utf8.php <maxdate> <maxid> <minid>
 
-Fixup records in a database that stored the data incorrectly (pre-0.7.4 for Laconica).
+Fixup records in a database that stored the data incorrectly (pre-0.7.4 for StatusNet).
 
 ENDOFHELP;
 

@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - a distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -88,7 +88,7 @@ class TwitterapiAction extends Action
             Avatar::defaultImage(AVATAR_STREAM_SIZE);
 
         $twitter_user['url'] = ($profile->homepage) ? $profile->homepage : null;
-        $twitter_user['protected'] = false; # not supported by Laconica yet
+        $twitter_user['protected'] = false; # not supported by StatusNet yet
         $twitter_user['followers_count'] = $profile->subscriberCount();
 
         // To be supported soon...
@@ -159,7 +159,7 @@ class TwitterapiAction extends Action
 
         $twitter_status = array();
         $twitter_status['text'] = $notice->content;
-        $twitter_status['truncated'] = false; # Not possible on Laconica
+        $twitter_status['truncated'] = false; # Not possible on StatusNet
         $twitter_status['created_at'] = $this->date_twitter($notice->created);
         $twitter_status['in_reply_to_status_id'] = ($notice->reply_to) ?
             intval($notice->reply_to) : null;

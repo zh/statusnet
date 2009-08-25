@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Base class for doing OAuth calls as a consumer
  *
@@ -20,9 +20,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Action
- * @package   Laconica
+ * @package   StatusNet
  * @author    Zach Copley <zach@controlyourself.ca>
- * @copyright 2008 Control Yourself, Inc.
+ * @copyright 2008 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
  */
@@ -37,7 +37,7 @@ require_once 'OAuth.php';
  * Exception wrapper for cURL errors
  *
  * @category Integration
- * @package  Laconica
+ * @package  StatusNet
  * @author   Zach Copley <zach@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://laconi.ca/
@@ -51,7 +51,7 @@ class OAuthClientCurlException extends Exception
  * Base class for doing OAuth calls as a consumer
  *
  * @category Integration
- * @package  Laconica
+ * @package  StatusNet
  * @author   Zach Copley <zach@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://laconi.ca/
@@ -191,7 +191,7 @@ class OAuthClient
             CURLOPT_FAILONERROR    => true,
             CURLOPT_HEADER         => false,
             CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_USERAGENT      => 'Laconica',
+            CURLOPT_USERAGENT      => 'StatusNet',
             CURLOPT_CONNECTTIMEOUT => 120,
             CURLOPT_TIMEOUT        => 120,
             CURLOPT_HTTPAUTH       => CURLAUTH_ANY,

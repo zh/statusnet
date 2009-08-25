@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * utilities for sending email
  *
@@ -20,12 +20,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Mail
- * @package   Laconica
+ * @package   StatusNet
  * @author    Evan Prodromou <evan@controlyourself.ca>
  * @author    Zach Copley <zach@controlyourself.ca>
  * @author    Robin Millette <millette@controlyourself.ca>
  * @author    Sarven Capadisli <csarven@controlyourself.ca>
- * @copyright 2008 Control Yourself, Inc.
+ * @copyright 2008 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
  */

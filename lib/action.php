@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Base class for all actions (~views)
  *
@@ -20,10 +20,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Action
- * @package   Laconica
+ * @package   StatusNet
  * @author    Evan Prodromou <evan@controlyourself.ca>
  * @author    Sarven Capadisli <csarven@controlyourself.ca>
- * @copyright 2008 Control Yourself, Inc.
+ * @copyright 2008 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
  */
@@ -45,7 +45,7 @@ require_once INSTALLDIR.'/lib/htmloutputter.php';
  * model classes to read and write to the database; and doing ouput.
  *
  * @category Output
- * @package  Laconica
+ * @package  StatusNet
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @author   Sarven Capadisli <csarven@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
@@ -192,14 +192,14 @@ class Action extends HTMLOutputter // lawsuit
     {
         if (Event::handle('StartShowStyles', array($this))) {
 
-            if (Event::handle('StartShowLaconicaStyles', array($this))) {
+            if (Event::handle('StartShowStatusNetStyles', array($this))) {
                 $this->cssLink('css/display.css',null,'screen, projection, tv');
                 if (common_config('site', 'mobile')) {
                     // TODO: "handheld" CSS for other mobile devices
                     $this->cssLink('css/mobile.css','base','only screen and (max-device-width: 480px)'); // Mobile WebKit
                 }
                 $this->cssLink('css/print.css','base','print');
-                Event::handle('EndShowLaconicaStyles', array($this));
+                Event::handle('EndShowStatusNetStyles', array($this));
             }
 
             if (Event::handle('StartShowUAStyles', array($this))) {
@@ -249,13 +249,13 @@ class Action extends HTMLOutputter // lawsuit
                 $this->script('js/jquery.joverlay.min.js');
                 Event::handle('EndShowJQueryScripts', array($this));
             }
-            if (Event::handle('StartShowLaconicaScripts', array($this))) {
+            if (Event::handle('StartShowStatusNetScripts', array($this))) {
                 $this->script('js/xbImportNode.js');
                 $this->script('js/util.js');
                 // Frame-busting code to avoid clickjacking attacks.
                 $this->element('script', array('type' => 'text/javascript'),
                                'if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
-                Event::handle('EndShowLaconicaScripts', array($this));
+                Event::handle('EndShowStatusNetScripts', array($this));
             }
             Event::handle('EndShowScripts', array($this));
         }
@@ -742,26 +742,26 @@ class Action extends HTMLOutputter // lawsuit
     function showLicenses()
     {
         $this->elementStart('dl', array('id' => 'licenses'));
-        $this->showLaconicaLicense();
+        $this->showStatusNetLicense();
         $this->showContentLicense();
         $this->elementEnd('dl');
     }
 
     /**
-     * Show Laconica license.
+     * Show StatusNet license.
      *
      * @return nothing
      */
-    function showLaconicaLicense()
+    function showStatusNetLicense()
     {
-        $this->element('dt', array('id' => 'site_laconica_license'), _('Laconica software license'));
+        $this->element('dt', array('id' => 'site_laconica_license'), _('StatusNet software license'));
         $this->elementStart('dd', null);
         if (common_config('site', 'broughtby')) {
             $instr = _('**%%site.name%%** is a microblogging service brought to you by [%%site.broughtby%%](%%site.broughtbyurl%%). ');
         } else {
             $instr = _('**%%site.name%%** is a microblogging service. ');
         }
-        $instr .= sprintf(_('It runs the [Laconica](http://laconi.ca/) microblogging software, version %s, available under the [GNU Affero General Public License](http://www.fsf.org/licensing/licenses/agpl-3.0.html).'), LACONICA_VERSION);
+        $instr .= sprintf(_('It runs the [StatusNet](http://laconi.ca/) microblogging software, version %s, available under the [GNU Affero General Public License](http://www.fsf.org/licensing/licenses/agpl-3.0.html).'), LACONICA_VERSION);
         $output = common_markup_to_html($instr);
         $this->raw($output);
         $this->elementEnd('dd');
@@ -775,7 +775,7 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showContentLicense()
     {
-        $this->element('dt', array('id' => 'site_content_license'), _('Laconica software license'));
+        $this->element('dt', array('id' => 'site_content_license'), _('StatusNet software license'));
         $this->elementStart('dd', array('id' => 'site_content_license_cc'));
         $this->elementStart('p');
         $this->element('img', array('id' => 'license_cc',

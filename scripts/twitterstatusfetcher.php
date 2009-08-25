@@ -1,8 +1,8 @@
 #!/usr/bin/env php
 <?php
 /**
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - a distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -46,7 +46,7 @@ require_once INSTALLDIR . '/lib/daemon.php';
  * system.
  *
  * @category Twitter
- * @package  Laconica
+ * @package  StatusNet
  * @author   Zach Copley <zach@controlyourself.ca>
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
@@ -185,7 +185,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
         foreach (array_reverse($timeline) as $status) {
 
-            // Hacktastic: filter out stuff coming from this Laconica
+            // Hacktastic: filter out stuff coming from this StatusNet
 
             $source = mb_strtolower(common_config('integration', 'source'));
 
@@ -478,7 +478,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         default:
 
             // Note: Twitter's big avatars are a different size than
-            // Laconica's (Laconica's = 96)
+            // StatusNet's (Laconica's = 96)
 
             $avatar->width  = 73;
             $avatar->height = 73;

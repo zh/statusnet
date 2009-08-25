@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * utilities for defining and running event handlers
  *
@@ -20,9 +20,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Event
- * @package   Laconica
+ * @package   StatusNet
  * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2008 Control Yourself, Inc.
+ * @copyright 2008 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
  */
@@ -34,10 +34,10 @@ if (!defined('LACONICA')) {
 /**
  * Class for events
  *
- * This "class" two static functions for managing events in the Laconica code.
+ * This "class" two static functions for managing events in the StatusNet code.
  *
  * @category Event
- * @package  Laconica
+ * @package  StatusNet
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://laconi.ca/
@@ -54,7 +54,7 @@ class Event {
     /**
      * Add an event handler
      *
-     * To run some code at a particular point in Laconica processing.
+     * To run some code at a particular point in StatusNet processing.
      * Named events include receiving an XMPP message, adding a new notice,
      * or showing part of an HTML page.
      *

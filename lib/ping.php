@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2009, Control Yourself, Inc.
+ * StatusNet - a distributed open-source microblogging tool
+ * Copyright (C) 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -47,7 +47,7 @@ function ping_broadcast_notice($notice) {
             $context = stream_context_create(array('http' => array('method' => "POST",
                                                                    'header' =>
                                                                    "Content-Type: text/xml\r\n".
-                                                                   "User-Agent: Laconica/".LACONICA_VERSION."\r\n",
+                                                                   "User-Agent: StatusNet/".LACONICA_VERSION."\r\n",
                                                                    'content' => $req)));
             $file = file_get_contents($notify_url, false, $context);
 
@@ -81,11 +81,11 @@ function ping_broadcast_notice($notice) {
 
             if ($type === 'get') {
                 $result = $fetcher->get($notify_url . '?' . http_build_query($args),
-                                        array('User-Agent: Laconica/'.LACONICA_VERSION));
+                                        array('User-Agent: StatusNet/'.LACONICA_VERSION));
             } else {
                 $result = $fetcher->post($notify_url,
                                          http_build_query($args),
-                                         array('User-Agent: Laconica/'.LACONICA_VERSION));
+                                         array('User-Agent: StatusNet/'.LACONICA_VERSION));
             }
             if ($result->status != '200') {
                 common_log(LOG_WARNING,

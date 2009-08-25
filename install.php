@@ -1,7 +1,7 @@
 <?php
 /**
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2009, Control Yourself, Inc.
+ * StatusNet - a distributed open-source microblogging tool
+ * Copyright (C) 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -249,8 +249,8 @@ function handlePost()
     */
     $link = "http://".$server.'/'.$path;
     
-    updateStatus("Laconica has been installed at $link");
-    updateStatus("You can visit your <a href='$link'>new Laconica site</a>.");
+    updateStatus("StatusNet has been installed at $link");
+    updateStatus("You can visit your <a href='$link'>new StatusNet site</a>.");
 ?>
 
 <?php
@@ -276,7 +276,7 @@ function pgsql_db_installer($host, $database, $username, $password) {
   //ensure database encoding is UTF8
   $record = pg_fetch_object(pg_query($conn, 'SHOW server_encoding'));
   if ($record->server_encoding != 'UTF8') {
-    updateStatus("Laconica requires UTF8 character encoding. Your database is ". htmlentities($record->server_encoding));
+    updateStatus("StatusNet requires UTF8 character encoding. Your database is ". htmlentities($record->server_encoding));
     showForm();
     return false;
   }
@@ -419,7 +419,7 @@ function runDbScript($filename, $conn, $type = 'mysql')
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en_US" lang="en_US">
     <head>
-        <title>Install Laconica</title>
+        <title>Install StatusNet</title>
 	<link rel="shortcut icon" href="favicon.ico"/>
         <link rel="stylesheet" type="text/css" href="theme/default/css/display.css?version=0.8" media="screen, projection, tv"/>
         <!--[if IE]><link rel="stylesheet" type="text/css" href="theme/base/css/ie.css?version=0.8" /><![endif]-->
@@ -433,14 +433,14 @@ function runDbScript($filename, $conn, $type = 'mysql')
             <div id="header">
                 <address id="site_contact" class="vcard">
                     <a class="url home bookmark" href=".">
-                        <img class="logo photo" src="theme/default/logo.png" alt="Laconica"/>
-                        <span class="fn org">Laconica</span>
+                        <img class="logo photo" src="theme/default/logo.png" alt="StatusNet"/>
+                        <span class="fn org">StatusNet</span>
                     </a>
                 </address>
             </div>
             <div id="core">
                 <div id="content">
-                    <h1>Install Laconica</h1>
+                    <h1>Install StatusNet</h1>
 <?php main(); ?>
                 </div>
             </div>

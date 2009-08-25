@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Action for showing Twitter-like Atom search results
  *
@@ -20,9 +20,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Search
- * @package   Laconica
+ * @package   StatusNet
  * @author    Zach Copley <zach@controlyourself.ca>
- * @copyright 2008-2009 Control Yourself, Inc.
+ * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
  */
@@ -41,7 +41,7 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
  * RSS10Action.
  *
  * @category Search
- * @package  Laconica
+ * @package  StatusNet
  * @author   Zach Copley <zach@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://laconi.ca/

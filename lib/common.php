@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - a distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -94,7 +94,7 @@ if (isset($path)) {
 
 $config =
   array('site' =>
-        array('name' => 'Just another Laconica microblog',
+        array('name' => 'Just another StatusNet microblog',
               'server' => $_server,
               'theme' => 'default',
               'path' => $_path,
@@ -198,7 +198,7 @@ $config =
         'twitterbridge' =>
         array('enabled' => false),
         'integration' =>
-        array('source' => 'Laconica', # source attribute for Twitter
+        array('source' => 'StatusNet', # source attribute for Twitter
               'taguri' => $_server.',2009'), # base for tag URIs
 	'twitter' =>
 	array('consumer_key'    => null,

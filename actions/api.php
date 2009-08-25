@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - a distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -53,7 +53,7 @@ class ApiAction extends Action
             if (!isset($_SERVER['PHP_AUTH_USER'])) {
 
                 # This header makes basic auth go
-                header('WWW-Authenticate: Basic realm="Laconica API"');
+                header('WWW-Authenticate: Basic realm="StatusNet API"');
 
                 # If the user hits cancel -- bam!
                 $this->show_basic_auth_error();

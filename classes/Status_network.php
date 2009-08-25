@@ -2,8 +2,8 @@
 /**
  * Table Definition for status_network
  *
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2009, Control Yourself, Inc.
+ * StatusNet - a distributed open-source microblogging tool
+ * Copyright (C) 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by

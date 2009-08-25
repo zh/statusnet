@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * List of featured users
  *
@@ -20,10 +20,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Public
- * @package   Laconica
+ * @package   StatusNet
  * @author    Zach Copley <zach@controlyourself.ca>
  * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2008-2009 Control Yourself, Inc.
+ * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
  */
@@ -39,7 +39,7 @@ require_once INSTALLDIR.'/lib/publicgroupnav.php';
  * List of featured users
  *
  * @category Public
- * @package  Laconica
+ * @package  StatusNet
  * @author   Zach Copley <zach@controlyourself.ca>
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0

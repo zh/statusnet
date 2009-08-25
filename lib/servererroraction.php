@@ -6,14 +6,14 @@
  * PHP version 5
  *
  * @category Action
- * @package  Laconica
+ * @package  StatusNet
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @author   Zach Copley <zach@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://laconi.ca/
  *
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - a distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -47,7 +47,7 @@ require_once INSTALLDIR.'/lib/error.php';
  * See: http://tools.ietf.org/html/rfc2616#section-10
  *
  * @category Action
- * @package  Laconica
+ * @package  StatusNet
  * @author   Zach Copley <zach@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://laconi.ca/

@@ -5,13 +5,13 @@
  * PHP version 5
  *
  * @category Action
- * @package  Laconica
+ * @package  StatusNet
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://laconi.ca/
  *
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2009, Control Yourself, Inc.
+ * StatusNet - a distributed open-source microblogging tool
+ * Copyright (C) 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -40,7 +40,7 @@ require_once INSTALLDIR.'/lib/noticelist.php';
  * Conversation tree in the browser
  *
  * @category Action
- * @package  Laconica
+ * @package  StatusNet
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://laconi.ca/
@@ -129,7 +129,7 @@ class ConversationAction extends Action
  * The widget class for displaying a hierarchical list of notices.
  *
  * @category Widget
- * @package  Laconica
+ * @package  StatusNet
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://laconi.ca/
@@ -250,7 +250,7 @@ class ConversationTree extends NoticeList
  * Special class of NoticeListItem for use inside conversation trees.
  *
  * @category Widget
- * @package  Laconica
+ * @package  StatusNet
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://laconi.ca/
