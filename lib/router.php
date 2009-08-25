@@ -86,10 +86,6 @@ class Router
 
         $m->connect('doc/:title', array('action' => 'doc'));
 
-        // Twitter
-
-        $m->connect('twitter/authorization', array('action' => 'twitterauthorization'));
-
         // facebook
 
         $m->connect('facebook', array('action' => 'facebookhome'));
@@ -136,7 +132,7 @@ class Router
         // settings
 
         foreach (array('profile', 'avatar', 'password', 'im',
-                       'email', 'sms', 'twitter', 'userdesign', 'other') as $s) {
+                       'email', 'sms', 'userdesign', 'other') as $s) {
             $m->connect('settings/'.$s, array('action' => $s.'settings'));
         }
 
