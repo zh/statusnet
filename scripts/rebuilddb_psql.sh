@@ -5,7 +5,7 @@
 # below, AND backed up your database. Failure to observe these instructions
 # may result in losing all the data in your database.
 #
-# This script is used to upgrade Laconica's PostgreSQL database to the
+# This script is used to upgrade StatusNet's PostgreSQL database to the
 # latest version. It does the following:
 # 
 #  1. Dumps the existing data to /tmp/rebuilddb_psql.sql
