@@ -445,7 +445,7 @@ function common_replace_urls_callback($text, $callback, $notice_id = null) {
             '(?:/[\pN\pL$\[\]\,\!\(\)\.\-\_\+\/\=\&\;]*)?'. // /path
             '(?:\?[\pN\pL\$\[\]\,\!\(\)\.\-\_\+\/\=\&\;\/]*)?'. // ?query string
             '(?:\#[\pN\pL$\[\]\,\!\(\)\.\-\_\+\/\=\&\;\/\?\#]*)?'. // #fragment
-        ')(?<![\?\.\,\#\)\]\,])'.
+        ')(?<![\?\.\,\#\,])'.
     ')'.
     '#ixu';
     preg_match_all($regex,$text,$matches);
@@ -454,16 +454,52 @@ function common_replace_urls_callback($text, $callback, $notice_id = null) {
 }
 
 function callback_helper($matches, $callback, $notice_id) {
-    $pos = strpos($matches[0],$matches['url']);
-    $left = substr($matches[0],0,$pos);
-    $right = substr($matches[0],$pos+strlen($matches['url']));
+    $url=$matches['url'];
+    $left = strpos($matches[0],$url);
+    $right = $left+strlen($url);
+    
+    $groupSymbolSets=array(
+        array(
+            'left'=>'(',
+            'right'=>')'
+        ),
+        array(
+            'left'=>'[',
+            'right'=>']'
+        ),
+        array(
+            'left'=>'{',
+            'right'=>'}'
+        )
+    );
+    $cannotEndWith=array('.','?',',','#');
+    $original_url=$url;
+    do{
+        $original_url=$url;
+        foreach($groupSymbolSets as $groupSymbolSet){
+            if(substr($url,-1)==$groupSymbolSet['right']){
+                $group_left_count = substr_count($url,$groupSymbolSet['left']);
+                $group_right_count = substr_count($url,$groupSymbolSet['right']);
+                if($group_left_count<$group_right_count){
+                    $right-=1;
+                    $url=substr($url,0,-1);
+                }
+            }
+        }
+        if(in_array(substr($url,-1),$cannotEndWith)){
+            $right-=1;
+            $url=substr($url,0,-1);
+        }
+    }while($original_url!=$url);
+    
+    
     
     if(empty($notice_id)){
-        $result = call_user_func_array($callback,$matches['url']);
+        $result = call_user_func_array($callback,$url);
     }else{
-        $result = call_user_func_array($callback, array($matches['url'],$notice_id) );
+        $result = call_user_func_array($callback, array($url,$notice_id) );
     }
-    return $left . $result . $right;
+    return substr($matches[0],0,$left) . $result . substr($matches[0],$right);
 }
 
 function curry($fn) {
