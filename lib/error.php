@@ -7,8 +7,8 @@
  *
  * @category Action
  * @package  StatusNet
- * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Zach Copley <zach@controlyourself.ca>
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://status.net/
  *
@@ -38,7 +38,7 @@ if (!defined('LACONICA')) {
  *
  * @category Action
  * @package  StatusNet
- * @author   Zach Copley <zach@controlyourself.ca>
+ * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://status.net/
  */

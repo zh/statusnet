@@ -22,7 +22,7 @@
  * @category  Public
  * @package   StatusNet
  * @author    Mike Cochrane <mikec@mikenz.geek.nz>
- * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @author    Evan Prodromou <evan@status.net>
  * @copyright 2008 Mike Cochrane
  * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
@@ -39,7 +39,7 @@ define('TAGS_PER_PAGE', 100);
  * @category Personal
  * @package  StatusNet
  * @author    Mike Cochrane <mikec@mikenz.geek.nz>
- * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @author    Evan Prodromou <evan@status.net>
  * @copyright 2008 Mike Cochrane
  * @copyright 2008-2009 StatusNet, Inc.
  * @link     http://status.net/

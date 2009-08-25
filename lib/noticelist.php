@@ -21,8 +21,8 @@
  *
  * @category  UI
  * @package   StatusNet
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @author    Sarven Capadisli <csarven@controlyourself.ca>
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    Sarven Capadisli <csarven@status.net>
  * @copyright 2008 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
@@ -46,7 +46,7 @@ require_once INSTALLDIR.'/lib/attachmentlist.php';
  *
  * @category UI
  * @package  StatusNet
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  * @see      Notice
@@ -134,7 +134,7 @@ class NoticeList extends Widget
  *
  * @category UI
  * @package  StatusNet
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  * @see      NoticeList

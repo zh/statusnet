@@ -6,7 +6,7 @@
  *
  * @category Action
  * @package  StatusNet
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://status.net/
  *
@@ -36,7 +36,7 @@ if (!defined('LACONICA')) {
  *
  * @category Action
  * @package  StatusNet
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://status.net/
  */

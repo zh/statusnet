@@ -21,7 +21,7 @@
  *
  * @category  Widget
  * @package   StatusNet
- * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @author    Evan Prodromou <evan@status.net>
  * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
@@ -38,7 +38,7 @@ if (!defined('LACONICA')) {
  *
  * @category Widget
  * @package  StatusNet
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */

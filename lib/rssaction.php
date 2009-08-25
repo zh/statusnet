@@ -21,7 +21,7 @@
  *
  * @category  Mail
  * @package   StatusNet
- * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @author    Evan Prodromou <evan@status.net>
  * @author    Earle Martin <earle@downlode.org>
  * @copyright 2008-9 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0

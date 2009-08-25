@@ -6,7 +6,7 @@
  *
  * @category Action
  * @package  StatusNet
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://status.net/
  *
@@ -41,7 +41,7 @@ require_once INSTALLDIR.'/lib/noticelist.php';
  *
  * @category Action
  * @package  StatusNet
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://status.net/
  */
@@ -130,7 +130,7 @@ class ConversationAction extends Action
  *
  * @category Widget
  * @package  StatusNet
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://status.net/
  */
@@ -251,7 +251,7 @@ class ConversationTree extends NoticeList
  *
  * @category Widget
  * @package  StatusNet
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://status.net/
  */

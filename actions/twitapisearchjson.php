@@ -21,7 +21,7 @@
  *
  * @category  Search
  * @package   StatusNet
- * @author    Zach Copley <zach@controlyourself.ca>
+ * @author    Zach Copley <zach@status.net>
  * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
@@ -39,7 +39,7 @@ require_once INSTALLDIR.'/lib/jsonsearchresultslist.php';
  *
  * @category Search
  * @package  StatusNet
- * @author   Zach Copley <zach@controlyourself.ca>
+ * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  * @see      TwitterapiAction

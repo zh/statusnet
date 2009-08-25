@@ -21,8 +21,8 @@
  *
  * @category  Settings
  * @package   StatusNet
- * @author    Sarven Capadisli <csarven@controlyourself.ca>
- * @author    Zach Copley <zach@controlyourself.ca>
+ * @author    Sarven Capadisli <csarven@status.net>
+ * @author    Zach Copley <zach@status.net>
  * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
@@ -43,8 +43,8 @@ require_once INSTALLDIR . '/lib/webcolor.php';
  *
  * @category Settings
  * @package  StatusNet
- * @author   Zach Copley <zach@controlyourself.ca>
- * @author   Sarven Capadisli <csarven@controlyourself.ca>
+ * @author   Zach Copley <zach@status.net>
+ * @author   Sarven Capadisli <csarven@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */

@@ -7,8 +7,8 @@
  *
  * @category Action
  * @package  StatusNet
- * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Robin Millette <millette@controlyourself.ca>
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Robin Millette <millette@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://status.net/
  *
@@ -42,8 +42,8 @@ require_once INSTALLDIR.'/lib/rssaction.php';
  *
  * @category Action
  * @package  StatusNet
- * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Robin Millette <millette@controlyourself.ca>
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Robin Millette <millette@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://status.net/
  */
