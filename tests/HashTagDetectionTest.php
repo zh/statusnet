@@ -28,7 +28,7 @@ class HashTagDetectionTest extends PHPUnit_Framework_TestCase
                      array('hello',
                            'hello'),
                      array('#hello',
-                           '<a href="/tag/hello">hello</a>'),
+                           '#<span class="tag"><a href="' . common_local_url('tag', array('tag' => common_canonical_tag('hello'))) . '" rel="tag">hello</a></span>'),
                      );
     }
 }
