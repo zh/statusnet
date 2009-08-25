@@ -182,7 +182,7 @@ class File_redirection extends Memcached_DataObject
             }
         }
 
-        if (('ftp' == $p['scheme']) || ('http' == $p['scheme']) || ('https' == $p['scheme'])) {
+        if (('ftp' == $p['scheme']) || ('ftps' == $p['scheme']) || ('http' == $p['scheme']) || ('https' == $p['scheme'])) {
             if (empty($p['host'])) return false;
             if (empty($p['path'])) {
                 $out_url .= '/';
