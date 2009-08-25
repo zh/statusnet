@@ -97,10 +97,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
     {
         global $_DB_DATAOBJECT;
 
-=======
-        global $_DB_DATAOBJECT;
-
->>>>>>> 0.8.x:scripts/twitterstatusfetcher.php
         $flink = new Foreign_link();
         $conn = &$flink->getDatabaseConnection();
 
