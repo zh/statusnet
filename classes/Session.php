@@ -2,7 +2,7 @@
 /**
  * Table Definition for session
  *
- * StatusNet - a distributed open-source microblogging tool
+ * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
