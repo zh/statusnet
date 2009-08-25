@@ -10,7 +10,7 @@ define('LACONICA', true);
 
 require_once INSTALLDIR . '/lib/common.php';
 
-class HashTagDetectionTest extends PHPUnit_Framework_TestCase
+class HashTagDetectionTests extends PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider provider
