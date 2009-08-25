@@ -50,7 +50,7 @@ require_once INSTALLDIR . '/lib/daemon.php';
  * @author   Zach Copley <zach@controlyourself.ca>
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 // NOTE: an Avatar path MUST be set in config.php for this

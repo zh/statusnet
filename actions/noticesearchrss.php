@@ -9,7 +9,7 @@
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @author   Robin Millette <millette@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2008, 2009, StatusNet, Inc.
@@ -44,7 +44,7 @@ require_once INSTALLDIR.'/lib/rssaction.php';
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @author   Robin Millette <millette@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 class NoticesearchrssAction extends Rss10Action
 {

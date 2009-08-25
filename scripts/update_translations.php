@@ -42,7 +42,7 @@ $languages = get_all_languages();
 foreach ($languages as $language) {
 
     $code = $language['lang'];
-    $file_url = 'http://laconi.ca/pootle/' . $code .
+    $file_url = 'http://status.net/pootle/' . $code .
         '/laconica/LC_MESSAGES/laconica.po';
     $lcdir = INSTALLDIR . '/locale/' . $code;
     $msgdir = "$lcdir/LC_MESSAGES";

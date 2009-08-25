@@ -25,7 +25,7 @@
  * @author    Sarven Capadisli <csarven@controlyourself.ca>
  * @copyright 2008 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
 if (!defined('LACONICA')) {
@@ -44,7 +44,7 @@ if (!defined('LACONICA')) {
  * @package  StatusNet
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  * @see      Notice
  * @see      NoticeListItem
  * @see      ProfileNoticeList
@@ -130,7 +130,7 @@ class AttachmentList extends Widget
  * @package  StatusNet
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  * @see      NoticeList
  * @see      ProfileNoticeListItem
  */

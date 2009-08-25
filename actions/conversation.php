@@ -8,7 +8,7 @@
  * @package  StatusNet
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2009, StatusNet, Inc.
@@ -43,7 +43,7 @@ require_once INSTALLDIR.'/lib/noticelist.php';
  * @package  StatusNet
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class ConversationAction extends Action
@@ -132,7 +132,7 @@ class ConversationAction extends Action
  * @package  StatusNet
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class ConversationTree extends NoticeList
@@ -253,7 +253,7 @@ class ConversationTree extends NoticeList
  * @package  StatusNet
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class ConversationTreeItem extends NoticeListItem

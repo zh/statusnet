@@ -24,7 +24,7 @@
  * @author    Evan Prodromou <evan@controlyourself.ca>
  * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
 if (!defined('LACONICA')) {
@@ -36,7 +36,7 @@ if (!defined('LACONICA')) {
  *
  * This class will collect statistics on the site and report them to
  * a statistics server of the admin's choice. (Default is the big one
- * at laconi.ca.)
+ * at status.net.)
  *
  * It can either be called from a cron job, or run occasionally by the
  * Web site.
@@ -45,7 +45,7 @@ if (!defined('LACONICA')) {
  * @package  StatusNet
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
  */
 

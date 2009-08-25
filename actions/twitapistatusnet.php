@@ -24,7 +24,7 @@
  * @author    Evan Prodromou <evan@controlyourself.ca>
  * @copyright 2008 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
 if (!defined('LACONICA')) {
@@ -43,7 +43,7 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
  * @author    Evan Prodromou <evan@controlyourself.ca>
  * @copyright 2008 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
 class TwitapilaconicaAction extends TwitterapiAction

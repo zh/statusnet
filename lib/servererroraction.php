@@ -10,7 +10,7 @@
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @author   Zach Copley <zach@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2008, 2009, StatusNet, Inc.
@@ -50,7 +50,7 @@ require_once INSTALLDIR.'/lib/error.php';
  * @package  StatusNet
  * @author   Zach Copley <zach@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class ServerErrorAction extends ErrorAction

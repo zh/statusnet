@@ -25,7 +25,7 @@
  * @author    Earle Martin <earle@downlode.org>
  * @copyright 2008-9 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
 if (!defined('LACONICA')) { exit(1); }
@@ -354,7 +354,7 @@ class Rss10Action extends Action
                                               'xmlns:rdfs' =>
                                               'http://www.w3.org/2000/01/rdf-schema#',
                                               'xmlns:laconica' =>
-                                              'http://laconi.ca/ont/',
+                                              'http://status.net/ont/',
                                               'xmlns' => 'http://purl.org/rss/1.0/'));
         $this->elementStart('sioc:Site', array('rdf:about' => common_root_url()));
         $this->element('sioc:name', null, common_config('site', 'name'));

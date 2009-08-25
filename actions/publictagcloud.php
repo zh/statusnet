@@ -26,7 +26,7 @@
  * @copyright 2008 Mike Cochrane
  * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
 if (!defined('LACONICA')) { exit(1); }
@@ -42,7 +42,7 @@ define('TAGS_PER_PAGE', 100);
  * @author    Evan Prodromou <evan@controlyourself.ca>
  * @copyright 2008 Mike Cochrane
  * @copyright 2008-2009 StatusNet, Inc.
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class PublictagcloudAction extends Action

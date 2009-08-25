@@ -25,7 +25,7 @@
  * @author   Ciaran Gultnieks <ciaran@ciarang.com>
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 if (!defined('LACONICA')) {

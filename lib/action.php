@@ -25,7 +25,7 @@
  * @author    Sarven Capadisli <csarven@controlyourself.ca>
  * @copyright 2008 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
 if (!defined('LACONICA')) {
@@ -49,7 +49,7 @@ require_once INSTALLDIR.'/lib/htmloutputter.php';
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @author   Sarven Capadisli <csarven@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
  * @see      HTMLOutputter
  */
@@ -761,7 +761,7 @@ class Action extends HTMLOutputter // lawsuit
         } else {
             $instr = _('**%%site.name%%** is a microblogging service. ');
         }
-        $instr .= sprintf(_('It runs the [StatusNet](http://laconi.ca/) microblogging software, version %s, available under the [GNU Affero General Public License](http://www.fsf.org/licensing/licenses/agpl-3.0.html).'), LACONICA_VERSION);
+        $instr .= sprintf(_('It runs the [StatusNet](http://status.net/) microblogging software, version %s, available under the [GNU Affero General Public License](http://www.fsf.org/licensing/licenses/agpl-3.0.html).'), LACONICA_VERSION);
         $output = common_markup_to_html($instr);
         $this->raw($output);
         $this->elementEnd('dd');

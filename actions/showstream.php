@@ -25,7 +25,7 @@
  * @author    Sarven Capadisli <csarven@controlyourself.ca>
  * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
 if (!defined('LACONICA')) {
@@ -51,7 +51,7 @@ require_once INSTALLDIR.'/lib/feedlist.php';
  * @package  StatusNet
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class ShowstreamAction extends ProfileAction
@@ -388,14 +388,14 @@ class ShowstreamAction extends ProfileAction
     {
         if (!(common_config('site','closed') || common_config('site','inviteonly'))) {
             $m = sprintf(_('**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
-                 'based on the Free Software [StatusNet](http://laconi.ca/) tool. ' .
+                 'based on the Free Software [StatusNet](http://status.net/) tool. ' .
                  '[Join now](%%%%action.%s%%%%) to follow **%s**\'s notices and many more! ([Read more](%%%%doc.help%%%%))'),
                  $this->user->nickname,
                  (!common_config('site','openidonly')) ? 'register' : 'openidlogin',
                  $this->user->nickname);
         } else {
             $m = sprintf(_('**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
-                 'based on the Free Software [StatusNet](http://laconi.ca/) tool. '),
+                 'based on the Free Software [StatusNet](http://status.net/) tool. '),
                  $this->user->nickname, $this->user->nickname);
 	}
         $this->elementStart('div', array('id' => 'anon_notice'));

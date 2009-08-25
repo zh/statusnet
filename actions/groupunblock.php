@@ -8,7 +8,7 @@
  * @package  StatusNet
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2008, 2009, StatusNet, Inc.
@@ -38,7 +38,7 @@ if (!defined('LACONICA')) {
  * @package  StatusNet
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class GroupunblockAction extends Action

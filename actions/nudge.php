@@ -10,7 +10,7 @@
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @author   Robin Millette <millette@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2008, 2009, StatusNet, Inc.
@@ -44,7 +44,7 @@ require_once INSTALLDIR.'/lib/mail.php';
  * @author   Robin Millette <millette@controlyourself.ca>
  * @author   Sarven Capadisli <csarven@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 class NudgeAction extends Action
 {
