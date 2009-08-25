@@ -1,6 +1,6 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
+ * StatusNet - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
  *
  * This program is free software: you can redistribute it and/or modify

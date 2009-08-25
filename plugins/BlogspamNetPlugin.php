@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Plugin to check submitted notices with blogspam.net
  *
@@ -20,11 +20,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Plugin
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
 if (!defined('LACONICA')) {
@@ -45,10 +45,10 @@ define('BLOGSPAMNETPLUGIN_VERSION', '0.1');
  * hits, but it's better than nothing.
  *
  * @category Plugin
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
  * @see      Event
  */
@@ -139,6 +139,6 @@ class BlogspamNetPlugin extends Plugin
 
     function userAgent()
     {
-        return 'BlogspamNetPlugin/'.BLOGSPAMNETPLUGIN_VERSION . ' Laconica/' . LACONICA_VERSION;
+        return 'BlogspamNetPlugin/'.BLOGSPAMNETPLUGIN_VERSION . ' StatusNet/' . LACONICA_VERSION;
     }
 }
