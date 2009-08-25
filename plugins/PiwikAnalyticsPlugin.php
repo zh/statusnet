@@ -45,7 +45,7 @@ if (!defined('STATUSNET')) {
  *
  * exchange example.com/piwik/ with the url to your piwik installation and
  * make sure you don't forget the final /
- * exchange id with the ID your laconica installation has in your Piwik analytics
+ * exchange id with the ID your statusnet installation has in your Piwik analytics
  *
  * @category Plugin
  * @package  StatusNet
@@ -60,7 +60,7 @@ class PiwikAnalyticsPlugin extends Plugin
 {
     /** the base of your Piwik installation */
     var $piwikroot = null;
-    /** the Piwik Id of your laconica installation */
+    /** the Piwik Id of your statusnet installation */
     var $piwikId   = null;
 
     /**

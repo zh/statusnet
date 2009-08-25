@@ -30,7 +30,7 @@ define('STATUSNET', true);
 require_once(INSTALLDIR . '/lib/common.php');
 
 // Master StatusNet .pot file location (created by update_pot.sh)
-$laconica_pot = INSTALLDIR . '/locale/laconica.po';
+$statusnet_pot = INSTALLDIR . '/locale/laconica.po';
 
 set_time_limit(60);
 
@@ -43,11 +43,11 @@ foreach ($languages as $language) {
 
     $code = $language['lang'];
     $file_url = 'http://status.net/pootle/' . $code .
-        '/laconica/LC_MESSAGES/laconica.po';
+        '/statusnet/LC_MESSAGES/laconica.po';
     $lcdir = INSTALLDIR . '/locale/' . $code;
     $msgdir = "$lcdir/LC_MESSAGES";
-    $pofile = "$msgdir/laconica.po";
-    $mofile = "$msgdir/laconica.mo";
+    $pofile = "$msgdir/statusnet.po";
+    $mofile = "$msgdir/statusnet.mo";
 
     /* Check for an existing */
     if (!is_dir($msgdir)) {
@@ -71,7 +71,7 @@ foreach ($languages as $language) {
     if (sha1($new_file) != $existingSHA1 || !file_exists($mofile)) {
         echo "Updating ".$code."\n";
         file_put_contents($pofile, $new_file);
-        system(sprintf('msgmerge -U %s %s', $pofile, $laconica_pot));
+        system(sprintf('msgmerge -U %s %s', $pofile, $statusnet_pot));
         system(sprintf('msgfmt -f -o %s %s', $mofile, $pofile));
     } else {
         echo "Unchanged - ".$code."\n";

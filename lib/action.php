@@ -754,7 +754,7 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showStatusNetLicense()
     {
-        $this->element('dt', array('id' => 'site_laconica_license'), _('StatusNet software license'));
+        $this->element('dt', array('id' => 'site_statusnet_license'), _('StatusNet software license'));
         $this->elementStart('dd', null);
         if (common_config('site', 'broughtby')) {
             $instr = _('**%%site.name%%** is a microblogging service brought to you by [%%site.broughtby%%](%%site.broughtbyurl%%). ');

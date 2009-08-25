@@ -1,4 +1,4 @@
-/** Howto: create a laconica theme
+/** Howto: create a statusnet theme
  *
  * @package   StatusNet
  * @author Sarven Capadisli <csarven@controlyourself.ca>
@@ -18,7 +18,7 @@ Location of key paths and files under theme/:
 ./default/images/
 
 ./base/display.css contains layout, typography rules:
-Only alter this file if you want to change the layout of the site. Please note that, any updates to this in future laconica releases may not be compatible with your version.
+Only alter this file if you want to change the layout of the site. Please note that, any updates to this in future statusnet releases may not be compatible with your version.
 
 ./default/css/display.css contains only the background images and colour rules:
 This file is a good basis for creating your own theme.

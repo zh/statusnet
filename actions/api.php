@@ -125,9 +125,9 @@ class ApiAction extends Action
                                 'users/show',
                                 'help/test',
                                 'help/downtime_schedule',
-                                'laconica/version',
-                                'laconica/config',
-                                'laconica/wadl',
+                                'statusnet/version',
+                                'statusnet/config',
+                                'statusnet/wadl',
                                 'tags/timeline',
                                 'oembed/oembed',
                                 'groups/show',
@@ -147,11 +147,11 @@ class ApiAction extends Action
 
         $fullname = "$this->api_action/$this->api_method";
 
-        // If the site is "private", all API methods except laconica/config
+        // If the site is "private", all API methods except statusnet/config
         // need authentication
 
         if (common_config('site', 'private')) {
-            return $fullname != 'laconica/config' || false;
+            return $fullname != 'statusnet/config' || false;
         }
 
         // bareauth: only needs auth if without an argument or query param specifying user

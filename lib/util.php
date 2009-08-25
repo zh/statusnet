@@ -54,9 +54,9 @@ function common_init_language()
     $language = common_language();
     // So we don't have to make people install the gettext locales
     $locale_set = common_init_locale($language);
-    bindtextdomain("laconica", common_config('site','locale_path'));
-    bind_textdomain_codeset("laconica", "UTF-8");
-    textdomain("laconica");
+    bindtextdomain("statusnet", common_config('site','locale_path'));
+    bind_textdomain_codeset("statusnet", "UTF-8");
+    textdomain("statusnet");
     setlocale(LC_CTYPE, 'C');
     if(!$locale_set) {
         common_log(LOG_INFO,'Language requested:'.$language.' - locale could not be set:',__FILE__);
@@ -1319,7 +1319,7 @@ function common_cache_key($extra)
         $base_key = common_keyize(common_config('site', 'name'));
     }
 
-    return 'laconica:' . $base_key . ':' . $extra;
+    return 'statusnet:' . $base_key . ':' . $extra;
 }
 
 function common_keyize($str)

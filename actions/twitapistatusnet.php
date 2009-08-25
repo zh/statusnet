@@ -36,7 +36,7 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
 /**
  * StatusNet-specific API methods
  *
- * This class handles all /laconica/ API methods.
+ * This class handles all /statusnet/ API methods.
  *
  * @category  Twitter
  * @package   StatusNet
@@ -46,14 +46,14 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
  * @link      http://status.net/
  */
 
-class TwitapilaconicaAction extends TwitterapiAction
+class TwitapistatusnetAction extends TwitterapiAction
 {
     /**
      * A version stamp for the API
      *
      * Returns a version number for this version of StatusNet, which
      * should make things a bit easier for upgrades.
-     * URL: http://identi.ca/api/laconica/version.(xml|json)
+     * URL: http://identi.ca/api/statusnet/version.(xml|json)
      * Formats: xml, json
      *
      * @param array $args    Web arguments
@@ -89,7 +89,7 @@ class TwitapilaconicaAction extends TwitterapiAction
      * Gives a full dump of configuration variables for this instance
      * of StatusNet, minus variables that may be security-sensitive (like
      * passwords).
-     * URL: http://identi.ca/api/laconica/config.(xml|json)
+     * URL: http://identi.ca/api/statusnet/config.(xml|json)
      * Formats: xml, json
      *
      * @param array $args    Web arguments

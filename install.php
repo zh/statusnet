@@ -284,7 +284,7 @@ function pgsql_db_installer($host, $database, $username, $password) {
   updateStatus("Running database script...");
   //wrap in transaction;
   pg_query($conn, 'BEGIN');
-  $res = runDbScript(INSTALLDIR.'/db/laconica_pg.sql', $conn, 'pgsql');
+  $res = runDbScript(INSTALLDIR.'/db/statusnet_pg.sql', $conn, 'pgsql');
   
   if ($res === false) {
       updateStatus("Can't run database script.", true);
@@ -335,7 +335,7 @@ function mysql_db_installer($host, $database, $username, $password) {
       return false;
   }
   updateStatus("Running database script...");
-  $res = runDbScript(INSTALLDIR.'/db/laconica.sql', $conn);
+  $res = runDbScript(INSTALLDIR.'/db/statusnet.sql', $conn);
   if ($res === false) {
       updateStatus("Can't run database script.", true);
       showForm();

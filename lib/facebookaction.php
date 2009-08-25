@@ -373,7 +373,7 @@ class FacebookAction extends Action
          display:inline-block;
          }
 
-     #facebook_laconica_app {
+     #facebook_statusnet_app {
      text-indent:-9999px;
      height:16px;
      width:16px;
@@ -672,7 +672,7 @@ class FacebookProfileBoxNotice extends FacebookNoticeListItem
         $this->app_uri = 'http://apps.facebook.com/' . $app_props['canvas_name'];
         $this->app_name = $app_props['application_name'];
 
-        $this->out->elementStart('a', array('id' => 'facebook_laconica_app',
+        $this->out->elementStart('a', array('id' => 'facebook_statusnet_app',
                                             'href' => $this->app_uri));
         $this->out->text($this->app_name);
         $this->out->elementEnd('a');

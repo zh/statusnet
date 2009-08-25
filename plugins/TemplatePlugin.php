@@ -195,7 +195,7 @@ class TemplatePlugin extends Plugin {
     );
     
     // use the PHP template
-    // unless laconica config:
+    // unless statusnet config:
     //   $config['template']['mode'] = 'html';
     if (!(common_config('template', 'mode') == 'html')) {
       $tpl_file = $this->templateFolder() . '/index.php';
@@ -326,7 +326,7 @@ class TemplateAction extends Action
 }
 
 /**
- * Function for retrieving a laconica display section
+ * Function for retrieving a statusnet display section
  *
  * requires one parameter, the name of the section
  * section names are listed in the comments of the TemplatePlugin class

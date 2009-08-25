@@ -119,7 +119,7 @@
             $.s.className = trueName;         
             $.s.h = document.createElement('H3');
             $.s.h.a = document.createElement('A');
-            $.s.h.a.target = '_laconica';
+            $.s.h.a.target = '_statusnet';
             $.s.h.appendChild($.s.h.a);
             $.s.appendChild($.s.h);
             $.s.r = document.createElement('UL');
@@ -184,11 +184,11 @@
                var icon = document.createElement('A');
                if (r[i] && r[i].url) {
                   icon.href = r[i].url;
-                  icon.target = '_laconica'; 
+                  icon.target = '_statusnet'; 
                   icon.title = 'Visit ' + r[i].screen_name + ' at ' + r[i].url;
                } else {
                   icon.href = 'http://' + $.a.server + '/' + r[i].screen_name;
-                  icon.target = '_laconica'; 
+                  icon.target = '_statusnet'; 
                   icon.title = 'Visit ' + r[i].screen_name + ' at http://' + $.a.server + '/' + r[i].screen_name;
                }
 
@@ -215,14 +215,14 @@
                   var date_link = document.createElement('A');
                   date_link.innerHTML = r[i].status.created_at.split(/\+/)[0];
                   date_link.href = 'http://' + $.a.server + '/notice/' + r[i].status.id;
-                  date_link.target = '_laconica';
+                  date_link.target = '_statusnet';
                   updated.appendChild(date_link);
                   if (r[i].status.in_reply_to_status_id) {
                      updated.appendChild(document.createTextNode(' in reply to '));
                      var in_reply_to = document.createElement('A');
                      in_reply_to.innerHTML = r[i].status.in_reply_to_status_id;
                      in_reply_to.href = 'http://' + $.a.server + '/notice/' + r[i].status.in_reply_to_status_id;
-                     in_reply_to.target = '_laconica';
+                     in_reply_to.target = '_statusnet';
                      updated.appendChild(in_reply_to);
                   }
                } else {
@@ -233,9 +233,9 @@
                if (r[i].status && r[i].status.text) {
                   var raw = r[i].status.text;
                   var cooked = raw;
-                  cooked = cooked.replace(/http:\/\/([^ ]+)/g, "<a href=\"http://$1\" target=\"_laconica\">http://$1</a>");
-                  cooked = cooked.replace(/@([\w*]+)/g, '@<a href="http://' + $.a.server + '/$1" target=\"_laconica\">$1</a>');
-                  cooked = cooked.replace(/#([\w*]+)/g, '#<a href="http://' + $.a.server + '/tag/$1" target="_laconica">$1</a>');
+                  cooked = cooked.replace(/http:\/\/([^ ]+)/g, "<a href=\"http://$1\" target=\"_statusnet\">http://$1</a>");
+                  cooked = cooked.replace(/@([\w*]+)/g, '@<a href="http://' + $.a.server + '/$1" target=\"_statusnet\">$1</a>');
+                  cooked = cooked.replace(/#([\w*]+)/g, '#<a href="http://' + $.a.server + '/tag/$1" target="_statusnet">$1</a>');
                   p.innerHTML = cooked;
                }
                li.appendChild(p);

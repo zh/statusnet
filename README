@@ -231,9 +231,9 @@ especially if you've previously installed PHP/MySQL packages.
 1. Unpack the tarball you downloaded on your Web server. Usually a
    command like this will work:
 
-   	   tar zxf laconica-0.8.0.tar.gz
+   	   tar zxf statusnet-0.8.0.tar.gz
 
-   ...which will make a laconica-0.8.0 subdirectory in your current
+   ...which will make a statusnet-0.8.0 subdirectory in your current
    directory. (If you don't have shell access on your Web server, you
    may have to unpack the tarball on your local computer and FTP the
    files to the server.)
@@ -241,11 +241,11 @@ especially if you've previously installed PHP/MySQL packages.
 2. Move the tarball to a directory of your choosing in your Web root
    directory. Usually something like this will work:
 
-   	   mv laconica-0.8.0 /var/www/mublog
+   	   mv statusnet-0.8.0 /var/www/mublog
 
    This will make your StatusNet instance available in the mublog path of
    your server, like "http://example.net/mublog". "microblog" or
-   "laconica" might also be good path names. If you know how to
+   "statusnet" might also be good path names. If you know how to
    configure virtual hosts on your web server, you can try setting up
    "http://micro.example.net/" or the like.
 
@@ -276,7 +276,7 @@ especially if you've previously installed PHP/MySQL packages.
 5. Create a database to hold your microblog data. Something like this
    should work:
 
-   	  mysqladmin -u "username" --password="password" create laconica
+   	  mysqladmin -u "username" --password="password" create statusnet
 
    Note that StatusNet must have its own database; you can't share the
    database with another program. You can name it whatever you want,
@@ -290,7 +290,7 @@ especially if you've previously installed PHP/MySQL packages.
    database. If you have shell access, this will probably work from the
    MySQL shell:
 
-          GRANT ALL on laconica.*
+          GRANT ALL on statusnet.*
 	  TO 'lacuser'@'localhost'
 	  IDENTIFIED BY 'lacpassword';
 
@@ -398,7 +398,7 @@ For this to work, there *must* be a domain or sub-domain for which all
 1. Run the SQL script carrier.sql in your StatusNet database. This will
    usually work:
 
-   	   mysql -u "lacuser" --password="lacpassword" laconica < db/carrier.sql
+   	   mysql -u "lacuser" --password="lacpassword" statusnet < db/carrier.sql
 
    This will populate your database with a list of wireless carriers
    that support email SMS gateways.
@@ -412,7 +412,7 @@ For this to work, there *must* be a domain or sub-domain for which all
 
 2. Edit /etc/aliases on your mail server and add the following line:
 
-      *: /path/to/laconica/scripts/maildaemon.php
+      *: /path/to/statusnet/scripts/maildaemon.php
 
 3. Run whatever code you need to to update your aliases database. For
    many mail servers (Postfix, Exim, Sendmail), this should work:
@@ -813,7 +813,7 @@ instructions; read to the end first before trying them.
     Otherwise, go to your StatusNet directory and AFTER YOU MAKE A
     BACKUP run the rebuilddb.sh script like this:
 
-    ./scripts/rebuilddb.sh rootuser rootpassword database db/laconica.sql
+    ./scripts/rebuilddb.sh rootuser rootpassword database db/statusnet.sql
 
     Here, rootuser and rootpassword are the username and password for a
     user who can drop and create databases as well as tables; typically
@@ -835,7 +835,7 @@ precooked data in the DB. All upgraders should check out the inboxes
 options below.
 
 NOTE: the database definition file, stoica.ini, has been renamed to
-laconica.ini (since this is the recommended database name). If you
+statusnet.ini (since this is the recommended database name). If you
 have a line in your config.php pointing to the old name, you'll need
 to update it.
 
@@ -907,12 +907,12 @@ of the defaults are defined), you will lose your configuration options
 in any upgrade, and you will wish that you had been more careful.
 
 Starting with version 0.7.1, you can put config files in the
-/etc/laconica/ directory on your server, if it exists. Config files
+/etc/statusnet/ directory on your server, if it exists. Config files
 will be included in this order:
 
-* /etc/laconica/laconica.php - server-wide config
-* /etc/laconica/<servername>.php - for a virtual host
-* /etc/laconica/<servername>_<pathname>.php - for a path
+* /etc/statusnet/laconica.php - server-wide config
+* /etc/statusnet/<servername>.php - for a virtual host
+* /etc/statusnet/<servername>_<pathname>.php - for a path
 * INSTALLDIR/config.php - for a particular implementation
 
 Almost all configuration options are made through a two-dimensional
@@ -1010,9 +1010,9 @@ database: a DSN (Data Source Name) for your StatusNet database. This is
 	  where 'protocol' is 'mysql' or 'mysqli' (or possibly 'postgresql', if you
 	  really know what you're doing), 'username' is the username,
 	  'password' is the password, and etc.
-ini_yourdbname: if your database is not named 'laconica', you'll need
+ini_yourdbname: if your database is not named 'statusnet', you'll need
 		to set this to point to the location of the
-		laconica.ini file. Note that the real name of your database
+		statusnet.ini file. Note that the real name of your database
 		should go in there, not literally 'yourdbname'.
 db_driver: You can try changing this to 'MDB2' to use the other driver
 	   type for DB_DataObject, but note that it breaks the OpenID
@@ -1044,7 +1044,7 @@ By default, StatusNet sites log error messages to the syslog facility.
 (You can override this using the 'logfile' parameter described above).
 
 appname: The name that StatusNet uses to log messages. By default it's
-	 "laconica", but if you have more than one installation on the
+	 "statusnet", but if you have more than one installation on the
 	 server, you may want to change the name for each instance so
 	 you can track log messages more easily.
 priority: level to log at. Currently ignored.
@@ -1296,7 +1296,7 @@ integration
 A catch-all for integration with other systems.
 
 source: The name to use for the source of posts to Twitter. Defaults
-	to 'laconica', but if you request your own source name from
+	to 'statusnet', but if you request your own source name from
 	Twitter <http://twitter.com/help/request_source>, you can use
 	that here instead. Status updates on Twitter will then have
 	links to your site.
@@ -1595,7 +1595,7 @@ If you're adventurous or impatient, you may want to install the
 development version of StatusNet. To get it, use the git version
 control tool <http://git-scm.com/> like so:
 
-	git clone http://status.net/software/laconica.git
+	git clone http://status.net/software/statusnet.git
 
 To keep it up-to-date, use 'git pull'. Watch for conflicts!
 
@@ -1605,8 +1605,8 @@ Further information
 There are several ways to get more information about StatusNet.
 
 * There is a mailing list for StatusNet developers and admins at
-  http://mail.status.net/mailman/listinfo/laconica-dev
-* The #laconica IRC channel on freenode.net <http://www.freenode.net/>.
+  http://mail.status.net/mailman/listinfo/statusnet-dev
+* The #statusnet IRC channel on freenode.net <http://www.freenode.net/>.
 * The StatusNet wiki, http://status.net/trac/
 
 Feedback

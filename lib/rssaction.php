@@ -244,7 +244,7 @@ class Rss10Action extends Action
         $this->element('dc:creator', null, ($profile->fullname) ? $profile->fullname : $profile->nickname);
         $this->element('foaf:maker', array('rdf:resource' => $creator_uri));
         $this->element('sioc:has_creator', array('rdf:resource' => $creator_uri.'#acct'));
-        $this->element('laconica:postIcon', array('rdf:resource' => $profile->avatarUrl()));
+        $this->element('statusnet:postIcon', array('rdf:resource' => $profile->avatarUrl()));
         $this->element('cc:licence', array('rdf:resource' => common_config('license', 'url')));
         if ($notice->reply_to) {
             $replyurl = common_local_url('shownotice', array('notice' => $notice->reply_to));
@@ -353,7 +353,7 @@ class Rss10Action extends Action
                                               'http://rdfs.org/sioc/types#',
                                               'xmlns:rdfs' =>
                                               'http://www.w3.org/2000/01/rdf-schema#',
-                                              'xmlns:laconica' =>
+                                              'xmlns:statusnet' =>
                                               'http://status.net/ont/',
                                               'xmlns' => 'http://purl.org/rss/1.0/'));
         $this->elementStart('sioc:Site', array('rdf:about' => common_root_url()));

@@ -17,7 +17,7 @@ $(document).ready(function(){
             });
         }
     );
-    $.getJSON($('address .url')[0].href+'/api/laconica/groups/list.json?user_id=' + current_user['id'] + '&callback=?',
+    $.getJSON($('address .url')[0].href+'/api/statusnet/groups/list.json?user_id=' + current_user['id'] + '&callback=?',
         function(groups){
             $('#notice_data-text').autocomplete(groups, {
                 multiple: true,

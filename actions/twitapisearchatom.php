@@ -227,7 +227,7 @@ class TwitapisearchatomAction extends TwitterapiAction
         $server   = common_config('site', 'server');
         $sitename = common_config('site', 'name');
 
-        // XXX: Use xmlns:laconica instead?
+        // XXX: Use xmlns:statusnet instead?
 
         $this->elementStart('feed',
             array('xmlns' => 'http://www.w3.org/2005/Atom',

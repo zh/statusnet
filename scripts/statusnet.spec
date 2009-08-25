@@ -4,11 +4,11 @@
 BuildRequires:	php-pear
 BuildRequires:	httpd-devel
 
-Name:           laconica
+Name:           statusnet
 Version:        %{LACVER}
 Release:        1%{?dist}
 License:        GAGPL v3 or later
-Source:         laconica-%{version}.tar.gz
+Source:         statusnet-%{version}.tar.gz
 Group:          Applications/Internet
 Summary:        Laconica, the Open Source microblogging platform
 BuildArch:      noarch
@@ -49,16 +49,16 @@ similar service to sites like Twitter, Jaiku, and Plurk.
 mkdir -p %{buildroot}%{wwwpath}
 cp -a * %{buildroot}%{wwwpath}
 
-mkdir -p %{buildroot}%{_datadir}/laconica
-cp -a db %{buildroot}%{_datadir}/laconica/db
+mkdir -p %{buildroot}%{_datadir}/statusnet
+cp -a db %{buildroot}%{_datadir}/statusnet/db
 
-mkdir -p %{buildroot}%{_datadir}/laconica/avatar
+mkdir -p %{buildroot}%{_datadir}/statusnet/avatar
 
 mkdir -p %{buildroot}%{_sysconfdir}/httpd/conf.d
-cat > %{buildroot}%{_sysconfdir}/httpd/conf.d/laconica.conf <<"EOF"
-Alias /laconica/ "/var/www/laconica/"
+cat > %{buildroot}%{_sysconfdir}/httpd/conf.d/statusnet.conf <<"EOF"
+Alias /statusnet/ "/var/www/laconica/"
 
-<Directory "/var/www/laconica">
+<Directory "/var/www/statusnet">
     Options Indexes FollowSymLinks
     AllowOverride All
     Order allow,deny
@@ -73,17 +73,17 @@ rm -rf %buildroot
 %defattr(-,root,root)
 %dir %{wwwpath}
 %{wwwpath}/*
-%{_datadir}/laconica/*
-%attr(-,apache,apache) %dir %{_datadir}/laconica/avatar
+%{_datadir}/statusnet/*
+%attr(-,apache,apache) %dir %{_datadir}/statusnet/avatar
 %doc COPYING README doc-src/*
-%config(noreplace) %{_sysconfdir}/httpd/conf.d/laconica.conf
+%config(noreplace) %{_sysconfdir}/httpd/conf.d/statusnet.conf
 
 %changelog
 * Wed Apr 03 2009 Zach Copley <zach@controlyourself.ca> - 0.7.3
 - Changed version number to 0.7.3.
 
 * Fri Mar 13 2009 Ken Sedgwick <ksedgwic@bonsai.com> - 0.7.2.1-1
-- Factored laconica version to the first line of the file.
+- Factored statusnet version to the first line of the file.
 
 * Wed Mar 03 2009 Zach Copley <zach@controlyourself.ca> - 0.7.2
 - Changed version number to 0.7.2.
@@ -92,7 +92,7 @@ rm -rf %buildroot
 - Modified RPM for Fedora.
 
 * Thu Feb 13 2009 tuukka.pasanen@ilmi.fi
-- packaged laconica version 0.7.1
+- packaged statusnet version 0.7.1
 
 * Wed Feb 04 2009 tuukka.pasanen@ilmi.fi
-- packaged laconica version 0.7.0 using the buildservice spec file wizard
+- packaged statusnet version 0.7.0 using the buildservice spec file wizard

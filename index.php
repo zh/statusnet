@@ -93,7 +93,7 @@ function checkMirror($action_obj, $args)
         // on the master DB
 
         $config['db']['database_rw'] = $config['db']['database'];
-        $config['db']['ini_rw'] = INSTALLDIR.'/classes/laconica.ini';
+        $config['db']['ini_rw'] = INSTALLDIR.'/classes/statusnet.ini';
 
         foreach ($alwaysRW as $table) {
             $config['db']['table_'.$table] = 'rw';

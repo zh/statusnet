@@ -395,30 +395,30 @@ class Router
                     array('action' => 'api',
                           'apiaction' => 'help'));
 
-        // laconica
+        // statusnet
 
-        $m->connect('api/laconica/:method',
+        $m->connect('api/statusnet/:method',
                     array('action' => 'api',
-                          'apiaction' => 'laconica'));
+                          'apiaction' => 'statusnet'));
 
-        $m->connect('api/laconica/:method',
+        $m->connect('api/statusnet/:method',
                     array('action' => 'api',
-                          'apiaction' => 'laconica'));
+                          'apiaction' => 'statusnet'));
 
         // Groups
         //'list' has to be handled differently, as php will not allow a method to be named 'list'
-        $m->connect('api/laconica/groups/list/:argument',
+        $m->connect('api/statusnet/groups/list/:argument',
                     array('action' => 'api',
                           'method' => 'list_groups',
                           'apiaction' => 'groups'));
         foreach (array('xml', 'json', 'rss', 'atom') as $e) {
-            $m->connect('api/laconica/groups/list.' . $e,
+            $m->connect('api/statusnet/groups/list.' . $e,
                     array('action' => 'api',
                           'method' => 'list_groups.' . $e,
                           'apiaction' => 'groups'));
         }
 
-        $m->connect('api/laconica/groups/:method',
+        $m->connect('api/statusnet/groups/:method',
                     array('action' => 'api',
                           'apiaction' => 'statuses'),
                     array('method' => '(list_all|)(\.(atom|rss|xml|json))?'));
@@ -428,20 +428,20 @@ class Router
                           'apiaction' => 'statuses'),
                     array('method' => '(|user_timeline|friends_timeline|replies|mentions|show|destroy|friends|followers)'));
 
-        $m->connect('api/laconica/groups/:method/:argument',
+        $m->connect('api/statusnet/groups/:method/:argument',
                     array('action' => 'api',
                           'apiaction' => 'groups'));
 
-        $m->connect('api/laconica/groups/:method',
+        $m->connect('api/statusnet/groups/:method',
                     array('action' => 'api',
                           'apiaction' => 'groups'));
 
         // Tags
-        $m->connect('api/laconica/tags/:method/:argument',
+        $m->connect('api/statusnet/tags/:method/:argument',
                     array('action' => 'api',
                           'apiaction' => 'tags'));
 
-        $m->connect('api/laconica/tags/:method',
+        $m->connect('api/statusnet/tags/:method',
                     array('action' => 'api',
                           'apiaction' => 'tags'));
 

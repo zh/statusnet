@@ -54,7 +54,7 @@ require_once INSTALLDIR . '/lib/daemon.php';
  */
 
 // NOTE: an Avatar path MUST be set in config.php for this
-// script to work: e.g.: $config['avatar']['path'] = '/laconica/avatar';
+// script to work: e.g.: $config['avatar']['path'] = '/statusnet/avatar';
 
 class TwitterStatusFetcher extends ParallelizingDaemon
 {

@@ -88,7 +88,7 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
              $this->show_rss_groups($group, $title, $link, $subtitle);
              break;
          case 'atom':
-             $selfuri = common_root_url() . 'api/laconica/groups/list/' . $user->id . '.atom';
+             $selfuri = common_root_url() . 'api/statusnet/groups/list/' . $user->id . '.atom';
              $this->show_atom_groups($group, $title, $id, $link,
                  $subtitle, $selfuri);
              break;
@@ -135,7 +135,7 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
              $this->show_rss_groups($group, $title, $link, $subtitle);
              break;
          case 'atom':
-             $selfuri = common_root_url() . 'api/laconica/groups/list_all.atom';
+             $selfuri = common_root_url() . 'api/statusnet/groups/list_all.atom';
              $this->show_atom_groups($group, $title, $id, $link,
                  $subtitle, $selfuri);
              break;
@@ -216,11 +216,11 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
           case 'atom':
              if (isset($apidata['api_arg'])) {
                  $selfuri = common_root_url() .
-                     'api/laconica/groups/timeline/' .
+                     'api/statusnet/groups/timeline/' .
                          $apidata['api_arg'] . '.atom';
              } else {
                  $selfuri = common_root_url() .
-                  'api/laconica/groups/timeline.atom';
+                  'api/statusnet/groups/timeline.atom';
              }
              $this->show_atom_timeline($notice, $title, $id, $link,
                  $subtitle, null, $selfuri);

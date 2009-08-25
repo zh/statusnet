@@ -119,14 +119,14 @@ $config =
               'shorturllength' => 30,
               'dupelimit' => 60), # default for same person saying the same thing
         'syslog' =>
-        array('appname' => 'laconica', # for syslog
+        array('appname' => 'statusnet', # for syslog
               'priority' => 'debug', # XXX: currently ignored
               'facility' => LOG_USER),
         'queue' =>
         array('enabled' => false,
               'subsystem' => 'db', # default to database, or 'stomp'
               'stomp_server' => null,
-              'queue_basename' => 'laconica',
+              'queue_basename' => 'statusnet',
               'stomp_username' => null,
               'stomp_password' => null,
               ),
@@ -341,11 +341,11 @@ function addPlugin($name, $attrs = null)
 if (isset($conffile)) {
     $_config_files = array($conffile);
 } else {
-    $_config_files = array('/etc/laconica/laconica.php',
-                           '/etc/laconica/'.$_server.'.php');
+    $_config_files = array('/etc/statusnet/laconica.php',
+                           '/etc/statusnet/'.$_server.'.php');
 
     if (strlen($_path) > 0) {
-        $_config_files[] = '/etc/laconica/'.$_server.'_'.$_path.'.php';
+        $_config_files[] = '/etc/statusnet/'.$_server.'_'.$_path.'.php';
     }
 
     $_config_files[] = INSTALLDIR.'/config.php';
@@ -368,12 +368,12 @@ function _have_config()
 
 // XXX: Throw a conniption if database not installed
 
-// Fixup for laconica.ini
+// Fixup for statusnet.ini
 
 $_db_name = substr($config['db']['database'], strrpos($config['db']['database'], '/') + 1);
 
-if ($_db_name != 'laconica' && !array_key_exists('ini_'.$_db_name, $config['db'])) {
-    $config['db']['ini_'.$_db_name] = INSTALLDIR.'/classes/laconica.ini';
+if ($_db_name != 'statusnet' && !array_key_exists('ini_'.$_db_name, $config['db'])) {
+    $config['db']['ini_'.$_db_name] = INSTALLDIR.'/classes/statusnet.ini';
 }
 
 // Ignore openidonly if OpenID is disabled

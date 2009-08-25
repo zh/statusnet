@@ -71,7 +71,7 @@ class Status_network extends DB_DataObject
     }
 
     static function cacheKey($k, $v) {
-        return 'laconica:' . self::$base . ':status_network:'.$k.':'.$v;
+        return 'statusnet:' . self::$base . ':status_network:'.$k.':'.$v;
     }
 
     static function memGet($k, $v)
