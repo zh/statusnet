@@ -6,7 +6,7 @@ if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
 }
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
-define('LACONICA', true);
+define('STATUSNET', true);
 
 require_once INSTALLDIR . '/lib/common.php';
 

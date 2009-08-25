@@ -27,7 +27,7 @@
  * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET')) {
     exit(1);
 }
 
@@ -225,6 +225,6 @@ class LinkbackPlugin extends Plugin
     function userAgent()
     {
         return 'LinkbackPlugin/'.LINKBACKPLUGIN_VERSION .
-          ' StatusNet/' . LACONICA_VERSION;
+          ' StatusNet/' . STATUSNET_VERSION;
     }
 }

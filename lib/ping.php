@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET')) { exit(1); }
 
 function ping_broadcast_notice($notice) {
 
@@ -47,7 +47,7 @@ function ping_broadcast_notice($notice) {
             $context = stream_context_create(array('http' => array('method' => "POST",
                                                                    'header' =>
                                                                    "Content-Type: text/xml\r\n".
-                                                                   "User-Agent: StatusNet/".LACONICA_VERSION."\r\n",
+                                                                   "User-Agent: StatusNet/".STATUSNET_VERSION."\r\n",
                                                                    'content' => $req)));
             $file = file_get_contents($notify_url, false, $context);
 
@@ -81,11 +81,11 @@ function ping_broadcast_notice($notice) {
 
             if ($type === 'get') {
                 $result = $fetcher->get($notify_url . '?' . http_build_query($args),
-                                        array('User-Agent: StatusNet/'.LACONICA_VERSION));
+                                        array('User-Agent: StatusNet/'.STATUSNET_VERSION));
             } else {
                 $result = $fetcher->post($notify_url,
                                          http_build_query($args),
-                                         array('User-Agent: StatusNet/'.LACONICA_VERSION));
+                                         array('User-Agent: StatusNet/'.STATUSNET_VERSION));
             }
             if ($result->status != '200') {
                 common_log(LOG_WARNING,

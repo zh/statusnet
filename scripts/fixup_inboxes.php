@@ -30,7 +30,7 @@ set_time_limit(0);
 mb_internal_encoding('UTF-8');
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
-define('LACONICA', true);
+define('STATUSNET', true);
 
 require_once(INSTALLDIR . '/lib/common.php');
 

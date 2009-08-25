@@ -28,7 +28,7 @@
  * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET')) {
     exit(1);
 }
 
@@ -352,7 +352,7 @@ class HTMLOutputter extends XMLOutputter
         $url = parse_url($src);
         if( empty($url->scheme) && empty($url->host) && empty($url->query) && empty($url->fragment))
         {
-            $src = common_path($src) . '?version=' . LACONICA_VERSION;
+            $src = common_path($src) . '?version=' . STATUSNET_VERSION;
         }
         $this->element('script', array('type' => $type,
                                                'src' => $src),
@@ -374,7 +374,7 @@ class HTMLOutputter extends XMLOutputter
         if( empty($url->scheme) && empty($url->host) && empty($url->query) && empty($url->fragment))
         {
             if(file_exists(theme_file($src,$theme))){
-               $src = theme_path($src, $theme) . '?version=' . LACONICA_VERSION;
+               $src = theme_path($src, $theme) . '?version=' . STATUSNET_VERSION;
             }else{
                $src = common_path($src);
             }

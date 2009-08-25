@@ -27,7 +27,7 @@
  * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET')) {
     exit(1);
 }
 
@@ -125,7 +125,7 @@ class Snapshot
 
         // Some basic identification stuff
 
-        $this->stats['version']    = LACONICA_VERSION;
+        $this->stats['version']    = STATUSNET_VERSION;
         $this->stats['phpversion'] = phpversion();
         $this->stats['name']       = common_config('site', 'name');
         $this->stats['root']       = common_root_url();
@@ -181,7 +181,7 @@ class Snapshot
                       'header'  => 'Content-type: '.
                                    'application/x-www-form-urlencoded',
                       'content' => $postdata,
-                      'user_agent' => 'StatusNet/'.LACONICA_VERSION
+                      'user_agent' => 'StatusNet/'.STATUSNET_VERSION
                       )
                 );
 

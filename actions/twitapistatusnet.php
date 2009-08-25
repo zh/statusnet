@@ -27,7 +27,7 @@
  * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET')) {
     exit(1);
 }
 
@@ -70,12 +70,12 @@ class TwitapilaconicaAction extends TwitterapiAction
         switch ($apidata['content-type']) {
          case 'xml':
             $this->init_document('xml');
-            $this->element('version', null, LACONICA_VERSION);
+            $this->element('version', null, STATUSNET_VERSION);
             $this->end_document('xml');
             break;
          case 'json':
             $this->init_document('json');
-            print '"'.LACONICA_VERSION.'"';
+            print '"'.STATUSNET_VERSION.'"';
             $this->end_document('json');
             break;
          default:

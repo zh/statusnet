@@ -15,7 +15,7 @@
  * @link      http://megapump.com/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET')) {
     exit(1);
 }
 

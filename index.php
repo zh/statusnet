@@ -18,7 +18,7 @@
  */
 
 define('INSTALLDIR', dirname(__FILE__));
-define('LACONICA', true);
+define('STATUSNET', true);
 
 require_once INSTALLDIR . '/lib/common.php';
 

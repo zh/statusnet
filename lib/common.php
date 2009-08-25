@@ -17,9 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET')) { exit(1); }
 
-define('LACONICA_VERSION', '0.8.1pre1');
+define('STATUSNET_VERSION', '0.8.1pre1');
 
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);

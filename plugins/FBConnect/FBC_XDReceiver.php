@@ -1,6 +1,6 @@
 <?php
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET')) {
     exit(1);
 }
 

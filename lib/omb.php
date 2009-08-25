@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET')) { exit(1); }
 
 require_once('OAuth.php');
 require_once(INSTALLDIR.'/lib/oauthstore.php');
@@ -202,7 +202,7 @@ function omb_post_notice_keys($notice, $postnoticeurl, $tk, $secret)
 
     $result = $fetcher->post($req->get_normalized_http_url(),
                              $req->to_postdata(),
-                             array('User-Agent: StatusNet/' . LACONICA_VERSION));
+                             array('User-Agent: StatusNet/' . STATUSNET_VERSION));
 
     if ($result->status == 403) { # not authorized, don't send again
         common_debug('403 result, deleting subscription', __FILE__);
@@ -282,7 +282,7 @@ function omb_update_profile($profile, $remote_profile, $subscription)
 
     $result = $fetcher->post($req->get_normalized_http_url(),
                              $req->to_postdata(),
-                             array('User-Agent: StatusNet/' . LACONICA_VERSION));
+                             array('User-Agent: StatusNet/' . STATUSNET_VERSION));
 
     if (empty($result) || !$result) {
         common_debug("Unable to contact " . $req->get_normalized_http_url());

@@ -28,7 +28,7 @@
  * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET')) {
     exit(1);
 }
 
@@ -42,7 +42,7 @@ if (!defined('LACONICA')) {
  * @link     http://status.net/
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET')) { exit(1); }
 
 class SubscriptionsAction extends GalleryAction
 {

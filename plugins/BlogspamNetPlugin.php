@@ -27,7 +27,7 @@
  * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET')) {
     exit(1);
 }
 
@@ -139,6 +139,6 @@ class BlogspamNetPlugin extends Plugin
 
     function userAgent()
     {
-        return 'BlogspamNetPlugin/'.BLOGSPAMNETPLUGIN_VERSION . ' StatusNet/' . LACONICA_VERSION;
+        return 'BlogspamNetPlugin/'.BLOGSPAMNETPLUGIN_VERSION . ' StatusNet/' . STATUSNET_VERSION;
     }
 }
