@@ -90,7 +90,7 @@ class TwitterBridgePlugin extends Plugin
             require_once(INSTALLDIR.'/plugins/TwitterBridge/' . strtolower(mb_substr($cls, 0, -6)) . '.php');
             return false;
          case 'TwitterOAuthClient':
-            require_once(INSTALLDIR.'/plugins/TwitterBridge/twitteroAuthclient.php');
+            require_once(INSTALLDIR.'/plugins/TwitterBridge/twitteroauthclient.php');
             return false;
          default:
             return true;

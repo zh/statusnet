@@ -18,7 +18,7 @@
  * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
+define('INSTALLDIR', realpath(dirname(__FILE__) . '/../../..'));
 
 $shortoptions = 'di::';
 $longoptions = array('id::', 'debug');
@@ -32,6 +32,7 @@ END_OF_TRIM_HELP;
 
 require_once INSTALLDIR . '/scripts/commandline.inc';
 require_once INSTALLDIR . '/lib/parallelizingdaemon.php';
+require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
 
 /**
  * Daemon to sync local friends with Twitter friends

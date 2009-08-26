@@ -18,7 +18,7 @@
  * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
+define('INSTALLDIR', realpath(dirname(__FILE__) . '/../../..'));
 
 // Tune number of processes and how often to poll Twitter
 // XXX: Should these things be in config.php?
@@ -36,8 +36,9 @@ Batch script for retrieving Twitter messages from foreign service.
 
 END_OF_TRIM_HELP;
 
-require_once INSTALLDIR .'/scripts/commandline.inc';
+require_once INSTALLDIR . '/scripts/commandline.inc';
 require_once INSTALLDIR . '/lib/daemon.php';
+require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
 
 /**
  * Fetcher for statuses from Twitter

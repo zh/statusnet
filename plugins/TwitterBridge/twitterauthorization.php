@@ -31,6 +31,8 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
+require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
+
 /**
  * Class for doing OAuth authentication against Twitter
  *

@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
+define('INSTALLDIR', realpath(dirname(__FILE__) . '/../../..'));
 
 $shortoptions = 'i::';
 $longoptions = array('id::');
@@ -30,10 +30,9 @@ Daemon script for pushing new notices to Twitter.
 
 END_OF_ENJIT_HELP;
 
-require_once INSTALLDIR.'/scripts/commandline.inc';
-
-require_once INSTALLDIR . '/lib/twitter.php';
+require_once INSTALLDIR . '/scripts/commandline.inc';
 require_once INSTALLDIR . '/lib/queuehandler.php';
+require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
 
 class TwitterQueueHandler extends QueueHandler
 {

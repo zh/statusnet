@@ -409,7 +409,6 @@ require_once INSTALLDIR.'/lib/theme.php';
 require_once INSTALLDIR.'/lib/mail.php';
 require_once INSTALLDIR.'/lib/subs.php';
 require_once INSTALLDIR.'/lib/Shorturl_api.php';
-require_once INSTALLDIR.'/lib/twitter.php';
 
 require_once INSTALLDIR.'/lib/clientexception.php';
 require_once INSTALLDIR.'/lib/serverexception.php';

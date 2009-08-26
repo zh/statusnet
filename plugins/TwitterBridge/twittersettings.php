@@ -31,8 +31,8 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/connectsettingsaction.php';
-require_once INSTALLDIR.'/lib/twitter.php';
+require_once INSTALLDIR . '/lib/connectsettingsaction.php';
+require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
 
 /**
  * Settings for Twitter integration
