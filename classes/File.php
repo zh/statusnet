@@ -195,17 +195,49 @@ class File extends Memcached_DataObject
         return 'http://'.$server.$path.$filename;
     }
 
-    function isEnclosure(){
+    function getEnclosure(){
+        $enclosure = (object) array();
+        $enclosure->title=$this->title;
+        $enclosure->url=$this->url;
+        $enclosure->title=$this->title;
+        $enclosure->date=$this->date;
+        $enclosure->modified=$this->modified;
+        $enclosure->size=$this->size;
+        $enclosure->mimetype=$this->mimetype;
+        
         if(isset($this->filename)){
-            return true;
+            return $enclosure;
+        }else{
+            $notEnclosureMimeTypes = array('text/html','application/xhtml+xml');
+            $mimetype = strtolower($this->mimetype);
+            $semicolon = strpos($mimetype,';');
+            if($semicolon){
+                $mimetype = substr($mimetype,0,$semicolon);
+            }
+            if(in_array($mimetype,$notEnclosureMimeTypes)){
+                $ombed = File_oembed::staticGet('file_id',$this->id);
+                if($oembed){
+                    $mimetype = strtolower($ombed->mimetype);
+                    $semicolon = strpos($mimetype,';');
+                    if($semicolon){
+                        $mimetype = substr($mimetype,0,$semicolon);
+                    }
+                    if(in_array($mimetype,$notEnclosureMimeTypes)){
+                        return false;
+                    }else{
+                        if($ombed->mimetype) $enclosure->mimetype=$ombed->mimetype;
+                        if($ombed->url) $enclosure->url=$ombed->url;
+                        if($ombed->title) $enclosure->title=$ombed->title;
+                        if($ombed->modified) $enclosure->modified=$ombed->modified;
+                        unset($ombed->size);
+                    }
+                }else{
+                    return $enclosure;
+                }
+            }else{
+                return $enclosure;
+            }
         }
-        $notEnclosureMimeTypes = array('text/html','application/xhtml+xml');
-        $mimetype = strtolower($this->mimetype);
-        $semicolon = strpos($mimetype,';');
-        if($semicolon){
-            $mimetype = substr($mimetype,0,$semicolon);
-        }
-        return(! in_array($mimetype,$notEnclosureMimeTypes));
     }
 }
 
