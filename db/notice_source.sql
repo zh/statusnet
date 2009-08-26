@@ -17,7 +17,7 @@ VALUES
     ('gravity', 'Gravity', 'http://mobileways.de/gravity', now()),
     ('Gwibber','Gwibber','http://launchpad.net/gwibber', now()),
     ('HelloTxt','HelloTxt','http://hellotxt.com/', now()),
-    ('identicatools','Laconica Tools','http://bitbucketlabs.net/statusnet-tools/', now()),
+    ('identicatools','Laconica Tools','http://bitbucketlabs.net/laconica-tools/', now()),
     ('identichat','identichat','http://identichat.prosody.im/', now()),
     ('IdentiFox','IdentiFox','http://www.bitbucket.org/uncryptic/identifox/', now()),
     ('identitwitch','IdentiTwitch','http://richfish.org/identitwitch/', now()),
