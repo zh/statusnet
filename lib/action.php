@@ -781,7 +781,7 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showContentLicense()
     {
-        $this->element('dt', array('id' => 'site_content_license'), _('StatusNet software license'));
+        $this->element('dt', array('id' => 'site_content_license'), _('Site content license'));
         $this->elementStart('dd', array('id' => 'site_content_license_cc'));
         $this->elementStart('p');
         $this->element('img', array('id' => 'license_cc',
