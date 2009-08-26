@@ -10,3 +10,5 @@ alter table profile
 alter table user_group
      modify column description text comment 'group description';
 
+alter table file_oembed
+     add column mimetype varchar(50) comment 'mime type of resource';

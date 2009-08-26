@@ -465,6 +465,7 @@ create table file_oembed (
     file_id bigint default nextval('file_oembed_seq') primary key /* comment 'unique identifier' */,
     version varchar(20),
     type varchar(20),
+    mimetype varchar(50), 
     provider varchar(50),
     provider_url varchar(255),
     width integer,

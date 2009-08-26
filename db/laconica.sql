@@ -450,6 +450,7 @@ create table file_oembed (
     file_id integer primary key comment 'oEmbed for that URL/file' references file (id),
     version varchar(20) comment 'oEmbed spec. version',
     type varchar(20) comment 'oEmbed type: photo, video, link, rich',
+    mimetype varchar(50) comment 'mime type of resource',
     provider varchar(50) comment 'name of this oEmbed provider',
     provider_url varchar(255) comment 'URL of this oEmbed provider',
     width integer comment 'width of oEmbed resource when available',
