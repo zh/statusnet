@@ -27,7 +27,7 @@
  * @link      http://status.net/
  */
 
-if (!defined('STATUSNET'))
+if (!defined('STATUSNET') && !defined('LACONICA'))
 {
     exit(1);
 }

@@ -363,7 +363,7 @@ function writeConf($sitename, $server, $path, $fancy, $db)
 {
     // assemble configuration file in a string
     $cfg =  "<?php\n".
-            "if (!defined('STATUSNET')) { exit(1); }\n\n".
+            "if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }\n\n".
             
             // site name
             "\$config['site']['name'] = '$sitename';\n\n".

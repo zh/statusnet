@@ -27,7 +27,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('STATUSNET')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 

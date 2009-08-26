@@ -31,6 +31,7 @@ mb_internal_encoding('UTF-8');
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('STATUSNET', true);
+define('LACONICA', true); // compatibility
 
 require_once(INSTALLDIR . '/lib/common.php');
 
