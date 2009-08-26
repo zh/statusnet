@@ -341,7 +341,8 @@ function addPlugin($name, $attrs = null)
 if (isset($conffile)) {
     $_config_files = array($conffile);
 } else {
-    $_config_files = array('/etc/statusnet/laconica.php',
+    $_config_files = array('/etc/statusnet/statusnet.php',
+                           '/etc/laconica/laconica.php',
                            '/etc/statusnet/'.$_server.'.php');
 
     if (strlen($_path) > 0) {

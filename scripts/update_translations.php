@@ -30,7 +30,7 @@ define('STATUSNET', true);
 require_once(INSTALLDIR . '/lib/common.php');
 
 // Master StatusNet .pot file location (created by update_pot.sh)
-$statusnet_pot = INSTALLDIR . '/locale/laconica.po';
+$statusnet_pot = INSTALLDIR . '/locale/statusnet.po';
 
 set_time_limit(60);
 
@@ -43,7 +43,7 @@ foreach ($languages as $language) {
 
     $code = $language['lang'];
     $file_url = 'http://status.net/pootle/' . $code .
-        '/statusnet/LC_MESSAGES/laconica.po';
+        '/statusnet/LC_MESSAGES/statusnet.po';
     $lcdir = INSTALLDIR . '/locale/' . $code;
     $msgdir = "$lcdir/LC_MESSAGES";
     $pofile = "$msgdir/statusnet.po";

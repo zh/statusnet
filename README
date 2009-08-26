@@ -60,7 +60,7 @@ License along with this program, in the file "COPYING".  If not, see
     you *MUST MAKE AVAILABLE* the modified version of the source code
     to your users under the same license. This is a legal requirement
     of using the software, and if you do not wish to share your
-    modifications, *YOU MAY NOT INSTALL LACONICA*.
+    modifications, *YOU MAY NOT INSTALL STATUSNET*.
 
 Additional library software has been made available in the 'extlib'
 directory. All of it is Free Software and can be distributed under
@@ -910,7 +910,7 @@ Starting with version 0.7.1, you can put config files in the
 /etc/statusnet/ directory on your server, if it exists. Config files
 will be included in this order:
 
-* /etc/statusnet/laconica.php - server-wide config
+* /etc/statusnet/statusnet.php - server-wide config
 * /etc/statusnet/<servername>.php - for a virtual host
 * /etc/statusnet/<servername>_<pathname>.php - for a path
 * INSTALLDIR/config.php - for a particular implementation
@@ -1622,15 +1622,15 @@ Credits
 =======
 
 The following is an incomplete list of developers who've worked on
-Laconi.ca. Apologies for any oversight; please let evan@identi.ca know
+StatusNet. Apologies for any oversight; please let evan@status.net know
 if anyone's been overlooked in error.
 
-* Evan Prodromou, founder and lead developer, Control Yourself, Inc.
-* Zach Copley, Control Yourself, Inc.
-* Earle Martin, Control Yourself, Inc.
-* Marie-Claude Doyon, designer, Control Yourself, Inc.
-* Sarven Capadisli, Control Yourself, Inc.
-* Robin Millette, Control Yourself, Inc.
+* Evan Prodromou, founder and lead developer, StatusNet, Inc.
+* Zach Copley, StatusNet, Inc.
+* Earle Martin, StatusNet, Inc.
+* Marie-Claude Doyon, designer, StatusNet, Inc.
+* Sarven Capadisli, StatusNet, Inc.
+* Robin Millette, StatusNet, Inc.
 * Ciaran Gultnieks
 * Michael Landers
 * Ori Avtalion
@@ -1662,6 +1662,6 @@ if anyone's been overlooked in error.
 * Craig Andrews
 
 Thanks also to the developers of our upstream library code and to the
-thousands of people who have tried out Identi.ca, installed Laconi.ca,
+thousands of people who have tried out Identi.ca, installed StatusNet,
 told their friends, and built the Open Microblogging network to what
 it is today.

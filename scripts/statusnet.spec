@@ -10,7 +10,7 @@ Release:        1%{?dist}
 License:        GAGPL v3 or later
 Source:         statusnet-%{version}.tar.gz
 Group:          Applications/Internet
-Summary:        Laconica, the Open Source microblogging platform
+Summary:        StatusNet, the Open Source microblogging platform
 BuildArch:      noarch
 
 Requires:	httpd
@@ -31,7 +31,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %define confpath %{_sysconfdir}/%{name}
 
 %description
-From the ABOUT file: Laconica (pronounced "luh-KAWN-ih-kuh") is a Free
+From the ABOUT file: StatusNet (pronounced "luh-KAWN-ih-kuh") is a Free
 and Open Source microblogging platform. It helps people in a
 community, company or group to exchange short (140 character) messages
 over the Web. Users can choose which people to "follow" and receive
@@ -56,7 +56,7 @@ mkdir -p %{buildroot}%{_datadir}/statusnet/avatar
 
 mkdir -p %{buildroot}%{_sysconfdir}/httpd/conf.d
 cat > %{buildroot}%{_sysconfdir}/httpd/conf.d/statusnet.conf <<"EOF"
-Alias /statusnet/ "/var/www/laconica/"
+Alias /statusnet/ "/var/www/statusnet/"
 
 <Directory "/var/www/statusnet">
     Options Indexes FollowSymLinks
@@ -79,13 +79,13 @@ rm -rf %buildroot
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/statusnet.conf
 
 %changelog
-* Wed Apr 03 2009 Zach Copley <zach@controlyourself.ca> - 0.7.3
+* Wed Apr 03 2009 Zach Copley <zach@status.net> - 0.7.3
 - Changed version number to 0.7.3.
 
 * Fri Mar 13 2009 Ken Sedgwick <ksedgwic@bonsai.com> - 0.7.2.1-1
 - Factored statusnet version to the first line of the file.
 
-* Wed Mar 03 2009 Zach Copley <zach@controlyourself.ca> - 0.7.2
+* Wed Mar 03 2009 Zach Copley <zach@status.net> - 0.7.2
 - Changed version number to 0.7.2.
 
 * Sat Feb 28 2009 Ken Sedgwick <ken@bonsai.com> - 0.7.1-1

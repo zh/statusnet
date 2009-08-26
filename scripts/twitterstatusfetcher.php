@@ -478,7 +478,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         default:
 
             // Note: Twitter's big avatars are a different size than
-            // StatusNet's (Laconica's = 96)
+            // StatusNet's (StatusNet's = 96)
 
             $avatar->width  = 73;
             $avatar->height = 73;
