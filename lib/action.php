@@ -192,7 +192,10 @@ class Action extends HTMLOutputter // lawsuit
     {
         if (Event::handle('StartShowStyles', array($this))) {
 
-            if (Event::handle('StartShowStatusNetStyles', array($this))) {
+            // Use old name for StatusNet for compatibility on events
+
+            if (Event::handle('StartShowStatusNetStyles', array($this)) &&
+                Event::handle('StartShowLaconicaStyles', array($this))) {
                 $this->cssLink('css/display.css',null,'screen, projection, tv');
                 if (common_config('site', 'mobile')) {
                     // TODO: "handheld" CSS for other mobile devices
@@ -200,6 +203,7 @@ class Action extends HTMLOutputter // lawsuit
                 }
                 $this->cssLink('css/print.css','base','print');
                 Event::handle('EndShowStatusNetStyles', array($this));
+                Event::handle('EndShowLaconicaStyles', array($this));
             }
 
             if (Event::handle('StartShowUAStyles', array($this))) {
@@ -249,13 +253,15 @@ class Action extends HTMLOutputter // lawsuit
                 $this->script('js/jquery.joverlay.min.js');
                 Event::handle('EndShowJQueryScripts', array($this));
             }
-            if (Event::handle('StartShowStatusNetScripts', array($this))) {
+            if (Event::handle('StartShowStatusNetScripts', array($this)) &&
+                Event::handle('StartShowLaconicaScripts', array($this))) {
                 $this->script('js/xbImportNode.js');
                 $this->script('js/util.js');
                 // Frame-busting code to avoid clickjacking attacks.
                 $this->element('script', array('type' => 'text/javascript'),
                                'if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
                 Event::handle('EndShowStatusNetScripts', array($this));
+                Event::handle('EndShowLaconicaScripts', array($this));
             }
             Event::handle('EndShowScripts', array($this));
         }
