@@ -86,6 +86,7 @@ class QueueHandler extends Daemon
     function run()
     {
         if (!$this->start()) {
+            $this->log(LOG_WARNING, 'failed to start');
             return false;
         }
 
@@ -98,9 +99,15 @@ class QueueHandler extends Daemon
 
         $qm->service($queue, $this);
 
+        $this->log(LOG_INFO, 'finished servicing the queue');
+
         if (!$this->finish()) {
+            $this->log(LOG_WARNING, 'failed to clean up');
             return false;
         }
+
+        $this->log(LOG_INFO, 'terminating normally');
+
         return true;
     }
 
