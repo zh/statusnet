@@ -38,14 +38,20 @@ class XmppQueueHandler extends QueueHandler
     function start()
     {
         # Low priority; we don't want to receive messages
+
         $this->log(LOG_INFO, "INITIALIZE");
         $this->conn = jabber_connect($this->_id.$this->transport());
-        if ($this->conn) {
-            $this->conn->addEventHandler('message', 'forward_message', $this);
-            $this->conn->addEventHandler('reconnect', 'handle_reconnect', $this);
-            $this->conn->setReconnectTimeout(600);
-            jabber_send_presence("Send me a message to post a notice", 'available', null, 'available', -1);
+
+        if (empty($this->conn)) {
+            $this->log(LOG_ERR, "Couldn't connect to server.");
+            return false;
         }
+
+        $this->conn->addEventHandler('message', 'forward_message', $this);
+        $this->conn->addEventHandler('reconnect', 'handle_reconnect', $this);
+        $this->conn->setReconnectTimeout(600);
+        jabber_send_presence("Send me a message to post a notice", 'available', null, 'available', -1);
+
         return !is_null($this->conn);
     }
 
@@ -56,6 +62,8 @@ class XmppQueueHandler extends QueueHandler
 
     function handle_reconnect(&$pl)
     {
+        $this->log(LOG_NOTICE, 'reconnected');
+
         $this->conn->processUntil('session_start');
         $this->conn->presence(null, 'available', null, 'available', -1);
     }
