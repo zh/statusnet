@@ -404,7 +404,7 @@ function common_render_text($text)
 
     $r = preg_replace('/[\x{0}-\x{8}\x{b}-\x{c}\x{e}-\x{19}]/', '', $r);
     $r = common_replace_urls_callback($r, 'common_linkify');
-    $r = preg_replace('/(^|\(|\[|\s+)#([\pL\pN_\-\.]{1,64})/e', "'\\1#'.common_tag_link('\\2')", $r);
+    $r = preg_replace('/(^|\&quot\;|\'|\(|\[|\{|\s+)#([\pL\pN_\-\.]{1,64})/e', "'\\1#'.common_tag_link('\\2')", $r);
     // XXX: machine tags
     return $r;
 }
@@ -412,63 +412,123 @@ function common_render_text($text)
 function common_replace_urls_callback($text, $callback, $notice_id = null) {
     // Start off with a regex
     $regex = '#'.
-    '(?:^|\s+)('.
+    '(?:^|[\s\(\)\[\]\{\}\\\'\\\";]+)(?![\@\!\#])'.
+    '(?P<url>'.
         '(?:'.
-            '(?:https?|ftps?|mms|rtsp|gopher|news|nntp|telnet|wais|file|prospero|webcal|irc)://'.
-            '|'.
-            '(?:mailto|aim|tel|xmpp):'.
-        ')?'.
-        '(?:'.
-        '(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'. //IPv4
-        '|(?:'.
-            '(?:[0-9a-f]{1,4}:){1,1}(?::[0-9a-f]{1,4}){1,6}|'. //IPv6
-            '(?:[0-9a-f]{1,4}:){1,2}(?::[0-9a-f]{1,4}){1,5}|'.
-            '(?:[0-9a-f]{1,4}:){1,3}(?::[0-9a-f]{1,4}){1,4}|'.
-            '(?:[0-9a-f]{1,4}:){1,4}(?::[0-9a-f]{1,4}){1,3}|'.
-            '(?:[0-9a-f]{1,4}:){1,5}(?::[0-9a-f]{1,4}){1,2}|'.
-            '(?:[0-9a-f]{1,4}:){1,6}(?::[0-9a-f]{1,4}){1,1}|'.
-            '(?:(?:[0-9a-f]{1,4}:){1,7}|:):|'.
-            ':(?::[0-9a-f]{1,4}){1,7}|'.
-            '(?:(?:(?:[0-9a-f]{1,4}:){6})(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3})|'.
-            '(?:(?:[0-9a-f]{1,4}:){5}[0-9a-f]{1,4}:(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3})|'.
-            '(?:[0-9a-f]{1,4}:){5}:[0-9a-f]{1,4}:(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}|'.
-            '(?:[0-9a-f]{1,4}:){1,1}(?::[0-9a-f]{1,4}){1,4}:(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}|'.
-            '(?:[0-9a-f]{1,4}:){1,2}(?::[0-9a-f]{1,4}){1,3}:(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}|'.
-            '(?:[0-9a-f]{1,4}:){1,3}(?::[0-9a-f]{1,4}){1,2}:(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}|'.
-            '(?:[0-9a-f]{1,4}:){1,4}(?::[0-9a-f]{1,4}){1,1}:(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}|'.
-            '(?:(?:[0-9a-f]{1,4}:){1,5}|:):(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}|'.
-            ':(?::[0-9a-f]{1,4}){1,5}:(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}'.
-        ')|'.
-        '(?:[^.\s/:]+\.)+'. //DNS
-        '(?:museum|travel|onion|[a-z]{2,4})'.
+            '(?:'. //Known protocols
+                '(?:'.
+                    '(?:(?:https?|ftps?|mms|rtsp|gopher|news|nntp|telnet|wais|file|prospero|webcal|irc)://)'.
+                    '|'.
+                    '(?:(?:mailto|aim|tel|xmpp):)'.
+                ')'.
+                '(?:[\pN\pL\-\_\+]+(?::[\pN\pL\-\_\+]+)?\@)?'. //user:pass@
+                '(?:'.
+                    '(?:'.
+                        '\[[\pN\pL\-\_\:\.]+(?<![\.\:])\]'. //[dns]
+                    ')|(?:'.
+                        '[\pN\pL\-\_\:\.]+(?<![\.\:])'. //dns
+                    ')'.
+                ')'.
+            ')'.
+            '|(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'. //IPv4
+            '|(?:'. //IPv6
+                '\[?(?:(?:(?:[0-9A-Fa-f]{1,4}:){7}(?:(?:[0-9A-Fa-f]{1,4})|:))|(?:(?:[0-9A-Fa-f]{1,4}:){6}(?::|(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})|(?::[0-9A-Fa-f]{1,4})))|(?:(?:[0-9A-Fa-f]{1,4}:){5}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:){4}(?::[0-9A-Fa-f]{1,4}){0,1}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:){3}(?::[0-9A-Fa-f]{1,4}){0,2}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:){2}(?::[0-9A-Fa-f]{1,4}){0,3}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:)(?::[0-9A-Fa-f]{1,4}){0,4}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?::(?::[0-9A-Fa-f]{1,4}){0,5}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})))\]?'.
+            ')|(?:'. //DNS
+                '(?:[\pN\pL\-\_\+]+(?:\:[\pN\pL\-\_\+]+)?\@)?'. //user:pass@
+                '[\pN\pL\-\_]+(?:\.[\pN\pL\-\_]+)*\.'.
+                //tld list from http://data.iana.org/TLD/tlds-alpha-by-domain.txt, also added local, loc, and onion
+                '(?:AC|AD|AE|AERO|AF|AG|AI|AL|AM|AN|AO|AQ|AR|ARPA|AS|ASIA|AT|AU|AW|AX|AZ|BA|BB|BD|BE|BF|BG|BH|BI|BIZ|BJ|BM|BN|BO|BR|BS|BT|BV|BW|BY|BZ|CA|CAT|CC|CD|CF|CG|CH|CI|CK|CL|CM|CN|CO|COM|COOP|CR|CU|CV|CX|CY|CZ|DE|DJ|DK|DM|DO|DZ|EC|EDU|EE|EG|ER|ES|ET|EU|FI|FJ|FK|FM|FO|FR|GA|GB|GD|GE|GF|GG|GH|GI|GL|GM|GN|GOV|GP|GQ|GR|GS|GT|GU|GW|GY|HK|HM|HN|HR|HT|HU|ID|IE|IL|IM|IN|INFO|INT|IO|IQ|IR|IS|IT|JE|JM|JO|JOBS|JP|KE|KG|KH|KI|KM|KN|KP|KR|KW|KY|KZ|LA|LB|LC|LI|LK|LR|LS|LT|LU|LV|LY|MA|MC|MD|ME|MG|MH|MIL|MK|ML|MM|MN|MO|MOBI|MP|MQ|MR|MS|MT|MU|MUSEUM|MV|MW|MX|MY|MZ|NA|NAME|NC|NE|NET|NF|NG|NI|NL|NO|NP|NR|NU|NZ|OM|ORG|PA|PE|PF|PG|PH|PK|PL|PM|PN|PR|PRO|PS|PT|PW|PY|QA|RE|RO|RS|RU|RW|SA|SB|SC|SD|SE|SG|SH|SI|SJ|SK|SL|SM|SN|SO|SR|ST|SU|SV|SY|SZ|TC|TD|TEL|TF|TG|TH|TJ|TK|TL|TM|TN|TO|TP|TR|TRAVEL|TT|TV|TW|TZ|UA|UG|UK|US|UY|UZ|VA|VC|VE|VG|VI|VN|VU|WF|WS|XN--0ZWM56D|测试|XN--11B5BS3A9AJ6G|परीक्षा|XN--80AKHBYKNJ4F|испытание|XN--9T4B11YI5A|테스트|XN--DEBA0AD|טעסט|XN--G6W251D|測試|XN--HGBK6AJ7F53BBA|آزمایشی|XN--HLCJ6AYA9ESC7A|பரிட்சை|XN--JXALPDLP|δοκιμή|XN--KGBECHTV|إختبار|XN--ZCKZAH|テスト|YE|YT|YU|ZA|ZM|ZW|local|loc|onion)'.
+            ')(?![\pN\pL\-\_])'.
         ')'.
-        '(?:[:/][^\s]*)?'.
+        '(?:'.
+            '(?:\:\d+)?'. //:port
+            '(?:/[\pN\pL$\[\]\,\!\(\)\.\-\_\+\/\=\&\;]*)?'. // /path
+            '(?:\?[\pN\pL\$\[\]\,\!\(\)\.\-\_\+\/\=\&\;\/]*)?'. // ?query string
+            '(?:\#[\pN\pL$\[\]\,\!\(\)\.\-\_\+\/\=\&\;\/\?\#]*)?'. // #fragment
+        ')(?<![\?\.\,\#\,])'.
     ')'.
-    '#ix';
-    preg_match_all($regex, $text, $matches);
-    // Then clean up what the regex left behind
-    $offset = 0;
-    foreach($matches[1] as $url) {
-        // Call user specified func
-        if (empty($notice_id)) {
-            $modified_url = call_user_func($callback, $url);
-        } else {
-            $modified_url = call_user_func($callback, array($url, $notice_id));
+    '#ixu';
+    preg_match_all($regex,$text,$matches);
+    //print_r($matches);
+    return preg_replace_callback($regex, curry(callback_helper,$callback,$notice_id) ,$text);
+}
+
+function callback_helper($matches, $callback, $notice_id) {
+    $url=$matches['url'];
+    $left = strpos($matches[0],$url);
+    $right = $left+strlen($url);
+    
+    $groupSymbolSets=array(
+        array(
+            'left'=>'(',
+            'right'=>')'
+        ),
+        array(
+            'left'=>'[',
+            'right'=>']'
+        ),
+        array(
+            'left'=>'{',
+            'right'=>'}'
+        )
+    );
+    $cannotEndWith=array('.','?',',','#');
+    $original_url=$url;
+    do{
+        $original_url=$url;
+        foreach($groupSymbolSets as $groupSymbolSet){
+            if(substr($url,-1)==$groupSymbolSet['right']){
+                $group_left_count = substr_count($url,$groupSymbolSet['left']);
+                $group_right_count = substr_count($url,$groupSymbolSet['right']);
+                if($group_left_count<$group_right_count){
+                    $right-=1;
+                    $url=substr($url,0,-1);
+                }
+            }
         }
-
-        // Replace it!
-        $start = mb_strpos($text, $url, $offset);
-        $text = mb_substr($text, 0, $start).$modified_url.mb_substr($text, $start + mb_strlen($url), mb_strlen($text));
-        $offset = $start + mb_strlen($modified_url);
+        if(in_array(substr($url,-1),$cannotEndWith)){
+            $right-=1;
+            $url=substr($url,0,-1);
+        }
+    }while($original_url!=$url);
+    
+    
+    
+    if(empty($notice_id)){
+        $result = call_user_func_array($callback,$url);
+    }else{
+        $result = call_user_func_array($callback, array($url,$notice_id) );
     }
+    return substr($matches[0],0,$left) . $result . substr($matches[0],$right);
+}
 
-    return $text;
+function curry($fn) {
+    //TODO switch to a PHP 5.3 function closure based approach if PHP 5.3 is used
+    $args = func_get_args();
+    array_shift($args);
+    $id = uniqid('_partial');
+    $GLOBALS[$id] = array($fn, $args);
+    return create_function(
+        '',
+        '
+        $args = func_get_args();
+        return call_user_func_array(
+        $GLOBALS["'.$id.'"][0],
+        array_merge(
+            $args,
+            $GLOBALS["'.$id.'"][1]));
+    ');
 }
 
 function common_linkify($url) {
     // It comes in special'd, so we unspecial it before passing to the stringifying
     // functions
     $url = htmlspecialchars_decode($url);
+
+   if(strpos($url, '@')!==false && strpos($url, ':')===false){
+       //url is an email address without the mailto: protocol
+       return XMLStringer::estring('a', array('href' => "mailto:$url", 'rel' => 'external'), $url);
+   }
 
     $canon = File_redirection::_canonUrl($url);
 
