@@ -1,7 +1,7 @@
 <?php
 /* -*- mode: php -*- */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET')) { exit(1); }
 
 // If you have downloaded libraries in random little places, you
 // can add the paths here
@@ -13,7 +13,7 @@ if (!defined('LACONICA')) { exit(1); }
 // options
 // These are for configuring your URLs
 
-$config['site']['name'] = 'Just another Laconica microblog';
+$config['site']['name'] = 'Just another StatusNet microblog';
 $config['site']['server'] = 'localhost';
 $config['site']['path'] = 'statusnet';
 // $config['site']['fancy'] = false;
@@ -46,7 +46,7 @@ $config['site']['path'] = 'statusnet';
 // If you want logging sent to a file instead of syslog
 // $config['site']['logfile'] = '/tmp/statusnet.log';
 
-// Change the syslog facility that Laconica logs to (default is LOG_USER)
+// Change the syslog facility that StatusNet logs to (default is LOG_USER)
 // $config['syslog']['facility'] = LOG_LOCAL7;
 
 // Enables extra log information, for example full details of PEAR DB errors
@@ -58,7 +58,7 @@ $config['site']['path'] = 'statusnet';
 // This is a PEAR DB DSN, see http://pear.php.net/manual/en/package.database.db.intro-dsn.php
 // Set it to match your actual database
 
-$config['db']['database'] = 'mysql://statusnet:microblog@localhost/laconica';
+$config['db']['database'] = 'mysql://statusnet:microblog@localhost/statusnet';
 // $config['db']['ini_your_db_name'] = $config['db']['schema_location'].'/statusnet.ini';
 // *** WARNING *** WARNING *** WARNING *** WARNING ***
 // Setting debug to a non-zero value will expose your DATABASE PASSWORD to Web users.
@@ -178,8 +178,8 @@ $config['sphinx']['port'] = 3312;
 // Disable Twitter integration
 // $config['twitter']['enabled'] = false;
 
-// Twitter integration source attribute. Note: default is Laconica
-// $config['integration']['source'] = 'Laconica';
+// Twitter integration source attribute. Note: default is StatusNet
+// $config['integration']['source'] = 'StatusNet';
 
 // Enable bidirectional Twitter bridge
 //
