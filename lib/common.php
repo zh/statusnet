@@ -342,11 +342,14 @@ if (isset($conffile)) {
     $_config_files = array($conffile);
 } else {
     $_config_files = array('/etc/statusnet/statusnet.php',
+                           '/etc/statusnet/laconica.php',
                            '/etc/laconica/laconica.php',
-                           '/etc/statusnet/'.$_server.'.php');
+                           '/etc/statusnet/'.$_server.'.php',
+                           '/etc/laconica/'.$_server.'.php');
 
     if (strlen($_path) > 0) {
         $_config_files[] = '/etc/statusnet/'.$_server.'_'.$_path.'.php';
+        $_config_files[] = '/etc/laconica/'.$_server.'_'.$_path.'.php';
     }
 
     $_config_files[] = INSTALLDIR.'/config.php';
