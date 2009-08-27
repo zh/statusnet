@@ -1,7 +1,7 @@
 <?php
 /**
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -87,7 +87,7 @@ function checkPrereqs()
 function checkExtension($name)
 {
     if (!extension_loaded($name)) {
-        if (!dl($name.'.so')) {
+        if (!@dl($name.'.so')) {
             return false;
         }
     }
@@ -129,7 +129,7 @@ function showForm()
                 <p class="form_guide">Database hostname</p>
             </li>
             <li>
-            
+
                 <label for="dbtype">Type</label>
                 <input type="radio" name="dbtype" id="fancy-mysql" value="mysql" checked='checked' /> MySQL<br />
                 <input type="radio" name="dbtype" id="dbtype-pgsql" value="pgsql" /> PostgreSQL<br />
@@ -181,7 +181,7 @@ function handlePost()
     $fancy    = !empty($_POST['fancy']);
     $server = $_SERVER['HTTP_HOST'];
     $path = substr(dirname($_SERVER['PHP_SELF']), 1);
-    
+
 ?>
     <dl class="system_notice">
         <dt>Page notice</dt>
@@ -219,7 +219,9 @@ function handlePost()
             showForm();
         return;
     }
-    
+
+    // FIXME: use PEAR::DB or PDO instead of our own switch
+
     switch($dbtype) {
         case 'mysql':
             $db = mysql_db_installer($host, $database, $username, $password);
@@ -229,28 +231,28 @@ function handlePost()
             break;
         default:
     }
-    
+
     if (!$db) {
         // database connection failed, do not move on to create config file.
         return false;
     }
-    
+
     updateStatus("Writing config file...");
     $res = writeConf($sitename, $server, $path, $fancy, $db);
-    
+
     if (!$res) {
         updateStatus("Can't write config file.", true);
         showForm();
         return;
     }
-    
+
     /*
         TODO https needs to be considered
     */
     $link = "http://".$server.'/'.$path;
-    
-    updateStatus("Laconica has been installed at $link");
-    updateStatus("You can visit your <a href='$link'>new Laconica site</a>.");
+
+    updateStatus("StatusNet has been installed at $link");
+    updateStatus("You can visit your <a href='$link'>new StatusNet site</a>.");
 ?>
 
 <?php
@@ -266,7 +268,7 @@ function pgsql_db_installer($host, $database, $username, $password) {
   updateStatus("Starting installation...");
   updateStatus("Checking database...");
   $conn = pg_connect($connstring);
-  
+
   if ($conn ===false) {
     updateStatus("Failed to connect to database: $connstring");
     showForm();
@@ -276,7 +278,7 @@ function pgsql_db_installer($host, $database, $username, $password) {
   //ensure database encoding is UTF8
   $record = pg_fetch_object(pg_query($conn, 'SHOW server_encoding'));
   if ($record->server_encoding != 'UTF8') {
-    updateStatus("Laconica requires UTF8 character encoding. Your database is ". htmlentities($record->server_encoding));
+    updateStatus("StatusNet requires UTF8 character encoding. Your database is ". htmlentities($record->server_encoding));
     showForm();
     return false;
   }
@@ -284,8 +286,8 @@ function pgsql_db_installer($host, $database, $username, $password) {
   updateStatus("Running database script...");
   //wrap in transaction;
   pg_query($conn, 'BEGIN');
-  $res = runDbScript(INSTALLDIR.'/db/laconica_pg.sql', $conn, 'pgsql');
-  
+  $res = runDbScript(INSTALLDIR.'/db/statusnet_pg.sql', $conn, 'pgsql');
+
   if ($res === false) {
       updateStatus("Can't run database script.", true);
       showForm();
@@ -311,9 +313,9 @@ function pgsql_db_installer($host, $database, $username, $password) {
   else {
     $sqlUrl = "pgsql://$username:$password@$host/$database";
   }
-  
+
   $db = array('type' => 'pgsql', 'database' => $sqlUrl);
-  
+
   return $db;
 }
 
@@ -335,7 +337,7 @@ function mysql_db_installer($host, $database, $username, $password) {
       return false;
   }
   updateStatus("Running database script...");
-  $res = runDbScript(INSTALLDIR.'/db/laconica.sql', $conn);
+  $res = runDbScript(INSTALLDIR.'/db/statusnet.sql', $conn);
   if ($res === false) {
       updateStatus("Can't run database script.", true);
       showForm();
@@ -353,7 +355,7 @@ function mysql_db_installer($host, $database, $username, $password) {
           return false;
       }
   }
-      
+
       $sqlUrl = "mysqli://$username:$password@$host/$database";
       $db = array('type' => 'mysql', 'database' => $sqlUrl);
       return $db;
@@ -363,23 +365,23 @@ function writeConf($sitename, $server, $path, $fancy, $db)
 {
     // assemble configuration file in a string
     $cfg =  "<?php\n".
-            "if (!defined('LACONICA')) { exit(1); }\n\n".
-            
+            "if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }\n\n".
+
             // site name
             "\$config['site']['name'] = '$sitename';\n\n".
-            
+
             // site location
             "\$config['site']['server'] = '$server';\n".
             "\$config['site']['path'] = '$path'; \n\n".
-            
+
             // checks if fancy URLs are enabled
             ($fancy ? "\$config['site']['fancy'] = true;\n\n":'').
-            
+
             // database
             "\$config['db']['database'] = '{$db['database']}';\n\n".
             ($type == 'pgsql' ? "\$config['db']['quote_identifiers'] = true;\n\n":'').
             "\$config['db']['type'] = '{$db['type']}';\n\n".
-            
+
             "?>";
     // write configuration file out to install directory
     $res = file_put_contents(INSTALLDIR.'/config.php', $cfg);
@@ -396,18 +398,25 @@ function runDbScript($filename, $conn, $type = 'mysql')
         if (!mb_strlen($stmt)) {
             continue;
         }
+        // FIXME: use PEAR::DB or PDO instead of our own switch
         switch ($type) {
         case 'mysql':
             $res = mysql_query($stmt, $conn);
+            if ($res === false) {
+                $error = mysql_error();
+            }
             break;
         case 'pgsql':
             $res = pg_query($conn, $stmt);
+            if ($res === false) {
+                $error = pg_last_error();
+            }
             break;
         default:
             updateStatus("runDbScript() error: unknown database type ". $type ." provided.");
         }
         if ($res === false) {
-            updateStatus("FAILED SQL: $stmt");
+            updateStatus("ERROR ($error) for SQL '$stmt'");
             return $res;
         }
     }
@@ -421,7 +430,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en_US" lang="en_US">
     <head>
-        <title>Install Laconica</title>
+        <title>Install StatusNet</title>
 	<link rel="shortcut icon" href="favicon.ico"/>
         <link rel="stylesheet" type="text/css" href="theme/default/css/display.css?version=0.8" media="screen, projection, tv"/>
         <!--[if IE]><link rel="stylesheet" type="text/css" href="theme/base/css/ie.css?version=0.8" /><![endif]-->
@@ -435,14 +444,14 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
             <div id="header">
                 <address id="site_contact" class="vcard">
                     <a class="url home bookmark" href=".">
-                        <img class="logo photo" src="theme/default/logo.png" alt="Laconica"/>
-                        <span class="fn org">Laconica</span>
+                        <img class="logo photo" src="theme/default/logo.png" alt="StatusNet"/>
+                        <span class="fn org">StatusNet</span>
                     </a>
                 </address>
             </div>
             <div id="core">
                 <div id="content">
-                    <h1>Install Laconica</h1>
+                    <h1>Install StatusNet</h1>
 <?php main(); ?>
                 </div>
             </div>

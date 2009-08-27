@@ -1,7 +1,7 @@
 <?php
 /**
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -18,7 +18,8 @@
  */
 
 define('INSTALLDIR', dirname(__FILE__));
-define('LACONICA', true);
+define('STATUSNET', true);
+define('LACONICA', true); // compatibility
 
 require_once INSTALLDIR . '/lib/common.php';
 
@@ -93,7 +94,7 @@ function checkMirror($action_obj, $args)
         // on the master DB
 
         $config['db']['database_rw'] = $config['db']['database'];
-        $config['db']['ini_rw'] = INSTALLDIR.'/classes/laconica.ini';
+        $config['db']['ini_rw'] = INSTALLDIR.'/classes/statusnet.ini';
 
         foreach ($alwaysRW as $table) {
             $config['db']['table_'.$table] = 'rw';

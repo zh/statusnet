@@ -1,8 +1,8 @@
 #!/usr/bin/env php
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -37,11 +37,11 @@ require_once INSTALLDIR . '/lib/parallelizingdaemon.php';
  * Daemon to sync local friends with Twitter friends
  *
  * @category Twitter
- * @package  Laconica
- * @author   Zach Copley <zach@controlyourself.ca>
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Zach Copley <zach@status.net>
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 $helptext = <<<END_OF_TWITTER_HELP

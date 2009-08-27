@@ -20,10 +20,16 @@ StartShowStyles: Showing Style links; good place to add UA style resets
 EndShowStyles: End showing Style links; good place to add custom styles
 - $action: the current action
 
-StartShowLaconicaStyles: Showing Laconica Style links
+StartShowStatusNetStyles: Showing StatusNet Style links
 - $action: the current action
 
-EndShowLaconicaStyles: End showing Laconica tyle links;  good place to add handheld or JavaScript dependent styles
+EndShowStatusNetStyles: End showing StatusNet Style links;  good place to add handheld or JavaScript dependant styles
+- $action: the current action
+
+StartShowLaconicaStyles: backwards compatibility; deprecated
+- $action: the current action
+
+EndShowLaconicaStyles: backwards compatibility; deprecated
 - $action: the current action
 
 StartShowUAStyles: Showing custom User-Agent style links
@@ -45,10 +51,16 @@ StartShowJQueryScripts: Showing JQuery script links (use this to link to e.g. Go
 EndShowJQueryScripts: End showing JQuery script links
 - $action: the current action
 
-StartShowLaconicaScripts: Showing Laconica script links (use this to link to a CDN or something)
+StartShowStatusNetScripts: Showing StatusNet script links (use this to link to a CDN or something)
 - $action: the current action
 
-EndShowLaconicaScripts: End showing Laconica script links
+EndShowStatusNetScripts: End showing StatusNet script links
+- $action: the current action
+
+StartShowLaconicaScripts: backwards compatibility; deprecated
+- $action: the current action
+
+EndShowLaconicaScripts: backwards compatibility; deprecated
 - $action: the current action
 
 StartShowSections: Start the list of sections in the sidebar

@@ -8,14 +8,14 @@
  * The method is disabled unless the user is #1, the first user of the system
  *
  * @category  Plugin
- * @package   Laconica
+ * @package   StatusNet
  * @author    Brian Hendrickson <brian@megapump.com>
  * @copyright 2009 Megapump, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://megapump.com/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET')) {
     exit(1);
 }
 
@@ -195,7 +195,7 @@ class TemplatePlugin extends Plugin {
     );
     
     // use the PHP template
-    // unless laconica config:
+    // unless statusnet config:
     //   $config['template']['mode'] = 'html';
     if (!(common_config('template', 'mode') == 'html')) {
       $tpl_file = $this->templateFolder() . '/index.php';
@@ -261,7 +261,7 @@ class TemplatePlugin extends Plugin {
  * parameter "template", containing the new template code
  *
  * @category Plugin
- * @package  Laconica
+ * @package  StatusNet
  * @author   Brian Hendrickson <brian@megapump.com>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://megapump.com/
@@ -283,7 +283,7 @@ class TemplateAction extends Action
     if (!isset($_SERVER['PHP_AUTH_USER'])) {
       
       // not authenticated, show login form
-      header('WWW-Authenticate: Basic realm="Laconica API"');
+      header('WWW-Authenticate: Basic realm="StatusNet API"');
       
       // cancelled the browser login form
       $this->clientError(_('Authentication error!'), $code = 401);
@@ -326,13 +326,13 @@ class TemplateAction extends Action
 }
 
 /**
- * Function for retrieving a laconica display section
+ * Function for retrieving a statusnet display section
  *
  * requires one parameter, the name of the section
  * section names are listed in the comments of the TemplatePlugin class
  *
  * @category Plugin
- * @package  Laconica
+ * @package  StatusNet
  * @author   Brian Hendrickson <brian@megapump.com>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://megapump.com/

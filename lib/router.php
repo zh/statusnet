@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * URL routing utilities
  *
@@ -20,14 +20,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  URL
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -39,10 +39,10 @@ require_once 'Net/URL/Mapper.php';
  * Cheap wrapper around Net_URL_Mapper
  *
  * @category URL
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class Router
@@ -392,30 +392,36 @@ class Router
                     array('action' => 'api',
                           'apiaction' => 'help'));
 
-        // laconica
+        // statusnet
+
+        $m->connect('api/statusnet/:method',
+                    array('action' => 'api',
+                          'apiaction' => 'statusnet'));
+
+        // For older methods, we provide "laconica" base action
 
         $m->connect('api/laconica/:method',
                     array('action' => 'api',
-                          'apiaction' => 'laconica'));
+                          'apiaction' => 'statusnet'));
 
-        $m->connect('api/laconica/:method',
-                    array('action' => 'api',
-                          'apiaction' => 'laconica'));
+        // Groups and tags are newer than 0.8.1 so no backward-compatibility
+        // necessary
 
         // Groups
         //'list' has to be handled differently, as php will not allow a method to be named 'list'
-        $m->connect('api/laconica/groups/list/:argument',
+        $m->connect('api/statusnet/groups/list/:argument',
                     array('action' => 'api',
                           'method' => 'list_groups',
                           'apiaction' => 'groups'));
+
         foreach (array('xml', 'json', 'rss', 'atom') as $e) {
-            $m->connect('api/laconica/groups/list.' . $e,
+            $m->connect('api/statusnet/groups/list.' . $e,
                     array('action' => 'api',
                           'method' => 'list_groups.' . $e,
                           'apiaction' => 'groups'));
         }
 
-        $m->connect('api/laconica/groups/:method',
+        $m->connect('api/statusnet/groups/:method',
                     array('action' => 'api',
                           'apiaction' => 'statuses'),
                     array('method' => '(list_all|)(\.(atom|rss|xml|json))?'));
@@ -425,20 +431,20 @@ class Router
                           'apiaction' => 'statuses'),
                     array('method' => '(|user_timeline|friends_timeline|replies|mentions|show|destroy|friends|followers)'));
 
-        $m->connect('api/laconica/groups/:method/:argument',
+        $m->connect('api/statusnet/groups/:method/:argument',
                     array('action' => 'api',
                           'apiaction' => 'groups'));
 
-        $m->connect('api/laconica/groups/:method',
+        $m->connect('api/statusnet/groups/:method',
                     array('action' => 'api',
                           'apiaction' => 'groups'));
 
         // Tags
-        $m->connect('api/laconica/tags/:method/:argument',
+        $m->connect('api/statusnet/tags/:method/:argument',
                     array('action' => 'api',
                           'apiaction' => 'tags'));
 
-        $m->connect('api/laconica/tags/:method',
+        $m->connect('api/statusnet/tags/:method',
                     array('action' => 'api',
                           'apiaction' => 'tags'));
 

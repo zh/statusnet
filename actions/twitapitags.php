@@ -1,8 +1,8 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
- * Laconica extensions to the Twitter-like API for groups
+ * StatusNet extensions to the Twitter-like API for groups
  *
  * PHP version 5
  *
@@ -20,15 +20,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Twitter
- * @package   Laconica
+ * @package   StatusNet
  * @author    Craig Andrews
- * @author    Zach Copley <zach@controlyourself.ca>
- * @copyright 2009 Control Yourself, Inc.
+ * @author    Zach Copley <zach@status.net>
+ * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -37,15 +37,15 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
 /**
  * Group-specific API methods
  *
- * This class handles Laconica group API methods.
+ * This class handles StatusNet group API methods.
  *
  * @category  Twitter
- * @package   Laconica
+ * @package   StatusNet
  * @author    Craig Andrews
- * @author    Zach Copley <zach@controlyourself.ca>
- * @copyright 2009 Control Yourself, Inc.
+ * @author    Zach Copley <zach@status.net>
+ * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
  class TwitapitagsAction extends TwitterapiAction
@@ -93,11 +93,11 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
           case 'atom':
              if (isset($apidata['api_arg'])) {
                  $selfuri = common_root_url() .
-                     'api/laconica/tags/timeline/' .
+                     'api/statusnet/tags/timeline/' .
                          $apidata['api_arg'] . '.atom';
              } else {
                  $selfuri = common_root_url() .
-                  'api/laconica/tags/timeline.atom';
+                  'api/statusnet/tags/timeline.atom';
              }
              $this->show_atom_timeline($notice, $title, $id, $link,
                  $subtitle, null, $selfuri);

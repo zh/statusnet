@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Laconica - a distributed open-source microblogging tool
+# StatusNet - a distributed open-source microblogging tool
 
-# Copyright (C) 2008, 2009, Control Yourself, Inc.
+# Copyright (C) 2008, 2009, StatusNet, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# This program tries to stop the daemons for Laconica that were
+# This program tries to stop the daemons for StatusNet that were
 # previously started by startdaemons.sh
 
 SDIR=`dirname $0`

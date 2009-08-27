@@ -5,14 +5,14 @@
  * PHP version 5
  *
  * @category Action
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Robin Millette <millette@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Robin Millette <millette@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -28,9 +28,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-if (!defined('LACONICA')) {
-    exit(1);
-}
+if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 require_once INSTALLDIR.'/extlib/libomb/service_consumer.php';
 require_once INSTALLDIR.'/lib/omb.php';
@@ -144,5 +142,68 @@ class FinishremotesubscribeAction extends Action
         common_redirect(common_local_url('subscribers', array('nickname' =>
                                                              $user->nickname)),
                         303);
+    }
+
+    function add_avatar($profile, $url)
+    {
+        $temp_filename = tempnam(sys_get_temp_dir(), 'listener_avatar');
+        copy($url, $temp_filename);
+        $imagefile = new ImageFile($profile->id, $temp_filename);
+        $filename = Avatar::filename($profile->id,
+                                     image_type_to_extension($imagefile->type),
+                                     null,
+                                     common_timestamp());
+        rename($temp_filename, Avatar::path($filename));
+        return $profile->setOriginal($filename);
+    }
+
+    function access_token($omb)
+    {
+
+        common_debug('starting request for access token', __FILE__);
+
+        $con = omb_oauth_consumer();
+        $tok = new OAuthToken($omb['token'], $omb['secret']);
+
+        common_debug('using request token "'.$tok.'"', __FILE__);
+
+        $url = $omb['access_token_url'];
+
+        common_debug('using access token url "'.$url.'"', __FILE__);
+
+        # XXX: Is this the right thing to do? Strip off GET params and make them
+        # POST params? Seems wrong to me.
+
+        $parsed = parse_url($url);
+        $params = array();
+        parse_str($parsed['query'], $params);
+
+        $req = OAuthRequest::from_consumer_and_token($con, $tok, "POST", $url, $params);
+
+        $req->set_parameter('omb_version', OMB_VERSION_01);
+
+        # XXX: test to see if endpoint accepts this signature method
+
+        $req->sign_request(omb_hmac_sha1(), $con, $tok);
+
+        # We re-use this tool's fetcher, since it's pretty good
+
+        common_debug('posting to access token url "'.$req->get_normalized_http_url().'"', __FILE__);
+        common_debug('posting request data "'.$req->to_postdata().'"', __FILE__);
+
+        $fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
+        $result = $fetcher->post($req->get_normalized_http_url(),
+                                 $req->to_postdata(),
+                                 array('User-Agent: StatusNet/' . STATUSNET_VERSION));
+
+        common_debug('got result: "'.print_r($result,true).'"', __FILE__);
+
+        if ($result->status != 200) {
+            return null;
+        }
+
+        parse_str($result->body, $return);
+
+        return array($return['oauth_token'], $return['oauth_token_secret']);
     }
 }
