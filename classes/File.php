@@ -204,10 +204,8 @@ class File extends Memcached_DataObject
         $enclosure->modified=$this->modified;
         $enclosure->size=$this->size;
         $enclosure->mimetype=$this->mimetype;
-        
-        if(isset($this->filename)){
-            return $enclosure;
-        }else{
+
+        if(! isset($this->filename)){
             $notEnclosureMimeTypes = array('text/html','application/xhtml+xml');
             $mimetype = strtolower($this->mimetype);
             $semicolon = strpos($mimetype,';');
@@ -215,9 +213,9 @@ class File extends Memcached_DataObject
                 $mimetype = substr($mimetype,0,$semicolon);
             }
             if(in_array($mimetype,$notEnclosureMimeTypes)){
-                $ombed = File_oembed::staticGet('file_id',$this->id);
+                $oembed = File_oembed::staticGet('file_id',$this->id);
                 if($oembed){
-                    $mimetype = strtolower($ombed->mimetype);
+                    $mimetype = strtolower($oembed->mimetype);
                     $semicolon = strpos($mimetype,';');
                     if($semicolon){
                         $mimetype = substr($mimetype,0,$semicolon);
@@ -225,19 +223,16 @@ class File extends Memcached_DataObject
                     if(in_array($mimetype,$notEnclosureMimeTypes)){
                         return false;
                     }else{
-                        if($ombed->mimetype) $enclosure->mimetype=$ombed->mimetype;
-                        if($ombed->url) $enclosure->url=$ombed->url;
-                        if($ombed->title) $enclosure->title=$ombed->title;
-                        if($ombed->modified) $enclosure->modified=$ombed->modified;
-                        unset($ombed->size);
+                        if($oembed->mimetype) $enclosure->mimetype=$oembed->mimetype;
+                        if($oembed->url) $enclosure->url=$oembed->url;
+                        if($oembed->title) $enclosure->title=$oembed->title;
+                        if($oembed->modified) $enclosure->modified=$oembed->modified;
+                        unset($oembed->size);
                     }
-                }else{
-                    return $enclosure;
                 }
-            }else{
-                return $enclosure;
             }
         }
+        return $enclosure;
     }
 }
 
