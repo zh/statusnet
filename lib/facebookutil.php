@@ -109,7 +109,6 @@ function facebookBroadcastNotice($notice)
 
             $can_update  = $facebook->api_client->users_hasAppPermission('status_update',
                                                                          $fbuid);
-
             if (!empty($attachments) && $can_publish == 1) {
                 $fbattachment = format_attachments($attachments);
                 $facebook->api_client->stream_publish($status, $fbattachment,
@@ -180,7 +179,11 @@ function format_attachments($attachments)
 
     foreach($attachments as $attachment)
     {
-        $fbmedia = get_fbmedia_for_attachment($attachment);
+        if($enclosure = $attachment->getEnclosure()){
+            $fbmedia = get_fbmedia_for_attachment($enclosure);
+        }else{
+            $fbmedia = get_fbmedia_for_attachment($attachment);
+        }
         if($fbmedia){
             $fbattachment['media'][]=$fbmedia;
         }else{
