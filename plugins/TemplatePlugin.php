@@ -198,13 +198,13 @@ class TemplatePlugin extends Plugin {
     // unless laconica config:
     //   $config['template']['mode'] = 'html';
     if (!(common_config('template', 'mode') == 'html')) {
-      $tpl_file = 'tpl/index.php';
+      $tpl_file = $this->templateFolder() . '/index.php';
       $tags = array_merge($vars,$this->blocks);
       include $tpl_file;
       return;
     }
     
-    $tpl_file = 'tpl/index.html';
+    $tpl_file = $this->templateFolder() . '/index.html';
     
     // read the static template
     $output = file_get_contents( $tpl_file );
@@ -235,6 +235,9 @@ class TemplatePlugin extends Plugin {
     
     return true;
     
+  }
+  function templateFolder() {
+    return 'tpl';
   }
   
   // catching the StartShowHTML event to halt the rendering
@@ -300,7 +303,7 @@ class TemplateAction extends Action
           $this->clientError(_('only User #1 can update the template'), $code = 401);
         
         // open the old template
-        $tpl_file = 'tpl/index.html';
+        $tpl_file = $this->templateFolder() . '/index.html';
         $fp = fopen( $tpl_file, 'w+' );
         
         // overwrite with the new template
