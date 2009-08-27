@@ -401,9 +401,14 @@ class Router
                     array('action' => 'api',
                           'apiaction' => 'statusnet'));
 
-        $m->connect('api/statusnet/:method',
+        // For older methods, we provide "laconica" base action
+
+        $m->connect('api/laconica/:method',
                     array('action' => 'api',
                           'apiaction' => 'statusnet'));
+
+        // Groups and tags are newer than 0.8.1 so no backward-compatibility
+        // necessary
 
         // Groups
         //'list' has to be handled differently, as php will not allow a method to be named 'list'
@@ -411,6 +416,7 @@ class Router
                     array('action' => 'api',
                           'method' => 'list_groups',
                           'apiaction' => 'groups'));
+
         foreach (array('xml', 'json', 'rss', 'atom') as $e) {
             $m->connect('api/statusnet/groups/list.' . $e,
                     array('action' => 'api',
