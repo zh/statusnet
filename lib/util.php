@@ -413,7 +413,7 @@ function common_replace_urls_callback($text, $callback, $notice_id = null) {
     // Start off with a regex
     $regex = '#'.
     '(?:^|[\s\(\)\[\]\{\}\\\'\\\";]+)(?![\@\!\#])'.
-    '(?P<url>'.
+    '('.
         '(?:'.
             '(?:'. //Known protocols
                 '(?:'.
@@ -454,7 +454,7 @@ function common_replace_urls_callback($text, $callback, $notice_id = null) {
 }
 
 function callback_helper($matches, $callback, $notice_id) {
-    $url=$matches['url'];
+    $url=$matches[1];
     $left = strpos($matches[0],$url);
     $right = $left+strlen($url);
     
