@@ -674,4 +674,48 @@ class User extends Memcached_DataObject
     {
         return Design::staticGet('id', $this->design_id);
     }
+
+    function hasRole($name)
+    {
+        $role = User_role::pkeyGet(array('user_id' => $this->id,
+                                         'role' => $name));
+        return (!empty($role));
+    }
+
+    function grantRole($name)
+    {
+        $role = new User_role();
+
+        $role->user_id = $this->id;
+        $role->role    = $name;
+        $role->created = common_sql_now();
+
+        $result = $role->insert();
+
+        if (!$result) {
+            common_log_db_error($role, 'INSERT', __FILE__);
+            return false;
+        }
+
+        return true;
+    }
+
+    function revokeRole($name)
+    {
+        $role = User_role::pkeyGet(array('user_id' => $this->id,
+                                         'role' => $name));
+
+        if (empty($role)) {
+            throw new Exception('Cannot revoke role "'.$name.'" for user #'.$this->id.'; does not exist.');
+        }
+
+        $result = $role->delete();
+
+        if (!$result) {
+            common_log_db_error($role, 'DELETE', __FILE__);
+            throw new Exception('Cannot revoke role "'.$name.'" for user #'.$this->id.'; database error.');
+        }
+
+        return true;
+    }
 }
