@@ -37,6 +37,12 @@ more, please see the Open Software Service Definition 1.1:
 
       http://www.opendefinition.org/ossd
 
+StatusNet, Inc. <http://status.net/> also offers this software as a
+Web service, requiring no installation on your part. The software run
+on status.net is identical to the software available for download, so
+you can move back and forth between a hosted version or a version
+installed on your own servers.
+
 License
 =======
 
@@ -71,8 +77,8 @@ for additional terms.
 New this version
 ================
 
-This is a minor feature and bugfix release since version 0.8.0, released Jul 15
-2009. Notable changes this version:
+This is a minor feature and bugfix release since version 0.8.0,
+released Jul 15 2009. Notable changes this version:
 
 - Laconica has been renamed StatusNet. With a few minor compatibility
   exceptions, all references to "Laconica" in code, documentation
@@ -218,9 +224,9 @@ especially if you've previously installed PHP/MySQL packages.
 1. Unpack the tarball you downloaded on your Web server. Usually a
    command like this will work:
 
-   	   tar zxf statusnet-0.8.0.tar.gz
+   	   tar zxf statusnet-0.8.1.tar.gz
 
-   ...which will make a statusnet-0.8.0 subdirectory in your current
+   ...which will make a statusnet-0.8.1 subdirectory in your current
    directory. (If you don't have shell access on your Web server, you
    may have to unpack the tarball on your local computer and FTP the
    files to the server.)
@@ -228,7 +234,7 @@ especially if you've previously installed PHP/MySQL packages.
 2. Move the tarball to a directory of your choosing in your Web root
    directory. Usually something like this will work:
 
-   	   mv statusnet-0.8.0 /var/www/mublog
+   	   mv statusnet-0.8.1 /var/www/mublog
 
    This will make your StatusNet instance available in the mublog path of
    your server, like "http://example.net/mublog". "microblog" or
@@ -535,7 +541,7 @@ All the daemons write their process IDs (pids) to /var/run/ by
 default. This can be useful for starting, stopping, and monitoring the
 daemons.
 
-With version 0.8.0, it's now possible to use a STOMP server instead of
+Since version 0.8.0, it's now possible to use a STOMP server instead of
 our kind of hacky home-grown DB-based queue solution. See the "queues"
 config section below for how to configure to use STOMP. As of this
 writing, the software has been tested with ActiveMQ (
@@ -761,7 +767,7 @@ with this situation.
 If you've been using StatusNet 0.7, 0.6, 0.5 or lower, or if you've
 been tracking the "git" version of the software, you will probably
 want to upgrade and keep your existing data. There is no automated
-upgrade procedure in StatusNet 0.8.0. Try these step-by-step
+upgrade procedure in StatusNet 0.8.1. Try these step-by-step
 instructions; read to the end first before trying them.
 
 0. Download StatusNet and set up all the prerequisites as if you were
@@ -782,13 +788,16 @@ instructions; read to the end first before trying them.
 5. Once all writing processes to your site are turned off, make a
    final backup of the Web directory and database.
 6. Move your StatusNet directory to a backup spot, like "mublog.bak".
-7. Unpack your StatusNet 0.8.0 tarball and move it to "mublog" or
+7. Unpack your StatusNet 0.8.1 tarball and move it to "mublog" or
    wherever your code used to be.
 8. Copy the config.php file and avatar directory from your old
    directory to your new directory.
 9. Copy htaccess.sample to .htaccess in the new directory. Change the
    RewriteBase to use the correct path.
-10. Rebuild the database. NOTE: this step is destructive and cannot be
+10. Rebuild the database. (You can safely skip this step and go to #12
+    if you're upgrading from another 0.8.x version).
+
+    NOTE: this step is destructive and cannot be
     reversed. YOU CAN EASILY DESTROY YOUR SITE WITH THIS STEP. Don't
     do it without a known-good backup!
 
@@ -821,7 +830,7 @@ the fixup_* scripts in the scripts directories. These will store some
 precooked data in the DB. All upgraders should check out the inboxes
 options below.
 
-NOTE: the database definition file, stoica.ini, has been renamed to
+NOTE: the database definition file, laconica.ini, has been renamed to
 statusnet.ini (since this is the recommended database name). If you
 have a line in your config.php pointing to the old name, you'll need
 to update it.
@@ -857,6 +866,9 @@ problem.
    the memory limit high. You can re-run it without ill effect.
 3. When fixup_inboxes is finished, you can set the enabled flag to
    'true'.
+
+NOTE: As of version 0.8.1 notice inboxes are automatically trimmed back
+      to ~1000 notices every once in a while.
 
 NOTE: we will drop support for non-inboxed sites in the 0.9.x version
 of StatusNet. It's time to switch now!
@@ -1549,9 +1561,9 @@ repository (see below), and you get a compilation error ("unexpected
 T_STRING") in the browser, check to see that you don't have any
 conflicts in your code.
 
-If you upgraded to StatusNet 0.7.4 without reading the "Notice inboxes"
-section above, and all your users' 'Personal' tabs are empty, read the
-"Notice inboxes" section above.
+If you upgraded to StatusNet 0.8.1 without reading the "Notice
+inboxes" section above, and all your users' 'Personal' tabs are empty,
+read the "Notice inboxes" section above.
 
 Myths
 =====
@@ -1582,7 +1594,15 @@ If you're adventurous or impatient, you may want to install the
 development version of StatusNet. To get it, use the git version
 control tool <http://git-scm.com/> like so:
 
-	git clone http://status.net/software/statusnet.git
+	git clone git@gitorious.org:statusnet/mainline.git
+
+This is the version of the software that runs on Identi.ca and the
+status.net hosted service. Using it is a mixed bag. On the positive
+side, it usually includes the latest security and bug fix patches. On
+the downside, it may also include changes that require admin
+intervention (like running a script or even raw SQL!) that may not be
+documented yet. It may be a good idea to test this version before
+installing it on your production machines.
 
 To keep it up-to-date, use 'git pull'. Watch for conflicts!
 
@@ -1594,7 +1614,9 @@ There are several ways to get more information about StatusNet.
 * There is a mailing list for StatusNet developers and admins at
   http://mail.status.net/mailman/listinfo/statusnet-dev
 * The #statusnet IRC channel on freenode.net <http://www.freenode.net/>.
-* The StatusNet wiki, http://status.net/trac/
+* The StatusNet wiki, http://status.net/wiki/
+* The StatusNet blog, http://status.net/blog/
+* The StatusNet status update, <http://status.status.net/status> (!)
 
 Feedback
 ========
@@ -1602,7 +1624,7 @@ Feedback
 * Microblogging messages to http://identi.ca/evan are very welcome.
 * StatusNet's Trac server has a bug tracker for any defects you may find,
   or ideas for making things better. http://status.net/trac/
-* e-mail to evan@identi.ca will usually be read and responded to very
+* e-mail to evan@status.net will usually be read and responded to very
   quickly, unless the question is really hard.
 
 Credits
