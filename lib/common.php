@@ -19,8 +19,10 @@
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
-define('STATUSNET_VERSION', '0.8.1pre1');
+define('STATUSNET_VERSION', '0.8.1');
 define('LACONICA_VERSION', STATUSNET_VERSION); // compatibility
+
+define('STATUSNET_CODENAME', 'Second Guessing');
 
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
