@@ -220,6 +220,8 @@ function handlePost()
         return;
     }
 
+    // FIXME: use PEAR::DB or PDO instead of our own switch
+
     switch($dbtype) {
         case 'mysql':
             $db = mysql_db_installer($host, $database, $username, $password);
@@ -396,18 +398,25 @@ function runDbScript($filename, $conn, $type = 'mysql')
         if (!mb_strlen($stmt)) {
             continue;
         }
+        // FIXME: use PEAR::DB or PDO instead of our own switch
         switch ($type) {
         case 'mysql':
             $res = mysql_query($stmt, $conn);
+            if ($res === false) {
+                $error = mysql_error();
+            }
             break;
         case 'pgsql':
             $res = pg_query($conn, $stmt);
+            if ($res === false) {
+                $error = pg_last_error();
+            }
             break;
         default:
             updateStatus("runDbScript() error: unknown database type ". $type ." provided.");
         }
         if ($res === false) {
-            updateStatus("FAILED SQL: $stmt");
+            updateStatus("ERROR ($error) for SQL '$stmt'");
             return $res;
         }
     }
