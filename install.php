@@ -87,7 +87,7 @@ function checkPrereqs()
 function checkExtension($name)
 {
     if (!extension_loaded($name)) {
-        if (!dl($name.'.so')) {
+        if (!@dl($name.'.so')) {
             return false;
         }
     }
@@ -129,7 +129,7 @@ function showForm()
                 <p class="form_guide">Database hostname</p>
             </li>
             <li>
-            
+
                 <label for="dbtype">Type</label>
                 <input type="radio" name="dbtype" id="fancy-mysql" value="mysql" checked='checked' /> MySQL<br />
                 <input type="radio" name="dbtype" id="dbtype-pgsql" value="pgsql" /> PostgreSQL<br />
@@ -181,7 +181,7 @@ function handlePost()
     $fancy    = !empty($_POST['fancy']);
     $server = $_SERVER['HTTP_HOST'];
     $path = substr(dirname($_SERVER['PHP_SELF']), 1);
-    
+
 ?>
     <dl class="system_notice">
         <dt>Page notice</dt>
@@ -219,7 +219,7 @@ function handlePost()
             showForm();
         return;
     }
-    
+
     switch($dbtype) {
         case 'mysql':
             $db = mysql_db_installer($host, $database, $username, $password);
@@ -229,26 +229,26 @@ function handlePost()
             break;
         default:
     }
-    
+
     if (!$db) {
         // database connection failed, do not move on to create config file.
         return false;
     }
-    
+
     updateStatus("Writing config file...");
     $res = writeConf($sitename, $server, $path, $fancy, $db);
-    
+
     if (!$res) {
         updateStatus("Can't write config file.", true);
         showForm();
         return;
     }
-    
+
     /*
         TODO https needs to be considered
     */
     $link = "http://".$server.'/'.$path;
-    
+
     updateStatus("StatusNet has been installed at $link");
     updateStatus("You can visit your <a href='$link'>new StatusNet site</a>.");
 ?>
@@ -266,7 +266,7 @@ function pgsql_db_installer($host, $database, $username, $password) {
   updateStatus("Starting installation...");
   updateStatus("Checking database...");
   $conn = pg_connect($connstring);
-  
+
   if ($conn ===false) {
     updateStatus("Failed to connect to database: $connstring");
     showForm();
@@ -285,7 +285,7 @@ function pgsql_db_installer($host, $database, $username, $password) {
   //wrap in transaction;
   pg_query($conn, 'BEGIN');
   $res = runDbScript(INSTALLDIR.'/db/statusnet_pg.sql', $conn, 'pgsql');
-  
+
   if ($res === false) {
       updateStatus("Can't run database script.", true);
       showForm();
@@ -311,9 +311,9 @@ function pgsql_db_installer($host, $database, $username, $password) {
   else {
     $sqlUrl = "pgsql://$username:$password@$host/$database";
   }
-  
+
   $db = array('type' => 'pgsql', 'database' => $sqlUrl);
-  
+
   return $db;
 }
 
@@ -353,7 +353,7 @@ function mysql_db_installer($host, $database, $username, $password) {
           return false;
       }
   }
-      
+
       $sqlUrl = "mysqli://$username:$password@$host/$database";
       $db = array('type' => 'mysql', 'database' => $sqlUrl);
       return $db;
@@ -364,22 +364,22 @@ function writeConf($sitename, $server, $path, $fancy, $db)
     // assemble configuration file in a string
     $cfg =  "<?php\n".
             "if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }\n\n".
-            
+
             // site name
             "\$config['site']['name'] = '$sitename';\n\n".
-            
+
             // site location
             "\$config['site']['server'] = '$server';\n".
             "\$config['site']['path'] = '$path'; \n\n".
-            
+
             // checks if fancy URLs are enabled
             ($fancy ? "\$config['site']['fancy'] = true;\n\n":'').
-            
+
             // database
             "\$config['db']['database'] = '{$db['database']}';\n\n".
             ($db['type'] == 'pgsql' ? "\$config['db']['quote_identifiers'] = true;\n\n":'').
             "\$config['db']['type'] = '{$db['type']}';\n\n".
-            
+
             "?>";
     // write configuration file out to install directory
     $res = file_put_contents(INSTALLDIR.'/config.php', $cfg);
