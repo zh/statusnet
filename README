@@ -5,21 +5,21 @@ README
 StatusNet 0.8.1 ("Second Guessing")
 26 Aug 2009
 
-This is the README file for StatusNet, the Open Source microblogging
-platform. It includes installation instructions, descriptions of
-options you can set, warnings, tips, and general info for
-administrators. Information on using StatusNet can be found in the
+This is the README file for StatusNet (formerly Laconica), the Open
+Source microblogging platform. It includes installation instructions,
+descriptions of options you can set, warnings, tips, and general info
+for administrators. Information on using StatusNet can be found in the
 "doc" subdirectory or in the "help" section on-line.
 
 About
 =====
 
-StatusNet (pronounced "luh-KAWN-ih-kuh") is a Free and Open Source
-microblogging platform. It helps people in a community, company or
-group to exchange short (140 character) messages over the Web. Users
-can choose which people to "follow" and receive only their friends' or
-colleagues' status messages. It provides a similar service to sites
-like Twitter, Jaiku and Plurk.
+StatusNet (formerly Laconica) is a Free and Open Source microblogging
+platform. It helps people in a community, company or group to exchange
+short (140 character) messages over the Web. Users can choose which
+people to "follow" and receive only their friends' or colleagues'
+status messages. It provides a similar service to sites like Twitter,
+Jaiku, Yammer, and Plurk.
 
 With a little work, status messages can be sent to mobile phones,
 instant messenger programs (GTalk/Jabber), and specially-designed
@@ -71,62 +71,49 @@ for additional terms.
 New this version
 ================
 
-This is a major feature release since version 0.7.4, released May 31
+This is a minor feature and bugfix release since version 0.8.0, released Jul 15
 2009. Notable changes this version:
 
-- Support for a hosted service (status network). Multiple sites can
-  share the same codebase but use different databases.
-- OEmbed. Links to pages that support OEmbed (http://www.oembed.com/)
-  become popup links, and the media are shown in a special lightbox.
-- File attachments. Users can attach files of the size and type approved
-  by an administrator, and a shortened link will be included in the
-  notice.
-- Related notices are organized into conversations, with each reply a
-  branch in a tree. Conversations have pages and are linked to from each
-  notice in the conversation.
-- User designs. Users can specify colours and backgrounds
-  for their profile pages and other "personal" pages.
-- Group designs. Group administrators can specify similar designs for
-  group profiles and related pages.
-- Site designs. Site authors can specify a design (background and
-  colors) for the site.
-- New themes. Five new themes are added to the base release; these show
-  off the flexibility of StatusNet's theming system.
-- Statistics. Public sites will periodically send usage statistics,
-  configuration options, and dependency information to StatusNet dev site.
-  This will help us understand how the software is used and plan future
-  versions of the software.
-- Additional hooks. The hooks and plugins system introduced in 0.7.x was
-  expanded with additional points of access.
-- Facebook Connect. A new plugin allows logging in with Facebook Connect
-  (http://developers.facebook.com/connect.php).
-- A session handler. A new optional session handler class to manage PHP
-  sessions reliably and quickly for large sites.
-- STOMP queuing. Queue management for offline daemons has been
-  abstracted with three concrete instances. A new interface that should
-  work with STOMP servers like ActiveMQ and RabbitMQ is available, which
-  should make things scale better.
-- Group block. Group admins can block users from joining or posting to
-  a group.
-- Group aliases. Groups can be referred to with aliases, additional
-  names. For example, "!yul" and "!montreal" can be the same group.
-- Bidirectional Twitter bridge. Users can read the tweets their Twitter
-  friends post on Twitter.
-- Adaptation of WordPress.com Terms of Service (http://en.wordpress.com/tos/)
-  as default TOS for StatusNet sites.
-- Better command-line handling for scripts, including standard options
-  and ability to set hostname and path from the command line.
-- An experimental plugin to use Meteor (http://www.meteorserver.org/)
-  for "real-time" updates.
-- A new framework for "real-time" updates, making it easier to develop
-  plugins for different browser-based update modes.
-- RSS 2.0 and Atom feeds for groups.
-- RSS 2.0 and Atom feeds for tags.
-- Attachments can be sent by email.
-- Attachments are encoded as enclosures in RSS 2.0 and Atom.
-- Notices with attachments display in Facebook as media inline.
-
-- Many, many bug fixes.
+- Laconica has been renamed StatusNet. With a few minor compatibility
+  exceptions, all references to "Laconica" in code, documentation
+  and comments were changed to "StatusNet".
+- A new plugin to support "infinite scroll".
+- A new plugin to support reCaptcha <http://recaptcha.net>.
+- Better logging of server errors.
+- Add an Openid-only mode for authentication.
+- 'lite' parameter for some Twitter API methods.
+- A new plugin to auto-complete nicknames for @-replies.
+- Configuration options to disable OpenID, SMS, Twitter, post-by-email, and IM.
+- Support for lighttpd <http://lighttpd.org/> using 404-based
+  rewrites.
+- Support for using Twitter's OAuth authentication as a client.
+- First version of the groups API.
+- Can configure a site-wide design, including background image and
+  colors.
+- Improved algorithm for replies and conversations, making
+  conversation trees more accurate and useful.
+- Add a script to create a simulation database for testing/debugging.
+- Sanitize HTML for OEmbed.
+- Improved queue management for DB-based queuing.
+- More complete URL detection.
+- Hashtags now support full Unicode character set.
+- Notice inboxes are now garbage-collected on a regular basis
+  at notice-write time.
+- PiwikAnalyticsPlugin updated for latest Piwik interface.
+- Attachment and notice pages can be embedded with OEmbed
+  <http://www.oembed.com>.
+- Failed authentication is logged.
+- PostgreSQL schema and support brought up-to-date with 0.8.x features.
+- The installer works with PostgreSQL as well as MySQL.
+- RSS 1.0 feeds use HTTP Basic authentication in private mode.
+- Many, many bug fixes, particularly with performance.
+- Better (=working) garbage collection for old sessions.
+- Better (=working) search queries.
+- Some cleanup of HTML output.
+- Better error handling when updating Facebook.
+- Considerably better performance when using replication for API
+  calls.
+- Initial unit tests.
 
 Prerequisites
 =============
