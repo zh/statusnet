@@ -258,26 +258,27 @@ class Rss10Action extends Action
         $attachments = $notice->attachments();
         if($attachments){
             foreach($attachments as $attachment){
-                if ($attachment->isEnclosure()) {
+                $enclosure=$attachment->getEnclosure();
+                if ($enclosure) {
                     // DO NOT move xmlns declaration to root element. Making it
                     // the default namespace here improves compatibility with
                     // real-world feed readers.
                     $attribs = array(
-                        'rdf:resource' => $attachment->url,
-                        'url' => $attachment->url,
+                        'rdf:resource' => $enclosure->url,
+                        'url' => $enclosure->url,
                         'xmlns' => 'http://purl.oclc.org/net/rss_2.0/enc#'
                         );
-                    if ($attachment->title) {
-                        $attribs['dc:title'] = $attachment->title;
+                    if ($enclosure->title) {
+                        $attribs['dc:title'] = $enclosure->title;
                     }
-                    if ($attachment->modified) {
-                        $attribs['dc:date'] = common_date_w3dtf($attachment->modified);
+                    if ($enclosure->modified) {
+                        $attribs['dc:date'] = common_date_w3dtf($enclosure->modified);
                     }
-                    if ($attachment->size) {
-                        $attribs['length'] = $attachment->size;
+                    if ($enclosure->size) {
+                        $attribs['length'] = $enclosure->size;
                     }
-                    if ($attachment->mimetype) {
-                        $attribs['type'] = $attachment->mimetype;
+                    if ($enclosure->mimetype) {
+                        $attribs['type'] = $enclosure->mimetype;
                     }
                     $this->element('enclosure', $attribs);
                 }

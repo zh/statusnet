@@ -109,7 +109,6 @@ function facebookBroadcastNotice($notice)
 
             $can_update  = $facebook->api_client->users_hasAppPermission('status_update',
                                                                          $fbuid);
-
             if (!empty($attachments) && $can_publish == 1) {
                 $fbattachment = format_attachments($attachments);
                 $facebook->api_client->stream_publish($status, $fbattachment,
@@ -178,20 +177,42 @@ function format_attachments($attachments)
     $fbattachment          = array();
     $fbattachment['media'] = array();
 
-    // Facebook only supports one attachment per item
+    foreach($attachments as $attachment)
+    {
+        if($enclosure = $attachment->getEnclosure()){
+            $fbmedia = get_fbmedia_for_attachment($enclosure);
+        }else{
+            $fbmedia = get_fbmedia_for_attachment($attachment);
+        }
+        if($fbmedia){
+            $fbattachment['media'][]=$fbmedia;
+        }else{
+            $fbattachment['name'] = ($attachment->title ?
+                                  $attachment->title : $attachment->url);
+            $fbattachment['href'] = $attachment->url;
+        }
+    }
+    if(count($fbattachment['media'])>0){
+        unset($fbattachment['name']);
+        unset($fbattachment['href']);
+    }
+    return $fbattachment;
+}
 
-    $attachment = $attachments[0];
+/**
+* given an File objects, returns an associative array suitable for Facebook media
+*/
+function get_fbmedia_for_attachment($attachment)
+{
     $fbmedia    = array();
 
     if (strncmp($attachment->mimetype, 'image/', strlen('image/')) == 0) {
         $fbmedia['type']         = 'image';
         $fbmedia['src']          = $attachment->url;
         $fbmedia['href']         = $attachment->url;
-        $fbattachment['media'][] = $fbmedia;
     } else if ($attachment->mimetype == 'audio/mpeg') {
         $fbmedia['type']         = 'mp3';
         $fbmedia['src']          = $attachment->url;
-        $fbattachment['media'][] = $fbmedia;
     }else if ($attachment->mimetype == 'application/x-shockwave-flash') {
         $fbmedia['type']         = 'flash';
 
@@ -200,14 +221,10 @@ function format_attachments($attachments)
         // $fbmedia['imgsrc']='';
 
         $fbmedia['swfsrc']       = $attachment->url;
-        $fbattachment['media'][] = $fbmedia;
     }else{
-        $fbattachment['name'] = ($attachment->title ?
-                                 $attachment->title : $attachment->url);
-        $fbattachment['href'] = $attachment->url;
+        return false;
     }
-
-    return $fbattachment;
+    return $fbmedia;
 }
 
 function remove_facebook_app($flink)

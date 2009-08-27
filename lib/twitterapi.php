@@ -274,11 +274,12 @@ class TwitterapiAction extends Action
         $enclosures = array();
 
         foreach ($attachments as $attachment) {
-            if ($attachment->isEnclosure()) {
+            $enclosure_o=$attachment->getEnclosure();
+            if ($enclosure_o) {
                  $enclosure = array();
-                 $enclosure['url'] = $attachment->url;
-                 $enclosure['mimetype'] = $attachment->mimetype;
-                 $enclosure['size'] = $attachment->size;
+                 $enclosure['url'] = $enclosure_o->url;
+                 $enclosure['mimetype'] = $enclosure_o->mimetype;
+                 $enclosure['size'] = $enclosure_o->size;
                  $enclosures[] = $enclosure;
             }
         }

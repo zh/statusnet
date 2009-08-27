@@ -19,18 +19,199 @@
 
 define('INSTALLDIR', dirname(__FILE__));
 
+$external_libraries=array(
+    array(
+        'name'=>'gettext',
+        'url'=>'http://us.php.net/manual/en/book.gettext.php',
+        'check_function'=>'gettext'
+    ),
+    array(
+        'name'=>'PEAR',
+        'url'=>'http://pear.php.net/',
+        'deb'=>'php-pear',
+        'include'=>'PEAR.php',
+        'check_class'=>'PEAR'
+    ),
+    array(
+        'name'=>'DB',
+        'pear'=>'DB',
+        'url'=>'http://pear.php.net/package/DB',
+        'deb'=>'php-db',
+        'include'=>'DB/common.php',
+        'check_class'=>'DB_common'
+    ),
+    array(
+        'name'=>'DB_DataObject',
+        'pear'=>'DB_DataObject',
+        'url'=>'http://pear.php.net/package/DB_DataObject',
+        'include'=>'DB/DataObject.php',
+        'check_class'=>'DB_DataObject'
+    ),
+    array(
+        'name'=>'Console_Getopt',
+        'pear'=>'Console_Getopt',
+        'url'=>'http://pear.php.net/package/Console_Getopt',
+        'include'=>'Console/Getopt.php',
+        'check_class'=>'Console_Getopt'
+    ),
+    array(
+        'name'=>'Facebook API',
+        'url'=>'http://developers.facebook.com/',
+        'include'=>'facebook/facebook.php',
+        'check_class'=>'Facebook'
+    ),
+    array(
+        'name'=>'htmLawed',
+        'url'=>'http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed',
+        'include'=>'htmLawed/htmLawed.php',
+        'check_function'=>'htmLawed'
+    ),
+    array(
+        'name'=>'HTTP_Request',
+        'pear'=>'HTTP_Request',
+        'url'=>'http://pear.php.net/package/HTTP_Request',
+        'deb'=>'php-http-request',
+        'include'=>'HTTP/Request.php',
+        'check_class'=>'HTTP_Request'
+    ),
+    array(
+        'name'=>'Mail',
+        'pear'=>'Mail',
+        'url'=>'http://pear.php.net/package/Mail',
+        'deb'=>'php-mail',
+        'include'=>'Mail.php',
+        'check_class'=>'Mail'
+    ),
+    array(
+        'name'=>'Mail_mimeDecode',
+        'pear'=>'Mail_mimeDecode',
+        'url'=>'http://pear.php.net/package/Mail_mimeDecode',
+        'deb'=>'php-mail-mimedecode',
+        'include'=>'Mail/mimeDecode.php',
+        'check_class'=>'Mail_mimeDecode'
+    ),
+    array(
+        'name'=>'Mime_Type',
+        'pear'=>'Mime_Type',
+        'url'=>'http://pear.php.net/package/Mime_Type',
+        'include'=>'MIME/Type.php',
+        'check_class'=>'Mime_Type'
+    ),
+    array(
+        'name'=>'Net_URL_Mapper',
+        'pear'=>'Net_URL_Mapper',
+        'url'=>'http://pear.php.net/package/Net_URL_Mapper',
+        'include'=>'Net/URL/Mapper.php',
+        'check_class'=>'Net_URL_Mapper'
+    ),
+    array(
+        'name'=>'Net_Socket',
+        'pear'=>'Net_Socket',
+        'url'=>'http://pear.php.net/package/Net_Socket',
+        'deb'=>'php-net-socket',
+        'include'=>'Net/Socket.php',
+        'check_class'=>'Net_Socket'
+    ),
+    array(
+        'name'=>'Net_SMTP',
+        'pear'=>'Net_SMTP',
+        'url'=>'http://pear.php.net/package/Net_SMTP',
+        'deb'=>'php-net-smtp',
+        'include'=>'Net/SMTP.php',
+        'check_class'=>'Net_SMTP'
+    ),
+    array(
+        'name'=>'Net_URL',
+        'pear'=>'Net_URL',
+        'url'=>'http://pear.php.net/package/Net_URL',
+        'deb'=>'php-net-url',
+        'include'=>'Net/URL.php',
+        'check_class'=>'Net_URL'
+    ),
+    array(
+        'name'=>'Net_URL2',
+        'pear'=>'Net_URL2',
+        'url'=>'http://pear.php.net/package/Net_URL2',
+        'include'=>'Net/URL2.php',
+        'check_class'=>'Net_URL2'
+    ),
+    array(
+        'name'=>'Services_oEmbed',
+        'pear'=>'Services_oEmbed',
+        'url'=>'http://pear.php.net/package/Services_oEmbed',
+        'include'=>'Services/oEmbed.php',
+        'check_class'=>'Services_oEmbed'
+    ),
+    array(
+        'name'=>'Stomp',
+        'url'=>'http://stomp.codehaus.org/PHP',
+        'include'=>'Stomp.php',
+        'check_class'=>'Stomp'
+    ),
+    array(
+        'name'=>'System_Command',
+        'pear'=>'System_Command',
+        'url'=>'http://pear.php.net/package/System_Command',
+        'include'=>'System/Command.php',
+        'check_class'=>'System_Command'
+    ),
+    array(
+        'name'=>'XMPPHP',
+        'url'=>'http://code.google.com/p/xmpphp',
+        'include'=>'XMPPHP/XMPP.php',
+        'check_class'=>'XMPPHP_XMPP'
+    ),
+    array(
+        'name'=>'PHP Markdown',
+        'url'=>'http://www.michelf.com/projects/php-markdown/',
+        'include'=>'markdown.php',
+        'check_class'=>'Markdown_Parser'
+    ),
+    array(
+        'name'=>'OAuth',
+        'url'=>'http://code.google.com/p/oauth-php',
+        'include'=>'OAuth.php',
+        'check_class'=>'OAuthRequest'
+    ),
+    array(
+        'name'=>'Validate',
+        'pear'=>'Validate',
+        'url'=>'http://pear.php.net/package/Validate',
+        'include'=>'Validate.php',
+        'check_class'=>'Validate'
+    )
+);
+
 function main()
 {
     if (!checkPrereqs())
     {
         return;
     }
-
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        handlePost();
-    } else {
-        showForm();
+    
+    if( $_GET['checklibs'] ){
+        showLibs();
+    }else{
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            handlePost();
+        } else {
+            showForm();
+        }
     }
+}
+
+function haveExternalLibrary($external_library)
+{
+    if(isset($external_library['include']) && ! include_once($external_library['include'])){
+        return false;
+    }
+    if(isset($external_library['check_function']) && ! function_exists($external_library['check_function'])){
+        return false;
+    }
+    if(isset($external_library['check_class']) && ! class_exists($external_library['check_class'])){
+        return false;
+    }
+    return true;
 }
 
 function checkPrereqs()
@@ -94,6 +275,69 @@ function checkExtension($name)
     return true;
 }
 
+function showLibs()
+{
+    global $external_libraries;
+    $present_libraries=array();
+    $absent_libraries=array();
+    foreach($external_libraries as $external_library){
+        if(haveExternalLibrary($external_library)){
+            $present_libraries[]=$external_library;
+        }else{
+            $absent_libraries[]=$external_library;
+        }
+    }
+    echo<<<E_O_T
+    <div class="instructions">
+        <p>Laconica comes bundled with a number of libraries required for the application to work. However, it is best that you use PEAR or you distribution to manage
+        libraries instead, as they tend to provide security updates faster, and may offer improved performance.</p>
+        <p>On Debian based distributions, such as Ubuntu, use a package manager (such as &quot;aptitude&quot;, &quot;apt-get&quot;, and &quot;synaptic&quot;) to install the package listed.</p>
+        <p>On RPM based distributions, such as Red Hat, Fedora, CentOS, Scientific Linux, Yellow Dog Linux and Oracle Enterprise Linux, use a package manager (such as &quot;yum&quot;, &quot;apt-rpm&quot;, and &quot;up2date&quot;) to install the package listed.</p>
+        <p>On servers without a package manager (such as Windows), or if the library is not packaged for your distribution, you can use PHP's PEAR to install the library. Simply run &quot;pear install &lt;name&gt;&quot;.</p>
+    </div>
+    <h2>Absent Libraries</h2>
+    <ul id="absent_libraries">
+E_O_T;
+    foreach($absent_libraries as $library)
+    {
+        echo '<li>';
+        if($library['url']){
+            echo '<a href=">'.$library['url'].'">'.htmlentities($library['name']).'</a>';
+        }else{
+            echo htmlentities($library['name']);
+        }
+        echo '<ul>';
+        if($library['deb']){
+            echo '<li class="deb package">deb: <a href="apt:' . urlencode($library['deb']) . '">' . htmlentities($library['deb']) . '</a></li>';
+        }
+        if($library['rpm']){
+            echo '<li class="rpm package">rpm: ' . htmlentities($library['rpm']) . '</li>';
+        }
+        if($library['pear']){
+            echo '<li class="pear package">pear: ' . htmlentities($library['pear']) . '</li>';
+        }
+        echo '</ul>';
+    }
+    echo<<<E_O_T
+    </ul>
+    <h2>Installed Libraries</h2>
+    <ul id="present_libraries">
+E_O_T;
+    foreach($present_libraries as $library)
+    {
+        echo '<li>';
+        if($library['url']){
+            echo '<a href=">'.$library['url'].'">'.htmlentities($library['name']).'</a>';
+        }else{
+            echo htmlentities($library['name']);
+        }
+        echo '</li>';
+    }
+    echo<<<E_O_T
+    </ul>
+E_O_T;
+}
+
 function showForm()
 {
     echo<<<E_O_T
@@ -105,6 +349,7 @@ function showForm()
     <dd>
         <div class="instructions">
             <p>Enter your database connection information below to initialize the database.</p>
+            <p>Laconica bundles a number of libraries for ease of installation. <a href="?checklibs=true">You can see what bundled libraries you are using, versus what libraries are installed on your server.</a>
         </div>
     </dd>
 </dl>
