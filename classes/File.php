@@ -85,7 +85,7 @@ class File extends Memcached_DataObject
         return $x;
     }
 
-    function processNew($given_url, $notice_id) {
+    function processNew($given_url, $notice_id=null) {
         if (empty($given_url)) return -1;   // error, no url to process
         $given_url = File_redirection::_canonUrl($given_url);
         if (empty($given_url)) return -1;   // error, no url to process
@@ -96,7 +96,7 @@ class File extends Memcached_DataObject
                 $redir_data = File_redirection::where($given_url);
                 $redir_url = $redir_data['url'];
                 // TODO: max field length
-                if ($redir_url === $given_url || strlen($redir_url) > 255) { 
+                if ($redir_url === $given_url || strlen($redir_url) > 255) {
                     $x = File::saveNew($redir_data, $given_url);
                     $file_id = $x->id;
                 } else {
@@ -119,7 +119,9 @@ class File extends Memcached_DataObject
             }
         }
 
-        File_to_post::processNew($file_id, $notice_id);
+        if (!empty($notice_id)) {
+            File_to_post::processNew($file_id, $notice_id);
+        }
         return $x;
     }
 

@@ -520,7 +520,7 @@ function common_linkify($url) {
     // functions
     $url = htmlspecialchars_decode($url);
 
-   if(strpos($url, '@')!==false && strpos($url, ':')===false){
+   if(strpos($url, '@') !== false && strpos($url, ':') === false) {
        //url is an email address without the mailto: protocol
        return XMLStringer::estring('a', array('href' => "mailto:$url", 'rel' => 'external'), $url);
    }
@@ -544,19 +544,24 @@ function common_linkify($url) {
 
     // Check to see whether this is a known "attachment" URL.
 
-    $localfile = File::staticGet('url', $longurl);
+    $f = File::staticGet('url', $longurl);
 
-    if (!empty($localfile)) {
-        if (isset($localfile->filename)) {
+    if (empty($f)) {
+        // XXX: this writes to the database. :<
+        $f = File::processNew($longurl);
+    }
+
+    if (!empty($f)) {
+        if (isset($f->filename)) {
             $is_attachment = true;
-            $attachment_id = $localfile->id;
+            $attachment_id = $f->id;
         } else { // if it has OEmbed info, it's an attachment, too
-            $foe = File_oembed::staticGet('file_id', $localfile->id);
+            $foe = File_oembed::staticGet('file_id', $f->id);
             if (!empty($foe)) {
                 $is_attachment = true;
-                $attachment_id = $localfile->id;
+                $attachment_id = $f->id;
 
-                $thumb = File_thumbnail::staticGet('file_id', $localfile->id);
+                $thumb = File_thumbnail::staticGet('file_id', $f->id);
                 if (!empty($thumb)) {
                     $has_thumb = true;
                 }
