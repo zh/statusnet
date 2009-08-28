@@ -450,7 +450,7 @@ function common_replace_urls_callback($text, $callback, $notice_id = null) {
     '#ixu';
     preg_match_all($regex,$text,$matches);
     //print_r($matches);
-    return preg_replace_callback($regex, curry(callback_helper,$callback,$notice_id) ,$text);
+    return preg_replace_callback($regex, curry('callback_helper',$callback,$notice_id) ,$text);
 }
 
 function callback_helper($matches, $callback, $notice_id) {
