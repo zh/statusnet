@@ -650,11 +650,7 @@ class User extends Memcached_DataObject
           'AND subscription.subscribed != subscription.subscriber ' .
           'ORDER BY subscription.created DESC ';
 
-        if (common_config('db','type') == 'pgsql') {
-            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-        } else {
-            $qry .= ' LIMIT ' . $offset . ', ' . $limit;
-        }
+        $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
 
         $profile = new Profile();
 
