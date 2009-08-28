@@ -559,3 +559,13 @@ create table config (
     primary key (section, setting)
 
 );
+
+create table user_role (
+
+    user_id integer not null /* comment 'user having the role'*/ references "user" (id),
+    role    varchar(32) not null /* comment 'string representing the role'*/,
+    created timestamp /* not null comment 'date the role was granted'*/,
+
+    primary key (user_id, role)
+
+);
