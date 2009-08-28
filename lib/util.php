@@ -542,8 +542,7 @@ function common_linkify($url) {
     $attachment_id = null;
     $has_thumb = false;
 
-    // Check to see whether there's a filename associated with this URL.
-    // If there is, it's an upload and qualifies as an attachment
+    // Check to see whether this is a known "attachment" URL.
 
     $localfile = File::staticGet('url', $longurl);
 
@@ -551,33 +550,17 @@ function common_linkify($url) {
         if (isset($localfile->filename)) {
             $is_attachment = true;
             $attachment_id = $localfile->id;
-        }
-    }
+        } else { // if it has OEmbed info, it's an attachment, too
+            $foe = File_oembed::staticGet('file_id', $localfile->id);
+            if (!empty($foe)) {
+                $is_attachment = true;
+                $attachment_id = $localfile->id;
 
-    // if this URL is an attachment, then we set class='attachment' and id='attahcment-ID'
-    // where ID is the id of the attachment for the given URL.
-    //
-    // we need a better test telling what can be shown as an attachment
-    // we're currently picking up oembeds only.
-    // I think the best option is another file_view table in the db
-    // and associated dbobject.
-
-    $query = "select file_oembed.file_id as file_id from file join file_oembed on file.id = file_oembed.file_id where file.url='$longurl'";
-    $file = new File;
-    $file->query($query);
-    $file->fetch();
-
-    if (!empty($file->file_id)) {
-        $is_attachment = true;
-        $attachment_id = $file->file_id;
-
-        $query = "select file_thumbnail.file_id as file_id from file join file_thumbnail on file.id = file_thumbnail.file_id where file.url='$longurl'";
-        $file2 = new File;
-        $file2->query($query);
-        $file2->fetch();
-
-        if (!empty($file2)) {
-            $has_thumb = true;
+                $thumb = File_thumbnail::staticGet('file_id', $localfile->id);
+                if (!empty($thumb)) {
+                    $has_thumb = true;
+                }
+            }
         }
     }
 
