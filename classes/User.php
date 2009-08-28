@@ -103,10 +103,7 @@ class User extends Memcached_DataObject
         }
         $toupdate = implode(', ', $parts);
 
-        $table = $this->tableName();
-        if(common_config('db','quote_identifiers')) {
-            $table = '"' . $table . '"';
-        }
+        $table = common_database_tablename($this->tableName());
         $qry = 'UPDATE ' . $table . ' SET ' . $toupdate .
           ' WHERE id = ' . $this->id;
         $orig->decache();
