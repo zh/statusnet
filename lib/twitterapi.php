@@ -595,7 +595,6 @@ class TwitterapiAction extends Action
 
         $this->init_document('rss');
 
-        $this->elementStart('channel');
         $this->element('title', null, $title);
         $this->element('link', null, $link);
         if (!is_null($suplink)) {
@@ -621,7 +620,6 @@ class TwitterapiAction extends Action
             }
         }
 
-        $this->elementEnd('channel');
         $this->end_twitter_rss();
     }
 
@@ -668,7 +666,6 @@ class TwitterapiAction extends Action
 
         $this->init_document('rss');
 
-        $this->elementStart('channel');
         $this->element('title', null, $title);
         $this->element('link', null, $link);
         $this->element('description', null, $subtitle);
@@ -687,7 +684,6 @@ class TwitterapiAction extends Action
             }
         }
 
-        $this->elementEnd('channel');
         $this->end_twitter_rss();
     }
 
@@ -944,11 +940,14 @@ class TwitterapiAction extends Action
     function init_twitter_rss()
     {
         $this->startXML();
-        $this->elementStart('rss', array('version' => '2.0'));
+        $this->elementStart('rss', array('version' => '2.0', 'xmlns:atom'=>'http://www.w3.org/2005/Atom'));
+        $this->elementStart('channel');
+        Event::handle('StartApiRss', array($this));
     }
 
     function end_twitter_rss()
     {
+        $this->elementEnd('channel');
         $this->elementEnd('rss');
         $this->endXML();
     }
@@ -960,6 +959,7 @@ class TwitterapiAction extends Action
         $this->elementStart('feed', array('xmlns' => 'http://www.w3.org/2005/Atom',
                                           'xml:lang' => 'en-US',
                                           'xmlns:thr' => 'http://purl.org/syndication/thread/1.0'));
+        Event::handle('StartApiAtom', array($this));
     }
 
     function end_twitter_atom()

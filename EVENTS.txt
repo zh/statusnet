@@ -247,3 +247,10 @@ StartLoadDoc: before loading a help doc (hook this to show your own documentatio
 EndLoadDoc: after loading a help doc (hook this to modify other documentation)
 - $title: title of the document
 - $output: HTML output to show
+
+StartApiRss: after the rss <channel> element is started
+- $action: action object being shown
+
+StartApiAtom: after the <feed> element is started
+- $action: action object being shown
+
