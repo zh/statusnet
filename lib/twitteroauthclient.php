@@ -81,6 +81,15 @@ class TwitterOAuthClient extends OAuthClient
         return new OAuthToken($vals[0], $vals[1]);
     }
 
+    static function isPackedToken($str)
+    {
+        if (strpos($str, chr(0)) === false) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     /**
      * Builds a link to Twitter's endpoint for authorizing a request token
      *
