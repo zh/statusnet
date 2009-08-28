@@ -88,7 +88,7 @@ class TwitterBasicAuthClient
         $params   = array('status' => $status,
                           'source' => common_config('integration', 'source'),
                           'in_reply_to_status_id' => $in_reply_to_status_id);
-        $response = $this->httpRequest($url, $params, true);
+        $response = $this->httpRequest($url, $params);
         $status   = json_decode($response);
         return $status;
     }
@@ -117,7 +117,7 @@ class TwitterBasicAuthClient
             $url .= "?$qry";
         }
 
-        $response = $this->httpRequest($url, null, true);
+        $response = $this->httpRequest($url);
         $statuses = json_decode($response);
         return $statuses;
     }
@@ -190,7 +190,7 @@ class TwitterBasicAuthClient
      *
      * @return mixed the request
      */
-    function httpRequest($url, $params = null, $auth = false)
+    function httpRequest($url, $params = null, $auth = true)
     {
         $options = array(
                          CURLOPT_RETURNTRANSFER => true,
