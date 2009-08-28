@@ -19,6 +19,8 @@
  */
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
+define('STATUSNET', true);
+define('LACONICA', true); // compatibility
 
 $shortoptions = 'i::';
 $longoptions = array('id::');
