@@ -755,6 +755,10 @@ class Notice extends Memcached_DataObject
             return new ArrayWrapper($notices);
         } else {
             $notice = new Notice();
+            if (empty($ids)) {
+                //if no IDs requested, just return the notice object
+                return $notice;
+            }
             $notice->whereAdd('id in (' . implode(', ', $ids) . ')');
             $notice->orderBy('id DESC');
 
