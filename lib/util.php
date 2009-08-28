@@ -457,7 +457,7 @@ function callback_helper($matches, $callback, $notice_id) {
     $url=$matches[1];
     $left = strpos($matches[0],$url);
     $right = $left+strlen($url);
-    
+
     $groupSymbolSets=array(
         array(
             'left'=>'(',
@@ -491,9 +491,7 @@ function callback_helper($matches, $callback, $notice_id) {
             $url=substr($url,0,-1);
         }
     }while($original_url!=$url);
-    
-    
-    
+
     if(empty($notice_id)){
         $result = call_user_func_array($callback,$url);
     }else{
@@ -508,16 +506,13 @@ function curry($fn) {
     array_shift($args);
     $id = uniqid('_partial');
     $GLOBALS[$id] = array($fn, $args);
-    return create_function(
-        '',
-        '
-        $args = func_get_args();
-        return call_user_func_array(
-        $GLOBALS["'.$id.'"][0],
-        array_merge(
-            $args,
-            $GLOBALS["'.$id.'"][1]));
-    ');
+    return create_function('',
+                           '$args = func_get_args(); '.
+                           'return call_user_func_array('.
+                           '$GLOBALS["'.$id.'"][0],'.
+                           'array_merge('.
+                           '$args,'.
+                           '$GLOBALS["'.$id.'"][1]));');
 }
 
 function common_linkify($url) {
