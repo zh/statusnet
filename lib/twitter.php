@@ -218,7 +218,7 @@ function broadcast_oauth($notice, $flink) {
 
     // Notice crossed the great divide
 
-    $msg = sprintf('Twitter bridge posted notice %s to Twitter.',
+    $msg = sprintf('Twitter bridge posted notice %s to Twitter using OAuth.',
                    $notice->id);
     common_log(LOG_INFO, $msg);
 
@@ -228,70 +228,44 @@ function broadcast_oauth($notice, $flink) {
 function broadcast_basicauth($notice, $flink)
 {
     $user = $flink->getUser();
-    $fuser = $flink->getForeignUser();
-    $twitter_user = $fuser->nickname;
-    $twitter_password = $flink->credentials;
-    $uri = 'http://www.twitter.com/statuses/update.json';
+
     $statustxt = format_status($notice);
 
-    $options = array(CURLOPT_USERPWD        => "$twitter_user:$twitter_password",
-                     CURLOPT_POST           => true,
-                     CURLOPT_POSTFIELDS     =>
-                     array(
-                           'status' => $statustxt,
-                           'source' => common_config('integration', 'source')
-                           ),
-                     CURLOPT_RETURNTRANSFER => true,
-                     CURLOPT_FAILONERROR    => true,
-                     CURLOPT_HEADER         => false,
-                     CURLOPT_FOLLOWLOCATION => true,
-                     CURLOPT_USERAGENT      => "StatusNet",
-                     CURLOPT_CONNECTTIMEOUT => 120,
-                     CURLOPT_TIMEOUT        => 120,
+    $client = new TwitterBasicAuthClient($flink);
+    $status = null;
 
-                     # Twitter is strict about accepting invalid "Expect" headers
-                     CURLOPT_HTTPHEADER => array('Expect:'));
+    try {
+        $status = $client->statusesUpdate($statustxt);
+    } catch (BasicAuthCurlException $e) {
 
-    $ch = curl_init($uri);
-    curl_setopt_array($ch, $options);
-    $data = curl_exec($ch);
-    $errmsg = curl_error($ch);
+        if ($e->getMessage() == 'The requested URL returned error: 401') {
 
-    if ($errmsg == 'The requested URL returned error: 401') {
+            $errmsg = sprintf('User %1$s (user id: %2$s) has an invalid ' .
+                              'Twitter screen_name/password combo.',
+                              $user->nickname, $user->id);
+            common_log(LOG_WARNING, $errmsg);
 
-        $errmsg = sprintf('User %1$s (user id: %2$s) has an invalid ' .
-                          'Twitter basic auth username/password.',
-                          $user->nickname, $user->id);
-        common_log(LOG_WARNING, $errmsg);
+            remove_twitter_link($flink);
+            return true;
 
-        // Bad credentials. We need to delete the foreign_link
-        // to Twitter and inform the user.
+        } else {
 
-        remove_twitter_link($flink);
-        return true;
+            $errmsg = sprintf('cURL error trying to send notice to Twitter ' .
+                              'for user %1$s (user id: %2$s) - ' .
+                              'code: %3$s message: $4$s.',
+                              $user->nickname, $user->id,
+                              $e->getCode(), $e->getMessage());
+            common_log(LOG_WARNING, $errmsg);
 
-    } elseif (!empty($errmsg)) {
-
-        $code = curl_errno($ch);
-
-        $msg = "cURL error: $code, '$errmsg' - trying to send notice $notice->id " .
-          "to Twitter using basic auth.";
-
-        common_log(LOG_WARNING, $msg);
-
-        return false;
+            return false;
+        }
     }
-
-    curl_close($ch);
-
-    $status = json_decode($data);
 
     if (empty($status)) {
 
         $errmsg = sprintf('No data returned by Twitter API when ' .
-                          'trying to send update for %1$s (user id %2$s) ' .
-                          'using basic auth.',
-                          $user->nickname, $user->id);
+                         'trying to send update for %1$s (user id %2$s).',
+                         $user->nickname, $user->id);
         common_log(LOG_WARNING, $errmsg);
 
         return false;
@@ -302,6 +276,7 @@ function broadcast_basicauth($notice, $flink)
     common_log(LOG_INFO, $msg);
 
     return true;
+
 }
 
 function format_status($notice)
