@@ -19,7 +19,7 @@
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
-define('STATUSNET_VERSION', '0.8.1');
+define('STATUSNET_VERSION', '0.8.2dev');
 define('LACONICA_VERSION', STATUSNET_VERSION); // compatibility
 
 define('STATUSNET_CODENAME', 'Second Guessing');

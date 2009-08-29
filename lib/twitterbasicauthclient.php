@@ -74,7 +74,7 @@ class TwitterBasicAuthClient
     }
 
     /**
-     * Calls Twitter's /stutuses/update API method
+     * Calls Twitter's /statuses/update API method
      *
      * @param string $status                text of the status
      * @param int    $in_reply_to_status_id optional id of the status it's
@@ -94,7 +94,7 @@ class TwitterBasicAuthClient
     }
 
     /**
-     * Calls Twitter's /stutuses/friends_timeline API method
+     * Calls Twitter's /statuses/friends_timeline API method
      *
      * @param int $since_id show statuses after this id
      * @param int $max_id   show statuses before this id
@@ -123,7 +123,7 @@ class TwitterBasicAuthClient
     }
 
     /**
-     * Calls Twitter's /stutuses/friends API method
+     * Calls Twitter's /statuses/friends API method
      *
      * @param int $id          id of the user whom you wish to see friends of
      * @param int $user_id     numerical user id
@@ -153,7 +153,7 @@ class TwitterBasicAuthClient
     }
 
     /**
-     * Calls Twitter's /stutuses/friends/ids API method
+     * Calls Twitter's /statuses/friends/ids API method
      *
      * @param int $id          id of the user whom you wish to see friends of
      * @param int $user_id     numerical user id
@@ -163,7 +163,7 @@ class TwitterBasicAuthClient
      * @return mixed a list of ids, 100 per page
      */
     function friendsIds($id = null, $user_id = null, $screen_name = null,
-                         $page = null)
+                        $page = null)
     {
         $url = "https://twitter.com/friends/ids.json";
 
