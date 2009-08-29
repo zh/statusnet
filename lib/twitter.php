@@ -196,7 +196,7 @@ function broadcast_oauth($notice, $flink) {
 
             $errmsg = sprintf('cURL error trying to send notice to Twitter ' .
                               'for user %1$s (user id: %2$s) - ' .
-                              'code: %3$s message: $4$s.',
+                              'code: %3$s message: %4$s.',
                               $user->nickname, $user->id,
                               $e->getCode(), $e->getMessage());
             common_log(LOG_WARNING, $errmsg);
@@ -254,7 +254,7 @@ function broadcast_basicauth($notice, $flink)
 
             $errmsg = sprintf('cURL error trying to send notice to Twitter ' .
                               'for user %1$s (user id: %2$s) - ' .
-                              'code: %3$s message: $4$s.',
+                              'code: %3$s message: %4$s.',
                               $user->nickname, $user->id,
                               $e->getCode(), $e->getMessage());
             common_log(LOG_WARNING, $errmsg);
