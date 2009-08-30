@@ -160,6 +160,9 @@ function broadcast_twitter($notice)
         // XXX: Hack to get around PHP cURL's use of @ being a a meta character
         $statustxt = preg_replace('/^@/', ' @', $notice->content);
 
+        // Convert !groups to #hashes
+        $statustxt = preg_replace('/(^|\s)!([A-Za-z0-9]{1,64})/', "\\1#\\2", $statustxt);
+
         $token = TwitterOAuthClient::unpackToken($flink->credentials);
 
         $client = new TwitterOAuthClient($token->key, $token->secret);
