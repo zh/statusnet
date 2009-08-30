@@ -207,7 +207,7 @@ function broadcast_twitter($notice)
             // This could represent a failure posting,
             // or the Twitter API might just be behaving flakey.
 
-            $errmsg = sprint('No data returned by Twitter API when ' .
+            $errmsg = sprintf('No data returned by Twitter API when ' .
                              'trying to send update for %1$s (user id %2$s).',
                              $user->nickname, $user->id);
             common_log(LOG_WARNING, $errmsg);
