@@ -495,7 +495,7 @@ function callback_helper($matches, $callback, $notice_id) {
     if(empty($notice_id)){
         $result = call_user_func_array($callback,$url);
     }else{
-        $result = call_user_func_array($callback, array($url,$notice_id) );
+        $result = call_user_func_array($callback, array(array($url,$notice_id)) );
     }
     return substr($matches[0],0,$left) . $result . substr($matches[0],$right);
 }
