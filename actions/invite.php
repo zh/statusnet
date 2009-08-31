@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 class InviteAction extends CurrentUserDesignAction
 {
@@ -216,7 +216,7 @@ class InviteAction extends CurrentUserDesignAction
         $recipients = array($email);
 
         $headers['From'] = mail_notify_from();
-        $headers['To'] = $email;
+        $headers['To'] = trim($email);
         $headers['Subject'] = sprintf(_('%1$s has invited you to join them on %2$s'), $bestname, $sitename);
 
         $body = sprintf(_("%1\$s has invited you to join them on %2\$s (%3\$s).\n\n".
@@ -235,7 +235,7 @@ class InviteAction extends CurrentUserDesignAction
                         common_root_url(),
                         $personal,
                         common_local_url('showstream', array('nickname' => $user->nickname)),
-                        common_local_url('register', array('code' => $invite->code)));
+                        common_local_url((!common_config('site', 'openidonly')) ? 'register' : 'openidlogin', array('code' => $invite->code)));
 
         mail_send($recipients, $headers, $body);
     }

@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -207,32 +207,10 @@ class TwitapifavoritesAction extends TwitterapiAction
         $other = User::staticGet('id', $notice->profile_id);
         if ($other && $other->id != $user->id) {
             if ($other->email && $other->emailnotifyfav) {
-                $this->notify_mail($other, $user, $notice);
+                mail_notify_fave($other, $user, $notice);
             }
             # XXX: notify by IM
             # XXX: notify by SMS
         }
     }
-
-    function notify_mail($other, $user, $notice)
-    {
-        $profile = $user->getProfile();
-        $bestname = $profile->getBestName();
-        $subject = sprintf(_('%s added your notice as a favorite'), $bestname);
-        $body = sprintf(_("%1\$s just added your notice from %2\$s as one of their favorites.\n\n" .
-                          "In case you forgot, you can see the text of your notice here:\n\n" .
-                          "%3\$s\n\n" .
-                          "You can see the list of %1\$s's favorites here:\n\n" .
-                          "%4\$s\n\n" .
-                          "Faithfully yours,\n" .
-                          "%5\$s\n"),
-                        $bestname,
-                        common_exact_date($notice->created),
-                        common_local_url('shownotice', array('notice' => $notice->id)),
-                        common_local_url('showfavorites', array('nickname' => $user->nickname)),
-                        common_config('site', 'name'));
-
-        mail_to_user($other, $subject, $body);
-    }
-
 }

@@ -2,8 +2,8 @@
 /**
  * Table Definition for status_network
  *
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 class Status_network extends DB_DataObject
 {
@@ -54,7 +54,7 @@ class Status_network extends DB_DataObject
         global $config;
 
         $config['db']['database_'.$dbname] = "mysqli://$dbuser:$dbpass@$dbhost/$dbname";
-        $config['db']['ini_'.$dbname] = INSTALLDIR.'/classes/statusnet.ini';
+        $config['db']['ini_'.$dbname] = INSTALLDIR.'/classes/status_network.ini';
         $config['db']['table_status_network'] = $dbname;
 
         self::$cache = new Memcache();
@@ -71,7 +71,7 @@ class Status_network extends DB_DataObject
     }
 
     static function cacheKey($k, $v) {
-        return 'laconica:' . self::$base . ':status_network:'.$k.':'.$v;
+        return 'statusnet:' . self::$base . ':status_network:'.$k.':'.$v;
     }
 
     static function memGet($k, $v)

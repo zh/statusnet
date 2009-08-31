@@ -8,13 +8,41 @@ color:#fff;
 background-color:#ddffcc;
 }
 
+#form_notice {
+width:525px;
+}
+#form_notice .form_note {
+top:-5px;
+right:0;
+}
+#form_notice textarea {
+width:97.75%;
+}
+#form_notice .form_note + label {
+position:absolute;
+top:87px;
+left:77%;
+text-indent:-9999px;
+height:16px;
+width:16px;
+display:block;
+}
+#form_notice #notice_data-attach {
+filter: alpha(opacity = 0);
+left:33.5%;
+}
+
+#form_notice #notice_action-submit {
+right:0;
+}
+
 #aside_primary {
 width:181px;
 }
 
 #form_notice,
 #anon_notice {
-top:158px;
+top:190px;
 }
 
 #public #content,
@@ -31,4 +59,14 @@ top:158px;
 #subscriptions #content,
 #subscribers #content {
 padding-top:138px;
+}
+
+.notice {
+z-index:1;
+}
+.notice:hover {
+z-index:9999;
+}
+.notice .thumbnail img {
+z-index:9999;
 }

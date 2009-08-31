@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * utility functions for i18n
  *
@@ -20,15 +20,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category I18n
- * @package  Laconica
+ * @package  StatusNet
  * @author   Matthew Gregg <matthew.gregg@gmail.com>
  * @author   Ciaran Gultnieks <ciaran@ciarang.com>
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -53,7 +53,7 @@ function client_prefered_language($httplang)
         if (!empty($httplang[2][$i])) {
             // if no q default to 1.0
             $client_langs[$httplang[2][$i]] =
-              ($httplang[6][$i]? (float) $httplang[6][$i] : 1.0);
+              ($httplang[6][$i]? (float) $httplang[6][$i] : 1.0 - ($i*0.01));
         }
         if (!empty($httplang[3][$i]) && empty($client_langs[$httplang[3][$i]])) {
             // if a catchall default 0.01 lower

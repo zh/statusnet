@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -54,9 +54,9 @@ function common_init_language()
     $language = common_language();
     // So we don't have to make people install the gettext locales
     $locale_set = common_init_locale($language);
-    bindtextdomain("laconica", common_config('site','locale_path'));
-    bind_textdomain_codeset("laconica", "UTF-8");
-    textdomain("laconica");
+    bindtextdomain("statusnet", common_config('site','locale_path'));
+    bind_textdomain_codeset("statusnet", "UTF-8");
+    textdomain("statusnet");
     setlocale(LC_CTYPE, 'C');
     if(!$locale_set) {
         common_log(LOG_INFO,'Language requested:'.$language.' - locale could not be set:',__FILE__);
@@ -140,7 +140,7 @@ function common_have_session()
 function common_ensure_session()
 {
     $c = null;
-    if (array_key_exists(session_name, $_COOKIE)) {
+    if (array_key_exists(session_name(), $_COOKIE)) {
         $c = $_COOKIE[session_name()];
     }
     if (!common_have_session()) {
@@ -404,7 +404,7 @@ function common_render_text($text)
 
     $r = preg_replace('/[\x{0}-\x{8}\x{b}-\x{c}\x{e}-\x{19}]/', '', $r);
     $r = common_replace_urls_callback($r, 'common_linkify');
-    $r = preg_replace('/(^|\(|\[|\s+)#([A-Za-z0-9_\-\.]{1,64})/e', "'\\1#'.common_tag_link('\\2')", $r);
+    $r = preg_replace('/(^|\&quot\;|\'|\(|\[|\{|\s+)#([\pL\pN_\-\.]{1,64})/e', "'\\1#'.common_tag_link('\\2')", $r);
     // XXX: machine tags
     return $r;
 }
@@ -412,93 +412,118 @@ function common_render_text($text)
 function common_replace_urls_callback($text, $callback, $notice_id = null) {
     // Start off with a regex
     $regex = '#'.
-    '(?:'.
+    '(?:^|[\s\(\)\[\]\{\}\\\'\\\";]+)(?![\@\!\#])'.
+    '('.
         '(?:'.
-            '(?:https?|ftps?|mms|rtsp|gopher|news|nntp|telnet|wais|file|prospero|webcal|xmpp|irc)://'.
-            '|'.
-            '(?:mailto|aim|tel):'.
+            '(?:'. //Known protocols
+                '(?:'.
+                    '(?:(?:https?|ftps?|mms|rtsp|gopher|news|nntp|telnet|wais|file|prospero|webcal|irc)://)'.
+                    '|'.
+                    '(?:(?:mailto|aim|tel|xmpp):)'.
+                ')'.
+                '(?:[\pN\pL\-\_\+]+(?::[\pN\pL\-\_\+]+)?\@)?'. //user:pass@
+                '(?:'.
+                    '(?:'.
+                        '\[[\pN\pL\-\_\:\.]+(?<![\.\:])\]'. //[dns]
+                    ')|(?:'.
+                        '[\pN\pL\-\_\:\.]+(?<![\.\:])'. //dns
+                    ')'.
+                ')'.
+            ')'.
+            '|(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'. //IPv4
+            '|(?:'. //IPv6
+                '\[?(?:(?:(?:[0-9A-Fa-f]{1,4}:){7}(?:(?:[0-9A-Fa-f]{1,4})|:))|(?:(?:[0-9A-Fa-f]{1,4}:){6}(?::|(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})|(?::[0-9A-Fa-f]{1,4})))|(?:(?:[0-9A-Fa-f]{1,4}:){5}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:){4}(?::[0-9A-Fa-f]{1,4}){0,1}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:){3}(?::[0-9A-Fa-f]{1,4}){0,2}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:){2}(?::[0-9A-Fa-f]{1,4}){0,3}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:)(?::[0-9A-Fa-f]{1,4}){0,4}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?::(?::[0-9A-Fa-f]{1,4}){0,5}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})))\]?'.
+            ')|(?:'. //DNS
+                '(?:[\pN\pL\-\_\+]+(?:\:[\pN\pL\-\_\+]+)?\@)?'. //user:pass@
+                '[\pN\pL\-\_]+(?:\.[\pN\pL\-\_]+)*\.'.
+                //tld list from http://data.iana.org/TLD/tlds-alpha-by-domain.txt, also added local, loc, and onion
+                '(?:AC|AD|AE|AERO|AF|AG|AI|AL|AM|AN|AO|AQ|AR|ARPA|AS|ASIA|AT|AU|AW|AX|AZ|BA|BB|BD|BE|BF|BG|BH|BI|BIZ|BJ|BM|BN|BO|BR|BS|BT|BV|BW|BY|BZ|CA|CAT|CC|CD|CF|CG|CH|CI|CK|CL|CM|CN|CO|COM|COOP|CR|CU|CV|CX|CY|CZ|DE|DJ|DK|DM|DO|DZ|EC|EDU|EE|EG|ER|ES|ET|EU|FI|FJ|FK|FM|FO|FR|GA|GB|GD|GE|GF|GG|GH|GI|GL|GM|GN|GOV|GP|GQ|GR|GS|GT|GU|GW|GY|HK|HM|HN|HR|HT|HU|ID|IE|IL|IM|IN|INFO|INT|IO|IQ|IR|IS|IT|JE|JM|JO|JOBS|JP|KE|KG|KH|KI|KM|KN|KP|KR|KW|KY|KZ|LA|LB|LC|LI|LK|LR|LS|LT|LU|LV|LY|MA|MC|MD|ME|MG|MH|MIL|MK|ML|MM|MN|MO|MOBI|MP|MQ|MR|MS|MT|MU|MUSEUM|MV|MW|MX|MY|MZ|NA|NAME|NC|NE|NET|NF|NG|NI|NL|NO|NP|NR|NU|NZ|OM|ORG|PA|PE|PF|PG|PH|PK|PL|PM|PN|PR|PRO|PS|PT|PW|PY|QA|RE|RO|RS|RU|RW|SA|SB|SC|SD|SE|SG|SH|SI|SJ|SK|SL|SM|SN|SO|SR|ST|SU|SV|SY|SZ|TC|TD|TEL|TF|TG|TH|TJ|TK|TL|TM|TN|TO|TP|TR|TRAVEL|TT|TV|TW|TZ|UA|UG|UK|US|UY|UZ|VA|VC|VE|VG|VI|VN|VU|WF|WS|XN--0ZWM56D|测试|XN--11B5BS3A9AJ6G|परीक्षा|XN--80AKHBYKNJ4F|испытание|XN--9T4B11YI5A|테스트|XN--DEBA0AD|טעסט|XN--G6W251D|測試|XN--HGBK6AJ7F53BBA|آزمایشی|XN--HLCJ6AYA9ESC7A|பரிட்சை|XN--JXALPDLP|δοκιμή|XN--KGBECHTV|إختبار|XN--ZCKZAH|テスト|YE|YT|YU|ZA|ZM|ZW|local|loc|onion)'.
+            ')(?![\pN\pL\-\_])'.
         ')'.
-        '[^.\s]+\.[^\s]+'.
-        '|'.
-        '(?:[^.\s/:]+\.)+'.
-        '(?:museum|travel|[a-z]{2,4})'.
-        '(?:[:/][^\s]*)?'.
+        '(?:'.
+            '(?:\:\d+)?'. //:port
+            '(?:/[\pN\pL$\[\]\,\!\(\)\.\-\_\+\/\=\&\;]*)?'. // /path
+            '(?:\?[\pN\pL\$\[\]\,\!\(\)\.\-\_\+\/\=\&\;\/]*)?'. // ?query string
+            '(?:\#[\pN\pL$\[\]\,\!\(\)\.\-\_\+\/\=\&\;\/\?\#]*)?'. // #fragment
+        ')(?<![\?\.\,\#\,])'.
     ')'.
-    '#ix';
-    preg_match_all($regex, $text, $matches);
+    '#ixu';
+    preg_match_all($regex,$text,$matches);
+    //print_r($matches);
+    return preg_replace_callback($regex, curry('callback_helper',$callback,$notice_id) ,$text);
+}
 
-    // Then clean up what the regex left behind
-    $offset = 0;
-    foreach($matches[0] as $orig_url) {
-        $url = htmlspecialchars_decode($orig_url);
+function callback_helper($matches, $callback, $notice_id) {
+    $url=$matches[1];
+    $left = strpos($matches[0],$url);
+    $right = $left+strlen($url);
 
-        // Make sure we didn't pick up an email address
-        if (preg_match('#^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$#i', $url)) continue;
-
-        // Remove surrounding punctuation
-        $url = trim($url, '.?!,;:\'"`([<');
-
-        // Remove surrounding parens and the like
-        preg_match('/[)\]>]+$/', $url, $trailing);
-        if (isset($trailing[0])) {
-            preg_match_all('/[(\[<]/', $url, $opened);
-            preg_match_all('/[)\]>]/', $url, $closed);
-            $unopened = count($closed[0]) - count($opened[0]);
-
-            // Make sure not to take off more closing parens than there are at the end
-            $unopened = ($unopened > mb_strlen($trailing[0])) ? mb_strlen($trailing[0]):$unopened;
-
-            $url = ($unopened > 0) ? mb_substr($url, 0, $unopened * -1):$url;
+    $groupSymbolSets=array(
+        array(
+            'left'=>'(',
+            'right'=>')'
+        ),
+        array(
+            'left'=>'[',
+            'right'=>']'
+        ),
+        array(
+            'left'=>'{',
+            'right'=>'}'
+        )
+    );
+    $cannotEndWith=array('.','?',',','#');
+    $original_url=$url;
+    do{
+        $original_url=$url;
+        foreach($groupSymbolSets as $groupSymbolSet){
+            if(substr($url,-1)==$groupSymbolSet['right']){
+                $group_left_count = substr_count($url,$groupSymbolSet['left']);
+                $group_right_count = substr_count($url,$groupSymbolSet['right']);
+                if($group_left_count<$group_right_count){
+                    $right-=1;
+                    $url=substr($url,0,-1);
+                }
+            }
         }
-
-        // Remove trailing punctuation again (in case there were some inside parens)
-        $url = rtrim($url, '.?!,;:\'"`');
-
-        // Make sure we didn't capture part of the next sentence
-        preg_match('#((?:[^.\s/]+\.)+)(museum|travel|[a-z]{2,4})#i', $url, $url_parts);
-
-        // Were the parts capitalized any?
-        $last_part = (mb_strtolower($url_parts[2]) !== $url_parts[2]) ? true:false;
-        $prev_part = (mb_strtolower($url_parts[1]) !== $url_parts[1]) ? true:false;
-
-        // If the first part wasn't cap'd but the last part was, we captured too much
-        if ((!$prev_part && $last_part)) {
-            $url = mb_substr($url, 0 , mb_strpos($url, '.'.$url_parts['2'], 0));
+        if(in_array(substr($url,-1),$cannotEndWith)){
+            $right-=1;
+            $url=substr($url,0,-1);
         }
+    }while($original_url!=$url);
 
-        // Capture the new TLD
-        preg_match('#((?:[^.\s/]+\.)+)(museum|travel|[a-z]{2,4})#i', $url, $url_parts);
-
-        $tlds = array('ac', 'ad', 'ae', 'aero', 'af', 'ag', 'ai', 'al', 'am', 'an', 'ao', 'aq', 'ar', 'arpa', 'as', 'asia', 'at', 'au', 'aw', 'ax', 'az', 'ba', 'bb', 'bd', 'be', 'bf', 'bg', 'bh', 'bi', 'biz', 'bj', 'bm', 'bn', 'bo', 'br', 'bs', 'bt', 'bv', 'bw', 'by', 'bz', 'ca', 'cat', 'cc', 'cd', 'cf', 'cg', 'ch', 'ci', 'ck', 'cl', 'cm', 'cn', 'co', 'com', 'coop', 'cr', 'cu', 'cv', 'cx', 'cy', 'cz', 'de', 'dj', 'dk', 'dm', 'do', 'dz', 'ec', 'edu', 'ee', 'eg', 'er', 'es', 'et', 'eu', 'fi', 'fj', 'fk', 'fm', 'fo', 'fr', 'ga', 'gb', 'gd', 'ge', 'gf', 'gg', 'gh', 'gi', 'gl', 'gm', 'gn', 'gov', 'gp', 'gq', 'gr', 'gs', 'gt', 'gu', 'gw', 'gy', 'hk', 'hm', 'hn', 'hr', 'ht', 'hu', 'id', 'ie', 'il', 'im', 'in', 'info', 'int', 'io', 'iq', 'ir', 'is', 'it', 'je', 'jm', 'jo', 'jobs', 'jp', 'ke', 'kg', 'kh', 'ki', 'km', 'kn', 'kp', 'kr', 'kw', 'ky', 'kz', 'la', 'lb', 'lc', 'li', 'lk', 'lr', 'ls', 'lt', 'lu', 'lv', 'ly', 'ma', 'mc', 'md', 'me', 'mg', 'mh', 'mil', 'mk', 'ml', 'mm', 'mn', 'mo', 'mobi', 'mp', 'mq', 'mr', 'ms', 'mt', 'mu', 'museum', 'mv', 'mw', 'mx', 'my', 'mz', 'na', 'name', 'nc', 'ne', 'net', 'nf', 'ng', 'ni', 'nl', 'no', 'np', 'nr', 'nu', 'nz', 'om', 'org', 'pa', 'pe', 'pf', 'pg', 'ph', 'pk', 'pl', 'pm', 'pn', 'pr', 'pro', 'ps', 'pt', 'pw', 'py', 'qa', 're', 'ro', 'rs', 'ru', 'rw', 'sa', 'sb', 'sc', 'sd', 'se', 'sg', 'sh', 'si', 'sj', 'sk', 'sl', 'sm', 'sn', 'so', 'sr', 'st', 'su', 'sv', 'sy', 'sz', 'tc', 'td', 'tel', 'tf', 'tg', 'th', 'tj', 'tk', 'tl', 'tm', 'tn', 'to', 'tp', 'tr', 'travel', 'tt', 'tv', 'tw', 'tz', 'ua', 'ug', 'uk', 'us', 'uy', 'uz', 'va', 'vc', 've', 'vg', 'vi', 'vn', 'vu', 'wf', 'ws', 'ye', 'yt', 'yu', 'za', 'zm', 'zw');
-
-        if (!in_array($url_parts[2], $tlds)) continue;
-
-        // Make sure we didn't capture a hash tag
-        if (strpos($url, '#') === 0) continue;
-
-        // Put the url back the way we found it.
-        $url = (mb_strpos($orig_url, htmlspecialchars($url)) === FALSE) ? $url:htmlspecialchars($url);
-
-        // Call user specified func
-        if (empty($notice_id)) {
-            $modified_url = call_user_func($callback, $url);
-        } else {
-            $modified_url = call_user_func($callback, array($url, $notice_id));
-        }
-
-        // Replace it!
-        $start = mb_strpos($text, $url, $offset);
-        $text = mb_substr($text, 0, $start).$modified_url.mb_substr($text, $start + mb_strlen($url), mb_strlen($text));
-        $offset = $start + mb_strlen($modified_url);
+    if(empty($notice_id)){
+        $result = call_user_func_array($callback,$url);
+    }else{
+        $result = call_user_func_array($callback, array($url,$notice_id) );
     }
+    return substr($matches[0],0,$left) . $result . substr($matches[0],$right);
+}
 
-    return $text;
+function curry($fn) {
+    //TODO switch to a PHP 5.3 function closure based approach if PHP 5.3 is used
+    $args = func_get_args();
+    array_shift($args);
+    $id = uniqid('_partial');
+    $GLOBALS[$id] = array($fn, $args);
+    return create_function('',
+                           '$args = func_get_args(); '.
+                           'return call_user_func_array('.
+                           '$GLOBALS["'.$id.'"][0],'.
+                           'array_merge('.
+                           '$args,'.
+                           '$GLOBALS["'.$id.'"][1]));');
 }
 
 function common_linkify($url) {
     // It comes in special'd, so we unspecial it before passing to the stringifying
     // functions
     $url = htmlspecialchars_decode($url);
+
+   if(strpos($url, '@') !== false && strpos($url, ':') === false) {
+       //url is an email address without the mailto: protocol
+       return XMLStringer::estring('a', array('href' => "mailto:$url", 'rel' => 'external'), $url);
+   }
 
     $canon = File_redirection::_canonUrl($url);
 
@@ -517,42 +542,30 @@ function common_linkify($url) {
     $attachment_id = null;
     $has_thumb = false;
 
-    // Check to see whether there's a filename associated with this URL.
-    // If there is, it's an upload and qualifies as an attachment
+    // Check to see whether this is a known "attachment" URL.
 
-    $localfile = File::staticGet('url', $longurl);
+    $f = File::staticGet('url', $longurl);
 
-    if (!empty($localfile)) {
-        if (isset($localfile->filename)) {
-            $is_attachment = true;
-            $attachment_id = $localfile->id;
-        }
+    if (empty($f)) {
+        // XXX: this writes to the database. :<
+        $f = File::processNew($longurl);
     }
 
-    // if this URL is an attachment, then we set class='attachment' and id='attahcment-ID'
-    // where ID is the id of the attachment for the given URL.
-    //
-    // we need a better test telling what can be shown as an attachment
-    // we're currently picking up oembeds only.
-    // I think the best option is another file_view table in the db
-    // and associated dbobject.
+    if (!empty($f)) {
+        if (isset($f->filename)) {
+            $is_attachment = true;
+            $attachment_id = $f->id;
+        } else { // if it has OEmbed info, it's an attachment, too
+            $foe = File_oembed::staticGet('file_id', $f->id);
+            if (!empty($foe)) {
+                $is_attachment = true;
+                $attachment_id = $f->id;
 
-    $query = "select file_oembed.file_id as file_id from file join file_oembed on file.id = file_oembed.file_id where file.url='$longurl'";
-    $file = new File;
-    $file->query($query);
-    $file->fetch();
-
-    if (!empty($file->file_id)) {
-        $is_attachment = true;
-        $attachment_id = $file->file_id;
-
-        $query = "select file_thumbnail.file_id as file_id from file join file_thumbnail on file.id = file_thumbnail.file_id where file.url='$longurl'";
-        $file2 = new File;
-        $file2->query($query);
-        $file2->fetch();
-
-        if (!empty($file2)) {
-            $has_thumb = true;
+                $thumb = File_thumbnail::staticGet('file_id', $f->id);
+                if (!empty($thumb)) {
+                    $has_thumb = true;
+                }
+            }
         }
     }
 
@@ -595,7 +608,8 @@ function common_tag_link($tag)
 
 function common_canonical_tag($tag)
 {
-    return strtolower(str_replace(array('-', '_', '.'), '', $tag));
+  $tag = mb_convert_case($tag, MB_CASE_LOWER, "UTF-8");
+  return str_replace(array('-', '_', '.'), '', $tag);
 }
 
 function common_valid_profile_tag($str)
@@ -883,8 +897,8 @@ function common_enqueue_notice($notice)
         $transports[] = 'jabber';
     }
 
-    if ($notice->is_local == NOTICE_LOCAL_PUBLIC ||
-        $notice->is_local == NOTICE_LOCAL_NONPUBLIC) {
+    if ($notice->is_local == Notice::LOCAL_PUBLIC ||
+        $notice->is_local == Notice::LOCAL_NONPUBLIC) {
         $transports = array_merge($transports, $localTransports);
         if ($xmpp) {
             $transports[] = 'public';
@@ -1288,7 +1302,7 @@ function common_cache_key($extra)
         $base_key = common_keyize(common_config('site', 'name'));
     }
 
-    return 'laconica:' . $base_key . ':' . $extra;
+    return 'statusnet:' . $base_key . ':' . $extra;
 }
 
 function common_keyize($str)
@@ -1351,7 +1365,7 @@ function common_shorten_url($long_url)
 
     $curlh = curl_init();
     curl_setopt($curlh, CURLOPT_CONNECTTIMEOUT, 20); // # seconds to wait
-    curl_setopt($curlh, CURLOPT_USERAGENT, 'Laconica');
+    curl_setopt($curlh, CURLOPT_USERAGENT, 'StatusNet');
     curl_setopt($curlh, CURLOPT_RETURNTRANSFER, true);
 
     switch($svc) {
@@ -1409,20 +1423,21 @@ function common_client_ip()
         return null;
     }
 
-    if ($_SERVER['HTTP_X_FORWARDED_FOR']) {
-        if ($_SERVER['HTTP_CLIENT_IP']) {
+    if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
+        if (array_key_exists('HTTP_CLIENT_IP', $_SERVER)) {
             $proxy = $_SERVER['HTTP_CLIENT_IP'];
         } else {
             $proxy = $_SERVER['REMOTE_ADDR'];
         }
         $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
     } else {
-        if ($_SERVER['HTTP_CLIENT_IP']) {
+        $proxy = null;
+        if (array_key_exists('HTTP_CLIENT_IP', $_SERVER)) {
             $ip = $_SERVER['HTTP_CLIENT_IP'];
         } else {
             $ip = $_SERVER['REMOTE_ADDR'];
         }
     }
 
-    return array($ip, $proxy);
+    return array($proxy, $ip);
 }

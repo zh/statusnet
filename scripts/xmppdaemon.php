@@ -1,8 +1,8 @@
 #!/usr/bin/env php
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -175,6 +175,10 @@ class XMPPDaemon extends Daemon
 
         $user = $this->get_user($from);
 
+        // For common_current_user to work
+        global $_cur;
+        $_cur = $user;
+
         if (!$user) {
             $this->from_site($from, 'Unknown user; go to ' .
                              common_local_url('imsettings') .
@@ -211,6 +215,7 @@ class XMPPDaemon extends Daemon
 
         $user->free();
         unset($user);
+        unset($_cur);
 
         unset($pl['xml']);
         $pl['xml'] = null;

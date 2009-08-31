@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * List of replies
  *
@@ -20,14 +20,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Personal
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2008-2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -39,10 +39,10 @@ require_once INSTALLDIR.'/lib/feedlist.php';
  * List of replies
  *
  * @category Personal
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class ShowfavoritesAction extends OwnerDesignAction
@@ -114,6 +114,29 @@ class ShowfavoritesAction extends OwnerDesignAction
 
         common_set_returnto($this->selfUrl());
 
+        $cur = common_current_user();
+
+        if (!empty($cur) && $cur->id == $this->user->id) {
+
+            // Show imported/gateway notices as well as local if
+            // the user is looking at his own favorites
+
+            $this->notice = $this->user->favoriteNotices(($this->page-1)*NOTICES_PER_PAGE,
+                                                   NOTICES_PER_PAGE + 1, true);
+        } else {
+            $this->notice = $this->user->favoriteNotices(($this->page-1)*NOTICES_PER_PAGE,
+                                                   NOTICES_PER_PAGE + 1, false);
+        }
+
+        if (empty($this->notice)) {
+            $this->serverError(_('Could not retrieve favorite notices.'));
+            return;
+        }
+
+        if($this->page > 1 && $this->notice->N == 0){
+            $this->serverError(_('No such page'),$code=404);
+        }
+
         return true;
     }
 
@@ -173,7 +196,9 @@ class ShowfavoritesAction extends OwnerDesignAction
             }
         }
         else {
-            $message = sprintf(_('%s hasn\'t added any notices to his favorites yet. Why not [register an account](%%%%action.register%%%%) and then post something interesting they would add to thier favorites :)'), $this->user->nickname);
+            $message = sprintf(_('%s hasn\'t added any notices to his favorites yet. Why not [register an account](%%%%action.%s%%%%) and then post something interesting they would add to their favorites :)'),
+                               $this->user->nickname,
+                               (!common_config('site','openidonly')) ? 'register' : 'openidlogin');
         }
 
         $this->elementStart('div', 'guide');
@@ -191,26 +216,7 @@ class ShowfavoritesAction extends OwnerDesignAction
 
     function showContent()
     {
-        $cur = common_current_user();
-
-        if (!empty($cur) && $cur->id == $this->user->id) {
-
-            // Show imported/gateway notices as well as local if
-            // the user is looking at his own favorites
-
-            $notice = $this->user->favoriteNotices(($this->page-1)*NOTICES_PER_PAGE,
-                                                   NOTICES_PER_PAGE + 1, true);
-        } else {
-            $notice = $this->user->favoriteNotices(($this->page-1)*NOTICES_PER_PAGE,
-                                                   NOTICES_PER_PAGE + 1, false);
-        }
-
-        if (empty($notice)) {
-            $this->serverError(_('Could not retrieve favorite notices.'));
-            return;
-        }
-
-        $nl = new NoticeList($notice, $this);
+        $nl = new NoticeList($this->notice, $this);
 
         $cnt = $nl->show();
         if (0 == $cnt) {

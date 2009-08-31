@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Low-level generator for HTML
  *
@@ -20,15 +20,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Output
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @author    Sarven Capadisli <csarven@controlyourself.ca>
- * @copyright 2008 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    Sarven Capadisli <csarven@status.net>
+ * @copyright 2008 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -47,11 +47,11 @@ define('PAGE_TYPE_PREFS',
  * HTML-creation class.
  *
  * @category Output
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Sarven Capadisli <csarven@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Sarven Capadisli <csarven@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
  * @see      Action
  * @see      XMLOutputter
@@ -109,10 +109,11 @@ class HTMLOutputter extends XMLOutputter
         header('Content-Type: '.$type);
 
         $this->extraHeaders();
-
-        $this->startXML('html',
-                        '-//W3C//DTD XHTML 1.0 Strict//EN',
-                        'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
+        if( ! substr($type,0,strlen('text/html'))=='text/html' ){
+            // Browsers don't like it when <?xml it output for non-xhtml documents
+            $this->xw->startDocument('1.0', 'UTF-8');
+        }
+        $this->xw->writeDTD('html');
 
         $language = $this->getLanguage();
 
@@ -336,6 +337,52 @@ class HTMLOutputter extends XMLOutputter
                                       'class' => $cls,
                                       'value' => $label,
                                       'title' => $title));
+    }
+
+    /**
+     * output a script (almost always javascript) tag
+     *
+     * @param string $src          relative or absolute script path
+     * @param string $type         'type' attribute value of the tag
+     *
+     * @return void
+     */
+    function script($src, $type='text/javascript')
+    {
+        $url = parse_url($src);
+        if( empty($url->scheme) && empty($url->host) && empty($url->query) && empty($url->fragment))
+        {
+            $src = common_path($src) . '?version=' . STATUSNET_VERSION;
+        }
+        $this->element('script', array('type' => $type,
+                                               'src' => $src),
+                               ' ');
+    }
+
+    /**
+     * output a css link
+     *
+     * @param string $src     relative path within the theme directory, or an absolute path
+     * @param string $theme        'theme' that contains the stylesheet
+     * @param string media         'media' attribute of the tag
+     *
+     * @return void
+     */
+    function cssLink($src,$theme=null,$media=null)
+    {
+        $url = parse_url($src);
+        if( empty($url->scheme) && empty($url->host) && empty($url->query) && empty($url->fragment))
+        {
+            if(file_exists(theme_file($src,$theme))){
+               $src = theme_path($src, $theme) . '?version=' . STATUSNET_VERSION;
+            }else{
+               $src = common_path($src);
+            }
+        }
+        $this->element('link', array('rel' => 'stylesheet',
+                                'type' => 'text/css',
+                                'href' => $src,
+                                'media' => $media));
     }
 
     /**

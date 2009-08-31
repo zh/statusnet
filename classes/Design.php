@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - the distributed open-source microblogging tool
- * Copyright (C) 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -107,7 +107,7 @@ class Design extends Memcached_DataObject
 
     static function toWebColor($color)
     {
-        if (is_null($color)) {
+        if ($color == null) {
             return null;
         }
 
@@ -204,7 +204,10 @@ class Design extends Memcached_DataObject
                            'disposition');
 
             foreach ($attrs as $attr) {
-                $siteDesign->$attr = common_config('design', $attr);
+                $val = common_config('design', $attr);
+                if ($val !== false) {
+                    $siteDesign->$attr = $val;
+                }
             }
         }
 

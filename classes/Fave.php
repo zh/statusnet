@@ -79,7 +79,7 @@ class Fave extends Memcached_DataObject
         $qry .= 'ORDER BY modified DESC ';
 
         if (!is_null($offset)) {
-            $qry .= "LIMIT $offset, $limit";
+            $qry .= "LIMIT $limit OFFSET $offset";
         }
 
         $fav->query($qry);

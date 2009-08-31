@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * widget for displaying a list of notice attachments
  *
@@ -20,15 +20,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  UI
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @author    Sarven Capadisli <csarven@controlyourself.ca>
- * @copyright 2008 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    Sarven Capadisli <csarven@status.net>
+ * @copyright 2008 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -41,10 +41,10 @@ if (!defined('LACONICA')) {
  * data for e.g. the profile page.
  *
  * @category UI
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  * @see      Notice
  * @see      NoticeListItem
  * @see      ProfileNoticeList
@@ -127,10 +127,10 @@ class AttachmentList extends Widget
  * author info (since that's implicit by the data in the page).
  *
  * @category UI
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  * @see      NoticeList
  * @see      ProfileNoticeListItem
  */
@@ -340,7 +340,12 @@ class Attachment extends AttachmentListItem
             case 'video':
             case 'link':
                 if (!empty($this->oembed->html)) {
-                    $this->out->raw($this->oembed->html);
+                    require_once INSTALLDIR.'/extlib/htmLawed/htmLawed.php';
+                    $config = array(
+                        'safe'=>1,
+                        'elements'=>'*+object+embed');
+                    $this->out->raw(htmLawed($this->oembed->html,$config));
+                    //$this->out->raw($this->oembed->html);
                 }
                 break;
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * utilities for sending email
  *
@@ -20,17 +20,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Mail
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @author    Zach Copley <zach@controlyourself.ca>
- * @author    Robin Millette <millette@controlyourself.ca>
- * @author    Sarven Capadisli <csarven@controlyourself.ca>
- * @copyright 2008 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    Zach Copley <zach@status.net>
+ * @author    Robin Millette <millette@status.net>
+ * @author    Sarven Capadisli <csarven@status.net>
+ * @copyright 2008 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -121,7 +121,7 @@ function mail_notify_from()
 
         $domain = mail_domain();
 
-        $notifyfrom = common_config('site', 'name') .' <noreply@'.$domain.'>';
+        $notifyfrom = '"'.common_config('site', 'name') .'" <noreply@'.$domain.'>';
     }
 
     return $notifyfrom;
@@ -596,32 +596,44 @@ function mail_notify_attn($user, $notice)
     $bestname = $sender->getBestName();
 
     common_init_locale($user->language);
-
+	
+	if ($notice->conversation != $notice->id) {
+		$conversationEmailText = "The full conversation can be read here:\n\n".
+								 "\t%5\$s\n\n ";
+		$conversationUrl 	   = common_local_url('conversation',
+                                 array('id' => $notice->conversation)).'#notice-'.$notice->id;
+	} else {
+		$conversationEmailText = "%5\$s";
+		$conversationUrl = null;
+	}
+	
     $subject = sprintf(_('%s sent a notice to your attention'), $bestname);
-
-    $body = sprintf(_("%1\$s just sent a notice to your attention (an '@-reply') on %2\$s.\n\n".
+	
+	$body = sprintf(_("%1\$s just sent a notice to your attention (an '@-reply') on %2\$s.\n\n".
                       "The notice is here:\n\n".
                       "\t%3\$s\n\n" .
                       "It reads:\n\n".
                       "\t%4\$s\n\n" .
+                      $conversationEmailText .
                       "You can reply back here:\n\n".
-                      "\t%5\$s\n\n" .
+                      "\t%6\$s\n\n" .
                       "The list of all @-replies for you here:\n\n" .
-                      "%6\$s\n\n" .
+                      "%7\$s\n\n" .
                       "Faithfully yours,\n" .
                       "%2\$s\n\n" .
-                      "P.S. You can turn off these email notifications here: %7\$s\n"),
-                    $bestname,
-                    common_config('site', 'name'),
+                      "P.S. You can turn off these email notifications here: %8\$s\n"),
+                    $bestname,//%1
+                    common_config('site', 'name'),//%2
                     common_local_url('shownotice',
-                                     array('notice' => $notice->id)),
-                    $notice->content,
+                                     array('notice' => $notice->id)),//%3
+                    $notice->content,//%4
+					$conversationUrl,//%5
                     common_local_url('newnotice',
-                                     array('replyto' => $sender->nickname)),
+                                     array('replyto' => $sender->nickname)),//%6
                     common_local_url('replies',
-                                     array('nickname' => $user->nickname)),
-                    common_local_url('emailsettings'));
-
+                                     array('nickname' => $user->nickname)),//%7
+                    common_local_url('emailsettings'));//%8
+	
     common_init_locale();
     mail_to_user($user, $subject, $body);
 }
@@ -645,13 +657,14 @@ function mail_twitter_bridge_removed($user)
 
     $subject = sprintf(_('Your Twitter bridge has been disabled.'));
 
-    $body = sprintf(_("Hi, %1\$s. We're sorry to inform you that your " .
-        'link to Twitter has been disabled. Your Twitter credentials ' .
-        'have either changed (did you recently change your Twitter ' .
-        'password?) or you have otherwise revoked our access to your ' .
-        "Twitter account.\n\n" .
-        'You can re-enable your Twitter bridge by visiting your ' .
-        "Twitter settings page:\n\n\t%2\$s\n\n" .
+    $site_name = common_config('site', 'name');
+
+    $body = sprintf(_('Hi, %1$s. We\'re sorry to inform you that your ' .
+        'link to Twitter has been disabled. We no longer seem to have ' .
+    'permission to update your Twitter status. (Did you revoke ' .
+    '%3$s\'s access?)' . "\n\n" .
+    'You can re-enable your Twitter bridge by visiting your ' .
+    "Twitter settings page:\n\n\t%2\$s\n\n" .
         "Regards,\n%3\$s\n"),
         $profile->getBestName(),
         common_local_url('twittersettings'),
@@ -679,11 +692,11 @@ function mail_facebook_app_removed($user)
     $site_name = common_config('site', 'name');
 
     $subject = sprintf(
-        _('Your %1\$s Facebook application access has been disabled.',
+        _('Your %1$s Facebook application access has been disabled.',
             $site_name));
 
     $body = sprintf(_("Hi, %1\$s. We're sorry to inform you that we are " .
-        'unable to update your Facebook status from %2\$s, and have disabled ' .
+        'unable to update your Facebook status from %2$s, and have disabled ' .
         'the Facebook application for your account. This may be because ' .
         'you have removed the Facebook application\'s authorization, or ' .
         'have deleted your Facebook account.  You can re-enable the ' .

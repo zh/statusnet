@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source /etc/laconica/setup.cfg
+source /etc/statusnet/setup.cfg
 
 export nickname=$1
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Simple-minded queue manager for storing items in the database
  *
@@ -20,12 +20,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  QueueManager
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @author    Sarven Capadisli <csarven@controlyourself.ca>
- * @copyright 2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
 class DBQueueManager extends QueueManager
@@ -86,9 +85,15 @@ class DBQueueManager extends QueueManager
         $start = time();
         $result = null;
 
+        $sleeptime = 1;
+
         do {
             $qi = Queue_item::top($queue);
-            if (!empty($qi)) {
+            if (empty($qi)) {
+                $this->_log(LOG_DEBUG, "No new queue items, sleeping $sleeptime seconds.");
+                sleep($sleeptime);
+                $sleeptime *= 2;
+            } else {
                 $notice = Notice::staticGet('id', $qi->notice_id);
                 if (!empty($notice)) {
                     $result = $notice;
@@ -98,6 +103,7 @@ class DBQueueManager extends QueueManager
                     $qi->free();
                     $qi = null;
                 }
+                $sleeptime = 1;
             }
         } while (empty($result) && (is_null($timeout) || (time() - $start) < $timeout));
 
@@ -118,7 +124,7 @@ class DBQueueManager extends QueueManager
         } else {
             if (empty($qi->claimed)) {
                 $this->_log(LOG_WARNING, 'Reluctantly releasing unclaimed queue item '.
-                           'for '.$notice->id.', queue '.$queue);
+                            'for '.$notice->id.', queue '.$queue);
             }
             $qi->delete();
             $qi->free();
@@ -145,7 +151,7 @@ class DBQueueManager extends QueueManager
         } else {
             if (empty($qi->claimed)) {
                 $this->_log(LOG_WARNING, 'Ignoring failure for unclaimed queue item '.
-                           'for '.$notice->id.', queue '.$queue);
+                            'for '.$notice->id.', queue '.$queue);
             } else {
                 $orig = clone($qi);
                 $qi->claimed = null;

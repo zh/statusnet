@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -449,7 +449,8 @@ class TwitapistatusesAction extends TwitterapiAction
     function friends($args, $apidata)
     {
         parent::handle($args);
-        return $this->subscriptions($apidata, 'subscribed', 'subscriber');
+        $includeStatuses=! (boolean) $args['lite'];
+        return $this->subscriptions($apidata, 'subscribed', 'subscriber', false, $includeStatuses);
     }
 
     function friendsIDs($args, $apidata)
@@ -461,7 +462,8 @@ class TwitapistatusesAction extends TwitterapiAction
     function followers($args, $apidata)
     {
         parent::handle($args);
-        return $this->subscriptions($apidata, 'subscriber', 'subscribed');
+        $includeStatuses=! (boolean) $args['lite'];
+        return $this->subscriptions($apidata, 'subscriber', 'subscribed', false, $includeStatuses);
     }
 
     function followersIDs($args, $apidata)
@@ -470,7 +472,7 @@ class TwitapistatusesAction extends TwitterapiAction
         return $this->subscriptions($apidata, 'subscriber', 'subscribed', true);
     }
 
-    function subscriptions($apidata, $other_attr, $user_attr, $onlyIDs=false)
+    function subscriptions($apidata, $other_attr, $user_attr, $onlyIDs=false, $includeStatuses=true)
     {
         $this->auth_user = $apidata['user'];
         $user = $this->get_user($apidata['api_arg'], $apidata);
@@ -526,26 +528,26 @@ class TwitapistatusesAction extends TwitterapiAction
         if ($onlyIDs) {
             $this->showIDs($others, $type);
         } else {
-            $this->show_profiles($others, $type);
+            $this->show_profiles($others, $type, $includeStatuses);
         }
 
         $this->end_document($type);
     }
 
-    function show_profiles($profiles, $type)
+    function show_profiles($profiles, $type, $includeStatuses)
     {
         switch ($type) {
         case 'xml':
             $this->elementStart('users', array('type' => 'array'));
             foreach ($profiles as $profile) {
-                $this->show_profile($profile);
+                $this->show_profile($profile,$type,null,$includeStatuses);
             }
             $this->elementEnd('users');
             break;
         case 'json':
             $arrays = array();
             foreach ($profiles as $profile) {
-                $arrays[] = $this->twitter_user_array($profile, true);
+                $arrays[] = $this->twitter_user_array($profile, $includeStatuses);
             }
             print json_encode($arrays);
             break;

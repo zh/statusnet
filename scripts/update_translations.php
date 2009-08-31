@@ -1,8 +1,8 @@
 #!/usr/bin/env php
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -25,12 +25,13 @@ if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
 }
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
-define('LACONICA', true);
+define('STATUSNET', true);
+define('LACONICA', true); // compatibility
 
 require_once(INSTALLDIR . '/lib/common.php');
 
-// Master Laconica .pot file location (created by update_pot.sh)
-$laconica_pot = INSTALLDIR . '/locale/laconica.po';
+// Master StatusNet .pot file location (created by update_pot.sh)
+$statusnet_pot = INSTALLDIR . '/locale/statusnet.po';
 
 set_time_limit(60);
 
@@ -42,12 +43,12 @@ $languages = get_all_languages();
 foreach ($languages as $language) {
 
     $code = $language['lang'];
-    $file_url = 'http://laconi.ca/pootle/' . $code .
-        '/laconica/LC_MESSAGES/laconica.po';
+    $file_url = 'http://status.net/pootle/' . $code .
+        '/statusnet/LC_MESSAGES/statusnet.po';
     $lcdir = INSTALLDIR . '/locale/' . $code;
     $msgdir = "$lcdir/LC_MESSAGES";
-    $pofile = "$msgdir/laconica.po";
-    $mofile = "$msgdir/laconica.mo";
+    $pofile = "$msgdir/statusnet.po";
+    $mofile = "$msgdir/statusnet.mo";
 
     /* Check for an existing */
     if (!is_dir($msgdir)) {
@@ -71,7 +72,7 @@ foreach ($languages as $language) {
     if (sha1($new_file) != $existingSHA1 || !file_exists($mofile)) {
         echo "Updating ".$code."\n";
         file_put_contents($pofile, $new_file);
-        system(sprintf('msgmerge -U %s %s', $pofile, $laconica_pot));
+        system(sprintf('msgmerge -U %s %s', $pofile, $statusnet_pot));
         system(sprintf('msgfmt -f -o %s %s', $mofile, $pofile));
     } else {
         echo "Unchanged - ".$code."\n";

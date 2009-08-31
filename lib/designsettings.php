@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Change user password
  *
@@ -20,15 +20,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Settings
- * @package   Laconica
- * @author    Sarven Capadisli <csarven@controlyourself.ca>
- * @author    Zach Copley <zach@controlyourself.ca>
- * @copyright 2008-2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Sarven Capadisli <csarven@status.net>
+ * @author    Zach Copley <zach@status.net>
+ * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -42,11 +42,11 @@ require_once INSTALLDIR . '/lib/webcolor.php';
  * background images, and fetching a default design
  *
  * @category Settings
- * @package  Laconica
- * @author   Zach Copley <zach@controlyourself.ca>
- * @author   Sarven Capadisli <csarven@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Zach Copley <zach@status.net>
+ * @author   Sarven Capadisli <csarven@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class DesignSettingsAction extends AccountSettingsAction
@@ -311,13 +311,7 @@ class DesignSettingsAction extends AccountSettingsAction
     function showStylesheets()
     {
         parent::showStylesheets();
-        $farbtasticStyle =
-          common_path('theme/base/css/farbtastic.css?version='.LACONICA_VERSION);
-
-        $this->element('link', array('rel' => 'stylesheet',
-                                     'type' => 'text/css',
-                                     'href' => $farbtasticStyle,
-                                     'media' => 'screen, projection, tv'));
+        $this->cssLink('css/farbtastic.css','base','screen, projection, tv');
     }
 
     /**
@@ -330,13 +324,9 @@ class DesignSettingsAction extends AccountSettingsAction
     {
         parent::showScripts();
 
-        $farbtasticPack = common_path('js/farbtastic/farbtastic.js');
-        $userDesignGo   = common_path('js/userdesign.go.js');
-
-        $this->element('script', array('type' => 'text/javascript',
-                                       'src' => $farbtasticPack));
-        $this->element('script', array('type' => 'text/javascript',
-                                       'src' => $userDesignGo));
+        $this->script('js/farbtastic/farbtastic.js');
+        $this->script('js/farbtastic/farbtastic.go.js');
+        $this->script('js/userdesign.go.js');
     }
 
     /**

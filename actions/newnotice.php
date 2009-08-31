@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Handler for posting new notices
  *
@@ -20,16 +20,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Personal
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @author    Zach Copley <zach@controlyourself.ca>
- * @author    Sarven Capadisli <csarven@controlyourself.ca>
- * @copyright 2008-2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    Zach Copley <zach@status.net>
+ * @author    Sarven Capadisli <csarven@status.net>
+ * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -39,12 +39,12 @@ require_once INSTALLDIR.'/lib/noticelist.php';
  * Action for posting new notices
  *
  * @category Personal
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Zach Copley <zach@controlyourself.ca>
- * @author   Sarven Capadisli <csarven@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Zach Copley <zach@status.net>
+ * @author   Sarven Capadisli <csarven@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class NewnoticeAction extends Action
@@ -91,8 +91,8 @@ class NewnoticeAction extends Action
             // is losts when size is exceeded
             if (empty($_POST) && $_SERVER['CONTENT_LENGTH']) {
                 $this->clientError(sprintf(_('The server was unable to handle ' .
-                    'that much POST data (%s bytes) due to its current configuration.'),
-                    $_SERVER['CONTENT_LENGTH']));
+                                             'that much POST data (%s bytes) due to its current configuration.'),
+                                           $_SERVER['CONTENT_LENGTH']));
             }
             parent::handle($args);
 
@@ -130,7 +130,7 @@ class NewnoticeAction extends Action
             $hint = '';
         }
         $this->clientError(sprintf(
-            _('%s is not a supported filetype on this server.'), $filetype) . $hint);
+                                   _('%s is not a supported filetype on this server.'), $filetype) . $hint);
     }
 
     function isRespectsQuota($user) {
@@ -190,37 +190,37 @@ class NewnoticeAction extends Action
 
         if (isset($_FILES['attach']['error'])) {
             switch ($_FILES['attach']['error']) {
-                case UPLOAD_ERR_NO_FILE:
-                    // no file uploaded, nothing to do
-                    break;
+             case UPLOAD_ERR_NO_FILE:
+                // no file uploaded, nothing to do
+                break;
 
-                case UPLOAD_ERR_OK:
-                    $mimetype = $this->getUploadedFileType();
-                    if (!$this->isRespectsQuota($user)) {
-                        die('clientError() should trigger an exception before reaching here.');
-                    }
-                    break;
+             case UPLOAD_ERR_OK:
+                $mimetype = $this->getUploadedFileType();
+                if (!$this->isRespectsQuota($user)) {
+                    die('clientError() should trigger an exception before reaching here.');
+                }
+                break;
 
-                case UPLOAD_ERR_INI_SIZE:
-                    $this->clientError(_('The uploaded file exceeds the upload_max_filesize directive in php.ini.'));
+             case UPLOAD_ERR_INI_SIZE:
+                $this->clientError(_('The uploaded file exceeds the upload_max_filesize directive in php.ini.'));
 
-                case UPLOAD_ERR_FORM_SIZE:
-                    $this->clientError(_('The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.'));
+             case UPLOAD_ERR_FORM_SIZE:
+                $this->clientError(_('The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.'));
 
-                case UPLOAD_ERR_PARTIAL:
-                    $this->clientError(_('The uploaded file was only partially uploaded.'));
+             case UPLOAD_ERR_PARTIAL:
+                $this->clientError(_('The uploaded file was only partially uploaded.'));
 
-                case  UPLOAD_ERR_NO_TMP_DIR:
-                    $this->clientError(_('Missing a temporary folder.'));
+             case  UPLOAD_ERR_NO_TMP_DIR:
+                $this->clientError(_('Missing a temporary folder.'));
 
-                case UPLOAD_ERR_CANT_WRITE:
-                    $this->clientError(_('Failed to write file to disk.'));
+             case UPLOAD_ERR_CANT_WRITE:
+                $this->clientError(_('Failed to write file to disk.'));
 
-                case UPLOAD_ERR_EXTENSION:
-                    $this->clientError(_('File upload stopped by extension.'));
+             case UPLOAD_ERR_EXTENSION:
+                $this->clientError(_('File upload stopped by extension.'));
 
-                default:
-                    die('Should never reach here.');
+             default:
+                die('Should never reach here.');
             }
         }
 
@@ -233,7 +233,7 @@ class NewnoticeAction extends Action
             $fileRecord = $this->storeFile($filename, $mimetype);
 
             $fileurl = common_local_url('attachment',
-                array('attachment' => $fileRecord->id));
+                                        array('attachment' => $fileRecord->id));
 
             // not sure this is necessary -- Zach
             $this->maybeAddRedir($fileRecord->id, $fileurl);
@@ -367,7 +367,7 @@ class NewnoticeAction extends Action
         File_to_post::processNew($filerec->id, $notice->id);
 
         $this->maybeAddRedir($filerec->id,
-            common_local_url('file', array('notice' => $notice->id)));
+                             common_local_url('file', array('notice' => $notice->id)));
     }
 
     /**

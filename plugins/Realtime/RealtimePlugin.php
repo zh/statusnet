@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Superclass for plugins that do "real time" updates of timelines using Ajax
  *
@@ -20,14 +20,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Plugin
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -38,10 +38,10 @@ if (!defined('LACONICA')) {
  * this superclass extracts out some of the common functionality
  *
  * @category Plugin
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class RealtimePlugin extends Plugin
@@ -84,9 +84,7 @@ class RealtimePlugin extends Plugin
         $scripts = $this->_getScripts();
 
         foreach ($scripts as $script) {
-            $action->element('script', array('type' => 'text/javascript',
-                                             'src' => $script),
-                         ' ');
+            $action->script($script);
         }
 
         $user = common_current_user();
@@ -201,8 +199,8 @@ class RealtimePlugin extends Plugin
 
     function _getScripts()
     {
-        return array(common_path('plugins/Realtime/realtimeupdate.js'),
-                     common_path('plugins/Realtime/json2.js'));
+        return array('plugins/Realtime/realtimeupdate.js',
+                     'plugins/Realtime/json2.js');
     }
 
     function _updateInitialize($timeline, $user_id)

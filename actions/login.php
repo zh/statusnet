@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Login form
  *
@@ -20,14 +20,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Login
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2008-2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -35,10 +35,10 @@ if (!defined('LACONICA')) {
  * Login form
  *
  * @category Personal
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class LoginAction extends Action
@@ -65,6 +65,8 @@ class LoginAction extends Action
      *
      * Switches on request method; either shows the form or handles its input.
      *
+     * Checks if only OpenID is allowed and redirects to openidlogin if so.
+     *
      * @param array $args $_REQUEST data
      *
      * @return void
@@ -73,7 +75,9 @@ class LoginAction extends Action
     function handle($args)
     {
         parent::handle($args);
-        if (common_is_real_login()) {
+        if (common_config('site', 'openidonly')) {
+            common_redirect(common_local_url('openidlogin'));
+        } else if (common_is_real_login()) {
             $this->clientError(_('Already logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->checkLogin();
@@ -247,11 +251,15 @@ class LoginAction extends Action
             return _('For security reasons, please re-enter your ' .
                      'user name and password ' .
                      'before changing your settings.');
-        } else {
+        } else if (common_config('openid', 'enabled')) {
             return _('Login with your username and password. ' .
                      'Don\'t have a username yet? ' .
                      '[Register](%%action.register%%) a new account, or ' .
                      'try [OpenID](%%action.openidlogin%%). ');
+        } else {
+            return _('Login with your username and password. ' .
+                     'Don\'t have a username yet? ' .
+                     '[Register](%%action.register%%) a new account.');
         }
     }
 

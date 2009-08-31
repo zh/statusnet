@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Upload an avatar
  *
@@ -20,15 +20,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Settings
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @author    Zach Copley <zach@controlyourself.ca>
- * @copyright 2008-2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    Zach Copley <zach@status.net>
+ * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -42,12 +42,12 @@ define('MAX_ORIGINAL', 480);
  * We use jCrop plugin for jQuery to crop the image after upload.
  *
  * @category Settings
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Zach Copley <zach@controlyourself.ca>
- * @author   Sarven Capadisli <csarven@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Zach Copley <zach@status.net>
+ * @author   Sarven Capadisli <csarven@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class GrouplogoAction extends GroupDesignAction
@@ -428,13 +428,7 @@ class GrouplogoAction extends GroupDesignAction
     function showStylesheets()
     {
         parent::showStylesheets();
-        $jcropStyle =
-          common_path('theme/base/css/jquery.Jcrop.css?version='.LACONICA_VERSION);
-
-        $this->element('link', array('rel' => 'stylesheet',
-                                     'type' => 'text/css',
-                                     'href' => $jcropStyle,
-                                     'media' => 'screen, projection, tv'));
+        $this->cssLink('css/jquery.Jcrop.css','base','screen, projection, tv');
     }
 
     /**
@@ -448,13 +442,8 @@ class GrouplogoAction extends GroupDesignAction
         parent::showScripts();
 
         if ($this->mode == 'crop') {
-            $jcropPack = common_path('js/jcrop/jquery.Jcrop.pack.js');
-            $jcropGo   = common_path('js/jcrop/jquery.Jcrop.go.js');
-
-            $this->element('script', array('type' => 'text/javascript',
-                                           'src' => $jcropPack));
-            $this->element('script', array('type' => 'text/javascript',
-                                           'src' => $jcropGo));
+            $this->script('js/jcrop/jquery.Jcrop.min.js');
+            $this->script('js/jcrop/jquery.Jcrop.go.js');
         }
     }
 

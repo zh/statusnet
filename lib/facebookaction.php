@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Low-level generator for HTML
  *
@@ -20,14 +20,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Faceboook
- * @package   Laconica
- * @author    Zach Copley <zach@controlyourself.ca>
- * @copyright 2008 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Zach Copley <zach@status.net>
+ * @copyright 2008 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA'))
+if (!defined('STATUSNET') && !defined('LACONICA'))
 {
     exit(1);
 }
@@ -95,34 +95,14 @@ class FacebookAction extends Action
 
     function showStylesheets()
     {
-        // Add a timestamp to the file so Facebook cache wont ignore our changes
-        $ts = filemtime(INSTALLDIR.'/theme/base/css/display.css');
-
-    $this->element('link', array('rel' => 'stylesheet',
-               'type' => 'text/css',
-               'href' => theme_path('css/display.css', 'base') . '?ts=' . $ts));
-
-        $theme = common_config('site', 'theme');
-
-        $ts = filemtime(INSTALLDIR. '/theme/' . $theme .'/css/display.css');
-
-        $this->element('link', array('rel' => 'stylesheet',
-                                     'type' => 'text/css',
-                                     'href' => theme_path('css/display.css', null) . '?ts=' . $ts));
-
-        $ts = filemtime(INSTALLDIR.'/theme/base/css/facebookapp.css');
-
-        $this->element('link', array('rel' => 'stylesheet',
-                                     'type' => 'text/css',
-                                     'href' => theme_path('css/facebookapp.css', 'base') . '?ts=' . $ts));
+        $this->cssLink('css/display.css', 'base');
+        $this->cssLink('css/display.css',null,'screen, projection, tv');
+        $this->cssLink('css/facebookapp.css', 'base');
     }
 
     function showScripts()
     {
-        // Add a timestamp to the file so Facebook cache wont ignore our changes
-        $ts = filemtime(INSTALLDIR.'/js/facebookapp.js');
-
-        $this->element('script', array('src' => common_path('js/facebookapp.js') . '?ts=' . $ts));
+        $this->script('js/facebookapp.js');
     }
 
     /**
@@ -277,8 +257,13 @@ class FacebookAction extends Action
         $this->elementStart('dd');
         $this->elementStart('p');
         $this->text(sprintf($loginmsg_part1, common_config('site', 'name')));
-        $this->element('a',
-            array('href' => common_local_url('register')), _('Register'));
+        if (!common_config('site', 'openidonly')) {
+            $this->element('a',
+                array('href' => common_local_url('register')), _('Register'));
+        } else {
+            $this->element('a',
+                array('href' => common_local_url('openidlogin')), _('Register'));
+        }
         $this->text($loginmsg_part2);
     $this->elementEnd('p');
         $this->elementEnd('dd');
@@ -389,7 +374,7 @@ class FacebookAction extends Action
          display:inline-block;
          }
 
-     #facebook_laconica_app {
+     #facebook_statusnet_app {
      text-indent:-9999px;
      height:16px;
      width:16px;
@@ -688,7 +673,7 @@ class FacebookProfileBoxNotice extends FacebookNoticeListItem
         $this->app_uri = 'http://apps.facebook.com/' . $app_props['canvas_name'];
         $this->app_name = $app_props['application_name'];
 
-        $this->out->elementStart('a', array('id' => 'facebook_laconica_app',
+        $this->out->elementStart('a', array('id' => 'facebook_statusnet_app',
                                             'href' => $this->app_uri));
         $this->out->text($this->app_name);
         $this->out->elementEnd('a');

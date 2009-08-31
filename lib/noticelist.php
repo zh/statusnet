@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * widget for displaying a list of notices
  *
@@ -20,15 +20,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  UI
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @author    Sarven Capadisli <csarven@controlyourself.ca>
- * @copyright 2008 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    Sarven Capadisli <csarven@status.net>
+ * @copyright 2008 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -45,10 +45,10 @@ require_once INSTALLDIR.'/lib/attachmentlist.php';
  * data for e.g. the profile page.
  *
  * @category UI
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  * @see      Notice
  * @see      NoticeListItem
  * @see      ProfileNoticeList
@@ -133,10 +133,10 @@ class NoticeList extends Widget
  * author info (since that's implicit by the data in the page).
  *
  * @category UI
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  * @see      NoticeList
  * @see      ProfileNoticeListItem
  */
@@ -350,26 +350,20 @@ class NoticeListItem extends Widget
 
     function showNoticeLink()
     {
-        $noticeurl = common_local_url('shownotice',
+        if($this->notice->is_local){
+            $noticeurl = common_local_url('shownotice',
                                       array('notice' => $this->notice->id));
-        // XXX: we need to figure this out better. Is this right?
-        if (strcmp($this->notice->uri, $noticeurl) != 0 &&
-            preg_match('/^http/', $this->notice->uri)) {
+        }else{
             $noticeurl = $this->notice->uri;
         }
-        $this->out->elementStart('dl', 'timestamp');
-        $this->out->element('dt', null, _('Published'));
-        $this->out->elementStart('dd', null);
         $this->out->elementStart('a', array('rel' => 'bookmark',
+                                            'class' => 'timestamp',
                                             'href' => $noticeurl));
         $dt = common_date_iso8601($this->notice->created);
         $this->out->element('abbr', array('class' => 'published',
                                           'title' => $dt),
                             common_date_string($this->notice->created));
-
         $this->out->elementEnd('a');
-        $this->out->elementEnd('dd');
-        $this->out->elementEnd('dl');
     }
 
     /**
@@ -384,8 +378,8 @@ class NoticeListItem extends Widget
     function showNoticeSource()
     {
         if ($this->notice->source) {
-            $this->out->elementStart('dl', 'device');
-            $this->out->element('dt', null, _('From'));
+            $this->out->elementStart('span', 'source');
+            $this->out->text(_('from'));
             $source_name = _($this->notice->source);
             switch ($this->notice->source) {
              case 'web':
@@ -394,22 +388,22 @@ class NoticeListItem extends Widget
              case 'omb':
              case 'system':
              case 'api':
-                $this->out->element('dd', null, $source_name);
+                $this->out->element('span', 'device', $source_name);
                 break;
              default:
                 $ns = Notice_source::staticGet($this->notice->source);
                 if ($ns) {
-                    $this->out->elementStart('dd', null);
+                    $this->out->elementStart('span', 'device');
                     $this->out->element('a', array('href' => $ns->url,
                                                    'rel' => 'external'),
                                         $ns->name);
-                    $this->out->elementEnd('dd');
+                    $this->out->elementEnd('span');
                 } else {
-                    $this->out->element('dd', null, $source_name);
+                    $this->out->element('span', 'device', $source_name);
                 }
                 break;
             }
-            $this->out->elementEnd('dl');
+            $this->out->elementEnd('span');
         }
     }
 
@@ -429,13 +423,9 @@ class NoticeListItem extends Widget
             && $this->notice->conversation != $this->notice->id) {
             $convurl = common_local_url('conversation',
                                          array('id' => $this->notice->conversation));
-            $this->out->elementStart('dl', 'response');
-            $this->out->element('dt', null, _('To'));
-            $this->out->elementStart('dd');
-            $this->out->element('a', array('href' => $convurl.'#notice-'.$this->notice->id),
+            $this->out->element('a', array('href' => $convurl.'#notice-'.$this->notice->id,
+                                           'class' => 'response'),
                                 _('in context'));
-            $this->out->elementEnd('dd');
-            $this->out->elementEnd('dl');
         }
     }
 
@@ -453,17 +443,12 @@ class NoticeListItem extends Widget
         if (common_logged_in()) {
             $reply_url = common_local_url('newnotice',
                                           array('replyto' => $this->profile->nickname));
-
-            $this->out->elementStart('dl', 'notice_reply');
-            $this->out->element('dt', null, _('Reply to this notice'));
-            $this->out->elementStart('dd');
             $this->out->elementStart('a', array('href' => $reply_url,
+                                                'class' => 'notice_reply',
                                                 'title' => _('Reply to this notice')));
             $this->out->text(_('Reply'));
             $this->out->element('span', 'notice_id', $this->notice->id);
             $this->out->elementEnd('a');
-            $this->out->elementEnd('dd');
-            $this->out->elementEnd('dl');
         }
     }
 
@@ -479,13 +464,9 @@ class NoticeListItem extends Widget
         if ($user && $this->notice->profile_id == $user->id) {
             $deleteurl = common_local_url('deletenotice',
                                           array('notice' => $this->notice->id));
-            $this->out->elementStart('dl', 'notice_delete');
-            $this->out->element('dt', null, _('Delete this notice'));
-            $this->out->elementStart('dd');
             $this->out->element('a', array('href' => $deleteurl,
+                                           'class' => 'notice_delete',
                                            'title' => _('Delete this notice')), _('Delete'));
-            $this->out->elementEnd('dd');
-            $this->out->elementEnd('dl');
         }
     }
 

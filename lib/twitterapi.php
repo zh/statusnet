@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -88,7 +88,7 @@ class TwitterapiAction extends Action
             Avatar::defaultImage(AVATAR_STREAM_SIZE);
 
         $twitter_user['url'] = ($profile->homepage) ? $profile->homepage : null;
-        $twitter_user['protected'] = false; # not supported by Laconica yet
+        $twitter_user['protected'] = false; # not supported by StatusNet yet
         $twitter_user['followers_count'] = $profile->subscriberCount();
 
         // To be supported soon...
@@ -159,7 +159,7 @@ class TwitterapiAction extends Action
 
         $twitter_status = array();
         $twitter_status['text'] = $notice->content;
-        $twitter_status['truncated'] = false; # Not possible on Laconica
+        $twitter_status['truncated'] = false; # Not possible on StatusNet
         $twitter_status['created_at'] = $this->date_twitter($notice->created);
         $twitter_status['in_reply_to_status_id'] = ($notice->reply_to) ?
             intval($notice->reply_to) : null;
@@ -186,7 +186,7 @@ class TwitterapiAction extends Action
             $twitter_status['favorited'] = false;
         }
 
-        # Enclosures
+        // Enclosures
         $attachments = $notice->attachments();
 
         if (!empty($attachments)) {
@@ -213,12 +213,50 @@ class TwitterapiAction extends Action
         return $twitter_status;
     }
 
+    function twitter_group_array($group)
+    {
+        $twitter_group=array();
+        $twitter_group['id']=$group->id;
+        $twitter_group['url']=$group->permalink();
+        $twitter_group['nickname']=$group->nickname;
+        $twitter_group['fullname']=$group->fullname;
+        $twitter_group['homepage_url']=$group->homepage_url;
+        $twitter_group['original_logo']=$group->original_logo;
+        $twitter_group['homepage_logo']=$group->homepage_logo;
+        $twitter_group['stream_logo']=$group->stream_logo;
+        $twitter_group['mini_logo']=$group->mini_logo;
+        $twitter_group['homepage']=$group->homepage;
+        $twitter_group['description']=$group->description;
+        $twitter_group['location']=$group->location;
+        $twitter_group['created']=$this->date_twitter($group->created);
+        $twitter_group['modified']=$this->date_twitter($group->modified);
+        return $twitter_group;
+    }
+
+    function twitter_rss_group_array($group)
+    {
+        $entry = array();
+        $entry['content']=$group->description;
+        $entry['title']=$group->nickname;
+        $entry['link']=$group->permalink();
+        $entry['published']=common_date_iso8601($group->created);
+        $entry['updated']==common_date_iso8601($group->modified);
+        $taguribase = common_config('integration', 'groupuri');
+        $entry['id'] = "group:$groupuribase:$entry[link]";
+
+        $entry['description'] = $entry['content'];
+        $entry['pubDate'] = common_date_rfc2822($group->created);
+        $entry['guid'] = $entry['link'];
+
+        return $entry;
+    }
+
     function twitter_rss_entry_array($notice)
     {
         $profile = $notice->getProfile();
         $entry = array();
 
-        # We trim() to avoid extraneous whitespace in the output
+        // We trim() to avoid extraneous whitespace in the output
 
         $entry['content'] = common_xml_safe_str(trim($notice->rendered));
         $entry['title'] = $profile->nickname . ': ' . common_xml_safe_str(trim($notice->content));
@@ -231,7 +269,26 @@ class TwitterapiAction extends Action
         $entry['updated'] = $entry['published'];
         $entry['author'] = $profile->getBestName();
 
-        # Enclosure
+        // Enclosures
+        $attachments = $notice->attachments();
+        $enclosures = array();
+
+        foreach ($attachments as $attachment) {
+            if ($attachment->isEnclosure()) {
+                 $enclosure = array();
+                 $enclosure['url'] = $attachment->url;
+                 $enclosure['mimetype'] = $attachment->mimetype;
+                 $enclosure['size'] = $attachment->size;
+                 $enclosures[] = $enclosure;
+            }
+        }
+
+        if (!empty($enclosures)) {
+            $entry['enclosures'] = $enclosures;
+        }
+
+/*
+        // Enclosure
         $attachments = $notice->attachments();
         if($attachments){
             $entry['enclosures']=array();
@@ -245,8 +302,20 @@ class TwitterapiAction extends Action
                 }
             }
         }
+*/
 
-        # RSS Item specific
+        // Tags/Categories
+        $tag = new Notice_tag();
+        $tag->notice_id = $notice->id;
+        if ($tag->find()) {
+            $entry['tags']=array();
+            while ($tag->fetch()) {
+                $entry['tags'][]=$tag->tag;
+            }
+        }
+        $tag->free();
+
+        // RSS Item specific
         $entry['description'] = $entry['content'];
         $entry['pubDate'] = common_date_rfc2822($notice->created);
         $entry['guid'] = $entry['link'];
@@ -382,6 +451,15 @@ class TwitterapiAction extends Action
         $this->elementEnd('status');
     }
 
+    function show_twitter_xml_group($twitter_group)
+    {
+        $this->elementStart('group');
+        foreach($twitter_group as $element => $value) {
+            $this->element($element, null, $value);
+        }
+        $this->elementEnd('group');
+    }
+
     function show_twitter_xml_user($twitter_user, $role='user')
     {
         $this->elementStart($role);
@@ -419,9 +497,15 @@ class TwitterapiAction extends Action
         $this->element('link', null, $entry['link']);
 
         # RSS only supports 1 enclosure per item
-        if($entry['enclosures']){
+        if(array_key_exists('enclosures', $entry) and !empty($entry['enclosures'])){
             $enclosure = $entry['enclosures'][0];
             $this->element('enclosure', array('url'=>$enclosure['url'],'type'=>$enclosure['mimetype'],'length'=>$enclosure['size']), null);
+        }
+        
+        if(array_key_exists('tags', $entry)){
+            foreach($entry['tags'] as $tag){
+                $this->element('category', null,$tag);
+            }
         }
 
         $this->elementEnd('item');
@@ -578,6 +662,65 @@ class TwitterapiAction extends Action
 
     }
 
+    function show_rss_groups($group, $title, $link, $subtitle)
+    {
+
+        $this->init_document('rss');
+
+        $this->elementStart('channel');
+        $this->element('title', null, $title);
+        $this->element('link', null, $link);
+        $this->element('description', null, $subtitle);
+        $this->element('language', null, 'en-us');
+        $this->element('ttl', null, '40');
+
+        if (is_array($group)) {
+            foreach ($group as $g) {
+                $twitter_group = $this->twitter_rss_group_array($g);
+                $this->show_twitter_rss_item($twitter_group);
+            }
+        } else {
+            while ($group->fetch()) {
+                $twitter_group = $this->twitter_rss_group_array($group);
+                $this->show_twitter_rss_item($twitter_group);
+            }
+        }
+
+        $this->elementEnd('channel');
+        $this->end_twitter_rss();
+    }
+
+    function show_atom_groups($group, $title, $id, $link, $subtitle=null, $selfuri=null)
+    {
+
+        $this->init_document('atom');
+
+        $this->element('title', null, $title);
+        $this->element('id', null, $id);
+        $this->element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), null);
+
+        if (!is_null($selfuri)) {
+            $this->element('link', array('href' => $selfuri,
+                'rel' => 'self', 'type' => 'application/atom+xml'), null);
+        }
+
+        $this->element('updated', null, common_date_iso8601('now'));
+        $this->element('subtitle', null, $subtitle);
+
+        if (is_array($group)) {
+            foreach ($group as $g) {
+                $this->raw($g->asAtomEntry());
+            }
+        } else {
+            while ($group->fetch()) {
+                $this->raw($group->asAtomEntry());
+            }
+        }
+
+        $this->end_document('atom');
+
+    }
+
     function show_json_timeline($notice)
     {
 
@@ -600,6 +743,114 @@ class TwitterapiAction extends Action
         $this->show_json_objects($statuses);
 
         $this->end_document('json');
+    }
+
+    function show_json_groups($group)
+    {
+
+        $this->init_document('json');
+
+        $groups = array();
+
+        if (is_array($group)) {
+            foreach ($group as $g) {
+                $twitter_group = $this->twitter_group_array($g);
+                array_push($groups, $twitter_group);
+            }
+        } else {
+            while ($group->fetch()) {
+                $twitter_group = $this->twitter_group_array($group);
+                array_push($groups, $twitter_group);
+            }
+        }
+
+        $this->show_json_objects($groups);
+
+        $this->end_document('json');
+    }
+
+    function show_xml_groups($group)
+    {
+
+        $this->init_document('xml');
+        $this->elementStart('groups', array('type' => 'array'));
+
+        if (is_array($group)) {
+            foreach ($group as $g) {
+                $twitter_group = $this->twitter_group_array($g);
+                $this->show_twitter_xml_group($twitter_group);
+            }
+        } else {
+            while ($group->fetch()) {
+                $twitter_group = $this->twitter_group_array($group);
+                $this->show_twitter_xml_group($twitter_group);
+            }
+        }
+
+        $this->elementEnd('groups');
+        $this->end_document('xml');
+    }
+
+    function show_twitter_xml_users($user)
+    {
+
+        $this->init_document('xml');
+        $this->elementStart('users', array('type' => 'array'));
+
+        if (is_array($user)) {
+            foreach ($group as $g) {
+                $twitter_user = $this->twitter_user_array($g);
+                $this->show_twitter_xml_user($twitter_user,'user');
+            }
+        } else {
+            while ($user->fetch()) {
+                $twitter_user = $this->twitter_user_array($user);
+                $this->show_twitter_xml_user($twitter_user);
+            }
+        }
+
+        $this->elementEnd('users');
+        $this->end_document('xml');
+    }
+
+    function show_json_users($user)
+    {
+
+        $this->init_document('json');
+
+        $users = array();
+
+        if (is_array($user)) {
+            foreach ($user as $u) {
+                $twitter_user = $this->twitter_user_array($u);
+                array_push($users, $twitter_user);
+            }
+        } else {
+            while ($user->fetch()) {
+                $twitter_user = $this->twitter_user_array($user);
+                array_push($users, $twitter_user);
+            }
+        }
+
+        $this->show_json_objects($users);
+
+        $this->end_document('json');
+    }
+
+    function show_single_json_group($group)
+    {
+        $this->init_document('json');
+        $twitter_group = $this->twitter_group_array($group);
+        $this->show_json_objects($twitter_group);
+        $this->end_document('json');
+    }
+
+    function show_single_xml_group($group)
+    {
+        $this->init_document('xml');
+        $twitter_group = $this->twitter_group_array($group);
+        $this->show_twitter_xml_group($twitter_group);
+        $this->end_document('xml');
     }
 
     // Anyone know what date format this is?
@@ -762,9 +1013,9 @@ class TwitterapiAction extends Action
         $this->endXML();
     }
 
-    function show_profile($profile, $content_type='xml', $notice=null)
+    function show_profile($profile, $content_type='xml', $notice=null, $includeStatuses=true)
     {
-        $profile_array = $this->twitter_user_array($profile, true);
+        $profile_array = $this->twitter_user_array($profile, $includeStatuses);
         switch ($content_type) {
         case 'xml':
             $this->show_twitter_xml_user($profile_array);

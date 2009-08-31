@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Base class for RSS 1.0 feed actions
  *
@@ -20,15 +20,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Mail
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
  * @author    Earle Martin <earle@downlode.org>
- * @copyright 2008-9 Control Yourself, Inc.
+ * @copyright 2008-9 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 define('DEFAULT_RSS_LIMIT', 48);
 
@@ -39,6 +39,7 @@ class Rss10Action extends Action
     var $creators = array();
     var $limit = DEFAULT_RSS_LIMIT;
     var $notices = null;
+    var $tags_already_output = array();
 
     /**
      * Constructor
@@ -96,9 +97,46 @@ class Rss10Action extends Action
     {
         // Parent handling, including cache check
         parent::handle($args);
+
+        if (common_config('site', 'private')) {
+            if (!isset($_SERVER['PHP_AUTH_USER'])) {
+
+                # This header makes basic auth go
+                header('WWW-Authenticate: Basic realm="StatusNet RSS"');
+
+                # If the user hits cancel -- bam!
+                $this->show_basic_auth_error();
+                return;
+            } else {
+                $nickname = $_SERVER['PHP_AUTH_USER'];
+                $password = $_SERVER['PHP_AUTH_PW'];
+
+                if (!common_check_user($nickname, $password)) {
+                    # basic authentication failed
+                    list($proxy, $ip) = common_client_ip();
+
+                    common_log(LOG_WARNING, "Failed RSS auth attempt, nickname = $nickname, proxy = $proxy, ip = $ip.");
+                    $this->show_basic_auth_error();
+                    return;
+                }
+            }
+        }
+
         // Get the list of notices
         $this->notices = $this->getNotices($this->limit);
         $this->showRss();
+    }
+
+    function show_basic_auth_error()
+    {
+        header('HTTP/1.1 401 Unauthorized');
+        header('Content-Type: application/xml; charset=utf-8');
+        $this->startXML();
+        $this->elementStart('hash');
+        $this->element('error', null, 'Could not authenticate you.');
+        $this->element('request', null, $_SERVER['REQUEST_URI']);
+        $this->elementEnd('hash');
+        $this->endXML();
     }
 
     /**
@@ -188,24 +226,6 @@ class Rss10Action extends Action
         }
     }
 
-    // XXX: Surely there should be a common function to do this?
-    function extract_tags ($string)
-    {
-        $count = preg_match_all('/(?:^|\s)#([A-Za-z0-9_\-\.]{1,64})/', strtolower($string), $match);
-        if (!count)
-        {
-            return array();
-        }
-
-        $rv = array();
-        foreach ($match[1] as $tag)
-        {
-            $rv[] = common_canonical_tag($tag);
-        } 
-
-        return array_unique($rv);
-    }
-	 
     function showItem($notice)
     {
         $profile = Profile::staticGet($notice->profile_id);
@@ -224,11 +244,16 @@ class Rss10Action extends Action
         $this->element('dc:creator', null, ($profile->fullname) ? $profile->fullname : $profile->nickname);
         $this->element('foaf:maker', array('rdf:resource' => $creator_uri));
         $this->element('sioc:has_creator', array('rdf:resource' => $creator_uri.'#acct'));
-        $this->element('laconica:postIcon', array('rdf:resource' => $profile->avatarUrl()));
+        $this->element('statusnet:postIcon', array('rdf:resource' => $profile->avatarUrl()));
         $this->element('cc:licence', array('rdf:resource' => common_config('license', 'url')));
         if ($notice->reply_to) {
             $replyurl = common_local_url('shownotice', array('notice' => $notice->reply_to));
             $this->element('sioc:reply_of', array('rdf:resource' => $replyurl));
+        }
+        if (!empty($notice->conversation)) {
+            $conversationurl = common_local_url('conversation',
+                                         array('id' => $notice->conversation));
+            $this->element('sioc:has_discussion', array('rdf:resource' => $conversationurl));
         }
         $attachments = $notice->attachments();
         if($attachments){
@@ -259,18 +284,28 @@ class Rss10Action extends Action
                 $this->element('sioc:links_to', array('rdf:resource'=>$attachment->url));
             }
         }
-        $tags = $this->extract_tags($notice->content);
-        if (!empty($tags)) {
-            foreach ($tags as $tag)
-            {
-                $tagpage = common_local_url('tag', array('tag' => $tag));
-                $tagrss  = common_local_url('tagrss', array('tag' => $tag));
+
+        $tag = new Notice_tag();
+        $tag->notice_id = $notice->id;
+        if ($tag->find()) {
+            $entry['tags']=array();
+            while ($tag->fetch()) {
+                $tagpage = common_local_url('tag', array('tag' => $tag->tag));
+
+                if ( in_array($tag, $this->tags_already_output) ) {
+                    $this->element('ctag:tagged', array('rdf:resource'=>$tagpage.'#concept'));
+                    continue;
+                }
+
+                $tagrss  = common_local_url('tagrss', array('tag' => $tag->tag));
                 $this->elementStart('ctag:tagged');
-                $this->elementStart('ctag:Tag', array('rdf:about'=>$tagpage.'#concept', 'ctag:label'=>$tag));
+                $this->elementStart('ctag:Tag', array('rdf:about'=>$tagpage.'#concept', 'ctag:label'=>$tag->tag));
                 $this->element('foaf:page', array('rdf:resource'=>$tagpage));
                 $this->element('rdfs:seeAlso', array('rdf:resource'=>$tagrss));
                 $this->elementEnd('ctag:Tag');
                 $this->elementEnd('ctag:tagged');
+
+                $this->tags_already_output[] = $tag->tag;
             }
         }
         $this->elementEnd('item');
@@ -318,8 +353,8 @@ class Rss10Action extends Action
                                               'http://rdfs.org/sioc/types#',
                                               'xmlns:rdfs' =>
                                               'http://www.w3.org/2000/01/rdf-schema#',
-                                              'xmlns:laconica' =>
-                                              'http://laconi.ca/ont/',
+                                              'xmlns:statusnet' =>
+                                              'http://status.net/ont/',
                                               'xmlns' => 'http://purl.org/rss/1.0/'));
         $this->elementStart('sioc:Site', array('rdf:about' => common_root_url()));
         $this->element('sioc:name', null, common_config('site', 'name'));

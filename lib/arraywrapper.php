@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -25,12 +25,14 @@ class ArrayWrapper
 {
     var $_items = null;
     var $_count = 0;
+    var $N = 0;
     var $_i = -1;
 
     function __construct($items)
     {
         $this->_items = $items;
         $this->_count = count($this->_items);
+        $this->N = $this->_count;
     }
 
     function fetch()

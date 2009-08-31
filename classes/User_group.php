@@ -275,11 +275,14 @@ class User_group extends Memcached_DataObject
         // XXX: cache this
 
         $user = new User();
+        if(common_config('db','quote_identifiers'))
+            $user_table = '"user"';
+        else $user_table = 'user';
 
         $qry =
           'SELECT id ' .
-          'FROM user JOIN group_member '.
-          'ON user.id = group_member.profile_id ' .
+          'FROM '. $user_table .' JOIN group_member '.
+          'ON '. $user_table .'.id = group_member.profile_id ' .
           'WHERE group_member.group_id = %d ';
 
         $user->query(sprintf($qry, $this->id));
@@ -293,5 +296,46 @@ class User_group extends Memcached_DataObject
         $user->free();
 
         return $ids;
+    }
+
+    function asAtomEntry($namespace=false, $source=false)
+    {
+        $xs = new XMLStringer(true);
+
+        if ($namespace) {
+            $attrs = array('xmlns' => 'http://www.w3.org/2005/Atom',
+                           'xmlns:thr' => 'http://purl.org/syndication/thread/1.0');
+        } else {
+            $attrs = array();
+        }
+
+        $xs->elementStart('entry', $attrs);
+
+        if ($source) {
+            $xs->elementStart('source');
+            $xs->element('title', null, $profile->nickname . " - " . common_config('site', 'name'));
+            $xs->element('link', array('href' => $this->permalink()));
+        }
+
+        if ($source) {
+            $xs->elementEnd('source');
+        }
+
+        $xs->element('title', null, $this->nickname);
+        $xs->element('summary', null, $this->description);
+
+        $xs->element('link', array('rel' => 'alternate',
+                                   'href' => $this->permalink()));
+
+        $xs->element('id', null, $this->permalink());
+
+        $xs->element('published', null, common_date_w3dtf($this->created));
+        $xs->element('updated', null, common_date_w3dtf($this->modified));
+
+        $xs->element('content', array('type' => 'html'), $this->description);
+
+        $xs->elementEnd('entry');
+
+        return $xs->getString();
     }
 }

@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 /**
  * Table Definition for profile
@@ -199,7 +199,7 @@ class Profile extends Memcached_DataObject
         $query .= ' order by id DESC';
 
         if (!is_null($offset)) {
-            $query .= " limit $offset, $limit";
+            $query .= " LIMIT $limit OFFSET $offset";
         }
 
         $notice->query($query);
@@ -360,7 +360,6 @@ class Profile extends Memcached_DataObject
             $c->set(common_cache_key('profile:subscription_count:'.$this->id), $cnt);
         }
 
-        common_debug("subscriptionCount == $cnt");
         return $cnt;
     }
 
@@ -385,7 +384,6 @@ class Profile extends Memcached_DataObject
             $c->set(common_cache_key('profile:subscriber_count:'.$this->id), $cnt);
         }
 
-        common_debug("subscriberCount == $cnt");
         return $cnt;
     }
 
@@ -407,7 +405,6 @@ class Profile extends Memcached_DataObject
             $c->set(common_cache_key('profile:fave_count:'.$this->id), $cnt);
         }
 
-        common_debug("faveCount == $cnt");
         return $cnt;
     }
 
@@ -430,7 +427,6 @@ class Profile extends Memcached_DataObject
             $c->set(common_cache_key('profile:notice_count:'.$this->id), $cnt);
         }
 
-        common_debug("noticeCount == $cnt");
         return $cnt;
     }
 

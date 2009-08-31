@@ -1,10 +1,10 @@
 /** theme: base
  *
- * @package   Laconica
- * @author Sarven Capadisli <csarven@controlyourself.ca>
- * @copyright 2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author Sarven Capadisli <csarven@status.net>
+ * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
 * { margin:0; padding:0; }
@@ -482,7 +482,7 @@ height:16px;
 }
 #form_notice .form_note {
 position:absolute;
-top:99px;
+bottom:2px;
 right:98px;
 z-index:9;
 }
@@ -863,7 +863,7 @@ clear:left;
 float:left;
 font-size:0.95em;
 margin-left:59px;
-width:60%;
+width:50%;
 }
 #showstream .notice div.entry-content,
 #shownotice .notice div.entry-content {
@@ -876,21 +876,8 @@ float:left;
 font-size:1.025em;
 }
 
-.notice div.entry-content dl,
-.notice div.entry-content dt,
-.notice div.entry-content dd {
-display:inline;
-}
-
-.notice div.entry-content .timestamp dt,
-.notice div.entry-content .response dt {
-display:none;
-}
-.notice div.entry-content .timestamp a {
+.notice div.entry-content .timestamp {
 display:inline-block;
-}
-.notice div.entry-content .device dt {
-text-transform:lowercase;
 }
 
 .notice-options {
@@ -921,38 +908,28 @@ left:29px;
 .notice-options .notice_delete {
 right:0;
 }
-.notice-options .notice_reply dt {
-display:none;
-}
-
 .notice-options input,
 .notice-options a {
 text-indent:-9999px;
 outline:none;
 }
-
-.notice-options .notice_reply a,
 .notice-options input.submit {
 display:block;
 border:0;
 }
-.notice-options .notice_reply a,
-.notice-options .notice_delete a {
+.notice-options .notice_reply,
+.notice-options .notice_delete {
 text-decoration:none;
 padding-left:16px;
 }
-
 .notice-options form input.submit {
 width:16px;
 padding:2px 0;
 }
-
-.notice-options .notice_delete dt,
 .notice-options .form_favor legend,
 .notice-options .form_disfavor legend {
 display:none;
 }
-.notice-options .notice_delete fieldset,
 .notice-options .form_favor fieldset,
 .notice-options .form_disfavor fieldset {
 border:0;

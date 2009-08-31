@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Settings for Jabber/XMPP integration
  *
@@ -20,14 +20,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Settings
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2008-2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -38,10 +38,10 @@ require_once INSTALLDIR.'/lib/jabber.php';
  * Settings for Jabber/XMPP integration
  *
  * @category Settings
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
  * @see      SettingsAction
  */
@@ -84,6 +84,12 @@ class ImsettingsAction extends ConnectSettingsAction
 
     function showContent()
     {
+        if (!common_config('xmpp', 'enabled')) {
+            $this->element('div', array('class' => 'error'),
+                           _('IM is not available.'));
+            return;
+        }
+
         $user = common_current_user();
         $this->elementStart('form', array('method' => 'post',
                                           'id' => 'form_settings_im',

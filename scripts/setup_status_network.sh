@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source /etc/laconica/setup.cfg
+source /etc/statusnet/setup.cfg
 
 export nickname=$1
 export sitename=$2
@@ -13,7 +13,7 @@ export username=$nickname$USERBASE
 
 mysqladmin -h $DBHOST -u $ADMIN --password=$ADMINPASS create $database
 
-for f in laconica.sql innodb.sql sms_carrier.sql foreign_services.sql notice_source.sql; do
+for f in statusnet.sql innodb.sql sms_carrier.sql foreign_services.sql notice_source.sql; do
     mysql -h $DBHOST -u $ADMIN --password=$ADMINPASS $database < ../db/$f;
 done
 

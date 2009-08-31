@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * List of a user's subscriptions
  *
@@ -20,15 +20,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Social
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @author    Sarven Capadisli <csarven@controlyourself.ca>
- * @copyright 2008-2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    Sarven Capadisli <csarven@status.net>
+ * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -36,13 +36,13 @@ if (!defined('LACONICA')) {
  * A list of the user's subscriptions
  *
  * @category Social
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 class SubscriptionsAction extends GalleryAction
 {
@@ -174,14 +174,26 @@ class SubscriptionsListItem extends SubscriptionListItem
             return;
         }
 
+        if (!common_config('xmpp', 'enabled') && !common_config('sms', 'enabled')) {
+            return;
+        }
+
         $this->out->elementStart('form', array('id' => 'subedit-' . $this->profile->id,
                                           'method' => 'post',
                                           'class' => 'form_subscription_edit',
                                           'action' => common_local_url('subedit')));
         $this->out->hidden('token', common_session_token());
         $this->out->hidden('profile', $this->profile->id);
-        $this->out->checkbox('jabber', _('Jabber'), $sub->jabber);
-        $this->out->checkbox('sms', _('SMS'), $sub->sms);
+        if (common_config('xmpp', 'enabled')) {
+            $this->out->checkbox('jabber', _('Jabber'), $sub->jabber);
+        } else {
+            $this->out->hidden('jabber', $sub->jabber);
+        }
+        if (common_config('sms', 'enabled')) {
+            $this->out->checkbox('sms', _('SMS'), $sub->sms);
+        } else {
+            $this->out->hidden('sms', $sub->sms);
+        }
         $this->out->submit('save', _('Save'));
         $this->out->elementEnd('form');
         return;

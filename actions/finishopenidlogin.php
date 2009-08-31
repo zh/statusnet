@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/openid.php');
 
@@ -30,7 +30,9 @@ class FinishopenidloginAction extends Action
     function handle($args)
     {
         parent::handle($args);
-        if (common_is_real_login()) {
+        if (!common_config('openid', 'enabled')) {
+            common_redirect(common_local_url('login'));
+        } else if (common_is_real_login()) {
             $this->clientError(_('Already logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $token = $this->trimmed('token');
@@ -83,7 +85,7 @@ class FinishopenidloginAction extends Action
     function showContent()
     {
         if (!empty($this->message_text)) {
-            $this->element('p', null, $this->message);
+            $this->element('div', array('class' => 'error'), $this->message_text);
             return;
         }
 
@@ -217,7 +219,7 @@ class FinishopenidloginAction extends Action
 
         if (!Validate::string($nickname, array('min_length' => 1,
                                                'max_length' => 64,
-                                               'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
+                                               'format' => NICKNAME_FMT))) {
             $this->showForm(_('Nickname must have only lowercase letters and numbers and no spaces.'));
             return;
         }
@@ -389,7 +391,7 @@ class FinishopenidloginAction extends Action
     {
         if (!Validate::string($str, array('min_length' => 1,
                                           'max_length' => 64,
-                                          'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
+                                          'format' => NICKNAME_FMT))) {
             return false;
         }
         if (!User::allowed_nickname($str)) {
@@ -410,7 +412,7 @@ class FinishopenidloginAction extends Action
         }
     }
 
-    # We try to use an OpenID URL as a legal Laconica user name in this order
+    # We try to use an OpenID URL as a legal StatusNet user name in this order
     # 1. Plain hostname, like http://evanp.myopenid.com/
     # 2. One element in path, like http://profile.typekey.com/EvanProdromou/
     #    or http://getopenid.com/evanprodromou

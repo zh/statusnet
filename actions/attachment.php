@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Show notice attachments
  *
@@ -20,14 +20,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Personal
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2008-2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -37,10 +37,10 @@ require_once INSTALLDIR.'/lib/attachmentlist.php';
  * Show notice attachments
  *
  * @category Personal
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class AttachmentAction extends Action
@@ -96,6 +96,28 @@ class AttachmentAction extends Action
     {
         $a = new Attachment($this->attachment);
         return $a->title();
+    }
+
+    function extraHead()
+    {
+        $this->element('link',array('rel'=>'alternate',
+            'type'=>'application/json+oembed',
+            'href'=>common_local_url(
+                'oembed',
+                array(),
+                array('format'=>'json', 'url'=>
+                    common_local_url('attachment',
+                        array('attachment' => $this->attachment->id)))),
+            'title'=>'oEmbed'),null);
+        $this->element('link',array('rel'=>'alternate',
+            'type'=>'text/xml+oembed',
+            'href'=>common_local_url(
+                'oembed',
+                array(),
+                array('format'=>'xml','url'=>
+                    common_local_url('attachment',
+                        array('attachment' => $this->attachment->id)))),
+            'title'=>'oEmbed'),null);
     }
 
     /**
