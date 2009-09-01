@@ -319,6 +319,7 @@ class User extends Memcached_DataObject
                                                   common_config('site', 'name'),
                                                   $user->nickname),
                                           'system');
+                common_broadcast_notice($notice);
             }
         }
 
