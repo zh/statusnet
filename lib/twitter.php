@@ -160,6 +160,8 @@ function broadcast_twitter($notice)
             return broadcast_basicauth($notice, $flink);
         }
     }
+
+    return true;
 }
 
 function broadcast_oauth($notice, $flink) {
