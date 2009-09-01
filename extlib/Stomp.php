@@ -454,7 +454,7 @@ class Stomp
      */
     public function disconnect ()
     {
-		$header = array();
+		$headers = array();
 
 		if ($this->clientId != null) {
 			$headers["client-id"] = $this->clientId;
