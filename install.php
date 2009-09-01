@@ -267,12 +267,19 @@ function checkPrereqs()
 
 function checkExtension($name)
 {
-    if (!extension_loaded($name)) {
-        if (!@dl($name.'.so')) {
-            return false;
-        }
+    if (extension_loaded($name)) {
+        return true;
+    } elseif (function_exists('dl') && ini_get('enable_dl') && !ini_get('safe_mode')) {
+    	// dl will throw a fatal error if it's disabled or we're in safe mode.
+    	// More fun, it may not even exist under some SAPIs in 5.3.0 or later...
+    	$soname = $name . '.' . PHP_SHLIB_SUFFIX;
+    	if (PHP_SHLIB_SUFFIX == 'dll') {
+    		$soname = "php_" . $soname;
+    	}
+    	return @dl($soname);
+    } else {
+        return false;
     }
-    return true;
 }
 
 function showLibs()
