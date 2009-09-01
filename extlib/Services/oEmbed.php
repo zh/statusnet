@@ -303,7 +303,7 @@ class Services_oEmbed
         // Find all <link /> tags that have a valid oembed type set. We then
         // extract the href attribute for each type.
         $regexp = '#<link([^>]*)type="' . 
-                  '(application/json|text/xml)\+oembed"([^>]*)>#i';
+                  '(application/json|text/xml)\+oembed"([^>]*)>#im';
 
         $m = $ret = array();
         if (!preg_match_all($regexp, $body, $m)) {
