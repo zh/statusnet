@@ -225,10 +225,10 @@ class PublicAction extends Action
     function showAnonymousMessage()
     {
         if (! (common_config('site','closed') || common_config('site','inviteonly'))) {
-            $m = _('This is %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
+            $m = _('This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
                    'based on the Free Software [StatusNet](http://status.net/) tool. ' .
-                   '[Join now](%%%%action.register%%%%) to share notices about yourself with friends, family, and colleagues! ' .
-                   '([Read more](%%%%doc.help%%%%))');
+                   '[Join now](%%action.register%%) to share notices about yourself with friends, family, and colleagues! ' .
+                   '([Read more](%%doc.help%%))');
         } else {
             $m = _('This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
                    'based on the Free Software [StatusNet](http://status.net/) tool.');
