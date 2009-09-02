@@ -56,7 +56,7 @@ class Notice extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    /* Notice types */ 
+    /* Notice types */
     const LOCAL_PUBLIC    =  1;
     const REMOTE_OMB      =  0;
     const LOCAL_NONPUBLIC = -1;
@@ -259,17 +259,6 @@ class Notice extends Memcached_DataObject
             $notice->addToInboxes();
 
             $notice->saveUrls();
-
-            // FIXME: why do we have to re-render the content?
-            // Remove this if it's not necessary.
-
-            $orig2 = clone($notice);
-
-            $notice->rendered = common_render_content($final, $notice);
-            if (!$notice->update($orig2)) {
-                common_log_db_error($notice, 'UPDATE', __FILE__);
-                return _('Problem saving notice.');
-            }
 
             $notice->query('COMMIT');
 

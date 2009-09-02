@@ -133,6 +133,8 @@ class ApiAction extends Action
                                 'groups/show',
                                 'groups/timeline',
                                 'groups/list_all',
+                                'groups/membership',
+                                'groups/is_member',
                                 'groups/timeline');
 
         static $bareauth = array('statuses/user_timeline',

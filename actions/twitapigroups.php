@@ -21,7 +21,7 @@
  *
  * @category  Twitter
  * @package   StatusNet
- * @author    Craig Andrews
+ * @author    Craig Andrews <candrews@integralblue.com>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
@@ -41,7 +41,7 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
  *
  * @category  Twitter
  * @package   StatusNet
- * @author    Craig Andrews
+ * @author    Craig Andrews <candrews@integralblue.com>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
@@ -233,4 +233,97 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
          }
      }
 
+     function membership($args, $apidata)
+     {
+         parent::handle($args);
+
+         common_debug("in groups api action");
+
+         $this->auth_user = $apidata['user'];
+         $group = $this->get_group($apidata['api_arg'], $apidata);
+         
+         if (empty($group)) {
+             $this->clientError('Not Found', 404, $apidata['content-type']);
+             return;
+         }
+
+         $sitename   = common_config('site', 'name');
+         $title      = sprintf(_("Members of %s group"), $group->nickname);
+         $taguribase = common_config('integration', 'taguri');
+         $id         = "tag:$taguribase:GroupMembership:".$group->id;
+         $link       = common_local_url('showgroup',
+             array('nickname' => $group->nickname));
+         $subtitle   = sprintf(_('Members of %1$s on %2$s'),
+             $group->nickname, $sitename);
+
+         $page     = (int)$this->arg('page', 1);
+         $count    = (int)$this->arg('count', 20);
+         $max_id   = (int)$this->arg('max_id', 0);
+         $since_id = (int)$this->arg('since_id', 0);
+         $since    = $this->arg('since');
+
+         $member = $group->getMembers(($page-1)*$count,
+             $count, $since_id, $max_id, $since);
+
+         switch($apidata['content-type']) {
+          case 'xml':
+             $this->show_twitter_xml_users($member);
+             break;
+          //TODO implement the RSS and ATOM content types
+          /*case 'rss':
+             $this->show_rss_users($member, $title, $link, $subtitle);
+             break;*/
+          /*case 'atom':
+             if (isset($apidata['api_arg'])) {
+                 $selfuri = common_root_url() .
+                     'api/statusnet/groups/membership/' .
+                         $apidata['api_arg'] . '.atom';
+             } else {
+                 $selfuri = common_root_url() .
+                  'api/statusnet/groups/membership.atom';
+             }
+             $this->show_atom_users($member, $title, $id, $link,
+                 $subtitle, null, $selfuri);
+             break;*/
+          case 'json':
+             $this->show_json_users($member);
+             break;
+          default:
+             $this->clientError(_('API method not found!'), $code = 404);
+         }
+     }
+
+     function is_member($args, $apidata)
+     {
+         parent::handle($args);
+
+         common_debug("in groups api action");
+
+         $this->auth_user = $apidata['user'];
+         $group = User_group::staticGet($args['group_id']);
+         if(! $group){
+            $this->clientError(_('Group not found'), $code = 500);
+         }
+         $user = User::staticGet('id', $args['user_id']);
+         if(! $user){
+            $this->clientError(_('User not found'), $code = 500);
+         }
+         
+         $is_member=$user->isMember($group);
+
+         switch($apidata['content-type']) {
+          case 'xml':
+             $this->init_document('xml');
+             $this->element('is_member', null, $is_member);
+             $this->end_document('xml');
+             break;
+          case 'json':
+             $this->init_document('json');
+             $this->show_json_objects(array('is_member'=>$is_member));
+             $this->end_document('json');
+             break;
+          default:
+             $this->clientError(_('API method not found!'), $code = 404);
+         }
+     }
 }

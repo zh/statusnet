@@ -788,6 +788,52 @@ class TwitterapiAction extends Action
         $this->end_document('xml');
     }
 
+    function show_twitter_xml_users($user)
+    {
+
+        $this->init_document('xml');
+        $this->elementStart('users', array('type' => 'array'));
+
+        if (is_array($user)) {
+            foreach ($group as $g) {
+                $twitter_user = $this->twitter_user_array($g);
+                $this->show_twitter_xml_user($twitter_user,'user');
+            }
+        } else {
+            while ($user->fetch()) {
+                $twitter_user = $this->twitter_user_array($user);
+                $this->show_twitter_xml_user($twitter_user);
+            }
+        }
+
+        $this->elementEnd('users');
+        $this->end_document('xml');
+    }
+
+    function show_json_users($user)
+    {
+
+        $this->init_document('json');
+
+        $users = array();
+
+        if (is_array($user)) {
+            foreach ($user as $u) {
+                $twitter_user = $this->twitter_user_array($u);
+                array_push($users, $twitter_user);
+            }
+        } else {
+            while ($user->fetch()) {
+                $twitter_user = $this->twitter_user_array($user);
+                array_push($users, $twitter_user);
+            }
+        }
+
+        $this->show_json_objects($users);
+
+        $this->end_document('json');
+    }
+
     function show_single_json_group($group)
     {
         $this->init_document('json');
