@@ -165,7 +165,7 @@ class TwittersettingsAction extends ConnectSettingsAction
                                 ($flink->noticesync & FOREIGN_NOTICE_RECV) :
                                 false);
                 $this->elementEnd('li');
-
+            } else {
                 // preserve setting even if bidrection bridge toggled off
 
                 if ($flink && ($flink->noticesync & FOREIGN_NOTICE_RECV)) {
