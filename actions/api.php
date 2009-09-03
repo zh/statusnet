@@ -221,12 +221,12 @@ class ApiAction extends Action
 	elseif ( isset($authorization_header) && strstr(substr($authorization_header, 0,5),'Basic')  )
 	{
 		// decode the HTTP_AUTHORIZATION header on php-cgi server self
-		// on fcgid server is the header name AUTHORIZATION
+		// on fcgid server the header name is AUTHORIZATION
 
 		$auth_hash = base64_decode( substr($authorization_header, 6) );
 		list($this->auth_user, $this->auth_pw) = explode(':', $auth_hash);
 
-		// set all to NULL on a emty basic auth request
+		// set all to NULL on a empty basic auth request
 		if($this->auth_user == "") {
 			$this->auth_user = NULL;
 			$this->auth_pw = NULL;
