@@ -1373,57 +1373,15 @@ function common_shorten_url($long_url)
     } else {
         $svc = $user->urlshorteningservice;
     }
-
-    $curlh = curl_init();
-    curl_setopt($curlh, CURLOPT_CONNECTTIMEOUT, 20); // # seconds to wait
-    curl_setopt($curlh, CURLOPT_USERAGENT, 'StatusNet');
-    curl_setopt($curlh, CURLOPT_RETURNTRANSFER, true);
-
-    switch($svc) {
-     case 'ur1.ca':
-        require_once INSTALLDIR.'/lib/Shorturl_api.php';
-        $short_url_service = new LilUrl;
-        $short_url = $short_url_service->shorten($long_url);
-        break;
-
-     case '2tu.us':
-        $short_url_service = new TightUrl;
-        require_once INSTALLDIR.'/lib/Shorturl_api.php';
-        $short_url = $short_url_service->shorten($long_url);
-        break;
-
-     case 'ptiturl.com':
-        require_once INSTALLDIR.'/lib/Shorturl_api.php';
-        $short_url_service = new PtitUrl;
-        $short_url = $short_url_service->shorten($long_url);
-        break;
-
-     case 'bit.ly':
-        curl_setopt($curlh, CURLOPT_URL, 'http://bit.ly/api?method=shorten&long_url='.urlencode($long_url));
-        $short_url = current(json_decode(curl_exec($curlh))->results)->hashUrl;
-        break;
-
-     case 'is.gd':
-        curl_setopt($curlh, CURLOPT_URL, 'http://is.gd/api.php?longurl='.urlencode($long_url));
-        $short_url = curl_exec($curlh);
-        break;
-     case 'snipr.com':
-        curl_setopt($curlh, CURLOPT_URL, 'http://snipr.com/site/snip?r=simple&link='.urlencode($long_url));
-        $short_url = curl_exec($curlh);
-        break;
-     case 'metamark.net':
-        curl_setopt($curlh, CURLOPT_URL, 'http://metamark.net/api/rest/simple?long_url='.urlencode($long_url));
-        $short_url = curl_exec($curlh);
-        break;
-     case 'tinyurl.com':
-        curl_setopt($curlh, CURLOPT_URL, 'http://tinyurl.com/api-create.php?url='.urlencode($long_url));
-        $short_url = curl_exec($curlh);
-        break;
-     default:
-        $short_url = false;
+    global $_shorteners;
+    if(! $_shorteners[$svc]){
+        //the user selected service doesn't exist, so default to ur1.ca
+        $svc = 'ur1.ca';
     }
 
-    curl_close($curlh);
+    $reflectionObj = new ReflectionClass($_shorteners[$svc]['callInfo'][0]);
+    $short_url_service = $reflectionObj->newInstanceArgs($_shorteners[$svc]['callInfo'][1]); 
+    $short_url = $short_url_service->shorten($long_url);
 
     return $short_url;
 }

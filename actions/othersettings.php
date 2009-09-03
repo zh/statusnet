@@ -91,19 +91,20 @@ class OthersettingsAction extends AccountSettingsAction
         $this->elementStart('fieldset');
         $this->hidden('token', common_session_token());
 
-        // I18N
-
-        $services = array(
-                          '' => 'None',
-                          'ur1.ca' => 'ur1.ca (free service)',
-                          '2tu.us' => '2tu.us (free service)',
-                          'ptiturl.com' => 'ptiturl.com',
-                          'bit.ly' => 'bit.ly',
-                          'tinyurl.com' => 'tinyurl.com',
-                          'is.gd' => 'is.gd',
-                          'snipr.com' => 'snipr.com',
-                          'metamark.net' => 'metamark.net'
-                          );
+        $services=array();
+        global $_shorteners;
+        if($_shorteners){
+            foreach($_shorteners as $name=>$value)
+            {
+                $services[$name]=$name;
+                if($value['info']['freeService']){
+                    // I18N
+                    $services[$name].=' (free service)';
+                }
+            }
+        }
+        asort($services);
+        $services['']='None';
 
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
