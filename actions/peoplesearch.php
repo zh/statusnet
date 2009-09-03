@@ -85,6 +85,12 @@ class PeoplesearchAction extends SearchAction
             $profile->free();
         }
     }
+
+    function showScripts()
+    {
+        parent::showScripts();
+        $this->autofocus('q');
+    }
 }
 
 /**

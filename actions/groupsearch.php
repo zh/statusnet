@@ -91,6 +91,12 @@ class GroupsearchAction extends SearchAction
             $user_group->free();
         }
     }
+
+    function showScripts()
+    {
+        parent::showScripts();
+        $this->autofocus('q');
+    }
 }
 
 class GroupSearchResults extends GroupList
