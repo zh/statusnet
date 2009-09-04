@@ -135,6 +135,12 @@ class NoticesearchAction extends SearchAction
         $this->pagination($page > 1, $cnt > NOTICES_PER_PAGE,
                           $page, 'noticesearch', array('q' => $q));
     }
+
+    function showScripts()
+    {
+        parent::showScripts();
+        $this->autofocus('q');
+    }
 }
 
 class SearchNoticeList extends NoticeList {

@@ -445,6 +445,8 @@ class GrouplogoAction extends GroupDesignAction
             $this->script('js/jcrop/jquery.Jcrop.min.js');
             $this->script('js/jcrop/jquery.Jcrop.go.js');
         }
+
+        $this->autofocus('avatarfile');
     }
 
     function showLocalNav()
