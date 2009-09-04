@@ -199,7 +199,8 @@ class OAuthRequest {/*{{{*/
     } else {
       // collect request parameters from query string (GET) and post-data (POST) if appropriate (note: POST vars have priority)
       $req_parameters = $_GET;
-      if ($http_method == "POST" && @strstr($request_headers["Content-Type"], "application/x-www-form-urlencoded") ) {
+      if ($http_method == "POST" &&
+        ( @strstr($request_headers["Content-Type"], "application/x-www-form-urlencoded") || @strstr($_ENV["CONTENT_TYPE"], "application/x-www-form-urlencoded") )) {
         $req_parameters = array_merge($req_parameters, $_POST);
       }
 
