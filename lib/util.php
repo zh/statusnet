@@ -59,7 +59,7 @@ function common_init_language()
     textdomain("statusnet");
     setlocale(LC_CTYPE, 'C');
     if(!$locale_set) {
-        common_log(LOG_INFO,'Language requested:'.$language.' - locale could not be set:',__FILE__);
+        common_log(LOG_INFO, 'Language requested:' . $language . ' - locale could not be set. Perhaps that system locale is not installed.', __FILE__);
     }
 }
 
