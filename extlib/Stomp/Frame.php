@@ -74,7 +74,8 @@ class Stomp_Frame
         
         $data .= "\n";
         $data .= $this->body;
-        return $data .= "\x00\n";
+        $data .= "\x00\n"; // Should there really be a linefeed here?
+        return $data;
     }
 }
 ?>
