@@ -1,6 +1,6 @@
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * StatusNet - a distributed open-source microblogging tool
+ * Copyright (C) 2008, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by

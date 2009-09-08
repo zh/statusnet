@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 /**
  * Table Definition for notice
@@ -56,7 +56,7 @@ class Notice extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    /* Notice types */ 
+    /* Notice types */
     const LOCAL_PUBLIC    =  1;
     const REMOTE_OMB      =  0;
     const LOCAL_NONPUBLIC = -1;
@@ -259,17 +259,6 @@ class Notice extends Memcached_DataObject
             $notice->addToInboxes();
 
             $notice->saveUrls();
-
-            // FIXME: why do we have to re-render the content?
-            // Remove this if it's not necessary.
-
-            $orig2 = clone($notice);
-
-            $notice->rendered = common_render_content($final, $notice);
-            if (!$notice->update($orig2)) {
-                common_log_db_error($notice, 'UPDATE', __FILE__);
-                return _('Problem saving notice.');
-            }
 
             $notice->query('COMMIT');
 
@@ -755,6 +744,10 @@ class Notice extends Memcached_DataObject
             return new ArrayWrapper($notices);
         } else {
             $notice = new Notice();
+            if (empty($ids)) {
+                //if no IDs requested, just return the notice object
+                return $notice;
+            }
             $notice->whereAdd('id in (' . implode(', ', $ids) . ')');
             $notice->orderBy('id DESC');
 
@@ -1199,10 +1192,11 @@ class Notice extends Memcached_DataObject
         $attachments = $this->attachments();
         if($attachments){
             foreach($attachments as $attachment){
-                if ($attachment->isEnclosure()) {
-                    $attributes = array('rel'=>'enclosure','href'=>$attachment->url,'type'=>$attachment->mimetype,'length'=>$attachment->size);
-                    if($attachment->title){
-                        $attributes['title']=$attachment->title;
+                $enclosure=$attachment->getEnclosure();
+                if ($enclosure) {
+                    $attributes = array('rel'=>'enclosure','href'=>$enclosure->url,'type'=>$enclosure->mimetype,'length'=>$enclosure->size);
+                    if($enclosure->title){
+                        $attributes['title']=$enclosure->title;
                     }
                     $xs->element('link', $attributes, null);
                 }

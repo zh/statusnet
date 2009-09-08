@@ -1,8 +1,8 @@
 #!/usr/bin/env php
 <?php
 /**
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -47,15 +47,15 @@ require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
  * system.
  *
  * @category Twitter
- * @package  Laconica
- * @author   Zach Copley <zach@controlyourself.ca>
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Zach Copley <zach@status.net>
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 // NOTE: an Avatar path MUST be set in config.php for this
-// script to work: e.g.: $config['avatar']['path'] = '/laconica/avatar';
+// script to work: e.g.: $config['avatar']['path'] = '/statusnet/avatar';
 
 class TwitterStatusFetcher extends ParallelizingDaemon
 {
@@ -149,9 +149,9 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
     function getTimeline($flink)
     {
-         if (empty($flink)) {
+        if (empty($flink)) {
             common_log(LOG_WARNING, $this->name() .
-                " - Can't retrieve Foreign_link for foreign ID $fid");
+                       " - Can't retrieve Foreign_link for foreign ID $fid");
             return;
         }
 
@@ -162,17 +162,24 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         // to start importing?  How many statuses?  Right now I'm going
         // with the default last 20.
 
-        $token = TwitterOAuthClient::unpackToken($flink->credentials);
+        $client = null;
 
-        $client = new TwitterOAuthClient($token->key, $token->secret);
+        if (TwitterOAuthClient::isPackedToken($flink->credentials)) {
+            $token = TwitterOAuthClient::unpackToken($flink->credentials);
+            $client = new TwitterOAuthClient($token->key, $token->secret);
+            common_debug($this->name() . ' - Grabbing friends timeline with OAuth.');
+        } else {
+            $client = new TwitterBasicAuthClient($flink);
+            common_debug($this->name() . ' - Grabbing friends timeline with basic auth.');
+        }
 
         $timeline = null;
 
         try {
             $timeline = $client->statusesFriendsTimeline();
-        } catch (OAuthClientCurlException $e) {
+        } catch (Exception $e) {
             common_log(LOG_WARNING, $this->name() .
-                       ' - OAuth client unable to get friends timeline for user ' .
+                       ' - Twitter client unable to get friends timeline for user ' .
                        $flink->user_id . ' - code: ' .
                        $e->getCode() . 'msg: ' . $e->getMessage());
         }
@@ -186,7 +193,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
         foreach (array_reverse($timeline) as $status) {
 
-            // Hacktastic: filter out stuff coming from this Laconica
+            // Hacktastic: filter out stuff coming from this StatusNet
 
             $source = mb_strtolower(common_config('integration', 'source'));
 
@@ -479,7 +486,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         default:
 
             // Note: Twitter's big avatars are a different size than
-            // Laconica's (Laconica's = 96)
+            // StatusNet's (StatusNet's = 96)
 
             $avatar->width  = 73;
             $avatar->height = 73;

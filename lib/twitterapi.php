@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -88,7 +88,7 @@ class TwitterapiAction extends Action
             Avatar::defaultImage(AVATAR_STREAM_SIZE);
 
         $twitter_user['url'] = ($profile->homepage) ? $profile->homepage : null;
-        $twitter_user['protected'] = false; # not supported by Laconica yet
+        $twitter_user['protected'] = false; # not supported by StatusNet yet
         $twitter_user['followers_count'] = $profile->subscriberCount();
 
         // To be supported soon...
@@ -159,7 +159,7 @@ class TwitterapiAction extends Action
 
         $twitter_status = array();
         $twitter_status['text'] = $notice->content;
-        $twitter_status['truncated'] = false; # Not possible on Laconica
+        $twitter_status['truncated'] = false; # Not possible on StatusNet
         $twitter_status['created_at'] = $this->date_twitter($notice->created);
         $twitter_status['in_reply_to_status_id'] = ($notice->reply_to) ?
             intval($notice->reply_to) : null;
@@ -274,11 +274,12 @@ class TwitterapiAction extends Action
         $enclosures = array();
 
         foreach ($attachments as $attachment) {
-            if ($attachment->isEnclosure()) {
+            $enclosure_o=$attachment->getEnclosure();
+            if ($enclosure_o) {
                  $enclosure = array();
-                 $enclosure['url'] = $attachment->url;
-                 $enclosure['mimetype'] = $attachment->mimetype;
-                 $enclosure['size'] = $attachment->size;
+                 $enclosure['url'] = $enclosure_o->url;
+                 $enclosure['mimetype'] = $enclosure_o->mimetype;
+                 $enclosure['size'] = $enclosure_o->size;
                  $enclosures[] = $enclosure;
             }
         }
@@ -594,7 +595,6 @@ class TwitterapiAction extends Action
 
         $this->init_document('rss');
 
-        $this->elementStart('channel');
         $this->element('title', null, $title);
         $this->element('link', null, $link);
         if (!is_null($suplink)) {
@@ -620,7 +620,6 @@ class TwitterapiAction extends Action
             }
         }
 
-        $this->elementEnd('channel');
         $this->end_twitter_rss();
     }
 
@@ -667,7 +666,6 @@ class TwitterapiAction extends Action
 
         $this->init_document('rss');
 
-        $this->elementStart('channel');
         $this->element('title', null, $title);
         $this->element('link', null, $link);
         $this->element('description', null, $subtitle);
@@ -686,7 +684,6 @@ class TwitterapiAction extends Action
             }
         }
 
-        $this->elementEnd('channel');
         $this->end_twitter_rss();
     }
 
@@ -789,6 +786,52 @@ class TwitterapiAction extends Action
 
         $this->elementEnd('groups');
         $this->end_document('xml');
+    }
+
+    function show_twitter_xml_users($user)
+    {
+
+        $this->init_document('xml');
+        $this->elementStart('users', array('type' => 'array'));
+
+        if (is_array($user)) {
+            foreach ($group as $g) {
+                $twitter_user = $this->twitter_user_array($g);
+                $this->show_twitter_xml_user($twitter_user,'user');
+            }
+        } else {
+            while ($user->fetch()) {
+                $twitter_user = $this->twitter_user_array($user);
+                $this->show_twitter_xml_user($twitter_user);
+            }
+        }
+
+        $this->elementEnd('users');
+        $this->end_document('xml');
+    }
+
+    function show_json_users($user)
+    {
+
+        $this->init_document('json');
+
+        $users = array();
+
+        if (is_array($user)) {
+            foreach ($user as $u) {
+                $twitter_user = $this->twitter_user_array($u);
+                array_push($users, $twitter_user);
+            }
+        } else {
+            while ($user->fetch()) {
+                $twitter_user = $this->twitter_user_array($user);
+                array_push($users, $twitter_user);
+            }
+        }
+
+        $this->show_json_objects($users);
+
+        $this->end_document('json');
     }
 
     function show_single_json_group($group)
@@ -943,11 +986,14 @@ class TwitterapiAction extends Action
     function init_twitter_rss()
     {
         $this->startXML();
-        $this->elementStart('rss', array('version' => '2.0'));
+        $this->elementStart('rss', array('version' => '2.0', 'xmlns:atom'=>'http://www.w3.org/2005/Atom'));
+        $this->elementStart('channel');
+        Event::handle('StartApiRss', array($this));
     }
 
     function end_twitter_rss()
     {
+        $this->elementEnd('channel');
         $this->elementEnd('rss');
         $this->endXML();
     }
@@ -959,6 +1005,7 @@ class TwitterapiAction extends Action
         $this->elementStart('feed', array('xmlns' => 'http://www.w3.org/2005/Atom',
                                           'xml:lang' => 'en-US',
                                           'xmlns:thr' => 'http://purl.org/syndication/thread/1.0'));
+        Event::handle('StartApiAtom', array($this));
     }
 
     function end_twitter_atom()

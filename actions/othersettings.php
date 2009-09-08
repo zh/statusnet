@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Miscellaneous settings
  *
@@ -20,15 +20,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Settings
- * @package   Laconica
- * @author    Robin Millette <millette@controlyourself.ca>
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2008-2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Robin Millette <millette@status.net>
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -40,11 +40,11 @@ require_once INSTALLDIR.'/lib/accountsettingsaction.php';
  * Currently this just manages URL shortening.
  *
  * @category Settings
- * @package  Laconica
- * @author   Robin Millette <millette@controlyourself.ca>
- * @author   Zach Copley <zach@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Robin Millette <millette@status.net>
+ * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class OthersettingsAction extends AccountSettingsAction
@@ -91,19 +91,20 @@ class OthersettingsAction extends AccountSettingsAction
         $this->elementStart('fieldset');
         $this->hidden('token', common_session_token());
 
-        // I18N
-
-        $services = array(
-                          '' => 'None',
-                          'ur1.ca' => 'ur1.ca (free service)',
-                          '2tu.us' => '2tu.us (free service)',
-                          'ptiturl.com' => 'ptiturl.com',
-                          'bit.ly' => 'bit.ly',
-                          'tinyurl.com' => 'tinyurl.com',
-                          'is.gd' => 'is.gd',
-                          'snipr.com' => 'snipr.com',
-                          'metamark.net' => 'metamark.net'
-                          );
+        $services=array();
+        global $_shorteners;
+        if($_shorteners){
+            foreach($_shorteners as $name=>$value)
+            {
+                $services[$name]=$name;
+                if($value['info']['freeService']){
+                    // I18N
+                    $services[$name].=' (free service)';
+                }
+            }
+        }
+        asort($services);
+        $services['']='None';
 
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');

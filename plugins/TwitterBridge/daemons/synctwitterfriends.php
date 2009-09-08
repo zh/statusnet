@@ -1,8 +1,8 @@
 #!/usr/bin/env php
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -38,11 +38,11 @@ require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
  * Daemon to sync local friends with Twitter friends
  *
  * @category Twitter
- * @package  Laconica
- * @author   Zach Copley <zach@controlyourself.ca>
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Zach Copley <zach@status.net>
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 $helptext = <<<END_OF_TWITTER_HELP
@@ -143,13 +143,20 @@ class SyncTwitterFriendsDaemon extends ParallelizingDaemon
     {
         $friends = array();
 
-        $token = TwitterOAuthClient::unpackToken($flink->credentials);
+        $client = null;
 
-        $client = new TwitterOAuthClient($token->key, $token->secret);
+        if (TwitterOAuthClient::isPackedToken($flink->credentials)) {
+            $token = TwitterOAuthClient::unpackToken($flink->credentials);
+            $client = new TwitterOAuthClient($token->key, $token->secret);
+            common_debug($this->name() . '- Grabbing friends IDs with OAuth.');
+        } else {
+            $client = new TwitterBasicAuthClient($flink);
+            common_debug($this->name() . '- Grabbing friends IDs with basic auth.');
+        }
 
         try {
             $friends_ids = $client->friendsIds();
-        } catch (OAuthCurlException $e) {
+        } catch (Exception $e) {
             common_log(LOG_WARNING, $this->name() .
                        ' - cURL error getting friend ids ' .
                        $e->getCode() . ' - ' . $e->getMessage());
@@ -178,7 +185,7 @@ class SyncTwitterFriendsDaemon extends ParallelizingDaemon
 
         try {
             $more_friends = $client->statusesFriends(null, null, null, $i);
-        } catch (OAuthCurlException $e) {
+        } catch (Exception $e) {
             common_log(LOG_WARNING, $this->name() .
                        ' - cURL error getting Twitter statuses/friends ' .
                        "page $i - " . $e->getCode() . ' - ' .

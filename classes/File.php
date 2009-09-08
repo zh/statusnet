@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 require_once INSTALLDIR.'/classes/File_redirection.php';
@@ -78,14 +78,14 @@ class File extends Memcached_DataObject
         $file_id = $x->insert();
 
         if (isset($redir_data['type'])
-            && ('text/html' === substr($redir_data['type'], 0, 9))
+            && (('text/html' === substr($redir_data['type'], 0, 9) || 'application/xhtml+xml' === substr($redir_data['type'], 0, 21)))
             && ($oembed_data = File_oembed::_getOembed($given_url))) {
                 File_oembed::saveNew($oembed_data, $file_id);
         }
         return $x;
     }
 
-    function processNew($given_url, $notice_id) {
+    function processNew($given_url, $notice_id=null) {
         if (empty($given_url)) return -1;   // error, no url to process
         $given_url = File_redirection::_canonUrl($given_url);
         if (empty($given_url)) return -1;   // error, no url to process
@@ -96,7 +96,7 @@ class File extends Memcached_DataObject
                 $redir_data = File_redirection::where($given_url);
                 $redir_url = $redir_data['url'];
                 // TODO: max field length
-                if ($redir_url === $given_url || strlen($redir_url) > 255) { 
+                if ($redir_url === $given_url || strlen($redir_url) > 255) {
                     $x = File::saveNew($redir_data, $given_url);
                     $file_id = $x->id;
                 } else {
@@ -119,7 +119,9 @@ class File extends Memcached_DataObject
             }
         }
 
-        File_to_post::processNew($file_id, $notice_id);
+        if (!empty($notice_id)) {
+            File_to_post::processNew($file_id, $notice_id);
+        }
         return $x;
     }
 
@@ -195,17 +197,44 @@ class File extends Memcached_DataObject
         return 'http://'.$server.$path.$filename;
     }
 
-    function isEnclosure(){
-        if(isset($this->filename)){
-            return true;
+    function getEnclosure(){
+        $enclosure = (object) array();
+        $enclosure->title=$this->title;
+        $enclosure->url=$this->url;
+        $enclosure->title=$this->title;
+        $enclosure->date=$this->date;
+        $enclosure->modified=$this->modified;
+        $enclosure->size=$this->size;
+        $enclosure->mimetype=$this->mimetype;
+
+        if(! isset($this->filename)){
+            $notEnclosureMimeTypes = array('text/html','application/xhtml+xml');
+            $mimetype = strtolower($this->mimetype);
+            $semicolon = strpos($mimetype,';');
+            if($semicolon){
+                $mimetype = substr($mimetype,0,$semicolon);
+            }
+            if(in_array($mimetype,$notEnclosureMimeTypes)){
+                $oembed = File_oembed::staticGet('file_id',$this->id);
+                if($oembed){
+                    $mimetype = strtolower($oembed->mimetype);
+                    $semicolon = strpos($mimetype,';');
+                    if($semicolon){
+                        $mimetype = substr($mimetype,0,$semicolon);
+                    }
+                    if(in_array($mimetype,$notEnclosureMimeTypes)){
+                        return false;
+                    }else{
+                        if($oembed->mimetype) $enclosure->mimetype=$oembed->mimetype;
+                        if($oembed->url) $enclosure->url=$oembed->url;
+                        if($oembed->title) $enclosure->title=$oembed->title;
+                        if($oembed->modified) $enclosure->modified=$oembed->modified;
+                        unset($oembed->size);
+                    }
+                }
+            }
         }
-        $notEnclosureMimeTypes = array('text/html','application/xhtml+xml');
-        $mimetype = strtolower($this->mimetype);
-        $semicolon = strpos($mimetype,';');
-        if($semicolon){
-            $mimetype = substr($mimetype,0,$semicolon);
-        }
-        return(! in_array($mimetype,$notEnclosureMimeTypes));
+        return $enclosure;
     }
 }
 

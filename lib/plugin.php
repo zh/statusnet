@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Utility class for plugins
  *
@@ -20,21 +20,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Plugin
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2008 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2008 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
 /**
  * Base class for plugins
  *
- * A base class for Laconica plugins. Mostly a light wrapper around
+ * A base class for StatusNet plugins. Mostly a light wrapper around
  * the Event framework.
  *
  * Subclasses of Plugin will automatically handle an event if they define
@@ -45,10 +45,10 @@ if (!defined('LACONICA')) {
  * initialize() and cleanup() methods, respectively.
  *
  * @category Plugin
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
  * @see      Event
  */
@@ -75,5 +75,19 @@ class Plugin
     function cleanup()
     {
         return true;
+    }
+
+    /* 
+    * the name of the shortener
+    * shortenerInfo associative array with additional information. One possible element is 'freeService' which can be true or false
+    * shortener array, first element is the name of the class, second element is an array to be passed as constructor parameters to the class
+    */
+    function registerUrlShortener($name, $shortenerInfo, $shortener)
+    {
+        global $_shorteners;
+        if(!is_array($_shorteners)){
+            $_shorteners=array();
+        }
+        $_shorteners[$name]=array('info'=>$shortenerInfo, 'callInfo'=>$shortener);
     }
 }

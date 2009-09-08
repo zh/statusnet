@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Base class for RSS 1.0 feed actions
  *
@@ -20,15 +20,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Mail
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
  * @author    Earle Martin <earle@downlode.org>
- * @copyright 2008-9 Control Yourself, Inc.
+ * @copyright 2008-9 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 define('DEFAULT_RSS_LIMIT', 48);
 
@@ -102,7 +102,7 @@ class Rss10Action extends Action
             if (!isset($_SERVER['PHP_AUTH_USER'])) {
 
                 # This header makes basic auth go
-                header('WWW-Authenticate: Basic realm="Laconica RSS"');
+                header('WWW-Authenticate: Basic realm="StatusNet RSS"');
 
                 # If the user hits cancel -- bam!
                 $this->show_basic_auth_error();
@@ -244,7 +244,7 @@ class Rss10Action extends Action
         $this->element('dc:creator', null, ($profile->fullname) ? $profile->fullname : $profile->nickname);
         $this->element('foaf:maker', array('rdf:resource' => $creator_uri));
         $this->element('sioc:has_creator', array('rdf:resource' => $creator_uri.'#acct'));
-        $this->element('laconica:postIcon', array('rdf:resource' => $profile->avatarUrl()));
+        $this->element('statusnet:postIcon', array('rdf:resource' => $profile->avatarUrl()));
         $this->element('cc:licence', array('rdf:resource' => common_config('license', 'url')));
         if ($notice->reply_to) {
             $replyurl = common_local_url('shownotice', array('notice' => $notice->reply_to));
@@ -258,26 +258,27 @@ class Rss10Action extends Action
         $attachments = $notice->attachments();
         if($attachments){
             foreach($attachments as $attachment){
-                if ($attachment->isEnclosure()) {
+                $enclosure=$attachment->getEnclosure();
+                if ($enclosure) {
                     // DO NOT move xmlns declaration to root element. Making it
                     // the default namespace here improves compatibility with
                     // real-world feed readers.
                     $attribs = array(
-                        'rdf:resource' => $attachment->url,
-                        'url' => $attachment->url,
+                        'rdf:resource' => $enclosure->url,
+                        'url' => $enclosure->url,
                         'xmlns' => 'http://purl.oclc.org/net/rss_2.0/enc#'
                         );
-                    if ($attachment->title) {
-                        $attribs['dc:title'] = $attachment->title;
+                    if ($enclosure->title) {
+                        $attribs['dc:title'] = $enclosure->title;
                     }
-                    if ($attachment->modified) {
-                        $attribs['dc:date'] = common_date_w3dtf($attachment->modified);
+                    if ($enclosure->modified) {
+                        $attribs['dc:date'] = common_date_w3dtf($enclosure->modified);
                     }
-                    if ($attachment->size) {
-                        $attribs['length'] = $attachment->size;
+                    if ($enclosure->size) {
+                        $attribs['length'] = $enclosure->size;
                     }
-                    if ($attachment->mimetype) {
-                        $attribs['type'] = $attachment->mimetype;
+                    if ($enclosure->mimetype) {
+                        $attribs['type'] = $enclosure->mimetype;
                     }
                     $this->element('enclosure', $attribs);
                 }
@@ -353,8 +354,8 @@ class Rss10Action extends Action
                                               'http://rdfs.org/sioc/types#',
                                               'xmlns:rdfs' =>
                                               'http://www.w3.org/2000/01/rdf-schema#',
-                                              'xmlns:laconica' =>
-                                              'http://laconi.ca/ont/',
+                                              'xmlns:statusnet' =>
+                                              'http://status.net/ont/',
                                               'xmlns' => 'http://purl.org/rss/1.0/'));
         $this->elementStart('sioc:Site', array('rdf:about' => common_root_url()));
         $this->element('sioc:name', null, common_config('site', 'name'));

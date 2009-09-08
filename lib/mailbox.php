@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * common superclass for direct messages inbox and outbox
  *
@@ -20,14 +20,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Message
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2008 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2008 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -37,10 +37,10 @@ define('MESSAGES_PER_PAGE', 20);
  * common superclass for direct messages inbox and outbox
  *
  * @category Message
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  * @see      InboxAction
  * @see      OutboxAction
  */
@@ -213,26 +213,20 @@ class MailboxAction extends CurrentUserDesignAction
         }
 
         $this->elementStart('div', 'entry-content');
-        $this->elementStart('dl', 'timestamp');
-        $this->element('dt', null, _('Published'));
-        $this->elementStart('dd', null);
-        $dt = common_date_iso8601($message->created);
         $this->elementStart('a', array('rel' => 'bookmark',
+                                       'class' => 'timestamp',
                                        'href' => $messageurl));
+        $dt = common_date_iso8601($message->created);
         $this->element('abbr', array('class' => 'published',
                                      'title' => $dt),
                                common_date_string($message->created));
         $this->elementEnd('a');
-        $this->elementEnd('dd');
-        $this->elementEnd('dl');
 
         if ($message->source) {
-            $this->elementStart('dl', 'device');
-            $this->elementStart('dt');
-            $this->text(_('From'));
-            $this->elementEnd('dt');
-            $this->showSource($message->source);
-            $this->elementEnd('dl');
+            $this->elementStart('span', 'source');
+            $this->text(_('from'));
+            $this->element('span', 'device', $this->showSource($message->source));
+            $this->elementEnd('span');
         }
         $this->elementEnd('div');
 
@@ -277,18 +271,18 @@ class MailboxAction extends CurrentUserDesignAction
         case 'mail':
         case 'omb':
         case 'api':
-            $this->element('dd', null, $source_name);
+            $this->element('span', 'device', $source_name);
             break;
         default:
             $ns = Notice_source::staticGet($source);
             if ($ns) {
-                $this->elementStart('dd', null);
+                $this->elementStart('span', 'device');
                 $this->element('a', array('href' => $ns->url,
-                                          'rel' => 'external'),
-                               $ns->name);
-                $this->elementEnd('dd');
+                                               'rel' => 'external'),
+                                    $ns->name);
+                $this->elementEnd('span');
             } else {
-                $this->element('dd', null, $source_name);
+                $this->out->element('span', 'device', $source_name);
             }
             break;
         }

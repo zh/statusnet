@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Class for doing OAuth authentication against Twitter
  *
@@ -19,15 +19,15 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  Twitter
- * @package   Laconica
- * @author    Zach Copely <zach@controlyourself.ca>
- * @copyright 2009 Control Yourself, Inc.
+ * @category  TwitterauthorizationAction
+ * @package   StatusNet
+ * @author    Zach Copely <zach@status.net>
+ * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -36,14 +36,14 @@ require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
 /**
  * Class for doing OAuth authentication against Twitter
  *
- * Peforms the OAuth "dance" between Laconica and Twitter -- requests a token,
+ * Peforms the OAuth "dance" between StatusNet and Twitter -- requests a token,
  * authorizes it, and exchanges it for an access token.  It also creates a link
- * (Foreign_link) between the Laconica user and Twitter user and stores the
+ * (Foreign_link) between the StatusNet user and Twitter user and stores the
  * access token and secret in the link.
  *
  * @category Twitter
- * @package  Laconica
- * @author   Zach Copley <zach@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://laconi.ca/
  *

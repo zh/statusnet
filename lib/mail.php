@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * utilities for sending email
  *
@@ -20,17 +20,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Mail
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @author    Zach Copley <zach@controlyourself.ca>
- * @author    Robin Millette <millette@controlyourself.ca>
- * @author    Sarven Capadisli <csarven@controlyourself.ca>
- * @copyright 2008 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    Zach Copley <zach@status.net>
+ * @author    Robin Millette <millette@status.net>
+ * @author    Sarven Capadisli <csarven@status.net>
+ * @copyright 2008 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -692,11 +692,11 @@ function mail_facebook_app_removed($user)
     $site_name = common_config('site', 'name');
 
     $subject = sprintf(
-        _('Your %1\$s Facebook application access has been disabled.',
+        _('Your %1$s Facebook application access has been disabled.',
             $site_name));
 
     $body = sprintf(_("Hi, %1\$s. We're sorry to inform you that we are " .
-        'unable to update your Facebook status from %2\$s, and have disabled ' .
+        'unable to update your Facebook status from %2$s, and have disabled ' .
         'the Facebook application for your account. This may be because ' .
         'you have removed the Facebook application\'s authorization, or ' .
         'have deleted your Facebook account.  You can re-enable the ' .

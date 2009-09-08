@@ -1,10 +1,10 @@
 /** Init for Farbtastic library and page setup
  *
- * @package   Laconica
- * @author Sarven Capadisli <csarven@controlyourself.ca>
- * @copyright 2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author Sarven Capadisli <csarven@status.net>
+ * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 $(document).ready(function() {
     function InitColors(i, E) {
@@ -27,11 +27,12 @@ $(document).ready(function() {
         }
     }
 
-    /* rgb2hex written by R0bb13 <robertorebollo@gmail.com> */
     function rgb2hex(rgb) {
+        if (rgb.slice(0,1) == '#') { return rgb; }
         rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
         return '#' + dec2hex(rgb[1]) + dec2hex(rgb[2]) + dec2hex(rgb[3]);
     }
+    /* dec2hex written by R0bb13 <robertorebollo@gmail.com> */
     function dec2hex(x) {
         hexDigits = new Array('0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F');
         return isNaN(x) ? '00' : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];

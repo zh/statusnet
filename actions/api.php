@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 class ApiAction extends Action
 {
@@ -53,7 +53,7 @@ class ApiAction extends Action
             if (!isset($_SERVER['PHP_AUTH_USER'])) {
 
                 # This header makes basic auth go
-                header('WWW-Authenticate: Basic realm="Laconica API"');
+                header('WWW-Authenticate: Basic realm="StatusNet API"');
 
                 # If the user hits cancel -- bam!
                 $this->show_basic_auth_error();
@@ -125,14 +125,16 @@ class ApiAction extends Action
                                 'users/show',
                                 'help/test',
                                 'help/downtime_schedule',
-                                'laconica/version',
-                                'laconica/config',
-                                'laconica/wadl',
+                                'statusnet/version',
+                                'statusnet/config',
+                                'statusnet/wadl',
                                 'tags/timeline',
                                 'oembed/oembed',
                                 'groups/show',
                                 'groups/timeline',
                                 'groups/list_all',
+                                'groups/membership',
+                                'groups/is_member',
                                 'groups/timeline');
 
         static $bareauth = array('statuses/user_timeline',
@@ -147,11 +149,11 @@ class ApiAction extends Action
 
         $fullname = "$this->api_action/$this->api_method";
 
-        // If the site is "private", all API methods except laconica/config
+        // If the site is "private", all API methods except statusnet/config
         // need authentication
 
         if (common_config('site', 'private')) {
-            return $fullname != 'laconica/config' || false;
+            return $fullname != 'statusnet/config' || false;
         }
 
         // bareauth: only needs auth if without an argument or query param specifying user

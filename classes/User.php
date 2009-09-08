@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -103,10 +103,7 @@ class User extends Memcached_DataObject
         }
         $toupdate = implode(', ', $parts);
 
-        $table = $this->tableName();
-        if(common_config('db','quote_identifiers')) {
-            $table = '"' . $table . '"';
-        }
+        $table = common_database_tablename($this->tableName());
         $qry = 'UPDATE ' . $table . ' SET ' . $toupdate .
           ' WHERE id = ' . $this->id;
         $orig->decache();
@@ -630,11 +627,7 @@ class User extends Memcached_DataObject
           'ORDER BY subscription.created DESC ';
 
         if ($offset) {
-            if (common_config('db','type') == 'pgsql') {
-                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-            } else {
-                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
-            }
+            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
         }
 
         $profile = new Profile();
@@ -657,11 +650,7 @@ class User extends Memcached_DataObject
           'AND subscription.subscribed != subscription.subscriber ' .
           'ORDER BY subscription.created DESC ';
 
-        if (common_config('db','type') == 'pgsql') {
-            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-        } else {
-            $qry .= ' LIMIT ' . $offset . ', ' . $limit;
-        }
+        $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
 
         $profile = new Profile();
 
@@ -673,5 +662,49 @@ class User extends Memcached_DataObject
     function getDesign()
     {
         return Design::staticGet('id', $this->design_id);
+    }
+
+    function hasRole($name)
+    {
+        $role = User_role::pkeyGet(array('user_id' => $this->id,
+                                         'role' => $name));
+        return (!empty($role));
+    }
+
+    function grantRole($name)
+    {
+        $role = new User_role();
+
+        $role->user_id = $this->id;
+        $role->role    = $name;
+        $role->created = common_sql_now();
+
+        $result = $role->insert();
+
+        if (!$result) {
+            common_log_db_error($role, 'INSERT', __FILE__);
+            return false;
+        }
+
+        return true;
+    }
+
+    function revokeRole($name)
+    {
+        $role = User_role::pkeyGet(array('user_id' => $this->id,
+                                         'role' => $name));
+
+        if (empty($role)) {
+            throw new Exception('Cannot revoke role "'.$name.'" for user #'.$this->id.'; does not exist.');
+        }
+
+        $result = $role->delete();
+
+        if (!$result) {
+            common_log_db_error($role, 'DELETE', __FILE__);
+            throw new Exception('Cannot revoke role "'.$name.'" for user #'.$this->id.'; database error.');
+        }
+
+        return true;
     }
 }

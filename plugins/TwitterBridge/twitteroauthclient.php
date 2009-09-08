@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Class for doing OAuth calls against Twitter
  *
@@ -20,14 +20,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Integration
- * @package   Laconica
- * @author    Zach Copley <zach@controlyourself.ca>
- * @copyright 2008 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Zach Copley <zach@status.net>
+ * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -35,10 +35,10 @@ if (!defined('LACONICA')) {
  * Class for talking to the Twitter API with OAuth.
  *
  * @category Integration
- * @package  Laconica
- * @author   Zach Copley <zach@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
  */
 class TwitterOAuthClient extends OAuthClient
@@ -81,6 +81,15 @@ class TwitterOAuthClient extends OAuthClient
         return new OAuthToken($vals[0], $vals[1]);
     }
 
+    static function isPackedToken($str)
+    {
+        if (strpos($str, chr(0)) === false) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     /**
      * Builds a link to Twitter's endpoint for authorizing a request token
      *
@@ -109,7 +118,7 @@ class TwitterOAuthClient extends OAuthClient
     }
 
     /**
-     * Calls Twitter's /stutuses/update API method
+     * Calls Twitter's /statuses/update API method
      *
      * @param string $status                text of the status
      * @param int    $in_reply_to_status_id optional id of the status it's
@@ -128,7 +137,7 @@ class TwitterOAuthClient extends OAuthClient
     }
 
     /**
-     * Calls Twitter's /stutuses/friends_timeline API method
+     * Calls Twitter's /statuses/friends_timeline API method
      *
      * @param int $since_id show statuses after this id
      * @param int $max_id   show statuses before this id
@@ -158,7 +167,7 @@ class TwitterOAuthClient extends OAuthClient
     }
 
     /**
-     * Calls Twitter's /stutuses/friends API method
+     * Calls Twitter's /statuses/friends API method
      *
      * @param int $id          id of the user whom you wish to see friends of
      * @param int $user_id     numerical user id
@@ -188,7 +197,7 @@ class TwitterOAuthClient extends OAuthClient
     }
 
     /**
-     * Calls Twitter's /stutuses/friends/ids API method
+     * Calls Twitter's /statuses/friends/ids API method
      *
      * @param int $id          id of the user whom you wish to see friends of
      * @param int $user_id     numerical user id

@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,9 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) {
-    exit(1);
-}
+if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 require_once INSTALLDIR.'/lib/oauthstore.php';
 require_once 'OAuth.php';
@@ -52,7 +50,7 @@ function omb_oauth_datastore()
 {
     static $store = null;
     if (is_null($store)) {
-        $store = new LaconicaDataStore();
+        $store = new StatusNetOAuthDataStore();
     }
     return $store;
 }
@@ -137,7 +135,7 @@ function omb_broadcast_profile($profile)
         common_debug('Posting to ' . $rp->updateprofileurl, __FILE__);
 
         /* Update profile. */
-        $service = new Laconica_OMB_Service_Consumer(
+        $service = new StatusNet_OMB_Service_Consumer(
                      array(OMB_ENDPOINT_UPDATEPROFILE => $rp->updateprofileurl));
         try {
             $service->setToken($rp->token, $rp->secret);
@@ -155,7 +153,7 @@ function omb_broadcast_profile($profile)
     return;
 }
 
-class Laconica_OMB_Service_Consumer extends OMB_Service_Consumer {
+class StatusNet_OMB_Service_Consumer extends OMB_Service_Consumer {
     public function __construct($urls)
     {
         $this->services       = $urls;

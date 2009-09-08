@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,11 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
-define('LACONICA_VERSION', '0.9.0dev');
+define('STATUSNET_VERSION', '0.9.0dev');
+define('LACONICA_VERSION', STATUSNET_VERSION); // compatibility
 
-// XXX: move these to class variables
+define('STATUSNET_CODENAME', 'Stand');
 
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
@@ -49,6 +50,9 @@ require_once('PEAR.php');
 require_once('DB/DataObject.php');
 require_once('DB/DataObject/Cast.php'); # for dates
 
+if (!function_exists('gettext')) {
+    require_once("php-gettext/gettext.inc");
+}
 require_once(INSTALLDIR.'/lib/language.php');
 
 // This gets included before the config file, so that admin code and plugins
@@ -93,7 +97,7 @@ if (isset($path)) {
 
 $config =
   array('site' =>
-        array('name' => 'Just another Laconica microblog',
+        array('name' => 'Just another StatusNet microblog',
               'server' => $_server,
               'theme' => 'default',
               'path' => $_path,
@@ -119,14 +123,14 @@ $config =
               'textlimit' => 140,
               ),
         'syslog' =>
-        array('appname' => 'laconica', # for syslog
+        array('appname' => 'statusnet', # for syslog
               'priority' => 'debug', # XXX: currently ignored
               'facility' => LOG_USER),
         'queue' =>
         array('enabled' => false,
               'subsystem' => 'db', # default to database, or 'stomp'
               'stomp_server' => null,
-              'queue_basename' => 'laconica',
+              'queue_basename' => 'statusnet',
               'stomp_username' => null,
               'stomp_password' => null,
               ),
@@ -197,7 +201,7 @@ $config =
         'twitterbridge' =>
         array('enabled' => false),
         'integration' =>
-        array('source' => 'Laconica', # source attribute for Twitter
+        array('source' => 'StatusNet', # source attribute for Twitter
               'taguri' => $_server.',2009'), # base for tag URIs
 	'twitter' =>
 	array('consumer_key'    => null,
@@ -217,7 +221,7 @@ $config =
         'snapshot' =>
         array('run' => 'web',
               'frequency' => 10000,
-              'reporturl' => 'http://laconi.ca/stats/report'),
+              'reporturl' => 'http://status.net/stats/report'),
         'attachments' =>
         array('server' => null,
               'dir' => INSTALLDIR . '/file/',
@@ -345,10 +349,14 @@ function addPlugin($name, $attrs = null)
 if (isset($conffile)) {
     $_config_files = array($conffile);
 } else {
-    $_config_files = array('/etc/laconica/laconica.php',
+    $_config_files = array('/etc/statusnet/statusnet.php',
+                           '/etc/statusnet/laconica.php',
+                           '/etc/laconica/laconica.php',
+                           '/etc/statusnet/'.$_server.'.php',
                            '/etc/laconica/'.$_server.'.php');
 
     if (strlen($_path) > 0) {
+        $_config_files[] = '/etc/statusnet/'.$_server.'_'.$_path.'.php';
         $_config_files[] = '/etc/laconica/'.$_server.'_'.$_path.'.php';
     }
 
@@ -372,12 +380,12 @@ function _have_config()
 
 // XXX: Throw a conniption if database not installed
 
-// Fixup for laconica.ini
+// Fixup for statusnet.ini
 
 $_db_name = substr($config['db']['database'], strrpos($config['db']['database'], '/') + 1);
 
-if ($_db_name != 'laconica' && !array_key_exists('ini_'.$_db_name, $config['db'])) {
-    $config['db']['ini_'.$_db_name] = INSTALLDIR.'/classes/laconica.ini';
+if ($_db_name != 'statusnet' && !array_key_exists('ini_'.$_db_name, $config['db'])) {
+    $config['db']['ini_'.$_db_name] = INSTALLDIR.'/classes/statusnet.ini';
 }
 
 function __autoload($cls)
