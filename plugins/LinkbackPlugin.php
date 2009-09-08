@@ -75,6 +75,8 @@ class LinkbackPlugin extends Plugin
 
     function linkbackUrl($url)
     {
+        common_log(LOG_DEBUG,"Attempting linkback for " . $url);
+
         $orig = $url;
         $url = htmlspecialchars_decode($orig);
         $scheme = parse_url($url, PHP_URL_SCHEME);
@@ -134,15 +136,20 @@ class LinkbackPlugin extends Plugin
                                                                "User-Agent: " . $this->userAgent(),
                                                                'content' => $request)));
         $file = file_get_contents($endpoint, false, $context);
-        $response = xmlrpc_decode($file);
-        if (xmlrpc_is_fault($response)) {
+        if (!$file) {
             common_log(LOG_WARNING,
+	               "Pingback request failed for '$url' ($endpoint)");
+        } else {
+            $response = xmlrpc_decode($file);
+            if (xmlrpc_is_fault($response)) {
+                common_log(LOG_WARNING,
                        "Pingback error for '$url' ($endpoint): ".
                        "$response[faultString] ($response[faultCode])");
-        } else {
-            common_log(LOG_INFO,
+            } else {
+                common_log(LOG_INFO,
                        "Pingback success for '$url' ($endpoint): ".
                        "'$response'");
+            }
         }
     }
 
