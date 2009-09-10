@@ -196,7 +196,7 @@ class SearchNoticeListItem extends NoticeListItem {
         $result  = preg_replace($pattern, '<strong>\\1</strong>', $text);
 
         /* Remove highlighting from inside links, loop incase multiple highlights in links */
-        $pattern = '/(href="[^"]*)<strong>('.$options.')<\/strong>([^"]*")/iU';
+        $pattern = '/(\w+="[^"]*)<strong>('.$options.')<\/strong>([^"]*")/iU';
         do {
             $result = preg_replace($pattern, '\\1\\2\\3', $result, -1, $count);
         } while ($count);
