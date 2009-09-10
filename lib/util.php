@@ -1414,9 +1414,6 @@ function common_shorten_url($long_url)
 
     curl_close($curlh);
 
-    if(substr($short_url,0,7)=='http://'){
-        $short_url = substr($short_url,7);
-    }
     return $short_url;
 }
 
