@@ -69,6 +69,12 @@ class PasswordsettingsAction extends AccountSettingsAction
         return _('Change your password.');
     }
 
+    function showScripts()
+    {
+        parent::showScripts();
+        $this->autofocus('oldpassword');
+    }
+
     /**
      * Content area of the page
      *

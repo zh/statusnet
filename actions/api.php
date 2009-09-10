@@ -27,6 +27,8 @@ class ApiAction extends Action
     var $api_arg;
     var $api_method;
     var $api_action;
+    var $auth_user;
+    var $auth_pw;
 
     function handle($args)
     {
@@ -35,6 +37,7 @@ class ApiAction extends Action
         $this->api_action = $this->arg('apiaction');
         $method = $this->arg('method');
         $argument = $this->arg('argument');
+	$this->basic_auth_process_header();
 
         if (isset($argument)) {
             $cmdext = explode('.', $argument);
@@ -50,7 +53,7 @@ class ApiAction extends Action
         }
 
         if ($this->requires_auth()) {
-            if (!isset($_SERVER['PHP_AUTH_USER'])) {
+            if (!isset($this->auth_user)) {
 
                 # This header makes basic auth go
                 header('WWW-Authenticate: Basic realm="StatusNet API"');
@@ -58,8 +61,8 @@ class ApiAction extends Action
                 # If the user hits cancel -- bam!
                 $this->show_basic_auth_error();
             } else {
-                $nickname = $_SERVER['PHP_AUTH_USER'];
-                $password = $_SERVER['PHP_AUTH_PW'];
+                $nickname = $this->auth_user;
+                $password = $this->auth_pw;
                 $user = common_check_user($nickname, $password);
 
                 if ($user) {
@@ -76,8 +79,8 @@ class ApiAction extends Action
         } else {
 
             // Caller might give us a username even if not required
-            if (isset($_SERVER['PHP_AUTH_USER'])) {
-                $user = User::staticGet('nickname', $_SERVER['PHP_AUTH_USER']);
+            if (isset($this->auth_user)) {
+                $user = User::staticGet('nickname', $this->auth_user);
                 if ($user) {
                     $this->user = $user;
                 }
@@ -201,6 +204,39 @@ class ApiAction extends Action
 
             return true;
         }
+    }
+
+    function basic_auth_process_header()
+    {
+	if(isset($_SERVER['AUTHORIZATION']) || isset($_SERVER['HTTP_AUTHORIZATION']))
+	{
+		$authorization_header = isset($_SERVER['HTTP_AUTHORIZATION'])?$_SERVER['HTTP_AUTHORIZATION']:$_SERVER['AUTHORIZATION'];
+	}
+
+	if(isset($_SERVER['PHP_AUTH_USER']))
+	{
+		$this->auth_user = $_SERVER['PHP_AUTH_USER'];
+		$this->auth_pw = $_SERVER['PHP_AUTH_PW'];
+	}
+	elseif ( isset($authorization_header) && strstr(substr($authorization_header, 0,5),'Basic')  )
+	{
+		// decode the HTTP_AUTHORIZATION header on php-cgi server self
+		// on fcgid server the header name is AUTHORIZATION
+
+		$auth_hash = base64_decode( substr($authorization_header, 6) );
+		list($this->auth_user, $this->auth_pw) = explode(':', $auth_hash);
+
+		// set all to NULL on a empty basic auth request
+		if($this->auth_user == "") {
+			$this->auth_user = NULL;
+			$this->auth_pw = NULL;
+		}
+	}
+	else
+	{
+		$this->auth_user = NULL;
+		$this->auth_pw = NULL;
+	}
     }
 
     function show_basic_auth_error()
