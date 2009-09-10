@@ -1383,6 +1383,9 @@ function common_shorten_url($long_url)
     $short_url_service = $reflectionObj->newInstanceArgs($_shorteners[$svc]['callInfo'][1]); 
     $short_url = $short_url_service->shorten($long_url);
 
+    if(substr($short_url,0,7)=='http://'){
+        $short_url = substr($short_url,7);
+    }
     return $short_url;
 }
 
