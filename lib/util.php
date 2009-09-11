@@ -552,12 +552,13 @@ function common_linkify($url) {
     }
 
     if (!empty($f)) {
-        if (isset($f->filename)) {
+        if ($f->isEnclosure()) {
             $is_attachment = true;
             $attachment_id = $f->id;
-        } else { // if it has OEmbed info, it's an attachment, too
+        } else {
             $foe = File_oembed::staticGet('file_id', $f->id);
             if (!empty($foe)) {
+                // if it has OEmbed info, it's an attachment, too
                 $is_attachment = true;
                 $attachment_id = $f->id;
 
