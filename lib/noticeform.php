@@ -83,7 +83,7 @@ class NoticeForm extends Form
      * @param string        $content content to pre-fill
      */
 
-    function __construct($out=null, $action=null, $content=null, $user=null, $inreplyto)
+    function __construct($out=null, $action=null, $content=null, $user=null, $inreplyto=null)
     {
         parent::__construct($out);
 
