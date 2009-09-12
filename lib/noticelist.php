@@ -442,7 +442,7 @@ class NoticeListItem extends Widget
     {
         if (common_logged_in()) {
             $reply_url = common_local_url('newnotice',
-                                          array('replyto' => $this->profile->nickname));
+                                          array('replyto' => $this->profile->nickname, 'inreplyto' => $this->notice->id));
             $this->out->elementStart('a', array('href' => $reply_url,
                                                 'class' => 'notice_reply',
                                                 'title' => _('Reply to this notice')));

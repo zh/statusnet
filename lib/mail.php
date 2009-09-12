@@ -629,7 +629,7 @@ function mail_notify_attn($user, $notice)
                     $notice->content,//%4
 					$conversationUrl,//%5
                     common_local_url('newnotice',
-                                     array('replyto' => $sender->nickname)),//%6
+                                     array('replyto' => $sender->nickname, 'inreplyto' => $notice->id)),//%6
                     common_local_url('replies',
                                      array('nickname' => $user->nickname)),//%7
                     common_local_url('emailsettings'));//%8
