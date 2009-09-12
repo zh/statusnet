@@ -96,7 +96,7 @@ document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/ja
 </script>
 <script type="text/javascript">
 try {
-    var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 4);
+    var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", $this->piwikId);
     piwikTracker.trackPageView();
     piwikTracker.enableLinkTracking();
 } catch( err ) {}
