@@ -444,10 +444,8 @@ E_O_T;
 
 function updateStatus($status, $error=false)
 {
-?>
-                <li <?php echo ($error) ? 'class="error"': ''; ?>><?php echo $status;?></li>
-
-<?php
+    echo '<li ' . ($error) ? 'class="error"': '';
+    echo ">$status</li>";
 }
 
 function handlePost()
