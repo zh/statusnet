@@ -34,7 +34,7 @@ function getPath($req)
 {
     if ((common_config('site', 'fancy') || !array_key_exists('PATH_INFO', $_SERVER))
         && array_key_exists('p', $req)
-        ) {
+    ) {
         return $req['p'];
     } else if (array_key_exists('PATH_INFO', $_SERVER)) {
         return $_SERVER['PATH_INFO'];
