@@ -224,6 +224,13 @@ function main()
     }
 }
 
+/**
+ * checks if an external libary is present
+ *
+ * @param string $external_library Name of library
+ *
+ * @return boolean indicates if library present
+ */
 function haveExternalLibrary($external_library)
 {
     if (isset($external_library['include']) && ! include_once $external_library['include'] ) {
@@ -238,6 +245,11 @@ function haveExternalLibrary($external_library)
     return true;
 }
 
+/**
+ * Check if all is ready for installation
+ *
+ * @return void
+ */
 function checkPrereqs()
 {
     $pass = true;
@@ -295,6 +307,13 @@ function checkPrereqs()
     return $pass;
 }
 
+/**
+ * Checks if a php extension is both installed and loaded
+ *
+ * @param string $name of extension to check
+ *
+ * @return boolean whether extension is installed and loaded
+ */
 function checkExtension($name)
 {
     if (!extension_loaded($name)) {
@@ -305,6 +324,11 @@ function checkExtension($name)
     return true;
 }
 
+/**
+ * Show list of libraries
+ *
+ * @return void
+ */
 function showLibs()
 {
     global $external_libraries;
@@ -356,9 +380,9 @@ E_O_T;
     foreach($present_libraries as $library)
     {
         echo '<li>';
-        if($library['url']){
+        if ($library['url']) {
             echo '<a href=">'.$library['url'].'">'.htmlentities($library['name']).'</a>';
-        }else{
+        } else {
             echo htmlentities($library['name']);
         }
         echo '</li>';
