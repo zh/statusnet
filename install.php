@@ -1,5 +1,5 @@
 <?php
-/**
+/** 
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2009, StatusNet, Inc.
  *
@@ -15,7 +15,14 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * @category Installation
+ * @package  Installation
+ * @license  GNU Affero General Public License http://www.gnu.org/licenses/
+ * 
  */
+ 
+
 
 define('INSTALLDIR', dirname(__FILE__));
 
