@@ -750,8 +750,18 @@ function common_local_url($action, $args=null, $params=null, $fragment=null)
     return $url;
 }
 
-function common_path($relative, $ssl=false)
+function common_path($relative, $ssl=null)
 {
+    if($ssl==null) {
+        //ssl was not specifically requested
+        if( $_SERVER['HTTPS'] && $_SERVER['HTTPS']!="off" ) {
+            //currently in https, so stay in https
+            $ssl=true;
+        } else {
+            //not in https, so stay not in https
+            $ssl=false;
+        }
+    }
     $pathpart = (common_config('site', 'path')) ? common_config('site', 'path')."/" : '';
 
     if (($ssl && (common_config('site', 'ssl') === 'sometimes'))
