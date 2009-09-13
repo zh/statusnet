@@ -227,7 +227,7 @@ function main()
 
         try {
             if ($action_obj->prepare($args)) {
-                $action_obj->handle($args);
+                $action_obj->handleWrapper($args);
             }
         } catch (ClientException $cex) {
             $cac = new ClientErrorAction($cex->getMessage(), $cex->getCode());

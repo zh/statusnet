@@ -873,6 +873,63 @@ class Action extends HTMLOutputter // lawsuit
     }
 
     /**
+     * Wrapper for the handle method that handles etags, last-modified, and other conditional headers
+     *
+     * @param array $argarray is ignored since it's now passed in in prepare()
+     *
+     * @return boolean is read only action?
+     */
+    function handleWrapper($argarray=null)
+    {
+        header('Vary: Accept-Encoding,Cookie,Accept-Language,Authorization');
+        header("Cache-Control: must-revalidate");
+        $lm   = $this->lastModified();
+        $etag = $this->etag();
+        if ($etag) {
+            header('ETag: ' . $etag);
+        }
+        $if_none_match = (array_key_exists('HTTP_IF_NONE_MATCH', $_SERVER)) ?
+          $_SERVER['HTTP_IF_NONE_MATCH'] : null;
+        if ($lm) {
+            header('Last-Modified: ' . date(DATE_RFC1123, $lm));
+            if (array_key_exists('HTTP_IF_MODIFIED_SINCE', $_SERVER)) {
+                $if_modified_since = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
+                $ims = strtotime($if_modified_since);
+                if ($lm <= $ims) {
+                    if (!$if_none_match ||
+                        !$etag ||
+                        $this->_hasEtag($etag, $if_none_match)) {
+                        header('HTTP/1.1 304 Not Modified');
+                        header('Content-Length: 0');
+                        // Better way to do this?
+                        exit(0);
+                    }
+                }
+            }
+        }
+        if($etag) {
+            $ret = $this->handle($argarray);
+        }else{
+            ob_start();
+            $ret = $this->handle($argarray);
+            $output = ob_get_contents();
+            ob_end_clean();
+            //deep etag
+            $etag = md5($output);
+            header('ETag: ' . $etag);
+            if($if_none_match && $this->_hasEtag($etag, $if_none_match)) {
+                header('HTTP/1.1 304 Not Modified');
+                header('Content-Length: 0');
+                // Better way to do this?
+                exit(0);
+            }
+            header('Content-Length: '.strlen($output));
+            print $output;
+        }
+        return $ret;
+    }
+
+    /**
      * Handler method
      *
      * @param array $argarray is ignored since it's now passed in in prepare()
@@ -881,30 +938,6 @@ class Action extends HTMLOutputter // lawsuit
      */
     function handle($argarray=null)
     {
-        header('Vary: Accept-Encoding,Cookie');
-        $lm   = $this->lastModified();
-        $etag = $this->etag();
-        if ($etag) {
-            header('ETag: ' . $etag);
-        }
-        if ($lm) {
-            header('Last-Modified: ' . date(DATE_RFC1123, $lm));
-            if (array_key_exists('HTTP_IF_MODIFIED_SINCE', $_SERVER)) {
-                $if_modified_since = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
-                $ims = strtotime($if_modified_since);
-                if ($lm <= $ims) {
-                    $if_none_match = (array_key_exists('HTTP_IF_NONE_MATCH', $_SERVER)) ?
-                      $_SERVER['HTTP_IF_NONE_MATCH'] : null;
-                    if (!$if_none_match ||
-                        !$etag ||
-                        $this->_hasEtag($etag, $if_none_match)) {
-                        header('HTTP/1.1 304 Not Modified');
-                        // Better way to do this?
-                        exit(0);
-                    }
-                }
-            }
-        }
     }
 
     /**
