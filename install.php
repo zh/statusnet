@@ -201,6 +201,12 @@ $dbModules = array(
     ),
 );
 
+/** 
+ * the actual installation.
+ * If call libraries are present, then install
+ * 
+ * @return void
+ */
 function main()
 {
     if (!checkPrereqs()) {
