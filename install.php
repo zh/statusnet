@@ -505,11 +505,6 @@ STR;
         $fail = true;
     }
 
-//     if (empty($password)) {
-//         updateStatus("No password specified.", true);
-// 		$fail = true;
-//     }
-
     if (empty($sitename)) {
         updateStatus("No sitename specified.", true);
         $fail = true;
