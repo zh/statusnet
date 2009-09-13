@@ -334,7 +334,7 @@ function showLibs()
     global $external_libraries;
     $present_libraries=array();
     $absent_libraries=array();
-    foreach ($external_libraries as $external_library){
+    foreach ($external_libraries as $external_library) {
         if (haveExternalLibrary($external_library)) {
             $present_libraries[]=$external_library;
         } else {
@@ -352,22 +352,21 @@ function showLibs()
     <h2>Absent Libraries</h2>
     <ul id="absent_libraries">
 E_O_T;
-    foreach($absent_libraries as $library)
-    {
+    foreach ($absent_libraries as $library) {
         echo '<li>';
-        if($library['url']){
+        if ($library['url']) {
             echo '<a href=">'.$library['url'].'">'.htmlentities($library['name']).'</a>';
-        }else{
+        } else {
             echo htmlentities($library['name']);
         }
         echo '<ul>';
-        if($library['deb']){
+        if ($library['deb']) {
             echo '<li class="deb package">deb: <a href="apt:' . urlencode($library['deb']) . '">' . htmlentities($library['deb']) . '</a></li>';
         }
-        if($library['rpm']){
+        if ($library['rpm']) {
             echo '<li class="rpm package">rpm: ' . htmlentities($library['rpm']) . '</li>';
         }
-        if($library['pear']){
+        if ($library['pear']) {
             echo '<li class="pear package">pear: ' . htmlentities($library['pear']) . '</li>';
         }
         echo '</ul>';
@@ -377,8 +376,7 @@ E_O_T;
     <h2>Installed Libraries</h2>
     <ul id="present_libraries">
 E_O_T;
-    foreach($present_libraries as $library)
-    {
+    foreach ($present_libraries as $library) {
         echo '<li>';
         if ($library['url']) {
             echo '<a href=">'.$library['url'].'">'.htmlentities($library['name']).'</a>';
@@ -514,11 +512,11 @@ STR;
 
     if (empty($sitename)) {
         updateStatus("No sitename specified.", true);
-		$fail = true;
+        $fail = true;
     }
 
-    if($fail){
-            showForm();
+    if ($fail) {
+        showForm();
         return;
     }
 
@@ -603,8 +601,7 @@ function pgsql_db_installer($host, $database, $username, $password) {
 
     if (empty($password)) {
         $sqlUrl = "pgsql://$username@$host/$database";
-    }
-    else {
+    } else {
         $sqlUrl = "pgsql://$username:$password@$host/$database";
     }
 
