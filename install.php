@@ -450,9 +450,6 @@ function updateStatus($status, $error=false)
 
 function handlePost()
 {
-?>
-
-<?php
     $host     = $_POST['host'];
     $dbtype   = $_POST['dbtype'];
     $database = $_POST['database'];
@@ -463,27 +460,27 @@ function handlePost()
     $server = $_SERVER['HTTP_HOST'];
     $path = substr(dirname($_SERVER['PHP_SELF']), 1);
 
-?>
+    echo <<<STR
     <dl class="system_notice">
         <dt>Page notice</dt>
         <dd>
             <ul>
-<?php
-	$fail = false;
+STR;
+    $fail = false;
 
     if (empty($host)) {
         updateStatus("No hostname specified.", true);
-		$fail = true;
+        $fail = true;
     }
 
     if (empty($database)) {
         updateStatus("No database specified.", true);
-		$fail = true;
+        $fail = true;
     }
 
     if (empty($username)) {
         updateStatus("No username specified.", true);
-		$fail = true;
+        $fail = true;
     }
 
 //     if (empty($password)) {
@@ -532,106 +529,106 @@ function handlePost()
 }
 
 function pgsql_db_installer($host, $database, $username, $password) {
-  $connstring = "dbname=$database host=$host user=$username";
+    $connstring = "dbname=$database host=$host user=$username";
 
-  //No password would mean trust authentication used.
-  if (!empty($password)) {
-    $connstring .= " password=$password";
-  }
-  updateStatus("Starting installation...");
-  updateStatus("Checking database...");
-  $conn = pg_connect($connstring);
+    //No password would mean trust authentication used.
+    if (!empty($password)) {
+        $connstring .= " password=$password";
+    }
+    updateStatus("Starting installation...");
+    updateStatus("Checking database...");
+    $conn = pg_connect($connstring);
 
-  if ($conn ===false) {
-    updateStatus("Failed to connect to database: $connstring");
-    showForm();
-    return false;
-  }
+    if ($conn ===false) {
+        updateStatus("Failed to connect to database: $connstring");
+        showForm();
+        return false;
+    }
 
-  //ensure database encoding is UTF8
-  $record = pg_fetch_object(pg_query($conn, 'SHOW server_encoding'));
-  if ($record->server_encoding != 'UTF8') {
-    updateStatus("StatusNet requires UTF8 character encoding. Your database is ". htmlentities($record->server_encoding));
-    showForm();
-    return false;
-  }
+    //ensure database encoding is UTF8
+    $record = pg_fetch_object(pg_query($conn, 'SHOW server_encoding'));
+    if ($record->server_encoding != 'UTF8') {
+        updateStatus("StatusNet requires UTF8 character encoding. Your database is ". htmlentities($record->server_encoding));
+        showForm();
+        return false;
+    }
 
-  updateStatus("Running database script...");
-  //wrap in transaction;
-  pg_query($conn, 'BEGIN');
-  $res = runDbScript(INSTALLDIR.'/db/statusnet_pg.sql', $conn, 'pgsql');
+    updateStatus("Running database script...");
+    //wrap in transaction;
+    pg_query($conn, 'BEGIN');
+    $res = runDbScript(INSTALLDIR.'/db/statusnet_pg.sql', $conn, 'pgsql');
 
-  if ($res === false) {
-      updateStatus("Can't run database script.", true);
-      showForm();
-      return false;
-  }
-  foreach (array('sms_carrier' => 'SMS carrier',
+    if ($res === false) {
+        updateStatus("Can't run database script.", true);
+        showForm();
+        return false;
+    }
+    foreach (array('sms_carrier' => 'SMS carrier',
                 'notice_source' => 'notice source',
                 'foreign_services' => 'foreign service')
           as $scr => $name) {
-      updateStatus(sprintf("Adding %s data to database...", $name));
-      $res = runDbScript(INSTALLDIR.'/db/'.$scr.'.sql', $conn, 'pgsql');
-      if ($res === false) {
-          updateStatus(sprintf("Can't run %d script.", $name), true);
-          showForm();
-          return false;
-      }
-  }
-  pg_query($conn, 'COMMIT');
+        updateStatus(sprintf("Adding %s data to database...", $name));
+        $res = runDbScript(INSTALLDIR.'/db/'.$scr.'.sql', $conn, 'pgsql');
+        if ($res === false) {
+            updateStatus(sprintf("Can't run %d script.", $name), true);
+            showForm();
+            return false;
+        }
+    }
+    pg_query($conn, 'COMMIT');
 
-  if (empty($password)) {
-    $sqlUrl = "pgsql://$username@$host/$database";
-  }
-  else {
-    $sqlUrl = "pgsql://$username:$password@$host/$database";
-  }
+    if (empty($password)) {
+        $sqlUrl = "pgsql://$username@$host/$database";
+    }
+    else {
+        $sqlUrl = "pgsql://$username:$password@$host/$database";
+    }
 
-  $db = array('type' => 'pgsql', 'database' => $sqlUrl);
+    $db = array('type' => 'pgsql', 'database' => $sqlUrl);
 
-  return $db;
+    return $db;
 }
 
 function mysql_db_installer($host, $database, $username, $password) {
-  updateStatus("Starting installation...");
-  updateStatus("Checking database...");
+    updateStatus("Starting installation...");
+    updateStatus("Checking database...");
 
-  $conn = mysql_connect($host, $username, $password);
-  if (!$conn) {
-      updateStatus("Can't connect to server '$host' as '$username'.", true);
-      showForm();
-      return false;
-  }
-  updateStatus("Changing to database...");
-  $res = mysql_select_db($database, $conn);
-  if (!$res) {
-      updateStatus("Can't change to database.", true);
-      showForm();
-      return false;
-  }
-  updateStatus("Running database script...");
-  $res = runDbScript(INSTALLDIR.'/db/statusnet.sql', $conn);
-  if ($res === false) {
-      updateStatus("Can't run database script.", true);
-      showForm();
-      return false;
-  }
-  foreach (array('sms_carrier' => 'SMS carrier',
+    $conn = mysql_connect($host, $username, $password);
+    if (!$conn) {
+        updateStatus("Can't connect to server '$host' as '$username'.", true);
+        showForm();
+        return false;
+    }
+    updateStatus("Changing to database...");
+    $res = mysql_select_db($database, $conn);
+    if (!$res) {
+        updateStatus("Can't change to database.", true);
+        showForm();
+        return false;
+    }
+    updateStatus("Running database script...");
+    $res = runDbScript(INSTALLDIR.'/db/statusnet.sql', $conn);
+    if ($res === false) {
+        updateStatus("Can't run database script.", true);
+        showForm();
+        return false;
+    }
+    foreach (array('sms_carrier' => 'SMS carrier',
                 'notice_source' => 'notice source',
                 'foreign_services' => 'foreign service')
           as $scr => $name) {
-      updateStatus(sprintf("Adding %s data to database...", $name));
-      $res = runDbScript(INSTALLDIR.'/db/'.$scr.'.sql', $conn);
-      if ($res === false) {
-          updateStatus(sprintf("Can't run %d script.", $name), true);
-          showForm();
-          return false;
-      }
-  }
+        updateStatus(sprintf("Adding %s data to database...", $name));
+        $res = runDbScript(INSTALLDIR.'/db/'.$scr.'.sql', $conn);
+        if ($res === false) {
+            updateStatus(sprintf("Can't run %d script.", $name), true);
+            showForm();
+            return false;
+        }
+    }
 
-      $sqlUrl = "mysqli://$username:$password@$host/$database";
-      $db = array('type' => 'mysql', 'database' => $sqlUrl);
-      return $db;
+    $sqlUrl = "mysqli://$username:$password@$host/$database";
+    $db = array('type' => 'mysql', 'database' => $sqlUrl);
+    return $db;
 }
 
 function writeConf($sitename, $server, $path, $fancy, $db)
@@ -662,6 +659,14 @@ function writeConf($sitename, $server, $path, $fancy, $db)
     return $res;
 }
 
+/**
+ * Install schema into the database
+ *
+ * @param filename $filename    location of database schema file
+ * @param conn $conn            connection to database
+ * @param type $type type of database, currently mysql or pgsql
+ * @return boolean - indicating success or failure
+ */
 function runDbScript($filename, $conn, $type = 'mysql')
 {
     $sql = trim(file_get_contents($filename));
