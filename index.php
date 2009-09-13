@@ -33,7 +33,8 @@ $action = null;
 function getPath($req)
 {
     if ((common_config('site', 'fancy') || !array_key_exists('PATH_INFO', $_SERVER))
-        && array_key_exists('p', $req)) {
+        && array_key_exists('p', $req)
+        ) {
         return $req['p'];
     } else if (array_key_exists('PATH_INFO', $_SERVER)) {
         return $_SERVER['PATH_INFO'];
@@ -59,18 +60,25 @@ function handleError($error)
             common_log(LOG_ERR, $line);
         }
     }
-    if ($error instanceof DB_DataObject_Error ||
-        $error instanceof DB_Error) {
-        $msg = sprintf(_('The database for %s isn\'t responding correctly, '.
-                         'so the site won\'t work properly. '.
-                         'The site admins probably know about the problem, '.
-                         'but you can contact them at %s to make sure. '.
-                         'Otherwise, wait a few minutes and try again.'),
-                       common_config('site', 'name'),
-                       common_config('site', 'email'));
+    if ($error instanceof DB_DataObject_Error 
+        || $error instanceof DB_Error
+    ) {
+        $msg = sprintf(
+            _(
+                'The database for %s isn\'t responding correctly, '.
+                'so the site won\'t work properly. '.
+                'The site admins probably know about the problem, '.
+                'but you can contact them at %s to make sure. '.
+                'Otherwise, wait a few minutes and try again.'
+            ),
+            common_config('site', 'name'),
+            common_config('site', 'email')
+        );
     } else {
-        $msg = _('An important error occured, probably related to email setup. '.
-                 'Check logfiles for more info..');
+        $msg = _(
+            'An important error occured, probably related to email setup. '.
+            'Check logfiles for more info..'
+        );
     }
 
     $dac = new DBErrorAction($msg, 500);
@@ -131,10 +139,11 @@ function main()
         $_lighty_url = @parse_url($_lighty_url);
 
         if ($_lighty_url['path'] != '/index.php' && $_lighty_url['path'] != '/') {
-            $_lighty_path = preg_replace('/^'.preg_quote(common_config('site','path')).'\//', '', substr($_lighty_url['path'], 1));
+            $_lighty_path = preg_replace('/^'.preg_quote(common_config('site', 'path')).'\//', '', substr($_lighty_url['path'], 1));
             $_SERVER['QUERY_STRING'] = 'p='.$_lighty_path;
-            if ($_lighty_url['query'])
+            if ($_lighty_url['query']) {
                 $_SERVER['QUERY_STRING'] .= '&'.$_lighty_url['query'];
+            }
             parse_str($_lighty_url['query'], $_lighty_query);
             foreach ($_lighty_query as $key => $val) {
                 $_GET[$key] = $_REQUEST[$key] = $val;
@@ -145,7 +154,7 @@ function main()
     $_SERVER['REDIRECT_URL'] = preg_replace("/\?.+$/", "", $_SERVER['REQUEST_URI']);
 
     // quick check for fancy URL auto-detection support in installer.
-    if (isset($_SERVER['REDIRECT_URL']) && (preg_replace("/^\/$/","",(dirname($_SERVER['REQUEST_URI']))) . '/check-fancy') === $_SERVER['REDIRECT_URL']) {
+    if (isset($_SERVER['REDIRECT_URL']) && (preg_replace("/^\/$/", "", (dirname($_SERVER['REQUEST_URI']))) . '/check-fancy') === $_SERVER['REDIRECT_URL']) {
         die("Fancy URL support detection succeeded. We suggest you enable this to get fancy (pretty) URLs.");
     }
     global $user, $action;
@@ -153,8 +162,12 @@ function main()
     Snapshot::check();
 
     if (!_have_config()) {
-        $msg = sprintf(_("No configuration file found. Try running ".
-                         "the installation program first."));
+        $msg = sprintf(
+            _(
+                "No configuration file found. Try running ".
+                "the installation program first."
+            )
+        );
         $sac = new ServerErrorAction($msg);
         $sac->showPage();
         return;
@@ -200,9 +213,10 @@ function main()
     // If the site is private, and they're not on one of the "public"
     // parts of the site, redirect to login
 
-    if (!$user && common_config('site', 'private') &&
-        !isLoginAction($action) &&
-        !preg_match('/rss$/', $action)) {
+    if (!$user && common_config('site', 'private') 
+        && !isLoginAction($action) 
+        && !preg_match('/rss$/', $action)
+    ) {
         common_redirect(common_local_url('login'));
         return;
     }
