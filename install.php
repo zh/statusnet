@@ -203,14 +203,13 @@ $dbModules = array(
 
 function main()
 {
-    if (!checkPrereqs())
-    {
+    if (!checkPrereqs()) {
         return;
     }
     
-    if( $_GET['checklibs'] ){
+    if ($_GET['checklibs']) {
         showLibs();
-    }else{
+    } else {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             handlePost();
         } else {
@@ -221,13 +220,13 @@ function main()
 
 function haveExternalLibrary($external_library)
 {
-    if(isset($external_library['include']) && ! include_once($external_library['include'])){
+    if (isset($external_library['include']) && ! include_once $external_library['include'] ) {
         return false;
     }
-    if(isset($external_library['check_function']) && ! function_exists($external_library['check_function'])){
+    if (isset($external_library['check_function']) && ! function_exists($external_library['check_function'])) {
         return false;
     }
-    if(isset($external_library['check_class']) && ! class_exists($external_library['check_class'])){
+    if (isset($external_library['check_class']) && ! class_exists($external_library['check_class'])) {
         return false;
     }
     return true;
@@ -309,10 +308,10 @@ function showLibs()
     global $external_libraries;
     $present_libraries=array();
     $absent_libraries=array();
-    foreach($external_libraries as $external_library){
-        if(haveExternalLibrary($external_library)){
+    foreach ($external_libraries as $external_library){
+        if (haveExternalLibrary($external_library)) {
             $present_libraries[]=$external_library;
-        }else{
+        } else {
             $absent_libraries[]=$external_library;
         }
     }
