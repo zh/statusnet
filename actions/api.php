@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
@@ -15,9 +15,30 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.     If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * @category Actions
+ * @package  Actions
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Evan Prodromou <evan@prodromou.name>
+ * @author   Brenda Wallace <shiny@cpan.org>
+ * @author   Jeffery To <jeffery.to@gmail.com>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @author   Tom Adams <tom@holizz.com>
+ * @author   Christopher Vollick <psycotica0@gmail.com>
+ * @author   CiaranG <ciaran@ciarang.com>
+ * @author   Craig Andrews <candrews@integralblue.com>
+ * @author   Evan Prodromou <evan@controlezvous.ca>
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Gina Haeussge <osd@foosel.net>
+ * @author   Mike Cochrane <mikec@mikenz.geek.nz>
+ * @author   Sarven Capadisli <csarven@controlyourself.ca>
+ * @license  GNU Affero General Public License http://www.gnu.org/licenses/
+ * @link     http://status.net
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) { 
+    exit(1); 
+}
 
 class ApiAction extends Action
 {
@@ -37,7 +58,7 @@ class ApiAction extends Action
         $this->api_action = $this->arg('apiaction');
         $method = $this->arg('method');
         $argument = $this->arg('argument');
-	$this->basic_auth_process_header();
+        $this->basic_auth_process_header();
 
         if (isset($argument)) {
             $cmdext = explode('.', $argument);
@@ -46,7 +67,7 @@ class ApiAction extends Action
             $this->content_type = strtolower($cmdext[1]);
         } else {
 
-            # Requested format / content-type will be an extension on the method
+            //Requested format / content-type will be an extension on the method
             $cmdext = explode('.', $method);
             $this->api_method = $cmdext[0];
             $this->content_type = strtolower($cmdext[1]);
@@ -55,10 +76,10 @@ class ApiAction extends Action
         if ($this->requires_auth()) {
             if (!isset($this->auth_user)) {
 
-                # This header makes basic auth go
+                //This header makes basic auth go
                 header('WWW-Authenticate: Basic realm="StatusNet API"');
 
-                # If the user hits cancel -- bam!
+                //If the user hits cancel -- bam!
                 $this->show_basic_auth_error();
             } else {
                 $nickname = $this->auth_user;
@@ -69,7 +90,7 @@ class ApiAction extends Action
                     $this->user = $user;
                     $this->process_command();
                 } else {
-                    # basic authentication failed
+                    //basic authentication failed
                     list($proxy, $ip) = common_client_ip();
 
                     common_log(LOG_WARNING, "Failed API auth attempt, nickname = $nickname, proxy = $proxy, ip = $ip.");
@@ -84,7 +105,7 @@ class ApiAction extends Action
                 if ($user) {
                     $this->user = $user;
                 }
-                # Twitter doesn't throw an error if the user isn't found
+                //Twitter doesn't throw an error if the user isn't found
             }
 
             $this->process_command();
@@ -97,7 +118,7 @@ class ApiAction extends Action
         $actionfile = INSTALLDIR."/actions/$action.php";
 
         if (file_exists($actionfile)) {
-            require_once($actionfile);
+            include_once $actionfile;
             $action_class = ucfirst($action)."Action";
             $action_obj = new $action_class();
 
@@ -113,10 +134,10 @@ class ApiAction extends Action
 
                 call_user_func(array($action_obj, $this->api_method), $_REQUEST, $apidata);
             } else {
-                $this->clientError("API method not found!", $code=404);
+                $this->clientError("API method not found!", $code = 404);
             }
         } else {
-            $this->clientError("API method not found!", $code=404);
+            $this->clientError("API method not found!", $code = 404);
         }
     }
 
@@ -184,10 +205,11 @@ class ApiAction extends Action
             $user_id     = $this->arg('user_id');
             $screen_name = $this->arg('screen_name');
 
-            if (empty($this->api_arg) &&
-                empty($id)            &&
-                empty($user_id)       &&
-                empty($screen_name)) {
+            if (empty($this->api_arg) 
+                && empty($id)            
+                && empty($user_id)       
+                && empty($screen_name)
+            ) {
                 return true;
             } else {
                 return false;
@@ -208,35 +230,29 @@ class ApiAction extends Action
 
     function basic_auth_process_header()
     {
-	if(isset($_SERVER['AUTHORIZATION']) || isset($_SERVER['HTTP_AUTHORIZATION']))
-	{
-		$authorization_header = isset($_SERVER['HTTP_AUTHORIZATION'])?$_SERVER['HTTP_AUTHORIZATION']:$_SERVER['AUTHORIZATION'];
-	}
+        if (isset($_SERVER['AUTHORIZATION']) || isset($_SERVER['HTTP_AUTHORIZATION'])) {
+            $authorization_header = isset($_SERVER['HTTP_AUTHORIZATION'])? $_SERVER['HTTP_AUTHORIZATION'] : $_SERVER['AUTHORIZATION'];
+        }
 
-	if(isset($_SERVER['PHP_AUTH_USER']))
-	{
-		$this->auth_user = $_SERVER['PHP_AUTH_USER'];
-		$this->auth_pw = $_SERVER['PHP_AUTH_PW'];
-	}
-	elseif ( isset($authorization_header) && strstr(substr($authorization_header, 0,5),'Basic')  )
-	{
-		// decode the HTTP_AUTHORIZATION header on php-cgi server self
-		// on fcgid server the header name is AUTHORIZATION
+        if (isset($_SERVER['PHP_AUTH_USER'])) {
+            $this->auth_user = $_SERVER['PHP_AUTH_USER'];
+            $this->auth_pw = $_SERVER['PHP_AUTH_PW'];
+        } elseif (isset($authorization_header) && strstr(substr($authorization_header, 0, 5), 'Basic')) {
+            // decode the HTTP_AUTHORIZATION header on php-cgi server self
+            // on fcgid server the header name is AUTHORIZATION
 
-		$auth_hash = base64_decode( substr($authorization_header, 6) );
-		list($this->auth_user, $this->auth_pw) = explode(':', $auth_hash);
+            $auth_hash = base64_decode(substr($authorization_header, 6));
+            list($this->auth_user, $this->auth_pw) = explode(':', $auth_hash);
 
-		// set all to NULL on a empty basic auth request
-		if($this->auth_user == "") {
-			$this->auth_user = NULL;
-			$this->auth_pw = NULL;
-		}
-	}
-	else
-	{
-		$this->auth_user = NULL;
-		$this->auth_pw = NULL;
-	}
+            // set all to null on a empty basic auth request
+            if ($this->auth_user == "") {
+                $this->auth_user = null;
+                $this->auth_pw = null;
+            }
+        } else {
+            $this->auth_user = null;
+            $this->auth_pw = null;
+        }
     }
 
     function show_basic_auth_error()
@@ -252,7 +268,7 @@ class ApiAction extends Action
             $this->element('request', null, $_SERVER['REQUEST_URI']);
             $this->elementEnd('hash');
             $this->endXML();
-        } else if ($this->content_type == 'json')  {
+        } else if ($this->content_type == 'json') {
             header('Content-Type: application/json; charset=utf-8');
             $error_array = array('error' => $msg, 'request' => $_SERVER['REQUEST_URI']);
             print(json_encode($error_array));
