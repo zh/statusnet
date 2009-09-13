@@ -49,11 +49,11 @@ function handleError($error)
     }
 
     $logmsg = "PEAR error: " . $error->getMessage();
-    if(common_config('site', 'logdebug')) {
+    if (common_config('site', 'logdebug')) {
         $logmsg .= " : ". $error->getDebugInfo();
     }
     common_log(LOG_ERR, $logmsg);
-    if(common_config('site', 'logdebug')) {
+    if (common_config('site', 'logdebug')) {
         $bt = $error->getBacktrace();
         foreach ($bt as $line) {
             common_log(LOG_ERR, $line);
