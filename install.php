@@ -181,6 +181,18 @@ $external_libraries=array(
         'check_class'=>'Validate'
     )
 );
+$dbModules = array(
+    'mysql' => array(
+        'name' => 'MySQL',
+        'check_module' => 'mysql', // mysqli?
+        'installer' => 'mysql_db_installer',
+    ),
+    'pgsql' => array(
+        'name' => 'PostgreSQL',
+        'check_module' => 'pgsql',
+        'installer' => 'pgsql_db_installer',
+    ),
+);
 
 function main()
 {
@@ -238,8 +250,18 @@ function checkPrereqs()
 		    $pass = false;
         }
     }
-    if (!checkExtension('pgsql') && !checkExtension('mysql')) {
-      ?><p class="error">Cannot find mysql or pgsql extension. You need one or the other: <code><?php echo $req; ?></code></p><?php
+    
+    // Make sure we have at least one database module available
+    global $dbModules;
+    $missingExtensions = array();
+    foreach ($dbModules as $type => $info) {
+        if (!checkExtension($info['check_module'])) {
+            $missingExtensions[] = $info['check_module'];
+        }
+    }
+    if (count($missingExtensions) == count($dbModules)) {
+        $req = implode(', ', $missingExtensions);
+      ?><p class="error">Cannot find database support. You need at least one of these PHP extensions installed: <code><?php echo $req; ?></code></p><?php
                     $pass = false;
     }
 
@@ -340,6 +362,15 @@ E_O_T;
 
 function showForm()
 {
+    global $dbModules;
+    $dbRadios = '';
+    $checked = 'checked="checked" '; // Check the first one which exists
+    foreach ($dbModules as $type => $info) {
+        if (checkExtension($info['check_module'])) {
+            $dbRadios .= "<input type=\"radio\" name=\"dbtype\" id=\"dbtype-$type\" value=\"$type\" $checked/> $info[name]<br />\n";
+            $checked = '';
+        }
+    }
     echo<<<E_O_T
         </ul>
     </dd>
@@ -376,8 +407,7 @@ function showForm()
             <li>
 
                 <label for="dbtype">Type</label>
-                <input type="radio" name="dbtype" id="fancy-mysql" value="mysql" checked='checked' /> MySQL<br />
-                <input type="radio" name="dbtype" id="dbtype-pgsql" value="pgsql" /> PostgreSQL<br />
+                $dbRadios
                 <p class="form_guide">Database type</p>
             </li>
 
@@ -465,17 +495,9 @@ function handlePost()
         return;
     }
 
-    // FIXME: use PEAR::DB or PDO instead of our own switch
-
-    switch($dbtype) {
-        case 'mysql':
-            $db = mysql_db_installer($host, $database, $username, $password);
-            break;
-        case 'pgsql':
-            $db = pgsql_db_installer($host, $database, $username, $password);
-            break;
-        default:
-    }
+    global $dbModules;
+    $db = call_user_func($dbModules[$dbtype]['installer'],
+        $host, $database, $username, $password);
 
     if (!$db) {
         // database connection failed, do not move on to create config file.
