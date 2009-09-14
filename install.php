@@ -240,17 +240,16 @@ function haveExternalLibrary($external_library)
 
 function checkPrereqs()
 {
-	$pass = true;
+    $pass = true;
 
     if (file_exists(INSTALLDIR.'/config.php')) {
-         ?><p class="error">Config file &quot;config.php&quot; already exists.</p>
-         <?php
+         printf('<p class="error">Config file &quot;config.php&quot; already exists.</p>');
         $pass = false;
     }
 
     if (version_compare(PHP_VERSION, '5.2.3', '<')) {
-            ?><p class="error">Require PHP version 5.2.3 or greater.</p><?php
-		    $pass = false;
+        printf('<p class="error">Require PHP version 5.2.3 or greater.</p>');
+        $pass = false;
     }
 
     $reqs = array('gd', 'curl',
@@ -258,11 +257,10 @@ function checkPrereqs()
 
     foreach ($reqs as $req) {
         if (!checkExtension($req)) {
-            ?><p class="error">Cannot load required extension: <code><?php echo $req; ?></code></p><?php
-		    $pass = false;
+            printf('<p class="error">Cannot load required extension: <code>%s</code></p>', $req);
+            $pass = false;
         }
-    }
-    
+    }    
     // Make sure we have at least one database module available
     global $dbModules;
     $missingExtensions = array();
@@ -273,30 +271,28 @@ function checkPrereqs()
     }
     if (count($missingExtensions) == count($dbModules)) {
         $req = implode(', ', $missingExtensions);
-      ?><p class="error">Cannot find database support. You need at least one of these PHP extensions installed: <code><?php echo $req; ?></code></p><?php
-                    $pass = false;
+        printf('<p class="error">Cannot find mysql or pgsql extension. You need one or the other: <code>%s</code></p>', $req);
+        $pass = false;
+    }
+    
+    if (!is_writable(INSTALLDIR)) {
+        printf('<p class="error">Cannot write config file to: <code>%s</code></p>', INSTALLDIR);
+        printf('<p>On your server, try this command: <code>chmod a+w %s</code>', INSTALLDIR);
+        $pass = false;
     }
 
-	if (!is_writable(INSTALLDIR)) {
-         ?><p class="error">Cannot write config file to: <code><?php echo INSTALLDIR; ?></code></p>
-	       <p>On your server, try this command: <code>chmod a+w <?php echo INSTALLDIR; ?></code>
-         <?php
-	     $pass = false;
-	}
+    // Check the subdirs used for file uploads
+    $fileSubdirs = array('avatar', 'background', 'file');
+    foreach ($fileSubdirs as $fileSubdir) {
+        $fileFullPath = INSTALLDIR."/$fileSubdir/";
+        if (!is_writable($fileFullPath)) {
+            printf('<p class="error">Cannot write to %s directory: <code>%s</code></p>', $fileSubdir, $fileFullPath);
+            printf('<p>On your server, try this command: <code>chmod a+w %s</code></p>', $fileFullPath);
+            $pass = false;
+        }
+    }
 
-	// Check the subdirs used for file uploads
-	$fileSubdirs = array('avatar', 'background', 'file');
-	foreach ($fileSubdirs as $fileSubdir) {
-		$fileFullPath = INSTALLDIR."/$fileSubdir/";
-		if (!is_writable($fileFullPath)) {
-    	     ?><p class="error">Cannot write <?php echo $fileSubdir; ?> directory: <code><?php echo $fileFullPath; ?></code></p>
-		       <p>On your server, try this command: <code>chmod a+w <?php echo $fileFullPath; ?></code></p>
-	     <?php
-		     $pass = false;
-		}
-	}
-
-	return $pass;
+    return $pass;
 }
 
 function checkExtension($name)
