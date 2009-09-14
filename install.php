@@ -18,12 +18,22 @@
  * 
  * @category Installation
  * @package  Installation
- * @license  GNU Affero General Public License http://www.gnu.org/licenses/
  * 
+ * @author   Adrian Lang <mail@adrianlang.de>
+ * @author   Brenda Wallace <shiny@cpan.org>
+ * @author   Brett Taylor <brett@webfroot.co.nz>
+ * @author   Brion Vibber <brion@pobox.com>
+ * @author   CiaranG <ciaran@ciarang.com>
+ * @author   Craig Andrews <candrews@integralblue.com>
+ * @author   Eric Helgeson <helfire@Erics-MBP.local>
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @author   Sarven Capadisli <csarven@controlyourself.ca>
+ * @author   Tom Adams <tom@holizz.com>
+ * @license  GNU Affero General Public License http://www.gnu.org/licenses/
  */
  
-
-
 define('INSTALLDIR', dirname(__FILE__));
 
 $external_libraries=array(
@@ -281,6 +291,7 @@ function checkPrereqs()
             $missingExtensions[] = $info['check_module'];
         }
     }
+    
     if (count($missingExtensions) == count($dbModules)) {
         $req = implode(', ', $missingExtensions);
         printf('<p class="error">Cannot find mysql or pgsql extension. You need one or the other: <code>%s</code></p>', $req);
@@ -682,7 +693,7 @@ function writeConf($sitename, $server, $path, $fancy, $db)
  * 
  * @return boolean - indicating success or failure
  */
-function runDbScript($filename, $conn, $type = 'mysql')
+function runDbScript($filename, $conn, $type = 'mysqli')
 {
     $sql = trim(file_get_contents($filename));
     $stmts = explode(';', $sql);
@@ -693,7 +704,7 @@ function runDbScript($filename, $conn, $type = 'mysql')
         }
         // FIXME: use PEAR::DB or PDO instead of our own switch
         switch ($type) {
-        case 'mysql':
+        case 'mysqli':
             $res = mysql_query($stmt, $conn);
             if ($res === false) {
                 $error = mysql_error();
