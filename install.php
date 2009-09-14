@@ -189,9 +189,9 @@ function main()
         return;
     }
     
-    if( $_GET['checklibs'] ){
+    if (isset($_GET['checklibs'])) {
         showLibs();
-    }else{
+    } else {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             handlePost();
         } else {
@@ -202,7 +202,7 @@ function main()
 
 function haveExternalLibrary($external_library)
 {
-    if(isset($external_library['include']) && ! include_once($external_library['include'])){
+    if(isset($external_library['include']) && ! haveIncludeFile($external_library['include'])){
         return false;
     }
     if(isset($external_library['check_function']) && ! function_exists($external_library['check_function'])){
@@ -212,6 +212,15 @@ function haveExternalLibrary($external_library)
         return false;
     }
     return true;
+}
+
+// Attempt to include a PHP file and report if it worked, while
+// suppressing the annoying warning messages on failure.
+function haveIncludeFile($filename) {
+    $old = error_reporting(error_reporting() & ~E_WARNING);
+    $ok = include_once($filename);
+    error_reporting($old);
+    return $ok;
 }
 
 function checkPrereqs()
@@ -308,19 +317,19 @@ E_O_T;
     foreach($absent_libraries as $library)
     {
         echo '<li>';
-        if($library['url']){
+        if(isset($library['url'])){
             echo '<a href=">'.$library['url'].'">'.htmlentities($library['name']).'</a>';
         }else{
             echo htmlentities($library['name']);
         }
         echo '<ul>';
-        if($library['deb']){
+        if(isset($library['deb'])){
             echo '<li class="deb package">deb: <a href="apt:' . urlencode($library['deb']) . '">' . htmlentities($library['deb']) . '</a></li>';
         }
-        if($library['rpm']){
+        if(isset($library['rpm'])){
             echo '<li class="rpm package">rpm: ' . htmlentities($library['rpm']) . '</li>';
         }
-        if($library['pear']){
+        if(isset($library['pear'])){
             echo '<li class="pear package">pear: ' . htmlentities($library['pear']) . '</li>';
         }
         echo '</ul>';
@@ -333,7 +342,7 @@ E_O_T;
     foreach($present_libraries as $library)
     {
         echo '<li>';
-        if($library['url']){
+        if(isset($library['url'])){
             echo '<a href=">'.$library['url'].'">'.htmlentities($library['name']).'</a>';
         }else{
             echo htmlentities($library['name']);
