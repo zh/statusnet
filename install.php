@@ -516,8 +516,7 @@ STR;
     }
 
     global $dbModules;
-    $db = call_user_func($dbModules[$dbtype]['installer'],
-        $host, $database, $username, $password);
+    $db = call_user_func($dbModules[$dbtype]['installer'], $host, $database, $username, $password);
 
     if (!$db) {
         // database connection failed, do not move on to create config file.
@@ -540,12 +539,10 @@ STR;
 
     updateStatus("StatusNet has been installed at $link");
     updateStatus("You can visit your <a href='$link'>new StatusNet site</a>.");
-?>
-
-<?php
 }
 
-function pgsql_db_installer($host, $database, $username, $password) {
+function Pgsql_Db_installer($host, $database, $username, $password) 
+{
     $connstring = "dbname=$database host=$host user=$username";
 
     //No password would mean trust authentication used.
@@ -605,7 +602,8 @@ function pgsql_db_installer($host, $database, $username, $password) {
     return $db;
 }
 
-function mysql_db_installer($host, $database, $username, $password) {
+function Mysql_Db_installer($host, $database, $username, $password) 
+{
     updateStatus("Starting installation...");
     updateStatus("Checking database...");
 
@@ -678,9 +676,10 @@ function writeConf($sitename, $server, $path, $fancy, $db)
 /**
  * Install schema into the database
  *
- * @param filename $filename    location of database schema file
- * @param conn $conn            connection to database
- * @param type $type type of database, currently mysql or pgsql
+ * @param string $filename location of database schema file
+ * @param dbconn $conn     connection to database
+ * @param string $type     type of database, currently mysql or pgsql
+ * 
  * @return boolean - indicating success or failure
  */
 function runDbScript($filename, $conn, $type = 'mysql')
