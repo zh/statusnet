@@ -141,11 +141,10 @@ class StompQueueManager
                 $this->con->ack($frame);
             } else {
                 if ($handler->handle_notice($notice)) {
-                    $this->_log(LOG_INFO, 'Successfully handled notice '. $notice->id .' originally posted at ' . $notice->created . ' in queue '. $queue);
-                    
+                    $this->_log(LOG_INFO, 'Successfully handled notice '. $notice->id .' posted at ' . $frame->headers['created'] . ' in queue '. $queue);
                     $this->con->ack($frame);
                 } else {
-                    $this->_log(LOG_WARNING, 'Failed handling notice '. $notice->id .' originally posted at ' . $notice->created   . ' in queue '. $queue);
+                    $this->_log(LOG_WARNING, 'Failed handling notice '. $notice->id .' posted at ' . $frame->headers['created']  . ' in queue '. $queue);
                     // FIXME we probably shouldn't have to do
                     // this kind of queue management ourselves
                     $this->con->ack($frame);
