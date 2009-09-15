@@ -412,4 +412,29 @@ class HTMLOutputter extends XMLOutputter
             $this->element('p', 'form_guide', $instructions);
         }
     }
+
+
+    /**
+    * Internal script to autofocus the given element on page onload.
+    *
+    * @param string $id element ID, must refer to an existing element
+    *
+    * @return void
+    *
+    */
+    function autofocus($id)
+    {
+        $this->elementStart('script', array('type' => 'text/javascript'));
+        $this->raw('
+        <!--
+        $(document).ready(function() {
+            var el = $("#' . $id . '");
+            if (el.length) {
+                el.focus();
+            }
+        });
+        -->
+        ');
+        $this->elementEnd('script');
+    }
 }

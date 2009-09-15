@@ -69,6 +69,12 @@ class SmssettingsAction extends ConnectSettingsAction
         return _('You can receive SMS messages through email from %%site.name%%.');
     }
 
+    function showScripts()
+    {
+        parent::showScripts();
+        $this->autofocus('sms');
+    }
+
     /**
      * Content area of the page
      *

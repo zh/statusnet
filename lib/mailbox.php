@@ -213,26 +213,20 @@ class MailboxAction extends CurrentUserDesignAction
         }
 
         $this->elementStart('div', 'entry-content');
-        $this->elementStart('dl', 'timestamp');
-        $this->element('dt', null, _('Published'));
-        $this->elementStart('dd', null);
-        $dt = common_date_iso8601($message->created);
         $this->elementStart('a', array('rel' => 'bookmark',
+                                       'class' => 'timestamp',
                                        'href' => $messageurl));
+        $dt = common_date_iso8601($message->created);
         $this->element('abbr', array('class' => 'published',
                                      'title' => $dt),
                                common_date_string($message->created));
         $this->elementEnd('a');
-        $this->elementEnd('dd');
-        $this->elementEnd('dl');
 
         if ($message->source) {
-            $this->elementStart('dl', 'device');
-            $this->elementStart('dt');
-            $this->text(_('From'));
-            $this->elementEnd('dt');
-            $this->showSource($message->source);
-            $this->elementEnd('dl');
+            $this->elementStart('span', 'source');
+            $this->text(_('from'));
+            $this->element('span', 'device', $this->showSource($message->source));
+            $this->elementEnd('span');
         }
         $this->elementEnd('div');
 
@@ -277,18 +271,18 @@ class MailboxAction extends CurrentUserDesignAction
         case 'mail':
         case 'omb':
         case 'api':
-            $this->element('dd', null, $source_name);
+            $this->element('span', 'device', $source_name);
             break;
         default:
             $ns = Notice_source::staticGet($source);
             if ($ns) {
-                $this->elementStart('dd', null);
+                $this->elementStart('span', 'device');
                 $this->element('a', array('href' => $ns->url,
-                                          'rel' => 'external'),
-                               $ns->name);
-                $this->elementEnd('dd');
+                                               'rel' => 'external'),
+                                    $ns->name);
+                $this->elementEnd('span');
             } else {
-                $this->element('dd', null, $source_name);
+                $this->out->element('span', 'device', $source_name);
             }
             break;
         }

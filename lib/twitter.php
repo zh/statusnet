@@ -154,72 +154,126 @@ function broadcast_twitter($notice)
                                        TWITTER_SERVICE);
 
     if (is_twitter_bound($notice, $flink)) {
-
-        $user = $flink->getUser();
-
-        // XXX: Hack to get around PHP cURL's use of @ being a a meta character
-        $statustxt = preg_replace('/^@/', ' @', $notice->content);
-
-        $token = TwitterOAuthClient::unpackToken($flink->credentials);
-
-        $client = new TwitterOAuthClient($token->key, $token->secret);
-
-        $status = null;
-
-        try {
-            $status = $client->statusesUpdate($statustxt);
-        } catch (OAuthClientCurlException $e) {
-
-            if ($e->getMessage() == 'The requested URL returned error: 401') {
-
-                $errmsg = sprintf('User %1$s (user id: %2$s) has an invalid ' .
-                                  'Twitter OAuth access token.',
-                                  $user->nickname, $user->id);
-                common_log(LOG_WARNING, $errmsg);
-
-                // Bad auth token! We need to delete the foreign_link
-                // to Twitter and inform the user.
-
-                remove_twitter_link($flink);
-                return true;
-
-            } else {
-
-                // Some other error happened, so we should probably
-                // try to send again later.
-
-                $errmsg = sprintf('cURL error trying to send notice to Twitter ' .
-                                  'for user %1$s (user id: %2$s) - ' .
-                                  'code: %3$s message: $4$s.',
-                                  $user->nickname, $user->id,
-                                  $e->getCode(), $e->getMessage());
-                common_log(LOG_WARNING, $errmsg);
-
-                return false;
-            }
+        if (TwitterOAuthClient::isPackedToken($flink->credentials)) {
+            return broadcast_oauth($notice, $flink);
+        } else {
+            return broadcast_basicauth($notice, $flink);
         }
-
-        if (empty($status)) {
-
-            // This could represent a failure posting,
-            // or the Twitter API might just be behaving flakey.
-
-            $errmsg = sprint('No data returned by Twitter API when ' .
-                             'trying to send update for %1$s (user id %2$s).',
-                             $user->nickname, $user->id);
-            common_log(LOG_WARNING, $errmsg);
-
-            return false;
-        }
-
-        // Notice crossed the great divide
-
-        $msg = sprintf('Twitter bridge posted notice %s to Twitter.',
-                       $notice->id);
-        common_log(LOG_INFO, $msg);
     }
 
     return true;
+}
+
+function broadcast_oauth($notice, $flink) {
+    $user = $flink->getUser();
+    $statustxt = format_status($notice);
+    // Convert !groups to #hashes
+    $statustxt = preg_replace('/(^|\s)!([A-Za-z0-9]{1,64})/', "\\1#\\2", $statustxt);
+    $token = TwitterOAuthClient::unpackToken($flink->credentials);
+    $client = new TwitterOAuthClient($token->key, $token->secret);
+    $status = null;
+
+    try {
+        $status = $client->statusesUpdate($statustxt);
+    } catch (OAuthClientCurlException $e) {
+        return process_error($e, $flink);
+    }
+
+    if (empty($status)) {
+
+        // This could represent a failure posting,
+        // or the Twitter API might just be behaving flakey.
+
+        $errmsg = sprintf('Twitter bridge - No data returned by Twitter API when ' .
+                          'trying to send update for %1$s (user id %2$s).',
+                          $user->nickname, $user->id);
+        common_log(LOG_WARNING, $errmsg);
+
+        return false;
+    }
+
+    // Notice crossed the great divide
+
+    $msg = sprintf('Twitter bridge - posted notice %s to Twitter using OAuth.',
+                   $notice->id);
+    common_log(LOG_INFO, $msg);
+
+    return true;
+}
+
+function broadcast_basicauth($notice, $flink)
+{
+    $user = $flink->getUser();
+
+    $statustxt = format_status($notice);
+
+    $client = new TwitterBasicAuthClient($flink);
+    $status = null;
+
+    try {
+        $status = $client->statusesUpdate($statustxt);
+    } catch (BasicAuthCurlException $e) {
+        return process_error($e, $flink);
+    }
+
+    if (empty($status)) {
+
+        $errmsg = sprintf('Twitter bridge - No data returned by Twitter API when ' .
+                          'trying to send update for %1$s (user id %2$s).',
+                          $user->nickname, $user->id);
+        common_log(LOG_WARNING, $errmsg);
+
+            $errmsg = sprintf('No data returned by Twitter API when ' .
+                             'trying to send update for %1$s (user id %2$s).',
+                             $user->nickname, $user->id);
+            common_log(LOG_WARNING, $errmsg);
+        return false;
+    }
+
+    $msg = sprintf('Twitter bridge - posted notice %s to Twitter using basic auth.',
+                   $notice->id);
+    common_log(LOG_INFO, $msg);
+
+    return true;
+}
+
+function process_error($e, $flink)
+{
+    $user        = $flink->getUser();
+    $errmsg      = $e->getMessage();
+    $delivered   = false;
+
+    switch($errmsg) {
+     case 'The requested URL returned error: 401':
+        $logmsg = sprintf('Twiter bridge - User %1$s (user id: %2$s) has an invalid ' .
+                          'Twitter screen_name/password combo or an invalid acesss token.',
+                          $user->nickname, $user->id);
+        $delivered = true;
+        remove_twitter_link($flink);
+        break;
+     case 'The requested URL returned error: 403':
+        $logmsg = sprintf('Twitter bridge - User %1$s (user id: %2$s) has exceeded ' .
+                          'his/her Twitter request limit.',
+                          $user->nickname, $user->id);
+        break;
+     default:
+        $logmsg = sprintf('Twitter bridge - cURL error trying to send notice to Twitter ' .
+                          'for user %1$s (user id: %2$s) - ' .
+                          'code: %3$s message: %4$s.',
+                          $user->nickname, $user->id,
+                          $e->getCode(), $e->getMessage());
+        break;
+    }
+
+    common_log(LOG_WARNING, $logmsg);
+
+    return $delivered;
+}
+
+function format_status($notice)
+{
+    // XXX: Hack to get around PHP cURL's use of @ being a a meta character
+    return preg_replace('/^@/', ' @', $notice->content);
 }
 
 function remove_twitter_link($flink)
@@ -227,7 +281,7 @@ function remove_twitter_link($flink)
     $user = $flink->getUser();
 
     common_log(LOG_INFO, 'Removing Twitter bridge Foreign link for ' .
-        "user $user->nickname (user id: $user->id).");
+               "user $user->nickname (user id: $user->id).");
 
     $result = $flink->delete();
 

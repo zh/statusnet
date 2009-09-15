@@ -54,7 +54,7 @@ class Status_network extends DB_DataObject
         global $config;
 
         $config['db']['database_'.$dbname] = "mysqli://$dbuser:$dbpass@$dbhost/$dbname";
-        $config['db']['ini_'.$dbname] = INSTALLDIR.'/classes/statusnet.ini';
+        $config['db']['ini_'.$dbname] = INSTALLDIR.'/classes/status_network.ini';
         $config['db']['table_status_network'] = $dbname;
 
         self::$cache = new Memcache();

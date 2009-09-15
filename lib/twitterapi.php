@@ -595,7 +595,6 @@ class TwitterapiAction extends Action
 
         $this->init_document('rss');
 
-        $this->elementStart('channel');
         $this->element('title', null, $title);
         $this->element('link', null, $link);
         if (!is_null($suplink)) {
@@ -621,7 +620,6 @@ class TwitterapiAction extends Action
             }
         }
 
-        $this->elementEnd('channel');
         $this->end_twitter_rss();
     }
 
@@ -668,7 +666,6 @@ class TwitterapiAction extends Action
 
         $this->init_document('rss');
 
-        $this->elementStart('channel');
         $this->element('title', null, $title);
         $this->element('link', null, $link);
         $this->element('description', null, $subtitle);
@@ -687,7 +684,6 @@ class TwitterapiAction extends Action
             }
         }
 
-        $this->elementEnd('channel');
         $this->end_twitter_rss();
     }
 
@@ -790,6 +786,52 @@ class TwitterapiAction extends Action
 
         $this->elementEnd('groups');
         $this->end_document('xml');
+    }
+
+    function show_twitter_xml_users($user)
+    {
+
+        $this->init_document('xml');
+        $this->elementStart('users', array('type' => 'array'));
+
+        if (is_array($user)) {
+            foreach ($group as $g) {
+                $twitter_user = $this->twitter_user_array($g);
+                $this->show_twitter_xml_user($twitter_user,'user');
+            }
+        } else {
+            while ($user->fetch()) {
+                $twitter_user = $this->twitter_user_array($user);
+                $this->show_twitter_xml_user($twitter_user);
+            }
+        }
+
+        $this->elementEnd('users');
+        $this->end_document('xml');
+    }
+
+    function show_json_users($user)
+    {
+
+        $this->init_document('json');
+
+        $users = array();
+
+        if (is_array($user)) {
+            foreach ($user as $u) {
+                $twitter_user = $this->twitter_user_array($u);
+                array_push($users, $twitter_user);
+            }
+        } else {
+            while ($user->fetch()) {
+                $twitter_user = $this->twitter_user_array($user);
+                array_push($users, $twitter_user);
+            }
+        }
+
+        $this->show_json_objects($users);
+
+        $this->end_document('json');
     }
 
     function show_single_json_group($group)
@@ -944,11 +986,14 @@ class TwitterapiAction extends Action
     function init_twitter_rss()
     {
         $this->startXML();
-        $this->elementStart('rss', array('version' => '2.0'));
+        $this->elementStart('rss', array('version' => '2.0', 'xmlns:atom'=>'http://www.w3.org/2005/Atom'));
+        $this->elementStart('channel');
+        Event::handle('StartApiRss', array($this));
     }
 
     function end_twitter_rss()
     {
+        $this->elementEnd('channel');
         $this->elementEnd('rss');
         $this->endXML();
     }
@@ -960,6 +1005,7 @@ class TwitterapiAction extends Action
         $this->elementStart('feed', array('xmlns' => 'http://www.w3.org/2005/Atom',
                                           'xml:lang' => 'en-US',
                                           'xmlns:thr' => 'http://purl.org/syndication/thread/1.0'));
+        Event::handle('StartApiAtom', array($this));
     }
 
     function end_twitter_atom()

@@ -103,10 +103,7 @@ class User extends Memcached_DataObject
         }
         $toupdate = implode(', ', $parts);
 
-        $table = $this->tableName();
-        if(common_config('db','quote_identifiers')) {
-            $table = '"' . $table . '"';
-        }
+        $table = common_database_tablename($this->tableName());
         $qry = 'UPDATE ' . $table . ' SET ' . $toupdate .
           ' WHERE id = ' . $this->id;
         $orig->decache();
@@ -630,11 +627,7 @@ class User extends Memcached_DataObject
           'ORDER BY subscription.created DESC ';
 
         if ($offset) {
-            if (common_config('db','type') == 'pgsql') {
-                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-            } else {
-                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
-            }
+            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
         }
 
         $profile = new Profile();
@@ -657,11 +650,7 @@ class User extends Memcached_DataObject
           'AND subscription.subscribed != subscription.subscriber ' .
           'ORDER BY subscription.created DESC ';
 
-        if (common_config('db','type') == 'pgsql') {
-            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-        } else {
-            $qry .= ' LIMIT ' . $offset . ', ' . $limit;
-        }
+        $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
 
         $profile = new Profile();
 

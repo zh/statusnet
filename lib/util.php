@@ -59,7 +59,7 @@ function common_init_language()
     textdomain("statusnet");
     setlocale(LC_CTYPE, 'C');
     if(!$locale_set) {
-        common_log(LOG_INFO,'Language requested:'.$language.' - locale could not be set:',__FILE__);
+        common_log(LOG_INFO, 'Language requested:' . $language . ' - locale could not be set. Perhaps that system locale is not installed.', __FILE__);
     }
 }
 
@@ -413,7 +413,7 @@ function common_replace_urls_callback($text, $callback, $notice_id = null) {
     // Start off with a regex
     $regex = '#'.
     '(?:^|[\s\(\)\[\]\{\}\\\'\\\";]+)(?![\@\!\#])'.
-    '(?P<url>'.
+    '('.
         '(?:'.
             '(?:'. //Known protocols
                 '(?:'.
@@ -421,7 +421,7 @@ function common_replace_urls_callback($text, $callback, $notice_id = null) {
                     '|'.
                     '(?:(?:mailto|aim|tel|xmpp):)'.
                 ')'.
-                '(?:[\pN\pL\-\_\+]+(?::[\pN\pL\-\_\+]+)?\@)?'. //user:pass@
+                '(?:[\pN\pL\-\_\+\%\~]+(?::[\pN\pL\-\_\+\%\~]+)?\@)?'. //user:pass@
                 '(?:'.
                     '(?:'.
                         '\[[\pN\pL\-\_\:\.]+(?<![\.\:])\]'. //[dns]
@@ -432,9 +432,9 @@ function common_replace_urls_callback($text, $callback, $notice_id = null) {
             ')'.
             '|(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'. //IPv4
             '|(?:'. //IPv6
-                '\[?(?:(?:(?:[0-9A-Fa-f]{1,4}:){7}(?:(?:[0-9A-Fa-f]{1,4})|:))|(?:(?:[0-9A-Fa-f]{1,4}:){6}(?::|(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})|(?::[0-9A-Fa-f]{1,4})))|(?:(?:[0-9A-Fa-f]{1,4}:){5}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:){4}(?::[0-9A-Fa-f]{1,4}){0,1}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:){3}(?::[0-9A-Fa-f]{1,4}){0,2}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:){2}(?::[0-9A-Fa-f]{1,4}){0,3}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:)(?::[0-9A-Fa-f]{1,4}){0,4}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?::(?::[0-9A-Fa-f]{1,4}){0,5}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})))\]?'.
+                '\[?(?:(?:(?:[0-9A-Fa-f]{1,4}:){7}(?:(?:[0-9A-Fa-f]{1,4})|:))|(?:(?:[0-9A-Fa-f]{1,4}:){6}(?::|(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})|(?::[0-9A-Fa-f]{1,4})))|(?:(?:[0-9A-Fa-f]{1,4}:){5}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:){4}(?::[0-9A-Fa-f]{1,4}){0,1}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:){3}(?::[0-9A-Fa-f]{1,4}){0,2}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:){2}(?::[0-9A-Fa-f]{1,4}){0,3}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:)(?::[0-9A-Fa-f]{1,4}){0,4}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?::(?::[0-9A-Fa-f]{1,4}){0,5}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})))\]?(?<!:)'.
             ')|(?:'. //DNS
-                '(?:[\pN\pL\-\_\+]+(?:\:[\pN\pL\-\_\+]+)?\@)?'. //user:pass@
+                '(?:[\pN\pL\-\_\+\%\~]+(?:\:[\pN\pL\-\_\+\%\~]+)?\@)?'. //user:pass@
                 '[\pN\pL\-\_]+(?:\.[\pN\pL\-\_]+)*\.'.
                 //tld list from http://data.iana.org/TLD/tlds-alpha-by-domain.txt, also added local, loc, and onion
                 '(?:AC|AD|AE|AERO|AF|AG|AI|AL|AM|AN|AO|AQ|AR|ARPA|AS|ASIA|AT|AU|AW|AX|AZ|BA|BB|BD|BE|BF|BG|BH|BI|BIZ|BJ|BM|BN|BO|BR|BS|BT|BV|BW|BY|BZ|CA|CAT|CC|CD|CF|CG|CH|CI|CK|CL|CM|CN|CO|COM|COOP|CR|CU|CV|CX|CY|CZ|DE|DJ|DK|DM|DO|DZ|EC|EDU|EE|EG|ER|ES|ET|EU|FI|FJ|FK|FM|FO|FR|GA|GB|GD|GE|GF|GG|GH|GI|GL|GM|GN|GOV|GP|GQ|GR|GS|GT|GU|GW|GY|HK|HM|HN|HR|HT|HU|ID|IE|IL|IM|IN|INFO|INT|IO|IQ|IR|IS|IT|JE|JM|JO|JOBS|JP|KE|KG|KH|KI|KM|KN|KP|KR|KW|KY|KZ|LA|LB|LC|LI|LK|LR|LS|LT|LU|LV|LY|MA|MC|MD|ME|MG|MH|MIL|MK|ML|MM|MN|MO|MOBI|MP|MQ|MR|MS|MT|MU|MUSEUM|MV|MW|MX|MY|MZ|NA|NAME|NC|NE|NET|NF|NG|NI|NL|NO|NP|NR|NU|NZ|OM|ORG|PA|PE|PF|PG|PH|PK|PL|PM|PN|PR|PRO|PS|PT|PW|PY|QA|RE|RO|RS|RU|RW|SA|SB|SC|SD|SE|SG|SH|SI|SJ|SK|SL|SM|SN|SO|SR|ST|SU|SV|SY|SZ|TC|TD|TEL|TF|TG|TH|TJ|TK|TL|TM|TN|TO|TP|TR|TRAVEL|TT|TV|TW|TZ|UA|UG|UK|US|UY|UZ|VA|VC|VE|VG|VI|VN|VU|WF|WS|XN--0ZWM56D|测试|XN--11B5BS3A9AJ6G|परीक्षा|XN--80AKHBYKNJ4F|испытание|XN--9T4B11YI5A|테스트|XN--DEBA0AD|טעסט|XN--G6W251D|測試|XN--HGBK6AJ7F53BBA|آزمایشی|XN--HLCJ6AYA9ESC7A|பரிட்சை|XN--JXALPDLP|δοκιμή|XN--KGBECHTV|إختبار|XN--ZCKZAH|テスト|YE|YT|YU|ZA|ZM|ZW|local|loc|onion)'.
@@ -442,22 +442,22 @@ function common_replace_urls_callback($text, $callback, $notice_id = null) {
         ')'.
         '(?:'.
             '(?:\:\d+)?'. //:port
-            '(?:/[\pN\pL$\[\]\,\!\(\)\.\-\_\+\/\=\&\;]*)?'. // /path
-            '(?:\?[\pN\pL\$\[\]\,\!\(\)\.\-\_\+\/\=\&\;\/]*)?'. // ?query string
-            '(?:\#[\pN\pL$\[\]\,\!\(\)\.\-\_\+\/\=\&\;\/\?\#]*)?'. // #fragment
+            '(?:/[\pN\pL$\[\]\,\!\(\)\.\:\-\_\+\/\=\&\;\%\~\*\$\+\'\"]*)?'. // /path
+            '(?:\?[\pN\pL\$\[\]\,\!\(\)\.\:\-\_\+\/\=\&\;\%\~\*\$\+\'\"\/]*)?'. // ?query string
+            '(?:\#[\pN\pL$\[\]\,\!\(\)\.\:\-\_\+\/\=\&\;\%\~\*\$\+\'\"\/\?\#]*)?'. // #fragment
         ')(?<![\?\.\,\#\,])'.
     ')'.
     '#ixu';
-    preg_match_all($regex,$text,$matches);
+    //preg_match_all($regex,$text,$matches);
     //print_r($matches);
-    return preg_replace_callback($regex, curry(callback_helper,$callback,$notice_id) ,$text);
+    return preg_replace_callback($regex, curry('callback_helper',$callback,$notice_id) ,$text);
 }
 
 function callback_helper($matches, $callback, $notice_id) {
-    $url=$matches['url'];
+    $url=$matches[1];
     $left = strpos($matches[0],$url);
     $right = $left+strlen($url);
-    
+
     $groupSymbolSets=array(
         array(
             'left'=>'(',
@@ -491,13 +491,11 @@ function callback_helper($matches, $callback, $notice_id) {
             $url=substr($url,0,-1);
         }
     }while($original_url!=$url);
-    
-    
-    
+
     if(empty($notice_id)){
         $result = call_user_func_array($callback,$url);
     }else{
-        $result = call_user_func_array($callback, array($url,$notice_id) );
+        $result = call_user_func_array($callback, array(array($url,$notice_id)) );
     }
     return substr($matches[0],0,$left) . $result . substr($matches[0],$right);
 }
@@ -508,16 +506,13 @@ function curry($fn) {
     array_shift($args);
     $id = uniqid('_partial');
     $GLOBALS[$id] = array($fn, $args);
-    return create_function(
-        '',
-        '
-        $args = func_get_args();
-        return call_user_func_array(
-        $GLOBALS["'.$id.'"][0],
-        array_merge(
-            $args,
-            $GLOBALS["'.$id.'"][1]));
-    ');
+    return create_function('',
+                           '$args = func_get_args(); '.
+                           'return call_user_func_array('.
+                           '$GLOBALS["'.$id.'"][0],'.
+                           'array_merge('.
+                           '$args,'.
+                           '$GLOBALS["'.$id.'"][1]));');
 }
 
 function common_linkify($url) {
@@ -525,7 +520,7 @@ function common_linkify($url) {
     // functions
     $url = htmlspecialchars_decode($url);
 
-   if(strpos($url, '@')!==false && strpos($url, ':')===false){
+   if(strpos($url, '@') !== false && strpos($url, ':') === false) {
        //url is an email address without the mailto: protocol
        return XMLStringer::estring('a', array('href' => "mailto:$url", 'rel' => 'external'), $url);
    }
@@ -547,42 +542,30 @@ function common_linkify($url) {
     $attachment_id = null;
     $has_thumb = false;
 
-    // Check to see whether there's a filename associated with this URL.
-    // If there is, it's an upload and qualifies as an attachment
+    // Check to see whether this is a known "attachment" URL.
 
-    $localfile = File::staticGet('url', $longurl);
+    $f = File::staticGet('url', $longurl);
 
-    if (!empty($localfile)) {
-        if (isset($localfile->filename)) {
-            $is_attachment = true;
-            $attachment_id = $localfile->id;
-        }
+    if (empty($f)) {
+        // XXX: this writes to the database. :<
+        $f = File::processNew($longurl);
     }
 
-    // if this URL is an attachment, then we set class='attachment' and id='attahcment-ID'
-    // where ID is the id of the attachment for the given URL.
-    //
-    // we need a better test telling what can be shown as an attachment
-    // we're currently picking up oembeds only.
-    // I think the best option is another file_view table in the db
-    // and associated dbobject.
+    if (!empty($f)) {
+        if (isset($f->filename)) {
+            $is_attachment = true;
+            $attachment_id = $f->id;
+        } else { // if it has OEmbed info, it's an attachment, too
+            $foe = File_oembed::staticGet('file_id', $f->id);
+            if (!empty($foe)) {
+                $is_attachment = true;
+                $attachment_id = $f->id;
 
-    $query = "select file_oembed.file_id as file_id from file join file_oembed on file.id = file_oembed.file_id where file.url='$longurl'";
-    $file = new File;
-    $file->query($query);
-    $file->fetch();
-
-    if (!empty($file->file_id)) {
-        $is_attachment = true;
-        $attachment_id = $file->file_id;
-
-        $query = "select file_thumbnail.file_id as file_id from file join file_thumbnail on file.id = file_thumbnail.file_id where file.url='$longurl'";
-        $file2 = new File;
-        $file2->query($query);
-        $file2->fetch();
-
-        if (!empty($file2)) {
-            $has_thumb = true;
+                $thumb = File_thumbnail::staticGet('file_id', $f->id);
+                if (!empty($thumb)) {
+                    $has_thumb = true;
+                }
+            }
         }
     }
 
@@ -1390,58 +1373,19 @@ function common_shorten_url($long_url)
     } else {
         $svc = $user->urlshorteningservice;
     }
-
-    $curlh = curl_init();
-    curl_setopt($curlh, CURLOPT_CONNECTTIMEOUT, 20); // # seconds to wait
-    curl_setopt($curlh, CURLOPT_USERAGENT, 'StatusNet');
-    curl_setopt($curlh, CURLOPT_RETURNTRANSFER, true);
-
-    switch($svc) {
-     case 'ur1.ca':
-        require_once INSTALLDIR.'/lib/Shorturl_api.php';
-        $short_url_service = new LilUrl;
-        $short_url = $short_url_service->shorten($long_url);
-        break;
-
-     case '2tu.us':
-        $short_url_service = new TightUrl;
-        require_once INSTALLDIR.'/lib/Shorturl_api.php';
-        $short_url = $short_url_service->shorten($long_url);
-        break;
-
-     case 'ptiturl.com':
-        require_once INSTALLDIR.'/lib/Shorturl_api.php';
-        $short_url_service = new PtitUrl;
-        $short_url = $short_url_service->shorten($long_url);
-        break;
-
-     case 'bit.ly':
-        curl_setopt($curlh, CURLOPT_URL, 'http://bit.ly/api?method=shorten&long_url='.urlencode($long_url));
-        $short_url = current(json_decode(curl_exec($curlh))->results)->hashUrl;
-        break;
-
-     case 'is.gd':
-        curl_setopt($curlh, CURLOPT_URL, 'http://is.gd/api.php?longurl='.urlencode($long_url));
-        $short_url = curl_exec($curlh);
-        break;
-     case 'snipr.com':
-        curl_setopt($curlh, CURLOPT_URL, 'http://snipr.com/site/snip?r=simple&link='.urlencode($long_url));
-        $short_url = curl_exec($curlh);
-        break;
-     case 'metamark.net':
-        curl_setopt($curlh, CURLOPT_URL, 'http://metamark.net/api/rest/simple?long_url='.urlencode($long_url));
-        $short_url = curl_exec($curlh);
-        break;
-     case 'tinyurl.com':
-        curl_setopt($curlh, CURLOPT_URL, 'http://tinyurl.com/api-create.php?url='.urlencode($long_url));
-        $short_url = curl_exec($curlh);
-        break;
-     default:
-        $short_url = false;
+    global $_shorteners;
+    if(! $_shorteners[$svc]){
+        //the user selected service doesn't exist, so default to ur1.ca
+        $svc = 'ur1.ca';
     }
 
-    curl_close($curlh);
+    $reflectionObj = new ReflectionClass($_shorteners[$svc]['callInfo'][0]);
+    $short_url_service = $reflectionObj->newInstanceArgs($_shorteners[$svc]['callInfo'][1]); 
+    $short_url = $short_url_service->shorten($long_url);
 
+    if(substr($short_url,0,7)=='http://'){
+        $short_url = substr($short_url,7);
+    }
     return $short_url;
 }
 

@@ -107,6 +107,12 @@ class SubscriptionsAction extends GalleryAction
                           array('nickname' => $this->user->nickname));
     }
 
+    function showScripts()
+    {
+        parent::showScripts();
+        $this->autofocus('tag');
+    }
+
     function showEmptyListMessage()
     {
         if (common_logged_in()) {

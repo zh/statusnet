@@ -549,3 +549,23 @@ create index noticecontent_idx on notice using gist(to_tsvector('english',conten
 create trigger textsearchupdate before insert or update on profile for each row
 execute procedure tsvector_update_trigger(textsearch, 'pg_catalog.english', nickname, fullname, location, bio, homepage);
 
+
+create table config (
+
+    section varchar(32) /* comment 'configuration section'*/,
+    setting varchar(32) /* comment 'configuration setting'*/,
+    value varchar(255) /* comment 'configuration value'*/,
+
+    primary key (section, setting)
+
+);
+
+create table user_role (
+
+    user_id integer not null /* comment 'user having the role'*/ references "user" (id),
+    role    varchar(32) not null /* comment 'string representing the role'*/,
+    created timestamp /* not null comment 'date the role was granted'*/,
+
+    primary key (user_id, role)
+
+);

@@ -32,7 +32,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 }
 
 /**
- * Class for talking to the Twitter API with OAuth.
+ * Exception wrapper for cURL errors
  *
  * @category Integration
  * @package  StatusNet
@@ -41,80 +41,36 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @link     http://status.net/
  *
  */
-class TwitterOAuthClient extends OAuthClient
+class BasicAuthCurlException extends Exception
 {
-    public static $requestTokenURL = 'https://twitter.com/oauth/request_token';
-    public static $authorizeURL    = 'https://twitter.com/oauth/authorize';
-    public static $accessTokenURL  = 'https://twitter.com/oauth/access_token';
+}
+
+/**
+ * Class for talking to the Twitter API with HTTP Basic Auth.
+ *
+ * @category Integration
+ * @package  StatusNet
+ * @author   Zach Copley <zach@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://status.net/
+ *
+ */
+class TwitterBasicAuthClient
+{
+    var $screen_name = null;
+    var $password    = null;
 
     /**
-     * Constructor
+     * constructor
      *
-     * @param string $oauth_token        the user's token
-     * @param string $oauth_token_secret the user's token secret
-     *
-     * @return nothing
+     * @param Foreign_link $flink a Foreign_link storing the
+     *                            Twitter user's password, etc.
      */
-    function __construct($oauth_token = null, $oauth_token_secret = null)
+    function __construct($flink)
     {
-        $consumer_key    = common_config('twitter', 'consumer_key');
-        $consumer_secret = common_config('twitter', 'consumer_secret');
-
-        parent::__construct($consumer_key, $consumer_secret,
-                            $oauth_token, $oauth_token_secret);
-    }
-
-    // XXX: the following two functions are to support the horrible hack
-    // of using the credentils field in Foreign_link to store both
-    // the access token and token secret.  This hack should go away with
-    // 0.9, in which we can make DB changes and add a new column for the
-    // token itself.
-
-    static function packToken($token)
-    {
-        return implode(chr(0), array($token->key, $token->secret));
-    }
-
-    static function unpackToken($str)
-    {
-        $vals = explode(chr(0), $str);
-        return new OAuthToken($vals[0], $vals[1]);
-    }
-
-    static function isPackedToken($str)
-    {
-        if (strpos($str, chr(0)) === false) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    /**
-     * Builds a link to Twitter's endpoint for authorizing a request token
-     *
-     * @param OAuthToken $request_token token to authorize
-     *
-     * @return the link
-     */
-    function getAuthorizeLink($request_token)
-    {
-        return parent::getAuthorizeLink(self::$authorizeURL,
-                                        $request_token,
-                                        common_local_url('twitterauthorization'));
-    }
-
-    /**
-     * Calls Twitter's /account/verify_credentials API method
-     *
-     * @return mixed the Twitter user
-     */
-    function verifyCredentials()
-    {
-        $url          = 'https://twitter.com/account/verify_credentials.json';
-        $response     = $this->oAuthGet($url);
-        $twitter_user = json_decode($response);
-        return $twitter_user;
+        $fuser             = $flink->getForeignUser();
+        $this->screen_name = $fuser->nickname;
+        $this->password    = $flink->credentials;
     }
 
     /**
@@ -130,8 +86,9 @@ class TwitterOAuthClient extends OAuthClient
     {
         $url      = 'https://twitter.com/statuses/update.json';
         $params   = array('status' => $status,
-            'in_reply_to_status_id' => $in_reply_to_status_id);
-        $response = $this->oAuthPost($url, $params);
+                          'source' => common_config('integration', 'source'),
+                          'in_reply_to_status_id' => $in_reply_to_status_id);
+        $response = $this->httpRequest($url, $params);
         $status   = json_decode($response);
         return $status;
     }
@@ -149,7 +106,6 @@ class TwitterOAuthClient extends OAuthClient
     function statusesFriendsTimeline($since_id = null, $max_id = null,
                                      $cnt = null, $page = null)
     {
-
         $url    = 'https://twitter.com/statuses/friends_timeline.json';
         $params = array('since_id' => $since_id,
                         'max_id' => $max_id,
@@ -161,7 +117,7 @@ class TwitterOAuthClient extends OAuthClient
             $url .= "?$qry";
         }
 
-        $response = $this->oAuthGet($url);
+        $response = $this->httpRequest($url);
         $statuses = json_decode($response);
         return $statuses;
     }
@@ -191,7 +147,7 @@ class TwitterOAuthClient extends OAuthClient
             $url .= "?$qry";
         }
 
-        $response = $this->oAuthGet($url);
+        $response = $this->httpRequest($url);
         $friends  = json_decode($response);
         return $friends;
     }
@@ -207,7 +163,7 @@ class TwitterOAuthClient extends OAuthClient
      * @return mixed a list of ids, 100 per page
      */
     function friendsIds($id = null, $user_id = null, $screen_name = null,
-                         $page = null)
+                        $page = null)
     {
         $url = "https://twitter.com/friends/ids.json";
 
@@ -221,9 +177,60 @@ class TwitterOAuthClient extends OAuthClient
             $url .= "?$qry";
         }
 
-        $response = $this->oAuthGet($url);
+        $response = $this->httpRequest($url);
         $ids      = json_decode($response);
         return $ids;
+    }
+
+    /**
+     * Make a HTTP request using cURL.
+     *
+     * @param string $url    Where to make the request
+     * @param array  $params post parameters
+     *
+     * @return mixed the request
+     */
+    function httpRequest($url, $params = null, $auth = true)
+    {
+        $options = array(
+                         CURLOPT_RETURNTRANSFER => true,
+                         CURLOPT_FAILONERROR    => true,
+                         CURLOPT_HEADER         => false,
+                         CURLOPT_FOLLOWLOCATION => true,
+                         CURLOPT_USERAGENT      => 'StatusNet',
+                         CURLOPT_CONNECTTIMEOUT => 120,
+                         CURLOPT_TIMEOUT        => 120,
+                         CURLOPT_HTTPAUTH       => CURLAUTH_ANY,
+                         CURLOPT_SSL_VERIFYPEER => false,
+
+                         // Twitter is strict about accepting invalid "Expect" headers
+
+                         CURLOPT_HTTPHEADER => array('Expect:')
+                         );
+
+        if (isset($params)) {
+            $options[CURLOPT_POST]       = true;
+            $options[CURLOPT_POSTFIELDS] = $params;
+        }
+
+        if ($auth) {
+            $options[CURLOPT_USERPWD] = $this->screen_name .
+              ':' . $this->password;
+        }
+
+        $ch = curl_init($url);
+        curl_setopt_array($ch, $options);
+        $response = curl_exec($ch);
+
+        if ($response === false) {
+            $msg  = curl_error($ch);
+            $code = curl_errno($ch);
+            throw new BasicAuthCurlException($msg, $code);
+        }
+
+        curl_close($ch);
+
+        return $response;
     }
 
 }

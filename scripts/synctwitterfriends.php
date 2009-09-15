@@ -142,13 +142,20 @@ class SyncTwitterFriendsDaemon extends ParallelizingDaemon
     {
         $friends = array();
 
-        $token = TwitterOAuthClient::unpackToken($flink->credentials);
+        $client = null;
 
-        $client = new TwitterOAuthClient($token->key, $token->secret);
+        if (TwitterOAuthClient::isPackedToken($flink->credentials)) {
+            $token = TwitterOAuthClient::unpackToken($flink->credentials);
+            $client = new TwitterOAuthClient($token->key, $token->secret);
+            common_debug($this->name() . '- Grabbing friends IDs with OAuth.');
+        } else {
+            $client = new TwitterBasicAuthClient($flink);
+            common_debug($this->name() . '- Grabbing friends IDs with basic auth.');
+        }
 
         try {
             $friends_ids = $client->friendsIds();
-        } catch (OAuthCurlException $e) {
+        } catch (Exception $e) {
             common_log(LOG_WARNING, $this->name() .
                        ' - cURL error getting friend ids ' .
                        $e->getCode() . ' - ' . $e->getMessage());
@@ -177,7 +184,7 @@ class SyncTwitterFriendsDaemon extends ParallelizingDaemon
 
         try {
             $more_friends = $client->statusesFriends(null, null, null, $i);
-        } catch (OAuthCurlException $e) {
+        } catch (Exception $e) {
             common_log(LOG_WARNING, $this->name() .
                        ' - cURL error getting Twitter statuses/friends ' .
                        "page $i - " . $e->getCode() . ' - ' .

@@ -148,9 +148,9 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
     function getTimeline($flink)
     {
-         if (empty($flink)) {
+        if (empty($flink)) {
             common_log(LOG_WARNING, $this->name() .
-                " - Can't retrieve Foreign_link for foreign ID $fid");
+                       " - Can't retrieve Foreign_link for foreign ID $fid");
             return;
         }
 
@@ -161,17 +161,24 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         // to start importing?  How many statuses?  Right now I'm going
         // with the default last 20.
 
-        $token = TwitterOAuthClient::unpackToken($flink->credentials);
+        $client = null;
 
-        $client = new TwitterOAuthClient($token->key, $token->secret);
+        if (TwitterOAuthClient::isPackedToken($flink->credentials)) {
+            $token = TwitterOAuthClient::unpackToken($flink->credentials);
+            $client = new TwitterOAuthClient($token->key, $token->secret);
+            common_debug($this->name() . ' - Grabbing friends timeline with OAuth.');
+        } else {
+            $client = new TwitterBasicAuthClient($flink);
+            common_debug($this->name() . ' - Grabbing friends timeline with basic auth.');
+        }
 
         $timeline = null;
 
         try {
             $timeline = $client->statusesFriendsTimeline();
-        } catch (OAuthClientCurlException $e) {
+        } catch (Exception $e) {
             common_log(LOG_WARNING, $this->name() .
-                       ' - OAuth client unable to get friends timeline for user ' .
+                       ' - Twitter client unable to get friends timeline for user ' .
                        $flink->user_id . ' - code: ' .
                        $e->getCode() . 'msg: ' . $e->getMessage());
         }

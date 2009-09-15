@@ -19,7 +19,7 @@
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
-class ShortUrlApi
+abstract class ShortUrlApi
 {
     protected $service_url;
     protected $long_limit = 27;
@@ -35,11 +35,9 @@ class ShortUrlApi
         return $url;
     }
 
-    protected function shorten_imp($url) {
-        return "To Override";
-    }
+    protected  abstract function shorten_imp($url);
 
-    private function is_long($url) {
+    protected function is_long($url) {
         return strlen($url) >= common_config('site', 'shorturllength');
     }
 
@@ -68,64 +66,6 @@ class ShortUrlApi
         $tidy->parseString($response, $config, 'utf8');
         $tidy->cleanRepair();
         return (string)$tidy;
-    }
-}
-
-class LilUrl extends ShortUrlApi
-{
-    function __construct()
-    {
-        parent::__construct('http://ur1.ca/');
-    }
-
-    protected function shorten_imp($url) {
-        $data['longurl'] = $url;
-        $response = $this->http_post($data);
-        if (!$response) return $url;
-        $y = @simplexml_load_string($response);
-        if (!isset($y->body)) return $url;
-        $x = $y->body->p[0]->a->attributes();
-        if (isset($x['href'])) return $x['href'];
-        return $url;
-    }
-}
-
-
-class PtitUrl extends ShortUrlApi
-{
-    function __construct()
-    {
-        parent::__construct('http://ptiturl.com/?creer=oui&action=Reduire&url=');
-    }
-
-    protected function shorten_imp($url) {
-        $response = $this->http_get($url);
-        if (!$response) return $url;
-        $response = $this->tidy($response);
-        $y = @simplexml_load_string($response);
-        if (!isset($y->body)) return $url;
-        $xml = $y->body->center->table->tr->td->pre->a->attributes();
-        if (isset($xml['href'])) return $xml['href'];
-        return $url;
-    }
-}
-
-class TightUrl extends ShortUrlApi
-{
-    function __construct()
-    {
-        parent::__construct('http://2tu.us/?save=y&url=');
-    }
-
-    protected function shorten_imp($url) {
-        $response = $this->http_get($url);
-        if (!$response) return $url;
-        $response = $this->tidy($response);
-        $y = @simplexml_load_string($response);
-        if (!isset($y->body)) return $url;
-        $xml = $y->body->p[0]->code[0]->a->attributes();
-        if (isset($xml['href'])) return $xml['href'];
-        return $url;
     }
 }
 
