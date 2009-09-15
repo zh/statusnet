@@ -477,7 +477,11 @@ E_O_T;
 
 function updateStatus($status, $error=false)
 {
-    echo '<li ' . ($error) ? 'class="error"': '';
+    echo '<li';
+
+    if ($error) {
+	echo ' class="error"';
+    }
     echo ">$status</li>";
 }
 
