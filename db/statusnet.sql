@@ -10,7 +10,7 @@ create table profile (
     bio text comment 'descriptive biography',
     location varchar(255) comment 'physical location',
     lat decimal(10,7) comment 'latitude',
-    lon decimal(10,7) comment 'longitude',
+    long decimal(10,7) comment 'longitude',
     location_id integer comment 'location id if possible',
     location_ns integer comment 'namespace for location',
 
@@ -126,7 +126,7 @@ create table notice (
     source varchar(32) comment 'source of comment, like "web", "im", or "clientname"',
     conversation integer comment 'id of root notice in this conversation' references notice (id),
     lat decimal(10,7) comment 'latitude',
-    lon decimal(10,7) comment 'longitude',
+    long decimal(10,7) comment 'longitude',
     location_id integer comment 'location id if possible',
     location_ns integer comment 'namespace for location',
 
