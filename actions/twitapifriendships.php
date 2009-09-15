@@ -99,6 +99,12 @@ class TwitapifriendshipsAction extends TwitterapiAction
         $other = $this->get_profile($id);
         $user = $apidata['user']; // Alwyas the auth user
 
+	if ($user->id == $other->id) {
+	    $this->clientError(_("You cannot unfollow yourself!"),
+			       403, $apidata['content-type']);
+	    return;
+	}
+
         $sub = new Subscription();
         $sub->subscriber = $user->id;
         $sub->subscribed = $other->id;
