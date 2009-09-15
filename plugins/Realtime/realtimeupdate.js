@@ -1,8 +1,8 @@
 // add a notice encoded as JSON into the current timeline
 //
+// TODO: i18n
 
 RealtimeUpdate = {
-
      _userid: 0,
      _replyurl: '',
      _favorurl: '',
@@ -50,26 +50,15 @@ RealtimeUpdate = {
                "<p class=\"entry-content\">"+html+"</p>"+
                "</div>"+
                "<div class=\"entry-content\">"+
-               "<dl class=\"timestamp\">"+
-               "<dt>Published</dt>"+
-               "<dd>"+
-               "<a rel=\"bookmark\" href=\""+data['url']+"\" >"+
+               "<a class=\"timestamp\" rel=\"bookmark\" href=\""+data['url']+"\" >"+
                "<abbr class=\"published\" title=\""+data['created_at']+"\">a few seconds ago</abbr>"+
                "</a> "+
-               "</dd>"+
-               "</dl>"+
-               "<dl class=\"device\">"+
-               "<dt>From</dt> "+
-               "<dd>"+source+"</dd>"+ // may have a link, I think
-               "</dl>";
-
+               "<span class=\"source\">"+
+               "from "+
+               "<span class=\"device\">+source+</span>"++ // may have a link
+               "</span>";
           if (data['in_reply_to_status_id']) {
-               ni = ni+" <dl class=\"response\">"+
-                    "<dt>To</dt>"+
-                    "<dd>"+
-                    "<a href=\""+data['in_reply_to_status_url']+"\" rel=\"in-reply-to\">in reply to</a>"+
-                    "</dd>"+
-                    "</dl>";
+               ni = ni+" <a class=\"response\" href=\""+data['in_reply_to_status_url']+"\">in context</a>";
           }
 
           ni = ni+"</div>"+
@@ -96,7 +85,7 @@ RealtimeUpdate = {
 
           ff = "<form id=\"favor-"+id+"\" class=\"form_favor\" method=\"post\" action=\""+RealtimeUpdate._favorurl+"\">"+
                "<fieldset>"+
-               "<legend>Favor this notice</legend>"+ // XXX: i18n
+               "<legend>Favor this notice</legend>"+
                "<input name=\"token-"+id+"\" type=\"hidden\" id=\"token-"+id+"\" value=\""+session_key+"\"/>"+
                "<input name=\"notice\" type=\"hidden\" id=\"notice-n"+id+"\" value=\""+id+"\"/>"+
                "<input type=\"submit\" id=\"favor-submit-"+id+"\" name=\"favor-submit-"+id+"\" class=\"submit\" value=\"Favor\" title=\"Favor this notice\"/>"+
@@ -108,13 +97,7 @@ RealtimeUpdate = {
      makeReplyLink: function(id, nickname)
      {
           var rl;
-          rl = "<dl class=\"notice_reply\">"+
-               "<dt>Reply to this notice</dt>"+
-               "<dd>"+
-               "<a href=\""+RealtimeUpdate._replyurl+"?replyto="+nickname+"\" title=\"Reply to this notice\">Reply <span class=\"notice_id\">"+id+"</span>"+
-               "</a>"+
-               "</dd>"+
-               "</dl>";
+          rl = "<a class=\"notice_reply\" href=\""+RealtimeUpdate._replyurl+"?replyto="+nickname+"\" title=\"Reply to this notice\">Reply <span class=\"notice_id\">"+id+"</span></a>";
           return rl;
      },
 
@@ -123,12 +106,7 @@ RealtimeUpdate = {
           var dl, delurl;
           delurl = RealtimeUpdate._deleteurl.replace("0000000000", id);
 
-          dl = "<dl class=\"notice_delete\">"+
-               "<dt>Delete this notice</dt>"+
-               "<dd>"+
-               "<a href=\""+delurl+"\" title=\"Delete this notice\">Delete</a>"+
-               "</dd>"+
-               "</dl>";
+          dl = "<a class=\"notice_delete\" href=\""+delurl+"\" title=\"Delete this notice\">Delete</a>";
 
           return dl;
      },
