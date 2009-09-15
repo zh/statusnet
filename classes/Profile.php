@@ -37,11 +37,17 @@ class Profile extends Memcached_DataObject
     public $homepage;                        // varchar(255)  multiple_key
     public $bio;                             // text()  multiple_key
     public $location;                        // varchar(255)  multiple_key
+    public $lat;                             // decimal(10,7)
+    public $lon;                             // decimal(10,7)
+    public $location_id;                     // int(4)
+    public $location_ns;                     // int(4)
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Profile',$k,$v); }
+    function staticGet($k,$v=NULL) {
+        return Memcached_DataObject::staticGet('Profile',$k,$v);
+    }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE

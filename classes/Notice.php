@@ -66,9 +66,15 @@ class Notice extends Memcached_DataObject
     public $is_local;                        // tinyint(1)
     public $source;                          // varchar(32)
     public $conversation;                    // int(4)
+    public $lat;                             // decimal(10,7)
+    public $lon;                             // decimal(10,7)
+    public $location_id;                     // int(4)
+    public $location_ns;                     // int(4)
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Notice',$k,$v); }
+    function staticGet($k,$v=NULL) {
+        return Memcached_DataObject::staticGet('Notice',$k,$v);
+    }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
