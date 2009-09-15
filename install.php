@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2009, StatusNet, Inc.
  *
@@ -15,10 +15,10 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * @category Installation
  * @package  Installation
- * 
+ *
  * @author   Adrian Lang <mail@adrianlang.de>
  * @author   Brenda Wallace <shiny@cpan.org>
  * @author   Brett Taylor <brett@webfroot.co.nz>
@@ -33,7 +33,7 @@
  * @author   Tom Adams <tom@holizz.com>
  * @license  GNU Affero General Public License http://www.gnu.org/licenses/
  */
- 
+
 define('INSTALLDIR', dirname(__FILE__));
 
 $external_libraries=array(
@@ -211,10 +211,10 @@ $dbModules = array(
     ),
 );
 
-/** 
+/**
  * the actual installation.
  * If call libraries are present, then install
- * 
+ *
  * @return void
  */
 function main()
@@ -222,8 +222,8 @@ function main()
     if (!checkPrereqs()) {
         return;
     }
-    
-    if ($_GET['checklibs']) {
+
+    if (!empty($_GET['checklibs'])) {
         showLibs();
     } else {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -243,7 +243,7 @@ function main()
  */
 function haveExternalLibrary($external_library)
 {
-    if (isset($external_library['include']) && ! include_once $external_library['include'] ) {
+    if (isset($external_library['include']) && ! @include_once $external_library['include'] ) {
         return false;
     }
     if (isset($external_library['check_function']) && ! function_exists($external_library['check_function'])) {
@@ -282,7 +282,7 @@ function checkPrereqs()
             printf('<p class="error">Cannot load required extension: <code>%s</code></p>', $req);
             $pass = false;
         }
-    }    
+    }
     // Make sure we have at least one database module available
     global $dbModules;
     $missingExtensions = array();
@@ -291,13 +291,13 @@ function checkPrereqs()
             $missingExtensions[] = $info['check_module'];
         }
     }
-    
+
     if (count($missingExtensions) == count($dbModules)) {
         $req = implode(', ', $missingExtensions);
-        printf('<p class="error">Cannot find mysql or pgsql extension. You need one or the other: <code>%s</code></p>', $req);
+        printf('<p class="error">Cannot find mysql or pgsql extension. You need one or the other.');
         $pass = false;
     }
-    
+
     if (!is_writable(INSTALLDIR)) {
         printf('<p class="error">Cannot write config file to: <code>%s</code></p>', INSTALLDIR);
         printf('<p>On your server, try this command: <code>chmod a+w %s</code>', INSTALLDIR);
@@ -365,19 +365,19 @@ function showLibs()
 E_O_T;
     foreach ($absent_libraries as $library) {
         echo '<li>';
-        if ($library['url']) {
+        if (isset($library['url'])) {
             echo '<a href=">'.$library['url'].'">'.htmlentities($library['name']).'</a>';
         } else {
             echo htmlentities($library['name']);
         }
         echo '<ul>';
-        if ($library['deb']) {
+        if (isset($library['deb'])) {
             echo '<li class="deb package">deb: <a href="apt:' . urlencode($library['deb']) . '">' . htmlentities($library['deb']) . '</a></li>';
         }
-        if ($library['rpm']) {
+        if (isset($library['rpm'])) {
             echo '<li class="rpm package">rpm: ' . htmlentities($library['rpm']) . '</li>';
         }
-        if ($library['pear']) {
+        if (isset($library['pear'])) {
             echo '<li class="pear package">pear: ' . htmlentities($library['pear']) . '</li>';
         }
         echo '</ul>';
@@ -552,7 +552,7 @@ STR;
     updateStatus("You can visit your <a href='$link'>new StatusNet site</a>.");
 }
 
-function Pgsql_Db_installer($host, $database, $username, $password) 
+function Pgsql_Db_installer($host, $database, $username, $password)
 {
     $connstring = "dbname=$database host=$host user=$username";
 
@@ -613,7 +613,7 @@ function Pgsql_Db_installer($host, $database, $username, $password)
     return $db;
 }
 
-function Mysql_Db_installer($host, $database, $username, $password) 
+function Mysql_Db_installer($host, $database, $username, $password)
 {
     updateStatus("Starting installation...");
     updateStatus("Checking database...");
@@ -690,7 +690,7 @@ function writeConf($sitename, $server, $path, $fancy, $db)
  * @param string $filename location of database schema file
  * @param dbconn $conn     connection to database
  * @param string $type     type of database, currently mysql or pgsql
- * 
+ *
  * @return boolean - indicating success or failure
  */
 function runDbScript($filename, $conn, $type = 'mysqli')
