@@ -29,12 +29,8 @@ require_once 'Stomp/Frame.php';
  */
 class Stomp_Message extends Stomp_Frame
 {
-    public function __construct ($body, $headers = array())
+    public function __construct ($body, $headers = null)
     {
-        if(!isset($headers['content-length'])) {
-          // TODO: log this, to see if this is correct
-          $headers['content-length'] = strlen($body);
-        }
         $this->_init("SEND", $headers, $body);
     }
 }
