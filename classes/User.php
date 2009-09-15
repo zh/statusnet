@@ -711,4 +711,30 @@ class User extends Memcached_DataObject
 
         return true;
     }
+
+    /**
+     * Does this user have the right to do X?
+     *
+     * With our role-based authorization, this is merely a lookup for whether the user
+     * has a particular role. The implementation currently uses a switch statement
+     * to determine if the user has the pre-defined role to exercise the right. Future
+     * implementations may allow per-site roles, and different mappings of roles to rights.
+     *
+     * @param $right string Name of the right, usually a constant in class Right
+     * @return boolean whether the user has the right in question
+     */
+
+    function hasRight($right)
+    {
+        switch ($right)
+        {
+         case Right::deleteOthersNotice:
+            return $this->hasRole('moderator');
+            break;
+         default:
+            $result = false;
+            Event::handle('UserRightsCheck', array($this, &$result));
+            return $result;
+        }
+    }
 }
