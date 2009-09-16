@@ -88,10 +88,14 @@ class CurlClient extends HTTPClient
         return $this->parseResults($result);
     }
 
+    function post($url, $headers=null)
+    {
+    }
+
     function setup($ch)
     {
         curl_setopt_array($ch,
-                          array(CURLOPT_USERAGENT, $this->userAgent(),
+                          array(CURLOPT_USERAGENT => $this->userAgent(),
                                 CURLOPT_HEADER => true,
                                 CURLOPT_RETURNTRANSFER => true));
     }
