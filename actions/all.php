@@ -23,11 +23,10 @@
  * @author   Robin Millette <millette@controlyourself.ca>
  * @author   Adrian Lang <mail@adrianlang.de>
  * @author   Meitar Moscovitz <meitarm@gmail.com>
- * @author   Sarven Capadisli <csarven@controlyourself.ca>
+ * @author   Sarven Capadisli <csarven@status.net>
  * @author   Craig Andrews <candrews@integralblue.com>
  * @author   Jeffery To <jeffery.to@gmail.com>
  * @author   Zach Copley <zach@controlyourself.ca>
- * @author   csarven <csarven@controlyourself.ca>
  * @license  GNU Affero General Public License http://www.gnu.org/licenses/
  * @link     http://status.net
  */

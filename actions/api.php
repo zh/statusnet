@@ -28,7 +28,7 @@
  * @author   Craig Andrews <candrews@integralblue.com>
  * @author   Gina Haeussge <osd@foosel.net>
  * @author   Mike Cochrane <mikec@mikenz.geek.nz>
- * @author   Sarven Capadisli <csarven@controlyourself.ca>
+ * @author   Sarven Capadisli <csarven@status.net>
  * @license  GNU Affero General Public License http://www.gnu.org/licenses/
  * @link     http://status.net
  */

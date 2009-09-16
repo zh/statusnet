@@ -28,7 +28,7 @@
  * @author Jeffery To <jeffery.to@gmail.com>
  * @author Mike Cochrane <mikec@mikenz.geek.nz>
  * @author Robin Millette <millette@controlyourself.ca>
- * @author Sarven Capadisli <csarven@controlyourself.ca>
+ * @author Sarven Capadisli <csarven@status.net>
  * @author Tom Adams <tom@holizz.com>
  */
 
