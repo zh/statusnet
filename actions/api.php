@@ -15,10 +15,9 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.     If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * @category Actions
  * @package  Actions
- * @author   Evan Prodromou <evan@status.net>
  * @author   Evan Prodromou <evan@status.net>
  * @author   Brenda Wallace <shiny@cpan.org>
  * @author   Jeffery To <jeffery.to@gmail.com>
@@ -27,8 +26,6 @@
  * @author   Christopher Vollick <psycotica0@gmail.com>
  * @author   CiaranG <ciaran@ciarang.com>
  * @author   Craig Andrews <candrews@integralblue.com>
- * @author   Evan Prodromou <evan@status.net>
- * @author   Evan Prodromou <evan@status.net>
  * @author   Gina Haeussge <osd@foosel.net>
  * @author   Mike Cochrane <mikec@mikenz.geek.nz>
  * @author   Sarven Capadisli <csarven@controlyourself.ca>
@@ -36,8 +33,8 @@
  * @link     http://status.net
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) { 
-    exit(1); 
+if (!defined('STATUSNET') && !defined('LACONICA')) {
+    exit(1);
 }
 
 class ApiAction extends Action
@@ -205,9 +202,9 @@ class ApiAction extends Action
             $user_id     = $this->arg('user_id');
             $screen_name = $this->arg('screen_name');
 
-            if (empty($this->api_arg) 
-                && empty($id)            
-                && empty($user_id)       
+            if (empty($this->api_arg)
+                && empty($id)
+                && empty($user_id)
                 && empty($screen_name)
             ) {
                 return true;

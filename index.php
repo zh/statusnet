@@ -15,23 +15,20 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * @category StatusNet
  * @package  StatusNet
  * @license  GNU Affero General Public License http://www.gnu.org/licenses/
- * @author Brenda Wallace <shiny@cpan.org> 
- * @author Christopher Vollick <psycotica0@gmail.com> 
+ * @author Brenda Wallace <shiny@cpan.org>
+ * @author Christopher Vollick <psycotica0@gmail.com>
  * @author CiaranG <ciaran@ciarang.com>
- * @author Craig Andrews <candrews@integralblue.com> 
+ * @author Craig Andrews <candrews@integralblue.com>
  * @author Evan Prodromou <evan@status.net>
- * @author Evan Prodromou <evan@status.net> 
- * @author Evan Prodromou <evan@status.net>
- * @author Evan Prodromou <evan@status.net>
- * @author Gina Haeussge <osd@foosel.net> 
+ * @author Gina Haeussge <osd@foosel.net>
  * @author Jeffery To <jeffery.to@gmail.com>
  * @author Mike Cochrane <mikec@mikenz.geek.nz>
  * @author Robin Millette <millette@controlyourself.ca>
- * @author Sarven Capadisli <csarven@controlyourself.ca> 
+ * @author Sarven Capadisli <csarven@controlyourself.ca>
  * @author Tom Adams <tom@holizz.com>
  */
 
@@ -74,7 +71,7 @@ function handleError($error)
             common_log(LOG_ERR, $line);
         }
     }
-    if ($error instanceof DB_DataObject_Error 
+    if ($error instanceof DB_DataObject_Error
         || $error instanceof DB_Error
     ) {
         $msg = sprintf(
@@ -227,8 +224,8 @@ function main()
     // If the site is private, and they're not on one of the "public"
     // parts of the site, redirect to login
 
-    if (!$user && common_config('site', 'private') 
-        && !isLoginAction($action) 
+    if (!$user && common_config('site', 'private')
+        && !isLoginAction($action)
         && !preg_match('/rss$/', $action)
     ) {
         common_redirect(common_local_url('login'));

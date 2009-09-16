@@ -15,10 +15,9 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * @category Actions
  * @package  Actions
- * @author   Evan Prodromou <evan@status.net>
  * @author   Evan Prodromou <evan@status.net>
  * @author   Mike Cochrane <mikec@mikenz.geek.nz>
  * @author   Robin Millette <millette@controlyourself.ca>
@@ -26,8 +25,6 @@
  * @author   Meitar Moscovitz <meitarm@gmail.com>
  * @author   Sarven Capadisli <csarven@controlyourself.ca>
  * @author   Craig Andrews <candrews@integralblue.com>
- * @author   Evan Prodromou <evan@status.net>
- * @author   Evan Prodromou <evan@status.net>
  * @author   Jeffery To <jeffery.to@gmail.com>
  * @author   Zach Copley <zach@controlyourself.ca>
  * @author   csarven <csarven@controlyourself.ca>
@@ -35,8 +32,8 @@
  * @link     http://status.net
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) { 
-    exit(1); 
+if (!defined('STATUSNET') && !defined('LACONICA')) {
+    exit(1);
 }
 
 require_once INSTALLDIR.'/lib/personalgroupnav.php';
