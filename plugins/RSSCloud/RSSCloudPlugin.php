@@ -33,30 +33,33 @@ if (!defined('STATUSNET')) {
 
 define('RSSCLOUDPLUGIN_VERSION', '0.1');
 
-class RSSCloudPlugin extends Plugin 
+class RSSCloudPlugin extends Plugin
 {
     function __construct()
     {
         parent::__construct();
     }
-    
+
     function onInitializePlugin(){
+
+        common_debug("RSSCloudPlugin onInitializePlugin()");
+
         $this->domain   = common_config('rsscloud', 'domain');
         $this->port     = common_config('rsscloud', 'port');
         $this->path     = common_config('rsscloud', 'path');
         $this->funct    = common_config('rsscloud', 'function');
         $this->protocol = common_config('rsscloud', 'protocol');
-        
+
         // set defaults
-        
+
         if (empty($this->domain)) {
             $this->domain = 'rpc.rsscloud.org';
         }
-           
+
         if (empty($this->port)) {
             $this->port = '5337';
         }
-            
+
         if (empty($this->path)) {
             $this->path = '/rsscloud/pleaseNotify';
         }
@@ -69,9 +72,47 @@ class RSSCloudPlugin extends Plugin
             $this->protocol = 'http-post';
         }
     }
-    
+
+    /**
+     * Add RSSCloud-related paths to the router table
+     *
+     * Hook for RouterInitialized event.
+     *
+     * @return boolean hook return
+     */
+
+    function onRouterInitialized(&$m)
+    {
+        $m->connect('rsscloud/request_notify', array('action' => 'RSSCloudRequestNotify'));
+        $m->connect('rsscloud/notify', array('action' => 'LoggingAggregator'));
+
+        return true;
+    }
+
+    function onAutoload($cls)
+    {
+        common_debug("onAutoload() $cls");
+
+        switch ($cls)
+        {
+
+         case 'RSSCloudNotifier':
+            require_once(INSTALLDIR . '/plugins/RSSCloud/RSSCloudNotifier.php');
+            return false;
+         case 'RSSCloudRequestNotifyAction':
+         case 'LoggingAggregatorAction':
+            common_debug(mb_substr($cls, 0, -6) . '.php');
+            require_once(INSTALLDIR . '/plugins/RSSCloud/' . mb_substr($cls, 0, -6) . '.php');
+            return false;
+         default:
+            return true;
+        }
+    }
+
     function onStartApiRss($action){
-        
+
+        // XXX: No sure we want every feed to be cloud enabled
+
         $attrs = array('domain'            => $this->domain,
                        'port'              => $this->port,
                        'path'              => $this->path,
@@ -79,91 +120,31 @@ class RSSCloudPlugin extends Plugin
                        'protocol'          => $this->protocol);
 
         // Dipping into XMLWriter to avoid a full end element (</cloud>).
-        
+
         $action->xw->startElement('cloud');
         foreach ($attrs as $name => $value) {
             $action->xw->writeAttribute($name, $value);
         }
         $action->xw->endElement('cloud');
-        
+
     }
 
     function onEndNoticeSave($notice){
 
+        common_debug("RSSCloudPlugin oneEndNoticeSave()");
+
         $user = User::staticGet('id', $notice->profile_id);
-        $rss  = common_local_url('api', array('apiaction' => 'statuses',
+        $feed  = common_local_url('api', array('apiaction' => 'statuses',
                                               'method'    => 'user_timeline',
                                               'argument'  => $user->nickname . '.rss'));
- 
-        $notifier = new CloudNotifier();
-        $notifier->notify($rss);
+
+        // XXX: Dave's hub for testing
+
+        $endpoint = 'http://rpc.rsscloud.org:5337/rsscloud/ping';
+
+        $notifier = new RSSCloudNotifier();
+        $notifier->postUpdate($endpoint, $feed);
     }
-    
 
 }
 
-
-class CloudNotifier {
- 
-
-    function notify($feed) {
-        common_debug("CloudNotifier->notify: $feed");
-        
-        $params = 'url=' . urlencode($feed);
-        
-        $result = $this->httpPost('http://rpc.rsscloud.org:5337/rsscloud/ping', 
-                                  $params);
-        
-        if ($result) {
-            common_debug('success notifying cloud');
-        } else {
-            common_debug('failure notifying cloud');
-        }
-
-    }
-    
-    function userAgent()
-    {
-        return 'rssCloudPlugin/' . RSSCLOUDPLUGIN_VERSION .
-          ' StatusNet/' . STATUSNET_VERSION;
-    }
-    
-    
-    private function httpPost($url, $params) {
-        
-        
-        common_debug('params: ' . var_export($params, true));
-                
-        $options = array(CURLOPT_URL            => $url,
-                         CURLOPT_POST           => true,
-                         CURLOPT_POSTFIELDS     => $params,
-                         CURLOPT_USERAGENT      => $this->userAgent(),
-                         CURLOPT_RETURNTRANSFER => true,
-                         CURLOPT_FAILONERROR    => true,
-                         CURLOPT_HEADER         => false,
-                         CURLOPT_FOLLOWLOCATION => true,
-                         CURLOPT_CONNECTTIMEOUT => 5,
-                         CURLOPT_TIMEOUT        => 5);
-
-        $ch = curl_init();
-        curl_setopt_array($ch, $options);
-        
-        $response = curl_exec($ch);
-    
-
-    
-        $info = curl_getinfo($ch);
-        
-        curl_close($ch);
-        
-        common_debug('curl response: ' . var_export($response, true));
-        common_debug('curl info: ' . var_export($info, true));
-        
-        if ($info['http_code'] == 200) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
-}
