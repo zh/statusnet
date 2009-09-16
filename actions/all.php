@@ -18,15 +18,15 @@
  * 
  * @category Actions
  * @package  Actions
- * @author   Evan Prodromou <evan@prodromou.name>
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Evan Prodromou <evan@status.net>
  * @author   Mike Cochrane <mikec@mikenz.geek.nz>
  * @author   Robin Millette <millette@controlyourself.ca>
  * @author   Adrian Lang <mail@adrianlang.de>
  * @author   Meitar Moscovitz <meitarm@gmail.com>
  * @author   Sarven Capadisli <csarven@controlyourself.ca>
  * @author   Craig Andrews <candrews@integralblue.com>
- * @author   Evan Prodromou <evan@controlezvous.ca>
+ * @author   Evan Prodromou <evan@status.net>
  * @author   Evan Prodromou <evan@status.net>
  * @author   Jeffery To <jeffery.to@gmail.com>
  * @author   Zach Copley <zach@controlyourself.ca>

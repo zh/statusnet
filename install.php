@@ -26,7 +26,7 @@
  * @author   CiaranG <ciaran@ciarang.com>
  * @author   Craig Andrews <candrews@integralblue.com>
  * @author   Eric Helgeson <helfire@Erics-MBP.local>
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Evan Prodromou <evan@status.net>
  * @author   Evan Prodromou <evan@status.net>
  * @author   Robin Millette <millette@controlyourself.ca>
  * @author   Sarven Capadisli <csarven@controlyourself.ca>

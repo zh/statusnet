@@ -23,9 +23,9 @@
  * @author Christopher Vollick <psycotica0@gmail.com> 
  * @author CiaranG <ciaran@ciarang.com>
  * @author Craig Andrews <candrews@integralblue.com> 
- * @author Evan Prodromou <evan@controlezvous.ca>
- * @author Evan Prodromou <evan@controlyourself.ca> 
- * @author Evan Prodromou <evan@prodromou.name>
+ * @author Evan Prodromou <evan@status.net>
+ * @author Evan Prodromou <evan@status.net> 
+ * @author Evan Prodromou <evan@status.net>
  * @author Evan Prodromou <evan@status.net>
  * @author Gina Haeussge <osd@foosel.net> 
  * @author Jeffery To <jeffery.to@gmail.com>

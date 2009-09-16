@@ -21,7 +21,7 @@
  *
  * @category  Action
  * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @author    Evan Prodromou <evan@status.net>
  * @copyright 2009 Control Yourself, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
@@ -40,7 +40,7 @@ if (!defined('STATUSNET')) {
  *
  * @category HTTP
  * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://laconi.ca/
  */
@@ -61,7 +61,7 @@ class HTTPResponse
  *
  * @category HTTP
  * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://laconi.ca/
  */
