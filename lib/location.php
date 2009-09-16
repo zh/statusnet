@@ -50,11 +50,63 @@ class Location
 
     var $names;
 
-    static function fromName($name, $language=null)
+    const geonames = 1;
+    const whereOnEarth = 2;
+
+    static function fromName($name, $language=null, $location_ns=null)
     {
         if (is_null($language)) {
             $language = common_language();
         }
+        if (is_null($location_ns)) {
+            $location_ns = common_config('location', 'namespace');
+        }
+
+        $location = null;
+
+        if (Event::handle('LocationFromName', array($name, $language, $location_ns, &$location))) {
+
+            switch ($location_ns) {
+             case Location::geonames:
+                return Location::fromGeonamesName($name, $language);
+                break;
+             case Location::whereOnEarth:
+                return Location::fromWhereOnEarthName($name, $language);
+                break;
+            }
+        }
+
+        return $location;
+    }
+
+    static function fromGeonamesName($name, $language)
+    {
+        $location = null;
+        $client = HTTPClient::start();
+
+        // XXX: break down a name by commas, narrow by each
+
+        $str = http_build_query(array('maxRows' => 1,
+                                      'q' => $name,
+                                      'lang' => $language,
+                                      'type' => 'json'));
+
+        $result = $client->get('http://ws.geonames.org/search?'.$str);
+
+        if ($result->code == "200") {
+            $rj = json_decode($result->body);
+            if (count($rj['geonames']) > 0) {
+                $n = $rj['geonames'][0];
+                $location = new Location();
+                $location->lat = $n->lat;
+                $location->lon = $n->lon;
+                $location->name = $n->name;
+                $location->location_id = $n->geonameId;
+                $location->location_ns = Location:geonames;
+            }
+        }
+
+        return $location;
     }
 
     static function fromId($location_id, $location_ns = null)
