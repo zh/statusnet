@@ -1,6 +1,6 @@
 n<?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Utility class for wrapping Curl
  *
@@ -20,11 +20,11 @@ n<?php
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  HTTP
- * @package   Laconica
+ * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
  * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
 if (!defined('STATUSNET')) {
@@ -39,10 +39,10 @@ define(CURLCLIENT_VERSION, "0.1");
  * Makes Curl HTTP client calls within our HTTPClient framework
  *
  * @category HTTP
- * @package  Laconica
+ * @package  StatusNet
  * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class CurlClient extends HTTPClient

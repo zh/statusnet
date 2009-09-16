@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Utility for doing HTTP-related things
  *
@@ -20,11 +20,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Action
- * @package   Laconica
+ * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
- * @copyright 2009 Control Yourself, Inc.
+ * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
 if (!defined('STATUSNET')) {
@@ -39,10 +39,10 @@ if (!defined('STATUSNET')) {
  * library (curl or PHP-HTTP or whatever) that's used.
  *
  * @category HTTP
- * @package  Laconica
+ * @package  StatusNet
  * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class HTTPResponse
@@ -60,10 +60,10 @@ class HTTPResponse
  * library (curl or PHP-HTTP or whatever) that's used.
  *
  * @category HTTP
- * @package  Laconica
+ * @package  StatusNet
  * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class HTTPClient
