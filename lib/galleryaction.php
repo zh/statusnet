@@ -132,13 +132,16 @@ class GalleryAction extends OwnerDesignAction
             $this->elementEnd('li');
             $this->elementStart('li', array('id'=>'filter_tags_item'));
             $this->elementStart('form', array('name' => 'bytag',
-                                               'id' => 'bytag',
+                                               'id' => 'form_filter_bytag',
                                                'action' => common_path('?action=' . $this->trimmed('action')),
                                                'method' => 'post'));
+            $this->elementStart('fieldset');
+            $this->element('legend', null, _('Select tag to filter'));
             $this->dropdown('tag', _('Tag'), $content,
                             _('Choose a tag to narrow list'), false, $tag);
             $this->hidden('nickname', $this->user->nickname);
             $this->submit('submit', _('Go'));
+            $this->elementEnd('fieldset');
             $this->elementEnd('form');
             $this->elementEnd('li');
             $this->elementEnd('ul');

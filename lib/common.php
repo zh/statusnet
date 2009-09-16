@@ -284,6 +284,8 @@ $config =
         array('contentlimit' => null),
         'message' =>
         array('contentlimit' => null),
+        'http' =>
+        array('client' => 'curl'), // XXX: should this be the default?
         );
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');

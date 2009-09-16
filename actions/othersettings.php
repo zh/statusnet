@@ -71,6 +71,12 @@ class OthersettingsAction extends AccountSettingsAction
         return _('Manage various other options.');
     }
 
+    function showScripts()
+    {
+        parent::showScripts();
+        $this->autofocus('urlshorteningservice');
+    }
+
     /**
      * Content area of the page
      *

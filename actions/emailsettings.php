@@ -71,6 +71,12 @@ class EmailsettingsAction extends AccountSettingsAction
         return _('Manage how you get email from %%site.name%%.');
     }
 
+    function showScripts()
+    {
+        parent::showScripts();
+        $this->autofocus('email');
+    }
+
     /**
      * Content area of the page
      *

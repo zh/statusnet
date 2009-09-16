@@ -94,10 +94,11 @@ background:transparent url(../../base/images/icons/twotone/green/clip-01.gif) no
 opacity:0;
 }
 
-#form_notice.processing #notice_action-submit {
+#wrap form.processing input.submit {
 background:#FFFFFF url(../../base/images/icons/icon_processing.gif) no-repeat 47% 47%;
 cursor:wait;
 text-indent:-9999px;
+outline:none;
 }
 
 #content {
@@ -222,10 +223,6 @@ background:transparent url(../../base/images/icons/twotone/green/favourite.gif) 
 }
 .notice-options form.form_disfavor input.submit {
 background:transparent url(../../base/images/icons/twotone/green/disfavourite.gif) no-repeat 0 45%;
-}
-.notice-options form.form_favor.processing input.submit,
-.notice-options form.form_disfavor.processing input.submit {
-background:transparent url(../../base/images/icons/icon_processing.gif) no-repeat 0 45%;
 }
 .notice-options .notice_delete {
 background:transparent url(../../base/images/icons/twotone/green/trash.gif) no-repeat 0 45%;

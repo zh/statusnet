@@ -38,7 +38,7 @@ require_once INSTALLDIR.'/extlib/libomb/service_provider.php';
  *
  * @category Action
  * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Evan Prodromou <evan@status.net>
  * @author   Robin Millette <millette@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://laconi.ca/

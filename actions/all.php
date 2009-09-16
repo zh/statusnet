@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
@@ -15,9 +15,25 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category Actions
+ * @package  Actions
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Mike Cochrane <mikec@mikenz.geek.nz>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @author   Adrian Lang <mail@adrianlang.de>
+ * @author   Meitar Moscovitz <meitarm@gmail.com>
+ * @author   Sarven Capadisli <csarven@status.net>
+ * @author   Craig Andrews <candrews@integralblue.com>
+ * @author   Jeffery To <jeffery.to@gmail.com>
+ * @author   Zach Copley <zach@controlyourself.ca>
+ * @license  GNU Affero General Public License http://www.gnu.org/licenses/
+ * @link     http://status.net
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) {
+    exit(1);
+}
 
 require_once INSTALLDIR.'/lib/personalgroupnav.php';
 require_once INSTALLDIR.'/lib/noticelist.php';
@@ -43,8 +59,8 @@ class AllAction extends ProfileAction
             $this->notice = $this->user->noticesWithFriends(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
         }
 
-        if($this->page > 1 && $this->notice->N == 0){
-            $this->serverError(_('No such page'),$code=404);
+        if ($this->page > 1 && $this->notice->N == 0) {
+            $this->serverError(_('No such page'), $code = 404);
         }
 
         return true;
@@ -73,20 +89,33 @@ class AllAction extends ProfileAction
 
     function getFeeds()
     {
-        return array(new Feed(Feed::RSS1,
-                              common_local_url('allrss', array('nickname' =>
-                                                               $this->user->nickname)),
-                              sprintf(_('Feed for friends of %s (RSS 1.0)'), $this->user->nickname)),
-                     new Feed(Feed::RSS2,
-                              common_local_url('api', array('apiaction' => 'statuses',
-                                                            'method' => 'friends_timeline',
-                                                            'argument' => $this->user->nickname.'.rss')),
-                              sprintf(_('Feed for friends of %s (RSS 2.0)'), $this->user->nickname)),
-                     new Feed(Feed::ATOM,
-                              common_local_url('api', array('apiaction' => 'statuses',
-                                                            'method' => 'friends_timeline',
-                                                            'argument' => $this->user->nickname.'.atom')),
-                              sprintf(_('Feed for friends of %s (Atom)'), $this->user->nickname)));
+        return array(
+            new Feed(Feed::RSS1,
+                common_local_url(
+                    'allrss', array(
+                        'nickname' =>
+                        $this->user->nickname)
+                ),
+                sprintf(_('Feed for friends of %s (RSS 1.0)'), $this->user->nickname)),
+            new Feed(Feed::RSS2,
+                common_local_url(
+                    'api', array(
+                        'apiaction' => 'statuses',
+                        'method' => 'friends_timeline',
+                        'argument' => $this->user->nickname.'.rss'
+                    )
+                ),
+                sprintf(_('Feed for friends of %s (RSS 2.0)'), $this->user->nickname)),
+            new Feed(Feed::ATOM,
+                common_local_url(
+                    'api', array(
+                        'apiaction' => 'statuses',
+                        'method' => 'friends_timeline',
+                        'argument' => $this->user->nickname.'.atom'
+                    )
+                ),
+                sprintf(_('Feed for friends of %s (Atom)'), $this->user->nickname))
+        );
     }
 
     function showLocalNav()
@@ -106,8 +135,7 @@ class AllAction extends ProfileAction
             } else {
                 $message .= sprintf(_('You can try to [nudge %s](../%s) from his profile or [post something to his or her attention](%%%%action.newnotice%%%%?status_textarea=%s).'), $this->user->nickname, $this->user->nickname, '@' . $this->user->nickname);
             }
-        }
-        else {
+        } else {
             $message .= sprintf(_('Why not [register an account](%%%%action.register%%%%) and then nudge %s or post a notice to his or her attention.'), $this->user->nickname);
         }
 
@@ -126,17 +154,19 @@ class AllAction extends ProfileAction
             $this->showEmptyListMessage();
         }
 
-        $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
-                          $this->page, 'all', array('nickname' => $this->user->nickname));
+        $this->pagination(
+            $this->page > 1, $cnt > NOTICES_PER_PAGE,
+            $this->page, 'all', array('nickname' => $this->user->nickname)
+        );
     }
 
     function showPageTitle()
     {
         $user =& common_current_user();
         if ($user && ($user->id == $this->user->id)) {
-            $this->element('h1', NULL, _("You and friends"));
+            $this->element('h1', null, _("You and friends"));
         } else {
-            $this->element('h1', NULL, sprintf(_('%s and friends'), $this->user->nickname));
+            $this->element('h1', null, sprintf(_('%s and friends'), $this->user->nickname));
         }
     }
 
