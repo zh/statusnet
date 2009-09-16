@@ -55,7 +55,7 @@ RealtimeUpdate = {
                "</a> "+
                "<span class=\"source\">"+
                "from "+
-               "<span class=\"device\">+source+</span>"+ // may have a link
+               "<span class=\"device\">"+source+"</span>"+ // may have a link
                "</span>";
           if (data['in_reply_to_status_id']) {
                ni = ni+" <a class=\"response\" href=\""+data['in_reply_to_status_url']+"\">in context</a>";
