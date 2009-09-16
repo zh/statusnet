@@ -21,6 +21,7 @@ VALUES
     ('identichat','identichat','http://identichat.prosody.im/', now()),
     ('IdentiFox','IdentiFox','http://www.bitbucket.org/uncryptic/identifox/', now()),
     ('identitwitch','IdentiTwitch','http://richfish.org/identitwitch/', now()),
+    ('Jiminy','Jiminy','http://code.google.com/p/jiminy/', now()),
     ('LaTwit','LaTwit','http://latwit.mac65.com/', now()),
     ('LiveTweeter', 'LiveTweeter', 'http://addons.songbirdnest.com/addon/1204', now()),
     ('livetweeter', 'livetweeter', 'http://addons.songbirdnest.com/addon/1204', now()),
