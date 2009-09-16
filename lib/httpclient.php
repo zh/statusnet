@@ -27,7 +27,7 @@
  * @link      http://laconi.ca/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET')) {
     exit(1);
 }
 
@@ -113,5 +113,10 @@ class HTTPClient
     function delete($url, $headers)
     {
         throw new Exception("DELETE method unimplemented");
+    }
+
+    function userAgent()
+    {
+        return "StatusNet/".STATUSNET_VERSION." (".STATUSNET_CODENAME.")";
     }
 }
