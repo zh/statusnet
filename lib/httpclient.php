@@ -32,7 +32,7 @@ if (!defined('LACONICA')) {
 }
 
 /**
- * Utility class for doing HTTP-related stuff
+ * Useful structure for HTTP responses
  *
  * We make HTTP calls in several places, and we have several different
  * ways of doing them. This class hides the specifics of what underlying
@@ -52,29 +52,66 @@ class HTTPResponse
     var $body = null;
 }
 
-class HTTPClientUtil
+/**
+ * Utility class for doing HTTP client stuff
+ *
+ * We make HTTP calls in several places, and we have several different
+ * ways of doing them. This class hides the specifics of what underlying
+ * library (curl or PHP-HTTP or whatever) that's used.
+ *
+ * @category HTTP
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ */
+
+class HTTPClient
 {
-    function __construct()
+    static $_client = null;
+
+    static function start()
     {
+        if (!is_null(self::$_client)) {
+            return self::$_client;
+        }
+
+        $type = common_config('http', 'client');
+
+        switch ($type) {
+         case 'curl':
+            self::$_client = new CurlClient();
+            break;
+         default:
+            throw new Exception("Unknown HTTP client type '$type'");
+            break;
+        }
+
+        return self::$_client;
     }
 
     function head($url, $headers)
     {
+        throw new Exception("HEAD method unimplemented");
     }
 
     function get($url, $headers)
     {
+        throw new Exception("GET method unimplemented");
     }
 
     function post($url, $headers, $body)
     {
+        throw new Exception("POST method unimplemented");
     }
 
     function put($url, $headers, $body)
     {
+        throw new Exception("PUT method unimplemented");
     }
 
     function delete($url, $headers)
     {
+        throw new Exception("DELETE method unimplemented");
     }
 }
