@@ -900,7 +900,6 @@ class Action extends HTMLOutputter // lawsuit
                         !$etag ||
                         $this->_hasEtag($etag, $if_none_match)) {
                         header('HTTP/1.1 304 Not Modified');
-                        header('Content-Length: 0');
                         // Better way to do this?
                         exit(0);
                     }
@@ -919,7 +918,6 @@ class Action extends HTMLOutputter // lawsuit
             header('ETag: ' . $etag);
             if($if_none_match && $this->_hasEtag($etag, $if_none_match)) {
                 header('HTTP/1.1 304 Not Modified');
-                header('Content-Length: 0');
                 // Better way to do this?
                 exit(0);
             }

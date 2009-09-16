@@ -62,7 +62,7 @@ class AutocompleteAction extends Action
             $user->whereAdd('nickname like \'' . trim($user->escape($q), '\'') . '%\'');
             $user->find();
             while($user->fetch()) {
-                $profile = Profile::pkeyGet(array('id' => $user->id));
+                $profile = Profile::staticGet($user->id);
                 $this->results[]=array('nickname' => $user->nickname, 'fullname'=> $profile->fullname, 'type'=>'user');
             }
         }
