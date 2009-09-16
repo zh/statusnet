@@ -60,7 +60,30 @@ class CurlClient extends HTTPClient
         curl_setopt_array($ch,
                           array(CURLOPT_NOBODY => true));
 
+        if (!is_null($headers)) {
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        }
+
         $result = curl_exec($ch);
+
+        curl_close($ch);
+
+        return $this->parseResults($result);
+    }
+
+    function get($url, $headers=null)
+    {
+        $ch = curl_init($url);
+
+        $this->setup($ch);
+
+        if (!is_null($headers)) {
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        }
+
+        $result = curl_exec($ch);
+
+        curl_close($ch);
 
         return $this->parseResults($result);
     }
@@ -70,8 +93,7 @@ class CurlClient extends HTTPClient
         curl_setopt_array($ch,
                           array(CURLOPT_USERAGENT, $this->userAgent(),
                                 CURLOPT_HEADER => true,
-                                CURLOPT_RETURNTRANSFER => true,
-                                CURLOPT_HTTPHEADER => $headers));
+                                CURLOPT_RETURNTRANSFER => true));
     }
 
     function userAgent()
