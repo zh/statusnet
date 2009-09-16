@@ -59,9 +59,9 @@ if (!defined('STATUSNET')) {
 class PiwikAnalyticsPlugin extends Plugin
 {
     /** the base of your Piwik installation */
-    var $piwikroot = null;
+    public $piwikroot = null;
     /** the Piwik Id of your statusnet installation */
-    var $piwikId   = null;
+    public $piwikId   = null;
 
     /**
      * constructor
@@ -96,7 +96,7 @@ document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/ja
 </script>
 <script type="text/javascript">
 try {
-    var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", $this->piwikId);
+    var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", {$this->piwikId});
     piwikTracker.trackPageView();
     piwikTracker.enableLinkTracking();
 } catch( err ) {}
