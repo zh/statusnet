@@ -88,8 +88,27 @@ class CurlClient extends HTTPClient
         return $this->parseResults($result);
     }
 
-    function post($url, $headers=null)
+    function post($url, $headers=null, $body=null)
     {
+        $ch = curl_init($url);
+
+        $this->setup($ch);
+
+        curl_setopt($ch, CURLOPT_POST, true);
+
+        if (!is_null($body)) {
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+        }
+
+        if (!is_null($headers)) {
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        }
+
+        $result = curl_exec($ch);
+
+        curl_close($ch);
+
+        return $this->parseResults($result);
     }
 
     function setup($ch)
