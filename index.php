@@ -19,17 +19,20 @@
  * @category StatusNet
  * @package  StatusNet
  * @license  GNU Affero General Public License http://www.gnu.org/licenses/
- * @author Brenda Wallace <shiny@cpan.org>
- * @author Christopher Vollick <psycotica0@gmail.com>
- * @author CiaranG <ciaran@ciarang.com>
- * @author Craig Andrews <candrews@integralblue.com>
- * @author Evan Prodromou <evan@status.net>
- * @author Gina Haeussge <osd@foosel.net>
- * @author Jeffery To <jeffery.to@gmail.com>
- * @author Mike Cochrane <mikec@mikenz.geek.nz>
- * @author Robin Millette <millette@controlyourself.ca>
- * @author Sarven Capadisli <csarven@status.net>
- * @author Tom Adams <tom@holizz.com>
+ * @author   Brenda Wallace <shiny@cpan.org> 
+ * @author   Christopher Vollick <psycotica0@gmail.com> 
+ * @author   CiaranG <ciaran@ciarang.com>
+ * @author   Craig Andrews <candrews@integralblue.com> 
+ * @author   Evan Prodromou <evan@controlezvous.ca>
+ * @author   Evan Prodromou <evan@controlyourself.ca> 
+ * @author   Evan Prodromou <evan@prodromou.name>
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Gina Haeussge <osd@foosel.net> 
+ * @author   Jeffery To <jeffery.to@gmail.com>
+ * @author   Mike Cochrane <mikec@mikenz.geek.nz>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @author   Sarven Capadisli <csarven@controlyourself.ca> 
+ * @author   Tom Adams <tom@holizz.com>
  */
 
 define('INSTALLDIR', dirname(__FILE__));
