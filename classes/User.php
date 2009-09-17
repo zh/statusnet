@@ -726,15 +726,18 @@ class User extends Memcached_DataObject
 
     function hasRight($right)
     {
-        switch ($right)
-        {
-         case Right::deleteOthersNotice:
-            return $this->hasRole('moderator');
-            break;
-         default:
-            $result = false;
-            Event::handle('UserRightsCheck', array($this, &$result));
-            return $result;
+        $result = false;
+        if (Event::handle('UserRightsCheck', array($this, $right, &$result))) {
+            switch ($right)
+            {
+             case Right::deleteOthersNotice:
+                $result = $this->hasRole('moderator');
+                break;
+             default:
+                $result = false;
+                break;
+            }
         }
+        return $result;
     }
 }
