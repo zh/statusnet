@@ -31,6 +31,8 @@
  * @author   Sarven Capadisli <csarven@status.net>
  * @author   Tom Adams <tom@holizz.com>
  * @license  GNU Affero General Public License http://www.gnu.org/licenses/
+ * @version  0.9
+ * @link     http://status.net
  */
 
 define('INSTALLDIR', dirname(__FILE__));
@@ -476,12 +478,7 @@ E_O_T;
 
 function updateStatus($status, $error=false)
 {
-    echo '<li';
-
-    if ($error) {
-	echo ' class="error"';
-    }
-    echo ">$status</li>";
+    echo '<li' . ($error ? ' class="error"': '' ) . ">$status</li>";
 }
 
 function handlePost()
