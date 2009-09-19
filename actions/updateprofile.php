@@ -61,7 +61,7 @@ class UpdateprofileAction extends Action
         if (!common_compatible_license($license, $site_license)) {
             $this->clientError(sprintf(_('Listenee stream license ‘%s’ is not '.
                                          'compatible with site license ‘%s’.'),
-                                       $license, $site_license);
+                                       $license, $site_license));
             return false;
         }
         return true;
