@@ -268,12 +268,12 @@ class Router
         $m->connect('api/statuses/:method',
                     array('action' => 'api',
                           'apiaction' => 'statuses'),
-                    array('method' => '(public_timeline|friends_timeline|user_timeline|update|replies|mentions|show|friends|followers|featured)(\.(atom|rss|xml|json))?'));
+                    array('method' => '(public_timeline|home_timeline|friends_timeline|user_timeline|update|replies|mentions|show|friends|followers|featured)(\.(atom|rss|xml|json))?'));
 
         $m->connect('api/statuses/:method/:argument',
                     array('action' => 'api',
                           'apiaction' => 'statuses'),
-                    array('method' => '(|user_timeline|friends_timeline|replies|mentions|show|destroy|friends|followers)'));
+                    array('method' => '(user_timeline|home_timeline|friends_timeline|replies|mentions|show|destroy|friends|followers)'));
 
         // users
 
@@ -432,7 +432,7 @@ class Router
         $m->connect('api/statuses/:method/:argument',
                     array('action' => 'api',
                           'apiaction' => 'statuses'),
-                    array('method' => '(|user_timeline|friends_timeline|replies|mentions|show|destroy|friends|followers)'));
+                    array('method' => '(user_timeline|home_timeline|friends_timeline|replies|mentions|show|destroy|friends|followers)'));
 
         $m->connect('api/statusnet/groups/:method/:argument',
                     array('action' => 'api',
