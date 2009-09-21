@@ -98,9 +98,13 @@ class RealtimePlugin extends Plugin
         }
 
         $action->elementStart('script', array('type' => 'text/javascript'));
-        $action->raw("$(document).ready(function() { ");
-        $action->raw($this->_updateInitialize($timeline, $user_id));
-        $action->raw(" });");
+        $action->raw('
+        <!--
+        $(document).ready(function() {
+            ' . $this->_updateInitialize($timeline, $user_id) . '
+        });
+        -->
+        ');
         $action->elementEnd('script');
 
         return true;
