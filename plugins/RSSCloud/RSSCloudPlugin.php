@@ -40,10 +40,8 @@ class RSSCloudPlugin extends Plugin
         parent::__construct();
     }
 
-    function onInitializePlugin(){
-
-        common_debug("RSSCloudPlugin onInitializePlugin()");
-
+    function onInitializePlugin()
+    {
         $this->domain   = common_config('rsscloud', 'domain');
         $this->port     = common_config('rsscloud', 'port');
         $this->path     = common_config('rsscloud', 'path');
@@ -52,16 +50,18 @@ class RSSCloudPlugin extends Plugin
 
         // set defaults
 
+        $local_server = parse_url(common_path('rsscloud/request_notify'));
+
         if (empty($this->domain)) {
-            $this->domain = 'rpc.rsscloud.org';
+            $this->domain = $local_server['host'];
         }
 
         if (empty($this->port)) {
-            $this->port = '5337';
+            $this->port = '80';
         }
 
         if (empty($this->path)) {
-            $this->path = '/rsscloud/pleaseNotify';
+            $this->path = '/rsscloud/request_notify';
         }
 
         if (empty($this->funct)) {
@@ -84,6 +84,8 @@ class RSSCloudPlugin extends Plugin
     function onRouterInitialized(&$m)
     {
         $m->connect('rsscloud/request_notify', array('action' => 'RSSCloudRequestNotify'));
+
+        // XXX: This is just for end-to-end testing
         $m->connect('rsscloud/notify', array('action' => 'LoggingAggregator'));
 
         return true;
@@ -91,8 +93,6 @@ class RSSCloudPlugin extends Plugin
 
     function onAutoload($cls)
     {
-        common_debug("onAutoload() $cls");
-
         switch ($cls)
         {
 
@@ -111,22 +111,26 @@ class RSSCloudPlugin extends Plugin
 
     function onStartApiRss($action){
 
-        // XXX: No sure we want every feed to be cloud enabled
+        // XXX: we want to only cloud enable the user_timeline so we need
+        // to be even more specific than this... FIXME
 
-        $attrs = array('domain'            => $this->domain,
-                       'port'              => $this->port,
-                       'path'              => $this->path,
-                       'registerProcedure' => $this->funct,
-                       'protocol'          => $this->protocol);
+        if (get_class($action) == 'TwitapistatusesAction') {
 
-        // Dipping into XMLWriter to avoid a full end element (</cloud>).
+            $attrs = array('domain'            => $this->domain,
+                           'port'              => $this->port,
+                           'path'              => $this->path,
+                           'registerProcedure' => $this->funct,
+                           'protocol'          => $this->protocol);
 
-        $action->xw->startElement('cloud');
-        foreach ($attrs as $name => $value) {
-            $action->xw->writeAttribute($name, $value);
+            // Dipping into XMLWriter to avoid a full end element (</cloud>).
+
+            $action->xw->startElement('cloud');
+            foreach ($attrs as $name => $value) {
+                $action->xw->writeAttribute($name, $value);
+            }
+            $action->xw->endElement();
+
         }
-        $action->xw->endElement('cloud');
-
     }
 
     function onEndNoticeSave($notice){
@@ -139,11 +143,10 @@ class RSSCloudPlugin extends Plugin
                                               'argument'  => $user->nickname . '.rss'));
 
         // XXX: Dave's hub for testing
+        // $endpoint = 'http://rpc.rsscloud.org:5337/rsscloud/ping';
 
-        $endpoint = 'http://rpc.rsscloud.org:5337/rsscloud/ping';
-
-        $notifier = new RSSCloudNotifier();
-        $notifier->postUpdate($endpoint, $feed);
+        // $notifier = new RSSCloudNotifier();
+        // $notifier->postUpdate($endpoint, $feed);
     }
 
 }

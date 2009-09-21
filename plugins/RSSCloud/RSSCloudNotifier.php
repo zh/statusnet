@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Class to ping an rssCloud hub when a feed has been updated
+ * Class to ping an rssCloud endpoint when a feed has been updated
  *
  * PHP version 5
  *
@@ -40,12 +40,15 @@ class RSSCloudNotifier {
 
         $result = $this->httpPost($endpoint, $params);
 
+        // XXX: Make all this use CurlClient (lib/curlclient.php)
+
         if ($result) {
-            common_debug('success notifying cloud');
+            common_debug('RSSCloud plugin - success notifying cloud endpoint!');
         } else {
-            common_debug('failure notifying cloud');
+            common_debug('RSSClous plugin - failure notifying cloud endpoint!');
         }
 
+        return $result;
     }
 
     function userAgent()
@@ -55,8 +58,6 @@ class RSSCloudNotifier {
     }
 
     private function httpPost($url, $params) {
-
-        common_debug('params: ' . var_export($params, true));
 
         $options = array(CURLOPT_URL            => $url,
                          CURLOPT_POST           => true,
@@ -77,9 +78,6 @@ class RSSCloudNotifier {
         $info = curl_getinfo($ch);
 
         curl_close($ch);
-
-        common_debug('curl response: ' . var_export($response, true));
-        common_debug('curl info: ' . var_export($info, true));
 
         if ($info['http_code'] == 200) {
             return true;
