@@ -73,7 +73,9 @@ class UnQueueManager
             jabber_broadcast_notice($notice);
             break;
          default:
-            throw ServerException("UnQueueManager: Unknown queue: $type");
+            if (Event::handle('UnqueueHandleNotice', array(&$notice, $queue))) {
+                throw ServerException("UnQueueManager: Unknown queue: $queue");
+            }
         }
     }
 

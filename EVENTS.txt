@@ -261,3 +261,7 @@ StartEnqueueNotice: about to add a notice to the queues (good place to add a new
 EndEnqueueNotice: after adding a notice to the queues
 - $notice: the notice being added
 - $transports: modifiable list of transports to use
+
+UnqueueHandleNotice: Handle a notice when no queue manager is available
+- $notice: the notice to handle
+- $queue: the "queue" that is being executed
