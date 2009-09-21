@@ -31,7 +31,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-define('DEFAULT_HUB','http://2pubsubhubbub.appspot.com');
+define('DEFAULT_HUB','http://pubsubhubbub.appspot.com');
 
 require_once(INSTALLDIR.'/plugins/PubSubHubBub/publisher.php');
 
