@@ -72,6 +72,9 @@ class UnQueueManager
             require_once(INSTALLDIR.'/lib/jabber.php');
             jabber_broadcast_notice($notice);
             break;
+         case 'plugin':
+            Event::handle('HandleQueuedNotice', array(&$notice));
+            break;
          default:
             if (Event::handle('UnqueueHandleNotice', array(&$notice, $queue))) {
                 throw ServerException("UnQueueManager: Unknown queue: $queue");

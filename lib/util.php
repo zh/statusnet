@@ -897,7 +897,8 @@ function common_enqueue_notice($notice)
                                     'twitter',
                                     'facebook',
                                     'ping');
-    static $allTransports = array('sms');
+
+    static $allTransports = array('sms', 'plugin');
 
     $transports = $allTransports;
 

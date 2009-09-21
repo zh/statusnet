@@ -268,3 +268,6 @@ UnqueueHandleNotice: Handle a notice when no queue manager is available
 
 GetValidDaemons: Just before determining which daemons to run
 - &$daemons: modifiable list of daemon scripts to run, filenames relative to scripts/
+
+HandleQueuedNotice: Handle a queued notice at queue time (or immediately if no queue)
+- &$notice: notice to handle
