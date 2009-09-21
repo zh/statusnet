@@ -493,7 +493,7 @@ function callback_helper($matches, $callback, $notice_id) {
     }while($original_url!=$url);
 
     if(empty($notice_id)){
-        $result = call_user_func_array($callback,$url);
+        $result = call_user_func_array($callback, array($url));
     }else{
         $result = call_user_func_array($callback, array(array($url,$notice_id)) );
     }
@@ -1374,9 +1374,13 @@ function common_shorten_url($long_url)
         $svc = $user->urlshorteningservice;
     }
     global $_shorteners;
-    if(! $_shorteners[$svc]){
+    if (!isset($_shorteners[$svc])) {
         //the user selected service doesn't exist, so default to ur1.ca
         $svc = 'ur1.ca';
+    }
+    if (!isset($_shorteners[$svc])) {
+    	// no shortener plugins installed.
+    	return $long_url;
     }
 
     $reflectionObj = new ReflectionClass($_shorteners[$svc]['callInfo'][0]);
