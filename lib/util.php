@@ -915,11 +915,16 @@ function common_enqueue_notice($notice)
         }
     }
 
-    $qm = QueueManager::get();
+    if (Event::handle('StartEnqueueNotice', array($notice, &$transports))) {
 
-    foreach ($transports as $transport)
-    {
-        $qm->enqueue($notice, $transport);
+        $qm = QueueManager::get();
+
+        foreach ($transports as $transport)
+        {
+            $qm->enqueue($notice, $transport);
+        }
+
+        Event::handle('EndEnqueueNotice', array($notice, $transports));
     }
 
     return true;
@@ -1384,7 +1389,7 @@ function common_shorten_url($long_url)
     }
 
     $reflectionObj = new ReflectionClass($_shorteners[$svc]['callInfo'][0]);
-    $short_url_service = $reflectionObj->newInstanceArgs($_shorteners[$svc]['callInfo'][1]); 
+    $short_url_service = $reflectionObj->newInstanceArgs($_shorteners[$svc]['callInfo'][1]);
     $short_url = $short_url_service->shorten($long_url);
 
     if(substr($short_url,0,7)=='http://'){

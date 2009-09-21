@@ -254,3 +254,10 @@ StartApiRss: after the rss <channel> element is started
 StartApiAtom: after the <feed> element is started
 - $action: action object being shown
 
+StartEnqueueNotice: about to add a notice to the queues (good place to add a new transport)
+- $notice: the notice being added
+- &$transports: modifiable list of transports (as strings) to queue for
+
+EndEnqueueNotice: after adding a notice to the queues
+- $notice: the notice being added
+- $transports: modifiable list of transports to use
