@@ -97,6 +97,8 @@ class RealtimePlugin extends Plugin
             $user_id = 0;
         }
 
+        $action->script('plugins/Realtime/jquery.getUrlParam.js');
+
         $action->elementStart('script', array('type' => 'text/javascript'));
         $action->raw('
         <!--
