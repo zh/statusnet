@@ -265,3 +265,6 @@ EndEnqueueNotice: after adding a notice to the queues
 UnqueueHandleNotice: Handle a notice when no queue manager is available
 - $notice: the notice to handle
 - $queue: the "queue" that is being executed
+
+GetValidDaemons: Just before determining which daemons to run
+- &$daemons: modifiable list of daemon scripts to run, filenames relative to scripts/

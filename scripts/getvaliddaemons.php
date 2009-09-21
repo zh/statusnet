@@ -35,20 +35,31 @@ ENDOFHELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
+$daemons = array();
+
 if(common_config('xmpp','enabled')) {
-    echo "xmppdaemon.php jabberqueuehandler.php publicqueuehandler.php ";
-    echo "xmppconfirmhandler.php ";
+    $daemons[] = 'xmppdaemon.php';
+    $daemons[] = 'jabberqueuehandler.php';
+    $daemons[] = 'publicqueuehandler.php';
+    $daemons[] = 'xmppconfirmhandler.php';
 }
 if(common_config('twitterbridge','enabled')) {
-    echo "twitterstatusfetcher.php ";
+    $daemons[] = 'twitterstatusfetcher.php';
 }
-echo "ombqueuehandler.php ";
+$daemons[] = 'ombqueuehandler.php';
 if (common_config('twitter', 'enabled')) {
-    echo "twitterqueuehandler.php ";
-    echo "synctwitterfriends.php ";
+    $daemons[] = 'twitterqueuehandler.php';
+    $daemons[] = 'synctwitterfriends.php';
 }
-echo "facebookqueuehandler.php ";
-echo "pingqueuehandler.php ";
+$daemons[] = 'facebookqueuehandler.php';
+$daemons[] = 'pingqueuehandler.php';
 if (common_config('sms', 'enabled')) {
-    echo "smsqueuehandler.php ";
+    $daemons[] = 'smsqueuehandler.php';
+}
+
+if (Event::handle('GetValidDaemons', array(&$daemons))) {
+    foreach ($daemons as $daemon) {
+        print $daemon . ' ';
+    }
+    print "\n";
 }
