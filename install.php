@@ -15,6 +15,24 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category Installation
+ * @package  Installation
+ *
+ * @author   Adrian Lang <mail@adrianlang.de>
+ * @author   Brenda Wallace <shiny@cpan.org>
+ * @author   Brett Taylor <brett@webfroot.co.nz>
+ * @author   Brion Vibber <brion@pobox.com>
+ * @author   CiaranG <ciaran@ciarang.com>
+ * @author   Craig Andrews <candrews@integralblue.com>
+ * @author   Eric Helgeson <helfire@Erics-MBP.local>
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @author   Sarven Capadisli <csarven@status.net>
+ * @author   Tom Adams <tom@holizz.com>
+ * @license  GNU Affero General Public License http://www.gnu.org/licenses/
+ * @version  0.9
+ * @link     http://status.net
  */
 
 define('INSTALLDIR', dirname(__FILE__));
@@ -181,17 +199,34 @@ $external_libraries=array(
         'check_class'=>'Validate'
     )
 );
+$dbModules = array(
+    'mysql' => array(
+        'name' => 'MySQL',
+        'check_module' => 'mysql', // mysqli?
+        'installer' => 'mysql_db_installer',
+    ),
+    'pgsql' => array(
+        'name' => 'PostgreSQL',
+        'check_module' => 'pgsql',
+        'installer' => 'pgsql_db_installer',
+    ),
+);
 
+/**
+ * the actual installation.
+ * If call libraries are present, then install
+ *
+ * @return void
+ */
 function main()
 {
-    if (!checkPrereqs())
-    {
+    if (!checkPrereqs()) {
         return;
     }
-    
-    if( $_GET['checklibs'] ){
+
+    if (!empty($_GET['checklibs'])) {
         showLibs();
-    }else{
+    } else {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             handlePost();
         } else {
@@ -200,33 +235,44 @@ function main()
     }
 }
 
+/**
+ * checks if an external libary is present
+ *
+ * @param string $external_library Name of library
+ *
+ * @return boolean indicates if library present
+ */
 function haveExternalLibrary($external_library)
 {
-    if(isset($external_library['include']) && ! include_once($external_library['include'])){
+    if (isset($external_library['include']) && ! @include_once $external_library['include'] ) {
         return false;
     }
-    if(isset($external_library['check_function']) && ! function_exists($external_library['check_function'])){
+    if (isset($external_library['check_function']) && ! function_exists($external_library['check_function'])) {
         return false;
     }
-    if(isset($external_library['check_class']) && ! class_exists($external_library['check_class'])){
+    if (isset($external_library['check_class']) && ! class_exists($external_library['check_class'])) {
         return false;
     }
     return true;
 }
 
+/**
+ * Check if all is ready for installation
+ *
+ * @return void
+ */
 function checkPrereqs()
 {
-	$pass = true;
+    $pass = true;
 
     if (file_exists(INSTALLDIR.'/config.php')) {
-         ?><p class="error">Config file &quot;config.php&quot; already exists.</p>
-         <?php
+         printf('<p class="error">Config file &quot;config.php&quot; already exists.</p>');
         $pass = false;
     }
 
     if (version_compare(PHP_VERSION, '5.2.3', '<')) {
-            ?><p class="error">Require PHP version 5.2.3 or greater.</p><?php
-		    $pass = false;
+        printf('<p class="error">Require PHP version 5.2.3 or greater.</p>');
+        $pass = false;
     }
 
     $reqs = array('gd', 'curl',
@@ -234,37 +280,52 @@ function checkPrereqs()
 
     foreach ($reqs as $req) {
         if (!checkExtension($req)) {
-            ?><p class="error">Cannot load required extension: <code><?php echo $req; ?></code></p><?php
-		    $pass = false;
+            printf('<p class="error">Cannot load required extension: <code>%s</code></p>', $req);
+            $pass = false;
         }
     }
-    if (!checkExtension('pgsql') && !checkExtension('mysql')) {
-      ?><p class="error">Cannot find mysql or pgsql extension. You need one or the other: <code><?php echo $req; ?></code></p><?php
-                    $pass = false;
+    // Make sure we have at least one database module available
+    global $dbModules;
+    $missingExtensions = array();
+    foreach ($dbModules as $type => $info) {
+        if (!checkExtension($info['check_module'])) {
+            $missingExtensions[] = $info['check_module'];
+        }
     }
 
-	if (!is_writable(INSTALLDIR)) {
-         ?><p class="error">Cannot write config file to: <code><?php echo INSTALLDIR; ?></code></p>
-	       <p>On your server, try this command: <code>chmod a+w <?php echo INSTALLDIR; ?></code>
-         <?php
-	     $pass = false;
-	}
+    if (count($missingExtensions) == count($dbModules)) {
+        $req = implode(', ', $missingExtensions);
+        printf('<p class="error">Cannot find mysql or pgsql extension. You need one or the other.');
+        $pass = false;
+    }
 
-	// Check the subdirs used for file uploads
-	$fileSubdirs = array('avatar', 'background', 'file');
-	foreach ($fileSubdirs as $fileSubdir) {
-		$fileFullPath = INSTALLDIR."/$fileSubdir/";
-		if (!is_writable($fileFullPath)) {
-    	     ?><p class="error">Cannot write <?php echo $fileSubdir; ?> directory: <code><?php echo $fileFullPath; ?></code></p>
-		       <p>On your server, try this command: <code>chmod a+w <?php echo $fileFullPath; ?></code></p>
-	     <?php
-		     $pass = false;
-		}
-	}
+    if (!is_writable(INSTALLDIR)) {
+        printf('<p class="error">Cannot write config file to: <code>%s</code></p>', INSTALLDIR);
+        printf('<p>On your server, try this command: <code>chmod a+w %s</code>', INSTALLDIR);
+        $pass = false;
+    }
 
-	return $pass;
+    // Check the subdirs used for file uploads
+    $fileSubdirs = array('avatar', 'background', 'file');
+    foreach ($fileSubdirs as $fileSubdir) {
+        $fileFullPath = INSTALLDIR."/$fileSubdir/";
+        if (!is_writable($fileFullPath)) {
+            printf('<p class="error">Cannot write to %s directory: <code>%s</code></p>', $fileSubdir, $fileFullPath);
+            printf('<p>On your server, try this command: <code>chmod a+w %s</code></p>', $fileFullPath);
+            $pass = false;
+        }
+    }
+
+    return $pass;
 }
 
+/**
+ * Checks if a php extension is both installed and loaded
+ *
+ * @param string $name of extension to check
+ *
+ * @return boolean whether extension is installed and loaded
+ */
 function checkExtension($name)
 {
     if (!extension_loaded($name)) {
@@ -275,15 +336,20 @@ function checkExtension($name)
     return true;
 }
 
+/**
+ * Show list of libraries
+ *
+ * @return void
+ */
 function showLibs()
 {
     global $external_libraries;
     $present_libraries=array();
     $absent_libraries=array();
-    foreach($external_libraries as $external_library){
-        if(haveExternalLibrary($external_library)){
+    foreach ($external_libraries as $external_library) {
+        if (haveExternalLibrary($external_library)) {
             $present_libraries[]=$external_library;
-        }else{
+        } else {
             $absent_libraries[]=$external_library;
         }
     }
@@ -298,22 +364,21 @@ function showLibs()
     <h2>Absent Libraries</h2>
     <ul id="absent_libraries">
 E_O_T;
-    foreach($absent_libraries as $library)
-    {
+    foreach ($absent_libraries as $library) {
         echo '<li>';
-        if($library['url']){
+        if (isset($library['url'])) {
             echo '<a href=">'.$library['url'].'">'.htmlentities($library['name']).'</a>';
-        }else{
+        } else {
             echo htmlentities($library['name']);
         }
         echo '<ul>';
-        if($library['deb']){
+        if (isset($library['deb'])) {
             echo '<li class="deb package">deb: <a href="apt:' . urlencode($library['deb']) . '">' . htmlentities($library['deb']) . '</a></li>';
         }
-        if($library['rpm']){
+        if (isset($library['rpm'])) {
             echo '<li class="rpm package">rpm: ' . htmlentities($library['rpm']) . '</li>';
         }
-        if($library['pear']){
+        if (isset($library['pear'])) {
             echo '<li class="pear package">pear: ' . htmlentities($library['pear']) . '</li>';
         }
         echo '</ul>';
@@ -323,12 +388,11 @@ E_O_T;
     <h2>Installed Libraries</h2>
     <ul id="present_libraries">
 E_O_T;
-    foreach($present_libraries as $library)
-    {
+    foreach ($present_libraries as $library) {
         echo '<li>';
-        if($library['url']){
+        if ($library['url']) {
             echo '<a href=">'.$library['url'].'">'.htmlentities($library['name']).'</a>';
-        }else{
+        } else {
             echo htmlentities($library['name']);
         }
         echo '</li>';
@@ -340,6 +404,15 @@ E_O_T;
 
 function showForm()
 {
+    global $dbModules;
+    $dbRadios = '';
+    $checked = 'checked="checked" '; // Check the first one which exists
+    foreach ($dbModules as $type => $info) {
+        if (checkExtension($info['check_module'])) {
+            $dbRadios .= "<input type=\"radio\" name=\"dbtype\" id=\"dbtype-$type\" value=\"$type\" $checked/> $info[name]<br />\n";
+            $checked = '';
+        }
+    }
     echo<<<E_O_T
         </ul>
     </dd>
@@ -376,8 +449,7 @@ function showForm()
             <li>
 
                 <label for="dbtype">Type</label>
-                <input type="radio" name="dbtype" id="fancy-mysql" value="mysql" checked='checked' /> MySQL<br />
-                <input type="radio" name="dbtype" id="dbtype-pgsql" value="pgsql" /> PostgreSQL<br />
+                $dbRadios
                 <p class="form_guide">Database type</p>
             </li>
 
@@ -406,17 +478,11 @@ E_O_T;
 
 function updateStatus($status, $error=false)
 {
-?>
-                <li <?php echo ($error) ? 'class="error"': ''; ?>><?php echo $status;?></li>
-
-<?php
+    echo '<li' . ($error ? ' class="error"': '' ) . ">$status</li>";
 }
 
 function handlePost()
 {
-?>
-
-<?php
     $host     = $_POST['host'];
     $dbtype   = $_POST['dbtype'];
     $database = $_POST['database'];
@@ -427,55 +493,41 @@ function handlePost()
     $server = $_SERVER['HTTP_HOST'];
     $path = substr(dirname($_SERVER['PHP_SELF']), 1);
 
-?>
+    echo <<<STR
     <dl class="system_notice">
         <dt>Page notice</dt>
         <dd>
             <ul>
-<?php
-	$fail = false;
+STR;
+    $fail = false;
 
     if (empty($host)) {
         updateStatus("No hostname specified.", true);
-		$fail = true;
+        $fail = true;
     }
 
     if (empty($database)) {
         updateStatus("No database specified.", true);
-		$fail = true;
+        $fail = true;
     }
 
     if (empty($username)) {
         updateStatus("No username specified.", true);
-		$fail = true;
+        $fail = true;
     }
-
-//     if (empty($password)) {
-//         updateStatus("No password specified.", true);
-// 		$fail = true;
-//     }
 
     if (empty($sitename)) {
         updateStatus("No sitename specified.", true);
-		$fail = true;
+        $fail = true;
     }
 
-    if($fail){
-            showForm();
+    if ($fail) {
+        showForm();
         return;
     }
 
-    // FIXME: use PEAR::DB or PDO instead of our own switch
-
-    switch($dbtype) {
-        case 'mysql':
-            $db = mysql_db_installer($host, $database, $username, $password);
-            break;
-        case 'pgsql':
-            $db = pgsql_db_installer($host, $database, $username, $password);
-            break;
-        default:
-    }
+    global $dbModules;
+    $db = call_user_func($dbModules[$dbtype]['installer'], $host, $database, $username, $password);
 
     if (!$db) {
         // database connection failed, do not move on to create config file.
@@ -498,112 +550,110 @@ function handlePost()
 
     updateStatus("StatusNet has been installed at $link");
     updateStatus("You can visit your <a href='$link'>new StatusNet site</a>.");
-?>
-
-<?php
 }
 
-function pgsql_db_installer($host, $database, $username, $password) {
-  $connstring = "dbname=$database host=$host user=$username";
+function Pgsql_Db_installer($host, $database, $username, $password)
+{
+    $connstring = "dbname=$database host=$host user=$username";
 
-  //No password would mean trust authentication used.
-  if (!empty($password)) {
-    $connstring .= " password=$password";
-  }
-  updateStatus("Starting installation...");
-  updateStatus("Checking database...");
-  $conn = pg_connect($connstring);
+    //No password would mean trust authentication used.
+    if (!empty($password)) {
+        $connstring .= " password=$password";
+    }
+    updateStatus("Starting installation...");
+    updateStatus("Checking database...");
+    $conn = pg_connect($connstring);
 
-  if ($conn ===false) {
-    updateStatus("Failed to connect to database: $connstring");
-    showForm();
-    return false;
-  }
+    if ($conn ===false) {
+        updateStatus("Failed to connect to database: $connstring");
+        showForm();
+        return false;
+    }
 
-  //ensure database encoding is UTF8
-  $record = pg_fetch_object(pg_query($conn, 'SHOW server_encoding'));
-  if ($record->server_encoding != 'UTF8') {
-    updateStatus("StatusNet requires UTF8 character encoding. Your database is ". htmlentities($record->server_encoding));
-    showForm();
-    return false;
-  }
+    //ensure database encoding is UTF8
+    $record = pg_fetch_object(pg_query($conn, 'SHOW server_encoding'));
+    if ($record->server_encoding != 'UTF8') {
+        updateStatus("StatusNet requires UTF8 character encoding. Your database is ". htmlentities($record->server_encoding));
+        showForm();
+        return false;
+    }
 
-  updateStatus("Running database script...");
-  //wrap in transaction;
-  pg_query($conn, 'BEGIN');
-  $res = runDbScript(INSTALLDIR.'/db/statusnet_pg.sql', $conn, 'pgsql');
+    updateStatus("Running database script...");
+    //wrap in transaction;
+    pg_query($conn, 'BEGIN');
+    $res = runDbScript(INSTALLDIR.'/db/statusnet_pg.sql', $conn, 'pgsql');
 
-  if ($res === false) {
-      updateStatus("Can't run database script.", true);
-      showForm();
-      return false;
-  }
-  foreach (array('sms_carrier' => 'SMS carrier',
+    if ($res === false) {
+        updateStatus("Can't run database script.", true);
+        showForm();
+        return false;
+    }
+    foreach (array('sms_carrier' => 'SMS carrier',
                 'notice_source' => 'notice source',
                 'foreign_services' => 'foreign service')
           as $scr => $name) {
-      updateStatus(sprintf("Adding %s data to database...", $name));
-      $res = runDbScript(INSTALLDIR.'/db/'.$scr.'.sql', $conn, 'pgsql');
-      if ($res === false) {
-          updateStatus(sprintf("Can't run %d script.", $name), true);
-          showForm();
-          return false;
-      }
-  }
-  pg_query($conn, 'COMMIT');
+        updateStatus(sprintf("Adding %s data to database...", $name));
+        $res = runDbScript(INSTALLDIR.'/db/'.$scr.'.sql', $conn, 'pgsql');
+        if ($res === false) {
+            updateStatus(sprintf("Can't run %d script.", $name), true);
+            showForm();
+            return false;
+        }
+    }
+    pg_query($conn, 'COMMIT');
 
-  if (empty($password)) {
-    $sqlUrl = "pgsql://$username@$host/$database";
-  }
-  else {
-    $sqlUrl = "pgsql://$username:$password@$host/$database";
-  }
+    if (empty($password)) {
+        $sqlUrl = "pgsql://$username@$host/$database";
+    } else {
+        $sqlUrl = "pgsql://$username:$password@$host/$database";
+    }
 
-  $db = array('type' => 'pgsql', 'database' => $sqlUrl);
+    $db = array('type' => 'pgsql', 'database' => $sqlUrl);
 
-  return $db;
+    return $db;
 }
 
-function mysql_db_installer($host, $database, $username, $password) {
-  updateStatus("Starting installation...");
-  updateStatus("Checking database...");
+function Mysql_Db_installer($host, $database, $username, $password)
+{
+    updateStatus("Starting installation...");
+    updateStatus("Checking database...");
 
-  $conn = mysql_connect($host, $username, $password);
-  if (!$conn) {
-      updateStatus("Can't connect to server '$host' as '$username'.", true);
-      showForm();
-      return false;
-  }
-  updateStatus("Changing to database...");
-  $res = mysql_select_db($database, $conn);
-  if (!$res) {
-      updateStatus("Can't change to database.", true);
-      showForm();
-      return false;
-  }
-  updateStatus("Running database script...");
-  $res = runDbScript(INSTALLDIR.'/db/statusnet.sql', $conn);
-  if ($res === false) {
-      updateStatus("Can't run database script.", true);
-      showForm();
-      return false;
-  }
-  foreach (array('sms_carrier' => 'SMS carrier',
+    $conn = mysql_connect($host, $username, $password);
+    if (!$conn) {
+        updateStatus("Can't connect to server '$host' as '$username'.", true);
+        showForm();
+        return false;
+    }
+    updateStatus("Changing to database...");
+    $res = mysql_select_db($database, $conn);
+    if (!$res) {
+        updateStatus("Can't change to database.", true);
+        showForm();
+        return false;
+    }
+    updateStatus("Running database script...");
+    $res = runDbScript(INSTALLDIR.'/db/statusnet.sql', $conn);
+    if ($res === false) {
+        updateStatus("Can't run database script.", true);
+        showForm();
+        return false;
+    }
+    foreach (array('sms_carrier' => 'SMS carrier',
                 'notice_source' => 'notice source',
                 'foreign_services' => 'foreign service')
           as $scr => $name) {
-      updateStatus(sprintf("Adding %s data to database...", $name));
-      $res = runDbScript(INSTALLDIR.'/db/'.$scr.'.sql', $conn);
-      if ($res === false) {
-          updateStatus(sprintf("Can't run %d script.", $name), true);
-          showForm();
-          return false;
-      }
-  }
+        updateStatus(sprintf("Adding %s data to database...", $name));
+        $res = runDbScript(INSTALLDIR.'/db/'.$scr.'.sql', $conn);
+        if ($res === false) {
+            updateStatus(sprintf("Can't run %d script.", $name), true);
+            showForm();
+            return false;
+        }
+    }
 
-      $sqlUrl = "mysqli://$username:$password@$host/$database";
-      $db = array('type' => 'mysql', 'database' => $sqlUrl);
-      return $db;
+    $sqlUrl = "mysqli://$username:$password@$host/$database";
+    $db = array('type' => 'mysql', 'database' => $sqlUrl);
+    return $db;
 }
 
 function writeConf($sitename, $server, $path, $fancy, $db)
@@ -634,7 +684,16 @@ function writeConf($sitename, $server, $path, $fancy, $db)
     return $res;
 }
 
-function runDbScript($filename, $conn, $type = 'mysql')
+/**
+ * Install schema into the database
+ *
+ * @param string $filename location of database schema file
+ * @param dbconn $conn     connection to database
+ * @param string $type     type of database, currently mysql or pgsql
+ *
+ * @return boolean - indicating success or failure
+ */
+function runDbScript($filename, $conn, $type = 'mysqli')
 {
     $sql = trim(file_get_contents($filename));
     $stmts = explode(';', $sql);
@@ -645,7 +704,7 @@ function runDbScript($filename, $conn, $type = 'mysql')
         }
         // FIXME: use PEAR::DB or PDO instead of our own switch
         switch ($type) {
-        case 'mysql':
+        case 'mysqli':
             $res = mysql_query($stmt, $conn);
             if ($res === false) {
                 $error = mysql_error();

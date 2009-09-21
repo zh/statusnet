@@ -136,6 +136,11 @@ class TwitapistatusesAction extends TwitterapiAction
 
     }
 
+    function home_timeline($args, $apidata)
+    {
+        call_user_func(array($this, 'friends_timeline'), $args, $apidata);
+    }
+
     function user_timeline($args, $apidata)
     {
         parent::handle($args);

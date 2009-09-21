@@ -80,14 +80,9 @@ function omb_broadcast_notice($notice)
     $posted = array();
 
     while ($rp->fetch()) {
-        if (!array_key_exists($rp->postnoticeurl, $posted)) {
-            common_log(LOG_DEBUG, 'Posting to ' . $rp->postnoticeurl);
-            if (omb_post_notice_keys($notice, $rp->postnoticeurl, $rp->token, $rp->secret)) {
-                common_log(LOG_DEBUG, 'Finished to ' . $rp->postnoticeurl);
-                $posted[$rp->postnoticeurl] = true;
-            } else {
-                common_log(LOG_DEBUG, 'Failed posting to ' . $rp->postnoticeurl);
-            }
+        if (isset($posted[$rp->postnoticeurl])) {
+            /* We already posted to this url. */
+            continue;
         }
         common_debug('Posting to ' . $rp->postnoticeurl, __FILE__);
 
