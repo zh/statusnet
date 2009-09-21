@@ -59,7 +59,7 @@ class PubSubHubBubPlugin extends Plugin
         $action->element('atom:link',array('rel'=>'hub','href'=>$this->hub),null);
     }
 
-    function onEndNoticeSave($notice){
+    function onHandleQueuedNotice($notice){
         $publisher = new Publisher($this->hub);
 
         $feeds = array();
