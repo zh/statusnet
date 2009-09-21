@@ -8,15 +8,15 @@ var MeteorUpdater = function()
 
         init: function(server, port, timeline)
         {
-            var screen_name;
-
             Meteor.callbacks["process"] = function(data) {
                 var d = JSON.parse(data);
-                screen_name = d['user']['screen_name'];
+
+                $user_url = $('address .url')[0].href+d['user']['screen_name'];
 
                 if (timeline == 'public' ||
-                    $('address .url')[0].href+screen_name+'/all' == window.location.href ||
-                    $('address .url')[0].href+screen_name == window.location.href) {
+                    $user_url+'/all' == window.location.href ||
+                    $user_url == window.location.href) {
+
                     RealtimeUpdate.receive(d);
                 }
             };
