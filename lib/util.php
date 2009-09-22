@@ -536,7 +536,7 @@ function common_linkify($url) {
         throw new ServerException("Can't linkify url '$url'");
     }
 
-    $attrs = array('href' => $longurl, 'rel' => 'external');
+    $attrs = array('href' => $canon, 'title' => $longurl, 'rel' => 'external');
 
     $is_attachment = false;
     $attachment_id = null;
