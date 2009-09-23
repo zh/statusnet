@@ -107,18 +107,68 @@ class RealtimePlugin extends Plugin
     {
         $paths = array();
 
-        // XXX: Add other timelines; this is just for the public one
+        // Add to the author's timeline
+
+        $user = User::staticGet('id', $notice->profile_id);
+
+        if (!empty($user)) {
+            $paths[] = array('showstream', $user->nickname);
+        }
+
+        // Add to the public timeline
 
         if ($notice->is_local ||
             ($notice->is_local == 0 && !common_config('public', 'localonly'))) {
             $paths[] = array('public');
         }
 
+        // Add to the tags timeline
+
         $tags = $this->getNoticeTags($notice);
 
         if (!empty($tags)) {
             foreach ($tags as $tag) {
                 $paths[] = array('tag', $tag);
+            }
+        }
+
+        // Add to inbox timelines
+        // XXX: do a join
+
+        $inbox = new Notice_inbox();
+        $inbox->notice_id = $notice->id;
+
+        if ($inbox->find()) {
+            while ($inbox->fetch()) {
+                $user = User::staticGet('id', $inbox->user_id);
+                $paths[] = array('all', $user->nickname);
+            }
+        }
+
+        // Add to the replies timeline
+
+        $reply = new Reply();
+        $reply->notice_id = $notice->id;
+
+        if ($reply->find()) {
+            while ($reply->fetch()) {
+                $user = User::staticGet('id', $reply->profile_id);
+                if (!empty($user)) {
+                    $paths[] = array('replies', $user->nickname);
+                }
+            }
+        }
+
+        // Add to the group timeline
+        // XXX: join
+
+        $gi = new Group_inbox();
+        $gi->notice_id = $notice->id;
+
+        if ($gi->find()) {
+            while ($gi->fetch()) {
+                $ug = User_group::staticGet('id', $gi->group_id);
+                $paths[] = array('showgroup', $ug->nickname);
             }
         }
 
@@ -270,7 +320,9 @@ class RealtimePlugin extends Plugin
         $path = null;
         $timeline = null;
 
-        switch ($action->trimmed('action')) {
+        $action_name = $action->trimmed('action');
+
+        switch ($action_name) {
          case 'public':
             $path = array('public');
             break;
@@ -280,11 +332,20 @@ class RealtimePlugin extends Plugin
                 $path = array('tag', $tag);
             }
             break;
+         case 'showstream':
+         case 'all':
+         case 'replies':
+         case 'showgroup':
+            $nickname = common_canonical_nickname($action->trimmed('nickname'));
+            if (!empty($nickname)) {
+                $path = array($action_name, $nickname);
+            }
+            break;
          default:
             break;
         }
 
-        if (!is_null($path)) {
+        if (!empty($path)) {
             $timeline = $this->_pathToChannel($path);
         }
 
