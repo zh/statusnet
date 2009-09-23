@@ -17,7 +17,7 @@ $(document).ready(function() {
 
         $('#realtime_timeline').click(function() {
             window.open($(this).parent('a').attr('href')+'?realtime=1',
-                        $(this).parent('a').attr('title'),
+                        $('body').attr('id'),
                         'toolbar=no,resizable=yes,scrollbars=yes,status=yes');
 
             return false;
@@ -25,8 +25,8 @@ $(document).ready(function() {
     }
     else {
         window.resizeTo(575, 640);
-        address = $('address');
-        content = $('#content');
+        var address = $('address');
+        var content = $('#content');
         $('body').html(address);
         $('address').hide();
         $('body').append(content);
