@@ -63,22 +63,20 @@ class RealtimePlugin extends Plugin
     {
         $path = null;
 
-        $a = $action->trimmed('action');
-
-        switch ($a) {
-            case 'public': case 'all': case 'replies': case 'showstream':
-                $path = array($a);
-                break;
-            case 'tag':
-                $tag = $action->trimmed('tag');
-                if (!empty($tag)) {
-                    $path = array('tag', $tag);
-                } else {
-                    return true;
-                }
-                break;
-             default:
+        switch ($action->trimmed('action')) {
+         case 'public':
+            $path = array('public');
+            break;
+         case 'tag':
+            $tag = $action->trimmed('tag');
+            if (!empty($tag)) {
+                $path = array('tag', $tag);
+            } else {
                 return true;
+            }
+            break;
+         default:
+            return true;
         }
 
         $timeline = $this->_pathToChannel($path);
@@ -116,13 +114,11 @@ class RealtimePlugin extends Plugin
     {
         $paths = array();
 
-        // TODO: Replies timeline
+        // XXX: Add other timelines; this is just for the public one
 
         if ($notice->is_local ||
             ($notice->is_local == 0 && !common_config('public', 'localonly'))) {
-            foreach (array('public', 'all', 'replies', 'showstream') as $a) {
-                $paths[] = array($a);
-            }
+            $paths[] = array('public');
         }
 
         $tags = $this->getNoticeTags($notice);
