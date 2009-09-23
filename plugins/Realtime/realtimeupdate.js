@@ -111,7 +111,7 @@ RealtimeUpdate = {
           return dl;
      },
 
-     addPopup: function(url, title, iconurl)
+     addPopup: function(url, timeline, iconurl)
      {
          $('#site_nav_local_views .current a').append('<button id="realtime_timeline" title="Real-time pop window">&#8599;</button>');
  
@@ -130,7 +130,7 @@ RealtimeUpdate = {
  
          $('#realtime_timeline').click(function() {
              window.open(url,
-                         title,
+                         timeline,
                          'toolbar=no,resizable=yes,scrollbars=yes,status=yes');
  
              return false;

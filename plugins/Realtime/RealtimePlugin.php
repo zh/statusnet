@@ -83,8 +83,6 @@ class RealtimePlugin extends Plugin
             $url = $base . '?realtime=1';
         }
 
-        $title = $action->title();
-
         $scripts = $this->_getScripts();
 
         foreach ($scripts as $script) {
@@ -106,7 +104,7 @@ class RealtimePlugin extends Plugin
         else {
             // FIXME: This icon URL is no good if fancy URLs are off.
             $iconurl = $base.'plugins/Realtime/icon_external.gif';
-            $realtimeUI = ' RealtimeUpdate.addPopup("'.$url.'", "'.$title.'", "'. $iconurl .'");';
+            $realtimeUI = ' RealtimeUpdate.addPopup("'.$url.'", "'.$timeline.'", "'. $iconurl .'");';
         }
 
         $action->elementStart('script', array('type' => 'text/javascript'));
