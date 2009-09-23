@@ -109,6 +109,11 @@ RealtimeUpdate = {
           dl = "<a class=\"notice_delete\" href=\""+delurl+"\" title=\"Delete this notice\">Delete</a>";
 
           return dl;
+     },
+
+     addPopup: function(url, title)
+     {
+          // FIXME: need to add the realtime popup button here
      }
 }
 

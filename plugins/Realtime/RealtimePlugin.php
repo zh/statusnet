@@ -76,6 +76,15 @@ class RealtimePlugin extends Plugin
             return true;
         }
 
+        $base = $action->selfUrl();
+        if (mb_strstr($url, '?')) {
+            $url = $base . '&realtime=1';
+        } else {
+            $url = $base . '?realtime=1';
+        }
+
+        $title = $action->title();
+
         $scripts = $this->_getScripts();
 
         foreach ($scripts as $script) {
@@ -94,6 +103,7 @@ class RealtimePlugin extends Plugin
 
         $script = ' $(document).ready(function() { '.
           $this->_updateInitialize($timeline, $user_id).
+          ' RealtimeUpdate.addPopup("'.$url.'", "'.$title.'"); '.
           '}); ';
 
         $action->raw($script);
@@ -186,28 +196,6 @@ class RealtimePlugin extends Plugin
             $this->_disconnect();
         }
 
-        return true;
-    }
-
-    function onStartShowPageNotice($action)
-    {
-        $timeline = $this->_getTimeline($action);
-        if (!empty($timeline)) {
-            $base = $action->selfUrl();
-            if (mb_strstr($url, '?')) {
-                $url = $base . '&realtime=1';
-            } else {
-                $url = $base . '?realtime=1';
-            }
-            $title = $action->title();
-            $code = "window.open('$url', '$title', 'toolbar=no,resizable=yes,scrollbars=yes,status=yes,height=640,width=575');";
-            $action->element('a', array('href' => $base,
-                                        'onclick' => $code,
-                                        'id' => 'realtime_timeline',
-                                        'title' => _('Pop up')),
-                             'Pop up');
-
-        }
         return true;
     }
 
