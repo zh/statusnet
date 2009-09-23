@@ -213,9 +213,9 @@ class RealtimePlugin extends Plugin
                                                               'class' => 'user_in')
                               : array('id' => $action->trimmed('action')));
 
+        $action->elementStart('div', array('id' => 'header'));
         // XXX hack to deal with JS that tries to get the
         // root url from page output
-
         $action->elementStart('address');
         $action->element('a', array('class' => 'url',
                                   'href' => common_local_url('public')),
@@ -225,7 +225,9 @@ class RealtimePlugin extends Plugin
         if (common_logged_in()) {
             $action->showNoticeForm();
         }
-        $action->showContent();
+        $action->elementEnd('div');
+
+        $action->showContentBlock();
         $action->elementEnd('body');
         return false; // No default processing
     }
