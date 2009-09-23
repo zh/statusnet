@@ -11,17 +11,11 @@ var MeteorUpdater = function()
             Meteor.callbacks["process"] = function(data) {
                 var d = JSON.parse(data);
 
-                var user_url = $('address .url')[0].href+d['user']['screen_name'];
-
-                var wlh = window.location.href;
-
-                if (wlh.indexOf('?') > 0) {
-                   wlh = wlh.slice(0, wlh.indexOf('?'))
-                }
+                $user_url = $('address .url')[0].href+d['user']['screen_name'];
 
                 if (timeline == 'public' ||
-                    user_url+'/all' == wlh ||
-                    user_url == wlh) {
+                    $user_url+'/all' == window.location.href ||
+                    $user_url == window.location.href) {
 
                     RealtimeUpdate.receive(d);
                 }
