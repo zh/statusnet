@@ -879,6 +879,7 @@ class Action extends HTMLOutputter // lawsuit
      */
     function handle($argarray=null)
     {
+        header('Vary: Accept-Encoding,Cookie');
         $lm   = $this->lastModified();
         $etag = $this->etag();
         if ($etag) {
