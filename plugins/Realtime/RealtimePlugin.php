@@ -50,6 +50,11 @@ class RealtimePlugin extends Plugin
     protected $favorurl = null;
     protected $deleteurl = null;
 
+    /**
+     * When it's time to initialize the plugin, calculate and
+     * pass the URLs we need.
+     */
+
     function onInitializePlugin()
     {
         $this->replyurl = common_local_url('newnotice');
@@ -57,29 +62,19 @@ class RealtimePlugin extends Plugin
         // FIXME: need to find a better way to pass this pattern in
         $this->deleteurl = common_local_url('deletenotice',
                                             array('notice' => '0000000000'));
+        return true;
     }
 
     function onEndShowScripts($action)
     {
-        $path = null;
+        $timeline = $this->_getTimeline($action);
 
-        switch ($action->trimmed('action')) {
-         case 'public':
-            $path = array('public');
-            break;
-         case 'tag':
-            $tag = $action->trimmed('tag');
-            if (!empty($tag)) {
-                $path = array('tag', $tag);
-            } else {
-                return true;
-            }
-            break;
-         default:
+        // If there's not a timeline on this page,
+        // just return true
+
+        if (empty($timeline)) {
             return true;
         }
-
-        $timeline = $this->_pathToChannel($path);
 
         $scripts = $this->_getScripts();
 
@@ -95,16 +90,14 @@ class RealtimePlugin extends Plugin
             $user_id = 0;
         }
 
-        $action->script('plugins/Realtime/jquery.getUrlParam.js');
-
         $action->elementStart('script', array('type' => 'text/javascript'));
-        $action->raw('
-        <!--
-        $(document).ready(function() {
-            ' . $this->_updateInitialize($timeline, $user_id) . '
-        });
-        -->
-        ');
+
+        $script = ' $(document).ready(function() { '.
+          $this->_updateInitialize($timeline, $user_id).
+          '}); ';
+
+        $action->raw($script);
+
         $action->elementEnd('script');
 
         return true;
@@ -144,6 +137,47 @@ class RealtimePlugin extends Plugin
         }
 
         return true;
+    }
+
+    function onStartShowPageNotice($action)
+    {
+        $timeline = $this->_getTimeline($action);
+        if (!empty($timeline)) {
+            $base = $action->selfUrl();
+            if (mb_strstr($url, '?')) {
+                $url = $base . '&realtime=1';
+            } else {
+                $url = $base . '?realtime=1';
+            }
+            $title = $action->title();
+            $code = "window.open('$url', '$title', 'toolbar=no,resizable=yes,scrollbars=yes,status=yes,height=640,width=575');";
+            $action->element('a', array('href' => $base,
+                                        'onclick' => $code,
+                                        'id' => 'realtime_timeline',
+                                        'title' => _('Pop up')),
+                             'Pop up');
+
+        }
+        return true;
+    }
+
+    function onStartShowBody($action)
+    {
+        $realtime = $action->boolean('realtime');
+        if (!$realtime) {
+            return true;
+        }
+
+        $action->elementStart('body',
+                              (common_current_user()) ? array('id' => $action->trimmed('action'),
+                                                              'class' => 'user_in')
+                              : array('id' => $action->trimmed('action')));
+        if (common_logged_in()) {
+            $action->showNoticeForm();
+        }
+        $action->showContent();
+        $action->elementEnd('body');
+        return false; // No default processing
     }
 
     function noticeAsJson($notice)
@@ -229,5 +263,31 @@ class RealtimePlugin extends Plugin
     function _pathToChannel($path)
     {
         return '';
+    }
+
+    function _getTimeline($action)
+    {
+        $path = null;
+        $timeline = null;
+
+        switch ($action->trimmed('action')) {
+         case 'public':
+            $path = array('public');
+            break;
+         case 'tag':
+            $tag = $action->trimmed('tag');
+            if (!empty($tag)) {
+                $path = array('tag', $tag);
+            }
+            break;
+         default:
+            break;
+        }
+
+        if (!is_null($path)) {
+            $timeline = $this->_pathToChannel($path);
+        }
+
+        return $timeline;
     }
 }
