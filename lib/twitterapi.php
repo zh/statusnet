@@ -502,7 +502,7 @@ class TwitterapiAction extends Action
             $enclosure = $entry['enclosures'][0];
             $this->element('enclosure', array('url'=>$enclosure['url'],'type'=>$enclosure['mimetype'],'length'=>$enclosure['size']), null);
         }
-        
+
         if(array_key_exists('tags', $entry)){
             foreach($entry['tags'] as $tag){
                 $this->element('category', null,$tag);
@@ -934,7 +934,7 @@ class TwitterapiAction extends Action
         return;
     }
 
-    function clientError($msg, $code = 400, $content_type = 'json')
+    function clientError($msg, $code = 400, $format = 'xml')
     {
 
         static $status = array(400 => 'Bad Request',
@@ -967,20 +967,23 @@ class TwitterapiAction extends Action
         $status_string = $status[$code];
         header('HTTP/1.1 '.$code.' '.$status_string);
 
-        if ($content_type == 'xml') {
+        if ($format == 'xml') {
             $this->init_document('xml');
             $this->elementStart('hash');
             $this->element('error', null, $msg);
             $this->element('request', null, $_SERVER['REQUEST_URI']);
             $this->elementEnd('hash');
             $this->end_document('xml');
-        } else {
+        } elseif ($format == 'json'){
             $this->init_document('json');
             $error_array = array('error' => $msg, 'request' => $_SERVER['REQUEST_URI']);
             print(json_encode($error_array));
             $this->end_document('json');
-        }
+        } else {
 
+            // If user didn't request a useful format, throw a regular client error
+            throw new ClientException($msg, $code);
+        }
     }
 
     function init_twitter_rss()
@@ -1062,6 +1065,39 @@ class TwitterapiAction extends Action
             return User::staticGet('nickname', $nickname);
         }
     }
+
+    function getTargetUser($id)
+    {
+        if (empty($id)) {
+
+            // Twitter supports these other ways of passing the user ID
+            if (is_numeric($this->arg('id'))) {
+                return User::staticGet($this->arg('id'));
+            } else if ($this->arg('id')) {
+                $nickname = common_canonical_nickname($this->arg('id'));
+                return User::staticGet('nickname', $nickname);
+            } else if ($this->arg('user_id')) {
+                // This is to ensure that a non-numeric user_id still
+                // overrides screen_name even if it doesn't get used
+                if (is_numeric($this->arg('user_id'))) {
+                    return User::staticGet('id', $this->arg('user_id'));
+                }
+            } else if ($this->arg('screen_name')) {
+                $nickname = common_canonical_nickname($this->arg('screen_name'));
+                return User::staticGet('nickname', $nickname);
+            } else {
+                // Fall back to trying the currently authenticated user
+                return $this->auth_user;
+            }
+
+        } else if (is_numeric($id)) {
+            return User::staticGet($id);
+        } else {
+            $nickname = common_canonical_nickname($id);
+            return User::staticGet('nickname', $nickname);
+        }
+    }
+
 
     function get_group($id, $apidata=null)
     {
@@ -1167,6 +1203,87 @@ class TwitterapiAction extends Action
             }
         } else {
             return $def;
+        }
+    }
+
+    function showBasicAuthHeader()
+    {
+        $this->basicAuthProcessHeader();
+
+        if (!isset($this->auth_user)) {
+            header('WWW-Authenticate: Basic realm="StatusNet API"');
+
+            // show error if the user clicks 'cancel'
+
+            $this->showBasicAuthError();
+            return false;
+
+        } else {
+            $nickname = $this->auth_user;
+            $password = $this->auth_pw;
+            $this->auth_user = common_check_user($nickname, $password);
+
+            if (empty($this->auth_user)) {
+
+                // basic authentication failed
+
+                list($proxy, $ip) = common_client_ip();
+                common_log(LOG_WARNING,
+                    "Failed API auth attempt, nickname = $nickname, proxy = $proxy, ip = $ip.");
+                $this->showBasicAuthError();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function basicAuthProcessHeader()
+    {
+        if (isset($_SERVER['AUTHORIZATION']) || isset($_SERVER['HTTP_AUTHORIZATION'])) {
+            $authorization_header = isset($_SERVER['HTTP_AUTHORIZATION'])? $_SERVER['HTTP_AUTHORIZATION'] : $_SERVER['AUTHORIZATION'];
+        }
+
+        if (isset($_SERVER['PHP_AUTH_USER'])) {
+            $this->auth_user = $_SERVER['PHP_AUTH_USER'];
+            $this->auth_pw = $_SERVER['PHP_AUTH_PW'];
+        } elseif (isset($authorization_header) && strstr(substr($authorization_header, 0, 5), 'Basic')) {
+            // decode the HTTP_AUTHORIZATION header on php-cgi server self
+            // on fcgid server the header name is AUTHORIZATION
+
+            $auth_hash = base64_decode(substr($authorization_header, 6));
+            list($this->auth_user, $this->auth_pw) = explode(':', $auth_hash);
+
+            // set all to null on a empty basic auth request
+            if ($this->auth_user == "") {
+                $this->auth_user = null;
+                $this->auth_pw = null;
+            }
+        } else {
+            $this->auth_user = null;
+            $this->auth_pw = null;
+        }
+    }
+
+    function showBasicAuthError()
+    {
+        header('HTTP/1.1 401 Unauthorized');
+        $msg = 'Could not authenticate you.';
+
+        if ($this->arg('format') == 'xml') {
+            header('Content-Type: application/xml; charset=utf-8');
+            $this->startXML();
+            $this->elementStart('hash');
+            $this->element('error', null, $msg);
+            $this->element('request', null, $_SERVER['REQUEST_URI']);
+            $this->elementEnd('hash');
+            $this->endXML();
+        } elseif ($this->arg('format') == 'json') {
+            header('Content-Type: application/json; charset=utf-8');
+            $error_array = array('error' => $msg, 'request' => $_SERVER['REQUEST_URI']);
+            print(json_encode($error_array));
+        } else {
+            header('Content-type: text/plain');
+            print "$msg\n";
         }
     }
 
