@@ -222,6 +222,16 @@ class RealtimePlugin extends Plugin
                               (common_current_user()) ? array('id' => $action->trimmed('action'),
                                                               'class' => 'user_in')
                               : array('id' => $action->trimmed('action')));
+
+        // XXX hack to deal with JS that tries to get the
+        // root url from page output
+
+        $action->elementStart('address');
+        $action->element('a', array('class' => 'url',
+                                  'href' => common_local_url('public')),
+                         '');
+        $action->elementEnd('address');
+
         if (common_logged_in()) {
             $action->showNoticeForm();
         }
