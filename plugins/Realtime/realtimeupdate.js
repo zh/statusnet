@@ -135,6 +135,13 @@ RealtimeUpdate = {
  
              return false;
          });
+     },
+
+     initPopupWindow: function()
+     {
+         window.resizeTo(575, 640);
+         $('address').hide();
+         $('#content').css({'width':'92%'});
      }
 }
 

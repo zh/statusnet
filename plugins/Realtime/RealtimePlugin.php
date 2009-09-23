@@ -99,15 +99,22 @@ class RealtimePlugin extends Plugin
             $user_id = 0;
         }
 
-        $iconurl = $base.'plugins/Realtime/icon_external.gif';
+        // FIXME: Need to check if the current URL is a poped realtime window
+        if (1==2) {
+            $realtimeUI = ' RealtimeUpdate.initPopupWindow();';
+        }
+        else {
+            // FIXME: This icon URL is no good if fancy URLs are off.
+            $iconurl = $base.'plugins/Realtime/icon_external.gif';
+            $realtimeUI = ' RealtimeUpdate.addPopup("'.$url.'", "'.$title.'", "'. $iconurl .'");';
+        }
 
         $action->elementStart('script', array('type' => 'text/javascript'));
 
         $script = ' $(document).ready(function() { '.
           $this->_updateInitialize($timeline, $user_id).
-          ' RealtimeUpdate.addPopup("'.$url.'", "'.$title.'", "'. $iconurl .'");'
+          $realtimeUI.
           '}); ';
-
         $action->raw($script);
 
         $action->elementEnd('script');
