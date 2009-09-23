@@ -99,11 +99,13 @@ class RealtimePlugin extends Plugin
             $user_id = 0;
         }
 
+        $iconurl = $base.'plugins/Realtime/icon_external.gif';
+
         $action->elementStart('script', array('type' => 'text/javascript'));
 
         $script = ' $(document).ready(function() { '.
           $this->_updateInitialize($timeline, $user_id).
-          ' RealtimeUpdate.addPopup("'.$url.'", "'.$title.'"); '.
+          ' RealtimeUpdate.addPopup("'.$url.'", "'.$title.'", "'. $iconurl .'");'
           '}); ';
 
         $action->raw($script);

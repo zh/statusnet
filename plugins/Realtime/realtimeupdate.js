@@ -111,9 +111,30 @@ RealtimeUpdate = {
           return dl;
      },
 
-     addPopup: function(url, title)
+     addPopup: function(url, title, iconurl)
      {
-          // FIXME: need to add the realtime popup button here
+         $('#site_nav_local_views .current a').append('<button id="realtime_timeline" title="Real-time pop window">&#8599;</button>');
+ 
+         $('#realtime_timeline').css({
+             'margin':'2px 0 0 11px',
+             'background':'transparent url('+ iconurl + ') no-repeat 45% 45%',
+             'text-indent':'-9999px',
+             'width':'16px',
+             'height':'16px',
+             'padding':'0',
+             'display':'block',
+             'float':'right',
+             'border':'none',
+             'cursor':'pointer'
+         });
+ 
+         $('#realtime_timeline').click(function() {
+             window.open(url,
+                         title,
+                         'toolbar=no,resizable=yes,scrollbars=yes,status=yes');
+ 
+             return false;
+         });
      }
 }
 
