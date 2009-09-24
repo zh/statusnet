@@ -77,7 +77,7 @@ class RealtimePlugin extends Plugin
         }
 
         $base = $action->selfUrl();
-        if (mb_strstr($url, '?')) {
+        if (mb_strstr($base, '?')) {
             $url = $base . '&realtime=1';
         } else {
             $url = $base . '?realtime=1';
@@ -97,21 +97,19 @@ class RealtimePlugin extends Plugin
             $user_id = 0;
         }
 
-        // FIXME: Need to check if the current URL is a poped realtime window
-        if (1==2) {
+        if ($action->boolean('realtime')) {
             $realtimeUI = ' RealtimeUpdate.initPopupWindow();';
         }
         else {
-            // FIXME: This icon URL is no good if fancy URLs are off.
-            $iconurl = $base.'plugins/Realtime/icon_external.gif';
+            $iconurl = common_path('plugins/Realtime/icon_external.gif');
             $realtimeUI = ' RealtimeUpdate.addPopup("'.$url.'", "'.$timeline.'", "'. $iconurl .'");';
         }
 
         $action->elementStart('script', array('type' => 'text/javascript'));
 
         $script = ' $(document).ready(function() { '.
-          $this->_updateInitialize($timeline, $user_id).
           $realtimeUI.
+          $this->_updateInitialize($timeline, $user_id).
           '}); ';
         $action->raw($script);
 
@@ -219,8 +217,10 @@ class RealtimePlugin extends Plugin
                               : array('id' => $action->trimmed('action')));
 
         $action->elementStart('div', array('id' => 'header'));
+
         // XXX hack to deal with JS that tries to get the
         // root url from page output
+
         $action->elementStart('address');
         $action->element('a', array('class' => 'url',
                                   'href' => common_local_url('public')),
