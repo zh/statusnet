@@ -25,7 +25,6 @@ require_once(INSTALLDIR.'/lib/rssaction.php');
 
 class UserrssAction extends Rss10Action
 {
-    var $user = null;
     var $tag  = null;
 
     function prepare($args)
@@ -39,6 +38,7 @@ class UserrssAction extends Rss10Action
             $this->clientError(_('No such user.'));
             return false;
         } else {
+            $this->notices = $this->getNotices($this->limit);
             return true;
         }
     }
@@ -64,10 +64,10 @@ class UserrssAction extends Rss10Action
 
     function getNotices($limit=0)
     {
-
         $user = $this->user;
-
+        
         if (is_null($user)) {
+            common_debug('null user');
             return null;
         }
 
@@ -75,6 +75,7 @@ class UserrssAction extends Rss10Action
 
         $notices = array();
         while ($notice->fetch()) {
+            common_debug("notice");
             $notices[] = clone($notice);
         }
 

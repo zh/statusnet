@@ -104,6 +104,7 @@ class groupRssAction extends Rss10Action
             return false;
         }
 
+        $this->notices = $this->getNotices($this->limit);
         return true;
     }
 
