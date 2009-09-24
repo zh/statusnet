@@ -909,7 +909,8 @@ class Notice extends Memcached_DataObject
                 $qry .= '('.$id.', '.$this->id.', '.$source.", '".$this->created. "') ";
                 $cnt++;
                 if (rand() % NOTICE_INBOX_SOFT_LIMIT == 0) {
-                    Notice_inbox::gc($id);
+                    // FIXME: Causes lag in replicated servers
+                    // Notice_inbox::gc($id);
                 }
                 if ($cnt >= MAX_BOXCARS) {
                     $inbox = new Notice_inbox();
