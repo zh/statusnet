@@ -47,10 +47,48 @@ class AutocompleteAction extends Action
 {
     private $result;
 
+    /**
+     * Last-modified date for page
+     *
+     * When was the content of this page last modified? Based on notice,
+     * profile, avatar.
+     *
+     * @return int last-modified date as unix timestamp
+     */
+    function lastModified()
+    {
+        $max=0;
+        foreach($this->users as $user){
+            $max = max($max,strtotime($user->modified),strtotime($user->profile->modified));
+        }
+        foreach($this->groups as $group){
+            $max = max($max,strtotime($group->modified));
+        }
+        return $max;
+    }
+
+    /**
+     * An entity tag for this page
+     *
+     * Shows the ETag for the page, based on the notice ID and timestamps
+     * for the notice, profile, and avatar. It's weak, since we change
+     * the date text "one hour ago", etc.
+     *
+     * @return string etag
+     */
+    function etag()
+    {
+        return '"' . implode(':', array($this->arg('action'),
+            crc32($this->arg('q')), //the actual string can have funny characters in we don't want showing up in the etag
+            $this->arg('limit'),
+            $this->lastModified())) . '"';
+    }
+
     function prepare($args)
     {
         parent::prepare($args);
-        $this->results = array();
+        $this->groups=array();
+        $this->users=array();
         $q = $this->arg('q');
         $limit = $this->arg('limit');
         if($limit > 200) $limit=200; //prevent DOS attacks
@@ -63,7 +101,8 @@ class AutocompleteAction extends Action
             $user->find();
             while($user->fetch()) {
                 $profile = Profile::staticGet($user->id);
-                $this->results[]=array('nickname' => $user->nickname, 'fullname'=> $profile->fullname, 'type'=>'user');
+                $user->profile=$profile;
+                $this->users[]=$user;
             }
         }
         if(substr($q,0,1)=='!'){
@@ -74,7 +113,7 @@ class AutocompleteAction extends Action
             $group->whereAdd('nickname like \'' . trim($group->escape($q), '\'') . '%\'');
             $group->find();
             while($group->fetch()) {
-                $this->results[]=array('nickname' => $group->nickname, 'fullname'=> $group->fullname, 'type'=>'group');
+                $this->groups[]=$group;
             }
         }
         return true;
@@ -83,7 +122,14 @@ class AutocompleteAction extends Action
     function handle($args)
     {
         parent::handle($args);
-        foreach($this->results as $result) {
+        $results = array();
+        foreach($this->users as $user){
+            $results[]=array('nickname' => $user->nickname, 'fullname'=> $user->profile->fullname, 'type'=>'user');
+        }
+        foreach($this->groups as $group){
+            $results[]=array('nickname' => $group->nickname, 'fullname'=> $group->fullname, 'type'=>'group');
+        }
+        foreach($results as $result) {
             print json_encode($result) . "\n";
         }
     }
