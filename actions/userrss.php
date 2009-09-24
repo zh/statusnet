@@ -67,7 +67,6 @@ class UserrssAction extends Rss10Action
         $user = $this->user;
         
         if (is_null($user)) {
-            common_debug('null user');
             return null;
         }
 
@@ -75,7 +74,6 @@ class UserrssAction extends Rss10Action
 
         $notices = array();
         while ($notice->fetch()) {
-            common_debug("notice");
             $notices[] = clone($notice);
         }
 
