@@ -325,7 +325,6 @@ class DesignSettingsAction extends AccountSettingsAction
         parent::showScripts();
 
         $this->script('js/farbtastic/farbtastic.js');
-        $this->script('js/farbtastic/farbtastic.go.js');
         $this->script('js/userdesign.go.js');
 
         $this->autofocus('design_background-image_file');

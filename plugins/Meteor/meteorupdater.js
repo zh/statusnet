@@ -1,5 +1,6 @@
-// update the local timeline from a Meteor server
-//
+// Update the local timeline from a Meteor server
+// XXX: If @a is subscribed to @b, @a should get @b's notices in @a's Personal timeline.
+//      Do Replies timeline.
 
 var MeteorUpdater = function()
 {

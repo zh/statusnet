@@ -70,6 +70,12 @@ class NoticeForm extends Form
     var $user = null;
 
     /**
+     * The notice being replied to
+     */
+
+    var $inreplyto = null;
+
+    /**
      * Constructor
      *
      * @param HTMLOutputter $out     output channel
@@ -77,13 +83,13 @@ class NoticeForm extends Form
      * @param string        $content content to pre-fill
      */
 
-    function __construct($out=null, $action=null, $content=null, $user=null)
+    function __construct($out=null, $action=null, $content=null, $user=null, $inreplyto=null)
     {
         parent::__construct($out);
 
         $this->action  = $action;
         $this->content = $content;
-
+        $this->inreplyto = $inreplyto;
         if ($user) {
             $this->user = $user;
         } else {
@@ -168,7 +174,7 @@ class NoticeForm extends Form
         if ($this->action) {
             $this->out->hidden('notice_return-to', $this->action, 'returnto');
         }
-        $this->out->hidden('notice_in-reply-to', $this->action, 'inreplyto');
+        $this->out->hidden('notice_in-reply-to', $this->inreplyto, 'inreplyto');
     }
 
     /**

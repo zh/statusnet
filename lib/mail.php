@@ -551,9 +551,9 @@ function mail_notify_fave($other, $user, $notice)
 
     common_init_locale($other->language);
 
-    $subject = sprintf(_('%s added your notice as a favorite'), $bestname);
+    $subject = sprintf(_('%s (@%s) added your notice as a favorite'), $bestname, $user->nickname);
 
-    $body = sprintf(_("%1\$s just added your notice from %2\$s".
+    $body = sprintf(_("%1\$s (@%7\$s) just added your notice from %2\$s".
                       " as one of their favorites.\n\n" .
                       "The URL of your notice is:\n\n" .
                       "%3\$s\n\n" .
@@ -570,7 +570,8 @@ function mail_notify_fave($other, $user, $notice)
                     $notice->content,
                     common_local_url('showfavorites',
                                      array('nickname' => $user->nickname)),
-                    common_config('site', 'name'));
+                    common_config('site', 'name'),
+                    $user->nickname);
 
     common_init_locale();
     mail_to_user($other, $subject, $body);
@@ -607,9 +608,9 @@ function mail_notify_attn($user, $notice)
 		$conversationUrl = null;
 	}
 	
-    $subject = sprintf(_('%s sent a notice to your attention'), $bestname);
+    $subject = sprintf(_('%s (@%s) sent a notice to your attention'), $bestname, $sender->nickname);
 	
-	$body = sprintf(_("%1\$s just sent a notice to your attention (an '@-reply') on %2\$s.\n\n".
+	$body = sprintf(_("%1\$s (@%9\$s) just sent a notice to your attention (an '@-reply') on %2\$s.\n\n".
                       "The notice is here:\n\n".
                       "\t%3\$s\n\n" .
                       "It reads:\n\n".
@@ -629,10 +630,11 @@ function mail_notify_attn($user, $notice)
                     $notice->content,//%4
 					$conversationUrl,//%5
                     common_local_url('newnotice',
-                                     array('replyto' => $sender->nickname)),//%6
+                                     array('replyto' => $sender->nickname, 'inreplyto' => $notice->id)),//%6
                     common_local_url('replies',
                                      array('nickname' => $user->nickname)),//%7
-                    common_local_url('emailsettings'));//%8
+                    common_local_url('emailsettings'), //%8
+                    $sender->nickname); //%9
 	
     common_init_locale();
     mail_to_user($user, $subject, $body);
