@@ -244,7 +244,7 @@ function main()
  */
 function haveExternalLibrary($external_library)
 {
-    if (isset($external_library['include']) && ! @include_once $external_library['include'] ) {
+    if (isset($external_library['include']) && !haveIncludeFile($external_library['include'])) {
         return false;
     }
     if (isset($external_library['check_function']) && ! function_exists($external_library['check_function'])) {

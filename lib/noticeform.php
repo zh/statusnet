@@ -90,7 +90,7 @@ class NoticeForm extends Form
         $this->action  = $action;
         $this->content = $content;
         $this->inreplyto = $inreplyto;
-        
+
         if ($user) {
             $this->user = $user;
         } else {
