@@ -110,18 +110,87 @@ class Schema
 
     public function getColumnDef($table, $column)
     {
+        $td = $this->getTableDef($table);
+
+        foreach ($td->columns as $cd) {
+            if ($cd->name == $column) {
+                return $cd;
+            }
+        }
+
+        return null;
     }
 
     public function getIndexDef($table, $index)
     {
+        return null;
     }
 
     public function createTable($name, $columns, $indices=null)
     {
+        $uniques = array();
+        $primary = array();
+        $indices = array();
+
+        $sql = "CREATE TABLE $name (\n";
+
+        for ($i = 0; $i < count($columns); $i++) {
+
+            $cd =& $columns[$i];
+
+            if ($i > 0) {
+                $sql .= ",\n";
+            }
+
+            $sql .= $this->_columnSql($cd);
+
+            switch ($cd->key) {
+             case 'UNI':
+                $uniques[] = $cd->name;
+                break;
+             case 'PRI':
+                $primary[] = $cd->name;
+                break;
+             case 'MUL':
+                $indices[] = $cd->name;
+                break;
+            }
+        }
+
+        if (count($primary) > 0) { // it really should be...
+            $sql .= ",\nconstraint primary key (" . implode(',', $primary) . ")";
+        }
+
+        foreach ($uniques as $u) {
+            $sql .= ",\nunique index {$name}_{$u}_idx ($u)";
+        }
+
+        foreach ($indices as $i) {
+            $sql .= ",\nindex {$name}_{$i}_idx ($i)";
+        }
+
+        $sql .= "); ";
+
+        common_debug($sql);
+
+        $res =& $this->conn->query($sql);
+
+        if (PEAR::isError($res)) {
+            throw new Exception($res->getMessage());
+        }
+
+        return true;
     }
 
     public function dropTable($name)
     {
+        $res =& $this->conn->query("DROP TABLE $name");
+
+        if (PEAR::isError($res)) {
+            throw new Exception($res->getMessage());
+        }
+
+        return true;
     }
 
     public function createIndex($name, $table, $columns)
@@ -151,6 +220,25 @@ class Schema
             return $this->createTable($name, $columns, $indices);
         }
     }
+
+    function _columnSql($cd)
+    {
+        $sql = "{$cd->name} ";
+
+        if (!empty($cd->size)) {
+            $sql .= "{$cd->type}({$cd->size}) ";
+        } else {
+            $sql .= "{$cd->type} ";
+        }
+
+        if (!empty($cd->default)) {
+            $sql .= "default {$cd->default} ";
+        } else {
+            $sql .= ($cd->nullable) ? "null " : "not null ";
+        }
+
+        return $sql;
+    }
 }
 
 class TableDef
@@ -168,6 +256,17 @@ class ColumnDef
     public $key;
     public $default;
     public $extra;
+
+    function __construct($name, $type, $size=null, $nullable=null,
+                         $key=null, $default=null, $extra=null) {
+        $this->name     = $name;
+        $this->type     = $type;
+        $this->size     = $size;
+        $this->nullable = $nullable;
+        $this->key      = $key;
+        $this->default  = $default;
+        $this->extra    = $extra;
+    }
 }
 
 class IndexDef
