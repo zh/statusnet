@@ -120,16 +120,14 @@ class Action extends HTMLOutputter // lawsuit
     {
         // XXX: attributes (profile?)
         $this->elementStart('head');
-        if (Event::handle('StartShowHeadElements', array($this))) {
-            $this->showTitle();
-            $this->showShortcutIcon();
-            $this->showStylesheets();
-            $this->showOpenSearch();
-            $this->showFeeds();
-            $this->showDescription();
-            $this->extraHead();
-            Event::handle('EndShowHeadElements', array($this));
-        }
+        $this->showTitle();
+        $this->showShortcutIcon();
+        $this->showStylesheets();
+        $this->showScripts();
+        $this->showOpenSearch();
+        $this->showFeeds();
+        $this->showDescription();
+        $this->extraHead();
         $this->elementEnd('head');
     }
 
@@ -354,7 +352,6 @@ class Action extends HTMLOutputter // lawsuit
             Event::handle('EndShowFooter', array($this));
         }
         $this->elementEnd('div');
-        $this->showScripts();
         $this->elementEnd('body');
     }
 
