@@ -73,7 +73,7 @@ class PiwikAnalyticsPlugin extends Plugin
     function __construct($root=null, $id=null)
     {
         $this->piwikroot = $root;
-        $this->piwikid   = $id;
+        $this->piwikId   = $id;
         parent::__construct();
     }
 
