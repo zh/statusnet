@@ -391,10 +391,10 @@ function common_render_content($text, $notice)
 {
     $r = common_render_text($text);
     $id = $notice->profile_id;
-    $r = preg_replace('/(^|\s+)@([A-Za-z0-9]{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
+    $r = preg_replace('/(^|[\s\.\,\:\;]+)@([A-Za-z0-9]{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
     $r = preg_replace('/^T ([A-Z0-9]{1,64}) /e', "'T '.common_at_link($id, '\\1').' '", $r);
-    $r = preg_replace('/(^|\s+)@#([A-Za-z0-9]{1,64})/e', "'\\1@#'.common_at_hash_link($id, '\\2')", $r);
-    $r = preg_replace('/(^|\s)!([A-Za-z0-9]{1,64})/e', "'\\1!'.common_group_link($id, '\\2')", $r);
+    $r = preg_replace('/(^|[\s\.\,\:\;]+)@#([A-Za-z0-9]{1,64})/e', "'\\1@#'.common_at_hash_link($id, '\\2')", $r);
+    $r = preg_replace('/(^|[\s\.\,\:\;]+)!([A-Za-z0-9]{1,64})/e', "'\\1!'.common_group_link($id, '\\2')", $r);
     return $r;
 }
 
@@ -493,7 +493,7 @@ function callback_helper($matches, $callback, $notice_id) {
     }while($original_url!=$url);
 
     if(empty($notice_id)){
-        $result = call_user_func_array($callback,$url);
+        $result = call_user_func_array($callback, array($url));
     }else{
         $result = call_user_func_array($callback, array(array($url,$notice_id)) );
     }
@@ -536,7 +536,7 @@ function common_linkify($url) {
         throw new ServerException("Can't linkify url '$url'");
     }
 
-    $attrs = array('href' => $canon, 'rel' => 'external');
+    $attrs = array('href' => $canon, 'title' => $longurl, 'rel' => 'external');
 
     $is_attachment = false;
     $attachment_id = null;
@@ -897,7 +897,8 @@ function common_enqueue_notice($notice)
                                     'twitter',
                                     'facebook',
                                     'ping');
-    static $allTransports = array('sms');
+
+    static $allTransports = array('sms', 'plugin');
 
     $transports = $allTransports;
 
@@ -915,11 +916,16 @@ function common_enqueue_notice($notice)
         }
     }
 
-    $qm = QueueManager::get();
+    if (Event::handle('StartEnqueueNotice', array($notice, &$transports))) {
 
-    foreach ($transports as $transport)
-    {
-        $qm->enqueue($notice, $transport);
+        $qm = QueueManager::get();
+
+        foreach ($transports as $transport)
+        {
+            $qm->enqueue($notice, $transport);
+        }
+
+        Event::handle('EndEnqueueNotice', array($notice, $transports));
     }
 
     return true;
@@ -1374,13 +1380,17 @@ function common_shorten_url($long_url)
         $svc = $user->urlshorteningservice;
     }
     global $_shorteners;
-    if(! $_shorteners[$svc]){
+    if (!isset($_shorteners[$svc])) {
         //the user selected service doesn't exist, so default to ur1.ca
         $svc = 'ur1.ca';
     }
+    if (!isset($_shorteners[$svc])) {
+    	// no shortener plugins installed.
+    	return $long_url;
+    }
 
     $reflectionObj = new ReflectionClass($_shorteners[$svc]['callInfo'][0]);
-    $short_url_service = $reflectionObj->newInstanceArgs($_shorteners[$svc]['callInfo'][1]); 
+    $short_url_service = $reflectionObj->newInstanceArgs($_shorteners[$svc]['callInfo'][1]);
     $short_url = $short_url_service->shorten($long_url);
 
     if(substr($short_url,0,7)=='http://'){

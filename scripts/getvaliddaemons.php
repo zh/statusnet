@@ -35,20 +35,36 @@ ENDOFHELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
+$daemons = array();
+
+$daemons[] = INSTALLDIR.'/scripts/pluginqueuehandler.php';
+$daemons[] = INSTALLDIR.'/scripts/ombqueuehandler.php';
+$daemons[] = INSTALLDIR.'/scripts/facebookqueuehandler.php';
+$daemons[] = INSTALLDIR.'/scripts/pingqueuehandler.php';
+
 if(common_config('xmpp','enabled')) {
-    echo "xmppdaemon.php jabberqueuehandler.php publicqueuehandler.php ";
-    echo "xmppconfirmhandler.php ";
+    $daemons[] = INSTALLDIR.'/scripts/xmppdaemon.php';
+    $daemons[] = INSTALLDIR.'/scripts/jabberqueuehandler.php';
+    $daemons[] = INSTALLDIR.'/scripts/publicqueuehandler.php';
+    $daemons[] = INSTALLDIR.'/scripts/xmppconfirmhandler.php';
 }
+
 if(common_config('twitterbridge','enabled')) {
-    echo "twitterstatusfetcher.php ";
+    $daemons[] = INSTALLDIR.'/scripts/twitterstatusfetcher.php';
 }
-echo "ombqueuehandler.php ";
+
 if (common_config('twitter', 'enabled')) {
-    echo "twitterqueuehandler.php ";
-    echo "synctwitterfriends.php ";
+    $daemons[] = INSTALLDIR.'/scripts/twitterqueuehandler.php';
+    $daemons[] = INSTALLDIR.'/scripts/synctwitterfriends.php';
 }
-echo "facebookqueuehandler.php ";
-echo "pingqueuehandler.php ";
+
 if (common_config('sms', 'enabled')) {
-    echo "smsqueuehandler.php ";
+    $daemons[] = INSTALLDIR.'/scripts/smsqueuehandler.php';
+}
+
+if (Event::handle('GetValidDaemons', array(&$daemons))) {
+    foreach ($daemons as $daemon) {
+        print $daemon . ' ';
+    }
+    print "\n";
 }
