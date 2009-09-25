@@ -50,8 +50,22 @@ require_once INSTALLDIR.'/lib/rssaction.php';
 class PublicrssAction extends Rss10Action
 {
     /**
+     * Read arguments and initialize members
+     *
+     * @param array $args Arguments from $_REQUEST
+     * @return boolean success
+     */
+
+    function prepare($args)
+    {
+        parent::prepare($args);
+        $this->notices = $this->getNotices($this->limit);
+        return true;
+    }
+
+    /**
      * Initialization.
-     * 
+     *
      * @return boolean true
      */
     function init()
@@ -73,7 +87,7 @@ class PublicrssAction extends Rss10Action
         while ($notice->fetch()) {
             $notices[] = clone($notice);
         }
-        
+
         return $notices;
     }
 
