@@ -1098,7 +1098,6 @@ class TwitterapiAction extends Action
         }
     }
 
-
     function get_group($id, $apidata=null)
     {
         if (empty($id)) {
@@ -1206,7 +1205,7 @@ class TwitterapiAction extends Action
         }
     }
 
-    function showBasicAuthHeader()
+    function checkBasicAuthUser()
     {
         $this->basicAuthProcessHeader();
 

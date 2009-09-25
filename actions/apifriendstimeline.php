@@ -36,6 +36,9 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
 class ApifriendstimelineAction extends TwitterapiAction
 {
 
+    var $user    = null;
+    var $notices = null;
+
     /**
      * Take arguments for running
      *
@@ -48,93 +51,120 @@ class ApifriendstimelineAction extends TwitterapiAction
     function prepare($args)
     {
         parent::prepare($args);
-        return true;
 
-    }
+	$this->page     = (int)$this->arg('page', 1);
+        $this->count    = (int)$this->arg('count', 20);
+        $this->max_id   = (int)$this->arg('max_id', 0);
+        $this->since_id = (int)$this->arg('since_id', 0);
+        $this->since    = $this->arg('since');
 
-    function handle($args) {
+	if ($this->requiresAuth()) {
+            if ($this->checkBasicAuthUser() == false) {
+		return;
+	    }
+	}
 
-        parent::handle($args);
-        common_debug(var_export($args, true));
+	$this->user = $this->getTargetUser($this->arg('id'));
 
-        if ($this->requiresAuth()) {
-            if ($this->showBasicAuthHeader()) {
-                $this->showTimeline();
-            }
-        } else {
-            $this->showTimeline();
-        }
-    }
-
-    function showTimeline()
-    {
-        common_debug('Auth user = ' . var_export($this->auth_user, true));
-
-        $user = $this->getTargetUser($this->arg('id'));
-
-        if (empty($user)) {
+	if (empty($this->user)) {
             $this->clientError(_('No such user!'), 404, $this->arg('format'));
             return;
         }
 
-        $profile    = $user->getProfile();
+	$this->notices = $this->getNotices();
+
+        return true;
+    }
+
+    function handle($args) {
+	parent::handle($args);
+	$this->showTimeline();
+    }
+
+    function showTimeline()
+    {
+        $profile    = $this->user->getProfile();
         $sitename   = common_config('site', 'name');
         $title      = sprintf(_("%s and friends"), $user->nickname);
         $taguribase = common_config('integration', 'taguri');
         $id         = "tag:$taguribase:FriendsTimeline:" . $user->id;
         $link       = common_local_url('all',
-            array('nickname' => $user->nickname));
+				       array('nickname' => $user->nickname));
         $subtitle   = sprintf(_('Updates from %1$s and friends on %2$s!'),
-            $user->nickname, $sitename);
-
-        $page     = (int)$this->arg('page', 1);
-        $count    = (int)$this->arg('count', 20);
-        $max_id   = (int)$this->arg('max_id', 0);
-        $since_id = (int)$this->arg('since_id', 0);
-        $since    = $this->arg('since');
-
-        if (!empty($this->auth_user) && $this->auth_user->id == $user->id) {
-            $notice = $user->noticeInbox(($page-1)*$count,
-                $count, $since_id, $max_id, $since);
-        } else {
-            $notice = $user->noticesWithFriends(($page-1)*$count,
-                $count, $since_id, $max_id, $since);
-        }
+			      $user->nickname, $sitename);
 
         switch($this->arg('format')) {
-        case 'xml':
-            $this->show_xml_timeline($notice);
+	 case 'xml':
+            $this->show_xml_timeline($this->notices);
             break;
-        case 'rss':
-            $this->show_rss_timeline($notice, $title, $link, $subtitle);
+	 case 'rss':
+            $this->show_rss_timeline($this->notices, $title, $link, $subtitle);
             break;
-        case 'atom':
+	 case 'atom':
 
             $target_id = $this->arg('id');
 
             if (isset($target_id)) {
                 $selfuri = common_root_url() .
-                    'api/statuses/friends_timeline/' .
-                        $target_id . '.atom';
+		  'api/statuses/friends_timeline/' .
+		  $target_id . '.atom';
             } else {
                 $selfuri = common_root_url() .
-                    'api/statuses/friends_timeline.atom';
+		  'api/statuses/friends_timeline.atom';
             }
-            $this->show_atom_timeline($notice, $title, $id, $link,
-                $subtitle, null, $selfuri);
+            $this->show_atom_timeline($this->notices, $title, $id, $link,
+				      $subtitle, null, $selfuri);
             break;
-        case 'json':
-            $this->show_json_timeline($notice);
+	 case 'json':
+            $this->show_json_timeline($this->notices);
             break;
-        default:
+	 default:
             $this->clientError(_('API method not found!'), $code = 404);
+	    break;
+        }
+    }
+
+    function getNotices()
+    {
+	$notices = array();
+
+        if (!empty($this->auth_user) && $this->auth_user->id == $this->user->id) {
+            $notice = $this->user->noticeInbox(($this->page-1) * $this->count,
+					       $this->count, $this->since_id,
+					       $this->max_id, $this->since);
+        } else {
+            $notice = $this->user->noticesWithFriends(($this->page-1) * $this->count,
+						      $this->count, $this->since_id,
+						      $this->max_id, $this->since);
         }
 
+	while ($notice->fetch()) {
+            $notices[] = clone($notice);
+        }
+
+	return $notices;
     }
 
     function requiresAuth()
     {
-        return true;
+	// If the site is "private", all API methods except statusnet/config
+        // need authentication
+
+        if (common_config('site', 'private')) {
+	    return true;
+        }
+
+	// bare auth: only needs auth if without an argument or query param specifying user id
+
+	$id           = $this->arg('id');
+	$user_id      = $this->arg('user_id');
+	$screen_name  = $this->arg('screen_name');
+
+	if (empty($id) && empty($user_id) && empty($screen_name)) {
+	    return true;
+	}
+
+	return false;
     }
 
     /**
@@ -149,13 +179,21 @@ class ApifriendstimelineAction extends TwitterapiAction
     }
 
     /**
-     * When was this page last modified?
+     * When was this feed last modified?
      *
      */
 
     function lastModified()
     {
+        if (empty($this->notices)) {
+            return null;
+        }
 
+        if (count($this->notices) == 0) {
+            return null;
+        }
+
+        return strtotime($this->notices[0]->created);
     }
 
 }
