@@ -6,7 +6,7 @@ Use:
 1. Get an API key from http://recaptcha.net
 
 2. In config.php add:
-include_once('plugins/recaptcha.php');
+include_once('plugins/recaptcha/recaptcha.php');
 $captcha = new recaptcha(publickey, privatekey, showErrors);
 
 Changelog

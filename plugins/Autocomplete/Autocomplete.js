@@ -1,38 +1,37 @@
 $(document).ready(function(){
-    $.getJSON($('address .url')[0].href+'/api/statuses/friends.json?user_id=' + current_user['id'] + '&lite=true&callback=?',
-        function(friends){
-            $('#notice_data-text').autocomplete(friends, {
+            $('#notice_data-text').autocomplete($('address .url')[0].href+'/plugins/Autocomplete/autocomplete.json', {
                 multiple: true,
                 multipleSeparator: " ",
                 minChars: 1,
                 formatItem: function(row, i, max){
-                    return '@' + row.screen_name + ' (' + row.name + ')';
+                    row = eval("(" + row + ")");
+                    switch(row.type)
+                    {
+                        case 'user':
+                            return row.nickname + ' (' + row.fullname + ')';
+                        case 'group':
+                            return row.nickname + ' (' + row.fullname + ')';
+                    }
                 },
                 formatMatch: function(row, i, max){
-                    return '@' + row.screen_name;
+                    row = eval("(" + row + ")");
+                    switch(row.type)
+                    {
+                        case 'user':
+                            return row.nickname;
+                        case 'group':
+                            return row.nickname;
+                    }
                 },
                 formatResult: function(row){
-                    return '@' + row.screen_name;
+                    row = eval("(" + row + ")");
+                    switch(row.type)
+                    {
+                        case 'user':
+                            return '@' + row.nickname;
+                        case 'group':
+                            return '!' + row.nickname;
+                    }
                 }
             });
-        }
-    );
-    $.getJSON($('address .url')[0].href+'/api/statusnet/groups/list.json?user_id=' + current_user['id'] + '&callback=?',
-        function(groups){
-            $('#notice_data-text').autocomplete(groups, {
-                multiple: true,
-                multipleSeparator: " ",
-                minChars: 1,
-                formatItem: function(row, i, max){
-                    return '!' + row.nickname + ' (' + row.fullname + ')';
-                },
-                formatMatch: function(row, i, max){
-                    return '!' + row.nickname;
-                },
-                formatResult: function(row){
-                    return '!' + row.nickname;
-                }
-            });
-        }
-    );
 });

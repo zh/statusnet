@@ -172,6 +172,10 @@ class Router
         $m->connect('notice/new?replyto=:replyto',
                     array('action' => 'newnotice'),
                     array('replyto' => '[A-Za-z0-9_-]+'));
+        $m->connect('notice/new?replyto=:replyto&inreplyto=:inreplyto',
+                    array('action' => 'newnotice'),
+                    array('replyto' => '[A-Za-z0-9_-]+'),
+                    array('inreplyto' => '[0-9]+'));
 
         $m->connect('notice/:notice/file',
             array('action' => 'file'),

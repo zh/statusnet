@@ -78,25 +78,12 @@ class Rss10Action extends Action
     function prepare($args)
     {
         parent::prepare($args);
+
         $this->limit = (int) $this->trimmed('limit');
+
         if ($this->limit == 0) {
             $this->limit = DEFAULT_RSS_LIMIT;
         }
-        return true;
-    }
-
-    /**
-     * Handle a request
-     *
-     * @param array $args Arguments from $_REQUEST
-     *
-     * @return void
-     */
-
-    function handle($args)
-    {
-        // Parent handling, including cache check
-        parent::handle($args);
 
         if (common_config('site', 'private')) {
             if (!isset($_SERVER['PHP_AUTH_USER'])) {
@@ -122,8 +109,21 @@ class Rss10Action extends Action
             }
         }
 
-        // Get the list of notices
-        $this->notices = $this->getNotices($this->limit);
+        return true;
+    }
+
+    /**
+     * Handle a request
+     *
+     * @param array $args Arguments from $_REQUEST
+     *
+     * @return void
+     */
+
+    function handle($args)
+    {
+        // Parent handling, including cache check
+        parent::handle($args);
         $this->showRss();
     }
 
@@ -140,7 +140,7 @@ class Rss10Action extends Action
     }
 
     /**
-     * Get the notices to output in this stream
+     * Get the notices to output in this stream.
      *
      * @return array an array of Notice objects sorted in reverse chron
      */
