@@ -120,6 +120,10 @@ float:left;
 margin-left:11px;
 float:left;
 }
+.form_settings .form_data textarea {
+width:325px;
+}
+
 .form_settings .form_data input.submit {
 margin-left:0;
 }
@@ -968,9 +972,6 @@ right:7px;
 top:47px;
 right:7px;
 }
-.notice-options .notice_reply dt {
-display:none;
-}
 
 .notice-options input,
 .notice-options a {
@@ -978,13 +979,13 @@ text-indent:-9999px;
 outline:none;
 }
 
-.notice-options .notice_reply a,
+.notice-options .notice_reply,
 .notice-options input.submit {
 display:block;
 border:0;
 }
-.notice-options .notice_reply a,
-.notice-options .notice_delete a {
+.notice-options .notice_reply,
+.notice-options .notice_delete {
 text-decoration:none;
 padding-left:16px;
 }
@@ -1375,6 +1376,12 @@ padding-top:160px;
 #smssettings #form_notice,
 #twittersettings #form_notice,
 #imsettings #form_notice,
+#userdesignsettings #form_notice,
+#groupdesignsettings #form_notice,
+#grouplogo #form_notice,
+#editgroup #form_notice,
+#blockedfromgroup #form_notice,
+#groupmembers #form_notice,
 #doc #form_notice,
 #usergroups #form_notice,
 #invite #form_notice,
@@ -1584,11 +1591,11 @@ background:transparent url(../../base/images/icons/twotone/green/clip-02.gif) no
 background:none;
 }
 
-.notice-options .notice_reply a,
+.notice-options .notice_reply,
 .notice-options form input.submit {
 background-color:transparent;
 }
-.notice-options .notice_reply a {
+.notice-options .notice_reply {
 background:transparent url(../images/icons/icon_reply.gif) no-repeat 0 45%;
 }
 .notice-options form.form_favor input.submit {
@@ -1597,7 +1604,7 @@ background:transparent url(../images/icons/icon_favourite.gif) no-repeat 0 45%;
 .notice-options form.form_disfavor input.submit {
 background:transparent url(../images/icons/icon_disfavourite.gif) no-repeat 0 45%;
 }
-.notice-options .notice_delete a {
+.notice-options .notice_delete {
 background:transparent url(../images/icons/icon_trash.gif) no-repeat 0 45%;
 }
 

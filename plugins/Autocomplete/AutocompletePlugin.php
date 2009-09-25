@@ -31,6 +31,8 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
+require_once(INSTALLDIR.'/plugins/Autocomplete/autocomplete.php');
+
 class AutocompletePlugin extends Plugin
 {
     function __construct()
@@ -40,13 +42,6 @@ class AutocompletePlugin extends Plugin
 
     function onEndShowScripts($action){
         if (common_logged_in()) {
-            $current_user = common_current_user();
-            $js_string = <<<EOT
-<script type="text/javascript">
-var current_user = { id: '$current_user->id' };
-</script>
-EOT;
-            $action->raw($js_string);
             $action->script('plugins/Autocomplete/jquery-autocomplete/jquery.autocomplete.pack.js');
             $action->script('plugins/Autocomplete/Autocomplete.js');
         }
@@ -56,6 +51,13 @@ EOT;
     {
         if (common_logged_in()) {
             $action->cssLink('plugins/Autocomplete/jquery-autocomplete/jquery.autocomplete.css');
+        }
+    }
+
+    function onRouterInitialized($m)
+    {
+        if (common_logged_in()) {
+            $m->connect('plugins/Autocomplete/autocomplete.json', array('action'=>'autocomplete'));
         }
     }
 
