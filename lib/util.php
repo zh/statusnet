@@ -442,9 +442,9 @@ function common_replace_urls_callback($text, $callback, $notice_id = null) {
         ')'.
         '(?:'.
             '(?:\:\d+)?'. //:port
-            '(?:/[\pN\pL$\[\]\,\!\(\)\.\:\-\_\+\/\=\&\;\%\~\*\$\+\'\"]*)?'. // /path
-            '(?:\?[\pN\pL\$\[\]\,\!\(\)\.\:\-\_\+\/\=\&\;\%\~\*\$\+\'\"\/]*)?'. // ?query string
-            '(?:\#[\pN\pL$\[\]\,\!\(\)\.\:\-\_\+\/\=\&\;\%\~\*\$\+\'\"\/\?\#]*)?'. // #fragment
+            '(?:/[\pN\pL$\[\]\,\!\(\)\.\:\-\_\+\/\=\&\;\%\~\*\$\+\'\"@]*)?'. // /path
+            '(?:\?[\pN\pL\$\[\]\,\!\(\)\.\:\-\_\+\/\=\&\;\%\~\*\$\+\'\"@\/]*)?'. // ?query string
+            '(?:\#[\pN\pL$\[\]\,\!\(\)\.\:\-\_\+\/\=\&\;\%\~\*\$\+\'\"\@/\?\#]*)?'. // #fragment
         ')(?<![\?\.\,\#\,])'.
     ')'.
     '#ixu';
@@ -552,12 +552,13 @@ function common_linkify($url) {
     }
 
     if (!empty($f)) {
-        if (isset($f->filename)) {
+        if ($f->isEnclosure()) {
             $is_attachment = true;
             $attachment_id = $f->id;
-        } else { // if it has OEmbed info, it's an attachment, too
+        } else {
             $foe = File_oembed::staticGet('file_id', $f->id);
             if (!empty($foe)) {
+                // if it has OEmbed info, it's an attachment, too
                 $is_attachment = true;
                 $attachment_id = $f->id;
 
@@ -1393,9 +1394,6 @@ function common_shorten_url($long_url)
     $short_url_service = $reflectionObj->newInstanceArgs($_shorteners[$svc]['callInfo'][1]);
     $short_url = $short_url_service->shorten($long_url);
 
-    if(substr($short_url,0,7)=='http://'){
-        $short_url = substr($short_url,7);
-    }
     return $short_url;
 }
 

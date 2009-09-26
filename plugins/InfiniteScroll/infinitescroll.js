@@ -1,6 +1,7 @@
 jQuery(document).ready(function($){
   $('notices_primary').infinitescroll({
     debug: true,
+    infiniteScroll  : false,
     nextSelector    : "li.nav_next a",
     loadingImg      : $('address .url')[0].href+'plugins/InfiniteScroll/ajax-loader.gif',
     text            : "<em>Loading the next set of posts...</em>",
@@ -12,4 +13,3 @@ jQuery(document).ready(function($){
         NoticeAttachments();
     });
 });
-

@@ -27,6 +27,8 @@ class URLDetectionTest extends PHPUnit_Framework_TestCase
         return array(
                      array('not a link :: no way',
                            'not a link :: no way'),
+                     array('link http://www.somesite.com/xyz/35637563@N00/52803365/ link',
+                           'link <a href="http://www.somesite.com/xyz/35637563@N00/52803365/" rel="external">http://www.somesite.com/xyz/35637563@N00/52803365/</a> link'),
                      array('http://127.0.0.1',
                            '<a href="http://127.0.0.1/" rel="external">http://127.0.0.1</a>'),
                      array('127.0.0.1',
