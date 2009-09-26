@@ -38,22 +38,16 @@ if (!defined('STATUSNET')) {
  * This plugin will spoot out the correct JavaScript spell to invoke
  * Piwik Analytics on a page.
  *
- * To use this plugin please add the following three lines to your config.php
+ * To use this plugin add the following to your config.php
  *
- *     require_once('plugins/PiwikAnalyticsPlugin.php');
- *     $pa = new PiwikAnalyticsPlugin("example.com/piwik/","id");
+ *  addPlugin('PiwikAnalytics', array('piwikroot' => 'example.com/piwik/',
+ *                                    'piwikId' => 'id'));
  *
- * exchange example.com/piwik/ with the url to your piwik installation and
- * make sure you don't forget the final /
- * exchange id with the ID your statusnet installation has in your Piwik analytics
+ * Replace 'example.com/piwik/' with the URL to your Piwik installation and
+ * make sure you don't forget the final /.
+ * Replace 'id' with the ID your statusnet installation has in your Piwik
+ * analytics setup - for example '8'.
  *
- * @category Plugin
- * @package  StatusNet
- * @author   Tobias Diekershoff <tobias.diekershoff@gmx.net>
- * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://status.net/
- *
- * @see      Event
  */
 
 class PiwikAnalyticsPlugin extends Plugin
