@@ -27,7 +27,7 @@ RealtimeUpdate = {
           }
 
           var noticeItem = RealtimeUpdate.makeNoticeItem(data);
-          $("#notices_primary .notices").prepend(noticeItem, true);
+          $("#notices_primary .notices").prepend(noticeItem);
           $("#notices_primary .notice:first").css({display:"none"});
           $("#notices_primary .notice:first").fadeIn(1000);
           NoticeReply();
@@ -114,7 +114,7 @@ RealtimeUpdate = {
      addPopup: function(url, timeline, iconurl)
      {
          $('#content').prepend('<button id="realtime_timeline" title="Realtime window">Realtime</button>');
- 
+
          $('#realtime_timeline').css({
              'margin':'0 0 18px 0',
              'background':'transparent url('+ iconurl + ') no-repeat 0% 30%',
@@ -127,21 +127,38 @@ RealtimeUpdate = {
              'font-weight':'bold',
              'font-size':'1em'
          });
- 
+
          $('#realtime_timeline').click(function() {
              window.open(url,
                          timeline,
                          'toolbar=no,resizable=yes,scrollbars=yes,status=yes');
- 
+
              return false;
          });
      },
 
      initPopupWindow: function()
      {
-         window.resizeTo(575, 640);
+         window.resizeTo(500, 550);
          $('address').hide();
-         $('#content').css({'width':'92%'});
+         $('#content').css({'width':'93.5%'});
+
+         $('#form_notice').css({
+            'margin':'18px 0 18px 1.795%',
+            'width':'93%',
+            'max-width':'451px'
+         });
+
+         $('#form_notice label[for=notice_data-text], h1').css({'display': 'none'});
+
+         $('.notices li:first-child').css({'border-top':'none'});
+
+         $('#form_notice label[for="notice_data-attach"], #form_notice #notice_data-attach').css({'top':'0'});
+
+         $('#form_notice #notice_data-attach').css({
+            'left':'auto',
+            'right':'0'
+         });
      }
 }
 
