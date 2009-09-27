@@ -27,7 +27,7 @@ RealtimeUpdate = {
           }
 
           var noticeItem = RealtimeUpdate.makeNoticeItem(data);
-          $("#notices_primary .notices").prepend(noticeItem, true);
+          $("#notices_primary .notices").prepend(noticeItem);
           $("#notices_primary .notice:first").css({display:"none"});
           $("#notices_primary .notice:first").fadeIn(1000);
           NoticeReply();
