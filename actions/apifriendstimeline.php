@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  Personal
+ * @category  API
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
@@ -32,6 +32,17 @@ if (!defined('STATUSNET')) {
 }
 
 require_once INSTALLDIR.'/lib/apibareauth.php';
+
+/**
+ * Returns the most recent notices (default 20) posted by the target user.
+ * This is the equivalent of 'You and friends' page accessed via Web.
+ *
+ * @category API
+ * @package  StatusNet
+ * @author   Zach Copley <zach@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://status.net/
+ */
 
 class ApiFriendsTimelineAction extends ApiBareAuthAction
 {
@@ -86,7 +97,8 @@ class ApiFriendsTimelineAction extends ApiBareAuthAction
      * @return void
      */
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         $this->showTimeline();
     }
@@ -104,39 +116,45 @@ class ApiFriendsTimelineAction extends ApiBareAuthAction
         $title      = sprintf(_("%s and friends"), $user->nickname);
         $taguribase = common_config('integration', 'taguri');
         $id         = "tag:$taguribase:FriendsTimeline:" . $user->id;
-        $link       = common_local_url('all',
-                                       array('nickname' => $user->nickname));
-        $subtitle   = sprintf(_('Updates from %1$s and friends on %2$s!'),
-                              $user->nickname, $sitename);
+        $link       = common_local_url(
+            'all', array('nickname' => $user->nickname)
+        );
+        $subtitle   = sprintf(
+            _('Updates from %1$s and friends on %2$s!'),
+            $user->nickname, $sitename
+        );
 
         switch($this->arg('format')) {
-            case 'xml':
-                $this->show_xml_timeline($this->notices);
-                break;
-            case 'rss':
-                $this->show_rss_timeline($this->notices, $title, $link, $subtitle);
-                break;
-            case 'atom':
+        case 'xml':
+            $this->show_xml_timeline($this->notices);
+            break;
+        case 'rss':
+            $this->show_rss_timeline($this->notices, $title, $link, $subtitle);
+            break;
+        case 'atom':
 
-                $target_id = $this->arg('id');
+            $target_id = $this->arg('id');
 
-                if (isset($target_id)) {
-                    $selfuri = common_root_url() .
-                        'api/statuses/friends_timeline/' .
-                        $target_id . '.atom';
-                } else {
-                    $selfuri = common_root_url() .
-                        'api/statuses/friends_timeline.atom';
-                }
-                $this->show_atom_timeline($this->notices, $title, $id, $link,
-                                          $subtitle, null, $selfuri);
-                break;
-            case 'json':
-                $this->show_json_timeline($this->notices);
-                break;
-            default:
-                $this->clientError(_('API method not found!'), $code = 404);
-                break;
+            if (isset($target_id)) {
+                $selfuri = common_root_url() .
+                    'api/statuses/friends_timeline/' .
+                    $target_id . '.atom';
+            } else {
+                $selfuri = common_root_url() .
+                    'api/statuses/friends_timeline.atom';
+            }
+
+            $this->show_atom_timeline(
+                $this->notices, $title, $id, $link,
+                $subtitle, null, $selfuri
+            );
+            break;
+        case 'json':
+            $this->show_json_timeline($this->notices);
+            break;
+        default:
+            $this->clientError(_('API method not found!'), $code = 404);
+            break;
         }
     }
 
@@ -151,13 +169,17 @@ class ApiFriendsTimelineAction extends ApiBareAuthAction
         $notices = array();
 
         if (!empty($this->auth_user) && $this->auth_user->id == $this->user->id) {
-            $notice = $this->user->noticeInbox(($this->page-1) * $this->count,
-                                               $this->count, $this->since_id,
-                                               $this->max_id, $this->since);
+            $notice = $this->user->noticeInbox(
+                ($this->page-1) * $this->count,
+                $this->count, $this->since_id,
+                $this->max_id, $this->since
+            );
         } else {
-            $notice = $this->user->noticesWithFriends(($this->page-1) * $this->count,
-                                                      $this->count, $this->since_id,
-                                                      $this->max_id, $this->since);
+            $notice = $this->user->noticesWithFriends(
+                ($this->page-1) * $this->count,
+                $this->count, $this->since_id,
+                $this->max_id, $this->since
+            );
         }
 
         while ($notice->fetch()) {
@@ -168,7 +190,9 @@ class ApiFriendsTimelineAction extends ApiBareAuthAction
     }
 
     /**
-     * Is this page read-only?
+     * Is this action read only?
+     *
+     * @param array $args other arguments
      *
      * @return boolean true
      */
@@ -181,6 +205,7 @@ class ApiFriendsTimelineAction extends ApiBareAuthAction
     /**
      * When was this feed last modified?
      *
+     * @return string datestamp of the latest notice in the stream
      */
 
     function lastModified()
@@ -193,7 +218,7 @@ class ApiFriendsTimelineAction extends ApiBareAuthAction
     }
 
     /**
-     * An entity tag for this page
+     * An entity tag for this stream
      *
      * Returns an Etag based on the action name, language, user ID, and
      * timestamps of the first and last notice in the timeline
@@ -207,12 +232,15 @@ class ApiFriendsTimelineAction extends ApiBareAuthAction
 
             $last = count($this->notices) - 1;
 
-            return implode(':',
+            return implode(
+                ':',
                 array($this->arg('action'),
                       common_language(),
                       $this->user->id,
                       strtotime($this->notices[0]->created),
-                      strtotime($this->notices[$last]->created))) . '"';
+                      strtotime($this->notices[$last]->created))
+            )
+            . '"';
         }
 
         return null;

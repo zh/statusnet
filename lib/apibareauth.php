@@ -35,6 +35,17 @@ if (!defined('STATUSNET')) {
 
 require_once INSTALLDIR.'/lib/apiauth.php';
 
+/**
+ * Actions extending this class will require auth unless a target
+ * user ID has been specified
+ *
+ * @category API
+ * @package  StatusNet
+ * @author   Zach Copley <zach@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://status.net/
+ */
+
 class ApiBareAuthAction extends ApiAuthAction
 {
     /**

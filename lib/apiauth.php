@@ -33,6 +33,16 @@ if (!defined('STATUSNET')) {
 
 require_once INSTALLDIR.'/lib/twitterapi.php';
 
+/**
+ * Actions extending this class will require auth
+ *
+ * @category API
+ * @package  StatusNet
+ * @author   Zach Copley <zach@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://status.net/
+ */
+
 class ApiAuthAction extends TwitterapiAction
 {
     /**
@@ -45,6 +55,13 @@ class ApiAuthAction extends TwitterapiAction
     {
         return true;
     }
+
+    /**
+     * Check for a user specified via HTTP basic auth. If there isn't
+     * one, try to get one by outputting the basic auth header.
+     *
+     * @return boolean true or false
+     */
 
     function checkBasicAuthUser()
     {
@@ -68,8 +85,11 @@ class ApiAuthAction extends TwitterapiAction
                 // basic authentication failed
 
                 list($proxy, $ip) = common_client_ip();
-                common_log(LOG_WARNING,
-                    "Failed API auth attempt, nickname = $nickname, proxy = $proxy, ip = $ip.");
+                common_log(
+                    LOG_WARNING,
+                    'Failed API auth attempt, nickname = ' .
+                    "$nickname, proxy = $proxy, ip = $ip."
+                );
                 $this->showBasicAuthError();
                 return false;
             }
@@ -77,16 +97,28 @@ class ApiAuthAction extends TwitterapiAction
         return true;
     }
 
+    /**
+     * Read the HTTP headers and set the auth user.  Decodes HTTP_AUTHORIZATION
+     * param to support basic auth when PHP is running in CGI mode.
+     *
+     * @return void
+     */
+
     function basicAuthProcessHeader()
     {
-        if (isset($_SERVER['AUTHORIZATION']) || isset($_SERVER['HTTP_AUTHORIZATION'])) {
-            $authorization_header = isset($_SERVER['HTTP_AUTHORIZATION'])? $_SERVER['HTTP_AUTHORIZATION'] : $_SERVER['AUTHORIZATION'];
+        if (isset($_SERVER['AUTHORIZATION'])
+            || isset($_SERVER['HTTP_AUTHORIZATION'])
+        ) {
+                $authorization_header = isset($_SERVER['HTTP_AUTHORIZATION'])
+                ? $_SERVER['HTTP_AUTHORIZATION'] : $_SERVER['AUTHORIZATION'];
         }
 
         if (isset($_SERVER['PHP_AUTH_USER'])) {
             $this->auth_user = $_SERVER['PHP_AUTH_USER'];
             $this->auth_pw = $_SERVER['PHP_AUTH_PW'];
-        } elseif (isset($authorization_header) && strstr(substr($authorization_header, 0, 5), 'Basic')) {
+        } elseif (isset($authorization_header)
+            && strstr(substr($authorization_header, 0, 5), 'Basic')) {
+
             // decode the HTTP_AUTHORIZATION header on php-cgi server self
             // on fcgid server the header name is AUTHORIZATION
 
@@ -94,6 +126,7 @@ class ApiAuthAction extends TwitterapiAction
             list($this->auth_user, $this->auth_pw) = explode(':', $auth_hash);
 
             // set all to null on a empty basic auth request
+
             if ($this->auth_user == "") {
                 $this->auth_user = null;
                 $this->auth_pw = null;
@@ -103,6 +136,13 @@ class ApiAuthAction extends TwitterapiAction
             $this->auth_pw = null;
         }
     }
+
+    /**
+     * Output an authentication error message.  Use XML or JSON if one
+     * of those formats is specified, otherwise output plain text
+     *
+     * @return void
+     */
 
     function showBasicAuthError()
     {
@@ -119,13 +159,13 @@ class ApiAuthAction extends TwitterapiAction
             $this->endXML();
         } elseif ($this->arg('format') == 'json') {
             header('Content-Type: application/json; charset=utf-8');
-            $error_array = array('error' => $msg, 'request' => $_SERVER['REQUEST_URI']);
+            $error_array = array('error' => $msg,
+                                 'request' => $_SERVER['REQUEST_URI']);
             print(json_encode($error_array));
         } else {
             header('Content-type: text/plain');
             print "$msg\n";
         }
     }
-
 
 }
