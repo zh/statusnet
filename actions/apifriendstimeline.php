@@ -76,10 +76,26 @@ class ApiFriendsTimelineAction extends ApiBareAuthAction
         return true;
     }
 
+    /**
+     * Handle the request
+     *
+     * Just show the notices
+     *
+     * @param array $args $_REQUEST data (unused)
+     *
+     * @return void
+     */
+
     function handle($args) {
         parent::handle($args);
         $this->showTimeline();
     }
+
+    /**
+     * Show the timeline of notices
+     *
+     * @return void
+     */
 
     function showTimeline()
     {
@@ -124,6 +140,12 @@ class ApiFriendsTimelineAction extends ApiBareAuthAction
         }
     }
 
+    /**
+     * Get notices
+     *
+     * @return array notices
+     */
+
     function getNotices()
     {
         $notices = array();
@@ -163,15 +185,37 @@ class ApiFriendsTimelineAction extends ApiBareAuthAction
 
     function lastModified()
     {
-        if (empty($this->notices)) {
-            return null;
+        if (!empty($this->notices) && (count($this->notices) > 0)) {
+            return strtotime($this->notices[0]->created);
         }
 
-        if (count($this->notices) == 0) {
-            return null;
+        return null;
+    }
+
+    /**
+     * An entity tag for this page
+     *
+     * Returns an Etag based on the action name, language, user ID, and
+     * timestamps of the first and last notice in the timeline
+     *
+     * @return string etag
+     */
+
+    function etag()
+    {
+        if (!empty($this->notices) && (count($this->notices) > 0)) {
+
+            $last = count($this->notices) - 1;
+
+            return implode(':',
+                array($this->arg('action'),
+                      common_language(),
+                      $this->user->id,
+                      strtotime($this->notices[0]->created),
+                      strtotime($this->notices[$last]->created))) . '"';
         }
 
-        return strtotime($this->notices[0]->created);
+        return null;
     }
 
 }
