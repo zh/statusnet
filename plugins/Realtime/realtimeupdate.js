@@ -145,6 +145,8 @@ RealtimeUpdate = {
 
          $('#form_notice').css({
             'margin':'18px 0 18px 1.795%',
+            'width':'93%',
+            'max-width':'451px'
          });
 
          $('#form_notice label[for=notice_data-text], h1').css({'display': 'none'});
