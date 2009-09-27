@@ -113,19 +113,19 @@ RealtimeUpdate = {
 
      addPopup: function(url, timeline, iconurl)
      {
-         $('#site_nav_local_views .current a').append('<button id="realtime_timeline" title="Real-time pop window">&#8599;</button>');
+         $('#content').prepend('<button id="realtime_timeline" title="Realtime window">Realtime</button>');
  
          $('#realtime_timeline').css({
-             'margin':'2px 0 0 11px',
-             'background':'transparent url('+ iconurl + ') no-repeat 45% 45%',
-             'text-indent':'-9999px',
-             'width':'16px',
-             'height':'16px',
-             'padding':'0',
+             'margin':'0 0 18px 0',
+             'background':'transparent url('+ iconurl + ') no-repeat 0% 30%',
+             'padding':'0 0 0 20px',
              'display':'block',
              'float':'right',
              'border':'none',
-             'cursor':'pointer'
+             'cursor':'pointer',
+             'color':$("a").css("color"),
+             'font-weight':'bold',
+             'font-size':'1em'
          });
  
          $('#realtime_timeline').click(function() {
