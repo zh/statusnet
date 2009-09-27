@@ -14,6 +14,18 @@ RealtimeUpdate = {
         RealtimeUpdate._replyurl = replyurl;
         RealtimeUpdate._favorurl = favorurl;
         RealtimeUpdate._deleteurl = deleteurl;
+
+        $(window).blur(function() {
+          $('#notices_primary .notice').css({
+            'border-top-color':$('#notices_primary .notice:last').css('border-top-color'),
+            'border-top-style':'dotted'
+          });
+
+          $('#notices_primary .notice:first').css({
+            'border-top-color':'#AAAAAA',
+            'border-top-style':'solid'
+          });
+        });
      },
 
      receive: function(data)
@@ -151,7 +163,7 @@ RealtimeUpdate = {
 
          $('#form_notice label[for=notice_data-text], h1').css({'display': 'none'});
 
-         $('.notices li:first-child').css({'border-top':'none'});
+         $('.notices li:first-child').css({'border-top-color':'transparent'});
 
          $('#form_notice label[for="notice_data-attach"], #form_notice #notice_data-attach').css({'top':'0'});
 
