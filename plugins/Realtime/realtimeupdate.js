@@ -141,7 +141,7 @@ RealtimeUpdate = {
      {
          window.resizeTo(500, 550);
          $('address').hide();
-         $('#content').css({'width':'92%'});
+         $('#content').css({'width':'93.5%'});
 
          $('#form_notice').css({
             'margin':'18px 0 18px 1.795%',
