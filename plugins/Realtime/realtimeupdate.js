@@ -114,7 +114,7 @@ RealtimeUpdate = {
      addPopup: function(url, timeline, iconurl)
      {
          $('#content').prepend('<button id="realtime_timeline" title="Realtime window">Realtime</button>');
- 
+
          $('#realtime_timeline').css({
              'margin':'0 0 18px 0',
              'background':'transparent url('+ iconurl + ') no-repeat 0% 30%',
@@ -127,12 +127,12 @@ RealtimeUpdate = {
              'font-weight':'bold',
              'font-size':'1em'
          });
- 
+
          $('#realtime_timeline').click(function() {
              window.open(url,
                          timeline,
                          'toolbar=no,resizable=yes,scrollbars=yes,status=yes');
- 
+
              return false;
          });
      },
@@ -142,6 +142,10 @@ RealtimeUpdate = {
          window.resizeTo(575, 640);
          $('address').hide();
          $('#content').css({'width':'92%'});
+
+         $('#form_notice').css({
+             'margin':'18px 0 29px 1.795%'
+         });
      }
 }
 
