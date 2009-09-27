@@ -147,7 +147,7 @@ RealtimeUpdate = {
             'margin':'18px 0 18px 1.795%',
          });
 
-         $('#form_notice label, h1').css({'display': 'none'});
+         $('#form_notice label[for=notice_data-text], h1').css({'display': 'none'});
 
          $('.notices li:first-child').css({'border-top':'none'});
      }
