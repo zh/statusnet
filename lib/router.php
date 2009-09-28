@@ -278,6 +278,14 @@ class Router
                     array('action' => 'ApiFriendsTimeline',
                           'id' => '[a-zA-Z0-9]+',
                           'format' => '(xml|json|rss|atom)'));
+        $m->connect('api/statuses/home_timeline.:format',
+                    array('action' => 'ApiFriendsTimeline',
+                          'format' => '(xml|json|rss|atom)'));
+
+        $m->connect('api/statuses/home_timeline/:id.:format',
+                    array('action' => 'ApiFriendsTimeline',
+                          'id' => '[a-zA-Z0-9]+',
+                          'format' => '(xml|json|rss|atom)'));
 
         $m->connect('api/statuses/user_timeline.:format',
                     array('action' => 'ApiUserTimeline',
@@ -297,18 +305,27 @@ class Router
                     'id' => '[a-zA-Z0-9]+',
                     'format' => '(xml|json|rss|atom)'));
 
+        $m->connect('api/statuses/replies.:format',
+                    array('action' => 'ApiMentions',
+                    'format' => '(xml|json|rss|atom)'));
+
+        $m->connect('api/statuses/replies/:id.:format',
+                    array('action' => 'ApiMentions',
+                    'id' => '[a-zA-Z0-9]+',
+                    'format' => '(xml|json|rss|atom)'));
+
         $m->connect('api/statuses/home_timeline',
                     array('action' => 'apifriendstimeline'));
 
         $m->connect('api/statuses/:method',
                     array('action' => 'api',
                           'apiaction' => 'statuses'),
-                    array('method' => '(update|replies|show|friends|followers|featured)(\.(atom|rss|xml|json))?'));
+                    array('method' => '(update|show|friends|followers|featured)(\.(atom|rss|xml|json))?'));
 
         $m->connect('api/statuses/:method/:argument',
                     array('action' => 'api',
                           'apiaction' => 'statuses'),
-                    array('method' => '(replies|show|destroy|friends|followers)'));
+                    array('method' => '(show|destroy|friends|followers)'));
 
         // users
 
