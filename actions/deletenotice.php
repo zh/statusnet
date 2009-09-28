@@ -66,7 +66,8 @@ class DeletenoticeAction extends Action
         if (!common_logged_in()) {
             common_user_error(_('Not logged in.'));
             exit;
-        } else if ($this->notice->profile_id != $this->user_profile->id) {
+        } else if ($this->notice->profile_id != $this->user_profile->id &&
+                   !$this->user->hasRight(Right::deleteOthersNotice)) {
             common_user_error(_('Can\'t delete this notice.'));
             exit;
         }
