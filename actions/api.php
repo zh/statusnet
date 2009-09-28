@@ -139,6 +139,7 @@ class ApiAction extends Action
 
         static $bareauth = array('statuses/user_timeline',
                                  'statuses/friends_timeline',
+				 'statuses/home_timeline',
                                  'statuses/friends',
                                  'statuses/replies',
                                  'statuses/mentions',
