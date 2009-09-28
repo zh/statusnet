@@ -522,20 +522,21 @@ function common_linkify($url) {
 
    if(strpos($url, '@') !== false && strpos($url, ':') === false) {
        //url is an email address without the mailto: protocol
-       return XMLStringer::estring('a', array('href' => "mailto:$url", 'rel' => 'external'), $url);
-   }
+       $canon = "mailto:$url";
+       $longurl = "mailto:$url";
+   }else{
 
-    $canon = File_redirection::_canonUrl($url);
+        $canon = File_redirection::_canonUrl($url);
 
-    $longurl_data = File_redirection::where($url);
-    if (is_array($longurl_data)) {
-        $longurl = $longurl_data['url'];
-    } elseif (is_string($longurl_data)) {
-        $longurl = $longurl_data;
-    } else {
-        throw new ServerException("Can't linkify url '$url'");
+        $longurl_data = File_redirection::where($canon);
+        if (is_array($longurl_data)) {
+            $longurl = $longurl_data['url'];
+        } elseif (is_string($longurl_data)) {
+            $longurl = $longurl_data;
+        } else {
+            throw new ServerException("Can't linkify url '$url'");
+        }
     }
-
     $attrs = array('href' => $canon, 'title' => $longurl, 'rel' => 'external');
 
     $is_attachment = false;

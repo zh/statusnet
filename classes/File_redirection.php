@@ -79,6 +79,9 @@ class File_redirection extends Memcached_DataObject
             }
         }
 
+        if(strpos($short_url,'://') === false){
+            return $short_url;
+        }
         $curlh = File_redirection::_commonCurl($short_url, $redirs);
         // Don't include body in output
         curl_setopt($curlh, CURLOPT_NOBODY, true);
