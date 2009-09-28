@@ -113,15 +113,15 @@ class ApiFriendsTimelineAction extends ApiBareAuthAction
     {
         $profile    = $this->user->getProfile();
         $sitename   = common_config('site', 'name');
-        $title      = sprintf(_("%s and friends"), $user->nickname);
+        $title      = sprintf(_("%s and friends"), $this->user->nickname);
         $taguribase = common_config('integration', 'taguri');
-        $id         = "tag:$taguribase:FriendsTimeline:" . $user->id;
+        $id         = "tag:$taguribase:FriendsTimeline:" . $this->user->id;
         $link       = common_local_url(
-            'all', array('nickname' => $user->nickname)
+            'all', array('nickname' => $this->user->nickname)
         );
         $subtitle   = sprintf(
             _('Updates from %1$s and friends on %2$s!'),
-            $user->nickname, $sitename
+            $this->user->nickname, $sitename
         );
 
         switch($this->arg('format')) {
