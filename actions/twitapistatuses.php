@@ -297,7 +297,7 @@ class TwitapistatusesAction extends TwitterapiAction
                     $source, 1, $reply_to);
 
             if (is_string($notice)) {
-                $this->serverError($notice);
+                $this->serverError($notice, 500, $apidata['content-type']);
                 return;
             }
 
