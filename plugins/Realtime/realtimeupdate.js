@@ -30,19 +30,20 @@ RealtimeUpdate = {
 
      receive: function(data)
      {
-          id = data.id;
+          setTimeout(function() {
+              id = data.id;
 
-          // Don't add it if it already exists
-          //
-          if ($("#notice-"+id).length > 0) {
-               return;
-          }
-
-          var noticeItem = RealtimeUpdate.makeNoticeItem(data);
-          $("#notices_primary .notices").prepend(noticeItem);
-          $("#notices_primary .notice:first").css({display:"none"});
-          $("#notices_primary .notice:first").fadeIn(1000);
-          NoticeReply();
+              // Don't add it if it already exists
+              if ($("#notice-"+id).length > 0) {
+                   return;
+              }
+    
+              var noticeItem = RealtimeUpdate.makeNoticeItem(data);
+              $("#notices_primary .notices").prepend(noticeItem);
+              $("#notices_primary .notice:first").css({display:"none"});
+              $("#notices_primary .notice:first").fadeIn(1000);
+              NoticeReply();
+          }, 500);
      },
 
      makeNoticeItem: function(data)
