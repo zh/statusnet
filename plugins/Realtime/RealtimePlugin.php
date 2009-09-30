@@ -216,8 +216,6 @@ class RealtimePlugin extends Plugin
                                                               'class' => 'user_in')
                               : array('id' => $action->trimmed('action')));
 
-        $action->elementStart('div', array('id' => 'header'));
-
         // XXX hack to deal with JS that tries to get the
         // root url from page output
 
@@ -230,7 +228,6 @@ class RealtimePlugin extends Plugin
         if (common_logged_in()) {
             $action->showNoticeForm();
         }
-        $action->elementEnd('div');
 
         $action->showContentBlock();
         $action->elementEnd('body');

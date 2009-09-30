@@ -14,23 +14,36 @@ RealtimeUpdate = {
         RealtimeUpdate._replyurl = replyurl;
         RealtimeUpdate._favorurl = favorurl;
         RealtimeUpdate._deleteurl = deleteurl;
+
+        $(window).blur(function() {
+          $('#notices_primary .notice').css({
+            'border-top-color':$('#notices_primary .notice:last').css('border-top-color'),
+            'border-top-style':'dotted'
+          });
+
+          $('#notices_primary .notice:first').css({
+            'border-top-color':'#AAAAAA',
+            'border-top-style':'solid'
+          });
+        });
      },
 
      receive: function(data)
      {
-          id = data.id;
+          setTimeout(function() {
+              id = data.id;
 
-          // Don't add it if it already exists
-          //
-          if ($("#notice-"+id).length > 0) {
-               return;
-          }
-
-          var noticeItem = RealtimeUpdate.makeNoticeItem(data);
-          $("#notices_primary .notices").prepend(noticeItem, true);
-          $("#notices_primary .notice:first").css({display:"none"});
-          $("#notices_primary .notice:first").fadeIn(1000);
-          NoticeReply();
+              // Don't add it if it already exists
+              if ($("#notice-"+id).length > 0) {
+                   return;
+              }
+    
+              var noticeItem = RealtimeUpdate.makeNoticeItem(data);
+              $("#notices_primary .notices").prepend(noticeItem);
+              $("#notices_primary .notice:first").css({display:"none"});
+              $("#notices_primary .notice:first").fadeIn(1000);
+              NoticeReply();
+          }, 500);
      },
 
      makeNoticeItem: function(data)
@@ -113,35 +126,55 @@ RealtimeUpdate = {
 
      addPopup: function(url, timeline, iconurl)
      {
-         $('#site_nav_local_views .current a').append('<button id="realtime_timeline" title="Real-time pop window">&#8599;</button>');
- 
+         $('#notices_primary').css({'position':'relative'});
+         $('#notices_primary').prepend('<button id="realtime_timeline" title="Pop up in a window">Pop up</button>');
+
          $('#realtime_timeline').css({
-             'margin':'2px 0 0 11px',
-             'background':'transparent url('+ iconurl + ') no-repeat 45% 45%',
-             'text-indent':'-9999px',
-             'width':'16px',
-             'height':'16px',
-             'padding':'0',
+             'margin':'0 0 11px 0',
+             'background':'transparent url('+ iconurl + ') no-repeat 0% 30%',
+             'padding':'0 0 0 20px',
              'display':'block',
-             'float':'right',
+             'position':'absolute',
+             'top':'-20px',
+             'right':'0',
              'border':'none',
-             'cursor':'pointer'
+             'cursor':'pointer',
+             'color':$("a").css("color"),
+             'font-weight':'bold',
+             'font-size':'1em'
          });
- 
+
          $('#realtime_timeline').click(function() {
              window.open(url,
                          timeline,
                          'toolbar=no,resizable=yes,scrollbars=yes,status=yes');
- 
+
              return false;
          });
      },
 
      initPopupWindow: function()
      {
-         window.resizeTo(575, 640);
+         window.resizeTo(500, 550);
          $('address').hide();
-         $('#content').css({'width':'92%'});
+         $('#content').css({'width':'93.5%'});
+
+         $('#form_notice').css({
+            'margin':'18px 0 18px 1.795%',
+            'width':'93%',
+            'max-width':'451px'
+         });
+
+         $('#form_notice label[for=notice_data-text], h1').css({'display': 'none'});
+
+         $('.notices li:first-child').css({'border-top-color':'transparent'});
+
+         $('#form_notice label[for="notice_data-attach"], #form_notice #notice_data-attach').css({'top':'0'});
+
+         $('#form_notice #notice_data-attach').css({
+            'left':'auto',
+            'right':'0'
+         });
      }
 }
 

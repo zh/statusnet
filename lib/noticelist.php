@@ -178,9 +178,12 @@ class NoticeListItem extends Widget
     function show()
     {
         $this->showStart();
-        $this->showNotice();
-        $this->showNoticeInfo();
-        $this->showNoticeOptions();
+        if (Event::handle('StartShowNoticeItem', array($this))) {
+            $this->showNotice();
+            $this->showNoticeInfo();
+            $this->showNoticeOptions();
+            Event::handle('EndShowNoticeItem', array($this));
+        }
         $this->showEnd();
     }
 
@@ -469,7 +472,10 @@ class NoticeListItem extends Widget
     function showDeleteLink()
     {
         $user = common_current_user();
-        if ($user && $this->notice->profile_id == $user->id) {
+
+        if (!empty($user) &&
+            ($this->notice->profile_id == $user->id || $user->hasRight(Right::deleteOthersNotice))) {
+
             $deleteurl = common_local_url('deletenotice',
                                           array('notice' => $this->notice->id));
             $this->out->element('a', array('href' => $deleteurl,

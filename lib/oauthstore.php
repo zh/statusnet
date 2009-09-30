@@ -156,7 +156,6 @@ class StatusNetOAuthDataStore extends OAuthDataStore
         return $this->new_access_token($consumer);
     }
 
-
     /**
      * Revoke specified OAuth token
      *
@@ -363,9 +362,7 @@ class StatusNetOAuthDataStore extends OAuthDataStore
                                   false,
                                   null,
                                   $omb_notice->getIdentifierURI());
-        if (is_string($notice)) {
-            throw new Exception($notice);
-        }
+
         common_broadcast_notice($notice, true);
     }
 
