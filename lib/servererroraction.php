@@ -55,16 +55,16 @@ require_once INSTALLDIR.'/lib/error.php';
 
 class ServerErrorAction extends ErrorAction
 {
+    static $status = array(500 => 'Internal Server Error',
+                           501 => 'Not Implemented',
+                           502 => 'Bad Gateway',
+                           503 => 'Service Unavailable',
+                           504 => 'Gateway Timeout',
+                           505 => 'HTTP Version Not Supported');
+
     function __construct($message='Error', $code=500)
     {
         parent::__construct($message, $code);
-
-        $this->status  = array(500 => 'Internal Server Error',
-                               501 => 'Not Implemented',
-                               502 => 'Bad Gateway',
-                               503 => 'Service Unavailable',
-                               504 => 'Gateway Timeout',
-                               505 => 'HTTP Version Not Supported');
 
         $this->default = 500;
 
@@ -92,10 +92,5 @@ class ServerErrorAction extends ErrorAction
         }
 
         $this->showPage();
-    }
-
-    function title()
-    {
-        return $this->status[$this->code];
     }
 }
