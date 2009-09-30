@@ -113,7 +113,9 @@ class HTMLOutputter extends XMLOutputter
             // Browsers don't like it when <?xml it output for non-xhtml documents
             $this->xw->startDocument('1.0', 'UTF-8');
         }
-        $this->xw->writeDTD('html');
+        $this->xw->writeDTD('html',
+                            '-//W3C//DTD XHTML 1.0 Strict//EN',
+                            'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
 
         $language = $this->getLanguage();
 
