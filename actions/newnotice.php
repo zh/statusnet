@@ -255,13 +255,6 @@ class NewnoticeAction extends Action
         $notice = Notice::saveNew($user->id, $content_shortened, 'web', 1,
                                   ($replyto == 'false') ? null : $replyto);
 
-        if (is_string($notice)) {
-            if (isset($filename)) {
-                $this->deleteFile($filename);
-            }
-            $this->clientError($notice);
-        }
-
         if (isset($mimetype)) {
             $this->attachFile($notice, $fileRecord);
         }

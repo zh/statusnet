@@ -125,7 +125,7 @@ RealtimeUpdate = {
 
      addPopup: function(url, timeline, iconurl)
      {
-         $('#content').prepend('<button id="realtime_timeline" title="Realtime window">Realtime</button>');
+         $('#content').prepend('<button id="realtime_timeline" title="Pop up in a window">Pop up</button>');
 
          $('#realtime_timeline').css({
              'margin':'0 0 18px 0',

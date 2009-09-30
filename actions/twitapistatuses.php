@@ -297,11 +297,6 @@ class TwitapistatusesAction extends TwitterapiAction
                 html_entity_decode($status, ENT_NOQUOTES, 'UTF-8'),
                     $source, 1, $reply_to);
 
-            if (is_string($notice)) {
-                $this->serverError($notice);
-                return;
-            }
-
             common_broadcast_notice($notice);
             $apidata['api_arg'] = $notice->id;
         }

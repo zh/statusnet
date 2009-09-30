@@ -323,12 +323,15 @@ class XMPPDaemon extends Daemon
                                           mb_strlen($content_shortened)));
           return;
         }
-        $notice = Notice::saveNew($user->id, $content_shortened, 'xmpp');
-        if (is_string($notice)) {
-            $this->log(LOG_ERR, $notice);
-            $this->from_site($user->jabber, $notice);
+
+        try {
+            $notice = Notice::saveNew($user->id, $content_shortened, 'xmpp');
+        } catch (Exception $e) {
+            $this->log(LOG_ERR, $e->getMessage());
+            $this->from_site($user->jabber, $e->getMessage());
             return;
         }
+
         common_broadcast_notice($notice);
         $this->log(LOG_INFO,
                    'Added notice ' . $notice->id . ' from user ' . $user->nickname);

@@ -260,10 +260,11 @@ class MailerDaemon
 
     function add_notice($user, $msg, $fileRecords)
     {
-        $notice = Notice::saveNew($user->id, $msg, 'mail');
-        if (is_string($notice)) {
-            $this->log(LOG_ERR, $notice);
-            return $notice;
+        try {
+            $notice = Notice::saveNew($user->id, $msg, 'mail');
+        } catch (Exception $e) {
+            $this->log(LOG_ERR, $e->getMessage());
+            return $e->getMessage();
         }
         foreach($fileRecords as $fileRecord){
             $this->attachFile($notice, $fileRecord);
