@@ -45,6 +45,9 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
 
 class ApiAuthAction extends TwitterapiAction
 {
+
+    var $auth_user = null;
+
     /**
      * Does this API resource require authentication?
      *

@@ -1,0 +1,275 @@
+<?php
+/**
+ * StatusNet, the distributed open-source microblogging tool
+ *
+ * Base class for showing subscription information in the API
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  API
+ * @package   StatusNet
+ * @author    Zach Copley <zach@status.net>
+ * @copyright 2009 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://status.net/
+ */
+
+if (!defined('STATUSNET')) {
+    exit(1);
+}
+
+require_once INSTALLDIR.'/lib/apibareauth.php';
+
+/**
+ * This class outputs a list of profiles as Twitter-style user and status objects.
+ * It is used by the API methods /api/statuses/(friends|followers). To support the
+ * social graph methods it also can output a simple list of IDs.
+ *
+ * @category API
+ * @package  StatusNet
+ * @author   Zach Copley <zach@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://status.net/
+ */
+
+class ApiSubscriptionsAction extends ApiBareAuthAction
+{
+
+    var $page     = null;
+    var $count    = null;
+    var $user     = null;
+    var $profiles = null;
+    var $format   = null;
+    var $tag      = null;
+    var $lite     = null;
+    var $ids_only = null;
+
+    /**
+     * Take arguments for running
+     *
+     * @param array $args $_REQUEST args
+     *
+     * @return boolean success flag
+     *
+     */
+
+    function prepare($args)
+    {
+        parent::prepare($args);
+
+        $this->page     = (int)$this->arg('page', 1);
+        $this->tag      = $this->arg('tag');
+        $this->format   = $this->arg('format');
+
+        // Note: Twitter no longer supports 'lite'
+        $this->lite     = $this->arg('lite');
+
+        $this->ids_only = $this->arg('ids_only');
+
+        // If called as a social graph method, show 5000 per page, otherwise 100
+
+        $this->count    = isset($this->ids_only) ?
+            5000 : (int)$this->arg('count', 100);
+
+        if ($this->requiresAuth()) {
+            if ($this->checkBasicAuthUser() == false) {
+                return false;
+            }
+        }
+
+        $this->user = $this->getTargetUser($this->arg('id'));
+
+        if (empty($this->user)) {
+            $this->clientError(_('No such user!'), 404, $this->format);
+            return false;
+        }
+
+        $this->profiles = $this->getProfiles();
+
+        return true;
+    }
+
+    /**
+     * Handle the request
+     *
+     * Show the profiles
+     *
+     * @param array $args $_REQUEST data (unused)
+     *
+     * @return void
+     */
+
+    function handle($args)
+    {
+        parent::handle($args);
+
+        if (!in_array($this->format, array('xml', 'json'))) {
+            $this->clientError(_('API method not found!'), $code = 404);
+            return;
+        }
+
+        $this->init_document($this->format);
+
+        if (isset($this->ids_only)) {
+            $this->showIds();
+        } else {
+            $this->showProfiles(isset($this->lite) ? false : true);
+        }
+
+        $this->end_document($this->format);
+    }
+
+    /**
+     * Get profiles - should get overrrided
+     *
+     * @return array Profiles
+     */
+
+    function getProfiles()
+    {
+    }
+
+    /**
+     * Is this action read only?
+     *
+     * @param array $args other arguments
+     *
+     * @return boolean true
+     */
+
+    function isReadOnly($args)
+    {
+        return true;
+    }
+
+    /**
+     * When was this feed last modified?
+     *
+     * @return string datestamp of the latest profile in the stream
+     */
+
+    function lastModified()
+    {
+        if (!empty($this->profiles) && (count($this->profiles) > 0)) {
+            return strtotime($this->profiles[0]->created);
+        }
+
+        return null;
+    }
+
+    /**
+     * An entity tag for this action
+     *
+     * Returns an Etag based on the action name, language, user ID, and
+     * timestamps of the first and last profiles in the subscriptions list
+     * There's also an indicator to show whether this action is being called
+     * as /api/statuses/(friends|followers) or /api/(friends|followers)/ids
+     *
+     * @return string etag
+     */
+
+    function etag()
+    {
+        if (!empty($this->profiles) && (count($this->profiles) > 0)) {
+
+            $last = count($this->profiles) - 1;
+
+            return '"' . implode(
+                ':',
+                array($this->arg('action'),
+                      common_language(),
+                      $this->user->id,
+                      isset($this->ids_only) ? 'IDs' : 'Profiles',
+                      strtotime($this->profiles[0]->created),
+                      strtotime($this->profiles[$last]->created))
+            )
+            . '"';
+        }
+
+        return null;
+    }
+
+    /**
+     * Show the profiles as Twitter-style useres and statuses
+     *
+     * @param boolean $include_statuses Whether to include the latest status
+     *                                  with each user. Default true.
+     *
+     * @return void
+     */
+
+    function showProfiles($include_statuses = true)
+    {
+        switch ($this->format) {
+        case 'xml':
+            $this->elementStart('users', array('type' => 'array'));
+            foreach ($this->profiles as $profile) {
+                $this->show_profile(
+                    $profile,
+                    $this->format,
+                    null,
+                    $include_statuses
+                );
+            }
+            $this->elementEnd('users');
+            break;
+        case 'json':
+            $arrays = array();
+            foreach ($this->profiles as $profile) {
+                $arrays[] = $this->twitter_user_array(
+                    $profile,
+                    $include_statuses
+                );
+            }
+            print json_encode($arrays);
+            break;
+        default:
+            $this->clientError(_('Unsupported format.'));
+            break;
+        }
+    }
+
+    /**
+     * Show the IDs of the profiles only. 5000 per page. To support
+     * the 'social graph' methods: /api/(friends|followers)/ids
+     *
+     * @return void
+     */
+
+    function showIds()
+    {
+        switch ($this->format) {
+        case 'xml':
+            $this->elementStart('ids');
+            foreach ($this->profiles as $profile) {
+                $this->element('id', null, $profile->id);
+            }
+            $this->elementEnd('ids');
+            break;
+        case 'json':
+            $ids = array();
+            foreach ($this->profiles as $profile) {
+                $ids[] = (int)$profile->id;
+            }
+            print json_encode($ids);
+            break;
+        default:
+            $this->clientError(_('Unsupported format.'));
+            break;
+        }
+    }
+
+}

@@ -24,8 +24,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 class TwitterapiAction extends Action
 {
 
-    var $auth_user;
-
     /**
      * Initialization.
      *

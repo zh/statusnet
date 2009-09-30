@@ -314,18 +314,33 @@ class Router
                     'id' => '[a-zA-Z0-9]+',
                     'format' => '(xml|json|rss|atom)'));
 
-        $m->connect('api/statuses/home_timeline',
-                    array('action' => 'apifriendstimeline'));
+        $m->connect('api/statuses/friends.:format',
+                     array('action' => 'ApiFriends',
+                           'format' => '(xml|json)'));
+
+        $m->connect('api/statuses/friends/:id.:format',
+                    array('action' => 'ApiFriends',
+                    'id' => '[a-zA-Z0-9]+',
+                    'format' => '(xml|json)'));
+
+        $m->connect('api/statuses/followers.:format',
+                     array('action' => 'ApiFollowers',
+                           'format' => '(xml|json)'));
+
+        $m->connect('api/statuses/followers/:id.:format',
+                    array('action' => 'ApiFollowers',
+                    'id' => '[a-zA-Z0-9]+',
+                    'format' => '(xml|json)'));
 
         $m->connect('api/statuses/:method',
                     array('action' => 'api',
                           'apiaction' => 'statuses'),
-                    array('method' => '(update|show|friends|followers|featured)(\.(atom|rss|xml|json))?'));
+                    array('method' => '(update|show|featured)(\.(atom|rss|xml|json))?'));
 
         $m->connect('api/statuses/:method/:argument',
                     array('action' => 'api',
                           'apiaction' => 'statuses'),
-                    array('method' => '(show|destroy|friends|followers)'));
+                    array('method' => '(show|destroy)'));
 
         // users
 
@@ -380,29 +395,21 @@ class Router
 
         // Social graph
 
-        $m->connect('api/friends/ids/:argument',
-                    array('action' => 'api',
-                          'apiaction' => 'statuses',
-                          'method' => 'friendsIDs'));
+        $m->connect('api/friends/ids/:id.:format',
+                    array('action' => 'apiFriends',
+                          'ids_only' => true));
 
-        foreach (array('xml', 'json') as $e) {
-            $m->connect('api/friends/ids.'.$e,
-                        array('action' => 'api',
-                              'apiaction' => 'statuses',
-                              'method' => 'friendsIDs.'.$e));
-        }
+        $m->connect('api/followers/ids/:id.:format',
+                    array('action' => 'apiFollowers',
+                          'ids_only' => true));
 
-        $m->connect('api/followers/ids/:argument',
-                    array('action' => 'api',
-                          'apiaction' => 'statuses',
-                          'method' => 'followersIDs'));
+        $m->connect('api/friends/ids.:format',
+                    array('action' => 'apiFriends',
+                          'ids_only' => true));
 
-        foreach (array('xml', 'json') as $e) {
-            $m->connect('api/followers/ids.'.$e,
-                        array('action' => 'api',
-                              'apiaction' => 'statuses',
-                              'method' => 'followersIDs.'.$e));
-        }
+        $m->connect('api/followers/ids.:format',
+                     array('action' => 'apiFollowers',
+                          'ids_only' => true));
 
         // account
 
