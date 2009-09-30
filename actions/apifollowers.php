@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Show a user's followers (subscriptions)
+ * Show a user's followers (subscribers)
  *
  * PHP version 5
  *
