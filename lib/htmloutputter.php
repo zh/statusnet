@@ -106,7 +106,7 @@ class HTMLOutputter extends XMLOutputter
             }
         }
 
-        header('Content-Type: '.$type);
+        header('Content-Type: '.$type.'; charset=UTF-8');
 
         $this->extraHeaders();
         if( ! substr($type,0,strlen('text/html'))=='text/html' ){
