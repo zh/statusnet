@@ -232,7 +232,7 @@ class ApiFriendsTimelineAction extends ApiBareAuthAction
 
             $last = count($this->notices) - 1;
 
-            return implode(
+            return '"' . implode(
                 ':',
                 array($this->arg('action'),
                       common_language(),
