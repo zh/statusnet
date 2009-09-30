@@ -106,14 +106,16 @@ class HTMLOutputter extends XMLOutputter
             }
         }
 
-        header('Content-Type: '.$type);
+        header('Content-Type: '.$type.'; charset=UTF-8');
 
         $this->extraHeaders();
-        if( ! substr($type,0,strlen('text/html'))=='text/html' ){
-            // Browsers don't like it when <?xml it output for non-xhtml documents
+        if (preg_match("/.*\/.*xml/", $type)) {
+            // Required for XML documents
             $this->xw->startDocument('1.0', 'UTF-8');
         }
-        $this->xw->writeDTD('html');
+        $this->xw->writeDTD('html',
+                            '-//W3C//DTD XHTML 1.0 Strict//EN',
+                            'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
 
         $language = $this->getLanguage();
 
