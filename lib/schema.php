@@ -193,32 +193,161 @@ class Schema
         return true;
     }
 
-    public function createIndex($name, $table, $columns)
+    public function createIndex($table, $columnNames, $name = null)
     {
+        if (!is_array($columnNames)) {
+            $columnNames = array($columnNames);
+        }
+
+        if (empty($name)) {
+            $name = "$table_".implode("_", $columnNames)."_idx";
+        }
+
+        $res =& $this->conn->query("ALTER TABLE $table ADD INDEX $name (".implode(",", $columnNames).")");
+
+        if (PEAR::isError($res)) {
+            throw new Exception($res->getMessage());
+        }
+
+        return true;
     }
 
-    public function dropIndex($name, $table)
+    public function dropIndex($table, $name)
     {
+        $res =& $this->conn->query("ALTER TABLE $table DROP INDEX $name");
+
+        if (PEAR::isError($res)) {
+            throw new Exception($res->getMessage());
+        }
+
+        return true;
     }
 
     public function addColumn($table, $columndef)
     {
-    }
+        $sql = "ALTER TABLE $table ADD COLUMN " . $this->_columnSql($columndef);
 
-    public function modifyColumn($table, $column, $columndef)
-    {
-    }
+        $res =& $this->conn->query($sql);
 
-    public function dropColumn($table, $column)
-    {
-    }
-
-    public function ensureTable($name, $columns, $indices)
-    {
-        $def = $this->tableDef($name);
-        if (empty($def)) {
-            return $this->createTable($name, $columns, $indices);
+        if (PEAR::isError($res)) {
+            throw new Exception($res->getMessage());
         }
+
+        return true;
+    }
+
+    public function modifyColumn($table, $columndef)
+    {
+        $sql = "ALTER TABLE $table MODIFY COLUMN " . $this->_columnSql($columndef);
+
+        $res =& $this->conn->query($sql);
+
+        if (PEAR::isError($res)) {
+            throw new Exception($res->getMessage());
+        }
+
+        return true;
+    }
+
+    public function dropColumn($table, $columnName)
+    {
+        $sql = "ALTER TABLE $table DROP COLUMN $columnName";
+
+        $res =& $this->conn->query($sql);
+
+        if (PEAR::isError($res)) {
+            throw new Exception($res->getMessage());
+        }
+
+        return true;
+    }
+
+    public function ensureTable($tableName, $columns, $indices=null)
+    {
+        // XXX: DB engine portability -> toilet
+
+        try {
+            $td = $this->getTableDef($tableName);
+        } catch (Exception $e) {
+            if (preg_match('/no such table/', $e->getMessage())) {
+                return $this->createTable($tableName, $columns, $indices);
+            } else {
+                throw $e;
+            }
+        }
+
+        $cur = $this->_names($td->columns);
+        $new = $this->_names($columns);
+
+        $toadd  = array_diff($new, $cur);
+        $todrop = array_diff($cur, $new);
+
+        $same  = array_intersect($new, $cur);
+
+        foreach ($same as $m) {
+            $curCol = $this->_byName($td->columns, $m);
+            $newCol = $this->_byName($columns, $m);
+
+            if (!$newCol->equals($curCol)) {
+                $tomod[] = $newCol->name;
+            }
+        }
+
+        if (count($toadd) + count($todrop) + count($tomod) == 0) {
+            // nothing to do
+            return true;
+        }
+
+        // For efficiency, we want this all in one
+        // query, instead of using our methods.
+
+        $phrase = array();
+
+        foreach ($toadd as $columnName) {
+            $cd = $this->_byName($columns, $columnName);
+            $phrase[] = 'ADD COLUMN ' . $this->_columnSql($cd);
+        }
+
+        foreach ($todrop as $columnName) {
+            $phrase[] = 'DROP COLUMN ' . $columnName;
+        }
+
+        foreach ($tomod as $columnName) {
+            $cd = $this->_byName($columns, $columnName);
+            $phrase[] = 'MODIFY COLUMN ' . $this->_columnSql($cd);
+        }
+
+        $sql = 'ALTER TABLE ' . $tableName . ' ' . implode(', ', $phrase);
+
+        $res =& $this->conn->query($sql);
+
+        if (PEAR::isError($res)) {
+            throw new Exception($res->getMessage());
+        }
+
+        return true;
+    }
+
+    function _names($cds)
+    {
+        $names = array();
+
+        foreach ($cds as $cd) {
+            $names[] = $cd->name;
+        }
+
+        return $names;
+    }
+
+    function _byName($cds, $name)
+    {
+        foreach ($cds as $cd) {
+            if ($cd->name == $name) {
+                return $cd;
+            }
+        }
+
+        return null;
     }
 
     function _columnSql($cd)
@@ -257,15 +386,51 @@ class ColumnDef
     public $default;
     public $extra;
 
-    function __construct($name, $type, $size=null, $nullable=null,
+    function __construct($name, $type, $size=null, $nullable=true,
                          $key=null, $default=null, $extra=null) {
-        $this->name     = $name;
-        $this->type     = $type;
-        $this->size     = $size;
+        $this->name     = strtolower($name);
+        $this->type     = strtolower($type);
+        $this->size     = $size+0;
         $this->nullable = $nullable;
         $this->key      = $key;
         $this->default  = $default;
         $this->extra    = $extra;
+    }
+
+    function equals($other)
+    {
+        return ($this->name == $other->name &&
+                $this->_typeMatch($other) &&
+                $this->_defaultMatch($other) &&
+                $this->_nullMatch($other) &&
+                $this->key == $other->key);
+    }
+
+    function _typeMatch($other)
+    {
+        switch ($this->type) {
+         case 'integer':
+         case 'int':
+            return ($other->type == 'integer' ||
+                    $other->type == 'int');
+            break;
+         default:
+            return ($this->type == $other->type &&
+                    $this->size == $other->size);
+        }
+    }
+
+    function _defaultMatch($other)
+    {
+        return ((is_null($this->default) && is_null($other->default)) ||
+                ($this->default == $other->default));
+    }
+
+    function _nullMatch($other)
+    {
+        return ((!is_null($this->default) && !is_null($other->default) &&
+                 $this->default == $other->default) ||
+                ($this->nullable == $other->nullable));
     }
 }
 
