@@ -284,6 +284,8 @@ class Schema
 
         $same  = array_intersect($new, $cur);
 
+        $tomod = array();
+
         foreach ($same as $m) {
             $curCol = $this->_byName($td->columns, $m);
             $newCol = $this->_byName($columns, $m);
@@ -386,8 +388,9 @@ class ColumnDef
     public $default;
     public $extra;
 
-    function __construct($name, $type, $size=null, $nullable=true,
-                         $key=null, $default=null, $extra=null) {
+    function __construct($name=null, $type=null, $size=null,
+                         $nullable=true, $key=null, $default=null,
+                         $extra=null) {
         $this->name     = strtolower($name);
         $this->type     = strtolower($type);
         $this->size     = $size+0;
