@@ -47,8 +47,13 @@ require_once INSTALLDIR.'/lib/apibareauth.php';
 class ApiFriendsTimelineAction extends ApiBareAuthAction
 {
 
-    var $user    = null;
-    var $notices = null;
+    var $user     = null;
+    var $notices  = null;
+    var $count    = null;
+    var $max_id   = null;
+    var $since_id = null;
+    var $since    = null;
+    var $format   = null;
 
     /**
      * Take arguments for running
@@ -68,6 +73,7 @@ class ApiFriendsTimelineAction extends ApiBareAuthAction
         $this->max_id   = (int)$this->arg('max_id', 0);
         $this->since_id = (int)$this->arg('since_id', 0);
         $this->since    = $this->arg('since');
+        $this->format   = $this->arg('format');
 
         if ($this->requiresAuth()) {
             if ($this->checkBasicAuthUser() == false) {
@@ -78,7 +84,7 @@ class ApiFriendsTimelineAction extends ApiBareAuthAction
         $this->user = $this->getTargetUser($this->arg('id'));
 
         if (empty($this->user)) {
-            $this->clientError(_('No such user!'), 404, $this->arg('format'));
+            $this->clientError(_('No such user!'), 404, $this->format);
             return;
         }
 
@@ -124,7 +130,7 @@ class ApiFriendsTimelineAction extends ApiBareAuthAction
             $this->user->nickname, $sitename
         );
 
-        switch($this->arg('format')) {
+        switch($this->format) {
         case 'xml':
             $this->show_xml_timeline($this->notices);
             break;
