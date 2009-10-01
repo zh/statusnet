@@ -49,7 +49,13 @@ function getPath($req)
     ) {
         return $req['p'];
     } else if (array_key_exists('PATH_INFO', $_SERVER)) {
-        return $_SERVER['PATH_INFO'];
+        $path = $_SERVER['PATH_INFO'];
+        $script = $_SERVER['SCRIPT_NAME'];
+        if (substr($path, 0, mb_strlen($script)) == $script) {
+            return substr($path, mb_strlen($script));
+        } else {
+            return $path;
+        }
     } else {
         return null;
     }

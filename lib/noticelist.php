@@ -178,9 +178,12 @@ class NoticeListItem extends Widget
     function show()
     {
         $this->showStart();
-        $this->showNotice();
-        $this->showNoticeInfo();
-        $this->showNoticeOptions();
+        if (Event::handle('StartShowNoticeItem', array($this))) {
+            $this->showNotice();
+            $this->showNoticeInfo();
+            $this->showNoticeOptions();
+            Event::handle('EndShowNoticeItem', array($this));
+        }
         $this->showEnd();
     }
 
@@ -261,7 +264,7 @@ class NoticeListItem extends Widget
         $attrs = array('href' => $this->profile->profileurl,
                        'class' => 'url');
         if (!empty($this->profile->fullname)) {
-            $attrs['title'] = $this->profile->fullname . ' (' . $this->profile->nickname . ') ';
+            $attrs['title'] = $this->profile->fullname . ' (' . $this->profile->nickname . ')';
         }
         $this->out->elementStart('a', $attrs);
         $this->showAvatar();
@@ -418,9 +421,17 @@ class NoticeListItem extends Widget
 
     function showContext()
     {
-        // XXX: also show context if there are replies to this notice
-        if (!empty($this->notice->conversation)
-            && $this->notice->conversation != $this->notice->id) {
+        $hasConversation = false;
+        if( !empty($this->notice->conversation)
+            && $this->notice->conversation != $this->notice->id){
+            $hasConversation = true;
+        }else{
+            $conversation = Notice::conversationStream($this->notice->id, 1, 1);
+            if($conversation->N > 0){
+                $hasConversation = true;
+            }
+        }
+        if ($hasConversation){
             $convurl = common_local_url('conversation',
                                          array('id' => $this->notice->conversation));
             $this->out->element('a', array('href' => $convurl.'#notice-'.$this->notice->id,
@@ -442,7 +453,7 @@ class NoticeListItem extends Widget
     {
         if (common_logged_in()) {
             $reply_url = common_local_url('newnotice',
-                                          array('replyto' => $this->profile->nickname));
+                                          array('replyto' => $this->profile->nickname, 'inreplyto' => $this->notice->id));
             $this->out->elementStart('a', array('href' => $reply_url,
                                                 'class' => 'notice_reply',
                                                 'title' => _('Reply to this notice')));
@@ -461,7 +472,10 @@ class NoticeListItem extends Widget
     function showDeleteLink()
     {
         $user = common_current_user();
-        if ($user && $this->notice->profile_id == $user->id) {
+
+        if (!empty($user) &&
+            ($this->notice->profile_id == $user->id || $user->hasRight(Right::deleteOthersNotice))) {
+
             $deleteurl = common_local_url('deletenotice',
                                           array('notice' => $this->notice->id));
             $this->out->element('a', array('href' => $deleteurl,

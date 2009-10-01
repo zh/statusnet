@@ -153,30 +153,30 @@ class Notice extends Memcached_DataObject
         $final = common_shorten_links($content);
 
         if (Notice::contentTooLong($final)) {
-            common_log(LOG_INFO, 'Rejecting notice that is too long.');
-            return _('Problem saving notice. Too long.');
+            throw new ClientException(_('Problem saving notice. Too long.'));
         }
 
         if (!$profile) {
-            common_log(LOG_ERR, 'Problem saving notice. Unknown user.');
-            return _('Problem saving notice. Unknown user.');
+            throw new ClientException(_('Problem saving notice. Unknown user.'));
         }
 
         if (common_config('throttle', 'enabled') && !Notice::checkEditThrottle($profile_id)) {
             common_log(LOG_WARNING, 'Excessive posting by profile #' . $profile_id . '; throttled.');
-            return _('Too many notices too fast; take a breather and post again in a few minutes.');
+            throw new ClientException(_('Too many notices too fast; take a breather '.
+                                        'and post again in a few minutes.'));
         }
 
         if (common_config('site', 'dupelimit') > 0 && !Notice::checkDupes($profile_id, $final)) {
             common_log(LOG_WARNING, 'Dupe posting by profile #' . $profile_id . '; throttled.');
-			return _('Too many duplicate messages too quickly; take a breather and post again in a few minutes.');
+			throw new ClientException(_('Too many duplicate messages too quickly;'.
+                                        ' take a breather and post again in a few minutes.'));
         }
 
 		$banned = common_config('profile', 'banned');
 
         if ( in_array($profile_id, $banned) || in_array($profile->nickname, $banned)) {
             common_log(LOG_WARNING, "Attempted post from banned user: $profile->nickname (user id = $profile_id).");
-            return _('You are banned from posting notices on this site.');
+            throw new ClientException(_('You are banned from posting notices on this site.'));
         }
 
         $notice = new Notice();
@@ -222,7 +222,7 @@ class Notice extends Memcached_DataObject
 
             if (!$id) {
                 common_log_db_error($notice, 'INSERT', __FILE__);
-                return _('Problem saving notice.');
+                throw new ServerException(_('Problem saving notice.'));
             }
 
             // Update ID-dependent columns: URI, conversation
@@ -247,7 +247,7 @@ class Notice extends Memcached_DataObject
             if ($changed) {
                 if (!$notice->update($orig)) {
                     common_log_db_error($notice, 'UPDATE', __FILE__);
-                    return _('Problem saving notice.');
+                    throw new ServerException(_('Problem saving notice.'));
                 }
             }
 
@@ -909,7 +909,8 @@ class Notice extends Memcached_DataObject
                 $qry .= '('.$id.', '.$this->id.', '.$source.", '".$this->created. "') ";
                 $cnt++;
                 if (rand() % NOTICE_INBOX_SOFT_LIMIT == 0) {
-                    Notice_inbox::gc($id);
+                    // FIXME: Causes lag in replicated servers
+                    // Notice_inbox::gc($id);
                 }
                 if ($cnt >= MAX_BOXCARS) {
                     $inbox = new Notice_inbox();

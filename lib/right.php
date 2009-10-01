@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Plugin to enable Infinite Scrolling
+ * Class for user rights
  *
  * PHP version 5
  *
@@ -19,10 +19,10 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  Plugin
+ * @category  Authorization
  * @package   StatusNet
- * @author    Craig Andrews <candrews@integralblue.com>
- * @copyright 2009 Craig Andrews http://candrews.integralblue.com
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -31,16 +31,20 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-class InfiniteScrollPlugin extends Plugin
-{
-    function __construct()
-    {
-        parent::__construct();
-    }
+/**
+ * class for rights
+ *
+ * Mostly for holding the rights constants
+ *
+ * @category Authorization
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://status.net/
+ */
 
-    function onEndShowScripts($action)
-    {
-        $action->script('plugins/InfiniteScroll/jquery.infinitescroll.js');
-        $action->script('plugins/InfiniteScroll/infinitescroll.js');
-    }
+class Right
+{
+    const deleteOthersNotice = 'deleteothersnotice';
 }
+

@@ -87,6 +87,12 @@ StartShowContentBlock: Showing before the content container
 EndShowContentBlock: Showing after the content container
 - $action: the current action
 
+StartShowAside: Showing before the Aside container
+- $action: the current action
+
+EndShowAside: Showing after the Aside container
+- $action: the current action
+
 StartNoticeSave: before inserting a notice (good place for content filters)
 - $notice: notice being saved (no ID or URI)
 
@@ -170,12 +176,6 @@ StartShowBody: called before showing the <body> element and children
 EndShowBody: called after showing the <body> element (and </body>)
 - $action: action object being shown
 
-StartHeadChildren: called before showing the children of <head> element (after <head> tag)
-- $action: action object being shown
-
-EndHeadChildren: called after showing the children of <head> element (before </head>)
-- $action: action object being shown
-
 StartPersonalGroupNav: beginning of personal group nav menu
 - $action: action object being shown
 
@@ -198,6 +198,12 @@ StartShowExportData: just before showing the <div> with export data (feeds)
 - $action: action object being shown
 
 EndShowExportData: just after showing the <div> with export data (feeds)
+- $action: action object being shown
+
+StartShowNoticeItem: just before showing the notice item
+- $action: action object being shown
+
+EndShowNoticeItem: just after showing the notice item
 - $action: action object being shown
 
 StartShowPageNotice: just before showing the page notice (instructions or error)
@@ -271,3 +277,9 @@ GetValidDaemons: Just before determining which daemons to run
 
 HandleQueuedNotice: Handle a queued notice at queue time (or immediately if no queue)
 - &$notice: notice to handle
+
+StartShowHeadElements: Right after the <head> tag
+- $action: the current action
+
+EndShowHeadElements: Right before the </head> tag; put <script>s here if you need them in <head>
+- $action: the current action

@@ -120,17 +120,14 @@ class Action extends HTMLOutputter // lawsuit
     {
         // XXX: attributes (profile?)
         $this->elementStart('head');
-        if (Event::handle('StartHeadChildren', array($this))) {
-            $this->showTitle();
-            $this->showShortcutIcon();
-            $this->showStylesheets();
-            $this->showScripts();
-            $this->showOpenSearch();
-            $this->showFeeds();
-            $this->showDescription();
-            $this->extraHead();
-            Event::handle('EndHeadChildren', array($this));
-        }
+        $this->showTitle();
+        $this->showShortcutIcon();
+        $this->showStylesheets();
+        $this->showScripts();
+        $this->showOpenSearch();
+        $this->showFeeds();
+        $this->showDescription();
+        $this->extraHead();
         $this->elementEnd('head');
     }
 
@@ -528,7 +525,10 @@ class Action extends HTMLOutputter // lawsuit
             $this->showContentBlock();
             Event::handle('EndShowContentBlock', array($this));
         }
-        $this->showAside();
+        if (Event::handle('StartShowAside', array($this))) {
+            $this->showAside();
+            Event::handle('EndShowAside', array($this));
+        }
         $this->elementEnd('div');
     }
 
@@ -879,6 +879,7 @@ class Action extends HTMLOutputter // lawsuit
      */
     function handle($argarray=null)
     {
+        header('Vary: Accept-Encoding,Cookie');
         $lm   = $this->lastModified();
         $etag = $this->etag();
         if ($etag) {

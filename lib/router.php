@@ -172,6 +172,10 @@ class Router
         $m->connect('notice/new?replyto=:replyto',
                     array('action' => 'newnotice'),
                     array('replyto' => '[A-Za-z0-9_-]+'));
+        $m->connect('notice/new?replyto=:replyto&inreplyto=:inreplyto',
+                    array('action' => 'newnotice'),
+                    array('replyto' => '[A-Za-z0-9_-]+'),
+                    array('inreplyto' => '[0-9]+'));
 
         $m->connect('notice/:notice/file',
             array('action' => 'file'),
@@ -236,6 +240,10 @@ class Router
                         array('action' => 'group'.$n),
                         array('nickname' => '[a-zA-Z0-9]+'));
         }
+
+        $m->connect('group/:nickname/foaf',
+                    array('action' => 'foafgroup'),
+                    array('nickname' => '[a-zA-Z0-9]+'));
 
         $m->connect('group/:nickname/blocked',
                     array('action' => 'blockedfromgroup'),

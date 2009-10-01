@@ -293,6 +293,105 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
          }
      }
 
+     function join($args, $apidata)
+     {
+         parent::handle($args);
+
+         common_debug("in groups api action");
+
+         $this->auth_user = $apidata['user'];
+         $group = $this->get_group($apidata['api_arg'], $apidata);
+
+         if (empty($group)) {
+             $this->clientError('Not Found', 404, $apidata['content-type']);
+             return false;
+         }
+
+         if($this->auth_user->isMember($group)){
+            $this->clientError(_('You are already a member of that group'), $code = 403);
+            return false;
+         }
+
+         if (Group_block::isBlocked($group, $this->auth_user->getProfile())) {
+            $this->clientError(_('You have been blocked from that group by the admin.'), 403);
+            return false;
+         }
+
+         $member = new Group_member();
+
+         $member->group_id   = $group->id;
+         $member->profile_id = $this->auth_user->id;
+         $member->created    = common_sql_now();
+
+         $result = $member->insert();
+
+         if (!$result) {
+            common_log_db_error($member, 'INSERT', __FILE__);
+            $this->serverError(sprintf(_('Could not join user %s to group %s'),
+                                       $this->auth_user->nickname, $group->nickname));
+         }
+
+         switch($apidata['content-type']) {
+          case 'xml':
+             $this->show_single_xml_group($group);
+             break;
+          case 'json':
+             $this->show_single_json_group($group);
+             break;
+          default:
+             $this->clientError(_('API method not found!'), $code = 404);
+         }
+     }
+
+     function leave($args, $apidata)
+     {
+         parent::handle($args);
+
+         common_debug("in groups api action");
+
+         $this->auth_user = $apidata['user'];
+         $group = $this->get_group($apidata['api_arg'], $apidata);
+
+         if (empty($group)) {
+             $this->clientError('Not Found', 404, $apidata['content-type']);
+             return false;
+         }
+
+         if(! $this->auth_user->isMember($group)){
+            $this->clientError(_('You are not a member of that group'), $code = 403);
+            return false;
+         }
+
+         $member = new Group_member();
+
+         $member->group_id   = $group->id;
+         $member->profile_id = $this->auth_user->id;
+
+         if (!$member->find(true)) {
+            $this->serverError(_('Could not find membership record.'));
+            return;
+         }
+
+         $result = $member->delete();
+
+         if (!$result) {
+            common_log_db_error($member, 'INSERT', __FILE__);
+            $this->serverError(sprintf(_('Could not remove user %s to group %s'),
+                                       $this->auth_user->nickname, $group->nickname));
+         }
+
+         switch($apidata['content-type']) {
+          case 'xml':
+             $this->show_single_xml_group($group);
+             break;
+          case 'json':
+             $this->show_single_json_group($group);
+             break;
+          default:
+             $this->clientError(_('API method not found!'), $code = 404);
+         }
+     }
+
      function is_member($args, $apidata)
      {
          parent::handle($args);
@@ -325,5 +424,30 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
           default:
              $this->clientError(_('API method not found!'), $code = 404);
          }
+     }
+
+     function create($args, $apidata)
+     {
+        die("todo");
+     }
+
+     function update($args, $apidata)
+     {
+        die("todo");
+     }
+
+     function update_group_logo($args, $apidata)
+     {
+        die("todo");
+     }
+
+     function destroy($args, $apidata)
+     {
+        die("todo");
+     }
+
+     function tag($args, $apidata)
+     {
+        die("todo");
      }
 }

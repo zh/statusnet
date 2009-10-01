@@ -117,11 +117,15 @@ class User extends Memcached_DataObject
     function allowed_nickname($nickname)
     {
         // XXX: should already be validated for size, content, etc.
-        static $blacklist = array('rss', 'xrds', 'doc', 'main',
-                                  'settings', 'notice', 'user',
-                                  'search', 'avatar', 'tag', 'tags',
-                                  'api', 'message', 'group', 'groups',
-                                  'local');
+
+        $blacklist = array();
+
+        //all directory and file names should be blacklisted
+        $d = dir(INSTALLDIR);
+        while (false !== ($entry = $d->read())) {
+            $blacklist[]=$entry;
+        }
+        $d->close();
         $merged = array_merge($blacklist, common_config('nickname', 'blacklist'));
         return !in_array($nickname, $merged);
     }
@@ -706,5 +710,34 @@ class User extends Memcached_DataObject
         }
 
         return true;
+    }
+
+    /**
+     * Does this user have the right to do X?
+     *
+     * With our role-based authorization, this is merely a lookup for whether the user
+     * has a particular role. The implementation currently uses a switch statement
+     * to determine if the user has the pre-defined role to exercise the right. Future
+     * implementations may allow per-site roles, and different mappings of roles to rights.
+     *
+     * @param $right string Name of the right, usually a constant in class Right
+     * @return boolean whether the user has the right in question
+     */
+
+    function hasRight($right)
+    {
+        $result = false;
+        if (Event::handle('UserRightsCheck', array($this, $right, &$result))) {
+            switch ($right)
+            {
+             case Right::deleteOthersNotice:
+                $result = $this->hasRole('moderator');
+                break;
+             default:
+                $result = false;
+                break;
+            }
+        }
+        return $result;
     }
 }
