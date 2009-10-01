@@ -341,15 +341,14 @@ class Router
                           'id' => '[a-zA-Z0-9]+',
                           'format' => '(xml|json)'));
 
-        $m->connect('api/statuses/:method',
-                    array('action' => 'api',
-                          'apiaction' => 'statuses'),
-                    array('method' => '(update|featured)(\.(atom|rss|xml|json))?'));
+        $m->connect('api/statuses/update.:format',
+                    array('action' => 'ApiUpdate',
+                          'format' => '(xml|json)'));
 
         $m->connect('api/statuses/:method/:argument',
                     array('action' => 'api',
                           'apiaction' => 'statuses'),
-                    array('method' => '(show|destroy)'));
+                    array('method' => 'destroy'));
 
         // users
 
