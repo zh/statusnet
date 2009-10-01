@@ -161,7 +161,7 @@ class ApiShowAction extends TwitterapiAction
     function lastModified()
     {
         if (!empty($this->notice)) {
-            return strtotime($this->notices->created);
+            return strtotime($this->notice->created);
         }
 
         return null;
