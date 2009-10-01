@@ -195,18 +195,6 @@ create table nonce (
     constraint primary key (consumer_key, ts, nonce)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
-/* One-to-many relationship of user to openid_url */
-
-create table user_openid (
-    canonical varchar(255) primary key comment 'Canonical true URL',
-    display varchar(255) not null unique key comment 'URL for viewing, may be different from canonical',
-    user_id integer not null comment 'user owning this URL' references user (id),
-    created datetime not null comment 'date this record was created',
-    modified timestamp comment 'date this record was modified',
-
-    index user_openid_user_id_idx (user_id)
-) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
-
 /* These are used by JanRain OpenID library */
 
 create table oid_associations (

@@ -525,7 +525,10 @@ class Action extends HTMLOutputter // lawsuit
             $this->showContentBlock();
             Event::handle('EndShowContentBlock', array($this));
         }
-        $this->showAside();
+        if (Event::handle('StartShowAside', array($this))) {
+            $this->showAside();
+            Event::handle('EndShowAside', array($this));
+        }
         $this->elementEnd('div');
     }
 

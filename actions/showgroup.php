@@ -345,7 +345,12 @@ class ShowgroupAction extends GroupDesignAction
                                                      'method' => 'timeline',
                                                      'argument' => $this->group->nickname.'.atom')),
                               sprintf(_('Notice feed for %s group (Atom)'),
-                                      $this->group->nickname)));
+                                      $this->group->nickname)),
+                     new Feed(Feed::FOAF,
+                              common_local_url('foafgroup',
+                                               array('nickname' => $this->group->nickname)),
+                              sprintf(_('FOAF for %s group'),
+                                       $this->group->nickname)));
     }
 
     /**
