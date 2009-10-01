@@ -106,7 +106,7 @@ class HTMLOutputter extends XMLOutputter
             }
         }
 
-        header('Content-Type: '.$type.'; charset=UTF-8');
+        header('Content-Type: '.$type);
 
         $this->extraHeaders();
         if (preg_match("/.*\/.*xml/", $type)) {
