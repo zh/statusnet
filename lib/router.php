@@ -332,10 +332,19 @@ class Router
                     'id' => '[a-zA-Z0-9]+',
                     'format' => '(xml|json)'));
 
+        $m->connect('api/statuses/show.:format',
+                    array('action' => 'ApiShow',
+                          'format' => '(xml|json)'));
+
+        $m->connect('api/statuses/show/:id.:format',
+                    array('action' => 'ApiShow',
+                          'id' => '[a-zA-Z0-9]+',
+                          'format' => '(xml|json)'));
+
         $m->connect('api/statuses/:method',
                     array('action' => 'api',
                           'apiaction' => 'statuses'),
-                    array('method' => '(update|show|featured)(\.(atom|rss|xml|json))?'));
+                    array('method' => '(update|featured)(\.(atom|rss|xml|json))?'));
 
         $m->connect('api/statuses/:method/:argument',
                     array('action' => 'api',

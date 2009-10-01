@@ -83,7 +83,7 @@ class ApiShowAction extends TwitterapiAction
     /**
      * Handle the request
      *
-     * Just show the notices
+     * Check the format and show the notice
      *
      * @param array $args $_REQUEST data (unused)
      *
@@ -103,7 +103,7 @@ class ApiShowAction extends TwitterapiAction
     }
 
     /**
-     * Show the timeline of notices
+     * Show the notice
      *
      * @return void
      */
@@ -125,14 +125,14 @@ class ApiShowAction extends TwitterapiAction
 
             if (!empty($deleted)) {
                 $this->clientError(
-                    _('Status deleted.'), 
-                    410, 
+                    _('Status deleted.'),
+                    410,
                     $this->format
                 );
             } else {
                 $this->clientError(
                     _('No status with that ID found.'),
-                    404, 
+                    404,
                     $this->format
                 );
             }
