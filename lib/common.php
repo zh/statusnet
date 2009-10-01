@@ -232,6 +232,12 @@ require_once INSTALLDIR.'/lib/serverexception.php';
 
 Config::loadSettings();
 
+// XXX: if plugins should check the schema at runtime, do that here.
+
+if ($config['db']['schemacheck'] == 'runtime') {
+    Event::handle('CheckSchema');
+}
+
 // XXX: other formats here
 
 define('NICKNAME_FMT', VALIDATE_NUM.VALIDATE_ALPHA_LOWER);

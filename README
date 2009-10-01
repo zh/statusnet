@@ -1037,6 +1037,14 @@ utf8: whether to talk to the database in UTF-8 mode. This is the default
       with new installations, but older sites may want to turn it off
       until they get their databases fixed up. See "UTF-8 database"
       above for details.
+schemacheck: when to let plugins check the database schema to add
+             tables or update them. Values can be 'runtime' (default)
+             or 'script'. 'runtime' can be costly (plugins check the
+             schema on every hit, adding potentially several db
+             queries, some quite long), but not everyone knows how to
+             run a script. If you can, set this to 'script' and run
+             scripts/checkschema.php whenever you install or upgrade a
+             plugin.
 
 syslog
 ------
