@@ -77,19 +77,57 @@ class MobileProfilePlugin extends WAP20Plugin
             }
         }
 
-        // XXX: If user is on the mobile site e.g., m.siteserver.com 
-        // or they really want it, serve the mobile version
+        // XXX: This should probably graduate to WAP20Plugin
 
-        // FIXME: This is dirty and probably not accurate of doing it
-        if ((common_config('site', 'mobileserver').'/'.common_config('site', 'path').'/' == 
-            $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']) ||
-            preg_match("/.*\/.*wap.*xml/", $type)) {
+        // If they are on the mobile site, serve them MP
+        if ((common_config('site', 'mobileserver').'/'.
+             common_config('site', 'path').'/' == 
+            $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])) {
 
             $this->serveMobile = true;
         }
         else {
-            $this->serveMobile = false;
-            return true;
+            // If they like the WAP 2.0 mimetype, serve them MP
+            if (strstr('application/vnd.wap.xhtml+xml', $type) !== false) {
+                $this->serveMobile = true;
+            }
+            else {
+                // If they are a mobile device that supports WAP 2.0, 
+                // serve them MP
+
+                // XXX: Browser sniffing sucks
+                // I really don't like going through this every page, 
+                // find a better way
+                $this->mobiledevices = 
+                    array('alcatel', 'android', 'audiovox', 'au-mic,', 
+                          'avantgo', 'blackberry', 'blazer', 'cldc-', 'danger', 
+                          'epoc', 'ericsson', 'ericy', 'ipone', 'ipaq', 'j2me', 
+                          'lg', 'midp-', 'mobile', 'mot', 'netfront', 'nitro', 
+                          'nokia', 'opera mini', 'palm', 'palmsource', 
+                          'panasonic', 'philips', 'pocketpc', 'portalmmm', 
+                          'rover', 'samsung', 'sanyo', 'series60', 'sharp', 
+                          'sie-', 'smartphone', 'sony', 'symbian', 
+                          'up.browser', 'up.link', 'up.link', 'vodafone', 
+                          'wap1', 'wap2', 'windows ce');
+
+                $httpuseragent = strtolower($_SERVER['HTTP_USER_AGENT']);
+
+                foreach($this->mobiledevices as $mb) {
+                    if (strstr($httpuseragent, $mb) !== false) {
+                        $this->serveMobile = true;
+                        break;
+                    }
+                }
+            }
+
+            // If they are okay with MP, and the site has a mobile server, 
+            // redirect there
+            if ($this->serveMobile && 
+                common_config('site', 'mobileserver') !== false) {
+
+                header("Location: ".common_config('site', 'mobileserver'));
+                exit();
+            }
         }
 
         header('Content-Type: '.$type);
