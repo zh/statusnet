@@ -714,6 +714,7 @@ class User extends Memcached_DataObject
         }
 
         $this->_deleteTags();
+        $this->_deleteBlocks();
 
         parent::delete();
     }
