@@ -32,9 +32,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 }
 
 define('PAGE_TYPE_PREFS',
-       'application/vnd.wap.xhtml+xml, application/xhtml+xml, text/xml;q=0.9'.
-       ', text/html;q=0.3'
-      );
+       'application/vnd.wap.xhtml+xml, application/xhtml+xml, text/html;q=0.9');
 
 require_once INSTALLDIR.'/plugins/Mobile/WAP20Plugin.php';
 
