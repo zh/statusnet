@@ -361,10 +361,10 @@ class Router
 
         // users
 
-        $m->connect('api/users/:method/:argument',
-                    array('action' => 'api',
-                          'apiaction' => 'users'),
-                    array('method' => 'show(\.(xml|json))?'));
+        $m->connect('api/users/show/:id.:format',
+                    array('action' => 'ApiUserShow',
+                          'id' => '[a-zA-Z0-9]+',
+                          'format' => '(xml|json)'));
 
         $m->connect('api/users/:method',
                     array('action' => 'api',
