@@ -271,90 +271,90 @@ class Router
         // statuses API
 
         $m->connect('api/statuses/public_timeline.:format',
-                    array('action' => 'ApiPublicTimeline',
+                    array('action' => 'ApiTimelinePublic',
                     'format' => '(xml|json|rss|atom)'));
 
         $m->connect('api/statuses/friends_timeline.:format',
-                    array('action' => 'ApiFriendsTimeline',
+                    array('action' => 'ApiTimelineFriends',
                           'format' => '(xml|json|rss|atom)'));
 
         $m->connect('api/statuses/friends_timeline/:id.:format',
-                    array('action' => 'ApiFriendsTimeline',
+                    array('action' => 'ApiTimelineFriends',
                           'id' => '[a-zA-Z0-9]+',
                           'format' => '(xml|json|rss|atom)'));
         $m->connect('api/statuses/home_timeline.:format',
-                    array('action' => 'ApiFriendsTimeline',
+                    array('action' => 'ApiTimelineFriends',
                           'format' => '(xml|json|rss|atom)'));
 
         $m->connect('api/statuses/home_timeline/:id.:format',
-                    array('action' => 'ApiFriendsTimeline',
+                    array('action' => 'ApiTimelineFriends',
                           'id' => '[a-zA-Z0-9]+',
                           'format' => '(xml|json|rss|atom)'));
 
         $m->connect('api/statuses/user_timeline.:format',
-                    array('action' => 'ApiUserTimeline',
+                    array('action' => 'ApiTimelineUser',
                     'format' => '(xml|json|rss|atom)'));
 
         $m->connect('api/statuses/user_timeline/:id.:format',
-                    array('action' => 'ApiUserTimeline',
+                    array('action' => 'ApiTimelineUser',
                     'id' => '[a-zA-Z0-9]+',
                     'format' => '(xml|json|rss|atom)'));
 
         $m->connect('api/statuses/mentions.:format',
-                    array('action' => 'ApiMentions',
+                    array('action' => 'ApiTimelineMentions',
                     'format' => '(xml|json|rss|atom)'));
 
         $m->connect('api/statuses/mentions/:id.:format',
-                    array('action' => 'ApiMentions',
+                    array('action' => 'ApiTimelineMentions',
                     'id' => '[a-zA-Z0-9]+',
                     'format' => '(xml|json|rss|atom)'));
 
         $m->connect('api/statuses/replies.:format',
-                    array('action' => 'ApiMentions',
+                    array('action' => 'ApiTimelineMentions',
                     'format' => '(xml|json|rss|atom)'));
 
         $m->connect('api/statuses/replies/:id.:format',
-                    array('action' => 'ApiMentions',
+                    array('action' => 'ApiTimelineMentions',
                     'id' => '[a-zA-Z0-9]+',
                     'format' => '(xml|json|rss|atom)'));
 
         $m->connect('api/statuses/friends.:format',
-                     array('action' => 'ApiFriends',
+                     array('action' => 'ApiUserFriends',
                            'format' => '(xml|json)'));
 
         $m->connect('api/statuses/friends/:id.:format',
-                    array('action' => 'ApiFriends',
+                    array('action' => 'ApiUserFriends',
                     'id' => '[a-zA-Z0-9]+',
                     'format' => '(xml|json)'));
 
         $m->connect('api/statuses/followers.:format',
-                     array('action' => 'ApiFollowers',
+                     array('action' => 'ApiUserFollowers',
                            'format' => '(xml|json)'));
 
         $m->connect('api/statuses/followers/:id.:format',
-                    array('action' => 'ApiFollowers',
+                    array('action' => 'ApiUserFollowers',
                     'id' => '[a-zA-Z0-9]+',
                     'format' => '(xml|json)'));
 
         $m->connect('api/statuses/show.:format',
-                    array('action' => 'ApiShow',
+                    array('action' => 'ApiStatusesShow',
                           'format' => '(xml|json)'));
 
         $m->connect('api/statuses/show/:id.:format',
-                    array('action' => 'ApiShow',
+                    array('action' => 'ApiStatusesShow',
                           'id' => '[0-9]+',
                           'format' => '(xml|json)'));
 
         $m->connect('api/statuses/update.:format',
-                    array('action' => 'ApiUpdate',
+                    array('action' => 'ApiStatusesUpdate',
                           'format' => '(xml|json)'));
 
         $m->connect('api/statuses/destroy.:format',
-                  array('action' => 'ApiDestroy',
+                  array('action' => 'ApiStatusesDestroy',
                         'format' => '(xml|json)'));
 
         $m->connect('api/statuses/destroy/:id.:format',
-                  array('action' => 'ApiDestroy',
+                  array('action' => 'ApiStatusesDestroy',
                         'id' => '[0-9]+',
                         'format' => '(xml|json)'));
 

@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Show notices mentioning a user (@nickname)
+ * Show the friends timeline
  *
  * PHP version 5
  *
@@ -34,7 +34,8 @@ if (!defined('STATUSNET')) {
 require_once INSTALLDIR.'/lib/apibareauth.php';
 
 /**
- * Returns the most recent (default 20) mentions (status containing @nickname)
+ * Returns the most recent notices (default 20) posted by the target user.
+ * This is the equivalent of 'You and friends' page accessed via Web.
  *
  * @category API
  * @package  StatusNet
@@ -43,11 +44,16 @@ require_once INSTALLDIR.'/lib/apibareauth.php';
  * @link     http://status.net/
  */
 
-class ApiMentionsAction extends ApiBareAuthAction
+class ApiTimelineFriendsAction extends ApiBareAuthAction
 {
 
-    var $user    = null;
-    var $notices = null;
+    var $user     = null;
+    var $notices  = null;
+    var $count    = null;
+    var $max_id   = null;
+    var $since_id = null;
+    var $since    = null;
+    var $format   = null;
 
     /**
      * Take arguments for running
@@ -67,6 +73,7 @@ class ApiMentionsAction extends ApiBareAuthAction
         $this->max_id   = (int)$this->arg('max_id', 0);
         $this->since_id = (int)$this->arg('since_id', 0);
         $this->since    = $this->arg('since');
+        $this->format   = $this->arg('format');
 
         if ($this->requiresAuth()) {
             if ($this->checkBasicAuthUser() == false) {
@@ -77,7 +84,7 @@ class ApiMentionsAction extends ApiBareAuthAction
         $this->user = $this->getTargetUser($this->arg('id'));
 
         if (empty($this->user)) {
-            $this->clientError(_('No such user!'), 404, $this->arg('format'));
+            $this->clientError(_('No such user!'), 404, $this->format);
             return;
         }
 
@@ -110,25 +117,20 @@ class ApiMentionsAction extends ApiBareAuthAction
 
     function showTimeline()
     {
-        $profile = $this->user->getProfile();
-
+        $profile    = $this->user->getProfile();
         $sitename   = common_config('site', 'name');
-        $title      = sprintf(
-            _('%1$s / Updates mentioning %2$s'),
-            $sitename, $this->user->nickname
-        );
+        $title      = sprintf(_("%s and friends"), $this->user->nickname);
         $taguribase = common_config('integration', 'taguri');
-        $id         = "tag:$taguribase:Mentions:" . $this->user->id;
+        $id         = "tag:$taguribase:FriendsTimeline:" . $this->user->id;
         $link       = common_local_url(
-            'replies',
-            array('nickname' => $this->user->nickname)
+            'all', array('nickname' => $this->user->nickname)
         );
         $subtitle   = sprintf(
-            _('%1$s updates that reply to updates from %2$s / %3$s.'),
-            $sitename, $this->user->nickname, $profile->getBestName()
+            _('Updates from %1$s and friends on %2$s!'),
+            $this->user->nickname, $sitename
         );
 
-        switch($this->arg('format')) {
+        switch($this->format) {
         case 'xml':
             $this->show_xml_timeline($this->notices);
             break;
@@ -136,11 +138,21 @@ class ApiMentionsAction extends ApiBareAuthAction
             $this->show_rss_timeline($this->notices, $title, $link, $subtitle);
             break;
         case 'atom':
-            $selfuri = common_root_url() .
-                ltrim($_SERVER['QUERY_STRING'], 'p=');
+
+            $target_id = $this->arg('id');
+
+            if (isset($target_id)) {
+                $selfuri = common_root_url() .
+                    'api/statuses/friends_timeline/' .
+                    $target_id . '.atom';
+            } else {
+                $selfuri = common_root_url() .
+                    'api/statuses/friends_timeline.atom';
+            }
+
             $this->show_atom_timeline(
-                $this->notices, $title, $id, $link, $subtitle,
-                null, $selfuri
+                $this->notices, $title, $id, $link,
+                $subtitle, null, $selfuri
             );
             break;
         case 'json':
@@ -162,10 +174,19 @@ class ApiMentionsAction extends ApiBareAuthAction
     {
         $notices = array();
 
-        $notice = $this->user->getReplies(
-            ($this->page - 1) * $this->count, $this->count,
-            $this->since_id, $this->max_id, $this->since
-        );
+        if (!empty($this->auth_user) && $this->auth_user->id == $this->user->id) {
+            $notice = $this->user->noticeInbox(
+                ($this->page-1) * $this->count,
+                $this->count, $this->since_id,
+                $this->max_id, $this->since
+            );
+        } else {
+            $notice = $this->user->noticesWithFriends(
+                ($this->page-1) * $this->count,
+                $this->count, $this->since_id,
+                $this->max_id, $this->since
+            );
+        }
 
         while ($notice->fetch()) {
             $notices[] = clone($notice);

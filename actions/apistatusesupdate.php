@@ -43,7 +43,7 @@ require_once INSTALLDIR.'/lib/apiauth.php';
  * @link     http://status.net/
  */
 
-class ApiUpdateAction extends ApiAuthAction
+class ApiStatusesUpdateAction extends ApiAuthAction
 {
 
     var $user                  = null;

@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Show a user's followers (subscribers)
+ * Show a user's friends (subscriptions)
  *
  * PHP version 5
  *
@@ -34,9 +34,9 @@ if (!defined('STATUSNET')) {
 require_once INSTALLDIR.'/lib/apibareauth.php';
 
 /**
- * Ouputs the authenticating user's followers (subscribers), each with
- * current Twitter-style status inline.  They are ordered by the order
- * in which they subscribed to the user, 100 at a time.
+ * Ouputs the authenticating user's friends (subscriptions), each with
+ * current Twitter-style status inline.  They are ordered by the date
+ * in which the user subscribed to them, 100 at a time.
  *
  * @category API
  * @package  StatusNet
@@ -45,10 +45,10 @@ require_once INSTALLDIR.'/lib/apibareauth.php';
  * @link     http://status.net/
  */
 
-class ApiFollowersAction extends ApiSubscriptionsAction
+class ApiUserFriendsAction extends ApiSubscriptionsAction
 {
     /**
-     * Get the user's subscribers (followers) as an array of profiles
+     * Get the user's subscriptions (friends) as an array of profiles
      *
      * @return array Profiles
      */
@@ -61,11 +61,11 @@ class ApiFollowersAction extends ApiSubscriptionsAction
         $subs = null;
 
         if (isset($this->tag)) {
-            $subs = $this->user->getTaggedSubscribers(
+            $subs = $this->user->getTaggedSubscriptions(
                 $this->tag, $offset, $limit
             );
         } else {
-            $subs = $this->user->getSubscribers(
+            $subs = $this->user->getSubscriptions(
                 $offset,
                 $limit
             );

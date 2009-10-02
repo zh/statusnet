@@ -43,7 +43,7 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
  * @link     http://status.net/
  */
 
-class ApiPublicTimelineAction extends TwitterapiAction
+class ApiTimelinePublicAction extends TwitterapiAction
 {
 
     var $notices = null;

@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Show the friends timeline
+ * Show a user's timeline
  *
  * PHP version 5
  *
@@ -34,8 +34,9 @@ if (!defined('STATUSNET')) {
 require_once INSTALLDIR.'/lib/apibareauth.php';
 
 /**
- * Returns the most recent notices (default 20) posted by the target user.
- * This is the equivalent of 'You and friends' page accessed via Web.
+ * Returns the most recent notices (default 20) posted by the authenticating
+ * user. Another user's timeline can be requested via the id parameter. This
+ * is the API equivalent of the user profile web page.
  *
  * @category API
  * @package  StatusNet
@@ -44,16 +45,11 @@ require_once INSTALLDIR.'/lib/apibareauth.php';
  * @link     http://status.net/
  */
 
-class ApiFriendsTimelineAction extends ApiBareAuthAction
+class ApiTimelineUserAction extends ApiBareAuthAction
 {
 
-    var $user     = null;
-    var $notices  = null;
-    var $count    = null;
-    var $max_id   = null;
-    var $since_id = null;
-    var $since    = null;
-    var $format   = null;
+    var $user    = null;
+    var $notices = null;
 
     /**
      * Take arguments for running
@@ -73,7 +69,6 @@ class ApiFriendsTimelineAction extends ApiBareAuthAction
         $this->max_id   = (int)$this->arg('max_id', 0);
         $this->since_id = (int)$this->arg('since_id', 0);
         $this->since    = $this->arg('since');
-        $this->format   = $this->arg('format');
 
         if ($this->requiresAuth()) {
             if ($this->checkBasicAuthUser() == false) {
@@ -84,7 +79,7 @@ class ApiFriendsTimelineAction extends ApiBareAuthAction
         $this->user = $this->getTargetUser($this->arg('id'));
 
         if (empty($this->user)) {
-            $this->clientError(_('No such user!'), 404, $this->format);
+            $this->clientError(_('No such user!'), 404, $this->arg('format'));
             return;
         }
 
@@ -117,42 +112,49 @@ class ApiFriendsTimelineAction extends ApiBareAuthAction
 
     function showTimeline()
     {
-        $profile    = $this->user->getProfile();
+        $profile = $this->user->getProfile();
+
         $sitename   = common_config('site', 'name');
-        $title      = sprintf(_("%s and friends"), $this->user->nickname);
+        $title      = sprintf(_("%s timeline"), $this->user->nickname);
         $taguribase = common_config('integration', 'taguri');
-        $id         = "tag:$taguribase:FriendsTimeline:" . $this->user->id;
+        $id         = "tag:$taguribase:UserTimeline:" . $this->user->id;
         $link       = common_local_url(
-            'all', array('nickname' => $this->user->nickname)
+            'showstream',
+            array('nickname' => $this->user->nickname)
         );
         $subtitle   = sprintf(
-            _('Updates from %1$s and friends on %2$s!'),
+            _('Updates from %1$s on %2$s!'),
             $this->user->nickname, $sitename
         );
 
-        switch($this->format) {
+        // FriendFeed's SUP protocol
+        // Also added RSS and Atom feeds
+
+        $suplink = common_local_url('sup', null, null, $this->user->id);
+        header('X-SUP-ID: ' . $suplink);
+
+        switch($this->arg('format')) {
         case 'xml':
             $this->show_xml_timeline($this->notices);
             break;
         case 'rss':
-            $this->show_rss_timeline($this->notices, $title, $link, $subtitle);
+            $this->show_rss_timeline(
+                $this->notices, $title, $link,
+                $subtitle, $suplink
+            );
             break;
         case 'atom':
-
-            $target_id = $this->arg('id');
-
-            if (isset($target_id)) {
+            if (isset($apidata['api_arg'])) {
                 $selfuri = common_root_url() .
-                    'api/statuses/friends_timeline/' .
-                    $target_id . '.atom';
+                    'api/statuses/user_timeline/' .
+                    $apidata['api_arg'] . '.atom';
             } else {
                 $selfuri = common_root_url() .
-                    'api/statuses/friends_timeline.atom';
+                    'api/statuses/user_timeline.atom';
             }
-
             $this->show_atom_timeline(
                 $this->notices, $title, $id, $link,
-                $subtitle, null, $selfuri
+                $subtitle, $suplink, $selfuri
             );
             break;
         case 'json':
@@ -162,6 +164,7 @@ class ApiFriendsTimelineAction extends ApiBareAuthAction
             $this->clientError(_('API method not found!'), $code = 404);
             break;
         }
+
     }
 
     /**
@@ -174,19 +177,10 @@ class ApiFriendsTimelineAction extends ApiBareAuthAction
     {
         $notices = array();
 
-        if (!empty($this->auth_user) && $this->auth_user->id == $this->user->id) {
-            $notice = $this->user->noticeInbox(
-                ($this->page-1) * $this->count,
-                $this->count, $this->since_id,
-                $this->max_id, $this->since
-            );
-        } else {
-            $notice = $this->user->noticesWithFriends(
-                ($this->page-1) * $this->count,
-                $this->count, $this->since_id,
-                $this->max_id, $this->since
-            );
-        }
+        $notice = $this->user->getNotices(
+            ($this->page-1) * $this->count, $this->count,
+            $this->since_id, $this->max_id, $this->since
+        );
 
         while ($notice->fetch()) {
             $notices[] = clone($notice);

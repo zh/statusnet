@@ -43,7 +43,7 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
  * @link     http://status.net/
  */
 
-class ApiShowAction extends TwitterapiAction
+class ApiStatusesShowAction extends TwitterapiAction
 {
 
     var $notice_id = null;

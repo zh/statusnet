@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Show a user's timeline
+ * Show notices mentioning a user (@nickname)
  *
  * PHP version 5
  *
@@ -34,9 +34,7 @@ if (!defined('STATUSNET')) {
 require_once INSTALLDIR.'/lib/apibareauth.php';
 
 /**
- * Returns the most recent notices (default 20) posted by the authenticating
- * user. Another user's timeline can be requested via the id parameter. This
- * is the API equivalent of the user profile web page.
+ * Returns the most recent (default 20) mentions (status containing @nickname)
  *
  * @category API
  * @package  StatusNet
@@ -45,7 +43,7 @@ require_once INSTALLDIR.'/lib/apibareauth.php';
  * @link     http://status.net/
  */
 
-class ApiUserTimelineAction extends ApiBareAuthAction
+class ApiTimelineMentionsAction extends ApiBareAuthAction
 {
 
     var $user    = null;
@@ -115,46 +113,34 @@ class ApiUserTimelineAction extends ApiBareAuthAction
         $profile = $this->user->getProfile();
 
         $sitename   = common_config('site', 'name');
-        $title      = sprintf(_("%s timeline"), $this->user->nickname);
+        $title      = sprintf(
+            _('%1$s / Updates mentioning %2$s'),
+            $sitename, $this->user->nickname
+        );
         $taguribase = common_config('integration', 'taguri');
-        $id         = "tag:$taguribase:UserTimeline:" . $this->user->id;
+        $id         = "tag:$taguribase:Mentions:" . $this->user->id;
         $link       = common_local_url(
-            'showstream',
+            'replies',
             array('nickname' => $this->user->nickname)
         );
         $subtitle   = sprintf(
-            _('Updates from %1$s on %2$s!'),
-            $this->user->nickname, $sitename
+            _('%1$s updates that reply to updates from %2$s / %3$s.'),
+            $sitename, $this->user->nickname, $profile->getBestName()
         );
-
-        // FriendFeed's SUP protocol
-        // Also added RSS and Atom feeds
-
-        $suplink = common_local_url('sup', null, null, $this->user->id);
-        header('X-SUP-ID: ' . $suplink);
 
         switch($this->arg('format')) {
         case 'xml':
             $this->show_xml_timeline($this->notices);
             break;
         case 'rss':
-            $this->show_rss_timeline(
-                $this->notices, $title, $link,
-                $subtitle, $suplink
-            );
+            $this->show_rss_timeline($this->notices, $title, $link, $subtitle);
             break;
         case 'atom':
-            if (isset($apidata['api_arg'])) {
-                $selfuri = common_root_url() .
-                    'api/statuses/user_timeline/' .
-                    $apidata['api_arg'] . '.atom';
-            } else {
-                $selfuri = common_root_url() .
-                    'api/statuses/user_timeline.atom';
-            }
+            $selfuri = common_root_url() .
+                ltrim($_SERVER['QUERY_STRING'], 'p=');
             $this->show_atom_timeline(
-                $this->notices, $title, $id, $link,
-                $subtitle, $suplink, $selfuri
+                $this->notices, $title, $id, $link, $subtitle,
+                null, $selfuri
             );
             break;
         case 'json':
@@ -164,7 +150,6 @@ class ApiUserTimelineAction extends ApiBareAuthAction
             $this->clientError(_('API method not found!'), $code = 404);
             break;
         }
-
     }
 
     /**
@@ -177,8 +162,8 @@ class ApiUserTimelineAction extends ApiBareAuthAction
     {
         $notices = array();
 
-        $notice = $this->user->getNotices(
-            ($this->page-1) * $this->count, $this->count,
+        $notice = $this->user->getReplies(
+            ($this->page - 1) * $this->count, $this->count,
             $this->since_id, $this->max_id, $this->since
         );
 
