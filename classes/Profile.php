@@ -523,7 +523,7 @@ class Profile extends Memcached_DataObject
     {
         $tag = new Profile_tag();
         $tag->tagged = $this->id;
-        $msg->delete();
+        $tag->delete();
     }
 
     function _deleteBlocks()
