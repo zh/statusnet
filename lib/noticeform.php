@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Form for posting a notice
  *
@@ -20,15 +20,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Form
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @author    Sarven Capadisli <csarven@controlyourself.ca>
- * @copyright 2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    Sarven Capadisli <csarven@status.net>
+ * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -40,11 +40,11 @@ require_once INSTALLDIR.'/lib/form.php';
  * Frequently-used form for posting a notice
  *
  * @category Form
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Sarven Capadisli <csarven@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Sarven Capadisli <csarven@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
  * @see      HTMLOutputter
  */
@@ -70,6 +70,12 @@ class NoticeForm extends Form
     var $user = null;
 
     /**
+     * The notice being replied to
+     */
+
+    var $inreplyto = null;
+
+    /**
      * Constructor
      *
      * @param HTMLOutputter $out     output channel
@@ -77,12 +83,13 @@ class NoticeForm extends Form
      * @param string        $content content to pre-fill
      */
 
-    function __construct($out=null, $action=null, $content=null, $user=null)
+    function __construct($out=null, $action=null, $content=null, $user=null, $inreplyto=null)
     {
         parent::__construct($out);
 
         $this->action  = $action;
         $this->content = $content;
+        $this->inreplyto = $inreplyto;
         
         if ($user) {
             $this->user = $user;
@@ -161,7 +168,7 @@ class NoticeForm extends Form
         if ($this->action) {
             $this->out->hidden('notice_return-to', $this->action, 'returnto');
         }
-        $this->out->hidden('notice_in-reply-to', $this->action, 'inreplyto');
+        $this->out->hidden('notice_in-reply-to', $this->inreplyto, 'inreplyto');
     }
 
     /**

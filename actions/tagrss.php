@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/rssaction.php');
 
@@ -61,7 +61,8 @@ class TagrssAction extends Rss10Action
         $c = array('url' => common_local_url('tagrss', array('tag' => $tagname)),
                'title' => $tagname,
                'link' => common_local_url('tagrss', array('tag' => $tagname)),
-               'description' => sprintf(_('Microblog tagged with %s'), $tagname));
+               'description' => sprintf(_('Updates tagged with %1$s on %2$s!'),
+                                        $tagname, common_config('site', 'name')));
         return $c;
     }
 

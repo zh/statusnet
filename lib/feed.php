@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Data structure for info about syndication feeds (RSS 1.0, RSS 2.0, Atom)
  *
@@ -20,14 +20,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Feed
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -37,11 +37,11 @@ if (!defined('LACONICA')) {
  * This structure is a helpful container for shipping around information about syndication feeds.
  *
  * @category Feed
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Sarven Capadisli <csarven@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Sarven Capadisli <csarven@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class Feed

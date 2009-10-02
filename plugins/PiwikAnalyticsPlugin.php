@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Plugin to use Piwik Analytics
  *
@@ -20,15 +20,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Plugin
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
  * @author    Tobias Diekershoff <tobias.diekershoff@gmx.net>
- * @copyright 2008 Control Yourself, Inc.
+ * @copyright 2008 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET')) {
     exit(1);
 }
 
@@ -38,30 +38,24 @@ if (!defined('LACONICA')) {
  * This plugin will spoot out the correct JavaScript spell to invoke
  * Piwik Analytics on a page.
  *
- * To use this plugin please add the following three lines to your config.php
+ * To use this plugin add the following to your config.php
  *
- *     require_once('plugins/PiwikAnalyticsPlugin.php');
- *     $pa = new PiwikAnalyticsPlugin("example.com/piwik/","id");
+ *  addPlugin('PiwikAnalytics', array('piwikroot' => 'example.com/piwik/',
+ *                                    'piwikId' => 'id'));
  *
- * exchange example.com/piwik/ with the url to your piwik installation and
- * make sure you don't forget the final /
- * exchange id with the ID your laconica installation has in your Piwik analytics
+ * Replace 'example.com/piwik/' with the URL to your Piwik installation and
+ * make sure you don't forget the final /.
+ * Replace 'id' with the ID your statusnet installation has in your Piwik
+ * analytics setup - for example '8'.
  *
- * @category Plugin
- * @package  Laconica
- * @author   Tobias Diekershoff <tobias.diekershoff@gmx.net>
- * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
- *
- * @see      Event
  */
 
 class PiwikAnalyticsPlugin extends Plugin
 {
     /** the base of your Piwik installation */
-    var $piwikroot = null;
-    /** the Piwik Id of your laconica installation */
-    var $piwikId   = null;
+    public $piwikroot = null;
+    /** the Piwik Id of your statusnet installation */
+    public $piwikId   = null;
 
     /**
      * constructor
@@ -73,7 +67,7 @@ class PiwikAnalyticsPlugin extends Plugin
     function __construct($root=null, $id=null)
     {
         $this->piwikroot = $root;
-        $this->piwikid   = $id;
+        $this->piwikId   = $id;
         parent::__construct();
     }
 
@@ -96,7 +90,7 @@ document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/ja
 </script>
 <script type="text/javascript">
 try {
-    var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 4);
+    var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", {$this->piwikId});
     piwikTracker.trackPageView();
     piwikTracker.enableLinkTracking();
 } catch( err ) {}

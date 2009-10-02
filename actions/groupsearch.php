@@ -5,14 +5,14 @@
  * PHP version 5
  *
  * @category Action
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Robin Millette <millette@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Robin Millette <millette@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -28,7 +28,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -39,11 +39,11 @@ if (!defined('LACONICA')) {
  * Group search action class.
  *
  * @category Action
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Robin Millette <millette@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Robin Millette <millette@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 class GroupsearchAction extends SearchAction
 {
@@ -82,13 +82,20 @@ class GroupsearchAction extends SearchAction
                 $message = _('If you can\'t find the group you\'re looking for, you can [create it](%%action.newgroup%%) yourself.');
             }
             else {
-                $message = _('Why not [register an account](%%action.register%%) and [create the group](%%action.newgroup%%) yourself!');
+                $message = sprintf(_('Why not [register an account](%%%%action.%s%%%%) and [create the group](%%%%action.newgroup%%%%) yourself!'),
+                                   (!common_config('site','openidonly')) ? 'register' : 'openidlogin');
             }
             $this->elementStart('div', 'guide');
             $this->raw(common_markup_to_html($message));
             $this->elementEnd('div');
             $user_group->free();
         }
+    }
+
+    function showScripts()
+    {
+        parent::showScripts();
+        $this->autofocus('q');
     }
 }
 

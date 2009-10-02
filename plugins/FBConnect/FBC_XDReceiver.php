@@ -1,6 +1,6 @@
 <?php
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -47,9 +47,7 @@ class FBC_XDReceiverAction extends Action
         header('Expires:');
         header('Pragma:');
 
-        $this->startXML('html',
-                        '-//W3C//DTD XHTML 1.0 Strict//EN',
-                        'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
+        $this->startXML('html');
 
         $language = $this->getLanguage();
 
@@ -58,10 +56,7 @@ class FBC_XDReceiverAction extends Action
                                           'lang' => $language));
         $this->elementStart('head');
         $this->element('title', null, 'cross domain receiver page');
-        $this->element('script',
-            array('src' =>
-                'http://static.ak.connect.facebook.com/js/api_lib/v0.4/XdCommReceiver.debug.js',
-                'type' => 'text/javascript'), '');
+        $this->script('http://static.ak.connect.facebook.com/js/api_lib/v0.4/XdCommReceiver.debug.js');
         $this->elementEnd('head');
         $this->elementStart('body');
         $this->elementEnd('body');

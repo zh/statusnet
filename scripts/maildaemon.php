@@ -1,8 +1,8 @@
 #!/usr/bin/env php
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -317,6 +317,9 @@ class MailerDaemon
         } else if ($parsed->ctype_primary == 'text'
             && $parsed->ctype_secondary=='plain') {
             $msg = $parsed->body;
+            if(strtolower($parsed->ctype_parameters['charset']) != "utf-8"){
+                $msg = utf8_encode($msg);
+            }
         }else if(!empty($parsed->body)){
             if(common_config('attachments', 'uploads')){
                 //only save attachments if uploads are enabled
@@ -382,5 +385,7 @@ class MailerDaemon
     }
 }
 
-$md = new MailerDaemon();
-$md->handle_message('php://stdin');
+if (common_config('emailpost', 'enabled')) {
+    $md = new MailerDaemon();
+    $md->handle_message('php://stdin');
+}

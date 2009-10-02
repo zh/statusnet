@@ -1,8 +1,8 @@
 #!/usr/bin/env php
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -20,85 +20,267 @@
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 
-// Uncomment this to get useful console output
+$shortoptions = 'di::';
+$longoptions = array('id::', 'debug');
+
+$helptext = <<<END_OF_TRIM_HELP
+Batch script for synching local friends with Twitter friends.
+  -i --id              Identity (default 'generic')
+  -d --debug           Debug (lots of log output)
+
+END_OF_TRIM_HELP;
+
+require_once INSTALLDIR . '/scripts/commandline.inc';
+require_once INSTALLDIR . '/lib/parallelizingdaemon.php';
+
+/**
+ * Daemon to sync local friends with Twitter friends
+ *
+ * @category Twitter
+ * @package  StatusNet
+ * @author   Zach Copley <zach@status.net>
+ * @author   Evan Prodromou <evan@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://status.net/
+ */
 
 $helptext = <<<END_OF_TWITTER_HELP
 Batch script for synching local friends with Twitter friends.
 
 END_OF_TWITTER_HELP;
 
-require_once INSTALLDIR.'/scripts/commandline.inc';
+require_once INSTALLDIR . '/scripts/commandline.inc';
+require_once INSTALLDIR . '/lib/parallelizingdaemon.php';
 
-// Make a lockfile
-$lockfilename = lockFilename();
-if (!($lockfile = @fopen($lockfilename, "w"))) {
-    print "Already running... exiting.\n";
-    exit(1);
-}
+class SyncTwitterFriendsDaemon extends ParallelizingDaemon
+{
+    /**
+     *  Constructor
+     *
+     * @param string  $id           the name/id of this daemon
+     * @param int     $interval     sleep this long before doing everything again
+     * @param int     $max_children maximum number of child processes at a time
+     * @param boolean $debug        debug output flag
+     *
+     * @return void
+     *
+     **/
 
-// Obtain an exlcusive lock on file (will fail if script is already going)
-if (!@flock( $lockfile, LOCK_EX | LOCK_NB, &$wouldblock) || $wouldblock) {
-    // Script already running - abort
-    @fclose($lockfile);
-    print "Already running... exiting.\n";
-    exit(1);
-}
+    function __construct($id = null, $interval = 60,
+                         $max_children = 2, $debug = null)
+    {
+        parent::__construct($id, $interval, $max_children, $debug);
+    }
 
-$flink = new Foreign_link();
-$flink->service = 1; // Twitter
-$flink->orderBy('last_friendsync');
-$flink->limit(25);  // sync this many users during this run
-$cnt = $flink->find();
+    /**
+     * Name of this daemon
+     *
+     * @return string Name of the daemon.
+     */
 
-print "Updating Twitter friends subscriptions for $cnt users.\n";
+    function name()
+    {
+        return ('synctwitterfriends.' . $this->_id);
+    }
 
-while ($flink->fetch()) {
+    /**
+     * Find all the Twitter foreign links for users who have requested
+     * automatically subscribing to their Twitter friends locally.
+     *
+     * @return array flinks an array of Foreign_link objects
+     */
+    function getObjects()
+    {
+        $flinks = array();
+        $flink = new Foreign_link();
 
-    if (($flink->friendsync & FOREIGN_FRIEND_RECV) == FOREIGN_FRIEND_RECV) {
+        $conn = &$flink->getDatabaseConnection();
 
-        $user = User::staticGet($flink->user_id);
+        $flink->service = TWITTER_SERVICE;
+        $flink->orderBy('last_friendsync');
+        $flink->limit(25);  // sync this many users during this run
+        $flink->find();
 
-        if (empty($user)) {
-            common_log(LOG_WARNING, "Unmatched user for ID " . $flink->user_id);
-            print "Unmatched user for ID $flink->user_id\n";
-            continue;
+        while ($flink->fetch()) {
+            if (($flink->friendsync & FOREIGN_FRIEND_RECV) == FOREIGN_FRIEND_RECV) {
+                $flinks[] = clone($flink);
+            }
         }
 
-        print "Updating Twitter friends for $user->nickname (Laconica ID: $user->id)... ";
+        $conn->disconnect();
 
-        $fuser = $flink->getForeignUser();
+        global $_DB_DATAOBJECT;
+        unset($_DB_DATAOBJECT['CONNECTIONS']);
 
-        if (empty($fuser)) {
-            common_log(LOG_WARNING, "Unmatched user for ID " . $flink->user_id);
-            print "Unmatched user for ID $flink->user_id\n";
-            continue;
-        }
+        return $flinks;
+    }
 
-        save_twitter_friends($user, $fuser->id, $fuser->nickname, $flink->credentials);
+    function childTask($flink) {
+
+        // Each child ps needs its own DB connection
+
+        // Note: DataObject::getDatabaseConnection() creates
+        // a new connection if there isn't one already
+
+        $conn = &$flink->getDatabaseConnection();
+
+        $this->subscribeTwitterFriends($flink);
 
         $flink->last_friendsync = common_sql_now();
         $flink->update();
 
-        if (defined('SCRIPT_DEBUG')) {
-            print "\nDONE\n";
+        $conn->disconnect();
+
+        // XXX: Couldn't find a less brutal way to blow
+        // away a cached connection
+
+        global $_DB_DATAOBJECT;
+        unset($_DB_DATAOBJECT['CONNECTIONS']);
+    }
+
+    function fetchTwitterFriends($flink)
+    {
+        $friends = array();
+
+        $client = null;
+
+        if (TwitterOAuthClient::isPackedToken($flink->credentials)) {
+            $token = TwitterOAuthClient::unpackToken($flink->credentials);
+            $client = new TwitterOAuthClient($token->key, $token->secret);
+            common_debug($this->name() . '- Grabbing friends IDs with OAuth.');
         } else {
-            print "DONE\n";
+            $client = new TwitterBasicAuthClient($flink);
+            common_debug($this->name() . '- Grabbing friends IDs with basic auth.');
         }
+
+        try {
+            $friends_ids = $client->friendsIds();
+        } catch (Exception $e) {
+            common_log(LOG_WARNING, $this->name() .
+                       ' - cURL error getting friend ids ' .
+                       $e->getCode() . ' - ' . $e->getMessage());
+            return $friends;
+        }
+
+        if (empty($friends_ids)) {
+            common_debug($this->name() .
+                         " - Twitter user $flink->foreign_id " .
+                         'doesn\'t have any friends!');
+            return $friends;
+        }
+
+        common_debug($this->name() . ' - Twitter\'s API says Twitter user id ' .
+                     "$flink->foreign_id has " .
+                     count($friends_ids) . ' friends.');
+
+        // Calculate how many pages to get...
+        $pages = ceil(count($friends_ids) / 100);
+
+        if ($pages == 0) {
+            common_debug($this->name() . " - $user seems to have no friends.");
+        }
+
+        for ($i = 1; $i <= $pages; $i++) {
+
+        try {
+            $more_friends = $client->statusesFriends(null, null, null, $i);
+        } catch (Exception $e) {
+            common_log(LOG_WARNING, $this->name() .
+                       ' - cURL error getting Twitter statuses/friends ' .
+                       "page $i - " . $e->getCode() . ' - ' .
+                       $e->getMessage());
+        }
+
+            if (empty($more_friends)) {
+                common_log(LOG_WARNING, $this->name() .
+                           " - Couldn't retrieve page $i " .
+                           "of Twitter user $flink->foreign_id friends.");
+                continue;
+            } else {
+                $friends = array_merge($friends, $more_friends);
+            }
+        }
+
+        return $friends;
     }
+
+    function subscribeTwitterFriends($flink)
+    {
+        $friends = $this->fetchTwitterFriends($flink);
+
+        if (empty($friends)) {
+            common_debug($this->name() .
+                         ' - Couldn\'t get friends from Twitter for ' .
+                         "Twitter user $flink->foreign_id.");
+            return false;
+        }
+
+        $user = $flink->getUser();
+
+        foreach ($friends as $friend) {
+
+            $friend_name = $friend->screen_name;
+            $friend_id = (int) $friend->id;
+
+            // Update or create the Foreign_user record for each
+            // Twitter friend
+
+            if (!save_twitter_user($friend_id, $friend_name)) {
+                common_log(LOG_WARNING, $this-name() .
+                           " - Couldn't save $screen_name's friend, $friend_name.");
+                continue;
+            }
+
+            // Check to see if there's a related local user
+
+            $friend_flink = Foreign_link::getByForeignID($friend_id,
+                                                         TWITTER_SERVICE);
+
+            if (!empty($friend_flink)) {
+
+                // Get associated user and subscribe her
+
+                $friend_user = User::staticGet('id', $friend_flink->user_id);
+
+                if (!empty($friend_user)) {
+                    $result = subs_subscribe_to($user, $friend_user);
+
+                    if ($result === true) {
+                        common_log(LOG_INFO,
+                                   $this->name() . ' - Subscribed ' .
+                                   "$friend_user->nickname to $user->nickname.");
+                    } else {
+                        common_debug($this->name() .
+                                     ' - Tried subscribing ' .
+                                     "$friend_user->nickname to $user->nickname - " .
+                                     $result);
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
 }
 
-function lockFilename()
-{
-    $piddir = common_config('daemon', 'piddir');
-    if (!$piddir) {
-        $piddir = '/var/run';
-    }
+$id    = null;
+$debug = null;
 
-    return $piddir . '/synctwitterfriends.lock';
+if (have_option('i')) {
+    $id = get_option_value('i');
+} else if (have_option('--id')) {
+    $id = get_option_value('--id');
+} else if (count($args) > 0) {
+    $id = $args[0];
+} else {
+    $id = null;
 }
 
-// Cleanup
-fclose($lockfile);
-unlink($lockfilename);
+if (have_option('d') || have_option('debug')) {
+    $debug = true;
+}
 
-exit(0);
+$syncer = new SyncTwitterFriendsDaemon($id, 60, 2, $debug);
+$syncer->runOnce();
+

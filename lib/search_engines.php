@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 class SearchEngine
 {
@@ -120,7 +120,7 @@ class MySQLSearch extends SearchEngine
         } else if ('identica_notices' === $this->table) {
 
             // Don't show imported notices
-            $this->target->whereAdd('notice.is_local != ' . NOTICE_GATEWAY);
+            $this->target->whereAdd('notice.is_local != ' . Notice::GATEWAY);
 
             if (strtolower($q) != $q) {
                 $this->target->whereAdd("( MATCH(content) AGAINST ('" . addslashes($q) .

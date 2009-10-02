@@ -29,34 +29,38 @@ class Foreign_link extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    // XXX:  This only returns a 1->1 single obj mapping.  Change?  Or make
-    // a getForeignUsers() that returns more than one? --Zach
     static function getByUserID($user_id, $service)
     {
+        if (empty($user_id) || empty($service)) {
+            return null;
+        }
+
         $flink = new Foreign_link();
+
         $flink->service = $service;
         $flink->user_id = $user_id;
         $flink->limit(1);
 
-        if ($flink->find(true)) {
-            return $flink;
-        }
+        $result = $flink->find(true);
 
-        return null;
+        return empty($result) ? null : $flink;
+
     }
 
     static function getByForeignID($foreign_id, $service)
     {
-        $flink = new Foreign_link();
-        $flink->service = $service;
-        $flink->foreign_id = $foreign_id;
-        $flink->limit(1);
+        if (empty($foreign_id) || empty($service)) {
+            return null;
+        } else {
+            $flink = new Foreign_link();
+            $flink->service = $service;
+            $flink->foreign_id = $foreign_id;
+            $flink->limit(1);
 
-        if ($flink->find(true)) {
-            return $flink;
+            $result = $flink->find(true);
+
+            return empty($result) ? null : $flink;
         }
-
-        return null;
     }
 
     function set_flags($noticesend, $noticerecv, $replysync, $friendsync)
@@ -66,7 +70,7 @@ class Foreign_link extends Memcached_DataObject
         } else {
             $this->noticesync &= ~FOREIGN_NOTICE_SEND;
         }
-        
+
         if ($noticerecv) {
             $this->noticesync |= FOREIGN_NOTICE_RECV;
         } else {

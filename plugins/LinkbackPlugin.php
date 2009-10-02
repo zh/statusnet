@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Plugin to do linkbacks for notices containing links
  *
@@ -20,14 +20,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Plugin
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET')) {
     exit(1);
 }
 
@@ -42,10 +42,10 @@ define('LINKBACKPLUGIN_VERSION', '0.1');
  * are URLs, we test each URL to see if it supports any
  *
  * @category Plugin
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
  * @see      Event
  */
@@ -75,6 +75,8 @@ class LinkbackPlugin extends Plugin
 
     function linkbackUrl($url)
     {
+        common_log(LOG_DEBUG,"Attempting linkback for " . $url);
+
         $orig = $url;
         $url = htmlspecialchars_decode($orig);
         $scheme = parse_url($url, PHP_URL_SCHEME);
@@ -134,15 +136,20 @@ class LinkbackPlugin extends Plugin
                                                                "User-Agent: " . $this->userAgent(),
                                                                'content' => $request)));
         $file = file_get_contents($endpoint, false, $context);
-        $response = xmlrpc_decode($file);
-        if (xmlrpc_is_fault($response)) {
+        if (!$file) {
             common_log(LOG_WARNING,
+	               "Pingback request failed for '$url' ($endpoint)");
+        } else {
+            $response = xmlrpc_decode($file);
+            if (xmlrpc_is_fault($response)) {
+                common_log(LOG_WARNING,
                        "Pingback error for '$url' ($endpoint): ".
                        "$response[faultString] ($response[faultCode])");
-        } else {
-            common_log(LOG_INFO,
+            } else {
+                common_log(LOG_INFO,
                        "Pingback success for '$url' ($endpoint): ".
                        "'$response'");
+            }
         }
     }
 
@@ -225,6 +232,6 @@ class LinkbackPlugin extends Plugin
     function userAgent()
     {
         return 'LinkbackPlugin/'.LINKBACKPLUGIN_VERSION .
-          ' Laconica/' . LACONICA_VERSION;
+          ' StatusNet/' . STATUSNET_VERSION;
     }
 }

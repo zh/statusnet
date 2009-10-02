@@ -6,14 +6,14 @@
  * PHP version 5
  *
  * @category Action
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Robin Millette <millette@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Robin Millette <millette@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -29,7 +29,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -39,11 +39,11 @@ require_once INSTALLDIR.'/lib/omb.php';
  * Request token action class.
  *
  * @category Action
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Robin Millette <millette@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Robin Millette <millette@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 class RequesttokenAction extends Action
 {
@@ -72,7 +72,7 @@ class RequesttokenAction extends Action
             $req    = OAuthRequest::from_request('POST', common_local_url('requesttoken'));
             $server = omb_oauth_server();
             $token  = $server->fetch_request_token($req);
-            print $token;
+            print $token.'&omb_version='.OMB_VERSION_01;
         } catch (OAuthException $e) {
             $this->serverError($e->getMessage());
         }

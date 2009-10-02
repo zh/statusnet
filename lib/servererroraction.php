@@ -6,14 +6,14 @@
  * PHP version 5
  *
  * @category Action
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Zach Copley <zach@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -29,7 +29,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -47,25 +47,30 @@ require_once INSTALLDIR.'/lib/error.php';
  * See: http://tools.ietf.org/html/rfc2616#section-10
  *
  * @category Action
- * @package  Laconica
- * @author   Zach Copley <zach@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
+
 class ServerErrorAction extends ErrorAction
 {
+    static $status = array(500 => 'Internal Server Error',
+                           501 => 'Not Implemented',
+                           502 => 'Bad Gateway',
+                           503 => 'Service Unavailable',
+                           504 => 'Gateway Timeout',
+                           505 => 'HTTP Version Not Supported');
+
     function __construct($message='Error', $code=500)
     {
         parent::__construct($message, $code);
 
-        $this->status  = array(500 => 'Internal Server Error',
-                               501 => 'Not Implemented',
-                               502 => 'Bad Gateway',
-                               503 => 'Service Unavailable',
-                               504 => 'Gateway Timeout',
-                               505 => 'HTTP Version Not Supported');
-
         $this->default = 500;
+
+        // Server errors must be logged.
+
+        common_log(LOG_ERR, "ServerErrorAction: $code $message");
     }
 
     // XXX: Should these error actions even be invokable via URI?
@@ -87,10 +92,5 @@ class ServerErrorAction extends ErrorAction
         }
 
         $this->showPage();
-    }
-
-    function title()
-    {
-        return $this->status[$this->code];
     }
 }

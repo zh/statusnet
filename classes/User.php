@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -120,11 +120,15 @@ class User extends Memcached_DataObject
     function allowed_nickname($nickname)
     {
         // XXX: should already be validated for size, content, etc.
-        static $blacklist = array('rss', 'xrds', 'doc', 'main',
-                                  'settings', 'notice', 'user',
-                                  'search', 'avatar', 'tag', 'tags',
-                                  'api', 'message', 'group', 'groups',
-                                  'local');
+
+        $blacklist = array();
+
+        //all directory and file names should be blacklisted
+        $d = dir(INSTALLDIR);
+        while (false !== ($entry = $d->read())) {
+            $blacklist[]=$entry;
+        }
+        $d->close();
         $merged = array_merge($blacklist, common_config('nickname', 'blacklist'));
         return !in_array($nickname, $merged);
     }

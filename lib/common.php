@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,9 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
-define('LACONICA_VERSION', '0.8.1dev');
+define('STATUSNET_VERSION', '0.8.2dev');
+define('LACONICA_VERSION', STATUSNET_VERSION); // compatibility
+
+define('STATUSNET_CODENAME', 'Second Guessing');
 
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
@@ -47,6 +50,9 @@ require_once('PEAR.php');
 require_once('DB/DataObject.php');
 require_once('DB/DataObject/Cast.php'); # for dates
 
+if (!function_exists('gettext')) {
+    require_once("php-gettext/gettext.inc");
+}
 require_once(INSTALLDIR.'/lib/language.php');
 
 // This gets included before the config file, so that admin code and plugins
@@ -82,7 +88,7 @@ if (isset($server)) {
 if (isset($path)) {
     $_path = $path;
 } else {
-    $_path = array_key_exists('SCRIPT_NAME', $_SERVER) ?
+    $_path = (array_key_exists('SERVER_NAME', $_SERVER) && array_key_exists('SCRIPT_NAME', $_SERVER)) ?
       _sn_to_path($_SERVER['SCRIPT_NAME']) :
     null;
 }
@@ -91,17 +97,9 @@ if (isset($path)) {
 
 $config =
   array('site' =>
-        array('name' => 'Just another Laconica microblog',
+        array('name' => 'Just another StatusNet microblog',
               'server' => $_server,
               'theme' => 'default',
-              'design' =>
-              array('backgroundcolor' => '#CEE1E9',
-                    'contentcolor' => '#FFFFFF',
-                    'sidebarcolor' => '#C8D1D5',
-                    'textcolor' => '#000000',
-                    'linkcolor' => '#002E6E',
-                    'backgroundimage' => null,
-                    'disposition' => 1),
               'path' => $_path,
               'logfile' => null,
               'logo' => null,
@@ -117,20 +115,21 @@ $config =
               'broughtbyurl' => null,
               'closed' => false,
               'inviteonly' => false,
+              'openidonly' => false,
               'private' => false,
               'ssl' => 'never',
               'sslserver' => null,
               'shorturllength' => 30,
               'dupelimit' => 60), # default for same person saying the same thing
         'syslog' =>
-        array('appname' => 'laconica', # for syslog
+        array('appname' => 'statusnet', # for syslog
               'priority' => 'debug', # XXX: currently ignored
               'facility' => LOG_USER),
         'queue' =>
         array('enabled' => false,
               'subsystem' => 'db', # default to database, or 'stomp'
               'stomp_server' => null,
-              'queue_basename' => 'laconica',
+              'queue_basename' => 'statusnet',
               'stomp_username' => null,
               'stomp_password' => null,
               ),
@@ -177,6 +176,8 @@ $config =
               'host' => null, # only set if != server
               'debug' => false, # print extra debug info
               'public' => array()), # JIDs of users who want to receive the public stream
+        'openid' =>
+        array('enabled' => true),
         'invite' =>
         array('enabled' => true),
         'sphinx' =>
@@ -191,11 +192,20 @@ $config =
         array('piddir' => '/var/run',
               'user' => false,
               'group' => false),
+        'emailpost' =>
+        array('enabled' => true),
+        'sms' =>
+        array('enabled' => true),
+        'twitter' =>
+        array('enabled' => true),
         'twitterbridge' =>
         array('enabled' => false),
         'integration' =>
-        array('source' => 'Laconica', # source attribute for Twitter
+        array('source' => 'StatusNet', # source attribute for Twitter
               'taguri' => $_server.',2009'), # base for tag URIs
+	'twitter' =>
+	array('consumer_key'    => null,
+	      'consumer_secret' => null),
         'memcached' =>
         array('enabled' => false,
               'server' => 'localhost',
@@ -211,7 +221,7 @@ $config =
         'snapshot' =>
         array('run' => 'web',
               'frequency' => 10000,
-              'reporturl' => 'http://laconi.ca/stats/report'),
+              'reporturl' => 'http://status.net/stats/report'),
         'attachments' =>
         array('server' => null,
               'dir' => INSTALLDIR . '/file/',
@@ -261,6 +271,14 @@ $config =
         'sessions' =>
         array('handle' => false, // whether to handle sessions ourselves
               'debug' => false), // debugging output for sessions
+        'design' =>
+        array('backgroundcolor' => null, // null -> 'use theme default'
+              'contentcolor' => null,
+              'sidebarcolor' => null,
+              'textcolor' => null,
+              'linkcolor' => null,
+              'backgroundimage' => null,
+              'disposition' => null),
         );
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
@@ -276,6 +294,10 @@ $config['db'] =
         'db_driver' => 'DB', # XXX: JanRain libs only work with DB
         'quote_identifiers' => false,
         'type' => 'mysql' );
+
+// Backward compatibility
+
+$config['site']['design'] =& $config['design'];
 
 if (function_exists('date_default_timezone_set')) {
     /* Work internally in UTC */
@@ -322,10 +344,14 @@ function addPlugin($name, $attrs = null)
 if (isset($conffile)) {
     $_config_files = array($conffile);
 } else {
-    $_config_files = array('/etc/laconica/laconica.php',
+    $_config_files = array('/etc/statusnet/statusnet.php',
+                           '/etc/statusnet/laconica.php',
+                           '/etc/laconica/laconica.php',
+                           '/etc/statusnet/'.$_server.'.php',
                            '/etc/laconica/'.$_server.'.php');
 
     if (strlen($_path) > 0) {
+        $_config_files[] = '/etc/statusnet/'.$_server.'_'.$_path.'.php';
         $_config_files[] = '/etc/laconica/'.$_server.'_'.$_path.'.php';
     }
 
@@ -349,12 +375,18 @@ function _have_config()
 
 // XXX: Throw a conniption if database not installed
 
-// Fixup for laconica.ini
+// Fixup for statusnet.ini
 
 $_db_name = substr($config['db']['database'], strrpos($config['db']['database'], '/') + 1);
 
-if ($_db_name != 'laconica' && !array_key_exists('ini_'.$_db_name, $config['db'])) {
-    $config['db']['ini_'.$_db_name] = INSTALLDIR.'/classes/laconica.ini';
+if ($_db_name != 'statusnet' && !array_key_exists('ini_'.$_db_name, $config['db'])) {
+    $config['db']['ini_'.$_db_name] = INSTALLDIR.'/classes/statusnet.ini';
+}
+
+// Ignore openidonly if OpenID is disabled
+
+if (!$config['openid']['enabled']) {
+    $config['site']['openidonly'] = false;
 }
 
 // XXX: how many of these could be auto-loaded on use?

@@ -6,14 +6,14 @@
  * PHP version 5
  *
  * @category Action
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Robin Millette <millette@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Robin Millette <millette@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -29,7 +29,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -41,12 +41,12 @@ require_once INSTALLDIR.'/lib/rssaction.php';
  * Formatting of RSS handled by Rss10Action
  *
  * @category Action
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Robin Millette <millette@controlyourself.ca>
- * @author   Zach Copley <zach@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Robin Millette <millette@status.net>
+ * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 class FavoritesrssAction extends Rss10Action
 {
@@ -111,8 +111,8 @@ class FavoritesrssAction extends Rss10Action
                    'link' => common_local_url('showfavorites',
                                         array('nickname' =>
                                         $user->nickname)),
-                   'description' => sprintf(_('Feed of favorite notices of %s'), 
-                                        $user->nickname));
+                   'description' => sprintf(_('Updates favored by %1$s on %2$s!'),
+                                        $user->nickname, common_config('site', 'name')));
         return $c;
     }
 

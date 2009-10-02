@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Superclass for plugins that do "real time" updates of timelines using Ajax
  *
@@ -20,14 +20,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Plugin
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -38,10 +38,10 @@ if (!defined('LACONICA')) {
  * this superclass extracts out some of the common functionality
  *
  * @category Plugin
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class RealtimePlugin extends Plugin
@@ -50,6 +50,11 @@ class RealtimePlugin extends Plugin
     protected $favorurl = null;
     protected $deleteurl = null;
 
+    /**
+     * When it's time to initialize the plugin, calculate and
+     * pass the URLs we need.
+     */
+
     function onInitializePlugin()
     {
         $this->replyurl = common_local_url('newnotice');
@@ -57,36 +62,31 @@ class RealtimePlugin extends Plugin
         // FIXME: need to find a better way to pass this pattern in
         $this->deleteurl = common_local_url('deletenotice',
                                             array('notice' => '0000000000'));
+        return true;
     }
 
     function onEndShowScripts($action)
     {
-        $path = null;
+        $timeline = $this->_getTimeline($action);
 
-        switch ($action->trimmed('action')) {
-         case 'public':
-            $path = array('public');
-            break;
-         case 'tag':
-            $tag = $action->trimmed('tag');
-            if (!empty($tag)) {
-                $path = array('tag', $tag);
-            } else {
-                return true;
-            }
-            break;
-         default:
+        // If there's not a timeline on this page,
+        // just return true
+
+        if (empty($timeline)) {
             return true;
         }
 
-        $timeline = $this->_pathToChannel($path);
+        $base = $action->selfUrl();
+        if (mb_strstr($base, '?')) {
+            $url = $base . '&realtime=1';
+        } else {
+            $url = $base . '?realtime=1';
+        }
 
         $scripts = $this->_getScripts();
 
         foreach ($scripts as $script) {
-            $action->element('script', array('type' => 'text/javascript',
-                                             'src' => $script),
-                         ' ');
+            $action->script($script);
         }
 
         $user = common_current_user();
@@ -97,10 +97,22 @@ class RealtimePlugin extends Plugin
             $user_id = 0;
         }
 
+        if ($action->boolean('realtime')) {
+            $realtimeUI = ' RealtimeUpdate.initPopupWindow();';
+        }
+        else {
+            $iconurl = common_path('plugins/Realtime/icon_external.gif');
+            $realtimeUI = ' RealtimeUpdate.addPopup("'.$url.'", "'.$timeline.'", "'. $iconurl .'");';
+        }
+
         $action->elementStart('script', array('type' => 'text/javascript'));
-        $action->raw("$(document).ready(function() { ");
-        $action->raw($this->_updateInitialize($timeline, $user_id));
-        $action->raw(" });");
+
+        $script = ' $(document).ready(function() { '.
+          $realtimeUI.
+          $this->_updateInitialize($timeline, $user_id).
+          '}); ';
+        $action->raw($script);
+
         $action->elementEnd('script');
 
         return true;
@@ -110,18 +122,68 @@ class RealtimePlugin extends Plugin
     {
         $paths = array();
 
-        // XXX: Add other timelines; this is just for the public one
+        // Add to the author's timeline
+
+        $user = User::staticGet('id', $notice->profile_id);
+
+        if (!empty($user)) {
+            $paths[] = array('showstream', $user->nickname);
+        }
+
+        // Add to the public timeline
 
         if ($notice->is_local ||
             ($notice->is_local == 0 && !common_config('public', 'localonly'))) {
             $paths[] = array('public');
         }
 
+        // Add to the tags timeline
+
         $tags = $this->getNoticeTags($notice);
 
         if (!empty($tags)) {
             foreach ($tags as $tag) {
                 $paths[] = array('tag', $tag);
+            }
+        }
+
+        // Add to inbox timelines
+        // XXX: do a join
+
+        $inbox = new Notice_inbox();
+        $inbox->notice_id = $notice->id;
+
+        if ($inbox->find()) {
+            while ($inbox->fetch()) {
+                $user = User::staticGet('id', $inbox->user_id);
+                $paths[] = array('all', $user->nickname);
+            }
+        }
+
+        // Add to the replies timeline
+
+        $reply = new Reply();
+        $reply->notice_id = $notice->id;
+
+        if ($reply->find()) {
+            while ($reply->fetch()) {
+                $user = User::staticGet('id', $reply->profile_id);
+                if (!empty($user)) {
+                    $paths[] = array('replies', $user->nickname);
+                }
+            }
+        }
+
+        // Add to the group timeline
+        // XXX: join
+
+        $gi = new Group_inbox();
+        $gi->notice_id = $notice->id;
+
+        if ($gi->find()) {
+            while ($gi->fetch()) {
+                $ug = User_group::staticGet('id', $gi->group_id);
+                $paths[] = array('showgroup', $ug->nickname);
             }
         }
 
@@ -140,6 +202,36 @@ class RealtimePlugin extends Plugin
         }
 
         return true;
+    }
+
+    function onStartShowBody($action)
+    {
+        $realtime = $action->boolean('realtime');
+        if (!$realtime) {
+            return true;
+        }
+
+        $action->elementStart('body',
+                              (common_current_user()) ? array('id' => $action->trimmed('action'),
+                                                              'class' => 'user_in')
+                              : array('id' => $action->trimmed('action')));
+
+        // XXX hack to deal with JS that tries to get the
+        // root url from page output
+
+        $action->elementStart('address');
+        $action->element('a', array('class' => 'url',
+                                  'href' => common_local_url('public')),
+                         '');
+        $action->elementEnd('address');
+
+        if (common_logged_in()) {
+            $action->showNoticeForm();
+        }
+
+        $action->showContentBlock();
+        $action->elementEnd('body');
+        return false; // No default processing
     }
 
     function noticeAsJson($notice)
@@ -201,8 +293,8 @@ class RealtimePlugin extends Plugin
 
     function _getScripts()
     {
-        return array(common_path('plugins/Realtime/realtimeupdate.js'),
-                     common_path('plugins/Realtime/json2.js'));
+        return array('plugins/Realtime/realtimeupdate.js',
+                     'plugins/Realtime/json2.js');
     }
 
     function _updateInitialize($timeline, $user_id)
@@ -225,5 +317,42 @@ class RealtimePlugin extends Plugin
     function _pathToChannel($path)
     {
         return '';
+    }
+
+    function _getTimeline($action)
+    {
+        $path = null;
+        $timeline = null;
+
+        $action_name = $action->trimmed('action');
+
+        switch ($action_name) {
+         case 'public':
+            $path = array('public');
+            break;
+         case 'tag':
+            $tag = $action->trimmed('tag');
+            if (!empty($tag)) {
+                $path = array('tag', $tag);
+            }
+            break;
+         case 'showstream':
+         case 'all':
+         case 'replies':
+         case 'showgroup':
+            $nickname = common_canonical_nickname($action->trimmed('nickname'));
+            if (!empty($nickname)) {
+                $path = array($action_name, $nickname);
+            }
+            break;
+         default:
+            break;
+        }
+
+        if (!empty($path)) {
+            $timeline = $this->_pathToChannel($path);
+        }
+
+        return $timeline;
     }
 }

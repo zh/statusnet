@@ -1,10 +1,10 @@
 /** theme: default
  *
- * @package   Laconica
- * @author Sarven Capadisli <csarven@controlyourself.ca>
- * @copyright 2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author Sarven Capadisli <csarven@status.net>
+ * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
 @import url(../../base/css/display.css);
@@ -66,7 +66,7 @@ div.notice-options input,
 .entity_nudge p,
 .form_settings input.form_action-primary,
 .form_make_admin input.submit {
-color:#002E6E;
+color:#002FA7;
 }
 
 .notice,
@@ -94,10 +94,11 @@ background:transparent url(../../base/images/icons/twotone/green/clip-01.gif) no
 opacity:0;
 }
 
-#form_notice.processing #notice_action-submit {
+#wrap form.processing input.submit {
 background:#FFFFFF url(../../base/images/icons/icon_processing.gif) no-repeat 47% 47%;
 cursor:wait;
 text-indent:-9999px;
+outline:none;
 }
 
 #content {
@@ -214,11 +215,7 @@ background:transparent url(../../base/images/icons/twotone/green/clip-02.gif) no
 #attachments .attachment {
 background:none;
 }
-.notice-options .notice_reply a,
-.notice-options form input.submit {
-background-color:transparent;
-}
-.notice-options .notice_reply a {
+.notice-options .notice_reply {
 background:transparent url(../../base/images/icons/twotone/green/reply.gif) no-repeat 0 45%;
 }
 .notice-options form.form_favor input.submit {
@@ -227,7 +224,7 @@ background:transparent url(../../base/images/icons/twotone/green/favourite.gif) 
 .notice-options form.form_disfavor input.submit {
 background:transparent url(../../base/images/icons/twotone/green/disfavourite.gif) no-repeat 0 45%;
 }
-.notice-options .notice_delete a {
+.notice-options .notice_delete {
 background:transparent url(../../base/images/icons/twotone/green/trash.gif) no-repeat 0 45%;
 }
 
@@ -238,9 +235,6 @@ opacity:0.4;
 .notices li:hover div.entry-content,
 .notices li:hover div.notice-options {
 opacity:1;
-}
-div.entry-content {
-color:#333333;
 }
 div.notice-options a,
 div.notice-options input {

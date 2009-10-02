@@ -1,7 +1,7 @@
 <?php
 /**
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -18,7 +18,8 @@
  */
 
 define('INSTALLDIR', dirname(__FILE__));
-define('LACONICA', true);
+define('STATUSNET', true);
+define('LACONICA', true); // compatibility
 
 require_once INSTALLDIR . '/lib/common.php';
 
@@ -31,7 +32,13 @@ function getPath($req)
         && array_key_exists('p', $req)) {
         return $req['p'];
     } else if (array_key_exists('PATH_INFO', $_SERVER)) {
-        return $_SERVER['PATH_INFO'];
+        $path = $_SERVER['PATH_INFO'];
+        $script = $_SERVER['SCRIPT_NAME'];
+        if (substr($path, 0, mb_strlen($script)) == $script) {
+            return substr($path, mb_strlen($script));
+        } else {
+            return $path;
+        }
     } else {
         return null;
     }
@@ -73,7 +80,7 @@ function handleError($error)
     exit(-1);
 }
 
-function checkMirror($action_obj)
+function checkMirror($action_obj, $args)
 {
     global $config;
 
@@ -93,7 +100,7 @@ function checkMirror($action_obj)
         // on the master DB
 
         $config['db']['database_rw'] = $config['db']['database'];
-        $config['db']['ini_rw'] = INSTALLDIR.'/classes/laconica.ini';
+        $config['db']['ini_rw'] = INSTALLDIR.'/classes/statusnet.ini';
 
         foreach ($alwaysRW as $table) {
             $config['db']['table_'.$table] = 'rw';
@@ -107,8 +114,27 @@ function checkMirror($action_obj)
 
 function main()
 {
+    // fake HTTP redirects using lighttpd's 404 redirects
+    if (strpos($_SERVER['SERVER_SOFTWARE'], 'lighttpd') !== false) {
+        $_lighty_url = $base_url.$_SERVER['REQUEST_URI'];
+        $_lighty_url = @parse_url($_lighty_url);
+
+        if ($_lighty_url['path'] != '/index.php' && $_lighty_url['path'] != '/') {
+            $_lighty_path = preg_replace('/^'.preg_quote(common_config('site','path')).'\//', '', substr($_lighty_url['path'], 1));
+            $_SERVER['QUERY_STRING'] = 'p='.$_lighty_path;
+            if ($_lighty_url['query'])
+                $_SERVER['QUERY_STRING'] .= '&'.$_lighty_url['query'];
+            parse_str($_lighty_url['query'], $_lighty_query);
+            foreach ($_lighty_query as $key => $val) {
+                $_GET[$key] = $_REQUEST[$key] = $val;
+            }
+            $_GET['p'] = $_REQUEST['p'] = $_lighty_path;
+        }
+    }
+    $_SERVER['REDIRECT_URL'] = preg_replace("/\?.+$/", "", $_SERVER['REQUEST_URI']);
+
     // quick check for fancy URL auto-detection support in installer.
-    if (isset($_SERVER['REDIRECT_URL']) && ((dirname($_SERVER['REQUEST_URI']) . '/check-fancy') === $_SERVER['REDIRECT_URL'])) {
+    if (isset($_SERVER['REDIRECT_URL']) && (preg_replace("/^\/$/","",(dirname($_SERVER['REQUEST_URI']))) . '/check-fancy') === $_SERVER['REDIRECT_URL']) {
         die("Fancy URL support detection succeeded. We suggest you enable this to get fancy (pretty) URLs.");
     }
     global $user, $action;
@@ -163,12 +189,36 @@ function main()
     // If the site is private, and they're not on one of the "public"
     // parts of the site, redirect to login
 
-    if (!$user && common_config('site', 'private') &&
-        !in_array($action, array('login', 'openidlogin', 'finishopenidlogin',
-                                 'recoverpassword', 'api', 'doc', 'register')) &&
-        !preg_match('/rss$/', $action)) {
-        common_redirect(common_local_url('login'));
-        return;
+    if (!$user && common_config('site', 'private')) {
+        $public_actions = array('openidlogin', 'finishopenidlogin',
+                                'recoverpassword', 'api', 'doc',
+                                'opensearch');
+        $login_action = 'openidlogin';
+        if (!common_config('site', 'openidonly')) {
+            $public_actions[] = 'login';
+            $public_actions[] = 'register';
+            $login_action = 'login';
+        }
+        if (!in_array($action, $public_actions) &&
+            !preg_match('/rss$/', $action)) {
+
+            // set returnto
+            $rargs =& common_copy_args($args);
+            unset($rargs['action']);
+            if (common_config('site', 'fancy')) {
+                unset($rargs['p']);
+            }
+            if (array_key_exists('submit', $rargs)) {
+                unset($rargs['submit']);
+            }
+            foreach (array_keys($_COOKIE) as $cookie) {
+                unset($rargs[$cookie]);
+            }
+            common_set_returnto(common_local_url($action, $rargs));
+
+            common_redirect(common_local_url($login_action));
+            return;
+        }
     }
 
     $action_class = ucfirst($action).'Action';
@@ -179,7 +229,7 @@ function main()
     } else {
         $action_obj = new $action_class();
 
-        checkMirror($action_obj);
+        checkMirror($action_obj, $args);
 
         try {
             if ($action_obj->prepare($args)) {

@@ -5,15 +5,15 @@
  * PHP version 5
  *
  * @category Action
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Robin Millette <millette@controlyourself.ca>
- * @author   Sarven Capadisli <csarven@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Robin Millette <millette@status.net>
+ * @author   Sarven Capadisli <csarven@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -29,7 +29,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -39,11 +39,11 @@ require_once INSTALLDIR.'/lib/searchaction.php';
  * Notice search action class.
  *
  * @category Action
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Robin Millette <millette@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Robin Millette <millette@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  * @todo     common parent for people and content search?
  */
 class NoticesearchAction extends SearchAction
@@ -121,7 +121,9 @@ class NoticesearchAction extends SearchAction
                 $message = sprintf(_('Be the first to [post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!'), urlencode($q));
             }
             else {
-                $message = sprintf(_('Why not [register an account](%%%%action.register%%%%) and be the first to  [post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!'), urlencode($q));
+                $message = sprintf(_('Why not [register an account](%%%%action.%s%%%%) and be the first to [post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!'),
+                                   (!common_config('site','openidonly')) ? 'register' : 'openidlogin',
+                                   urlencode($q));
             }
 
             $this->elementStart('div', 'guide');
@@ -134,6 +136,12 @@ class NoticesearchAction extends SearchAction
         $cnt = $nl->show();
         $this->pagination($page > 1, $cnt > NOTICES_PER_PAGE,
                           $page, 'noticesearch', array('q' => $q));
+    }
+
+    function showScripts()
+    {
+        parent::showScripts();
+        $this->autofocus('q');
     }
 }
 
@@ -190,7 +198,7 @@ class SearchNoticeListItem extends NoticeListItem {
         $result  = preg_replace($pattern, '<strong>\\1</strong>', $text);
 
         /* Remove highlighting from inside links, loop incase multiple highlights in links */
-        $pattern = '/(href="[^"]*)<strong>('.$options.')<\/strong>([^"]*")/iU';
+        $pattern = '/(\w+="[^"]*)<strong>('.$options.')<\/strong>([^"]*")/iU';
         do {
             $result = preg_replace($pattern, '\\1\\2\\3', $result, -1, $count);
         } while ($count);

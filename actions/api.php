@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 class ApiAction extends Action
 {
@@ -27,6 +27,8 @@ class ApiAction extends Action
     var $api_arg;
     var $api_method;
     var $api_action;
+    var $auth_user;
+    var $auth_pw;
 
     function handle($args)
     {
@@ -35,6 +37,7 @@ class ApiAction extends Action
         $this->api_action = $this->arg('apiaction');
         $method = $this->arg('method');
         $argument = $this->arg('argument');
+	$this->basic_auth_process_header();
 
         if (isset($argument)) {
             $cmdext = explode('.', $argument);
@@ -50,16 +53,16 @@ class ApiAction extends Action
         }
 
         if ($this->requires_auth()) {
-            if (!isset($_SERVER['PHP_AUTH_USER'])) {
+            if (!isset($this->auth_user)) {
 
                 # This header makes basic auth go
-                header('WWW-Authenticate: Basic realm="Laconica API"');
+                header('WWW-Authenticate: Basic realm="StatusNet API"');
 
                 # If the user hits cancel -- bam!
                 $this->show_basic_auth_error();
             } else {
-                $nickname = $_SERVER['PHP_AUTH_USER'];
-                $password = $_SERVER['PHP_AUTH_PW'];
+                $nickname = $this->auth_user;
+                $password = $this->auth_pw;
                 $user = common_check_user($nickname, $password);
 
                 if ($user) {
@@ -76,8 +79,8 @@ class ApiAction extends Action
         } else {
 
             // Caller might give us a username even if not required
-            if (isset($_SERVER['PHP_AUTH_USER'])) {
-                $user = User::staticGet('nickname', $_SERVER['PHP_AUTH_USER']);
+            if (isset($this->auth_user)) {
+                $user = User::staticGet('nickname', $this->auth_user);
                 if ($user) {
                     $this->user = $user;
                 }
@@ -125,29 +128,36 @@ class ApiAction extends Action
                                 'users/show',
                                 'help/test',
                                 'help/downtime_schedule',
-                                'laconica/version',
-                                'laconica/config',
-                                'laconica/wadl',
+                                'statusnet/version',
+                                'statusnet/config',
+                                'statusnet/wadl',
                                 'tags/timeline',
                                 'oembed/oembed',
+                                'groups/show',
+                                'groups/timeline',
+                                'groups/list_all',
+                                'groups/membership',
+                                'groups/is_member',
                                 'groups/timeline');
 
         static $bareauth = array('statuses/user_timeline',
                                  'statuses/friends_timeline',
+				 'statuses/home_timeline',
                                  'statuses/friends',
                                  'statuses/replies',
                                  'statuses/mentions',
                                  'statuses/followers',
                                  'favorites/favorites',
-                                 'friendships/show');
+                                 'friendships/show',
+                                 'groups/list_groups');
 
         $fullname = "$this->api_action/$this->api_method";
 
-        // If the site is "private", all API methods except laconica/config
+        // If the site is "private", all API methods except statusnet/config
         // need authentication
 
         if (common_config('site', 'private')) {
-            return $fullname != 'laconica/config' || false;
+            return $fullname != 'statusnet/config' || false;
         }
 
         // bareauth: only needs auth if without an argument or query param specifying user
@@ -195,6 +205,39 @@ class ApiAction extends Action
 
             return true;
         }
+    }
+
+    function basic_auth_process_header()
+    {
+	if(isset($_SERVER['AUTHORIZATION']) || isset($_SERVER['HTTP_AUTHORIZATION']))
+	{
+		$authorization_header = isset($_SERVER['HTTP_AUTHORIZATION'])?$_SERVER['HTTP_AUTHORIZATION']:$_SERVER['AUTHORIZATION'];
+	}
+
+	if(isset($_SERVER['PHP_AUTH_USER']))
+	{
+		$this->auth_user = $_SERVER['PHP_AUTH_USER'];
+		$this->auth_pw = $_SERVER['PHP_AUTH_PW'];
+	}
+	elseif ( isset($authorization_header) && strstr(substr($authorization_header, 0,5),'Basic')  )
+	{
+		// decode the HTTP_AUTHORIZATION header on php-cgi server self
+		// on fcgid server the header name is AUTHORIZATION
+
+		$auth_hash = base64_decode( substr($authorization_header, 6) );
+		list($this->auth_user, $this->auth_pw) = explode(':', $auth_hash);
+
+		// set all to NULL on a empty basic auth request
+		if($this->auth_user == "") {
+			$this->auth_user = NULL;
+			$this->auth_pw = NULL;
+		}
+	}
+	else
+	{
+		$this->auth_user = NULL;
+		$this->auth_pw = NULL;
+	}
     }
 
     function show_basic_auth_error()

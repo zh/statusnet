@@ -2,40 +2,46 @@
 README
 ------
 
-Laconica 0.8.0 ("Shiny Happy People")
-15 July 2009
+StatusNet 0.8.1 ("Second Guessing")
+26 Aug 2009
 
-This is the README file for Laconica, the Open Source microblogging
-platform. It includes installation instructions, descriptions of
-options you can set, warnings, tips, and general info for
-administrators. Information on using Laconica can be found in the
+This is the README file for StatusNet (formerly Laconica), the Open
+Source microblogging platform. It includes installation instructions,
+descriptions of options you can set, warnings, tips, and general info
+for administrators. Information on using StatusNet can be found in the
 "doc" subdirectory or in the "help" section on-line.
 
 About
 =====
 
-Laconica (pronounced "luh-KAWN-ih-kuh") is a Free and Open Source
-microblogging platform. It helps people in a community, company or
-group to exchange short (140 character) messages over the Web. Users
-can choose which people to "follow" and receive only their friends' or
-colleagues' status messages. It provides a similar service to sites
-like Twitter, Jaiku and Plurk.
+StatusNet (formerly Laconica) is a Free and Open Source microblogging
+platform. It helps people in a community, company or group to exchange
+short (140 character) messages over the Web. Users can choose which
+people to "follow" and receive only their friends' or colleagues'
+status messages. It provides a similar service to sites like Twitter,
+Jaiku, Yammer, and Plurk.
 
 With a little work, status messages can be sent to mobile phones,
 instant messenger programs (GTalk/Jabber), and specially-designed
 desktop clients that support the Twitter API.
 
-Laconica supports an open standard called OpenMicroBlogging
+StatusNet supports an open standard called OpenMicroBlogging
 <http://openmicroblogging.org/> that lets users on different Web sites
 or in different companies subscribe to each others' notices. It
 enables a distributed social network spread all across the Web.
 
-Laconica was originally developed for the Open Software Service,
+StatusNet was originally developed for the Open Software Service,
 Identi.ca <http://identi.ca/>. It is shared with you in hope that you
 too make an Open Software Service available to your users. To learn
 more, please see the Open Software Service Definition 1.1:
 
       http://www.opendefinition.org/ossd
+
+StatusNet, Inc. <http://status.net/> also offers this software as a
+Web service, requiring no installation on your part. The software run
+on status.net is identical to the software available for download, so
+you can move back and forth between a hosted version or a version
+installed on your own servers.
 
 License
 =======
@@ -56,11 +62,11 @@ License along with this program, in the file "COPYING".  If not, see
 
     IMPORTANT NOTE: The GNU Affero General Public License (AGPL) has
     *different requirements* from the "regular" GPL. In particular, if
-    you make modifications to the Laconica source code on your server,
+    you make modifications to the StatusNet source code on your server,
     you *MUST MAKE AVAILABLE* the modified version of the source code
     to your users under the same license. This is a legal requirement
     of using the software, and if you do not wish to share your
-    modifications, *YOU MAY NOT INSTALL LACONICA*.
+    modifications, *YOU MAY NOT INSTALL STATUSNET*.
 
 Additional library software has been made available in the 'extlib'
 directory. All of it is Free Software and can be distributed under
@@ -71,62 +77,49 @@ for additional terms.
 New this version
 ================
 
-This is a major feature release since version 0.7.4, released May 31
-2009. Notable changes this version:
+This is a minor feature and bugfix release since version 0.8.0,
+released Jul 15 2009. Notable changes this version:
 
-- Support for a hosted service (status network). Multiple sites can
-  share the same codebase but use different databases.
-- OEmbed. Links to pages that support OEmbed (http://www.oembed.com/)
-  become popup links, and the media are shown in a special lightbox.
-- File attachments. Users can attach files of the size and type approved
-  by an administrator, and a shortened link will be included in the
-  notice.
-- Related notices are organized into conversations, with each reply a
-  branch in a tree. Conversations have pages and are linked to from each
-  notice in the conversation.
-- User designs. Users can specify colours and backgrounds
-  for their profile pages and other "personal" pages.
-- Group designs. Group administrators can specify similar designs for
-  group profiles and related pages.
-- Site designs. Site authors can specify a design (background and
-  colors) for the site.
-- New themes. Five new themes are added to the base release; these show
-  off the flexibility of Laconica's theming system.
-- Statistics. Public sites will periodically send usage statistics,
-  configuration options, and dependency information to Laconica dev site.
-  This will help us understand how the software is used and plan future
-  versions of the software.
-- Additional hooks. The hooks and plugins system introduced in 0.7.x was
-  expanded with additional points of access.
-- Facebook Connect. A new plugin allows logging in with Facebook Connect
-  (http://developers.facebook.com/connect.php).
-- A session handler. A new optional session handler class to manage PHP
-  sessions reliably and quickly for large sites.
-- STOMP queuing. Queue management for offline daemons has been
-  abstracted with three concrete instances. A new interface that should
-  work with STOMP servers like ActiveMQ and RabbitMQ is available, which
-  should make things scale better.
-- Group block. Group admins can block users from joining or posting to
-  a group.
-- Group aliases. Groups can be referred to with aliases, additional
-  names. For example, "!yul" and "!montreal" can be the same group.
-- Bidirectional Twitter bridge. Users can read the tweets their Twitter
-  friends post on Twitter.
-- Adaptation of WordPress.com Terms of Service (http://en.wordpress.com/tos/)
-  as default TOS for Laconica sites.
-- Better command-line handling for scripts, including standard options
-  and ability to set hostname and path from the command line.
-- An experimental plugin to use Meteor (http://www.meteorserver.org/)
-  for "real-time" updates.
-- A new framework for "real-time" updates, making it easier to develop
-  plugins for different browser-based update modes.
-- RSS 2.0 and Atom feeds for groups.
-- RSS 2.0 and Atom feeds for tags.
-- Attachments can be sent by email.
-- Attachments are encoded as enclosures in RSS 2.0 and Atom.
-- Notices with attachments display in Facebook as media inline.
-
-- Many, many bug fixes.
+- Laconica has been renamed StatusNet. With a few minor compatibility
+  exceptions, all references to "Laconica" in code, documentation
+  and comments were changed to "StatusNet".
+- A new plugin to support "infinite scroll".
+- A new plugin to support reCaptcha <http://recaptcha.net>.
+- Better logging of server errors.
+- Add an Openid-only mode for authentication.
+- 'lite' parameter for some Twitter API methods.
+- A new plugin to auto-complete nicknames for @-replies.
+- Configuration options to disable OpenID, SMS, Twitter, post-by-email, and IM.
+- Support for lighttpd <http://lighttpd.org/> using 404-based
+  rewrites.
+- Support for using Twitter's OAuth authentication as a client.
+- First version of the groups API.
+- Can configure a site-wide design, including background image and
+  colors.
+- Improved algorithm for replies and conversations, making
+  conversation trees more accurate and useful.
+- Add a script to create a simulation database for testing/debugging.
+- Sanitize HTML for OEmbed.
+- Improved queue management for DB-based queuing.
+- More complete URL detection.
+- Hashtags now support full Unicode character set.
+- Notice inboxes are now garbage-collected on a regular basis
+  at notice-write time.
+- PiwikAnalyticsPlugin updated for latest Piwik interface.
+- Attachment and notice pages can be embedded with OEmbed
+  <http://www.oembed.com>.
+- Failed authentication is logged.
+- PostgreSQL schema and support brought up-to-date with 0.8.x features.
+- The installer works with PostgreSQL as well as MySQL.
+- RSS 1.0 feeds use HTTP Basic authentication in private mode.
+- Many, many bug fixes, particularly with performance.
+- Better (=working) garbage collection for old sessions.
+- Better (=working) search queries.
+- Some cleanup of HTML output.
+- Better error handling when updating Facebook.
+- Considerably better performance when using replication for API
+  calls.
+- Initial unit tests.
 
 Prerequisites
 =============
@@ -137,7 +130,7 @@ run correctly.
 - PHP 5.2.3+. It may be possible to run this software on earlier
   versions of PHP, but many of the functions used are only available
   in PHP 5.2 or above.
-- MySQL 5.x. The Laconica database is stored, by default, in a MySQL
+- MySQL 5.x. The StatusNet database is stored, by default, in a MySQL
   server. It has been primarily tested on 5.x servers, although it may
   be possible to install on earlier (or later!) versions. The server
   *must* support the MyISAM storage engine -- the default for most
@@ -153,6 +146,7 @@ Your PHP installation must include the following PHP extensions:
 - GD. For scaling down avatar images.
 - mbstring. For handling Unicode (UTF-8) encoded strings.
 - gettext. For multiple languages. Default on many PHP installs.
+- tidy. Used to clean up HTML/URLs for the URL shortener to consume.
 
 For some functionality, you will also need the following extensions:
 
@@ -206,7 +200,7 @@ and the URLs are listed here for your convenience.
   as of this writing the version of this library that is available in
   the extlib directory is *significantly different* from the upstream
   version (patches have been submitted). Upgrading to the upstream
-  version may render your Laconica site unable to send or receive XMPP
+  version may render your StatusNet site unable to send or receive XMPP
   messages.
 - Facebook library. Used for the Facebook application.
 - PEAR Services_oEmbed. Used for some multimedia integration.
@@ -215,7 +209,7 @@ and the URLs are listed here for your convenience.
 - PEAR Net_URL2 is an oEmbed dependency.
 - Console_GetOpt for parsing command-line options.
 
-A design goal of Laconica is that the basic Web functionality should
+A design goal of StatusNet is that the basic Web functionality should
 work on even the most restrictive commercial hosting services.
 However, additional functionality, such as receiving messages by
 Jabber/GTalk, require that you be able to run long-running processes
@@ -225,15 +219,15 @@ that you be able to install a mail filter in your mail server.
 Installation
 ============
 
-Installing the basic Laconica Web component is relatively easy,
+Installing the basic StatusNet Web component is relatively easy,
 especially if you've previously installed PHP/MySQL packages.
 
 1. Unpack the tarball you downloaded on your Web server. Usually a
    command like this will work:
 
-   	   tar zxf laconica-0.8.0.tar.gz
+   	   tar zxf statusnet-0.8.1.tar.gz
 
-   ...which will make a laconica-0.8.0 subdirectory in your current
+   ...which will make a statusnet-0.8.1 subdirectory in your current
    directory. (If you don't have shell access on your Web server, you
    may have to unpack the tarball on your local computer and FTP the
    files to the server.)
@@ -241,11 +235,11 @@ especially if you've previously installed PHP/MySQL packages.
 2. Move the tarball to a directory of your choosing in your Web root
    directory. Usually something like this will work:
 
-   	   mv laconica-0.8.0 /var/www/mublog
+   	   mv statusnet-0.8.1 /var/www/mublog
 
-   This will make your Laconica instance available in the mublog path of
+   This will make your StatusNet instance available in the mublog path of
    your server, like "http://example.net/mublog". "microblog" or
-   "laconica" might also be good path names. If you know how to
+   "statusnet" might also be good path names. If you know how to
    configure virtual hosts on your web server, you can try setting up
    "http://micro.example.net/" or the like.
 
@@ -276,9 +270,9 @@ especially if you've previously installed PHP/MySQL packages.
 5. Create a database to hold your microblog data. Something like this
    should work:
 
-   	  mysqladmin -u "username" --password="password" create laconica
+   	  mysqladmin -u "username" --password="password" create statusnet
 
-   Note that Laconica must have its own database; you can't share the
+   Note that StatusNet must have its own database; you can't share the
    database with another program. You can name it whatever you want,
    though.
 
@@ -286,11 +280,11 @@ especially if you've previously installed PHP/MySQL packages.
    a tool like PHPAdmin to create a database. Check your hosting
    service's documentation for how to create a new MySQL database.)
 
-6. Create a new database account that Laconica will use to access the
+6. Create a new database account that StatusNet will use to access the
    database. If you have shell access, this will probably work from the
    MySQL shell:
 
-          GRANT ALL on laconica.*
+          GRANT ALL on statusnet.*
 	  TO 'lacuser'@'localhost'
 	  IDENTIFIED BY 'lacpassword';
 
@@ -298,7 +292,7 @@ especially if you've previously installed PHP/MySQL packages.
    username and password. You may want to test logging in to MySQL as
    this new user.
 
-7. In a browser, navigate to the Laconica install script; something like:
+7. In a browser, navigate to the StatusNet install script; something like:
 
            http://yourserver.example.com/mublog/install.php
 
@@ -316,7 +310,7 @@ especially if you've previously installed PHP/MySQL packages.
 Fancy URLs
 ----------
 
-By default, Laconica will use URLs that include the main PHP program's
+By default, StatusNet will use URLs that include the main PHP program's
 name in them. For example, a user's home profile might be
 found at:
 
@@ -336,7 +330,7 @@ fancy URLs, you must either have Apache 2.x with .htaccess enabled and
 mod_redirect enabled, -OR- know how to configure "url redirection" in
 your server.
 
-1. Copy the htaccess.sample file to .htaccess in your Laconica
+1. Copy the htaccess.sample file to .htaccess in your StatusNet
    directory. Note: if you have control of your server's httpd.conf or
    similar configuration files, it can greatly improve performance to
    import the .htaccess file into your conf file instead. If you're
@@ -344,8 +338,8 @@ your server.
    just leaving the .htaccess file.
 
 2. Change the "RewriteBase" in the new .htaccess file to be the URL path
-   to your Laconica installation on your server. Typically this will
-   be the path to your Laconica directory relative to your Web root.
+   to your StatusNet installation on your server. Typically this will
+   be the path to your StatusNet directory relative to your Web root.
 
 3. Add or uncomment or change a line in your config.php file so it says:
 
@@ -380,7 +374,7 @@ to start and stop the sphinx search daemon.
 SMS
 ---
 
-Laconica supports a cheap-and-dirty system for sending update messages
+StatusNet supports a cheap-and-dirty system for sending update messages
 to mobile phones and for receiving updates from the mobile. Instead of
 sending through the SMS network itself, which is costly and requires
 buy-in from the wireless carriers, it simply piggybacks on the email
@@ -395,10 +389,10 @@ converted to a notice and stored in the DB.
 For this to work, there *must* be a domain or sub-domain for which all
 (or most) incoming email can pass through the incoming mail filter.
 
-1. Run the SQL script carrier.sql in your Laconica database. This will
+1. Run the SQL script carrier.sql in your StatusNet database. This will
    usually work:
 
-   	   mysql -u "lacuser" --password="lacpassword" laconica < db/carrier.sql
+   	   mysql -u "lacuser" --password="lacpassword" statusnet < db/carrier.sql
 
    This will populate your database with a list of wireless carriers
    that support email SMS gateways.
@@ -412,7 +406,7 @@ For this to work, there *must* be a domain or sub-domain for which all
 
 2. Edit /etc/aliases on your mail server and add the following line:
 
-      *: /path/to/laconica/scripts/maildaemon.php
+      *: /path/to/statusnet/scripts/maildaemon.php
 
 3. Run whatever code you need to to update your aliases database. For
    many mail servers (Postfix, Exim, Sendmail), this should work:
@@ -428,8 +422,8 @@ For this to work, there *must* be a domain or sub-domain for which all
 
 At this point, post-by-email and post-by-SMS-gateway should work. Note
 that if your mail server is on a different computer from your email
-server, you'll need to have a full installation of Laconica, a working
-config.php, and access to the Laconica database from the mail server.
+server, you'll need to have a full installation of StatusNet, a working
+config.php, and access to the StatusNet database from the mail server.
 
 XMPP
 ----
@@ -449,7 +443,7 @@ well.
    similar.  Alternately, your "update JID" can be registered on a
    publicly-available XMPP service, like jabber.org or GTalk.
 
-   Laconica will not register the JID with your chosen XMPP server;
+   StatusNet will not register the JID with your chosen XMPP server;
    you need to do this manually, with an XMPP client like Gajim,
    Telepathy, or Pidgin.im.
 
@@ -465,7 +459,7 @@ can really slow down your site; it may cause posting to timeout.
 
 NOTE: stream_select(), a crucial function for network programming, is
 broken on PHP 5.2.x less than 5.2.6 on amd64-based servers. We don't
-work around this bug in Laconica; current recommendation is to move
+work around this bug in StatusNet; current recommendation is to move
 off of amd64 to another server.
 
 Public feed
@@ -488,7 +482,7 @@ consider setting up queues and daemons.
 Queues and daemons
 ------------------
 
-Some activities that Laconica needs to do, like broadcast OMB, SMS,
+Some activities that StatusNet needs to do, like broadcast OMB, SMS,
 and XMPP messages, can be 'queued' and done by off-line bots instead.
 For this to work, you must be able to run long-running offline
 processes, either on your main Web server or on another server you
@@ -499,7 +493,7 @@ server is probably a good idea for high-volume sites.
 1. You'll need the "CLI" (command-line interface) version of PHP
    installed on whatever server you use.
 
-2. If you're using a separate server for queues, install Laconica
+2. If you're using a separate server for queues, install StatusNet
    somewhere on the server. You don't need to worry about the
    .htaccess file, but make sure that your config.php file is close
    to, or identical to, your Web server's version.
@@ -516,7 +510,7 @@ server is probably a good idea for high-volume sites.
 
 4. On the queues server, run the command scripts/startdaemons.sh. It
    needs as a parameter the install path; if you run it from the
-   Laconica dir, "." should suffice.
+   StatusNet dir, "." should suffice.
 
 This will run eight (for now) queue handlers:
 
@@ -548,39 +542,67 @@ All the daemons write their process IDs (pids) to /var/run/ by
 default. This can be useful for starting, stopping, and monitoring the
 daemons.
 
-With version 0.8.0, it's now possible to use a STOMP server instead of
+Since version 0.8.0, it's now possible to use a STOMP server instead of
 our kind of hacky home-grown DB-based queue solution. See the "queues"
 config section below for how to configure to use STOMP. As of this
 writing, the software has been tested with ActiveMQ (
 
-Twitter Friends Syncing
------------------------
+Twitter Bridge
+--------------
 
-As of Laconica 0.6.3, users may set a flag in their settings ("Subscribe
-to my Twitter friends here" under the Twitter tab) to have Laconica
-attempt to locate and subscribe to "friends" (people they "follow") on
-Twitter who also have accounts on your Laconica system, and who have
-previously set up a link for automatically posting notices to Twitter.
+* OAuth
 
-Optionally, there is a script (./scripts/synctwitterfriends.php), meant
-to be run periodically from a job scheduler (e.g.: cron under Unix), to
-look for new additions to users' friends lists. Note that the friends
-syncing only subscribes users to each other, it does not unsubscribe
-users when they stop following each other on Twitter.
+As of 0.8.1, OAuth is used to to access protected resources on Twitter
+instead of HTTP Basic Auth.  To use Twitter bridging you will need
+to register your instance of StatusNet as an application on Twitter
+(http://twitter.com/apps), and update the following variables in your
+config.php with the consumer key and secret Twitter generates for you:
 
-Sample cron job:
+      $config['twitter']['consumer_key']    = 'YOURKEY';
+      $config['twitter']['consumer_secret'] = 'YOURSECRET';
 
-# Update Twitter friends subscriptions every half hour
-0,30 * * * * /path/to/php /path/to/laconica/scripts/synctwitterfriends.php>&/dev/null
+When registering your application with Twitter set the type to "Browser"
+and your Callback URL to:
+
+      http://example.org/mublog/twitter/authorization
+
+The default access type should be, "Read & Write".
+
+* Importing statuses from Twitter
+
+To allow your users to import their friends' Twitter statuses, you will
+need to enable the bidirectional Twitter bridge in config.php:
+
+      $config['twitterbridge']['enabled'] = true;
+
+and run the TwitterStatusFetcher daemon (scripts/twitterstatusfetcher.php).
+Additionally, you will want to set the integration source variable,
+which will keep notices posted to Twitter via StatusNet from looping
+back.  The integration source should be set to the name of your
+application, exactly as you specified it on the settings page for your
+StatusNet application on Twitter, e.g.:
+
+      $config['integration']['source'] = 'YourApp';
+
+* Twitter Friends Syncing
+
+Users may set a flag in their settings ("Subscribe to my Twitter friends
+here" under the Twitter tab) to have StatusNet attempt to locate and
+subscribe to "friends" (people they "follow") on Twitter who also have
+accounts on your StatusNet system, and who have previously set up a link
+for automatically posting notices to Twitter.
+
+As of 0.8.0, this is no longer accomplished via a cron job. Instead you
+must run the SyncTwitterFriends daemon (scripts/synctwitterfreinds.php).
 
 Built-in Facebook Application
 -----------------------------
 
-Laconica's Facebook application allows your users to automatically
+StatusNet's Facebook application allows your users to automatically
 update their Facebook statuses with their latest notices, invite
 their friends to use the app (and thus your site), view their notice
 timelines, and post notices -- all from within Facebook. The application
-is built into Laconica and runs on your host.  For automatic Facebook
+is built into StatusNet and runs on your host.  For automatic Facebook
 status updating to work you will need to enable queuing and run the
 facebookqueuehandler.php daemon (see the "Queues and daemons" section
 above).
@@ -601,13 +623,13 @@ key and secret, e.g.:
 
 In Facebook's application editor, specify the following URLs for your app:
 
-- Callback URL: http://example.net/mublog/facebook/
-- Post-Remove URL: http://example.net/mublog/facebook/remove
+- Canvas Callback URL: http://example.net/mublog/facebook/
+- Post-Remove Callback URL: http://example.net/mublog/facebook/remove
 - Post-Add Redirect URL: http://apps.facebook.com/yourapp/
-- Canvas URL: http://apps.facebook.com/yourapp/
+- Canvas Page URL: http://apps.facebook.com/yourapp/
 
 (Replace 'example.net' with your host's URL, 'mublog' with the path
-to your Laconica installation, and 'yourapp' with the name of the
+to your StatusNet installation, and 'yourapp' with the name of the
 Facebook application you created.)
 
 Additionally, Choose "Web" for Application type in the Advanced tab.
@@ -616,9 +638,9 @@ In the "Canvas setting" section, choose the "FBML" for Render Method,
 Everything else can be left with default values.
 
 *For more detailed instructions please see the installation guide on the
-Laconica wiki:
+StatusNet wiki:
 
-    http://laconi.ca/trac/wiki/FacebookApplication
+    http://status.net/trac/wiki/FacebookApplication
 
 Sitemaps
 --------
@@ -626,11 +648,11 @@ Sitemaps
 Sitemap files <http://sitemaps.org/> are a very nice way of telling
 search engines and other interested bots what's available on your site
 and what's changed recently. You can generate sitemap files for your
-Laconica instance.
+StatusNet instance.
 
-1. Choose your sitemap URL layout. Laconica creates a number of
+1. Choose your sitemap URL layout. StatusNet creates a number of
    sitemap XML files for different parts of your site. You may want to
-   put these in a sub-directory of your Laconica directory to avoid
+   put these in a sub-directory of your StatusNet directory to avoid
    clutter. The sitemap index file tells the search engines and other
    bots where to find all the sitemap files; it *must* be in the main
    installation directory or higher. Both types of file must be
@@ -660,7 +682,7 @@ to these resources.
 Themes
 ------
 
-There are two themes shipped with this version of Laconica: "identica",
+There are two themes shipped with this version of StatusNet: "identica",
 which is what the Identi.ca site uses, and "default", which is a good
 basis for other sites.
 
@@ -691,28 +713,28 @@ default-avatar-mini.png: Ditto ditto, but 24x24. For subscriptions
 You may want to start by copying the files from the default theme to
 your own directory.
 
-NOTE: the HTML generated by Laconica changed *radically* between
+NOTE: the HTML generated by StatusNet changed *radically* between
 version 0.6.x and 0.7.x. Older themes will need signification
 modification to use the new output format.
 
 Translation
 -----------
 
-Translations in Laconica use the gettext system <http://www.gnu.org/software/gettext/>.
+Translations in StatusNet use the gettext system <http://www.gnu.org/software/gettext/>.
 Theoretically, you can add your own sub-directory to the locale/
 subdirectory to add a new language to your system. You'll need to
 compile the ".po" files into ".mo" files, however.
 
-Contributions of translation information to Laconica are very easy:
-you can use the Web interface at http://laconi.ca/pootle/ to add one
+Contributions of translation information to StatusNet are very easy:
+you can use the Web interface at http://status.net/pootle/ to add one
 or a few or lots of new translations -- or even new languages. You can
 also download more up-to-date .po files there, if you so desire.
 
 Backups
 -------
 
-There is no built-in system for doing backups in Laconica. You can make
-backups of a working Laconica system by backing up the database and
+There is no built-in system for doing backups in StatusNet. You can make
+backups of a working StatusNet system by backing up the database and
 the Web directory. To backup the database use mysqldump <http://ur1.ca/7xo>
 and to backup the Web directory, try tar.
 
@@ -736,20 +758,20 @@ to users on a remote site. (Or not... it's not well tested.) The
 Upgrading
 =========
 
-IMPORTANT NOTE: Laconica 0.7.4 introduced a fix for some
+IMPORTANT NOTE: StatusNet 0.7.4 introduced a fix for some
 incorrectly-stored international characters ("UTF-8"). For new
 installations, it will now store non-ASCII characters correctly.
 However, older installations will have the incorrect storage, and will
 consequently show up "wrong" in browsers. See below for how to deal
 with this situation.
 
-If you've been using Laconica 0.7, 0.6, 0.5 or lower, or if you've
+If you've been using StatusNet 0.7, 0.6, 0.5 or lower, or if you've
 been tracking the "git" version of the software, you will probably
 want to upgrade and keep your existing data. There is no automated
-upgrade procedure in Laconica 0.8.0. Try these step-by-step
+upgrade procedure in StatusNet 0.8.1. Try these step-by-step
 instructions; read to the end first before trying them.
 
-0. Download Laconica and set up all the prerequisites as if you were
+0. Download StatusNet and set up all the prerequisites as if you were
    doing a new install.
 1. Make backups of both your database and your Web directory. UNDER NO
    CIRCUMSTANCES should you try to do an upgrade without a known-good
@@ -766,14 +788,17 @@ instructions; read to the end first before trying them.
    maildaemon.php file, and running something like "newaliases".
 5. Once all writing processes to your site are turned off, make a
    final backup of the Web directory and database.
-6. Move your Laconica directory to a backup spot, like "mublog.bak".
-7. Unpack your Laconica 0.8.0 tarball and move it to "mublog" or
+6. Move your StatusNet directory to a backup spot, like "mublog.bak".
+7. Unpack your StatusNet 0.8.1 tarball and move it to "mublog" or
    wherever your code used to be.
 8. Copy the config.php file and avatar directory from your old
    directory to your new directory.
 9. Copy htaccess.sample to .htaccess in the new directory. Change the
    RewriteBase to use the correct path.
-10. Rebuild the database. NOTE: this step is destructive and cannot be
+10. Rebuild the database. (You can safely skip this step and go to #12
+    if you're upgrading from another 0.8.x version).
+
+    NOTE: this step is destructive and cannot be
     reversed. YOU CAN EASILY DESTROY YOUR SITE WITH THIS STEP. Don't
     do it without a known-good backup!
 
@@ -782,14 +807,14 @@ instructions; read to the end first before trying them.
 
     mysql -u<rootuser> -p<rootpassword> <database> db/074to080.sql
 
-    Otherwise, go to your Laconica directory and AFTER YOU MAKE A
+    Otherwise, go to your StatusNet directory and AFTER YOU MAKE A
     BACKUP run the rebuilddb.sh script like this:
 
-    ./scripts/rebuilddb.sh rootuser rootpassword database db/laconica.sql
+    ./scripts/rebuilddb.sh rootuser rootpassword database db/statusnet.sql
 
     Here, rootuser and rootpassword are the username and password for a
     user who can drop and create databases as well as tables; typically
-    that's _not_ the user Laconica runs as. Note that rebuilddb.sh drops
+    that's _not_ the user StatusNet runs as. Note that rebuilddb.sh drops
     your database and rebuilds it; if there is an error you have no
     database. Make sure you have a backup.
     For PostgreSQL databases there is an equivalent, rebuilddb_psql.sh,
@@ -806,8 +831,8 @@ the fixup_* scripts in the scripts directories. These will store some
 precooked data in the DB. All upgraders should check out the inboxes
 options below.
 
-NOTE: the database definition file, stoica.ini, has been renamed to
-laconica.ini (since this is the recommended database name). If you
+NOTE: the database definition file, laconica.ini, has been renamed to
+statusnet.ini (since this is the recommended database name). If you
 have a line in your config.php pointing to the old name, you'll need
 to update it.
 
@@ -843,13 +868,16 @@ problem.
 3. When fixup_inboxes is finished, you can set the enabled flag to
    'true'.
 
+NOTE: As of version 0.8.1 notice inboxes are automatically trimmed back
+      to ~1000 notices every once in a while.
+
 NOTE: we will drop support for non-inboxed sites in the 0.9.x version
-of Laconica. It's time to switch now!
+of StatusNet. It's time to switch now!
 
 UTF-8 Database
 --------------
 
-Laconica 0.7.4 introduced a fix for some incorrectly-stored
+StatusNet 0.7.4 introduced a fix for some incorrectly-stored
 international characters ("UTF-8"). This fix is not
 backwards-compatible; installations from before 0.7.4 will show
 non-ASCII characters of old notices incorrectly. This section explains
@@ -872,19 +900,19 @@ what to do.
 Configuration options
 =====================
 
-The main configuration file for Laconica (excepting configurations for
-dependency software) is config.php in your Laconica directory. If you
+The main configuration file for StatusNet (excepting configurations for
+dependency software) is config.php in your StatusNet directory. If you
 edit any other file in the directory, like lib/common.php (where most
 of the defaults are defined), you will lose your configuration options
 in any upgrade, and you will wish that you had been more careful.
 
 Starting with version 0.7.1, you can put config files in the
-/etc/laconica/ directory on your server, if it exists. Config files
+/etc/statusnet/ directory on your server, if it exists. Config files
 will be included in this order:
 
-* /etc/laconica/laconica.php - server-wide config
-* /etc/laconica/<servername>.php - for a virtual host
-* /etc/laconica/<servername>_<pathname>.php - for a path
+* /etc/statusnet/statusnet.php - server-wide config
+* /etc/statusnet/<servername>.php - for a virtual host
+* /etc/statusnet/<servername>_<pathname>.php - for a path
 * INSTALLDIR/config.php - for a particular implementation
 
 Almost all configuration options are made through a two-dimensional
@@ -907,7 +935,7 @@ path: The path part of your site's URLs, like 'mublog' or ''
       (installed in root).
 fancy: whether or not your site uses fancy URLs (see Fancy URLs
        section above). Default is false.
-logfile: full path to a file for Laconica to save logging
+logfile: full path to a file for StatusNet to save logging
 	 information to. You may want to use this if you don't have
 	 access to syslog.
 logdebug: whether to log additional debug info like backtraces on
@@ -940,6 +968,8 @@ closed: If set to 'true', will disallow registration on your site.
 	the service, *then* set this variable to 'true'.
 inviteonly: If set to 'true', will only allow registration if the user
 	    was invited by an existing user.
+openidonly: If set to 'true', will only allow registrations and logins
+	    through OpenID.
 private: If set to 'true', anonymous users will be redirected to the
          'login' page. Also, API methods that normally require no
          authentication will require it. Note that this does not turn
@@ -964,9 +994,6 @@ sslserver: use an alternate server name for SSL URLs, like
 shorturllength: Length of URL at which URLs in a message exceeding 140
                 characters will be sent to the user's chosen
                 shortening service.
-design: a default design (colors and background) for the site.
-        Sub-items are: backgroundcolor, contentcolor, sidebarcolor,
-        textcolor, linkcolor, backgroundimage, disposition.
 dupelimit: minimum time allowed for one person to say the same thing
            twice. Default 60s. Anything lower is considered a user
            or UI error.
@@ -978,14 +1005,14 @@ This section is a reference to the configuration options for
 DB_DataObject (see <http://ur1.ca/7xp>). The ones that you may want to
 set are listed below for clarity.
 
-database: a DSN (Data Source Name) for your Laconica database. This is
+database: a DSN (Data Source Name) for your StatusNet database. This is
 	  in the format 'protocol://username:password@hostname/databasename',
 	  where 'protocol' is 'mysql' or 'mysqli' (or possibly 'postgresql', if you
 	  really know what you're doing), 'username' is the username,
 	  'password' is the password, and etc.
-ini_yourdbname: if your database is not named 'laconica', you'll need
+ini_yourdbname: if your database is not named 'statusnet', you'll need
 		to set this to point to the location of the
-		laconica.ini file. Note that the real name of your database
+		statusnet.ini file. Note that the real name of your database
 		should go in there, not literally 'yourdbname'.
 db_driver: You can try changing this to 'MDB2' to use the other driver
 	   type for DB_DataObject, but note that it breaks the OpenID
@@ -1013,11 +1040,11 @@ utf8: whether to talk to the database in UTF-8 mode. This is the default
 syslog
 ------
 
-By default, Laconica sites log error messages to the syslog facility.
+By default, StatusNet sites log error messages to the syslog facility.
 (You can override this using the 'logfile' parameter described above).
 
-appname: The name that Laconica uses to log messages. By default it's
-	 "laconica", but if you have more than one installation on the
+appname: The name that StatusNet uses to log messages. By default it's
+	 "statusnet", but if you have more than one installation on the
 	 server, you may want to change the name for each instance so
 	 you can track log messages more easily.
 priority: level to log at. Currently ignored.
@@ -1076,9 +1103,9 @@ This is for configuring nicknames in the service.
 
 blacklist: an array of strings for usernames that may not be
 	   registered. A default array exists for strings that are
-	   used by Laconica (e.g. 'doc', 'main', 'avatar', 'theme')
+	   used by StatusNet (e.g. 'doc', 'main', 'avatar', 'theme')
 	   but you may want to add others if you have other software
-	   installed in a subdirectory of Laconica or if you just
+	   installed in a subdirectory of StatusNet or if you just
 	   don't want certain words used as usernames.
 featured: an array of nicknames of 'featured' users of the site.
 	  Can be useful to draw attention to well-known users, or
@@ -1151,7 +1178,7 @@ host: some XMPP domains are served by machines with a different
       hostname. (For example, @gmail.com GTalk users connect to
       talk.google.com). Set this to the correct hostname if that's the
       case with your server.
-encryption: Whether to encrypt the connection between Laconica and the
+encryption: Whether to encrypt the connection between StatusNet and the
 	    XMPP server. Defaults to true, but you can get
 	    considerably better performance turning it off if you're
 	    connecting to a server on the same machine or on a
@@ -1169,6 +1196,14 @@ invite
 For configuring invites.
 
 enabled: Whether to allow users to send invites. Default true.
+
+openid
+------
+
+For configuring OpenID.
+
+enabled: Whether to allow users to register and login using OpenID. Default
+	 true.
 
 tag
 ---
@@ -1217,7 +1252,7 @@ base: memcached uses key-value pairs to store data. We build long,
       base of the key is usually a simplified version of the site name
       (like "Identi.ca" => "identica"), but you can overwrite this if
       you need to. You can safely ignore it if you only have one
-      Laconica site using your memcached server.
+      StatusNet site using your memcached server.
 port: Port to connect to; defaults to 11211.
 
 sphinx
@@ -1231,13 +1266,37 @@ enabled: Set to true to enable. Default false.
 server: a string with the hostname of the sphinx server.
 port: an integer with the port number of the sphinx server.
 
+emailpost
+---------
+
+For post-by-email.
+
+enabled: Whether to enable post-by-email. Defaults to true. You will
+         also need to set up maildaemon.php.
+
+sms
+---
+
+For SMS integration.
+
+enabled: Whether to enable SMS integration. Defaults to true. Queues
+         should also be enabled.
+
+twitter
+-------
+
+For Twitter integration
+
+enabled: Whether to enable Twitter integration. Defaults to true.
+         Queues should also be enabled.
+
 integration
 -----------
 
 A catch-all for integration with other systems.
 
 source: The name to use for the source of posts to Twitter. Defaults
-	to 'laconica', but if you request your own source name from
+	to 'statusnet', but if you request your own source name from
 	Twitter <http://twitter.com/help/request_source>, you can use
 	that here instead. Status updates on Twitter will then have
 	links to your site.
@@ -1294,11 +1353,11 @@ snapshot
 --------
 
 The software will, by default, send statistical snapshots about the
-local installation to a stats server on the laconi.ca Web site. This
+local installation to a stats server on the status.net Web site. This
 data is used by the developers to prioritize development decisions. No
 identifying data about users or organizations is collected. The data
 is available to the public for review. Participating in this survey
-helps Laconica developers take your needs into account when updating
+helps StatusNet developers take your needs into account when updating
 the software.
 
 run: string indicating when to run the statistics. Values can be 'web'
@@ -1309,7 +1368,7 @@ frequency: if run value is 'web', how often to report statistics.
            Measured in Web hits; depends on how active your site is.
            Default is 10000 -- that is, one report every 10000 Web hits,
            on average.
-reporturl: URL to post statistics to. Defaults to Laconica developers'
+reporturl: URL to post statistics to. Defaults to StatusNet developers'
            report system, but if they go evil or disappear you may
            need to update this to another value. Note: if you
            don't want to report stats, it's much better to
@@ -1432,10 +1491,24 @@ notify third-party servers of updates.
 notify: an array of URLs for ping endpoints. Default is the empty
         array (no notification).
 
+design
+------
+
+Default design (colors and background) for the site. Actual appearance
+depends on the theme.  Null values mean to use the theme defaults.
+
+backgroundcolor: Hex color of the site background.
+contentcolor: Hex color of the content area background.
+sidebarcolor: Hex color of the sidebar background.
+textcolor: Hex color of all non-link text.
+linkcolor: Hex color of all links.
+backgroundimage: Image to use for the background.
+disposition: Flags for whether or not to tile the background image.
+
 Plugins
 =======
 
-Beginning with the 0.7.x branch, Laconica has supported a simple but
+Beginning with the 0.7.x branch, StatusNet has supported a simple but
 powerful plugin architecture. Important events in the code are named,
 like 'StartNoticeSave', and other software can register interest
 in those events. When the events happen, the other software is called
@@ -1471,7 +1544,7 @@ can enable a plugin with the following line in config.php:
 
 This will look for and load files named 'ExamplePlugin.php' or
 'Example/ExamplePlugin.php' either in the plugins/ directory (for
-plugins that ship with Laconica) or in the local/ directory (for
+plugins that ship with StatusNet) or in the local/ directory (for
 plugins you write yourself or that you get from somewhere else) or
 local/plugins/.
 
@@ -1480,24 +1553,24 @@ Plugins are documented in their own directories.
 Troubleshooting
 ===============
 
-The primary output for Laconica is syslog, unless you configured a
+The primary output for StatusNet is syslog, unless you configured a
 separate logfile. This is probably the first place to look if you're
-getting weird behaviour from Laconica.
+getting weird behaviour from StatusNet.
 
-If you're tracking the unstable version of Laconica in the git
+If you're tracking the unstable version of StatusNet in the git
 repository (see below), and you get a compilation error ("unexpected
 T_STRING") in the browser, check to see that you don't have any
 conflicts in your code.
 
-If you upgraded to Laconica 0.7.4 without reading the "Notice inboxes"
-section above, and all your users' 'Personal' tabs are empty, read the
-"Notice inboxes" section above.
+If you upgraded to StatusNet 0.8.1 without reading the "Notice
+inboxes" section above, and all your users' 'Personal' tabs are empty,
+read the "Notice inboxes" section above.
 
 Myths
 =====
 
-These are some myths you may see on the Web about Laconica.
-Documentation from the core team about Laconica has been pretty
+These are some myths you may see on the Web about StatusNet.
+Documentation from the core team about StatusNet has been pretty
 sparse, so some backtracking and guesswork resulted in some incorrect
 assumptions.
 
@@ -1509,7 +1582,7 @@ assumptions.
 
 - "Edit dataobject.ini with the following settings..." dataobject.ini
   is a development file for the DB_DataObject framework and is not
-  used by the running software. It was removed from the Laconica
+  used by the running software. It was removed from the StatusNet
   distribution because its presence was confusing. Do not bother
   configuring dataobject.ini, and do not put your database username
   and password into the file on a production Web server; unscrupulous
@@ -1519,45 +1592,55 @@ Unstable version
 ================
 
 If you're adventurous or impatient, you may want to install the
-development version of Laconica. To get it, use the git version
+development version of StatusNet. To get it, use the git version
 control tool <http://git-scm.com/> like so:
 
-	git clone http://laconi.ca/software/laconica.git
+	git clone git@gitorious.org:statusnet/mainline.git
+
+This is the version of the software that runs on Identi.ca and the
+status.net hosted service. Using it is a mixed bag. On the positive
+side, it usually includes the latest security and bug fix patches. On
+the downside, it may also include changes that require admin
+intervention (like running a script or even raw SQL!) that may not be
+documented yet. It may be a good idea to test this version before
+installing it on your production machines.
 
 To keep it up-to-date, use 'git pull'. Watch for conflicts!
 
 Further information
 ===================
 
-There are several ways to get more information about Laconica.
+There are several ways to get more information about StatusNet.
 
-* There is a mailing list for Laconica developers and admins at
-  http://mail.laconi.ca/mailman/listinfo/laconica-dev
-* The #laconica IRC channel on freenode.net <http://www.freenode.net/>.
-* The Laconica wiki, http://laconi.ca/trac/
+* There is a mailing list for StatusNet developers and admins at
+  http://mail.status.net/mailman/listinfo/statusnet-dev
+* The #statusnet IRC channel on freenode.net <http://www.freenode.net/>.
+* The StatusNet wiki, http://status.net/wiki/
+* The StatusNet blog, http://status.net/blog/
+* The StatusNet status update, <http://status.status.net/status> (!)
 
 Feedback
 ========
 
 * Microblogging messages to http://identi.ca/evan are very welcome.
-* Laconica's Trac server has a bug tracker for any defects you may find,
-  or ideas for making things better. http://laconi.ca/trac/
-* e-mail to evan@identi.ca will usually be read and responded to very
+* StatusNet's Trac server has a bug tracker for any defects you may find,
+  or ideas for making things better. http://status.net/trac/
+* e-mail to evan@status.net will usually be read and responded to very
   quickly, unless the question is really hard.
 
 Credits
 =======
 
 The following is an incomplete list of developers who've worked on
-Laconi.ca. Apologies for any oversight; please let evan@identi.ca know
+StatusNet. Apologies for any oversight; please let evan@status.net know
 if anyone's been overlooked in error.
 
-* Evan Prodromou, founder and lead developer, Control Yourself, Inc.
-* Zach Copley, Control Yourself, Inc.
-* Earle Martin, Control Yourself, Inc.
-* Marie-Claude Doyon, designer, Control Yourself, Inc.
-* Sarven Capadisli, Control Yourself, Inc.
-* Robin Millette, Control Yourself, Inc.
+* Evan Prodromou, founder and lead developer, StatusNet, Inc.
+* Zach Copley, StatusNet, Inc.
+* Earle Martin, StatusNet, Inc.
+* Marie-Claude Doyon, designer, StatusNet, Inc.
+* Sarven Capadisli, StatusNet, Inc.
+* Robin Millette, StatusNet, Inc.
 * Ciaran Gultnieks
 * Michael Landers
 * Ori Avtalion
@@ -1589,6 +1672,6 @@ if anyone's been overlooked in error.
 * Craig Andrews
 
 Thanks also to the developers of our upstream library code and to the
-thousands of people who have tried out Identi.ca, installed Laconi.ca,
+thousands of people who have tried out Identi.ca, installed StatusNet,
 told their friends, and built the Open Microblogging network to what
 it is today.

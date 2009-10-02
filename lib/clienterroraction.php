@@ -6,14 +6,14 @@
  * PHP version 5
  *
  * @category Action
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Zach Copley <zach@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -29,7 +29,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -39,35 +39,35 @@ require_once INSTALLDIR.'/lib/error.php';
  * Class for displaying HTTP client errors
  *
  * @category Action
- * @package  Laconica
- * @author   Zach Copley <zach@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 class ClientErrorAction extends ErrorAction
 {
+    static $status = array(400 => 'Bad Request',
+                           401 => 'Unauthorized',
+                           402 => 'Payment Required',
+                           403 => 'Forbidden',
+                           404 => 'Not Found',
+                           405 => 'Method Not Allowed',
+                           406 => 'Not Acceptable',
+                           407 => 'Proxy Authentication Required',
+                           408 => 'Request Timeout',
+                           409 => 'Conflict',
+                           410 => 'Gone',
+                           411 => 'Length Required',
+                           412 => 'Precondition Failed',
+                           413 => 'Request Entity Too Large',
+                           414 => 'Request-URI Too Long',
+                           415 => 'Unsupported Media Type',
+                           416 => 'Requested Range Not Satisfiable',
+                           417 => 'Expectation Failed');
+
     function __construct($message='Error', $code=400)
     {
         parent::__construct($message, $code);
-
-        $this->status  = array(400 => 'Bad Request',
-                               401 => 'Unauthorized',
-                               402 => 'Payment Required',
-                               403 => 'Forbidden',
-                               404 => 'Not Found',
-                               405 => 'Method Not Allowed',
-                               406 => 'Not Acceptable',
-                               407 => 'Proxy Authentication Required',
-                               408 => 'Request Timeout',
-                               409 => 'Conflict',
-                               410 => 'Gone',
-                               411 => 'Length Required',
-                               412 => 'Precondition Failed',
-                               413 => 'Request Entity Too Large',
-                               414 => 'Request-URI Too Long',
-                               415 => 'Unsupported Media Type',
-                               416 => 'Requested Range Not Satisfiable',
-                               417 => 'Expectation Failed');
         $this->default = 400;
     }
 
@@ -90,10 +90,5 @@ class ClientErrorAction extends ErrorAction
         }
 
         $this->showPage();
-    }
-
-    function title()
-    {
-        return $this->status[$this->code];
     }
 }

@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 /**
  * Table Definition for notice
@@ -28,10 +28,6 @@ require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
  * in the memcached cache. */
 
 define('NOTICE_CACHE_WINDOW', 61);
-
-define('NOTICE_LOCAL_PUBLIC', 1);
-define('NOTICE_REMOTE_OMB', 0);
-define('NOTICE_LOCAL_NONPUBLIC', -1);
 
 define('MAX_BOXCARS', 128);
 
@@ -62,7 +58,11 @@ class Notice extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    const GATEWAY = -2;
+    /* Notice types */
+    const LOCAL_PUBLIC    =  1;
+    const REMOTE_OMB      =  0;
+    const LOCAL_NONPUBLIC = -1;
+    const GATEWAY         = -2;
 
     function getProfile()
     {
@@ -102,15 +102,14 @@ class Notice extends Memcached_DataObject
         if (!$count) {
             return true;
         }
-        
+
         //turn each into their canonical tag
         //this is needed to remove dupes before saving e.g. #hash.tag = #hashtag
         $hashtags = array();
         for($i=0; $i<count($match[1]); $i++) {
-             $hashtags[] = common_canonical_tag($match[1][$i]);
+            $hashtags[] = common_canonical_tag($match[1][$i]);
         }
 
- 
         /* Add them to the database */
         foreach(array_unique($hashtags) as $hashtag) {
             /* elide characters we don't want in the tag */
@@ -135,7 +134,7 @@ class Notice extends Memcached_DataObject
     }
 
     static function saveNew($profile_id, $content, $source=null,
-                            $is_local=1, $reply_to=null, $uri=null, $created=null) {
+                            $is_local=Notice::LOCAL_PUBLIC, $reply_to=null, $uri=null, $created=null) {
 
         $profile = Profile::staticGet($profile_id);
 
@@ -178,33 +177,34 @@ class Notice extends Memcached_DataObject
 
         if (($blacklist && in_array($profile_id, $blacklist)) ||
             ($source && $autosource && in_array($source, $autosource))) {
-            $notice->is_local = -1;
+            $notice->is_local = Notice::LOCAL_NONPUBLIC;
         } else {
             $notice->is_local = $is_local;
         }
 
-		$notice->query('BEGIN');
-
-		$notice->reply_to = $reply_to;
         if (!empty($created)) {
             $notice->created = $created;
         } else {
             $notice->created = common_sql_now();
         }
+
 		$notice->content = $final;
 		$notice->rendered = common_render_content($final, $notice);
 		$notice->source = $source;
 		$notice->uri = $uri;
 
-        if (!empty($reply_to)) {
-            $reply_notice = Notice::staticGet('id', $reply_to);
-            if (!empty($reply_notice)) {
-                $notice->reply_to = $reply_to;
-                $notice->conversation = $reply_notice->conversation;
-            }
+		$notice->reply_to = self::getReplyTo($reply_to, $profile_id, $source, $final);
+
+        if (!empty($notice->reply_to)) {
+            $reply = Notice::staticGet('id', $notice->reply_to);
+            $notice->conversation = $reply->conversation;
         }
 
         if (Event::handle('StartNoticeSave', array(&$notice))) {
+
+            // XXX: some of these functions write to the DB
+
+            $notice->query('BEGIN');
 
             $id = $notice->insert();
 
@@ -213,18 +213,33 @@ class Notice extends Memcached_DataObject
                 return _('Problem saving notice.');
             }
 
-            # Update the URI after the notice is in the database
-            if (!$uri) {
-                $orig = clone($notice);
-                $notice->uri = common_notice_uri($notice);
+            // Update ID-dependent columns: URI, conversation
 
+            $orig = clone($notice);
+
+            $changed = false;
+
+            if (empty($uri)) {
+                $notice->uri = common_notice_uri($notice);
+                $changed = true;
+            }
+
+            // If it's not part of a conversation, it's
+            // the beginning of a new conversation.
+
+            if (empty($notice->conversation)) {
+                $notice->conversation = $notice->id;
+                $changed = true;
+            }
+
+            if ($changed) {
                 if (!$notice->update($orig)) {
                     common_log_db_error($notice, 'UPDATE', __FILE__);
                     return _('Problem saving notice.');
                 }
             }
 
-            # XXX: do we need to change this for remote users?
+            // XXX: do we need to change this for remote users?
 
             $notice->saveReplies();
             $notice->saveTags();
@@ -232,12 +247,6 @@ class Notice extends Memcached_DataObject
             $notice->addToInboxes();
 
             $notice->saveUrls();
-            $orig2 = clone($notice);
-    		$notice->rendered = common_render_content($final, $notice);
-            if (!$notice->update($orig2)) {
-                common_log_db_error($notice, 'UPDATE', __FILE__);
-                return _('Problem saving notice.');
-            }
 
             $notice->query('COMMIT');
 
@@ -290,9 +299,9 @@ class Notice extends Memcached_DataObject
         $notice->profile_id = $profile_id;
         $notice->content = $content;
         if (common_config('db','type') == 'pgsql')
-            $notice->whereAdd('extract(epoch from now() - created) < ' . common_config('site', 'dupelimit'));
+          $notice->whereAdd('extract(epoch from now() - created) < ' . common_config('site', 'dupelimit'));
         else
-            $notice->whereAdd('now() - created < ' . common_config('site', 'dupelimit'));
+          $notice->whereAdd('now() - created < ' . common_config('site', 'dupelimit'));
 
         $cnt = $notice->count();
         return ($cnt == 0);
@@ -489,7 +498,7 @@ class Notice extends Memcached_DataObject
 
     function blowPublicCache($blowLast=false)
     {
-        if ($this->is_local == 1) {
+        if ($this->is_local == Notice::LOCAL_PUBLIC) {
             $cache = common_memcache();
             if ($cache) {
                 $cache->delete(common_cache_key('public'));
@@ -723,6 +732,10 @@ class Notice extends Memcached_DataObject
             return new ArrayWrapper($notices);
         } else {
             $notice = new Notice();
+            if (empty($ids)) {
+                //if no IDs requested, just return the notice object
+                return $notice;
+            }
             $notice->whereAdd('id in (' . implode(', ', $ids) . ')');
             $notice->orderBy('id DESC');
 
@@ -755,10 +768,11 @@ class Notice extends Memcached_DataObject
         }
 
         if (common_config('public', 'localonly')) {
-            $notice->whereAdd('is_local = 1');
+            $notice->whereAdd('is_local = ' . Notice::LOCAL_PUBLIC);
         } else {
-            # -1 == blacklisted
-            $notice->whereAdd('is_local != -1');
+            # -1 == blacklisted, -2 == gateway (i.e. Twitter)
+            $notice->whereAdd('is_local !='. Notice::LOCAL_NONPUBLIC);
+            $notice->whereAdd('is_local !='. Notice::GATEWAY);
         }
 
         if ($since_id != 0) {
@@ -883,7 +897,8 @@ class Notice extends Memcached_DataObject
                 $qry .= '('.$id.', '.$this->id.', '.$source.", '".$this->created. "') ";
                 $cnt++;
                 if (rand() % NOTICE_INBOX_SOFT_LIMIT == 0) {
-                    Notice_inbox::gc($id);
+                    // FIXME: Causes lag in replicated servers
+                    // Notice_inbox::gc($id);
                 }
                 if ($cnt >= MAX_BOXCARS) {
                     $inbox = new Notice_inbox();
@@ -906,14 +921,14 @@ class Notice extends Memcached_DataObject
     {
         $user = new User();
 
-	if(common_config('db','quote_identifiers'))
-	    $user_table = '"user"';
-	else $user_table = 'user';
+        if(common_config('db','quote_identifiers'))
+          $user_table = '"user"';
+        else $user_table = 'user';
 
         $qry =
           'SELECT id ' .
-	  'FROM '. $user_table .' JOIN subscription '.
-	  'ON '. $user_table .'.id = subscription.subscriber ' .
+          'FROM '. $user_table .' JOIN subscription '.
+          'ON '. $user_table .'.id = subscription.subscriber ' .
           'WHERE subscription.subscribed = %d ';
 
         $user->query(sprintf($qry, $this->profile_id));
@@ -1031,16 +1046,6 @@ class Notice extends Memcached_DataObject
             if (!$recipient) {
                 continue;
             }
-            if ($i == 0 && ($recipient->id != $sender->id) && !$this->reply_to) { // Don't save reply to self
-                $reply_for = $recipient;
-                $recipient_notice = $reply_for->getCurrentNotice();
-                if ($recipient_notice) {
-                    $orig = clone($this);
-                    $this->reply_to = $recipient_notice->id;
-                    $this->conversation = $recipient_notice->conversation;
-                    $this->update($orig);
-                }
-            }
             // Don't save replies from blocked profile to local user
             $recipient_user = User::staticGet('id', $recipient->id);
             if ($recipient_user && $recipient_user->hasBlocked($sender)) {
@@ -1085,14 +1090,6 @@ class Notice extends Memcached_DataObject
                     }
                 }
             }
-        }
-
-        // If it's not a reply, make it the root of a new conversation
-
-        if (empty($this->conversation)) {
-            $orig = clone($this);
-            $this->conversation = $this->id;
-            $this->update($orig);
         }
 
         foreach (array_keys($replied) as $recipient) {
@@ -1265,5 +1262,77 @@ class Notice extends Memcached_DataObject
         $ids = array_slice($window, $offset, $limit);
 
         return $ids;
+    }
+
+    /**
+     * Determine which notice, if any, a new notice is in reply to.
+     *
+     * For conversation tracking, we try to see where this notice fits
+     * in the tree. Rough algorithm is:
+     *
+     * if (reply_to is set and valid) {
+     *     return reply_to;
+     * } else if ((source not API or Web) and (content starts with "T NAME" or "@name ")) {
+     *     return ID of last notice by initial @name in content;
+     * }
+     *
+     * Note that all @nickname instances will still be used to save "reply" records,
+     * so the notice shows up in the mentioned users' "replies" tab.
+     *
+     * @param integer $reply_to   ID passed in by Web or API
+     * @param integer $profile_id ID of author
+     * @param string  $source     Source tag, like 'web' or 'gwibber'
+     * @param string  $content    Final notice content
+     *
+     * @return integer ID of replied-to notice, or null for not a reply.
+     */
+
+    static function getReplyTo($reply_to, $profile_id, $source, $content)
+    {
+        static $lb = array('xmpp', 'mail', 'sms', 'omb');
+
+        // If $reply_to is specified, we check that it exists, and then
+        // return it if it does
+
+        if (!empty($reply_to)) {
+            $reply_notice = Notice::staticGet('id', $reply_to);
+            if (!empty($reply_notice)) {
+                return $reply_to;
+            }
+        }
+
+        // If it's not a "low bandwidth" source (one where you can't set
+        // a reply_to argument), we return. This is mostly web and API
+        // clients.
+
+        if (!in_array($source, $lb)) {
+            return null;
+        }
+
+        // Is there an initial @ or T?
+
+        if (preg_match('/^T ([A-Z0-9]{1,64}) /', $content, $match) ||
+            preg_match('/^@([a-z0-9]{1,64})\s+/', $content, $match)) {
+            $nickname = common_canonical_nickname($match[1]);
+        } else {
+            return null;
+        }
+
+        // Figure out who that is.
+
+        $sender = Profile::staticGet('id', $profile_id);
+        $recipient = common_relative_profile($sender, $nickname, common_sql_now());
+
+        if (empty($recipient)) {
+            return null;
+        }
+
+        // Get their last notice
+
+        $last = $recipient->getCurrentNotice();
+
+        if (!empty($last)) {
+            return $last->id;
+        }
     }
 }

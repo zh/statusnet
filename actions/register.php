@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Register a new user account
  *
@@ -20,14 +20,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Login
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2008-2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -35,10 +35,10 @@ if (!defined('LACONICA')) {
  * An action for registering a new user account
  *
  * @category Login
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class RegisterAction extends Action
@@ -116,6 +116,8 @@ class RegisterAction extends Action
      *
      * Checks if registration is closed and shows an error if so.
      *
+     * Checks if only OpenID is allowed and redirects to openidlogin if so.
+     *
      * @param array $args $_REQUEST data
      *
      * @return void
@@ -127,6 +129,8 @@ class RegisterAction extends Action
 
         if (common_config('site', 'closed')) {
             $this->clientError(_('Registration not allowed.'));
+        } else if (common_config('site', 'openidonly')) {
+            common_redirect(common_local_url('openidlogin'));
         } else if (common_logged_in()) {
             $this->clientError(_('Already logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -134,6 +138,12 @@ class RegisterAction extends Action
         } else {
             $this->showForm();
         }
+    }
+
+    function showScripts()
+    {
+        parent::showScripts();
+        $this->autofocus('nickname');
     }
 
     /**
@@ -325,14 +335,22 @@ class RegisterAction extends Action
         } else if ($this->error) {
             $this->element('p', 'error', $this->error);
         } else {
-            $instr =
-              common_markup_to_html(_('With this form you can create '.
-                                      ' a new account. ' .
-                                      'You can then post notices and '.
-                                      'link up to friends and colleagues. '.
-                                      '(Have an [OpenID](http://openid.net/)? ' .
-                                      'Try our [OpenID registration]'.
-                                      '(%%action.openidlogin%%)!)'));
+            if (common_config('openid', 'enabled')) {
+                $instr =
+                  common_markup_to_html(_('With this form you can create '.
+                                          ' a new account. ' .
+                                          'You can then post notices and '.
+                                          'link up to friends and colleagues. '.
+                                          '(Have an [OpenID](http://openid.net/)? ' .
+                                          'Try our [OpenID registration]'.
+                                          '(%%action.openidlogin%%)!)'));
+            } else {
+                $instr =
+                  common_markup_to_html(_('With this form you can create '.
+                                          ' a new account. ' .
+                                          'You can then post notices and '.
+                                          'link up to friends and colleagues.'));
+            }
 
             $this->elementStart('div', 'instructions');
             $this->raw($instr);

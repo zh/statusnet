@@ -5,13 +5,13 @@
  * PHP version 5
  *
  * @category Action
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -27,7 +27,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -40,10 +40,10 @@ require_once INSTALLDIR.'/lib/noticelist.php';
  * Conversation tree in the browser
  *
  * @category Action
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class ConversationAction extends Action
@@ -129,10 +129,10 @@ class ConversationAction extends Action
  * The widget class for displaying a hierarchical list of notices.
  *
  * @category Widget
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class ConversationTree extends NoticeList
@@ -167,6 +167,8 @@ class ConversationTree extends NoticeList
 
     function _buildTree()
     {
+        $cnt = 0;
+
         $this->tree  = array();
         $this->table = array();
 
@@ -248,10 +250,10 @@ class ConversationTree extends NoticeList
  * Special class of NoticeListItem for use inside conversation trees.
  *
  * @category Widget
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class ConversationTreeItem extends NoticeListItem

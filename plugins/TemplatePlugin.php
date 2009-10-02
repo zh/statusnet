@@ -8,14 +8,14 @@
  * The method is disabled unless the user is #1, the first user of the system
  *
  * @category  Plugin
- * @package   Laconica
+ * @package   StatusNet
  * @author    Brian Hendrickson <brian@megapump.com>
  * @copyright 2009 Megapump, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://megapump.com/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET')) {
     exit(1);
 }
 
@@ -195,16 +195,16 @@ class TemplatePlugin extends Plugin {
     );
     
     // use the PHP template
-    // unless laconica config:
+    // unless statusnet config:
     //   $config['template']['mode'] = 'html';
     if (!(common_config('template', 'mode') == 'html')) {
-      $tpl_file = 'tpl/index.php';
+      $tpl_file = $this->templateFolder() . '/index.php';
       $tags = array_merge($vars,$this->blocks);
       include $tpl_file;
       return;
     }
     
-    $tpl_file = 'tpl/index.html';
+    $tpl_file = $this->templateFolder() . '/index.html';
     
     // read the static template
     $output = file_get_contents( $tpl_file );
@@ -236,6 +236,9 @@ class TemplatePlugin extends Plugin {
     return true;
     
   }
+  function templateFolder() {
+    return 'tpl';
+  }
   
   // catching the StartShowHTML event to halt the rendering
   function onStartShowHTML( &$act ) {
@@ -258,7 +261,7 @@ class TemplatePlugin extends Plugin {
  * parameter "template", containing the new template code
  *
  * @category Plugin
- * @package  Laconica
+ * @package  StatusNet
  * @author   Brian Hendrickson <brian@megapump.com>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://megapump.com/
@@ -280,7 +283,7 @@ class TemplateAction extends Action
     if (!isset($_SERVER['PHP_AUTH_USER'])) {
       
       // not authenticated, show login form
-      header('WWW-Authenticate: Basic realm="Laconica API"');
+      header('WWW-Authenticate: Basic realm="StatusNet API"');
       
       // cancelled the browser login form
       $this->clientError(_('Authentication error!'), $code = 401);
@@ -300,7 +303,7 @@ class TemplateAction extends Action
           $this->clientError(_('only User #1 can update the template'), $code = 401);
         
         // open the old template
-        $tpl_file = 'tpl/index.html';
+        $tpl_file = $this->templateFolder() . '/index.html';
         $fp = fopen( $tpl_file, 'w+' );
         
         // overwrite with the new template
@@ -323,13 +326,13 @@ class TemplateAction extends Action
 }
 
 /**
- * Function for retrieving a laconica display section
+ * Function for retrieving a statusnet display section
  *
  * requires one parameter, the name of the section
  * section names are listed in the comments of the TemplatePlugin class
  *
  * @category Plugin
- * @package  Laconica
+ * @package  StatusNet
  * @author   Brian Hendrickson <brian@megapump.com>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://megapump.com/

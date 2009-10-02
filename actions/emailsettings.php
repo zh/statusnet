@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Settings for email
  *
@@ -20,15 +20,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Settings
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @author    Zach Copley <zach@controlyourself.ca>
- * @copyright 2008-2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    Zach Copley <zach@status.net>
+ * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -38,11 +38,11 @@ require_once INSTALLDIR.'/lib/accountsettingsaction.php';
  * Settings for email
  *
  * @category Settings
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Zach Copley <zach@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
  * @see      Widget
  */
@@ -69,6 +69,12 @@ class EmailsettingsAction extends AccountSettingsAction
     function getInstructions()
     {
         return _('Manage how you get email from %%site.name%%.');
+    }
+
+    function showScripts()
+    {
+        parent::showScripts();
+        $this->autofocus('email');
     }
 
     /**
@@ -122,7 +128,7 @@ class EmailsettingsAction extends AccountSettingsAction
         }
         $this->elementEnd('fieldset');
 
-       if ($user->email) {
+       if (common_config('emailpost', 'enabled') && $user->email) {
             $this->elementStart('fieldset', array('id' => 'settings_email_incoming'));
             $this->element('legend',_('Incoming email'));
             if ($user->incomingemail) {
@@ -173,11 +179,13 @@ class EmailsettingsAction extends AccountSettingsAction
                         _('Allow friends to nudge me and send me an email.'),
                         $user->emailnotifynudge);
         $this->elementEnd('li');
-        $this->elementStart('li');
-        $this->checkbox('emailpost',
-                        _('I want to post notices by email.'),
-                        $user->emailpost);
-        $this->elementEnd('li');
+        if (common_config('emailpost', 'enabled')) {
+            $this->elementStart('li');
+            $this->checkbox('emailpost',
+                            _('I want to post notices by email.'),
+                            $user->emailpost);
+            $this->elementEnd('li');
+        }
         $this->elementStart('li');
         $this->checkbox('emailmicroid',
                         _('Publish a MicroID for my email address.'),

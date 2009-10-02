@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Base class for connection settings actions
  *
@@ -20,14 +20,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Settings
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2008-2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -37,10 +37,10 @@ require_once INSTALLDIR.'/lib/settingsaction.php';
  * Base class for connection settings actions
  *
  * @category Settings
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
  * @see      Widget
  */
@@ -66,10 +66,10 @@ class ConnectSettingsAction extends SettingsAction
  * A widget for showing the connect group local nav menu
  *
  * @category Widget
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
  * @see      HTMLOutputter
  */
@@ -99,25 +99,27 @@ class ConnectSettingsNav extends Widget
     function show()
     {
         # action => array('prompt', 'title')
-        $menu =
-          array('imsettings' =>
-                array(_('IM'),
-                      _('Updates by instant messenger (IM)')),
-                'smssettings' =>
-                array(_('SMS'),
-                      _('Updates by SMS')),
-                'twittersettings' =>
-                array(_('Twitter'),
-                      _('Twitter integration options')));
+        $menu = array();
+        if (common_config('xmpp', 'enabled')) {
+            $menu['imsettings'] =
+              array(_('IM'),
+                    _('Updates by instant messenger (IM)'));
+        }
+        if (common_config('sms', 'enabled')) {
+            $menu['smssettings'] =
+              array(_('SMS'),
+                    _('Updates by SMS'));
+        }
+        if (common_config('twitter', 'enabled')) {
+            $menu['twittersettings'] =
+              array(_('Twitter'),
+                    _('Twitter integration options'));
+        }
 
         $action_name = $this->action->trimmed('action');
         $this->action->elementStart('ul', array('class' => 'nav'));
 
         foreach ($menu as $menuaction => $menudesc) {
-            if ($menuaction == 'imsettings' &&
-                !common_config('xmpp', 'enabled')) {
-                continue;
-            }
             $this->action->menuItem(common_local_url($menuaction),
 				    $menudesc[0],
 				    $menudesc[1],

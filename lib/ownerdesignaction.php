@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Base class for actions that use the page owner's design
  *
@@ -20,14 +20,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Action
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -39,10 +39,10 @@ if (!defined('LACONICA')) {
  * design.
  *
  * @category Action
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
  */
 
@@ -51,26 +51,6 @@ class OwnerDesignAction extends Action {
     /** The user for this page. */
 
     var $user = null;
-
-    /**
-      * Show the owner's design stylesheet
-      *
-      * @return nothing
-      */
-     function showStylesheets()
-     {
-         parent::showStylesheets();
-
-         $user = common_current_user();
-
-         if (empty($user) || $user->viewdesigns) {
-             $design = $this->getDesign();
-
-             if (!empty($design)) {
-                 $design->showCSS($this);
-             }
-         }
-     }
 
     /**
      * A design for this action
@@ -83,10 +63,15 @@ class OwnerDesignAction extends Action {
 
     function getDesign()
     {
-        if (empty($this->user)) {
-            return null;
+        if (!empty($this->user)) {
+
+            $design = $this->user->getDesign();
+
+            if (!empty($design)) {
+                return $design;
+            }
         }
 
-        return $this->user->getDesign();
+        return parent::getDesign();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Menu for login group of actions
  *
@@ -20,14 +20,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Menu
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2008 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2008 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -37,10 +37,10 @@ require_once INSTALLDIR.'/lib/widget.php';
  * Menu for login group of actions
  *
  * @category Output
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
  * @see      Widget
  */
@@ -72,14 +72,18 @@ class LoginGroupNav extends Widget
         // action => array('prompt', 'title')
         $menu = array();
 
-        $menu['login'] = array(_('Login'),
-                         _('Login with a username and password'));
-        if (!(common_config('site','closed') || common_config('site','inviteonly'))) {
-            $menu['register'] = array(_('Register'),
-                                _('Sign up for a new account'));
+        if (!common_config('site','openidonly')) {
+            $menu['login'] = array(_('Login'),
+                             _('Login with a username and password'));
+            if (!(common_config('site','closed') || common_config('site','inviteonly'))) {
+                $menu['register'] = array(_('Register'),
+                                    _('Sign up for a new account'));
+            }
         }
-        $menu['openidlogin'] = array(_('OpenID'),
-                               _('Login or register with OpenID'));
+        if (common_config('openid', 'enabled')) {
+            $menu['openidlogin'] = array(_('OpenID'),
+                                   _('Login or register with OpenID'));
+        }
 
         $action_name = $this->action->trimmed('action');
         $this->action->elementStart('ul', array('class' => 'nav'));

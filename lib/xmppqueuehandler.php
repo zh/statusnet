@@ -1,7 +1,7 @@
 <?php
 /*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/queuehandler.php');
 
@@ -38,14 +38,20 @@ class XmppQueueHandler extends QueueHandler
     function start()
     {
         # Low priority; we don't want to receive messages
+
         $this->log(LOG_INFO, "INITIALIZE");
         $this->conn = jabber_connect($this->_id.$this->transport());
-        if ($this->conn) {
-            $this->conn->addEventHandler('message', 'forward_message', $this);
-            $this->conn->addEventHandler('reconnect', 'handle_reconnect', $this);
-            $this->conn->setReconnectTimeout(600);
-            jabber_send_presence("Send me a message to post a notice", 'available', null, 'available', -1);
+
+        if (empty($this->conn)) {
+            $this->log(LOG_ERR, "Couldn't connect to server.");
+            return false;
         }
+
+        $this->conn->addEventHandler('message', 'forward_message', $this);
+        $this->conn->addEventHandler('reconnect', 'handle_reconnect', $this);
+        $this->conn->setReconnectTimeout(600);
+        jabber_send_presence("Send me a message to post a notice", 'available', null, 'available', -1);
+
         return !is_null($this->conn);
     }
 
@@ -56,6 +62,8 @@ class XmppQueueHandler extends QueueHandler
 
     function handle_reconnect(&$pl)
     {
+        $this->log(LOG_NOTICE, 'reconnected');
+
         $this->conn->processUntil('session_start');
         $this->conn->presence(null, 'available', null, 'available', -1);
     }

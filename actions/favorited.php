@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * List of popular notices
  *
@@ -20,15 +20,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Public
- * @package   Laconica
- * @author    Zach Copley <zach@controlyourself.ca>
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2008-2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Zach Copley <zach@status.net>
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -42,11 +42,11 @@ require_once INSTALLDIR.'/lib/noticelist.php';
  * is measured by
  *
  * @category Personal
- * @package  Laconica
- * @author   Zach Copley <zach@controlyourself.ca>
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Zach Copley <zach@status.net>
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class FavoritedAction extends Action
@@ -153,7 +153,8 @@ class FavoritedAction extends Action
             $message .= _('Be the first to add a notice to your favorites by clicking the fave button next to any notice you like.');
         }
         else {
-            $message .= _('Why not [register an account](%%action.register%%) and be the first to add a notice to your favorites!');
+            $message .= sprintf(_('Why not [register an account](%%%%action.%s%%%%) and be the first to add a notice to your favorites!'),
+                                (!common_config('site','openidonly')) ? 'register' : 'openidlogin');
         }
 
         $this->elementStart('div', 'guide');

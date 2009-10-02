@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Show a single notice
  *
@@ -20,14 +20,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Personal
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2008-2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -39,10 +39,10 @@ require_once INSTALLDIR.'/lib/feedlist.php';
  * Show a single notice
  *
  * @category Personal
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  */
 
 class ShownoticeAction extends OwnerDesignAction
@@ -97,8 +97,8 @@ class ShownoticeAction extends OwnerDesignAction
 
         $this->user = User::staticGet('id', $this->profile->id);
 
-        if (empty($this->user)) {
-            $this->serverError(_('Not a local notice'), 500);
+        if (! $this->notice->is_local) {
+            common_redirect($this->notice->uri);
             return false;
         }
 
@@ -190,7 +190,7 @@ class ShownoticeAction extends OwnerDesignAction
     {
         parent::handle($args);
 
-        if ($this->notice->is_local == 0) {
+        if ($this->notice->is_local == Notice::REMOTE_OMB) {
             if (!empty($this->notice->url)) {
                 common_redirect($this->notice->url, 301);
             } else if (!empty($this->notice->uri) && preg_match('/^https?:/', $this->notice->uri)) {
@@ -278,16 +278,16 @@ class ShownoticeAction extends OwnerDesignAction
         $this->element('link',array('rel'=>'alternate',
             'type'=>'application/json+oembed',
             'href'=>common_local_url(
-                'api',
-                array('apiaction'=>'oembed','method'=>'oembed.json'),
-                array('url'=>$this->notice->uri)),
+                'oembed',
+                array(),
+                array('format'=>'json','url'=>$this->notice->uri)),
             'title'=>'oEmbed'),null);
         $this->element('link',array('rel'=>'alternate',
             'type'=>'text/xml+oembed',
             'href'=>common_local_url(
-                'api',
-                array('apiaction'=>'oembed','method'=>'oembed.xml'),
-                array('url'=>$this->notice->uri)),
+                'oembed',
+                array(),
+                array('format'=>'xml','url'=>$this->notice->uri)),
             'title'=>'oEmbed'),null);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 /* -*- mode: php -*- */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET')) { exit(1); }
 
 // If you have downloaded libraries in random little places, you
 // can add the paths here
@@ -13,11 +13,19 @@ if (!defined('LACONICA')) { exit(1); }
 // options
 // These are for configuring your URLs
 
-$config['site']['name'] = 'Just another Laconica microblog';
+$config['site']['name'] = 'Just another StatusNet microblog';
 $config['site']['server'] = 'localhost';
-$config['site']['path'] = 'laconica';
+$config['site']['path'] = 'statusnet';
 // $config['site']['fancy'] = false;
 // $config['site']['theme'] = 'default';
+// Sets the site's default design values
+// $config['design']['backgroundcolor'] = '#F0F2F5';
+// $config['design']['contentcolor'] = '#FFFFFF';
+// $config['design']['sidebarcolor'] = '#CEE1E9';
+// $config['design']['textcolor'] = '#000000';
+// $config['design']['linkcolor'] = '#002E6E';
+// $config['design']['backgroundimage'] = null;
+// $config['design']['disposition'] = 1;
 // To enable the built-in mobile style sheet, defaults to false.
 // $config['site']['mobile'] = true;
 // For contact email, defaults to $_SERVER["SERVER_ADMIN"]
@@ -30,13 +38,15 @@ $config['site']['path'] = 'laconica';
 // $config['site']['closed'] = true;
 // Only allow registration for people invited by another user
 // $config['site']['inviteonly'] = true;
+// Only allow registrations and logins through OpenID
+// $config['site']['openidonly'] = true;
 // Make the site invisible to  non-logged-in users
 // $config['site']['private'] = true;
 
 // If you want logging sent to a file instead of syslog
-// $config['site']['logfile'] = '/tmp/laconica.log';
+// $config['site']['logfile'] = '/tmp/statusnet.log';
 
-// Change the syslog facility that Laconica logs to (default is LOG_USER)
+// Change the syslog facility that StatusNet logs to (default is LOG_USER)
 // $config['syslog']['facility'] = LOG_LOCAL7;
 
 // Enables extra log information, for example full details of PEAR DB errors
@@ -48,8 +58,8 @@ $config['site']['path'] = 'laconica';
 // This is a PEAR DB DSN, see http://pear.php.net/manual/en/package.database.db.intro-dsn.php
 // Set it to match your actual database
 
-$config['db']['database'] = 'mysql://laconica:microblog@localhost/laconica';
-// $config['db']['ini_your_db_name'] = $config['db']['schema_location'].'/laconica.ini';
+$config['db']['database'] = 'mysql://statusnet:microblog@localhost/statusnet';
+// $config['db']['ini_your_db_name'] = $config['db']['schema_location'].'/statusnet.ini';
 // *** WARNING *** WARNING *** WARNING *** WARNING ***
 // Setting debug to a non-zero value will expose your DATABASE PASSWORD to Web users.
 // !!!!!! DO NOT SET THIS ON PRODUCTION SERVERS !!!!!! DB_DataObject's bug, btw, not
@@ -88,6 +98,9 @@ $config['sphinx']['port'] = 3312;
 // $config['xmpp']['password'] = 'blahblahblah';
 // $config['xmpp']['public'][] = 'someindexer@example.net';
 // $config['xmpp']['debug'] = false;
+
+// Disable OpenID
+// $config['openid']['enabled'] = false;
 
 // Turn off invites
 // $config['invite']['enabled'] = false;
@@ -141,29 +154,42 @@ $config['sphinx']['port'] = 3312;
 // using stomp requires an external message queue server
 // $config['queue']['subsystem'] = 'stomp';
 // $config['queue']['stomp_server'] = 'tcp://localhost:61613';
-// use different queue_basename for each laconica instance managed by the server
-// $config['queue']['queue_basename'] = 'laconica';
+// use different queue_basename for each statusnet instance managed by the server
+// $config['queue']['queue_basename'] = 'statusnet';
 
 // The following customise the behaviour of the various daemons:
 // $config['daemon']['piddir'] = '/var/run';
 // $config['daemon']['user'] = false;
 // $config['daemon']['group'] = false;
 
-// For installations with high traffic, laconica can use MemCached to cache
+// For installations with high traffic, statusnet can use MemCached to cache
 // frequently requested information. Only enable the following if you have
 // MemCached up and running:
 // $config['memcached']['enabled'] = false;
 // $config['memcached']['server'] = 'localhost';
 // $config['memcached']['port'] = 11211;
 
-// Twitter integration source attribute. Note: default is Laconica
-// $config['integration']['source'] = 'Laconica';
+// Disable post-by-email
+// $config['emailpost']['enabled'] = false;
+
+// Disable SMS
+// $config['sms']['enabled'] = false;
+
+// Disable Twitter integration
+// $config['twitter']['enabled'] = false;
+
+// Twitter integration source attribute. Note: default is StatusNet
+// $config['integration']['source'] = 'StatusNet';
 
 // Enable bidirectional Twitter bridge
 //
 // NOTE: if you enable this you must also set $config['avatar']['path']
 //
 // $config['twitterbridge']['enabled'] = true;
+
+// Twitter OAuth settings
+// $config['twitter']['consumer_key']    = 'YOURKEY';
+// $config['twitter']['consumer_secret'] = 'YOURSECRET';
 
 // Edit throttling. Off by default. If turned on, you can only post 20 notices
 // every 10 minutes. Admins may want to play with the settings to minimize inconvenience for
@@ -235,5 +261,6 @@ $config['sphinx']['port'] = 3312;
 // $config['attachments']['user_quota'] = 50000000;
 // $config['attachments']['monthly_quota'] = 15000000;
 // $config['attachments']['uploads'] = true;
+// $config['attachments']['path'] = "/file/";
 
 // $config['oohembed']['endpoint'] = 'http://oohembed.com/oohembed/';

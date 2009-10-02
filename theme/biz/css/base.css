@@ -1,10 +1,10 @@
 /** theme: biz base
  *
- * @package   Laconica
- * @author Sarven Capadisli <csarven@controlyourself.ca>
- * @copyright 2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author Sarven Capadisli <csarven@status.net>
+ * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
 * { margin:0; padding:0; }
@@ -849,6 +849,10 @@ float:left;
 font-size:1.025em;
 }
 
+.notice div.entry-content .timestamp {
+display:inline-block;
+}
+
 .notice div.entry-content dl,
 .notice div.entry-content dt,
 .notice div.entry-content dd {
@@ -866,15 +870,12 @@ display:inline-block;
 text-transform:lowercase;
 }
 
-
 .notice-options {
-padding-left:2%;
-float:left;
-width:50%;
 position:relative;
 font-size:0.95em;
-width:12.5%;
+width:90px;
 float:right;
+margin-right:11px;
 }
 
 .notice-options a {
@@ -897,38 +898,28 @@ left:29px;
 .notice-options .notice_delete {
 right:0;
 }
-.notice-options .notice_reply dt {
-display:none;
-}
-
 .notice-options input,
 .notice-options a {
 text-indent:-9999px;
 outline:none;
 }
-
-.notice-options .notice_reply a,
 .notice-options input.submit {
 display:block;
 border:0;
 }
-.notice-options .notice_reply a,
-.notice-options .notice_delete a {
+.notice-options .notice_reply,
+.notice-options .notice_delete {
 text-decoration:none;
 padding-left:16px;
 }
-
 .notice-options form input.submit {
 width:16px;
 padding:2px 0;
 }
-
-.notice-options .notice_delete dt,
 .notice-options .form_favor legend,
 .notice-options .form_disfavor legend {
 display:none;
 }
-.notice-options .notice_delete fieldset,
 .notice-options .form_favor fieldset,
 .notice-options .form_disfavor fieldset {
 border:0;

@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Base class for all actions (~views)
  *
@@ -20,15 +20,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Action
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @author    Sarven Capadisli <csarven@controlyourself.ca>
- * @copyright 2008 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    Sarven Capadisli <csarven@status.net>
+ * @copyright 2008 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -45,11 +45,11 @@ require_once INSTALLDIR.'/lib/htmloutputter.php';
  * model classes to read and write to the database; and doing ouput.
  *
  * @category Output
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Sarven Capadisli <csarven@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Sarven Capadisli <csarven@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
  * @see      HTMLOutputter
  */
@@ -191,37 +191,49 @@ class Action extends HTMLOutputter // lawsuit
     function showStylesheets()
     {
         if (Event::handle('StartShowStyles', array($this))) {
-            if (Event::handle('StartShowLaconicaStyles', array($this))) {
-                $this->element('link', array('rel' => 'stylesheet',
-                                             'type' => 'text/css',
-                                             'href' => theme_path('css/display.css', null) . '?version=' . LACONICA_VERSION,
-                                             'media' => 'screen, projection, tv'));
+
+            // Use old name for StatusNet for compatibility on events
+
+            if (Event::handle('StartShowStatusNetStyles', array($this)) &&
+                Event::handle('StartShowLaconicaStyles', array($this))) {
+                $this->cssLink('css/display.css',null,'screen, projection, tv');
                 if (common_config('site', 'mobile')) {
-                    $this->element('link', array('rel' => 'stylesheet',
-                                                 'type' => 'text/css',
-                                                 'href' => theme_path('css/mobile.css', 'base') . '?version=' . LACONICA_VERSION,
-                                                 // TODO: "handheld" CSS for other mobile devices
-                                                 'media' => 'only screen and (max-device-width: 480px)')); // Mobile WebKit
+                    // TODO: "handheld" CSS for other mobile devices
+                    $this->cssLink('css/mobile.css','base','only screen and (max-device-width: 480px)'); // Mobile WebKit
                 }
-                $this->element('link', array('rel' => 'stylesheet',
-                                             'type' => 'text/css',
-                                             'href' => theme_path('css/print.css', 'base') . '?version=' . LACONICA_VERSION,
-                                             'media' => 'print'));
+                $this->cssLink('css/print.css','base','print');
+                Event::handle('EndShowStatusNetStyles', array($this));
                 Event::handle('EndShowLaconicaStyles', array($this));
             }
+
             if (Event::handle('StartShowUAStyles', array($this))) {
                 $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
-                               'href="'.theme_path('css/ie.css', 'base').'?version='.LACONICA_VERSION.'" /><![endif]');
+                               'href="'.theme_path('css/ie.css', 'base').'?version='.STATUSNET_VERSION.'" /><![endif]');
                 foreach (array(6,7) as $ver) {
                     if (file_exists(theme_file('css/ie'.$ver.'.css', 'base'))) {
                         // Yes, IE people should be put in jail.
                         $this->comment('[if lte IE '.$ver.']><link rel="stylesheet" type="text/css" '.
-                                       'href="'.theme_path('css/ie'.$ver.'.css', 'base').'?version='.LACONICA_VERSION.'" /><![endif]');
+                                       'href="'.theme_path('css/ie'.$ver.'.css', 'base').'?version='.STATUSNET_VERSION.'" /><![endif]');
                     }
                 }
                 $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
-                               'href="'.theme_path('css/ie.css', null).'?version='.LACONICA_VERSION.'" /><![endif]');
+                               'href="'.theme_path('css/ie.css', null).'?version='.STATUSNET_VERSION.'" /><![endif]');
                 Event::handle('EndShowUAStyles', array($this));
+            }
+
+            if (Event::handle('StartShowDesign', array($this))) {
+
+                $user = common_current_user();
+
+                if (empty($user) || $user->viewdesigns) {
+                    $design = $this->getDesign();
+
+                    if (!empty($design)) {
+                        $design->showCSS($this);
+                    }
+                }
+
+                Event::handle('EndShowDesign', array($this));
             }
             Event::handle('EndShowStyles', array($this));
         }
@@ -236,29 +248,19 @@ class Action extends HTMLOutputter // lawsuit
     {
         if (Event::handle('StartShowScripts', array($this))) {
             if (Event::handle('StartShowJQueryScripts', array($this))) {
-                $this->element('script', array('type' => 'text/javascript',
-                                               'src' => common_path('js/jquery.min.js')),
-                               ' ');
-                $this->element('script', array('type' => 'text/javascript',
-                                               'src' => common_path('js/jquery.form.js')),
-                               ' ');
-
-                $this->element('script', array('type' => 'text/javascript',
-                                               'src' => common_path('js/jquery.joverlay.min.js')),
-                               ' ');
-
+                $this->script('js/jquery.min.js');
+                $this->script('js/jquery.form.js');
+                $this->script('js/jquery.joverlay.min.js');
                 Event::handle('EndShowJQueryScripts', array($this));
             }
-            if (Event::handle('StartShowLaconicaScripts', array($this))) {
-                $this->element('script', array('type' => 'text/javascript',
-                                               'src' => common_path('js/xbImportNode.js')),
-                               ' ');
-                $this->element('script', array('type' => 'text/javascript',
-                                               'src' => common_path('js/util.js?version='.LACONICA_VERSION)),
-                               ' ');
+            if (Event::handle('StartShowStatusNetScripts', array($this)) &&
+                Event::handle('StartShowLaconicaScripts', array($this))) {
+                $this->script('js/xbImportNode.js');
+                $this->script('js/util.js');
                 // Frame-busting code to avoid clickjacking attacks.
                 $this->element('script', array('type' => 'text/javascript'),
                                'if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
+                Event::handle('EndShowStatusNetScripts', array($this));
                 Event::handle('EndShowLaconicaScripts', array($this));
             }
             Event::handle('EndShowScripts', array($this));
@@ -406,6 +408,14 @@ class Action extends HTMLOutputter // lawsuit
     function showPrimaryNav()
     {
         $user = common_current_user();
+        $connect = '';
+        if (common_config('xmpp', 'enabled')) {
+            $connect = 'imsettings';
+        } else if (common_config('sms', 'enabled')) {
+            $connect = 'smssettings';
+        } else if (common_config('twitter', 'enabled')) {
+            $connect = 'twittersettings';
+        }
 
         $this->elementStart('dl', array('id' => 'site_nav_global_primary'));
         $this->element('dt', null, _('Primary site navigation'));
@@ -417,12 +427,9 @@ class Action extends HTMLOutputter // lawsuit
                                 _('Home'), _('Personal profile and friends timeline'), false, 'nav_home');
                 $this->menuItem(common_local_url('profilesettings'),
                                 _('Account'), _('Change your email, avatar, password, profile'), false, 'nav_account');
-                if (common_config('xmpp', 'enabled')) {
-                    $this->menuItem(common_local_url('imsettings'),
-                                    _('Connect'), _('Connect to IM, SMS, Twitter'), false, 'nav_connect');
-                } else {
-                    $this->menuItem(common_local_url('smssettings'),
-                                    _('Connect'), _('Connect to SMS, Twitter'), false, 'nav_connect');
+                if ($connect) {
+                    $this->menuItem(common_local_url($connect),
+                                    _('Connect'), _('Connect to services'), false, 'nav_connect');
                 }
                 if (common_config('invite', 'enabled')) {
                     $this->menuItem(common_local_url('invite'),
@@ -435,17 +442,24 @@ class Action extends HTMLOutputter // lawsuit
                                 _('Logout'), _('Logout from the site'), false, 'nav_logout');
             }
             else {
-                if (!common_config('site', 'closed')) {
-                    $this->menuItem(common_local_url('register'),
-                                    _('Register'), _('Create an account'), false, 'nav_register');
+                if (!common_config('site', 'openidonly')) {
+                    if (!common_config('site', 'closed')) {
+                        $this->menuItem(common_local_url('register'),
+                                        _('Register'), _('Create an account'), false, 'nav_register');
+                    }
+                    $this->menuItem(common_local_url('login'),
+                                    _('Login'), _('Login to the site'), false, 'nav_login');
+                } else {
+                    $this->menuItem(common_local_url('openidlogin'),
+                                    _('OpenID'), _('Login with OpenID'), false, 'nav_openid');
                 }
-                $this->menuItem(common_local_url('login'),
-                                _('Login'), _('Login to the site'), false, 'nav_login');
             }
             $this->menuItem(common_local_url('doc', array('title' => 'help')),
                             _('Help'), _('Help me!'), false, 'nav_help');
-            $this->menuItem(common_local_url('peoplesearch'),
-                            _('Search'), _('Search for people or text'), false, 'nav_search');
+            if ($user || !common_config('site', 'private')) {
+                $this->menuItem(common_local_url('peoplesearch'),
+                                _('Search'), _('Search for people or text'), false, 'nav_search');
+            }
             Event::handle('EndPrimaryNav', array($this));
         }
         $this->elementEnd('ul');
@@ -734,26 +748,26 @@ class Action extends HTMLOutputter // lawsuit
     function showLicenses()
     {
         $this->elementStart('dl', array('id' => 'licenses'));
-        $this->showLaconicaLicense();
+        $this->showStatusNetLicense();
         $this->showContentLicense();
         $this->elementEnd('dl');
     }
 
     /**
-     * Show Laconica license.
+     * Show StatusNet license.
      *
      * @return nothing
      */
-    function showLaconicaLicense()
+    function showStatusNetLicense()
     {
-        $this->element('dt', array('id' => 'site_laconica_license'), _('Laconica software license'));
+        $this->element('dt', array('id' => 'site_statusnet_license'), _('StatusNet software license'));
         $this->elementStart('dd', null);
         if (common_config('site', 'broughtby')) {
             $instr = _('**%%site.name%%** is a microblogging service brought to you by [%%site.broughtby%%](%%site.broughtbyurl%%). ');
         } else {
             $instr = _('**%%site.name%%** is a microblogging service. ');
         }
-        $instr .= sprintf(_('It runs the [Laconica](http://laconi.ca/) microblogging software, version %s, available under the [GNU Affero General Public License](http://www.fsf.org/licensing/licenses/agpl-3.0.html).'), LACONICA_VERSION);
+        $instr .= sprintf(_('It runs the [StatusNet](http://status.net/) microblogging software, version %s, available under the [GNU Affero General Public License](http://www.fsf.org/licensing/licenses/agpl-3.0.html).'), STATUSNET_VERSION);
         $output = common_markup_to_html($instr);
         $this->raw($output);
         $this->elementEnd('dd');
@@ -767,7 +781,7 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showContentLicense()
     {
-        $this->element('dt', array('id' => 'site_content_license'), _('Laconica software license'));
+        $this->element('dt', array('id' => 'site_content_license'), _('Site content license'));
         $this->elementStart('dd', array('id' => 'site_content_license_cc'));
         $this->elementStart('p');
         $this->element('img', array('id' => 'license_cc',
@@ -867,6 +881,7 @@ class Action extends HTMLOutputter // lawsuit
      */
     function handle($argarray=null)
     {
+        header('Vary: Accept-Encoding,Cookie');
         $lm   = $this->lastModified();
         $etag = $this->etag();
         if ($etag) {
@@ -1073,5 +1088,16 @@ class Action extends HTMLOutputter // lawsuit
     function getFeeds()
     {
         return null;
+    }
+
+    /**
+     * A design for this action
+     *
+     * @return Design a design object to use
+     */
+
+    function getDesign()
+    {
+        return Design::siteDesign();
     }
 }

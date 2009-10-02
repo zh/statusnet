@@ -1,6 +1,6 @@
 <?php
 /**
- * Laconica, the distributed open-source microblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
  * Action for displaying the public stream
  *
@@ -20,14 +20,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category  Public
- * @package   Laconica
- * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2008-2009 Control Yourself, Inc.
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
-if (!defined('LACONICA')) {
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
@@ -43,10 +43,10 @@ define('MAX_PUBLIC_PAGE', 100);
  * Action for displaying the public stream
  *
  * @category Public
- * @package  Laconica
- * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  *
  * @see      PublicrssAction
  * @see      PublicxrdsAction
@@ -59,6 +59,7 @@ class PublicAction extends Action
      */
 
     var $page = null;
+    var $notice;
 
     function isReadOnly($args)
     {
@@ -83,6 +84,18 @@ class PublicAction extends Action
         }
 
         common_set_returnto($this->selfUrl());
+
+        $this->notice = Notice::publicStream(($this->page-1)*NOTICES_PER_PAGE,
+                                       NOTICES_PER_PAGE + 1);
+
+        if (!$this->notice) {
+            $this->serverError(_('Could not retrieve public stream.'));
+            return;
+        }
+
+        if($this->page > 1 && $this->notice->N == 0){
+            $this->serverError(_('No such page'),$code=404);
+        }
 
         return true;
     }
@@ -183,7 +196,8 @@ class PublicAction extends Action
         }
         else {
             if (! (common_config('site','closed') || common_config('site','inviteonly'))) {
-                $message .= _('Why not [register an account](%%action.register%%) and be the first to post!');
+                $message .= sprintf(_('Why not [register an account](%%%%action.%s%%%%) and be the first to post!'),
+                                    (!common_config('site','openidonly')) ? 'register' : 'openidlogin');
             }
 	}
 
@@ -203,15 +217,7 @@ class PublicAction extends Action
 
     function showContent()
     {
-        $notice = Notice::publicStream(($this->page-1)*NOTICES_PER_PAGE,
-                                       NOTICES_PER_PAGE + 1);
-
-        if (!$notice) {
-            $this->serverError(_('Could not retrieve public stream.'));
-            return;
-        }
-
-        $nl = new NoticeList($notice, $this);
+        $nl = new NoticeList($this->notice, $this);
 
         $cnt = $nl->show();
 
@@ -229,7 +235,7 @@ class PublicAction extends Action
         // $top->show();
         $pop = new PopularNoticeSection($this);
         $pop->show();
-        $gbp = new GroupsByPostsSection($this);
+        $gbp = new GroupsByMembersSection($this);
         $gbp->show();
         $feat = new FeaturedUsersSection($this);
         $feat->show();
@@ -238,12 +244,14 @@ class PublicAction extends Action
     function showAnonymousMessage()
     {
         if (! (common_config('site','closed') || common_config('site','inviteonly'))) {
-	    $m = _('This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
-                  'based on the Free Software [Laconica](http://laconi.ca/) tool. ' .
-                  '[Join now](%%action.register%%) to share notices about yourself with friends, family, and colleagues! ([Read more](%%doc.help%%))');
+            $m = sprintf(_('This is %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
+                           'based on the Free Software [StatusNet](http://status.net/) tool. ' .
+                           '[Join now](%%%%action.%s%%%%) to share notices about yourself with friends, family, and colleagues! ' .
+                           '([Read more](%%%%doc.help%%%%))'),
+                         (!common_config('site','openidonly')) ? 'register' : 'openidlogin');
         } else {
             $m = _('This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
-                   'based on the Free Software [Laconica](http://laconi.ca/) tool.');
+                   'based on the Free Software [StatusNet](http://status.net/) tool.');
         }
         $this->elementStart('div', array('id' => 'anon_notice'));
         $this->raw(common_markup_to_html($m));
