@@ -31,7 +31,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/apibareauth.php';
+require_once INSTALLDIR.'/lib/apiauth.php';
 
 /**
  * Updates the authenticating user's status (posts a notice).
@@ -109,7 +109,7 @@ class ApiUpdateAction extends ApiAuthAction
     /**
      * Handle the request
      *
-     * Just show the notices
+     * Make a new notice for the update, save it, and show it
      *
      * @param array $args $_REQUEST data (unused)
      *

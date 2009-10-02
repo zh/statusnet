@@ -342,17 +342,22 @@ class Router
 
         $m->connect('api/statuses/show/:id.:format',
                     array('action' => 'ApiShow',
-                          'id' => '[a-zA-Z0-9]+',
+                          'id' => '[0-9]+',
                           'format' => '(xml|json)'));
 
         $m->connect('api/statuses/update.:format',
                     array('action' => 'ApiUpdate',
                           'format' => '(xml|json)'));
 
-        $m->connect('api/statuses/:method/:argument',
-                    array('action' => 'api',
-                          'apiaction' => 'statuses'),
-                    array('method' => 'destroy'));
+        $m->connect('api/statuses/destroy.:format',
+                  array('action' => 'ApiDestroy',
+                        'format' => '(xml|json)'));
+
+        $m->connect('api/statuses/destroy/:id.:format',
+                  array('action' => 'ApiDestroy',
+                        'id' => '[0-9]+',
+                        'format' => '(xml|json)'));
+
 
         // users
 
