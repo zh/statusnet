@@ -1148,7 +1148,7 @@ function common_negotiate_type($cprefs, $sprefs)
     }
 
     if ('text/html' === $besttype) {
-        return "text/html; charset=utf-8";
+        return "text/html";
     }
     return $besttype;
 }
