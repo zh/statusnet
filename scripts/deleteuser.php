@@ -57,7 +57,7 @@ if (have_option('i', 'id')) {
 if (!have_option('y', 'yes')) {
     print "About to PERMANENTLY delete user '{$user->nickname}' ({$user->id}). Are you sure? [y/N] ";
     $response = fgets(STDIN);
-    if (strtolower($response) != 'y') {
+    if (strtolower(trim($response)) != 'y') {
         print "Aborting.\n";
         exit(0);
     }
