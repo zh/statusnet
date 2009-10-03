@@ -1,3 +1,4 @@
+
 <?php
 /**
  * StatusNet - the distributed open-source microblogging tool
@@ -31,7 +32,7 @@
  * @author   Sarven Capadisli <csarven@status.net>
  * @author   Tom Adams <tom@holizz.com>
  * @license  GNU Affero General Public License http://www.gnu.org/licenses/
- * @version  0.9
+ * @version  0.9.x
  * @link     http://status.net
  */
 
@@ -340,13 +341,13 @@ function checkExtension($name)
     if (extension_loaded($name)) {
         return true;
     } elseif (function_exists('dl') && ini_get('enable_dl') && !ini_get('safe_mode')) {
-    	// dl will throw a fatal error if it's disabled or we're in safe mode.
-    	// More fun, it may not even exist under some SAPIs in 5.3.0 or later...
-    	$soname = $name . '.' . PHP_SHLIB_SUFFIX;
-    	if (PHP_SHLIB_SUFFIX == 'dll') {
-    		$soname = "php_" . $soname;
-    	}
-    	return @dl($soname);
+        // dl will throw a fatal error if it's disabled or we're in safe mode.
+        // More fun, it may not even exist under some SAPIs in 5.3.0 or later...
+        $soname = $name . '.' . PHP_SHLIB_SUFFIX;
+        if (PHP_SHLIB_SUFFIX == 'dll') {
+            $soname = "php_" . $soname;
+        }
+        return @dl($soname);
     } else {
         return false;
     }

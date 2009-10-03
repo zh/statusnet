@@ -61,6 +61,11 @@ function getPath($req)
     }
 }
 
+/**
+ * logs and then displays error messages
+ *
+ * @return void
+ */
 function handleError($error)
 {
     if ($error->getCode() == DB_DATAOBJECT_ERROR_NODATA) {
