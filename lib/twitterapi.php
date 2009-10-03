@@ -322,51 +322,6 @@ class TwitterapiAction extends Action
         return $entry;
     }
 
-    function twitter_rss_dmsg_array($message)
-    {
-
-        $entry = array();
-
-        $entry['title'] = sprintf('Message from %s to %s',
-            $message->getFrom()->nickname, $message->getTo()->nickname);
-
-        $entry['content'] = common_xml_safe_str(trim($message->content));
-        $entry['link'] = common_local_url('showmessage', array('message' => $message->id));
-        $entry['published'] = common_date_iso8601($message->created);
-
-        $taguribase = common_config('integration', 'taguri');
-
-        $entry['id'] = "tag:$taguribase,:$entry[link]";
-        $entry['updated'] = $entry['published'];
-        $entry['author'] = $message->getFrom()->getBestName();
-
-        # RSS Item specific
-        $entry['description'] = $entry['content'];
-        $entry['pubDate'] = common_date_rfc2822($message->created);
-        $entry['guid'] = $entry['link'];
-
-        return $entry;
-    }
-
-    function twitter_dmsg_array($message)
-    {
-        $twitter_dm = array();
-
-        $from_profile = $message->getFrom();
-        $to_profile = $message->getTo();
-
-        $twitter_dm['id'] = $message->id;
-        $twitter_dm['sender_id'] = $message->from_profile;
-        $twitter_dm['text'] = trim($message->content);
-        $twitter_dm['recipient_id'] = $message->to_profile;
-        $twitter_dm['created_at'] = $this->date_twitter($message->created);
-        $twitter_dm['sender_screen_name'] = $from_profile->nickname;
-        $twitter_dm['recipient_screen_name'] = $to_profile->nickname;
-        $twitter_dm['sender'] = $this->twitter_user_array($from_profile, false);
-        $twitter_dm['recipient'] = $this->twitter_user_array($to_profile, false);
-
-        return $twitter_dm;
-    }
 
     function twitter_relationship_array($source, $target)
     {
@@ -531,40 +486,6 @@ class TwitterapiAction extends Action
         $this->end_document('json');
     }
 
-    function show_single_xml_dmsg($message)
-    {
-        $this->init_document('xml');
-        $dmsg = $this->twitter_dmsg_array($message);
-        $this->show_twitter_xml_dmsg($dmsg);
-        $this->end_document('xml');
-    }
-
-    function show_single_json_dmsg($message)
-    {
-        $this->init_document('json');
-        $dmsg = $this->twitter_dmsg_array($message);
-        $this->show_json_objects($dmsg);
-        $this->end_document('json');
-    }
-
-    function show_twitter_xml_dmsg($twitter_dm)
-    {
-        $this->elementStart('direct_message');
-        foreach($twitter_dm as $element => $value) {
-            switch ($element) {
-            case 'sender':
-            case 'recipient':
-                $this->show_twitter_xml_user($value, $element);
-                break;
-            case 'text':
-                $this->element($element, null, common_xml_safe_str($value));
-                break;
-            default:
-                $this->element($element, null, $value);
-            }
-        }
-        $this->elementEnd('direct_message');
-    }
 
     function show_xml_timeline($notice)
     {
@@ -683,6 +604,121 @@ class TwitterapiAction extends Action
         }
 
         $this->end_twitter_rss();
+    }
+
+
+    function showTwitterAtomEntry($entry)
+    {
+        $this->elementStart('entry');
+        $this->element('title', null, $entry['title']);
+        $this->element('content', array('type' => 'html'), $entry['content']);
+        $this->element('id', null, $entry['id']);
+        $this->element('published', null, $entry['published']);
+        $this->element('updated', null, $entry['updated']);
+        $this->element('link', array('type' => 'text/html',
+                                     'href' => $entry['link'],
+                                     'rel' => 'alternate'));
+        $this->element('link', array('type' => $entry['avatar-type'],
+                                     'href' => $entry['avatar'],
+                                     'rel' => 'image'));
+        $this->elementStart('author');
+
+        $this->element('name', null, $entry['author-name']);
+        $this->element('uri', null, $entry['author-uri']);
+
+        $this->elementEnd('author');
+        $this->elementEnd('entry');
+    }
+
+    function showXmlDirectMessage($dm)
+    {
+        $this->elementStart('direct_message');
+        foreach($dm as $element => $value) {
+            switch ($element) {
+            case 'sender':
+            case 'recipient':
+                $this->show_twitter_xml_user($value, $element);
+                break;
+            case 'text':
+                $this->element($element, null, common_xml_safe_str($value));
+                break;
+            default:
+                $this->element($element, null, $value);
+                break;
+            }
+        }
+        $this->elementEnd('direct_message');
+    }
+
+    function directMessageArray($message)
+    {
+        $dmsg = array();
+
+        $from_profile = $message->getFrom();
+        $to_profile = $message->getTo();
+
+        $dmsg['id'] = $message->id;
+        $dmsg['sender_id'] = $message->from_profile;
+        $dmsg['text'] = trim($message->content);
+        $dmsg['recipient_id'] = $message->to_profile;
+        $dmsg['created_at'] = $this->date_twitter($message->created);
+        $dmsg['sender_screen_name'] = $from_profile->nickname;
+        $dmsg['recipient_screen_name'] = $to_profile->nickname;
+        $dmsg['sender'] = $this->twitter_user_array($from_profile, false);
+        $dmsg['recipient'] = $this->twitter_user_array($to_profile, false);
+
+        return $dmsg;
+    }
+
+    function rssDirectMessageArray($message)
+    {
+        $entry = array();
+
+        $from = $message->getFrom();
+
+        $entry['title'] = sprintf('Message from %s to %s',
+            $from->nickname, $message->getTo()->nickname);
+
+        $entry['content'] = common_xml_safe_str($message->rendered);
+        $entry['link'] = common_local_url('showmessage', array('message' => $message->id));
+        $entry['published'] = common_date_iso8601($message->created);
+
+        $taguribase = common_config('integration', 'taguri');
+
+        $entry['id'] = "tag:$taguribase:$entry[link]";
+        $entry['updated'] = $entry['published'];
+
+        $entry['author-name'] = $from->getBestName();
+        $entry['author-uri'] = $from->homepage;
+
+        $avatar = $from->getAvatar(AVATAR_STREAM_SIZE);
+
+        $entry['avatar']      = (!empty($avatar)) ? $avatar->url : Avatar::defaultImage(AVATAR_STREAM_SIZE);
+        $entry['avatar-type'] = (!empty($avatar)) ? $avatar->mediatype : 'image/png';
+
+        // RSS item specific
+
+        $entry['description'] = $entry['content'];
+        $entry['pubDate'] = common_date_rfc2822($message->created);
+        $entry['guid'] = $entry['link'];
+
+        return $entry;
+    }
+
+    function showSingleXmlDirectMessage($message)
+    {
+        $this->init_document('xml');
+        $dmsg = $this->directMessageArray($message);
+        $this->showXmlDirectMessage($dmsg);
+        $this->end_document('xml');
+    }
+
+    function showSingleJsonDirectMessage($message)
+    {
+        $this->init_document('json');
+        $dmsg = $this->directMessageArray($message);
+        $this->show_json_objects($dmsg);
+        $this->end_document('json');
     }
 
     function show_atom_groups($group, $title, $id, $link, $subtitle=null, $selfuri=null)

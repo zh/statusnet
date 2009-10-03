@@ -358,7 +358,6 @@ class Router
                         'id' => '[0-9]+',
                         'format' => '(xml|json)'));
 
-
         // users
 
         $m->connect('api/users/show/:id.:format',
@@ -373,30 +372,19 @@ class Router
 
         // direct messages
 
-        foreach (array('xml', 'json') as $e) {
-            $m->connect('api/direct_messages/new.'.$e,
-                        array('action' => 'api',
-                              'apiaction' => 'direct_messages',
-                              'method' => 'create.'.$e));
-        }
 
-        foreach (array('xml', 'json', 'rss', 'atom') as $e) {
-            $m->connect('api/direct_messages.'.$e,
-                        array('action' => 'api',
-                              'apiaction' => 'direct_messages',
-                              'method' => 'direct_messages.'.$e));
-        }
+        $m->connect('api/direct_messages.:format',
+                    array('action' => 'ApiDirectMessage',
+                          'format' => '(xml|json|rss|atom)'));
 
-        foreach (array('xml', 'json', 'rss', 'atom') as $e) {
-            $m->connect('api/direct_messages/sent.'.$e,
-                        array('action' => 'api',
-                              'apiaction' => 'direct_messages',
-                              'method' => 'sent.'.$e));
-        }
+        $m->connect('api/direct_messages/sent.:format',
+                    array('action' => 'ApiDirectMessage',
+                          'format' => '(xml|json|rss|atom)',
+                          'sent' => true));
 
-        $m->connect('api/direct_messages/destroy/:argument',
-                    array('action' => 'api',
-                          'apiaction' => 'direct_messages'));
+        $m->connect('api/direct_messages/new.:format',
+                     array('action' => 'ApiDirectMessageNew',
+                           'format' => '(xml|json)'));
 
         // friendships
 
@@ -410,7 +398,7 @@ class Router
                           'apiaction' => 'friendships'),
                     array('method' => '(show|exists)(\.(xml|json))'));
 
-        // Social graph
+       // Social graph
 
         $m->connect('api/friends/ids/:id.:format',
                     array('action' => 'apiFriends',
