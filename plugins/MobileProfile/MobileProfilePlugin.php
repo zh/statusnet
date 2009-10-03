@@ -96,8 +96,16 @@ class MobileProfilePlugin extends WAP20Plugin
                 // serve them MP
 
                 // XXX: Browser sniffing sucks
+
                 // I really don't like going through this every page, 
                 // find a better way
+
+                // May be better to categorize the devices in terms of 
+                // low,mid,high-end
+
+                // Or, detect the mobile devices based on their support for 
+                // MP 1.0, 1.1, or 1.2 may be ideal. Possible?
+
                 $this->mobiledevices = 
                     array('alcatel', 'android', 'audiovox', 'au-mic,', 
                           'avantgo', 'blackberry', 'blazer', 'cldc-', 'danger', 
@@ -112,8 +120,8 @@ class MobileProfilePlugin extends WAP20Plugin
 
                 $httpuseragent = strtolower($_SERVER['HTTP_USER_AGENT']);
 
-                foreach($this->mobiledevices as $mb) {
-                    if (strstr($httpuseragent, $mb) !== false) {
+                foreach($this->mobiledevices as $md) {
+                    if (strstr($httpuseragent, $md) !== false) {
                         $this->serveMobile = true;
                         break;
                     }
