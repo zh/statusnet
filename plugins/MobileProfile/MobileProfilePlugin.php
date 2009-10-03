@@ -49,7 +49,7 @@ require_once INSTALLDIR.'/plugins/Mobile/WAP20Plugin.php';
 
 class MobileProfilePlugin extends WAP20Plugin
 {
-    public $DTD      = null;
+    public $DTD             = null;
     public $serveMobile     = false;
 
     function __construct($DTD='http://www.wapforum.org/DTD/xhtml-mobile10.dtd')
@@ -158,7 +158,9 @@ class MobileProfilePlugin extends WAP20Plugin
 
     function onStartShowAside($action)
     {
-
+        if ($this->serveMobile) {
+            return false;
+        }
     }
 
 
