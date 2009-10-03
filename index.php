@@ -63,6 +63,8 @@ function getPath($req)
 
 /**
  * logs and then displays error messages
+ *
+ * @return void
  */
 function handleError($error)
 {
