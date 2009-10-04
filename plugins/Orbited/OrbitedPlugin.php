@@ -60,6 +60,12 @@ class OrbitedPlugin extends RealtimePlugin
 
     protected $con      = null;
 
+    function onStartShowHeadElements($action)
+    {
+        // See http://orbited.org/wiki/Deployment#Cross-SubdomainDeployment
+        $action->element('script', null, ' document.domain = document.domain; ');
+    }
+
     function _getScripts()
     {
         $scripts = parent::_getScripts();
@@ -71,6 +77,7 @@ class OrbitedPlugin extends RealtimePlugin
         $root = 'http://'.$server.(($port == 80) ? '':':'.$port);
 
         $scripts[] = $root.'/static/Orbited.js';
+        $scripts[] = common_path('plugins/Orbited/orbitedextra.js');
         $scripts[] = $root.'/static/protocols/stomp/stomp.js';
         $scripts[] = common_path('plugins/Orbited/orbitedupdater.js');
 
@@ -90,16 +97,16 @@ class OrbitedPlugin extends RealtimePlugin
 
     function _connect()
     {
-        require_once(INSTALLDIR.'/extlibs/Stomp.php');
+        require_once(INSTALLDIR.'/extlib/Stomp.php');
 
         $url = $this->_getStompUrl();
 
         $this->con = new Stomp($url);
 
         if ($this->con->connect($this->username, $this->password)) {
-            $this->_log(LOG_INFO, "Connected.");
+            $this->log(LOG_INFO, "Connected.");
         } else {
-            $this->_log(LOG_ERR, 'Failed to connect to queue server');
+            $this->log(LOG_ERR, 'Failed to connect to queue server');
             throw new ServerException('Failed to connect to queue server');
         }
     }
@@ -128,15 +135,14 @@ class OrbitedPlugin extends RealtimePlugin
 
     function _getStompServer()
     {
-        $server = (!is_null($this->stompserver)) ? $this->stompserver :
+        return (!is_null($this->stompserver)) ? $this->stompserver :
         (!is_null($this->webserver)) ? $this->webserver :
         common_config('site', 'server');
-        return $server;
     }
 
     function _getStompPort()
     {
-        $port = (!is_null($this->stompport)) ? $this->stompport : 61613;
+        return (!is_null($this->stompport)) ? $this->stompport : 61613;
     }
 
     function _getStompUrl()

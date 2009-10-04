@@ -9,13 +9,16 @@ var OrbitedUpdater = function()
                // set up stomp client.
                stomp = new STOMPClient();
 
-               stomp.connect(server, port, username, password);
-               stomp.subscribe(timeline);
-
                stomp.onmessageframe = function(frame) {
                     RealtimeUpdate.receive(JSON.parse(frame.body));
                };
-          };
+
+               stomp.onconnectedframe = function() {
+                    stomp.subscribe(timeline);
+               }
+
+               stomp.connect(server, port, username, password);
+          }
      }
 }();
 
