@@ -132,10 +132,11 @@ class MobileProfilePlugin extends WAP20Plugin
             // redirect there
             if ($this->serveMobile && 
                 common_config('site', 'mobileserver') !== false &&
-                common_config('site', 'mobileserver') != 
-                    common_config('site', 'server')) {
+                (common_config('site', 'mobileserver') != 
+                    common_config('site', 'server'))) {
 
-                header("Location: ".common_config('site', 'mobileserver'));
+                // FIXME: Redirect to equivalent page on mobile site instead
+                header("Location: ".$this->_common_path(''));
                 exit();
             }
         }
@@ -171,6 +172,27 @@ class MobileProfilePlugin extends WAP20Plugin
 
     }
 
+
+    function _common_path($relative, $ssl=false)
+    {
+        $pathpart = (common_config('site', 'path')) ? common_config('site', 'path')."/" : '';
+
+        if (($ssl && (common_config('site', 'ssl') === 'sometimes'))
+            || common_config('site', 'ssl') === 'always') {
+            $proto = 'https';
+            if (is_string(common_config('site', 'sslserver')) &&
+                mb_strlen(common_config('site', 'sslserver')) > 0) {
+                $serverpart = common_config('site', 'sslserver');
+            } else {
+                $serverpart = common_config('site', 'mobileserver');
+            }
+        } else {
+            $proto = 'http';
+            $serverpart = common_config('site', 'mobileserver');
+        }
+
+        return $proto.'://'.$serverpart.'/'.$pathpart.$relative;
+    }
 }
 
 
