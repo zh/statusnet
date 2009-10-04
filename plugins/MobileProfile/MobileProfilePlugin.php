@@ -173,6 +173,10 @@ class MobileProfilePlugin extends WAP20Plugin
 
 
     function onStartShowStatusNetStyles($action) {
+        if (!$action->serveMobile) {
+            return true;
+        }
+
         if (file_exists(theme_file('css/mp-screen.css'))) {
             $action->cssLink('css/mp-screen.css', null, 'screen');
         }
