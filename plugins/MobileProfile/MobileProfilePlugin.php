@@ -207,6 +207,25 @@ class MobileProfilePlugin extends WAP20Plugin
     }
 
 
+    function onStartShowHeader($action)
+    {
+        if (!$this->serveMobile) {
+            return true;
+        }
+
+        $action->elementStart('div', array('id' => 'header'));
+        $action->showLogo();
+        $action->showPrimaryNav();
+        $action->showSiteNotice();
+        if (common_logged_in()) {
+            $action->showNoticeForm();
+        } else {
+            $action->showAnonymousMessage();
+        }
+        $action->elementEnd('div');
+    }
+
+
     function onStartShowAside($action)
     {
         if ($this->serveMobile) {
