@@ -131,7 +131,9 @@ class MobileProfilePlugin extends WAP20Plugin
             // If they are okay with MP, and the site has a mobile server, 
             // redirect there
             if ($this->serveMobile && 
-                common_config('site', 'mobileserver') !== false) {
+                common_config('site', 'mobileserver') !== false &&
+                common_config('site', 'mobileserver') != 
+                    common_config('site', 'server')) {
 
                 header("Location: ".common_config('site', 'mobileserver'));
                 exit();
