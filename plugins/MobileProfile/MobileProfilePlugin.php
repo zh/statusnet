@@ -223,6 +223,8 @@ class MobileProfilePlugin extends WAP20Plugin
             $action->showAnonymousMessage();
         }
         $action->elementEnd('div');
+
+        return false;
     }
 
 
