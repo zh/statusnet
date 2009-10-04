@@ -216,11 +216,8 @@ class MobileProfilePlugin extends WAP20Plugin
         $action->elementStart('div', array('id' => 'header'));
         $this->_showLogo($action);
         $action->showPrimaryNav();
-        $action->showSiteNotice();
         if (common_logged_in()) {
             $action->showNoticeForm();
-        } else {
-            $action->showAnonymousMessage();
         }
         $action->elementEnd('div');
 
