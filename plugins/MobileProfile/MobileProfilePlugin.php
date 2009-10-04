@@ -215,7 +215,7 @@ class MobileProfilePlugin extends WAP20Plugin
 
         $action->elementStart('div', array('id' => 'header'));
         $this->_showLogo($action);
-        $action->showPrimaryNav();
+        $this->_showPrimaryNav($action);
         if (common_logged_in()) {
             $action->showNoticeForm();
         }
@@ -242,6 +242,52 @@ class MobileProfilePlugin extends WAP20Plugin
         $action->element('span', array('class' => 'fn org'), common_config('site', 'name'));
         $action->elementEnd('a');
         $action->elementEnd('address');
+    }
+
+
+    function _showPrimaryNav($action) {
+        $user = common_current_user();
+        $connect = '';
+        if (common_config('xmpp', 'enabled')) {
+            $connect = 'imsettings';
+        } else if (common_config('sms', 'enabled')) {
+            $connect = 'smssettings';
+        } else if (common_config('twitter', 'enabled')) {
+            $connect = 'twittersettings';
+        }
+
+        $action->elementStart('ul', array('id' => 'site_nav_global_primary'));
+        if ($user) {
+            $action->menuItem(common_local_url('all', array('nickname' => $user->nickname)),
+                            _('Home'));
+            $action->menuItem(common_local_url('profilesettings'),
+                            _('Account'));
+            if ($connect) {
+                $action->menuItem(common_local_url($connect),
+                                _('Connect'));
+            }
+            if (common_config('invite', 'enabled')) {
+                $action->menuItem(common_local_url('invite'),
+                                _('Invite'));
+            }
+            $action->menuItem(common_local_url('logout'),
+                            _('Logout'));
+        }
+        else {
+            if (!common_config('site', 'closed')) {
+                $action->menuItem(common_local_url('register'),
+                                _('Register'));
+            }
+            $action->menuItem(common_local_url('login'),
+                            _('Login'));
+        }
+        $action->menuItem(common_local_url('doc', array('title' => 'help')),
+                        _('Help'));
+        if ($user || !common_config('site', 'private')) {
+            $action->menuItem(common_local_url('peoplesearch'),
+                            _('Search'));
+        }
+        $action->elementEnd('ul');
     }
 
 
