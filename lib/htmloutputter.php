@@ -427,16 +427,12 @@ class HTMLOutputter extends XMLOutputter
     function autofocus($id)
     {
         $this->elementStart('script', array('type' => 'text/javascript'));
-        $this->raw('
-        <!--
-        $(document).ready(function() {
-            var el = $("#' . $id . '");
-            if (el.length) {
-                el.focus();
-            }
-        });
-        -->
-        ');
+        $this->raw('/*<![CDATA[*/'.
+                   ' $(document).ready(function() {'.
+                   ' var el = $("#' . $id . '");'.
+                   ' if (el.length) { el.focus(); }'.
+                   ' });'.
+                   ' /*]]>*/');
         $this->elementEnd('script');
     }
 }
