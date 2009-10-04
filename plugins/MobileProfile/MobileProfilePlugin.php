@@ -158,6 +158,30 @@ class MobileProfilePlugin extends WAP20Plugin
     }
 
 
+    function onStartShowStatusNetStyles($action) {
+        if (file_exists(theme_file('css/mp-screen.css'))) {
+            $action->cssLink('css/mp-screen.css', null, 'screen');
+        }
+        else {
+            $action->element('link', array('rel' => 'stylesheet',
+                                         'type' => 'text/css',
+                                         'href' => common_path('plugins/MobileProfile/mp-screen.css') . '?version=' . STATUSNET_VERSION,
+                                         'media' => 'screen'));
+        }
+
+        if (file_exists(theme_file('css/mp-handheld.css'))) {
+            $action->cssLink('css/mp-handheld.css', null, 'handheld');
+        }
+        else {
+            $action->element('link', array('rel' => 'stylesheet',
+                                         'type' => 'text/css',
+                                         'href' => common_path('plugins/MobileProfile/mp-handheld.css') . '?version=' . STATUSNET_VERSION,
+                                         'media' => 'handheld'));
+        }
+
+        return false;
+    }
+
 
     function onStartShowAside($action)
     {
