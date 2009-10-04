@@ -158,7 +158,8 @@ class MobileProfilePlugin extends WAP20Plugin
     }
 
 
-    function onStartShowHeadElements($action) {
+    function onStartShowHeadElements($action)
+    {
         if (!$action->serveMobile) {
             return true;
         }
@@ -172,7 +173,8 @@ class MobileProfilePlugin extends WAP20Plugin
     }
 
 
-    function onStartShowStatusNetStyles($action) {
+    function onStartShowStatusNetStyles($action)
+    {
         if (!$action->serveMobile) {
             return true;
         }
