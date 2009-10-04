@@ -141,6 +141,10 @@ class MobileProfilePlugin extends WAP20Plugin
             }
         }
 
+        if (!$this->serveMobile) {
+            return true;
+        }
+
         header('Content-Type: '.$type);
 
         $action->extraHeaders();
