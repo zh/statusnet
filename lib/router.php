@@ -241,6 +241,10 @@ class Router
                         array('nickname' => '[a-zA-Z0-9]+'));
         }
 
+        $m->connect('group/:nickname/foaf',
+                    array('action' => 'foafgroup'),
+                    array('nickname' => '[a-zA-Z0-9]+'));
+
         $m->connect('group/:nickname/blocked',
                     array('action' => 'blockedfromgroup'),
                     array('nickname' => '[a-zA-Z0-9]+'));

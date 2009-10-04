@@ -468,11 +468,11 @@ class FacebookAction extends Action
 
         $replyto = $this->trimmed('inreplyto');
 
-        $notice = Notice::saveNew($user->id, $content,
-            'web', 1, ($replyto == 'false') ? null : $replyto);
-
-        if (is_string($notice)) {
-            $this->showPage($notice);
+        try {
+            $notice = Notice::saveNew($user->id, $content,
+                                      'web', 1, ($replyto == 'false') ? null : $replyto);
+        } catch (Exception $e) {
+            $this->showPage($e->getMessage());
             return;
         }
 

@@ -222,4 +222,19 @@ class OpenIDPlugin extends Plugin
 
         return true;
     }
+
+    function onCheckSchema() {
+        $schema = Schema::get();
+        $schema->ensureTable('user_openid',
+                             array(new ColumnDef('canonical', 'varchar',
+                                                 '255', false, 'PRI'),
+                                   new ColumnDef('display', 'varchar',
+                                                 '255', false),
+                                   new ColumnDef('user_id', 'integer',
+                                                 null, false, 'MUL'),
+                                   new ColumnDef('created', 'datetime',
+                                                 null, false),
+                                   new ColumnDef('modified', 'timestamp')));
+        return true;
+    }
 }

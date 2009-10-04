@@ -711,4 +711,77 @@ class User extends Memcached_DataObject
 
         return true;
     }
+
+    /**
+     * Does this user have the right to do X?
+     *
+     * With our role-based authorization, this is merely a lookup for whether the user
+     * has a particular role. The implementation currently uses a switch statement
+     * to determine if the user has the pre-defined role to exercise the right. Future
+     * implementations may allow per-site roles, and different mappings of roles to rights.
+     *
+     * @param $right string Name of the right, usually a constant in class Right
+     * @return boolean whether the user has the right in question
+     */
+
+    function hasRight($right)
+    {
+        $result = false;
+        if (Event::handle('UserRightsCheck', array($this, $right, &$result))) {
+            switch ($right)
+            {
+             case Right::deleteOthersNotice:
+                $result = $this->hasRole('moderator');
+                break;
+             default:
+                $result = false;
+                break;
+            }
+        }
+        return $result;
+    }
+
+    function delete()
+    {
+        $profile = $this->getProfile();
+        $profile->delete();
+
+        $related = array('Fave',
+                         'User_openid',
+                         'Confirm_address',
+                         'Remember_me',
+                         'Foreign_link',
+                         'Invitation',
+                         );
+
+        if (common_config('inboxes', 'enabled')) {
+            $related[] = 'Notice_inbox';
+        }
+
+        foreach ($related as $cls) {
+            $inst = new $cls();
+            $inst->user_id = $this->id;
+            $inst->delete();
+        }
+
+        $this->_deleteTags();
+        $this->_deleteBlocks();
+
+        parent::delete();
+    }
+
+    function _deleteTags()
+    {
+        $tag = new Profile_tag();
+        $tag->tagger = $this->id;
+        $tag->delete();
+    }
+
+    function _deleteBlocks()
+    {
+        $block = new Profile_block();
+        $block->blocker = $this->id;
+        $block->delete();
+        // XXX delete group block? Reset blocker?
+    }
 }

@@ -250,7 +250,6 @@ class EditgroupAction extends GroupDesignAction
         $this->group->homepage    = $homepage;
         $this->group->description = $description;
         $this->group->location    = $location;
-        $this->group->created     = common_sql_now();
 
         $result = $this->group->update($orig);
 

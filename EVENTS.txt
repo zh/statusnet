@@ -87,6 +87,12 @@ StartShowContentBlock: Showing before the content container
 EndShowContentBlock: Showing after the content container
 - $action: the current action
 
+StartShowAside: Showing before the Aside container
+- $action: the current action
+
+EndShowAside: Showing after the Aside container
+- $action: the current action
+
 StartNoticeSave: before inserting a notice (good place for content filters)
 - $notice: notice being saved (no ID or URI)
 
@@ -277,3 +283,5 @@ StartShowHeadElements: Right after the <head> tag
 
 EndShowHeadElements: Right before the </head> tag; put <script>s here if you need them in <head>
 - $action: the current action
+
+CheckSchema: chance to check the schema
