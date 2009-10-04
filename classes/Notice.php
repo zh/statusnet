@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
@@ -15,9 +15,26 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.     If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category Notices
+ * @package  StatusNet
+ * @author   Brenda Wallace <shiny@cpan.org>
+ * @author   Christopher Vollick <psycotica0@gmail.com>
+ * @author   CiaranG <ciaran@ciarang.com>
+ * @author   Craig Andrews <candrews@integralblue.com>
+ * @author   Evan Prodromou <evan@controlezvous.ca>
+ * @author   Gina Haeussge <osd@foosel.net>
+ * @author   Jeffery To <jeffery.to@gmail.com>
+ * @author   Mike Cochrane <mikec@mikenz.geek.nz>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @author   Sarven Capadisli <csarven@controlyourself.ca>
+ * @author   Tom Adams <tom@holizz.com>
+ * @license  GNU Affero General Public License http://www.gnu.org/licenses/
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) {
+    exit(1);
+}
 
 /**
  * Table Definition for notice
@@ -168,11 +185,11 @@ class Notice extends Memcached_DataObject
 
         if (common_config('site', 'dupelimit') > 0 && !Notice::checkDupes($profile_id, $final)) {
             common_log(LOG_WARNING, 'Dupe posting by profile #' . $profile_id . '; throttled.');
-			throw new ClientException(_('Too many duplicate messages too quickly;'.
+            throw new ClientException(_('Too many duplicate messages too quickly;'.
                                         ' take a breather and post again in a few minutes.'));
         }
 
-		$banned = common_config('profile', 'banned');
+        $banned = common_config('profile', 'banned');
 
         if ( in_array($profile_id, $banned) || in_array($profile->nickname, $banned)) {
             common_log(LOG_WARNING, "Attempted post from banned user: $profile->nickname (user id = $profile_id).");
@@ -200,12 +217,12 @@ class Notice extends Memcached_DataObject
             $notice->created = common_sql_now();
         }
 
-		$notice->content = $final;
-		$notice->rendered = common_render_content($final, $notice);
-		$notice->source = $source;
-		$notice->uri = $uri;
+        $notice->content = $final;
+        $notice->rendered = common_render_content($final, $notice);
+        $notice->source = $source;
+        $notice->uri = $uri;
 
-		$notice->reply_to = self::getReplyTo($reply_to, $profile_id, $source, $final);
+        $notice->reply_to = self::getReplyTo($reply_to, $profile_id, $source, $final);
 
         if (!empty($notice->reply_to)) {
             $reply = Notice::staticGet('id', $notice->reply_to);
