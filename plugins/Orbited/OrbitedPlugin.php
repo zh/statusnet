@@ -52,34 +52,49 @@ class OrbitedPlugin extends RealtimePlugin
     public $webport     = null;
     public $channelbase = null;
     public $stompserver = null;
+    public $stompport   = null;
     public $username    = null;
     public $password    = null;
+    public $webuser     = null;
+    public $webpass     = null;
 
     protected $con      = null;
 
     function _getScripts()
     {
         $scripts = parent::_getScripts();
-        $root = 'http://'.$this->webserver.(($this->webport == 80) ? '':':'.$this->webport);
+
+        $port = (is_null($this->webport)) ? 8000 : $this->webport;
+
+        $server = (is_null($this->webserver)) ? common_config('site', 'server') : $this->webserver;
+
+        $root = 'http://'.$server.(($port == 80) ? '':':'.$port);
+
         $scripts[] = $root.'/static/Orbited.js';
         $scripts[] = $root.'/static/protocols/stomp/stomp.js';
         $scripts[] = common_path('plugins/Orbited/orbitedupdater.js');
+
         return $scripts;
     }
 
     function _updateInitialize($timeline, $user_id)
     {
         $script = parent::_updateInitialize($timeline, $user_id);
-        return $script." OrbitedUpdater.init(\"$this->stompserver\", $this->stompport, \"{$timeline}\");";
+
+        $server = $this->_getStompServer();
+        $port   = $this->_getStompPort();
+
+        return $script." OrbitedUpdater.init(\"$server\", $port, ".
+          "\"{$timeline}\", \"{$this->webuser}\", \"{$this->webpass}\");";
     }
 
     function _connect()
     {
         require_once(INSTALLDIR.'/extlibs/Stomp.php');
 
-        $stompserver = (empty($this->stompserver)) ? "tcp://{$this->webserver}:61613/" : $this->stompserver;
+        $url = $this->_getStompUrl();
 
-        $this->con = new Stomp($stompserver);
+        $this->con = new Stomp($url);
 
         if ($this->con->connect($this->username, $this->password)) {
             $this->_log(LOG_INFO, "Connected.");
@@ -109,5 +124,25 @@ class OrbitedPlugin extends RealtimePlugin
             array_unshift($path, $this->channelbase);
         }
         return '/' . implode('/', $path);
+    }
+
+    function _getStompServer()
+    {
+        $server = (!is_null($this->stompserver)) ? $this->stompserver :
+        (!is_null($this->webserver)) ? $this->webserver :
+        common_config('site', 'server');
+        return $server;
+    }
+
+    function _getStompPort()
+    {
+        $port = (!is_null($this->stompport)) ? $this->stompport : 61613;
+    }
+
+    function _getStompUrl()
+    {
+        $server = $this->_getStompServer();
+        $port   = $this->_getStompPort();
+        return "tcp://$server:$port/";
     }
 }
