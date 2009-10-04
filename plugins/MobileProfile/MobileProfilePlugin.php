@@ -214,7 +214,7 @@ class MobileProfilePlugin extends WAP20Plugin
         }
 
         $action->elementStart('div', array('id' => 'header'));
-        $action->showLogo();
+        $this->_showLogo($action);
         $action->showPrimaryNav();
         $action->showSiteNotice();
         if (common_logged_in()) {
@@ -223,6 +223,26 @@ class MobileProfilePlugin extends WAP20Plugin
             $action->showAnonymousMessage();
         }
         $action->elementEnd('div');
+    }
+
+
+    function _showLogo($action)
+    {
+        $action->elementStart('address', 'vcard');
+        $action->elementStart('a', array('class' => 'url home bookmark',
+                                       'href' => common_local_url('public')));
+        if (common_config('site', 'mobilelogo') || 
+            file_exists(theme_file('logo.png')) || 
+            file_exists(theme_file('mobilelogo.gif'))) {
+
+            $action->element('img', array('class' => 'photo',
+                'src' => (common_config('site', 'mobilelogo')) ? common_config('site', 'mobilelogo') : 
+                            ((file_exists(theme_file('mobilelogo.gif'))) ? (theme_path('mobilelogo.gif')): theme_path('logo.png')),
+                'alt' => common_config('site', 'name')));
+        }
+        $action->element('span', array('class' => 'fn org'), common_config('site', 'name'));
+        $action->elementEnd('a');
+        $action->elementEnd('address');
     }
 
 
