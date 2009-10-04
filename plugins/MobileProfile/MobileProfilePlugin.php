@@ -158,6 +158,20 @@ class MobileProfilePlugin extends WAP20Plugin
     }
 
 
+    function onStartShowHeadElements($action) {
+        if (!$action->serveMobile) {
+            return true;
+        }
+
+        $action->showTitle();
+        $action->showShortcutIcon();
+        $action->showStylesheets();
+        $action->showFeeds();
+        $action->showDescription();
+        $action->extraHead();
+    }
+
+
     function onStartShowStatusNetStyles($action) {
         if (file_exists(theme_file('css/mp-screen.css'))) {
             $action->cssLink('css/mp-screen.css', null, 'screen');
