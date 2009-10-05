@@ -28,3 +28,4 @@ ENDOFHELP;
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
 echo common_config('daemon', 'piddir');
+?>

@@ -66,3 +66,4 @@ if (!have_option('y', 'yes')) {
 print "Deleting...";
 $user->delete();
 print "DONE.\n";
+?>

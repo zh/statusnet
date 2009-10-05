@@ -160,4 +160,4 @@ if (have_option('i')) {
 $handler = new XmppConfirmHandler($id);
 
 $handler->runOnce();
-
+?>

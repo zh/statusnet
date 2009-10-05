@@ -85,3 +85,4 @@ if (have_option('i')) {
 $handler = new OmbQueueHandler($id);
 
 $handler->runOnce();
+?>

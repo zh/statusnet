@@ -67,3 +67,4 @@ if (have_option('i')) {
 $handler = new PingQueueHandler($id);
 
 $handler->runOnce();
+?>

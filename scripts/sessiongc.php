@@ -34,3 +34,4 @@ $maxlifetime = ini_get('session.gc_maxlifetime');
 print "Deleting sessions older than $maxlifetime seconds.\n";
 
 Session::gc($maxlifetime);
+?>

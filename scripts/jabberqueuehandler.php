@@ -76,3 +76,4 @@ if (have_option('i')) {
 $handler = new JabberQueueHandler($id);
 
 $handler->runOnce();
+?>

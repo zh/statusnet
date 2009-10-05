@@ -59,3 +59,4 @@ if (!$user->update($original)) {
     print "Password for user '$nickname' updated.\n";
     exit(0);
 }
+?>

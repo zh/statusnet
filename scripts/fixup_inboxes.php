@@ -79,3 +79,4 @@ while ($user->fetch()) {
         $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
     }
 }
+?>

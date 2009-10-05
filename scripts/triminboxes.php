@@ -54,3 +54,4 @@ $cnt = $user->find();
 while ($user->fetch()) {
     Notice_inbox::gc($user->id);
 }
+?>

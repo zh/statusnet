@@ -52,3 +52,4 @@ echo "pingqueuehandler.php ";
 if (common_config('sms', 'enabled')) {
     echo "smsqueuehandler.php ";
 }
+?>

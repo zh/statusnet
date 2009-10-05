@@ -562,4 +562,4 @@ if (have_option('d') || have_option('debug')) {
 
 $fetcher = new TwitterStatusFetcher($id, 60, 2, $debug);
 $fetcher->runOnce();
-
+?>

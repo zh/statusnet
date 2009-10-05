@@ -140,3 +140,4 @@ $tagmax     = (have_option('t', 'tags')) ? get_option_value('t', 'tags') : 10000
 $userprefix = (have_option('x', 'prefix')) ? get_option_value('x', 'prefix') : 'testuser';
 
 main($usercount, $noticeavg, $subsavg, $tagmax);
+?>

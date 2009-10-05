@@ -68,3 +68,4 @@ while ($nid->fetch()) {
     
     print ".\n";
 }
+?>
