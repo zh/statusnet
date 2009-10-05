@@ -179,7 +179,7 @@ class MobileProfilePlugin extends WAP20Plugin
 
     function onStartShowStatusNetStyles($action)
     {
-        if (!$action->serveMobile) {
+        if (!$this->serveMobile) {
             return true;
         }
 
