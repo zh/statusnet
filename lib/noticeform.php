@@ -142,40 +142,44 @@ class NoticeForm extends Form
 
     function formData()
     {
-        $this->out->element('label', array('for' => 'notice_data-text'),
-                            sprintf(_('What\'s up, %s?'), $this->user->nickname));
-        // XXX: vary by defined max size
-        $this->out->element('textarea', array('id' => 'notice_data-text',
-                                              'cols' => 35,
-                                              'rows' => 4,
-                                              'name' => 'status_textarea'),
-                            ($this->content) ? $this->content : '');
+        if (Event::handle('StartShowNoticeFormData', array($this))) {
+            $this->out->element('label', array('for' => 'notice_data-text'),
+                                sprintf(_('What\'s up, %s?'), $this->user->nickname));
+            // XXX: vary by defined max size
+            $this->out->element('textarea', array('id' => 'notice_data-text',
+                                                  'cols' => 35,
+                                                  'rows' => 4,
+                                                  'name' => 'status_textarea'),
+                                ($this->content) ? $this->content : '');
 
-        $contentLimit = Notice::maxContent();
+            $contentLimit = Notice::maxContent();
 
-        $this->out->element('script', array('type' => 'text/javascript'),
-                            'maxLength = ' . $contentLimit . ';');
+            $this->out->element('script', array('type' => 'text/javascript'),
+                                'maxLength = ' . $contentLimit . ';');
 
-        if ($contentLimit > 0) {
-            $this->out->elementStart('dl', 'form_note');
-            $this->out->element('dt', null, _('Available characters'));
-            $this->out->element('dd', array('id' => 'notice_text-count'),
-                                $contentLimit);
-            $this->out->elementEnd('dl');
+            if ($contentLimit > 0) {
+                $this->out->elementStart('dl', 'form_note');
+                $this->out->element('dt', null, _('Available characters'));
+                $this->out->element('dd', array('id' => 'notice_text-count'),
+                                    $contentLimit);
+                $this->out->elementEnd('dl');
+            }
+
+            if (common_config('attachments', 'uploads')) {
+                $this->out->element('label', array('for' => 'notice_data-attach'),_('Attach'));
+                $this->out->element('input', array('id' => 'notice_data-attach',
+                                                   'type' => 'file',
+                                                   'name' => 'attach',
+                                                   'title' => _('Attach a file')));
+                $this->out->hidden('MAX_FILE_SIZE', common_config('attachments', 'file_quota'));
+            }
+            if ($this->action) {
+                $this->out->hidden('notice_return-to', $this->action, 'returnto');
+            }
+            $this->out->hidden('notice_in-reply-to', $this->inreplyto, 'inreplyto');
+
+            Event::handle('StartShowNoticeFormData', array($this));
         }
-
-        if (common_config('attachments', 'uploads')) {
-            $this->out->element('label', array('for' => 'notice_data-attach'),_('Attach'));
-            $this->out->element('input', array('id' => 'notice_data-attach',
-                                               'type' => 'file',
-                                               'name' => 'attach',
-                                               'title' => _('Attach a file')));
-            $this->out->hidden('MAX_FILE_SIZE', common_config('attachments', 'file_quota'));
-        }
-        if ($this->action) {
-            $this->out->hidden('notice_return-to', $this->action, 'returnto');
-        }
-        $this->out->hidden('notice_in-reply-to', $this->inreplyto, 'inreplyto');
     }
 
     /**
