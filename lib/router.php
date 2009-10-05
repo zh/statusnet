@@ -440,22 +440,24 @@ class Router
 
         // favorites
 
-        $m->connect('api/favorites/:method/:argument',
-                    array('action' => 'api',
-                          'apiaction' => 'favorites',
-                          array('method' => '(create|destroy)')));
+        $m->connect('api/favorites.:format',
+                    array('action' => 'ApiTimelineFavorites',
+                    'format' => '(xml|json|rss|atom)'));
 
-        $m->connect('api/favorites/:argument',
-                    array('action' => 'api',
-                          'apiaction' => 'favorites',
-                          'method' => 'favorites'));
+        $m->connect('api/favorites/:id.:format',
+                    array('action' => 'ApiTimelineFavorites',
+                          'id' => '[a-zA-Z0-9]+',
+                          'format' => '(xmljson|rss|atom)'));
 
-        foreach (array('xml', 'json', 'rss', 'atom') as $e) {
-            $m->connect('api/favorites.'.$e,
-                        array('action' => 'api',
-                              'apiaction' => 'favorites',
-                              'method' => 'favorites.'.$e));
-        }
+        $m->connect('api/favorites/create/:id.:format',
+                    array('action' => 'ApiFavoriteCreate',
+                          'id' => '[a-zA-Z0-9]+',
+                          'format' => '(xml|json)'));
+
+        $m->connect('api/favorites/destroy/:id.:format',
+                    array('action' => 'ApiFavoriteDestroy',
+                          'id' => '[a-zA-Z0-9]+',
+                          'format' => '(xml|json)'));
 
         // notifications
 
