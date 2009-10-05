@@ -1,2 +1,63 @@
 @import url(../../theme/base/css/display.css);
 @import url(../../theme/identica/css/display.css);
+
+#wrap {
+min-width:0;
+max-width:100%;
+}
+
+#header {
+margin:2%;
+}
+
+address {
+margin:0 1% 0;
+}
+address .vcard .photo {
+margin-right:0;
+}
+
+#site_nav_global_primary {
+margin-right:0;
+width:35%;
+list-style-type:none;
+}
+#site_nav_global_primary li {
+margin-left:3%;
+}
+
+/*Remove this from HTML*/
+#form_notice label[for=notice_data-text] {
+display:none;
+}
+
+#form_notice {
+width:100%;
+}
+
+#site_nav_local_views li {
+margin-left:1px;
+margin-right:0;
+}
+#site_nav_local_views li:first-child {
+margin-left:0;
+}
+#site_nav_local_views a {
+padding:0 3%;
+display:block;
+}
+#site_nav_local_views .current a {
+text-shadow:none;
+}
+#site_nav_local_views li {
+-moz-box-shadow:none;
+-webkit-box-shadow:none;
+box-shadow:none;
+}
+
+
+#content {
+width:96.41%;
+}
+
+
