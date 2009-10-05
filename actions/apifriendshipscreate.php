@@ -101,6 +101,15 @@ class ApiFriendshipsCreateAction extends ApiAuthAction
             return;
         }
 
+        if (!in_array($this->format, array('xml', 'json'))) {
+            $this->clientError(
+                _('API method not found!'),
+                404,
+                $this->format
+            );
+            return;
+        }
+
         if (empty($this->other)) {
             $this->clientError(
                 _('Could not follow user: User not found.'),
