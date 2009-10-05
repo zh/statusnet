@@ -291,6 +291,45 @@ class MobileProfilePlugin extends WAP20Plugin
     }
 
 
+    function onStartShowNoticeFormData($form)
+    {
+        if (!$this->serveMobile) {
+            return true;
+        }
+
+        $form->out->element('textarea', array('id' => 'notice_data-text',
+                                              'cols' => 35,
+                                              'rows' => 4,
+                                              'name' => 'status_textarea'),
+                            ($form->content) ? $form->content : '');
+
+        $contentLimit = Notice::maxContent();
+
+        $form->out->element('script', array('type' => 'text/javascript'),
+                            'maxLength = ' . $contentLimit . ';');
+
+        if ($contentLimit > 0) {
+            $form->out->element('div', array('id' => 'notice_text-count'),
+                                $contentLimit);
+        }
+
+        if (common_config('attachments', 'uploads')) {
+            $form->out->element('label', array('for' => 'notice_data-attach'),_('Attach'));
+            $form->out->element('input', array('id' => 'notice_data-attach',
+                                               'type' => 'file',
+                                               'name' => 'attach',
+                                               'title' => _('Attach a file')));
+            $form->out->hidden('MAX_FILE_SIZE', common_config('attachments', 'file_quota'));
+        }
+        if ($form->action) {
+            $form->out->hidden('notice_return-to', $form->action, 'returnto');
+        }
+        $form->out->hidden('notice_in-reply-to', $form->inreplyto, 'inreplyto');
+
+        return false;
+    }
+
+
     function onStartShowAside($action)
     {
         if ($this->serveMobile) {
