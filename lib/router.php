@@ -388,17 +388,33 @@ class Router
 
         // friendships
 
-        $m->connect('api/friendships/:method/:argument',
-                    array('action' => 'api',
-                          'apiaction' => 'friendships'),
-                    array('method' => '(create|destroy)'));
+        $m->connect('api/friendships/show.:format',
+                    array('action' => 'ApiFriendshipsShow',
+                          'format' => '(xml|json)'));
 
-        $m->connect('api/friendships/:method',
-                    array('action' => 'api',
-                          'apiaction' => 'friendships'),
-                    array('method' => '(show|exists)(\.(xml|json))'));
+        $m->connect('api/friendships/exists.:format',
+                    array('action' => 'ApiFriendshipsExists',
+                          'format' => '(xml|json)'));
 
-       // Social graph
+        $m->connect('api/friendships/create.:format',
+                    array('action' => 'ApiFriendshipsCreate',
+                          'format' => '(xml|json)'));
+
+        $m->connect('api/friendships/destroy.:format',
+                     array('action' => 'ApiFriendshipsDestroy',
+                          'format' => '(xml|json)'));
+
+        $m->connect('api/friendships/create/:id.:format',
+                    array('action' => 'ApiFriendshipsCreate',
+                          'id' => '[a-zA-Z0-9]+',
+                          'format' => '(xml|json)'));
+
+        $m->connect('api/friendships/destroy/:id.:format',
+                    array('action' => 'ApiFriendshipsDestroy',
+                    'id' => '[a-zA-Z0-9]+',
+                    'format' => '(xml|json)'));
+
+        // Social graph
 
         $m->connect('api/friends/ids/:id.:format',
                     array('action' => 'apiFriends',
