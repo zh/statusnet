@@ -434,9 +434,16 @@ class Router
 
         // account
 
-        $m->connect('api/account/:method',
-                    array('action' => 'api',
-                          'apiaction' => 'account'));
+        $m->connect('api/account/verify_credentials.:format',
+                    array('action' => 'ApiAccountVerifyCredentials'));
+
+        // special case where verify_credentials is called w/out a format
+
+        $m->connect('api/account/verify_credentials',
+                    array('action' => 'ApiAccountVerifyCredentials'));
+
+        $m->connect('api/account/rate_limit_status.:format',
+                    array('action' => 'ApiAccountRateLimitStatus'));
 
         // favorites
 
