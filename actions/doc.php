@@ -49,7 +49,7 @@ class DocAction extends Action
     var $title;
 
     /**
-     * Class handler.
+     * Handle a request
      *
      * @param array $args array of arguments
      *
@@ -71,6 +71,7 @@ class DocAction extends Action
             }
 
             $c = file_get_contents($this->filename);
+
             $this->output = common_markup_to_html($c);
 
             Event::handle('EndLoadDoc', array($this->title, &$this->output));
@@ -79,30 +80,48 @@ class DocAction extends Action
         $this->showPage();
     }
 
-    // overrrided to add entry-title class
-    function showPageTitle() {
+    /**
+     * Page title
+     *
+     * Gives the page title of the document. Override default for hAtom entry.
+     *
+     * @return void
+     */
+
+    function showPageTitle()
+    {
         $this->element('h1', array('class' => 'entry-title'), $this->title());
     }
 
-    // overrided to add hentry, and content-inner classes
+    /**
+     * Block for content.
+     *
+     * Overrides default from Action to wrap everything in an hAtom entry.
+     *
+     * @return void.
+     */
+
     function showContentBlock()
-     {
-         $this->elementStart('div', array('id' => 'content', 'class' => 'hentry'));
-         $this->showPageTitle();
-         $this->showPageNoticeBlock();
-         $this->elementStart('div', array('id' => 'content_inner',
-             'class' => 'entry-content'));
-         // show the actual content (forms, lists, whatever)
-         $this->showContent();
-         $this->elementEnd('div');
-         $this->elementEnd('div');
-     }
+    {
+        $this->elementStart('div', array('id' => 'content', 'class' => 'hentry'));
+        $this->showPageTitle();
+        $this->showPageNoticeBlock();
+        $this->elementStart('div', array('id' => 'content_inner',
+                                         'class' => 'entry-content'));
+        // show the actual content (forms, lists, whatever)
+        $this->showContent();
+        $this->elementEnd('div');
+        $this->elementEnd('div');
+    }
 
     /**
      * Display content.
      *
-     * @return nothing
+     * Shows the content of the document.
+     *
+     * @return void
      */
+
     function showContent()
     {
         $this->raw($this->output);
@@ -111,12 +130,22 @@ class DocAction extends Action
     /**
      * Page title.
      *
+     * Uses the title of the document.
+     *
      * @return page title
      */
     function title()
     {
         return ucfirst($this->title);
     }
+
+    /**
+     * These pages are read-only.
+     *
+     * @param array $args unused.
+     *
+     * @return boolean read-only flag (false)
+     */
 
     function isReadOnly($args)
     {
