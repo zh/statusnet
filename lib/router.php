@@ -532,13 +532,9 @@ class Router
                           'apiaction' => 'groups'));
 
         // Tags
-        $m->connect('api/statusnet/tags/:method/:argument',
-                    array('action' => 'api',
-                          'apiaction' => 'tags'));
-
-        $m->connect('api/statusnet/tags/:method',
-                    array('action' => 'api',
-                          'apiaction' => 'tags'));
+        $m->connect('api/statusnet/tags/timeline/:tag.:format',
+                    array('action' => 'ApiTimelineTag',
+                          'format' => '(xmljson|rss|atom)'));
 
         // search
         $m->connect('api/search.atom', array('action' => 'twitapisearchatom'));
