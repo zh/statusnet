@@ -884,12 +884,12 @@ class TwitterapiAction extends Action
         $this->end_document('xml');
     }
 
-    // Anyone know what date format this is?
-    // Twitter's dates look like this: "Mon Jul 14 23:52:38 +0000 2008" -- Zach
     function date_twitter($dt)
     {
-        $t = strtotime($dt);
-        return date("D M d H:i:s O Y", $t);
+        $dateStr = date('d F Y H:i:s', strtotime($dt));
+        $d = new DateTime($dateStr, new DateTimeZone('UTC'));
+        $d->setTimezone(new DateTimeZone(common_timezone()));
+        return $d->format('D M d H:i:s O Y');
     }
 
     // XXX: Candidate for a general utility method somewhere?
