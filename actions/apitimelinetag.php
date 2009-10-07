@@ -97,10 +97,15 @@ class ApiTimelineTagAction extends TwitterapiAction
     {
         $sitename   = common_config('site', 'name');
         $title      = sprintf(_("Notices tagged with %s"), $this->tag);
-        $link       = common_local_url('tag',
-            array('tag' => $this->tag));
-        $subtitle   = sprintf(_('Updates tagged with %1$s on %2$s!'),
-            $this->tag, $sitename);
+        $link       = common_local_url(
+            'tag',
+            array('tag' => $this->tag)
+        );
+        $subtitle   = sprintf(
+            _('Updates tagged with %1$s on %2$s!'),
+            $this->tag,
+            $sitename
+        );
         $taguribase = common_config('integration', 'taguri');
         $id         = "tag:$taguribase:TagTimeline:".$tag;
 
@@ -115,9 +120,14 @@ class ApiTimelineTagAction extends TwitterapiAction
             $selfuri = common_root_url() .
                 'api/statusnet/tags/timeline/' .
                     $this->tag . '.atom';
-             $this->show_atom_timeline(
-                $this->notices, $title, $id, $link,
-                $subtitle, null, $selfuri
+            $this->show_atom_timeline(
+                $this->notices,
+                $title,
+                $id,
+                $link,
+                $subtitle,
+                null,
+                $selfuri
             );
             break;
         case 'json':
