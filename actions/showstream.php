@@ -115,11 +115,11 @@ class ShowstreamAction extends ProfileAction
     {
         if (!empty($this->tag)) {
             return array(new Feed(Feed::RSS1,
-                common_local_url('userrss',
-                    array('nickname' => $this->user->nickname,
-                        'tag' => $this->tag)),
-                sprintf(_('Notice feed for %s tagged %s (RSS 1.0)'),
-                    $this->user->nickname, $this->tag)));
+                                  common_local_url('userrss',
+                                                   array('nickname' => $this->user->nickname,
+                                                         'tag' => $this->tag)),
+                                  sprintf(_('Notice feed for %s tagged %s (RSS 1.0)'),
+                                          $this->user->nickname, $this->tag)));
         }
 
         return array(new Feed(Feed::RSS1,
@@ -250,6 +250,7 @@ class ShowstreamAction extends ProfileAction
         }
 
         $tags = Profile_tag::getTags($this->profile->id, $this->profile->id);
+
         if (count($tags) > 0) {
             $this->elementStart('dl', 'entity_tags');
             $this->element('dt', null, _('Tags'));
@@ -259,8 +260,8 @@ class ShowstreamAction extends ProfileAction
                 $this->elementStart('li');
                 // Avoid space by using raw output.
                 $pt = '<span class="mark_hash">#</span><a rel="tag" href="' .
-                      common_local_url('peopletag', array('tag' => $tag)) .
-                      '">' . $tag . '</a>';
+                  common_local_url('peopletag', array('tag' => $tag)) .
+                  '">' . $tag . '</a>';
                 $this->raw($pt);
                 $this->elementEnd('li');
             }
@@ -268,23 +269,30 @@ class ShowstreamAction extends ProfileAction
             $this->elementEnd('dd');
             $this->elementEnd('dl');
         }
+
         $this->elementEnd('div');
 
         $this->elementStart('div', 'entity_actions');
         $this->element('h2', null, _('User actions'));
         $this->elementStart('ul');
 
-        if ($cur && $cur->id == $this->profile->id) {
-            $this->elementStart('li', 'entity_edit');
-            $this->element('a', array('href' => common_local_url('profilesettings'),
-                                      'title' => _('Edit profile settings')),
-                           _('Edit'));
+        if (empty($cur)) { // not logged in
+            $this->elementStart('li', 'entity_subscribe');
+            $this->showRemoteSubscribeLink();
             $this->elementEnd('li');
-        }
+        } else {
+            if ($cur->id == $this->profile->id) { // your own page
+                $this->elementStart('li', 'entity_edit');
+                $this->element('a', array('href' => common_local_url('profilesettings'),
+                                          'title' => _('Edit profile settings')),
+                               _('Edit'));
+                $this->elementEnd('li');
+            } else { // someone else's page
 
-        if ($cur) {
-            if ($cur->id != $this->profile->id) {
+                // subscribe/unsubscribe button
+
                 $this->elementStart('li', 'entity_subscribe');
+
                 if ($cur->isSubscribed($this->profile)) {
                     $usf = new UnsubscribeForm($this, $this->profile);
                     $usf->show();
@@ -293,44 +301,46 @@ class ShowstreamAction extends ProfileAction
                     $sf->show();
                 }
                 $this->elementEnd('li');
-            }
-        } else {
-            $this->elementStart('li', 'entity_subscribe');
-            $this->showRemoteSubscribeLink();
-            $this->elementEnd('li');
-        }
 
-        if ($cur && $cur->id != $user->id && $cur->mutuallySubscribed($user)) {
-            $this->elementStart('li', 'entity_send-a-message');
-            $this->element('a', array('href' => common_local_url('newmessage', array('to' => $user->id)),
-                                      'title' => _('Send a direct message to this user')),
-                           _('Message'));
-            $this->elementEnd('li');
+                if ($cur->mutuallySubscribed($user)) {
 
-            if ($user->email && $user->emailnotifynudge) {
-                $this->elementStart('li', 'entity_nudge');
-                $nf = new NudgeForm($this, $user);
-                $nf->show();
+                    // message
+
+                    $this->elementStart('li', 'entity_send-a-message');
+                    $this->element('a', array('href' => common_local_url('newmessage', array('to' => $user->id)),
+                                              'title' => _('Send a direct message to this user')),
+                                   _('Message'));
+                    $this->elementEnd('li');
+
+                    // nudge
+
+                    if ($user->email && $user->emailnotifynudge) {
+                        $this->elementStart('li', 'entity_nudge');
+                        $nf = new NudgeForm($this, $user);
+                        $nf->show();
+                        $this->elementEnd('li');
+                    }
+                }
+
+                // block/unblock
+
+                $blocked = $cur->hasBlocked($this->profile);
+                $this->elementStart('li', 'entity_block');
+                if ($blocked) {
+                    $ubf = new UnblockForm($this, $this->profile,
+                                           array('action' => 'showstream',
+                                                 'nickname' => $this->profile->nickname));
+                    $ubf->show();
+                } else {
+                    $bf = new BlockForm($this, $this->profile,
+                                        array('action' => 'showstream',
+                                              'nickname' => $this->profile->nickname));
+                    $bf->show();
+                }
                 $this->elementEnd('li');
             }
         }
 
-        if ($cur && $cur->id != $this->profile->id) {
-            $blocked = $cur->hasBlocked($this->profile);
-            $this->elementStart('li', 'entity_block');
-            if ($blocked) {
-                $ubf = new UnblockForm($this, $this->profile,
-                                       array('action' => 'showstream',
-                                             'nickname' => $this->profile->nickname));
-                $ubf->show();
-            } else {
-                $bf = new BlockForm($this, $this->profile,
-                                    array('action' => 'showstream',
-                                          'nickname' => $this->profile->nickname));
-                $bf->show();
-            }
-            $this->elementEnd('li');
-        }
         $this->elementEnd('ul');
         $this->elementEnd('div');
     }
@@ -368,7 +378,7 @@ class ShowstreamAction extends ProfileAction
     function showNotices()
     {
         $notice = empty($this->tag)
-            ? $this->user->getNotices(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1)
+          ? $this->user->getNotices(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1)
             : $this->user->getTaggedNotices($this->tag, ($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1, 0, 0, null);
 
         $pnl = new ProfileNoticeList($notice, $this);
@@ -390,14 +400,14 @@ class ShowstreamAction extends ProfileAction
     {
         if (!(common_config('site','closed') || common_config('site','inviteonly'))) {
             $m = sprintf(_('**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
-                 'based on the Free Software [StatusNet](http://status.net/) tool. ' .
-                 '[Join now](%%%%action.register%%%%) to follow **%s**\'s notices and many more! ([Read more](%%%%doc.help%%%%))'),
-                 $this->user->nickname, $this->user->nickname);
+                           'based on the Free Software [StatusNet](http://status.net/) tool. ' .
+                           '[Join now](%%%%action.register%%%%) to follow **%s**\'s notices and many more! ([Read more](%%%%doc.help%%%%))'),
+                         $this->user->nickname, $this->user->nickname);
         } else {
             $m = sprintf(_('**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
-                 'based on the Free Software [StatusNet](http://status.net/) tool. '),
-                 $this->user->nickname, $this->user->nickname);
-	}
+                           'based on the Free Software [StatusNet](http://status.net/) tool. '),
+                         $this->user->nickname, $this->user->nickname);
+        }
         $this->elementStart('div', array('id' => 'anon_notice'));
         $this->raw(common_markup_to_html($m));
         $this->elementEnd('div');
