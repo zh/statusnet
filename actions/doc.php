@@ -45,8 +45,18 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  */
 class DocAction extends Action
 {
-    var $filename;
-    var $title;
+    var $output   = null;
+    var $filename = null;
+    var $title    = null;
+
+    function prepare($args)
+    {
+        $this->title  = $this->trimmed('title');
+        $this->output = null;
+
+        $this->loadDoc();
+        return true;
+    }
 
     /**
      * Handle a request
@@ -58,25 +68,6 @@ class DocAction extends Action
     function handle($args)
     {
         parent::handle($args);
-
-        $this->title  = $this->trimmed('title');
-        $this->output = null;
-
-        if (Event::handle('StartLoadDoc', array(&$this->title, &$this->output))) {
-
-            $this->filename = INSTALLDIR.'/doc-src/'.$this->title;
-            if (!file_exists($this->filename)) {
-                $this->clientError(_('No such document.'));
-                return;
-            }
-
-            $c = file_get_contents($this->filename);
-
-            $this->output = common_markup_to_html($c);
-
-            Event::handle('EndLoadDoc', array($this->title, &$this->output));
-        }
-
         $this->showPage();
     }
 
@@ -150,5 +141,47 @@ class DocAction extends Action
     function isReadOnly($args)
     {
         return true;
+    }
+
+    function loadDoc()
+    {
+        if (Event::handle('StartLoadDoc', array(&$this->title, &$this->output))) {
+
+            $this->filename = $this->getFilename();
+
+            if (empty($this->filename)) {
+                throw new ClientException(sprintf(_('No such document "%s"'), $this->title), 404);
+            }
+
+            $c = file_get_contents($this->filename);
+
+            $this->output = common_markup_to_html($c);
+
+            Event::handle('EndLoadDoc', array($this->title, &$this->output));
+        }
+    }
+
+    function getFilename()
+    {
+        $local = array_merge(glob(INSTALLDIR.'/local/doc-src/'.$this->title),
+                             glob(INSTALLDIR.'/local/doc-src/'.$this->title.'.*'));
+
+        if (count($local)) {
+            return $this->negotiateLanguage($local);
+        }
+
+        $dist = array_merge(glob(INSTALLDIR.'/doc-src/'.$this->title),
+                            glob(INSTALLDIR.'/doc-src/'.$this->title.'.*'));
+
+        if (count($dist)) {
+            return $this->negotiateLanguage($dist);
+        }
+
+        return null;
+    }
+
+    function negotiateLanguage($files)
+    {
+        // FIXME: write this
     }
 }
