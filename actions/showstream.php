@@ -273,7 +273,6 @@ class ShowstreamAction extends ProfileAction
         $this->elementStart('div', 'entity_actions');
         $this->element('h2', null, _('User actions'));
         $this->elementStart('ul');
-        $cur = common_current_user();
 
         if ($cur && $cur->id == $this->profile->id) {
             $this->elementStart('li', 'entity_edit');
