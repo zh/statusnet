@@ -501,6 +501,12 @@ class Router
 
         // Groups
         //'list' has to be handled differently, as php will not allow a method to be named 'list'
+
+        $m->connect('api/statusnet/groups/timeline/:id.:format',
+                    array('action' => 'ApiTimelineGroup',
+                          'id' => '[a-zA-Z0-9]+',
+                          'format' => '(xmljson|rss|atom)'));
+
         $m->connect('api/statusnet/groups/list/:argument',
                     array('action' => 'api',
                           'method' => 'list_groups',
@@ -517,15 +523,6 @@ class Router
                     array('action' => 'api',
                           'apiaction' => 'statuses'),
                     array('method' => '(list_all|)(\.(atom|rss|xml|json))?'));
-
-        $m->connect('api/statuses/:method/:argument',
-                    array('action' => 'api',
-                          'apiaction' => 'statuses'),
-                    array('method' => '(user_timeline|home_timeline|friends_timeline|replies|mentions|show|destroy|friends|followers)'));
-
-        $m->connect('api/statusnet/groups/:method/:argument',
-                    array('action' => 'api',
-                          'apiaction' => 'groups'));
 
         $m->connect('api/statusnet/groups/:method',
                     array('action' => 'api',

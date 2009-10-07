@@ -1142,7 +1142,7 @@ class TwitterapiAction extends Action
         }
     }
 
-    function get_group($id, $apidata=null)
+    function getTargetGroup($id)
     {
         if (empty($id)) {
 
