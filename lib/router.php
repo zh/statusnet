@@ -480,9 +480,9 @@ class Router
 
         // help
 
-        $m->connect('api/help/:method',
-                    array('action' => 'api',
-                          'apiaction' => 'help'));
+        $m->connect('api/help/test.:format',
+                    array('action' => 'ApiHelpTest',
+                          'format' => '(xml|json)'));
 
         // statusnet
 
