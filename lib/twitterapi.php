@@ -829,9 +829,9 @@ class TwitterapiAction extends Action
         $this->elementStart('users', array('type' => 'array'));
 
         if (is_array($user)) {
-            foreach ($group as $g) {
-                $twitter_user = $this->twitter_user_array($g);
-                $this->show_twitter_xml_user($twitter_user,'user');
+            foreach ($user as $u) {
+                $twitter_user = $this->twitter_user_array($u);
+                $this->show_twitter_xml_user($twitter_user);
             }
         } else {
             while ($user->fetch()) {
@@ -1145,7 +1145,6 @@ class TwitterapiAction extends Action
     function getTargetGroup($id)
     {
         if (empty($id)) {
-
             if (is_numeric($this->arg('id'))) {
                 return User_group::staticGet($this->arg('id'));
             } else if ($this->arg('id')) {

@@ -507,27 +507,58 @@ class Router
                           'id' => '[a-zA-Z0-9]+',
                           'format' => '(xmljson|rss|atom)'));
 
-        $m->connect('api/statusnet/groups/list/:argument',
-                    array('action' => 'api',
-                          'method' => 'list_groups',
-                          'apiaction' => 'groups'));
+        $m->connect('api/statusnet/groups/show.:format',
+                    array('action' => 'ApiGroupShow',
+                    'format' => '(xml|json)'));
 
-        foreach (array('xml', 'json', 'rss', 'atom') as $e) {
-            $m->connect('api/statusnet/groups/list.' . $e,
-                    array('action' => 'api',
-                          'method' => 'list_groups.' . $e,
-                          'apiaction' => 'groups'));
-        }
+        $m->connect('api/statusnet/groups/show/:id.:format',
+                    array('action' => 'ApiGroupShow',
+                          'id' => '[a-zA-Z0-9]+',
+                          'format' => '(xml|json)'));
 
-        $m->connect('api/statusnet/groups/:method',
-                    array('action' => 'api',
-                          'apiaction' => 'statuses'),
-                    array('method' => '(list_all|)(\.(atom|rss|xml|json))?'));
+        $m->connect('api/statusnet/groups/join.:format',
+                    array('action' => 'ApiGroupJoin',
+                          'id' => '[a-zA-Z0-9]+',
+                          'format' => '(xml|json)'));
 
-        $m->connect('api/statusnet/groups/:method',
-                    array('action' => 'api',
-                          'apiaction' => 'groups'));
+        $m->connect('api/statusnet/groups/join/:id.:format',
+                    array('action' => 'ApiGroupJoin',
+                    'format' => '(xml|json)'));
 
+        $m->connect('api/statusnet/groups/leave.:format',
+                    array('action' => 'ApiGroupLeave',
+                          'id' => '[a-zA-Z0-9]+',
+                          'format' => '(xml|json)'));
+
+        $m->connect('api/statusnet/groups/leave/:id.:format',
+                    array('action' => 'ApiGroupLeave',
+                          'format' => '(xml|json)'));
+
+        $m->connect('api/statusnet/groups/is_member.:format',
+                    array('action' => 'ApiGroupIsMember',
+                          'format' => '(xml|json)'));
+
+        $m->connect('api/statusnet/groups/list.:format',
+                    array('action' => 'ApiGroupList',
+                          'format' => '(xml|json|rss|atom)'));
+
+        $m->connect('api/statusnet/groups/list/:id.:format',
+                    array('action' => 'ApiGroupList',
+                          'id' => '[a-zA-Z0-9]+',
+                          'format' => '(xml|json|rss|atom)'));
+
+        $m->connect('api/statusnet/groups/list_all.:format',
+                    array('action' => 'ApiGroupListAll',
+                          'format' => '(xml|json|rss|atom)'));
+
+        $m->connect('api/statusnet/groups/membership.:format',
+                    array('action' => 'ApiGroupMembership',
+                         'format' => '(xml|json)'));
+
+        $m->connect('api/statusnet/groups/membership/:id.:format',
+                     array('action' => 'ApiGroupMembership',
+                           'id' => '[a-zA-Z0-9]+',
+                           'format' => '(xml|json)'));
         // Tags
         $m->connect('api/statusnet/tags/timeline/:tag.:format',
                     array('action' => 'ApiTimelineTag',
