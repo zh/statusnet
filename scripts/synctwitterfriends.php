@@ -283,4 +283,4 @@ if (have_option('d') || have_option('debug')) {
 
 $syncer = new SyncTwitterFriendsDaemon($id, 60, 2, $debug);
 $syncer->runOnce();
-?>
+

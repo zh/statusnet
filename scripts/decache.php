@@ -48,4 +48,3 @@ if (!$object) {
 }
 
 $result = $object->decache();
-?>

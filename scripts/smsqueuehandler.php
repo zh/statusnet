@@ -71,4 +71,3 @@ if (have_option('i')) {
 $handler = new SmsQueueHandler($id);
 
 $handler->runOnce();
-?>

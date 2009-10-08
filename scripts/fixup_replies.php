@@ -39,4 +39,3 @@ while ($notice->fetch()) {
     common_log(LOG_INFO, 'Getting replies for notice #' . $notice->id);
     common_save_replies($notice);
 }
-?>

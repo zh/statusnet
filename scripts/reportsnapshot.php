@@ -28,4 +28,3 @@ END_OF_SNAPSHOT_HELP;
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
 Snapshot::check();
-?>

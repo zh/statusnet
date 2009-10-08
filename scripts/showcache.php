@@ -69,4 +69,3 @@ if (empty($obj)) {
     var_dump($obj);
     print "\n";
 }
-?>

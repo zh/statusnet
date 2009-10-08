@@ -72,4 +72,3 @@ if (have_option('i')) {
 $handler = new FacebookQueueHandler($id);
 
 $handler->runOnce();
-?>

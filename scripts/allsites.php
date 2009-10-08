@@ -38,4 +38,3 @@ if ($sn->find()) {
         print "$sn->nickname\n";
     }
 }
-?>

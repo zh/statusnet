@@ -363,4 +363,3 @@ $fixer = new UTF8FixerUpper(array('max_date' => $max_date,
 
 $fixer->fixup();
 
-?>

@@ -96,4 +96,3 @@ function curl_get_file($url)
 
     return FALSE;
 }
-?>

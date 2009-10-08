@@ -72,4 +72,3 @@ if (have_option('i')) {
 $handler = new TwitterQueueHandler($id);
 
 $handler->runOnce();
-?>

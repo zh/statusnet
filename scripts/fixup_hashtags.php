@@ -45,4 +45,3 @@ while ($notice->fetch()) {
         common_log_db_error($notice, 'UPDATE', __FILE__);
     }
 }
-?>

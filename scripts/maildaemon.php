@@ -389,4 +389,3 @@ if (common_config('emailpost', 'enabled')) {
     $md = new MailerDaemon();
     $md->handle_message('php://stdin');
 }
-?>

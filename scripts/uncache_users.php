@@ -50,4 +50,3 @@ foreach ($ids as $id) {
     $memc->delete(common_cache_key('user:notices_with_friends:'. $user->id));
     $memc->delete(common_cache_key('user:notices_with_friends:'. $user->id . ';last'));
 }
-?>

@@ -74,4 +74,3 @@ if (have_option('i')) {
 $handler = new PublicQueueHandler($id);
 
 $handler->runOnce();
-?>
