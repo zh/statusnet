@@ -486,15 +486,23 @@ class Router
 
         // statusnet
 
-        $m->connect('api/statusnet/:method',
-                    array('action' => 'api',
-                          'apiaction' => 'statusnet'));
+        $m->connect('api/statusnet/version.:format',
+                    array('action' => 'ApiStatusnetVersion',
+                          'format' => '(xml|json)'));
+
+        $m->connect('api/statusnet/config.:format',
+                    array('action' => 'ApiStatusnetConfig',
+                   'format' => '(xml|json)'));
 
         // For older methods, we provide "laconica" base action
 
-        $m->connect('api/laconica/:method',
-                    array('action' => 'api',
-                          'apiaction' => 'statusnet'));
+        $m->connect('api/laconica/version.:format',
+                    array('action' => 'ApiStatusnetVersion',
+                          'format' => '(xml|json)'));
+
+        $m->connect('api/laconica/config.:format',
+                    array('action' => 'ApiStatusnetConfig',
+                    'format' => '(xml|json)'));
 
         // Groups and tags are newer than 0.8.1 so no backward-compatibility
         // necessary
