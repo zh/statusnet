@@ -171,6 +171,10 @@ class Router
                     array('action' => 'attachment_thumbnail'),
                     array('attachment' => '[0-9]+'));
 
+        $m->connect('getfile/:filename',
+                    array('action' => 'getfile'),
+                    array('filename' => '[A-Za-z0-9._-]+'));
+
         $m->connect('notice/new', array('action' => 'newnotice'));
         $m->connect('notice/new?replyto=:replyto',
                     array('action' => 'newnotice'),
