@@ -236,7 +236,7 @@ class MobileProfilePlugin extends WAP20Plugin
 
             $action->element('img', array('class' => 'photo',
                 'src' => (common_config('site', 'mobilelogo')) ? common_config('site', 'mobilelogo') : 
-                            ((file_exists(theme_file('mobilelogo.gif'))) ? (theme_path('mobilelogo.gif')): theme_path('logo.png')),
+                            ((file_exists(theme_file('mobilelogo.png'))) ? (theme_path('mobilelogo.png')) : theme_path('logo.png')),
                 'alt' => common_config('site', 'name')));
         }
         $action->element('span', array('class' => 'fn org'), common_config('site', 'name'));
