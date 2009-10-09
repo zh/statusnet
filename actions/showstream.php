@@ -187,116 +187,172 @@ class ShowstreamAction extends ProfileAction
 
     function showProfileData()
     {
-        if (Event::handle('StartShowLargeProfileSection', array(&$this, &$this->profile))) {
+        if (Event::handle('StartProfilePageProfileSection', array(&$this, $this->profile))) {
 
             $this->elementStart('div', 'entity_profile vcard author');
             $this->element('h2', null, _('User profile'));
 
-            if (Event::handle('StartShowLargeProfileElements', array(&$this, &$this->profile))) {
+            if (Event::handle('StartProfilePageProfileElements', array(&$this, $this->profile))) {
 
-                $avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
-                $this->elementStart('dl', 'entity_depiction');
-                $this->element('dt', null, _('Photo'));
-                $this->elementStart('dd');
-                $this->element('img', array('src' => ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_PROFILE_SIZE),
-                                            'class' => 'photo avatar',
-                                            'width' => AVATAR_PROFILE_SIZE,
-                                            'height' => AVATAR_PROFILE_SIZE,
-                                            'alt' => $this->profile->nickname));
-                $this->elementEnd('dd');
+                $this->showAvatar();
+                $this->showNickname();
+                $this->showFullName();
+                $this->showLocation();
+                $this->showHomepage();
+                $this->showBio();
+                $this->showProfileTags();
 
-                $user = User::staticGet('id', $this->profile->id);
-                $cur = common_current_user();
-                if ($cur && $cur->id == $user->id) {
-                    $this->elementStart('dd');
-                    $this->element('a', array('href' => common_local_url('avatarsettings')), _('Edit Avatar'));
-                    $this->elementEnd('dd');
-                }
-
-                $this->elementEnd('dl');
-
-                $this->elementStart('dl', 'entity_nickname');
-                $this->element('dt', null, _('Nickname'));
-                $this->elementStart('dd');
-                $hasFN = ($this->profile->fullname) ? 'nickname url uid' : 'fn nickname url uid';
-                $this->element('a', array('href' => $this->profile->profileurl,
-                                          'rel' => 'me', 'class' => $hasFN),
-                               $this->profile->nickname);
-                $this->elementEnd('dd');
-                $this->elementEnd('dl');
-
-                if ($this->profile->fullname) {
-                    $this->elementStart('dl', 'entity_fn');
-                    $this->element('dt', null, _('Full name'));
-                    $this->elementStart('dd');
-                    $this->element('span', 'fn', $this->profile->fullname);
-                    $this->elementEnd('dd');
-                    $this->elementEnd('dl');
-                }
-
-                if ($this->profile->location) {
-                    $this->elementStart('dl', 'entity_location');
-                    $this->element('dt', null, _('Location'));
-                    $this->element('dd', 'label', $this->profile->location);
-                    $this->elementEnd('dl');
-                }
-
-                if ($this->profile->homepage) {
-                    $this->elementStart('dl', 'entity_url');
-                    $this->element('dt', null, _('URL'));
-                    $this->elementStart('dd');
-                    $this->element('a', array('href' => $this->profile->homepage,
-                                              'rel' => 'me', 'class' => 'url'),
-                                   $this->profile->homepage);
-                    $this->elementEnd('dd');
-                    $this->elementEnd('dl');
-                }
-
-                if ($this->profile->bio) {
-                    $this->elementStart('dl', 'entity_note');
-                    $this->element('dt', null, _('Note'));
-                    $this->element('dd', 'note', $this->profile->bio);
-                    $this->elementEnd('dl');
-                }
-
-                $tags = Profile_tag::getTags($this->profile->id, $this->profile->id);
-
-                if (count($tags) > 0) {
-                    $this->elementStart('dl', 'entity_tags');
-                    $this->element('dt', null, _('Tags'));
-                    $this->elementStart('dd');
-                    $this->elementStart('ul', 'tags xoxo');
-                    foreach ($tags as $tag) {
-                        $this->elementStart('li');
-                        // Avoid space by using raw output.
-                        $pt = '<span class="mark_hash">#</span><a rel="tag" href="' .
-                          common_local_url('peopletag', array('tag' => $tag)) .
-                          '">' . $tag . '</a>';
-                        $this->raw($pt);
-                        $this->elementEnd('li');
-                    }
-                    $this->elementEnd('ul');
-                    $this->elementEnd('dd');
-                    $this->elementEnd('dl');
-                }
-
-                Event::handle('EndShowLargeProfileElements', array(&$this, &$this->profile));
+                Event::handle('EndProfilePageProfileElements', array(&$this, $this->profile));
             }
 
             $this->elementEnd('div');
-            Event::handle('EndShowLargeProfileSection', array(&$this, &$this->profile));
+            Event::handle('EndProfilePageProfileSection', array(&$this, $this->profile));
+        }
+    }
+
+    function showAvatar()
+    {
+        if (Event::handle('StartProfilePageAvatar', array($this, $this->profile))) {
+
+            $avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
+
+            $this->elementStart('dl', 'entity_depiction');
+            $this->element('dt', null, _('Photo'));
+            $this->elementStart('dd');
+            $this->element('img', array('src' => ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_PROFILE_SIZE),
+                                        'class' => 'photo avatar',
+                                        'width' => AVATAR_PROFILE_SIZE,
+                                        'height' => AVATAR_PROFILE_SIZE,
+                                        'alt' => $this->profile->nickname));
+            $this->elementEnd('dd');
+
+            $user = User::staticGet('id', $this->profile->id);
+
+            $cur = common_current_user();
+            if ($cur && $cur->id == $user->id) {
+                $this->elementStart('dd');
+                $this->element('a', array('href' => common_local_url('avatarsettings')), _('Edit Avatar'));
+                $this->elementEnd('dd');
+            }
+
+            $this->elementEnd('dl');
+
+            Event::handle('EndProfilePageAvatar', array($this, $this->profile));
+        }
+    }
+
+    function showNickname()
+    {
+        if (Event::handle('StartProfilePageNickname', array($this, $this->profile))) {
+
+            $this->elementStart('dl', 'entity_nickname');
+            $this->element('dt', null, _('Nickname'));
+            $this->elementStart('dd');
+            $hasFN = ($this->profile->fullname) ? 'nickname url uid' : 'fn nickname url uid';
+            $this->element('a', array('href' => $this->profile->profileurl,
+                                      'rel' => 'me', 'class' => $hasFN),
+                           $this->profile->nickname);
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
+
+            Event::handle('EndProfilePageNickname', array($this, $this->profile));
+        }
+    }
+
+    function showFullName()
+    {
+        if (Event::handle('StartProfilePageFullName', array($this, $this->profile))) {
+            if ($this->profile->fullname) {
+                $this->elementStart('dl', 'entity_fn');
+                $this->element('dt', null, _('Full name'));
+                $this->elementStart('dd');
+                $this->element('span', 'fn', $this->profile->fullname);
+                $this->elementEnd('dd');
+                $this->elementEnd('dl');
+            }
+            Event::handle('EndProfilePageFullName', array($this, $this->profile));
+        }
+    }
+
+    function showLocation()
+    {
+        if (Event::handle('StartProfilePageLocation', array($this, $this->profile))) {
+            if ($this->profile->location) {
+                $this->elementStart('dl', 'entity_location');
+                $this->element('dt', null, _('Location'));
+                $this->element('dd', 'label', $this->profile->location);
+                $this->elementEnd('dl');
+            }
+            Event::handle('EndProfilePageLocation', array($this, $this->profile));
+        }
+    }
+
+    function showHomepage()
+    {
+        if (Event::handle('StartProfilePageHomepage', array($this, $this->profile))) {
+            if ($this->profile->homepage) {
+                $this->elementStart('dl', 'entity_url');
+                $this->element('dt', null, _('URL'));
+                $this->elementStart('dd');
+                $this->element('a', array('href' => $this->profile->homepage,
+                                          'rel' => 'me', 'class' => 'url'),
+                               $this->profile->homepage);
+                $this->elementEnd('dd');
+                $this->elementEnd('dl');
+            }
+            Event::handle('EndProfilePageHomepage', array($this, $this->profile));
+        }
+    }
+
+    function showBio()
+    {
+        if (Event::handle('StartProfilePageBio', array($this, $this->profile))) {
+            if ($this->profile->bio) {
+                $this->elementStart('dl', 'entity_note');
+                $this->element('dt', null, _('Note'));
+                $this->element('dd', 'note', $this->profile->bio);
+                $this->elementEnd('dl');
+            }
+            Event::handle('EndProfilePageBio', array($this, $this->profile));
+        }
+    }
+
+    function showProfileTags()
+    {
+        if (Event::handle('StartProfilePageProfileTags', array($this, $this->profile))) {
+            $tags = Profile_tag::getTags($this->profile->id, $this->profile->id);
+
+            if (count($tags) > 0) {
+                $this->elementStart('dl', 'entity_tags');
+                $this->element('dt', null, _('Tags'));
+                $this->elementStart('dd');
+                $this->elementStart('ul', 'tags xoxo');
+                foreach ($tags as $tag) {
+                    $this->elementStart('li');
+                    // Avoid space by using raw output.
+                    $pt = '<span class="mark_hash">#</span><a rel="tag" href="' .
+                      common_local_url('peopletag', array('tag' => $tag)) .
+                      '">' . $tag . '</a>';
+                    $this->raw($pt);
+                    $this->elementEnd('li');
+                }
+                $this->elementEnd('ul');
+                $this->elementEnd('dd');
+                $this->elementEnd('dl');
+            }
+            Event::handle('EndProfilePageProfileTags', array($this, $this->profile));
         }
     }
 
     function showEntityActions()
     {
-        if (Event::handle('StartShowLargeEntityActionsSection', array(&$this, &$this->profile))) {
+        if (Event::handle('StartProfilePageActionsSection', array(&$this, $this->profile))) {
 
             $this->elementStart('div', 'entity_actions');
             $this->element('h2', null, _('User actions'));
             $this->elementStart('ul');
 
-            if (Event::handle('StartShowLargeEntityActionsElements', array(&$this, &$this->profile))) {
+            if (Event::handle('StartProfilePageActionsElements', array(&$this, $this->profile))) {
                 if (empty($cur)) { // not logged in
                     $this->elementStart('li', 'entity_subscribe');
                     $this->showRemoteSubscribeLink();
@@ -362,13 +418,13 @@ class ShowstreamAction extends ProfileAction
                     }
                 }
 
-                Event::handle('EndShowLargeEntityActionsElements', array(&$this, &$this->profile));
+                Event::handle('EndProfilePageActionsElements', array(&$this, $this->profile));
             }
 
             $this->elementEnd('ul');
             $this->elementEnd('div');
 
-            Event::handle('EndShowLargeEntityActionsSection', array(&$this, &$this->profile));
+            Event::handle('EndProfilePageActionsSection', array(&$this, $this->profile));
         }
     }
 
