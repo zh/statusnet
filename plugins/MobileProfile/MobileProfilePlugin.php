@@ -281,8 +281,6 @@ class MobileProfilePlugin extends WAP20Plugin
             $action->menuItem(common_local_url('login'),
                             _('Login'));
         }
-        $action->menuItem(common_local_url('doc', array('title' => 'help')),
-                        _('Help'));
         if ($user || !common_config('site', 'private')) {
             $action->menuItem(common_local_url('peoplesearch'),
                             _('Search'));
