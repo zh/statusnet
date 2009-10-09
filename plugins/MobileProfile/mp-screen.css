@@ -7,11 +7,11 @@ max-width:100%;
 }
 
 #header {
-margin:2%;
+margin:2% 4% 4% 2%;
 }
 
 address {
-margin:0 1% 0;
+margin:0 2% 0;
 }
 address .vcard .photo {
 margin-right:0;
@@ -32,18 +32,27 @@ width:100%;
 }
 
 #form_notice textarea {
-width:75%;
+width:60%;
+height:20px;
 }
 
 #notice_text-count {
 position:absolute;
 bottom:2px;
-right:32.5%;
+right:40%;
 z-index:9;
 }
 
-#notice_action-submit {
-width:17%;
+#form_notice label[for="notice_data-attach"],
+#form_notice #notice_data-attach {
+top:0;
+right:28%;
+}
+
+#form_notice #notice_action-submit {
+width:20%;
+right:4%;
+text-align:center;
 }
 
 
