@@ -318,8 +318,10 @@ class FBConnectPlugin extends Plugin
 
          $action->menuItem(common_local_url('doc', array('title' => 'help')),
              _('Help'), _('Help me!'), false, 'nav_help');
-         $action->menuItem(common_local_url('peoplesearch'),
-             _('Search'), _('Search for people or text'), false, 'nav_search');
+         if ($user || !common_config('site', 'private')) {
+             $action->menuItem(common_local_url('peoplesearch'),
+                 _('Search'), _('Search for people or text'), false, 'nav_search');
+         }
 
         return false;
     }
