@@ -232,6 +232,14 @@ class FBConnectPlugin extends Plugin
     {
 
         $user = common_current_user();
+        $connect = 'FBConnectSettings';
+        if (common_config('xmpp', 'enabled')) {
+            $connect = 'imsettings';
+        } else if (common_config('sms', 'enabled')) {
+            $connect = 'smssettings';
+        } else if (common_config('twitter', 'enabled')) {
+            $connect = 'twittersettings';
+        }
 
         if (!empty($user)) {
 
@@ -266,13 +274,8 @@ class FBConnectPlugin extends Plugin
                 _('Home'), _('Personal profile and friends timeline'), false, 'nav_home');
             $action->menuItem(common_local_url('profilesettings'),
                 _('Account'), _('Change your email, avatar, password, profile'), false, 'nav_account');
-            if (common_config('xmpp', 'enabled')) {
-                $action->menuItem(common_local_url('imsettings'),
-                    _('Connect'), _('Connect to IM, SMS, Twitter'), false, 'nav_connect');
-            } else {
-             $action->menuItem(common_local_url('smssettings'),
-                 _('Connect'), _('Connect to SMS, Twitter'), false, 'nav_connect');
-            }
+            $action->menuItem(common_local_url($connect),
+                _('Connect'), _('Connect to services'), false, 'nav_connect');
             if (common_config('invite', 'enabled')) {
                 $action->menuItem(common_local_url('invite'),
                     _('Invite'),
@@ -300,12 +303,17 @@ class FBConnectPlugin extends Plugin
              }
          }
          else {
-             if (!common_config('site', 'closed')) {
-                 $action->menuItem(common_local_url('register'),
-                     _('Register'), _('Create an account'), false, 'nav_register');
+             if (!common_config('site', 'openidonly')) {
+                 if (!common_config('site', 'closed')) {
+                     $action->menuItem(common_local_url('register'),
+                         _('Register'), _('Create an account'), false, 'nav_register');
+                 }
+                 $action->menuItem(common_local_url('login'),
+                     _('Login'), _('Login to the site'), false, 'nav_login');
+             } else {
+                 $this->menuItem(common_local_url('openidlogin'),
+                                 _('OpenID'), _('Login with OpenID'), false, 'nav_openid');
              }
-             $action->menuItem(common_local_url('login'),
-                 _('Login'), _('Login to the site'), false, 'nav_login');
          }
 
          $action->menuItem(common_local_url('doc', array('title' => 'help')),
