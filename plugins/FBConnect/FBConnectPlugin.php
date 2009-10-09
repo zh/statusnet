@@ -313,6 +313,11 @@ class FBConnectPlugin extends Plugin
          $action->menuItem(common_local_url('peoplesearch'),
              _('Search'), _('Search for people or text'), false, 'nav_search');
 
+        // We are replacing the primary nav entirely; give other
+        // plugins a chance to handle it here.
+
+        Event::handle('EndPrimaryNav', array($action));
+
         return false;
     }
 
