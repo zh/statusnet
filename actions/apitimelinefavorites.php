@@ -69,12 +69,6 @@ class ApiTimelineFavoritesAction extends ApiBareAuthAction
     {
         parent::prepare($args);
 
-        if ($this->requiresAuth()) {
-            if ($this->checkBasicAuthUser() == false) {
-                return;
-            }
-        }
-
         $this->page     = (int)$this->arg('page', 1);
         $this->count    = (int)$this->arg('count', 20);
         $this->max_id   = (int)$this->arg('max_id', 0);

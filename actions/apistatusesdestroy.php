@@ -63,12 +63,6 @@ class ApiStatusesDestroyAction extends ApiAuthAction
     {
         parent::prepare($args);
 
-        if ($this->requiresAuth()) {
-            if ($this->checkBasicAuthUser() == false) {
-                return false;
-            }
-        }
-
         $this->user = $this->auth_user;
         $this->notice_id = (int)$this->trimmed('id');
 

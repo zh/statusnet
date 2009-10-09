@@ -84,12 +84,6 @@ class ApiSubscriptionsAction extends ApiBareAuthAction
         $this->count    = isset($this->ids_only) ?
             5000 : (int)$this->arg('count', 100);
 
-        if ($this->requiresAuth()) {
-            if ($this->checkBasicAuthUser() == false) {
-                return false;
-            }
-        }
-
         $this->user = $this->getTargetUser($this->arg('id'));
 
         if (empty($this->user)) {

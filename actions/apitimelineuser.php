@@ -70,12 +70,6 @@ class ApiTimelineUserAction extends ApiBareAuthAction
         $this->since_id = (int)$this->arg('since_id', 0);
         $this->since    = $this->arg('since');
 
-        if ($this->requiresAuth()) {
-            if ($this->checkBasicAuthUser() == false) {
-                return;
-            }
-        }
-
         $this->user = $this->getTargetUser($this->arg('id'));
 
         if (empty($this->user)) {

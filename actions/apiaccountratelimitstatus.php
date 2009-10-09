@@ -46,27 +46,6 @@ require_once INSTALLDIR.'/lib/apibareauth.php';
 
 class ApiAccountRateLimitStatusAction extends ApiBareAuthAction
 {
-    /**
-     * Take arguments for running
-     *
-     * @param array $args $_REQUEST args
-     *
-     * @return boolean success flag
-     *
-     */
-
-    function prepare($args)
-    {
-        parent::prepare($args);
-
-        if ($this->requiresAuth()) {
-            if ($this->checkBasicAuthUser() == false) {
-                return false;
-            }
-        }
-
-        return true;
-    }
 
     /**
      * Handle the request

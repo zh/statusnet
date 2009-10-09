@@ -62,12 +62,6 @@ class ApiFavoriteCreateAction extends ApiAuthAction
     {
         parent::prepare($args);
 
-        if ($this->requiresAuth()) {
-            if ($this->checkBasicAuthUser() == false) {
-                return;
-            }
-        }
-
         $this->user   = $this->auth_user;
         $this->notice = Notice::staticGet($this->arg('id'));
 

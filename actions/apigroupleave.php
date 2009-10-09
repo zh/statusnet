@@ -62,12 +62,6 @@ class ApiGroupLeaveAction extends ApiAuthAction
     {
         parent::prepare($args);
 
-        if ($this->requiresAuth()) {
-            if ($this->checkBasicAuthUser() == false) {
-                return;
-            }
-        }
-
         $this->user  = $this->auth_user;
         $this->group = $this->getTargetGroup($this->arg('id'));
 

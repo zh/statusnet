@@ -49,6 +49,26 @@ class ApiAuthAction extends ApiAction
     var $auth_user = null;
 
     /**
+     * Take arguments for running, and output basic auth header if needed
+     *
+     * @param array $args $_REQUEST args
+     *
+     * @return boolean success flag
+     *
+     */
+
+    function prepare($args)
+    {
+        parent::prepare($args);
+
+        if ($this->requiresAuth()) {
+            $this->checkBasicAuthUser();
+        }
+
+        return true;
+    }
+
+    /**
      * Does this API resource require authentication?
      *
      * @return boolean true
@@ -76,7 +96,7 @@ class ApiAuthAction extends ApiAction
             // show error if the user clicks 'cancel'
 
             $this->showBasicAuthError();
-            return false;
+            exit;
 
         } else {
             $nickname = $this->auth_user;
@@ -94,7 +114,7 @@ class ApiAuthAction extends ApiAction
                     "$nickname, proxy = $proxy, ip = $ip."
                 );
                 $this->showBasicAuthError();
-                return false;
+                exit;
             }
         }
         return true;

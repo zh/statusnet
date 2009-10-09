@@ -75,12 +75,6 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
         $this->since    = $this->arg('since');
         $this->format   = $this->arg('format');
 
-        if ($this->requiresAuth()) {
-            if ($this->checkBasicAuthUser() == false) {
-                return;
-            }
-        }
-
         $this->user = $this->getTargetUser($this->arg('id'));
 
         if (empty($this->user)) {

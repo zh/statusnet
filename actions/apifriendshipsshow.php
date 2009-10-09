@@ -62,12 +62,6 @@ class ApiFriendshipsShowAction extends ApiBareAuthAction
     {
         parent::prepare($args);
 
-        if ($this->requiresAuth()) {
-            if ($this->checkBasicAuthUser() == false) {
-                return;
-            }
-        }
-
         $source_id          = (int)$this->trimmed('source_id');
         $source_screen_name = $this->trimmed('source_screen_name');
         $target_id          = (int)$this->trimmed('target_id');

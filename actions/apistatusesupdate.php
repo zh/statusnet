@@ -67,12 +67,6 @@ class ApiStatusesUpdateAction extends ApiAuthAction
     {
         parent::prepare($args);
 
-        if ($this->requiresAuth()) {
-            if ($this->checkBasicAuthUser() == false) {
-                return false;
-            }
-        }
-
         $this->user = $this->auth_user;
 
         if (empty($this->user)) {

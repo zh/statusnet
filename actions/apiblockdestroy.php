@@ -62,12 +62,6 @@ class ApiBlockDestroyAction extends ApiAuthAction
     {
         parent::prepare($args);
 
-        if ($this->requiresAuth()) {
-            if ($this->checkBasicAuthUser() == false) {
-                return;
-            }
-        }
-
         $this->user   = $this->auth_user;
         $this->other  = $this->getTargetUser($this->arg('id'));
 

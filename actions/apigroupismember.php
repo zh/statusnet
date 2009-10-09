@@ -62,12 +62,6 @@ class ApiGroupIsMemberAction extends ApiBareAuthAction
     {
         parent::prepare($args);
 
-        if ($this->requiresAuth()) {
-            if ($this->checkBasicAuthUser() == false) {
-                return;
-            }
-        }
-
         $this->user   = $this->getTargetUser(null);
         $this->group  = $this->getTargetGroup(null);
         $this->format = $this->arg('format');
