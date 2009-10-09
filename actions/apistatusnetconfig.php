@@ -31,7 +31,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/twitterapi.php';
+require_once INSTALLDIR . '/lib/api.php';
 
 /**
  * Gives a full dump of configuration variables for this instance

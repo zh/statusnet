@@ -242,7 +242,7 @@ class RealtimePlugin extends Plugin
         // of refactoring from within a plugin, so I'm just abusing
         // the TwitterApiAction method. Don't do this unless you're me!
 
-        require_once(INSTALLDIR.'/lib/twitterapi.php');
+        require_once(INSTALLDIR.'/lib/api.php');
 
         $act = new TwitterApiAction('/dev/null');
 

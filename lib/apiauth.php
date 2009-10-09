@@ -31,7 +31,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/twitterapi.php';
+require_once INSTALLDIR.'/lib/api.php';
 
 /**
  * Actions extending this class will require auth
@@ -43,7 +43,7 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
  * @link     http://status.net/
  */
 
-class ApiAuthAction extends TwitterapiAction
+class ApiAuthAction extends ApiAction
 {
 
     var $auth_user = null;

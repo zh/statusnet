@@ -31,7 +31,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/twitterapi.php';
+require_once INSTALLDIR.'/lib/api.php';
 
 /**
  * Returns the 20 most recent notices tagged by a given tag
@@ -43,7 +43,7 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
  * @link     http://status.net/
  */
 
-class ApiTimelineTagAction extends TwitterapiAction
+class ApiTimelineTagAction extends ApiAction
 {
 
     var $notices = null;

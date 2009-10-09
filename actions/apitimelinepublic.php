@@ -31,7 +31,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/twitterapi.php';
+require_once INSTALLDIR.'/lib/api.php';
 
 /**
  * Returns the most recent notices (default 20) posted by everybody
@@ -43,7 +43,7 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
  * @link     http://status.net/
  */
 
-class ApiTimelinePublicAction extends TwitterapiAction
+class ApiTimelinePublicAction extends ApiAction
 {
 
     var $notices = null;

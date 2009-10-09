@@ -31,7 +31,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/twitterapi.php';
+require_once INSTALLDIR . '/lib/api.php';
 
 /**
  * List 20 newest members of the group specified by name or ID. 

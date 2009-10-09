@@ -31,7 +31,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/twitterapi.php';
+require_once INSTALLDIR.'/lib/api.php';
 
 /**
  * Returns the notice specified by id as a Twitter-style status and inline user
@@ -43,7 +43,7 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
  * @link     http://status.net/
  */
 
-class ApiStatusesShowAction extends TwitterapiAction
+class ApiStatusesShowAction extends ApiAction
 {
 
     var $notice_id = null;

@@ -1,9 +1,12 @@
 <?php
-/*
- * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, StatusNet, Inc.
+/**
+ * StatusNet, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * Base API action
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -15,13 +18,30 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  API
+ * @package   StatusNet
+ * @author    Zach Copley <zach@status.net>
+ * @copyright 2009 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://status.net/
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) {
+if (!defined('STATUSNET')) {
     exit(1);
 }
 
-class TwitterapiAction extends Action
+/**
+ * Contains most of the Twitter-compatible API output functions.
+ *
+ * @category API
+ * @package  StatusNet
+ * @author   Zach Copley <zach@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://status.net/
+ */
+
+class ApiAction extends Action
 {
 
     /**

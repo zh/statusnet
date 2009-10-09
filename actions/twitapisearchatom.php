@@ -31,7 +31,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/twitterapi.php';
+require_once INSTALLDIR.'/lib/api.php';
 
 /**
  * Action for outputting search results in Twitter compatible Atom
@@ -46,10 +46,10 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  *
- * @see      TwitterapiAction
+ * @see      ApiAction
  */
 
-class TwitapisearchatomAction extends TwitterapiAction
+class TwitapisearchatomAction extends ApiAction
 {
 
     var $cnt;
