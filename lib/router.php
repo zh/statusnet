@@ -474,10 +474,15 @@ class Router
 
         // blocks
 
-        $m->connect('api/blocks/:method/:argument',
-                    array('action' => 'api',
-                          'apiaction' => 'blocks'));
+        $m->connect('api/blocks/create/:id.:format',
+                    array('action' => 'ApiBlockCreate',
+                          'id' => '[a-zA-Z0-9]+',
+                          'format' => '(xml|json)'));
 
+        $m->connect('api/blocks/destroy/:id.:format',
+                    array('action' => 'ApiBlockDestroy',
+                          'id' => '[a-zA-Z0-9]+',
+                          'format' => '(xml|json)'));
         // help
 
         $m->connect('api/help/test.:format',
