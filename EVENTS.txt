@@ -291,3 +291,45 @@ EndShowHeadElements: Right before the </head> tag; put <script>s here if you nee
 - $action: the current action
 
 CheckSchema: chance to check the schema
+
+StartShowLargeProfileSection: Starting to show the section of the
+                              profile page with the actual profile data;
+                              hook to prevent showing the profile (e.g.)
+- $action: the current action
+- &$profile: the profile being shown
+
+StartShowLargeProfileElements: inside the section, before the first
+                               element; prepend elements here
+- $action: the current action
+- &$profile: the profile being shown
+
+EndShowLargeProfileElements: inside the section, after the last element;
+                             append elements here
+- $action: the current action
+- &$profile: the profile being shown
+
+EndShowLargeProfileSection: After showing the section of the profile
+                            page with the profile elements
+- $action: the current action
+- &$profile: the profile being shown
+
+StartShowLargeEntityActionsSection: Starting to show the section of the
+                                    profile page with action links; hook
+                                    to hide them (for example)
+- $action: the current action
+- &$profile: the profile being shown
+
+StartShowLargeEntityActionsElements: inside the list, before the first
+                                     element; prepend elements here
+- $action: the current action
+- &$profile: the profile being shown
+
+EndShowLargeEntityActionsElements: inside the list, after the last element;
+                                   append elements here
+- $action: the current action
+- &$profile: the profile being shown
+
+EndShowLargeEntityActionsSection: After showing the section of the profile
+                                  page with the entity actions
+- $action: the current action
+- &$profile: the profile being shown

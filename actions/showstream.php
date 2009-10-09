@@ -181,168 +181,195 @@ class ShowstreamAction extends ProfileAction
 
     function showProfile()
     {
-        $this->elementStart('div', 'entity_profile vcard author');
-        $this->element('h2', null, _('User profile'));
+        $this->showProfileData();
+        $this->showEntityActions();
+    }
 
-        $avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
-        $this->elementStart('dl', 'entity_depiction');
-        $this->element('dt', null, _('Photo'));
-        $this->elementStart('dd');
-        $this->element('img', array('src' => ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_PROFILE_SIZE),
-                                    'class' => 'photo avatar',
-                                    'width' => AVATAR_PROFILE_SIZE,
-                                    'height' => AVATAR_PROFILE_SIZE,
-                                    'alt' => $this->profile->nickname));
-        $this->elementEnd('dd');
+    function showProfileData()
+    {
+        if (Event::handle('StartShowLargeProfileSection', array(&$this, &$this->profile))) {
 
-        $user = User::staticGet('id', $this->profile->id);
-        $cur = common_current_user();
-        if ($cur && $cur->id == $user->id) {
-            $this->elementStart('dd');
-            $this->element('a', array('href' => common_local_url('avatarsettings')), _('Edit Avatar'));
-            $this->elementEnd('dd');
-        }
+            $this->elementStart('div', 'entity_profile vcard author');
+            $this->element('h2', null, _('User profile'));
 
-        $this->elementEnd('dl');
+            if (Event::handle('StartShowLargeProfileElements', array(&$this, &$this->profile))) {
 
-        $this->elementStart('dl', 'entity_nickname');
-        $this->element('dt', null, _('Nickname'));
-        $this->elementStart('dd');
-        $hasFN = ($this->profile->fullname) ? 'nickname url uid' : 'fn nickname url uid';
-        $this->element('a', array('href' => $this->profile->profileurl,
-                                  'rel' => 'me', 'class' => $hasFN),
-                       $this->profile->nickname);
-        $this->elementEnd('dd');
-        $this->elementEnd('dl');
+                $avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
+                $this->elementStart('dl', 'entity_depiction');
+                $this->element('dt', null, _('Photo'));
+                $this->elementStart('dd');
+                $this->element('img', array('src' => ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_PROFILE_SIZE),
+                                            'class' => 'photo avatar',
+                                            'width' => AVATAR_PROFILE_SIZE,
+                                            'height' => AVATAR_PROFILE_SIZE,
+                                            'alt' => $this->profile->nickname));
+                $this->elementEnd('dd');
 
-        if ($this->profile->fullname) {
-            $this->elementStart('dl', 'entity_fn');
-            $this->element('dt', null, _('Full name'));
-            $this->elementStart('dd');
-            $this->element('span', 'fn', $this->profile->fullname);
-            $this->elementEnd('dd');
-            $this->elementEnd('dl');
-        }
-
-        if ($this->profile->location) {
-            $this->elementStart('dl', 'entity_location');
-            $this->element('dt', null, _('Location'));
-            $this->element('dd', 'label', $this->profile->location);
-            $this->elementEnd('dl');
-        }
-
-        if ($this->profile->homepage) {
-            $this->elementStart('dl', 'entity_url');
-            $this->element('dt', null, _('URL'));
-            $this->elementStart('dd');
-            $this->element('a', array('href' => $this->profile->homepage,
-                                      'rel' => 'me', 'class' => 'url'),
-                           $this->profile->homepage);
-            $this->elementEnd('dd');
-            $this->elementEnd('dl');
-        }
-
-        if ($this->profile->bio) {
-            $this->elementStart('dl', 'entity_note');
-            $this->element('dt', null, _('Note'));
-            $this->element('dd', 'note', $this->profile->bio);
-            $this->elementEnd('dl');
-        }
-
-        $tags = Profile_tag::getTags($this->profile->id, $this->profile->id);
-
-        if (count($tags) > 0) {
-            $this->elementStart('dl', 'entity_tags');
-            $this->element('dt', null, _('Tags'));
-            $this->elementStart('dd');
-            $this->elementStart('ul', 'tags xoxo');
-            foreach ($tags as $tag) {
-                $this->elementStart('li');
-                // Avoid space by using raw output.
-                $pt = '<span class="mark_hash">#</span><a rel="tag" href="' .
-                  common_local_url('peopletag', array('tag' => $tag)) .
-                  '">' . $tag . '</a>';
-                $this->raw($pt);
-                $this->elementEnd('li');
-            }
-            $this->elementEnd('ul');
-            $this->elementEnd('dd');
-            $this->elementEnd('dl');
-        }
-
-        $this->elementEnd('div');
-
-        $this->elementStart('div', 'entity_actions');
-        $this->element('h2', null, _('User actions'));
-        $this->elementStart('ul');
-
-        if (empty($cur)) { // not logged in
-            $this->elementStart('li', 'entity_subscribe');
-            $this->showRemoteSubscribeLink();
-            $this->elementEnd('li');
-        } else {
-            if ($cur->id == $this->profile->id) { // your own page
-                $this->elementStart('li', 'entity_edit');
-                $this->element('a', array('href' => common_local_url('profilesettings'),
-                                          'title' => _('Edit profile settings')),
-                               _('Edit'));
-                $this->elementEnd('li');
-            } else { // someone else's page
-
-                // subscribe/unsubscribe button
-
-                $this->elementStart('li', 'entity_subscribe');
-
-                if ($cur->isSubscribed($this->profile)) {
-                    $usf = new UnsubscribeForm($this, $this->profile);
-                    $usf->show();
-                } else {
-                    $sf = new SubscribeForm($this, $this->profile);
-                    $sf->show();
+                $user = User::staticGet('id', $this->profile->id);
+                $cur = common_current_user();
+                if ($cur && $cur->id == $user->id) {
+                    $this->elementStart('dd');
+                    $this->element('a', array('href' => common_local_url('avatarsettings')), _('Edit Avatar'));
+                    $this->elementEnd('dd');
                 }
-                $this->elementEnd('li');
 
-                if ($cur->mutuallySubscribed($user)) {
+                $this->elementEnd('dl');
 
-                    // message
+                $this->elementStart('dl', 'entity_nickname');
+                $this->element('dt', null, _('Nickname'));
+                $this->elementStart('dd');
+                $hasFN = ($this->profile->fullname) ? 'nickname url uid' : 'fn nickname url uid';
+                $this->element('a', array('href' => $this->profile->profileurl,
+                                          'rel' => 'me', 'class' => $hasFN),
+                               $this->profile->nickname);
+                $this->elementEnd('dd');
+                $this->elementEnd('dl');
 
-                    $this->elementStart('li', 'entity_send-a-message');
-                    $this->element('a', array('href' => common_local_url('newmessage', array('to' => $user->id)),
-                                              'title' => _('Send a direct message to this user')),
-                                   _('Message'));
+                if ($this->profile->fullname) {
+                    $this->elementStart('dl', 'entity_fn');
+                    $this->element('dt', null, _('Full name'));
+                    $this->elementStart('dd');
+                    $this->element('span', 'fn', $this->profile->fullname);
+                    $this->elementEnd('dd');
+                    $this->elementEnd('dl');
+                }
+
+                if ($this->profile->location) {
+                    $this->elementStart('dl', 'entity_location');
+                    $this->element('dt', null, _('Location'));
+                    $this->element('dd', 'label', $this->profile->location);
+                    $this->elementEnd('dl');
+                }
+
+                if ($this->profile->homepage) {
+                    $this->elementStart('dl', 'entity_url');
+                    $this->element('dt', null, _('URL'));
+                    $this->elementStart('dd');
+                    $this->element('a', array('href' => $this->profile->homepage,
+                                              'rel' => 'me', 'class' => 'url'),
+                                   $this->profile->homepage);
+                    $this->elementEnd('dd');
+                    $this->elementEnd('dl');
+                }
+
+                if ($this->profile->bio) {
+                    $this->elementStart('dl', 'entity_note');
+                    $this->element('dt', null, _('Note'));
+                    $this->element('dd', 'note', $this->profile->bio);
+                    $this->elementEnd('dl');
+                }
+
+                $tags = Profile_tag::getTags($this->profile->id, $this->profile->id);
+
+                if (count($tags) > 0) {
+                    $this->elementStart('dl', 'entity_tags');
+                    $this->element('dt', null, _('Tags'));
+                    $this->elementStart('dd');
+                    $this->elementStart('ul', 'tags xoxo');
+                    foreach ($tags as $tag) {
+                        $this->elementStart('li');
+                        // Avoid space by using raw output.
+                        $pt = '<span class="mark_hash">#</span><a rel="tag" href="' .
+                          common_local_url('peopletag', array('tag' => $tag)) .
+                          '">' . $tag . '</a>';
+                        $this->raw($pt);
+                        $this->elementEnd('li');
+                    }
+                    $this->elementEnd('ul');
+                    $this->elementEnd('dd');
+                    $this->elementEnd('dl');
+                }
+
+                Event::handle('EndShowLargeProfileElements', array(&$this, &$this->profile));
+            }
+
+            $this->elementEnd('div');
+            Event::handle('EndShowLargeProfileSection', array(&$this, &$this->profile));
+        }
+    }
+
+    function showEntityActions()
+    {
+        if (Event::handle('StartShowLargeEntityActionsSection', array(&$this, &$this->profile))) {
+
+            $this->elementStart('div', 'entity_actions');
+            $this->element('h2', null, _('User actions'));
+            $this->elementStart('ul');
+
+            if (Event::handle('StartShowLargeEntityActionsElements', array(&$this, &$this->profile))) {
+                if (empty($cur)) { // not logged in
+                    $this->elementStart('li', 'entity_subscribe');
+                    $this->showRemoteSubscribeLink();
                     $this->elementEnd('li');
+                } else {
+                    if ($cur->id == $this->profile->id) { // your own page
+                        $this->elementStart('li', 'entity_edit');
+                        $this->element('a', array('href' => common_local_url('profilesettings'),
+                                                  'title' => _('Edit profile settings')),
+                                       _('Edit'));
+                        $this->elementEnd('li');
+                    } else { // someone else's page
 
-                    // nudge
+                        // subscribe/unsubscribe button
 
-                    if ($user->email && $user->emailnotifynudge) {
-                        $this->elementStart('li', 'entity_nudge');
-                        $nf = new NudgeForm($this, $user);
-                        $nf->show();
+                        $this->elementStart('li', 'entity_subscribe');
+
+                        if ($cur->isSubscribed($this->profile)) {
+                            $usf = new UnsubscribeForm($this, $this->profile);
+                            $usf->show();
+                        } else {
+                            $sf = new SubscribeForm($this, $this->profile);
+                            $sf->show();
+                        }
+                        $this->elementEnd('li');
+
+                        if ($cur->mutuallySubscribed($user)) {
+
+                            // message
+
+                            $this->elementStart('li', 'entity_send-a-message');
+                            $this->element('a', array('href' => common_local_url('newmessage', array('to' => $user->id)),
+                                                      'title' => _('Send a direct message to this user')),
+                                           _('Message'));
+                            $this->elementEnd('li');
+
+                            // nudge
+
+                            if ($user->email && $user->emailnotifynudge) {
+                                $this->elementStart('li', 'entity_nudge');
+                                $nf = new NudgeForm($this, $user);
+                                $nf->show();
+                                $this->elementEnd('li');
+                            }
+                        }
+
+                        // block/unblock
+
+                        $blocked = $cur->hasBlocked($this->profile);
+                        $this->elementStart('li', 'entity_block');
+                        if ($blocked) {
+                            $ubf = new UnblockForm($this, $this->profile,
+                                                   array('action' => 'showstream',
+                                                         'nickname' => $this->profile->nickname));
+                            $ubf->show();
+                        } else {
+                            $bf = new BlockForm($this, $this->profile,
+                                                array('action' => 'showstream',
+                                                      'nickname' => $this->profile->nickname));
+                            $bf->show();
+                        }
                         $this->elementEnd('li');
                     }
                 }
 
-                // block/unblock
-
-                $blocked = $cur->hasBlocked($this->profile);
-                $this->elementStart('li', 'entity_block');
-                if ($blocked) {
-                    $ubf = new UnblockForm($this, $this->profile,
-                                           array('action' => 'showstream',
-                                                 'nickname' => $this->profile->nickname));
-                    $ubf->show();
-                } else {
-                    $bf = new BlockForm($this, $this->profile,
-                                        array('action' => 'showstream',
-                                              'nickname' => $this->profile->nickname));
-                    $bf->show();
-                }
-                $this->elementEnd('li');
+                Event::handle('EndShowLargeEntityActionsElements', array(&$this, &$this->profile));
             }
-        }
 
-        $this->elementEnd('ul');
-        $this->elementEnd('div');
+            $this->elementEnd('ul');
+            $this->elementEnd('div');
+
+            Event::handle('EndShowLargeEntityActionsSection', array(&$this, &$this->profile));
+        }
     }
 
     function showRemoteSubscribeLink()
