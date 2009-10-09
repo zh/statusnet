@@ -85,9 +85,18 @@ class Session extends Memcached_DataObject
 
             return $session->insert();
         } else {
-            $session->session_data = $session_data;
+            if (strcmp($session->session_data, $session_data) == 0) {
+                self::logdeb("Not writing session '$id'; unchanged");
+                return true;
+            } else {
+                self::logdeb("Session '$id' data changed; updating");
 
-            return $session->update();
+                $orig = clone($session);
+
+                $session->session_data = $session_data;
+
+                return $session->update($orig);
+            }
         }
     }
 
