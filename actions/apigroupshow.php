@@ -45,7 +45,6 @@ require_once INSTALLDIR.'/lib/api.php';
 
 class ApiGroupShowAction extends TwitterApiAction
 {
-    var $format = null;
     var $group = null;
 
     /**
@@ -61,7 +60,6 @@ class ApiGroupShowAction extends TwitterApiAction
     {
         parent::prepare($args);
 
-        $this->format = $this->arg('format');
         $this->group = $this->getTargetGroup($this->arg('id'));
 
         return true;

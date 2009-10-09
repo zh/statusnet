@@ -43,6 +43,7 @@ if (!defined('STATUSNET')) {
 
 class ApiAction extends Action
 {
+     var $format = null;
 
     /**
      * Initialization.
@@ -55,6 +56,7 @@ class ApiAction extends Action
     function prepare($args)
     {
         parent::prepare($args);
+        $this->format   = $this->arg('format');
         return true;
     }
 

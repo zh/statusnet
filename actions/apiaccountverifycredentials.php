@@ -47,8 +47,6 @@ require_once INSTALLDIR.'/lib/apiauth.php';
 
 class ApiAccountVerifyCredentialsAction extends ApiAuthAction
 {
-    var $format                = null;
-
     /**
      * Take arguments for running
      *
@@ -68,7 +66,6 @@ class ApiAccountVerifyCredentialsAction extends ApiAuthAction
             }
         }
 
-        $this->format = $this->arg('format');
         return true;
     }
 

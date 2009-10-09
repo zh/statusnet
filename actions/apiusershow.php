@@ -46,8 +46,6 @@ require_once INSTALLDIR.'/lib/api.php';
 
 class ApiUserShowAction extends TwitterApiAction
 {
-
-    var $format = null;
     var $user   = null;
 
     /**
@@ -62,8 +60,6 @@ class ApiUserShowAction extends TwitterApiAction
     function prepare($args)
     {
         parent::prepare($args);
-
-        $this->format = $this->arg('format');
 
         $email = $this->arg('email');
 

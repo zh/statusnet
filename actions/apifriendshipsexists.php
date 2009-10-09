@@ -46,8 +46,6 @@ require_once INSTALLDIR.'/lib/api.php';
 
 class ApiFriendshipsExistsAction extends TwitterApiAction
 {
-
-    var $format = null;
     var $user_a = null;
     var $user_b = null;
 
@@ -63,8 +61,6 @@ class ApiFriendshipsExistsAction extends TwitterApiAction
     function prepare($args)
     {
         parent::prepare($args);
-
-        $this->format = $this->arg('format');
 
         $user_a_id = $this->trimmed('user_a');
         $user_b_id = $this->trimmed('user_b');

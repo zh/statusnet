@@ -46,7 +46,6 @@ require_once INSTALLDIR . '/lib/apiauth.php';
 
 class ApiBlockDestroyAction extends ApiAuthAction
 {
-    var $format  = null;
     var $user    = null;
     var $other   = null;
 
@@ -71,7 +70,6 @@ class ApiBlockDestroyAction extends ApiAuthAction
 
         $this->user   = $this->auth_user;
         $this->other  = $this->getTargetUser($this->arg('id'));
-        $this->format = $this->arg('format');
 
         return true;
     }

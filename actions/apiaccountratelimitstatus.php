@@ -46,8 +46,6 @@ require_once INSTALLDIR.'/lib/apibareauth.php';
 
 class ApiAccountRateLimitStatusAction extends ApiBareAuthAction
 {
-    var $format = null;
-
     /**
      * Take arguments for running
      *
@@ -67,7 +65,6 @@ class ApiAccountRateLimitStatusAction extends ApiBareAuthAction
             }
         }
 
-        $this->format = $this->arg('format');
         return true;
     }
 

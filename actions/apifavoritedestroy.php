@@ -47,9 +47,9 @@ require_once INSTALLDIR.'/lib/apiauth.php';
 class ApiFavoriteDestroyAction extends ApiAuthAction
 {
 
-    var $format = null;
     var $user   = null;
     var $notice = null;
+
     /**
      * Take arguments for running
      *
@@ -69,7 +69,6 @@ class ApiFavoriteDestroyAction extends ApiAuthAction
             }
         }
 
-        $this->format = $this->arg('format');
         $this->user   = $this->auth_user;
         $this->notice = Notice::staticGet($this->arg('id'));
 

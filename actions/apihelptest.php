@@ -45,7 +45,6 @@ require_once INSTALLDIR . '/lib/api.php';
 
 class ApiHelpTestAction extends TwitterApiAction
 {
-    var $format = null;
 
     /**
      * Take arguments for running
@@ -59,7 +58,6 @@ class ApiHelpTestAction extends TwitterApiAction
     function prepare($args)
     {
         parent::prepare($args);
-        $this->format = $this->arg('format');
         return true;
     }
 

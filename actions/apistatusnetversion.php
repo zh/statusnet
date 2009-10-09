@@ -48,8 +48,6 @@ require_once INSTALLDIR . '/lib/api.php';
 
 class ApiStatusnetVersionAction extends TwitterApiAction
 {
-    var $format = null;
-
     /**
      * Take arguments for running
      *
@@ -62,7 +60,6 @@ class ApiStatusnetVersionAction extends TwitterApiAction
     function prepare($args)
     {
         parent::prepare($args);
-        $this->format = $this->arg('format');
         return true;
     }
 

@@ -47,8 +47,6 @@ require_once INSTALLDIR.'/lib/apiauth.php';
 
 class ApiFriendshipsCreateAction extends ApiAuthAction
 {
-
-    var $format = null;
     var $user   = null;
     var $other  = null;
 
@@ -71,7 +69,6 @@ class ApiFriendshipsCreateAction extends ApiAuthAction
             }
         }
 
-        $this->format = $this->arg('format');
         $this->user   = $this->auth_user;
         $this->other  = $this->getTargetUser($id);
 

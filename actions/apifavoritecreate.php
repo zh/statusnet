@@ -46,8 +46,6 @@ require_once INSTALLDIR.'/lib/apiauth.php';
 
 class ApiFavoriteCreateAction extends ApiAuthAction
 {
-
-    var $format = null;
     var $user   = null;
     var $notice = null;
 
@@ -70,7 +68,6 @@ class ApiFavoriteCreateAction extends ApiAuthAction
             }
         }
 
-        $this->format = $this->arg('format');
         $this->user   = $this->auth_user;
         $this->notice = Notice::staticGet($this->arg('id'));
 

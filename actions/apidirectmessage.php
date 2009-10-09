@@ -45,7 +45,6 @@ require_once INSTALLDIR.'/lib/apiauth.php';
 
 class ApiDirectMessageAction extends ApiAuthAction
 {
-    var $format       = null;
     var $messages     = null;
     var $page         = null;
     var $count        = null;
@@ -121,8 +120,6 @@ class ApiDirectMessageAction extends ApiAuthAction
             $this->selfuri_base = common_root_url() . 'api/direct_messages';
             $this->id = "tag:$taguribase:DirectMessages:" . $this->user->id;
         }
-
-        $this->format = $this->arg('format');
 
         $this->messages = $this->getMessages();
 

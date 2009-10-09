@@ -45,8 +45,6 @@ require_once INSTALLDIR.'/lib/apibareauth.php';
 
 class ApiFriendshipsShowAction extends ApiBareAuthAction
 {
-
-    var $format = null;
     var $user   = null;
     var $source = null;
     var $target = null;
@@ -69,8 +67,6 @@ class ApiFriendshipsShowAction extends ApiBareAuthAction
                 return;
             }
         }
-
-        $this->format = $this->arg('format');
 
         $source_id          = (int)$this->trimmed('source_id');
         $source_screen_name = $this->trimmed('source_screen_name');

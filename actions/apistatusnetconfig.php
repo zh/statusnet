@@ -49,8 +49,6 @@ require_once INSTALLDIR . '/lib/api.php';
 
 class ApiStatusnetConfigAction extends TwitterApiAction
 {
-    var $format = null;
-
     var $keys = array(
         'site' => array('name', 'server', 'theme', 'path', 'fancy', 'language',
                         'email', 'broughtby', 'broughtbyurl', 'closed',
@@ -73,7 +71,6 @@ class ApiStatusnetConfigAction extends TwitterApiAction
     function prepare($args)
     {
         parent::prepare($args);
-        $this->format = $this->arg('format');
         return true;
     }
 

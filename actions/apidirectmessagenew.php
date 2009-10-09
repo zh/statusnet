@@ -46,7 +46,6 @@ require_once INSTALLDIR.'/lib/apiauth.php';
 
 class ApiDirectMessageNewAction extends ApiAuthAction
 {
-    var $format  = null;
     var $source  = null;
     var $user    = null;
     var $other   = null;
@@ -96,8 +95,6 @@ class ApiDirectMessageNewAction extends ApiAuthAction
         if (isset($user_param) || isset($user_id) || isset($screen_name)) {
             $this->other = $this->getTargetUser($user_param);
         }
-
-        $this->format = $this->arg('format');
 
         return true;
     }
