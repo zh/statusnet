@@ -7,23 +7,42 @@ max-width:100%;
 }
 
 #header {
-margin:2% 4% 4% 2%;
+margin:0;
+padding:2%;
+width:96%;
 }
 
 address {
-margin:0 2% 0;
+margin:4% 0 0 0;
 }
 address .vcard .photo {
 margin-right:0;
 }
 
+address img + .fn {
+display:block;
+margin-top:6%;
+width:100%;
+}
+
+.vcard .photo {
+margin-right:7px;
+}
+
+
 #site_nav_global_primary {
-margin-right:0;
-width:35%;
+margin:0;
+width:100%;
 list-style-type:none;
+position:absolute;
+top:0;
+left:0;
 }
 #site_nav_global_primary li {
-margin-left:3%;
+margin-left:0;
+margin-right:1%;
+float:left;
+font-size:0.9em;
 }
 
 
@@ -43,10 +62,15 @@ right:40%;
 z-index:9;
 }
 
+/*input type=file no good in
+iPhone/iPod Touch, Android, Opera Mini Simulator
+*/
+#form_notice #notice_text-count + label,
 #form_notice label[for="notice_data-attach"],
 #form_notice #notice_data-attach {
 top:0;
-right:28%;
+/*right:28%; Looks good but no good in iDevice, Android*/
+right:40%;
 }
 
 #form_notice #notice_action-submit {
@@ -57,14 +81,14 @@ text-align:center;
 
 
 #site_nav_local_views li {
-margin-left:1px;
+margin-left:0;
 margin-right:0;
 }
 #site_nav_local_views li:first-child {
 margin-left:0;
 }
 #site_nav_local_views a {
-padding:0 3%;
+padding:0;
 display:block;
 }
 #site_nav_local_views .current a {
