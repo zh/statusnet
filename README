@@ -757,7 +757,9 @@ to users on a remote site. (Or not... it's not well tested.) The
 
 If fancy URLs is enabled, access to file attachments can also be
 restricted to logged-in users only. Uncomment the appropriate rewrite
-rule in .htaccess or your server's httpd.conf.
+rule in .htaccess or your server's httpd.conf. (This most likely will
+not work if you are using a virtual server for attachments, so consider
+the performance/security tradeoff.)
 
 Upgrading
 =========
