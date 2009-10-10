@@ -43,8 +43,14 @@ if (!defined('STATUSNET')) {
 
 class ApiAction extends Action
 {
-     var $format = null;
-
+     var $format   = null;
+     var $user     = null;
+     var $page     = null;
+     var $count    = null;
+     var $max_id   = null;
+     var $since_id = null;
+     var $since    = null;
+     
     /**
      * Initialization.
      *
@@ -56,7 +62,14 @@ class ApiAction extends Action
     function prepare($args)
     {
         parent::prepare($args);
+        
         $this->format   = $this->arg('format');
+        $this->page     = (int)$this->arg('page', 1);
+        $this->count    = (int)$this->arg('count', 20);
+        $this->max_id   = (int)$this->arg('max_id', 0);
+        $this->since_id = (int)$this->arg('since_id', 0);
+        $this->since    = $this->arg('since');
+        
         return true;
     }
 

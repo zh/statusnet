@@ -45,12 +45,6 @@ require_once INSTALLDIR . '/lib/apibareauth.php';
 
 class ApiGroupListAction extends ApiBareAuthAction
 {
-    var $user     = null;
-    var $page     = null;
-    var $count    = null;
-    var $max_id   = null;
-    var $since_id = null;
-    var $since    = null;
     var $groups   = null;
 
     /**
@@ -65,12 +59,6 @@ class ApiGroupListAction extends ApiBareAuthAction
     function prepare($args)
     {
         parent::prepare($args);
-
-        $this->page     = (int)$this->arg('page', 1);
-        $this->count    = (int)$this->arg('count', 20);
-        $this->max_id   = (int)$this->arg('max_id', 0);
-        $this->since_id = (int)$this->arg('since_id', 0);
-        $this->since    = $this->arg('since');
         
         $this->user   = $this->getTargetUser($id);
         $this->groups = $this->getGroups();

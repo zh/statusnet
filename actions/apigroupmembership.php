@@ -45,11 +45,6 @@ require_once INSTALLDIR . '/lib/api.php';
 
 class ApiGroupMembershipAction extends ApiAction
 {
-    var $page     = null;
-    var $count    = null;
-    var $max_id   = null;
-    var $since_id = null;
-    var $since    = null;
     var $group    = null;
     var $profiles = null;
 
@@ -66,14 +61,7 @@ class ApiGroupMembershipAction extends ApiAction
     {
         parent::prepare($args);
 
-        $this->page     = (int)$this->arg('page', 1);
-        $this->count    = (int)$this->arg('count', 20);
-        $this->max_id   = (int)$this->arg('max_id', 0);
-        $this->since_id = (int)$this->arg('since_id', 0);
-        $this->since    = $this->arg('since');
-
-        $this->group  = $this->getTargetGroup($this->arg('id'));
-
+        $this->group    = $this->getTargetGroup($this->arg('id'));
         $this->profiles = $this->getProfiles();
 
         return true;

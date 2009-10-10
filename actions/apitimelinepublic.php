@@ -61,12 +61,6 @@ class ApiTimelinePublicAction extends ApiAction
     {
         parent::prepare($args);
 
-        $this->page     = (int)$this->arg('page', 1);
-        $this->count    = (int)$this->arg('count', 20);
-        $this->max_id   = (int)$this->arg('max_id', 0);
-        $this->since_id = (int)$this->arg('since_id', 0);
-        $this->since    = $this->arg('since');
-
         $this->notices = $this->getNotices();
 
         return true;

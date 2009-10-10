@@ -46,14 +46,7 @@ require_once INSTALLDIR.'/lib/apibareauth.php';
 
 class ApiTimelineFavoritesAction extends ApiBareAuthAction
 {
-
-    var $user     = null;
     var $notices  = null;
-    var $page     = null;
-    var $count    = null;
-    var $max_id   = null;
-    var $since_id = null;
-    var $since    = null;
 
     /**
      * Take arguments for running
@@ -67,12 +60,6 @@ class ApiTimelineFavoritesAction extends ApiBareAuthAction
     function prepare($args)
     {
         parent::prepare($args);
-
-        $this->page     = (int)$this->arg('page', 1);
-        $this->count    = (int)$this->arg('count', 20);
-        $this->max_id   = (int)$this->arg('max_id', 0);
-        $this->since_id = (int)$this->arg('since_id', 0);
-        $this->since    = $this->arg('since');
 
         $this->user = $this->getTargetUser($this->arg('id'));
 

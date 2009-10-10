@@ -46,11 +46,6 @@ require_once INSTALLDIR.'/lib/apiauth.php';
 class ApiDirectMessageAction extends ApiAuthAction
 {
     var $messages     = null;
-    var $page         = null;
-    var $count        = null;
-    var $max_id       = null;
-    var $since_id     = null;
-    var $since        = null;
     var $title        = null;
     var $subtitle     = null;
     var $link         = null;
@@ -76,12 +71,6 @@ class ApiDirectMessageAction extends ApiAuthAction
             $this->clientError(_('No such user!'), 404, $this->format);
             return;
         }
-
-        $this->page     = (int)$this->arg('page', 1);
-        $this->count    = (int)$this->arg('count', 20);
-        $this->max_id   = (int)$this->arg('max_id', 0);
-        $this->since_id = (int)$this->arg('since_id', 0);
-        $this->since    = $this->arg('since');
 
         $server   = common_root_url();
         $taguribase = common_config('integration', 'taguri');

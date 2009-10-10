@@ -47,10 +47,6 @@ require_once INSTALLDIR.'/lib/apibareauth.php';
 
 class ApiSubscriptionsAction extends ApiBareAuthAction
 {
-
-    var $page     = null;
-    var $count    = null;
-    var $user     = null;
     var $profiles = null;
     var $tag      = null;
     var $lite     = null;
@@ -69,7 +65,6 @@ class ApiSubscriptionsAction extends ApiBareAuthAction
     {
         parent::prepare($args);
 
-        $this->page     = (int)$this->arg('page', 1);
         $this->tag      = $this->arg('tag');
 
         // Note: Twitter no longer supports 'lite'
