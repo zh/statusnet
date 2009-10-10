@@ -106,7 +106,7 @@ class ApiAction extends Action
         return parent::element($tag, $attrs, $content);
     }
 
-    function twitter_user_array($profile, $get_notice=false)
+    function twitterUserArray($profile, $get_notice=false)
     {
         $twitter_user = array();
 
@@ -133,7 +133,7 @@ class ApiAction extends Action
 
         $twitter_user['friends_count'] = $profile->subscriptionCount();
 
-        $twitter_user['created_at'] = $this->date_twitter($profile->created);
+        $twitter_user['created_at'] = $this->dateTwitter($profile->created);
 
         $twitter_user['favourites_count'] = $profile->faveCount(); // British spelling!
 
@@ -179,24 +179,24 @@ class ApiAction extends Action
             $notice = $profile->getCurrentNotice();
             if ($notice) {
                 # don't get user!
-                $twitter_user['status'] = $this->twitter_status_array($notice, false);
+                $twitter_user['status'] = $this->twitterStatusArray($notice, false);
             }
         }
 
         return $twitter_user;
     }
 
-    function twitter_status_array($notice, $include_user=true)
+    function twitterStatusArray($notice, $include_user=true)
     {
         $profile = $notice->getProfile();
 
         $twitter_status = array();
         $twitter_status['text'] = $notice->content;
         $twitter_status['truncated'] = false; # Not possible on StatusNet
-        $twitter_status['created_at'] = $this->date_twitter($notice->created);
+        $twitter_status['created_at'] = $this->dateTwitter($notice->created);
         $twitter_status['in_reply_to_status_id'] = ($notice->reply_to) ?
             intval($notice->reply_to) : null;
-        $twitter_status['source'] = $this->source_link($notice->source);
+        $twitter_status['source'] = $this->sourceLink($notice->source);
         $twitter_status['id'] = intval($notice->id);
 
         $replier_profile = null;
@@ -239,14 +239,14 @@ class ApiAction extends Action
 
         if ($include_user) {
             # Don't get notice (recursive!)
-            $twitter_user = $this->twitter_user_array($profile, false);
+            $twitter_user = $this->twitterUserArray($profile, false);
             $twitter_status['user'] = $twitter_user;
         }
 
         return $twitter_status;
     }
 
-    function twitter_group_array($group)
+    function twitterGroupArray($group)
     {
         $twitter_group=array();
         $twitter_group['id']=$group->id;
@@ -261,12 +261,12 @@ class ApiAction extends Action
         $twitter_group['homepage']=$group->homepage;
         $twitter_group['description']=$group->description;
         $twitter_group['location']=$group->location;
-        $twitter_group['created']=$this->date_twitter($group->created);
-        $twitter_group['modified']=$this->date_twitter($group->modified);
+        $twitter_group['created']=$this->dateTwitter($group->created);
+        $twitter_group['modified']=$this->dateTwitter($group->modified);
         return $twitter_group;
     }
 
-    function twitter_rss_group_array($group)
+    function twitterRssGroupArray($group)
     {
         $entry = array();
         $entry['content']=$group->description;
@@ -284,7 +284,7 @@ class ApiAction extends Action
         return $entry;
     }
 
-    function twitter_rss_entry_array($notice)
+    function twitterRssEntryArray($notice)
     {
         $profile = $notice->getProfile();
         $entry = array();
@@ -341,19 +341,19 @@ class ApiAction extends Action
     }
 
 
-    function twitter_relationship_array($source, $target)
+    function twitterRelationshipArray($source, $target)
     {
         $relationship = array();
 
         $relationship['source'] =
-            $this->relationship_details_array($source, $target);
+            $this->relationshipDetailsArray($source, $target);
         $relationship['target'] =
-            $this->relationship_details_array($target, $source);
+            $this->relationshipDetailsArray($target, $source);
 
         return array('relationship' => $relationship);
     }
 
-    function relationship_details_array($source, $target)
+    function relationshipDetailsArray($source, $target)
     {
         $details = array();
 
@@ -380,14 +380,14 @@ class ApiAction extends Action
         return $details;
     }
 
-    function show_twitter_xml_relationship($relationship)
+    function showTwitterXmlRelationship($relationship)
     {
         $this->elementStart('relationship');
 
         foreach($relationship as $element => $value) {
             if ($element == 'source' || $element == 'target') {
                 $this->elementStart($element);
-                $this->show_xml_relationship_details($value);
+                $this->showXmlRelationshipDetails($value);
                 $this->elementEnd($element);
             }
         }
@@ -395,26 +395,26 @@ class ApiAction extends Action
         $this->elementEnd('relationship');
     }
 
-    function show_xml_relationship_details($details)
+    function showXmlRelationshipDetails($details)
     {
         foreach($details as $element => $value) {
             $this->element($element, null, $value);
         }
     }
 
-    function show_twitter_xml_status($twitter_status)
+    function showTwitterXmlStatus($twitter_status)
     {
         $this->elementStart('status');
         foreach($twitter_status as $element => $value) {
             switch ($element) {
             case 'user':
-                $this->show_twitter_xml_user($twitter_status['user']);
+                $this->showTwitterXmlUser($twitter_status['user']);
                 break;
             case 'text':
                 $this->element($element, null, common_xml_safe_str($value));
                 break;
             case 'attachments':
-                $this->show_xml_attachments($twitter_status['attachments']);
+                $this->showXmlAttachments($twitter_status['attachments']);
                 break;
             default:
                 $this->element($element, null, $value);
@@ -423,7 +423,7 @@ class ApiAction extends Action
         $this->elementEnd('status');
     }
 
-    function show_twitter_xml_group($twitter_group)
+    function showTwitterXmlGroup($twitter_group)
     {
         $this->elementStart('group');
         foreach($twitter_group as $element => $value) {
@@ -432,12 +432,12 @@ class ApiAction extends Action
         $this->elementEnd('group');
     }
 
-    function show_twitter_xml_user($twitter_user, $role='user')
+    function showTwitterXmlUser($twitter_user, $role='user')
     {
         $this->elementStart($role);
         foreach($twitter_user as $element => $value) {
             if ($element == 'status') {
-                $this->show_twitter_xml_status($twitter_user['status']);
+                $this->showTwitterXmlStatus($twitter_user['status']);
             } else {
                 $this->element($element, null, $value);
             }
@@ -445,7 +445,7 @@ class ApiAction extends Action
         $this->elementEnd($role);
     }
 
-    function show_xml_attachments($attachments) {
+    function showXmlAttachments($attachments) {
         if (!empty($attachments)) {
             $this->elementStart('attachments', array('type' => 'array'));
             foreach ($attachments as $attachment) {
@@ -459,7 +459,7 @@ class ApiAction extends Action
         }
     }
 
-    function show_twitter_rss_item($entry)
+    function showTwitterRssItem($entry)
     {
         $this->elementStart('item');
         $this->element('title', null, $entry['title']);
@@ -483,59 +483,59 @@ class ApiAction extends Action
         $this->elementEnd('item');
     }
 
-    function show_json_objects($objects)
+    function showJsonObjects($objects)
     {
         print(json_encode($objects));
     }
 
-    function show_single_xml_status($notice)
+    function showSingleXmlStatus($notice)
     {
-        $this->init_document('xml');
-        $twitter_status = $this->twitter_status_array($notice);
-        $this->show_twitter_xml_status($twitter_status);
-        $this->end_document('xml');
+        $this->initDocument('xml');
+        $twitter_status = $this->twitterStatusArray($notice);
+        $this->showTwitterXmlStatus($twitter_status);
+        $this->endDocument('xml');
     }
 
     function show_single_json_status($notice)
     {
-        $this->init_document('json');
-        $status = $this->twitter_status_array($notice);
-        $this->show_json_objects($status);
-        $this->end_document('json');
+        $this->initDocument('json');
+        $status = $this->twitterStatusArray($notice);
+        $this->showJsonObjects($status);
+        $this->endDocument('json');
     }
 
 
-    function show_xml_timeline($notice)
+    function showXmlTimeline($notice)
     {
 
-        $this->init_document('xml');
+        $this->initDocument('xml');
         $this->elementStart('statuses', array('type' => 'array'));
 
         if (is_array($notice)) {
             foreach ($notice as $n) {
-                $twitter_status = $this->twitter_status_array($n);
-                $this->show_twitter_xml_status($twitter_status);
+                $twitter_status = $this->twitterStatusArray($n);
+                $this->showTwitterXmlStatus($twitter_status);
             }
         } else {
             while ($notice->fetch()) {
-                $twitter_status = $this->twitter_status_array($notice);
-                $this->show_twitter_xml_status($twitter_status);
+                $twitter_status = $this->twitterStatusArray($notice);
+                $this->showTwitterXmlStatus($twitter_status);
             }
         }
 
         $this->elementEnd('statuses');
-        $this->end_document('xml');
+        $this->endDocument('xml');
     }
 
-    function show_rss_timeline($notice, $title, $link, $subtitle, $suplink=null)
+    function showRssTimeline($notice, $title, $link, $subtitle, $suplink=null)
     {
 
-        $this->init_document('rss');
+        $this->initDocument('rss');
 
         $this->element('title', null, $title);
         $this->element('link', null, $link);
         if (!is_null($suplink)) {
-            # For FriendFeed's SUP protocol
+            // For FriendFeed's SUP protocol
             $this->element('link', array('xmlns' => 'http://www.w3.org/2005/Atom',
                                          'rel' => 'http://api.friendfeed.com/2008/03#sup',
                                          'href' => $suplink,
@@ -547,23 +547,23 @@ class ApiAction extends Action
 
         if (is_array($notice)) {
             foreach ($notice as $n) {
-                $entry = $this->twitter_rss_entry_array($n);
-                $this->show_twitter_rss_item($entry);
+                $entry = $this->twitterRssEntryArray($n);
+                $this->showTwitterRssItem($entry);
             }
         } else {
             while ($notice->fetch()) {
-                $entry = $this->twitter_rss_entry_array($notice);
-                $this->show_twitter_rss_item($entry);
+                $entry = $this->twitterRssEntryArray($notice);
+                $this->showTwitterRssItem($entry);
             }
         }
 
-        $this->end_twitter_rss();
+        $this->endTwitterRss();
     }
 
-    function show_atom_timeline($notice, $title, $id, $link, $subtitle=null, $suplink=null, $selfuri=null)
+    function showAtomTimeline($notice, $title, $id, $link, $subtitle=null, $suplink=null, $selfuri=null)
     {
 
-        $this->init_document('atom');
+        $this->initDocument('atom');
 
         $this->element('title', null, $title);
         $this->element('id', null, $id);
@@ -594,14 +594,14 @@ class ApiAction extends Action
             }
         }
 
-        $this->end_document('atom');
+        $this->endDocument('atom');
 
     }
 
-    function show_rss_groups($group, $title, $link, $subtitle)
+    function showRssGroups($group, $title, $link, $subtitle)
     {
 
-        $this->init_document('rss');
+        $this->initDocument('rss');
 
         $this->element('title', null, $title);
         $this->element('link', null, $link);
@@ -611,17 +611,17 @@ class ApiAction extends Action
 
         if (is_array($group)) {
             foreach ($group as $g) {
-                $twitter_group = $this->twitter_rss_group_array($g);
-                $this->show_twitter_rss_item($twitter_group);
+                $twitter_group = $this->twitterRssGroupArray($g);
+                $this->showTwitterRssItem($twitter_group);
             }
         } else {
             while ($group->fetch()) {
-                $twitter_group = $this->twitter_rss_group_array($group);
-                $this->show_twitter_rss_item($twitter_group);
+                $twitter_group = $this->twitterRssGroupArray($group);
+                $this->showTwitterRssItem($twitter_group);
             }
         }
 
-        $this->end_twitter_rss();
+        $this->endTwitterRss();
     }
 
 
@@ -655,7 +655,7 @@ class ApiAction extends Action
             switch ($element) {
             case 'sender':
             case 'recipient':
-                $this->show_twitter_xml_user($value, $element);
+                $this->showTwitterXmlUser($value, $element);
                 break;
             case 'text':
                 $this->element($element, null, common_xml_safe_str($value));
@@ -679,11 +679,11 @@ class ApiAction extends Action
         $dmsg['sender_id'] = $message->from_profile;
         $dmsg['text'] = trim($message->content);
         $dmsg['recipient_id'] = $message->to_profile;
-        $dmsg['created_at'] = $this->date_twitter($message->created);
+        $dmsg['created_at'] = $this->dateTwitter($message->created);
         $dmsg['sender_screen_name'] = $from_profile->nickname;
         $dmsg['recipient_screen_name'] = $to_profile->nickname;
-        $dmsg['sender'] = $this->twitter_user_array($from_profile, false);
-        $dmsg['recipient'] = $this->twitter_user_array($to_profile, false);
+        $dmsg['sender'] = $this->twitterUserArray($from_profile, false);
+        $dmsg['recipient'] = $this->twitterUserArray($to_profile, false);
 
         return $dmsg;
     }
@@ -725,24 +725,24 @@ class ApiAction extends Action
 
     function showSingleXmlDirectMessage($message)
     {
-        $this->init_document('xml');
+        $this->initDocument('xml');
         $dmsg = $this->directMessageArray($message);
         $this->showXmlDirectMessage($dmsg);
-        $this->end_document('xml');
+        $this->endDocument('xml');
     }
 
     function showSingleJsonDirectMessage($message)
     {
-        $this->init_document('json');
+        $this->initDocument('json');
         $dmsg = $this->directMessageArray($message);
-        $this->show_json_objects($dmsg);
-        $this->end_document('json');
+        $this->showJsonObjects($dmsg);
+        $this->endDocument('json');
     }
 
-    function show_atom_groups($group, $title, $id, $link, $subtitle=null, $selfuri=null)
+    function showAtomGroups($group, $title, $id, $link, $subtitle=null, $selfuri=null)
     {
 
-        $this->init_document('atom');
+        $this->initDocument('atom');
 
         $this->element('title', null, $title);
         $this->element('id', null, $id);
@@ -766,143 +766,143 @@ class ApiAction extends Action
             }
         }
 
-        $this->end_document('atom');
+        $this->endDocument('atom');
 
     }
 
-    function show_json_timeline($notice)
+    function showJsonTimeline($notice)
     {
 
-        $this->init_document('json');
+        $this->initDocument('json');
 
         $statuses = array();
 
         if (is_array($notice)) {
             foreach ($notice as $n) {
-                $twitter_status = $this->twitter_status_array($n);
+                $twitter_status = $this->twitterStatusArray($n);
                 array_push($statuses, $twitter_status);
             }
         } else {
             while ($notice->fetch()) {
-                $twitter_status = $this->twitter_status_array($notice);
+                $twitter_status = $this->twitterStatusArray($notice);
                 array_push($statuses, $twitter_status);
             }
         }
 
-        $this->show_json_objects($statuses);
+        $this->showJsonObjects($statuses);
 
-        $this->end_document('json');
+        $this->endDocument('json');
     }
 
-    function show_json_groups($group)
+    function showJsonGroups($group)
     {
 
-        $this->init_document('json');
+        $this->initDocument('json');
 
         $groups = array();
 
         if (is_array($group)) {
             foreach ($group as $g) {
-                $twitter_group = $this->twitter_group_array($g);
+                $twitter_group = $this->twitterGroupArray($g);
                 array_push($groups, $twitter_group);
             }
         } else {
             while ($group->fetch()) {
-                $twitter_group = $this->twitter_group_array($group);
+                $twitter_group = $this->twitterGroupArray($group);
                 array_push($groups, $twitter_group);
             }
         }
 
-        $this->show_json_objects($groups);
+        $this->showJsonObjects($groups);
 
-        $this->end_document('json');
+        $this->endDocument('json');
     }
 
-    function show_xml_groups($group)
+    function showXmlGroups($group)
     {
 
-        $this->init_document('xml');
+        $this->initDocument('xml');
         $this->elementStart('groups', array('type' => 'array'));
 
         if (is_array($group)) {
             foreach ($group as $g) {
-                $twitter_group = $this->twitter_group_array($g);
-                $this->show_twitter_xml_group($twitter_group);
+                $twitter_group = $this->twitterGroupArray($g);
+                $this->showTwitterXmlGroup($twitter_group);
             }
         } else {
             while ($group->fetch()) {
-                $twitter_group = $this->twitter_group_array($group);
-                $this->show_twitter_xml_group($twitter_group);
+                $twitter_group = $this->twitterGroupArray($group);
+                $this->showTwitterXmlGroup($twitter_group);
             }
         }
 
         $this->elementEnd('groups');
-        $this->end_document('xml');
+        $this->endDocument('xml');
     }
 
-    function show_twitter_xml_users($user)
+    function showTwitterXmlUsers($user)
     {
 
-        $this->init_document('xml');
+        $this->initDocument('xml');
         $this->elementStart('users', array('type' => 'array'));
 
         if (is_array($user)) {
             foreach ($user as $u) {
-                $twitter_user = $this->twitter_user_array($u);
-                $this->show_twitter_xml_user($twitter_user);
+                $twitter_user = $this->twitterUserArray($u);
+                $this->showTwitterXmlUser($twitter_user);
             }
         } else {
             while ($user->fetch()) {
-                $twitter_user = $this->twitter_user_array($user);
-                $this->show_twitter_xml_user($twitter_user);
+                $twitter_user = $this->twitterUserArray($user);
+                $this->showTwitterXmlUser($twitter_user);
             }
         }
 
         $this->elementEnd('users');
-        $this->end_document('xml');
+        $this->endDocument('xml');
     }
 
-    function show_json_users($user)
+    function showJsonUsers($user)
     {
 
-        $this->init_document('json');
+        $this->initDocument('json');
 
         $users = array();
 
         if (is_array($user)) {
             foreach ($user as $u) {
-                $twitter_user = $this->twitter_user_array($u);
+                $twitter_user = $this->twitterUserArray($u);
                 array_push($users, $twitter_user);
             }
         } else {
             while ($user->fetch()) {
-                $twitter_user = $this->twitter_user_array($user);
+                $twitter_user = $this->twitterUserArray($user);
                 array_push($users, $twitter_user);
             }
         }
 
-        $this->show_json_objects($users);
+        $this->showJsonObjects($users);
 
-        $this->end_document('json');
+        $this->endDocument('json');
     }
 
-    function show_single_json_group($group)
+    function showSingleJsonGroup($group)
     {
-        $this->init_document('json');
-        $twitter_group = $this->twitter_group_array($group);
-        $this->show_json_objects($twitter_group);
-        $this->end_document('json');
+        $this->initDocument('json');
+        $twitter_group = $this->twitterGroupArray($group);
+        $this->showJsonObjects($twitter_group);
+        $this->endDocument('json');
     }
 
     function show_single_xml_group($group)
     {
-        $this->init_document('xml');
-        $twitter_group = $this->twitter_group_array($group);
-        $this->show_twitter_xml_group($twitter_group);
-        $this->end_document('xml');
+        $this->initDocument('xml');
+        $twitter_group = $this->twitterGroupArray($group);
+        $this->showTwitterXmlGroup($twitter_group);
+        $this->endDocument('xml');
     }
 
-    function date_twitter($dt)
+    function dateTwitter($dt)
     {
         $dateStr = date('d F Y H:i:s', strtotime($dt));
         $d = new DateTime($dateStr, new DateTimeZone('UTC'));
@@ -910,24 +910,7 @@ class ApiAction extends Action
         return $d->format('D M d H:i:s O Y');
     }
 
-    // XXX: Candidate for a general utility method somewhere?
-    function count_subscriptions($profile)
-    {
-
-        $count = 0;
-        $sub = new Subscription();
-        $sub->subscribed = $profile->id;
-
-        $count = $sub->find();
-
-        if ($count > 0) {
-            return $count - 1;
-        } else {
-            return 0;
-        }
-    }
-
-    function init_document($type='xml')
+    function initDocument($type='xml')
     {
         switch ($type) {
         case 'xml':
@@ -945,11 +928,11 @@ class ApiAction extends Action
             break;
         case 'rss':
             header("Content-Type: application/rss+xml; charset=utf-8");
-            $this->init_twitter_rss();
+            $this->initTwitterRss();
             break;
         case 'atom':
             header('Content-Type: application/atom+xml; charset=utf-8');
-            $this->init_twitter_atom();
+            $this->initTwitterAtom();
             break;
         default:
             $this->clientError(_('Not a supported data format.'));
@@ -959,7 +942,7 @@ class ApiAction extends Action
         return;
     }
 
-    function end_document($type='xml')
+    function endDocument($type='xml')
     {
         switch ($type) {
         case 'xml':
@@ -974,10 +957,10 @@ class ApiAction extends Action
             }
             break;
         case 'rss':
-            $this->end_twitter_rss();
+            $this->endTwitterRss();
             break;
         case 'atom':
-            $this->end_twitter_rss();
+            $this->endTwitterRss();
             break;
         default:
             $this->clientError(_('Not a supported data format.'));
@@ -1001,17 +984,17 @@ class ApiAction extends Action
         header('HTTP/1.1 '.$code.' '.$status_string);
 
         if ($format == 'xml') {
-            $this->init_document('xml');
+            $this->initDocument('xml');
             $this->elementStart('hash');
             $this->element('error', null, $msg);
             $this->element('request', null, $_SERVER['REQUEST_URI']);
             $this->elementEnd('hash');
-            $this->end_document('xml');
+            $this->endDocument('xml');
         } elseif ($format == 'json'){
-            $this->init_document('json');
+            $this->initDocument('json');
             $error_array = array('error' => $msg, 'request' => $_SERVER['REQUEST_URI']);
             print(json_encode($error_array));
-            $this->end_document('json');
+            $this->endDocument('json');
         } else {
 
             // If user didn't request a useful format, throw a regular client error
@@ -1034,21 +1017,21 @@ class ApiAction extends Action
         header('HTTP/1.1 '.$code.' '.$status_string);
 
         if ($content_type == 'xml') {
-            $this->init_document('xml');
+            $this->initDocument('xml');
             $this->elementStart('hash');
             $this->element('error', null, $msg);
             $this->element('request', null, $_SERVER['REQUEST_URI']);
             $this->elementEnd('hash');
-            $this->end_document('xml');
+            $this->endDocument('xml');
         } else {
-            $this->init_document('json');
+            $this->initDocument('json');
             $error_array = array('error' => $msg, 'request' => $_SERVER['REQUEST_URI']);
             print(json_encode($error_array));
-            $this->end_document('json');
+            $this->endDocument('json');
         }
     }
 
-    function init_twitter_rss()
+    function initTwitterRss()
     {
         $this->startXML();
         $this->elementStart('rss', array('version' => '2.0', 'xmlns:atom'=>'http://www.w3.org/2005/Atom'));
@@ -1056,14 +1039,14 @@ class ApiAction extends Action
         Event::handle('StartApiRss', array($this));
     }
 
-    function end_twitter_rss()
+    function endTwitterRss()
     {
         $this->elementEnd('channel');
         $this->elementEnd('rss');
         $this->endXML();
     }
 
-    function init_twitter_atom()
+    function initTwitterAtom()
     {
         $this->startXML();
         // FIXME: don't hardcode the language here!
@@ -1073,21 +1056,21 @@ class ApiAction extends Action
         Event::handle('StartApiAtom', array($this));
     }
 
-    function end_twitter_atom()
+    function endTwitterAtom()
     {
         $this->elementEnd('feed');
         $this->endXML();
     }
 
-    function show_profile($profile, $content_type='xml', $notice=null, $includeStatuses=true)
+    function showProfile($profile, $content_type='xml', $notice=null, $includeStatuses=true)
     {
-        $profile_array = $this->twitter_user_array($profile, $includeStatuses);
+        $profile_array = $this->twitterUserArray($profile, $includeStatuses);
         switch ($content_type) {
         case 'xml':
-            $this->show_twitter_xml_user($profile_array);
+            $this->showTwitterXmlUser($profile_array);
             break;
         case 'json':
-            $this->show_json_objects($profile_array);
+            $this->showJsonObjects($profile_array);
             break;
         default:
             $this->clientError(_('Not a supported data format.'));
@@ -1155,7 +1138,7 @@ class ApiAction extends Action
         }
     }
 
-    function source_link($source)
+    function sourceLink($source)
     {
         $source_name = _($source);
         switch ($source) {

@@ -93,7 +93,7 @@ class ApiGroupShowAction extends ApiAction
             $this->show_single_xml_group($this->group);
             break;
         case 'json':
-            $this->show_single_json_group($this->group);
+            $this->showSingleJsonGroup($this->group);
             break;
         default:
             $this->clientError(_('API method not found!'), 404, $this->format);

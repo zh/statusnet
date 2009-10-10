@@ -23,7 +23,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 
 define('TWITTER_SERVICE', 1); // Twitter is foreign_service ID 1
 
-function update_twitter_user($twitter_id, $screen_name)
+function updateTwitter_user($twitter_id, $screen_name)
 {
     $uri = 'http://twitter.com/' . $screen_name;
     $fuser = new Foreign_user();
@@ -115,7 +115,7 @@ function save_twitter_user($twitter_id, $screen_name)
         // Only update if Twitter screen name has changed
 
         if ($fuser->nickname != $screen_name) {
-            $result = update_twitter_user($twitter_id, $screen_name);
+            $result = updateTwitter_user($twitter_id, $screen_name);
 
             common_debug('Twitter bridge - Updated nickname (and URI) for Twitter user ' .
                 "$fuser->id to $screen_name, was $fuser->nickname");

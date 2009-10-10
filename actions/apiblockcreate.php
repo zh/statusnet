@@ -100,9 +100,9 @@ class ApiBlockCreateAction extends ApiAuthAction
         if ($this->user->hasBlocked($this->other) 
             || $this->user->block($this->other)
         ) {
-            $this->init_document($this->format);
-            $this->show_profile($this->other, $this->format);
-            $this->end_document($this->format);
+            $this->initDocument($this->format);
+            $this->showProfile($this->other, $this->format);
+            $this->endDocument($this->format);
         } else {
             $this->serverError(_('Block user failed.'), 500, $this->format);
         }

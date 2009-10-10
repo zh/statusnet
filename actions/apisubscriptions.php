@@ -108,7 +108,7 @@ class ApiSubscriptionsAction extends ApiBareAuthAction
             return;
         }
 
-        $this->init_document($this->format);
+        $this->initDocument($this->format);
 
         if (isset($this->ids_only)) {
             $this->showIds();
@@ -116,7 +116,7 @@ class ApiSubscriptionsAction extends ApiBareAuthAction
             $this->showProfiles(isset($this->lite) ? false : true);
         }
 
-        $this->end_document($this->format);
+        $this->endDocument($this->format);
     }
 
     /**
@@ -204,7 +204,7 @@ class ApiSubscriptionsAction extends ApiBareAuthAction
         case 'xml':
             $this->elementStart('users', array('type' => 'array'));
             foreach ($this->profiles as $profile) {
-                $this->show_profile(
+                $this->showProfile(
                     $profile,
                     $this->format,
                     null,
@@ -216,7 +216,7 @@ class ApiSubscriptionsAction extends ApiBareAuthAction
         case 'json':
             $arrays = array();
             foreach ($this->profiles as $profile) {
-                $arrays[] = $this->twitter_user_array(
+                $arrays[] = $this->twitterUserArray(
                     $profile,
                     $include_statuses
                 );

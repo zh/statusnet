@@ -88,7 +88,7 @@ class ApiStatusnetConfigAction extends ApiAction
 
         switch ($this->format) {
         case 'xml':
-            $this->init_document('xml');
+            $this->initDocument('xml');
             $this->elementStart('config');
 
             // XXX: check that all sections and settings are legal XML elements
@@ -111,7 +111,7 @@ class ApiStatusnetConfigAction extends ApiAction
                 $this->elementEnd($section);
             }
             $this->elementEnd('config');
-            $this->end_document('xml');
+            $this->endDocument('xml');
             break;
         case 'json':
             $result = array();
@@ -122,9 +122,9 @@ class ApiStatusnetConfigAction extends ApiAction
                         = common_config($section, $setting);
                 }
             }
-            $this->init_document('json');
-            $this->show_json_objects($result);
-            $this->end_document('json');
+            $this->initDocument('json');
+            $this->showJsonObjects($result);
+            $this->endDocument('json');
             break;
         default:
             $this->clientError(

@@ -134,9 +134,9 @@ class TwitapisearchjsonAction extends ApiAction
 
         $results = new JSONSearchResultsList($notice, $q, $this->rpp, $this->page);
 
-        $this->init_document('json');
+        $this->initDocument('json');
         $results->show();
-        $this->end_document('json');
+        $this->endDocument('json');
     }
 
     /**

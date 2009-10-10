@@ -107,16 +107,16 @@ class ApiTimelineTagAction extends ApiAction
 
         switch($this->format) {
         case 'xml':
-            $this->show_xml_timeline($this->notices);
+            $this->showXmlTimeline($this->notices);
             break;
         case 'rss':
-            $this->show_rss_timeline($this->notices, $title, $link, $subtitle);
+            $this->showRssTimeline($this->notices, $title, $link, $subtitle);
             break;
         case 'atom':
             $selfuri = common_root_url() .
                 'api/statusnet/tags/timeline/' .
                     $this->tag . '.atom';
-            $this->show_atom_timeline(
+            $this->showAtomTimeline(
                 $this->notices,
                 $title,
                 $id,
@@ -127,7 +127,7 @@ class ApiTimelineTagAction extends ApiAction
             );
             break;
         case 'json':
-            $this->show_json_timeline($this->notices);
+            $this->showJsonTimeline($this->notices);
             break;
         default:
             $this->clientError(_('API method not found!'), $code = 404);

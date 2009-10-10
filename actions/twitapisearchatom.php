@@ -340,7 +340,7 @@ class TwitapisearchatomAction extends ApiAction
         // TODO: Here is where we'd put in a link to an atom feed for threads
 
         $this->element("twitter:source", null,
-            htmlentities($this->source_link($notice->source)));
+            htmlentities($this->sourceLink($notice->source)));
 
         $this->elementStart('author');
 

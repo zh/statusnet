@@ -95,14 +95,14 @@ class ApiGroupIsMemberAction extends ApiBareAuthAction
 
         switch($this->format) {
         case 'xml':
-            $this->init_document('xml');
+            $this->initDocument('xml');
             $this->element('is_member', null, $is_member);
-            $this->end_document('xml');
+            $this->endDocument('xml');
             break;
         case 'json':
-            $this->init_document('json');
-            $this->show_json_objects(array('is_member' => $is_member));
-            $this->end_document('json');
+            $this->initDocument('json');
+            $this->showJsonObjects(array('is_member' => $is_member));
+            $this->endDocument('json');
             break;
         default:
             $this->clientError(

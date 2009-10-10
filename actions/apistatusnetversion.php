@@ -77,14 +77,14 @@ class ApiStatusnetVersionAction extends ApiAction
 
         switch ($this->format) {
         case 'xml':
-            $this->init_document('xml');
+            $this->initDocument('xml');
             $this->element('version', null, STATUSNET_VERSION);
-            $this->end_document('xml');
+            $this->endDocument('xml');
             break;
         case 'json':
-            $this->init_document('json');
+            $this->initDocument('json');
             print '"'.STATUSNET_VERSION.'"';
-            $this->end_document('json');
+            $this->endDocument('json');
             break;
         default:
             $this->clientError(

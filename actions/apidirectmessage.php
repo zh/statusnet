@@ -230,7 +230,7 @@ class ApiDirectMessageAction extends ApiAuthAction
 
     function showXmlDirectMessages()
     {
-        $this->init_document('xml');
+        $this->initDocument('xml');
         $this->elementStart('direct-messages', array('type' => 'array'));
 
         foreach ($this->messages as $m) {
@@ -239,7 +239,7 @@ class ApiDirectMessageAction extends ApiAuthAction
         }
 
         $this->elementEnd('direct-messages');
-        $this->end_document('xml');
+        $this->endDocument('xml');
     }
 
     /**
@@ -250,7 +250,7 @@ class ApiDirectMessageAction extends ApiAuthAction
 
     function showJsonDirectMessages()
     {
-        $this->init_document('json');
+        $this->initDocument('json');
 
         $dmsgs = array();
 
@@ -259,8 +259,8 @@ class ApiDirectMessageAction extends ApiAuthAction
             array_push($dmsgs, $dm_array);
         }
 
-        $this->show_json_objects($dmsgs);
-        $this->end_document('json');
+        $this->showJsonObjects($dmsgs);
+        $this->endDocument('json');
     }
 
     /**
@@ -271,7 +271,7 @@ class ApiDirectMessageAction extends ApiAuthAction
 
     function showRssDirectMessages()
     {
-        $this->init_document('rss');
+        $this->initDocument('rss');
 
         $this->element('title', null, $this->title);
 
@@ -292,10 +292,10 @@ class ApiDirectMessageAction extends ApiAuthAction
 
         foreach ($this->messages as $m) {
             $entry = $this->rssDirectMessageArray($m);
-            $this->show_twitter_rss_item($entry);
+            $this->showTwitterRssItem($entry);
         }
 
-        $this->end_twitter_rss();
+        $this->endTwitterRss();
     }
 
     /**
@@ -306,7 +306,7 @@ class ApiDirectMessageAction extends ApiAuthAction
 
     function showAtomDirectMessages()
     {
-        $this->init_document('atom');
+        $this->initDocument('atom');
 
         $this->element('title', null, $this->title);
         $this->element('id', null, $this->id);
@@ -334,7 +334,7 @@ class ApiDirectMessageAction extends ApiAuthAction
             $this->showTwitterAtomEntry($entry);
         }
 
-        $this->end_document('atom');
+        $this->endDocument('atom');
     }
 
     /**

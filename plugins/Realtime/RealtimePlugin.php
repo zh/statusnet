@@ -246,7 +246,7 @@ class RealtimePlugin extends Plugin
 
         $act = new ApiAction('/dev/null');
 
-        $arr = $act->twitter_status_array($notice, true);
+        $arr = $act->twitterStatusArray($notice, true);
         $arr['url'] = $notice->bestUrl();
         $arr['html'] = htmlspecialchars($notice->rendered);
         $arr['source'] = htmlspecialchars($arr['source']);

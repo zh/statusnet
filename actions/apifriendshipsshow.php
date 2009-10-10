@@ -143,18 +143,18 @@ class ApiFriendshipsShowAction extends ApiBareAuthAction
             return;
         }
         
-        $result = $this->twitter_relationship_array($this->source, $this->target);
+        $result = $this->twitterRelationshipArray($this->source, $this->target);
 
         switch ($this->format) {
         case 'xml':
-            $this->init_document('xml');
-            $this->show_twitter_xml_relationship($result[relationship]);
-            $this->end_document('xml');
+            $this->initDocument('xml');
+            $this->showTwitterXmlRelationship($result[relationship]);
+            $this->endDocument('xml');
             break;
         case 'json':
-            $this->init_document('json');
+            $this->initDocument('json');
             print json_encode($result);
-            $this->end_document('json');
+            $this->endDocument('json');
             break;
         default:
             break;

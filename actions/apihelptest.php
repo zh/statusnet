@@ -74,13 +74,13 @@ class ApiHelpTestAction extends ApiAction
         parent::handle($args);
 
         if ($this->format == 'xml') {
-            $this->init_document('xml');
+            $this->initDocument('xml');
             $this->element('ok', null, 'true');
-            $this->end_document('xml');
+            $this->endDocument('xml');
         } elseif ($this->format == 'json') {
-            $this->init_document('json');
+            $this->initDocument('json');
             print '"ok"';
-            $this->end_document('json');
+            $this->endDocument('json');
         } else {
             $this->clientError(
                 _('API method not found!'),

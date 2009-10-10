@@ -105,16 +105,16 @@ class ApiUserShowAction extends ApiAction
             return;
         }
 
-        $twitter_user = $this->twitter_user_array($this->user->getProfile(), true);
+        $twitter_user = $this->twitterUserArray($this->user->getProfile(), true);
 
         if ($this->format == 'xml') {
-            $this->init_document('xml');
-            $this->show_twitter_xml_user($twitter_user);
-            $this->end_document('xml');
+            $this->initDocument('xml');
+            $this->showTwitterXmlUser($twitter_user);
+            $this->endDocument('xml');
         } elseif ($this->format == 'json') {
-            $this->init_document('json');
-            $this->show_json_objects($twitter_user);
-            $this->end_document('json');
+            $this->initDocument('json');
+            $this->showJsonObjects($twitter_user);
+            $this->endDocument('json');
         }
 
     }

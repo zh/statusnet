@@ -135,7 +135,7 @@ class ApiFavoriteCreateAction extends ApiAuthAction
         $this->user->blowFavesCache();
 
         if ($this->format == 'xml') {
-            $this->show_single_xml_status($this->notice);
+            $this->showSingleXmlStatus($this->notice);
         } elseif ($this->format == 'json') {
             $this->show_single_json_status($this->notice);
         }

@@ -123,10 +123,10 @@ class ApiTimelineUserAction extends ApiBareAuthAction
 
         switch($this->format) {
         case 'xml':
-            $this->show_xml_timeline($this->notices);
+            $this->showXmlTimeline($this->notices);
             break;
         case 'rss':
-            $this->show_rss_timeline(
+            $this->showRssTimeline(
                 $this->notices, $title, $link,
                 $subtitle, $suplink
             );
@@ -140,13 +140,13 @@ class ApiTimelineUserAction extends ApiBareAuthAction
                 $selfuri = common_root_url() .
                     'api/statuses/user_timeline.atom';
             }
-            $this->show_atom_timeline(
+            $this->showAtomTimeline(
                 $this->notices, $title, $id, $link,
                 $subtitle, $suplink, $selfuri
             );
             break;
         case 'json':
-            $this->show_json_timeline($this->notices);
+            $this->showJsonTimeline($this->notices);
             break;
         default:
             $this->clientError(_('API method not found!'), $code = 404);

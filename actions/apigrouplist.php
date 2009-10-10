@@ -101,15 +101,15 @@ class ApiGroupListAction extends ApiBareAuthAction
 
         switch($this->format) {
         case 'xml':
-            $this->show_xml_groups($this->groups);
+            $this->showXmlGroups($this->groups);
             break;
         case 'rss':
-            $this->show_rss_groups($this->groups, $title, $link, $subtitle);
+            $this->showRssGroups($this->groups, $title, $link, $subtitle);
             break;
         case 'atom':
             $selfuri = common_root_url() . 'api/statusnet/groups/list/' .
                 $this->user->id . '.atom';
-            $this->show_atom_groups(
+            $this->showAtomGroups(
                 $this->groups,
                 $title,
                 $id,
@@ -119,7 +119,7 @@ class ApiGroupListAction extends ApiBareAuthAction
             );
             break;
         case 'json':
-            $this->show_json_groups($this->groups);
+            $this->showJsonGroups($this->groups);
             break;
         default:
             $this->clientError(

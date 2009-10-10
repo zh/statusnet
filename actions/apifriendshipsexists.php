@@ -107,14 +107,14 @@ class ApiFriendshipsExistsAction extends ApiAction
 
         switch ($this->format) {
         case 'xml':
-            $this->init_document('xml');
+            $this->initDocument('xml');
             $this->element('friends', null, $result);
-            $this->end_document('xml');
+            $this->endDocument('xml');
             break;
         case 'json':
-            $this->init_document('json');
+            $this->initDocument('json');
             print json_encode($result);
-            $this->end_document('json');
+            $this->endDocument('json');
             break;
         default:
             break;

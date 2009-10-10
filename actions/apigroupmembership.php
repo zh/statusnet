@@ -85,10 +85,10 @@ class ApiGroupMembershipAction extends ApiAction
 
         switch($this->format) {
         case 'xml':
-            $this->show_twitter_xml_users($this->profiles);
+            $this->showTwitterXmlUsers($this->profiles);
             break;
         case 'json':
-            $this->show_json_users($this->profiles);
+            $this->showJsonUsers($this->profiles);
             break;
         default:
             $this->clientError(

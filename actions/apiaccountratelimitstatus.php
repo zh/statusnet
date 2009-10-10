@@ -73,7 +73,7 @@ class ApiAccountRateLimitStatusAction extends ApiBareAuthAction
         $reset   = new DateTime();
         $reset->modify('+1 hour');
 
-        $this->init_document($this->format);
+        $this->initDocument($this->format);
 
          if ($this->format == 'xml') {
              $this->elementStart('hash');
@@ -101,7 +101,7 @@ class ApiAccountRateLimitStatusAction extends ApiBareAuthAction
              print json_encode($out);
          }
 
-         $this->end_document($this->format);
+         $this->endDocument($this->format);
     }
 
 }

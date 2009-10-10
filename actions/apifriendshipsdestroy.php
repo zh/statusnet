@@ -128,9 +128,9 @@ class ApiFriendshipsDestroyAction extends ApiAuthAction
             return;
         }
 
-        $this->init_document($this->format);
-        $this->show_profile($this->other, $this->format);
-        $this->end_document($this->format);
+        $this->initDocument($this->format);
+        $this->showProfile($this->other, $this->format);
+        $this->endDocument($this->format);
     }
 
 }
