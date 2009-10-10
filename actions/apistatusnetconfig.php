@@ -47,7 +47,7 @@ require_once INSTALLDIR . '/lib/api.php';
  * @link     http://status.net/
  */
 
-class ApiStatusnetConfigAction extends TwitterApiAction
+class ApiStatusnetConfigAction extends ApiAction
 {
     var $keys = array(
         'site' => array('name', 'server', 'theme', 'path', 'fancy', 'language',

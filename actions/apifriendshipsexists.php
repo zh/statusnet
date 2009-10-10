@@ -44,7 +44,7 @@ require_once INSTALLDIR.'/lib/api.php';
  * @link     http://status.net/
  */
 
-class ApiFriendshipsExistsAction extends TwitterApiAction
+class ApiFriendshipsExistsAction extends ApiAction
 {
     var $user_a = null;
     var $user_b = null;

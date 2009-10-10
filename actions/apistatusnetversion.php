@@ -46,7 +46,7 @@ require_once INSTALLDIR . '/lib/api.php';
  * @link     http://status.net/
  */
 
-class ApiStatusnetVersionAction extends TwitterApiAction
+class ApiStatusnetVersionAction extends ApiAction
 {
     /**
      * Take arguments for running

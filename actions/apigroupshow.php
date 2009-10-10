@@ -43,7 +43,7 @@ require_once INSTALLDIR.'/lib/api.php';
  * @link     http://status.net/
  */
 
-class ApiGroupShowAction extends TwitterApiAction
+class ApiGroupShowAction extends ApiAction
 {
     var $group = null;
 

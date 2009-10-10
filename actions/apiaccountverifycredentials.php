@@ -67,8 +67,9 @@ class ApiAccountVerifyCredentialsAction extends ApiAuthAction
         case 'json':
             $args['id'] = $this->auth_user->id;
             $action_obj = new ApiUserShowAction();
-            $action_obj->prepare($args);
-            $action_obj->handle($args);
+            if ($action_obj->prepare($args)) {
+                $action_obj->handle($args);
+            }
             break;
         default:
             header('Content-Type: text/html; charset=utf-8');
