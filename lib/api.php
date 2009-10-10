@@ -308,23 +308,6 @@ class ApiAction extends Action
             $entry['enclosures'] = $enclosures;
         }
 
-/*
-        // Enclosure
-        $attachments = $notice->attachments();
-        if($attachments){
-            $entry['enclosures']=array();
-            foreach($attachments as $attachment){
-                if ($attachment->isEnclosure()) {
-                    $enclosure=array();
-                    $enclosure['url']=$attachment->url;
-                    $enclosure['mimetype']=$attachment->mimetype;
-                    $enclosure['size']=$attachment->size;
-                    $entry['enclosures'][]=$enclosure;
-                }
-            }
-        }
-*/
-
         // Tags/Categories
         $tag = new Notice_tag();
         $tag->notice_id = $notice->id;
@@ -1100,38 +1083,6 @@ class ApiAction extends Action
         return;
     }
 
-    function get_user($id, $apidata=null)
-    {
-        if (empty($id)) {
-
-            // Twitter supports these other ways of passing the user ID
-            if (is_numeric($this->arg('id'))) {
-                return User::staticGet($this->arg('id'));
-            } else if ($this->arg('id')) {
-                $nickname = common_canonical_nickname($this->arg('id'));
-                return User::staticGet('nickname', $nickname);
-            } else if ($this->arg('user_id')) {
-                // This is to ensure that a non-numeric user_id still
-                // overrides screen_name even if it doesn't get used
-                if (is_numeric($this->arg('user_id'))) {
-                    return User::staticGet('id', $this->arg('user_id'));
-                }
-            } else if ($this->arg('screen_name')) {
-                $nickname = common_canonical_nickname($this->arg('screen_name'));
-                return User::staticGet('nickname', $nickname);
-            } else {
-                // Fall back to trying the currently authenticated user
-                return $apidata['user'];
-            }
-
-        } else if (is_numeric($id)) {
-            return User::staticGet($id);
-        } else {
-            $nickname = common_canonical_nickname($id);
-            return User::staticGet('nickname', $nickname);
-        }
-    }
-
     function getTargetUser($id)
     {
         if (empty($id)) {
@@ -1188,20 +1139,6 @@ class ApiAction extends Action
         } else {
             $nickname = common_canonical_nickname($id);
             return User_group::staticGet('nickname', $nickname);
-        }
-    }
-
-    function get_profile($id)
-    {
-        if (is_numeric($id)) {
-            return Profile::staticGet($id);
-        } else {
-            $user = User::staticGet('nickname', $id);
-            if ($user) {
-                return $user->getProfile();
-            } else {
-                return null;
-            }
         }
     }
 
