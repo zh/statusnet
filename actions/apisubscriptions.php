@@ -52,7 +52,6 @@ class ApiSubscriptionsAction extends ApiBareAuthAction
     var $count    = null;
     var $user     = null;
     var $profiles = null;
-    var $format   = null;
     var $tag      = null;
     var $lite     = null;
     var $ids_only = null;
@@ -72,7 +71,6 @@ class ApiSubscriptionsAction extends ApiBareAuthAction
 
         $this->page     = (int)$this->arg('page', 1);
         $this->tag      = $this->arg('tag');
-        $this->format   = $this->arg('format');
 
         // Note: Twitter no longer supports 'lite'
         $this->lite     = $this->arg('lite');

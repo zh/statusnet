@@ -71,7 +71,7 @@ class ApiTimelineMentionsAction extends ApiBareAuthAction
         $this->user = $this->getTargetUser($this->arg('id'));
 
         if (empty($this->user)) {
-            $this->clientError(_('No such user!'), 404, $this->arg('format'));
+            $this->clientError(_('No such user!'), 404, $this->format);
             return;
         }
 
@@ -122,7 +122,7 @@ class ApiTimelineMentionsAction extends ApiBareAuthAction
             $sitename, $this->user->nickname, $profile->getBestName()
         );
 
-        switch($this->arg('format')) {
+        switch($this->format) {
         case 'xml':
             $this->show_xml_timeline($this->notices);
             break;

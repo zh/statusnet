@@ -45,7 +45,6 @@ require_once INSTALLDIR . '/lib/apiauth.php';
 
 class ApiGroupJoinAction extends ApiAuthAction
 {
-    var $format  = null;
     var $user    = null;
     var $group   = null;
 
@@ -64,8 +63,6 @@ class ApiGroupJoinAction extends ApiAuthAction
 
         $this->user  = $this->auth_user;
         $this->group = $this->getTargetGroup($this->arg('id'));
-
-        $this->format = $this->arg('format');
 
         return true;
     }

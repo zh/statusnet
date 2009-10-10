@@ -49,7 +49,6 @@ class ApiTimelineFavoritesAction extends ApiBareAuthAction
 
     var $user     = null;
     var $notices  = null;
-    var $format   = null;
     var $page     = null;
     var $count    = null;
     var $max_id   = null;
@@ -74,7 +73,6 @@ class ApiTimelineFavoritesAction extends ApiBareAuthAction
         $this->max_id   = (int)$this->arg('max_id', 0);
         $this->since_id = (int)$this->arg('since_id', 0);
         $this->since    = $this->arg('since');
-        $this->format   = $this->arg('format');
 
         $this->user = $this->getTargetUser($this->arg('id'));
 

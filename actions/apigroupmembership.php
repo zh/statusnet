@@ -45,7 +45,6 @@ require_once INSTALLDIR . '/lib/api.php';
 
 class ApiGroupMembershipAction extends TwitterApiAction
 {
-    var $format   = null;
     var $page     = null;
     var $count    = null;
     var $max_id   = null;
@@ -73,7 +72,6 @@ class ApiGroupMembershipAction extends TwitterApiAction
         $this->since_id = (int)$this->arg('since_id', 0);
         $this->since    = $this->arg('since');
 
-        $this->format = $this->arg('format');
         $this->group  = $this->getTargetGroup($this->arg('id'));
 
         $this->profiles = $this->getProfiles();

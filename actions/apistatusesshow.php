@@ -48,7 +48,6 @@ class ApiStatusesShowAction extends ApiAction
 
     var $notice_id = null;
     var $notice    = null;
-    var $format    = null;
 
     /**
      * Take arguments for running
@@ -74,7 +73,6 @@ class ApiStatusesShowAction extends ApiAction
             $this->notice_id = (int)$this->arg('id');
         }
 
-        $this->format = $this->arg('format');
         $this->notice = Notice::staticGet((int)$this->notice_id);
 
         return true;

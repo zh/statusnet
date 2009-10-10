@@ -64,7 +64,6 @@ class ApiTimelineTagAction extends ApiAction
         $this->page     = (int)$this->arg('page', 1);
         $this->count    = (int)$this->arg('count', 20);
         $this->tag      = $this->arg('tag');
-        $this->format   = $this->arg('format');
 
         $this->notices = $this->getNotices();
 

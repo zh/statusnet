@@ -70,7 +70,6 @@ class ApiTimelineGroupAction extends ApiAction
 
         $this->group = $this->getTargetGroup($this->arg('id'));
 
-        $this->format  = $this->arg('format');
         $this->notices = $this->getNotices();
 
         return true;

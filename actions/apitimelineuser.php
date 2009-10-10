@@ -73,7 +73,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
         $this->user = $this->getTargetUser($this->arg('id'));
 
         if (empty($this->user)) {
-            $this->clientError(_('No such user!'), 404, $this->arg('format'));
+            $this->clientError(_('No such user!'), 404, $this->format);
             return;
         }
 
@@ -127,7 +127,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
         $suplink = common_local_url('sup', null, null, $this->user->id);
         header('X-SUP-ID: ' . $suplink);
 
-        switch($this->arg('format')) {
+        switch($this->format) {
         case 'xml':
             $this->show_xml_timeline($this->notices);
             break;

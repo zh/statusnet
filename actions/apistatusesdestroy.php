@@ -48,7 +48,6 @@ class ApiStatusesDestroyAction extends ApiAuthAction
 
     var $user                  = null;
     var $status                = null;
-    var $format                = null;
 
     /**
      * Take arguments for running
@@ -70,7 +69,6 @@ class ApiStatusesDestroyAction extends ApiAuthAction
             $this->notice_id = (int)$this->arg('id');
         }
 
-        $this->format = $this->arg('format');
         $this->notice = Notice::staticGet((int)$this->notice_id);
 
         return true;

@@ -50,7 +50,6 @@ class ApiStatusesUpdateAction extends ApiAuthAction
     var $source                = null;
     var $status                = null;
     var $in_reply_to_status_id = null;
-    var $format                = null;
 
     static $reserved_sources = array('web', 'omb', 'mail', 'xmpp', 'api');
 
@@ -91,8 +90,6 @@ class ApiStatusesUpdateAction extends ApiAuthAction
         if (empty($this->source) || in_array($source, $this->reserved_sources)) {
             $this->source = 'api';
         }
-
-        $this->format = $this->arg('format');
 
         $this->in_reply_to_status_id
             = intval($this->trimmed('in_reply_to_status_id'));

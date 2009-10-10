@@ -103,7 +103,7 @@ class ApiTimelinePublicAction extends ApiAction
         $link       = common_root_url();
         $subtitle   = sprintf(_("%s updates from everyone!"), $sitename);
 
-        switch($this->arg('format')) {
+        switch($this->format) {
         case 'xml':
             $this->show_xml_timeline($this->notices);
             break;

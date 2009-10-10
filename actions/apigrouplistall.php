@@ -45,7 +45,6 @@ require_once INSTALLDIR . '/lib/api.php';
 
 class ApiGroupListAllAction extends TwitterApiAction
 {
-    var $format   = null;
     var $page     = null;
     var $count    = null;
     var $max_id   = null;
@@ -73,7 +72,6 @@ class ApiGroupListAllAction extends TwitterApiAction
         $this->since    = $this->arg('since');
 
         $this->user   = $this->getTargetUser($id);
-        $this->format = $this->arg('format');
         $this->groups = $this->getGroups();
 
         return true;

@@ -172,7 +172,7 @@ class ApiAuthAction extends ApiAction
         header('HTTP/1.1 401 Unauthorized');
         $msg = 'Could not authenticate you.';
 
-        if ($this->arg('format') == 'xml') {
+        if ($this->format == 'xml') {
             header('Content-Type: application/xml; charset=utf-8');
             $this->startXML();
             $this->elementStart('hash');
@@ -180,7 +180,7 @@ class ApiAuthAction extends ApiAction
             $this->element('request', null, $_SERVER['REQUEST_URI']);
             $this->elementEnd('hash');
             $this->endXML();
-        } elseif ($this->arg('format') == 'json') {
+        } elseif ($this->format == 'json') {
             header('Content-Type: application/json; charset=utf-8');
             $error_array = array('error' => $msg,
                                  'request' => $_SERVER['REQUEST_URI']);

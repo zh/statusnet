@@ -53,7 +53,6 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
     var $max_id   = null;
     var $since_id = null;
     var $since    = null;
-    var $format   = null;
 
     /**
      * Take arguments for running
@@ -73,7 +72,6 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
         $this->max_id   = (int)$this->arg('max_id', 0);
         $this->since_id = (int)$this->arg('since_id', 0);
         $this->since    = $this->arg('since');
-        $this->format   = $this->arg('format');
 
         $this->user = $this->getTargetUser($this->arg('id'));
 
