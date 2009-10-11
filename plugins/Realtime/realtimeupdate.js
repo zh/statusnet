@@ -25,6 +25,8 @@ RealtimeUpdate = {
             'border-top-color':'#AAAAAA',
             'border-top-style':'solid'
           });
+          
+          return false;
         });
      },
 
