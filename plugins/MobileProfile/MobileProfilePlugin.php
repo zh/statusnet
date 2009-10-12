@@ -51,6 +51,7 @@ class MobileProfilePlugin extends WAP20Plugin
 {
     public $DTD             = null;
     public $serveMobile     = false;
+    public $mobileFeatures  = array();
 
     function __construct($DTD='http://www.wapforum.org/DTD/xhtml-mobile10.dtd')
     {
@@ -106,8 +107,7 @@ class MobileProfilePlugin extends WAP20Plugin
                 // Or, detect the mobile devices based on their support for 
                 // MP 1.0, 1.1, or 1.2 may be ideal. Possible?
 
-                $this->mobiledevices = 
-                array(
+                $this->mobiledevices = array(
                     'alcatel',
                     'android',
                     'audiovox',
@@ -160,6 +160,8 @@ class MobileProfilePlugin extends WAP20Plugin
 
                 foreach($this->mobiledevices as $md) {
                     if (strstr($httpuseragent, $md) !== false) {
+                        setMobileFeatures($httpuseragent);
+
                         $this->serveMobile = true;
                         break;
                     }
@@ -197,6 +199,24 @@ class MobileProfilePlugin extends WAP20Plugin
                                             'xml:lang' => $language));
 
         return false;
+    }
+
+
+    function setMobileFeatures($useragent)
+    {
+        /* List of devices that support input type="file" */
+        $mobiledeviceInputFileType = array(
+            'nokia'
+        );
+
+        $this->mobileFeatures['inputfiletype'] = false;
+
+        foreach($mobiledeviceInputFileType as $md) {
+            if (strstr($useragent, $md) !== false) {
+                $this->mobileFeatures['inputfiletype'] = true;
+                break;
+            }
+        }
     }
 
 
