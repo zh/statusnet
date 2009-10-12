@@ -569,9 +569,13 @@ class Router
                          'format' => '(xml|json)'));
 
         $m->connect('api/statusnet/groups/membership/:id.:format',
-                     array('action' => 'ApiGroupMembership',
+                    array('action' => 'ApiGroupMembership',
                            'id' => '[a-zA-Z0-9]+',
                            'format' => '(xml|json)'));
+                           
+        $m->connect('api/statusnet/groups/create.:format',
+                    array('action' => 'ApiGroupCreate',
+                          'format' => '(xml|json)'));
         // Tags
         $m->connect('api/statusnet/tags/timeline/:tag.:format',
                     array('action' => 'ApiTimelineTag',

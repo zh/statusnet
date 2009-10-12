@@ -894,7 +894,7 @@ class ApiAction extends Action
         $this->endDocument('json');
     }
 
-    function show_single_xml_group($group)
+    function showSingleXmlGroup($group)
     {
         $this->initDocument('xml');
         $twitter_group = $this->twitterGroupArray($group);
