@@ -94,22 +94,22 @@ class ApiGroupCreateAction extends ApiAuthAction
     {
         parent::handle($args);
 
-        if (!common_config('inboxes','enabled')) {
-           $this->serverError(
-               _('Inboxes must be enabled for groups to work'),
-               400,
-               $this->format
-           );
-           return false;
-        }
-
-        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            $this->clientError(
-                _('This method requires a POST.'),
+        if (!common_config('inboxes', 'enabled')) {
+            $this->serverError(
+                _('Inboxes must be enabled for groups to work'),
                 400,
                 $this->format
             );
-            return;
+            return false;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+             $this->clientError(
+                 _('This method requires a POST.'),
+                 400,
+                 $this->format
+             );
+             return;
         }
 
         if (empty($this->user)) {
@@ -202,14 +202,15 @@ class ApiGroupCreateAction extends ApiAuthAction
 
     function validateParams()
     {
-        if (!Validate::string(
+        $valid = Validate::string(
             $this->nickname, array(
                 'min_length' => 1,
                 'max_length' => 64,
-                'format' => NICKNAME_FMT)
-                )
+                'format' => NICKNAME_FMT
             )
-        {
+        );
+
+        if (!$valid) {
             $this->clientError(
                 _(
                     'Nickname must have only lowercase letters ' .
@@ -234,24 +235,24 @@ class ApiGroupCreateAction extends ApiAuthAction
             );
             return false;
 
-        } elseif (!is_null($this->homepage)
+        } elseif (
+            !is_null($this->homepage)
             && strlen($this->homepage) > 0
             && !Validate::uri(
                 $this->homepage, array(
                     'allowed_schemes' =>
                     array('http', 'https')
                 )
-            ))
-        {
+            )) {
             $this->clientError(
                 _('Homepage is not a valid URL.'),
                 403,
                 $this->format
             );
             return false;
-        } elseif (!is_null($this->fullname)
-            && mb_strlen($this->fullname) > 255)
-            {
+        } elseif (
+            !is_null($this->fullname)
+            && mb_strlen($this->fullname) > 255) {
                 $this->clientError(
                     _('Full name is too long (max 255 chars).'),
                     403,
@@ -259,16 +260,18 @@ class ApiGroupCreateAction extends ApiAuthAction
                 );
             return false;
         } elseif (User_group::descriptionTooLong($this->description)) {
-            $this->clientError(sprintf(
-                _('Description is too long (max %d chars).'),
-                    User_group::maxDescription()),
-                    403,
-                    $this->format
-                );
+            $this->clientError(
+                sprintf(
+                    _('Description is too long (max %d chars).'),
+                    User_group::maxDescription()
+                ),
+                403,
+                $this->format
+            );
             return false;
-        } elseif (!is_null($this->location)
-            && mb_strlen($this->location) > 255)
-            {
+        } elseif (
+            !is_null($this->location)
+            && mb_strlen($this->location) > 255) {
                 $this->clientError(
                     _('Location is too long (max 255 chars).'),
                     403,
@@ -280,9 +283,7 @@ class ApiGroupCreateAction extends ApiAuthAction
         if (!empty($this->aliasstring)) {
             $this->aliases = array_map(
                 'common_canonical_nickname',
-                array_unique(preg_split('/[\s,]+/',
-                $this->aliasstring)
-                )
+                array_unique(preg_split('/[\s,]+/', $this->aliasstring))
             );
         } else {
             $this->aliases = array();
@@ -290,22 +291,27 @@ class ApiGroupCreateAction extends ApiAuthAction
 
         if (count($this->aliases) > common_config('group', 'maxaliases')) {
             $this->clientError(
-                sprintf(_('Too many aliases! Maximum %d.'),
-                    common_config('group', 'maxaliases')),
-                    403,
-                    $this->format
-                );
+                sprintf(
+                    _('Too many aliases! Maximum %d.'),
+                    common_config('group', 'maxaliases')
+                ),
+                403,
+                $this->format
+            );
             return false;
         }
 
         foreach ($this->aliases as $alias) {
-            if (!Validate::string($alias, array(
-                'min_length' => 1,
-                'max_length' => 64,
-                'format' => NICKNAME_FMT
+
+            $valid = Validate::string(
+                $alias, array(
+                    'min_length' => 1,
+                    'max_length' => 64,
+                    'format' => NICKNAME_FMT
                 )
-            ))
-            {
+            );
+
+            if (!$valid) {
                 $this->clientError(
                     sprintf(_('Invalid alias: "%s"'), $alias),
                     403,
@@ -315,8 +321,10 @@ class ApiGroupCreateAction extends ApiAuthAction
             }
             if ($this->groupNicknameExists($alias)) {
                 $this->clientError(
-                    sprintf(_('Alias "%s" already in use. Try another one.'),
-                    $alias),
+                    sprintf(
+                        _('Alias "%s" already in use. Try another one.'),
+                        $alias
+                    ),
                     403,
                     $this->format
                 );
@@ -340,21 +348,29 @@ class ApiGroupCreateAction extends ApiAuthAction
         return true;
     }
 
+    /**
+     * Check to see whether a nickname is already in use by a group
+     *
+     * @param String $nickname The nickname in question
+     *
+     * @return boolean true or false
+     */
+
     function groupNicknameExists($nickname)
     {
-       $group = User_group::staticGet('nickname', $nickname);
+        $group = User_group::staticGet('nickname', $nickname);
 
-       if (!empty($group)) {
-           return true;
-       }
+        if (!empty($group)) {
+            return true;
+        }
 
-       $alias = Group_alias::staticGet('alias', $nickname);
+        $alias = Group_alias::staticGet('alias', $nickname);
 
-       if (!empty($alias)) {
-           return true;
-       }
+        if (!empty($alias)) {
+            return true;
+        }
 
-       return false;
+        return false;
     }
 
 }
