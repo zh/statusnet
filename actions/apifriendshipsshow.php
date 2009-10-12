@@ -21,6 +21,8 @@
  *
  * @category  API
  * @package   StatusNet
+ * @author    Dan Moore <dan@moore.cx>
+ * @author    Evan Prodromou <evan@status.net>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
@@ -31,13 +33,15 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/apibareauth.php';
+require_once INSTALLDIR . '/lib/apibareauth.php';
 
 /**
  * Outputs detailed information about the relationship between two users
  *
  * @category API
  * @package  StatusNet
+ * @author   Dan Moore <dan@moore.cx>
+ * @author   Evan Prodromou <evan@status.net>
  * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
@@ -65,7 +69,7 @@ class ApiFriendshipsShowAction extends ApiBareAuthAction
         $source_screen_name = $this->trimmed('source_screen_name');
         $target_id          = (int)$this->trimmed('target_id');
         $target_screen_name = $this->trimmed('target_screen_name');
-    
+
         if (!empty($source_id)) {
             $this->source = User::staticGet($source_id);
         } elseif (!empty($source_screen_name)) {
@@ -90,7 +94,7 @@ class ApiFriendshipsShowAction extends ApiBareAuthAction
      *
      * @return boolean true or false
      */
-       
+
     function requiresAuth()
     {
         if (common_config('site', 'private')) {
@@ -125,7 +129,7 @@ class ApiFriendshipsShowAction extends ApiBareAuthAction
             $this->clientError(_('API method not found!'), 404);
             return;
         }
-        
+
         if (empty($this->source)) {
             $this->clientError(
                 _('Could not determine source user.'),
@@ -133,7 +137,7 @@ class ApiFriendshipsShowAction extends ApiBareAuthAction
              );
             return;
         }
-              
+
         if (empty($this->target)) {
             $this->clientError(
                 _('Could not find target user.'),
@@ -141,7 +145,7 @@ class ApiFriendshipsShowAction extends ApiBareAuthAction
             );
             return;
         }
-        
+
         $result = $this->twitterRelationshipArray($this->source, $this->target);
 
         switch ($this->format) {
@@ -158,7 +162,7 @@ class ApiFriendshipsShowAction extends ApiBareAuthAction
         default:
             break;
         }
-        
+
     }
 
 }

@@ -21,6 +21,8 @@
  *
  * @category  API
  * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    Robin Millette <robin@millette.info>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
@@ -31,14 +33,16 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/apibareauth.php';
+require_once INSTALLDIR . '/lib/apibareauth.php';
 
 /**
  * We don't have a rate limit, but some clients check this method.
- * It always returns the same thing: 100 hits left.
+ * It always returns the same thing: 150 hits left.
  *
  * @category API
  * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Robin Millette <robin@millette.info>
  * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/

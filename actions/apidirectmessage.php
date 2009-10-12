@@ -21,6 +21,9 @@
  *
  * @category  API
  * @package   StatusNet
+ * @author    Adrian Lang <mail@adrianlang.de>
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    Robin Millette <robin@millette.info>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
@@ -31,13 +34,16 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/apiauth.php';
+require_once INSTALLDIR . '/lib/apiauth.php';
 
 /**
  * Show a list of direct messages from or to the authenticating user
  *
  * @category API
  * @package  StatusNet
+ * @author   Adrian Lang <mail@adrianlang.de>
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Robin Millette <robin@millette.info>
  * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/

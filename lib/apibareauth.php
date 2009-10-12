@@ -23,7 +23,14 @@
  *
  * @category  API
  * @package   StatusNet
- * @author    Zach Copley <zach@status.net>
+ * @author    Adrian Lang <mail@adrianlang.de>
+ * @author    Brenda Wallace <shiny@cpan.org>
+ * @author    Craig Andrews <candrews@integralblue.com>
+ * @author    Dan Moore <dan@moore.cx>
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    mEDI <medi@milaro.net>
+ * @author    Sarven Capadisli <csarven@status.net>
+ * @author    Zach Copley <zach@status.net> 
  * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
@@ -41,6 +48,13 @@ require_once INSTALLDIR.'/lib/apiauth.php';
  *
  * @category API
  * @package  StatusNet
+ * @author   Adrian Lang <mail@adrianlang.de>
+ * @author   Brenda Wallace <shiny@cpan.org>
+ * @author   Craig Andrews <candrews@integralblue.com>
+ * @author   Dan Moore <dan@moore.cx>
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   mEDI <medi@milaro.net>
+ * @author   Sarven Capadisli <csarven@status.net>
  * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/

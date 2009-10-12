@@ -21,6 +21,8 @@
  *
  * @category  API
  * @package   StatusNet
+ * @author    Dan Moore <dan@moore.cx>
+ * @author    Evan Prodromou <evan@status.net>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
@@ -31,14 +33,16 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/api.php';
+require_once INSTALLDIR . '/lib/api.php';
 
 /**
- * Tests for the existence of friendship between two users. Will return true if 
+ * Tests for the existence of friendship between two users. Will return true if
  * user_a follows user_b, otherwise will return false.
  *
  * @category API
  * @package  StatusNet
+ * @author   Dan Moore <dan@moore.cx>
+ * @author   Evan Prodromou <evan@status.net>
  * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/

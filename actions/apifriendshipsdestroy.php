@@ -21,6 +21,8 @@
  *
  * @category  API
  * @package   StatusNet
+ * @author    Dan Moore <dan@moore.cx>
+ * @author    Evan Prodromou <evan@status.net>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
@@ -31,7 +33,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/apiauth.php';
+require_once INSTALLDIR . '/lib/apiauth.php';
 
 /**
  * Allows the authenticating users to unfollow (unsubscribe) the user specified in
@@ -40,6 +42,8 @@ require_once INSTALLDIR.'/lib/apiauth.php';
  *
  * @category API
  * @package  StatusNet
+ * @author   Dan Moore <dan@moore.cx>
+ * @author   Evan Prodromou <evan@status.net>
  * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/

@@ -21,6 +21,9 @@
  *
  * @category  API
  * @package   StatusNet
+ * @author    Adrian Lang <mail@adrianlang.de>
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    Robin Millette <robin@millette.info>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
@@ -31,7 +34,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/apiauth.php';
+require_once INSTALLDIR . '/lib/apiauth.php';
 
 /**
  * Creates a new direct message from the authenticating user to
@@ -39,6 +42,9 @@ require_once INSTALLDIR.'/lib/apiauth.php';
  *
  * @category API
  * @package  StatusNet
+ * @author   Adrian Lang <mail@adrianlang.de>
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Robin Millette <robin@millette.info>
  * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
@@ -47,7 +53,6 @@ require_once INSTALLDIR.'/lib/apiauth.php';
 class ApiDirectMessageNewAction extends ApiAuthAction
 {
     var $source  = null;
-    var $user    = null;
     var $other   = null;
     var $content = null;
 
@@ -151,7 +156,7 @@ class ApiDirectMessageNewAction extends ApiAuthAction
 
             // Note: sending msgs to yourself is allowed by Twitter
 
-            $errmsg = 'Don\'t send a message to yourself; ' . 
+            $errmsg = 'Don\'t send a message to yourself; ' .
                    'just say it to yourself quietly instead.'
 
             $this->clientError(_($errmsg), 403, $this->format);

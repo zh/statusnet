@@ -21,6 +21,9 @@
  *
  * @category  API
  * @package   StatusNet
+ * @author    Craig Andrews <candrews@integralblue.com>
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    Jeffery To <jeffery.to@gmail.com>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
@@ -34,10 +37,13 @@ if (!defined('STATUSNET')) {
 require_once INSTALLDIR . '/lib/api.php';
 
 /**
- * List 20 newest members of the group specified by name or ID. 
+ * List 20 newest members of the group specified by name or ID.
  *
  * @category API
  * @package  StatusNet
+ * @author   Craig Andrews <candrews@integralblue.com>
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Jeffery To <jeffery.to@gmail.com>
  * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
@@ -103,7 +109,7 @@ class ApiGroupMembershipAction extends ApiAction
     /**
      * Fetch the members of a group
      *
-     * @return array $profiles list of profiles 
+     * @return array $profiles list of profiles
      */
 
     function getProfiles()
@@ -112,9 +118,9 @@ class ApiGroupMembershipAction extends ApiAction
 
         $profile = $this->group->getMembers(
             ($this->page - 1) * $this->count,
-            $this->count, 
-            $this->since_id, 
-            $this->max_id, 
+            $this->count,
+            $this->since_id,
+            $this->max_id,
             $this->since
         );
 
@@ -157,7 +163,7 @@ class ApiGroupMembershipAction extends ApiAction
      * An entity tag for this list of groups
      *
      * Returns an Etag based on the action name, language
-     * the group id, and timestamps of the first and last 
+     * the group id, and timestamps of the first and last
      * user who has joined the group
      *
      * @return string etag

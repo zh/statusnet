@@ -21,6 +21,9 @@
  *
  * @category  API
  * @package   StatusNet
+ * @author    Dan Moore <dan@moore.cx>
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    mac65 <mac65@mac65.com>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
@@ -31,7 +34,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/api.php';
+require_once INSTALLDIR . '/lib/api.php';
 
 /**
  * Ouputs information for a user, specified by ID or screen name.
@@ -39,6 +42,9 @@ require_once INSTALLDIR.'/lib/api.php';
  *
  * @category API
  * @package  StatusNet
+ * @author   Dan Moore <dan@moore.cx>
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   mac65 <mac65@mac65.com>
  * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/

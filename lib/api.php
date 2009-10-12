@@ -21,6 +21,11 @@
  *
  * @category  API
  * @package   StatusNet
+ * @author    Craig Andrews <candrews@integralblue.com>
+ * @author    Dan Moore <dan@moore.cx>
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    Jeffery To <jeffery.to@gmail.com>
+ * @author    Toby Inkster <mail@tobyinkster.co.uk>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
@@ -36,6 +41,11 @@ if (!defined('STATUSNET')) {
  *
  * @category API
  * @package  StatusNet
+ * @author   Craig Andrews <candrews@integralblue.com>
+ * @author   Dan Moore <dan@moore.cx>
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Jeffery To <jeffery.to@gmail.com>
+ * @author   Toby Inkster <mail@tobyinkster.co.uk>
  * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/

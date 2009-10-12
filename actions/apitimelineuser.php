@@ -21,6 +21,12 @@
  *
  * @category  API
  * @package   StatusNet
+ * @author    Craig Andrews <candrews@integralblue.com>
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    Jeffery To <jeffery.to@gmail.com>
+ * @author    mac65 <mac65@mac65.com>
+ * @author    Mike Cochrane <mikec@mikenz.geek.nz>
+ * @author    Robin Millette <robin@millette.info>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
@@ -31,7 +37,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/apibareauth.php';
+require_once INSTALLDIR . '/lib/apibareauth.php';
 
 /**
  * Returns the most recent notices (default 20) posted by the authenticating
@@ -40,6 +46,12 @@ require_once INSTALLDIR.'/lib/apibareauth.php';
  *
  * @category API
  * @package  StatusNet
+ * @author   Craig Andrews <candrews@integralblue.com>
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Jeffery To <jeffery.to@gmail.com>
+ * @author   mac65 <mac65@mac65.com>
+ * @author   Mike Cochrane <mikec@mikenz.geek.nz>
+ * @author   Robin Millette <robin@millette.info>
  * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
@@ -48,7 +60,6 @@ require_once INSTALLDIR.'/lib/apibareauth.php';
 class ApiTimelineUserAction extends ApiBareAuthAction
 {
 
-    var $user    = null;
     var $notices = null;
 
     /**

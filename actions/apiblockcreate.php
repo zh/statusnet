@@ -21,6 +21,7 @@
  *
  * @category  API
  * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
@@ -34,12 +35,13 @@ if (!defined('STATUSNET')) {
 require_once INSTALLDIR . '/lib/apiauth.php';
 
 /**
- * Blocks the user specified in the ID parameter as the authenticating user. 
- * Destroys a friendship to the blocked user if it exists. Returns the 
+ * Blocks the user specified in the ID parameter as the authenticating user.
+ * Destroys a friendship to the blocked user if it exists. Returns the
  * blocked user in the requested format when successful.
  *
  * @category API
  * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
@@ -47,7 +49,6 @@ require_once INSTALLDIR . '/lib/apiauth.php';
 
 class ApiBlockCreateAction extends ApiAuthAction
 {
-    var $user    = null;
     var $other   = null;
 
     /**
@@ -91,13 +92,13 @@ class ApiBlockCreateAction extends ApiAuthAction
             );
             return;
         }
-        
+
         if (empty($this->user) || empty($this->other)) {
             $this->clientError(_('No such user!'), 404, $this->format);
             return;
         }
-        
-        if ($this->user->hasBlocked($this->other) 
+
+        if ($this->user->hasBlocked($this->other)
             || $this->user->block($this->other)
         ) {
             $this->initDocument($this->format);
@@ -106,7 +107,7 @@ class ApiBlockCreateAction extends ApiAuthAction
         } else {
             $this->serverError(_('Block user failed.'), 500, $this->format);
         }
-        
+
     }
 
 }
