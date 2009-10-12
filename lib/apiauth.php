@@ -31,7 +31,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/api.php';
+require_once INSTALLDIR . '/lib/api.php';
 
 /**
  * Actions extending this class will require auth
@@ -90,8 +90,10 @@ class ApiAuthAction extends ApiAction
     {
         $this->basicAuthProcessHeader();
 
+        $realm = common_config('site', 'name') . ' API';
+
         if (!isset($this->auth_user)) {
-            header('WWW-Authenticate: Basic realm="StatusNet API"');
+            header('WWW-Authenticate: Basic realm="' . $realm . '"');
 
             // show error if the user clicks 'cancel'
 
