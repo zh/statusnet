@@ -46,7 +46,6 @@ require_once INSTALLDIR.'/lib/apiauth.php';
 
 class ApiFavoriteCreateAction extends ApiAuthAction
 {
-    var $user   = null;
     var $notice = null;
 
     /**
@@ -140,7 +139,6 @@ class ApiFavoriteCreateAction extends ApiAuthAction
             $this->show_single_json_status($this->notice);
         }
     }
-
 
     /**
      * Notify the author of the favorite that the user likes their notice

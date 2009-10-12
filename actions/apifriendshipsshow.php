@@ -45,7 +45,6 @@ require_once INSTALLDIR.'/lib/apibareauth.php';
 
 class ApiFriendshipsShowAction extends ApiBareAuthAction
 {
-    var $user   = null;
     var $source = null;
     var $target = null;
 

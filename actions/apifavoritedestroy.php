@@ -47,7 +47,6 @@ require_once INSTALLDIR.'/lib/apiauth.php';
 class ApiFavoriteDestroyAction extends ApiAuthAction
 {
 
-    var $user   = null;
     var $notice = null;
 
     /**

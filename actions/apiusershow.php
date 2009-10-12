@@ -46,8 +46,6 @@ require_once INSTALLDIR.'/lib/api.php';
 
 class ApiUserShowAction extends ApiAction
 {
-    var $user   = null;
-
     /**
      * Take arguments for running
      *

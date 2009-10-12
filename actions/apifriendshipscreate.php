@@ -47,7 +47,6 @@ require_once INSTALLDIR.'/lib/apiauth.php';
 
 class ApiFriendshipsCreateAction extends ApiAuthAction
 {
-    var $user   = null;
     var $other  = null;
 
     /**
