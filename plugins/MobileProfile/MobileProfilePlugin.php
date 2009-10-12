@@ -49,13 +49,13 @@ require_once INSTALLDIR.'/plugins/Mobile/WAP20Plugin.php';
 
 class MobileProfilePlugin extends WAP20Plugin
 {
-    public $DTD             = null;
-    public $serveMobile     = false;
-    public $mobileFeatures  = array();
+    public $DTD            = null;
+    public $serveMobile    = false;
+    public $mobileFeatures = array();
 
     function __construct($DTD='http://www.wapforum.org/DTD/xhtml-mobile10.dtd')
     {
-        $this->DTD       = $DTD;
+        $this->DTD = $DTD;
 
         parent::__construct();
     }
@@ -86,13 +86,11 @@ class MobileProfilePlugin extends WAP20Plugin
             $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])) {
 
             $this->serveMobile = true;
-        }
-        else {
+        } else {
             // If they like the WAP 2.0 mimetype, serve them MP
             if (strstr('application/vnd.wap.xhtml+xml', $type) !== false) {
                 $this->serveMobile = true;
-            }
-            else {
+            } else {
                 // If they are a mobile device that supports WAP 2.0, 
                 // serve them MP
 
@@ -158,7 +156,7 @@ class MobileProfilePlugin extends WAP20Plugin
 
                 $httpuseragent = strtolower($_SERVER['HTTP_USER_AGENT']);
 
-                foreach($this->mobiledevices as $md) {
+                foreach ($this->mobiledevices as $md) {
                     if (strstr($httpuseragent, $md) !== false) {
                         setMobileFeatures($httpuseragent);
 
@@ -204,14 +202,13 @@ class MobileProfilePlugin extends WAP20Plugin
 
     function setMobileFeatures($useragent)
     {
-        /* List of devices that support input type="file" */
         $mobiledeviceInputFileType = array(
             'nokia'
         );
 
         $this->mobileFeatures['inputfiletype'] = false;
 
-        foreach($mobiledeviceInputFileType as $md) {
+        foreach ($mobiledeviceInputFileType as $md) {
             if (strstr($useragent, $md) !== false) {
                 $this->mobileFeatures['inputfiletype'] = true;
                 break;
@@ -243,8 +240,7 @@ class MobileProfilePlugin extends WAP20Plugin
 
         if (file_exists(theme_file('css/mp-screen.css'))) {
             $action->cssLink('css/mp-screen.css', null, 'screen');
-        }
-        else {
+        } else {
             $action->element('link', array('rel' => 'stylesheet',
                                          'type' => 'text/css',
                                          'href' => common_path('plugins/MobileProfile/mp-screen.css') . '?version=' . STATUSNET_VERSION,
@@ -253,8 +249,7 @@ class MobileProfilePlugin extends WAP20Plugin
 
         if (file_exists(theme_file('css/mp-handheld.css'))) {
             $action->cssLink('css/mp-handheld.css', null, 'handheld');
-        }
-        else {
+        } else {
             $action->element('link', array('rel' => 'stylesheet',
                                          'type' => 'text/css',
                                          'href' => common_path('plugins/MobileProfile/mp-handheld.css') . '?version=' . STATUSNET_VERSION,
@@ -303,8 +298,9 @@ class MobileProfilePlugin extends WAP20Plugin
     }
 
 
-    function _showPrimaryNav($action) {
-        $user = common_current_user();
+    function _showPrimaryNav($action)
+    {
+        $user    = common_current_user();
         $connect = '';
         if (common_config('xmpp', 'enabled')) {
             $connect = 'imsettings';
@@ -330,8 +326,7 @@ class MobileProfilePlugin extends WAP20Plugin
             }
             $action->menuItem(common_local_url('logout'),
                             _('Logout'));
-        }
-        else {
+        } else {
             if (!common_config('site', 'closed')) {
                 $action->menuItem(common_local_url('register'),
                                 _('Register'));
@@ -370,7 +365,7 @@ class MobileProfilePlugin extends WAP20Plugin
         }
 
         if (common_config('attachments', 'uploads')) {
-            $form->out->element('label', array('for' => 'notice_data-attach'),_('Attach'));
+            $form->out->element('label', array('for' => 'notice_data-attach'), _('Attach'));
             $form->out->element('input', array('id' => 'notice_data-attach',
                                                'type' => 'file',
                                                'name' => 'attach',
@@ -414,7 +409,7 @@ class MobileProfilePlugin extends WAP20Plugin
                 $serverpart = common_config('site', 'mobileserver');
             }
         } else {
-            $proto = 'http';
+            $proto      = 'http';
             $serverpart = common_config('site', 'mobileserver');
         }
 
