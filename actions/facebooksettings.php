@@ -58,8 +58,15 @@ class FacebooksettingsAction extends FacebookAction
         $this->flink->set_flags($noticesync, $replysync, false, false);
         $result = $this->flink->update($original);
 
+        if ($prefix == '' || $prefix == '0') {
+        	// Facebook bug: saving empty strings to prefs now fails
+        	// http://bugs.developers.facebook.com/show_bug.cgi?id=7110
+        	$trimmed = $prefix . ' ';
+        } else {
+	        $trimmed = substr($prefix, 0, 128);
+	    }
         $this->facebook->api_client->data_setUserPreference(FACEBOOK_NOTICE_PREFIX,
-            substr($prefix, 0, 128));
+            $trimmed);
 
         if ($result === false) {
             $this->showForm(_('There was a problem saving your sync preferences!'));
@@ -101,7 +108,7 @@ class FacebooksettingsAction extends FacebookAction
 
             $this->elementStart('li');
 
-            $prefix = $this->facebook->api_client->data_getUserPreference(FACEBOOK_NOTICE_PREFIX);
+            $prefix = trim($this->facebook->api_client->data_getUserPreference(FACEBOOK_NOTICE_PREFIX));
 
             $this->input('prefix', _('Prefix'),
                          ($prefix) ? $prefix : null,
