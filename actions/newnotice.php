@@ -431,13 +431,14 @@ class NewnoticeAction extends Action
         $content = $this->trimmed('status_textarea');
         if (!$content) {
             $replyto = $this->trimmed('replyto');
+            $inreplyto = $this->trimmed('inreplyto');
             $profile = Profile::staticGet('nickname', $replyto);
             if ($profile) {
                 $content = '@' . $profile->nickname . ' ';
             }
         }
 
-        $notice_form = new NoticeForm($this, '', $content);
+        $notice_form = new NoticeForm($this, '', $content, null, $inreplyto);
         $notice_form->show();
     }
 

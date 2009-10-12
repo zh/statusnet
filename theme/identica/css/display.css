@@ -94,10 +94,11 @@ background:transparent url(../../base/images/icons/twotone/green/clip-01.gif) no
 opacity:0;
 }
 
-#form_notice.processing #notice_action-submit {
+#wrap form.processing input.submit {
 background:#FFFFFF url(../../base/images/icons/icon_processing.gif) no-repeat 47% 47%;
 cursor:wait;
 text-indent:-9999px;
+outline:none;
 }
 
 #content {

@@ -98,6 +98,12 @@ class InviteAction extends CurrentUserDesignAction
         $this->showPage();
     }
 
+    function showScripts()
+    {
+        parent::showScripts();
+        $this->autofocus('addresses');
+    }
+
     function title()
     {
         if ($this->mode == 'sent') {

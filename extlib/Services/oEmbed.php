@@ -256,7 +256,7 @@ class Services_oEmbed
 
         $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         if (substr($code, 0, 1) != '2') {
-            throw new Services_oEmbed_Exception('Non-200 code returned');
+            throw new Services_oEmbed_Exception('Non-200 code returned. Got code ' . $code);
         }
 
         curl_close($ch);
@@ -302,8 +302,8 @@ class Services_oEmbed
 
         // Find all <link /> tags that have a valid oembed type set. We then
         // extract the href attribute for each type.
-        $regexp = '#<link([^>]*)type="' . 
-                  '(application/json|text/xml)\+oembed"([^>]*)>#i';
+        $regexp = '#<link([^>]*)type[\s\n]*=[\s\n]*"' . 
+                  '(application/json|text/xml)\+oembed"([^>]*)>#im';
 
         $m = $ret = array();
         if (!preg_match_all($regexp, $body, $m)) {
@@ -314,7 +314,7 @@ class Services_oEmbed
 
         foreach ($m[0] as $i => $link) {
             $h = array();
-            if (preg_match('/href="([^"]+)"/i', $link, $h)) {
+            if (preg_match('/[\s\n]+href[\s\n]*=[\s\n]*"([^"]+)"/im', $link, $h)) {
                 $ret[$m[2][$i]] = $h[1];
             }
         } 
@@ -347,7 +347,7 @@ class Services_oEmbed
 
         $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         if (substr($code, 0, 1) != '2') {
-            throw new Services_oEmbed_Exception('Non-200 code returned');
+            throw new Services_oEmbed_Exception('Non-200 code returned. Got code ' . $code);
         }
 
         return $result;

@@ -70,6 +70,26 @@ class CommandInterpreter
             } else {
                 return new OffCommand($user);
             }
+         case 'join':
+             if (!$arg) {
+                return null;
+            }
+            list($other, $extra) = explode(' ', $arg, 2);
+            if ($extra) {
+                return null;
+            } else {
+                return new JoinCommand($user, $other);
+            }
+         case 'drop':
+            if (!$arg) {
+                return null;
+            }
+            list($other, $extra) = explode(' ', $arg, 2);
+            if ($extra) {
+                return null;
+            } else {
+                return new DropCommand($user, $other);
+            }
          case 'follow':
          case 'sub':
             if (!$arg) {

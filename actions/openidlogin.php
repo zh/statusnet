@@ -86,6 +86,12 @@ class OpenidloginAction extends Action
         }
     }
 
+    function showScripts()
+    {
+        parent::showScripts();
+        $this->autofocus('openid_url');
+    }
+
     function title()
     {
         return _('OpenID Login');

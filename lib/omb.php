@@ -135,7 +135,7 @@ function omb_broadcast_remote_subscribers($notice)
     $posted = array();
 
     while ($rp->fetch()) {
-        if (!$posted[$rp->postnoticeurl]) {
+        if (!array_key_exists($rp->postnoticeurl, $posted)) {
             common_log(LOG_DEBUG, 'Posting to ' . $rp->postnoticeurl);
             if (omb_post_notice_keys($notice, $rp->postnoticeurl, $rp->token, $rp->secret)) {
                 common_log(LOG_DEBUG, 'Finished to ' . $rp->postnoticeurl);
