@@ -158,7 +158,7 @@ class MobileProfilePlugin extends WAP20Plugin
 
                 foreach ($this->mobiledevices as $md) {
                     if (strstr($httpuseragent, $md) !== false) {
-                        setMobileFeatures($httpuseragent);
+                        $this->setMobileFeatures($httpuseragent);
 
                         $this->serveMobile = true;
                         break;
