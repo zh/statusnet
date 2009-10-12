@@ -428,7 +428,133 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
 
      function create($args, $apidata)
      {
-        die("todo");
+        parent::handle($args);
+
+        common_debug("in groups api action");
+        if (!common_config('inboxes','enabled')) {
+           $this->serverError(_('Inboxes must be enabled for groups to work'));
+           return false;
+        }
+
+        $this->auth_user = $apidata['user'];
+
+        $nickname    = $args['nickname'];
+        $fullname    = $args['full_name'];
+        $homepage    = $args['homepage'];
+        $description = $args['description'];
+        $location    = $args['location'];
+        $aliasstring = $args['aliases'];
+
+        if (!Validate::string($nickname, array('min_length' => 1,
+                                               'max_length' => 64,
+                                               'format' => NICKNAME_FMT))) {
+            $this->clientError(_('Nickname must have only lowercase letters '.
+                              'and numbers and no spaces.'), $code=403);
+            return;
+        } else if ($this->groupNicknameExists($nickname)) {
+            $this->clientError(_('Nickname already in use. Try another one.'), $code=403);
+            return;
+        } else if (!User_group::allowedNickname($nickname)) {
+            $this->clientError(_('Not a valid nickname.'), $code=403);
+            return;
+        } else if (!is_null($homepage) && (strlen($homepage) > 0) &&
+                   !Validate::uri($homepage,
+                                  array('allowed_schemes' =>
+                                        array('http', 'https')))) {
+            $this->clientError(_('Homepage is not a valid URL.'), $code=403);
+            return;
+        } else if (!is_null($fullname) && mb_strlen($fullname) > 255) {
+            $this->clientError(_('Full name is too long (max 255 chars).'), $code=403);
+            return;
+        } else if (User_group::descriptionTooLong($description)) {
+            $this->clientError(sprintf(_('description is too long (max %d chars).'), User_group::maxDescription()), $code=403);
+            return;
+        } else if (!is_null($location) && mb_strlen($location) > 255) {
+            $this->clientError(_('Location is too long (max 255 chars).'), $code=403);
+            return;
+        }
+
+        if (!empty($aliasstring)) {
+            $aliases = array_map('common_canonical_nickname', array_unique(preg_split('/[\s,]+/', $aliasstring)));
+        } else {
+            $aliases = array();
+        }
+
+        if (count($aliases) > common_config('group', 'maxaliases')) {
+            $this->clientError(sprintf(_('Too many aliases! Maximum %d.'),
+                                    common_config('group', 'maxaliases')), $code=403);
+            return;
+        }
+
+        foreach ($aliases as $alias) {
+            if (!Validate::string($alias, array('min_length' => 1,
+                                                'max_length' => 64,
+                                                'format' => NICKNAME_FMT))) {
+                $this->clientError(sprintf(_('Invalid alias: "%s"'), $alias), $code=403);
+                return;
+            }
+            if ($this->groupNicknameExists($alias)) {
+                $this->clientError(sprintf(_('Alias "%s" already in use. Try another one.'),
+                                        $alias), $code=403);
+                return;
+            }
+            // XXX assumes alphanum nicknames
+            if (strcmp($alias, $nickname) == 0) {
+                $this->clientError(_('Alias can\'t be the same as nickname.'), $code=403);
+                return;
+            }
+        }
+
+        $group = new User_group();
+
+        $group->query('BEGIN');
+
+        $group->nickname    = $nickname;
+        $group->fullname    = $fullname;
+        $group->homepage    = $homepage;
+        $group->description = $description;
+        $group->location    = $location;
+        $group->created     = common_sql_now();
+
+        $result = $group->insert();
+
+        if (!$result) {
+            common_log_db_error($group, 'INSERT', __FILE__);
+            $this->serverError(_('Could not create group.'));
+        }
+
+        $result = $group->setAliases($aliases);
+
+        if (!$result) {
+            $this->serverError(_('Could not create aliases.'));
+        }
+
+        $member = new Group_member();
+
+        $member->group_id   = $group->id;
+        $member->profile_id = $this->auth_user->id;
+        $member->is_admin   = 1;
+        $member->created    = $group->created;
+
+        $result = $member->insert();
+
+        if (!$result) {
+            common_log_db_error($member, 'INSERT', __FILE__);
+            $this->serverError(_('Could not set group membership.'));
+        }
+
+        $group->query('COMMIT');
+
+        switch($apidata['content-type']) {
+          case 'xml':
+             $this->show_single_xml_group($group);
+             break;
+          case 'json':
+             $this->show_single_json_group($group);
+             break;
+          default:
+             $this->clientError(_('API method not found!'), $code = 404);
+         }
      }
 
      function update($args, $apidata)
@@ -449,5 +575,22 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
      function tag($args, $apidata)
      {
         die("todo");
+     }
+
+     function groupNicknameExists($nickname)
+     {
+        $group = User_group::staticGet('nickname', $nickname);
+
+        if (!empty($group)) {
+            return true;
+        }
+
+        $alias = Group_alias::staticGet('alias', $nickname);
+
+        if (!empty($alias)) {
+            return true;
+        }
+
+        return false;
      }
 }
