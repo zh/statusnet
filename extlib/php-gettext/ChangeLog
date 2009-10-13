@@ -1,3 +1,19 @@
+2006-02-28  Danilo Šegan  <danilo@gnome.org>
+
+	* gettext.php: Added some comments about these workarounds for
+	different PHP versions and architectures.
+
+2006-02-28  Danilo Šegan  <danilo@gnome.org>
+
+	Fixes bug #15923.
+	
+	* gettext.php (gettext_reader): make magic check work on 64-bit
+	platforms as well (by Steffen Pingel).
+
+2006-02-20  Danilo Šegan  <danilo@gnome.org>
+
+	* gettext.inc (_bindtextdomain): Use php_uname to detect Windows.
+
 2006-02-07  Danilo Šegan  <danilo@gnome.org>
 
 	* examples/pigs_dropin.php: comment-out bind_textdomain_codeset
