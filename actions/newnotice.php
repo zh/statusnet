@@ -239,6 +239,10 @@ class NewnoticeAction extends Action
             $this->maybeAddRedir($fileRecord->id, $fileurl);
 
             $short_fileurl = common_shorten_url($fileurl);
+            if (!$short_fileurl) {
+                // todo -- Consider forcing default shortener if none selected?
+                $short_fileurl = $fileurl;
+            }
             $content_shortened .= ' ' . $short_fileurl;
 
             if (mb_strlen($content_shortened) > 140) {
