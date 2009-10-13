@@ -998,7 +998,7 @@ function common_set_returnto($url)
 function common_get_returnto()
 {
     common_ensure_session();
-    return $_SESSION['returnto'];
+    return (array_key_exists('returnto', $_SESSION)) ? $_SESSION['returnto'] : null;
 }
 
 function common_timestamp()

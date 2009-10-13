@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * List of replies
+ * A version stamp for the API
  *
  * PHP version 5
  *
@@ -19,44 +19,46 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  Search
+ * @category  API
  * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
  * @author    Zach Copley <zach@status.net>
- * @copyright 2008-2009 StatusNet, Inc.
+ * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) {
+if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/api.php';
+require_once INSTALLDIR . '/lib/api.php';
 
 /**
- *  Returns the top ten queries that are currently trending
+ * Returns a version number for this version of StatusNet, which
+ * should make things a bit easier for upgrades.
+ * URL: http://identi.ca/api/statusnet/version.(xml|json)
+ * Formats: xml, js
  *
- * @category Search
+ * @category API
  * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
  * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
- *
- * @see      ApiAction
  */
 
-class TwitapitrendsAction extends ApiAction
+class ApiStatusnetVersionAction extends ApiAction
 {
-
-    var $callback;
-
     /**
-     * Initialization.
+     * Take arguments for running
      *
-     * @param array $args Web and URL arguments
+     * @param array $args $_REQUEST args
      *
-     * @return boolean false if user doesn't exist
+     * @return boolean success flag
+     *
      */
+
     function prepare($args)
     {
         parent::prepare($args);
@@ -64,9 +66,9 @@ class TwitapitrendsAction extends ApiAction
     }
 
     /**
-     * Handle a request
+     * Handle the request
      *
-     * @param array $args Arguments from $_REQUEST
+     * @param array $args $_REQUEST data (unused)
      *
      * @return void
      */
@@ -74,17 +76,27 @@ class TwitapitrendsAction extends ApiAction
     function handle($args)
     {
         parent::handle($args);
-        $this->showTrends();
-    }
 
-    /**
-     * Output the trends
-     *
-     * @return void
-     */
-    function showTrends()
-    {
-        $this->serverError(_('API method under construction.'), $code = 501);
+        switch ($this->format) {
+        case 'xml':
+            $this->initDocument('xml');
+            $this->element('version', null, STATUSNET_VERSION);
+            $this->endDocument('xml');
+            break;
+        case 'json':
+            $this->initDocument('json');
+            print '"'.STATUSNET_VERSION.'"';
+            $this->endDocument('json');
+            break;
+        default:
+            $this->clientError(
+                _('API method not found!'),
+                404,
+                $this->format
+            );
+            break;
+        }
     }
 
 }
+
