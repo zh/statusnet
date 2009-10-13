@@ -746,7 +746,7 @@ class PEAR
     {
         if (!extension_loaded($ext)) {
             // if either returns true dl() will produce a FATAL error, stop that
-            if ((ini_get('enable_dl') != 1) || (ini_get('safe_mode') == 1)) {
+            if ((ini_get('enable_dl') != 1) || (ini_get('safe_mode') == 1) || !function_exists('dl')) {
                 return false;
             }
             if (OS_WINDOWS) {

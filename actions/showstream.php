@@ -378,8 +378,13 @@ class ShowstreamAction extends ProfileAction
             $this->showEmptyListMessage();
         }
 
+        $args = array('nickname' => $this->user->nickname);
+        if (!empty($this->tag))
+        {
+            $args['tag'] = $this->tag;
+        }
         $this->pagination($this->page>1, $cnt>NOTICES_PER_PAGE, $this->page,
-                          'showstream', array('nickname' => $this->user->nickname));
+                          'showstream', $args);
     }
 
     function showAnonymousMessage()

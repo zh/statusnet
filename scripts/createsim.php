@@ -101,7 +101,7 @@ function newSub($i)
 
     $to = User::staticGet('nickname', $tunic);
 
-    if (empty($from)) {
+    if (empty($to)) {
         throw new Exception("Can't find user '$tunic'.");
     }
 

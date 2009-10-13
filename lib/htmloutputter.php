@@ -109,11 +109,13 @@ class HTMLOutputter extends XMLOutputter
         header('Content-Type: '.$type);
 
         $this->extraHeaders();
-        if( ! substr($type,0,strlen('text/html'))=='text/html' ){
-            // Browsers don't like it when <?xml it output for non-xhtml documents
+        if (preg_match("/.*\/.*xml/", $type)) {
+            // Required for XML documents
             $this->xw->startDocument('1.0', 'UTF-8');
         }
-        $this->xw->writeDTD('html');
+        $this->xw->writeDTD('html',
+                            '-//W3C//DTD XHTML 1.0 Strict//EN',
+                            'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
 
         $language = $this->getLanguage();
 
@@ -425,16 +427,12 @@ class HTMLOutputter extends XMLOutputter
     function autofocus($id)
     {
         $this->elementStart('script', array('type' => 'text/javascript'));
-        $this->raw('
-        <!--
-        $(document).ready(function() {
-            var el = $("#' . $id . '");
-            if (el.length) {
-                el.focus();
-            }
-        });
-        -->
-        ');
+        $this->raw('/*<![CDATA[*/'.
+                   ' $(document).ready(function() {'.
+                   ' var el = $("#' . $id . '");'.
+                   ' if (el.length) { el.focus(); }'.
+                   ' });'.
+                   ' /*]]>*/');
         $this->elementEnd('script');
     }
 }

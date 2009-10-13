@@ -32,15 +32,45 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/deleteaction.php';
-
-class DeletenoticeAction extends DeleteAction
+class DeletenoticeAction extends Action
 {
-    var $error = null;
+    var $error        = null;
+    var $user         = null;
+    var $notice       = null;
+    var $profile      = null;
+    var $user_profile = null;
+
+    function prepare($args)
+    {
+        parent::prepare($args);
+
+        $this->user   = common_current_user();
+        $notice_id    = $this->trimmed('notice');
+        $this->notice = Notice::staticGet($notice_id);
+
+        if (!$this->notice) {
+            common_user_error(_('No such notice.'));
+            exit;
+        }
+
+        $this->profile      = $this->notice->getProfile();
+        $this->user_profile = $this->user->getProfile();
+
+        return true;
+    }
 
     function handle($args)
     {
         parent::handle($args);
+
+        if (!common_logged_in()) {
+            common_user_error(_('Not logged in.'));
+            exit;
+        } else if ($this->notice->profile_id != $this->user_profile->id &&
+                   !$this->user->hasRight(Right::deleteOthersNotice)) {
+            common_user_error(_('Can\'t delete this notice.'));
+            exit;
+        }
         // XXX: Ajax!
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {

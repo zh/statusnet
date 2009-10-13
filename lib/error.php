@@ -44,9 +44,10 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  */
 class ErrorAction extends Action
 {
+    static $status = array();
+
     var $code    = null;
     var $message = null;
-    var $status  = null;
     var $default = null;
 
     function __construct($message, $code, $output='php://output', $indent=true)
@@ -88,9 +89,10 @@ class ErrorAction extends Action
      *
      * @return page title
      */
+
     function title()
     {
-        return $this->message;
+        return self::$status[$this->code];
     }
 
     function isReadOnly($args)

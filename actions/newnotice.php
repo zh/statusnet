@@ -255,13 +255,6 @@ class NewnoticeAction extends Action
         $notice = Notice::saveNew($user->id, $content_shortened, 'web', 1,
                                   ($replyto == 'false') ? null : $replyto);
 
-        if (is_string($notice)) {
-            if (isset($filename)) {
-                $this->deleteFile($filename);
-            }
-            $this->clientError($notice);
-        }
-
         if (isset($mimetype)) {
             $this->attachFile($notice, $fileRecord);
         }
@@ -433,13 +426,14 @@ class NewnoticeAction extends Action
         $content = $this->trimmed('status_textarea');
         if (!$content) {
             $replyto = $this->trimmed('replyto');
+            $inreplyto = $this->trimmed('inreplyto');
             $profile = Profile::staticGet('nickname', $replyto);
             if ($profile) {
                 $content = '@' . $profile->nickname . ' ';
             }
         }
 
-        $notice_form = new NoticeForm($this, '', $content);
+        $notice_form = new NoticeForm($this, '', $content, null, $inreplyto);
         $notice_form->show();
     }
 

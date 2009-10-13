@@ -1,8 +1,8 @@
 // add a notice encoded as JSON into the current timeline
 //
+// TODO: i18n
 
 RealtimeUpdate = {
-
      _userid: 0,
      _replyurl: '',
      _favorurl: '',
@@ -10,27 +10,42 @@ RealtimeUpdate = {
 
      init: function(userid, replyurl, favorurl, deleteurl)
      {
-          RealtimeUpdate._userid = userid;
-          RealtimeUpdate._replyurl = replyurl;
-          RealtimeUpdate._favorurl = favorurl;
-          RealtimeUpdate._deleteurl = deleteurl;
+        RealtimeUpdate._userid = userid;
+        RealtimeUpdate._replyurl = replyurl;
+        RealtimeUpdate._favorurl = favorurl;
+        RealtimeUpdate._deleteurl = deleteurl;
+
+        $(window).blur(function() {
+          $('#notices_primary .notice').css({
+            'border-top-color':$('#notices_primary .notice:last').css('border-top-color'),
+            'border-top-style':'dotted'
+          });
+
+          $('#notices_primary .notice:first').css({
+            'border-top-color':'#AAAAAA',
+            'border-top-style':'solid'
+          });
+          
+          return false;
+        });
      },
 
      receive: function(data)
      {
-          id = data.id;
+          setTimeout(function() {
+              id = data.id;
 
-          // Don't add it if it already exists
-
-          if ($("#notice-"+id).length > 0) {
-               return;
-          }
-
-          var noticeItem = RealtimeUpdate.makeNoticeItem(data);
-          $("#notices_primary .notices").prepend(noticeItem, true);
-          $("#notices_primary .notice:first").css({display:"none"});
-          $("#notices_primary .notice:first").fadeIn(1000);
-          NoticeReply();
+              // Don't add it if it already exists
+              if ($("#notice-"+id).length > 0) {
+                   return;
+              }
+    
+              var noticeItem = RealtimeUpdate.makeNoticeItem(data);
+              $("#notices_primary .notices").prepend(noticeItem);
+              $("#notices_primary .notice:first").css({display:"none"});
+              $("#notices_primary .notice:first").fadeIn(1000);
+              NoticeReply();
+          }, 500);
      },
 
      makeNoticeItem: function(data)
@@ -50,30 +65,19 @@ RealtimeUpdate = {
                "<p class=\"entry-content\">"+html+"</p>"+
                "</div>"+
                "<div class=\"entry-content\">"+
-               "<dl class=\"timestamp\">"+
-               "<dt>Published</dt>"+
-               "<dd>"+
-               "<a rel=\"bookmark\" href=\""+data['url']+"\" >"+
+               "<a class=\"timestamp\" rel=\"bookmark\" href=\""+data['url']+"\" >"+
                "<abbr class=\"published\" title=\""+data['created_at']+"\">a few seconds ago</abbr>"+
                "</a> "+
-               "</dd>"+
-               "</dl>"+
-               "<dl class=\"device\">"+
-               "<dt>From</dt> "+
-               "<dd>"+source+"</dd>"+ // may have a link, I think
-               "</dl>";
-
+               "<span class=\"source\">"+
+               "from "+
+                "<span class=\"device\">"+source+"</span>"+ // may have a link
+               "</span>";
           if (data['in_reply_to_status_id']) {
-               ni = ni+" <dl class=\"response\">"+
-                    "<dt>To</dt>"+
-                    "<dd>"+
-                    "<a href=\""+data['in_reply_to_status_url']+"\" rel=\"in-reply-to\">in reply to</a>"+
-                    "</dd>"+
-                    "</dl>";
+               ni = ni+" <a class=\"response\" href=\""+data['in_reply_to_status_url']+"\">in context</a>";
           }
 
           ni = ni+"</div>"+
-               "<div class=\"notice-options\">";
+            "<div class=\"notice-options\">";
 
           if (RealtimeUpdate._userid != 0) {
                var input = $("form#form_notice fieldset input#token");
@@ -95,12 +99,12 @@ RealtimeUpdate = {
           var ff;
 
           ff = "<form id=\"favor-"+id+"\" class=\"form_favor\" method=\"post\" action=\""+RealtimeUpdate._favorurl+"\">"+
-               "<fieldset>"+
-               "<legend>Favor this notice</legend>"+ // XXX: i18n
+                "<fieldset>"+
+               "<legend>Favor this notice</legend>"+
                "<input name=\"token-"+id+"\" type=\"hidden\" id=\"token-"+id+"\" value=\""+session_key+"\"/>"+
                "<input name=\"notice\" type=\"hidden\" id=\"notice-n"+id+"\" value=\""+id+"\"/>"+
                "<input type=\"submit\" id=\"favor-submit-"+id+"\" name=\"favor-submit-"+id+"\" class=\"submit\" value=\"Favor\" title=\"Favor this notice\"/>"+
-               "</fieldset>"+
+                "</fieldset>"+
                "</form>";
           return ff;
      },
@@ -108,28 +112,71 @@ RealtimeUpdate = {
      makeReplyLink: function(id, nickname)
      {
           var rl;
-          rl = "<dl class=\"notice_reply\">"+
-               "<dt>Reply to this notice</dt>"+
-               "<dd>"+
-               "<a href=\""+RealtimeUpdate._replyurl+"?replyto="+nickname+"\" title=\"Reply to this notice\">Reply <span class=\"notice_id\">"+id+"</span>"+
-               "</a>"+
-               "</dd>"+
-               "</dl>";
+          rl = "<a class=\"notice_reply\" href=\""+RealtimeUpdate._replyurl+"?replyto="+nickname+"\" title=\"Reply to this notice\">Reply <span class=\"notice_id\">"+id+"</span></a>";
           return rl;
-     },
+        },
 
      makeDeleteLink: function(id)
      {
           var dl, delurl;
           delurl = RealtimeUpdate._deleteurl.replace("0000000000", id);
 
-          dl = "<dl class=\"notice_delete\">"+
-               "<dt>Delete this notice</dt>"+
-               "<dd>"+
-               "<a href=\""+delurl+"\" title=\"Delete this notice\">Delete</a>"+
-               "</dd>"+
-               "</dl>";
+          dl = "<a class=\"notice_delete\" href=\""+delurl+"\" title=\"Delete this notice\">Delete</a>";
 
           return dl;
      },
+
+     addPopup: function(url, timeline, iconurl)
+     {
+         $('#notices_primary').css({'position':'relative'});
+         $('#notices_primary').prepend('<button id="realtime_timeline" title="Pop up in a window">Pop up</button>');
+
+         $('#realtime_timeline').css({
+             'margin':'0 0 11px 0',
+             'background':'transparent url('+ iconurl + ') no-repeat 0% 30%',
+             'padding':'0 0 0 20px',
+             'display':'block',
+             'position':'absolute',
+             'top':'-20px',
+             'right':'0',
+             'border':'none',
+             'cursor':'pointer',
+             'color':$("a").css("color"),
+             'font-weight':'bold',
+             'font-size':'1em'
+         });
+
+         $('#realtime_timeline').click(function() {
+             window.open(url,
+                         timeline,
+                         'toolbar=no,resizable=yes,scrollbars=yes,status=yes');
+
+             return false;
+         });
+     },
+
+     initPopupWindow: function()
+     {
+         window.resizeTo(500, 550);
+         $('address').hide();
+         $('#content').css({'width':'93.5%'});
+
+         $('#form_notice').css({
+            'margin':'18px 0 18px 1.795%',
+            'width':'93%',
+            'max-width':'451px'
+         });
+
+         $('#form_notice label[for=notice_data-text], h1').css({'display': 'none'});
+
+         $('.notices li:first-child').css({'border-top-color':'transparent'});
+
+         $('#form_notice label[for="notice_data-attach"], #form_notice #notice_data-attach').css({'top':'0'});
+
+         $('#form_notice #notice_data-attach').css({
+            'left':'auto',
+            'right':'0'
+         });
+     }
 }
+

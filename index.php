@@ -18,18 +18,19 @@
  *
  * @category StatusNet
  * @package  StatusNet
+ * @author   Brenda Wallace <shiny@cpan.org>
+ * @author   Christopher Vollick <psycotica0@gmail.com>
+ * @author   CiaranG <ciaran@ciarang.com>
+ * @author   Craig Andrews <candrews@integralblue.com>
+ * @author   Evan Prodromou <evan@controlezvous.ca>
+ * @author   Gina Haeussge <osd@foosel.net>
+ * @author   Jeffery To <jeffery.to@gmail.com>
+ * @author   Mike Cochrane <mikec@mikenz.geek.nz>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @author   Sarven Capadisli <csarven@controlyourself.ca>
+ * @author   Tom Adams <tom@holizz.com>
+ * 
  * @license  GNU Affero General Public License http://www.gnu.org/licenses/
- * @author Brenda Wallace <shiny@cpan.org>
- * @author Christopher Vollick <psycotica0@gmail.com>
- * @author CiaranG <ciaran@ciarang.com>
- * @author Craig Andrews <candrews@integralblue.com>
- * @author Evan Prodromou <evan@status.net>
- * @author Gina Haeussge <osd@foosel.net>
- * @author Jeffery To <jeffery.to@gmail.com>
- * @author Mike Cochrane <mikec@mikenz.geek.nz>
- * @author Robin Millette <millette@controlyourself.ca>
- * @author Sarven Capadisli <csarven@status.net>
- * @author Tom Adams <tom@holizz.com>
  */
 
 define('INSTALLDIR', dirname(__FILE__));
@@ -48,12 +49,23 @@ function getPath($req)
     ) {
         return $req['p'];
     } else if (array_key_exists('PATH_INFO', $_SERVER)) {
-        return $_SERVER['PATH_INFO'];
+        $path = $_SERVER['PATH_INFO'];
+        $script = $_SERVER['SCRIPT_NAME'];
+        if (substr($path, 0, mb_strlen($script)) == $script) {
+            return substr($path, mb_strlen($script));
+        } else {
+            return $path;
+        }
     } else {
         return null;
     }
 }
 
+/**
+ * logs and then displays error messages
+ *
+ * @return void
+ */
 function handleError($error)
 {
     if ($error->getCode() == DB_DATAOBJECT_ERROR_NODATA) {

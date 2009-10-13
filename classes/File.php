@@ -94,7 +94,13 @@ class File extends Memcached_DataObject
             $file_redir = File_redirection::staticGet('url', $given_url);
             if (empty($file_redir)) {
                 $redir_data = File_redirection::where($given_url);
-                $redir_url = $redir_data['url'];
+                if (is_array($redir_data)) {
+                    $redir_url = $redir_data['url'];
+                } elseif (is_string($redir_data)) {
+                    $redir_url = $redir_data;
+                } else {
+                    throw new ServerException("Can't process url '$given_url'");
+                }
                 // TODO: max field length
                 if ($redir_url === $given_url || strlen($redir_url) > 255) {
                     $x = File::saveNew($redir_data, $given_url);

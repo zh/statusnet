@@ -92,14 +92,14 @@
     
         if (props.isDuringAjax || props.isInvalidPage || props.isDone) return; 
     
-    		if ( !isNearBottom(opts,props) ) return; 
+    		if ( opts.infiniteScroll && !isNearBottom(opts,props) ) return; 
     		  
     		// we dont want to fire the ajax multiple times
     		props.isDuringAjax = true; 
     		
     		// show the loading message and hide the previous/next links
     		props.loadingMsg.appendTo( opts.contentSelector ).show();
-    		$( opts.navSelector ).hide(); 
+    		if(opts.infiniteScroll) $( opts.navSelector ).hide(); 
     		
     		// increment the URL bit. e.g. /page/3/
     		props.currPage++;
@@ -205,10 +205,19 @@
       } 
     });
     
-    // bind scroll handler to element (if its a local scroll) or window  
-    $(opts.localMode ? this : window)
-      .bind('scroll.infscr', function(){ infscrSetup(path,opts,props,callback); } )
-      .trigger('scroll.infscr'); // trigger the event, in case it's a short page
+    if(opts.infiniteScroll){
+      // bind scroll handler to element (if its a local scroll) or window  
+      $(opts.localMode ? this : window)
+        .bind('scroll.infscr', function(){ infscrSetup(path,opts,props,callback); } )
+        .trigger('scroll.infscr'); // trigger the event, in case it's a short page
+    }else{
+      $(opts.nextSelector).click(
+        function(){
+          infscrSetup(path,opts,props,callback);
+          return false;
+        }
+      );
+    }
     
     
     return this;
@@ -222,6 +231,7 @@
   $.infinitescroll = {     
         defaults      : {
                           debug           : false,
+                          infiniteScroll  : true,
                           preload         : false,
                           nextSelector    : "div.navigation a:first",
                           loadingImg      : "http://www.infinite-scroll.com/loading.gif",

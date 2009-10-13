@@ -1,3 +1,4 @@
+
 <?php
 /**
  * StatusNet - the distributed open-source microblogging tool
@@ -31,6 +32,8 @@
  * @author   Sarven Capadisli <csarven@status.net>
  * @author   Tom Adams <tom@holizz.com>
  * @license  GNU Affero General Public License http://www.gnu.org/licenses/
+ * @version  0.9.x
+ * @link     http://status.net
  */
 
 define('INSTALLDIR', dirname(__FILE__));
@@ -242,7 +245,7 @@ function main()
  */
 function haveExternalLibrary($external_library)
 {
-    if (isset($external_library['include']) && ! @include_once $external_library['include'] ) {
+    if (isset($external_library['include']) && !haveIncludeFile($external_library['include'])) {
         return false;
     }
     if (isset($external_library['check_function']) && ! function_exists($external_library['check_function'])) {
@@ -252,6 +255,15 @@ function haveExternalLibrary($external_library)
         return false;
     }
     return true;
+}
+
+// Attempt to include a PHP file and report if it worked, while
+// suppressing the annoying warning messages on failure.
+function haveIncludeFile($filename) {
+    $old = error_reporting(error_reporting() & ~E_WARNING);
+    $ok = include_once($filename);
+    error_reporting($old);
+    return $ok;
 }
 
 /**
@@ -326,12 +338,19 @@ function checkPrereqs()
  */
 function checkExtension($name)
 {
-    if (!extension_loaded($name)) {
-        if (!@dl($name.'.so')) {
-            return false;
+    if (extension_loaded($name)) {
+        return true;
+    } elseif (function_exists('dl') && ini_get('enable_dl') && !ini_get('safe_mode')) {
+        // dl will throw a fatal error if it's disabled or we're in safe mode.
+        // More fun, it may not even exist under some SAPIs in 5.3.0 or later...
+        $soname = $name . '.' . PHP_SHLIB_SUFFIX;
+        if (PHP_SHLIB_SUFFIX == 'dll') {
+            $soname = "php_" . $soname;
         }
+        return @dl($soname);
+    } else {
+        return false;
     }
-    return true;
 }
 
 /**
@@ -388,7 +407,7 @@ E_O_T;
 E_O_T;
     foreach ($present_libraries as $library) {
         echo '<li>';
-        if ($library['url']) {
+        if (isset($library['url'])) {
             echo '<a href=">'.$library['url'].'">'.htmlentities($library['name']).'</a>';
         } else {
             echo htmlentities($library['name']);
@@ -476,12 +495,7 @@ E_O_T;
 
 function updateStatus($status, $error=false)
 {
-    echo '<li';
-
-    if ($error) {
-	echo ' class="error"';
-    }
-    echo ">$status</li>";
+    echo '<li' . ($error ? ' class="error"': '' ) . ">$status</li>";
 }
 
 function handlePost()
