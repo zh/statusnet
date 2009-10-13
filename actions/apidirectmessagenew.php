@@ -157,7 +157,7 @@ class ApiDirectMessageNewAction extends ApiAuthAction
             // Note: sending msgs to yourself is allowed by Twitter
 
             $errmsg = 'Don\'t send a message to yourself; ' .
-                   'just say it to yourself quietly instead.'
+                   'just say it to yourself quietly instead.';
 
             $this->clientError(_($errmsg), 403, $this->format);
             return;
