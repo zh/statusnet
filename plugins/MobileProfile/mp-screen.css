@@ -145,19 +145,13 @@ margin-right:0;
 margin-left:0;
 clear:both;
 float:none;
-width:auto;
+width:100%;
 max-width:9999px;
 }
 
 .entity_profile {
 margin-bottom:7px;
 min-height:0;
-}
-
-.entity_actions li {
-float:left;
-margin-right:1.5%;
-margin-bottom:0;
 }
 
 .entity_profile .entity_fn, 
@@ -168,22 +162,36 @@ margin-bottom:0;
 .entity_profile .entity_tags, 
 .entity_profile .entity_aliases {
 line-height:1.4;
-}
-.form_user_block input.submit, 
-.form_user_unblock input.submit, 
-.form_group_block input.submit, 
-.form_group_unblock input.submit, 
-.entity_send-a-message a, 
-.entity_edit a, 
-.form_user_nudge input.submit, 
-.entity_nudge p, 
-.form_make_admin input.submit {
-
+margin-left:0;
 }
 
 .entity_profile .entity_depiction {
-margin-bottom:2%;
+margin-bottom:1%;
+margin-right:7px;
 }
+
+.entity_actions {
+margin-bottom:1%;
+float:left;
+width:100%;
+}
+
+.entity_actions li {
+float:left;
+margin-right:1.5%;
+margin-bottom:0;
+height:29px;
+width:40%;
+}
+
+.user_in .entity_actions .entity_subscribe {
+margin-bottom:47px;
+width:auto;
+height:auto;
+margin-right:5%;
+}
+
+
 
 #footer {
 width:96%;
