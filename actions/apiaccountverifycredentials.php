@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * List of replies
+ * Test if supplied user credentials are valid.
  *
  * PHP version 5
  *
@@ -19,54 +19,45 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  Search
+ * @category  API
  * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    Robin Millette <robin@millette.info>
  * @author    Zach Copley <zach@status.net>
- * @copyright 2008-2009 StatusNet, Inc.
+ * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) {
+if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/api.php';
+require_once INSTALLDIR . '/lib/apiauth.php';
 
 /**
- *  Returns the top ten queries that are currently trending
+ * Check a user's credentials. Returns an HTTP 200 OK response code and a
+ * representation of the requesting user if authentication was successful;
+ * returns a 401 status code and an error message if not.
  *
- * @category Search
+ * @category API
  * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Robin Millette <robin@millette.info>
  * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
- *
- * @see      ApiAction
  */
 
-class TwitapitrendsAction extends ApiAction
+class ApiAccountVerifyCredentialsAction extends ApiAuthAction
 {
 
-    var $callback;
-
     /**
-     * Initialization.
+     * Handle the request
      *
-     * @param array $args Web and URL arguments
+     * Check whether the credentials are valid and output the result
      *
-     * @return boolean false if user doesn't exist
-     */
-    function prepare($args)
-    {
-        parent::prepare($args);
-        return true;
-    }
-
-    /**
-     * Handle a request
-     *
-     * @param array $args Arguments from $_REQUEST
+     * @param array $args $_REQUEST data (unused)
      *
      * @return void
      */
@@ -74,17 +65,21 @@ class TwitapitrendsAction extends ApiAction
     function handle($args)
     {
         parent::handle($args);
-        $this->showTrends();
-    }
 
-    /**
-     * Output the trends
-     *
-     * @return void
-     */
-    function showTrends()
-    {
-        $this->serverError(_('API method under construction.'), $code = 501);
+        switch ($this->format) {
+        case 'xml':
+        case 'json':
+            $args['id'] = $this->auth_user->id;
+            $action_obj = new ApiUserShowAction();
+            if ($action_obj->prepare($args)) {
+                $action_obj->handle($args);
+            }
+            break;
+        default:
+            header('Content-Type: text/html; charset=utf-8');
+            print 'Authorized';
+        }
+
     }
 
 }

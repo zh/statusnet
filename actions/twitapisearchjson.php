@@ -31,7 +31,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/twitterapi.php';
+require_once INSTALLDIR.'/lib/api.php';
 require_once INSTALLDIR.'/lib/jsonsearchresultslist.php';
 
 /**
@@ -42,10 +42,10 @@ require_once INSTALLDIR.'/lib/jsonsearchresultslist.php';
  * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
- * @see      TwitterapiAction
+ * @see      ApiAction
  */
 
-class TwitapisearchjsonAction extends TwitterapiAction
+class TwitapisearchjsonAction extends ApiAction
 {
     var $query;
     var $lang;
@@ -134,9 +134,9 @@ class TwitapisearchjsonAction extends TwitterapiAction
 
         $results = new JSONSearchResultsList($notice, $q, $this->rpp, $this->page);
 
-        $this->init_document('json');
+        $this->initDocument('json');
         $results->show();
-        $this->end_document('json');
+        $this->endDocument('json');
     }
 
     /**
