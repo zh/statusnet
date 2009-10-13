@@ -227,11 +227,9 @@ class User extends Memcached_DataObject
             }
         }
 
-        $inboxes = common_config('inboxes', 'enabled');
+        // This flag is ignored but still set to 1
 
-        if ($inboxes === true || $inboxes == 'transitional') {
-            $user->inboxed = 1;
-        }
+        $user->inboxed = 1;
 
         $user->created = common_sql_now();
         $user->uri = common_user_uri($user);
@@ -433,55 +431,16 @@ class User extends Memcached_DataObject
 
     function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
     {
-        $enabled = common_config('inboxes', 'enabled');
+        $ids = Notice_inbox::stream($this->id, $offset, $limit, $since_id, $before_id, $since, false);
 
-        // Complicated code, depending on whether we support inboxes yet
-        // XXX: make this go away when inboxes become mandatory
-
-        if ($enabled === false ||
-            ($enabled == 'transitional' && $this->inboxed == 0)) {
-            $qry =
-              'SELECT notice.* ' .
-              'FROM notice JOIN subscription ON notice.profile_id = subscription.subscribed ' .
-              'WHERE subscription.subscriber = %d ' .
-              'AND notice.is_local != ' . Notice::GATEWAY;
-            return Notice::getStream(sprintf($qry, $this->id),
-                                     'user:notices_with_friends:' . $this->id,
-                                     $offset, $limit, $since_id, $before_id,
-                                     $order, $since);
-        } else if ($enabled === true ||
-                   ($enabled == 'transitional' && $this->inboxed == 1)) {
-
-            $ids = Notice_inbox::stream($this->id, $offset, $limit, $since_id, $before_id, $since, false);
-
-            return Notice::getStreamByIds($ids);
-        }
+        return Notice::getStreamByIds($ids);
     }
 
     function noticeInbox($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
     {
-        $enabled = common_config('inboxes', 'enabled');
+        $ids = Notice_inbox::stream($this->id, $offset, $limit, $since_id, $before_id, $since, true);
 
-        // Complicated code, depending on whether we support inboxes yet
-        // XXX: make this go away when inboxes become mandatory
-
-        if ($enabled === false ||
-            ($enabled == 'transitional' && $this->inboxed == 0)) {
-            $qry =
-              'SELECT notice.* ' .
-              'FROM notice JOIN subscription ON notice.profile_id = subscription.subscribed ' .
-              'WHERE subscription.subscriber = %d ';
-            return Notice::getStream(sprintf($qry, $this->id),
-                                     'user:notices_with_friends:' . $this->id,
-                                     $offset, $limit, $since_id, $before_id,
-                                     $order, $since);
-        } else if ($enabled === true ||
-                   ($enabled == 'transitional' && $this->inboxed == 1)) {
-
-            $ids = Notice_inbox::stream($this->id, $offset, $limit, $since_id, $before_id, $since, true);
-
-            return Notice::getStreamByIds($ids);
-        }
+        return Notice::getStreamByIds($ids);
     }
 
     function blowFavesCache()
@@ -752,11 +711,8 @@ class User extends Memcached_DataObject
                          'Remember_me',
                          'Foreign_link',
                          'Invitation',
+                         'Notice_inbox',
                          );
-
-        if (common_config('inboxes', 'enabled')) {
-            $related[] = 'Notice_inbox';
-        }
 
         foreach ($related as $cls) {
             $inst = new $cls();
