@@ -106,7 +106,7 @@ class GroupSearchResults extends GroupList
 
     function __construct($user_group, $terms, $action)
     {
-        parent::__construct($user_group, $terms, $action);
+        parent::__construct($user_group, null, $action);
         $this->terms = array_map('preg_quote',
                                  array_map('htmlspecialchars', $terms));
         $this->pattern = '/('.implode('|',$terms).')/i';

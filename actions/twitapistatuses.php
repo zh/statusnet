@@ -297,7 +297,7 @@ class TwitapistatusesAction extends TwitterapiAction
                     $source, 1, $reply_to);
 
             if (is_string($notice)) {
-                $this->serverError($notice);
+                $this->serverError($notice, 500, $apidata['content-type']);
                 return;
             }
 
@@ -454,7 +454,7 @@ class TwitapistatusesAction extends TwitterapiAction
     function friends($args, $apidata)
     {
         parent::handle($args);
-        $includeStatuses=! (boolean) $args['lite'];
+        $includeStatuses= !(array_key_exists('lite', $args) and $args['lite']);
         return $this->subscriptions($apidata, 'subscribed', 'subscriber', false, $includeStatuses);
     }
 
@@ -467,7 +467,7 @@ class TwitapistatusesAction extends TwitterapiAction
     function followers($args, $apidata)
     {
         parent::handle($args);
-        $includeStatuses=! (boolean) $args['lite'];
+        $includeStatuses= !(array_key_exists('lite', $args) and $args['lite']);
         return $this->subscriptions($apidata, 'subscriber', 'subscribed', false, $includeStatuses);
     }
 
