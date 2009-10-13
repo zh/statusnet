@@ -66,16 +66,22 @@ z-index:9;
 iPhone/iPod Touch, Android, Opera Mini Simulator
 */
 #form_notice #notice_text-count + label,
-#form_notice label[for="notice_data-attach"],
+#form_notice label[for="notice_data-attach"] {
+display:none;
+}
 #form_notice #notice_data-attach {
-top:0;
-/*right:28%; Looks good but no good in iDevice, Android*/
-right:40%;
+top:auto;
+bottom:0;
+left:0;
+right:auto;
+opacity:1;
+z-index:9;
+width:65%;
 }
 
 #form_notice #notice_action-submit {
 width:20%;
-right:4%;
+right:2%;
 text-align:center;
 }
 
@@ -123,6 +129,29 @@ width:75%;
 }
 .notice-options {
 width:70px;
+margin-right:2%;
+}
+
+
+
+.entity_profile {
+width:auto;
+}
+.entity_actions {
+margin-right:0;
+margin-left:0;
+clear:both;
+float:left;
+width:auto;
+max-width:9999px;
+}
+
+.entity_profile {
+margin-bottom:7px;
+}
+
+.entity_actions li {
+float:left;
 margin-right:2%;
 }
 
