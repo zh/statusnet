@@ -127,7 +127,7 @@ class ApiFavoriteCreateAction extends ApiAuthAction
 
         if (empty($fave)) {
             $this->clientError(
-                _('Could not create favorite.')
+                _('Could not create favorite.'),
                 403,
                 $this->format
             );

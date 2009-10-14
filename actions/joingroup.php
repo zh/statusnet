@@ -56,11 +56,6 @@ class JoingroupAction extends Action
     {
         parent::prepare($args);
 
-        if (!common_config('inboxes','enabled')) {
-            $this->serverError(_('Inboxes must be enabled for groups to work'));
-            return false;
-        }
-
         if (!common_logged_in()) {
             $this->clientError(_('You must be logged in to join a group.'));
             return false;

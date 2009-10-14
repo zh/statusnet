@@ -372,7 +372,7 @@ function showLibs()
     }
     echo<<<E_O_T
     <div class="instructions">
-        <p>Laconica comes bundled with a number of libraries required for the application to work. However, it is best that you use PEAR or you distribution to manage
+        <p>StatusNet comes bundled with a number of libraries required for the application to work. However, it is best that you use PEAR or you distribution to manage
         libraries instead, as they tend to provide security updates faster, and may offer improved performance.</p>
         <p>On Debian based distributions, such as Ubuntu, use a package manager (such as &quot;aptitude&quot;, &quot;apt-get&quot;, and &quot;synaptic&quot;) to install the package listed.</p>
         <p>On RPM based distributions, such as Red Hat, Fedora, CentOS, Scientific Linux, Yellow Dog Linux and Oracle Enterprise Linux, use a package manager (such as &quot;yum&quot;, &quot;apt-rpm&quot;, and &quot;up2date&quot;) to install the package listed.</p>
@@ -384,7 +384,7 @@ E_O_T;
     foreach ($absent_libraries as $library) {
         echo '<li>';
         if (isset($library['url'])) {
-            echo '<a href=">'.$library['url'].'">'.htmlentities($library['name']).'</a>';
+            echo '<a href="'.$library['url'].'">'.htmlentities($library['name']).'</a>';
         } else {
             echo htmlentities($library['name']);
         }
@@ -408,7 +408,7 @@ E_O_T;
     foreach ($present_libraries as $library) {
         echo '<li>';
         if (isset($library['url'])) {
-            echo '<a href=">'.$library['url'].'">'.htmlentities($library['name']).'</a>';
+            echo '<a href="'.$library['url'].'">'.htmlentities($library['name']).'</a>';
         } else {
             echo htmlentities($library['name']);
         }
@@ -439,7 +439,7 @@ function showForm()
     <dd>
         <div class="instructions">
             <p>Enter your database connection information below to initialize the database.</p>
-            <p>Laconica bundles a number of libraries for ease of installation. <a href="?checklibs=true">You can see what bundled libraries you are using, versus what libraries are installed on your server.</a>
+            <p>StatusNet bundles a number of libraries for ease of installation. <a href="?checklibs=true">You can see what bundled libraries you are using, versus what libraries are installed on your server.</a>
         </div>
     </dd>
 </dl>

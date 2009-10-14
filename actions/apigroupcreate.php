@@ -99,15 +99,6 @@ class ApiGroupCreateAction extends ApiAuthAction
     {
         parent::handle($args);
 
-        if (!common_config('inboxes', 'enabled')) {
-            $this->serverError(
-                _('Inboxes must be enabled for groups to work'),
-                400,
-                $this->format
-            );
-            return false;
-        }
-
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
              $this->clientError(
                  _('This method requires a POST.'),

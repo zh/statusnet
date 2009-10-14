@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-25 16:24+0000\n"
-"PO-Revision-Date: 2009-09-08 20:21+0000\n"
-"Last-Translator: Giannis Pappas <papasj@mailinator.com>\n"
+"PO-Revision-Date: 2009-04-24 13:32+0000\n"
+"Last-Translator: Tryggvi Björgvinsson <tryggvib@hi.is>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +20,7 @@ msgstr ""
 #: actions/noticesearchrss.php:88
 #, php-format
 msgid " Search Stream for \"%s\""
-msgstr "Αναζήτηση ροής για \"%s\""
+msgstr "Leita í bablveitu að \"%s\""
 
 #: ../actions/finishopenidlogin.php:82 ../actions/register.php:191
 #: actions/finishopenidlogin.php:88 actions/register.php:205
@@ -28,24 +28,24 @@ msgstr "Αναζήτηση ροής για \"%s\""
 msgid ""
 " except this private data: password, email address, IM address, phone number."
 msgstr ""
-"εκτός από τα εξής προσωπικά δεδομένα: κωδικός πρόσβασης, διεύθυνση email, "
-"διεύθυνση IM, τηλεφωνικό νούμερο."
+"nema þessi persónulegu gögn: lykilorð, tölvupóstfang, snarskilaboðafang (IM "
+"netfang), símanúmer."
 
 #: ../actions/showstream.php:400 ../lib/stream.php:109
 #: actions/showstream.php:418 lib/mailbox.php:164 lib/stream.php:76
 msgid " from "
-msgstr "από"
+msgstr "frá"
 
 #: ../actions/twitapistatuses.php:478 actions/twitapistatuses.php:412
 #: actions/twitapistatuses.php:347
 #, php-format
 msgid "%1$s / Updates replying to %2$s"
-msgstr ""
+msgstr "%1$s / Færslur sem svar til %2$s"
 
 #: ../actions/invite.php:168 actions/invite.php:176 actions/invite.php:211
 #, php-format
 msgid "%1$s has invited you to join them on %2$s"
-msgstr ""
+msgstr "%1$s hefur boðið þér að slást í hópinn með þeim á %2$s"
 
 #: ../actions/invite.php:170
 #, php-format
@@ -77,11 +77,37 @@ msgid ""
 "\n"
 "Sincerely, %2$s\n"
 msgstr ""
+"%1$s hefur boðið þér að slást í hópinn með þeim á %2$s (%3$s).\n"
+"\n"
+"%2$s er örbloggsþjónusta sem leyfir þér að fylgjast með með fólki sem þú "
+"þekkir eða öðru áhugaverðu fólki í rauntíma.\n"
+"\n"
+"Þú getur líka sent inn fréttir af þér og deilt hugleiðingum og netveru þinni "
+"með fólki sem þekkir til þín. Þetta er frábær leið til þess að kynnast "
+"fólki sem hefur sömu áhugamál og þú.\n"
+"\n"
+"%1$s sagði:\n"
+"\n"
+"%4$s\n"
+"\n"
+"Þú getur séð persónulega síðu %1$s á %2$s hér:\n"
+"\n"
+"%5$s\n"
+"\n"
+"Ef þig langar til að prófa þjónustuna, smelltu þá á hlekkinn hér fyrir neðan "
+"til að taka þessu boði.\n"
+"\n"
+"%6$s\n"
+"\n"
+"Ef ekki, þá getur þú hunsað þessi skilaboð. Takk fyrir tímann og "
+"þolinmæðina.\n"
+"\n"
+"Með bestu kveðju, %2$s\n"
 
 #: ../lib/mail.php:124 lib/mail.php:124 lib/mail.php:126 lib/mail.php:241
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
-msgstr ""
+msgstr "%1$s er að hlusta á bablið þitt á %2$s."
 
 #: ../lib/mail.php:126
 #, php-format
@@ -93,18 +119,24 @@ msgid ""
 "Faithfully yours,\n"
 "%4$s.\n"
 msgstr ""
+"%1$s er að hlusta á bablið þitt á %2$s.\n"
+"\n"
+"\t%3$s\n"
+"\n"
+"Með kveðju,\n"
+"%4$s.\n"
 
 #: ../actions/twitapistatuses.php:482 actions/twitapistatuses.php:415
 #: actions/twitapistatuses.php:350
 #, php-format
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
-msgstr ""
+msgstr "%1$s færslur sem svara færslum frá %2$s / %3$s."
 
 #: ../actions/shownotice.php:45 actions/shownotice.php:45
 #: actions/shownotice.php:161
 #, php-format
 msgid "%1$s's status on %2$s"
-msgstr ""
+msgstr "Staða %1$s á %2$s"
 
 #: ../actions/invite.php:84 ../actions/invite.php:92 actions/invite.php:91
 #: actions/invite.php:99 actions/invite.php:123 actions/invite.php:131
@@ -116,7 +148,7 @@ msgstr "%s (%s)"
 #: actions/publicrss.php:90
 #, php-format
 msgid "%s Public Stream"
-msgstr "Δημόσια ροή %s"
+msgstr "%s Opinber bablveita"
 
 #: ../actions/all.php:47 ../actions/allrss.php:60
 #: ../actions/twitapistatuses.php:238 ../lib/stream.php:51 actions/all.php:47
@@ -125,86 +157,82 @@ msgstr "Δημόσια ροή %s"
 #: actions/twitapistatuses.php:126 lib/personalgroupnav.php:99
 #, php-format
 msgid "%s and friends"
-msgstr "%s και οι φίλοι του/της"
+msgstr "%s og vinirnir"
 
 #: ../actions/twitapistatuses.php:49 actions/twitapistatuses.php:49
 #: actions/twitapistatuses.php:33
 #, php-format
 msgid "%s public timeline"
-msgstr ""
+msgstr "Almenningsrás %s"
 
 #: ../lib/mail.php:206 lib/mail.php:212 lib/mail.php:411
 #, php-format
 msgid "%s status"
-msgstr "Κατάσταση του/της %s"
+msgstr "Staða %s"
 
 #: ../actions/twitapistatuses.php:338 actions/twitapistatuses.php:265
 #: actions/twitapistatuses.php:199
 #, php-format
-#, fuzzy
 msgid "%s timeline"
-msgstr "Χρονοδιάγραμμα του χρήστη %s"
+msgstr "Rás %s"
 
 #: ../actions/twitapistatuses.php:52 actions/twitapistatuses.php:52
 #: actions/twitapistatuses.php:36
 #, php-format
 msgid "%s updates from everyone!"
-msgstr ""
+msgstr "%s færslur frá öllum!"
 
 #: ../actions/register.php:213
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
 msgstr ""
-"(Σύντομα θα λάβετε μέσω ηλεκτρονικού ταχυδρομείου ένα μήνυμα με οδηγίες για "
-"την επιβεβαίωση της ηλεκτρονικής σας διεύθυνσης.)"
+"(Þú ættir að fá tölvupóst eftir smá stund. Í tölvupóstinum eru leiðbeiningar "
+"um það hvernig þú staðfestir tölvupóstfangið þitt.)"
 
 #: ../lib/util.php:257 lib/util.php:273 lib/action.php:605
 #, php-format
-#, fuzzy
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
 "broughtby%%](%%site.broughtbyurl%%). "
 msgstr ""
-"To **%%site.name%%** είναι μία υπηρεσία microblogging (μικρο-ιστολογίου) που "
-"έφερε κοντά σας το  [%%site.broughtby%%](%%site.broughtbyurl%%). "
+"**%%site.name%%** er örbloggsþjónusta í boði "
+"[%%site.broughtby%%](%%site.broughtbyurl%%). "
 
 #: ../lib/util.php:259 lib/util.php:275 lib/action.php:607
 #, php-format
-#, fuzzy
 msgid "**%%site.name%%** is a microblogging service. "
-msgstr ""
-"Το **%%site.name%%** είναι μία υπηρεσία microblogging (μικρο-ιστολογίου). "
+msgstr "**%%site.name%%** er örbloggsþjónusta."
 
 #: ../lib/util.php:274 lib/util.php:290
 msgid ". Contributors should be attributed by full name or nickname."
-msgstr ""
+msgstr "Fulls nafns eða stuttnefnis efnishöfunda skal vera getið."
 
 #: ../actions/finishopenidlogin.php:73 ../actions/profilesettings.php:43
 #: actions/finishopenidlogin.php:79 actions/profilesettings.php:76
 #: actions/finishopenidlogin.php:101 actions/profilesettings.php:100
 #: lib/groupeditform.php:139
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
-msgstr "1-64 μικρά γράμματα ή αριθμοί, χωρίς σημεία στίξης ή κενά"
+msgstr "1-64 lágstafir eða tölustafir, engin greinarmerki eða bil"
 
 #: ../actions/register.php:152 actions/register.php:166
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
-msgstr "1-64 μικρά γράμματα ή αριθμοί, χωρίς σημεία στίξης ή κενά. Απαραίτητο."
+msgstr "1-64 lágstafir eða tölustafir, engin greinarmerki eða bil. Nauðsynlegt."
 
 #: ../actions/password.php:42 actions/profilesettings.php:181
 #: actions/passwordsettings.php:102
 msgid "6 or more characters"
-msgstr "6 ή περισσότεροι χαρακτήρες"
+msgstr "6 eða fleiri tákn"
 
 #: ../actions/recoverpassword.php:180 actions/recoverpassword.php:186
 #: actions/recoverpassword.php:220
 msgid "6 or more characters, and don't forget it!"
-msgstr "6 ή περισσότεροι χαρακτήρες και μην το ξεχάσετε!"
+msgstr "6 eða fleiri tákn og ekki gleyma því!"
 
 #: ../actions/register.php:154 actions/register.php:168
 #: actions/register.php:373
 msgid "6 or more characters. Required."
-msgstr "6 ή περισσότεροι χαρακτήρες. Απαραίτητο."
+msgstr "6 eða fleiri tákn. Nauðsynlegt"
 
 #: ../actions/imsettings.php:197 actions/imsettings.php:205
 #, php-format
@@ -212,26 +240,26 @@ msgid ""
 "A confirmation code was sent to the IM address you added. You must approve %"
 "s for sending messages to you."
 msgstr ""
-"Έχει αποσταλεί ένας κωδικός επιβεβαίωσης στην διεύθυνση IM που προσθέσατε. "
-"Πρέπει να αποδεχτείτε τον/την %s για αποστολή μηνυμάτων προς εσας. "
+"Staðfestingarlykill var sendur á snarskilaboðafangið sem þú varst að bæta "
+"við. Þú verður að leyfa %s að senda snarskilaboð til þín."
 
 #: ../actions/emailsettings.php:213 actions/emailsettings.php:231
 msgid ""
 "A confirmation code was sent to the email address you added. Check your "
 "inbox (and spam box!) for the code and instructions on how to use it."
 msgstr ""
-"Έχει αποσταλεί ένας κωδικός επιβεβαίωσης στην διεύθυνση email που "
-"προσθέσατε. Ελέγξτε τα εισερχόμενα (και τον φάκελο ανεπιθύμητης "
-"αλληλογραφίας) για τον κωδικό και για το πως να τον χρησιμοποιήσετε."
+"Staðfestingarlykill var sendur á tölvupóstfangið sem þú varst að bæta við. "
+"Athugaðu innhólfið þitt (og ruslpóstinn þinn!). Þar ætti "
+"staðfestingarlykillinn að vera og leiðbeingar um hvernig eigi að nota hann. "
 
 #: ../actions/smssettings.php:216 actions/smssettings.php:224
 msgid ""
 "A confirmation code was sent to the phone number you added. Check your inbox "
 "(and spam box!) for the code and instructions on how to use it."
 msgstr ""
-"Έχει αποσταλεί ένας κωδικός επιβεβαίωσης στο τηλεφωνικό νούμερο που "
-"προσθέσατε. Ελέγξτε τα εισερχόμενα (και τον φάκελο ανεπιθύμητης "
-"αλληλογραφίας) για τον κωδικό και για το πως να τον χρησιμοποιήσετε."
+"Staðfestingarlykill var sendur á símanúmerið sem þú varst að bæta við. "
+"Athugaðu innhólfið þitt (og ruslpóstinn þinn!). Þar ætti "
+"staðfestingarlykillinn að vera og leiðbeingar um hvernig eigi að nota hann."
 
 #: ../actions/twitapiaccount.php:49 ../actions/twitapihelp.php:45
 #: ../actions/twitapistatuses.php:88 ../actions/twitapistatuses.php:259
@@ -246,14 +274,14 @@ msgstr ""
 #: actions/twitapiusers.php:55 actions/twitapiaccount.php:37
 #: actions/twitapidirect_messages.php:111 actions/twitapifavorites.php:85
 #: actions/twitapifavorites.php:102 actions/twitapifriendships.php:121
-#: actions/twitapihelp.php:44 actions/twitapistatusnet.php:82
-#: actions/twitapistatusnet.php:151 actions/twitapistatuses.php:79
+#: actions/twitapihelp.php:44 actions/twitapilaconica.php:82
+#: actions/twitapilaconica.php:151 actions/twitapistatuses.php:79
 #: actions/twitapistatuses.php:147 actions/twitapistatuses.php:228
 #: actions/twitapistatuses.php:239 actions/twitapistatuses.php:392
 #: actions/twitapistatuses.php:402 actions/twitapistatuses.php:429
 #: actions/twitapiusers.php:32
 msgid "API method not found!"
-msgstr "Η μέθοδος του ΑΡΙ δε βρέθηκε!"
+msgstr "Aðferð í forritsskilum fannst ekki!"
 
 #: ../actions/twitapiaccount.php:57 ../actions/twitapiaccount.php:113
 #: ../actions/twitapiaccount.php:119 ../actions/twitapiblocks.php:28
@@ -272,20 +300,20 @@ msgstr "Η μέθοδος του ΑΡΙ δε βρέθηκε!"
 #: actions/twitapistatuses.php:690 actions/twitapiaccount.php:45
 #: actions/twitapiaccount.php:97 actions/twitapiaccount.php:103
 #: actions/twitapidirect_messages.php:184 actions/twitapifavorites.php:143
-#: actions/twitapihelp.php:52 actions/twitapistatusnet.php:172
+#: actions/twitapihelp.php:52 actions/twitapilaconica.php:172
 #: actions/twitapinotifications.php:31 actions/twitapinotifications.php:37
 #: actions/twitapistatuses.php:562
 msgid "API method under construction."
-msgstr "Η μέθοδος του ΑΡΙ είναι υπό κατασκευή."
+msgstr "Aðferð í forritsskilum er í þróun."
 
 #: ../lib/util.php:324 lib/util.php:340 lib/action.php:568
 msgid "About"
-msgstr "Περί"
+msgstr "Um"
 
 #: ../actions/userauthorization.php:119 actions/userauthorization.php:126
 #: actions/userauthorization.php:143
 msgid "Accept"
-msgstr "Αποδοχή"
+msgstr "Samþykkja"
 
 #: ../actions/emailsettings.php:62 ../actions/imsettings.php:63
 #: ../actions/openidsettings.php:57 ../actions/smssettings.php:71
@@ -295,17 +323,17 @@ msgstr "Αποδοχή"
 #: actions/imsettings.php:127 actions/openidsettings.php:111
 #: actions/smssettings.php:133 actions/twittersettings.php:163
 msgid "Add"
-msgstr "Προσθήκη"
+msgstr "Bæta við"
 
 #: ../actions/openidsettings.php:43 actions/openidsettings.php:44
 #: actions/openidsettings.php:93
 msgid "Add OpenID"
-msgstr "Προσθήκη OpenID"
+msgstr "Bæta við OpenID"
 
 #: ../lib/settingsaction.php:97 lib/settingsaction.php:91
 #: lib/accountsettingsaction.php:117
 msgid "Add or remove OpenIDs"
-msgstr "Προσθήκη ή διαγραφή OpenIDs"
+msgstr "Bæta við eða fjarlægja OpenID"
 
 #: ../actions/emailsettings.php:38 ../actions/imsettings.php:39
 #: ../actions/smssettings.php:39 actions/emailsettings.php:39
@@ -313,28 +341,28 @@ msgstr "Προσθήκη ή διαγραφή OpenIDs"
 #: actions/emailsettings.php:94 actions/imsettings.php:94
 #: actions/smssettings.php:92
 msgid "Address"
-msgstr "Διεύθυνση"
+msgstr "Tölvupóstfang"
 
 #: ../actions/invite.php:131 actions/invite.php:139 actions/invite.php:176
 msgid "Addresses of friends to invite (one per line)"
-msgstr "Διευθύνσεις φίλων σου που θες να προσκαλέσεις (μία ανά γραμμή)"
+msgstr "Tölvupóstfang vina sem þú vilt bjóða (eitt póstfang í hverja línu)"
 
 #: ../actions/showstream.php:273 actions/showstream.php:288
 #: actions/showstream.php:422
 msgid "All subscriptions"
-msgstr "Όλες οι συνδρομές"
+msgstr "Allar áskriftir"
 
 #: ../actions/publicrss.php:64 actions/publicrss.php:50
 #: actions/publicrss.php:92
 #, php-format
 msgid "All updates for %s"
-msgstr "Όλες οι ενημερώσεις για %s"
+msgstr "Allar færslur %s"
 
 #: ../actions/noticesearchrss.php:66 actions/noticesearchrss.php:70
 #: actions/noticesearchrss.php:90
 #, php-format
 msgid "All updates matching search term \"%s\""
-msgstr "Όλες οι ενημερώσεις που ταιριάζουν με τον όρο αναζήτησης \"%s\""
+msgstr "Allar færslur sem passa við \"%s\""
 
 #: ../actions/finishopenidlogin.php:29 ../actions/login.php:31
 #: ../actions/openidlogin.php:29 ../actions/register.php:30
@@ -343,81 +371,79 @@ msgstr "Όλες οι ενημερώσεις που ταιριάζουν με τ
 #: actions/finishopenidlogin.php:34 actions/login.php:77
 #: actions/openidlogin.php:30 actions/register.php:92
 msgid "Already logged in."
-msgstr "Ήδη συνδεδεμένος."
+msgstr "Þú hefur nú þegar skráð þig inn."
 
 #: ../lib/subs.php:42 lib/subs.php:42 lib/subs.php:49
 msgid "Already subscribed!."
-msgstr "Είσαι ήδη συνδρομητής!."
+msgstr "Þú ert nú þegar áskrifandi!"
 
 #: ../actions/deletenotice.php:54 actions/deletenotice.php:55
 #: actions/deletenotice.php:113
 msgid "Are you sure you want to delete this notice?"
-msgstr "Είσαι σίγουρος ότι θες να διαγράψεις αυτό το μήνυμα;"
+msgstr "Ertu viss um að þú viljir eyða þessu babli?"
 
 #: ../actions/userauthorization.php:77 actions/userauthorization.php:83
 #: actions/userauthorization.php:81
 msgid "Authorize subscription"
-msgstr "Εξουσιοδοτημένη συνδρομή"
+msgstr "Heimila áskriftir"
 
 #: ../actions/login.php:104 ../actions/register.php:178
 #: actions/register.php:192
 msgid "Automatically login in the future; not for shared computers!"
-msgstr "Αυτόματη σύνδεση στο μέλλον. ΟΧΙ για κοινόχρηστους υπολογιστές!"
+msgstr ""
+"Sjálfvirk innskráning í framtíðinni. Ekki nota þetta á tölvu sem aðrir deila "
+"með þér!"
 
 #: ../actions/profilesettings.php:65 actions/profilesettings.php:98
-#, fuzzy
 msgid ""
 "Automatically subscribe to whoever subscribes to me (best for non-humans)"
 msgstr ""
-"Αυτόματα γίνε συνδρομητής σε όσους γίνονται συνδρομητές σε μένα  (χρήση "
-"κυρίως από λογισμικό και όχι ανθρώπους)"
+"Gerast sjálfkrafa áskrifandi að hverjum þeim sem gerist áskrifandi að þér "
+"(best fyrir ómannlega notendur)"
 
 #: ../actions/avatar.php:32 ../lib/settingsaction.php:90
 #: actions/profilesettings.php:34 actions/avatarsettings.php:65
 #: actions/showgroup.php:209 lib/accountsettingsaction.php:107
 msgid "Avatar"
-msgstr ""
+msgstr "Mynd"
 
 #: ../actions/avatar.php:113 actions/profilesettings.php:350
 #: actions/avatarsettings.php:395
 msgid "Avatar updated."
-msgstr ""
+msgstr "Mynd hefur verið uppfærð."
 
 #: ../actions/imsettings.php:55 actions/imsettings.php:56
 #, php-format
-#, fuzzy
 msgid ""
 "Awaiting confirmation on this address. Check your Jabber/GTalk account for a "
 "message with further instructions. (Did you add %s to your buddy list?)"
 msgstr ""
-"Αναμένωντας επιβεβαίωση σε αυτή τη διεύθυνση. Έλεγξε το Jabber/GTalk "
-"λογαριασμό σου για μήνυμα με περαιτέρω οδηγίες. (Πρόσθεσες το χρήστη %s στη "
-"λίστα φίλων?)"
+"Býð eftir staðfestingu frá þessu netfangi. Athugaðu Jabber/GTalk aðganginn "
+"þinn. Þar ættu að vera skilaboð með ítarlegri leiðbeiningum. (Hefurðu bætt "
+"%s við í vinalistann þinn?)"
 
 #: ../actions/emailsettings.php:54 actions/emailsettings.php:55
-#, fuzzy
 msgid ""
 "Awaiting confirmation on this address. Check your inbox (and spam box!) for "
 "a message with further instructions."
 msgstr ""
-"Αναμένωντας επιβεβαίωση σε αυτή τη διεύθυνση. Έλεγξε το mail σου (και το "
-"φάκελο spam!) για μήνυμα με περαιτέρω οδηγίες. "
+"Býð eftir staðfestingu frá þessu netfangi. Athugaðu innhólfið þitt (og "
+"ruslpóstinn þinn!). Þar ættu að vera skilaboð með ítarlegri leiðbeiningum."
 
 #: ../actions/smssettings.php:58 actions/smssettings.php:58
 #: actions/smssettings.php:111
 msgid "Awaiting confirmation on this phone number."
-msgstr "Αναμένωντας επιβεβαίωση σ' αυτό το νούμερο τηλεφώνου."
+msgstr "Býð eftir staðfestingu varðandi þetta símanúmer."
 
 #: ../lib/util.php:1318 lib/util.php:1452
-#, fuzzy
 msgid "Before »"
-msgstr "Προηγούμενο »"
+msgstr "Eldri »"
 
 #: ../actions/profilesettings.php:49 ../actions/register.php:170
 #: actions/profilesettings.php:82 actions/register.php:184
 #: actions/profilesettings.php:112 actions/register.php:402
 msgid "Bio"
-msgstr "Βιογραφικό"
+msgstr "Lýsing"
 
 #: ../actions/profilesettings.php:101 ../actions/register.php:82
 #: ../actions/updateprofile.php:103 actions/profilesettings.php:216
@@ -425,24 +451,23 @@ msgstr "Βιογραφικό"
 #: actions/profilesettings.php:205 actions/register.php:174
 #: actions/updateprofile.php:107
 msgid "Bio is too long (max 140 chars)."
-msgstr "Το βιογραφικό είναι πολύ μεγάλο (μέγιστο 140 χαρακτ.)."
+msgstr "Lýsingin er of löng (í mesta lagi 140 tákn)."
 
 #: ../lib/deleteaction.php:41 lib/deleteaction.php:41 lib/deleteaction.php:69
-#, fuzzy
 msgid "Can't delete this notice."
-msgstr "Αδυναμία διαγραφής αυτού του μηνύματος."
+msgstr "Get ekki eytt þessu babli."
 
 #: ../actions/updateprofile.php:119 actions/updateprofile.php:120
 #: actions/updateprofile.php:123
 #, php-format
 msgid "Can't read avatar URL '%s'"
-msgstr ""
+msgstr "Get ekki lesið slóðina fyrir myndina '%s'"
 
 #: ../actions/password.php:85 ../actions/recoverpassword.php:300
 #: actions/profilesettings.php:404 actions/recoverpassword.php:313
 #: actions/passwordsettings.php:169 actions/recoverpassword.php:347
 msgid "Can't save new password."
-msgstr "Αδύνατη η αποθήκευση του νέου κωδικού"
+msgstr "Get ekki vistað nýja lykilorðið."
 
 #: ../actions/emailsettings.php:57 ../actions/imsettings.php:58
 #: ../actions/smssettings.php:62 actions/emailsettings.php:58
@@ -450,45 +475,45 @@ msgstr "Αδύνατη η αποθήκευση του νέου κωδικού"
 #: actions/emailsettings.php:111 actions/imsettings.php:114
 #: actions/smssettings.php:114
 msgid "Cancel"
-msgstr "Ακύρωση"
+msgstr "Hætta við"
 
 #: ../lib/openid.php:121 lib/openid.php:121 lib/openid.php:130
 msgid "Cannot instantiate OpenID consumer object."
-msgstr "Απέτυχη η χρήση αντικειμένου OpenID consumer."
+msgstr "Get ekki útbúið OpenID notandahlut."
 
 #: ../actions/imsettings.php:163 actions/imsettings.php:171
 #: actions/imsettings.php:286
 msgid "Cannot normalize that Jabber ID"
-msgstr "Αδυναμία κανονικοποίησης του Jabber ID"
+msgstr "Get ekki staðlað þetta Jabber kenni"
 
 #: ../actions/emailsettings.php:181 actions/emailsettings.php:199
 #: actions/emailsettings.php:311
 msgid "Cannot normalize that email address"
-msgstr "Αδυναμία κανονικοποίησης αυτής της email διεύθυνσης"
+msgstr "Get ekki staðlað þetta tölvupóstfang"
 
 #: ../actions/password.php:45 actions/profilesettings.php:184
 #: actions/passwordsettings.php:110
 msgid "Change"
-msgstr "Αλλαγή"
+msgstr "Breyta"
 
 #: ../lib/settingsaction.php:88 lib/settingsaction.php:88
 #: lib/accountsettingsaction.php:114
 msgid "Change email handling"
-msgstr ""
+msgstr "Breyta tölvupóstumsjón"
 
 #: ../actions/password.php:32 actions/profilesettings.php:36
 #: actions/passwordsettings.php:58
 msgid "Change password"
-msgstr "Αλλαγή κωδικού"
+msgstr "Breyta lykilorði"
 
 #: ../lib/settingsaction.php:94 lib/accountsettingsaction.php:111
 msgid "Change your password"
-msgstr "Αλλάξτε τον κωδικό σας"
+msgstr "Breyta lykilorðinu þínu"
 
 #: ../lib/settingsaction.php:85 lib/settingsaction.php:85
 #: lib/accountsettingsaction.php:105
 msgid "Change your profile settings"
-msgstr "Αλλάξτε τις ρυθμίσεις του προφίλ σας"
+msgstr "Breyta persónulegu stillingunum þínum"
 
 #: ../actions/password.php:43 ../actions/recoverpassword.php:181
 #: ../actions/register.php:155 ../actions/smssettings.php:65
@@ -497,12 +522,12 @@ msgstr "Αλλάξτε τις ρυθμίσεις του προφίλ σας"
 #: actions/passwordsettings.php:105 actions/recoverpassword.php:221
 #: actions/register.php:376 actions/smssettings.php:122
 msgid "Confirm"
-msgstr "Επιβεβαίωση"
+msgstr "Staðfesta"
 
 #: ../actions/confirmaddress.php:90 actions/confirmaddress.php:90
 #: actions/confirmaddress.php:144
 msgid "Confirm Address"
-msgstr "Επιβεβαίωση διεύθυνσης"
+msgstr "Staðfesta tölvupóstfang"
 
 #: ../actions/emailsettings.php:238 ../actions/imsettings.php:222
 #: ../actions/smssettings.php:245 actions/emailsettings.php:256
@@ -510,21 +535,20 @@ msgstr "Επιβεβαίωση διεύθυνσης"
 #: actions/emailsettings.php:379 actions/imsettings.php:361
 #: actions/smssettings.php:374
 msgid "Confirmation cancelled."
-msgstr "Η επιβεβαίωση ακυρώθηκε."
+msgstr "Hætt við staðfestingu."
 
 #: ../actions/smssettings.php:63 actions/smssettings.php:63
 #: actions/smssettings.php:118
 msgid "Confirmation code"
-msgstr ""
+msgstr "Staðfestingarlykill"
 
 #: ../actions/confirmaddress.php:38 actions/confirmaddress.php:38
 #: actions/confirmaddress.php:80
 msgid "Confirmation code not found."
-msgstr "Ο κωδικός επιβεβαίωσης δεν βρέθηκε."
+msgstr "Staðfestingarlykill fannst ekki."
 
 #: ../actions/register.php:202
 #, php-format
-#, fuzzy
 msgid ""
 "Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may "
 "want to...\n"
@@ -541,86 +565,85 @@ msgid ""
 "\n"
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
-"Συγχαρητήρια, %s! και καλωσήρθες στο %%%%site.name%%%%. Από εδώ μπορείς "
-"να...\n"
+"Til hamingju %s! Frábært að þú skulir hafa skráð þig á %%%%site.name%%%%. "
+"Héðan vilt þú kannski...\n"
 "\n"
-"* Πας στο [your profile](%s) και να στείλεις το πρώτο σου μήνυμα.\n"
-"* Προσθέσεις ένα [Jabber/GTalk address](%%%%action.imsettings%%%%) ώστε να "
-"δέχεσε μηνύματα στο instant messager σου.\n"
-"* [Search for people](%%%%action.peoplesearch%%%%) που μπορεί να ξέρεις ή "
-"που έχουν τα ίδια ενδιαφέροντα με σένα. \n"
-"* Ενημερώσεις το προφίλ σου [profile "
-"settings](%%%%action.profilesettings%%%%) για να μάθουν οι άλλοι περισσότερα "
-"για σένα. \n"
-"* Διαβάσεις τα [online docs](%%%%doc.help%%%%) για λειτουργίες που μπορεί να "
-"μην έχεις μάθει ακόμα. \n"
+"* Fara á [persónulegu síðuna þína](%s) senda inn þitt fyrsta babl.\n"
+"* Bæta við [Jabber/GTalk snarskilaboðafangi](%%%%action.imsettings%%%%) svo "
+"þú getir sent inn babl í snarskilaboðum.\n"
+"* [Leita að fólki](%%%%action.peoplesearch%%%%) sem þú þekkir eða hefur sömu "
+"áhugamál og þú. \n"
+"* Uppfæra [persónulegu síðuna](%%%%action.profilesettings%%%%) þína til þess "
+"að leyfa öðrum að kynnast þér betur.\n"
+"* Lesa [vefleiðbeiningarnar](%%%%doc.help%%%%) til þess að læra að babla "
+"betur.\n"
 "\n"
-"Ευχαριστούμε που εγγράφηκες και ευχόμαστε να περάσεις καλά με την υπηρεσία "
-"μας."
+"Takk fyrir að skrá þig og við vonum að þú njótir þjónustunnar."
 
 #: ../actions/finishopenidlogin.php:91 actions/finishopenidlogin.php:97
 #: actions/finishopenidlogin.php:119 lib/action.php:330
 msgid "Connect"
-msgstr "Σύνδεση"
+msgstr "Tengjast"
 
 #: ../actions/finishopenidlogin.php:86 actions/finishopenidlogin.php:92
 #: actions/finishopenidlogin.php:114
 msgid "Connect existing account"
-msgstr "Σύνδεση με υπάρχων λογαριασμό"
+msgstr "Tengja aðgang sem nú þegar er til"
 
 #: ../lib/util.php:332 lib/util.php:348 lib/action.php:576
 msgid "Contact"
-msgstr "Επικοινωνία"
+msgstr "Tengiliður"
 
 #: ../lib/openid.php:178 lib/openid.php:178 lib/openid.php:187
 #, php-format
 msgid "Could not create OpenID form: %s"
-msgstr "Αδυναμία δημιουργίας φόρμας OpenID: %s "
+msgstr "Gat ekki búið til OpenID eyðublað: %s"
 
 #: ../actions/twitapifriendships.php:60 ../actions/twitapifriendships.php:76
 #: actions/twitapifriendships.php:60 actions/twitapifriendships.php:76
 #: actions/twitapifriendships.php:48 actions/twitapifriendships.php:64
 #, php-format
 msgid "Could not follow user: %s is already on your list."
-msgstr "Δε μπορώ να ακολουθήσω το χρήστη: ο χρήστης %s είναι ήδη στη λίστα σου."
+msgstr ""
+"Get ekki fylgst með notanda: %s. Þessi notandi er nú þegar í listanum þínum."
 
 #: ../actions/twitapifriendships.php:53 actions/twitapifriendships.php:53
 #: actions/twitapifriendships.php:41
 msgid "Could not follow user: User not found."
-msgstr "Δε μπορώ να ακολουθήσω το χρήστη: ο χρήστης δε βρέθηκε."
+msgstr "Get ekki fylgst með notanda: Notandinn finnst ekki."
 
 #: ../lib/openid.php:160 lib/openid.php:160 lib/openid.php:169
 #, php-format
 msgid "Could not redirect to server: %s"
-msgstr "Αδυναμία ανακατεύθηνσης στο διακομιστή: %s"
+msgstr "Gat ekki framsent til vefþjóns: %s"
 
 #: ../actions/updateprofile.php:162 actions/updateprofile.php:163
 #: actions/updateprofile.php:166
 msgid "Could not save avatar info"
-msgstr "Δε μπόρεσα να σώσω την πληροφορία του avatar"
+msgstr "Gat ekki vistað myndupplýsingar"
 
 #: ../actions/updateprofile.php:155 actions/updateprofile.php:156
 #: actions/updateprofile.php:159
 msgid "Could not save new profile info"
-msgstr "Αδύνατη η αποθήκευση των νέων πληροφοριών του προφίλ"
+msgstr "Gat ekki vistað nýjar persónuupplýsingar"
 
 #: ../lib/subs.php:54 lib/subs.php:61 lib/subs.php:72
 msgid "Could not subscribe other to you."
-msgstr "Δεν επιτρέπεται να κάνεις συνδρομητές του λογαριασμού σου άλλους."
+msgstr "Gat ekki leyft öðrum að gerast áskrifandi að þér."
 
 #: ../lib/subs.php:46 lib/subs.php:46 lib/subs.php:57
 msgid "Could not subscribe."
-msgstr "Απέτυχε η συνδρομή."
+msgstr "Gat ekki farið í áskrift."
 
 #: ../actions/recoverpassword.php:102 actions/recoverpassword.php:105
 #: actions/recoverpassword.php:111
 msgid "Could not update user with confirmed email address."
-msgstr "Απέτυχε η ενημέρωση χρήστη μέσω επιβεβαιωμένης email διεύθυνσης."
+msgstr "Gat ekki uppfært notanda með staðfestu tölvupóstfangi."
 
 #: ../actions/finishremotesubscribe.php:99
 #: actions/finishremotesubscribe.php:101 actions/finishremotesubscribe.php:114
 msgid "Couldn't convert request tokens to access tokens."
-msgstr "Απέτυχε η μετατροπή αιτούμενων tokens σε tokens πρόσβασης."
+msgstr "Gat ekki breytt beiðnistókum í aðgangstóka."
 
 #: ../actions/confirmaddress.php:84 ../actions/emailsettings.php:234
 #: ../actions/imsettings.php:218 ../actions/smssettings.php:241
@@ -629,21 +652,21 @@ msgstr "Απέτυχε η μετατροπή αιτούμενων tokens σε to
 #: actions/confirmaddress.php:126 actions/emailsettings.php:375
 #: actions/imsettings.php:357 actions/smssettings.php:370
 msgid "Couldn't delete email confirmation."
-msgstr "Απέτυχε η διαγραφή email επιβεβαίωσης."
+msgstr "Gat ekki eytt tölvupóstsstaðfestingu."
 
 #: ../lib/subs.php:103 lib/subs.php:116 lib/subs.php:134
 msgid "Couldn't delete subscription."
-msgstr "Απέτυχε η διαγραφή συνδρομής."
+msgstr "Gat ekki eytt áskrift."
 
 #: ../actions/twitapistatuses.php:93 actions/twitapistatuses.php:98
 #: actions/twitapistatuses.php:84
 msgid "Couldn't find any statuses."
-msgstr "Απέτυχε η εύρεση οποιασδήποτε κατάστασης."
+msgstr "Gat ekki fundið neinar notendastöður."
 
 #: ../actions/remotesubscribe.php:127 actions/remotesubscribe.php:136
 #: actions/remotesubscribe.php:178
 msgid "Couldn't get a request token."
-msgstr ""
+msgstr "Gat ekki komist yfir beiðnistóka."
 
 #: ../actions/emailsettings.php:205 ../actions/imsettings.php:187
 #: ../actions/smssettings.php:206 actions/emailsettings.php:223
@@ -651,29 +674,29 @@ msgstr ""
 #: actions/emailsettings.php:337 actions/imsettings.php:311
 #: actions/smssettings.php:325
 msgid "Couldn't insert confirmation code."
-msgstr "Απέτυχε η εισαγωγή κωδικού επιβεβαίωσης."
+msgstr "Gat ekki sett inn staðfestingarlykil."
 
 #: ../actions/finishremotesubscribe.php:180
 #: actions/finishremotesubscribe.php:182 actions/finishremotesubscribe.php:218
 msgid "Couldn't insert new subscription."
-msgstr "Απέτυχε η εισαγωγή νέας συνδρομής."
+msgstr "Gat ekki sett inn nýja áskrift."
 
 #: ../actions/profilesettings.php:184 ../actions/twitapiaccount.php:96
 #: actions/profilesettings.php:299 actions/twitapiaccount.php:94
 #: actions/profilesettings.php:302 actions/twitapiaccount.php:81
 msgid "Couldn't save profile."
-msgstr "Απέτυχε η αποθήκευση του προφίλ."
+msgstr "Gat ekki vistað persónulega síðu."
 
 #: ../actions/profilesettings.php:161 actions/profilesettings.php:276
 #: actions/profilesettings.php:279
 msgid "Couldn't update user for autosubscribe."
-msgstr "Απέτυχε η ενημέρωση του χρήστη για την αυτόματη συνδρομή."
+msgstr "Gat ekki uppfært notanda í sjálfvirka áskrift."
 
 #: ../actions/emailsettings.php:280 ../actions/emailsettings.php:294
 #: actions/emailsettings.php:298 actions/emailsettings.php:312
 #: actions/emailsettings.php:440 actions/emailsettings.php:462
 msgid "Couldn't update user record."
-msgstr "Απέτυχε η ενημέρωση εγγραφής του χρήστη."
+msgstr "Gat ekki uppfært skráarfærslu notanda."
 
 #: ../actions/confirmaddress.php:72 ../actions/emailsettings.php:156
 #: ../actions/emailsettings.php:259 ../actions/imsettings.php:138
@@ -689,165 +712,164 @@ msgstr "Απέτυχε η ενημέρωση εγγραφής του χρήστ�
 #: actions/profilesettings.php:259 actions/smssettings.php:266
 #: actions/smssettings.php:408
 msgid "Couldn't update user."
-msgstr "Απέτυχε η ενημέρωση του χρήστη."
+msgstr "Gat ekki uppfært notanda."
 
 #: ../actions/finishopenidlogin.php:84 actions/finishopenidlogin.php:90
 #: actions/finishopenidlogin.php:112
 msgid "Create"
-msgstr "Δημιουργία"
+msgstr "Búa til"
 
 #: ../actions/finishopenidlogin.php:70 actions/finishopenidlogin.php:76
 #: actions/finishopenidlogin.php:98
 msgid "Create a new user with this nickname."
-msgstr "Δημιουργία νέου χρήστη με αυτό το ψευδώνυμο."
+msgstr "Búa til nýjan notanda með þessu stuttnefni."
 
 #: ../actions/finishopenidlogin.php:68 actions/finishopenidlogin.php:74
 #: actions/finishopenidlogin.php:96
 msgid "Create new account"
-msgstr "Δημιουργία νέου λογαριασμού"
+msgstr "Búa til nýjan aðgang"
 
 #: ../actions/finishopenidlogin.php:191 actions/finishopenidlogin.php:197
 #: actions/finishopenidlogin.php:231
-#, fuzzy
 msgid "Creating new account for OpenID that already has a user."
-msgstr "Μετατροπή υπάρχοντος λογαριασμού σε λογαριασμό OpenID."
+msgstr "Búa til nýjan aðgang fyrir OpenID sem nú þegar hefur notanda."
 
 #: ../actions/imsettings.php:45 actions/imsettings.php:46
 #: actions/imsettings.php:100
 msgid "Current confirmed Jabber/GTalk address."
-msgstr "Τρέχουσα επιβεβαιωμένη Jabber/GTalk διεύθυνση."
+msgstr "Núverandi staðfesta Jabber/GTalk snarskilaboðafangið."
 
 #: ../actions/smssettings.php:46 actions/smssettings.php:46
 #: actions/smssettings.php:100
 msgid "Current confirmed SMS-enabled phone number."
-msgstr "Τρέχων επιβεβαιωμένο, μέσω SMS, νούμερο κινητού τηλεφώνου."
+msgstr "Núverandi staðfesta SMS símanúmerið."
 
 #: ../actions/emailsettings.php:44 actions/emailsettings.php:45
 #: actions/emailsettings.php:99
 msgid "Current confirmed email address."
-msgstr "Τρέχουσα επιβεβαιωμένη email διεύθυνση."
+msgstr "Núverandi staðfesta tölvupóstfangið."
 
 #: ../actions/showstream.php:356 actions/showstream.php:367
 msgid "Currently"
-msgstr ""
+msgstr "Í gangi núna"
 
 #: ../classes/Notice.php:72 classes/Notice.php:86 classes/Notice.php:91
 #, php-format
 msgid "DB error inserting hashtag: %s"
-msgstr "Σφάλμα στη βάση δεδομένων κατά την εισαγωγή hashtag: %s"
+msgstr "Gagnagrunnsvilla við innsetningu myllumerkis: %s"
 
 #: ../lib/util.php:1061 lib/util.php:1110 classes/Notice.php:698
 #, php-format
 msgid "DB error inserting reply: %s"
-msgstr "Σφάλμα βάσης δεδομένων κατά την εισαγωγή απάντησης: %s"
+msgstr "Gagnagrunnsvilla við innsetningu svars: %s"
 
 #: ../actions/deletenotice.php:41 actions/deletenotice.php:41
 #: actions/deletenotice.php:79
 msgid "Delete notice"
-msgstr "Διαγραφή μηνύματος"
+msgstr "Eyða babli"
 
 #: ../actions/profilesettings.php:51 ../actions/register.php:172
 #: actions/profilesettings.php:84 actions/register.php:186
 #: actions/profilesettings.php:114
 msgid "Describe yourself and your interests in 140 chars"
-msgstr "Περιέγραψε τον εαυτό σου και τα ενδιαφέροντά σου σε 140 χαρακτήρες"
+msgstr "Lýstu þér og áhugamálum þínum í 140 táknum"
 
 #: ../actions/register.php:158 ../actions/register.php:161
 #: ../lib/settingsaction.php:87 actions/register.php:172
 #: actions/register.php:175 lib/settingsaction.php:87 actions/register.php:381
 #: actions/register.php:385 lib/accountsettingsaction.php:113
 msgid "Email"
-msgstr "Email"
+msgstr "Tölvupóstur"
 
 #: ../actions/emailsettings.php:59 actions/emailsettings.php:60
 #: actions/emailsettings.php:115
 msgid "Email Address"
-msgstr "Διεύθυνση Email"
+msgstr "Tölvupóstfang"
 
 #: ../actions/emailsettings.php:32 actions/emailsettings.php:32
 #: actions/emailsettings.php:60
 msgid "Email Settings"
-msgstr "Ρυθμίσεις Email"
+msgstr "Tölvupóstsstillingar"
 
 #: ../actions/register.php:73 actions/register.php:80 actions/register.php:163
 msgid "Email address already exists."
-msgstr "Η διεύθυνση email υπάρχει ήδη."
+msgstr "Tölvupóstfang er nú þegar skráð."
 
 #: ../lib/mail.php:90 lib/mail.php:90 lib/mail.php:173
 msgid "Email address confirmation"
-msgstr "Επιβεβαίωση διεύθυνσης email"
+msgstr "Staðfesting tölvupóstfangs"
 
 #: ../actions/emailsettings.php:61 actions/emailsettings.php:62
 #: actions/emailsettings.php:117
 msgid "Email address, like \"UserName@example.org\""
-msgstr "Διεύθυνση email, π.χ: \"UserName@example.org\""
+msgstr "Tölvupóstfang eins og \"notandi@eitthvað.is\""
 
 #: ../actions/invite.php:129 actions/invite.php:137 actions/invite.php:174
 msgid "Email addresses"
-msgstr "Διευθύνσεις email"
+msgstr "Tölvupóstföng"
 
 #: ../actions/recoverpassword.php:191 actions/recoverpassword.php:197
 #: actions/recoverpassword.php:231
 msgid "Enter a nickname or email address."
-msgstr "Εισάγετε ψευδώνυμο ή διεύθυνση email."
+msgstr "Sláðu inn stuttnefni eða tölvupóstfang."
 
 #: ../actions/smssettings.php:64 actions/smssettings.php:64
 #: actions/smssettings.php:119
 msgid "Enter the code you received on your phone."
-msgstr ""
+msgstr "Sláðu inn lykilinn sem þú fékkst í símann þinn."
 
 #: ../actions/userauthorization.php:137 actions/userauthorization.php:144
 #: actions/userauthorization.php:161
 msgid "Error authorizing token"
-msgstr ""
+msgstr "Villa kom upp í heimilun tóka"
 
 #: ../actions/finishopenidlogin.php:253 actions/finishopenidlogin.php:259
 #: actions/finishopenidlogin.php:297
 msgid "Error connecting user to OpenID."
-msgstr ""
+msgstr "Villa kom upp í tengingu notanda við OpenID."
 
 #: ../actions/finishaddopenid.php:78 actions/finishaddopenid.php:78
 #: actions/finishaddopenid.php:126
 msgid "Error connecting user."
-msgstr ""
+msgstr "Villa kom upp við að tengja notanda."
 
 #: ../actions/finishremotesubscribe.php:151
 #: actions/finishremotesubscribe.php:153 actions/finishremotesubscribe.php:166
 msgid "Error inserting avatar"
-msgstr ""
+msgstr "Villa kom upp við að setja inn mynd"
 
 #: ../actions/finishremotesubscribe.php:143
 #: actions/finishremotesubscribe.php:145 actions/finishremotesubscribe.php:158
 msgid "Error inserting new profile"
-msgstr ""
+msgstr "Villa kom upp við að setja inn nýja persónulega síðu"
 
 #: ../actions/finishremotesubscribe.php:167
 #: actions/finishremotesubscribe.php:169 actions/finishremotesubscribe.php:182
 msgid "Error inserting remote profile"
-msgstr ""
+msgstr "Villa kom upp við að setja inn persónulega fjarsíðu"
 
 #: ../actions/recoverpassword.php:240 actions/recoverpassword.php:246
 #: actions/recoverpassword.php:280
 msgid "Error saving address confirmation."
-msgstr ""
+msgstr "Villa kom upp í vistun netfangsstaðfestingar."
 
 #: ../actions/userauthorization.php:140 actions/userauthorization.php:147
 #: actions/userauthorization.php:164
 msgid "Error saving remote profile"
-msgstr ""
+msgstr "Villa kom upp í vistun persónulegrar fjarsíðu"
 
 #: ../lib/openid.php:226 lib/openid.php:226 lib/openid.php:235
 msgid "Error saving the profile."
-msgstr ""
+msgstr "Villa kom upp í vistun persónulegu síðunnar."
 
 #: ../lib/openid.php:237 lib/openid.php:237 lib/openid.php:246
 msgid "Error saving the user."
-msgstr ""
+msgstr "Villa kom upp í vistun notandans."
 
 #: ../actions/password.php:80 actions/profilesettings.php:399
 #: actions/passwordsettings.php:164
 msgid "Error saving user; invalid."
-msgstr ""
+msgstr "Villa kom upp í vistun notanda: ótækt."
 
 #: ../actions/login.php:47 ../actions/login.php:73
 #: ../actions/recoverpassword.php:307 ../actions/register.php:98
@@ -855,72 +877,72 @@ msgstr ""
 #: actions/register.php:108 actions/login.php:112 actions/login.php:138
 #: actions/recoverpassword.php:354 actions/register.php:198
 msgid "Error setting user."
-msgstr ""
+msgstr "Villa kom upp í stillingu notanda."
 
 #: ../actions/finishaddopenid.php:83 actions/finishaddopenid.php:83
 #: actions/finishaddopenid.php:131
 msgid "Error updating profile"
-msgstr ""
+msgstr "Villa kom upp í uppfærslu persónulegu síðunnar"
 
 #: ../actions/finishremotesubscribe.php:161
 #: actions/finishremotesubscribe.php:163 actions/finishremotesubscribe.php:176
 msgid "Error updating remote profile"
-msgstr ""
+msgstr "Villa kom upp í uppfærslu persónulegrar fjarsíðu"
 
 #: ../actions/recoverpassword.php:80 actions/recoverpassword.php:80
 #: actions/recoverpassword.php:86
 msgid "Error with confirmation code."
-msgstr ""
+msgstr "Villa kom upp varðandi staðfestingarlykilinn."
 
 #: ../actions/finishopenidlogin.php:89 actions/finishopenidlogin.php:95
 #: actions/finishopenidlogin.php:117
 msgid "Existing nickname"
-msgstr ""
+msgstr "Stuttnefni er nú þegar til"
 
 #: ../lib/util.php:326 lib/util.php:342 lib/action.php:570
 msgid "FAQ"
-msgstr "Συχνές ερωτήσεις"
+msgstr "Spurt og svarað"
 
 #: ../actions/avatar.php:115 actions/profilesettings.php:352
 #: actions/avatarsettings.php:397
 msgid "Failed updating avatar."
-msgstr ""
+msgstr "Mistókst að uppfæra mynd"
 
 #: ../actions/all.php:61 ../actions/allrss.php:64 actions/all.php:61
 #: actions/allrss.php:64 actions/all.php:75 actions/allrss.php:107
 #, php-format
 msgid "Feed for friends of %s"
-msgstr "Ροή φίλων του/της %s"
+msgstr "Vinaveita %s"
 
 #: ../actions/replies.php:65 ../actions/repliesrss.php:80
 #: actions/replies.php:65 actions/repliesrss.php:66 actions/replies.php:134
 #: actions/repliesrss.php:71
 #, php-format
 msgid "Feed for replies to %s"
-msgstr "Ροή απαντήσεων προς τον/την %s"
+msgstr "Svaraveita %s"
 
 #: ../actions/tag.php:55 actions/tag.php:55 actions/tag.php:61
 #, php-format
 msgid "Feed for tag %s"
-msgstr ""
+msgstr "Merkjaveita %s"
 
 #: ../lib/searchaction.php:105 lib/searchaction.php:105
 #: lib/searchgroupnav.php:83
 msgid "Find content of notices"
-msgstr ""
+msgstr "Finna innihald babls"
 
 #: ../lib/searchaction.php:101 lib/searchaction.php:101
 #: lib/searchgroupnav.php:81
 msgid "Find people on this site"
-msgstr ""
+msgstr "Finna persónur á þessu vefsvæði"
 
 #: ../actions/login.php:122
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
 msgstr ""
-"Για λόγους ασφαλείας, παρακαλώ εισάγετε ξανά το όνομα χρήστη και τον κωδικό "
-"σας, πριν αλλάξετε τις ρυθμίσεις σας."
+"Af öryggisástæðum, vinsamlegast sláðu aftur inn notendanafnið þitt og "
+"lykilorð áður en þú breytir stillingunum þínum."
 
 #: ../actions/profilesettings.php:44 ../actions/register.php:164
 #: actions/profilesettings.php:77 actions/register.php:178
@@ -928,7 +950,7 @@ msgstr ""
 #: actions/showgroup.php:235 actions/showstream.php:262
 #: actions/tagother.php:105 lib/groupeditform.php:142
 msgid "Full name"
-msgstr "Ονοματεπώνυμο"
+msgstr "Fullt nafn"
 
 #: ../actions/profilesettings.php:98 ../actions/register.php:79
 #: ../actions/updateprofile.php:93 actions/profilesettings.php:213
@@ -937,50 +959,50 @@ msgstr "Ονοματεπώνυμο"
 #: actions/profilesettings.php:202 actions/register.php:171
 #: actions/updateprofile.php:97
 msgid "Full name is too long (max 255 chars)."
-msgstr "Το ονοματεπώνυμο είναι πολύ μεγάλο (μέγιστο 255 χαρακτ.)."
+msgstr "Fullt nafn er of langt (í mesta lagi 255 stafir)."
 
 #: ../lib/util.php:322 lib/util.php:338 lib/action.php:344 lib/action.php:566
 msgid "Help"
-msgstr "Βοήθεια"
+msgstr "Hjálp"
 
 #: ../lib/util.php:298 lib/util.php:314 lib/action.php:322
 #: lib/facebookaction.php:200
 msgid "Home"
-msgstr "Αρχή"
+msgstr "Heim"
 
 #: ../actions/profilesettings.php:46 ../actions/register.php:167
 #: actions/profilesettings.php:79 actions/register.php:181
 #: actions/profilesettings.php:107 actions/register.php:396
 #: lib/groupeditform.php:146
 msgid "Homepage"
-msgstr "Αρχική σελίδα"
+msgstr "Heimasíða"
 
 #: ../actions/profilesettings.php:95 ../actions/register.php:76
 #: actions/profilesettings.php:210 actions/register.php:83
 #: actions/editgroup.php:192 actions/newgroup.php:143
 #: actions/profilesettings.php:199 actions/register.php:168
 msgid "Homepage is not a valid URL."
-msgstr "Η αρχική σελίδα δεν είναι έγκυρο URL."
+msgstr "Heimasíða er ekki gild vefslóð."
 
 #: ../actions/emailsettings.php:91 actions/emailsettings.php:98
 #: actions/emailsettings.php:173
 msgid "I want to post notices by email."
-msgstr "Θέλω να δημοσιεύω ενημερώσεις μέσω email"
+msgstr "Ég vil babla í gegnum tölvupóst."
 
 #: ../lib/settingsaction.php:102 lib/settingsaction.php:96
 #: lib/connectsettingsaction.php:104
 msgid "IM"
-msgstr "ΙΜ"
+msgstr "Snarskilaboð"
 
 #: ../actions/imsettings.php:60 actions/imsettings.php:61
 #: actions/imsettings.php:118
 msgid "IM Address"
-msgstr "Διεύθυνση ΙΜ"
+msgstr "Snarskilaboðafang"
 
 #: ../actions/imsettings.php:33 actions/imsettings.php:33
 #: actions/imsettings.php:59
 msgid "IM Settings"
-msgstr "Ρυθμίσεις ΙΜ"
+msgstr "Snarskilaboðastillingar"
 
 #: ../actions/finishopenidlogin.php:88 actions/finishopenidlogin.php:94
 #: actions/finishopenidlogin.php:116
@@ -988,112 +1010,112 @@ msgid ""
 "If you already have an account, login with your username and password to "
 "connect it to your OpenID."
 msgstr ""
-"Εάν έχετε ήδη λογαριασμό, συνδεθείτε με το όνομα χρήστη και τον κωδικό για "
-"να τον συνδέσετε στο OpenID σας."
+"Ef ert nú þegar með aðgang, skráðu þig inn með notendanafni og lykilorði til "
+"þess að tengjast OpenID aðganginum þínum."
 
 #: ../actions/openidsettings.php:45
 msgid ""
 "If you want to add an OpenID to your account, enter it in the box below and "
 "click \"Add\"."
 msgstr ""
-"Εάν θέλετε να προσθέσετε ένα OpenID στον λογαριασμό σας, πληκτρολογήστε τον "
-"από κάτω και πατήστε \"Προσθήκη\"."
+"Ef þig langar til það bæta við OpenID í aðganginn þinn, sláðu það þá inn í "
+"reitinn hér fyrir neðan og smelltu á \"Bæta við\"."
 
 #: ../actions/recoverpassword.php:137
 msgid ""
 "If you've forgotten or lost your password, you can get a new one sent to the "
 "email address you have stored  in your account."
 msgstr ""
-"Εάν έχετε ξεχάσει ή χάσει τον κωδικό σας, μπορεί να σας αποσταλλεί "
-"καινούριος στην διεύθυνση email που έχετε καταχωρήσει στον λογαριασμό σας."
+"Ef þú hefur gleymt eða tapað lykilorðinu þínu getur þú fengið nýtt sent á "
+"tölvupóstfangið sem þú hefur vistað  í notendaaðganginum þínum."
 
 #: ../actions/emailsettings.php:67 ../actions/smssettings.php:76
 #: actions/emailsettings.php:68 actions/smssettings.php:76
 #: actions/emailsettings.php:127 actions/smssettings.php:140
 msgid "Incoming email"
-msgstr "Εισερχόμενο email"
+msgstr "Móttökutölvupóstur"
 
 #: ../actions/emailsettings.php:283 actions/emailsettings.php:301
 #: actions/emailsettings.php:443
 msgid "Incoming email address removed."
-msgstr "Η διεύθυνση του εισερχόμενου email αφαιρέθηκε."
+msgstr "Móttökutölvupóstfang fjarlægt."
 
 #: ../actions/password.php:69 actions/profilesettings.php:388
 #: actions/passwordsettings.php:153
 msgid "Incorrect old password"
-msgstr "Λάθος παλιός κωδικός"
+msgstr "Rangt eldra lykilorð"
 
 #: ../actions/login.php:67 actions/login.php:67 actions/facebookhome.php:131
 #: actions/login.php:132
 msgid "Incorrect username or password."
-msgstr "Λάθος όνομα χρήστη ή κωδικός"
+msgstr "Rangt notendanafn eða lykilorð."
 
 #: ../actions/recoverpassword.php:265
 msgid ""
 "Instructions for recovering your password have been sent to the email "
 "address registered to your account."
 msgstr ""
-"Οδηγίες για την ανάκτηση του κωδικού σας έχουν σταλεί στην διεύθυνση email "
-"που έχετε καταχωρίσει στον λογαριασμό σας."
+"Leiðbeiningar um það hvernig þú getur endurheimt lykilorðið þitt hafa verið "
+"sendar á tölvupóstfangið sem er tengt notendaaðganginum þínum."
 
 #: ../actions/updateprofile.php:114 actions/updateprofile.php:115
 #: actions/updateprofile.php:118
 #, php-format
 msgid "Invalid avatar URL '%s'"
-msgstr ""
+msgstr "Ótæk myndarslóð '%s'"
 
 #: ../actions/invite.php:55 actions/invite.php:62 actions/invite.php:70
 #, php-format
 msgid "Invalid email address: %s"
-msgstr ""
+msgstr "Ótækt tölvupóstfang: %s"
 
 #: ../actions/updateprofile.php:98 actions/updateprofile.php:99
 #: actions/updateprofile.php:102
 #, php-format
 msgid "Invalid homepage '%s'"
-msgstr ""
+msgstr "Ótæk heimasíða '%s'"
 
 #: ../actions/updateprofile.php:82 actions/updateprofile.php:83
 #: actions/updateprofile.php:86
 #, php-format
 msgid "Invalid license URL '%s'"
-msgstr ""
+msgstr "Ótæk leyfisslóð '%s'"
 
 #: ../actions/postnotice.php:61 actions/postnotice.php:62
 #: actions/postnotice.php:66
 msgid "Invalid notice content"
-msgstr ""
+msgstr "Ótækt bablinnihald"
 
 #: ../actions/postnotice.php:67 actions/postnotice.php:68
 #: actions/postnotice.php:72
 msgid "Invalid notice uri"
-msgstr ""
+msgstr "Ótækt veffang babls"
 
 #: ../actions/postnotice.php:72 actions/postnotice.php:73
 #: actions/postnotice.php:77
 msgid "Invalid notice url"
-msgstr ""
+msgstr "Ótækt veffang babls"
 
 #: ../actions/updateprofile.php:87 actions/updateprofile.php:88
 #: actions/updateprofile.php:91
 #, php-format
 msgid "Invalid profile URL '%s'."
-msgstr ""
+msgstr "Ótækt veffang persónulegrar síðu '%s'."
 
 #: ../actions/remotesubscribe.php:96 actions/remotesubscribe.php:105
 #: actions/remotesubscribe.php:135
 msgid "Invalid profile URL (bad format)"
-msgstr ""
+msgstr "Ótækt veffang persónulegrar síðu (vitlaust snið)"
 
 #: ../actions/finishremotesubscribe.php:77
 #: actions/finishremotesubscribe.php:79 actions/finishremotesubscribe.php:80
 msgid "Invalid profile URL returned by server."
-msgstr ""
+msgstr "Ótæku veffangi persónulegrar síðu skilað af vefþjóni."
 
 #: ../actions/avatarbynickname.php:37 actions/avatarbynickname.php:37
 #: actions/avatarbynickname.php:69
 msgid "Invalid size."
-msgstr ""
+msgstr "Ótæk stærð."
 
 #: ../actions/finishopenidlogin.php:235 ../actions/register.php:93
 #: ../actions/register.php:111 actions/finishopenidlogin.php:241
@@ -1101,24 +1123,24 @@ msgstr ""
 #: actions/finishopenidlogin.php:279 actions/register.php:193
 #: actions/register.php:211
 msgid "Invalid username or password."
-msgstr ""
+msgstr "Ótækt notendanafn eða lykilorð."
 
 #: ../actions/invite.php:79 actions/invite.php:86 actions/invite.php:102
 msgid "Invitation(s) sent"
-msgstr ""
+msgstr "Boðskort hefur verið sent út"
 
 #: ../actions/invite.php:97 actions/invite.php:104 actions/invite.php:136
 msgid "Invitation(s) sent to the following people:"
-msgstr ""
+msgstr "Boðskort sent á eftirfarandi aðila:"
 
 #: ../lib/util.php:306 lib/util.php:322 lib/facebookaction.php:207
 #: lib/subgroupnav.php:103
 msgid "Invite"
-msgstr ""
+msgstr "Bjóða"
 
 #: ../actions/invite.php:123 actions/invite.php:130 actions/invite.php:104
 msgid "Invite new users"
-msgstr ""
+msgstr "Bjóða nýjum notendum að vera með"
 
 #: ../lib/util.php:261 lib/util.php:277 lib/action.php:609
 #, php-format
@@ -1127,11 +1149,14 @@ msgid ""
 "s, available under the [GNU Affero General Public License](http://www.fsf."
 "org/licensing/licenses/agpl-3.0.html)."
 msgstr ""
+"Það keyrir [StatusNet](http://status.net/) örbloggshugbúnaðinn, útgáfu %s, sem "
+"er gefinn út undir [GNU Affero "
+"almenningsleyfinu](http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
 
 #: ../actions/imsettings.php:173 actions/imsettings.php:181
 #: actions/imsettings.php:296
 msgid "Jabber ID already belongs to another user."
-msgstr ""
+msgstr "Jabber-kennið tilheyrir öðrum notanda."
 
 #: ../actions/imsettings.php:62 actions/imsettings.php:63
 #, php-format
@@ -1139,16 +1164,19 @@ msgid ""
 "Jabber or GTalk address, like \"UserName@example.org\". First, make sure to "
 "add %s to your buddy list in your IM client or on GTalk."
 msgstr ""
+"Jabber eða GTalk netfang eins og \"notandi@eitthvað.is\". Fyrst skaltu vera "
+"viss um að bæta %s við í vinalistann þinn í snarskilaboðaforritinu þínu eða "
+"á GTalk."
 
 #: ../actions/profilesettings.php:57 actions/profilesettings.php:90
 #: actions/profilesettings.php:128
 msgid "Language"
-msgstr ""
+msgstr "Tungumál"
 
 #: ../actions/profilesettings.php:113 actions/profilesettings.php:228
 #: actions/profilesettings.php:217
 msgid "Language is too long (max 50 chars)."
-msgstr ""
+msgstr "Tungumál er of langt (í mesta lagi 50 stafir)."
 
 #: ../actions/profilesettings.php:52 ../actions/register.php:173
 #: actions/profilesettings.php:85 actions/register.php:187
@@ -1157,7 +1185,7 @@ msgstr ""
 #: actions/tagother.php:113 lib/groupeditform.php:156 lib/grouplist.php:126
 #: lib/profilelist.php:125
 msgid "Location"
-msgstr "Τοποθεσία"
+msgstr "Staðsetning"
 
 #: ../actions/profilesettings.php:104 ../actions/register.php:85
 #: ../actions/updateprofile.php:108 actions/profilesettings.php:219
@@ -1166,7 +1194,7 @@ msgstr "Τοποθεσία"
 #: actions/profilesettings.php:208 actions/register.php:177
 #: actions/updateprofile.php:112
 msgid "Location is too long (max 255 chars)."
-msgstr "Η τοποθεσία είναι πολύ μεγάλη (μέγιστο 255 χαρακτ.)."
+msgstr "Staðsetning er of löng (í mesta lagi 255 stafir)."
 
 #: ../actions/login.php:97 ../actions/login.php:106
 #: ../actions/openidlogin.php:68 ../lib/util.php:310 actions/login.php:97
@@ -1176,13 +1204,13 @@ msgstr "Η τοποθεσία είναι πολύ μεγάλη (μέγιστο 2
 #: lib/facebookaction.php:315 lib/logingroupnav.php:75
 #, php-format
 msgid "Login"
-msgstr "Σύνδεση"
+msgstr "Innskráning"
 
 #: ../actions/openidlogin.php:44 actions/openidlogin.php:52
 #: actions/openidlogin.php:62
 #, php-format
 msgid "Login with an [OpenID](%%doc.openid%%) account."
-msgstr "Συνδεθείτε με έναν λογαριασμό [OpenID](%%doc.openid%%)."
+msgstr "Innskráning með [OpenID](%%doc.openid%%) aðgangi."
 
 #: ../actions/login.php:126
 #, php-format
@@ -1191,44 +1219,44 @@ msgid ""
 "(%%action.register%%) a new account, or try [OpenID](%%action.openidlogin%"
 "%). "
 msgstr ""
-"Συνδεθείτε με το όνομα χρήστη και τον κωδικό σας. Δεν έχετε όνομα χρήστη "
-"ακόμα; Κάντε [εγγραφή](%%action.register%%) για ένα νέο λογαριασμό ή "
-"δοκιμάστε το [OpenID](%%action.openidlogin%%). "
+"Skráðu þig inn með notendanafninu þínu og lykilorði. Ertu ekki með "
+"notendanafn? [Nýskráðu þig](%%action.register%%) eða prófaðu "
+"[OpenID](%%action.openidlogin%%). "
 
 #: ../lib/util.php:308 lib/util.php:324 lib/action.php:332
 msgid "Logout"
-msgstr "Αποσύνδεση"
+msgstr "Útskráning"
 
 #: ../actions/register.php:166 actions/register.php:180
 #: actions/register.php:393
 msgid "Longer name, preferably your \"real\" name"
-msgstr ""
+msgstr "Lengra nafn, ákjósalegast að það sé \"rétta\" nafnið þitt"
 
 #: ../actions/login.php:110 actions/login.php:110 actions/login.php:245
 #: lib/facebookaction.php:320
 msgid "Lost or forgotten password?"
-msgstr "Χάσατε ή ξεχάσατε τον κωδικό σας;"
+msgstr "Tapað eða gleymt lykilorð?"
 
 #: ../actions/emailsettings.php:80 ../actions/smssettings.php:89
 #: actions/emailsettings.php:81 actions/smssettings.php:89
 msgid "Make a new email address for posting to; cancels the old one."
-msgstr ""
+msgstr "Búa til nýtt tölvupóstfang til að senda til. Skrifar yfir það gamla."
 
 #: ../actions/emailsettings.php:27 actions/emailsettings.php:27
 #: actions/emailsettings.php:71
 #, php-format
 msgid "Manage how you get email from %%site.name%%."
-msgstr ""
+msgstr "Stilla það hvernig þú færð tölvupóst frá %%site.name%%."
 
 #: ../actions/showstream.php:300 actions/showstream.php:315
 #: actions/showstream.php:480
 msgid "Member since"
-msgstr "Μέλος από"
+msgstr "Meðlimur síðan"
 
 #: ../actions/userrss.php:70 actions/userrss.php:67 actions/userrss.php:72
 #, php-format
 msgid "Microblog by %s"
-msgstr ""
+msgstr "Örblogg frá %s"
 
 #: ../actions/smssettings.php:304
 #, php-format
@@ -1236,48 +1264,51 @@ msgid ""
 "Mobile carrier for your phone. If you know a carrier that accepts SMS over "
 "email but isn't listed here, send email to let us know at %s."
 msgstr ""
+"Farsímafélagið þitt. Ef þú veist um farsímafélag sem tekur á móti SMS í "
+"gegnum tölvupóst sem er ekki í þessum lista, sendu okkur tölvupóst í %s og "
+"láttu okkur vita."
 
 #: ../actions/finishopenidlogin.php:79 ../actions/register.php:188
 #: actions/finishopenidlogin.php:85 actions/register.php:202
 #: actions/finishopenidlogin.php:107 actions/register.php:429
 msgid "My text and files are available under "
-msgstr ""
+msgstr "Textinn og skrárnar mínar eru aðgengilegar undir "
 
 #: ../actions/emailsettings.php:82 ../actions/smssettings.php:91
 #: actions/emailsettings.php:83 actions/smssettings.php:91
 #: actions/emailsettings.php:142 actions/smssettings.php:152
 msgid "New"
-msgstr ""
+msgstr "Nýtt"
 
 #: ../lib/mail.php:144 lib/mail.php:144 lib/mail.php:286
 #, php-format
 msgid "New email address for posting to %s"
-msgstr ""
+msgstr "Nýtt tölvupóstfang til að senda á %s"
 
 #: ../actions/emailsettings.php:297 actions/emailsettings.php:315
 #: actions/emailsettings.php:465
 msgid "New incoming email address added."
-msgstr ""
+msgstr "Nýju móttökutölvupóstfangi bætt við."
 
 #: ../actions/finishopenidlogin.php:71 actions/finishopenidlogin.php:77
 #: actions/finishopenidlogin.php:99
 msgid "New nickname"
-msgstr "Νέο ψευδώνυμο"
+msgstr "Nýtt stuttnefni"
 
 #: ../actions/newnotice.php:87 actions/newnotice.php:96
 #: actions/newnotice.php:68
 msgid "New notice"
-msgstr ""
+msgstr "Nýtt babl"
 
 #: ../actions/password.php:41 ../actions/recoverpassword.php:179
 #: actions/profilesettings.php:180 actions/recoverpassword.php:185
 #: actions/passwordsettings.php:101 actions/recoverpassword.php:219
 msgid "New password"
-msgstr "Νέος κωδικός"
+msgstr "Nýtt lykilorð"
 
 #: ../actions/recoverpassword.php:314
 msgid "New password successfully saved. You are now logged in."
-msgstr ""
+msgstr "Tókst að vista nýtt lykilorð. Þú ert núna innskráð(ur)"
 
 #: ../actions/login.php:101 ../actions/profilesettings.php:41
 #: ../actions/register.php:151 actions/login.php:101
@@ -1287,7 +1318,7 @@ msgstr ""
 #: actions/showstream.php:251 actions/tagother.php:95
 #: lib/facebookaction.php:308 lib/groupeditform.php:137
 msgid "Nickname"
-msgstr "Ψευδώνυμο"
+msgstr "Stuttnefni"
 
 #: ../actions/finishopenidlogin.php:175 ../actions/profilesettings.php:110
 #: ../actions/register.php:69 actions/finishopenidlogin.php:181
@@ -1296,7 +1327,7 @@ msgstr "Ψευδώνυμο"
 #: actions/newgroup.php:134 actions/profilesettings.php:214
 #: actions/register.php:159
 msgid "Nickname already in use. Try another one."
-msgstr "Το ψευδώνυμο είναι ήδη σε χρήση. Δοκιμάστε κάποιο άλλο."
+msgstr "Stuttnefni nú þegar í notkun. Prófaðu eitthvað annað."
 
 #: ../actions/finishopenidlogin.php:165 ../actions/profilesettings.php:88
 #: ../actions/register.php:67 ../actions/updateprofile.php:77
@@ -1305,82 +1336,82 @@ msgstr "Το ψευδώνυμο είναι ήδη σε χρήση. Δοκιμά�
 #: actions/finishopenidlogin.php:205 actions/profilesettings.php:192
 #: actions/updateprofile.php:81
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
-msgstr "Το ψευδώνυμο πρέπει να έχει μόνο πεζούς χαρακτήρες και χωρίς κενά."
+msgstr "Stuttnefni geta bara verið lágstafir og tölustafir en engin bil."
 
 #: ../actions/finishopenidlogin.php:170 actions/finishopenidlogin.php:176
 #: actions/finishopenidlogin.php:210
 msgid "Nickname not allowed."
-msgstr "Το ψευδώνυμο αυτό δεν επιτρέπεται."
+msgstr "Stuttnefni ekki leyfilegt."
 
 #: ../actions/remotesubscribe.php:72 actions/remotesubscribe.php:81
 #: actions/remotesubscribe.php:106
 msgid "Nickname of the user you want to follow"
-msgstr "Το ψευδώνυμο του χρήστη που θέλετε να παρακολουθήσετε"
+msgstr "Stuttnefni notandans sem þú vilt fylgja"
 
 #: ../actions/recoverpassword.php:162 actions/recoverpassword.php:167
 #: actions/recoverpassword.php:186
 msgid "Nickname or email"
-msgstr "Ψευδώνυμο ή email"
+msgstr "Stuttnefni eða tölvupóstur"
 
 #: ../actions/deletenotice.php:59 actions/deletenotice.php:60
 #: actions/block.php:147 actions/deletenotice.php:118
 msgid "No"
-msgstr ""
+msgstr "Nei"
 
 #: ../actions/imsettings.php:156 actions/imsettings.php:164
 #: actions/imsettings.php:279
 msgid "No Jabber ID."
-msgstr ""
+msgstr "Ekkert Jabber-kenni"
 
 #: ../actions/userauthorization.php:129 actions/userauthorization.php:136
 #: actions/userauthorization.php:153
 msgid "No authorization request!"
-msgstr ""
+msgstr "Engin heimildarbeiðni!"
 
 #: ../actions/smssettings.php:181 actions/smssettings.php:189
 #: actions/smssettings.php:299
 msgid "No carrier selected."
-msgstr ""
+msgstr "Ekkert farsímafélag valið."
 
 #: ../actions/smssettings.php:316 actions/smssettings.php:324
 #: actions/smssettings.php:486
 msgid "No code entered"
-msgstr ""
+msgstr "Enginn lykill sleginn inn"
 
 #: ../actions/confirmaddress.php:33 actions/confirmaddress.php:33
 #: actions/confirmaddress.php:75
 msgid "No confirmation code."
-msgstr ""
+msgstr "Enginn staðfestingarlykill."
 
 #: ../actions/newnotice.php:44 actions/newmessage.php:53
 #: actions/newnotice.php:44 classes/Command.php:197 actions/newmessage.php:109
 #: actions/newnotice.php:126 classes/Command.php:223
 msgid "No content!"
-msgstr ""
+msgstr "Ekkert innihald!"
 
 #: ../actions/emailsettings.php:174 actions/emailsettings.php:192
 #: actions/emailsettings.php:304
 msgid "No email address."
-msgstr ""
+msgstr "Ekkert tölvupóstfang."
 
 #: ../actions/userbyid.php:32 actions/userbyid.php:32 actions/userbyid.php:70
 msgid "No id."
-msgstr ""
+msgstr "Ekkert kenni."
 
 #: ../actions/emailsettings.php:271 actions/emailsettings.php:289
 #: actions/emailsettings.php:430
 msgid "No incoming email address."
-msgstr ""
+msgstr "Ekkert móttökutölvupóstfang."
 
 #: ../actions/finishremotesubscribe.php:65
 #: actions/finishremotesubscribe.php:67 actions/finishremotesubscribe.php:68
 msgid "No nickname provided by remote server."
-msgstr ""
+msgstr "Ekkert stuttnefni uppgefið hjá hinum vefþjóninum."
 
 #: ../actions/avatarbynickname.php:27 actions/avatarbynickname.php:27
 #: actions/avatarbynickname.php:59 actions/leavegroup.php:81
 msgid "No nickname."
-msgstr ""
+msgstr "Ekkert stuttnefni."
 
 #: ../actions/emailsettings.php:222 ../actions/imsettings.php:206
 #: ../actions/smssettings.php:229 actions/emailsettings.php:240
@@ -1388,76 +1419,76 @@ msgstr ""
 #: actions/emailsettings.php:363 actions/imsettings.php:345
 #: actions/smssettings.php:358
 msgid "No pending confirmation to cancel."
-msgstr ""
+msgstr "Engin staðfesting í bið sem þarf að hætta við."
 
 #: ../actions/smssettings.php:176 actions/smssettings.php:184
 #: actions/smssettings.php:294
 msgid "No phone number."
-msgstr ""
+msgstr "Ekkert símanúmer."
 
 #: ../actions/finishremotesubscribe.php:72
 #: actions/finishremotesubscribe.php:74 actions/finishremotesubscribe.php:75
 msgid "No profile URL returned by server."
-msgstr ""
+msgstr "Ekkert veffang persónulegrar síðu skilað af vefþjóni."
 
 #: ../actions/recoverpassword.php:226 actions/recoverpassword.php:232
 #: actions/recoverpassword.php:266
 msgid "No registered email address for that user."
-msgstr ""
+msgstr "Ekkert tölvupóstfang á skrá fyrir þennan notanda."
 
 #: ../actions/userauthorization.php:49 actions/userauthorization.php:55
 #: actions/userauthorization.php:57
 msgid "No request found!"
-msgstr ""
+msgstr "Engin beiðni fundin!"
 
 #: ../actions/noticesearch.php:64 ../actions/peoplesearch.php:64
 #: actions/noticesearch.php:69 actions/peoplesearch.php:69
 #: actions/groupsearch.php:81 actions/noticesearch.php:104
 #: actions/peoplesearch.php:85
 msgid "No results"
-msgstr ""
+msgstr "Engar niðurstöður"
 
 #: ../actions/avatarbynickname.php:32 actions/avatarbynickname.php:32
 #: actions/avatarbynickname.php:64
 msgid "No size."
-msgstr ""
+msgstr "Engin stærð."
 
 #: ../actions/twitapistatuses.php:595 actions/twitapifavorites.php:136
 #: actions/twitapistatuses.php:520 actions/twitapifavorites.php:112
 #: actions/twitapistatuses.php:446
 msgid "No status found with that ID."
-msgstr ""
+msgstr "Engin staða fundin með þessu kenni."
 
 #: ../actions/twitapistatuses.php:555 actions/twitapistatuses.php:478
 #: actions/twitapistatuses.php:418
 msgid "No status with that ID found."
-msgstr ""
+msgstr "Engin staða með þessu kenni fannst."
 
 #: ../actions/openidsettings.php:135 actions/openidsettings.php:144
 #: actions/openidsettings.php:222
 msgid "No such OpenID."
-msgstr ""
+msgstr "Ekkert svoleiðis OpenID."
 
 #: ../actions/doc.php:29 actions/doc.php:29 actions/doc.php:64
 msgid "No such document."
-msgstr ""
+msgstr "Ekkert svoleiðis skjal."
 
 #: ../actions/shownotice.php:32 ../actions/shownotice.php:83
 #: ../lib/deleteaction.php:30 actions/shownotice.php:32
 #: actions/shownotice.php:83 lib/deleteaction.php:30 actions/shownotice.php:87
 #: lib/deleteaction.php:51
 msgid "No such notice."
-msgstr ""
+msgstr "Ekkert svoleiðis babl."
 
 #: ../actions/recoverpassword.php:56 actions/recoverpassword.php:56
 #: actions/recoverpassword.php:62
 msgid "No such recovery code."
-msgstr ""
+msgstr "Enginn svoleiðis staðfestingarlykill."
 
 #: ../actions/postnotice.php:56 actions/postnotice.php:57
 #: actions/postnotice.php:60
 msgid "No such subscription"
-msgstr ""
+msgstr "Engin svoleiðis áskrift"
 
 #: ../actions/all.php:34 ../actions/allrss.php:35
 #: ../actions/avatarbynickname.php:43 ../actions/foaf.php:40
@@ -1485,93 +1516,93 @@ msgstr ""
 #: classes/Command.php:271 lib/galleryaction.php:60 lib/mailbox.php:82
 #: lib/subs.php:34 lib/subs.php:109
 msgid "No such user."
-msgstr ""
+msgstr "Enginn svoleiðis notandi."
 
 #: ../actions/recoverpassword.php:211 actions/recoverpassword.php:217
 #: actions/recoverpassword.php:251
 msgid "No user with that email address or username."
-msgstr ""
+msgstr "Enginn notandi með þetta tölvupóstfang eða notendanafn"
 
 #: ../lib/gallery.php:80 lib/gallery.php:85
 msgid "Nobody to show!"
-msgstr ""
+msgstr "Enginn sem hægt er að sýna!"
 
 #: ../actions/recoverpassword.php:60 actions/recoverpassword.php:60
 #: actions/recoverpassword.php:66
 msgid "Not a recovery code."
-msgstr ""
+msgstr "Þetta er ekki staðfestingarlykill."
 
 #: ../scripts/maildaemon.php:50 scripts/maildaemon.php:50
 #: scripts/maildaemon.php:53
 msgid "Not a registered user."
-msgstr ""
+msgstr "Ekki skráður notandi."
 
 #: ../lib/twitterapi.php:226 ../lib/twitterapi.php:247
 #: ../lib/twitterapi.php:332 lib/twitterapi.php:391 lib/twitterapi.php:418
 #: lib/twitterapi.php:502 lib/twitterapi.php:448 lib/twitterapi.php:476
 #: lib/twitterapi.php:566
 msgid "Not a supported data format."
-msgstr ""
+msgstr "Enginn stuðningur við gagnasnið."
 
 #: ../actions/imsettings.php:167 actions/imsettings.php:175
 #: actions/imsettings.php:290
 msgid "Not a valid Jabber ID"
-msgstr ""
+msgstr "Ekki tækt Jabber-kenni"
 
 #: ../lib/openid.php:131 lib/openid.php:131 lib/openid.php:140
 msgid "Not a valid OpenID."
-msgstr ""
+msgstr "Ekki tækt OpenID"
 
 #: ../actions/emailsettings.php:185 actions/emailsettings.php:203
 #: actions/emailsettings.php:315
 msgid "Not a valid email address"
-msgstr ""
+msgstr "Ekki tækt tölvupóstfang"
 
 #: ../actions/register.php:63 actions/register.php:70 actions/register.php:152
 msgid "Not a valid email address."
-msgstr ""
+msgstr "Ekki tækt tölvupóstfang."
 
 #: ../actions/profilesettings.php:91 ../actions/register.php:71
 #: actions/profilesettings.php:206 actions/register.php:78
 #: actions/editgroup.php:186 actions/newgroup.php:137
 #: actions/profilesettings.php:195 actions/register.php:161
 msgid "Not a valid nickname."
-msgstr ""
+msgstr "Ekki tækt stuttnefni."
 
 #: ../actions/remotesubscribe.php:120 actions/remotesubscribe.php:129
 #: actions/remotesubscribe.php:159
 msgid "Not a valid profile URL (incorrect services)."
-msgstr ""
+msgstr "Ekki tækt veffang á persónulega síðu (röng þjónusta)."
 
 #: ../actions/remotesubscribe.php:113 actions/remotesubscribe.php:122
 #: actions/remotesubscribe.php:152
 msgid "Not a valid profile URL (no XRDS defined)."
-msgstr ""
+msgstr "Ekki tækt veffang á persónulega síðu (XRDS ekki skilgreint)."
 
 #: ../actions/remotesubscribe.php:104 actions/remotesubscribe.php:113
 #: actions/remotesubscribe.php:143
 msgid "Not a valid profile URL (no YADIS document)."
-msgstr ""
+msgstr "Ekki tækt veffang á persónulega síðu (ekkert YADIS skjal)."
 
 #: ../actions/avatar.php:95 actions/profilesettings.php:332
 #: lib/imagefile.php:87
 msgid "Not an image or corrupt file."
-msgstr ""
+msgstr "Annaðhvort ekki mynd eða þá að skráin er gölluð."
 
 #: ../actions/finishremotesubscribe.php:51
 #: actions/finishremotesubscribe.php:53 actions/finishremotesubscribe.php:54
 msgid "Not authorized."
-msgstr ""
+msgstr "Engin heimild."
 
 #: ../actions/finishremotesubscribe.php:38
 #: actions/finishremotesubscribe.php:38 actions/finishremotesubscribe.php:40
 msgid "Not expecting this response!"
-msgstr ""
+msgstr "Bjóst ekki við þessu svari!"
 
 #: ../actions/twitapistatuses.php:422 actions/twitapistatuses.php:361
 #: actions/twitapistatuses.php:309
 msgid "Not found"
-msgstr ""
+msgstr "Fannst ekki"
 
 #: ../actions/finishaddopenid.php:29 ../actions/logout.php:33
 #: ../actions/newnotice.php:29 ../actions/subscribe.php:28
@@ -1587,110 +1618,110 @@ msgstr ""
 #: actions/unsubscribe.php:27 lib/deleteaction.php:66
 #: lib/settingsaction.php:72
 msgid "Not logged in."
-msgstr ""
+msgstr "Ekki innskráð(ur)."
 
 #: ../lib/subs.php:91 lib/subs.php:104 lib/subs.php:122
 msgid "Not subscribed!."
-msgstr ""
+msgstr "Ekki í áskrift!"
 
 #: ../actions/opensearch.php:35 actions/opensearch.php:35
 #: actions/opensearch.php:67
 msgid "Notice Search"
-msgstr ""
+msgstr "Leit í babli"
 
 #: ../actions/showstream.php:82 actions/showstream.php:82
 #: actions/showstream.php:180 actions/showstream.php:187
 #: actions/showstream.php:192
 #, php-format
 msgid "Notice feed for %s"
-msgstr ""
+msgstr "Bablveita fyrir %s"
 
 #: ../actions/shownotice.php:39 actions/shownotice.php:39
 #: actions/shownotice.php:94
 msgid "Notice has no profile"
-msgstr ""
+msgstr "Babl hefur enga persónulega síðu"
 
 #: ../actions/showstream.php:316 actions/showstream.php:331
 #: actions/showstream.php:504 lib/facebookaction.php:477 lib/mailbox.php:116
 #: lib/noticelist.php:87
 msgid "Notices"
-msgstr ""
+msgstr "Babl"
 
 #: ../actions/tag.php:35 ../actions/tag.php:81 actions/tag.php:35
 #: actions/tag.php:81 actions/tag.php:41
 #, php-format
 msgid "Notices tagged with %s"
-msgstr ""
+msgstr "Babl merkt með %s"
 
 #: ../actions/password.php:39 actions/profilesettings.php:178
 #: actions/passwordsettings.php:97
 msgid "Old password"
-msgstr ""
+msgstr "Eldra lykilorð"
 
 #: ../lib/settingsaction.php:96 ../lib/util.php:314 lib/settingsaction.php:90
 #: lib/util.php:330 lib/accountsettingsaction.php:116 lib/action.php:341
 #: lib/logingroupnav.php:81
 msgid "OpenID"
-msgstr ""
+msgstr "OpenID"
 
 #: ../actions/finishopenidlogin.php:61 actions/finishopenidlogin.php:66
 #: actions/finishopenidlogin.php:73
 msgid "OpenID Account Setup"
-msgstr ""
+msgstr "Uppsetning OpenID aðgangs"
 
 #: ../lib/openid.php:180 lib/openid.php:180 lib/openid.php:266
 msgid "OpenID Auto-Submit"
-msgstr ""
+msgstr "Sjálfvirk innsending OpenID"
 
 #: ../actions/finishaddopenid.php:99 ../actions/finishopenidlogin.php:140
 #: ../actions/openidlogin.php:60 actions/finishaddopenid.php:99
 #: actions/finishopenidlogin.php:146 actions/openidlogin.php:68
 #: actions/finishaddopenid.php:170 actions/openidlogin.php:80
 msgid "OpenID Login"
-msgstr ""
+msgstr "OpenID notendanafn"
 
 #: ../actions/openidlogin.php:65 ../actions/openidsettings.php:49
 #: actions/openidlogin.php:74 actions/openidsettings.php:50
 #: actions/openidlogin.php:102 actions/openidsettings.php:101
 msgid "OpenID URL"
-msgstr ""
+msgstr "Veffang OpenID"
 
 #: ../actions/finishaddopenid.php:42 ../actions/finishopenidlogin.php:103
 #: actions/finishaddopenid.php:42 actions/finishopenidlogin.php:109
 #: actions/finishaddopenid.php:88 actions/finishopenidlogin.php:130
 msgid "OpenID authentication cancelled."
-msgstr ""
+msgstr "OpenID heimild afturkölluð."
 
 #: ../actions/finishaddopenid.php:46 ../actions/finishopenidlogin.php:107
 #: actions/finishaddopenid.php:46 actions/finishopenidlogin.php:113
 #: actions/finishaddopenid.php:92 actions/finishopenidlogin.php:134
 #, php-format
 msgid "OpenID authentication failed: %s"
-msgstr ""
+msgstr "Tókst ekki að fá OpenID heimild: %s"
 
 #: ../lib/openid.php:133 lib/openid.php:133 lib/openid.php:142
 #, php-format
 msgid "OpenID failure: %s"
-msgstr ""
+msgstr "OpenID mistókst: %s"
 
 #: ../actions/openidsettings.php:144 actions/openidsettings.php:153
 #: actions/openidsettings.php:231
 msgid "OpenID removed."
-msgstr "Το OpenID αφαιρέθηκε."
+msgstr "OpenID fjarlægt."
 
 #: ../actions/openidsettings.php:37 actions/openidsettings.php:37
 #: actions/openidsettings.php:59
 msgid "OpenID settings"
-msgstr "Ρυθμίσεις OpenID"
+msgstr "Stillingar OpenID"
 
 #: ../actions/invite.php:135 actions/invite.php:143 actions/invite.php:180
 msgid "Optionally add a personal message to the invitation."
-msgstr ""
+msgstr "Bættu persónulegum skilaboðum við boðskortið ef þú vilt."
 
 #: ../actions/avatar.php:84 actions/profilesettings.php:321
 #: lib/imagefile.php:75
 msgid "Partial upload."
-msgstr ""
+msgstr "Upphal að hluta til."
 
 #: ../actions/finishopenidlogin.php:90 ../actions/login.php:102
 #: ../actions/register.php:153 ../lib/settingsaction.php:93
@@ -1699,62 +1730,62 @@ msgstr ""
 #: actions/login.php:231 actions/register.php:372
 #: lib/accountsettingsaction.php:110 lib/facebookaction.php:311
 msgid "Password"
-msgstr "Κωδικός"
+msgstr "Lykilorð"
 
 #: ../actions/recoverpassword.php:288 actions/recoverpassword.php:301
 #: actions/recoverpassword.php:335
 msgid "Password and confirmation do not match."
-msgstr "Ο κωδικός και η επιβεβαίωση του δεν ταυτίζονται."
+msgstr "Lykilorð og staðfesting passa ekki saman."
 
 #: ../actions/recoverpassword.php:284 actions/recoverpassword.php:297
 #: actions/recoverpassword.php:331
 msgid "Password must be 6 chars or more."
-msgstr "Ο κωδικός πρέπει να είναι 6 χαρακτήρες ή περισσότεροι."
+msgstr "Lykilorð verður að vera 6 tákn eða fleiri."
 
 #: ../actions/recoverpassword.php:261 ../actions/recoverpassword.php:263
 #: actions/recoverpassword.php:267 actions/recoverpassword.php:269
 #: actions/recoverpassword.php:199 actions/recoverpassword.php:301
 msgid "Password recovery requested"
-msgstr ""
+msgstr "Beiðni um að endurheimta lykilorð hefur verið send inn"
 
 #: ../actions/password.php:89 ../actions/recoverpassword.php:313
 #: actions/profilesettings.php:408 actions/recoverpassword.php:326
 #: actions/passwordsettings.php:173 actions/recoverpassword.php:200
 msgid "Password saved."
-msgstr "Ο κωδικός αποθηκεύτηκε."
+msgstr "Lykilorð vistað."
 
 #: ../actions/password.php:61 ../actions/register.php:88
 #: actions/profilesettings.php:380 actions/register.php:98
 #: actions/passwordsettings.php:145 actions/register.php:183
 msgid "Passwords don't match."
-msgstr "Οι κωδικοί δεν ταυτίζονται."
+msgstr "Lykilorðin passa ekki saman."
 
 #: ../lib/searchaction.php:100 lib/searchaction.php:100
 #: lib/searchgroupnav.php:80
 msgid "People"
-msgstr ""
+msgstr "Fólk"
 
 #: ../actions/opensearch.php:33 actions/opensearch.php:33
 #: actions/opensearch.php:64
 msgid "People Search"
-msgstr ""
+msgstr "Leit að fólki"
 
 #: ../actions/peoplesearch.php:33 actions/peoplesearch.php:33
 #: actions/peoplesearch.php:58
 msgid "People search"
-msgstr ""
+msgstr "Leit að fólki"
 
 #: ../lib/stream.php:50 lib/personal.php:50 lib/personalgroupnav.php:98
 msgid "Personal"
-msgstr "Προσωπικά"
+msgstr "Persónulegt"
 
 #: ../actions/invite.php:133 actions/invite.php:141 actions/invite.php:178
 msgid "Personal message"
-msgstr ""
+msgstr "Persónuleg skilaboð"
 
 #: ../actions/smssettings.php:69 actions/smssettings.php:69
 msgid "Phone number, no punctuation or spaces, with area code"
-msgstr ""
+msgstr "Símanúmer, með svæðisnúmeri ef við á, án greinarmerkja eða bila"
 
 #: ../actions/userauthorization.php:78
 msgid ""
@@ -1762,11 +1793,14 @@ msgid ""
 "user's notices. If you didn't just ask to subscribe to someone's notices, "
 "click \"Cancel\"."
 msgstr ""
+"Vinsamlegast athugaðu þessi atriði til þess að vera viss um að þú viljir "
+"gerast áskrifandi að babli þessa notanda. Ef þú baðst ekki um að gerast "
+"áskrifandi að babli, smelltu þá á \"Hætta við\"."
 
 #: ../actions/imsettings.php:73 actions/imsettings.php:74
 #: actions/imsettings.php:142
 msgid "Post a notice when my Jabber/GTalk status changes."
-msgstr ""
+msgstr "Senda inn babl þegar Jabber/GTalk staðan breytist."
 
 #: ../actions/emailsettings.php:85 ../actions/imsettings.php:67
 #: ../actions/smssettings.php:94 actions/emailsettings.php:86
@@ -1775,7 +1809,7 @@ msgstr ""
 #: actions/imsettings.php:133 actions/smssettings.php:157
 #: actions/twittersettings.php:134
 msgid "Preferences"
-msgstr "Προτιμήσεις"
+msgstr "Stillingar"
 
 #: ../actions/emailsettings.php:162 ../actions/imsettings.php:144
 #: ../actions/smssettings.php:163 actions/emailsettings.php:180
@@ -1783,120 +1817,120 @@ msgstr "Προτιμήσεις"
 #: actions/emailsettings.php:286 actions/imsettings.php:258
 #: actions/othersettings.php:168 actions/smssettings.php:272
 msgid "Preferences saved."
-msgstr "Οι προτιμήσεις αποθηκεύτηκαν"
+msgstr "Stillingar vistaðar."
 
 #: ../actions/profilesettings.php:57 actions/profilesettings.php:90
 #: actions/profilesettings.php:129
 msgid "Preferred language"
-msgstr ""
+msgstr "Tungumál (ákjósanlegt)"
 
 #: ../lib/util.php:328 lib/util.php:344 lib/action.php:572
 msgid "Privacy"
-msgstr ""
+msgstr "Friðhelgi"
 
 #: ../classes/Notice.php:95 ../classes/Notice.php:106 classes/Notice.php:109
 #: classes/Notice.php:119 classes/Notice.php:145 classes/Notice.php:155
 msgid "Problem saving notice."
-msgstr ""
+msgstr "Vandamál komu upp við að vista babl."
 
 #: ../lib/settingsaction.php:84 ../lib/stream.php:60 lib/personal.php:60
 #: lib/settingsaction.php:84 lib/accountsettingsaction.php:104
 #: lib/personalgroupnav.php:108
 msgid "Profile"
-msgstr ""
+msgstr "Persónuleg síða"
 
 #: ../actions/remotesubscribe.php:73 actions/remotesubscribe.php:82
 #: actions/remotesubscribe.php:109
 msgid "Profile URL"
-msgstr ""
+msgstr "Veffang persónulegrar síðu"
 
 #: ../actions/profilesettings.php:34 actions/profilesettings.php:32
 #: actions/profilesettings.php:58
 msgid "Profile settings"
-msgstr ""
+msgstr "Stillingar persónulegrar síðu"
 
 #: ../actions/postnotice.php:51 ../actions/updateprofile.php:52
 #: actions/postnotice.php:52 actions/updateprofile.php:53
 #: actions/postnotice.php:55 actions/updateprofile.php:56
 msgid "Profile unknown"
-msgstr ""
+msgstr "Persónuleg síða þekkist ekki"
 
 #: ../actions/public.php:54 actions/public.php:54 actions/public.php:124
 msgid "Public Stream Feed"
-msgstr ""
+msgstr "Skilaboðaveita almenningsrásarinnar"
 
 #: ../actions/public.php:33 actions/public.php:33 actions/public.php:109
 #: lib/publicgroupnav.php:77
 msgid "Public timeline"
-msgstr ""
+msgstr "Almenningsrás"
 
 #: ../actions/imsettings.php:79 actions/imsettings.php:80
 #: actions/imsettings.php:153
 msgid "Publish a MicroID for my Jabber/GTalk address."
-msgstr ""
+msgstr "Birta MicroID fyrir Jabber/GTalk netfangið mitt."
 
 #: ../actions/emailsettings.php:94 actions/emailsettings.php:101
 #: actions/emailsettings.php:178
 msgid "Publish a MicroID for my email address."
-msgstr ""
+msgstr "Birta MicroID fyrir tölvupóstfangið mitt."
 
 #: ../actions/tag.php:75 ../actions/tag.php:76 actions/tag.php:75
 #: actions/tag.php:76
 msgid "Recent Tags"
-msgstr ""
+msgstr "Nýleg merki"
 
 #: ../actions/recoverpassword.php:166 actions/recoverpassword.php:171
 #: actions/recoverpassword.php:190
 msgid "Recover"
-msgstr ""
+msgstr "Endurheimta"
 
 #: ../actions/recoverpassword.php:156 actions/recoverpassword.php:161
 #: actions/recoverpassword.php:198
 msgid "Recover password"
-msgstr ""
+msgstr "Endurheimta lykilorð"
 
 #: ../actions/recoverpassword.php:67 actions/recoverpassword.php:67
 #: actions/recoverpassword.php:73
 msgid "Recovery code for unknown user."
-msgstr ""
+msgstr "Lykill fyrir endurheimtingu óþekkts notanda."
 
 #: ../actions/register.php:142 ../actions/register.php:193 ../lib/util.php:312
 #: actions/register.php:152 actions/register.php:207 lib/util.php:328
 #: actions/register.php:69 actions/register.php:436 lib/action.php:338
 #: lib/facebookaction.php:277 lib/logingroupnav.php:78
 msgid "Register"
-msgstr ""
+msgstr "Nýskrá"
 
 #: ../actions/register.php:28 actions/register.php:28
 #: actions/finishopenidlogin.php:196 actions/register.php:90
 msgid "Registration not allowed."
-msgstr ""
+msgstr "Nýskráning ekki leyfð."
 
 #: ../actions/register.php:200 actions/register.php:214
 #: actions/register.php:67
 msgid "Registration successful"
-msgstr ""
+msgstr "Nýskráning tókst"
 
 #: ../actions/userauthorization.php:120 actions/userauthorization.php:127
 #: actions/userauthorization.php:144
 msgid "Reject"
-msgstr ""
+msgstr "Hafna"
 
 #: ../actions/login.php:103 ../actions/register.php:176 actions/login.php:103
 #: actions/register.php:190 actions/login.php:234 actions/openidlogin.php:107
 #: actions/register.php:414
 msgid "Remember me"
-msgstr ""
+msgstr "Muna eftir mér"
 
 #: ../actions/updateprofile.php:70 actions/updateprofile.php:71
 #: actions/updateprofile.php:74
 msgid "Remote profile with no matching profile"
-msgstr ""
+msgstr "Persónuleg fjarsíða með engri persónulegri síðu sem passar"
 
 #: ../actions/remotesubscribe.php:65 actions/remotesubscribe.php:73
 #: actions/remotesubscribe.php:88
 msgid "Remote subscribe"
-msgstr ""
+msgstr "Fara í fjaráskrift"
 
 #: ../actions/emailsettings.php:47 ../actions/emailsettings.php:75
 #: ../actions/imsettings.php:48 ../actions/openidsettings.php:106
@@ -1909,22 +1943,24 @@ msgstr ""
 #: actions/openidsettings.php:166 actions/smssettings.php:103
 #: actions/smssettings.php:146 actions/twittersettings.php:115
 msgid "Remove"
-msgstr ""
+msgstr "Fjarlægja"
 
 #: ../actions/openidsettings.php:68 actions/openidsettings.php:69
 #: actions/openidsettings.php:123
 msgid "Remove OpenID"
-msgstr ""
+msgstr "Fjarlægja OpenID"
 
 #: ../actions/openidsettings.php:73
 msgid ""
 "Removing your only OpenID would make it impossible to log in! If you need to "
 "remove it, add another OpenID first."
 msgstr ""
+"Að fjarlægja þetta eina OpenID sem þú ert með gerir innskráningu ómögulega! "
+"Ef þú þarft að fjarlægja það, búðu þá til nýtt OpenID fyrst."
 
 #: ../lib/stream.php:55 lib/personal.php:55 lib/personalgroupnav.php:103
 msgid "Replies"
-msgstr ""
+msgstr "Svör"
 
 #: ../actions/replies.php:47 ../actions/repliesrss.php:76 ../lib/stream.php:56
 #: actions/replies.php:47 actions/repliesrss.php:62 lib/personal.php:56
@@ -1932,46 +1968,46 @@ msgstr ""
 #: lib/personalgroupnav.php:104
 #, php-format
 msgid "Replies to %s"
-msgstr ""
+msgstr "Svör við %s"
 
 #: ../actions/recoverpassword.php:183 actions/recoverpassword.php:189
 #: actions/recoverpassword.php:223
 msgid "Reset"
-msgstr ""
+msgstr "Endurstilla"
 
 #: ../actions/recoverpassword.php:173 actions/recoverpassword.php:178
 #: actions/recoverpassword.php:197
 msgid "Reset password"
-msgstr ""
+msgstr "Endurstilla lykilorð"
 
 #: ../lib/settingsaction.php:99 lib/settingsaction.php:93
 #: actions/subscriptions.php:123 lib/connectsettingsaction.php:107
 msgid "SMS"
-msgstr ""
+msgstr "SMS"
 
 #: ../actions/smssettings.php:67 actions/smssettings.php:67
 #: actions/smssettings.php:126
 msgid "SMS Phone number"
-msgstr ""
+msgstr "SMS símanúmer"
 
 #: ../actions/smssettings.php:33 actions/smssettings.php:33
 #: actions/smssettings.php:58
 msgid "SMS Settings"
-msgstr ""
+msgstr "SMS stillingar"
 
 #: ../lib/mail.php:219 lib/mail.php:225 lib/mail.php:437
 msgid "SMS confirmation"
-msgstr ""
+msgstr "SMS staðfesting"
 
 #: ../actions/recoverpassword.php:182 actions/recoverpassword.php:188
 #: actions/recoverpassword.php:222
 msgid "Same as password above"
-msgstr ""
+msgstr "Sama og lykilorðið hér fyrir ofan"
 
 #: ../actions/register.php:156 actions/register.php:170
 #: actions/register.php:377
 msgid "Same as password above. Required."
-msgstr ""
+msgstr "Sama og lykilorðið hér fyrir ofan. Nauðsynlegt."
 
 #: ../actions/emailsettings.php:97 ../actions/imsettings.php:81
 #: ../actions/profilesettings.php:67 ../actions/smssettings.php:100
@@ -1984,17 +2020,17 @@ msgstr ""
 #: actions/tagother.php:152 actions/twittersettings.php:161
 #: lib/groupeditform.php:171
 msgid "Save"
-msgstr ""
+msgstr "Vista"
 
 #: ../lib/searchaction.php:84 ../lib/util.php:300 lib/searchaction.php:84
 #: lib/util.php:316 lib/action.php:325
 msgid "Search"
-msgstr ""
+msgstr "Leita"
 
 #: ../actions/noticesearch.php:80 actions/noticesearch.php:85
 #: actions/noticesearch.php:127
 msgid "Search Stream Feed"
-msgstr ""
+msgstr "Leita í bablveitu"
 
 #: ../actions/noticesearch.php:30 actions/noticesearch.php:30
 #: actions/noticesearch.php:57
@@ -2003,6 +2039,8 @@ msgid ""
 "Search for notices on %%site.name%% by their contents. Separate search terms "
 "by spaces; they must be 3 characters or more."
 msgstr ""
+"Leita í innihaldi babls á %%site.name%%. Leitarorð eru aðskilin með bili og "
+"verða að vera að minnsta kosti 3 tákn."
 
 #: ../actions/peoplesearch.php:28
 #, php-format
@@ -2010,92 +2048,97 @@ msgid ""
 "Search for people on %%site.name%% by their name, location, or interests. "
 "Separate the terms by spaces; they must be 3 characters or more."
 msgstr ""
+"Leita að fólki á %%site.name%% eftir nafni, staðsetningu eða áhugamáli. "
+"Leitarorð eru aðskilin með bili og verða að vera að minnsta kosti 3 tákn."
 
 #: ../actions/smssettings.php:296 actions/smssettings.php:304
 #: actions/smssettings.php:457
 msgid "Select a carrier"
-msgstr ""
+msgstr "Veldu farsímafyrirtæki"
 
 #: ../actions/invite.php:137 ../lib/util.php:1172 actions/invite.php:145
 #: lib/util.php:1306 lib/util.php:1731 actions/invite.php:182
 #: lib/messageform.php:167 lib/noticeform.php:177
 msgid "Send"
-msgstr ""
+msgstr "Senda"
 
 #: ../actions/emailsettings.php:73 ../actions/smssettings.php:82
 #: actions/emailsettings.php:74 actions/smssettings.php:82
 #: actions/emailsettings.php:132 actions/smssettings.php:145
 msgid "Send email to this address to post new notices."
-msgstr ""
+msgstr "Sendu tölvupóst á þetta póstfang til þess að senda inn nýtt babl."
 
 #: ../actions/emailsettings.php:88 actions/emailsettings.php:89
 #: actions/emailsettings.php:152
 msgid "Send me notices of new subscriptions through email."
-msgstr ""
+msgstr "Sendu mér tilkynningu varðandi nýjar áskriftir í gegnum tölvupóst."
 
 #: ../actions/imsettings.php:70 actions/imsettings.php:71
 #: actions/imsettings.php:137
 msgid "Send me notices through Jabber/GTalk."
-msgstr ""
+msgstr "Sendur mér babl í gegnum Jabber/GTalk."
 
 #: ../actions/smssettings.php:97 actions/smssettings.php:97
 msgid ""
 "Send me notices through SMS; I understand I may incur exorbitant charges "
 "from my carrier."
 msgstr ""
+"Sendu mér babl í gegnum SMS. Ég veit að það er möguleiki að "
+"farsímafyrirtækið rukki fyrir móttöku á SMSunum."
 
 #: ../actions/imsettings.php:76 actions/imsettings.php:77
 msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
 msgstr ""
+"Sendu mér svör í gegnum Jabber/GTalk frá fólki sem ég er ekki áskrifandi að."
 
 #: ../lib/util.php:304 lib/util.php:320 lib/facebookaction.php:215
 msgid "Settings"
-msgstr ""
+msgstr "Stillingar"
 
 #: ../actions/profilesettings.php:192 actions/profilesettings.php:307
 #: actions/profilesettings.php:319
 msgid "Settings saved."
-msgstr ""
+msgstr "Stillingar vistaðar."
 
 #: ../actions/tag.php:60 actions/tag.php:60
 msgid "Showing most popular tags from the last week"
-msgstr ""
+msgstr "Sýni vinsælustu merki síðustu viku"
 
 #: ../actions/finishaddopenid.php:66 actions/finishaddopenid.php:66
 #: actions/finishaddopenid.php:114
 msgid "Someone else already has this OpenID."
-msgstr ""
+msgstr "Einhver annar hefur þetta OpenID nú þegar."
 
 #: ../actions/finishopenidlogin.php:42 ../actions/openidsettings.php:126
 #: actions/finishopenidlogin.php:47 actions/openidsettings.php:135
 #: actions/finishopenidlogin.php:52 actions/openidsettings.php:202
 msgid "Something weird happened."
-msgstr ""
+msgstr "Eitthvað undarlegt gerðist."
 
 #: ../scripts/maildaemon.php:58 scripts/maildaemon.php:58
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
-msgstr ""
+msgstr "Því miður er móttökutölvupóstur ekki leyfður."
 
 #: ../scripts/maildaemon.php:54 scripts/maildaemon.php:54
 #: scripts/maildaemon.php:57
 msgid "Sorry, that is not your incoming email address."
-msgstr ""
+msgstr "Afsakið en þetta er ekki móttökutölvupóstfangið þitt."
 
 #: ../lib/util.php:330 lib/util.php:346 lib/action.php:574
 msgid "Source"
-msgstr ""
+msgstr "Frumþula"
 
 #: ../actions/showstream.php:296 actions/showstream.php:311
 #: actions/showstream.php:476
 msgid "Statistics"
-msgstr ""
+msgstr "Tölfræði"
 
 #: ../actions/finishopenidlogin.php:182 ../actions/finishopenidlogin.php:246
 #: actions/finishopenidlogin.php:188 actions/finishopenidlogin.php:252
 #: actions/finishopenidlogin.php:222 actions/finishopenidlogin.php:290
 msgid "Stored OpenID not found."
-msgstr ""
+msgstr "Vista OpenID fannst ekki."
 
 #: ../actions/remotesubscribe.php:75 ../actions/showstream.php:188
 #: ../actions/showstream.php:197 actions/remotesubscribe.php:84
@@ -2103,24 +2146,24 @@ msgstr ""
 #: actions/remotesubscribe.php:113 actions/showstream.php:376
 #: lib/subscribeform.php:139
 msgid "Subscribe"
-msgstr ""
+msgstr "Gerast áskrifandi"
 
 #: ../actions/showstream.php:313 ../actions/subscribers.php:27
 #: actions/showstream.php:328 actions/subscribers.php:27
 #: actions/showstream.php:436 actions/showstream.php:498
 #: lib/subgroupnav.php:88
 msgid "Subscribers"
-msgstr ""
+msgstr "Áskrifendur"
 
 #: ../actions/userauthorization.php:310 actions/userauthorization.php:322
 #: actions/userauthorization.php:338
 msgid "Subscription authorized"
-msgstr ""
+msgstr "Áskrift heimiluð"
 
 #: ../actions/userauthorization.php:320 actions/userauthorization.php:332
 #: actions/userauthorization.php:349
 msgid "Subscription rejected"
-msgstr ""
+msgstr "Áskrift hafnað"
 
 #: ../actions/showstream.php:230 ../actions/showstream.php:307
 #: ../actions/subscriptions.php:27 actions/showstream.php:240
@@ -2128,114 +2171,114 @@ msgstr ""
 #: actions/showstream.php:407 actions/showstream.php:489
 #: lib/subgroupnav.php:80
 msgid "Subscriptions"
-msgstr ""
+msgstr "Áskriftir"
 
 #: ../actions/avatar.php:87 actions/profilesettings.php:324
 #: lib/imagefile.php:78
 msgid "System error uploading file."
-msgstr ""
+msgstr "Kerfisvilla kom upp við upphal skráar."
 
 #: ../actions/tag.php:41 ../lib/util.php:301 actions/tag.php:41
 #: lib/util.php:317 actions/profilesettings.php:122 actions/showstream.php:297
 #: actions/tagother.php:147 actions/tagother.php:207 lib/profilelist.php:162
 #: lib/profilelist.php:164
 msgid "Tags"
-msgstr ""
+msgstr "Merki"
 
 #: ../lib/searchaction.php:104 lib/searchaction.php:104
 msgid "Text"
-msgstr ""
+msgstr "Texti"
 
 #: ../actions/noticesearch.php:34 actions/noticesearch.php:34
 #: actions/noticesearch.php:67
 msgid "Text search"
-msgstr ""
+msgstr "Textaleit"
 
 #: ../actions/openidsettings.php:140 actions/openidsettings.php:149
 #: actions/openidsettings.php:227
 msgid "That OpenID does not belong to you."
-msgstr ""
+msgstr "Þetta OpenID tilheyrir þér ekki."
 
 #: ../actions/confirmaddress.php:52 actions/confirmaddress.php:52
 #: actions/confirmaddress.php:94
 msgid "That address has already been confirmed."
-msgstr ""
+msgstr "Þetta tölvupóstfang hefur nú þegar verið staðfest."
 
 #: ../actions/confirmaddress.php:43 actions/confirmaddress.php:43
 #: actions/confirmaddress.php:85
 msgid "That confirmation code is not for you!"
-msgstr ""
+msgstr "Þessi staðfestingarlykill er ekki fyrir þig!"
 
 #: ../actions/emailsettings.php:191 actions/emailsettings.php:209
 msgid "That email address already belongs to another user."
-msgstr ""
+msgstr "Þetta tölvupóstfang tilheyrir öðrum notanda."
 
 #: ../actions/avatar.php:80 actions/profilesettings.php:317
 #: lib/imagefile.php:71
 msgid "That file is too big."
-msgstr ""
+msgstr "Þessi skrá er of stór."
 
 #: ../actions/imsettings.php:170 actions/imsettings.php:178
 #: actions/imsettings.php:293
 msgid "That is already your Jabber ID."
-msgstr ""
+msgstr "Þetta er nú þegar Jabber-kennið þitt."
 
 #: ../actions/emailsettings.php:188 actions/emailsettings.php:206
 #: actions/emailsettings.php:318
 msgid "That is already your email address."
-msgstr ""
+msgstr "Þetta er nú þegar tölvupóstfangið þitt."
 
 #: ../actions/smssettings.php:188 actions/smssettings.php:196
 #: actions/smssettings.php:306
 msgid "That is already your phone number."
-msgstr ""
+msgstr "Þetta er nú þegar símanúmerið þitt."
 
 #: ../actions/imsettings.php:233 actions/imsettings.php:241
 #: actions/imsettings.php:381
 msgid "That is not your Jabber ID."
-msgstr ""
+msgstr "Þetta er ekki Jabber-kennið þitt."
 
 #: ../actions/emailsettings.php:249 actions/emailsettings.php:267
 #: actions/emailsettings.php:397
 msgid "That is not your email address."
-msgstr ""
+msgstr "Þetta er ekki tölvupóstfangið þitt."
 
 #: ../actions/smssettings.php:257 actions/smssettings.php:265
 #: actions/smssettings.php:393
 msgid "That is not your phone number."
-msgstr ""
+msgstr "Þetta er ekki símanúmerið þitt."
 
 #: ../actions/emailsettings.php:226 ../actions/imsettings.php:210
 #: actions/emailsettings.php:244 actions/imsettings.php:218
 #: actions/emailsettings.php:367 actions/imsettings.php:349
 msgid "That is the wrong IM address."
-msgstr ""
+msgstr "Þetta er rangt snarskilaboðafang."
 
 #: ../actions/smssettings.php:233 actions/smssettings.php:241
 #: actions/smssettings.php:362
 msgid "That is the wrong confirmation number."
-msgstr ""
+msgstr "Þetta er rangur staðfestingarlykill."
 
 #: ../actions/smssettings.php:191 actions/smssettings.php:199
 #: actions/smssettings.php:309
 msgid "That phone number already belongs to another user."
-msgstr ""
+msgstr "Þetta símanúmer tilheyri nú þegar öðrum notanda."
 
 #: ../actions/newnotice.php:49 ../actions/twitapistatuses.php:408
 #: actions/newnotice.php:49 actions/twitapistatuses.php:330
 #: actions/facebookhome.php:243 actions/twitapistatuses.php:276
 msgid "That's too long. Max notice size is 140 chars."
-msgstr ""
+msgstr "Þetta er of langt. Hámarkslengd babls er 140 tákn."
 
 #: ../actions/twitapiaccount.php:74 actions/twitapiaccount.php:72
 #: actions/twitapiaccount.php:62
 msgid "That's too long. Max notice size is 255 chars."
-msgstr ""
+msgstr "Þetta er of langt. Hámarkslengd babls er 255 tákn."
 
 #: ../actions/confirmaddress.php:92 actions/confirmaddress.php:92
 #, php-format
 msgid "The address \"%s\" has been confirmed for your account."
-msgstr ""
+msgstr "Þetta tölvupóstfang, \"%s\", hefur verið staðfest fyrir aðganginn þinn."
 
 #: ../actions/emailsettings.php:264 ../actions/imsettings.php:250
 #: ../actions/smssettings.php:274 actions/emailsettings.php:282
@@ -2243,7 +2286,7 @@ msgstr ""
 #: actions/emailsettings.php:416 actions/imsettings.php:402
 #: actions/smssettings.php:413
 msgid "The address was removed."
-msgstr ""
+msgstr "Tölvupóstfangið hefur verið fjarlægt."
 
 #: ../actions/userauthorization.php:312
 msgid ""
@@ -2251,6 +2294,9 @@ msgid ""
 "with the site's instructions for details on how to authorize the "
 "subscription. Your subscription token is:"
 msgstr ""
+"Áskriftin hefur verið heimiluð en afturkallsveffang var ekki sent. Athugaðu "
+"leiðbeiningar síðunnar um það hvernig á að heimila áskrift. Áskriftartókinn "
+"þinn er;"
 
 #: ../actions/userauthorization.php:322
 msgid ""
@@ -2258,39 +2304,46 @@ msgid ""
 "with the site's instructions for details on how to fully reject the "
 "subscription."
 msgstr ""
+"Áskriftinni hefur verið hafnað en afturkallsveffang var ekki sent. Athugaðu "
+"leiðbeiningar síðunnar um það hvernig á að hafna áskrift alveg."
 
 #: ../actions/subscribers.php:35 actions/subscribers.php:35
 #, php-format
 msgid "These are the people who listen to %s's notices."
-msgstr ""
+msgstr "Þetta er fólkið sem hlustar á bablið í %s."
 
 #: ../actions/subscribers.php:33 actions/subscribers.php:33
 msgid "These are the people who listen to your notices."
-msgstr ""
+msgstr "Þetta er fólkið sem hlustar á bablið í þér."
 
 #: ../actions/subscriptions.php:35 actions/subscriptions.php:35
 #, php-format
 msgid "These are the people whose notices %s listens to."
-msgstr ""
+msgstr "Þetta er fólkið sem %s hlustar á bablið í."
 
 #: ../actions/subscriptions.php:33 actions/subscriptions.php:33
 msgid "These are the people whose notices you listen to."
-msgstr ""
+msgstr "Þetta er fólkið sem þú hlustar á bablið í."
 
 #: ../actions/invite.php:89 actions/invite.php:96 actions/invite.php:128
 msgid ""
 "These people are already users and you were automatically subscribed to them:"
 msgstr ""
+"Þetta fólk er nú þegar notendur og þú varðst sjálfkrafa áskrifandi að þeim:"
 
 #: ../actions/recoverpassword.php:88
 msgid "This confirmation code is too old. Please start again."
 msgstr ""
+"Þessi staðfestingarlykill er of gamall. Vinsamlegast byrjaðu aftur upp á "
+"nýtt."
 
 #: ../lib/openid.php:195
 msgid ""
 "This form should automatically submit itself. If not, click the submit "
 "button to go to your OpenID provider."
 msgstr ""
+"Þetta eyðublað ætti að sendast inn sjálfkrafa. Ef ekki smelltu þá á "
+"innsendingartakkann til að fara til OpenID þjónustuaðilans þíns."
 
 #: ../actions/finishopenidlogin.php:56 actions/finishopenidlogin.php:61
 #: actions/finishopenidlogin.php:67
@@ -2300,13 +2353,16 @@ msgid ""
 "to a local account. You can either create a new account, or connect with "
 "your existing account, if you have one."
 msgstr ""
+"Þetta er í fyrsta skipti sem þú skráir þig inn á %s þannig að við verðum að "
+"tengja OpenID aðganginn þinn við staðbundinn aðgang. Þú getur annaðhvort "
+"búið til nýjan aðgang eða tengst við aðgan sem þú hefur nú þegar búið til."
 
 #: ../actions/twitapifriendships.php:108 ../actions/twitapistatuses.php:586
 #: actions/twitapifavorites.php:127 actions/twitapifriendships.php:108
 #: actions/twitapistatuses.php:511 actions/twitapifavorites.php:97
 #: actions/twitapifriendships.php:85 actions/twitapistatuses.php:436
 msgid "This method requires a POST or DELETE."
-msgstr ""
+msgstr "Þessi aðferð krefst POST eða DELETE."
 
 #: ../actions/twitapiaccount.php:65 ../actions/twitapifriendships.php:44
 #: ../actions/twitapistatuses.php:381 actions/twitapiaccount.php:63
@@ -2315,21 +2371,22 @@ msgstr ""
 #: actions/twitapidirect_messages.php:122 actions/twitapifriendships.php:32
 #: actions/twitapistatuses.php:244
 msgid "This method requires a POST."
-msgstr ""
+msgstr "Þessi aðferð krefst POST."
 
 #: ../lib/util.php:164 lib/util.php:246
 msgid "This page is not available in a media type you accept"
 msgstr ""
+"Þessi síða er ekki aðgengileg í margmiðlunargerðinni sem þú tekur á móti"
 
 #: ../actions/profilesettings.php:63 actions/profilesettings.php:96
 #: actions/profilesettings.php:138
 msgid "Timezone"
-msgstr ""
+msgstr "Tímabelti"
 
 #: ../actions/profilesettings.php:107 actions/profilesettings.php:222
 #: actions/profilesettings.php:211
 msgid "Timezone not selected."
-msgstr ""
+msgstr "Tímabelti ekki valið."
 
 #: ../actions/remotesubscribe.php:43
 #, php-format
@@ -2338,22 +2395,28 @@ msgid ""
 "register%%) a new  account. If you already have an account  on a [compatible "
 "microblogging site](%%doc.openmublog%%),  enter your profile URL below."
 msgstr ""
+"Til þess að gerast áskrifandi getur þú [skráð þig inn](%%action.login%%) eða "
+"[nýskráð þig](%%action.register%%). Ef þú hefur nú þegar búið til aðgang á "
+"[samvirkandi örbloggsþjónustu](%%doc.openmublog%%), sláðu þá inn veffang "
+"persónulegu síðunnar þinnar hér fyrir neðan."
 
 #: ../actions/twitapifriendships.php:163 actions/twitapifriendships.php:167
 #: actions/twitapifriendships.php:132
 msgid "Two user ids or screen_names must be supplied."
-msgstr ""
+msgstr "Tvo notendakenni eða skjáarnöfn verða að vera uppgefin."
 
 #: ../actions/profilesettings.php:48 ../actions/register.php:169
 #: actions/profilesettings.php:81 actions/register.php:183
 #: actions/profilesettings.php:109
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr ""
+"Veffang heimasíðunnar þinnar, bloggsins þíns eða persónulegrar síðu á öðru "
+"vefsvæði"
 
 #: ../actions/remotesubscribe.php:74 actions/remotesubscribe.php:83
 #: actions/remotesubscribe.php:110
 msgid "URL of your profile on another compatible microblogging service"
-msgstr ""
+msgstr "Veffang persónulegrar síðu á samvirkandi örbloggsþjónustu"
 
 #: ../actions/emailsettings.php:130 ../actions/imsettings.php:110
 #: ../actions/recoverpassword.php:39 ../actions/smssettings.php:135
@@ -2364,76 +2427,78 @@ msgstr ""
 #: actions/imsettings.php:214 actions/recoverpassword.php:44
 #: actions/smssettings.php:236 actions/twittersettings.php:302
 msgid "Unexpected form submission."
-msgstr ""
+msgstr "Bjóst ekki við innsendingu eyðublaðs."
 
 #: ../actions/recoverpassword.php:276 actions/recoverpassword.php:289
 #: actions/recoverpassword.php:323
 msgid "Unexpected password reset."
-msgstr ""
+msgstr "Bjóst ekki við endurstillingu lykilorðs."
 
 #: ../index.php:57 index.php:57 actions/recoverpassword.php:202
 msgid "Unknown action"
-msgstr ""
+msgstr "Óþekkt aðgerð"
 
 #: ../actions/finishremotesubscribe.php:58
 #: actions/finishremotesubscribe.php:60 actions/finishremotesubscribe.php:61
 msgid "Unknown version of OMB protocol."
-msgstr ""
+msgstr "Óþekkt útgáfa OMB samskiptamátans."
 
 #: ../lib/util.php:269 lib/util.php:285
 msgid ""
 "Unless otherwise specified, contents of this site are copyright by the "
 "contributors and available under the "
 msgstr ""
+"Nema að annað sé tekið fram þá er innihald þessarar síðu varið með "
+"höfundaréttarvernd og aðgengilegt undir "
 
 #: ../actions/confirmaddress.php:48 actions/confirmaddress.php:48
 #: actions/confirmaddress.php:90
 #, php-format
 msgid "Unrecognized address type %s"
-msgstr ""
+msgstr "Óþekkt gerð tölvupóstfangs %s"
 
 #: ../actions/showstream.php:209 actions/showstream.php:219
 #: lib/unsubscribeform.php:137
 msgid "Unsubscribe"
-msgstr ""
+msgstr "Fara úr áskrift"
 
 #: ../actions/postnotice.php:44 ../actions/updateprofile.php:45
 #: actions/postnotice.php:45 actions/updateprofile.php:46
 #: actions/postnotice.php:48 actions/updateprofile.php:49
 msgid "Unsupported OMB version"
-msgstr ""
+msgstr "OMB útgáfa ekki studd"
 
 #: ../actions/avatar.php:105 actions/profilesettings.php:342
 #: lib/imagefile.php:102
 msgid "Unsupported image file format."
-msgstr ""
+msgstr "Skráarsnið myndar ekki stutt."
 
 #: ../lib/settingsaction.php:100 lib/settingsaction.php:94
 #: lib/connectsettingsaction.php:108
 msgid "Updates by SMS"
-msgstr ""
+msgstr "Færslur sendar með SMS"
 
 #: ../lib/settingsaction.php:103 lib/settingsaction.php:97
 #: lib/connectsettingsaction.php:105
 msgid "Updates by instant messenger (IM)"
-msgstr ""
+msgstr "Færslur sendar með snarskilaboðaþjónustu (instant messaging)"
 
 #: ../actions/twitapistatuses.php:241 actions/twitapistatuses.php:158
 #: actions/twitapistatuses.php:129
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
-msgstr ""
+msgstr "Færslur frá %1$s og vinum á %2$s!"
 
 #: ../actions/twitapistatuses.php:341 actions/twitapistatuses.php:268
 #: actions/twitapistatuses.php:202
 #, php-format
 msgid "Updates from %1$s on %2$s!"
-msgstr ""
+msgstr "Færslur frá %1$s á %2$s!"
 
 #: ../actions/avatar.php:68 actions/profilesettings.php:161
 #: actions/avatarsettings.php:162 actions/grouplogo.php:232
 msgid "Upload"
-msgstr ""
+msgstr "Hlaða upp"
 
 #: ../actions/avatar.php:27
 msgid ""
@@ -2442,25 +2507,32 @@ msgid ""
 "site license, also. Use a picture that belongs to you and that you want to "
 "share."
 msgstr ""
+"Þú getur hlaðið upp nýrri mynd (notendamynd) hér. Þú getur ekki breytt "
+"myndinni eftir að þú hefur hlaðið henni upp þannig að vertu viss um að hún "
+"sé ferningur. Myndin verður líka að vera gefin út undir leyfi vefsvæðisins. "
+"Notaðu mynd sem tilheyrir þér og þú vilt deila með öðrum."
 
 #: ../lib/settingsaction.php:91
 msgid "Upload a new profile image"
-msgstr ""
+msgstr "Hlaða upp mynd á persónulega síðu"
 
 #: ../actions/invite.php:114 actions/invite.php:121 actions/invite.php:154
 msgid ""
 "Use this form to invite your friends and colleagues to use this service."
 msgstr ""
+"Notaðu þetta eyðublað til þess að bjóða vinum þínum og kunningjum að nota "
+"þessa örbloggsþjónustu."
 
 #: ../actions/register.php:159 ../actions/register.php:162
 #: actions/register.php:173 actions/register.php:176
 msgid "Used only for updates, announcements, and password recovery"
 msgstr ""
+"Aðeins notað fyrir uppfærslur, tilkynningar og endurheimtingu lykilorða."
 
 #: ../actions/finishremotesubscribe.php:86
 #: actions/finishremotesubscribe.php:88 actions/finishremotesubscribe.php:94
 msgid "User being listened to doesn't exist."
-msgstr ""
+msgstr "Notandi sem verið er að hlusta á er ekki til."
 
 #: ../actions/all.php:41 ../actions/avatarbynickname.php:48
 #: ../actions/foaf.php:47 ../actions/replies.php:41
@@ -2478,96 +2550,100 @@ msgstr ""
 #: actions/twitapistatuses.php:503 actions/twitapiusers.php:55
 #: actions/usergroups.php:99 lib/galleryaction.php:67 lib/twitterapi.php:626
 msgid "User has no profile."
-msgstr ""
+msgstr "Notandi hefur enga persónulega síðu."
 
 #: ../actions/remotesubscribe.php:71 actions/remotesubscribe.php:80
 #: actions/remotesubscribe.php:105
 msgid "User nickname"
-msgstr ""
+msgstr "Stuttnefni notanda"
 
 #: ../actions/twitapiusers.php:75 actions/twitapiusers.php:80
 msgid "User not found."
-msgstr ""
+msgstr "Notandi fannst ekki."
 
 #: ../actions/profilesettings.php:63 actions/profilesettings.php:96
 #: actions/profilesettings.php:139
 msgid "What timezone are you normally in?"
-msgstr ""
+msgstr "Í hvaða tímabelti eru í rauninni?"
 
 #: ../lib/util.php:1159 lib/util.php:1293 lib/noticeform.php:141
 #, php-format
 msgid "What's up, %s?"
-msgstr ""
+msgstr "Hvað er að frétta %s?"
 
 #: ../actions/profilesettings.php:54 ../actions/register.php:175
 #: actions/profilesettings.php:87 actions/register.php:189
 #: actions/profilesettings.php:119
 msgid "Where you are, like \"City, State (or Region), Country\""
-msgstr ""
+msgstr "Staðsetning þín, eins og \"borg, sýsla, land\""
 
 #: ../actions/updateprofile.php:128 actions/updateprofile.php:129
 #: actions/updateprofile.php:132
 #, php-format
 msgid "Wrong image type for '%s'"
-msgstr ""
+msgstr "Röng gerð myndar fyrir '%s'"
 
 #: ../actions/updateprofile.php:123 actions/updateprofile.php:124
 #: actions/updateprofile.php:127
 #, php-format
 msgid "Wrong size image at '%s'"
-msgstr ""
+msgstr "Röng stærð myndar á '%s'"
 
 #: ../actions/deletenotice.php:63 ../actions/deletenotice.php:72
 #: actions/deletenotice.php:64 actions/deletenotice.php:79
 #: actions/block.php:148 actions/deletenotice.php:122
 #: actions/deletenotice.php:141
 msgid "Yes"
-msgstr ""
+msgstr "Já"
 
 #: ../actions/finishaddopenid.php:64 actions/finishaddopenid.php:64
 #: actions/finishaddopenid.php:112
 msgid "You already have this OpenID!"
-msgstr ""
+msgstr "Þú ert nú þegar með þetta OpenID!"
 
 #: ../actions/deletenotice.php:37 actions/deletenotice.php:37
 msgid ""
 "You are about to permanently delete a notice.  Once this is done, it cannot "
 "be undone."
 msgstr ""
+"Þú ert í þann mund að eyða babli alveg. Þessi aðgerð getur ekki verið "
+"afturkölluð."
 
 #: ../actions/recoverpassword.php:31 actions/recoverpassword.php:31
 #: actions/recoverpassword.php:36
 msgid "You are already logged in!"
-msgstr ""
+msgstr "Þú ert nú þegar innskráð(ur)!"
 
 #: ../actions/invite.php:81 actions/invite.php:88 actions/invite.php:120
 msgid "You are already subscribed to these users:"
-msgstr ""
+msgstr "Þú ert nú þegar í áskrift að þessum notendum:"
 
 #: ../actions/twitapifriendships.php:128 actions/twitapifriendships.php:128
 #: actions/twitapifriendships.php:105
 msgid "You are not friends with the specified user."
-msgstr ""
+msgstr "Þú ert ekki vinur þessa notanda."
 
 #: ../actions/password.php:27
 msgid "You can change your password here. Choose a good one!"
-msgstr ""
+msgstr "Þú getur breytt lykilorðinu þínu hér. Veldu eitthvað gott lykilorð!"
 
 #: ../actions/register.php:135 actions/register.php:145
 msgid "You can create a new account to start posting notices."
-msgstr ""
+msgstr "Þú getur búið til nýjan aðgang og byrjað að babla."
 
 #: ../actions/smssettings.php:28 actions/smssettings.php:28
 #: actions/smssettings.php:69
 #, php-format
 msgid "You can receive SMS messages through email from %%site.name%%."
-msgstr ""
+msgstr "Þú getur fengið SMS í gegnum tölvupóst frá %%site.name%%."
 
 #: ../actions/openidsettings.php:86
 msgid ""
 "You can remove an OpenID from your account by clicking the button marked "
 "\"Remove\"."
 msgstr ""
+"Þú getur fjarlægt OpenID aðganginn frá þínum aðgangi með því að smella á "
+"hnappinn sem er merktur \"Fjarlægja\"."
 
 #: ../actions/imsettings.php:28 actions/imsettings.php:28
 #, php-format
@@ -2575,29 +2651,34 @@ msgid ""
 "You can send and receive notices through Jabber/GTalk [instant messages](%%"
 "doc.im%%). Configure your address and settings below."
 msgstr ""
+"Þú getur sent og tekið á móti babli í gegnum Jabber/GTalk "
+"[snarskilaboðaþjónustuna](%%doc.im%%). Settu upp netfangið þitt hér fyrir "
+"neðan og stilltu notkunina."
 
 #: ../actions/profilesettings.php:27
 msgid ""
 "You can update your personal profile info here so people know more about you."
 msgstr ""
+"Þú getur uppfært persónulegu síðuna þína hér þannig að fólk geti lært meira "
+"um þig."
 
 #: ../actions/finishremotesubscribe.php:31 ../actions/remotesubscribe.php:31
 #: actions/finishremotesubscribe.php:31 actions/remotesubscribe.php:31
 #: actions/finishremotesubscribe.php:33 actions/finishremotesubscribe.php:85
 #: actions/finishremotesubscribe.php:101 actions/remotesubscribe.php:35
 msgid "You can use the local subscription!"
-msgstr ""
+msgstr "Þú getur notað staðbundna áskrift!"
 
 #: ../actions/finishopenidlogin.php:33 ../actions/register.php:61
 #: actions/finishopenidlogin.php:38 actions/register.php:68
 #: actions/finishopenidlogin.php:43
 msgid "You can't register if you don't agree to the license."
-msgstr ""
+msgstr "Þú getur ekki nýskráð þig nema þú samþykkir leyfið."
 
 #: ../actions/updateprofile.php:63 actions/updateprofile.php:64
 #: actions/updateprofile.php:67
 msgid "You did not send us that profile"
-msgstr ""
+msgstr "Þú sendir okkur ekki þessa persónulegu síðu"
 
 #: ../lib/mail.php:147
 #, php-format
@@ -2611,35 +2692,45 @@ msgid ""
 "Faithfully yours,\n"
 "%4$s"
 msgstr ""
+"Þú hefur nýtt bablpóstfang á %1$s.\n"
+"\n"
+"Sendu tölvupóst á %2$s til að senda inn babl.\n"
+"\n"
+"Ítarlegri tölvupóstleiðbeiningar eru á %3$s.\n"
+"\n"
+"Með kærri kveðju,\n"
+"%4$s"
 
 #: ../actions/twitapistatuses.php:612 actions/twitapistatuses.php:537
 #: actions/twitapistatuses.php:463
 msgid "You may not delete another user's status."
-msgstr ""
+msgstr "Þú getur ekki eytt stöðu annars notanda."
 
 #: ../actions/invite.php:31 actions/invite.php:31 actions/invite.php:39
 #, php-format
 msgid "You must be logged in to invite other users to use %s"
-msgstr ""
+msgstr "Þú verður að vera innskráð(ur) til að geta boðið öðrum að nota %s"
 
 #: ../actions/invite.php:103 actions/invite.php:110 actions/invite.php:142
 msgid ""
 "You will be notified when your invitees accept the invitation and register "
 "on the site. Thanks for growing the community!"
 msgstr ""
+"Við sendum þér tilkynningu þegar þeir sem þú býður samþykkja boðskortið og "
+"skrá sig á síðuna. Takk fyrir að stækka samfélagið!"
 
 #: ../actions/recoverpassword.php:149
 msgid "You've been identified. Enter a  new password below. "
-msgstr ""
+msgstr "Auðkenning á þér tókst. Sláðu inn nýtt lykilorð hér fyrir neðan."
 
 #: ../actions/openidlogin.php:67 actions/openidlogin.php:76
 #: actions/openidlogin.php:104
 msgid "Your OpenID URL"
-msgstr ""
+msgstr "OpenID veffangið þitt"
 
 #: ../actions/recoverpassword.php:164
 msgid "Your nickname on this server, or your registered email address."
-msgstr ""
+msgstr "Stuttnefnið þitt á þessum vefþjóni eða skráða tölvupóstfangið."
 
 #: ../actions/openidsettings.php:28
 #, php-format
@@ -2647,81 +2738,83 @@ msgid ""
 "[OpenID](%%doc.openid%%) lets you log into many sites  with the same user "
 "account.  Manage your associated OpenIDs from here."
 msgstr ""
+"[OpenID](%%doc.openid%%) leyfir þér að skrá þig inn á mörg vefsvæði með sama "
+"notendaaðgangi. Stjórnaðu OpenID tengingunum þínum hér."
 
 #: ../lib/util.php:943 lib/util.php:992 lib/util.php:945
 msgid "a few seconds ago"
-msgstr ""
+msgstr "fyrir nokkrum sekúndum"
 
 #: ../lib/util.php:955 lib/util.php:1004 lib/util.php:957
 #, php-format
 msgid "about %d days ago"
-msgstr ""
+msgstr "fyrir um %d dögum síðan"
 
 #: ../lib/util.php:951 lib/util.php:1000 lib/util.php:953
 #, php-format
 msgid "about %d hours ago"
-msgstr ""
+msgstr "fyrir um %d klukkutímum síðan"
 
 #: ../lib/util.php:947 lib/util.php:996 lib/util.php:949
 #, php-format
 msgid "about %d minutes ago"
-msgstr ""
+msgstr "fyrir um %d mínútum síðan"
 
 #: ../lib/util.php:959 lib/util.php:1008 lib/util.php:961
 #, php-format
 msgid "about %d months ago"
-msgstr ""
+msgstr "fyrir um %d mánuðum síðan"
 
 #: ../lib/util.php:953 lib/util.php:1002 lib/util.php:955
 msgid "about a day ago"
-msgstr ""
+msgstr "fyrir um einum degi síðan"
 
 #: ../lib/util.php:945 lib/util.php:994 lib/util.php:947
 msgid "about a minute ago"
-msgstr ""
+msgstr "fyrir um einni mínútu síðan"
 
 #: ../lib/util.php:957 lib/util.php:1006 lib/util.php:959
 msgid "about a month ago"
-msgstr ""
+msgstr "fyrir um einum mánuði síðan"
 
 #: ../lib/util.php:961 lib/util.php:1010 lib/util.php:963
 msgid "about a year ago"
-msgstr ""
+msgstr "fyrir um einu ári síðan"
 
 #: ../lib/util.php:949 lib/util.php:998 lib/util.php:951
 msgid "about an hour ago"
-msgstr ""
+msgstr "fyrir um einum klukkutíma síðan"
 
 #: ../actions/showstream.php:423 ../lib/stream.php:132
 #: actions/showstream.php:441 lib/stream.php:99
 msgid "delete"
-msgstr ""
+msgstr "eyða"
 
 #: ../actions/noticesearch.php:130 ../actions/showstream.php:408
 #: ../lib/stream.php:117 actions/noticesearch.php:136
 #: actions/showstream.php:426 lib/stream.php:84 actions/noticesearch.php:187
 msgid "in reply to..."
-msgstr ""
+msgstr "svar við..."
 
 #: ../actions/noticesearch.php:137 ../actions/showstream.php:415
 #: ../lib/stream.php:124 actions/noticesearch.php:143
 #: actions/showstream.php:433 lib/stream.php:91 actions/noticesearch.php:194
 msgid "reply"
-msgstr ""
+msgstr "svara"
 
 #: ../actions/password.php:44 actions/profilesettings.php:183
 #: actions/passwordsettings.php:106
 msgid "same as password above"
-msgstr ""
+msgstr "sama og lykilorðið hér fyrir ofan"
 
 #: ../actions/twitapistatuses.php:755 actions/twitapistatuses.php:678
 #: actions/twitapistatuses.php:555
 msgid "unsupported file type"
-msgstr ""
+msgstr "skráargerð ekki studd"
 
 #: ../lib/util.php:1309 lib/util.php:1443
 msgid "« After"
-msgstr ""
+msgstr "« Fyrri"
 
 #: actions/deletenotice.php:74 actions/disfavor.php:43
 #: actions/emailsettings.php:127 actions/favor.php:45
@@ -2737,67 +2830,68 @@ msgstr ""
 #: actions/openidlogin.php:37 actions/recoverpassword.php:316
 #: actions/subscribe.php:46 actions/unblock.php:65 actions/unsubscribe.php:43
 msgid "There was a problem with your session token. Try again, please."
-msgstr ""
+msgstr "Það kom upp vandamál með setutókann þinn. Vinsamlegast reyndu aftur."
 
 #: actions/disfavor.php:55 actions/disfavor.php:81
 msgid "This notice is not a favorite!"
-msgstr ""
+msgstr "Þetta babl er ekki í uppáhaldi!"
 
 #: actions/disfavor.php:63 actions/disfavor.php:87
 msgid "Could not delete favorite."
-msgstr ""
+msgstr "Gat ekki eytt uppáhaldi."
 
 #: actions/disfavor.php:72 lib/favorform.php:140
 msgid "Favor"
-msgstr ""
+msgstr "Uppáhald"
 
 #: actions/emailsettings.php:92
 msgid "Send me email when someone adds my notice as a favorite."
-msgstr ""
+msgstr "Senda mér tölvupóst þegar einhver setur babl í mér í uppáhald hjá sér."
 
 #: actions/emailsettings.php:95 actions/emailsettings.php:163
 msgid "Send me email when someone sends me a private message."
-msgstr ""
+msgstr "Senda mér tölvupóst þegar einhver sendir mér persónuleg skilaboð."
 
 #: actions/favor.php:53 actions/twitapifavorites.php:142 actions/favor.php:81
 #: actions/twitapifavorites.php:118
 msgid "This notice is already a favorite!"
-msgstr ""
+msgstr "Þetta babl er nú þegar í uppáhaldi!"
 
 #: actions/favor.php:60 actions/twitapifavorites.php:151
 #: classes/Command.php:132 actions/favor.php:86
 #: actions/twitapifavorites.php:125 classes/Command.php:152
 msgid "Could not create favorite."
-msgstr ""
+msgstr "Gat ekki búið til uppáhald."
 
 #: actions/favor.php:70
 msgid "Disfavor"
-msgstr ""
+msgstr "Ekki uppáhald"
 
 #: actions/favoritesrss.php:60 actions/showfavorites.php:47
 #: actions/favoritesrss.php:100 actions/showfavorites.php:77
 #, php-format
 msgid "%s favorite notices"
-msgstr ""
+msgstr "Uppáhaldsbabl %s"
 
 #: actions/favoritesrss.php:64 actions/favoritesrss.php:104
 #, php-format
 msgid "Feed of favorite notices of %s"
-msgstr ""
+msgstr "Bablveita uppáhaldsbabls %s"
 
 #: actions/inbox.php:28 actions/inbox.php:59
 #, php-format
 msgid "Inbox for %s - page %d"
-msgstr ""
+msgstr "Innhólf %s - síða %d"
 
 #: actions/inbox.php:30 actions/inbox.php:62
 #, php-format
 msgid "Inbox for %s"
-msgstr ""
+msgstr "Innhólf %s"
 
 #: actions/inbox.php:53 actions/inbox.php:115
 msgid "This is your inbox, which lists your incoming private messages."
 msgstr ""
+"Þetta er innhólfið þitt sem sýnir persónuleg skilaboð sem voru send til þín."
 
 #: actions/invite.php:178 actions/invite.php:213
 #, php-format
@@ -2805,34 +2899,36 @@ msgid ""
 "%1$s has invited you to join them on %2$s (%3$s).\n"
 "\n"
 msgstr ""
+"%1$s hefur boðið þér að vera með þeim á %2$s (%3$s).\n"
+"\n"
 
 #: actions/login.php:104 actions/login.php:235 actions/openidlogin.php:108
 #: actions/register.php:416
 msgid "Automatically login in the future; "
-msgstr ""
+msgstr "Skrá mig sjálfkrafa inn í framtíðinni."
 
 #: actions/login.php:122 actions/login.php:264
 msgid "For security reasons, please re-enter your "
-msgstr ""
+msgstr "Af öryggisástæðum, vinsamlegast sláðu aftur inn "
 
 #: actions/login.php:126 actions/login.php:268
 msgid "Login with your username and password. "
-msgstr ""
+msgstr "Skráðu þig inn með notendanafni og lykilorði. "
 
 #: actions/newmessage.php:58 actions/twitapidirect_messages.php:130
 #: actions/twitapidirect_messages.php:141
 msgid "That's too long. Max message size is 140 chars."
-msgstr ""
+msgstr "Þetta er of langt. Hámarkslengd skilaboða er 140 tákn."
 
 #: actions/newmessage.php:65 actions/newmessage.php:128
 msgid "No recipient specified."
-msgstr ""
+msgstr "Enginn móttökuaðili tilgreindur."
 
 #: actions/newmessage.php:68 actions/newmessage.php:113
 #: classes/Command.php:206 actions/newmessage.php:131
 #: actions/newmessage.php:168 classes/Command.php:237
 msgid "You can't send a message to this user."
-msgstr ""
+msgstr "Þú getur ekki sent þessum notanda skilaboð."
 
 #: actions/newmessage.php:71 actions/twitapidirect_messages.php:146
 #: classes/Command.php:209 actions/twitapidirect_messages.php:158
@@ -2840,60 +2936,66 @@ msgstr ""
 msgid ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr ""
+"Ekki senda þér skilaboð. Þú getur sagt þetta í hljóði við sjálfa(n) þig í "
+"staðinn."
 
 #: actions/newmessage.php:108 actions/microsummary.php:62
 #: actions/newmessage.php:163
 msgid "No such user"
-msgstr ""
+msgstr "Enginn þannig notandi"
 
 #: actions/newmessage.php:117 actions/newmessage.php:67
 msgid "New message"
-msgstr ""
+msgstr "Ný skilaboð"
 
 #: actions/noticesearch.php:95 actions/noticesearch.php:146
 msgid "Notice without matching profile"
-msgstr ""
+msgstr "Babl án persónulegrar síðu sem passar við"
 
 #: actions/openidsettings.php:28 actions/openidsettings.php:70
 #, php-format
 msgid "[OpenID](%%doc.openid%%) lets you log into many sites "
-msgstr ""
+msgstr "[OpenID](%%doc.openid%%) leyfir þér að skrá þig inn á margar síður "
 
 #: actions/openidsettings.php:46 actions/openidsettings.php:96
 msgid "If you want to add an OpenID to your account, "
-msgstr ""
+msgstr "Ef þú vilt bæta OpenID við aðganginn þinn, "
 
 #: actions/openidsettings.php:74
 msgid "Removing your only OpenID would make it impossible to log in! "
 msgstr ""
+"Að fjarlægja eina OpenID aðganginn þinn gerir það ómögulegt fyrir þig að "
+"skrá þig inn!"
 
 #: actions/openidsettings.php:87 actions/openidsettings.php:143
 msgid "You can remove an OpenID from your account "
-msgstr ""
+msgstr "Þú getur fjarlægt OpenID frá aðganginum þínum "
 
 #: actions/outbox.php:28 actions/outbox.php:58
 #, php-format
 msgid "Outbox for %s - page %d"
-msgstr ""
+msgstr "Úthólf %s - síða %d"
 
 #: actions/outbox.php:30 actions/outbox.php:61
 #, php-format
 msgid "Outbox for %s"
-msgstr ""
+msgstr "Úthólf %s"
 
 #: actions/outbox.php:53 actions/outbox.php:116
 msgid "This is your outbox, which lists private messages you have sent."
-msgstr ""
+msgstr "Þetta er úthólfið þitt sem sýnir persónuleg skilaboð sem þú hefur sent."
 
 #: actions/peoplesearch.php:28 actions/peoplesearch.php:52
 #, php-format
 msgid ""
 "Search for people on %%site.name%% by their name, location, or interests. "
 msgstr ""
+"Leita að fólki á %%site.name%% eftir nafninu þeirra, staðsetningu eða "
+"áhugamáli. "
 
 #: actions/profilesettings.php:27 actions/profilesettings.php:69
 msgid "You can update your personal profile info here "
-msgstr ""
+msgstr "Þú getur uppfært persónulegar upplýsingar hérna "
 
 #: actions/profilesettings.php:115 actions/remotesubscribe.php:320
 #: actions/userauthorization.php:159 actions/userrss.php:76
@@ -2901,35 +3003,35 @@ msgstr ""
 #: actions/grouplogo.php:177 actions/remotesubscribe.php:367
 #: actions/userauthorization.php:176 actions/userrss.php:82
 msgid "User without matching profile"
-msgstr ""
+msgstr "Notandi með enga persónulega síðu sem passar við"
 
 #: actions/recoverpassword.php:91 actions/recoverpassword.php:97
 msgid "This confirmation code is too old. "
-msgstr ""
+msgstr "Þessi staðfestingarlykill er of gamall. "
 
 #: actions/recoverpassword.php:141 actions/recoverpassword.php:152
 msgid "If you've forgotten or lost your"
-msgstr ""
+msgstr "Ef þú hefur gleymt eða tapað "
 
 #: actions/recoverpassword.php:154 actions/recoverpassword.php:158
 msgid "You've been identified. Enter a "
-msgstr ""
+msgstr "Auðkenning á þér tókst. Sláðu inn "
 
 #: actions/recoverpassword.php:169 actions/recoverpassword.php:188
 msgid "Your nickname on this server, "
-msgstr ""
+msgstr "Stuttnefnið þitt á þessum vefþjóni, "
 
 #: actions/recoverpassword.php:271 actions/recoverpassword.php:304
 msgid "Instructions for recovering your password "
-msgstr ""
+msgstr "Leiðbeiningar um það hvernig á að endurheimta lykilorð "
 
 #: actions/recoverpassword.php:327 actions/recoverpassword.php:361
 msgid "New password successfully saved. "
-msgstr ""
+msgstr "Tókst að vista nýtt lykilorð. "
 
 #: actions/register.php:95 actions/register.php:180
 msgid "Password must be 6 or more characters."
-msgstr ""
+msgstr "Lykilorð verður að vera að minnsta kosti 6 tákn."
 
 #: actions/register.php:216
 #, php-format
@@ -2937,102 +3039,105 @@ msgid ""
 "Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may "
 "want to..."
 msgstr ""
+"Til hamingju, %s! Frábært að þú skráðir þig á %%%%site.name%%%%. Héðan vilt "
+"þú kannski..."
 
 #: actions/register.php:227
 msgid "(You should receive a message by email momentarily, with "
-msgstr ""
+msgstr "(Þú ættir að fá tölvupóst bráðlega með "
 
 #: actions/remotesubscribe.php:51 actions/remotesubscribe.php:74
 #, php-format
 msgid "To subscribe, you can [login](%%action.login%%),"
 msgstr ""
+"Til þess að gerast áskrifandi getur þú [skráð þig inn](%%action.login%%),"
 
 #: actions/showfavorites.php:61 actions/showfavorites.php:145
 #, php-format
 msgid "Feed for favorites of %s"
-msgstr ""
+msgstr "Bablveita uppáhaldsbabls %s"
 
 #: actions/showfavorites.php:84 actions/twitapifavorites.php:85
 #: actions/showfavorites.php:202 actions/twitapifavorites.php:59
 msgid "Could not retrieve favorite notices."
-msgstr ""
+msgstr "Gat ekki sótt uppáhaldsbabl."
 
 #: actions/showmessage.php:33 actions/showmessage.php:81
 msgid "No such message."
-msgstr ""
+msgstr "Engin þannig skilaboð."
 
 #: actions/showmessage.php:42
 msgid "Only the sender and recipient may read this message."
-msgstr ""
+msgstr "Aðeins sendandi og móttakandi geta lesið þessi skilaboð."
 
 #: actions/showmessage.php:61 actions/showmessage.php:108
 #, php-format
 msgid "Message to %1$s on %2$s"
-msgstr ""
+msgstr "Skilaboð til %1$s á %2$s"
 
 #: actions/showmessage.php:66 actions/showmessage.php:113
 #, php-format
 msgid "Message from %1$s on %2$s"
-msgstr ""
+msgstr "Skilaboð frá %1$s á %2$s"
 
 #: actions/showstream.php:154
 msgid "Send a message"
-msgstr ""
+msgstr "Senda skilaboð"
 
 #: actions/smssettings.php:312 actions/smssettings.php:464
 #, php-format
 msgid "Mobile carrier for your phone. "
-msgstr ""
+msgstr "Farsímafélagið þitt. "
 
 #: actions/twitapidirect_messages.php:76 actions/twitapidirect_messages.php:68
 #, php-format
 msgid "Direct messages to %s"
-msgstr ""
+msgstr "Bein skilaboð til %s"
 
 #: actions/twitapidirect_messages.php:77 actions/twitapidirect_messages.php:69
 #, php-format
 msgid "All the direct messages sent to %s"
-msgstr ""
+msgstr "Öll bein skilaboð til %s"
 
 #: actions/twitapidirect_messages.php:81 actions/twitapidirect_messages.php:73
 msgid "Direct Messages You've Sent"
-msgstr ""
+msgstr "Bein skilaboð sem þú hefur sent"
 
 #: actions/twitapidirect_messages.php:82 actions/twitapidirect_messages.php:74
 #, php-format
 msgid "All the direct messages sent from %s"
-msgstr ""
+msgstr "Öll bein skilaboð send frá %s"
 
 #: actions/twitapidirect_messages.php:128
 #: actions/twitapidirect_messages.php:137
 msgid "No message text!"
-msgstr ""
+msgstr "Enginn texti í skilaboðum!"
 
 #: actions/twitapidirect_messages.php:138
 #: actions/twitapidirect_messages.php:150
 msgid "Recipient user not found."
-msgstr ""
+msgstr "Móttakandi fannst ekki."
 
 #: actions/twitapidirect_messages.php:141
 #: actions/twitapidirect_messages.php:153
 msgid "Can't send direct messages to users who aren't your friend."
-msgstr ""
+msgstr "Gat ekki sent bein skilaboð til notenda sem eru ekki vinir þínir."
 
 #: actions/twitapifavorites.php:92 actions/twitapifavorites.php:66
 #, php-format
 msgid "%s / Favorites from %s"
-msgstr ""
+msgstr "%s / Uppáhaldsbabl frá %s"
 
 #: actions/twitapifavorites.php:95 actions/twitapifavorites.php:69
 #, php-format
 msgid "%s updates favorited by %s / %s."
-msgstr ""
+msgstr "%s færslur gerðar að uppáhaldsbabli af %s / %s."
 
 #: actions/twitapifavorites.php:187 lib/mail.php:275
 #: actions/twitapifavorites.php:164 lib/mail.php:553
 #, php-format
 msgid "%s added your notice as a favorite"
-msgstr ""
+msgstr "%s heldur upp á babl frá þér"
 
 #: actions/twitapifavorites.php:188 lib/mail.php:276
 #: actions/twitapifavorites.php:165
@@ -3041,230 +3146,236 @@ msgid ""
 "%1$s just added your notice from %2$s as one of their favorites.\n"
 "\n"
 msgstr ""
+"%1$s gerði bablið þitt á %2$s sem eitt af sínu uppáhaldsbabli.\n"
+"\n"
 
 #: actions/twittersettings.php:27
 msgid ""
 "Add your Twitter account to automatically send your notices to Twitter, "
 msgstr ""
+"Bættu Twitter aðganginum þínum við til að senda sjálfkrafa babl til Twitter, "
+""
 
 #: actions/twittersettings.php:41 actions/twittersettings.php:60
 msgid "Twitter settings"
-msgstr ""
+msgstr "Twitter stillingar"
 
 #: actions/twittersettings.php:48 actions/twittersettings.php:105
 msgid "Twitter Account"
-msgstr ""
+msgstr "Twitter aðgangur"
 
 #: actions/twittersettings.php:56 actions/twittersettings.php:113
 msgid "Current verified Twitter account."
-msgstr ""
+msgstr "Núverandi staðfesti Twitter aðgangurinn."
 
 #: actions/twittersettings.php:63
 msgid "Twitter Username"
-msgstr ""
+msgstr "Twitter notendanafn"
 
 #: actions/twittersettings.php:65 actions/twittersettings.php:123
 msgid "No spaces, please."
-msgstr ""
+msgstr "Vinsamlegast engin bil."
 
 #: actions/twittersettings.php:67
 msgid "Twitter Password"
-msgstr ""
+msgstr "Twitter lykilorð"
 
 #: actions/twittersettings.php:72 actions/twittersettings.php:139
 msgid "Automatically send my notices to Twitter."
-msgstr ""
+msgstr "Sjálfkrafa senda bablið mitt á Twitter."
 
 #: actions/twittersettings.php:75 actions/twittersettings.php:146
 msgid "Send local \"@\" replies to Twitter."
-msgstr ""
+msgstr "Senda staðbundin \"@\" svör til Twitter."
 
 #: actions/twittersettings.php:78 actions/twittersettings.php:153
 msgid "Subscribe to my Twitter friends here."
-msgstr ""
+msgstr "Gerast áskrifandi að Twitter vinum mínum hérna"
 
 #: actions/twittersettings.php:122
 msgid ""
 "Username must have only numbers, upper- and lowercase letters, and "
 "underscore (_). 15 chars max."
 msgstr ""
+"Notendanafn má aðeins hafa númer, há- og lágstafi og undirstrik (_). "
+"Hámarkslengd er 15 tákn."
 
 #: actions/twittersettings.php:128 actions/twittersettings.php:334
 msgid "Could not verify your Twitter credentials!"
-msgstr ""
+msgstr "Gat ekki staðfest Twitter skilríkið!"
 
 #: actions/twittersettings.php:137
 #, php-format
 msgid "Unable to retrieve account information for \"%s\" from Twitter."
-msgstr ""
+msgstr "Gat ekki sótt aðgangsupplýsingar fyrir \"%s\" frá Twitter"
 
 #: actions/twittersettings.php:151 actions/twittersettings.php:170
 #: actions/twittersettings.php:348 actions/twittersettings.php:368
 msgid "Unable to save your Twitter settings!"
-msgstr ""
+msgstr "Gat ekki vistað Twitter stillingarnar þínar!"
 
 #: actions/twittersettings.php:174 actions/twittersettings.php:376
 msgid "Twitter settings saved."
-msgstr ""
+msgstr "Twitter stillingar vistaðar."
 
 #: actions/twittersettings.php:192 actions/twittersettings.php:395
 msgid "That is not your Twitter account."
-msgstr ""
+msgstr "Þetta er ekki Twitter aðgangurinn þinn."
 
 #: actions/twittersettings.php:200 actions/twittersettings.php:208
 #: actions/twittersettings.php:403
 msgid "Couldn't remove Twitter user."
-msgstr ""
+msgstr "Gat ekki fjarlægt Twitter notanda."
 
 #: actions/twittersettings.php:212 actions/twittersettings.php:407
 msgid "Twitter account removed."
-msgstr ""
+msgstr "Twitter aðgangur fjarlægður."
 
 #: actions/twittersettings.php:225 actions/twittersettings.php:239
 #: actions/twittersettings.php:428 actions/twittersettings.php:439
 #: actions/twittersettings.php:453
 msgid "Couldn't save Twitter preferences."
-msgstr ""
+msgstr "Gat ekki vistað Twitter stillingar."
 
 #: actions/twittersettings.php:245 actions/twittersettings.php:461
 msgid "Twitter preferences saved."
-msgstr ""
+msgstr "Twitter stillingar vistaðar."
 
 #: actions/userauthorization.php:84 actions/userauthorization.php:86
 msgid "Please check these details to make sure "
-msgstr ""
+msgstr "Vinsamlegast athugaðu eftirfarandi atriði til að vera viss "
 
 #: actions/userauthorization.php:324 actions/userauthorization.php:340
 msgid "The subscription has been authorized, but no "
-msgstr ""
+msgstr "Áskriftin hefur verið heimiluð en ófullnægjandi"
 
 #: actions/userauthorization.php:334 actions/userauthorization.php:351
 msgid "The subscription has been rejected, but no "
-msgstr ""
+msgstr "Áskriftinni hefur verið hafnað en ófullnægjandi "
 
 #: classes/Channel.php:113 classes/Channel.php:132 classes/Channel.php:151
 msgid "Command results"
-msgstr ""
+msgstr "Niðurstöður skipunar"
 
 #: classes/Channel.php:148 classes/Channel.php:204
 msgid "Command complete"
-msgstr ""
+msgstr "Fullkláruð skipun"
 
 #: classes/Channel.php:158 classes/Channel.php:215
 msgid "Command failed"
-msgstr ""
+msgstr "Misheppnuð skipun"
 
 #: classes/Command.php:39 classes/Command.php:44
 msgid "Sorry, this command is not yet implemented."
-msgstr ""
+msgstr "Fyrirgefðu en þessi skipun hefur ekki enn verið útbúin."
 
 #: classes/Command.php:96 classes/Command.php:113
 #, php-format
 msgid "Subscriptions: %1$s\n"
-msgstr ""
+msgstr "Áskriftir: %1$s\n"
 
 #: classes/Command.php:125 classes/Command.php:242 classes/Command.php:145
 #: classes/Command.php:276
 msgid "User has no last notice"
-msgstr ""
+msgstr "Notandi hefur ekkert nýtt babl"
 
 #: classes/Command.php:146 classes/Command.php:166
 msgid "Notice marked as fave."
-msgstr ""
+msgstr "Babl gert að uppáhaldi."
 
 #: classes/Command.php:166 classes/Command.php:189
 #, php-format
 msgid "%1$s (%2$s)"
-msgstr ""
+msgstr "%1$s (%2$s)"
 
 #: classes/Command.php:169 classes/Command.php:192
 #, php-format
 msgid "Fullname: %s"
-msgstr ""
+msgstr "Fullt nafn: %s"
 
 #: classes/Command.php:172 classes/Command.php:195
 #, php-format
 msgid "Location: %s"
-msgstr ""
+msgstr "Staðsetning: %s"
 
 #: classes/Command.php:175 classes/Command.php:198
 #, php-format
 msgid "Homepage: %s"
-msgstr ""
+msgstr "Heimasíða: %s"
 
 #: classes/Command.php:178 classes/Command.php:201
 #, php-format
 msgid "About: %s"
-msgstr ""
+msgstr "Um: %s"
 
 #: classes/Command.php:200 classes/Command.php:228
 #, php-format
 msgid "Message too long - maximum is 140 characters, you sent %d"
-msgstr ""
+msgstr "Skilaboð eru of löng - 140 tákn eru í mesta lagi leyfð en þú sendir %d"
 
 #: classes/Command.php:214 classes/Command.php:245
 #, php-format
 msgid "Direct message to %s sent"
-msgstr ""
+msgstr "Bein skilaboð send til %s"
 
 #: classes/Command.php:216 classes/Command.php:247
 msgid "Error sending direct message."
-msgstr ""
+msgstr "Villa kom upp við að senda bein skilaboð"
 
 #: classes/Command.php:263 classes/Command.php:300
 msgid "Specify the name of the user to subscribe to"
-msgstr ""
+msgstr "Tilgreindu nafn notandans sem þú vilt gerast áskrifandi að"
 
 #: classes/Command.php:270 classes/Command.php:307
 #, php-format
 msgid "Subscribed to %s"
-msgstr ""
+msgstr "Nú ert þú áskrifandi að %s"
 
 #: classes/Command.php:288 classes/Command.php:328
 msgid "Specify the name of the user to unsubscribe from"
-msgstr ""
+msgstr "Tilgreindu nafn notandans sem þú vilt hætta sem áskrifandi að"
 
 #: classes/Command.php:295 classes/Command.php:335
 #, php-format
 msgid "Unsubscribed from %s"
-msgstr ""
+msgstr "Nú ert þú ekki lengur áskrifandi að %s"
 
 #: classes/Command.php:310 classes/Command.php:330 classes/Command.php:353
 #: classes/Command.php:376
 msgid "Command not yet implemented."
-msgstr ""
+msgstr "Skipun hefur ekki verið fullbúin"
 
 #: classes/Command.php:313 classes/Command.php:356
 msgid "Notification off."
-msgstr ""
+msgstr "Tilkynningar af."
 
 #: classes/Command.php:315 classes/Command.php:358
 msgid "Can't turn off notification."
-msgstr ""
+msgstr "Get ekki slökkt á tilkynningum."
 
 #: classes/Command.php:333 classes/Command.php:379
 msgid "Notification on."
-msgstr ""
+msgstr "Tilkynningar á."
 
 #: classes/Command.php:335 classes/Command.php:381
 msgid "Can't turn on notification."
-msgstr ""
+msgstr "Get ekki kveikt á tilkynningum."
 
 #: classes/Command.php:344 classes/Command.php:392
 msgid "Commands:\n"
-msgstr ""
+msgstr "Skipanir:\n"
 
 #: classes/Message.php:53 classes/Message.php:56
 msgid "Could not insert message."
-msgstr ""
+msgstr "Gat ekki skeytt skilaboðum inn í."
 
 #: classes/Message.php:63 classes/Message.php:66
 msgid "Could not update message with new URI."
-msgstr ""
+msgstr "Gat ekki uppfært skilaboð með nýju veffangi."
 
 #: lib/gallery.php:46
 msgid "User without matching profile in system."
-msgstr ""
+msgstr "Notandi án samsvarandi persónulegrar síðu í kerfinu."
 
 #: lib/mail.php:147 lib/mail.php:289
 #, php-format
@@ -3272,11 +3383,13 @@ msgid ""
 "You have a new posting address on %1$s.\n"
 "\n"
 msgstr ""
+"Þú hefur fengið nýtt sendingarfang á %1$s.\n"
+"\n"
 
 #: lib/mail.php:249 lib/mail.php:508
 #, php-format
 msgid "New private message from %s"
-msgstr ""
+msgstr "Ný persónuleg skilaboð frá %s"
 
 #: lib/mail.php:253 lib/mail.php:512
 #, php-format
@@ -3284,88 +3397,89 @@ msgid ""
 "%1$s (%2$s) sent you a private message:\n"
 "\n"
 msgstr ""
+"%1$s (%2$s) sendi þér persónuleg skilaboð:\n"
+"\n"
 
 #: lib/mailbox.php:43 lib/mailbox.php:89
 msgid "Only the user can read their own mailboxes."
-msgstr ""
+msgstr "Aðeins notandinn getur lesið hans eigin pósthólf."
 
 #: lib/openid.php:195 lib/openid.php:203
 msgid "This form should automatically submit itself. "
-msgstr ""
+msgstr "Þetta eyðublað ætti sjálfkrafa að sendast inn. "
 
 #: lib/personal.php:65 lib/personalgroupnav.php:113
 msgid "Favorites"
-msgstr ""
+msgstr "Uppáhald"
 
 #: lib/personal.php:66 lib/personalgroupnav.php:114
 #, php-format
 msgid "%s's favorite notices"
-msgstr ""
+msgstr "Uppáhaldsbabl %s"
 
 #: lib/personal.php:66 lib/personalgroupnav.php:114
 msgid "User"
-msgstr ""
+msgstr "Notandi"
 
 #: lib/personal.php:75 lib/personalgroupnav.php:123
 msgid "Inbox"
-msgstr ""
+msgstr "Innhólf"
 
 #: lib/personal.php:76 lib/personalgroupnav.php:124
 msgid "Your incoming messages"
-msgstr ""
+msgstr "Mótteknu skilaboðin þín"
 
 #: lib/personal.php:80 lib/personalgroupnav.php:128
 msgid "Outbox"
-msgstr ""
+msgstr "Úthólf"
 
 #: lib/personal.php:81 lib/personalgroupnav.php:129
 msgid "Your sent messages"
-msgstr ""
+msgstr "Skilaboð sem þú hefur sent"
 
 #: lib/settingsaction.php:99 lib/connectsettingsaction.php:110
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #: lib/settingsaction.php:100 lib/connectsettingsaction.php:111
 msgid "Twitter integration options"
-msgstr ""
+msgstr "Samhæfnisvalmöguleikar Twitter"
 
 #: lib/util.php:1718 lib/messageform.php:139 lib/noticelist.php:422
 msgid "To"
-msgstr ""
+msgstr "Til"
 
 #: scripts/maildaemon.php:45 scripts/maildaemon.php:48
 msgid "Could not parse message."
-msgstr ""
+msgstr "Gat ekki þáttað skilaboðin."
 
 #: actions/all.php:63 actions/facebookhome.php:162
-#, fuzzy, php-format
+#, php-format
 msgid "%s and friends, page %d"
-msgstr "%s και οι φίλοι του/της"
+msgstr "%s og vinirnir, síða %d"
 
 #: actions/avatarsettings.php:76
 msgid "You can upload your personal avatar."
-msgstr ""
+msgstr "Þú getur hlaðið upp þinni eigin sjálfsmynd."
 
 #: actions/avatarsettings.php:117 actions/avatarsettings.php:191
 #: actions/grouplogo.php:250
-#, fuzzy
 msgid "Avatar settings"
-msgstr "Ρυθμίσεις OpenID"
+msgstr "Stillingar fyrir mynd"
 
 #: actions/avatarsettings.php:124 actions/avatarsettings.php:199
 #: actions/grouplogo.php:198 actions/grouplogo.php:258
 msgid "Original"
-msgstr ""
+msgstr "Upphafleg mynd"
 
 #: actions/avatarsettings.php:139 actions/avatarsettings.php:211
 #: actions/grouplogo.php:209 actions/grouplogo.php:270
 msgid "Preview"
-msgstr ""
+msgstr "Forsýn"
 
 #: actions/avatarsettings.php:225 actions/grouplogo.php:284
 msgid "Crop"
-msgstr ""
+msgstr "Skera af"
 
 #: actions/avatarsettings.php:248 actions/deletenotice.php:133
 #: actions/emailsettings.php:224 actions/grouplogo.php:307
@@ -3377,569 +3491,557 @@ msgstr ""
 #: actions/subedit.php:38 actions/twittersettings.php:290
 #: actions/userauthorization.php:39
 msgid "There was a problem with your session token. "
-msgstr ""
+msgstr "Það kom upp vandamál með setutókann þinn. "
 
 #: actions/avatarsettings.php:303 actions/grouplogo.php:360
 msgid "Pick a square area of the image to be your avatar"
 msgstr ""
+"Veldu ferningslaga svæði á upphaflegu myndinni sem einkennismyndina þína"
 
 #: actions/avatarsettings.php:327 actions/grouplogo.php:384
 msgid "Lost our file data."
-msgstr ""
+msgstr "Týndum skráargögnunum okkar"
 
 #: actions/avatarsettings.php:334 actions/grouplogo.php:391
 #: classes/User_group.php:112
-#, fuzzy
 msgid "Lost our file."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Týndum skránni okkar"
 
 #: actions/avatarsettings.php:349 actions/avatarsettings.php:383
 #: actions/grouplogo.php:406 actions/grouplogo.php:440
 #: classes/User_group.php:129 classes/User_group.php:161
 msgid "Unknown file type"
-msgstr ""
+msgstr "Óþekkt skráargerð"
 
 #: actions/block.php:69 actions/subedit.php:46 actions/unblock.php:70
 msgid "No profile specified."
-msgstr ""
+msgstr "Engin persónuleg síða tilgreind"
 
 #: actions/block.php:74 actions/subedit.php:53 actions/tagother.php:46
 #: actions/unblock.php:75
 msgid "No profile with that ID."
-msgstr ""
+msgstr "Engin persónulega síða með þessu einkenni"
 
 #: actions/block.php:111
 msgid "Block user"
-msgstr ""
+msgstr "Loka á notanda"
 
 #: actions/block.php:129
 msgid "Are you sure you want to block this user? "
-msgstr ""
+msgstr "Ertu viss um að þú viljir loka á þennan notanda? "
 
 #: actions/block.php:162
 msgid "You have already blocked this user."
-msgstr ""
+msgstr "Þú hefur nú þegar lokað á þennan notanda."
 
 #: actions/block.php:167
 msgid "Failed to save block information."
-msgstr ""
+msgstr "Mistókst að vista upplýsingar um notendalokun"
 
 #: actions/confirmaddress.php:159
 #, php-format
 msgid "The address \"%s\" has been "
-msgstr ""
+msgstr "Veffangið \"%s\" hefur verið "
 
 #: actions/deletenotice.php:73
 msgid "You are about to permanently delete a notice. "
-msgstr ""
+msgstr "Þú ert í þann mund að eyða þessu babli að eilífu. "
 
 #: actions/disfavor.php:94
 msgid "Add to favorites"
-msgstr ""
+msgstr "Bæta við sem uppáhaldsbabli"
 
 #: actions/editgroup.php:54
 #, php-format
 msgid "Edit %s group"
-msgstr ""
+msgstr "Breyta hópnum %s"
 
 #: actions/editgroup.php:66 actions/groupbyid.php:72 actions/grouplogo.php:66
 #: actions/joingroup.php:60 actions/newgroup.php:65 actions/showgroup.php:100
 msgid "Inboxes must be enabled for groups to work"
-msgstr ""
+msgstr "Innhólf verða að vera virk svo hópar virki"
 
 #: actions/editgroup.php:71 actions/grouplogo.php:71 actions/newgroup.php:70
 msgid "You must be logged in to create a group."
-msgstr ""
+msgstr "Þú verður að hafa skráð þig inn til að búa til hóp."
 
 #: actions/editgroup.php:87 actions/grouplogo.php:87
 #: actions/groupmembers.php:76 actions/joingroup.php:81
 #: actions/showgroup.php:121
-#, fuzzy
 msgid "No nickname"
-msgstr "Νέο ψευδώνυμο"
+msgstr "Ekkert stuttnefni"
 
 #: actions/editgroup.php:99 actions/groupbyid.php:88 actions/grouplogo.php:100
 #: actions/groupmembers.php:83 actions/joingroup.php:88
 #: actions/showgroup.php:128
-#, fuzzy
 msgid "No such group"
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Enginn þannig hópur"
 
 #: actions/editgroup.php:106 actions/editgroup.php:165
 #: actions/grouplogo.php:107
 msgid "You must be an admin to edit the group"
-msgstr ""
+msgstr "Þú verður að vera stjórnandi til að geta breytt hópnum"
 
 #: actions/editgroup.php:157
 msgid "Use this form to edit the group."
-msgstr ""
+msgstr "Notaðu þetta eyðublað til að breyta hópnum."
 
 #: actions/editgroup.php:179 actions/newgroup.php:130 actions/register.php:156
-#, fuzzy
 msgid "Nickname must have only lowercase letters "
-msgstr "Το ψευδώνυμο πρέπει να έχει μόνο πεζούς χαρακτήρες και χωρίς κενά."
+msgstr "Stuttnefni getur aðeins verið lágstafir"
 
 #: actions/editgroup.php:198 actions/newgroup.php:149
-#, fuzzy
 msgid "description is too long (max 140 chars)."
-msgstr "Το βιογραφικό είναι πολύ μεγάλο (μέγιστο 140 χαρακτ.)."
+msgstr "Lýsing er of löng (í mesta lagi 140 tákn)."
 
 #: actions/editgroup.php:218
-#, fuzzy
 msgid "Could not update group."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Gat ekki uppfært hóp."
 
 #: actions/editgroup.php:226
 msgid "Options saved."
-msgstr ""
+msgstr "Valmöguleikar vistaðir."
 
 #: actions/emailsettings.php:107 actions/imsettings.php:108
 #, php-format
 msgid "Awaiting confirmation on this address. "
-msgstr ""
+msgstr "Býð eftir staðfestingu fyrir þetta veffang. "
 
 #: actions/emailsettings.php:139 actions/smssettings.php:150
 msgid "Make a new email address for posting to; "
-msgstr ""
+msgstr "Búa til nýtt póstfang til að senda á; "
 
 #: actions/emailsettings.php:157
 msgid "Send me email when someone "
-msgstr ""
+msgstr "Senda mér tölvupóst þegar einhver "
 
 #: actions/emailsettings.php:168
 msgid "Allow friends to nudge me and send me an email."
-msgstr ""
+msgstr "Leyfa vinum að ýta við mér og senda mér tölvupóst."
 
 #: actions/emailsettings.php:321
-#, fuzzy
 msgid "That email address already belongs "
-msgstr "Η διεύθυνση email υπάρχει ήδη."
+msgstr "Þetta tölvupóstfang er nú þegar í eigu "
 
 #: actions/emailsettings.php:343
 msgid "A confirmation code was sent to the email address you added. "
 msgstr ""
+"Staðfestingarlykill var sendur til tölvupóstfangsins sem þú sendir inn. "
 
 #: actions/facebookhome.php:110
 msgid "Server error - couldn't get user!"
-msgstr ""
+msgstr "Kerfisvilla - gat ekki náð í notanda!"
 
 #: actions/facebookhome.php:196
 #, php-format
 msgid "If you would like the %s app to automatically update "
-msgstr ""
+msgstr "Ef þú vilt að %s forritið sjálfkrafa uppfæri "
 
 #: actions/facebookhome.php:213 actions/facebooksettings.php:137
 #, php-format
 msgid "Allow %s to update my Facebook status"
-msgstr ""
+msgstr "Leyfa %s að uppfæra stöðuna mína á Facebook"
 
 #: actions/facebookhome.php:218
 msgid "Skip"
-msgstr ""
+msgstr "Sleppa"
 
 #: actions/facebookhome.php:235
 msgid "No notice content!"
-msgstr ""
+msgstr "Innihaldslaust babl!"
 
 #: actions/facebookhome.php:295 lib/action.php:870 lib/facebookaction.php:399
 msgid "Pagination"
-msgstr ""
+msgstr "Uppröðun"
 
 #: actions/facebookhome.php:304 lib/action.php:879 lib/facebookaction.php:408
 msgid "After"
-msgstr ""
+msgstr "Eftir"
 
 #: actions/facebookhome.php:312 lib/action.php:887 lib/facebookaction.php:416
 msgid "Before"
-msgstr ""
+msgstr "Áður"
 
 #: actions/facebookinvite.php:70
 #, php-format
 msgid "Thanks for inviting your friends to use %s"
-msgstr ""
+msgstr "Takk fyrir að bjóða vinum þínum að nota %s"
 
 #: actions/facebookinvite.php:72
 msgid "Invitations have been sent to the following users:"
-msgstr ""
+msgstr "Boðskort hafa verið send til eftirfarandi notenda:"
 
 #: actions/facebookinvite.php:96
 #, php-format
 msgid "You have been invited to %s"
-msgstr ""
+msgstr "Þér hefur verið boðið til %s"
 
 #: actions/facebookinvite.php:105
-#, fuzzy, php-format
+#, php-format
 msgid "Invite your friends to use %s"
-msgstr "Ροή φίλων του/της %s"
+msgstr "Bjóddu vinum þínum að nota %s"
 
 #: actions/facebookinvite.php:113
 #, php-format
 msgid "Friends already using %s:"
-msgstr ""
+msgstr "Vinir sem nú þegar nota %s:"
 
 #: actions/facebookinvite.php:130
 #, php-format
 msgid "Send invitations"
-msgstr ""
+msgstr "Senda boðskort"
 
 #: actions/facebookremove.php:56
 msgid "Couldn't remove Facebook user."
-msgstr ""
+msgstr "Gat ekki fjarlægt Facebook-notanda."
 
 #: actions/facebooksettings.php:65
 msgid "There was a problem saving your sync preferences!"
-msgstr ""
+msgstr "Það kom upp villa við að vista samstillingarnar þínar!"
 
 #: actions/facebooksettings.php:67
-#, fuzzy
 msgid "Sync preferences saved."
-msgstr "Οι προτιμήσεις αποθηκεύτηκαν"
+msgstr "Samstillingar vistaðar."
 
 #: actions/facebooksettings.php:90
 msgid "Automatically update my Facebook status with my notices."
-msgstr ""
+msgstr "Sjálfkrafa uppfærir stöðuna mína á Facebook með bablinu mínu."
 
 #: actions/facebooksettings.php:97
 msgid "Send \"@\" replies to Facebook."
-msgstr ""
+msgstr "Senda \"@\" svör til Facebook."
 
 #: actions/facebooksettings.php:106
 msgid "Prefix"
-msgstr ""
+msgstr "Forskeyti"
 
 #: actions/facebooksettings.php:108
 msgid "A string to prefix notices with."
-msgstr ""
+msgstr "Strengur til að skeyta fram fyrir babl."
 
 #: actions/facebooksettings.php:124
 #, php-format
 msgid "If you would like %s to automatically update "
-msgstr ""
+msgstr "Ef þú vilt að %s uppfærist sjálfkrafa "
 
 #: actions/facebooksettings.php:147
-#, fuzzy
 msgid "Sync preferences"
-msgstr "Προτιμήσεις"
+msgstr "Samstillingar"
 
 #: actions/favor.php:94 lib/disfavorform.php:140
 msgid "Disfavor favorite"
-msgstr ""
+msgstr "Ekki lengur í uppáhaldi"
 
 #: actions/favorited.php:65 lib/popularnoticesection.php:76
 #: lib/publicgroupnav.php:91
 msgid "Popular notices"
-msgstr ""
+msgstr "Vinsælt babl"
 
 #: actions/favorited.php:67
 #, php-format
 msgid "Popular notices, page %d"
-msgstr ""
+msgstr "Vinsælt babl, síða %d"
 
 #: actions/favorited.php:79
 msgid "The most popular notices on the site right now."
-msgstr ""
+msgstr "Vinsælasta bablið á síðunni um þessar mundir."
 
 #: actions/featured.php:69 lib/featureduserssection.php:82
 #: lib/publicgroupnav.php:87
 msgid "Featured users"
-msgstr ""
+msgstr "Notendur í sviðsljósinu"
 
 #: actions/featured.php:71
 #, php-format
 msgid "Featured users, page %d"
-msgstr ""
+msgstr "Notendur í sviðsljósinu, síða %d"
 
 #: actions/featured.php:99
 #, php-format
 msgid "A selection of some of the great users on %s"
-msgstr ""
+msgstr "Úrval nokkurra frábærra notenda á %s"
 
 #: actions/finishremotesubscribe.php:188
 msgid "That user has blocked you from subscribing."
-msgstr ""
+msgstr "Þessi notandi hefur bannað þér að gerast áskrifandi"
 
 #: actions/groupbyid.php:79
 msgid "No ID"
-msgstr ""
+msgstr "Ekkert einkenni"
 
 #: actions/grouplogo.php:138 actions/grouplogo.php:191
 msgid "Group logo"
-msgstr ""
+msgstr "Einkennismynd hópsins"
 
 #: actions/grouplogo.php:149
 msgid "You can upload a logo image for your group."
-msgstr ""
+msgstr "Þú getur hlaðið upp mynd fyrir hópinn þinn."
 
 #: actions/grouplogo.php:448
-#, fuzzy
 msgid "Logo updated."
-msgstr "Αποσύνδεση"
+msgstr "Einkennismynd uppfærð."
 
 #: actions/grouplogo.php:450
 msgid "Failed updating logo."
-msgstr ""
+msgstr "Tókst ekki að uppfæra einkennismynd"
 
 #: actions/groupmembers.php:93 lib/groupnav.php:91
 #, php-format
 msgid "%s group members"
-msgstr ""
+msgstr "Hópmeðlimir %s"
 
 #: actions/groupmembers.php:96
 #, php-format
 msgid "%s group members, page %d"
-msgstr ""
+msgstr "Hópmeðlimir %s, síða %d"
 
 #: actions/groupmembers.php:111
 msgid "A list of the users in this group."
-msgstr ""
+msgstr "Listi yfir notendur í þessum hóp."
 
 #: actions/groups.php:62 actions/showstream.php:518 lib/publicgroupnav.php:79
 #: lib/subgroupnav.php:96
 msgid "Groups"
-msgstr ""
+msgstr "Hópar"
 
 #: actions/groups.php:64
 #, php-format
 msgid "Groups, page %d"
-msgstr ""
+msgstr "Hópar, síða %d"
 
 #: actions/groups.php:90
 #, php-format
 msgid "%%%%site.name%%%% groups let you find and talk with "
-msgstr ""
+msgstr "Hópar á %%%%site.name%%%% leyfa þér að finna og tala við "
 
 #: actions/groups.php:106 actions/usergroups.php:124 lib/groupeditform.php:123
-#, fuzzy
 msgid "Create a new group"
-msgstr "Δημιουργία νέου λογαριασμού"
+msgstr "Búa til nýjan hóp"
 
 #: actions/groupsearch.php:57
 #, php-format
 msgid ""
 "Search for groups on %%site.name%% by their name, location, or description. "
-msgstr ""
+msgstr "Leita að hópum á %%site.name%% eftir nafni, staðsetningu eða lýsingu. "
 
 #: actions/groupsearch.php:63
 msgid "Group search"
-msgstr ""
+msgstr "Hópleit"
 
 #: actions/imsettings.php:70
 msgid "You can send and receive notices through "
-msgstr ""
+msgstr "Þú getur sent og tekið á móti babli í gegnum "
 
 #: actions/imsettings.php:120
 #, php-format
 msgid "Jabber or GTalk address, "
-msgstr ""
+msgstr "Jabber eða GTalk vefföng, "
 
 #: actions/imsettings.php:147
 msgid "Send me replies through Jabber/GTalk "
-msgstr ""
+msgstr "Sendu mér svör í gegnum Jabber/GTalk "
 
 #: actions/imsettings.php:321
-#, fuzzy, php-format
+#, php-format
 msgid "A confirmation code was sent "
-msgstr "Ο κωδικός επιβεβαίωσης δεν βρέθηκε."
+msgstr "Staðfestingarlykill var sendur "
 
 #: actions/joingroup.php:65
 msgid "You must be logged in to join a group."
-msgstr ""
+msgstr "Þú verður að hafa skráð þig inn til að bæta þér í hóp."
 
 #: actions/joingroup.php:95
 msgid "You are already a member of that group"
-msgstr ""
+msgstr "Þú ert nú þegar meðlimur í þessum hópi"
 
 #: actions/joingroup.php:128
 #, php-format
 msgid "Could not join user %s to group %s"
-msgstr ""
+msgstr "Gat ekki bætt notandanum %s í hópinn %s"
 
 #: actions/joingroup.php:135
 #, php-format
 msgid "%s joined group %s"
-msgstr ""
+msgstr "%s bætti sér í hópinn %s"
 
 #: actions/leavegroup.php:60
 msgid "Inboxes must be enabled for groups to work."
-msgstr ""
+msgstr "Innhólf verða að vera virk svo að hópar virki."
 
 #: actions/leavegroup.php:65
 msgid "You must be logged in to leave a group."
-msgstr ""
+msgstr "Þú verður aða hafa skráð þig inn til að ganga úr hóp."
 
 #: actions/leavegroup.php:88
-#, fuzzy
 msgid "No such group."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Enginn þannig hópur."
 
 #: actions/leavegroup.php:95
 msgid "You are not a member of that group."
-msgstr ""
+msgstr "Þú ert ekki meðlimur í þessum hópi."
 
 #: actions/leavegroup.php:100
 msgid "You may not leave a group while you are its administrator."
-msgstr ""
+msgstr "Þú getur ekki gengið úr hóp á meðan þú ert stjórnandi hópsins."
 
 #: actions/leavegroup.php:130
 msgid "Could not find membership record."
-msgstr ""
+msgstr "Gat ekki fundið meðlimaskrá."
 
 #: actions/leavegroup.php:138
 #, php-format
 msgid "Could not remove user %s to group %s"
-msgstr ""
+msgstr "Gat ekki fjarlægt notandann %s úr hópnum %s"
 
 #: actions/leavegroup.php:145
 #, php-format
 msgid "%s left group %s"
-msgstr ""
+msgstr "%s gekk úr hópnum %s"
 
 #: actions/login.php:225 lib/facebookaction.php:304
 msgid "Login to site"
-msgstr ""
+msgstr "Skrá þig inn á síðuna"
 
 #: actions/microsummary.php:69
 msgid "No current status"
-msgstr ""
+msgstr "Engin núverandi staða"
 
 #: actions/newgroup.php:53
 msgid "New group"
-msgstr ""
+msgstr "Nýr hópur"
 
 #: actions/newgroup.php:115
 msgid "Use this form to create a new group."
-msgstr ""
+msgstr "Notaðu þetta eyðublað til að búa til nýjan hóp."
 
 #: actions/newgroup.php:177
-#, fuzzy
 msgid "Could not create group."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Gat ekki búið til hóp."
 
 #: actions/newgroup.php:191
-#, fuzzy
 msgid "Could not set group membership."
-msgstr "Αδύνατη η αποθήκευση των νέων πληροφοριών του προφίλ"
+msgstr "Gat ekki skráð hópmeðlimi."
 
 #: actions/newmessage.php:119 actions/newnotice.php:132
 msgid "That's too long. "
-msgstr ""
+msgstr "Þetta er of langt. "
 
 #: actions/newmessage.php:134
 msgid "Don't send a message to yourself; "
-msgstr ""
+msgstr "Ekki senda þér þín eigin skilaboð; "
 
 #: actions/newnotice.php:166
 msgid "Notice posted"
-msgstr ""
+msgstr "Babl sent inn"
 
 #: actions/newnotice.php:200 classes/Channel.php:163
 msgid "Ajax Error"
-msgstr ""
+msgstr "Ajax villa"
 
 #: actions/nudge.php:85
 msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set his email yet."
 msgstr ""
+"Þessi notandi leyfir ekki að ýta við sér eða hefur ekki staðfest eða skráð "
+"tölvupóstinn sinn."
 
 #: actions/nudge.php:94
 msgid "Nudge sent"
-msgstr ""
+msgstr "Ýtt við notanda"
 
 #: actions/nudge.php:97
 msgid "Nudge sent!"
-msgstr ""
+msgstr "Ýtt við notanda!"
 
 #: actions/openidlogin.php:97
-#, fuzzy
 msgid "OpenID login"
-msgstr "Ρυθμίσεις OpenID"
+msgstr "Innskráning með OpenID"
 
 #: actions/openidsettings.php:128
 msgid "Removing your only OpenID "
-msgstr ""
+msgstr "Fjarlægi eina OpenID einkennið þitt "
 
 #: actions/othersettings.php:60
-#, fuzzy
 msgid "Other Settings"
-msgstr "Ρυθμίσεις OpenID"
+msgstr "Aðrar stillingar"
 
 #: actions/othersettings.php:71
 msgid "Manage various other options."
-msgstr ""
+msgstr "Sjá um ýmsar aðrar stillingar."
 
 #: actions/othersettings.php:93
 msgid "URL Auto-shortening"
-msgstr ""
+msgstr "Sjálfvirk stytting vefslóða"
 
 #: actions/othersettings.php:112
 msgid "Service"
-msgstr ""
+msgstr "Þjónusta"
 
 #: actions/othersettings.php:113
 msgid "Automatic shortening service to use."
-msgstr ""
+msgstr "Þjónusta sem sér um sjálfkrafa styttingu."
 
 #: actions/othersettings.php:144
-#, fuzzy
 msgid "URL shortening service is too long (max 50 chars)."
-msgstr "Η τοποθεσία είναι πολύ μεγάλη (μέγιστο 255 χαρακτ.)."
+msgstr ""
+"Þjónusta sjálfvirkrar vefslóðastyttingar er of löng (í mesta lagi 50 "
+"stafir)."
 
 #: actions/passwordsettings.php:69
-#, fuzzy
 msgid "Change your password."
-msgstr "Αλλαγή κωδικού"
+msgstr "Breyta lykilorðinu þínu."
 
 #: actions/passwordsettings.php:89
-#, fuzzy
 msgid "Password change"
-msgstr "Ο κωδικός αποθηκεύτηκε."
+msgstr "Lykilorðabreyting"
 
 #: actions/peopletag.php:35
 #, php-format
 msgid "Not a valid people tag: %s"
-msgstr ""
+msgstr "Ekki gilt persónumerki: %s"
 
 #: actions/peopletag.php:47
 #, php-format
 msgid "Users self-tagged with %s - page %d"
-msgstr ""
+msgstr "Notendur sjálfmerktir með %s - síða %d"
 
 #: actions/peopletag.php:91
 #, php-format
 msgid "These are users who have tagged themselves \"%s\" "
-msgstr ""
+msgstr "Þetta eru notendur sem hafa merkt sjálfa sig með \"%s\" "
 
 #: actions/profilesettings.php:91
 msgid "Profile information"
-msgstr ""
+msgstr "Upplýsingar á persónulegri síðu"
 
 #: actions/profilesettings.php:124
 msgid ""
 "Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
 msgstr ""
+"Merki fyrir þig (bókstafir, tölustafir, -, ., og _), aðskilin með kommu eða "
+"bili"
 
 #: actions/profilesettings.php:144
 msgid "Automatically subscribe to whoever "
-msgstr ""
+msgstr "Sjálfkrafa gerast áskrifandi að þeim "
 
 #: actions/profilesettings.php:229 actions/tagother.php:176
 #, php-format
 msgid "Invalid tag: \"%s\""
-msgstr ""
+msgstr "Ógilt merki: \"%s\""
 
 #: actions/profilesettings.php:311
-#, fuzzy
 msgid "Couldn't save tags."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Gat ekki vistað merki."
 
 #: actions/public.php:107
 #, php-format
 msgid "Public timeline, page %d"
-msgstr ""
+msgstr "Almenningsrás, síða %d"
 
 #: actions/public.php:173
 msgid "Could not retrieve public stream."
-msgstr ""
+msgstr "Gat ekki sótt efni úr almenningsveitu."
 
 #: actions/public.php:220
 #, php-format
@@ -3947,127 +4049,129 @@ msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
 "blogging) service "
 msgstr ""
+"Þetta er [örbloggssþjónustan](http://en.wikipedia.org/wiki/Micro-blogging) "
+"%%site.name%% "
 
 #: actions/publictagcloud.php:57
 msgid "Public tag cloud"
-msgstr ""
+msgstr "Merkjaský almenningsins"
 
 #: actions/publictagcloud.php:63
 #, php-format
 msgid "These are most popular recent tags on %s "
-msgstr ""
+msgstr "Þetta eru vinsælustu nýlegu merkin á %s "
 
 #: actions/publictagcloud.php:119
 msgid "Tag cloud"
-msgstr ""
+msgstr "Merkjaský"
 
 #: actions/register.php:139 actions/register.php:349
 msgid "Sorry, only invited people can register."
-msgstr ""
+msgstr "Afsakið en aðeins fólki sem er boðið getur nýskráð sig."
 
 #: actions/register.php:149
 msgid "You can't register if you don't "
-msgstr ""
+msgstr "Þú getur ekki nýskráð þig ef þú hefur ekki "
 
 #: actions/register.php:286
 msgid "With this form you can create "
-msgstr ""
+msgstr "Með þessu eyðublaði getur þú búið til "
 
 #: actions/register.php:368
 msgid "1-64 lowercase letters or numbers, "
-msgstr ""
+msgstr "1-64 lágstafir og tölustafir, "
 
 #: actions/register.php:382 actions/register.php:386
 msgid "Used only for updates, announcements, "
-msgstr ""
+msgstr "Aðeins notað fyrir uppfærslur og tilkynningar, "
 
 #: actions/register.php:398
 msgid "URL of your homepage, blog, "
-msgstr ""
+msgstr "Vefslóð vefsíðunnar þinnar, blogg, "
 
 #: actions/register.php:404
 msgid "Describe yourself and your "
-msgstr ""
+msgstr "Lýstu þér og þínum "
 
 #: actions/register.php:410
 msgid "Where you are, like \"City, "
-msgstr ""
+msgstr "Hvar ertu, t.d. \"Borg, "
 
 #: actions/register.php:432
 msgid " except this private data: password, "
-msgstr ""
+msgstr " nema þessi persónulegu gögn: lykilorð, "
 
 #: actions/register.php:471
 #, php-format
 msgid "Congratulations, %s! And welcome to %%%%site.name%%%%. "
-msgstr ""
+msgstr "Til hamingju %s! Vertu velkomin(n) á %%%%site.name%%%%. "
 
 #: actions/register.php:495
 msgid "(You should receive a message by email "
-msgstr ""
+msgstr "(Þú ættir að fá tölvupóst "
 
 #: actions/remotesubscribe.php:166 actions/remotesubscribe.php:171
 msgid "That's a local profile! Login to subscribe."
 msgstr ""
+"Þetta er staðbundinn persónuaðgangur! Skráðu þig inn til að gerast "
+"áskrifandi."
 
 #: actions/replies.php:118
 #, php-format
 msgid "Replies to %s, page %d"
-msgstr ""
+msgstr "Svör við %s, síða %d"
 
 #: actions/showfavorites.php:79
 #, php-format
 msgid "%s favorite notices, page %d"
-msgstr ""
+msgstr "Uppáhaldsbabl %s, síða %d"
 
 #: actions/showgroup.php:77 lib/groupnav.php:85
 #, php-format
 msgid "%s group"
-msgstr ""
+msgstr "%s hópurinn"
 
 #: actions/showgroup.php:79
 #, php-format
 msgid "%s group, page %d"
-msgstr ""
+msgstr "%s hópurinn, síða %d"
 
 #: actions/showgroup.php:206
-#, fuzzy
 msgid "Group profile"
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Hópssíðan"
 
 #: actions/showgroup.php:251 actions/showstream.php:278
 #: actions/tagother.php:119 lib/grouplist.php:134 lib/profilelist.php:133
 msgid "URL"
-msgstr ""
+msgstr "Vefslóð"
 
 #: actions/showgroup.php:262 actions/showstream.php:289
 #: actions/tagother.php:129 lib/grouplist.php:145 lib/profilelist.php:144
 msgid "Note"
-msgstr ""
+msgstr "Athugasemd"
 
 #: actions/showgroup.php:270
 msgid "Group actions"
-msgstr ""
+msgstr "Hópsaðgerðir"
 
 #: actions/showgroup.php:323
 #, php-format
 msgid "Notice feed for %s group"
-msgstr ""
+msgstr "Bablveita fyrir hópinn %s"
 
 #: actions/showgroup.php:357 lib/groupnav.php:90
-#, fuzzy
 msgid "Members"
-msgstr "Μέλος από"
+msgstr "Meðlimir"
 
 #: actions/showgroup.php:363 actions/showstream.php:413
 #: actions/showstream.php:442 actions/showstream.php:524 lib/section.php:95
 #: lib/tagcloudsection.php:71
 msgid "(None)"
-msgstr ""
+msgstr "(Ekkert)"
 
 #: actions/showgroup.php:370
 msgid "All members"
-msgstr ""
+msgstr "Allir meðlimir"
 
 #: actions/showgroup.php:378
 #, php-format
@@ -4075,49 +4179,49 @@ msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
 "wikipedia.org/wiki/Micro-blogging) service "
 msgstr ""
+"**%s** er notendahópur á [örbloggsþjónustunni](http://en.wikipedia.org/wiki"
+"/Micro-blogging) %%%%site.name%%%%  "
 
 #: actions/showmessage.php:98
 msgid "Only the sender and recipient "
-msgstr ""
+msgstr "Aðeins sendandinn og móttakandi "
 
 #: actions/showstream.php:73
 #, php-format
 msgid "%s, page %d"
-msgstr ""
+msgstr "%s, síða %d"
 
 #: actions/showstream.php:143
-#, fuzzy
 msgid "'s profile"
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "- Persónuleg síða"
 
 #: actions/showstream.php:236 actions/tagother.php:77
-#, fuzzy
 msgid "User profile"
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Persónuleg síða notanda"
 
 #: actions/showstream.php:240 actions/tagother.php:81
 msgid "Photo"
-msgstr ""
+msgstr "Ljósmynd"
 
 #: actions/showstream.php:317
 msgid "User actions"
-msgstr ""
+msgstr "Notandaaðgerðir"
 
 #: actions/showstream.php:342
 msgid "Send a direct message to this user"
-msgstr ""
+msgstr "Senda bein skilaboð til þessa notanda"
 
 #: actions/showstream.php:343
 msgid "Message"
-msgstr ""
+msgstr "Skilaboð"
 
 #: actions/showstream.php:451
 msgid "All subscribers"
-msgstr ""
+msgstr "Allir áskrifendur"
 
 #: actions/showstream.php:533
 msgid "All groups"
-msgstr ""
+msgstr "Allir hópar"
 
 #: actions/showstream.php:542
 #, php-format
@@ -4125,446 +4229,450 @@ msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
 "wikipedia.org/wiki/Micro-blogging) service "
 msgstr ""
+"**%s** hefur notendaaðgang á "
+"[örbloggsþjónustunni](http://en.wikipedia.org/wiki/Micro-blogging) "
+"%%%%site.name%%%%  "
 
 #: actions/smssettings.php:128
 msgid "Phone number, no punctuation or spaces, "
-msgstr ""
+msgstr "Símanúmer, engin sértákn eða bil,"
 
 #: actions/smssettings.php:162
 msgid "Send me notices through SMS; "
-msgstr ""
+msgstr "Senda mér babl í gegnum SMS; "
 
 #: actions/smssettings.php:335
 msgid "A confirmation code was sent to the phone number you added. "
-msgstr ""
+msgstr "Staðfestingarlykill hefur verið sendur í símanúmerið sem þú slóst inn. "
 
 #: actions/smssettings.php:453
 msgid "Mobile carrier"
-msgstr ""
+msgstr "Farsímafyrirtæki"
 
 #: actions/subedit.php:70
 msgid "You are not subscribed to that profile."
-msgstr ""
+msgstr "Þú ert ekki áskrifandi."
 
 #: actions/subedit.php:83
-#, fuzzy
 msgid "Could not save subscription."
-msgstr "Αδύνατη η αποθήκευση των νέων πληροφοριών του προφίλ"
+msgstr "Gat ekki vistað áskrift."
 
 #: actions/subscribe.php:55
 msgid "Not a local user."
-msgstr ""
+msgstr "Ekki staðbundinn notandi."
 
 #: actions/subscribe.php:69
 msgid "Subscribed"
-msgstr ""
+msgstr "Þú ert nú í áskrift"
 
 #: actions/subscribers.php:50
 #, php-format
 msgid "%s subscribers"
-msgstr ""
+msgstr "%s áskrifendur"
 
 #: actions/subscribers.php:52
 #, php-format
 msgid "%s subscribers, page %d"
-msgstr ""
+msgstr "%s áskrifendur, síða %d"
 
 #: actions/subscribers.php:63
 msgid "These are the people who listen to "
-msgstr ""
+msgstr "Þetta er fólkið sem hlustar á "
 
 #: actions/subscribers.php:67
 #, php-format
 msgid "These are the people who "
-msgstr ""
+msgstr "Þetta er fólkið sem "
 
 #: actions/subscriptions.php:52
-#, fuzzy, php-format
+#, php-format
 msgid "%s subscriptions"
-msgstr "Αδύνατη η αποθήκευση των νέων πληροφοριών του προφίλ"
+msgstr "%s áskriftir"
 
 #: actions/subscriptions.php:54
 #, php-format
 msgid "%s subscriptions, page %d"
-msgstr ""
+msgstr "%s áskriftir, síða %d"
 
 #: actions/subscriptions.php:65
 msgid "These are the people whose notices "
-msgstr ""
+msgstr "Þetta er fólkið þar sem bablið "
 
 #: actions/subscriptions.php:69
 #, php-format
 msgid "These are the people whose "
-msgstr ""
+msgstr "Þetta er fólkið þar sem "
 
 #: actions/subscriptions.php:122
 msgid "Jabber"
-msgstr ""
+msgstr "Jabber snarskilaboðaþjónusta"
 
 #: actions/tag.php:43
 #, php-format
 msgid "Notices tagged with %s, page %d"
-msgstr ""
+msgstr "Babl merkt með %s, síða %d"
 
 #: actions/tag.php:66
 #, php-format
 msgid "Messages tagged \"%s\", most recent first"
-msgstr ""
+msgstr "Skilaboð merkt með \"%s\", nýlegustu skilaboðin fyrst"
 
 #: actions/tagother.php:33
 msgid "Not logged in"
-msgstr ""
+msgstr "Ekki innskráð(ur)"
 
 #: actions/tagother.php:39
 msgid "No id argument."
-msgstr ""
+msgstr "Ekkert einkenni gefið upp."
 
 #: actions/tagother.php:65
 #, php-format
 msgid "Tag %s"
-msgstr ""
+msgstr "Merki %s"
 
 #: actions/tagother.php:141
 msgid "Tag user"
-msgstr ""
+msgstr "Merkja notanda"
 
 #: actions/tagother.php:149
 msgid ""
 "Tags for this user (letters, numbers, -, ., and _), comma- or space- "
 "separated"
 msgstr ""
+"Merki fyrir þennan notanda (bókstafir, tölustafir, -, ., og _), aðskilin með "
+"kommu eða bili"
 
 #: actions/tagother.php:164
 msgid "There was a problem with your session token."
-msgstr ""
+msgstr "Það komu upp vandamál varðandi setutókann þinn."
 
 #: actions/tagother.php:191
 msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
 msgstr ""
+"Þú getur aðeins merkt fólk sem þú ert áskrifandi að eða þau sem eru "
+"áskrifendur að þér."
 
 #: actions/tagother.php:198
-#, fuzzy
 msgid "Could not save tags."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Gat ekki vistað merki."
 
 #: actions/tagother.php:233
 msgid "Use this form to add tags to your subscribers or subscriptions."
 msgstr ""
+"Notaðu þetta eyðublað til að bæta við merkjum við áskrifendur þína eða þau "
+"sem þú ert áskrifandi að."
 
 #: actions/tagrss.php:35
 msgid "No such tag."
-msgstr ""
+msgstr "Ekkert þannig merki."
 
 #: actions/tagrss.php:66
 #, php-format
 msgid "Microblog tagged with %s"
-msgstr ""
+msgstr "Örblogg merkt með %s"
 
 #: actions/twitapiblocks.php:47
 msgid "Block user failed."
-msgstr ""
+msgstr "Mistókst að loka á notanda."
 
 #: actions/twitapiblocks.php:69
 msgid "Unblock user failed."
-msgstr ""
+msgstr "Mistókst að opna fyrir notanda."
 
 #: actions/twitapiusers.php:48
 msgid "Not found."
-msgstr ""
+msgstr "Fannst ekki."
 
 #: actions/twittersettings.php:71
 msgid "Add your Twitter account to automatically send "
-msgstr ""
+msgstr "Bættu við Twitter aðgangi þínum til að sjálfkrafa senda "
 
 #: actions/twittersettings.php:119
 msgid "Twitter user name"
-msgstr "Όνομα χρήστη στο Twitter"
+msgstr "Notendanafn á Twitter"
 
 #: actions/twittersettings.php:126
 msgid "Twitter password"
-msgstr "Κωδικός στο Twitter"
+msgstr "Lykilorð á Twitter"
 
 #: actions/twittersettings.php:228
 msgid "Twitter Friends"
-msgstr "Φίλοι στο Twitter"
+msgstr "Twitter vinir"
 
 #: actions/twittersettings.php:327
 msgid "Username must have only numbers, "
-msgstr "Το όνομα χρήστη πρέπει να έχει μόνο νούμερα,"
+msgstr "Notendanafn má aðeins innihalda tölustafi, "
 
 #: actions/twittersettings.php:341
 #, php-format
 msgid "Unable to retrieve account information "
-msgstr ""
+msgstr "Gat ekki náð í aðgangsupplýsingar "
 
 #: actions/unblock.php:108
 msgid "Error removing the block."
-msgstr ""
+msgstr "Vill kom upp við að aflétta notendalokun."
 
 #: actions/unsubscribe.php:50
 msgid "No profile id in request."
-msgstr ""
+msgstr "Ekkert einkenni persónulegrar síðu í beiðni."
 
 #: actions/unsubscribe.php:57
 msgid "No profile with that id."
-msgstr ""
+msgstr "Enginn persónuleg síða með þessu einkenni."
 
 #: actions/unsubscribe.php:71
 msgid "Unsubscribed"
-msgstr ""
+msgstr "Ekki lengur áskrifandi"
 
 #: actions/usergroups.php:63
 #, php-format
 msgid "%s groups"
-msgstr ""
+msgstr "Hópar %s"
 
 #: actions/usergroups.php:65
 #, php-format
 msgid "%s groups, page %d"
-msgstr ""
+msgstr "Hópar %s, síða %d"
 
 #: classes/Notice.php:104
 msgid "Problem saving notice. Unknown user."
-msgstr ""
+msgstr "Gat ekki vistað babl. Óþekktur notandi."
 
 #: classes/Notice.php:109
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
+"Of mikið babl í einu; slakaðu aðeins á og haltu svo áfram eftir nokkrar "
+"mínútur."
 
 #: classes/Notice.php:116
 msgid "You are banned from posting notices on this site."
-msgstr ""
+msgstr "Það hefur verið lagt bann við babli frá þér á þessari síðu."
 
 #: lib/accountsettingsaction.php:108
 msgid "Upload an avatar"
-msgstr ""
+msgstr "Hlaða upp einkennismynd"
 
 #: lib/accountsettingsaction.php:119
 msgid "Other"
-msgstr ""
+msgstr "Annað"
 
 #: lib/accountsettingsaction.php:120
 msgid "Other options"
-msgstr ""
+msgstr "Aðrir valkostir"
 
 #: lib/action.php:130
 #, php-format
 msgid "%s - %s"
-msgstr ""
+msgstr "%s - %s"
 
 #: lib/action.php:145
 msgid "Untitled page"
-msgstr ""
+msgstr "Ónafngreind síða"
 
 #: lib/action.php:316
 msgid "Primary site navigation"
-msgstr ""
+msgstr "Stikl aðalsíðu"
 
 #: lib/action.php:322
 msgid "Personal profile and friends timeline"
-msgstr ""
+msgstr "Persónuleg síða og vinarás"
 
 #: lib/action.php:325
 msgid "Search for people or text"
-msgstr ""
+msgstr "Leita að fólki eða texta"
 
 #: lib/action.php:328
-#, fuzzy
 msgid "Account"
-msgstr "Περί"
+msgstr "Aðgangur"
 
 #: lib/action.php:328
 msgid "Change your email, avatar, password, profile"
 msgstr ""
+"Breyttu tölvupóstinum þínum, einkennismyndinni þinni, lykilorðinu þínu, "
+"persónulegu síðunni þinni"
 
 #: lib/action.php:330
 msgid "Connect to IM, SMS, Twitter"
-msgstr ""
+msgstr "Tengjast snarskilaboðaþjónustu, SMS, Twitter"
 
 #: lib/action.php:332
 msgid "Logout from the site"
-msgstr ""
+msgstr "Skrá þig út af síðunni"
 
 #: lib/action.php:335
 msgid "Login to the site"
-msgstr ""
+msgstr "Skrá þig inn á síðuna"
 
 #: lib/action.php:338
-#, fuzzy
 msgid "Create an account"
-msgstr "Δημιουργία νέου λογαριασμού"
+msgstr "Búa til aðgang"
 
 #: lib/action.php:341
 msgid "Login with OpenID"
-msgstr ""
+msgstr "Skrá þig inn með OpenID"
 
 #: lib/action.php:344
-#, fuzzy
 msgid "Help me!"
-msgstr "Βοήθεια"
+msgstr "Hjálp!"
 
 #: lib/action.php:362
 msgid "Site notice"
-msgstr ""
+msgstr "Babl vefsíðunnar"
 
 #: lib/action.php:417
 msgid "Local views"
-msgstr ""
+msgstr "Staðbundin sýn"
 
 #: lib/action.php:472
 msgid "Page notice"
-msgstr ""
+msgstr "Babl síðunnar"
 
 #: lib/action.php:562
 msgid "Secondary site navigation"
-msgstr ""
+msgstr "Stikl undirsíðu"
 
 #: lib/action.php:602 lib/action.php:623
 msgid "StatusNet software license"
-msgstr ""
+msgstr "Hugbúnaðarleyfi StatusNet"
 
 #: lib/action.php:630
 msgid "All "
-msgstr ""
+msgstr "Allt "
 
 #: lib/action.php:635
 msgid "license."
-msgstr ""
+msgstr "leyfi."
 
 #: lib/blockform.php:123 lib/blockform.php:153
 msgid "Block this user"
-msgstr ""
+msgstr "Loka á þennan notanda"
 
 #: lib/blockform.php:153
 msgid "Block"
-msgstr ""
+msgstr "Loka"
 
 #: lib/disfavorform.php:114 lib/disfavorform.php:140
 msgid "Disfavor this notice"
-msgstr ""
+msgstr "Taka þetta babl út sem uppáhald"
 
 #: lib/facebookaction.php:268
 #, php-format
 msgid "To use the %s Facebook Application you need to login "
-msgstr ""
+msgstr "Til að nota Facebook forritið %s verður þú að skrá þig inn "
 
 #: lib/facebookaction.php:271
-#, fuzzy
 msgid " a new account."
-msgstr "Δημιουργία νέου λογαριασμού"
+msgstr " nýr aðgangur."
 
 #: lib/facebookaction.php:557 lib/mailbox.php:214 lib/noticelist.php:354
 msgid "Published"
-msgstr ""
+msgstr "Útgefið"
 
 #: lib/favorform.php:114 lib/favorform.php:140
 msgid "Favor this notice"
-msgstr ""
+msgstr "Setja þetta babl í uppáhald"
 
 #: lib/feedlist.php:64
 msgid "Export data"
-msgstr ""
+msgstr "Flytja út gögn"
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"
-msgstr ""
+msgstr "Sía merki"
 
 #: lib/galleryaction.php:131
 msgid "All"
-msgstr ""
+msgstr "Allt"
 
 #: lib/galleryaction.php:137
 msgid "Tag"
-msgstr ""
+msgstr "Merki"
 
 #: lib/galleryaction.php:138
 msgid "Choose a tag to narrow list"
-msgstr ""
+msgstr "Veldu merki til að þrengja lista"
 
 #: lib/galleryaction.php:139
 msgid "Go"
-msgstr ""
+msgstr "Áfram"
 
 #: lib/groupeditform.php:148
 msgid "URL of the homepage or blog of the group or topic"
-msgstr ""
+msgstr "Vefslóð vefsíðu hópsins eða umfjöllunarefnisins"
 
 #: lib/groupeditform.php:151
 msgid "Description"
-msgstr "Περιγραφή"
+msgstr "Lýsing"
 
 #: lib/groupeditform.php:153
 msgid "Describe the group or topic in 140 chars"
-msgstr "Περιγράψτε την ομάδα ή το θέμα μέχρι 140 χαρακτήρες"
+msgstr "Lýstu hópnum eða umfjöllunarefninu með 140 táknum"
 
 #: lib/groupeditform.php:158
 msgid ""
 "Location for the group, if any, like \"City, State (or Region), Country\""
-msgstr "Τοποθεσία της ομάδας (εάν υπάρχει), πχ: \"Πόλη, Περιοχή, Χώρα)"
+msgstr "Staðsetning hópsins, ef einhver, eins og \"Borg, landshluti, land\""
 
 #: lib/groupnav.php:84 lib/searchgroupnav.php:84
 msgid "Group"
-msgstr "Ομάδα"
+msgstr "Hópur"
 
 #: lib/groupnav.php:100
 msgid "Admin"
-msgstr "Διαχειριστής"
+msgstr "Stjórnandi"
 
 #: lib/groupnav.php:101
 #, php-format
 msgid "Edit %s group properties"
-msgstr "Επεξεργασία ιδιοτήτων της ομάδας %s"
+msgstr "Breyta hópstillingum %s"
 
 #: lib/groupnav.php:106
 msgid "Logo"
-msgstr "Λογότυπο"
+msgstr "Einkennismerki"
 
 #: lib/groupnav.php:107
 #, php-format
 msgid "Add or edit %s logo"
-msgstr "Προσθήκη ή επεξεργασία λογότυπου για την ομάδα %s"
+msgstr "Bæta við eða breyta einkennismerki %s"
 
 #: lib/groupsbymemberssection.php:71
 msgid "Groups with most members"
-msgstr "Ομάδες με τα περισσότερα μέλη"
+msgstr "Hóparnir með flestu meðlimina"
 
 #: lib/groupsbypostssection.php:71
 msgid "Groups with most posts"
-msgstr "Ομάδες με τις περισσότερες δημοσιεύσεις"
+msgstr "Hóparnir með mesta bablið"
 
 #: lib/grouptagcloudsection.php:56
 #, php-format
 msgid "Tags in %s group's notices"
-msgstr ""
+msgstr "Merki í babli %s hópsins"
 
 #: lib/htmloutputter.php:104
-#, fuzzy
 msgid "This page is not available in a "
-msgstr "Η αρχική σελίδα δεν είναι έγκυρο URL."
+msgstr "Þessi síða er ekki aðgengileg í "
 
 #: lib/joinform.php:114
-#, fuzzy
 msgid "Join"
-msgstr "Συμμετοχή"
+msgstr "Gerast meðlimur"
 
 #: lib/leaveform.php:114
 msgid "Leave"
-msgstr "Αποχώρηση"
+msgstr "Hætta sem meðlimur"
 
 #: lib/logingroupnav.php:76
 msgid "Login with a username and password"
-msgstr "Σύνδεση με όνομα χρήστη και κωδικό"
+msgstr "Skráðu þig inn með notendanafni og lykilorði"
 
 #: lib/logingroupnav.php:79
-#, fuzzy
 msgid "Sign up for a new account"
-msgstr "Δημιουργία νέου λογαριασμού"
+msgstr "Búðu til nýjan aðgang"
 
 #: lib/logingroupnav.php:82
 msgid "Login or register with OpenID"
-msgstr "Σύνδεση ή δημιουργία λογαριασμού με OpenID"
+msgstr "Skráðu þig inn eða nýskráðu þig með OpenID"
 
 #: lib/mail.php:175
 #, php-format
@@ -4572,23 +4680,23 @@ msgid ""
 "Hey, %s.\n"
 "\n"
 msgstr ""
-"Γεια σου, %s.\n"
+"Hey, %s.\n"
 "\n"
 
 #: lib/mail.php:236
 #, php-format
 msgid "%1$s is now listening to "
-msgstr ""
+msgstr "%1$s hlustar núna á "
 
 #: lib/mail.php:254
-#, fuzzy, php-format
+#, php-format
 msgid "Location: %s\n"
-msgstr "Τοποθεσία: %s\n"
+msgstr "Staðsetning: %s\n"
 
 #: lib/mail.php:256
-#, fuzzy, php-format
+#, php-format
 msgid "Homepage: %s\n"
-msgstr "Αρχική σελίδα: %s\n"
+msgstr "Vefsíða: %s\n"
 
 #: lib/mail.php:258
 #, php-format
@@ -4596,163 +4704,157 @@ msgid ""
 "Bio: %s\n"
 "\n"
 msgstr ""
-"Βιογραφικό: %s\n"
+"Lýsing: %s\n"
 "\n"
 
 #: lib/mail.php:461
 #, php-format
 msgid "You've been nudged by %s"
-msgstr ""
+msgstr "%s ýtti við þér"
 
 #: lib/mail.php:465
 #, php-format
 msgid "%1$s (%2$s) is wondering what you are up to "
-msgstr ""
+msgstr "%1$s (%2$s) er að spá hvað þú ert að gera "
 
 #: lib/mail.php:555
 #, php-format
 msgid "%1$s just added your notice from %2$s"
-msgstr ""
+msgstr "%1$s bætti við bablinu þínu af %2$s"
 
 #: lib/mailbox.php:229 lib/noticelist.php:380
 msgid "From"
-msgstr "Από"
+msgstr "Frá"
 
 #: lib/messageform.php:110
 msgid "Send a direct notice"
-msgstr ""
+msgstr "Senda bein skilaboð"
 
 #: lib/noticeform.php:125
 msgid "Send a notice"
-msgstr ""
+msgstr "Senda babl"
 
 #: lib/noticeform.php:152
-#, fuzzy
 msgid "Available characters"
-msgstr "6 ή περισσότεροι χαρακτήρες"
+msgstr "Leyfileg tákn"
 
 #: lib/noticelist.php:426
 msgid "in reply to"
-msgstr ""
+msgstr "sem svar við"
 
 #: lib/noticelist.php:447 lib/noticelist.php:450
 msgid "Reply to this notice"
-msgstr ""
+msgstr "Svara þessu babli"
 
 #: lib/noticelist.php:451
 msgid "Reply"
-msgstr ""
+msgstr "Svara"
 
 #: lib/noticelist.php:471 lib/noticelist.php:474
 msgid "Delete this notice"
-msgstr ""
+msgstr "Eyða þessu babli"
 
 #: lib/noticelist.php:474
 msgid "Delete"
-msgstr ""
+msgstr "Eyða"
 
 #: lib/nudgeform.php:116
 msgid "Nudge this user"
-msgstr ""
+msgstr "Ýta við þessum notanda"
 
 #: lib/nudgeform.php:128
 msgid "Nudge"
-msgstr ""
+msgstr "Pot"
 
 #: lib/nudgeform.php:128
 msgid "Send a nudge to this user"
-msgstr ""
+msgstr "Ýta við þessum notanda"
 
 #: lib/personaltagcloudsection.php:56
 #, php-format
 msgid "Tags in %s's notices"
-msgstr ""
+msgstr "Merki í babli %s"
 
 #: lib/profilelist.php:182
-#, fuzzy
 msgid "(none)"
-msgstr "(κανένα)"
+msgstr "(ekkert)"
 
 #: lib/publicgroupnav.php:76
 msgid "Public"
-msgstr "Δημόσια"
+msgstr "Almenn"
 
 #: lib/publicgroupnav.php:80
 msgid "User groups"
-msgstr "Ομάδες χρηστών"
+msgstr "Notendahópar"
 
 #: lib/publicgroupnav.php:82 lib/publicgroupnav.php:83
 msgid "Recent tags"
-msgstr "Πρόσφατες ετικέτες "
+msgstr "Nýleg merki"
 
 #: lib/publicgroupnav.php:86
 msgid "Featured"
-msgstr "Προτεινόμενα"
+msgstr "Í sviðsljósinu"
 
 #: lib/publicgroupnav.php:90
 msgid "Popular"
-msgstr "Δημοφιλή"
+msgstr "Vinsælt"
 
 #: lib/searchgroupnav.php:82
 msgid "Notice"
-msgstr "Μήνυμα"
+msgstr "Babl"
 
 #: lib/searchgroupnav.php:85
 msgid "Find groups on this site"
-msgstr "Βρες ομάδες στο site"
+msgstr "Finna hópa á þessari síðu"
 
 #: lib/section.php:89
 msgid "Untitled section"
-msgstr "Ενότητα χωρίς τίτλο"
+msgstr "Ónafngreindur hluti"
 
 #: lib/subgroupnav.php:81
 #, php-format
 msgid "People %s subscribes to"
-msgstr ""
+msgstr "Fólk sem %s er áskrifandi að"
 
 #: lib/subgroupnav.php:89
 #, php-format
 msgid "People subscribed to %s"
-msgstr ""
+msgstr "Fólk sem eru áskrifendur að %s"
 
 #: lib/subgroupnav.php:97
 #, php-format
 msgid "Groups %s is a member of"
-msgstr ""
+msgstr "Hópar sem %s er meðlimur í"
 
 #: lib/subgroupnav.php:104
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
-msgstr "Προσκάλεσε φίλους και συναδέλφους σου να γίνουν μέλη στο %s"
+msgstr "Bjóða vinum og vandamönnum að slást í hópinn á %s"
 
 #: lib/subs.php:53
 msgid "User has blocked you."
-msgstr ""
+msgstr "Notandinn hefur lokað á þig."
 
 #: lib/subscribeform.php:115 lib/subscribeform.php:139
 msgid "Subscribe to this user"
-msgstr "Γίνε συνδρομητής αυτού του χρήστη"
+msgstr "Gerast áskrifandi að þessum notanda"
 
 #: lib/tagcloudsection.php:56
 msgid "None"
-msgstr "Κανένα"
+msgstr "Ekkert"
 
 #: lib/topposterssection.php:74
 msgid "Top posters"
-msgstr "Κορυφαίοι δημοσιευτές"
+msgstr "Aðalbablararnir"
 
 #: lib/unblockform.php:120 lib/unblockform.php:150
 msgid "Unblock this user"
-msgstr ""
+msgstr "Opna á þennan notanda"
 
 #: lib/unblockform.php:150
 msgid "Unblock"
-msgstr ""
+msgstr "Opna"
 
 #: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
 msgid "Unsubscribe from this user"
-msgstr ""
-
-#, fuzzy
-#~ msgid "Delete my account"
-#~ msgstr "Δημιουργία νέου λογαριασμού"
+msgstr "Hætta sem áskrifandi að þessum notanda"
