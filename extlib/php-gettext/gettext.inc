@@ -148,9 +148,9 @@ function _setlocale($category, $locale) {
  */
 function _bindtextdomain($domain, $path) {
 	global $text_domains;
-	// ensure $path ends with a slash
-	if ($path[strlen($path) - 1] != '/') $path .= '/';
-	elseif ($path[strlen($path) - 1] != '\\') $path .= '\\';
+       // ensure $path ends with a slash
+       if ($path[strlen($path) - 1] != '/') $path .= '/';
+       elseif ($path[strlen($path) - 1] != '\\') $path .= '\\';
 	$text_domains[$domain]->path = $path;
 }
 
