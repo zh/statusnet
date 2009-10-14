@@ -37,8 +37,11 @@ Batch script for retrieving Twitter messages from foreign service.
 END_OF_TRIM_HELP;
 
 require_once INSTALLDIR . '/scripts/commandline.inc';
+require_once INSTALLDIR . '/lib/common.php';
 require_once INSTALLDIR . '/lib/daemon.php';
 require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
+require_once INSTALLDIR . '/plugins/TwitterBridge/twitterbasicauthclient.php';
+require_once INSTALLDIR . '/plugins/TwitterBridge/twitteroauthclient.php';
 
 /**
  * Fetcher for statuses from Twitter
@@ -497,8 +500,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         $avatar->filename = $filename;
         $avatar->url = Avatar::url($filename);
 
-        common_debug($this->name() . " - New filename: $avatar->url");
-
         $avatar->created = common_sql_now();
 
         $id = $avatar->insert();
@@ -516,9 +517,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
     function fetchAvatar($url, $filename)
     {
-        $avatar_dir = INSTALLDIR . '/avatar/';
-
-        $avatarfile = $avatar_dir . $filename;
+        $avatarfile = Avatar::path($filename);
 
         $out = fopen($avatarfile, 'wb');
         if (!$out) {

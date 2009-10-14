@@ -49,15 +49,6 @@ if(common_config('xmpp','enabled')) {
     $daemons[] = INSTALLDIR.'/scripts/xmppconfirmhandler.php';
 }
 
-if(common_config('twitterbridge','enabled')) {
-    $daemons[] = INSTALLDIR.'/scripts/twitterstatusfetcher.php';
-}
-
-if (common_config('twitter', 'enabled')) {
-    $daemons[] = INSTALLDIR.'/scripts/twitterqueuehandler.php';
-    $daemons[] = INSTALLDIR.'/scripts/synctwitterfriends.php';
-}
-
 if (common_config('sms', 'enabled')) {
     $daemons[] = INSTALLDIR.'/scripts/smsqueuehandler.php';
 }

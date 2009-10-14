@@ -97,5 +97,22 @@ class TwitterBridgePlugin extends Plugin
         }
     }
 
+    function onStartEnqueueNotice($notice, $transports)
+    {
+        array_push($transports, 'twitter');
+        return true;
+    }
+
+    function onGetValidDaemons($daemons)
+    {
+        array_push($daemons, INSTALLDIR . '/plugins/TwitterBridge/daemons/twitterqueuehandler.php');
+        array_push($daemons, INSTALLDIR . '/plugins/TwitterBridge/daemons/synctwitterfriends.php');
+
+        if (common_config('twitterbridge', 'enabled')) {
+            array_push($daemons, INSTALLDIR . '/plugins/TwitterBridge/daemons/twitterstatusfetcher.php');
+        }
+
+        return true;
+    }
 
 }
