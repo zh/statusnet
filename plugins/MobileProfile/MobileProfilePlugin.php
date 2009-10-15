@@ -63,6 +63,7 @@ class MobileProfilePlugin extends WAP20Plugin
 
     function onStartShowHTML($action)
     {
+
         if (!$type) {
             $httpaccept = isset($_SERVER['HTTP_ACCEPT']) ?
               $_SERVER['HTTP_ACCEPT'] : null;
@@ -97,9 +98,9 @@ class MobileProfilePlugin extends WAP20Plugin
                 // XXX: Browser sniffing sucks
 
                 // I really don't like going through this every page, 
-                // find a better way
+                // perhaps use $_SESSION or cookies
 
-                // May be better to categorize the devices in terms of 
+                // May be better to group the devices in terms of 
                 // low,mid,high-end
 
                 // Or, detect the mobile devices based on their support for 
