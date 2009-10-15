@@ -8,12 +8,14 @@ max-width:100%;
 
 #header {
 margin:0;
-padding:2%;
+padding:0.7em 2%;
 width:96%;
 }
 
 address {
-margin:5% 0 0 0;
+margin:1em 0 0 0;
+float:left;
+width:100%;
 }
 address .vcard .photo {
 margin-right:0;
@@ -21,8 +23,8 @@ margin-right:0;
 
 address img + .fn {
 display:block;
-margin-top:8%;
-width:100%;
+margin-top:1.25em;
+float:left;
 }
 
 .vcard .photo {
@@ -66,7 +68,7 @@ left:0;
 }
 #site_nav_global_primary li {
 margin-left:0;
-margin-right:2%;
+margin-right:4%;
 float:left;
 font-size:0.9em;
 }
@@ -120,8 +122,9 @@ margin-right:0;
 margin-left:0;
 }
 #site_nav_local_views a {
-padding:0;
+padding:1px 4px;
 display:block;
+font-size:0.9em;
 }
 #site_nav_local_views .current a {
 text-shadow:none;
@@ -135,6 +138,11 @@ box-shadow:none;
 
 #content {
 width:96.41%;
+}
+#content, 
+#site_nav_local_views a, 
+#aside_primary {
+border:0;
 }
 
 h1 {
