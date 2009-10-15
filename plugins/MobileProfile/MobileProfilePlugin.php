@@ -350,7 +350,7 @@ class MobileProfilePlugin extends WAP20Plugin
         }
 
         $form->out->element('textarea', array('id' => 'notice_data-text',
-                                              'cols' => 35,
+                                              'cols' => 15,
                                               'rows' => 4,
                                               'name' => 'status_textarea'),
                             ($form->content) ? $form->content : '');
