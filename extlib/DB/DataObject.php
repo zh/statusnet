@@ -235,7 +235,7 @@ class DB_DataObject extends DB_DataObject_Overload
     * @access   private
     * @var      string
     */
-    var $_DB_DataObject_version = "1.8.11";
+    var $_DB_DataObject_version = "1.8.12";
 
     /**
      * The Database table (used by table extends)
