@@ -101,11 +101,6 @@ class ShowgroupAction extends GroupDesignAction
     {
         parent::prepare($args);
 
-        if (!common_config('inboxes','enabled')) {
-            $this->serverError(_('Inboxes must be enabled for groups to work'));
-            return false;
-        }
-
         $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
         $nickname_arg = $this->arg('nickname');

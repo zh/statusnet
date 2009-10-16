@@ -68,11 +68,6 @@ class GroupbyidAction extends Action
     {
         parent::prepare($args);
 
-        if (!common_config('inboxes','enabled')) {
-            $this->serverError(_('Inboxes must be enabled for groups to work'));
-            return false;
-        }
-
         $id = $this->arg('id');
 
         if (!$id) {

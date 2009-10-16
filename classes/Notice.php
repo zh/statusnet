@@ -111,10 +111,9 @@ class Notice extends Memcached_DataObject
                          'Fave',
                          'Notice_tag',
                          'Group_inbox',
-                         'Queue_item');
-        if (common_config('inboxes', 'enabled')) {
-            $related[] = 'Notice_inbox';
-        }
+                         'Queue_item',
+                         'Notice_inbox');
+
         foreach ($related as $cls) {
             $inst = new $cls();
             $inst->notice_id = $this->id;
@@ -883,64 +882,59 @@ class Notice extends Memcached_DataObject
 
     function addToInboxes()
     {
-        $enabled = common_config('inboxes', 'enabled');
+        // XXX: loads constants
 
-        if ($enabled === true || $enabled === 'transitional') {
+        $inbox = new Notice_inbox();
 
-            // XXX: loads constants
+        $users = $this->getSubscribedUsers();
 
-            $inbox = new Notice_inbox();
+        // FIXME: kind of ignoring 'transitional'...
+        // we'll probably stop supporting inboxless mode
+        // in 0.9.x
 
-            $users = $this->getSubscribedUsers();
+        $ni = array();
 
-            // FIXME: kind of ignoring 'transitional'...
-            // we'll probably stop supporting inboxless mode
-            // in 0.9.x
+        foreach ($users as $id) {
+            $ni[$id] = NOTICE_INBOX_SOURCE_SUB;
+        }
 
-            $ni = array();
+        $groups = $this->saveGroups();
 
+        foreach ($groups as $group) {
+            $users = $group->getUserMembers();
             foreach ($users as $id) {
-                $ni[$id] = NOTICE_INBOX_SOURCE_SUB;
-            }
-
-            $groups = $this->saveGroups();
-
-            foreach ($groups as $group) {
-                $users = $group->getUserMembers();
-                foreach ($users as $id) {
-                    if (!array_key_exists($id, $ni)) {
-                        $ni[$id] = NOTICE_INBOX_SOURCE_GROUP;
-                    }
+                if (!array_key_exists($id, $ni)) {
+                    $ni[$id] = NOTICE_INBOX_SOURCE_GROUP;
                 }
             }
+        }
 
-            $cnt = 0;
+        $cnt = 0;
 
-            $qryhdr = 'INSERT INTO notice_inbox (user_id, notice_id, source, created) VALUES ';
-            $qry = $qryhdr;
+        $qryhdr = 'INSERT INTO notice_inbox (user_id, notice_id, source, created) VALUES ';
+        $qry = $qryhdr;
 
-            foreach ($ni as $id => $source) {
-                if ($cnt > 0) {
-                    $qry .= ', ';
-                }
-                $qry .= '('.$id.', '.$this->id.', '.$source.", '".$this->created. "') ";
-                $cnt++;
-                if (rand() % NOTICE_INBOX_SOFT_LIMIT == 0) {
-                    // FIXME: Causes lag in replicated servers
-                    // Notice_inbox::gc($id);
-                }
-                if ($cnt >= MAX_BOXCARS) {
-                    $inbox = new Notice_inbox();
-                    $inbox->query($qry);
-                    $qry = $qryhdr;
-                    $cnt = 0;
-                }
-            }
-
+        foreach ($ni as $id => $source) {
             if ($cnt > 0) {
+                $qry .= ', ';
+            }
+            $qry .= '('.$id.', '.$this->id.', '.$source.", '".$this->created. "') ";
+            $cnt++;
+            if (rand() % NOTICE_INBOX_SOFT_LIMIT == 0) {
+                // FIXME: Causes lag in replicated servers
+                // Notice_inbox::gc($id);
+            }
+            if ($cnt >= MAX_BOXCARS) {
                 $inbox = new Notice_inbox();
                 $inbox->query($qry);
+                $qry = $qryhdr;
+                $cnt = 0;
             }
+        }
+
+        if ($cnt > 0) {
+            $inbox = new Notice_inbox();
+            $inbox->query($qry);
         }
 
         return;
@@ -976,11 +970,6 @@ class Notice extends Memcached_DataObject
     function saveGroups()
     {
         $groups = array();
-
-        $enabled = common_config('inboxes', 'enabled');
-        if ($enabled !== true && $enabled !== 'transitional') {
-            return $groups;
-        }
 
         /* extract all !group */
         $count = preg_match_all('/(?:^|\s)!([A-Za-z0-9]{1,64})/',

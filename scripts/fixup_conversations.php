@@ -24,17 +24,17 @@ require_once INSTALLDIR.'/scripts/commandline.inc';
 
 common_log(LOG_INFO, 'Fixing up conversations.');
 
-$nid = new Notice();
-$nid->query('select id, reply_to from notice where conversation is null');
+$notice = new Notice();
+$notice->query('select id, reply_to from notice where conversation is null');
 
-while ($nid->fetch()) {
+while ($notice->fetch()) {
 
     $cid = null;
     
-    $notice = new Notice();
+    $orig = clone($notice);
     
-    if (empty($nid->reply_to)) {
-        $cid = $nid->id;
+    if (empty($notice->reply_to)) {
+        $notice->conversation = $notice->id;
     } else {
         $reply = Notice::staticGet('id', $notice->reply_to);
 
@@ -61,9 +61,7 @@ while ($nid->fetch()) {
         continue;
     }
 
-    $notice = null;
     $orig = null;
-    unset($notice);
     unset($orig);
     
     print ".\n";

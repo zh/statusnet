@@ -102,7 +102,7 @@ class FBConnectPlugin extends Plugin
 
     // Note: this script needs to appear in the <body>
 
-    function onStartShowHeader($action)
+    function onEndShowScripts($action)
     {
         if ($this->reqFbScripts($action)) {
 
