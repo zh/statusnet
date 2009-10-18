@@ -7,6 +7,7 @@ RealtimeUpdate = {
      _replyurl: '',
      _favorurl: '',
      _deleteurl: '',
+     _updatecounter: 0,
 
      init: function(userid, replyurl, favorurl, deleteurl)
      {
@@ -14,6 +15,8 @@ RealtimeUpdate = {
         RealtimeUpdate._replyurl = replyurl;
         RealtimeUpdate._favorurl = favorurl;
         RealtimeUpdate._deleteurl = deleteurl;
+
+        DT = document.title;
 
         $(window).blur(function() {
           $('#notices_primary .notice').css({
@@ -25,7 +28,10 @@ RealtimeUpdate = {
             'border-top-color':'#AAAAAA',
             'border-top-style':'solid'
           });
-          
+
+          RealtimeUpdate._updatecounter = 0;
+          document.title = DT;
+
           return false;
         });
      },
@@ -39,12 +45,15 @@ RealtimeUpdate = {
               if ($("#notice-"+id).length > 0) {
                    return;
               }
-    
+
               var noticeItem = RealtimeUpdate.makeNoticeItem(data);
               $("#notices_primary .notices").prepend(noticeItem);
               $("#notices_primary .notice:first").css({display:"none"});
               $("#notices_primary .notice:first").fadeIn(1000);
               NoticeReply();
+
+              RealtimeUpdate._updatecounter += 1;
+              document.title = '('+RealtimeUpdate._updatecounter+') ' + DT;
           }, 500);
      },
 
