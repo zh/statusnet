@@ -64,7 +64,6 @@ function common_init_language()
     
     // So we don't have to make people install the gettext locales
     $path = common_config('site','locale_path');
-    common_log(LOG_INFO, "binding text domain: $path");
     bindtextdomain("statusnet", $path);
     bind_textdomain_codeset("statusnet", "UTF-8");
     textdomain("statusnet");
