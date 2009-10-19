@@ -362,6 +362,10 @@ class MailerDaemon
             if (preg_match('/^\s*Sent via/', $line)) {
                 continue;
             }
+            if (preg_match('/^\s*Sent from my/', $line)) {
+                continue;
+            }
+
             // skip everything after a sig
             if (preg_match('/^\s*--+\s*$/', $line) ||
                 preg_match('/^\s*__+\s*$/', $line))
