@@ -1,3 +1,4 @@
+# #-#-#-#-#  statusnet.new.pot (PACKAGE VERSION)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -8,26 +9,30 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-25 16:24+0000\n"
-"PO-Revision-Date: 2009-03-12 16:21+0000\n"
-"Last-Translator: Evan Prodromou <evan@status.net>\n"
+"PO-Revision-Date: 2009-01-26 00:13+0000\n"
+"Last-Translator: Egemen Metin Turan <emturan@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
+"X-Poedit-Language: Turkish\n"
+"X-Poedit-Country: TURKEY\n"
 
 #: ../actions/noticesearchrss.php:64 actions/noticesearchrss.php:68
 #: actions/noticesearchrss.php:88
 #, php-format
 msgid " Search Stream for \"%s\""
-msgstr "搜尋 \"%s\"相關資料"
+msgstr " \"%s\" için arama sonuçları"
 
 #: ../actions/finishopenidlogin.php:82 ../actions/register.php:191
 #: actions/finishopenidlogin.php:88 actions/register.php:205
 #: actions/finishopenidlogin.php:110
 msgid ""
 " except this private data: password, email address, IM address, phone number."
-msgstr "不包含這些個人資料：密碼、電子信箱、線上即時通信箱、電話號碼"
+msgstr ""
+"bu özel veriler haricinde: parola, eposta adresi, IM adresi, telefon "
+"numarası."
 
 #: ../actions/showstream.php:400 ../lib/stream.php:109
 #: actions/showstream.php:418 lib/mailbox.php:164 lib/stream.php:76
@@ -79,7 +84,7 @@ msgstr ""
 #: ../lib/mail.php:124 lib/mail.php:124 lib/mail.php:126 lib/mail.php:241
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
-msgstr "現在%1$s在%2$s成為你的粉絲囉"
+msgstr "%1$s %2$s'da durumunuzu takip ediyor"
 
 #: ../lib/mail.php:126
 #, php-format
@@ -91,13 +96,12 @@ msgid ""
 "Faithfully yours,\n"
 "%4$s.\n"
 msgstr ""
-"現在%1$s在%2$s成為你的粉絲囉。\n"
+"%1$s %2$s durum mesajlarınızı takip etmeye başladı.\n"
 "\n"
 "\t%3$s\n"
 "\n"
-"\n"
+"Kendisini durumsuz bırakmayın!,\n"
 "%4$s.\n"
-"敬上。\n"
 
 #: ../actions/twitapistatuses.php:482 actions/twitapistatuses.php:415
 #: actions/twitapistatuses.php:350
@@ -109,7 +113,7 @@ msgstr ""
 #: actions/shownotice.php:161
 #, php-format
 msgid "%1$s's status on %2$s"
-msgstr "%1$s的狀態是%2$s"
+msgstr "%1$s'in %2$s'deki durum mesajları "
 
 #: ../actions/invite.php:84 ../actions/invite.php:92 actions/invite.php:91
 #: actions/invite.php:99 actions/invite.php:123 actions/invite.php:131
@@ -121,7 +125,7 @@ msgstr ""
 #: actions/publicrss.php:90
 #, php-format
 msgid "%s Public Stream"
-msgstr "%s的公開內容"
+msgstr "%s Genel Durum Mesajları"
 
 #: ../actions/all.php:47 ../actions/allrss.php:60
 #: ../actions/twitapistatuses.php:238 ../lib/stream.php:51 actions/all.php:47
@@ -130,7 +134,7 @@ msgstr "%s的公開內容"
 #: actions/twitapistatuses.php:126 lib/personalgroupnav.php:99
 #, php-format
 msgid "%s and friends"
-msgstr "%s與好友"
+msgstr "%s ve arkadaşları"
 
 #: ../actions/twitapistatuses.php:49 actions/twitapistatuses.php:49
 #: actions/twitapistatuses.php:33
@@ -141,7 +145,7 @@ msgstr ""
 #: ../lib/mail.php:206 lib/mail.php:212 lib/mail.php:411
 #, php-format
 msgid "%s status"
-msgstr ""
+msgstr "%s durum"
 
 #: ../actions/twitapistatuses.php:338 actions/twitapistatuses.php:265
 #: actions/twitapistatuses.php:199
@@ -167,24 +171,26 @@ msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
 "broughtby%%](%%site.broughtbyurl%%). "
 msgstr ""
-"**%%site.name%%**是由[%%site.broughtby%%](%%site.broughtbyurl%%)所提供的微型"
-"部落格服務"
+"**%%site.name%%** [%%site.broughtby%%](%%site.broughtbyurl%%)\" tarafından "
+"hazırlanan anında mesajlaşma ağıdır. "
 
 #: ../lib/util.php:259 lib/util.php:275 lib/action.php:607
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
-msgstr "**%%site.name%%**是個微型部落格"
+msgstr "**%%site.name%%** bir aninda mesajlaşma sosyal ağıdır."
 
 #: ../lib/util.php:274 lib/util.php:290
 msgid ". Contributors should be attributed by full name or nickname."
-msgstr "必須注明作者姓名或昵稱."
+msgstr "Katkı sunanlar tam ad veya takma ad ile atfedilmelidir."
 
 #: ../actions/finishopenidlogin.php:73 ../actions/profilesettings.php:43
 #: actions/finishopenidlogin.php:79 actions/profilesettings.php:76
 #: actions/finishopenidlogin.php:101 actions/profilesettings.php:100
 #: lib/groupeditform.php:139
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
-msgstr "1-64個小寫英文字母或數字，勿加標點符號或空格"
+msgstr ""
+"1-64 küçük harf veya rakam, noktalama işaretlerine ve boşluklara izin "
+"verilmez"
 
 #: ../actions/register.php:152 actions/register.php:166
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
@@ -193,12 +199,12 @@ msgstr ""
 #: ../actions/password.php:42 actions/profilesettings.php:181
 #: actions/passwordsettings.php:102
 msgid "6 or more characters"
-msgstr "6個以上字元"
+msgstr "6 veya daha fazla karakter"
 
 #: ../actions/recoverpassword.php:180 actions/recoverpassword.php:186
 #: actions/recoverpassword.php:220
 msgid "6 or more characters, and don't forget it!"
-msgstr "6個或6個以上字元，別忘了自己密碼喔"
+msgstr "Unutmayın, 6 veya daha fazla karakter"
 
 #: ../actions/register.php:154 actions/register.php:168
 #: actions/register.php:373
@@ -210,7 +216,9 @@ msgstr ""
 msgid ""
 "A confirmation code was sent to the IM address you added. You must approve %"
 "s for sending messages to you."
-msgstr "確認信已寄到你的線上即時通信箱。%s送給你得訊息要先經過你的認可。"
+msgstr ""
+"Eklemiş olduğunuz IM adresine bir onay kodu gönderildi. %s tarafından size "
+"mesaj yollanabilmesi için onaylamanız gerekmektedir."
 
 #: ../actions/emailsettings.php:213 actions/emailsettings.php:231
 msgid ""
@@ -271,12 +279,12 @@ msgstr ""
 
 #: ../lib/util.php:324 lib/util.php:340 lib/action.php:568
 msgid "About"
-msgstr "關於"
+msgstr "Hakkında"
 
 #: ../actions/userauthorization.php:119 actions/userauthorization.php:126
 #: actions/userauthorization.php:143
 msgid "Accept"
-msgstr "接受"
+msgstr "Kabul et"
 
 #: ../actions/emailsettings.php:62 ../actions/imsettings.php:63
 #: ../actions/openidsettings.php:57 ../actions/smssettings.php:71
@@ -286,12 +294,12 @@ msgstr "接受"
 #: actions/imsettings.php:127 actions/openidsettings.php:111
 #: actions/smssettings.php:133 actions/twittersettings.php:163
 msgid "Add"
-msgstr "新增"
+msgstr "Ekle"
 
 #: ../actions/openidsettings.php:43 actions/openidsettings.php:44
 #: actions/openidsettings.php:93
 msgid "Add OpenID"
-msgstr "新增OpenID"
+msgstr "OpenID ekle"
 
 #: ../lib/settingsaction.php:97 lib/settingsaction.php:91
 #: lib/accountsettingsaction.php:117
@@ -304,7 +312,7 @@ msgstr ""
 #: actions/emailsettings.php:94 actions/imsettings.php:94
 #: actions/smssettings.php:92
 msgid "Address"
-msgstr "信箱"
+msgstr "Adres"
 
 #: ../actions/invite.php:131 actions/invite.php:139 actions/invite.php:176
 msgid "Addresses of friends to invite (one per line)"
@@ -313,19 +321,19 @@ msgstr ""
 #: ../actions/showstream.php:273 actions/showstream.php:288
 #: actions/showstream.php:422
 msgid "All subscriptions"
-msgstr "所有訂閱"
+msgstr "Bütün abonelikler"
 
 #: ../actions/publicrss.php:64 actions/publicrss.php:50
 #: actions/publicrss.php:92
 #, php-format
 msgid "All updates for %s"
-msgstr "%s的所有新增內容"
+msgstr "%s için bütün güncellemeler"
 
 #: ../actions/noticesearchrss.php:66 actions/noticesearchrss.php:70
 #: actions/noticesearchrss.php:90
 #, php-format
 msgid "All updates matching search term \"%s\""
-msgstr "所有符合 \"%s\"的更新"
+msgstr "\"%s\" kelimesinin geçtiği tüm güncellemeler"
 
 #: ../actions/finishopenidlogin.php:29 ../actions/login.php:31
 #: ../actions/openidlogin.php:29 ../actions/register.php:30
@@ -334,11 +342,11 @@ msgstr "所有符合 \"%s\"的更新"
 #: actions/finishopenidlogin.php:34 actions/login.php:77
 #: actions/openidlogin.php:30 actions/register.php:92
 msgid "Already logged in."
-msgstr "已登入"
+msgstr "Zaten giriş yapılmış."
 
 #: ../lib/subs.php:42 lib/subs.php:42 lib/subs.php:49
 msgid "Already subscribed!."
-msgstr "此帳號已註冊"
+msgstr "Zaten abone olunmuş!."
 
 #: ../actions/deletenotice.php:54 actions/deletenotice.php:55
 #: actions/deletenotice.php:113
@@ -348,12 +356,13 @@ msgstr ""
 #: ../actions/userauthorization.php:77 actions/userauthorization.php:83
 #: actions/userauthorization.php:81
 msgid "Authorize subscription"
-msgstr "註冊確認"
+msgstr "Takip isteğini onayla"
 
 #: ../actions/login.php:104 ../actions/register.php:178
 #: actions/register.php:192
 msgid "Automatically login in the future; not for shared computers!"
-msgstr "未來在同一部電腦自動登入"
+msgstr ""
+"Gelecekte kendiliğinden giriş yap, paylaşılan bilgisayarlar için değildir!"
 
 #: ../actions/profilesettings.php:65 actions/profilesettings.php:98
 msgid ""
@@ -364,12 +373,12 @@ msgstr ""
 #: actions/profilesettings.php:34 actions/avatarsettings.php:65
 #: actions/showgroup.php:209 lib/accountsettingsaction.php:107
 msgid "Avatar"
-msgstr "個人圖像"
+msgstr "Avatar"
 
 #: ../actions/avatar.php:113 actions/profilesettings.php:350
 #: actions/avatarsettings.php:395
 msgid "Avatar updated."
-msgstr "更新個人圖像"
+msgstr "Avatar güncellendi."
 
 #: ../actions/imsettings.php:55 actions/imsettings.php:56
 #, php-format
@@ -377,8 +386,8 @@ msgid ""
 "Awaiting confirmation on this address. Check your Jabber/GTalk account for a "
 "message with further instructions. (Did you add %s to your buddy list?)"
 msgstr ""
-"等待確認此信箱。看看你的Jabber/GTalk是否有訊息指示下一步動作。(你加入%s到你的"
-"好友清單了嗎？)"
+"Bu adresten onay bekleniyor. Jabber/Google Talk hesabınızı ayrıntılı bilgi "
+"içeren mesajı almak için kontrol edin. (%s'u arkadaş listenize eklediniz mi?)"
 
 #: ../actions/emailsettings.php:54 actions/emailsettings.php:55
 msgid ""
@@ -394,13 +403,13 @@ msgstr ""
 #: ../lib/util.php:1318 lib/util.php:1452
 #, fuzzy
 msgid "Before »"
-msgstr "之前的內容»"
+msgstr "Önce »"
 
 #: ../actions/profilesettings.php:49 ../actions/register.php:170
 #: actions/profilesettings.php:82 actions/register.php:184
 #: actions/profilesettings.php:112 actions/register.php:402
 msgid "Bio"
-msgstr "自我介紹"
+msgstr "Hakkında"
 
 #: ../actions/profilesettings.php:101 ../actions/register.php:82
 #: ../actions/updateprofile.php:103 actions/profilesettings.php:216
@@ -408,7 +417,7 @@ msgstr "自我介紹"
 #: actions/profilesettings.php:205 actions/register.php:174
 #: actions/updateprofile.php:107
 msgid "Bio is too long (max 140 chars)."
-msgstr "自我介紹過長(共140個字元)"
+msgstr "Hakkında bölümü çok uzun (azm 140 karakter)."
 
 #: ../lib/deleteaction.php:41 lib/deleteaction.php:41 lib/deleteaction.php:69
 msgid "Can't delete this notice."
@@ -418,13 +427,13 @@ msgstr ""
 #: actions/updateprofile.php:123
 #, php-format
 msgid "Can't read avatar URL '%s'"
-msgstr "無法讀取此%sURL的圖像"
+msgstr "Avatar URLi '%s' okunamıyor"
 
 #: ../actions/password.php:85 ../actions/recoverpassword.php:300
 #: actions/profilesettings.php:404 actions/recoverpassword.php:313
 #: actions/passwordsettings.php:169 actions/recoverpassword.php:347
 msgid "Can't save new password."
-msgstr "無法存取新密碼"
+msgstr "Yeni parola kaydedilemedi."
 
 #: ../actions/emailsettings.php:57 ../actions/imsettings.php:58
 #: ../actions/smssettings.php:62 actions/emailsettings.php:58
@@ -432,16 +441,16 @@ msgstr "無法存取新密碼"
 #: actions/emailsettings.php:111 actions/imsettings.php:114
 #: actions/smssettings.php:114
 msgid "Cancel"
-msgstr "取消"
+msgstr "İptal et"
 
 #: ../lib/openid.php:121 lib/openid.php:121 lib/openid.php:130
 msgid "Cannot instantiate OpenID consumer object."
-msgstr "無法初始化OpenID用戶對象(consumer object)"
+msgstr "OpenID işlemlerinde hata oluştu."
 
 #: ../actions/imsettings.php:163 actions/imsettings.php:171
 #: actions/imsettings.php:286
 msgid "Cannot normalize that Jabber ID"
-msgstr "此JabberID錯誤"
+msgstr "Jabber işlemlerinde bir hata oluştu."
 
 #: ../actions/emailsettings.php:181 actions/emailsettings.php:199
 #: actions/emailsettings.php:311
@@ -451,7 +460,7 @@ msgstr ""
 #: ../actions/password.php:45 actions/profilesettings.php:184
 #: actions/passwordsettings.php:110
 msgid "Change"
-msgstr "更改"
+msgstr "Değiştir"
 
 #: ../lib/settingsaction.php:88 lib/settingsaction.php:88
 #: lib/accountsettingsaction.php:114
@@ -461,7 +470,7 @@ msgstr ""
 #: ../actions/password.php:32 actions/profilesettings.php:36
 #: actions/passwordsettings.php:58
 msgid "Change password"
-msgstr "更改密碼"
+msgstr "Parolayı değiştir"
 
 #: ../lib/settingsaction.php:94 lib/accountsettingsaction.php:111
 msgid "Change your password"
@@ -479,12 +488,12 @@ msgstr ""
 #: actions/passwordsettings.php:105 actions/recoverpassword.php:221
 #: actions/register.php:376 actions/smssettings.php:122
 msgid "Confirm"
-msgstr "確認"
+msgstr "Onayla"
 
 #: ../actions/confirmaddress.php:90 actions/confirmaddress.php:90
 #: actions/confirmaddress.php:144
 msgid "Confirm Address"
-msgstr "確認信箱"
+msgstr "Adresi Onayla"
 
 #: ../actions/emailsettings.php:238 ../actions/imsettings.php:222
 #: ../actions/smssettings.php:245 actions/emailsettings.php:256
@@ -492,7 +501,7 @@ msgstr "確認信箱"
 #: actions/emailsettings.php:379 actions/imsettings.php:361
 #: actions/smssettings.php:374
 msgid "Confirmation cancelled."
-msgstr "確認取消"
+msgstr "Onaylama iptal edildi."
 
 #: ../actions/smssettings.php:63 actions/smssettings.php:63
 #: actions/smssettings.php:118
@@ -502,7 +511,7 @@ msgstr ""
 #: ../actions/confirmaddress.php:38 actions/confirmaddress.php:38
 #: actions/confirmaddress.php:80
 msgid "Confirmation code not found."
-msgstr "確認碼遺失"
+msgstr "Onay kodu bulunamadı."
 
 #: ../actions/register.php:202
 #, php-format
@@ -526,21 +535,21 @@ msgstr ""
 #: ../actions/finishopenidlogin.php:91 actions/finishopenidlogin.php:97
 #: actions/finishopenidlogin.php:119 lib/action.php:330
 msgid "Connect"
-msgstr "連結"
+msgstr "Bağlan"
 
 #: ../actions/finishopenidlogin.php:86 actions/finishopenidlogin.php:92
 #: actions/finishopenidlogin.php:114
 msgid "Connect existing account"
-msgstr "與現有帳號連結"
+msgstr "Varolan hesaba bağlan"
 
 #: ../lib/util.php:332 lib/util.php:348 lib/action.php:576
 msgid "Contact"
-msgstr "好友名單"
+msgstr "İletişim"
 
 #: ../lib/openid.php:178 lib/openid.php:178 lib/openid.php:187
 #, php-format
 msgid "Could not create OpenID form: %s"
-msgstr "無法從 %s 建立OpenID"
+msgstr "OpenID formu yaratılamadı: %s"
 
 #: ../actions/twitapifriendships.php:60 ../actions/twitapifriendships.php:76
 #: actions/twitapifriendships.php:60 actions/twitapifriendships.php:76
@@ -557,17 +566,17 @@ msgstr ""
 #: ../lib/openid.php:160 lib/openid.php:160 lib/openid.php:169
 #, php-format
 msgid "Could not redirect to server: %s"
-msgstr "無法連結到伺服器:%s"
+msgstr "Sunucuya yönlendirme yapılamadı: %s"
 
 #: ../actions/updateprofile.php:162 actions/updateprofile.php:163
 #: actions/updateprofile.php:166
 msgid "Could not save avatar info"
-msgstr "無法存取個人圖像資料"
+msgstr "Avatar bilgisi kaydedilemedi"
 
 #: ../actions/updateprofile.php:155 actions/updateprofile.php:156
 #: actions/updateprofile.php:159
 msgid "Could not save new profile info"
-msgstr "無法存取新的個人資料"
+msgstr "Yeni profil bilgisi kaydedilemedi"
 
 #: ../lib/subs.php:54 lib/subs.php:61 lib/subs.php:72
 msgid "Could not subscribe other to you."
@@ -585,7 +594,7 @@ msgstr ""
 #: ../actions/finishremotesubscribe.php:99
 #: actions/finishremotesubscribe.php:101 actions/finishremotesubscribe.php:114
 msgid "Couldn't convert request tokens to access tokens."
-msgstr "無法轉換請求標記以致無法存取標記"
+msgstr ""
 
 #: ../actions/confirmaddress.php:84 ../actions/emailsettings.php:234
 #: ../actions/imsettings.php:218 ../actions/smssettings.php:241
@@ -594,11 +603,11 @@ msgstr "無法轉換請求標記以致無法存取標記"
 #: actions/confirmaddress.php:126 actions/emailsettings.php:375
 #: actions/imsettings.php:357 actions/smssettings.php:370
 msgid "Couldn't delete email confirmation."
-msgstr "無法取消信箱確認"
+msgstr "Eposta onayı silinemedi."
 
 #: ../lib/subs.php:103 lib/subs.php:116 lib/subs.php:134
 msgid "Couldn't delete subscription."
-msgstr "無法刪除帳號"
+msgstr "Abonelik silinemedi."
 
 #: ../actions/twitapistatuses.php:93 actions/twitapistatuses.php:98
 #: actions/twitapistatuses.php:84
@@ -608,26 +617,27 @@ msgstr ""
 #: ../actions/remotesubscribe.php:127 actions/remotesubscribe.php:136
 #: actions/remotesubscribe.php:178
 msgid "Couldn't get a request token."
-msgstr "無法取得轉換標記"
+msgstr ""
 
+#  Note: Bu federation ozelligi nasilsa simdi kullanilmayacak
 #: ../actions/emailsettings.php:205 ../actions/imsettings.php:187
 #: ../actions/smssettings.php:206 actions/emailsettings.php:223
 #: actions/imsettings.php:195 actions/smssettings.php:214
 #: actions/emailsettings.php:337 actions/imsettings.php:311
 #: actions/smssettings.php:325
 msgid "Couldn't insert confirmation code."
-msgstr "無法輸入確認碼"
+msgstr "Onay kodu eklenemedi."
 
 #: ../actions/finishremotesubscribe.php:180
 #: actions/finishremotesubscribe.php:182 actions/finishremotesubscribe.php:218
 msgid "Couldn't insert new subscription."
-msgstr "無法新增訂閱"
+msgstr "Yeni abonelik eklenemedi."
 
 #: ../actions/profilesettings.php:184 ../actions/twitapiaccount.php:96
 #: actions/profilesettings.php:299 actions/twitapiaccount.php:94
 #: actions/profilesettings.php:302 actions/twitapiaccount.php:81
 msgid "Couldn't save profile."
-msgstr "無法儲存個人資料"
+msgstr "Profil kaydedilemedi."
 
 #: ../actions/profilesettings.php:161 actions/profilesettings.php:276
 #: actions/profilesettings.php:279
@@ -654,32 +664,32 @@ msgstr ""
 #: actions/profilesettings.php:259 actions/smssettings.php:266
 #: actions/smssettings.php:408
 msgid "Couldn't update user."
-msgstr "無法更新使用者"
+msgstr "Kullanıcı güncellenemedi."
 
 #: ../actions/finishopenidlogin.php:84 actions/finishopenidlogin.php:90
 #: actions/finishopenidlogin.php:112
 msgid "Create"
-msgstr "新增"
+msgstr "Yarat"
 
 #: ../actions/finishopenidlogin.php:70 actions/finishopenidlogin.php:76
 #: actions/finishopenidlogin.php:98
 msgid "Create a new user with this nickname."
-msgstr "以此暱稱新增使用者"
+msgstr "Bu takma ad ile yeni bir kullanıcı oluştur."
 
 #: ../actions/finishopenidlogin.php:68 actions/finishopenidlogin.php:74
 #: actions/finishopenidlogin.php:96
 msgid "Create new account"
-msgstr "新增帳號"
+msgstr "Yeni hesap oluştur"
 
 #: ../actions/finishopenidlogin.php:191 actions/finishopenidlogin.php:197
 #: actions/finishopenidlogin.php:231
 msgid "Creating new account for OpenID that already has a user."
-msgstr "該OpenID已經注冊"
+msgstr "OpenID kullanıcısı için hesap oluşturuluyor"
 
 #: ../actions/imsettings.php:45 actions/imsettings.php:46
 #: actions/imsettings.php:100
 msgid "Current confirmed Jabber/GTalk address."
-msgstr "目前已確認的Jabber/Gtalk地址"
+msgstr "Onaylanmış Jabber/Gtalk adresi."
 
 #: ../actions/smssettings.php:46 actions/smssettings.php:46
 #: actions/smssettings.php:100
@@ -693,7 +703,7 @@ msgstr ""
 
 #: ../actions/showstream.php:356 actions/showstream.php:367
 msgid "Currently"
-msgstr "目前"
+msgstr "Şu anda"
 
 #: ../classes/Notice.php:72 classes/Notice.php:86 classes/Notice.php:91
 #, php-format
@@ -703,7 +713,7 @@ msgstr ""
 #: ../lib/util.php:1061 lib/util.php:1110 classes/Notice.php:698
 #, php-format
 msgid "DB error inserting reply: %s"
-msgstr "增加回覆時,資料庫發生錯誤: %s"
+msgstr "Cevap eklenirken veritabanı hatası: %s"
 
 #: ../actions/deletenotice.php:41 actions/deletenotice.php:41
 #: actions/deletenotice.php:79
@@ -714,14 +724,14 @@ msgstr ""
 #: actions/profilesettings.php:84 actions/register.php:186
 #: actions/profilesettings.php:114
 msgid "Describe yourself and your interests in 140 chars"
-msgstr "請在140個字以內描述你自己與你的興趣"
+msgstr "Kendinizi ve ilgi alanlarınızı 140 karakter ile anlatın"
 
 #: ../actions/register.php:158 ../actions/register.php:161
 #: ../lib/settingsaction.php:87 actions/register.php:172
 #: actions/register.php:175 lib/settingsaction.php:87 actions/register.php:381
 #: actions/register.php:385 lib/accountsettingsaction.php:113
 msgid "Email"
-msgstr "電子信箱"
+msgstr "Eposta"
 
 #: ../actions/emailsettings.php:59 actions/emailsettings.php:60
 #: actions/emailsettings.php:115
@@ -735,11 +745,11 @@ msgstr ""
 
 #: ../actions/register.php:73 actions/register.php:80 actions/register.php:163
 msgid "Email address already exists."
-msgstr "此電子信箱已註冊過了"
+msgstr "Eposta adresi zaten var."
 
 #: ../lib/mail.php:90 lib/mail.php:90 lib/mail.php:173
 msgid "Email address confirmation"
-msgstr "確認信箱"
+msgstr "Eposta adresi onayı"
 
 #: ../actions/emailsettings.php:61 actions/emailsettings.php:62
 #: actions/emailsettings.php:117
@@ -753,7 +763,7 @@ msgstr ""
 #: ../actions/recoverpassword.php:191 actions/recoverpassword.php:197
 #: actions/recoverpassword.php:231
 msgid "Enter a nickname or email address."
-msgstr "請輸入暱稱或電子信箱"
+msgstr "Bir takma ad veya eposta adresi girin."
 
 #: ../actions/smssettings.php:64 actions/smssettings.php:64
 #: actions/smssettings.php:119
@@ -763,55 +773,55 @@ msgstr ""
 #: ../actions/userauthorization.php:137 actions/userauthorization.php:144
 #: actions/userauthorization.php:161
 msgid "Error authorizing token"
-msgstr "授權錯誤(Error authorizing token)"
+msgstr ""
 
 #: ../actions/finishopenidlogin.php:253 actions/finishopenidlogin.php:259
 #: actions/finishopenidlogin.php:297
 msgid "Error connecting user to OpenID."
-msgstr "連接OpenID時發生錯誤"
+msgstr "Kullanıcıyı OpenID'ye bağlarken hata oluştu."
 
 #: ../actions/finishaddopenid.php:78 actions/finishaddopenid.php:78
 #: actions/finishaddopenid.php:126
 msgid "Error connecting user."
-msgstr "連接用戶時發生錯誤(Error connecting user.)"
+msgstr "Kullanıcı bağlamada hata oluştu."
 
 #: ../actions/finishremotesubscribe.php:151
 #: actions/finishremotesubscribe.php:153 actions/finishremotesubscribe.php:166
 msgid "Error inserting avatar"
-msgstr "個人圖像插入錯誤"
+msgstr "Avatar eklemede hata oluştu"
 
 #: ../actions/finishremotesubscribe.php:143
 #: actions/finishremotesubscribe.php:145 actions/finishremotesubscribe.php:158
 msgid "Error inserting new profile"
-msgstr "新的更人資料輸入錯誤"
+msgstr "Yeni profil eklemede hata oluştu"
 
 #: ../actions/finishremotesubscribe.php:167
 #: actions/finishremotesubscribe.php:169 actions/finishremotesubscribe.php:182
 msgid "Error inserting remote profile"
-msgstr "新增外部個人資料發生錯誤(Error inserting remote profile)"
+msgstr "Uzak profil eklemede hata oluştu"
 
 #: ../actions/recoverpassword.php:240 actions/recoverpassword.php:246
 #: actions/recoverpassword.php:280
 msgid "Error saving address confirmation."
-msgstr "儲存信箱確認發生錯誤"
+msgstr "Adres onayını kaydetmede hata."
 
 #: ../actions/userauthorization.php:140 actions/userauthorization.php:147
 #: actions/userauthorization.php:164
 msgid "Error saving remote profile"
-msgstr "儲存遠端個人資料發生錯誤"
+msgstr "Uzaktaki profili kaydetmede hata oluştu"
 
 #: ../lib/openid.php:226 lib/openid.php:226 lib/openid.php:235
 msgid "Error saving the profile."
-msgstr "儲存個人資料發生錯誤"
+msgstr "Profili kaydetmede hata oluştu."
 
 #: ../lib/openid.php:237 lib/openid.php:237 lib/openid.php:246
 msgid "Error saving the user."
-msgstr "儲存使用者發生錯誤"
+msgstr "Kullanıcıyı kaydetmede hata oluştu."
 
 #: ../actions/password.php:80 actions/profilesettings.php:399
 #: actions/passwordsettings.php:164
 msgid "Error saving user; invalid."
-msgstr "儲存使用者發生錯誤;使用者名稱無效"
+msgstr "Kullanıcıyı kaydetmede hata oluştu; geçersiz."
 
 #: ../actions/login.php:47 ../actions/login.php:73
 #: ../actions/recoverpassword.php:307 ../actions/register.php:98
@@ -819,49 +829,49 @@ msgstr "儲存使用者發生錯誤;使用者名稱無效"
 #: actions/register.php:108 actions/login.php:112 actions/login.php:138
 #: actions/recoverpassword.php:354 actions/register.php:198
 msgid "Error setting user."
-msgstr "使用者設定發生錯誤"
+msgstr "Kullanıcı ayarlamada hata oluştu."
 
 #: ../actions/finishaddopenid.php:83 actions/finishaddopenid.php:83
 #: actions/finishaddopenid.php:131
 msgid "Error updating profile"
-msgstr "更新個人資料發生錯誤"
+msgstr "Profil güncellemede hata oluştu"
 
 #: ../actions/finishremotesubscribe.php:161
 #: actions/finishremotesubscribe.php:163 actions/finishremotesubscribe.php:176
 msgid "Error updating remote profile"
-msgstr "更新遠端個人資料發生錯誤"
+msgstr "Uzaktaki profili güncellemede hata oluştu"
 
 #: ../actions/recoverpassword.php:80 actions/recoverpassword.php:80
 #: actions/recoverpassword.php:86
 msgid "Error with confirmation code."
-msgstr "確認碼發生錯誤"
+msgstr "Onay kodu hatası."
 
 #: ../actions/finishopenidlogin.php:89 actions/finishopenidlogin.php:95
 #: actions/finishopenidlogin.php:117
 msgid "Existing nickname"
-msgstr "這個暱稱已有人用了喔"
+msgstr "Varolan takma ad"
 
 #: ../lib/util.php:326 lib/util.php:342 lib/action.php:570
 msgid "FAQ"
-msgstr "常見問題"
+msgstr "SSS"
 
 #: ../actions/avatar.php:115 actions/profilesettings.php:352
 #: actions/avatarsettings.php:397
 msgid "Failed updating avatar."
-msgstr "無法上傳個人圖像"
+msgstr "Avatar güncellemede hata."
 
 #: ../actions/all.php:61 ../actions/allrss.php:64 actions/all.php:61
 #: actions/allrss.php:64 actions/all.php:75 actions/allrss.php:107
 #, php-format
 msgid "Feed for friends of %s"
-msgstr "發送給%s好友的訂閱"
+msgstr "%s için arkadaş güncellemeleri RSS beslemesi"
 
 #: ../actions/replies.php:65 ../actions/repliesrss.php:80
 #: actions/replies.php:65 actions/repliesrss.php:66 actions/replies.php:134
 #: actions/repliesrss.php:71
 #, php-format
 msgid "Feed for replies to %s"
-msgstr "回應給%s的訂閱"
+msgstr "Cevaplar için RSS Beslemesi: %s"
 
 #: ../actions/tag.php:55 actions/tag.php:55 actions/tag.php:61
 #, php-format
@@ -882,7 +892,9 @@ msgstr ""
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
-msgstr "為安全起見，請先重新輸入你的使用者名稱與密碼再更改設定。"
+msgstr ""
+"Güvenliğiniz için, ayarlarınızı değiştirmeden önce lütfen kullanıcı adınızı "
+"ve parolanızı tekrar giriniz."
 
 #: ../actions/profilesettings.php:44 ../actions/register.php:164
 #: actions/profilesettings.php:77 actions/register.php:178
@@ -890,7 +902,7 @@ msgstr "為安全起見，請先重新輸入你的使用者名稱與密碼再更
 #: actions/showgroup.php:235 actions/showstream.php:262
 #: actions/tagother.php:105 lib/groupeditform.php:142
 msgid "Full name"
-msgstr "全名"
+msgstr "Tam İsim"
 
 #: ../actions/profilesettings.php:98 ../actions/register.php:79
 #: ../actions/updateprofile.php:93 actions/profilesettings.php:213
@@ -899,30 +911,31 @@ msgstr "全名"
 #: actions/profilesettings.php:202 actions/register.php:171
 #: actions/updateprofile.php:97
 msgid "Full name is too long (max 255 chars)."
-msgstr "全名過長（最多255字元）"
+msgstr "Tam isim çok uzun (azm: 255 karakter)."
 
 #: ../lib/util.php:322 lib/util.php:338 lib/action.php:344 lib/action.php:566
 msgid "Help"
-msgstr "求救"
+msgstr "Yardım"
 
 #: ../lib/util.php:298 lib/util.php:314 lib/action.php:322
 #: lib/facebookaction.php:200
 msgid "Home"
-msgstr "主頁"
+msgstr "Başlangıç"
 
+#  Belki Durum Merkezi falan denebilir mi ki?
 #: ../actions/profilesettings.php:46 ../actions/register.php:167
 #: actions/profilesettings.php:79 actions/register.php:181
 #: actions/profilesettings.php:107 actions/register.php:396
 #: lib/groupeditform.php:146
 msgid "Homepage"
-msgstr "個人首頁"
+msgstr "Başlangıç Sayfası"
 
 #: ../actions/profilesettings.php:95 ../actions/register.php:76
 #: actions/profilesettings.php:210 actions/register.php:83
 #: actions/editgroup.php:192 actions/newgroup.php:143
 #: actions/profilesettings.php:199 actions/register.php:168
 msgid "Homepage is not a valid URL."
-msgstr "個人首頁位址錯誤"
+msgstr "Başlangıç sayfası adresi geçerli bir URL değil."
 
 #: ../actions/emailsettings.php:91 actions/emailsettings.php:98
 #: actions/emailsettings.php:173
@@ -937,25 +950,29 @@ msgstr ""
 #: ../actions/imsettings.php:60 actions/imsettings.php:61
 #: actions/imsettings.php:118
 msgid "IM Address"
-msgstr "線上即時通信箱"
+msgstr "IM adresi"
 
 #: ../actions/imsettings.php:33 actions/imsettings.php:33
 #: actions/imsettings.php:59
 msgid "IM Settings"
-msgstr "線上即時通設定"
+msgstr "IM Ayarları"
 
 #: ../actions/finishopenidlogin.php:88 actions/finishopenidlogin.php:94
 #: actions/finishopenidlogin.php:116
 msgid ""
 "If you already have an account, login with your username and password to "
 "connect it to your OpenID."
-msgstr "若已經註冊過了，請輸入使用者名稱與密碼連結到你的OpenID。"
+msgstr ""
+"Eğer zaten bir hesabınız varsa, kullanıcı adınız ve parolanız ile giriş "
+"yapıp hesabınızı OpenID'nize bağlayabilirsiniz."
 
 #: ../actions/openidsettings.php:45
 msgid ""
 "If you want to add an OpenID to your account, enter it in the box below and "
 "click \"Add\"."
-msgstr "若想新增OpenID到你的帳號，請在下方空格輸入並勾選『新增』"
+msgstr ""
+"Eğer hesabınıza bir OpenID eklemek istiyorsanız, aşağıdaki kutuya girin ve "
+"\"Add\" düğmesine tıklayın."
 
 #: ../actions/recoverpassword.php:137
 msgid ""
@@ -977,24 +994,26 @@ msgstr ""
 #: ../actions/password.php:69 actions/profilesettings.php:388
 #: actions/passwordsettings.php:153
 msgid "Incorrect old password"
-msgstr "舊密碼錯誤"
+msgstr "Eski parola yanlış"
 
 #: ../actions/login.php:67 actions/login.php:67 actions/facebookhome.php:131
 #: actions/login.php:132
 msgid "Incorrect username or password."
-msgstr "使用者名稱或密碼錯誤"
+msgstr "Yanlış kullanıcı adı veya parola."
 
 #: ../actions/recoverpassword.php:265
 msgid ""
 "Instructions for recovering your password have been sent to the email "
 "address registered to your account."
-msgstr "我們已寄出一封信到你帳號中的信箱，告訴你如何取回你的密碼。"
+msgstr ""
+"Hesabınıza eklemiş olduğunuz eposta adresine parolanızı geri getirmek için "
+"gerekli olan talimatlar yollanmıştır."
 
 #: ../actions/updateprofile.php:114 actions/updateprofile.php:115
 #: actions/updateprofile.php:118
 #, php-format
 msgid "Invalid avatar URL '%s'"
-msgstr "個人圖像連結%s無效"
+msgstr "Geçersiz avatar URLi '%s'"
 
 #: ../actions/invite.php:55 actions/invite.php:62 actions/invite.php:70
 #, php-format
@@ -1005,39 +1024,39 @@ msgstr ""
 #: actions/updateprofile.php:102
 #, php-format
 msgid "Invalid homepage '%s'"
-msgstr "個人首頁連結%s無效"
+msgstr "%s Geçersiz başlangıç sayfası"
 
 #: ../actions/updateprofile.php:82 actions/updateprofile.php:83
 #: actions/updateprofile.php:86
 #, php-format
 msgid "Invalid license URL '%s'"
-msgstr ""
+msgstr "Geçersiz lisans URLi '%s'"
 
 #: ../actions/postnotice.php:61 actions/postnotice.php:62
 #: actions/postnotice.php:66
 msgid "Invalid notice content"
-msgstr ""
+msgstr "Geçersiz durum mesajı"
 
 #: ../actions/postnotice.php:67 actions/postnotice.php:68
 #: actions/postnotice.php:72
 msgid "Invalid notice uri"
-msgstr ""
+msgstr "Geçersiz durum adresi"
 
 #: ../actions/postnotice.php:72 actions/postnotice.php:73
 #: actions/postnotice.php:77
 msgid "Invalid notice url"
-msgstr ""
+msgstr "Geçersiz durum adresi"
 
 #: ../actions/updateprofile.php:87 actions/updateprofile.php:88
 #: actions/updateprofile.php:91
 #, php-format
 msgid "Invalid profile URL '%s'."
-msgstr "個人資料連結%s無效"
+msgstr "'%s' geçersiz profil adresi."
 
 #: ../actions/remotesubscribe.php:96 actions/remotesubscribe.php:105
 #: actions/remotesubscribe.php:135
 msgid "Invalid profile URL (bad format)"
-msgstr "個人資料連結無效(格式錯誤)"
+msgstr ""
 
 #: ../actions/finishremotesubscribe.php:77
 #: actions/finishremotesubscribe.php:79 actions/finishremotesubscribe.php:80
@@ -1047,7 +1066,7 @@ msgstr ""
 #: ../actions/avatarbynickname.php:37 actions/avatarbynickname.php:37
 #: actions/avatarbynickname.php:69
 msgid "Invalid size."
-msgstr "尺寸錯誤"
+msgstr "Geçersiz büyüklük."
 
 #: ../actions/finishopenidlogin.php:235 ../actions/register.php:93
 #: ../actions/register.php:111 actions/finishopenidlogin.php:241
@@ -1055,7 +1074,7 @@ msgstr "尺寸錯誤"
 #: actions/finishopenidlogin.php:279 actions/register.php:193
 #: actions/register.php:211
 msgid "Invalid username or password."
-msgstr "使用者名稱或密碼無效"
+msgstr "Geçersiz kullanıcı adı veya parola."
 
 #: ../actions/invite.php:79 actions/invite.php:86 actions/invite.php:102
 msgid "Invitation(s) sent"
@@ -1081,11 +1100,14 @@ msgid ""
 "s, available under the [GNU Affero General Public License](http://www.fsf."
 "org/licensing/licenses/agpl-3.0.html)."
 msgstr ""
+"nedurum.com [GNU Affero General Public License](http://www.fsf.org/licensing/"
+"licenses/agpl-3.0.html) lisansı ile korunan [StatusNet](http://status.net/) "
+"microbloglama yazılımının %s. versiyonunu kullanmaktadır."
 
 #: ../actions/imsettings.php:173 actions/imsettings.php:181
 #: actions/imsettings.php:296
 msgid "Jabber ID already belongs to another user."
-msgstr "此Jabber ID已有人使用"
+msgstr "Jabber ID başka bir kullanıcıya ait."
 
 #: ../actions/imsettings.php:62 actions/imsettings.php:63
 #, php-format
@@ -1093,6 +1115,8 @@ msgid ""
 "Jabber or GTalk address, like \"UserName@example.org\". First, make sure to "
 "add %s to your buddy list in your IM client or on GTalk."
 msgstr ""
+"Jabber veya Gtalk adresi: \"KullaniciAdi@ornek.org\" gibi. Öncelikle %s, IM "
+"istemcisi veya Gtalk arkadaşlar listenize eklenmiş olmalıdır."
 
 #: ../actions/profilesettings.php:57 actions/profilesettings.php:90
 #: actions/profilesettings.php:128
@@ -1111,7 +1135,7 @@ msgstr ""
 #: actions/tagother.php:113 lib/groupeditform.php:156 lib/grouplist.php:126
 #: lib/profilelist.php:125
 msgid "Location"
-msgstr "地點"
+msgstr "Yer"
 
 #: ../actions/profilesettings.php:104 ../actions/register.php:85
 #: ../actions/updateprofile.php:108 actions/profilesettings.php:219
@@ -1120,7 +1144,7 @@ msgstr "地點"
 #: actions/profilesettings.php:208 actions/register.php:177
 #: actions/updateprofile.php:112
 msgid "Location is too long (max 255 chars)."
-msgstr "地點過長（共255個字）"
+msgstr "Yer bilgisi çok uzun (azm: 255 karakter)."
 
 #: ../actions/login.php:97 ../actions/login.php:106
 #: ../actions/openidlogin.php:68 ../lib/util.php:310 actions/login.php:97
@@ -1130,13 +1154,13 @@ msgstr "地點過長（共255個字）"
 #: lib/facebookaction.php:315 lib/logingroupnav.php:75
 #, php-format
 msgid "Login"
-msgstr "登入"
+msgstr "Giriş"
 
 #: ../actions/openidlogin.php:44 actions/openidlogin.php:52
 #: actions/openidlogin.php:62
 #, php-format
 msgid "Login with an [OpenID](%%doc.openid%%) account."
-msgstr "用OpenID(%%doc.openid%%)帳號登入"
+msgstr "Bir [OpenID](%%doc.openid%%) hesabı ile giriş yapın."
 
 #: ../actions/login.php:126
 #, php-format
@@ -1145,10 +1169,13 @@ msgid ""
 "(%%action.register%%) a new account, or try [OpenID](%%action.openidlogin%"
 "%). "
 msgstr ""
+"Kullanıcı adı ve parolanızla giriş yapın. Henüz bir hesabınız yok mu? Ne "
+"duruyorsunuz, hemen bir [yeni hesap oluşturun](%%action.register%%) ya da "
+"[OpenID](%%action.openidlogin%%) ile giriş yapın."
 
 #: ../lib/util.php:308 lib/util.php:324 lib/action.php:332
 msgid "Logout"
-msgstr "登出"
+msgstr "Çıkış"
 
 #: ../actions/register.php:166 actions/register.php:180
 #: actions/register.php:393
@@ -1158,7 +1185,7 @@ msgstr ""
 #: ../actions/login.php:110 actions/login.php:110 actions/login.php:245
 #: lib/facebookaction.php:320
 msgid "Lost or forgotten password?"
-msgstr "遺失或忘記密碼了嗎？"
+msgstr "Parolamı unuttum veya kaybettim"
 
 #: ../actions/emailsettings.php:80 ../actions/smssettings.php:89
 #: actions/emailsettings.php:81 actions/smssettings.php:89
@@ -1174,12 +1201,12 @@ msgstr ""
 #: ../actions/showstream.php:300 actions/showstream.php:315
 #: actions/showstream.php:480
 msgid "Member since"
-msgstr "何時加入會員的呢？"
+msgstr "Üyelik başlangıcı"
 
 #: ../actions/userrss.php:70 actions/userrss.php:67 actions/userrss.php:72
 #, php-format
 msgid "Microblog by %s"
-msgstr "&s的微型部落格"
+msgstr "%s adli kullanicinin durum mesajlari"
 
 #: ../actions/smssettings.php:304
 #, php-format
@@ -1192,7 +1219,7 @@ msgstr ""
 #: actions/finishopenidlogin.php:85 actions/register.php:202
 #: actions/finishopenidlogin.php:107 actions/register.php:429
 msgid "My text and files are available under "
-msgstr ""
+msgstr "Durum mesajlarim ve dosyalarim şu lisans ile korunmaktadır: "
 
 #: ../actions/emailsettings.php:82 ../actions/smssettings.php:91
 #: actions/emailsettings.php:83 actions/smssettings.php:91
@@ -1213,22 +1240,22 @@ msgstr ""
 #: ../actions/finishopenidlogin.php:71 actions/finishopenidlogin.php:77
 #: actions/finishopenidlogin.php:99
 msgid "New nickname"
-msgstr "新暱稱"
+msgstr "Yeni takma ad"
 
 #: ../actions/newnotice.php:87 actions/newnotice.php:96
 #: actions/newnotice.php:68
 msgid "New notice"
-msgstr "新訊息"
+msgstr "Yeni durum mesajı"
 
 #: ../actions/password.php:41 ../actions/recoverpassword.php:179
 #: actions/profilesettings.php:180 actions/recoverpassword.php:185
 #: actions/passwordsettings.php:101 actions/recoverpassword.php:219
 msgid "New password"
-msgstr "新密碼"
+msgstr "Yeni parola"
 
 #: ../actions/recoverpassword.php:314
 msgid "New password successfully saved. You are now logged in."
-msgstr "新密碼已儲存成功。你已登入。"
+msgstr "Yeni parola başarıyla kaydedildi. Şimdi giriş yaptınız."
 
 #: ../actions/login.php:101 ../actions/profilesettings.php:41
 #: ../actions/register.php:151 actions/login.php:101
@@ -1238,7 +1265,7 @@ msgstr "新密碼已儲存成功。你已登入。"
 #: actions/showstream.php:251 actions/tagother.php:95
 #: lib/facebookaction.php:308 lib/groupeditform.php:137
 msgid "Nickname"
-msgstr "暱稱"
+msgstr "Takma ad"
 
 #: ../actions/finishopenidlogin.php:175 ../actions/profilesettings.php:110
 #: ../actions/register.php:69 actions/finishopenidlogin.php:181
@@ -1247,7 +1274,7 @@ msgstr "暱稱"
 #: actions/newgroup.php:134 actions/profilesettings.php:214
 #: actions/register.php:159
 msgid "Nickname already in use. Try another one."
-msgstr "此暱稱已有人使用。再試試看別的吧。"
+msgstr "Takma ad kullanımda. Başka bir tane deneyin."
 
 #: ../actions/finishopenidlogin.php:165 ../actions/profilesettings.php:88
 #: ../actions/register.php:67 ../actions/updateprofile.php:77
@@ -1256,22 +1283,24 @@ msgstr "此暱稱已有人使用。再試試看別的吧。"
 #: actions/finishopenidlogin.php:205 actions/profilesettings.php:192
 #: actions/updateprofile.php:81
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
-msgstr "暱稱請用小寫字母或數字，勿加空格。"
+msgstr ""
+"Takma ad sadece küçük harflerden ve rakamlardan oluşabilir, boşluk "
+"kullanılamaz. "
 
 #: ../actions/finishopenidlogin.php:170 actions/finishopenidlogin.php:176
 #: actions/finishopenidlogin.php:210
 msgid "Nickname not allowed."
-msgstr "此暱稱無法使用"
+msgstr "Takma ada izin verilmiyor."
 
 #: ../actions/remotesubscribe.php:72 actions/remotesubscribe.php:81
 #: actions/remotesubscribe.php:106
 msgid "Nickname of the user you want to follow"
-msgstr "你想成為誰的粉絲呢？請輸入他/她的暱稱。"
+msgstr "Takip etmek istediğiniz kullanıcının takma adı"
 
 #: ../actions/recoverpassword.php:162 actions/recoverpassword.php:167
 #: actions/recoverpassword.php:186
 msgid "Nickname or email"
-msgstr "暱稱或信箱"
+msgstr "Takma ad veya eposta"
 
 #: ../actions/deletenotice.php:59 actions/deletenotice.php:60
 #: actions/block.php:147 actions/deletenotice.php:118
@@ -1281,12 +1310,12 @@ msgstr ""
 #: ../actions/imsettings.php:156 actions/imsettings.php:164
 #: actions/imsettings.php:279
 msgid "No Jabber ID."
-msgstr "查無此Jabber ID"
+msgstr "JabberID yok."
 
 #: ../actions/userauthorization.php:129 actions/userauthorization.php:136
 #: actions/userauthorization.php:153
 msgid "No authorization request!"
-msgstr "無確認請求"
+msgstr "Yetkilendirme isteği yok!"
 
 #: ../actions/smssettings.php:181 actions/smssettings.php:189
 #: actions/smssettings.php:299
@@ -1301,13 +1330,13 @@ msgstr ""
 #: ../actions/confirmaddress.php:33 actions/confirmaddress.php:33
 #: actions/confirmaddress.php:75
 msgid "No confirmation code."
-msgstr "無確認碼"
+msgstr "Onay kodu yok."
 
 #: ../actions/newnotice.php:44 actions/newmessage.php:53
 #: actions/newnotice.php:44 classes/Command.php:197 actions/newmessage.php:109
 #: actions/newnotice.php:126 classes/Command.php:223
 msgid "No content!"
-msgstr "無內容"
+msgstr "İçerik yok!"
 
 #: ../actions/emailsettings.php:174 actions/emailsettings.php:192
 #: actions/emailsettings.php:304
@@ -1316,7 +1345,7 @@ msgstr ""
 
 #: ../actions/userbyid.php:32 actions/userbyid.php:32 actions/userbyid.php:70
 msgid "No id."
-msgstr ""
+msgstr "Kullanıcı numarası yok"
 
 #: ../actions/emailsettings.php:271 actions/emailsettings.php:289
 #: actions/emailsettings.php:430
@@ -1326,12 +1355,12 @@ msgstr ""
 #: ../actions/finishremotesubscribe.php:65
 #: actions/finishremotesubscribe.php:67 actions/finishremotesubscribe.php:68
 msgid "No nickname provided by remote server."
-msgstr "無遠端伺服器提供的暱稱"
+msgstr "Uzaktaki sunucu tarafından bir takma ad sağlanmadı."
 
 #: ../actions/avatarbynickname.php:27 actions/avatarbynickname.php:27
 #: actions/avatarbynickname.php:59 actions/leavegroup.php:81
 msgid "No nickname."
-msgstr "無暱稱"
+msgstr "Takma ad yok"
 
 #: ../actions/emailsettings.php:222 ../actions/imsettings.php:206
 #: ../actions/smssettings.php:229 actions/emailsettings.php:240
@@ -1339,7 +1368,7 @@ msgstr "無暱稱"
 #: actions/emailsettings.php:363 actions/imsettings.php:345
 #: actions/smssettings.php:358
 msgid "No pending confirmation to cancel."
-msgstr ""
+msgstr "İptal etmek için beklenen onay yok."
 
 #: ../actions/smssettings.php:176 actions/smssettings.php:184
 #: actions/smssettings.php:294
@@ -1354,24 +1383,24 @@ msgstr ""
 #: ../actions/recoverpassword.php:226 actions/recoverpassword.php:232
 #: actions/recoverpassword.php:266
 msgid "No registered email address for that user."
-msgstr "查無此使用者所註冊的信箱"
+msgstr "Kullanıcı için kaydedilmiş eposta adresi yok."
 
 #: ../actions/userauthorization.php:49 actions/userauthorization.php:55
 #: actions/userauthorization.php:57
 msgid "No request found!"
-msgstr "目前無請求"
+msgstr "İstek bulunamadı!"
 
 #: ../actions/noticesearch.php:64 ../actions/peoplesearch.php:64
 #: actions/noticesearch.php:69 actions/peoplesearch.php:69
 #: actions/groupsearch.php:81 actions/noticesearch.php:104
 #: actions/peoplesearch.php:85
 msgid "No results"
-msgstr "無結果"
+msgstr "Sonuç yok"
 
 #: ../actions/avatarbynickname.php:32 actions/avatarbynickname.php:32
 #: actions/avatarbynickname.php:64
 msgid "No size."
-msgstr "無尺寸"
+msgstr ""
 
 #: ../actions/twitapistatuses.php:595 actions/twitapifavorites.php:136
 #: actions/twitapistatuses.php:520 actions/twitapifavorites.php:112
@@ -1387,28 +1416,28 @@ msgstr ""
 #: ../actions/openidsettings.php:135 actions/openidsettings.php:144
 #: actions/openidsettings.php:222
 msgid "No such OpenID."
-msgstr "無此OpenID"
+msgstr "Böyle bir OpenID yok."
 
 #: ../actions/doc.php:29 actions/doc.php:29 actions/doc.php:64
 msgid "No such document."
-msgstr "無此文件"
+msgstr "Böyle bir belge yok."
 
 #: ../actions/shownotice.php:32 ../actions/shownotice.php:83
 #: ../lib/deleteaction.php:30 actions/shownotice.php:32
 #: actions/shownotice.php:83 lib/deleteaction.php:30 actions/shownotice.php:87
 #: lib/deleteaction.php:51
 msgid "No such notice."
-msgstr "無此通知"
+msgstr "Böyle bir durum mesajı yok."
 
 #: ../actions/recoverpassword.php:56 actions/recoverpassword.php:56
 #: actions/recoverpassword.php:62
 msgid "No such recovery code."
-msgstr "無此恢復碼"
+msgstr "Böyle bir geri alma kodu yok."
 
 #: ../actions/postnotice.php:56 actions/postnotice.php:57
 #: actions/postnotice.php:60
 msgid "No such subscription"
-msgstr "無此訂閱"
+msgstr "Böyle bir abonelik yok"
 
 #: ../actions/all.php:34 ../actions/allrss.php:35
 #: ../actions/avatarbynickname.php:43 ../actions/foaf.php:40
@@ -1436,7 +1465,7 @@ msgstr "無此訂閱"
 #: classes/Command.php:271 lib/galleryaction.php:60 lib/mailbox.php:82
 #: lib/subs.php:34 lib/subs.php:109
 msgid "No such user."
-msgstr "無此使用者"
+msgstr "Böyle bir kullanıcı yok."
 
 #: ../actions/recoverpassword.php:211 actions/recoverpassword.php:217
 #: actions/recoverpassword.php:251
@@ -1445,12 +1474,12 @@ msgstr ""
 
 #: ../lib/gallery.php:80 lib/gallery.php:85
 msgid "Nobody to show!"
-msgstr ""
+msgstr "Gösterecek hiç kimse yok!"
 
 #: ../actions/recoverpassword.php:60 actions/recoverpassword.php:60
 #: actions/recoverpassword.php:66
 msgid "Not a recovery code."
-msgstr "此恢復碼錯誤"
+msgstr "Bir geri alma kodu değil."
 
 #: ../scripts/maildaemon.php:50 scripts/maildaemon.php:50
 #: scripts/maildaemon.php:53
@@ -1467,11 +1496,11 @@ msgstr ""
 #: ../actions/imsettings.php:167 actions/imsettings.php:175
 #: actions/imsettings.php:290
 msgid "Not a valid Jabber ID"
-msgstr "此JabberID無效"
+msgstr "Geçersiz bir Jabber ID"
 
 #: ../lib/openid.php:131 lib/openid.php:131 lib/openid.php:140
 msgid "Not a valid OpenID."
-msgstr "此OpenID無效"
+msgstr "Geçersiz bir OpenID."
 
 #: ../actions/emailsettings.php:185 actions/emailsettings.php:203
 #: actions/emailsettings.php:315
@@ -1480,39 +1509,39 @@ msgstr ""
 
 #: ../actions/register.php:63 actions/register.php:70 actions/register.php:152
 msgid "Not a valid email address."
-msgstr "此信箱無效"
+msgstr "Geçersiz bir eposta adresi."
 
 #: ../actions/profilesettings.php:91 ../actions/register.php:71
 #: actions/profilesettings.php:206 actions/register.php:78
 #: actions/editgroup.php:186 actions/newgroup.php:137
 #: actions/profilesettings.php:195 actions/register.php:161
 msgid "Not a valid nickname."
-msgstr ""
+msgstr "Geçersiz bir takma ad."
 
 #: ../actions/remotesubscribe.php:120 actions/remotesubscribe.php:129
 #: actions/remotesubscribe.php:159
 msgid "Not a valid profile URL (incorrect services)."
-msgstr ""
+msgstr "Geçersiz profil adresi (yanlış hizmetler)."
 
 #: ../actions/remotesubscribe.php:113 actions/remotesubscribe.php:122
 #: actions/remotesubscribe.php:152
 msgid "Not a valid profile URL (no XRDS defined)."
-msgstr ""
+msgstr "Geçersiz profil adresi (tanımlanmış XRDS yok)."
 
 #: ../actions/remotesubscribe.php:104 actions/remotesubscribe.php:113
 #: actions/remotesubscribe.php:143
 msgid "Not a valid profile URL (no YADIS document)."
-msgstr ""
+msgstr "Geçersiz profil adresi (YADIS belgesi yok)."
 
 #: ../actions/avatar.php:95 actions/profilesettings.php:332
 #: lib/imagefile.php:87
 msgid "Not an image or corrupt file."
-msgstr ""
+msgstr "Bu bir resim dosyası değil ya da dosyada hata var"
 
 #: ../actions/finishremotesubscribe.php:51
 #: actions/finishremotesubscribe.php:53 actions/finishremotesubscribe.php:54
 msgid "Not authorized."
-msgstr ""
+msgstr "Yetkilendirilmemiş."
 
 #: ../actions/finishremotesubscribe.php:38
 #: actions/finishremotesubscribe.php:38 actions/finishremotesubscribe.php:40
@@ -1538,11 +1567,11 @@ msgstr ""
 #: actions/unsubscribe.php:27 lib/deleteaction.php:66
 #: lib/settingsaction.php:72
 msgid "Not logged in."
-msgstr ""
+msgstr "Giriş yapılmadı."
 
 #: ../lib/subs.php:91 lib/subs.php:104 lib/subs.php:122
 msgid "Not subscribed!."
-msgstr ""
+msgstr "Bu kullanıcıyı zaten takip etmiyorsunuz!"
 
 #: ../actions/opensearch.php:35 actions/opensearch.php:35
 #: actions/opensearch.php:67
@@ -1554,18 +1583,18 @@ msgstr ""
 #: actions/showstream.php:192
 #, php-format
 msgid "Notice feed for %s"
-msgstr ""
+msgstr "%s için durum RSS beslemesi"
 
 #: ../actions/shownotice.php:39 actions/shownotice.php:39
 #: actions/shownotice.php:94
 msgid "Notice has no profile"
-msgstr ""
+msgstr "Bu durum mesajının ait oldugu kullanıcı profili yok"
 
 #: ../actions/showstream.php:316 actions/showstream.php:331
 #: actions/showstream.php:504 lib/facebookaction.php:477 lib/mailbox.php:116
 #: lib/noticelist.php:87
 msgid "Notices"
-msgstr ""
+msgstr "Durum mesajları"
 
 #: ../actions/tag.php:35 ../actions/tag.php:81 actions/tag.php:35
 #: actions/tag.php:81 actions/tag.php:41
@@ -1576,18 +1605,18 @@ msgstr ""
 #: ../actions/password.php:39 actions/profilesettings.php:178
 #: actions/passwordsettings.php:97
 msgid "Old password"
-msgstr ""
+msgstr "Eski parola"
 
 #: ../lib/settingsaction.php:96 ../lib/util.php:314 lib/settingsaction.php:90
 #: lib/util.php:330 lib/accountsettingsaction.php:116 lib/action.php:341
 #: lib/logingroupnav.php:81
 msgid "OpenID"
-msgstr ""
+msgstr "OpenID"
 
 #: ../actions/finishopenidlogin.php:61 actions/finishopenidlogin.php:66
 #: actions/finishopenidlogin.php:73
 msgid "OpenID Account Setup"
-msgstr ""
+msgstr "OpenID Hesabı Kurulumu"
 
 #: ../lib/openid.php:180 lib/openid.php:180 lib/openid.php:266
 msgid "OpenID Auto-Submit"
@@ -1598,41 +1627,41 @@ msgstr ""
 #: actions/finishopenidlogin.php:146 actions/openidlogin.php:68
 #: actions/finishaddopenid.php:170 actions/openidlogin.php:80
 msgid "OpenID Login"
-msgstr ""
+msgstr "OpenID Girişi"
 
 #: ../actions/openidlogin.php:65 ../actions/openidsettings.php:49
 #: actions/openidlogin.php:74 actions/openidsettings.php:50
 #: actions/openidlogin.php:102 actions/openidsettings.php:101
 msgid "OpenID URL"
-msgstr ""
+msgstr "OpenID URLi"
 
 #: ../actions/finishaddopenid.php:42 ../actions/finishopenidlogin.php:103
 #: actions/finishaddopenid.php:42 actions/finishopenidlogin.php:109
 #: actions/finishaddopenid.php:88 actions/finishopenidlogin.php:130
 msgid "OpenID authentication cancelled."
-msgstr ""
+msgstr "OpenID yetkilendirilmesi iptal edildi."
 
 #: ../actions/finishaddopenid.php:46 ../actions/finishopenidlogin.php:107
 #: actions/finishaddopenid.php:46 actions/finishopenidlogin.php:113
 #: actions/finishaddopenid.php:92 actions/finishopenidlogin.php:134
 #, php-format
 msgid "OpenID authentication failed: %s"
-msgstr ""
+msgstr "OpenID yetkilendirmesi başarız oldu: %s"
 
 #: ../lib/openid.php:133 lib/openid.php:133 lib/openid.php:142
 #, php-format
 msgid "OpenID failure: %s"
-msgstr ""
+msgstr "OpenID hatası: %s"
 
 #: ../actions/openidsettings.php:144 actions/openidsettings.php:153
 #: actions/openidsettings.php:231
 msgid "OpenID removed."
-msgstr ""
+msgstr "OpenID kaldırıldı."
 
 #: ../actions/openidsettings.php:37 actions/openidsettings.php:37
 #: actions/openidsettings.php:59
 msgid "OpenID settings"
-msgstr ""
+msgstr "OpenID ayarları"
 
 #: ../actions/invite.php:135 actions/invite.php:143 actions/invite.php:180
 msgid "Optionally add a personal message to the invitation."
@@ -1641,7 +1670,7 @@ msgstr ""
 #: ../actions/avatar.php:84 actions/profilesettings.php:321
 #: lib/imagefile.php:75
 msgid "Partial upload."
-msgstr ""
+msgstr "Kısmi yükleme."
 
 #: ../actions/finishopenidlogin.php:90 ../actions/login.php:102
 #: ../actions/register.php:153 ../lib/settingsaction.php:93
@@ -1650,35 +1679,35 @@ msgstr ""
 #: actions/login.php:231 actions/register.php:372
 #: lib/accountsettingsaction.php:110 lib/facebookaction.php:311
 msgid "Password"
-msgstr ""
+msgstr "Parola"
 
 #: ../actions/recoverpassword.php:288 actions/recoverpassword.php:301
 #: actions/recoverpassword.php:335
 msgid "Password and confirmation do not match."
-msgstr ""
+msgstr "Parola ve onaylaması birbirini tutmuyor."
 
 #: ../actions/recoverpassword.php:284 actions/recoverpassword.php:297
 #: actions/recoverpassword.php:331
 msgid "Password must be 6 chars or more."
-msgstr ""
+msgstr "Parola 6 veya daha fazla karakterden oluşmalıdır."
 
 #: ../actions/recoverpassword.php:261 ../actions/recoverpassword.php:263
 #: actions/recoverpassword.php:267 actions/recoverpassword.php:269
 #: actions/recoverpassword.php:199 actions/recoverpassword.php:301
 msgid "Password recovery requested"
-msgstr ""
+msgstr "Parola geri alma isteği"
 
 #: ../actions/password.php:89 ../actions/recoverpassword.php:313
 #: actions/profilesettings.php:408 actions/recoverpassword.php:326
 #: actions/passwordsettings.php:173 actions/recoverpassword.php:200
 msgid "Password saved."
-msgstr ""
+msgstr "Parola kaydedildi."
 
 #: ../actions/password.php:61 ../actions/register.php:88
 #: actions/profilesettings.php:380 actions/register.php:98
 #: actions/passwordsettings.php:145 actions/register.php:183
 msgid "Passwords don't match."
-msgstr ""
+msgstr "Parolalar birbirini tutmuyor."
 
 #: ../lib/searchaction.php:100 lib/searchaction.php:100
 #: lib/searchgroupnav.php:80
@@ -1693,11 +1722,11 @@ msgstr ""
 #: ../actions/peoplesearch.php:33 actions/peoplesearch.php:33
 #: actions/peoplesearch.php:58
 msgid "People search"
-msgstr ""
+msgstr "Kişi Arama"
 
 #: ../lib/stream.php:50 lib/personal.php:50 lib/personalgroupnav.php:98
 msgid "Personal"
-msgstr ""
+msgstr "Kişisel"
 
 #: ../actions/invite.php:133 actions/invite.php:141 actions/invite.php:178
 msgid "Personal message"
@@ -1713,11 +1742,15 @@ msgid ""
 "user's notices. If you didn't just ask to subscribe to someone's notices, "
 "click \"Cancel\"."
 msgstr ""
+"Lütfen bu kullanıcının durumunu takip etmek istediğinizden emin olmak için "
+"detayları gözden geçirin. Kimsenin durumunu taki etme isteğinde "
+"bulunmadıysanız \"İptal\" tuşuna basın. "
 
 #: ../actions/imsettings.php:73 actions/imsettings.php:74
 #: actions/imsettings.php:142
 msgid "Post a notice when my Jabber/GTalk status changes."
 msgstr ""
+"Jabber/GTalk durum mesajim değiştiğinde nedurum.com'da durumumu güncelle"
 
 #: ../actions/emailsettings.php:85 ../actions/imsettings.php:67
 #: ../actions/smssettings.php:94 actions/emailsettings.php:86
@@ -1726,7 +1759,7 @@ msgstr ""
 #: actions/imsettings.php:133 actions/smssettings.php:157
 #: actions/twittersettings.php:134
 msgid "Preferences"
-msgstr ""
+msgstr "Tercihler"
 
 #: ../actions/emailsettings.php:162 ../actions/imsettings.php:144
 #: ../actions/smssettings.php:163 actions/emailsettings.php:180
@@ -1734,7 +1767,7 @@ msgstr ""
 #: actions/emailsettings.php:286 actions/imsettings.php:258
 #: actions/othersettings.php:168 actions/smssettings.php:272
 msgid "Preferences saved."
-msgstr ""
+msgstr "Tercihler kaydedildi."
 
 #: ../actions/profilesettings.php:57 actions/profilesettings.php:90
 #: actions/profilesettings.php:129
@@ -1743,43 +1776,43 @@ msgstr ""
 
 #: ../lib/util.php:328 lib/util.php:344 lib/action.php:572
 msgid "Privacy"
-msgstr ""
+msgstr "Gizlilik"
 
 #: ../classes/Notice.php:95 ../classes/Notice.php:106 classes/Notice.php:109
 #: classes/Notice.php:119 classes/Notice.php:145 classes/Notice.php:155
 msgid "Problem saving notice."
-msgstr ""
+msgstr "Durum mesajını kaydederken hata oluştu."
 
 #: ../lib/settingsaction.php:84 ../lib/stream.php:60 lib/personal.php:60
 #: lib/settingsaction.php:84 lib/accountsettingsaction.php:104
 #: lib/personalgroupnav.php:108
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
 #: ../actions/remotesubscribe.php:73 actions/remotesubscribe.php:82
 #: actions/remotesubscribe.php:109
 msgid "Profile URL"
-msgstr ""
+msgstr "Profil Adresi"
 
 #: ../actions/profilesettings.php:34 actions/profilesettings.php:32
 #: actions/profilesettings.php:58
 msgid "Profile settings"
-msgstr ""
+msgstr "Profil ayarları"
 
 #: ../actions/postnotice.php:51 ../actions/updateprofile.php:52
 #: actions/postnotice.php:52 actions/updateprofile.php:53
 #: actions/postnotice.php:55 actions/updateprofile.php:56
 msgid "Profile unknown"
-msgstr ""
+msgstr "Profil bilinmiyor"
 
 #: ../actions/public.php:54 actions/public.php:54 actions/public.php:124
 msgid "Public Stream Feed"
-msgstr ""
+msgstr "Genel Durum Akış RSS Beslemesi"
 
 #: ../actions/public.php:33 actions/public.php:33 actions/public.php:109
 #: lib/publicgroupnav.php:77
 msgid "Public timeline"
-msgstr ""
+msgstr "Genel zaman çizgisi"
 
 #: ../actions/imsettings.php:79 actions/imsettings.php:80
 #: actions/imsettings.php:153
@@ -1799,24 +1832,24 @@ msgstr ""
 #: ../actions/recoverpassword.php:166 actions/recoverpassword.php:171
 #: actions/recoverpassword.php:190
 msgid "Recover"
-msgstr ""
+msgstr "Geri al"
 
 #: ../actions/recoverpassword.php:156 actions/recoverpassword.php:161
 #: actions/recoverpassword.php:198
 msgid "Recover password"
-msgstr ""
+msgstr "Parolanı geri al"
 
 #: ../actions/recoverpassword.php:67 actions/recoverpassword.php:67
 #: actions/recoverpassword.php:73
 msgid "Recovery code for unknown user."
-msgstr ""
+msgstr "Bilinmeye kullanıcı için geri alma kodu"
 
 #: ../actions/register.php:142 ../actions/register.php:193 ../lib/util.php:312
 #: actions/register.php:152 actions/register.php:207 lib/util.php:328
 #: actions/register.php:69 actions/register.php:436 lib/action.php:338
 #: lib/facebookaction.php:277 lib/logingroupnav.php:78
 msgid "Register"
-msgstr ""
+msgstr "Kayıt"
 
 #: ../actions/register.php:28 actions/register.php:28
 #: actions/finishopenidlogin.php:196 actions/register.php:90
@@ -1831,13 +1864,13 @@ msgstr ""
 #: ../actions/userauthorization.php:120 actions/userauthorization.php:127
 #: actions/userauthorization.php:144
 msgid "Reject"
-msgstr ""
+msgstr "Reddet"
 
 #: ../actions/login.php:103 ../actions/register.php:176 actions/login.php:103
 #: actions/register.php:190 actions/login.php:234 actions/openidlogin.php:107
 #: actions/register.php:414
 msgid "Remember me"
-msgstr ""
+msgstr "Beni hatırla"
 
 #: ../actions/updateprofile.php:70 actions/updateprofile.php:71
 #: actions/updateprofile.php:74
@@ -1847,7 +1880,7 @@ msgstr ""
 #: ../actions/remotesubscribe.php:65 actions/remotesubscribe.php:73
 #: actions/remotesubscribe.php:88
 msgid "Remote subscribe"
-msgstr ""
+msgstr "Uzaktan abonelik"
 
 #: ../actions/emailsettings.php:47 ../actions/emailsettings.php:75
 #: ../actions/imsettings.php:48 ../actions/openidsettings.php:106
@@ -1860,22 +1893,24 @@ msgstr ""
 #: actions/openidsettings.php:166 actions/smssettings.php:103
 #: actions/smssettings.php:146 actions/twittersettings.php:115
 msgid "Remove"
-msgstr ""
+msgstr "Kaldır"
 
 #: ../actions/openidsettings.php:68 actions/openidsettings.php:69
 #: actions/openidsettings.php:123
 msgid "Remove OpenID"
-msgstr ""
+msgstr "OpenID'yi kaldır"
 
 #: ../actions/openidsettings.php:73
 msgid ""
 "Removing your only OpenID would make it impossible to log in! If you need to "
 "remove it, add another OpenID first."
 msgstr ""
+"OpenID'nizi sistemden silerseniz giriş yapamazsınız! Eğer silmek "
+"istiyorsanuz, önce yeni bir OpenID ekleyin"
 
 #: ../lib/stream.php:55 lib/personal.php:55 lib/personalgroupnav.php:103
 msgid "Replies"
-msgstr ""
+msgstr "Cevaplar"
 
 #: ../actions/replies.php:47 ../actions/repliesrss.php:76 ../lib/stream.php:56
 #: actions/replies.php:47 actions/repliesrss.php:62 lib/personal.php:56
@@ -1883,17 +1918,17 @@ msgstr ""
 #: lib/personalgroupnav.php:104
 #, php-format
 msgid "Replies to %s"
-msgstr ""
+msgstr "%s için cevaplar"
 
 #: ../actions/recoverpassword.php:183 actions/recoverpassword.php:189
 #: actions/recoverpassword.php:223
 msgid "Reset"
-msgstr ""
+msgstr "Sıfırla"
 
 #: ../actions/recoverpassword.php:173 actions/recoverpassword.php:178
 #: actions/recoverpassword.php:197
 msgid "Reset password"
-msgstr ""
+msgstr "Parolayı sıfırla"
 
 #: ../lib/settingsaction.php:99 lib/settingsaction.php:93
 #: actions/subscriptions.php:123 lib/connectsettingsaction.php:107
@@ -1917,7 +1952,7 @@ msgstr ""
 #: ../actions/recoverpassword.php:182 actions/recoverpassword.php:188
 #: actions/recoverpassword.php:222
 msgid "Same as password above"
-msgstr ""
+msgstr "yukarıdaki parolanın aynısı"
 
 #: ../actions/register.php:156 actions/register.php:170
 #: actions/register.php:377
@@ -1935,12 +1970,12 @@ msgstr ""
 #: actions/tagother.php:152 actions/twittersettings.php:161
 #: lib/groupeditform.php:171
 msgid "Save"
-msgstr ""
+msgstr "Kaydet"
 
 #: ../lib/searchaction.php:84 ../lib/util.php:300 lib/searchaction.php:84
 #: lib/util.php:316 lib/action.php:325
 msgid "Search"
-msgstr ""
+msgstr "Ara"
 
 #: ../actions/noticesearch.php:80 actions/noticesearch.php:85
 #: actions/noticesearch.php:127
@@ -1954,6 +1989,8 @@ msgid ""
 "Search for notices on %%site.name%% by their contents. Separate search terms "
 "by spaces; they must be 3 characters or more."
 msgstr ""
+"%%site.name%%'da durum mesajlarının içeriğinde arama yap. Anahtar kelimeleri "
+"boşluk ile ayırın. Anahtar kelime 3 veya daha fazla karakterden oluşmalı."
 
 #: ../actions/peoplesearch.php:28
 #, php-format
@@ -1961,6 +1998,9 @@ msgid ""
 "Search for people on %%site.name%% by their name, location, or interests. "
 "Separate the terms by spaces; they must be 3 characters or more."
 msgstr ""
+"%%site.name%% üyeleri arasında isim, yer ya da ilgi alanları içinde arama "
+"yap. Anahtar kelimeleri boşluk ile ayırın. Anahtar kelime 3 veya daha fazla "
+"karakterden oluşmalı. "
 
 #: ../actions/smssettings.php:296 actions/smssettings.php:304
 #: actions/smssettings.php:457
@@ -1971,7 +2011,7 @@ msgstr ""
 #: lib/util.php:1306 lib/util.php:1731 actions/invite.php:182
 #: lib/messageform.php:167 lib/noticeform.php:177
 msgid "Send"
-msgstr ""
+msgstr "Gönder"
 
 #: ../actions/emailsettings.php:73 ../actions/smssettings.php:82
 #: actions/emailsettings.php:74 actions/smssettings.php:82
@@ -1987,7 +2027,7 @@ msgstr ""
 #: ../actions/imsettings.php:70 actions/imsettings.php:71
 #: actions/imsettings.php:137
 msgid "Send me notices through Jabber/GTalk."
-msgstr ""
+msgstr "Durum mesajlarını Jabber/GTalk üzerinden gönder."
 
 #: ../actions/smssettings.php:97 actions/smssettings.php:97
 msgid ""
@@ -2001,12 +2041,12 @@ msgstr ""
 
 #: ../lib/util.php:304 lib/util.php:320 lib/facebookaction.php:215
 msgid "Settings"
-msgstr ""
+msgstr "Ayarlar"
 
 #: ../actions/profilesettings.php:192 actions/profilesettings.php:307
 #: actions/profilesettings.php:319
 msgid "Settings saved."
-msgstr ""
+msgstr "Ayarlar kaydedildi."
 
 #: ../actions/tag.php:60 actions/tag.php:60
 msgid "Showing most popular tags from the last week"
@@ -2015,13 +2055,13 @@ msgstr ""
 #: ../actions/finishaddopenid.php:66 actions/finishaddopenid.php:66
 #: actions/finishaddopenid.php:114
 msgid "Someone else already has this OpenID."
-msgstr ""
+msgstr "Bir başkası zaten bu OpenID'ye sahip."
 
 #: ../actions/finishopenidlogin.php:42 ../actions/openidsettings.php:126
 #: actions/finishopenidlogin.php:47 actions/openidsettings.php:135
 #: actions/finishopenidlogin.php:52 actions/openidsettings.php:202
 msgid "Something weird happened."
-msgstr ""
+msgstr "Garip bir şey oldu."
 
 #: ../scripts/maildaemon.php:58 scripts/maildaemon.php:58
 #: scripts/maildaemon.php:61
@@ -2035,18 +2075,18 @@ msgstr ""
 
 #: ../lib/util.php:330 lib/util.php:346 lib/action.php:574
 msgid "Source"
-msgstr ""
+msgstr "Kaynak"
 
 #: ../actions/showstream.php:296 actions/showstream.php:311
 #: actions/showstream.php:476
 msgid "Statistics"
-msgstr ""
+msgstr "İstatistikler"
 
 #: ../actions/finishopenidlogin.php:182 ../actions/finishopenidlogin.php:246
 #: actions/finishopenidlogin.php:188 actions/finishopenidlogin.php:252
 #: actions/finishopenidlogin.php:222 actions/finishopenidlogin.php:290
 msgid "Stored OpenID not found."
-msgstr ""
+msgstr "Kaydedilmiş OpenID bulunamadı."
 
 #: ../actions/remotesubscribe.php:75 ../actions/showstream.php:188
 #: ../actions/showstream.php:197 actions/remotesubscribe.php:84
@@ -2054,24 +2094,24 @@ msgstr ""
 #: actions/remotesubscribe.php:113 actions/showstream.php:376
 #: lib/subscribeform.php:139
 msgid "Subscribe"
-msgstr ""
+msgstr "Abone ol"
 
 #: ../actions/showstream.php:313 ../actions/subscribers.php:27
 #: actions/showstream.php:328 actions/subscribers.php:27
 #: actions/showstream.php:436 actions/showstream.php:498
 #: lib/subgroupnav.php:88
 msgid "Subscribers"
-msgstr ""
+msgstr "Abone olanlar"
 
 #: ../actions/userauthorization.php:310 actions/userauthorization.php:322
 #: actions/userauthorization.php:338
 msgid "Subscription authorized"
-msgstr ""
+msgstr "Takip talebine izin verildi"
 
 #: ../actions/userauthorization.php:320 actions/userauthorization.php:332
 #: actions/userauthorization.php:349
 msgid "Subscription rejected"
-msgstr ""
+msgstr "Abonelik reddedildi."
 
 #: ../actions/showstream.php:230 ../actions/showstream.php:307
 #: ../actions/subscriptions.php:27 actions/showstream.php:240
@@ -2079,12 +2119,12 @@ msgstr ""
 #: actions/showstream.php:407 actions/showstream.php:489
 #: lib/subgroupnav.php:80
 msgid "Subscriptions"
-msgstr ""
+msgstr "Abonelikler"
 
 #: ../actions/avatar.php:87 actions/profilesettings.php:324
 #: lib/imagefile.php:78
 msgid "System error uploading file."
-msgstr ""
+msgstr "Dosya yüklemede sistem hatası."
 
 #: ../actions/tag.php:41 ../lib/util.php:301 actions/tag.php:41
 #: lib/util.php:317 actions/profilesettings.php:122 actions/showstream.php:297
@@ -2100,22 +2140,22 @@ msgstr ""
 #: ../actions/noticesearch.php:34 actions/noticesearch.php:34
 #: actions/noticesearch.php:67
 msgid "Text search"
-msgstr ""
+msgstr "Metin arama"
 
 #: ../actions/openidsettings.php:140 actions/openidsettings.php:149
 #: actions/openidsettings.php:227
 msgid "That OpenID does not belong to you."
-msgstr ""
+msgstr "Bu OpenID size ait değil."
 
 #: ../actions/confirmaddress.php:52 actions/confirmaddress.php:52
 #: actions/confirmaddress.php:94
 msgid "That address has already been confirmed."
-msgstr ""
+msgstr "O adres daha önce onaylanmış."
 
 #: ../actions/confirmaddress.php:43 actions/confirmaddress.php:43
 #: actions/confirmaddress.php:85
 msgid "That confirmation code is not for you!"
-msgstr ""
+msgstr "O onay kodu sizin için değil!"
 
 #: ../actions/emailsettings.php:191 actions/emailsettings.php:209
 msgid "That email address already belongs to another user."
@@ -2124,12 +2164,12 @@ msgstr ""
 #: ../actions/avatar.php:80 actions/profilesettings.php:317
 #: lib/imagefile.php:71
 msgid "That file is too big."
-msgstr ""
+msgstr "Dosya çok büyük."
 
 #: ../actions/imsettings.php:170 actions/imsettings.php:178
 #: actions/imsettings.php:293
 msgid "That is already your Jabber ID."
-msgstr ""
+msgstr "Bu zaten sizin Jabber ID'niz."
 
 #: ../actions/emailsettings.php:188 actions/emailsettings.php:206
 #: actions/emailsettings.php:318
@@ -2144,7 +2184,7 @@ msgstr ""
 #: ../actions/imsettings.php:233 actions/imsettings.php:241
 #: actions/imsettings.php:381
 msgid "That is not your Jabber ID."
-msgstr ""
+msgstr "Bu sizin Jabber ID'niz değil."
 
 #: ../actions/emailsettings.php:249 actions/emailsettings.php:267
 #: actions/emailsettings.php:397
@@ -2160,7 +2200,7 @@ msgstr ""
 #: actions/emailsettings.php:244 actions/imsettings.php:218
 #: actions/emailsettings.php:367 actions/imsettings.php:349
 msgid "That is the wrong IM address."
-msgstr ""
+msgstr "Yanlış IM adresi."
 
 #: ../actions/smssettings.php:233 actions/smssettings.php:241
 #: actions/smssettings.php:362
@@ -2177,6 +2217,7 @@ msgstr ""
 #: actions/facebookhome.php:243 actions/twitapistatuses.php:276
 msgid "That's too long. Max notice size is 140 chars."
 msgstr ""
+"Ah, durumunuz biraz uzun kaçtı. Azami 180 karaktere sığdırmaya ne dersiniz?"
 
 #: ../actions/twitapiaccount.php:74 actions/twitapiaccount.php:72
 #: actions/twitapiaccount.php:62
@@ -2186,7 +2227,7 @@ msgstr ""
 #: ../actions/confirmaddress.php:92 actions/confirmaddress.php:92
 #, php-format
 msgid "The address \"%s\" has been confirmed for your account."
-msgstr ""
+msgstr "\"%s\" adresi hesabınız için onaylandı."
 
 #: ../actions/emailsettings.php:264 ../actions/imsettings.php:250
 #: ../actions/smssettings.php:274 actions/emailsettings.php:282
@@ -2194,7 +2235,7 @@ msgstr ""
 #: actions/emailsettings.php:416 actions/imsettings.php:402
 #: actions/smssettings.php:413
 msgid "The address was removed."
-msgstr ""
+msgstr "Bu adres kaldırılmıştı."
 
 #: ../actions/userauthorization.php:312
 msgid ""
@@ -2213,20 +2254,20 @@ msgstr ""
 #: ../actions/subscribers.php:35 actions/subscribers.php:35
 #, php-format
 msgid "These are the people who listen to %s's notices."
-msgstr ""
+msgstr "%s adlı kullanıcının durumunu takip edenler"
 
 #: ../actions/subscribers.php:33 actions/subscribers.php:33
 msgid "These are the people who listen to your notices."
-msgstr ""
+msgstr "Sizin durumunuzu takip edenler"
 
 #: ../actions/subscriptions.php:35 actions/subscriptions.php:35
 #, php-format
 msgid "These are the people whose notices %s listens to."
-msgstr ""
+msgstr "%s adlı kullanıcının durumlarını takip ettiği kullanıcılar"
 
 #: ../actions/subscriptions.php:33 actions/subscriptions.php:33
 msgid "These are the people whose notices you listen to."
-msgstr ""
+msgstr "Sizin durumlarını takip ettiğiniz kullanıcılar"
 
 #: ../actions/invite.php:89 actions/invite.php:96 actions/invite.php:128
 msgid ""
@@ -2235,13 +2276,15 @@ msgstr ""
 
 #: ../actions/recoverpassword.php:88
 msgid "This confirmation code is too old. Please start again."
-msgstr ""
+msgstr "Onay kodu çok eski. Lütfen tekrar başlayınız."
 
 #: ../lib/openid.php:195
 msgid ""
 "This form should automatically submit itself. If not, click the submit "
 "button to go to your OpenID provider."
 msgstr ""
+"Bu form kendiliğinden gönderilmeli. Eğer yönlendirilmediyseniz, OpenID "
+"servis sağlayıcınıza yönlenmek için düğmeye basın."
 
 #: ../actions/finishopenidlogin.php:56 actions/finishopenidlogin.php:61
 #: actions/finishopenidlogin.php:67
@@ -2251,6 +2294,9 @@ msgid ""
 "to a local account. You can either create a new account, or connect with "
 "your existing account, if you have one."
 msgstr ""
+"%s'a İlk defa giriş yapıyorsunuz. Bu yüzden OpenID'nizi hesabınıza "
+"bağlamamız gerekli. Bunun için ya yeni bir hesap oluşturabilirsiniz ya da "
+"varolan hesabınızı kullanabilirsiniz. "
 
 #: ../actions/twitapifriendships.php:108 ../actions/twitapistatuses.php:586
 #: actions/twitapifavorites.php:127 actions/twitapifriendships.php:108
@@ -2270,7 +2316,7 @@ msgstr ""
 
 #: ../lib/util.php:164 lib/util.php:246
 msgid "This page is not available in a media type you accept"
-msgstr ""
+msgstr "Bu sayfa kabul ettiğiniz ortam türünde kullanılabilir değil"
 
 #: ../actions/profilesettings.php:63 actions/profilesettings.php:96
 #: actions/profilesettings.php:138
@@ -2300,6 +2346,7 @@ msgstr ""
 #: actions/profilesettings.php:109
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr ""
+"Web Sitenizin, blogunuzun ya da varsa başka bir sitedeki profilinizin adresi"
 
 #: ../actions/remotesubscribe.php:74 actions/remotesubscribe.php:83
 #: actions/remotesubscribe.php:110
@@ -2315,12 +2362,12 @@ msgstr ""
 #: actions/imsettings.php:214 actions/recoverpassword.php:44
 #: actions/smssettings.php:236 actions/twittersettings.php:302
 msgid "Unexpected form submission."
-msgstr ""
+msgstr "Beklenmeğen form girdisi."
 
 #: ../actions/recoverpassword.php:276 actions/recoverpassword.php:289
 #: actions/recoverpassword.php:323
 msgid "Unexpected password reset."
-msgstr ""
+msgstr "Beklemeğen parola sıfırlaması."
 
 #: ../index.php:57 index.php:57 actions/recoverpassword.php:202
 msgid "Unknown action"
@@ -2329,35 +2376,37 @@ msgstr ""
 #: ../actions/finishremotesubscribe.php:58
 #: actions/finishremotesubscribe.php:60 actions/finishremotesubscribe.php:61
 msgid "Unknown version of OMB protocol."
-msgstr ""
+msgstr "OMB protokolünün bilinmeğen sürümü."
 
 #: ../lib/util.php:269 lib/util.php:285
 msgid ""
 "Unless otherwise specified, contents of this site are copyright by the "
 "contributors and available under the "
 msgstr ""
+"Aksi ifade edilmedikce, bu sitedeki içerik yaratıcılarına aittir ve şu "
+"lisans ile korunmaktadır: "
 
 #: ../actions/confirmaddress.php:48 actions/confirmaddress.php:48
 #: actions/confirmaddress.php:90
 #, php-format
 msgid "Unrecognized address type %s"
-msgstr ""
+msgstr "Tanınmayan adres türü %s"
 
 #: ../actions/showstream.php:209 actions/showstream.php:219
 #: lib/unsubscribeform.php:137
 msgid "Unsubscribe"
-msgstr ""
+msgstr "Aboneliği sonlandır"
 
 #: ../actions/postnotice.php:44 ../actions/updateprofile.php:45
 #: actions/postnotice.php:45 actions/updateprofile.php:46
 #: actions/postnotice.php:48 actions/updateprofile.php:49
 msgid "Unsupported OMB version"
-msgstr ""
+msgstr "Desteklenmeyen OMB sürümü"
 
 #: ../actions/avatar.php:105 actions/profilesettings.php:342
 #: lib/imagefile.php:102
 msgid "Unsupported image file format."
-msgstr ""
+msgstr "Desteklenmeyen görüntü dosyası biçemi."
 
 #: ../lib/settingsaction.php:100 lib/settingsaction.php:94
 #: lib/connectsettingsaction.php:108
@@ -2384,7 +2433,7 @@ msgstr ""
 #: ../actions/avatar.php:68 actions/profilesettings.php:161
 #: actions/avatarsettings.php:162 actions/grouplogo.php:232
 msgid "Upload"
-msgstr ""
+msgstr "Yükle"
 
 #: ../actions/avatar.php:27
 msgid ""
@@ -2393,6 +2442,10 @@ msgid ""
 "site license, also. Use a picture that belongs to you and that you want to "
 "share."
 msgstr ""
+"Buradan yeni bir \"avatar\" (kullanıcı resmi) yükleyin. Resminizi "
+"yükledikten sonra düzenleyemezsiniz bu sebeple kare biçimine yakın olmasına "
+"özen gösterin. Buna ek olarak, resminiz sitenin lisansına tabi olmalıdır. "
+"Kendinize ait olan ve paylaşmak istediğiniz bir resim kullanın. "
 
 #: ../lib/settingsaction.php:91
 msgid "Upload a new profile image"
@@ -2407,6 +2460,7 @@ msgstr ""
 #: actions/register.php:173 actions/register.php:176
 msgid "Used only for updates, announcements, and password recovery"
 msgstr ""
+"Sadece sistem güncellemeleri, duyurular ve parola geri alma için kullanılır."
 
 #: ../actions/finishremotesubscribe.php:86
 #: actions/finishremotesubscribe.php:88 actions/finishremotesubscribe.php:94
@@ -2429,12 +2483,12 @@ msgstr ""
 #: actions/twitapistatuses.php:503 actions/twitapiusers.php:55
 #: actions/usergroups.php:99 lib/galleryaction.php:67 lib/twitterapi.php:626
 msgid "User has no profile."
-msgstr ""
+msgstr "Kullanıcının profili yok."
 
 #: ../actions/remotesubscribe.php:71 actions/remotesubscribe.php:80
 #: actions/remotesubscribe.php:105
 msgid "User nickname"
-msgstr ""
+msgstr "Kullanıcı takma adı"
 
 #: ../actions/twitapiusers.php:75 actions/twitapiusers.php:80
 msgid "User not found."
@@ -2448,25 +2502,25 @@ msgstr ""
 #: ../lib/util.php:1159 lib/util.php:1293 lib/noticeform.php:141
 #, php-format
 msgid "What's up, %s?"
-msgstr ""
+msgstr "N'aber %s?"
 
 #: ../actions/profilesettings.php:54 ../actions/register.php:175
 #: actions/profilesettings.php:87 actions/register.php:189
 #: actions/profilesettings.php:119
 msgid "Where you are, like \"City, State (or Region), Country\""
-msgstr ""
+msgstr "Bulunduğunuz yer, \"Şehir, Eyalet (veya Bölge), Ülke\" gibi"
 
 #: ../actions/updateprofile.php:128 actions/updateprofile.php:129
 #: actions/updateprofile.php:132
 #, php-format
 msgid "Wrong image type for '%s'"
-msgstr ""
+msgstr "%s için yanlış resim türü"
 
 #: ../actions/updateprofile.php:123 actions/updateprofile.php:124
 #: actions/updateprofile.php:127
 #, php-format
 msgid "Wrong size image at '%s'"
-msgstr ""
+msgstr "%s'de yanlış resim boyutu"
 
 #: ../actions/deletenotice.php:63 ../actions/deletenotice.php:72
 #: actions/deletenotice.php:64 actions/deletenotice.php:79
@@ -2478,7 +2532,7 @@ msgstr ""
 #: ../actions/finishaddopenid.php:64 actions/finishaddopenid.php:64
 #: actions/finishaddopenid.php:112
 msgid "You already have this OpenID!"
-msgstr ""
+msgstr "Zaten bu OpenID'ye sahipsiniz!"
 
 #: ../actions/deletenotice.php:37 actions/deletenotice.php:37
 msgid ""
@@ -2489,7 +2543,7 @@ msgstr ""
 #: ../actions/recoverpassword.php:31 actions/recoverpassword.php:31
 #: actions/recoverpassword.php:36
 msgid "You are already logged in!"
-msgstr ""
+msgstr "Zaten giriş yapmış durumdasıznız!"
 
 #: ../actions/invite.php:81 actions/invite.php:88 actions/invite.php:120
 msgid "You are already subscribed to these users:"
@@ -2502,11 +2556,12 @@ msgstr ""
 
 #: ../actions/password.php:27
 msgid "You can change your password here. Choose a good one!"
-msgstr ""
+msgstr "Parolanızı burada değiştirebilirsiniz. İyi bir tane seçin!"
 
 #: ../actions/register.php:135 actions/register.php:145
 msgid "You can create a new account to start posting notices."
 msgstr ""
+"Sizde bir hesap açıp durumunuzdan arkadaşlarınızı haberdar edebilirsiniz."
 
 #: ../actions/smssettings.php:28 actions/smssettings.php:28
 #: actions/smssettings.php:69
@@ -2519,6 +2574,7 @@ msgid ""
 "You can remove an OpenID from your account by clicking the button marked "
 "\"Remove\"."
 msgstr ""
+"\"Sil\" düğmesine basarak hesabınızdan eklediğiniz OpenID'yi silebilirsiniz."
 
 #: ../actions/imsettings.php:28 actions/imsettings.php:28
 #, php-format
@@ -2526,29 +2582,33 @@ msgid ""
 "You can send and receive notices through Jabber/GTalk [instant messages](%%"
 "doc.im%%). Configure your address and settings below."
 msgstr ""
+"Jabber/GTalk kullanarak durum mesaji gÖnderip alabilirsiniz. IM adres "
+"ayarlarinizi aşağıda yapın."
 
 #: ../actions/profilesettings.php:27
 msgid ""
 "You can update your personal profile info here so people know more about you."
 msgstr ""
+"Burada kişisel profilinizi güncelleyebilirsiniz, böylelikle insanlar sizin "
+"hakkınızda daha fazla bilgi sahibi olur."
 
 #: ../actions/finishremotesubscribe.php:31 ../actions/remotesubscribe.php:31
 #: actions/finishremotesubscribe.php:31 actions/remotesubscribe.php:31
 #: actions/finishremotesubscribe.php:33 actions/finishremotesubscribe.php:85
 #: actions/finishremotesubscribe.php:101 actions/remotesubscribe.php:35
 msgid "You can use the local subscription!"
-msgstr ""
+msgstr "Yerel aboneliği kullanabilirsiniz!"
 
 #: ../actions/finishopenidlogin.php:33 ../actions/register.php:61
 #: actions/finishopenidlogin.php:38 actions/register.php:68
 #: actions/finishopenidlogin.php:43
 msgid "You can't register if you don't agree to the license."
-msgstr ""
+msgstr "Eğer lisansı kabul etmezseniz kayıt olamazsınız."
 
 #: ../actions/updateprofile.php:63 actions/updateprofile.php:64
 #: actions/updateprofile.php:67
 msgid "You did not send us that profile"
-msgstr ""
+msgstr "Bize o profili yollamadınız"
 
 #: ../lib/mail.php:147
 #, php-format
@@ -2581,16 +2641,16 @@ msgstr ""
 
 #: ../actions/recoverpassword.php:149
 msgid "You've been identified. Enter a  new password below. "
-msgstr ""
+msgstr "Harika, sizi tanıdık. Simdi yeni parolanızı girin."
 
 #: ../actions/openidlogin.php:67 actions/openidlogin.php:76
 #: actions/openidlogin.php:104
 msgid "Your OpenID URL"
-msgstr ""
+msgstr "OpenID URLniz"
 
 #: ../actions/recoverpassword.php:164
 msgid "Your nickname on this server, or your registered email address."
-msgstr ""
+msgstr "Bu sunucudaki takma adınız  veya kaydedilmiş eposta adresiniz."
 
 #: ../actions/openidsettings.php:28
 #, php-format
@@ -2598,50 +2658,52 @@ msgid ""
 "[OpenID](%%doc.openid%%) lets you log into many sites  with the same user "
 "account.  Manage your associated OpenIDs from here."
 msgstr ""
+"[OpenID](%%doc.openid%%) tek hesap ile bir çok siteye giriş yapmanızı "
+"sağlar. Hesabınızla bağlantılı OpenID'lerinizi burada yönetebilirsiniz."
 
 #: ../lib/util.php:943 lib/util.php:992 lib/util.php:945
 msgid "a few seconds ago"
-msgstr ""
+msgstr "birkaç saniye önce"
 
 #: ../lib/util.php:955 lib/util.php:1004 lib/util.php:957
 #, php-format
 msgid "about %d days ago"
-msgstr ""
+msgstr "yaklaşık %d gün önce"
 
 #: ../lib/util.php:951 lib/util.php:1000 lib/util.php:953
 #, php-format
 msgid "about %d hours ago"
-msgstr ""
+msgstr "yaklaşık %d saat önce"
 
 #: ../lib/util.php:947 lib/util.php:996 lib/util.php:949
 #, php-format
 msgid "about %d minutes ago"
-msgstr ""
+msgstr "yaklaşık %d dakika önce"
 
 #: ../lib/util.php:959 lib/util.php:1008 lib/util.php:961
 #, php-format
 msgid "about %d months ago"
-msgstr ""
+msgstr "yaklaşık %d ay önce"
 
 #: ../lib/util.php:953 lib/util.php:1002 lib/util.php:955
 msgid "about a day ago"
-msgstr ""
+msgstr "yaklaşık bir gün önce"
 
 #: ../lib/util.php:945 lib/util.php:994 lib/util.php:947
 msgid "about a minute ago"
-msgstr ""
+msgstr "yaklaşık bir dakika önce"
 
 #: ../lib/util.php:957 lib/util.php:1006 lib/util.php:959
 msgid "about a month ago"
-msgstr ""
+msgstr "yaklaşık bir ay önce"
 
 #: ../lib/util.php:961 lib/util.php:1010 lib/util.php:963
 msgid "about a year ago"
-msgstr ""
+msgstr "yaklaşık bir yıl önce"
 
 #: ../lib/util.php:949 lib/util.php:998 lib/util.php:951
 msgid "about an hour ago"
-msgstr ""
+msgstr "yaklaşık bir saat önce"
 
 #: ../actions/showstream.php:423 ../lib/stream.php:132
 #: actions/showstream.php:441 lib/stream.php:99
@@ -2652,18 +2714,18 @@ msgstr ""
 #: ../lib/stream.php:117 actions/noticesearch.php:136
 #: actions/showstream.php:426 lib/stream.php:84 actions/noticesearch.php:187
 msgid "in reply to..."
-msgstr ""
+msgstr "...cevap olarak"
 
 #: ../actions/noticesearch.php:137 ../actions/showstream.php:415
 #: ../lib/stream.php:124 actions/noticesearch.php:143
 #: actions/showstream.php:433 lib/stream.php:91 actions/noticesearch.php:194
 msgid "reply"
-msgstr ""
+msgstr "cevapla"
 
 #: ../actions/password.php:44 actions/profilesettings.php:183
 #: actions/passwordsettings.php:106
 msgid "same as password above"
-msgstr ""
+msgstr "yukaridaki parola ile aynı"
 
 #: ../actions/twitapistatuses.php:755 actions/twitapistatuses.php:678
 #: actions/twitapistatuses.php:555
@@ -2671,8 +2733,9 @@ msgid "unsupported file type"
 msgstr ""
 
 #: ../lib/util.php:1309 lib/util.php:1443
+#, fuzzy
 msgid "« After"
-msgstr ""
+msgstr "« Sonra"
 
 #: actions/deletenotice.php:74 actions/disfavor.php:43
 #: actions/emailsettings.php:127 actions/favor.php:45
@@ -3292,7 +3355,7 @@ msgstr ""
 #: actions/all.php:63 actions/facebookhome.php:162
 #, fuzzy, php-format
 msgid "%s and friends, page %d"
-msgstr "%s與好友"
+msgstr "%s ve arkadaşları"
 
 #: actions/avatarsettings.php:76
 msgid "You can upload your personal avatar."
@@ -3302,7 +3365,7 @@ msgstr ""
 #: actions/grouplogo.php:250
 #, fuzzy
 msgid "Avatar settings"
-msgstr "線上即時通設定"
+msgstr "Ayarlar"
 
 #: actions/avatarsettings.php:124 actions/avatarsettings.php:199
 #: actions/grouplogo.php:198 actions/grouplogo.php:258
@@ -3342,7 +3405,7 @@ msgstr ""
 #: classes/User_group.php:112
 #, fuzzy
 msgid "Lost our file."
-msgstr "無此通知"
+msgstr "Böyle bir durum mesajı yok."
 
 #: actions/avatarsettings.php:349 actions/avatarsettings.php:383
 #: actions/grouplogo.php:406 actions/grouplogo.php:440
@@ -3362,24 +3425,25 @@ msgstr ""
 #: actions/block.php:111
 #, fuzzy
 msgid "Block user"
-msgstr "無此使用者"
+msgstr "Böyle bir kullanıcı yok."
 
 #: actions/block.php:129
 msgid "Are you sure you want to block this user? "
 msgstr ""
 
 #: actions/block.php:162
+#, fuzzy
 msgid "You have already blocked this user."
-msgstr ""
+msgstr "Zaten giriş yapmış durumdasıznız!"
 
 #: actions/block.php:167
 msgid "Failed to save block information."
 msgstr ""
 
 #: actions/confirmaddress.php:159
-#, php-format
+#, fuzzy, php-format
 msgid "The address \"%s\" has been "
-msgstr ""
+msgstr "Bu adres kaldırılmıştı."
 
 #: actions/deletenotice.php:73
 msgid "You are about to permanently delete a notice. "
@@ -3408,14 +3472,14 @@ msgstr ""
 #: actions/showgroup.php:121
 #, fuzzy
 msgid "No nickname"
-msgstr "無暱稱"
+msgstr "Takma ad yok"
 
 #: actions/editgroup.php:99 actions/groupbyid.php:88 actions/grouplogo.php:100
 #: actions/groupmembers.php:83 actions/joingroup.php:88
 #: actions/showgroup.php:128
 #, fuzzy
 msgid "No such group"
-msgstr "無此通知"
+msgstr "Böyle bir durum mesajı yok."
 
 #: actions/editgroup.php:106 actions/editgroup.php:165
 #: actions/grouplogo.php:107
@@ -3429,26 +3493,29 @@ msgstr ""
 #: actions/editgroup.php:179 actions/newgroup.php:130 actions/register.php:156
 #, fuzzy
 msgid "Nickname must have only lowercase letters "
-msgstr "暱稱請用小寫字母或數字，勿加空格。"
+msgstr ""
+"Takma ad sadece küçük harflerden ve rakamlardan oluşabilir, boşluk "
+"kullanılamaz. "
 
 #: actions/editgroup.php:198 actions/newgroup.php:149
 #, fuzzy
 msgid "description is too long (max 140 chars)."
-msgstr "自我介紹過長(共140個字元)"
+msgstr "Hakkında bölümü çok uzun (azm 140 karakter)."
 
 #: actions/editgroup.php:218
 #, fuzzy
 msgid "Could not update group."
-msgstr "無法更新使用者"
+msgstr "Kullanıcı güncellenemedi."
 
 #: actions/editgroup.php:226
+#, fuzzy
 msgid "Options saved."
-msgstr ""
+msgstr "Ayarlar kaydedildi."
 
 #: actions/emailsettings.php:107 actions/imsettings.php:108
 #, fuzzy, php-format
 msgid "Awaiting confirmation on this address. "
-msgstr "確認碼發生錯誤"
+msgstr "Onay kodu hatası."
 
 #: actions/emailsettings.php:139 actions/smssettings.php:150
 msgid "Make a new email address for posting to; "
@@ -3465,12 +3532,14 @@ msgstr ""
 #: actions/emailsettings.php:321
 #, fuzzy
 msgid "That email address already belongs "
-msgstr "此電子信箱已註冊過了"
+msgstr "Eposta adresi zaten var."
 
 #: actions/emailsettings.php:343
 #, fuzzy
 msgid "A confirmation code was sent to the email address you added. "
-msgstr "確認信已寄到你的線上即時通信箱。%s送給你得訊息要先經過你的認可。"
+msgstr ""
+"Eklemiş olduğunuz IM adresine bir onay kodu gönderildi. %s tarafından size "
+"mesaj yollanabilmesi için onaylamanız gerekmektedir."
 
 #: actions/facebookhome.php:110
 msgid "Server error - couldn't get user!"
@@ -3493,20 +3562,21 @@ msgstr ""
 #: actions/facebookhome.php:235
 #, fuzzy
 msgid "No notice content!"
-msgstr "無內容"
+msgstr "İçerik yok!"
 
 #: actions/facebookhome.php:295 lib/action.php:870 lib/facebookaction.php:399
 msgid "Pagination"
 msgstr ""
 
 #: actions/facebookhome.php:304 lib/action.php:879 lib/facebookaction.php:408
+#, fuzzy
 msgid "After"
-msgstr ""
+msgstr "« Sonra"
 
 #: actions/facebookhome.php:312 lib/action.php:887 lib/facebookaction.php:416
 #, fuzzy
 msgid "Before"
-msgstr "之前的內容»"
+msgstr "Önce »"
 
 #: actions/facebookinvite.php:70
 #, php-format
@@ -3525,7 +3595,7 @@ msgstr ""
 #: actions/facebookinvite.php:105
 #, fuzzy, php-format
 msgid "Invite your friends to use %s"
-msgstr "發送給%s好友的訂閱"
+msgstr "%s için arkadaş güncellemeleri RSS beslemesi"
 
 #: actions/facebookinvite.php:113
 #, php-format
@@ -3540,15 +3610,16 @@ msgstr ""
 #: actions/facebookremove.php:56
 #, fuzzy
 msgid "Couldn't remove Facebook user."
-msgstr "無法更新使用者"
+msgstr "Kullanıcı güncellenemedi."
 
 #: actions/facebooksettings.php:65
 msgid "There was a problem saving your sync preferences!"
 msgstr ""
 
 #: actions/facebooksettings.php:67
+#, fuzzy
 msgid "Sync preferences saved."
-msgstr ""
+msgstr "Tercihler kaydedildi."
 
 #: actions/facebooksettings.php:90
 msgid "Automatically update my Facebook status with my notices."
@@ -3559,8 +3630,9 @@ msgid "Send \"@\" replies to Facebook."
 msgstr ""
 
 #: actions/facebooksettings.php:106
+#, fuzzy
 msgid "Prefix"
-msgstr ""
+msgstr "Profil"
 
 #: actions/facebooksettings.php:108
 msgid "A string to prefix notices with."
@@ -3572,8 +3644,9 @@ msgid "If you would like %s to automatically update "
 msgstr ""
 
 #: actions/facebooksettings.php:147
+#, fuzzy
 msgid "Sync preferences"
-msgstr ""
+msgstr "Tercihler"
 
 #: actions/favor.php:94 lib/disfavorform.php:140
 msgid "Disfavor favorite"
@@ -3583,12 +3656,12 @@ msgstr ""
 #: lib/publicgroupnav.php:91
 #, fuzzy
 msgid "Popular notices"
-msgstr "無此通知"
+msgstr "Böyle bir durum mesajı yok."
 
 #: actions/favorited.php:67
 #, fuzzy, php-format
 msgid "Popular notices, page %d"
-msgstr "無此通知"
+msgstr "Böyle bir durum mesajı yok."
 
 #: actions/favorited.php:79
 msgid "The most popular notices on the site right now."
@@ -3628,12 +3701,12 @@ msgstr ""
 #: actions/grouplogo.php:448
 #, fuzzy
 msgid "Logo updated."
-msgstr "更新個人圖像"
+msgstr "Avatar güncellendi."
 
 #: actions/grouplogo.php:450
 #, fuzzy
 msgid "Failed updating logo."
-msgstr "無法上傳個人圖像"
+msgstr "Avatar güncellemede hata."
 
 #: actions/groupmembers.php:93 lib/groupnav.php:91
 #, php-format
@@ -3667,17 +3740,21 @@ msgstr ""
 #: actions/groups.php:106 actions/usergroups.php:124 lib/groupeditform.php:123
 #, fuzzy
 msgid "Create a new group"
-msgstr "新增帳號"
+msgstr "Yeni hesap oluştur"
 
 #: actions/groupsearch.php:57
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "Search for groups on %%site.name%% by their name, location, or description. "
 msgstr ""
+"%%site.name%% üyeleri arasında isim, yer ya da ilgi alanları içinde arama "
+"yap. Anahtar kelimeleri boşluk ile ayırın. Anahtar kelime 3 veya daha fazla "
+"karakterden oluşmalı. "
 
 #: actions/groupsearch.php:63
+#, fuzzy
 msgid "Group search"
-msgstr ""
+msgstr "Kişi Arama"
 
 #: actions/imsettings.php:70
 msgid "You can send and receive notices through "
@@ -3689,26 +3766,28 @@ msgid "Jabber or GTalk address, "
 msgstr ""
 
 #: actions/imsettings.php:147
+#, fuzzy
 msgid "Send me replies through Jabber/GTalk "
-msgstr ""
+msgstr "Durum mesajlarını Jabber/GTalk üzerinden gönder."
 
 #: actions/imsettings.php:321
 #, fuzzy, php-format
 msgid "A confirmation code was sent "
-msgstr "無確認碼"
+msgstr "Onay kodu yok."
 
 #: actions/joingroup.php:65
 msgid "You must be logged in to join a group."
 msgstr ""
 
 #: actions/joingroup.php:95
+#, fuzzy
 msgid "You are already a member of that group"
-msgstr ""
+msgstr "Zaten giriş yapmış durumdasıznız!"
 
 #: actions/joingroup.php:128
 #, fuzzy, php-format
 msgid "Could not join user %s to group %s"
-msgstr "無法連結到伺服器:%s"
+msgstr "Sunucuya yönlendirme yapılamadı: %s"
 
 #: actions/joingroup.php:135
 #, php-format
@@ -3726,11 +3805,12 @@ msgstr ""
 #: actions/leavegroup.php:88
 #, fuzzy
 msgid "No such group."
-msgstr "無此通知"
+msgstr "Böyle bir durum mesajı yok."
 
 #: actions/leavegroup.php:95
+#, fuzzy
 msgid "You are not a member of that group."
-msgstr ""
+msgstr "Bize o profili yollamadınız"
 
 #: actions/leavegroup.php:100
 msgid "You may not leave a group while you are its administrator."
@@ -3743,7 +3823,7 @@ msgstr ""
 #: actions/leavegroup.php:138
 #, fuzzy, php-format
 msgid "Could not remove user %s to group %s"
-msgstr "無法從 %s 建立OpenID"
+msgstr "OpenID formu yaratılamadı: %s"
 
 #: actions/leavegroup.php:145
 #, php-format
@@ -3769,24 +3849,27 @@ msgstr ""
 #: actions/newgroup.php:177
 #, fuzzy
 msgid "Could not create group."
-msgstr "無法存取個人圖像資料"
+msgstr "Avatar bilgisi kaydedilemedi"
 
+#  Note: Bu federation ozelligi nasilsa simdi kullanilmayacak
 #: actions/newgroup.php:191
 #, fuzzy
 msgid "Could not set group membership."
-msgstr "註冊失敗"
+msgstr "Abonelik oluşturulamadı."
 
 #: actions/newmessage.php:119 actions/newnotice.php:132
+#, fuzzy
 msgid "That's too long. "
-msgstr ""
+msgstr "Dosya çok büyük."
 
 #: actions/newmessage.php:134
 msgid "Don't send a message to yourself; "
 msgstr ""
 
 #: actions/newnotice.php:166
+#, fuzzy
 msgid "Notice posted"
-msgstr ""
+msgstr "Durum mesajları"
 
 #: actions/newnotice.php:200 classes/Channel.php:163
 msgid "Ajax Error"
@@ -3806,17 +3889,19 @@ msgid "Nudge sent!"
 msgstr ""
 
 #: actions/openidlogin.php:97
+#, fuzzy
 msgid "OpenID login"
-msgstr ""
+msgstr "OpenID Girişi"
 
 #: actions/openidsettings.php:128
+#, fuzzy
 msgid "Removing your only OpenID "
-msgstr ""
+msgstr "OpenID'yi kaldır"
 
 #: actions/othersettings.php:60
 #, fuzzy
 msgid "Other Settings"
-msgstr "線上即時通設定"
+msgstr "Ayarlar"
 
 #: actions/othersettings.php:71
 msgid "Manage various other options."
@@ -3827,8 +3912,9 @@ msgid "URL Auto-shortening"
 msgstr ""
 
 #: actions/othersettings.php:112
+#, fuzzy
 msgid "Service"
-msgstr ""
+msgstr "Ara"
 
 #: actions/othersettings.php:113
 msgid "Automatic shortening service to use."
@@ -3837,21 +3923,22 @@ msgstr ""
 #: actions/othersettings.php:144
 #, fuzzy
 msgid "URL shortening service is too long (max 50 chars)."
-msgstr "地點過長（共255個字）"
+msgstr "Yer bilgisi çok uzun (azm: 255 karakter)."
 
 #: actions/passwordsettings.php:69
 #, fuzzy
 msgid "Change your password."
-msgstr "更改密碼"
+msgstr "Parolayı değiştir"
 
 #: actions/passwordsettings.php:89
+#, fuzzy
 msgid "Password change"
-msgstr ""
+msgstr "Parola kaydedildi."
 
 #: actions/peopletag.php:35
 #, fuzzy, php-format
 msgid "Not a valid people tag: %s"
-msgstr "此信箱無效"
+msgstr "Geçersiz bir eposta adresi."
 
 #: actions/peopletag.php:47
 #, php-format
@@ -3864,8 +3951,9 @@ msgid "These are users who have tagged themselves \"%s\" "
 msgstr ""
 
 #: actions/profilesettings.php:91
+#, fuzzy
 msgid "Profile information"
-msgstr ""
+msgstr "Profil bilinmiyor"
 
 #: actions/profilesettings.php:124
 msgid ""
@@ -3879,17 +3967,17 @@ msgstr ""
 #: actions/profilesettings.php:229 actions/tagother.php:176
 #, fuzzy, php-format
 msgid "Invalid tag: \"%s\""
-msgstr "個人首頁連結%s無效"
+msgstr "%s Geçersiz başlangıç sayfası"
 
 #: actions/profilesettings.php:311
 #, fuzzy
 msgid "Couldn't save tags."
-msgstr "無法儲存個人資料"
+msgstr "Profil kaydedilemedi."
 
 #: actions/public.php:107
-#, php-format
+#, fuzzy, php-format
 msgid "Public timeline, page %d"
-msgstr ""
+msgstr "Genel zaman çizgisi"
 
 #: actions/public.php:173
 msgid "Could not retrieve public stream."
@@ -3903,8 +3991,9 @@ msgid ""
 msgstr ""
 
 #: actions/publictagcloud.php:57
+#, fuzzy
 msgid "Public tag cloud"
-msgstr ""
+msgstr "Genel Durum Akış RSS Beslemesi"
 
 #: actions/publictagcloud.php:63
 #, php-format
@@ -3920,8 +4009,9 @@ msgid "Sorry, only invited people can register."
 msgstr ""
 
 #: actions/register.php:149
+#, fuzzy
 msgid "You can't register if you don't "
-msgstr ""
+msgstr "Eğer lisansı kabul etmezseniz kayıt olamazsınız."
 
 #: actions/register.php:286
 msgid "With this form you can create "
@@ -3930,29 +4020,38 @@ msgstr ""
 #: actions/register.php:368
 #, fuzzy
 msgid "1-64 lowercase letters or numbers, "
-msgstr "1-64個小寫英文字母或數字，勿加標點符號或空格"
+msgstr ""
+"1-64 küçük harf veya rakam, noktalama işaretlerine ve boşluklara izin "
+"verilmez"
 
 #: actions/register.php:382 actions/register.php:386
+#, fuzzy
 msgid "Used only for updates, announcements, "
 msgstr ""
+"Sadece sistem güncellemeleri, duyurular ve parola geri alma için kullanılır."
 
 #: actions/register.php:398
+#, fuzzy
 msgid "URL of your homepage, blog, "
 msgstr ""
+"Web Sitenizin, blogunuzun ya da varsa başka bir sitedeki profilinizin adresi"
 
 #: actions/register.php:404
 #, fuzzy
 msgid "Describe yourself and your "
-msgstr "請在140個字以內描述你自己與你的興趣"
+msgstr "Kendinizi ve ilgi alanlarınızı 140 karakter ile anlatın"
 
 #: actions/register.php:410
+#, fuzzy
 msgid "Where you are, like \"City, "
-msgstr ""
+msgstr "Bulunduğunuz yer, \"Şehir, Eyalet (veya Bölge), Ülke\" gibi"
 
 #: actions/register.php:432
 #, fuzzy
 msgid " except this private data: password, "
-msgstr "不包含這些個人資料：密碼、電子信箱、線上即時通信箱、電話號碼"
+msgstr ""
+"bu özel veriler haricinde: parola, eposta adresi, IM adresi, telefon "
+"numarası."
 
 #: actions/register.php:471
 #, php-format
@@ -3968,9 +4067,9 @@ msgid "That's a local profile! Login to subscribe."
 msgstr ""
 
 #: actions/replies.php:118
-#, php-format
+#, fuzzy, php-format
 msgid "Replies to %s, page %d"
-msgstr ""
+msgstr "%s için cevaplar"
 
 #: actions/showfavorites.php:79
 #, php-format
@@ -3990,7 +4089,7 @@ msgstr ""
 #: actions/showgroup.php:206
 #, fuzzy
 msgid "Group profile"
-msgstr "無此通知"
+msgstr "Böyle bir durum mesajı yok."
 
 #: actions/showgroup.php:251 actions/showstream.php:278
 #: actions/tagother.php:119 lib/grouplist.php:134 lib/profilelist.php:133
@@ -3999,22 +4098,23 @@ msgstr ""
 
 #: actions/showgroup.php:262 actions/showstream.php:289
 #: actions/tagother.php:129 lib/grouplist.php:145 lib/profilelist.php:144
+#, fuzzy
 msgid "Note"
-msgstr ""
+msgstr "Durum mesajları"
 
 #: actions/showgroup.php:270
 msgid "Group actions"
 msgstr ""
 
 #: actions/showgroup.php:323
-#, php-format
+#, fuzzy, php-format
 msgid "Notice feed for %s group"
-msgstr ""
+msgstr "%s için durum RSS beslemesi"
 
 #: actions/showgroup.php:357 lib/groupnav.php:90
 #, fuzzy
 msgid "Members"
-msgstr "何時加入會員的呢？"
+msgstr "Üyelik başlangıcı"
 
 #: actions/showgroup.php:363 actions/showstream.php:413
 #: actions/showstream.php:442 actions/showstream.php:524 lib/section.php:95
@@ -4045,12 +4145,12 @@ msgstr ""
 #: actions/showstream.php:143
 #, fuzzy
 msgid "'s profile"
-msgstr "無此通知"
+msgstr "Profil"
 
 #: actions/showstream.php:236 actions/tagother.php:77
 #, fuzzy
 msgid "User profile"
-msgstr "無此通知"
+msgstr "Kullanıcının profili yok."
 
 #: actions/showstream.php:240 actions/tagother.php:81
 msgid "Photo"
@@ -4071,7 +4171,7 @@ msgstr ""
 #: actions/showstream.php:451
 #, fuzzy
 msgid "All subscribers"
-msgstr "所有訂閱"
+msgstr "Abone olanlar"
 
 #: actions/showstream.php:533
 msgid "All groups"
@@ -4087,44 +4187,49 @@ msgstr ""
 #: actions/smssettings.php:128
 #, fuzzy
 msgid "Phone number, no punctuation or spaces, "
-msgstr "1-64個小寫英文字母或數字，勿加標點符號或空格"
+msgstr ""
+"1-64 küçük harf veya rakam, noktalama işaretlerine ve boşluklara izin "
+"verilmez"
 
 #: actions/smssettings.php:162
+#, fuzzy
 msgid "Send me notices through SMS; "
-msgstr ""
+msgstr "Durum mesajlarını Jabber/GTalk üzerinden gönder."
 
 #: actions/smssettings.php:335
 #, fuzzy
 msgid "A confirmation code was sent to the phone number you added. "
-msgstr "確認信已寄到你的線上即時通信箱。%s送給你得訊息要先經過你的認可。"
+msgstr "O onay kodu sizin için değil!"
 
 #: actions/smssettings.php:453
 msgid "Mobile carrier"
 msgstr ""
 
 #: actions/subedit.php:70
+#, fuzzy
 msgid "You are not subscribed to that profile."
-msgstr ""
+msgstr "Bize o profili yollamadınız"
 
+#  Note: Bu federation ozelligi nasilsa simdi kullanilmayacak
 #: actions/subedit.php:83
 #, fuzzy
 msgid "Could not save subscription."
-msgstr "註冊失敗"
+msgstr "Abonelik oluşturulamadı."
 
 #: actions/subscribe.php:55
 #, fuzzy
 msgid "Not a local user."
-msgstr "無此使用者"
+msgstr "Böyle bir kullanıcı yok."
 
 #: actions/subscribe.php:69
 #, fuzzy
 msgid "Subscribed"
-msgstr "此帳號已註冊"
+msgstr "Abone ol"
 
 #: actions/subscribers.php:50
 #, fuzzy, php-format
 msgid "%s subscribers"
-msgstr "此帳號已註冊"
+msgstr "Abone olanlar"
 
 #: actions/subscribers.php:52
 #, php-format
@@ -4132,42 +4237,44 @@ msgid "%s subscribers, page %d"
 msgstr ""
 
 #: actions/subscribers.php:63
+#, fuzzy
 msgid "These are the people who listen to "
-msgstr ""
+msgstr "%s adlı kullanıcının durumunu takip edenler"
 
 #: actions/subscribers.php:67
-#, php-format
+#, fuzzy, php-format
 msgid "These are the people who "
-msgstr ""
+msgstr "%s adlı kullanıcının durumunu takip edenler"
 
 #: actions/subscriptions.php:52
 #, fuzzy, php-format
 msgid "%s subscriptions"
-msgstr "所有訂閱"
+msgstr "Bütün abonelikler"
 
 #: actions/subscriptions.php:54
 #, fuzzy, php-format
 msgid "%s subscriptions, page %d"
-msgstr "所有訂閱"
+msgstr "Bütün abonelikler"
 
 #: actions/subscriptions.php:65
+#, fuzzy
 msgid "These are the people whose notices "
-msgstr ""
+msgstr "%s adlı kullanıcının durumlarını takip ettiği kullanıcılar"
 
 #: actions/subscriptions.php:69
-#, php-format
+#, fuzzy, php-format
 msgid "These are the people whose "
-msgstr ""
+msgstr "%s adlı kullanıcının durumunu takip edenler"
 
 #: actions/subscriptions.php:122
 #, fuzzy
 msgid "Jabber"
-msgstr "查無此Jabber ID"
+msgstr "JabberID yok."
 
 #: actions/tag.php:43
 #, fuzzy, php-format
 msgid "Notices tagged with %s, page %d"
-msgstr "&s的微型部落格"
+msgstr "%s adli kullanicinin durum mesajlari"
 
 #: actions/tag.php:66
 #, php-format
@@ -4177,12 +4284,12 @@ msgstr ""
 #: actions/tagother.php:33
 #, fuzzy
 msgid "Not logged in"
-msgstr "已登入"
+msgstr "Giriş yapılmadı."
 
 #: actions/tagother.php:39
 #, fuzzy
 msgid "No id argument."
-msgstr "無此文件"
+msgstr "Böyle bir belge yok."
 
 #: actions/tagother.php:65
 #, php-format
@@ -4211,7 +4318,7 @@ msgstr ""
 #: actions/tagother.php:198
 #, fuzzy
 msgid "Could not save tags."
-msgstr "無法存取個人圖像資料"
+msgstr "Avatar bilgisi kaydedilemedi"
 
 #: actions/tagother.php:233
 msgid "Use this form to add tags to your subscribers or subscriptions."
@@ -4220,12 +4327,12 @@ msgstr ""
 #: actions/tagrss.php:35
 #, fuzzy
 msgid "No such tag."
-msgstr "無此通知"
+msgstr "Böyle bir durum mesajı yok."
 
 #: actions/tagrss.php:66
 #, fuzzy, php-format
 msgid "Microblog tagged with %s"
-msgstr "&s的微型部落格"
+msgstr "%s adli kullanicinin durum mesajlari"
 
 #: actions/twitapiblocks.php:47
 msgid "Block user failed."
@@ -4238,7 +4345,7 @@ msgstr ""
 #: actions/twitapiusers.php:48
 #, fuzzy
 msgid "Not found."
-msgstr "目前無請求"
+msgstr "İstek bulunamadı!"
 
 #: actions/twittersettings.php:71
 msgid "Add your Twitter account to automatically send "
@@ -4251,7 +4358,7 @@ msgstr ""
 #: actions/twittersettings.php:126
 #, fuzzy
 msgid "Twitter password"
-msgstr "新密碼"
+msgstr "Yeni parola"
 
 #: actions/twittersettings.php:228
 msgid "Twitter Friends"
@@ -4264,17 +4371,17 @@ msgstr ""
 #: actions/twittersettings.php:341
 #, fuzzy, php-format
 msgid "Unable to retrieve account information "
-msgstr "無法取消信箱確認"
+msgstr "Eposta onayı silinemedi."
 
 #: actions/unblock.php:108
 #, fuzzy
 msgid "Error removing the block."
-msgstr "儲存使用者發生錯誤"
+msgstr "Kullanıcıyı kaydetmede hata oluştu."
 
 #: actions/unsubscribe.php:50
 #, fuzzy
 msgid "No profile id in request."
-msgstr "無確認請求"
+msgstr "Yetkilendirme isteği yok!"
 
 #: actions/unsubscribe.php:57
 msgid "No profile with that id."
@@ -4283,7 +4390,7 @@ msgstr ""
 #: actions/unsubscribe.php:71
 #, fuzzy
 msgid "Unsubscribed"
-msgstr "此帳號已註冊"
+msgstr "Aboneliği sonlandır"
 
 #: actions/usergroups.php:63
 #, php-format
@@ -4298,7 +4405,7 @@ msgstr ""
 #: classes/Notice.php:104
 #, fuzzy
 msgid "Problem saving notice. Unknown user."
-msgstr "儲存使用者發生錯誤"
+msgstr "Durum mesajını kaydederken hata oluştu."
 
 #: classes/Notice.php:109
 msgid ""
@@ -4312,7 +4419,7 @@ msgstr ""
 #: lib/accountsettingsaction.php:108
 #, fuzzy
 msgid "Upload an avatar"
-msgstr "無法上傳個人圖像"
+msgstr "Avatar güncellemede hata."
 
 #: lib/accountsettingsaction.php:119
 msgid "Other"
@@ -4346,7 +4453,7 @@ msgstr ""
 #: lib/action.php:328
 #, fuzzy
 msgid "Account"
-msgstr "關於"
+msgstr "Hakkında"
 
 #: lib/action.php:328
 msgid "Change your email, avatar, password, profile"
@@ -4367,22 +4474,22 @@ msgstr ""
 #: lib/action.php:338
 #, fuzzy
 msgid "Create an account"
-msgstr "新增帳號"
+msgstr "Yeni hesap oluştur"
 
 #: lib/action.php:341
 #, fuzzy
 msgid "Login with OpenID"
-msgstr "無此OpenID"
+msgstr "Böyle bir OpenID yok."
 
 #: lib/action.php:344
 #, fuzzy
 msgid "Help me!"
-msgstr "求救"
+msgstr "Yardım"
 
 #: lib/action.php:362
 #, fuzzy
 msgid "Site notice"
-msgstr "新訊息"
+msgstr "Yeni durum mesajı"
 
 #: lib/action.php:417
 msgid "Local views"
@@ -4391,11 +4498,12 @@ msgstr ""
 #: lib/action.php:472
 #, fuzzy
 msgid "Page notice"
-msgstr "新訊息"
+msgstr "Yeni durum mesajı"
 
 #: lib/action.php:562
+#, fuzzy
 msgid "Secondary site navigation"
-msgstr ""
+msgstr "Abonelikler"
 
 #: lib/action.php:602 lib/action.php:623
 msgid "StatusNet software license"
@@ -4412,7 +4520,7 @@ msgstr ""
 #: lib/blockform.php:123 lib/blockform.php:153
 #, fuzzy
 msgid "Block this user"
-msgstr "無此使用者"
+msgstr "Böyle bir kullanıcı yok."
 
 #: lib/blockform.php:153
 msgid "Block"
@@ -4430,16 +4538,17 @@ msgstr ""
 #: lib/facebookaction.php:271
 #, fuzzy
 msgid " a new account."
-msgstr "新增帳號"
+msgstr "Yeni hesap oluştur"
 
 #: lib/facebookaction.php:557 lib/mailbox.php:214 lib/noticelist.php:354
+#, fuzzy
 msgid "Published"
-msgstr ""
+msgstr "Genel"
 
 #: lib/favorform.php:114 lib/favorform.php:140
 #, fuzzy
 msgid "Favor this notice"
-msgstr "無此通知"
+msgstr "Böyle bir durum mesajı yok."
 
 #: lib/feedlist.php:64
 msgid "Export data"
@@ -4466,23 +4575,26 @@ msgid "Go"
 msgstr ""
 
 #: lib/groupeditform.php:148
+#, fuzzy
 msgid "URL of the homepage or blog of the group or topic"
 msgstr ""
+"Web Sitenizin, blogunuzun ya da varsa başka bir sitedeki profilinizin adresi"
 
 #: lib/groupeditform.php:151
 #, fuzzy
 msgid "Description"
-msgstr "所有訂閱"
+msgstr "Abonelikler"
 
 #: lib/groupeditform.php:153
 #, fuzzy
 msgid "Describe the group or topic in 140 chars"
-msgstr "請在140個字以內描述你自己與你的興趣"
+msgstr "Kendinizi ve ilgi alanlarınızı 140 karakter ile anlatın"
 
 #: lib/groupeditform.php:158
+#, fuzzy
 msgid ""
 "Location for the group, if any, like \"City, State (or Region), Country\""
-msgstr ""
+msgstr "Bulunduğunuz yer, \"Şehir, Eyalet (veya Bölge), Ülke\" gibi"
 
 #: lib/groupnav.php:84 lib/searchgroupnav.php:84
 msgid "Group"
@@ -4500,7 +4612,7 @@ msgstr ""
 #: lib/groupnav.php:106
 #, fuzzy
 msgid "Logo"
-msgstr "登出"
+msgstr "Çıkış"
 
 #: lib/groupnav.php:107
 #, php-format
@@ -4523,26 +4635,27 @@ msgstr ""
 #: lib/htmloutputter.php:104
 #, fuzzy
 msgid "This page is not available in a "
-msgstr "個人首頁位址錯誤"
+msgstr "Bu sayfa kabul ettiğiniz ortam türünde kullanılabilir değil"
 
 #: lib/joinform.php:114
 #, fuzzy
 msgid "Join"
-msgstr "登入"
+msgstr "Giriş"
 
 #: lib/leaveform.php:114
+#, fuzzy
 msgid "Leave"
-msgstr ""
+msgstr "Kaydet"
 
 #: lib/logingroupnav.php:76
 #, fuzzy
 msgid "Login with a username and password"
-msgstr "使用者名稱或密碼無效"
+msgstr "Geçersiz kullanıcı adı veya parola."
 
 #: lib/logingroupnav.php:79
 #, fuzzy
 msgid "Sign up for a new account"
-msgstr "新增帳號"
+msgstr "Yeni hesap oluştur"
 
 #: lib/logingroupnav.php:82
 msgid "Login or register with OpenID"
@@ -4558,13 +4671,14 @@ msgstr ""
 #: lib/mail.php:236
 #, fuzzy, php-format
 msgid "%1$s is now listening to "
-msgstr "現在%1$s在%2$s成為你的粉絲囉"
+msgstr "%1$s %2$s'da durumunuzu takip ediyor"
 
 #: lib/mail.php:254
 #, fuzzy, php-format
 msgid "Location: %s\n"
 msgstr ""
 
+#  Belki Durum Merkezi falan denebilir mi ki?
 #: lib/mail.php:256
 #, fuzzy, php-format
 msgid "Homepage: %s\n"
@@ -4590,7 +4704,7 @@ msgstr ""
 #: lib/mail.php:555
 #, fuzzy, php-format
 msgid "%1$s just added your notice from %2$s"
-msgstr "現在%1$s在%2$s成為你的粉絲囉"
+msgstr "%1$s %2$s'da durumunuzu takip ediyor"
 
 #: lib/mailbox.php:229 lib/noticelist.php:380
 msgid "From"
@@ -4603,24 +4717,26 @@ msgstr ""
 #: lib/noticeform.php:125
 #, fuzzy
 msgid "Send a notice"
-msgstr "新訊息"
+msgstr "Yeni durum mesajı"
 
 #: lib/noticeform.php:152
 #, fuzzy
 msgid "Available characters"
-msgstr "6個以上字元"
+msgstr "6 veya daha fazla karakter"
 
 #: lib/noticelist.php:426
+#, fuzzy
 msgid "in reply to"
-msgstr ""
+msgstr "...cevap olarak"
 
 #: lib/noticelist.php:447 lib/noticelist.php:450
 msgid "Reply to this notice"
 msgstr ""
 
 #: lib/noticelist.php:451
+#, fuzzy
 msgid "Reply"
-msgstr ""
+msgstr "cevapla"
 
 #: lib/noticelist.php:471 lib/noticelist.php:474
 msgid "Delete this notice"
@@ -4653,7 +4769,7 @@ msgstr ""
 
 #: lib/publicgroupnav.php:76
 msgid "Public"
-msgstr ""
+msgstr "Genel"
 
 #: lib/publicgroupnav.php:80
 msgid "User groups"
@@ -4668,13 +4784,14 @@ msgid "Featured"
 msgstr ""
 
 #: lib/publicgroupnav.php:90
+#, fuzzy
 msgid "Popular"
-msgstr ""
+msgstr "Kişi Arama"
 
 #: lib/searchgroupnav.php:82
 #, fuzzy
 msgid "Notice"
-msgstr "新訊息"
+msgstr "Durum mesajları"
 
 #: lib/searchgroupnav.php:85
 msgid "Find groups on this site"
@@ -4687,12 +4804,12 @@ msgstr ""
 #: lib/subgroupnav.php:81
 #, fuzzy, php-format
 msgid "People %s subscribes to"
-msgstr "無此訂閱"
+msgstr "Uzaktan abonelik"
 
 #: lib/subgroupnav.php:89
 #, fuzzy, php-format
 msgid "People subscribed to %s"
-msgstr "此帳號已註冊"
+msgstr "Uzaktan abonelik"
 
 #: lib/subgroupnav.php:97
 #, php-format
@@ -4705,12 +4822,14 @@ msgid "Invite friends and colleagues to join you on %s"
 msgstr ""
 
 #: lib/subs.php:53
+#, fuzzy
 msgid "User has blocked you."
-msgstr ""
+msgstr "Kullanıcının profili yok."
 
 #: lib/subscribeform.php:115 lib/subscribeform.php:139
+#, fuzzy
 msgid "Subscribe to this user"
-msgstr ""
+msgstr "Takip talebine izin verildi"
 
 #: lib/tagcloudsection.php:56
 msgid "None"
@@ -4723,7 +4842,7 @@ msgstr ""
 #: lib/unblockform.php:120 lib/unblockform.php:150
 #, fuzzy
 msgid "Unblock this user"
-msgstr "無此使用者"
+msgstr "Böyle bir kullanıcı yok."
 
 #: lib/unblockform.php:150
 msgid "Unblock"
@@ -4735,18 +4854,20 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Delete my account"
-#~ msgstr "新增帳號"
+#~ msgstr "Yeni hesap oluştur"
 
 #~ msgid "Couldn't confirm email."
-#~ msgstr "無法確認信箱"
+#~ msgstr "Eposta onaylanamadı."
 
 #~ msgid "Email address"
-#~ msgstr "電子信箱"
+#~ msgstr "Eposta adresi"
 
 #~ msgid "Error inserting notice"
-#~ msgstr "新增訊息時發生錯誤"
+#~ msgstr "Durum gönderilirken hata oluştu"
 
 #~ msgid ""
 #~ "If you've forgotten or lost your password, you can get a new one sent  "
 #~ "the email address you have stored  in your account."
-#~ msgstr "若忘記或遺失密碼，我們會寄新的密碼到你帳號中的信箱。"
+#~ msgstr ""
+#~ "Eğer parolanızı unuttuysanız veya kaybettiyseniz, hesabınıza eklemiş "
+#~ "olduğunuz eposta adresine yeni bir tane gönderilmesini sağlayabilirsiniz."
