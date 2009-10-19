@@ -99,8 +99,8 @@ function facebookBroadcastNotice($notice)
             // XXX: Does this call count against our per user FB request limit?
             // If so we should consider storing verb elsewhere or not storing
 
-            $prefix = $facebook->api_client->data_getUserPreference(FACEBOOK_NOTICE_PREFIX,
-                                                                    $fbuid);
+            $prefix = trim($facebook->api_client->data_getUserPreference(FACEBOOK_NOTICE_PREFIX,
+                                                                         $fbuid));
 
             $status = "$prefix $notice->content";
 
