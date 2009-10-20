@@ -29,6 +29,8 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
+require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
+
 /**
  * Plugin for sending and importing Twitter statuses
  *
@@ -104,11 +106,11 @@ class TwitterBridgePlugin extends Plugin
         switch ($cls) {
         case 'TwittersettingsAction':
         case 'TwitterauthorizationAction':
-            include_once INSTALLDIR.'/plugins/TwitterBridge/' .
+            include_once INSTALLDIR . '/plugins/TwitterBridge/' .
               strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
         case 'TwitterOAuthClient':
-            include_once INSTALLDIR.'/plugins/TwitterBridge/twitteroauthclient.php';
+            include_once INSTALLDIR . '/plugins/TwitterBridge/twitteroauthclient.php';
             return false;
         default:
             return true;
@@ -118,15 +120,45 @@ class TwitterBridgePlugin extends Plugin
     /**
      * Add a Twitter queue item for each notice
      *
-     * @param Notice $notice     the notice
-     * @param array  $transports the list of transports (queues)
+     * @param Notice $notice      the notice
+     * @param array  &$transports the list of transports (queues)
      *
      * @return boolean hook return
      */
-    function onStartEnqueueNotice($notice, $transports)
+    function onStartEnqueueNotice($notice, &$transports)
     {
         array_push($transports, 'twitter');
         return true;
+    }
+
+    /**
+     * broadcast the message when not using queuehandler
+     *
+     * @param Notice &$notice the notice
+     * @param array  $queue   destination queue
+     *
+     * @return boolean hook return
+     */
+    function onUnqueueHandleNotice(&$notice, $queue)
+    {
+        if (($queue == 'twitter') && ($this->_isLocal($notice))) {
+            broadcast_twitter($notice);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Determine whether the notice was locally created
+     *
+     * @param Notice $notice
+     *
+     * @return boolean locality
+     */
+    function _isLocal($notice)
+    {
+        return ($notice->is_local == Notice::LOCAL_PUBLIC ||
+                $notice->is_local == Notice::LOCAL_NONPUBLIC);
     }
 
     /**

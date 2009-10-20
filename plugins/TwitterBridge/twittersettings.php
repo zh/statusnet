@@ -152,7 +152,7 @@ class TwittersettingsAction extends ConnectSettingsAction
                             false);
             $this->elementEnd('li');
 
-            if (common_config('twitterbridge','enabled')) {
+            if (common_config('twitterimport','enabled')) {
                 $this->elementStart('li');
                 $this->checkbox('noticerecv',
                                 _('Import my Friends Timeline.'),
