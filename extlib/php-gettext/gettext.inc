@@ -129,7 +129,7 @@ function _setlocale($category, $locale) {
         $ret = 0;
         if (function_exists('setlocale')) // I don't know if this ever happens ;)
            $ret = setlocale($category, $locale);
-        if (($ret and $locale == '') or ($ret == $locale)) {
+        if ($ret and ($locale == '' or $ret == $locale)) {
             $EMULATEGETTEXT = 0;
             $CURRENTLOCALE = $ret;
         } else {

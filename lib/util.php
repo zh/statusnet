@@ -51,13 +51,23 @@ function common_init_locale($language=null)
 function common_init_language()
 {
     mb_internal_encoding('UTF-8');
+
+    // gettext seems very picky... We first need to setlocale()
+    // to a locale which _does_ exist on the system, and _then_
+    // we can set in another locale that may not be set up
+    // (say, ga_ES for Galego/Galician) it seems to take it.
+    common_init_locale("en_US");
+    
     $language = common_language();
-    // So we don't have to make people install the gettext locales
     $locale_set = common_init_locale($language);
-    bindtextdomain("statusnet", common_config('site','locale_path'));
+    setlocale(LC_CTYPE, 'C');
+    
+    // So we don't have to make people install the gettext locales
+    $path = common_config('site','locale_path');
+    bindtextdomain("statusnet", $path);
     bind_textdomain_codeset("statusnet", "UTF-8");
     textdomain("statusnet");
-    setlocale(LC_CTYPE, 'C');
+
     if(!$locale_set) {
         common_log(LOG_INFO, 'Language requested:' . $language . ' - locale could not be set. Perhaps that system locale is not installed.', __FILE__);
     }
@@ -391,7 +401,7 @@ function common_render_content($text, $notice)
 {
     $r = common_render_text($text);
     $id = $notice->profile_id;
-    $r = preg_replace('/(^|[\s\.\,\:\;]+)@([A-Za-z0-9]{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
+    $r = preg_replace('/(^|\s+)@(['.NICKNAME_FMT.']{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
     $r = preg_replace('/^T ([A-Z0-9]{1,64}) /e', "'T '.common_at_link($id, '\\1').' '", $r);
     $r = preg_replace('/(^|[\s\.\,\:\;]+)@#([A-Za-z0-9]{1,64})/e', "'\\1@#'.common_at_hash_link($id, '\\2')", $r);
     $r = preg_replace('/(^|[\s\.\,\:\;]+)!([A-Za-z0-9]{1,64})/e', "'\\1!'.common_group_link($id, '\\2')", $r);
