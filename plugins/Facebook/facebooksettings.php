@@ -17,9 +17,11 @@
  * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) {
+    exit(1);
+}
 
-require_once INSTALLDIR.'/lib/facebookaction.php';
+require_once INSTALLDIR . '/lib/facebookaction.php';
 
 class FacebooksettingsAction extends FacebookAction
 {
@@ -91,16 +93,16 @@ class FacebooksettingsAction extends FacebookAction
                                                'id' => 'facebook_settings'));
 
             $this->elementStart('ul', 'form_data');
-                                           
+
             $this->elementStart('li');
-            
+
             $this->checkbox('noticesync', _('Automatically update my Facebook status with my notices.'),
                                 ($this->flink) ? ($this->flink->noticesync & FOREIGN_NOTICE_SEND) : true);
 
             $this->elementEnd('li');
-            
+
             $this->elementStart('li');
-            
+
             $this->checkbox('replysync', _('Send "@" replies to Facebook.'),
                              ($this->flink) ? ($this->flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) : true);
 
@@ -115,15 +117,15 @@ class FacebooksettingsAction extends FacebookAction
                          _('A string to prefix notices with.'));
 
             $this->elementEnd('li');
-            
+
             $this->elementStart('li');
-            
+
             $this->submit('save', _('Save'));
 
             $this->elementEnd('li');
 
             $this->elementEnd('ul');
-        
+
             $this->elementEnd('form');
 
         } else {
@@ -148,8 +150,8 @@ class FacebooksettingsAction extends FacebookAction
         }
 
     }
-    
-    function title() 
+
+    function title()
     {
         return _('Sync preferences');
     }

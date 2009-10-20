@@ -39,7 +39,6 @@ $daemons = array();
 
 $daemons[] = INSTALLDIR.'/scripts/pluginqueuehandler.php';
 $daemons[] = INSTALLDIR.'/scripts/ombqueuehandler.php';
-$daemons[] = INSTALLDIR.'/scripts/facebookqueuehandler.php';
 $daemons[] = INSTALLDIR.'/scripts/pingqueuehandler.php';
 
 if(common_config('xmpp','enabled')) {

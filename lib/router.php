@@ -86,14 +86,6 @@ class Router
 
         $m->connect('doc/:title', array('action' => 'doc'));
 
-        // facebook
-
-        $m->connect('facebook', array('action' => 'facebookhome'));
-        $m->connect('facebook/index.php', array('action' => 'facebookhome'));
-        $m->connect('facebook/settings.php', array('action' => 'facebooksettings'));
-        $m->connect('facebook/invite.php', array('action' => 'facebookinvite'));
-        $m->connect('facebook/remove', array('action' => 'facebookremove'));
-
         // main stuff is repetitive
 
         $main = array('login', 'logout', 'register', 'subscribe',

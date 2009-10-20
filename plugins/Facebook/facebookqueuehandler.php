@@ -32,7 +32,7 @@ END_OF_FACEBOOK_HELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
-require_once INSTALLDIR . '/lib/facebookutil.php';
+require_once INSTALLDIR . '/plugins/Facebook/facebookutil.php';
 require_once INSTALLDIR . '/lib/queuehandler.php';
 
 class FacebookQueueHandler extends QueueHandler

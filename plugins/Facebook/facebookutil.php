@@ -17,9 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once INSTALLDIR.'/extlib/facebook/facebook.php';
-require_once INSTALLDIR.'/lib/facebookaction.php';
-require_once INSTALLDIR.'/lib/noticelist.php';
+require_once INSTALLDIR . '/extlib/facebook/facebook.php';
+require_once INSTALLDIR . '/plugins/Facebook/facebookaction.php';
+require_once INSTALLDIR . '/lib/noticelist.php';
 
 define("FACEBOOK_SERVICE", 2); // Facebook is foreign_service ID 2
 define("FACEBOOK_NOTICE_PREFIX", 1);
