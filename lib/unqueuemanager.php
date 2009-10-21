@@ -48,12 +48,6 @@ class UnQueueManager
                 jabber_public_notice($notice);
             }
             break;
-         case 'facebook':
-            if ($this->_isLocal($notice)) {
-                require_once INSTALLDIR . '/lib/facebookutil.php';
-                return facebookBroadcastNotice($notice);
-            }
-            break;
          case 'ping':
             if ($this->_isLocal($notice)) {
                 require_once INSTALLDIR . '/lib/ping.php';
