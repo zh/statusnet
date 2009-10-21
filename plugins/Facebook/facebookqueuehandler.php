@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
+define('INSTALLDIR', realpath(dirname(__FILE__) . '/../..'));
 
 $shortoptions = 'i::';
 $longoptions = array('id::');
@@ -30,8 +30,7 @@ Daemon script for pushing new notices to Facebook.
 
 END_OF_FACEBOOK_HELP;
 
-require_once INSTALLDIR.'/scripts/commandline.inc';
-
+require_once INSTALLDIR . '/scripts/commandline.inc';
 require_once INSTALLDIR . '/plugins/Facebook/facebookutil.php';
 require_once INSTALLDIR . '/lib/queuehandler.php';
 

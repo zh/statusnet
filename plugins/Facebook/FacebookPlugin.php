@@ -34,12 +34,6 @@ if (!defined('STATUSNET')) {
 define("FACEBOOK_CONNECT_SERVICE", 3);
 
 require_once INSTALLDIR . '/plugins/Facebook/facebookutil.php';
-require_once INSTALLDIR . '/plugins/Facebook/FBConnectAuth.php';
-require_once INSTALLDIR . '/plugins/Facebook/FBConnectLogin.php';
-require_once INSTALLDIR . '/plugins/Facebook/FBConnectSettings.php';
-require_once INSTALLDIR . '/plugins/Facebook/FBCLoginGroupNav.php';
-require_once INSTALLDIR . '/plugins/Facebook/FBCSettingsNav.php';
-require_once INSTALLDIR . '/plugins/Facebook/FBC_XDReceiver.php';
 
 /**
  * Facebook plugin to add a StatusNet Facebook application
@@ -69,11 +63,11 @@ class FacebookPlugin extends Plugin
 
         // Facebook App stuff
 
-        $m->connect('facebook', array('action' => 'facebookhome'));
-        $m->connect('facebook/index.php', array('action' => 'facebookhome'));
-        $m->connect('facebook/settings.php', array('action' => 'facebooksettings'));
-        $m->connect('facebook/invite.php', array('action' => 'facebookinvite'));
-        $m->connect('facebook/remove', array('action' => 'facebookremove'));
+        $m->connect('facebook/app', array('action' => 'facebookhome'));
+        $m->connect('facebook/app/index.php', array('action' => 'facebookhome'));
+        $m->connect('facebook/app/settings.php', array('action' => 'facebooksettings'));
+        $m->connect('facebook/app/invite.php', array('action' => 'facebookinvite'));
+        $m->connect('facebook/app/remove', array('action' => 'facebookremove'));
 
         // Facebook Connect stuff
 
@@ -104,12 +98,25 @@ class FacebookPlugin extends Plugin
             include_once INSTALLDIR . '/plugins/Facebook/' .
               strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
+        case 'FBConnectAuthAction':
+        case 'FBConnectLoginAction':
+        case 'FBConnectSettingsAction':
+        case 'FBC_XDReceiverAction':
+            include_once INSTALLDIR . '/plugins/Facebook/' .
+              mb_substr($cls, 0, -6) . '.php';
+            return false;
+        case 'FBCLoginGroupNav':
+            include_once INSTALLDIR . '/plugins/Facebook/FBCLoginGroupNav.php';
+            return false;
+        case 'FBCSettingsNav':
+            include_once INSTALLDIR . '/plugins/Facebook/FBCSettingsNav.php';
+            return false;
         default:
             return true;
         }
     }
 
-        // Add in xmlns:fb
+    // Add in xmlns:fb
     function onStartShowHTML($action)
     {
 
@@ -143,7 +150,7 @@ class FacebookPlugin extends Plugin
         }
     }
 
-        // Note: this script needs to appear in the <body>
+    // Note: this script needs to appear in the <body>
 
     function onEndShowScripts($action)
     {
@@ -204,7 +211,7 @@ class FacebookPlugin extends Plugin
 
     }
 
-        // Note: this script needs to appear as close as possible to </body>
+    // Note: this script needs to appear as close as possible to </body>
 
     function onEndShowFooter($action)
     {
@@ -220,7 +227,7 @@ class FacebookPlugin extends Plugin
         }
     }
 
-        /**
+    /**
      * Does the Action we're plugged into require the FB Scripts?  We only
      * want to output FB namespace, scripts, CSS, etc. on the pages that
      * really need them.
