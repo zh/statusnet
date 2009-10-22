@@ -76,15 +76,15 @@ class GeonamesPlugin extends Plugin
 
         if ($result->code == "200") {
             $rj = json_decode($result->body);
-            if (count($rj['geonames']) > 0) {
-                $n = $rj['geonames'][0];
+            if (count($rj->geonames) > 0) {
+                $n = $rj->geonames[0];
 
                 $location = new Location();
 
-                $location->lat              = $n['lat'];
-                $location->lon              = $n['lng'];
-                $location->names[$language] = $n['name'];
-                $location->location_id      = $n['geonameId'];
+                $location->lat              = $n->lat;
+                $location->lon              = $n->lng;
+                $location->names[$language] = $n->name;
+                $location->location_id      = $n->geonameId;
                 $location->location_ns      = self::NAMESPACE;
 
                 // handled, don't continue processing!
@@ -125,28 +125,28 @@ class GeonamesPlugin extends Plugin
 
             $rj = json_decode($result->body);
 
-            if (count($rj['geonames']) > 0) {
+            if (count($rj->geonames) > 0) {
 
                 $parts = array();
 
-                foreach ($rj['geonames'] as $level) {
-                    if (in_array($level['fcode'], array('PCLI', 'ADM1', 'PPL'))) {
-                        $parts[] = $level['name'];
+                foreach ($rj->geonames as $level) {
+                    if (in_array($level->fcode, array('PCLI', 'ADM1', 'PPL'))) {
+                        $parts[] = $level->name;
                     }
                 }
 
-                $last = $rj['geonames'][count($rj['geonames'])-1];
+                $last = $rj->geonames[count($rj->geonames)-1];
 
-                if (!in_array($level['fcode'], array('PCLI', 'ADM1', 'PPL'))) {
-                    $parts[] = $last['name'];
+                if (!in_array($level->fcode, array('PCLI', 'ADM1', 'PPL'))) {
+                    $parts[] = $last->name;
                 }
 
                 $location = new Location();
 
-                $location->location_id      = $last['geonameId'];
+                $location->location_id      = $last->geonameId;
                 $location->location_ns      = self::NAMESPACE;
-                $location->lat              = $last['lat'];
-                $location->lon              = $last['lng'];
+                $location->lat              = $last->lat;
+                $location->lon              = $last->lng;
                 $location->names[$language] = implode(', ', array_reverse($parts));
             }
         }
@@ -186,25 +186,25 @@ class GeonamesPlugin extends Plugin
 
             $rj = json_decode($result->body);
 
-            if (count($rj['geonames']) > 0) {
+            if (count($rj->geonames) > 0) {
 
-                $n = $rj['geonames'][0];
+                $n = $rj->geonames[0];
 
                 $parts = array();
 
                 $location = new Location();
 
-                $parts[] = $n['name'];
+                $parts[] = $n->name;
 
-                if (!empty($n['adminName1'])) {
-                    $parts[] = $n['adminName1'];
+                if (!empty($n->adminName1)) {
+                    $parts[] = $n->adminName1;
                 }
 
-                if (!empty($n['countryName'])) {
-                    $parts[] = $n['countryName'];
+                if (!empty($n->countryName)) {
+                    $parts[] = $n->countryName;
                 }
 
-                $location->location_id = $n['geonameId'];
+                $location->location_id = $n->geonameId;
                 $location->location_ns = self::NAMESPACE;
                 $location->lat         = $lat;
                 $location->lon         = $lon;
@@ -253,20 +253,20 @@ class GeonamesPlugin extends Plugin
 
             $rj = json_decode($result->body);
 
-            if (count($rj['geonames']) > 0) {
+            if (count($rj->geonames) > 0) {
 
                 $parts = array();
 
-                foreach ($rj['geonames'] as $level) {
-                    if (in_array($level['fcode'], array('PCLI', 'ADM1', 'PPL'))) {
-                        $parts[] = $level['name'];
+                foreach ($rj->geonames as $level) {
+                    if (in_array($level->fcode, array('PCLI', 'ADM1', 'PPL'))) {
+                        $parts[] = $level->name;
                     }
                 }
 
-                $last = $rj['geonames'][count($rj['geonames'])-1];
+                $last = $rj->geonames[count($rj->geonames)-1];
 
-                if (!in_array($level['fcode'], array('PCLI', 'ADM1', 'PPL'))) {
-                    $parts[] = $last['name'];
+                if (!in_array($level->fcode, array('PCLI', 'ADM1', 'PPL'))) {
+                    $parts[] = $last->name;
                 }
 
                 if (count($parts)) {
