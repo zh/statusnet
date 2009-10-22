@@ -145,16 +145,16 @@ $default =
         'integration' =>
         array('source' => 'StatusNet', # source attribute for Twitter
               'taguri' => $_server.',2009'), # base for tag URIs
-	'twitter' =>
-	array('enabled'       => true,
-	    'consumer_key'    => null,
-	    'consumer_secret' => null),
+        'twitter' =>
+        array('enabled'       => true,
+              'consumer_key'    => null,
+              'consumer_secret' => null),
         'memcached' =>
         array('enabled' => false,
               'server' => 'localhost',
               'base' => null,
               'port' => 11211),
- 		'ping' =>
+        'ping' =>
         array('notify' => array()),
         'inboxes' =>
         array('enabled' => true), # ignored after 0.9.x
@@ -200,12 +200,12 @@ $default =
                                    'video/mp4',
                                    'video/quicktime',
                                    'video/mpeg'),
-        'file_quota' => 5000000,
-        'user_quota' => 50000000,
-        'monthly_quota' => 15000000,
-        'uploads' => true,
-        'filecommand' => '/usr/bin/file',
-        ),
+              'file_quota' => 5000000,
+              'user_quota' => 50000000,
+              'monthly_quota' => 15000000,
+              'uploads' => true,
+              'filecommand' => '/usr/bin/file',
+              ),
         'group' =>
         array('maxaliases' => 3,
               'desclimit' => null),
