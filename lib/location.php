@@ -146,7 +146,7 @@ class Location
             $language = common_language();
         }
 
-        if (array_key_exists($this->names, $language)) {
+        if (array_key_exists($language, $this->names)) {
             return $this->names[$language];
         } else {
             $name = null;
