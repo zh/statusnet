@@ -23,6 +23,9 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 
 define('TWITTER_SERVICE', 1); // Twitter is foreign_service ID 1
 
+require_once INSTALLDIR . '/plugins/TwitterBridge/twitterbasicauthclient.php';
+require_once INSTALLDIR . '/plugins/TwitterBridge/twitteroauthclient.php';
+
 function updateTwitter_user($twitter_id, $screen_name)
 {
     $uri = 'http://twitter.com/' . $screen_name;

@@ -18,7 +18,7 @@
  * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
+define('INSTALLDIR', realpath(dirname(__FILE__) . '/../../..'));
 
 $shortoptions = 'di::';
 $longoptions = array('id::', 'debug');
@@ -32,6 +32,9 @@ END_OF_TRIM_HELP;
 
 require_once INSTALLDIR . '/scripts/commandline.inc';
 require_once INSTALLDIR . '/lib/parallelizingdaemon.php';
+require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
+require_once INSTALLDIR . '/plugins/TwitterBridge/twitterbasicauthclient.php';
+require_once INSTALLDIR . '/plugins/TwitterBridge/twitteroauthclient.php';
 
 /**
  * Daemon to sync local friends with Twitter friends
@@ -43,14 +46,6 @@ require_once INSTALLDIR . '/lib/parallelizingdaemon.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
-$helptext = <<<END_OF_TWITTER_HELP
-Batch script for synching local friends with Twitter friends.
-
-END_OF_TWITTER_HELP;
-
-require_once INSTALLDIR . '/scripts/commandline.inc';
-require_once INSTALLDIR . '/lib/parallelizingdaemon.php';
 
 class SyncTwitterFriendsDaemon extends ParallelizingDaemon
 {

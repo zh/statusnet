@@ -31,8 +31,8 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/connectsettingsaction.php';
-require_once INSTALLDIR.'/lib/twitter.php';
+require_once INSTALLDIR . '/lib/connectsettingsaction.php';
+require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
 
 /**
  * Settings for Twitter integration
@@ -82,11 +82,6 @@ class TwittersettingsAction extends ConnectSettingsAction
 
     function showContent()
     {
-        if (!common_config('twitter', 'enabled')) {
-            $this->element('div', array('class' => 'error'),
-                           _('Twitter is not available.'));
-            return;
-        }
 
         $user = common_current_user();
 
@@ -157,7 +152,7 @@ class TwittersettingsAction extends ConnectSettingsAction
                             false);
             $this->elementEnd('li');
 
-            if (common_config('twitterbridge','enabled')) {
+            if (common_config('twitterimport','enabled')) {
                 $this->elementStart('li');
                 $this->checkbox('noticerecv',
                                 _('Import my Friends Timeline.'),

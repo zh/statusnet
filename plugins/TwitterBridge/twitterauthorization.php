@@ -31,9 +31,32 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
+require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
+
+/**
+ * Class for doing OAuth authentication against Twitter
+ *
+ * Peforms the OAuth "dance" between StatusNet and Twitter -- requests a token,
+ * authorizes it, and exchanges it for an access token.  It also creates a link
+ * (Foreign_link) between the StatusNet user and Twitter user and stores the
+ * access token and secret in the link.
+ *
+ * @category Twitter
+ * @package  StatusNet
+ * @author   Zach Copley <zach@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ *
+ */
 class TwitterauthorizationAction extends Action
 {
-
+    /**
+     * Initialize class members. Looks for 'oauth_token' parameter.
+     *
+     * @param array $args misc. arguments
+     *
+     * @return boolean true
+     */
     function prepare($args)
     {
         parent::prepare($args);

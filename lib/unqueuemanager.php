@@ -48,11 +48,6 @@ class UnQueueManager
                 jabber_public_notice($notice);
             }
             break;
-         case 'twitter':
-            if ($this->_isLocal($notice)) {
-                broadcast_twitter($notice);
-            }
-            break;
          case 'facebook':
             if ($this->_isLocal($notice)) {
                 require_once INSTALLDIR . '/lib/facebookutil.php';
