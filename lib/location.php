@@ -34,6 +34,10 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 /**
  * class for locations
  *
+ * These are stored in the DB as part of notice and profile records,
+ * but since they're about the same in both, we have a separate class
+ * for them.
+ *
  * @category Location
  * @package  StatusNet
  * @author   Evan Prodromou <evan@status.net>
@@ -48,73 +52,93 @@ class Location
     public $location_id;
     public $location_ns;
 
-    var $names;
+    var $names = array();
 
-    const geonames = 1;
-    const whereOnEarth = 2;
+    /**
+     * Constructor that makes a Location from a string name
+     *
+     * @param string $name     Human-readable name (any kind)
+     * @param string $language Language, default = common_language()
+     *
+     * @return Location Location with that name (or null if not found)
+     */
 
-    static function fromName($name, $language=null, $location_ns=null)
+    static function fromName($name, $language=null)
     {
         if (is_null($language)) {
             $language = common_language();
         }
-        if (is_null($location_ns)) {
-            $location_ns = common_config('location', 'namespace');
+
+        $location = null;
+
+        // Let a third-party handle it
+
+        Event::handle('LocationFromName', array($name, $language, &$location));
+
+        return $location;
+    }
+
+    /**
+     * Constructor that makes a Location from an ID
+     *
+     * @param integer $id       Identifier ID
+     * @param integer $ns       Namespace of the identifier
+     * @param string  $language Language to return name in (default is common)
+     *
+     * @return Location The location with this ID (or null if none)
+     */
+
+    static function fromId($id, $ns, $language=null)
+    {
+        $location = null;
+
+        // Let a third-party handle it
+
+        Event::handle('LocationFromId', array($id, $ns, $language, &$location));
+
+        return $location;
+    }
+
+    /**
+     * Constructor that finds the nearest location to a lat/lon pair
+     *
+     * @param float  $lat      Latitude
+     * @param float  $lon      Longitude
+     * @param string $language Language for results, default = current
+     *
+     * @return Location the location found, or null if none found
+     */
+
+    static function fromLatLon($lat, $lon, $language=null)
+    {
+        if (is_null($language)) {
+            $language = common_language();
         }
 
         $location = null;
 
-        if (Event::handle('LocationFromName', array($name, $language, $location_ns, &$location))) {
+        // Let a third-party handle it
 
-            switch ($location_ns) {
-             case Location::geonames:
-                return Location::fromGeonamesName($name, $language);
-                break;
-             case Location::whereOnEarth:
-                return Location::fromWhereOnEarthName($name, $language);
-                break;
-            }
+        if (Event::handle('LocationFromLatLon',
+                          array($lat, $lon, $language, &$location))) {
+            // Default is just the lat/lon pair
+
+            $location = new Location();
+
+            $location->lat = $lat;
+            $location->lon = $lon;
         }
 
         return $location;
     }
 
-    static function fromGeonamesName($name, $language)
-    {
-        $location = null;
-        $client = HTTPClient::start();
-
-        // XXX: break down a name by commas, narrow by each
-
-        $str = http_build_query(array('maxRows' => 1,
-                                      'q' => $name,
-                                      'lang' => $language,
-                                      'type' => 'json'));
-
-        $result = $client->get('http://ws.geonames.org/search?'.$str);
-
-        if ($result->code == "200") {
-            $rj = json_decode($result->body);
-            if (count($rj['geonames']) > 0) {
-                $n = $rj['geonames'][0];
-                $location = new Location();
-                $location->lat = $n->lat;
-                $location->lon = $n->lon;
-                $location->name = $n->name;
-                $location->location_id = $n->geonameId;
-                $location->location_ns = Location:geonames;
-            }
-        }
-
-        return $location;
-    }
-
-    static function fromId($location_id, $location_ns = null)
-    {
-        if (is_null($location_ns)) {
-            $location_ns = common_config('location', 'namespace');
-        }
-    }
+    /**
+     * Get the name for this location in the given language
+     *
+     * @param string $language language to use, default = current
+     *
+     * @return string location name or null if not found
+     */
 
     function getName($language=null)
     {
@@ -124,6 +148,13 @@ class Location
 
         if (array_key_exists($this->names, $language)) {
             return $this->names[$language];
+        } else {
+            $name = null;
+            Event::handle('LocationNameLanguage', array($this, $language, &$name));
+            if (!empty($name)) {
+                $this->names[$language] = $name;
+                return $name;
+            }
         }
     }
 }
