@@ -906,7 +906,6 @@ function common_broadcast_notice($notice, $remote=false)
 function common_enqueue_notice($notice)
 {
     static $localTransports = array('omb',
-                                    'facebook',
                                     'ping');
 
     static $allTransports = array('sms', 'plugin');
