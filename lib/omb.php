@@ -87,7 +87,7 @@ function omb_broadcast_notice($notice)
         common_debug('Posting to ' . $rp->postnoticeurl, __FILE__);
 
         /* Post notice. */
-        $service = new Laconica_OMB_Service_Consumer(
+        $service = new StatusNet_OMB_Service_Consumer(
                      array(OMB_ENDPOINT_POSTNOTICE => $rp->postnoticeurl));
         try {
             $service->setToken($rp->token, $rp->secret);

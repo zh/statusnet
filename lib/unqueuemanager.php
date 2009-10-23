@@ -72,7 +72,7 @@ class UnQueueManager
             break;
          default:
             if (Event::handle('UnqueueHandleNotice', array(&$notice, $queue))) {
-                throw ServerException("UnQueueManager: Unknown queue: $queue");
+                throw new ServerException("UnQueueManager: Unknown queue: $queue");
             }
         }
     }
