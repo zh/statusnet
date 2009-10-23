@@ -65,7 +65,8 @@ class FacebookPlugin extends Plugin
 
         $m->connect('facebook/app', array('action' => 'facebookhome'));
         $m->connect('facebook/app/index.php', array('action' => 'facebookhome'));
-        $m->connect('facebook/app/settings.php', array('action' => 'facebooksettings'));
+        $m->connect('facebook/app/settings.php',
+                    array('action' => 'facebooksettings'));
         $m->connect('facebook/app/invite.php', array('action' => 'facebookinvite'));
         $m->connect('facebook/app/remove', array('action' => 'facebookremove'));
 
@@ -87,6 +88,7 @@ class FacebookPlugin extends Plugin
      * @return boolean hook return
      *
      */
+
     function onAutoload($cls)
     {
         switch ($cls) {
@@ -116,7 +118,15 @@ class FacebookPlugin extends Plugin
         }
     }
 
-    // Add in xmlns:fb
+    /**
+     * Override normal HTML output to force the content type to
+     * text/html and add in xmlns:fb
+     *
+     * @param Action $action the current action
+     *
+     * @return void
+     */
+
     function onStartShowHTML($action)
     {
 
@@ -128,6 +138,7 @@ class FacebookPlugin extends Plugin
             // text/html even though Facebook Connect uses XHTML.  This is
             // A bug in Facebook Connect, and this is a temporary solution
             // until they fix their JavaScript libs.
+
             header('Content-Type: text/html');
 
             $action->extraHeaders();
@@ -150,22 +161,31 @@ class FacebookPlugin extends Plugin
         }
     }
 
-    // Note: this script needs to appear in the <body>
+    /**
+     * Add in the Facebook Connect JavaScript stuff
+     *
+     * Note: this script needs to appear in the <body>
+     *
+     * @param Action $action the current action
+     *
+     * @return void
+     *
+     */
 
     function onEndShowScripts($action)
     {
         if ($this->reqFbScripts($action)) {
 
-            $apikey = common_config('facebook', 'apikey');
+            $apikey      = common_config('facebook', 'apikey');
             $plugin_path = common_path('plugins/Facebook');
 
-            $login_url = common_local_url('FBConnectAuth');
+            $login_url  = common_local_url('FBConnectAuth');
             $logout_url = common_local_url('logout');
 
             // XXX: Facebook says we don't need this FB_RequireFeatures(),
             // but we actually do, for IE and Safari. Gar.
 
-            $js =  '<script type="text/javascript">';
+            $js  = '<script type="text/javascript">';
             $js .= '    $(document).ready(function () {';
             $js .= '         FB_RequireFeatures(';
             $js .= '             ["XFBML"], function() {';
@@ -204,6 +224,7 @@ class FacebookPlugin extends Plugin
             $js = sprintf($js, $apikey, $login_url, $logout_url);
 
             // Compress the bugger down a bit
+
             $js = str_replace('  ', '', $js);
 
             $action->raw("  $js");  // leading two spaces to make it line up
@@ -211,14 +232,32 @@ class FacebookPlugin extends Plugin
 
     }
 
-    // Note: this script needs to appear as close as possible to </body>
+    /**
+     * Add in an additional Facebook Connect script that's supposed to
+     * appear as close as possible to </body>
+     *
+     * @param Action $action the current action
+     *
+     * @return void
+     *
+     */
 
     function onEndShowFooter($action)
     {
         if ($this->reqFbScripts($action)) {
-            $action->script('http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php');
+            $action->script('http://static.ak.connect.facebook.com' .
+                            '/js/api_lib/v0.4/FeatureLoader.js.php');
         }
     }
+
+    /**
+     * Output Facebook Connect specific CSS link
+     *
+     * @param Action $action the current action
+     *
+     * @return void
+     *
+     */
 
     function onEndShowStatusNetStyles($action)
     {
@@ -232,12 +271,13 @@ class FacebookPlugin extends Plugin
      * want to output FB namespace, scripts, CSS, etc. on the pages that
      * really need them.
      *
-     * @param Action the action in question
+     * @param Action $action the current action
      *
      * @return boolean true
      */
 
-    function reqFbScripts($action) {
+    function reqFbScripts($action)
+    {
 
         // If you're logged in w/FB Connect, you always need the FB stuff
 
@@ -299,10 +339,19 @@ class FacebookPlugin extends Plugin
         return null;
     }
 
+    /**
+     * Add in a Facebook Connect avatar to the primary nav menu
+     *
+     * @param Action $action the current action
+     *
+     * @return void
+     *
+     */
+
     function onStartPrimaryNav($action)
     {
-
         $user = common_current_user();
+
         $connect = 'FBConnectSettings';
         if (common_config('xmpp', 'enabled')) {
             $connect = 'imsettings';
@@ -345,9 +394,19 @@ class FacebookPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Alter the local nav menu to have a Facebook Connect login and
+     * settings pages
+     *
+     * @param Action $action the current action
+     *
+     * @return void
+     *
+     */
+
     function onStartShowLocalNavBlock($action)
     {
-        $action_name   = get_class($action);
+        $action_name = get_class($action);
 
         $login_actions = array('LoginAction', 'RegisterAction',
             'OpenidloginAction', 'FBConnectLoginAction');
@@ -370,6 +429,14 @@ class FacebookPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Have the logout process do some Facebook Connect cookie cleanup
+     *
+     * @param Action $action the current action
+     *
+     * @return void
+     */
+
     function onStartLogout($action)
     {
         $action->logout();
@@ -389,9 +456,16 @@ class FacebookPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Get the URL of the user's Facebook avatar
+     *
+     * @param int $fbuid the Facebook user ID
+     *
+     * @return string $url the url for the user's Facebook avatar
+     */
+
     function getProfilePicURL($fbuid)
     {
-
         $facebook = getFacebook();
         $url      = null;
 
@@ -410,8 +484,7 @@ class FacebookPlugin extends Plugin
                        "Facebook client failure requesting profile pic!");
         }
 
-       return $url;
-
+        return $url;
     }
 
     /**
@@ -422,6 +495,7 @@ class FacebookPlugin extends Plugin
      *
      * @return boolean hook return
      */
+
     function onStartEnqueueNotice($notice, &$transports)
     {
         array_push($transports, 'facebook');
@@ -436,6 +510,7 @@ class FacebookPlugin extends Plugin
      *
      * @return boolean hook return
      */
+
     function onUnqueueHandleNotice(&$notice, $queue)
     {
         if (($queue == 'facebook') && ($this->_isLocal($notice))) {
@@ -448,10 +523,11 @@ class FacebookPlugin extends Plugin
     /**
      * Determine whether the notice was locally created
      *
-     * @param Notice $notice
+     * @param Notice $notice the notice
      *
      * @return boolean locality
      */
+
     function _isLocal($notice)
     {
         return ($notice->is_local == Notice::LOCAL_PUBLIC ||
@@ -466,6 +542,7 @@ class FacebookPlugin extends Plugin
      * @return boolean hook return
      *
      */
+
     function onGetValidDaemons($daemons)
     {
         array_push($daemons, INSTALLDIR .
