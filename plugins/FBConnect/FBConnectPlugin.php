@@ -115,26 +115,48 @@ class FBConnectPlugin extends Plugin
             // XXX: Facebook says we don't need this FB_RequireFeatures(),
             // but we actually do, for IE and Safari. Gar.
 
-            $html = sprintf('<script type="text/javascript">
-                                $(document).ready(function () {
-                                    FB_RequireFeatures(
-                                        ["XFBML"],
-                                            function() {
-                                                FB.init("%s", "../xd_receiver.html");
-                                            }
-                                        ); });
+            $js =  '<script type="text/javascript">';
+            $js .= '    $(document).ready(function () {';
+            $js .= '         FB_RequireFeatures(';
+            $js .= '             ["XFBML"], function() {';
+            $js .= '                 FB.init("%1$s", "../xd_receiver.html");';
+            $js .= '             }';
+            $js .= '         );';
+            $js .= '    });';
 
-                                function goto_login() {
-                                    window.location = "%s";
-                                }
+            $js .= '    function goto_login() {';
+            $js .= '        window.location = "%2$s";';
+            $js .= '    }';
 
-                                function goto_logout() {
-                                    window.location = "%s";
-                                }
-                              </script>', $apikey,
-                                  $login_url, $logout_url);
+            // The below function alters the logout link so that it logs the user out
+            // of Facebook Connect as well as the site.  However, for some pages
+            // (FB Connect Settings) we need to output the FB Connect scripts (to
+            // show an existing FB connection even if the user isn't authenticated
+            // with Facebook connect) but NOT alter the logout link. And the only
+            // way to reliably do that is with the FB Connect .js libs.  Crazy.
 
-            $action->raw($html);
+            $js .= '    FB.ensureInit(function() {';
+            $js .= '        FB.Connect.ifUserConnected(';
+            $js .= '            function() { ';
+            $js .= '                $(\'#nav_logout a\').attr(\'href\', \'#\');';
+            $js .= '                $(\'#nav_logout a\').click(function() {';
+            $js .= '                   FB.Connect.logoutAndRedirect(\'%3$s\');';
+            $js .= '                   return false;';
+            $js .= '                })';
+            $js .= '            },';
+            $js .= '            function() {';
+            $js .= '                return false;';
+            $js .= '            }';
+            $js .= '        );';
+            $js .= '     });';
+            $js .= '</script>';
+
+            $js = sprintf($js, $apikey, $login_url, $logout_url);
+
+            // Compress the bugger down a bit
+            $js = str_replace('  ', '', $js);
+
+            $action->raw("  $js");  // leading two spaces to make it line up
         }
 
     }
@@ -150,7 +172,6 @@ class FBConnectPlugin extends Plugin
 
     function onEndShowStatusNetStyles($action)
     {
-
         if ($this->reqFbScripts($action)) {
             $action->cssLink('plugins/FBConnect/FBConnectPlugin.css');
         }
@@ -269,66 +290,9 @@ class FBConnectPlugin extends Plugin
                 $action->elementEnd('li');
 
             }
+        }
 
-            $action->menuItem(common_local_url('all', array('nickname' => $user->nickname)),
-                _('Home'), _('Personal profile and friends timeline'), false, 'nav_home');
-            $action->menuItem(common_local_url('profilesettings'),
-                _('Account'), _('Change your email, avatar, password, profile'), false, 'nav_account');
-            $action->menuItem(common_local_url($connect),
-                _('Connect'), _('Connect to services'), false, 'nav_connect');
-            if (common_config('invite', 'enabled')) {
-                $action->menuItem(common_local_url('invite'),
-                    _('Invite'),
-                    sprintf(_('Invite friends and colleagues to join you on %s'),
-                    common_config('site', 'name')),
-                    false, 'nav_invitecontact');
-            }
-
-            // Need to override the Logout link to make it do FB stuff
-            if (!empty($fbuid)) {
-
-                $logout_url = common_local_url('logout');
-                $title =  _('Logout from the site');
-                $text = _('Logout');
-
-                $html = sprintf('<li id="nav_logout"><a href="#" title="%s" ' .
-                    'onclick="FB.Connect.logoutAndRedirect(\'%s\');">%s</a></li>',
-                    $title, $logout_url, $text);
-
-                $action->raw($html);
-
-             } else {
-                 $action->menuItem(common_local_url('logout'),
-                     _('Logout'), _('Logout from the site'), false, 'nav_logout');
-             }
-         }
-         else {
-             if (!common_config('site', 'openidonly')) {
-                 if (!common_config('site', 'closed')) {
-                     $action->menuItem(common_local_url('register'),
-                         _('Register'), _('Create an account'), false, 'nav_register');
-                 }
-                 $action->menuItem(common_local_url('login'),
-                     _('Login'), _('Login to the site'), false, 'nav_login');
-             } else {
-                 $this->menuItem(common_local_url('openidlogin'),
-                                 _('OpenID'), _('Login with OpenID'), false, 'nav_openid');
-             }
-         }
-
-         $action->menuItem(common_local_url('doc', array('title' => 'help')),
-             _('Help'), _('Help me!'), false, 'nav_help');
-         if ($user || !common_config('site', 'private')) {
-             $action->menuItem(common_local_url('peoplesearch'),
-                 _('Search'), _('Search for people or text'), false, 'nav_search');
-         }
-
-        // We are replacing the primary nav entirely; give other
-        // plugins a chance to handle it here.
-
-        Event::handle('EndPrimaryNav', array($action));
-
-        return false;
+        return true;
     }
 
     function onStartShowLocalNavBlock($action)
@@ -357,7 +321,7 @@ class FBConnectPlugin extends Plugin
     }
 
     function onStartLogout($action)
-{
+    {
         $action->logout();
         $fbuid = $this->loggedIn();
 

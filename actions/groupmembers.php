@@ -179,9 +179,12 @@ class GroupMemberListItem extends ProfileListItem
     function showActions()
     {
         $this->startActions();
-        $this->showSubscribeButton();
-        $this->showMakeAdminForm();
-        $this->showGroupBlockForm();
+        if (Event::handle('StartProfileListItemActionElements', array($this))) {
+            $this->showSubscribeButton();
+            $this->showMakeAdminForm();
+            $this->showGroupBlockForm();
+            Event::handle('EndProfileListItemActionElements', array($this));
+        }
         $this->endActions();
     }
 

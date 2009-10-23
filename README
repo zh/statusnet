@@ -2,7 +2,7 @@
 README
 ------
 
-StatusNet 0.8.1 ("Second Guessing")
+StatusNet 0.8.2 ("Life and How to Live It")
 26 Aug 2009
 
 This is the README file for StatusNet (formerly Laconica), the Open
@@ -526,8 +526,6 @@ This will run eight (for now) queue handlers:
   of registered users.
 * xmppconfirmhandler.php - sends confirmation messages to registered
   users.
-* twitterqueuehandler.php - sends queued notices to Twitter for user
-  who have opted to set up Twitter bridging.
 * facebookqueuehandler.php - sends queued notices to Facebook for users
   of the built-in Facebook application.
 
@@ -546,54 +544,6 @@ Since version 0.8.0, it's now possible to use a STOMP server instead of
 our kind of hacky home-grown DB-based queue solution. See the "queues"
 config section below for how to configure to use STOMP. As of this
 writing, the software has been tested with ActiveMQ (
-
-Twitter Bridge
---------------
-
-* OAuth
-
-As of 0.8.1, OAuth is used to to access protected resources on Twitter
-instead of HTTP Basic Auth.  To use Twitter bridging you will need
-to register your instance of StatusNet as an application on Twitter
-(http://twitter.com/apps), and update the following variables in your
-config.php with the consumer key and secret Twitter generates for you:
-
-      $config['twitter']['consumer_key']    = 'YOURKEY';
-      $config['twitter']['consumer_secret'] = 'YOURSECRET';
-
-When registering your application with Twitter set the type to "Browser"
-and your Callback URL to:
-
-      http://example.org/mublog/twitter/authorization
-
-The default access type should be, "Read & Write".
-
-* Importing statuses from Twitter
-
-To allow your users to import their friends' Twitter statuses, you will
-need to enable the bidirectional Twitter bridge in config.php:
-
-      $config['twitterbridge']['enabled'] = true;
-
-and run the TwitterStatusFetcher daemon (scripts/twitterstatusfetcher.php).
-Additionally, you will want to set the integration source variable,
-which will keep notices posted to Twitter via StatusNet from looping
-back.  The integration source should be set to the name of your
-application, exactly as you specified it on the settings page for your
-StatusNet application on Twitter, e.g.:
-
-      $config['integration']['source'] = 'YourApp';
-
-* Twitter Friends Syncing
-
-Users may set a flag in their settings ("Subscribe to my Twitter friends
-here" under the Twitter tab) to have StatusNet attempt to locate and
-subscribe to "friends" (people they "follow") on Twitter who also have
-accounts on your StatusNet system, and who have previously set up a link
-for automatically posting notices to Twitter.
-
-As of 0.8.0, this is no longer accomplished via a cron job. Instead you
-must run the SyncTwitterFriends daemon (scripts/synctwitterfreinds.php).
 
 Built-in Facebook Application
 -----------------------------
@@ -1251,24 +1201,11 @@ For SMS integration.
 enabled: Whether to enable SMS integration. Defaults to true. Queues
          should also be enabled.
 
-twitter
--------
-
-For Twitter integration
-
-enabled: Whether to enable Twitter integration. Defaults to true.
-         Queues should also be enabled.
-
 integration
 -----------
 
 A catch-all for integration with other systems.
 
-source: The name to use for the source of posts to Twitter. Defaults
-	to 'statusnet', but if you request your own source name from
-	Twitter <http://twitter.com/help/request_source>, you can use
-	that here instead. Status updates on Twitter will then have
-	links to your site.
 taguri: base for tag:// URIs. Defaults to site-server + ',2009'.
 
 inboxes
@@ -1445,15 +1382,6 @@ dir: directory to write backgrounds too. Default is '/background/'
      subdir of install dir.
 path: path to backgrounds. Default is sub-path of install path; note
       that you may need to change this if you change site-path too.
-
-twitterbridge
--------------
-
-A bi-direction bridge to Twitter (http://twitter.com/).
-
-enabled: default false. If true, will show user's Twitter friends'
-         notices in their inbox and faves pages, only to the user. You
-         must also run the twitterstatusfetcher.php script.
 
 ping
 ----
