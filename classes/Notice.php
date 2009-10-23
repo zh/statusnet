@@ -168,7 +168,8 @@ class Notice extends Memcached_DataObject
     }
 
     static function saveNew($profile_id, $content, $source=null,
-                            $is_local=Notice::LOCAL_PUBLIC, $reply_to=null, $uri=null, $created=null) {
+                            $is_local=Notice::LOCAL_PUBLIC, $reply_to=null, $uri=null, $created=null,
+                            $lat=null, $lon=null, $location_id=null, $location_ns=null) {
 
         $profile = Profile::staticGet($profile_id);
 
@@ -232,6 +233,26 @@ class Notice extends Memcached_DataObject
         if (!empty($notice->reply_to)) {
             $reply = Notice::staticGet('id', $notice->reply_to);
             $notice->conversation = $reply->conversation;
+        }
+
+        if (!empty($lat) && !empty($lon)) {
+            $notice->lat = $lat;
+            $notice->lon = $lon;
+            $notice->location_id = $location_id;
+            $notice->location_ns = $location_ns;
+        } else if (!empty($location_ns) && !empty($location_id)) {
+            $location = Location::fromId($location_id, $location_ns);
+            if (!empty($location)) {
+                $notice->lat = $location->lat;
+                $notice->lon = $location->lon;
+                $notice->location_id = $location_id;
+                $notice->location_ns = $location_ns;
+            }
+        } else {
+            $notice->lat         = $profile->lat;
+            $notice->lon         = $profile->lon;
+            $notice->location_id = $profile->location_id;
+            $notice->location_ns = $profile->location_ns;
         }
 
         if (Event::handle('StartNoticeSave', array(&$notice))) {

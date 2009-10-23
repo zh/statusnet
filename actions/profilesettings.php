@@ -306,6 +306,16 @@ class ProfilesettingsAction extends AccountSettingsAction
             $profile->homepage = $homepage;
             $profile->bio = $bio;
             $profile->location = $location;
+
+            $loc = Location::fromName($location);
+
+            if (!empty($loc)) {
+                $profile->lat         = $loc->lat;
+                $profile->lon         = $loc->lon;
+                $profile->location_id = $loc->location_id;
+                $profile->location_ns = $loc->location_ns;
+            }
+
             $profile->profileurl = common_profile_url($nickname);
 
             common_debug('Old profile: ' . common_log_objstring($orig_profile), __FILE__);
