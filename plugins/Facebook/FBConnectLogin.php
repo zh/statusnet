@@ -21,7 +21,8 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/plugins/FBConnect/FBConnectPlugin.php';
+
+require_once INSTALLDIR . '/plugins/Facebook/FacebookPlugin.php';
 
 class FBConnectLoginAction extends Action
 {

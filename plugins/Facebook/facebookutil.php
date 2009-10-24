@@ -17,9 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once INSTALLDIR.'/extlib/facebook/facebook.php';
-require_once INSTALLDIR.'/lib/facebookaction.php';
-require_once INSTALLDIR.'/lib/noticelist.php';
+require_once INSTALLDIR . '/plugins/Facebook/facebook/facebook.php';
+require_once INSTALLDIR . '/plugins/Facebook/facebookaction.php';
+require_once INSTALLDIR . '/lib/noticelist.php';
 
 define("FACEBOOK_SERVICE", 2); // Facebook is foreign_service ID 2
 define("FACEBOOK_NOTICE_PREFIX", 1);
@@ -256,5 +256,40 @@ function remove_facebook_app($flink)
 
         common_log(LOG_WARNING, $msg);
     }
+
+}
+
+/**
+ * Send a mail message to notify a user that her Facebook Application
+ * access has been removed.
+ *
+ * @param User $user   user whose Facebook app link has been removed
+ *
+ * @return boolean success flag
+ */
+
+function mail_facebook_app_removed($user)
+{
+    common_init_locale($user->language);
+
+    $profile = $user->getProfile();
+
+    $site_name = common_config('site', 'name');
+
+    $subject = sprintf(
+        _('Your %1$s Facebook application access has been disabled.',
+            $site_name));
+
+    $body = sprintf(_("Hi, %1\$s. We're sorry to inform you that we are " .
+        'unable to update your Facebook status from %2$s, and have disabled ' .
+        'the Facebook application for your account. This may be because ' .
+        'you have removed the Facebook application\'s authorization, or ' .
+        'have deleted your Facebook account.  You can re-enable the ' .
+        'Facebook application and automatic status updating by ' .
+        "re-installing the %2\$s Facebook application.\n\nRegards,\n\n%2\$s"),
+        $user->nickname, $site_name);
+
+    common_init_locale();
+    return mail_to_user($user, $subject, $body);
 
 }

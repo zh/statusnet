@@ -134,11 +134,19 @@ class ApiAction extends Action
         $twitter_user['protected'] = false; # not supported by StatusNet yet
         $twitter_user['followers_count'] = $profile->subscriberCount();
 
-        // To be supported soon...
-        $twitter_user['profile_background_color'] = '';
-        $twitter_user['profile_text_color'] = '';
-        $twitter_user['profile_link_color'] = '';
-        $twitter_user['profile_sidebar_fill_color'] = '';
+        // Need to pull up the user for some of this
+        $user = $profile->getUser();
+        $design = $user->getDesign();
+        $defaultDesign = Design::siteDesign();
+        if (!$design) $design = $defaultDesign;
+        $color = Design::toWebColor(empty($design->backgroundcolor) ? $defaultDesign->backgroundcolor : $design->backgroundcolor);
+        $twitter_user['profile_background_color'] = ($color == null) ? '' : '#'.$color->hexValue();
+        $color = Design::toWebColor(empty($design->textcolor) ? $defaultDesign->textcolor : $design->textcolor);
+        $twitter_user['profile_text_color'] = ($color == null) ? '' : '#'.$color->hexValue();
+        $color = Design::toWebColor(empty($design->linkcolor) ? $defaultDesign->linkcolor : $design->linkcolor);
+        $twitter_user['profile_link_color'] = ($color == null) ? '' : '#'.$color->hexValue();
+        $color = Design::toWebColor(empty($design->sidebarcolor) ? $defaultDesign->sidebarcolor : $design->sidebarcolor);
+        $twitter_user['profile_sidebar_fill_color'] = ($color == null) ? '' : '#'.$color->hexValue();
         $twitter_user['profile_sidebar_border_color'] = '';
 
         $twitter_user['friends_count'] = $profile->subscriptionCount();
@@ -147,8 +155,6 @@ class ApiAction extends Action
 
         $twitter_user['favourites_count'] = $profile->faveCount(); // British spelling!
 
-        // Need to pull up the user for some of this
-        $user = User::staticGet($profile->id);
 
         $timezone = 'UTC';
 
