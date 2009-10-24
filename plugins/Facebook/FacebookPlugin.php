@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Plugin to enable Facebook Connect
+ * Plugin to add a StatusNet Facebook application
  *
  * PHP version 5
  *
@@ -27,22 +27,16 @@
  * @link      http://status.net/
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) {
+if (!defined('STATUSNET')) {
     exit(1);
 }
 
 define("FACEBOOK_CONNECT_SERVICE", 3);
 
-require_once INSTALLDIR . '/lib/facebookutil.php';
-require_once INSTALLDIR . '/plugins/FBConnect/FBConnectAuth.php';
-require_once INSTALLDIR . '/plugins/FBConnect/FBConnectLogin.php';
-require_once INSTALLDIR . '/plugins/FBConnect/FBConnectSettings.php';
-require_once INSTALLDIR . '/plugins/FBConnect/FBCLoginGroupNav.php';
-require_once INSTALLDIR . '/plugins/FBConnect/FBCSettingsNav.php';
-require_once INSTALLDIR . '/plugins/FBConnect/FBC_XDReceiver.php';
+require_once INSTALLDIR . '/plugins/Facebook/facebookutil.php';
 
 /**
- * Plugin to enable Facebook Connect
+ * Facebook plugin to add a StatusNet Facebook application
  *
  * @category Plugin
  * @package  StatusNet
@@ -51,22 +45,88 @@ require_once INSTALLDIR . '/plugins/FBConnect/FBC_XDReceiver.php';
  * @link     http://status.net/
  */
 
-class FBConnectPlugin extends Plugin
+class FacebookPlugin extends Plugin
 {
-    function __construct()
-    {
-        parent::__construct();
-    }
 
-    // Hook in new actions
-    function onRouterInitialized(&$m) {
+    /**
+     * Add Facebook app actions to the router table
+     *
+     * Hook for RouterInitialized event.
+     *
+     * @param Net_URL_Mapper &$m path-to-action mapper
+     *
+     * @return boolean hook return
+     */
+
+    function onRouterInitialized(&$m)
+    {
+
+        // Facebook App stuff
+
+        $m->connect('facebook/app', array('action' => 'facebookhome'));
+        $m->connect('facebook/app/index.php', array('action' => 'facebookhome'));
+        $m->connect('facebook/app/settings.php',
+                    array('action' => 'facebooksettings'));
+        $m->connect('facebook/app/invite.php', array('action' => 'facebookinvite'));
+        $m->connect('facebook/app/remove', array('action' => 'facebookremove'));
+
+        // Facebook Connect stuff
+
         $m->connect('main/facebookconnect', array('action' => 'FBConnectAuth'));
         $m->connect('main/facebooklogin', array('action' => 'FBConnectLogin'));
         $m->connect('settings/facebook', array('action' => 'FBConnectSettings'));
         $m->connect('xd_receiver.html', array('action' => 'FBC_XDReceiver'));
-     }
 
-    // Add in xmlns:fb
+        return true;
+    }
+
+    /**
+     * Automatically load the actions and libraries used by the Facebook app
+     *
+     * @param Class $cls the class
+     *
+     * @return boolean hook return
+     *
+     */
+
+    function onAutoload($cls)
+    {
+        switch ($cls) {
+        case 'FacebookAction':
+        case 'FacebookhomeAction':
+        case 'FacebookinviteAction':
+        case 'FacebookremoveAction':
+        case 'FacebooksettingsAction':
+            include_once INSTALLDIR . '/plugins/Facebook/' .
+              strtolower(mb_substr($cls, 0, -6)) . '.php';
+            return false;
+        case 'FBConnectAuthAction':
+        case 'FBConnectLoginAction':
+        case 'FBConnectSettingsAction':
+        case 'FBC_XDReceiverAction':
+            include_once INSTALLDIR . '/plugins/Facebook/' .
+              mb_substr($cls, 0, -6) . '.php';
+            return false;
+        case 'FBCLoginGroupNav':
+            include_once INSTALLDIR . '/plugins/Facebook/FBCLoginGroupNav.php';
+            return false;
+        case 'FBCSettingsNav':
+            include_once INSTALLDIR . '/plugins/Facebook/FBCSettingsNav.php';
+            return false;
+        default:
+            return true;
+        }
+    }
+
+    /**
+     * Override normal HTML output to force the content type to
+     * text/html and add in xmlns:fb
+     *
+     * @param Action $action the current action
+     *
+     * @return void
+     */
+
     function onStartShowHTML($action)
     {
 
@@ -78,6 +138,7 @@ class FBConnectPlugin extends Plugin
             // text/html even though Facebook Connect uses XHTML.  This is
             // A bug in Facebook Connect, and this is a temporary solution
             // until they fix their JavaScript libs.
+
             header('Content-Type: text/html');
 
             $action->extraHeaders();
@@ -100,22 +161,31 @@ class FBConnectPlugin extends Plugin
         }
     }
 
-    // Note: this script needs to appear in the <body>
+    /**
+     * Add in the Facebook Connect JavaScript stuff
+     *
+     * Note: this script needs to appear in the <body>
+     *
+     * @param Action $action the current action
+     *
+     * @return void
+     *
+     */
 
     function onEndShowScripts($action)
     {
         if ($this->reqFbScripts($action)) {
 
-            $apikey = common_config('facebook', 'apikey');
-            $plugin_path = common_path('plugins/FBConnect');
+            $apikey      = common_config('facebook', 'apikey');
+            $plugin_path = common_path('plugins/Facebook');
 
-            $login_url = common_local_url('FBConnectAuth');
+            $login_url  = common_local_url('FBConnectAuth');
             $logout_url = common_local_url('logout');
 
             // XXX: Facebook says we don't need this FB_RequireFeatures(),
             // but we actually do, for IE and Safari. Gar.
 
-            $js =  '<script type="text/javascript">';
+            $js  = '<script type="text/javascript">';
             $js .= '    $(document).ready(function () {';
             $js .= '         FB_RequireFeatures(';
             $js .= '             ["XFBML"], function() {';
@@ -154,6 +224,7 @@ class FBConnectPlugin extends Plugin
             $js = sprintf($js, $apikey, $login_url, $logout_url);
 
             // Compress the bugger down a bit
+
             $js = str_replace('  ', '', $js);
 
             $action->raw("  $js");  // leading two spaces to make it line up
@@ -161,19 +232,37 @@ class FBConnectPlugin extends Plugin
 
     }
 
-    // Note: this script needs to appear as close as possible to </body>
+    /**
+     * Add in an additional Facebook Connect script that's supposed to
+     * appear as close as possible to </body>
+     *
+     * @param Action $action the current action
+     *
+     * @return void
+     *
+     */
 
     function onEndShowFooter($action)
     {
         if ($this->reqFbScripts($action)) {
-            $action->script('http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php');
+            $action->script('http://static.ak.connect.facebook.com' .
+                            '/js/api_lib/v0.4/FeatureLoader.js.php');
         }
     }
+
+    /**
+     * Output Facebook Connect specific CSS link
+     *
+     * @param Action $action the current action
+     *
+     * @return void
+     *
+     */
 
     function onEndShowStatusNetStyles($action)
     {
         if ($this->reqFbScripts($action)) {
-            $action->cssLink('plugins/FBConnect/FBConnectPlugin.css');
+            $action->cssLink('plugins/Facebook/FBConnect.css');
         }
     }
 
@@ -182,12 +271,13 @@ class FBConnectPlugin extends Plugin
      * want to output FB namespace, scripts, CSS, etc. on the pages that
      * really need them.
      *
-     * @param Action the action in question
+     * @param Action $action the current action
      *
      * @return boolean true
      */
 
-    function reqFbScripts($action) {
+    function reqFbScripts($action)
+    {
 
         // If you're logged in w/FB Connect, you always need the FB stuff
 
@@ -249,10 +339,19 @@ class FBConnectPlugin extends Plugin
         return null;
     }
 
+    /**
+     * Add in a Facebook Connect avatar to the primary nav menu
+     *
+     * @param Action $action the current action
+     *
+     * @return void
+     *
+     */
+
     function onStartPrimaryNav($action)
     {
-
         $user = common_current_user();
+
         $connect = 'FBConnectSettings';
         if (common_config('xmpp', 'enabled')) {
             $connect = 'imsettings';
@@ -283,7 +382,7 @@ class FBConnectPlugin extends Plugin
                     'alt' => 'Facebook Connect User',
                     'width' => '16'), '');
 
-                $iconurl =  common_path('plugins/FBConnect/fbfavicon.ico');
+                $iconurl =  common_path('plugins/Facebook/fbfavicon.ico');
                 $action->element('img', array('id' => 'fb_favicon',
                     'src' => $iconurl));
 
@@ -295,9 +394,19 @@ class FBConnectPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Alter the local nav menu to have a Facebook Connect login and
+     * settings pages
+     *
+     * @param Action $action the current action
+     *
+     * @return void
+     *
+     */
+
     function onStartShowLocalNavBlock($action)
     {
-        $action_name   = get_class($action);
+        $action_name = get_class($action);
 
         $login_actions = array('LoginAction', 'RegisterAction',
             'OpenidloginAction', 'FBConnectLoginAction');
@@ -320,6 +429,14 @@ class FBConnectPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Have the logout process do some Facebook Connect cookie cleanup
+     *
+     * @param Action $action the current action
+     *
+     * @return void
+     */
+
     function onStartLogout($action)
     {
         $action->logout();
@@ -339,9 +456,16 @@ class FBConnectPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Get the URL of the user's Facebook avatar
+     *
+     * @param int $fbuid the Facebook user ID
+     *
+     * @return string $url the url for the user's Facebook avatar
+     */
+
     function getProfilePicURL($fbuid)
     {
-
         $facebook = getFacebook();
         $url      = null;
 
@@ -360,8 +484,70 @@ class FBConnectPlugin extends Plugin
                        "Facebook client failure requesting profile pic!");
         }
 
-       return $url;
+        return $url;
+    }
 
+    /**
+     * Add a Facebook queue item for each notice
+     *
+     * @param Notice $notice      the notice
+     * @param array  &$transports the list of transports (queues)
+     *
+     * @return boolean hook return
+     */
+
+    function onStartEnqueueNotice($notice, &$transports)
+    {
+        array_push($transports, 'facebook');
+        return true;
+    }
+
+    /**
+     * broadcast the message when not using queuehandler
+     *
+     * @param Notice &$notice the notice
+     * @param array  $queue   destination queue
+     *
+     * @return boolean hook return
+     */
+
+    function onUnqueueHandleNotice(&$notice, $queue)
+    {
+        if (($queue == 'facebook') && ($this->_isLocal($notice))) {
+            facebookBroadcastNotice($notice);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Determine whether the notice was locally created
+     *
+     * @param Notice $notice the notice
+     *
+     * @return boolean locality
+     */
+
+    function _isLocal($notice)
+    {
+        return ($notice->is_local == Notice::LOCAL_PUBLIC ||
+                $notice->is_local == Notice::LOCAL_NONPUBLIC);
+    }
+
+    /**
+     * Add Facebook queuehandler to the list of daemons to start
+     *
+     * @param array $daemons the list fo daemons to run
+     *
+     * @return boolean hook return
+     *
+     */
+
+    function onGetValidDaemons($daemons)
+    {
+        array_push($daemons, INSTALLDIR .
+                   '/plugins/Facebook/facebookqueuehandler.php');
+        return true;
     }
 
 }

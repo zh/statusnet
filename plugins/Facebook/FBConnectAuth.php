@@ -27,7 +27,7 @@
  * @link      http://status.net/
  */
 
-require_once INSTALLDIR . '/plugins/FBConnect/FBConnectPlugin.php';
+require_once INSTALLDIR . '/plugins/Facebook/FacebookPlugin.php';
 
 class FBConnectauthAction extends Action
 {

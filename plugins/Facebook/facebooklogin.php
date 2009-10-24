@@ -17,9 +17,11 @@
  * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) {
+    exit(1);
+}
 
-require_once(INSTALLDIR.'/lib/facebookaction.php');
+require_once INSTALLDIR . '/plugins/Facebook/facebookaction.php';
 
 class FacebookinviteAction extends FacebookAction
 {
@@ -27,25 +29,24 @@ class FacebookinviteAction extends FacebookAction
     function handle($args)
     {
         parent::handle($args);
-        
+
         $this->error = $error;
-        
+
         if ($this->flink) {
             if (!$this->facebook->api_client->users_hasAppPermission('publish_stream') &&
                 $this->facebook->api_client->data_getUserPreference(
                      FACEBOOK_PROMPTED_UPDATE_PREF) == 'true') {
-    
+
                 echo '<h1>REDIRECT TO HOME</h1>';
             }
-        } else {   
+        } else {
             $this->showPage();
         }
     }
 
-
     function showContent()
     {
-                
+
         // If the user has opted not to initially allow the app to have
         // Facebook status update permission, store that preference. Only
         // promt the user the first time she uses the app
@@ -68,34 +69,31 @@ class FacebookinviteAction extends FacebookAction
                      return;
                  }
              }
-            
+
         } else {
             $this->showLoginForm();
         }
-                
+
     }
 
     function showSuccessContent()
     {
-
-
 
     }
 
     function showFormContent()
     {
 
- 
     }
-    
-    function title() 
+
+    function title()
     {
         return sprintf(_('Login'));
     }
-    
-    function redirectHome() 
+
+    function redirectHome()
     {
-        
+
     }
 
 }

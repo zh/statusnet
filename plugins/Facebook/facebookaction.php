@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Low-level generator for HTML
+ * Base Facebook Action
  *
  * PHP version 5
  *
@@ -22,18 +22,17 @@
  * @category  Faceboook
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
- * @copyright 2008 StatusNet, Inc.
+ * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA'))
-{
+if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/facebookutil.php';
-require_once INSTALLDIR.'/lib/noticeform.php';
+require_once INSTALLDIR . '/plugins/Facebook/facebookutil.php';
+require_once INSTALLDIR . '/lib/noticeform.php';
 
 class FacebookAction extends Action
 {
@@ -45,17 +44,6 @@ class FacebookAction extends Action
     var $app_uri  = null;
     var $app_name = null;
 
-    /**
-     * Constructor
-     *
-     * Just wraps the HTMLOutputter constructor.
-     *
-     * @param string  $output URI to output to, default = stdout
-     * @param boolean $indent Whether to indent output, default true
-     *
-     * @see XMLOutputter::__construct
-     * @see HTMLOutputter::__construct
-     */
     function __construct($output='php://output', $indent=true, $facebook=null, $flink=null)
     {
         parent::__construct($output, $indent);
@@ -107,10 +95,8 @@ class FacebookAction extends Action
     /**
      * Start an Facebook ready HTML document
      *
-     *  For Facebook we don't want to actually output any headers,
-     *  DTD info, etc.  Just Stylesheet and JavaScript links.
-     *
-     * If $type isn't specified, will attempt to do content negotiation.
+     * For Facebook we don't want to actually output any headers,
+     * DTD info, etc.  Just Stylesheet and JavaScript links.
      *
      * @param string $type MIME type to use; default is to do negotation.
      *
@@ -139,8 +125,6 @@ class FacebookAction extends Action
     /**
      * Show notice form.
      *
-     * MAY overload if no notice form needed... or direct message box????
-     *
      * @return nothing
      */
     function showNoticeForm()
@@ -155,10 +139,6 @@ class FacebookAction extends Action
         $this->showCore();
         $this->showFooter();
         $this->elementEnd('div');
-    }
-
-    function showAside()
-    {
     }
 
     function showHead($error, $success)
@@ -214,8 +194,6 @@ class FacebookAction extends Action
     /**
      * Show header of the page.
      *
-     * Calls template methods
-     *
      * @return nothing
      */
     function showHeader()
@@ -257,7 +235,7 @@ class FacebookAction extends Action
         $this->element('a',
             array('href' => common_local_url('register')), _('Register'));
         $this->text($loginmsg_part2);
-    $this->elementEnd('p');
+        $this->elementEnd('p');
         $this->elementEnd('dd');
 
         $this->elementEnd('dl');
@@ -295,7 +273,7 @@ class FacebookAction extends Action
         $this->elementEnd('ul');
 
         $this->submit('submit', _('Login'));
-    $this->elementEnd('fieldset');
+        $this->elementEnd('fieldset');
         $this->elementEnd('form');
 
         $this->elementStart('p');
@@ -313,8 +291,8 @@ class FacebookAction extends Action
 
         // Need to include inline CSS for styling the Profile box
 
-    $app_props = $this->facebook->api_client->Admin_getAppProperties(array('icon_url'));
-    $icon_url = $app_props['icon_url'];
+        $app_props = $this->facebook->api_client->Admin_getAppProperties(array('icon_url'));
+        $icon_url = $app_props['icon_url'];
 
         $style = '<style>
      .entry-title *,
