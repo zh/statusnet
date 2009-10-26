@@ -104,6 +104,10 @@ $config['sphinx']['port'] = 3312;
 // $config['site']['timezone'] = 'Pacific/Auckland';
 // $config['site']['language'] = 'en_NZ';
 
+// When validating user supplied email addresses, validate if the domain
+// is running an SMTP server.
+// $config['mail']['check_domain'] = true;
+
 // Email info, used for all outbound email
 // $config['mail']['notifyfrom'] = 'microblog@example.net';
 // $config['mail']['domain'] = 'microblog.example.net';
