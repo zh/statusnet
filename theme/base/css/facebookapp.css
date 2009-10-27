@@ -34,15 +34,9 @@ background-color:#D0DFE7;
 background-color:#FAFBFC;
 }
 
-#form_notice .form_note + label {
-position:absolute;
-top:25px;
-right:10.5%;
-cursor:pointer;
-text-indent:-9999px;
-width:16px;
-height:16px;
-background:transparent url(../../base/images/icons/icons-01.png) no-repeat 0 -328px;
+#form_notice .form_note + label,
+#form_notice #notice_data-attach {
+display:none;
 }
 
 #form_notice #notice_action-submit {
