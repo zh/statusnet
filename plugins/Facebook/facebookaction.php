@@ -83,8 +83,8 @@ class FacebookAction extends Action
     function showStylesheets()
     {
         $this->cssLink('css/display.css', 'base');
-        $this->cssLink('css/display.css',null,'screen, projection, tv');
-        $this->cssLink('css/facebookapp.css', 'base');
+        $this->cssLink('css/display.css', null, 'screen, projection, tv');
+        $this->cssLink('plugins/Facebook/facebookapp.css');
     }
 
     function showScripts()
