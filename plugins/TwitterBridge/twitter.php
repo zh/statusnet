@@ -312,3 +312,40 @@ function remove_twitter_link($flink)
     }
 
 }
+
+/**
+ * Send a mail message to notify a user that her Twitter bridge link
+ * has stopped working, and therefore has been removed.  This can
+ * happen when the user changes her Twitter password, or otherwise
+ * revokes access.
+ *
+ * @param User $user   user whose Twitter bridge link has been removed
+ *
+ * @return boolean success flag
+ */
+
+function mail_twitter_bridge_removed($user)
+{
+    common_init_locale($user->language);
+
+    $profile = $user->getProfile();
+
+    $subject = sprintf(_('Your Twitter bridge has been disabled.'));
+
+    $site_name = common_config('site', 'name');
+
+    $body = sprintf(_('Hi, %1$s. We\'re sorry to inform you that your ' .
+        'link to Twitter has been disabled. We no longer seem to have ' .
+    'permission to update your Twitter status. (Did you revoke ' .
+    '%3$s\'s access?)' . "\n\n" .
+    'You can re-enable your Twitter bridge by visiting your ' .
+    "Twitter settings page:\n\n\t%2\$s\n\n" .
+        "Regards,\n%3\$s\n"),
+        $profile->getBestName(),
+        common_local_url('twittersettings'),
+        common_config('site', 'name'));
+
+    common_init_locale();
+    return mail_to_user($user, $subject, $body);
+}
+

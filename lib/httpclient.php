@@ -48,7 +48,7 @@ if (!defined('STATUSNET')) {
 class HTTPResponse
 {
     public $code = null;
-    public $headers = null;
+    public $headers = array();
     public $body = null;
 }
 

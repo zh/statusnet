@@ -191,7 +191,7 @@ class RegisterAction extends Action
             if (!$this->boolean('license')) {
                 $this->showForm(_('You can\'t register if you don\'t '.
                                   'agree to the license.'));
-            } else if ($email && !Validate::email($email, true)) {
+            } else if ($email && !Validate::email($email, common_config('email', 'check_domain'))) {
                 $this->showForm(_('Not a valid email address.'));
             } else if (!Validate::string($nickname, array('min_length' => 1,
                                                           'max_length' => 64,

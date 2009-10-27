@@ -326,7 +326,7 @@ class EmailsettingsAction extends AccountSettingsAction
             $this->showForm(_('Cannot normalize that email address'));
             return;
         }
-        if (!Validate::email($email, true)) {
+        if (!Validate::email($email, common_config('email', 'check_domain'))) {
             $this->showForm(_('Not a valid email address'));
             return;
         } else if ($user->email == $email) {

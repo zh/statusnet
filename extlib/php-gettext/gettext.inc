@@ -129,7 +129,7 @@ function _setlocale($category, $locale) {
         $ret = 0;
         if (function_exists('setlocale')) // I don't know if this ever happens ;)
            $ret = setlocale($category, $locale);
-        if (($ret and $locale == '') or ($ret == $locale)) {
+        if ($ret and ($locale == '' or $ret == $locale)) {
             $EMULATEGETTEXT = 0;
             $CURRENTLOCALE = $ret;
         } else {
@@ -148,9 +148,9 @@ function _setlocale($category, $locale) {
  */
 function _bindtextdomain($domain, $path) {
 	global $text_domains;
-	// ensure $path ends with a slash
-	if ($path[strlen($path) - 1] != '/') $path .= '/';
-	elseif ($path[strlen($path) - 1] != '\\') $path .= '\\';
+       // ensure $path ends with a slash
+       if ($path[strlen($path) - 1] != '/') $path .= '/';
+       elseif ($path[strlen($path) - 1] != '\\') $path .= '\\';
 	$text_domains[$domain]->path = $path;
 }
 
