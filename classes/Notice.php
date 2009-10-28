@@ -172,7 +172,7 @@ class Notice extends Memcached_DataObject
             throw new ClientException(_('Problem saving notice. Too long.'));
         }
 
-        if (!$profile) {
+        if (empty($profile)) {
             throw new ClientException(_('Problem saving notice. Unknown user.'));
         }
 
@@ -307,11 +307,11 @@ class Notice extends Memcached_DataObject
 
     static function checkDupes($profile_id, $content) {
         $profile = Profile::staticGet($profile_id);
-        if (!$profile) {
+        if (empty($profile)) {
             return false;
         }
         $notice = $profile->getNotices(0, NOTICE_CACHE_WINDOW);
-        if ($notice) {
+        if (!empty($notice)) {
             $last = 0;
             while ($notice->fetch()) {
                 if (time() - strtotime($notice->created) >= common_config('site', 'dupelimit')) {
@@ -337,7 +337,7 @@ class Notice extends Memcached_DataObject
 
     static function checkEditThrottle($profile_id) {
         $profile = Profile::staticGet($profile_id);
-        if (!$profile) {
+        if (empty($profile)) {
             return false;
         }
         # Get the Nth notice
@@ -658,7 +658,7 @@ class Notice extends Memcached_DataObject
 
         $cache = common_memcache();
 
-        if (!$cache) {
+        if (empty($cache)) {
             return Notice::getStreamDirect($qry, $offset, $limit, null, null, $order, null);
         }
 
@@ -719,7 +719,7 @@ class Notice extends Memcached_DataObject
 
         # If there are no hits, just return the value
 
-        if (!$notice) {
+        if (empty($notice)) {
             return $notice;
         }
 
@@ -1061,12 +1061,12 @@ class Notice extends Memcached_DataObject
         for ($i=0; $i<count($names); $i++) {
             $nickname = $names[$i];
             $recipient = common_relative_profile($sender, $nickname, $this->created);
-            if (!$recipient) {
+            if (empty($recipient)) {
                 continue;
             }
             // Don't save replies from blocked profile to local user
             $recipient_user = User::staticGet('id', $recipient->id);
-            if ($recipient_user && $recipient_user->hasBlocked($sender)) {
+            if (!empty($recipient_user) && $recipient_user->hasBlocked($sender)) {
                 continue;
             }
             $reply = new Reply();
