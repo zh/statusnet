@@ -73,13 +73,33 @@ class UntrackCommand extends UnimplementedCommand
     }
 }
 
-class NudgeCommand extends UnimplementedCommand
+class NudgeCommand extends Command
 {
     var $other = null;
     function __construct($user, $other)
     {
         parent::__construct($user);
         $this->other = $other;
+    }
+    function execute($channel)
+    {
+        $recipient = User::staticGet('nickname', $this->other);
+        if(! $recipient){
+            $channel->error($this->user, sprintf(_('Could not find a user with nickname %s'),
+                               $this->other));
+        }else{
+            if ($recipient->id == $this->user->id) {
+                $channel->error($this->user, _('It does not make a lot of sense to nudge yourself!'));
+            }else{
+                if ($recipient->email && $recipient->emailnotifynudge) {
+                    mail_notify_nudge($this->user, $recipient);
+                }
+                // XXX: notify by IM
+                // XXX: notify by SMS
+                $channel->output($this->user, sprintf(_('Nudge sent to %s'),
+                               $recipient->nickname));
+            }
+        }
     }
 }
 
@@ -587,7 +607,7 @@ class HelpCommand extends Command
                            "last <nickname> - same as 'get'\n".
                            "on <nickname> - not yet implemented.\n".
                            "off <nickname> - not yet implemented.\n".
-                           "nudge <nickname> - not yet implemented.\n".
+                           "nudge <nickname> - remind a user to update.\n".
                            "invite <phone number> - not yet implemented.\n".
                            "track <word> - not yet implemented.\n".
                            "untrack <word> - not yet implemented.\n".
