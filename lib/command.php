@@ -124,18 +124,30 @@ class FavCommand extends Command
 
     function execute($channel)
     {
+        if(substr($this->other,0,1)=='#'){
+            //replying to a specific notice_id
 
-        $recipient =
-          common_relative_profile($this->user, common_canonical_nickname($this->other));
+            $notice = Notice::staticGet(substr($this->other,1));
+            if (!$notice) {
+                $channel->error($this->user, _('Notice with that id does not exist'));
+                return;
+            }
+            $recipient = $notice->getProfile();
+        }else{
+            //replying to a given user's last notice
 
-        if (!$recipient) {
-            $channel->error($this->user, _('No such user.'));
-            return;
-        }
-        $notice = $recipient->getCurrentNotice();
-        if (!$notice) {
-            $channel->error($this->user, _('User has no last notice'));
-            return;
+            $recipient =
+              common_relative_profile($this->user, common_canonical_nickname($this->other));
+
+            if (!$recipient) {
+                $channel->error($this->user, _('No such user.'));
+                return;
+            }
+            $notice = $recipient->getCurrentNotice();
+            if (!$notice) {
+                $channel->error($this->user, _('User has no last notice'));
+                return;
+            }
         }
 
         $fave = Fave::addNew($this->user, $notice);
@@ -497,6 +509,7 @@ class HelpCommand extends Command
                            "get <nickname> - get last notice from user\n".
                            "whois <nickname> - get profile info on user\n".
                            "fav <nickname> - add user's last notice as a 'fave'\n".
+                           "fav #<notice_id> - add notice with the given id as a 'fave'\n".
                            "join <group> - join group\n".
                            "drop <group> - leave group\n".
                            "stats - get your stats\n".
