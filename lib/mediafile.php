@@ -242,7 +242,7 @@ class MediaFile
 
         $stream = stream_get_meta_data($fh);
 
-        if (MediaFile::respectsQuota($user, filesize($stream['uri']))) {
+        if (!MediaFile::respectsQuota($user, filesize($stream['uri']))) {
 
             // Should never actually get here
 
