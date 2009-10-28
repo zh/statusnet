@@ -269,7 +269,6 @@ class Notice extends Memcached_DataObject
 
             // XXX: do we need to change this for remote users?
 
-            $notice->saveReplies();
             $notice->saveTags();
 
             $notice->addToInboxes();
@@ -909,6 +908,18 @@ class Notice extends Memcached_DataObject
             }
         }
 
+        $recipients = $this->saveReplies();
+
+        foreach ($recipients as $recipient) {
+
+            if (!array_key_exists($recipient, $ni)) {
+                $recipientUser = User::staticGet('id', $recipient);
+                if (!empty($recipientUser)) {
+                    $ni[$recipient] = NOTICE_INBOX_SOURCE_REPLY;
+                }
+            }
+        }
+
         $cnt = 0;
 
         $qryhdr = 'INSERT INTO notice_inbox (user_id, notice_id, source, created) VALUES ';
@@ -1077,7 +1088,7 @@ class Notice extends Memcached_DataObject
                 $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
                 common_log(LOG_ERR, 'DB error inserting reply: ' . $last_error->message);
                 common_server_error(sprintf(_('DB error inserting reply: %s'), $last_error->message));
-                return;
+                return array();
             } else {
                 $replied[$recipient->id] = 1;
             }
@@ -1101,7 +1112,7 @@ class Notice extends Memcached_DataObject
                         $id = $reply->insert();
                         if (!$id) {
                             common_log_db_error($reply, 'INSERT', __FILE__);
-                            return;
+                            return array();
                         } else {
                             $replied[$recipient->id] = 1;
                         }
@@ -1110,12 +1121,16 @@ class Notice extends Memcached_DataObject
             }
         }
 
-        foreach (array_keys($replied) as $recipient) {
+        $recipientIds = array_keys($replied);
+
+        foreach ($recipientIds as $recipient) {
             $user = User::staticGet('id', $recipient);
             if ($user) {
                 mail_notify_attn($user, $this);
             }
         }
+
+        return $recipientIds;
     }
 
     function asAtomEntry($namespace=false, $source=false)
