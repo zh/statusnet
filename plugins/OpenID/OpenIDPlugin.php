@@ -150,11 +150,15 @@ class OpenIDPlugin extends Plugin
      * @return void
      */
 
-    function onEndHeadChildren($action)
+    function onEndShowHeadElements($action)
     {
-        // for client side of OpenID authentication
-        $action->element('meta', array('http-equiv' => 'X-XRDS-Location',
-                                       'content' => common_local_url('publicxrds')));
+        if ($action->trimmed('action') == 'public') {
+            // for client side of OpenID authentication
+            $action->element('meta', array('http-equiv' => 'X-XRDS-Location',
+                                           'content' => common_local_url('publicxrds')));
+        }
+
+        return true;
     }
 
     /**
