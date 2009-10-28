@@ -47,18 +47,15 @@ class File_redirection extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    function _commonCurl($url, $redirs) {
-        $curlh = curl_init();
-        curl_setopt($curlh, CURLOPT_URL, $url);
-        curl_setopt($curlh, CURLOPT_AUTOREFERER, true); // # setup referer header when folowing redirects
-        curl_setopt($curlh, CURLOPT_CONNECTTIMEOUT, 10); // # seconds to wait
-        curl_setopt($curlh, CURLOPT_MAXREDIRS, $redirs); // # max number of http redirections to follow
-        curl_setopt($curlh, CURLOPT_USERAGENT, USER_AGENT);
-        curl_setopt($curlh, CURLOPT_FOLLOWLOCATION, true); // Follow redirects
-        curl_setopt($curlh, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curlh, CURLOPT_FILETIME, true);
-        curl_setopt($curlh, CURLOPT_HEADER, true); // Include header in output
-        return $curlh;
+    static function _commonHttp($url, $redirs) {
+        $request = new HTTPClient($url);
+        $request->setConfig(array(
+            'connect_timeout' => 10, // # seconds to wait
+            'max_redirs' => $redirs, // # max number of http redirections to follow
+            'follow_redirects' => true, // Follow redirects
+            'store_body' => false, // We won't need body content here.
+        ));
+        return $request;
     }
 
     function _redirectWhere_imp($short_url, $redirs = 10, $protected = false) {
@@ -82,32 +79,39 @@ class File_redirection extends Memcached_DataObject
         if(strpos($short_url,'://') === false){
             return $short_url;
         }
-        $curlh = File_redirection::_commonCurl($short_url, $redirs);
-        // Don't include body in output
-        curl_setopt($curlh, CURLOPT_NOBODY, true);
-        curl_exec($curlh);
-        $info = curl_getinfo($curlh);
-        curl_close($curlh);
+        try {
+            $request = self::_commonHttp($short_url, $redirs);
+            // Don't include body in output
+            $request->setMethod(HTTP_Request2::METHOD_HEAD);
+            $response = $request->send();
 
-        if (405 == $info['http_code']) {
-            $curlh = File_redirection::_commonCurl($short_url, $redirs);
-            curl_exec($curlh);
-            $info = curl_getinfo($curlh);
-            curl_close($curlh);
+            if (405 == $response->getCode()) {
+                // Server doesn't support HEAD method? Can this really happen?
+                // We'll try again as a GET and ignore the response data.
+                $request = self::_commonHttp($short_url, $redirs);
+                $response = $request->send();
+            }
+        } catch (Exception $e) {
+            // Invalid URL or failure to reach server
+            return $short_url;
         }
 
-        if (!empty($info['redirect_count']) && File::isProtected($info['url'])) {
-            return File_redirection::_redirectWhere_imp($short_url, $info['redirect_count'] - 1, true);
+        if ($response->getRedirectCount() && File::isProtected($response->getUrl())) {
+            // Bump back up the redirect chain until we find a non-protected URL
+            return self::_redirectWhere_imp($short_url, $response->getRedirectCount() - 1, true);
         }
 
-        $ret = array('code' => $info['http_code']
-                , 'redirects' => $info['redirect_count']
-                , 'url' => $info['url']);
+        $ret = array('code' => $response->getCode()
+                , 'redirects' => $response->getRedirectCount()
+                , 'url' => $response->getUrl());
 
-        if (!empty($info['content_type'])) $ret['type'] = $info['content_type'];
+        $type = $response->getHeader('Content-Type');
+        if ($type) $ret['type'] = $type;
         if ($protected) $ret['protected'] = true;
-        if (!empty($info['download_content_length'])) $ret['size'] = $info['download_content_length'];
-        if (isset($info['filetime']) && ($info['filetime'] > 0)) $ret['time'] = $info['filetime'];
+        $size = $request->getHeader('Content-Length'); // @fixme bytes?
+        if ($size) $ret['size'] = $size;
+        $time = $request->getHeader('Last-Modified');
+        if ($time) $ret['time'] = strtotime($time);
         return $ret;
     }
 
