@@ -105,6 +105,7 @@ class FacebookinviteAction extends FacebookAction
         $multi_params = array('showborder' => 'false');
         $multi_params['actiontext'] = $actiontext;
         $multi_params['bypass'] = 'cancel';
+        $multi_params['cols'] = 4;
 
         // Get a list of users who are already using the app for exclusion
         $exclude_ids = $this->facebook->api_client->friends_getAppUsers();

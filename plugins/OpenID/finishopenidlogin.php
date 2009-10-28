@@ -265,7 +265,7 @@ class FinishopenidloginAction extends Action
             $fullname = '';
         }
 
-        if (!empty($sreg['email']) && Validate::email($sreg['email'], true)) {
+        if (!empty($sreg['email']) && Validate::email($sreg['email'], common_config('email', 'check_domain'))) {
             $email = $sreg['email'];
         } else {
             $email = '';

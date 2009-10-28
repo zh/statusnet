@@ -68,7 +68,7 @@ class InviteAction extends CurrentUserDesignAction
 
         foreach ($addresses as $email) {
             $email = trim($email);
-            if (!Validate::email($email, true)) {
+            if (!Validate::email($email, common_config('email', 'check_domain'))) {
                 $this->showForm(sprintf(_('Invalid email address: %s'), $email));
                 return;
             }

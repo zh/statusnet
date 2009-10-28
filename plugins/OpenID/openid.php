@@ -241,7 +241,7 @@ function oid_update_user(&$user, &$sreg)
 
     $orig_user = clone($user);
 
-    if ($sreg['email'] && Validate::email($sreg['email'], true)) {
+    if ($sreg['email'] && Validate::email($sreg['email'], common_config('email', 'check_domain'))) {
         $user->email = $sreg['email'];
     }
 

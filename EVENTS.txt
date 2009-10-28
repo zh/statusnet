@@ -129,6 +129,9 @@ StartSubGroupNav: Showing the subscriptions group nav menu
 EndSubGroupNav: At the end of the subscriptions group nav menu
 - $action: the current action
 
+StartInitializeRouter: Before the router instance has been initialized; good place to add routes
+- $m: the Net_URL_Mapper that has just been set up
+
 RouterInitialized: After the router instance has been initialized
 - $m: the Net_URL_Mapper that has just been set up
 

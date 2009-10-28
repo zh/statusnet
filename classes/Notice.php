@@ -179,7 +179,7 @@ class Notice extends Memcached_DataObject
             throw new ClientException(_('Problem saving notice. Too long.'));
         }
 
-        if (!$profile) {
+        if (empty($profile)) {
             throw new ClientException(_('Problem saving notice. Unknown user.'));
         }
 
@@ -296,7 +296,6 @@ class Notice extends Memcached_DataObject
 
             // XXX: do we need to change this for remote users?
 
-            $notice->saveReplies();
             $notice->saveTags();
 
             $notice->addToInboxes();
@@ -334,11 +333,11 @@ class Notice extends Memcached_DataObject
 
     static function checkDupes($profile_id, $content) {
         $profile = Profile::staticGet($profile_id);
-        if (!$profile) {
+        if (empty($profile)) {
             return false;
         }
         $notice = $profile->getNotices(0, NOTICE_CACHE_WINDOW);
-        if ($notice) {
+        if (!empty($notice)) {
             $last = 0;
             while ($notice->fetch()) {
                 if (time() - strtotime($notice->created) >= common_config('site', 'dupelimit')) {
@@ -364,7 +363,7 @@ class Notice extends Memcached_DataObject
 
     static function checkEditThrottle($profile_id) {
         $profile = Profile::staticGet($profile_id);
-        if (!$profile) {
+        if (empty($profile)) {
             return false;
         }
         # Get the Nth notice
@@ -685,7 +684,7 @@ class Notice extends Memcached_DataObject
 
         $cache = common_memcache();
 
-        if (!$cache) {
+        if (empty($cache)) {
             return Notice::getStreamDirect($qry, $offset, $limit, null, null, $order, null);
         }
 
@@ -746,7 +745,7 @@ class Notice extends Memcached_DataObject
 
         # If there are no hits, just return the value
 
-        if (!$notice) {
+        if (empty($notice)) {
             return $notice;
         }
 
@@ -936,6 +935,18 @@ class Notice extends Memcached_DataObject
             }
         }
 
+        $recipients = $this->saveReplies();
+
+        foreach ($recipients as $recipient) {
+
+            if (!array_key_exists($recipient, $ni)) {
+                $recipientUser = User::staticGet('id', $recipient);
+                if (!empty($recipientUser)) {
+                    $ni[$recipient] = NOTICE_INBOX_SOURCE_REPLY;
+                }
+            }
+        }
+
         $cnt = 0;
 
         $qryhdr = 'INSERT INTO notice_inbox (user_id, notice_id, source, created) VALUES ';
@@ -1088,12 +1099,12 @@ class Notice extends Memcached_DataObject
         for ($i=0; $i<count($names); $i++) {
             $nickname = $names[$i];
             $recipient = common_relative_profile($sender, $nickname, $this->created);
-            if (!$recipient) {
+            if (empty($recipient)) {
                 continue;
             }
             // Don't save replies from blocked profile to local user
             $recipient_user = User::staticGet('id', $recipient->id);
-            if ($recipient_user && $recipient_user->hasBlocked($sender)) {
+            if (!empty($recipient_user) && $recipient_user->hasBlocked($sender)) {
                 continue;
             }
             $reply = new Reply();
@@ -1104,7 +1115,7 @@ class Notice extends Memcached_DataObject
                 $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
                 common_log(LOG_ERR, 'DB error inserting reply: ' . $last_error->message);
                 common_server_error(sprintf(_('DB error inserting reply: %s'), $last_error->message));
-                return;
+                return array();
             } else {
                 $replied[$recipient->id] = 1;
             }
@@ -1128,7 +1139,7 @@ class Notice extends Memcached_DataObject
                         $id = $reply->insert();
                         if (!$id) {
                             common_log_db_error($reply, 'INSERT', __FILE__);
-                            return;
+                            return array();
                         } else {
                             $replied[$recipient->id] = 1;
                         }
@@ -1137,12 +1148,16 @@ class Notice extends Memcached_DataObject
             }
         }
 
-        foreach (array_keys($replied) as $recipient) {
+        $recipientIds = array_keys($replied);
+
+        foreach ($recipientIds as $recipient) {
             $user = User::staticGet('id', $recipient);
             if ($user) {
                 mail_notify_attn($user, $this);
             }
         }
+
+        return $recipientIds;
     }
 
     function asAtomEntry($namespace=false, $source=false)

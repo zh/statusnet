@@ -5,8 +5,8 @@ font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
 
 #wrap {
 background-color:#F0F2F5;
-padding-left:18px;
-padding-right:18px;
+padding-left:1.795%;
+padding-right:1.795%;
 width:auto;
 }
 
@@ -15,8 +15,16 @@ h1,h2,h3,h4,h5,h6 {
 color:#000;
 }
 
+#header {
+width:131%;
+}
+
 #content {
-width:95%;
+width:92.7%;
+}
+
+#aside_primary {
+display:none;
 }
 
 #site_nav_local_views a {
@@ -25,6 +33,16 @@ background-color:#D0DFE7;
 #site_nav_local_views a:hover {
 background-color:#FAFBFC;
 }
+
+#form_notice .form_note + label,
+#form_notice #notice_data-attach {
+display:none;
+}
+
+#form_notice #notice_action-submit {
+height:47px !important;
+}
+
 
 span.facebook-button {
 border: 2px solid #aaa;
