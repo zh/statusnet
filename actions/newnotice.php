@@ -160,18 +160,12 @@ class NewnoticeAction extends Action
 
         if (!$content) {
             $this->clientError(_('No content!'));
-        } else {
-            $content_shortened = common_shorten_links($content);
-            if (Notice::contentTooLong($content_shortened)) {
-                $this->clientError(sprintf(_('That\'s too long. '.
-                                             'Max notice size is %d chars.'),
-                                           Notice::maxContent()));
-            }
+            return;
         }
 
         $inter = new CommandInterpreter();
 
-        $cmd = $inter->handle_command($user, $content_shortened);
+        $cmd = $inter->handle_command($user, $content);
 
         if ($cmd) {
             if ($this->boolean('ajax')) {
@@ -180,6 +174,13 @@ class NewnoticeAction extends Action
                 $cmd->execute(new WebChannel($this));
             }
             return;
+        }
+
+        $content_shortened = common_shorten_links($content);
+        if (Notice::contentTooLong($content_shortened)) {
+            $this->clientError(sprintf(_('That\'s too long. '.
+                                         'Max notice size is %d chars.'),
+                                       Notice::maxContent()));
         }
 
         $replyto = $this->trimmed('inreplyto');

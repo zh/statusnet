@@ -134,6 +134,17 @@ class CommandInterpreter
             } else {
                 return new MessageCommand($user, $other, $extra);
             }
+         case 'r':
+         case 'reply':
+            if (!$arg) {
+                return null;
+            }
+            list($other, $extra) = $this->split_arg($arg);
+            if (!$extra) {
+                return null;
+            } else {
+                return new ReplyCommand($user, $other, $extra);
+            }
          case 'whois':
             if (!$arg) {
                 return null;
