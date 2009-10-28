@@ -1,4 +1,4 @@
-n<?php
+<?php
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
