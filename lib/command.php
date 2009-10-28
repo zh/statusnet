@@ -125,7 +125,7 @@ class FavCommand extends Command
     function execute($channel)
     {
         if(substr($this->other,0,1)=='#'){
-            //replying to a specific notice_id
+            //favoriting a specific notice_id
 
             $notice = Notice::staticGet(substr($this->other,1));
             if (!$notice) {
@@ -134,7 +134,7 @@ class FavCommand extends Command
             }
             $recipient = $notice->getProfile();
         }else{
-            //replying to a given user's last notice
+            //favoriting a given user's last notice
 
             $recipient =
               common_relative_profile($this->user, common_canonical_nickname($this->other));
@@ -359,6 +359,71 @@ class MessageCommand extends Command
     }
 }
 
+class ReplyCommand extends Command
+{
+    var $other = null;
+    var $text = null;
+    function __construct($user, $other, $text)
+    {
+        parent::__construct($user);
+        $this->other = $other;
+        $this->text = $text;
+    }
+
+    function execute($channel)
+    {
+        if(substr($this->other,0,1)=='#'){
+            //replying to a specific notice_id
+
+            $notice = Notice::staticGet(substr($this->other,1));
+            if (!$notice) {
+                $channel->error($this->user, _('Notice with that id does not exist'));
+                return;
+            }
+            $recipient = $notice->getProfile();
+        }else{
+            //replying to a given user's last notice
+
+            $recipient =
+              common_relative_profile($this->user, common_canonical_nickname($this->other));
+
+            if (!$recipient) {
+                $channel->error($this->user, _('No such user.'));
+                return;
+            }
+            $notice = $recipient->getCurrentNotice();
+            if (!$notice) {
+                $channel->error($this->user, _('User has no last notice'));
+                return;
+            }
+        }
+
+        $len = mb_strlen($this->text);
+
+        if ($len == 0) {
+            $channel->error($this->user, _('No content!'));
+            return;
+        }
+
+        $this->text = common_shorten_links($this->text);
+
+        if (Notice::contentTooLong($this->text)) {
+            $channel->error($this->user, sprintf(_('Notice too long - maximum is %d characters, you sent %d'),
+                                                 Notice::maxContent(), mb_strlen($this->text)));
+            return;
+        }
+
+        $notice = Notice::saveNew($this->user->id, $this->text, $channel->source(), 1,
+                                  $notice->id);
+        if ($notice) {
+            $channel->output($this->user, sprintf(_('Reply to %s sent'), $recipient->nickname));
+        } else {
+            $channel->error($this->user, _('Error saving notice.'));
+        }
+        common_broadcast_notice($notice);
+    }
+}
+
 class GetCommand extends Command
 {
 
@@ -510,6 +575,8 @@ class HelpCommand extends Command
                            "whois <nickname> - get profile info on user\n".
                            "fav <nickname> - add user's last notice as a 'fave'\n".
                            "fav #<notice_id> - add notice with the given id as a 'fave'\n".
+                           "reply #<notice_id> - reply to notice with a given id\n".
+                           "reply <nickname> - reply to the last notice from user\n".
                            "join <group> - join group\n".
                            "drop <group> - leave group\n".
                            "stats - get your stats\n".
