@@ -164,27 +164,21 @@ class NewnoticeAction extends Action
         }
 
         $upload = null;
-
-        common_debug('looking for attachment');
-
         $upload = MediaFile::fromUpload('attach');
 
-        common_debug("uploaded file = " . var_export($upload, true));
-
         if (isset($upload)) {
-            common_debug('newNotice: found an upload');
 
-                $content_shortened .= ' ' . $upload->shortUrl();
+            $content_shortened .= ' ' . $upload->shortUrl();
 
-                common_debug('content w/upload = ' . $content_shortened);
-
-                if (Notice::contentTooLong($content_shortened)) {
-                    $upload->delete();
-                    $this->clientError(sprintf(_('Max notice size is %d chars, including attachment URL.'),
-                                               Notice::maxContent()));
-                } else {
-                    common_debug('content not too long');
-                }
+            if (Notice::contentTooLong($content_shortened)) {
+                $upload->delete();
+                $this->clientError(
+                    sprintf(
+                        _('Max notice size is %d chars, including attachment URL.'),
+                          Notice::maxContent()
+                    )
+                );
+            }
         }
 
         $notice = Notice::saveNew($user->id, $content_shortened, 'web', 1,

@@ -112,10 +112,12 @@ class ApiStatusesUpdateAction extends ApiAuthAction
             return;
         }
 
-        if (empty($_POST) && $_SERVER['CONTENT_LENGTH']) {
-            $this->clientError(sprintf(_('The server was unable to handle ' .
-                                         'that much POST data (%s bytes) due to its current configuration.'),
-                                       $_SERVER['CONTENT_LENGTH']));
+        if (empty($this->status)) {
+            $this->clientError(
+                'Client must provide a \'status\' parameter with a value.',
+                400,
+                $this->format
+            );
             return;
         }
 
@@ -124,12 +126,10 @@ class ApiStatusesUpdateAction extends ApiAuthAction
             return;
         }
 
-        if (empty($this->status)) {
-            $this->clientError(
-                'Client must provide a \'status\' parameter with a value.',
-                400,
-                $this->format
-            );
+        // Workaround for PHP returning empty $_FILES when POST length > PHP settings
+
+        if (empty($_POST) && ($_SERVER['CONTENT_LENGTH'] > 0)) {
+            $this->clientError(_('Unable to handle that much POST data!'));
             return;
         }
 
@@ -192,27 +192,19 @@ class ApiStatusesUpdateAction extends ApiAuthAction
             }
 
             $upload = null;
-
-            common_debug('looking for attachment');
-
             $upload = MediaFile::fromUpload('media', $this->user);
 
-            common_debug("uploaded file = " . var_export($upload, true));
-
             if (isset($upload)) {
-                common_debug('newNotice: found an upload');
+                $status_shortened .= ' ' . $upload->shortUrl();
 
-                    $status_shortened .= ' ' . $upload->shortUrl();
-
-                    common_debug('content w/upload = ' . $status_shortened);
-
-                    if (Notice::contentTooLong($status_shortened)) {
-                        $upload->delete();
-                        $this->clientError(sprintf(_('Max notice size is %d chars, including attachment URL.'),
-                                                   Notice::maxContent()));
-                    } else {
-                        common_debug('content not too long');
-                    }
+                if (Notice::contentTooLong($status_shortened)) {
+                    $upload->delete();
+                    $msg = _(
+                        'Max notice size is %d chars, ' .
+                        'including attachment URL.'
+                    );
+                    $this->clientError(sprintf($msg, Notice::maxContent()));
+                }
             }
 
             $this->notice = Notice::saveNew(
