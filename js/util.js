@@ -241,6 +241,9 @@ $(document).ready(function(){
 													alert(result);
 												}
 												else {
+												    if($('body')[0].id == 'bookmarklet') {
+												        self.close();
+												    }
 												    if ($("#command_result", xml).length > 0) {
 													    var result = document._importNode($("p", xml).get(0), true);
 													    result = result.textContent || result.innerHTML;

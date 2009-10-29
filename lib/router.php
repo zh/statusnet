@@ -179,6 +179,8 @@ class Router
                         array('action' => 'deletenotice'),
                         array('notice' => '[0-9]+'));
 
+            $m->connect('bookmarklet/new', array('action' => 'bookmarklet'));
+
             // conversation
 
             $m->connect('conversation/:id',

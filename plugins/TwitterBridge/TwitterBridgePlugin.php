@@ -60,12 +60,12 @@ class TwitterBridgePlugin extends Plugin
      *
      * Hook for RouterInitialized event.
      *
-     * @param Net_URL_Mapper &$m path-to-action mapper
+     * @param Net_URL_Mapper $m path-to-action mapper
      *
      * @return boolean hook return
      */
 
-    function onRouterInitialized(&$m)
+    function onRouterInitialized($m)
     {
         $m->connect('twitter/authorization',
                     array('action' => 'twitterauthorization'));

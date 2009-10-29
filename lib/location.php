@@ -47,10 +47,11 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 
 class Location
 {
-    public $lat;
-    public $lon;
-    public $location_id;
-    public $location_ns;
+    public  $lat;
+    public  $lon;
+    public  $location_id;
+    public  $location_ns;
+    private $_url;
 
     var $names = array();
 
@@ -90,6 +91,10 @@ class Location
 
     static function fromId($id, $ns, $language=null)
     {
+        if (is_null($language)) {
+            $language = common_language();
+        }
+
         $location = null;
 
         // Let a third-party handle it
@@ -156,5 +161,28 @@ class Location
                 return $name;
             }
         }
+    }
+
+    /**
+     * Get an URL suitable for this location
+     *
+     * @return string URL for this location or NULL
+     */
+
+    function getURL()
+    {
+        // Keep one cached
+
+        if (is_string($this->_url)) {
+            return $this->_url;
+        }
+
+        $url = null;
+
+        Event::handle('LocationUrl', array($this, &$url));
+
+        $this->_url = $url;
+
+        return $url;
     }
 }
