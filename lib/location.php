@@ -47,10 +47,11 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 
 class Location
 {
-    public $lat;
-    public $lon;
-    public $location_id;
-    public $location_ns;
+    public  $lat;
+    public  $lon;
+    public  $location_id;
+    public  $location_ns;
+    private $_url;
 
     var $names = array();
 
@@ -156,5 +157,34 @@ class Location
                 return $name;
             }
         }
+    }
+
+    /**
+     * Get an URL suitable for this location
+     *
+     * @return string URL for this location or NULL
+     */
+
+    function getURL()
+    {
+        if ($this->_url == false) { // cached failure
+            return null;
+        } else if (is_string($this->_url)) { // cached value
+            return $this->_url;
+        }
+
+        $url = null;
+
+        Event::handle('LocationUrl', array($this, &$url));
+
+        // Save it for later
+
+        if (is_null($url)) {
+            $this->_url = false;
+        } else {
+            $this->_url = $url;
+        }
+
+        return $this->_url;
     }
 }
