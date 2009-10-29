@@ -45,7 +45,6 @@ require_once INSTALLDIR.'/lib/xmloutputter.php';
  * @see      Action
  * @see      XMLOutputter
  */
-
 class XRDSOutputter extends XMLOutputter
 {
     public function startXRDS()
