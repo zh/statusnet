@@ -192,7 +192,13 @@ class ApiStatusesUpdateAction extends ApiAuthAction
             }
 
             $upload = null;
-            $upload = MediaFile::fromUpload('media', $this->user);
+
+            try {
+                $upload = MediaFile::fromUpload('media', $this->user);
+            } catch (ClientException $ce) {
+                $this->clientError($ce->getMessage());
+                return;
+            }
 
             if (isset($upload)) {
                 $status_shortened .= ' ' . $upload->shortUrl();
