@@ -1412,4 +1412,21 @@ class Notice extends Memcached_DataObject
         $contentlimit = self::maxContent();
         return ($contentlimit > 0 && !empty($content) && (mb_strlen($content) > $contentlimit));
     }
+
+    function getLocation()
+    {
+        $location = null;
+
+        if (!empty($this->location_id) && !empty($this->location_ns)) {
+            $location = Location::fromId($this->location_id, $this->location_ns);
+        }
+
+        if (is_null($location)) { // no ID, or Location::fromId() failed
+            if (!empty($this->lat) && !empty($this->lon)) {
+                $location = Location::fromLatLon($this->lat, $this->lon);
+            }
+        }
+
+        return $location;
+    }
 }
