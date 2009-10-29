@@ -1,8 +1,10 @@
 <?php
 /**
- * StatusNet, the distributed open-source mMediaFileicroblogging tool
+ * StatusNet, the distributed open-source microblogging tool
  *
- * Abstraction for a media files in general
+ * Abstraction for media files in general
+ *
+ * TODO: combine with ImageFile?
  *
  * PHP version 5
  *
@@ -21,6 +23,7 @@
  *
  * @category  Media
  * @package   StatusNet
+ * @author    Robin Millette <robin@millette.info>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
