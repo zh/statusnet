@@ -11,8 +11,7 @@ Installation
 
 To enable the plugin, add the following to your config.php:
 
-    require_once(INSTALLDIR . '/plugins/TwitterBridge/TwitterBridgePlugin.php');
-    $tb = new TwitterBridgePlugin();
+    addPlugin("TwitterBridge");
 
 OAuth is used to to access protected resources on Twitter (as opposed to
 HTTP Basic Auth)*.  To use Twitter bridging you will need to register
