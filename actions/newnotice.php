@@ -33,7 +33,8 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/noticelist.php';
+require_once INSTALLDIR . '/lib/noticelist.php';
+require_once INSTALLDIR . '/lib/mediafile.php';
 
 /**
  * Action for posting new notices
@@ -113,33 +114,6 @@ class NewnoticeAction extends Action
         }
     }
 
-    function getUploadedFileType() {
-        require_once 'MIME/Type.php';
-
-        $cmd = &PEAR::getStaticProperty('MIME_Type', 'fileCmd');
-        $cmd = common_config('attachments', 'filecommand');
-
-        $filetype = MIME_Type::autoDetect($_FILES['attach']['tmp_name']);
-        if (in_array($filetype, common_config('attachments', 'supported'))) {
-            return $filetype;
-        }
-        $media = MIME_Type::getMedia($filetype);
-        if ('application' !== $media) {
-            $hint = sprintf(_(' Try using another %s format.'), $media);
-        } else {
-            $hint = '';
-        }
-        $this->clientError(sprintf(
-                                   _('%s is not a supported filetype on this server.'), $filetype) . $hint);
-    }
-
-    function isRespectsQuota($user) {
-        $file = new File;
-        $ret = $file->isRespectsQuota($user,$_FILES['attach']['size']);
-        if (true === $ret) return true;
-        $this->clientError($ret);
-    }
-
     /**
      * Save a new notice, based on arguments
      *
@@ -190,78 +164,29 @@ class NewnoticeAction extends Action
             $replyto = 'false';
         }
 
-        if (isset($_FILES['attach']['error'])) {
-            switch ($_FILES['attach']['error']) {
-             case UPLOAD_ERR_NO_FILE:
-                // no file uploaded, nothing to do
-                break;
+        $upload = null;
+        $upload = MediaFile::fromUpload('attach');
 
-             case UPLOAD_ERR_OK:
-                $mimetype = $this->getUploadedFileType();
-                if (!$this->isRespectsQuota($user)) {
-                    die('clientError() should trigger an exception before reaching here.');
-                }
-                break;
+        if (isset($upload)) {
 
-             case UPLOAD_ERR_INI_SIZE:
-                $this->clientError(_('The uploaded file exceeds the upload_max_filesize directive in php.ini.'));
-
-             case UPLOAD_ERR_FORM_SIZE:
-                $this->clientError(_('The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.'));
-
-             case UPLOAD_ERR_PARTIAL:
-                $this->clientError(_('The uploaded file was only partially uploaded.'));
-
-             case  UPLOAD_ERR_NO_TMP_DIR:
-                $this->clientError(_('Missing a temporary folder.'));
-
-             case UPLOAD_ERR_CANT_WRITE:
-                $this->clientError(_('Failed to write file to disk.'));
-
-             case UPLOAD_ERR_EXTENSION:
-                $this->clientError(_('File upload stopped by extension.'));
-
-             default:
-                die('Should never reach here.');
-            }
-        }
-
-        if (isset($mimetype)) {
-            $filename = $this->saveFile($mimetype);
-            if (empty($filename)) {
-                $this->clientError(_('Couldn\'t save file.'));
-            }
-
-            $fileRecord = $this->storeFile($filename, $mimetype);
-
-            $fileurl = common_local_url('attachment',
-                                        array('attachment' => $fileRecord->id));
-
-            // not sure this is necessary -- Zach
-            $this->maybeAddRedir($fileRecord->id, $fileurl);
-
-            $short_fileurl = common_shorten_url($fileurl);
-            if (!$short_fileurl) {
-                // todo -- Consider forcing default shortener if none selected?
-                $short_fileurl = $fileurl;
-            }
-            $content_shortened .= ' ' . $short_fileurl;
+            $content_shortened .= ' ' . $upload->shortUrl();
 
             if (Notice::contentTooLong($content_shortened)) {
-                $this->deleteFile($filename);
-                $this->clientError(sprintf(_('Max notice size is %d chars, including attachment URL.'),
-                                           Notice::maxContent()));
+                $upload->delete();
+                $this->clientError(
+                    sprintf(
+                        _('Max notice size is %d chars, including attachment URL.'),
+                          Notice::maxContent()
+                    )
+                );
             }
-
-            // Also, not sure this is necessary -- Zach
-            $this->maybeAddRedir($fileRecord->id, $short_fileurl);
         }
 
         $notice = Notice::saveNew($user->id, $content_shortened, 'web', 1,
                                   ($replyto == 'false') ? null : $replyto);
 
-        if (isset($mimetype)) {
-            $this->attachFile($notice, $fileRecord);
+        if (isset($upload)) {
+            $upload->attachToNotice($notice);
         }
 
         common_broadcast_notice($notice);
@@ -287,87 +212,6 @@ class NewnoticeAction extends Action
             }
             common_redirect($url, 303);
         }
-    }
-
-    function saveFile($mimetype) {
-
-        $cur = common_current_user();
-
-        if (empty($cur)) {
-            $this->serverError(_('Somehow lost the login in saveFile'));
-        }
-
-        $basename = basename($_FILES['attach']['name']);
-
-        $filename = File::filename($cur->getProfile(), $basename, $mimetype);
-
-        $filepath = File::path($filename);
-
-        if (move_uploaded_file($_FILES['attach']['tmp_name'], $filepath)) {
-            return $filename;
-        } else {
-            $this->clientError(_('File could not be moved to destination directory.'));
-        }
-    }
-
-    function deleteFile($filename)
-    {
-        $filepath = File::path($filename);
-        @unlink($filepath);
-    }
-
-    function storeFile($filename, $mimetype) {
-
-        $file = new File;
-        $file->filename = $filename;
-
-        $file->url = File::url($filename);
-
-        $filepath = File::path($filename);
-
-        $file->size = filesize($filepath);
-        $file->date = time();
-        $file->mimetype = $mimetype;
-
-        $file_id = $file->insert();
-
-        if (!$file_id) {
-            common_log_db_error($file, "INSERT", __FILE__);
-            $this->clientError(_('There was a database error while saving your file. Please try again.'));
-        }
-
-        return $file;
-    }
-
-    function rememberFile($file, $short)
-    {
-        $this->maybeAddRedir($file->id, $short);
-    }
-
-    function maybeAddRedir($file_id, $url)
-    {
-        $file_redir = File_redirection::staticGet('url', $url);
-
-        if (empty($file_redir)) {
-            $file_redir = new File_redirection;
-            $file_redir->url = $url;
-            $file_redir->file_id = $file_id;
-
-            $result = $file_redir->insert();
-
-            if (!$result) {
-                common_log_db_error($file_redir, "INSERT", __FILE__);
-                $this->clientError(_('There was a database error while saving your file. Please try again.'));
-            }
-        }
-    }
-
-    function attachFile($notice, $filerec)
-    {
-        File_to_post::processNew($filerec->id, $notice->id);
-
-        $this->maybeAddRedir($filerec->id,
-                             common_local_url('file', array('notice' => $notice->id)));
     }
 
     /**
