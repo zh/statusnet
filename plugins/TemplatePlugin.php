@@ -32,7 +32,7 @@ class TemplatePlugin extends Plugin {
   // capture the RouterInitialized event
   // and connect a new API method
   // for updating the template
-  function onRouterInitialized( &$m ) {
+  function onRouterInitialized( $m ) {
     $m->connect( 'template/update', array(
       'action'      => 'template',
     ));
