@@ -62,7 +62,7 @@ class OpenIDPlugin extends Plugin
      * @return boolean hook return
      */
 
-    function onRouterInitialized(&$m)
+    function onRouterInitialized($m)
     {
         $m->connect('main/openid', array('action' => 'openidlogin'));
         $m->connect('settings/openid', array('action' => 'openidsettings'));
