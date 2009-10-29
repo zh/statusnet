@@ -47,7 +47,7 @@ class BookmarkletAction extends NewnoticeAction
 {
     function showTitle()
     {
-        $this->element('title', null, _('Post to '.common_config('site', 'name')));
+        $this->element('title', null, _('Post to ').common_config('site', 'name'));
     }
 
     function showHeader()
