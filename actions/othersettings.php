@@ -103,7 +103,7 @@ class OthersettingsAction extends AccountSettingsAction
             foreach($_shorteners as $name=>$value)
             {
                 $services[$name]=$name;
-                if($value['info']['freeService']){
+                if(!empty($value['info']['freeService'])){
                     // I18N
                     $services[$name].=' (free service)';
                 }
