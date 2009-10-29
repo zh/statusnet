@@ -131,6 +131,13 @@ class PublicAction extends Action
             return _('Public timeline');
         }
     }
+    
+    function extraHead()
+    {
+        parent::extraHead();
+        $this->element('meta', array('http-equiv' => 'X-XRDS-Location',
+                                           'content' => common_local_url('publicxrds')));
+    }
 
     /**
      * Output <head> elements for RSS and Atom feeds

@@ -36,6 +36,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 require_once INSTALLDIR.'/lib/omb.php';
 require_once INSTALLDIR.'/extlib/libomb/service_provider.php';
 require_once INSTALLDIR.'/extlib/libomb/xrds_mapper.php';
+require_once INSTALLDIR.'/lib/xrdsoutputter.php';
 
 /**
  * XRDS for OpenMicroBlogging
@@ -49,6 +50,8 @@ require_once INSTALLDIR.'/extlib/libomb/xrds_mapper.php';
  */
 class XrdsAction extends Action
 {
+    var $user;
+
     /**
      * Is read only?
      *
@@ -56,6 +59,18 @@ class XrdsAction extends Action
      */
     function isReadOnly()
     {
+        return true;
+    }
+    
+    function prepare($args)
+    {
+        parent::prepare($args);
+        $nickname = $this->trimmed('nickname');
+        $this->user     = User::staticGet('nickname', $nickname);
+        if (!$this->user) {
+            $this->clientError(_('No such user.'));
+            return;
+        }
         return true;
     }
 
@@ -69,49 +84,64 @@ class XrdsAction extends Action
     function handle($args)
     {
         parent::handle($args);
-        $nickname = $this->trimmed('nickname');
-        $user     = User::staticGet('nickname', $nickname);
-        if (!$user) {
-            $this->clientError(_('No such user.'));
-            return;
-        }
-        $this->showXrds($user);
-    }
+        $xrdsOutputter = new XRDSOutputter();
+        $xrdsOutputter->startXRDS();
 
-    /**
-     * Show XRDS for a user.
-     *
-     * @param class $user XRDS for this user.
-     *
-     * @return void
-     */
-    function showXrds($user)
-    {
-        $srv = new OMB_Service_Provider(profile_to_omb_profile($user->uri,
-                                        $user->getProfile()));
-        /* Use libomb’s default XRDS Writer. */
-        $xrds_writer = null;
-        $srv->writeXRDS(new Laconica_XRDS_Mapper(), $xrds_writer);
-    }
-}
+        Event::handle('StartUserXRDS', array($this,&$xrdsOutputter));
 
-class Laconica_XRDS_Mapper implements OMB_XRDS_Mapper
-{
-    protected $urls;
+        //oauth
+        $xrdsOutputter->elementStart('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
+                                          'xml:id' => 'oauth',
+                                          'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
+                                          'version' => '2.0'));
+        $xrdsOutputter->element('Type', null, 'xri://$xrds*simple');
+        $xrdsOutputter->showXrdsService(OAUTH_ENDPOINT_REQUEST,
+                            common_local_url('requesttoken'),
+                            array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY, OAUTH_HMAC_SHA1));
+        $xrdsOutputter->showXrdsService( OAUTH_ENDPOINT_AUTHORIZE,
+                            common_local_url('userauthorization'),
+                            array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY, OAUTH_HMAC_SHA1),
+                            null,
+                            $this->user->getIdentifierURI());
+        $xrdsOutputter->showXrdsService(OAUTH_ENDPOINT_ACCESS,
+                            common_local_url('accesstoken'),
+                            array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY, OAUTH_HMAC_SHA1),
+                            null,
+                            $this->user->getIdentifierURI());
+        $xrdsOutputter->showXrdsService(OAUTH_ENDPOINT_RESOURCE,
+                            null,
+                            array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY, OAUTH_HMAC_SHA1),
+                            null,
+                            $this->user->getIdentifierURI());
+        $xrdsOutputter->elementEnd('XRD');
+        
+        //omb
+        $xrdsOutputter->elementStart('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
+                                          'xml:id' => 'oauth',
+                                          'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
+                                          'version' => '2.0'));
+        $xrdsOutputter->element('Type', null, 'xri://$xrds*simple');
+        $xrdsOutputter->showXrdsService(OMB_ENDPOINT_POSTNOTICE,
+                            common_local_url('postnotice'));
+        $xrdsOutputter->showXrdsService(OMB_ENDPOINT_UPDATEPROFILE,
+                            common_local_url('updateprofile'));
+        $xrdsOutputter->elementEnd('XRD');
+        
+        //misc
+        $xrdsOutputter->elementStart('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
+                                          'xml:id' => 'oauth',
+                                          'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
+                                          'version' => '2.0'));
+        $xrdsOutputter->showXrdsService(OAUTH_DISCOVERY,
+                            '#oauth');
+        $xrdsOutputter->showXrdsService(OMB_VERSION,
+                            '#omb');
+        $xrdsOutputter->elementEnd('XRD');
 
-    public function __construct()
-    {
-        $this->urls = array(
-            OAUTH_ENDPOINT_REQUEST => 'requesttoken',
-            OAUTH_ENDPOINT_AUTHORIZE => 'userauthorization',
-            OAUTH_ENDPOINT_ACCESS => 'accesstoken',
-            OMB_ENDPOINT_POSTNOTICE => 'postnotice',
-            OMB_ENDPOINT_UPDATEPROFILE => 'updateprofile');
-    }
+        Event::handle('EndUserXRDS', array($this,&$xrdsOutputter));
 
-    public function getURL($action)
-    {
-        return common_local_url($this->urls[$action]);
+        $xrdsOutputter->endXRDS();
+        
     }
 }
 ?>

@@ -1,21 +1,12 @@
 <?php
-
 /**
- * Public XRDS for OpenID
+ * StatusNet, the distributed open-source microblogging tool
+ *
+ * Low-level generator for HTML
  *
  * PHP version 5
  *
- * @category Action
- * @package  StatusNet
- * @author   Evan Prodromou <evan@status.net>
- * @author   Robin Millette <millette@status.net>
- * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://status.net/
- *
- * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, StatusNet, Inc.
- *
- * This program is free software: you can redistribute it and/or modify
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -27,60 +18,44 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Output
+ * @package   StatusNet
+ * @author    Craig Andrews <candrews@integralblue.com>
+ * @copyright 2008 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://status.net/
  */
 
 if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/plugins/OpenID/openid.php';
+require_once INSTALLDIR.'/lib/xmloutputter.php';
 
 /**
- * Public XRDS for OpenID
+ * Low-level generator for XRDS XML
  *
- * @category Action
+ * @category Output
  * @package  StatusNet
- * @author   Evan Prodromou <evan@status.net>
- * @author   Robin Millette <millette@status.net>
- * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @author   Craig Andrews <candrews@integralblue.com>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  *
- * @todo factor out similarities with XrdsAction
+ * @see      Action
+ * @see      XMLOutputter
  */
-class PublicxrdsAction extends Action
+class XRDSOutputter extends XMLOutputter
 {
-    /**
-     * Is read only?
-     *
-     * @return boolean true
-     */
-    function isReadOnly($args)
+    public function startXRDS()
     {
-        return true;
-    }
-
-    /**
-     * Class handler.
-     *
-     * @param array $args array of arguments
-     *
-     * @return nothing
-     */
-    function handle($args)
-    {
-        parent::handle($args);
         header('Content-Type: application/xrds+xml');
         $this->startXML();
         $this->elementStart('XRDS', array('xmlns' => 'xri://$xrds'));
-        $this->elementStart('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
-                                          'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
-                                          'version' => '2.0'));
-        $this->element('Type', null, 'xri://$xrds*simple');
-        foreach (array('finishopenidlogin', 'finishaddopenid') as $finish) {
-            $this->showService(Auth_OpenID_RP_RETURN_TO_URL_TYPE,
-                                common_local_url($finish));
-        }
-        $this->elementEnd('XRD');
+    }
+    
+    public function endXRDS()
+    {
         $this->elementEnd('XRDS');
         $this->endXML();
     }
@@ -96,7 +71,7 @@ class PublicxrdsAction extends Action
      *
      * @return void
      */
-    function showService($type, $uri, $params=null, $sigs=null, $localId=null)
+    function showXrdsService($type, $uri, $params=null, $sigs=null, $localId=null)
     {
         $this->elementStart('Service');
         if ($uri) {
@@ -119,4 +94,3 @@ class PublicxrdsAction extends Action
         $this->elementEnd('Service');
     }
 }
-

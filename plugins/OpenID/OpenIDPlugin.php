@@ -62,15 +62,57 @@ class OpenIDPlugin extends Plugin
      * @return boolean hook return
      */
 
-    function onRouterInitialized($m)
+    function onStartInitializeRouter($m)
     {
         $m->connect('main/openid', array('action' => 'openidlogin'));
+        $m->connect('main/openidtrust', array('action' => 'openidtrust'));
         $m->connect('settings/openid', array('action' => 'openidsettings'));
-        $m->connect('xrds', array('action' => 'publicxrds'));
         $m->connect('index.php?action=finishopenidlogin', array('action' => 'finishopenidlogin'));
         $m->connect('index.php?action=finishaddopenid', array('action' => 'finishaddopenid'));
-
+        $m->connect('main/openidserver', array('action' => 'openidserver'));
+        
         return true;
+    }
+
+    function onEndPublicXRDS($action, &$xrdsOutputter)
+    {
+        $xrdsOutputter->elementStart('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
+                                          'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
+                                          'version' => '2.0'));
+        $xrdsOutputter->element('Type', null, 'xri://$xrds*simple');
+        //consumer
+        foreach (array('finishopenidlogin', 'finishaddopenid') as $finish) {
+            $xrdsOutputter->showXrdsService(Auth_OpenID_RP_RETURN_TO_URL_TYPE,
+                                common_local_url($finish));
+        }
+        //provider
+        $xrdsOutputter->showXrdsService('http://specs.openid.net/auth/2.0/server',
+                            common_local_url('openidserver'),
+                            null,
+                            null,
+                            'http://specs.openid.net/auth/2.0/identifier_select');
+        $xrdsOutputter->elementEnd('XRD');
+    }
+
+    function onEndUserXRDS($action, &$xrdsOutputter)
+    {
+        $xrdsOutputter->elementStart('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
+                                          'xml:id' => 'openid',
+                                          'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
+                                          'version' => '2.0'));
+        $xrdsOutputter->element('Type', null, 'xri://$xrds*simple');
+        
+        //consumer
+        $xrdsOutputter->showXrdsService('http://specs.openid.net/auth/2.0/return_to',
+                            common_local_url('finishopenidlogin'));
+                            
+        //provider
+        $xrdsOutputter->showXrdsService('http://specs.openid.net/auth/2.0/signon',
+                            common_local_url('openidserver'),
+                            null,
+                            null,
+                            common_profile_url($action->user->nickname));
+        $xrdsOutputter->elementEnd('XRD');
     }
 
     function onEndLoginGroupNav(&$action)
@@ -107,6 +149,7 @@ class OpenIDPlugin extends Plugin
          case 'XrdsAction':
          case 'PublicxrdsAction':
          case 'OpenidsettingsAction':
+         case 'OpenidserverAction':
             require_once(INSTALLDIR.'/plugins/OpenID/' . strtolower(mb_substr($cls, 0, -6)) . '.php');
             return false;
          case 'User_openid':
@@ -152,12 +195,16 @@ class OpenIDPlugin extends Plugin
 
     function onEndShowHeadElements($action)
     {
-        if ($action->trimmed('action') == 'public') {
-            // for client side of OpenID authentication
-            $action->element('meta', array('http-equiv' => 'X-XRDS-Location',
-                                           'content' => common_local_url('publicxrds')));
+        if($action instanceof ShowstreamAction){
+            $action->element('link', array('rel' => 'openid2.provider',
+                                           'href' => common_local_url('openidserver')));
+            $action->element('link', array('rel' => 'openid2.local_id',
+                                           'href' => $action->profile->profileurl));
+            $action->element('link', array('rel' => 'openid.server',
+                                           'href' => common_local_url('openidserver')));
+            $action->element('link', array('rel' => 'openid.delegate',
+                                           'href' => $action->profile->profileurl));
         }
-
         return true;
     }
 
