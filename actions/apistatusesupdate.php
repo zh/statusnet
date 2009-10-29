@@ -38,6 +38,7 @@ if (!defined('STATUSNET')) {
 }
 
 require_once INSTALLDIR . '/lib/apiauth.php';
+require_once INSTALLDIR . '/lib/mediafile.php';
 
 /**
  * Updates the authenticating user's status (posts a notice).
@@ -60,7 +61,6 @@ class ApiStatusesUpdateAction extends ApiAuthAction
     var $source                = null;
     var $status                = null;
     var $in_reply_to_status_id = null;
-
     static $reserved_sources = array('web', 'omb', 'mail', 'xmpp', 'api');
 
     /**
@@ -76,25 +76,8 @@ class ApiStatusesUpdateAction extends ApiAuthAction
     {
         parent::prepare($args);
 
-        $this->user = $this->auth_user;
-
-        if (empty($this->user)) {
-            $this->clientError(_('No such user!'), 404, $this->format);
-            return false;
-        }
-
+        $this->user   = $this->auth_user;
         $this->status = $this->trimmed('status');
-
-        if (empty($this->status)) {
-            $this->clientError(
-                'Client must provide a \'status\' parameter with a value.',
-                400,
-                $this->format
-            );
-
-            return false;
-        }
-
         $this->source = $this->trimmed('source');
 
         if (empty($this->source) || in_array($source, $this->reserved_sources)) {
@@ -126,6 +109,27 @@ class ApiStatusesUpdateAction extends ApiAuthAction
                 _('This method requires a POST.'),
                 400, $this->format
             );
+            return;
+        }
+
+        if (empty($this->status)) {
+            $this->clientError(
+                'Client must provide a \'status\' parameter with a value.',
+                400,
+                $this->format
+            );
+            return;
+        }
+
+        if (empty($this->user)) {
+            $this->clientError(_('No such user!'), 404, $this->format);
+            return;
+        }
+
+        // Workaround for PHP returning empty $_FILES when POST length > PHP settings
+
+        if (empty($_POST) && ($_SERVER['CONTENT_LENGTH'] > 0)) {
+            $this->clientError(_('Unable to handle that much POST data!'));
             return;
         }
 
@@ -187,13 +191,33 @@ class ApiStatusesUpdateAction extends ApiAuthAction
                 }
             }
 
+            $upload = null;
+            $upload = MediaFile::fromUpload('media', $this->user);
+
+            if (isset($upload)) {
+                $status_shortened .= ' ' . $upload->shortUrl();
+
+                if (Notice::contentTooLong($status_shortened)) {
+                    $upload->delete();
+                    $msg = _(
+                        'Max notice size is %d chars, ' .
+                        'including attachment URL.'
+                    );
+                    $this->clientError(sprintf($msg, Notice::maxContent()));
+                }
+            }
+
             $this->notice = Notice::saveNew(
                 $this->user->id,
-                html_entity_decode($this->status, ENT_NOQUOTES, 'UTF-8'),
+                html_entity_decode($status_shortened, ENT_NOQUOTES, 'UTF-8'),
                 $this->source,
                 1,
                 $reply_to
             );
+
+            if (isset($upload)) {
+                $upload->attachToNotice($this->notice);
+            }
 
             common_broadcast_notice($this->notice);
         }
