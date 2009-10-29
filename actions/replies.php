@@ -138,11 +138,25 @@ class RepliesAction extends OwnerDesignAction
 
     function getFeeds()
     {
-        $rssurl   = common_local_url('repliesrss',
-                                     array('nickname' => $this->user->nickname));
-        $rsstitle = sprintf(_('Feed for replies to %s'), $this->user->nickname);
-
-        return array(new Feed(Feed::RSS1, $rssurl, $rsstitle));
+        return array(new Feed(Feed::RSS1,
+                              common_local_url('repliesrss',
+                                               array('nickname' => $this->user->nickname)),
+                              sprintf(_('Replies feed for %s (RSS 1.0)'),
+                                      $this->user->nickname)),
+                     new Feed(Feed::RSS2,
+                              common_local_url('ApiTimelineMentions',
+                                               array(
+                                                    'id' => $this->user->nickname,
+                                                    'format' => 'rss')),
+                              sprintf(_('Replies feed for %s (RSS 2.0)'),
+                                      $this->user->nickname)),
+                     new Feed(Feed::ATOM,
+                              common_local_url('ApiTimelineMentions',
+                                               array(
+                                                    'id' => $this->user->nickname,
+                                                    'format' => 'atom')),
+                              sprintf(_('Replies feed for %s (Atom)'),
+                                    $this->user->nickname)));
     }
 
     /**
