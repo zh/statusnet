@@ -91,6 +91,10 @@ class Location
 
     static function fromId($id, $ns, $language=null)
     {
+        if (is_null($language)) {
+            $language = common_language();
+        }
+
         $location = null;
 
         // Let a third-party handle it
@@ -167,9 +171,9 @@ class Location
 
     function getURL()
     {
-        if ($this->_url == false) { // cached failure
-            return null;
-        } else if (is_string($this->_url)) { // cached value
+        // Keep one cached
+
+        if (is_string($this->_url)) {
             return $this->_url;
         }
 
@@ -177,14 +181,8 @@ class Location
 
         Event::handle('LocationUrl', array($this, &$url));
 
-        // Save it for later
+        $this->_url = $url;
 
-        if (is_null($url)) {
-            $this->_url = false;
-        } else {
-            $this->_url = $url;
-        }
-
-        return $this->_url;
+        return $url;
     }
 }
