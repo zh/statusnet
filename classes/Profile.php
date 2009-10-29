@@ -562,4 +562,29 @@ class Profile extends Memcached_DataObject
         $block->blocked = $this->id;
         $block->delete();
     }
+
+    // XXX: identical to Notice::getLocation.
+
+    function getLocation()
+    {
+        $location = null;
+
+        if (!empty($this->location_id) && !empty($this->location_ns)) {
+            $location = Location::fromId($this->location_id, $this->location_ns);
+        }
+
+        if (is_null($location)) { // no ID, or Location::fromId() failed
+            if (!empty($this->lat) && !empty($this->lon)) {
+                $location = Location::fromLatLon($this->lat, $this->lon);
+            }
+        }
+
+        if (is_null($location)) { // still haven't found it!
+            if (!empty($this->location)) {
+                $location = Location::fromName($this->location);
+            }
+        }
+
+        return $location;
+    }
 }
