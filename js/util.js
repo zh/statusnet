@@ -319,7 +319,7 @@ var SN = { // StatusNet
             }
         },
 
-        NoticeReplySet function(nick,id) {
+        NoticeReplySet: function(nick,id) {
             if (nick.match(SN.C.I.PatternUsername)) {
                 var text = $('#'+SN.C.S.NoticeDataText);
                 if (text.length) {
