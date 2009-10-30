@@ -180,6 +180,7 @@ class OpenIDPlugin extends Plugin
         {
          case 'openidlogin':
          case 'finishopenidlogin':
+         case 'openidserver':
             $login = true;
             return false;
          default:
