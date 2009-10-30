@@ -89,52 +89,6 @@ $(document).ready(function(){
         }
 	}
 
-	// XXX: refactor this code
-
-	var favoptions = { dataType: 'xml',
-					   beforeSubmit: function(data, target, options) {
-					   							$(target).addClass('processing');
-												return true;
-											  },
-					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
-												var dis = new_form.id;
-												var fav = dis.replace('disfavor', 'favor');
-												$('form#'+fav).replaceWith(new_form);
-												$('form#'+dis).ajaxForm(disoptions).each(addAjaxHidden);
-											  }
-					 };
-
-	var disoptions = { dataType: 'xml',
-					   beforeSubmit: function(data, target, options) {
-					   							$(target).addClass('processing');
-												return true;
-											  },
-					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
-												var fav = new_form.id;
-												var dis = fav.replace('favor', 'disfavor');
-												$('form#'+dis).replaceWith(new_form);
-												$('form#'+fav).ajaxForm(favoptions).each(addAjaxHidden);
-											  }
-					 };
-
-	var joinoptions = { dataType: 'xml',
-					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
-												var leave = new_form.id;
-												var join = leave.replace('leave', 'join');
-												$('form#'+join).replaceWith(new_form);
-												$('form#'+leave).ajaxForm(leaveoptions).each(addAjaxHidden);
-											  }
-					 };
-
-	var leaveoptions = { dataType: 'xml',
-					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
-												var join = new_form.id;
-												var leave = join.replace('join', 'leave');
-												$('form#'+leave).replaceWith(new_form);
-												$('form#'+join).ajaxForm(joinoptions).each(addAjaxHidden);
-											  }
-					 };
-
 	function addAjaxHidden() {
 		var ajax = document.createElement('input');
 		ajax.setAttribute('type', 'hidden');
@@ -143,62 +97,13 @@ $(document).ready(function(){
 		this.appendChild(ajax);
 	}
 
-	$("form.form_favor").ajaxForm(favoptions);
-	$("form.form_disfavor").ajaxForm(disoptions);
-	$("form.form_group_join").ajaxForm(joinoptions);
-	$("form.form_group_leave").ajaxForm(leaveoptions);
-	$("form.form_favor").each(addAjaxHidden);
-	$("form.form_disfavor").each(addAjaxHidden);
-	$("form.form_group_join").each(addAjaxHidden);
-	$("form.form_group_leave").each(addAjaxHidden);
-
-	$("#form_user_nudge").ajaxForm ({ dataType: 'xml',
-		beforeSubmit: function(xml) { $("#form_user_nudge input[type=submit]").attr("disabled", "disabled");
-									  $("#form_user_nudge input[type=submit]").addClass("disabled");
-									},
-		success: function(xml) { $("#form_user_nudge").replaceWith(document._importNode($("#nudge_response", xml).get(0),true));
-							     $("#form_user_nudge input[type=submit]").removeAttr("disabled");
-							     $("#form_user_nudge input[type=submit]").removeClass("disabled");
-							   }
-	 });
-	$("#form_user_nudge").each(addAjaxHidden);
-
-	var Subscribe = { dataType: 'xml',
-					  beforeSubmit: function(formData, jqForm, options) { $(".form_user_subscribe input[type=submit]").attr("disabled", "disabled");
-																	      $(".form_user_subscribe input[type=submit]").addClass("disabled");
-																	    },
-					  success: function(xml) { var form_unsubscribe = document._importNode($('form', xml).get(0), true);
-										  	   var form_unsubscribe_id = form_unsubscribe.id;
-											   var form_subscribe_id = form_unsubscribe_id.replace('unsubscribe', 'subscribe');
-											   $("form#"+form_subscribe_id).replaceWith(form_unsubscribe);
-											   $("form#"+form_unsubscribe_id).ajaxForm(UnSubscribe).each(addAjaxHidden);
-											   $("dd.subscribers").text(parseInt($("dd.subscribers").text())+1);
-											   $(".form_user_subscribe input[type=submit]").removeAttr("disabled");
-											   $(".form_user_subscribe input[type=submit]").removeClass("disabled");
-										     }
-					};
-
-	var UnSubscribe = { dataType: 'xml',
-						beforeSubmit: function(formData, jqForm, options) { $(".form_user_unsubscribe input[type=submit]").attr("disabled", "disabled");
-																		    $(".form_user_unsubscribe input[type=submit]").addClass("disabled");
-																		  },
-					    success: function(xml) { var form_subscribe = document._importNode($('form', xml).get(0), true);
-										  		 var form_subscribe_id = form_subscribe.id;
-												 var form_unsubscribe_id = form_subscribe_id.replace('subscribe', 'unsubscribe');
-												 $("form#"+form_unsubscribe_id).replaceWith(form_subscribe);
-												 $("form#"+form_subscribe_id).ajaxForm(Subscribe).each(addAjaxHidden);
-												 $("#profile_send_a_new_message").remove();
-												 $("#profile_nudge").remove();
-											     $("dd.subscribers").text(parseInt($("dd.subscribers").text())-1);
-												 $(".form_user_unsubscribe input[type=submit]").removeAttr("disabled");
-												 $(".form_user_unsubscribe input[type=submit]").removeClass("disabled");
-											   }
-					  };
-
-	$(".form_user_subscribe").ajaxForm(Subscribe);
-	$(".form_user_unsubscribe").ajaxForm(UnSubscribe);
-	$(".form_user_subscribe").each(addAjaxHidden);
-	$(".form_user_unsubscribe").each(addAjaxHidden);
+    $('.form_user_subscribe').each(function() { SN.U.FormXHR($(this)); });
+    $('.form_user_unsubscribe').each(function() { SN.U.FormXHR($(this)); });
+    $('.form_favor').each(function() { SN.U.FormXHR($(this)); });
+    $('.form_disfavor').each(function() { SN.U.FormXHR($(this)); });
+    $('.form_group_join').each(function() { SN.U.FormXHR($(this)); });
+    $('.form_group_leave').each(function() { SN.U.FormXHR($(this)); });
+    $('.form_user_nudge').each(function() { SN.U.FormXHR($(this)); });
 
 	var PostNotice = { dataType: 'xml',
 					   beforeSubmit: function(formData, jqForm, options) { if ($("#notice_data-text").get(0).value.length == 0) {
@@ -383,4 +288,47 @@ function NoticeDataAttach() {
             NDA.val('');
         });
     });
+}
+
+var SN = { // StatusNet
+    C: { // Config
+        S: { // Selector
+            Disabled: 'disabled',
+            Warning: 'warning',
+            Error: 'error',
+            Processing: 'processing'
+        }
+    },
+
+    U: { // Utils
+        FormXHR: function(f) {
+            f.bind('submit', function(e) {
+                form_id = $(this)[0].id;
+                $.ajax({
+                    type: 'POST',
+                    url: $(this)[0].action,
+                    data: $(this).serialize() + '&ajax=1',
+                    beforeSend: function(xhr) {
+                        $('#'+form_id).addClass(SN.C.S.Processing);
+                        $('#'+form_id+' .submit').addClass(SN.C.S.Disabled);
+                        $('#'+form_id+' .submit').attr(SN.C.S.Disabled, SN.C.S.Disabled);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        alert(errorThrown || textStatus);
+                    },
+                    success: function(data, textStatus) {
+                        if ($('form', data)[0].length > 0) {
+                            form_new = $('form', data)[0];
+                            $('#'+form_id).replaceWith(document._importNode(form_new, true));
+                            $('#'+form_new.id).each(function() { SN.U.FormXHR($(this)); });
+                        }
+                        else {
+                            $('#'+form_id).replaceWith(document._importNode($('p', data)[0], true));
+                        }
+                    }
+                });
+                return false;
+            });
+        }
+    }
 }
