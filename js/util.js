@@ -56,18 +56,7 @@ $(document).ready(function(){
 		counter(null);
 	}
 
-	function submitonreturn(event) {
-		if (event.keyCode == 13 || event.keyCode == 10) {
-			// iPhone sends \n not \r for 'return'
-			$("#form_notice").submit();
-			event.preventDefault();
-			event.stopPropagation();
-			$("#notice_data-text").blur();
-			$("body").focus();
-			return false;
-		}
-		return true;
-	}
+
 
      // define maxLength if it wasn't defined already
 
@@ -82,7 +71,9 @@ $(document).ready(function(){
               counter();
          }
 
-		$("#notice_data-text").bind("keydown", submitonreturn);
+        $('#'+SN.C.S.NoticeDataText).bind('keydown', function(e) {
+            SN.U.SubmitOnReturn(e, $('#'+SN.C.S.FormNotice));
+        });
 
         if($('body')[0].id != 'conversation') {
             $("#notice_data-text").focus();
@@ -130,6 +121,18 @@ var SN = { // StatusNet
     },
 
     U: { // Utils
+        SubmitOnReturn: function(event, el) {
+            if (event.keyCode == 13 || event.keyCode == 10) {
+                el.submit();
+                event.preventDefault();
+                event.stopPropagation();
+                $('#'+SN.U.NoticeDataText).blur();
+                $('body').focus();
+                return false;
+            }
+            return true;
+        },
+
         FormXHR: function(f) {
             f.bind('submit', function(e) {
                 form_id = $(this)[0].id;
