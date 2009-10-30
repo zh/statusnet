@@ -158,8 +158,8 @@ var SN = { // StatusNet
                         alert(errorThrown || textStatus);
                     },
                     success: function(data, textStatus) {
-                        form_new = document._importNode($('form', data)[0], true);
-                        if (form_new.length > 0) {
+                        if (typeof($('form', data)[0]) != 'undefined') {
+                            form_new = document._importNode($('form', data)[0], true);
                             $('#'+form_id).replaceWith(form_new);
                             $('#'+form_new.id).each(function() { SN.U.FormXHR($(this)); });
                         }
