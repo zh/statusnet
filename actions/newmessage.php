@@ -99,7 +99,9 @@ class NewmessageAction extends Action
         $user = common_current_user();
 
         if (!$user) {
-            $this->clientError(_('Only logged-in users can send direct messages.'), 403);
+            /* Go log in, and then come back. */
+            common_set_returnto($_SERVER['REQUEST_URI']);
+            common_redirect(common_local_url('login'));
             return false;
         }
 
