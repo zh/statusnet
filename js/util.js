@@ -17,37 +17,41 @@
  */
 
 $(document).ready(function(){
-    if ($('#'+SN.C.S.NoticeDataText).length) {
-        if (maxLength > 0) {
-            $('#'+SN.C.S.NoticeDataText).bind('keyup', function(e) {
+    if ($('body.user_in').length > 0) {
+        if ($('#'+SN.C.S.NoticeDataText).length) {
+            if (maxLength > 0) {
+                $('#'+SN.C.S.NoticeDataText).bind('keyup', function(e) {
+                    SN.U.Counter();
+                });
+                // run once in case there's something in there
                 SN.U.Counter();
+            }
+
+            $('#'+SN.C.S.NoticeDataText).bind('keydown', function(e) {
+                SN.U.SubmitOnReturn(e, $('#'+SN.C.S.FormNotice));
             });
-            // run once in case there's something in there
-            SN.U.Counter();
+
+            if($('body')[0].id != 'conversation') {
+                $('#'+SN.C.S.NoticeDataText).focus();
+            }
         }
 
-        $('#'+SN.C.S.NoticeDataText).bind('keydown', function(e) {
-            SN.U.SubmitOnReturn(e, $('#'+SN.C.S.FormNotice));
-        });
+        $('.form_user_subscribe').each(function() { SN.U.FormXHR($(this)); });
+        $('.form_user_unsubscribe').each(function() { SN.U.FormXHR($(this)); });
+        $('.form_favor').each(function() { SN.U.FormXHR($(this)); });
+        $('.form_disfavor').each(function() { SN.U.FormXHR($(this)); });
+        $('.form_group_join').each(function() { SN.U.FormXHR($(this)); });
+        $('.form_group_leave').each(function() { SN.U.FormXHR($(this)); });
+        $('.form_user_nudge').each(function() { SN.U.FormXHR($(this)); });
 
-        if($('body')[0].id != 'conversation') {
-            $('#'+SN.C.S.NoticeDataText).focus();
-        }
+        SN.U.FormNoticeXHR();
+
+        SN.U.NoticeReply();
+
+        SN.U.NoticeDataAttach();
     }
 
-    $('.form_user_subscribe').each(function() { SN.U.FormXHR($(this)); });
-    $('.form_user_unsubscribe').each(function() { SN.U.FormXHR($(this)); });
-    $('.form_favor').each(function() { SN.U.FormXHR($(this)); });
-    $('.form_disfavor').each(function() { SN.U.FormXHR($(this)); });
-    $('.form_group_join').each(function() { SN.U.FormXHR($(this)); });
-    $('.form_group_leave').each(function() { SN.U.FormXHR($(this)); });
-    $('.form_user_nudge').each(function() { SN.U.FormXHR($(this)); });
-
-    SN.U.FormNoticeXHR();
-
-    SN.U.NoticeReply();
     SN.U.NoticeAttachments();
-    SN.U.NoticeDataAttach();
 });
 
 
