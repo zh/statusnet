@@ -99,42 +99,12 @@ $(document).ready(function(){
 
     SN.U.FormNoticeXHR();
 
-    NoticeReply();
+    SN.U.NoticeReply();
     NoticeAttachments();
     NoticeDataAttach();
 });
 
-function NoticeReply() {
-    if ($('#notice_data-text').length > 0 && $('#content .notice_reply').length > 0) {
-        $('#content .notice').each(function() {
-            var notice = $(this)[0];
-            $($('.notice_reply', notice)[0]).click(function() {
-                var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname.uid');
-                NoticeReplySet(nickname.text(), $($('.notice_id', notice)[0]).text());
-                return false;
-            });
-        });
-    }
-}
 
-function NoticeReplySet(nick,id) {
-	rgx_username = /^[0-9a-zA-Z\-_.]*$/;
-	if (nick.match(rgx_username)) {
-		var text = $("#notice_data-text");
-		if (text.length) {
-			replyto = "@" + nick + " ";
-			text.val(replyto + text.val().replace(RegExp(replyto, 'i'), ''));
-			$("#form_notice input#notice_in-reply-to").val(id);
-			if (text.get(0).setSelectionRange) {
-				var len = text.val().length;
-				text.get(0).setSelectionRange(len,len);
-				text.get(0).focus();
-			}
-			return false;
-		}
-	}
-	return true;
-}
 
 function NoticeAttachments() {
     $.fn.jOverlay.options = {
@@ -319,7 +289,7 @@ var SN = { // StatusNet
                                 $('#'+notice.id).css({display:'none'});
                                 $('#'+notice.id).fadeIn(2500);
 //                                SN.U.NoticeAttachments();
-//                                SN.U.NoticeReply();
+                                SN.U.NoticeReply();
                              }
                         }
                         $('#'+SN.C.S.NoticeDataText).val('');
@@ -334,6 +304,37 @@ var SN = { // StatusNet
                     $('#'+SN.C.S.NoticeActionSubmit).removeClass(SN.C.S.Disabled);
                 }
             });
+        },
+
+        NoticeReply: function() {
+            if ($('#'+SN.C.S.NoticeDataText).length > 0 && $('#content .notice_reply').length > 0) {
+                $('#content .notice').each(function() {
+                    var notice = $(this)[0];
+                    $($('.notice_reply', notice)[0]).click(function() {
+                        var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname.uid');
+                        SN.U.NoticeReplySet(nickname.text(), $($('.notice_id', notice)[0]).text());
+                        return false;
+                    });
+                });
+            }
+        },
+
+        NoticeReplySet function(nick,id) {
+            if (nick.match(SN.C.I.PatternUsername)) {
+                var text = $('#'+SN.C.S.NoticeDataText);
+                if (text.length) {
+                    replyto = '@' + nick + ' ';
+                    text.val(replyto + text.val().replace(RegExp(replyto, 'i'), ''));
+                    $('#'+SN.C.S.FormNotice+' input#'+SN.C.S.NoticeInReplyTo).val(id);
+                    if (text.get(0).setSelectionRange) {
+                        var len = text.val().length;
+                        text.get(0).setSelectionRange(len,len);
+                        text.get(0).focus();
+                    }
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
