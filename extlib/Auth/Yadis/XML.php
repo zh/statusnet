@@ -91,7 +91,7 @@ class Auth_Yadis_XMLParser {
      * @return array $node_list An array of matching opaque node
      * objects to be used with other methods of this parser class.
      */
-    function evalXPath($xpath, $node = null)
+    function &evalXPath($xpath, $node = null)
     {
         // Not implemented.
     }
@@ -349,7 +349,7 @@ function &Auth_Yadis_getXMLParser()
     foreach ($extensions as $name => $params) {
         if (!extension_loaded($name)) {
             foreach ($params['libname'] as $libname) {
-                if (function_exists('dl') && ini_get('enable_dl') && !ini_get('safe_mode') && @dl($libname)) {
+                if (@dl($libname)) {
                     $classname = $params['classname'];
                 }
             }

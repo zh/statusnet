@@ -65,21 +65,21 @@ class PubSubHubBubPlugin extends Plugin
         $feeds = array();
 
         //public timeline feeds
-        $feeds[]=common_local_url('api',array('apiaction' => 'statuses','method' => 'public_timeline.rss'));
-        $feeds[]=common_local_url('api',array('apiaction' => 'statuses','method' => 'public_timeline.atom'));
+        $feeds[]=common_local_url('ApiTimelinePublic',array('format' => 'rss'));
+        $feeds[]=common_local_url('ApiTimelinePublic',array('format' => 'atom'));
 
         //author's own feeds
         $user = User::staticGet('id',$notice->profile_id);
-        $feeds[]=common_local_url('api',array('apiaction' => 'statuses','method' => 'user_timeline','argument' => $user->nickname.'.rss'));
-        $feeds[]=common_local_url('api',array('apiaction' => 'statuses','method' => 'user_timeline','argument' => $user->nickname.'.atom'));
+        $feeds[]=common_local_url('ApiTimelineUser',array('id' => $user->nickname, 'format'=>'rss'));
+        $feeds[]=common_local_url('ApiTimelineUser',array('id' => $user->nickname, 'format'=>'atom'));
 
         //tag feeds
         $tag = new Notice_tag();
         $tag->notice_id = $notice->id;
         if ($tag->find()) {
             while ($tag->fetch()) {
-                $feeds[]=common_local_url('api',array('apiaction' => 'tags','method' => 'timeline', 'argument'=>$tag->tag.'.atom'));
-                $feeds[]=common_local_url('api',array('apiaction' => 'tags','method' => 'timeline', 'argument'=>$tag->tag.'.rss'));
+                $feeds[]=common_local_url('ApiTimelineTag',array('tag'=>$tag->tag, 'format'=>'rss'));
+                $feeds[]=common_local_url('ApiTimelineTag',array('tag'=>$tag->tag, 'format'=>'atom'));
             }
         }
 
@@ -89,8 +89,8 @@ class PubSubHubBubPlugin extends Plugin
         if ($group_inbox->find()) {
             while ($group_inbox->fetch()) {
                 $group = User_group::staticGet('id',$group_inbox->group_id);
-                $feeds[]=common_local_url('api',array('apiaction' => 'groups','method' => 'timeline','argument' => $group->nickname.'.rss'));
-                $feeds[]=common_local_url('api',array('apiaction' => 'groups','method' => 'timeline','argument' => $group->nickname.'.atom'));
+                $feeds[]=common_local_url('ApiTimelineGroup',array('id' => $group->nickname,'format'=>'rss'));
+                $feeds[]=common_local_url('ApiTimelineGroup',array('id' => $group->nickname,'format'=>'atom'));
             }
         }
 
@@ -100,18 +100,17 @@ class PubSubHubBubPlugin extends Plugin
         if ($notice_inbox->find()) {
             while ($notice_inbox->fetch()) {
                 $user = User::staticGet('id',$notice_inbox->user_id);
-                $feeds[]=common_local_url('api',array('apiaction' => 'statuses','method' => 'user_timeline','argument' => $user->nickname.'.rss'));
-                $feeds[]=common_local_url('api',array('apiaction' => 'statuses','method' => 'user_timeline','argument' => $user->nickname.'.atom'));
+                $feeds[]=common_local_url('ApiTimelineUser',array('id' => $user->nickname, 'format'=>'rss'));
+                $feeds[]=common_local_url('ApiTimelineUser',array('id' => $user->nickname, 'format'=>'atom'));
             }
         }
 
-        /* TODO: when the reply page gets RSS and ATOM feeds, implement this
         //feed of user replied to
         if($notice->reply_to){
                 $user = User::staticGet('id',$notice->reply_to);
-                $feeds[]=common_local_url('api',array('apiaction' => 'statuses','method' => 'user_timeline','argument' => $user->nickname.'.rss'));
-                $feeds[]=common_local_url('api',array('apiaction' => 'statuses','method' => 'user_timeline','argument' => $user->nickname.'.atom'));
-        }*/
+                $feeds[]=common_local_url('ApiTimelineMentions',array('id' => $user->nickname,'format'=>'rss'));
+                $feeds[]=common_local_url('ApiTimelineMentions',array('id' => $user->nickname,'format'=>'atom'));
+        }
 
         foreach(array_unique($feeds) as $feed){
             if(! $publisher->publish_update($feed)){
