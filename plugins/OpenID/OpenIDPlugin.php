@@ -150,6 +150,7 @@ class OpenIDPlugin extends Plugin
          case 'PublicxrdsAction':
          case 'OpenidsettingsAction':
          case 'OpenidserverAction':
+         case 'OpenidtrustAction':
             require_once(INSTALLDIR.'/plugins/OpenID/' . strtolower(mb_substr($cls, 0, -6)) . '.php');
             return false;
          case 'User_openid':
@@ -283,6 +284,14 @@ class OpenIDPlugin extends Plugin
                                                  '255', false),
                                    new ColumnDef('user_id', 'integer',
                                                  null, false, 'MUL'),
+                                   new ColumnDef('created', 'datetime',
+                                                 null, false),
+                                   new ColumnDef('modified', 'timestamp')));
+        $schema->ensureTable('user_openid_trustroot',
+                             array(new ColumnDef('trustroot', 'varchar',
+                                                 '255', false, 'PRI'),
+                                   new ColumnDef('user_id', 'integer',
+                                                 null, false, 'PRI'),
                                    new ColumnDef('created', 'datetime',
                                                  null, false),
                                    new ColumnDef('modified', 'timestamp')));

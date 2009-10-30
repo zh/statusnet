@@ -33,6 +33,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 
 require_once INSTALLDIR.'/lib/action.php';
 require_once INSTALLDIR.'/plugins/OpenID/openid.php';
+require_once(INSTALLDIR.'/plugins/OpenID/User_openid_trustroot.php');
 
 /**
  * Settings for OpenID
@@ -56,14 +57,33 @@ class OpenidserverAction extends Action
         if (in_array($request->mode, array('checkid_immediate',
             'checkid_setup'))) {
             $cur = common_current_user();
-            error_log("Request identity: " . $request->identity);
             if(!$cur){
                 /* Go log in, and then come back. */
                 common_set_returnto($_SERVER['REQUEST_URI']);
                 common_redirect(common_local_url('login'));
                 return;
             }else if(common_profile_url($cur->nickname) == $request->identity || $request->idSelect()){
-                $response = &$request->answer(true, null, common_profile_url($cur->nickname));
+                $user_openid_trustroot = User_openid_trustroot::pkeyGet(
+                                                array('user_id'=>$cur->id, 'trustroot'=>$request->trustroot));
+                if(empty($user_openid_trustroot)){
+                    if($request->immediate){
+                        //cannot prompt the user to trust this trust root in immediate mode, so answer false
+                        $response = &$request->answer(false);
+                    }else{
+                        //ask the user to trust this trust root
+                        $_SESSION['openid_trust_root'] = $request->trust_root;
+                        $allowResponse = $request->answer(true, null, common_profile_url($cur->nickname));
+                        $denyResponse = $request->answer(false);
+                        common_ensure_session();
+                        $_SESSION['openid_allow_url'] = $allowResponse->encodeToUrl();
+                        $_SESSION['openid_deny_url'] = $denyResponse->encodeToUrl();
+                        common_redirect(common_local_url('openidtrust'));
+                        return;
+                    }
+                }else{
+                    //user has previously authorized this trust root
+                    $response = &$request->answer(true, null, common_profile_url($cur->nickname));
+                }
             } else if ($request->immediate) {
                 $response = &$request->answer(false);
             } else {
