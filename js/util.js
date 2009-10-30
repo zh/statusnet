@@ -17,68 +17,23 @@
  */
 
 $(document).ready(function(){
-	var counterBlackout = false;
-	
-	// count character on keyup
-	function counter(event){
-         if (maxLength <= 0) {
-              return;
-         }
-		var currentLength = $("#notice_data-text").val().length;
-		var remaining = maxLength - currentLength;
-		var counter = $("#notice_text-count");
-		
-		if (remaining.toString() != counter.text()) {
-		    if (!counterBlackout || remaining == 0) {
-                        if (counter.text() != String(remaining)) {
-                            counter.text(remaining);
-		        }
-
-                        if (remaining < 0) {
-                            $("#form_notice").addClass("warning");
-                        } else {
-                            $("#form_notice").removeClass("warning");
-                        }
-                        // Skip updates for the next 500ms.
-                        // On slower hardware, updating on every keypress is unpleasant.
-                        if (!counterBlackout) {
-                            counterBlackout = true;
-                            window.setTimeout(clearCounterBlackout, 500);
-                        }
-                    }
-                }
-	}
-	
-	function clearCounterBlackout() {
-		// Allow keyup events to poke the counter again
-		counterBlackout = false;
-		// Check if the string changed since we last looked
-		counter(null);
-	}
-
-
-
-     // define maxLength if it wasn't defined already
-
-    if (typeof(maxLength) == "undefined") {
-         maxLength = 140;
-    }
-
-	if ($("#notice_data-text").length) {
-         if (maxLength > 0) {
-              $("#notice_data-text").bind("keyup", counter);
-              // run once in case there's something in there
-              counter();
-         }
+    if ($('#'+SN.C.S.NoticeDataText).length) {
+        if (maxLength > 0) {
+            $('#'+SN.C.S.NoticeDataText).bind('keyup', function(e) {
+                SN.U.Counter();
+            });
+            // run once in case there's something in there
+            SN.U.Counter();
+        }
 
         $('#'+SN.C.S.NoticeDataText).bind('keydown', function(e) {
             SN.U.SubmitOnReturn(e, $('#'+SN.C.S.FormNotice));
         });
 
         if($('body')[0].id != 'conversation') {
-            $("#notice_data-text").focus();
+            $('#'+SN.C.S.NoticeDataText).focus();
         }
-	}
+    }
 
     $('.form_user_subscribe').each(function() { SN.U.FormXHR($(this)); });
     $('.form_user_unsubscribe').each(function() { SN.U.FormXHR($(this)); });
@@ -99,7 +54,8 @@ $(document).ready(function(){
 var SN = { // StatusNet
     C: { // Config
         I: {
-            NoticeTextCharMax: 140,
+            CounterBlackout: false,
+            MaxLength: 140,
             PatternUsername: /^[0-9a-zA-Z\-_.]*$/,
             HTTP20x30x: [200, 201, 202, 203, 204, 205, 206, 300, 301, 302, 303, 304, 305, 306, 307]
         },
@@ -116,7 +72,7 @@ var SN = { // StatusNet
             NoticeInReplyTo: 'notice_in-reply-to',
             NoticeDataAttach: 'notice_data-attach',
             NoticeDataAttachSelected: 'notice_data-attach_selected',
-            NoticeActionSubmit: 'notice_action-submit'
+            NoticeActionSubmit: 'notice_action-submit',
         }
     },
 
@@ -131,6 +87,45 @@ var SN = { // StatusNet
                 return false;
             }
             return true;
+        },
+
+        Counter: function() {
+            if (typeof(maxLength) == "undefined") {
+                 maxLength = SN.C.I.MaxLength;
+            }
+
+            if (maxLength <= 0) {
+                return;
+            }
+
+            var remaining = maxLength - $('#'+SN.C.S.NoticeDataText).val().length;
+            var counter = $('#'+SN.C.S.NoticeTextCount);
+
+            if (remaining.toString() != counter.text()) {
+                if (!SN.C.I.CounterBlackout || remaining == 0) {
+                    if (counter.text() != String(remaining)) {
+                        counter.text(remaining);
+                    }
+                    if (remaining < 0) {
+                        $('#'+SN.C.S.FormNotice).addClass(SN.C.S.Warning);
+                    } else {
+                        $('#'+SN.C.S.FormNotice).removeClass(SN.C.S.Warning);
+                    }
+                    // Skip updates for the next 500ms.
+                    // On slower hardware, updating on every keypress is unpleasant.
+                    if (!SN.C.I.CounterBlackout) {
+                        SN.C.I.CounterBlackout = true;
+                        window.setTimeout(SN.U.ClearCounterBlackout, 500);
+                    }
+                }
+            }
+        },
+
+        ClearCounterBlackout: function() {
+            // Allow keyup events to poke the counter again
+            SN.C.I.CounterBlackout = false;
+            // Check if the string changed since we last looked
+            SN.U.Counter(null);
         },
 
         FormXHR: function(f) {
