@@ -85,7 +85,7 @@ var SN = { // StatusNet
             NoticeInReplyTo: 'notice_in-reply-to',
             NoticeDataAttach: 'notice_data-attach',
             NoticeDataAttachSelected: 'notice_data-attach_selected',
-            NoticeActionSubmit: 'notice_action-submit',
+            NoticeActionSubmit: 'notice_action-submit'
         }
     },
 
