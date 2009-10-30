@@ -146,6 +146,7 @@ var SN = { // StatusNet
                 form_id = $(this)[0].id;
                 $.ajax({
                     type: 'POST',
+                    dataType: 'xml',
                     url: $(this)[0].action,
                     data: $(this).serialize() + '&ajax=1',
                     beforeSend: function(xhr) {
@@ -157,9 +158,9 @@ var SN = { // StatusNet
                         alert(errorThrown || textStatus);
                     },
                     success: function(data, textStatus) {
-                        if ($('form', data)[0].length > 0) {
-                            form_new = $('form', data)[0];
-                            $('#'+form_id).replaceWith(document._importNode(form_new, true));
+                        form_new = document._importNode($('form', data).get(0), true);
+                        if (form_new.length > 0) {
+                            $('#'+form_id).replaceWith(form_new);
                             $('#'+form_new.id).each(function() { SN.U.FormXHR($(this)); });
                         }
                         else {
