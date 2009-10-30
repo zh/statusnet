@@ -175,8 +175,8 @@ var SN = { // StatusNet
         FormNoticeXHR: function() {
             $('#'+SN.C.S.FormNotice).append('<input type="hidden" name="ajax" value="1"/>');
             $('#'+SN.C.S.FormNotice).ajaxForm({
-                timeout: '60000',
                 dataType: 'xml',
+                timeout: '60000',
                 beforeSend: function(xhr) {
                     if ($('#'+SN.C.S.NoticeDataText)[0].value.length === 0) {
                         $('#'+SN.C.S.FormNotice).addClass(SN.C.S.Warning);
@@ -223,7 +223,7 @@ var SN = { // StatusNet
                             alert(result.textContent || result.innerHTML);
                         }
                         else {
-                             notice = $('li', data)[0];
+                             notice = document._importNode($('li', data)[0], true);
                              if ($('#'+notice.id).length == 0) {
                                 var notice_irt_value = $('#'+SN.C.S.NoticeInReplyTo).val();
                                 var notice_irt = '#notices_primary #notice-'+notice_irt_value;
@@ -231,10 +231,10 @@ var SN = { // StatusNet
                                     if(notice_irt_value.length > 0 && $(notice_irt+' .notices').length < 1) {
                                         $(notice_irt).append('<ul class="notices"></ul>');
                                     }
-                                    $($(notice_irt+' .notices')[0]).append(document._importNode(notice, true));
+                                    $($(notice_irt+' .notices')[0]).append(notice);
                                 }
                                 else {
-                                    $("#notices_primary .notices").prepend(document._importNode(notice, true));
+                                    $("#notices_primary .notices").prepend(notice);
                                 }
                                 $('#'+notice.id).css({display:'none'});
                                 $('#'+notice.id).fadeIn(2500);
