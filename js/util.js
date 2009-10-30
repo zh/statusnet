@@ -89,14 +89,6 @@ $(document).ready(function(){
         }
 	}
 
-	function addAjaxHidden() {
-		var ajax = document.createElement('input');
-		ajax.setAttribute('type', 'hidden');
-		ajax.setAttribute('name', 'ajax');
-		ajax.setAttribute('value', 1);
-		this.appendChild(ajax);
-	}
-
     $('.form_user_subscribe').each(function() { SN.U.FormXHR($(this)); });
     $('.form_user_unsubscribe').each(function() { SN.U.FormXHR($(this)); });
     $('.form_favor').each(function() { SN.U.FormXHR($(this)); });
@@ -105,90 +97,8 @@ $(document).ready(function(){
     $('.form_group_leave').each(function() { SN.U.FormXHR($(this)); });
     $('.form_user_nudge').each(function() { SN.U.FormXHR($(this)); });
 
-	var PostNotice = { dataType: 'xml',
-					   beforeSubmit: function(formData, jqForm, options) { if ($("#notice_data-text").get(0).value.length == 0) {
-																				$("#form_notice").addClass("warning");
-																				return false;
-																		   }
-																		   $("#form_notice").addClass("processing");
-																		   $("#notice_action-submit").attr("disabled", "disabled");
-																		   $("#notice_action-submit").addClass("disabled");
-																		   return true;
-												 						 },
-					   timeout: '60000',
-					   error: function (xhr, textStatus, errorThrown) {	$("#form_notice").removeClass("processing");
-																		$("#notice_action-submit").removeAttr("disabled");
-																		$("#notice_action-submit").removeClass("disabled");
-																		if (textStatus == "timeout") {
-																			alert ("Sorry! We had trouble sending your notice. The servers are overloaded. Please try again, and contact the site administrator if this problem persists");
-																		}
-																		else {
-																			if ($(".error", xhr.responseXML).length > 0) {
-																				$('#form_notice').append(document._importNode($(".error", xhr.responseXML).get(0), true));
-																			}
-																			else {
-																				var HTTP20x30x = [200, 201, 202, 203, 204, 205, 206, 300, 301, 302, 303, 304, 305, 306, 307];
-																				if(jQuery.inArray(parseInt(xhr.status), HTTP20x30x) < 0) {
-																					alert("Sorry! We had trouble sending your notice ("+xhr.status+" "+xhr.statusText+"). Please report the problem to the site administrator if this happens again.");
-																				}
-																				else {
-																					$("#notice_data-text").val("");
-                                                                                     if (maxLength > 0) {
-                                                                                          counter();
-                                                                                     }
-																				}
-																			}
-																		}
-																	  },
-					   success: function(xml) {	if ($("#error", xml).length > 0) {
-													var result = document._importNode($("p", xml).get(0), true);
-													result = result.textContent || result.innerHTML;
-													alert(result);
-												}
-												else {
-												    if($('body')[0].id == 'bookmarklet') {
-												        self.close();
-												    }
-												    if ($("#command_result", xml).length > 0) {
-													    var result = document._importNode($("p", xml).get(0), true);
-													    result = result.textContent || result.innerHTML;
-													    alert(result);
-                                                    }
-                                                    else {
-                                                         li = $("li", xml).get(0);
-                                                         if ($("#"+li.id).length == 0) {
-                                                            var notice_irt_value = $('#notice_in-reply-to').val();
-                                                            var notice_irt = '#notices_primary #notice-'+notice_irt_value;
-                                                            if($('body')[0].id == 'conversation') {
-                                                                if(notice_irt_value.length > 0 && $(notice_irt+' .notices').length < 1) {
-                                                                    $(notice_irt).append('<ul class="notices"></ul>');
-                                                                }
-                                                                $($(notice_irt+' .notices')[0]).append(document._importNode(li, true));
-                                                            }
-                                                            else {
-                                                                $("#notices_primary .notices").prepend(document._importNode(li, true));
-                                                            }
-                                                            $('#'+li.id).css({display:'none'});
-                                                            $('#'+li.id).fadeIn(2500);
-                                                            NoticeReply();
-                                                            NoticeAttachments();
-                                                         }
-													}
-													$("#notice_data-text").val("");
-    												$("#notice_data-attach").val("");
-    												$("#notice_in-reply-to").val("");
-                                                    $('#notice_data-attach_selected').remove();
-                                                     if (maxLength > 0) {
-                                                          counter();
-                                                     }
-												}
-												$("#form_notice").removeClass("processing");
-												$("#notice_action-submit").removeAttr("disabled");
-												$("#notice_action-submit").removeClass("disabled");
-											 }
-					   };
-	$("#form_notice").ajaxForm(PostNotice);
-	$("#form_notice").each(addAjaxHidden);
+    SN.U.FormNoticeXHR();
+
     NoticeReply();
     NoticeAttachments();
     NoticeDataAttach();
@@ -292,11 +202,23 @@ function NoticeDataAttach() {
 
 var SN = { // StatusNet
     C: { // Config
+        I: {
+            NoticeTextCharMax: 140,
+            PatternUsername: /^[0-9a-zA-Z\-_.]*$/,
+            HTTP20x30x: [200, 201, 202, 203, 204, 205, 206, 300, 301, 302, 303, 304, 305, 306, 307]
+        },
         S: { // Selector
             Disabled: 'disabled',
             Warning: 'warning',
             Error: 'error',
-            Processing: 'processing'
+            Processing: 'processing',
+            CommendResult: 'command_result',
+            FormNotice: 'form_notice',
+            NoticeDataText: 'notice_data-text',
+            NoticeTextCount: 'notice_text-count',
+            NoticeInReplyTo: 'notice_in-reply-to',
+            NoticeDataAttach: 'notice_data-attach',
+            NoticeActionSubmit: 'notice_action-submit'
         }
     },
 
@@ -328,6 +250,89 @@ var SN = { // StatusNet
                     }
                 });
                 return false;
+            });
+        },
+
+        FormNoticeXHR: function() {
+            $('#'+SN.C.S.FormNotice).append('<input type="hidden" name="ajax" value="1"/>');
+            $('#'+SN.C.S.FormNotice).ajaxForm({
+                timeout: '60000',
+                beforeSend: function(xhr) {
+                    if ($('#'+SN.C.S.NoticeDataText)[0].value.length === 0) {
+                        $('#'+SN.C.S.FormNotice).addClass(SN.C.S.Warning);
+                        return false;
+                    }
+                    $('#'+SN.C.S.FormNotice).addClass(SN.C.S.Processing);
+                    $('#'+SN.C.S.NoticeActionSubmit).addClass(SN.C.S.Disabled);
+                    $('#'+SN.C.S.NoticeActionSubmit).attr(SN.C.S.Disabled, SN.C.S.Disabled);
+                    return true;
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    $('#'+SN.C.S.FormNotice).removeClass(SN.C.S.Processing);
+                    $('#'+SN.C.S.NoticeActionSubmit).removeClass(SN.C.S.Disabled);
+                    $('#'+SN.C.S.NoticeActionSubmit).removeAttr(SN.C.S.Disabled, SN.C.S.Disabled);
+                    if (textStatus == 'timeout') {
+                        alert ('Sorry! We had trouble sending your notice. The servers are overloaded. Please try again, and contact the site administrator if this problem persists');
+                    }
+                    else {
+                        if ($('.'+SN.C.S.Error, xhr.responseXML).length > 0) {
+                            $('#'+SN.C.S.FormNotice).append(document._importNode($('.'+SN.C.S.Error, xhr.responseXML)[0], true));
+                        }
+                        else {
+                            if(jQuery.inArray(parseInt(xhr.status), SN.C.I.HTTP20x30x) < 0) {
+                                alert('Sorry! We had trouble sending your notice ('+xhr.status+' '+xhr.statusText+'). Please report the problem to the site administrator if this happens again.');
+                            }
+                            else {
+                                SN.C.I.NoticeDataText.val('');
+//                                SN.U.NoticeTextCounter($('#'+SN.C.S.NoticeDataText), $('#'+SN.C.S.NoticeTextCount), SN.C.I.NoticeTextCharMax);
+                            }
+                        }
+                    }
+                },
+                success: function(data, textStatus) {
+                    if ($('#'+SN.C.S.Error, data).length > 0) {
+                        var result = document._importNode($('p', data)[0], true);
+                        alert(result.textContent || result.innerHTML);
+                    }
+                    else {
+                        if($('body')[0].id == 'bookmarklet') {
+                            self.close();
+                        }
+                        if ($('#'+SN.C.S.CommandResult, data).length > 0) {
+                            var result = document._importNode($('p', data)[0], true);
+                            alert(result.textContent || result.innerHTML);
+                        }
+                        else {
+                             notice = $('li', data)[0];
+                             if ($('#'+notice.id).length === 0) {
+                                var notice_irt_value = $('#'+SN.C.S.NoticeInReplyTo).val();
+                                var notice_irt = '#notices_primary #notice-'+notice_irt_value;
+                                if($('body')[0].id == 'conversation') {
+                                    if(notice_irt_value.length > 0 && $(notice_irt+' .notices').length < 1) {
+                                        $(notice_irt).append('<ul class="notices"></ul>');
+                                    }
+                                    $($(notice_irt+' .notices')[0]).append(document._importNode(notice, true));
+                                }
+                                else {
+                                    $("#notices_primary .notices").prepend(document._importNode(notice, true));
+                                }
+                                $('#'+notice.id).css({display:'none'});
+                                $('#'+notice.id).fadeIn(2500);
+//                                SN.U.NoticeAttachments();
+//                                SN.U.NoticeReply();
+                             }
+                        }
+                        $('#'+SN.C.S.NoticeDataText).val('');
+                        $('#'+SN.C.S.NoticeDataAttach).val('');
+                        $('#'+SN.C.S.NoticeInReplyTo).val('');
+//                        SN.U.NoticeTextCounter($('#'+SN.C.S.NoticeDataText), $('#'+SN.C.S.NoticeTextCount), SN.C.I.NoticeTextCharMax);
+                    }
+                },
+                complete: function(xhr, textStatus) {
+                    $('#'+SN.C.S.FormNotice).removeClass(SN.C.S.Processing);
+                    $('#'+SN.C.S.NoticeActionSubmit).removeAttr(SN.C.S.Disabled);
+                    $('#'+SN.C.S.NoticeActionSubmit).removeClass(SN.C.S.Disabled);
+                }
             });
         }
     }
