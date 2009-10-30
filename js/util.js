@@ -65,7 +65,7 @@ $(document).ready(function(){
 
 var SN = { // StatusNet
     C: { // Config
-        I: {
+        I: { // Init
             CounterBlackout: false,
             MaxLength: 140,
             PatternUsername: /^[0-9a-zA-Z\-_.]*$/,
