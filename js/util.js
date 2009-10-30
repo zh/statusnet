@@ -71,6 +71,7 @@ var SN = { // StatusNet
             PatternUsername: /^[0-9a-zA-Z\-_.]*$/,
             HTTP20x30x: [200, 201, 202, 203, 204, 205, 206, 300, 301, 302, 303, 304, 305, 306, 307]
         },
+
         S: { // Selector
             Disabled: 'disabled',
             Warning: 'warning',
@@ -174,6 +175,7 @@ var SN = { // StatusNet
             $('#'+SN.C.S.FormNotice).append('<input type="hidden" name="ajax" value="1"/>');
             $('#'+SN.C.S.FormNotice).ajaxForm({
                 timeout: '60000',
+                dataType: 'xml',
                 beforeSend: function(xhr) {
                     if ($('#'+SN.C.S.NoticeDataText)[0].value.length === 0) {
                         $('#'+SN.C.S.FormNotice).addClass(SN.C.S.Warning);
