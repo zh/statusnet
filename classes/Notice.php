@@ -1181,10 +1181,9 @@ class Notice extends Memcached_DataObject
             $xs->element('link', array('href' => $profile->profileurl));
             $user = User::staticGet('id', $profile->id);
             if (!empty($user)) {
-                $atom_feed = common_local_url('api',
-                                              array('apiaction' => 'statuses',
-                                                    'method' => 'user_timeline',
-                                                    'argument' => $profile->nickname.'.atom'));
+                $atom_feed = common_local_url('ApiTimelineUser',
+                                              array('format' => 'atom',
+                                                    'id' => $profile->nickname));
                 $xs->element('link', array('rel' => 'self',
                                            'type' => 'application/atom+xml',
                                            'href' => $profile->profileurl));
