@@ -223,7 +223,7 @@ var SN = { // StatusNet
                         }
                         else {
                              notice = $('li', data)[0];
-                             if ($('#'+notice.id).length === 0) {
+                             if ($('#'+notice.id).length == 0) {
                                 var notice_irt_value = $('#'+SN.C.S.NoticeInReplyTo).val();
                                 var notice_irt = '#notices_primary #notice-'+notice_irt_value;
                                 if($('body')[0].id == 'conversation') {
@@ -244,6 +244,7 @@ var SN = { // StatusNet
                         $('#'+SN.C.S.NoticeDataText).val('');
                         $('#'+SN.C.S.NoticeDataAttach).val('');
                         $('#'+SN.C.S.NoticeInReplyTo).val('');
+                        $('#'+SN.C.S.NoticeDataAttachSelected).remove();
                         SN.U.Counter();
                     }
                 },
