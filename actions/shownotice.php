@@ -172,9 +172,9 @@ class ShownoticeAction extends OwnerDesignAction
     function title()
     {
         if (!empty($this->profile->fullname)) {
-            $base = $this->profile->fullname . ' (' . $this->user->nickname . ') ';
+            $base = $this->profile->fullname . ' (' . $this->profile->nickname . ') ';
         } else {
-            $base = $this->user->nickname;
+            $base = $this->profile->nickname;
         }
 
         return sprintf(_('%1$s\'s status on %2$s'),
