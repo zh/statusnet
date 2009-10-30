@@ -101,24 +101,9 @@ $(document).ready(function(){
 
     SN.U.NoticeReply();
     SN.U.NoticeAttachments();
-    NoticeDataAttach();
+    SN.U.NoticeDataAttach();
 });
 
-
-
-
-function NoticeDataAttach() {
-    NDA = $('#notice_data-attach');
-    NDA.change(function() {
-        S = '<div id="notice_data-attach_selected" class="success"><code>'+$(this).val()+'</code> <button>&#215;</button></div>';
-        NDAS = $('#notice_data-attach_selected');
-        (NDAS.length > 0) ? NDAS.replaceWith(S) : $('#form_notice').append(S);
-        $('#notice_data-attach_selected button').click(function(){
-            $('#notice_data-attach_selected').remove();
-            NDA.val('');
-        });
-    });
-}
 
 var SN = { // StatusNet
     C: { // Config
@@ -131,6 +116,7 @@ var SN = { // StatusNet
             Disabled: 'disabled',
             Warning: 'warning',
             Error: 'error',
+            Success: 'success',
             Processing: 'processing',
             CommendResult: 'command_result',
             FormNotice: 'form_notice',
@@ -138,6 +124,7 @@ var SN = { // StatusNet
             NoticeTextCount: 'notice_text-count',
             NoticeInReplyTo: 'notice_in-reply-to',
             NoticeDataAttach: 'notice_data-attach',
+            NoticeDataAttachSelected: 'notice_data-attach_selected',
             NoticeActionSubmit: 'notice_action-submit'
         }
     },
@@ -238,7 +225,7 @@ var SN = { // StatusNet
                                 }
                                 $('#'+notice.id).css({display:'none'});
                                 $('#'+notice.id).fadeIn(2500);
-//                                SN.U.NoticeAttachments();
+                                SN.U.NoticeAttachments();
                                 SN.U.NoticeReply();
                              }
                         }
@@ -336,6 +323,19 @@ var SN = { // StatusNet
                     $(this).closest(".entry-title").removeClass('ov');
                 }
             );
+        },
+
+        NoticeDataAttach: function() {
+            NDA = $('#'+SN.C.S.NoticeDataAttach);
+            NDA.change(function() {
+                S = '<div id="'+SN.C.S.NoticeDataAttachSelected+'" class="'+SN.C.S.Success+'"><code>'+$(this).val()+'</code> <button>&#215;</button></div>';
+                NDAS = $('#'+SN.C.S.NoticeDataAttachSelected);
+                (NDAS.length > 0) ? NDAS.replaceWith(S) : $('#'+SN.C.S.FormNotice).append(S);
+                $('#'+SN.C.S.NoticeDataAttachSelected+' button').click(function(){
+                    $('#'+SN.C.S.NoticeDataAttachSelected).remove();
+                    NDA.val('');
+                });
+            });
         }
     }
 }
