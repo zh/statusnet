@@ -19,7 +19,7 @@
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
-define('STATUSNET_VERSION', '0.8.2dev');
+define('STATUSNET_VERSION', '0.8.2rc2');
 define('LACONICA_VERSION', STATUSNET_VERSION); // compatibility
 
 define('STATUSNET_CODENAME', 'Life and How to Live It');
