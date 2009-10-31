@@ -213,7 +213,7 @@ var SN = { // StatusNet
                             }
                             else {
                                 $('#'+form_id+' #'+SN.C.S.NoticeDataText).val('');
-                                SN.U.Counter($('#'+SN.C.S.FormNotice));
+                                SN.U.NoticeFormEnhancements($('#'+SN.C.S.FormNotice));
                             }
                         }
                     }
@@ -256,7 +256,7 @@ var SN = { // StatusNet
                         $('#'+form_id+' #'+SN.C.S.NoticeDataAttach).val('');
                         $('#'+form_id+' #'+SN.C.S.NoticeInReplyTo).val('');
                         $('#'+form_id+' #'+SN.C.S.NoticeDataAttachSelected).remove();
-                        SN.U.Counter($('#'+SN.C.S.FormNotice));
+                        SN.U.FormNoticeEnhancements(form);
                     }
                 },
                 complete: function(xhr, textStatus) {
