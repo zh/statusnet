@@ -57,6 +57,8 @@ $(document).ready(function(){
         SN.U.NoticeReply();
 
         SN.U.NoticeDataAttach();
+
+        SN.U.NewDirectMessage();
     }
 
     SN.U.NoticeAttachments();
@@ -349,6 +351,32 @@ var SN = { // StatusNet
                     $('#'+SN.C.S.NoticeDataAttachSelected).remove();
                     NDA.val('');
                 });
+            });
+        },
+
+        NewDirectMessage: function() {
+            NDM = $('.entity_send-a-message a');
+            NDM.attr({'href':NDM.attr('href')+'&ajax=1'});
+            NDM.click(function() {
+                var NDMF = $('.entity_send-a-message form');
+                if (NDMF.length == 0) {
+                    $.get(NDM.attr('href'), null, function(data) {
+                        $('.entity_send-a-message').append(document._importNode($('form', data).get(0), true));
+                        $('.entity_send-a-message textarea').focus();
+
+                        NDMF = $('.entity_send-a-message form');
+                        NDMF.append('<button>&#215;</button>');
+                        $('.entity_send-a-message button').click(function(){
+                            NDMF.hide();
+                            return false;
+                        });
+                    });
+                }
+                else {
+                    NDMF.show();
+                    $('.entity_send-a-message textarea').focus();
+                }
+                return false;
             });
         }
     }

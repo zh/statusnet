@@ -670,6 +670,40 @@ border-radius:4px;
 margin-bottom:18px;
 }
 
+
+.entity_send-a-message button {
+position:absolute;
+top:0;
+right:0;
+}
+
+.entity_send-a-message #form_notice {
+position:absolute;
+top:34px;
+right:-1px;
+padding:1.795%;
+width:65%;
+z-index:1;
+
+background-color:#FFFFFF;
+border:1px solid #CCCCCC;
+-moz-box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
+-moz-border-radius:7px;
+}
+.entity_send-a-message #form_notice legend {
+display:block;
+margin-bottom:11px;
+}
+
+.entity_send-a-message #form_notice label,
+.entity_send-a-message #form_notice select {
+display:none;
+}
+.entity_send-a-message input.submit {
+text-align:center;
+}
+
+
 .entity_tags ul {
 list-style-type:none;
 display:inline;

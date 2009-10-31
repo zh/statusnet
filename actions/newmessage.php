@@ -223,7 +223,22 @@ class NewmessageAction extends Action
         }
 
         $this->msg = $msg;
-        $this->showPage();
+        if ($this->trimmed('ajax')) {
+            $this->startHTML('text/xml;charset=UTF-8');
+            $this->elementStart('head');
+            $this->element('title', null, _('New message'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
+            if (common_logged_in()) {
+                $this->showNoticeForm();
+            }
+            $this->elementEnd('div');
+            $this->elementEnd('body');
+            $this->endHTML();
+        }
+        else {
+            $this->showPage();
+        }
     }
 
     function showPageNotice()
