@@ -26,23 +26,7 @@
 
 $(document).ready(function(){
     if ($('body.user_in').length > 0) {
-        if ($('#'+SN.C.S.NoticeDataText).length) {
-            if (maxLength > 0) {
-                $('#'+SN.C.S.NoticeDataText).bind('keyup', function(e) {
-                    SN.U.Counter();
-                });
-                // run once in case there's something in there
-                SN.U.Counter();
-            }
-
-            $('#'+SN.C.S.NoticeDataText).bind('keydown', function(e) {
-                SN.U.SubmitOnReturn(e, $('#'+SN.C.S.FormNotice));
-            });
-
-            if($('body')[0].id != 'conversation') {
-                $('.'+SN.C.S.FormNotice+' #'+SN.C.S.NoticeDataText).focus();
-            }
-        }
+        $('.'+SN.C.S.FormNotice).each(function() { SN.U.FormNoticeEnhancements($(this)); });
 
         $('.form_user_subscribe').each(function() { SN.U.FormXHR($(this)); });
         $('.form_user_unsubscribe').each(function() { SN.U.FormXHR($(this)); });
@@ -51,8 +35,6 @@ $(document).ready(function(){
         $('.form_group_join').each(function() { SN.U.FormXHR($(this)); });
         $('.form_group_leave').each(function() { SN.U.FormXHR($(this)); });
         $('.form_user_nudge').each(function() { SN.U.FormXHR($(this)); });
-
-        SN.U.FormNoticeXHR($('.'+SN.C.S.FormNotice));
 
         SN.U.NoticeReply();
 
@@ -92,19 +74,42 @@ var SN = { // StatusNet
     },
 
     U: { // Utils
+        FormNoticeEnhancements: function(form) {
+            form_id = form.attr('id');
+            if (maxLength > 0) {
+                $('#'+form_id+' #'+SN.C.S.NoticeDataText).bind('keyup', function(e) {
+                    SN.U.Counter(form);
+                });
+                // run once in case there's something in there
+                SN.U.Counter(form);
+            }
+
+            $('#'+form_id+' #'+SN.C.S.NoticeDataText).bind('keydown', function(e) {
+                SN.U.SubmitOnReturn(e, form);
+            });
+
+            if($('body')[0].id != 'conversation') {
+                $('#'+form_id+' textarea').focus();
+            }
+
+            SN.U.FormNoticeXHR(form);
+        },
+
         SubmitOnReturn: function(event, el) {
             if (event.keyCode == 13 || event.keyCode == 10) {
                 el.submit();
                 event.preventDefault();
                 event.stopPropagation();
-                $('#'+SN.U.NoticeDataText).blur();
+                $('#'+el[0].id+' #'+SN.U.NoticeDataText).blur();
                 $('body').focus();
                 return false;
             }
             return true;
         },
 
-        Counter: function() {
+        Counter: function(form) {
+            SN.C.I.FormNoticeCurrent = form;
+            form_id = form.attr('id');
             if (typeof(maxLength) == "undefined") {
                  maxLength = SN.C.I.MaxLength;
             }
@@ -113,8 +118,8 @@ var SN = { // StatusNet
                 return;
             }
 
-            var remaining = maxLength - $('#'+SN.C.S.NoticeDataText).val().length;
-            var counter = $('#'+SN.C.S.NoticeTextCount);
+            var remaining = maxLength - $('#'+form_id+' #'+SN.C.S.NoticeDataText).val().length;
+            var counter = $('#'+form_id+' #'+SN.C.S.NoticeTextCount);
 
             if (remaining.toString() != counter.text()) {
                 if (!SN.C.I.CounterBlackout || remaining == 0) {
@@ -122,25 +127,26 @@ var SN = { // StatusNet
                         counter.text(remaining);
                     }
                     if (remaining < 0) {
-                        $('#'+SN.C.S.FormNotice).addClass(SN.C.S.Warning);
+                        form.addClass(SN.C.S.Warning);
                     } else {
-                        $('#'+SN.C.S.FormNotice).removeClass(SN.C.S.Warning);
+                        form.removeClass(SN.C.S.Warning);
                     }
                     // Skip updates for the next 500ms.
                     // On slower hardware, updating on every keypress is unpleasant.
                     if (!SN.C.I.CounterBlackout) {
                         SN.C.I.CounterBlackout = true;
-                        window.setTimeout(SN.U.ClearCounterBlackout, 500);
+                        SN.C.I.FormNoticeCurrent = form;
+                        window.setTimeout("SN.U.ClearCounterBlackout(SN.C.I.FormNoticeCurrent);", 500);
                     }
                 }
             }
         },
 
-        ClearCounterBlackout: function() {
+        ClearCounterBlackout: function(form) {
             // Allow keyup events to poke the counter again
             SN.C.I.CounterBlackout = false;
             // Check if the string changed since we last looked
-            SN.U.Counter(null);
+            SN.U.Counter(form);
         },
 
         FormXHR: function(f) {
@@ -176,7 +182,6 @@ var SN = { // StatusNet
 
         FormNoticeXHR: function(form) {
             form_id = form.attr('id');
-            console.log(form_id);
             form.append('<input type="hidden" name="ajax" value="1"/>');
             form.ajaxForm({
                 dataType: 'xml',
@@ -208,7 +213,7 @@ var SN = { // StatusNet
                             }
                             else {
                                 $('#'+form_id+' #'+SN.C.S.NoticeDataText).val('');
-                                SN.U.Counter();
+                                SN.U.Counter($('#'+SN.C.S.FormNotice));
                             }
                         }
                     }
@@ -251,7 +256,7 @@ var SN = { // StatusNet
                         $('#'+form_id+' #'+SN.C.S.NoticeDataAttach).val('');
                         $('#'+form_id+' #'+SN.C.S.NoticeInReplyTo).val('');
                         $('#'+form_id+' #'+SN.C.S.NoticeDataAttachSelected).remove();
-                        SN.U.Counter();
+                        SN.U.Counter($('#'+SN.C.S.FormNotice));
                     }
                 },
                 complete: function(xhr, textStatus) {
@@ -366,14 +371,12 @@ var SN = { // StatusNet
                     $.get(NDM.attr('href'), null, function(data) {
                         $('.entity_send-a-message').append(document._importNode($('form', data).get(0), true));
                         NDMF = $('.entity_send-a-message .form_notice');
-                        SN.U.FormNoticeXHR(NDMF);
-
+                        SN.U.FormNoticeEnhancements(NDMF);
                         NDMF.append('<button>&#215;</button>');
                         $('.entity_send-a-message button').click(function(){
                             NDMF.hide();
                             return false;
                         });
-                        $('.entity_send-a-message textarea').focus();
                     });
                 }
                 else {
