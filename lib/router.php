@@ -577,6 +577,10 @@ class Router
             $m->connect('api/search.json', array('action' => 'twitapisearchjson'));
             $m->connect('api/trends.json', array('action' => 'twitapitrends'));
 
+            $m->connect('getfile/:filename',
+                        array('action' => 'getfile'),
+                        array('filename' => '[A-Za-z0-9._-]+'));
+
             // user stuff
 
             foreach (array('subscriptions', 'subscribers',
