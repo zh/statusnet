@@ -192,7 +192,9 @@ class NewnoticeAction extends Action
         common_broadcast_notice($notice);
 
         if ($this->boolean('ajax')) {
-            $this->startHTML('text/xml;charset=utf-8');
+            header('Content-Type: text/xml;charset=utf-8');
+            $this->xw->startDocument('1.0', 'UTF-8');
+            $this->elementStart('html');
             $this->elementStart('head');
             $this->element('title', null, _('Notice posted'));
             $this->elementEnd('head');
