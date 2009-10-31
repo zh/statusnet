@@ -458,3 +458,19 @@ StartProfileListItemActionElements: Showing the profile list actions (prepend a 
 
 EndProfileListItemActionElements: Showing profile list actions (append a button here)
 - $item: ProfileListItem widget
+
+StartUserXRDS: Start XRDS output (right after the opening XRDS tag)
+- $action: the current action
+- &$xrdsoutputter - XRDSOutputter object to write to
+
+EndUserXRDS: End XRDS output (right before the closing XRDS tag)
+- $action: the current action
+- &$xrdsoutputter - XRDSOutputter object to write to
+
+StartPublicXRDS: Start XRDS output (right after the opening XRDS tag)
+- $action: the current action
+- &$xrdsoutputter - XRDSOutputter object to write to
+
+EndPublicXRDS: End XRDS output (right before the closing XRDS tag)
+- $action: the current action
+- &$xrdsoutputter - XRDSOutputter object to write to

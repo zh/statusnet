@@ -692,9 +692,7 @@ function writeConf($sitename, $server, $path, $fancy, $db)
             // database
             "\$config['db']['database'] = '{$db['database']}';\n\n".
             ($db['type'] == 'pgsql' ? "\$config['db']['quote_identifiers'] = true;\n\n":'').
-            "\$config['db']['type'] = '{$db['type']}';\n\n".
-
-            "?>";
+            "\$config['db']['type'] = '{$db['type']}';\n\n";
     // write configuration file out to install directory
     $res = file_put_contents(INSTALLDIR.'/config.php', $cfg);
 

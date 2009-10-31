@@ -108,6 +108,9 @@ class Router
             $m->connect('main/oembed',
                         array('action' => 'oembed'));
 
+            $m->connect('main/xrds',
+                        array('action' => 'publicxrds'));
+
             // these take a code
 
             foreach (array('register', 'confirmaddress', 'recoverpassword') as $c) {

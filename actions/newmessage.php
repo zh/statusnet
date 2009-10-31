@@ -99,7 +99,9 @@ class NewmessageAction extends Action
         $user = common_current_user();
 
         if (!$user) {
-            $this->clientError(_('Only logged-in users can send direct messages.'), 403);
+            /* Go log in, and then come back. */
+            common_set_returnto($_SERVER['REQUEST_URI']);
+            common_redirect(common_local_url('login'));
             return false;
         }
 
@@ -221,7 +223,22 @@ class NewmessageAction extends Action
         }
 
         $this->msg = $msg;
-        $this->showPage();
+        if ($this->trimmed('ajax')) {
+            $this->startHTML('text/xml;charset=UTF-8');
+            $this->elementStart('head');
+            $this->element('title', null, _('New message'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
+            if (common_logged_in()) {
+                $this->showNoticeForm();
+            }
+            $this->elementEnd('div');
+            $this->elementEnd('body');
+            $this->endHTML();
+        }
+        else {
+            $this->showPage();
+        }
     }
 
     function showPageNotice()
