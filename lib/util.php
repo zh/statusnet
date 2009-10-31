@@ -781,12 +781,18 @@ function common_path($relative, $ssl=false)
         if (is_string(common_config('site', 'sslserver')) &&
             mb_strlen(common_config('site', 'sslserver')) > 0) {
             $serverpart = common_config('site', 'sslserver');
-        } else {
+        } else if (common_config('site', 'server')) {
             $serverpart = common_config('site', 'server');
+        } else {
+            common_log(LOG_ERR, 'Site Sever not configured, unable to determine site name.');
         }
     } else {
         $proto = 'http';
-        $serverpart = common_config('site', 'server');
+        if (common_config('site', 'server')) {
+            $serverpart = common_config('site', 'server');
+        } else {
+            common_log(LOG_ERR, 'Site Sever not configured, unable to determine site name.');
+        }
     }
 
     return $proto.'://'.$serverpart.'/'.$pathpart.$relative;
