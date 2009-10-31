@@ -44,6 +44,7 @@ VALUES
     ('rygh.no','rygh.no','http://rygh.no/', now()),
     ('ryghsms','ryghsms','http://sms.rygh.no/', now()),
     ('smob','SMOB','http://smob.sioc-project.org/', now()),
+    ('socialoomphBfD4pMqz31', 'SocialOomph', 'http://www.socialoomph.com/', now()),
     ('spaz','Spaz','http://funkatron.com/spaz', now()),
     ('tarpipe','tarpipe','http://tarpipe.com/', now()),
     ('tjunar','Tjunar','http://nederflash.nl/boek/titels/tjunar-air', now()),
