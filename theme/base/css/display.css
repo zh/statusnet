@@ -432,21 +432,21 @@ border-width:1px;
 border-style:solid;
 }
 
-#form_notice {
+.form_notice {
 width:45%;
 float:left;
 position:relative;
 line-height:1;
 }
-#form_notice fieldset {
+.form_notice fieldset {
 border:0;
 padding:0;
 position:relative;
 }
-#form_notice legend {
+.form_notice legend {
 display:none;
 }
-#form_notice textarea {
+.form_notice textarea {
 float:left;
 border-radius:7px;
 -moz-border-radius:7px;
@@ -458,44 +458,44 @@ padding:7px 7px 16px 7px;
 position:relative;
 z-index:2;
 }
-#form_notice label {
+.form_notice label {
 display:block;
 float:left;
 font-size:1.3em;
 margin-bottom:7px;
 }
-#form_notice label[for=notice_data-attach],
-#form_notice #notice_data-attach {
+.form_notice label[for=notice_data-attach],
+.form_notice #notice_data-attach {
 position:absolute;
 top:25px;
 right:10.5%;
 cursor:pointer;
 }
-#form_notice label[for=notice_data-attach] {
+.form_notice label[for=notice_data-attach] {
 text-indent:-9999px;
 width:16px;
 height:16px;
 }
-#form_notice #notice_data-attach {
+.form_notice #notice_data-attach {
 padding:0;
 height:16px;
 }
-#form_notice .form_note {
+.form_notice .form_note {
 position:absolute;
 bottom:2px;
 right:21.715%;
 z-index:9;
 }
-#form_notice .form_note dt {
+.form_notice .form_note dt {
 font-weight:bold;
 display:none;
 }
-#notice_text-count {
+.form_notice #notice_text-count {
 font-weight:bold;
 line-height:1.15;
 padding:1px 2px;
 }
-#form_notice #notice_action-submit {
+.form_notice #notice_action-submit {
 width:14%;
 height:47px;
 padding:0;
@@ -503,24 +503,24 @@ position:absolute;
 bottom:0;
 right:0;
 }
-#form_notice label[for=to] {
+.form_notice label[for=to] {
 margin-top:7px;
 }
-#form_notice select[id=to] {
+.form_notice select[id=to] {
 margin-bottom:7px;
 margin-left:18px;
 float:left;
 max-width:322px;
 }
-#form_notice .error,
-#form_notice .success {
+.form_notice .error,
+.form_notice .success {
 float:left;
 clear:both;
 width:81.5%;
 margin-bottom:0;
 line-height:1.618;
 }
-#form_notice #notice_data-attach_selected code {
+.form_notice #notice_data-attach_selected code {
 float:left;
 width:90%;
 display:block;
@@ -528,7 +528,7 @@ font-size:1.1em;
 line-height:1.8;
 overflow:auto;
 }
-#form_notice #notice_data-attach_selected button {
+.form_notice #notice_data-attach_selected button {
 float:right;
 font-size:0.8em;
 }
@@ -677,7 +677,7 @@ top:0;
 right:0;
 }
 
-.entity_send-a-message #form_notice {
+.entity_send-a-message .form_notice {
 position:absolute;
 top:34px;
 right:-1px;
@@ -690,16 +690,16 @@ border:1px solid #CCCCCC;
 -moz-box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
 -moz-border-radius:7px;
 }
-.entity_send-a-message #form_notice legend {
+.entity_send-a-message .form_notice legend {
 display:block;
 margin-bottom:11px;
 }
 
-.entity_send-a-message #form_notice label,
-.entity_send-a-message #form_notice select {
+.entity_send-a-message .form_notice label,
+.entity_send-a-message .form_notice select {
 display:none;
 }
-.entity_send-a-message input.submit {
+.entity_send-a-message .form_notice input.submit {
 text-align:center;
 }
 
@@ -1333,7 +1333,7 @@ clear:both;
 #bookmarklet address {
 display:none;
 }
-#bookmarklet #form_notice {
+#bookmarklet .form_notice {
 width:auto;
 }
 #bookmarklet #wrap {
