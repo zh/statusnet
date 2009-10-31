@@ -755,6 +755,12 @@ private site, but users of the private site may be able to subscribe
 to users on a remote site. (Or not... it's not well tested.) The
 "proper behaviour" hasn't been defined here, so handle with care.
 
+If fancy URLs is enabled, access to file attachments can also be
+restricted to logged-in users only. Uncomment the appropriate rewrite
+rule in .htaccess or your server's httpd.conf. (This most likely will
+not work if you are using a virtual server for attachments, so consider
+the performance/security tradeoff.)
+
 Upgrading
 =========
 

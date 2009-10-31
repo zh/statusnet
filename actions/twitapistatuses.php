@@ -236,11 +236,8 @@ class TwitapistatusesAction extends TwitterapiAction
         }
 
         if (empty($status)) {
-
-            // XXX: Note: In this case, Twitter simply returns '200 OK'
-            // No error is given, but the status is not posted to the
-            // user's timeline.     Seems bad.     Shouldn't we throw an
-            // errror? -- Zach
+            $this->clientError(_('Client must provide a \'status\' parameter with a value.'),
+                $code = 403, $apidata['content-type']);
             return;
 
         } else {
