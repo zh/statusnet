@@ -40,7 +40,7 @@ $(document).ready(function(){
             });
 
             if($('body')[0].id != 'conversation') {
-                $('#'+SN.C.S.NoticeDataText).focus();
+                $('.'+SN.C.S.FormNotice+' #'+SN.C.S.NoticeDataText).focus();
             }
         }
 
@@ -52,7 +52,7 @@ $(document).ready(function(){
         $('.form_group_leave').each(function() { SN.U.FormXHR($(this)); });
         $('.form_user_nudge').each(function() { SN.U.FormXHR($(this)); });
 
-        SN.U.FormNoticeXHR();
+        SN.U.FormNoticeXHR($('.'+SN.C.S.FormNotice));
 
         SN.U.NoticeReply();
 
@@ -80,7 +80,7 @@ var SN = { // StatusNet
             Error: 'error',
             Success: 'success',
             Processing: 'processing',
-            CommendResult: 'command_result',
+            CommandResult: 'command_result',
             FormNotice: 'form_notice',
             NoticeDataText: 'notice_data-text',
             NoticeTextCount: 'notice_text-count',
@@ -174,38 +174,40 @@ var SN = { // StatusNet
             });
         },
 
-        FormNoticeXHR: function() {
-            $('#'+SN.C.S.FormNotice).append('<input type="hidden" name="ajax" value="1"/>');
-            $('#'+SN.C.S.FormNotice).ajaxForm({
+        FormNoticeXHR: function(form) {
+            form_id = form.attr('id');
+            console.log(form_id);
+            form.append('<input type="hidden" name="ajax" value="1"/>');
+            form.ajaxForm({
                 dataType: 'xml',
                 timeout: '60000',
                 beforeSend: function(xhr) {
-                    if ($('#'+SN.C.S.NoticeDataText)[0].value.length === 0) {
-                        $('#'+SN.C.S.FormNotice).addClass(SN.C.S.Warning);
+                    if ($('#'+form_id+' #'+SN.C.S.NoticeDataText)[0].value.length === 0) {
+                        form.addClass(SN.C.S.Warning);
                         return false;
                     }
-                    $('#'+SN.C.S.FormNotice).addClass(SN.C.S.Processing);
-                    $('#'+SN.C.S.NoticeActionSubmit).addClass(SN.C.S.Disabled);
-                    $('#'+SN.C.S.NoticeActionSubmit).attr(SN.C.S.Disabled, SN.C.S.Disabled);
+                    form.addClass(SN.C.S.Processing);
+                    $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).addClass(SN.C.S.Disabled);
+                    $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).attr(SN.C.S.Disabled, SN.C.S.Disabled);
                     return true;
                 },
                 error: function (xhr, textStatus, errorThrown) {
-                    $('#'+SN.C.S.FormNotice).removeClass(SN.C.S.Processing);
-                    $('#'+SN.C.S.NoticeActionSubmit).removeClass(SN.C.S.Disabled);
-                    $('#'+SN.C.S.NoticeActionSubmit).removeAttr(SN.C.S.Disabled, SN.C.S.Disabled);
+                    form.removeClass(SN.C.S.Processing);
+                    $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeClass(SN.C.S.Disabled);
+                    $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeAttr(SN.C.S.Disabled, SN.C.S.Disabled);
                     if (textStatus == 'timeout') {
                         alert ('Sorry! We had trouble sending your notice. The servers are overloaded. Please try again, and contact the site administrator if this problem persists');
                     }
                     else {
                         if ($('.'+SN.C.S.Error, xhr.responseXML).length > 0) {
-                            $('#'+SN.C.S.FormNotice).append(document._importNode($('.'+SN.C.S.Error, xhr.responseXML)[0], true));
+                            form.append(document._importNode($('.'+SN.C.S.Error, xhr.responseXML)[0], true));
                         }
                         else {
                             if(jQuery.inArray(parseInt(xhr.status), SN.C.I.HTTP20x30x) < 0) {
                                 alert('Sorry! We had trouble sending your notice ('+xhr.status+' '+xhr.statusText+'). Please report the problem to the site administrator if this happens again.');
                             }
                             else {
-                                SN.C.I.NoticeDataText.val('');
+                                $('#'+form_id+' #'+SN.C.S.NoticeDataText).val('');
                                 SN.U.Counter();
                             }
                         }
@@ -220,6 +222,7 @@ var SN = { // StatusNet
                         if($('body')[0].id == 'bookmarklet') {
                             self.close();
                         }
+
                         if ($('#'+SN.C.S.CommandResult, data).length > 0) {
                             var result = document._importNode($('p', data)[0], true);
                             alert(result.textContent || result.innerHTML);
@@ -244,17 +247,17 @@ var SN = { // StatusNet
                                 SN.U.NoticeReply();
                              }
                         }
-                        $('#'+SN.C.S.NoticeDataText).val('');
-                        $('#'+SN.C.S.NoticeDataAttach).val('');
-                        $('#'+SN.C.S.NoticeInReplyTo).val('');
-                        $('#'+SN.C.S.NoticeDataAttachSelected).remove();
+                        $('#'+form_id+' #'+SN.C.S.NoticeDataText).val('');
+                        $('#'+form_id+' #'+SN.C.S.NoticeDataAttach).val('');
+                        $('#'+form_id+' #'+SN.C.S.NoticeInReplyTo).val('');
+                        $('#'+form_id+' #'+SN.C.S.NoticeDataAttachSelected).remove();
                         SN.U.Counter();
                     }
                 },
                 complete: function(xhr, textStatus) {
-                    $('#'+SN.C.S.FormNotice).removeClass(SN.C.S.Processing);
-                    $('#'+SN.C.S.NoticeActionSubmit).removeAttr(SN.C.S.Disabled);
-                    $('#'+SN.C.S.NoticeActionSubmit).removeClass(SN.C.S.Disabled);
+                    form.removeClass(SN.C.S.Processing);
+                    $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeAttr(SN.C.S.Disabled);
+                    $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeClass(SN.C.S.Disabled);
                 }
             });
         },
@@ -362,14 +365,15 @@ var SN = { // StatusNet
                 if (NDMF.length == 0) {
                     $.get(NDM.attr('href'), null, function(data) {
                         $('.entity_send-a-message').append(document._importNode($('form', data).get(0), true));
-                        $('.entity_send-a-message textarea').focus();
+                        NDMF = $('.entity_send-a-message .form_notice');
+                        SN.U.FormNoticeXHR(NDMF);
 
-                        NDMF = $('.entity_send-a-message form');
                         NDMF.append('<button>&#215;</button>');
                         $('.entity_send-a-message button').click(function(){
                             NDMF.hide();
                             return false;
                         });
+                        $('.entity_send-a-message textarea').focus();
                     });
                 }
                 else {
