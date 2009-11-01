@@ -28,7 +28,8 @@ input, textarea, select,
 .entity_remote_subscribe {
 border-color:#AAAAAA;
 }
-#filter_tags ul li {
+#filter_tags ul li,
+.entity_send-a-message .form_notice {
 border-color:#DDDDDD;
 }
 
@@ -112,7 +113,8 @@ box-shadow:5px 7px 7px rgba(194, 194, 194, 0.3);
 border-color:transparent;
 }
 #content,
-#site_nav_local_views .current a {
+#site_nav_local_views .current a,
+.entity_send-a-message .form_notice {
 background-color:#FFFFFF;
 }
 
@@ -197,6 +199,12 @@ background-position: 0 -718px;
 background-image:url(../../base/images/icons/icons-01.png);
 background-position: 0 -849px;
 }
+.entity_send-a-message .form_notice {
+box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
+-moz-box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
+-webkit-box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
+}
+
 .entity_nudge p,
 .form_user_nudge input.submit {
 background-image:url(../../base/images/icons/icons-01.png);
