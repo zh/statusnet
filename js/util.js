@@ -310,7 +310,7 @@ var SN = { // StatusNet
                 imgLoading : $('address .url')[0].href+'theme/base/images/illustrations/illu_progress_loading-01.gif',
                 bgClickToClose : true,
                 success : function() {
-                    $('#jOverlayContent').append('<button>&#215;</button>');
+                    $('#jOverlayContent').append('<button class="close">&#215;</button>');
                     $('#jOverlayContent button').click($.closeOverlay);
                 },
                 timeout : 0,
@@ -352,7 +352,7 @@ var SN = { // StatusNet
         NoticeDataAttach: function() {
             NDA = $('#'+SN.C.S.NoticeDataAttach);
             NDA.change(function() {
-                S = '<div id="'+SN.C.S.NoticeDataAttachSelected+'" class="'+SN.C.S.Success+'"><code>'+$(this).val()+'</code> <button>&#215;</button></div>';
+                S = '<div id="'+SN.C.S.NoticeDataAttachSelected+'" class="'+SN.C.S.Success+'"><code>'+$(this).val()+'</code> <button class="close">&#215;</button></div>';
                 NDAS = $('#'+SN.C.S.NoticeDataAttachSelected);
                 (NDAS.length > 0) ? NDAS.replaceWith(S) : $('#'+SN.C.S.FormNotice).append(S);
                 $('#'+SN.C.S.NoticeDataAttachSelected+' button').click(function(){
@@ -372,7 +372,7 @@ var SN = { // StatusNet
                         $('.entity_send-a-message').append(document._importNode($('form', data).get(0), true));
                         NDMF = $('.entity_send-a-message .form_notice');
                         SN.U.FormNoticeEnhancements(NDMF);
-                        NDMF.append('<button>&#215;</button>');
+                        NDMF.append('<button class="close">&#215;</button>');
                         $('.entity_send-a-message button').click(function(){
                             NDMF.hide();
                             return false;
