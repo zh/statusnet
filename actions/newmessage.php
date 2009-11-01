@@ -224,15 +224,14 @@ class NewmessageAction extends Action
 
         $this->msg = $msg;
         if ($this->trimmed('ajax')) {
-            $this->startHTML('text/xml;charset=UTF-8');
+            header('Content-Type: text/xml;charset=utf-8');
+            $this->xw->startDocument('1.0', 'UTF-8');
+            $this->elementStart('html');
             $this->elementStart('head');
             $this->element('title', null, _('New message'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            if (common_logged_in()) {
-                $this->showNoticeForm();
-            }
-            $this->elementEnd('div');
+            $this->showNoticeForm();
             $this->elementEnd('body');
             $this->endHTML();
         }
