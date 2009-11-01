@@ -89,10 +89,36 @@ color:#333333;
 color:#000000;
 }
 .form_notice label[for=notice_data-attach] {
-background:transparent url(../../base/images/icons/icons-01.png) no-repeat 0 -328px;
+background-position:0 -328px;
 }
 .form_notice #notice_data-attach {
 opacity:0;
+}
+
+.form_notice label[for=notice_data-attach],
+#export_data li a.rss,
+#export_data li a.atom,
+#export_data li a.foaf,
+.entity_edit a,
+.entity_send-a-message a,
+.entity_nudge p,
+.form_user_nudge input.submit,
+.form_user_block input.submit,
+.form_user_unblock input.submit,
+.form_group_block input.submit,
+.form_group_unblock input.submit,
+.form_make_admin input.submit,
+.notice .attachment,
+.notice-options .notice_reply,
+.notice-options form.form_favor input.submit,
+.notice-options form.form_disfavor input.submit,
+.notice-options .notice_delete,
+#new_group a,
+.pagination .nav_prev a,
+.pagination .nav_next a {
+background-image:url(../../base/images/icons/icons-01.png);
+background-repeat:no-repeat;
+background-color:transparent;
 }
 
 #wrap form.processing input.submit {
@@ -154,15 +180,12 @@ background-color:#9BB43E;
 background-repeat:no-repeat;
 }
 #export_data li a.rss {
-background-image:url(../../base/images/icons/icons-01.png);
 background-position:0 -130px;
 }
 #export_data li a.atom {
-background-image:url(../../base/images/icons/icons-01.png);
 background-position:0 -64px;
 }
 #export_data li a.foaf {
-background-image:url(../../base/images/icons/icons-01.png);
 background-position:0 1px;
 }
 
@@ -192,11 +215,9 @@ background-color:#87B4C8;
 }
 
 .entity_edit a {
-background-image:url(../../base/images/icons/icons-01.png);
 background-position: 0 -718px;
 }
 .entity_send-a-message a {
-background-image:url(../../base/images/icons/icons-01.png);
 background-position: 0 -849px;
 }
 .entity_send-a-message .form_notice {
@@ -207,39 +228,36 @@ box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
 
 .entity_nudge p,
 .form_user_nudge input.submit {
-background-image:url(../../base/images/icons/icons-01.png);
 background-position: 0 -785px;
 }
 .form_user_block input.submit,
 .form_user_unblock input.submit,
 .form_group_block input.submit,
 .form_group_unblock input.submit {
-background-image:url(../../base/images/icons/icons-01.png);
 background-position: 0 -918px;
 }
 .form_make_admin input.submit {
-background-image:url(../../base/images/icons/icons-01.png);
 background-position: 0 -983px;
 }
 
 /* NOTICES */
 .notice .attachment {
-background:transparent url(../../base/images/icons/icons-01.png) no-repeat 0 -394px;
+background-position:0 -394px;
 }
 #attachments .attachment {
 background:none;
 }
 .notice-options .notice_reply {
-background:transparent url(../../base/images/icons/icons-01.png) no-repeat 0 -589px;
+background-position:0 -589px;
 }
 .notice-options form.form_favor input.submit {
-background:transparent url(../../base/images/icons/icons-01.png) no-repeat 0 -457px;
+background-position:0 -457px;
 }
 .notice-options form.form_disfavor input.submit {
-background:transparent url(../../base/images/icons/icons-01.png) no-repeat 0 -523px;
+background-position:0 -523px;
 }
 .notice-options .notice_delete {
-background:transparent url(../../base/images/icons/icons-01.png) no-repeat 0 -655px;
+background-position:0 -655px;
 }
 
 .notices div.entry-content,
@@ -276,7 +294,7 @@ background-color:rgba(200, 200, 200, 0.300);
 /*END: NOTICES */
 
 #new_group a {
-background:transparent url(../../base/images/icons/icons-01.png) no-repeat 0 -1054px;
+background-position:0 -1054px;
 }
 
 .pagination .nav_prev a,
@@ -285,10 +303,8 @@ background-repeat:no-repeat;
 border-color:#CEE1E9;
 }
 .pagination .nav_prev a {
-background-image:url(../../base/images/icons/icons-01.png);
 background-position:10% -187px;
 }
 .pagination .nav_next a {
-background-image:url(../../base/images/icons/icons-01.png);
 background-position:105% -252px;
 }
