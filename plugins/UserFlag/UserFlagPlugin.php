@@ -50,10 +50,8 @@ class UserFlagPlugin extends Plugin
         // For storing user-submitted flags on notices
 
         $schema->ensureTable('user_flag_notice',
-                             array(new ColumnDef('notice_id', 'integer', null,
-                                                 null, 'PRI'),
-                                   new ColumnDef('user_id', 'integer', null,
-                                                 null, 'PRI'),
+                             array(new ColumnDef('notice_id', 'integer', null, null, 'PRI'),
+                                   new ColumnDef('user_id', 'integer', null, null, 'PRI'),
                                    new ColumnDef('flag', 'varchar', '8'),
                                    new ColumnDef('created', 'datetime', null,
                                                  null, 'MUL')));
@@ -61,10 +59,9 @@ class UserFlagPlugin extends Plugin
         // Allowable values for user_flag_notice
 
         $schema->ensureTable('notice_flag',
-                             array(new ColumnDef('flag', 'varchar', '8', null, null, 'PRI'),
+                             array(new ColumnDef('flag', 'varchar', '8', null, 'PRI'),
                                    new ColumnDef('display', 'varchar', '255'),
-                                   new ColumnDef('created', 'datetime', null,
-                                                 null, 'MUL')));
+                                   new ColumnDef('created', 'datetime', null, null, 'MUL')));
 
         // For storing user-submitted flags on profiles
 
@@ -80,7 +77,7 @@ class UserFlagPlugin extends Plugin
         // Allowable values for user_flag_notice
 
         $schema->ensureTable('profile_flag',
-                             array(new ColumnDef('flag', 'varchar', '8', null, null, 'PRI'),
+                             array(new ColumnDef('flag', 'varchar', '8', null, 'PRI'),
                                    new ColumnDef('display', 'varchar', '255'),
                                    new ColumnDef('created', 'datetime', null,
                                                  null, 'MUL')));
