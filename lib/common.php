@@ -169,6 +169,7 @@ if (isset($conffile)) {
     $_config_files[] = INSTALLDIR.'/config.php';
 }
 
+global $_have_a_config;
 $_have_a_config = false;
 
 foreach ($_config_files as $_config_file) {
@@ -187,7 +188,7 @@ function _have_config()
 // XXX: Throw a conniption if database not installed
 // XXX: Find a way to use htmlwriter for this instead of handcoded markup
 if (!_have_config()) {
-  echo '<p>'. _('No configuation file found. ') .'</p>';
+  echo '<p>'. _('No configuration file found. ') .'</p>';
   echo '<p>'. _('I looked for configuration files in the following places: ') .'<br/> '. implode($_config_files, '<br/>');
   echo '<p>'. _('You may wish to run the installer to fix this.') .'</p>';
   echo '<a href="install.php">'. _('Go to the installer.') .'</a>';
