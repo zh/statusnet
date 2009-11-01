@@ -98,24 +98,55 @@ class UserFlagPlugin extends Plugin
         return true;
     }
 
-    function onAutoload($cls)
+   function onAutoload($cls)
     {
         switch ($cls)
         {
-         case 'FlagnoticeAction':
-         case 'FlagprofileAction':
-         case 'AdminnoticeflagAction':
-         case 'AdminprofileflagAction':
+        case 'FlagnoticeAction':
+        case 'FlagprofileAction':
+        case 'AdminnoticeflagAction':
+        case 'AdminprofileflagAction':
             require_once(INSTALLDIR.'/plugins/UserFlag/' . strtolower(mb_substr($cls, 0, -6)) . '.php');
             return false;
-         case 'User_flag_notice':
-         case 'Notice_flag':
-         case 'User_flag_profile':
-         case 'Profile_flag':
+        case 'FlagProfileForm':
+            require_once(INSTALLDIR.'/plugins/UserFlag/' . strtolower($cls . '.php'));
+            return false;
+        case 'User_flag_notice':
+        case 'Notice_flag':
+        case 'User_flag_profile':
+        case 'Profile_flag':
             require_once(INSTALLDIR.'/plugins/UserFlag/'.$cls.'.php');
             return false;
-         default:
+        default:
             return true;
         }
+    }
+
+    function onEndProfilePageActionsElements(&$action, $profile)
+    {
+        $user = common_current_user();
+
+        if (!empty($user)) {
+
+            $form = new FlagProfileForm($action, $profile);
+
+            $form->show();
+        }
+
+        return true;
+    }
+
+    function onEndProfileListItemActionElements($item)
+    {
+        $user = common_current_user();
+
+        if (!empty($user)) {
+
+            $form = new FlagProfileForm($item->action, $item->profile);
+
+            $form->show();
+        }
+
+        return true;
     }
 }
