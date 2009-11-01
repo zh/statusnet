@@ -39,4 +39,22 @@ class User_flag_profile extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+    function table() {
+        return array(
+                     'profile_id' => DB_DATAOBJECT_INT,
+                     'user_id'    => DB_DATAOBJECT_INT,
+                     'flag'       => DB_DATAOBJECT_STR,
+                     'created'    => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME
+                     );
+    }
+
+    function keys() {
+        return array('profile_id', 'user_id');
+    }
+
+    function &pkeyGet($kv)
+    {
+        return Memcached_DataObject::pkeyGet('User_flag_profile', $kv);
+    }
 }

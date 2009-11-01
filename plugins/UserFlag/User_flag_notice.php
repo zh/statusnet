@@ -35,8 +35,26 @@ class User_flag_notice extends Memcached_DataObject
     public $created;                         // datetime   not_null default_0000-00-00%2000%3A00%3A00
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('User_flag_notice',$k,$v); }
+    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('User_flag_notice',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+    function table() {
+        return array(
+                     'notice_id' => DB_DATAOBJECT_INT,
+                     'user_id'   => DB_DATAOBJECT_INT,
+                     'flag'      => DB_DATAOBJECT_STR,
+                     'created'   => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME
+                     );
+    }
+
+    function keys() {
+        return array('notice_id', 'user_id');
+    }
+
+    function &pkeyGet($kv)
+    {
+        return Memcached_DataObject::pkeyGet('User_flag_notice', $kv);
+    }
 }

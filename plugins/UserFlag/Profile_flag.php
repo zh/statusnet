@@ -38,4 +38,16 @@ class Profile_flag extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+    function table() {
+        return array(
+                     'flag'      => DB_DATAOBJECT_STR,
+                     'display'   => DB_DATAOBJECT_STR,
+                     'created'   => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME
+                     );
+    }
+
+    function keys() {
+        return array('flag');
+    }
 }
