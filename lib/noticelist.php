@@ -199,6 +199,7 @@ class NoticeListItem extends Widget
     {
         $this->out->elementStart('div', 'entry-content');
         $this->showNoticeLink();
+        $this->showNoticeLocation();
         $this->showNoticeSource();
         $this->showContext();
         $this->out->elementEnd('div');
@@ -367,6 +368,44 @@ class NoticeListItem extends Widget
                                           'title' => $dt),
                             common_date_string($this->notice->created));
         $this->out->elementEnd('a');
+    }
+
+    /**
+     * show the notice location
+     *
+     * shows the notice location in the correct language.
+     *
+     * If an URL is available, makes a link. Otherwise, just a span.
+     *
+     * @return void
+     */
+
+    function showNoticeLocation()
+    {
+        $id = $this->notice->id;
+
+        $location = $this->notice->getLocation();
+
+        if (empty($location)) {
+            return;
+        }
+
+        $name = $location->getName();
+
+        if (empty($name)) {
+            // XXX: Could be a translation issue. Fall back to... something?
+            return;
+        }
+
+        $url  = $location->getUrl();
+
+        if (empty($url)) {
+            $this->out->element('span', array('class' => 'location'), $name);
+        } else {
+            $this->out->element('a', array('class' => 'location',
+                                           'href' => $url),
+                                $name);
+        }
     }
 
     /**

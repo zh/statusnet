@@ -185,7 +185,14 @@ function _have_config()
 }
 
 // XXX: Throw a conniption if database not installed
-
+// XXX: Find a way to use htmlwriter for this instead of handcoded markup
+if (!_have_config()) {
+  echo '<p>'. _('No configuation file found. ') .'</p>';
+  echo '<p>'. _('I looked for configuration files in the following places: ') .'<br/> '. implode($_config_files, '<br/>');
+  echo '<p>'. _('You may wish to run the installer to fix this.') .'</p>';
+  echo '<a href="install.php">'. _('Go to the installer.') .'</a>';
+  exit;
+}
 // Fixup for statusnet.ini
 
 $_db_name = substr($config['db']['database'], strrpos($config['db']['database'], '/') + 1);
@@ -223,7 +230,6 @@ require_once INSTALLDIR.'/lib/theme.php';
 require_once INSTALLDIR.'/lib/mail.php';
 require_once INSTALLDIR.'/lib/subs.php';
 require_once INSTALLDIR.'/lib/Shorturl_api.php';
-require_once INSTALLDIR.'/lib/twitter.php';
 
 require_once INSTALLDIR.'/lib/clientexception.php';
 require_once INSTALLDIR.'/lib/serverexception.php';

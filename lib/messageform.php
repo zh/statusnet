@@ -80,10 +80,21 @@ class MessageForm extends Form
     /**
      * ID of the form
      *
-     * @return int ID of the form
+     * @return string ID of the form
      */
 
     function id()
+    {
+        return 'form_notice-direct';
+    }
+
+   /**
+     * Class of the form
+     *
+     * @return string class of the form
+     */
+
+    function formClass()
     {
         return 'form_notice';
     }

@@ -198,6 +198,15 @@ class User extends Memcached_DataObject
         }
         if (!empty($location)) {
             $profile->location = $location;
+
+            $loc = Location::fromName($location);
+
+            if (!empty($loc)) {
+                $profile->lat         = $loc->lat;
+                $profile->lon         = $loc->lon;
+                $profile->location_id = $loc->location_id;
+                $profile->location_ns = $loc->location_ns;
+            }
         }
 
         $profile->created = common_sql_now();
@@ -319,6 +328,7 @@ class User extends Memcached_DataObject
                                                   common_config('site', 'name'),
                                                   $user->nickname),
                                           'system');
+                common_broadcast_notice($notice);
             }
         }
 

@@ -2,8 +2,8 @@
 README
 ------
 
-StatusNet 0.8.1 ("Second Guessing")
-26 Aug 2009
+StatusNet 0.8.2 ("Life and How to Live It")
+1 Nov 2009
 
 This is the README file for StatusNet (formerly Laconica), the Open
 Source microblogging platform. It includes installation instructions,
@@ -77,49 +77,80 @@ for additional terms.
 New this version
 ================
 
-This is a minor feature and bugfix release since version 0.8.0,
-released Jul 15 2009. Notable changes this version:
+This is a minor feature and bugfix release since version 0.8.1,
+released Aug 26 2009. Notable changes this version:
 
-- Laconica has been renamed StatusNet. With a few minor compatibility
-  exceptions, all references to "Laconica" in code, documentation
-  and comments were changed to "StatusNet".
-- A new plugin to support "infinite scroll".
-- A new plugin to support reCaptcha <http://recaptcha.net>.
-- Better logging of server errors.
-- Add an Openid-only mode for authentication.
-- 'lite' parameter for some Twitter API methods.
-- A new plugin to auto-complete nicknames for @-replies.
-- Configuration options to disable OpenID, SMS, Twitter, post-by-email, and IM.
-- Support for lighttpd <http://lighttpd.org/> using 404-based
-  rewrites.
-- Support for using Twitter's OAuth authentication as a client.
-- First version of the groups API.
-- Can configure a site-wide design, including background image and
-  colors.
-- Improved algorithm for replies and conversations, making
-  conversation trees more accurate and useful.
-- Add a script to create a simulation database for testing/debugging.
-- Sanitize HTML for OEmbed.
-- Improved queue management for DB-based queuing.
-- More complete URL detection.
-- Hashtags now support full Unicode character set.
-- Notice inboxes are now garbage-collected on a regular basis
-  at notice-write time.
-- PiwikAnalyticsPlugin updated for latest Piwik interface.
-- Attachment and notice pages can be embedded with OEmbed
-  <http://www.oembed.com>.
-- Failed authentication is logged.
-- PostgreSQL schema and support brought up-to-date with 0.8.x features.
-- The installer works with PostgreSQL as well as MySQL.
-- RSS 1.0 feeds use HTTP Basic authentication in private mode.
-- Many, many bug fixes, particularly with performance.
-- Better (=working) garbage collection for old sessions.
-- Better (=working) search queries.
-- Some cleanup of HTML output.
-- Better error handling when updating Facebook.
-- Considerably better performance when using replication for API
-  calls.
-- Initial unit tests.
+- New script for deleting user accounts. Not particularly safe or
+  community-friendly. Better for deleting abusive accounts than for
+  users who are 'retiring'.
+- Improved detection of URLs in notices, specifically for punctuation
+  chars like ~, :, $, _, -, +, !, @, and %.
+- Removed some extra <dl> semantic HTML code.
+- Correct error in status-network database ini file (having multiple
+  statusnet sites with a single codebase)
+- Fixed error output for Twitter posting failures.
+- Fixed bug in Twitter queue handler that requeued inapplicable
+  notices ad infinitum.
+- Improve FOAF output for remote users.
+- new commands to join and leave groups.
+- Fixed bug in which you cannot turn off importing friends timelines
+  flag.
+- Better error handling in Twitter posting.
+- Show oEmbed data for XHTML files as well as plain HTML.
+- Updated bug database link in README.
+- require HTML tidy extension.
+- add support for HTTP Basic Auth in PHP CGI or FastCGI (e.g. GoDaddy).
+- autofocus input to selected entry elements depending on page.
+- updated layout for filter-by-tag form.
+- better layout for inbox and outbox pages.
+- fix highlighting search terms in attributes of notice list elements.
+- Correctly handle errors in linkback plugin.
+- Updated biz theme.
+- Updated cloudy theme.
+- Don't match '::' as an IPv6 address.
+- Use the same decision logic for deciding whether to mark an
+  attachment as an enclosure in RSS or as a paperclip item in Web
+  output.
+- Fixed a bug in the Piwik plugin that hard-coded the site ID.
+- Add a param, inreplyto, to notice/new to allow an explicit response
+  to another notice.
+- Show username in subject of emails.
+- Check if avatar exists before trying to delete it.
+- Correctly add omb_version to response for request token in OMB.
+- Add a few more SMS carriers.
+- Add a few more notice sources.
+- Vary: header.
+- Improvements to the AutoCompletePlugin.
+- Check for 'dl' before using it.
+- Make it impossible to delete self-subscriptions via the API.
+- Fix pagination of tagged user pages.
+- Make PiwikAnalyticsPlugin work with addPlugin().
+- Removed trailing single space in user nicknames in notice lists.
+- Show context link if a notice starts a conversation.
+- blacklist all files and directories in install dir.
+- handle GoDaddy-style PATH_INFO, including script name.
+- add home_timeline synonym for friends_timeline.
+- Add a popup window for the realtime plugin.
+- Add some more streams for the realtime plugin.
+- Fix a bug that overwrote group creation timestamp on every edit.
+- Moved HTTP error code strings to a class variable.
+- The Twitter API now returns server errors in the correct format.
+- Reset the doctype for HTML output.
+- Fixed a number of notices.
+- Don't show search suggestions for private sites.
+- Some corrections to FBConnect nav overrides.
+- Slightly less database-intensive session management.
+- Updated name of software in installer script.
+- Include long-form attachment URLs if url-shortener is disabled.
+- Include updated localisations for Polish, Greek, Hebrew, Icelandic,
+  Norwegian, and Chinese.
+- Include upstream fixes to gettext.php.
+- Correct for regression in Facebook API for updates.
+- Ignore "Sent from my iPhone" (and similar) in mail updates.
+- Use the NICKNAME_FMT constant for detecting nicknames.
+- Check for site servername config'd.
+- Compatibility fix for empty status updates with Twitter API.
+- Option to show files privately (EXPERIMENTAL! Use with caution.)
 
 Prerequisites
 =============
@@ -225,9 +256,9 @@ especially if you've previously installed PHP/MySQL packages.
 1. Unpack the tarball you downloaded on your Web server. Usually a
    command like this will work:
 
-   	   tar zxf statusnet-0.8.1.tar.gz
+   	   tar zxf statusnet-0.8.2.tar.gz
 
-   ...which will make a statusnet-0.8.1 subdirectory in your current
+   ...which will make a statusnet-0.8.2 subdirectory in your current
    directory. (If you don't have shell access on your Web server, you
    may have to unpack the tarball on your local computer and FTP the
    files to the server.)
@@ -235,7 +266,7 @@ especially if you've previously installed PHP/MySQL packages.
 2. Move the tarball to a directory of your choosing in your Web root
    directory. Usually something like this will work:
 
-   	   mv statusnet-0.8.1 /var/www/mublog
+   	   mv statusnet-0.8.2 /var/www/mublog
 
    This will make your StatusNet instance available in the mublog path of
    your server, like "http://example.net/mublog". "microblog" or
@@ -526,10 +557,6 @@ This will run eight (for now) queue handlers:
   of registered users.
 * xmppconfirmhandler.php - sends confirmation messages to registered
   users.
-* twitterqueuehandler.php - sends queued notices to Twitter for user
-  who have opted to set up Twitter bridging.
-* facebookqueuehandler.php - sends queued notices to Facebook for users
-  of the built-in Facebook application.
 
 Note that these queue daemons are pretty raw, and need your care. In
 particular, they leak memory, and you may want to restart them on a
@@ -546,101 +573,6 @@ Since version 0.8.0, it's now possible to use a STOMP server instead of
 our kind of hacky home-grown DB-based queue solution. See the "queues"
 config section below for how to configure to use STOMP. As of this
 writing, the software has been tested with ActiveMQ (
-
-Twitter Bridge
---------------
-
-* OAuth
-
-As of 0.8.1, OAuth is used to to access protected resources on Twitter
-instead of HTTP Basic Auth.  To use Twitter bridging you will need
-to register your instance of StatusNet as an application on Twitter
-(http://twitter.com/apps), and update the following variables in your
-config.php with the consumer key and secret Twitter generates for you:
-
-      $config['twitter']['consumer_key']    = 'YOURKEY';
-      $config['twitter']['consumer_secret'] = 'YOURSECRET';
-
-When registering your application with Twitter set the type to "Browser"
-and your Callback URL to:
-
-      http://example.org/mublog/twitter/authorization
-
-The default access type should be, "Read & Write".
-
-* Importing statuses from Twitter
-
-To allow your users to import their friends' Twitter statuses, you will
-need to enable the bidirectional Twitter bridge in config.php:
-
-      $config['twitterbridge']['enabled'] = true;
-
-and run the TwitterStatusFetcher daemon (scripts/twitterstatusfetcher.php).
-Additionally, you will want to set the integration source variable,
-which will keep notices posted to Twitter via StatusNet from looping
-back.  The integration source should be set to the name of your
-application, exactly as you specified it on the settings page for your
-StatusNet application on Twitter, e.g.:
-
-      $config['integration']['source'] = 'YourApp';
-
-* Twitter Friends Syncing
-
-Users may set a flag in their settings ("Subscribe to my Twitter friends
-here" under the Twitter tab) to have StatusNet attempt to locate and
-subscribe to "friends" (people they "follow") on Twitter who also have
-accounts on your StatusNet system, and who have previously set up a link
-for automatically posting notices to Twitter.
-
-As of 0.8.0, this is no longer accomplished via a cron job. Instead you
-must run the SyncTwitterFriends daemon (scripts/synctwitterfreinds.php).
-
-Built-in Facebook Application
------------------------------
-
-StatusNet's Facebook application allows your users to automatically
-update their Facebook statuses with their latest notices, invite
-their friends to use the app (and thus your site), view their notice
-timelines, and post notices -- all from within Facebook. The application
-is built into StatusNet and runs on your host.  For automatic Facebook
-status updating to work you will need to enable queuing and run the
-facebookqueuehandler.php daemon (see the "Queues and daemons" section
-above).
-
-Quick setup instructions*:
-
-Install the Facebook Developer application on Facebook:
-
-    http://www.facebook.com/developers/
-
-Use it to create a new application and generate an API key and secret.
-Uncomment the Facebook app section of your config.php and copy in the
-key and secret, e.g.:
-
-    # Config section for the built-in Facebook application
-    $config['facebook']['apikey'] = 'APIKEY';
-    $config['facebook']['secret'] = 'SECRET';
-
-In Facebook's application editor, specify the following URLs for your app:
-
-- Canvas Callback URL: http://example.net/mublog/facebook/
-- Post-Remove Callback URL: http://example.net/mublog/facebook/remove
-- Post-Add Redirect URL: http://apps.facebook.com/yourapp/
-- Canvas Page URL: http://apps.facebook.com/yourapp/
-
-(Replace 'example.net' with your host's URL, 'mublog' with the path
-to your StatusNet installation, and 'yourapp' with the name of the
-Facebook application you created.)
-
-Additionally, Choose "Web" for Application type in the Advanced tab.
-In the "Canvas setting" section, choose the "FBML" for Render Method,
-"Smart Size" for IFrame size, and "Full width (760px)" for Canvas Width.
-Everything else can be left with default values.
-
-*For more detailed instructions please see the installation guide on the
-StatusNet wiki:
-
-    http://status.net/trac/wiki/FacebookApplication
 
 Sitemaps
 --------
@@ -755,6 +687,16 @@ private site, but users of the private site may be able to subscribe
 to users on a remote site. (Or not... it's not well tested.) The
 "proper behaviour" hasn't been defined here, so handle with care.
 
+If fancy URLs is enabled, access to file attachments can also be
+restricted to logged-in users only. Uncomment the appropriate rewrite
+<<<<<<< HEAD:README
+rule in .htaccess or your server's httpd.conf. (This most likely will
+not work if you are using a virtual server for attachments, so consider
+the performance/security tradeoff.)
+=======
+rule in .htaccess or your server's httpd.conf.
+>>>>>>> 446de62... Revert "Added some explanatory text to README":README
+
 Upgrading
 =========
 
@@ -768,7 +710,7 @@ with this situation.
 If you've been using StatusNet 0.7, 0.6, 0.5 or lower, or if you've
 been tracking the "git" version of the software, you will probably
 want to upgrade and keep your existing data. There is no automated
-upgrade procedure in StatusNet 0.8.1. Try these step-by-step
+upgrade procedure in StatusNet 0.8.2. Try these step-by-step
 instructions; read to the end first before trying them.
 
 0. Download StatusNet and set up all the prerequisites as if you were
@@ -789,7 +731,7 @@ instructions; read to the end first before trying them.
 5. Once all writing processes to your site are turned off, make a
    final backup of the Web directory and database.
 6. Move your StatusNet directory to a backup spot, like "mublog.bak".
-7. Unpack your StatusNet 0.8.1 tarball and move it to "mublog" or
+7. Unpack your StatusNet 0.8.2 tarball and move it to "mublog" or
    wherever your code used to be.
 8. Copy the config.php file and avatar directory from your old
    directory to your new directory.
@@ -1251,24 +1193,11 @@ For SMS integration.
 enabled: Whether to enable SMS integration. Defaults to true. Queues
          should also be enabled.
 
-twitter
--------
-
-For Twitter integration
-
-enabled: Whether to enable Twitter integration. Defaults to true.
-         Queues should also be enabled.
-
 integration
 -----------
 
 A catch-all for integration with other systems.
 
-source: The name to use for the source of posts to Twitter. Defaults
-	to 'statusnet', but if you request your own source name from
-	Twitter <http://twitter.com/help/request_source>, you can use
-	that here instead. Status updates on Twitter will then have
-	links to your site.
 taguri: base for tag:// URIs. Defaults to site-server + ',2009'.
 
 inboxes
@@ -1446,15 +1375,6 @@ dir: directory to write backgrounds too. Default is '/background/'
 path: path to backgrounds. Default is sub-path of install path; note
       that you may need to change this if you change site-path too.
 
-twitterbridge
--------------
-
-A bi-direction bridge to Twitter (http://twitter.com/).
-
-enabled: default false. If true, will show user's Twitter friends'
-         notices in their inbox and faves pages, only to the user. You
-         must also run the twitterstatusfetcher.php script.
-
 ping
 ----
 
@@ -1553,7 +1473,7 @@ repository (see below), and you get a compilation error ("unexpected
 T_STRING") in the browser, check to see that you don't have any
 conflicts in your code.
 
-If you upgraded to StatusNet 0.8.1 without reading the "Notice
+If you upgraded to StatusNet 0.8.2 without reading the "Notice
 inboxes" section above, and all your users' 'Personal' tabs are empty,
 read the "Notice inboxes" section above.
 
@@ -1661,6 +1581,7 @@ if anyone's been overlooked in error.
 * Jeffery To
 * Federico Marani
 * Craig Andrews
+* mEDI
 
 Thanks also to the developers of our upstream library code and to the
 thousands of people who have tried out Identi.ca, installed StatusNet,

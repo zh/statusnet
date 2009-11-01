@@ -39,7 +39,6 @@ $daemons = array();
 
 $daemons[] = INSTALLDIR.'/scripts/pluginqueuehandler.php';
 $daemons[] = INSTALLDIR.'/scripts/ombqueuehandler.php';
-$daemons[] = INSTALLDIR.'/scripts/facebookqueuehandler.php';
 $daemons[] = INSTALLDIR.'/scripts/pingqueuehandler.php';
 
 if(common_config('xmpp','enabled')) {
@@ -47,15 +46,6 @@ if(common_config('xmpp','enabled')) {
     $daemons[] = INSTALLDIR.'/scripts/jabberqueuehandler.php';
     $daemons[] = INSTALLDIR.'/scripts/publicqueuehandler.php';
     $daemons[] = INSTALLDIR.'/scripts/xmppconfirmhandler.php';
-}
-
-if(common_config('twitterbridge','enabled')) {
-    $daemons[] = INSTALLDIR.'/scripts/twitterstatusfetcher.php';
-}
-
-if (common_config('twitter', 'enabled')) {
-    $daemons[] = INSTALLDIR.'/scripts/twitterqueuehandler.php';
-    $daemons[] = INSTALLDIR.'/scripts/synctwitterfriends.php';
 }
 
 if (common_config('sms', 'enabled')) {

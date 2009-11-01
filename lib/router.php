@@ -71,574 +71,573 @@ class Router
     {
         $m = Net_URL_Mapper::getInstance();
 
-        // In the "root"
+        if (Event::handle('StartInitializeRouter', array(&$m))) {
 
-        $m->connect('', array('action' => 'public'));
-        $m->connect('rss', array('action' => 'publicrss'));
-        $m->connect('featuredrss', array('action' => 'featuredrss'));
-        $m->connect('favoritedrss', array('action' => 'favoritedrss'));
-        $m->connect('opensearch/people', array('action' => 'opensearch',
-                                               'type' => 'people'));
-        $m->connect('opensearch/notice', array('action' => 'opensearch',
-                                               'type' => 'notice'));
+            // In the "root"
 
-        // docs
+            $m->connect('', array('action' => 'public'));
+            $m->connect('rss', array('action' => 'publicrss'));
+            $m->connect('featuredrss', array('action' => 'featuredrss'));
+            $m->connect('favoritedrss', array('action' => 'favoritedrss'));
+            $m->connect('opensearch/people', array('action' => 'opensearch',
+                                                   'type' => 'people'));
+            $m->connect('opensearch/notice', array('action' => 'opensearch',
+                                                   'type' => 'notice'));
 
-        $m->connect('doc/:title', array('action' => 'doc'));
+            // docs
 
-        // Twitter
+            $m->connect('doc/:title', array('action' => 'doc'));
 
-        $m->connect('twitter/authorization', array('action' => 'twitterauthorization'));
+            // main stuff is repetitive
 
-        // facebook
+            $main = array('login', 'logout', 'register', 'subscribe',
+                          'unsubscribe', 'confirmaddress', 'recoverpassword',
+                          'invite', 'favor', 'disfavor', 'sup',
+                          'block', 'unblock', 'subedit',
+                          'groupblock', 'groupunblock');
 
-        $m->connect('facebook', array('action' => 'facebookhome'));
-        $m->connect('facebook/index.php', array('action' => 'facebookhome'));
-        $m->connect('facebook/settings.php', array('action' => 'facebooksettings'));
-        $m->connect('facebook/invite.php', array('action' => 'facebookinvite'));
-        $m->connect('facebook/remove', array('action' => 'facebookremove'));
+            foreach ($main as $a) {
+                $m->connect('main/'.$a, array('action' => $a));
+            }
 
-        // main stuff is repetitive
+            $m->connect('main/sup/:seconds', array('action' => 'sup'),
+                        array('seconds' => '[0-9]+'));
 
-        $main = array('login', 'logout', 'register', 'subscribe',
-                      'unsubscribe', 'confirmaddress', 'recoverpassword',
-                      'invite', 'favor', 'disfavor', 'sup',
-                      'block', 'unblock', 'subedit',
-                      'groupblock', 'groupunblock');
+            $m->connect('main/tagother/:id', array('action' => 'tagother'));
 
-        foreach ($main as $a) {
-            $m->connect('main/'.$a, array('action' => $a));
-        }
+            $m->connect('main/oembed',
+                        array('action' => 'oembed'));
 
-        $m->connect('main/sup/:seconds', array('action' => 'sup'),
-                    array('seconds' => '[0-9]+'));
+            $m->connect('main/xrds',
+                        array('action' => 'publicxrds'));
 
-        $m->connect('main/tagother/:id', array('action' => 'tagother'));
+            // these take a code
 
-        $m->connect('main/oembed',
-                    array('action' => 'oembed'));
+            foreach (array('register', 'confirmaddress', 'recoverpassword') as $c) {
+                $m->connect('main/'.$c.'/:code', array('action' => $c));
+            }
 
-        // these take a code
+            // exceptional
 
-        foreach (array('register', 'confirmaddress', 'recoverpassword') as $c) {
-            $m->connect('main/'.$c.'/:code', array('action' => $c));
-        }
+            $m->connect('main/remote', array('action' => 'remotesubscribe'));
+            $m->connect('main/remote?nickname=:nickname', array('action' => 'remotesubscribe'), array('nickname' => '[A-Za-z0-9_-]+'));
 
-        // exceptional
+            foreach (Router::$bare as $action) {
+                $m->connect('index.php?action=' . $action, array('action' => $action));
+            }
 
-        $m->connect('main/remote', array('action' => 'remotesubscribe'));
-        $m->connect('main/remote?nickname=:nickname', array('action' => 'remotesubscribe'), array('nickname' => '[A-Za-z0-9_-]+'));
+            // settings
 
-        foreach (Router::$bare as $action) {
-            $m->connect('index.php?action=' . $action, array('action' => $action));
-        }
+            foreach (array('profile', 'avatar', 'password', 'im',
+                           'email', 'sms', 'userdesign', 'other') as $s) {
+                $m->connect('settings/'.$s, array('action' => $s.'settings'));
+            }
 
-        // settings
+            // search
 
-        foreach (array('profile', 'avatar', 'password', 'im',
-                       'email', 'sms', 'twitter', 'userdesign', 'other') as $s) {
-            $m->connect('settings/'.$s, array('action' => $s.'settings'));
-        }
+            foreach (array('group', 'people', 'notice') as $s) {
+                $m->connect('search/'.$s, array('action' => $s.'search'));
+                $m->connect('search/'.$s.'?q=:q',
+                            array('action' => $s.'search'),
+                            array('q' => '.+'));
+            }
 
-        // search
-
-        foreach (array('group', 'people', 'notice') as $s) {
-            $m->connect('search/'.$s, array('action' => $s.'search'));
-            $m->connect('search/'.$s.'?q=:q',
-                        array('action' => $s.'search'),
+            // The second of these is needed to make the link work correctly
+            // when inserted into the page. The first is needed to match the
+            // route on the way in. Seems to be another Net_URL_Mapper bug to me.
+            $m->connect('search/notice/rss', array('action' => 'noticesearchrss'));
+            $m->connect('search/notice/rss?q=:q', array('action' => 'noticesearchrss'),
                         array('q' => '.+'));
-        }
 
-        // The second of these is needed to make the link work correctly
-        // when inserted into the page. The first is needed to match the
-        // route on the way in. Seems to be another Net_URL_Mapper bug to me.
-        $m->connect('search/notice/rss', array('action' => 'noticesearchrss'));
-        $m->connect('search/notice/rss?q=:q', array('action' => 'noticesearchrss'),
-                    array('q' => '.+'));
+            $m->connect('attachment/:attachment',
+                        array('action' => 'attachment'),
+                        array('attachment' => '[0-9]+'));
 
-        $m->connect('attachment/:attachment',
-                    array('action' => 'attachment'),
-                    array('attachment' => '[0-9]+'));
+            $m->connect('attachment/:attachment/ajax',
+                        array('action' => 'attachment_ajax'),
+                        array('attachment' => '[0-9]+'));
 
-        $m->connect('attachment/:attachment/ajax',
-                    array('action' => 'attachment_ajax'),
-                    array('attachment' => '[0-9]+'));
+            $m->connect('attachment/:attachment/thumbnail',
+                        array('action' => 'attachment_thumbnail'),
+                        array('attachment' => '[0-9]+'));
 
-        $m->connect('attachment/:attachment/thumbnail',
-                    array('action' => 'attachment_thumbnail'),
-                    array('attachment' => '[0-9]+'));
+            $m->connect('notice/new', array('action' => 'newnotice'));
+            $m->connect('notice/new?replyto=:replyto',
+                        array('action' => 'newnotice'),
+                        array('replyto' => '[A-Za-z0-9_-]+'));
+            $m->connect('notice/new?replyto=:replyto&inreplyto=:inreplyto',
+                        array('action' => 'newnotice'),
+                        array('replyto' => '[A-Za-z0-9_-]+'),
+                        array('inreplyto' => '[0-9]+'));
 
-        $m->connect('notice/new', array('action' => 'newnotice'));
-        $m->connect('notice/new?replyto=:replyto',
-                    array('action' => 'newnotice'),
-                    array('replyto' => '[A-Za-z0-9_-]+'));
-        $m->connect('notice/new?replyto=:replyto&inreplyto=:inreplyto',
-                    array('action' => 'newnotice'),
-                    array('replyto' => '[A-Za-z0-9_-]+'),
-                    array('inreplyto' => '[0-9]+'));
+            $m->connect('notice/:notice/file',
+                        array('action' => 'file'),
+                        array('notice' => '[0-9]+'));
 
-        $m->connect('notice/:notice/file',
-            array('action' => 'file'),
-            array('notice' => '[0-9]+'));
+            $m->connect('notice/:notice',
+                        array('action' => 'shownotice'),
+                        array('notice' => '[0-9]+'));
+            $m->connect('notice/delete', array('action' => 'deletenotice'));
+            $m->connect('notice/delete/:notice',
+                        array('action' => 'deletenotice'),
+                        array('notice' => '[0-9]+'));
 
-        $m->connect('notice/:notice',
-                    array('action' => 'shownotice'),
-                    array('notice' => '[0-9]+'));
-        $m->connect('notice/delete', array('action' => 'deletenotice'));
-        $m->connect('notice/delete/:notice',
-                    array('action' => 'deletenotice'),
-                    array('notice' => '[0-9]+'));
+            $m->connect('bookmarklet/new', array('action' => 'bookmarklet'));
 
-        // conversation
+            // conversation
 
-        $m->connect('conversation/:id',
-                    array('action' => 'conversation'),
-                    array('id' => '[0-9]+'));
+            $m->connect('conversation/:id',
+                        array('action' => 'conversation'),
+                        array('id' => '[0-9]+'));
 
-        $m->connect('message/new', array('action' => 'newmessage'));
-        $m->connect('message/new?to=:to', array('action' => 'newmessage'), array('to' => '[A-Za-z0-9_-]+'));
-        $m->connect('message/:message',
-                    array('action' => 'showmessage'),
-                    array('message' => '[0-9]+'));
+            $m->connect('message/new', array('action' => 'newmessage'));
+            $m->connect('message/new?to=:to', array('action' => 'newmessage'), array('to' => '[A-Za-z0-9_-]+'));
+            $m->connect('message/:message',
+                        array('action' => 'showmessage'),
+                        array('message' => '[0-9]+'));
 
-        $m->connect('user/:id',
-                    array('action' => 'userbyid'),
-                    array('id' => '[0-9]+'));
+            $m->connect('user/:id',
+                        array('action' => 'userbyid'),
+                        array('id' => '[0-9]+'));
 
-        $m->connect('tags/', array('action' => 'publictagcloud'));
-        $m->connect('tag/', array('action' => 'publictagcloud'));
-        $m->connect('tags', array('action' => 'publictagcloud'));
-        $m->connect('tag', array('action' => 'publictagcloud'));
-        $m->connect('tag/:tag/rss',
-                    array('action' => 'tagrss'),
-                    array('tag' => '[a-zA-Z0-9]+'));
-        $m->connect('tag/:tag',
-                    array('action' => 'tag'),
-                    array('tag' => '[\pL\pN_\-\.]{1,64}'));
+            $m->connect('tags/', array('action' => 'publictagcloud'));
+            $m->connect('tag/', array('action' => 'publictagcloud'));
+            $m->connect('tags', array('action' => 'publictagcloud'));
+            $m->connect('tag', array('action' => 'publictagcloud'));
+            $m->connect('tag/:tag/rss',
+                        array('action' => 'tagrss'),
+                        array('tag' => '[a-zA-Z0-9]+'));
+            $m->connect('tag/:tag',
+                        array('action' => 'tag'),
+                        array('tag' => '[\pL\pN_\-\.]{1,64}'));
 
-        $m->connect('peopletag/:tag',
-                    array('action' => 'peopletag'),
-                    array('tag' => '[a-zA-Z0-9]+'));
+            $m->connect('peopletag/:tag',
+                        array('action' => 'peopletag'),
+                        array('tag' => '[a-zA-Z0-9]+'));
 
-        $m->connect('featured/', array('action' => 'featured'));
-        $m->connect('featured', array('action' => 'featured'));
-        $m->connect('favorited/', array('action' => 'favorited'));
-        $m->connect('favorited', array('action' => 'favorited'));
+            $m->connect('featured/', array('action' => 'featured'));
+            $m->connect('featured', array('action' => 'featured'));
+            $m->connect('favorited/', array('action' => 'favorited'));
+            $m->connect('favorited', array('action' => 'favorited'));
 
-        // groups
+            // groups
 
-        $m->connect('group/new', array('action' => 'newgroup'));
+            $m->connect('group/new', array('action' => 'newgroup'));
 
-        foreach (array('edit', 'join', 'leave') as $v) {
-            $m->connect('group/:nickname/'.$v,
-                        array('action' => $v.'group'),
+            foreach (array('edit', 'join', 'leave') as $v) {
+                $m->connect('group/:nickname/'.$v,
+                            array('action' => $v.'group'),
+                            array('nickname' => '[a-zA-Z0-9]+'));
+            }
+
+            foreach (array('members', 'logo', 'rss', 'designsettings') as $n) {
+                $m->connect('group/:nickname/'.$n,
+                            array('action' => 'group'.$n),
+                            array('nickname' => '[a-zA-Z0-9]+'));
+            }
+
+            $m->connect('group/:nickname/foaf',
+                        array('action' => 'foafgroup'),
                         array('nickname' => '[a-zA-Z0-9]+'));
-        }
 
-        foreach (array('members', 'logo', 'rss', 'designsettings') as $n) {
-            $m->connect('group/:nickname/'.$n,
-                        array('action' => 'group'.$n),
+            $m->connect('group/:nickname/blocked',
+                        array('action' => 'blockedfromgroup'),
                         array('nickname' => '[a-zA-Z0-9]+'));
-        }
-
-        $m->connect('group/:nickname/foaf',
-                    array('action' => 'foafgroup'),
-                    array('nickname' => '[a-zA-Z0-9]+'));
-
-        $m->connect('group/:nickname/blocked',
-                    array('action' => 'blockedfromgroup'),
-                    array('nickname' => '[a-zA-Z0-9]+'));
-
-        $m->connect('group/:nickname/makeadmin',
-                    array('action' => 'makeadmin'),
-                    array('nickname' => '[a-zA-Z0-9]+'));
-
-        $m->connect('group/:id/id',
-                    array('action' => 'groupbyid'),
-                    array('id' => '[0-9]+'));
-
-        $m->connect('group/:nickname',
-                    array('action' => 'showgroup'),
-                    array('nickname' => '[a-zA-Z0-9]+'));
-
-        $m->connect('group/', array('action' => 'groups'));
-        $m->connect('group', array('action' => 'groups'));
-        $m->connect('groups/', array('action' => 'groups'));
-        $m->connect('groups', array('action' => 'groups'));
-
-        // Twitter-compatible API
-
-        // statuses API
-
-        $m->connect('api/statuses/public_timeline.:format',
-                    array('action' => 'ApiTimelinePublic',
-                    'format' => '(xml|json|rss|atom)'));
-
-        $m->connect('api/statuses/friends_timeline.:format',
-                    array('action' => 'ApiTimelineFriends',
-                          'format' => '(xml|json|rss|atom)'));
-
-        $m->connect('api/statuses/friends_timeline/:id.:format',
-                    array('action' => 'ApiTimelineFriends',
-                          'id' => '[a-zA-Z0-9]+',
-                          'format' => '(xml|json|rss|atom)'));
-        $m->connect('api/statuses/home_timeline.:format',
-                    array('action' => 'ApiTimelineFriends',
-                          'format' => '(xml|json|rss|atom)'));
-
-        $m->connect('api/statuses/home_timeline/:id.:format',
-                    array('action' => 'ApiTimelineFriends',
-                          'id' => '[a-zA-Z0-9]+',
-                          'format' => '(xml|json|rss|atom)'));
-
-        $m->connect('api/statuses/user_timeline.:format',
-                    array('action' => 'ApiTimelineUser',
-                    'format' => '(xml|json|rss|atom)'));
-
-        $m->connect('api/statuses/user_timeline/:id.:format',
-                    array('action' => 'ApiTimelineUser',
-                    'id' => '[a-zA-Z0-9]+',
-                    'format' => '(xml|json|rss|atom)'));
-
-        $m->connect('api/statuses/mentions.:format',
-                    array('action' => 'ApiTimelineMentions',
-                    'format' => '(xml|json|rss|atom)'));
-
-        $m->connect('api/statuses/mentions/:id.:format',
-                    array('action' => 'ApiTimelineMentions',
-                    'id' => '[a-zA-Z0-9]+',
-                    'format' => '(xml|json|rss|atom)'));
-
-        $m->connect('api/statuses/replies.:format',
-                    array('action' => 'ApiTimelineMentions',
-                    'format' => '(xml|json|rss|atom)'));
-
-        $m->connect('api/statuses/replies/:id.:format',
-                    array('action' => 'ApiTimelineMentions',
-                    'id' => '[a-zA-Z0-9]+',
-                    'format' => '(xml|json|rss|atom)'));
-
-        $m->connect('api/statuses/friends.:format',
-                     array('action' => 'ApiUserFriends',
-                           'format' => '(xml|json)'));
-
-        $m->connect('api/statuses/friends/:id.:format',
-                    array('action' => 'ApiUserFriends',
-                    'id' => '[a-zA-Z0-9]+',
-                    'format' => '(xml|json)'));
-
-        $m->connect('api/statuses/followers.:format',
-                     array('action' => 'ApiUserFollowers',
-                           'format' => '(xml|json)'));
-
-        $m->connect('api/statuses/followers/:id.:format',
-                    array('action' => 'ApiUserFollowers',
-                    'id' => '[a-zA-Z0-9]+',
-                    'format' => '(xml|json)'));
 
-        $m->connect('api/statuses/show.:format',
-                    array('action' => 'ApiStatusesShow',
-                          'format' => '(xml|json)'));
+            $m->connect('group/:nickname/makeadmin',
+                        array('action' => 'makeadmin'),
+                        array('nickname' => '[a-zA-Z0-9]+'));
+
+            $m->connect('group/:id/id',
+                        array('action' => 'groupbyid'),
+                        array('id' => '[0-9]+'));
+
+            $m->connect('group/:nickname',
+                        array('action' => 'showgroup'),
+                        array('nickname' => '[a-zA-Z0-9]+'));
+
+            $m->connect('group/', array('action' => 'groups'));
+            $m->connect('group', array('action' => 'groups'));
+            $m->connect('groups/', array('action' => 'groups'));
+            $m->connect('groups', array('action' => 'groups'));
+
+            // Twitter-compatible API
+
+            // statuses API
+
+            $m->connect('api/statuses/public_timeline.:format',
+                        array('action' => 'ApiTimelinePublic',
+                              'format' => '(xml|json|rss|atom)'));
+
+            $m->connect('api/statuses/friends_timeline.:format',
+                        array('action' => 'ApiTimelineFriends',
+                              'format' => '(xml|json|rss|atom)'));
+
+            $m->connect('api/statuses/friends_timeline/:id.:format',
+                        array('action' => 'ApiTimelineFriends',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json|rss|atom)'));
+            $m->connect('api/statuses/home_timeline.:format',
+                        array('action' => 'ApiTimelineFriends',
+                              'format' => '(xml|json|rss|atom)'));
+
+            $m->connect('api/statuses/home_timeline/:id.:format',
+                        array('action' => 'ApiTimelineFriends',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json|rss|atom)'));
+
+            $m->connect('api/statuses/user_timeline.:format',
+                        array('action' => 'ApiTimelineUser',
+                              'format' => '(xml|json|rss|atom)'));
+
+            $m->connect('api/statuses/user_timeline/:id.:format',
+                        array('action' => 'ApiTimelineUser',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json|rss|atom)'));
+
+            $m->connect('api/statuses/mentions.:format',
+                        array('action' => 'ApiTimelineMentions',
+                              'format' => '(xml|json|rss|atom)'));
+
+            $m->connect('api/statuses/mentions/:id.:format',
+                        array('action' => 'ApiTimelineMentions',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json|rss|atom)'));
+
+            $m->connect('api/statuses/replies.:format',
+                        array('action' => 'ApiTimelineMentions',
+                              'format' => '(xml|json|rss|atom)'));
+
+            $m->connect('api/statuses/replies/:id.:format',
+                        array('action' => 'ApiTimelineMentions',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json|rss|atom)'));
+
+            $m->connect('api/statuses/friends.:format',
+                        array('action' => 'ApiUserFriends',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/statuses/friends/:id.:format',
+                        array('action' => 'ApiUserFriends',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/statuses/followers.:format',
+                        array('action' => 'ApiUserFollowers',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/statuses/followers/:id.:format',
+                        array('action' => 'ApiUserFollowers',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/statuses/show.:format',
+                        array('action' => 'ApiStatusesShow',
+                              'format' => '(xml|json)'));
 
-        $m->connect('api/statuses/show/:id.:format',
-                    array('action' => 'ApiStatusesShow',
-                          'id' => '[0-9]+',
-                          'format' => '(xml|json)'));
+            $m->connect('api/statuses/show/:id.:format',
+                        array('action' => 'ApiStatusesShow',
+                              'id' => '[0-9]+',
+                              'format' => '(xml|json)'));
 
-        $m->connect('api/statuses/update.:format',
-                    array('action' => 'ApiStatusesUpdate',
-                          'format' => '(xml|json)'));
+            $m->connect('api/statuses/update.:format',
+                        array('action' => 'ApiStatusesUpdate',
+                              'format' => '(xml|json)'));
 
-        $m->connect('api/statuses/destroy.:format',
-                  array('action' => 'ApiStatusesDestroy',
-                        'format' => '(xml|json)'));
+            $m->connect('api/statuses/destroy.:format',
+                        array('action' => 'ApiStatusesDestroy',
+                              'format' => '(xml|json)'));
 
-        $m->connect('api/statuses/destroy/:id.:format',
-                  array('action' => 'ApiStatusesDestroy',
-                        'id' => '[0-9]+',
-                        'format' => '(xml|json)'));
+            $m->connect('api/statuses/destroy/:id.:format',
+                        array('action' => 'ApiStatusesDestroy',
+                              'id' => '[0-9]+',
+                              'format' => '(xml|json)'));
 
-        // users
+            // users
 
-        $m->connect('api/users/show/:id.:format',
-                    array('action' => 'ApiUserShow',
-                          'id' => '[a-zA-Z0-9]+',
-                          'format' => '(xml|json)'));
+            $m->connect('api/users/show/:id.:format',
+                        array('action' => 'ApiUserShow',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json)'));
 
-        $m->connect('api/users/:method',
-                    array('action' => 'api',
-                          'apiaction' => 'users'),
-                    array('method' => 'show(\.(xml|json))?'));
+            $m->connect('api/users/:method',
+                        array('action' => 'api',
+                              'apiaction' => 'users'),
+                        array('method' => 'show(\.(xml|json))?'));
 
-        // direct messages
+            // direct messages
 
+            $m->connect('api/direct_messages.:format',
+                        array('action' => 'ApiDirectMessage',
+                              'format' => '(xml|json|rss|atom)'));
 
-        $m->connect('api/direct_messages.:format',
-                    array('action' => 'ApiDirectMessage',
-                          'format' => '(xml|json|rss|atom)'));
+            $m->connect('api/direct_messages/sent.:format',
+                        array('action' => 'ApiDirectMessage',
+                              'format' => '(xml|json|rss|atom)',
+                              'sent' => true));
 
-        $m->connect('api/direct_messages/sent.:format',
-                    array('action' => 'ApiDirectMessage',
-                          'format' => '(xml|json|rss|atom)',
-                          'sent' => true));
+            $m->connect('api/direct_messages/new.:format',
+                        array('action' => 'ApiDirectMessageNew',
+                              'format' => '(xml|json)'));
 
-        $m->connect('api/direct_messages/new.:format',
-                     array('action' => 'ApiDirectMessageNew',
-                           'format' => '(xml|json)'));
+            // friendships
 
-        // friendships
+            $m->connect('api/friendships/show.:format',
+                        array('action' => 'ApiFriendshipsShow',
+                              'format' => '(xml|json)'));
 
-        $m->connect('api/friendships/show.:format',
-                    array('action' => 'ApiFriendshipsShow',
-                          'format' => '(xml|json)'));
+            $m->connect('api/friendships/exists.:format',
+                        array('action' => 'ApiFriendshipsExists',
+                              'format' => '(xml|json)'));
 
-        $m->connect('api/friendships/exists.:format',
-                    array('action' => 'ApiFriendshipsExists',
-                          'format' => '(xml|json)'));
+            $m->connect('api/friendships/create.:format',
+                        array('action' => 'ApiFriendshipsCreate',
+                              'format' => '(xml|json)'));
 
-        $m->connect('api/friendships/create.:format',
-                    array('action' => 'ApiFriendshipsCreate',
-                          'format' => '(xml|json)'));
+            $m->connect('api/friendships/destroy.:format',
+                        array('action' => 'ApiFriendshipsDestroy',
+                              'format' => '(xml|json)'));
 
-        $m->connect('api/friendships/destroy.:format',
-                     array('action' => 'ApiFriendshipsDestroy',
-                          'format' => '(xml|json)'));
+            $m->connect('api/friendships/create/:id.:format',
+                        array('action' => 'ApiFriendshipsCreate',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json)'));
 
-        $m->connect('api/friendships/create/:id.:format',
-                    array('action' => 'ApiFriendshipsCreate',
-                          'id' => '[a-zA-Z0-9]+',
-                          'format' => '(xml|json)'));
+            $m->connect('api/friendships/destroy/:id.:format',
+                        array('action' => 'ApiFriendshipsDestroy',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json)'));
 
-        $m->connect('api/friendships/destroy/:id.:format',
-                    array('action' => 'ApiFriendshipsDestroy',
-                    'id' => '[a-zA-Z0-9]+',
-                    'format' => '(xml|json)'));
+            // Social graph
 
-        // Social graph
+            $m->connect('api/friends/ids/:id.:format',
+                        array('action' => 'apiFriends',
+                              'ids_only' => true));
 
-        $m->connect('api/friends/ids/:id.:format',
-                    array('action' => 'apiFriends',
-                          'ids_only' => true));
+            $m->connect('api/followers/ids/:id.:format',
+                        array('action' => 'apiFollowers',
+                              'ids_only' => true));
 
-        $m->connect('api/followers/ids/:id.:format',
-                    array('action' => 'apiFollowers',
-                          'ids_only' => true));
+            $m->connect('api/friends/ids.:format',
+                        array('action' => 'apiFriends',
+                              'ids_only' => true));
 
-        $m->connect('api/friends/ids.:format',
-                    array('action' => 'apiFriends',
-                          'ids_only' => true));
+            $m->connect('api/followers/ids.:format',
+                        array('action' => 'apiFollowers',
+                              'ids_only' => true));
 
-        $m->connect('api/followers/ids.:format',
-                     array('action' => 'apiFollowers',
-                          'ids_only' => true));
+            // account
 
-        // account
+            $m->connect('api/account/verify_credentials.:format',
+                        array('action' => 'ApiAccountVerifyCredentials'));
 
-        $m->connect('api/account/verify_credentials.:format',
-                    array('action' => 'ApiAccountVerifyCredentials'));
+            // special case where verify_credentials is called w/out a format
 
-        // special case where verify_credentials is called w/out a format
+            $m->connect('api/account/verify_credentials',
+                        array('action' => 'ApiAccountVerifyCredentials'));
 
-        $m->connect('api/account/verify_credentials',
-                    array('action' => 'ApiAccountVerifyCredentials'));
+            $m->connect('api/account/rate_limit_status.:format',
+                        array('action' => 'ApiAccountRateLimitStatus'));
 
-        $m->connect('api/account/rate_limit_status.:format',
-                    array('action' => 'ApiAccountRateLimitStatus'));
+            // favorites
 
-        // favorites
+            $m->connect('api/favorites.:format',
+                        array('action' => 'ApiTimelineFavorites',
+                              'format' => '(xml|json|rss|atom)'));
 
-        $m->connect('api/favorites.:format',
-                    array('action' => 'ApiTimelineFavorites',
-                    'format' => '(xml|json|rss|atom)'));
+            $m->connect('api/favorites/:id.:format',
+                        array('action' => 'ApiTimelineFavorites',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xmljson|rss|atom)'));
 
-        $m->connect('api/favorites/:id.:format',
-                    array('action' => 'ApiTimelineFavorites',
-                          'id' => '[a-zA-Z0-9]+',
-                          'format' => '(xmljson|rss|atom)'));
+            $m->connect('api/favorites/create/:id.:format',
+                        array('action' => 'ApiFavoriteCreate',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json)'));
 
-        $m->connect('api/favorites/create/:id.:format',
-                    array('action' => 'ApiFavoriteCreate',
-                          'id' => '[a-zA-Z0-9]+',
-                          'format' => '(xml|json)'));
+            $m->connect('api/favorites/destroy/:id.:format',
+                        array('action' => 'ApiFavoriteDestroy',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json)'));
 
-        $m->connect('api/favorites/destroy/:id.:format',
-                    array('action' => 'ApiFavoriteDestroy',
-                          'id' => '[a-zA-Z0-9]+',
-                          'format' => '(xml|json)'));
+            // notifications
 
-        // notifications
+            $m->connect('api/notifications/:method/:argument',
+                        array('action' => 'api',
+                              'apiaction' => 'favorites'));
 
-        $m->connect('api/notifications/:method/:argument',
-                    array('action' => 'api',
-                          'apiaction' => 'favorites'));
+            // blocks
 
-        // blocks
+            $m->connect('api/blocks/create/:id.:format',
+                        array('action' => 'ApiBlockCreate',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json)'));
 
-        $m->connect('api/blocks/create/:id.:format',
-                    array('action' => 'ApiBlockCreate',
-                          'id' => '[a-zA-Z0-9]+',
-                          'format' => '(xml|json)'));
+            $m->connect('api/blocks/destroy/:id.:format',
+                        array('action' => 'ApiBlockDestroy',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json)'));
+            // help
 
-        $m->connect('api/blocks/destroy/:id.:format',
-                    array('action' => 'ApiBlockDestroy',
-                          'id' => '[a-zA-Z0-9]+',
-                          'format' => '(xml|json)'));
-        // help
+            $m->connect('api/help/test.:format',
+                        array('action' => 'ApiHelpTest',
+                              'format' => '(xml|json)'));
 
-        $m->connect('api/help/test.:format',
-                    array('action' => 'ApiHelpTest',
-                          'format' => '(xml|json)'));
+            // statusnet
 
-        // statusnet
+            $m->connect('api/statusnet/version.:format',
+                        array('action' => 'ApiStatusnetVersion',
+                              'format' => '(xml|json)'));
 
-        $m->connect('api/statusnet/version.:format',
-                    array('action' => 'ApiStatusnetVersion',
-                          'format' => '(xml|json)'));
+            $m->connect('api/statusnet/config.:format',
+                        array('action' => 'ApiStatusnetConfig',
+                              'format' => '(xml|json)'));
 
-        $m->connect('api/statusnet/config.:format',
-                    array('action' => 'ApiStatusnetConfig',
-                   'format' => '(xml|json)'));
+            // For older methods, we provide "laconica" base action
 
-        // For older methods, we provide "laconica" base action
+            $m->connect('api/laconica/version.:format',
+                        array('action' => 'ApiStatusnetVersion',
+                              'format' => '(xml|json)'));
 
-        $m->connect('api/laconica/version.:format',
-                    array('action' => 'ApiStatusnetVersion',
-                          'format' => '(xml|json)'));
+            $m->connect('api/laconica/config.:format',
+                        array('action' => 'ApiStatusnetConfig',
+                              'format' => '(xml|json)'));
 
-        $m->connect('api/laconica/config.:format',
-                    array('action' => 'ApiStatusnetConfig',
-                    'format' => '(xml|json)'));
-
-        // Groups and tags are newer than 0.8.1 so no backward-compatibility
-        // necessary
-
-        // Groups
-        //'list' has to be handled differently, as php will not allow a method to be named 'list'
-
-        $m->connect('api/statusnet/groups/timeline/:id.:format',
-                    array('action' => 'ApiTimelineGroup',
-                          'id' => '[a-zA-Z0-9]+',
-                          'format' => '(xmljson|rss|atom)'));
-
-        $m->connect('api/statusnet/groups/show.:format',
-                    array('action' => 'ApiGroupShow',
-                    'format' => '(xml|json)'));
-
-        $m->connect('api/statusnet/groups/show/:id.:format',
-                    array('action' => 'ApiGroupShow',
-                          'id' => '[a-zA-Z0-9]+',
-                          'format' => '(xml|json)'));
-
-        $m->connect('api/statusnet/groups/join.:format',
-                    array('action' => 'ApiGroupJoin',
-                          'id' => '[a-zA-Z0-9]+',
-                          'format' => '(xml|json)'));
-
-        $m->connect('api/statusnet/groups/join/:id.:format',
-                    array('action' => 'ApiGroupJoin',
-                    'format' => '(xml|json)'));
-
-        $m->connect('api/statusnet/groups/leave.:format',
-                    array('action' => 'ApiGroupLeave',
-                          'id' => '[a-zA-Z0-9]+',
-                          'format' => '(xml|json)'));
-
-        $m->connect('api/statusnet/groups/leave/:id.:format',
-                    array('action' => 'ApiGroupLeave',
-                          'format' => '(xml|json)'));
-
-        $m->connect('api/statusnet/groups/is_member.:format',
-                    array('action' => 'ApiGroupIsMember',
-                          'format' => '(xml|json)'));
-
-        $m->connect('api/statusnet/groups/list.:format',
-                    array('action' => 'ApiGroupList',
-                          'format' => '(xml|json|rss|atom)'));
-
-        $m->connect('api/statusnet/groups/list/:id.:format',
-                    array('action' => 'ApiGroupList',
-                          'id' => '[a-zA-Z0-9]+',
-                          'format' => '(xml|json|rss|atom)'));
-
-        $m->connect('api/statusnet/groups/list_all.:format',
-                    array('action' => 'ApiGroupListAll',
-                          'format' => '(xml|json|rss|atom)'));
-
-        $m->connect('api/statusnet/groups/membership.:format',
-                    array('action' => 'ApiGroupMembership',
-                         'format' => '(xml|json)'));
-
-        $m->connect('api/statusnet/groups/membership/:id.:format',
-                    array('action' => 'ApiGroupMembership',
-                           'id' => '[a-zA-Z0-9]+',
-                           'format' => '(xml|json)'));
-                           
-        $m->connect('api/statusnet/groups/create.:format',
-                    array('action' => 'ApiGroupCreate',
-                          'format' => '(xml|json)'));
-        // Tags
-        $m->connect('api/statusnet/tags/timeline/:tag.:format',
-                    array('action' => 'ApiTimelineTag',
-                          'format' => '(xmljson|rss|atom)'));
-
-        // search
-        $m->connect('api/search.atom', array('action' => 'twitapisearchatom'));
-        $m->connect('api/search.json', array('action' => 'twitapisearchjson'));
-        $m->connect('api/trends.json', array('action' => 'twitapitrends'));
-
-        // user stuff
-
-        foreach (array('subscriptions', 'subscribers',
-                       'nudge', 'all', 'foaf', 'xrds',
-                       'replies', 'inbox', 'outbox', 'microsummary') as $a) {
-            $m->connect(':nickname/'.$a,
-                        array('action' => $a),
+            // Groups and tags are newer than 0.8.1 so no backward-compatibility
+            // necessary
+
+            // Groups
+            //'list' has to be handled differently, as php will not allow a method to be named 'list'
+
+            $m->connect('api/statusnet/groups/timeline/:id.:format',
+                        array('action' => 'ApiTimelineGroup',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xmljson|rss|atom)'));
+
+            $m->connect('api/statusnet/groups/show.:format',
+                        array('action' => 'ApiGroupShow',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/statusnet/groups/show/:id.:format',
+                        array('action' => 'ApiGroupShow',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/statusnet/groups/join.:format',
+                        array('action' => 'ApiGroupJoin',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/statusnet/groups/join/:id.:format',
+                        array('action' => 'ApiGroupJoin',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/statusnet/groups/leave.:format',
+                        array('action' => 'ApiGroupLeave',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/statusnet/groups/leave/:id.:format',
+                        array('action' => 'ApiGroupLeave',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/statusnet/groups/is_member.:format',
+                        array('action' => 'ApiGroupIsMember',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/statusnet/groups/list.:format',
+                        array('action' => 'ApiGroupList',
+                              'format' => '(xml|json|rss|atom)'));
+
+            $m->connect('api/statusnet/groups/list/:id.:format',
+                        array('action' => 'ApiGroupList',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json|rss|atom)'));
+
+            $m->connect('api/statusnet/groups/list_all.:format',
+                        array('action' => 'ApiGroupListAll',
+                              'format' => '(xml|json|rss|atom)'));
+
+            $m->connect('api/statusnet/groups/membership.:format',
+                        array('action' => 'ApiGroupMembership',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/statusnet/groups/membership/:id.:format',
+                        array('action' => 'ApiGroupMembership',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/statusnet/groups/create.:format',
+                        array('action' => 'ApiGroupCreate',
+                              'format' => '(xml|json)'));
+            // Tags
+            $m->connect('api/statusnet/tags/timeline/:tag.:format',
+                        array('action' => 'ApiTimelineTag',
+                              'format' => '(xmljson|rss|atom)'));
+
+            // search
+            $m->connect('api/search.atom', array('action' => 'twitapisearchatom'));
+            $m->connect('api/search.json', array('action' => 'twitapisearchjson'));
+            $m->connect('api/trends.json', array('action' => 'twitapitrends'));
+
+            $m->connect('getfile/:filename',
+                        array('action' => 'getfile'),
+                        array('filename' => '[A-Za-z0-9._-]+'));
+
+            // user stuff
+
+            foreach (array('subscriptions', 'subscribers',
+                           'nudge', 'all', 'foaf', 'xrds',
+                           'replies', 'inbox', 'outbox', 'microsummary') as $a) {
+                $m->connect(':nickname/'.$a,
+                            array('action' => $a),
+                            array('nickname' => '[a-zA-Z0-9]{1,64}'));
+            }
+
+            foreach (array('subscriptions', 'subscribers') as $a) {
+                $m->connect(':nickname/'.$a.'/:tag',
+                            array('action' => $a),
+                            array('tag' => '[a-zA-Z0-9]+',
+                                  'nickname' => '[a-zA-Z0-9]{1,64}'));
+            }
+
+            foreach (array('rss', 'groups') as $a) {
+                $m->connect(':nickname/'.$a,
+                            array('action' => 'user'.$a),
+                            array('nickname' => '[a-zA-Z0-9]{1,64}'));
+            }
+
+            foreach (array('all', 'replies', 'favorites') as $a) {
+                $m->connect(':nickname/'.$a.'/rss',
+                            array('action' => $a.'rss'),
+                            array('nickname' => '[a-zA-Z0-9]{1,64}'));
+            }
+
+            $m->connect(':nickname/favorites',
+                        array('action' => 'showfavorites'),
                         array('nickname' => '[a-zA-Z0-9]{1,64}'));
-        }
 
-        foreach (array('subscriptions', 'subscribers') as $a) {
-            $m->connect(':nickname/'.$a.'/:tag',
-                        array('action' => $a),
-                        array('tag' => '[a-zA-Z0-9]+',
+            $m->connect(':nickname/avatar/:size',
+                        array('action' => 'avatarbynickname'),
+                        array('size' => '(original|96|48|24)',
                               'nickname' => '[a-zA-Z0-9]{1,64}'));
-        }
 
-        foreach (array('rss', 'groups') as $a) {
-            $m->connect(':nickname/'.$a,
-                        array('action' => 'user'.$a),
+            $m->connect(':nickname/tag/:tag/rss',
+                        array('action' => 'userrss'),
+                        array('nickname' => '[a-zA-Z0-9]{1,64}'),
+                        array('tag' => '[a-zA-Z0-9]+'));
+
+            $m->connect(':nickname/tag/:tag',
+                        array('action' => 'showstream'),
+                        array('nickname' => '[a-zA-Z0-9]{1,64}'),
+                        array('tag' => '[a-zA-Z0-9]+'));
+
+            $m->connect(':nickname',
+                        array('action' => 'showstream'),
                         array('nickname' => '[a-zA-Z0-9]{1,64}'));
+
+            Event::handle('RouterInitialized', array($m));
         }
-
-        foreach (array('all', 'replies', 'favorites') as $a) {
-            $m->connect(':nickname/'.$a.'/rss',
-                        array('action' => $a.'rss'),
-                        array('nickname' => '[a-zA-Z0-9]{1,64}'));
-        }
-
-        $m->connect(':nickname/favorites',
-                    array('action' => 'showfavorites'),
-                    array('nickname' => '[a-zA-Z0-9]{1,64}'));
-
-        $m->connect(':nickname/avatar/:size',
-                    array('action' => 'avatarbynickname'),
-                    array('size' => '(original|96|48|24)',
-                          'nickname' => '[a-zA-Z0-9]{1,64}'));
-
-        $m->connect(':nickname/tag/:tag/rss',
-            array('action' => 'userrss'),
-            array('nickname' => '[a-zA-Z0-9]{1,64}'),
-            array('tag' => '[a-zA-Z0-9]+'));
-
-        $m->connect(':nickname/tag/:tag',
-                    array('action' => 'showstream'),
-                    array('nickname' => '[a-zA-Z0-9]{1,64}'),
-                    array('tag' => '[a-zA-Z0-9]+'));
-
-        $m->connect(':nickname',
-                    array('action' => 'showstream'),
-                    array('nickname' => '[a-zA-Z0-9]{1,64}'));
-
-        Event::handle('RouterInitialized', array($m));
 
         return $m;
     }

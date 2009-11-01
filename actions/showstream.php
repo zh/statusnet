@@ -128,17 +128,17 @@ class ShowstreamAction extends ProfileAction
                               sprintf(_('Notice feed for %s (RSS 1.0)'),
                                       $this->user->nickname)),
                      new Feed(Feed::RSS2,
-                              common_local_url('api',
-                                               array('apiaction' => 'statuses',
-                                                     'method' => 'user_timeline',
-                                                     'argument' => $this->user->nickname.'.rss')),
+                              common_local_url('ApiTimelineUser',
+                                               array(
+                                                    'id' => $this->user->nickname,
+                                                    'format' => 'rss')),
                               sprintf(_('Notice feed for %s (RSS 2.0)'),
                                       $this->user->nickname)),
                      new Feed(Feed::ATOM,
-                              common_local_url('api',
-                                               array('apiaction' => 'statuses',
-                                                     'method' => 'user_timeline',
-                                                     'argument' => $this->user->nickname.'.atom')),
+                              common_local_url('ApiTimelineUser',
+                                               array(
+                                                    'id' => $this->user->nickname,
+                                                    'format' => 'atom')),
                               sprintf(_('Notice feed for %s (Atom)'),
                                       $this->user->nickname)),
                      new Feed(Feed::FOAF,
@@ -348,6 +348,8 @@ class ShowstreamAction extends ProfileAction
     {
         if (Event::handle('StartProfilePageActionsSection', array(&$this, $this->profile))) {
 
+            $cur = common_current_user();
+
             $this->elementStart('div', 'entity_actions');
             $this->element('h2', null, _('User actions'));
             $this->elementStart('ul');
@@ -379,21 +381,21 @@ class ShowstreamAction extends ProfileAction
                         }
                         $this->elementEnd('li');
 
-                        if ($cur->mutuallySubscribed($user)) {
+                        if ($cur->mutuallySubscribed($this->user)) {
 
                             // message
 
                             $this->elementStart('li', 'entity_send-a-message');
-                            $this->element('a', array('href' => common_local_url('newmessage', array('to' => $user->id)),
+                            $this->element('a', array('href' => common_local_url('newmessage', array('to' => $this->user->id)),
                                                       'title' => _('Send a direct message to this user')),
                                            _('Message'));
                             $this->elementEnd('li');
 
                             // nudge
 
-                            if ($user->email && $user->emailnotifynudge) {
+                            if ($this->user->email && $this->user->emailnotifynudge) {
                                 $this->elementStart('li', 'entity_nudge');
-                                $nf = new NudgeForm($this, $user);
+                                $nf = new NudgeForm($this, $this->user);
                                 $nf->show();
                                 $this->elementEnd('li');
                             }

@@ -62,9 +62,15 @@ class ProfileList extends Widget
 
     function show()
     {
-        $this->startList();
-        $cnt = $this->showProfiles();
-        $this->endList();
+        $cnt = 0;
+
+        if (Event::handle('StartProfileList', array($this))) {
+            $this->startList();
+            $cnt = $this->showProfiles();
+            $this->endList();
+            Event::handle('EndProfileList', array($this));
+        }
+
         return $cnt;
     }
 
@@ -117,10 +123,19 @@ class ProfileListItem extends Widget
 
     function show()
     {
-        $this->startItem();
-        $this->showProfile();
-        $this->showActions();
-        $this->endItem();
+        if (Event::handle('StartProfileListItem', array($this))) {
+            $this->startItem();
+            if (Event::handle('StartProfileListItemProfile', array($this))) {
+                $this->showProfile();
+                Event::handle('EndProfileListItemProfile', array($this));
+            }
+            if (Event::handle('StartProfileListItemActions', array($this))) {
+                $this->showActions();
+                Event::handle('EndProfileListItemActions', array($this));
+            }
+            $this->endItem();
+            Event::handle('EndProfileListItem', array($this));
+        }
     }
 
     function startItem()
@@ -132,11 +147,29 @@ class ProfileListItem extends Widget
     function showProfile()
     {
         $this->startProfile();
-        $this->showAvatar();
-        $this->showFullName();
-        $this->showLocation();
-        $this->showHomepage();
-        $this->showBio();
+        if (Event::handle('StartProfileListItemProfileElements', array($this))) {
+            if (Event::handle('StartProfileListItemAvatar', array($this))) {
+                $this->showAvatar();
+                Event::handle('EndProfileListItemAvatar', array($this));
+            }
+            if (Event::handle('StartProfileListItemFullName', array($this))) {
+                $this->showFullName();
+                Event::handle('EndProfileListItemFullName', array($this));
+            }
+            if (Event::handle('StartProfileListItemLocation', array($this))) {
+                $this->showLocation();
+                Event::handle('EndProfileListItemLocation', array($this));
+            }
+            if (Event::handle('StartProfileListItemHomepage', array($this))) {
+                $this->showHomepage();
+                Event::handle('EndProfileListItemHomepage', array($this));
+            }
+            if (Event::handle('StartProfileListItemBio', array($this))) {
+                $this->showBio();
+                Event::handle('EndProfileListItemBio', array($this));
+            }
+            Event::handle('EndProfileListItemProfileElements', array($this));
+        }
         $this->endProfile();
     }
 
@@ -225,7 +258,10 @@ class ProfileListItem extends Widget
     function showActions()
     {
         $this->startActions();
-        $this->showSubscribeButton();
+        if (Event::handle('StartProfileListItemActionElements', array($this))) {
+            $this->showSubscribeButton();
+            Event::handle('EndProfileListItemActionElements', array($this));
+        }
         $this->endActions();
     }
 

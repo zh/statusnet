@@ -48,17 +48,6 @@ class UnQueueManager
                 jabber_public_notice($notice);
             }
             break;
-         case 'twitter':
-            if ($this->_isLocal($notice)) {
-                broadcast_twitter($notice);
-            }
-            break;
-         case 'facebook':
-            if ($this->_isLocal($notice)) {
-                require_once INSTALLDIR . '/lib/facebookutil.php';
-                return facebookBroadcastNotice($notice);
-            }
-            break;
          case 'ping':
             if ($this->_isLocal($notice)) {
                 require_once INSTALLDIR . '/lib/ping.php';
@@ -77,7 +66,7 @@ class UnQueueManager
             break;
          default:
             if (Event::handle('UnqueueHandleNotice', array(&$notice, $queue))) {
-                throw ServerException("UnQueueManager: Unknown queue: $queue");
+                throw new ServerException("UnQueueManager: Unknown queue: $queue");
             }
         }
     }

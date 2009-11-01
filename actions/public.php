@@ -131,6 +131,13 @@ class PublicAction extends Action
             return _('Public timeline');
         }
     }
+    
+    function extraHead()
+    {
+        parent::extraHead();
+        $this->element('meta', array('http-equiv' => 'X-XRDS-Location',
+                                           'content' => common_local_url('publicxrds')));
+    }
 
     /**
      * Output <head> elements for RSS and Atom feeds
@@ -143,14 +150,12 @@ class PublicAction extends Action
         return array(new Feed(Feed::RSS1, common_local_url('publicrss'),
                               _('Public Stream Feed (RSS 1.0)')),
                      new Feed(Feed::RSS2,
-                              common_local_url('api',
-                                               array('apiaction' => 'statuses',
-                                                     'method' => 'public_timeline.rss')),
+                              common_local_url('ApiTimelinePublic',
+                                               array('format' => 'rss')),
                               _('Public Stream Feed (RSS 2.0)')),
                      new Feed(Feed::ATOM,
-                              common_local_url('api',
-                                               array('apiaction' => 'statuses',
-                                                     'method' => 'public_timeline.atom')),
+                              common_local_url('ApiTimelinePublic',
+                                               array('format' => 'atom')),
                               _('Public Stream Feed (Atom)')));
     }
 

@@ -84,7 +84,8 @@ $default =
               'image' => 'http://i.creativecommons.org/l/by/3.0/80x15.png'),
         'mail' =>
         array('backend' => 'mail',
-              'params' => null),
+              'params' => null,
+              'domain_check' => true),
         'nickname' =>
         array('blacklist' => array(),
               'featured' => array()),
@@ -140,21 +141,21 @@ $default =
         array('enabled' => true),
         'sms' =>
         array('enabled' => true),
-        'twitterbridge' =>
+        'twitterimport' =>
         array('enabled' => false),
         'integration' =>
         array('source' => 'StatusNet', # source attribute for Twitter
               'taguri' => $_server.',2009'), # base for tag URIs
-	'twitter' =>
-	array('enabled'       => true,
-	    'consumer_key'    => null,
-	    'consumer_secret' => null),
+        'twitter' =>
+        array('enabled'       => true,
+              'consumer_key'    => null,
+              'consumer_secret' => null),
         'memcached' =>
         array('enabled' => false,
               'server' => 'localhost',
               'base' => null,
               'port' => 11211),
- 		'ping' =>
+        'ping' =>
         array('notify' => array()),
         'inboxes' =>
         array('enabled' => true), # ignored after 0.9.x
@@ -200,12 +201,12 @@ $default =
                                    'video/mp4',
                                    'video/quicktime',
                                    'video/mpeg'),
-        'file_quota' => 5000000,
-        'user_quota' => 50000000,
-        'monthly_quota' => 15000000,
-        'uploads' => true,
-        'filecommand' => '/usr/bin/file',
-        ),
+              'file_quota' => 5000000,
+              'user_quota' => 50000000,
+              'monthly_quota' => 15000000,
+              'uploads' => true,
+              'filecommand' => '/usr/bin/file',
+              ),
         'group' =>
         array('maxaliases' => 3,
               'desclimit' => null),
@@ -229,4 +230,6 @@ $default =
         array('contentlimit' => null),
         'http' =>
         array('client' => 'curl'), // XXX: should this be the default?
+        'location' =>
+        array('namespace' => 1), // 1 = geonames, 2 = Yahoo Where on Earth
         );

@@ -14,370 +14,377 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  UI interaction
+ * @package   StatusNet
+ * @author    Sarven Capadisli <csarven@status.net>
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2009 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://status.net/
  */
 
 $(document).ready(function(){
-	var counterBlackout = false;
-	
-	// count character on keyup
-	function counter(event){
-         if (maxLength <= 0) {
-              return;
-         }
-		var currentLength = $("#notice_data-text").val().length;
-		var remaining = maxLength - currentLength;
-		var counter = $("#notice_text-count");
-		
-		if (remaining.toString() != counter.text()) {
-		    if (!counterBlackout || remaining == 0) {
-                        if (counter.text() != String(remaining)) {
-                            counter.text(remaining);
-		        }
+    if ($('body.user_in').length > 0) {
+        $('.'+SN.C.S.FormNotice).each(function() { SN.U.FormNoticeEnhancements($(this)); });
 
-                        if (remaining < 0) {
-                            $("#form_notice").addClass("warning");
-                        } else {
-                            $("#form_notice").removeClass("warning");
-                        }
-                        // Skip updates for the next 500ms.
-                        // On slower hardware, updating on every keypress is unpleasant.
-                        if (!counterBlackout) {
-                            counterBlackout = true;
-                            window.setTimeout(clearCounterBlackout, 500);
-                        }
-                    }
-                }
-	}
-	
-	function clearCounterBlackout() {
-		// Allow keyup events to poke the counter again
-		counterBlackout = false;
-		// Check if the string changed since we last looked
-		counter(null);
-	}
+        $('.form_user_subscribe').each(function() { SN.U.FormXHR($(this)); });
+        $('.form_user_unsubscribe').each(function() { SN.U.FormXHR($(this)); });
+        $('.form_favor').each(function() { SN.U.FormXHR($(this)); });
+        $('.form_disfavor').each(function() { SN.U.FormXHR($(this)); });
+        $('.form_group_join').each(function() { SN.U.FormXHR($(this)); });
+        $('.form_group_leave').each(function() { SN.U.FormXHR($(this)); });
+        $('.form_user_nudge').each(function() { SN.U.FormXHR($(this)); });
 
-	function submitonreturn(event) {
-		if (event.keyCode == 13 || event.keyCode == 10) {
-			// iPhone sends \n not \r for 'return'
-			$("#form_notice").submit();
-			event.preventDefault();
-			event.stopPropagation();
-			$("#notice_data-text").blur();
-			$("body").focus();
-			return false;
-		}
-		return true;
-	}
+        SN.U.NoticeReply();
 
-     // define maxLength if it wasn't defined already
+        SN.U.NoticeDataAttach();
 
-    if (typeof(maxLength) == "undefined") {
-         maxLength = 140;
+        SN.U.NewDirectMessage();
     }
 
-	if ($("#notice_data-text").length) {
-         if (maxLength > 0) {
-              $("#notice_data-text").bind("keyup", counter);
-              // run once in case there's something in there
-              counter();
-         }
-
-		$("#notice_data-text").bind("keydown", submitonreturn);
-
-        if($('body')[0].id != 'conversation') {
-            $("#notice_data-text").focus();
-        }
-	}
-
-	// XXX: refactor this code
-
-	var favoptions = { dataType: 'xml',
-					   beforeSubmit: function(data, target, options) {
-					   							$(target).addClass('processing');
-												return true;
-											  },
-					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
-												var dis = new_form.id;
-												var fav = dis.replace('disfavor', 'favor');
-												$('form#'+fav).replaceWith(new_form);
-												$('form#'+dis).ajaxForm(disoptions).each(addAjaxHidden);
-											  }
-					 };
-
-	var disoptions = { dataType: 'xml',
-					   beforeSubmit: function(data, target, options) {
-					   							$(target).addClass('processing');
-												return true;
-											  },
-					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
-												var fav = new_form.id;
-												var dis = fav.replace('favor', 'disfavor');
-												$('form#'+dis).replaceWith(new_form);
-												$('form#'+fav).ajaxForm(favoptions).each(addAjaxHidden);
-											  }
-					 };
-
-	var joinoptions = { dataType: 'xml',
-					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
-												var leave = new_form.id;
-												var join = leave.replace('leave', 'join');
-												$('form#'+join).replaceWith(new_form);
-												$('form#'+leave).ajaxForm(leaveoptions).each(addAjaxHidden);
-											  }
-					 };
-
-	var leaveoptions = { dataType: 'xml',
-					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
-												var join = new_form.id;
-												var leave = join.replace('join', 'leave');
-												$('form#'+leave).replaceWith(new_form);
-												$('form#'+join).ajaxForm(joinoptions).each(addAjaxHidden);
-											  }
-					 };
-
-	function addAjaxHidden() {
-		var ajax = document.createElement('input');
-		ajax.setAttribute('type', 'hidden');
-		ajax.setAttribute('name', 'ajax');
-		ajax.setAttribute('value', 1);
-		this.appendChild(ajax);
-	}
-
-	$("form.form_favor").ajaxForm(favoptions);
-	$("form.form_disfavor").ajaxForm(disoptions);
-	$("form.form_group_join").ajaxForm(joinoptions);
-	$("form.form_group_leave").ajaxForm(leaveoptions);
-	$("form.form_favor").each(addAjaxHidden);
-	$("form.form_disfavor").each(addAjaxHidden);
-	$("form.form_group_join").each(addAjaxHidden);
-	$("form.form_group_leave").each(addAjaxHidden);
-
-	$("#form_user_nudge").ajaxForm ({ dataType: 'xml',
-		beforeSubmit: function(xml) { $("#form_user_nudge input[type=submit]").attr("disabled", "disabled");
-									  $("#form_user_nudge input[type=submit]").addClass("disabled");
-									},
-		success: function(xml) { $("#form_user_nudge").replaceWith(document._importNode($("#nudge_response", xml).get(0),true));
-							     $("#form_user_nudge input[type=submit]").removeAttr("disabled");
-							     $("#form_user_nudge input[type=submit]").removeClass("disabled");
-							   }
-	 });
-	$("#form_user_nudge").each(addAjaxHidden);
-
-	var Subscribe = { dataType: 'xml',
-					  beforeSubmit: function(formData, jqForm, options) { $(".form_user_subscribe input[type=submit]").attr("disabled", "disabled");
-																	      $(".form_user_subscribe input[type=submit]").addClass("disabled");
-																	    },
-					  success: function(xml) { var form_unsubscribe = document._importNode($('form', xml).get(0), true);
-										  	   var form_unsubscribe_id = form_unsubscribe.id;
-											   var form_subscribe_id = form_unsubscribe_id.replace('unsubscribe', 'subscribe');
-											   $("form#"+form_subscribe_id).replaceWith(form_unsubscribe);
-											   $("form#"+form_unsubscribe_id).ajaxForm(UnSubscribe).each(addAjaxHidden);
-											   $("dd.subscribers").text(parseInt($("dd.subscribers").text())+1);
-											   $(".form_user_subscribe input[type=submit]").removeAttr("disabled");
-											   $(".form_user_subscribe input[type=submit]").removeClass("disabled");
-										     }
-					};
-
-	var UnSubscribe = { dataType: 'xml',
-						beforeSubmit: function(formData, jqForm, options) { $(".form_user_unsubscribe input[type=submit]").attr("disabled", "disabled");
-																		    $(".form_user_unsubscribe input[type=submit]").addClass("disabled");
-																		  },
-					    success: function(xml) { var form_subscribe = document._importNode($('form', xml).get(0), true);
-										  		 var form_subscribe_id = form_subscribe.id;
-												 var form_unsubscribe_id = form_subscribe_id.replace('subscribe', 'unsubscribe');
-												 $("form#"+form_unsubscribe_id).replaceWith(form_subscribe);
-												 $("form#"+form_subscribe_id).ajaxForm(Subscribe).each(addAjaxHidden);
-												 $("#profile_send_a_new_message").remove();
-												 $("#profile_nudge").remove();
-											     $("dd.subscribers").text(parseInt($("dd.subscribers").text())-1);
-												 $(".form_user_unsubscribe input[type=submit]").removeAttr("disabled");
-												 $(".form_user_unsubscribe input[type=submit]").removeClass("disabled");
-											   }
-					  };
-
-	$(".form_user_subscribe").ajaxForm(Subscribe);
-	$(".form_user_unsubscribe").ajaxForm(UnSubscribe);
-	$(".form_user_subscribe").each(addAjaxHidden);
-	$(".form_user_unsubscribe").each(addAjaxHidden);
-
-	var PostNotice = { dataType: 'xml',
-					   beforeSubmit: function(formData, jqForm, options) { if ($("#notice_data-text").get(0).value.length == 0) {
-																				$("#form_notice").addClass("warning");
-																				return false;
-																		   }
-																		   $("#form_notice").addClass("processing");
-																		   $("#notice_action-submit").attr("disabled", "disabled");
-																		   $("#notice_action-submit").addClass("disabled");
-																		   return true;
-												 						 },
-					   timeout: '60000',
-					   error: function (xhr, textStatus, errorThrown) {	$("#form_notice").removeClass("processing");
-																		$("#notice_action-submit").removeAttr("disabled");
-																		$("#notice_action-submit").removeClass("disabled");
-																		if (textStatus == "timeout") {
-																			alert ("Sorry! We had trouble sending your notice. The servers are overloaded. Please try again, and contact the site administrator if this problem persists");
-																		}
-																		else {
-																			if ($(".error", xhr.responseXML).length > 0) {
-																				$('#form_notice').append(document._importNode($(".error", xhr.responseXML).get(0), true));
-																			}
-																			else {
-																				var HTTP20x30x = [200, 201, 202, 203, 204, 205, 206, 300, 301, 302, 303, 304, 305, 306, 307];
-																				if(jQuery.inArray(parseInt(xhr.status), HTTP20x30x) < 0) {
-																					alert("Sorry! We had trouble sending your notice ("+xhr.status+" "+xhr.statusText+"). Please report the problem to the site administrator if this happens again.");
-																				}
-																				else {
-																					$("#notice_data-text").val("");
-                                                                                     if (maxLength > 0) {
-                                                                                          counter();
-                                                                                     }
-																				}
-																			}
-																		}
-																	  },
-					   success: function(xml) {	if ($("#error", xml).length > 0) {
-													var result = document._importNode($("p", xml).get(0), true);
-													result = result.textContent || result.innerHTML;
-													alert(result);
-												}
-												else {
-												    if ($("#command_result", xml).length > 0) {
-													    var result = document._importNode($("p", xml).get(0), true);
-													    result = result.textContent || result.innerHTML;
-													    alert(result);
-                                                    }
-                                                    else {
-                                                         li = $("li", xml).get(0);
-                                                         if ($("#"+li.id).length == 0) {
-                                                            var notice_irt_value = $('#notice_in-reply-to').val();
-                                                            var notice_irt = '#notices_primary #notice-'+notice_irt_value;
-                                                            if($('body')[0].id == 'conversation') {
-                                                                if(notice_irt_value.length > 0 && $(notice_irt+' .notices').length < 1) {
-                                                                    $(notice_irt).append('<ul class="notices"></ul>');
-                                                                }
-                                                                $($(notice_irt+' .notices')[0]).append(document._importNode(li, true));
-                                                            }
-                                                            else {
-                                                                $("#notices_primary .notices").prepend(document._importNode(li, true));
-                                                            }
-                                                            $('#'+li.id).css({display:'none'});
-                                                            $('#'+li.id).fadeIn(2500);
-                                                            NoticeReply();
-                                                            NoticeAttachments();
-                                                         }
-													}
-													$("#notice_data-text").val("");
-    												$("#notice_data-attach").val("");
-    												$("#notice_in-reply-to").val("");
-                                                    $('#notice_data-attach_selected').remove();
-                                                     if (maxLength > 0) {
-                                                          counter();
-                                                     }
-												}
-												$("#form_notice").removeClass("processing");
-												$("#notice_action-submit").removeAttr("disabled");
-												$("#notice_action-submit").removeClass("disabled");
-											 }
-					   };
-	$("#form_notice").ajaxForm(PostNotice);
-	$("#form_notice").each(addAjaxHidden);
-    NoticeReply();
-    NoticeAttachments();
-    NoticeDataAttach();
+    SN.U.NoticeAttachments();
 });
 
-function NoticeReply() {
-    if ($('#notice_data-text').length > 0 && $('#content .notice_reply').length > 0) {
-        $('#content .notice').each(function() {
-            var notice = $(this)[0];
-            $($('.notice_reply', notice)[0]).click(function() {
-                var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname.uid');
-                NoticeReplySet(nickname.text(), $($('.notice_id', notice)[0]).text());
+
+var SN = { // StatusNet
+    C: { // Config
+        I: { // Init
+            CounterBlackout: false,
+            MaxLength: 140,
+            PatternUsername: /^[0-9a-zA-Z\-_.]*$/,
+            HTTP20x30x: [200, 201, 202, 203, 204, 205, 206, 300, 301, 302, 303, 304, 305, 306, 307]
+        },
+
+        S: { // Selector
+            Disabled: 'disabled',
+            Warning: 'warning',
+            Error: 'error',
+            Success: 'success',
+            Processing: 'processing',
+            CommandResult: 'command_result',
+            FormNotice: 'form_notice',
+            NoticeDataText: 'notice_data-text',
+            NoticeTextCount: 'notice_text-count',
+            NoticeInReplyTo: 'notice_in-reply-to',
+            NoticeDataAttach: 'notice_data-attach',
+            NoticeDataAttachSelected: 'notice_data-attach_selected',
+            NoticeActionSubmit: 'notice_action-submit'
+        }
+    },
+
+    U: { // Utils
+        FormNoticeEnhancements: function(form) {
+            form_id = form.attr('id');
+            if (maxLength > 0) {
+                $('#'+form_id+' #'+SN.C.S.NoticeDataText).bind('keyup', function(e) {
+                    SN.U.Counter(form);
+                });
+                // run once in case there's something in there
+                SN.U.Counter(form);
+            }
+
+            $('#'+form_id+' #'+SN.C.S.NoticeDataText).bind('keydown', function(e) {
+                SN.U.SubmitOnReturn(e, form);
+            });
+
+            if($('body')[0].id != 'conversation') {
+                $('#'+form_id+' textarea').focus();
+            }
+
+            SN.U.FormNoticeXHR(form);
+        },
+
+        SubmitOnReturn: function(event, el) {
+            if (event.keyCode == 13 || event.keyCode == 10) {
+                el.submit();
+                event.preventDefault();
+                event.stopPropagation();
+                $('#'+el[0].id+' #'+SN.U.NoticeDataText).blur();
+                $('body').focus();
+                return false;
+            }
+            return true;
+        },
+
+        Counter: function(form) {
+            SN.C.I.FormNoticeCurrent = form;
+            form_id = form.attr('id');
+            if (typeof(maxLength) == "undefined") {
+                 maxLength = SN.C.I.MaxLength;
+            }
+
+            if (maxLength <= 0) {
+                return;
+            }
+
+            var remaining = maxLength - $('#'+form_id+' #'+SN.C.S.NoticeDataText).val().length;
+            var counter = $('#'+form_id+' #'+SN.C.S.NoticeTextCount);
+
+            if (remaining.toString() != counter.text()) {
+                if (!SN.C.I.CounterBlackout || remaining == 0) {
+                    if (counter.text() != String(remaining)) {
+                        counter.text(remaining);
+                    }
+                    if (remaining < 0) {
+                        form.addClass(SN.C.S.Warning);
+                    } else {
+                        form.removeClass(SN.C.S.Warning);
+                    }
+                    // Skip updates for the next 500ms.
+                    // On slower hardware, updating on every keypress is unpleasant.
+                    if (!SN.C.I.CounterBlackout) {
+                        SN.C.I.CounterBlackout = true;
+                        SN.C.I.FormNoticeCurrent = form;
+                        window.setTimeout("SN.U.ClearCounterBlackout(SN.C.I.FormNoticeCurrent);", 500);
+                    }
+                }
+            }
+        },
+
+        ClearCounterBlackout: function(form) {
+            // Allow keyup events to poke the counter again
+            SN.C.I.CounterBlackout = false;
+            // Check if the string changed since we last looked
+            SN.U.Counter(form);
+        },
+
+        FormXHR: function(f) {
+            f.bind('submit', function(e) {
+                form_id = $(this)[0].id;
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'xml',
+                    url: $(this)[0].action,
+                    data: $(this).serialize() + '&ajax=1',
+                    beforeSend: function(xhr) {
+                        $('#'+form_id).addClass(SN.C.S.Processing);
+                        $('#'+form_id+' .submit').addClass(SN.C.S.Disabled);
+                        $('#'+form_id+' .submit').attr(SN.C.S.Disabled, SN.C.S.Disabled);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        alert(errorThrown || textStatus);
+                    },
+                    success: function(data, textStatus) {
+                        if (typeof($('form', data)[0]) != 'undefined') {
+                            form_new = document._importNode($('form', data)[0], true);
+                            $('#'+form_id).replaceWith(form_new);
+                            $('#'+form_new.id).each(function() { SN.U.FormXHR($(this)); });
+                        }
+                        else {
+                            $('#'+form_id).replaceWith(document._importNode($('p', data)[0], true));
+                        }
+                    }
+                });
                 return false;
             });
-        });
-    }
-}
-
-function NoticeReplySet(nick,id) {
-	rgx_username = /^[0-9a-zA-Z\-_.]*$/;
-	if (nick.match(rgx_username)) {
-		var text = $("#notice_data-text");
-		if (text.length) {
-			replyto = "@" + nick + " ";
-			text.val(replyto + text.val().replace(RegExp(replyto, 'i'), ''));
-			$("#form_notice input#notice_in-reply-to").val(id);
-			if (text.get(0).setSelectionRange) {
-				var len = text.val().length;
-				text.get(0).setSelectionRange(len,len);
-				text.get(0).focus();
-			}
-			return false;
-		}
-	}
-	return true;
-}
-
-function NoticeAttachments() {
-    $.fn.jOverlay.options = {
-        method : 'GET',
-        data : '',
-        url : '',
-        color : '#000',
-        opacity : '0.6',
-        zIndex : 99,
-        center : false,
-        imgLoading : $('address .url')[0].href+'theme/base/images/illustrations/illu_progress_loading-01.gif',
-        bgClickToClose : true,
-        success : function() {
-            $('#jOverlayContent').append('<button>&#215;</button>');
-            $('#jOverlayContent button').click($.closeOverlay);
         },
-        timeout : 0,
-        autoHide : true,
-        css : {'max-width':'542px', 'top':'5%', 'left':'32.5%'}
-    };
 
-    $('#content .notice a.attachment').click(function() {
-        $().jOverlay({url: $('address .url')[0].href+'attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'});
-        return false;
-    });
+        FormNoticeXHR: function(form) {
+            form_id = form.attr('id');
+            form.append('<input type="hidden" name="ajax" value="1"/>');
+            form.ajaxForm({
+                dataType: 'xml',
+                timeout: '60000',
+                beforeSend: function(xhr) {
+                    if ($('#'+form_id+' #'+SN.C.S.NoticeDataText)[0].value.length === 0) {
+                        form.addClass(SN.C.S.Warning);
+                        return false;
+                    }
+                    form.addClass(SN.C.S.Processing);
+                    $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).addClass(SN.C.S.Disabled);
+                    $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).attr(SN.C.S.Disabled, SN.C.S.Disabled);
+                    return true;
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    form.removeClass(SN.C.S.Processing);
+                    $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeClass(SN.C.S.Disabled);
+                    $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeAttr(SN.C.S.Disabled, SN.C.S.Disabled);
+                    if (textStatus == 'timeout') {
+                        alert ('Sorry! We had trouble sending your notice. The servers are overloaded. Please try again, and contact the site administrator if this problem persists');
+                    }
+                    else {
+                        if ($('.'+SN.C.S.Error, xhr.responseXML).length > 0) {
+                            form.append(document._importNode($('.'+SN.C.S.Error, xhr.responseXML)[0], true));
+                        }
+                        else {
+                            if(jQuery.inArray(parseInt(xhr.status), SN.C.I.HTTP20x30x) < 0) {
+                                alert('Sorry! We had trouble sending your notice ('+xhr.status+' '+xhr.statusText+'). Please report the problem to the site administrator if this happens again.');
+                            }
+                            else {
+                                $('#'+form_id+' #'+SN.C.S.NoticeDataText).val('');
+                                SN.U.Counter($('#'+SN.C.S.FormNotice));
+                            }
+                        }
+                    }
+                },
+                success: function(data, textStatus) {
+                    if ($('#'+SN.C.S.Error, data).length > 0) {
+                        var result = document._importNode($('p', data)[0], true);
+                        alert(result.textContent || result.innerHTML);
+                    }
+                    else {
+                        if($('body')[0].id == 'bookmarklet') {
+                            self.close();
+                        }
 
-    var t;
-    $("body:not(#shownotice) #content .notice a.thumbnail").hover(
-        function() {
-            var anchor = $(this);
-            $("a.thumbnail").children('img').hide();
-            anchor.closest(".entry-title").addClass('ov');
+                        if ($('#'+SN.C.S.CommandResult, data).length > 0) {
+                            var result = document._importNode($('p', data)[0], true);
+                            alert(result.textContent || result.innerHTML);
+                        }
+                        else {
+                             notice = document._importNode($('li', data)[0], true);
+                             if ($('#'+notice.id).length == 0) {
+                                var notice_irt_value = $('#'+SN.C.S.NoticeInReplyTo).val();
+                                var notice_irt = '#notices_primary #notice-'+notice_irt_value;
+                                if($('body')[0].id == 'conversation') {
+                                    if(notice_irt_value.length > 0 && $(notice_irt+' .notices').length < 1) {
+                                        $(notice_irt).append('<ul class="notices"></ul>');
+                                    }
+                                    $($(notice_irt+' .notices')[0]).append(notice);
+                                }
+                                else {
+                                    $("#notices_primary .notices").prepend(notice);
+                                }
+                                $('#'+notice.id).css({display:'none'});
+                                $('#'+notice.id).fadeIn(2500);
+                                SN.U.NoticeAttachments();
+                                SN.U.NoticeReply();
+                             }
+                        }
+                        $('#'+form_id+' #'+SN.C.S.NoticeDataText).val('');
+                        $('#'+form_id+' #'+SN.C.S.NoticeDataAttach).val('');
+                        $('#'+form_id+' #'+SN.C.S.NoticeInReplyTo).val('');
+                        $('#'+form_id+' #'+SN.C.S.NoticeDataAttachSelected).remove();
+                        SN.U.Counter($('#'+SN.C.S.FormNotice));
+                    }
+                },
+                complete: function(xhr, textStatus) {
+                    form.removeClass(SN.C.S.Processing);
+                    $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeAttr(SN.C.S.Disabled);
+                    $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeClass(SN.C.S.Disabled);
+                }
+            });
+        },
 
-            if (anchor.children('img').length == 0) {
-                t = setTimeout(function() {
-                    $.get($('address .url')[0].href+'attachment/' + (anchor.attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
-                        anchor.append(data);
+        NoticeReply: function() {
+            if ($('#'+SN.C.S.NoticeDataText).length > 0 && $('#content .notice_reply').length > 0) {
+                $('#content .notice').each(function() {
+                    var notice = $(this)[0];
+                    $($('.notice_reply', notice)[0]).click(function() {
+                        var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname.uid');
+                        SN.U.NoticeReplySet(nickname.text(), $($('.notice_id', notice)[0]).text());
+                        return false;
                     });
-                }, 500);
-            }
-            else {
-                anchor.children('img').show();
+                });
             }
         },
-        function() {
-            clearTimeout(t);
-            $("a.thumbnail").children('img').hide();
-            $(this).closest(".entry-title").removeClass('ov');
-        }
-    );
-}
 
-function NoticeDataAttach() {
-    NDA = $('#notice_data-attach');
-    NDA.change(function() {
-        S = '<div id="notice_data-attach_selected" class="success"><code>'+$(this).val()+'</code> <button>&#215;</button></div>';
-        NDAS = $('#notice_data-attach_selected');
-        (NDAS.length > 0) ? NDAS.replaceWith(S) : $('#form_notice').append(S);
-        $('#notice_data-attach_selected button').click(function(){
-            $('#notice_data-attach_selected').remove();
-            NDA.val('');
-        });
-    });
+        NoticeReplySet: function(nick,id) {
+            if (nick.match(SN.C.I.PatternUsername)) {
+                var text = $('#'+SN.C.S.NoticeDataText);
+                if (text.length) {
+                    replyto = '@' + nick + ' ';
+                    text.val(replyto + text.val().replace(RegExp(replyto, 'i'), ''));
+                    $('#'+SN.C.S.FormNotice+' input#'+SN.C.S.NoticeInReplyTo).val(id);
+                    if (text.get(0).setSelectionRange) {
+                        var len = text.val().length;
+                        text.get(0).setSelectionRange(len,len);
+                        text.get(0).focus();
+                    }
+                    return false;
+                }
+            }
+            return true;
+        },
+
+        NoticeAttachments: function() {
+            $.fn.jOverlay.options = {
+                method : 'GET',
+                data : '',
+                url : '',
+                color : '#000',
+                opacity : '0.6',
+                zIndex : 99,
+                center : false,
+                imgLoading : $('address .url')[0].href+'theme/base/images/illustrations/illu_progress_loading-01.gif',
+                bgClickToClose : true,
+                success : function() {
+                    $('#jOverlayContent').append('<button>&#215;</button>');
+                    $('#jOverlayContent button').click($.closeOverlay);
+                },
+                timeout : 0,
+                autoHide : true,
+                css : {'max-width':'542px', 'top':'5%', 'left':'32.5%'}
+            };
+
+            $('#content .notice a.attachment').click(function() {
+                $().jOverlay({url: $('address .url')[0].href+'attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'});
+                return false;
+            });
+
+            var t;
+            $("body:not(#shownotice) #content .notice a.thumbnail").hover(
+                function() {
+                    var anchor = $(this);
+                    $("a.thumbnail").children('img').hide();
+                    anchor.closest(".entry-title").addClass('ov');
+
+                    if (anchor.children('img').length == 0) {
+                        t = setTimeout(function() {
+                            $.get($('address .url')[0].href+'attachment/' + (anchor.attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
+                                anchor.append(data);
+                            });
+                        }, 500);
+                    }
+                    else {
+                        anchor.children('img').show();
+                    }
+                },
+                function() {
+                    clearTimeout(t);
+                    $("a.thumbnail").children('img').hide();
+                    $(this).closest(".entry-title").removeClass('ov');
+                }
+            );
+        },
+
+        NoticeDataAttach: function() {
+            NDA = $('#'+SN.C.S.NoticeDataAttach);
+            NDA.change(function() {
+                S = '<div id="'+SN.C.S.NoticeDataAttachSelected+'" class="'+SN.C.S.Success+'"><code>'+$(this).val()+'</code> <button>&#215;</button></div>';
+                NDAS = $('#'+SN.C.S.NoticeDataAttachSelected);
+                (NDAS.length > 0) ? NDAS.replaceWith(S) : $('#'+SN.C.S.FormNotice).append(S);
+                $('#'+SN.C.S.NoticeDataAttachSelected+' button').click(function(){
+                    $('#'+SN.C.S.NoticeDataAttachSelected).remove();
+                    NDA.val('');
+                });
+            });
+        },
+
+        NewDirectMessage: function() {
+            NDM = $('.entity_send-a-message a');
+            NDM.attr({'href':NDM.attr('href')+'&ajax=1'});
+            NDM.click(function() {
+                var NDMF = $('.entity_send-a-message form');
+                if (NDMF.length == 0) {
+                    $.get(NDM.attr('href'), null, function(data) {
+                        $('.entity_send-a-message').append(document._importNode($('form', data).get(0), true));
+                        NDMF = $('.entity_send-a-message .form_notice');
+                        SN.U.FormNoticeEnhancements(NDMF);
+                        NDMF.append('<button>&#215;</button>');
+                        $('.entity_send-a-message button').click(function(){
+                            NDMF.hide();
+                            return false;
+                        });
+                    });
+                }
+                else {
+                    NDMF.show();
+                    $('.entity_send-a-message textarea').focus();
+                }
+                return false;
+            });
+        }
+    }
 }

@@ -129,6 +129,9 @@ StartSubGroupNav: Showing the subscriptions group nav menu
 EndSubGroupNav: At the end of the subscriptions group nav menu
 - $action: the current action
 
+StartInitializeRouter: Before the router instance has been initialized; good place to add routes
+- $m: the Net_URL_Mapper that has just been set up
+
 RouterInitialized: After the router instance has been initialized
 - $m: the Net_URL_Mapper that has just been set up
 
@@ -390,3 +393,84 @@ EndProfilePageProfileTags: after showing the tags on the profile page
 - $action: the current action
 - &$profile: the profile being shown
 
+StartProfileList: when starting a list of profiles (before <ul>)
+- $profilelist: ProfileList widget, with $profile, $action, and $out
+
+EndProfileList: when ending a list of profiles (after </ul>)
+- $profilelist: ProfileList widget
+
+StartProfileListItem: when starting to show a profile list item
+- $item: ProfileListItem widget
+
+EndProfileListItem: after showing a profile list item
+- $item: ProfileListItem widget
+
+StartProfileListItemProfile: the profile data part of the item
+- $item: ProfileListItem widget
+
+EndProfileListItemProfile: the profile data part of the item
+- $item: ProfileListItem widget
+
+StartProfileListItemActions: the actions (buttons) for an item
+- $item: ProfileListItem widget
+
+EndProfileListItemActions: the actions (buttons) for an item
+- $item: ProfileListItem widget
+
+StartProfileListItemProfileElements: inside the <div>
+- $item: ProfileListItem widget
+
+EndProfileListItemProfileElements: inside the <div>
+- $item: ProfileListItem widget
+
+StartProfileListItemAvatar: Showing a profile list avatar
+- $item: ProfileListItem widget
+
+EndProfileListItemAvatar: Showing a profile list avatar
+- $item: ProfileListItem widget
+
+StartProfileListItemFullName: Showing the profile list full name
+- $item: ProfileListItem widget
+
+EndProfileListItemFullName: Showing the profile list full name
+- $item: ProfileListItem widget
+
+StartProfileListItemLocation: Showing the profile list location
+- $item: ProfileListItem widget
+
+EndProfileListItemLocation: Showing the profile list location
+- $item: ProfileListItem widget
+
+StartProfileListItemHomepage: Showing the profile list homepage
+- $item: ProfileListItem widget
+
+EndProfileListItemHomepage: Showing the profile list homepage
+- $item: ProfileListItem widget
+
+StartProfileListItemBio: Showing the profile list bio
+- $item: ProfileListItem widget
+
+EndProfileListItemBio: Showing the profile list bio
+- $item: ProfileListItem widget
+
+StartProfileListItemActionElements: Showing the profile list actions (prepend a button here, or replace all buttons)
+- $item: ProfileListItem widget
+
+EndProfileListItemActionElements: Showing profile list actions (append a button here)
+- $item: ProfileListItem widget
+
+StartUserXRDS: Start XRDS output (right after the opening XRDS tag)
+- $action: the current action
+- &$xrdsoutputter - XRDSOutputter object to write to
+
+EndUserXRDS: End XRDS output (right before the closing XRDS tag)
+- $action: the current action
+- &$xrdsoutputter - XRDSOutputter object to write to
+
+StartPublicXRDS: Start XRDS output (right after the opening XRDS tag)
+- $action: the current action
+- &$xrdsoutputter - XRDSOutputter object to write to
+
+EndPublicXRDS: End XRDS output (right before the closing XRDS tag)
+- $action: the current action
+- &$xrdsoutputter - XRDSOutputter object to write to

@@ -98,34 +98,37 @@ class ConnectSettingsNav extends Widget
 
     function show()
     {
-        # action => array('prompt', 'title')
-        $menu = array();
-        if (common_config('xmpp', 'enabled')) {
-            $menu['imsettings'] =
-              array(_('IM'),
-                    _('Updates by instant messenger (IM)'));
-        }
-        if (common_config('sms', 'enabled')) {
-            $menu['smssettings'] =
-              array(_('SMS'),
-                    _('Updates by SMS'));
-        }
-        if (common_config('twitter', 'enabled')) {
-            $menu['twittersettings'] =
-              array(_('Twitter'),
-                    _('Twitter integration options'));
-        }
-
         $action_name = $this->action->trimmed('action');
         $this->action->elementStart('ul', array('class' => 'nav'));
 
-        foreach ($menu as $menuaction => $menudesc) {
-            $this->action->menuItem(common_local_url($menuaction),
-				    $menudesc[0],
-				    $menudesc[1],
-				    $action_name === $menuaction);
+        if (Event::handle('StartConnectSettingsNav', array(&$this->action))) {
+
+            # action => array('prompt', 'title')
+            $menu = array();
+            if (common_config('xmpp', 'enabled')) {
+                $menu['imsettings'] =
+                  array(_('IM'),
+                        _('Updates by instant messenger (IM)'));
+            }
+            if (common_config('sms', 'enabled')) {
+                $menu['smssettings'] =
+                  array(_('SMS'),
+                        _('Updates by SMS'));
+            }
+
+            foreach ($menu as $menuaction => $menudesc) {
+                $this->action->menuItem(common_local_url($menuaction),
+                        $menudesc[0],
+                        $menudesc[1],
+                        $action_name === $menuaction);
+            }
+
+            Event::handle('EndConnectSettingsNav', array(&$this->action));
         }
 
         $this->action->elementEnd('ul');
     }
+
 }
+
+

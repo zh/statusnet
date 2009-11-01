@@ -23,6 +23,7 @@ require_once(INSTALLDIR.'/plugins/OpenID/User_openid.php');
 
 require_once('Auth/OpenID.php');
 require_once('Auth/OpenID/Consumer.php');
+require_once('Auth/OpenID/Server.php');
 require_once('Auth/OpenID/SReg.php');
 require_once('Auth/OpenID/MySQLStore.php');
 
@@ -48,6 +49,13 @@ function oid_consumer()
     $store = oid_store();
     $consumer = new Auth_OpenID_Consumer($store);
     return $consumer;
+}
+
+function oid_server()
+{
+    $store = oid_store();
+    $server = new Auth_OpenID_Server($store, common_local_url('openidserver'));
+    return $server;
 }
 
 function oid_clear_last()
@@ -241,7 +249,7 @@ function oid_update_user(&$user, &$sreg)
 
     $orig_user = clone($user);
 
-    if ($sreg['email'] && Validate::email($sreg['email'], true)) {
+    if ($sreg['email'] && Validate::email($sreg['email'], common_config('email', 'check_domain'))) {
         $user->email = $sreg['email'];
     }
 
