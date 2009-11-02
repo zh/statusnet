@@ -22,6 +22,7 @@
  * @category  Plugin
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
+ * @author    Brion Vibber <brion@status.net>
  * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
@@ -69,14 +70,12 @@ class BlogspamNetPlugin extends Plugin
     {
         $args = $this->testArgs($notice);
         common_debug("Blogspamnet args = " . print_r($args, TRUE));
-        $request = xmlrpc_encode_request('testComment', array($args));
-        $context = stream_context_create(array('http' => array('method' => "POST",
-                                                               'header' =>
-                                                               "Content-Type: text/xml\r\n".
-                                                               "User-Agent: " . $this->userAgent(),
-                                                               'content' => $request)));
-        $file = file_get_contents($this->baseUrl, false, $context);
-        $response = xmlrpc_decode($file);
+        $requestBody = xmlrpc_encode_request('testComment', array($args));
+
+        $request = HTTPClient::start();
+        $httpResponse = $request->post($this->baseUrl, array('Content-Type: text/xml'), $requestBody);
+
+        $response = xmlrpc_decode($httpResponse->getBody());
         if (xmlrpc_is_fault($response)) {
             throw new ServerException("$response[faultString] ($response[faultCode])", 500);
         } else {

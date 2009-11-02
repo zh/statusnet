@@ -68,14 +68,13 @@ class WikiHashtagsPlugin extends Plugin
                 $editurl = sprintf('http://hashtags.wikia.com/index.php?title=%s&action=edit',
                                    urlencode($tag));
 
-                $context = stream_context_create(array('http' => array('method' => "GET",
-                                                                       'header' =>
-                                                                       "User-Agent: " . $this->userAgent())));
-                $html = @file_get_contents($url, false, $context);
+                $request = HTTPClient::start();
+                $response = $request->get($url);
+                $html = $response->getBody();
 
                 $action->elementStart('div', array('id' => 'wikihashtags', 'class' => 'section'));
 
-                if (!empty($html)) {
+                if ($response->isOk() && !empty($html)) {
                     $action->element('style', null,
                                      "span.editsection { display: none }\n".
                                      "table.toc { display: none }");
@@ -99,11 +98,5 @@ class WikiHashtagsPlugin extends Plugin
         }
 
         return true;
-    }
-
-    function userAgent()
-    {
-        return 'WikiHashtagsPlugin/'.WIKIHASHTAGSPLUGIN_VERSION .
-          ' StatusNet/' . STATUSNET_VERSION;
     }
 }
