@@ -117,15 +117,11 @@ class User extends Memcached_DataObject
     function allowed_nickname($nickname)
     {
         // XXX: should already be validated for size, content, etc.
-
-        $blacklist = array();
-
-        //all directory and file names should be blacklisted
-        $d = dir(INSTALLDIR);
-        while (false !== ($entry = $d->read())) {
-            $blacklist[]=$entry;
-        }
-        $d->close();
+        static $blacklist = array('rss', 'xrds', 'doc', 'main',
+                                  'settings', 'notice', 'user',
+                                  'search', 'avatar', 'tag', 'tags',
+                                  'api', 'message', 'group', 'groups',
+                                  'local');
         $merged = array_merge($blacklist, common_config('nickname', 'blacklist'));
         return !in_array($nickname, $merged);
     }
