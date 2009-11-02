@@ -234,7 +234,7 @@ var SN = { // StatusNet
                         $('#'+form_id+' #'+SN.C.S.NoticeDataAttach).val('');
                         $('#'+form_id+' #'+SN.C.S.NoticeInReplyTo).val('');
                         $('#'+form_id+' #'+SN.C.S.NoticeDataAttachSelected).remove();
-                        SN.U.FormNoticeEnhancements(form);
+                        SN.U.FormNoticeEnhancements($('#'+form_id));
                     }
                 },
                 complete: function(xhr, textStatus) {
