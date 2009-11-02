@@ -24,29 +24,6 @@
  * @link      http://status.net/
  */
 
-$(document).ready(function(){
-    if ($('body.user_in').length > 0) {
-        $('.'+SN.C.S.FormNotice).each(function() { SN.U.FormNoticeEnhancements($(this)); });
-
-        $('.form_user_subscribe').each(function() { SN.U.FormXHR($(this)); });
-        $('.form_user_unsubscribe').each(function() { SN.U.FormXHR($(this)); });
-        $('.form_favor').each(function() { SN.U.FormXHR($(this)); });
-        $('.form_disfavor').each(function() { SN.U.FormXHR($(this)); });
-        $('.form_group_join').each(function() { SN.U.FormXHR($(this)); });
-        $('.form_group_leave').each(function() { SN.U.FormXHR($(this)); });
-        $('.form_user_nudge').each(function() { SN.U.FormXHR($(this)); });
-
-        SN.U.NoticeReply();
-
-        SN.U.NoticeDataAttach();
-
-        SN.U.NewDirectMessage();
-    }
-
-    SN.U.NoticeAttachments();
-});
-
-
 var SN = { // StatusNet
     C: { // Config
         I: { // Init
@@ -122,7 +99,7 @@ var SN = { // StatusNet
             var counter = $('#'+form_id+' #'+SN.C.S.NoticeTextCount);
 
             if (remaining.toString() != counter.text()) {
-                if (!SN.C.I.CounterBlackout || remaining == 0) {
+                if (!SN.C.I.CounterBlackout || remaining === 0) {
                     if (counter.text() != String(remaining)) {
                         counter.text(remaining);
                     }
@@ -219,8 +196,9 @@ var SN = { // StatusNet
                     }
                 },
                 success: function(data, textStatus) {
+                    var result;
                     if ($('#'+SN.C.S.Error, data).length > 0) {
-                        var result = document._importNode($('p', data)[0], true);
+                        result = document._importNode($('p', data)[0], true);
                         alert(result.textContent || result.innerHTML);
                     }
                     else {
@@ -229,12 +207,12 @@ var SN = { // StatusNet
                         }
 
                         if ($('#'+SN.C.S.CommandResult, data).length > 0) {
-                            var result = document._importNode($('p', data)[0], true);
+                            result = document._importNode($('p', data)[0], true);
                             alert(result.textContent || result.innerHTML);
                         }
                         else {
                              notice = document._importNode($('li', data)[0], true);
-                             if ($('#'+notice.id).length == 0) {
+                             if ($('#'+notice.id).length === 0) {
                                 var notice_irt_value = $('#'+SN.C.S.NoticeInReplyTo).val();
                                 var notice_irt = '#notices_primary #notice-'+notice_irt_value;
                                 if($('body')[0].id == 'conversation') {
@@ -330,7 +308,7 @@ var SN = { // StatusNet
                     $("a.thumbnail").children('img').hide();
                     anchor.closest(".entry-title").addClass('ov');
 
-                    if (anchor.children('img').length == 0) {
+                    if (anchor.children('img').length === 0) {
                         t = setTimeout(function() {
                             $.get($('address .url')[0].href+'attachment/' + (anchor.attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
                                 anchor.append(data);
@@ -354,7 +332,12 @@ var SN = { // StatusNet
             NDA.change(function() {
                 S = '<div id="'+SN.C.S.NoticeDataAttachSelected+'" class="'+SN.C.S.Success+'"><code>'+$(this).val()+'</code> <button class="close">&#215;</button></div>';
                 NDAS = $('#'+SN.C.S.NoticeDataAttachSelected);
-                (NDAS.length > 0) ? NDAS.replaceWith(S) : $('#'+SN.C.S.FormNotice).append(S);
+                if (NDAS.length > 0) {
+                    NDAS.replaceWith(S);
+                }
+                else {
+                    $('#'+SN.C.S.FormNotice).append(S);
+                }
                 $('#'+SN.C.S.NoticeDataAttachSelected+' button').click(function(){
                     $('#'+SN.C.S.NoticeDataAttachSelected).remove();
                     NDA.val('');
@@ -367,7 +350,7 @@ var SN = { // StatusNet
             NDM.attr({'href':NDM.attr('href')+'&ajax=1'});
             NDM.click(function() {
                 var NDMF = $('.entity_send-a-message form');
-                if (NDMF.length == 0) {
+                if (NDMF.length === 0) {
                     $.get(NDM.attr('href'), null, function(data) {
                         $('.entity_send-a-message').append(document._importNode($('form', data)[0], true));
                         NDMF = $('.entity_send-a-message .form_notice');
@@ -387,4 +370,27 @@ var SN = { // StatusNet
             });
         }
     }
-}
+};
+
+$(document).ready(function(){
+    if ($('body.user_in').length > 0) {
+        $('.'+SN.C.S.FormNotice).each(function() { SN.U.FormNoticeEnhancements($(this)); });
+
+        $('.form_user_subscribe').each(function() { SN.U.FormXHR($(this)); });
+        $('.form_user_unsubscribe').each(function() { SN.U.FormXHR($(this)); });
+        $('.form_favor').each(function() { SN.U.FormXHR($(this)); });
+        $('.form_disfavor').each(function() { SN.U.FormXHR($(this)); });
+        $('.form_group_join').each(function() { SN.U.FormXHR($(this)); });
+        $('.form_group_leave').each(function() { SN.U.FormXHR($(this)); });
+        $('.form_user_nudge').each(function() { SN.U.FormXHR($(this)); });
+
+        SN.U.NoticeReply();
+
+        SN.U.NoticeDataAttach();
+
+        SN.U.NewDirectMessage();
+    }
+
+    SN.U.NoticeAttachments();
+});
+
