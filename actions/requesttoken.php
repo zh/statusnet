@@ -72,7 +72,7 @@ class RequesttokenAction extends Action
             $req    = OAuthRequest::from_request('POST', common_local_url('requesttoken'));
             $server = omb_oauth_server();
             $token  = $server->fetch_request_token($req);
-            print $token;
+            print $token.'&omb_version='.OMB_VERSION_01;
         } catch (OAuthException $e) {
             $this->serverError($e->getMessage());
         }

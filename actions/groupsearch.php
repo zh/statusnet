@@ -91,6 +91,12 @@ class GroupsearchAction extends SearchAction
             $user_group->free();
         }
     }
+
+    function showScripts()
+    {
+        parent::showScripts();
+        $this->autofocus('q');
+    }
 }
 
 class GroupSearchResults extends GroupList
@@ -100,7 +106,7 @@ class GroupSearchResults extends GroupList
 
     function __construct($user_group, $terms, $action)
     {
-        parent::__construct($user_group, $terms, $action);
+        parent::__construct($user_group, null, $action);
         $this->terms = array_map('preg_quote',
                                  array_map('htmlspecialchars', $terms));
         $this->pattern = '/('.implode('|',$terms).')/i';

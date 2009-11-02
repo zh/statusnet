@@ -72,6 +72,12 @@ class OpenidsettingsAction extends AccountSettingsAction
                  ' Manage your associated OpenIDs from here.');
     }
 
+    function showScripts()
+    {
+        parent::showScripts();
+        $this->autofocus('openid_url');
+    }
+
     /**
      * Show the form for OpenID management
      *

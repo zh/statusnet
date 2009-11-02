@@ -78,7 +78,7 @@ class File extends Memcached_DataObject
         $file_id = $x->insert();
 
         if (isset($redir_data['type'])
-            && ('text/html' === substr($redir_data['type'], 0, 9))
+            && (('text/html' === substr($redir_data['type'], 0, 9) || 'application/xhtml+xml' === substr($redir_data['type'], 0, 21)))
             && ($oembed_data = File_oembed::_getOembed($given_url))) {
                 File_oembed::saveNew($oembed_data, $file_id);
         }
@@ -201,7 +201,7 @@ class File extends Memcached_DataObject
         if(isset($this->filename)){
             return true;
         }
-        $notEnclosureMimeTypes = array('text/html','application/xhtml+xml');
+        $notEnclosureMimeTypes = array('text/html','application/xhtml+xml',null);
         $mimetype = strtolower($this->mimetype);
         $semicolon = strpos($mimetype,';');
         if($semicolon){

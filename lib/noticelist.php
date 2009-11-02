@@ -261,7 +261,7 @@ class NoticeListItem extends Widget
         $attrs = array('href' => $this->profile->profileurl,
                        'class' => 'url');
         if (!empty($this->profile->fullname)) {
-            $attrs['title'] = $this->profile->fullname . ' (' . $this->profile->nickname . ') ';
+            $attrs['title'] = $this->profile->fullname . ' (' . $this->profile->nickname . ')';
         }
         $this->out->elementStart('a', $attrs);
         $this->showAvatar();
@@ -418,9 +418,17 @@ class NoticeListItem extends Widget
 
     function showContext()
     {
-        // XXX: also show context if there are replies to this notice
-        if (!empty($this->notice->conversation)
-            && $this->notice->conversation != $this->notice->id) {
+        $hasConversation = false;
+        if( !empty($this->notice->conversation)
+            && $this->notice->conversation != $this->notice->id){
+            $hasConversation = true;
+        }else{
+            $conversation = Notice::conversationStream($this->notice->id, 1, 1);
+            if($conversation->N > 0){
+                $hasConversation = true;
+            }
+        }
+        if ($hasConversation){
             $convurl = common_local_url('conversation',
                                          array('id' => $this->notice->conversation));
             $this->out->element('a', array('href' => $convurl.'#notice-'.$this->notice->id,
@@ -442,7 +450,7 @@ class NoticeListItem extends Widget
     {
         if (common_logged_in()) {
             $reply_url = common_local_url('newnotice',
-                                          array('replyto' => $this->profile->nickname));
+                                          array('replyto' => $this->profile->nickname, 'inreplyto' => $this->notice->id));
             $this->out->elementStart('a', array('href' => $reply_url,
                                                 'class' => 'notice_reply',
                                                 'title' => _('Reply to this notice')));

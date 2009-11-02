@@ -362,13 +362,13 @@ class AvatarsettingsAction extends AccountSettingsAction
         $profile = $user->getProfile();
         
         $avatar = $profile->getOriginalAvatar();
-        $avatar->delete();
+        if($avatar) $avatar->delete();
         $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
-        $avatar->delete();
+        if($avatar) $avatar->delete();
         $avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
-        $avatar->delete();
+        if($avatar) $avatar->delete();
         $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
-        $avatar->delete();
+        if($avatar) $avatar->delete();
 
         $this->showForm(_('Avatar deleted.'), true);
     }
@@ -399,5 +399,7 @@ class AvatarsettingsAction extends AccountSettingsAction
             $this->script('js/jcrop/jquery.Jcrop.min.js');
             $this->script('js/jcrop/jquery.Jcrop.go.js');
         }
+
+        $this->autofocus('avatarfile');
     }
 }

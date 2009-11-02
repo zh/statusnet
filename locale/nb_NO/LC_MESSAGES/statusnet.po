@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-25 16:24+0000\n"
-"PO-Revision-Date: 2009-04-09 22:44+0000\n"
-"Last-Translator: Charlie Ball <staselig@gmail.com>\n"
+"PO-Revision-Date: 2009-09-26 22:45+0000\n"
+"Last-Translator: Eivind Uggedal <eivind@uggedal.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +23,7 @@ msgstr ""
 #: actions/noticesearchrss.php:88
 #, php-format
 msgid " Search Stream for \"%s\""
-msgstr ""
+msgstr "Søkestrøm for «%s»"
 
 #: ../actions/finishopenidlogin.php:82 ../actions/register.php:191
 #: actions/finishopenidlogin.php:88 actions/register.php:205
@@ -31,22 +31,24 @@ msgstr ""
 msgid ""
 " except this private data: password, email address, IM address, phone number."
 msgstr ""
+"utenom disse private dataene: passord, epost, adresse, lynmeldingsadresse og "
+"telefonnummer."
 
 #: ../actions/showstream.php:400 ../lib/stream.php:109
 #: actions/showstream.php:418 lib/mailbox.php:164 lib/stream.php:76
 msgid " from "
-msgstr ""
+msgstr "fra"
 
 #: ../actions/twitapistatuses.php:478 actions/twitapistatuses.php:412
 #: actions/twitapistatuses.php:347
 #, php-format
 msgid "%1$s / Updates replying to %2$s"
-msgstr ""
+msgstr "%1$s / Oppdateringer som svarer til %2$s"
 
 #: ../actions/invite.php:168 actions/invite.php:176 actions/invite.php:211
 #, php-format
 msgid "%1$s has invited you to join them on %2$s"
-msgstr ""
+msgstr "%1$s har invitert deg til %2$s"
 
 #: ../actions/invite.php:170
 #, php-format
@@ -78,6 +80,27 @@ msgid ""
 "\n"
 "Sincerely, %2$s\n"
 msgstr ""
+"%$1s har invitert deg til %2$s (%3$s).\n"
+"\n"
+"%$2s er en mikrobloggingteneste som lar deg holde deg oppdatert på folk du "
+"kjenner og/eller som interesserer deg.\n"
+"\n"
+"Du kan også dele nyheter om deg sjelv, dine tanker eller livet ditt på "
+"nettet med folk som kjenner til deg. Det er supert for å møte nye folk med "
+"like interesser.\n"
+"\n"
+"%1$s sa:\n"
+"\n"
+"%4$s\n"
+"\n"
+"Du kan se profilsiden til %1$s på %2$s her:\n"
+"\n"
+"%5$s\n"
+"\n"
+"Hvis du vil prøva tjenesten, klikk på lenken nedenfor for å akseptere "
+"invitasjonen.\n"
+"\n"
+"Vennlig hilsen, %2$s\n"
 
 #: ../lib/mail.php:124 lib/mail.php:124 lib/mail.php:126 lib/mail.php:241
 #, php-format
@@ -98,14 +121,14 @@ msgstr ""
 "\n"
 "\t%3$s\n"
 "\n"
-"Mvh,\n"
+"Vennlig hilsen,\n"
 "%4$s.\n"
 
 #: ../actions/twitapistatuses.php:482 actions/twitapistatuses.php:415
 #: actions/twitapistatuses.php:350
 #, php-format
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
-msgstr ""
+msgstr "%1$s oppdateringer som svarer på oppdateringer fra %2$s / %3$s."
 
 #: ../actions/shownotice.php:45 actions/shownotice.php:45
 #: actions/shownotice.php:161
@@ -123,7 +146,7 @@ msgstr "%s (%s)"
 #: actions/publicrss.php:90
 #, php-format
 msgid "%s Public Stream"
-msgstr "%s Offentlig Strøm"
+msgstr "%s offentlig strøm"
 
 #: ../actions/all.php:47 ../actions/allrss.php:60
 #: ../actions/twitapistatuses.php:238 ../lib/stream.php:51 actions/all.php:47
@@ -138,7 +161,7 @@ msgstr "%s og venner"
 #: actions/twitapistatuses.php:33
 #, php-format
 msgid "%s public timeline"
-msgstr "%s sin offentlige tidslinje"
+msgstr "%s offentlig tidslinje"
 
 #: ../lib/mail.php:206 lib/mail.php:212 lib/mail.php:411
 #, php-format
@@ -155,15 +178,15 @@ msgstr "%s tidslinje"
 #: actions/twitapistatuses.php:36
 #, php-format
 msgid "%s updates from everyone!"
-msgstr "%s oppdateringer fra alle!"
+msgstr "%s oppdateringer fra alle sammen!"
 
 #: ../actions/register.php:213
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
 msgstr ""
-"(Du vil straks motta en e-post med instruksjoner om hvordan du kan bekrefte "
-"din e-postadresse.)"
+"(Du vil straks motta en epost med instruksjoner om hvordan du kan bekrefte "
+"din epostadresse)"
 
 #: ../lib/util.php:257 lib/util.php:273 lib/action.php:605
 #, php-format
@@ -171,32 +194,29 @@ msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
 "broughtby%%](%%site.broughtbyurl%%). "
 msgstr ""
-"**%%site.name%%** er en mikroblogging-tjeneste av "
+"**%%site.name%%** er en mikrobloggingtjeneste av "
 "[%%site.broughtby%%](%%site.broughtbyurl%%). "
 
 #: ../lib/util.php:259 lib/util.php:275 lib/action.php:607
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
-msgstr "**%%site.name%%** er en mikroblogging-tjeneste. "
+msgstr "**%%site.name%%** er en mikrobloggingtjeneste. "
 
 #: ../lib/util.php:274 lib/util.php:290
 msgid ". Contributors should be attributed by full name or nickname."
-msgstr ". Bidragsytere burde være etterfulgt av fullt navn eller brukernavn."
+msgstr ". Bidragsytere burde være etterfulgt av fullt navn eller kallenavn."
 
 #: ../actions/finishopenidlogin.php:73 ../actions/profilesettings.php:43
 #: actions/finishopenidlogin.php:79 actions/profilesettings.php:76
 #: actions/finishopenidlogin.php:101 actions/profilesettings.php:100
 #: lib/groupeditform.php:139
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
-msgstr ""
-"1-64 småbokstaver eller nummer, ingen punktum eller mellomrom (ei heller æøå "
-"og lign.)"
+msgstr "1-64 små bokstaver eller nummer, ingen punktum eller mellomrom"
 
 #: ../actions/register.php:152 actions/register.php:166
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
 msgstr ""
-"1-64 småbokstaver eller nummer, ingen punktum eller mellomrom (ei heller æøå "
-"og lign.) Påkrevd."
+"1-64 små bokstaver eller nummer, ingen punktum eller mellomrom. Påkrevd."
 
 #: ../actions/password.php:42 actions/profilesettings.php:181
 #: actions/passwordsettings.php:102
@@ -227,14 +247,16 @@ msgid ""
 "A confirmation code was sent to the email address you added. Check your "
 "inbox (and spam box!) for the code and instructions on how to use it."
 msgstr ""
-"En bekreftelseskode ble sendt til lynmeldingsadressen du la til. Sjekk "
-"innboksen din (og søppel-posten!) for koden, og hvordan du skal bruke den."
+"En bekreftelseskode ble sendt til epostadressen du la til. Sjekk innboksen "
+"din (og søppelboksen) for koden, og hvordan du skal bruke den."
 
 #: ../actions/smssettings.php:216 actions/smssettings.php:224
 msgid ""
 "A confirmation code was sent to the phone number you added. Check your inbox "
 "(and spam box!) for the code and instructions on how to use it."
 msgstr ""
+"En bekreftelseskode ble sendt til telefonnummeret du la til. Sjekk innboksen "
+"din for koden, og hvordan du skal bruke den."
 
 #: ../actions/twitapiaccount.php:49 ../actions/twitapihelp.php:45
 #: ../actions/twitapistatuses.php:88 ../actions/twitapistatuses.php:259
@@ -288,7 +310,7 @@ msgstr "Om"
 #: ../actions/userauthorization.php:119 actions/userauthorization.php:126
 #: actions/userauthorization.php:143
 msgid "Accept"
-msgstr "Aksepter"
+msgstr "Godta"
 
 #: ../actions/emailsettings.php:62 ../actions/imsettings.php:63
 #: ../actions/openidsettings.php:57 ../actions/smssettings.php:71
@@ -308,7 +330,7 @@ msgstr "Legg til OpenID"
 #: ../lib/settingsaction.php:97 lib/settingsaction.php:91
 #: lib/accountsettingsaction.php:117
 msgid "Add or remove OpenIDs"
-msgstr "Legg til eller slett OpenID"
+msgstr "Legg til eller fjern OpenID-er"
 
 #: ../actions/emailsettings.php:38 ../actions/imsettings.php:39
 #: ../actions/smssettings.php:39 actions/emailsettings.php:39
@@ -337,7 +359,7 @@ msgstr "Alle oppdateringer for %s"
 #: actions/noticesearchrss.php:90
 #, php-format
 msgid "All updates matching search term \"%s\""
-msgstr "Alle oppdateringer som passer søket: \"%s\""
+msgstr "Alle oppdateringer for søket: «%s»"
 
 #: ../actions/finishopenidlogin.php:29 ../actions/login.php:31
 #: ../actions/openidlogin.php:29 ../actions/register.php:30
@@ -390,19 +412,21 @@ msgid ""
 "Awaiting confirmation on this address. Check your Jabber/GTalk account for a "
 "message with further instructions. (Did you add %s to your buddy list?)"
 msgstr ""
+"Venter på godkjenning. Sjekk din Jabber/GTalk-konto for en melding med "
+"instruksjoner (la du %s til vennelisten din?)"
 
 #: ../actions/emailsettings.php:54 actions/emailsettings.php:55
 msgid ""
 "Awaiting confirmation on this address. Check your inbox (and spam box!) for "
 "a message with further instructions."
 msgstr ""
-"Venter på bekreftelse av adressen. Sjekk innboksen din (og søppel-post!) for "
+"Venter på bekreftelse av adressen. Sjekk innboksen din (og søppelboksen) for "
 "melding med videre veiledning."
 
 #: ../actions/smssettings.php:58 actions/smssettings.php:58
 #: actions/smssettings.php:111
 msgid "Awaiting confirmation on this phone number."
-msgstr "Venter på bekreftelse på dette telefonnummeret"
+msgstr "Venter på bekreftelse for dette telefonnummeret."
 
 #: ../lib/util.php:1318 lib/util.php:1452
 #, fuzzy
@@ -413,7 +437,7 @@ msgstr "Tidligere »"
 #: actions/profilesettings.php:82 actions/register.php:184
 #: actions/profilesettings.php:112 actions/register.php:402
 msgid "Bio"
-msgstr "Bio"
+msgstr "Om meg"
 
 #: ../actions/profilesettings.php:101 ../actions/register.php:82
 #: ../actions/updateprofile.php:103 actions/profilesettings.php:216
@@ -421,7 +445,7 @@ msgstr "Bio"
 #: actions/profilesettings.php:205 actions/register.php:174
 #: actions/updateprofile.php:107
 msgid "Bio is too long (max 140 chars)."
-msgstr "Bioen er for lang (maks 140 tegn)."
+msgstr "«Om meg» er for lang (maks 140 tegn)."
 
 #: ../lib/deleteaction.php:41 lib/deleteaction.php:41 lib/deleteaction.php:69
 msgid "Can't delete this notice."
@@ -431,13 +455,13 @@ msgstr "Kan ikke slette notisen."
 #: actions/updateprofile.php:123
 #, php-format
 msgid "Can't read avatar URL '%s'"
-msgstr "Kan ikke lese brukerbilde URL '%s'"
+msgstr "Kan ikke lese brukerbilde-URL «%s»"
 
 #: ../actions/password.php:85 ../actions/recoverpassword.php:300
 #: actions/profilesettings.php:404 actions/recoverpassword.php:313
 #: actions/passwordsettings.php:169 actions/recoverpassword.php:347
 msgid "Can't save new password."
-msgstr "Klarer ikke å lagre det nye passordet"
+msgstr "Klarer ikke å lagre nytt passord."
 
 #: ../actions/emailsettings.php:57 ../actions/imsettings.php:58
 #: ../actions/smssettings.php:62 actions/emailsettings.php:58
@@ -449,17 +473,17 @@ msgstr "Avbryt"
 
 #: ../lib/openid.php:121 lib/openid.php:121 lib/openid.php:130
 msgid "Cannot instantiate OpenID consumer object."
-msgstr ""
+msgstr "Klarer ikke instansiere OpenID-objekt."
 
 #: ../actions/imsettings.php:163 actions/imsettings.php:171
 #: actions/imsettings.php:286
 msgid "Cannot normalize that Jabber ID"
-msgstr ""
+msgstr "Klarer ikke normalisere Jabber-IDen"
 
 #: ../actions/emailsettings.php:181 actions/emailsettings.php:199
 #: actions/emailsettings.php:311
 msgid "Cannot normalize that email address"
-msgstr "Kan ikke normalisere den e-postadressen"
+msgstr "Klarer ikke normalisere epostadressen"
 
 #: ../actions/password.php:45 actions/profilesettings.php:184
 #: actions/passwordsettings.php:110
@@ -469,7 +493,7 @@ msgstr "Endre"
 #: ../lib/settingsaction.php:88 lib/settingsaction.php:88
 #: lib/accountsettingsaction.php:114
 msgid "Change email handling"
-msgstr "Endre e-post håndtering"
+msgstr "Endre eposthåndtering"
 
 #: ../actions/password.php:32 actions/profilesettings.php:36
 #: actions/passwordsettings.php:58
@@ -483,7 +507,7 @@ msgstr "Endre passordet ditt"
 #: ../lib/settingsaction.php:85 lib/settingsaction.php:85
 #: lib/accountsettingsaction.php:105
 msgid "Change your profile settings"
-msgstr "Endre profil instillingene dine"
+msgstr "Endre profilinnstillingene dine"
 
 #: ../actions/password.php:43 ../actions/recoverpassword.php:181
 #: ../actions/register.php:155 ../actions/smssettings.php:65
@@ -497,7 +521,7 @@ msgstr "Bekreft"
 #: ../actions/confirmaddress.php:90 actions/confirmaddress.php:90
 #: actions/confirmaddress.php:144
 msgid "Confirm Address"
-msgstr "Bekreft Adresse"
+msgstr "Bekreft adresse"
 
 #: ../actions/emailsettings.php:238 ../actions/imsettings.php:222
 #: ../actions/smssettings.php:245 actions/emailsettings.php:256
@@ -515,7 +539,7 @@ msgstr "Bekreftelseskode"
 #: ../actions/confirmaddress.php:38 actions/confirmaddress.php:38
 #: actions/confirmaddress.php:80
 msgid "Confirmation code not found."
-msgstr "Bekreftelseskode ikke funnet."
+msgstr "Fant ikke bekreftelseskode."
 
 #: ../actions/register.php:202
 #, php-format

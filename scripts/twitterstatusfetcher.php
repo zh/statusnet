@@ -19,8 +19,6 @@
  */
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
-define('STATUSNET', true);
-define('LACONICA', true); // compatibility
 
 // Tune number of processes and how often to poll Twitter
 // XXX: Should these things be in config.php?

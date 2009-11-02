@@ -156,7 +156,8 @@ font-weight:bold;
 #form_notice_delete legend,
 #form_password_recover legend,
 #form_password_change legend,
-.form_entity_block legend {
+.form_entity_block legend,
+#form_filter_bytag legend {
 display:none;
 }
 
@@ -483,7 +484,7 @@ height:16px;
 #form_notice .form_note {
 position:absolute;
 bottom:2px;
-right:98px;
+right:21.715%;
 z-index:9;
 }
 #form_notice .form_note dt {
@@ -510,6 +511,7 @@ margin-top:7px;
 margin-bottom:7px;
 margin-left:18px;
 float:left;
+max-width:322px;
 }
 #form_notice .error,
 #form_notice .success {
@@ -1049,36 +1051,37 @@ display:none;
 #filter_tags ul {
 list-style-type:none;
 }
-#filter_tags ul li {
+#filter_tags li {
 float:left;
 margin-left:7px;
 padding-left:7px;
 border-left-width:1px;
 border-left-style:solid;
 }
-#filter_tags ul li.child_1 {
+#filter_tags #filter_tags_all {
 margin-left:0;
 border-left:0;
 padding-left:0;
 }
-#filter_tags ul li#filter_tags_all a {
+#filter_tags_all a {
 font-weight:bold;
 margin-top:7px;
 float:left;
 }
 
-#filter_tags ul li#filter_tags_item label {
+#filter_tags_item label {
 margin-right:7px;
 }
-#filter_tags ul li#filter_tags_item label,
-#filter_tags ul li#filter_tags_item select {
-display:inline;
-}
-#filter_tags ul li#filter_tags_item p {
+#filter_tags_item label,
+#filter_tags_item select {
 float:left;
+}
+#filter_tags_item p {
+float:left;
+clear:both;
 margin-left:38px;
 }
-#filter_tags ul li#filter_tags_item input {
+#filter_tags_item .submit {
 position:relative;
 top:3px;
 left:3px;

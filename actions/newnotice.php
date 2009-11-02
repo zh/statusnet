@@ -271,7 +271,9 @@ class NewnoticeAction extends Action
         common_broadcast_notice($notice);
 
         if ($this->boolean('ajax')) {
-            $this->startHTML('text/xml;charset=utf-8');
+            header('Content-Type: text/xml;charset=utf-8');
+            $this->xw->startDocument('1.0', 'UTF-8');
+            $this->elementStart('html');
             $this->elementStart('head');
             $this->element('title', null, _('Notice posted'));
             $this->elementEnd('head');
@@ -435,13 +437,14 @@ class NewnoticeAction extends Action
         $content = $this->trimmed('status_textarea');
         if (!$content) {
             $replyto = $this->trimmed('replyto');
+            $inreplyto = $this->trimmed('inreplyto');
             $profile = Profile::staticGet('nickname', $replyto);
             if ($profile) {
                 $content = '@' . $profile->nickname . ' ';
             }
         }
 
-        $notice_form = new NoticeForm($this, '', $content);
+        $notice_form = new NoticeForm($this, '', $content, null, $inreplyto);
         $notice_form->show();
     }
 

@@ -189,9 +189,9 @@ function main()
         return;
     }
     
-    if( $_GET['checklibs'] ){
+    if (isset($_GET['checklibs'])) {
         showLibs();
-    }else{
+    } else {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             handlePost();
         } else {
@@ -202,7 +202,7 @@ function main()
 
 function haveExternalLibrary($external_library)
 {
-    if(isset($external_library['include']) && ! include_once($external_library['include'])){
+    if(isset($external_library['include']) && ! haveIncludeFile($external_library['include'])){
         return false;
     }
     if(isset($external_library['check_function']) && ! function_exists($external_library['check_function'])){
@@ -212,6 +212,15 @@ function haveExternalLibrary($external_library)
         return false;
     }
     return true;
+}
+
+// Attempt to include a PHP file and report if it worked, while
+// suppressing the annoying warning messages on failure.
+function haveIncludeFile($filename) {
+    $old = error_reporting(error_reporting() & ~E_WARNING);
+    $ok = include_once($filename);
+    error_reporting($old);
+    return $ok;
 }
 
 function checkPrereqs()
@@ -230,7 +239,7 @@ function checkPrereqs()
     }
 
     $reqs = array('gd', 'curl',
-                  'xmlwriter', 'mbstring');
+                  'xmlwriter', 'mbstring','tidy');
 
     foreach ($reqs as $req) {
         if (!checkExtension($req)) {
@@ -267,12 +276,19 @@ function checkPrereqs()
 
 function checkExtension($name)
 {
-    if (!extension_loaded($name)) {
-        if (!@dl($name.'.so')) {
-            return false;
-        }
+    if (extension_loaded($name)) {
+        return true;
+    } elseif (function_exists('dl') && ini_get('enable_dl') && !ini_get('safe_mode')) {
+    	// dl will throw a fatal error if it's disabled or we're in safe mode.
+    	// More fun, it may not even exist under some SAPIs in 5.3.0 or later...
+    	$soname = $name . '.' . PHP_SHLIB_SUFFIX;
+    	if (PHP_SHLIB_SUFFIX == 'dll') {
+    		$soname = "php_" . $soname;
+    	}
+    	return @dl($soname);
+    } else {
+        return false;
     }
-    return true;
 }
 
 function showLibs()
@@ -289,7 +305,7 @@ function showLibs()
     }
     echo<<<E_O_T
     <div class="instructions">
-        <p>Laconica comes bundled with a number of libraries required for the application to work. However, it is best that you use PEAR or you distribution to manage
+        <p>StatusNet comes bundled with a number of libraries required for the application to work. However, it is best that you use PEAR or you distribution to manage
         libraries instead, as they tend to provide security updates faster, and may offer improved performance.</p>
         <p>On Debian based distributions, such as Ubuntu, use a package manager (such as &quot;aptitude&quot;, &quot;apt-get&quot;, and &quot;synaptic&quot;) to install the package listed.</p>
         <p>On RPM based distributions, such as Red Hat, Fedora, CentOS, Scientific Linux, Yellow Dog Linux and Oracle Enterprise Linux, use a package manager (such as &quot;yum&quot;, &quot;apt-rpm&quot;, and &quot;up2date&quot;) to install the package listed.</p>
@@ -301,19 +317,19 @@ E_O_T;
     foreach($absent_libraries as $library)
     {
         echo '<li>';
-        if($library['url']){
-            echo '<a href=">'.$library['url'].'">'.htmlentities($library['name']).'</a>';
+        if(isset($library['url'])){
+            echo '<a href="'.$library['url'].'">'.htmlentities($library['name']).'</a>';
         }else{
             echo htmlentities($library['name']);
         }
         echo '<ul>';
-        if($library['deb']){
+        if(isset($library['deb'])){
             echo '<li class="deb package">deb: <a href="apt:' . urlencode($library['deb']) . '">' . htmlentities($library['deb']) . '</a></li>';
         }
-        if($library['rpm']){
+        if(isset($library['rpm'])){
             echo '<li class="rpm package">rpm: ' . htmlentities($library['rpm']) . '</li>';
         }
-        if($library['pear']){
+        if(isset($library['pear'])){
             echo '<li class="pear package">pear: ' . htmlentities($library['pear']) . '</li>';
         }
         echo '</ul>';
@@ -326,8 +342,8 @@ E_O_T;
     foreach($present_libraries as $library)
     {
         echo '<li>';
-        if($library['url']){
-            echo '<a href=">'.$library['url'].'">'.htmlentities($library['name']).'</a>';
+        if(isset($library['url'])){
+            echo '<a href="'.$library['url'].'">'.htmlentities($library['name']).'</a>';
         }else{
             echo htmlentities($library['name']);
         }
@@ -349,7 +365,7 @@ function showForm()
     <dd>
         <div class="instructions">
             <p>Enter your database connection information below to initialize the database.</p>
-            <p>Laconica bundles a number of libraries for ease of installation. <a href="?checklibs=true">You can see what bundled libraries you are using, versus what libraries are installed on your server.</a>
+            <p>StatusNet bundles a number of libraries for ease of installation. <a href="?checklibs=true">You can see what bundled libraries you are using, versus what libraries are installed on your server.</a>
         </div>
     </dd>
 </dl>

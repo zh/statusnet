@@ -59,7 +59,7 @@ function common_init_language()
     textdomain("statusnet");
     setlocale(LC_CTYPE, 'C');
     if(!$locale_set) {
-        common_log(LOG_INFO,'Language requested:'.$language.' - locale could not be set:',__FILE__);
+        common_log(LOG_INFO, 'Language requested:' . $language . ' - locale could not be set. Perhaps that system locale is not installed.', __FILE__);
     }
 }
 
@@ -391,7 +391,7 @@ function common_render_content($text, $notice)
 {
     $r = common_render_text($text);
     $id = $notice->profile_id;
-    $r = preg_replace('/(^|\s+)@([A-Za-z0-9]{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
+    $r = preg_replace('/(^|\s+)@(['.NICKNAME_FMT.']{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
     $r = preg_replace('/^T ([A-Z0-9]{1,64}) /e', "'T '.common_at_link($id, '\\1').' '", $r);
     $r = preg_replace('/(^|\s+)@#([A-Za-z0-9]{1,64})/e', "'\\1@#'.common_at_hash_link($id, '\\2')", $r);
     $r = preg_replace('/(^|\s)!([A-Za-z0-9]{1,64})/e', "'\\1!'.common_group_link($id, '\\2')", $r);
@@ -432,7 +432,7 @@ function common_replace_urls_callback($text, $callback, $notice_id = null) {
             ')'.
             '|(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'. //IPv4
             '|(?:'. //IPv6
-                '\[?(?:(?:(?:[0-9A-Fa-f]{1,4}:){7}(?:(?:[0-9A-Fa-f]{1,4})|:))|(?:(?:[0-9A-Fa-f]{1,4}:){6}(?::|(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})|(?::[0-9A-Fa-f]{1,4})))|(?:(?:[0-9A-Fa-f]{1,4}:){5}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:){4}(?::[0-9A-Fa-f]{1,4}){0,1}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:){3}(?::[0-9A-Fa-f]{1,4}){0,2}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:){2}(?::[0-9A-Fa-f]{1,4}){0,3}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:)(?::[0-9A-Fa-f]{1,4}){0,4}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?::(?::[0-9A-Fa-f]{1,4}){0,5}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})))\]?'.
+                '\[?(?:(?:(?:[0-9A-Fa-f]{1,4}:){7}(?:(?:[0-9A-Fa-f]{1,4})|:))|(?:(?:[0-9A-Fa-f]{1,4}:){6}(?::|(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})|(?::[0-9A-Fa-f]{1,4})))|(?:(?:[0-9A-Fa-f]{1,4}:){5}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:){4}(?::[0-9A-Fa-f]{1,4}){0,1}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:){3}(?::[0-9A-Fa-f]{1,4}){0,2}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:){2}(?::[0-9A-Fa-f]{1,4}){0,3}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:[0-9A-Fa-f]{1,4}:)(?::[0-9A-Fa-f]{1,4}){0,4}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?::(?::[0-9A-Fa-f]{1,4}){0,5}(?:(?::(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|(?:(?::[0-9A-Fa-f]{1,4}){1,2})))|(?:(?:(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})))\]?(?<!:)'.
             ')|(?:'. //DNS
                 '(?:[\pN\pL\-\_\+\%\~]+(?:\:[\pN\pL\-\_\+\%\~]+)?\@)?'. //user:pass@
                 '[\pN\pL\-\_]+(?:\.[\pN\pL\-\_]+)*\.'.
@@ -442,13 +442,13 @@ function common_replace_urls_callback($text, $callback, $notice_id = null) {
         ')'.
         '(?:'.
             '(?:\:\d+)?'. //:port
-            '(?:/[\pN\pL$\[\]\,\!\(\)\.\-\_\+\/\=\&\;\%\~]*)?'. // /path
-            '(?:\?[\pN\pL\$\[\]\,\!\(\)\.\-\_\+\/\=\&\;\%\~\/]*)?'. // ?query string
-            '(?:\#[\pN\pL$\[\]\,\!\(\)\.\-\_\+\/\=\&\;\%\~\/\?\#]*)?'. // #fragment
+            '(?:/[\pN\pL$\[\]\,\!\(\)\.\:\-\_\+\/\=\&\;\%\~\*\$\+\'\"@]*)?'. // /path
+            '(?:\?[\pN\pL\$\[\]\,\!\(\)\.\:\-\_\+\/\=\&\;\%\~\*\$\+\'\"@\/]*)?'. // ?query string
+            '(?:\#[\pN\pL$\[\]\,\!\(\)\.\:\-\_\+\/\=\&\;\%\~\*\$\+\'\"\@/\?\#]*)?'. // #fragment
         ')(?<![\?\.\,\#\,])'.
     ')'.
     '#ixu';
-    preg_match_all($regex,$text,$matches);
+    //preg_match_all($regex,$text,$matches);
     //print_r($matches);
     return preg_replace_callback($regex, curry('callback_helper',$callback,$notice_id) ,$text);
 }
@@ -552,12 +552,13 @@ function common_linkify($url) {
     }
 
     if (!empty($f)) {
-        if (isset($f->filename)) {
+        if ($f->isEnclosure()) {
             $is_attachment = true;
             $attachment_id = $f->id;
-        } else { // if it has OEmbed info, it's an attachment, too
+        } else {
             $foe = File_oembed::staticGet('file_id', $f->id);
             if (!empty($foe)) {
+                // if it has OEmbed info, it's an attachment, too
                 $is_attachment = true;
                 $attachment_id = $f->id;
 
@@ -759,12 +760,18 @@ function common_path($relative, $ssl=false)
         if (is_string(common_config('site', 'sslserver')) &&
             mb_strlen(common_config('site', 'sslserver')) > 0) {
             $serverpart = common_config('site', 'sslserver');
-        } else {
+        } else if (common_config('site', 'server')) {
             $serverpart = common_config('site', 'server');
+        } else {
+            common_log(LOG_ERR, 'Site Sever not configured, unable to determine site name.');
         }
     } else {
         $proto = 'http';
-        $serverpart = common_config('site', 'server');
+        if (common_config('site', 'server')) {
+            $serverpart = common_config('site', 'server');
+        } else {
+            common_log(LOG_ERR, 'Site Sever not configured, unable to determine site name.');
+        }
     }
 
     return $proto.'://'.$serverpart.'/'.$pathpart.$relative;
@@ -980,7 +987,7 @@ function common_set_returnto($url)
 function common_get_returnto()
 {
     common_ensure_session();
-    return $_SESSION['returnto'];
+    return (array_key_exists('returnto', $_SESSION)) ? $_SESSION['returnto'] : null;
 }
 
 function common_timestamp()
@@ -1147,7 +1154,7 @@ function common_negotiate_type($cprefs, $sprefs)
     }
 
     if ('text/html' === $besttype) {
-        return "text/html; charset=utf-8";
+        return "text/html";
     }
     return $besttype;
 }

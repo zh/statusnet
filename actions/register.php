@@ -140,6 +140,12 @@ class RegisterAction extends Action
         }
     }
 
+    function showScripts()
+    {
+        parent::showScripts();
+        $this->autofocus('nickname');
+    }
+
     /**
      * Try to register a user
      *

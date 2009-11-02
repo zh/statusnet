@@ -146,8 +146,10 @@ class FoafAction extends Action
             while ($sub->fetch()) {
                 if ($sub->token) {
                     $other = Remote_profile::staticGet('id', $sub->subscriber);
+                    $profile = Profile::staticGet('id', $sub->subscriber);
                 } else {
                     $other = User::staticGet('id', $sub->subscriber);
+                    $profile = Profile::staticGet('id', $sub->subscriber);
                 }
                 if (!$other) {
                     common_debug('Got a bad subscription: '.print_r($sub,true));
@@ -158,12 +160,15 @@ class FoafAction extends Action
                 } else {
                     $person[$other->uri] = array(LISTENER,
                                                  $other->id,
-                                                 $other->nickname,
+                                                 $profile->nickname,
                                                  (empty($sub->token)) ? 'User' : 'Remote_profile');
                 }
                 $other->free();
                 $other = null;
                 unset($other);
+                $profile->free();
+                $profile = null;
+                unset($profile);
             }
         }
 
@@ -254,8 +259,10 @@ class FoafAction extends Action
                 while ($sub->fetch()) {
                     if (!empty($sub->token)) {
                         $other = Remote_profile::staticGet('id', $sub->subscribed);
+                        $profile = Profile::staticGet('id', $sub->subscribed);
                     } else {
                         $other = User::staticGet('id', $sub->subscribed);
+                        $profile = Profile::staticGet('id', $sub->subscribed);
                     }
                     if (empty($other)) {
                         common_debug('Got a bad subscription: '.print_r($sub,true));
@@ -264,11 +271,14 @@ class FoafAction extends Action
                     $this->element('sioc:follows', array('rdf:resource' => $other->uri.'#acct'));
                     $person[$other->uri] = array(LISTENEE,
                                                  $other->id,
-                                                 $other->nickname,
+                                                 $profile->nickname,
                                                  (empty($sub->token)) ? 'User' : 'Remote_profile');
                     $other->free();
                     $other = null;
                     unset($other);
+                    $profile->free();
+                    $profile = null;
+                    unset($profile);
                 }
             }
 

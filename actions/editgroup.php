@@ -160,6 +160,12 @@ class EditgroupAction extends GroupDesignAction
         }
     }
 
+    function showScripts()
+    {
+        parent::showScripts();
+        $this->autofocus('nickname');
+    }
+
     function trySave()
     {
         $cur = common_current_user();

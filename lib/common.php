@@ -19,10 +19,10 @@
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
-define('STATUSNET_VERSION', '0.8.1');
+define('STATUSNET_VERSION', '0.8.2rc2');
 define('LACONICA_VERSION', STATUSNET_VERSION); // compatibility
 
-define('STATUSNET_CODENAME', 'Second Guessing');
+define('STATUSNET_CODENAME', 'Life and How to Live It');
 
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
@@ -196,15 +196,14 @@ $config =
         array('enabled' => true),
         'sms' =>
         array('enabled' => true),
-        'twitter' =>
-        array('enabled' => true),
         'twitterbridge' =>
         array('enabled' => false),
         'integration' =>
         array('source' => 'StatusNet', # source attribute for Twitter
               'taguri' => $_server.',2009'), # base for tag URIs
 	'twitter' =>
-	array('consumer_key'    => null,
+	array('enabled'         => true,
+              'consumer_key'    => null,
 	      'consumer_secret' => null),
         'memcached' =>
         array('enabled' => false,
