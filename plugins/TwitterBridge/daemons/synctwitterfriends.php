@@ -152,8 +152,8 @@ class SyncTwitterFriendsDaemon extends ParallelizingDaemon
             $friends_ids = $client->friendsIds();
         } catch (Exception $e) {
             common_log(LOG_WARNING, $this->name() .
-                       ' - error getting friend ids: ' .
-                       $e->getMessage());
+                       ' - cURL error getting friend ids ' .
+                       $e->getCode() . ' - ' . $e->getMessage());
             return $friends;
         }
 

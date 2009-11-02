@@ -125,7 +125,7 @@ class TwitterauthorizationAction extends Action
 
             $auth_link = $client->getAuthorizeLink($req_tok);
 
-        } catch (OAuthClientException $e) {
+        } catch (TwitterOAuthClientException $e) {
             $msg = sprintf('OAuth client cURL error - code: %1s, msg: %2s',
                            $e->getCode(), $e->getMessage());
             $this->serverError(_('Couldn\'t link your Twitter account.'));

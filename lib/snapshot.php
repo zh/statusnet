@@ -172,11 +172,26 @@ class Snapshot
     {
         // XXX: Use OICU2 and OAuth to make authorized requests
 
+        $postdata = http_build_query($this->stats);
+
+        $opts =
+          array('http' =>
+                array(
+                      'method'  => 'POST',
+                      'header'  => 'Content-type: '.
+                                   'application/x-www-form-urlencoded',
+                      'content' => $postdata,
+                      'user_agent' => 'StatusNet/'.STATUSNET_VERSION
+                      )
+                );
+
+        $context = stream_context_create($opts);
+
         $reporturl = common_config('snapshot', 'reporturl');
 
-        $request = new HTTPClient($reporturl, HTTP_Request2::METHOD_POST);
-        $request->addPostParameter($this->stats);
-        $request->send();
+        $result = @file_get_contents($reporturl, false, $context);
+
+        return $result;
     }
 
     /**
