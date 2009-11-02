@@ -31,6 +31,9 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
+require_once 'HTTP/Request2.php';
+require_once 'HTTP/Request2/Response.php';
+
 /**
  * Useful structure for HTTP responses
  *
@@ -38,18 +41,42 @@ if (!defined('STATUSNET')) {
  * ways of doing them. This class hides the specifics of what underlying
  * library (curl or PHP-HTTP or whatever) that's used.
  *
+ * This extends the HTTP_Request2_Response class with methods to get info
+ * about any followed redirects.
+ *
  * @category HTTP
- * @package  StatusNet
- * @author   Evan Prodromou <evan@status.net>
- * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://status.net/
+ * @package StatusNet
+ * @author Evan Prodromou <evan@status.net>
+ * @author Brion Vibber <brion@status.net>
+ * @license http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link http://status.net/
  */
-
-class HTTPResponse
+class HTTPResponse extends HTTP_Request2_Response
 {
-    public $code = null;
-    public $headers = array();
-    public $body = null;
+    function __construct(HTTP_Request2_Response $response, $url, $redirects=0)
+    {
+        foreach (get_object_vars($response) as $key => $val) {
+            $this->$key = $val;
+        }
+        $this->url = strval($url);
+        $this->redirectCount = intval($redirects);
+    }
+
+    /**
+     * Get the count of redirects that have been followed, if any.
+     * @return int
+     */
+    function getRedirectCount() {
+        return $this->redirectCount;
+    }
+
+    /**
+     * Gets the final target URL, after any redirects have been followed.
+     * @return string URL
+     */
+    function getUrl() {
+        return $this->url;
+    }
 }
 
 /**
@@ -59,64 +86,133 @@ class HTTPResponse
  * ways of doing them. This class hides the specifics of what underlying
  * library (curl or PHP-HTTP or whatever) that's used.
  *
+ * This extends the PEAR HTTP_Request2 package:
+ * - sends StatusNet-specific User-Agent header
+ * - 'follow_redirects' config option, defaulting off
+ * - 'max_redirs' config option, defaulting to 10
+ * - extended response class adds getRedirectCount() and getUrl() methods
+ * - get() and post() convenience functions return body content directly
+ *
  * @category HTTP
  * @package  StatusNet
  * @author   Evan Prodromou <evan@status.net>
+ * @author   Brion Vibber <brion@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
 
-class HTTPClient
+class HTTPClient extends HTTP_Request2
 {
-    static $_client = null;
 
-    static function start()
+    function __construct($url=null, $method=self::METHOD_GET, $config=array())
     {
-        if (!is_null(self::$_client)) {
-            return self::$_client;
+        $this->config['max_redirs'] = 10;
+        $this->config['follow_redirects'] = false;
+        parent::__construct($url, $method, $config);
+        $this->setHeader('User-Agent', $this->userAgent());
+    }
+
+    /**
+     * Convenience function to run a get request and return the response body.
+     * Use when you don't need to get into details of the response.
+     *
+     * @return mixed string on success, false on failure
+     */
+    function get()
+    {
+        $this->setMethod(self::METHOD_GET);
+        return $this->doRequest();
+    }
+
+    /**
+     * Convenience function to post form data and return the response body.
+     * Use when you don't need to get into details of the response.
+     *
+     * @param array associative array of form data to submit
+     * @return mixed string on success, false on failure
+     */
+    public function post($data=array())
+    {
+        $this->setMethod(self::METHOD_POST);
+        if ($data) {
+            $this->addPostParameter($data);
         }
+        return $this->doRequest();
+    }
 
-        $type = common_config('http', 'client');
-
-        switch ($type) {
-         case 'curl':
-            self::$_client = new CurlClient();
-            break;
-         default:
-            throw new Exception("Unknown HTTP client type '$type'");
-            break;
+    /**
+     * @return mixed string on success, false on failure
+     */
+    protected function doRequest()
+    {
+        try {
+            $response = $this->send();
+            $code = $response->getStatus();
+            if (($code < 200) || ($code >= 400)) {
+                return false;
+            }
+            return $response->getBody();
+        } catch (HTTP_Request2_Exception $e) {
+            $this->log(LOG_ERR, $e->getMessage());
+            return false;
         }
-
-        return self::$_client;
+    }
+    
+    protected function log($level, $detail) {
+        $method = $this->getMethod();
+        $url = $this->getUrl();
+        common_log($level, __CLASS__ . ": HTTP $method $url - $detail");
     }
 
-    function head($url, $headers)
-    {
-        throw new Exception("HEAD method unimplemented");
-    }
-
-    function get($url, $headers)
-    {
-        throw new Exception("GET method unimplemented");
-    }
-
-    function post($url, $headers, $body)
-    {
-        throw new Exception("POST method unimplemented");
-    }
-
-    function put($url, $headers, $body)
-    {
-        throw new Exception("PUT method unimplemented");
-    }
-
-    function delete($url, $headers)
-    {
-        throw new Exception("DELETE method unimplemented");
-    }
-
+    /**
+     * Pulls up StatusNet's customized user-agent string, so services
+     * we hit can track down the responsible software.
+     */
     function userAgent()
     {
         return "StatusNet/".STATUSNET_VERSION." (".STATUSNET_CODENAME.")";
+    }
+
+    function send()
+    {
+        $maxRedirs = intval($this->config['max_redirs']);
+        if (empty($this->config['follow_redirects'])) {
+            $maxRedirs = 0;
+        }
+        $redirs = 0;
+        do {
+            try {
+                $response = parent::send();
+            } catch (HTTP_Request2_Exception $e) {
+                $this->log(LOG_ERR, $e->getMessage());
+                throw $e;
+            }
+            $code = $response->getStatus();
+            if ($code >= 200 && $code < 300) {
+                $reason = $response->getReasonPhrase();
+                $this->log(LOG_INFO, "$code $reason");
+            } elseif ($code >= 300 && $code < 400) {
+                $url = $this->getUrl();
+                $target = $response->getHeader('Location');
+                
+                if (++$redirs >= $maxRedirs) {
+                    common_log(LOG_ERR, __CLASS__ . ": Too many redirects: skipping $code redirect from $url to $target");
+                    break;
+                }
+                try {
+                    $this->setUrl($target);
+                    $this->setHeader('Referer', $url);
+                    common_log(LOG_INFO, __CLASS__ . ": Following $code redirect from $url to $target");
+                    continue;
+                } catch (HTTP_Request2_Exception $e) {
+                    common_log(LOG_ERR, __CLASS__ . ": Invalid $code redirect from $url to $target");
+                }
+            } else {
+                $reason = $response->getReasonPhrase();
+                $this->log(LOG_ERR, "$code $reason");
+            }
+            break;
+        } while ($maxRedirs);
+        return new HTTPResponse($response, $this->getUrl(), $redirs);
     }
 }

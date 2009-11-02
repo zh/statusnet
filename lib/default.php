@@ -228,8 +228,6 @@ $default =
         array('contentlimit' => null),
         'message' =>
         array('contentlimit' => null),
-        'http' =>
-        array('client' => 'curl'), // XXX: should this be the default?
         'location' =>
         array('namespace' => 1), // 1 = geonames, 2 = Yahoo Where on Earth
         );

@@ -129,27 +129,25 @@ class LinkbackPlugin extends Plugin
             }
         }
 
-        $request = xmlrpc_encode_request('pingback.ping', $args);
-        $context = stream_context_create(array('http' => array('method' => "POST",
-                                                               'header' =>
-                                                               "Content-Type: text/xml\r\n".
-                                                               "User-Agent: " . $this->userAgent(),
-                                                               'content' => $request)));
-        $file = file_get_contents($endpoint, false, $context);
-        if (!$file) {
+        $request = new HTTPClient($endpoint, 'POST');
+        $request->setHeader('User-Agent', $this->userAgent());
+        $request->setHeader('Content-Type', 'text/xml');
+        $request->setBody(xmlrpc_encode_request('pingback.ping', $args));
+        try {
+            $response = $request->send();
+        } catch (HTTP_Request2_Exception $e) {
             common_log(LOG_WARNING,
-	               "Pingback request failed for '$url' ($endpoint)");
+                   "Pingback request failed for '$url' ($endpoint)");
+        }
+        $response = xmlrpc_decode($response->getBody());
+        if (xmlrpc_is_fault($response)) {
+            common_log(LOG_WARNING,
+                   "Pingback error for '$url' ($endpoint): ".
+                   "$response[faultString] ($response[faultCode])");
         } else {
-            $response = xmlrpc_decode($file);
-            if (xmlrpc_is_fault($response)) {
-                common_log(LOG_WARNING,
-                       "Pingback error for '$url' ($endpoint): ".
-                       "$response[faultString] ($response[faultCode])");
-            } else {
-                common_log(LOG_INFO,
-                       "Pingback success for '$url' ($endpoint): ".
-                       "'$response'");
-            }
+            common_log(LOG_INFO,
+                   "Pingback success for '$url' ($endpoint): ".
+                   "'$response'");
         }
     }
 

@@ -41,22 +41,17 @@ abstract class ShortUrlApi
         return strlen($url) >= common_config('site', 'shorturllength');
     }
 
-    protected function http_post($data) {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->service_url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        $response = curl_exec($ch);
-        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-        if (($code < 200) || ($code >= 400)) return false;
-        return $response;
+    protected function http_post($data)
+    {
+        $request = new HTTPClient($this->service_url);
+        return $request->post($data);
     }
 
-    protected function http_get($url) {
-        $encoded_url = urlencode($url);
-        return file_get_contents("{$this->service_url}$encoded_url");
+    protected function http_get($url)
+    {
+        $service = $this->service_url . urlencode($url);
+        $request = new HTTPClient($service);
+        return $request->get();
     }
 
     protected function tidy($response) {
