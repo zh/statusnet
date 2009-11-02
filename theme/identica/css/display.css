@@ -115,7 +115,8 @@ opacity:0;
 .notice-options .notice_delete,
 #new_group a,
 .pagination .nav_prev a,
-.pagination .nav_next a {
+.pagination .nav_next a,
+button.close {
 background-image:url(../../base/images/icons/icons-01.png);
 background-repeat:no-repeat;
 background-color:transparent;
@@ -167,10 +168,7 @@ background-color:#EFF3DC;
 }
 
 button.close {
-background-image:url(../../base/images/icons/twotone/green/x.gif);
-background-repeat:no-repeat;
-background-position:0 47%;
-background-color:transparent;
+background-position:0 -1120px;
 }
 
 #anon_notice {
