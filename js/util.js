@@ -287,10 +287,10 @@ var SN = { // StatusNet
                     replyto = '@' + nick + ' ';
                     text.val(replyto + text.val().replace(RegExp(replyto, 'i'), ''));
                     $('#'+SN.C.S.FormNotice+' input#'+SN.C.S.NoticeInReplyTo).val(id);
-                    if (text.get(0).setSelectionRange) {
+                    if (text[0].setSelectionRange) {
                         var len = text.val().length;
-                        text.get(0).setSelectionRange(len,len);
-                        text.get(0).focus();
+                        text[0].setSelectionRange(len,len);
+                        text[0].focus();
                     }
                     return false;
                 }
@@ -369,7 +369,7 @@ var SN = { // StatusNet
                 var NDMF = $('.entity_send-a-message form');
                 if (NDMF.length == 0) {
                     $.get(NDM.attr('href'), null, function(data) {
-                        $('.entity_send-a-message').append(document._importNode($('form', data).get(0), true));
+                        $('.entity_send-a-message').append(document._importNode($('form', data)[0], true));
                         NDMF = $('.entity_send-a-message .form_notice');
                         SN.U.FormNoticeEnhancements(NDMF);
                         NDMF.append('<button class="close">&#215;</button>');
