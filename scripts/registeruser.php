@@ -24,8 +24,8 @@ $shortoptions = 'n:w:f:e:';
 $longoptions = array('nickname=', 'password=', 'fullname=', 'email=');
 
 $helptext = <<<END_OF_REGISTERUSER_HELP
-deleteuser.php [options]
-deletes a user from the database
+registeruser.php [options]
+registers a user in the database
 
   -n --nickname nickname of the new user
   -w --password password of the new user
