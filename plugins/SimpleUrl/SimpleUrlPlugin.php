@@ -65,6 +65,15 @@ class SimpleUrlPlugin extends Plugin
 class SimpleUrl extends ShortUrlApi
 {
     protected function shorten_imp($url) {
-        return $this->http_get($url);
+        $curlh = curl_init();
+        curl_setopt($curlh, CURLOPT_CONNECTTIMEOUT, 20); // # seconds to wait
+        curl_setopt($curlh, CURLOPT_USERAGENT, 'StatusNet');
+        curl_setopt($curlh, CURLOPT_RETURNTRANSFER, true);
+
+        curl_setopt($curlh, CURLOPT_URL, $this->service_url.urlencode($url));
+        $short_url = curl_exec($curlh);
+
+        curl_close($curlh);
+        return $short_url;
     }
 }

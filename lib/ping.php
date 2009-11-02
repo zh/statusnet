@@ -44,18 +44,20 @@ function ping_broadcast_notice($notice) {
 																array('nickname' => $profile->nickname)),
 											   $tags));
 
-            $request = new HTTPClient($notify_url, HTTP_Request2::METHOD_POST);
-            $request->setHeader('Content-Type', 'text/xml');
-            $request->setBody($req);
-            $httpResponse = $request->send();
+            $context = stream_context_create(array('http' => array('method' => "POST",
+                                                                   'header' =>
+                                                                   "Content-Type: text/xml\r\n".
+                                                                   "User-Agent: StatusNet/".STATUSNET_VERSION."\r\n",
+                                                                   'content' => $req)));
+            $file = file_get_contents($notify_url, false, $context);
 
-            if (!$httpResponse || mb_strlen($httpResponse->getBody()) == 0) {
+            if ($file === false || mb_strlen($file) == 0) {
                 common_log(LOG_WARNING,
                            "XML-RPC empty results for ping ($notify_url, $notice->id) ");
                 continue;
             }
 
-            $response = xmlrpc_decode($httpResponse->getBody());
+            $response = xmlrpc_decode($file);
 
             if (is_array($response) && xmlrpc_is_fault($response)) {
                 common_log(LOG_WARNING,

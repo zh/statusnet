@@ -43,7 +43,7 @@ require_once 'OAuth.php';
  * @link     http://status.net/
  *
  */
-class OAuthClientException extends Exception
+class OAuthClientCurlException extends Exception
 {
 }
 
@@ -97,14 +97,9 @@ class OAuthClient
     function getRequestToken($url)
     {
         $response = $this->oAuthGet($url);
-        $arr = array();
-        parse_str($response, $arr);
-        if (isset($arr['oauth_token']) && isset($arr['oauth_token_secret'])) {
-            $token = new OAuthToken($arr['oauth_token'], @$arr['oauth_token_secret']);
-            return $token;
-        } else {
-            throw new OAuthClientException();
-        }
+        parse_str($response);
+        $token = new OAuthToken($oauth_token, $oauth_token_secret);
+        return $token;
     }
 
     /**
@@ -182,7 +177,7 @@ class OAuthClient
     }
 
     /**
-     * Make a HTTP request.
+     * Make a HTTP request using cURL.
      *
      * @param string $url    Where to make the
      * @param array  $params post parameters
@@ -191,32 +186,40 @@ class OAuthClient
      */
     function httpRequest($url, $params = null)
     {
-        $request = new HTTPClient($url);
-        $request->setConfig(array(
-            'connect_timeout' => 120,
-            'timeout' => 120,
-            'follow_redirects' => true,
-            'ssl_verify_peer' => false,
-        ));
+        $options = array(
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FAILONERROR    => true,
+            CURLOPT_HEADER         => false,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_USERAGENT      => 'StatusNet',
+            CURLOPT_CONNECTTIMEOUT => 120,
+            CURLOPT_TIMEOUT        => 120,
+            CURLOPT_HTTPAUTH       => CURLAUTH_ANY,
+            CURLOPT_SSL_VERIFYPEER => false,
 
-        // Twitter is strict about accepting invalid "Expect" headers
-        $request->setHeader('Expect', '');
+            // Twitter is strict about accepting invalid "Expect" headers
+
+            CURLOPT_HTTPHEADER => array('Expect:')
+        );
 
         if (isset($params)) {
-            $request->setMethod(HTTP_Request2::METHOD_POST);
-            $request->setBody($params);
+            $options[CURLOPT_POST]       = true;
+            $options[CURLOPT_POSTFIELDS] = $params;
         }
 
-        try {
-            $response = $request->send();
-            $code = $response->getStatus();
-            if ($code < 200 || $code >= 400) {
-                throw new OAuthClientException($response->getBody(), $code);
-            }
-            return $response->getBody();
-        } catch (Exception $e) {
-            throw new OAuthClientException($e->getMessage(), $e->getCode());
+        $ch = curl_init($url);
+        curl_setopt_array($ch, $options);
+        $response = curl_exec($ch);
+
+        if ($response === false) {
+            $msg  = curl_error($ch);
+            $code = curl_errno($ch);
+            throw new OAuthClientCurlException($msg, $code);
         }
+
+        curl_close($ch);
+
+        return $response;
     }
 
 }
