@@ -128,9 +128,20 @@ class UserFlagPlugin extends Plugin
 
         if (!empty($user)) {
 
-            $form = new FlagProfileForm($action, $profile);
+            $action->elementStart('li', 'entity_flag');
 
-            $form->show();
+            if (User_flag_profile::exists($profile->id, $user->id,
+                                          Profile_flag::DEFAULTFLAG)) {
+                $action->element('span',
+                                 _('Flagged for review'));
+            } else {
+                $form = new FlagProfileForm($action, $profile,
+                                        array('action' => 'showstream',
+                                              'nickname' => $profile->nickname));
+                $form->show();
+            }
+
+            $action->elementEnd('li');
         }
 
         return true;

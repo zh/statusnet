@@ -57,4 +57,12 @@ class User_flag_profile extends Memcached_DataObject
     {
         return Memcached_DataObject::pkeyGet('User_flag_profile', $kv);
     }
+
+    static function exists($profile_id, $user_id, $flag)
+    {
+        $ufp = User_flag_profile::pkeyGet(array('profile_id' => $profile_id,
+                                                'user_id' => $user_id));
+
+        return !empty($ufp);
+    }
 }

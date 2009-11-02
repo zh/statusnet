@@ -131,6 +131,7 @@ class FlagProfileForm extends Form
         $this->out->hidden('flagprofileto-' . $this->profile->id,
                            $this->profile->id,
                            'flagprofileto');
+
         if ($this->args) {
             foreach ($this->args as $k => $v) {
                 $this->out->hidden('returnto-' . $k, $v);

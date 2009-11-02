@@ -39,6 +39,8 @@ class Profile_flag extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
+    const DEFAULTFLAG = 'review'; // default flag
+
     function table() {
         return array(
                      'flag'      => DB_DATAOBJECT_STR,

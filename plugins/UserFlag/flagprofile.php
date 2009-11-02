@@ -44,6 +44,7 @@ if (!defined('STATUSNET')) {
 class FlagprofileAction extends Action
 {
     var $profile = null;
+    var $flag    = null;
 
     /**
      * Take arguments for running
@@ -55,8 +56,47 @@ class FlagprofileAction extends Action
 
     function prepare($args)
     {
+        parent::prepare($args);
+
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             throw new ClientException(_('Action only accepts POST'));
+        }
+
+        if (!common_logged_in()) {
+            $this->clientError(_('Not logged in.'));
+            return false;
+        }
+
+        $id = $this->trimmed('flagprofileto');
+
+        if (!$id) {
+            $this->clientError(_('No profile specified.'));
+            return false;
+        }
+
+        $this->profile = Profile::staticGet('id', $id);
+
+        if (empty($this->profile)) {
+            $this->clientError(_('No profile with that ID.'));
+            return false;
+        }
+
+        $this->flag = $this->trimmed('flag');
+
+        if (empty($this->flag)) {
+            $this->flag = Profile_flag::DEFAULTFLAG;
+        }
+
+        $user = common_current_user();
+
+        assert(!empty($user)); // checked above
+
+        if (User_flag_profile::exists($this->profile->id,
+                                      $user->id,
+                                      $this->flag))
+        {
+            $this->clientError(_('Flag already exists.'));
+            return false;
         }
 
         return true;
@@ -90,6 +130,39 @@ class FlagprofileAction extends Action
 
     function flagProfile()
     {
+        $user = common_current_user();
+
+        assert(!empty($user));
+        assert(!empty($this->profile));
+        assert(!empty($this->flag));
+
+        $ufp = new User_flag_profile();
+
+        $ufp->profile_id = $this->profile->id;
+        $ufp->user_id    = $user->id;
+        $ufp->flag       = $this->flag;
+        $ufp->created    = common_sql_now();
+
+        if (!$ufp->insert()) {
+            throw new ServerException(sprintf(_("Couldn't flag profile '%s' with flag '%s'."),
+                                              $this->profile->nickname, $this->flag));
+        }
+
+        $ufp->free();
+    }
+
+    function returnTo()
+    {
+        // Now, gotta figure where we go back to
+        foreach ($this->args as $k => $v) {
+            if ($k == 'returnto-action') {
+                $action = $v;
+            } elseif (substr($k, 0, 9) == 'returnto-') {
+                $args[substr($k, 9)] = $v;
+            }
+        }
+
+        common_redirect(common_local_url($action, $args), 303);
     }
 }
 
