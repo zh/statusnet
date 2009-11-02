@@ -6,12 +6,12 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-02 10:50-0800\n"
-"PO-Revision-Date: 2009-04-01 16:09+0000\n"
-"Last-Translator: motherfuker <meelana@list.ru>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2009-10-12 12:17+0300\n"
+"Last-Translator: Andrey Paskal <apaskal@gmail.com>\n"
+"Language-Team: Russian <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -4385,9 +4385,7 @@ msgstr "Особые пользователи, страница %d"
 #: actions/featured.php:99
 #, php-format
 msgid "A selection of some of the great users on %s"
-msgstr ""
-"Список наиболее активных, знаменитых и уважаемых пользователей на %%%%site."
-"name%%%%"
+msgstr "Список наиболее активных, знаменитых и уважаемых пользователей на %s"
 
 #: actions/finishremotesubscribe.php:188 actions/finishremotesubscribe.php:96
 msgid "That user has blocked you from subscribing."
@@ -4476,10 +4474,7 @@ msgstr ""
 #: actions/imsettings.php:120
 #, php-format
 msgid "Jabber or GTalk address, "
-msgstr ""
-"Jabber или GTalk - адрес, типа \\\"UserName@example.org\\\". Первым делом "
-"убедитесь, что добавили %s в список Ваших корреспондентов на Вашем IM-"
-"мессенджере или в GTalk."
+msgstr "Jabber или GTalk - адрес, "
 
 #: actions/imsettings.php:147
 msgid "Send me replies through Jabber/GTalk "
@@ -4488,9 +4483,7 @@ msgstr "Посылать мне записи через Jabber/GTalk."
 #: actions/imsettings.php:321
 #, php-format
 msgid "A confirmation code was sent "
-msgstr ""
-"Код подтверждения выслан на ваш IM-адрес, который вы добавили. Вы должны "
-"подтвердить %s для рассылки сообщений вам."
+msgstr "Код подтверждения выслан "
 
 #: actions/joingroup.php:65 actions/joingroup.php:60
 msgid "You must be logged in to join a group."
@@ -4714,8 +4707,8 @@ msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
 "blogging) service "
 msgstr ""
-"Это сайт %%site.name%%, для [микроблогинга](http://en.wikipedia.org/wiki/"
-"Micro-blogging)"
+"%%site.name%% - это сайт для [микроблогинга](http://ru.wikipedia.org/wiki/"
+"Микроблоггинг)"
 
 #: actions/publictagcloud.php:57
 msgid "Public tag cloud"
@@ -4744,10 +4737,7 @@ msgstr ""
 
 #: actions/register.php:286
 msgid "With this form you can create "
-msgstr ""
-"При помощи этой формы вы можете создать новый %%site.name%% аккаунт. (Есть "
-"[OpenID](http://openid.net/) аккаунт? Тогда используй [OpenID регистрацию](%%"
-"action.openidlogin%%)!)"
+msgstr "При помощи этой формы вы можете создать "
 
 #: actions/register.php:368
 msgid "1-64 lowercase letters or numbers, "
@@ -4781,21 +4771,7 @@ msgstr ""
 #: actions/register.php:471
 #, php-format
 msgid "Congratulations, %s! And welcome to %%%%site.name%%%%. "
-msgstr ""
-"Наши поздравления, %s! И добро пожаловать на %%%%site.name%%%%. Здесь вы "
-"можете ...\n"
-"\n"
-"* Перейти на [ваш микроблог](%s) и запостить вашу первую запись.\n"
-"* Добавить ваш [Jabber/GTalk - аккаунт](%%%%action.imsettings%%%%) так что "
-"вы сможете после этого отправлять записи через мессенджеры.\n"
-"* [Искать людей](%%%%action.peoplesearch%%%%), которых вы возможно знаете "
-"или с которыми разделяете одни и те же интересы.\n"
-"* Обновить ваши [профильные настройки](%%%%action.profilesettings%%%%) чтобы "
-"больше рассказать другим о себе.\n"
-"* Прочитать [документацию](%%%%doc.help%%%%) чтобы поподробнее узнать об "
-"особенностях данного вэб сервиса и о том как его использовать.\n"
-"Спасибо за то, что присоединились к нам и надеемся, что вы получите "
-"удовольствие от использования данного сервиса!"
+msgstr "Наши поздравления, %s! И добро пожаловать на %%%%site.name%%%%. "
 
 #: actions/register.php:495
 msgid "(You should receive a message by email "
@@ -4892,8 +4868,8 @@ msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
 "wikipedia.org/wiki/Micro-blogging) service "
 msgstr ""
-"Это сайт %%site.name%%, для [микроблогинга](http://en.wikipedia.org/wiki/"
-"Micro-blogging)"
+"**%s** - это группа пользователей на сайте %%%%site.name%%%%, для "
+"[микроблогинга](http://en.wikipedia.org/wiki/Micro-blogging)"
 
 #: actions/showmessage.php:98
 msgid "Only the sender and recipient "
@@ -4949,10 +4925,8 @@ msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
 "wikipedia.org/wiki/Micro-blogging) service "
 msgstr ""
-"**%s** имеет аккаунт на %%%%site.name%%%%, сервисе для [микроблогинга]"
-"(http://en.wikipedia.org/wiki/Micro-blogging). [Присоеденяйся](%%%%action."
-"register%%%%) и получи возможность быть всегда в курсе всего самого "
-"интересного в жизни **%s**. ([Читать больше](%%%%doc.help%%%%))"
+"**%s** зарегистрирован на %%%%site.name%%%%, сервисе для [микроблогинга]"
+"(http://en.wikipedia.org/wiki/Micro-blogging) "
 
 #: actions/smssettings.php:128
 msgid "Phone number, no punctuation or spaces, "
@@ -5005,7 +4979,7 @@ msgstr "Это пользователи, которые читают запис�
 #: actions/subscribers.php:67
 #, php-format
 msgid "These are the people who "
-msgstr "Это пользователи, которые читают записи %s."
+msgstr "Это пользователи, которые "
 
 #: actions/subscriptions.php:52
 #, php-format
@@ -5024,7 +4998,7 @@ msgstr "Это пользователи, записи которых читае�
 #: actions/subscriptions.php:69
 #, php-format
 msgid "These are the people whose "
-msgstr "Это пользователи, которые читают записи %s."
+msgstr "Это пользователи, которые "
 
 #: actions/subscriptions.php:122 actions/subscriptions.php:124
 #: actions/subscriptions.php:183 actions/subscriptions.php:194
@@ -5138,7 +5112,7 @@ msgstr ""
 #: actions/twittersettings.php:341
 #, php-format
 msgid "Unable to retrieve account information "
-msgstr "Не удаётся подтвердить данные по аккаунту от \"%s\" из Твитера."
+msgstr "Не удаётся подтвердить данные по аккаунту "
 
 #: actions/unblock.php:108 actions/groupunblock.php:128
 msgid "Error removing the block."
@@ -5432,7 +5406,7 @@ msgstr ""
 #: lib/mail.php:236
 #, php-format
 msgid "%1$s is now listening to "
-msgstr "%1$s теперь просматривает твои записи на %2$s."
+msgstr "%1$s теперь просматривает твои записи "
 
 #: lib/mail.php:254 lib/mail.php:253
 #, php-format
@@ -5588,7 +5562,7 @@ msgstr "Группы, в которых состоит %s"
 #: lib/action.php:440
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
-msgstr "В этой форме ты можешь пригласить друзей и коллег на этот сервис."
+msgstr "Пригласи друзей и коллег стать такими же как ты участниками %s"
 
 #: lib/subs.php:53 lib/subs.php:52
 msgid "User has blocked you."
@@ -5774,6 +5748,11 @@ msgid ""
 "tool. [Join now](%%action.register%%) to share notices about yourself with "
 "friends, family, and colleagues! ([Read more](%%doc.help%%))"
 msgstr ""
+"%%site.name%% - это сайт для [микроблогинга](http://ru.wikipedia.org/wiki/"
+"Микроблоггинг), созданный с использованием свободного программного "
+"обеспечения [StatusNet](http://status.net/). [Стань участником](%%action."
+"register%%), чтобы держать в курсе своих  событий  поклонников, друзей, "
+"родственников и коллег! ([Читать далее](%%doc.help%%))"
 
 #: actions/register.php:286 actions/register.php:329
 #, php-format
@@ -5782,6 +5761,10 @@ msgid ""
 "link up to friends and colleagues. (Have an [OpenID](http://openid.net/)? "
 "Try our [OpenID registration](%%action.openidlogin%%)!)"
 msgstr ""
+"При помощи этой формы вы можете создать новый аккаунт, чтобы публиковать "
+"короткие сообщения и устанавливать связи с друзьями и коллегами (Есть "
+"[OpenID](http://openid.net/) аккаунт? Тогда используй [OpenID регистрацию](%%"
+"action.openidlogin%%)!)"
 
 #: actions/register.php:432 actions/register.php:479 actions/register.php:489
 msgid "Creative Commons Attribution 3.0"
@@ -5812,6 +5795,12 @@ msgid ""
 "their life and interests. [Join now](%%%%action.register%%%%) to become part "
 "of this group and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
+"**%s** - это группа на сайте %%%%site.name%%%%, предоставляющем сервис "
+"[микроблогинга](http://ru.wikipedia.org/wiki/Микроблоггинг), созданный с "
+"использованием свободного программного обеспечения [StatusNet](http://status."
+"net/). Участники обмениваются короткими сообщениями о своих новостях. "
+"[Зарегистрируйся](%%%%action.register%%%%), чтобы стать участником группы и "
+"получить множество других возможностей! ([Читать далее](%%%%doc.help%%%%))"
 
 #: actions/showstream.php:147
 #, fuzzy
@@ -5869,6 +5858,12 @@ msgid ""
 "[StatusNet](http://status.net/) tool. [Join now](%%%%action.register%%%%) to "
 "follow **%s**'s notices and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
+"**%s** является зарегистрированным участником %%%%site.name%%%% - сайта для "
+"[микроблогинга](http://ru.wikipedia.org/wiki/Микроблоггинг), созданного с "
+"использованием свободного программного обеспечения [StatusNet](http://status."
+"net/). [Зарегистрируйся](%%%%action.register%%%%), чтобы всегда получать "
+"сообщения  участника **%s** и иметь доступ ко множеству других возможностей! "
+"([Читать далее](%%%%doc.help%%%%))"
 
 #: actions/smssettings.php:335 actions/smssettings.php:347
 #, fuzzy
@@ -6564,14 +6559,15 @@ msgid ""
 msgstr ""
 
 #: actions/public.php:245 actions/public.php:238
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
 "blogging) service based on the Free Software [StatusNet](http://status.net/) "
 "tool."
 msgstr ""
-"Это сайт %%site.name%%, для [микроблогинга](http://en.wikipedia.org/wiki/"
-"Micro-blogging)"
+"%%site.name%% - это сайт для [микроблогинга](http://ru.wikipedia.org/wiki/"
+"Микроблоггинг), созданный с использованием свободного программного "
+"обеспечения [StatusNet](http://status.net/)."
 
 #: actions/publictagcloud.php:69
 #, php-format
@@ -6690,15 +6686,17 @@ msgid "Notice feed for %s group (Atom)"
 msgstr "Лента записей от группы %s"
 
 #: actions/showgroup.php:446 actions/showgroup.php:454
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
 "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
 "[StatusNet](http://status.net/) tool. Its members share short messages about "
 "their life and interests. "
 msgstr ""
-"Это сайт %%site.name%%, для [микроблогинга](http://en.wikipedia.org/wiki/"
-"Micro-blogging)"
+"**%s** - это группа на сайте %%%%site.name%%%%, предоставляющем сервис "
+"[микроблогинга](http://ru.wikipedia.org/wiki/Микроблоггинг) , созданный с "
+"использованием свободного программного обеспечения [StatusNet](http://status."
+"net/). Участники обмениваются короткими сообщениями о своих новостях. "
 
 #: actions/showgroup.php:474 actions/showgroup.php:482
 #, fuzzy
@@ -6739,16 +6737,16 @@ msgid ""
 msgstr ""
 
 #: actions/showstream.php:393 actions/showstream.php:492
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
 "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
 "[StatusNet](http://status.net/) tool. "
 msgstr ""
-"**%s** имеет аккаунт на %%%%site.name%%%%, сервисе для [микроблогинга]"
-"(http://en.wikipedia.org/wiki/Micro-blogging). [Присоеденяйся](%%%%action."
-"register%%%%) и получи возможность быть всегда в курсе всего самого "
-"интересного в жизни **%s**. ([Читать больше](%%%%doc.help%%%%))"
+"**%s** является зарегистрированным участником %%%%site.name%%%% - сайта для "
+"[микроблогинга](http://ru.wikipedia.org/wiki/Микроблоггинг), созданного с "
+"использованием свободного программного обеспечения [StatusNet](http://status."
+"net/)."
 
 #: actions/subscribers.php:108
 msgid ""
@@ -7209,8 +7207,9 @@ msgid "groups on %s"
 msgstr "Действия группы"
 
 #: actions/apistatusesshow.php:138
+#, fuzzy
 msgid "Status deleted."
-msgstr ""
+msgstr "Аватар обновлён."
 
 #: actions/apistatusesupdate.php:132
 msgid "Unable to handle that much POST data!"
@@ -7336,10 +7335,13 @@ msgid "Bio is too long (max %d chars)."
 msgstr "Слишком длинное био (максимум 140 символов)."
 
 #: actions/register.php:336
+#, fuzzy
 msgid ""
 "With this form you can create  a new account. You can then post notices and "
 "link up to friends and colleagues. "
 msgstr ""
+"При помощи этой формы вы можете создать новый аккаунт, чтобы публиковать "
+"короткие сообщения и устанавливать связи с друзьями и коллегами."
 
 #: actions/remotesubscribe.php:168
 #, fuzzy
@@ -7358,19 +7360,19 @@ msgid "Couldn’t get a request token."
 msgstr "Не удаётся получить запрос."
 
 #: actions/replies.php:144
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 1.0)"
-msgstr ""
+msgstr "Лента записей для %s"
 
 #: actions/replies.php:151
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 2.0)"
-msgstr ""
+msgstr "Лента записей для %s"
 
 #: actions/replies.php:158
 #, fuzzy, php-format
 msgid "Replies feed for %s (Atom)"
-msgstr "Лента записей от группы %s"
+msgstr "Лента записей для %s"
 
 #: actions/repliesrss.php:72
 #, fuzzy, php-format
@@ -7380,17 +7382,17 @@ msgstr "Сообщение для %1$s на %2$s"
 #: actions/showfavorites.php:170
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
-msgstr "Лента любимых записей от %s"
+msgstr "Лента друзей %s"
 
 #: actions/showfavorites.php:177
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
-msgstr "Лента любимых записей от %s"
+msgstr "Лента друзей %s"
 
 #: actions/showfavorites.php:184
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (Atom)"
-msgstr "Лента любимых записей от %s"
+msgstr "Лента друзей %s"
 
 #: actions/showfavorites.php:211
 #, php-format
@@ -7403,7 +7405,7 @@ msgstr ""
 #: actions/showgroup.php:345
 #, fuzzy, php-format
 msgid "FOAF for %s group"
-msgstr "Группа %s"
+msgstr "Исходящие для %s"
 
 #: actions/shownotice.php:90
 #, fuzzy
@@ -7610,7 +7612,7 @@ msgstr "Опиши группу при помощи 140 символов"
 #: lib/jabber.php:192
 #, fuzzy, php-format
 msgid "notice id: %s"
-msgstr "Лента записей для %s"
+msgstr "Новая запись"
 
 #: lib/mail.php:554
 #, fuzzy, php-format
@@ -7670,12 +7672,99 @@ msgstr ""
 #: lib/mediafile.php:201 lib/mediafile.php:237
 #, fuzzy
 msgid "Could not determine file's mime-type!"
-msgstr "Не удаётся удалить любимую запись."
+msgstr "Не удаётся вернуть публичный поток."
 
 #: lib/oauthstore.php:345
 #, fuzzy
 msgid "Duplicate notice"
 msgstr "Удалить запись"
+
+#, fuzzy
+#~ msgid "OpenID is not available."
+#~ msgstr "Страница недоступна для того типа, который Вы задействовали."
+
+#~ msgid ""
+#~ "This is %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/"
+#~ "wiki/Micro-blogging) service based on the Free Software [StatusNet]"
+#~ "(http://status.net/) tool. [Join now](%%%%action.%s%%%%) to share notices "
+#~ "about yourself with friends, family, and colleagues! ([Read more](%%%%doc."
+#~ "help%%%%))"
+#~ msgstr ""
+#~ "Это %%%%site.name%%%% - сайт для [микроблогинга](http://ru.wikipedia.org/"
+#~ "wiki/Микроблоггинг) созданный с использованием свободного программного "
+#~ "обеспечения [StatusNet](http://status.net/). [Стань участником](%%%%"
+#~ "action.%s%%%%), чтобы держать в курсе своих  событий  поклонников, "
+#~ "друзей, родственников и коллег ! ([Читать далее](%%%%doc.help%%%%))"
+
+#, fuzzy
+#~ msgid ""
+#~ "To subscribe, you can [login](%%%%action.%s%%%%), or [register](%%%%"
+#~ "action.%s%%%%) a new  account. If you already have an account  on a "
+#~ "[compatible microblogging site](%%doc.openmublog%%),  enter your profile "
+#~ "URL below."
+#~ msgstr ""
+#~ "Чтобы подписаться, необходимо [авторизоваться](%%action.login%%) или "
+#~ "[зарегистрировать](%%action.register%%) новый аккаунт."
+
+#~ msgid ""
+#~ "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
+#~ "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
+#~ "[StatusNet](http://status.net/) tool. Its members share short messages "
+#~ "about their life and interests. [Join now](%%%%action.%s%%%%) to become "
+#~ "part of this group and many more! ([Read more](%%%%doc.help%%%%))"
+#~ msgstr ""
+#~ "**%s** - это группа на сайте %%%%site.name%%%%, предоставляющем сервис "
+#~ "[микроблогинга](http://ru.wikipedia.org/wiki/Микроблоггинг), созданный с "
+#~ "использованием свободного программного обеспечения [StatusNet](http://"
+#~ "status.net/). Участники обмениваются короткими сообщениями о своих "
+#~ "новостях. [Зарегистрируйся](%%%%action.%s%%%%), чтобы стать участником "
+#~ "группы и получить множество других возможностей! ([Читать далее](%%%%doc."
+#~ "help%%%%))"
+
+#~ msgid ""
+#~ "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
+#~ "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
+#~ "[StatusNet](http://status.net/) tool. [Join now](%%%%action.%s%%%%) to "
+#~ "follow **%s**'s notices and many more! ([Read more](%%%%doc.help%%%%))"
+#~ msgstr ""
+#~ "**%s** является зарегистрированным участником %%%%site.name%%%% - сайта "
+#~ "для [микроблогинга](http://ru.wikipedia.org/wiki/Микроблоггинг), "
+#~ "созданного с использованием свободного программного обеспечения "
+#~ "[StatusNet](http://status.net/). [Зарегистрируйся](%%%%action.%s%%%%), "
+#~ "чтобы всегда получать сообщения  участника **%s** и иметь доступ ко "
+#~ "множеству других возможностей! ([Читать далее](%%%%doc.help%%%%))"
+
+#, fuzzy
+#~ msgid "Members of %s group"
+#~ msgstr "Лента записей от группы %s"
+
+#, fuzzy
+#~ msgid "Members of %1$s on %2$s"
+#~ msgstr "Сообщение для %1$s на %2$s"
+
+#, fuzzy
+#~ msgid "Group not found"
+#~ msgstr "Пользователь не найден."
+
+#, fuzzy
+#~ msgid "User not found"
+#~ msgstr "Пользователь не найден."
+
+#, fuzzy
+#~ msgid "Couldn't link your Twitter account."
+#~ msgstr "Это не ваш аккаунт на Твиттере."
+
+#, fuzzy
+#~ msgid "Twitter is not available."
+#~ msgstr "Страница недоступна для того типа, который Вы задействовали."
+
+#, fuzzy
+#~ msgid "Twitter account"
+#~ msgstr "Твиттер аккаунт"
+
+#, fuzzy
+#~ msgid "Connected Twitter account"
+#~ msgstr "Соединить с существующей записью"
 
 #~ msgid "Code not yet ready."
 #~ msgstr "Код ещё не готов."
