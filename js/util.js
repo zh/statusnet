@@ -97,11 +97,11 @@ var SN = { // StatusNet
 
         SubmitOnReturn: function(event, el) {
             if (event.keyCode == 13 || event.keyCode == 10) {
+                $('#'+el[0].id+' #'+SN.C.S.NoticeDataText).blur();
+                $('body').focus();
                 el.submit();
                 event.preventDefault();
                 event.stopPropagation();
-                $('#'+el[0].id+' #'+SN.U.NoticeDataText).blur();
-                $('body').focus();
                 return false;
             }
             return true;
