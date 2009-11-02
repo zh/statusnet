@@ -422,7 +422,7 @@ function common_render_text($text)
 function common_replace_urls_callback($text, $callback, $notice_id = null) {
     // Start off with a regex
     $regex = '#'.
-    '(?:^|[\s\(\)\[\]\{\}\\\'\\\";]+)(?![\@\!\#])'.
+    '(?:^|[\s\<\>\(\)\[\]\{\}\\\'\\\";]+)(?![\@\!\#])'.
     '('.
         '(?:'.
             '(?:'. //Known protocols
@@ -480,6 +480,10 @@ function callback_helper($matches, $callback, $notice_id) {
         array(
             'left'=>'{',
             'right'=>'}'
+        ),
+        array(
+            'left'=>'<',
+            'right'=>'>'
         )
     );
     $cannotEndWith=array('.','?',',','#');
