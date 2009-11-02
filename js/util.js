@@ -53,6 +53,8 @@ var SN = { // StatusNet
     U: { // Utils
         FormNoticeEnhancements: function(form) {
             form_id = form.attr('id');
+            $('#'+form_id+' #'+SN.C.S.NoticeDataText).unbind('keyup');
+            $('#'+form_id+' #'+SN.C.S.NoticeDataText).unbind('keydown');
             if (maxLength > 0) {
                 $('#'+form_id+' #'+SN.C.S.NoticeDataText).bind('keyup', function(e) {
                     SN.U.Counter(form);
@@ -68,8 +70,6 @@ var SN = { // StatusNet
             if($('body')[0].id != 'conversation') {
                 $('#'+form_id+' textarea').focus();
             }
-
-            SN.U.FormNoticeXHR(form);
         },
 
         SubmitOnReturn: function(event, el) {
@@ -190,7 +190,7 @@ var SN = { // StatusNet
                             }
                             else {
                                 $('#'+form_id+' #'+SN.C.S.NoticeDataText).val('');
-                                SN.U.FormNoticeEnhancements($('#'+SN.C.S.FormNotice));
+                                SN.U.FormNoticeEnhancements($('#'+form_id));
                             }
                         }
                     }
@@ -354,6 +354,7 @@ var SN = { // StatusNet
                     $.get(NDM.attr('href'), null, function(data) {
                         $('.entity_send-a-message').append(document._importNode($('form', data)[0], true));
                         NDMF = $('.entity_send-a-message .form_notice');
+                        SN.U.FormNoticeXHR(NDMF);
                         SN.U.FormNoticeEnhancements(NDMF);
                         NDMF.append('<button class="close">&#215;</button>');
                         $('.entity_send-a-message button').click(function(){
@@ -374,7 +375,10 @@ var SN = { // StatusNet
 
 $(document).ready(function(){
     if ($('body.user_in').length > 0) {
-        $('.'+SN.C.S.FormNotice).each(function() { SN.U.FormNoticeEnhancements($(this)); });
+        $('.'+SN.C.S.FormNotice).each(function() {
+            SN.U.FormNoticeXHR($(this));
+            SN.U.FormNoticeEnhancements($(this));
+        });
 
         $('.form_user_subscribe').each(function() { SN.U.FormXHR($(this)); });
         $('.form_user_unsubscribe').each(function() { SN.U.FormXHR($(this)); });
