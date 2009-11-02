@@ -152,6 +152,9 @@ class MediaFile
             throw new ClientException(_('The uploaded file was only' .
                 ' partially uploaded.'));
             return;
+        case UPLOAD_ERR_NO_FILE:
+            // No file; probably just a non-AJAX submission.
+            return;
         case UPLOAD_ERR_NO_TMP_DIR:
             throw new ClientException(_('Missing a temporary folder.'));
             return;
@@ -162,6 +165,8 @@ class MediaFile
             throw new ClientException(_('File upload stopped by extension.'));
             return;
         default:
+            common_log(LOG_ERR, __METHOD__ . ": Unknown upload error " .
+                $_FILES[$param]['error']);
             throw new ClientException(_('System error uploading file.'));
             return;
         }
