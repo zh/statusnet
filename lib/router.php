@@ -360,11 +360,6 @@ class Router
                               'id' => '[a-zA-Z0-9]+',
                               'format' => '(xml|json)'));
 
-            $m->connect('api/users/:method',
-                        array('action' => 'api',
-                              'apiaction' => 'users'),
-                        array('method' => 'show(\.(xml|json))?'));
-
             // direct messages
 
             $m->connect('api/direct_messages.:format',
@@ -459,13 +454,6 @@ class Router
                         array('action' => 'ApiFavoriteDestroy',
                               'id' => '[a-zA-Z0-9]+',
                               'format' => '(xml|json)'));
-
-            // notifications
-
-            $m->connect('api/notifications/:method/:argument',
-                        array('action' => 'api',
-                              'apiaction' => 'favorites'));
-
             // blocks
 
             $m->connect('api/blocks/create/:id.:format',
