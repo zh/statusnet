@@ -74,8 +74,8 @@ class GeonamesPlugin extends Plugin
 
         $result = $client->get('http://ws.geonames.org/search?'.$str);
 
-        if ($result->code == "200") {
-            $rj = json_decode($result->body);
+        if ($result->isOk()) {
+            $rj = json_decode($result->getBody());
             if (count($rj->geonames) > 0) {
                 $n = $rj->geonames[0];
 
@@ -121,9 +121,9 @@ class GeonamesPlugin extends Plugin
 
         $result = $client->get('http://ws.geonames.org/hierarchyJSON?'.$str);
 
-        if ($result->code == "200") {
+        if ($result->isOk()) {
 
-            $rj = json_decode($result->body);
+            $rj = json_decode($result->getBody());
 
             if (count($rj->geonames) > 0) {
 
@@ -182,9 +182,9 @@ class GeonamesPlugin extends Plugin
         $result =
           $client->get('http://ws.geonames.org/findNearbyPlaceNameJSON?'.$str);
 
-        if ($result->code == "200") {
+        if ($result->isOk()) {
 
-            $rj = json_decode($result->body);
+            $rj = json_decode($result->getBody());
 
             if (count($rj->geonames) > 0) {
 
@@ -249,9 +249,9 @@ class GeonamesPlugin extends Plugin
 
         $result = $client->get('http://ws.geonames.org/hierarchyJSON?'.$str);
 
-        if ($result->code == "200") {
+        if ($result->isOk()) {
 
-            $rj = json_decode($result->body);
+            $rj = json_decode($result->getBody());
 
             if (count($rj->geonames) > 0) {
 

@@ -58,7 +58,10 @@ class LilUrl extends ShortUrlApi
         $y = @simplexml_load_string($response);
         if (!isset($y->body)) return $url;
         $x = $y->body->p[0]->a->attributes();
-        if (isset($x['href'])) return $x['href'];
+        if (isset($x['href'])) {
+            common_log(LOG_INFO, __CLASS__ . ": shortened $url to $x[href]");
+            return $x['href'];
+        }
         return $url;
     }
 }

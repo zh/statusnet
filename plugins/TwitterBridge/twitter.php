@@ -215,7 +215,7 @@ function broadcast_basicauth($notice, $flink)
 
     try {
         $status = $client->statusesUpdate($statustxt);
-    } catch (BasicAuthCurlException $e) {
+    } catch (HTTP_Request2_Exception $e) {
         return process_error($e, $flink);
     }
 

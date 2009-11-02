@@ -32,26 +32,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 }
 
 /**
- * Exception wrapper for cURL errors
- *
- * @category Integration
- * @package  StatusNet
- * @author Adrian Lang <mail@adrianlang.de>
- * @author Brenda Wallace <shiny@cpan.org>
- * @author Craig Andrews <candrews@integralblue.com>
- * @author Dan Moore <dan@moore.cx>
- * @author Evan Prodromou <evan@status.net>
- * @author mEDI <medi@milaro.net>
- * @author Sarven Capadisli <csarven@status.net>
- * @author Zach Copley <zach@status.net> * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://status.net/
- *
- */
-class BasicAuthCurlException extends Exception
-{
-}
-
-/**
  * Class for talking to the Twitter API with HTTP Basic Auth.
  *
  * @category Integration
@@ -198,45 +178,27 @@ class TwitterBasicAuthClient
      */
     function httpRequest($url, $params = null, $auth = true)
     {
-        $options = array(
-                         CURLOPT_RETURNTRANSFER => true,
-                         CURLOPT_FAILONERROR    => true,
-                         CURLOPT_HEADER         => false,
-                         CURLOPT_FOLLOWLOCATION => true,
-                         CURLOPT_USERAGENT      => 'StatusNet',
-                         CURLOPT_CONNECTTIMEOUT => 120,
-                         CURLOPT_TIMEOUT        => 120,
-                         CURLOPT_HTTPAUTH       => CURLAUTH_ANY,
-                         CURLOPT_SSL_VERIFYPEER => false,
-
-                         // Twitter is strict about accepting invalid "Expect" headers
-
-                         CURLOPT_HTTPHEADER => array('Expect:')
-                         );
-
-        if (isset($params)) {
-            $options[CURLOPT_POST]       = true;
-            $options[CURLOPT_POSTFIELDS] = $params;
-        }
+        $request = HTTPClient::start();
+        $request->setConfig(array(
+            'follow_redirects' => true,
+            'connect_timeout' => 120,
+            'timeout' => 120,
+            'ssl_verifypeer' => false,
+        ));
 
         if ($auth) {
-            $options[CURLOPT_USERPWD] = $this->screen_name .
-              ':' . $this->password;
+            $request->setAuth($this->screen_name, $this->password);
         }
 
-        $ch = curl_init($url);
-        curl_setopt_array($ch, $options);
-        $response = curl_exec($ch);
-
-        if ($response === false) {
-            $msg  = curl_error($ch);
-            $code = curl_errno($ch);
-            throw new BasicAuthCurlException($msg, $code);
+        if (isset($params)) {
+            // Twitter is strict about accepting invalid "Expect" headers
+            $headers = array('Expect:');
+            $response = $request->post($url, $headers, $params);
+        } else {
+            $response = $request->get($url);
         }
 
-        curl_close($ch);
-
-        return $response;
+        return $response->getBody();
     }
 
 }
