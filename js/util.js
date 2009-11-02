@@ -97,11 +97,11 @@ var SN = { // StatusNet
 
         SubmitOnReturn: function(event, el) {
             if (event.keyCode == 13 || event.keyCode == 10) {
-                $('#'+el[0].id+' #'+SN.C.S.NoticeDataText).blur();
-                $('body').focus();
                 el.submit();
                 event.preventDefault();
                 event.stopPropagation();
+                $('#'+el[0].id+' #'+SN.C.S.NoticeDataText).blur();
+                $('body').focus();
                 return false;
             }
             return true;
@@ -213,7 +213,7 @@ var SN = { // StatusNet
                             }
                             else {
                                 $('#'+form_id+' #'+SN.C.S.NoticeDataText).val('');
-                                SN.U.NoticeFormEnhancements($('#'+SN.C.S.FormNotice));
+                                SN.U.FormNoticeEnhancements($('#'+SN.C.S.FormNotice));
                             }
                         }
                     }
