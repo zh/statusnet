@@ -1,3 +1,6 @@
+# Translation of StatusNet to Ukrainian
+#
+# --
 # #-#-#-#-#  statusnet.new.pot (PACKAGE VERSION)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -6,18 +9,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-02 10:50-0800\n"
-"PO-Revision-Date: 2009-03-12 16:19+0000\n"
-"Last-Translator: Evan Prodromou <evan@status.net>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
+"PO-Revision-Date: 2009-11-03 19:59:57+0000\n"
+"Language-Team: Ukrainian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.1.0\n"
-"X-Poedit-Language: Ukrainian\n"
-"X-Poedit-Country: UKRAINE\n"
+"X-Generator: MediaWiki 1.16alpha(r58495); Translate extension (2009-08-03)\n"
+"X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
+"X-Language-Code: uk\n"
+"X-Message-Group: out-statusnet\n"
 
 #: ../actions/noticesearchrss.php:64 actions/noticesearchrss.php:68
 #: actions/noticesearchrss.php:88 actions/noticesearchrss.php:89
@@ -1368,7 +1370,6 @@ msgstr "Мова"
 msgid "Language is too long (max 50 chars)."
 msgstr "Мова задовга (50 знаків максимум)"
 
-# "Місцезнаходження", як на мене забагато літер. "Локація" - не менш вживане в українській мові слово.
 #: ../actions/profilesettings.php:52 ../actions/register.php:173
 #: actions/profilesettings.php:85 actions/register.php:187
 #: actions/profilesettings.php:117 actions/register.php:408
@@ -1819,7 +1820,6 @@ msgstr "Це не зареєстрований користувач."
 msgid "Not a supported data format."
 msgstr "Такий формат даних не підтримується."
 
-# "Invalid" та "Not a valid" я умовно поставив знак рівняння між ними, тому перекладаю як "недійсний", замість "не дійсний". Це не помилка.
 #: ../actions/imsettings.php:167 actions/imsettings.php:175
 #: actions/imsettings.php:290 actions/imsettings.php:296
 msgid "Not a valid Jabber ID"
@@ -2419,7 +2419,6 @@ msgstr ""
 msgid "Select a carrier"
 msgstr "Оберіть оператора"
 
-# Слово "Надіслати" у вузьку рамку веб-форми відправлення повідомлень на сайті не втискається. Гадаю "Так!" цілком прийнятний замінник.
 #: ../actions/invite.php:137 ../lib/util.php:1172 actions/invite.php:145
 #: lib/util.php:1306 lib/util.php:1731 actions/invite.php:182
 #: lib/messageform.php:167 lib/noticeform.php:177 actions/invite.php:189
@@ -5534,8 +5533,6 @@ msgstr "Групи користувачів"
 msgid "Recent tags"
 msgstr "Нові теги"
 
-# ПОСТАТЬ - Видатна особа, визначний представник кого-, чого-небудь.
-# "Featured" перекласти одним словом, так щоб втислося в таб на головній сторінці, важко. На мою думку "Постаті", тобто користувачі, які варті уваги - цілком прийнятний замінник.
 #: lib/publicgroupnav.php:86 lib/publicgroupnav.php:88
 msgid "Featured"
 msgstr "Постаті"
@@ -7667,40 +7664,3 @@ msgstr "Не можна видалити зі списку обраних."
 #, fuzzy
 msgid "Duplicate notice"
 msgstr "Видалити повідомлення"
-
-#, fuzzy
-#~ msgid "Delete my account"
-#~ msgstr "Створити новий рахунок"
-
-#, fuzzy
-#~ msgid "Check if you are sure you want to delete your account."
-#~ msgstr "Ви впевненні, що бажаєте видалити це повідомлення?"
-
-#, fuzzy
-#~ msgid "Showing recently popular notices"
-#~ msgstr "Знайти зміст повідомлення"
-
-#~ msgid " by "
-#~ msgstr "від"
-
-#~ msgid "%1$s Notices recently tagged with %2$s"
-#~ msgstr "%1$s Повідомлення щойно позначені з %2$s"
-
-#~ msgid "Error inserting notice"
-#~ msgstr "Помилка при додаванні повідомлення"
-
-#~ msgid ""
-#~ "If you've forgotten or lost your password, you can get a new one sent  "
-#~ "the email address you have stored  in your account."
-#~ msgstr ""
-#~ "Якщо ви забули, або загубили свій пароль, ви можете отримати новий на "
-#~ "електронну адресу, яку ви закріпили за своїм рахунком."
-
-#~ msgid "Last message posted: "
-#~ msgstr "Останнє повідомлення:"
-
-#~ msgid "Unsupported type"
-#~ msgstr "Тип не підтримується"
-
-#~ msgid "not a supported data format"
-#~ msgstr "формат даних не підтримується"

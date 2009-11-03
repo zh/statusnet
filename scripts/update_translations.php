@@ -43,8 +43,16 @@ $languages = get_all_languages();
 foreach ($languages as $language) {
 
     $code = $language['lang'];
-    $file_url = 'http://status.net/pootle/' . $code .
-        '/statusnet/LC_MESSAGES/statusnet.po';
+
+    // Fetch updates from TranslateWiki...
+    $twcode = str_replace('_', '-', strtolower($code)); // pt_BR -> pt-br
+    $file_url = 'http://translatewiki.net/w/i.php?' .
+        http_build_query(array(
+            'title' => 'Special:Translate',
+            'task' => 'export-to-file',
+            'group' => 'out-statusnet',
+            'language' => $twcode));
+
     $lcdir = INSTALLDIR . '/locale/' . $code;
     $msgdir = "$lcdir/LC_MESSAGES";
     $pofile = "$msgdir/statusnet.po";
@@ -72,7 +80,8 @@ foreach ($languages as $language) {
     if (sha1($new_file) != $existingSHA1 || !file_exists($mofile)) {
         echo "Updating ".$code."\n";
         file_put_contents($pofile, $new_file);
-        system(sprintf('msgmerge -U %s %s', $pofile, $statusnet_pot));
+        // --backup=off is workaround for Mac OS X fail
+        system(sprintf('msgmerge -U --backup=off %s %s', $pofile, $statusnet_pot));
         system(sprintf('msgfmt -f -o %s %s', $mofile, $pofile));
     } else {
         echo "Unchanged - ".$code."\n";

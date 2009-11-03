@@ -1,3 +1,7 @@
+# Translation of StatusNet to Russian
+#
+# Author@translatewiki.net: Александр Сигачёв
+# --
 # #-#-#-#-#  statusnet.new.pot (PACKAGE VERSION)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -9,15 +13,14 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-02 10:50-0800\n"
-"PO-Revision-Date: 2009-10-12 12:17+0300\n"
-"Last-Translator: Andrey Paskal <apaskal@gmail.com>\n"
-"Language-Team: Russian <LL@li.org>\n"
-"MIME-Version: 1.0\n"
+"PO-Revision-Date: 2009-11-03 19:59:30+0000\n"
+"Language-Team: Russian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.1.0\n"
-"X-Poedit-Language: Russian\n"
-"X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: MediaWiki 1.16alpha(r58495); Translate extension (2009-08-03)\n"
+"X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
+"X-Language-Code: ru\n"
+"X-Message-Group: out-statusnet\n"
 
 #: ../actions/noticesearchrss.php:64 actions/noticesearchrss.php:68
 #: actions/noticesearchrss.php:88 actions/noticesearchrss.php:89
@@ -123,7 +126,7 @@ msgstr ""
 #: actions/publicrss.php:90 actions/publicrss.php:89
 #, php-format
 msgid "%s Public Stream"
-msgstr "%s Публичная Лента"
+msgstr "%s публичная лента"
 
 #: ../actions/all.php:47 ../actions/allrss.php:60
 #: ../actions/twitapistatuses.php:238 ../lib/stream.php:51 actions/all.php:47
@@ -146,7 +149,7 @@ msgstr "%s и друзья"
 #: actions/publicrss.php:103
 #, php-format
 msgid "%s public timeline"
-msgstr "%s общая лента"
+msgstr "%s общая хронология"
 
 #: ../lib/mail.php:206 lib/mail.php:212 lib/mail.php:411 lib/mail.php:412
 #, php-format
@@ -176,8 +179,8 @@ msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
 msgstr ""
-"(Вам сразу же послано сообщение по электронной почте, с инструкциями по "
-"тому, как подтвердить свой электронный адрес.)"
+"(Вы должный получить письмо с описанием того, как подтвердить свой "
+"электронный адрес.)"
 
 #: ../lib/util.php:257 lib/util.php:273 lib/action.php:605 lib/action.php:702
 #: lib/action.php:752 lib/action.php:767
@@ -186,18 +189,18 @@ msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
 "broughtby%%](%%site.broughtbyurl%%). "
 msgstr ""
-"**%%site.name%%** это сервис микроблогинга созданный для Вас при помощи [%%"
-"site.broughtby%%](%%site.broughtbyurl%%). "
+"**%%site.name%%** — это сервис микроблогинга, созданный для вас при помощи [%"
+"%site.broughtby%%](%%site.broughtbyurl%%). "
 
 #: ../lib/util.php:259 lib/util.php:275 lib/action.php:607 lib/action.php:704
 #: lib/action.php:754 lib/action.php:769
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
-msgstr "**%%site.name%%** - сервис микроблогинга. "
+msgstr "**%%site.name%%** — сервис микроблогинга. "
 
 #: ../lib/util.php:274 lib/util.php:290
 msgid ". Contributors should be attributed by full name or nickname."
-msgstr ". Создатель определяется по полному имени или нику."
+msgstr ". Авторы должны определяться по полному имени или нику."
 
 #: ../actions/finishopenidlogin.php:73 ../actions/profilesettings.php:43
 #: actions/finishopenidlogin.php:79 actions/profilesettings.php:76
@@ -205,7 +208,7 @@ msgstr ". Создатель определяется по полному име
 #: lib/groupeditform.php:139 actions/finishopenidlogin.php:100
 #: lib/groupeditform.php:154 actions/profilesettings.php:108
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
-msgstr "1-64 латинских строчных букв или цифр, без пробелов"
+msgstr "1-64 латинских строчных буквы или цифры, без пробелов"
 
 #: ../actions/register.php:152 actions/register.php:166
 #: actions/register.php:368 actions/register.php:414 actions/register.php:418
@@ -236,8 +239,8 @@ msgid ""
 "A confirmation code was sent to the IM address you added. You must approve %"
 "s for sending messages to you."
 msgstr ""
-"Код подтверждения выслан на Ваш IM-адрес, который Вы добавили. Вы должны "
-"подтвердить %s для рассылки сообщений Вам."
+"Код подтверждения выслан на добавленный вами IM-адрес. Вы должны подтвердить "
+"%s для отправки вам сообщений."
 
 #: ../actions/emailsettings.php:213 actions/emailsettings.php:231
 #: actions/emailsettings.php:350 actions/emailsettings.php:358
@@ -245,18 +248,18 @@ msgid ""
 "A confirmation code was sent to the email address you added. Check your "
 "inbox (and spam box!) for the code and instructions on how to use it."
 msgstr ""
-"Код подтверждения выслан на электронный адрес, который Вы добавили. "
-"Просмотрите Вашу электронный почтовый ящик (и папку для спама тоже!) для "
-"нахождения этого кода и инструкций по его использованию."
+"Код подтверждения выслан на добавленный вами электронный адрес. Просмотрите "
+"папку входящей почты (а также папку спама!), чтобы найти этот кода и "
+"инструкции по его использованию."
 
 #: ../actions/smssettings.php:216 actions/smssettings.php:224
 msgid ""
 "A confirmation code was sent to the phone number you added. Check your inbox "
 "(and spam box!) for the code and instructions on how to use it."
 msgstr ""
-"Код подтверждения выслан на мобильный номер, который вы добавили.  "
-"Посмотрите Ваши входящие сообщения (и папку для спама тоже!) для нахождения "
-"этого кода и инструкций по его использованию."
+"Код подтверждения выслан на добавленный вами номер телефона. Посмотрите ваши "
+"входящие (а также папку спама!), чтобы найти этот код и инструкции по его "
+"использованию."
 
 #: ../actions/twitapiaccount.php:49 ../actions/twitapihelp.php:45
 #: ../actions/twitapistatuses.php:88 ../actions/twitapistatuses.php:259
@@ -398,7 +401,7 @@ msgstr "Все обновления для %s"
 #: actions/noticesearchrss.php:90 actions/noticesearchrss.php:91
 #, php-format
 msgid "All updates matching search term \"%s\""
-msgstr "Все обновления соответствующие поисковому термину \"%s\""
+msgstr "Все обновления, соответствующие поисковому запросу «%s»"
 
 #: ../actions/finishopenidlogin.php:29 ../actions/login.php:31
 #: ../actions/openidlogin.php:29 ../actions/register.php:30
@@ -424,14 +427,14 @@ msgstr "Вы уверены, что хотите удалить эту запи�
 #: actions/userauthorization.php:81 actions/userauthorization.php:76
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
-msgstr "Авторизованная подписка"
+msgstr "Авторизовать подписку"
 
 #: ../actions/login.php:104 ../actions/register.php:178
 #: actions/register.php:192 actions/login.php:218 actions/openidlogin.php:117
 #: actions/register.php:416 actions/register.php:463 actions/login.php:226
 #: actions/register.php:473
 msgid "Automatically login in the future; not for shared computers!"
-msgstr "Автоматический повторный вход. Не для публичных компьютеров!"
+msgstr "Автоматическии входить в дальнейшем. Не для общедоступных компьютеров!"
 
 #: ../actions/profilesettings.php:65 actions/profilesettings.php:98
 #: actions/profilesettings.php:144 actions/profilesettings.php:145
@@ -461,9 +464,9 @@ msgid ""
 "Awaiting confirmation on this address. Check your Jabber/GTalk account for a "
 "message with further instructions. (Did you add %s to your buddy list?)"
 msgstr ""
-"В ожидании подтверждения этого адреса. Проверьте Ваш Jabber/GTalk - аккаунт "
-"на предмет сообщения с дальнейшими инструкциями. (Вы включили %s в Ваш "
-"контактный список?)"
+"В ожидании подтверждения этого адреса. Проверьте ваш Jabber/GTalk на предмет "
+"сообщения с дальнейшими инструкциями. (Вы включили %s в ваш список "
+"контактов?)"
 
 #: ../actions/emailsettings.php:54 actions/emailsettings.php:55
 #: actions/emailsettings.php:107 actions/emailsettings.php:113
@@ -509,7 +512,7 @@ msgstr "Не удаётся удалить эту запись."
 #: actions/updateprofile.php:123 actions/updateprofile.php:125
 #, php-format
 msgid "Can't read avatar URL '%s'"
-msgstr "Не удается прочитать URL аватары из '%s'"
+msgstr "Не удаётся прочитать URL аватары «%s»"
 
 #: ../actions/password.php:85 ../actions/recoverpassword.php:300
 #: actions/profilesettings.php:404 actions/recoverpassword.php:313
@@ -562,12 +565,12 @@ msgstr "Изменить пароль"
 #: ../lib/settingsaction.php:94 lib/accountsettingsaction.php:111
 #: lib/accountsettingsaction.php:115
 msgid "Change your password"
-msgstr "Изменить Ваш пароль"
+msgstr "Изменить ваш пароль"
 
 #: ../lib/settingsaction.php:85 lib/settingsaction.php:85
 #: lib/accountsettingsaction.php:105 lib/accountsettingsaction.php:109
 msgid "Change your profile settings"
-msgstr "Настройки Ваших установок профиля"
+msgstr "Изменить ваши настройки профиля"
 
 #: ../actions/password.php:43 ../actions/recoverpassword.php:181
 #: ../actions/register.php:155 ../actions/smssettings.php:65
@@ -626,21 +629,19 @@ msgid ""
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
 "Наши поздравления, %s! И добро пожаловать на %%%%site.name%%%%. Здесь вы "
-"можете ...\n"
+"можете…\n"
 "\n"
-"* Перейти на [ваш микроблог](%s) и запостить вашу первую запись.\n"
-"* Добавить ваш [Jabber/GTalk - аккаунт](%%%%action.imsettings%%%%) так что "
-"вы сможете после этого отправлять записи через мессенджеры.\n"
-"* [Искать людей](%%%%action.peoplesearch%%%%), которых вы возможно знаете "
+"* Перейти на [ваш микроблог](%s) и опубликовать вашу первую запись.\n"
+"* Добавить ваш [адрес Jabber/GTalk](%%%%action.imsettings%%%%), для "
+"возможности отправлять записи через мгновенные сообщения.\n"
+"* [Найти людей](%%%%action.peoplesearch%%%%), которых вы, возможно, знаете, "
 "или с которыми разделяете одни и те же интересы.\n"
-"* Не нашли друзей или знакомых? [Пригласите их](%%%%action.invite%%%%) на %%%"
-"%site.name%%%%, подпишитесь на них и будьте всегда в курсе.\n"
-"* Обновить ваши [профильные настройки](%%%%action.profilesettings%%%%) чтобы "
+"* Обновить ваши [настройки профиля](%%%%action.profilesettings%%%%), чтобы "
 "больше рассказать другим о себе.\n"
-"* Прочитать [документацию](%%%%doc.help%%%%) чтобы поподробнее узнать об "
-"особенностях данного вэб сервиса и о том как его использовать.\n"
+"* Прочитать [документацию](%%%%doc.help%%%%), чтобы узнать о возможностях, о "
+"которые вы можете не знать.\n"
 "\n"
-"Спасибо за то, что присоединились к нам и надеемся, что вы получите "
+"Спасибо за то, что присоединились к нам, надеемся, что вы получите "
 "удовольствие от использования данного сервиса!"
 
 #: ../actions/finishopenidlogin.php:91 actions/finishopenidlogin.php:97
@@ -680,7 +681,8 @@ msgstr "Не удается включить %s в список поддержк
 #: actions/apifriendshipscreate.php:109
 msgid "Could not follow user: User not found."
 msgstr ""
-"Не удаётся следовать пользователю, т.к. такого пользователя не существует."
+"Не удаётся следовать за пользователем, т. к. такого пользователя не "
+"существует."
 
 #: ../lib/openid.php:160 lib/openid.php:160 lib/openid.php:169
 #: lib/openid.php:172
@@ -700,7 +702,7 @@ msgstr "Не удаётся сохранить новую информацию �
 
 #: ../lib/subs.php:54 lib/subs.php:61 lib/subs.php:72 lib/subs.php:75
 msgid "Could not subscribe other to you."
-msgstr "Не удаётся подписать других на Вашу ленту."
+msgstr "Не удаётся подписать других на вашу ленту."
 
 #: ../lib/subs.php:46 lib/subs.php:46 lib/subs.php:57 lib/subs.php:56
 msgid "Could not subscribe."
@@ -815,7 +817,7 @@ msgstr "Создать нового пользователя с таким им�
 #: ../actions/finishopenidlogin.php:68 actions/finishopenidlogin.php:74
 #: actions/finishopenidlogin.php:96 actions/finishopenidlogin.php:95
 msgid "Create new account"
-msgstr "Создать новую учетную запись"
+msgstr "Создать новую учётную запись"
 
 #: ../actions/finishopenidlogin.php:191 actions/finishopenidlogin.php:197
 #: actions/finishopenidlogin.php:231 actions/finishopenidlogin.php:247
@@ -5995,7 +5997,7 @@ msgstr ""
 
 #: lib/dberroraction.php:60
 msgid "Database error"
-msgstr ""
+msgstr "Ошибка базы данных"
 
 #: lib/facebookaction.php:271 lib/facebookaction.php:273
 #, fuzzy, php-format
@@ -7678,123 +7680,3 @@ msgstr "Не удаётся вернуть публичный поток."
 #, fuzzy
 msgid "Duplicate notice"
 msgstr "Удалить запись"
-
-#, fuzzy
-#~ msgid "OpenID is not available."
-#~ msgstr "Страница недоступна для того типа, который Вы задействовали."
-
-#~ msgid ""
-#~ "This is %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/"
-#~ "wiki/Micro-blogging) service based on the Free Software [StatusNet]"
-#~ "(http://status.net/) tool. [Join now](%%%%action.%s%%%%) to share notices "
-#~ "about yourself with friends, family, and colleagues! ([Read more](%%%%doc."
-#~ "help%%%%))"
-#~ msgstr ""
-#~ "Это %%%%site.name%%%% - сайт для [микроблогинга](http://ru.wikipedia.org/"
-#~ "wiki/Микроблоггинг) созданный с использованием свободного программного "
-#~ "обеспечения [StatusNet](http://status.net/). [Стань участником](%%%%"
-#~ "action.%s%%%%), чтобы держать в курсе своих  событий  поклонников, "
-#~ "друзей, родственников и коллег ! ([Читать далее](%%%%doc.help%%%%))"
-
-#, fuzzy
-#~ msgid ""
-#~ "To subscribe, you can [login](%%%%action.%s%%%%), or [register](%%%%"
-#~ "action.%s%%%%) a new  account. If you already have an account  on a "
-#~ "[compatible microblogging site](%%doc.openmublog%%),  enter your profile "
-#~ "URL below."
-#~ msgstr ""
-#~ "Чтобы подписаться, необходимо [авторизоваться](%%action.login%%) или "
-#~ "[зарегистрировать](%%action.register%%) новый аккаунт."
-
-#~ msgid ""
-#~ "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
-#~ "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
-#~ "[StatusNet](http://status.net/) tool. Its members share short messages "
-#~ "about their life and interests. [Join now](%%%%action.%s%%%%) to become "
-#~ "part of this group and many more! ([Read more](%%%%doc.help%%%%))"
-#~ msgstr ""
-#~ "**%s** - это группа на сайте %%%%site.name%%%%, предоставляющем сервис "
-#~ "[микроблогинга](http://ru.wikipedia.org/wiki/Микроблоггинг), созданный с "
-#~ "использованием свободного программного обеспечения [StatusNet](http://"
-#~ "status.net/). Участники обмениваются короткими сообщениями о своих "
-#~ "новостях. [Зарегистрируйся](%%%%action.%s%%%%), чтобы стать участником "
-#~ "группы и получить множество других возможностей! ([Читать далее](%%%%doc."
-#~ "help%%%%))"
-
-#~ msgid ""
-#~ "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
-#~ "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
-#~ "[StatusNet](http://status.net/) tool. [Join now](%%%%action.%s%%%%) to "
-#~ "follow **%s**'s notices and many more! ([Read more](%%%%doc.help%%%%))"
-#~ msgstr ""
-#~ "**%s** является зарегистрированным участником %%%%site.name%%%% - сайта "
-#~ "для [микроблогинга](http://ru.wikipedia.org/wiki/Микроблоггинг), "
-#~ "созданного с использованием свободного программного обеспечения "
-#~ "[StatusNet](http://status.net/). [Зарегистрируйся](%%%%action.%s%%%%), "
-#~ "чтобы всегда получать сообщения  участника **%s** и иметь доступ ко "
-#~ "множеству других возможностей! ([Читать далее](%%%%doc.help%%%%))"
-
-#, fuzzy
-#~ msgid "Members of %s group"
-#~ msgstr "Лента записей от группы %s"
-
-#, fuzzy
-#~ msgid "Members of %1$s on %2$s"
-#~ msgstr "Сообщение для %1$s на %2$s"
-
-#, fuzzy
-#~ msgid "Group not found"
-#~ msgstr "Пользователь не найден."
-
-#, fuzzy
-#~ msgid "User not found"
-#~ msgstr "Пользователь не найден."
-
-#, fuzzy
-#~ msgid "Couldn't link your Twitter account."
-#~ msgstr "Это не ваш аккаунт на Твиттере."
-
-#, fuzzy
-#~ msgid "Twitter is not available."
-#~ msgstr "Страница недоступна для того типа, который Вы задействовали."
-
-#, fuzzy
-#~ msgid "Twitter account"
-#~ msgstr "Твиттер аккаунт"
-
-#, fuzzy
-#~ msgid "Connected Twitter account"
-#~ msgstr "Соединить с существующей записью"
-
-#~ msgid "Code not yet ready."
-#~ msgstr "Код ещё не готов."
-
-#~ msgid "Export and delete your user information."
-#~ msgstr "Экспорт и удаление Вашей пользовательской информации."
-
-#~ msgid "Delete my account"
-#~ msgstr "Удалить мой счёт"
-
-#~ msgid "Delete my account confirmation"
-#~ msgstr "Подтверждение удаления моего счёта"
-
-#~ msgid "Check if you are sure you want to delete your account."
-#~ msgstr "Пометьте, если уверены, что хотите удалить ваш счёт."
-
-#~ msgid "Showing recently popular notices"
-#~ msgstr "Показ последних популярных заметок"
-
-#~ msgid "Tag a person"
-#~ msgstr "Тег пользователя"
-
-#~ msgid "Icons"
-#~ msgstr "Иконки"
-
-#~ msgid ""
-#~ "Hey, %s.\n"
-#~ "\n"
-#~ "Someone just entered this email address on %s.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Привет, %s.\n"
-#~ "Кто-то добавил этот электронный адрес для %s."

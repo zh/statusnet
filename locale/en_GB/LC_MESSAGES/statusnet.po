@@ -1,3 +1,6 @@
+# Translation of StatusNet to British English
+#
+# --
 # #-#-#-#-#  statusnet.new.pot (PACKAGE VERSION)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -6,16 +9,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-02 10:50-0800\n"
-"PO-Revision-Date: 2009-05-21 01:42+0000\n"
-"Last-Translator: Bruce Cowan <l10n@bcowan.fastmail.co.uk>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
+"PO-Revision-Date: 2009-11-03 19:57:52+0000\n"
+"Language-Team: British English\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: MediaWiki 1.16alpha(r58495); Translate extension (2009-08-03)\n"
+"X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
+"X-Language-Code: en-gb\n"
+"X-Message-Group: out-statusnet\n"
 
 #: ../actions/noticesearchrss.php:64 actions/noticesearchrss.php:68
 #: actions/noticesearchrss.php:88 actions/noticesearchrss.php:89
@@ -23,7 +27,6 @@ msgstr ""
 msgid " Search Stream for \"%s\""
 msgstr " Search Stream for \"%s\""
 
-# Adjusted for grammar.
 #: ../actions/finishopenidlogin.php:82 ../actions/register.php:191
 #: actions/finishopenidlogin.php:88 actions/register.php:205
 #: actions/finishopenidlogin.php:110 actions/finishopenidlogin.php:109
@@ -485,7 +488,6 @@ msgstr "Avatar"
 msgid "Avatar updated."
 msgstr "Avatar updated."
 
-# Buddy?
 #: ../actions/imsettings.php:55 actions/imsettings.php:56
 #: actions/imsettings.php:108 actions/imsettings.php:114
 #, fuzzy, php-format
@@ -510,7 +512,6 @@ msgstr ""
 msgid "Awaiting confirmation on this phone number."
 msgstr "Awaiting confirmation on this phone number."
 
-#  erm, not sure what to do here, » is recognised as a quotation mark.
 #: ../lib/util.php:1318 lib/util.php:1452
 msgid "Before »"
 msgstr "Before »"
@@ -689,7 +690,6 @@ msgstr "Connect existing account"
 msgid "Contact"
 msgstr "Contact"
 
-#  Thought form was incorrect
 #: ../lib/openid.php:178 lib/openid.php:178 lib/openid.php:187
 #: lib/openid.php:190
 #, php-format
@@ -1016,13 +1016,11 @@ msgstr "Error saving user; invalid."
 msgid "Error setting user."
 msgstr "Error setting user."
 
-#  Added full stop
 #: ../actions/finishaddopenid.php:83 actions/finishaddopenid.php:83
 #: actions/finishaddopenid.php:131
 msgid "Error updating profile"
 msgstr "Error updating profile."
 
-#  Added full stop
 #: ../actions/finishremotesubscribe.php:161
 #: actions/finishremotesubscribe.php:163 actions/finishremotesubscribe.php:176
 #: actions/finishremotesubscribe.php:133 lib/oauthstore.php:306
@@ -1158,13 +1156,11 @@ msgstr "I want to post notices by e-mail."
 msgid "IM"
 msgstr "I.M."
 
-#  possibly use I.M.
 #: ../actions/imsettings.php:60 actions/imsettings.php:61
 #: actions/imsettings.php:118 actions/imsettings.php:124
 msgid "IM Address"
 msgstr "I.M. Address"
 
-#  requires full stops?
 #: ../actions/imsettings.php:33 actions/imsettings.php:33
 #: actions/imsettings.php:59
 msgid "IM Settings"
@@ -1187,7 +1183,6 @@ msgstr ""
 "If you want to add an OpenID to your account, enter it in the box below and "
 "click \"Add\"."
 
-# double space here
 #: ../actions/recoverpassword.php:137 actions/recoverpassword.php:152
 msgid ""
 "If you've forgotten or lost your password, you can get a new one sent to the "
@@ -1231,7 +1226,6 @@ msgstr ""
 "Instructions for recovering your password have been sent to the e-mail "
 "address registered to your account."
 
-#  Avatar?
 #: ../actions/updateprofile.php:114 actions/updateprofile.php:115
 #: actions/updateprofile.php:118 actions/updateprofile.php:120
 #, php-format
@@ -1266,7 +1260,6 @@ msgstr "Invalid notice content"
 msgid "Invalid notice uri"
 msgstr "Invalid notice URI"
 
-# URL case
 #: ../actions/postnotice.php:72 actions/postnotice.php:73
 #: actions/postnotice.php:77
 msgid "Invalid notice url"
@@ -1465,7 +1458,6 @@ msgstr "Member since"
 msgid "Microblog by %s"
 msgstr "Microblog by %s"
 
-# Carrier?
 #: ../actions/smssettings.php:304 actions/smssettings.php:464
 #: actions/smssettings.php:476
 #, fuzzy, php-format
@@ -1606,7 +1598,6 @@ msgstr "No Jabber ID."
 msgid "No authorization request!"
 msgstr "No authorisation request!"
 
-# Carrier?
 #: ../actions/smssettings.php:181 actions/smssettings.php:189
 #: actions/smssettings.php:299 actions/smssettings.php:311
 #, fuzzy
@@ -1823,7 +1814,6 @@ msgstr "Not a valid Jabber ID"
 msgid "Not a valid OpenID."
 msgstr "Not a valid OpenID."
 
-# Missing full stop, needs to merge with: actions/register.php:63 actions/register.php:70 actions/register.php:152
 #: ../actions/emailsettings.php:185 actions/emailsettings.php:203
 #: actions/emailsettings.php:315 actions/emailsettings.php:322
 #: actions/emailsettings.php:330
@@ -1905,7 +1895,6 @@ msgstr "Not found"
 msgid "Not logged in."
 msgstr "Not logged in."
 
-# removed full stop
 #: ../lib/subs.php:91 lib/subs.php:104 lib/subs.php:122 lib/subs.php:124
 msgid "Not subscribed!."
 msgstr "Not subscribed!"
@@ -2407,7 +2396,6 @@ msgstr ""
 "Search for people on %%site.name%% by their name, location, or interests. "
 "Separate the terms by spaces; they must be 3 characters or more."
 
-# Carrier?
 #: ../actions/smssettings.php:296 actions/smssettings.php:304
 #: actions/smssettings.php:457 actions/smssettings.php:469
 #, fuzzy
@@ -2440,7 +2428,6 @@ msgstr "Send me notices of new subscriptions through e-mail."
 msgid "Send me notices through Jabber/GTalk."
 msgstr "Send me notices through Jabber/GTalk."
 
-# Carrier
 #: ../actions/smssettings.php:97 actions/smssettings.php:97
 #: actions/smssettings.php:162 actions/smssettings.php:174
 #, fuzzy
@@ -2804,7 +2791,6 @@ msgstr "Timezone"
 msgid "Timezone not selected."
 msgstr "Timezone not selected."
 
-# double space.
 #: ../actions/remotesubscribe.php:43 actions/remotesubscribe.php:74
 #: actions/remotesubscribe.php:98
 #, php-format
@@ -3171,7 +3157,6 @@ msgstr ""
 "You will be notified when your invitees accept the invitation and register "
 "on the site. Thanks for growing the community!"
 
-# extra spaces.
 #: ../actions/recoverpassword.php:149 actions/recoverpassword.php:158
 msgid "You've been identified. Enter a  new password below. "
 msgstr "You've been identified. Enter a  new password below. "
@@ -3186,7 +3171,6 @@ msgstr "Your OpenID URL"
 msgid "Your nickname on this server, or your registered email address."
 msgstr "Your nickname on this server, or your registered e-mail address."
 
-# extra spaces.
 #: ../actions/openidsettings.php:28 actions/openidsettings.php:70
 #, php-format
 msgid ""
@@ -3279,7 +3263,6 @@ msgstr "same as password above"
 msgid "unsupported file type"
 msgstr "unsupported file type"
 
-#  erm, not sure what to do here, « is recognised as a quotation mark.
 #: ../lib/util.php:1309 lib/util.php:1443
 msgid "« After"
 msgstr "← After"
@@ -3398,7 +3381,6 @@ msgstr ""
 "%1$s has invited you to join them on %2$s (%3$s).\n"
 "\n"
 
-# extra space?
 #: actions/login.php:104 actions/login.php:235 actions/openidlogin.php:108
 #: actions/register.php:416
 msgid "Automatically login in the future; "
@@ -3597,7 +3579,6 @@ msgstr "Message from %1$s on %2$s"
 msgid "Send a message"
 msgstr "Send a message"
 
-# Carrier?
 #: actions/smssettings.php:312 actions/smssettings.php:464
 #, fuzzy, php-format
 msgid "Mobile carrier for your phone. "
@@ -4049,7 +4030,6 @@ msgstr "%s and friends, page %d"
 msgid "You can upload your personal avatar."
 msgstr "You can upload your personal avatar."
 
-#  requires full stops?
 #: actions/avatarsettings.php:117 actions/avatarsettings.php:191
 #: actions/grouplogo.php:250 actions/avatarsettings.php:119
 #: actions/avatarsettings.php:194 actions/grouplogo.php:256
@@ -4284,7 +4264,6 @@ msgstr "No notice content!"
 msgid "Pagination"
 msgstr "Pagination"
 
-#  erm, not sure what to do here, « is recognised as a quotation mark.
 #: actions/facebookhome.php:304 lib/action.php:879 lib/facebookaction.php:408
 #: actions/facebookhome.php:262 lib/action.php:982 lib/facebookaction.php:442
 #: actions/facebookhome.php:256 lib/action.php:1046 lib/facebookaction.php:444
@@ -4292,7 +4271,6 @@ msgstr "Pagination"
 msgid "After"
 msgstr "After"
 
-#  erm, not sure what to do here, » is recognised as a quotation mark.
 #: actions/facebookhome.php:312 lib/action.php:887 lib/facebookaction.php:416
 #: actions/facebookhome.php:270 lib/action.php:990 lib/facebookaction.php:450
 #: actions/facebookhome.php:264 lib/action.php:1054 lib/facebookaction.php:452
@@ -4544,7 +4522,6 @@ msgstr "You may not leave a group while you are its administrator."
 msgid "Could not find membership record."
 msgstr "Could not find membership record."
 
-#  Thought form was incorrect
 #: actions/leavegroup.php:138 actions/leavegroup.php:132
 #: actions/leavegroup.php:127 lib/command.php:284
 #, php-format
@@ -4625,7 +4602,6 @@ msgstr "OpenID login"
 msgid "Removing your only OpenID "
 msgstr "Removing your only OpenID "
 
-#  requires full stops?
 #: actions/othersettings.php:60
 msgid "Other Settings"
 msgstr "Other Settings"
@@ -4944,7 +4920,6 @@ msgstr "Send me notices through SMS; "
 msgid "A confirmation code was sent to the phone number you added. "
 msgstr "A confirmation code was sent to the phone number you added. "
 
-# Carrier?
 #: actions/smssettings.php:453 actions/smssettings.php:465
 #, fuzzy
 msgid "Mobile carrier"
@@ -5755,7 +5730,6 @@ msgstr ""
 msgid "Creative Commons Attribution 3.0"
 msgstr ""
 
-# Adjusted for grammar.
 #: actions/register.php:433 actions/register.php:480 actions/register.php:490
 #, fuzzy
 msgid ""
@@ -6490,7 +6464,6 @@ msgid ""
 "[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
 msgstr ""
 
-# extra spaces.
 #: actions/openidsettings.php:70
 #, fuzzy, php-format
 msgid ""
@@ -6561,7 +6534,6 @@ msgid ""
 "one!"
 msgstr ""
 
-# double space here
 #: actions/recoverpassword.php:152
 #, fuzzy
 msgid ""
@@ -6571,7 +6543,6 @@ msgstr ""
 "If you've forgotten or lost your password, you can get a new one sent to the "
 "e-mail address you have stored  in your account."
 
-# extra spaces.
 #: actions/recoverpassword.php:158
 #, fuzzy
 msgid "You've been identified. Enter a new password below. "
@@ -7159,7 +7130,6 @@ msgstr "Could not join user %s to group %s"
 msgid "You are not a member of this group."
 msgstr "You are not a member of that group."
 
-#  Thought form was incorrect
 #: actions/apigroupleave.php:124
 #, fuzzy, php-format
 msgid "Could not remove user %s to group %s."
@@ -7566,7 +7536,6 @@ msgstr ""
 msgid "Go to the installer."
 msgstr "Login to the site"
 
-# Carrier?
 #: lib/galleryaction.php:139
 #, fuzzy
 msgid "Select tag to filter"
@@ -7651,23 +7620,3 @@ msgstr "Could not delete favourite."
 #, fuzzy
 msgid "Duplicate notice"
 msgstr "Delete notice"
-
-#, fuzzy
-#~ msgid "Delete my account"
-#~ msgstr "Create new account"
-
-#~ msgid "Couldn't confirm email."
-#~ msgstr "Couldn’t confirm e-mail."
-
-#~ msgid "Email address"
-#~ msgstr "E-mail address"
-
-#~ msgid "Error inserting notice"
-#~ msgstr "Error inserting notice"
-
-#~ msgid ""
-#~ "If you've forgotten or lost your password, you can get a new one sent  "
-#~ "the email address you have stored  in your account."
-#~ msgstr ""
-#~ "If you’ve forgotten or lost your password, you can get a new one sent to "
-#~ "the e-mail address you have stored in your account."

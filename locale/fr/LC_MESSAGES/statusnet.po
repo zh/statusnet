@@ -1,3 +1,8 @@
+# Translation of StatusNet to French
+#
+# Author@translatewiki.net: IAlex
+# Author@translatewiki.net: Jean-Frédéric
+# --
 # #-#-#-#-#  statusnet-no-duplicates.po (0.43)  #-#-#-#-#
 # French translations for StatusNet package
 # Traductions françaises du paquet StatusNet.
@@ -16,17 +21,18 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-02 10:50-0800\n"
-"PO-Revision-Date: 2009-05-01 23:42+0000\n"
-"Last-Translator: Nicolas Ritoux <niko@vulusu.ca>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
+"PO-Revision-Date: 2009-11-03 19:58:13+0000\n"
+"Language-Team: French\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: MediaWiki 1.16alpha(r58495); Translate extension (2009-08-03)\n"
+"X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
+"X-Language-Code: fr\n"
+"X-Message-Group: out-statusnet\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 1.1.0\n"
 
 #: ../actions/noticesearchrss.php:64 actions/noticesearchrss.php:68
 #: actions/noticesearchrss.php:88 actions/noticesearchrss.php:89
@@ -34,7 +40,6 @@ msgstr ""
 msgid " Search Stream for \"%s\""
 msgstr " Flux de recherche pour « %s »"
 
-# à l'exception de ces données personnelles : mot de passe, adresse e-mail, adresse de messagerie instantanée, numéro de téléphone.
 #: ../actions/finishopenidlogin.php:82 ../actions/register.php:191
 #: actions/finishopenidlogin.php:88 actions/register.php:205
 #: actions/finishopenidlogin.php:110 actions/finishopenidlogin.php:109
@@ -900,10 +905,6 @@ msgstr "Erreur de base de donnée en insérant le hashtag : %s"
 msgid "DB error inserting reply: %s"
 msgstr "Erreur de base de donnée en insérant la réponse :%s"
 
-# De #-#-#-#-#  statusnet-no-duplicates.po (0.43)  #-#-#-#-#\n
-# Nouveau message\n
-# #-#-#-#-#  statusnet.new.pot (PACKAGE VERSION)  #-#-#-#-#\n
-# à "Supprimer l'avis"
 #: ../actions/deletenotice.php:41 actions/deletenotice.php:41
 #: actions/deletenotice.php:79 actions/deletenotice.php:111
 #: actions/deletenotice.php:109 actions/deletenotice.php:141
@@ -3559,7 +3560,6 @@ msgstr "Ce code de validation est périmé."
 msgid "If you've forgotten or lost your"
 msgstr "Si vous avez oublié ou perdu votre "
 
-# Entrez un : masculin ou féminin ? De quoi s'agit-il ? Contexte ?
 #: actions/recoverpassword.php:154 actions/recoverpassword.php:158
 msgid "You've been identified. Enter a "
 msgstr "Vous avez été identifié(e) avec succès. Entrez un "
@@ -3841,17 +3841,13 @@ msgstr "Préférences Twitter enregistrées avec succès."
 msgid "Please check these details to make sure "
 msgstr "Veuillez vérifier ces informations pour vous assurer que "
 
-# we are missing context here
 #: actions/userauthorization.php:324 actions/userauthorization.php:340
-#, fuzzy
 msgid "The subscription has been authorized, but no "
-msgstr "L'abonnement a été autorisé, mais pas "
+msgstr "L’abonnement a été autorisé, mais pas "
 
-# missing context
 #: actions/userauthorization.php:334 actions/userauthorization.php:351
-#, fuzzy
 msgid "The subscription has been rejected, but no "
-msgstr "L'abonnement a été refusé, mais pas "
+msgstr "L’abonnement a été refusé, mais pas "
 
 #: classes/Channel.php:113 classes/Channel.php:132 classes/Channel.php:151
 #: lib/channel.php:138 lib/channel.php:158
@@ -3942,7 +3938,6 @@ msgstr "Une erreur est survenue pendant l'envoi de votre message."
 msgid "Specify the name of the user to subscribe to"
 msgstr "Indiquez le nom de l'utilisateur auquel vous souhaitez vous abonner "
 
-# could it be plural?
 #: classes/Command.php:270 classes/Command.php:307 lib/command.php:307
 #: lib/command.php:300 lib/command.php:502
 #, php-format
@@ -4285,7 +4280,6 @@ msgstr "Vos options ont été enregistrées."
 msgid "Awaiting confirmation on this address. "
 msgstr "En attente de confirmation de cette adresse."
 
-# using the infinitive form here?
 #: actions/emailsettings.php:139 actions/smssettings.php:150
 msgid "Make a new email address for posting to; "
 msgstr "Créer une nouvelle adresse courriel pour publier vos statuts ; "
@@ -4299,11 +4293,9 @@ msgstr "Envoyez-moi un courriel quand quelqu'un "
 msgid "Allow friends to nudge me and send me an email."
 msgstr "Autoriser mes amis à m'envoyer des courriels et des clins d'oeil."
 
-# Missing context
 #: actions/emailsettings.php:321
-#, fuzzy
 msgid "That email address already belongs "
-msgstr "Cette adresse courriel appartient déjà "
+msgstr "Cette adresse électronique appartient déjà "
 
 #: actions/emailsettings.php:343
 msgid "A confirmation code was sent to the email address you added. "
@@ -4324,18 +4316,15 @@ msgstr ""
 msgid "Allow %s to update my Facebook status"
 msgstr "Autoriser %s à mettre à jour mon statut dans Facebook"
 
-# context???
 #: actions/facebookhome.php:218 actions/facebookhome.php:223
 #: actions/facebookhome.php:217
 msgid "Skip"
 msgstr "Sauter"
 
-# i originally put 'aucun statut!' here, but the original translation seems better
 #: actions/facebookhome.php:235 lib/facebookaction.php:479
 #: lib/facebookaction.php:471
-#, fuzzy
 msgid "No notice content!"
-msgstr "Statut sans contenu!"
+msgstr "Statut sans contenu !"
 
 #: actions/facebookhome.php:295 lib/action.php:870 lib/facebookaction.php:399
 #: actions/facebookhome.php:253 lib/action.php:973 lib/facebookaction.php:433
@@ -4519,7 +4508,6 @@ msgstr "Groupes"
 msgid "Groups, page %d"
 msgstr "Groupes - page %d"
 
-# missing context
 #: actions/groups.php:90
 #, php-format
 msgid "%%%%site.name%%%% groups let you find and talk with "
@@ -4543,13 +4531,10 @@ msgstr ""
 msgid "Group search"
 msgstr "Rechercher des groupes"
 
-# missing context
 #: actions/imsettings.php:70
-#, fuzzy
 msgid "You can send and receive notices through "
 msgstr "Vous pouvez publier et lire les statuts via "
 
-# missing context
 #: actions/imsettings.php:120
 #, php-format
 msgid "Jabber or GTalk address, "
@@ -4734,13 +4719,11 @@ msgstr "Modification du mot de passe"
 msgid "Not a valid people tag: %s"
 msgstr "Ce marquage est invalide : %s"
 
-# can it be plural?
 #: actions/peopletag.php:47 actions/peopletag.php:144
 #, php-format
 msgid "Users self-tagged with %s - page %d"
 msgstr "Utilisateurs marqués &s - page %d"
 
-# can it be plural?
 #: actions/peopletag.php:91
 #, php-format
 msgid "These are users who have tagged themselves \"%s\" "
@@ -4757,11 +4740,9 @@ msgid ""
 msgstr ""
 "Marquages (tags) pour votre profil, séparés par des virgules ou des espaces"
 
-# missing context
 #: actions/profilesettings.php:144
-#, fuzzy
 msgid "Automatically subscribe to whoever "
-msgstr "M'abonner automatiquement à quiconque "
+msgstr "M’abonner automatiquement à quiconque "
 
 #: actions/profilesettings.php:229 actions/tagother.php:176
 #: actions/tagother.php:178 actions/profilesettings.php:230
@@ -4816,49 +4797,40 @@ msgstr "Marquages "
 msgid "Sorry, only invited people can register."
 msgstr "Désolé ! Seules les personnes invitées peuvent s'inscrire."
 
-# missing context
 #: actions/register.php:149
 #, fuzzy
 msgid "You can't register if you don't "
 msgstr "Vous ne pouvez pas créer un compte si vous ne "
 
-# missing context
 #: actions/register.php:286
 #, fuzzy
 msgid "With this form you can create "
 msgstr "Ce formulaire permet de créer "
 
-# missing context
 #: actions/register.php:368
 #, fuzzy
 msgid "1-64 lowercase letters or numbers, "
 msgstr "1 à 64 lettres minuscules ou chiffres, "
 
-# missing context
 #: actions/register.php:382 actions/register.php:386
 #, fuzzy
 msgid "Used only for updates, announcements, "
 msgstr "Utilisé seulement pour les mises à jour, nouvelles du site, "
 
-# missing context
 #: actions/register.php:398
-#, fuzzy
 msgid "URL of your homepage, blog, "
 msgstr "URL de votre site Web, blogue, "
 
-# missing context
 #: actions/register.php:404
 #, fuzzy
 msgid "Describe yourself and your "
 msgstr "Décrivez qui vous êtes et vos "
 
-# missing context
 #: actions/register.php:410
 #, fuzzy
 msgid "Where you are, like \"City, "
 msgstr "Votre emplacement, ex.: \"Ville, "
 
-# missing context
 #: actions/register.php:432
 #, fuzzy
 msgid " except this private data: password, "
@@ -4869,7 +4841,6 @@ msgstr " à l'exception de ces données personnelles : mot de passe, "
 msgid "Congratulations, %s! And welcome to %%%%site.name%%%%. "
 msgstr "Félicitations, %s ! Bienvenue dans %%%%site.name%%%%. "
 
-# missing context
 #: actions/register.php:495
 #, fuzzy
 msgid "(You should receive a message by email "
@@ -4967,9 +4938,7 @@ msgstr ""
 "**%s** est un groupe d'utilisateurs du service de [micro-blogging](http://fr."
 "wikipedia.org/wiki/Microblog)  %%%%site.name%%%%"
 
-# is there another part to this sentence?
 #: actions/showmessage.php:98
-#, fuzzy
 msgid "Only the sender and recipient "
 msgstr "Expéditeur et destinataire seulement "
 
@@ -4978,7 +4947,6 @@ msgstr "Expéditeur et destinataire seulement "
 msgid "%s, page %d"
 msgstr "%s - page %d"
 
-# missing context
 #: actions/showstream.php:143
 #, fuzzy
 msgid "'s profile"
@@ -5028,13 +4996,10 @@ msgstr ""
 "**%s** est inscrit au service de [micro-blogging](http://fr.wikipedia.org/"
 "wiki/Microblog)  %%%%site.name%%%%"
 
-# missing context
 #: actions/smssettings.php:128
-#, fuzzy
 msgid "Phone number, no punctuation or spaces, "
 msgstr "Numéro de téléphone, sans ponctuation ni espace, "
 
-# missing context
 #: actions/smssettings.php:162
 #, fuzzy
 msgid "Send me notices through SMS; "
@@ -5061,11 +5026,9 @@ msgstr "Impossible d'enregistrer l'abonnement."
 msgid "Not a local user."
 msgstr "Ceci n'est pas un utilisateur local."
 
-# missing context?
 #: actions/subscribe.php:69
-#, fuzzy
 msgid "Subscribed"
-msgstr "Abonné"
+msgstr "Souscrit"
 
 #: actions/subscribers.php:50
 #, php-format
@@ -5077,13 +5040,11 @@ msgstr "Abonnés à %s"
 msgid "%s subscribers, page %d"
 msgstr "Abonnés à %s - page &d"
 
-# missing context
 #: actions/subscribers.php:63
 #, fuzzy
 msgid "These are the people who listen to "
 msgstr "Ces personnes suivent "
 
-# missing context
 #: actions/subscribers.php:67
 #, php-format
 msgid "These are the people who "
@@ -5099,13 +5060,11 @@ msgstr "Abonnements de %s"
 msgid "%s subscriptions, page %d"
 msgstr "Abonnements de %s - page %d"
 
-# missing context
 #: actions/subscriptions.php:65
 #, fuzzy
 msgid "These are the people whose notices "
 msgstr "Voici les personnes dont les messages "
 
-# missing context
 #: actions/subscriptions.php:69
 #, php-format
 msgid "These are the people whose "
@@ -5303,7 +5262,6 @@ msgstr "Rechercher des personnes ou du texte"
 msgid "Account"
 msgstr "Compte"
 
-# missing context
 #: lib/action.php:328 lib/action.php:399 lib/action.php:419 lib/action.php:432
 #, fuzzy
 msgid "Change your email, avatar, password, profile"
@@ -5341,7 +5299,6 @@ msgstr "Notice du site"
 msgid "Local views"
 msgstr "Vues locales"
 
-# missing context?
 #: lib/action.php:472 lib/action.php:559 lib/action.php:597 lib/action.php:612
 #, fuzzy
 msgid "Page notice"
@@ -5383,12 +5340,10 @@ msgstr "Retirer des favoris"
 msgid "To use the %s Facebook Application you need to login "
 msgstr "Vous devez ouvrir une session pour utiliser l'application Facebook %s"
 
-# missing context?
 #: lib/facebookaction.php:271 lib/facebookaction.php:273
 #: lib/facebookaction.php:275
-#, fuzzy
 msgid " a new account."
-msgstr " un nouveau compte."
+msgstr "  un nouveau compte."
 
 #: lib/facebookaction.php:557 lib/mailbox.php:214 lib/noticelist.php:354
 #: lib/facebookaction.php:675 lib/mailbox.php:216 lib/noticelist.php:357
@@ -5404,11 +5359,9 @@ msgstr "Ajouter aux favoris"
 msgid "Export data"
 msgstr "Exporter les données"
 
-# étiquettes ou marquages?
 #: lib/galleryaction.php:121
-#, fuzzy
 msgid "Filter tags"
-msgstr "Filtrer les étiquettes"
+msgstr "Filtrer les balises"
 
 #: lib/galleryaction.php:131
 msgid "All"
@@ -5483,7 +5436,6 @@ msgstr "Groupes avec le plus d'éléments publiés"
 msgid "Tags in %s group's notices"
 msgstr "Marquages des statuts du groupe %s"
 
-# missing context
 #: lib/htmloutputter.php:104
 #, fuzzy
 msgid "This page is not available in a "
@@ -5518,7 +5470,6 @@ msgstr ""
 "Bonjour, %s.\n"
 "\n"
 
-# missing context
 #: lib/mail.php:236
 #, php-format
 msgid "%1$s is now listening to "
@@ -5563,10 +5514,6 @@ msgstr "%1$s a ajouté votre statut depuis %2$s"
 msgid "From"
 msgstr "De"
 
-# De #-#-#-#-#  statusnet-no-duplicates.po (0.43)  #-#-#-#-#\n
-# Nouveau message\n
-# #-#-#-#-#  statusnet.new.pot (PACKAGE VERSION)  #-#-#-#-#\n
-# à "Supprimer l'avis"
 #: lib/messageform.php:110 lib/messageform.php:109 lib/messageform.php:120
 msgid "Send a direct notice"
 msgstr "Envoyer un message direct"
@@ -5595,20 +5542,12 @@ msgstr "Répondre à ce statut"
 msgid "Reply"
 msgstr "Répondre"
 
-# De #-#-#-#-#  statusnet-no-duplicates.po (0.43)  #-#-#-#-#\n
-# Nouveau message\n
-# #-#-#-#-#  statusnet.new.pot (PACKAGE VERSION)  #-#-#-#-#\n
-# à "Supprimer l'avis"
 #: lib/noticelist.php:471 lib/noticelist.php:474 lib/noticelist.php:476
 #: lib/noticelist.php:479 actions/deletenotice.php:116 lib/noticelist.php:483
 #: lib/noticelist.php:486 actions/deletenotice.php:146 lib/noticelist.php:522
 msgid "Delete this notice"
 msgstr "Supprimer ce statut"
 
-# De #-#-#-#-#  statusnet-no-duplicates.po (0.43)  #-#-#-#-#\n
-# Nouveau message\n
-# #-#-#-#-#  statusnet.new.pot (PACKAGE VERSION)  #-#-#-#-#\n
-# à "Supprimer l'avis"
 #: lib/noticelist.php:474 actions/avatarsettings.php:148
 #: lib/noticelist.php:479 lib/noticelist.php:486 lib/noticelist.php:522
 msgid "Delete"
@@ -5721,24 +5660,23 @@ msgid "Unsubscribe from this user"
 msgstr "Ne plus suivre cet utilisateur"
 
 #: actions/all.php:77 actions/all.php:59 actions/all.php:99
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
-msgstr "Flux des amis de %s"
+msgstr "Flux pour les amis de %s (RSS 1.0)"
 
 #: actions/all.php:82 actions/all.php:64 actions/all.php:107
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
-msgstr "Flux des amis de %s"
+msgstr "Flux pour les amis de %s (RSS 2.0)"
 
 #: actions/all.php:87 actions/all.php:69 actions/all.php:115
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (Atom)"
-msgstr "Flux des amis de %s"
+msgstr "Flux pour les amis de %s (Atom)"
 
 #: actions/all.php:112 actions/all.php:125 actions/all.php:165
-#, fuzzy
 msgid "You and friends"
-msgstr "%s et ses amis"
+msgstr "Vous et vos amis"
 
 #: actions/avatarsettings.php:78
 #, fuzzy, php-format
@@ -5746,9 +5684,8 @@ msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr "Vous pouvez associer un « avatar » (image personnelle) à votre profil."
 
 #: actions/avatarsettings.php:373
-#, fuzzy
 msgid "Avatar deleted."
-msgstr "Avatar mis à jour."
+msgstr "Avatar supprimé."
 
 #: actions/block.php:129 actions/block.php:136
 msgid ""
@@ -5756,6 +5693,9 @@ msgid ""
 "unsubscribed from you, unable to subscribe to you in the future, and you "
 "will not be notified of any @-replies from them."
 msgstr ""
+"Êtes-vous certain de vouloir bloquer cet utilisateur ? Après cela, il ne "
+"sera plus abonné à votre compte, ne pourra plus s’y abonner de nouveau, et "
+"vous ne serez pas informé des @-réponses de sa part."
 
 #: actions/deletenotice.php:73 actions/deletenotice.php:103
 #, fuzzy
@@ -5784,6 +5724,8 @@ msgid ""
 "If you would like the %s app to automatically update your Facebook status "
 "with your latest notice, you need to give it permission."
 msgstr ""
+"Si vous souhaitez que l’application %s mette automatiquement à jour votre "
+"statut Facebook avec votre dernier message, vous devez lui donner ce droit."
 
 #: actions/facebookhome.php:217 actions/facebookhome.php:211
 #, php-format
@@ -5796,6 +5738,8 @@ msgid ""
 "If you would like %s to automatically update your Facebook status with your "
 "latest notice, you need to give it permission."
 msgstr ""
+"Si vous souhaitez que %s mette automatiquement à jour votre statut Facebook "
+"avec votre dernier message, vous devez lui donner ce droit."
 
 #: actions/grouplogo.php:155 actions/grouplogo.php:150
 #, fuzzy, php-format
@@ -5834,9 +5778,8 @@ msgid ""
 msgstr ""
 
 #: actions/newmessage.php:102
-#, fuzzy
 msgid "Only logged-in users can send direct messages."
-msgstr "Une erreur est survenue pendant l'envoi de votre message."
+msgstr "Seuls les utilisateurs connectés peuvent envoyer des messages directs."
 
 #: actions/noticesearch.php:91
 #, fuzzy, php-format
@@ -5875,6 +5818,11 @@ msgid ""
 "tool. [Join now](%%action.register%%) to share notices about yourself with "
 "friends, family, and colleagues! ([Read more](%%doc.help%%))"
 msgstr ""
+"Vous êtes sur %%site.name%% un service de [microblog] (http://fr.wikipedia."
+"org/wiki/Microblog) basé sur le logiciel libre [StatusNet](http://status."
+"net/). [Inscrivez-vous](%%action.register%%) pour partager des messages sur "
+"vous avec vos amis, famille et collègues ! ([Plus d’informations](%%doc.help%"
+"%))"
 
 #: actions/register.php:286 actions/register.php:329
 #, php-format
@@ -5886,9 +5834,8 @@ msgstr ""
 
 #: actions/register.php:432 actions/register.php:479 actions/register.php:489
 msgid "Creative Commons Attribution 3.0"
-msgstr ""
+msgstr "Creative Commons Paternité 3.0"
 
-# à l'exception de ces données personnelles : mot de passe, adresse e-mail, adresse de messagerie instantanée, numéro de téléphone.
 #: actions/register.php:433 actions/register.php:480 actions/register.php:490
 #, fuzzy
 msgid ""
@@ -5900,9 +5847,8 @@ msgstr ""
 
 #: actions/showgroup.php:378 actions/showgroup.php:424
 #: actions/showgroup.php:432
-#, fuzzy
 msgid "Created"
-msgstr "Créer"
+msgstr "Créé"
 
 #: actions/showgroup.php:393 actions/showgroup.php:440
 #: actions/showgroup.php:448
@@ -5916,15 +5862,13 @@ msgid ""
 msgstr ""
 
 #: actions/showstream.php:147
-#, fuzzy
 msgid "Your profile"
-msgstr "Profil du groupe"
+msgstr "Votre profil"
 
-# missing context
 #: actions/showstream.php:149
-#, fuzzy, php-format
+#, php-format
 msgid "%s's profile"
-msgstr " - Profil"
+msgstr "Profil de %s"
 
 #: actions/showstream.php:163 actions/showstream.php:128
 #, fuzzy, php-format
@@ -5961,7 +5905,7 @@ msgstr "Paramètres du profil"
 #: actions/showstream.php:317 actions/showstream.php:282
 #: actions/showstream.php:367
 msgid "Edit"
-msgstr ""
+msgstr "Modifier"
 
 #: actions/showstream.php:542 actions/showstream.php:388
 #: actions/showstream.php:487
@@ -5999,6 +5943,19 @@ msgid ""
 "Faithfully yours,\n"
 "%5$s\n"
 msgstr ""
+"%1$s vient de marquer votre message de %2$s comme un de ses favoris.\n"
+"\n"
+"Dans le cas où vous l’auriez oublié, vous pouvez lire le texte de votre "
+"message ici :\n"
+"\n"
+"%3$s\n"
+"\n"
+"Vous pouvez consulter la liste des favoris de %1$s ici :\n"
+"\n"
+"%4$s\n"
+"\n"
+"Cordialement,\n"
+"%5$s\n"
 
 #: actions/twitapistatuses.php:124 actions/twitapistatuses.php:82
 #: actions/twitapistatuses.php:314 actions/apiblockcreate.php:97
@@ -6009,9 +5966,8 @@ msgstr ""
 #: actions/apistatusesupdate.php:125 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:79
 #: actions/apitimelinementions.php:79 actions/apitimelineuser.php:81
-#, fuzzy
 msgid "No such user!"
-msgstr "Utilisateur inexistant"
+msgstr "Aucun utilisateur n'a été trouvé !"
 
 #: actions/twittersettings.php:72
 #, fuzzy
@@ -6070,6 +6026,9 @@ msgid ""
 "Subscribers: %2$s\n"
 "Notices: %3$s"
 msgstr ""
+"Abonnements : %1$s\n"
+"Abonnés : %2$s\n"
+"Messages : %3$s"
 
 #: lib/command.php:392 lib/command.php:385
 msgid ""
@@ -6103,7 +6062,7 @@ msgstr ""
 
 #: lib/dberroraction.php:60
 msgid "Database error"
-msgstr ""
+msgstr "Erreur de la base de données"
 
 #: lib/facebookaction.php:271 lib/facebookaction.php:273
 #, fuzzy, php-format
@@ -6114,15 +6073,15 @@ msgstr "Vous devez ouvrir une session pour utiliser l'application Facebook %s"
 
 #: lib/feed.php:85
 msgid "RSS 1.0"
-msgstr ""
+msgstr "RSS 1.0"
 
 #: lib/feed.php:87
 msgid "RSS 2.0"
-msgstr ""
+msgstr "RSS 2.0"
 
 #: lib/feed.php:89
 msgid "Atom"
-msgstr ""
+msgstr "Atom"
 
 #: lib/feed.php:91
 msgid "FOAF"
@@ -6131,7 +6090,7 @@ msgstr ""
 #: lib/imagefile.php:75
 #, php-format
 msgid "That file is too big. The maximum file size is %d."
-msgstr ""
+msgstr "Ce fichier est trop lourd. La taille maximale est %d."
 
 #: lib/mail.php:175 lib/mail.php:174
 #, php-format
@@ -6149,6 +6108,19 @@ msgid ""
 "Thanks for your time, \n"
 "%s\n"
 msgstr ""
+"Bonjour %s.\n"
+"\n"
+"Quelqu’un vient d’utiliser cette adresse électronique sur %s.\n"
+"\n"
+"S’il s’agit bien de vous, et que vous souhaitez confirmer cette adresse, "
+"utilisez le lien qui suit :\n"
+"\n"
+"%s\n"
+"\n"
+"Dans le cas contraire, il vous suffit d’ignorer ce message.\n"
+"\n"
+"Merci de votre attention,\n"
+"%s\n"
 
 #: lib/mail.php:241 lib/mail.php:240
 #, fuzzy, php-format
@@ -6239,9 +6211,8 @@ msgid ""
 msgstr ""
 
 #: lib/searchaction.php:122 lib/searchaction.php:120
-#, fuzzy
 msgid "Search site"
-msgstr "Rechercher"
+msgstr "Rechercher sur le site"
 
 #: lib/section.php:106
 msgid "More..."
@@ -6276,9 +6247,8 @@ msgid ""
 msgstr ""
 
 #: actions/attachment.php:73
-#, fuzzy
 msgid "No such attachment."
-msgstr "Document non trouvé. "
+msgstr "Pièce jointe non trouvée."
 
 #: actions/block.php:149
 #, fuzzy
@@ -6376,13 +6346,12 @@ msgid "No notice id"
 msgstr "Nouveau statut"
 
 #: actions/file.php:38
-#, fuzzy
 msgid "No notice"
-msgstr "Nouveau statut"
+msgstr "Aucun avis"
 
 #: actions/file.php:42
 msgid "No attachments"
-msgstr ""
+msgstr "Aucune pièce jointe"
 
 #: actions/file.php:51
 msgid "No uploaded attachments"
@@ -6886,7 +6855,6 @@ msgid ""
 "automatically subscribe to people you already follow there."
 msgstr ""
 
-# missing context
 #: actions/subscriptions.php:117 actions/subscriptions.php:121
 #: actions/subscriptions.php:123 actions/subscriptions.php:127
 #, fuzzy, php-format
@@ -7390,7 +7358,6 @@ msgstr "Fichier perdu."
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "Statuts de %1$s dans %2$s!"
 
-# missing context
 #: actions/imsettings.php:89
 #, fuzzy
 msgid "IM is not available."
@@ -7434,7 +7401,6 @@ msgstr ""
 msgid "Describe yourself and your interests in %d chars"
 msgstr "Décrivez vos intérêts en 140 caractères"
 
-# missing context
 #: actions/profilesettings.php:125 actions/register.php:457
 #, fuzzy
 msgid "Describe yourself and your interests"
@@ -7520,7 +7486,6 @@ msgstr "Groupe %s"
 msgid "Notice deleted."
 msgstr "Statut publié"
 
-# missing context
 #: actions/smssettings.php:91
 #, fuzzy
 msgid "SMS is not available."
@@ -7790,27 +7755,7 @@ msgstr ""
 msgid "Could not determine file's mime-type!"
 msgstr "Impossible de supprimer le favori."
 
-# De #-#-#-#-#  statusnet-no-duplicates.po (0.43)  #-#-#-#-#\n
-# Nouveau message\n
-# #-#-#-#-#  statusnet.new.pot (PACKAGE VERSION)  #-#-#-#-#\n
-# à "Supprimer l'avis"
 #: lib/oauthstore.php:345
 #, fuzzy
 msgid "Duplicate notice"
 msgstr "Supprimer ce statut"
-
-#~ msgid ""
-#~ "It runs the [StatusNet](http://status.net/) microblogging software, "
-#~ "version %s, available under the [GNU Affero General Public License] "
-#~ "(http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
-#~ msgstr ""
-#~ "Il utilise le logiciel de micro-blogging [StatusNet](http://status.net/), "
-#~ "version %s, disponible sous la licence [GNU Affero General Public "
-#~ "License] (http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
-
-#~ msgid "Unsupported type"
-#~ msgstr "Type non supporté"
-
-#, fuzzy
-#~ msgid "not a supported data format"
-#~ msgstr "pas un format de données supporté"

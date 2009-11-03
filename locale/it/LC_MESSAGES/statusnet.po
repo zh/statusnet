@@ -1,3 +1,6 @@
+# Translation of StatusNet to Italian
+#
+# --
 # Italian translation of statusnet
 # Copyright (C) 2008 THE statusnet'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the statusnet package.
@@ -6,16 +9,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: statusnet\n"
+"Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-02 10:50-0800\n"
-"PO-Revision-Date: 2009-06-04 14:09+0000\n"
-"Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
-"Language-Team: Italian <tp@lists.linux.it>\n"
-"MIME-Version: 1.0\n"
+"PO-Revision-Date: 2009-11-03 19:58:30+0000\n"
+"Language-Team: Italian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: MediaWiki 1.16alpha(r58495); Translate extension (2009-08-03)\n"
+"X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
+"X-Language-Code: it\n"
+"X-Message-Group: out-statusnet\n"
 
 #: ../actions/noticesearchrss.php:64 actions/noticesearchrss.php:68
 #: actions/noticesearchrss.php:88 actions/noticesearchrss.php:89
@@ -32,7 +36,6 @@ msgstr ""
 " a eccezione di questi dati personali: password, indirizzo email, indirizzo "
 "messaggistica istantanea, numero di telefono."
 
-# è quello che si vede come descrizione da dove si è inviato il messaggio. Mettere 'da' non suona bene ('da web', 'da api'...), 'via' mi pare la soluzione migliore ('via web', 'via api', 'via Twhirl'...).
 #: ../actions/showstream.php:400 ../lib/stream.php:109
 #: actions/showstream.php:418 lib/mailbox.php:164 lib/stream.php:76
 msgid " from "
@@ -44,14 +47,12 @@ msgstr " via "
 msgid "%1$s / Updates replying to %2$s"
 msgstr "%1$s / Aggiornamenti in risposta a %2$s"
 
-#  %USERNAME has invited you to join THEM on %site. You start with a singular and end with a plural???
 #: ../actions/invite.php:168 actions/invite.php:176 actions/invite.php:211
 #: actions/invite.php:218 actions/invite.php:220 actions/invite.php:226
 #, php-format
 msgid "%1$s has invited you to join them on %2$s"
 msgstr "Hai ricevuto un invito per seguire %1$s su %2$s"
 
-# resa il più 'asessuale' possibile...
 #: ../actions/invite.php:170 actions/invite.php:220 actions/invite.php:222
 #: actions/invite.php:228
 #, php-format
@@ -154,7 +155,6 @@ msgstr "Stato di %1$s su %2$s"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#  Solo una prova, se non sta bene si ripristina la versione vecchia, giusto per avere l'interfaccia il più tradotta possibile
 #: ../actions/publicrss.php:62 actions/publicrss.php:48
 #: actions/publicrss.php:90 actions/publicrss.php:89
 #, php-format
@@ -176,7 +176,6 @@ msgstr "Attività pubblica di %s"
 msgid "%s and friends"
 msgstr "%s e amici"
 
-#  Solo una prova, se non sta bene si ripristina la versione vecchia, giusto per avere l'interfaccia il più tradotta possibile
 #: ../actions/twitapistatuses.php:49 actions/twitapistatuses.php:49
 #: actions/twitapistatuses.php:33 actions/twitapistatuses.php:32
 #: actions/twitapistatuses.php:37 actions/apitimelinepublic.php:106
@@ -190,7 +189,6 @@ msgstr "attività pubblica di %s"
 msgid "%s status"
 msgstr "stato di %s"
 
-#  Solo una prova, se non sta bene si ripristina la versione vecchia, giusto per avere l'interfaccia il più tradotta possibile
 #: ../actions/twitapistatuses.php:338 actions/twitapistatuses.php:265
 #: actions/twitapistatuses.php:199 actions/twitapistatuses.php:209
 #: actions/twitapigroups.php:69 actions/twitapistatuses.php:154
@@ -258,14 +256,12 @@ msgstr ""
 msgid "6 or more characters"
 msgstr "6 o più caratteri"
 
-#  messa al femminile... dovrebbe essere la password
 #: ../actions/recoverpassword.php:180 actions/recoverpassword.php:186
 #: actions/recoverpassword.php:220 actions/recoverpassword.php:233
 #: actions/recoverpassword.php:236
 msgid "6 or more characters, and don't forget it!"
 msgstr "6 o più caratteri, e non dimenticarla!"
 
-#  Femminile, è la password
 #: ../actions/register.php:154 actions/register.php:168
 #: actions/register.php:373 actions/register.php:419 actions/register.php:423
 msgid "6 or more characters. Required."
@@ -406,7 +402,6 @@ msgstr "Aggiungi"
 msgid "Add OpenID"
 msgstr "Aggiungi OpenID"
 
-#  we don't use 's' in plurals even from english words.
 #: ../lib/settingsaction.php:97 lib/settingsaction.php:91
 #: lib/accountsettingsaction.php:117
 msgid "Add or remove OpenIDs"
@@ -879,7 +874,6 @@ msgstr "Numero di telefono attualmente confermato per gli SMS."
 msgid "Current confirmed email address."
 msgstr "Indirizzo email attualmente confermato."
 
-# aggiunti i due punti, dopo questa stringa c'è lo stato attuale di un utente nella pagina del suo profilo
 #: ../actions/showstream.php:356 actions/showstream.php:367
 msgid "Currently"
 msgstr "In questo momento:"
@@ -902,7 +896,6 @@ msgstr "Errore del DB nell'inserire la risposta: %s"
 msgid "Delete notice"
 msgstr "Elimina messaggio"
 
-# per renderla 'asessuale' il più possibile...
 #: ../actions/profilesettings.php:51 ../actions/register.php:172
 #: actions/profilesettings.php:84 actions/register.php:186
 #: actions/profilesettings.php:114 actions/register.php:404
@@ -1166,7 +1159,6 @@ msgstr "L'URL della pagina web non è valido."
 msgid "I want to post notices by email."
 msgstr "Voglio inviare i messaggi via email"
 
-#  Non è il massimo (Messaggistica Istantanea), ma non lo è nemmeno in inglese, questo tipo di abbreviazioni sarebbe da evitare sempre...
 #: ../lib/settingsaction.php:102 lib/settingsaction.php:96
 #: lib/connectsettingsaction.php:104 lib/connectsettingsaction.php:110
 msgid "IM"
@@ -2191,7 +2183,6 @@ msgstr "Profilo sconosciuto"
 msgid "Public Stream Feed"
 msgstr "Feed del flusso pubblico"
 
-#  Solo una prova, se non sta bene si ripristina la versione vecchia, giusto per avere l'interfaccia il più tradotta possibile
 #: ../actions/public.php:33 actions/public.php:33 actions/public.php:109
 #: lib/publicgroupnav.php:77 actions/public.php:112 lib/publicgroupnav.php:79
 #: actions/public.php:120 actions/public.php:131
@@ -2214,7 +2205,6 @@ msgstr "Pubblica un MicroID per il mio indirizzo email"
 msgid "Recent Tags"
 msgstr "Etichette recenti"
 
-# pulsante, indica un'azione quindi come gli altri: accedi, abbonati...
 #: ../actions/recoverpassword.php:166 actions/recoverpassword.php:171
 #: actions/recoverpassword.php:190 actions/recoverpassword.php:197
 #: actions/recoverpassword.php:199 actions/recoverpassword.php:200
@@ -2361,7 +2351,6 @@ msgstr "Conferma SMS"
 msgid "Same as password above"
 msgstr "Stessa password di sopra"
 
-#  Femminile, è la password
 #: ../actions/register.php:156 actions/register.php:170
 #: actions/register.php:377 actions/register.php:423 actions/register.php:427
 msgid "Same as password above. Required."
@@ -2620,7 +2609,6 @@ msgstr "Quello è già il tuo ID di Jabber."
 msgid "That is already your email address."
 msgstr "Quello è già il tuo indirizzo email."
 
-#  previous suggestion missed the dot
 #: ../actions/smssettings.php:188 actions/smssettings.php:196
 #: actions/smssettings.php:306 actions/smssettings.php:318
 msgid "That is already your phone number."
@@ -2631,14 +2619,12 @@ msgstr "Quello è già il tuo numero di telefono."
 msgid "That is not your Jabber ID."
 msgstr "Quello non è il tuo ID di Jabber."
 
-#  previous suggestion missed the dot
 #: ../actions/emailsettings.php:249 actions/emailsettings.php:267
 #: actions/emailsettings.php:397 actions/emailsettings.php:404
 #: actions/emailsettings.php:412
 msgid "That is not your email address."
 msgstr "Quello non è il tuo indirizzo email."
 
-#  previous suggestion missed the dot
 #: ../actions/smssettings.php:257 actions/smssettings.php:265
 #: actions/smssettings.php:393 actions/smssettings.php:405
 msgid "That is not your phone number."
@@ -2891,7 +2877,6 @@ msgstr ""
 msgid "Unrecognized address type %s"
 msgstr "Tipo di indirizzo non riconosciuto %s"
 
-# è un tentativo, visto che è un pulsante, mi prendo la licenza poetica...
 #: ../actions/showstream.php:209 actions/showstream.php:219
 #: lib/unsubscribeform.php:137
 msgid "Unsubscribe"
@@ -2968,7 +2953,6 @@ msgstr ""
 "Usa questo modulo per invitare i tuoi amici e colleghi a usare questo "
 "servizio."
 
-#  Femminile, è l'email
 #: ../actions/register.php:159 ../actions/register.php:162
 #: actions/register.php:173 actions/register.php:176 actions/register.php:382
 #: actions/register.php:386 actions/register.php:428 actions/register.php:432
@@ -3045,7 +3029,6 @@ msgstr "Tipo di immagine errata per \"%s\""
 msgid "Wrong size image at '%s'"
 msgstr "Dimensione dell'immagine sbagliata a \"%s\""
 
-#  "si" is the last musical note in the "do scale". "sì" is the correct Italian translation for "yes".
 #: ../actions/deletenotice.php:63 ../actions/deletenotice.php:72
 #: actions/deletenotice.php:64 actions/deletenotice.php:79
 #: actions/block.php:148 actions/deletenotice.php:122
@@ -3184,7 +3167,6 @@ msgstr ""
 "Riceverai una notifica quando i tuoi invitati accetteranno e si "
 "registreranno sul sito. Grazie per l'aiuto ad accrescere la comunità!"
 
-# per la par condicio ho sostituito 'sei stato identificato'
 #: ../actions/recoverpassword.php:149 actions/recoverpassword.php:158
 msgid "You've been identified. Enter a  new password below. "
 msgstr "Sei ora identificato/a. Inserisci una nuova password qui di seguito. "
@@ -3285,7 +3267,6 @@ msgstr "rispondi"
 msgid "same as password above"
 msgstr "stessa password di sopra"
 
-#  wrong capitalization in previous suggestion
 #: ../actions/twitapistatuses.php:755 actions/twitapistatuses.php:678
 #: actions/twitapistatuses.php:555 actions/twitapistatuses.php:596
 #: actions/twitapistatuses.php:618 actions/twitapistatuses.php:553
@@ -4121,7 +4102,6 @@ msgstr "Perso il nostro file di dati."
 msgid "Lost our file."
 msgstr "Perso il nostro file."
 
-#  wrong capitalization in previous suggestion
 #: actions/avatarsettings.php:349 actions/avatarsettings.php:383
 #: actions/grouplogo.php:406 actions/grouplogo.php:440
 #: classes/User_group.php:129 classes/User_group.php:161 lib/imagefile.php:144
@@ -4254,7 +4234,6 @@ msgstr "Crea un nuovo indirizzo email per inviare messaggi; "
 msgid "Send me email when someone "
 msgstr "Inviami un'email quando qualcuno "
 
-# per non usare una traduzione troppo fedele e forse un po' banale (gomitata, spintarella), facciamo come abbiamo fatto con Pidgin in Ubuntu, trasformando 'nudge' in un richiamo, anche perché è quello che realmente fa.
 #: actions/emailsettings.php:168 actions/emailsettings.php:173
 #: actions/emailsettings.php:179
 msgid "Allow friends to nudge me and send me an email."
@@ -4386,12 +4365,10 @@ msgstr "Se vuoi che %s aggiorni automaticamente "
 msgid "Sync preferences"
 msgstr "Preferenze di sincronizzazione"
 
-# da chiarire dove e come appaia
 #: actions/favor.php:94 lib/disfavorform.php:140 actions/favor.php:92
 msgid "Disfavor favorite"
 msgstr "Rimuovi preferito"
 
-# prova per 'famosi', al massimo si cambia
 #: actions/favorited.php:65 lib/popularnoticesection.php:76
 #: lib/publicgroupnav.php:91 lib/popularnoticesection.php:82
 #: lib/publicgroupnav.php:93 lib/popularnoticesection.php:91
@@ -4399,7 +4376,6 @@ msgstr "Rimuovi preferito"
 msgid "Popular notices"
 msgstr "Messaggi famosi"
 
-# prova per 'famosi', al massimo si cambia
 #: actions/favorited.php:67
 #, php-format
 msgid "Popular notices, page %d"
@@ -4655,7 +4631,6 @@ msgstr "Altre impostazioni"
 msgid "Manage various other options."
 msgstr "Gestisci altre opzioni."
 
-# o andare con un 'accorciamento'? auto-accorciamento?
 #: actions/othersettings.php:93
 msgid "URL Auto-shortening"
 msgstr "Autoriduzione degli URL"
@@ -4664,13 +4639,11 @@ msgstr "Autoriduzione degli URL"
 msgid "Service"
 msgstr "Servizio"
 
-# o andare con 'accorciamento'? auto-accorciamento?
 #: actions/othersettings.php:113 actions/othersettings.php:111
 #: actions/othersettings.php:118
 msgid "Automatic shortening service to use."
 msgstr "Servizio di autoriduzione da usare."
 
-# in caso, accorciamento anche qui.
 #: actions/othersettings.php:144 actions/othersettings.php:146
 #: actions/othersettings.php:153
 msgid "URL shortening service is too long (max 50 chars)."
@@ -4728,7 +4701,6 @@ msgstr "Etichetta non valida: \"%s\""
 msgid "Couldn't save tags."
 msgstr "Impossibile salvare le etichette."
 
-#  Solo una prova, se non sta bene si ripristina la versione vecchia, giusto per avere l'interfaccia il più tradotta possibile
 #: actions/public.php:107 actions/public.php:110 actions/public.php:118
 #: actions/public.php:129
 #, php-format
@@ -4783,7 +4755,6 @@ msgstr "Tramite questo modulo puoi creare "
 msgid "1-64 lowercase letters or numbers, "
 msgstr "1-64 lettere minuscole o numeri, "
 
-#  Femminile, è l'email
 #: actions/register.php:382 actions/register.php:386
 #, fuzzy
 msgid "Used only for updates, announcements, "
@@ -4794,7 +4765,6 @@ msgstr "Usata solo per aggiornamenti, annunci "
 msgid "URL of your homepage, blog, "
 msgstr "URL della tua pagina web, blog "
 
-# per renderla 'asessuale' il più possibile...
 #: actions/register.php:404
 #, fuzzy
 msgid "Describe yourself and your "
@@ -4889,7 +4859,6 @@ msgstr "Feed dei messaggi per il gruppo %s"
 msgid "Members"
 msgstr "Membri"
 
-# femminile, è relativo alle etichette
 #: actions/showgroup.php:363 actions/showstream.php:413
 #: actions/showstream.php:442 actions/showstream.php:524 lib/section.php:95
 #: lib/tagcloudsection.php:71 actions/showgroup.php:344
@@ -5143,7 +5112,6 @@ msgstr "Nome utente di Twitter"
 msgid "Twitter password"
 msgstr "Password di Twitter"
 
-# elenca quali sono i propri amici su twitter
 #: actions/twittersettings.php:228 actions/twittersettings.php:232
 #: actions/twittersettings.php:248
 msgid "Twitter Friends"
@@ -5305,13 +5273,11 @@ msgstr "licenza."
 msgid "Block this user"
 msgstr "Blocca questo utente"
 
-# azione
 #: lib/blockform.php:153 actions/groupmembers.php:343
 #: actions/groupmembers.php:346
 msgid "Block"
 msgstr "Blocca"
 
-# è un suggerimento
 #: lib/disfavorform.php:114 lib/disfavorform.php:140
 msgid "Disfavor this notice"
 msgstr "Togli questo messaggio dai preferiti"
@@ -5374,7 +5340,6 @@ msgstr "URL della pagina web o del blog per il gruppo o l'argomento"
 msgid "Description"
 msgstr "Descrizione"
 
-# per renderla 'asessuale' il più possibile...
 #: lib/groupeditform.php:153 lib/groupeditform.php:168
 msgid "Describe the group or topic in 140 chars"
 msgstr "Descrivi il gruppo o l'argomento in 140 caratteri"
@@ -5389,7 +5354,6 @@ msgstr "Dove è situato il gruppo, tipo \"città, regione, stato\""
 msgid "Group"
 msgstr "Gruppo"
 
-# potrebbe essere lunga...
 #: lib/groupnav.php:100 actions/groupmembers.php:175 lib/groupnav.php:106
 msgid "Admin"
 msgstr "Amministra"
@@ -5426,7 +5390,6 @@ msgstr "Etichette nei messaggi del gruppo %s"
 msgid "This page is not available in a "
 msgstr "Questa pagina non è disponibile in un "
 
-# è relativo ai gruppi
 #: lib/joinform.php:114
 msgid "Join"
 msgstr "Iscriviti"
@@ -5495,7 +5458,6 @@ msgstr "%1$s (%2$s) si chiede cosa tu "
 msgid "%1$s just added your notice from %2$s"
 msgstr "%1$s ha appena aggiunto il tuo messaggio da %2$s"
 
-# è quello che si vede come descrizione da dove si è inviato il messaggio. Mettere 'da' non suona bene ('da web', 'da api'...), 'via' mi pare la soluzione migliore ('via web', 'via api', 'via Twhirl'...).
 #: lib/mailbox.php:229 lib/noticelist.php:380 lib/mailbox.php:231
 #: lib/noticelist.php:383 lib/mailbox.php:232 lib/noticelist.php:388
 msgid "From"
@@ -5557,7 +5519,6 @@ msgstr "Invia un richiamo a questo utente"
 msgid "Tags in %s's notices"
 msgstr "Etichette nei messaggi di %s"
 
-# femminile, è relativo alle etichette
 #: lib/profilelist.php:182 lib/profilelist.php:180
 #: lib/subscriptionlist.php:126
 msgid "(none)"
@@ -5580,7 +5541,6 @@ msgstr "Etichette recenti"
 msgid "Featured"
 msgstr "In evidenza"
 
-# è una prova, è il nome di una scheda, al massimo si cambia, però popolari mi pare troppo banale.
 #: lib/publicgroupnav.php:90 lib/publicgroupnav.php:92
 msgid "Popular"
 msgstr "Famosi"
@@ -5640,7 +5600,6 @@ msgstr "Chi scrive più messaggi"
 msgid "Unblock this user"
 msgstr "Sblocca questo utente"
 
-# azione
 #: lib/unblockform.php:150 actions/blockedfromgroup.php:313
 msgid "Unblock"
 msgstr "Sblocca"
@@ -6398,7 +6357,6 @@ msgstr "Preferenze di sincronizzazione salvate."
 msgid "Make user an admin of the group"
 msgstr "Devi essere amministratore per modificare il gruppo"
 
-# potrebbe essere lunga...
 #: actions/groupmembers.php:470 actions/groupmembers.php:473
 #, fuzzy
 msgid "Make Admin"
@@ -6631,7 +6589,6 @@ msgstr ""
 "Se hai dimenticato o perso la tua password, puoi fartene inviare una nuova "
 "per email all'indirizzo indicato nel tuo profilo."
 
-# per la par condicio ho sostituito 'sei stato identificato'
 #: actions/recoverpassword.php:158
 #, fuzzy
 msgid "You've been identified. Enter a new password below. "
@@ -6734,7 +6691,6 @@ msgstr ""
 "**%s** è un gruppo su %%%%site.name%%%%, un servizio di [micro-blog](http://"
 "it.wikipedia.org/wiki/Microblogging) "
 
-# potrebbe essere lunga...
 #: actions/showgroup.php:474 actions/showgroup.php:482
 #, fuzzy
 msgid "Admins"
@@ -7048,7 +7004,6 @@ msgstr ""
 msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr ""
 
-# azione
 #: lib/groupnav.php:100
 #, fuzzy
 msgid "Blocked"
@@ -7354,13 +7309,11 @@ msgstr ""
 msgid "Notice license ‘%s’ is not compatible with site license ‘%s’."
 msgstr ""
 
-# per renderla 'asessuale' il più possibile...
 #: actions/profilesettings.php:122 actions/register.php:454
 #, fuzzy, php-format
 msgid "Describe yourself and your interests in %d chars"
 msgstr "Descriviti assieme ai tuoi interessi in 140 caratteri"
 
-# per renderla 'asessuale' il più possibile...
 #: actions/profilesettings.php:125 actions/register.php:457
 #, fuzzy
 msgid "Describe yourself and your interests"
@@ -7634,13 +7587,11 @@ msgstr "Accedi al sito"
 msgid "Select tag to filter"
 msgstr "Seleziona un operatore"
 
-# per renderla 'asessuale' il più possibile...
 #: lib/groupeditform.php:168
 #, fuzzy
 msgid "Describe the group or topic"
 msgstr "Descrivi il gruppo o l'argomento in 140 caratteri"
 
-# per renderla 'asessuale' il più possibile...
 #: lib/groupeditform.php:170
 #, fuzzy, php-format
 msgid "Describe the group or topic in %d characters"
@@ -7697,7 +7648,6 @@ msgid ""
 "\n"
 msgstr ""
 
-# è quello che si vede come descrizione da dove si è inviato il messaggio. Mettere 'da' non suona bene ('da web', 'da api'...), 'via' mi pare la soluzione migliore ('via web', 'via api', 'via Twhirl'...).
 #: lib/mailbox.php:227 lib/noticelist.php:424
 #, fuzzy
 msgid "from"
@@ -7716,55 +7666,3 @@ msgstr "Impossibile eliminare un preferito."
 #, fuzzy
 msgid "Duplicate notice"
 msgstr "Elimina messaggio"
-
-#~ msgid "Code not yet ready."
-#~ msgstr "Codice non ancora implementato."
-
-#~ msgid "Export and delete your user information."
-#~ msgstr "Esporta ed elimina le tue informazioni personali."
-
-#~ msgid "Delete my account"
-#~ msgstr "Elimina il mio account"
-
-#~ msgid "Delete my account confirmation"
-#~ msgstr "Conferma l'eliminazione dell'account"
-
-#~ msgid "Check if you are sure you want to delete your account."
-#~ msgstr "Seleziona per eliminare veramente il tuo account."
-
-# messa così perché è una descrizione della pagina, compare in alto
-#~ msgid "Showing recently popular notices"
-#~ msgstr "Ecco i messaggi più famosi"
-
-#~ msgid "Tag a person"
-#~ msgstr "Etichetta una persona"
-
-#~ msgid "Icons"
-#~ msgstr "Icone"
-
-#~ msgid ""
-#~ "Hey, %s.\n"
-#~ "\n"
-#~ "Someone just entered this email address on %s.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Ehi %s.\n"
-#~ "\n"
-#~ "Qualcuno ha appena inserito questo indirizzo email in %s.\n"
-#~ "\n"
-
-#~ msgid "Couldn't confirm email."
-#~ msgstr "Impossibile confermare l'email."
-
-#~ msgid "Email address"
-#~ msgstr "Indirizzo email"
-
-#~ msgid "Error inserting notice"
-#~ msgstr "Errore nell'inserire un messaggio"
-
-#~ msgid ""
-#~ "If you've forgotten or lost your password, you can get a new one sent  "
-#~ "the email address you have stored  in your account."
-#~ msgstr ""
-#~ "Se hai dimenticato o perso la tua password, puoi riceverne una nuova "
-#~ "all'indirizzo email memorizzato nel tuo account."
