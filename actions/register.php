@@ -56,6 +56,12 @@ class RegisterAction extends Action
     var $registered = false;
 
     /**
+     * Are we processing an invite?
+     */
+
+    var $invite = null;
+
+    /**
      * Prepare page to run
      *
      *
