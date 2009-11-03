@@ -80,7 +80,7 @@ class ApiStatusesUpdateAction extends ApiAuthAction
         $this->status = $this->trimmed('status');
         $this->source = $this->trimmed('source');
 
-        if (empty($this->source) || in_array($source, $this->reserved_sources)) {
+        if (empty($this->source) || in_array($source, self::$reserved_sources)) {
             $this->source = 'api';
         }
 
