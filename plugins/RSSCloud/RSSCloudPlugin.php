@@ -111,10 +111,7 @@ class RSSCloudPlugin extends Plugin
 
     function onStartApiRss($action){
 
-        // XXX: we want to only cloud enable the user_timeline so we need
-        // to be even more specific than this... FIXME
-
-        if (get_class($action) == 'TwitapistatusesAction') {
+        if (get_class($action) == 'ApiTimelineUserAction') {
 
             $attrs = array('domain'            => $this->domain,
                            'port'              => $this->port,
