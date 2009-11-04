@@ -131,6 +131,14 @@ $external_libraries=array(
         'check_class'=>'Net_URL_Mapper'
     ),
     array(
+        'name'=>'Net_LDAP2',
+        'pear'=>'Net_LDAP2',
+        'url'=>'http://pear.php.net/package/Net_LDAP2',
+        'deb'=>'php-net-ldap2',
+        'include'=>'Net/LDAP2.php',
+        'check_class'=>'Net_LDAP2'
+    ),
+    array(
         'name'=>'Net_Socket',
         'pear'=>'Net_Socket',
         'url'=>'http://pear.php.net/package/Net_Socket',

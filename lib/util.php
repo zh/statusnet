@@ -127,8 +127,17 @@ function common_check_user($nickname, $password)
     if (is_null($user) || $user === false) {
         return false;
     } else {
-        if (0 == strcmp(common_munge_password($password, $user->id),
-                        $user->password)) {
+        $authenticated = false;
+        Event::handle('CheckPassword', array($nickname, $password, &$authenticated));
+        if(! $authenticated){
+            //no handler asserted the user, so check ourselves
+            if (0 == strcmp(common_munge_password($password, $user->id),
+                            $user->password)) {
+                //internal checking passed
+                $authenticated = true;
+            }
+        }
+        if($authenticated){
             return $user;
         } else {
             return false;
