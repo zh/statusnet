@@ -130,21 +130,52 @@ class RSSCloudPlugin extends Plugin
         }
     }
 
-    function onEndNoticeSave($notice){
-
-        common_debug("RSSCloudPlugin oneEndNoticeSave()");
-
-        $user = User::staticGet('id', $notice->profile_id);
-        $feed  = common_local_url('api', array('apiaction' => 'statuses',
-                                              'method'    => 'user_timeline',
-                                              'argument'  => $user->nickname . '.rss'));
-
-        // XXX: Dave's hub for testing
-        // $endpoint = 'http://rpc.rsscloud.org:5337/rsscloud/ping';
-
-        // $notifier = new RSSCloudNotifier();
-        // $notifier->postUpdate($endpoint, $feed);
+    /**
+     * Add an RSSCloud queue item for each notice
+     *
+     * @param Notice $notice      the notice
+     * @param array  &$transports the list of transports (queues)
+     *
+     * @return boolean hook return
+     */
+    function onStartEnqueueNotice($notice, &$transports)
+    {
+        array_push($transports, 'rsscloud');
+        return true;
     }
 
+    /**
+     * broadcast the message when not using queuehandler
+     *
+     * @param Notice &$notice the notice
+     * @param array  $queue   destination queue
+     *
+     * @return boolean hook return
+     */
+    function onUnqueueHandleNotice(&$notice, $queue)
+    {
+        if (($queue == 'rsscloud') && ($this->_isLocal($notice))) {
+            
+            // broadcast the notice here
+            common_debug('broadcasting rssCloud bound notice ' . $notice->id);
+            
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Determine whether the notice was locally created
+     *
+     * @param Notice $notice
+     *
+     * @return boolean locality
+     */
+    function _isLocal($notice)
+    {
+        return ($notice->is_local == Notice::LOCAL_PUBLIC ||
+                $notice->is_local == Notice::LOCAL_NONPUBLIC);
+    }
+    
 }
 
