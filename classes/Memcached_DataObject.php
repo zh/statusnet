@@ -184,27 +184,20 @@ class Memcached_DataObject extends DB_DataObject
         require_once INSTALLDIR.'/lib/search_engines.php';
         static $search_engine;
         if (!isset($search_engine)) {
-                $connected = false;
-                if (common_config('sphinx', 'enabled')) {
-                    $search_engine = new SphinxSearch($this, $table);
-                    $connected = $search_engine->is_connected();
-                }
-
-                // unable to connect to sphinx' search daemon
-                if (!$connected) {
-                    if ('mysql' === common_config('db', 'type')) {
-                        $type = common_config('search', 'type');
-                        if ($type == 'like') {
-                            $search_engine = new MySQLLikeSearch($this, $table);
-                        } else if ($type == 'fulltext') {
-                            $search_engine = new MySQLSearch($this, $table);
-                        } else {
-                            throw new ServerException('Unknown search type: ' . $type);
-                        }
+            if (Event::handle('GetSearchEngine', array($this, $table, &$search_engine))) {
+                if ('mysql' === common_config('db', 'type')) {
+                    $type = common_config('search', 'type');
+                    if ($type == 'like') {
+                        $search_engine = new MySQLLikeSearch($this, $table);
+                    } else if ($type == 'fulltext') {
+                        $search_engine = new MySQLSearch($this, $table);
                     } else {
-                        $search_engine = new PGSearch($this, $table);
+                        throw new ServerException('Unknown search type: ' . $type);
                     }
+                } else {
+                    $search_engine = new PGSearch($this, $table);
                 }
+            }
         }
         return $search_engine;
     }
