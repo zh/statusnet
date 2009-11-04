@@ -19,10 +19,10 @@
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
-define('STATUSNET_VERSION', '0.8.2dev');
+define('STATUSNET_VERSION', '0.8.2rc2');
 define('LACONICA_VERSION', STATUSNET_VERSION); // compatibility
 
-define('STATUSNET_CODENAME', 'Second Guessing');
+define('STATUSNET_CODENAME', 'Life and How to Live It');
 
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);

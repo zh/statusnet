@@ -5,14 +5,6 @@
 
   RewriteBase /mublog/
 
-  # If your site is private and want access to file attachments
-  # restricted to logged-in users only, uncomment this rule.
-  #
-  # If you have a custom attachment path
-  # ($config['attachments']['path']), change "file/" to match.
-  #
-  #RewriteRule ^file/(.*) getfile/$1
-
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule (.*) index.php?p=$1 [L,QSA]
