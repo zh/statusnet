@@ -7,6 +7,7 @@ RealtimeUpdate = {
      _replyurl: '',
      _favorurl: '',
      _deleteurl: '',
+     _updatecounter: 0,
 
      init: function(userid, replyurl, favorurl, deleteurl)
      {
@@ -14,6 +15,8 @@ RealtimeUpdate = {
         RealtimeUpdate._replyurl = replyurl;
         RealtimeUpdate._favorurl = favorurl;
         RealtimeUpdate._deleteurl = deleteurl;
+
+        DT = document.title;
 
         $(window).blur(function() {
           $('#notices_primary .notice').css({
@@ -25,24 +28,33 @@ RealtimeUpdate = {
             'border-top-color':'#AAAAAA',
             'border-top-style':'solid'
           });
+
+          RealtimeUpdate._updatecounter = 0;
+          document.title = DT;
+
+          return false;
         });
      },
 
      receive: function(data)
      {
-          id = data.id;
+          setTimeout(function() {
+              id = data.id;
 
-          // Don't add it if it already exists
-          //
-          if ($("#notice-"+id).length > 0) {
-               return;
-          }
+              // Don't add it if it already exists
+              if ($("#notice-"+id).length > 0) {
+                   return;
+              }
 
-          var noticeItem = RealtimeUpdate.makeNoticeItem(data);
-          $("#notices_primary .notices").prepend(noticeItem);
-          $("#notices_primary .notice:first").css({display:"none"});
-          $("#notices_primary .notice:first").fadeIn(1000);
-          NoticeReply();
+              var noticeItem = RealtimeUpdate.makeNoticeItem(data);
+              $("#notices_primary .notices").prepend(noticeItem);
+              $("#notices_primary .notice:first").css({display:"none"});
+              $("#notices_primary .notice:first").fadeIn(1000);
+              NoticeReply();
+
+              RealtimeUpdate._updatecounter += 1;
+              document.title = '('+RealtimeUpdate._updatecounter+') ' + DT;
+          }, 500);
      },
 
      makeNoticeItem: function(data)
@@ -125,14 +137,17 @@ RealtimeUpdate = {
 
      addPopup: function(url, timeline, iconurl)
      {
-         $('#content').prepend('<button id="realtime_timeline" title="Pop up in a window">Pop up</button>');
+         $('#notices_primary').css({'position':'relative'});
+         $('#notices_primary').prepend('<button id="realtime_timeline" title="Pop up in a window">Pop up</button>');
 
          $('#realtime_timeline').css({
-             'margin':'0 0 18px 0',
+             'margin':'0 0 11px 0',
              'background':'transparent url('+ iconurl + ') no-repeat 0% 30%',
              'padding':'0 0 0 20px',
              'display':'block',
-             'float':'right',
+             'position':'absolute',
+             'top':'-20px',
+             'right':'0',
              'border':'none',
              'cursor':'pointer',
              'color':$("a").css("color"),
