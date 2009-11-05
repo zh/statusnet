@@ -95,14 +95,15 @@ class RSSCloudPlugin extends Plugin
     {
         switch ($cls)
         {
-
+         case 'RSSCloudSubscription':
+            include_once(INSTALLDIR . '/plugins/RSSCloud/RSSCloudSubscription.php');
+            return false;
          case 'RSSCloudNotifier':
-            require_once(INSTALLDIR . '/plugins/RSSCloud/RSSCloudNotifier.php');
+            include_once(INSTALLDIR . '/plugins/RSSCloud/RSSCloudNotifier.php');
             return false;
          case 'RSSCloudRequestNotifyAction':
          case 'LoggingAggregatorAction':
-            common_debug(mb_substr($cls, 0, -6) . '.php');
-            require_once(INSTALLDIR . '/plugins/RSSCloud/' . mb_substr($cls, 0, -6) . '.php');
+            include_once(INSTALLDIR . '/plugins/RSSCloud/' . mb_substr($cls, 0, -6) . '.php');
             return false;
          default:
             return true;
@@ -155,10 +156,10 @@ class RSSCloudPlugin extends Plugin
     function onUnqueueHandleNotice(&$notice, $queue)
     {
         if (($queue == 'rsscloud') && ($this->_isLocal($notice))) {
-            
+
             // broadcast the notice here
             common_debug('broadcasting rssCloud bound notice ' . $notice->id);
-            
+
             return false;
         }
         return true;
@@ -176,6 +177,24 @@ class RSSCloudPlugin extends Plugin
         return ($notice->is_local == Notice::LOCAL_PUBLIC ||
                 $notice->is_local == Notice::LOCAL_NONPUBLIC);
     }
-    
+
+
+    function onCheckSchema() {
+        $schema = Schema::get();
+        $schema->ensureTable('rsscloud_subscription',
+                             array(new ColumnDef('subscribed', 'integer',
+                                                 null, false, 'PRI'),
+                                   new ColumnDef('url', 'varchar',
+                                                 '255', false, 'PRI'),
+                                   new ColumnDef('failures', 'integer',
+                                                 null, false, 'MUL'),
+                                   new ColumnDef('created', 'datetime',
+                                                 null, false),
+                                   new ColumnDef('modified', 'timestamp')
+                                  )
+                            );
+         return true;
+    }
+
 }
 

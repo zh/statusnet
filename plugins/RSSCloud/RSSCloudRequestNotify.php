@@ -51,9 +51,9 @@ class RSSCloudRequestNotifyAction extends Action
         $this->path      = $this->arg('path');
         $this->protocol  = $this->arg('protocol');
         $this->procedure = $this->arg('notifyProcedure');
+        $this->domain    = $this->arg('domain');
+        
         $this->feeds     = $this->getFeeds();
-
-        $this->subscriber_url = 'http://' . $this->ip . ':' . $this->port . $this->path;
 
         return true;
     }
@@ -102,11 +102,30 @@ class RSSCloudRequestNotifyAction extends Action
             return;
         }
 
-        $endpoint = $ip . ':' . $port . $path;
+        // We have to validate everything before saving anything.
+        // We only return one success or failure no matter how 
+        // many feeds the subscriber is trying to subscribe to
+
+        foreach ($this->feeds as $feed) {
+            
+            if (!$this->validateFeed($feed)) {
+                $msg = 'Feed subscription failed - Not a valid feed.';
+                $this->showResult(false, $msg);
+                return;
+            }
+            
+            if (!$this->testNotificationHandler($feed)) {
+                $msg = 'Feed subscription failed - ' .
+                'notification handler doesn\'t respond correctly.';
+                $this->showResult(false, $msg);
+                return;  
+            }
+            
+        }
 
         foreach ($this->feeds as $feed) {
             $this->saveSubscription($feed);
-        }
+        } 
 
         // XXX: What to do about deleting stale subscriptions?  25 hours seems harsh.
         // WordPress doesn't ever remove subscriptions.
@@ -114,58 +133,62 @@ class RSSCloudRequestNotifyAction extends Action
         $msg = 'Thanks for the registration. It worked. When the feed(s) update(s) we\'ll notify you. ' .
                ' Don\'t forget to re-register after 24 hours, your subscription will expire in 25.';
 
-        $this->showResult(true, $msg);
+        $this->showResult(true, $msg);        
     }
+
+    function validateFeed($feed)
+    {
+        $user = $this->userFromFeed($feed);
+
+        if (empty($user)) {
+            return false;
+        }
+
+        return true;
+    }
+
 
     function getFeeds()
     {
         $feeds = array();
-
-        foreach ($this->args as $key => $feed ) {
-            if (preg_match('|url\d+|', $key)) {
-
-                if ($this->testFeed($feed)) {
-                    $feeds[] = $feed;
-                } else {
-                    $msg = 'RSSCloud Plugin - ' . $this->ip . ' tried to subscribe ' .
-                           'to a non-existent feed: ' . $feed;
-                    common_log(LOG_WARN, $msg);
-                }
-            }
+            
+        while (list($key, $feed) = each ($this->args)) {            
+            if (preg_match('/^url\d*$/', $key)) {
+                $feeds[] = $feed;
+            } 
         }
 
         return $feeds;
     }
 
     function testNotificationHandler($feed)
-    {
+    {        
+        common_debug("RSSCloudPlugin - testNotificationHandler()");
+        
         $notifier = new RSSCloudNotifier();
-        return $notifier->postUpdate($endpoint, $feed);
+        
+        if (isset($this->domain)) {
+            
+            //get
+            
+            $this->url = 'http://' . $this->domain . ':' . $this->port . '/' . $this->path;
+            
+            common_debug('domain set need to send challenge');
+            
+        } else {
+            
+            //post
+            
+            $this->url = 'http://' . $this->ip . ':' . $this->port . '/' . $this->path;
+            
+            //return $notifier->postUpdate($endpoint, $feed);
+
+        }   
+
+        return true;
+
     }
 
-    // returns valid user or false
-    function testFeed($feed)
-    {
-        $user = $this->userFromFeed($feed);
-
-        if (!empty($user)) {
-
-            common_debug("Valid feed: $feed");
-
-            // OK, so this is a valid profile feed url, now let's see if the
-            // other system reponds to our notifications before we
-            // add the sub...
-
-            if ($this->testNotificationHandler($feed)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    // this actually does the validating and figuring out the
-    // user, which it returns
     function userFromFeed($feed)
     {
         // We only do profile feeds
@@ -185,45 +208,39 @@ class RSSCloudRequestNotifyAction extends Action
 
     function saveSubscription($feed)
     {
-        // check to see if we already have a profile for this subscriber
-
-        $other = Remote_profile::staticGet('uri', $this->subscriber_url);
-
-        if ($other === false) {
-            $other->saveProfile();
-        }
-
-        $user = userFromFeed($feed);
-
-        $result = subs_subscribe_to($user, $other);
-
-        if ($result != true) {
-            $msg = "RSSPlugin - got '$result' trying to subscribe " .
-                   "$this->subscriber_url to $user->nickname" . "'s profile feed.";
-            common_log(LOG_WARN, $msg);
+        $user = $this->userFromFeed($feed);
+        
+        common_debug('user = ' . $user->id);
+        
+        $sub = RSSCloudSubscription::getSubscription($user->id, $this->url);
+        
+        if ($sub) {
+            common_debug("already subscribed to that!");
         } else {
-            $msg = 'RSSCloud plugin - subscribe: ' . $this->subscriber_url .
-                   ' subscribed to ' . $feed;
-
-            common_log(LOG_INFO, $msg);
+            common_debug('No feed for user ' . $user->id . ' notify: ' . $this->url);
         }
-    }
-
-    function saveProfile()
-    {
-        common_debug("Saving remote profile for $this->subscriber_url");
-
-        // XXX: We need to add a field to Remote_profile to indicate the kind
-        // of remote profile?  i.e: OMB, RSSCloud, PuSH, Twitter
-
-        $remote                = new Remote_profile();
-        $remote->uri           = $this->subscriber_url;
-        $remote->postnoticeurl = $this->subscriber_url;
-        $remote->created       = DB_DataObject_Cast::dateTime();
-
-        if (!$remote->insert()) {
-            throw new Exception(_('RSSCloud plugin - Error inserting remote profile!'));
+        
+        common_debug('RSSPlugin - saveSubscription');
+        // turn debugging high
+        DB_DataObject::debugLevel(5);
+        
+        $sub = new RSSCloudSubscription();
+        
+        $sub->subscribed = $user->id;
+        $sub->url        = $this->url;
+        $sub->created    = common_sql_now();
+        
+        // auto timestamp doesn't seem to work for me
+        
+        $sub->modified   = common_sql_now();
+        
+        if (!$sub->insert()) {
+            common_log_db_error($sub, 'INSERT', __FILE__);
+            return false;
         }
+        DB_DataObject::debugLevel();
+        
+        return true;
     }
 
     function showResult($success, $msg)
