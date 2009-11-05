@@ -32,7 +32,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/api.php';
+require_once INSTALLDIR . '/lib/apiprivateauth.php';
 
 /**
  * Returns a version number for this version of StatusNet, which
@@ -48,7 +48,7 @@ require_once INSTALLDIR . '/lib/api.php';
  * @link     http://status.net/
  */
 
-class ApiStatusnetVersionAction extends ApiAction
+class ApiStatusnetVersionAction extends ApiPrivateAuthAction
 {
     /**
      * Take arguments for running

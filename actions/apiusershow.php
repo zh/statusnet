@@ -34,7 +34,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/api.php';
+require_once INSTALLDIR . '/lib/apiprivateauth.php';
 
 /**
  * Ouputs information for a user, specified by ID or screen name.
@@ -50,7 +50,7 @@ require_once INSTALLDIR . '/lib/api.php';
  * @link     http://status.net/
  */
 
-class ApiUserShowAction extends ApiAction
+class ApiUserShowAction extends ApiPrivateAuthAction
 {
     /**
      * Take arguments for running

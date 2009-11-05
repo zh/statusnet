@@ -34,7 +34,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/api.php';
+require_once INSTALLDIR . '/lib/apiprivateauth.php';
 
 /**
  * Returns of the lastest 20 groups for the site
@@ -49,7 +49,7 @@ require_once INSTALLDIR . '/lib/api.php';
  * @link     http://status.net/
  */
 
-class ApiGroupListAllAction extends ApiAction
+class ApiGroupListAllAction extends ApiPrivateAuthAction
 {
     var $groups   = null;
 

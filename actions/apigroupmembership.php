@@ -34,7 +34,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/api.php';
+require_once INSTALLDIR . '/lib/apiprivateauth.php';
 
 /**
  * List 20 newest members of the group specified by name or ID.
@@ -49,7 +49,7 @@ require_once INSTALLDIR . '/lib/api.php';
  * @link     http://status.net/
  */
 
-class ApiGroupMembershipAction extends ApiAction
+class ApiGroupMembershipAction extends ApiPrivateAuthAction
 {
     var $group    = null;
     var $profiles = null;

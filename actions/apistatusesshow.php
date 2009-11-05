@@ -37,7 +37,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/api.php';
+require_once INSTALLDIR . '/lib/apiprivateauth.php';
 
 /**
  * Returns the notice specified by id as a Twitter-style status and inline user
@@ -55,7 +55,7 @@ require_once INSTALLDIR . '/lib/api.php';
  * @link     http://status.net/
  */
 
-class ApiStatusesShowAction extends ApiAction
+class ApiStatusesShowAction extends ApiPrivateAuthAction
 {
 
     var $notice_id = null;
