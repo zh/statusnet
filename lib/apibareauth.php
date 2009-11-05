@@ -74,8 +74,6 @@ class ApiBareAuthAction extends ApiAuthAction
 
     function prepare($args)
     {
-        common_debug("ApiBareAuthAction::prepare()");
-        
         parent::prepare($args);
         return true;
     }
