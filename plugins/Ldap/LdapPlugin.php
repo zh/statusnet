@@ -46,6 +46,43 @@ class LdapPlugin extends Plugin
     {
         if(ldap_check_password($nickname, $password)){
             $authenticated = true;
+            //stop handling of other events, because we have an answer
+            return false;
+        }
+        if(common_config('ldap','authoritative')){
+            //a false return stops handler processing
+            return false;
+        }
+    }
+
+    function onAutoRegister($nickname)
+    {
+        $user = User::staticGet('nickname', $nickname);
+        if (! is_null($user) && $user !== false) {
+            common_log(LOG_WARNING, "An attempt was made to autoregister an existing user with nickname: $nickname");
+            return;
+        }
+
+        $attributes=array();
+        $config_attributes = array('nickname','email','fullname','homepage','location');
+        foreach($config_attributes as $config_attribute){
+            $value = common_config('ldap', $config_attribute.'_attribute');
+            if($value!==false){
+                array_push($attributes,$value);
+            }
+        }
+        $entry = ldap_get_user($nickname,$attributes);
+        if($entry){
+            $registration_data = array();
+            foreach($config_attributes as $config_attribute){
+                $value = common_config('ldap', $config_attribute.'_attribute');
+                if($value!==false){
+                    $registration_data[$config_attribute]=$entry->getValue($value,'single');
+                }
+            }
+            //error_log(print_r($registration_data,1));
+            $user = User::register($registration_data);
+            //prevent other handlers from running, as we have registered the user
             return false;
         }
     }

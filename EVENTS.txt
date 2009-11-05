@@ -479,3 +479,7 @@ CheckPassword: Check a username/password
 - $nickname: The nickname to check
 - $password: The password to check
 - &$authenticated: set to true to indicate authentication succeeded.
+
+AutoRegister: Register a new user with the given nickname. Should insert a new User and Profile into the database.
+- $nickname: The nickname to register
+
