@@ -37,7 +37,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/api.php';
+require_once INSTALLDIR . '/lib/apiprivateauth.php';
 
 /**
  * Returns the most recent notices (default 20) posted by everybody
@@ -55,7 +55,7 @@ require_once INSTALLDIR . '/lib/api.php';
  * @link     http://status.net/
  */
 
-class ApiTimelinePublicAction extends ApiAction
+class ApiTimelinePublicAction extends ApiPrivateAuthAction
 {
 
     var $notices = null;

@@ -32,7 +32,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/api.php';
+require_once INSTALLDIR . '/lib/apiprivateauth.php';
 
 /**
  * Returns the string "ok" in the requested format with a 200 OK HTTP status code.
@@ -45,7 +45,7 @@ require_once INSTALLDIR . '/lib/api.php';
  * @link     http://status.net/
  */
 
-class ApiHelpTestAction extends ApiAction
+class ApiHelpTestAction extends ApiPrivateAuthAction
 {
 
     /**

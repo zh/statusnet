@@ -2,9 +2,8 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Base class for API actions that require "bare auth". Bare auth means
- * authentication is required only if the action is called without an argument
- * or query param specifying user id.
+ * Base class for API actions that only require auth when a site
+ * is configured to be private
  *
  * PHP version 5
  *
@@ -43,8 +42,7 @@ if (!defined('STATUSNET')) {
 require_once INSTALLDIR.'/lib/apiauth.php';
 
 /**
- * Actions extending this class will require auth unless a target
- * user ID has been specified
+ * Actions extending this class will require auth only if a site is private
  *
  * @category API
  * @package  StatusNet
@@ -60,27 +58,10 @@ require_once INSTALLDIR.'/lib/apiauth.php';
  * @link     http://status.net/
  */
 
-class ApiBareAuthAction extends ApiAuthAction
+class ApiPrivateAuthAction extends ApiAuthAction
 {
 
-    /**
-     * Take arguments for running
-     *
-     * @param array $args $_REQUEST args
-     *
-     * @return boolean success flag
-     *
-     */
-
-    function prepare($args)
-    {
-        common_debug("ApiBareAuthAction::prepare()");
-        
-        parent::prepare($args);
-        return true;
-    }
-
-    /**
+   /**
      * Does this API resource require authentication?
      *
      * @return boolean true or false
@@ -92,16 +73,6 @@ class ApiBareAuthAction extends ApiAuthAction
         // need authentication
 
         if (common_config('site', 'private')) {
-            return true;
-        }
-
-        // check whether a user has been specified somehow
-
-        $id           = $this->arg('id');
-        $user_id      = $this->arg('user_id');
-        $screen_name  = $this->arg('screen_name');
-
-        if (empty($id) && empty($user_id) && empty($screen_name)) {
             return true;
         }
 

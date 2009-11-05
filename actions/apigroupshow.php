@@ -34,7 +34,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/api.php';
+require_once INSTALLDIR . '/lib/apiprivateauth.php';
 
 /**
  * Outputs detailed information about the group specified by ID
@@ -49,7 +49,7 @@ require_once INSTALLDIR . '/lib/api.php';
  * @link     http://status.net/
  */
 
-class ApiGroupShowAction extends ApiAction
+class ApiGroupShowAction extends ApiPrivateAuthAction
 {
     var $group = null;
 

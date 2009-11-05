@@ -34,7 +34,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/api.php';
+require_once INSTALLDIR . '/lib/apiprivateauth.php';
 
 /**
  * Returns the most recent notices (default 20) posted to the group specified by ID
@@ -49,7 +49,7 @@ require_once INSTALLDIR . '/lib/api.php';
  * @link     http://status.net/
  */
 
-class ApiTimelineGroupAction extends ApiAction
+class ApiTimelineGroupAction extends ApiPrivateAuthAction
 {
 
     var $group   = null;

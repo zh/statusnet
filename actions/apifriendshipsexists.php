@@ -33,7 +33,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/api.php';
+require_once INSTALLDIR . '/lib/apiprivateauth.php';
 
 /**
  * Tests for the existence of friendship between two users. Will return true if
@@ -48,7 +48,7 @@ require_once INSTALLDIR . '/lib/api.php';
  * @link     http://status.net/
  */
 
-class ApiFriendshipsExistsAction extends ApiAction
+class ApiFriendshipsExistsAction extends ApiPrivateAuthAction
 {
     var $user_a = null;
     var $user_b = null;

@@ -66,6 +66,7 @@ class ApiAuthAction extends ApiAction
 
     function prepare($args)
     {
+        common_debug('ApiAction::prepare()');
         parent::prepare($args);
 
         if ($this->requiresAuth()) {

@@ -34,7 +34,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/api.php';
+require_once INSTALLDIR . '/lib/apiprivateauth.php';
 
 /**
  * Returns the 20 most recent notices tagged by a given tag
@@ -49,7 +49,7 @@ require_once INSTALLDIR . '/lib/api.php';
  * @link     http://status.net/
  */
 
-class ApiTimelineTagAction extends ApiAction
+class ApiTimelineTagAction extends ApiPrivateAuthAction
 {
 
     var $notices = null;
