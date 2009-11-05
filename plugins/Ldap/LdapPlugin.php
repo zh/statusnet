@@ -31,8 +31,12 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
+require_once INSTALLDIR.'/plugins/Ldap/ldap.php';
+
 class LdapPlugin extends Plugin
 {
+    private $config = array();
+
     function __construct()
     {
         parent::__construct();
@@ -40,6 +44,9 @@ class LdapPlugin extends Plugin
 
     function onCheckPassword($nickname, $password, &$authenticated)
     {
-        
+        if(ldap_check_password($nickname, $password)){
+            $authenticated = true;
+            return false;
+        }
     }
 }
