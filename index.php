@@ -239,6 +239,7 @@ function main()
     if (!$user && common_config('site', 'private')
         && !isLoginAction($action)
         && !preg_match('/rss$/', $action)
+        && !preg_match('/^Api/', $action)
     ) {
         common_redirect(common_local_url('login'));
         return;
