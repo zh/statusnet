@@ -428,6 +428,9 @@ class Router
             $m->connect('api/account/verify_credentials.:format',
                         array('action' => 'ApiAccountVerifyCredentials'));
 
+            $m->connect('api/account/update_profile_image.:format',
+                        array('action' => 'ApiAccountUpdateProfileImage'));
+
             // special case where verify_credentials is called w/out a format
 
             $m->connect('api/account/verify_credentials',

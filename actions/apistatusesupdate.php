@@ -128,7 +128,7 @@ class ApiStatusesUpdateAction extends ApiAuthAction
 
         // Workaround for PHP returning empty $_FILES when POST length > PHP settings
 
-        if (empty($_POST) && ($_SERVER['CONTENT_LENGTH'] > 0)) {
+        if (empty($_FILES) && ($_SERVER['CONTENT_LENGTH'] > 0)) {
             $this->clientError(_('Unable to handle that much POST data!'));
             return;
         }
