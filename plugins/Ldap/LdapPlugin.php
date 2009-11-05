@@ -77,7 +77,13 @@ class LdapPlugin extends Plugin
             foreach($config_attributes as $config_attribute){
                 $value = common_config('ldap', $config_attribute.'_attribute');
                 if($value!==false){
-                    $registration_data[$config_attribute]=$entry->getValue($value,'single');
+                    if($config_attribute=='email'){
+                        $registration_data[$config_attribute]=common_canonical_email($entry->getValue($value,'single'));
+                    }else if($config_attribute=='nickname'){
+                        $registration_data[$config_attribute]=common_canonical_nickname($entry->getValue($value,'single'));
+                    }else{
+                        $registration_data[$config_attribute]=$entry->getValue($value,'single');
+                    }
                 }
             }
             //error_log(print_r($registration_data,1));
