@@ -69,16 +69,7 @@ class ApiFriendshipsExistsAction extends ApiAction
         $user_a_id = $this->trimmed('user_a');
         $user_b_id = $this->trimmed('user_b');
 
-        common_debug("user_a = " . $user_a_id);
-        common_debug("user_b = " . $user_b_id);
-
-
         $this->user_a = $this->getTargetUser($user_a_id);
-
-        if (empty($this->user_a)) {
-            common_debug('gargargra');
-        }
-
         $this->user_b = $this->getTargetUser($user_b_id);
 
         return true;
