@@ -47,6 +47,8 @@ $codeMap = array(
 	'zh_TW' => 'zh-hant'
 );
 
+$doneCodes = array();
+
 foreach ($languages as $language) {
 	$code = $language['lang'];
 
@@ -54,6 +56,13 @@ foreach ($languages as $language) {
 	// and duplicates
 	if( $code == 'en' || $code == 'no' ) {
 		continue;
+	}
+
+	// Do not export codes twice (happens for 'nb')
+	if( in_array( $code, $doneCodes ) ) {
+		continue;
+	} else {
+		$doneCodes[] = $code;
 	}
 
 	// Convert code if needed
