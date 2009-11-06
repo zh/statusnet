@@ -39,7 +39,7 @@ set_time_limit(60);
 $languages = get_all_languages();
 
 /* Update the languages */
-// Language code conversion for translatewiki.net
+// Language code conversion for translatewiki.net (these are MediaWiki codes)
 $codeMap = array(
 	'nb'    => 'no',
 	'pt_BR' => 'pt-br',
@@ -51,17 +51,19 @@ foreach ($languages as $language) {
 	$code = $language['lang'];
 
 	// Skip export of source language
-	if( $language == 'en' ) {
+	// and duplicates
+	if( $code == 'en' || $code = 'no' ) {
 		continue;
 	}
 
 	// Convert code if needed
 	if( isset( $codeMap[$code] ) ) {
-		$code = $codeMap[$code];
+		$twnCode = $codeMap[$code];
+	} else {
+		$twnCode = str_replace('_', '-', strtolower($code)); // pt_BR -> pt-br
 	}
 
     // Fetch updates from translatewiki.net...
-    $twcode = str_replace('_', '-', strtolower($code)); // pt_BR -> pt-br
     $file_url = 'http://translatewiki.net/w/i.php?' .
         http_build_query(array(
             'title' => 'Special:Translate',
