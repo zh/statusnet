@@ -39,12 +39,28 @@ set_time_limit(60);
 $languages = get_all_languages();
 
 /* Update the languages */
+// Language code conversion for translatewiki.net
+$codeMap = array(
+	'nb'    => 'no',
+	'pt_BR' => 'pt-br',
+	'zh_CN' => 'zh-hans',
+	'zh_TW' => 'zh-hant'
+);
 
 foreach ($languages as $language) {
+	$code = $language['lang'];
 
-    $code = $language['lang'];
+	// Skip export of source language
+	if( $language == 'en' ) {
+		continue;
+	}
 
-    // Fetch updates from TranslateWiki...
+	// Convert code if needed
+	if( isset( $codeMap[$code] ) ) {
+		$code = $codeMap[$code];
+	}
+
+    // Fetch updates from translatewiki.net...
     $twcode = str_replace('_', '-', strtolower($code)); // pt_BR -> pt-br
     $file_url = 'http://translatewiki.net/w/i.php?' .
         http_build_query(array(
