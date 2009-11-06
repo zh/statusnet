@@ -112,7 +112,7 @@ function console_help()
     print "Welcome to StatusNet's interactive PHP console!\n";
     print "Type some PHP code and it'll execute...\n";
     print "\n";
-    print "Hint: return a value of any time to output it via var_export():\n";
+    print "Hint: return a value of any type to output it via var_export():\n";
     print "  \$profile = new Profile();\n";
     print "  \$profile->find();\n";
     print "  \$profile->fetch();\n";
