@@ -114,6 +114,7 @@ function get_all_languages() {
 		'fr-fr'   => array('q' => 1, 'lang' => 'fr', 'name' => 'French', 'direction' => 'ltr'),
 		'ga'      => array('q' => 0.5, 'lang' => 'ga', 'name' => 'Galician', 'direction' => 'ltr'),
 		'he'      => array('q' => 0.5, 'lang' => 'he', 'name' => 'Hebrew', 'direction' => 'rtl'),
+		'is'      => array('q' => 0.1, 'lang' => 'is', 'name' => 'Icelandic', 'direction' => 'ltr'),
 		'it'      => array('q' => 1, 'lang' => 'it', 'name' => 'Italian', 'direction' => 'ltr'),
 		'jp'      => array('q' => 0.5, 'lang' => 'ja', 'name' => 'Japanese', 'direction' => 'ltr'),
 		'ko'      => array('q' => 0.9, 'lang' => 'ko',    'name' => 'Korean', 'direction' => 'ltr'),
