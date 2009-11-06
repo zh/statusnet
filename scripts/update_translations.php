@@ -52,7 +52,7 @@ foreach ($languages as $language) {
 
 	// Skip export of source language
 	// and duplicates
-	if( $code == 'en' || $code = 'no' ) {
+	if( $code == 'en' || $code == 'no' ) {
 		continue;
 	}
 
@@ -69,7 +69,7 @@ foreach ($languages as $language) {
             'title' => 'Special:Translate',
             'task' => 'export-to-file',
             'group' => 'out-statusnet',
-            'language' => $twcode));
+            'language' => $twnCode));
 
     $lcdir = INSTALLDIR . '/locale/' . $code;
     $msgdir = "$lcdir/LC_MESSAGES";
