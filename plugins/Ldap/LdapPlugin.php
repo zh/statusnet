@@ -86,10 +86,20 @@ class LdapPlugin extends Plugin
                     }
                 }
             }
-            //error_log(print_r($registration_data,1));
+            //set the database saved password to a random string.
+            $registration_data['password']=common_good_rand(16);
             $user = User::register($registration_data);
             //prevent other handlers from running, as we have registered the user
             return false;
         }
+    }
+
+    function onChangePassword($nickname,$oldpassword,$newpassword,&$errormsg)
+    {
+        //TODO implement this
+        $errormsg = _('Sorry, changing LDAP passwords is not supported at this time');
+
+        //return false, indicating that the event has been handled
+        return false;
     }
 }

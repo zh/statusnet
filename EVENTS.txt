@@ -483,3 +483,9 @@ CheckPassword: Check a username/password
 AutoRegister: Register a new user with the given nickname. Should insert a new User and Profile into the database.
 - $nickname: The nickname to register
 
+ChangePassword: Handle a password change request
+- $nickname: user's nickname
+- $oldpassword: the user's old password
+- $newpassword: the desired new password
+- &$errormsg: set this to an error message if the password could not be changed. If the password was changed, leave this as false
+
