@@ -105,7 +105,7 @@ class GroupList extends Widget
                                          'alt' =>
                                          ($this->group->fullname) ? $this->group->fullname :
                                          $this->group->nickname));
-        $hasFN = ($this->group->fullname) ? 'nickname url uid' : 'fn org nickname url uid';
+        $hasFN = ($this->group->fullname) ? 'nickname url' : 'fn org nickname url';
         $this->out->elementStart('span', $hasFN);
         $this->out->raw($this->highlight($this->group->nickname));
         $this->out->elementEnd('span');
