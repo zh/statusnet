@@ -110,12 +110,21 @@ function readline_emulation($prompt)
 function console_help()
 {
     print "Welcome to StatusNet's interactive PHP console!\n";
-    print "Type some PHP code and it'll run!\n";
+    print "Type some PHP code and it'll execute...\n";
     print "\n";
-    print "Note that PHP is cranky and you can easily kill your session.\n";
+    print "Hint: return a value of any time to output it via var_export():\n";
+    print "  \$profile = new Profile();\n";
+    print "  \$profile->find();\n";
+    print "  \$profile->fetch();\n";
+    print "  return \$profile;\n";
+    print "\n";
+    print "Note that PHP is cranky and you can easily kill your session by mistyping.\n";
+    print "\n";
+    print "Type ctrl+D or enter 'exit' to exit.\n";
 }
 
 
+print "StatusNet interactive PHP console... type ctrl+D or enter 'exit' to exit.\n";
 $prompt = common_config('site', 'name') . '> ';
 while (!feof(STDIN)) {
     $line = read_input_line($prompt);
@@ -124,14 +133,14 @@ while (!feof(STDIN)) {
         break;
     } elseif ($line !== '') {
         try {
-            if ($line == 'exit') {
+            if (trim($line) == 'exit') {
                 break;
-            } elseif ($line == 'help') {
+            } elseif (trim($line) == 'help') {
                 console_help();
                 continue;
             }
             
-            // Let's do this
+            // Let's do this!
             $result = eval($line);
             if ($result === false) {
                 // parse error
