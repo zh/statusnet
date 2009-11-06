@@ -600,6 +600,10 @@ font-weight:normal;
 content: ")";
 font-weight:normal;
 }
+.entity_profile .nickname:after,
+.entity_profile .nickname:before {
+content:"";
+}
 .entity_profile dt,
 .entity_profile h2 {
 display:none;
@@ -782,6 +786,7 @@ display:none;
 .profiles {
 list-style-type:none;
 }
+.profile .entity_profile .fn.nickname,
 .profile .entity_profile .url[rel=contact] {
 margin-left:0;
 display:inline;
