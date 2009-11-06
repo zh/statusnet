@@ -191,7 +191,7 @@ class ProfileListItem extends Widget
                                          'alt' =>
                                          ($this->profile->fullname) ? $this->profile->fullname :
                                          $this->profile->nickname));
-        $hasFN = ($this->profile->fullname !== '') ? 'nickname' : 'fn nickname';
+        $hasFN = (!empty($this->profile->fullname)) ? 'nickname' : 'fn nickname';
         $this->out->elementStart('span', $hasFN);
         $this->out->raw($this->highlight($this->profile->nickname));
         $this->out->elementEnd('span');
