@@ -119,6 +119,7 @@ class GroupList extends Widget
         if ($this->group->location) {
             $this->out->elementStart('span', 'label');
             $this->out->raw($this->highlight($this->group->location));
+            $this->out->elementEnd('span');
         }
         if ($this->group->homepage) {
             $this->out->elementStart('a', array('href' => $this->group->homepage,
