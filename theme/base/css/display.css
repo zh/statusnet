@@ -592,11 +592,11 @@ margin-left:0;
 font-size:1.1em;
 font-weight:bold;
 }
-.entity_profile .entity_fn dd:before {
+.entity_profile .fn:before {
 content: "(";
 font-weight:normal;
 }
-.entity_profile .entity_fn dd:after {
+.entity_profile .fn:after {
 content: ")";
 font-weight:normal;
 }
@@ -782,18 +782,21 @@ display:none;
 .profiles {
 list-style-type:none;
 }
-.profile .entity_profile .entity_location {
+.profile .entity_profile .url[rel=contact] {
+margin-left:0;
+display:inline;
+}
+
+.profile .entity_profile .fn,
+.profile .entity_profile .location {
+margin-left:11px;
+margin-bottom:4px;
 width:auto;
 clear:none;
-margin-left:11px;
 }
-.profile .entity_profile dl,
-.profile .entity_profile dd {
-display:inline;
-float:none;
-}
-.profile .entity_profile .entity_note,
-.profile .entity_profile .entity_url,
+
+.profile .entity_profile .note,
+.profile .entity_profile .url,
 .profile .entity_profile .entity_tags,
 .profile .entity_profile .form_subscription_edit {
 margin-left:59px;
