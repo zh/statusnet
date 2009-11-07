@@ -1101,4 +1101,22 @@ class Action extends HTMLOutputter // lawsuit
     {
         return Design::siteDesign();
     }
+
+    /**
+     * Check the session token.
+     *
+     * Checks that the current form has the correct session token,
+     * and throw an exception if it does not.
+     *
+     * @return void
+     */
+
+    function checkSessionToken()
+    {
+        // CSRF protection
+        $token = $this->trimmed('token');
+        if (empty($token) || $token != common_session_token()) {
+            $this->clientError(_('There was a problem with your session token.'));
+        }
+    }
 }
