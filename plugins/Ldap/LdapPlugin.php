@@ -46,7 +46,60 @@ class LdapPlugin extends Plugin
     {
         if(ldap_check_password($nickname, $password)){
             $authenticated = true;
+            //stop handling of other events, because we have an answer
             return false;
         }
+        if(common_config('ldap','authoritative')){
+            //a false return stops handler processing
+            return false;
+        }
+    }
+
+    function onAutoRegister($nickname)
+    {
+        $user = User::staticGet('nickname', $nickname);
+        if (! is_null($user) && $user !== false) {
+            common_log(LOG_WARNING, "An attempt was made to autoregister an existing user with nickname: $nickname");
+            return;
+        }
+
+        $attributes=array();
+        $config_attributes = array('nickname','email','fullname','homepage','location');
+        foreach($config_attributes as $config_attribute){
+            $value = common_config('ldap', $config_attribute.'_attribute');
+            if($value!==false){
+                array_push($attributes,$value);
+            }
+        }
+        $entry = ldap_get_user($nickname,$attributes);
+        if($entry){
+            $registration_data = array();
+            foreach($config_attributes as $config_attribute){
+                $value = common_config('ldap', $config_attribute.'_attribute');
+                if($value!==false){
+                    if($config_attribute=='email'){
+                        $registration_data[$config_attribute]=common_canonical_email($entry->getValue($value,'single'));
+                    }else if($config_attribute=='nickname'){
+                        $registration_data[$config_attribute]=common_canonical_nickname($entry->getValue($value,'single'));
+                    }else{
+                        $registration_data[$config_attribute]=$entry->getValue($value,'single');
+                    }
+                }
+            }
+            //set the database saved password to a random string.
+            $registration_data['password']=common_good_rand(16);
+            $user = User::register($registration_data);
+            //prevent other handlers from running, as we have registered the user
+            return false;
+        }
+    }
+
+    function onChangePassword($nickname,$oldpassword,$newpassword,&$errormsg)
+    {
+        //TODO implement this
+        $errormsg = _('Sorry, changing LDAP passwords is not supported at this time');
+
+        //return false, indicating that the event has been handled
+        return false;
     }
 }

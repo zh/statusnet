@@ -1,21 +1,16 @@
 # Translation of StatusNet to Greek
 #
 # --
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-02 10:50-0800\n"
-"PO-Revision-Date: 2009-11-03 19:57:42+0000\n"
+"POT-Creation-Date: 2009-11-06 13:16+0000\n"
+"PO-Revision-Date: 2009-11-06 15:43:14+0000\n"
 "Language-Team: Greek\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58495); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58648); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: el\n"
 "X-Message-Group: out-statusnet\n"
@@ -6695,7 +6690,7 @@ msgstr ""
 msgid "Problem saving notice. Too long."
 msgstr ""
 
-#: classes/User.php:319 classes/User.php:327
+#: classes/User.php:319 classes/User.php:327 classes/User.php:334
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
@@ -7003,8 +6998,9 @@ msgid "groups on %s"
 msgstr "Βρες ομάδες στο site"
 
 #: actions/apistatusesshow.php:138
+#, fuzzy
 msgid "Status deleted."
-msgstr ""
+msgstr "Ρυθμίσεις OpenID"
 
 #: actions/apistatusesupdate.php:132
 msgid "Unable to handle that much POST data!"
@@ -7097,8 +7093,9 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Όλες οι ενημερώσεις που ταιριάζουν με τον όρο αναζήτησης \"%s\""
 
 #: actions/oembed.php:157
+#, fuzzy
 msgid "content type "
-msgstr ""
+msgstr "Σύνδεση"
 
 #: actions/oembed.php:160
 msgid "Only "
@@ -7145,19 +7142,19 @@ msgid "Couldn’t get a request token."
 msgstr "Απέτυχε η μετατροπή αιτούμενων tokens σε tokens πρόσβασης."
 
 #: actions/replies.php:144
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 1.0)"
-msgstr ""
+msgstr "Ροή φίλων του/της %s"
 
 #: actions/replies.php:151
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 2.0)"
-msgstr ""
+msgstr "Ροή φίλων του/της %s"
 
 #: actions/replies.php:158
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (Atom)"
-msgstr ""
+msgstr "Ροή φίλων του/της %s"
 
 #: actions/repliesrss.php:72
 #, php-format
@@ -7193,8 +7190,9 @@ msgid "FOAF for %s group"
 msgstr "Αδύνατη η αποθήκευση του προφίλ."
 
 #: actions/shownotice.php:90
+#, fuzzy
 msgid "Notice deleted."
-msgstr ""
+msgstr "Ρυθμίσεις OpenID"
 
 #: actions/smssettings.php:91
 #, fuzzy
@@ -7202,9 +7200,9 @@ msgid "SMS is not available."
 msgstr "Η αρχική σελίδα δεν είναι έγκυρο URL."
 
 #: actions/tag.php:92
-#, php-format
+#, fuzzy, php-format
 msgid "Notice feed for tag %s (RSS 2.0)"
-msgstr ""
+msgstr "Ροή φίλων του/της %s"
 
 #: actions/updateprofile.php:62 actions/userauthorization.php:330
 #, php-format
@@ -7380,9 +7378,9 @@ msgid "Describe the group or topic in %d characters"
 msgstr "Περιγράψτε την ομάδα ή το θέμα μέχρι 140 χαρακτήρες"
 
 #: lib/jabber.php:192
-#, php-format
+#, fuzzy, php-format
 msgid "notice id: %s"
-msgstr ""
+msgstr "Μήνυμα"
 
 #: lib/mail.php:554
 #, php-format
@@ -7440,8 +7438,9 @@ msgid "File exceeds user's quota!"
 msgstr ""
 
 #: lib/mediafile.php:201 lib/mediafile.php:237
+#, fuzzy
 msgid "Could not determine file's mime-type!"
-msgstr ""
+msgstr "Απέτυχε η ενημέρωση του χρήστη."
 
 #: lib/oauthstore.php:345
 #, fuzzy

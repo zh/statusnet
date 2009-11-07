@@ -2,22 +2,16 @@
 #
 # Author@translatewiki.net: Александр Сигачёв
 # --
-# #-#-#-#-#  statusnet.new.pot (PACKAGE VERSION)  #-#-#-#-#
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-02 10:50-0800\n"
-"PO-Revision-Date: 2009-11-03 19:59:30+0000\n"
+"POT-Creation-Date: 2009-11-06 13:16+0000\n"
+"PO-Revision-Date: 2009-11-06 15:44:29+0000\n"
 "Language-Team: Russian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58495); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58648); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ru\n"
 "X-Message-Group: out-statusnet\n"
@@ -26,7 +20,7 @@ msgstr ""
 #: actions/noticesearchrss.php:88 actions/noticesearchrss.php:89
 #, php-format
 msgid " Search Stream for \"%s\""
-msgstr ""
+msgstr "Поисковый поток для «%s»"
 
 #: ../actions/finishopenidlogin.php:82 ../actions/register.php:191
 #: actions/finishopenidlogin.php:88 actions/register.php:205
@@ -34,23 +28,25 @@ msgstr ""
 msgid ""
 " except this private data: password, email address, IM address, phone number."
 msgstr ""
+"за исключением следующих личных данных: пароля, адреса электронной почты, IM-"
+"адреса, номера телефона."
 
 #: ../actions/showstream.php:400 ../lib/stream.php:109
 #: actions/showstream.php:418 lib/mailbox.php:164 lib/stream.php:76
 msgid " from "
-msgstr ""
+msgstr "от "
 
 #: ../actions/twitapistatuses.php:478 actions/twitapistatuses.php:412
 #: actions/twitapistatuses.php:347 actions/twitapistatuses.php:363
 #, php-format
 msgid "%1$s / Updates replying to %2$s"
-msgstr ""
+msgstr "%1$s / Обновления в ответ %2$s"
 
 #: ../actions/invite.php:168 actions/invite.php:176 actions/invite.php:211
 #: actions/invite.php:218 actions/invite.php:220 actions/invite.php:226
 #, php-format
 msgid "%1$s has invited you to join them on %2$s"
-msgstr ""
+msgstr "%1$s пригласил вас присоединиться к нему на %2$s"
 
 #: ../actions/invite.php:170 actions/invite.php:220 actions/invite.php:222
 #: actions/invite.php:228
@@ -83,12 +79,38 @@ msgid ""
 "\n"
 "Sincerely, %2$s\n"
 msgstr ""
+"%1$s пригласил вас присоединиться к нему на %2$s (%3$s).\n"
+"\n"
+"%2$s — сервис микроблоггинга, позволяющий держать контакт с людьми, которых "
+"вы знаете и которые вам интересны.\n"
+"\n"
+"Вы также можете поделиться новостями о себе, вашими мыслями или вашей онлайн-"
+"жизнью со знающими вас людьми. Этот сервис также отлично подходит для "
+"встречи с новыми людьми, разделяющими ваши интересы.\n"
+"\n"
+"%1$s говорит:\n"
+"\n"
+"%4$s\n"
+"\n"
+"Вы можете увидеть страницу профиля %1$s на %2$s здесь:\n"
+"\n"
+"%5$s\n"
+"\n"
+"Если вы хотите опробовать данный сервис, нажмите на приведённую ниже ссылку, "
+"чтобы принять приглашение.\n"
+"\n"
+"%6$s\n"
+"\n"
+"В противном случае вы можете проигнорировать это сообщение. Спасибо за ваше "
+"терпение и время.\n"
+"\n"
+"С уважением, %2$s\n"
 
 #: ../lib/mail.php:124 lib/mail.php:124 lib/mail.php:126 lib/mail.php:241
 #: lib/mail.php:236 lib/mail.php:235
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
-msgstr ""
+msgstr "%1$s сейчас слушает ваши заметки на %2$s."
 
 #: ../lib/mail.php:126
 #, php-format
@@ -5597,14 +5619,14 @@ msgid "Unsubscribe from this user"
 msgstr "Отписаться от этого пользователя"
 
 #: actions/all.php:77 actions/all.php:59 actions/all.php:99
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
-msgstr "Лента друзей %s"
+msgstr "Лента друзей %s (RSS 1.0)"
 
 #: actions/all.php:82 actions/all.php:64 actions/all.php:107
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
-msgstr "Лента друзей %s"
+msgstr "Лента друзей %s (RSS 2.0)"
 
 #: actions/all.php:87 actions/all.php:69 actions/all.php:115
 #, fuzzy, php-format
@@ -6892,7 +6914,7 @@ msgstr ""
 msgid "Problem saving notice. Too long."
 msgstr "Проблемы с сохранением записи."
 
-#: classes/User.php:319 classes/User.php:327
+#: classes/User.php:319 classes/User.php:327 classes/User.php:334
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Сообщение для %1$s на %2$s"
@@ -7162,7 +7184,8 @@ msgstr "Слишком длинно. Максимальная длина соо�
 #, fuzzy
 msgid "Could not unfollow user: User not found."
 msgstr ""
-"Не удаётся следовать пользователю, т.к. такого пользователя не существует."
+"Не удаётся следовать за пользователем, т. к. такого пользователя не "
+"существует."
 
 #: actions/apifriendshipsdestroy.php:120
 msgid "You cannot unfollow yourself!"
@@ -7299,18 +7322,19 @@ msgstr ""
 "(%%action.openidlogin%%). "
 
 #: actions/noticesearchrss.php:89
-#, php-format
+#, fuzzy, php-format
 msgid "Updates with \"%s\""
-msgstr ""
+msgstr "Обновлено от %1$s на %2$s!"
 
 #: actions/noticesearchrss.php:91
 #, fuzzy, php-format
 msgid "Updates matching search term \"%1$s\" on %2$s!"
-msgstr "Все обновления соответствующие поисковому термину \"%s\""
+msgstr "Все обновления, соответствующие поисковому запросу «%s»"
 
 #: actions/oembed.php:157
+#, fuzzy
 msgid "content type "
-msgstr ""
+msgstr "Соединить"
 
 #: actions/oembed.php:160
 msgid "Only "
@@ -7343,7 +7367,9 @@ msgid ""
 "link up to friends and colleagues. "
 msgstr ""
 "При помощи этой формы вы можете создать новый аккаунт, чтобы публиковать "
-"короткие сообщения и устанавливать связи с друзьями и коллегами."
+"короткие сообщения и устанавливать связи с друзьями и коллегами (Есть "
+"[OpenID](http://openid.net/) аккаунт? Тогда используй [OpenID регистрацию](%%"
+"action.openidlogin%%)!)"
 
 #: actions/remotesubscribe.php:168
 #, fuzzy
@@ -7384,12 +7410,12 @@ msgstr "Сообщение для %1$s на %2$s"
 #: actions/showfavorites.php:170
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
-msgstr "Лента друзей %s"
+msgstr "Лента друзей %s (RSS 1.0)"
 
 #: actions/showfavorites.php:177
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
-msgstr "Лента друзей %s"
+msgstr "Лента друзей %s (RSS 2.0)"
 
 #: actions/showfavorites.php:184
 #, fuzzy, php-format
@@ -7488,7 +7514,7 @@ msgstr ""
 #: actions/userauthorization.php:343
 #, fuzzy, php-format
 msgid "Can’t read avatar URL ‘%s’."
-msgstr "Не удается прочитать URL аватары из '%s'"
+msgstr "Не удаётся прочитать URL аватары «%s»"
 
 #: actions/userauthorization.php:348
 #, fuzzy, php-format
@@ -7665,7 +7691,7 @@ msgstr ""
 #: lib/mailbox.php:227 lib/noticelist.php:424
 #, fuzzy
 msgid "from"
-msgstr " из"
+msgstr "от "
 
 #: lib/mediafile.php:179 lib/mediafile.php:216
 msgid "File exceeds user's quota!"

@@ -87,16 +87,22 @@ class ApiAccountUpdateProfileImageAction extends ApiAuthAction
             return;
         }
 
-        if (empty($this->user)) {
-            $this->clientError(_('No such user!'), 404, $this->format);
+        // Workaround for PHP returning empty $_POST and $_FILES when POST
+        // length > post_max_size in php.ini
+
+        if (empty($_FILES)
+            && empty($_POST)
+            && ($_SERVER['CONTENT_LENGTH'] > 0)
+        ) {
+             $msg = _('The server was unable to handle that much POST ' .
+                    'data (%s bytes) due to its current configuration.');
+
+            $this->clientError(sprintf($msg, $_SERVER['CONTENT_LENGTH']));
             return;
         }
 
-        // Workaround for PHP returning empty $_FILES when POST length > PHP settings
-
-        if (empty($_FILES) && ($_SERVER['CONTENT_LENGTH'] > 0)) {
-            common_debug('content-length = ' . $_SERVER['CONTENT_LENGTH']);
-            $this->clientError(_('Unable to handle that much POST data!'));
+        if (empty($this->user)) {
+            $this->clientError(_('No such user!'), 404, $this->format);
             return;
         }
 

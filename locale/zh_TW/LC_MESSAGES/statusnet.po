@@ -1,32 +1,37 @@
-# Translation of StatusNet to Chinese (Taiwan)
+# Translation of StatusNet to Traditional Chinese
 #
 # --
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-02 10:50-0800\n"
-"PO-Revision-Date: 2009-11-03 20:00:19+0000\n"
-"Language-Team: Chinese (Taiwan)\n"
+"POT-Creation-Date: 2009-11-06 13:16+0000\n"
+"PO-Revision-Date: 2009-11-06 15:44:55+0000\n"
+"Language-Team: Traditional Chinese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58495); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58648); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
-"X-Language-Code: zh-tw\n"
+"X-Language-Code: zh-hant\n"
 "X-Message-Group: out-statusnet\n"
 
 #: ../actions/noticesearchrss.php:64 actions/noticesearchrss.php:68
 #: actions/noticesearchrss.php:88 actions/noticesearchrss.php:89
 #, php-format
 msgid " Search Stream for \"%s\""
-msgstr ""
+msgstr "搜尋 \"%s\"相關資料"
 
 #: ../actions/finishopenidlogin.php:82 ../actions/register.php:191
 #: actions/finishopenidlogin.php:88 actions/register.php:205
 #: actions/finishopenidlogin.php:110 actions/finishopenidlogin.php:109
 msgid ""
 " except this private data: password, email address, IM address, phone number."
-msgstr ""
+msgstr "不包含這些個人資料：密碼、電子信箱、線上即時通信箱、電話號碼"
 
 #: ../actions/showstream.php:400 ../lib/stream.php:109
 #: actions/showstream.php:418 lib/mailbox.php:164 lib/stream.php:76
@@ -81,7 +86,7 @@ msgstr ""
 #: lib/mail.php:236 lib/mail.php:235
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
-msgstr ""
+msgstr "現在%1$s在%2$s成為你的粉絲囉"
 
 #: ../lib/mail.php:126
 #, php-format
@@ -93,6 +98,13 @@ msgid ""
 "Faithfully yours,\n"
 "%4$s.\n"
 msgstr ""
+"現在%1$s在%2$s成為你的粉絲囉。\n"
+"\n"
+"\t%3$s\n"
+"\n"
+"\n"
+"%4$s.\n"
+"敬上。\n"
 
 #: ../actions/twitapistatuses.php:482 actions/twitapistatuses.php:415
 #: actions/twitapistatuses.php:350 actions/twitapistatuses.php:367
@@ -106,7 +118,7 @@ msgstr ""
 #: actions/shownotice.php:180
 #, php-format
 msgid "%1$s's status on %2$s"
-msgstr ""
+msgstr "%1$s的狀態是%2$s"
 
 #: ../actions/invite.php:84 ../actions/invite.php:92 actions/invite.php:91
 #: actions/invite.php:99 actions/invite.php:123 actions/invite.php:131
@@ -119,7 +131,7 @@ msgstr ""
 #: actions/publicrss.php:90 actions/publicrss.php:89
 #, php-format
 msgid "%s Public Stream"
-msgstr ""
+msgstr "%s的公開內容"
 
 #: ../actions/all.php:47 ../actions/allrss.php:60
 #: ../actions/twitapistatuses.php:238 ../lib/stream.php:51 actions/all.php:47
@@ -134,7 +146,7 @@ msgstr ""
 #: actions/allrss.php:115 actions/apitimelinefriends.php:114
 #, php-format
 msgid "%s and friends"
-msgstr ""
+msgstr "%s與好友"
 
 #: ../actions/twitapistatuses.php:49 actions/twitapistatuses.php:49
 #: actions/twitapistatuses.php:33 actions/twitapistatuses.php:32
@@ -180,16 +192,18 @@ msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
 "broughtby%%](%%site.broughtbyurl%%). "
 msgstr ""
+"**%%site.name%%**是由[%%site.broughtby%%](%%site.broughtbyurl%%)所提供的微型"
+"部落格服務"
 
 #: ../lib/util.php:259 lib/util.php:275 lib/action.php:607 lib/action.php:704
 #: lib/action.php:754 lib/action.php:769
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
-msgstr ""
+msgstr "**%%site.name%%**是個微型部落格"
 
 #: ../lib/util.php:274 lib/util.php:290
 msgid ". Contributors should be attributed by full name or nickname."
-msgstr ""
+msgstr "必須注明作者姓名或昵稱."
 
 #: ../actions/finishopenidlogin.php:73 ../actions/profilesettings.php:43
 #: actions/finishopenidlogin.php:79 actions/profilesettings.php:76
@@ -197,7 +211,7 @@ msgstr ""
 #: lib/groupeditform.php:139 actions/finishopenidlogin.php:100
 #: lib/groupeditform.php:154 actions/profilesettings.php:108
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
-msgstr ""
+msgstr "1-64個小寫英文字母或數字，勿加標點符號或空格"
 
 #: ../actions/register.php:152 actions/register.php:166
 #: actions/register.php:368 actions/register.php:414 actions/register.php:418
@@ -207,13 +221,13 @@ msgstr ""
 #: ../actions/password.php:42 actions/profilesettings.php:181
 #: actions/passwordsettings.php:102 actions/passwordsettings.php:108
 msgid "6 or more characters"
-msgstr ""
+msgstr "6個以上字元"
 
 #: ../actions/recoverpassword.php:180 actions/recoverpassword.php:186
 #: actions/recoverpassword.php:220 actions/recoverpassword.php:233
 #: actions/recoverpassword.php:236
 msgid "6 or more characters, and don't forget it!"
-msgstr ""
+msgstr "6個或6個以上字元，別忘了自己密碼喔"
 
 #: ../actions/register.php:154 actions/register.php:168
 #: actions/register.php:373 actions/register.php:419 actions/register.php:423
@@ -226,7 +240,7 @@ msgstr ""
 msgid ""
 "A confirmation code was sent to the IM address you added. You must approve %"
 "s for sending messages to you."
-msgstr ""
+msgstr "確認信已寄到你的線上即時通信箱。%s送給你得訊息要先經過你的認可。"
 
 #: ../actions/emailsettings.php:213 actions/emailsettings.php:231
 #: actions/emailsettings.php:350 actions/emailsettings.php:358
@@ -321,13 +335,13 @@ msgstr ""
 #: ../lib/util.php:324 lib/util.php:340 lib/action.php:568 lib/action.php:661
 #: lib/action.php:706 lib/action.php:721
 msgid "About"
-msgstr ""
+msgstr "關於"
 
 #: ../actions/userauthorization.php:119 actions/userauthorization.php:126
 #: actions/userauthorization.php:143 actions/userauthorization.php:178
 #: actions/userauthorization.php:209
 msgid "Accept"
-msgstr ""
+msgstr "接受"
 
 #: ../actions/emailsettings.php:62 ../actions/imsettings.php:63
 #: ../actions/openidsettings.php:57 ../actions/smssettings.php:71
@@ -340,12 +354,12 @@ msgstr ""
 #: actions/emailsettings.php:126 actions/imsettings.php:133
 #: actions/smssettings.php:145
 msgid "Add"
-msgstr ""
+msgstr "新增"
 
 #: ../actions/openidsettings.php:43 actions/openidsettings.php:44
 #: actions/openidsettings.php:93
 msgid "Add OpenID"
-msgstr ""
+msgstr "新增OpenID"
 
 #: ../lib/settingsaction.php:97 lib/settingsaction.php:91
 #: lib/accountsettingsaction.php:117
@@ -359,7 +373,7 @@ msgstr ""
 #: actions/smssettings.php:92 actions/emailsettings.php:100
 #: actions/imsettings.php:100 actions/smssettings.php:104
 msgid "Address"
-msgstr ""
+msgstr "信箱"
 
 #: ../actions/invite.php:131 actions/invite.php:139 actions/invite.php:176
 #: actions/invite.php:181 actions/invite.php:183 actions/invite.php:189
@@ -369,19 +383,19 @@ msgstr ""
 #: ../actions/showstream.php:273 actions/showstream.php:288
 #: actions/showstream.php:422 lib/profileaction.php:126
 msgid "All subscriptions"
-msgstr ""
+msgstr "所有訂閱"
 
 #: ../actions/publicrss.php:64 actions/publicrss.php:50
 #: actions/publicrss.php:92 actions/publicrss.php:91
 #, php-format
 msgid "All updates for %s"
-msgstr ""
+msgstr "%s的所有新增內容"
 
 #: ../actions/noticesearchrss.php:66 actions/noticesearchrss.php:70
 #: actions/noticesearchrss.php:90 actions/noticesearchrss.php:91
 #, php-format
 msgid "All updates matching search term \"%s\""
-msgstr ""
+msgstr "所有符合 \"%s\"的更新"
 
 #: ../actions/finishopenidlogin.php:29 ../actions/login.php:31
 #: ../actions/openidlogin.php:29 ../actions/register.php:30
@@ -391,11 +405,11 @@ msgstr ""
 #: actions/openidlogin.php:30 actions/register.php:92 actions/register.php:131
 #: actions/login.php:79
 msgid "Already logged in."
-msgstr ""
+msgstr "已登入"
 
 #: ../lib/subs.php:42 lib/subs.php:42 lib/subs.php:49 lib/subs.php:48
 msgid "Already subscribed!."
-msgstr ""
+msgstr "此帳號已註冊"
 
 #: ../actions/deletenotice.php:54 actions/deletenotice.php:55
 #: actions/deletenotice.php:113 actions/deletenotice.php:114
@@ -407,14 +421,14 @@ msgstr ""
 #: actions/userauthorization.php:81 actions/userauthorization.php:76
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
-msgstr ""
+msgstr "註冊確認"
 
 #: ../actions/login.php:104 ../actions/register.php:178
 #: actions/register.php:192 actions/login.php:218 actions/openidlogin.php:117
 #: actions/register.php:416 actions/register.php:463 actions/login.php:226
 #: actions/register.php:473
 msgid "Automatically login in the future; not for shared computers!"
-msgstr ""
+msgstr "未來在同一部電腦自動登入"
 
 #: ../actions/profilesettings.php:65 actions/profilesettings.php:98
 #: actions/profilesettings.php:144 actions/profilesettings.php:145
@@ -430,12 +444,12 @@ msgstr ""
 #: actions/showgroup.php:216 actions/showgroup.php:221
 #: lib/accountsettingsaction.php:111
 msgid "Avatar"
-msgstr ""
+msgstr "個人圖像"
 
 #: ../actions/avatar.php:113 actions/profilesettings.php:350
 #: actions/avatarsettings.php:395 actions/avatarsettings.php:346
 msgid "Avatar updated."
-msgstr ""
+msgstr "更新個人圖像"
 
 #: ../actions/imsettings.php:55 actions/imsettings.php:56
 #: actions/imsettings.php:108 actions/imsettings.php:114
@@ -444,6 +458,8 @@ msgid ""
 "Awaiting confirmation on this address. Check your Jabber/GTalk account for a "
 "message with further instructions. (Did you add %s to your buddy list?)"
 msgstr ""
+"等待確認此信箱。看看你的Jabber/GTalk是否有訊息指示下一步動作。(你加入%s到你的"
+"好友清單了嗎？)"
 
 #: ../actions/emailsettings.php:54 actions/emailsettings.php:55
 #: actions/emailsettings.php:107 actions/emailsettings.php:113
@@ -458,8 +474,9 @@ msgid "Awaiting confirmation on this phone number."
 msgstr ""
 
 #: ../lib/util.php:1318 lib/util.php:1452
+#, fuzzy
 msgid "Before »"
-msgstr ""
+msgstr "之前的內容»"
 
 #: ../actions/profilesettings.php:49 ../actions/register.php:170
 #: actions/profilesettings.php:82 actions/register.php:184
@@ -467,7 +484,7 @@ msgstr ""
 #: actions/register.php:448 actions/profilesettings.php:127
 #: actions/register.php:459
 msgid "Bio"
-msgstr ""
+msgstr "自我介紹"
 
 #: ../actions/profilesettings.php:101 ../actions/register.php:82
 #: ../actions/updateprofile.php:103 actions/profilesettings.php:216
@@ -476,7 +493,7 @@ msgstr ""
 #: actions/updateprofile.php:107 actions/updateprofile.php:109
 #: actions/profilesettings.php:206 actions/register.php:211
 msgid "Bio is too long (max 140 chars)."
-msgstr ""
+msgstr "自我介紹過長(共140個字元)"
 
 #: ../lib/deleteaction.php:41 lib/deleteaction.php:41 lib/deleteaction.php:69
 #: actions/deletenotice.php:71
@@ -487,7 +504,7 @@ msgstr ""
 #: actions/updateprofile.php:123 actions/updateprofile.php:125
 #, php-format
 msgid "Can't read avatar URL '%s'"
-msgstr ""
+msgstr "無法讀取此%sURL的圖像"
 
 #: ../actions/password.php:85 ../actions/recoverpassword.php:300
 #: actions/profilesettings.php:404 actions/recoverpassword.php:313
@@ -495,7 +512,7 @@ msgstr ""
 #: actions/passwordsettings.php:174 actions/recoverpassword.php:365
 #: actions/passwordsettings.php:180 actions/recoverpassword.php:368
 msgid "Can't save new password."
-msgstr ""
+msgstr "無法存取新密碼"
 
 #: ../actions/emailsettings.php:57 ../actions/imsettings.php:58
 #: ../actions/smssettings.php:62 actions/emailsettings.php:58
@@ -504,17 +521,17 @@ msgstr ""
 #: actions/smssettings.php:114 actions/emailsettings.php:117
 #: actions/imsettings.php:120 actions/smssettings.php:126
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 #: ../lib/openid.php:121 lib/openid.php:121 lib/openid.php:130
 #: lib/openid.php:133
 msgid "Cannot instantiate OpenID consumer object."
-msgstr ""
+msgstr "無法初始化OpenID用戶對象(consumer object)"
 
 #: ../actions/imsettings.php:163 actions/imsettings.php:171
 #: actions/imsettings.php:286 actions/imsettings.php:292
 msgid "Cannot normalize that Jabber ID"
-msgstr ""
+msgstr "此JabberID錯誤"
 
 #: ../actions/emailsettings.php:181 actions/emailsettings.php:199
 #: actions/emailsettings.php:311 actions/emailsettings.php:318
@@ -525,7 +542,7 @@ msgstr ""
 #: ../actions/password.php:45 actions/profilesettings.php:184
 #: actions/passwordsettings.php:110 actions/passwordsettings.php:116
 msgid "Change"
-msgstr ""
+msgstr "更改"
 
 #: ../lib/settingsaction.php:88 lib/settingsaction.php:88
 #: lib/accountsettingsaction.php:114 lib/accountsettingsaction.php:118
@@ -535,7 +552,7 @@ msgstr ""
 #: ../actions/password.php:32 actions/profilesettings.php:36
 #: actions/passwordsettings.php:58
 msgid "Change password"
-msgstr ""
+msgstr "更改密碼"
 
 #: ../lib/settingsaction.php:94 lib/accountsettingsaction.php:111
 #: lib/accountsettingsaction.php:115
@@ -557,12 +574,12 @@ msgstr ""
 #: actions/passwordsettings.php:111 actions/recoverpassword.php:239
 #: actions/register.php:426 actions/smssettings.php:134
 msgid "Confirm"
-msgstr ""
+msgstr "確認"
 
 #: ../actions/confirmaddress.php:90 actions/confirmaddress.php:90
 #: actions/confirmaddress.php:144
 msgid "Confirm Address"
-msgstr ""
+msgstr "確認信箱"
 
 #: ../actions/emailsettings.php:238 ../actions/imsettings.php:222
 #: ../actions/smssettings.php:245 actions/emailsettings.php:256
@@ -572,7 +589,7 @@ msgstr ""
 #: actions/emailsettings.php:394 actions/imsettings.php:367
 #: actions/smssettings.php:386
 msgid "Confirmation cancelled."
-msgstr ""
+msgstr "確認取消"
 
 #: ../actions/smssettings.php:63 actions/smssettings.php:63
 #: actions/smssettings.php:118 actions/smssettings.php:130
@@ -582,7 +599,7 @@ msgstr ""
 #: ../actions/confirmaddress.php:38 actions/confirmaddress.php:38
 #: actions/confirmaddress.php:80
 msgid "Confirmation code not found."
-msgstr ""
+msgstr "確認碼遺失"
 
 #: ../actions/register.php:202 actions/register.php:473
 #: actions/register.php:521 actions/register.php:531
@@ -609,23 +626,23 @@ msgstr ""
 #: lib/action.php:406 actions/finishopenidlogin.php:118 lib/action.php:422
 #: lib/action.php:425 lib/action.php:435
 msgid "Connect"
-msgstr ""
+msgstr "連結"
 
 #: ../actions/finishopenidlogin.php:86 actions/finishopenidlogin.php:92
 #: actions/finishopenidlogin.php:114 actions/finishopenidlogin.php:113
 msgid "Connect existing account"
-msgstr ""
+msgstr "與現有帳號連結"
 
 #: ../lib/util.php:332 lib/util.php:348 lib/action.php:576 lib/action.php:669
 #: lib/action.php:719 lib/action.php:734
 msgid "Contact"
-msgstr ""
+msgstr "好友名單"
 
 #: ../lib/openid.php:178 lib/openid.php:178 lib/openid.php:187
 #: lib/openid.php:190
 #, php-format
 msgid "Could not create OpenID form: %s"
-msgstr ""
+msgstr "無法從 %s 建立OpenID"
 
 #: ../actions/twitapifriendships.php:60 ../actions/twitapifriendships.php:76
 #: actions/twitapifriendships.php:60 actions/twitapifriendships.php:76
@@ -646,17 +663,17 @@ msgstr ""
 #: lib/openid.php:172
 #, php-format
 msgid "Could not redirect to server: %s"
-msgstr ""
+msgstr "無法連結到伺服器:%s"
 
 #: ../actions/updateprofile.php:162 actions/updateprofile.php:163
 #: actions/updateprofile.php:166 actions/updateprofile.php:176
 msgid "Could not save avatar info"
-msgstr ""
+msgstr "無法存取個人圖像資料"
 
 #: ../actions/updateprofile.php:155 actions/updateprofile.php:156
 #: actions/updateprofile.php:159 actions/updateprofile.php:163
 msgid "Could not save new profile info"
-msgstr ""
+msgstr "無法存取新的個人資料"
 
 #: ../lib/subs.php:54 lib/subs.php:61 lib/subs.php:72 lib/subs.php:75
 msgid "Could not subscribe other to you."
@@ -674,7 +691,7 @@ msgstr ""
 #: ../actions/finishremotesubscribe.php:99
 #: actions/finishremotesubscribe.php:101 actions/finishremotesubscribe.php:114
 msgid "Couldn't convert request tokens to access tokens."
-msgstr ""
+msgstr "無法轉換請求標記以致無法存取標記"
 
 #: ../actions/confirmaddress.php:84 ../actions/emailsettings.php:234
 #: ../actions/imsettings.php:218 ../actions/smssettings.php:241
@@ -685,11 +702,11 @@ msgstr ""
 #: actions/emailsettings.php:382 actions/emailsettings.php:390
 #: actions/imsettings.php:363 actions/smssettings.php:382
 msgid "Couldn't delete email confirmation."
-msgstr ""
+msgstr "無法取消信箱確認"
 
 #: ../lib/subs.php:103 lib/subs.php:116 lib/subs.php:134 lib/subs.php:136
 msgid "Couldn't delete subscription."
-msgstr ""
+msgstr "無法刪除帳號"
 
 #: ../actions/twitapistatuses.php:93 actions/twitapistatuses.php:98
 #: actions/twitapistatuses.php:84 actions/twitapistatuses.php:87
@@ -699,7 +716,7 @@ msgstr ""
 #: ../actions/remotesubscribe.php:127 actions/remotesubscribe.php:136
 #: actions/remotesubscribe.php:178
 msgid "Couldn't get a request token."
-msgstr ""
+msgstr "無法取得轉換標記"
 
 #: ../actions/emailsettings.php:205 ../actions/imsettings.php:187
 #: ../actions/smssettings.php:206 actions/emailsettings.php:223
@@ -709,20 +726,20 @@ msgstr ""
 #: actions/emailsettings.php:352 actions/imsettings.php:317
 #: actions/smssettings.php:337
 msgid "Couldn't insert confirmation code."
-msgstr ""
+msgstr "無法輸入確認碼"
 
 #: ../actions/finishremotesubscribe.php:180
 #: actions/finishremotesubscribe.php:182 actions/finishremotesubscribe.php:218
 #: lib/oauthstore.php:487
 msgid "Couldn't insert new subscription."
-msgstr ""
+msgstr "無法新增訂閱"
 
 #: ../actions/profilesettings.php:184 ../actions/twitapiaccount.php:96
 #: actions/profilesettings.php:299 actions/twitapiaccount.php:94
 #: actions/profilesettings.php:302 actions/twitapiaccount.php:81
 #: actions/twitapiaccount.php:82 actions/profilesettings.php:328
 msgid "Couldn't save profile."
-msgstr ""
+msgstr "無法儲存個人資料"
 
 #: ../actions/profilesettings.php:161 actions/profilesettings.php:276
 #: actions/profilesettings.php:279 actions/profilesettings.php:295
@@ -760,32 +777,32 @@ msgstr ""
 #: actions/profilesettings.php:276 actions/smssettings.php:278
 #: actions/smssettings.php:420
 msgid "Couldn't update user."
-msgstr ""
+msgstr "無法更新使用者"
 
 #: ../actions/finishopenidlogin.php:84 actions/finishopenidlogin.php:90
 #: actions/finishopenidlogin.php:112 actions/finishopenidlogin.php:111
 msgid "Create"
-msgstr ""
+msgstr "新增"
 
 #: ../actions/finishopenidlogin.php:70 actions/finishopenidlogin.php:76
 #: actions/finishopenidlogin.php:98 actions/finishopenidlogin.php:97
 msgid "Create a new user with this nickname."
-msgstr ""
+msgstr "以此暱稱新增使用者"
 
 #: ../actions/finishopenidlogin.php:68 actions/finishopenidlogin.php:74
 #: actions/finishopenidlogin.php:96 actions/finishopenidlogin.php:95
 msgid "Create new account"
-msgstr ""
+msgstr "新增帳號"
 
 #: ../actions/finishopenidlogin.php:191 actions/finishopenidlogin.php:197
 #: actions/finishopenidlogin.php:231 actions/finishopenidlogin.php:247
 msgid "Creating new account for OpenID that already has a user."
-msgstr ""
+msgstr "該OpenID已經注冊"
 
 #: ../actions/imsettings.php:45 actions/imsettings.php:46
 #: actions/imsettings.php:100 actions/imsettings.php:106
 msgid "Current confirmed Jabber/GTalk address."
-msgstr ""
+msgstr "目前已確認的Jabber/Gtalk地址"
 
 #: ../actions/smssettings.php:46 actions/smssettings.php:46
 #: actions/smssettings.php:100 actions/smssettings.php:112
@@ -799,7 +816,7 @@ msgstr ""
 
 #: ../actions/showstream.php:356 actions/showstream.php:367
 msgid "Currently"
-msgstr ""
+msgstr "目前"
 
 #: ../classes/Notice.php:72 classes/Notice.php:86 classes/Notice.php:91
 #: classes/Notice.php:114 classes/Notice.php:124 classes/Notice.php:164
@@ -811,7 +828,7 @@ msgstr ""
 #: classes/Notice.php:757 classes/Notice.php:1042 classes/Notice.php:1117
 #, php-format
 msgid "DB error inserting reply: %s"
-msgstr ""
+msgstr "增加回覆時,資料庫發生錯誤: %s"
 
 #: ../actions/deletenotice.php:41 actions/deletenotice.php:41
 #: actions/deletenotice.php:79 actions/deletenotice.php:111
@@ -824,7 +841,7 @@ msgstr ""
 #: actions/profilesettings.php:114 actions/register.php:404
 #: actions/register.php:450
 msgid "Describe yourself and your interests in 140 chars"
-msgstr ""
+msgstr "請在140個字以內描述你自己與你的興趣"
 
 #: ../actions/register.php:158 ../actions/register.php:161
 #: ../lib/settingsaction.php:87 actions/register.php:172
@@ -833,7 +850,7 @@ msgstr ""
 #: actions/register.php:427 actions/register.php:431 actions/register.php:435
 #: lib/accountsettingsaction.php:117
 msgid "Email"
-msgstr ""
+msgstr "電子信箱"
 
 #: ../actions/emailsettings.php:59 actions/emailsettings.php:60
 #: actions/emailsettings.php:115 actions/emailsettings.php:121
@@ -848,11 +865,11 @@ msgstr ""
 #: ../actions/register.php:73 actions/register.php:80 actions/register.php:163
 #: actions/register.php:200 actions/register.php:206
 msgid "Email address already exists."
-msgstr ""
+msgstr "此電子信箱已註冊過了"
 
 #: ../lib/mail.php:90 lib/mail.php:90 lib/mail.php:173 lib/mail.php:172
 msgid "Email address confirmation"
-msgstr ""
+msgstr "確認信箱"
 
 #: ../actions/emailsettings.php:61 actions/emailsettings.php:62
 #: actions/emailsettings.php:117 actions/emailsettings.php:123
@@ -868,7 +885,7 @@ msgstr ""
 #: actions/recoverpassword.php:231 actions/recoverpassword.php:249
 #: actions/recoverpassword.php:252
 msgid "Enter a nickname or email address."
-msgstr ""
+msgstr "請輸入暱稱或電子信箱"
 
 #: ../actions/smssettings.php:64 actions/smssettings.php:64
 #: actions/smssettings.php:119 actions/smssettings.php:131
@@ -878,63 +895,63 @@ msgstr ""
 #: ../actions/userauthorization.php:137 actions/userauthorization.php:144
 #: actions/userauthorization.php:161 actions/userauthorization.php:200
 msgid "Error authorizing token"
-msgstr ""
+msgstr "授權錯誤(Error authorizing token)"
 
 #: ../actions/finishopenidlogin.php:253 actions/finishopenidlogin.php:259
 #: actions/finishopenidlogin.php:297 actions/finishopenidlogin.php:302
 #: actions/finishopenidlogin.php:325
 msgid "Error connecting user to OpenID."
-msgstr ""
+msgstr "連接OpenID時發生錯誤"
 
 #: ../actions/finishaddopenid.php:78 actions/finishaddopenid.php:78
 #: actions/finishaddopenid.php:126
 msgid "Error connecting user."
-msgstr ""
+msgstr "連接用戶時發生錯誤(Error connecting user.)"
 
 #: ../actions/finishremotesubscribe.php:151
 #: actions/finishremotesubscribe.php:153 actions/finishremotesubscribe.php:166
 #: lib/oauthstore.php:291
 msgid "Error inserting avatar"
-msgstr ""
+msgstr "個人圖像插入錯誤"
 
 #: ../actions/finishremotesubscribe.php:143
 #: actions/finishremotesubscribe.php:145 actions/finishremotesubscribe.php:158
 #: lib/oauthstore.php:283
 msgid "Error inserting new profile"
-msgstr ""
+msgstr "新的更人資料輸入錯誤"
 
 #: ../actions/finishremotesubscribe.php:167
 #: actions/finishremotesubscribe.php:169 actions/finishremotesubscribe.php:182
 #: lib/oauthstore.php:311
 msgid "Error inserting remote profile"
-msgstr ""
+msgstr "新增外部個人資料發生錯誤(Error inserting remote profile)"
 
 #: ../actions/recoverpassword.php:240 actions/recoverpassword.php:246
 #: actions/recoverpassword.php:280 actions/recoverpassword.php:298
 #: actions/recoverpassword.php:301
 msgid "Error saving address confirmation."
-msgstr ""
+msgstr "儲存信箱確認發生錯誤"
 
 #: ../actions/userauthorization.php:140 actions/userauthorization.php:147
 #: actions/userauthorization.php:164 actions/userauthorization.php:203
 msgid "Error saving remote profile"
-msgstr ""
+msgstr "儲存遠端個人資料發生錯誤"
 
 #: ../lib/openid.php:226 lib/openid.php:226 lib/openid.php:235
 #: lib/openid.php:238
 msgid "Error saving the profile."
-msgstr ""
+msgstr "儲存個人資料發生錯誤"
 
 #: ../lib/openid.php:237 lib/openid.php:237 lib/openid.php:246
 #: lib/openid.php:249
 msgid "Error saving the user."
-msgstr ""
+msgstr "儲存使用者發生錯誤"
 
 #: ../actions/password.php:80 actions/profilesettings.php:399
 #: actions/passwordsettings.php:164 actions/passwordsettings.php:169
 #: actions/passwordsettings.php:175
 msgid "Error saving user; invalid."
-msgstr ""
+msgstr "儲存使用者發生錯誤;使用者名稱無效"
 
 #: ../actions/login.php:47 ../actions/login.php:73
 #: ../actions/recoverpassword.php:307 ../actions/register.php:98
@@ -945,52 +962,52 @@ msgstr ""
 #: actions/register.php:235 actions/login.php:122
 #: actions/recoverpassword.php:375 actions/register.php:242
 msgid "Error setting user."
-msgstr ""
+msgstr "使用者設定發生錯誤"
 
 #: ../actions/finishaddopenid.php:83 actions/finishaddopenid.php:83
 #: actions/finishaddopenid.php:131
 msgid "Error updating profile"
-msgstr ""
+msgstr "更新個人資料發生錯誤"
 
 #: ../actions/finishremotesubscribe.php:161
 #: actions/finishremotesubscribe.php:163 actions/finishremotesubscribe.php:176
 #: actions/finishremotesubscribe.php:133 lib/oauthstore.php:306
 msgid "Error updating remote profile"
-msgstr ""
+msgstr "更新遠端個人資料發生錯誤"
 
 #: ../actions/recoverpassword.php:80 actions/recoverpassword.php:80
 #: actions/recoverpassword.php:86
 msgid "Error with confirmation code."
-msgstr ""
+msgstr "確認碼發生錯誤"
 
 #: ../actions/finishopenidlogin.php:89 actions/finishopenidlogin.php:95
 #: actions/finishopenidlogin.php:117 actions/finishopenidlogin.php:116
 msgid "Existing nickname"
-msgstr ""
+msgstr "這個暱稱已有人用了喔"
 
 #: ../lib/util.php:326 lib/util.php:342 lib/action.php:570 lib/action.php:663
 #: lib/action.php:708 lib/action.php:723
 msgid "FAQ"
-msgstr ""
+msgstr "常見問題"
 
 #: ../actions/avatar.php:115 actions/profilesettings.php:352
 #: actions/avatarsettings.php:397 actions/avatarsettings.php:349
 msgid "Failed updating avatar."
-msgstr ""
+msgstr "無法上傳個人圖像"
 
 #: ../actions/all.php:61 ../actions/allrss.php:64 actions/all.php:61
 #: actions/allrss.php:64 actions/all.php:75 actions/allrss.php:107
 #: actions/allrss.php:110 actions/allrss.php:118
 #, php-format
 msgid "Feed for friends of %s"
-msgstr ""
+msgstr "發送給%s好友的訂閱"
 
 #: ../actions/replies.php:65 ../actions/repliesrss.php:80
 #: actions/replies.php:65 actions/repliesrss.php:66 actions/replies.php:134
 #: actions/repliesrss.php:71 actions/replies.php:136 actions/replies.php:135
 #, php-format
 msgid "Feed for replies to %s"
-msgstr ""
+msgstr "回應給%s的訂閱"
 
 #: ../actions/tag.php:55 actions/tag.php:55 actions/tag.php:61
 #: actions/tag.php:68
@@ -1012,7 +1029,7 @@ msgstr ""
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
-msgstr ""
+msgstr "為安全起見，請先重新輸入你的使用者名稱與密碼再更改設定。"
 
 #: ../actions/profilesettings.php:44 ../actions/register.php:164
 #: actions/profilesettings.php:77 actions/register.php:178
@@ -1025,7 +1042,7 @@ msgstr ""
 #: actions/profilesettings.php:111 actions/register.php:441
 #: actions/showgroup.php:247 actions/showstream.php:267
 msgid "Full name"
-msgstr ""
+msgstr "全名"
 
 #: ../actions/profilesettings.php:98 ../actions/register.php:79
 #: ../actions/updateprofile.php:93 actions/profilesettings.php:213
@@ -1039,19 +1056,19 @@ msgstr ""
 #: actions/newgroup.php:142 actions/profilesettings.php:218
 #: actions/register.php:214
 msgid "Full name is too long (max 255 chars)."
-msgstr ""
+msgstr "全名過長（最多255字元）"
 
 #: ../lib/util.php:322 lib/util.php:338 lib/action.php:344 lib/action.php:566
 #: lib/action.php:421 lib/action.php:659 lib/action.php:446 lib/action.php:704
 #: lib/action.php:456 lib/action.php:719
 msgid "Help"
-msgstr ""
+msgstr "求救"
 
 #: ../lib/util.php:298 lib/util.php:314 lib/action.php:322
 #: lib/facebookaction.php:200 lib/action.php:393 lib/facebookaction.php:213
 #: lib/action.php:417 lib/action.php:430
 msgid "Home"
-msgstr ""
+msgstr "主頁"
 
 #: ../actions/profilesettings.php:46 ../actions/register.php:167
 #: actions/profilesettings.php:79 actions/register.php:181
@@ -1060,7 +1077,7 @@ msgstr ""
 #: lib/groupeditform.php:161 actions/profilesettings.php:115
 #: actions/register.php:446
 msgid "Homepage"
-msgstr ""
+msgstr "個人首頁"
 
 #: ../actions/profilesettings.php:95 ../actions/register.php:76
 #: actions/profilesettings.php:210 actions/register.php:83
@@ -1072,7 +1089,7 @@ msgstr ""
 #: actions/newgroup.php:139 actions/profilesettings.php:215
 #: actions/register.php:211
 msgid "Homepage is not a valid URL."
-msgstr ""
+msgstr "個人首頁位址錯誤"
 
 #: ../actions/emailsettings.php:91 actions/emailsettings.php:98
 #: actions/emailsettings.php:173 actions/emailsettings.php:178
@@ -1088,25 +1105,25 @@ msgstr ""
 #: ../actions/imsettings.php:60 actions/imsettings.php:61
 #: actions/imsettings.php:118 actions/imsettings.php:124
 msgid "IM Address"
-msgstr ""
+msgstr "線上即時通信箱"
 
 #: ../actions/imsettings.php:33 actions/imsettings.php:33
 #: actions/imsettings.php:59
 msgid "IM Settings"
-msgstr ""
+msgstr "線上即時通設定"
 
 #: ../actions/finishopenidlogin.php:88 actions/finishopenidlogin.php:94
 #: actions/finishopenidlogin.php:116 actions/finishopenidlogin.php:115
 msgid ""
 "If you already have an account, login with your username and password to "
 "connect it to your OpenID."
-msgstr ""
+msgstr "若已經註冊過了，請輸入使用者名稱與密碼連結到你的OpenID。"
 
 #: ../actions/openidsettings.php:45 actions/openidsettings.php:96
 msgid ""
 "If you want to add an OpenID to your account, enter it in the box below and "
 "click \"Add\"."
-msgstr ""
+msgstr "若想新增OpenID到你的帳號，請在下方空格輸入並勾選『新增』"
 
 #: ../actions/recoverpassword.php:137 actions/recoverpassword.php:152
 msgid ""
@@ -1132,26 +1149,26 @@ msgstr ""
 #: actions/passwordsettings.php:153 actions/passwordsettings.php:158
 #: actions/passwordsettings.php:164
 msgid "Incorrect old password"
-msgstr ""
+msgstr "舊密碼錯誤"
 
 #: ../actions/login.php:67 actions/login.php:67 actions/facebookhome.php:131
 #: actions/login.php:132 actions/facebookhome.php:130 actions/login.php:114
 #: actions/facebookhome.php:129 actions/login.php:116
 msgid "Incorrect username or password."
-msgstr ""
+msgstr "使用者名稱或密碼錯誤"
 
 #: ../actions/recoverpassword.php:265 actions/recoverpassword.php:304
 #: actions/recoverpassword.php:322 actions/recoverpassword.php:325
 msgid ""
 "Instructions for recovering your password have been sent to the email "
 "address registered to your account."
-msgstr ""
+msgstr "我們已寄出一封信到你帳號中的信箱，告訴你如何取回你的密碼。"
 
 #: ../actions/updateprofile.php:114 actions/updateprofile.php:115
 #: actions/updateprofile.php:118 actions/updateprofile.php:120
 #, php-format
 msgid "Invalid avatar URL '%s'"
-msgstr ""
+msgstr "個人圖像連結%s無效"
 
 #: ../actions/invite.php:55 actions/invite.php:62 actions/invite.php:70
 #: actions/invite.php:72
@@ -1163,7 +1180,7 @@ msgstr ""
 #: actions/updateprofile.php:102 actions/updateprofile.php:104
 #, php-format
 msgid "Invalid homepage '%s'"
-msgstr ""
+msgstr "個人首頁連結%s無效"
 
 #: ../actions/updateprofile.php:82 actions/updateprofile.php:83
 #: actions/updateprofile.php:86 actions/updateprofile.php:88
@@ -1190,12 +1207,12 @@ msgstr ""
 #: actions/updateprofile.php:91 actions/updateprofile.php:93
 #, php-format
 msgid "Invalid profile URL '%s'."
-msgstr ""
+msgstr "個人資料連結%s無效"
 
 #: ../actions/remotesubscribe.php:96 actions/remotesubscribe.php:105
 #: actions/remotesubscribe.php:135 actions/remotesubscribe.php:159
 msgid "Invalid profile URL (bad format)"
-msgstr ""
+msgstr "個人資料連結無效(格式錯誤)"
 
 #: ../actions/finishremotesubscribe.php:77
 #: actions/finishremotesubscribe.php:79 actions/finishremotesubscribe.php:80
@@ -1205,7 +1222,7 @@ msgstr ""
 #: ../actions/avatarbynickname.php:37 actions/avatarbynickname.php:37
 #: actions/avatarbynickname.php:69
 msgid "Invalid size."
-msgstr ""
+msgstr "尺寸錯誤"
 
 #: ../actions/finishopenidlogin.php:235 ../actions/register.php:93
 #: ../actions/register.php:111 actions/finishopenidlogin.php:241
@@ -1215,7 +1232,7 @@ msgstr ""
 #: actions/finishopenidlogin.php:307 actions/register.php:230
 #: actions/register.php:251 actions/register.php:237 actions/register.php:258
 msgid "Invalid username or password."
-msgstr ""
+msgstr "使用者名稱或密碼無效"
 
 #: ../actions/invite.php:79 actions/invite.php:86 actions/invite.php:102
 #: actions/invite.php:104 actions/invite.php:110
@@ -1250,7 +1267,7 @@ msgstr ""
 #: ../actions/imsettings.php:173 actions/imsettings.php:181
 #: actions/imsettings.php:296 actions/imsettings.php:302
 msgid "Jabber ID already belongs to another user."
-msgstr ""
+msgstr "此Jabber ID已有人使用"
 
 #: ../actions/imsettings.php:62 actions/imsettings.php:63
 #: actions/imsettings.php:120 actions/imsettings.php:126
@@ -1287,7 +1304,7 @@ msgstr ""
 #: actions/userauthorization.php:158 lib/groupeditform.php:177
 #: lib/profilelist.php:218
 msgid "Location"
-msgstr ""
+msgstr "地點"
 
 #: ../actions/profilesettings.php:104 ../actions/register.php:85
 #: ../actions/updateprofile.php:108 actions/profilesettings.php:219
@@ -1301,7 +1318,7 @@ msgstr ""
 #: actions/newgroup.php:148 actions/profilesettings.php:225
 #: actions/register.php:221
 msgid "Location is too long (max 255 chars)."
-msgstr ""
+msgstr "地點過長（共255個字）"
 
 #: ../actions/login.php:97 ../actions/login.php:106
 #: ../actions/openidlogin.php:68 ../lib/util.php:310 actions/login.php:97
@@ -1315,13 +1332,13 @@ msgstr ""
 #: actions/login.php:230 lib/action.php:453 lib/logingroupnav.php:79
 #, php-format
 msgid "Login"
-msgstr ""
+msgstr "登入"
 
 #: ../actions/openidlogin.php:44 actions/openidlogin.php:52
 #: actions/openidlogin.php:62 actions/openidlogin.php:70
 #, php-format
 msgid "Login with an [OpenID](%%doc.openid%%) account."
-msgstr ""
+msgstr "用OpenID(%%doc.openid%%)帳號登入"
 
 #: ../actions/login.php:126 actions/login.php:251
 #, php-format
@@ -1334,7 +1351,7 @@ msgstr ""
 #: ../lib/util.php:308 lib/util.php:324 lib/action.php:332 lib/action.php:409
 #: lib/action.php:435 lib/action.php:445
 msgid "Logout"
-msgstr ""
+msgstr "登出"
 
 #: ../actions/register.php:166 actions/register.php:180
 #: actions/register.php:393 actions/register.php:439 actions/register.php:443
@@ -1345,7 +1362,7 @@ msgstr ""
 #: lib/facebookaction.php:320 actions/login.php:228 lib/facebookaction.php:325
 #: lib/facebookaction.php:327 actions/login.php:236
 msgid "Lost or forgotten password?"
-msgstr ""
+msgstr "遺失或忘記密碼了嗎？"
 
 #: ../actions/emailsettings.php:80 ../actions/smssettings.php:89
 #: actions/emailsettings.php:81 actions/smssettings.php:89
@@ -1363,13 +1380,13 @@ msgstr ""
 #: ../actions/showstream.php:300 actions/showstream.php:315
 #: actions/showstream.php:480 lib/profileaction.php:182
 msgid "Member since"
-msgstr ""
+msgstr "何時加入會員的呢？"
 
 #: ../actions/userrss.php:70 actions/userrss.php:67 actions/userrss.php:72
 #: actions/userrss.php:93
 #, php-format
 msgid "Microblog by %s"
-msgstr ""
+msgstr "&s的微型部落格"
 
 #: ../actions/smssettings.php:304 actions/smssettings.php:464
 #: actions/smssettings.php:476
@@ -1409,12 +1426,12 @@ msgstr ""
 #: ../actions/finishopenidlogin.php:71 actions/finishopenidlogin.php:77
 #: actions/finishopenidlogin.php:99 actions/finishopenidlogin.php:98
 msgid "New nickname"
-msgstr ""
+msgstr "新暱稱"
 
 #: ../actions/newnotice.php:87 actions/newnotice.php:96
 #: actions/newnotice.php:68 actions/newnotice.php:69
 msgid "New notice"
-msgstr ""
+msgstr "新訊息"
 
 #: ../actions/password.php:41 ../actions/recoverpassword.php:179
 #: actions/profilesettings.php:180 actions/recoverpassword.php:185
@@ -1422,12 +1439,12 @@ msgstr ""
 #: actions/recoverpassword.php:232 actions/passwordsettings.php:107
 #: actions/recoverpassword.php:235
 msgid "New password"
-msgstr ""
+msgstr "新密碼"
 
 #: ../actions/recoverpassword.php:314 actions/recoverpassword.php:361
 #: actions/recoverpassword.php:379 actions/recoverpassword.php:382
 msgid "New password successfully saved. You are now logged in."
-msgstr ""
+msgstr "新密碼已儲存成功。你已登入。"
 
 #: ../actions/login.php:101 ../actions/profilesettings.php:41
 #: ../actions/register.php:151 actions/login.php:101
@@ -1443,7 +1460,7 @@ msgstr ""
 #: actions/profilesettings.php:106 actions/register.php:417
 #: actions/showgroup.php:236 actions/showstream.php:249
 msgid "Nickname"
-msgstr ""
+msgstr "暱稱"
 
 #: ../actions/finishopenidlogin.php:175 ../actions/profilesettings.php:110
 #: ../actions/register.php:69 actions/finishopenidlogin.php:181
@@ -1457,7 +1474,7 @@ msgstr ""
 #: actions/newgroup.php:130 actions/profilesettings.php:231
 #: actions/register.php:202
 msgid "Nickname already in use. Try another one."
-msgstr ""
+msgstr "此暱稱已有人使用。再試試看別的吧。"
 
 #: ../actions/finishopenidlogin.php:165 ../actions/profilesettings.php:88
 #: ../actions/register.php:67 ../actions/updateprofile.php:77
@@ -1473,22 +1490,22 @@ msgstr ""
 #: actions/newgroup.php:126 actions/profilesettings.php:208
 #: actions/register.php:199
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
-msgstr ""
+msgstr "暱稱請用小寫字母或數字，勿加空格。"
 
 #: ../actions/finishopenidlogin.php:170 actions/finishopenidlogin.php:176
 #: actions/finishopenidlogin.php:210 actions/finishopenidlogin.php:226
 msgid "Nickname not allowed."
-msgstr ""
+msgstr "此暱稱無法使用"
 
 #: ../actions/remotesubscribe.php:72 actions/remotesubscribe.php:81
 #: actions/remotesubscribe.php:106 actions/remotesubscribe.php:130
 msgid "Nickname of the user you want to follow"
-msgstr ""
+msgstr "你想成為誰的粉絲呢？請輸入他/她的暱稱。"
 
 #: ../actions/recoverpassword.php:162 actions/recoverpassword.php:167
 #: actions/recoverpassword.php:186 actions/recoverpassword.php:191
 msgid "Nickname or email"
-msgstr ""
+msgstr "暱稱或信箱"
 
 #: ../actions/deletenotice.php:59 actions/deletenotice.php:60
 #: actions/block.php:147 actions/deletenotice.php:118
@@ -1501,13 +1518,13 @@ msgstr ""
 #: ../actions/imsettings.php:156 actions/imsettings.php:164
 #: actions/imsettings.php:279 actions/imsettings.php:285
 msgid "No Jabber ID."
-msgstr ""
+msgstr "查無此Jabber ID"
 
 #: ../actions/userauthorization.php:129 actions/userauthorization.php:136
 #: actions/userauthorization.php:153 actions/userauthorization.php:192
 #: actions/userauthorization.php:225
 msgid "No authorization request!"
-msgstr ""
+msgstr "無確認請求"
 
 #: ../actions/smssettings.php:181 actions/smssettings.php:189
 #: actions/smssettings.php:299 actions/smssettings.php:311
@@ -1522,7 +1539,7 @@ msgstr ""
 #: ../actions/confirmaddress.php:33 actions/confirmaddress.php:33
 #: actions/confirmaddress.php:75
 msgid "No confirmation code."
-msgstr ""
+msgstr "無確認碼"
 
 #: ../actions/newnotice.php:44 actions/newmessage.php:53
 #: actions/newnotice.php:44 classes/Command.php:197 actions/newmessage.php:109
@@ -1531,7 +1548,7 @@ msgstr ""
 #: actions/newnotice.php:162 lib/command.php:216 actions/newmessage.php:144
 #: actions/newnotice.php:136 lib/command.php:351 lib/command.php:424
 msgid "No content!"
-msgstr ""
+msgstr "無內容"
 
 #: ../actions/emailsettings.php:174 actions/emailsettings.php:192
 #: actions/emailsettings.php:304 actions/emailsettings.php:311
@@ -1553,13 +1570,13 @@ msgstr ""
 #: ../actions/finishremotesubscribe.php:65
 #: actions/finishremotesubscribe.php:67 actions/finishremotesubscribe.php:68
 msgid "No nickname provided by remote server."
-msgstr ""
+msgstr "無遠端伺服器提供的暱稱"
 
 #: ../actions/avatarbynickname.php:27 actions/avatarbynickname.php:27
 #: actions/avatarbynickname.php:59 actions/leavegroup.php:81
 #: actions/leavegroup.php:76
 msgid "No nickname."
-msgstr ""
+msgstr "無暱稱"
 
 #: ../actions/emailsettings.php:222 ../actions/imsettings.php:206
 #: ../actions/smssettings.php:229 actions/emailsettings.php:240
@@ -1585,24 +1602,24 @@ msgstr ""
 #: actions/recoverpassword.php:266 actions/recoverpassword.php:284
 #: actions/recoverpassword.php:287
 msgid "No registered email address for that user."
-msgstr ""
+msgstr "查無此使用者所註冊的信箱"
 
 #: ../actions/userauthorization.php:49 actions/userauthorization.php:55
 #: actions/userauthorization.php:57
 msgid "No request found!"
-msgstr ""
+msgstr "目前無請求"
 
 #: ../actions/noticesearch.php:64 ../actions/peoplesearch.php:64
 #: actions/noticesearch.php:69 actions/peoplesearch.php:69
 #: actions/groupsearch.php:81 actions/noticesearch.php:104
 #: actions/peoplesearch.php:85 actions/noticesearch.php:117
 msgid "No results"
-msgstr ""
+msgstr "無結果"
 
 #: ../actions/avatarbynickname.php:32 actions/avatarbynickname.php:32
 #: actions/avatarbynickname.php:64
 msgid "No size."
-msgstr ""
+msgstr "無尺寸"
 
 #: ../actions/twitapistatuses.php:595 actions/twitapifavorites.php:136
 #: actions/twitapistatuses.php:520 actions/twitapifavorites.php:112
@@ -1622,12 +1639,12 @@ msgstr ""
 #: ../actions/openidsettings.php:135 actions/openidsettings.php:144
 #: actions/openidsettings.php:222
 msgid "No such OpenID."
-msgstr ""
+msgstr "無此OpenID"
 
 #: ../actions/doc.php:29 actions/doc.php:29 actions/doc.php:64
 #: actions/doc.php:69
 msgid "No such document."
-msgstr ""
+msgstr "無此文件"
 
 #: ../actions/shownotice.php:32 ../actions/shownotice.php:83
 #: ../lib/deleteaction.php:30 actions/shownotice.php:32
@@ -1635,17 +1652,17 @@ msgstr ""
 #: lib/deleteaction.php:51 actions/deletenotice.php:52
 #: actions/shownotice.php:92
 msgid "No such notice."
-msgstr ""
+msgstr "無此通知"
 
 #: ../actions/recoverpassword.php:56 actions/recoverpassword.php:56
 #: actions/recoverpassword.php:62
 msgid "No such recovery code."
-msgstr ""
+msgstr "無此恢復碼"
 
 #: ../actions/postnotice.php:56 actions/postnotice.php:57
 #: actions/postnotice.php:60
 msgid "No such subscription"
-msgstr ""
+msgstr "無此訂閱"
 
 #: ../actions/all.php:34 ../actions/allrss.php:35
 #: ../actions/avatarbynickname.php:43 ../actions/foaf.php:40
@@ -1682,7 +1699,7 @@ msgstr ""
 #: lib/command.php:163 lib/command.php:311 lib/command.php:364
 #: lib/command.php:411 lib/command.php:466
 msgid "No such user."
-msgstr ""
+msgstr "無此使用者"
 
 #: ../actions/recoverpassword.php:211 actions/recoverpassword.php:217
 #: actions/recoverpassword.php:251 actions/recoverpassword.php:269
@@ -1697,7 +1714,7 @@ msgstr ""
 #: ../actions/recoverpassword.php:60 actions/recoverpassword.php:60
 #: actions/recoverpassword.php:66
 msgid "Not a recovery code."
-msgstr ""
+msgstr "此恢復碼錯誤"
 
 #: ../scripts/maildaemon.php:50 scripts/maildaemon.php:50
 #: scripts/maildaemon.php:53 scripts/maildaemon.php:52
@@ -1717,12 +1734,12 @@ msgstr ""
 #: ../actions/imsettings.php:167 actions/imsettings.php:175
 #: actions/imsettings.php:290 actions/imsettings.php:296
 msgid "Not a valid Jabber ID"
-msgstr ""
+msgstr "此JabberID無效"
 
 #: ../lib/openid.php:131 lib/openid.php:131 lib/openid.php:140
 #: lib/openid.php:143
 msgid "Not a valid OpenID."
-msgstr ""
+msgstr "此OpenID無效"
 
 #: ../actions/emailsettings.php:185 actions/emailsettings.php:203
 #: actions/emailsettings.php:315 actions/emailsettings.php:322
@@ -1733,7 +1750,7 @@ msgstr ""
 #: ../actions/register.php:63 actions/register.php:70 actions/register.php:152
 #: actions/register.php:189 actions/register.php:195
 msgid "Not a valid email address."
-msgstr ""
+msgstr "此信箱無效"
 
 #: ../actions/profilesettings.php:91 ../actions/register.php:71
 #: actions/profilesettings.php:206 actions/register.php:78
@@ -3862,9 +3879,9 @@ msgstr ""
 #: actions/all.php:63 actions/facebookhome.php:162 actions/all.php:66
 #: actions/facebookhome.php:161 actions/all.php:48
 #: actions/facebookhome.php:156 actions/all.php:84
-#, php-format
+#, fuzzy, php-format
 msgid "%s and friends, page %d"
-msgstr ""
+msgstr "%s與好友"
 
 #: actions/avatarsettings.php:76
 msgid "You can upload your personal avatar."
@@ -3874,8 +3891,9 @@ msgstr ""
 #: actions/grouplogo.php:250 actions/avatarsettings.php:119
 #: actions/avatarsettings.php:194 actions/grouplogo.php:256
 #: actions/grouplogo.php:251
+#, fuzzy
 msgid "Avatar settings"
-msgstr ""
+msgstr "線上即時通設定"
 
 #: actions/avatarsettings.php:124 actions/avatarsettings.php:199
 #: actions/grouplogo.php:198 actions/grouplogo.php:258
@@ -3925,8 +3943,9 @@ msgstr ""
 #: actions/avatarsettings.php:334 actions/grouplogo.php:391
 #: classes/User_group.php:112 lib/imagefile.php:112 lib/imagefile.php:113
 #: lib/imagefile.php:118
+#, fuzzy
 msgid "Lost our file."
-msgstr ""
+msgstr "無此通知"
 
 #: actions/avatarsettings.php:349 actions/avatarsettings.php:383
 #: actions/grouplogo.php:406 actions/grouplogo.php:440
@@ -3949,8 +3968,9 @@ msgid "No profile with that ID."
 msgstr ""
 
 #: actions/block.php:111 actions/block.php:134
+#, fuzzy
 msgid "Block user"
-msgstr ""
+msgstr "無此使用者"
 
 #: actions/block.php:129
 msgid "Are you sure you want to block this user? "
@@ -4002,8 +4022,9 @@ msgstr ""
 #: actions/groupdesignsettings.php:89 actions/showgroup.php:126
 #: actions/editgroup.php:84 actions/groupdesignsettings.php:84
 #: actions/grouplogo.php:86 actions/grouprss.php:91 actions/joingroup.php:76
+#, fuzzy
 msgid "No nickname"
-msgstr ""
+msgstr "無暱稱"
 
 #: actions/editgroup.php:99 actions/groupbyid.php:88 actions/grouplogo.php:100
 #: actions/groupmembers.php:83 actions/joingroup.php:88
@@ -4013,8 +4034,9 @@ msgstr ""
 #: actions/showgroup.php:133 actions/editgroup.php:96 actions/groupbyid.php:83
 #: actions/groupdesignsettings.php:97 actions/grouplogo.php:99
 #: actions/grouprss.php:98 actions/joingroup.php:83 actions/showgroup.php:137
+#, fuzzy
 msgid "No such group"
-msgstr ""
+msgstr "無此通知"
 
 #: actions/editgroup.php:106 actions/editgroup.php:165
 #: actions/grouplogo.php:107 actions/grouplogo.php:111
@@ -4031,26 +4053,29 @@ msgid "Use this form to edit the group."
 msgstr ""
 
 #: actions/editgroup.php:179 actions/newgroup.php:130 actions/register.php:156
+#, fuzzy
 msgid "Nickname must have only lowercase letters "
-msgstr ""
+msgstr "暱稱請用小寫字母或數字，勿加空格。"
 
 #: actions/editgroup.php:198 actions/newgroup.php:149
 #: actions/editgroup.php:200 actions/newgroup.php:150
+#, fuzzy
 msgid "description is too long (max 140 chars)."
-msgstr ""
+msgstr "自我介紹過長(共140個字元)"
 
 #: actions/editgroup.php:218 actions/editgroup.php:253
+#, fuzzy
 msgid "Could not update group."
-msgstr ""
+msgstr "無法更新使用者"
 
 #: actions/editgroup.php:226 actions/editgroup.php:269
 msgid "Options saved."
 msgstr ""
 
 #: actions/emailsettings.php:107 actions/imsettings.php:108
-#, php-format
+#, fuzzy, php-format
 msgid "Awaiting confirmation on this address. "
-msgstr ""
+msgstr "確認碼發生錯誤"
 
 #: actions/emailsettings.php:139 actions/smssettings.php:150
 msgid "Make a new email address for posting to; "
@@ -4066,12 +4091,14 @@ msgid "Allow friends to nudge me and send me an email."
 msgstr ""
 
 #: actions/emailsettings.php:321
+#, fuzzy
 msgid "That email address already belongs "
-msgstr ""
+msgstr "此電子信箱已註冊過了"
 
 #: actions/emailsettings.php:343
+#, fuzzy
 msgid "A confirmation code was sent to the email address you added. "
-msgstr ""
+msgstr "確認信已寄到你的線上即時通信箱。%s送給你得訊息要先經過你的認可。"
 
 #: actions/facebookhome.php:110 actions/facebookhome.php:109
 msgid "Server error - couldn't get user!"
@@ -4094,8 +4121,9 @@ msgstr ""
 
 #: actions/facebookhome.php:235 lib/facebookaction.php:479
 #: lib/facebookaction.php:471
+#, fuzzy
 msgid "No notice content!"
-msgstr ""
+msgstr "無內容"
 
 #: actions/facebookhome.php:295 lib/action.php:870 lib/facebookaction.php:399
 #: actions/facebookhome.php:253 lib/action.php:973 lib/facebookaction.php:433
@@ -4115,8 +4143,9 @@ msgstr ""
 #: actions/facebookhome.php:270 lib/action.php:990 lib/facebookaction.php:450
 #: actions/facebookhome.php:264 lib/action.php:1054 lib/facebookaction.php:452
 #: lib/action.php:1070
+#, fuzzy
 msgid "Before"
-msgstr ""
+msgstr "之前的內容»"
 
 #: actions/facebookinvite.php:70 actions/facebookinvite.php:72
 #, php-format
@@ -4135,9 +4164,9 @@ msgstr ""
 
 #: actions/facebookinvite.php:105 actions/facebookinvite.php:111
 #: actions/facebookinvite.php:103
-#, php-format
+#, fuzzy, php-format
 msgid "Invite your friends to use %s"
-msgstr ""
+msgstr "發送給%s好友的訂閱"
 
 #: actions/facebookinvite.php:113 actions/facebookinvite.php:126
 #: actions/facebookinvite.php:124
@@ -4152,8 +4181,9 @@ msgid "Send invitations"
 msgstr ""
 
 #: actions/facebookremove.php:56
+#, fuzzy
 msgid "Couldn't remove Facebook user."
-msgstr ""
+msgstr "無法更新使用者"
 
 #: actions/facebooksettings.php:65
 msgid "There was a problem saving your sync preferences!"
@@ -4196,13 +4226,14 @@ msgstr ""
 #: lib/publicgroupnav.php:91 lib/popularnoticesection.php:82
 #: lib/publicgroupnav.php:93 lib/popularnoticesection.php:91
 #: lib/popularnoticesection.php:87
+#, fuzzy
 msgid "Popular notices"
-msgstr ""
+msgstr "無此通知"
 
 #: actions/favorited.php:67
-#, php-format
+#, fuzzy, php-format
 msgid "Popular notices, page %d"
-msgstr ""
+msgstr "無此通知"
 
 #: actions/favorited.php:79
 msgid "The most popular notices on the site right now."
@@ -4244,13 +4275,15 @@ msgstr ""
 
 #: actions/grouplogo.php:448 actions/grouplogo.php:401
 #: actions/grouplogo.php:396
+#, fuzzy
 msgid "Logo updated."
-msgstr ""
+msgstr "更新個人圖像"
 
 #: actions/grouplogo.php:450 actions/grouplogo.php:403
 #: actions/grouplogo.php:398
+#, fuzzy
 msgid "Failed updating logo."
-msgstr ""
+msgstr "無法上傳個人圖像"
 
 #: actions/groupmembers.php:93 lib/groupnav.php:91
 #, php-format
@@ -4284,8 +4317,9 @@ msgstr ""
 
 #: actions/groups.php:106 actions/usergroups.php:124 lib/groupeditform.php:123
 #: actions/usergroups.php:125 actions/groups.php:107 lib/groupeditform.php:122
+#, fuzzy
 msgid "Create a new group"
-msgstr ""
+msgstr "新增帳號"
 
 #: actions/groupsearch.php:57
 #, php-format
@@ -4311,9 +4345,9 @@ msgid "Send me replies through Jabber/GTalk "
 msgstr ""
 
 #: actions/imsettings.php:321
-#, php-format
+#, fuzzy, php-format
 msgid "A confirmation code was sent "
-msgstr ""
+msgstr "無確認碼"
 
 #: actions/joingroup.php:65 actions/joingroup.php:60
 msgid "You must be logged in to join a group."
@@ -4324,9 +4358,9 @@ msgid "You are already a member of that group"
 msgstr ""
 
 #: actions/joingroup.php:128 actions/joingroup.php:133 lib/command.php:234
-#, php-format
+#, fuzzy, php-format
 msgid "Could not join user %s to group %s"
-msgstr ""
+msgstr "無法連結到伺服器:%s"
 
 #: actions/joingroup.php:135 actions/joingroup.php:140 lib/command.php:239
 #, php-format
@@ -4345,8 +4379,9 @@ msgstr ""
 #: actions/groupunblock.php:86 actions/makeadmin.php:86
 #: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/leavegroup.php:83
 #: lib/command.php:212 lib/command.php:263
+#, fuzzy
 msgid "No such group."
-msgstr ""
+msgstr "無此通知"
 
 #: actions/leavegroup.php:95 actions/leavegroup.php:90 lib/command.php:268
 msgid "You are not a member of that group."
@@ -4363,9 +4398,9 @@ msgstr ""
 
 #: actions/leavegroup.php:138 actions/leavegroup.php:132
 #: actions/leavegroup.php:127 lib/command.php:284
-#, php-format
+#, fuzzy, php-format
 msgid "Could not remove user %s to group %s"
-msgstr ""
+msgstr "無法從 %s 建立OpenID"
 
 #: actions/leavegroup.php:145 actions/leavegroup.php:139
 #: actions/leavegroup.php:134 lib/command.php:289
@@ -4392,13 +4427,15 @@ msgstr ""
 
 #: actions/newgroup.php:177 actions/newgroup.php:209
 #: actions/apigroupcreate.php:136 actions/newgroup.php:204
+#, fuzzy
 msgid "Could not create group."
-msgstr ""
+msgstr "無法存取個人圖像資料"
 
 #: actions/newgroup.php:191 actions/newgroup.php:229
 #: actions/apigroupcreate.php:166 actions/newgroup.php:224
+#, fuzzy
 msgid "Could not set group membership."
-msgstr ""
+msgstr "註冊失敗"
 
 #: actions/newmessage.php:119 actions/newnotice.php:132
 msgid "That's too long. "
@@ -4441,8 +4478,9 @@ msgid "Removing your only OpenID "
 msgstr ""
 
 #: actions/othersettings.php:60
+#, fuzzy
 msgid "Other Settings"
-msgstr ""
+msgstr "線上即時通設定"
 
 #: actions/othersettings.php:71
 msgid "Manage various other options."
@@ -4463,12 +4501,14 @@ msgstr ""
 
 #: actions/othersettings.php:144 actions/othersettings.php:146
 #: actions/othersettings.php:153
+#, fuzzy
 msgid "URL shortening service is too long (max 50 chars)."
-msgstr ""
+msgstr "地點過長（共255個字）"
 
 #: actions/passwordsettings.php:69
+#, fuzzy
 msgid "Change your password."
-msgstr ""
+msgstr "更改密碼"
 
 #: actions/passwordsettings.php:89 actions/recoverpassword.php:228
 #: actions/passwordsettings.php:95 actions/recoverpassword.php:231
@@ -4476,9 +4516,9 @@ msgid "Password change"
 msgstr ""
 
 #: actions/peopletag.php:35 actions/peopletag.php:70
-#, php-format
+#, fuzzy, php-format
 msgid "Not a valid people tag: %s"
-msgstr ""
+msgstr "此信箱無效"
 
 #: actions/peopletag.php:47 actions/peopletag.php:144
 #, php-format
@@ -4507,14 +4547,15 @@ msgstr ""
 #: actions/profilesettings.php:229 actions/tagother.php:176
 #: actions/tagother.php:178 actions/profilesettings.php:230
 #: actions/profilesettings.php:246
-#, php-format
+#, fuzzy, php-format
 msgid "Invalid tag: \"%s\""
-msgstr ""
+msgstr "個人首頁連結%s無效"
 
 #: actions/profilesettings.php:311 actions/profilesettings.php:310
 #: actions/profilesettings.php:336
+#, fuzzy
 msgid "Couldn't save tags."
-msgstr ""
+msgstr "無法儲存個人資料"
 
 #: actions/public.php:107 actions/public.php:110 actions/public.php:118
 #: actions/public.php:129
@@ -4562,8 +4603,9 @@ msgid "With this form you can create "
 msgstr ""
 
 #: actions/register.php:368
+#, fuzzy
 msgid "1-64 lowercase letters or numbers, "
-msgstr ""
+msgstr "1-64個小寫英文字母或數字，勿加標點符號或空格"
 
 #: actions/register.php:382 actions/register.php:386
 msgid "Used only for updates, announcements, "
@@ -4574,16 +4616,18 @@ msgid "URL of your homepage, blog, "
 msgstr ""
 
 #: actions/register.php:404
+#, fuzzy
 msgid "Describe yourself and your "
-msgstr ""
+msgstr "請在140個字以內描述你自己與你的興趣"
 
 #: actions/register.php:410
 msgid "Where you are, like \"City, "
 msgstr ""
 
 #: actions/register.php:432
+#, fuzzy
 msgid " except this private data: password, "
-msgstr ""
+msgstr "不包含這些個人資料：密碼、電子信箱、線上即時通信箱、電話號碼"
 
 #: actions/register.php:471
 #, php-format
@@ -4621,8 +4665,9 @@ msgstr ""
 
 #: actions/showgroup.php:206 actions/showgroup.php:208
 #: actions/showgroup.php:213 actions/showgroup.php:218
+#, fuzzy
 msgid "Group profile"
-msgstr ""
+msgstr "無此通知"
 
 #: actions/showgroup.php:251 actions/showstream.php:278
 #: actions/tagother.php:119 lib/grouplist.php:134 lib/profilelist.php:133
@@ -4660,8 +4705,9 @@ msgstr ""
 #: actions/showgroup.php:384 actions/showgroup.php:373
 #: actions/showgroup.php:430 actions/showgroup.php:381
 #: actions/showgroup.php:438
+#, fuzzy
 msgid "Members"
-msgstr ""
+msgstr "何時加入會員的呢？"
 
 #: actions/showgroup.php:363 actions/showstream.php:413
 #: actions/showstream.php:442 actions/showstream.php:524 lib/section.php:95
@@ -4694,14 +4740,16 @@ msgid "%s, page %d"
 msgstr ""
 
 #: actions/showstream.php:143
+#, fuzzy
 msgid "'s profile"
-msgstr ""
+msgstr "無此通知"
 
 #: actions/showstream.php:236 actions/tagother.php:77
 #: actions/showstream.php:220 actions/showstream.php:185
 #: actions/showstream.php:193
+#, fuzzy
 msgid "User profile"
-msgstr ""
+msgstr "無此通知"
 
 #: actions/showstream.php:240 actions/tagother.php:81
 #: actions/showstream.php:224 actions/showstream.php:189
@@ -4725,8 +4773,9 @@ msgid "Message"
 msgstr ""
 
 #: actions/showstream.php:451 lib/profileaction.php:157
+#, fuzzy
 msgid "All subscribers"
-msgstr ""
+msgstr "所有訂閱"
 
 #: actions/showstream.php:533 lib/profileaction.php:235
 msgid "All groups"
@@ -4740,16 +4789,18 @@ msgid ""
 msgstr ""
 
 #: actions/smssettings.php:128
+#, fuzzy
 msgid "Phone number, no punctuation or spaces, "
-msgstr ""
+msgstr "1-64個小寫英文字母或數字，勿加標點符號或空格"
 
 #: actions/smssettings.php:162
 msgid "Send me notices through SMS; "
 msgstr ""
 
 #: actions/smssettings.php:335
+#, fuzzy
 msgid "A confirmation code was sent to the phone number you added. "
-msgstr ""
+msgstr "確認信已寄到你的線上即時通信箱。%s送給你得訊息要先經過你的認可。"
 
 #: actions/smssettings.php:453 actions/smssettings.php:465
 msgid "Mobile carrier"
@@ -4760,21 +4811,24 @@ msgid "You are not subscribed to that profile."
 msgstr ""
 
 #: actions/subedit.php:83
+#, fuzzy
 msgid "Could not save subscription."
-msgstr ""
+msgstr "註冊失敗"
 
 #: actions/subscribe.php:55
+#, fuzzy
 msgid "Not a local user."
-msgstr ""
+msgstr "無此使用者"
 
 #: actions/subscribe.php:69
+#, fuzzy
 msgid "Subscribed"
-msgstr ""
+msgstr "此帳號已註冊"
 
 #: actions/subscribers.php:50
-#, php-format
+#, fuzzy, php-format
 msgid "%s subscribers"
-msgstr ""
+msgstr "此帳號已註冊"
 
 #: actions/subscribers.php:52
 #, php-format
@@ -4791,14 +4845,14 @@ msgid "These are the people who "
 msgstr ""
 
 #: actions/subscriptions.php:52
-#, php-format
+#, fuzzy, php-format
 msgid "%s subscriptions"
-msgstr ""
+msgstr "所有訂閱"
 
 #: actions/subscriptions.php:54
-#, php-format
+#, fuzzy, php-format
 msgid "%s subscriptions, page %d"
-msgstr ""
+msgstr "所有訂閱"
 
 #: actions/subscriptions.php:65
 msgid "These are the people whose notices "
@@ -4811,13 +4865,14 @@ msgstr ""
 
 #: actions/subscriptions.php:122 actions/subscriptions.php:124
 #: actions/subscriptions.php:183 actions/subscriptions.php:194
+#, fuzzy
 msgid "Jabber"
-msgstr ""
+msgstr "查無此Jabber ID"
 
 #: actions/tag.php:43 actions/tag.php:51 actions/tag.php:59 actions/tag.php:68
-#, php-format
+#, fuzzy, php-format
 msgid "Notices tagged with %s, page %d"
-msgstr ""
+msgstr "&s的微型部落格"
 
 #: actions/tag.php:66 actions/tag.php:73
 #, php-format
@@ -4825,12 +4880,14 @@ msgid "Messages tagged \"%s\", most recent first"
 msgstr ""
 
 #: actions/tagother.php:33
+#, fuzzy
 msgid "Not logged in"
-msgstr ""
+msgstr "已登入"
 
 #: actions/tagother.php:39
+#, fuzzy
 msgid "No id argument."
-msgstr ""
+msgstr "無此文件"
 
 #: actions/tagother.php:65
 #, php-format
@@ -4857,21 +4914,23 @@ msgid ""
 msgstr ""
 
 #: actions/tagother.php:198 actions/tagother.php:200
+#, fuzzy
 msgid "Could not save tags."
-msgstr ""
+msgstr "無法存取個人圖像資料"
 
 #: actions/tagother.php:233 actions/tagother.php:235 actions/tagother.php:236
 msgid "Use this form to add tags to your subscribers or subscriptions."
 msgstr ""
 
 #: actions/tagrss.php:35
+#, fuzzy
 msgid "No such tag."
-msgstr ""
+msgstr "無此通知"
 
 #: actions/tagrss.php:66 actions/tagrss.php:64
-#, php-format
+#, fuzzy, php-format
 msgid "Microblog tagged with %s"
-msgstr ""
+msgstr "&s的微型部落格"
 
 #: actions/twitapiblocks.php:47 actions/twitapiblocks.php:49
 #: actions/apiblockcreate.php:108
@@ -4885,8 +4944,9 @@ msgstr ""
 
 #: actions/twitapiusers.php:48 actions/twitapiusers.php:52
 #: actions/twitapiusers.php:50 actions/apiusershow.php:96
+#, fuzzy
 msgid "Not found."
-msgstr ""
+msgstr "目前無請求"
 
 #: actions/twittersettings.php:71
 msgid "Add your Twitter account to automatically send "
@@ -4897,8 +4957,9 @@ msgid "Twitter user name"
 msgstr ""
 
 #: actions/twittersettings.php:126 actions/twittersettings.php:129
+#, fuzzy
 msgid "Twitter password"
-msgstr ""
+msgstr "新密碼"
 
 #: actions/twittersettings.php:228 actions/twittersettings.php:232
 #: actions/twittersettings.php:248
@@ -4910,25 +4971,28 @@ msgid "Username must have only numbers, "
 msgstr ""
 
 #: actions/twittersettings.php:341
-#, php-format
+#, fuzzy, php-format
 msgid "Unable to retrieve account information "
-msgstr ""
+msgstr "無法取消信箱確認"
 
 #: actions/unblock.php:108 actions/groupunblock.php:128
+#, fuzzy
 msgid "Error removing the block."
-msgstr ""
+msgstr "儲存使用者發生錯誤"
 
 #: actions/unsubscribe.php:50 actions/unsubscribe.php:77
+#, fuzzy
 msgid "No profile id in request."
-msgstr ""
+msgstr "無確認請求"
 
 #: actions/unsubscribe.php:57 actions/unsubscribe.php:84
 msgid "No profile with that id."
 msgstr ""
 
 #: actions/unsubscribe.php:71 actions/unsubscribe.php:98
+#, fuzzy
 msgid "Unsubscribed"
-msgstr ""
+msgstr "此帳號已註冊"
 
 #: actions/usergroups.php:63 actions/usergroups.php:62
 #: actions/apigrouplistall.php:90
@@ -4943,8 +5007,9 @@ msgstr ""
 
 #: classes/Notice.php:104 classes/Notice.php:128 classes/Notice.php:144
 #: classes/Notice.php:183
+#, fuzzy
 msgid "Problem saving notice. Unknown user."
-msgstr ""
+msgstr "儲存使用者發生錯誤"
 
 #: classes/Notice.php:109 classes/Notice.php:133 classes/Notice.php:149
 #: classes/Notice.php:188
@@ -4958,8 +5023,9 @@ msgid "You are banned from posting notices on this site."
 msgstr ""
 
 #: lib/accountsettingsaction.php:108 lib/accountsettingsaction.php:112
+#, fuzzy
 msgid "Upload an avatar"
-msgstr ""
+msgstr "無法上傳個人圖像"
 
 #: lib/accountsettingsaction.php:119 lib/accountsettingsaction.php:122
 #: lib/accountsettingsaction.php:123
@@ -4993,8 +5059,9 @@ msgid "Search for people or text"
 msgstr ""
 
 #: lib/action.php:328 lib/action.php:399 lib/action.php:419 lib/action.php:432
+#, fuzzy
 msgid "Account"
-msgstr ""
+msgstr "關於"
 
 #: lib/action.php:328 lib/action.php:399 lib/action.php:419 lib/action.php:432
 msgid "Change your email, avatar, password, profile"
@@ -5013,28 +5080,33 @@ msgid "Login to the site"
 msgstr ""
 
 #: lib/action.php:338 lib/action.php:415 lib/action.php:440 lib/action.php:450
+#, fuzzy
 msgid "Create an account"
-msgstr ""
+msgstr "新增帳號"
 
 #: lib/action.php:341 lib/action.php:418
+#, fuzzy
 msgid "Login with OpenID"
-msgstr ""
+msgstr "無此OpenID"
 
 #: lib/action.php:344 lib/action.php:421 lib/action.php:446 lib/action.php:456
+#, fuzzy
 msgid "Help me!"
-msgstr ""
+msgstr "求救"
 
 #: lib/action.php:362 lib/action.php:441 lib/action.php:468 lib/action.php:480
+#, fuzzy
 msgid "Site notice"
-msgstr ""
+msgstr "新訊息"
 
 #: lib/action.php:417 lib/action.php:504 lib/action.php:531 lib/action.php:546
 msgid "Local views"
 msgstr ""
 
 #: lib/action.php:472 lib/action.php:559 lib/action.php:597 lib/action.php:612
+#, fuzzy
 msgid "Page notice"
-msgstr ""
+msgstr "新訊息"
 
 #: lib/action.php:562 lib/action.php:654 lib/action.php:699 lib/action.php:714
 msgid "Secondary site navigation"
@@ -5055,8 +5127,9 @@ msgstr ""
 
 #: lib/blockform.php:123 lib/blockform.php:153 actions/groupmembers.php:343
 #: actions/groupmembers.php:346
+#, fuzzy
 msgid "Block this user"
-msgstr ""
+msgstr "無此使用者"
 
 #: lib/blockform.php:153 actions/groupmembers.php:343
 #: actions/groupmembers.php:346
@@ -5074,8 +5147,9 @@ msgstr ""
 
 #: lib/facebookaction.php:271 lib/facebookaction.php:273
 #: lib/facebookaction.php:275
+#, fuzzy
 msgid " a new account."
-msgstr ""
+msgstr "新增帳號"
 
 #: lib/facebookaction.php:557 lib/mailbox.php:214 lib/noticelist.php:354
 #: lib/facebookaction.php:675 lib/mailbox.php:216 lib/noticelist.php:357
@@ -5084,8 +5158,9 @@ msgid "Published"
 msgstr ""
 
 #: lib/favorform.php:114 lib/favorform.php:140
+#, fuzzy
 msgid "Favor this notice"
-msgstr ""
+msgstr "無此通知"
 
 #: lib/feedlist.php:64
 msgid "Export data"
@@ -5120,12 +5195,14 @@ msgstr ""
 
 #: lib/groupeditform.php:151 lib/groupeditform.php:166
 #: lib/groupeditform.php:172
+#, fuzzy
 msgid "Description"
-msgstr ""
+msgstr "所有訂閱"
 
 #: lib/groupeditform.php:153 lib/groupeditform.php:168
+#, fuzzy
 msgid "Describe the group or topic in 140 chars"
-msgstr ""
+msgstr "請在140個字以內描述你自己與你的興趣"
 
 #: lib/groupeditform.php:158 lib/groupeditform.php:173
 #: lib/groupeditform.php:179
@@ -5147,8 +5224,9 @@ msgid "Edit %s group properties"
 msgstr ""
 
 #: lib/groupnav.php:106 lib/groupnav.php:112
+#, fuzzy
 msgid "Logo"
-msgstr ""
+msgstr "登出"
 
 #: lib/groupnav.php:107 lib/groupnav.php:113
 #, php-format
@@ -5169,24 +5247,28 @@ msgid "Tags in %s group's notices"
 msgstr ""
 
 #: lib/htmloutputter.php:104
+#, fuzzy
 msgid "This page is not available in a "
-msgstr ""
+msgstr "個人首頁位址錯誤"
 
 #: lib/joinform.php:114
+#, fuzzy
 msgid "Join"
-msgstr ""
+msgstr "登入"
 
 #: lib/leaveform.php:114
 msgid "Leave"
 msgstr ""
 
 #: lib/logingroupnav.php:76 lib/logingroupnav.php:80
+#, fuzzy
 msgid "Login with a username and password"
-msgstr ""
+msgstr "使用者名稱或密碼無效"
 
 #: lib/logingroupnav.php:79 lib/logingroupnav.php:86
+#, fuzzy
 msgid "Sign up for a new account"
-msgstr ""
+msgstr "新增帳號"
 
 #: lib/logingroupnav.php:82
 msgid "Login or register with OpenID"
@@ -5200,19 +5282,19 @@ msgid ""
 msgstr ""
 
 #: lib/mail.php:236
-#, php-format
+#, fuzzy, php-format
 msgid "%1$s is now listening to "
-msgstr ""
+msgstr "現在%1$s在%2$s成為你的粉絲囉"
 
 #: lib/mail.php:254 lib/mail.php:253
-#, php-format
+#, fuzzy, php-format
 msgid "Location: %s\n"
-msgstr ""
+msgstr "地點"
 
 #: lib/mail.php:256 lib/mail.php:255
-#, php-format
+#, fuzzy, php-format
 msgid "Homepage: %s\n"
-msgstr ""
+msgstr "個人首頁"
 
 #: lib/mail.php:258 lib/mail.php:257
 #, php-format
@@ -5232,9 +5314,9 @@ msgid "%1$s (%2$s) is wondering what you are up to "
 msgstr ""
 
 #: lib/mail.php:555
-#, php-format
+#, fuzzy, php-format
 msgid "%1$s just added your notice from %2$s"
-msgstr ""
+msgstr "現在%1$s在%2$s成為你的粉絲囉"
 
 #: lib/mailbox.php:229 lib/noticelist.php:380 lib/mailbox.php:231
 #: lib/noticelist.php:383 lib/mailbox.php:232 lib/noticelist.php:388
@@ -5246,13 +5328,15 @@ msgid "Send a direct notice"
 msgstr ""
 
 #: lib/noticeform.php:125 lib/noticeform.php:128 lib/noticeform.php:145
+#, fuzzy
 msgid "Send a notice"
-msgstr ""
+msgstr "新訊息"
 
 #: lib/noticeform.php:152 lib/noticeform.php:149 lib/messageform.php:162
 #: lib/noticeform.php:173
+#, fuzzy
 msgid "Available characters"
-msgstr ""
+msgstr "6個以上字元"
 
 #: lib/noticelist.php:426 lib/noticelist.php:429
 msgid "in reply to"
@@ -5324,8 +5408,9 @@ msgid "Popular"
 msgstr ""
 
 #: lib/searchgroupnav.php:82
+#, fuzzy
 msgid "Notice"
-msgstr ""
+msgstr "新訊息"
 
 #: lib/searchgroupnav.php:85
 msgid "Find groups on this site"
@@ -5336,14 +5421,14 @@ msgid "Untitled section"
 msgstr ""
 
 #: lib/subgroupnav.php:81 lib/subgroupnav.php:83
-#, php-format
+#, fuzzy, php-format
 msgid "People %s subscribes to"
-msgstr ""
+msgstr "無此訂閱"
 
 #: lib/subgroupnav.php:89 lib/subgroupnav.php:91
-#, php-format
+#, fuzzy, php-format
 msgid "People subscribed to %s"
-msgstr ""
+msgstr "此帳號已註冊"
 
 #: lib/subgroupnav.php:97 lib/subgroupnav.php:99
 #, php-format
@@ -5375,8 +5460,9 @@ msgstr ""
 
 #: lib/unblockform.php:120 lib/unblockform.php:150
 #: actions/blockedfromgroup.php:313
+#, fuzzy
 msgid "Unblock this user"
-msgstr ""
+msgstr "無此使用者"
 
 #: lib/unblockform.php:150 actions/blockedfromgroup.php:313
 msgid "Unblock"
@@ -5387,23 +5473,24 @@ msgid "Unsubscribe from this user"
 msgstr ""
 
 #: actions/all.php:77 actions/all.php:59 actions/all.php:99
-#, php-format
+#, fuzzy, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
-msgstr ""
+msgstr "發送給%s好友的訂閱"
 
 #: actions/all.php:82 actions/all.php:64 actions/all.php:107
-#, php-format
+#, fuzzy, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
-msgstr ""
+msgstr "發送給%s好友的訂閱"
 
 #: actions/all.php:87 actions/all.php:69 actions/all.php:115
-#, php-format
+#, fuzzy, php-format
 msgid "Feed for friends of %s (Atom)"
-msgstr ""
+msgstr "發送給%s好友的訂閱"
 
 #: actions/all.php:112 actions/all.php:125 actions/all.php:165
+#, fuzzy
 msgid "You and friends"
-msgstr ""
+msgstr "%s與好友"
 
 #: actions/avatarsettings.php:78
 #, php-format
@@ -5411,8 +5498,9 @@ msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr ""
 
 #: actions/avatarsettings.php:373
+#, fuzzy
 msgid "Avatar deleted."
-msgstr ""
+msgstr "更新個人圖像"
 
 #: actions/block.php:129 actions/block.php:136
 msgid ""
@@ -5465,9 +5553,9 @@ msgid "Pick a square area of the image to be the logo."
 msgstr ""
 
 #: actions/grouprss.php:136 actions/grouprss.php:137
-#, php-format
+#, fuzzy, php-format
 msgid "Microblog by %s group"
-msgstr ""
+msgstr "&s的微型部落格"
 
 #: actions/groupsearch.php:57 actions/groupsearch.php:52
 #, php-format
@@ -5491,16 +5579,16 @@ msgid "Only logged-in users can send direct messages."
 msgstr ""
 
 #: actions/noticesearch.php:91
-#, php-format
+#, fuzzy, php-format
 msgid "Search results for \"%s\" on %s"
-msgstr ""
+msgstr "搜尋 \"%s\"相關資料"
 
 #: actions/openidlogin.php:66
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "For security reasons, please re-login with your [OpenID](%%doc.openid%%) "
 "before changing your settings."
-msgstr ""
+msgstr "為安全起見，請先重新輸入你的使用者名稱與密碼再更改設定。"
 
 #: actions/public.php:125 actions/public.php:133 actions/public.php:151
 msgid "Public Stream Feed (RSS 1.0)"
@@ -5511,8 +5599,9 @@ msgid "Public Stream Feed (RSS 2.0)"
 msgstr ""
 
 #: actions/public.php:135 actions/public.php:143 actions/public.php:159
+#, fuzzy
 msgid "Public Stream Feed (Atom)"
-msgstr ""
+msgstr "%s的公開內容"
 
 #: actions/public.php:210 actions/public.php:241 actions/public.php:233
 #, php-format
@@ -5536,15 +5625,17 @@ msgid "Creative Commons Attribution 3.0"
 msgstr ""
 
 #: actions/register.php:433 actions/register.php:480 actions/register.php:490
+#, fuzzy
 msgid ""
 " except this private data: password, email address, IM address, and phone "
 "number."
-msgstr ""
+msgstr "不包含這些個人資料：密碼、電子信箱、線上即時通信箱、電話號碼"
 
 #: actions/showgroup.php:378 actions/showgroup.php:424
 #: actions/showgroup.php:432
+#, fuzzy
 msgid "Created"
-msgstr ""
+msgstr "新增"
 
 #: actions/showgroup.php:393 actions/showgroup.php:440
 #: actions/showgroup.php:448
@@ -5558,13 +5649,14 @@ msgid ""
 msgstr ""
 
 #: actions/showstream.php:147
+#, fuzzy
 msgid "Your profile"
-msgstr ""
+msgstr "無此通知"
 
 #: actions/showstream.php:149
-#, php-format
+#, fuzzy, php-format
 msgid "%s's profile"
-msgstr ""
+msgstr "無此通知"
 
 #: actions/showstream.php:163 actions/showstream.php:128
 #, php-format
@@ -5588,13 +5680,15 @@ msgstr ""
 
 #: actions/showstream.php:237 actions/showstream.php:202
 #: actions/showstream.php:234
+#, fuzzy
 msgid "Edit Avatar"
-msgstr ""
+msgstr "個人圖像"
 
 #: actions/showstream.php:316 actions/showstream.php:281
 #: actions/showstream.php:366
+#, fuzzy
 msgid "Edit profile settings"
-msgstr ""
+msgstr "線上即時通設定"
 
 #: actions/showstream.php:317 actions/showstream.php:282
 #: actions/showstream.php:367
@@ -5612,10 +5706,11 @@ msgid ""
 msgstr ""
 
 #: actions/smssettings.php:335 actions/smssettings.php:347
+#, fuzzy
 msgid ""
 "A confirmation code was sent to the phone number you added. Check your phone "
 "for the code and instructions on how to use it."
-msgstr ""
+msgstr "確認信已寄到你的線上即時通信箱。%s送給你得訊息要先經過你的認可。"
 
 #: actions/twitapifavorites.php:171 lib/mail.php:556
 #: actions/twitapifavorites.php:222
@@ -5644,8 +5739,9 @@ msgstr ""
 #: actions/apistatusesupdate.php:125 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:79
 #: actions/apitimelinementions.php:79 actions/apitimelineuser.php:81
+#, fuzzy
 msgid "No such user!"
-msgstr ""
+msgstr "無此使用者"
 
 #: actions/twittersettings.php:72
 msgid ""
@@ -5654,9 +5750,9 @@ msgid ""
 msgstr ""
 
 #: actions/twittersettings.php:345 actions/twittersettings.php:362
-#, php-format
+#, fuzzy, php-format
 msgid "Unable to retrieve account information For \"%s\" from Twitter."
-msgstr ""
+msgstr "無法取消信箱確認"
 
 #: actions/userauthorization.php:86 actions/userauthorization.php:81
 msgid ""
@@ -5726,11 +5822,11 @@ msgid "Database error"
 msgstr ""
 
 #: lib/facebookaction.php:271 lib/facebookaction.php:273
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "To use the %s Facebook Application you need to login with your username and "
 "password. Don't have a username yet? "
-msgstr ""
+msgstr "若已經註冊過了，請輸入使用者名稱與密碼連結到你的OpenID。"
 
 #: lib/feed.php:85
 msgid "RSS 1.0"
@@ -5771,7 +5867,7 @@ msgid ""
 msgstr ""
 
 #: lib/mail.php:241 lib/mail.php:240
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "%1$s is now listening to your notices on %2$s.\n"
 "\n"
@@ -5784,6 +5880,13 @@ msgid ""
 "----\n"
 "Change your email address or notification options at %8$s\n"
 msgstr ""
+"現在%1$s在%2$s成為你的粉絲囉。\n"
+"\n"
+"\t%3$s\n"
+"\n"
+"\n"
+"%4$s.\n"
+"敬上。\n"
 
 #: lib/mail.php:466
 #, php-format
@@ -5889,42 +5992,48 @@ msgid ""
 msgstr ""
 
 #: actions/attachment.php:73
+#, fuzzy
 msgid "No such attachment."
-msgstr ""
+msgstr "無此文件"
 
 #: actions/block.php:149
+#, fuzzy
 msgid "Do not block this user from this group"
-msgstr ""
+msgstr "無法連結到伺服器:%s"
 
 #: actions/block.php:150
+#, fuzzy
 msgid "Block this user from this group"
-msgstr ""
+msgstr "無此使用者"
 
 #: actions/blockedfromgroup.php:90
-#, php-format
+#, fuzzy, php-format
 msgid "%s blocked profiles"
-msgstr ""
+msgstr "無此通知"
 
 #: actions/blockedfromgroup.php:93
-#, php-format
+#, fuzzy, php-format
 msgid "%s blocked profiles, page %d"
-msgstr ""
+msgstr "%s與好友"
 
 #: actions/blockedfromgroup.php:108
 msgid "A list of the users blocked from joining this group."
 msgstr ""
 
 #: actions/blockedfromgroup.php:281
+#, fuzzy
 msgid "Unblock user from group"
-msgstr ""
+msgstr "無此使用者"
 
 #: actions/conversation.php:99
+#, fuzzy
 msgid "Conversation"
-msgstr ""
+msgstr "地點"
 
 #: actions/deletenotice.php:115 actions/deletenotice.php:145
+#, fuzzy
 msgid "Do not delete this notice"
-msgstr ""
+msgstr "無此通知"
 
 #: actions/editgroup.php:214 actions/newgroup.php:164
 #: actions/apigroupcreate.php:291 actions/editgroup.php:215
@@ -5936,16 +6045,16 @@ msgstr ""
 #: actions/editgroup.php:223 actions/newgroup.php:173
 #: actions/apigroupcreate.php:312 actions/editgroup.php:224
 #: actions/newgroup.php:168
-#, php-format
+#, fuzzy, php-format
 msgid "Invalid alias: \"%s\""
-msgstr ""
+msgstr "個人首頁連結%s無效"
 
 #: actions/editgroup.php:227 actions/newgroup.php:177
 #: actions/apigroupcreate.php:321 actions/editgroup.php:228
 #: actions/newgroup.php:172
-#, php-format
+#, fuzzy, php-format
 msgid "Alias \"%s\" already in use. Try another one."
-msgstr ""
+msgstr "此暱稱已有人使用。再試試看別的吧。"
 
 #: actions/editgroup.php:233 actions/newgroup.php:183
 #: actions/apigroupcreate.php:334 actions/editgroup.php:234
@@ -5955,8 +6064,9 @@ msgstr ""
 
 #: actions/editgroup.php:259 actions/newgroup.php:215
 #: actions/apigroupcreate.php:147 actions/newgroup.php:210
+#, fuzzy
 msgid "Could not create aliases."
-msgstr ""
+msgstr "無法存取個人圖像資料"
 
 #: actions/favorited.php:150
 msgid "Favorite notices appear on this page but no one has favorited one yet."
@@ -5976,12 +6086,14 @@ msgid ""
 msgstr ""
 
 #: actions/file.php:34
+#, fuzzy
 msgid "No notice id"
-msgstr ""
+msgstr "新訊息"
 
 #: actions/file.php:38
+#, fuzzy
 msgid "No notice"
-msgstr ""
+msgstr "新訊息"
 
 #: actions/file.php:42
 msgid "No attachments"
@@ -5992,8 +6104,9 @@ msgid "No uploaded attachments"
 msgstr ""
 
 #: actions/finishopenidlogin.php:211
+#, fuzzy
 msgid "Not a valid invitation code."
-msgstr ""
+msgstr "此信箱無效"
 
 #: actions/groupblock.php:81 actions/groupunblock.php:81
 #: actions/makeadmin.php:81
@@ -6014,8 +6127,9 @@ msgstr ""
 
 #: actions/groupblock.php:136 actions/groupmembers.php:311
 #: actions/groupmembers.php:314
+#, fuzzy
 msgid "Block user from group"
-msgstr ""
+msgstr "無此使用者"
 
 #: actions/groupblock.php:155
 #, php-format
@@ -6047,8 +6161,9 @@ msgstr ""
 #: lib/designsettings.php:440 lib/designsettings.php:470
 #: actions/groupdesignsettings.php:262 lib/designsettings.php:431
 #: lib/designsettings.php:461
+#, fuzzy
 msgid "Couldn't update your design."
-msgstr ""
+msgstr "無法更新使用者"
 
 #: actions/groupdesignsettings.php:291 actions/groupdesignsettings.php:301
 #: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
@@ -6076,8 +6191,9 @@ msgstr ""
 
 #: actions/groupsearch.php:79 actions/noticesearch.php:117
 #: actions/peoplesearch.php:83
+#, fuzzy
 msgid "No results."
-msgstr ""
+msgstr "無結果"
 
 #: actions/groupsearch.php:82
 #, php-format
@@ -6178,8 +6294,9 @@ msgid "File upload stopped by extension."
 msgstr ""
 
 #: actions/newnotice.php:230 scripts/maildaemon.php:85
+#, fuzzy
 msgid "Couldn't save file."
-msgstr ""
+msgstr "無法儲存個人資料"
 
 #: actions/newnotice.php:246 scripts/maildaemon.php:101
 msgid "Max notice size is 140 chars, including attachment URL."
@@ -6280,10 +6397,11 @@ msgid ""
 msgstr ""
 
 #: actions/recoverpassword.php:152
+#, fuzzy
 msgid ""
 "If you've forgotten or lost your password, you can get a new one sent to the "
 "email address you have stored in your account."
-msgstr ""
+msgstr "若忘記或遺失密碼，我們會寄新的密碼到你帳號中的信箱。"
 
 #: actions/recoverpassword.php:158
 msgid "You've been identified. Enter a new password below. "
@@ -6294,8 +6412,9 @@ msgid "Password recover"
 msgstr ""
 
 #: actions/register.php:86
+#, fuzzy
 msgid "Sorry, invalid invitation code."
-msgstr ""
+msgstr "確認碼發生錯誤"
 
 #: actions/remotesubscribe.php:100 actions/remotesubscribe.php:124
 msgid "Subscribe to a remote user"
@@ -6323,9 +6442,9 @@ msgid ""
 msgstr ""
 
 #: actions/showfavorites.php:79
-#, php-format
+#, fuzzy, php-format
 msgid "%s's favorite notices, page %d"
-msgstr ""
+msgstr "無此通知"
 
 #: actions/showfavorites.php:170 actions/showfavorites.php:205
 msgid ""
@@ -6386,8 +6505,9 @@ msgid "Admins"
 msgstr ""
 
 #: actions/shownotice.php:101
+#, fuzzy
 msgid "Not a local notice"
-msgstr ""
+msgstr "無此使用者"
 
 #: actions/showstream.php:72
 #, php-format
@@ -6455,9 +6575,9 @@ msgstr ""
 
 #: actions/subscriptions.php:117 actions/subscriptions.php:121
 #: actions/subscriptions.php:123 actions/subscriptions.php:127
-#, php-format
+#, fuzzy, php-format
 msgid "%s is not listening to anyone."
-msgstr ""
+msgstr "現在%1$s在%2$s成為你的粉絲囉"
 
 #: actions/tag.php:77 actions/tag.php:86
 #, php-format
@@ -6479,27 +6599,29 @@ msgstr ""
 
 #: actions/twitapifriendships.php:180 actions/twitapifriendships.php:200
 #: actions/apifriendshipsshow.php:135
+#, fuzzy
 msgid "Could not determine source user."
-msgstr ""
+msgstr "無法更新使用者"
 
 #: actions/twitapifriendships.php:215
 msgid "Target user not specified."
 msgstr ""
 
 #: actions/twitapifriendships.php:221 actions/apifriendshipsshow.php:143
+#, fuzzy
 msgid "Could not find target user."
-msgstr ""
+msgstr "無法更新使用者"
 
 #: actions/twitapistatuses.php:322 actions/apitimelinementions.php:116
-#, php-format
+#, fuzzy, php-format
 msgid "%1$s / Updates mentioning %2$s"
-msgstr ""
+msgstr "%1$s的狀態是%2$s"
 
 #: actions/twitapitags.php:74 actions/apitimelinetag.php:107
 #: actions/tagrss.php:64
-#, php-format
+#, fuzzy, php-format
 msgid "Updates tagged with %1$s on %2$s!"
-msgstr ""
+msgstr "&s的微型部落格"
 
 #: actions/twittersettings.php:165
 msgid "Import my Friends Timeline."
@@ -6510,8 +6632,9 @@ msgid "License"
 msgstr ""
 
 #: actions/userauthorization.php:179 actions/userauthorization.php:212
+#, fuzzy
 msgid "Reject this subscription"
-msgstr ""
+msgstr "所有訂閱"
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 msgid "Profile design"
@@ -6555,10 +6678,11 @@ msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
 
 #: classes/Notice.php:139 classes/Notice.php:179
+#, fuzzy
 msgid "Problem saving notice. Too long."
-msgstr ""
+msgstr "儲存使用者發生錯誤"
 
-#: classes/User.php:319 classes/User.php:327
+#: classes/User.php:319 classes/User.php:327 classes/User.php:334
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
@@ -6569,8 +6693,9 @@ msgid "Design"
 msgstr ""
 
 #: lib/accountsettingsaction.php:120 lib/accountsettingsaction.php:121
+#, fuzzy
 msgid "Design your profile"
-msgstr ""
+msgstr "無此通知"
 
 #: lib/action.php:712 lib/action.php:727
 msgid "TOS"
@@ -6601,8 +6726,9 @@ msgid "Change background image"
 msgstr ""
 
 #: lib/designsettings.php:105
+#, fuzzy
 msgid "Upload file"
-msgstr ""
+msgstr "無此通知"
 
 #: lib/designsettings.php:109
 msgid ""
@@ -6626,24 +6752,27 @@ msgid "Tile background image"
 msgstr ""
 
 #: lib/designsettings.php:170
+#, fuzzy
 msgid "Change colours"
-msgstr ""
+msgstr "更改密碼"
 
 #: lib/designsettings.php:178
 msgid "Background"
 msgstr ""
 
 #: lib/designsettings.php:191
+#, fuzzy
 msgid "Content"
-msgstr ""
+msgstr "連結"
 
 #: lib/designsettings.php:204
 msgid "Sidebar"
 msgstr ""
 
 #: lib/designsettings.php:230
+#, fuzzy
 msgid "Links"
-msgstr ""
+msgstr "登入"
 
 #: lib/designsettings.php:247
 msgid "Use defaults"
@@ -6675,13 +6804,14 @@ msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr ""
 
 #: lib/groupnav.php:100
+#, fuzzy
 msgid "Blocked"
-msgstr ""
+msgstr "無此使用者"
 
 #: lib/groupnav.php:101
-#, php-format
+#, fuzzy, php-format
 msgid "%s blocked users"
-msgstr ""
+msgstr "無此使用者"
 
 #: lib/groupnav.php:119
 #, php-format
@@ -6766,8 +6896,9 @@ msgid "Attach a file"
 msgstr ""
 
 #: lib/noticelist.php:436 lib/noticelist.php:478
+#, fuzzy
 msgid "in context"
-msgstr ""
+msgstr "無內容"
 
 #: lib/profileaction.php:177
 msgid "User ID"
@@ -6788,9 +6919,9 @@ msgid "People Tagcloud as tagged"
 msgstr ""
 
 #: lib/webcolor.php:82
-#, php-format
+#, fuzzy, php-format
 msgid "%s is not a valid color!"
-msgstr ""
+msgstr "個人首頁位址錯誤"
 
 #: lib/webcolor.php:123
 #, php-format
@@ -6799,8 +6930,9 @@ msgstr ""
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
 #: actions/showfavorites.php:137 actions/tag.php:51
+#, fuzzy
 msgid "No such page"
-msgstr ""
+msgstr "無此通知"
 
 #: actions/apidirectmessage.php:89
 #, php-format
@@ -6813,40 +6945,42 @@ msgid "That's too long. Max message size is %d chars."
 msgstr ""
 
 #: actions/apifriendshipsdestroy.php:109
+#, fuzzy
 msgid "Could not unfollow user: User not found."
-msgstr ""
+msgstr "無法連結到伺服器:%s"
 
 #: actions/apifriendshipsdestroy.php:120
 msgid "You cannot unfollow yourself!"
 msgstr ""
 
 #: actions/apigroupcreate.php:261
-#, php-format
+#, fuzzy, php-format
 msgid "Description is too long (max %d chars)."
-msgstr ""
+msgstr "自我介紹過長(共140個字元)"
 
 #: actions/apigroupjoin.php:110
 msgid "You are already a member of that group."
 msgstr ""
 
 #: actions/apigroupjoin.php:138
-#, php-format
+#, fuzzy, php-format
 msgid "Could not join user %s to group %s."
-msgstr ""
+msgstr "無法連結到伺服器:%s"
 
 #: actions/apigroupleave.php:114
+#, fuzzy
 msgid "You are not a member of this group."
-msgstr ""
+msgstr "無法連結到伺服器:%s"
 
 #: actions/apigroupleave.php:124
-#, php-format
+#, fuzzy, php-format
 msgid "Could not remove user %s to group %s."
-msgstr ""
+msgstr "無法從 %s 建立OpenID"
 
 #: actions/apigrouplist.php:95
-#, php-format
+#, fuzzy, php-format
 msgid "%s's groups"
-msgstr ""
+msgstr "無此通知"
 
 #: actions/apigrouplist.php:103
 #, php-format
@@ -6859,8 +6993,9 @@ msgid "groups on %s"
 msgstr ""
 
 #: actions/apistatusesshow.php:138
+#, fuzzy
 msgid "Status deleted."
-msgstr ""
+msgstr "更新個人圖像"
 
 #: actions/apistatusesupdate.php:132
 msgid "Unable to handle that much POST data!"
@@ -6886,14 +7021,14 @@ msgid "Post to "
 msgstr ""
 
 #: actions/editgroup.php:201 actions/newgroup.php:145
-#, php-format
+#, fuzzy, php-format
 msgid "description is too long (max %d chars)."
-msgstr ""
+msgstr "自我介紹過長(共140個字元)"
 
 #: actions/favoritesrss.php:115
-#, php-format
+#, fuzzy, php-format
 msgid "Updates favored by %1$s on %2$s!"
-msgstr ""
+msgstr "&s的微型部落格"
 
 #: actions/finishremotesubscribe.php:80
 msgid "User being listened to does not exist."
@@ -6904,29 +7039,33 @@ msgid "You are not authorized."
 msgstr ""
 
 #: actions/finishremotesubscribe.php:109
+#, fuzzy
 msgid "Could not convert request token to access token."
-msgstr ""
+msgstr "無法轉換請求標記以致無法存取標記"
 
 #: actions/finishremotesubscribe.php:114
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr ""
 
 #: actions/getfile.php:75
+#, fuzzy
 msgid "No such file."
-msgstr ""
+msgstr "無此通知"
 
 #: actions/getfile.php:79
+#, fuzzy
 msgid "Cannot read file."
-msgstr ""
+msgstr "無此通知"
 
 #: actions/grouprss.php:133
-#, php-format
+#, fuzzy, php-format
 msgid "Updates from members of %1$s on %2$s!"
-msgstr ""
+msgstr "&s的微型部落格"
 
 #: actions/imsettings.php:89
+#, fuzzy
 msgid "IM is not available."
-msgstr ""
+msgstr "個人首頁位址錯誤"
 
 #: actions/login.php:259
 #, php-format
@@ -6936,18 +7075,19 @@ msgid ""
 msgstr ""
 
 #: actions/noticesearchrss.php:89
-#, php-format
+#, fuzzy, php-format
 msgid "Updates with \"%s\""
-msgstr ""
+msgstr "&s的微型部落格"
 
 #: actions/noticesearchrss.php:91
-#, php-format
+#, fuzzy, php-format
 msgid "Updates matching search term \"%1$s\" on %2$s!"
-msgstr ""
+msgstr "所有符合 \"%s\"的更新"
 
 #: actions/oembed.php:157
+#, fuzzy
 msgid "content type "
-msgstr ""
+msgstr "連結"
 
 #: actions/oembed.php:160
 msgid "Only "
@@ -6959,18 +7099,19 @@ msgid "Notice license ‘%s’ is not compatible with site license ‘%s’."
 msgstr ""
 
 #: actions/profilesettings.php:122 actions/register.php:454
-#, php-format
+#, fuzzy, php-format
 msgid "Describe yourself and your interests in %d chars"
-msgstr ""
+msgstr "請在140個字以內描述你自己與你的興趣"
 
 #: actions/profilesettings.php:125 actions/register.php:457
+#, fuzzy
 msgid "Describe yourself and your interests"
-msgstr ""
+msgstr "請在140個字以內描述你自己與你的興趣"
 
 #: actions/profilesettings.php:221 actions/register.php:217
-#, php-format
+#, fuzzy, php-format
 msgid "Bio is too long (max %d chars)."
-msgstr ""
+msgstr "自我介紹過長(共140個字元)"
 
 #: actions/register.php:336
 msgid ""
@@ -6988,43 +7129,44 @@ msgid "That’s a local profile! Login to subscribe."
 msgstr ""
 
 #: actions/remotesubscribe.php:183
+#, fuzzy
 msgid "Couldn’t get a request token."
-msgstr ""
+msgstr "無法取得轉換標記"
 
 #: actions/replies.php:144
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 1.0)"
-msgstr ""
+msgstr "發送給%s好友的訂閱"
 
 #: actions/replies.php:151
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 2.0)"
-msgstr ""
+msgstr "發送給%s好友的訂閱"
 
 #: actions/replies.php:158
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (Atom)"
-msgstr ""
+msgstr "發送給%s好友的訂閱"
 
 #: actions/repliesrss.php:72
-#, php-format
+#, fuzzy, php-format
 msgid "Replies to %1$s on %2$s!"
-msgstr ""
+msgstr "&s的微型部落格"
 
 #: actions/showfavorites.php:170
-#, php-format
+#, fuzzy, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
-msgstr ""
+msgstr "發送給%s好友的訂閱"
 
 #: actions/showfavorites.php:177
-#, php-format
+#, fuzzy, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
-msgstr ""
+msgstr "發送給%s好友的訂閱"
 
 #: actions/showfavorites.php:184
-#, php-format
+#, fuzzy, php-format
 msgid "Feed for favorites of %s (Atom)"
-msgstr ""
+msgstr "發送給%s好友的訂閱"
 
 #: actions/showfavorites.php:211
 #, php-format
@@ -7035,22 +7177,24 @@ msgid ""
 msgstr ""
 
 #: actions/showgroup.php:345
-#, php-format
+#, fuzzy, php-format
 msgid "FOAF for %s group"
-msgstr ""
+msgstr "無此通知"
 
 #: actions/shownotice.php:90
+#, fuzzy
 msgid "Notice deleted."
-msgstr ""
+msgstr "更新個人圖像"
 
 #: actions/smssettings.php:91
+#, fuzzy
 msgid "SMS is not available."
-msgstr ""
+msgstr "個人首頁位址錯誤"
 
 #: actions/tag.php:92
-#, php-format
+#, fuzzy, php-format
 msgid "Notice feed for tag %s (RSS 2.0)"
-msgstr ""
+msgstr "發送給%s好友的訂閱"
 
 #: actions/updateprofile.php:62 actions/userauthorization.php:330
 #, php-format
@@ -7104,9 +7248,9 @@ msgid "Avatar URL ‘%s’ is not valid."
 msgstr ""
 
 #: actions/userauthorization.php:343
-#, php-format
+#, fuzzy, php-format
 msgid "Can’t read avatar URL ‘%s’."
-msgstr ""
+msgstr "無法讀取此%sURL的圖像"
 
 #: actions/userauthorization.php:348
 #, php-format
@@ -7114,17 +7258,19 @@ msgid "Wrong image type for avatar URL ‘%s’."
 msgstr ""
 
 #: lib/action.php:435
+#, fuzzy
 msgid "Connect to services"
-msgstr ""
+msgstr "無法連結到伺服器:%s"
 
 #: lib/action.php:785
+#, fuzzy
 msgid "Site content license"
-msgstr ""
+msgstr "新訊息"
 
 #: lib/command.php:88
-#, php-format
+#, fuzzy, php-format
 msgid "Could not find a user with nickname %s"
-msgstr ""
+msgstr "無法更新使用者"
 
 #: lib/command.php:92
 msgid "It does not make a lot of sense to nudge yourself!"
@@ -7155,8 +7301,9 @@ msgid "Reply to %s sent"
 msgstr ""
 
 #: lib/command.php:441
+#, fuzzy
 msgid "Error saving notice."
-msgstr ""
+msgstr "儲存使用者發生錯誤"
 
 #: lib/command.php:587
 msgid ""
@@ -7194,8 +7341,9 @@ msgid ""
 msgstr ""
 
 #: lib/common.php:191
+#, fuzzy
 msgid "No configuration file found. "
-msgstr ""
+msgstr "無確認碼"
 
 #: lib/common.php:192
 msgid "I looked for configuration files in the following places: "
@@ -7214,23 +7362,24 @@ msgid "Select tag to filter"
 msgstr ""
 
 #: lib/groupeditform.php:168
+#, fuzzy
 msgid "Describe the group or topic"
-msgstr ""
+msgstr "請在140個字以內描述你自己與你的興趣"
 
 #: lib/groupeditform.php:170
-#, php-format
+#, fuzzy, php-format
 msgid "Describe the group or topic in %d characters"
-msgstr ""
+msgstr "請在140個字以內描述你自己與你的興趣"
 
 #: lib/jabber.php:192
-#, php-format
+#, fuzzy, php-format
 msgid "notice id: %s"
-msgstr ""
+msgstr "新訊息"
 
 #: lib/mail.php:554
-#, php-format
+#, fuzzy, php-format
 msgid "%s (@%s) added your notice as a favorite"
-msgstr ""
+msgstr "現在%1$s在%2$s成為你的粉絲囉"
 
 #: lib/mail.php:556
 #, php-format
@@ -7282,9 +7431,11 @@ msgid "File exceeds user's quota!"
 msgstr ""
 
 #: lib/mediafile.php:201 lib/mediafile.php:237
+#, fuzzy
 msgid "Could not determine file's mime-type!"
-msgstr ""
+msgstr "無法更新使用者"
 
 #: lib/oauthstore.php:345
+#, fuzzy
 msgid "Duplicate notice"
-msgstr ""
+msgstr "新訊息"

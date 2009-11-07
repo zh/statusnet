@@ -1,23 +1,16 @@
 # Translation of StatusNet to Bulgarian
 #
 # --
-# #-#-#-#-#  statusnet.pot (StatusNet 0.6.4)  #-#-#-#-#
-# StatusNet Bulgarian translation.
-# Copyright (C) 2008
-# This file is distributed under the same license as the StatusNet package.
-# Yasen Pramatarov <yasen@lindeas.com>, 2008
-# Stoyan Zhekov <statusnet@zh.otherinbox.com>, 2008
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-02 10:50-0800\n"
-"PO-Revision-Date: 2009-11-03 19:57:20+0000\n"
+"POT-Creation-Date: 2009-11-06 13:16+0000\n"
+"PO-Revision-Date: 2009-11-06 15:42:55+0000\n"
 "Language-Team: Bulgarian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58495); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58648); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: bg\n"
 "X-Message-Group: out-statusnet\n"
@@ -6867,7 +6860,7 @@ msgstr ""
 msgid "Problem saving notice. Too long."
 msgstr "Проблем при записване на бележката."
 
-#: classes/User.php:319 classes/User.php:327
+#: classes/User.php:319 classes/User.php:327 classes/User.php:334
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Съобщение до %1$s в %2$s"
@@ -7183,8 +7176,9 @@ msgid "groups on %s"
 msgstr "Търсене на групи в сайта"
 
 #: actions/apistatusesshow.php:138
+#, fuzzy
 msgid "Status deleted."
-msgstr ""
+msgstr "Аватарът е обновен."
 
 #: actions/apistatusesupdate.php:132
 msgid "Unable to handle that much POST data!"
@@ -7271,9 +7265,9 @@ msgstr ""
 "нова сметка или опитайте с [OpenID](%%action.openidlogin%%). "
 
 #: actions/noticesearchrss.php:89
-#, php-format
+#, fuzzy, php-format
 msgid "Updates with \"%s\""
-msgstr ""
+msgstr "Бележки от %1$s в %2$s."
 
 #: actions/noticesearchrss.php:91
 #, fuzzy, php-format
@@ -7281,8 +7275,9 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Всички бележки, намерени с \"%s\""
 
 #: actions/oembed.php:157
+#, fuzzy
 msgid "content type "
-msgstr ""
+msgstr "Свързване"
 
 #: actions/oembed.php:160
 msgid "Only "
@@ -7330,14 +7325,14 @@ msgid "Couldn’t get a request token."
 msgstr "Не е получен token за одобрение."
 
 #: actions/replies.php:144
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 1.0)"
-msgstr ""
+msgstr "Емисия с бележки на %s"
 
 #: actions/replies.php:151
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 2.0)"
-msgstr ""
+msgstr "Емисия с бележки на %s"
 
 #: actions/replies.php:158
 #, fuzzy, php-format
@@ -7352,17 +7347,17 @@ msgstr "Съобщение до %1$s в %2$s"
 #: actions/showfavorites.php:170
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
-msgstr "Емисия с любимите бележки на %s"
+msgstr "Емисия с приятелите на %s"
 
 #: actions/showfavorites.php:177
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
-msgstr "Емисия с любимите бележки на %s"
+msgstr "Емисия с приятелите на %s"
 
 #: actions/showfavorites.php:184
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (Atom)"
-msgstr "Емисия с любимите бележки на %s"
+msgstr "Емисия с приятелите на %s"
 
 #: actions/showfavorites.php:211
 #, php-format
@@ -7375,7 +7370,7 @@ msgstr ""
 #: actions/showgroup.php:345
 #, fuzzy, php-format
 msgid "FOAF for %s group"
-msgstr "Емисия с бележки на %s"
+msgstr "Изходяща кутия за %s"
 
 #: actions/shownotice.php:90
 #, fuzzy
@@ -7583,7 +7578,7 @@ msgstr "Опишете групата или темата й в до 140 бук�
 #: lib/jabber.php:192
 #, fuzzy, php-format
 msgid "notice id: %s"
-msgstr "Емисия с бележки на %s"
+msgstr "Нова бележка"
 
 #: lib/mail.php:554
 #, fuzzy, php-format
@@ -7643,7 +7638,7 @@ msgstr ""
 #: lib/mediafile.php:201 lib/mediafile.php:237
 #, fuzzy
 msgid "Could not determine file's mime-type!"
-msgstr "Грешка при изтриване на любима бележка."
+msgstr "Грешка при изтегляне на общия поток"
 
 #: lib/oauthstore.php:345
 #, fuzzy

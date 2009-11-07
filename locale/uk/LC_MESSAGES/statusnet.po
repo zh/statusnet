@@ -1,22 +1,16 @@
 # Translation of StatusNet to Ukrainian
 #
 # --
-# #-#-#-#-#  statusnet.new.pot (PACKAGE VERSION)  #-#-#-#-#
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-02 10:50-0800\n"
-"PO-Revision-Date: 2009-11-03 19:59:57+0000\n"
+"POT-Creation-Date: 2009-11-06 13:16+0000\n"
+"PO-Revision-Date: 2009-11-06 15:44:43+0000\n"
 "Language-Team: Ukrainian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58495); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58648); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: out-statusnet\n"
@@ -6879,7 +6873,7 @@ msgstr ""
 msgid "Problem saving notice. Too long."
 msgstr "Проблема при збереженні повідомлення."
 
-#: classes/User.php:319 classes/User.php:327
+#: classes/User.php:319 classes/User.php:327 classes/User.php:334
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Повідомлення до %1$s на %2$s"
@@ -7195,8 +7189,9 @@ msgid "groups on %s"
 msgstr "Діяльність групи"
 
 #: actions/apistatusesshow.php:138
+#, fuzzy
 msgid "Status deleted."
-msgstr ""
+msgstr "Аватару оновлено."
 
 #: actions/apistatusesupdate.php:132
 msgid "Unable to handle that much POST data!"
@@ -7284,9 +7279,9 @@ msgstr ""
 "action.openidlogin%%). "
 
 #: actions/noticesearchrss.php:89
-#, php-format
+#, fuzzy, php-format
 msgid "Updates with \"%s\""
-msgstr ""
+msgstr "Оновлення від %1$s на %2$s!"
 
 #: actions/noticesearchrss.php:91
 #, fuzzy, php-format
@@ -7294,8 +7289,9 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Всі оновлення за збігом з \"%s\""
 
 #: actions/oembed.php:157
+#, fuzzy
 msgid "content type "
-msgstr ""
+msgstr "З'єднання"
 
 #: actions/oembed.php:160
 msgid "Only "
@@ -7344,19 +7340,19 @@ msgid "Couldn’t get a request token."
 msgstr "Не вдалося отримати токен запиту."
 
 #: actions/replies.php:144
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 1.0)"
-msgstr ""
+msgstr "Живлення повідомлень для %s"
 
 #: actions/replies.php:151
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 2.0)"
-msgstr ""
+msgstr "Живлення повідомлень для %s"
 
 #: actions/replies.php:158
 #, fuzzy, php-format
 msgid "Replies feed for %s (Atom)"
-msgstr "Живлення повідомлень для групи %s"
+msgstr "Живлення повідомлень для %s"
 
 #: actions/repliesrss.php:72
 #, fuzzy, php-format
@@ -7366,17 +7362,17 @@ msgstr "Повідомлення до %1$s на %2$s"
 #: actions/showfavorites.php:170
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
-msgstr "Живлення для обраних повідомлень від %s"
+msgstr "Живлення для друзів %s"
 
 #: actions/showfavorites.php:177
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
-msgstr "Живлення для обраних повідомлень від %s"
+msgstr "Живлення для друзів %s"
 
 #: actions/showfavorites.php:184
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (Atom)"
-msgstr "Живлення для обраних повідомлень від %s"
+msgstr "Живлення для друзів %s"
 
 #: actions/showfavorites.php:211
 #, php-format
@@ -7389,7 +7385,7 @@ msgstr ""
 #: actions/showgroup.php:345
 #, fuzzy, php-format
 msgid "FOAF for %s group"
-msgstr "Група %s"
+msgstr "Вихідні для %s"
 
 #: actions/shownotice.php:90
 #, fuzzy
@@ -7598,7 +7594,7 @@ msgstr "Опишіть групу або тему, вкладаючись у 140
 #: lib/jabber.php:192
 #, fuzzy, php-format
 msgid "notice id: %s"
-msgstr "Живлення повідомлень для %s"
+msgstr "Нове повідомлення"
 
 #: lib/mail.php:554
 #, fuzzy, php-format
@@ -7658,7 +7654,7 @@ msgstr ""
 #: lib/mediafile.php:201 lib/mediafile.php:237
 #, fuzzy
 msgid "Could not determine file's mime-type!"
-msgstr "Не можна видалити зі списку обраних."
+msgstr "Не вдається відновити загальний потік."
 
 #: lib/oauthstore.php:345
 #, fuzzy

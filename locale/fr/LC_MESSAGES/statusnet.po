@@ -3,36 +3,19 @@
 # Author@translatewiki.net: IAlex
 # Author@translatewiki.net: Jean-Frédéric
 # --
-# #-#-#-#-#  statusnet-no-duplicates.po (0.43)  #-#-#-#-#
-# French translations for StatusNet package
-# Traductions françaises du paquet StatusNet.
-# Copyright (C) 2008 THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the StatusNet package.
-# Florian Birée <florian@biree.name>, 2008.
-# For translation choices and other informations, please read
-# <http://dev.filyb.info/statusnet/wiki/french-translation>
-# #-#-#-#-#  statusnet.new.pot (PACKAGE VERSION)  #-#-#-#-#
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-02 10:50-0800\n"
-"PO-Revision-Date: 2009-11-03 19:58:13+0000\n"
+"POT-Creation-Date: 2009-11-06 13:16+0000\n"
+"PO-Revision-Date: 2009-11-06 15:43:37+0000\n"
 "Language-Team: French\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58495); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58648); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: out-statusnet\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../actions/noticesearchrss.php:64 actions/noticesearchrss.php:68
 #: actions/noticesearchrss.php:88 actions/noticesearchrss.php:89
@@ -5892,15 +5875,13 @@ msgstr "Boîte d'envoi de %s"
 
 #: actions/showstream.php:237 actions/showstream.php:202
 #: actions/showstream.php:234
-#, fuzzy
 msgid "Edit Avatar"
-msgstr "Avatar"
+msgstr "Modifier l'avatar"
 
 #: actions/showstream.php:316 actions/showstream.php:281
 #: actions/showstream.php:366
-#, fuzzy
 msgid "Edit profile settings"
-msgstr "Paramètres du profil"
+msgstr "Modifier les paramètres du profil"
 
 #: actions/showstream.php:317 actions/showstream.php:282
 #: actions/showstream.php:367
@@ -6216,7 +6197,7 @@ msgstr "Rechercher sur le site"
 
 #: lib/section.php:106
 msgid "More..."
-msgstr ""
+msgstr "Plus..."
 
 #: actions/all.php:80 actions/all.php:127
 #, php-format
@@ -6286,9 +6267,8 @@ msgid "Conversation"
 msgstr "Code de confirmation"
 
 #: actions/deletenotice.php:115 actions/deletenotice.php:145
-#, fuzzy
 msgid "Do not delete this notice"
-msgstr "Impossible de supprimer ce statut."
+msgstr "Ne pas supprimer cet avis"
 
 #: actions/editgroup.php:214 actions/newgroup.php:164
 #: actions/apigroupcreate.php:291 actions/editgroup.php:215
@@ -6358,15 +6338,13 @@ msgid "No uploaded attachments"
 msgstr ""
 
 #: actions/finishopenidlogin.php:211
-#, fuzzy
 msgid "Not a valid invitation code."
-msgstr "Pseudo invalide."
+msgstr "Code d'invitation invalide."
 
 #: actions/groupblock.php:81 actions/groupunblock.php:81
 #: actions/makeadmin.php:81
-#, fuzzy
 msgid "No group specified."
-msgstr "Aucun profil n'a été spécifié."
+msgstr "Aucun groupe n'a été spécifié."
 
 #: actions/groupblock.php:91
 msgid "Only an admin can block group members."
@@ -6378,15 +6356,13 @@ msgid "User is already blocked from group."
 msgstr "Cet utilisateur vous a bloqué."
 
 #: actions/groupblock.php:100
-#, fuzzy
 msgid "User is not a member of group."
-msgstr "Vous n'êtes pas membre de ce groupe."
+msgstr "L'utilisateur n'est pas membre du groupe."
 
 #: actions/groupblock.php:136 actions/groupmembers.php:311
 #: actions/groupmembers.php:314
-#, fuzzy
 msgid "Block user from group"
-msgstr "Bloquer cet utilisateur"
+msgstr "Bloquer cet utilisateur du groupe"
 
 #: actions/groupblock.php:155
 #, php-format
@@ -6401,9 +6377,8 @@ msgid "Database error blocking user from group."
 msgstr ""
 
 #: actions/groupdesignsettings.php:73 actions/groupdesignsettings.php:68
-#, fuzzy
 msgid "You must be logged in to edit a group."
-msgstr "Vous devez ouvrir une session pour créer un groupe."
+msgstr "Vous devez ouvrir une session pour modifier un groupe."
 
 #: actions/groupdesignsettings.php:146 actions/groupdesignsettings.php:141
 #, fuzzy
@@ -6439,9 +6414,8 @@ msgid "Design preferences saved."
 msgstr "Préférences de synchronisation enregistrées."
 
 #: actions/groupmembers.php:438 actions/groupmembers.php:441
-#, fuzzy
 msgid "Make user an admin of the group"
-msgstr "Seuls les administrateurs d'un groupe peuvent le modifier."
+msgstr "Faire de cet utilisateur un administrateur du groupe"
 
 #: actions/groupmembers.php:470 actions/groupmembers.php:473
 #, fuzzy
@@ -6454,9 +6428,8 @@ msgstr ""
 
 #: actions/groupsearch.php:79 actions/noticesearch.php:117
 #: actions/peoplesearch.php:83
-#, fuzzy
 msgid "No results."
-msgstr "Aucun résultat "
+msgstr "Aucun résultat."
 
 #: actions/groupsearch.php:82
 #, php-format
@@ -6510,9 +6483,8 @@ msgid "Can't make %s an admin for group %s"
 msgstr ""
 
 #: actions/newmessage.php:178 actions/newmessage.php:181
-#, fuzzy
 msgid "Message sent"
-msgstr "Message "
+msgstr "Message envoyé"
 
 #: actions/newnotice.php:93 lib/designsettings.php:281
 #: actions/newnotice.php:94
@@ -6559,9 +6531,8 @@ msgid "File upload stopped by extension."
 msgstr ""
 
 #: actions/newnotice.php:230 scripts/maildaemon.php:85
-#, fuzzy
 msgid "Couldn't save file."
-msgstr "Impossible d'enregistrer le profil."
+msgstr "Impossible d'enregistrer le fichier."
 
 #: actions/newnotice.php:246 scripts/maildaemon.php:101
 msgid "Max notice size is 140 chars, including attachment URL."
@@ -6683,9 +6654,8 @@ msgstr ""
 "passe ci-dessous."
 
 #: actions/recoverpassword.php:188
-#, fuzzy
 msgid "Password recover"
-msgstr "Récupération de mot de passe demandée"
+msgstr "Récupération de mot de passe"
 
 #: actions/register.php:86
 #, fuzzy
@@ -6780,9 +6750,8 @@ msgstr ""
 "wikipedia.org/wiki/Microblog)  %%%%site.name%%%%"
 
 #: actions/showgroup.php:474 actions/showgroup.php:482
-#, fuzzy
 msgid "Admins"
-msgstr "Administrer"
+msgstr "Administrateurs"
 
 #: actions/shownotice.php:101
 #, fuzzy
@@ -6857,9 +6826,9 @@ msgstr ""
 
 #: actions/subscriptions.php:117 actions/subscriptions.php:121
 #: actions/subscriptions.php:123 actions/subscriptions.php:127
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not listening to anyone."
-msgstr "%1$s suit actuellement "
+msgstr "%s ne suit actuellement personne."
 
 #: actions/tag.php:77 actions/tag.php:86
 #, fuzzy, php-format
@@ -6872,12 +6841,10 @@ msgid "Notice feed for tag %s (Atom)"
 msgstr "Flux des statuts de %s"
 
 #: actions/twitapifavorites.php:125 actions/apifavoritecreate.php:119
-#, fuzzy
 msgid "This status is already a favorite!"
 msgstr "Ce statut a déjà été ajouté à vos favoris !"
 
 #: actions/twitapifavorites.php:179 actions/apifavoritedestroy.php:122
-#, fuzzy
 msgid "That status is not a favorite!"
 msgstr "Ce statut n'est pas un favori !"
 
@@ -6893,9 +6860,8 @@ msgid "Target user not specified."
 msgstr "Aucun destinataire n'a été spécifié."
 
 #: actions/twitapifriendships.php:221 actions/apifriendshipsshow.php:143
-#, fuzzy
 msgid "Could not find target user."
-msgstr "Aucun statut n'a été trouvé."
+msgstr "Impossible de trouver l'utilisateur cible."
 
 #: actions/twitapistatuses.php:322 actions/apitimelinementions.php:116
 #, fuzzy, php-format
@@ -6913,19 +6879,16 @@ msgid "Import my Friends Timeline."
 msgstr ""
 
 #: actions/userauthorization.php:158 actions/userauthorization.php:188
-#, fuzzy
 msgid "License"
-msgstr "licence."
+msgstr "Licence"
 
 #: actions/userauthorization.php:179 actions/userauthorization.php:212
-#, fuzzy
 msgid "Reject this subscription"
-msgstr "Abonnements de %s"
+msgstr "Rejeter cet souscription"
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
-#, fuzzy
 msgid "Profile design"
-msgstr "Paramètres du profil"
+msgstr "Conception de profile"
 
 #: actions/userdesignsettings.php:87 lib/designsettings.php:76
 msgid ""
@@ -6938,9 +6901,9 @@ msgid "Enjoy your hotdog!"
 msgstr ""
 
 #: actions/usergroups.php:153
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not a member of any group."
-msgstr "Vous n'êtes pas membre de ce groupe."
+msgstr "%s n'est pas membre d'aucun groupe."
 
 #: actions/usergroups.php:158
 #, php-format
@@ -6969,7 +6932,7 @@ msgstr ""
 msgid "Problem saving notice. Too long."
 msgstr "Problème lors de l'enregistrement du statut."
 
-#: classes/User.php:319 classes/User.php:327
+#: classes/User.php:319 classes/User.php:327 classes/User.php:334
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Message adressé à %1$s le %2$s"
@@ -6977,12 +6940,11 @@ msgstr "Message adressé à %1$s le %2$s"
 #: lib/accountsettingsaction.php:119 lib/groupnav.php:118
 #: lib/accountsettingsaction.php:120
 msgid "Design"
-msgstr ""
+msgstr "Conception"
 
 #: lib/accountsettingsaction.php:120 lib/accountsettingsaction.php:121
-#, fuzzy
 msgid "Design your profile"
-msgstr "Profil de l'utilisateur"
+msgstr "Concevez votre profile"
 
 #: lib/action.php:712 lib/action.php:727
 msgid "TOS"
@@ -6990,16 +6952,15 @@ msgstr ""
 
 #: lib/attachmentlist.php:87
 msgid "Attachments"
-msgstr ""
+msgstr "Pièces jointes"
 
 #: lib/attachmentlist.php:265
 msgid "Author"
-msgstr ""
+msgstr "Auteur"
 
 #: lib/attachmentlist.php:278
-#, fuzzy
 msgid "Provider"
-msgstr "Profil"
+msgstr "Fournisseur"
 
 #: lib/attachmentnoticesection.php:67
 msgid "Notices where this attachment appears"
@@ -7040,28 +7001,24 @@ msgid "Tile background image"
 msgstr ""
 
 #: lib/designsettings.php:170
-#, fuzzy
 msgid "Change colours"
-msgstr "Modifier votre mot de passe"
+msgstr "Modifier les couleurs"
 
 #: lib/designsettings.php:178
 msgid "Background"
 msgstr ""
 
 #: lib/designsettings.php:191
-#, fuzzy
 msgid "Content"
-msgstr "Connecter"
+msgstr "Contenu"
 
 #: lib/designsettings.php:204
-#, fuzzy
 msgid "Sidebar"
-msgstr "Rechercher"
+msgstr "Barre latérale"
 
 #: lib/designsettings.php:230
-#, fuzzy
 msgid "Links"
-msgstr "Ouvrir une session"
+msgstr "Liens"
 
 #: lib/designsettings.php:247
 msgid "Use defaults"
@@ -7093,19 +7050,18 @@ msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr ""
 
 #: lib/groupnav.php:100
-#, fuzzy
 msgid "Blocked"
-msgstr "Bloquer"
+msgstr "Bloqué"
 
 #: lib/groupnav.php:101
-#, fuzzy, php-format
+#, php-format
 msgid "%s blocked users"
-msgstr "Bloquer cet utilisateur"
+msgstr "%s utilisateurs bloqués"
 
 #: lib/groupnav.php:119
-#, fuzzy, php-format
+#, php-format
 msgid "Add or edit %s design"
-msgstr "Ajouter ou modifier le logo de %s"
+msgstr "Ajouter ou modifier la conception de %s"
 
 #: lib/mail.php:556
 #, php-format
@@ -7185,19 +7141,16 @@ msgid "Attach a file"
 msgstr ""
 
 #: lib/noticelist.php:436 lib/noticelist.php:478
-#, fuzzy
 msgid "in context"
-msgstr "Aucun contenu !"
+msgstr "dans le contexte"
 
 #: lib/profileaction.php:177
-#, fuzzy
 msgid "User ID"
-msgstr "Utilisateur"
+msgstr "ID de l'utilisateur"
 
 #: lib/searchaction.php:156 lib/searchaction.php:162
-#, fuzzy
 msgid "Search help"
-msgstr "Rechercher"
+msgstr "Aide sur la recherche"
 
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
@@ -7210,9 +7163,9 @@ msgid "People Tagcloud as tagged"
 msgstr ""
 
 #: lib/webcolor.php:82
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not a valid color!"
-msgstr "L'adresse du site personnel n'est pas un URL valide. "
+msgstr "&s n'est pas une couleur valide !"
 
 #: lib/webcolor.php:123
 #, php-format
@@ -7285,8 +7238,9 @@ msgid "groups on %s"
 msgstr "Actions du groupe"
 
 #: actions/apistatusesshow.php:138
+#, fuzzy
 msgid "Status deleted."
-msgstr ""
+msgstr "Avatar supprimé."
 
 #: actions/apistatusesupdate.php:132
 msgid "Unable to handle that much POST data!"
@@ -7374,9 +7328,9 @@ msgstr ""
 "action.openidlogin%%)."
 
 #: actions/noticesearchrss.php:89
-#, php-format
+#, fuzzy, php-format
 msgid "Updates with \"%s\""
-msgstr ""
+msgstr "Statuts de %1$s dans %2$s!"
 
 #: actions/noticesearchrss.php:91
 #, fuzzy, php-format
@@ -7384,8 +7338,9 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Statuts correspondant au(x) terme(s) \"%s\""
 
 #: actions/oembed.php:157
+#, fuzzy
 msgid "content type "
-msgstr ""
+msgstr "Contenu"
 
 #: actions/oembed.php:160
 msgid "Only "
@@ -7434,19 +7389,19 @@ msgid "Couldn’t get a request token."
 msgstr "Impossible d'obtenir le jeton de requête."
 
 #: actions/replies.php:144
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 1.0)"
-msgstr ""
+msgstr "Flux des statuts de %s"
 
 #: actions/replies.php:151
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 2.0)"
-msgstr ""
+msgstr "Flux des statuts de %s"
 
 #: actions/replies.php:158
 #, fuzzy, php-format
 msgid "Replies feed for %s (Atom)"
-msgstr "Fil des statuts du groupe %s"
+msgstr "Flux des statuts de %s"
 
 #: actions/repliesrss.php:72
 #, fuzzy, php-format
@@ -7456,17 +7411,17 @@ msgstr "Message adressé à %1$s le %2$s"
 #: actions/showfavorites.php:170
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
-msgstr "Fil des favoris de %s"
+msgstr "Flux pour les amis de %s (RSS 1.0)"
 
 #: actions/showfavorites.php:177
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
-msgstr "Fil des favoris de %s"
+msgstr "Flux pour les amis de %s (RSS 2.0)"
 
 #: actions/showfavorites.php:184
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (Atom)"
-msgstr "Fil des favoris de %s"
+msgstr "Flux pour les amis de %s (Atom)"
 
 #: actions/showfavorites.php:211
 #, php-format
@@ -7479,7 +7434,7 @@ msgstr ""
 #: actions/showgroup.php:345
 #, fuzzy, php-format
 msgid "FOAF for %s group"
-msgstr "Groupe %s"
+msgstr "Boîte d'envoi de %s"
 
 #: actions/shownotice.php:90
 #, fuzzy
@@ -7693,7 +7648,7 @@ msgstr "Description du groupe ou du sujet (140 caractères maximum)"
 #: lib/jabber.php:192
 #, fuzzy, php-format
 msgid "notice id: %s"
-msgstr "Flux des statuts de %s"
+msgstr "Nouveau statut"
 
 #: lib/mail.php:554
 #, fuzzy, php-format
@@ -7701,7 +7656,7 @@ msgid "%s (@%s) added your notice as a favorite"
 msgstr "%s a ajouté un de vos messages à ses favoris"
 
 #: lib/mail.php:556
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "%1$s (@%7$s) just added your notice from %2$s as one of their favorites.\n"
 "\n"
@@ -7720,6 +7675,19 @@ msgid ""
 "Faithfully yours,\n"
 "%6$s\n"
 msgstr ""
+"%1$s vient de marquer votre message de %2$s comme un de ses favoris.\n"
+"\n"
+"Dans le cas où vous l’auriez oublié, vous pouvez lire le texte de votre "
+"message ici :\n"
+"\n"
+"%3$s\n"
+"\n"
+"Vous pouvez consulter la liste des favoris de %1$s ici :\n"
+"\n"
+"%4$s\n"
+"\n"
+"Cordialement,\n"
+"%5$s\n"
 
 #: lib/mail.php:611
 #, php-format
@@ -7753,7 +7721,7 @@ msgstr ""
 #: lib/mediafile.php:201 lib/mediafile.php:237
 #, fuzzy
 msgid "Could not determine file's mime-type!"
-msgstr "Impossible de supprimer le favori."
+msgstr "Impossible de récupérer le flux public."
 
 #: lib/oauthstore.php:345
 #, fuzzy

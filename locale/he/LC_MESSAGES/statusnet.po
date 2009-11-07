@@ -1,31 +1,16 @@
 # Translation of StatusNet to Hebrew
 #
 # --
-# #-#-#-#-#  statusnet.pot (PACKAGE VERSION)  #-#-#-#-#
-# Hebrew translation for StatusNet
-# תרגום לעברית של לאקוניה
-# Copyright (C) 2008 COPYRIGHT HOLDER
-# כל הזכויות שמורות, 2008
-# This file is distributed under the same license as the StatusNet package.
-# קובץ זה מופץ תחת רשיון זהה לזה של החבילה לאקוניקה
-# Hezy Amiel חזי עמיאל <open@hezyamiel.com>, 2008.
-#
-# #-#-#-#-#  statusnet.new.pot (PACKAGE VERSION)  #-#-#-#-#
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-02 10:50-0800\n"
-"PO-Revision-Date: 2009-11-03 19:58:24+0000\n"
+"POT-Creation-Date: 2009-11-06 13:16+0000\n"
+"PO-Revision-Date: 2009-11-06 15:43:45+0000\n"
 "Language-Team: Hebrew\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58495); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58648); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: he\n"
 "X-Message-Group: out-statusnet\n"
@@ -6789,7 +6774,7 @@ msgstr ""
 msgid "Problem saving notice. Too long."
 msgstr "בעיה בשמירת ההודעה."
 
-#: classes/User.php:319 classes/User.php:327
+#: classes/User.php:319 classes/User.php:327 classes/User.php:334
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
@@ -7090,14 +7075,14 @@ msgid "Could not remove user %s to group %s."
 msgstr "נכשלה יצירת OpenID מתוך: %s"
 
 #: actions/apigrouplist.php:95
-#, php-format
+#, fuzzy, php-format
 msgid "%s's groups"
-msgstr ""
+msgstr "פרופיל"
 
 #: actions/apigrouplist.php:103
-#, php-format
+#, fuzzy, php-format
 msgid "Groups %s is a member of on %s."
-msgstr ""
+msgstr "לא שלחנו אלינו את הפרופיל הזה"
 
 #: actions/apigrouplistall.php:94
 #, php-format
@@ -7105,8 +7090,9 @@ msgid "groups on %s"
 msgstr ""
 
 #: actions/apistatusesshow.php:138
+#, fuzzy
 msgid "Status deleted."
-msgstr ""
+msgstr "התמונה עודכנה."
 
 #: actions/apistatusesupdate.php:132
 msgid "Unable to handle that much POST data!"
@@ -7138,9 +7124,9 @@ msgid "description is too long (max %d chars)."
 msgstr "הביוגרפיה ארוכה מידי (לכל היותר 140 אותיות)"
 
 #: actions/favoritesrss.php:115
-#, php-format
+#, fuzzy, php-format
 msgid "Updates favored by %1$s on %2$s!"
-msgstr ""
+msgstr "מיקרובלוג מאת %s"
 
 #: actions/finishremotesubscribe.php:80
 #, fuzzy
@@ -7173,9 +7159,9 @@ msgid "Cannot read file."
 msgstr "אין הודעה כזו."
 
 #: actions/grouprss.php:133
-#, php-format
+#, fuzzy, php-format
 msgid "Updates from members of %1$s on %2$s!"
-msgstr ""
+msgstr "מיקרובלוג מאת %s"
 
 #: actions/imsettings.php:89
 #, fuzzy
@@ -7192,9 +7178,9 @@ msgstr ""
 "register%%) לחשבון "
 
 #: actions/noticesearchrss.php:89
-#, php-format
+#, fuzzy, php-format
 msgid "Updates with \"%s\""
-msgstr ""
+msgstr "מיקרובלוג מאת %s"
 
 #: actions/noticesearchrss.php:91
 #, fuzzy, php-format
@@ -7202,8 +7188,9 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "כל העידכונים התואמים את החיפוש אחרי \"%s\""
 
 #: actions/oembed.php:157
+#, fuzzy
 msgid "content type "
-msgstr ""
+msgstr "התחבר"
 
 #: actions/oembed.php:160
 msgid "Only "
@@ -7251,14 +7238,14 @@ msgid "Couldn’t get a request token."
 msgstr "אסימון הבקשה לא התקבל."
 
 #: actions/replies.php:144
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 1.0)"
-msgstr ""
+msgstr "הזנת הודעות של %s"
 
 #: actions/replies.php:151
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 2.0)"
-msgstr ""
+msgstr "הזנת הודעות של %s"
 
 #: actions/replies.php:158
 #, fuzzy, php-format
@@ -7396,7 +7383,7 @@ msgstr "הודעה חדשה"
 #: lib/command.php:88
 #, fuzzy, php-format
 msgid "Could not find a user with nickname %s"
-msgstr "נכשלה ההפניה לשרת: %s"
+msgstr "עידכון המשתמש נכשל."
 
 #: lib/command.php:92
 msgid "It does not make a lot of sense to nudge yourself!"
@@ -7500,7 +7487,7 @@ msgstr "תאר את עצמך ואת נושאי העניין שלך ב-140 אות
 #: lib/jabber.php:192
 #, fuzzy, php-format
 msgid "notice id: %s"
-msgstr "הזנת הודעות של %s"
+msgstr "הודעה חדשה"
 
 #: lib/mail.php:554
 #, fuzzy, php-format
@@ -7557,8 +7544,9 @@ msgid "File exceeds user's quota!"
 msgstr ""
 
 #: lib/mediafile.php:201 lib/mediafile.php:237
+#, fuzzy
 msgid "Could not determine file's mime-type!"
-msgstr ""
+msgstr "עידכון המשתמש נכשל."
 
 #: lib/oauthstore.php:345
 #, fuzzy

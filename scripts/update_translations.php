@@ -39,19 +39,46 @@ set_time_limit(60);
 $languages = get_all_languages();
 
 /* Update the languages */
+// Language code conversion for translatewiki.net (these are MediaWiki codes)
+$codeMap = array(
+	'nb'    => 'no',
+	'pt_BR' => 'pt-br',
+	'zh_CN' => 'zh-hans',
+	'zh_TW' => 'zh-hant'
+);
+
+$doneCodes = array();
 
 foreach ($languages as $language) {
+	$code = $language['lang'];
 
-    $code = $language['lang'];
+	// Skip export of source language
+	// and duplicates
+	if( $code == 'en' || $code == 'no' ) {
+		continue;
+	}
 
-    // Fetch updates from TranslateWiki...
-    $twcode = str_replace('_', '-', strtolower($code)); // pt_BR -> pt-br
+	// Do not export codes twice (happens for 'nb')
+	if( in_array( $code, $doneCodes ) ) {
+		continue;
+	} else {
+		$doneCodes[] = $code;
+	}
+
+	// Convert code if needed
+	if( isset( $codeMap[$code] ) ) {
+		$twnCode = $codeMap[$code];
+	} else {
+		$twnCode = str_replace('_', '-', strtolower($code)); // pt_BR -> pt-br
+	}
+
+    // Fetch updates from translatewiki.net...
     $file_url = 'http://translatewiki.net/w/i.php?' .
         http_build_query(array(
             'title' => 'Special:Translate',
             'task' => 'export-to-file',
             'group' => 'out-statusnet',
-            'language' => $twcode));
+            'language' => $twnCode));
 
     $lcdir = INSTALLDIR . '/locale/' . $code;
     $msgdir = "$lcdir/LC_MESSAGES";

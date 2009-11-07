@@ -1,20 +1,16 @@
 # Translation of StatusNet to Irish
 #
 # --
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-#
-# Francisco Diéguez <fran.dieguez@glug.es>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-02 10:50-0800\n"
-"PO-Revision-Date: 2009-11-03 19:58:19+0000\n"
+"POT-Creation-Date: 2009-11-06 13:16+0000\n"
+"PO-Revision-Date: 2009-11-06 15:43:41+0000\n"
 "Language-Team: Irish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58495); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58648); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ga\n"
 "X-Message-Group: out-statusnet\n"
@@ -7085,7 +7081,7 @@ msgstr ""
 msgid "Problem saving notice. Too long."
 msgstr "Aconteceu un erro ó gardar o chío."
 
-#: classes/User.php:319 classes/User.php:327
+#: classes/User.php:319 classes/User.php:327 classes/User.php:334
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Mensaxe de %1$s en %2$s"
@@ -7376,12 +7372,12 @@ msgstr ""
 #: actions/apigroupcreate.php:261
 #, fuzzy, php-format
 msgid "Description is too long (max %d chars)."
-msgstr "A localización é demasiado longa (max 255 car.)."
+msgstr "O teu Bio é demasiado longo (max 140 car.)."
 
 #: actions/apigroupjoin.php:110
 #, fuzzy
 msgid "You are already a member of that group."
-msgstr "Xa bloqueaches a este usuario."
+msgstr "Xa estas suscrito a estes usuarios:"
 
 #: actions/apigroupjoin.php:138
 #, fuzzy, php-format
@@ -7391,7 +7387,7 @@ msgstr "Non podes seguir a este usuario: o Usuario non se atopa."
 #: actions/apigroupleave.php:114
 #, fuzzy
 msgid "You are not a member of this group."
-msgstr "Non podes enviar mensaxes a este usurio."
+msgstr "Non estás suscrito a ese perfil"
 
 #: actions/apigroupleave.php:124
 #, fuzzy, php-format
@@ -7399,23 +7395,24 @@ msgid "Could not remove user %s to group %s."
 msgstr "Non podes seguir a este usuario: o Usuario non se atopa."
 
 #: actions/apigrouplist.php:95
-#, php-format
+#, fuzzy, php-format
 msgid "%s's groups"
-msgstr ""
+msgstr "Usuarios"
 
 #: actions/apigrouplist.php:103
-#, php-format
+#, fuzzy, php-format
 msgid "Groups %s is a member of on %s."
-msgstr ""
+msgstr "%1s non é unha orixe fiable."
 
 #: actions/apigrouplistall.php:94
-#, php-format
+#, fuzzy, php-format
 msgid "groups on %s"
-msgstr ""
+msgstr "Outras opcions"
 
 #: actions/apistatusesshow.php:138
+#, fuzzy
 msgid "Status deleted."
-msgstr ""
+msgstr "Avatar actualizado."
 
 #: actions/apistatusesupdate.php:132
 msgid "Unable to handle that much POST data!"
@@ -7439,14 +7436,13 @@ msgid "Unsupported format."
 msgstr "Formato de ficheiro de imaxe non soportado."
 
 #: actions/bookmarklet.php:50
-#, fuzzy
 msgid "Post to "
-msgstr "Chíos dende SMS"
+msgstr ""
 
 #: actions/editgroup.php:201 actions/newgroup.php:145
 #, fuzzy, php-format
 msgid "description is too long (max %d chars)."
-msgstr "A localización é demasiado longa (max 255 car.)."
+msgstr "O teu Bio é demasiado longo (max 140 car.)."
 
 #: actions/favoritesrss.php:115
 #, fuzzy, php-format
@@ -7476,12 +7472,12 @@ msgstr "Versión de protocolo OMB descoñecida."
 #: actions/getfile.php:75
 #, fuzzy
 msgid "No such file."
-msgstr "Non existe o perfil."
+msgstr "Ningún chío."
 
 #: actions/getfile.php:79
 #, fuzzy
 msgid "Cannot read file."
-msgstr "Non se puido crear o favorito."
+msgstr "Bloqueo de usuario fallido."
 
 #: actions/grouprss.php:133
 #, fuzzy, php-format
@@ -7491,7 +7487,7 @@ msgstr "Actualizacións dende %1$s en %2$s!"
 #: actions/imsettings.php:89
 #, fuzzy
 msgid "IM is not available."
-msgstr "%1s non é unha orixe fiable."
+msgstr "Esta páxina non está dispoñíbel no tipo de medio que aceptas"
 
 #: actions/login.php:259
 #, fuzzy, php-format
@@ -7504,9 +7500,9 @@ msgstr ""
 "action.openidlogin%%). "
 
 #: actions/noticesearchrss.php:89
-#, php-format
+#, fuzzy, php-format
 msgid "Updates with \"%s\""
-msgstr ""
+msgstr "Actualizacións dende %1$s en %2$s!"
 
 #: actions/noticesearchrss.php:91
 #, fuzzy, php-format
@@ -7514,8 +7510,9 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Tódalas actualizacións que coinciden co termo de procura \"%s\""
 
 #: actions/oembed.php:157
+#, fuzzy
 msgid "content type "
-msgstr ""
+msgstr "Conectar"
 
 #: actions/oembed.php:160
 msgid "Only "
@@ -7568,14 +7565,14 @@ msgid "Couldn’t get a request token."
 msgstr "Non se puido recoller o token de petición."
 
 #: actions/replies.php:144
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 1.0)"
-msgstr ""
+msgstr "Fonte de chíos para %s"
 
 #: actions/replies.php:151
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 2.0)"
-msgstr ""
+msgstr "Fonte de chíos para %s"
 
 #: actions/replies.php:158
 #, fuzzy, php-format
@@ -7590,17 +7587,17 @@ msgstr "Mensaxe de %1$s en %2$s"
 #: actions/showfavorites.php:170
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
-msgstr "Fonte para os favoritos de %s"
+msgstr "Fonte para os amigos de %s"
 
 #: actions/showfavorites.php:177
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
-msgstr "Fonte para os favoritos de %s"
+msgstr "Fonte para os amigos de %s"
 
 #: actions/showfavorites.php:184
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (Atom)"
-msgstr "Fonte para os favoritos de %s"
+msgstr "Fonte para os amigos de %s"
 
 #: actions/showfavorites.php:211
 #, php-format
@@ -7611,9 +7608,9 @@ msgid ""
 msgstr ""
 
 #: actions/showgroup.php:345
-#, php-format
+#, fuzzy, php-format
 msgid "FOAF for %s group"
-msgstr ""
+msgstr "Band. Saída para %s"
 
 #: actions/shownotice.php:90
 #, fuzzy
@@ -7623,7 +7620,7 @@ msgstr "Chío publicado"
 #: actions/smssettings.php:91
 #, fuzzy
 msgid "SMS is not available."
-msgstr "Publicación de chíos por SMS desactivado!"
+msgstr "Esta páxina non está dispoñíbel no tipo de medio que aceptas"
 
 #: actions/tag.php:92
 #, fuzzy, php-format
@@ -7744,7 +7741,7 @@ msgstr "Mensaxe demasiado longa - o máximo é 140 caracteres, ti enviaches %d "
 #: lib/command.php:439
 #, fuzzy, php-format
 msgid "Reply to %s sent"
-msgstr "Replies to %s"
+msgstr "Non se pode eliminar este chíos."
 
 #: lib/command.php:441
 #, fuzzy
@@ -7836,18 +7833,19 @@ msgid "Select tag to filter"
 msgstr "Selecciona unha operadora"
 
 #: lib/groupeditform.php:168
+#, fuzzy
 msgid "Describe the group or topic"
-msgstr ""
+msgstr "Contanos un pouco de ti e dos teus intereses en 140 caractéres."
 
 #: lib/groupeditform.php:170
-#, php-format
+#, fuzzy, php-format
 msgid "Describe the group or topic in %d characters"
-msgstr ""
+msgstr "Contanos un pouco de ti e dos teus intereses en 140 caractéres."
 
 #: lib/jabber.php:192
 #, fuzzy, php-format
 msgid "notice id: %s"
-msgstr "Fonte de chíos para %s"
+msgstr "Novo chío"
 
 #: lib/mail.php:554
 #, fuzzy, php-format
@@ -7919,7 +7917,7 @@ msgstr ""
 #: lib/mediafile.php:201 lib/mediafile.php:237
 #, fuzzy
 msgid "Could not determine file's mime-type!"
-msgstr "Non se puido eliminar o favorito."
+msgstr "Non se pudo recuperar a liña de tempo publica."
 
 #: lib/oauthstore.php:345
 #, fuzzy

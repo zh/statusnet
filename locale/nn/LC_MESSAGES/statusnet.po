@@ -1,19 +1,16 @@
 # Translation of StatusNet to Norwegian Nynorsk
 #
 # --
-# nn_NO translation of StatusNet.
-#
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-02 10:50-0800\n"
-"PO-Revision-Date: 2009-11-03 19:59:01+0000\n"
+"POT-Creation-Date: 2009-11-06 13:16+0000\n"
+"PO-Revision-Date: 2009-11-06 15:44:10+0000\n"
 "Language-Team: Norwegian Nynorsk\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58495); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58648); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nn\n"
 "X-Message-Group: out-statusnet\n"
@@ -6831,7 +6828,7 @@ msgstr ""
 msgid "Problem saving notice. Too long."
 msgstr "Eit problem oppstod ved lagring av notis."
 
-#: classes/User.php:319 classes/User.php:327
+#: classes/User.php:319 classes/User.php:327 classes/User.php:334
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Melding til %1$s på %2$s"
@@ -7147,8 +7144,9 @@ msgid "groups on %s"
 msgstr "Gruppe handlingar"
 
 #: actions/apistatusesshow.php:138
+#, fuzzy
 msgid "Status deleted."
-msgstr ""
+msgstr "Lasta opp brukarbilete."
 
 #: actions/apistatusesupdate.php:132
 msgid "Unable to handle that much POST data!"
@@ -7236,9 +7234,9 @@ msgstr ""
 "%)."
 
 #: actions/noticesearchrss.php:89
-#, php-format
+#, fuzzy, php-format
 msgid "Updates with \"%s\""
-msgstr ""
+msgstr "Oppdateringar frå %1$s på %2$s!"
 
 #: actions/noticesearchrss.php:91
 #, fuzzy, php-format
@@ -7246,8 +7244,9 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Alle oppdateringer frå søket «%s»"
 
 #: actions/oembed.php:157
+#, fuzzy
 msgid "content type "
-msgstr ""
+msgstr "Kopla til"
 
 #: actions/oembed.php:160
 msgid "Only "
@@ -7296,19 +7295,19 @@ msgid "Couldn’t get a request token."
 msgstr "Fekk ikkje spørjingsbillett (request token)."
 
 #: actions/replies.php:144
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 1.0)"
-msgstr ""
+msgstr "Notisstraum for %s"
 
 #: actions/replies.php:151
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 2.0)"
-msgstr ""
+msgstr "Notisstraum for %s"
 
 #: actions/replies.php:158
 #, fuzzy, php-format
 msgid "Replies feed for %s (Atom)"
-msgstr "Notisstraum for %s gruppa"
+msgstr "Notisstraum for %s"
 
 #: actions/repliesrss.php:72
 #, fuzzy, php-format
@@ -7318,17 +7317,17 @@ msgstr "Melding til %1$s på %2$s"
 #: actions/showfavorites.php:170
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
-msgstr "Straum for %s sine favorittar"
+msgstr "Straum for vener av %s"
 
 #: actions/showfavorites.php:177
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
-msgstr "Straum for %s sine favorittar"
+msgstr "Straum for vener av %s"
 
 #: actions/showfavorites.php:184
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (Atom)"
-msgstr "Straum for %s sine favorittar"
+msgstr "Straum for vener av %s"
 
 #: actions/showfavorites.php:211
 #, php-format
@@ -7341,7 +7340,7 @@ msgstr ""
 #: actions/showgroup.php:345
 #, fuzzy, php-format
 msgid "FOAF for %s group"
-msgstr "%s gruppe"
+msgstr "Utboks for %s"
 
 #: actions/shownotice.php:90
 #, fuzzy
@@ -7548,7 +7547,7 @@ msgstr "Beskriv gruppa eller emnet med 140 teikn"
 #: lib/jabber.php:192
 #, fuzzy, php-format
 msgid "notice id: %s"
-msgstr "Notisstraum for %s"
+msgstr "Ny notis"
 
 #: lib/mail.php:554
 #, fuzzy, php-format
@@ -7608,7 +7607,7 @@ msgstr ""
 #: lib/mediafile.php:201 lib/mediafile.php:237
 #, fuzzy
 msgid "Could not determine file's mime-type!"
-msgstr "Kunne ikkje slette favoritt."
+msgstr "Kan ikkje hente offentleg straum."
 
 #: lib/oauthstore.php:345
 #, fuzzy

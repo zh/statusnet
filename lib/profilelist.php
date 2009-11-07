@@ -182,7 +182,8 @@ class ProfileListItem extends Widget
     {
         $avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
         $this->out->elementStart('a', array('href' => $this->profile->profileurl,
-                                            'class' => 'url'));
+                                            'class' => 'url',
+                                            'rel' => 'contact'));
         $this->out->element('img', array('src' => ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_STREAM_SIZE),
                                          'class' => 'photo avatar',
                                          'width' => AVATAR_STREAM_SIZE,
@@ -190,7 +191,7 @@ class ProfileListItem extends Widget
                                          'alt' =>
                                          ($this->profile->fullname) ? $this->profile->fullname :
                                          $this->profile->nickname));
-        $hasFN = ($this->profile->fullname !== '') ? 'nickname' : 'fn nickname';
+        $hasFN = (!empty($this->profile->fullname)) ? 'nickname' : 'fn nickname';
         $this->out->elementStart('span', $hasFN);
         $this->out->raw($this->highlight($this->profile->nickname));
         $this->out->elementEnd('span');

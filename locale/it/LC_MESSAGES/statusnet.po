@@ -1,22 +1,16 @@
 # Translation of StatusNet to Italian
 #
 # --
-# Italian translation of statusnet
-# Copyright (C) 2008 THE statusnet'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the statusnet package.
-# Milo Casagrande <milo@ubuntu.com>, 2008
-#
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-02 10:50-0800\n"
-"PO-Revision-Date: 2009-11-03 19:58:30+0000\n"
+"POT-Creation-Date: 2009-11-06 13:16+0000\n"
+"PO-Revision-Date: 2009-11-06 15:43:52+0000\n"
 "Language-Team: Italian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58495); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58648); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: it\n"
 "X-Message-Group: out-statusnet\n"
@@ -6881,7 +6875,7 @@ msgstr ""
 msgid "Problem saving notice. Too long."
 msgstr "Problema nel salvare il messaggio."
 
-#: classes/User.php:319 classes/User.php:327
+#: classes/User.php:319 classes/User.php:327 classes/User.php:334
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Messaggio a %1$s su %2$s"
@@ -7197,8 +7191,9 @@ msgid "groups on %s"
 msgstr "Azioni dei gruppi"
 
 #: actions/apistatusesshow.php:138
+#, fuzzy
 msgid "Status deleted."
-msgstr ""
+msgstr "Immagine aggiornata."
 
 #: actions/apistatusesupdate.php:132
 msgid "Unable to handle that much POST data!"
@@ -7287,9 +7282,9 @@ msgstr ""
 "%). "
 
 #: actions/noticesearchrss.php:89
-#, php-format
+#, fuzzy, php-format
 msgid "Updates with \"%s\""
-msgstr ""
+msgstr "Aggiornamenti da %1$s su %2$s!"
 
 #: actions/noticesearchrss.php:91
 #, fuzzy, php-format
@@ -7297,8 +7292,9 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Tutti gli aggiornamenti corrispondenti al termine di ricerca \"%s\""
 
 #: actions/oembed.php:157
+#, fuzzy
 msgid "content type "
-msgstr ""
+msgstr "Connetti"
 
 #: actions/oembed.php:160
 msgid "Only "
@@ -7347,19 +7343,19 @@ msgid "Couldn’t get a request token."
 msgstr "Impossibile ottenere un token di richiesta."
 
 #: actions/replies.php:144
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 1.0)"
-msgstr ""
+msgstr "Feed dei messaggi per %s"
 
 #: actions/replies.php:151
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 2.0)"
-msgstr ""
+msgstr "Feed dei messaggi per %s"
 
 #: actions/replies.php:158
 #, fuzzy, php-format
 msgid "Replies feed for %s (Atom)"
-msgstr "Feed dei messaggi per il gruppo %s"
+msgstr "Feed dei messaggi per %s"
 
 #: actions/repliesrss.php:72
 #, fuzzy, php-format
@@ -7369,17 +7365,17 @@ msgstr "Messaggio a %1$s su %2$s"
 #: actions/showfavorites.php:170
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
-msgstr "Feed dei preferiti di %s"
+msgstr "Feed per gli amici di %s"
 
 #: actions/showfavorites.php:177
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
-msgstr "Feed dei preferiti di %s"
+msgstr "Feed per gli amici di %s"
 
 #: actions/showfavorites.php:184
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (Atom)"
-msgstr "Feed dei preferiti di %s"
+msgstr "Feed per gli amici di %s"
 
 #: actions/showfavorites.php:211
 #, php-format
@@ -7392,7 +7388,7 @@ msgstr ""
 #: actions/showgroup.php:345
 #, fuzzy, php-format
 msgid "FOAF for %s group"
-msgstr "Gruppi di %s"
+msgstr "Casella posta inviata di %s"
 
 #: actions/shownotice.php:90
 #, fuzzy
@@ -7600,7 +7596,7 @@ msgstr "Descrivi il gruppo o l'argomento in 140 caratteri"
 #: lib/jabber.php:192
 #, fuzzy, php-format
 msgid "notice id: %s"
-msgstr "Feed dei messaggi per %s"
+msgstr "Nuovo messaggio"
 
 #: lib/mail.php:554
 #, fuzzy, php-format
@@ -7660,7 +7656,7 @@ msgstr ""
 #: lib/mediafile.php:201 lib/mediafile.php:237
 #, fuzzy
 msgid "Could not determine file's mime-type!"
-msgstr "Impossibile eliminare un preferito."
+msgstr "Impossibile recuperare l'attività pubblica."
 
 #: lib/oauthstore.php:345
 #, fuzzy

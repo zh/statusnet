@@ -1,5 +1,8 @@
 # Translation of StatusNet to Finnish
 #
+# Author@translatewiki.net: Crt
+# Author@translatewiki.net: Jaakko
+# Author@translatewiki.net: Nike
 # --
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -10,12 +13,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-02 10:50-0800\n"
-"PO-Revision-Date: 2009-11-03 19:58:07+0000\n"
+"POT-Creation-Date: 2009-11-06 13:16+0000\n"
+"PO-Revision-Date: 2009-11-06 15:43:34+0000\n"
 "Language-Team: Finnish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58495); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58648); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fi\n"
 "X-Message-Group: out-statusnet\n"
@@ -5613,34 +5616,32 @@ msgid "Unsubscribe from this user"
 msgstr "Peruuta tämän käyttäjän tilaus"
 
 #: actions/all.php:77 actions/all.php:59 actions/all.php:99
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
-msgstr "Syöte käyttäjän %s kavereille"
+msgstr "Käyttäjän %s kavereiden syöte (RSS 1.0)"
 
 #: actions/all.php:82 actions/all.php:64 actions/all.php:107
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
-msgstr "Syöte käyttäjän %s kavereille"
+msgstr "Käyttäjän %s kavereiden syöte (RSS 2.0)"
 
 #: actions/all.php:87 actions/all.php:69 actions/all.php:115
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (Atom)"
-msgstr "Syöte käyttäjän %s kavereille"
+msgstr "Käyttäjän %s kavereiden syöte (Atom)"
 
 #: actions/all.php:112 actions/all.php:125 actions/all.php:165
-#, fuzzy
 msgid "You and friends"
-msgstr "%s ja kaverit"
+msgstr "Sinä ja kaverit"
 
 #: actions/avatarsettings.php:78
-#, fuzzy, php-format
+#, php-format
 msgid "You can upload your personal avatar. The maximum file size is %s."
-msgstr "Voit ladata oman profiilikuvasi."
+msgstr "Voit ladata oman profiilikuvasi. Maksimikoko on %s."
 
 #: actions/avatarsettings.php:373
-#, fuzzy
 msgid "Avatar deleted."
-msgstr "Kuva päivitetty."
+msgstr "Kuva poistettu."
 
 #: actions/block.php:129 actions/block.php:136
 msgid ""
@@ -5701,7 +5702,7 @@ msgid "Pick a square area of the image to be the logo."
 msgstr "Valitse neliön muotoinen alue kuvasta profiilikuvaksi"
 
 #: actions/grouprss.php:136 actions/grouprss.php:137
-#, fuzzy, php-format
+#, php-format
 msgid "Microblog by %s group"
 msgstr "Käyttäjän %s mikroblogi"
 
@@ -6887,7 +6888,7 @@ msgstr ""
 msgid "Problem saving notice. Too long."
 msgstr "Ongelma päivityksen tallentamisessa."
 
-#: classes/User.php:319 classes/User.php:327
+#: classes/User.php:319 classes/User.php:327 classes/User.php:334
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Viesti käyttäjälle %1$s, %2$s"
@@ -7203,8 +7204,9 @@ msgid "groups on %s"
 msgstr "Ryhmän toiminnot"
 
 #: actions/apistatusesshow.php:138
+#, fuzzy
 msgid "Status deleted."
-msgstr ""
+msgstr "Kuva poistettu."
 
 #: actions/apistatusesupdate.php:132
 msgid "Unable to handle that much POST data!"
@@ -7292,9 +7294,9 @@ msgstr ""
 "kokeile [OpenID](%%action.openidlogin%%)-tunnuksella sisään kirjautumista. "
 
 #: actions/noticesearchrss.php:89
-#, php-format
+#, fuzzy, php-format
 msgid "Updates with \"%s\""
-msgstr ""
+msgstr "Käyttäjän %1$s päivitykset palvelussa %2$s!"
 
 #: actions/noticesearchrss.php:91
 #, fuzzy, php-format
@@ -7302,8 +7304,9 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Kaikki päivitykset hakuehdolla \"%s\""
 
 #: actions/oembed.php:157
+#, fuzzy
 msgid "content type "
-msgstr ""
+msgstr "Yhdistä"
 
 #: actions/oembed.php:160
 msgid "Only "
@@ -7355,19 +7358,19 @@ msgid "Couldn’t get a request token."
 msgstr "Ei saatu request tokenia."
 
 #: actions/replies.php:144
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 1.0)"
-msgstr ""
+msgstr "Päivityksien syöte käyttäjälle %s"
 
 #: actions/replies.php:151
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 2.0)"
-msgstr ""
+msgstr "Päivityksien syöte käyttäjälle %s"
 
 #: actions/replies.php:158
 #, fuzzy, php-format
 msgid "Replies feed for %s (Atom)"
-msgstr "Päivityssyöte ryhmälle %s"
+msgstr "Päivityksien syöte käyttäjälle %s"
 
 #: actions/repliesrss.php:72
 #, fuzzy, php-format
@@ -7377,17 +7380,17 @@ msgstr "Viesti käyttäjälle %1$s, %2$s"
 #: actions/showfavorites.php:170
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
-msgstr "Käyttäjän %s suosikkien syöte"
+msgstr "Käyttäjän %s kavereiden syöte (RSS 1.0)"
 
 #: actions/showfavorites.php:177
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
-msgstr "Käyttäjän %s suosikkien syöte"
+msgstr "Käyttäjän %s kavereiden syöte (RSS 2.0)"
 
 #: actions/showfavorites.php:184
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (Atom)"
-msgstr "Käyttäjän %s suosikkien syöte"
+msgstr "Käyttäjän %s kavereiden syöte (Atom)"
 
 #: actions/showfavorites.php:211
 #, php-format
@@ -7400,7 +7403,7 @@ msgstr ""
 #: actions/showgroup.php:345
 #, fuzzy, php-format
 msgid "FOAF for %s group"
-msgstr "Ryhmä %s"
+msgstr "Käyttäjän %s lähetetyt viestit"
 
 #: actions/shownotice.php:90
 #, fuzzy
@@ -7608,7 +7611,7 @@ msgstr "Kuvaile ryhmää tai aihetta 140 merkillä"
 #: lib/jabber.php:192
 #, fuzzy, php-format
 msgid "notice id: %s"
-msgstr "Päivityksien syöte käyttäjälle %s"
+msgstr "Uusi päivitys"
 
 #: lib/mail.php:554
 #, fuzzy, php-format
@@ -7668,7 +7671,7 @@ msgstr ""
 #: lib/mediafile.php:201 lib/mediafile.php:237
 #, fuzzy
 msgid "Could not determine file's mime-type!"
-msgstr "Ei voitu poistaa suosikkia."
+msgstr "Julkista päivitysvirtaa ei saatu."
 
 #: lib/oauthstore.php:345
 #, fuzzy

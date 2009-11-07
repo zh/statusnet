@@ -1,28 +1,17 @@
 # Translation of StatusNet to Japanese
 #
+# Author@translatewiki.net: Fryed-peach
 # --
-# #-#-#-#-#  statusnet.pot (PACKAGE VERSION)  #-#-#-#-#
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# Toshiya TSURU <turutosiya@gmail.com>, 2008
-#
-# #-#-#-#-#  statusnet.new.pot (PACKAGE VERSION)  #-#-#-#-#
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-02 10:50-0800\n"
-"PO-Revision-Date: 2009-11-03 19:58:35+0000\n"
+"POT-Creation-Date: 2009-11-06 13:16+0000\n"
+"PO-Revision-Date: 2009-11-06 15:43:55+0000\n"
 "Language-Team: Japanese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58495); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58648); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ja\n"
 "X-Message-Group: out-statusnet\n"
@@ -31,19 +20,20 @@ msgstr ""
 #: actions/noticesearchrss.php:88 actions/noticesearchrss.php:89
 #, php-format
 msgid " Search Stream for \"%s\""
-msgstr "\"%s\" のストリームを検索"
+msgstr "ストリームから「%s」を検索"
 
 #: ../actions/finishopenidlogin.php:82 ../actions/register.php:191
 #: actions/finishopenidlogin.php:88 actions/register.php:205
 #: actions/finishopenidlogin.php:110 actions/finishopenidlogin.php:109
 msgid ""
 " except this private data: password, email address, IM address, phone number."
-msgstr "個人情報を除く:パスワード、メールアドレス、IMアドレス、電話番号"
+msgstr "次の個人情報を除く: パスワード、メールアドレス、IMアドレス、電話番号"
 
 #: ../actions/showstream.php:400 ../lib/stream.php:109
 #: actions/showstream.php:418 lib/mailbox.php:164 lib/stream.php:76
+#, fuzzy
 msgid " from "
-msgstr "から"
+msgstr "から "
 
 #: ../actions/twitapistatuses.php:478 actions/twitapistatuses.php:412
 #: actions/twitapistatuses.php:347 actions/twitapistatuses.php:363
@@ -55,7 +45,7 @@ msgstr ""
 #: actions/invite.php:218 actions/invite.php:220 actions/invite.php:226
 #, php-format
 msgid "%1$s has invited you to join them on %2$s"
-msgstr ""
+msgstr "%1$s があなたを %2$s へ招待しました"
 
 #: ../actions/invite.php:170 actions/invite.php:220 actions/invite.php:222
 #: actions/invite.php:228
@@ -88,12 +78,38 @@ msgid ""
 "\n"
 "Sincerely, %2$s\n"
 msgstr ""
+"%1$s があなたを %2$s へ招待しました (%3$s)。\n"
+"\n"
+"%2$s はあなたの知り合いやあなたが興味をもっている人物の最新の情報を得ることが"
+"できる、マイクロブログサービスです。\n"
+"\n"
+"また、あなたの最新の情報やあなたの考えていること、生活を、あなたのことを知っ"
+"ている人と共有することができます。あなたと同じ興味をもつ人々と出会う目的でも"
+"優れたサービスです。\n"
+"\n"
+"%1$s の言葉:\n"
+"\n"
+"%4$s\n"
+"\n"
+"%2$s における %1$s のプロフィールページを以下で見ることができます:\n"
+"\n"
+"%5$s\n"
+"\n"
+"このサービスを試してみたい場合は以下のリンクをクリックしてこの招待に応じてく"
+"ださい。\n"
+"\n"
+"%6$s\n"
+"\n"
+"そうでない場合はこのメッセージを無視することができます。お時間をいただきあり"
+"がとうございました。\n"
+"\n"
+"%2$s\n"
 
 #: ../lib/mail.php:124 lib/mail.php:124 lib/mail.php:126 lib/mail.php:241
 #: lib/mail.php:236 lib/mail.php:235
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
-msgstr "%1$s は %2$s であなたの通知を聞いています。"
+msgstr "%1$s は %2$s であなたの通知を購読しています。"
 
 #: ../lib/mail.php:126
 #, php-format
@@ -105,12 +121,11 @@ msgid ""
 "Faithfully yours,\n"
 "%4$s.\n"
 msgstr ""
-"%1$s は %2$s であなたの通知を聞いています。\n"
+"%1$s は %2$s であなたの通知を購読しています。\n"
 "\n"
-"\t%3$s\n"
+"%3$s\n"
 "\n"
-"確かにあなたの,\n"
-"%4$s.\n"
+"%4$s\n"
 
 #: ../actions/twitapistatuses.php:482 actions/twitapistatuses.php:415
 #: actions/twitapistatuses.php:350 actions/twitapistatuses.php:367
@@ -124,20 +139,20 @@ msgstr ""
 #: actions/shownotice.php:180
 #, php-format
 msgid "%1$s's status on %2$s"
-msgstr "%1$ のステータス %2$s"
+msgstr "%2$s における %1$ の状態"
 
 #: ../actions/invite.php:84 ../actions/invite.php:92 actions/invite.php:91
 #: actions/invite.php:99 actions/invite.php:123 actions/invite.php:131
 #: actions/invite.php:125 actions/invite.php:133 actions/invite.php:139
 #, php-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #: ../actions/publicrss.php:62 actions/publicrss.php:48
 #: actions/publicrss.php:90 actions/publicrss.php:89
 #, php-format
 msgid "%s Public Stream"
-msgstr "%s パブリックストリーム"
+msgstr "%s の公開ストリーム"
 
 #: ../actions/all.php:47 ../actions/allrss.php:60
 #: ../actions/twitapistatuses.php:238 ../lib/stream.php:51 actions/all.php:47
@@ -152,7 +167,7 @@ msgstr "%s パブリックストリーム"
 #: actions/allrss.php:115 actions/apitimelinefriends.php:114
 #, php-format
 msgid "%s and friends"
-msgstr "%s & ともだち"
+msgstr "%s と友人"
 
 #: ../actions/twitapistatuses.php:49 actions/twitapistatuses.php:49
 #: actions/twitapistatuses.php:33 actions/twitapistatuses.php:32
@@ -160,12 +175,12 @@ msgstr "%s & ともだち"
 #: actions/publicrss.php:103
 #, php-format
 msgid "%s public timeline"
-msgstr "%s パブリックタイムライン"
+msgstr "%s の公開タイムライン"
 
 #: ../lib/mail.php:206 lib/mail.php:212 lib/mail.php:411 lib/mail.php:412
 #, php-format
 msgid "%s status"
-msgstr "%s ステータス"
+msgstr "%s の状態"
 
 #: ../actions/twitapistatuses.php:338 actions/twitapistatuses.php:265
 #: actions/twitapistatuses.php:199 actions/twitapistatuses.php:209
@@ -174,7 +189,7 @@ msgstr "%s ステータス"
 #: actions/grouprss.php:131 actions/userrss.php:90
 #, php-format
 msgid "%s timeline"
-msgstr "%s タイムライン"
+msgstr "%s のタイムライン"
 
 #: ../actions/twitapistatuses.php:52 actions/twitapistatuses.php:52
 #: actions/twitapistatuses.php:36 actions/twitapistatuses.php:38
@@ -190,6 +205,8 @@ msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
 msgstr ""
+"(メールアドレスを確認する方法を読んで、すぐにメールによるメッセージを受け取る"
+"ようにしてください)"
 
 #: ../lib/util.php:257 lib/util.php:273 lib/action.php:605 lib/action.php:702
 #: lib/action.php:752 lib/action.php:767
@@ -199,17 +216,17 @@ msgid ""
 "broughtby%%](%%site.broughtbyurl%%). "
 msgstr ""
 "**%%site.name%%** は [%%site.broughtby%%](%%site.broughtbyurl%%) が提供するマ"
-"イクロブロギングサービスです。 "
+"イクロブログサービスです。 "
 
 #: ../lib/util.php:259 lib/util.php:275 lib/action.php:607 lib/action.php:704
 #: lib/action.php:754 lib/action.php:769
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
-msgstr "**%%site.name%%** はマイクロブロギングサービスです。"
+msgstr "**%%site.name%%** はマイクロブログサービスです。 "
 
 #: ../lib/util.php:274 lib/util.php:290
 msgid ". Contributors should be attributed by full name or nickname."
-msgstr "コントリビューターはニックネームかフルネームで記載されています。"
+msgstr "投稿者はニックネームかフルネームで記載されます。"
 
 #: ../actions/finishopenidlogin.php:73 ../actions/profilesettings.php:43
 #: actions/finishopenidlogin.php:79 actions/profilesettings.php:76
@@ -217,13 +234,13 @@ msgstr "コントリビューターはニックネームかフルネームで記
 #: lib/groupeditform.php:139 actions/finishopenidlogin.php:100
 #: lib/groupeditform.php:154 actions/profilesettings.php:108
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
-msgstr "1～64字以内で、小文字アルファベット、数字、スペース。（句読点を除く）"
+msgstr "1-64文字の、小文字アルファベットか数字で、スペースや句読点は除く"
 
 #: ../actions/register.php:152 actions/register.php:166
 #: actions/register.php:368 actions/register.php:414 actions/register.php:418
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
 msgstr ""
-"1～64字以内で、小文字アルファベット、数字、スペース（句読点を除く）が必須です"
+"1-64文字の、小文字アルファベットか数字で、スペースや句読点は除く。必須です。"
 
 #: ../actions/password.php:42 actions/profilesettings.php:181
 #: actions/passwordsettings.php:102 actions/passwordsettings.php:108
@@ -234,12 +251,12 @@ msgstr "6文字以上"
 #: actions/recoverpassword.php:220 actions/recoverpassword.php:233
 #: actions/recoverpassword.php:236
 msgid "6 or more characters, and don't forget it!"
-msgstr "6文字以上。お忘れなく！"
+msgstr "6文字以上。忘れないでください！"
 
 #: ../actions/register.php:154 actions/register.php:168
 #: actions/register.php:373 actions/register.php:419 actions/register.php:423
 msgid "6 or more characters. Required."
-msgstr "6文字以上が必須です。"
+msgstr "6文字以上。必須です。"
 
 #: ../actions/imsettings.php:197 actions/imsettings.php:205
 #: actions/imsettings.php:321 actions/imsettings.php:327
@@ -248,8 +265,8 @@ msgid ""
 "A confirmation code was sent to the IM address you added. You must approve %"
 "s for sending messages to you."
 msgstr ""
-"確認用コードを入力されたIMアドレスに送信しました。メッセージを確認するには、%"
-"sを承認して下さい。"
+"確認用コードを入力された IM アドレスに送信しました。あなたにメッセージを送れ"
+"るようにするには%sを承認してください。"
 
 #: ../actions/emailsettings.php:213 actions/emailsettings.php:231
 #: actions/emailsettings.php:350 actions/emailsettings.php:358
@@ -257,12 +274,17 @@ msgid ""
 "A confirmation code was sent to the email address you added. Check your "
 "inbox (and spam box!) for the code and instructions on how to use it."
 msgstr ""
+"確認用コードを入力された電子メールアドレスに送信しました。受信ボックス（とス"
+"パムボックス）にコードとそれをどう使うのかという指示が届いていないか確認して"
+"ください。"
 
 #: ../actions/smssettings.php:216 actions/smssettings.php:224
 msgid ""
 "A confirmation code was sent to the phone number you added. Check your inbox "
 "(and spam box!) for the code and instructions on how to use it."
 msgstr ""
+"確認用コードを入力された電話番号に送信しました。受信ボックス（とスパムボック"
+"ス）にコードとそれをどう使うのかという指示が届いていないか確認してください。"
 
 #: ../actions/twitapiaccount.php:49 ../actions/twitapihelp.php:45
 #: ../actions/twitapistatuses.php:88 ../actions/twitapistatuses.php:259
@@ -311,7 +333,7 @@ msgstr ""
 #: actions/apitimelinepublic.php:130 actions/apitimelinetag.php:139
 #: actions/apitimelineuser.php:163 actions/apiusershow.php:101
 msgid "API method not found!"
-msgstr ""
+msgstr "API メソッドが見つかりません！"
 
 #: ../actions/twitapiaccount.php:57 ../actions/twitapiaccount.php:113
 #: ../actions/twitapiaccount.php:119 ../actions/twitapiblocks.php:28
@@ -339,12 +361,12 @@ msgstr ""
 #: actions/twitapiaccount.php:48 actions/twitapidirect_messages.php:189
 #: actions/twitapihelp.php:54 actions/twitapistatuses.php:582
 msgid "API method under construction."
-msgstr ""
+msgstr "API メソッドが工事中です。"
 
 #: ../lib/util.php:324 lib/util.php:340 lib/action.php:568 lib/action.php:661
 #: lib/action.php:706 lib/action.php:721
 msgid "About"
-msgstr "About"
+msgstr "解説"
 
 #: ../actions/userauthorization.php:119 actions/userauthorization.php:126
 #: actions/userauthorization.php:143 actions/userauthorization.php:178
@@ -368,12 +390,12 @@ msgstr "追加"
 #: ../actions/openidsettings.php:43 actions/openidsettings.php:44
 #: actions/openidsettings.php:93
 msgid "Add OpenID"
-msgstr "OpenIDを追加"
+msgstr "OpenID を追加"
 
 #: ../lib/settingsaction.php:97 lib/settingsaction.php:91
 #: lib/accountsettingsaction.php:117
 msgid "Add or remove OpenIDs"
-msgstr "OpenIDを追加または削除"
+msgstr "OpenID を追加または削除"
 
 #: ../actions/emailsettings.php:38 ../actions/imsettings.php:39
 #: ../actions/smssettings.php:39 actions/emailsettings.php:39
@@ -387,24 +409,24 @@ msgstr "住所"
 #: ../actions/invite.php:131 actions/invite.php:139 actions/invite.php:176
 #: actions/invite.php:181 actions/invite.php:183 actions/invite.php:189
 msgid "Addresses of friends to invite (one per line)"
-msgstr ""
+msgstr "招待する友人のアドレス (一行に一つ)"
 
 #: ../actions/showstream.php:273 actions/showstream.php:288
 #: actions/showstream.php:422 lib/profileaction.php:126
 msgid "All subscriptions"
-msgstr "全てのサブスクリプション"
+msgstr "すべての購読"
 
 #: ../actions/publicrss.php:64 actions/publicrss.php:50
 #: actions/publicrss.php:92 actions/publicrss.php:91
 #, php-format
 msgid "All updates for %s"
-msgstr "%sの全てのサブスクリプション"
+msgstr "%s のすべての更新"
 
 #: ../actions/noticesearchrss.php:66 actions/noticesearchrss.php:70
 #: actions/noticesearchrss.php:90 actions/noticesearchrss.php:91
 #, php-format
 msgid "All updates matching search term \"%s\""
-msgstr "\"%s\" にヒットするすべてのアップデート"
+msgstr "検索語「%s」に一致するすべての更新"
 
 #: ../actions/finishopenidlogin.php:29 ../actions/login.php:31
 #: ../actions/openidlogin.php:29 ../actions/register.php:30
@@ -424,7 +446,7 @@ msgstr "既に購読しています。"
 #: actions/deletenotice.php:113 actions/deletenotice.php:114
 #: actions/deletenotice.php:144
 msgid "Are you sure you want to delete this notice?"
-msgstr ""
+msgstr "本当にこの通知を削除しますか？"
 
 #: ../actions/userauthorization.php:77 actions/userauthorization.php:83
 #: actions/userauthorization.php:81 actions/userauthorization.php:76
@@ -437,14 +459,14 @@ msgstr "購読を許可"
 #: actions/register.php:416 actions/register.php:463 actions/login.php:226
 #: actions/register.php:473
 msgid "Automatically login in the future; not for shared computers!"
-msgstr "将来的には非共用PCでの自動ログイン"
+msgstr "以降は自動的にログインする。共用コンピューターでは避けましょう！"
 
 #: ../actions/profilesettings.php:65 actions/profilesettings.php:98
 #: actions/profilesettings.php:144 actions/profilesettings.php:145
 #: actions/profilesettings.php:160
 msgid ""
 "Automatically subscribe to whoever subscribes to me (best for non-humans)"
-msgstr ""
+msgstr "自分を購読している者を自動的に購読する (非人間に最適)"
 
 #: ../actions/avatar.php:32 ../lib/settingsaction.php:90
 #: actions/profilesettings.php:34 actions/avatarsettings.php:65
@@ -467,8 +489,8 @@ msgid ""
 "Awaiting confirmation on this address. Check your Jabber/GTalk account for a "
 "message with further instructions. (Did you add %s to your buddy list?)"
 msgstr ""
-"このアドレスは確認待ちです。Jabber/Gtalk でメッセージを確認して下さい。（%s "
-"を追加していますか？）"
+"このアドレスは確認待ちです。Jabber か Gtalk のアカウントで追加の指示が書かれ"
+"たメッセージを確認してください。(%s を友人リストに追加しましたか？)"
 
 #: ../actions/emailsettings.php:54 actions/emailsettings.php:55
 #: actions/emailsettings.php:107 actions/emailsettings.php:113
@@ -476,16 +498,17 @@ msgid ""
 "Awaiting confirmation on this address. Check your inbox (and spam box!) for "
 "a message with further instructions."
 msgstr ""
+"このアドレスは確認待ちです。受信ボックス（とスパムボックス）に追加の指示が書"
+"かれたメッセージが届いていないか確認してください。"
 
 #: ../actions/smssettings.php:58 actions/smssettings.php:58
 #: actions/smssettings.php:111 actions/smssettings.php:123
 msgid "Awaiting confirmation on this phone number."
-msgstr ""
+msgstr "この電話番号は確認待ちです。"
 
 #: ../lib/util.php:1318 lib/util.php:1452
-#, fuzzy
 msgid "Before »"
-msgstr "前 >>"
+msgstr "前 »"
 
 #: ../actions/profilesettings.php:49 ../actions/register.php:170
 #: actions/profilesettings.php:82 actions/register.php:184
@@ -493,7 +516,7 @@ msgstr "前 >>"
 #: actions/register.php:448 actions/profilesettings.php:127
 #: actions/register.php:459
 msgid "Bio"
-msgstr "バイオグラフィ"
+msgstr "自己紹介"
 
 #: ../actions/profilesettings.php:101 ../actions/register.php:82
 #: ../actions/updateprofile.php:103 actions/profilesettings.php:216
@@ -502,7 +525,7 @@ msgstr "バイオグラフィ"
 #: actions/updateprofile.php:107 actions/updateprofile.php:109
 #: actions/profilesettings.php:206 actions/register.php:211
 msgid "Bio is too long (max 140 chars)."
-msgstr "バイオグラフィが長すぎます。（最長140字）"
+msgstr "自己紹介が長すぎます (最長140文字)。"
 
 #: ../lib/deleteaction.php:41 lib/deleteaction.php:41 lib/deleteaction.php:69
 #: actions/deletenotice.php:71
@@ -6771,7 +6794,7 @@ msgstr ""
 msgid "Problem saving notice. Too long."
 msgstr "通知を保存する際に問題が発生しました。"
 
-#: classes/User.php:319 classes/User.php:327
+#: classes/User.php:319 classes/User.php:327 classes/User.php:334
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
@@ -7078,7 +7101,7 @@ msgstr "%s グループ"
 #: actions/apigrouplist.php:103
 #, fuzzy, php-format
 msgid "Groups %s is a member of on %s."
-msgstr "メンバー数が多いグループ"
+msgstr "そのプロファイルは送信されていません。"
 
 #: actions/apigrouplistall.php:94
 #, fuzzy, php-format
@@ -7086,8 +7109,9 @@ msgid "groups on %s"
 msgstr "このサイト上のグループを検索する"
 
 #: actions/apistatusesshow.php:138
+#, fuzzy
 msgid "Status deleted."
-msgstr ""
+msgstr "アバターが更新されました。"
 
 #: actions/apistatusesupdate.php:132
 msgid "Unable to handle that much POST data!"
@@ -7119,9 +7143,9 @@ msgid "description is too long (max %d chars)."
 msgstr "バイオグラフィが長すぎます。（最長140字）"
 
 #: actions/favoritesrss.php:115
-#, php-format
+#, fuzzy, php-format
 msgid "Updates favored by %1$s on %2$s!"
-msgstr ""
+msgstr "マイクロブログ by %s"
 
 #: actions/finishremotesubscribe.php:80
 #, fuzzy
@@ -7154,9 +7178,9 @@ msgid "Cannot read file."
 msgstr "そのような通知はありません。"
 
 #: actions/grouprss.php:133
-#, php-format
+#, fuzzy, php-format
 msgid "Updates from members of %1$s on %2$s!"
-msgstr ""
+msgstr "マイクロブログ by %s"
 
 #: actions/imsettings.php:89
 #, fuzzy
@@ -7171,18 +7195,19 @@ msgid ""
 msgstr ""
 
 #: actions/noticesearchrss.php:89
-#, php-format
+#, fuzzy, php-format
 msgid "Updates with \"%s\""
-msgstr ""
+msgstr "マイクロブログ by %s"
 
 #: actions/noticesearchrss.php:91
 #, fuzzy, php-format
 msgid "Updates matching search term \"%1$s\" on %2$s!"
-msgstr "\"%s\" にヒットするすべてのアップデート"
+msgstr "検索語「%s」に一致するすべての更新"
 
 #: actions/oembed.php:157
+#, fuzzy
 msgid "content type "
-msgstr ""
+msgstr "接続"
 
 #: actions/oembed.php:160
 msgid "Only "
@@ -7206,7 +7231,7 @@ msgstr "140字以内で自己紹介"
 #: actions/profilesettings.php:221 actions/register.php:217
 #, fuzzy, php-format
 msgid "Bio is too long (max %d chars)."
-msgstr "バイオグラフィが長すぎます。（最長140字）"
+msgstr "自己紹介が長すぎます (最長140文字)。"
 
 #: actions/register.php:336
 msgid ""
@@ -7230,14 +7255,14 @@ msgid "Couldn’t get a request token."
 msgstr "リクエストトークンを取得できません"
 
 #: actions/replies.php:144
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 1.0)"
-msgstr ""
+msgstr "%sの通知フィード"
 
 #: actions/replies.php:151
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 2.0)"
-msgstr ""
+msgstr "%sの通知フィード"
 
 #: actions/replies.php:158
 #, fuzzy, php-format
@@ -7369,7 +7394,7 @@ msgstr "新しい通知"
 #: lib/command.php:88
 #, fuzzy, php-format
 msgid "Could not find a user with nickname %s"
-msgstr "サーバへリダイレクトできません : %s"
+msgstr "ユーザを更新できません"
 
 #: lib/command.php:92
 msgid "It does not make a lot of sense to nudge yourself!"
@@ -7474,7 +7499,7 @@ msgstr "グループやトピックを140字以内記述"
 #: lib/jabber.php:192
 #, fuzzy, php-format
 msgid "notice id: %s"
-msgstr "%sの通知フィード"
+msgstr "新しい通知"
 
 #: lib/mail.php:554
 #, fuzzy, php-format
@@ -7525,15 +7550,16 @@ msgstr ""
 #: lib/mailbox.php:227 lib/noticelist.php:424
 #, fuzzy
 msgid "from"
-msgstr "から"
+msgstr "から "
 
 #: lib/mediafile.php:179 lib/mediafile.php:216
 msgid "File exceeds user's quota!"
 msgstr ""
 
 #: lib/mediafile.php:201 lib/mediafile.php:237
+#, fuzzy
 msgid "Could not determine file's mime-type!"
-msgstr ""
+msgstr "ユーザを更新できません"
 
 #: lib/oauthstore.php:345
 #, fuzzy

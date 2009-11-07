@@ -1,21 +1,16 @@
 # Translation of StatusNet to Czech
 #
 # --
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-02 10:50-0800\n"
-"PO-Revision-Date: 2009-11-03 19:57:31+0000\n"
+"POT-Creation-Date: 2009-11-06 13:16+0000\n"
+"PO-Revision-Date: 2009-11-06 15:43:04+0000\n"
 "Language-Team: Czech\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58495); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58648); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: cs\n"
 "X-Message-Group: out-statusnet\n"
@@ -6803,7 +6798,7 @@ msgstr ""
 msgid "Problem saving notice. Too long."
 msgstr "Problém při ukládání sdělení"
 
-#: classes/User.php:319 classes/User.php:327
+#: classes/User.php:319 classes/User.php:327 classes/User.php:334
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
@@ -7103,14 +7098,14 @@ msgid "Could not remove user %s to group %s."
 msgstr "Nelze vytvořit OpenID z: %s"
 
 #: actions/apigrouplist.php:95
-#, php-format
+#, fuzzy, php-format
 msgid "%s's groups"
-msgstr ""
+msgstr "Profil"
 
 #: actions/apigrouplist.php:103
-#, php-format
+#, fuzzy, php-format
 msgid "Groups %s is a member of on %s."
-msgstr ""
+msgstr "Neodeslal jste nám profil"
 
 #: actions/apigrouplistall.php:94
 #, php-format
@@ -7118,8 +7113,9 @@ msgid "groups on %s"
 msgstr ""
 
 #: actions/apistatusesshow.php:138
+#, fuzzy
 msgid "Status deleted."
-msgstr ""
+msgstr "Obrázek nahrán"
 
 #: actions/apistatusesupdate.php:132
 msgid "Unable to handle that much POST data!"
@@ -7151,9 +7147,9 @@ msgid "description is too long (max %d chars)."
 msgstr "Text je příliš dlouhý (maximální délka je 140 zanků)"
 
 #: actions/favoritesrss.php:115
-#, php-format
+#, fuzzy, php-format
 msgid "Updates favored by %1$s on %2$s!"
-msgstr ""
+msgstr "Mikroblog od %s"
 
 #: actions/finishremotesubscribe.php:80
 #, fuzzy
@@ -7186,9 +7182,9 @@ msgid "Cannot read file."
 msgstr "Žádné takové oznámení."
 
 #: actions/grouprss.php:133
-#, php-format
+#, fuzzy, php-format
 msgid "Updates from members of %1$s on %2$s!"
-msgstr ""
+msgstr "Mikroblog od %s"
 
 #: actions/imsettings.php:89
 #, fuzzy
@@ -7206,9 +7202,9 @@ msgstr ""
 "action.openidlogin%%)."
 
 #: actions/noticesearchrss.php:89
-#, php-format
+#, fuzzy, php-format
 msgid "Updates with \"%s\""
-msgstr ""
+msgstr "Mikroblog od %s"
 
 #: actions/noticesearchrss.php:91
 #, fuzzy, php-format
@@ -7216,8 +7212,9 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Všechny položky obsahující \"%s\""
 
 #: actions/oembed.php:157
+#, fuzzy
 msgid "content type "
-msgstr ""
+msgstr "Připojit"
 
 #: actions/oembed.php:160
 msgid "Only "
@@ -7265,14 +7262,14 @@ msgid "Couldn’t get a request token."
 msgstr "Nelze získat řetězec požadavku."
 
 #: actions/replies.php:144
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 1.0)"
-msgstr ""
+msgstr "Feed sdělení pro %s"
 
 #: actions/replies.php:151
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 2.0)"
-msgstr ""
+msgstr "Feed sdělení pro %s"
 
 #: actions/replies.php:158
 #, fuzzy, php-format
@@ -7412,7 +7409,7 @@ msgstr "Nové sdělení"
 #: lib/command.php:88
 #, fuzzy, php-format
 msgid "Could not find a user with nickname %s"
-msgstr "Nelze přesměrovat na server: %s"
+msgstr "Nelze aktualizovat uživatele"
 
 #: lib/command.php:92
 msgid "It does not make a lot of sense to nudge yourself!"
@@ -7516,7 +7513,7 @@ msgstr "Popiš sebe a své zájmy ve 140 znacích"
 #: lib/jabber.php:192
 #, fuzzy, php-format
 msgid "notice id: %s"
-msgstr "Feed sdělení pro %s"
+msgstr "Nové sdělení"
 
 #: lib/mail.php:554
 #, fuzzy, php-format
@@ -7574,8 +7571,9 @@ msgid "File exceeds user's quota!"
 msgstr ""
 
 #: lib/mediafile.php:201 lib/mediafile.php:237
+#, fuzzy
 msgid "Could not determine file's mime-type!"
-msgstr ""
+msgstr "Nelze aktualizovat uživatele"
 
 #: lib/oauthstore.php:345
 #, fuzzy

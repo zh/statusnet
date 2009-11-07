@@ -1,22 +1,16 @@
 # Translation of StatusNet to Turkish
 #
 # --
-# #-#-#-#-#  statusnet.new.pot (PACKAGE VERSION)  #-#-#-#-#
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-02 10:50-0800\n"
-"PO-Revision-Date: 2009-11-03 19:59:51+0000\n"
+"POT-Creation-Date: 2009-11-06 13:16+0000\n"
+"PO-Revision-Date: 2009-11-06 15:44:40+0000\n"
 "Language-Team: Turkish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58495); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58648); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tr\n"
 "X-Message-Group: out-statusnet\n"
@@ -6822,7 +6816,7 @@ msgstr ""
 msgid "Problem saving notice. Too long."
 msgstr "Durum mesajını kaydederken hata oluştu."
 
-#: classes/User.php:319 classes/User.php:327
+#: classes/User.php:319 classes/User.php:327 classes/User.php:334
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
@@ -7123,14 +7117,14 @@ msgid "Could not remove user %s to group %s."
 msgstr "OpenID formu yaratılamadı: %s"
 
 #: actions/apigrouplist.php:95
-#, php-format
+#, fuzzy, php-format
 msgid "%s's groups"
-msgstr ""
+msgstr "Profil"
 
 #: actions/apigrouplist.php:103
-#, php-format
+#, fuzzy, php-format
 msgid "Groups %s is a member of on %s."
-msgstr ""
+msgstr "Bize o profili yollamadınız"
 
 #: actions/apigrouplistall.php:94
 #, php-format
@@ -7138,8 +7132,9 @@ msgid "groups on %s"
 msgstr ""
 
 #: actions/apistatusesshow.php:138
+#, fuzzy
 msgid "Status deleted."
-msgstr ""
+msgstr "Avatar güncellendi."
 
 #: actions/apistatusesupdate.php:132
 msgid "Unable to handle that much POST data!"
@@ -7172,9 +7167,9 @@ msgid "description is too long (max %d chars)."
 msgstr "Hakkında bölümü çok uzun (azm 140 karakter)."
 
 #: actions/favoritesrss.php:115
-#, php-format
+#, fuzzy, php-format
 msgid "Updates favored by %1$s on %2$s!"
-msgstr ""
+msgstr "%s adli kullanicinin durum mesajlari"
 
 #: actions/finishremotesubscribe.php:80
 msgid "User being listened to does not exist."
@@ -7205,9 +7200,9 @@ msgid "Cannot read file."
 msgstr "Böyle bir durum mesajı yok."
 
 #: actions/grouprss.php:133
-#, php-format
+#, fuzzy, php-format
 msgid "Updates from members of %1$s on %2$s!"
-msgstr ""
+msgstr "%s adli kullanicinin durum mesajlari"
 
 #: actions/imsettings.php:89
 #, fuzzy
@@ -7225,9 +7220,9 @@ msgstr ""
 "[OpenID](%%action.openidlogin%%) ile giriş yapın."
 
 #: actions/noticesearchrss.php:89
-#, php-format
+#, fuzzy, php-format
 msgid "Updates with \"%s\""
-msgstr ""
+msgstr "%s adli kullanicinin durum mesajlari"
 
 #: actions/noticesearchrss.php:91
 #, fuzzy, php-format
@@ -7235,8 +7230,9 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "\"%s\" kelimesinin geçtiği tüm güncellemeler"
 
 #: actions/oembed.php:157
+#, fuzzy
 msgid "content type "
-msgstr ""
+msgstr "Bağlan"
 
 #: actions/oembed.php:160
 msgid "Only "
@@ -7283,14 +7279,14 @@ msgid "Couldn’t get a request token."
 msgstr ""
 
 #: actions/replies.php:144
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 1.0)"
-msgstr ""
+msgstr "%s için durum RSS beslemesi"
 
 #: actions/replies.php:151
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 2.0)"
-msgstr ""
+msgstr "%s için durum RSS beslemesi"
 
 #: actions/replies.php:158
 #, fuzzy, php-format
@@ -7423,7 +7419,7 @@ msgstr "Yeni durum mesajı"
 #: lib/command.php:88
 #, fuzzy, php-format
 msgid "Could not find a user with nickname %s"
-msgstr "Sunucuya yönlendirme yapılamadı: %s"
+msgstr "Kullanıcı güncellenemedi."
 
 #: lib/command.php:92
 msgid "It does not make a lot of sense to nudge yourself!"
@@ -7527,7 +7523,7 @@ msgstr "Kendinizi ve ilgi alanlarınızı 140 karakter ile anlatın"
 #: lib/jabber.php:192
 #, fuzzy, php-format
 msgid "notice id: %s"
-msgstr "%s için durum RSS beslemesi"
+msgstr "Yeni durum mesajı"
 
 #: lib/mail.php:554
 #, fuzzy, php-format
@@ -7584,8 +7580,9 @@ msgid "File exceeds user's quota!"
 msgstr ""
 
 #: lib/mediafile.php:201 lib/mediafile.php:237
+#, fuzzy
 msgid "Could not determine file's mime-type!"
-msgstr ""
+msgstr "Kullanıcı güncellenemedi."
 
 #: lib/oauthstore.php:345
 #, fuzzy

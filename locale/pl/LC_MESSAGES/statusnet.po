@@ -1,30 +1,19 @@
 # Translation of StatusNet to Polish
 #
 # --
-# Paweł Wilk <siefca@gnu.org>, 2008.
-# Piotr Drąg <piotrdrag@gmail.com>, 2009.
-#
-# Polish language has 3 plural forms.
-# Special case is used for one and some numbers ending in 2, 3, or 4.
-# Example:
-# 1         WINDOW  -> 1 OKNO
-# x2 to x4  WINDOWS -> x2 do x4 OKNA (x != 1)
-# 5 or more WINDOWS -> 5 lub więcej OKIEN
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-02 10:50-0800\n"
-"PO-Revision-Date: 2009-11-03 19:59:13+0000\n"
+"POT-Creation-Date: 2009-11-06 13:16+0000\n"
+"PO-Revision-Date: 2009-11-06 15:44:18+0000\n"
 "Language-Team: Polish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58495); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58648); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pl\n"
 "X-Message-Group: out-statusnet\n"
-"Plural-Forms: nplurals=3;\n"
 
 #: ../actions/noticesearchrss.php:64 actions/noticesearchrss.php:68
 #: actions/noticesearchrss.php:88 actions/noticesearchrss.php:89
@@ -7010,7 +6999,7 @@ msgstr ""
 msgid "Problem saving notice. Too long."
 msgstr "Problem podczas zapisywania wpisu. Za długi."
 
-#: classes/User.php:319 classes/User.php:327
+#: classes/User.php:319 classes/User.php:327 classes/User.php:334
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Witaj w %1$s, @%2$s!"

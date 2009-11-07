@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-02 10:50-0800\n"
-"PO-Revision-Date: 2009-11-03 19:59:19+0000\n"
+"POT-Creation-Date: 2009-11-06 13:16+0000\n"
+"PO-Revision-Date: 2009-11-06 15:44:22+0000\n"
 "Language-Team: Portuguese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58495); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58648); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pt\n"
 "X-Message-Group: out-statusnet\n"
@@ -6716,7 +6716,7 @@ msgstr ""
 msgid "Problem saving notice. Too long."
 msgstr ""
 
-#: classes/User.php:319 classes/User.php:327
+#: classes/User.php:319 classes/User.php:327 classes/User.php:334
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
@@ -7022,8 +7022,9 @@ msgid "groups on %s"
 msgstr ""
 
 #: actions/apistatusesshow.php:138
+#, fuzzy
 msgid "Status deleted."
-msgstr ""
+msgstr "Avatar actualizado."
 
 #: actions/apistatusesupdate.php:132
 msgid "Unable to handle that much POST data!"
@@ -7081,8 +7082,9 @@ msgid "No such file."
 msgstr ""
 
 #: actions/getfile.php:79
+#, fuzzy
 msgid "Cannot read file."
-msgstr ""
+msgstr "Não foi possível salvar o perfil."
 
 #: actions/grouprss.php:133
 #, php-format
@@ -7114,8 +7116,9 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Todas as actualizações com o termo \"%s\""
 
 #: actions/oembed.php:157
+#, fuzzy
 msgid "content type "
-msgstr ""
+msgstr "Ligar"
 
 #: actions/oembed.php:160
 msgid "Only "
@@ -7162,19 +7165,19 @@ msgid "Couldn’t get a request token."
 msgstr "Não foi possível obter um token de requisição."
 
 #: actions/replies.php:144
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 1.0)"
-msgstr ""
+msgstr "Feed para os amigos de %s"
 
 #: actions/replies.php:151
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 2.0)"
-msgstr ""
+msgstr "Feed para os amigos de %s"
 
 #: actions/replies.php:158
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (Atom)"
-msgstr ""
+msgstr "Feed para a tag %s"
 
 #: actions/repliesrss.php:72
 #, php-format
@@ -7205,23 +7208,23 @@ msgid ""
 msgstr ""
 
 #: actions/showgroup.php:345
-#, php-format
+#, fuzzy, php-format
 msgid "FOAF for %s group"
-msgstr ""
+msgstr "Feed para a tag %s"
 
 #: actions/shownotice.php:90
 #, fuzzy
 msgid "Notice deleted."
-msgstr "Nenhum código introduzido"
+msgstr "Avatar actualizado."
 
 #: actions/smssettings.php:91
 msgid "SMS is not available."
 msgstr ""
 
 #: actions/tag.php:92
-#, php-format
+#, fuzzy, php-format
 msgid "Notice feed for tag %s (RSS 2.0)"
-msgstr ""
+msgstr "Feed para a tag %s"
 
 #: actions/updateprofile.php:62 actions/userauthorization.php:330
 #, php-format
@@ -7399,9 +7402,9 @@ msgid "Describe the group or topic in %d characters"
 msgstr ""
 
 #: lib/jabber.php:192
-#, php-format
+#, fuzzy, php-format
 msgid "notice id: %s"
-msgstr ""
+msgstr "URI da mensagem inválido"
 
 #: lib/mail.php:554
 #, fuzzy, php-format
@@ -7459,8 +7462,9 @@ msgid "File exceeds user's quota!"
 msgstr ""
 
 #: lib/mediafile.php:201 lib/mediafile.php:237
+#, fuzzy
 msgid "Could not determine file's mime-type!"
-msgstr ""
+msgstr "Não foi possível actualizar o utilizador."
 
 #: lib/oauthstore.php:345
 #, fuzzy

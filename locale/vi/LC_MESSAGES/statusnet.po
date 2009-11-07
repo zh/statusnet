@@ -5,12 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-02 10:50-0800\n"
-"PO-Revision-Date: 2009-11-03 20:00:03+0000\n"
+"POT-Creation-Date: 2009-11-06 13:16+0000\n"
+"PO-Revision-Date: 2009-11-06 15:44:47+0000\n"
 "Language-Team: Vietnamese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58495); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58648); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: vi\n"
 "X-Message-Group: out-statusnet\n"
@@ -7098,7 +7098,7 @@ msgstr ""
 msgid "Problem saving notice. Too long."
 msgstr "Có lỗi xảy ra khi lưu tin nhắn."
 
-#: classes/User.php:319 classes/User.php:327
+#: classes/User.php:319 classes/User.php:327 classes/User.php:334
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "%s chào mừng bạn "
@@ -7422,7 +7422,7 @@ msgstr "%s và nhóm"
 #: actions/apigrouplist.php:103
 #, fuzzy, php-format
 msgid "Groups %s is a member of on %s."
-msgstr "Thành viên"
+msgstr "Bạn chưa cập nhật thông tin riêng"
 
 #: actions/apigrouplistall.php:94
 #, fuzzy, php-format
@@ -7430,8 +7430,9 @@ msgid "groups on %s"
 msgstr "Mã nhóm"
 
 #: actions/apistatusesshow.php:138
+#, fuzzy
 msgid "Status deleted."
-msgstr ""
+msgstr "Hình đại diện đã được cập nhật."
 
 #: actions/apistatusesupdate.php:132
 msgid "Unable to handle that much POST data!"
@@ -7465,7 +7466,7 @@ msgstr "Lý lịch quá dài (không quá 140 ký tự)"
 #: actions/favoritesrss.php:115
 #, fuzzy, php-format
 msgid "Updates favored by %1$s on %2$s!"
-msgstr "Tất cả các cập nhật của %s"
+msgstr "Dòng tin nhắn cho %s"
 
 #: actions/finishremotesubscribe.php:80
 #, fuzzy
@@ -7498,9 +7499,9 @@ msgid "Cannot read file."
 msgstr "Không có tin nhắn nào."
 
 #: actions/grouprss.php:133
-#, php-format
+#, fuzzy, php-format
 msgid "Updates from members of %1$s on %2$s!"
-msgstr ""
+msgstr "Dòng tin nhắn cho %s"
 
 #: actions/imsettings.php:89
 #, fuzzy
@@ -7508,18 +7509,19 @@ msgid "IM is not available."
 msgstr "Trang này không phải là phương tiện truyền thông mà bạn chấp nhận."
 
 #: actions/login.php:259
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "Login with your username and password. Don't have a username yet? [Register]"
 "(%%action.register%%) a new account."
 msgstr ""
 "Hãy đăng nhập với tên đăng nhập và mật khẩu của bạn. Nếu bạn chưa có tài "
-"khoản, [hãy đăng ký](%%action.register%%) tài khoản mới."
+"khoản, [hãy đăng ký](%%action.register%%) tài khoản mới, hoặc thử đăng nhập "
+"bằng [OpenID](%%action.openidlogin%%). "
 
 #: actions/noticesearchrss.php:89
-#, php-format
+#, fuzzy, php-format
 msgid "Updates with \"%s\""
-msgstr ""
+msgstr "Dòng tin nhắn cho %s"
 
 #: actions/noticesearchrss.php:91
 #, fuzzy, php-format
@@ -7527,8 +7529,9 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Các thay đổi phù hợp với từ \"%s\""
 
 #: actions/oembed.php:157
+#, fuzzy
 msgid "content type "
-msgstr ""
+msgstr "Kết nối"
 
 #: actions/oembed.php:160
 msgid "Only "
@@ -7576,14 +7579,14 @@ msgid "Couldn’t get a request token."
 msgstr "Không thể lấy token yêu cầu."
 
 #: actions/replies.php:144
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 1.0)"
-msgstr ""
+msgstr "Dòng tin nhắn cho %s"
 
 #: actions/replies.php:151
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 2.0)"
-msgstr ""
+msgstr "Dòng tin nhắn cho %s"
 
 #: actions/replies.php:158
 #, fuzzy, php-format
@@ -7593,22 +7596,22 @@ msgstr "Dòng tin nhắn cho %s"
 #: actions/repliesrss.php:72
 #, fuzzy, php-format
 msgid "Replies to %1$s on %2$s!"
-msgstr "Trả lời cho %s"
+msgstr "%s chào mừng bạn "
 
 #: actions/showfavorites.php:170
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
-msgstr "Tìm kiếm các tin nhắn ưa thích của %s"
+msgstr "Chọn những người bạn của %s"
 
 #: actions/showfavorites.php:177
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
-msgstr "Tìm kiếm các tin nhắn ưa thích của %s"
+msgstr "Chọn những người bạn của %s"
 
 #: actions/showfavorites.php:184
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (Atom)"
-msgstr "Tìm kiếm các tin nhắn ưa thích của %s"
+msgstr "Chọn những người bạn của %s"
 
 #: actions/showfavorites.php:211
 #, php-format
@@ -7621,7 +7624,7 @@ msgstr ""
 #: actions/showgroup.php:345
 #, fuzzy, php-format
 msgid "FOAF for %s group"
-msgstr "%s và nhóm"
+msgstr "Hộp thư đi của %s"
 
 #: actions/shownotice.php:90
 #, fuzzy
@@ -7828,7 +7831,7 @@ msgstr "Nói về những sở thích của nhóm trong vòng 140 ký tự"
 #: lib/jabber.php:192
 #, fuzzy, php-format
 msgid "notice id: %s"
-msgstr "Dòng tin nhắn cho %s"
+msgstr "Thông báo mới"
 
 #: lib/mail.php:554
 #, fuzzy, php-format
@@ -7901,7 +7904,7 @@ msgstr ""
 #: lib/mediafile.php:201 lib/mediafile.php:237
 #, fuzzy
 msgid "Could not determine file's mime-type!"
-msgstr "Không thể tạo favorite."
+msgstr "Không thể lấy lại các tin nhắn ưa thích"
 
 #: lib/oauthstore.php:345
 #, fuzzy

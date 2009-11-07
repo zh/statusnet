@@ -38,19 +38,20 @@ function ldap_get_config(){
 
 function ldap_get_connection($config = null){
     if($config == null){
-        static $ldap = null;
-        if($ldap!=null){
-            return $ldap;
-        }
         $config = ldap_get_config();
     }
-    $ldap = Net_LDAP2::connect($config);
-    if (PEAR::isError($ldap)) {
-        common_log(LOG_WARNING, 'Could not connect to LDAP server: '.$ldap->getMessage());
+    
+    //cannot use Net_LDAP2::connect() as StatusNet uses
+    //PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 'handleError');
+    //PEAR handling can be overridden on instance objects, so we do that.
+    $ldap = new Net_LDAP2($config);
+    $ldap->setErrorHandling(PEAR_ERROR_RETURN);
+    $err=$ldap->bind();
+    if (Net_LDAP2::isError($err)) {
+        common_log(LOG_WARNING, 'Could not connect to LDAP server: '.$err->getMessage());
         return false;
-    }else{
-        return $ldap;
     }
+    return $ldap;
 }
 
 function ldap_check_password($username, $password){
@@ -58,12 +59,12 @@ function ldap_check_password($username, $password){
     if(!$ldap){
         return false;
     }
-    $dn = ldap_get_user_dn($username);
-    if(!$dn){
+    $entry = ldap_get_user($username);
+    if(!$entry){
         return false;
     }else{
         $config = ldap_get_config();
-        $config['binddn']=$dn;
+        $config['binddn']=$entry->dn();
         $config['bindpw']=$password;
         if(ldap_get_connection($config)){
             return true;
@@ -74,17 +75,18 @@ function ldap_check_password($username, $password){
 }
 
 /**
- * get an LDAP user's DN given the user's username
+ * get an LDAP entry for a user with a given username
  * 
  * @param string $username
+ * $param array $attributes LDAP attributes to retrieve
  * @return string DN
  */
-function ldap_get_user_dn($username){
+function ldap_get_user($username,$attributes=array()){
     $ldap = ldap_get_connection();
     $filter = Net_LDAP2_Filter::create(common_config('ldap','nickname_attribute'), 'equals',  $username);
     $options = array(
         'scope' => 'sub',
-        'attributes' => array()
+        'attributes' => $attributes
     );
     $search = $ldap->search(null,$filter,$options);
     
@@ -97,7 +99,7 @@ function ldap_get_user_dn($username){
         return false;
     }else if($search->count()==1){
         $entry = $search->shiftEntry();
-        return $entry->dn();
+        return $entry;
     }else{
         common_log(LOG_WARNING, 'Found ' . $search->count() . ' ldap user with the username: ' . $username);
         return false;

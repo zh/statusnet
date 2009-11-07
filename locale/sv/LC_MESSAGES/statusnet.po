@@ -1,21 +1,17 @@
 # Translation of StatusNet to Swedish
 #
+# Author@translatewiki.net: Micke
 # --
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-02 10:50-0800\n"
-"PO-Revision-Date: 2009-11-03 19:59:37+0000\n"
+"POT-Creation-Date: 2009-11-06 13:16+0000\n"
+"PO-Revision-Date: 2009-11-06 15:44:33+0000\n"
 "Language-Team: Swedish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58495); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58648); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: sv\n"
 "X-Message-Group: out-statusnet\n"
@@ -512,9 +508,8 @@ msgid "Awaiting confirmation on this phone number."
 msgstr "Väntar bekräftelse på detta telefonnummer. "
 
 #: ../lib/util.php:1318 lib/util.php:1452
-#, fuzzy
 msgid "Before »"
-msgstr "Tidigare »"
+msgstr "Före"
 
 #: ../actions/profilesettings.php:49 ../actions/register.php:170
 #: actions/profilesettings.php:82 actions/register.php:184
@@ -3267,9 +3262,8 @@ msgid "unsupported file type"
 msgstr "okänd fil typ"
 
 #: ../lib/util.php:1309 lib/util.php:1443
-#, fuzzy
 msgid "« After"
-msgstr "« Nyare"
+msgstr "Efter"
 
 #: actions/deletenotice.php:74 actions/disfavor.php:43
 #: actions/emailsettings.php:127 actions/favor.php:45
@@ -3775,19 +3769,19 @@ msgstr "Kunde inte spara Twitter inställningar."
 #: actions/twittersettings.php:245 actions/twittersettings.php:461
 #: actions/twittersettings.php:465 actions/twittersettings.php:485
 msgid "Twitter preferences saved."
-msgstr ""
+msgstr "Twitterinställningar sparade."
 
 #: actions/userauthorization.php:84 actions/userauthorization.php:86
 msgid "Please check these details to make sure "
-msgstr ""
+msgstr "Vänligen kontrollera dessa uppgifter för att försäkra dig om "
 
 #: actions/userauthorization.php:324 actions/userauthorization.php:340
 msgid "The subscription has been authorized, but no "
-msgstr ""
+msgstr "Abonnemanget har godkänts, men ingen "
 
 #: actions/userauthorization.php:334 actions/userauthorization.php:351
 msgid "The subscription has been rejected, but no "
-msgstr ""
+msgstr "Abonnemanget har nekats, men ingen "
 
 #: classes/Channel.php:113 classes/Channel.php:132 classes/Channel.php:151
 #: lib/channel.php:138 lib/channel.php:158
@@ -4027,9 +4021,8 @@ msgid "%s and friends, page %d"
 msgstr "%s med vänner"
 
 #: actions/avatarsettings.php:76
-#, fuzzy
 msgid "You can upload your personal avatar."
-msgstr "Du kan uppdatera din personliga profil här"
+msgstr "Du kan ladda upp din profilbild."
 
 #: actions/avatarsettings.php:117 actions/avatarsettings.php:191
 #: actions/grouplogo.php:250 actions/avatarsettings.php:119
@@ -6973,7 +6966,7 @@ msgstr ""
 msgid "Problem saving notice. Too long."
 msgstr "Det var ett problem när inlägget sparades."
 
-#: classes/User.php:319 classes/User.php:327
+#: classes/User.php:319 classes/User.php:327 classes/User.php:334
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Meddelande till %1$s på %2$s"
@@ -7278,9 +7271,9 @@ msgid "%s's groups"
 msgstr "%s / Favoriter från %s"
 
 #: actions/apigrouplist.php:103
-#, php-format
+#, fuzzy, php-format
 msgid "Groups %s is a member of on %s."
-msgstr ""
+msgstr "Du skickade inte oss den profilen"
 
 #: actions/apigrouplistall.php:94
 #, fuzzy, php-format
@@ -7288,8 +7281,9 @@ msgid "groups on %s"
 msgstr "Sök personer på denna sida"
 
 #: actions/apistatusesshow.php:138
+#, fuzzy
 msgid "Status deleted."
-msgstr ""
+msgstr "Användarbilden uppdaterad."
 
 #: actions/apistatusesupdate.php:132
 msgid "Unable to handle that much POST data!"
@@ -7376,9 +7370,9 @@ msgstr ""
 "action.openidlogin%%)."
 
 #: actions/noticesearchrss.php:89
-#, php-format
+#, fuzzy, php-format
 msgid "Updates with \"%s\""
-msgstr ""
+msgstr "Uppdateringar från %1$s på %2$s!"
 
 #: actions/noticesearchrss.php:91
 #, fuzzy, php-format
@@ -7386,8 +7380,9 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Alla uppdateringar som matchar söksträngen \"%s\""
 
 #: actions/oembed.php:157
+#, fuzzy
 msgid "content type "
-msgstr ""
+msgstr "Anslut"
 
 #: actions/oembed.php:160
 msgid "Only "
@@ -7435,14 +7430,14 @@ msgid "Couldn’t get a request token."
 msgstr "Kunde inte få en förfrågan token."
 
 #: actions/replies.php:144
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 1.0)"
-msgstr ""
+msgstr "Inlägg flöde för %s"
 
 #: actions/replies.php:151
-#, php-format
+#, fuzzy, php-format
 msgid "Replies feed for %s (RSS 2.0)"
-msgstr ""
+msgstr "Inlägg flöde för %s"
 
 #: actions/replies.php:158
 #, fuzzy, php-format
@@ -7457,17 +7452,17 @@ msgstr "Meddelande till %1$s på %2$s"
 #: actions/showfavorites.php:170
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
-msgstr "Feed för %s favoriter"
+msgstr "Flöden för $s vänner"
 
 #: actions/showfavorites.php:177
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
-msgstr "Feed för %s favoriter"
+msgstr "Flöden för $s vänner"
 
 #: actions/showfavorites.php:184
 #, fuzzy, php-format
 msgid "Feed for favorites of %s (Atom)"
-msgstr "Feed för %s favoriter"
+msgstr "Flöden för $s vänner"
 
 #: actions/showfavorites.php:211
 #, php-format
@@ -7480,7 +7475,7 @@ msgstr ""
 #: actions/showgroup.php:345
 #, fuzzy, php-format
 msgid "FOAF for %s group"
-msgstr "Inlägg flöde för %s"
+msgstr "Outbox för %s"
 
 #: actions/shownotice.php:90
 #, fuzzy
@@ -7687,7 +7682,7 @@ msgstr "Berätta om dig själv och dina intressen inom 140 tecken"
 #: lib/jabber.php:192
 #, fuzzy, php-format
 msgid "notice id: %s"
-msgstr "Inlägg flöde för %s"
+msgstr "Nytt inlägg"
 
 #: lib/mail.php:554
 #, fuzzy, php-format
@@ -7747,7 +7742,7 @@ msgstr ""
 #: lib/mediafile.php:201 lib/mediafile.php:237
 #, fuzzy
 msgid "Could not determine file's mime-type!"
-msgstr "Kunde inte tabort favoriten."
+msgstr "Kunde inte ta emot favoritinläggen."
 
 #: lib/oauthstore.php:345
 #, fuzzy
