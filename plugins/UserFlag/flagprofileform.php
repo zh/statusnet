@@ -115,7 +115,7 @@ class FlagProfileForm extends Form
      */
     function formLegend()
     {
-        $this->out->element('legend', null, _('Flag this profile'));
+        $this->out->element('legend', null, _('Flag profile for review'));
     }
 
     /**
@@ -147,6 +147,6 @@ class FlagProfileForm extends Form
 
     function formActions()
     {
-        $this->out->submit('submit', _('Flag'), 'submit', null, _('Flag this profile'));
+        $this->out->submit('submit', _('Flag'), 'submit', null, _('Flag profile for review'));
     }
 }

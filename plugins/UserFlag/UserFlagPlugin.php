@@ -47,22 +47,6 @@ class UserFlagPlugin extends Plugin
     {
         $schema = Schema::get();
 
-        // For storing user-submitted flags on notices
-
-        $schema->ensureTable('user_flag_notice',
-                             array(new ColumnDef('notice_id', 'integer', null, null, 'PRI'),
-                                   new ColumnDef('user_id', 'integer', null, null, 'PRI'),
-                                   new ColumnDef('flag', 'varchar', '8'),
-                                   new ColumnDef('created', 'datetime', null,
-                                                 null, 'MUL')));
-
-        // Allowable values for user_flag_notice
-
-        $schema->ensureTable('notice_flag',
-                             array(new ColumnDef('flag', 'varchar', '8', null, 'PRI'),
-                                   new ColumnDef('display', 'varchar', '255'),
-                                   new ColumnDef('created', 'datetime', null, null, 'MUL')));
-
         // For storing user-submitted flags on profiles
 
         $schema->ensureTable('user_flag_profile',
@@ -70,17 +54,11 @@ class UserFlagPlugin extends Plugin
                                                  null, 'PRI'),
                                    new ColumnDef('user_id', 'integer', null,
                                                  null, 'PRI'),
-                                   new ColumnDef('flag', 'varchar', '8'),
                                    new ColumnDef('created', 'datetime', null,
+                                                 null, 'MUL'),
+                                   new ColumnDef('cleared', 'datetime', null,
                                                  null, 'MUL')));
 
-        // Allowable values for user_flag_notice
-
-        $schema->ensureTable('profile_flag',
-                             array(new ColumnDef('flag', 'varchar', '8', null, 'PRI'),
-                                   new ColumnDef('display', 'varchar', '255'),
-                                   new ColumnDef('created', 'datetime', null,
-                                                 null, 'MUL')));
         return true;
     }
 
@@ -91,9 +69,7 @@ class UserFlagPlugin extends Plugin
     }
 
     function onRouterInitialized(&$m) {
-        $m->connect('main/flag/notice', array('action' => 'flagnotice'));
         $m->connect('main/flag/profile', array('action' => 'flagprofile'));
-        $m->connect('admin/notice/flag', array('action' => 'adminnoticeflag'));
         $m->connect('admin/profile/flag', array('action' => 'adminprofileflag'));
         return true;
     }
@@ -102,19 +78,14 @@ class UserFlagPlugin extends Plugin
     {
         switch ($cls)
         {
-        case 'FlagnoticeAction':
         case 'FlagprofileAction':
-        case 'AdminnoticeflagAction':
         case 'AdminprofileflagAction':
             require_once(INSTALLDIR.'/plugins/UserFlag/' . strtolower(mb_substr($cls, 0, -6)) . '.php');
             return false;
         case 'FlagProfileForm':
             require_once(INSTALLDIR.'/plugins/UserFlag/' . strtolower($cls . '.php'));
             return false;
-        case 'User_flag_notice':
-        case 'Notice_flag':
         case 'User_flag_profile':
-        case 'Profile_flag':
             require_once(INSTALLDIR.'/plugins/UserFlag/'.$cls.'.php');
             return false;
         default:
