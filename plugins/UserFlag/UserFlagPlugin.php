@@ -51,13 +51,13 @@ class UserFlagPlugin extends Plugin
 
         $schema->ensureTable('user_flag_profile',
                              array(new ColumnDef('profile_id', 'integer', null,
-                                                 null, 'PRI'),
+                                                 false, 'PRI'),
                                    new ColumnDef('user_id', 'integer', null,
-                                                 null, 'PRI'),
+                                                 false, 'PRI'),
                                    new ColumnDef('created', 'datetime', null,
-                                                 null, 'MUL'),
+                                                 false, 'MUL'),
                                    new ColumnDef('cleared', 'datetime', null,
-                                                 null, 'MUL')));
+                                                 true, 'MUL')));
 
         return true;
     }
@@ -102,7 +102,7 @@ class UserFlagPlugin extends Plugin
             $action->elementStart('li', 'entity_flag');
 
             if (User_flag_profile::exists($profile->id, $user->id)) {
-                $action->element('span',
+                $action->element('span', array(),
                                  _('Flagged for review'));
             } else {
                 $form = new FlagProfileForm($action, $profile,
