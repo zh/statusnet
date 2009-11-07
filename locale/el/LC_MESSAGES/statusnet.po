@@ -5,12 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-06 13:16+0000\n"
-"PO-Revision-Date: 2009-11-06 15:43:14+0000\n"
+"POT-Creation-Date: 2009-11-07 21:23+0000\n"
+"PO-Revision-Date: 2009-11-07 21:24:49+0000\n"
 "Language-Team: Greek\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58648); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58733); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: el\n"
 "X-Message-Group: out-statusnet\n"
@@ -169,7 +169,7 @@ msgid "%s updates from everyone!"
 msgstr ""
 
 #: ../actions/register.php:213 actions/register.php:497
-#: actions/register.php:545 actions/register.php:555
+#: actions/register.php:545 actions/register.php:555 actions/register.php:561
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
@@ -208,6 +208,7 @@ msgstr "1-64 μικρά γράμματα ή αριθμοί, χωρίς σημε�
 
 #: ../actions/register.php:152 actions/register.php:166
 #: actions/register.php:368 actions/register.php:414 actions/register.php:418
+#: actions/register.php:424
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
 msgstr "1-64 μικρά γράμματα ή αριθμοί, χωρίς σημεία στίξης ή κενά. Απαραίτητο."
 
@@ -224,6 +225,7 @@ msgstr "6 ή περισσότεροι χαρακτήρες και μην το ξ
 
 #: ../actions/register.php:154 actions/register.php:168
 #: actions/register.php:373 actions/register.php:419 actions/register.php:423
+#: actions/register.php:429
 msgid "6 or more characters. Required."
 msgstr "6 ή περισσότεροι χαρακτήρες. Απαραίτητο."
 
@@ -404,7 +406,7 @@ msgstr "Όλες οι ενημερώσεις που ταιριάζουν με τ
 #: actions/openidlogin.php:29 actions/register.php:30
 #: actions/finishopenidlogin.php:34 actions/login.php:77
 #: actions/openidlogin.php:30 actions/register.php:92 actions/register.php:131
-#: actions/login.php:79
+#: actions/login.php:79 actions/register.php:137
 msgid "Already logged in."
 msgstr "Ήδη συνδεδεμένος."
 
@@ -427,7 +429,7 @@ msgstr "Εξουσιοδοτημένη συνδρομή"
 #: ../actions/login.php:104 ../actions/register.php:178
 #: actions/register.php:192 actions/login.php:218 actions/openidlogin.php:117
 #: actions/register.php:416 actions/register.php:463 actions/login.php:226
-#: actions/register.php:473
+#: actions/register.php:473 actions/login.php:253 actions/register.php:479
 msgid "Automatically login in the future; not for shared computers!"
 msgstr "Αυτόματη σύνδεση στο μέλλον. ΟΧΙ για κοινόχρηστους υπολογιστές!"
 
@@ -490,7 +492,7 @@ msgstr "Προηγούμενο »"
 #: actions/profilesettings.php:82 actions/register.php:184
 #: actions/profilesettings.php:112 actions/register.php:402
 #: actions/register.php:448 actions/profilesettings.php:127
-#: actions/register.php:459
+#: actions/register.php:459 actions/register.php:465
 msgid "Bio"
 msgstr "Βιογραφικό"
 
@@ -520,6 +522,7 @@ msgstr ""
 #: actions/passwordsettings.php:169 actions/recoverpassword.php:347
 #: actions/passwordsettings.php:174 actions/recoverpassword.php:365
 #: actions/passwordsettings.php:180 actions/recoverpassword.php:368
+#: actions/passwordsettings.php:185
 msgid "Can't save new password."
 msgstr "Αδύνατη η αποθήκευση του νέου κωδικού"
 
@@ -582,6 +585,7 @@ msgstr "Αλλάξτε τις ρυθμίσεις του προφίλ σας"
 #: actions/recoverpassword.php:236 actions/register.php:422
 #: actions/passwordsettings.php:111 actions/recoverpassword.php:239
 #: actions/register.php:426 actions/smssettings.php:134
+#: actions/register.php:432
 msgid "Confirm"
 msgstr "Επιβεβαίωση"
 
@@ -611,7 +615,7 @@ msgid "Confirmation code not found."
 msgstr "Ο κωδικός επιβεβαίωσης δεν βρέθηκε."
 
 #: ../actions/register.php:202 actions/register.php:473
-#: actions/register.php:521 actions/register.php:531
+#: actions/register.php:521 actions/register.php:531 actions/register.php:537
 #, fuzzy, php-format
 msgid ""
 "Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -874,7 +878,8 @@ msgstr "Περιέγραψε τον εαυτό σου και τα ενδιαφέ
 #: actions/register.php:175 lib/settingsaction.php:87 actions/register.php:381
 #: actions/register.php:385 lib/accountsettingsaction.php:113
 #: actions/register.php:427 actions/register.php:431 actions/register.php:435
-#: lib/accountsettingsaction.php:117
+#: lib/accountsettingsaction.php:117 actions/register.php:437
+#: actions/register.php:441
 msgid "Email"
 msgstr "Email"
 
@@ -889,7 +894,7 @@ msgid "Email Settings"
 msgstr "Ρυθμίσεις Email"
 
 #: ../actions/register.php:73 actions/register.php:80 actions/register.php:163
-#: actions/register.php:200 actions/register.php:206
+#: actions/register.php:200 actions/register.php:206 actions/register.php:212
 msgid "Email address already exists."
 msgstr "Η διεύθυνση email υπάρχει ήδη."
 
@@ -975,7 +980,7 @@ msgstr ""
 
 #: ../actions/password.php:80 actions/profilesettings.php:399
 #: actions/passwordsettings.php:164 actions/passwordsettings.php:169
-#: actions/passwordsettings.php:175
+#: actions/passwordsettings.php:175 actions/passwordsettings.php:180
 msgid "Error saving user; invalid."
 msgstr ""
 
@@ -987,6 +992,7 @@ msgstr ""
 #: actions/login.php:120 actions/recoverpassword.php:372
 #: actions/register.php:235 actions/login.php:122
 #: actions/recoverpassword.php:375 actions/register.php:242
+#: actions/login.php:149 actions/register.php:248
 msgid "Error setting user."
 msgstr ""
 
@@ -1052,6 +1058,7 @@ msgid "Find people on this site"
 msgstr ""
 
 #: ../actions/login.php:122 actions/login.php:247 actions/login.php:255
+#: actions/login.php:282
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
@@ -1069,6 +1076,7 @@ msgstr ""
 #: actions/showstream.php:220 lib/groupeditform.php:157
 #: actions/profilesettings.php:111 actions/register.php:441
 #: actions/showgroup.php:247 actions/showstream.php:267
+#: actions/register.php:447 lib/userprofile.php:149
 msgid "Full name"
 msgstr "Ονοματεπώνυμο"
 
@@ -1082,7 +1090,7 @@ msgstr "Ονοματεπώνυμο"
 #: actions/profilesettings.php:203 actions/register.php:208
 #: actions/apigroupcreate.php:253 actions/editgroup.php:198
 #: actions/newgroup.php:142 actions/profilesettings.php:218
-#: actions/register.php:214
+#: actions/register.php:214 actions/register.php:220
 msgid "Full name is too long (max 255 chars)."
 msgstr "Το ονοματεπώνυμο είναι πολύ μεγάλο (μέγιστο 255 χαρακτ.)."
 
@@ -1103,7 +1111,7 @@ msgstr "Αρχή"
 #: actions/profilesettings.php:107 actions/register.php:396
 #: lib/groupeditform.php:146 actions/register.php:442
 #: lib/groupeditform.php:161 actions/profilesettings.php:115
-#: actions/register.php:446
+#: actions/register.php:446 actions/register.php:452
 msgid "Homepage"
 msgstr "Αρχική σελίδα"
 
@@ -1115,7 +1123,7 @@ msgstr "Αρχική σελίδα"
 #: actions/profilesettings.php:200 actions/register.php:205
 #: actions/apigroupcreate.php:244 actions/editgroup.php:195
 #: actions/newgroup.php:139 actions/profilesettings.php:215
-#: actions/register.php:211
+#: actions/register.php:211 actions/register.php:217
 msgid "Homepage is not a valid URL."
 msgstr "Η αρχική σελίδα δεν είναι έγκυρο URL."
 
@@ -1187,7 +1195,7 @@ msgstr "Λάθος παλιός κωδικός"
 
 #: ../actions/login.php:67 actions/login.php:67 actions/facebookhome.php:131
 #: actions/login.php:132 actions/facebookhome.php:130 actions/login.php:114
-#: actions/facebookhome.php:129 actions/login.php:116
+#: actions/facebookhome.php:129 actions/login.php:116 actions/login.php:143
 msgid "Incorrect username or password."
 msgstr "Λάθος όνομα χρήστη ή κωδικός"
 
@@ -1267,6 +1275,7 @@ msgstr ""
 #: actions/register.php:211 actions/finishopenidlogin.php:284
 #: actions/finishopenidlogin.php:307 actions/register.php:230
 #: actions/register.php:251 actions/register.php:237 actions/register.php:258
+#: actions/register.php:243 actions/register.php:264
 msgid "Invalid username or password."
 msgstr ""
 
@@ -1338,7 +1347,7 @@ msgstr ""
 #: actions/profilesettings.php:132 actions/register.php:464
 #: actions/showgroup.php:256 actions/showstream.php:282
 #: actions/userauthorization.php:158 lib/groupeditform.php:177
-#: lib/profilelist.php:218
+#: lib/profilelist.php:218 actions/register.php:470 lib/userprofile.php:164
 msgid "Location"
 msgstr "Τοποθεσία"
 
@@ -1352,7 +1361,7 @@ msgstr "Τοποθεσία"
 #: actions/profilesettings.php:209 actions/register.php:214
 #: actions/apigroupcreate.php:272 actions/editgroup.php:204
 #: actions/newgroup.php:148 actions/profilesettings.php:225
-#: actions/register.php:221
+#: actions/register.php:221 actions/register.php:227
 msgid "Location is too long (max 255 chars)."
 msgstr "Η τοποθεσία είναι πολύ μεγάλη (μέγιστο 255 χαρακτ.)."
 
@@ -1366,6 +1375,7 @@ msgstr "Η τοποθεσία είναι πολύ μεγάλη (μέγιστο 2
 #: lib/facebookaction.php:293 lib/facebookaction.php:319 lib/action.php:443
 #: lib/facebookaction.php:295 lib/facebookaction.php:321 actions/login.php:177
 #: actions/login.php:230 lib/action.php:453 lib/logingroupnav.php:79
+#: actions/login.php:204 actions/login.php:257
 #, php-format
 msgid "Login"
 msgstr "Σύνδεση"
@@ -1394,12 +1404,13 @@ msgstr "Αποσύνδεση"
 
 #: ../actions/register.php:166 actions/register.php:180
 #: actions/register.php:393 actions/register.php:439 actions/register.php:443
+#: actions/register.php:449
 msgid "Longer name, preferably your \"real\" name"
 msgstr ""
 
 #: ../actions/login.php:110 actions/login.php:110 actions/login.php:245
 #: lib/facebookaction.php:320 actions/login.php:228 lib/facebookaction.php:325
-#: lib/facebookaction.php:327 actions/login.php:236
+#: lib/facebookaction.php:327 actions/login.php:236 actions/login.php:263
 msgid "Lost or forgotten password?"
 msgstr "Χάσατε ή ξεχάσατε τον κωδικό σας;"
 
@@ -1439,7 +1450,7 @@ msgstr ""
 #: actions/finishopenidlogin.php:85 actions/register.php:202
 #: actions/finishopenidlogin.php:107 actions/register.php:429
 #: actions/register.php:430 actions/finishopenidlogin.php:106
-#: actions/register.php:477 actions/register.php:487
+#: actions/register.php:477 actions/register.php:487 actions/register.php:493
 msgid "My text and files are available under "
 msgstr ""
 
@@ -1497,7 +1508,8 @@ msgstr ""
 #: actions/showgroup.php:231 actions/showstream.php:209
 #: lib/facebookaction.php:314 lib/groupeditform.php:152 actions/login.php:219
 #: actions/profilesettings.php:106 actions/register.php:417
-#: actions/showgroup.php:236 actions/showstream.php:249
+#: actions/showgroup.php:236 actions/showstream.php:249 actions/login.php:246
+#: actions/register.php:423 lib/userprofile.php:131
 msgid "Nickname"
 msgstr "Ψευδώνυμο"
 
@@ -1511,7 +1523,7 @@ msgstr "Ψευδώνυμο"
 #: actions/profilesettings.php:215 actions/register.php:196
 #: actions/apigroupcreate.php:221 actions/editgroup.php:186
 #: actions/newgroup.php:130 actions/profilesettings.php:231
-#: actions/register.php:202
+#: actions/register.php:202 actions/register.php:208
 msgid "Nickname already in use. Try another one."
 msgstr "Το ψευδώνυμο είναι ήδη σε χρήση. Δοκιμάστε κάποιο άλλο."
 
@@ -1527,7 +1539,7 @@ msgstr "Το ψευδώνυμο είναι ήδη σε χρήση. Δοκιμά�
 #: actions/profilesettings.php:193 actions/register.php:193
 #: actions/apigroupcreate.php:212 actions/editgroup.php:182
 #: actions/newgroup.php:126 actions/profilesettings.php:208
-#: actions/register.php:199
+#: actions/register.php:199 actions/register.php:205
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr "Το ψευδώνυμο πρέπει να έχει μόνο πεζούς χαρακτήρες και χωρίς κενά."
 
@@ -1766,7 +1778,8 @@ msgstr ""
 #: lib/twitterapi.php:566 lib/twitterapi.php:483 lib/twitterapi.php:511
 #: lib/twitterapi.php:601 lib/twitterapi.php:620 lib/twitterapi.php:648
 #: lib/twitterapi.php:741 actions/oembed.php:181 actions/oembed.php:200
-#: lib/api.php:954 lib/api.php:982 lib/api.php:1092
+#: lib/api.php:954 lib/api.php:982 lib/api.php:1092 lib/api.php:963
+#: lib/api.php:991 lib/api.php:1101
 msgid "Not a supported data format."
 msgstr ""
 
@@ -1787,7 +1800,7 @@ msgid "Not a valid email address"
 msgstr ""
 
 #: ../actions/register.php:63 actions/register.php:70 actions/register.php:152
-#: actions/register.php:189 actions/register.php:195
+#: actions/register.php:189 actions/register.php:195 actions/register.php:201
 msgid "Not a valid email address."
 msgstr ""
 
@@ -1799,7 +1812,7 @@ msgstr ""
 #: actions/profilesettings.php:196 actions/register.php:198
 #: actions/apigroupcreate.php:228 actions/editgroup.php:189
 #: actions/newgroup.php:133 actions/profilesettings.php:211
-#: actions/register.php:204
+#: actions/register.php:204 actions/register.php:210
 msgid "Not a valid nickname."
 msgstr ""
 
@@ -1984,7 +1997,8 @@ msgstr ""
 #: actions/login.php:214 lib/facebookaction.php:315
 #: actions/finishopenidlogin.php:117 actions/register.php:418
 #: lib/facebookaction.php:317 actions/login.php:222 actions/register.php:422
-#: lib/accountsettingsaction.php:114
+#: lib/accountsettingsaction.php:114 actions/login.php:249
+#: actions/register.php:428
 msgid "Password"
 msgstr "Κωδικός"
 
@@ -2013,6 +2027,7 @@ msgstr ""
 #: actions/passwordsettings.php:173 actions/recoverpassword.php:200
 #: actions/passwordsettings.php:178 actions/recoverpassword.php:208
 #: actions/passwordsettings.php:184 actions/recoverpassword.php:211
+#: actions/passwordsettings.php:191
 msgid "Password saved."
 msgstr "Ο κωδικός αποθηκεύτηκε."
 
@@ -2021,6 +2036,7 @@ msgstr "Ο κωδικός αποθηκεύτηκε."
 #: actions/passwordsettings.php:145 actions/register.php:183
 #: actions/passwordsettings.php:150 actions/register.php:220
 #: actions/passwordsettings.php:156 actions/register.php:227
+#: actions/register.php:233
 msgid "Passwords don't match."
 msgstr "Οι κωδικοί δεν ταυτίζονται."
 
@@ -2181,19 +2197,19 @@ msgstr ""
 #: actions/register.php:438 lib/action.php:415 lib/facebookaction.php:279
 #: actions/register.php:108 actions/register.php:486 lib/action.php:440
 #: lib/facebookaction.php:281 actions/register.php:496 lib/action.php:450
-#: lib/logingroupnav.php:85
+#: lib/logingroupnav.php:85 actions/register.php:114 actions/register.php:502
 msgid "Register"
 msgstr ""
 
 #: ../actions/register.php:28 actions/register.php:28
 #: actions/finishopenidlogin.php:196 actions/register.php:90
 #: actions/finishopenidlogin.php:195 actions/finishopenidlogin.php:204
-#: actions/register.php:129
+#: actions/register.php:129 actions/register.php:135
 msgid "Registration not allowed."
 msgstr ""
 
 #: ../actions/register.php:200 actions/register.php:214
-#: actions/register.php:67 actions/register.php:106
+#: actions/register.php:67 actions/register.php:106 actions/register.php:112
 msgid "Registration successful"
 msgstr ""
 
@@ -2207,6 +2223,7 @@ msgstr ""
 #: actions/register.php:190 actions/login.php:234 actions/openidlogin.php:107
 #: actions/register.php:414 actions/login.php:217 actions/openidlogin.php:116
 #: actions/register.php:461 actions/login.php:225 actions/register.php:471
+#: actions/login.php:252 actions/register.php:477
 msgid "Remember me"
 msgstr ""
 
@@ -2303,6 +2320,7 @@ msgstr ""
 
 #: ../actions/register.php:156 actions/register.php:170
 #: actions/register.php:377 actions/register.php:423 actions/register.php:427
+#: actions/register.php:433
 msgid "Same as password above. Required."
 msgstr ""
 
@@ -2458,6 +2476,7 @@ msgstr ""
 #: actions/remotesubscribe.php:113 actions/showstream.php:376
 #: lib/subscribeform.php:139 actions/showstream.php:345
 #: actions/remotesubscribe.php:137 actions/showstream.php:439
+#: lib/userprofile.php:321
 msgid "Subscribe"
 msgstr ""
 
@@ -2504,6 +2523,7 @@ msgstr ""
 #: actions/profilesettings.php:123 actions/showstream.php:255
 #: lib/subscriptionlist.php:106 lib/subscriptionlist.php:108
 #: actions/profilesettings.php:138 actions/showstream.php:327
+#: lib/userprofile.php:209
 msgid "Tags"
 msgstr ""
 
@@ -2712,6 +2732,7 @@ msgstr ""
 #: actions/apifriendshipsdestroy.php:91 actions/apigroupcreate.php:104
 #: actions/apigroupjoin.php:91 actions/apigroupleave.php:91
 #: actions/apistatusesupdate.php:109
+#: actions/apiaccountupdateprofileimage.php:84
 msgid "This method requires a POST."
 msgstr ""
 
@@ -2742,7 +2763,7 @@ msgstr ""
 
 #: ../actions/twitapifriendships.php:163 actions/twitapifriendships.php:167
 #: actions/twitapifriendships.php:132 actions/twitapifriendships.php:139
-#: actions/apifriendshipsexists.php:103
+#: actions/apifriendshipsexists.php:103 actions/apifriendshipsexists.php:94
 msgid "Two user ids or screen_names must be supplied."
 msgstr ""
 
@@ -2750,7 +2771,7 @@ msgstr ""
 #: actions/profilesettings.php:81 actions/register.php:183
 #: actions/profilesettings.php:109 actions/register.php:398
 #: actions/register.php:444 actions/profilesettings.php:117
-#: actions/register.php:448
+#: actions/register.php:448 actions/register.php:454
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr ""
 
@@ -2876,7 +2897,7 @@ msgstr ""
 #: ../actions/register.php:159 ../actions/register.php:162
 #: actions/register.php:173 actions/register.php:176 actions/register.php:382
 #: actions/register.php:386 actions/register.php:428 actions/register.php:432
-#: actions/register.php:436
+#: actions/register.php:436 actions/register.php:438 actions/register.php:442
 msgid "Used only for updates, announcements, and password recovery"
 msgstr ""
 
@@ -2904,7 +2925,7 @@ msgstr ""
 #: actions/twitapistatuses.php:535 actions/twitapiusers.php:59
 #: actions/foaf.php:65 actions/replies.php:79 actions/twitapiusers.php:57
 #: actions/usergroups.php:98 lib/galleryaction.php:66 lib/profileaction.php:84
-#: actions/apiusershow.php:108
+#: actions/apiusershow.php:108 actions/apiaccountupdateprofileimage.php:124
 msgid "User has no profile."
 msgstr ""
 
@@ -2933,7 +2954,7 @@ msgstr ""
 #: actions/profilesettings.php:87 actions/register.php:189
 #: actions/profilesettings.php:119 actions/register.php:410
 #: actions/register.php:456 actions/profilesettings.php:134
-#: actions/register.php:466
+#: actions/register.php:466 actions/register.php:472
 msgid "Where you are, like \"City, State (or Region), Country\""
 msgstr ""
 
@@ -3029,7 +3050,7 @@ msgstr ""
 #: ../actions/finishopenidlogin.php:33 ../actions/register.php:61
 #: actions/finishopenidlogin.php:38 actions/register.php:68
 #: actions/finishopenidlogin.php:43 actions/register.php:149
-#: actions/register.php:186 actions/register.php:192
+#: actions/register.php:186 actions/register.php:192 actions/register.php:198
 msgid "You can't register if you don't agree to the license."
 msgstr ""
 
@@ -3092,56 +3113,56 @@ msgid ""
 msgstr ""
 
 #: ../lib/util.php:943 lib/util.php:992 lib/util.php:945 lib/util.php:756
-#: lib/util.php:770 lib/util.php:816
+#: lib/util.php:770 lib/util.php:816 lib/util.php:844
 msgid "a few seconds ago"
 msgstr ""
 
 #: ../lib/util.php:955 lib/util.php:1004 lib/util.php:957 lib/util.php:768
-#: lib/util.php:782 lib/util.php:828
+#: lib/util.php:782 lib/util.php:828 lib/util.php:856
 #, php-format
 msgid "about %d days ago"
 msgstr ""
 
 #: ../lib/util.php:951 lib/util.php:1000 lib/util.php:953 lib/util.php:764
-#: lib/util.php:778 lib/util.php:824
+#: lib/util.php:778 lib/util.php:824 lib/util.php:852
 #, php-format
 msgid "about %d hours ago"
 msgstr ""
 
 #: ../lib/util.php:947 lib/util.php:996 lib/util.php:949 lib/util.php:760
-#: lib/util.php:774 lib/util.php:820
+#: lib/util.php:774 lib/util.php:820 lib/util.php:848
 #, php-format
 msgid "about %d minutes ago"
 msgstr ""
 
 #: ../lib/util.php:959 lib/util.php:1008 lib/util.php:961 lib/util.php:772
-#: lib/util.php:786 lib/util.php:832
+#: lib/util.php:786 lib/util.php:832 lib/util.php:860
 #, php-format
 msgid "about %d months ago"
 msgstr ""
 
 #: ../lib/util.php:953 lib/util.php:1002 lib/util.php:955 lib/util.php:766
-#: lib/util.php:780 lib/util.php:826
+#: lib/util.php:780 lib/util.php:826 lib/util.php:854
 msgid "about a day ago"
 msgstr ""
 
 #: ../lib/util.php:945 lib/util.php:994 lib/util.php:947 lib/util.php:758
-#: lib/util.php:772 lib/util.php:818
+#: lib/util.php:772 lib/util.php:818 lib/util.php:846
 msgid "about a minute ago"
 msgstr ""
 
 #: ../lib/util.php:957 lib/util.php:1006 lib/util.php:959 lib/util.php:770
-#: lib/util.php:784 lib/util.php:830
+#: lib/util.php:784 lib/util.php:830 lib/util.php:858
 msgid "about a month ago"
 msgstr ""
 
 #: ../lib/util.php:961 lib/util.php:1010 lib/util.php:963 lib/util.php:774
-#: lib/util.php:788 lib/util.php:834
+#: lib/util.php:788 lib/util.php:834 lib/util.php:862
 msgid "about a year ago"
 msgstr ""
 
 #: ../lib/util.php:949 lib/util.php:998 lib/util.php:951 lib/util.php:762
-#: lib/util.php:776 lib/util.php:822
+#: lib/util.php:776 lib/util.php:822 lib/util.php:850
 msgid "about an hour ago"
 msgstr ""
 
@@ -3210,7 +3231,8 @@ msgstr ""
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
 #: actions/register.php:159 actions/remotesubscribe.php:77
 #: actions/smssettings.php:228 actions/unsubscribe.php:69
-#: actions/userauthorization.php:52
+#: actions/userauthorization.php:52 actions/login.php:131
+#: actions/register.php:165
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 
@@ -3430,6 +3452,7 @@ msgstr ""
 #: actions/register.php:95 actions/register.php:180
 #: actions/passwordsettings.php:147 actions/register.php:217
 #: actions/passwordsettings.php:153 actions/register.php:224
+#: actions/register.php:230
 msgid "Password must be 6 or more characters."
 msgstr ""
 
@@ -4443,7 +4466,7 @@ msgid "%s left group %s"
 msgstr ""
 
 #: actions/login.php:225 lib/facebookaction.php:304 actions/login.php:208
-#: actions/login.php:216
+#: actions/login.php:216 actions/login.php:243
 msgid "Login to site"
 msgstr ""
 
@@ -4626,7 +4649,8 @@ msgstr ""
 
 #: actions/register.php:139 actions/register.php:349 actions/register.php:79
 #: actions/register.php:177 actions/register.php:394 actions/register.php:183
-#: actions/register.php:398
+#: actions/register.php:398 actions/register.php:85 actions/register.php:189
+#: actions/register.php:404
 msgid "Sorry, only invited people can register."
 msgstr ""
 
@@ -4709,7 +4733,7 @@ msgstr "Αδύνατη η αποθήκευση του προφίλ."
 #: actions/showstream.php:236 actions/userauthorization.php:137
 #: lib/profilelist.php:197 actions/showgroup.php:263
 #: actions/showstream.php:295 actions/userauthorization.php:167
-#: lib/profilelist.php:230
+#: lib/profilelist.php:230 lib/userprofile.php:177
 msgid "URL"
 msgstr ""
 
@@ -4720,7 +4744,7 @@ msgstr ""
 #: actions/showstream.php:247 actions/userauthorization.php:149
 #: lib/profilelist.php:212 actions/showgroup.php:274
 #: actions/showstream.php:312 actions/userauthorization.php:179
-#: lib/profilelist.php:245
+#: lib/profilelist.php:245 lib/userprofile.php:194
 msgid "Note"
 msgstr ""
 
@@ -4768,6 +4792,7 @@ msgid "Only the sender and recipient "
 msgstr ""
 
 #: actions/showstream.php:73 actions/showstream.php:78
+#: actions/showstream.php:79
 #, php-format
 msgid "%s, page %d"
 msgstr ""
@@ -4779,29 +4804,30 @@ msgstr "Αδύνατη η αποθήκευση του προφίλ."
 
 #: actions/showstream.php:236 actions/tagother.php:77
 #: actions/showstream.php:220 actions/showstream.php:185
-#: actions/showstream.php:193
+#: actions/showstream.php:193 lib/userprofile.php:75
 #, fuzzy
 msgid "User profile"
 msgstr "Αδύνατη η αποθήκευση του προφίλ."
 
 #: actions/showstream.php:240 actions/tagother.php:81
 #: actions/showstream.php:224 actions/showstream.php:189
-#: actions/showstream.php:220
+#: actions/showstream.php:220 lib/userprofile.php:102
 msgid "Photo"
 msgstr ""
 
 #: actions/showstream.php:317 actions/showstream.php:309
 #: actions/showstream.php:274 actions/showstream.php:354
+#: lib/userprofile.php:236
 msgid "User actions"
 msgstr ""
 
 #: actions/showstream.php:342 actions/showstream.php:307
-#: actions/showstream.php:390
+#: actions/showstream.php:390 lib/userprofile.php:272
 msgid "Send a direct message to this user"
 msgstr ""
 
 #: actions/showstream.php:343 actions/showstream.php:308
-#: actions/showstream.php:391
+#: actions/showstream.php:391 lib/userprofile.php:273
 msgid "Message"
 msgstr ""
 
@@ -5633,10 +5659,12 @@ msgid ""
 msgstr ""
 
 #: actions/register.php:432 actions/register.php:479 actions/register.php:489
+#: actions/register.php:495
 msgid "Creative Commons Attribution 3.0"
 msgstr ""
 
 #: actions/register.php:433 actions/register.php:480 actions/register.php:490
+#: actions/register.php:496
 #, fuzzy
 msgid ""
 " except this private data: password, email address, IM address, and phone "
@@ -5673,43 +5701,47 @@ msgid "%s's profile"
 msgstr "Αδύνατη η αποθήκευση του προφίλ."
 
 #: actions/showstream.php:163 actions/showstream.php:128
+#: actions/showstream.php:129
 #, php-format
 msgid "Notice feed for %s (RSS 1.0)"
 msgstr ""
 
 #: actions/showstream.php:170 actions/showstream.php:135
+#: actions/showstream.php:136
 #, php-format
 msgid "Notice feed for %s (RSS 2.0)"
 msgstr ""
 
 #: actions/showstream.php:177 actions/showstream.php:142
+#: actions/showstream.php:143
 #, php-format
 msgid "Notice feed for %s (Atom)"
 msgstr ""
 
 #: actions/showstream.php:182 actions/showstream.php:147
+#: actions/showstream.php:148
 #, php-format
 msgid "FOAF for %s"
 msgstr ""
 
 #: actions/showstream.php:237 actions/showstream.php:202
-#: actions/showstream.php:234
+#: actions/showstream.php:234 lib/userprofile.php:116
 msgid "Edit Avatar"
 msgstr ""
 
 #: actions/showstream.php:316 actions/showstream.php:281
-#: actions/showstream.php:366
+#: actions/showstream.php:366 lib/userprofile.php:248
 #, fuzzy
 msgid "Edit profile settings"
 msgstr "Αλλάξτε τις ρυθμίσεις του προφίλ σας"
 
 #: actions/showstream.php:317 actions/showstream.php:282
-#: actions/showstream.php:367
+#: actions/showstream.php:367 lib/userprofile.php:249
 msgid "Edit"
 msgstr ""
 
 #: actions/showstream.php:542 actions/showstream.php:388
-#: actions/showstream.php:487
+#: actions/showstream.php:487 actions/showstream.php:234
 #, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -5755,6 +5787,7 @@ msgstr ""
 #: actions/apistatusesupdate.php:125 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:79
 #: actions/apitimelinementions.php:79 actions/apitimelineuser.php:81
+#: actions/apiaccountupdateprofileimage.php:91
 #, fuzzy
 msgid "No such user!"
 msgstr "Αδύνατη η αποθήκευση του προφίλ."
@@ -5996,6 +6029,7 @@ msgstr ""
 
 #: actions/all.php:91 actions/replies.php:190 actions/showstream.php:361
 #: actions/all.php:137 actions/replies.php:209 actions/showstream.php:455
+#: actions/showstream.php:202
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
@@ -6420,7 +6454,7 @@ msgstr ""
 msgid "Password recover"
 msgstr "Ο κωδικός αποθηκεύτηκε."
 
-#: actions/register.php:86
+#: actions/register.php:86 actions/register.php:92
 msgid "Sorry, invalid invitation code."
 msgstr ""
 
@@ -6518,28 +6552,31 @@ msgstr "Διαχειριστής"
 msgid "Not a local notice"
 msgstr ""
 
-#: actions/showstream.php:72
+#: actions/showstream.php:72 actions/showstream.php:73
 #, php-format
 msgid " tagged %s"
 msgstr ""
 
-#: actions/showstream.php:121
+#: actions/showstream.php:121 actions/showstream.php:122
 #, php-format
 msgid "Notice feed for %s tagged %s (RSS 1.0)"
 msgstr ""
 
 #: actions/showstream.php:350 actions/showstream.php:444
+#: actions/showstream.php:191
 #, php-format
 msgid "This is the timeline for %s but %s hasn't posted anything yet."
 msgstr ""
 
 #: actions/showstream.php:355 actions/showstream.php:449
+#: actions/showstream.php:196
 msgid ""
 "Seen anything interesting recently? You haven't posted any notices yet, now "
 "would be a good time to start :)"
 msgstr ""
 
 #: actions/showstream.php:357 actions/showstream.php:451
+#: actions/showstream.php:198
 #, php-format
 msgid ""
 "You can try to nudge %s or [post something to his or her attention](%%%%"
@@ -6547,6 +6584,7 @@ msgid ""
 msgstr ""
 
 #: actions/showstream.php:393 actions/showstream.php:492
+#: actions/showstream.php:239
 #, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -6691,6 +6729,7 @@ msgid "Problem saving notice. Too long."
 msgstr ""
 
 #: classes/User.php:319 classes/User.php:327 classes/User.php:334
+#: classes/User.php:333
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
@@ -7003,6 +7042,7 @@ msgid "Status deleted."
 msgstr "Ρυθμίσεις OpenID"
 
 #: actions/apistatusesupdate.php:132
+#: actions/apiaccountupdateprofileimage.php:99
 msgid "Unable to handle that much POST data!"
 msgstr ""
 
@@ -7072,7 +7112,7 @@ msgstr ""
 msgid "IM is not available."
 msgstr "Η αρχική σελίδα δεν είναι έγκυρο URL."
 
-#: actions/login.php:259
+#: actions/login.php:259 actions/login.php:286
 #, fuzzy, php-format
 msgid ""
 "Login with your username and password. Don't have a username yet? [Register]"
@@ -7107,21 +7147,24 @@ msgid "Notice license ‘%s’ is not compatible with site license ‘%s’."
 msgstr ""
 
 #: actions/profilesettings.php:122 actions/register.php:454
+#: actions/register.php:460
 #, fuzzy, php-format
 msgid "Describe yourself and your interests in %d chars"
 msgstr "Περιέγραψε τον εαυτό σου και τα ενδιαφέροντά σου σε 140 χαρακτήρες"
 
 #: actions/profilesettings.php:125 actions/register.php:457
+#: actions/register.php:463
 #, fuzzy
 msgid "Describe yourself and your interests"
 msgstr "Περιέγραψε τον εαυτό σου και τα ενδιαφέροντά σου σε 140 χαρακτήρες"
 
 #: actions/profilesettings.php:221 actions/register.php:217
+#: actions/register.php:223
 #, fuzzy, php-format
 msgid "Bio is too long (max %d chars)."
 msgstr "Το βιογραφικό είναι πολύ μεγάλο (μέγιστο 140 χαρακτ.)."
 
-#: actions/register.php:336
+#: actions/register.php:336 actions/register.php:342
 msgid ""
 "With this form you can create  a new account. You can then post notices and "
 "link up to friends and colleagues. "
@@ -7446,3 +7489,58 @@ msgstr "Απέτυχε η ενημέρωση του χρήστη."
 #, fuzzy
 msgid "Duplicate notice"
 msgstr "Διαγραφή μηνύματος"
+
+#: actions/login.php:110 actions/login.php:120
+msgid "Invalid or expired token."
+msgstr ""
+
+#: lib/command.php:597
+#, fuzzy, php-format
+msgid "Could not create login token for %s"
+msgstr "Αδυναμία δημιουργίας φόρμας OpenID: %s "
+
+#: lib/command.php:602
+#, php-format
+msgid "This link is useable only once, and is good for only 2 minutes: %s"
+msgstr ""
+
+#: lib/command.php:613
+msgid ""
+"Commands:\n"
+"on - turn on notifications\n"
+"off - turn off notifications\n"
+"help - show this help\n"
+"follow <nickname> - subscribe to user\n"
+"leave <nickname> - unsubscribe from user\n"
+"d <nickname> <text> - direct message to user\n"
+"get <nickname> - get last notice from user\n"
+"whois <nickname> - get profile info on user\n"
+"fav <nickname> - add user's last notice as a 'fave'\n"
+"fav #<notice_id> - add notice with the given id as a 'fave'\n"
+"reply #<notice_id> - reply to notice with a given id\n"
+"reply <nickname> - reply to the last notice from user\n"
+"join <group> - join group\n"
+"login - Get a link to login to the web interface\n"
+"drop <group> - leave group\n"
+"stats - get your stats\n"
+"stop - same as 'off'\n"
+"quit - same as 'off'\n"
+"sub <nickname> - same as 'follow'\n"
+"unsub <nickname> - same as 'leave'\n"
+"last <nickname> - same as 'get'\n"
+"on <nickname> - not yet implemented.\n"
+"off <nickname> - not yet implemented.\n"
+"nudge <nickname> - remind a user to update.\n"
+"invite <phone number> - not yet implemented.\n"
+"track <word> - not yet implemented.\n"
+"untrack <word> - not yet implemented.\n"
+"track off - not yet implemented.\n"
+"untrack all - not yet implemented.\n"
+"tracks - not yet implemented.\n"
+"tracking - not yet implemented.\n"
+msgstr ""
+
+#: lib/imagefile.php:75
+#, php-format
+msgid "That file is too big. The maximum file size is %s."
+msgstr ""
