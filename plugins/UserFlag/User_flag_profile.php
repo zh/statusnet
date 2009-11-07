@@ -42,15 +42,15 @@ class User_flag_profile extends Memcached_DataObject
 
     function table() {
         return array(
-                     'profile_id' => DB_DATAOBJECT_INT,
-                     'user_id'    => DB_DATAOBJECT_INT,
-                     'created'    => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME,
+                     'profile_id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+                     'user_id'    => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+                     'created'    => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
                      'cleared'    => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME
                      );
     }
 
     function keys() {
-        return array('profile_id', 'user_id');
+        return array('profile_id' => 'N', 'user_id' => 'N');
     }
 
     function &pkeyGet($kv)
