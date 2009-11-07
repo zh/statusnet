@@ -930,7 +930,10 @@ class Notice extends Memcached_DataObject
             $users = $group->getUserMembers();
             foreach ($users as $id) {
                 if (!array_key_exists($id, $ni)) {
-                    $ni[$id] = NOTICE_INBOX_SOURCE_GROUP;
+                    $user = User::staticGet('id', $id);
+                    if (!$user->hasBlocked($notice->profile_id)) {
+                        $ni[$id] = NOTICE_INBOX_SOURCE_GROUP;
+                    }
                 }
             }
         }
