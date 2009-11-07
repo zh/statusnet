@@ -81,19 +81,12 @@ class FlagprofileAction extends Action
             return false;
         }
 
-        $this->flag = $this->trimmed('flag');
-
-        if (empty($this->flag)) {
-            $this->flag = Profile_flag::DEFAULTFLAG;
-        }
-
         $user = common_current_user();
 
         assert(!empty($user)); // checked above
 
         if (User_flag_profile::exists($this->profile->id,
-                                      $user->id,
-                                      $this->flag))
+                                      $user->id))
         {
             $this->clientError(_('Flag already exists.'));
             return false;
@@ -134,13 +127,11 @@ class FlagprofileAction extends Action
 
         assert(!empty($user));
         assert(!empty($this->profile));
-        assert(!empty($this->flag));
 
         $ufp = new User_flag_profile();
 
         $ufp->profile_id = $this->profile->id;
         $ufp->user_id    = $user->id;
-        $ufp->flag       = $this->flag;
         $ufp->created    = common_sql_now();
 
         if (!$ufp->insert()) {
