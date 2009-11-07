@@ -101,8 +101,7 @@ class UserFlagPlugin extends Plugin
 
             $action->elementStart('li', 'entity_flag');
 
-            if (User_flag_profile::exists($profile->id, $user->id,
-                                          Profile_flag::DEFAULTFLAG)) {
+            if (User_flag_profile::exists($profile->id, $user->id)) {
                 $action->element('span',
                                  _('Flagged for review'));
             } else {
