@@ -69,12 +69,12 @@ class UserProfile extends Widget
 
     function showProfileData()
     {
-        if (Event::handle('StartProfilePageProfileSection', array(&$this->action, $this->profile))) {
+        if (Event::handle('StartProfilePageProfileSection', array(&$this->out, $this->profile))) {
 
             $this->out->elementStart('div', 'entity_profile vcard author');
             $this->out->element('h2', null, _('User profile'));
 
-            if (Event::handle('StartProfilePageProfileElements', array(&$this->action, $this->profile))) {
+            if (Event::handle('StartProfilePageProfileElements', array(&$this->out, $this->profile))) {
 
                 $this->showAvatar();
                 $this->showNickname();
@@ -84,17 +84,17 @@ class UserProfile extends Widget
                 $this->showBio();
                 $this->showProfileTags();
 
-                Event::handle('EndProfilePageProfileElements', array(&$this->action, $this->profile));
+                Event::handle('EndProfilePageProfileElements', array(&$this->out, $this->profile));
             }
 
             $this->out->elementEnd('div');
-            Event::handle('EndProfilePageProfileSection', array(&$this->action, $this->profile));
+            Event::handle('EndProfilePageProfileSection', array(&$this->out, $this->profile));
         }
     }
 
     function showAvatar()
     {
-        if (Event::handle('StartProfilePageAvatar', array($this->action, $this->profile))) {
+        if (Event::handle('StartProfilePageAvatar', array($this->out, $this->profile))) {
 
             $avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
 
@@ -119,13 +119,13 @@ class UserProfile extends Widget
 
             $this->out->elementEnd('dl');
 
-            Event::handle('EndProfilePageAvatar', array($this->action, $this->profile));
+            Event::handle('EndProfilePageAvatar', array($this->out, $this->profile));
         }
     }
 
     function showNickname()
     {
-        if (Event::handle('StartProfilePageNickname', array($this->action, $this->profile))) {
+        if (Event::handle('StartProfilePageNickname', array($this->out, $this->profile))) {
 
             $this->out->elementStart('dl', 'entity_nickname');
             $this->out->element('dt', null, _('Nickname'));
@@ -137,13 +137,13 @@ class UserProfile extends Widget
             $this->out->elementEnd('dd');
             $this->out->elementEnd('dl');
 
-            Event::handle('EndProfilePageNickname', array($this->action, $this->profile));
+            Event::handle('EndProfilePageNickname', array($this->out, $this->profile));
         }
     }
 
     function showFullName()
     {
-        if (Event::handle('StartProfilePageFullName', array($this->action, $this->profile))) {
+        if (Event::handle('StartProfilePageFullName', array($this->out, $this->profile))) {
             if ($this->profile->fullname) {
                 $this->out->elementStart('dl', 'entity_fn');
                 $this->out->element('dt', null, _('Full name'));
@@ -152,26 +152,26 @@ class UserProfile extends Widget
                 $this->out->elementEnd('dd');
                 $this->out->elementEnd('dl');
             }
-            Event::handle('EndProfilePageFullName', array($this->action, $this->profile));
+            Event::handle('EndProfilePageFullName', array($this->out, $this->profile));
         }
     }
 
     function showLocation()
     {
-        if (Event::handle('StartProfilePageLocation', array($this->action, $this->profile))) {
+        if (Event::handle('StartProfilePageLocation', array($this->out, $this->profile))) {
             if ($this->profile->location) {
                 $this->out->elementStart('dl', 'entity_location');
                 $this->out->element('dt', null, _('Location'));
                 $this->out->element('dd', 'label', $this->profile->location);
                 $this->out->elementEnd('dl');
             }
-            Event::handle('EndProfilePageLocation', array($this->action, $this->profile));
+            Event::handle('EndProfilePageLocation', array($this->out, $this->profile));
         }
     }
 
     function showHomepage()
     {
-        if (Event::handle('StartProfilePageHomepage', array($this->action, $this->profile))) {
+        if (Event::handle('StartProfilePageHomepage', array($this->out, $this->profile))) {
             if ($this->profile->homepage) {
                 $this->out->elementStart('dl', 'entity_url');
                 $this->out->element('dt', null, _('URL'));
@@ -182,26 +182,26 @@ class UserProfile extends Widget
                 $this->out->elementEnd('dd');
                 $this->out->elementEnd('dl');
             }
-            Event::handle('EndProfilePageHomepage', array($this->action, $this->profile));
+            Event::handle('EndProfilePageHomepage', array($this->out, $this->profile));
         }
     }
 
     function showBio()
     {
-        if (Event::handle('StartProfilePageBio', array($this->action, $this->profile))) {
+        if (Event::handle('StartProfilePageBio', array($this->out, $this->profile))) {
             if ($this->profile->bio) {
                 $this->out->elementStart('dl', 'entity_note');
                 $this->out->element('dt', null, _('Note'));
                 $this->out->element('dd', 'note', $this->profile->bio);
                 $this->out->elementEnd('dl');
             }
-            Event::handle('EndProfilePageBio', array($this->action, $this->profile));
+            Event::handle('EndProfilePageBio', array($this->out, $this->profile));
         }
     }
 
     function showProfileTags()
     {
-        if (Event::handle('StartProfilePageProfileTags', array($this->action, $this->profile))) {
+        if (Event::handle('StartProfilePageProfileTags', array($this->out, $this->profile))) {
             $tags = Profile_tag::getTags($this->profile->id, $this->profile->id);
 
             if (count($tags) > 0) {
@@ -222,13 +222,13 @@ class UserProfile extends Widget
                 $this->out->elementEnd('dd');
                 $this->out->elementEnd('dl');
             }
-            Event::handle('EndProfilePageProfileTags', array($this->action, $this->profile));
+            Event::handle('EndProfilePageProfileTags', array($this->out, $this->profile));
         }
     }
 
     function showEntityActions()
     {
-        if (Event::handle('StartProfilePageActionsSection', array(&$this->action, $this->profile))) {
+        if (Event::handle('StartProfilePageActionsSection', array(&$this->out, $this->profile))) {
 
             $cur = common_current_user();
 
@@ -236,7 +236,7 @@ class UserProfile extends Widget
             $this->out->element('h2', null, _('User actions'));
             $this->out->elementStart('ul');
 
-            if (Event::handle('StartProfilePageActionsElements', array(&$this->action, $this->profile))) {
+            if (Event::handle('StartProfilePageActionsElements', array(&$this->out, $this->profile))) {
                 if (empty($cur)) { // not logged in
                     $this->out->elementStart('li', 'entity_subscribe');
                     $this->showRemoteSubscribeLink();
@@ -302,13 +302,13 @@ class UserProfile extends Widget
                     }
                 }
 
-                Event::handle('EndProfilePageActionsElements', array(&$this->action, $this->profile));
+                Event::handle('EndProfilePageActionsElements', array(&$this->out, $this->profile));
             }
 
             $this->out->elementEnd('ul');
             $this->out->elementEnd('div');
 
-            Event::handle('EndProfilePageActionsSection', array(&$this->action, $this->profile));
+            Event::handle('EndProfilePageActionsSection', array(&$this->out, $this->profile));
         }
     }
 
