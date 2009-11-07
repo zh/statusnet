@@ -182,7 +182,8 @@ class ProfileListItem extends Widget
     {
         $avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
         $this->out->elementStart('a', array('href' => $this->profile->profileurl,
-                                            'class' => 'url'));
+                                            'class' => 'url',
+                                            'rel' => 'contact'));
         $this->out->element('img', array('src' => ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_STREAM_SIZE),
                                          'class' => 'photo avatar',
                                          'width' => AVATAR_STREAM_SIZE,
@@ -190,7 +191,7 @@ class ProfileListItem extends Widget
                                          'alt' =>
                                          ($this->profile->fullname) ? $this->profile->fullname :
                                          $this->profile->nickname));
-        $hasFN = ($this->profile->fullname !== '') ? 'nickname' : 'fn nickname';
+        $hasFN = (!empty($this->profile->fullname)) ? 'nickname' : 'fn nickname';
         $this->out->elementStart('span', $hasFN);
         $this->out->raw($this->highlight($this->profile->nickname));
         $this->out->elementEnd('span');
@@ -200,53 +201,37 @@ class ProfileListItem extends Widget
     function showFullName()
     {
         if (!empty($this->profile->fullname)) {
-            $this->out->elementStart('dl', 'entity_fn');
-            $this->out->element('dt', null, 'Full name');
-            $this->out->elementStart('dd');
             $this->out->elementStart('span', 'fn');
             $this->out->raw($this->highlight($this->profile->fullname));
             $this->out->elementEnd('span');
-            $this->out->elementEnd('dd');
-            $this->out->elementEnd('dl');
         }
     }
 
     function showLocation()
     {
         if (!empty($this->profile->location)) {
-            $this->out->elementStart('dl', 'entity_location');
-            $this->out->element('dt', null, _('Location'));
-            $this->out->elementStart('dd', 'label');
+            $this->out->elementStart('span', 'location');
             $this->out->raw($this->highlight($this->profile->location));
-            $this->out->elementEnd('dd');
-            $this->out->elementEnd('dl');
+            $this->out->elementEnd('span');
         }
     }
 
     function showHomepage()
     {
         if (!empty($this->profile->homepage)) {
-            $this->out->elementStart('dl', 'entity_url');
-            $this->out->element('dt', null, _('URL'));
-            $this->out->elementStart('dd');
             $this->out->elementStart('a', array('href' => $this->profile->homepage,
                                                 'class' => 'url'));
             $this->out->raw($this->highlight($this->profile->homepage));
             $this->out->elementEnd('a');
-            $this->out->elementEnd('dd');
-            $this->out->elementEnd('dl');
         }
     }
 
     function showBio()
     {
         if (!empty($this->profile->bio)) {
-            $this->out->elementStart('dl', 'entity_note');
-            $this->out->element('dt', null, _('Note'));
-            $this->out->elementStart('dd', 'note');
+            $this->out->elementStart('p', 'note');
             $this->out->raw($this->highlight($this->profile->bio));
-            $this->out->elementEnd('dd');
-            $this->out->elementEnd('dl');
+            $this->out->elementEnd('p');
         }
     }
 

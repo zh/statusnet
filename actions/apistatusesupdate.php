@@ -80,7 +80,7 @@ class ApiStatusesUpdateAction extends ApiAuthAction
         $this->status = $this->trimmed('status');
         $this->source = $this->trimmed('source');
 
-        if (empty($this->source) || in_array($source, $this->reserved_sources)) {
+        if (empty($this->source) || in_array($source, self::$reserved_sources)) {
             $this->source = 'api';
         }
 
@@ -112,6 +112,20 @@ class ApiStatusesUpdateAction extends ApiAuthAction
             return;
         }
 
+        // Workaround for PHP returning empty $_POST and $_FILES when POST
+        // length > post_max_size in php.ini
+
+        if (empty($_FILES)
+            && empty($_POST)
+            && ($_SERVER['CONTENT_LENGTH'] > 0)
+        ) {
+             $msg = _('The server was unable to handle that much POST ' .
+                    'data (%s bytes) due to its current configuration.');
+
+            $this->clientError(sprintf($msg, $_SERVER['CONTENT_LENGTH']));
+            return;
+        }
+
         if (empty($this->status)) {
             $this->clientError(
                 'Client must provide a \'status\' parameter with a value.',
@@ -123,13 +137,6 @@ class ApiStatusesUpdateAction extends ApiAuthAction
 
         if (empty($this->user)) {
             $this->clientError(_('No such user!'), 404, $this->format);
-            return;
-        }
-
-        // Workaround for PHP returning empty $_FILES when POST length > PHP settings
-
-        if (empty($_POST) && ($_SERVER['CONTENT_LENGTH'] > 0)) {
-            $this->clientError(_('Unable to handle that much POST data!'));
             return;
         }
 

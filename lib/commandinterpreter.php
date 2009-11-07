@@ -41,6 +41,12 @@ class CommandInterpreter
                 return null;
             }
             return new HelpCommand($user);
+         case 'login':
+            if ($arg) {
+                return null;
+            } else {
+                return new LoginCommand($user);
+            }
          case 'on':
             if ($arg) {
                 list($other, $extra) = $this->split_arg($arg);

@@ -94,6 +94,13 @@ $external_libraries=array(
         'check_class'=>'HTTP_Request'
     ),
     array(
+        'name'=>'HTTP_Request2',
+        'pear'=>'HTTP_Request2',
+        'url'=>'http://pear.php.net/package/HTTP_Request2',
+        'include'=>'HTTP/Request2.php',
+        'check_class'=>'HTTP_Request2'
+    ),
+    array(
         'name'=>'Mail',
         'pear'=>'Mail',
         'url'=>'http://pear.php.net/package/Mail',
@@ -122,6 +129,14 @@ $external_libraries=array(
         'url'=>'http://pear.php.net/package/Net_URL_Mapper',
         'include'=>'Net/URL/Mapper.php',
         'check_class'=>'Net_URL_Mapper'
+    ),
+    array(
+        'name'=>'Net_LDAP2',
+        'pear'=>'Net_LDAP2',
+        'url'=>'http://pear.php.net/package/Net_LDAP2',
+        'deb'=>'php-net-ldap2',
+        'include'=>'Net/LDAP2.php',
+        'check_class'=>'Net_LDAP2'
     ),
     array(
         'name'=>'Net_Socket',

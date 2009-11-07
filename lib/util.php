@@ -119,16 +119,44 @@ function common_munge_password($password, $id)
 // check if a username exists and has matching password
 function common_check_user($nickname, $password)
 {
-    // NEVER allow blank passwords, even if they match the DB
-    if (mb_strlen($password) == 0) {
-        return false;
-    }
+    $authenticated = false;
+    $eventResult = Event::handle('CheckPassword', array($nickname, $password, &$authenticated));
     $user = User::staticGet('nickname', $nickname);
     if (is_null($user) || $user === false) {
-        return false;
+        //user does not exist
+        if($authenticated){
+            //a handler said these are valid credentials, so see if a plugin wants to auto register the user
+            if(Event::handle('AutoRegister', array($nickname))){
+                //no handler registered the user
+                return false;
+            }else{
+                $user = User::staticGet('nickname', $nickname);
+                if (is_null($user) || $user === false) {
+                    common_log(LOG_WARNING, "A plugin handled the AutoRegister event, but did not actually register the user, nickname: $nickname");
+                    return false;
+                }else{
+                    return $user;
+                }
+            }
+        }else{
+            //no handler indicated the credentials were valid, and we know their not valid because the user isn't in the database
+            return false;
+        }
     } else {
-        if (0 == strcmp(common_munge_password($password, $user->id),
-                        $user->password)) {
+        if($eventResult && ! $authenticated){
+            //no handler was authoritative
+            if (mb_strlen($password) == 0) {
+                // NEVER allow blank passwords, even if they match the DB
+                return false;
+            }else{
+                if (0 == strcmp(common_munge_password($password, $user->id),
+                                $user->password)) {
+                    //internal checking passed
+                    $authenticated = true;
+                }
+            }
+        }
+        if($authenticated){
             return $user;
         } else {
             return false;
@@ -422,7 +450,7 @@ function common_render_text($text)
 function common_replace_urls_callback($text, $callback, $notice_id = null) {
     // Start off with a regex
     $regex = '#'.
-    '(?:^|[\s\(\)\[\]\{\}\\\'\\\";]+)(?![\@\!\#])'.
+    '(?:^|[\s\<\>\(\)\[\]\{\}\\\'\\\";]+)(?![\@\!\#])'.
     '('.
         '(?:'.
             '(?:'. //Known protocols
@@ -452,9 +480,9 @@ function common_replace_urls_callback($text, $callback, $notice_id = null) {
         ')'.
         '(?:'.
             '(?:\:\d+)?'. //:port
-            '(?:/[\pN\pL$\[\]\,\!\(\)\.\:\-\_\+\/\=\&\;\%\~\*\$\+\'\"@]*)?'. // /path
-            '(?:\?[\pN\pL\$\[\]\,\!\(\)\.\:\-\_\+\/\=\&\;\%\~\*\$\+\'\"@\/]*)?'. // ?query string
-            '(?:\#[\pN\pL$\[\]\,\!\(\)\.\:\-\_\+\/\=\&\;\%\~\*\$\+\'\"\@/\?\#]*)?'. // #fragment
+            '(?:/[\pN\pL$\,\!\(\)\.\:\-\_\+\/\=\&\;\%\~\*\$\+\'@]*)?'. // /path
+            '(?:\?[\pN\pL\$\,\!\(\)\.\:\-\_\+\/\=\&\;\%\~\*\$\+\'@\/]*)?'. // ?query string
+            '(?:\#[\pN\pL$\,\!\(\)\.\:\-\_\+\/\=\&\;\%\~\*\$\+\'\@/\?\#]*)?'. // #fragment
         ')(?<![\?\.\,\#\,])'.
     ')'.
     '#ixu';
@@ -480,6 +508,10 @@ function callback_helper($matches, $callback, $notice_id) {
         array(
             'left'=>'{',
             'right'=>'}'
+        ),
+        array(
+            'left'=>'<',
+            'right'=>'>'
         )
     );
     $cannotEndWith=array('.','?',',','#');
@@ -1366,9 +1398,28 @@ function common_memcache()
     }
 }
 
+function common_license_terms($uri)
+{
+    if(preg_match('/creativecommons.org\/licenses\/([^\/]+)/', $uri, $matches)) {
+        return explode('-',$matches[1]);
+    }
+    return array($uri);
+}
+
 function common_compatible_license($from, $to)
 {
+    $from_terms = common_license_terms($from);
+    // public domain and cc-by are compatible with everything
+    if(count($from_terms) == 1 && ($from_terms[0] == 'publicdomain' || $from_terms[0] == 'by')) {
+        return true;
+    }
+    $to_terms = common_license_terms($to);
+    // sa is compatible across versions. IANAL
+    if(in_array('sa',$from_terms) || in_array('sa',$to_terms)) {
+        return count(array_diff($from_terms, $to_terms)) == 0;
+    }
     // XXX: better compatibility check needed here!
+    // Should at least normalise URIs
     return ($from == $to);
 }
 

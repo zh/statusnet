@@ -117,8 +117,7 @@ class User extends Memcached_DataObject
     function allowed_nickname($nickname)
     {
         // XXX: should already be validated for size, content, etc.
-
-        $blacklist = array();
+        $blacklist = common_config('nickname', 'blacklist');
 
         //all directory and file names should be blacklisted
         $d = dir(INSTALLDIR);
@@ -126,8 +125,15 @@ class User extends Memcached_DataObject
             $blacklist[]=$entry;
         }
         $d->close();
-        $merged = array_merge($blacklist, common_config('nickname', 'blacklist'));
-        return !in_array($nickname, $merged);
+
+        //all top level names in the router should be blacklisted
+        $router = Router::get();
+        foreach(array_keys($router->m->getPaths()) as $path){
+            if(preg_match('/^\/(.*?)[\/\?]/',$path,$matches)){
+                $blacklist[]=$matches[1];
+            }
+        }
+        return !in_array($nickname, $blacklist);
     }
 
     function getCurrentNotice($dt=null)

@@ -70,7 +70,7 @@ class ErrorAction extends Action
      */
     function extraHeaders()
     {
-        $status_string = $this->status[$this->code];
+        $status_string = @self::$status[$this->code];
         header('HTTP/1.1 '.$this->code.' '.$status_string);
     }
 
@@ -92,7 +92,7 @@ class ErrorAction extends Action
 
     function title()
     {
-        return self::$status[$this->code];
+        return @self::$status[$this->code];
     }
 
     function isReadOnly($args)

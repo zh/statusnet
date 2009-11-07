@@ -164,23 +164,32 @@ class PasswordsettingsAction extends AccountSettingsAction
                 $this->showForm(_('Incorrect old password'));
                 return;
             }
+        }else{
+            $oldpassword = null;
         }
 
-        $original = clone($user);
+        $errormsg = false;
+        if(! Event::handle('ChangePassword', array($user->nickname, $oldpassword, $newpassword, &$errormsg))){
+            //no handler changed the password, so change the password internally
+            $original = clone($user);
 
-        $user->password = common_munge_password($newpassword, $user->id);
+            $user->password = common_munge_password($newpassword, $user->id);
 
-        $val = $user->validate();
-        if ($val !== true) {
-            $this->showForm(_('Error saving user; invalid.'));
-            return;
+            $val = $user->validate();
+            if ($val !== true) {
+                $this->showForm(_('Error saving user; invalid.'));
+                return;
+            }
+
+            if (!$user->update($original)) {
+                $this->serverError(_('Can\'t save new password.'));
+                return;
+            }
         }
 
-        if (!$user->update($original)) {
-            $this->serverError(_('Can\'t save new password.'));
-            return;
-        }
-
-        $this->showForm(_('Password saved.'), true);
+        if($errormsg === false)
+            $this->showForm(_('Password saved.'), true);
+        else
+            $this->showForm($errormsg);
     }
 }

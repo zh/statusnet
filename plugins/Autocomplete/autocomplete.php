@@ -98,11 +98,10 @@ class AutocompleteAction extends Action
             $user = new User();
             $user->limit($limit);
             $user->whereAdd('nickname like \'' . trim($user->escape($q), '\'') . '%\'');
-            $user->find();
-            while($user->fetch()) {
-                $profile = Profile::staticGet($user->id);
-                $user->profile=$profile;
-                $this->users[]=$user;
+            if($user->find()){
+                while($user->fetch()) {
+                    $this->users[]=clone($user);
+                }
             }
         }
         if(substr($q,0,1)=='!'){
@@ -111,9 +110,10 @@ class AutocompleteAction extends Action
             $group = new User_group();
             $group->limit($limit);
             $group->whereAdd('nickname like \'' . trim($group->escape($q), '\'') . '%\'');
-            $group->find();
-            while($group->fetch()) {
-                $this->groups[]=$group;
+            if($group->find()){
+                while($group->fetch()) {
+                    $this->groups[]=clone($group);
+                }
             }
         }
         return true;
@@ -124,7 +124,8 @@ class AutocompleteAction extends Action
         parent::handle($args);
         $results = array();
         foreach($this->users as $user){
-            $results[]=array('nickname' => $user->nickname, 'fullname'=> $user->profile->fullname, 'type'=>'user');
+            $profile = $user->getProfile();
+            $results[]=array('nickname' => $user->nickname, 'fullname'=> $profile->fullname, 'type'=>'user');
         }
         foreach($this->groups as $group){
             $results[]=array('nickname' => $group->nickname, 'fullname'=> $group->fullname, 'type'=>'group');

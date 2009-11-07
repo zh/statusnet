@@ -1,8 +1,71 @@
 // identica badge -- updated to work with the native API, 12-4-2008
 // Modified to point to Identi.ca, 2-20-2009 by Zach
+// Modified for XHTML, 27-9-2009 by Will Daniels
+// (see http://willdaniels.co.uk/blog/tech-stuff/26-identica-badge-xhtml)
 // copyright Kent Brewster 2008
 // see http://kentbrewster.com/identica-badge for info
-( function() { 
+
+function createHTMLElement(tagName) {
+   if(document.createElementNS)
+      var elem = document.createElementNS("http://www.w3.org/1999/xhtml", tagName);
+   else
+      var elem = document.createElement(tagName);
+
+   return elem;
+}
+
+function isNumeric(value) {
+  if (value == null || !value.toString().match(/^[-]?\d*\.?\d*$/)) return false;
+  return true;
+}
+
+function markupPost(raw, server) {
+  var start = 0; var p = createHTMLElement('p');
+
+  raw.replace(/((http|https):\/\/|\!|@|#)(([\w_]+)?[^\s]*)/g,
+    function(sub, type, scheme, url, word, offset, full)
+    {
+      if(!scheme && !word) return; // just punctuation
+      var label = ''; var href = '';
+      var pretext = full.substr(start, offset - start);
+
+      moniker = word.split('_'); // behaviour with underscores differs
+      if(type == '#') moniker = moniker.join('');
+      else word = moniker = moniker[0].toLowerCase();
+
+      switch(type) {
+        case 'http://': case 'https://': // html links
+          href = scheme + '://' + url; break;
+        case '@': // link users
+          href = 'http://' + server + '/' + moniker; break;
+        case '!': // link groups
+          href = 'http://' + server + '/group/' + moniker; break;
+        case '#': // link tags
+          href = 'http://' + server + '/tag/' + moniker; break;
+        default: // bad call (just reset position for text)
+          start = offset;
+      }
+      if(scheme) { // only urls will have scheme
+        label = sub; start = offset + sub.length;
+      } else {
+        label = word; pretext += type;
+        start = offset + word.length + type.length;
+      }
+      p.appendChild(document.createTextNode(pretext));
+
+      var link = createHTMLElement('a');
+      link.appendChild(document.createTextNode(label));
+      link.href = href; link.target = '_statusnet';
+      p.appendChild(link);
+    });
+
+  if(start != raw.length) {
+    endtext = raw.substr(start);
+    p.appendChild(document.createTextNode(endtext));
+  }
+  return p;
+}
+(function() {
    var trueName = '';
    for (var i = 0; i < 16; i++) { 
       trueName += String.fromCharCode(Math.floor(Math.random() * 26) + 97); 
@@ -13,7 +76,7 @@
       return { 
          runFunction : [],
          init : function(target) {
-            var theScripts = document.getElementsByTagName('SCRIPT');
+            var theScripts = document.getElementsByTagName('script');
             for (var i = 0; i < theScripts.length; i++) {
                if (theScripts[i].src.match(target)) {
                   $.a = {};
@@ -66,9 +129,17 @@
                "server" : "identi.ca"
             };
             for (var k in $.d) { if ($.a[k] === undefined) { $.a[k] = $.d[k]; } }
+            // fix inout units
+            if(isNumeric($.a.width)) {
+               $.a.innerWidth = ($.a.width - 22) + 'px'; $.a.width += 'px';
+            } else {
+               $.a.innerWidth = 'auto';
+            }
+            if(isNumeric($.a.height)) $.a.height += 'px';
          },
-          buildPresentation : function () {
-            var ns = document.createElement('style');
+         buildPresentation : function () {
+            var setZoom = ''; if(navigator.appName == 'Microsoft Internet Explorer') setZoom = 'zoom:1;';
+            var ns = createHTMLElement('style');
             document.getElementsByTagName('head')[0].appendChild(ns);
             if (!window.createPopup) {
                ns.appendChild(document.createTextNode(''));
@@ -76,36 +147,37 @@
             }
             var s = document.styleSheets[document.styleSheets.length - 1];
             var rules = {
-               "" : "{zoom:1;margin:0;padding:0;width:" + $.a.width + "px;background:" + $.a.background + ";border:" + $.a.border + ";font:13px/1.2em tahoma, veranda, arial, helvetica, clean, sans-serif;*font-size:small;*font:x-small;}",
+               "" : "{margin:0px;padding:0px;width:" + $.a.width + ";background:" + $.a.background + ";border:" + $.a.border + ";font:87%/1.2em tahoma, veranda, arial, helvetica, clean, sans-serif;}",
                "a" : "{cursor:pointer;text-decoration:none;}",
                "a:hover" : "{text-decoration:underline;}",
-               "cite" : "{font-weight:bold;margin:0 0 0 4px;padding:0;display:block;font-style:normal;line-height:" + ($.a.thumbnailSize/2) + "px;}",
-               "cite a" : "{color:#C15D42;}",
-               "date":"{font-size:87%;margin:0 0 0 4px;padding:0;display:block;font-style:normal;line-height:" + ($.a.thumbnailSize/2) + "px;}",
-               "date:after" : "{clear:both; content:\".\"; display:block; height:0; visibility:hidden; }",
-               "date a" : "{color:#676;}",
-               "h3" : "{margin:0;padding:" + $.a.padding + "px;font-weight:bold;background:" + $.a.headerBackground + " url('http://" + $.a.server + "/favicon.ico') " + $.a.padding + "px 50% no-repeat;text-indent:" + ($.a.padding + 16) + "px;}",
+               ".cite" : "{" + setZoom + "font-weight:bold;margin:0px 0px 0px 4px;padding:0px;display:block;font-style:normal;line-height:" + ($.a.thumbnailSize/2) + "px;vertical-align:middle;}",
+               ".cite a" : "{color:#C15D42;}",
+               ".date":"{margin:0px 0px 0px 4px;padding:0px;display:block;font-style:normal;line-height:" + ($.a.thumbnailSize/2) + "px;vertical-align:middle;}",
+               ".date:after" : "{clear:both;content:\".\"; display:block;height:0px;visibility:hidden;}",
+               ".date a" : "{color:#676;}",
+               "h3" : "{margin:0px;padding:" + $.a.padding + "px;font-weight:bold;background:" + $.a.headerBackground + " url('http://" + $.a.server + "/favicon.ico') " + $.a.padding + "px 50% no-repeat;padding-left:" + ($.a.padding + 20) + "px;}",
                "h3.loading" : "{background-image:url('http://l.yimg.com/us.yimg.com/i/us/my/mw/anim_loading_sm.gif');}",
                "h3 a" : "{font-size:92%; color:" + $.a.headerColor + ";}",
-               "h4" : "{font-weight:normal; background:" + $.a.headerBackground + ";text-align:right;margin:0;padding:" + $.a.padding + "px;}",
+               "h4" : "{font-weight:normal;background:" + $.a.headerBackground + ";text-align:right;margin:0px;padding:" + $.a.padding + "px;}",
                "h4 a" : "{font-size:92%; color:" + $.a.headerColor + ";}",
-               "img":"{float:left; height:" + $.a.thumbnailSize + "px;width:" + $.a.thumbnailSize + "px;border:" + $.a.thumbnailBorder + ";margin-right:" + $.a.padding + "px;}",
-               "p" : "{margin:0; padding:0;width:" + ($.a.width - 22) + "px;overflow:hidden;font-size:87%;}",
+               "img":"{float:left;height:" + $.a.thumbnailSize + "px;width:" + $.a.thumbnailSize + "px;border:" + $.a.thumbnailBorder + ";margin-right:" + $.a.padding + "px;}",
+               "p" : "{margin:2px 0px 0px 0px;padding:0px;width:" + $.a.innerWidth + ";overflow:hidden;line-height:normal;}",
                "p a" : "{color:#C15D42;}",
-               "ul":"{margin:0; padding:0; height:" + $.a.height + "px;width:" + $.a.width + "px;overflow:auto;}",
-               "ul li":"{background:" + $.a.evenBackground + ";margin:0;padding:" + $.a.padding + "px;list-style:none;width:" + ($.a.width - 22) + "px;overflow:hidden;border-bottom:1px solid #D8E2D7;}",
+               "ul":"{margin:0px; padding:0px; height:" + $.a.height + ";width:" + $.a.innerWidth + ";overflow:auto;}",
+               "ul li":"{background:" + $.a.evenBackground + ";margin:0px;padding:" + $.a.padding + "px;list-style:none;width:auto;overflow:hidden;border-bottom:1px solid #D8E2D7;}",
                "ul li:hover":"{background:#f3f8ea;}"
             };
             var ieRules = "";
             // brute-force each and every style rule here to !important
             // sometimes you have to take off and nuke the site from orbit; it's the only way to be sure
             for (var z in rules) {
-               var selector = '.' + trueName + ' ' + z;
+               if(z.charAt(0)=='.') var selector = '.' + trueName + '-' + z.substring(1);
+               else var selector = '.' + trueName + ' ' + z;
                var rule = rules[z];
                if (typeof rule === 'string') {
                   var important = rule.replace(/;/gi, '!important;');
                   if (!window.createPopup) {
-                     var theRule = document.createTextNode(selector + important);
+                     var theRule = document.createTextNode(selector + important + '\n');
                      ns.appendChild(theRule);
                   } else {
                      ieRules += selector + important;
@@ -115,17 +187,17 @@
             if (window.createPopup) { s.cssText = ieRules; }
          },
          buildStructure : function() {
-            $.s = document.createElement('DIV');
+            $.s = createHTMLElement('div');
             $.s.className = trueName;         
-            $.s.h = document.createElement('H3');
-            $.s.h.a = document.createElement('A');
+            $.s.h = createHTMLElement('h3');
+            $.s.h.a = createHTMLElement('a');
             $.s.h.a.target = '_statusnet';
             $.s.h.appendChild($.s.h.a);
             $.s.appendChild($.s.h);
-            $.s.r = document.createElement('UL');
+            $.s.r = createHTMLElement('ul');
             $.s.appendChild($.s.r);
-            $.s.f = document.createElement('H4');
-            var a = document.createElement('A');
+            $.s.f = createHTMLElement('h4');
+            var a = createHTMLElement('a');
             a.innerHTML = 'get this';
             a.target = '_blank';
             a.href = 'http://identi.ca/doc/badge';
@@ -139,7 +211,7 @@
             var id = trueName + '.f.runFunction[' + n + ']';
             $.f.runFunction[n] = function(r) {
                delete($.f.runFunction[n]);
-               var a = document.createElement('A');
+               var a = createHTMLElement('a');
                a.rel = $.a.user;
                a.rev = r.name; 
                a.id = r.screen_name;
@@ -178,10 +250,11 @@
                }
             }
             r = $.f.sortArray(r, "status_id", true);
-            $.s.h.className = '';
+            $.s.h.className = ''; // for IE6
+            $.s.h.removeAttribute('class');
             for (var i = 0; i < r.length; i++) {
-               var li = document.createElement('LI');
-               var icon = document.createElement('A');
+               var li = createHTMLElement('li');
+               var icon = createHTMLElement('a');
                if (r[i] && r[i].url) {
                   icon.href = r[i].url;
                   icon.target = '_statusnet'; 
@@ -192,17 +265,19 @@
                   icon.title = 'Visit ' + r[i].screen_name + ' at http://' + $.a.server + '/' + r[i].screen_name;
                }
 
-               var img = document.createElement('IMG');
+               var img = createHTMLElement('img');
+               img.alt = 'profile image for ' + r[i].screen_name;
                img.src = r[i].profile_image_url;
                icon.appendChild(img);
-               li.appendChild(icon); 
+               li.appendChild(icon);
                
-               var user = document.createElement('CITE');
-               var a = document.createElement('A');
+               var user = createHTMLElement('span');
+               user.className = trueName + '-cite';
+               var a = createHTMLElement('a');
                a.rel = r[i].id;
                a.rev = r[i].name;
                a.id = r[i].screen_name;
-               a.innerHTML = r[i].name; 
+               a.innerHTML = r[i].name;
                a.href = 'http://' + $.a.server + '/' + r[i].screen_name;
                a.onclick = function() {
                   $.f.changeUserTo(this);
@@ -210,16 +285,17 @@
                };
                user.appendChild(a);
                li.appendChild(user);
-               var updated = document.createElement('DATE');
+               var updated = createHTMLElement('span');
+               updated.className = trueName + '-date';
                if (r[i].status && r[i].status.created_at) {
-                  var date_link = document.createElement('A');
+                  var date_link = createHTMLElement('a');
                   date_link.innerHTML = r[i].status.created_at.split(/\+/)[0];
                   date_link.href = 'http://' + $.a.server + '/notice/' + r[i].status.id;
                   date_link.target = '_statusnet';
                   updated.appendChild(date_link);
                   if (r[i].status.in_reply_to_status_id) {
                      updated.appendChild(document.createTextNode(' in reply to '));
-                     var in_reply_to = document.createElement('A');
+                     var in_reply_to = createHTMLElement('a');
                      in_reply_to.innerHTML = r[i].status.in_reply_to_status_id;
                      in_reply_to.href = 'http://' + $.a.server + '/notice/' + r[i].status.in_reply_to_status_id;
                      in_reply_to.target = '_statusnet';
@@ -229,20 +305,16 @@
                   updated.innerHTML = 'has not updated yet';
                }
                li.appendChild(updated);
-               var p = document.createElement('P');
+               var p = createHTMLElement('p');
                if (r[i].status && r[i].status.text) {
                   var raw = r[i].status.text;
-                  var cooked = raw;
-                  cooked = cooked.replace(/http:\/\/([^ ]+)/g, "<a href=\"http://$1\" target=\"_statusnet\">http://$1</a>");
-                  cooked = cooked.replace(/@([\w*]+)/g, '@<a href="http://' + $.a.server + '/$1" target=\"_statusnet\">$1</a>');
-                  cooked = cooked.replace(/#([\w*]+)/g, '#<a href="http://' + $.a.server + '/tag/$1" target="_statusnet">$1</a>');
-                  p.innerHTML = cooked;
+                  p = markupPost(raw, $.a.server);
                }
                li.appendChild(p);
-               var a = p.getElementsByTagName('A');
+               var a = p.getElementsByTagName('a');
                for (var j = 0; j < a.length; j++) {
                   if (a[j].className == 'changeUserTo') {
-                     a[j].className = '';
+                     a[j].removeAttribute('class');
                      a[j].href = 'http://' + $.a.server + '/' + a[j].innerHTML;
                      a[j].rel = a[j].innerHTML;
                      a[j].onclick = function() { 
@@ -269,7 +341,7 @@
             return r;
          },         
          runScript : function(url, id) {
-            var s = document.createElement('script');
+            var s = createHTMLElement('script');
             s.id = id;
             s.type ='text/javascript';
             s.src = url;
@@ -291,4 +363,5 @@
       window.attachEvent('onload', function() { $.f.init(thisScript); });
    }
 } )();
+
 

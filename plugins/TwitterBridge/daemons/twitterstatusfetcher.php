@@ -109,12 +109,16 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         $flink->find();
 
         $flinks = array();
+        common_log(LOG_INFO, "hello");
 
         while ($flink->fetch()) {
 
             if (($flink->noticesync & FOREIGN_NOTICE_RECV) ==
                 FOREIGN_NOTICE_RECV) {
                 $flinks[] = clone($flink);
+                common_log(LOG_INFO, "sync: foreign id $flink->foreign_id");
+            } else {
+                common_log(LOG_INFO, "nothing to sync");
             }
         }
 
@@ -515,31 +519,32 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         return $id;
     }
 
+    /**
+     * Fetch a remote avatar image and save to local storage.
+     *
+     * @param string $url avatar source URL
+     * @param string $filename bare local filename for download
+     * @return bool true on success, false on failure
+     */
     function fetchAvatar($url, $filename)
     {
-        $avatarfile = Avatar::path($filename);
+        common_debug($this->name() . " - Fetching Twitter avatar: $url");
 
-        $out = fopen($avatarfile, 'wb');
-        if (!$out) {
-            common_log(LOG_WARNING, $this->name() .
-                       " - Couldn't open file $filename");
+        $request = HTTPClient::start();
+        $response = $request->get($url);
+        if ($response->isOk()) {
+            $avatarfile = Avatar::path($filename);
+            $ok = file_put_contents($avatarfile, $response->getBody());
+            if (!$ok) {
+                common_log(LOG_WARNING, $this->name() .
+                           " - Couldn't open file $filename");
+                return false;
+            }
+        } else {
             return false;
         }
 
-        common_debug($this->name() . " - Fetching Twitter avatar: $url");
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_FILE, $out);
-        curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
-        $result = curl_exec($ch);
-        curl_close($ch);
-
-        fclose($out);
-
-        return $result;
+        return true;
     }
 }
 

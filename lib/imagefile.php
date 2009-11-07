@@ -72,14 +72,19 @@ class ImageFile
             break;
          case UPLOAD_ERR_INI_SIZE:
          case UPLOAD_ERR_FORM_SIZE:
-            throw new Exception(sprintf(_('That file is too big. The maximum file size is %d.'),
+            throw new Exception(sprintf(_('That file is too big. The maximum file size is %s.'),
                 ImageFile::maxFileSize()));
             return;
          case UPLOAD_ERR_PARTIAL:
             @unlink($_FILES[$param]['tmp_name']);
             throw new Exception(_('Partial upload.'));
             return;
+         case UPLOAD_ERR_NO_FILE:
+            // No file; probably just a non-AJAX submission.
+            return;
          default:
+            common_log(LOG_ERR, __METHOD__ . ": Unknown upload error " .
+                $_FILES[$param]['error']);
             throw new Exception(_('System error uploading file.'));
             return;
         }

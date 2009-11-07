@@ -1,0 +1,23 @@
+The LDAP plugin allows for StatusNet to handle authentication, authorization, and user information through LDAP.
+
+Installation
+============
+Add configuration entries to config.php. These entries are:
+
+The following are documented at http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+$config['ldap']['binddn']
+$config['ldap']['bindpw']
+$config['ldap']['basedn']
+$config['ldap']['host']
+
+$config['ldap']['nickname_attribute'] Set this to the name of the ldap attribute that holds the username. For example, on Microsoft's Active Directory, this should be set to 'sAMAccountName'
+$config['ldap']['nickname_email'] Set this to the name of the ldap attribute that holds the user's email address. For example, on Microsoft's Active Directory, this should be set to 'mail'
+$config['ldap']['nickname_fullname'] Set this to the name of the ldap attribute that holds the user's full name. For example, on Microsoft's Active Directory, this should be set to 'displayName'
+$config['ldap']['nickname_homepage'] Set this to the name of the ldap attribute that holds the the url of the user's home page.
+$config['ldap']['nickname_location'] Set this to the name of the ldap attribute that holds the user's location.
+
+$config['ldap']['authoritative'] Set to true if LDAP's responses are authoritative (meaning if LDAP fails, do check the any other plugins or the internal password database)
+$config['ldap']['autoregister'] Set to true if users should be automatically created when they attempt to login
+
+Finally, add "addPlugin('ldap');" to the bottom of your config.php
+

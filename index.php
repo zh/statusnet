@@ -68,6 +68,7 @@ function getPath($req)
  */
 function handleError($error)
 {
+//error_log(print_r($error,1));
     if ($error->getCode() == DB_DATAOBJECT_ERROR_NODATA) {
         return;
     }
@@ -239,6 +240,7 @@ function main()
     if (!$user && common_config('site', 'private')
         && !isLoginAction($action)
         && !preg_match('/rss$/', $action)
+        && !preg_match('/^Api/', $action)
     ) {
         common_redirect(common_local_url('login'));
         return;
