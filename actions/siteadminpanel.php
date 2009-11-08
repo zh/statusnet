@@ -90,17 +90,51 @@ class SiteadminpanelAction extends AdminPanelAction
 
     function saveSettings()
     {
-        $name = $this->trimmed('name');
+        static $settings = array('name', 'broughtby', 'broughtbyurl', 'email');
+
+        $values = array();
+
+        foreach ($settings as $setting) {
+            $values[$setting] = $this->trimmed($setting);
+        }
+
+        // This throws an exception on validation errors
+
+        $this->validate($values);
+
+        // assert(all values are valid);
 
         $config = new Config();
 
         $config->query('BEGIN');
 
-        Config::save('site', 'name', $name);
+        foreach ($settings as $setting) {
+            Config::save('site', $setting, $values['setting']);
+        }
 
         $config->query('COMMIT');
 
         return;
+    }
+
+    function validate(&$values)
+    {
+        // Validate site name
+
+        if (empty($values['name'])) {
+            $this->clientError(_("Site name must have non-zero length."));
+        }
+
+        // Validate email
+
+        $values['email'] = common_canonical_email($values['email']);
+
+        if (empty($values['email'])) {
+            $this->clientError(_('You must have a valid contact email address'));
+        }
+        if (!Validate::email($values['email'], common_config('email', 'check_domain'))) {
+            $this->clientError(_('Not a valid email address'));
+        }
     }
 }
 
@@ -147,10 +181,34 @@ class SiteAdminPanelForm extends Form
 
     function formData()
     {
-        $this->out->input('name', _('Site name'),
-                          ($this->out->arg('name')) ? $this->out->arg('name') :
-                          common_config('site', 'name'),
-                          _('The name of your site, like "Yourcompany Microblog"'));
+        $this->input('name', _('Site name'),
+                     _('The name of your site, like "Yourcompany Microblog"'));
+        $this->input('broughtby', _('Brought by'),
+                     _('Text used for credits link in footer of each page'));
+        $this->input('broughtbyurl', _('Brought by URL'),
+                     _('URL used for credits link in footer of each page'));
+        $this->input('email', _('Email'),
+                     _('contact email address for your site'));
+    }
+
+    /**
+     * Utility to simplify some of the duplicated code around
+     * params and settings.
+     *
+     * @param string $setting      Name of the setting
+     * @param string $title        Title to use for the input
+     * @param string $instructions Instructions for this field
+     *
+     * @return void
+     */
+
+    function input($setting, $title, $instructions)
+    {
+        $value = $this->out->trimmed($setting);
+        if (empty($value)) {
+            $value = common_config('site', $setting);
+        }
+        $this->out->input($setting, $title, $value, $instructions);
     }
 
     /**
