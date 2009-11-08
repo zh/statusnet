@@ -500,7 +500,7 @@ class HTTP_Request2_Adapter_Socket extends HTTP_Request2_Adapter
     *     backslashes for digest computation
     *   - Squid allows (manually escaped) quotes there, but it is impossible to
     *     authorize with either escaped or unescaped quotes used in digest,
-    *     probably it can't parse the response (?)
+    *     probably it cannot parse the response (?)
     *   - Both IE and Firefox display realm value with backslashes in 
     *     the password popup and apparently use the same value for digest
     *

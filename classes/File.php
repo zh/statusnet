@@ -99,7 +99,7 @@ class File extends Memcached_DataObject
                 } elseif (is_string($redir_data)) {
                     $redir_url = $redir_data;
                 } else {
-                    throw new ServerException("Can't process url '$given_url'");
+                    throw new ServerException("Cannot process url '$given_url'");
                 }
                 // TODO: max field length
                 if ($redir_url === $given_url || strlen($redir_url) > 255) {

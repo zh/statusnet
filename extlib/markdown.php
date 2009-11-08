@@ -1348,7 +1348,7 @@ class Markdown_Parser {
 //				{
 //					list(, $div_open, , $div_content, $div_close) = $matches;
 //
-//					# We can't call Markdown(), because that resets the hash;
+//					# We cannot call Markdown(), because that resets the hash;
 //					# that initialization code should be pulled into its own sub, though.
 //					$div_content = $this->hashHTMLBlocks($div_content);
 //					

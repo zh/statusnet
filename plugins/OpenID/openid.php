@@ -36,7 +36,7 @@ function oid_store()
 {
     static $store = null;
     if (!$store) {
-        # Can't be called statically
+        # Cannot be called statically
         $user = new User();
         $conn = $user->getDatabaseConnection();
         $store = new Auth_OpenID_MySQLStore($conn);
@@ -192,7 +192,7 @@ function oid_authenticate($openid_url, $returnto, $immediate=false)
 
         $form_html = preg_replace('/&/', '&amp;', $form_html);
 
-        // Display an error if the form markup couldn't be generated;
+        // Display an error if the form markup could not be generated;
         // otherwise, render the HTML.
         if (Auth_OpenID::isFailure($form_html)) {
             common_server_error(sprintf(_('Could not create OpenID form: %s'), $form_html->message));

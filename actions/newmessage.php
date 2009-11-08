@@ -113,7 +113,7 @@ class NewmessageAction extends Action
             $this->other = User::staticGet('id', $this->to);
 
             if (!$this->other) {
-                $this->clientError(_('No such user'), 404);
+                $this->clientError(_('No such user.'), 404);
                 return false;
             }
 

@@ -71,7 +71,7 @@ class AttachmentList extends Widget
     /**
      * show the list of notices
      *
-     * "Uses up" the stream by looping through it. So, probably can't
+     * "Uses up" the stream by looping through it. So, probably cannot
      * be called twice on the same list.
      *
      * @return int count of notices listed.

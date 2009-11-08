@@ -108,7 +108,7 @@ class FacebookhomeAction extends FacebookAction
                 $user = User::staticGet('nickname', $nickname);
 
                 if (!$user) {
-                    $this->showLoginForm(_("Server error - couldn't get user!"));
+                    $this->showLoginForm(_("Server error. Could not get user."));
                 }
 
                 $flink = DB_DataObject::factory('foreign_link');

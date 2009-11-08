@@ -391,7 +391,7 @@ function showLibs()
         libraries instead, as they tend to provide security updates faster, and may offer improved performance.</p>
         <p>On Debian based distributions, such as Ubuntu, use a package manager (such as &quot;aptitude&quot;, &quot;apt-get&quot;, and &quot;synaptic&quot;) to install the package listed.</p>
         <p>On RPM based distributions, such as Red Hat, Fedora, CentOS, Scientific Linux, Yellow Dog Linux and Oracle Enterprise Linux, use a package manager (such as &quot;yum&quot;, &quot;apt-rpm&quot;, and &quot;up2date&quot;) to install the package listed.</p>
-        <p>On servers without a package manager (such as Windows), or if the library is not packaged for your distribution, you can use PHP's PEAR to install the library. Simply run &quot;pear install &lt;name&gt;&quot;.</p>
+        <p>On servers without a package manager (such as Windows), or if the library is not packaged for your distribution, you can use PHP PEAR to install the library. Simply run &quot;pear install &lt;name&gt;&quot;.</p>
     </div>
     <h2>Absent Libraries</h2>
     <ul id="absent_libraries">
@@ -570,7 +570,7 @@ STR;
     $res = writeConf($sitename, $server, $path, $fancy, $db);
 
     if (!$res) {
-        updateStatus("Can't write config file.", true);
+        updateStatus("Cannot write config file.", true);
         showForm();
         return;
     }
@@ -616,7 +616,7 @@ function Pgsql_Db_installer($host, $database, $username, $password)
     $res = runDbScript(INSTALLDIR.'/db/statusnet_pg.sql', $conn, 'pgsql');
 
     if ($res === false) {
-        updateStatus("Can't run database script.", true);
+        updateStatus("Cannot run database script.", true);
         showForm();
         return false;
     }
@@ -627,7 +627,7 @@ function Pgsql_Db_installer($host, $database, $username, $password)
         updateStatus(sprintf("Adding %s data to database...", $name));
         $res = runDbScript(INSTALLDIR.'/db/'.$scr.'.sql', $conn, 'pgsql');
         if ($res === false) {
-            updateStatus(sprintf("Can't run %d script.", $name), true);
+            updateStatus(sprintf("Cannot run %d script.", $name), true);
             showForm();
             return false;
         }
@@ -652,21 +652,21 @@ function Mysql_Db_installer($host, $database, $username, $password)
 
     $conn = mysql_connect($host, $username, $password);
     if (!$conn) {
-        updateStatus("Can't connect to server '$host' as '$username'.", true);
+        updateStatus("Cannot connect to server '$host' as '$username'.", true);
         showForm();
         return false;
     }
     updateStatus("Changing to database...");
     $res = mysql_select_db($database, $conn);
     if (!$res) {
-        updateStatus("Can't change to database.", true);
+        updateStatus("Cannot change to database.", true);
         showForm();
         return false;
     }
     updateStatus("Running database script...");
     $res = runDbScript(INSTALLDIR.'/db/statusnet.sql', $conn);
     if ($res === false) {
-        updateStatus("Can't run database script.", true);
+        updateStatus("Cannot run database script.", true);
         showForm();
         return false;
     }
@@ -677,7 +677,7 @@ function Mysql_Db_installer($host, $database, $username, $password)
         updateStatus(sprintf("Adding %s data to database...", $name));
         $res = runDbScript(INSTALLDIR.'/db/'.$scr.'.sql', $conn);
         if ($res === false) {
-            updateStatus(sprintf("Can't run %d script.", $name), true);
+            updateStatus(sprintf("Cannot run %d script.", $name), true);
             showForm();
             return false;
         }

@@ -515,7 +515,7 @@ function Auth_OpenID_discoverXRI($iname, &$fetcher)
 
 function Auth_OpenID_discover($uri, &$fetcher)
 {
-    // If the fetcher (i.e., PHP) doesn't support SSL, we can't do
+    // If the fetcher (i.e., PHP) doesn't support SSL, we cannot do
     // discovery on an HTTPS URL.
     if ($fetcher->isHTTPS($uri) && !$fetcher->supportsSSL()) {
         return array($uri, array());
@@ -527,7 +527,7 @@ function Auth_OpenID_discover($uri, &$fetcher)
         $result = Auth_OpenID_discoverURI($uri, $fetcher);
     }
 
-    // If the fetcher doesn't support SSL, we can't interact with
+    // If the fetcher doesn't support SSL, we cannot interact with
     // HTTPS server URLs; remove those endpoints from the list.
     if (!$fetcher->supportsSSL()) {
         $http_endpoints = array();

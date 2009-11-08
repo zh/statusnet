@@ -67,7 +67,7 @@ class Mail_sendmail extends Mail {
 
         /*
          * Because we need to pass message headers to the sendmail program on
-         * the commandline, we can't guarantee the use of the standard "\r\n"
+         * the commandline, we cannot guarantee the use of the standard "\r\n"
          * separator.  Instead, we use the system's native line separator.
          */
         if (defined('PHP_EOL')) {
