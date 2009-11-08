@@ -705,10 +705,12 @@ class User extends Memcached_DataObject
         if (Event::handle('UserRightsCheck', array($this, $right, &$result))) {
             switch ($right)
             {
-             case Right::deleteOthersNotice:
-                $result = $this->hasRole('moderator');
+            case Right::DELETEOTHERSNOTICE:
+                $result = $this->hasRole(User_role::MODERATOR);
                 break;
-             default:
+            case Right::CONFIGURESITE:
+                $result = $this->hasRole(User_role::ADMINISTRATOR);
+            default:
                 $result = false;
                 break;
             }

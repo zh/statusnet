@@ -75,7 +75,7 @@ class OpensearchAction extends Action
         $this->element('Url', array('type' => 'text/html', 'method' => 'get',
                        'template' => str_replace('---', '{searchTerms}', common_local_url($type, array('q' => '---')))));
         $this->element('Image', array('height' => 16, 'width' => 16, 'type' => 'image/vnd.microsoft.icon'), common_path('favicon.ico'));
-        $this->element('Image', array('height' => 50, 'width' => 50, 'type' => 'image/png'), theme_path('logo.png'));
+        $this->element('Image', array('height' => 50, 'width' => 50, 'type' => 'image/png'), Theme::path('logo.png'));
         $this->element('AdultContent', null, 'false');
         $this->element('Language', null, common_language());
         $this->element('OutputEncoding', null, 'UTF-8');

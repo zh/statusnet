@@ -227,7 +227,6 @@ require_once 'markdown.php';
 
 require_once INSTALLDIR.'/lib/util.php';
 require_once INSTALLDIR.'/lib/action.php';
-require_once INSTALLDIR.'/lib/theme.php';
 require_once INSTALLDIR.'/lib/mail.php';
 require_once INSTALLDIR.'/lib/subs.php';
 require_once INSTALLDIR.'/lib/Shorturl_api.php';

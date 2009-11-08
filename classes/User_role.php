@@ -45,4 +45,7 @@ class User_role extends Memcached_DataObject
     {
         return Memcached_DataObject::pkeyGet('User_role', $kv);
     }
+
+    const MODERATOR     = 'moderator';
+    const ADMINISTRATOR = 'administrator';
 }

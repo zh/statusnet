@@ -168,7 +168,7 @@ class Action extends HTMLOutputter // lawsuit
     {
         if (is_readable(INSTALLDIR . '/theme/' . common_config('site', 'theme') . '/favicon.ico')) {
             $this->element('link', array('rel' => 'shortcut icon',
-                                         'href' => theme_path('favicon.ico')));
+                                         'href' => Theme::path('favicon.ico')));
         } else {
             $this->element('link', array('rel' => 'shortcut icon',
                                          'href' => common_path('favicon.ico')));
@@ -177,7 +177,7 @@ class Action extends HTMLOutputter // lawsuit
         if (common_config('site', 'mobile')) {
             if (is_readable(INSTALLDIR . '/theme/' . common_config('site', 'theme') . '/apple-touch-icon.png')) {
                 $this->element('link', array('rel' => 'apple-touch-icon',
-                                             'href' => theme_path('apple-touch-icon.png')));
+                                             'href' => Theme::path('apple-touch-icon.png')));
             } else {
                 $this->element('link', array('rel' => 'apple-touch-icon',
                                              'href' => common_path('apple-touch-icon.png')));
@@ -210,16 +210,16 @@ class Action extends HTMLOutputter // lawsuit
 
             if (Event::handle('StartShowUAStyles', array($this))) {
                 $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
-                               'href="'.theme_path('css/ie.css', 'base').'?version='.STATUSNET_VERSION.'" /><![endif]');
+                               'href="'.Theme::path('css/ie.css', 'base').'?version='.STATUSNET_VERSION.'" /><![endif]');
                 foreach (array(6,7) as $ver) {
-                    if (file_exists(theme_file('css/ie'.$ver.'.css', 'base'))) {
+                    if (file_exists(Theme::file('css/ie'.$ver.'.css', 'base'))) {
                         // Yes, IE people should be put in jail.
                         $this->comment('[if lte IE '.$ver.']><link rel="stylesheet" type="text/css" '.
-                                       'href="'.theme_path('css/ie'.$ver.'.css', 'base').'?version='.STATUSNET_VERSION.'" /><![endif]');
+                                       'href="'.Theme::path('css/ie'.$ver.'.css', 'base').'?version='.STATUSNET_VERSION.'" /><![endif]');
                     }
                 }
                 $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
-                               'href="'.theme_path('css/ie.css', null).'?version='.STATUSNET_VERSION.'" /><![endif]');
+                               'href="'.Theme::path('css/ie.css', null).'?version='.STATUSNET_VERSION.'" /><![endif]');
                 Event::handle('EndShowUAStyles', array($this));
             }
 
@@ -391,9 +391,9 @@ class Action extends HTMLOutputter // lawsuit
         if (Event::handle('StartAddressData', array($this))) {
             $this->elementStart('a', array('class' => 'url home bookmark',
                                            'href' => common_local_url('public')));
-            if (common_config('site', 'logo') || file_exists(theme_file('logo.png'))) {
+            if (common_config('site', 'logo') || file_exists(Theme::file('logo.png'))) {
                 $this->element('img', array('class' => 'logo photo',
-                                            'src' => (common_config('site', 'logo')) ? common_config('site', 'logo') : theme_path('logo.png'),
+                                            'src' => (common_config('site', 'logo')) ? common_config('site', 'logo') : Theme::path('logo.png'),
                                             'alt' => common_config('site', 'name')));
             }
             $this->element('span', array('class' => 'fn org'), common_config('site', 'name'));
@@ -1100,5 +1100,23 @@ class Action extends HTMLOutputter // lawsuit
     function getDesign()
     {
         return Design::siteDesign();
+    }
+
+    /**
+     * Check the session token.
+     *
+     * Checks that the current form has the correct session token,
+     * and throw an exception if it does not.
+     *
+     * @return void
+     */
+
+    function checkSessionToken()
+    {
+        // CSRF protection
+        $token = $this->trimmed('token');
+        if (empty($token) || $token != common_session_token()) {
+            $this->clientError(_('There was a problem with your session token.'));
+        }
     }
 }
