@@ -130,4 +130,15 @@ class UserFlagPlugin extends Plugin
 
         return true;
     }
+
+    function onEndShowStatusNetStyles($action)
+    {
+        $action->elementStart('style', array('type' => 'text/css'));
+        $action->raw('.entity_flag input, .entity_flag p {'.
+            ' background:url('.common_path('plugins/UserFlag/flag.gif').') 5px 5px no-repeat;'.
+            ' }');
+        $action->elementEnd('style');
+
+        return true;
+    }
 }
