@@ -59,7 +59,7 @@ class MicrosummaryAction extends Action
         $user     = User::staticGet('nickname', $nickname);
 
         if (!$user) {
-            $this->clientError(_('No such user'), 404);
+            $this->clientError(_('No such user.'), 404);
             return;
         }
         

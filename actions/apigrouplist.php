@@ -87,7 +87,7 @@ class ApiGroupListAction extends ApiBareAuthAction
         parent::handle($args);
 
         if (empty($this->user)) {
-            $this->clientError(_('No such user!'), 404, $this->format);
+            $this->clientError(_('No such user.'), 404, $this->format);
             return;
         }
 
