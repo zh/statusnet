@@ -298,99 +298,99 @@ CheckSchema: chance to check the schema
 StartProfilePageProfileSection: Starting to show the section of the
                               profile page with the actual profile data;
                               hook to prevent showing the profile (e.g.)
-- $action: the current action
+- $userprofile: UserProfile widget
 - &$profile: the profile being shown
 
 StartProfilePageProfileElements: inside the section, before the first
                                element; prepend elements here
-- $action: the current action
+- $userprofile: UserProfile widget
 - &$profile: the profile being shown
 
 EndProfilePageProfileElements: inside the section, after the last element;
                              append elements here
-- $action: the current action
+- $userprofile: UserProfile widget
 - &$profile: the profile being shown
 
 EndProfilePageProfileSection: After showing the section of the profile
                             page with the profile elements
-- $action: the current action
+- $userprofile: UserProfile widget
 - &$profile: the profile being shown
 
 StartProfilePageActionsSection: Starting to show the section of the
                                     profile page with action links; hook
                                     to hide them (for example)
-- $action: the current action
+- $userprofile: UserProfile widget
 - &$profile: the profile being shown
 
 StartProfilePageActionsElements: inside the list, before the first
                                      element; prepend elements here
-- $action: the current action
+- $userprofile: UserProfile widget
 - &$profile: the profile being shown
 
 EndProfilePageActionsElements: inside the list, after the last element;
                                    append elements here
-- $action: the current action
+- $userprofile: UserProfile widget
 - &$profile: the profile being shown
 
 EndProfilePageActionsSection: After showing the section of the profile
                                   page with the entity actions
-- $action: the current action
+- $userprofile: UserProfile widget
 - &$profile: the profile being shown
 
 StartProfilePageAvatar: before showing the avatar on the profile page
-- $action: the current action
+- $userprofile: UserProfile widget
 - &$profile: the profile being shown
 
 EndProfilePageAvatar: after showing the avatar on the profile page
-- $action: the current action
+- $userprofile: UserProfile widget
 - &$profile: the profile being shown
 
 StartProfilePageNickname: before showing the nickname on the profile page
-- $action: the current action
+- $userprofile: UserProfile widget
 - &$profile: the profile being shown
 
 EndProfilePageNickname: after showing the nickname on the profile page
-- $action: the current action
+- $userprofile: UserProfile widget
 - &$profile: the profile being shown
 
 StartProfilePageFullName: before showing the fullname on the profile page
-- $action: the current action
+- $userprofile: UserProfile widget
 - &$profile: the profile being shown
 
 EndProfilePageFullName: after showing the fullname on the profile page
-- $action: the current action
+- $userprofile: UserProfile widget
 - &$profile: the profile being shown
 
 StartProfilePageLocation: before showing the location on the profile page
-- $action: the current action
+- $userprofile: UserProfile widget
 - &$profile: the profile being shown
 
 EndProfilePageLocation: after showing the location on the profile page
-- $action: the current action
+- $userprofile: UserProfile widget
 - &$profile: the profile being shown
 
 StartProfilePageHomepage: before showing the homepage link on the profile page
-- $action: the current action
+- $userprofile: UserProfile widget
 - &$profile: the profile being shown
 
 EndProfilePageHomepage: after showing the homepage on the profile page
-- $action: the current action
+- $userprofile: UserProfile widget
 - &$profile: the profile being shown
 
 StartProfilePageBio: before showing the bio on the profile page
-- $action: the current action
+- $userprofile: UserProfile widget
 - &$profile: the profile being shown
 
 EndProfilePageBio: after showing the bio on the profile page
-- $action: the current action
+- $userprofile: UserProfile widget
 - &$profile: the profile being shown
 
 StartProfilePageProfileTags: before showing the tags on the profile page
-- $action: the current action
+- $userprofile: UserProfile widget
 - &$profile: the profile being shown
 
 EndProfilePageProfileTags: after showing the tags on the profile page
-- $action: the current action
+- $userprofile: UserProfile widget
 - &$profile: the profile being shown
 
 StartProfileList: when starting a list of profiles (before <ul>)
