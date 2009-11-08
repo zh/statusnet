@@ -710,6 +710,7 @@ class User extends Memcached_DataObject
                 break;
             case Right::CONFIGURESITE:
                 $result = $this->hasRole(User_role::ADMINISTRATOR);
+                break;
             default:
                 $result = false;
                 break;
