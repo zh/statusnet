@@ -489,3 +489,6 @@ ChangePassword: Handle a password change request
 - $newpassword: the desired new password
 - &$errormsg: set this to an error message if the password could not be changed. If the password was changed, leave this as false
 
+UserDeleteRelated: Specify additional tables to delete entries from when deleting users
+- $user: User object
+- &$related: array of DB_DataObject class names to delete entries on matching user_id.

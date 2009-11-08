@@ -12,12 +12,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-07 21:23+0000\n"
-"PO-Revision-Date: 2009-11-07 21:25:31+0000\n"
+"POT-Creation-Date: 2009-11-08 11:53+0000\n"
+"PO-Revision-Date: 2009-11-08 11:56:51+0000\n"
 "Language-Team: Norwegian (bokmål)‬\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58733); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58760); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: no\n"
 "X-Message-Group: out-statusnet\n"
@@ -485,6 +485,7 @@ msgstr "Brukerbilde"
 
 #: ../actions/avatar.php:113 actions/profilesettings.php:350
 #: actions/avatarsettings.php:395 actions/avatarsettings.php:346
+#: actions/avatarsettings.php:360
 msgid "Avatar updated."
 msgstr "Brukerbildet har blitt oppdatert."
 
@@ -881,6 +882,7 @@ msgstr ""
 
 #: ../lib/util.php:1061 lib/util.php:1110 classes/Notice.php:698
 #: classes/Notice.php:757 classes/Notice.php:1042 classes/Notice.php:1117
+#: classes/Notice.php:1120
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr ""
@@ -1049,6 +1051,7 @@ msgstr "OSS/FAQ"
 
 #: ../actions/avatar.php:115 actions/profilesettings.php:352
 #: actions/avatarsettings.php:397 actions/avatarsettings.php:349
+#: actions/avatarsettings.php:363
 msgid "Failed updating avatar."
 msgstr ""
 
@@ -1865,6 +1868,7 @@ msgstr ""
 #: ../actions/twitapistatuses.php:422 actions/twitapistatuses.php:361
 #: actions/twitapistatuses.php:309 actions/twitapistatuses.php:327
 #: actions/twitapistatuses.php:284 actions/apistatusesupdate.php:186
+#: actions/apistatusesupdate.php:193
 msgid "Not found"
 msgstr ""
 
@@ -2808,6 +2812,7 @@ msgstr ""
 #: actions/twittersettings.php:322 lib/designsettings.php:301
 #: actions/emailsettings.php:255 actions/grouplogo.php:319
 #: actions/imsettings.php:220 actions/smssettings.php:248
+#: actions/avatarsettings.php:277 lib/designsettings.php:304
 msgid "Unexpected form submission."
 msgstr ""
 
@@ -2941,6 +2946,7 @@ msgstr ""
 #: actions/foaf.php:65 actions/replies.php:79 actions/twitapiusers.php:57
 #: actions/usergroups.php:98 lib/galleryaction.php:66 lib/profileaction.php:84
 #: actions/apiusershow.php:108 actions/apiaccountupdateprofileimage.php:124
+#: actions/apiaccountupdateprofileimage.php:130
 msgid "User has no profile."
 msgstr ""
 
@@ -3247,7 +3253,8 @@ msgstr ""
 #: actions/register.php:159 actions/remotesubscribe.php:77
 #: actions/smssettings.php:228 actions/unsubscribe.php:69
 #: actions/userauthorization.php:52 actions/login.php:131
-#: actions/register.php:165
+#: actions/register.php:165 actions/avatarsettings.php:265
+#: lib/designsettings.php:294
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 
@@ -4007,13 +4014,13 @@ msgid "There was a problem with your session token. "
 msgstr ""
 
 #: actions/avatarsettings.php:303 actions/grouplogo.php:360
-#: actions/avatarsettings.php:308
+#: actions/avatarsettings.php:308 actions/avatarsettings.php:322
 msgid "Pick a square area of the image to be your avatar"
 msgstr ""
 
 #: actions/avatarsettings.php:327 actions/grouplogo.php:384
 #: actions/avatarsettings.php:323 actions/grouplogo.php:382
-#: actions/grouplogo.php:377
+#: actions/grouplogo.php:377 actions/avatarsettings.php:337
 msgid "Lost our file data."
 msgstr ""
 
@@ -5572,7 +5579,7 @@ msgstr "%s og venner"
 msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr ""
 
-#: actions/avatarsettings.php:373
+#: actions/avatarsettings.php:373 actions/avatarsettings.php:387
 #, fuzzy
 msgid "Avatar deleted."
 msgstr "Brukerbildet har blitt oppdatert."
@@ -5825,6 +5832,8 @@ msgstr ""
 #: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:79
 #: actions/apitimelinementions.php:79 actions/apitimelineuser.php:81
 #: actions/apiaccountupdateprofileimage.php:91
+#: actions/apiaccountupdateprofileimage.php:105
+#: actions/apistatusesupdate.php:139
 #, fuzzy
 msgid "No such user!"
 msgstr "Klarte ikke å lagre profil."
@@ -5871,36 +5880,6 @@ msgid ""
 "Subscriptions: %1$s\n"
 "Subscribers: %2$s\n"
 "Notices: %3$s"
-msgstr ""
-
-#: lib/command.php:392 lib/command.php:385
-msgid ""
-"Commands:\n"
-"on - turn on notifications\n"
-"off - turn off notifications\n"
-"help - show this help\n"
-"follow <nickname> - subscribe to user\n"
-"leave <nickname> - unsubscribe from user\n"
-"d <nickname> <text> - direct message to user\n"
-"get <nickname> - get last notice from user\n"
-"whois <nickname> - get profile info on user\n"
-"fav <nickname> - add user's last notice as a 'fave'\n"
-"stats - get your stats\n"
-"stop - same as 'off'\n"
-"quit - same as 'off'\n"
-"sub <nickname> - same as 'follow'\n"
-"unsub <nickname> - same as 'leave'\n"
-"last <nickname> - same as 'get'\n"
-"on <nickname> - not yet implemented.\n"
-"off <nickname> - not yet implemented.\n"
-"nudge <nickname> - not yet implemented.\n"
-"invite <phone number> - not yet implemented.\n"
-"track <word> - not yet implemented.\n"
-"untrack <word> - not yet implemented.\n"
-"track off - not yet implemented.\n"
-"untrack all - not yet implemented.\n"
-"tracks - not yet implemented.\n"
-"tracking - not yet implemented.\n"
 msgstr ""
 
 #: lib/dberroraction.php:60
@@ -6243,7 +6222,8 @@ msgstr ""
 #: actions/groupdesignsettings.php:267 actions/userdesignsettings.php:186
 #: lib/designsettings.php:440 lib/designsettings.php:470
 #: actions/groupdesignsettings.php:262 lib/designsettings.php:431
-#: lib/designsettings.php:461
+#: lib/designsettings.php:461 lib/designsettings.php:434
+#: lib/designsettings.php:464
 #, fuzzy
 msgid "Couldn't update your design."
 msgstr "Klarte ikke å oppdatere bruker."
@@ -6332,7 +6312,9 @@ msgid "Message sent"
 msgstr ""
 
 #: actions/newnotice.php:93 lib/designsettings.php:281
-#: actions/newnotice.php:94
+#: actions/newnotice.php:94 actions/apiaccountupdateprofileimage.php:97
+#: actions/apistatusesupdate.php:122 actions/avatarsettings.php:254
+#: lib/designsettings.php:283
 #, php-format
 msgid ""
 "The server was unable to handle that much POST data (%s bytes) due to its "
@@ -6883,10 +6865,12 @@ msgid "Save design"
 msgstr ""
 
 #: lib/designsettings.php:378 lib/designsettings.php:369
+#: lib/designsettings.php:372
 msgid "Bad default color settings: "
 msgstr ""
 
 #: lib/designsettings.php:474 lib/designsettings.php:465
+#: lib/designsettings.php:468
 msgid "Design defaults restored."
 msgstr ""
 
@@ -7094,12 +7078,13 @@ msgid "Unable to handle that much POST data!"
 msgstr ""
 
 #: actions/apistatusesupdate.php:145 actions/newnotice.php:155
-#: scripts/maildaemon.php:71
+#: scripts/maildaemon.php:71 actions/apistatusesupdate.php:152
 #, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr ""
 
 #: actions/apistatusesupdate.php:209 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:216
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -7392,41 +7377,6 @@ msgstr "Svar til %s"
 msgid "Error saving notice."
 msgstr ""
 
-#: lib/command.php:587
-msgid ""
-"Commands:\n"
-"on - turn on notifications\n"
-"off - turn off notifications\n"
-"help - show this help\n"
-"follow <nickname> - subscribe to user\n"
-"leave <nickname> - unsubscribe from user\n"
-"d <nickname> <text> - direct message to user\n"
-"get <nickname> - get last notice from user\n"
-"whois <nickname> - get profile info on user\n"
-"fav <nickname> - add user's last notice as a 'fave'\n"
-"fav #<notice_id> - add notice with the given id as a 'fave'\n"
-"reply #<notice_id> - reply to notice with a given id\n"
-"reply <nickname> - reply to the last notice from user\n"
-"join <group> - join group\n"
-"drop <group> - leave group\n"
-"stats - get your stats\n"
-"stop - same as 'off'\n"
-"quit - same as 'off'\n"
-"sub <nickname> - same as 'follow'\n"
-"unsub <nickname> - same as 'leave'\n"
-"last <nickname> - same as 'get'\n"
-"on <nickname> - not yet implemented.\n"
-"off <nickname> - not yet implemented.\n"
-"nudge <nickname> - remind a user to update.\n"
-"invite <phone number> - not yet implemented.\n"
-"track <word> - not yet implemented.\n"
-"untrack <word> - not yet implemented.\n"
-"track off - not yet implemented.\n"
-"untrack all - not yet implemented.\n"
-"tracks - not yet implemented.\n"
-"tracking - not yet implemented.\n"
-msgstr ""
-
 #: lib/common.php:191
 #, fuzzy
 msgid "No configuration file found. "
@@ -7540,6 +7490,11 @@ msgstr "Klarte ikke å lagre avatar-informasjonen"
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
+#: lib/imagefile.php:75
+#, php-format
+msgid "That file is too big. The maximum file size is %s."
+msgstr ""
+
 #: lib/command.php:613
 msgid ""
 "Commands:\n"
@@ -7574,9 +7529,4 @@ msgid ""
 "untrack all - not yet implemented.\n"
 "tracks - not yet implemented.\n"
 "tracking - not yet implemented.\n"
-msgstr ""
-
-#: lib/imagefile.php:75
-#, php-format
-msgid "That file is too big. The maximum file size is %s."
 msgstr ""
