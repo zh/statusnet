@@ -82,14 +82,14 @@ class RegisterAction extends Action
         }
 
         if (common_config('site', 'inviteonly') && empty($this->code)) {
-            $this->clientError(_('Sorry, only invited people can register.'));
+            $this->clientError(_('Sorry. Only those invited can register.'));
             return false;
         }
 
         if (!empty($this->code)) {
             $this->invite = Invitation::staticGet('code', $this->code);
             if (empty($this->invite)) {
-                $this->clientError(_('Sorry, invalid invitation code.'));
+                $this->clientError(_('Sorry. This is an invalid invitation code.'));
                 return false;
             }
             // Store this in case we need it
@@ -186,7 +186,7 @@ class RegisterAction extends Action
             }
 
             if (common_config('site', 'inviteonly') && !($code && $invite)) {
-                $this->clientError(_('Sorry, only invited people can register.'));
+                $this->clientError(_('Sorry. Only those invited can register.'));
                 return;
             }
 
@@ -401,7 +401,7 @@ class RegisterAction extends Action
         }
 
         if (common_config('site', 'inviteonly') && !($code && $invite)) {
-            $this->clientError(_('Sorry, only invited people can register.'));
+            $this->clientError(_('Sorry. Only those invited can register.'));
             return;
         }
 
@@ -542,7 +542,7 @@ class RegisterAction extends Action
                            '(%%%%action.imsettings%%%%) '.
                            'so you can send notices '.
                            'through instant messages.' . "\n" .
-                           '* [Search for people](%%%%action.peoplesearch%%%%) '.
+                           '* [Search for users](%%%%action.peoplesearch%%%%) '.
                            'that you may know or '.
                            'that share your interests. ' . "\n" .
                            '* Update your [profile settings]'.

@@ -133,7 +133,7 @@ class InviteAction extends CurrentUserDesignAction
             $this->elementEnd('ul');
         }
         if ($this->subbed) {
-            $this->element('p', null, _('These people are already users and you were automatically subscribed to them:'));
+            $this->element('p', null, _('These are already users and you were automatically subscribed to them:'));
             $this->elementStart('ul');
             foreach ($this->subbed as $other) {
                 $this->element('li', null, sprintf(_('%s (%s)'), $other->nickname, $other->email));
@@ -141,7 +141,7 @@ class InviteAction extends CurrentUserDesignAction
             $this->elementEnd('ul');
         }
         if ($this->sent) {
-            $this->element('p', null, _('Invitation(s) sent to the following people:'));
+            $this->element('p', null, _('Invitation(s) sent to the following e-mail addresses:'));
             $this->elementStart('ul');
             foreach ($this->sent as $other) {
                 $this->element('li', null, $other);
@@ -226,9 +226,9 @@ class InviteAction extends CurrentUserDesignAction
         $headers['Subject'] = sprintf(_('%1$s has invited you to join them on %2$s'), $bestname, $sitename);
 
         $body = sprintf(_("%1\$s has invited you to join them on %2\$s (%3\$s).\n\n".
-                          "%2\$s is a micro-blogging service that lets you keep up-to-date with people you know and people who interest you.\n\n".
-                          "You can also share news about yourself, your thoughts, or your life online with people who know about you. ".
-                          "It's also great for meeting new people who share your interests.\n\n".
+                          "%2\$s is a micro-blogging service that lets you keep up-to-date with those you know and those who interest you.\n\n".
+                          "You can also share news about yourself, your thoughts, or your life online with users who know about you. ".
+                          "It is also great for meeting others who share your interests.\n\n".
                           "%1\$s said:\n\n%4\$s\n\n".
                           "You can see %1\$s's profile page on %2\$s here:\n\n".
                           "%5\$s\n\n".
