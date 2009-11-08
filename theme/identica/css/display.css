@@ -29,7 +29,9 @@ input, textarea, select,
 border-color:#AAAAAA;
 }
 #filter_tags ul li,
-.entity_send-a-message .form_notice {
+.entity_send-a-message .form_notice,
+.pagination .nav_prev a,
+.pagination .nav_next a {
 border-color:#DDDDDD;
 }
 
@@ -224,13 +226,8 @@ background-position:0 1px;
 .form_group_leave input.submit,
 .form_user_subscribe input.submit,
 .form_user_unsubscribe input.submit {
-background-color:#9BB43E;
+background-color:#AAAAAA;
 color:#FFFFFF;
-}
-.form_user_unsubscribe input.submit,
-.form_group_leave input.submit,
-.form_user_authorization input.reject {
-background-color:#87B4C8;
 }
 .form_group_leave input.submit,
 .form_user_unsubscribe input.submit {
@@ -330,7 +327,6 @@ background-position:0 -1054px;
 .pagination .nav_prev a,
 .pagination .nav_next a {
 background-repeat:no-repeat;
-border-color:#DDDDDD;
 box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 -moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 -webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
