@@ -75,6 +75,10 @@ class AdminPanelAction extends Action
 
         $user = common_current_user();
 
+        // ...because they're logged in
+
+        assert(!empty($user));
+
         // It must be a "real" login, not saved cookie login
 
         if (!common_is_real_login()) {
@@ -87,8 +91,6 @@ class AdminPanelAction extends Action
         }
 
         // User must have the right to change admin settings
-
-        $user = common_current_user();
 
         if (!$user->hasRight(Right::CONFIGURESITE)) {
             $this->clientError(_('You cannot make changes to this site.'));
@@ -115,6 +117,10 @@ class AdminPanelAction extends Action
             $this->checkSessionToken();
             try {
                 $this->saveSettings();
+
+                // Reload settings
+
+                Config::loadSettings();
 
                 $this->success = true;
                 $this->msg     = _('Settings saved.');
