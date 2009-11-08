@@ -43,7 +43,7 @@ class XmppQueueHandler extends QueueHandler
         $this->conn = jabber_connect($this->_id.$this->transport());
 
         if (empty($this->conn)) {
-            $this->log(LOG_ERR, "Could not connect to server.");
+            $this->log(LOG_ERR, "Couldn't connect to server.");
             return false;
         }
 

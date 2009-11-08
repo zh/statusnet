@@ -1341,7 +1341,7 @@ class DB_result
          * returning the total number of rows that would have been returned,
          * rather than the real number. As a result, we'll just do the limit
          * calculations for fbsql in the same way as a database with emulated
-         * limits. Unfortunately, we cannot just do this in DB_fbsql::numRows()
+         * limits. Unfortunately, we can't just do this in DB_fbsql::numRows()
          * because that only gets the result resource, rather than the full
          * DB_Result object. */
         if (($this->dbh->features['limit'] === 'emulate'

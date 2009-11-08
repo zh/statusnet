@@ -98,7 +98,7 @@ foreach ($languages as $language) {
     $new_file = curl_get_file($file_url);
 
     if ($new_file === FALSE) {
-        echo "Could not retrieve .po file for $code: $file_url\n";
+        echo "Couldn't retrieve .po file for $code: $file_url\n";
         continue;
     }
 

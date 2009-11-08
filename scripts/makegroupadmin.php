@@ -67,7 +67,7 @@ try {
         $member->created    = common_sql_now();
 
         if (!$member->insert()) {
-            throw new Exception("Cannot add '$nickname' to '$groupname'.");
+            throw new Exception("Can't add '$nickname' to '$groupname'.");
         }
     }
 
@@ -80,7 +80,7 @@ try {
     $member->is_admin = 1;
 
     if (!$member->update($orig)) {
-        throw new Exception("Cannot make '$nickname' admin of '$groupname'.");
+        throw new Exception("Can't make '$nickname' admin of '$groupname'.");
     }
 
 } catch (Exception $e) {

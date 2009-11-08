@@ -75,7 +75,7 @@ class NoticeList extends Widget
     /**
      * show the list of notices
      *
-     * "Uses up" the stream by looping through it. So, probably cannot
+     * "Uses up" the stream by looping through it. So, probably can't
      * be called twice on the same list.
      *
      * @return int count of notices listed.

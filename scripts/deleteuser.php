@@ -39,14 +39,14 @@ if (have_option('i', 'id')) {
     $id = get_option_value('i', 'id');
     $user = User::staticGet('id', $id);
     if (empty($user)) {
-        print "Cannot find user with ID $id\n";
+        print "Can't find user with ID $id\n";
         exit(1);
     }
 } else if (have_option('n', 'nickname')) {
     $nickname = get_option_value('n', 'nickname');
     $user = User::staticGet('nickname', $nickname);
     if (empty($user)) {
-        print "Cannot find user with nickname '$nickname'\n";
+        print "Can't find user with nickname '$nickname'\n";
         exit(1);
     }
 } else {

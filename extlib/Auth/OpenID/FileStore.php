@@ -496,7 +496,7 @@ class Auth_OpenID_FileStore extends Auth_OpenID_OpenIDStore {
 
             return true;
         } else {
-            // Could not open directory.
+            // Couldn't open directory.
             return false;
         }
     }

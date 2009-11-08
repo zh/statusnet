@@ -147,7 +147,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
         $conn->disconnect();
 
-        // XXX: Could not find a less brutal way to blow
+        // XXX: Couldn't find a less brutal way to blow
         // away a cached connection
 
         global $_DB_DATAOBJECT;
@@ -158,7 +158,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
     {
         if (empty($flink)) {
             common_log(LOG_WARNING, $this->name() .
-                       " - Cannot retrieve Foreign_link for foreign ID $fid");
+                       " - Can't retrieve Foreign_link for foreign ID $fid");
             return;
         }
 
@@ -458,7 +458,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         $profile = Profile::staticGet($profile_id);
 
         if (empty($profile)) {
-            common_debug($this->name() . " - Could not get profile: $profile_id!");
+            common_debug($this->name() . " - Couldn't get profile: $profile_id!");
             return;
         }
 
@@ -537,7 +537,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             $ok = file_put_contents($avatarfile, $response->getBody());
             if (!$ok) {
                 common_log(LOG_WARNING, $this->name() .
-                           " - Could not open file $filename");
+                           " - Couldn't open file $filename");
                 return false;
             }
         } else {

@@ -126,7 +126,7 @@ class SyncTwitterFriendsDaemon extends ParallelizingDaemon
 
         $conn->disconnect();
 
-        // XXX: Could not find a less brutal way to blow
+        // XXX: Couldn't find a less brutal way to blow
         // away a cached connection
 
         global $_DB_DATAOBJECT;
@@ -188,7 +188,7 @@ class SyncTwitterFriendsDaemon extends ParallelizingDaemon
 
             if (empty($more_friends)) {
                 common_log(LOG_WARNING, $this->name() .
-                           " - Could not retrieve page $i " .
+                           " - Couldn't retrieve page $i " .
                            "of Twitter user $flink->foreign_id friends.");
                 continue;
             } else {
@@ -222,11 +222,11 @@ class SyncTwitterFriendsDaemon extends ParallelizingDaemon
 
             if (!save_twitter_user($friend_id, $friend_name)) {
                 common_log(LOG_WARNING, $this-name() .
-                           " - Could not save $screen_name's friend, $friend_name.");
+                           " - Couldn't save $screen_name's friend, $friend_name.");
                 continue;
             }
 
-            // Check to see if there is a related local user
+            // Check to see if there's a related local user
 
             $friend_flink = Foreign_link::getByForeignID($friend_id,
                                                          TWITTER_SERVICE);

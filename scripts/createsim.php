@@ -85,7 +85,7 @@ function newSub($i)
     $from = User::staticGet('nickname', $fromnick);
 
     if (empty($from)) {
-        throw new Exception("Cannot find user '$fromnick'.");
+        throw new Exception("Can't find user '$fromnick'.");
     }
 
     $t = rand(0, $i - 1);
@@ -102,7 +102,7 @@ function newSub($i)
     $to = User::staticGet('nickname', $tunic);
 
     if (empty($to)) {
-        throw new Exception("Cannot find user '$tunic'.");
+        throw new Exception("Can't find user '$tunic'.");
     }
 
     subs_subscribe_to($from, $to);

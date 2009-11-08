@@ -58,7 +58,7 @@ print "Checking key '$k'...\n";
 $c = common_memcache();
 
 if (empty($c)) {
-    die("Cannot initialize cache object!\n");
+    die("Can't initialize cache object!\n");
 }
 
 $obj = $c->get($k);

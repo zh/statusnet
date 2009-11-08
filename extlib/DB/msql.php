@@ -288,7 +288,7 @@ class DB_msql extends DB_common
      * See DB_result::fetchInto() for more information.
      *
      * This method is not meant to be called directly.  Use
-     * DB_result::fetchInto() instead.  It cannot be declared "protected"
+     * DB_result::fetchInto() instead.  It can't be declared "protected"
      * because DB_result is a separate object.
      *
      * PHP's mSQL extension did weird things with NULL values prior to PHP
@@ -339,7 +339,7 @@ class DB_msql extends DB_common
      * Deletes the result set and frees the memory occupied by the result set
      *
      * This method is not meant to be called directly.  Use
-     * DB_result::free() instead.  It cannot be declared "protected"
+     * DB_result::free() instead.  It can't be declared "protected"
      * because DB_result is a separate object.
      *
      * @param resource $result  PHP's query result resource
@@ -360,7 +360,7 @@ class DB_msql extends DB_common
      * Gets the number of columns in a result set
      *
      * This method is not meant to be called directly.  Use
-     * DB_result::numCols() instead.  It cannot be declared "protected"
+     * DB_result::numCols() instead.  It can't be declared "protected"
      * because DB_result is a separate object.
      *
      * @param resource $result  PHP's query result resource
@@ -385,7 +385,7 @@ class DB_msql extends DB_common
      * Gets the number of rows in a result set
      *
      * This method is not meant to be called directly.  Use
-     * DB_result::numRows() instead.  It cannot be declared "protected"
+     * DB_result::numRows() instead.  It can't be declared "protected"
      * because DB_result is a separate object.
      *
      * @param resource $result  PHP's query result resource

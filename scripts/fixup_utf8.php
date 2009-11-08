@@ -76,7 +76,7 @@ class UTF8FixerUpper
         $succ = mysqli_set_charset($conn, $charset);
 
         if (!$succ) {
-            echo "ERROR: Could not set charset\n";
+            echo "ERROR: couldn't set charset\n";
             $db->disconnect();
             return NULL;
         }

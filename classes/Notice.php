@@ -680,7 +680,7 @@ class Notice extends Memcached_DataObject
             return Notice::getStreamDirect($qry, $offset, $limit, null, null, $order, null);
         }
 
-        # Get the cache; if we cannot, just go to the DB
+        # Get the cache; if we can't, just go to the DB
 
         $cache = common_memcache();
 
@@ -1364,7 +1364,7 @@ class Notice extends Memcached_DataObject
             }
         }
 
-        // If it's not a "low bandwidth" source (one where you cannot set
+        // If it's not a "low bandwidth" source (one where you can't set
         // a reply_to argument), we return. This is mostly web and API
         // clients.
 

@@ -576,7 +576,7 @@ function common_linkify($url) {
         } elseif (is_string($longurl_data)) {
             $longurl = $longurl_data;
         } else {
-            throw new ServerException("Cannot linkify url '$url'");
+            throw new ServerException("Can't linkify url '$url'");
         }
     }
     $attrs = array('href' => $canon, 'title' => $longurl, 'rel' => 'external');

@@ -377,11 +377,11 @@ function write_file($path, $data)
     }
 
     if (($fh_out = fopen($path,'w')) === false) {
-        error("Could not open $path for writing.");
+        error("couldn't open $path for writing.");
     }
 
     if (fwrite($fh_out, $data) === false) {
-        error("Could not write to $path.");
+        error("couldn't write to $path.");
     }
 }
 

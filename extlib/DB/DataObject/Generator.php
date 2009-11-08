@@ -632,7 +632,7 @@ class DB_DataObject_Generator extends DB_DataObject
                 echo "*****************************************************************\n".
                      "**               WARNING COLUMN NAME UNUSABLE                  **\n".
                      "** Found column '{$t->name}', of type  '{$t->type}'            **\n".
-                     "** Since this column name cannot be converted to a php variable **\n".
+                     "** Since this column name can't be converted to a php variable **\n".
                      "** name, and the whole idea of mapping would result in a mess  **\n".
                      "** This column has been ignored...                             **\n".
                      "*****************************************************************\n";
@@ -910,7 +910,7 @@ class DB_DataObject_Generator extends DB_DataObject
                 echo "*****************************************************************\n".
                      "**               WARNING COLUMN NAME UNUSABLE                  **\n".
                      "** Found column '{$t->name}', of type  '{$t->type}'            **\n".
-                     "** Since this column name cannot be converted to a php variable **\n".
+                     "** Since this column name can't be converted to a php variable **\n".
                      "** name, and the whole idea of mapping would result in a mess  **\n".
                      "** This column has been ignored...                             **\n".
                      "*****************************************************************\n";
