@@ -652,6 +652,15 @@ text-decoration:none;
 font-weight:bold;
 display:block;
 }
+.entity_actions a,
+.entity_actions input {
+box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
+-moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
+-webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
+border-radius:4px;
+-moz-border-radius:4px;
+-webkit-border-radius:4px;
+}
 
 .form_user_block input.submit,
 .form_user_unblock input.submit,
@@ -700,7 +709,7 @@ width:65%;
 z-index:2;
  border-radius:7px;
 -moz-border-radius:7px;
--webkit-radius-border:7px;
+-webkit-border-radius:7px;
 border-width:1px;
 border-style:solid;
 }
@@ -973,11 +982,11 @@ border:0;
 .notice-options .notice_reply,
 .notice-options .notice_delete {
 text-decoration:none;
-padding-left:16px;
 }
 .notice-options form input.submit {
 width:16px;
-padding:2px 0;
+height:16px;
+padding:0;
 }
 .notice-options .form_favor legend,
 .notice-options .form_disfavor legend {
@@ -987,6 +996,13 @@ display:none;
 .notice-options .form_disfavor fieldset {
 border:0;
 padding:0;
+}
+.notice-options a {
+box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
+-moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
+-webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
+width:16px;
+height:16px;
 }
 
 .notice .attachment {

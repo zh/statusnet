@@ -40,16 +40,22 @@ background:none;
 input.submit,
 .form_notice.warning #notice_text-count,
 .form_settings .form_note,
-.entity_remote_subscribe {
+.entity_remote_subscribe,
+.entity_actions a,
+.entity_actions input,
+.entity_actions p {
 background-color:#9BB43E;
-}
-
-input:focus, textarea:focus, select:focus,
-.form_notice.warning #notice_data-text {
-border-color:#9BB43E;
 box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 -moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 -webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
+}
+
+input:focus, textarea:focus, select:focus,
+.form_notice.warning #notice_data-text,
+.form_notice.warning #notice_text-count,
+.form_settings .form_note,
+.entity_remote_subscribe {
+border-color:#9BB43E;
 }
 input.submit,
 .entity_remote_subscribe {
@@ -241,16 +247,16 @@ background-position:0 -394px;
 background:none;
 }
 .notice-options .notice_reply {
-background-position:0 -589px;
+background-position:0 -592px;
 }
 .notice-options form.form_favor input.submit {
-background-position:0 -457px;
+background-position:0 -460px;
 }
 .notice-options form.form_disfavor input.submit {
-background-position:0 -523px;
+background-position:0 -526px;
 }
 .notice-options .notice_delete {
-background-position:0 -655px;
+background-position:0 -658px;
 }
 
 .notices div.entry-content,
@@ -261,9 +267,12 @@ opacity:0.4;
 .notices li:hover div.notice-options {
 opacity:1;
 }
-div.notice-options a,
-div.notice-options input {
+.notice-options a,
+.notice-options input {
 font-family:sans-serif;
+box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
+-moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
+-webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 }
 #content .notices li:hover {
 background-color:rgba(240, 240, 240, 0.2);
