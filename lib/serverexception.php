@@ -34,7 +34,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 /**
  * Class for server exceptions
  *
- * Subclass of PHP Exception for server errors. The user typically can't fix these.
+ * Subclass of PHP Exception for server errors. The user typically cannot fix these.
  *
  * @category Exception
  * @package  StatusNet

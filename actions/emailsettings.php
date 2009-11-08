@@ -452,7 +452,7 @@ class EmailsettingsAction extends AccountSettingsAction
 
         if (!$user->updateKeys($orig)) {
             common_log_db_error($user, 'UPDATE', __FILE__);
-            $this->serverError(_("Couldn't update user record."));
+            $this->serverError(_("Could not update user record."));
         }
 
         $this->showForm(_('Incoming email address removed.'), true);
@@ -474,7 +474,7 @@ class EmailsettingsAction extends AccountSettingsAction
 
         if (!$user->updateKeys($orig)) {
             common_log_db_error($user, 'UPDATE', __FILE__);
-            $this->serverError(_("Couldn't update user record."));
+            $this->serverError(_("Could not update user record."));
         }
 
         $this->showForm(_('New incoming email address added.'), true);

@@ -2951,7 +2951,7 @@ function toggleDisplay(id, type) {
 
 
   /**
-   * Bans a list of users from the app. Banned users can't
+   * Bans a list of users from the app. Banned users cannot
    * access the app's canvas page and forums.
    *
    * @param array $uids an array of user ids

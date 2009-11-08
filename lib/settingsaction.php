@@ -72,7 +72,7 @@ class SettingsAction extends CurrentUserDesignAction
             $this->clientError(_('Not logged in.'));
             return;
         } else if (!common_is_real_login()) {
-            // Cookie theft means that automatic logins can't
+            // Cookie theft means that automatic logins cannot
             // change important settings or see private info, and
             // _all_ our settings are important
             common_set_returnto($this->selfUrl());

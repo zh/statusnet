@@ -665,7 +665,7 @@ class Net_LDAP2_Entry extends PEAR
     * To force replace mode instead of add, you can set $force to true.
     *
     * @param array $attr  Attributes to replace
-    * @param bool  $force Force replacing mode in case we can't read the attr value but are allowed to replace it
+    * @param bool  $force Force replacing mode in case we cannot read the attr value but are allowed to replace it
     *
     * @access public
     * @return true|Net_LDAP2_Error

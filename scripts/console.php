@@ -90,7 +90,7 @@ function readline_emulation($prompt)
         if ($retval == 0) {
             return $line;
         } elseif ($retval == 127) {
-            // Couldn't execute bash even though we thought we saw it.
+            // Could not execute bash even though we thought we saw it.
             // Shell probably spit out an error message, sorry :(
             // Fall through to fgets()...
         } else {

@@ -85,7 +85,7 @@ class MeteorPlugin extends RealtimePlugin
         // May throw an exception.
         $this->_socket = stream_socket_client("tcp://{$controlserver}:{$this->controlport}");
         if (!$this->_socket) {
-            throw new Exception("Couldn't connect to {$controlserver} on {$this->controlport}");
+            throw new Exception("Could not connect to {$controlserver} on {$this->controlport}");
         }
     }
 

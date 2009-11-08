@@ -439,7 +439,7 @@ class Net_LDAP2_Filter extends PEAR
     *
     * This method is only for compatibility to the perl interface.
     * However, the original method was called "print" but due to PHP language restrictions,
-    * we can't have a print() method.
+    * we cannot have a print() method.
     *
     * @param resource $FH (optional) A filehandle resource
     *

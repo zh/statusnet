@@ -60,7 +60,7 @@ try {
                                  'fullname' => $fullname));
 
     if (empty($user)) {
-        throw new Exception("Can't register user '$nickname' with password '$password' and fullname '$fullname'.");
+        throw new Exception("Cannot register user '$nickname' with password '$password' and fullname '$fullname'.");
     }
 
     if (!empty($email)) {
@@ -71,7 +71,7 @@ try {
 
         if (!$user->updateKeys($orig)) {
             print "Failed!\n";
-            throw new Exception("Can't update email address.");
+            throw new Exception("Cannot update email address.");
         }
     }
 

@@ -1059,7 +1059,7 @@ class Auth_OpenID_GenericConsumer {
             }
         }
 
-        // Fragments do not influence discovery, so we can't compare a
+        // Fragments do not influence discovery, so we cannot compare a
         // claimed identifier with a fragment to discovered
         // information.
         list($defragged_claimed_id, $_) =
