@@ -109,7 +109,7 @@ class SiteadminpanelAction extends AdminPanelAction
         $config->query('BEGIN');
 
         foreach ($settings as $setting) {
-            Config::save('site', $setting, $values['setting']);
+            Config::save('site', $setting, $values[$setting]);
         }
 
         $config->query('COMMIT');
