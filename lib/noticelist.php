@@ -513,7 +513,7 @@ class NoticeListItem extends Widget
         $user = common_current_user();
 
         if (!empty($user) &&
-            ($this->notice->profile_id == $user->id || $user->hasRight(Right::deleteOthersNotice))) {
+            ($this->notice->profile_id == $user->id || $user->hasRight(Right::DELETEOTHERSNOTICE))) {
 
             $deleteurl = common_local_url('deletenotice',
                                           array('notice' => $this->notice->id));
