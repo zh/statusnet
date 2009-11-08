@@ -52,7 +52,7 @@ class OpensearchAction extends Action
      *
      * @param array $args query arguments
      * 
-     * @return boolean false if user doesn't exist
+     * @return boolean false if user does not exist
      */
     function handle($args)
     {

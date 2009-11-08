@@ -87,7 +87,7 @@ class ApiAuthAction extends ApiAction
     }
 
     /**
-     * Check for a user specified via HTTP basic auth. If there isn't
+     * Check for a user specified via HTTP basic auth. If there is not
      * one, try to get one by outputting the basic auth header.
      *
      * @return boolean true or false

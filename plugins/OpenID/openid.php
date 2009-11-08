@@ -187,7 +187,7 @@ function oid_authenticate($openid_url, $returnto, $immediate=false)
         $form_html = $auth_request->formMarkup($trust_root, $process_url,
                                                $immediate, array('id' => $form_id));
 
-        # XXX: This is cheap, but things choke if we don't escape ampersands
+        # XXX: This is cheap, but things choke if we do not escape ampersands
         # in the HTML attributes
 
         $form_html = preg_replace('/&/', '&amp;', $form_html);

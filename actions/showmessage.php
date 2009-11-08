@@ -137,7 +137,7 @@ class ShowmessageAction extends MailboxAction
     }
     
     /**
-     * Don't show local navigation
+     * Do not show local navigation
      *
      * @return void
      */
@@ -147,7 +147,7 @@ class ShowmessageAction extends MailboxAction
     }
     
     /**
-     * Don't show page notice
+     * Do not show page notice
      *
      * @return void
      */
@@ -157,7 +157,7 @@ class ShowmessageAction extends MailboxAction
     }
 
     /**
-     * Don't show aside
+     * Do not show aside
      *
      * @return void
      */
@@ -167,7 +167,7 @@ class ShowmessageAction extends MailboxAction
     }
  
     /**
-     * Don't show any instructions
+     * Do not show any instructions
      *
      * @return string
      */

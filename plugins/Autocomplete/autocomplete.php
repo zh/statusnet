@@ -79,7 +79,7 @@ class AutocompleteAction extends Action
     function etag()
     {
         return '"' . implode(':', array($this->arg('action'),
-            crc32($this->arg('q')), //the actual string can have funny characters in we don't want showing up in the etag
+            crc32($this->arg('q')), //the actual string can have funny characters in we do not want showing up in the etag
             $this->arg('limit'),
             $this->lastModified())) . '"';
     }

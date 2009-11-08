@@ -112,7 +112,7 @@ class XMLOutputter
      *
      * Utility for outputting an XML element. A convenient wrapper
      * for a bunch of longer XMLWriter calls. This is best for
-     * when an element doesn't have any sub-elements; if that's the
+     * when an element does not have any sub-elements; if that's the
      * case, use elementStart() and elementEnd() instead.
      *
      * The $content element will be escaped for XML. If you need

@@ -208,7 +208,7 @@ class ShownoticeAction extends OwnerDesignAction
     }
 
     /**
-     * Don't show local navigation
+     * Do not show local navigation
      *
      * @return void
      */
@@ -234,7 +234,7 @@ class ShownoticeAction extends OwnerDesignAction
     }
 
     /**
-     * Don't show page notice
+     * Do not show page notice
      *
      * @return void
      */
@@ -244,7 +244,7 @@ class ShownoticeAction extends OwnerDesignAction
     }
 
     /**
-     * Don't show aside
+     * Do not show aside
      *
      * @return void
      */

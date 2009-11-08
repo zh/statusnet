@@ -136,7 +136,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         // Each child ps needs its own DB connection
 
         // Note: DataObject::getDatabaseConnection() creates
-        // a new connection if there isn't one already
+        // a new connection if there is not one already
 
         $conn = &$flink->getDatabaseConnection();
 
@@ -499,7 +499,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             $avatar->height = 73;
         }
 
-        $avatar->original = 0; // we don't have the original
+        $avatar->original = 0; // we do not have the original
         $avatar->mediatype = $mediatype;
         $avatar->filename = $filename;
         $avatar->url = Avatar::url($filename);

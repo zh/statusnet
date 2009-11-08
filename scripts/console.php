@@ -60,9 +60,9 @@ function read_input_line($prompt)
 }
 
 /**
- * On Unix-like systems where PHP readline extension isn't present,
+ * On Unix-like systems where PHP readline extension is not present,
  * -cough- Mac OS X -cough- we can shell out to bash to do it for us.
- * This lets us at least handle things like arrow keys, but we don't
+ * This lets us at least handle things like arrow keys, but we do not
  * get any entry history. :(
  *
  * Shamelessly ripped from when I wrote the same code for MediaWiki. :)
