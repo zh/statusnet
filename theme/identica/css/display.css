@@ -29,7 +29,9 @@ input, textarea, select,
 border-color:#AAAAAA;
 }
 #filter_tags ul li,
-.entity_send-a-message .form_notice {
+.entity_send-a-message .form_notice,
+.pagination .nav_prev a,
+.pagination .nav_next a {
 border-color:#DDDDDD;
 }
 
@@ -40,33 +42,46 @@ background:none;
 input.submit,
 .form_notice.warning #notice_text-count,
 .form_settings .form_note,
-.entity_remote_subscribe {
+.entity_remote_subscribe,
+.entity_actions .form_notice input.submit {
 background-color:#9BB43E;
 }
-
-input:focus, textarea:focus, select:focus,
-.form_notice.warning #notice_data-text {
-border-color:#9BB43E;
+input.submit,
+.form_notice.warning #notice_text-count,
+.form_settings .form_note,
+.entity_remote_subscribe,
+.entity_actions a,
+.entity_actions input,
+button.close {
 box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 -moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 -webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 }
-input.submit,
+.entity_actions a,
+.entity_actions input,
+.entity_actions p {
+border-color:transparent;
+background-color:transparent;
+}
+input:focus, textarea:focus, select:focus,
+.form_notice.warning #notice_data-text,
+.form_notice.warning #notice_text-count,
+.form_settings .form_note,
 .entity_remote_subscribe {
+border-color:#9BB43E;
+}
+input.submit,
+.entity_remote_subscribe,
+.entity_actions .form_notice input.submit {
 color:#FFFFFF;
 }
 
 a,
-div.notice-options input,
-.form_user_block input.submit,
-.form_user_unblock input.submit,
-.form_group_block input.submit,
-.form_group_unblock input.submit,
-.entity_send-a-message a,
-.form_user_nudge input.submit,
-.entity_nudge p,
 .form_settings input.form_action-primary,
-.form_make_admin input.submit {
+.notice-options input,
+.entity_actions a,
+.entity_actions input,
+.entity_actions p {
 color:#002FA7;
 }
 
@@ -116,8 +131,13 @@ opacity:0;
 #new_group a,
 .pagination .nav_prev a,
 .pagination .nav_next a,
-button.close {
-background-image:url(../../base/images/icons/icons-01.png);
+button.close,
+.form_group_leave input.submit,
+.form_user_unsubscribe input.submit,
+.form_group_join input.submit,
+.form_user_subscribe input.submit,
+.entity_subscribe a {
+background-image:url(../../base/images/icons/icons-01.gif);
 background-repeat:no-repeat;
 background-color:transparent;
 }
@@ -195,23 +215,28 @@ background-position:0 1px;
 }
 
 .form_group_join input.submit,
-.form_group_leave input.submit
+.form_group_leave input.submit,
 .form_user_subscribe input.submit,
-.form_user_unsubscribe input.submit {
-background-color:#9BB43E;
+.form_user_unsubscribe input.submit,
+.entity_subscribe a {
+background-color:#AAAAAA;
 color:#FFFFFF;
 }
-.form_user_unsubscribe input.submit,
 .form_group_leave input.submit,
-.form_user_authorization input.reject {
-background-color:#87B4C8;
+.form_user_unsubscribe input.submit {
+background-position:5px -1246px;
+}
+.form_group_join input.submit,
+.form_user_subscribe input.submit,
+.entity_subscribe a {
+background-position:5px -1181px;
 }
 
 .entity_edit a {
-background-position: 0 -718px;
+background-position: 5px -718px;
 }
 .entity_send-a-message a {
-background-position: 0 -849px;
+background-position: 5px -852px;
 }
 .entity_send-a-message .form_notice {
 box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
@@ -221,16 +246,16 @@ box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
 
 .entity_nudge p,
 .form_user_nudge input.submit {
-background-position: 0 -785px;
+background-position: 5px -785px;
 }
 .form_user_block input.submit,
 .form_user_unblock input.submit,
 .form_group_block input.submit,
 .form_group_unblock input.submit {
-background-position: 0 -918px;
+background-position: 5px -918px;
 }
 .form_make_admin input.submit {
-background-position: 0 -983px;
+background-position: 5px -983px;
 }
 
 /* NOTICES */
@@ -241,16 +266,16 @@ background-position:0 -394px;
 background:none;
 }
 .notice-options .notice_reply {
-background-position:0 -589px;
+background-position:0 -592px;
 }
 .notice-options form.form_favor input.submit {
-background-position:0 -457px;
+background-position:0 -460px;
 }
 .notice-options form.form_disfavor input.submit {
-background-position:0 -523px;
+background-position:0 -526px;
 }
 .notice-options .notice_delete {
-background-position:0 -655px;
+background-position:0 -658px;
 }
 
 .notices div.entry-content,
@@ -261,9 +286,12 @@ opacity:0.4;
 .notices li:hover div.notice-options {
 opacity:1;
 }
-div.notice-options a,
-div.notice-options input {
+.notice-options a,
+.notice-options input {
 font-family:sans-serif;
+box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
+-moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
+-webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 }
 #content .notices li:hover {
 background-color:rgba(240, 240, 240, 0.2);
@@ -293,7 +321,9 @@ background-position:0 -1054px;
 .pagination .nav_prev a,
 .pagination .nav_next a {
 background-repeat:no-repeat;
-border-color:#CEE1E9;
+box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
+-moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
+-webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 }
 .pagination .nav_prev a {
 background-position:10% -187px;

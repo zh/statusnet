@@ -298,4 +298,10 @@ class OpenIDPlugin extends Plugin
                                    new ColumnDef('modified', 'timestamp')));
         return true;
     }
+
+    function onUserDeleteRelated($user, &$tables)
+    {
+        $tables[] = 'User_openid';
+        return true;
+    }
 }

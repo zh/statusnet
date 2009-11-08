@@ -721,16 +721,18 @@ class User extends Memcached_DataObject
     function delete()
     {
         $profile = $this->getProfile();
-        $profile->delete();
+        if ($profile) {
+            $profile->delete();
+        }
 
         $related = array('Fave',
-                         'User_openid',
                          'Confirm_address',
                          'Remember_me',
                          'Foreign_link',
                          'Invitation',
                          'Notice_inbox',
                          );
+        Event::handle('UserDeleteRelated', array($this, &$related));
 
         foreach ($related as $cls) {
             $inst = new $cls();

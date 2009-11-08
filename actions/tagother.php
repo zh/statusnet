@@ -190,7 +190,7 @@ class TagotherAction extends Action
             !Subscription::pkeyGet(array('subscriber' => $this->profile->id,
                                          'subscribed' => $user->id)))
         {
-            $this->clientError(_('You can only tag people you are subscribed to or who are subscribed to you.'));
+            $this->clientError(_('You can only tag users you are subscribed to or who are subscribed to you.'));
             return;
         }
 

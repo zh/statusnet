@@ -149,13 +149,13 @@ class RecoverpasswordAction extends Action
             $this->elementStart('div', 'instructions');
             if ($this->mode == 'recover') {
                 $this->element('p', null,
-                               _('If you\'ve forgotten or lost your' .
+                               _('If you have forgotten or lost your' .
                                  ' password, you can get a new one sent to' .
                                  ' the email address you have stored' .
                                  ' in your account.'));
             } else if ($this->mode == 'reset') {
                 $this->element('p', null,
-                               _('You\'ve been identified. Enter a' .
+                               _('You have been identified. Enter a' .
                                  ' new password below. '));
             }
             $this->elementEnd('div');
@@ -185,10 +185,10 @@ class RecoverpasswordAction extends Action
                                            'class' => 'form_settings',
                                            'action' => common_local_url('recoverpassword')));
         $this->elementStart('fieldset');
-        $this->element('legend', null, _('Password recover'));
+        $this->element('legend', null, _('Password recovery'));
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
-        $this->input('nicknameoremail', _('Nickname or email'),
+        $this->input('nicknameoremail', _('Nickname or email address'),
                      $this->trimmed('nicknameoremail'),
                      _('Your nickname on this server, ' .
                         'or your registered email address.'));
