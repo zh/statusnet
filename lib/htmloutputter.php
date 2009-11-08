@@ -375,8 +375,8 @@ class HTMLOutputter extends XMLOutputter
         $url = parse_url($src);
         if( empty($url->scheme) && empty($url->host) && empty($url->query) && empty($url->fragment))
         {
-            if(file_exists(theme_file($src,$theme))){
-               $src = theme_path($src, $theme) . '?version=' . STATUSNET_VERSION;
+            if(file_exists(Theme::file($src,$theme))){
+               $src = Theme::path($src, $theme) . '?version=' . STATUSNET_VERSION;
             }else{
                $src = common_path($src);
             }
