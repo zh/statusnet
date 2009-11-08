@@ -69,7 +69,7 @@ class ImsettingsAction extends ConnectSettingsAction
     {
         return _('You can send and receive notices through '.
                  'Jabber/GTalk [instant messages](%%doc.im%%). '.
-                 'Configure your instant messages address and settings below.');
+                 'Configure your address and settings below.');
     }
 
     /**
@@ -97,7 +97,7 @@ class ImsettingsAction extends ConnectSettingsAction
                                           'action' =>
                                           common_local_url('imsettings')));
         $this->elementStart('fieldset', array('id' => 'settings_im_address'));
-        $this->element('legend', null, _('IM address'));
+        $this->element('legend', null, _('Address'));
         $this->hidden('token', common_session_token());
 
         if ($user->jabber) {
@@ -111,7 +111,7 @@ class ImsettingsAction extends ConnectSettingsAction
             if ($confirm) {
                 $this->element('p', 'form_unconfirmed', $confirm->address);
                 $this->element('p', 'form_note',
-                               sprintf(_('Awaiting confirmation on this IM address. '.
+                               sprintf(_('Awaiting confirmation on this address. '.
                                          'Check your Jabber/GTalk account for a '.
                                          'message with further instructions. '.
                                          '(Did you add %s to your buddy list?)'),
