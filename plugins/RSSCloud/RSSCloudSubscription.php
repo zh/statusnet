@@ -40,27 +40,25 @@ class RSSCloudSubscription extends Memcached_DataObject {
 
     function table()
     {
-        global $_DB_DATAOBJECT;
-        $dbtype = $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5]->dsn['phptype'];
 
-        $cols = array(
-            'subscribed'       => DB_DATAOBJECT_INT,
-            'url'              => DB_DATAOBJECT_STR,
-            'failures'         => DB_DATAOBJECT_INT,
-            'created'          => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME,
-            'modified'         => ($dbtype == 'mysql') ?
-                DB_DATAOBJECT_MYSQLTIMESTAMP :
-                DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME
-        );
+        $db = $this->getDatabaseConnection();
+        $dbtype = $db->phptype;
 
+        $cols = array('subscribed' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+                      'url'        => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+                      'failures'   => DB_DATAOBJECT_INT,
+                      'created'    => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
+                      'modified'  => ($dbtype == 'mysql' || $dbtype == 'mysqli') ?
+                      DB_DATAOBJECT_MYSQLTIMESTAMP + DB_DATAOBJECT_NOTNULL :
+                      DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME
+                      );
 
-        // common_debug(var_export($cols, true));
         return $cols;
     }
 
     function keys()
     {
-        return array('subscribed', 'url');
+        return array('subscribed' => 'N', 'url' => 'N');
     }
 
     static function getSubscription($subscribed, $url)
