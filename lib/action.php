@@ -456,7 +456,7 @@ class Action extends HTMLOutputter // lawsuit
                             _('Help'), _('Help me!'), false, 'nav_help');
             if ($user || !common_config('site', 'private')) {
                 $this->menuItem(common_local_url('peoplesearch'),
-                                _('Search'), _('Search for users or text'), false, 'nav_search');
+                                _('Search'), _('Search for people or text'), false, 'nav_search');
             }
             Event::handle('EndPrimaryNav', array($this));
         }

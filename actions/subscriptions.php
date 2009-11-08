@@ -62,12 +62,12 @@ class SubscriptionsAction extends GalleryAction
         $user =& common_current_user();
         if ($user && ($user->id == $this->profile->id)) {
             $this->element('p', null,
-                           _('These are the users whose notices '.
-                             'you have subscribed to.'));
+                           _('These are the people whose notices '.
+                             'you listen to.'));
         } else {
             $this->element('p', null,
-                           sprintf(_('These are the users whose '.
-                                     'notices %s has subscribed to.'),
+                           sprintf(_('These are the people whose '.
+                                     'notices %s listens to.'),
                                    $this->profile->nickname));
         }
     }
@@ -118,7 +118,7 @@ class SubscriptionsAction extends GalleryAction
         if (common_logged_in()) {
             $current_user = common_current_user();
             if ($this->user->id === $current_user->id) {
-                $message = _('You have not subscribed to anyone\'s notices right now. Try subscribing to users you know. Try [user search](%%action.peoplesearch%%), look for members in groups you\'re interested in and in our [featured users](%%action.featured%%). If you are a [Twitter user](%%action.twittersettings%%), you can automatically subscribe to users you already follow there.');
+                $message = _('You\'re not listening to anyone\'s notices right now, try subscribing to people you know. Try [people search](%%action.peoplesearch%%), look for members in groups you\'re interested in and in our [featured users](%%action.featured%%). If you\'re a [Twitter user](%%action.twittersettings%%), you can automatically subscribe to people you already follow there.');
             } else {
                 $message = sprintf(_('%s is not listening to anyone.'), $this->user->nickname);
             }

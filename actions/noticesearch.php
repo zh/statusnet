@@ -44,7 +44,7 @@ require_once INSTALLDIR.'/lib/searchaction.php';
  * @author   Robin Millette <millette@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://status.net/
- * @todo     common parent for user and content search?
+ * @todo     common parent for people and content search?
  */
 class NoticesearchAction extends SearchAction
 {

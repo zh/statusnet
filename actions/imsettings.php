@@ -151,7 +151,7 @@ class ImsettingsAction extends ConnectSettingsAction
         $this->elementStart('li');
         $this->checkbox('jabberreplies',
                         _('Send me replies through Jabber/GTalk '.
-                          'from users I am not subscribed to.'),
+                          'from people I\'m not subscribed to.'),
                         $user->jabberreplies);
         $this->elementEnd('li');
         $this->elementStart('li');

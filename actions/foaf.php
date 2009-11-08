@@ -136,7 +136,7 @@ class FoafAction extends Action
         $person = $this->showMicrobloggingAccount($this->profile,
                                      common_root_url(), $this->user->uri, false);
 
-        // Get users who subscribe to user
+        // Get people who subscribe to user
 
         $sub = new Subscription();
         $sub->subscribed = $this->profile->id;
@@ -250,7 +250,7 @@ class FoafAction extends Action
         if ($isSubscriber) {
              $this->element('sioc:follows', array('rdf:resource'=>$this->user->uri . '#acct'));
         } else {
-            // Get users user is subscribed to
+            // Get people user is subscribed to
             $sub = new Subscription();
             $sub->subscriber = $profile->id;
             $sub->whereAdd('subscriber != subscribed');
