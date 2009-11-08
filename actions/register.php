@@ -174,7 +174,7 @@ class RegisterAction extends Action
             $bio      = $this->trimmed('bio');
             $location = $this->trimmed('location');
 
-            // We don't trim these... whitespace is OK in a password!
+            // We do not trim these... whitespace is OK in a password!
             $password = $this->arg('password');
             $confirm  = $this->arg('confirm');
 

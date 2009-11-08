@@ -95,7 +95,7 @@ class GroupblockAction extends Action
             $this->clientError(_('User is already blocked from group.'));
             return false;
         }
-        // XXX: could have proactive blocks, but we don't have UI for it.
+        // XXX: could have proactive blocks, but we do not have UI for it.
         if (!$this->profile->isMember($this->group)) {
             $this->clientError(_('User is not a member of group.'));
             return false;

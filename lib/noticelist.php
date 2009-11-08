@@ -347,7 +347,7 @@ class NoticeListItem extends Widget
      * show the link to the main page for the notice
      *
      * Displays a link to the page for a notice, with "relative" time. Tries to
-     * get remote notice URLs correct, but doesn't always succeed.
+     * get remote notice URLs correct, but does not always succeed.
      *
      * @return void
      */
@@ -483,7 +483,7 @@ class NoticeListItem extends Widget
      * show a link to reply to the current notice
      *
      * Should either do the reply in the current notice form (if available), or
-     * link out to the notice-posting form. A little flakey, doesn't always work.
+     * link out to the notice-posting form. A little flakey, does not always work.
      *
      * @return void
      */
@@ -513,7 +513,7 @@ class NoticeListItem extends Widget
         $user = common_current_user();
 
         if (!empty($user) &&
-            ($this->notice->profile_id == $user->id || $user->hasRight(Right::deleteOthersNotice))) {
+            ($this->notice->profile_id == $user->id || $user->hasRight(Right::DELETEOTHERSNOTICE))) {
 
             $deleteurl = common_local_url('deletenotice',
                                           array('notice' => $this->notice->id));

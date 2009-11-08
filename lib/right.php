@@ -45,6 +45,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 
 class Right
 {
-    const deleteOthersNotice = 'deleteothersnotice';
+    const DELETEOTHERSNOTICE = 'deleteothersnotice';
+    const CONFIGURESITE      = 'configuresite';
 }
 

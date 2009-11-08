@@ -114,7 +114,7 @@ class NoticeSection extends Section
                     $att_class = 'attachments';
                 }
 
-                $clip = theme_path('images/icons/clip.png', 'base');
+                $clip = Theme::path('images/icons/clip.png', 'base');
                 $this->out->elementStart('a', array('class' => $att_class, 'style' => "font-style: italic;", 'href' => $href, 'title' => "# of attachments: $count"));
                 $this->out->raw(" ($count&nbsp");
                 $this->out->element('img', array('style' => 'display: inline', 'align' => 'top', 'width' => 20, 'height' => 20, 'src' => $clip, 'alt' => 'alt'));

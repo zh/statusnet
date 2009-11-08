@@ -467,7 +467,7 @@ function mail_notify_nudge($from, $to)
                       "these days and is inviting you to post some news.\n\n".
                       "So let's hear from you :)\n\n".
                       "%3\$s\n\n".
-                      "Don't reply to this email; it won't get to them.\n\n".
+                      "Do not reply to this email. It will not get to them.\n\n".
                       "With kind regards,\n".
                       "%4\$s\n"),
                     $from_profile->getBestName(),
@@ -516,7 +516,7 @@ function mail_notify_message($message, $from=null, $to=null)
                       "------------------------------------------------------\n\n".
                       "You can reply to their message here:\n\n".
                       "%4\$s\n\n".
-                      "Don't reply to this email; it won't get to them.\n\n".
+                      "Do not reply to this email. It will not get to them.\n\n".
                       "With kind regards,\n".
                       "%5\$s\n"),
                     $from_profile->getBestName(),
@@ -532,7 +532,7 @@ function mail_notify_message($message, $from=null, $to=null)
 /**
  * notify a user that one of their notices has been chosen as a 'fave'
  *
- * Doesn't check that the user has an email address nor if they
+ * Does not check that the user has an email address nor if they
  * want to receive notification of faves. Maybe this happens higher
  * up the stack...?
  *

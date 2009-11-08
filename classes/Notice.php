@@ -146,7 +146,7 @@ class Notice extends Memcached_DataObject
 
         /* Add them to the database */
         foreach(array_unique($hashtags) as $hashtag) {
-            /* elide characters we don't want in the tag */
+            /* elide characters we do not want in the tag */
             $this->saveTag($hashtag);
         }
         return true;
@@ -1105,7 +1105,7 @@ class Notice extends Memcached_DataObject
             if (empty($recipient)) {
                 continue;
             }
-            // Don't save replies from blocked profile to local user
+            // Do not save replies from blocked profile to local user
             $recipient_user = User::staticGet('id', $recipient->id);
             if (!empty($recipient_user) && $recipient_user->hasBlocked($sender)) {
                 continue;
@@ -1131,7 +1131,7 @@ class Notice extends Memcached_DataObject
                 $tagged = Profile_tag::getTagged($sender->id, $tag);
                 foreach ($tagged as $t) {
                     if (!$replied[$t->id]) {
-                        // Don't save replies from blocked profile to local user
+                        // Do not save replies from blocked profile to local user
                         $t_user = User::staticGet('id', $t->id);
                         if ($t_user && $t_user->hasBlocked($sender)) {
                             continue;

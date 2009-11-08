@@ -34,7 +34,7 @@ class User_group extends Memcached_DataObject
         static $sizenames = array(AVATAR_PROFILE_SIZE => 'profile',
                                   AVATAR_STREAM_SIZE => 'stream',
                                   AVATAR_MINI_SIZE => 'mini');
-        return theme_path('default-avatar-'.$sizenames[$size].'.png');
+        return Theme::path('default-avatar-'.$sizenames[$size].'.png');
     }
 
     function homeUrl()
