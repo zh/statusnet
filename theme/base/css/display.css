@@ -618,7 +618,7 @@ font-style:italic;
 .entity_actions {
 float:right;
 margin-left:2.35%;
-max-width:25%;
+width:22%;
 }
 .entity_actions h2 {
 display:none;
@@ -627,7 +627,7 @@ display:none;
 list-style-type:none;
 }
 .entity_actions li {
-margin-bottom:4px;
+margin-bottom:7px;
 }
 .entity_actions li:first-child {
 border-top:0;
@@ -662,23 +662,17 @@ border-radius:4px;
 -webkit-border-radius:4px;
 }
 
-.form_user_block input.submit,
-.form_user_unblock input.submit,
-.form_group_block input.submit,
-.form_group_unblock input.submit,
-.entity_send-a-message a,
-.entity_edit a,
-.form_user_nudge input.submit,
-.entity_nudge p,
-.form_make_admin input.submit {
+.entity_actions a,
+.entity_actions input,
+.entity_actions p {
 border:0;
-padding-left:20px;
+padding-left:23px;
 }
 
 .entity_edit a,
 .entity_send-a-message a,
 .entity_nudge p {
-padding:4px 4px 4px 23px;
+padding:4px 4px 4px 26px;
 }
 
 .entity_remote_subscribe {
@@ -696,8 +690,8 @@ margin-bottom:18px;
 
 .entity_send-a-message button {
 position:absolute;
-top:0;
-right:0;
+top:3px;
+right:3px;
 }
 
 .entity_send-a-message .form_notice {
