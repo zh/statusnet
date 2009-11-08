@@ -70,7 +70,7 @@ class Theme
 
         // Check to see if it's in the local dir
 
-        $localroot = INSTALLDIR.'/local/theme';
+        $localroot = Theme::localRoot();
 
         $fulldir = $localroot.'/'.$name;
 
@@ -82,11 +82,7 @@ class Theme
 
         // Check to see if it's in the distribution dir
 
-        $instroot = common_config('theme', 'dir');
-
-        if (empty($instroot)) {
-            $instroot = INSTALLDIR.'/theme';
-        }
+        $instroot = Theme::installRoot();
 
         $fulldir = $instroot.'/'.$name;
 
@@ -174,5 +170,33 @@ class Theme
     {
         $theme = new Theme($name);
         return $theme->getPath($relative);
+    }
+
+    /**
+     * Local root dir for themes
+     *
+     * @return string local root dir for themes
+     */
+
+    protected static function localRoot()
+    {
+        return INSTALLDIR.'/local/theme';
+    }
+
+    /**
+     * Root dir for themes that are shipped with StatusNet
+     *
+     * @return string root dir for StatusNet themes
+     */
+
+    protected static function installRoot()
+    {
+        $instroot = common_config('theme', 'dir');
+
+        if (empty($instroot)) {
+            $instroot = INSTALLDIR.'/theme';
+        }
+
+        return $instroot;
     }
 }
