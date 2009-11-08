@@ -376,7 +376,7 @@ class System_Command {
             return $this->_initError;
         }
 
-        // if the command is empty or if the last element was a control operator, we cannot continue
+        // if the command is empty or if the last element was a control operator, we can't continue
         if (is_null($this->previousElement) || $this->commandStatus == -1 || in_array($this->previousElement, $this->controlOperators)) {
             return PEAR::raiseError(null, SYSTEM_COMMAND_INVALID_COMMAND, null, E_USER_WARNING, $this->systemCommand, 'System_Command_Error', true);
         }

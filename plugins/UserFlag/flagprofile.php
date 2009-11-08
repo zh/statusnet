@@ -135,7 +135,7 @@ class FlagprofileAction extends Action
         $ufp->created    = common_sql_now();
 
         if (!$ufp->insert()) {
-            throw new ServerException(sprintf(_("Could not flag profile '%s' with flag '%s'."),
+            throw new ServerException(sprintf(_("Couldn't flag profile '%s' with flag '%s'."),
                                               $this->profile->nickname, $this->flag));
         }
 

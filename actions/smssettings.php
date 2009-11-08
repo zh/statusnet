@@ -525,7 +525,7 @@ class SmssettingsAction extends ConnectSettingsAction
 
         if (!$user->updateKeys($orig)) {
             common_log_db_error($user, 'UPDATE', __FILE__);
-            $this->serverError(_("Could not update user record."));
+            $this->serverError(_("Couldn't update user record."));
         }
 
         $this->showForm(_('Incoming email address removed.'), true);

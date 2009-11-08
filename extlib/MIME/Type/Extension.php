@@ -265,7 +265,7 @@ class MIME_Type_Extension
         }
 
         if (!isset($this->extensionToType[$extension])) {
-            return PEAR::raiseError("Sorry. Could not determine file type.");
+            return PEAR::raiseError("Sorry, couldn't determine file type.");
         }
 
         return $this->extensionToType[$extension];
@@ -288,7 +288,7 @@ class MIME_Type_Extension
 
         $extension = array_search($type, $this->extensionToType);
         if ($extension === false) {
-            return PEAR::raiseError("Sorry. Could not determine extension.");
+            return PEAR::raiseError("Sorry, couldn't determine extension.");
         }
         return $extension;
     }

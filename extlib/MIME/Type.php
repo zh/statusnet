@@ -478,7 +478,7 @@ class MIME_Type
 
         // Don't return an empty string
         if (!$type || !strlen($type)) {
-            return PEAR::raiseError("Sorry. Could not determine file type.");
+            return PEAR::raiseError("Sorry, couldn't determine file type.");
         }
 
         // Strip parameters if present & requested
@@ -510,7 +510,7 @@ class MIME_Type
         $fileCmd = PEAR::getStaticProperty('MIME_Type', 'fileCmd');
         if (!$cmd->which($fileCmd)) {
             unset($cmd);
-            return PEAR::raiseError("Cannot find file command \"{$fileCmd}\"");
+            return PEAR::raiseError("Can't find file command \"{$fileCmd}\"");
         }
 
         $cmd->pushCommand($fileCmd, "-bi " . escapeshellarg($file));

@@ -124,7 +124,7 @@ class Services_JSON
     *                                   "{...}" syntax creates associative arrays
     *                                   instead of objects in decode().
     *                           - SERVICES_JSON_SUPPRESS_ERRORS:  error suppression.
-    *                                   Values which cannot be encoded (e.g. resources)
+    *                                   Values which can't be encoded (e.g. resources)
     *                                   appear as NULL instead of throwing errors.
     *                                   By default, a deeply-nested resource will
     *                                   bubble up with an error, so all return values
