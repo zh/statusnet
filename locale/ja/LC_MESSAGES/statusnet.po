@@ -6,12 +6,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-07 21:23+0000\n"
-"PO-Revision-Date: 2009-11-07 21:25:20+0000\n"
+"POT-Creation-Date: 2009-11-08 11:53+0000\n"
+"PO-Revision-Date: 2009-11-08 11:56:42+0000\n"
 "Language-Team: Japanese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58733); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58760); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ja\n"
 "X-Message-Group: out-statusnet\n"
@@ -481,6 +481,7 @@ msgstr "アバター"
 
 #: ../actions/avatar.php:113 actions/profilesettings.php:350
 #: actions/avatarsettings.php:395 actions/avatarsettings.php:346
+#: actions/avatarsettings.php:360
 msgid "Avatar updated."
 msgstr "アバターが更新されました。"
 
@@ -538,7 +539,7 @@ msgstr "この通知を削除できません。"
 #: actions/updateprofile.php:123 actions/updateprofile.php:125
 #, php-format
 msgid "Can't read avatar URL '%s'"
-msgstr "アバターURL　を読み取れません '%s'"
+msgstr "アバターの URL '%s' を読み取れません"
 
 #: ../actions/password.php:85 ../actions/recoverpassword.php:300
 #: actions/profilesettings.php:404 actions/recoverpassword.php:313
@@ -556,12 +557,12 @@ msgstr "新しいパスワードを保存できません。"
 #: actions/smssettings.php:114 actions/emailsettings.php:117
 #: actions/imsettings.php:120 actions/smssettings.php:126
 msgid "Cancel"
-msgstr "キャンセル"
+msgstr "中止"
 
 #: ../lib/openid.php:121 lib/openid.php:121 lib/openid.php:130
 #: lib/openid.php:133
 msgid "Cannot instantiate OpenID consumer object."
-msgstr "OpenID consumer object を生成できません。"
+msgstr "OpenID コンシューマーオブジェクトをインスタンス化できません。"
 
 #: ../actions/imsettings.php:163 actions/imsettings.php:171
 #: actions/imsettings.php:286 actions/imsettings.php:292
@@ -625,7 +626,7 @@ msgstr "アドレスの確認"
 #: actions/emailsettings.php:394 actions/imsettings.php:367
 #: actions/smssettings.php:386
 msgid "Confirmation cancelled."
-msgstr "確認作業がキャンセルされました。"
+msgstr "確認作業が中止されました。"
 
 #: ../actions/smssettings.php:63 actions/smssettings.php:63
 #: actions/smssettings.php:118 actions/smssettings.php:130
@@ -656,6 +657,20 @@ msgid ""
 "\n"
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
+"%s さん、おめでとうございます！%%%%site.name%%%% へようこそ。以下のようにして"
+"始めることができます。\n"
+"\n"
+"* [あなたのプロフィール](%s) を参照して最初のメッセージを投稿する\n"
+"* [Jabber や GTalk のアドレス](%%%%action.imsettings%%%%) を追加して、インス"
+"タントメッセージを通して通知を送れるようにする\n"
+"* あなたが知っている人やあなたと同じ興味をもっている人を[検索](%%%%action."
+"peoplesearch%%%%) する\n"
+"* [プロフィール設定](%%%%action.profilesettings%%%%) を更新して他の利用者にあ"
+"なたのことをより詳しく知らせる\n"
+"* 探している機能について[オンライン文書](%%%%doc.help%%%%) を読む\n"
+"\n"
+"参加してくださりありがとうございます。私たちはあなたがこのサービスを楽しんで"
+"使われることを願っています。"
 
 #: ../actions/finishopenidlogin.php:91 actions/finishopenidlogin.php:97
 #: actions/finishopenidlogin.php:119 lib/action.php:330 lib/action.php:403
@@ -672,13 +687,13 @@ msgstr "既存のアカウントと接続"
 #: ../lib/util.php:332 lib/util.php:348 lib/action.php:576 lib/action.php:669
 #: lib/action.php:719 lib/action.php:734
 msgid "Contact"
-msgstr "コンタクト"
+msgstr "連絡先"
 
 #: ../lib/openid.php:178 lib/openid.php:178 lib/openid.php:187
 #: lib/openid.php:190
 #, php-format
 msgid "Could not create OpenID form: %s"
-msgstr "OpenIDを作成できません : %s"
+msgstr "OpenID フォームを作成できませんでした: %s"
 
 #: ../actions/twitapifriendships.php:60 ../actions/twitapifriendships.php:76
 #: actions/twitapifriendships.php:60 actions/twitapifriendships.php:76
@@ -688,28 +703,29 @@ msgstr "OpenIDを作成できません : %s"
 #, php-format
 msgid "Could not follow user: %s is already on your list."
 msgstr ""
+"利用者をフォローできませんでした: %s は既にあなたのリストに入っています。"
 
 #: ../actions/twitapifriendships.php:53 actions/twitapifriendships.php:53
 #: actions/twitapifriendships.php:41 actions/twitapifriendships.php:43
 #: actions/apifriendshipscreate.php:109
 msgid "Could not follow user: User not found."
-msgstr ""
+msgstr "利用者をフォローできませんでした: 利用者が見つかりません。"
 
 #: ../lib/openid.php:160 lib/openid.php:160 lib/openid.php:169
 #: lib/openid.php:172
 #, php-format
 msgid "Could not redirect to server: %s"
-msgstr "サーバへリダイレクトできません : %s"
+msgstr "サーバーへリダイレクトできません: %s"
 
 #: ../actions/updateprofile.php:162 actions/updateprofile.php:163
 #: actions/updateprofile.php:166 actions/updateprofile.php:176
 msgid "Could not save avatar info"
-msgstr "アバターを保存できません"
+msgstr "アバターを保存できませんでした"
 
 #: ../actions/updateprofile.php:155 actions/updateprofile.php:156
 #: actions/updateprofile.php:159 actions/updateprofile.php:163
 msgid "Could not save new profile info"
-msgstr "新しいプロファイルを保存できません"
+msgstr "新しいプロフィール情報を保存できませんでした"
 
 #: ../lib/subs.php:54 lib/subs.php:61 lib/subs.php:72 lib/subs.php:75
 msgid "Could not subscribe other to you."
@@ -862,6 +878,7 @@ msgstr ""
 
 #: ../lib/util.php:1061 lib/util.php:1110 classes/Notice.php:698
 #: classes/Notice.php:757 classes/Notice.php:1042 classes/Notice.php:1117
+#: classes/Notice.php:1120
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "返信を追加する際にデータベースエラー : %s"
@@ -1030,6 +1047,7 @@ msgstr "よくある質問"
 
 #: ../actions/avatar.php:115 actions/profilesettings.php:352
 #: actions/avatarsettings.php:397 actions/avatarsettings.php:349
+#: actions/avatarsettings.php:363
 msgid "Failed updating avatar."
 msgstr "アバターの更新に失敗しました。"
 
@@ -1855,6 +1873,7 @@ msgstr "想定外のレスポンスです！"
 #: ../actions/twitapistatuses.php:422 actions/twitapistatuses.php:361
 #: actions/twitapistatuses.php:309 actions/twitapistatuses.php:327
 #: actions/twitapistatuses.php:284 actions/apistatusesupdate.php:186
+#: actions/apistatusesupdate.php:193
 msgid "Not found"
 msgstr ""
 
@@ -2810,6 +2829,7 @@ msgstr "プロファイルサービスまたはマイクロブロギングサー
 #: actions/twittersettings.php:322 lib/designsettings.php:301
 #: actions/emailsettings.php:255 actions/grouplogo.php:319
 #: actions/imsettings.php:220 actions/smssettings.php:248
+#: actions/avatarsettings.php:277 lib/designsettings.php:304
 msgid "Unexpected form submission."
 msgstr "予期せぬフォーム送信です。"
 
@@ -2949,6 +2969,7 @@ msgstr "リストされているユーザは存在しません。"
 #: actions/foaf.php:65 actions/replies.php:79 actions/twitapiusers.php:57
 #: actions/usergroups.php:98 lib/galleryaction.php:66 lib/profileaction.php:84
 #: actions/apiusershow.php:108 actions/apiaccountupdateprofileimage.php:124
+#: actions/apiaccountupdateprofileimage.php:130
 msgid "User has no profile."
 msgstr "プロファイルがありません。"
 
@@ -3262,7 +3283,8 @@ msgstr "<< 前"
 #: actions/register.php:159 actions/remotesubscribe.php:77
 #: actions/smssettings.php:228 actions/unsubscribe.php:69
 #: actions/userauthorization.php:52 actions/login.php:131
-#: actions/register.php:165
+#: actions/register.php:165 actions/avatarsettings.php:265
+#: lib/designsettings.php:294
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 
@@ -4022,13 +4044,13 @@ msgid "There was a problem with your session token. "
 msgstr ""
 
 #: actions/avatarsettings.php:303 actions/grouplogo.php:360
-#: actions/avatarsettings.php:308
+#: actions/avatarsettings.php:308 actions/avatarsettings.php:322
 msgid "Pick a square area of the image to be your avatar"
 msgstr ""
 
 #: actions/avatarsettings.php:327 actions/grouplogo.php:384
 #: actions/avatarsettings.php:323 actions/grouplogo.php:382
-#: actions/grouplogo.php:377
+#: actions/grouplogo.php:377 actions/avatarsettings.php:337
 msgid "Lost our file data."
 msgstr ""
 
@@ -5606,7 +5628,7 @@ msgstr "%s & ともだち"
 msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr ""
 
-#: actions/avatarsettings.php:373
+#: actions/avatarsettings.php:373 actions/avatarsettings.php:387
 #, fuzzy
 msgid "Avatar deleted."
 msgstr "アバターが更新されました。"
@@ -5860,6 +5882,8 @@ msgstr ""
 #: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:79
 #: actions/apitimelinementions.php:79 actions/apitimelineuser.php:81
 #: actions/apiaccountupdateprofileimage.php:91
+#: actions/apiaccountupdateprofileimage.php:105
+#: actions/apistatusesupdate.php:139
 #, fuzzy
 msgid "No such user!"
 msgstr "そのようなユーザはいません。"
@@ -5912,36 +5936,6 @@ msgid ""
 "Subscriptions: %1$s\n"
 "Subscribers: %2$s\n"
 "Notices: %3$s"
-msgstr ""
-
-#: lib/command.php:392 lib/command.php:385
-msgid ""
-"Commands:\n"
-"on - turn on notifications\n"
-"off - turn off notifications\n"
-"help - show this help\n"
-"follow <nickname> - subscribe to user\n"
-"leave <nickname> - unsubscribe from user\n"
-"d <nickname> <text> - direct message to user\n"
-"get <nickname> - get last notice from user\n"
-"whois <nickname> - get profile info on user\n"
-"fav <nickname> - add user's last notice as a 'fave'\n"
-"stats - get your stats\n"
-"stop - same as 'off'\n"
-"quit - same as 'off'\n"
-"sub <nickname> - same as 'follow'\n"
-"unsub <nickname> - same as 'leave'\n"
-"last <nickname> - same as 'get'\n"
-"on <nickname> - not yet implemented.\n"
-"off <nickname> - not yet implemented.\n"
-"nudge <nickname> - not yet implemented.\n"
-"invite <phone number> - not yet implemented.\n"
-"track <word> - not yet implemented.\n"
-"untrack <word> - not yet implemented.\n"
-"track off - not yet implemented.\n"
-"untrack all - not yet implemented.\n"
-"tracks - not yet implemented.\n"
-"tracking - not yet implemented.\n"
 msgstr ""
 
 #: lib/dberroraction.php:60
@@ -6292,7 +6286,8 @@ msgstr ""
 #: actions/groupdesignsettings.php:267 actions/userdesignsettings.php:186
 #: lib/designsettings.php:440 lib/designsettings.php:470
 #: actions/groupdesignsettings.php:262 lib/designsettings.php:431
-#: lib/designsettings.php:461
+#: lib/designsettings.php:461 lib/designsettings.php:434
+#: lib/designsettings.php:464
 #, fuzzy
 msgid "Couldn't update your design."
 msgstr "ユーザを更新できません"
@@ -6385,7 +6380,9 @@ msgid "Message sent"
 msgstr ""
 
 #: actions/newnotice.php:93 lib/designsettings.php:281
-#: actions/newnotice.php:94
+#: actions/newnotice.php:94 actions/apiaccountupdateprofileimage.php:97
+#: actions/apistatusesupdate.php:122 actions/avatarsettings.php:254
+#: lib/designsettings.php:283
 #, php-format
 msgid ""
 "The server was unable to handle that much POST data (%s bytes) due to its "
@@ -6913,9 +6910,8 @@ msgid "Background"
 msgstr ""
 
 #: lib/designsettings.php:191
-#, fuzzy
 msgid "Content"
-msgstr "接続"
+msgstr "内容"
 
 #: lib/designsettings.php:204
 #, fuzzy
@@ -6944,10 +6940,12 @@ msgid "Save design"
 msgstr ""
 
 #: lib/designsettings.php:378 lib/designsettings.php:369
+#: lib/designsettings.php:372
 msgid "Bad default color settings: "
 msgstr ""
 
 #: lib/designsettings.php:474 lib/designsettings.php:465
+#: lib/designsettings.php:468
 msgid "Design defaults restored."
 msgstr ""
 
@@ -7158,12 +7156,13 @@ msgid "Unable to handle that much POST data!"
 msgstr ""
 
 #: actions/apistatusesupdate.php:145 actions/newnotice.php:155
-#: scripts/maildaemon.php:71
+#: scripts/maildaemon.php:71 actions/apistatusesupdate.php:152
 #, fuzzy, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr "長すぎます。通知は最大 140 字までです。"
 
 #: actions/apistatusesupdate.php:209 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:216
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -7245,9 +7244,8 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "検索語「%s」に一致するすべての更新"
 
 #: actions/oembed.php:157
-#, fuzzy
 msgid "content type "
-msgstr "接続"
+msgstr "内容種別 "
 
 #: actions/oembed.php:160
 msgid "Only "
@@ -7472,41 +7470,6 @@ msgstr "この通知へ返信"
 msgid "Error saving notice."
 msgstr "通知を保存する際に問題が発生しました。"
 
-#: lib/command.php:587
-msgid ""
-"Commands:\n"
-"on - turn on notifications\n"
-"off - turn off notifications\n"
-"help - show this help\n"
-"follow <nickname> - subscribe to user\n"
-"leave <nickname> - unsubscribe from user\n"
-"d <nickname> <text> - direct message to user\n"
-"get <nickname> - get last notice from user\n"
-"whois <nickname> - get profile info on user\n"
-"fav <nickname> - add user's last notice as a 'fave'\n"
-"fav #<notice_id> - add notice with the given id as a 'fave'\n"
-"reply #<notice_id> - reply to notice with a given id\n"
-"reply <nickname> - reply to the last notice from user\n"
-"join <group> - join group\n"
-"drop <group> - leave group\n"
-"stats - get your stats\n"
-"stop - same as 'off'\n"
-"quit - same as 'off'\n"
-"sub <nickname> - same as 'follow'\n"
-"unsub <nickname> - same as 'leave'\n"
-"last <nickname> - same as 'get'\n"
-"on <nickname> - not yet implemented.\n"
-"off <nickname> - not yet implemented.\n"
-"nudge <nickname> - remind a user to update.\n"
-"invite <phone number> - not yet implemented.\n"
-"track <word> - not yet implemented.\n"
-"untrack <word> - not yet implemented.\n"
-"track off - not yet implemented.\n"
-"untrack all - not yet implemented.\n"
-"tracks - not yet implemented.\n"
-"tracking - not yet implemented.\n"
-msgstr ""
-
 #: lib/common.php:191
 #, fuzzy
 msgid "No configuration file found. "
@@ -7623,6 +7586,11 @@ msgstr "OpenIDを作成できません : %s"
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
+#: lib/imagefile.php:75
+#, fuzzy, php-format
+msgid "That file is too big. The maximum file size is %s."
+msgstr "長すぎます。通知は最大 140 字までです。"
+
 #: lib/command.php:613
 msgid ""
 "Commands:\n"
@@ -7658,8 +7626,3 @@ msgid ""
 "tracks - not yet implemented.\n"
 "tracking - not yet implemented.\n"
 msgstr ""
-
-#: lib/imagefile.php:75
-#, fuzzy, php-format
-msgid "That file is too big. The maximum file size is %s."
-msgstr "長すぎます。通知は最大 140 字までです。"
