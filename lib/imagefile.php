@@ -119,7 +119,7 @@ class ImageFile
             return;
         }
 
-        // Do not crop/scale if it is not necessary
+        // Don't crop/scale if it isn't necessary
         if ($size === $this->width
             && $size === $this->height
             && $x === 0

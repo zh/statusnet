@@ -66,7 +66,7 @@ class ApiAction extends Action
      *
      * @param array $args Web and URL arguments
      *
-     * @return boolean false if user does not exist
+     * @return boolean false if user doesn't exist
      */
 
     function prepare($args)
@@ -138,7 +138,7 @@ class ApiAction extends Action
         $design        = null;
         $user          = $profile->getUser();
 
-        // Note: some profiles do not have an associated user
+        // Note: some profiles don't have an associated user
 
         if (!empty($user)) {
             $design = $user->getDesign();
@@ -203,7 +203,7 @@ class ApiAction extends Action
         if ($get_notice) {
             $notice = $profile->getCurrentNotice();
             if ($notice) {
-                # do not get user!
+                # don't get user!
                 $twitter_user['status'] = $this->twitterStatusArray($notice, false);
             }
         }
@@ -263,7 +263,7 @@ class ApiAction extends Action
         }
 
         if ($include_user) {
-            # Do not get notice (recursive!)
+            # Don't get notice (recursive!)
             $twitter_user = $this->twitterUserArray($profile, false);
             $twitter_status['user'] = $twitter_user;
         }
@@ -1074,7 +1074,7 @@ class ApiAction extends Action
     function initTwitterAtom()
     {
         $this->startXML();
-        // FIXME: do not hardcode the language here!
+        // FIXME: don't hardcode the language here!
         $this->elementStart('feed', array('xmlns' => 'http://www.w3.org/2005/Atom',
                                           'xml:lang' => 'en-US',
                                           'xmlns:thr' => 'http://purl.org/syndication/thread/1.0'));
@@ -1116,7 +1116,7 @@ class ApiAction extends Action
                 return User::staticGet('nickname', $nickname);
             } else if ($this->arg('user_id')) {
                 // This is to ensure that a non-numeric user_id still
-                // overrides screen_name even if it does not get used
+                // overrides screen_name even if it doesn't get used
                 if (is_numeric($this->arg('user_id'))) {
                     return User::staticGet('id', $this->arg('user_id'));
                 }
@@ -1146,7 +1146,7 @@ class ApiAction extends Action
                 return User_group::staticGet('nickname', $nickname);
             } else if ($this->arg('group_id')) {
                 // This is to ensure that a non-numeric user_id still
-                // overrides screen_name even if it does not get used
+                // overrides screen_name even if it doesn't get used
                 if (is_numeric($this->arg('group_id'))) {
                     return User_group::staticGet('id', $this->arg('group_id'));
                 }

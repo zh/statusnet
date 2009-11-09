@@ -57,7 +57,7 @@ class Facebook {
    * @param api_key                  your Developer API key
    * @param secret                   your Developer API secret
    * @param generate_session_secret  whether to automatically generate a session
-   *                                 if the user does not have one, but
+   *                                 if the user doesn't have one, but
    *                                 there is an auth token present in the url,
    */
   public function __construct($api_key, $secret, $generate_session_secret=false) {
@@ -192,7 +192,7 @@ class Facebook {
       }
       return $session_secret;
     } catch (FacebookRestClientException $e) {
-      // API_EC_PARAM means we do not have a logged in user, otherwise who
+      // API_EC_PARAM means we don't have a logged in user, otherwise who
       // knows what it means, so just throw it.
       if ($e->getCode() != FacebookAPIErrorCodes::API_EC_PARAM) {
         throw $e;
@@ -204,7 +204,7 @@ class Facebook {
     try {
       return $this->api_client->auth_getSession($auth_token, $this->generate_session_secret);
     } catch (FacebookRestClientException $e) {
-      // API_EC_PARAM means we do not have a logged in user, otherwise who
+      // API_EC_PARAM means we don't have a logged in user, otherwise who
       // knows what it means, so just throw it.
       if ($e->getCode() != FacebookAPIErrorCodes::API_EC_PARAM) {
         throw $e;
@@ -265,7 +265,7 @@ class Facebook {
     if ($this->in_fb_canvas()) {
       echo '<fb:redirect url="' . $url . '"/>';
     } else if (preg_match('/^https?:\/\/([^\/]*\.)?facebook\.com(:\d+)?/i', $url)) {
-      // make sure facebook.com url's load in the full frame so that we do not
+      // make sure facebook.com url's load in the full frame so that we don't
       // get a frame within a frame.
       echo "<script type=\"text/javascript\">\ntop.location.href = \"$url\";\n</script>";
     } else {

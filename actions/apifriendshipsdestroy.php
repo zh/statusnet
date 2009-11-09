@@ -113,7 +113,7 @@ class ApiFriendshipsDestroyAction extends ApiAuthAction
             return;
         }
 
-        // Do not allow unsubscribing from yourself!
+        // Don't allow unsubscribing from yourself!
 
         if ($this->user->id == $this->other->id) {
             $this->clientError(

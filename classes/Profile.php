@@ -101,7 +101,7 @@ class Profile extends Memcached_DataObject
         }
 
         foreach (array(AVATAR_PROFILE_SIZE, AVATAR_STREAM_SIZE, AVATAR_MINI_SIZE) as $size) {
-            # We do not do a scaled one if original is our scaled size
+            # We don't do a scaled one if original is our scaled size
             if (!($avatar->width == $size && $avatar->height == $size)) {
 
                 $scaled_filename = $imagefile->resize($size);
@@ -174,7 +174,7 @@ class Profile extends Memcached_DataObject
 
     function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0, $since=null)
     {
-        // XXX: I'm not sure this is going to be any faster. It probably is not.
+        // XXX: I'm not sure this is going to be any faster. It probably isn't.
         $ids = Notice::stream(array($this, '_streamDirect'),
                               array(),
                               'profile:notice_ids:' . $this->id,
