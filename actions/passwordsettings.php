@@ -58,6 +58,19 @@ class PasswordsettingsAction extends AccountSettingsAction
         return _('Change password');
     }
 
+    function prepare($args){
+        parent::prepare($args);
+
+        $user = common_current_user();
+
+        Event::handle('CanUserChangeField', array($user->nickname, 'password'));
+
+        if(! $fields['password']){
+            //user is not allowed to change his password
+            $this->clientError(_('You are not allowed to change your password'));
+        }
+    }
+
     /**
      * Instructions for use
      *
@@ -86,6 +99,7 @@ class PasswordsettingsAction extends AccountSettingsAction
     function showContent()
     {
         $user = common_current_user();
+
         $this->elementStart('form', array('method' => 'POST',
                                           'id' => 'form_password',
                                           'class' => 'form_settings',
