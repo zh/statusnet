@@ -101,7 +101,7 @@ class SmssettingsAction extends ConnectSettingsAction
                                           common_local_url('smssettings')));
 
         $this->elementStart('fieldset', array('id' => 'settings_sms_address'));
-        $this->element('legend', null, _('Address'));
+        $this->element('legend', null, _('SMS address'));
         $this->hidden('token', common_session_token());
 
         if ($user->sms) {

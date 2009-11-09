@@ -23,7 +23,7 @@
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
  * @author    Sarven Capadisli <csarven@status.net>
- * @copyright 2008 StatusNet, Inc.
+ * @copyright 2008-2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -33,62 +33,215 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 }
 
 /**
- * Gets the full path of a file in a theme dir based on its relative name
+ * Class for querying and manipulating a theme
  *
- * @param string $relative relative path within the theme directory
- * @param string $theme    name of the theme; defaults to current theme
+ * Themes are directories with some expected sub-directories and files
+ * in them. They're found in either local/theme (for locally-installed themes)
+ * or theme/ subdir of installation dir.
  *
- * @return string File path to the theme file
+ * This used to be a couple of functions, but for various reasons it's nice
+ * to have a class instead.
+ *
+ * @category Output
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://status.net/
  */
 
-function theme_file($relative, $theme=null)
+class Theme
 {
-    if (empty($theme)) {
-        $theme = common_config('site', 'theme');
+    var $dir  = null;
+    var $path = null;
+
+    /**
+     * Constructor
+     *
+     * Determines the proper directory and path for this theme.
+     *
+     * @param string $name Name of the theme; defaults to config value
+     */
+
+    function __construct($name=null)
+    {
+        if (empty($name)) {
+            $name = common_config('site', 'theme');
+        }
+
+        // Check to see if it's in the local dir
+
+        $localroot = self::localRoot();
+
+        $fulldir = $localroot.'/'.$name;
+
+        if (file_exists($fulldir) && is_dir($fulldir)) {
+            $this->dir  = $fulldir;
+            $this->path = common_path('local/theme/'.$name.'/');
+            return;
+        }
+
+        // Check to see if it's in the distribution dir
+
+        $instroot = self::installRoot();
+
+        $fulldir = $instroot.'/'.$name;
+
+        if (file_exists($fulldir) && is_dir($fulldir)) {
+
+            $this->dir = $fulldir;
+
+            $path = common_config('theme', 'path');
+
+            if (empty($path)) {
+                $path = common_config('site', 'path') . '/theme/';
+            }
+
+            if ($path[strlen($path)-1] != '/') {
+                $path .= '/';
+            }
+
+            if ($path[0] != '/') {
+                $path = '/'.$path;
+            }
+
+            $server = common_config('theme', 'server');
+
+            if (empty($server)) {
+                $server = common_config('site', 'server');
+            }
+
+            // XXX: protocol
+
+            $this->path = 'http://'.$server.$path.$name;
+        }
     }
-    $dir = common_config('theme', 'dir');
-    if (empty($dir)) {
-        $dir = INSTALLDIR.'/theme';
-    }
-    return $dir.'/'.$theme.'/'.$relative;
-}
 
-/**
- * Gets the full URL of a file in a theme dir based on its relative name
- *
- * @param string $relative relative path within the theme directory
- * @param string $theme    name of the theme; defaults to current theme
- *
- * @return string URL of the file
- */
+    /**
+     * Gets the full local filename of a file in this theme.
+     *
+     * @param string $relative relative name, like 'logo.png'
+     *
+     * @return string full pathname, like /var/www/mublog/theme/default/logo.png
+     */
 
-function theme_path($relative, $theme=null)
-{
-    if (empty($theme)) {
-        $theme = common_config('site', 'theme');
+    function getFile($relative)
+    {
+        return $this->dir.'/'.$relative;
     }
 
-    $path = common_config('theme', 'path');
+    /**
+     * Gets the full HTTP url of a file in this theme
+     *
+     * @param string $relative relative name, like 'logo.png'
+     *
+     * @return string full URL, like 'http://example.com/theme/default/logo.png'
+     */
 
-    if (empty($path)) {
-        $path = common_config('site', 'path') . '/theme/';
+    function getPath($relative)
+    {
+        return $this->path.'/'.$relative;
     }
 
-    if ($path[strlen($path)-1] != '/') {
-        $path .= '/';
+    /**
+     * Gets the full path of a file in a theme dir based on its relative name
+     *
+     * @param string $relative relative path within the theme directory
+     * @param string $name     name of the theme; defaults to current theme
+     *
+     * @return string File path to the theme file
+     */
+
+    static function file($relative, $name=null)
+    {
+        $theme = new Theme($name);
+        return $theme->getFile($relative);
     }
 
-    if ($path[0] != '/') {
-        $path = '/'.$path;
+    /**
+     * Gets the full URL of a file in a theme dir based on its relative name
+     *
+     * @param string $relative relative path within the theme directory
+     * @param string $name     name of the theme; defaults to current theme
+     *
+     * @return string URL of the file
+     */
+
+    static function path($relative, $name=null)
+    {
+        $theme = new Theme($name);
+        return $theme->getPath($relative);
     }
 
-    $server = common_config('theme', 'server');
+    /**
+     * list available theme names
+     *
+     * @return array list of available theme names
+     */
 
-    if (empty($server)) {
-        $server = common_config('site', 'server');
+    static function listAvailable()
+    {
+        $local   = self::subdirsOf(self::localRoot());
+        $install = self::subdirsOf(self::installRoot());
+
+        $i = array_search('base', $install);
+
+        unset($install[$i]);
+
+        return array_merge($local, $install);
     }
 
-    // XXX: protocol
+    /**
+     * Utility for getting subdirs of a directory
+     *
+     * @param string $dir full path to directory to check
+     *
+     * @return array relative filenames of subdirs, or empty array
+     */
 
-    return 'http://'.$server.$path.$theme.'/'.$relative;
+    protected static function subdirsOf($dir)
+    {
+        $subdirs = array();
+
+        if (is_dir($dir)) {
+            if ($dh = opendir($dir)) {
+                while (($filename = readdir($dh)) !== false) {
+                    if ($filename != '..' && $filename !== '.' &&
+                        is_dir($dir.'/'.$filename)) {
+                        $subdirs[] = $filename;
+                    }
+                }
+                closedir($dh);
+            }
+        }
+
+        return $subdirs;
+    }
+
+    /**
+     * Local root dir for themes
+     *
+     * @return string local root dir for themes
+     */
+
+    protected static function localRoot()
+    {
+        return INSTALLDIR.'/local/theme';
+    }
+
+    /**
+     * Root dir for themes that are shipped with StatusNet
+     *
+     * @return string root dir for StatusNet themes
+     */
+
+    protected static function installRoot()
+    {
+        $instroot = common_config('theme', 'dir');
+
+        if (empty($instroot)) {
+            $instroot = INSTALLDIR.'/theme';
+        }
+
+        return $instroot;
+    }
 }

@@ -60,12 +60,12 @@ class SubscribersAction extends GalleryAction
         $user =& common_current_user();
         if ($user && ($user->id == $this->profile->id)) {
             $this->element('p', null,
-                           _('These are the people who listen to '.
+                           _('These are the users who have subscribed to '.
                              'your notices.'));
         } else {
             $this->element('p', null,
-                           sprintf(_('These are the people who '.
-                                     'listen to %s\'s notices.'),
+                           sprintf(_('These are the users who '.
+                                     'have subscribed to %s\'s notices.'),
                                    $this->profile->nickname));
         }
     }
@@ -105,7 +105,7 @@ class SubscribersAction extends GalleryAction
         if (common_logged_in()) {
             $current_user = common_current_user();
             if ($this->user->id === $current_user->id) {
-                $message = _('You have no subscribers. Try subscribing to people you know and they might return the favor');
+                $message = _('You have no subscribers. Try subscribing to users you know and they might return the favor');
             } else {
                 $message = sprintf(_('%s has no subscribers. Want to be the first?'), $this->user->nickname);
             }

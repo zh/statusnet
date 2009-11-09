@@ -102,7 +102,7 @@ class UserFlagPlugin extends Plugin
             $action->elementStart('li', 'entity_flag');
 
             if (User_flag_profile::exists($profile->id, $user->id)) {
-                $action->element('span', array(),
+                $action->element('p', array(),
                                  _('Flagged for review'));
             } else {
                 $form = new FlagProfileForm($action, $profile,
@@ -127,6 +127,17 @@ class UserFlagPlugin extends Plugin
 
             $form->show();
         }
+
+        return true;
+    }
+
+    function onEndShowStatusNetStyles($action)
+    {
+        $action->elementStart('style', array('type' => 'text/css'));
+        $action->raw('.entity_flag input, .entity_flag p {'.
+            ' background:url('.common_path('plugins/UserFlag/flag.gif').') 5px 5px no-repeat;'.
+            ' }');
+        $action->elementEnd('style');
 
         return true;
     }

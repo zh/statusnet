@@ -6,12 +6,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-06 13:16+0000\n"
-"PO-Revision-Date: 2009-11-06 15:43:08+0000\n"
+"POT-Creation-Date: 2009-11-08 11:53+0000\n"
+"PO-Revision-Date: 2009-11-08 11:56:13+0000\n"
 "Language-Team: German\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58648); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58760); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: out-statusnet\n"
@@ -201,7 +201,7 @@ msgid "%s updates from everyone!"
 msgstr "%s Nachrichten von allen!"
 
 #: ../actions/register.php:213 actions/register.php:497
-#: actions/register.php:545 actions/register.php:555
+#: actions/register.php:545 actions/register.php:555 actions/register.php:561
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
@@ -241,6 +241,7 @@ msgstr "1-64 Kleinbuchstaben oder Ziffern, keine Sonder- oder Leerzeichen"
 
 #: ../actions/register.php:152 actions/register.php:166
 #: actions/register.php:368 actions/register.php:414 actions/register.php:418
+#: actions/register.php:424
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
 msgstr ""
 "1-64 kleingeschriebene Buchstaben oder Zahlen, keine Satz- oder Leerzeichen. "
@@ -259,6 +260,7 @@ msgstr "6 oder mehr Zeichen, und nicht vergessen!"
 
 #: ../actions/register.php:154 actions/register.php:168
 #: actions/register.php:373 actions/register.php:419 actions/register.php:423
+#: actions/register.php:429
 msgid "6 or more characters. Required."
 msgstr "6 oder mehr Buchstaben. Pflicht."
 
@@ -441,7 +443,7 @@ msgstr "Alle Aktualisierungen, die den Suchbegriff „%s“ enthalten"
 #: actions/openidlogin.php:29 actions/register.php:30
 #: actions/finishopenidlogin.php:34 actions/login.php:77
 #: actions/openidlogin.php:30 actions/register.php:92 actions/register.php:131
-#: actions/login.php:79
+#: actions/login.php:79 actions/register.php:137
 msgid "Already logged in."
 msgstr "Bereits angemeldet."
 
@@ -464,7 +466,7 @@ msgstr "Abonnement bestätigen"
 #: ../actions/login.php:104 ../actions/register.php:178
 #: actions/register.php:192 actions/login.php:218 actions/openidlogin.php:117
 #: actions/register.php:416 actions/register.php:463 actions/login.php:226
-#: actions/register.php:473
+#: actions/register.php:473 actions/login.php:253 actions/register.php:479
 msgid "Automatically login in the future; not for shared computers!"
 msgstr "Automatisch anmelden; nicht bei gemeinsam genutzten PCs einsetzen!"
 
@@ -488,6 +490,7 @@ msgstr "Avatar"
 
 #: ../actions/avatar.php:113 actions/profilesettings.php:350
 #: actions/avatarsettings.php:395 actions/avatarsettings.php:346
+#: actions/avatarsettings.php:360
 msgid "Avatar updated."
 msgstr "Avatar aktualisiert."
 
@@ -524,7 +527,7 @@ msgstr "Ältere"
 #: actions/profilesettings.php:82 actions/register.php:184
 #: actions/profilesettings.php:112 actions/register.php:402
 #: actions/register.php:448 actions/profilesettings.php:127
-#: actions/register.php:459
+#: actions/register.php:459 actions/register.php:465
 msgid "Bio"
 msgstr "Biografie"
 
@@ -553,6 +556,7 @@ msgstr "Konnte Avatar-URL nicht öffnen „%s“"
 #: actions/passwordsettings.php:169 actions/recoverpassword.php:347
 #: actions/passwordsettings.php:174 actions/recoverpassword.php:365
 #: actions/passwordsettings.php:180 actions/recoverpassword.php:368
+#: actions/passwordsettings.php:185
 msgid "Can't save new password."
 msgstr "Konnte neues Passwort nicht speichern"
 
@@ -615,6 +619,7 @@ msgstr "Ändern der Profileinstellungen"
 #: actions/recoverpassword.php:236 actions/register.php:422
 #: actions/passwordsettings.php:111 actions/recoverpassword.php:239
 #: actions/register.php:426 actions/smssettings.php:134
+#: actions/register.php:432
 msgid "Confirm"
 msgstr "Bestätigen"
 
@@ -644,7 +649,7 @@ msgid "Confirmation code not found."
 msgstr "Bestätigungscode nicht gefunden."
 
 #: ../actions/register.php:202 actions/register.php:473
-#: actions/register.php:521 actions/register.php:531
+#: actions/register.php:521 actions/register.php:531 actions/register.php:537
 #, php-format
 msgid ""
 "Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -883,6 +888,7 @@ msgstr "Datenbankfehler beim Einfügen des Hashtags: %s"
 
 #: ../lib/util.php:1061 lib/util.php:1110 classes/Notice.php:698
 #: classes/Notice.php:757 classes/Notice.php:1042 classes/Notice.php:1117
+#: classes/Notice.php:1120
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Datenbankfehler beim Einfügen der Antwort: %s"
@@ -905,7 +911,8 @@ msgstr "Beschreibe dich selbst in 140 Zeichen"
 #: actions/register.php:175 lib/settingsaction.php:87 actions/register.php:381
 #: actions/register.php:385 lib/accountsettingsaction.php:113
 #: actions/register.php:427 actions/register.php:431 actions/register.php:435
-#: lib/accountsettingsaction.php:117
+#: lib/accountsettingsaction.php:117 actions/register.php:437
+#: actions/register.php:441
 msgid "Email"
 msgstr "E-Mail"
 
@@ -920,7 +927,7 @@ msgid "Email Settings"
 msgstr "E-Mail-Einstellungen"
 
 #: ../actions/register.php:73 actions/register.php:80 actions/register.php:163
-#: actions/register.php:200 actions/register.php:206
+#: actions/register.php:200 actions/register.php:206 actions/register.php:212
 msgid "Email address already exists."
 msgstr "Diese E-Mail-Adresse existiert bereits."
 
@@ -1006,7 +1013,7 @@ msgstr "Fehler beim Speichern des Nutzers."
 
 #: ../actions/password.php:80 actions/profilesettings.php:399
 #: actions/passwordsettings.php:164 actions/passwordsettings.php:169
-#: actions/passwordsettings.php:175
+#: actions/passwordsettings.php:175 actions/passwordsettings.php:180
 msgid "Error saving user; invalid."
 msgstr "Fehler beim Speichern des Nutzers, ungültig."
 
@@ -1018,6 +1025,7 @@ msgstr "Fehler beim Speichern des Nutzers, ungültig."
 #: actions/login.php:120 actions/recoverpassword.php:372
 #: actions/register.php:235 actions/login.php:122
 #: actions/recoverpassword.php:375 actions/register.php:242
+#: actions/login.php:149 actions/register.php:248
 msgid "Error setting user."
 msgstr "Fehler bei den Nutzereinstellungen."
 
@@ -1049,6 +1057,7 @@ msgstr "FAQ"
 
 #: ../actions/avatar.php:115 actions/profilesettings.php:352
 #: actions/avatarsettings.php:397 actions/avatarsettings.php:349
+#: actions/avatarsettings.php:363
 msgid "Failed updating avatar."
 msgstr "Aktualisierung des Avatars fehlgeschlagen."
 
@@ -1083,6 +1092,7 @@ msgid "Find people on this site"
 msgstr "Finde Leute auf dieser Seite"
 
 #: ../actions/login.php:122 actions/login.php:247 actions/login.php:255
+#: actions/login.php:282
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
@@ -1100,6 +1110,7 @@ msgstr ""
 #: actions/showstream.php:220 lib/groupeditform.php:157
 #: actions/profilesettings.php:111 actions/register.php:441
 #: actions/showgroup.php:247 actions/showstream.php:267
+#: actions/register.php:447 lib/userprofile.php:149
 msgid "Full name"
 msgstr "Vollständiger Name"
 
@@ -1113,7 +1124,7 @@ msgstr "Vollständiger Name"
 #: actions/profilesettings.php:203 actions/register.php:208
 #: actions/apigroupcreate.php:253 actions/editgroup.php:198
 #: actions/newgroup.php:142 actions/profilesettings.php:218
-#: actions/register.php:214
+#: actions/register.php:214 actions/register.php:220
 msgid "Full name is too long (max 255 chars)."
 msgstr "Ihr vollständiger Name ist zu lang (maximal 255 Zeichen)."
 
@@ -1134,7 +1145,7 @@ msgstr "Startseite"
 #: actions/profilesettings.php:107 actions/register.php:396
 #: lib/groupeditform.php:146 actions/register.php:442
 #: lib/groupeditform.php:161 actions/profilesettings.php:115
-#: actions/register.php:446
+#: actions/register.php:446 actions/register.php:452
 msgid "Homepage"
 msgstr "Homepage"
 
@@ -1146,7 +1157,7 @@ msgstr "Homepage"
 #: actions/profilesettings.php:200 actions/register.php:205
 #: actions/apigroupcreate.php:244 actions/editgroup.php:195
 #: actions/newgroup.php:139 actions/profilesettings.php:215
-#: actions/register.php:211
+#: actions/register.php:211 actions/register.php:217
 msgid "Homepage is not a valid URL."
 msgstr ""
 "Homepage ist kein gültiger URL. URL´s müssen ein Präfix wie http enthalten."
@@ -1220,7 +1231,7 @@ msgstr "Altes Passwort falsch"
 
 #: ../actions/login.php:67 actions/login.php:67 actions/facebookhome.php:131
 #: actions/login.php:132 actions/facebookhome.php:130 actions/login.php:114
-#: actions/facebookhome.php:129 actions/login.php:116
+#: actions/facebookhome.php:129 actions/login.php:116 actions/login.php:143
 msgid "Incorrect username or password."
 msgstr "Falscher Benutzername oder Passwort."
 
@@ -1300,6 +1311,7 @@ msgstr "Ungültige Größe."
 #: actions/register.php:211 actions/finishopenidlogin.php:284
 #: actions/finishopenidlogin.php:307 actions/register.php:230
 #: actions/register.php:251 actions/register.php:237 actions/register.php:258
+#: actions/register.php:243 actions/register.php:264
 msgid "Invalid username or password."
 msgstr "Benutzername oder Passwort falsch."
 
@@ -1377,7 +1389,7 @@ msgstr "Die eingegebene Sprache ist zu lang (maximal 50 Zeichen)"
 #: actions/profilesettings.php:132 actions/register.php:464
 #: actions/showgroup.php:256 actions/showstream.php:282
 #: actions/userauthorization.php:158 lib/groupeditform.php:177
-#: lib/profilelist.php:218
+#: lib/profilelist.php:218 actions/register.php:470 lib/userprofile.php:164
 msgid "Location"
 msgstr "Aufenthaltsort"
 
@@ -1391,7 +1403,7 @@ msgstr "Aufenthaltsort"
 #: actions/profilesettings.php:209 actions/register.php:214
 #: actions/apigroupcreate.php:272 actions/editgroup.php:204
 #: actions/newgroup.php:148 actions/profilesettings.php:225
-#: actions/register.php:221
+#: actions/register.php:221 actions/register.php:227
 msgid "Location is too long (max 255 chars)."
 msgstr "Der eingegebene Aufenthaltsort ist zu lang (maximal 255 Zeichen)."
 
@@ -1405,6 +1417,7 @@ msgstr "Der eingegebene Aufenthaltsort ist zu lang (maximal 255 Zeichen)."
 #: lib/facebookaction.php:293 lib/facebookaction.php:319 lib/action.php:443
 #: lib/facebookaction.php:295 lib/facebookaction.php:321 actions/login.php:177
 #: actions/login.php:230 lib/action.php:453 lib/logingroupnav.php:79
+#: actions/login.php:204 actions/login.php:257
 #, php-format
 msgid "Login"
 msgstr "Einloggen"
@@ -1433,12 +1446,13 @@ msgstr "Abmelden"
 
 #: ../actions/register.php:166 actions/register.php:180
 #: actions/register.php:393 actions/register.php:439 actions/register.php:443
+#: actions/register.php:449
 msgid "Longer name, preferably your \"real\" name"
 msgstr "Längerer Name, bevorzugt dein „echter“ Name"
 
 #: ../actions/login.php:110 actions/login.php:110 actions/login.php:245
 #: lib/facebookaction.php:320 actions/login.php:228 lib/facebookaction.php:325
-#: lib/facebookaction.php:327 actions/login.php:236
+#: lib/facebookaction.php:327 actions/login.php:236 actions/login.php:263
 msgid "Lost or forgotten password?"
 msgstr "Passwort vergessen?"
 
@@ -1483,7 +1497,7 @@ msgstr ""
 #: actions/finishopenidlogin.php:85 actions/register.php:202
 #: actions/finishopenidlogin.php:107 actions/register.php:429
 #: actions/register.php:430 actions/finishopenidlogin.php:106
-#: actions/register.php:477 actions/register.php:487
+#: actions/register.php:477 actions/register.php:487 actions/register.php:493
 msgid "My text and files are available under "
 msgstr "Meine Texte und Daten sind verfügbar unter"
 
@@ -1541,7 +1555,8 @@ msgstr "Neues Passwort erfolgreich gespeichert. Du bist jetzt angemeldet."
 #: actions/showgroup.php:231 actions/showstream.php:209
 #: lib/facebookaction.php:314 lib/groupeditform.php:152 actions/login.php:219
 #: actions/profilesettings.php:106 actions/register.php:417
-#: actions/showgroup.php:236 actions/showstream.php:249
+#: actions/showgroup.php:236 actions/showstream.php:249 actions/login.php:246
+#: actions/register.php:423 lib/userprofile.php:131
 msgid "Nickname"
 msgstr "Nutzername"
 
@@ -1555,7 +1570,7 @@ msgstr "Nutzername"
 #: actions/profilesettings.php:215 actions/register.php:196
 #: actions/apigroupcreate.php:221 actions/editgroup.php:186
 #: actions/newgroup.php:130 actions/profilesettings.php:231
-#: actions/register.php:202
+#: actions/register.php:202 actions/register.php:208
 msgid "Nickname already in use. Try another one."
 msgstr "Nutzername wird bereits verwendet. Suche dir einen anderen aus."
 
@@ -1571,7 +1586,7 @@ msgstr "Nutzername wird bereits verwendet. Suche dir einen anderen aus."
 #: actions/profilesettings.php:193 actions/register.php:193
 #: actions/apigroupcreate.php:212 actions/editgroup.php:182
 #: actions/newgroup.php:126 actions/profilesettings.php:208
-#: actions/register.php:199
+#: actions/register.php:199 actions/register.php:205
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr ""
 "Der Nutzername darf nur aus Kleinbuchstaben und Ziffern bestehen. "
@@ -1812,7 +1827,8 @@ msgstr "Kein registrierter Nutzer."
 #: lib/twitterapi.php:566 lib/twitterapi.php:483 lib/twitterapi.php:511
 #: lib/twitterapi.php:601 lib/twitterapi.php:620 lib/twitterapi.php:648
 #: lib/twitterapi.php:741 actions/oembed.php:181 actions/oembed.php:200
-#: lib/api.php:954 lib/api.php:982 lib/api.php:1092
+#: lib/api.php:954 lib/api.php:982 lib/api.php:1092 lib/api.php:963
+#: lib/api.php:991 lib/api.php:1101
 msgid "Not a supported data format."
 msgstr "Kein unterstütztes Datenformat."
 
@@ -1833,7 +1849,7 @@ msgid "Not a valid email address"
 msgstr "Ungültige E-Mail-Adresse"
 
 #: ../actions/register.php:63 actions/register.php:70 actions/register.php:152
-#: actions/register.php:189 actions/register.php:195
+#: actions/register.php:189 actions/register.php:195 actions/register.php:201
 msgid "Not a valid email address."
 msgstr "Ungültige E-Mail-Adresse."
 
@@ -1845,7 +1861,7 @@ msgstr "Ungültige E-Mail-Adresse."
 #: actions/profilesettings.php:196 actions/register.php:198
 #: actions/apigroupcreate.php:228 actions/editgroup.php:189
 #: actions/newgroup.php:133 actions/profilesettings.php:211
-#: actions/register.php:204
+#: actions/register.php:204 actions/register.php:210
 msgid "Not a valid nickname."
 msgstr "Ungültiger Nutzername."
 
@@ -1884,6 +1900,7 @@ msgstr "Unerwartete Antwort!"
 #: ../actions/twitapistatuses.php:422 actions/twitapistatuses.php:361
 #: actions/twitapistatuses.php:309 actions/twitapistatuses.php:327
 #: actions/twitapistatuses.php:284 actions/apistatusesupdate.php:186
+#: actions/apistatusesupdate.php:193
 msgid "Not found"
 msgstr "Nicht gefunden"
 
@@ -2032,7 +2049,8 @@ msgstr "Unvollständiges Hochladen."
 #: actions/login.php:214 lib/facebookaction.php:315
 #: actions/finishopenidlogin.php:117 actions/register.php:418
 #: lib/facebookaction.php:317 actions/login.php:222 actions/register.php:422
-#: lib/accountsettingsaction.php:114
+#: lib/accountsettingsaction.php:114 actions/login.php:249
+#: actions/register.php:428
 msgid "Password"
 msgstr "Passwort"
 
@@ -2061,6 +2079,7 @@ msgstr "Wiederherstellung des Passworts angefordert"
 #: actions/passwordsettings.php:173 actions/recoverpassword.php:200
 #: actions/passwordsettings.php:178 actions/recoverpassword.php:208
 #: actions/passwordsettings.php:184 actions/recoverpassword.php:211
+#: actions/passwordsettings.php:191
 msgid "Password saved."
 msgstr "Passwort gespeichert."
 
@@ -2069,6 +2088,7 @@ msgstr "Passwort gespeichert."
 #: actions/passwordsettings.php:145 actions/register.php:183
 #: actions/passwordsettings.php:150 actions/register.php:220
 #: actions/passwordsettings.php:156 actions/register.php:227
+#: actions/register.php:233
 msgid "Passwords don't match."
 msgstr "Passwörter stimmen nicht überein."
 
@@ -2232,19 +2252,19 @@ msgstr "Wiederherstellungscode für unbekannten Nutzer."
 #: actions/register.php:438 lib/action.php:415 lib/facebookaction.php:279
 #: actions/register.php:108 actions/register.php:486 lib/action.php:440
 #: lib/facebookaction.php:281 actions/register.php:496 lib/action.php:450
-#: lib/logingroupnav.php:85
+#: lib/logingroupnav.php:85 actions/register.php:114 actions/register.php:502
 msgid "Register"
 msgstr "Registrieren"
 
 #: ../actions/register.php:28 actions/register.php:28
 #: actions/finishopenidlogin.php:196 actions/register.php:90
 #: actions/finishopenidlogin.php:195 actions/finishopenidlogin.php:204
-#: actions/register.php:129
+#: actions/register.php:129 actions/register.php:135
 msgid "Registration not allowed."
 msgstr "Registrierung nicht gestattet"
 
 #: ../actions/register.php:200 actions/register.php:214
-#: actions/register.php:67 actions/register.php:106
+#: actions/register.php:67 actions/register.php:106 actions/register.php:112
 msgid "Registration successful"
 msgstr "Registrierung erfolgreich"
 
@@ -2258,6 +2278,7 @@ msgstr "Ablehnen"
 #: actions/register.php:190 actions/login.php:234 actions/openidlogin.php:107
 #: actions/register.php:414 actions/login.php:217 actions/openidlogin.php:116
 #: actions/register.php:461 actions/login.php:225 actions/register.php:471
+#: actions/login.php:252 actions/register.php:477
 msgid "Remember me"
 msgstr "Anmeldedaten merken"
 
@@ -2356,6 +2377,7 @@ msgstr "Gleiches Passwort wie zuvor"
 
 #: ../actions/register.php:156 actions/register.php:170
 #: actions/register.php:377 actions/register.php:423 actions/register.php:427
+#: actions/register.php:433
 msgid "Same as password above. Required."
 msgstr "Gleiches Passwort wie zuvor. Pflichteingabe."
 
@@ -2521,6 +2543,7 @@ msgstr "Gespeicherte OpenID nicht gefunden."
 #: actions/remotesubscribe.php:113 actions/showstream.php:376
 #: lib/subscribeform.php:139 actions/showstream.php:345
 #: actions/remotesubscribe.php:137 actions/showstream.php:439
+#: lib/userprofile.php:321
 msgid "Subscribe"
 msgstr "Abonnieren"
 
@@ -2567,6 +2590,7 @@ msgstr "Systemfehler beim hochladen der Datei."
 #: actions/profilesettings.php:123 actions/showstream.php:255
 #: lib/subscriptionlist.php:106 lib/subscriptionlist.php:108
 #: actions/profilesettings.php:138 actions/showstream.php:327
+#: lib/userprofile.php:209
 msgid "Tags"
 msgstr "Tags"
 
@@ -2790,6 +2814,7 @@ msgstr "Diese Methode benötigt ein POST oder DELETE."
 #: actions/apifriendshipsdestroy.php:91 actions/apigroupcreate.php:104
 #: actions/apigroupjoin.php:91 actions/apigroupleave.php:91
 #: actions/apistatusesupdate.php:109
+#: actions/apiaccountupdateprofileimage.php:84
 msgid "This method requires a POST."
 msgstr "Diese Methode benötigt ein POST."
 
@@ -2824,7 +2849,7 @@ msgstr ""
 
 #: ../actions/twitapifriendships.php:163 actions/twitapifriendships.php:167
 #: actions/twitapifriendships.php:132 actions/twitapifriendships.php:139
-#: actions/apifriendshipsexists.php:103
+#: actions/apifriendshipsexists.php:103 actions/apifriendshipsexists.php:94
 msgid "Two user ids or screen_names must be supplied."
 msgstr "Zwei IDs oder Benutzernamen müssen angegeben werden."
 
@@ -2832,7 +2857,7 @@ msgstr "Zwei IDs oder Benutzernamen müssen angegeben werden."
 #: actions/profilesettings.php:81 actions/register.php:183
 #: actions/profilesettings.php:109 actions/register.php:398
 #: actions/register.php:444 actions/profilesettings.php:117
-#: actions/register.php:448
+#: actions/register.php:448 actions/register.php:454
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr ""
 "URL deiner Homepage, deines Blogs, oder deines Profils auf einer anderen Site"
@@ -2855,6 +2880,7 @@ msgstr "Profil-URL bei einem anderen kompatiblen Microbloggingdienst"
 #: actions/twittersettings.php:322 lib/designsettings.php:301
 #: actions/emailsettings.php:255 actions/grouplogo.php:319
 #: actions/imsettings.php:220 actions/smssettings.php:248
+#: actions/avatarsettings.php:277 lib/designsettings.php:304
 msgid "Unexpected form submission."
 msgstr "Unerwartete Formulareingabe."
 
@@ -2966,7 +2992,7 @@ msgstr "Lade deine Freunde und Kollegen ein diesen Dienst zu nutzen."
 #: ../actions/register.php:159 ../actions/register.php:162
 #: actions/register.php:173 actions/register.php:176 actions/register.php:382
 #: actions/register.php:386 actions/register.php:428 actions/register.php:432
-#: actions/register.php:436
+#: actions/register.php:436 actions/register.php:438 actions/register.php:442
 msgid "Used only for updates, announcements, and password recovery"
 msgstr ""
 "Wird nur für Updates, wichtige Mitteilungen und zur "
@@ -2996,7 +3022,8 @@ msgstr "Aufgeführte Nutzer existiert nicht."
 #: actions/twitapistatuses.php:535 actions/twitapiusers.php:59
 #: actions/foaf.php:65 actions/replies.php:79 actions/twitapiusers.php:57
 #: actions/usergroups.php:98 lib/galleryaction.php:66 lib/profileaction.php:84
-#: actions/apiusershow.php:108
+#: actions/apiusershow.php:108 actions/apiaccountupdateprofileimage.php:124
+#: actions/apiaccountupdateprofileimage.php:130
 msgid "User has no profile."
 msgstr "Benutzer hat kein Profil."
 
@@ -3025,7 +3052,7 @@ msgstr "Was ist los, %s?"
 #: actions/profilesettings.php:87 actions/register.php:189
 #: actions/profilesettings.php:119 actions/register.php:410
 #: actions/register.php:456 actions/profilesettings.php:134
-#: actions/register.php:466
+#: actions/register.php:466 actions/register.php:472
 msgid "Where you are, like \"City, State (or Region), Country\""
 msgstr "Wo du bist, beispielsweise „Stadt, Gebiet, Land“"
 
@@ -3129,7 +3156,7 @@ msgstr "Du kannst ein lokales Abonnement erstellen!"
 #: ../actions/finishopenidlogin.php:33 ../actions/register.php:61
 #: actions/finishopenidlogin.php:38 actions/register.php:68
 #: actions/finishopenidlogin.php:43 actions/register.php:149
-#: actions/register.php:186 actions/register.php:192
+#: actions/register.php:186 actions/register.php:192 actions/register.php:198
 msgid "You can't register if you don't agree to the license."
 msgstr ""
 "Du kannst dich nicht registrieren, wenn du die Lizenz nicht akzeptierst."
@@ -3206,56 +3233,56 @@ msgstr ""
 "Nutzerkonto anmelden. Hier kannst du deine verknüpften OpenIDs verwalten."
 
 #: ../lib/util.php:943 lib/util.php:992 lib/util.php:945 lib/util.php:756
-#: lib/util.php:770 lib/util.php:816
+#: lib/util.php:770 lib/util.php:816 lib/util.php:844
 msgid "a few seconds ago"
 msgstr "vor wenigen Sekunden"
 
 #: ../lib/util.php:955 lib/util.php:1004 lib/util.php:957 lib/util.php:768
-#: lib/util.php:782 lib/util.php:828
+#: lib/util.php:782 lib/util.php:828 lib/util.php:856
 #, php-format
 msgid "about %d days ago"
 msgstr "vor %d Tagen"
 
 #: ../lib/util.php:951 lib/util.php:1000 lib/util.php:953 lib/util.php:764
-#: lib/util.php:778 lib/util.php:824
+#: lib/util.php:778 lib/util.php:824 lib/util.php:852
 #, php-format
 msgid "about %d hours ago"
 msgstr "vor %d Stunden"
 
 #: ../lib/util.php:947 lib/util.php:996 lib/util.php:949 lib/util.php:760
-#: lib/util.php:774 lib/util.php:820
+#: lib/util.php:774 lib/util.php:820 lib/util.php:848
 #, php-format
 msgid "about %d minutes ago"
 msgstr "vor %d Minuten"
 
 #: ../lib/util.php:959 lib/util.php:1008 lib/util.php:961 lib/util.php:772
-#: lib/util.php:786 lib/util.php:832
+#: lib/util.php:786 lib/util.php:832 lib/util.php:860
 #, php-format
 msgid "about %d months ago"
 msgstr "vor %d Monaten"
 
 #: ../lib/util.php:953 lib/util.php:1002 lib/util.php:955 lib/util.php:766
-#: lib/util.php:780 lib/util.php:826
+#: lib/util.php:780 lib/util.php:826 lib/util.php:854
 msgid "about a day ago"
 msgstr "vor einem Tag"
 
 #: ../lib/util.php:945 lib/util.php:994 lib/util.php:947 lib/util.php:758
-#: lib/util.php:772 lib/util.php:818
+#: lib/util.php:772 lib/util.php:818 lib/util.php:846
 msgid "about a minute ago"
 msgstr "vor einer Minute"
 
 #: ../lib/util.php:957 lib/util.php:1006 lib/util.php:959 lib/util.php:770
-#: lib/util.php:784 lib/util.php:830
+#: lib/util.php:784 lib/util.php:830 lib/util.php:858
 msgid "about a month ago"
 msgstr "vor einem Monat"
 
 #: ../lib/util.php:961 lib/util.php:1010 lib/util.php:963 lib/util.php:774
-#: lib/util.php:788 lib/util.php:834
+#: lib/util.php:788 lib/util.php:834 lib/util.php:862
 msgid "about a year ago"
 msgstr "vor einem Jahr"
 
 #: ../lib/util.php:949 lib/util.php:998 lib/util.php:951 lib/util.php:762
-#: lib/util.php:776 lib/util.php:822
+#: lib/util.php:776 lib/util.php:822 lib/util.php:850
 msgid "about an hour ago"
 msgstr "vor einer Stunde"
 
@@ -3324,7 +3351,9 @@ msgstr "Früher"
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
 #: actions/register.php:159 actions/remotesubscribe.php:77
 #: actions/smssettings.php:228 actions/unsubscribe.php:69
-#: actions/userauthorization.php:52
+#: actions/userauthorization.php:52 actions/login.php:131
+#: actions/register.php:165 actions/avatarsettings.php:265
+#: lib/designsettings.php:294
 msgid "There was a problem with your session token. Try again, please."
 msgstr "Es gab ein Problem mit deinem Sitzungstoken. Bitte versuche es erneut."
 
@@ -3369,7 +3398,6 @@ msgid "Could not create favorite."
 msgstr "Konnte keinen Favoriten erstellen."
 
 #: actions/favor.php:70
-#, fuzzy
 msgid "Disfavor"
 msgstr "Aus Favoriten entfernen"
 
@@ -3397,7 +3425,6 @@ msgid "Inbox for %s"
 msgstr "Posteingang von %s"
 
 #: actions/inbox.php:53 actions/inbox.php:115
-#, fuzzy
 msgid "This is your inbox, which lists your incoming private messages."
 msgstr ""
 "Das hier ist dein Posteingang, der deine eingehenden privaten Nachrichten "
@@ -3557,6 +3584,7 @@ msgstr "Neues Passwort erfolgreich gespeichert. "
 #: actions/register.php:95 actions/register.php:180
 #: actions/passwordsettings.php:147 actions/register.php:217
 #: actions/passwordsettings.php:153 actions/register.php:224
+#: actions/register.php:230
 msgid "Password must be 6 or more characters."
 msgstr "Das Passwort muss aus 6 oder mehr Zeichen bestehen."
 
@@ -3959,22 +3987,19 @@ msgid "Commands:\n"
 msgstr "Befehle:\n"
 
 #: classes/Message.php:53 classes/Message.php:56 classes/Message.php:55
-#, fuzzy
 msgid "Could not insert message."
 msgstr "Konnte Nachricht nicht einfügen."
 
 #: classes/Message.php:63 classes/Message.php:66 classes/Message.php:65
-#, fuzzy
 msgid "Could not update message with new URI."
 msgstr "Konnte Nachricht nicht mit neuer URI versehen."
 
 #: lib/gallery.php:46
-#, fuzzy
 msgid "User without matching profile in system."
 msgstr "Benutzer ohne entsprechendes Profil im System."
 
 #: lib/mail.php:147 lib/mail.php:289
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You have a new posting address on %1$s.\n"
 "\n"
@@ -3997,12 +4022,10 @@ msgstr ""
 "\n"
 
 #: lib/mailbox.php:43 lib/mailbox.php:89 lib/mailbox.php:91
-#, fuzzy
 msgid "Only the user can read their own mailboxes."
 msgstr "Nur der Benutzer selbst kann seinen Posteingang lesen."
 
 #: lib/openid.php:195 lib/openid.php:203
-#, fuzzy
 msgid "This form should automatically submit itself. "
 msgstr "Dieses Formular sollte sich automatisch abschicken. "
 
@@ -4014,7 +4037,7 @@ msgstr "Favoriten"
 #: lib/personal.php:66 lib/personalgroupnav.php:114
 #: actions/favoritesrss.php:110 actions/showfavorites.php:77
 #: lib/personalgroupnav.php:115 actions/favoritesrss.php:111
-#, fuzzy, php-format
+#, php-format
 msgid "%s's favorite notices"
 msgstr "%ss favorisierte Nachrichten"
 
@@ -4059,14 +4082,13 @@ msgstr "An"
 
 #: scripts/maildaemon.php:45 scripts/maildaemon.php:48
 #: scripts/maildaemon.php:47
-#, fuzzy
 msgid "Could not parse message."
 msgstr "Konnte Nachricht nicht parsen."
 
 #: actions/all.php:63 actions/facebookhome.php:162 actions/all.php:66
 #: actions/facebookhome.php:161 actions/all.php:48
 #: actions/facebookhome.php:156 actions/all.php:84
-#, fuzzy, php-format
+#, php-format
 msgid "%s and friends, page %d"
 msgstr "%s und Freunde, Seite %d"
 
@@ -4112,28 +4134,25 @@ msgstr "Zuschneiden"
 #: actions/remotesubscribe.php:53 actions/smssettings.php:216
 #: actions/subedit.php:38 actions/twittersettings.php:290
 #: actions/userauthorization.php:39
-#, fuzzy
 msgid "There was a problem with your session token. "
-msgstr "Es gab ein Problem mit deinem Sitzungstoken. Bitte versuche es erneut."
+msgstr ""
+"Es gab ein Problem mit deinem Sitzungstoken. Bitte versuche es erneut. "
 
 #: actions/avatarsettings.php:303 actions/grouplogo.php:360
-#: actions/avatarsettings.php:308
-#, fuzzy
+#: actions/avatarsettings.php:308 actions/avatarsettings.php:322
 msgid "Pick a square area of the image to be your avatar"
 msgstr ""
 "Wähle eine quadratische Fläche aus dem Bild, um dein Avatar zu speichern"
 
 #: actions/avatarsettings.php:327 actions/grouplogo.php:384
 #: actions/avatarsettings.php:323 actions/grouplogo.php:382
-#: actions/grouplogo.php:377
-#, fuzzy
+#: actions/grouplogo.php:377 actions/avatarsettings.php:337
 msgid "Lost our file data."
 msgstr "Daten verloren."
 
 #: actions/avatarsettings.php:334 actions/grouplogo.php:391
 #: classes/User_group.php:112 lib/imagefile.php:112 lib/imagefile.php:113
 #: lib/imagefile.php:118
-#, fuzzy
 msgid "Lost our file."
 msgstr "Daten verloren."
 
@@ -4170,7 +4189,6 @@ msgid "You have already blocked this user."
 msgstr "Du hast diesen Benutzer bereits blockiert."
 
 #: actions/block.php:167 actions/block.php:170
-#, fuzzy
 msgid "Failed to save block information."
 msgstr "Konnte Blockierungsdaten nicht speichern."
 
@@ -4180,12 +4198,10 @@ msgid "The address \"%s\" has been "
 msgstr "Die Adresse „%s“ wurde "
 
 #: actions/deletenotice.php:73
-#, fuzzy
 msgid "You are about to permanently delete a notice. "
 msgstr "Du bist dabei diese Nachricht dauerhaft zu entfernen. "
 
 #: actions/disfavor.php:94
-#, fuzzy
 msgid "Add to favorites"
 msgstr "Zu Favoriten hinzufügen"
 
@@ -4198,7 +4214,6 @@ msgstr "Gruppe %s bearbeiten"
 #: actions/joingroup.php:60 actions/newgroup.php:65 actions/showgroup.php:100
 #: actions/grouplogo.php:70 actions/grouprss.php:80 actions/editgroup.php:68
 #: actions/groupdesignsettings.php:68 actions/showgroup.php:105
-#, fuzzy
 msgid "Inboxes must be enabled for groups to work"
 msgstr "Posteingänge müssen aktiviert sein, damit Gruppen funktionieren"
 
@@ -4215,7 +4230,6 @@ msgstr "Du musst angemeldet sein, um eine Gruppe zu erstellen."
 #: actions/groupdesignsettings.php:89 actions/showgroup.php:126
 #: actions/editgroup.php:84 actions/groupdesignsettings.php:84
 #: actions/grouplogo.php:86 actions/grouprss.php:91 actions/joingroup.php:76
-#, fuzzy
 msgid "No nickname"
 msgstr "Kein Benutzername"
 
@@ -4227,7 +4241,6 @@ msgstr "Kein Benutzername"
 #: actions/showgroup.php:133 actions/editgroup.php:96 actions/groupbyid.php:83
 #: actions/groupdesignsettings.php:97 actions/grouplogo.php:99
 #: actions/grouprss.php:98 actions/joingroup.php:83 actions/showgroup.php:137
-#, fuzzy
 msgid "No such group"
 msgstr "Keine derartige Gruppe"
 
@@ -4246,7 +4259,6 @@ msgid "Use this form to edit the group."
 msgstr "Benutze dieses Formular, um die Gruppe zu bearbeiten."
 
 #: actions/editgroup.php:179 actions/newgroup.php:130 actions/register.php:156
-#, fuzzy
 msgid "Nickname must have only lowercase letters "
 msgstr "Der Benutzername darf nur aus Kleinbuchstaben bestehen "
 
@@ -4260,12 +4272,11 @@ msgid "Could not update group."
 msgstr "Konnte Gruppe nicht aktualisieren."
 
 #: actions/editgroup.php:226 actions/editgroup.php:269
-#, fuzzy
 msgid "Options saved."
 msgstr "Einstellungen gespeichert."
 
 #: actions/emailsettings.php:107 actions/imsettings.php:108
-#, fuzzy, php-format
+#, php-format
 msgid "Awaiting confirmation on this address. "
 msgstr "Warte auf die Bestätigung dieser Adresse. "
 
@@ -4293,12 +4304,11 @@ msgstr ""
 "hinzugefügt hast. "
 
 #: actions/facebookhome.php:110 actions/facebookhome.php:109
-#, fuzzy
 msgid "Server error - couldn't get user!"
 msgstr "Serverfehler - Benutzer nicht gefunden!"
 
 #: actions/facebookhome.php:196
-#, fuzzy, php-format
+#, php-format
 msgid "If you would like the %s app to automatically update "
 msgstr "Wenn du automatische Aktualisierungen der Anwendung %s möchtest "
 
@@ -4314,7 +4324,6 @@ msgstr "Überspringen"
 
 #: actions/facebookhome.php:235 lib/facebookaction.php:479
 #: lib/facebookaction.php:471
-#, fuzzy
 msgid "No notice content!"
 msgstr "Kein Inhalt!"
 
@@ -4322,7 +4331,6 @@ msgstr "Kein Inhalt!"
 #: actions/facebookhome.php:253 lib/action.php:973 lib/facebookaction.php:433
 #: actions/facebookhome.php:247 lib/action.php:1037 lib/facebookaction.php:435
 #: lib/action.php:1053
-#, fuzzy
 msgid "Pagination"
 msgstr "Seitenerstellung"
 
@@ -4337,29 +4345,27 @@ msgstr "Später"
 #: actions/facebookhome.php:270 lib/action.php:990 lib/facebookaction.php:450
 #: actions/facebookhome.php:264 lib/action.php:1054 lib/facebookaction.php:452
 #: lib/action.php:1070
-#, fuzzy
 msgid "Before"
 msgstr "Vorher"
 
 #: actions/facebookinvite.php:70 actions/facebookinvite.php:72
-#, fuzzy, php-format
+#, php-format
 msgid "Thanks for inviting your friends to use %s"
 msgstr "Danke, dass du deine Freunde zu %s einlädst"
 
 #: actions/facebookinvite.php:72 actions/facebookinvite.php:74
-#, fuzzy
 msgid "Invitations have been sent to the following users:"
-msgstr "Einladung(en) an folgende Personen geschickt:"
+msgstr "Einladungen an folgende Personen geschickt:"
 
 #: actions/facebookinvite.php:96 actions/facebookinvite.php:102
 #: actions/facebookinvite.php:94
-#, fuzzy, php-format
+#, php-format
 msgid "You have been invited to %s"
 msgstr "Du wurdest von %s angestupst"
 
 #: actions/facebookinvite.php:105 actions/facebookinvite.php:111
 #: actions/facebookinvite.php:103
-#, fuzzy, php-format
+#, php-format
 msgid "Invite your friends to use %s"
 msgstr "Lade deine Freunde ein %s zu nutzen"
 
@@ -4380,13 +4386,11 @@ msgid "Couldn't remove Facebook user."
 msgstr "Konnte Facebook-Benutzer nicht entfernen."
 
 #: actions/facebooksettings.php:65
-#, fuzzy
 msgid "There was a problem saving your sync preferences!"
 msgstr ""
 "Es gab ein Problem beim Speichern deiner Synchronisationseinstellungen."
 
 #: actions/facebooksettings.php:67
-#, fuzzy
 msgid "Sync preferences saved."
 msgstr "Synchronisationseinstellungen gespeichert."
 
@@ -4404,7 +4408,6 @@ msgid "Prefix"
 msgstr "Präfix"
 
 #: actions/facebooksettings.php:108
-#, fuzzy
 msgid "A string to prefix notices with."
 msgstr "Eine Zeichenfolge, die deinen Nachrichten vorangestellt wird."
 
@@ -4414,12 +4417,10 @@ msgid "If you would like %s to automatically update "
 msgstr "Wenn du %s automatisch aktualisieren lassen möchtest "
 
 #: actions/facebooksettings.php:147
-#, fuzzy
 msgid "Sync preferences"
 msgstr "Synchronisationseinstellungen"
 
 #: actions/favor.php:94 lib/disfavorform.php:140 actions/favor.php:92
-#, fuzzy
 msgid "Disfavor favorite"
 msgstr "Aus Favoriten entfernen"
 
@@ -4442,22 +4443,20 @@ msgstr "Die momentan beliebtesten Nachrichten auf dieser Seite."
 #: actions/featured.php:69 lib/featureduserssection.php:82
 #: lib/publicgroupnav.php:87 lib/publicgroupnav.php:89
 #: lib/featureduserssection.php:87
-#, fuzzy
 msgid "Featured users"
-msgstr "Featured Benutzer"
+msgstr "Top-Benutzer"
 
 #: actions/featured.php:71
-#, fuzzy, php-format
+#, php-format
 msgid "Featured users, page %d"
-msgstr "Featured Benutzer, Seite %d"
+msgstr "Top-Benutzer, Seite %d"
 
 #: actions/featured.php:99
-#, fuzzy, php-format
+#, php-format
 msgid "A selection of some of the great users on %s"
 msgstr "Eine Auswahl der tollen Benutzer auf %s"
 
 #: actions/finishremotesubscribe.php:188 actions/finishremotesubscribe.php:96
-#, fuzzy
 msgid "That user has blocked you from subscribing."
 msgstr "Dieser Benutzer erlaubt dir nicht ihn zu abonnieren."
 
@@ -4477,13 +4476,11 @@ msgstr "Du kannst ein Logo für Deine Gruppe hochladen."
 
 #: actions/grouplogo.php:448 actions/grouplogo.php:401
 #: actions/grouplogo.php:396
-#, fuzzy
 msgid "Logo updated."
 msgstr "Logo aktualisiert."
 
 #: actions/grouplogo.php:450 actions/grouplogo.php:403
 #: actions/grouplogo.php:398
-#, fuzzy
 msgid "Failed updating logo."
 msgstr "Aktualisierung des Logos fehlgeschlagen."
 
@@ -4513,9 +4510,9 @@ msgid "Groups, page %d"
 msgstr "Gruppen, Seite %d"
 
 #: actions/groups.php:90
-#, fuzzy, php-format
+#, php-format
 msgid "%%%%site.name%%%% groups let you find and talk with "
-msgstr "%%%%site.name%%%% Gruppen - finde und tausche dich aus mit "
+msgstr "%%%%site.name%%%%-Gruppen - finde und tausche dich aus mit "
 
 #: actions/groups.php:106 actions/usergroups.php:124 lib/groupeditform.php:123
 #: actions/usergroups.php:125 actions/groups.php:107 lib/groupeditform.php:122
@@ -4523,19 +4520,17 @@ msgid "Create a new group"
 msgstr "Neue Gruppe erstellen"
 
 #: actions/groupsearch.php:57
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Search for groups on %%site.name%% by their name, location, or description. "
 msgstr ""
 "Suche nach Gruppen auf %%site.name%% nach Name, Ort oder Beschreibung. "
 
 #: actions/groupsearch.php:63 actions/groupsearch.php:58
-#, fuzzy
 msgid "Group search"
 msgstr "Gruppen-Suche"
 
 #: actions/imsettings.php:70
-#, fuzzy
 msgid "You can send and receive notices through "
 msgstr "Du kannst Nachrichten senden und empfangen über "
 
@@ -4545,12 +4540,11 @@ msgid "Jabber or GTalk address, "
 msgstr "Jabber- oder GTalk-Adressen, "
 
 #: actions/imsettings.php:147
-#, fuzzy
 msgid "Send me replies through Jabber/GTalk "
-msgstr "Schicke mir Nachrichten mittels Jabber/GTalk."
+msgstr "Schicke mir Nachrichten mittels Jabber/GTalk "
 
 #: actions/imsettings.php:321
-#, fuzzy, php-format
+#, php-format
 msgid "A confirmation code was sent "
 msgstr "Es wurde ein Bestätigungscode gesendet "
 
@@ -4559,12 +4553,11 @@ msgid "You must be logged in to join a group."
 msgstr "Du musst angemeldet sein, um Mitglied einer Gruppe zu werden."
 
 #: actions/joingroup.php:95 actions/joingroup.php:90 lib/command.php:217
-#, fuzzy
 msgid "You are already a member of that group"
 msgstr "Du bist bereits Mitglied dieser Gruppe"
 
 #: actions/joingroup.php:128 actions/joingroup.php:133 lib/command.php:234
-#, fuzzy, php-format
+#, php-format
 msgid "Could not join user %s to group %s"
 msgstr "Konnte Benutzer %s nicht der Gruppe %s hinzufügen"
 
@@ -4574,7 +4567,6 @@ msgid "%s joined group %s"
 msgstr "%s ist der Gruppe %s beigetreten"
 
 #: actions/leavegroup.php:60
-#, fuzzy
 msgid "Inboxes must be enabled for groups to work."
 msgstr "Damit Gruppen funktionieren müssen Posteingänge aktiviert sein."
 
@@ -4586,30 +4578,26 @@ msgstr "Du musst angemeldet sein, um aus einer Gruppe auszutreten."
 #: actions/groupunblock.php:86 actions/makeadmin.php:86
 #: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/leavegroup.php:83
 #: lib/command.php:212 lib/command.php:263
-#, fuzzy
 msgid "No such group."
 msgstr "Keine derartige Gruppe."
 
 #: actions/leavegroup.php:95 actions/leavegroup.php:90 lib/command.php:268
-#, fuzzy
 msgid "You are not a member of that group."
 msgstr "Du bist kein Mitglied dieser Gruppe."
 
 #: actions/leavegroup.php:100
-#, fuzzy
 msgid "You may not leave a group while you are its administrator."
 msgstr ""
 "Du kannst eine Gruppe nicht verlassen solange du der Administrator bist."
 
 #: actions/leavegroup.php:130 actions/leavegroup.php:124
 #: actions/leavegroup.php:119 lib/command.php:278
-#, fuzzy
 msgid "Could not find membership record."
 msgstr "Konnte Mitgliedseintrag nicht finden."
 
 #: actions/leavegroup.php:138 actions/leavegroup.php:132
 #: actions/leavegroup.php:127 lib/command.php:284
-#, fuzzy, php-format
+#, php-format
 msgid "Could not remove user %s to group %s"
 msgstr "Konnte Benutzer %s aus der Gruppe %s nicht entfernen"
 
@@ -4620,8 +4608,7 @@ msgid "%s left group %s"
 msgstr "%s hat die Gruppe %s verlassen"
 
 #: actions/login.php:225 lib/facebookaction.php:304 actions/login.php:208
-#: actions/login.php:216
-#, fuzzy
+#: actions/login.php:216 actions/login.php:243
 msgid "Login to site"
 msgstr "An Seite anmelden"
 
@@ -4634,24 +4621,20 @@ msgid "New group"
 msgstr "Neue Gruppe"
 
 #: actions/newgroup.php:115 actions/newgroup.php:110
-#, fuzzy
 msgid "Use this form to create a new group."
 msgstr "Benutzer dieses Formular, um eine neue Gruppe zu erstellen."
 
 #: actions/newgroup.php:177 actions/newgroup.php:209
 #: actions/apigroupcreate.php:136 actions/newgroup.php:204
-#, fuzzy
 msgid "Could not create group."
 msgstr "Konnte Gruppe nicht erstellen."
 
 #: actions/newgroup.php:191 actions/newgroup.php:229
 #: actions/apigroupcreate.php:166 actions/newgroup.php:224
-#, fuzzy
 msgid "Could not set group membership."
 msgstr "Konnte Gruppenmitgliedschaft nicht setzen."
 
 #: actions/newmessage.php:119 actions/newnotice.php:132
-#, fuzzy
 msgid "That's too long. "
 msgstr "Das ist zu lang. "
 
@@ -4661,7 +4644,6 @@ msgstr "Schreibe dir selbst keine Nachrichten; "
 
 #: actions/newnotice.php:166 actions/newnotice.php:174
 #: actions/newnotice.php:272 actions/newnotice.php:199
-#, fuzzy
 msgid "Notice posted"
 msgstr "Nachricht hinzugefügt"
 
@@ -4691,12 +4673,10 @@ msgid "OpenID login"
 msgstr "OpenID-Anmeldung"
 
 #: actions/openidsettings.php:128
-#, fuzzy
 msgid "Removing your only OpenID "
 msgstr "Entfernen deiner einzigen OpenID "
 
 #: actions/othersettings.php:60
-#, fuzzy
 msgid "Other Settings"
 msgstr "Andere Einstellungen"
 
@@ -4723,20 +4703,18 @@ msgid "URL shortening service is too long (max 50 chars)."
 msgstr "URL-Auto-Kürzungs-Dienst ist zu lange (max. 50 Zeichen)"
 
 #: actions/passwordsettings.php:69
-#, fuzzy
 msgid "Change your password."
-msgstr "Ändere dein Passwort,"
+msgstr "Ändere dein Passwort."
 
 #: actions/passwordsettings.php:89 actions/recoverpassword.php:228
 #: actions/passwordsettings.php:95 actions/recoverpassword.php:231
-#, fuzzy
 msgid "Password change"
-msgstr "Passwort gespeichert"
+msgstr "Passwort geändert"
 
 #: actions/peopletag.php:35 actions/peopletag.php:70
-#, fuzzy, php-format
+#, php-format
 msgid "Not a valid people tag: %s"
-msgstr "Ungültiger Tag: %s"
+msgstr "Ungültiger Personen-Tag: %s"
 
 #: actions/peopletag.php:47 actions/peopletag.php:144
 #, php-format
@@ -4749,7 +4727,6 @@ msgid "These are users who have tagged themselves \"%s\" "
 msgstr "Benutzer die sich selbst mit „%s“ getagged haben "
 
 #: actions/profilesettings.php:91 actions/profilesettings.php:99
-#, fuzzy
 msgid "Profile information"
 msgstr "Profilinformation"
 
@@ -4762,7 +4739,6 @@ msgstr ""
 "Leerzeichen getrennt"
 
 #: actions/profilesettings.php:144
-#, fuzzy
 msgid "Automatically subscribe to whoever "
 msgstr "Abonniere automatisch alle Kontakte, die mich abonnieren "
 
@@ -4780,7 +4756,7 @@ msgstr "Konnte Tags nicht speichern."
 
 #: actions/public.php:107 actions/public.php:110 actions/public.php:118
 #: actions/public.php:129
-#, fuzzy, php-format
+#, php-format
 msgid "Public timeline, page %d"
 msgstr "Öffentliche Zeitleiste, Seite %d"
 
@@ -4799,7 +4775,6 @@ msgstr ""
 "Mikro-blogging) Dienst "
 
 #: actions/publictagcloud.php:57
-#, fuzzy
 msgid "Public tag cloud"
 msgstr "Öffentliche Tag-Wolke"
 
@@ -4814,12 +4789,12 @@ msgstr "Tag-Wolke"
 
 #: actions/register.php:139 actions/register.php:349 actions/register.php:79
 #: actions/register.php:177 actions/register.php:394 actions/register.php:183
-#: actions/register.php:398
+#: actions/register.php:398 actions/register.php:85 actions/register.php:189
+#: actions/register.php:404
 msgid "Sorry, only invited people can register."
 msgstr "Es tut uns leid, zum Registrieren benötigst du eine Einladung."
 
 #: actions/register.php:149
-#, fuzzy
 msgid "You can't register if you don't "
 msgstr "Du kannst dich nicht registrieren, wenn du nicht "
 
@@ -4828,7 +4803,6 @@ msgid "With this form you can create "
 msgstr "Dieses Formular hilft dir beim Erstellen von "
 
 #: actions/register.php:368
-#, fuzzy
 msgid "1-64 lowercase letters or numbers, "
 msgstr "1-64 Kleinbuchstaben oder Ziffern, "
 
@@ -4837,48 +4811,42 @@ msgid "Used only for updates, announcements, "
 msgstr "Verwendet nur für Aktualisierungen und wichtige Mitteilungen, "
 
 #: actions/register.php:398
-#, fuzzy
 msgid "URL of your homepage, blog, "
 msgstr "URL deiner Homepage, Blogs, "
 
 #: actions/register.php:404
-#, fuzzy
 msgid "Describe yourself and your "
 msgstr "Beschreibe dich selbst und deine "
 
 #: actions/register.php:410
-#, fuzzy
 msgid "Where you are, like \"City, "
-msgstr "Wo du bist, z.B. \"Stadt, "
+msgstr "Wo du bist, beispielsweise \"Stadt, "
 
 #: actions/register.php:432
-#, fuzzy
 msgid " except this private data: password, "
 msgstr " außer folgende private Daten: Passwort, "
 
 #: actions/register.php:471
-#, fuzzy, php-format
+#, php-format
 msgid "Congratulations, %s! And welcome to %%%%site.name%%%%. "
 msgstr "Gratuliere, %s! Und willkommen auf %%%%site.name%%%%. "
 
 #: actions/register.php:495
-#, fuzzy
 msgid "(You should receive a message by email "
 msgstr "(Du solltest eine Nachricht per E-Mail erhalten "
 
 #: actions/remotesubscribe.php:166 actions/remotesubscribe.php:171
-#, fuzzy
 msgid "That's a local profile! Login to subscribe."
 msgstr "Das ist ein lokales Profil! Zum Abonnieren anmelden."
 
 #: actions/replies.php:118 actions/replies.php:120 actions/replies.php:119
 #: actions/replies.php:127
-#, fuzzy, php-format
+#, php-format
 msgid "Replies to %s, page %d"
 msgstr "Antworten an %s, Seite %d"
 
 #: actions/showfavorites.php:79
-#, fuzzy, php-format
+#, php-format
 msgid "%s favorite notices, page %d"
 msgstr "%ss favorisierte Nachrichten, Seite %d"
 
@@ -4894,7 +4862,6 @@ msgstr "%s Gruppe, Seite %d"
 
 #: actions/showgroup.php:206 actions/showgroup.php:208
 #: actions/showgroup.php:213 actions/showgroup.php:218
-#, fuzzy
 msgid "Group profile"
 msgstr "Gruppenprofil"
 
@@ -4905,7 +4872,7 @@ msgstr "Gruppenprofil"
 #: actions/showstream.php:236 actions/userauthorization.php:137
 #: lib/profilelist.php:197 actions/showgroup.php:263
 #: actions/showstream.php:295 actions/userauthorization.php:167
-#: lib/profilelist.php:230
+#: lib/profilelist.php:230 lib/userprofile.php:177
 msgid "URL"
 msgstr "URL"
 
@@ -4916,19 +4883,17 @@ msgstr "URL"
 #: actions/showstream.php:247 actions/userauthorization.php:149
 #: lib/profilelist.php:212 actions/showgroup.php:274
 #: actions/showstream.php:312 actions/userauthorization.php:179
-#: lib/profilelist.php:245
-#, fuzzy
+#: lib/profilelist.php:245 lib/userprofile.php:194
 msgid "Note"
 msgstr "Nachricht"
 
 #: actions/showgroup.php:270 actions/showgroup.php:272
 #: actions/showgroup.php:288 actions/showgroup.php:293
-#, fuzzy
 msgid "Group actions"
 msgstr "Gruppenaktionen"
 
 #: actions/showgroup.php:323 actions/showgroup.php:304
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s group"
 msgstr "Nachrichtenfeed der Gruppe %s"
 
@@ -4936,7 +4901,6 @@ msgstr "Nachrichtenfeed der Gruppe %s"
 #: actions/showgroup.php:384 actions/showgroup.php:373
 #: actions/showgroup.php:430 actions/showgroup.php:381
 #: actions/showgroup.php:438
-#, fuzzy
 msgid "Members"
 msgstr "Mitglieder"
 
@@ -4946,7 +4910,6 @@ msgstr "Mitglieder"
 #: actions/showgroup.php:378 lib/profileaction.php:117
 #: lib/profileaction.php:148 lib/profileaction.php:226
 #: actions/showgroup.php:386
-#, fuzzy
 msgid "(None)"
 msgstr "(Kein)"
 
@@ -4969,48 +4932,44 @@ msgid "Only the sender and recipient "
 msgstr "Nur der Absender und Empfänger "
 
 #: actions/showstream.php:73 actions/showstream.php:78
+#: actions/showstream.php:79
 #, php-format
 msgid "%s, page %d"
 msgstr "%s, Seite %d"
 
 #: actions/showstream.php:143
-#, fuzzy
 msgid "'s profile"
 msgstr "s Profil"
 
 #: actions/showstream.php:236 actions/tagother.php:77
 #: actions/showstream.php:220 actions/showstream.php:185
-#: actions/showstream.php:193
-#, fuzzy
+#: actions/showstream.php:193 lib/userprofile.php:75
 msgid "User profile"
 msgstr "Benutzerprofil"
 
 #: actions/showstream.php:240 actions/tagother.php:81
 #: actions/showstream.php:224 actions/showstream.php:189
-#: actions/showstream.php:220
+#: actions/showstream.php:220 lib/userprofile.php:102
 msgid "Photo"
 msgstr "Foto"
 
 #: actions/showstream.php:317 actions/showstream.php:309
 #: actions/showstream.php:274 actions/showstream.php:354
-#, fuzzy
+#: lib/userprofile.php:236
 msgid "User actions"
 msgstr "Benutzeraktionen"
 
 #: actions/showstream.php:342 actions/showstream.php:307
-#: actions/showstream.php:390
-#, fuzzy
+#: actions/showstream.php:390 lib/userprofile.php:272
 msgid "Send a direct message to this user"
 msgstr "Direkte Nachricht an Benutzer verschickt"
 
 #: actions/showstream.php:343 actions/showstream.php:308
-#: actions/showstream.php:391
-#, fuzzy
+#: actions/showstream.php:391 lib/userprofile.php:273
 msgid "Message"
 msgstr "Nachricht"
 
 #: actions/showstream.php:451 lib/profileaction.php:157
-#, fuzzy
 msgid "All subscribers"
 msgstr "Alle Abonnenten"
 
@@ -5028,39 +4987,32 @@ msgstr ""
 "(http://de.wikipedia.org/wiki/Mikro-blogging) "
 
 #: actions/smssettings.php:128
-#, fuzzy
 msgid "Phone number, no punctuation or spaces, "
 msgstr "Telefonnummer, keine Satz- oder Leerzeichen, "
 
 #: actions/smssettings.php:162
-#, fuzzy
 msgid "Send me notices through SMS; "
 msgstr "Schicke mir Nachrichten per SMS; "
 
 #: actions/smssettings.php:335
-#, fuzzy
 msgid "A confirmation code was sent to the phone number you added. "
 msgstr ""
 "Ein Bestätigungscode wurde an die Telefonnummer gesendet, die du hinzugefügt "
 "hast. "
 
 #: actions/smssettings.php:453 actions/smssettings.php:465
-#, fuzzy
 msgid "Mobile carrier"
 msgstr "Netzanbieter"
 
 #: actions/subedit.php:70
-#, fuzzy
 msgid "You are not subscribed to that profile."
 msgstr "Du hast dieses Profil nicht abonniert."
 
 #: actions/subedit.php:83
-#, fuzzy
 msgid "Could not save subscription."
 msgstr "Konnte Abonnement nicht erstellen."
 
 #: actions/subscribe.php:55
-#, fuzzy
 msgid "Not a local user."
 msgstr "Kein lokaler Benutzer."
 
@@ -5069,42 +5021,40 @@ msgid "Subscribed"
 msgstr "Abonniert"
 
 #: actions/subscribers.php:50
-#, fuzzy, php-format
+#, php-format
 msgid "%s subscribers"
 msgstr "%s Abonnenten"
 
 #: actions/subscribers.php:52
-#, fuzzy, php-format
+#, php-format
 msgid "%s subscribers, page %d"
 msgstr "%s Abonnenten, Seite %d"
 
 #: actions/subscribers.php:63
-#, fuzzy
 msgid "These are the people who listen to "
 msgstr "Folgende Leute lesen "
 
 #: actions/subscribers.php:67
-#, fuzzy, php-format
+#, php-format
 msgid "These are the people who "
 msgstr "Folgende Leute "
 
 #: actions/subscriptions.php:52
-#, fuzzy, php-format
+#, php-format
 msgid "%s subscriptions"
 msgstr "%s Abonnements"
 
 #: actions/subscriptions.php:54
-#, fuzzy, php-format
+#, php-format
 msgid "%s subscriptions, page %d"
 msgstr "%s Abonnements, Seite %d"
 
 #: actions/subscriptions.php:65
-#, fuzzy
 msgid "These are the people whose notices "
 msgstr "Dies sind die Leute, deren Nachrichten "
 
 #: actions/subscriptions.php:69
-#, fuzzy, php-format
+#, php-format
 msgid "These are the people whose "
 msgstr "Dies sind die Leute, deren "
 
@@ -5114,7 +5064,7 @@ msgid "Jabber"
 msgstr "Jabber"
 
 #: actions/tag.php:43 actions/tag.php:51 actions/tag.php:59 actions/tag.php:68
-#, fuzzy, php-format
+#, php-format
 msgid "Notices tagged with %s, page %d"
 msgstr "Nachrichten, die mit %s getagt sind, Seite %d"
 
@@ -5124,22 +5074,19 @@ msgid "Messages tagged \"%s\", most recent first"
 msgstr "Nachrichten getagt mit „%s“, neueste zuerst"
 
 #: actions/tagother.php:33
-#, fuzzy
 msgid "Not logged in"
 msgstr "Nicht angemeldet"
 
 #: actions/tagother.php:39
-#, fuzzy
 msgid "No id argument."
 msgstr "Kein id Argument."
 
 #: actions/tagother.php:65
-#, fuzzy, php-format
+#, php-format
 msgid "Tag %s"
 msgstr "Tag %s"
 
 #: actions/tagother.php:141
-#, fuzzy
 msgid "Tag user"
 msgstr "Benutzer taggen"
 
@@ -5152,7 +5099,6 @@ msgstr ""
 "Leerzeichen getrennt"
 
 #: actions/tagother.php:164
-#, fuzzy
 msgid "There was a problem with your session token."
 msgstr "Es gab ein Problem mit deinem Sessiontoken."
 
@@ -5168,21 +5114,19 @@ msgid "Could not save tags."
 msgstr "Konnte Tags nicht speichern."
 
 #: actions/tagother.php:233 actions/tagother.php:235 actions/tagother.php:236
-#, fuzzy
 msgid "Use this form to add tags to your subscribers or subscriptions."
 msgstr ""
 "Benutze dieses Formular, um Tags zu deinen Abonnenten oder Abonnements "
 "hinzuzufügen."
 
 #: actions/tagrss.php:35
-#, fuzzy
 msgid "No such tag."
 msgstr "Tag nicht vorhanden."
 
 #: actions/tagrss.php:66 actions/tagrss.php:64
-#, fuzzy, php-format
+#, php-format
 msgid "Microblog tagged with %s"
-msgstr "Microblog getaggt mit %s"
+msgstr "Mikroblog getaggt mit %s"
 
 #: actions/twitapiblocks.php:47 actions/twitapiblocks.php:49
 #: actions/apiblockcreate.php:108
@@ -5191,7 +5135,6 @@ msgstr "Blockieren des Benutzers fehlgeschlagen."
 
 #: actions/twitapiblocks.php:69 actions/twitapiblocks.php:71
 #: actions/apiblockdestroy.php:107
-#, fuzzy
 msgid "Unblock user failed."
 msgstr "Freigeben des Benutzers fehlgeschlagen."
 
@@ -5218,32 +5161,27 @@ msgid "Twitter Friends"
 msgstr "Twitter-Freunde"
 
 #: actions/twittersettings.php:327
-#, fuzzy
 msgid "Username must have only numbers, "
 msgstr "Für den Benutzernamen gelten nur Nummern, "
 
 #: actions/twittersettings.php:341
-#, fuzzy, php-format
+#, php-format
 msgid "Unable to retrieve account information "
 msgstr "Konnte Kontoinformationen nicht abrufen "
 
 #: actions/unblock.php:108 actions/groupunblock.php:128
-#, fuzzy
 msgid "Error removing the block."
 msgstr "Fehler beim Freigeben des Benutzers."
 
 #: actions/unsubscribe.php:50 actions/unsubscribe.php:77
-#, fuzzy
 msgid "No profile id in request."
-msgstr "Der entfernte Server hat keine Profil-ID geliefert."
+msgstr "Keine Profil-ID in der Anfrage."
 
 #: actions/unsubscribe.php:57 actions/unsubscribe.php:84
-#, fuzzy
 msgid "No profile with that id."
 msgstr "Kein Profil mit dieser ID."
 
 #: actions/unsubscribe.php:71 actions/unsubscribe.php:98
-#, fuzzy
 msgid "Unsubscribed"
 msgstr "Abbestellt"
 
@@ -5260,7 +5198,6 @@ msgstr "%s Gruppen, Seite %d"
 
 #: classes/Notice.php:104 classes/Notice.php:128 classes/Notice.php:144
 #: classes/Notice.php:183
-#, fuzzy
 msgid "Problem saving notice. Unknown user."
 msgstr "Problem bei Speichern der Nachricht. Unbekannter Benutzer."
 
@@ -5279,26 +5216,23 @@ msgstr ""
 "Du wurdest für das Schreiben von Nachrichten auf dieser Seite gesperrt."
 
 #: lib/accountsettingsaction.php:108 lib/accountsettingsaction.php:112
-#, fuzzy
 msgid "Upload an avatar"
 msgstr "Avatar hochladen"
 
 #: lib/accountsettingsaction.php:119 lib/accountsettingsaction.php:122
 #: lib/accountsettingsaction.php:123
-#, fuzzy
 msgid "Other"
 msgstr "Sonstige"
 
 #: lib/accountsettingsaction.php:120 lib/accountsettingsaction.php:123
 #: lib/accountsettingsaction.php:124
-#, fuzzy
 msgid "Other options"
 msgstr "Sonstige Optionen"
 
 #: lib/action.php:130 lib/action.php:132 lib/action.php:142 lib/action.php:144
-#, fuzzy, php-format
+#, php-format
 msgid "%s - %s"
-msgstr "%s (%s)"
+msgstr "%s - %s"
 
 #: lib/action.php:145 lib/action.php:147 lib/action.php:157 lib/action.php:159
 msgid "Untitled page"
@@ -5309,12 +5243,10 @@ msgid "Primary site navigation"
 msgstr "Hauptnavigation"
 
 #: lib/action.php:322 lib/action.php:393 lib/action.php:417 lib/action.php:430
-#, fuzzy
 msgid "Personal profile and friends timeline"
 msgstr "Persönliches Profil und Freundes-Zeitleiste"
 
 #: lib/action.php:325 lib/action.php:396 lib/action.php:448 lib/action.php:459
-#, fuzzy
 msgid "Search for people or text"
 msgstr "Suche nach Leuten oder Text"
 
@@ -5323,22 +5255,18 @@ msgid "Account"
 msgstr "Konto"
 
 #: lib/action.php:328 lib/action.php:399 lib/action.php:419 lib/action.php:432
-#, fuzzy
 msgid "Change your email, avatar, password, profile"
 msgstr "Ändere deine E-Mail, dein Avatar, Passwort, Profil"
 
 #: lib/action.php:330 lib/action.php:403 lib/action.php:422
-#, fuzzy
 msgid "Connect to IM, SMS, Twitter"
 msgstr "Verbinde zu IM, SMS, Twitter"
 
 #: lib/action.php:332 lib/action.php:409 lib/action.php:435 lib/action.php:445
-#, fuzzy
 msgid "Logout from the site"
 msgstr "Von der Seite abmelden"
 
 #: lib/action.php:335 lib/action.php:412 lib/action.php:443 lib/action.php:453
-#, fuzzy
 msgid "Login to the site"
 msgstr "Auf der Seite anmelden"
 
@@ -5347,32 +5275,26 @@ msgid "Create an account"
 msgstr "Neues Konto erstellen"
 
 #: lib/action.php:341 lib/action.php:418
-#, fuzzy
 msgid "Login with OpenID"
 msgstr "Mit OpenID anmelden"
 
 #: lib/action.php:344 lib/action.php:421 lib/action.php:446 lib/action.php:456
-#, fuzzy
 msgid "Help me!"
 msgstr "Hilf mir!"
 
 #: lib/action.php:362 lib/action.php:441 lib/action.php:468 lib/action.php:480
-#, fuzzy
 msgid "Site notice"
-msgstr "Neue Nachricht"
+msgstr "Seitennachricht"
 
 #: lib/action.php:417 lib/action.php:504 lib/action.php:531 lib/action.php:546
-#, fuzzy
 msgid "Local views"
 msgstr "Lokale Ansichten"
 
 #: lib/action.php:472 lib/action.php:559 lib/action.php:597 lib/action.php:612
-#, fuzzy
 msgid "Page notice"
 msgstr "Neue Nachricht"
 
 #: lib/action.php:562 lib/action.php:654 lib/action.php:699 lib/action.php:714
-#, fuzzy
 msgid "Secondary site navigation"
 msgstr "Unternavigation"
 
@@ -5787,7 +5709,7 @@ msgstr "%s und Freunde"
 msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr "Du kannst dein persönliches Avatar hochladen."
 
-#: actions/avatarsettings.php:373
+#: actions/avatarsettings.php:373 actions/avatarsettings.php:387
 #, fuzzy
 msgid "Avatar deleted."
 msgstr "Avatar aktualisiert."
@@ -5927,10 +5849,12 @@ msgid ""
 msgstr ""
 
 #: actions/register.php:432 actions/register.php:479 actions/register.php:489
+#: actions/register.php:495
 msgid "Creative Commons Attribution 3.0"
 msgstr ""
 
 #: actions/register.php:433 actions/register.php:480 actions/register.php:490
+#: actions/register.php:496
 #, fuzzy
 msgid ""
 " except this private data: password, email address, IM address, and phone "
@@ -5967,44 +5891,48 @@ msgid "%s's profile"
 msgstr "s Profil"
 
 #: actions/showstream.php:163 actions/showstream.php:128
+#: actions/showstream.php:129
 #, fuzzy, php-format
 msgid "Notice feed for %s (RSS 1.0)"
 msgstr "Feed der Nachrichten von %s"
 
 #: actions/showstream.php:170 actions/showstream.php:135
+#: actions/showstream.php:136
 #, fuzzy, php-format
 msgid "Notice feed for %s (RSS 2.0)"
 msgstr "Feed der Nachrichten von %s"
 
 #: actions/showstream.php:177 actions/showstream.php:142
+#: actions/showstream.php:143
 #, fuzzy, php-format
 msgid "Notice feed for %s (Atom)"
 msgstr "Feed der Nachrichten von %s"
 
 #: actions/showstream.php:182 actions/showstream.php:147
+#: actions/showstream.php:148
 #, fuzzy, php-format
 msgid "FOAF for %s"
 msgstr "Postausgang von %s"
 
 #: actions/showstream.php:237 actions/showstream.php:202
-#: actions/showstream.php:234
+#: actions/showstream.php:234 lib/userprofile.php:116
 #, fuzzy
 msgid "Edit Avatar"
 msgstr "Avatar"
 
 #: actions/showstream.php:316 actions/showstream.php:281
-#: actions/showstream.php:366
+#: actions/showstream.php:366 lib/userprofile.php:248
 #, fuzzy
 msgid "Edit profile settings"
 msgstr "Profil Einstellungen"
 
 #: actions/showstream.php:317 actions/showstream.php:282
-#: actions/showstream.php:367
+#: actions/showstream.php:367 lib/userprofile.php:249
 msgid "Edit"
 msgstr ""
 
 #: actions/showstream.php:542 actions/showstream.php:388
-#: actions/showstream.php:487
+#: actions/showstream.php:487 actions/showstream.php:234
 #, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -6050,6 +5978,9 @@ msgstr ""
 #: actions/apistatusesupdate.php:125 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:79
 #: actions/apitimelinementions.php:79 actions/apitimelineuser.php:81
+#: actions/apiaccountupdateprofileimage.php:91
+#: actions/apiaccountupdateprofileimage.php:105
+#: actions/apistatusesupdate.php:139
 #, fuzzy
 msgid "No such user!"
 msgstr "Kein solcher Benutzer"
@@ -6110,36 +6041,6 @@ msgid ""
 "Subscriptions: %1$s\n"
 "Subscribers: %2$s\n"
 "Notices: %3$s"
-msgstr ""
-
-#: lib/command.php:392 lib/command.php:385
-msgid ""
-"Commands:\n"
-"on - turn on notifications\n"
-"off - turn off notifications\n"
-"help - show this help\n"
-"follow <nickname> - subscribe to user\n"
-"leave <nickname> - unsubscribe from user\n"
-"d <nickname> <text> - direct message to user\n"
-"get <nickname> - get last notice from user\n"
-"whois <nickname> - get profile info on user\n"
-"fav <nickname> - add user's last notice as a 'fave'\n"
-"stats - get your stats\n"
-"stop - same as 'off'\n"
-"quit - same as 'off'\n"
-"sub <nickname> - same as 'follow'\n"
-"unsub <nickname> - same as 'leave'\n"
-"last <nickname> - same as 'get'\n"
-"on <nickname> - not yet implemented.\n"
-"off <nickname> - not yet implemented.\n"
-"nudge <nickname> - not yet implemented.\n"
-"invite <phone number> - not yet implemented.\n"
-"track <word> - not yet implemented.\n"
-"untrack <word> - not yet implemented.\n"
-"track off - not yet implemented.\n"
-"untrack all - not yet implemented.\n"
-"tracks - not yet implemented.\n"
-"tracking - not yet implemented.\n"
 msgstr ""
 
 #: lib/dberroraction.php:60
@@ -6310,6 +6211,7 @@ msgstr ""
 
 #: actions/all.php:91 actions/replies.php:190 actions/showstream.php:361
 #: actions/all.php:137 actions/replies.php:209 actions/showstream.php:455
+#: actions/showstream.php:202
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
@@ -6491,7 +6393,8 @@ msgstr ""
 #: actions/groupdesignsettings.php:267 actions/userdesignsettings.php:186
 #: lib/designsettings.php:440 lib/designsettings.php:470
 #: actions/groupdesignsettings.php:262 lib/designsettings.php:431
-#: lib/designsettings.php:461
+#: lib/designsettings.php:461 lib/designsettings.php:434
+#: lib/designsettings.php:464
 #, fuzzy
 msgid "Couldn't update your design."
 msgstr "Konnte Benutzerdaten nicht aktualisieren."
@@ -6587,7 +6490,9 @@ msgid "Message sent"
 msgstr "Nachricht"
 
 #: actions/newnotice.php:93 lib/designsettings.php:281
-#: actions/newnotice.php:94
+#: actions/newnotice.php:94 actions/apiaccountupdateprofileimage.php:97
+#: actions/apistatusesupdate.php:122 actions/avatarsettings.php:254
+#: lib/designsettings.php:283
 #, php-format
 msgid ""
 "The server was unable to handle that much POST data (%s bytes) due to its "
@@ -6758,7 +6663,7 @@ msgstr "Du wurdest indentifiziert. Bitte trage unten ein neues Passwort ein."
 msgid "Password recover"
 msgstr "Wiederherstellung des Passworts angefordert"
 
-#: actions/register.php:86
+#: actions/register.php:86 actions/register.php:92
 #, fuzzy
 msgid "Sorry, invalid invitation code."
 msgstr "Fehler beim Bestätigungscode."
@@ -6860,28 +6765,31 @@ msgstr "Admin"
 msgid "Not a local notice"
 msgstr "Kein lokaler Benutzer."
 
-#: actions/showstream.php:72
+#: actions/showstream.php:72 actions/showstream.php:73
 #, fuzzy, php-format
 msgid " tagged %s"
 msgstr "Nachrichten, die mit %s getagt sind"
 
-#: actions/showstream.php:121
+#: actions/showstream.php:121 actions/showstream.php:122
 #, fuzzy, php-format
 msgid "Notice feed for %s tagged %s (RSS 1.0)"
 msgstr "Nachrichtenfeed der Gruppe %s"
 
 #: actions/showstream.php:350 actions/showstream.php:444
+#: actions/showstream.php:191
 #, php-format
 msgid "This is the timeline for %s but %s hasn't posted anything yet."
 msgstr ""
 
 #: actions/showstream.php:355 actions/showstream.php:449
+#: actions/showstream.php:196
 msgid ""
 "Seen anything interesting recently? You haven't posted any notices yet, now "
 "would be a good time to start :)"
 msgstr ""
 
 #: actions/showstream.php:357 actions/showstream.php:451
+#: actions/showstream.php:198
 #, php-format
 msgid ""
 "You can try to nudge %s or [post something to his or her attention](%%%%"
@@ -6889,6 +6797,7 @@ msgid ""
 msgstr ""
 
 #: actions/showstream.php:393 actions/showstream.php:492
+#: actions/showstream.php:239
 #, fuzzy, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -7041,6 +6950,7 @@ msgid "Problem saving notice. Too long."
 msgstr "Problem bei Speichern der Nachricht."
 
 #: classes/User.php:319 classes/User.php:327 classes/User.php:334
+#: classes/User.php:333
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Nachricht an %1$s auf %2$s"
@@ -7151,10 +7061,12 @@ msgid "Save design"
 msgstr ""
 
 #: lib/designsettings.php:378 lib/designsettings.php:369
+#: lib/designsettings.php:372
 msgid "Bad default color settings: "
 msgstr ""
 
 #: lib/designsettings.php:474 lib/designsettings.php:465
+#: lib/designsettings.php:468
 msgid "Design defaults restored."
 msgstr ""
 
@@ -7303,7 +7215,7 @@ msgid "Direct messages from %s"
 msgstr "Direkte Nachricht an %s"
 
 #: actions/apidirectmessagenew.php:135 actions/newmessage.php:150
-#, fuzzy, php-format
+#, php-format
 msgid "That's too long. Max message size is %d chars."
 msgstr ""
 "Die Nachricht ist zu lang. Die maximale Nachrichtenlänge ist 140 Zeichen."
@@ -7363,17 +7275,19 @@ msgid "Status deleted."
 msgstr "Avatar aktualisiert."
 
 #: actions/apistatusesupdate.php:132
+#: actions/apiaccountupdateprofileimage.php:99
 msgid "Unable to handle that much POST data!"
 msgstr ""
 
 #: actions/apistatusesupdate.php:145 actions/newnotice.php:155
-#: scripts/maildaemon.php:71
+#: scripts/maildaemon.php:71 actions/apistatusesupdate.php:152
 #, fuzzy, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr ""
 "Das war zu lang. Die Länge einer Nachricht ist auf 140 Zeichen beschränkt."
 
 #: actions/apistatusesupdate.php:209 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:216
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -7394,7 +7308,7 @@ msgid "description is too long (max %d chars)."
 msgstr "Die Beschreibung ist zu lang (max. 140 Zeichen)."
 
 #: actions/favoritesrss.php:115
-#, fuzzy, php-format
+#, php-format
 msgid "Updates favored by %1$s on %2$s!"
 msgstr "Aktualisierungen von %1$s auf %2$s!"
 
@@ -7429,7 +7343,7 @@ msgid "Cannot read file."
 msgstr "Daten verloren."
 
 #: actions/grouprss.php:133
-#, fuzzy, php-format
+#, php-format
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "Aktualisierungen von %1$s auf %2$s!"
 
@@ -7438,7 +7352,7 @@ msgstr "Aktualisierungen von %1$s auf %2$s!"
 msgid "IM is not available."
 msgstr "Diese Seite liegt in nicht verfügbar in einem "
 
-#: actions/login.php:259
+#: actions/login.php:259 actions/login.php:286
 #, fuzzy, php-format
 msgid ""
 "Login with your username and password. Don't have a username yet? [Register]"
@@ -7454,7 +7368,7 @@ msgid "Updates with \"%s\""
 msgstr "Updates von %1$s auf %2$s!"
 
 #: actions/noticesearchrss.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Alle Aktualisierungen, die den Suchbegriff „%s“ enthalten"
 
@@ -7473,21 +7387,24 @@ msgid "Notice license ‘%s’ is not compatible with site license ‘%s’."
 msgstr ""
 
 #: actions/profilesettings.php:122 actions/register.php:454
+#: actions/register.php:460
 #, fuzzy, php-format
 msgid "Describe yourself and your interests in %d chars"
 msgstr "Beschreibe dich selbst in 140 Zeichen"
 
 #: actions/profilesettings.php:125 actions/register.php:457
+#: actions/register.php:463
 #, fuzzy
 msgid "Describe yourself and your interests"
 msgstr "Beschreibe dich selbst und deine "
 
 #: actions/profilesettings.php:221 actions/register.php:217
+#: actions/register.php:223
 #, fuzzy, php-format
 msgid "Bio is too long (max %d chars)."
 msgstr "Die Biografie ist zu lang (max. 140 Zeichen)"
 
-#: actions/register.php:336
+#: actions/register.php:336 actions/register.php:342
 msgid ""
 "With this form you can create  a new account. You can then post notices and "
 "link up to friends and colleagues. "
@@ -7520,7 +7437,7 @@ msgid "Replies feed for %s (RSS 2.0)"
 msgstr "Feed der Nachrichten von %s"
 
 #: actions/replies.php:158
-#, fuzzy, php-format
+#, php-format
 msgid "Replies feed for %s (Atom)"
 msgstr "Feed der Nachrichten von %s"
 
@@ -7530,17 +7447,17 @@ msgid "Replies to %1$s on %2$s!"
 msgstr "Nachricht an %1$s auf %2$s"
 
 #: actions/showfavorites.php:170
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
 msgstr "Feed der Freunde von %s"
 
 #: actions/showfavorites.php:177
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
 msgstr "Feed der Freunde von %s"
 
 #: actions/showfavorites.php:184
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for favorites of %s (Atom)"
 msgstr "Feed der Freunde von %s"
 
@@ -7553,7 +7470,7 @@ msgid ""
 msgstr ""
 
 #: actions/showgroup.php:345
-#, fuzzy, php-format
+#, php-format
 msgid "FOAF for %s group"
 msgstr "Postausgang von %s"
 
@@ -7636,12 +7553,12 @@ msgid "Avatar URL ‘%s’ is not valid."
 msgstr ""
 
 #: actions/userauthorization.php:343
-#, fuzzy, php-format
+#, php-format
 msgid "Can’t read avatar URL ‘%s’."
 msgstr "Konnte Avatar-URL nicht öffnen „%s“"
 
 #: actions/userauthorization.php:348
-#, fuzzy, php-format
+#, php-format
 msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "Falscher Bildtyp für „%s“"
 
@@ -7651,12 +7568,11 @@ msgid "Connect to services"
 msgstr "Konnte nicht zum Server umleiten: %s"
 
 #: lib/action.php:785
-#, fuzzy
 msgid "Site content license"
 msgstr "StatusNet-Software-Lizenz"
 
 #: lib/command.php:88
-#, fuzzy, php-format
+#, php-format
 msgid "Could not find a user with nickname %s"
 msgstr "Die bestätigte E-Mail-Adresse konnte nicht gespeichert werden."
 
@@ -7693,41 +7609,6 @@ msgstr "Auf diese Nachricht antworten"
 msgid "Error saving notice."
 msgstr "Problem bei Speichern der Nachricht."
 
-#: lib/command.php:587
-msgid ""
-"Commands:\n"
-"on - turn on notifications\n"
-"off - turn off notifications\n"
-"help - show this help\n"
-"follow <nickname> - subscribe to user\n"
-"leave <nickname> - unsubscribe from user\n"
-"d <nickname> <text> - direct message to user\n"
-"get <nickname> - get last notice from user\n"
-"whois <nickname> - get profile info on user\n"
-"fav <nickname> - add user's last notice as a 'fave'\n"
-"fav #<notice_id> - add notice with the given id as a 'fave'\n"
-"reply #<notice_id> - reply to notice with a given id\n"
-"reply <nickname> - reply to the last notice from user\n"
-"join <group> - join group\n"
-"drop <group> - leave group\n"
-"stats - get your stats\n"
-"stop - same as 'off'\n"
-"quit - same as 'off'\n"
-"sub <nickname> - same as 'follow'\n"
-"unsub <nickname> - same as 'leave'\n"
-"last <nickname> - same as 'get'\n"
-"on <nickname> - not yet implemented.\n"
-"off <nickname> - not yet implemented.\n"
-"nudge <nickname> - remind a user to update.\n"
-"invite <phone number> - not yet implemented.\n"
-"track <word> - not yet implemented.\n"
-"untrack <word> - not yet implemented.\n"
-"track off - not yet implemented.\n"
-"untrack all - not yet implemented.\n"
-"tracks - not yet implemented.\n"
-"tracking - not yet implemented.\n"
-msgstr ""
-
 #: lib/common.php:191
 #, fuzzy
 msgid "No configuration file found. "
@@ -7762,7 +7643,7 @@ msgid "Describe the group or topic in %d characters"
 msgstr "Beschreibe die Gruppe oder das Thema in 140 Zeichen"
 
 #: lib/jabber.php:192
-#, fuzzy, php-format
+#, php-format
 msgid "notice id: %s"
 msgstr "Neue Nachricht"
 
@@ -7822,7 +7703,6 @@ msgid "File exceeds user's quota!"
 msgstr ""
 
 #: lib/mediafile.php:201 lib/mediafile.php:237
-#, fuzzy
 msgid "Could not determine file's mime-type!"
 msgstr "Konnte öffentlichen Stream nicht abrufen."
 
@@ -7830,3 +7710,59 @@ msgstr "Konnte öffentlichen Stream nicht abrufen."
 #, fuzzy
 msgid "Duplicate notice"
 msgstr "Notiz löschen"
+
+#: actions/login.php:110 actions/login.php:120
+#, fuzzy
+msgid "Invalid or expired token."
+msgstr "Ungültiger Nachrichteninhalt"
+
+#: lib/command.php:597
+#, fuzzy, php-format
+msgid "Could not create login token for %s"
+msgstr "Konnte OpenID-Formular nicht erstellen: %s"
+
+#: lib/command.php:602
+#, php-format
+msgid "This link is useable only once, and is good for only 2 minutes: %s"
+msgstr ""
+
+#: lib/imagefile.php:75
+#, fuzzy, php-format
+msgid "That file is too big. The maximum file size is %s."
+msgstr "Du kannst ein Logo für Deine Gruppe hochladen."
+
+#: lib/command.php:613
+msgid ""
+"Commands:\n"
+"on - turn on notifications\n"
+"off - turn off notifications\n"
+"help - show this help\n"
+"follow <nickname> - subscribe to user\n"
+"leave <nickname> - unsubscribe from user\n"
+"d <nickname> <text> - direct message to user\n"
+"get <nickname> - get last notice from user\n"
+"whois <nickname> - get profile info on user\n"
+"fav <nickname> - add user's last notice as a 'fave'\n"
+"fav #<notice_id> - add notice with the given id as a 'fave'\n"
+"reply #<notice_id> - reply to notice with a given id\n"
+"reply <nickname> - reply to the last notice from user\n"
+"join <group> - join group\n"
+"login - Get a link to login to the web interface\n"
+"drop <group> - leave group\n"
+"stats - get your stats\n"
+"stop - same as 'off'\n"
+"quit - same as 'off'\n"
+"sub <nickname> - same as 'follow'\n"
+"unsub <nickname> - same as 'leave'\n"
+"last <nickname> - same as 'get'\n"
+"on <nickname> - not yet implemented.\n"
+"off <nickname> - not yet implemented.\n"
+"nudge <nickname> - remind a user to update.\n"
+"invite <phone number> - not yet implemented.\n"
+"track <word> - not yet implemented.\n"
+"untrack <word> - not yet implemented.\n"
+"track off - not yet implemented.\n"
+"untrack all - not yet implemented.\n"
+"tracks - not yet implemented.\n"
+"tracking - not yet implemented.\n"
+msgstr ""

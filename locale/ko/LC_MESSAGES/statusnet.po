@@ -5,12 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-06 13:16+0000\n"
-"PO-Revision-Date: 2009-11-06 15:43:59+0000\n"
+"POT-Creation-Date: 2009-11-08 11:53+0000\n"
+"PO-Revision-Date: 2009-11-08 11:56:45+0000\n"
 "Language-Team: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58648); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58760); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: out-statusnet\n"
@@ -192,7 +192,7 @@ msgid "%s updates from everyone!"
 msgstr "모두로부터의 업데이트 %s개!"
 
 #: ../actions/register.php:213 actions/register.php:497
-#: actions/register.php:545 actions/register.php:555
+#: actions/register.php:545 actions/register.php:555 actions/register.php:561
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
@@ -230,6 +230,7 @@ msgstr "1-64자 사이에 영소문자, 숫자로만 씁니다. 기호나 공백
 
 #: ../actions/register.php:152 actions/register.php:166
 #: actions/register.php:368 actions/register.php:414 actions/register.php:418
+#: actions/register.php:424
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
 msgstr ""
 "1-64자 사이에 영소문자, 숫자로만 씁니다. 기호나 공백을 쓰면 안 됩니다. 필수 "
@@ -248,6 +249,7 @@ msgstr "6글자 이상, 잊어 버리지 마십시오!"
 
 #: ../actions/register.php:154 actions/register.php:168
 #: actions/register.php:373 actions/register.php:419 actions/register.php:423
+#: actions/register.php:429
 msgid "6 or more characters. Required."
 msgstr "6글자 이상이 필요합니다."
 
@@ -426,7 +428,7 @@ msgstr "\"%s\" 에 일치하는 모든 업데이트"
 #: actions/openidlogin.php:29 actions/register.php:30
 #: actions/finishopenidlogin.php:34 actions/login.php:77
 #: actions/openidlogin.php:30 actions/register.php:92 actions/register.php:131
-#: actions/login.php:79
+#: actions/login.php:79 actions/register.php:137
 msgid "Already logged in."
 msgstr "이미 로그인 하셨습니다."
 
@@ -449,7 +451,7 @@ msgstr "구독을 허가"
 #: ../actions/login.php:104 ../actions/register.php:178
 #: actions/register.php:192 actions/login.php:218 actions/openidlogin.php:117
 #: actions/register.php:416 actions/register.php:463 actions/login.php:226
-#: actions/register.php:473
+#: actions/register.php:473 actions/login.php:253 actions/register.php:479
 msgid "Automatically login in the future; not for shared computers!"
 msgstr "앞으로는 자동으로 로그인합니다. 공용 컴퓨터에서는 이용하지 마십시오!"
 
@@ -471,6 +473,7 @@ msgstr "아바타"
 
 #: ../actions/avatar.php:113 actions/profilesettings.php:350
 #: actions/avatarsettings.php:395 actions/avatarsettings.php:346
+#: actions/avatarsettings.php:360
 msgid "Avatar updated."
 msgstr "아바타가 업데이트 되었습니다."
 
@@ -506,7 +509,7 @@ msgstr "뒤로 >>"
 #: actions/profilesettings.php:82 actions/register.php:184
 #: actions/profilesettings.php:112 actions/register.php:402
 #: actions/register.php:448 actions/profilesettings.php:127
-#: actions/register.php:459
+#: actions/register.php:459 actions/register.php:465
 msgid "Bio"
 msgstr "자기소개"
 
@@ -535,6 +538,7 @@ msgstr "아바타 URL '%s'을(를) 읽어낼 수 없습니다."
 #: actions/passwordsettings.php:169 actions/recoverpassword.php:347
 #: actions/passwordsettings.php:174 actions/recoverpassword.php:365
 #: actions/passwordsettings.php:180 actions/recoverpassword.php:368
+#: actions/passwordsettings.php:185
 msgid "Can't save new password."
 msgstr "새 비밀번호를 저장 할 수 없습니다."
 
@@ -597,6 +601,7 @@ msgstr "프로필 세팅 바꾸기"
 #: actions/recoverpassword.php:236 actions/register.php:422
 #: actions/passwordsettings.php:111 actions/recoverpassword.php:239
 #: actions/register.php:426 actions/smssettings.php:134
+#: actions/register.php:432
 msgid "Confirm"
 msgstr "인증"
 
@@ -626,7 +631,7 @@ msgid "Confirmation code not found."
 msgstr "인증 코드가 없습니다."
 
 #: ../actions/register.php:202 actions/register.php:473
-#: actions/register.php:521 actions/register.php:531
+#: actions/register.php:521 actions/register.php:531 actions/register.php:537
 #, php-format
 msgid ""
 "Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -864,6 +869,7 @@ msgstr "해쉬테그를 추가 할 때에 데이타베이스 에러 : %s"
 
 #: ../lib/util.php:1061 lib/util.php:1110 classes/Notice.php:698
 #: classes/Notice.php:757 classes/Notice.php:1042 classes/Notice.php:1117
+#: classes/Notice.php:1120
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "답신을 추가 할 때에 데이타베이스 에러 : %s"
@@ -886,7 +892,8 @@ msgstr "140자 이내에서 자기 소개"
 #: actions/register.php:175 lib/settingsaction.php:87 actions/register.php:381
 #: actions/register.php:385 lib/accountsettingsaction.php:113
 #: actions/register.php:427 actions/register.php:431 actions/register.php:435
-#: lib/accountsettingsaction.php:117
+#: lib/accountsettingsaction.php:117 actions/register.php:437
+#: actions/register.php:441
 msgid "Email"
 msgstr "이메일"
 
@@ -901,7 +908,7 @@ msgid "Email Settings"
 msgstr "이메일 세팅"
 
 #: ../actions/register.php:73 actions/register.php:80 actions/register.php:163
-#: actions/register.php:200 actions/register.php:206
+#: actions/register.php:200 actions/register.php:206 actions/register.php:212
 msgid "Email address already exists."
 msgstr "이메일 주소가 이미 존재 합니다."
 
@@ -987,7 +994,7 @@ msgstr "사용자 저장 오류"
 
 #: ../actions/password.php:80 actions/profilesettings.php:399
 #: actions/passwordsettings.php:164 actions/passwordsettings.php:169
-#: actions/passwordsettings.php:175
+#: actions/passwordsettings.php:175 actions/passwordsettings.php:180
 msgid "Error saving user; invalid."
 msgstr "사용자 저장 오류; 무효한 사용자"
 
@@ -999,6 +1006,7 @@ msgstr "사용자 저장 오류; 무효한 사용자"
 #: actions/login.php:120 actions/recoverpassword.php:372
 #: actions/register.php:235 actions/login.php:122
 #: actions/recoverpassword.php:375 actions/register.php:242
+#: actions/login.php:149 actions/register.php:248
 msgid "Error setting user."
 msgstr "사용자 세팅 오류"
 
@@ -1030,6 +1038,7 @@ msgstr "자주 묻는 질문"
 
 #: ../actions/avatar.php:115 actions/profilesettings.php:352
 #: actions/avatarsettings.php:397 actions/avatarsettings.php:349
+#: actions/avatarsettings.php:363
 msgid "Failed updating avatar."
 msgstr "아바타 업데이트 실패"
 
@@ -1064,6 +1073,7 @@ msgid "Find people on this site"
 msgstr "이 사이트에 있는 사람 찾기"
 
 #: ../actions/login.php:122 actions/login.php:247 actions/login.php:255
+#: actions/login.php:282
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
@@ -1080,6 +1090,7 @@ msgstr ""
 #: actions/showstream.php:220 lib/groupeditform.php:157
 #: actions/profilesettings.php:111 actions/register.php:441
 #: actions/showgroup.php:247 actions/showstream.php:267
+#: actions/register.php:447 lib/userprofile.php:149
 msgid "Full name"
 msgstr "실명"
 
@@ -1093,7 +1104,7 @@ msgstr "실명"
 #: actions/profilesettings.php:203 actions/register.php:208
 #: actions/apigroupcreate.php:253 actions/editgroup.php:198
 #: actions/newgroup.php:142 actions/profilesettings.php:218
-#: actions/register.php:214
+#: actions/register.php:214 actions/register.php:220
 msgid "Full name is too long (max 255 chars)."
 msgstr "실명이 너무 깁니다. (최대 255글자)"
 
@@ -1114,7 +1125,7 @@ msgstr "홈"
 #: actions/profilesettings.php:107 actions/register.php:396
 #: lib/groupeditform.php:146 actions/register.php:442
 #: lib/groupeditform.php:161 actions/profilesettings.php:115
-#: actions/register.php:446
+#: actions/register.php:446 actions/register.php:452
 msgid "Homepage"
 msgstr "홈페이지"
 
@@ -1126,7 +1137,7 @@ msgstr "홈페이지"
 #: actions/profilesettings.php:200 actions/register.php:205
 #: actions/apigroupcreate.php:244 actions/editgroup.php:195
 #: actions/newgroup.php:139 actions/profilesettings.php:215
-#: actions/register.php:211
+#: actions/register.php:211 actions/register.php:217
 msgid "Homepage is not a valid URL."
 msgstr "홈페이지 주소형식이 올바르지 않습니다."
 
@@ -1196,7 +1207,7 @@ msgstr "기존 비밀 번호가 틀렸습니다"
 
 #: ../actions/login.php:67 actions/login.php:67 actions/facebookhome.php:131
 #: actions/login.php:132 actions/facebookhome.php:130 actions/login.php:114
-#: actions/facebookhome.php:129 actions/login.php:116
+#: actions/facebookhome.php:129 actions/login.php:116 actions/login.php:143
 msgid "Incorrect username or password."
 msgstr "틀린 계정 또는 비밀 번호"
 
@@ -1274,6 +1285,7 @@ msgstr "옳지 않은 크기"
 #: actions/register.php:211 actions/finishopenidlogin.php:284
 #: actions/finishopenidlogin.php:307 actions/register.php:230
 #: actions/register.php:251 actions/register.php:237 actions/register.php:258
+#: actions/register.php:243 actions/register.php:264
 msgid "Invalid username or password."
 msgstr "사용자 이름이나 비밀 번호가 틀렸습니다."
 
@@ -1350,7 +1362,7 @@ msgstr "언어가 너무 깁니다. (최대 50글자)"
 #: actions/profilesettings.php:132 actions/register.php:464
 #: actions/showgroup.php:256 actions/showstream.php:282
 #: actions/userauthorization.php:158 lib/groupeditform.php:177
-#: lib/profilelist.php:218
+#: lib/profilelist.php:218 actions/register.php:470 lib/userprofile.php:164
 msgid "Location"
 msgstr "위치"
 
@@ -1364,7 +1376,7 @@ msgstr "위치"
 #: actions/profilesettings.php:209 actions/register.php:214
 #: actions/apigroupcreate.php:272 actions/editgroup.php:204
 #: actions/newgroup.php:148 actions/profilesettings.php:225
-#: actions/register.php:221
+#: actions/register.php:221 actions/register.php:227
 msgid "Location is too long (max 255 chars)."
 msgstr "위치가 너무 깁니다. (최대 255글자)"
 
@@ -1378,6 +1390,7 @@ msgstr "위치가 너무 깁니다. (최대 255글자)"
 #: lib/facebookaction.php:293 lib/facebookaction.php:319 lib/action.php:443
 #: lib/facebookaction.php:295 lib/facebookaction.php:321 actions/login.php:177
 #: actions/login.php:230 lib/action.php:453 lib/logingroupnav.php:79
+#: actions/login.php:204 actions/login.php:257
 #, php-format
 msgid "Login"
 msgstr "로그인"
@@ -1406,12 +1419,13 @@ msgstr "로그아웃"
 
 #: ../actions/register.php:166 actions/register.php:180
 #: actions/register.php:393 actions/register.php:439 actions/register.php:443
+#: actions/register.php:449
 msgid "Longer name, preferably your \"real\" name"
 msgstr "더욱 긴 이름을 요구합니다."
 
 #: ../actions/login.php:110 actions/login.php:110 actions/login.php:245
 #: lib/facebookaction.php:320 actions/login.php:228 lib/facebookaction.php:325
-#: lib/facebookaction.php:327 actions/login.php:236
+#: lib/facebookaction.php:327 actions/login.php:236 actions/login.php:263
 msgid "Lost or forgotten password?"
 msgstr "비밀 번호를 잊으셨나요?"
 
@@ -1451,7 +1465,7 @@ msgstr "귀하의 휴대폰의 통신회사는 무엇입니까?"
 #: actions/finishopenidlogin.php:85 actions/register.php:202
 #: actions/finishopenidlogin.php:107 actions/register.php:429
 #: actions/register.php:430 actions/finishopenidlogin.php:106
-#: actions/register.php:477 actions/register.php:487
+#: actions/register.php:477 actions/register.php:487 actions/register.php:493
 msgid "My text and files are available under "
 msgstr "나의 글과 파일의 라이선스는 다음과 같습니다 "
 
@@ -1510,7 +1524,8 @@ msgstr ""
 #: actions/showgroup.php:231 actions/showstream.php:209
 #: lib/facebookaction.php:314 lib/groupeditform.php:152 actions/login.php:219
 #: actions/profilesettings.php:106 actions/register.php:417
-#: actions/showgroup.php:236 actions/showstream.php:249
+#: actions/showgroup.php:236 actions/showstream.php:249 actions/login.php:246
+#: actions/register.php:423 lib/userprofile.php:131
 msgid "Nickname"
 msgstr "별명"
 
@@ -1524,7 +1539,7 @@ msgstr "별명"
 #: actions/profilesettings.php:215 actions/register.php:196
 #: actions/apigroupcreate.php:221 actions/editgroup.php:186
 #: actions/newgroup.php:130 actions/profilesettings.php:231
-#: actions/register.php:202
+#: actions/register.php:202 actions/register.php:208
 msgid "Nickname already in use. Try another one."
 msgstr "별명이 이미 사용중 입니다. 다른 별명을 시도해 보십시오."
 
@@ -1540,7 +1555,7 @@ msgstr "별명이 이미 사용중 입니다. 다른 별명을 시도해 보십�
 #: actions/profilesettings.php:193 actions/register.php:193
 #: actions/apigroupcreate.php:212 actions/editgroup.php:182
 #: actions/newgroup.php:126 actions/profilesettings.php:208
-#: actions/register.php:199
+#: actions/register.php:199 actions/register.php:205
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr ""
 "별명은 반드시 영소문자와 숫자로만 이루어져야 하며 스페이스의 사용이 불가 합니"
@@ -1781,7 +1796,8 @@ msgstr "가입된 사용자가 아닙니다."
 #: lib/twitterapi.php:566 lib/twitterapi.php:483 lib/twitterapi.php:511
 #: lib/twitterapi.php:601 lib/twitterapi.php:620 lib/twitterapi.php:648
 #: lib/twitterapi.php:741 actions/oembed.php:181 actions/oembed.php:200
-#: lib/api.php:954 lib/api.php:982 lib/api.php:1092
+#: lib/api.php:954 lib/api.php:982 lib/api.php:1092 lib/api.php:963
+#: lib/api.php:991 lib/api.php:1101
 msgid "Not a supported data format."
 msgstr "지원하는 형식의 데이터가 아닙니다."
 
@@ -1802,7 +1818,7 @@ msgid "Not a valid email address"
 msgstr "유효한 이메일 주소가 아닙니다."
 
 #: ../actions/register.php:63 actions/register.php:70 actions/register.php:152
-#: actions/register.php:189 actions/register.php:195
+#: actions/register.php:189 actions/register.php:195 actions/register.php:201
 msgid "Not a valid email address."
 msgstr "유효한 이메일 주소가 아닙니다."
 
@@ -1814,7 +1830,7 @@ msgstr "유효한 이메일 주소가 아닙니다."
 #: actions/profilesettings.php:196 actions/register.php:198
 #: actions/apigroupcreate.php:228 actions/editgroup.php:189
 #: actions/newgroup.php:133 actions/profilesettings.php:211
-#: actions/register.php:204
+#: actions/register.php:204 actions/register.php:210
 msgid "Not a valid nickname."
 msgstr "유효한 별명이 아닙니다"
 
@@ -1853,6 +1869,7 @@ msgstr "예상치 못한 반응 입니다."
 #: ../actions/twitapistatuses.php:422 actions/twitapistatuses.php:361
 #: actions/twitapistatuses.php:309 actions/twitapistatuses.php:327
 #: actions/twitapistatuses.php:284 actions/apistatusesupdate.php:186
+#: actions/apistatusesupdate.php:193
 msgid "Not found"
 msgstr "찾지 못함"
 
@@ -1999,7 +2016,8 @@ msgstr "불완전한 업로드."
 #: actions/login.php:214 lib/facebookaction.php:315
 #: actions/finishopenidlogin.php:117 actions/register.php:418
 #: lib/facebookaction.php:317 actions/login.php:222 actions/register.php:422
-#: lib/accountsettingsaction.php:114
+#: lib/accountsettingsaction.php:114 actions/login.php:249
+#: actions/register.php:428
 msgid "Password"
 msgstr "비밀 번호"
 
@@ -2028,6 +2046,7 @@ msgstr "비밀 번호 복구가 요청되었습니다."
 #: actions/passwordsettings.php:173 actions/recoverpassword.php:200
 #: actions/passwordsettings.php:178 actions/recoverpassword.php:208
 #: actions/passwordsettings.php:184 actions/recoverpassword.php:211
+#: actions/passwordsettings.php:191
 msgid "Password saved."
 msgstr "비밀 번호 저장"
 
@@ -2036,6 +2055,7 @@ msgstr "비밀 번호 저장"
 #: actions/passwordsettings.php:145 actions/register.php:183
 #: actions/passwordsettings.php:150 actions/register.php:220
 #: actions/passwordsettings.php:156 actions/register.php:227
+#: actions/register.php:233
 msgid "Passwords don't match."
 msgstr "비밀 번호가 일치하지 않습니다."
 
@@ -2198,19 +2218,19 @@ msgstr "알 수 없는 취소를 위한 리커버리 코드"
 #: actions/register.php:438 lib/action.php:415 lib/facebookaction.php:279
 #: actions/register.php:108 actions/register.php:486 lib/action.php:440
 #: lib/facebookaction.php:281 actions/register.php:496 lib/action.php:450
-#: lib/logingroupnav.php:85
+#: lib/logingroupnav.php:85 actions/register.php:114 actions/register.php:502
 msgid "Register"
 msgstr "회원가입"
 
 #: ../actions/register.php:28 actions/register.php:28
 #: actions/finishopenidlogin.php:196 actions/register.php:90
 #: actions/finishopenidlogin.php:195 actions/finishopenidlogin.php:204
-#: actions/register.php:129
+#: actions/register.php:129 actions/register.php:135
 msgid "Registration not allowed."
 msgstr "가입이 허용되지 않습니다."
 
 #: ../actions/register.php:200 actions/register.php:214
-#: actions/register.php:67 actions/register.php:106
+#: actions/register.php:67 actions/register.php:106 actions/register.php:112
 msgid "Registration successful"
 msgstr "회원 가입이 성공적입니다."
 
@@ -2224,6 +2244,7 @@ msgstr "거부"
 #: actions/register.php:190 actions/login.php:234 actions/openidlogin.php:107
 #: actions/register.php:414 actions/login.php:217 actions/openidlogin.php:116
 #: actions/register.php:461 actions/login.php:225 actions/register.php:471
+#: actions/login.php:252 actions/register.php:477
 msgid "Remember me"
 msgstr "자동 로그인"
 
@@ -2322,6 +2343,7 @@ msgstr "위와 같은 비밀 번호"
 
 #: ../actions/register.php:156 actions/register.php:170
 #: actions/register.php:377 actions/register.php:423 actions/register.php:427
+#: actions/register.php:433
 msgid "Same as password above. Required."
 msgstr "위와 같은 비밀 번호. 필수 사항."
 
@@ -2484,6 +2506,7 @@ msgstr "저장된 OpenID를 찾을 수 없습니다."
 #: actions/remotesubscribe.php:113 actions/showstream.php:376
 #: lib/subscribeform.php:139 actions/showstream.php:345
 #: actions/remotesubscribe.php:137 actions/showstream.php:439
+#: lib/userprofile.php:321
 msgid "Subscribe"
 msgstr "구독"
 
@@ -2530,6 +2553,7 @@ msgstr "파일을 올리는데 시스템 오류 발생"
 #: actions/profilesettings.php:123 actions/showstream.php:255
 #: lib/subscriptionlist.php:106 lib/subscriptionlist.php:108
 #: actions/profilesettings.php:138 actions/showstream.php:327
+#: lib/userprofile.php:209
 msgid "Tags"
 msgstr "태그"
 
@@ -2746,6 +2770,7 @@ msgstr "이 메서드는 등록 또는 삭제를 요구합니다."
 #: actions/apifriendshipsdestroy.php:91 actions/apigroupcreate.php:104
 #: actions/apigroupjoin.php:91 actions/apigroupleave.php:91
 #: actions/apistatusesupdate.php:109
+#: actions/apiaccountupdateprofileimage.php:84
 msgid "This method requires a POST."
 msgstr "이 메서드는 등록을 요구합니다."
 
@@ -2779,7 +2804,7 @@ msgstr ""
 
 #: ../actions/twitapifriendships.php:163 actions/twitapifriendships.php:167
 #: actions/twitapifriendships.php:132 actions/twitapifriendships.php:139
-#: actions/apifriendshipsexists.php:103
+#: actions/apifriendshipsexists.php:103 actions/apifriendshipsexists.php:94
 msgid "Two user ids or screen_names must be supplied."
 msgstr "두 개의 사용자 ID나 대화명을 입력해야 합니다."
 
@@ -2787,7 +2812,7 @@ msgstr "두 개의 사용자 ID나 대화명을 입력해야 합니다."
 #: actions/profilesettings.php:81 actions/register.php:183
 #: actions/profilesettings.php:109 actions/register.php:398
 #: actions/register.php:444 actions/profilesettings.php:117
-#: actions/register.php:448
+#: actions/register.php:448 actions/register.php:454
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr "귀하의 홈페이지, 블로그 혹은 다른 사이트의 프로필 페이지 URL"
 
@@ -2809,6 +2834,7 @@ msgstr "다른 마이크로블로깅 서비스의 귀하의 프로필 URL"
 #: actions/twittersettings.php:322 lib/designsettings.php:301
 #: actions/emailsettings.php:255 actions/grouplogo.php:319
 #: actions/imsettings.php:220 actions/smssettings.php:248
+#: actions/avatarsettings.php:277 lib/designsettings.php:304
 msgid "Unexpected form submission."
 msgstr "잘못된 폼 제출"
 
@@ -2918,7 +2944,7 @@ msgstr "다음 양식을 이용해 친구와 동료를 이 서비스에 초대�
 #: ../actions/register.php:159 ../actions/register.php:162
 #: actions/register.php:173 actions/register.php:176 actions/register.php:382
 #: actions/register.php:386 actions/register.php:428 actions/register.php:432
-#: actions/register.php:436
+#: actions/register.php:436 actions/register.php:438 actions/register.php:442
 msgid "Used only for updates, announcements, and password recovery"
 msgstr "업데이트나 공지, 비밀번호 찾기에 사용하세요."
 
@@ -2946,7 +2972,8 @@ msgstr "살펴 보고 있는 사용자가 없습니다."
 #: actions/twitapistatuses.php:535 actions/twitapiusers.php:59
 #: actions/foaf.php:65 actions/replies.php:79 actions/twitapiusers.php:57
 #: actions/usergroups.php:98 lib/galleryaction.php:66 lib/profileaction.php:84
-#: actions/apiusershow.php:108
+#: actions/apiusershow.php:108 actions/apiaccountupdateprofileimage.php:124
+#: actions/apiaccountupdateprofileimage.php:130
 msgid "User has no profile."
 msgstr "이용자가 프로필을 가지고 있지 않습니다."
 
@@ -2975,7 +3002,7 @@ msgstr "뭐하세요? %?"
 #: actions/profilesettings.php:87 actions/register.php:189
 #: actions/profilesettings.php:119 actions/register.php:410
 #: actions/register.php:456 actions/profilesettings.php:134
-#: actions/register.php:466
+#: actions/register.php:466 actions/register.php:472
 msgid "Where you are, like \"City, State (or Region), Country\""
 msgstr "당신은 어디에 삽니까? \"시, 도 (or 군,구), 나라"
 
@@ -3079,7 +3106,7 @@ msgstr "당신은 로컬 구독을 사용할 수 있습니다."
 #: ../actions/finishopenidlogin.php:33 ../actions/register.php:61
 #: actions/finishopenidlogin.php:38 actions/register.php:68
 #: actions/finishopenidlogin.php:43 actions/register.php:149
-#: actions/register.php:186 actions/register.php:192
+#: actions/register.php:186 actions/register.php:192 actions/register.php:198
 msgid "You can't register if you don't agree to the license."
 msgstr "라이선스에 동의하지 않는다면 등록할 수 없습니다."
 
@@ -3148,56 +3175,56 @@ msgstr ""
 "있게 해줍니다. 여기에서 당신의 관련된 오픈ID를 관리하세요."
 
 #: ../lib/util.php:943 lib/util.php:992 lib/util.php:945 lib/util.php:756
-#: lib/util.php:770 lib/util.php:816
+#: lib/util.php:770 lib/util.php:816 lib/util.php:844
 msgid "a few seconds ago"
 msgstr "몇 초 전"
 
 #: ../lib/util.php:955 lib/util.php:1004 lib/util.php:957 lib/util.php:768
-#: lib/util.php:782 lib/util.php:828
+#: lib/util.php:782 lib/util.php:828 lib/util.php:856
 #, php-format
 msgid "about %d days ago"
 msgstr "%d일 전"
 
 #: ../lib/util.php:951 lib/util.php:1000 lib/util.php:953 lib/util.php:764
-#: lib/util.php:778 lib/util.php:824
+#: lib/util.php:778 lib/util.php:824 lib/util.php:852
 #, php-format
 msgid "about %d hours ago"
 msgstr "%d시간 전"
 
 #: ../lib/util.php:947 lib/util.php:996 lib/util.php:949 lib/util.php:760
-#: lib/util.php:774 lib/util.php:820
+#: lib/util.php:774 lib/util.php:820 lib/util.php:848
 #, php-format
 msgid "about %d minutes ago"
 msgstr "%d분 전"
 
 #: ../lib/util.php:959 lib/util.php:1008 lib/util.php:961 lib/util.php:772
-#: lib/util.php:786 lib/util.php:832
+#: lib/util.php:786 lib/util.php:832 lib/util.php:860
 #, php-format
 msgid "about %d months ago"
 msgstr "%d달 전"
 
 #: ../lib/util.php:953 lib/util.php:1002 lib/util.php:955 lib/util.php:766
-#: lib/util.php:780 lib/util.php:826
+#: lib/util.php:780 lib/util.php:826 lib/util.php:854
 msgid "about a day ago"
 msgstr "하루 전"
 
 #: ../lib/util.php:945 lib/util.php:994 lib/util.php:947 lib/util.php:758
-#: lib/util.php:772 lib/util.php:818
+#: lib/util.php:772 lib/util.php:818 lib/util.php:846
 msgid "about a minute ago"
 msgstr "1분 전"
 
 #: ../lib/util.php:957 lib/util.php:1006 lib/util.php:959 lib/util.php:770
-#: lib/util.php:784 lib/util.php:830
+#: lib/util.php:784 lib/util.php:830 lib/util.php:858
 msgid "about a month ago"
 msgstr "1달 전"
 
 #: ../lib/util.php:961 lib/util.php:1010 lib/util.php:963 lib/util.php:774
-#: lib/util.php:788 lib/util.php:834
+#: lib/util.php:788 lib/util.php:834 lib/util.php:862
 msgid "about a year ago"
 msgstr "1년 전"
 
 #: ../lib/util.php:949 lib/util.php:998 lib/util.php:951 lib/util.php:762
-#: lib/util.php:776 lib/util.php:822
+#: lib/util.php:776 lib/util.php:822 lib/util.php:850
 msgid "about an hour ago"
 msgstr "1시간 전"
 
@@ -3266,7 +3293,9 @@ msgstr "<< 뒤에"
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
 #: actions/register.php:159 actions/remotesubscribe.php:77
 #: actions/smssettings.php:228 actions/unsubscribe.php:69
-#: actions/userauthorization.php:52
+#: actions/userauthorization.php:52 actions/login.php:131
+#: actions/register.php:165 actions/avatarsettings.php:265
+#: lib/designsettings.php:294
 msgid "There was a problem with your session token. Try again, please."
 msgstr "세션토큰에 문제가 있습니다. 다시 시도해주세요."
 
@@ -3490,6 +3519,7 @@ msgstr "새 비밀번호를 성공적으로 저장했습니다."
 #: actions/register.php:95 actions/register.php:180
 #: actions/passwordsettings.php:147 actions/register.php:217
 #: actions/passwordsettings.php:153 actions/register.php:224
+#: actions/register.php:230
 msgid "Password must be 6 or more characters."
 msgstr "비밀번호는 6자리 이상이어야 합니다."
 
@@ -4040,13 +4070,13 @@ msgid "There was a problem with your session token. "
 msgstr "당신의 세션토큰에 문제가 있습니다."
 
 #: actions/avatarsettings.php:303 actions/grouplogo.php:360
-#: actions/avatarsettings.php:308
+#: actions/avatarsettings.php:308 actions/avatarsettings.php:322
 msgid "Pick a square area of the image to be your avatar"
 msgstr "당신의 아바타가 될 이미지영역을 지정하세요."
 
 #: actions/avatarsettings.php:327 actions/grouplogo.php:384
 #: actions/avatarsettings.php:323 actions/grouplogo.php:382
-#: actions/grouplogo.php:377
+#: actions/grouplogo.php:377 actions/avatarsettings.php:337
 msgid "Lost our file data."
 msgstr "파일 데이터를 잃어버렸습니다."
 
@@ -4502,7 +4532,7 @@ msgid "%s left group %s"
 msgstr "%s가 그룹%s를 떠났습니다."
 
 #: actions/login.php:225 lib/facebookaction.php:304 actions/login.php:208
-#: actions/login.php:216
+#: actions/login.php:216 actions/login.php:243
 msgid "Login to site"
 msgstr "사이트에 로그인하세요."
 
@@ -4680,7 +4710,8 @@ msgstr "태그 클라우드"
 
 #: actions/register.php:139 actions/register.php:349 actions/register.php:79
 #: actions/register.php:177 actions/register.php:394 actions/register.php:183
-#: actions/register.php:398
+#: actions/register.php:398 actions/register.php:85 actions/register.php:189
+#: actions/register.php:404
 msgid "Sorry, only invited people can register."
 msgstr "죄송합니다. 단지 초대된 사람들만 등록할 수 있습니다."
 
@@ -4762,7 +4793,7 @@ msgstr "그룹 프로필"
 #: actions/showstream.php:236 actions/userauthorization.php:137
 #: lib/profilelist.php:197 actions/showgroup.php:263
 #: actions/showstream.php:295 actions/userauthorization.php:167
-#: lib/profilelist.php:230
+#: lib/profilelist.php:230 lib/userprofile.php:177
 msgid "URL"
 msgstr "URL"
 
@@ -4773,7 +4804,7 @@ msgstr "URL"
 #: actions/showstream.php:247 actions/userauthorization.php:149
 #: lib/profilelist.php:212 actions/showgroup.php:274
 #: actions/showstream.php:312 actions/userauthorization.php:179
-#: lib/profilelist.php:245
+#: lib/profilelist.php:245 lib/userprofile.php:194
 msgid "Note"
 msgstr "설명"
 
@@ -4822,6 +4853,7 @@ msgid "Only the sender and recipient "
 msgstr "오직 보내는 사람과 받는 사람"
 
 #: actions/showstream.php:73 actions/showstream.php:78
+#: actions/showstream.php:79
 #, php-format
 msgid "%s, page %d"
 msgstr "%s, %d 페이지"
@@ -4832,28 +4864,29 @@ msgstr "'의 프로필"
 
 #: actions/showstream.php:236 actions/tagother.php:77
 #: actions/showstream.php:220 actions/showstream.php:185
-#: actions/showstream.php:193
+#: actions/showstream.php:193 lib/userprofile.php:75
 msgid "User profile"
 msgstr "이용자 프로필"
 
 #: actions/showstream.php:240 actions/tagother.php:81
 #: actions/showstream.php:224 actions/showstream.php:189
-#: actions/showstream.php:220
+#: actions/showstream.php:220 lib/userprofile.php:102
 msgid "Photo"
 msgstr "사진"
 
 #: actions/showstream.php:317 actions/showstream.php:309
 #: actions/showstream.php:274 actions/showstream.php:354
+#: lib/userprofile.php:236
 msgid "User actions"
 msgstr "사용자 동작"
 
 #: actions/showstream.php:342 actions/showstream.php:307
-#: actions/showstream.php:390
+#: actions/showstream.php:390 lib/userprofile.php:272
 msgid "Send a direct message to this user"
 msgstr "이 회원에게 직접 메시지를 보냅니다."
 
 #: actions/showstream.php:343 actions/showstream.php:308
-#: actions/showstream.php:391
+#: actions/showstream.php:391 lib/userprofile.php:273
 msgid "Message"
 msgstr "메시지"
 
@@ -5555,7 +5588,7 @@ msgstr "%s 및 친구들"
 msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr "당신의 개인적인 아바타를 업로드할 수 있습니다."
 
-#: actions/avatarsettings.php:373
+#: actions/avatarsettings.php:373 actions/avatarsettings.php:387
 #, fuzzy
 msgid "Avatar deleted."
 msgstr "아바타가 업데이트 되었습니다."
@@ -5690,10 +5723,12 @@ msgid ""
 msgstr ""
 
 #: actions/register.php:432 actions/register.php:479 actions/register.php:489
+#: actions/register.php:495
 msgid "Creative Commons Attribution 3.0"
 msgstr ""
 
 #: actions/register.php:433 actions/register.php:480 actions/register.php:490
+#: actions/register.php:496
 #, fuzzy
 msgid ""
 " except this private data: password, email address, IM address, and phone "
@@ -5728,44 +5763,48 @@ msgid "%s's profile"
 msgstr "'의 프로필"
 
 #: actions/showstream.php:163 actions/showstream.php:128
+#: actions/showstream.php:129
 #, fuzzy, php-format
 msgid "Notice feed for %s (RSS 1.0)"
 msgstr "%s의 통지 피드"
 
 #: actions/showstream.php:170 actions/showstream.php:135
+#: actions/showstream.php:136
 #, fuzzy, php-format
 msgid "Notice feed for %s (RSS 2.0)"
 msgstr "%s의 통지 피드"
 
 #: actions/showstream.php:177 actions/showstream.php:142
+#: actions/showstream.php:143
 #, fuzzy, php-format
 msgid "Notice feed for %s (Atom)"
 msgstr "%s의 통지 피드"
 
 #: actions/showstream.php:182 actions/showstream.php:147
+#: actions/showstream.php:148
 #, fuzzy, php-format
 msgid "FOAF for %s"
 msgstr "%s의 보낸쪽지함"
 
 #: actions/showstream.php:237 actions/showstream.php:202
-#: actions/showstream.php:234
+#: actions/showstream.php:234 lib/userprofile.php:116
 #, fuzzy
 msgid "Edit Avatar"
 msgstr "아바타"
 
 #: actions/showstream.php:316 actions/showstream.php:281
-#: actions/showstream.php:366
+#: actions/showstream.php:366 lib/userprofile.php:248
 #, fuzzy
 msgid "Edit profile settings"
 msgstr "프로필 세팅"
 
 #: actions/showstream.php:317 actions/showstream.php:282
-#: actions/showstream.php:367
+#: actions/showstream.php:367 lib/userprofile.php:249
 msgid "Edit"
 msgstr ""
 
 #: actions/showstream.php:542 actions/showstream.php:388
-#: actions/showstream.php:487
+#: actions/showstream.php:487 actions/showstream.php:234
 #, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -5810,6 +5849,9 @@ msgstr ""
 #: actions/apistatusesupdate.php:125 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:79
 #: actions/apitimelinementions.php:79 actions/apitimelineuser.php:81
+#: actions/apiaccountupdateprofileimage.php:91
+#: actions/apiaccountupdateprofileimage.php:105
+#: actions/apistatusesupdate.php:139
 #, fuzzy
 msgid "No such user!"
 msgstr "그러한 사용자가 없습니다."
@@ -5868,36 +5910,6 @@ msgid ""
 "Subscriptions: %1$s\n"
 "Subscribers: %2$s\n"
 "Notices: %3$s"
-msgstr ""
-
-#: lib/command.php:392 lib/command.php:385
-msgid ""
-"Commands:\n"
-"on - turn on notifications\n"
-"off - turn off notifications\n"
-"help - show this help\n"
-"follow <nickname> - subscribe to user\n"
-"leave <nickname> - unsubscribe from user\n"
-"d <nickname> <text> - direct message to user\n"
-"get <nickname> - get last notice from user\n"
-"whois <nickname> - get profile info on user\n"
-"fav <nickname> - add user's last notice as a 'fave'\n"
-"stats - get your stats\n"
-"stop - same as 'off'\n"
-"quit - same as 'off'\n"
-"sub <nickname> - same as 'follow'\n"
-"unsub <nickname> - same as 'leave'\n"
-"last <nickname> - same as 'get'\n"
-"on <nickname> - not yet implemented.\n"
-"off <nickname> - not yet implemented.\n"
-"nudge <nickname> - not yet implemented.\n"
-"invite <phone number> - not yet implemented.\n"
-"track <word> - not yet implemented.\n"
-"untrack <word> - not yet implemented.\n"
-"track off - not yet implemented.\n"
-"untrack all - not yet implemented.\n"
-"tracks - not yet implemented.\n"
-"tracking - not yet implemented.\n"
 msgstr ""
 
 #: lib/dberroraction.php:60
@@ -6066,6 +6078,7 @@ msgstr ""
 
 #: actions/all.php:91 actions/replies.php:190 actions/showstream.php:361
 #: actions/all.php:137 actions/replies.php:209 actions/showstream.php:455
+#: actions/showstream.php:202
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
@@ -6247,7 +6260,8 @@ msgstr ""
 #: actions/groupdesignsettings.php:267 actions/userdesignsettings.php:186
 #: lib/designsettings.php:440 lib/designsettings.php:470
 #: actions/groupdesignsettings.php:262 lib/designsettings.php:431
-#: lib/designsettings.php:461
+#: lib/designsettings.php:461 lib/designsettings.php:434
+#: lib/designsettings.php:464
 #, fuzzy
 msgid "Couldn't update your design."
 msgstr "사용자를 업데이트 할 수 없습니다."
@@ -6343,7 +6357,9 @@ msgid "Message sent"
 msgstr "메시지"
 
 #: actions/newnotice.php:93 lib/designsettings.php:281
-#: actions/newnotice.php:94
+#: actions/newnotice.php:94 actions/apiaccountupdateprofileimage.php:97
+#: actions/apistatusesupdate.php:122 actions/avatarsettings.php:254
+#: lib/designsettings.php:283
 #, php-format
 msgid ""
 "The server was unable to handle that much POST data (%s bytes) due to its "
@@ -6512,7 +6528,7 @@ msgstr "당신은 인증되었습니다. 아래 새 비밀번호를 입력하세
 msgid "Password recover"
 msgstr "비밀 번호 복구가 요청되었습니다."
 
-#: actions/register.php:86
+#: actions/register.php:86 actions/register.php:92
 #, fuzzy
 msgid "Sorry, invalid invitation code."
 msgstr "확인 코드 오류"
@@ -6614,28 +6630,31 @@ msgstr "관리자"
 msgid "Not a local notice"
 msgstr "로컬 사용자 아닙니다."
 
-#: actions/showstream.php:72
+#: actions/showstream.php:72 actions/showstream.php:73
 #, fuzzy, php-format
 msgid " tagged %s"
 msgstr "%s 태그된 통지"
 
-#: actions/showstream.php:121
+#: actions/showstream.php:121 actions/showstream.php:122
 #, fuzzy, php-format
 msgid "Notice feed for %s tagged %s (RSS 1.0)"
 msgstr "%s 그룹을 위한 공지피드"
 
 #: actions/showstream.php:350 actions/showstream.php:444
+#: actions/showstream.php:191
 #, php-format
 msgid "This is the timeline for %s but %s hasn't posted anything yet."
 msgstr ""
 
 #: actions/showstream.php:355 actions/showstream.php:449
+#: actions/showstream.php:196
 msgid ""
 "Seen anything interesting recently? You haven't posted any notices yet, now "
 "would be a good time to start :)"
 msgstr ""
 
 #: actions/showstream.php:357 actions/showstream.php:451
+#: actions/showstream.php:198
 #, php-format
 msgid ""
 "You can try to nudge %s or [post something to his or her attention](%%%%"
@@ -6643,6 +6662,7 @@ msgid ""
 msgstr ""
 
 #: actions/showstream.php:393 actions/showstream.php:492
+#: actions/showstream.php:239
 #, fuzzy, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -6795,6 +6815,7 @@ msgid "Problem saving notice. Too long."
 msgstr "통지를 저장하는데 문제가 발생했습니다."
 
 #: classes/User.php:319 classes/User.php:327 classes/User.php:334
+#: classes/User.php:333
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "%2$s에서 %1$s까지 메시지"
@@ -6905,10 +6926,12 @@ msgid "Save design"
 msgstr ""
 
 #: lib/designsettings.php:378 lib/designsettings.php:369
+#: lib/designsettings.php:372
 msgid "Bad default color settings: "
 msgstr ""
 
 #: lib/designsettings.php:474 lib/designsettings.php:465
+#: lib/designsettings.php:468
 msgid "Design defaults restored."
 msgstr ""
 
@@ -7115,16 +7138,18 @@ msgid "Status deleted."
 msgstr "아바타가 업데이트 되었습니다."
 
 #: actions/apistatusesupdate.php:132
+#: actions/apiaccountupdateprofileimage.php:99
 msgid "Unable to handle that much POST data!"
 msgstr ""
 
 #: actions/apistatusesupdate.php:145 actions/newnotice.php:155
-#: scripts/maildaemon.php:71
+#: scripts/maildaemon.php:71 actions/apistatusesupdate.php:152
 #, fuzzy, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr "너무 깁니다. 통지의 최대 길이는 140글자 입니다."
 
 #: actions/apistatusesupdate.php:209 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:216
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -7189,7 +7214,7 @@ msgstr "%2$s에 있는 %1$s의 업데이트!"
 msgid "IM is not available."
 msgstr "이 페이지는 귀하가 승인한 미디어 타입에서는 이용할 수 없습니다."
 
-#: actions/login.php:259
+#: actions/login.php:259 actions/login.php:286
 #, fuzzy, php-format
 msgid ""
 "Login with your username and password. Don't have a username yet? [Register]"
@@ -7224,21 +7249,24 @@ msgid "Notice license ‘%s’ is not compatible with site license ‘%s’."
 msgstr ""
 
 #: actions/profilesettings.php:122 actions/register.php:454
+#: actions/register.php:460
 #, fuzzy, php-format
 msgid "Describe yourself and your interests in %d chars"
 msgstr "140자 이내에서 자기 소개"
 
 #: actions/profilesettings.php:125 actions/register.php:457
+#: actions/register.php:463
 #, fuzzy
 msgid "Describe yourself and your interests"
 msgstr "당신에 대해 소개해주세요."
 
 #: actions/profilesettings.php:221 actions/register.php:217
+#: actions/register.php:223
 #, fuzzy, php-format
 msgid "Bio is too long (max %d chars)."
 msgstr "자기소개가 너무 깁니다. (최대 140글자)"
 
-#: actions/register.php:336
+#: actions/register.php:336 actions/register.php:342
 msgid ""
 "With this form you can create  a new account. You can then post notices and "
 "link up to friends and colleagues. "
@@ -7271,7 +7299,7 @@ msgid "Replies feed for %s (RSS 2.0)"
 msgstr "%s의 통지 피드"
 
 #: actions/replies.php:158
-#, fuzzy, php-format
+#, php-format
 msgid "Replies feed for %s (Atom)"
 msgstr "%s의 통지 피드"
 
@@ -7281,17 +7309,17 @@ msgid "Replies to %1$s on %2$s!"
 msgstr "%2$s에서 %1$s까지 메시지"
 
 #: actions/showfavorites.php:170
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
 msgstr "%s의 친구들을 위한 피드"
 
 #: actions/showfavorites.php:177
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
 msgstr "%s의 친구들을 위한 피드"
 
 #: actions/showfavorites.php:184
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for favorites of %s (Atom)"
 msgstr "%s의 친구들을 위한 피드"
 
@@ -7304,7 +7332,7 @@ msgid ""
 msgstr ""
 
 #: actions/showgroup.php:345
-#, fuzzy, php-format
+#, php-format
 msgid "FOAF for %s group"
 msgstr "%s의 보낸쪽지함"
 
@@ -7441,41 +7469,6 @@ msgstr "이 게시글에 대해 답장하기"
 msgid "Error saving notice."
 msgstr "통지를 저장하는데 문제가 발생했습니다."
 
-#: lib/command.php:587
-msgid ""
-"Commands:\n"
-"on - turn on notifications\n"
-"off - turn off notifications\n"
-"help - show this help\n"
-"follow <nickname> - subscribe to user\n"
-"leave <nickname> - unsubscribe from user\n"
-"d <nickname> <text> - direct message to user\n"
-"get <nickname> - get last notice from user\n"
-"whois <nickname> - get profile info on user\n"
-"fav <nickname> - add user's last notice as a 'fave'\n"
-"fav #<notice_id> - add notice with the given id as a 'fave'\n"
-"reply #<notice_id> - reply to notice with a given id\n"
-"reply <nickname> - reply to the last notice from user\n"
-"join <group> - join group\n"
-"drop <group> - leave group\n"
-"stats - get your stats\n"
-"stop - same as 'off'\n"
-"quit - same as 'off'\n"
-"sub <nickname> - same as 'follow'\n"
-"unsub <nickname> - same as 'leave'\n"
-"last <nickname> - same as 'get'\n"
-"on <nickname> - not yet implemented.\n"
-"off <nickname> - not yet implemented.\n"
-"nudge <nickname> - remind a user to update.\n"
-"invite <phone number> - not yet implemented.\n"
-"track <word> - not yet implemented.\n"
-"untrack <word> - not yet implemented.\n"
-"track off - not yet implemented.\n"
-"untrack all - not yet implemented.\n"
-"tracks - not yet implemented.\n"
-"tracking - not yet implemented.\n"
-msgstr ""
-
 #: lib/common.php:191
 #, fuzzy
 msgid "No configuration file found. "
@@ -7510,7 +7503,7 @@ msgid "Describe the group or topic in %d characters"
 msgstr "140글자로 그룹이나 토픽 설명하기"
 
 #: lib/jabber.php:192
-#, fuzzy, php-format
+#, php-format
 msgid "notice id: %s"
 msgstr "새로운 통지"
 
@@ -7570,7 +7563,6 @@ msgid "File exceeds user's quota!"
 msgstr ""
 
 #: lib/mediafile.php:201 lib/mediafile.php:237
-#, fuzzy
 msgid "Could not determine file's mime-type!"
 msgstr "공개 stream을 불러올 수 없습니다."
 
@@ -7578,3 +7570,59 @@ msgstr "공개 stream을 불러올 수 없습니다."
 #, fuzzy
 msgid "Duplicate notice"
 msgstr "통지 삭제"
+
+#: actions/login.php:110 actions/login.php:120
+#, fuzzy
+msgid "Invalid or expired token."
+msgstr "옳지 않은 통지 내용"
+
+#: lib/command.php:597
+#, fuzzy, php-format
+msgid "Could not create login token for %s"
+msgstr "OpenID를 작성 할 수 없습니다 : %s"
+
+#: lib/command.php:602
+#, php-format
+msgid "This link is useable only once, and is good for only 2 minutes: %s"
+msgstr ""
+
+#: lib/imagefile.php:75
+#, fuzzy, php-format
+msgid "That file is too big. The maximum file size is %s."
+msgstr "당신그룹의 로고 이미지를 업로드할 수 있습니다."
+
+#: lib/command.php:613
+msgid ""
+"Commands:\n"
+"on - turn on notifications\n"
+"off - turn off notifications\n"
+"help - show this help\n"
+"follow <nickname> - subscribe to user\n"
+"leave <nickname> - unsubscribe from user\n"
+"d <nickname> <text> - direct message to user\n"
+"get <nickname> - get last notice from user\n"
+"whois <nickname> - get profile info on user\n"
+"fav <nickname> - add user's last notice as a 'fave'\n"
+"fav #<notice_id> - add notice with the given id as a 'fave'\n"
+"reply #<notice_id> - reply to notice with a given id\n"
+"reply <nickname> - reply to the last notice from user\n"
+"join <group> - join group\n"
+"login - Get a link to login to the web interface\n"
+"drop <group> - leave group\n"
+"stats - get your stats\n"
+"stop - same as 'off'\n"
+"quit - same as 'off'\n"
+"sub <nickname> - same as 'follow'\n"
+"unsub <nickname> - same as 'leave'\n"
+"last <nickname> - same as 'get'\n"
+"on <nickname> - not yet implemented.\n"
+"off <nickname> - not yet implemented.\n"
+"nudge <nickname> - remind a user to update.\n"
+"invite <phone number> - not yet implemented.\n"
+"track <word> - not yet implemented.\n"
+"untrack <word> - not yet implemented.\n"
+"track off - not yet implemented.\n"
+"untrack all - not yet implemented.\n"
+"tracks - not yet implemented.\n"
+"tracking - not yet implemented.\n"
+msgstr ""
