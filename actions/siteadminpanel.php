@@ -91,7 +91,8 @@ class SiteadminpanelAction extends AdminPanelAction
     function saveSettings()
     {
         static $settings = array('name', 'broughtby', 'broughtbyurl',
-                                 'email', 'timezone', 'language');
+                                 'email', 'timezone', 'language',
+                                 'closed', 'inviteonly', 'private');
 
         $values = array();
 
@@ -220,6 +221,18 @@ class SiteAdminPanelForm extends Form
         $this->out->dropdown('language', _('Language'),
                              get_nice_language_list(), _('Default site language'),
                              false, $this->value('language'));
+
+        $this->out->checkbox('closed', _('Closed'),
+                             (bool) $this->value('closed'),
+                             _('Is registration on this site prohibited?'));
+
+        $this->out->checkbox('inviteonly', _('Invite-only'),
+                             (bool) $this->value('inviteonly'),
+                             _('Is registration on this site only open to invited users?'));
+
+        $this->out->checkbox('private', _('Private'),
+                             (bool) $this->value('private'),
+                             _('Prohibit anonymous users (not logged in) from viewing site?'));
     }
 
     /**
