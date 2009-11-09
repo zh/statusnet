@@ -90,7 +90,7 @@ class SiteadminpanelAction extends AdminPanelAction
 
     function saveSettings()
     {
-        static $settings = array('name', 'broughtby', 'broughtbyurl', 'email');
+        static $settings = array('name', 'broughtby', 'broughtbyurl', 'email', 'timezone');
 
         $values = array();
 
@@ -134,6 +134,14 @@ class SiteadminpanelAction extends AdminPanelAction
         }
         if (!Validate::email($values['email'], common_config('email', 'check_domain'))) {
             $this->clientError(_('Not a valid email address'));
+        }
+
+        // Validate timezone
+
+        if (is_null($values['timezone']) ||
+            !in_array($values['timezone'], DateTimeZone::listIdentifiers())) {
+            $this->clientError(_('Timezone not selected.'));
+            return;
         }
     }
 }
@@ -189,6 +197,18 @@ class SiteAdminPanelForm extends Form
                      _('URL used for credits link in footer of each page'));
         $this->input('email', _('Email'),
                      _('contact email address for your site'));
+
+        $timezones = array();
+
+        foreach (DateTimeZone::listIdentifiers() as $k => $v) {
+            $timezones[$v] = $v;
+        }
+
+        asort($timezones);
+
+        $this->out->dropdown('timezone', _('Default timezone'),
+                             $timezones, _('Default timezone for the site; usually UTC.'),
+                             true, $this->value('timezone'));
     }
 
     /**
@@ -204,11 +224,24 @@ class SiteAdminPanelForm extends Form
 
     function input($setting, $title, $instructions)
     {
+        $this->out->input($setting, $title, $this->value($setting), $instructions);
+    }
+
+    /**
+     * Utility to simplify getting the posted-or-stored setting value
+     *
+     * @param string $setting Name of the setting
+     *
+     * @return string param value if posted, or current config value
+     */
+
+    function value($setting)
+    {
         $value = $this->out->trimmed($setting);
         if (empty($value)) {
             $value = common_config('site', $setting);
         }
-        $this->out->input($setting, $title, $value, $instructions);
+        return $value;
     }
 
     /**
