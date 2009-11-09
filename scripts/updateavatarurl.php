@@ -69,6 +69,8 @@ try {
 
 function updateAvatars($user)
 {
+    $touched = false;
+
     if (!have_option('q', 'quiet')) {
         print "Updating avatars for user '".$user->nickname."' (".$user->id.")...";
     }
@@ -108,11 +110,18 @@ function updateAvatars($user)
 
                 if (!$avatar->query($sql)) {
                     throw new Exception("Can't update avatar for user " . $user->nickname . ".");
+                } else {
+                    $touched = true;
                 }
             }
         }
-
     }
+
+    if ($touched) {
+        $profile = $user->getProfile();
+        common_broadcast_profile($profile);
+    }
+
     if (have_option('v', 'verbose')) {
         print "DONE.\n";
     }
