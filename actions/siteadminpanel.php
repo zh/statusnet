@@ -90,7 +90,8 @@ class SiteadminpanelAction extends AdminPanelAction
 
     function saveSettings()
     {
-        static $settings = array('name', 'broughtby', 'broughtbyurl', 'email', 'timezone');
+        static $settings = array('name', 'broughtby', 'broughtbyurl',
+                                 'email', 'timezone', 'language');
 
         $values = array();
 
@@ -142,6 +143,12 @@ class SiteadminpanelAction extends AdminPanelAction
             !in_array($values['timezone'], DateTimeZone::listIdentifiers())) {
             $this->clientError(_('Timezone not selected.'));
             return;
+        }
+
+        // Validate language
+
+        if (!is_null($language) && !in_array($language, array_keys(get_nice_language_list()))) {
+            $this->clientError(sprintf(_('Unknown language "%s"'), $language));
         }
     }
 }
@@ -209,6 +216,10 @@ class SiteAdminPanelForm extends Form
         $this->out->dropdown('timezone', _('Default timezone'),
                              $timezones, _('Default timezone for the site; usually UTC.'),
                              true, $this->value('timezone'));
+
+        $this->out->dropdown('language', _('Language'),
+                             get_nice_language_list(), _('Default site language'),
+                             false, $this->value('language'));
     }
 
     /**
