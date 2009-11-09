@@ -68,8 +68,8 @@ class ProfilesettingsAction extends AccountSettingsAction
 
     function getInstructions()
     {
-        return _('You can update your personal profile info here ' .
-                  'so readers know more about you.');
+        return _('You can update your personal profile info here '.
+                  'so people know more about you.');
     }
 
     function showScripts()

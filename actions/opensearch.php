@@ -52,7 +52,7 @@ class OpensearchAction extends Action
      *
      * @param array $args query arguments
      * 
-     * @return boolean false if user doesn't exist
+     * @return boolean false if user does not exist
      */
     function handle($args)
     {
@@ -61,7 +61,7 @@ class OpensearchAction extends Action
         $short_name = '';
         if ($type == 'people') {
             $type       = 'peoplesearch';
-            $short_name = _('User Search');
+            $short_name = _('People Search');
         } else {
             $type       = 'noticesearch';
             $short_name = _('Notice Search');

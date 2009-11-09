@@ -102,7 +102,7 @@ class ApiAccountUpdateProfileImageAction extends ApiAuthAction
         }
 
         if (empty($this->user)) {
-            $this->clientError(_('No such user!'), 404, $this->format);
+            $this->clientError(_('No such user.'), 404, $this->format);
             return;
         }
 

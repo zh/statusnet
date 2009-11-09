@@ -97,7 +97,7 @@ class PasswordsettingsAction extends AccountSettingsAction
 
 
         $this->elementStart('ul', 'form_data');
-        // Users who logged in with OpenID won't have a pwd
+        // Users who logged in with OpenID will not have a pwd
         if ($user->password) {
             $this->elementStart('li');
             $this->password('oldpassword', _('Old password'));

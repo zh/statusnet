@@ -61,7 +61,7 @@ class NewmessageAction extends Action
     /**
      * Title of the page
      *
-     * Note that this usually doesn't get called unless something went wrong
+     * Note that this usually does not get called unless something went wrong
      *
      * @return string page title
      */
@@ -113,7 +113,7 @@ class NewmessageAction extends Action
             $this->other = User::staticGet('id', $this->to);
 
             if (!$this->other) {
-                $this->clientError(_('No such user'), 404);
+                $this->clientError(_('No such user.'), 404);
                 return false;
             }
 

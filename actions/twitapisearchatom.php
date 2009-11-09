@@ -250,7 +250,7 @@ class TwitapisearchatomAction extends ApiAction
         }
 
         // FIXME: this alternate link is not quite right because our
-        // web-based notice search doesn't support a rpp (responses per
+        // web-based notice search does not support a rpp (responses per
         // page) param yet
 
         $this->element('link', array('type' => 'text/html',
