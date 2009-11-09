@@ -240,13 +240,13 @@ class RealtimePlugin extends Plugin
         // FIXME: this code should be abstracted to a neutral third
         // party, like Notice::asJson(). I'm not sure of the ethics
         // of refactoring from within a plugin, so I'm just abusing
-        // the ApiAction method. Don't do this unless you're me!
+        // the TwitterApiAction method. Don't do this unless you're me!
 
-        require_once(INSTALLDIR.'/lib/api.php');
+        require_once(INSTALLDIR.'/lib/twitterapi.php');
 
-        $act = new ApiAction('/dev/null');
+        $act = new TwitterApiAction('/dev/null');
 
-        $arr = $act->twitterStatusArray($notice, true);
+        $arr = $act->twitter_status_array($notice, true);
         $arr['url'] = $notice->bestUrl();
         $arr['html'] = htmlspecialchars($notice->rendered);
         $arr['source'] = htmlspecialchars($arr['source']);
