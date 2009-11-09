@@ -70,7 +70,7 @@ class Theme
 
         // Check to see if it's in the local dir
 
-        $localroot = Theme::localRoot();
+        $localroot = self::localRoot();
 
         $fulldir = $localroot.'/'.$name;
 
@@ -82,7 +82,7 @@ class Theme
 
         // Check to see if it's in the distribution dir
 
-        $instroot = Theme::installRoot();
+        $instroot = self::installRoot();
 
         $fulldir = $instroot.'/'.$name;
 
@@ -170,6 +170,51 @@ class Theme
     {
         $theme = new Theme($name);
         return $theme->getPath($relative);
+    }
+
+    /**
+     * list available theme names
+     *
+     * @return array list of available theme names
+     */
+
+    static function listAvailable()
+    {
+        $local   = self::subdirsOf(self::localRoot());
+        $install = self::subdirsOf(self::installRoot());
+
+        $i = array_search('base', $install);
+
+        unset($install[$i]);
+
+        return array_merge($local, $install);
+    }
+
+    /**
+     * Utility for getting subdirs of a directory
+     *
+     * @param string $dir full path to directory to check
+     *
+     * @return array relative filenames of subdirs, or empty array
+     */
+
+    protected static function subdirsOf($dir)
+    {
+        $subdirs = array();
+
+        if (is_dir($dir)) {
+            if ($dh = opendir($dir)) {
+                while (($filename = readdir($dh)) !== false) {
+                    if ($filename != '..' && $filename !== '.' &&
+                        is_dir($dir.'/'.$filename)) {
+                        $subdirs[] = $filename;
+                    }
+                }
+                closedir($dh);
+            }
+        }
+
+        return $subdirs;
     }
 
     /**
