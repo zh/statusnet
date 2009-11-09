@@ -87,7 +87,7 @@ class User extends Memcached_DataObject
         return (is_null($sub)) ? false : true;
     }
 
-    // 'update' won't write key columns, so we have to do it ourselves.
+    // 'update' will not write key columns, so we have to do it ourselves.
 
     function updateKeys(&$orig)
     {
@@ -384,7 +384,7 @@ class User extends Memcached_DataObject
                 return false;
             }
 
-            // Otherwise, cache doesn't have all faves;
+            // Otherwise, cache does not have all faves;
             // fall through to the default
         }
 
@@ -463,7 +463,7 @@ class User extends Memcached_DataObject
     {
         $cache = common_memcache();
         if ($cache) {
-            // Faves don't happen chronologically, so we need to blow
+            // Faves do not happen chronologically, so we need to blow
             // ;last cache, too
             $cache->delete(common_cache_key('fave:ids_by_user:'.$this->id));
             $cache->delete(common_cache_key('fave:ids_by_user:'.$this->id.';last'));

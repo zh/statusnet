@@ -33,7 +33,7 @@ function updateTwitter_user($twitter_id, $screen_name)
 
     $fuser->query('BEGIN');
 
-    // Dropping down to SQL because regular DB_DataObject udpate stuff doesn't seem
+    // Dropping down to SQL because regular DB_DataObject udpate stuff does not seem
     // to work so good with tables that have multiple column primary keys
 
     // Any time we update the uri for a forein user we have to make sure there

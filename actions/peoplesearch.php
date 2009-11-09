@@ -49,7 +49,7 @@ class PeoplesearchAction extends SearchAction
 {
     function getInstructions()
     {
-        return _('Search for users on %%site.name%% by their name, location, or interests. ' .
+        return _('Search for people on %%site.name%% by their name, location, or interests. ' .
                   'Separate the terms by spaces; they must be 3 characters or more.');
     }
 

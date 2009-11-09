@@ -146,7 +146,7 @@ class AttachmentAction extends Action
     }
 
     /**
-     * Don't show local navigation
+     * Do not show local navigation
      *
      * @return void
      */
@@ -170,7 +170,7 @@ class AttachmentAction extends Action
     }
 
     /**
-     * Don't show page notice
+     * Do not show page notice
      *
      * @return void
      */

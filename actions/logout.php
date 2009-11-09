@@ -81,7 +81,7 @@ class LogoutAction extends Action
     {
         common_set_user(null);
         common_real_login(false); // not logged in
-        common_forgetme(); // don't log back in!
+        common_forgetme(); // do not log back in!
     }
 
 }

@@ -78,7 +78,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
         $this->user = $this->getTargetUser($this->arg('id'));
 
         if (empty($this->user)) {
-            $this->clientError(_('No such user!'), 404, $this->format);
+            $this->clientError(_('No such user.'), 404, $this->format);
             return;
         }
 

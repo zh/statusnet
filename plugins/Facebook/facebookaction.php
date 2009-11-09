@@ -95,7 +95,7 @@ class FacebookAction extends Action
     /**
      * Start an Facebook ready HTML document
      *
-     * For Facebook we don't want to actually output any headers,
+     * For Facebook we do not want to actually output any headers,
      * DTD info, etc.  Just Stylesheet and JavaScript links.
      *
      * @param string $type MIME type to use; default is to do negotation.
@@ -129,7 +129,7 @@ class FacebookAction extends Action
      */
     function showNoticeForm()
     {
-        // don't do it for most of the Facebook pages
+        // do not do it for most of the Facebook pages
     }
 
     function showBody()
@@ -581,7 +581,7 @@ class FacebookNoticeListItem extends NoticeListItem
     /**
      * recipe function for displaying a single notice in the Facebook App.
      *
-     * Overridden to strip out some of the controls that we don't
+     * Overridden to strip out some of the controls that we do not
      * want to be available.
      *
      * @return void
