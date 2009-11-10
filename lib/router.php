@@ -440,6 +440,9 @@ class Router
             $m->connect('api/account/update_profile_colors.:format',
                         array('action' => 'ApiAccountUpdateProfileColors'));
 
+            $m->connect('api/account/update_delivery_device.:format',
+                        array('action' => 'ApiAccountUpdateDeliveryDevice'));
+
             // special case where verify_credentials is called w/out a format
 
             $m->connect('api/account/verify_credentials',
