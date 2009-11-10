@@ -4,12 +4,12 @@ Installation
 ============
 add "addPlugin('ldap', array('setting'=>'value', 'setting2'=>'value2', ...);" to the bottom of your config.php
 
-
-
 Settings
 ========
-authn_authoritative:  Set to true if LDAP's responses are authoritative (meaning if LDAP fails, do check the any other plugins or the internal password database).
-autoregistration: Set to true if users should be automatically created when they attempt to login.
+authn_authoritative (false): Set to true if LDAP's responses are authoritative (meaning if LDAP fails, do check the any other plugins or the internal password database).
+autoregistration (false): Set to true if users should be automatically created when they attempt to login.
+email_changeable (true): Are users allowed to change their email address? (true or false)
+password_changeable (true): Are users allowed to change their passwords? (true or false)
 
 host*: LDAP server name to connect to. You can provide several hosts in an array in which case the hosts are tried from left to right.. See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
 port: Port on the server. See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
@@ -30,12 +30,15 @@ attributes: an array with the key being the StatusNet user attribute name, and t
     location
     
 * required
+default values are in (parenthesis)
 
 Example
 =======
 Here's an example of an LDAP plugin configuration that connects to Microsoft Active Directory.
 
 addPlugin('ldap', array(
+    'authn_authoritative'=>true,
+    'autoregistration'=>true,
     'binddn'=>'username',
     'bindpw'=>'password',
     'basedn'=>'OU=Users,OU=StatusNet,OU=US,DC=americas,DC=global,DC=loc',

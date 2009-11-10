@@ -162,6 +162,42 @@ StartAccountSettingsNav: Before showing the account settings menu
 EndAccountSettingsNav: After showing the account settings menu
 - $action: the current action
 
+StartAccountSettingsProfileMenuItem: Before showing the Profile menu item
+- $widget: AccountSettingsNav instance being shown
+
+EndAccountSettingsProfileMenuItem: After showing the Profile menu item
+- $widget: AccountSettingsNav instance being shown
+
+StartAccountSettingsAvatarMenuItem: Before showing the Avatar menu item
+- $widget: AccountSettingsNav instance being shown
+
+EndAccountSettingsAvatarMenuItem: After showing the Avatar menu item
+- $widget: AccountSettingsNav instance being shown
+
+StartAccountSettingsPasswordMenuItem: Before showing the Password menu item
+- $widget: AccountSettingsNav instance being shown
+
+EndAccountSettingsPasswordMenuItem: After showing the Password menu item
+- $widget: AccountSettingsNav instance being shown
+
+StartAccountSettingsEmailMenuItem: Before showing the Email menu item
+- $widget: AccountSettingsNav instance being shown
+
+EndAccountSettingsEmailMenuItem: After showing the Email menu item
+- $widget: AccountSettingsNav instance being shown
+
+StartAccountSettingsDesignMenuItem: Before showing the Design menu item
+- $widget: AccountSettingsNav instance being shown
+
+EndAccountSettingsDesignMenuItem: After showing the Design menu item
+- $widget: AccountSettingsNav instance being shown
+
+StartAccountSettingsOtherMenuItem: Before showing the Other menu item
+- $widget: AccountSettingsNav instance being shown
+
+EndAccountSettingsOtherMenuItem: After showing the Other menu item
+- $widget: AccountSettingsNav instance being shown
+
 Autoload: When trying to autoload a class
 - $cls: the class being sought. A plugin might require_once the file for the class.
 
@@ -498,10 +534,6 @@ StartChangePassword: Before changing a password
 
 EndChangePassword: After changing a password
 - $nickname: user's nickname
-
-CanUserChangeField: Determines if a user is allowed to change a specific profile field
-- $nickname: nickname of the user who would like to know which of their profile fields are mutable
-- $field: name of the field the user wants to change (nickname, fullname, password, avatar, etc)
 
 UserDeleteRelated: Specify additional tables to delete entries from when deleting users
 - $user: User object
