@@ -61,6 +61,9 @@ class ApiStatusesUpdateAction extends ApiAuthAction
     var $source                = null;
     var $status                = null;
     var $in_reply_to_status_id = null;
+    var $lat                   = null;
+    var $lon                   = null;
+
     static $reserved_sources = array('web', 'omb', 'mail', 'xmpp', 'api');
 
     /**
@@ -79,6 +82,8 @@ class ApiStatusesUpdateAction extends ApiAuthAction
         $this->user   = $this->auth_user;
         $this->status = $this->trimmed('status');
         $this->source = $this->trimmed('source');
+        $this->lat    = $this->trimmed('lat');
+        $this->lon    = $this->trimmed('long');
 
         if (empty($this->source) || in_array($source, self::$reserved_sources)) {
             $this->source = 'api';
@@ -198,6 +203,12 @@ class ApiStatusesUpdateAction extends ApiAuthAction
                 }
             }
 
+            $location = null;
+
+            if (!empty($this->lat) && !empty($this->lon)) {
+                $location = Location::fromLatLon($this->lat, $this->lon);
+            }
+
             $upload = null;
 
             try {
@@ -225,7 +236,13 @@ class ApiStatusesUpdateAction extends ApiAuthAction
                 html_entity_decode($status_shortened, ENT_NOQUOTES, 'UTF-8'),
                 $this->source,
                 1,
-                $reply_to
+                $reply_to,
+                null,
+                null,
+                empty($location) ? null : $location->lat,
+                empty($location) ? null : $location->lon,
+                empty($location) ? null : $location->location_id,
+                empty($location) ? null : $location->location_ns
             );
 
             if (isset($upload)) {
