@@ -44,7 +44,7 @@ if (!defined('STATUSNET')) {
  *                                    'piwikId' => 'id'));
  *
  * Replace 'example.com/piwik/' with the URL to your Piwik installation and
- * make sure you do not forget the final /.
+ * make sure you don't forget the final /.
  * Replace 'id' with the ID your statusnet installation has in your Piwik
  * analytics setup - for example '8'.
  *

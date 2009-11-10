@@ -386,7 +386,7 @@ class Rss10Action extends Action
             return null;
         }
 
-        // FIXME: does not handle modified profiles, avatars, deleted notices
+        // FIXME: doesn't handle modified profiles, avatars, deleted notices
 
         return strtotime($this->notices[0]->created);
     }

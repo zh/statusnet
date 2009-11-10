@@ -437,7 +437,7 @@ function jabber_public_notice($notice)
 
     $public = common_config('xmpp', 'public');
 
-    // FIXME PRIV do not send out private messages here
+    // FIXME PRIV don't send out private messages here
     // XXX: should we send out non-local messages if public,localonly
     // = false? I think not
 

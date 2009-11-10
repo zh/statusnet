@@ -253,7 +253,7 @@ class ShowstreamAction extends ProfileAction
     }
 }
 
-// We do not show the author for a profile, since we already know who it is!
+// We don't show the author for a profile, since we already know who it is!
 
 class ProfileNoticeList extends NoticeList
 {

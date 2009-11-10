@@ -341,7 +341,7 @@ class FinishopenidloginAction extends Action
     {
         $url = common_get_returnto();
         if ($url) {
-            # We do not have to return to it again
+            # We don't have to return to it again
             common_set_returnto(null);
         } else {
             $url = common_local_url('all',
@@ -421,7 +421,7 @@ class FinishopenidloginAction extends Action
 
         $parts = parse_url($openid);
 
-        # If any of these parts exist, this will not work
+        # If any of these parts exist, this won't work
 
         foreach ($bad as $badpart) {
             if (array_key_exists($badpart, $parts)) {

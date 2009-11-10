@@ -102,4 +102,15 @@ class LdapPlugin extends Plugin
         //return false, indicating that the event has been handled
         return false;
     }
+
+    function onCanUserChangeField($nickname, $field)
+    {
+        switch($field)
+        {
+            case 'password':
+            case 'nickname':
+            case 'email':
+                return false;
+        }
+    }
 }

@@ -115,8 +115,8 @@ create table subscription (
 
     primary key (subscriber, subscribed)
 );
-create index subscription_subscriber_idx on subscription using btree(subscriber);
-create index subscription_subscribed_idx on subscription using btree(subscribed);
+create index subscription_subscriber_idx on subscription using btree(subscriber,created);
+create index subscription_subscribed_idx on subscription using btree(subscribed,created);
 
 create sequence notice_seq;
 create table notice (
@@ -171,7 +171,7 @@ create table fave (
 
 );
 create index fave_notice_id_idx on fave using btree(notice_id);
-create index fave_user_id_idx on fave using btree(user_id);
+create index fave_user_id_idx on fave using btree(user_id,modified);
 create index fave_modified_idx on fave using btree(modified);
 
 /* tables for OAuth */

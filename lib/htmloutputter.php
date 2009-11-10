@@ -76,7 +76,7 @@ class HTMLOutputter extends XMLOutputter
     /**
      * Start an HTML document
      *
-     * If $type is not specified, will attempt to do content negotiation.
+     * If $type isn't specified, will attempt to do content negotiation.
      *
      * Attempts to do content negotiation for language, also.
      *

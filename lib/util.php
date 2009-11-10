@@ -61,7 +61,6 @@ function common_init_language()
     $language = common_language();
     $locale_set = common_init_locale($language);
     setlocale(LC_CTYPE, 'C');
-
     // So we do not have to make people install the gettext locales
     $path = common_config('site','locale_path');
     bindtextdomain("statusnet", $path);
@@ -139,7 +138,7 @@ function common_check_user($nickname, $password)
                 }
             }
         }else{
-            //no handler indicated the credentials were valid, and we know their not valid because the user is not in the database
+            //no handler indicated the credentials were valid, and we know their not valid because the user isn't in the database
             return false;
         }
     } else {
@@ -396,7 +395,7 @@ function common_current_user()
 }
 
 // Logins that are 'remembered' aren't 'real' -- they're subject to
-// cookie-stealing. So, we do not let them do certain things. New reg,
+// cookie-stealing. So, we don't let them do certain things. New reg,
 // OpenID, and password logins _are_ real.
 
 function common_real_login($real=true)
@@ -1151,7 +1150,7 @@ function common_accept_to_prefs($accept, $def = '*/*')
     $parts = explode(',', $accept);
 
     foreach($parts as $part) {
-        // FIXME: does not deal with params like 'text/html; level=1'
+        // FIXME: doesn't deal with params like 'text/html; level=1'
         @list($value, $qpart) = explode(';', trim($part));
         $match = array();
         if(!isset($qpart)) {
@@ -1350,7 +1349,7 @@ function common_error_handler($errno, $errstr, $errfile, $errline, $errcontext)
     }
 
     // FIXME: show error page if we're on the Web
-    /* Do not execute PHP internal error handler */
+    /* Don't execute PHP internal error handler */
     return true;
 }
 
@@ -1452,7 +1451,7 @@ function common_shorten_url($long_url)
     }
     global $_shorteners;
     if (!isset($_shorteners[$svc])) {
-        //the user selected service does not exist, so default to ur1.ca
+        //the user selected service doesn't exist, so default to ur1.ca
         $svc = 'ur1.ca';
     }
     if (!isset($_shorteners[$svc])) {

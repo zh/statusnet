@@ -96,8 +96,8 @@ class QueueHandler extends Daemon
      * Initialization, run when the queue handler starts.
      * If this function indicates failure, the handler run will be aborted.
      *
-     * @fixme run() will abort if this does not return true,
-     *        but some subclasses do not bother.
+     * @fixme run() will abort if this doesn't return true,
+     *        but some subclasses don't bother.
      * @return boolean true on success, false on failure
      */
     function start()
@@ -108,8 +108,8 @@ class QueueHandler extends Daemon
      * Cleanup, run when the queue handler ends.
      * If this function indicates failure, a warning will be logged.
      *
-     * @fixme run() will throw warnings if this does not return true,
-     *        but many subclasses do not bother.
+     * @fixme run() will throw warnings if this doesn't return true,
+     *        but many subclasses don't bother.
      * @return boolean true on success, false on failure
      */
     function finish()
@@ -137,7 +137,7 @@ class QueueHandler extends Daemon
      * method, which passes control back to our handle_notice() method for
      * each notice that comes in on the queue.
      *
-     * Most of the time this will not need to be overridden in a subclass.
+     * Most of the time this won't need to be overridden in a subclass.
      *
      * @return boolean true on success, false on failure
      */
@@ -173,7 +173,7 @@ class QueueHandler extends Daemon
      * Called by QueueHandler after each handled item or empty polling cycle.
      * This is a good time to e.g. service your XMPP connection.
      *
-     * Does not need to be overridden if there's no maintenance to do.
+     * Doesn't need to be overridden if there's no maintenance to do.
      *
      * @param int $timeout seconds to sleep if there's nothing to do
      */

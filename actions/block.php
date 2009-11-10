@@ -146,8 +146,8 @@ class BlockAction extends Action
                 $this->hidden($k, $v);
             }
         }
-        $this->submit('form_action-no', _('No'), 'submit form_action-primary', 'no', _("Do not block this user from this group"));
-        $this->submit('form_action-yes', _('Yes'), 'submit form_action-secondary', 'yes', _('Block this user from this group'));
+        $this->submit('form_action-no', _('No'), 'submit form_action-primary', 'no', _("Do not block this user"));
+        $this->submit('form_action-yes', _('Yes'), 'submit form_action-secondary', 'yes', _('Block this user'));
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
