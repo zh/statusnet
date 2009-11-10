@@ -107,8 +107,8 @@ create table subscription (
     modified timestamp comment 'date this record was modified',
 
     constraint primary key (subscriber, subscribed),
-    index subscription_subscriber_idx (subscriber),
-    index subscription_subscribed_idx (subscribed),
+    index subscription_subscriber_idx (subscriber, created),
+    index subscription_subscribed_idx (subscribed, created),
     index subscription_token_idx (token)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
