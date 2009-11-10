@@ -87,12 +87,12 @@ class GeonamesPlugin extends Plugin
                 $location->location_id      = $n->geonameId;
                 $location->location_ns      = self::NAMESPACE;
 
-                // handled, don't continue processing!
+                // handled, do not continue processing!
                 return false;
             }
         }
 
-        // Continue processing; we don't have the answer
+        // Continue processing; we do not have the answer
         return true;
     }
 
@@ -217,7 +217,7 @@ class GeonamesPlugin extends Plugin
             }
         }
 
-        // For some reason we don't know, so pass.
+        // For some reason we do not know, so pass.
 
         return true;
     }
@@ -299,7 +299,7 @@ class GeonamesPlugin extends Plugin
 
         $url = 'http://www.geonames.org/' . $location->location_id;
 
-        // it's been filled, so don't process further.
+        // it's been filled, so do not process further.
         return false;
     }
 }

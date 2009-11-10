@@ -76,7 +76,7 @@ RealtimeUpdate = {
               $("#notices_primary .notices").prepend(noticeItem);
               $("#notices_primary .notice:first").css({display:"none"});
               $("#notices_primary .notice:first").fadeIn(1000);
-              NoticeReply();
+              SN.U.NoticeReply();
 
               RealtimeUpdate._updatecounter += 1;
               document.title = '('+RealtimeUpdate._updatecounter+') ' + DT;

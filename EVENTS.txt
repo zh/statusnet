@@ -489,6 +489,10 @@ ChangePassword: Handle a password change request
 - $newpassword: the desired new password
 - &$errormsg: set this to an error message if the password could not be changed. If the password was changed, leave this as false
 
+CanUserChangeField: Determines if a user is allowed to change a specific profile field
+- $nickname: nickname of the user who would like to know which of their profile fields are mutable
+- $field: name of the field the user wants to change (nickname, fullname, password, avatar, etc)
+
 UserDeleteRelated: Specify additional tables to delete entries from when deleting users
 - $user: User object
 - &$related: array of DB_DataObject class names to delete entries on matching user_id.

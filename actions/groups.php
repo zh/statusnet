@@ -88,12 +88,11 @@ class GroupsAction extends Action
     {
         $notice =
           sprintf(_('%%%%site.name%%%% groups let you find and talk with ' .
-                    'users of similar interests. After you join a group ' .
+                    'people of similar interests. After you join a group ' .
                     'you can send messages to all other members using the ' .
-                    'syntax "!groupname". Are you not seeing any groups ' .
-                    'you like? Try ' .
+                    'syntax "!groupname". Don\'t see a group you like? Try ' .
                     '[searching for one](%%%%action.groupsearch%%%%) or ' .
-                    '[start your own](%%%%action.newgroup%%%%)!'));
+                    '[start your own!](%%%%action.newgroup%%%%)'));
         $this->elementStart('div', 'instructions');
         $this->raw(common_markup_to_html($notice));
         $this->elementEnd('div');

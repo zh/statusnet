@@ -71,7 +71,7 @@ class FBConnectauthAction extends Action
                              'There is already a local user (' . $flink->user_id .
                              ') linked with this Facebook (' . $this->fbuid . ').');
 
-                // We don't want these cookies
+                // We do not want these cookies
                 getFacebook()->clear_cookie_state();
 
                 $this->clientError(_('There is already a local user linked with this Facebook.'));
@@ -364,7 +364,7 @@ class FBConnectauthAction extends Action
     {
         $url = common_get_returnto();
         if ($url) {
-            // We don't have to return to it again
+            // We do not have to return to it again
             common_set_returnto(null);
         } else {
             $url = common_local_url('all',

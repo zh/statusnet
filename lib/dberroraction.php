@@ -39,7 +39,7 @@ require_once INSTALLDIR.'/lib/servererroraction.php';
  *
  * This only occurs if there's been a DB_DataObject_Error that's
  * reported through PEAR, so we try to avoid doing anything that connects
- * to the DB, so we don't trigger it again.
+ * to the DB, so we do not trigger it again.
  *
  * @category Action
  * @package  StatusNet
@@ -62,12 +62,12 @@ class DBErrorAction extends ServerErrorAction
 
     function getLanguage()
     {
-        // Don't try to figure out user's language; just show the page
+        // Do not try to figure out user's language; just show the page
         return common_config('site', 'language');
     }
 
     function showPrimaryNav()
     {
-        // don't show primary nav
+        // do not show primary nav
     }
 }

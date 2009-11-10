@@ -351,7 +351,7 @@ class StatusNetOAuthDataStore extends OAuthDataStore
             $author = User::staticGet('uri', $author_uri);
         }
         if (!$author) {
-            throw new Exception('No such user');
+            throw new Exception('No such user.');
         }
 
         common_log(LOG_DEBUG, print_r($author, true), __FILE__);
@@ -407,7 +407,7 @@ class StatusNetOAuthDataStore extends OAuthDataStore
             $user = User::staticGet('uri', $uri);
         }
         if (!$user) {
-            throw new Exception('No such user');
+            throw new Exception('No such user.');
         }
         return $user;
     }

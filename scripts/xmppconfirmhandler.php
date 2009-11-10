@@ -69,7 +69,7 @@ class XmppConfirmHandler extends XmppQueueHandler
                     continue;
                 } else {
                     $this->log(LOG_INFO, 'Confirmation sent for ' . $confirm->address);
-                    # Mark confirmation sent; need a dupe so we don't have the WHERE clause
+                    # Mark confirmation sent; need a dupe so we do not have the WHERE clause
                     $dupe = Confirm_address::staticGet('code', $confirm->code);
                     if (!$dupe) {
                         common_log(LOG_WARNING, 'Could not refetch confirm', __FILE__);

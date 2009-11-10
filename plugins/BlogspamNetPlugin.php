@@ -85,7 +85,7 @@ class BlogspamNetPlugin extends Plugin
             } else if (preg_match('/^SPAM(:(.*))?$/', $response, $match)) {
                 throw new ClientException(sprintf(_("Spam checker results: %s"), $match[2]), 400);
             } else if (preg_match('/^OK$/', $response)) {
-                // don't do anything
+                // do not do anything
             } else {
                 throw new ServerException(sprintf(_("Unexpected response from %s: %s"), $this->baseUrl, $response), 500);
             }

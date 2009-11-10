@@ -102,26 +102,31 @@ class AccountSettingsNav extends Widget
         $this->action->elementStart('ul', array('class' => 'nav'));
 
         if (Event::handle('StartAccountSettingsNav', array(&$this->action))) {
+            $user = common_current_user();
 
-            $menu =
-              array('profilesettings' =>
+            $menu = array();
+            $menu['profilesettings'] =
                     array(_('Profile'),
-                          _('Change your profile settings')),
-                    'avatarsettings' =>
-                    array(_('Avatar'),
-                          _('Upload an avatar')),
-                    'passwordsettings' =>
-                    array(_('Password'),
-                          _('Change your password')),
-                    'emailsettings' =>
+                          _('Change your profile settings'));
+            if(Event::handle('CanUserChangeField', array($user->nickname, 'avatar'))){
+                $menu['avatarsettings'] =
+                        array(_('Avatar'),
+                              _('Upload an avatar'));
+            }
+            if(Event::handle('CanUserChangeField', array($user->nickname, 'password'))){
+                $menu['passwordsettings'] =
+                        array(_('Password'),
+                              _('Change your password'));
+            }
+            $menu['emailsettings'] =
                     array(_('Email'),
-                          _('Change email handling')),
-                    'userdesignsettings' =>
+                          _('Change email handling'));
+            $menu['userdesignsettings'] =
                     array(_('Design'),
-                          _('Design your profile')),
-                    'othersettings' =>
+                          _('Design your profile'));
+            $menu['othersettings'] =
                     array(_('Other'),
-                          _('Other options')));
+                          _('Other options'));
 
             foreach ($menu as $menuaction => $menudesc) {
                 $this->action->menuItem(common_local_url($menuaction),

@@ -38,6 +38,8 @@ define('FOREIGN_NOTICE_SEND_REPLY', 4);
 define('FOREIGN_FRIEND_SEND', 1);
 define('FOREIGN_FRIEND_RECV', 2);
 
+if ( $_REQUEST['p'] == 'check-fancy') {  exit; } //exit with 200 response, if this is checking fancy from the installer
+
 define_syslog_variables();
 
 # append our extlib dir as the last-resort place to find libs
@@ -227,7 +229,6 @@ require_once 'markdown.php';
 
 require_once INSTALLDIR.'/lib/util.php';
 require_once INSTALLDIR.'/lib/action.php';
-require_once INSTALLDIR.'/lib/theme.php';
 require_once INSTALLDIR.'/lib/mail.php';
 require_once INSTALLDIR.'/lib/subs.php';
 require_once INSTALLDIR.'/lib/Shorturl_api.php';
