@@ -97,6 +97,8 @@ class ApiAccountUpdateDeliveryDeviceAction extends ApiAuthAction
             return;
         }
 
+        // Note: Twitter no longer supports IM
+
         if (!in_array(strtolower($this->device), array('sms', 'im', 'none'))) {
             $this->clientError(
                 _(
@@ -134,6 +136,12 @@ class ApiAccountUpdateDeliveryDeviceAction extends ApiAuthAction
         $profile = $this->user->getProfile();
 
         $twitter_user = $this->twitterUserArray($profile, true);
+
+        // Note: this Twitter API method is retarded because it doesn't give
+        // any success/failure information. Twitter's docs claim that the
+        // notification field will change to reflect notification choice,
+        // but that's not true; notification> is used to indicate
+        // whether the auth user is following the user in question.
 
         if ($this->format == 'xml') {
             $this->initDocument('xml');
