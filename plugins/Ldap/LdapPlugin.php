@@ -31,38 +31,42 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/plugins/Ldap/ldap.php';
+require_once INSTALLDIR.'/plugins/Auth/AuthPlugin.php';
+require_once 'Net/LDAP2.php';
 
-class LdapPlugin extends Plugin
+class LdapPlugin extends AuthPlugin
 {
-    private $config = array();
 
     function __construct()
     {
         parent::__construct();
     }
+    
+    //---interface implementation---//
 
-    function onCheckPassword($nickname, $password, &$authenticated)
+    function checkPassword($nickname, $password)
     {
-        if(ldap_check_password($nickname, $password)){
-            $authenticated = true;
-            //stop handling of other events, because we have an answer
+        $ldap = $this->ldap_get_connection();
+        if(!$ldap){
             return false;
         }
-        if(common_config('ldap','authoritative')){
-            //a false return stops handler processing
+        $entry = $this->ldap_get_user($nickname);
+        if(!$entry){
             return false;
+        }else{
+            $config = $this->ldap_get_config();
+            $config['binddn']=$entry->dn();
+            $config['bindpw']=$password;
+            if($this->ldap_get_connection($config)){
+                return true;
+            }else{
+                return false;
+            }
         }
     }
 
-    function onAutoRegister($nickname)
+    function autoRegister($nickname)
     {
-        $user = User::staticGet('nickname', $nickname);
-        if (! is_null($user) && $user !== false) {
-            common_log(LOG_WARNING, "An attempt was made to autoregister an existing user with nickname: $nickname");
-            return;
-        }
-
         $attributes=array();
         $config_attributes = array('nickname','email','fullname','homepage','location');
         foreach($config_attributes as $config_attribute){
@@ -71,7 +75,7 @@ class LdapPlugin extends Plugin
                 array_push($attributes,$value);
             }
         }
-        $entry = ldap_get_user($nickname,$attributes);
+        $entry = $this->ldap_get_user($nickname,$attributes);
         if($entry){
             $registration_data = array();
             foreach($config_attributes as $config_attribute){
@@ -89,21 +93,22 @@ class LdapPlugin extends Plugin
             //set the database saved password to a random string.
             $registration_data['password']=common_good_rand(16);
             $user = User::register($registration_data);
-            //prevent other handlers from running, as we have registered the user
-            return false;
+            return true;
+        }else{
+            //user isn't in ldap, so we cannot register him
+            return null;
         }
     }
 
-    function onChangePassword($nickname,$oldpassword,$newpassword,&$errormsg)
+    function changePassword($nickname,$oldpassword,$newpassword)
     {
         //TODO implement this
-        $errormsg = _('Sorry, changing LDAP passwords is not supported at this time');
+        throw new Exception(_('Sorry, changing LDAP passwords is not supported at this time'));
 
-        //return false, indicating that the event has been handled
         return false;
     }
 
-    function onCanUserChangeField($nickname, $field)
+    function canUserChangeField($nickname, $field)
     {
         switch($field)
         {
@@ -111,6 +116,69 @@ class LdapPlugin extends Plugin
             case 'nickname':
             case 'email':
                 return false;
+        }
+    }
+    
+    //---utility functions---//
+    function ldap_get_config(){
+        $config = array();
+        $keys = array('host','port','version','starttls','binddn','bindpw','basedn','options','filter','scope');
+        foreach($keys as $key){
+            $value = $this->$key;
+            if($value!==false){
+                $config[$key]=$value;
+            }
+        }
+        return $config;
+    }
+    
+    function ldap_get_connection($config = null){
+        if($config == null){
+            $config = $this->ldap_get_config();
+        }
+        
+        //cannot use Net_LDAP2::connect() as StatusNet uses
+        //PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 'handleError');
+        //PEAR handling can be overridden on instance objects, so we do that.
+        $ldap = new Net_LDAP2($config);
+        $ldap->setErrorHandling(PEAR_ERROR_RETURN);
+        $err=$ldap->bind();
+        if (Net_LDAP2::isError($err)) {
+            common_log(LOG_WARNING, 'Could not connect to LDAP server: '.$err->getMessage());
+            return false;
+        }
+        return $ldap;
+    }
+    
+    /**
+     * get an LDAP entry for a user with a given username
+     * 
+     * @param string $username
+     * $param array $attributes LDAP attributes to retrieve
+     * @return string DN
+     */
+    function ldap_get_user($username,$attributes=array()){
+        $ldap = $this->ldap_get_connection();
+        $filter = Net_LDAP2_Filter::create(common_config('ldap','nickname_attribute'), 'equals',  $username);
+        $options = array(
+            'scope' => 'sub',
+            'attributes' => $attributes
+        );
+        $search = $ldap->search(null,$filter,$options);
+        
+        if (PEAR::isError($search)) {
+            common_log(LOG_WARNING, 'Error while getting DN for user: '.$search->getMessage());
+            return false;
+        }
+
+        if($search->count()==0){
+            return false;
+        }else if($search->count()==1){
+            $entry = $search->shiftEntry();
+            return $entry;
+        }else{
+            common_log(LOG_WARNING, 'Found ' . $search->count() . ' ldap user with the username: ' . $username);
+            return false;
         }
     }
 }

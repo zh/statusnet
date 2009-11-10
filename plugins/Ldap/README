@@ -2,22 +2,46 @@ The LDAP plugin allows for StatusNet to handle authentication, authorization, an
 
 Installation
 ============
-Add configuration entries to config.php. These entries are:
+add "addPlugin('ldap', array('setting'=>'value', 'setting2'=>'value2', ...);" to the bottom of your config.php
 
-The following are documented at http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
-$config['ldap']['binddn']
-$config['ldap']['bindpw']
-$config['ldap']['basedn']
-$config['ldap']['host']
 
-$config['ldap']['nickname_attribute'] Set this to the name of the ldap attribute that holds the username. For example, on Microsoft's Active Directory, this should be set to 'sAMAccountName'
-$config['ldap']['nickname_email'] Set this to the name of the ldap attribute that holds the user's email address. For example, on Microsoft's Active Directory, this should be set to 'mail'
-$config['ldap']['nickname_fullname'] Set this to the name of the ldap attribute that holds the user's full name. For example, on Microsoft's Active Directory, this should be set to 'displayName'
-$config['ldap']['nickname_homepage'] Set this to the name of the ldap attribute that holds the the url of the user's home page.
-$config['ldap']['nickname_location'] Set this to the name of the ldap attribute that holds the user's location.
 
-$config['ldap']['authoritative'] Set to true if LDAP's responses are authoritative (meaning if LDAP fails, do check the any other plugins or the internal password database)
-$config['ldap']['autoregister'] Set to true if users should be automatically created when they attempt to login
+Settings
+========
+authn_authoritative:  Set to true if LDAP's responses are authoritative (meaning if LDAP fails, do check the any other plugins or the internal password database).
+autoregistration: Set to true if users should be automatically created when they attempt to login.
 
-Finally, add "addPlugin('ldap');" to the bottom of your config.php
+host*: LDAP server name to connect to. You can provide several hosts in an array in which case the hosts are tried from left to right.. See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+port: Port on the server. See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+version: LDAP version. See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+starttls: TLS is started after connecting. See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+binddn: The distinguished name to bind as (username). See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+bindpw: Password for the binddn. See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+basedn*: LDAP base name (root directory). See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+options: See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+filter: Default search filter. See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+scope: Default search scope. See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
 
+attributes: an array with the key being the StatusNet user attribute name, and the value the LDAP attribute name
+    nickname*
+    email
+    fullname
+    homepage
+    location
+    
+* required
+
+Example
+=======
+Here's an example of an LDAP plugin configuration that connects to Microsoft Active Directory.
+
+addPlugin('ldap', array(
+    'binddn'=>'username',
+    'bindpw'=>'password',
+    'basedn'=>'OU=Users,OU=StatusNet,OU=US,DC=americas,DC=global,DC=loc',
+    'host'=>array('server1', 'server2'),
+    'attributes'=>array(
+        'nickname'=>'sAMAccountName',
+        'email'=>'mail',
+        'fullname'=>'displayName')
+));
