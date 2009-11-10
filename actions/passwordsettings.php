@@ -58,19 +58,6 @@ class PasswordsettingsAction extends AccountSettingsAction
         return _('Change password');
     }
 
-    function prepare($args){
-        parent::prepare($args);
-
-        $user = common_current_user();
-
-        Event::handle('CanUserChangeField', array($user->nickname, 'password'));
-
-        if(! $fields['password']){
-            //user is not allowed to change his password
-            $this->clientError(_('You are not allowed to change your password'));
-        }
-    }
-
     /**
      * Instructions for use
      *
@@ -111,7 +98,7 @@ class PasswordsettingsAction extends AccountSettingsAction
 
 
         $this->elementStart('ul', 'form_data');
-        // Users who logged in with OpenID will not have a pwd
+        // Users who logged in with OpenID won't have a pwd
         if ($user->password) {
             $this->elementStart('li');
             $this->password('oldpassword', _('Old password'));
@@ -182,8 +169,8 @@ class PasswordsettingsAction extends AccountSettingsAction
             $oldpassword = null;
         }
 
-        $errormsg = false;
-        if(! Event::handle('ChangePassword', array($user->nickname, $oldpassword, $newpassword, &$errormsg))){
+        $success = false;
+        if(! Event::handle('StartChangePassword', array($user->nickname, $oldpassword, $newpassword))){
             //no handler changed the password, so change the password internally
             $original = clone($user);
 
@@ -199,11 +186,9 @@ class PasswordsettingsAction extends AccountSettingsAction
                 $this->serverError(_('Can\'t save new password.'));
                 return;
             }
+            Event::handle('EndChangePassword', array($nickname));
         }
 
-        if($errormsg === false)
-            $this->showForm(_('Password saved.'), true);
-        else
-            $this->showForm($errormsg);
+        $this->showForm(_('Password saved.'), true);
     }
 }

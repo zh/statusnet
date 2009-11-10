@@ -49,7 +49,7 @@ class AvatarbynicknameAction extends Action
      *
      * @param array $args query arguments
      * 
-     * @return boolean false if nickname or user is not found
+     * @return boolean false if nickname or user isn't found
      */
     function handle($args)
     {

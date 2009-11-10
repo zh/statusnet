@@ -48,3 +48,12 @@ create table login_token (
     constraint primary key (user_id)
 );
 
+alter table fave
+    drop index fave_user_id_idx,
+    add index fave_user_id_idx using btree(user_id,modified);
+
+alter table subscription
+    drop index subscription_subscriber_idx,
+    add index subscription_subscriber_idx using btree(subscriber,created),
+    drop index subscription_subscribed_idx,
+    add index subscription_subscribed_idx using btree(subscribed,created);

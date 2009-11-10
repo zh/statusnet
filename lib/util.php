@@ -57,11 +57,10 @@ function common_init_language()
     // we can set in another locale that may not be set up
     // (say, ga_ES for Galego/Galician) it seems to take it.
     common_init_locale("en_US");
-    
+
     $language = common_language();
     $locale_set = common_init_locale($language);
     setlocale(LC_CTYPE, 'C');
-    
     // So we do not have to make people install the gettext locales
     $path = common_config('site','locale_path');
     bindtextdomain("statusnet", $path);
@@ -117,51 +116,26 @@ function common_munge_password($password, $id)
 }
 
 // check if a username exists and has matching password
+
 function common_check_user($nickname, $password)
 {
-    $authenticated = false;
-    $eventResult = Event::handle('CheckPassword', array($nickname, $password, &$authenticated));
-    $user = User::staticGet('nickname', $nickname);
-    if (is_null($user) || $user === false) {
-        //user does not exist
-        if($authenticated){
-            //a handler said these are valid credentials, so see if a plugin wants to auto register the user
-            if(Event::handle('AutoRegister', array($nickname))){
-                //no handler registered the user
-                return false;
-            }else{
-                $user = User::staticGet('nickname', $nickname);
-                if (is_null($user) || $user === false) {
-                    common_log(LOG_WARNING, "A plugin handled the AutoRegister event, but did not actually register the user, nickname: $nickname");
-                    return false;
-                }else{
-                    return $user;
-                }
-            }
-        }else{
-            //no handler indicated the credentials were valid, and we know their not valid because the user is not in the database
-            return false;
-        }
-    } else {
-        if($eventResult && ! $authenticated){
-            //no handler was authoritative
-            if (mb_strlen($password) == 0) {
-                // NEVER allow blank passwords, even if they match the DB
-                return false;
-            }else{
+    $authenticatedUser = false;
+
+    if (Event::handle('StartCheckPassword', array($nickname, $password, &$authenticatedUser))) {
+        $user = User::staticGet('nickname', $nickname);
+        if (!empty($user)) {
+            if (!empty($password)) { // never allow login with blank password
                 if (0 == strcmp(common_munge_password($password, $user->id),
                                 $user->password)) {
                     //internal checking passed
-                    $authenticated = true;
+                    $authenticatedUser =& $user;
                 }
             }
         }
-        if($authenticated){
-            return $user;
-        } else {
-            return false;
-        }
+        Event::handle('EndCheckPassword', array($nickname, $password, $authenticatedUser));
     }
+
+    return $authenticatedUser;
 }
 
 // is the current user logged in?
@@ -396,7 +370,7 @@ function common_current_user()
 }
 
 // Logins that are 'remembered' aren't 'real' -- they're subject to
-// cookie-stealing. So, we do not let them do certain things. New reg,
+// cookie-stealing. So, we don't let them do certain things. New reg,
 // OpenID, and password logins _are_ real.
 
 function common_real_login($real=true)
@@ -1112,7 +1086,11 @@ function common_log_objstring(&$object)
     $arr = $object->toArray();
     $fields = array();
     foreach ($arr as $k => $v) {
-        $fields[] = "$k='$v'";
+        if (is_object($v)) {
+            $fields[] = "$k='".get_class($v)."'";
+        } else {
+            $fields[] = "$k='$v'";
+        }
     }
     $objstring = $object->tableName() . '[' . implode(',', $fields) . ']';
     return $objstring;
@@ -1147,7 +1125,7 @@ function common_accept_to_prefs($accept, $def = '*/*')
     $parts = explode(',', $accept);
 
     foreach($parts as $part) {
-        // FIXME: does not deal with params like 'text/html; level=1'
+        // FIXME: doesn't deal with params like 'text/html; level=1'
         @list($value, $qpart) = explode(';', trim($part));
         $match = array();
         if(!isset($qpart)) {
@@ -1346,7 +1324,7 @@ function common_error_handler($errno, $errstr, $errfile, $errline, $errcontext)
     }
 
     // FIXME: show error page if we're on the Web
-    /* Do not execute PHP internal error handler */
+    /* Don't execute PHP internal error handler */
     return true;
 }
 
@@ -1448,7 +1426,7 @@ function common_shorten_url($long_url)
     }
     global $_shorteners;
     if (!isset($_shorteners[$svc])) {
-        //the user selected service does not exist, so default to ur1.ca
+        //the user selected service doesn't exist, so default to ur1.ca
         $svc = 'ur1.ca';
     }
     if (!isset($_shorteners[$svc])) {

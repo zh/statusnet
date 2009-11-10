@@ -57,14 +57,16 @@ class Status_network extends DB_DataObject
         $config['db']['ini_'.$dbname] = INSTALLDIR.'/classes/status_network.ini';
         $config['db']['table_status_network'] = $dbname;
 
-        self::$cache = new Memcache();
+        if (class_exists('Memcache')) {
+            self::$cache = new Memcache();
 
-        if (is_array($servers)) {
-            foreach($servers as $server) {
-                self::$cache->addServer($server);
+            if (is_array($servers)) {
+                foreach($servers as $server) {
+                    self::$cache->addServer($server);
+                }
+            } else {
+                self::$cache->addServer($servers);
             }
-        } else {
-            self::$cache->addServer($servers);
         }
 
         self::$base = $dbname;
@@ -76,6 +78,10 @@ class Status_network extends DB_DataObject
 
     static function memGet($k, $v)
     {
+        if (!self::$cache) {
+            return self::staticGet($k, $v);
+        }
+
         $ck = self::cacheKey($k, $v);
 
         $sn = self::$cache->get($ck);
@@ -92,10 +98,12 @@ class Status_network extends DB_DataObject
 
     function decache()
     {
-        $keys = array('nickname', 'hostname', 'pathname');
-        foreach ($keys as $k) {
-            $ck = self::cacheKey($k, $this->$k);
-            self::$cache->delete($ck);
+        if (self::$cache) {
+            $keys = array('nickname', 'hostname', 'pathname');
+            foreach ($keys as $k) {
+                $ck = self::cacheKey($k, $this->$k);
+                self::$cache->delete($ck);
+            }
         }
     }
 

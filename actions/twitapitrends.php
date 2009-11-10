@@ -55,7 +55,7 @@ class TwitapitrendsAction extends ApiAction
      *
      * @param array $args Web and URL arguments
      *
-     * @return boolean false if user does not exist
+     * @return boolean false if user doesn't exist
      */
     function prepare($args)
     {

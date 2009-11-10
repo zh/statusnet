@@ -79,46 +79,49 @@ class GroupNav extends Widget
         $nickname = $this->group->nickname;
 
         $this->out->elementStart('ul', array('class' => 'nav'));
-        $this->out->menuItem(common_local_url('showgroup', array('nickname' =>
-                                                                 $nickname)),
-                             _('Group'),
-                             sprintf(_('%s group'), $nickname),
-                             $action_name == 'showgroup',
-                             'nav_group_group');
-        $this->out->menuItem(common_local_url('groupmembers', array('nickname' =>
-                                                                    $nickname)),
-                             _('Members'),
-                             sprintf(_('%s group members'), $nickname),
-                             $action_name == 'groupmembers',
-                             'nav_group_members');
-
-        $cur = common_current_user();
-
-        if ($cur && $cur->isAdmin($this->group)) {
-            $this->out->menuItem(common_local_url('blockedfromgroup', array('nickname' =>
-                                                                            $nickname)),
-                                 _('Blocked'),
-                                 sprintf(_('%s blocked users'), $nickname),
-                                 $action_name == 'blockedfromgroup',
-                                 'nav_group_blocked');
-            $this->out->menuItem(common_local_url('editgroup', array('nickname' =>
+        if (Event::handle('StartGroupGroupNav', array($this))) {
+            $this->out->menuItem(common_local_url('showgroup', array('nickname' =>
                                                                      $nickname)),
-                                 _('Admin'),
-                                 sprintf(_('Edit %s group properties'), $nickname),
-                                 $action_name == 'editgroup',
-                                 'nav_group_admin');
-            $this->out->menuItem(common_local_url('grouplogo', array('nickname' =>
-                                                                     $nickname)),
-                                 _('Logo'),
-                                 sprintf(_('Add or edit %s logo'), $nickname),
-                                 $action_name == 'grouplogo',
-                                 'nav_group_logo');
-            $this->out->menuItem(common_local_url('groupdesignsettings', array('nickname' =>
-                                                                  $nickname)),
-                                 _('Design'),
-                                 sprintf(_('Add or edit %s design'), $nickname),
-                                 $action_name == 'groupdesignsettings',
-                                 'nav_group_design');
+                                 _('Group'),
+                                 sprintf(_('%s group'), $nickname),
+                                 $action_name == 'showgroup',
+                                 'nav_group_group');
+            $this->out->menuItem(common_local_url('groupmembers', array('nickname' =>
+                                                                        $nickname)),
+                                 _('Members'),
+                                 sprintf(_('%s group members'), $nickname),
+                                 $action_name == 'groupmembers',
+                                 'nav_group_members');
+
+            $cur = common_current_user();
+
+            if ($cur && $cur->isAdmin($this->group)) {
+                $this->out->menuItem(common_local_url('blockedfromgroup', array('nickname' =>
+                                                                                $nickname)),
+                                     _('Blocked'),
+                                     sprintf(_('%s blocked users'), $nickname),
+                                     $action_name == 'blockedfromgroup',
+                                     'nav_group_blocked');
+                $this->out->menuItem(common_local_url('editgroup', array('nickname' =>
+                                                                         $nickname)),
+                                     _('Admin'),
+                                     sprintf(_('Edit %s group properties'), $nickname),
+                                     $action_name == 'editgroup',
+                                     'nav_group_admin');
+                $this->out->menuItem(common_local_url('grouplogo', array('nickname' =>
+                                                                         $nickname)),
+                                     _('Logo'),
+                                     sprintf(_('Add or edit %s logo'), $nickname),
+                                     $action_name == 'grouplogo',
+                                     'nav_group_logo');
+                $this->out->menuItem(common_local_url('groupdesignsettings', array('nickname' =>
+                                                                      $nickname)),
+                                     _('Design'),
+                                     sprintf(_('Add or edit %s design'), $nickname),
+                                     $action_name == 'groupdesignsettings',
+                                     'nav_group_design');
+            }
+            Event::handle('EndGroupGroupNav', array($this));
         }
         $this->out->elementEnd('ul');
     }

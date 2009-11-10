@@ -161,7 +161,7 @@ class TwitapisearchatomAction extends ApiAction
         // lcase it for comparison
         $q = strtolower($this->query);
 
-        $search_engine = $notice->getSearchEngine('identica_notices');
+        $search_engine = $notice->getSearchEngine('notice');
         $search_engine->set_sort_mode('chron');
         $search_engine->limit(($this->page - 1) * $this->rpp,
             $this->rpp + 1, true);
@@ -250,7 +250,7 @@ class TwitapisearchatomAction extends ApiAction
         }
 
         // FIXME: this alternate link is not quite right because our
-        // web-based notice search does not support a rpp (responses per
+        // web-based notice search doesn't support a rpp (responses per
         // page) param yet
 
         $this->element('link', array('type' => 'text/html',

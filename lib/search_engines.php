@@ -46,70 +46,11 @@ class SearchEngine
     }
 }
 
-class SphinxSearch extends SearchEngine
-{
-    private $sphinx;
-    private $connected;
-
-    function __construct($target, $table)
-    {
-        $fp = @fsockopen(common_config('sphinx', 'server'), common_config('sphinx', 'port'));
-        if (!$fp) {
-            $this->connected = false;
-            return;
-        }
-        fclose($fp);
-        parent::__construct($target, $table);
-        $this->sphinx = new SphinxClient;
-        $this->sphinx->setServer(common_config('sphinx', 'server'), common_config('sphinx', 'port'));
-        $this->connected = true;
-    }
-
-    function is_connected()
-    {
-        return $this->connected;
-    }
-
-    function limit($offset, $count, $rss = false)
-    {
-        //FIXME without LARGEST_POSSIBLE, the most recent results aren't returned
-        //      this probably has a large impact on performance
-        $LARGEST_POSSIBLE = 1e6;
-
-        if ($rss) {
-            $this->sphinx->setLimits($offset, $count, $count, $LARGEST_POSSIBLE);
-        }
-        else {
-            // return at most 50 pages of results
-            $this->sphinx->setLimits($offset, $count, 50 * ($count - 1), $LARGEST_POSSIBLE);
-        }
-
-        return $this->target->limit(0, $count);
-    }
-
-    function query($q)
-    {
-        $result = $this->sphinx->query($q, $this->table);
-        if (!isset($result['matches'])) return false;
-        $id_set = join(', ', array_keys($result['matches']));
-        $this->target->whereAdd("id in ($id_set)");
-        return true;
-     }
-
-    function set_sort_mode($mode)
-    {
-        if ('chron' === $mode) {
-            $this->sphinx->SetSortMode(SPH_SORT_ATTR_DESC, 'created_ts');
-            return $this->target->orderBy('created desc');
-        }
-    }
-}
-
 class MySQLSearch extends SearchEngine
 {
     function query($q)
     {
-        if ('identica_people' === $this->table) {
+        if ('profile' === $this->table) {
             $this->target->whereAdd('MATCH(nickname, fullname, location, bio, homepage) ' .
                                     'AGAINST (\''.addslashes($q).'\' IN BOOLEAN MODE)');
             if (strtolower($q) != $q) {
@@ -117,9 +58,9 @@ class MySQLSearch extends SearchEngine
                                         'AGAINST (\''.addslashes(strtolower($q)).'\' IN BOOLEAN MODE)', 'OR');
             }
             return true;
-        } else if ('identica_notices' === $this->table) {
+        } else if ('notice' === $this->table) {
 
-            // Do not show imported notices
+            // Don't show imported notices
             $this->target->whereAdd('notice.is_local != ' . Notice::GATEWAY);
 
             if (strtolower($q) != $q) {
@@ -143,13 +84,13 @@ class MySQLLikeSearch extends SearchEngine
 {
     function query($q)
     {
-        if ('identica_people' === $this->table) {
+        if ('profile' === $this->table) {
             $qry = sprintf('(nickname LIKE "%%%1$s%%" OR '.
                            ' fullname LIKE "%%%1$s%%" OR '.
                            ' location LIKE "%%%1$s%%" OR '.
                            ' bio      LIKE "%%%1$s%%" OR '.
                            ' homepage LIKE "%%%1$s%%")', addslashes($q));
-        } else if ('identica_notices' === $this->table) {
+        } else if ('notice' === $this->table) {
             $qry = sprintf('content LIKE "%%%1$s%%"', addslashes($q));
         } else {
             throw new ServerException('Unknown table: ' . $this->table);
@@ -165,9 +106,9 @@ class PGSearch extends SearchEngine
 {
     function query($q)
     {
-        if ('identica_people' === $this->table) {
+        if ('profile' === $this->table) {
             return $this->target->whereAdd('textsearch @@ plainto_tsquery(\''.addslashes($q).'\')');
-        } else if ('identica_notices' === $this->table) {
+        } else if ('notice' === $this->table) {
 
             // XXX: We need to filter out gateway notices (notice.is_local = -2) --Zach
 

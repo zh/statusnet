@@ -107,8 +107,8 @@ create table subscription (
     modified timestamp comment 'date this record was modified',
 
     constraint primary key (subscriber, subscribed),
-    index subscription_subscriber_idx (subscriber),
-    index subscription_subscribed_idx (subscribed),
+    index subscription_subscriber_idx (subscriber, created),
+    index subscription_subscribed_idx (subscribed, created),
     index subscription_token_idx (token)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
@@ -165,7 +165,7 @@ create table fave (
 
     constraint primary key (notice_id, user_id),
     index fave_notice_id_idx (notice_id),
-    index fave_user_id_idx (user_id),
+    index fave_user_id_idx (user_id,modified),
     index fave_modified_idx (modified)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;

@@ -37,7 +37,7 @@ class XmppQueueHandler extends QueueHandler
 
     function start()
     {
-        # Low priority; we do not want to receive messages
+        # Low priority; we don't want to receive messages
 
         $this->log(LOG_INFO, "INITIALIZE");
         $this->conn = jabber_connect($this->_id.$this->transport());
