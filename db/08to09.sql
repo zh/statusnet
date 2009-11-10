@@ -42,3 +42,12 @@ create table login_token (
     constraint primary key (user_id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
+alter table fave
+    drop index fave_user_id_idx,
+    add index fave_user_id_idx (user_id,modified);
+
+alter table subscription
+    drop index subscription_subscriber_idx,
+    add index subscription_subscriber_idx (subscriber,created),
+    drop index subscription_subscribed_idx,
+    add index subscription_subscribed_idx (subscribed,created);

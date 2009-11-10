@@ -53,7 +53,7 @@ class File_redirection extends Memcached_DataObject
             'connect_timeout' => 10, // # seconds to wait
             'max_redirs' => $redirs, // # max number of http redirections to follow
             'follow_redirects' => true, // Follow redirects
-            'store_body' => false, // We will not need body content here.
+            'store_body' => false, // We won't need body content here.
         ));
         return $request;
     }
@@ -81,12 +81,12 @@ class File_redirection extends Memcached_DataObject
         }
         try {
             $request = self::_commonHttp($short_url, $redirs);
-            // Do not include body in output
+            // Don't include body in output
             $request->setMethod(HTTP_Request2::METHOD_HEAD);
             $response = $request->send();
 
             if (405 == $response->getStatus()) {
-                // Server does not support HEAD method? Can this really happen?
+                // Server doesn't support HEAD method? Can this really happen?
                 // We'll try again as a GET and ignore the response data.
                 $request = self::_commonHttp($short_url, $redirs);
                 $response = $request->send();
@@ -178,7 +178,7 @@ class File_redirection extends Memcached_DataObject
             case 'aim':
             case 'jabber':
             case 'xmpp':
-                // do not touch anything
+                // don't touch anything
                 break;
 
             default:

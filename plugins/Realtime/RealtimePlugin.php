@@ -240,7 +240,7 @@ class RealtimePlugin extends Plugin
         // FIXME: this code should be abstracted to a neutral third
         // party, like Notice::asJson(). I'm not sure of the ethics
         // of refactoring from within a plugin, so I'm just abusing
-        // the ApiAction method. Do not do this unless you're me!
+        // the ApiAction method. Don't do this unless you're me!
 
         require_once(INSTALLDIR.'/lib/api.php');
 

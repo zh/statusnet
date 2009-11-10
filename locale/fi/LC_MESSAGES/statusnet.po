@@ -12,21 +12,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-08 22:51+0000\n"
-"PO-Revision-Date: 2009-11-08 22:58:08+0000\n"
+"POT-Creation-Date: 2009-11-10 20:53+0000\n"
+"PO-Revision-Date: 2009-11-10 20:59:00+0000\n"
 "Language-Team: Finnish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58791); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58872); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fi\n"
 "X-Message-Group: out-statusnet\n"
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
 #: actions/showfavorites.php:137 actions/tag.php:51
-#, fuzzy
 msgid "No such page"
-msgstr "Tuota tagia ei ole."
+msgstr "Sivua ei ole."
 
 #: actions/all.php:74 actions/allrss.php:68
 #: actions/apiaccountupdateprofileimage.php:105 actions/apiblockcreate.php:97
@@ -167,9 +166,9 @@ msgid "No message text!"
 msgstr "Viestissä ei ole tekstiä!"
 
 #: actions/apidirectmessagenew.php:135 actions/newmessage.php:150
-#, fuzzy, php-format
+#, php-format
 msgid "That's too long. Max message size is %d chars."
-msgstr "Liian pitkä päivitys. Maksimikoko päivitykselle on 140 merkkiä."
+msgstr "Liian pitkä päivitys. Maksimikoko päivitykselle on %d merkkiä."
 
 #: actions/apidirectmessagenew.php:146
 msgid "Recipient user not found."
@@ -181,7 +180,7 @@ msgstr ""
 "Et voi lähettää suoraa viestiä käyttäjälle, jonka kanssa et ole vielä kaveri."
 
 #: actions/apidirectmessage.php:89
-#, fuzzy, php-format
+#, php-format
 msgid "Direct messages from %s"
 msgstr "Suorat viestit käyttäjälle %s"
 
@@ -206,7 +205,6 @@ msgid "No status found with that ID."
 msgstr "Käyttäjätunnukselle ei löytynyt statusviestiä."
 
 #: actions/apifavoritecreate.php:119
-#, fuzzy
 msgid "This status is already a favorite!"
 msgstr "Tämä päivitys on jo suosikki!"
 
@@ -215,7 +213,6 @@ msgid "Could not create favorite."
 msgstr "Ei voitu lisätä suosikiksi."
 
 #: actions/apifavoritedestroy.php:122
-#, fuzzy
 msgid "That status is not a favorite!"
 msgstr "Tämä päivitys ei ole suosikki!"
 
@@ -233,13 +230,12 @@ msgid "Could not follow user: %s is already on your list."
 msgstr "Ei voitu tilata käyttäjää: %s on jo listallasi"
 
 #: actions/apifriendshipsdestroy.php:109
-#, fuzzy
 msgid "Could not unfollow user: User not found."
-msgstr "Ei voitu tilata käyttäjää: Käyttäjää ei löytynyt."
+msgstr "Ei voitu lopettaa tilausta: Käyttäjää ei löytynyt."
 
 #: actions/apifriendshipsdestroy.php:120
 msgid "You cannot unfollow yourself!"
-msgstr ""
+msgstr "Et voi lopettaa itsesi tilausta!"
 
 #: actions/apifriendshipsexists.php:94
 msgid "Two user ids or screen_names must be supplied."
@@ -315,7 +311,7 @@ msgstr "Kotipaikka on liian pitkä (max 255 merkkiä)."
 #: actions/newgroup.php:159
 #, php-format
 msgid "Too many aliases! Maximum %d."
-msgstr ""
+msgstr "Liikaa aliaksia. Maksimimäärä on %d."
 
 #: actions/apigroupcreate.php:312 actions/editgroup.php:224
 #: actions/newgroup.php:168
@@ -332,16 +328,15 @@ msgstr "Alias \"%s\" on jo käytössä. Yritä toista aliasta."
 #: actions/apigroupcreate.php:334 actions/editgroup.php:234
 #: actions/newgroup.php:178
 msgid "Alias can't be the same as nickname."
-msgstr ""
+msgstr "Alias ei voi olla sama kuin ryhmätunnus."
 
 #: actions/apigroupjoin.php:110
-#, fuzzy
 msgid "You are already a member of that group."
-msgstr "Sinä kuulut jo tähän ryhmään "
+msgstr "Sinä kuulut jo tähän ryhmään."
 
 #: actions/apigroupjoin.php:119 actions/joingroup.php:95 lib/command.php:221
 msgid "You have been blocked from that group by the admin."
-msgstr ""
+msgstr "Sinut on estetty osallistumasta tähän ryhmään ylläpitäjän toimesta."
 
 #: actions/apigroupjoin.php:138
 #, fuzzy, php-format
@@ -349,12 +344,11 @@ msgid "Could not join user %s to group %s."
 msgstr "Käyttäjää %s ei voinut liittää ryhmään %s"
 
 #: actions/apigroupleave.php:114
-#, fuzzy
 msgid "You are not a member of this group."
 msgstr "Sinä et kuulu tähän ryhmään."
 
 #: actions/apigroupleave.php:124
-#, fuzzy, php-format
+#, php-format
 msgid "Could not remove user %s to group %s."
 msgstr "Ei voitu poistaa käyttäjää %s ryhmästä %s"
 
@@ -369,7 +363,7 @@ msgid "groups on %s"
 msgstr "Ryhmän toiminnot"
 
 #: actions/apigrouplist.php:95
-#, fuzzy, php-format
+#, php-format
 msgid "%s's groups"
 msgstr "Käyttäjän %s ryhmät"
 
@@ -387,9 +381,8 @@ msgid "You may not delete another user's status."
 msgstr "Et voi poistaa toisen käyttäjän päivitystä."
 
 #: actions/apistatusesshow.php:138
-#, fuzzy
 msgid "Status deleted."
-msgstr "Kuva poistettu."
+msgstr "Päivitys poistettu."
 
 #: actions/apistatusesshow.php:144
 msgid "No status with that ID found."
@@ -397,9 +390,9 @@ msgstr "Käyttäjätunnukselle ei löytynyt statusviestiä."
 
 #: actions/apistatusesupdate.php:152 actions/newnotice.php:155
 #: scripts/maildaemon.php:71
-#, fuzzy, php-format
+#, php-format
 msgid "That's too long. Max notice size is %d chars."
-msgstr "Päivitys on liian pitkä. Maksimipituus on 140 merkkiä."
+msgstr "Päivitys on liian pitkä. Maksimipituus on %d merkkiä."
 
 #: actions/apistatusesupdate.php:193
 msgid "Not found"
@@ -408,12 +401,11 @@ msgstr "Ei löytynyt"
 #: actions/apistatusesupdate.php:216 actions/newnotice.php:178
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
-msgstr ""
+msgstr "Maksimikoko päivitykselle on %d merkkiä, mukaan lukien URL-osoite."
 
 #: actions/apisubscriptions.php:231 actions/apisubscriptions.php:261
-#, fuzzy
 msgid "Unsupported format."
-msgstr "Kuvatiedoston formaattia ei ole tuettu."
+msgstr "Formaattia ei ole tuettu."
 
 #: actions/apitimelinefavorites.php:107
 #, php-format
@@ -489,7 +481,7 @@ msgid "Invalid size."
 msgstr "Koko ei kelpaa."
 
 #: actions/avatarsettings.php:67 actions/showgroup.php:221
-#: lib/accountsettingsaction.php:111
+#: lib/accountsettingsaction.php:113
 msgid "Avatar"
 msgstr "Kuva"
 
@@ -537,7 +529,7 @@ msgstr "Rajaa"
 #: actions/groupunblock.php:66 actions/imsettings.php:206
 #: actions/invite.php:56 actions/login.php:131 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
-#: actions/othersettings.php:145 actions/passwordsettings.php:137
+#: actions/othersettings.php:145 actions/passwordsettings.php:151
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
 #: actions/smssettings.php:228 actions/subedit.php:38 actions/subscribe.php:46
@@ -605,9 +597,8 @@ msgid "A list of the users blocked from joining this group."
 msgstr "Lista ryhmän käyttäjistä."
 
 #: actions/blockedfromgroup.php:281
-#, fuzzy
 msgid "Unblock user from group"
-msgstr "Käyttäjän eston poisto epäonnistui."
+msgstr "Poista käyttäjän esto ryhmästä"
 
 #: actions/blockedfromgroup.php:313 lib/unblockform.php:150
 msgid "Unblock"
@@ -638,7 +629,7 @@ msgstr "Profiilia ei ole määritelty."
 msgid "No profile with that ID."
 msgstr "Ei profiilia tuolle ID:lle."
 
-#: actions/block.php:111 actions/block.php:134
+#: actions/block.php:111 actions/block.php:134 actions/groupblock.php:160
 msgid "Block user"
 msgstr "Estä käyttäjä"
 
@@ -650,23 +641,24 @@ msgid ""
 msgstr ""
 
 #: actions/block.php:149 actions/deletenotice.php:145
-#: actions/groupblock.php:176
+#: actions/groupblock.php:178
 msgid "No"
 msgstr "Ei"
 
 #: actions/block.php:149
-msgid "Do not block this user from this group"
-msgstr "Älä estä tätä käyttäjää tästä ryhmästä"
+#, fuzzy
+msgid "Do not block this user"
+msgstr "Poista esto tältä käyttäjältä"
 
 #: actions/block.php:150 actions/deletenotice.php:146
-#: actions/groupblock.php:177
+#: actions/groupblock.php:179
 msgid "Yes"
 msgstr "Kyllä"
 
-#: actions/block.php:150
-#, fuzzy
-msgid "Block this user from this group"
-msgstr "Lista ryhmän käyttäjistä."
+#: actions/block.php:150 actions/groupmembers.php:346 lib/blockform.php:123
+#: lib/blockform.php:153
+msgid "Block this user"
+msgstr "Estä tämä käyttäjä"
 
 #: actions/block.php:165
 msgid "You have already blocked this user."
@@ -802,9 +794,9 @@ msgid "Use this form to edit the group."
 msgstr "Käytä tätä lomaketta muokataksesi ryhmää."
 
 #: actions/editgroup.php:201 actions/newgroup.php:145
-#, fuzzy, php-format
+#, php-format
 msgid "description is too long (max %d chars)."
-msgstr "kuvaus on liian pitkä (max 140 merkkiä)."
+msgstr "kuvaus on liian pitkä (max %d merkkiä)."
 
 #: actions/editgroup.php:253
 msgid "Could not update group."
@@ -1069,22 +1061,20 @@ msgid "A selection of some of the great users on %s"
 msgstr "Valikoima joitakin loistavia palvelun %s käyttäjiä"
 
 #: actions/file.php:34
-#, fuzzy
 msgid "No notice id"
-msgstr "Uusi päivitys"
+msgstr "Ei päivitystä id-tunnusta"
 
 #: actions/file.php:38
-#, fuzzy
 msgid "No notice"
-msgstr "Uusi päivitys"
+msgstr "Ei päivitystä"
 
 #: actions/file.php:42
 msgid "No attachments"
-msgstr ""
+msgstr "Ei liitteitä"
 
 #: actions/file.php:51
 msgid "No uploaded attachments"
-msgstr ""
+msgstr "Ei ladattuja liitteitä"
 
 #: actions/finishremotesubscribe.php:69
 msgid "Not expecting this response!"
@@ -1104,9 +1094,8 @@ msgid "That user has blocked you from subscribing."
 msgstr "Käyttäjä on estänyt sinua tilaamasta päivityksiä."
 
 #: actions/finishremotesubscribe.php:106
-#, fuzzy
 msgid "You are not authorized."
-msgstr "Ei valtuutusta."
+msgstr "Sinulla ei ole valtuutusta tähän."
 
 #: actions/finishremotesubscribe.php:109
 #, fuzzy
@@ -1129,20 +1118,17 @@ msgid "No such group."
 msgstr "Tuota ryhmää ei ole."
 
 #: actions/getfile.php:75
-#, fuzzy
 msgid "No such file."
-msgstr "Päivitystä ei ole."
+msgstr "Tiedostoa ei ole."
 
 #: actions/getfile.php:79
-#, fuzzy
 msgid "Cannot read file."
-msgstr "Tiedosto hävisi."
+msgstr "Tiedostoa ei voi lukea."
 
 #: actions/groupblock.php:81 actions/groupunblock.php:81
 #: actions/makeadmin.php:81
-#, fuzzy
 msgid "No group specified."
-msgstr "Profiilia ei ole määritelty."
+msgstr "Ryhmää ei ole määritelty."
 
 #: actions/groupblock.php:91
 msgid "Only an admin can block group members."
@@ -1163,7 +1149,7 @@ msgstr "Sinä et kuulu tähän ryhmään."
 msgid "Block user from group"
 msgstr "Estä käyttäjä"
 
-#: actions/groupblock.php:155
+#: actions/groupblock.php:162
 #, php-format
 msgid ""
 "Are you sure you want to block user \"%s\" from the group \"%s\"? They will "
@@ -1171,7 +1157,15 @@ msgid ""
 "group in the future."
 msgstr ""
 
-#: actions/groupblock.php:193
+#: actions/groupblock.php:178
+msgid "Do not block this user from this group"
+msgstr "Älä estä tätä käyttäjää tästä ryhmästä"
+
+#: actions/groupblock.php:179
+msgid "Block this user from this group"
+msgstr "Estä tätä käyttäjää osallistumassa tähän ryhmään"
+
+#: actions/groupblock.php:196
 msgid "Database error blocking user from group."
 msgstr ""
 
@@ -1180,9 +1174,9 @@ msgid "No ID"
 msgstr "ID-tunnusta ei ole"
 
 #: actions/groupdesignsettings.php:68
-#, fuzzy
 msgid "You must be logged in to edit a group."
-msgstr "Sinun pitää olla kirjautunut sisään jotta voit luoda ryhmän."
+msgstr ""
+"Sinun pitää olla kirjautunut sisään, jotta voit muuttaa ryhmän tietoja."
 
 #: actions/groupdesignsettings.php:141
 #, fuzzy
@@ -1235,7 +1229,7 @@ msgstr "Logo päivitetty."
 msgid "Failed updating logo."
 msgstr "Logon päivittäminen epäonnistui."
 
-#: actions/groupmembers.php:93 lib/groupnav.php:91
+#: actions/groupmembers.php:93 lib/groupnav.php:92
 #, php-format
 msgid "%s group members"
 msgstr "Ryhmän %s jäsenet"
@@ -1249,7 +1243,7 @@ msgstr "Ryhmän %s jäsenet, sivu %d"
 msgid "A list of the users in this group."
 msgstr "Lista ryhmän käyttäjistä."
 
-#: actions/groupmembers.php:175 lib/groupnav.php:106
+#: actions/groupmembers.php:175 lib/groupnav.php:107
 msgid "Admin"
 msgstr "Ylläpito"
 
@@ -1257,14 +1251,9 @@ msgstr "Ylläpito"
 msgid "Block"
 msgstr "Estä"
 
-#: actions/groupmembers.php:346 lib/blockform.php:123 lib/blockform.php:153
-msgid "Block this user"
-msgstr "Estä tämä käyttäjä"
-
 #: actions/groupmembers.php:441
-#, fuzzy
 msgid "Make user an admin of the group"
-msgstr "Sinun pitää olla ylläpitäjä, jotta voit muokata ryhmää"
+msgstr "Tee tästä käyttäjästä ylläpitäjä"
 
 #: actions/groupmembers.php:473
 #, fuzzy
@@ -1273,7 +1262,7 @@ msgstr "Ylläpito"
 
 #: actions/groupmembers.php:473
 msgid "Make this user an admin"
-msgstr ""
+msgstr "Tee tästä käyttäjästä ylläpitäjä"
 
 #: actions/grouprss.php:133
 #, fuzzy, php-format
@@ -1296,9 +1285,8 @@ msgstr "Ryhmähaku"
 
 #: actions/groupsearch.php:79 actions/noticesearch.php:117
 #: actions/peoplesearch.php:83
-#, fuzzy
 msgid "No results."
-msgstr "Ei hakutuloksia"
+msgstr "Ei tuloksia"
 
 #: actions/groupsearch.php:82
 #, php-format
@@ -1340,7 +1328,7 @@ msgstr "Luo uusi ryhmä"
 
 #: actions/groupunblock.php:91
 msgid "Only an admin can unblock group members."
-msgstr ""
+msgstr "Vain ylläpitäjä voi poistaa eston ryhmän jäseniltä."
 
 #: actions/groupunblock.php:95
 #, fuzzy
@@ -1676,7 +1664,7 @@ msgid "Nickname"
 msgstr "Tunnus"
 
 #: actions/login.php:249 actions/register.php:428
-#: lib/accountsettingsaction.php:114
+#: lib/accountsettingsaction.php:118
 msgid "Password"
 msgstr "Salasana"
 
@@ -1766,9 +1754,8 @@ msgid ""
 msgstr "Älä lähetä viestiä itsellesi, vaan kuiskaa se vain hiljaa itsellesi."
 
 #: actions/newmessage.php:181
-#, fuzzy
 msgid "Message sent"
-msgstr "Viesti"
+msgstr "Viesti lähetetty"
 
 #: actions/newmessage.php:185 lib/command.php:375
 #, php-format
@@ -1860,7 +1847,7 @@ msgstr "Yhdistä"
 
 #: actions/oembed.php:160
 msgid "Only "
-msgstr ""
+msgstr "Vain "
 
 #: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:963
 #: lib/api.php:991 lib/api.php:1101
@@ -1885,7 +1872,7 @@ msgstr "Hallinnoi muita asetuksia."
 
 #: actions/othersettings.php:117
 msgid "Shorten URLs with"
-msgstr ""
+msgstr "Lyhennä URL-osoitteita"
 
 #: actions/othersettings.php:118
 msgid "Automatic shortening service to use."
@@ -1922,60 +1909,65 @@ msgstr "Tämä on postilaatikkosi, jossa on lähettämäsi yksityisviestit."
 msgid "Change password"
 msgstr "Vaihda salasana"
 
-#: actions/passwordsettings.php:69
+#: actions/passwordsettings.php:70
+#, fuzzy
+msgid "You are not allowed to change your password"
+msgstr "Vaihda salasanasi"
+
+#: actions/passwordsettings.php:82
 msgid "Change your password."
 msgstr "Vaihda salasanasi."
 
-#: actions/passwordsettings.php:95 actions/recoverpassword.php:231
+#: actions/passwordsettings.php:109 actions/recoverpassword.php:231
 msgid "Password change"
 msgstr "Salasanan vaihto"
 
-#: actions/passwordsettings.php:103
+#: actions/passwordsettings.php:117
 msgid "Old password"
 msgstr "Vanha salasana"
 
-#: actions/passwordsettings.php:107 actions/recoverpassword.php:235
+#: actions/passwordsettings.php:121 actions/recoverpassword.php:235
 msgid "New password"
 msgstr "Uusi salasana"
 
-#: actions/passwordsettings.php:108
+#: actions/passwordsettings.php:122
 msgid "6 or more characters"
 msgstr "6 tai useampia merkkejä"
 
-#: actions/passwordsettings.php:111 actions/recoverpassword.php:239
+#: actions/passwordsettings.php:125 actions/recoverpassword.php:239
 #: actions/register.php:432 actions/smssettings.php:134
 msgid "Confirm"
 msgstr "Vahvista"
 
-#: actions/passwordsettings.php:112
+#: actions/passwordsettings.php:126
 msgid "same as password above"
 msgstr "sama salasana kuin yllä"
 
-#: actions/passwordsettings.php:116
+#: actions/passwordsettings.php:130
 msgid "Change"
 msgstr "Vaihda"
 
-#: actions/passwordsettings.php:153 actions/register.php:230
+#: actions/passwordsettings.php:167 actions/register.php:230
 msgid "Password must be 6 or more characters."
 msgstr "Salasanassa pitää olla 6 tai useampia merkkejä."
 
-#: actions/passwordsettings.php:156 actions/register.php:233
+#: actions/passwordsettings.php:170 actions/register.php:233
 msgid "Passwords don't match."
 msgstr "Salasanat eivät täsmää."
 
-#: actions/passwordsettings.php:164
+#: actions/passwordsettings.php:178
 msgid "Incorrect old password"
 msgstr "Väärä vanha salasana"
 
-#: actions/passwordsettings.php:180
+#: actions/passwordsettings.php:194
 msgid "Error saving user; invalid."
 msgstr "Virhe tapahtui käyttäjän tallentamisessa; epäkelpo."
 
-#: actions/passwordsettings.php:185 actions/recoverpassword.php:368
+#: actions/passwordsettings.php:199 actions/recoverpassword.php:368
 msgid "Can't save new password."
 msgstr "Uutta salasanaa ei voida tallentaa."
 
-#: actions/passwordsettings.php:191 actions/recoverpassword.php:211
+#: actions/passwordsettings.php:205 actions/recoverpassword.php:211
 msgid "Password saved."
 msgstr "Salasana tallennettu."
 
@@ -2049,14 +2041,13 @@ msgid "URL of your homepage, blog, or profile on another site"
 msgstr "Kotisivusi, blogisi tai toisella sivustolla olevan profiilisi osoite."
 
 #: actions/profilesettings.php:122 actions/register.php:460
-#, fuzzy, php-format
+#, php-format
 msgid "Describe yourself and your interests in %d chars"
-msgstr "Kuvaile itseäsi ja kiinnostuksiasi 140 merkillä"
+msgstr "Kuvaile itseäsi ja kiinnostuksen kohteitasi %d merkillä"
 
 #: actions/profilesettings.php:125 actions/register.php:463
-#, fuzzy
 msgid "Describe yourself and your interests"
-msgstr "Kuvaile itseäsi ja"
+msgstr "Kuvaile itseäsi ja kiinnostuksen kohteitasi"
 
 #: actions/profilesettings.php:127 actions/register.php:465
 msgid "Bio"
@@ -2282,7 +2273,7 @@ msgstr ""
 
 #: actions/recoverpassword.php:191
 msgid "Nickname or email address"
-msgstr ""
+msgstr "Käyttäjätunnus tai sähköpostiosoite"
 
 #: actions/recoverpassword.php:193
 msgid "Your nickname on this server, or your registered email address."
@@ -2421,7 +2412,7 @@ msgid "Same as password above. Required."
 msgstr "Sama kuin ylläoleva salasana. Pakollinen."
 
 #: actions/register.php:437 actions/register.php:441
-#: lib/accountsettingsaction.php:117
+#: lib/accountsettingsaction.php:122
 msgid "Email"
 msgstr "Sähköposti"
 
@@ -2661,7 +2652,7 @@ msgstr ""
 msgid "This is a way to share what you like."
 msgstr ""
 
-#: actions/showgroup.php:82 lib/groupnav.php:85
+#: actions/showgroup.php:82 lib/groupnav.php:86
 #, php-format
 msgid "%s group"
 msgstr "Ryhmä %s"
@@ -2713,7 +2704,7 @@ msgstr "Päivityssyöte ryhmälle %s"
 msgid "FOAF for %s group"
 msgstr "Käyttäjän %s lähetetyt viestit"
 
-#: actions/showgroup.php:381 actions/showgroup.php:438 lib/groupnav.php:90
+#: actions/showgroup.php:381 actions/showgroup.php:438 lib/groupnav.php:91
 msgid "Members"
 msgstr "Jäsenet"
 
@@ -3364,40 +3355,40 @@ msgstr "Tietokantavirhe tallennettaessa vastausta: %s"
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Viesti käyttäjälle %1$s, %2$s"
 
-#: lib/accountsettingsaction.php:108 lib/personalgroupnav.php:109
+#: lib/accountsettingsaction.php:109 lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr "Profiili"
 
-#: lib/accountsettingsaction.php:109
+#: lib/accountsettingsaction.php:110
 msgid "Change your profile settings"
 msgstr "Vaihda profiiliasetuksesi"
 
-#: lib/accountsettingsaction.php:112
+#: lib/accountsettingsaction.php:114
 msgid "Upload an avatar"
 msgstr "Lataa kuva"
 
-#: lib/accountsettingsaction.php:115
+#: lib/accountsettingsaction.php:119
 msgid "Change your password"
 msgstr "Vaihda salasanasi"
 
-#: lib/accountsettingsaction.php:118
+#: lib/accountsettingsaction.php:123
 msgid "Change email handling"
 msgstr "Muuta sähköpostin käsittelyasetuksia."
 
-#: lib/accountsettingsaction.php:120 lib/groupnav.php:118
+#: lib/accountsettingsaction.php:125 lib/groupnav.php:119
 msgid "Design"
 msgstr ""
 
-#: lib/accountsettingsaction.php:121
+#: lib/accountsettingsaction.php:126
 #, fuzzy
 msgid "Design your profile"
 msgstr "Käyttäjän profiili"
 
-#: lib/accountsettingsaction.php:123
+#: lib/accountsettingsaction.php:128
 msgid "Other"
 msgstr "Muut"
 
-#: lib/accountsettingsaction.php:124
+#: lib/accountsettingsaction.php:129
 msgid "Other options"
 msgstr "Muita asetuksia"
 
@@ -3990,35 +3981,35 @@ msgstr ""
 msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr ""
 
-#: lib/groupnav.php:84 lib/searchgroupnav.php:84
+#: lib/groupnav.php:85 lib/searchgroupnav.php:84
 msgid "Group"
 msgstr "Ryhmä"
 
-#: lib/groupnav.php:100
+#: lib/groupnav.php:101
 #, fuzzy
 msgid "Blocked"
 msgstr "Estä"
 
-#: lib/groupnav.php:101
+#: lib/groupnav.php:102
 #, fuzzy, php-format
 msgid "%s blocked users"
 msgstr "Estä käyttäjä"
 
-#: lib/groupnav.php:107
+#: lib/groupnav.php:108
 #, php-format
 msgid "Edit %s group properties"
 msgstr "Muokkaa %s ryhmän ominaisuuksia"
 
-#: lib/groupnav.php:112
+#: lib/groupnav.php:113
 msgid "Logo"
 msgstr "Logo"
 
-#: lib/groupnav.php:113
+#: lib/groupnav.php:114
 #, php-format
 msgid "Add or edit %s logo"
 msgstr "Lisää ryhmälle %s logo tai muokkaa sitä "
 
-#: lib/groupnav.php:119
+#: lib/groupnav.php:120
 #, fuzzy, php-format
 msgid "Add or edit %s design"
 msgstr "Lisää ryhmälle %s logo tai muokkaa sitä "
@@ -4225,7 +4216,7 @@ msgid ""
 "\n"
 "%3$s\n"
 "\n"
-"Do not reply to this email. It will not get to them.\n"
+"Don't reply to this email; it won't get to them.\n"
 "\n"
 "With kind regards,\n"
 "%4$s\n"
@@ -4249,7 +4240,7 @@ msgid ""
 "\n"
 "%4$s\n"
 "\n"
-"Do not reply to this email. It will not get to them.\n"
+"Don't reply to this email; it won't get to them.\n"
 "\n"
 "With kind regards,\n"
 "%5$s\n"
@@ -4647,47 +4638,47 @@ msgstr "Lähetä suora viesti tälle käyttäjälle"
 msgid "Message"
 msgstr "Viesti"
 
-#: lib/util.php:844
+#: lib/util.php:818
 msgid "a few seconds ago"
 msgstr "muutama sekunti sitten"
 
-#: lib/util.php:846
+#: lib/util.php:820
 msgid "about a minute ago"
 msgstr "noin minuutti sitten"
 
-#: lib/util.php:848
+#: lib/util.php:822
 #, php-format
 msgid "about %d minutes ago"
 msgstr "noin %d minuuttia sitten"
 
-#: lib/util.php:850
+#: lib/util.php:824
 msgid "about an hour ago"
 msgstr "noin tunti sitten"
 
-#: lib/util.php:852
+#: lib/util.php:826
 #, php-format
 msgid "about %d hours ago"
 msgstr "noin %d tuntia sitten"
 
-#: lib/util.php:854
+#: lib/util.php:828
 msgid "about a day ago"
 msgstr "noin päivä sitten"
 
-#: lib/util.php:856
+#: lib/util.php:830
 #, php-format
 msgid "about %d days ago"
 msgstr "noin %d päivää sitten"
 
-#: lib/util.php:858
+#: lib/util.php:832
 msgid "about a month ago"
 msgstr "noin kuukausi sitten"
 
-#: lib/util.php:860
+#: lib/util.php:834
 #, php-format
 msgid "about %d months ago"
 msgstr "noin %d kuukautta sitten"
 
-#: lib/util.php:862
+#: lib/util.php:836
 msgid "about a year ago"
 msgstr "noin vuosi sitten"
 

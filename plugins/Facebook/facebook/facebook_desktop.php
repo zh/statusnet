@@ -93,7 +93,7 @@ class FacebookDesktop extends Facebook {
   }
 
   public function verify_signature($fb_params, $expected_sig) {
-    // we do not want to verify the signature until we have a valid
+    // we don't want to verify the signature until we have a valid
     // session secret
     if ($this->verify_sig) {
       return parent::verify_signature($fb_params, $expected_sig);

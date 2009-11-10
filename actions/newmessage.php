@@ -61,7 +61,7 @@ class NewmessageAction extends Action
     /**
      * Title of the page
      *
-     * Note that this usually does not get called unless something went wrong
+     * Note that this usually doesn't get called unless something went wrong
      *
      * @return string page title
      */

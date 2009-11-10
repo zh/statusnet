@@ -60,26 +60,26 @@ class ApiAction extends Action
      var $max_id   = null;
      var $since_id = null;
      var $since    = null;
-     
+
     /**
      * Initialization.
      *
      * @param array $args Web and URL arguments
      *
-     * @return boolean false if user does not exist
+     * @return boolean false if user doesn't exist
      */
 
     function prepare($args)
     {
         parent::prepare($args);
-        
+
         $this->format   = $this->arg('format');
         $this->page     = (int)$this->arg('page', 1);
         $this->count    = (int)$this->arg('count', 20);
         $this->max_id   = (int)$this->arg('max_id', 0);
         $this->since_id = (int)$this->arg('since_id', 0);
         $this->since    = $this->arg('since');
-        
+
         return true;
     }
 
@@ -138,7 +138,7 @@ class ApiAction extends Action
         $design        = null;
         $user          = $profile->getUser();
 
-        // Note: some profiles do not have an associated user
+        // Note: some profiles don't have an associated user
 
         if (!empty($user)) {
             $design = $user->getDesign();
@@ -163,7 +163,6 @@ class ApiAction extends Action
         $twitter_user['created_at'] = $this->dateTwitter($profile->created);
 
         $twitter_user['favourites_count'] = $profile->faveCount(); // British spelling!
-
 
         $timezone = 'UTC';
 
@@ -203,7 +202,7 @@ class ApiAction extends Action
         if ($get_notice) {
             $notice = $profile->getCurrentNotice();
             if ($notice) {
-                # do not get user!
+                # don't get user!
                 $twitter_user['status'] = $this->twitterStatusArray($notice, false);
             }
         }
@@ -238,6 +237,15 @@ class ApiAction extends Action
         $twitter_status['in_reply_to_screen_name'] =
             ($replier_profile) ? $replier_profile->nickname : null;
 
+        if (isset($notice->lat) && isset($notice->lon)) {
+            // This is the format that GeoJSON expects stuff to be in
+            $twitter_status['geo'] = array('type' => 'Point',
+                                           'coordinates' => array((float) $notice->lat,
+                                                                  (float) $notice->lon));
+        } else {
+            $twitter_status['geo'] = null;
+        }
+
         if (isset($this->auth_user)) {
             $twitter_status['favorited'] = $this->auth_user->hasFave($notice);
         } else {
@@ -263,7 +271,7 @@ class ApiAction extends Action
         }
 
         if ($include_user) {
-            # Do not get notice (recursive!)
+            # Don't get notice (recursive!)
             $twitter_user = $this->twitterUserArray($profile, false);
             $twitter_status['user'] = $twitter_user;
         }
@@ -362,9 +370,18 @@ class ApiAction extends Action
         $entry['pubDate'] = common_date_rfc2822($notice->created);
         $entry['guid'] = $entry['link'];
 
+        if (isset($notice->lat) && isset($notice->lon)) {
+            // This is the format that GeoJSON expects stuff to be in.
+            // showGeoRSS() below uses it for XML output, so we reuse it
+            $entry['geo'] = array('type' => 'Point',
+                                  'coordinates' => array((float) $notice->lat,
+                                                         (float) $notice->lon));
+        } else {
+            $entry['geo'] = null;
+        }
+
         return $entry;
     }
-
 
     function twitterRelationshipArray($source, $target)
     {
@@ -441,6 +458,9 @@ class ApiAction extends Action
             case 'attachments':
                 $this->showXmlAttachments($twitter_status['attachments']);
                 break;
+            case 'geo':
+                $this->showGeoRSS($value);
+                break;
             default:
                 $this->element($element, null, $value);
             }
@@ -484,6 +504,18 @@ class ApiAction extends Action
         }
     }
 
+    function showGeoRSS($geo)
+    {
+        if (empty($geo)) {
+            // empty geo element
+            $this->element('geo');
+        } else {
+            $this->elementStart('geo', array('xmlns:georss' => 'http://www.georss.org/georss'));
+            $this->element('georss:point', null, $geo['coordinates'][0] . ' ' . $geo['coordinates'][1]);
+            $this->elementEnd('geo');
+        }
+    }
+
     function showTwitterRssItem($entry)
     {
         $this->elementStart('item');
@@ -505,6 +537,7 @@ class ApiAction extends Action
             }
         }
 
+        $this->showGeoRSS($entry['geo']);
         $this->elementEnd('item');
     }
 
@@ -528,7 +561,6 @@ class ApiAction extends Action
         $this->showJsonObjects($status);
         $this->endDocument('json');
     }
-
 
     function showXmlTimeline($notice)
     {
@@ -648,7 +680,6 @@ class ApiAction extends Action
 
         $this->endTwitterRss();
     }
-
 
     function showTwitterAtomEntry($entry)
     {
@@ -1074,7 +1105,7 @@ class ApiAction extends Action
     function initTwitterAtom()
     {
         $this->startXML();
-        // FIXME: do not hardcode the language here!
+        // FIXME: don't hardcode the language here!
         $this->elementStart('feed', array('xmlns' => 'http://www.w3.org/2005/Atom',
                                           'xml:lang' => 'en-US',
                                           'xmlns:thr' => 'http://purl.org/syndication/thread/1.0'));
@@ -1116,7 +1147,7 @@ class ApiAction extends Action
                 return User::staticGet('nickname', $nickname);
             } else if ($this->arg('user_id')) {
                 // This is to ensure that a non-numeric user_id still
-                // overrides screen_name even if it does not get used
+                // overrides screen_name even if it doesn't get used
                 if (is_numeric($this->arg('user_id'))) {
                     return User::staticGet('id', $this->arg('user_id'));
                 }
@@ -1146,7 +1177,7 @@ class ApiAction extends Action
                 return User_group::staticGet('nickname', $nickname);
             } else if ($this->arg('group_id')) {
                 // This is to ensure that a non-numeric user_id still
-                // overrides screen_name even if it does not get used
+                // overrides screen_name even if it doesn't get used
                 if (is_numeric($this->arg('group_id'))) {
                     return User_group::staticGet('id', $this->arg('group_id'));
                 }

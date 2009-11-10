@@ -418,7 +418,7 @@ class ShowgroupAction extends GroupDesignAction
         // XXX: WORM cache this
         $members = $this->group->getMembers();
         $members_count = 0;
-        /** $member->count() does not work. */
+        /** $member->count() doesn't work. */
         while ($members->fetch()) {
             $members_count++;
         }

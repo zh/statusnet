@@ -159,7 +159,7 @@ class LoginAction extends Action
         $url = common_get_returnto();
 
         if ($url) {
-            // We do not have to return to it again
+            // We don't have to return to it again
             common_set_returnto(null);
         } else {
             $url = common_local_url('all',

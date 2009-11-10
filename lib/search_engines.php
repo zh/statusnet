@@ -119,7 +119,7 @@ class MySQLSearch extends SearchEngine
             return true;
         } else if ('identica_notices' === $this->table) {
 
-            // Do not show imported notices
+            // Don't show imported notices
             $this->target->whereAdd('notice.is_local != ' . Notice::GATEWAY);
 
             if (strtolower($q) != $q) {

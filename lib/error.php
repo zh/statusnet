@@ -104,11 +104,11 @@ class ErrorAction extends Action
     {
         parent::showPage();
 
-        // We do not want to have any more output after this
+        // We don't want to have any more output after this
         exit();
     }
 
-    // Overload a bunch of stuff so the page is not too bloated
+    // Overload a bunch of stuff so the page isn't too bloated
 
     function showBody()
     {

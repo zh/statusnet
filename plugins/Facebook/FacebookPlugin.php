@@ -182,7 +182,7 @@ class FacebookPlugin extends Plugin
             $login_url  = common_local_url('FBConnectAuth');
             $logout_url = common_local_url('logout');
 
-            // XXX: Facebook says we do not need this FB_RequireFeatures(),
+            // XXX: Facebook says we don't need this FB_RequireFeatures(),
             // but we actually do, for IE and Safari. Gar.
 
             $js  = '<script type="text/javascript">';
@@ -201,7 +201,7 @@ class FacebookPlugin extends Plugin
             // The below function alters the logout link so that it logs the user out
             // of Facebook Connect as well as the site.  However, for some pages
             // (FB Connect Settings) we need to output the FB Connect scripts (to
-            // show an existing FB connection even if the user is not authenticated
+            // show an existing FB connection even if the user isn't authenticated
             // with Facebook connect) but NOT alter the logout link. And the only
             // way to reliably do that is with the FB Connect .js libs.  Crazy.
 

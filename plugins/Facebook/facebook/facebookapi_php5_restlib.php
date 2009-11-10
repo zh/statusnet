@@ -46,7 +46,7 @@ class FacebookRestClient {
   // on canvas pages
   public $added;
   public $is_user;
-  // we do not pass friends list to iframes, but we want to make
+  // we don't pass friends list to iframes, but we want to make
   // friends_get really simple in the canvas_user (non-logged in) case.
   // So we use the canvas_user as default arg to friends_get
   public $canvas_user;
@@ -657,7 +657,7 @@ function toggleDisplay(id, type) {
    * deleted.
    *
    * IMPORTANT: If your application has registered public tags
-   * that other applications may be using, do not delete those tags!
+   * that other applications may be using, don't delete those tags!
    * Doing so can break the FBML ofapplications that are using them.
    *
    * @param array $tag_names the names of the tags to delete (optinal)
@@ -820,7 +820,7 @@ function toggleDisplay(id, type) {
 
     if (is_array($target_ids)) {
       $target_ids = json_encode($target_ids);
-      $target_ids = trim($target_ids, "[]"); // we do not want square brackets
+      $target_ids = trim($target_ids, "[]"); // we don't want square brackets
     }
 
     return $this->call_method('facebook.feed.publishUserAction',

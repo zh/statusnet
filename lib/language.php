@@ -101,6 +101,7 @@ function get_nice_language_list()
  */
 function get_all_languages() {
     return array(
+        'ar'      => array('q' => 0.8, 'lang' => 'ar', 'name' => 'Arabic', 'direction' => 'rtl'),
         'bg'      => array('q' => 0.8, 'lang' => 'bg', 'name' => 'Bulgarian', 'direction' => 'ltr'),
         'ca'      => array('q' => 0.5, 'lang' => 'ca', 'name' => 'Catalan', 'direction' => 'ltr'),
         'cs'      => array('q' => 0.5, 'lang' => 'cs', 'name' => 'Czech', 'direction' => 'ltr'),

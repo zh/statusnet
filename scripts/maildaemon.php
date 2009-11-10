@@ -231,7 +231,7 @@ class MailerDaemon
         foreach ($parsed->parts as $part) {
             $this->extract_part($part,$msg,$attachments);
         }
-        //we do not want any attachments that are a result of this parsing
+        //we don't want any attachments that are a result of this parsing
         return $msg;
     }
 
