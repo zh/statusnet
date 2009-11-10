@@ -481,13 +481,15 @@ EndPublicXRDS: End XRDS output (right before the closing XRDS tag)
 - $action: the current action
 - &$xrdsoutputter - XRDSOutputter object to write to
 
-CheckPassword: Check a username/password
+StartCheckPassword: Check a username/password
 - $nickname: The nickname to check
 - $password: The password to check
-- &$authenticated: set to true to indicate authentication succeeded.
+- &$authenticatedUser: set to User object if credentials match a user.
 
-AutoRegister: Register a new user with the given nickname. Should insert a new User and Profile into the database.
-- $nickname: The nickname to register
+EndCheckPassword: After checking a username/password pair
+- $nickname: The nickname that was checked
+- $password: The password that was checked
+- $authenticatedUser: User object if credentials match a user, else null.
 
 ChangePassword: Handle a password change request
 - $nickname: user's nickname
