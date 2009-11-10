@@ -92,6 +92,15 @@ class ApiAccountUpdateProfileAction extends ApiAuthAction
             return;
         }
 
+        if (!in_array($this->format, array('xml', 'json'))) {
+            $this->clientError(
+                _('API method not found.'),
+                404,
+                $this->format
+            );
+            return;
+        }
+
         if (empty($this->user)) {
             $this->clientError(_('No such user.'), 404, $this->format);
             return;
@@ -135,7 +144,7 @@ class ApiAccountUpdateProfileAction extends ApiAuthAction
 
         if (!$result) {
             common_log_db_error($profile, 'UPDATE', __FILE__);
-            $this->serverError(_('Couldn\'t save profile.'));
+            $this->serverError(_('Could not save profile.'));
             return;
         }
 

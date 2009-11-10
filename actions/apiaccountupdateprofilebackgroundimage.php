@@ -89,6 +89,15 @@ class ApiAccountUpdateProfileBackgroundImageAction extends ApiAuthAction
             return;
         }
 
+        if (!in_array($this->format, array('xml', 'json'))) {
+            $this->clientError(
+                _('API method not found.'),
+                404,
+                $this->format
+            );
+            return;
+        }
+
         // Workaround for PHP returning empty $_POST and $_FILES when POST
         // length > post_max_size in php.ini
 
@@ -104,9 +113,45 @@ class ApiAccountUpdateProfileBackgroundImageAction extends ApiAuthAction
         }
 
         if (empty($this->user)) {
-            $this->clientError(_('No such user!'), 404, $this->format);
+            $this->clientError(_('No such user.'), 404, $this->format);
             return;
         }
+
+        $design = $this->user->getDesign();
+
+        // XXX: This is kinda gross, but before we can add a background
+        // img we have to make sure there's a Design because design ID
+        // is part of the img filename.
+
+        if (empty($design)) {
+
+            $this->user->query('BEGIN');
+
+            // save new design
+            $design = new Design();
+            $id = $design->insert();
+
+            if (empty($id)) {
+                common_log_db_error($id, 'INSERT', __FILE__);
+                $this->clientError(_('Unable to save your design settings.'));
+                return;
+            }
+
+            $original              = clone($this->user);
+            $this->user->design_id = $id;
+            $result                = $this->user->update($original);
+
+            if (empty($result)) {
+                common_log_db_error($original, 'UPDATE', __FILE__);
+                $this->clientError(_('Unable to save your design settings.'));
+                $this->user->query('ROLLBACK');
+                return;
+            }
+
+            $this->user->query('COMMIT');
+        }
+
+        // Okay, now get the image and add it to the design
 
         try {
             $imagefile = ImageFile::fromUpload('image');
@@ -114,8 +159,6 @@ class ApiAccountUpdateProfileBackgroundImageAction extends ApiAuthAction
             $this->clientError($e->getMessage(), 400, $this->format);
             return;
         }
-
-        $design = $this->user->getDesign();
 
         $filename = Design::filename(
             $design->id,
@@ -134,16 +177,14 @@ class ApiAccountUpdateProfileBackgroundImageAction extends ApiAuthAction
         }
 
         $original = clone($design);
-
         $design->backgroundimage = $filename;
-
-        $design->setDisposition(true, false, !empty($this->tile));
+        $design->setDisposition(true, false, ($this->tile == 'true'));
 
         $result = $design->update($original);
 
         if ($result === false) {
             common_log_db_error($design, 'UPDATE', __FILE__);
-            $this->showForm(_('Couldn\'t update your design.'));
+            $this->showForm(_('Could not update your design.'));
             return;
         }
 
@@ -154,7 +195,7 @@ class ApiAccountUpdateProfileBackgroundImageAction extends ApiAuthAction
             return;
         }
 
-        $twitter_user = $this->twitterUserArray($this->user->getProfile(), true);
+        $twitter_user = $this->twitterUserArray($profile, true);
 
         if ($this->format == 'xml') {
             $this->initDocument('xml');

@@ -113,6 +113,15 @@ class ApiAccountUpdateProfileColorsAction extends ApiAuthAction
             return;
         }
 
+        if (!in_array($this->format, array('xml', 'json'))) {
+            $this->clientError(
+                _('API method not found.'),
+                404,
+                $this->format
+            );
+            return;
+        }
+
         $design = $this->user->getDesign();
 
         if (!empty($design)) {
@@ -130,7 +139,7 @@ class ApiAccountUpdateProfileColorsAction extends ApiAuthAction
 
             if ($result === false) {
                 common_log_db_error($design, 'UPDATE', __FILE__);
-                $this->clientError(_('Couldn\'t update your design.'));
+                $this->clientError(_('Could not update your design.'));
                 return;
             }
 
@@ -152,7 +161,7 @@ class ApiAccountUpdateProfileColorsAction extends ApiAuthAction
 
             if (empty($id)) {
                 common_log_db_error($id, 'INSERT', __FILE__);
-                $this->clientError(_('Unable to save your design settings!'));
+                $this->clientError(_('Unable to save your design settings.'));
                 return;
             }
 
@@ -162,7 +171,7 @@ class ApiAccountUpdateProfileColorsAction extends ApiAuthAction
 
             if (empty($result)) {
                 common_log_db_error($original, 'UPDATE', __FILE__);
-                $this->clientError(_('Unable to save your design settings!'));
+                $this->clientError(_('Unable to save your design settings.'));
                 $this->user->query('ROLLBACK');
                 return;
             }
@@ -177,7 +186,7 @@ class ApiAccountUpdateProfileColorsAction extends ApiAuthAction
             return;
         }
 
-        $twitter_user = $this->twitterUserArray($this->user->getProfile(), true);
+        $twitter_user = $this->twitterUserArray($profile, true);
 
         if ($this->format == 'xml') {
             $this->initDocument('xml');

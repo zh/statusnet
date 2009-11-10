@@ -102,7 +102,7 @@ class ApiAccountUpdateProfileImageAction extends ApiAuthAction
         }
 
         if (empty($this->user)) {
-            $this->clientError(_('No such user!'), 404, $this->format);
+            $this->clientError(_('No such user.'), 404, $this->format);
             return;
         }
 
@@ -135,7 +135,7 @@ class ApiAccountUpdateProfileImageAction extends ApiAuthAction
 
         common_broadcast_profile($profile);
 
-        $twitter_user = $this->twitterUserArray($this->user->getProfile(), true);
+        $twitter_user = $this->twitterUserArray($profile, true);
 
         if ($this->format == 'xml') {
             $this->initDocument('xml');
