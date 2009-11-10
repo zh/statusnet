@@ -491,11 +491,13 @@ EndCheckPassword: After checking a username/password pair
 - $password: The password that was checked
 - $authenticatedUser: User object if credentials match a user, else null.
 
-ChangePassword: Handle a password change request
+StartChangePassword: Before changing a password
 - $nickname: user's nickname
 - $oldpassword: the user's old password
 - $newpassword: the desired new password
-- &$errormsg: set this to an error message if the password could not be changed. If the password was changed, leave this as false
+
+EndChangePassword: After changing a password
+- $nickname: user's nickname
 
 CanUserChangeField: Determines if a user is allowed to change a specific profile field
 - $nickname: nickname of the user who would like to know which of their profile fields are mutable

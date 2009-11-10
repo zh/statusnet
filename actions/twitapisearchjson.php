@@ -121,7 +121,7 @@ class TwitapisearchjsonAction extends ApiAction
         // lcase it for comparison
         $q = strtolower($this->query);
 
-        $search_engine = $notice->getSearchEngine('identica_notices');
+        $search_engine = $notice->getSearchEngine('notice');
         $search_engine->set_sort_mode('chron');
         $search_engine->limit(($this->page - 1) * $this->rpp, $this->rpp + 1, true);
         if (false === $search_engine->query($q)) {
