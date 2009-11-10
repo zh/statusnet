@@ -60,7 +60,7 @@ class ApiAction extends Action
      var $max_id   = null;
      var $since_id = null;
      var $since    = null;
-     
+
     /**
      * Initialization.
      *
@@ -72,14 +72,14 @@ class ApiAction extends Action
     function prepare($args)
     {
         parent::prepare($args);
-        
+
         $this->format   = $this->arg('format');
         $this->page     = (int)$this->arg('page', 1);
         $this->count    = (int)$this->arg('count', 20);
         $this->max_id   = (int)$this->arg('max_id', 0);
         $this->since_id = (int)$this->arg('since_id', 0);
         $this->since    = $this->arg('since');
-        
+
         return true;
     }
 
@@ -164,7 +164,6 @@ class ApiAction extends Action
 
         $twitter_user['favourites_count'] = $profile->faveCount(); // British spelling!
 
-
         $timezone = 'UTC';
 
         if ($user->timezone) {
@@ -237,6 +236,15 @@ class ApiAction extends Action
             ($replier_profile) ? intval($replier_profile->id) : null;
         $twitter_status['in_reply_to_screen_name'] =
             ($replier_profile) ? $replier_profile->nickname : null;
+
+        if (isset($notice->lat) && isset($notice->lon)) {
+            // This is the format that GeoJSON expects stuff to be in
+            $twitter_status['geo'] = array('type' => 'Point',
+                                           'coordinates' => array((float) $notice->lat,
+                                                                  (float) $notice->lon));
+        } else {
+            $twitter_status['geo'] = null;
+        }
 
         if (isset($this->auth_user)) {
             $twitter_status['favorited'] = $this->auth_user->hasFave($notice);
@@ -362,9 +370,18 @@ class ApiAction extends Action
         $entry['pubDate'] = common_date_rfc2822($notice->created);
         $entry['guid'] = $entry['link'];
 
+        if (isset($notice->lat) && isset($notice->lon)) {
+            // This is the format that GeoJSON expects stuff to be in.
+            // showGeoRSS() below uses it for XML output, so we reuse it
+            $entry['geo'] = array('type' => 'Point',
+                                  'coordinates' => array((float) $notice->lat,
+                                                         (float) $notice->lon));
+        } else {
+            $entry['geo'] = null;
+        }
+
         return $entry;
     }
-
 
     function twitterRelationshipArray($source, $target)
     {
@@ -441,6 +458,9 @@ class ApiAction extends Action
             case 'attachments':
                 $this->showXmlAttachments($twitter_status['attachments']);
                 break;
+            case 'geo':
+                $this->showGeoRSS($value);
+                break;
             default:
                 $this->element($element, null, $value);
             }
@@ -484,6 +504,18 @@ class ApiAction extends Action
         }
     }
 
+    function showGeoRSS($geo)
+    {
+        if (empty($geo)) {
+            // empty geo element
+            $this->element('geo');
+        } else {
+            $this->elementStart('geo', array('xmlns:georss' => 'http://www.georss.org/georss'));
+            $this->element('georss:point', null, $geo['coordinates'][0] . ' ' . $geo['coordinates'][1]);
+            $this->elementEnd('geo');
+        }
+    }
+
     function showTwitterRssItem($entry)
     {
         $this->elementStart('item');
@@ -505,6 +537,7 @@ class ApiAction extends Action
             }
         }
 
+        $this->showGeoRSS($entry['geo']);
         $this->elementEnd('item');
     }
 
@@ -528,7 +561,6 @@ class ApiAction extends Action
         $this->showJsonObjects($status);
         $this->endDocument('json');
     }
-
 
     function showXmlTimeline($notice)
     {
@@ -648,7 +680,6 @@ class ApiAction extends Action
 
         $this->endTwitterRss();
     }
-
 
     function showTwitterAtomEntry($entry)
     {

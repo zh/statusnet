@@ -1254,6 +1254,12 @@ class Notice extends Memcached_DataObject
             }
         }
 
+        if (!empty($this->lat) && !empty($this->lon)) {
+            $xs->elementStart('geo', array('xmlns:georss' => 'http://www.georss.org/georss'));
+            $xs->element('georss:point', null, $this->lat . ' ' . $this->lon);
+            $xs->elementEnd('geo');
+        }
+
         $xs->elementEnd('entry');
 
         return $xs->getString();
