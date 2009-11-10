@@ -191,6 +191,12 @@ StartPersonalGroupNav: beginning of personal group nav menu
 EndPersonalGroupNav: end of personal group nav menu (good place to add a menu item)
 - $action: action object being shown
 
+StartGroupGroupNav: Showing the group nav menu
+- $action: the current action
+
+EndGroupGroupNav: At the end of the group nav menu
+- $action: the current action
+
 StartEndHTML: just before the </html> tag
 - $action: action object being shown
 
@@ -488,6 +494,10 @@ ChangePassword: Handle a password change request
 - $oldpassword: the user's old password
 - $newpassword: the desired new password
 - &$errormsg: set this to an error message if the password could not be changed. If the password was changed, leave this as false
+
+CanUserChangeField: Determines if a user is allowed to change a specific profile field
+- $nickname: nickname of the user who would like to know which of their profile fields are mutable
+- $field: name of the field the user wants to change (nickname, fullname, password, avatar, etc)
 
 UserDeleteRelated: Specify additional tables to delete entries from when deleting users
 - $user: User object

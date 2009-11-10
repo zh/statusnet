@@ -70,7 +70,7 @@ class Theme
 
         // Check to see if it's in the local dir
 
-        $localroot = INSTALLDIR.'/local/theme';
+        $localroot = self::localRoot();
 
         $fulldir = $localroot.'/'.$name;
 
@@ -82,11 +82,7 @@ class Theme
 
         // Check to see if it's in the distribution dir
 
-        $instroot = common_config('theme', 'dir');
-
-        if (empty($instroot)) {
-            $instroot = INSTALLDIR.'/theme';
-        }
+        $instroot = self::installRoot();
 
         $fulldir = $instroot.'/'.$name;
 
@@ -174,5 +170,78 @@ class Theme
     {
         $theme = new Theme($name);
         return $theme->getPath($relative);
+    }
+
+    /**
+     * list available theme names
+     *
+     * @return array list of available theme names
+     */
+
+    static function listAvailable()
+    {
+        $local   = self::subdirsOf(self::localRoot());
+        $install = self::subdirsOf(self::installRoot());
+
+        $i = array_search('base', $install);
+
+        unset($install[$i]);
+
+        return array_merge($local, $install);
+    }
+
+    /**
+     * Utility for getting subdirs of a directory
+     *
+     * @param string $dir full path to directory to check
+     *
+     * @return array relative filenames of subdirs, or empty array
+     */
+
+    protected static function subdirsOf($dir)
+    {
+        $subdirs = array();
+
+        if (is_dir($dir)) {
+            if ($dh = opendir($dir)) {
+                while (($filename = readdir($dh)) !== false) {
+                    if ($filename != '..' && $filename !== '.' &&
+                        is_dir($dir.'/'.$filename)) {
+                        $subdirs[] = $filename;
+                    }
+                }
+                closedir($dh);
+            }
+        }
+
+        return $subdirs;
+    }
+
+    /**
+     * Local root dir for themes
+     *
+     * @return string local root dir for themes
+     */
+
+    protected static function localRoot()
+    {
+        return INSTALLDIR.'/local/theme';
+    }
+
+    /**
+     * Root dir for themes that are shipped with StatusNet
+     *
+     * @return string root dir for StatusNet themes
+     */
+
+    protected static function installRoot()
+    {
+        $instroot = common_config('theme', 'dir');
+
+        if (empty($instroot)) {
+            $instroot = INSTALLDIR.'/theme';
+        }
+
+        return $instroot;
     }
 }
