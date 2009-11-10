@@ -165,7 +165,7 @@ create table fave (
 
     constraint primary key (notice_id, user_id),
     index fave_notice_id_idx (notice_id),
-    index fave_user_id_idx (user_id),
+    index fave_user_id_idx (user_id,modified),
     index fave_modified_idx (modified)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;

@@ -171,7 +171,7 @@ create table fave (
 
 );
 create index fave_notice_id_idx on fave using btree(notice_id);
-create index fave_user_id_idx on fave using btree(user_id);
+create index fave_user_id_idx on fave using btree(user_id,modified);
 create index fave_modified_idx on fave using btree(modified);
 
 /* tables for OAuth */
