@@ -57,11 +57,11 @@ function common_init_language()
     // we can set in another locale that may not be set up
     // (say, ga_ES for Galego/Galician) it seems to take it.
     common_init_locale("en_US");
-    
+
     $language = common_language();
     $locale_set = common_init_locale($language);
     setlocale(LC_CTYPE, 'C');
-    
+
     // So we do not have to make people install the gettext locales
     $path = common_config('site','locale_path');
     bindtextdomain("statusnet", $path);
@@ -1112,7 +1112,11 @@ function common_log_objstring(&$object)
     $arr = $object->toArray();
     $fields = array();
     foreach ($arr as $k => $v) {
-        $fields[] = "$k='$v'";
+        if (is_object($v)) {
+            $fields[] = "$k='".get_class($v)."'";
+        } else {
+            $fields[] = "$k='$v'";
+        }
     }
     $objstring = $object->tableName() . '[' . implode(',', $fields) . ']';
     return $objstring;
