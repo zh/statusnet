@@ -177,9 +177,14 @@ class ApiAction extends Action
         $twitter_user['utc_offset'] = $t->format('Z');
         $twitter_user['time_zone'] = $timezone;
 
-        // To be supported some day, perhaps
-        $twitter_user['profile_background_image_url'] = '';
-        $twitter_user['profile_background_tile'] = false;
+        $twitter_user['profile_background_image_url']
+            = empty($design->backgroundimage)
+            ? '' : ($design->disposition & BACKGROUND_ON)
+            ? Design::url($design->backgroundimage) : '';
+
+        $twitter_user['profile_background_tile']
+            = empty($design->disposition)
+            ? '' : ($design->disposition & BACKGROUND_TILE) ? 'true' : 'false';
 
         $twitter_user['statuses_count'] = $profile->noticeCount();
 
