@@ -11,12 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-08 22:51+0000\n"
-"PO-Revision-Date: 2009-11-08 22:58:02+0000\n"
+"POT-Creation-Date: 2009-11-10 20:53+0000\n"
+"PO-Revision-Date: 2009-11-10 20:58:54+0000\n"
 "Language-Team: British English\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58791); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58872); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: en-gb\n"
 "X-Message-Group: out-statusnet\n"
@@ -487,7 +487,7 @@ msgid "Invalid size."
 msgstr "Invalid size."
 
 #: actions/avatarsettings.php:67 actions/showgroup.php:221
-#: lib/accountsettingsaction.php:111
+#: lib/accountsettingsaction.php:113
 msgid "Avatar"
 msgstr "Avatar"
 
@@ -535,7 +535,7 @@ msgstr "Crop"
 #: actions/groupunblock.php:66 actions/imsettings.php:206
 #: actions/invite.php:56 actions/login.php:131 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
-#: actions/othersettings.php:145 actions/passwordsettings.php:137
+#: actions/othersettings.php:145 actions/passwordsettings.php:151
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
 #: actions/smssettings.php:228 actions/subedit.php:38 actions/subscribe.php:46
@@ -635,7 +635,7 @@ msgstr "No profile specified."
 msgid "No profile with that ID."
 msgstr "No profile with that ID."
 
-#: actions/block.php:111 actions/block.php:134
+#: actions/block.php:111 actions/block.php:134 actions/groupblock.php:160
 msgid "Block user"
 msgstr "Block user"
 
@@ -647,24 +647,24 @@ msgid ""
 msgstr ""
 
 #: actions/block.php:149 actions/deletenotice.php:145
-#: actions/groupblock.php:176
+#: actions/groupblock.php:178
 msgid "No"
 msgstr "No"
 
 #: actions/block.php:149
 #, fuzzy
-msgid "Do not block this user from this group"
-msgstr "A list of the users in this group."
+msgid "Do not block this user"
+msgstr "Unblock this user"
 
 #: actions/block.php:150 actions/deletenotice.php:146
-#: actions/groupblock.php:177
+#: actions/groupblock.php:179
 msgid "Yes"
 msgstr "Yes"
 
-#: actions/block.php:150
-#, fuzzy
-msgid "Block this user from this group"
-msgstr "A list of the users in this group."
+#: actions/block.php:150 actions/groupmembers.php:346 lib/blockform.php:123
+#: lib/blockform.php:153
+msgid "Block this user"
+msgstr "Block this user"
 
 #: actions/block.php:165
 msgid "You have already blocked this user."
@@ -1160,7 +1160,7 @@ msgstr "You are not a member of that group."
 msgid "Block user from group"
 msgstr "Block user"
 
-#: actions/groupblock.php:155
+#: actions/groupblock.php:162
 #, php-format
 msgid ""
 "Are you sure you want to block user \"%s\" from the group \"%s\"? They will "
@@ -1168,7 +1168,17 @@ msgid ""
 "group in the future."
 msgstr ""
 
-#: actions/groupblock.php:193
+#: actions/groupblock.php:178
+#, fuzzy
+msgid "Do not block this user from this group"
+msgstr "A list of the users in this group."
+
+#: actions/groupblock.php:179
+#, fuzzy
+msgid "Block this user from this group"
+msgstr "A list of the users in this group."
+
+#: actions/groupblock.php:196
 msgid "Database error blocking user from group."
 msgstr ""
 
@@ -1233,7 +1243,7 @@ msgstr "Logo updated."
 msgid "Failed updating logo."
 msgstr "Failed updating logo."
 
-#: actions/groupmembers.php:93 lib/groupnav.php:91
+#: actions/groupmembers.php:93 lib/groupnav.php:92
 #, php-format
 msgid "%s group members"
 msgstr "%s group members"
@@ -1247,17 +1257,13 @@ msgstr "%s group members, page %d"
 msgid "A list of the users in this group."
 msgstr "A list of the users in this group."
 
-#: actions/groupmembers.php:175 lib/groupnav.php:106
+#: actions/groupmembers.php:175 lib/groupnav.php:107
 msgid "Admin"
 msgstr "Admin"
 
 #: actions/groupmembers.php:346 lib/blockform.php:153
 msgid "Block"
 msgstr "Block"
-
-#: actions/groupmembers.php:346 lib/blockform.php:123 lib/blockform.php:153
-msgid "Block this user"
-msgstr "Block this user"
 
 #: actions/groupmembers.php:441
 #, fuzzy
@@ -1667,7 +1673,7 @@ msgid "Nickname"
 msgstr "Nickname"
 
 #: actions/login.php:249 actions/register.php:428
-#: lib/accountsettingsaction.php:114
+#: lib/accountsettingsaction.php:118
 msgid "Password"
 msgstr "Password"
 
@@ -1911,60 +1917,65 @@ msgstr "This is your outbox, which lists private messages you have sent."
 msgid "Change password"
 msgstr "Change password"
 
-#: actions/passwordsettings.php:69
+#: actions/passwordsettings.php:70
+#, fuzzy
+msgid "You are not allowed to change your password"
+msgstr "Change your password"
+
+#: actions/passwordsettings.php:82
 msgid "Change your password."
 msgstr "Change your password."
 
-#: actions/passwordsettings.php:95 actions/recoverpassword.php:231
+#: actions/passwordsettings.php:109 actions/recoverpassword.php:231
 msgid "Password change"
 msgstr "Password change"
 
-#: actions/passwordsettings.php:103
+#: actions/passwordsettings.php:117
 msgid "Old password"
 msgstr "Old password"
 
-#: actions/passwordsettings.php:107 actions/recoverpassword.php:235
+#: actions/passwordsettings.php:121 actions/recoverpassword.php:235
 msgid "New password"
 msgstr "New password"
 
-#: actions/passwordsettings.php:108
+#: actions/passwordsettings.php:122
 msgid "6 or more characters"
 msgstr "6 or more characters"
 
-#: actions/passwordsettings.php:111 actions/recoverpassword.php:239
+#: actions/passwordsettings.php:125 actions/recoverpassword.php:239
 #: actions/register.php:432 actions/smssettings.php:134
 msgid "Confirm"
 msgstr "Confirm"
 
-#: actions/passwordsettings.php:112
+#: actions/passwordsettings.php:126
 msgid "same as password above"
 msgstr "same as password above"
 
-#: actions/passwordsettings.php:116
+#: actions/passwordsettings.php:130
 msgid "Change"
 msgstr "Change"
 
-#: actions/passwordsettings.php:153 actions/register.php:230
+#: actions/passwordsettings.php:167 actions/register.php:230
 msgid "Password must be 6 or more characters."
 msgstr "Password must be 6 or more characters."
 
-#: actions/passwordsettings.php:156 actions/register.php:233
+#: actions/passwordsettings.php:170 actions/register.php:233
 msgid "Passwords don't match."
 msgstr "Passwords don't match."
 
-#: actions/passwordsettings.php:164
+#: actions/passwordsettings.php:178
 msgid "Incorrect old password"
 msgstr "Incorrect old password"
 
-#: actions/passwordsettings.php:180
+#: actions/passwordsettings.php:194
 msgid "Error saving user; invalid."
 msgstr "Error saving user; invalid."
 
-#: actions/passwordsettings.php:185 actions/recoverpassword.php:368
+#: actions/passwordsettings.php:199 actions/recoverpassword.php:368
 msgid "Can't save new password."
 msgstr "Can't save new password."
 
-#: actions/passwordsettings.php:191 actions/recoverpassword.php:211
+#: actions/passwordsettings.php:205 actions/recoverpassword.php:211
 msgid "Password saved."
 msgstr "Password saved."
 
@@ -2403,7 +2414,7 @@ msgid "Same as password above. Required."
 msgstr "Same as password above. Required."
 
 #: actions/register.php:437 actions/register.php:441
-#: lib/accountsettingsaction.php:117
+#: lib/accountsettingsaction.php:122
 msgid "Email"
 msgstr "E-mail"
 
@@ -2635,7 +2646,7 @@ msgstr ""
 msgid "This is a way to share what you like."
 msgstr ""
 
-#: actions/showgroup.php:82 lib/groupnav.php:85
+#: actions/showgroup.php:82 lib/groupnav.php:86
 #, php-format
 msgid "%s group"
 msgstr "%s group"
@@ -2687,7 +2698,7 @@ msgstr "Notice feed for %s group"
 msgid "FOAF for %s group"
 msgstr "Outbox for %s"
 
-#: actions/showgroup.php:381 actions/showgroup.php:438 lib/groupnav.php:90
+#: actions/showgroup.php:381 actions/showgroup.php:438 lib/groupnav.php:91
 msgid "Members"
 msgstr "Members"
 
@@ -3339,40 +3350,40 @@ msgstr "DB error inserting reply: %s"
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Message to %1$s on %2$s"
 
-#: lib/accountsettingsaction.php:108 lib/personalgroupnav.php:109
+#: lib/accountsettingsaction.php:109 lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr "Profile"
 
-#: lib/accountsettingsaction.php:109
+#: lib/accountsettingsaction.php:110
 msgid "Change your profile settings"
 msgstr "Change your profile settings"
 
-#: lib/accountsettingsaction.php:112
+#: lib/accountsettingsaction.php:114
 msgid "Upload an avatar"
 msgstr "Upload an avatar"
 
-#: lib/accountsettingsaction.php:115
+#: lib/accountsettingsaction.php:119
 msgid "Change your password"
 msgstr "Change your password"
 
-#: lib/accountsettingsaction.php:118
+#: lib/accountsettingsaction.php:123
 msgid "Change email handling"
 msgstr "Change e-mail handling"
 
-#: lib/accountsettingsaction.php:120 lib/groupnav.php:118
+#: lib/accountsettingsaction.php:125 lib/groupnav.php:119
 msgid "Design"
 msgstr ""
 
-#: lib/accountsettingsaction.php:121
+#: lib/accountsettingsaction.php:126
 #, fuzzy
 msgid "Design your profile"
 msgstr "User profile"
 
-#: lib/accountsettingsaction.php:123
+#: lib/accountsettingsaction.php:128
 msgid "Other"
 msgstr "Other"
 
-#: lib/accountsettingsaction.php:124
+#: lib/accountsettingsaction.php:129
 msgid "Other options"
 msgstr "Other options"
 
@@ -3964,35 +3975,35 @@ msgstr ""
 msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr ""
 
-#: lib/groupnav.php:84 lib/searchgroupnav.php:84
+#: lib/groupnav.php:85 lib/searchgroupnav.php:84
 msgid "Group"
 msgstr "Group"
 
-#: lib/groupnav.php:100
+#: lib/groupnav.php:101
 #, fuzzy
 msgid "Blocked"
 msgstr "Block"
 
-#: lib/groupnav.php:101
+#: lib/groupnav.php:102
 #, fuzzy, php-format
 msgid "%s blocked users"
 msgstr "Block user"
 
-#: lib/groupnav.php:107
+#: lib/groupnav.php:108
 #, php-format
 msgid "Edit %s group properties"
 msgstr "Edit %s group properties"
 
-#: lib/groupnav.php:112
+#: lib/groupnav.php:113
 msgid "Logo"
 msgstr "Logo"
 
-#: lib/groupnav.php:113
+#: lib/groupnav.php:114
 #, php-format
 msgid "Add or edit %s logo"
 msgstr "Add or edit %s logo"
 
-#: lib/groupnav.php:119
+#: lib/groupnav.php:120
 #, fuzzy, php-format
 msgid "Add or edit %s design"
 msgstr "Add or edit %s logo"
@@ -4195,7 +4206,7 @@ msgid ""
 "\n"
 "%3$s\n"
 "\n"
-"Do not reply to this email. It will not get to them.\n"
+"Don't reply to this email; it won't get to them.\n"
 "\n"
 "With kind regards,\n"
 "%4$s\n"
@@ -4219,7 +4230,7 @@ msgid ""
 "\n"
 "%4$s\n"
 "\n"
-"Do not reply to this email. It will not get to them.\n"
+"Don't reply to this email; it won't get to them.\n"
 "\n"
 "With kind regards,\n"
 "%5$s\n"
@@ -4617,47 +4628,47 @@ msgstr "Send a direct message to this user"
 msgid "Message"
 msgstr "Message"
 
-#: lib/util.php:844
+#: lib/util.php:818
 msgid "a few seconds ago"
 msgstr "a few seconds ago"
 
-#: lib/util.php:846
+#: lib/util.php:820
 msgid "about a minute ago"
 msgstr "about a minute ago"
 
-#: lib/util.php:848
+#: lib/util.php:822
 #, php-format
 msgid "about %d minutes ago"
 msgstr "about %d minutes ago"
 
-#: lib/util.php:850
+#: lib/util.php:824
 msgid "about an hour ago"
 msgstr "about an hour ago"
 
-#: lib/util.php:852
+#: lib/util.php:826
 #, php-format
 msgid "about %d hours ago"
 msgstr "about %d hours ago"
 
-#: lib/util.php:854
+#: lib/util.php:828
 msgid "about a day ago"
 msgstr "about a day ago"
 
-#: lib/util.php:856
+#: lib/util.php:830
 #, php-format
 msgid "about %d days ago"
 msgstr "about %d days ago"
 
-#: lib/util.php:858
+#: lib/util.php:832
 msgid "about a month ago"
 msgstr "about a month ago"
 
-#: lib/util.php:860
+#: lib/util.php:834
 #, php-format
 msgid "about %d months ago"
 msgstr "about %d months ago"
 
-#: lib/util.php:862
+#: lib/util.php:836
 msgid "about a year ago"
 msgstr "about a year ago"
 
