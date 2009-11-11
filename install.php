@@ -503,6 +503,7 @@ function showForm()
                 <label for="snapshot">Send stats to StatusNet Inc?</label>
                 <input type="checkbox" id="snapshot" name="snapshot" checked />
                 <p class="form_guide">Periodically send information about your site to StatusNet Inc</p>
+            </li>
         </ul>
         <input type="submit" name="submit" class="submit" value="Submit" />
     </fieldset>
