@@ -67,7 +67,7 @@ class ApiAccountRateLimitStatusAction extends ApiBareAuthAction
 
         if (!in_array($this->format, array('xml', 'json'))) {
             $this->clientError(
-                _('API method not found!'),
+                _('API method not found.'),
                 404,
                 $this->format
             );

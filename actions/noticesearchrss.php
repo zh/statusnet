@@ -62,7 +62,7 @@ class NoticesearchrssAction extends Rss10Action
 
         $notice = new Notice();
 
-        $search_engine = $notice->getSearchEngine('identica_notices');
+        $search_engine = $notice->getSearchEngine('notice');
         $search_engine->set_sort_mode('chron');
 
         if (!$limit) $limit = 20;

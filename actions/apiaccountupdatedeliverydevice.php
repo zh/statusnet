@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Update the authenticating user's profile image
+ * Update the authenticating user notification channels
  *
  * PHP version 5
  *
@@ -34,8 +34,9 @@ if (!defined('STATUSNET')) {
 require_once INSTALLDIR . '/lib/apiauth.php';
 
 /**
- * Updates the authenticating user's profile image. Note that this API method
- * expects raw multipart data, not a URL to an image.
+ * Sets which channel (device) StatusNet delivers updates to for
+ * the authenticating user. Sending none as the device parameter
+ * will disable IM and/or SMS updates.
  *
  * @category API
  * @package  StatusNet
@@ -44,9 +45,8 @@ require_once INSTALLDIR . '/lib/apiauth.php';
  * @link     http://status.net/
  */
 
-class ApiAccountUpdateProfileImageAction extends ApiAuthAction
+class ApiAccountUpdateDeliveryDeviceAction extends ApiAuthAction
 {
-
     /**
      * Take arguments for running
      *
@@ -61,6 +61,7 @@ class ApiAccountUpdateProfileImageAction extends ApiAuthAction
         parent::prepare($args);
 
         $this->user   = $this->auth_user;
+        $this->device = $this->trimmed('device');
 
         return true;
     }
@@ -68,7 +69,7 @@ class ApiAccountUpdateProfileImageAction extends ApiAuthAction
     /**
      * Handle the request
      *
-     * Check whether the credentials are valid and output the result
+     * See which request params have been set, and update the user settings
      *
      * @param array $args $_REQUEST data (unused)
      *
@@ -87,17 +88,24 @@ class ApiAccountUpdateProfileImageAction extends ApiAuthAction
             return;
         }
 
-        // Workaround for PHP returning empty $_POST and $_FILES when POST
-        // length > post_max_size in php.ini
+        if (!in_array($this->format, array('xml', 'json'))) {
+            $this->clientError(
+                _('API method not found.'),
+                404,
+                $this->format
+            );
+            return;
+        }
 
-        if (empty($_FILES)
-            && empty($_POST)
-            && ($_SERVER['CONTENT_LENGTH'] > 0)
-        ) {
-             $msg = _('The server was unable to handle that much POST ' .
-                    'data (%s bytes) due to its current configuration.');
+        // Note: Twitter no longer supports IM
 
-            $this->clientError(sprintf($msg, $_SERVER['CONTENT_LENGTH']));
+        if (!in_array(strtolower($this->device), array('sms', 'im', 'none'))) {
+            $this->clientError(
+                _(
+                    'You must specify a parameter named ' .
+                    '\'device\' with a value of one of: sms, im, none'
+                )
+            );
             return;
         }
 
@@ -106,36 +114,34 @@ class ApiAccountUpdateProfileImageAction extends ApiAuthAction
             return;
         }
 
-        try {
-            $imagefile = ImageFile::fromUpload('image');
-        } catch (Exception $e) {
-            $this->clientError($e->getMessage(), 400, $this->format);
-            return;
+        $original = clone($this->user);
+
+        if (strtolower($this->device) == 'sms') {
+            $this->user->smsnotify = true;
+        } elseif (strtolower($this->device) == 'im') {
+            $this->user->jabbernotify = true;
+        } elseif (strtolower($this->device == 'none')) {
+            $this->user->smsnotify    = false;
+            $this->user->jabbernotify = false;
         }
 
-        $filename = Avatar::filename(
-            $user->id,
-            image_type_to_extension($imagefile->type),
-            null,
-            'tmp'.common_timestamp()
-        );
+        $result = $this->user->update($original);
 
-        $filepath = Avatar::path($filename);
-
-        move_uploaded_file($imagefile->filepath, $filepath);
+        if ($result === false) {
+            common_log_db_error($this->user, 'UPDATE', __FILE__);
+            $this->serverError(_('Could not update user.'));
+            return;
+        }
 
         $profile = $this->user->getProfile();
 
-        if (empty($profile)) {
-            $this->clientError(_('User has no profile.'));
-            return;
-        }
-
-        $profile->setOriginal($filename);
-
-        common_broadcast_profile($profile);
-
         $twitter_user = $this->twitterUserArray($profile, true);
+
+        // Note: this Twitter API method is retarded because it doesn't give
+        // any success/failure information. Twitter's docs claim that the
+        // notification field will change to reflect notification choice,
+        // but that's not true; notification> is used to indicate
+        // whether the auth user is following the user in question.
 
         if ($this->format == 'xml') {
             $this->initDocument('xml');

@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Update the authenticating user's profile image
+ * Update the authenticating user's profile background image
  *
  * PHP version 5
  *
@@ -34,8 +34,7 @@ if (!defined('STATUSNET')) {
 require_once INSTALLDIR . '/lib/apiauth.php';
 
 /**
- * Updates the authenticating user's profile image. Note that this API method
- * expects raw multipart data, not a URL to an image.
+ * Update the authenticating user's profile background image
  *
  * @category API
  * @package  StatusNet
@@ -44,8 +43,10 @@ require_once INSTALLDIR . '/lib/apiauth.php';
  * @link     http://status.net/
  */
 
-class ApiAccountUpdateProfileImageAction extends ApiAuthAction
+class ApiAccountUpdateProfileBackgroundImageAction extends ApiAuthAction
 {
+
+    var $tile = false;
 
     /**
      * Take arguments for running
@@ -60,7 +61,8 @@ class ApiAccountUpdateProfileImageAction extends ApiAuthAction
     {
         parent::prepare($args);
 
-        $this->user   = $this->auth_user;
+        $this->user  = $this->auth_user;
+        $this->tile  = $this->arg('tile');
 
         return true;
     }
@@ -87,6 +89,15 @@ class ApiAccountUpdateProfileImageAction extends ApiAuthAction
             return;
         }
 
+        if (!in_array($this->format, array('xml', 'json'))) {
+            $this->clientError(
+                _('API method not found.'),
+                404,
+                $this->format
+            );
+            return;
+        }
+
         // Workaround for PHP returning empty $_POST and $_FILES when POST
         // length > post_max_size in php.ini
 
@@ -106,6 +117,42 @@ class ApiAccountUpdateProfileImageAction extends ApiAuthAction
             return;
         }
 
+        $design = $this->user->getDesign();
+
+        // XXX: This is kinda gross, but before we can add a background
+        // img we have to make sure there's a Design because design ID
+        // is part of the img filename.
+
+        if (empty($design)) {
+
+            $this->user->query('BEGIN');
+
+            // save new design
+            $design = new Design();
+            $id = $design->insert();
+
+            if (empty($id)) {
+                common_log_db_error($id, 'INSERT', __FILE__);
+                $this->clientError(_('Unable to save your design settings.'));
+                return;
+            }
+
+            $original              = clone($this->user);
+            $this->user->design_id = $id;
+            $result                = $this->user->update($original);
+
+            if (empty($result)) {
+                common_log_db_error($original, 'UPDATE', __FILE__);
+                $this->clientError(_('Unable to save your design settings.'));
+                $this->user->query('ROLLBACK');
+                return;
+            }
+
+            $this->user->query('COMMIT');
+        }
+
+        // Okay, now get the image and add it to the design
+
         try {
             $imagefile = ImageFile::fromUpload('image');
         } catch (Exception $e) {
@@ -113,16 +160,33 @@ class ApiAccountUpdateProfileImageAction extends ApiAuthAction
             return;
         }
 
-        $filename = Avatar::filename(
-            $user->id,
+        $filename = Design::filename(
+            $design->id,
             image_type_to_extension($imagefile->type),
-            null,
-            'tmp'.common_timestamp()
+            common_timestamp()
         );
 
-        $filepath = Avatar::path($filename);
+        $filepath = Design::path($filename);
 
         move_uploaded_file($imagefile->filepath, $filepath);
+
+        // delete any old backround img laying around
+
+        if (isset($design->backgroundimage)) {
+            @unlink(Design::path($design->backgroundimage));
+        }
+
+        $original = clone($design);
+        $design->backgroundimage = $filename;
+        $design->setDisposition(true, false, ($this->tile == 'true'));
+
+        $result = $design->update($original);
+
+        if ($result === false) {
+            common_log_db_error($design, 'UPDATE', __FILE__);
+            $this->showForm(_('Could not update your design.'));
+            return;
+        }
 
         $profile = $this->user->getProfile();
 
@@ -130,10 +194,6 @@ class ApiAccountUpdateProfileImageAction extends ApiAuthAction
             $this->clientError(_('User has no profile.'));
             return;
         }
-
-        $profile->setOriginal($filename);
-
-        common_broadcast_profile($profile);
 
         $twitter_user = $this->twitterUserArray($profile, true);
 

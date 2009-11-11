@@ -108,7 +108,21 @@ class FlagprofileAction extends Action
         parent::handle($args);
 
         $this->flagProfile();
-        $this->returnTo();
+        
+        if ($this->boolean('ajax')) {
+            header('Content-Type: text/xml;charset=utf-8');
+            $this->xw->startDocument('1.0', 'UTF-8');
+            $this->elementStart('html');
+            $this->elementStart('head');
+            $this->element('title', null, _('Flagged for review'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
+            $this->element('p', 'flagged', _('Flagged'));
+            $this->elementEnd('body');
+            $this->elementEnd('html');
+        } else {
+            $this->returnTo();
+        }
     }
 
     function title() {

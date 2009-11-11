@@ -58,19 +58,6 @@ class PasswordsettingsAction extends AccountSettingsAction
         return _('Change password');
     }
 
-    function prepare($args){
-        parent::prepare($args);
-
-        $user = common_current_user();
-
-        Event::handle('CanUserChangeField', array($user->nickname, 'password'));
-
-        if(! $fields['password']){
-            //user is not allowed to change his password
-            $this->clientError(_('You are not allowed to change your password'));
-        }
-    }
-
     /**
      * Instructions for use
      *
@@ -182,8 +169,8 @@ class PasswordsettingsAction extends AccountSettingsAction
             $oldpassword = null;
         }
 
-        $errormsg = false;
-        if(! Event::handle('ChangePassword', array($user->nickname, $oldpassword, $newpassword, &$errormsg))){
+        $success = false;
+        if(! Event::handle('StartChangePassword', array($user->nickname, $oldpassword, $newpassword))){
             //no handler changed the password, so change the password internally
             $original = clone($user);
 
@@ -199,11 +186,9 @@ class PasswordsettingsAction extends AccountSettingsAction
                 $this->serverError(_('Can\'t save new password.'));
                 return;
             }
+            Event::handle('EndChangePassword', array($nickname));
         }
 
-        if($errormsg === false)
-            $this->showForm(_('Password saved.'), true);
-        else
-            $this->showForm($errormsg);
+        $this->showForm(_('Password saved.'), true);
     }
 }
