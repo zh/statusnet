@@ -586,6 +586,7 @@ class Router
             $m->connect('api/trends.json', array('action' => 'twitapitrends'));
 
             $m->connect('admin/site', array('action' => 'siteadminpanel'));
+            $m->connect('admin/design', array('action' => 'designadminpanel'));
 
             $m->connect('getfile/:filename',
                         array('action' => 'getfile'),
