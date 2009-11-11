@@ -1,5 +1,31 @@
-// add a notice encoded as JSON into the current timeline
-//
+/*
+ * StatusNet - a distributed open-source microblogging tool
+ * Copyright (C) 2008, StatusNet, Inc.
+ *
+ * Add a notice encoded as JSON into the current timeline
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Plugin
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    Sarven Capadisli <csarven@status.net>
+ * @copyright 2009 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://status.net/
+ */
+
 // TODO: i18n
 
 RealtimeUpdate = {
@@ -7,6 +33,7 @@ RealtimeUpdate = {
      _replyurl: '',
      _favorurl: '',
      _deleteurl: '',
+     _updatecounter: 0,
 
      init: function(userid, replyurl, favorurl, deleteurl)
      {
@@ -14,6 +41,8 @@ RealtimeUpdate = {
         RealtimeUpdate._replyurl = replyurl;
         RealtimeUpdate._favorurl = favorurl;
         RealtimeUpdate._deleteurl = deleteurl;
+
+        DT = document.title;
 
         $(window).blur(function() {
           $('#notices_primary .notice').css({
@@ -25,24 +54,33 @@ RealtimeUpdate = {
             'border-top-color':'#AAAAAA',
             'border-top-style':'solid'
           });
+
+          RealtimeUpdate._updatecounter = 0;
+          document.title = DT;
+
+          return false;
         });
      },
 
      receive: function(data)
      {
-          id = data.id;
+          setTimeout(function() {
+              id = data.id;
 
-          // Don't add it if it already exists
-          //
-          if ($("#notice-"+id).length > 0) {
-               return;
-          }
+              // Don't add it if it already exists
+              if ($("#notice-"+id).length > 0) {
+                   return;
+              }
 
-          var noticeItem = RealtimeUpdate.makeNoticeItem(data);
-          $("#notices_primary .notices").prepend(noticeItem);
-          $("#notices_primary .notice:first").css({display:"none"});
-          $("#notices_primary .notice:first").fadeIn(1000);
-          NoticeReply();
+              var noticeItem = RealtimeUpdate.makeNoticeItem(data);
+              $("#notices_primary .notices").prepend(noticeItem);
+              $("#notices_primary .notice:first").css({display:"none"});
+              $("#notices_primary .notice:first").fadeIn(1000);
+              NoticeReply();
+
+              RealtimeUpdate._updatecounter += 1;
+              document.title = '('+RealtimeUpdate._updatecounter+') ' + DT;
+          }, 500);
      },
 
      makeNoticeItem: function(data)
@@ -125,14 +163,17 @@ RealtimeUpdate = {
 
      addPopup: function(url, timeline, iconurl)
      {
-         $('#content').prepend('<button id="realtime_timeline" title="Pop up in a window">Pop up</button>');
+         $('#notices_primary').css({'position':'relative'});
+         $('#notices_primary').prepend('<button id="realtime_timeline" title="Pop up in a window">Pop up</button>');
 
          $('#realtime_timeline').css({
-             'margin':'0 0 18px 0',
+             'margin':'0 0 11px 0',
              'background':'transparent url('+ iconurl + ') no-repeat 0% 30%',
              'padding':'0 0 0 20px',
              'display':'block',
-             'float':'right',
+             'position':'absolute',
+             'top':'-20px',
+             'right':'0',
              'border':'none',
              'cursor':'pointer',
              'color':$("a").css("color"),
