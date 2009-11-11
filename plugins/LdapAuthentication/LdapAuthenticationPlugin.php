@@ -78,27 +78,16 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
 
     function autoRegister($nickname)
     {
-        $attributes=array();
-        $config_attributes = array('nickname','email','fullname','homepage','location');
-        foreach($config_attributes as $config_attribute){
-            $value = common_config('ldap', $config_attribute.'_attribute');
-            if($value!==false){
-                array_push($attributes,$value);
-            }
-        }
-        $entry = $this->ldap_get_user($nickname,$attributes);
+        $entry = $this->ldap_get_user($nickname,$this->attributes);
         if($entry){
             $registration_data = array();
-            foreach($config_attributes as $config_attribute){
-                $value = common_config('ldap', $config_attribute.'_attribute');
-                if($value!==false){
-                    if($config_attribute=='email'){
-                        $registration_data[$config_attribute]=common_canonical_email($entry->getValue($value,'single'));
-                    }else if($config_attribute=='nickname'){
-                        $registration_data[$config_attribute]=common_canonical_nickname($entry->getValue($value,'single'));
-                    }else{
-                        $registration_data[$config_attribute]=$entry->getValue($value,'single');
-                    }
+            foreach($this->attributes as $sn_attribute=>$ldap_attribute){
+                if($sn_attribute=='email'){
+                    $registration_data[$sn_attribute]=common_canonical_email($entry->getValue($ldap_attribute,'single'));
+                }else if($sn_attribute=='nickname'){
+                    $registration_data[$sn_attribute]=common_canonical_nickname($entry->getValue($ldap_attribute,'single'));
+                }else{
+                    $registration_data[$sn_attribute]=$entry->getValue($ldap_attribute,'single');
                 }
             }
             //set the database saved password to a random string.
@@ -170,7 +159,7 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
      */
     function ldap_get_user($username,$attributes=array()){
         $ldap = $this->ldap_get_connection();
-        $filter = Net_LDAP2_Filter::create(common_config('ldap','nickname_attribute'), 'equals',  $username);
+        $filter = Net_LDAP2_Filter::create($this->attributes['nickname'], 'equals',  $username);
         $options = array(
             'scope' => 'sub',
             'attributes' => $attributes
