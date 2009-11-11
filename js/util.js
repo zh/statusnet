@@ -81,32 +81,6 @@ $(document).ready(function(){
 
 	// XXX: refactor this code
 
-	var favoptions = { dataType: 'xml',
-					   beforeSubmit: function(data, target, options) {
-					   							$(target).addClass('processing');
-												return true;
-											  },
-					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
-												var dis = new_form.id;
-												var fav = dis.replace('disfavor', 'favor');
-												$('form#'+fav).replaceWith(new_form);
-												$('form#'+dis).ajaxForm(disoptions).each(addAjaxHidden);
-											  }
-					 };
-
-	var disoptions = { dataType: 'xml',
-					   beforeSubmit: function(data, target, options) {
-					   							$(target).addClass('processing');
-												return true;
-											  },
-					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
-												var fav = new_form.id;
-												var dis = fav.replace('favor', 'disfavor');
-												$('form#'+dis).replaceWith(new_form);
-												$('form#'+fav).ajaxForm(favoptions).each(addAjaxHidden);
-											  }
-					 };
-
 	var joinoptions = { dataType: 'xml',
 					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
 												var leave = new_form.id;
@@ -125,20 +99,8 @@ $(document).ready(function(){
 											  }
 					 };
 
-	function addAjaxHidden() {
-		var ajax = document.createElement('input');
-		ajax.setAttribute('type', 'hidden');
-		ajax.setAttribute('name', 'ajax');
-		ajax.setAttribute('value', 1);
-		this.appendChild(ajax);
-	}
-
-	$("form.form_favor").ajaxForm(favoptions);
-	$("form.form_disfavor").ajaxForm(disoptions);
 	$("form.form_group_join").ajaxForm(joinoptions);
 	$("form.form_group_leave").ajaxForm(leaveoptions);
-	$("form.form_favor").each(addAjaxHidden);
-	$("form.form_disfavor").each(addAjaxHidden);
 	$("form.form_group_join").each(addAjaxHidden);
 	$("form.form_group_leave").each(addAjaxHidden);
 
@@ -252,6 +214,7 @@ $(document).ready(function(){
                                                             $('#'+li.id).fadeIn(2500);
                                                             NoticeReply();
                                                             NoticeAttachments();
+                                                            NoticeFavors();
                                                          }
 													}
 													$("#notice_data-text").val("");
@@ -270,7 +233,51 @@ $(document).ready(function(){
     NoticeReply();
     NoticeAttachments();
     NoticeDataAttach();
+    NoticeFavors();
 });
+
+function addAjaxHidden() {
+	var ajax = document.createElement('input');
+	ajax.setAttribute('type', 'hidden');
+	ajax.setAttribute('name', 'ajax');
+	ajax.setAttribute('value', 1);
+	this.appendChild(ajax);
+}
+
+function NoticeFavors() {
+
+	// XXX: refactor this code
+	var favoptions = { dataType: 'xml',
+					   beforeSubmit: function(data, target, options) {
+					   							$(target).addClass('processing');
+												return true;
+											  },
+					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
+												var dis = new_form.id;
+												var fav = dis.replace('disfavor', 'favor');
+												$('form#'+fav).replaceWith(new_form);
+												$('form#'+dis).ajaxForm(disoptions).each(addAjaxHidden);
+											  }
+					 };
+
+	var disoptions = { dataType: 'xml',
+					   beforeSubmit: function(data, target, options) {
+					   							$(target).addClass('processing');
+												return true;
+											  },
+					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
+												var fav = new_form.id;
+												var dis = fav.replace('favor', 'disfavor');
+												$('form#'+dis).replaceWith(new_form);
+												$('form#'+fav).ajaxForm(favoptions).each(addAjaxHidden);
+											  }
+					 };
+
+	$("form.form_favor").ajaxForm(favoptions);
+	$("form.form_disfavor").ajaxForm(disoptions);
+	$("form.form_favor").each(addAjaxHidden);
+	$("form.form_disfavor").each(addAjaxHidden);
+}
 
 function NoticeReply() {
     if ($('#notice_data-text').length > 0 && $('#content .notice_reply').length > 0) {
