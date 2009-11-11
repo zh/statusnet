@@ -91,13 +91,17 @@ class SiteadminpanelAction extends AdminPanelAction
     function saveSettings()
     {
         static $settings = array('name', 'broughtby', 'broughtbyurl',
-                                 'email', 'timezone', 'language',
-                                 'closed', 'inviteonly', 'private');
+                                 'email', 'timezone', 'language');
+        static $booleans = array('closed', 'inviteonly', 'private');
 
         $values = array();
 
         foreach ($settings as $setting) {
             $values[$setting] = $this->trimmed($setting);
+        }
+
+        foreach ($booleans as $setting) {
+            $values[$setting] = ($this->boolean($setting)) ? 1 : 0;
         }
 
         // This throws an exception on validation errors
@@ -110,7 +114,7 @@ class SiteadminpanelAction extends AdminPanelAction
 
         $config->query('BEGIN');
 
-        foreach ($settings as $setting) {
+        foreach (array_merge($settings, $booleans) as $setting) {
             Config::save('site', $setting, $values[$setting]);
         }
 
