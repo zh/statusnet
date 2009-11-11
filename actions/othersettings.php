@@ -97,20 +97,15 @@ class OthersettingsAction extends AccountSettingsAction
         $this->elementStart('fieldset');
         $this->hidden('token', common_session_token());
 
-        $services=array();
-        global $_shorteners;
-        if($_shorteners){
-            foreach($_shorteners as $name=>$value)
-            {
-                $services[$name]=$name;
-                if(!empty($value['info']['freeService'])){
-                    // I18N
-                    $services[$name].=' (free service)';
-                }
+        Event::handle('GetUrlShorteners', array(&$shorteners));
+        foreach($shorteners as $name=>$value)
+        {
+            $services[$name]=$name;
+            if($value['freeService']){
+                $services[$name].=_(' (free service)');
             }
         }
         asort($services);
-        $services['']='None';
 
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');

@@ -31,37 +31,31 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once(INSTALLDIR.'/lib/Shorturl_api.php');
+require_once INSTALLDIR.'/plugins/UrlShortener/UrlShortenerPlugin.php';
 
-class LilUrlPlugin extends Plugin
+class LilUrlPlugin extends UrlShortenerPlugin
 {
-    function __construct()
-    {
-        parent::__construct();
-    }
+    public $serviceUrl;
 
     function onInitializePlugin(){
-        $this->registerUrlShortener(
-            'ur1.ca',
-            array('freeService'=>true),
-            array('LilUrl',array('http://ur1.ca/'))
-        );
+        parent::onInitializePlugin();
+        if(!isset($this->serviceUrl)){
+            throw new Exception("must specify a serviceUrl");
+        }
+    }
+
+    protected function shorten($url) {
+        $data = array('longurl' => $url);
+        
+        $responseBody = $this->http_post($this->serviceUrl,$data);
+        
+        if (!$responseBody) return;
+        $y = @simplexml_load_string($responseBody);
+        if (!isset($y->body)) return;
+        $x = $y->body->p[0]->a->attributes();
+        if (isset($x['href'])) {
+            return $x['href'];
+        }
     }
 }
 
-class LilUrl extends ShortUrlApi
-{
-    protected function shorten_imp($url) {
-        $data['longurl'] = $url;
-        $response = $this->http_post($data);
-        if (!$response) return $url;
-        $y = @simplexml_load_string($response);
-        if (!isset($y->body)) return $url;
-        $x = $y->body->p[0]->a->attributes();
-        if (isset($x['href'])) {
-            common_log(LOG_INFO, __CLASS__ . ": shortened $url to $x[href]");
-            return $x['href'];
-        }
-        return $url;
-    }
-}

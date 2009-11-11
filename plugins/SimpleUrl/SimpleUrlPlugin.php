@@ -31,40 +31,21 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-class SimpleUrlPlugin extends Plugin
+require_once INSTALLDIR.'/plugins/UrlShortener/UrlShortenerPlugin.php';
+
+class SimpleUrlPlugin extends UrlShortenerPlugin
 {
-    function __construct()
-    {
-        parent::__construct();
-    }
+    public $serviceUrl;
 
     function onInitializePlugin(){
-        $this->registerUrlShortener(
-            'is.gd',
-            array(),
-            array('SimpleUrl',array('http://is.gd/api.php?longurl='))
-        );
-        $this->registerUrlShortener(
-            'snipr.com',
-            array(),
-            array('SimpleUrl',array('http://snipr.com/site/snip?r=simple&link='))
-        );
-        $this->registerUrlShortener(
-            'metamark.net',
-            array(),
-            array('SimpleUrl',array('http://metamark.net/api/rest/simple?long_url='))
-        );
-        $this->registerUrlShortener(
-            'tinyurl.com',
-            array(),
-            array('SimpleUrl',array('http://tinyurl.com/api-create.php?url='))
-        );
+        parent::onInitializePlugin();
+        if(!isset($this->serviceUrl)){
+            throw new Exception("must specify a serviceUrl");
+        }
+    }
+
+    protected function shorten($url) {
+        return $this->http_get(sprintf($this->serviceUrl,urlencode($url)));
     }
 }
 
-class SimpleUrl extends ShortUrlApi
-{
-    protected function shorten_imp($url) {
-        return $this->http_get($url);
-    }
-}

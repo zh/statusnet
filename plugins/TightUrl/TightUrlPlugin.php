@@ -31,32 +31,27 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-class TightUrlPlugin extends Plugin
+require_once INSTALLDIR.'/plugins/UrlShortener/UrlShortenerPlugin.php';
+
+class TightUrlPlugin extends UrlShortenerPlugin
 {
-    function __construct()
-    {
-        parent::__construct();
-    }
+    public $serviceUrl;
 
     function onInitializePlugin(){
-        $this->registerUrlShortener(
-            '2tu.us',
-            array('freeService'=>true),
-            array('TightUrl',array('http://2tu.us/?save=y&url='))
-        );
+        parent::onInitializePlugin();
+        if(!isset($this->serviceUrl)){
+            throw new Exception("must specify a serviceUrl");
+        }
     }
-}
 
-class TightUrl extends ShortUrlApi
-{
-    protected function shorten_imp($url) {
-        $response = $this->http_get($url);
-        if (!$response) return $url;
+    protected function shorten($url)
+    {
+        $response = $this->http_get(sprintf($this->serviceUrl,urlencode($url)));
+        if (!$response) return;
         $response = $this->tidy($response);
         $y = @simplexml_load_string($response);
-        if (!isset($y->body)) return $url;
+        if (!isset($y->body)) return;
         $xml = $y->body->p[0]->code[0]->a->attributes();
         if (isset($xml['href'])) return $xml['href'];
-        return $url;
     }
 }
