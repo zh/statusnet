@@ -1,6 +1,6 @@
 jQuery(document).ready(function($){
   $('notices_primary').infinitescroll({
-    debug: true,
+    debug: false,
     infiniteScroll  : false,
     nextSelector    : 'body#public li.nav_next a,'+
                       'body#all li.nav_next a,'+
