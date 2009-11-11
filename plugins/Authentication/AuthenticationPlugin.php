@@ -107,7 +107,7 @@ abstract class AuthenticationPlugin extends Plugin
         parent::__construct();
     }
     
-    function StartCheckPassword($nickname, $password, &$authenticatedUser){
+    function onStartCheckPassword($nickname, $password, &$authenticatedUser){
         if($this->password_changeable){
             $authenticated = $this->checkPassword($nickname, $password);
             if($authenticated){
