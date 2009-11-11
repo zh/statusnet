@@ -94,7 +94,7 @@ class FlagProfileForm extends Form
 
     function formClass()
     {
-        return 'form_profile_flag';
+        return 'form_entity_flag';
     }
 
     /**
