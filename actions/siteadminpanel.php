@@ -197,14 +197,24 @@ class SiteAdminPanelForm extends Form
 
     function formData()
     {
+        $this->out->elementStart('ul', 'form_data');
+        $this->li();
         $this->input('name', _('Site name'),
                      _('The name of your site, like "Yourcompany Microblog"'));
+        $this->unli();
+        $this->li();
         $this->input('broughtby', _('Brought by'),
                      _('Text used for credits link in footer of each page'));
+        $this->unli();
+        $this->li();
         $this->input('broughtbyurl', _('Brought by URL'),
                      _('URL used for credits link in footer of each page'));
+        $this->unli();
+        $this->li();
         $this->input('email', _('Email'),
                      _('contact email address for your site'));
+
+        $this->unli();
 
         $timezones = array();
 
@@ -214,25 +224,43 @@ class SiteAdminPanelForm extends Form
 
         asort($timezones);
 
+        $this->li();
+
         $this->out->dropdown('timezone', _('Default timezone'),
                              $timezones, _('Default timezone for the site; usually UTC.'),
                              true, $this->value('timezone'));
+
+        $this->unli();
+        $this->li();
 
         $this->out->dropdown('language', _('Language'),
                              get_nice_language_list(), _('Default site language'),
                              false, $this->value('language'));
 
+        $this->unli();
+        $this->li();
+
         $this->out->checkbox('closed', _('Closed'),
                              (bool) $this->value('closed'),
                              _('Is registration on this site prohibited?'));
+
+        $this->unli();
+        $this->li();
 
         $this->out->checkbox('inviteonly', _('Invite-only'),
                              (bool) $this->value('inviteonly'),
                              _('Is registration on this site only open to invited users?'));
 
+        $this->unli();
+        $this->li();
+
         $this->out->checkbox('private', _('Private'),
                              (bool) $this->value('private'),
                              _('Prohibit anonymous users (not logged in) from viewing site?'));
+
+        $this->unli();
+
+        $this->out->elementEnd('ul');
     }
 
     /**
@@ -266,6 +294,16 @@ class SiteAdminPanelForm extends Form
             $value = common_config('site', $setting);
         }
         return $value;
+    }
+
+    function li()
+    {
+        $this->out->elementStart('li');
+    }
+
+    function unli()
+    {
+        $this->out->elementEnd('li');
     }
 
     /**
