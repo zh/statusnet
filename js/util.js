@@ -370,31 +370,39 @@ var SN = { // StatusNet
                 return false;
             });
         }
+    },
+
+    Init: {
+        Notices: function() {
+            if ($('body.user_in').length > 0) {
+                $('.'+SN.C.S.FormNotice).each(function() {
+                    SN.U.FormNoticeXHR($(this));
+                    SN.U.FormNoticeEnhancements($(this));
+                });
+
+                $('.form_user_subscribe').each(function() { SN.U.FormXHR($(this)); });
+                $('.form_user_unsubscribe').each(function() { SN.U.FormXHR($(this)); });
+                $('.form_favor').each(function() { SN.U.FormXHR($(this)); });
+                $('.form_disfavor').each(function() { SN.U.FormXHR($(this)); });
+                $('.form_group_join').each(function() { SN.U.FormXHR($(this)); });
+                $('.form_group_leave').each(function() { SN.U.FormXHR($(this)); });
+                $('.form_user_nudge').each(function() { SN.U.FormXHR($(this)); });
+
+                SN.U.NoticeReply();
+
+                SN.U.NoticeDataAttach();
+
+                SN.U.NewDirectMessage();
+            }
+
+            SN.U.NoticeAttachments();
+        }
     }
 };
 
 $(document).ready(function(){
-    if ($('body.user_in').length > 0) {
-        $('.'+SN.C.S.FormNotice).each(function() {
-            SN.U.FormNoticeXHR($(this));
-            SN.U.FormNoticeEnhancements($(this));
-        });
-
-        $('.form_user_subscribe').each(function() { SN.U.FormXHR($(this)); });
-        $('.form_user_unsubscribe').each(function() { SN.U.FormXHR($(this)); });
-        $('.form_favor').each(function() { SN.U.FormXHR($(this)); });
-        $('.form_disfavor').each(function() { SN.U.FormXHR($(this)); });
-        $('.form_group_join').each(function() { SN.U.FormXHR($(this)); });
-        $('.form_group_leave').each(function() { SN.U.FormXHR($(this)); });
-        $('.form_user_nudge').each(function() { SN.U.FormXHR($(this)); });
-
-        SN.U.NoticeReply();
-
-        SN.U.NoticeDataAttach();
-
-        SN.U.NewDirectMessage();
+    if ($('#content .notices').length >0) {
+        SN.Init.Notices();
     }
-
-    SN.U.NoticeAttachments();
 });
 
