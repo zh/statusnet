@@ -373,36 +373,51 @@ var SN = { // StatusNet
     },
 
     Init: {
-        Notices: function() {
+        NoticeForm: function() {
             if ($('body.user_in').length > 0) {
                 $('.'+SN.C.S.FormNotice).each(function() {
                     SN.U.FormNoticeXHR($(this));
                     SN.U.FormNoticeEnhancements($(this));
                 });
 
-                $('.form_user_subscribe').each(function() { SN.U.FormXHR($(this)); });
-                $('.form_user_unsubscribe').each(function() { SN.U.FormXHR($(this)); });
+                SN.U.NoticeDataAttach();
+            }
+        },
+
+        Notices: function() {
+            if ($('body.user_in').length > 0) {
                 $('.form_favor').each(function() { SN.U.FormXHR($(this)); });
                 $('.form_disfavor').each(function() { SN.U.FormXHR($(this)); });
+
+                SN.U.NoticeReply();
+            }
+
+            SN.U.NoticeAttachments();
+        },
+
+        EntityActions: function() {
+            if ($('body.user_in').length > 0) {
+                $('.form_user_subscribe').each(function() { SN.U.FormXHR($(this)); });
+                $('.form_user_unsubscribe').each(function() { SN.U.FormXHR($(this)); });
                 $('.form_group_join').each(function() { SN.U.FormXHR($(this)); });
                 $('.form_group_leave').each(function() { SN.U.FormXHR($(this)); });
                 $('.form_user_nudge').each(function() { SN.U.FormXHR($(this)); });
 
-                SN.U.NoticeReply();
-
-                SN.U.NoticeDataAttach();
-
                 SN.U.NewDirectMessage();
             }
-
-            SN.U.NoticeAttachments();
         }
     }
 };
 
 $(document).ready(function(){
-    if ($('#content .notices').length >0) {
+    if ($('.'+SN.C.S.FormNotice).length > 0) {
+        SN.Init.NoticeForm();
+    }
+    if ($('#content .notices').length > 0) {
         SN.Init.Notices();
+    }
+    if ($('#content .entity_actions').length > 0) {
+        SN.Init.EntityActions();
     }
 });
 
