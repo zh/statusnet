@@ -104,7 +104,7 @@ class NoticesearchAction extends SearchAction
     {
         $notice        = new Notice();
 
-        $search_engine = $notice->getSearchEngine('identica_notices');
+        $search_engine = $notice->getSearchEngine('notice');
         $search_engine->set_sort_mode('chron');
         // Ask for an extra to see if there's more.
         $search_engine->limit((($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
