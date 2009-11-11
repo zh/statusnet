@@ -31,10 +31,10 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/plugins/Auth/AuthPlugin.php';
+require_once INSTALLDIR.'/plugins/Authentication/AuthenticationPlugin.php';
 require_once 'Net/LDAP2.php';
 
-class LdapPlugin extends AuthPlugin
+class LdapAuthenticatonPlugin extends AuthenticationPlugin
 {
     public $host=null;
     public $port=null;
