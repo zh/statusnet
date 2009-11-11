@@ -272,72 +272,10 @@ class AdminPanelNav extends Widget
             $this->out->menuItem(common_local_url('siteadminpanel'), _('Site'),
                 _('Basic site configuration'), $action_name == 'siteadminpanel', 'nav_site_admin_panel');
 
+            $this->out->menuItem(common_local_url('designadminpanel'), _('Design'),
+                _('Design configuration'), $action_name == 'designadminpanel', 'nav_design_admin_panel');
+
             Event::handle('EndAdminPanelNav', array($this));
-        }
-        $this->action->elementEnd('ul');
-    }
-}
-
-/**
- * Menu for admin group of actions
- *
- * @category Output
- * @package  StatusNet
- * @author   Evan Prodromou <evan@status.net>
- * @author   Sarven Capadisli <csarven@status.net>
- * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://status.net/
- *
- * @see      Widget
- */
-
-class PublicGroupNav extends Widget
-{
-    var $action = null;
-
-    /**
-     * Construction
-     *
-     * @param Action $action current action, used for output
-     */
-
-    function __construct($action=null)
-    {
-        parent::__construct($action);
-        $this->action = $action;
-    }
-
-    /**
-     * Show the menu
-     *
-     * @return void
-     */
-
-    function show()
-    {
-        $action_name = $this->action->trimmed('action');
-
-        $this->action->elementStart('ul', array('class' => 'nav'));
-
-        if (Event::handle('StartPublicGroupNav', array($this))) {
-            $this->out->menuItem(common_local_url('public'), _('Public'),
-                _('Public timeline'), $action_name == 'public', 'nav_timeline_public');
-
-            $this->out->menuItem(common_local_url('groups'), _('Groups'),
-                _('User groups'), $action_name == 'groups', 'nav_groups');
-
-            $this->out->menuItem(common_local_url('publictagcloud'), _('Recent tags'),
-                _('Recent tags'), $action_name == 'publictagcloud', 'nav_recent-tags');
-
-            if (count(common_config('nickname', 'featured')) > 0) {
-                $this->out->menuItem(common_local_url('featured'), _('Featured'),
-                    _('Featured users'), $action_name == 'featured', 'nav_featured');
-            }
-
-            $this->out->menuItem(common_local_url('favorited'), _('Popular'),
-                _("Popular notices"), $action_name == 'favorited', 'nav_timeline_favorited');
-
-            Event::handle('EndPublicGroupNav', array($this));
         }
         $this->action->elementEnd('ul');
     }
