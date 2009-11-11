@@ -121,7 +121,7 @@ class NoticesearchAction extends SearchAction
                 $message = sprintf(_('Be the first to [post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!'), urlencode($q));
             }
             else {
-                $message = sprintf(_('Why not [register an account](%%%%action.register%%%%) and be the first to  [post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!'), urlencode($q));
+                $message = sprintf(_('Why not [register an account](%%%%action.register%%%%) and be the first to [post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!'), urlencode($q));
             }
 
             $this->elementStart('div', 'guide');
