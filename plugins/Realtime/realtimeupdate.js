@@ -164,7 +164,7 @@ RealtimeUpdate = {
          var RT = $('#realtime_timeline');
          RT.css({
              'margin':'0 0 11px 0',
-             'background':'transparent url('+ iconurl + ') no-repeat 0% 30%',
+             'background':'transparent url('+ iconurl + ') no-repeat 0 30%',
              'padding':'0 0 0 20px',
              'display':'block',
              'position':'absolute',
@@ -176,6 +176,7 @@ RealtimeUpdate = {
              'font-weight':'bold',
              'font-size':'1em'
          });
+         $('#showstream #notices_primary').css({'margin-top':'18px'});
 
          RT.click(function() {
              window.open(url,
