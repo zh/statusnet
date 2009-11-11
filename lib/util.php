@@ -350,8 +350,11 @@ function common_current_user()
             common_ensure_session();
             $id = isset($_SESSION['userid']) ? $_SESSION['userid'] : false;
             if ($id) {
-                $_cur = User::staticGet($id);
-                return $_cur;
+                $user = User::staticGet($id);
+                if ($user) {
+                	$_cur = $user;
+                	return $_cur;
+                }
             }
         }
 

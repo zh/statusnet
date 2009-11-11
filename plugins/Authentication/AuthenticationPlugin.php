@@ -40,10 +40,10 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @link     http://status.net/
  */
 
-abstract class AuthPlugin extends Plugin
+abstract class AuthenticationPlugin extends Plugin
 {
     //is this plugin authoritative for authentication?
-    public $authn_authoritative = false;
+    public $authoritative = false;
     
     //should accounts be automatically created after a successful login attempt?
     public $autoregistration = false;
@@ -119,13 +119,13 @@ abstract class AuthPlugin extends Plugin
                 }
                 return false;
             }else{
-                if($this->authn_authoritative){
+                if($this->authoritative){
                     return false;
                 }
             }
             //we're not authoritative, so let other handlers try
         }else{
-            if($this->authn_authoritative){
+            if($this->authoritative){
                 //since we're authoritative, no other plugin could do this
                 throw new Exception(_('Password changing is not allowed'));
             }
@@ -145,7 +145,7 @@ abstract class AuthPlugin extends Plugin
                     throw new Exception(_('Password changing failed'));
                 }
             }else{
-                if($this->authn_authoritative){
+                if($this->authoritative){
                     //since we're authoritative, no other plugin could do this
                     throw new Exception(_('Password changing failed'));
                 }else{
@@ -154,7 +154,7 @@ abstract class AuthPlugin extends Plugin
                 }
             }
         }else{
-            if($this->authn_authoritative){
+            if($this->authoritative){
                 //since we're authoritative, no other plugin could do this
                 throw new Exception(_('Password changing is not allowed'));
             }
@@ -163,7 +163,7 @@ abstract class AuthPlugin extends Plugin
 
     function onStartAccountSettingsPasswordMenuItem($widget)
     {
-        if($this->authn_authoritative && !$this->password_changeable){
+        if($this->authoritative && !$this->password_changeable){
             //since we're authoritative, no other plugin could change passwords, so do render the menu item
             return false;
         }
