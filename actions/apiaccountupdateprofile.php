@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Update the authenticating user's profile image
+ * Update the authenticating user's profile
  *
  * PHP version 5
  *
@@ -34,8 +34,8 @@ if (!defined('STATUSNET')) {
 require_once INSTALLDIR . '/lib/apiauth.php';
 
 /**
- * Updates the authenticating user's profile image. Note that this API method
- * expects raw multipart data, not a URL to an image.
+ * API analog to the profile settings page
+ * Only the parameters specified will be updated.
  *
  * @category API
  * @package  StatusNet
@@ -44,7 +44,7 @@ require_once INSTALLDIR . '/lib/apiauth.php';
  * @link     http://status.net/
  */
 
-class ApiAccountUpdateProfileImageAction extends ApiAuthAction
+class ApiAccountUpdateProfileAction extends ApiAuthAction
 {
 
     /**
@@ -60,7 +60,12 @@ class ApiAccountUpdateProfileImageAction extends ApiAuthAction
     {
         parent::prepare($args);
 
-        $this->user   = $this->auth_user;
+        $this->user = $this->auth_user;
+
+        $this->name        = $this->trimmed('name');
+        $this->url         = $this->trimmed('url');
+        $this->location    = $this->trimmed('location');
+        $this->description = $this->trimmed('description');
 
         return true;
     }
@@ -68,7 +73,7 @@ class ApiAccountUpdateProfileImageAction extends ApiAuthAction
     /**
      * Handle the request
      *
-     * Check whether the credentials are valid and output the result
+     * See which request params have been set, and update the profile
      *
      * @param array $args $_REQUEST data (unused)
      *
@@ -87,17 +92,12 @@ class ApiAccountUpdateProfileImageAction extends ApiAuthAction
             return;
         }
 
-        // Workaround for PHP returning empty $_POST and $_FILES when POST
-        // length > post_max_size in php.ini
-
-        if (empty($_FILES)
-            && empty($_POST)
-            && ($_SERVER['CONTENT_LENGTH'] > 0)
-        ) {
-             $msg = _('The server was unable to handle that much POST ' .
-                    'data (%s bytes) due to its current configuration.');
-
-            $this->clientError(sprintf($msg, $_SERVER['CONTENT_LENGTH']));
+        if (!in_array($this->format, array('xml', 'json'))) {
+            $this->clientError(
+                _('API method not found.'),
+                404,
+                $this->format
+            );
             return;
         }
 
@@ -106,24 +106,6 @@ class ApiAccountUpdateProfileImageAction extends ApiAuthAction
             return;
         }
 
-        try {
-            $imagefile = ImageFile::fromUpload('image');
-        } catch (Exception $e) {
-            $this->clientError($e->getMessage(), 400, $this->format);
-            return;
-        }
-
-        $filename = Avatar::filename(
-            $user->id,
-            image_type_to_extension($imagefile->type),
-            null,
-            'tmp'.common_timestamp()
-        );
-
-        $filepath = Avatar::path($filename);
-
-        move_uploaded_file($imagefile->filepath, $filepath);
-
         $profile = $this->user->getProfile();
 
         if (empty($profile)) {
@@ -131,7 +113,40 @@ class ApiAccountUpdateProfileImageAction extends ApiAuthAction
             return;
         }
 
-        $profile->setOriginal($filename);
+        $original = clone($profile);
+
+        if (empty($this->name)) {
+            $profile->fullname = $this->name;
+        }
+
+        if (empty($this->url)) {
+            $profile->homepage = $this->url;
+        }
+
+        if (!empty($this->description)) {
+            $profile->bio = $this->description;
+        }
+
+        if (!empty($this->location)) {
+            $profile->location = $this->location;
+
+            $loc = Location::fromName($location);
+
+            if (!empty($loc)) {
+                $profile->lat         = $loc->lat;
+                $profile->lon         = $loc->lon;
+                $profile->location_id = $loc->location_id;
+                $profile->location_ns = $loc->location_ns;
+            }
+        }
+
+        $result = $profile->update($original);
+
+        if (!$result) {
+            common_log_db_error($profile, 'UPDATE', __FILE__);
+            $this->serverError(_('Could not save profile.'));
+            return;
+        }
 
         common_broadcast_profile($profile);
 

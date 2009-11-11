@@ -43,11 +43,17 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 abstract class AuthPlugin extends Plugin
 {
     //is this plugin authoritative for authentication?
-    protected $authn_authoritative = false;
+    public $authn_authoritative = false;
     
     //should accounts be automatically created after a successful login attempt?
-    protected $autoregistration = false;
-    
+    public $autoregistration = false;
+
+    //can the user change their email address
+    public $email_changeable=true;
+
+    //can the user change their email address
+    public $password_changeable=true;
+
     //------------Auth plugin should implement some (or all) of these methods------------\\
     /**
     * Check if a nickname/password combination is valid
@@ -102,44 +108,65 @@ abstract class AuthPlugin extends Plugin
     }
     
     function StartCheckPassword($nickname, $password, &$authenticatedUser){
-        $authenticated = $this->checkPassword($nickname, $password);
-        if($authenticated){
-            $authenticatedUser = User::staticGet('nickname', $nickname);
-            if(!$authenticatedUser && $this->autoregistration){
-                if($this->autoregister($nickname)){
-                    $authenticatedUser = User::staticGet('nickname', $nickname);
+        if($this->password_changeable){
+            $authenticated = $this->checkPassword($nickname, $password);
+            if($authenticated){
+                $authenticatedUser = User::staticGet('nickname', $nickname);
+                if(!$authenticatedUser && $this->autoregistration){
+                    if($this->autoregister($nickname)){
+                        $authenticatedUser = User::staticGet('nickname', $nickname);
+                    }
+                }
+                return false;
+            }else{
+                if($this->authn_authoritative){
+                    return false;
                 }
             }
-            return false;
+            //we're not authoritative, so let other handlers try
         }else{
             if($this->authn_authoritative){
-                return false;
+                //since we're authoritative, no other plugin could do this
+                throw new Exception(_('Password changing is not allowed'));
             }
         }
-        //we're not authoritative, so let other handlers try
     }
 
     function onStartChangePassword($nickname,$oldpassword,$newpassword)
     {
-        $authenticated = $this->checkPassword($nickname, $oldpassword);
-        if($authenticated){
-            $result = $this->changePassword($nickname,$oldpassword,$newpassword);
-            if($result){
-                //stop handling of other handlers, because what was requested was done
-                return false;
+        if($this->password_changeable){
+            $authenticated = $this->checkPassword($nickname, $oldpassword);
+            if($authenticated){
+                $result = $this->changePassword($nickname,$oldpassword,$newpassword);
+                if($result){
+                    //stop handling of other handlers, because what was requested was done
+                    return false;
+                }else{
+                    throw new Exception(_('Password changing failed'));
+                }
             }else{
-                throw new Exception(_('Password changing failed'));
+                if($this->authn_authoritative){
+                    //since we're authoritative, no other plugin could do this
+                    throw new Exception(_('Password changing failed'));
+                }else{
+                    //let another handler try
+                    return null;
+                }
             }
         }else{
             if($this->authn_authoritative){
                 //since we're authoritative, no other plugin could do this
-                throw new Exception(_('Password changing failed'));
-            }else{
-                //let another handler try
-                return null;
+                throw new Exception(_('Password changing is not allowed'));
             }
         }
-            
+    }
+
+    function onStartAccountSettingsPasswordMenuItem($widget)
+    {
+        if($this->authn_authoritative && !$this->password_changeable){
+            //since we're authoritative, no other plugin could change passwords, so do render the menu item
+            return false;
+        }
     }
 }
 

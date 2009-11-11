@@ -36,6 +36,17 @@ require_once 'Net/LDAP2.php';
 
 class LdapPlugin extends AuthPlugin
 {
+    public $host=null;
+    public $port=null;
+    public $version=null;
+    public $starttls=null;
+    public $binddn=null;
+    public $bindpw=null;
+    public $basedn=null;
+    public $options=null;
+    public $filter=null;
+    public $scope=null;
+    public $attributes=array();
 
     function __construct()
     {
@@ -125,7 +136,7 @@ class LdapPlugin extends AuthPlugin
         $keys = array('host','port','version','starttls','binddn','bindpw','basedn','options','filter','scope');
         foreach($keys as $key){
             $value = $this->$key;
-            if($value!==false){
+            if($value!==null){
                 $config[$key]=$value;
             }
         }
