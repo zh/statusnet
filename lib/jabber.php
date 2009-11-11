@@ -176,7 +176,7 @@ function jabber_format_entry($profile, $notice)
     $xs = new XMLStringer();
     $xs->elementStart('html', array('xmlns' => 'http://jabber.org/protocol/xhtml-im'));
     $xs->elementStart('body', array('xmlns' => 'http://www.w3.org/1999/xhtml'));
-    $xs->element("img", array('src'=> $profile->avatarUrl(AVATAR_MINI_SIZE) , 'alt' => $profile->nickname));
+    $xs->element("img", array('src'=> $profile->avatarUrl(AVATAR_MINI_SIZE)));
     $xs->element('a', array('href' => $profile->profileurl),
                  $profile->nickname);
     $xs->text(": ");
@@ -185,11 +185,11 @@ function jabber_format_entry($profile, $notice)
     } else {
         $xs->raw(common_render_content($notice->content, $notice));
     }
-    $xs->raw(" ");
+    $xs->text(" ");
     $xs->element('a', array(
         'href'=>common_local_url('conversation',
             array('id' => $notice->conversation)).'#notice-'.$notice->id
-         ),sprintf(_('notice id: %s'),$notice->id));
+         ),sprintf(_('[%s]'),$notice->id));
     $xs->elementEnd('body');
     $xs->elementEnd('html');
 
