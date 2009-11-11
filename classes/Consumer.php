@@ -11,9 +11,10 @@ class Consumer extends Memcached_DataObject
 
     public $__table = 'consumer';                        // table name
     public $consumer_key;                    // varchar(255)  primary_key not_null
+    public $consumer_secret;                 // varchar(255)   not_null
     public $seed;                            // char(32)   not_null
-    public $created;                         // datetime()   not_null
-    public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
+    public $created;                         // datetime   not_null
+    public $modified;                        // timestamp   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
     function staticGet($k,$v=null)
