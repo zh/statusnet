@@ -45,15 +45,9 @@ RealtimeUpdate = {
         DT = document.title;
 
         $(window).blur(function() {
-          $('#notices_primary .notice').css({
-            'border-top-color':$('#notices_primary .notice:last').css('border-top-color'),
-            'border-top-style':'dotted'
-          });
+          $('#notices_primary .notice').removeClass('mark-top');
 
-          $('#notices_primary .notice:first').css({
-            'border-top-color':'#AAAAAA',
-            'border-top-style':'solid'
-          });
+          $('#notices_primary .notice:first').addClass('mark-top');
 
           RealtimeUpdate._updatecounter = 0;
           document.title = DT;
