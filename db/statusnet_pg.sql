@@ -137,7 +137,7 @@ create table notice (
 
 /*    FULLTEXT(content) */
 );
-create index notice_profile_id_idx on notice using btree(profile_id);
+create index notice_profile_id_idx on notice using btree(profile_id,created,id);
 create index notice_created_idx on notice using btree(created);
 
 create table notice_source (

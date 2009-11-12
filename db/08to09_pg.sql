@@ -57,3 +57,7 @@ alter table subscription
     add index subscription_subscriber_idx using btree(subscriber,created),
     drop index subscription_subscribed_idx,
     add index subscription_subscribed_idx using btree(subscribed,created);
+
+alter table notice
+    drop index notice_profile_id_idx,
+    add index notice_profile_id_idx using btree(profile_id,created,id);
