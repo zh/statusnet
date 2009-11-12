@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-10 20:53+0000\n"
-"PO-Revision-Date: 2009-11-10 20:59:58+0000\n"
+"POT-Creation-Date: 2009-11-12 21:38+0000\n"
+"PO-Revision-Date: 2009-11-12 21:39:55+0000\n"
 "Language-Team: Simplified Chinese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58872); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r58962); Translate extension (2009-08-03)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: out-statusnet\n"
@@ -27,12 +27,15 @@ msgid "No such page"
 msgstr "未找到此消息。"
 
 #: actions/all.php:74 actions/allrss.php:68
-#: actions/apiaccountupdateprofileimage.php:105 actions/apiblockcreate.php:97
+#: actions/apiaccountupdatedeliverydevice.php:113
+#: actions/apiaccountupdateprofilebackgroundimage.php:116
+#: actions/apiaccountupdateprofileimage.php:105
+#: actions/apiaccountupdateprofile.php:105 actions/apiblockcreate.php:97
 #: actions/apiblockdestroy.php:96 actions/apidirectmessagenew.php:75
 #: actions/apidirectmessage.php:77 actions/apigroupcreate.php:112
 #: actions/apigroupismember.php:90 actions/apigroupjoin.php:99
 #: actions/apigroupleave.php:99 actions/apigrouplist.php:90
-#: actions/apistatusesupdate.php:139 actions/apisubscriptions.php:87
+#: actions/apistatusesupdate.php:144 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:79
 #: actions/apitimelinementions.php:79 actions/apitimelineuser.php:81
 #: actions/avatarbynickname.php:75 actions/favoritesrss.php:74
@@ -111,35 +114,42 @@ msgstr "%s 及好友"
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "%2$s 上 %1$s 和好友的更新！"
 
-#: actions/apiaccountratelimitstatus.php:70 actions/apidirectmessage.php:156
-#: actions/apifavoritecreate.php:99 actions/apifavoritedestroy.php:100
-#: actions/apifriendshipscreate.php:100 actions/apifriendshipsdestroy.php:100
-#: actions/apifriendshipsshow.php:129 actions/apigroupcreate.php:184
-#: actions/apigroupismember.php:114 actions/apigroupjoin.php:155
-#: actions/apigroupleave.php:141 actions/apigrouplistall.php:120
-#: actions/apigrouplist.php:132 actions/apigroupmembership.php:101
-#: actions/apigroupshow.php:105 actions/apihelptest.php:88
-#: actions/apistatusesdestroy.php:102 actions/apistatusesshow.php:108
-#: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
-#: actions/apisubscriptions.php:111 actions/apitimelinefavorites.php:144
-#: actions/apitimelinefriends.php:154 actions/apitimelinegroup.php:141
-#: actions/apitimelinementions.php:149 actions/apitimelinepublic.php:130
-#: actions/apitimelinetag.php:139 actions/apitimelineuser.php:163
-#: actions/apiusershow.php:101
-msgid "API method not found!"
+#: actions/apiaccountratelimitstatus.php:70
+#: actions/apiaccountupdatedeliverydevice.php:93
+#: actions/apiaccountupdateprofilebackgroundimage.php:94
+#: actions/apiaccountupdateprofilecolors.php:118
+#: actions/apiaccountupdateprofile.php:97
+#, fuzzy
+msgid "API method not found."
 msgstr "API 方法未实现！"
 
-#: actions/apiaccountupdateprofileimage.php:84 actions/apiblockcreate.php:89
+#: actions/apiaccountupdatedeliverydevice.php:85
+#: actions/apiaccountupdateprofilebackgroundimage.php:86
+#: actions/apiaccountupdateprofilecolors.php:110
+#: actions/apiaccountupdateprofileimage.php:84
+#: actions/apiaccountupdateprofile.php:89 actions/apiblockcreate.php:89
 #: actions/apiblockdestroy.php:88 actions/apidirectmessagenew.php:117
 #: actions/apifavoritecreate.php:90 actions/apifavoritedestroy.php:91
 #: actions/apifriendshipscreate.php:91 actions/apifriendshipsdestroy.php:91
 #: actions/apigroupcreate.php:104 actions/apigroupjoin.php:91
-#: actions/apigroupleave.php:91 actions/apistatusesupdate.php:109
+#: actions/apigroupleave.php:91 actions/apistatusesupdate.php:114
 msgid "This method requires a POST."
 msgstr "此方法接受POST请求。"
 
+#: actions/apiaccountupdatedeliverydevice.php:105
+msgid ""
+"You must specify a parameter named 'device' with a value of one of: sms, im, "
+"none"
+msgstr ""
+
+#: actions/apiaccountupdatedeliverydevice.php:132
+#, fuzzy
+msgid "Could not update user."
+msgstr "无法更新用户。"
+
+#: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97
-#: actions/apistatusesupdate.php:122 actions/avatarsettings.php:254
+#: actions/apistatusesupdate.php:127 actions/avatarsettings.php:254
 #: actions/newnotice.php:94 lib/designsettings.php:283
 #, php-format
 msgid ""
@@ -147,11 +157,33 @@ msgid ""
 "current configuration."
 msgstr ""
 
-#: actions/apiaccountupdateprofileimage.php:130 actions/apiusershow.php:108
+#: actions/apiaccountupdateprofilebackgroundimage.php:136
+#: actions/apiaccountupdateprofilebackgroundimage.php:146
+#: actions/apiaccountupdateprofilecolors.php:164
+#: actions/apiaccountupdateprofilecolors.php:174
+#, fuzzy
+msgid "Unable to save your design settings."
+msgstr "无法保存 Twitter 设置！"
+
+#: actions/apiaccountupdateprofilebackgroundimage.php:187
+#: actions/apiaccountupdateprofilecolors.php:142
+#, fuzzy
+msgid "Could not update your design."
+msgstr "无法更新用户。"
+
+#: actions/apiaccountupdateprofilebackgroundimage.php:194
+#: actions/apiaccountupdateprofilecolors.php:185
+#: actions/apiaccountupdateprofileimage.php:130
+#: actions/apiaccountupdateprofile.php:112 actions/apiusershow.php:108
 #: actions/avatarbynickname.php:80 actions/foaf.php:65 actions/replies.php:80
 #: actions/usergroups.php:98 lib/galleryaction.php:66 lib/profileaction.php:84
 msgid "User has no profile."
 msgstr "用户没有个人信息。"
+
+#: actions/apiaccountupdateprofile.php:147
+#, fuzzy
+msgid "Could not save profile."
+msgstr "无法保存个人信息。"
 
 #: actions/apiblockcreate.php:108
 msgid "Block user failed."
@@ -197,6 +229,23 @@ msgstr "发给 %s 的直接消息"
 #, php-format
 msgid "All the direct messages sent to %s"
 msgstr "发给 %s 的直接消息"
+
+#: actions/apidirectmessage.php:156 actions/apifavoritecreate.php:99
+#: actions/apifavoritedestroy.php:100 actions/apifriendshipscreate.php:100
+#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:129
+#: actions/apigroupcreate.php:184 actions/apigroupismember.php:114
+#: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
+#: actions/apigrouplistall.php:120 actions/apigrouplist.php:132
+#: actions/apigroupmembership.php:101 actions/apigroupshow.php:105
+#: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
+#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:133
+#: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
+#: actions/apitimelinefavorites.php:144 actions/apitimelinefriends.php:154
+#: actions/apitimelinegroup.php:141 actions/apitimelinementions.php:149
+#: actions/apitimelinepublic.php:130 actions/apitimelinetag.php:139
+#: actions/apitimelineuser.php:163 actions/apiusershow.php:101
+msgid "API method not found!"
+msgstr "API 方法未实现！"
 
 #: actions/apifavoritecreate.php:108 actions/apifavoritedestroy.php:109
 #: actions/apistatusesdestroy.php:113
@@ -393,17 +442,17 @@ msgstr "头像已更新。"
 msgid "No status with that ID found."
 msgstr "没有找到此ID的信息。"
 
-#: actions/apistatusesupdate.php:152 actions/newnotice.php:155
+#: actions/apistatusesupdate.php:157 actions/newnotice.php:155
 #: scripts/maildaemon.php:71
 #, fuzzy, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr "超出长度限制。不能超过 140 个字符。"
 
-#: actions/apistatusesupdate.php:193
+#: actions/apistatusesupdate.php:198
 msgid "Not found"
 msgstr "未找到"
 
-#: actions/apistatusesupdate.php:216 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:227 actions/newnotice.php:178
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -488,7 +537,7 @@ msgid "Invalid size."
 msgstr "大小不正确。"
 
 #: actions/avatarsettings.php:67 actions/showgroup.php:221
-#: lib/accountsettingsaction.php:113
+#: lib/accountsettingsaction.php:112
 msgid "Avatar"
 msgstr "头像"
 
@@ -537,7 +586,7 @@ msgstr "剪裁"
 #: actions/groupunblock.php:66 actions/imsettings.php:206
 #: actions/invite.php:56 actions/login.php:131 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
-#: actions/othersettings.php:145 actions/passwordsettings.php:151
+#: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
 #: actions/smssettings.php:228 actions/subedit.php:38 actions/subscribe.php:46
@@ -1677,7 +1726,7 @@ msgid "Nickname"
 msgstr "昵称"
 
 #: actions/login.php:249 actions/register.php:428
-#: lib/accountsettingsaction.php:118
+#: lib/accountsettingsaction.php:116
 msgid "Password"
 msgstr "密码"
 
@@ -1811,7 +1860,7 @@ msgstr ""
 #: actions/noticesearch.php:124
 #, php-format
 msgid ""
-"Why not [register an account](%%%%action.register%%%%) and be the first to  "
+"Why not [register an account](%%%%action.register%%%%) and be the first to "
 "[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
 msgstr ""
 
@@ -1856,8 +1905,8 @@ msgstr "连接"
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:963
-#: lib/api.php:991 lib/api.php:1101
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:999
+#: lib/api.php:1027 lib/api.php:1137
 msgid "Not a supported data format."
 msgstr "不支持的数据格式。"
 
@@ -1878,11 +1927,15 @@ msgstr "Twitter 设置"
 msgid "Manage various other options."
 msgstr "管理其他选项。"
 
-#: actions/othersettings.php:117
+#: actions/othersettings.php:108
+msgid " (free service)"
+msgstr ""
+
+#: actions/othersettings.php:116
 msgid "Shorten URLs with"
 msgstr ""
 
-#: actions/othersettings.php:118
+#: actions/othersettings.php:117
 msgid "Automatic shortening service to use."
 msgstr "要使用的自动缩短服务。"
 
@@ -1918,67 +1971,62 @@ msgstr "这是您的发件箱，包含您发送的私人消息。"
 msgid "Change password"
 msgstr "修改密码"
 
-#: actions/passwordsettings.php:70
-#, fuzzy
-msgid "You are not allowed to change your password"
-msgstr "修改密码"
-
-#: actions/passwordsettings.php:82
+#: actions/passwordsettings.php:69
 #, fuzzy
 msgid "Change your password."
 msgstr "修改密码"
 
-#: actions/passwordsettings.php:109 actions/recoverpassword.php:231
+#: actions/passwordsettings.php:96 actions/recoverpassword.php:231
 #, fuzzy
 msgid "Password change"
 msgstr "密码已保存。"
 
-#: actions/passwordsettings.php:117
+#: actions/passwordsettings.php:104
 msgid "Old password"
 msgstr "旧密码"
 
-#: actions/passwordsettings.php:121 actions/recoverpassword.php:235
+#: actions/passwordsettings.php:108 actions/recoverpassword.php:235
 msgid "New password"
 msgstr "新密码"
 
-#: actions/passwordsettings.php:122
+#: actions/passwordsettings.php:109
 msgid "6 or more characters"
 msgstr "6 个或更多字符"
 
-#: actions/passwordsettings.php:125 actions/recoverpassword.php:239
+#: actions/passwordsettings.php:112 actions/recoverpassword.php:239
 #: actions/register.php:432 actions/smssettings.php:134
 msgid "Confirm"
 msgstr "确认"
 
-#: actions/passwordsettings.php:126
+#: actions/passwordsettings.php:113
 msgid "same as password above"
 msgstr "相同的密码"
 
-#: actions/passwordsettings.php:130
+#: actions/passwordsettings.php:117
 msgid "Change"
 msgstr "修改"
 
-#: actions/passwordsettings.php:167 actions/register.php:230
+#: actions/passwordsettings.php:154 actions/register.php:230
 msgid "Password must be 6 or more characters."
 msgstr "密码必须包含 6 个或更多字符。"
 
-#: actions/passwordsettings.php:170 actions/register.php:233
+#: actions/passwordsettings.php:157 actions/register.php:233
 msgid "Passwords don't match."
 msgstr "密码不匹配。"
 
-#: actions/passwordsettings.php:178
+#: actions/passwordsettings.php:165
 msgid "Incorrect old password"
 msgstr "旧密码不正确"
 
-#: actions/passwordsettings.php:194
+#: actions/passwordsettings.php:181
 msgid "Error saving user; invalid."
 msgstr "保存用户时出错；不正确。"
 
-#: actions/passwordsettings.php:199 actions/recoverpassword.php:368
+#: actions/passwordsettings.php:186 actions/recoverpassword.php:368
 msgid "Can't save new password."
 msgstr "无法保存新密码。"
 
-#: actions/passwordsettings.php:205 actions/recoverpassword.php:211
+#: actions/passwordsettings.php:192 actions/recoverpassword.php:211
 msgid "Password saved."
 msgstr "密码已保存。"
 
@@ -2416,7 +2464,7 @@ msgid "Same as password above. Required."
 msgstr "相同的密码。此项必填。"
 
 #: actions/register.php:437 actions/register.php:441
-#: lib/accountsettingsaction.php:122
+#: lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr "电子邮件"
 
@@ -3350,31 +3398,31 @@ msgstr "添加回复时数据库出错：%s"
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "发送给 %1$s 的 %2$s 消息"
 
-#: lib/accountsettingsaction.php:109 lib/personalgroupnav.php:109
+#: lib/accountsettingsaction.php:108 lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr "个人信息"
 
-#: lib/accountsettingsaction.php:110
+#: lib/accountsettingsaction.php:108
 msgid "Change your profile settings"
 msgstr "修改您的个人信息"
 
-#: lib/accountsettingsaction.php:114
+#: lib/accountsettingsaction.php:112
 msgid "Upload an avatar"
 msgstr "上载一个头像。"
 
-#: lib/accountsettingsaction.php:119
+#: lib/accountsettingsaction.php:116
 msgid "Change your password"
 msgstr "修改密码"
 
-#: lib/accountsettingsaction.php:123
+#: lib/accountsettingsaction.php:120
 msgid "Change email handling"
 msgstr "修改电子邮件"
 
-#: lib/accountsettingsaction.php:125 lib/groupnav.php:119
+#: lib/accountsettingsaction.php:124 lib/groupnav.php:119
 msgid "Design"
 msgstr ""
 
-#: lib/accountsettingsaction.php:126
+#: lib/accountsettingsaction.php:124
 #, fuzzy
 msgid "Design your profile"
 msgstr "用户没有个人信息。"
@@ -3383,7 +3431,7 @@ msgstr "用户没有个人信息。"
 msgid "Other"
 msgstr "其他"
 
-#: lib/accountsettingsaction.php:129
+#: lib/accountsettingsaction.php:128
 msgid "Other options"
 msgstr "其他选项"
 
@@ -3782,20 +3830,20 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:191
+#: lib/common.php:189
 #, fuzzy
 msgid "No configuration file found. "
 msgstr "没有验证码"
 
-#: lib/common.php:192
+#: lib/common.php:190
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:193
+#: lib/common.php:191
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:194
+#: lib/common.php:192
 #, fuzzy
 msgid "Go to the installer."
 msgstr "登入本站"
@@ -4073,8 +4121,8 @@ msgstr "未知文件类型"
 
 #: lib/jabber.php:192
 #, php-format
-msgid "notice id: %s"
-msgstr "新通告"
+msgid "[%s]"
+msgstr ""
 
 #: lib/joinform.php:114
 #, fuzzy
@@ -4665,47 +4713,47 @@ msgstr "无法向此用户发送消息。"
 msgid "Message"
 msgstr "新消息"
 
-#: lib/util.php:818
+#: lib/util.php:821
 msgid "a few seconds ago"
 msgstr "几秒前"
 
-#: lib/util.php:820
+#: lib/util.php:823
 msgid "about a minute ago"
 msgstr "一分钟前"
 
-#: lib/util.php:822
+#: lib/util.php:825
 #, php-format
 msgid "about %d minutes ago"
 msgstr "%d 分钟前"
 
-#: lib/util.php:824
+#: lib/util.php:827
 msgid "about an hour ago"
 msgstr "一小时前"
 
-#: lib/util.php:826
+#: lib/util.php:829
 #, php-format
 msgid "about %d hours ago"
 msgstr "%d 小时前"
 
-#: lib/util.php:828
+#: lib/util.php:831
 msgid "about a day ago"
 msgstr "一天前"
 
-#: lib/util.php:830
+#: lib/util.php:833
 #, php-format
 msgid "about %d days ago"
 msgstr "%d 天前"
 
-#: lib/util.php:832
+#: lib/util.php:835
 msgid "about a month ago"
 msgstr "一个月前"
 
-#: lib/util.php:834
+#: lib/util.php:837
 #, php-format
 msgid "about %d months ago"
 msgstr "%d 个月前"
 
-#: lib/util.php:836
+#: lib/util.php:839
 msgid "about a year ago"
 msgstr "一年前"
 
@@ -4734,3 +4782,10 @@ msgstr "对不起，这个发布用的电子邮件属于其他用户。"
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "对不起，发布用的电子邮件无法使用。"
+
+#, fuzzy
+#~ msgid "You are not allowed to change your password"
+#~ msgstr "修改密码"
+
+#~ msgid "notice id: %s"
+#~ msgstr "新通告"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-10 20:53+0000\n"
+"POT-Creation-Date: 2009-11-12 21:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,12 +22,15 @@ msgid "No such page"
 msgstr ""
 
 #: actions/all.php:74 actions/allrss.php:68
-#: actions/apiaccountupdateprofileimage.php:105 actions/apiblockcreate.php:97
+#: actions/apiaccountupdatedeliverydevice.php:113
+#: actions/apiaccountupdateprofilebackgroundimage.php:116
+#: actions/apiaccountupdateprofileimage.php:105
+#: actions/apiaccountupdateprofile.php:105 actions/apiblockcreate.php:97
 #: actions/apiblockdestroy.php:96 actions/apidirectmessagenew.php:75
 #: actions/apidirectmessage.php:77 actions/apigroupcreate.php:112
 #: actions/apigroupismember.php:90 actions/apigroupjoin.php:99
 #: actions/apigroupleave.php:99 actions/apigrouplist.php:90
-#: actions/apistatusesupdate.php:139 actions/apisubscriptions.php:87
+#: actions/apistatusesupdate.php:144 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:79
 #: actions/apitimelinementions.php:79 actions/apitimelineuser.php:81
 #: actions/avatarbynickname.php:75 actions/favoritesrss.php:74
@@ -105,35 +108,40 @@ msgstr ""
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr ""
 
-#: actions/apiaccountratelimitstatus.php:70 actions/apidirectmessage.php:156
-#: actions/apifavoritecreate.php:99 actions/apifavoritedestroy.php:100
-#: actions/apifriendshipscreate.php:100 actions/apifriendshipsdestroy.php:100
-#: actions/apifriendshipsshow.php:129 actions/apigroupcreate.php:184
-#: actions/apigroupismember.php:114 actions/apigroupjoin.php:155
-#: actions/apigroupleave.php:141 actions/apigrouplistall.php:120
-#: actions/apigrouplist.php:132 actions/apigroupmembership.php:101
-#: actions/apigroupshow.php:105 actions/apihelptest.php:88
-#: actions/apistatusesdestroy.php:102 actions/apistatusesshow.php:108
-#: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
-#: actions/apisubscriptions.php:111 actions/apitimelinefavorites.php:144
-#: actions/apitimelinefriends.php:154 actions/apitimelinegroup.php:141
-#: actions/apitimelinementions.php:149 actions/apitimelinepublic.php:130
-#: actions/apitimelinetag.php:139 actions/apitimelineuser.php:163
-#: actions/apiusershow.php:101
-msgid "API method not found!"
+#: actions/apiaccountratelimitstatus.php:70
+#: actions/apiaccountupdatedeliverydevice.php:93
+#: actions/apiaccountupdateprofilebackgroundimage.php:94
+#: actions/apiaccountupdateprofilecolors.php:118
+#: actions/apiaccountupdateprofile.php:97
+msgid "API method not found."
 msgstr ""
 
-#: actions/apiaccountupdateprofileimage.php:84 actions/apiblockcreate.php:89
+#: actions/apiaccountupdatedeliverydevice.php:85
+#: actions/apiaccountupdateprofilebackgroundimage.php:86
+#: actions/apiaccountupdateprofilecolors.php:110
+#: actions/apiaccountupdateprofileimage.php:84
+#: actions/apiaccountupdateprofile.php:89 actions/apiblockcreate.php:89
 #: actions/apiblockdestroy.php:88 actions/apidirectmessagenew.php:117
 #: actions/apifavoritecreate.php:90 actions/apifavoritedestroy.php:91
 #: actions/apifriendshipscreate.php:91 actions/apifriendshipsdestroy.php:91
 #: actions/apigroupcreate.php:104 actions/apigroupjoin.php:91
-#: actions/apigroupleave.php:91 actions/apistatusesupdate.php:109
+#: actions/apigroupleave.php:91 actions/apistatusesupdate.php:114
 msgid "This method requires a POST."
 msgstr ""
 
+#: actions/apiaccountupdatedeliverydevice.php:105
+msgid ""
+"You must specify a parameter named 'device' with a value of one of: sms, im, "
+"none"
+msgstr ""
+
+#: actions/apiaccountupdatedeliverydevice.php:132
+msgid "Could not update user."
+msgstr ""
+
+#: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97
-#: actions/apistatusesupdate.php:122 actions/avatarsettings.php:254
+#: actions/apistatusesupdate.php:127 actions/avatarsettings.php:254
 #: actions/newnotice.php:94 lib/designsettings.php:283
 #, php-format
 msgid ""
@@ -141,10 +149,29 @@ msgid ""
 "current configuration."
 msgstr ""
 
-#: actions/apiaccountupdateprofileimage.php:130 actions/apiusershow.php:108
+#: actions/apiaccountupdateprofilebackgroundimage.php:136
+#: actions/apiaccountupdateprofilebackgroundimage.php:146
+#: actions/apiaccountupdateprofilecolors.php:164
+#: actions/apiaccountupdateprofilecolors.php:174
+msgid "Unable to save your design settings."
+msgstr ""
+
+#: actions/apiaccountupdateprofilebackgroundimage.php:187
+#: actions/apiaccountupdateprofilecolors.php:142
+msgid "Could not update your design."
+msgstr ""
+
+#: actions/apiaccountupdateprofilebackgroundimage.php:194
+#: actions/apiaccountupdateprofilecolors.php:185
+#: actions/apiaccountupdateprofileimage.php:130
+#: actions/apiaccountupdateprofile.php:112 actions/apiusershow.php:108
 #: actions/avatarbynickname.php:80 actions/foaf.php:65 actions/replies.php:80
 #: actions/usergroups.php:98 lib/galleryaction.php:66 lib/profileaction.php:84
 msgid "User has no profile."
+msgstr ""
+
+#: actions/apiaccountupdateprofile.php:147
+msgid "Could not save profile."
 msgstr ""
 
 #: actions/apiblockcreate.php:108
@@ -190,6 +217,23 @@ msgstr ""
 #: actions/apidirectmessage.php:105
 #, php-format
 msgid "All the direct messages sent to %s"
+msgstr ""
+
+#: actions/apidirectmessage.php:156 actions/apifavoritecreate.php:99
+#: actions/apifavoritedestroy.php:100 actions/apifriendshipscreate.php:100
+#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:129
+#: actions/apigroupcreate.php:184 actions/apigroupismember.php:114
+#: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
+#: actions/apigrouplistall.php:120 actions/apigrouplist.php:132
+#: actions/apigroupmembership.php:101 actions/apigroupshow.php:105
+#: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
+#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:133
+#: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
+#: actions/apitimelinefavorites.php:144 actions/apitimelinefriends.php:154
+#: actions/apitimelinegroup.php:141 actions/apitimelinementions.php:149
+#: actions/apitimelinepublic.php:130 actions/apitimelinetag.php:139
+#: actions/apitimelineuser.php:163 actions/apiusershow.php:101
+msgid "API method not found!"
 msgstr ""
 
 #: actions/apifavoritecreate.php:108 actions/apifavoritedestroy.php:109
@@ -377,17 +421,17 @@ msgstr ""
 msgid "No status with that ID found."
 msgstr ""
 
-#: actions/apistatusesupdate.php:152 actions/newnotice.php:155
+#: actions/apistatusesupdate.php:157 actions/newnotice.php:155
 #: scripts/maildaemon.php:71
 #, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr ""
 
-#: actions/apistatusesupdate.php:193
+#: actions/apistatusesupdate.php:198
 msgid "Not found"
 msgstr ""
 
-#: actions/apistatusesupdate.php:216 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:227 actions/newnotice.php:178
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -469,7 +513,7 @@ msgid "Invalid size."
 msgstr ""
 
 #: actions/avatarsettings.php:67 actions/showgroup.php:221
-#: lib/accountsettingsaction.php:113
+#: lib/accountsettingsaction.php:112
 msgid "Avatar"
 msgstr ""
 
@@ -517,7 +561,7 @@ msgstr ""
 #: actions/groupunblock.php:66 actions/imsettings.php:206
 #: actions/invite.php:56 actions/login.php:131 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
-#: actions/othersettings.php:145 actions/passwordsettings.php:151
+#: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
 #: actions/smssettings.php:228 actions/subedit.php:38 actions/subscribe.php:46
@@ -1572,7 +1616,7 @@ msgid "Nickname"
 msgstr ""
 
 #: actions/login.php:249 actions/register.php:428
-#: lib/accountsettingsaction.php:118
+#: lib/accountsettingsaction.php:116
 msgid "Password"
 msgstr ""
 
@@ -1701,7 +1745,7 @@ msgstr ""
 #: actions/noticesearch.php:124
 #, php-format
 msgid ""
-"Why not [register an account](%%%%action.register%%%%) and be the first to  "
+"Why not [register an account](%%%%action.register%%%%) and be the first to "
 "[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
 msgstr ""
 
@@ -1745,8 +1789,8 @@ msgstr ""
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:963
-#: lib/api.php:991 lib/api.php:1101
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:999
+#: lib/api.php:1027 lib/api.php:1137
 msgid "Not a supported data format."
 msgstr ""
 
@@ -1766,11 +1810,15 @@ msgstr ""
 msgid "Manage various other options."
 msgstr ""
 
-#: actions/othersettings.php:117
+#: actions/othersettings.php:108
+msgid " (free service)"
+msgstr ""
+
+#: actions/othersettings.php:116
 msgid "Shorten URLs with"
 msgstr ""
 
-#: actions/othersettings.php:118
+#: actions/othersettings.php:117
 msgid "Automatic shortening service to use."
 msgstr ""
 
@@ -1804,64 +1852,60 @@ msgstr ""
 msgid "Change password"
 msgstr ""
 
-#: actions/passwordsettings.php:70
-msgid "You are not allowed to change your password"
-msgstr ""
-
-#: actions/passwordsettings.php:82
+#: actions/passwordsettings.php:69
 msgid "Change your password."
 msgstr ""
 
-#: actions/passwordsettings.php:109 actions/recoverpassword.php:231
+#: actions/passwordsettings.php:96 actions/recoverpassword.php:231
 msgid "Password change"
 msgstr ""
 
-#: actions/passwordsettings.php:117
+#: actions/passwordsettings.php:104
 msgid "Old password"
 msgstr ""
 
-#: actions/passwordsettings.php:121 actions/recoverpassword.php:235
+#: actions/passwordsettings.php:108 actions/recoverpassword.php:235
 msgid "New password"
 msgstr ""
 
-#: actions/passwordsettings.php:122
+#: actions/passwordsettings.php:109
 msgid "6 or more characters"
 msgstr ""
 
-#: actions/passwordsettings.php:125 actions/recoverpassword.php:239
+#: actions/passwordsettings.php:112 actions/recoverpassword.php:239
 #: actions/register.php:432 actions/smssettings.php:134
 msgid "Confirm"
 msgstr ""
 
-#: actions/passwordsettings.php:126
+#: actions/passwordsettings.php:113
 msgid "same as password above"
 msgstr ""
 
-#: actions/passwordsettings.php:130
+#: actions/passwordsettings.php:117
 msgid "Change"
 msgstr ""
 
-#: actions/passwordsettings.php:167 actions/register.php:230
+#: actions/passwordsettings.php:154 actions/register.php:230
 msgid "Password must be 6 or more characters."
 msgstr ""
 
-#: actions/passwordsettings.php:170 actions/register.php:233
+#: actions/passwordsettings.php:157 actions/register.php:233
 msgid "Passwords don't match."
 msgstr ""
 
-#: actions/passwordsettings.php:178
+#: actions/passwordsettings.php:165
 msgid "Incorrect old password"
 msgstr ""
 
-#: actions/passwordsettings.php:194
+#: actions/passwordsettings.php:181
 msgid "Error saving user; invalid."
 msgstr ""
 
-#: actions/passwordsettings.php:199 actions/recoverpassword.php:368
+#: actions/passwordsettings.php:186 actions/recoverpassword.php:368
 msgid "Can't save new password."
 msgstr ""
 
-#: actions/passwordsettings.php:205 actions/recoverpassword.php:211
+#: actions/passwordsettings.php:192 actions/recoverpassword.php:211
 msgid "Password saved."
 msgstr ""
 
@@ -2286,7 +2330,7 @@ msgid "Same as password above. Required."
 msgstr ""
 
 #: actions/register.php:437 actions/register.php:441
-#: lib/accountsettingsaction.php:122
+#: lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr ""
 
@@ -3154,31 +3198,31 @@ msgstr ""
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
 
-#: lib/accountsettingsaction.php:109 lib/personalgroupnav.php:109
+#: lib/accountsettingsaction.php:108 lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr ""
 
-#: lib/accountsettingsaction.php:110
+#: lib/accountsettingsaction.php:108
 msgid "Change your profile settings"
 msgstr ""
 
-#: lib/accountsettingsaction.php:114
+#: lib/accountsettingsaction.php:112
 msgid "Upload an avatar"
 msgstr ""
 
-#: lib/accountsettingsaction.php:119
+#: lib/accountsettingsaction.php:116
 msgid "Change your password"
 msgstr ""
 
-#: lib/accountsettingsaction.php:123
+#: lib/accountsettingsaction.php:120
 msgid "Change email handling"
 msgstr ""
 
-#: lib/accountsettingsaction.php:125 lib/groupnav.php:119
+#: lib/accountsettingsaction.php:124 lib/groupnav.php:119
 msgid "Design"
 msgstr ""
 
-#: lib/accountsettingsaction.php:126
+#: lib/accountsettingsaction.php:124
 msgid "Design your profile"
 msgstr ""
 
@@ -3186,7 +3230,7 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
-#: lib/accountsettingsaction.php:129
+#: lib/accountsettingsaction.php:128
 msgid "Other options"
 msgstr ""
 
@@ -3566,19 +3610,19 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:191
+#: lib/common.php:189
 msgid "No configuration file found. "
 msgstr ""
 
-#: lib/common.php:192
+#: lib/common.php:190
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:193
+#: lib/common.php:191
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:194
+#: lib/common.php:192
 msgid "Go to the installer."
 msgstr ""
 
@@ -3838,7 +3882,7 @@ msgstr ""
 
 #: lib/jabber.php:192
 #, php-format
-msgid "notice id: %s"
+msgid "[%s]"
 msgstr ""
 
 #: lib/joinform.php:114
@@ -4386,47 +4430,47 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: lib/util.php:818
+#: lib/util.php:821
 msgid "a few seconds ago"
 msgstr ""
 
-#: lib/util.php:820
+#: lib/util.php:823
 msgid "about a minute ago"
 msgstr ""
 
-#: lib/util.php:822
+#: lib/util.php:825
 #, php-format
 msgid "about %d minutes ago"
 msgstr ""
 
-#: lib/util.php:824
+#: lib/util.php:827
 msgid "about an hour ago"
 msgstr ""
 
-#: lib/util.php:826
+#: lib/util.php:829
 #, php-format
 msgid "about %d hours ago"
 msgstr ""
 
-#: lib/util.php:828
+#: lib/util.php:831
 msgid "about a day ago"
 msgstr ""
 
-#: lib/util.php:830
+#: lib/util.php:833
 #, php-format
 msgid "about %d days ago"
 msgstr ""
 
-#: lib/util.php:832
+#: lib/util.php:835
 msgid "about a month ago"
 msgstr ""
 
-#: lib/util.php:834
+#: lib/util.php:837
 #, php-format
 msgid "about %d months ago"
 msgstr ""
 
-#: lib/util.php:836
+#: lib/util.php:839
 msgid "about a year ago"
 msgstr ""
 
