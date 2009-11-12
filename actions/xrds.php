@@ -123,18 +123,16 @@ class XrdsAction extends Action
                             common_local_url('updateprofile'));
         $xrdsOutputter->elementEnd('XRD');
         
+        Event::handle('EndUserXRDS', array($this,&$xrdsOutputter));
+
         //misc
         $xrdsOutputter->elementStart('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
-                                          'xml:id' => 'oauth',
-                                          'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
                                           'version' => '2.0'));
         $xrdsOutputter->showXrdsService(OAUTH_DISCOVERY,
                             '#oauth');
         $xrdsOutputter->showXrdsService(OMB_VERSION,
                             '#omb');
         $xrdsOutputter->elementEnd('XRD');
-
-        Event::handle('EndUserXRDS', array($this,&$xrdsOutputter));
 
         $xrdsOutputter->endXRDS();
         
