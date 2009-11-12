@@ -97,22 +97,18 @@ class XrdsAction extends Action
         $xrdsOutputter->element('Type', null, 'xri://$xrds*simple');
         $xrdsOutputter->showXrdsService(OAUTH_ENDPOINT_REQUEST,
                             common_local_url('requesttoken'),
-                            array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY, OAUTH_HMAC_SHA1));
+                            array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY, OAUTH_HMAC_SHA1),
+                            null,
+                            $this->user->uri);
         $xrdsOutputter->showXrdsService( OAUTH_ENDPOINT_AUTHORIZE,
                             common_local_url('userauthorization'),
-                            array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY, OAUTH_HMAC_SHA1),
-                            null,
-                            $this->user->getIdentifierURI());
+                            array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY, OAUTH_HMAC_SHA1));
         $xrdsOutputter->showXrdsService(OAUTH_ENDPOINT_ACCESS,
                             common_local_url('accesstoken'),
-                            array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY, OAUTH_HMAC_SHA1),
-                            null,
-                            $this->user->getIdentifierURI());
+                            array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY, OAUTH_HMAC_SHA1));
         $xrdsOutputter->showXrdsService(OAUTH_ENDPOINT_RESOURCE,
                             null,
-                            array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY, OAUTH_HMAC_SHA1),
-                            null,
-                            $this->user->getIdentifierURI());
+                            array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY, OAUTH_HMAC_SHA1));
         $xrdsOutputter->elementEnd('XRD');
         
         //omb
