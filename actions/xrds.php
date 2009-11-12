@@ -117,7 +117,7 @@ class XrdsAction extends Action
         
         //omb
         $xrdsOutputter->elementStart('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
-                                          'xml:id' => 'oauth',
+                                          'xml:id' => 'omb',
                                           'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
                                           'version' => '2.0'));
         $xrdsOutputter->element('Type', null, 'xri://$xrds*simple');
