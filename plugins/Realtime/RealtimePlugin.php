@@ -230,7 +230,6 @@ class RealtimePlugin extends Plugin
         }
 
         $action->showContentBlock();
-        $action->showScripts();
         $action->elementEnd('body');
         return false; // No default processing
     }
