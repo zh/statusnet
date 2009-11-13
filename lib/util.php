@@ -1058,7 +1058,6 @@ function common_log($priority, $msg, $filename=null)
         }
     } else {
         common_ensure_syslog();
-        error_log($msg);
         syslog($priority, $msg);
     }
 }
