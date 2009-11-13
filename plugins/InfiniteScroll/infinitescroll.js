@@ -16,8 +16,6 @@ jQuery(document).ready(function($){
     contentSelector : "#notices_primary ol.notices",
     itemSelector    : "#notices_primary ol.notices li"
     },function(){
-        NoticeAttachments();
-        NoticeReply();
-        NoticeFavors();
+        SN.Init.Notices();
     });
 });
