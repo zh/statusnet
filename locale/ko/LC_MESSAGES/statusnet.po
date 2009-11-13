@@ -5,12 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-12 21:38+0000\n"
-"PO-Revision-Date: 2009-11-12 21:39:17+0000\n"
+"POT-Creation-Date: 2009-11-13 20:42+0000\n"
+"PO-Revision-Date: 2009-11-13 20:42:57+0000\n"
 "Language-Team: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58962); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r59023); Translate extension (2009-11-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: out-statusnet\n"
@@ -3372,7 +3372,7 @@ msgstr "통지를 저장하는데 문제가 발생했습니다."
 msgid "DB error inserting reply: %s"
 msgstr "답신을 추가 할 때에 데이타베이스 에러 : %s"
 
-#: classes/User.php:333
+#: classes/User.php:347
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "%2$s에서 %1$s까지 메시지"
@@ -4597,7 +4597,8 @@ msgid "Could not subscribe other to you."
 msgstr "다른 사람을 구독 하실 수 없습니다."
 
 #: lib/subs.php:124
-msgid "Not subscribed!."
+#, fuzzy
+msgid "Not subscribed!"
 msgstr "구독하고 있지 않습니다!"
 
 #: lib/subs.php:136
@@ -4715,10 +4716,3 @@ msgstr "죄송합니다. 귀하의 이메일이 아닙니다."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "죄송합니다. 이메일이 허용되지 않습니다."
-
-#, fuzzy
-#~ msgid "You are not allowed to change your password"
-#~ msgstr "비밀번호 바꾸기"
-
-#~ msgid "notice id: %s"
-#~ msgstr "새로운 통지"

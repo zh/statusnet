@@ -2,18 +2,19 @@
 #
 # Author@translatewiki.net: IAlex
 # Author@translatewiki.net: Jean-Frédéric
+# Author@translatewiki.net: Peter17
 # Author@translatewiki.net: Zetud
 # --
 msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-12 21:38+0000\n"
-"PO-Revision-Date: 2009-11-12 21:39:00+0000\n"
+"POT-Creation-Date: 2009-11-13 20:42+0000\n"
+"PO-Revision-Date: 2009-11-13 20:42:39+0000\n"
 "Language-Team: French\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58962); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r59023); Translate extension (2009-11-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: out-statusnet\n"
@@ -474,9 +475,9 @@ msgid "Updates from %1$s on %2$s!"
 msgstr "Statuts de %1$s dans %2$s!"
 
 #: actions/apitimelinementions.php:116
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s / Updates mentioning %2$s"
-msgstr "%1$s / Réponses à %2$s"
+msgstr "%1$s / Mises à jour mentionnant %2$s"
 
 #: actions/apitimelinementions.php:126
 #, php-format
@@ -499,9 +500,9 @@ msgid "Notices tagged with %s"
 msgstr "Statuts marqués avec %s"
 
 #: actions/apitimelinetag.php:107 actions/tagrss.php:64
-#, fuzzy, php-format
+#, php-format
 msgid "Updates tagged with %1$s on %2$s!"
-msgstr "Statuts de %1$s dans %2$s!"
+msgstr "Mises à jour marquées avec %1$s dans %2$s !"
 
 #: actions/apiusershow.php:96
 msgid "Not found."
@@ -637,9 +638,8 @@ msgid "%s blocked profiles, page %d"
 msgstr "%s profils bloqués, page %d"
 
 #: actions/blockedfromgroup.php:108
-#, fuzzy
 msgid "A list of the users blocked from joining this group."
-msgstr "Liste des utilisateurs inscrits à ce groupe."
+msgstr "Une liste des utilisateurs dont l'inscription à ce groupe est bloquée."
 
 #: actions/blockedfromgroup.php:281
 msgid "Unblock user from group"
@@ -694,9 +694,8 @@ msgid "No"
 msgstr "Non"
 
 #: actions/block.php:149
-#, fuzzy
 msgid "Do not block this user"
-msgstr "Débloquer cet utilisateur"
+msgstr "Ne pas bloquer cet utilisateur"
 
 #: actions/block.php:150 actions/deletenotice.php:146
 #: actions/groupblock.php:179
@@ -781,13 +780,12 @@ msgid "Can't delete this notice."
 msgstr "Impossible de supprimer ce statut."
 
 #: actions/deletenotice.php:103
-#, fuzzy
 msgid ""
 "You are about to permanently delete a notice. Once this is done, it cannot "
 "be undone."
 msgstr ""
-"Ce message va être définitivement supprimé. Il sera impossible de le "
-"récupérer."
+"Vous êtes sur le point de supprimer définitivement un message. Une fois cela "
+"fait, il est impossible de l'annuler."
 
 #: actions/deletenotice.php:109 actions/deletenotice.php:141
 msgid "Delete notice"
@@ -1130,7 +1128,6 @@ msgid "Not expecting this response!"
 msgstr "Réponse inattendue !"
 
 #: actions/finishremotesubscribe.php:80
-#, fuzzy
 msgid "User being listened to does not exist."
 msgstr "L'utilisateur suivi n'existe pas."
 
@@ -1179,12 +1176,11 @@ msgstr "Aucun groupe n'a été spécifié."
 
 #: actions/groupblock.php:91
 msgid "Only an admin can block group members."
-msgstr ""
+msgstr "Seul un administrateur peut bloquer des membres du groupe."
 
 #: actions/groupblock.php:95
-#, fuzzy
 msgid "User is already blocked from group."
-msgstr "Cet utilisateur vous a bloqué."
+msgstr "Cet utilisateur est déjà bloqué pour le groupe."
 
 #: actions/groupblock.php:100
 msgid "User is not a member of group."
@@ -1203,9 +1199,8 @@ msgid ""
 msgstr ""
 
 #: actions/groupblock.php:178
-#, fuzzy
 msgid "Do not block this user from this group"
-msgstr "Liste des utilisateurs inscrits à ce groupe."
+msgstr "Ne pas bloquer cet utilisateur pour ce groupe"
 
 #: actions/groupblock.php:179
 #, fuzzy
@@ -3396,7 +3391,7 @@ msgstr "Problème lors de l'enregistrement du statut."
 msgid "DB error inserting reply: %s"
 msgstr "Erreur de base de donnée en insérant la réponse :%s"
 
-#: classes/User.php:333
+#: classes/User.php:347
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Message adressé à %1$s le %2$s"
@@ -4648,7 +4643,8 @@ msgid "Could not subscribe other to you."
 msgstr "Impossible d'abonner une autre personne à votre profil."
 
 #: lib/subs.php:124
-msgid "Not subscribed!."
+#, fuzzy
+msgid "Not subscribed!"
 msgstr "Pas abonné !"
 
 #: lib/subs.php:136
@@ -4765,10 +4761,3 @@ msgstr "Désolé, ceci n'est pas votre adresse de courriel entrant."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Désolé, la réception de courriels n'est pas permise. "
-
-#, fuzzy
-#~ msgid "You are not allowed to change your password"
-#~ msgstr "Modifier votre mot de passe"
-
-#~ msgid "notice id: %s"
-#~ msgstr "Nouveau statut"

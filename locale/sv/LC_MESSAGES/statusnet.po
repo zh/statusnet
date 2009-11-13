@@ -5,12 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-12 21:38+0000\n"
-"PO-Revision-Date: 2009-11-12 21:39:41+0000\n"
+"POT-Creation-Date: 2009-11-13 20:42+0000\n"
+"PO-Revision-Date: 2009-11-13 20:43:23+0000\n"
 "Language-Team: Swedish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58962); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r59023); Translate extension (2009-11-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: sv\n"
 "X-Message-Group: out-statusnet\n"
@@ -3430,7 +3430,7 @@ msgstr "Det var ett problem när inlägget sparades."
 msgid "DB error inserting reply: %s"
 msgstr "Databasfel för svar: %s"
 
-#: classes/User.php:333
+#: classes/User.php:347
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Meddelande till %1$s på %2$s"
@@ -4695,7 +4695,8 @@ msgid "Could not subscribe other to you."
 msgstr "Kunde inte prenumerera på annat åt dig."
 
 #: lib/subs.php:124
-msgid "Not subscribed!."
+#, fuzzy
+msgid "Not subscribed!"
 msgstr "Ingen prenumerant!"
 
 #: lib/subs.php:136
@@ -4817,10 +4818,3 @@ msgstr "Ledsen, men det är inte din inkommande emailadress."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Ledsen, men inga inkommande email är tillåtna."
-
-#, fuzzy
-#~ msgid "You are not allowed to change your password"
-#~ msgstr "Ändra ditt lösenord"
-
-#~ msgid "notice id: %s"
-#~ msgstr "Nytt inlägg"

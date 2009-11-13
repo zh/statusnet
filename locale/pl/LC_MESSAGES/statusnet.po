@@ -5,12 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-12 21:38+0000\n"
-"PO-Revision-Date: 2009-11-12 21:39:31+0000\n"
+"POT-Creation-Date: 2009-11-13 20:42+0000\n"
+"PO-Revision-Date: 2009-11-13 20:43:13+0000\n"
 "Language-Team: Polish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58962); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r59023); Translate extension (2009-11-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pl\n"
 "X-Message-Group: out-statusnet\n"
@@ -3456,7 +3456,7 @@ msgstr "Problem podczas zapisywania wpisu."
 msgid "DB error inserting reply: %s"
 msgstr "Błąd bazy danych podczas wprowadzania odpowiedzi: %s"
 
-#: classes/User.php:333
+#: classes/User.php:347
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Witaj w %1$s, @%2$s!"
@@ -4773,7 +4773,8 @@ msgid "Could not subscribe other to you."
 msgstr "Nie można zasubskrybować innych do Ciebie."
 
 #: lib/subs.php:124
-msgid "Not subscribed!."
+#, fuzzy
+msgid "Not subscribed!"
 msgstr "Nie zasubskrybowane!"
 
 #: lib/subs.php:136
@@ -4891,11 +4892,3 @@ msgstr "Przepraszamy, to nie jest twój przychodzący adres e-mail."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Przepraszamy, przychodzący e-mail nie jest dozwolony."
-
-#, fuzzy
-#~ msgid "You are not allowed to change your password"
-#~ msgstr "Zmień hasło"
-
-#, fuzzy
-#~ msgid "notice id: %s"
-#~ msgstr "Brak identyfikatora wpisu"

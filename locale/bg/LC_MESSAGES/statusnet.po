@@ -5,12 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-12 21:38+0000\n"
-"PO-Revision-Date: 2009-11-12 21:38:36+0000\n"
+"POT-Creation-Date: 2009-11-13 20:42+0000\n"
+"PO-Revision-Date: 2009-11-13 20:42:18+0000\n"
 "Language-Team: Bulgarian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58962); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r59023); Translate extension (2009-11-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: bg\n"
 "X-Message-Group: out-statusnet\n"
@@ -3389,7 +3389,7 @@ msgstr "Проблем при записване на бележката."
 msgid "DB error inserting reply: %s"
 msgstr "Грешка в базата от данни — отговор при вмъкването: %s"
 
-#: classes/User.php:333
+#: classes/User.php:347
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Съобщение до %1$s в %2$s"
@@ -4623,7 +4623,8 @@ msgid "Could not subscribe other to you."
 msgstr "Грешка при абониране на друг потребител за вас."
 
 #: lib/subs.php:124
-msgid "Not subscribed!."
+#, fuzzy
+msgid "Not subscribed!"
 msgstr "Не сте абонирани!"
 
 #: lib/subs.php:136
@@ -4741,10 +4742,3 @@ msgstr "Това не е вашият входящ адрес."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Входящата поща не е разрешена."
-
-#, fuzzy
-#~ msgid "You are not allowed to change your password"
-#~ msgstr "Смяна на паролата"
-
-#~ msgid "notice id: %s"
-#~ msgstr "Нова бележка"

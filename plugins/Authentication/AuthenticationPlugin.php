@@ -70,7 +70,7 @@ abstract class AuthenticationPlugin extends Plugin
     * Automatically register a user when they attempt to login with valid credentials.
     * User::register($data) is a very useful method for this implementation
     * @param username
-    * @return boolean true if the user was created, false if not
+    * @return mixed instance of User, or false (if user couldn't be created)
     */
     function autoRegister($username)
     {
@@ -122,27 +122,20 @@ abstract class AuthenticationPlugin extends Plugin
                     $authenticated = $this->checkPassword($nickname, $password);
                     if($authenticated){
                         $authenticatedUser = User::staticGet('nickname', $nickname);
-                        $user_username = new User_username();
-                        $user_username->user_id = $authenticatedUser->id;
-                        $user_username->provider_name = $this->provider_name;
-                        $user_username->username = $nickname;
-                        $user_username->created = DB_DataObject_Cast::dateTime();
-                        $user_username->insert();
+                        User_username::register($authenticatedUser,$nickname,$this->provider_name);
                         return false;
                     }
                 }
             }else{
                 if($this->autoregistration){
                     $authenticated = $this->checkPassword($nickname, $password);
-                    if($authenticated && $this->autoregister($nickname)){
-                        $authenticatedUser = User::staticGet('nickname', $nickname);
-                        $user_username = new User_username();
-                        $user_username->user_id = $authenticatedUser->id;
-                        $user_username->provider_name = $this->provider_name;
-                        $user_username->username = $nickname;
-                        $user_username->created = DB_DataObject_Cast::dateTime();
-                        $user_username->insert();
-                        return false;
+                    if($authenticated){
+                        $user = $this->autoregister($nickname);
+                        if($user){
+                            $authenticatedUser = $user;
+                            User_username::register($authenticatedUser,$nickname,$this->provider_name);
+                            return false;
+                        }
                     }
                 }
             }
