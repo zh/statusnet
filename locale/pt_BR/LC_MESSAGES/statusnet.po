@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-12 21:38+0000\n"
-"PO-Revision-Date: 2009-11-12 21:39:36+0000\n"
+"POT-Creation-Date: 2009-11-13 20:42+0000\n"
+"PO-Revision-Date: 2009-11-13 20:43:18+0000\n"
 "Language-Team: Brazilian Portuguese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58962); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r59023); Translate extension (2009-11-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pt-br\n"
 "X-Message-Group: out-statusnet\n"
@@ -3444,7 +3444,7 @@ msgstr "Problema ao salvar a mensagem."
 msgid "DB error inserting reply: %s"
 msgstr "Erro no banco de dados na inserção da reposta: %s"
 
-#: classes/User.php:333
+#: classes/User.php:347
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Mensagem para %1$s no %2$s"
@@ -4687,7 +4687,8 @@ msgid "Could not subscribe other to you."
 msgstr "Não foi possível fazer com que o outros o sigam."
 
 #: lib/subs.php:124
-msgid "Not subscribed!."
+#, fuzzy
+msgid "Not subscribed!"
 msgstr "Não é seguido!"
 
 #: lib/subs.php:136
@@ -4808,11 +4809,3 @@ msgstr "Desculpe-me, mas este não é seu endereço de e-mail para recebimento."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Desculpe-me, mas não é permitido o recebimento de emails."
-
-#, fuzzy
-#~ msgid "You are not allowed to change your password"
-#~ msgstr "Altere a sua senha"
-
-#, fuzzy
-#~ msgid "notice id: %s"
-#~ msgstr "Feed de mensagens de %s"

@@ -11,12 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-12 21:38+0000\n"
-"PO-Revision-Date: 2009-11-12 21:39:23+0000\n"
+"POT-Creation-Date: 2009-11-13 20:42+0000\n"
+"PO-Revision-Date: 2009-11-13 20:43:03+0000\n"
 "Language-Team: Norwegian (bokmål)‬\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58962); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r59023); Translate extension (2009-11-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: no\n"
 "X-Message-Group: out-statusnet\n"
@@ -3311,7 +3311,7 @@ msgstr ""
 msgid "DB error inserting reply: %s"
 msgstr ""
 
-#: classes/User.php:333
+#: classes/User.php:347
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
@@ -4540,8 +4540,9 @@ msgid "Could not subscribe other to you."
 msgstr ""
 
 #: lib/subs.php:124
-msgid "Not subscribed!."
-msgstr ""
+#, fuzzy
+msgid "Not subscribed!"
+msgstr "Alle abonnementer"
 
 #: lib/subs.php:136
 msgid "Couldn't delete subscription."
@@ -4658,7 +4659,3 @@ msgstr ""
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr ""
-
-#, fuzzy
-#~ msgid "You are not allowed to change your password"
-#~ msgstr "Endre passordet ditt"

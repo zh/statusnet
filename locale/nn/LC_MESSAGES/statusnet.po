@@ -5,12 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-12 21:38+0000\n"
-"PO-Revision-Date: 2009-11-12 21:39:25+0000\n"
+"POT-Creation-Date: 2009-11-13 20:42+0000\n"
+"PO-Revision-Date: 2009-11-13 20:43:05+0000\n"
 "Language-Team: Norwegian Nynorsk\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58962); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r59023); Translate extension (2009-11-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nn\n"
 "X-Message-Group: out-statusnet\n"
@@ -3388,7 +3388,7 @@ msgstr "Eit problem oppstod ved lagring av notis."
 msgid "DB error inserting reply: %s"
 msgstr "Databasefeil, kan ikkje lagra svar: %s"
 
-#: classes/User.php:333
+#: classes/User.php:347
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Melding til %1$s på %2$s"
@@ -4620,7 +4620,8 @@ msgid "Could not subscribe other to you."
 msgstr "Kan ikkje tinga andre til deg."
 
 #: lib/subs.php:124
-msgid "Not subscribed!."
+#, fuzzy
+msgid "Not subscribed!"
 msgstr "Ikkje tinga."
 
 #: lib/subs.php:136
@@ -4738,10 +4739,3 @@ msgstr "Beklager, det er ikkje di inngåande epost addresse."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Beklager, inngåande epost er ikkje tillatt."
-
-#, fuzzy
-#~ msgid "You are not allowed to change your password"
-#~ msgstr "Endra passordet ditt"
-
-#~ msgid "notice id: %s"
-#~ msgstr "Ny notis"

@@ -6,12 +6,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-12 21:38+0000\n"
-"PO-Revision-Date: 2009-11-12 21:38:34+0000\n"
+"POT-Creation-Date: 2009-11-13 20:42+0000\n"
+"PO-Revision-Date: 2009-11-13 20:42:15+0000\n"
 "Language-Team: Arabic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58962); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r59023); Translate extension (2009-11-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ar\n"
 "X-Message-Group: out-statusnet\n"
@@ -137,7 +137,6 @@ msgid ""
 msgstr ""
 
 #: actions/apiaccountupdatedeliverydevice.php:132
-#, fuzzy
 msgid "Could not update user."
 msgstr "تعذّر تحديث المستخدم."
 
@@ -160,9 +159,8 @@ msgstr ""
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:187
 #: actions/apiaccountupdateprofilecolors.php:142
-#, fuzzy
 msgid "Could not update your design."
-msgstr "تعذر تحديث المجموعة."
+msgstr "تعذّر تحديث تصميمك."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:194
 #: actions/apiaccountupdateprofilecolors.php:185
@@ -180,7 +178,7 @@ msgstr "تعذّر حفظ الملف الشخصي."
 
 #: actions/apiblockcreate.php:108
 msgid "Block user failed."
-msgstr ""
+msgstr "فشل منع المستخدم."
 
 #: actions/apiblockdestroy.php:107
 msgid "Unblock user failed."
@@ -216,7 +214,7 @@ msgstr ""
 #: actions/apidirectmessage.php:101
 #, php-format
 msgid "Direct messages to %s"
-msgstr ""
+msgstr "رسالة مباشرة %s"
 
 #: actions/apidirectmessage.php:105
 #, php-format
@@ -397,7 +395,7 @@ msgstr "مجموعات %s"
 #: actions/apigrouplistall.php:94
 #, php-format
 msgid "groups on %s"
-msgstr ""
+msgstr "مجموعات %s"
 
 #: actions/apigrouplist.php:95
 #, php-format
@@ -458,7 +456,7 @@ msgstr ""
 #: actions/grouprss.php:131 actions/userrss.php:90
 #, php-format
 msgid "%s timeline"
-msgstr ""
+msgstr "مسار %s الزمني"
 
 #: actions/apitimelinegroup.php:110 actions/apitimelineuser.php:125
 #: actions/userrss.php:92
@@ -489,7 +487,7 @@ msgstr ""
 #: actions/apitimelinetag.php:101 actions/tag.php:66
 #, php-format
 msgid "Notices tagged with %s"
-msgstr ""
+msgstr "الإشعارات الموسومة ب%s"
 
 #: actions/apitimelinetag.php:107 actions/tagrss.php:64
 #, php-format
@@ -540,7 +538,7 @@ msgstr "إعدادات الأفتار"
 #: actions/avatarsettings.php:126 actions/avatarsettings.php:202
 #: actions/grouplogo.php:199 actions/grouplogo.php:259
 msgid "Original"
-msgstr ""
+msgstr "الأصلي"
 
 #: actions/avatarsettings.php:141 actions/avatarsettings.php:214
 #: actions/grouplogo.php:210 actions/grouplogo.php:271
@@ -679,9 +677,8 @@ msgid "No"
 msgstr "لا"
 
 #: actions/block.php:149
-#, fuzzy
 msgid "Do not block this user"
-msgstr "ألغِ منع هذا المستخدم"
+msgstr "لا تمنع هذا المستخدم"
 
 #: actions/block.php:150 actions/deletenotice.php:146
 #: actions/groupblock.php:179
@@ -715,7 +712,7 @@ msgstr "لم يوجد رمز التأكيد."
 
 #: actions/confirmaddress.php:85
 msgid "That confirmation code is not for you!"
-msgstr ""
+msgstr "رمز التأكيد ليس لك!"
 
 #: actions/confirmaddress.php:90
 #, php-format
@@ -773,11 +770,11 @@ msgstr ""
 
 #: actions/deletenotice.php:109 actions/deletenotice.php:141
 msgid "Delete notice"
-msgstr "احذف الملاحظة"
+msgstr "احذف الإشعار"
 
 #: actions/deletenotice.php:144
 msgid "Are you sure you want to delete this notice?"
-msgstr "أمتأكد من أنك تريد حذف هذه الملاحظة؟"
+msgstr "أمتأكد من أنك تريد حذف هذا الإشعار؟"
 
 #: actions/deletenotice.php:145
 msgid "Do not delete this notice"
@@ -785,7 +782,7 @@ msgstr "لا تحذف هذا الإشعار"
 
 #: actions/deletenotice.php:146 lib/noticelist.php:522
 msgid "Delete this notice"
-msgstr ""
+msgstr "احذف هذا الإشعار"
 
 #: actions/deletenotice.php:157
 msgid "There was a problem with your session token.  Try again, please."
@@ -793,7 +790,7 @@ msgstr ""
 
 #: actions/disfavor.php:81
 msgid "This notice is not a favorite!"
-msgstr ""
+msgstr "هذا الشعار ليس مفضلًا!"
 
 #: actions/disfavor.php:94
 msgid "Add to favorites"
@@ -801,12 +798,12 @@ msgstr "أضف إلى المفضلات"
 
 #: actions/doc.php:69
 msgid "No such document."
-msgstr ""
+msgstr "لا مستند كهذا."
 
 #: actions/editgroup.php:56
 #, php-format
 msgid "Edit %s group"
-msgstr ""
+msgstr "عدّل مجموعة %s"
 
 #: actions/editgroup.php:68 actions/grouplogo.php:70 actions/newgroup.php:65
 msgid "You must be logged in to create a group."
@@ -815,11 +812,11 @@ msgstr ""
 #: actions/editgroup.php:103 actions/editgroup.php:168
 #: actions/groupdesignsettings.php:104 actions/grouplogo.php:106
 msgid "You must be an admin to edit the group"
-msgstr ""
+msgstr "يجب أن تكون إداريًا لتعدّل المجموعة"
 
 #: actions/editgroup.php:154
 msgid "Use this form to edit the group."
-msgstr ""
+msgstr "استخدم هذا النموذج لتعديل المجموعة."
 
 #: actions/editgroup.php:201 actions/newgroup.php:145
 #, php-format
@@ -888,7 +885,7 @@ msgstr "البريد الإلكتروني الوارد"
 
 #: actions/emailsettings.php:138 actions/smssettings.php:157
 msgid "Send email to this address to post new notices."
-msgstr ""
+msgstr "أرسل بريدًا إلكترونيًا إلى هذا العنوان لترسل إشعارات جديدة."
 
 #: actions/emailsettings.php:145 actions/smssettings.php:162
 msgid "Make a new email address for posting to; cancels the old one."
@@ -982,7 +979,7 @@ msgstr ""
 
 #: actions/emailsettings.php:382 actions/imsettings.php:355
 msgid "That is the wrong IM address."
-msgstr ""
+msgstr "هذا عنوان محادثة فورية خاطئ."
 
 #: actions/emailsettings.php:394 actions/imsettings.php:367
 #: actions/smssettings.php:386
@@ -996,7 +993,7 @@ msgstr "هذا ليس عنوان بريدك الإلكتروني."
 #: actions/emailsettings.php:431 actions/imsettings.php:408
 #: actions/smssettings.php:425
 msgid "The address was removed."
-msgstr ""
+msgstr "أزيل هذا العنوان."
 
 #: actions/emailsettings.php:445 actions/smssettings.php:518
 msgid "No incoming email address."
@@ -1098,11 +1095,11 @@ msgstr "لا مرفقات مرفوعة"
 
 #: actions/finishremotesubscribe.php:69
 msgid "Not expecting this response!"
-msgstr ""
+msgstr "لم أتوقع هذا الرد!"
 
 #: actions/finishremotesubscribe.php:80
 msgid "User being listened to does not exist."
-msgstr ""
+msgstr "المستخدم الذي تستمع إليه غير موجود."
 
 #: actions/finishremotesubscribe.php:87 actions/remotesubscribe.php:59
 msgid "You can use the local subscription!"
@@ -1114,7 +1111,7 @@ msgstr ""
 
 #: actions/finishremotesubscribe.php:106
 msgid "You are not authorized."
-msgstr ""
+msgstr "لا تملك تصريحًا."
 
 #: actions/finishremotesubscribe.php:109
 msgid "Could not convert request token to access token."
@@ -1157,7 +1154,7 @@ msgstr ""
 
 #: actions/groupblock.php:100
 msgid "User is not a member of group."
-msgstr ""
+msgstr "المستخدم ليس عضوًا في المجموعة."
 
 #: actions/groupblock.php:136 actions/groupmembers.php:314
 msgid "Block user from group"
@@ -1189,7 +1186,7 @@ msgstr "لا هوية"
 
 #: actions/groupdesignsettings.php:68
 msgid "You must be logged in to edit a group."
-msgstr ""
+msgstr "يجب أن تلج لتُعدّل المجموعات."
 
 #: actions/groupdesignsettings.php:141
 msgid "Group design"
@@ -1204,7 +1201,7 @@ msgstr ""
 #: actions/groupdesignsettings.php:262 actions/userdesignsettings.php:186
 #: lib/designsettings.php:434 lib/designsettings.php:464
 msgid "Couldn't update your design."
-msgstr ""
+msgstr "تعذّر تحديث تصميمك."
 
 #: actions/groupdesignsettings.php:286 actions/groupdesignsettings.php:296
 #: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
@@ -1232,16 +1229,16 @@ msgstr ""
 
 #: actions/grouplogo.php:396
 msgid "Logo updated."
-msgstr ""
+msgstr "حُدّث الشعار."
 
 #: actions/grouplogo.php:398
 msgid "Failed updating logo."
-msgstr ""
+msgstr "فشل رفع الشعار."
 
 #: actions/groupmembers.php:93 lib/groupnav.php:92
 #, php-format
 msgid "%s group members"
-msgstr ""
+msgstr "أعضاء مجموعة %s"
 
 #: actions/groupmembers.php:96
 #, php-format
@@ -1341,7 +1338,7 @@ msgstr ""
 
 #: actions/groupunblock.php:128 actions/unblock.php:108
 msgid "Error removing the block."
-msgstr ""
+msgstr "خطأ أثناء منع الحجب."
 
 #: actions/imsettings.php:59
 msgid "IM Settings"
@@ -1406,7 +1403,7 @@ msgstr ""
 
 #: actions/imsettings.php:296
 msgid "Not a valid Jabber ID"
-msgstr ""
+msgstr "ليست هوية جابر صالحة"
 
 #: actions/imsettings.php:299
 msgid "That is already your Jabber ID."
@@ -1457,11 +1454,11 @@ msgstr "عنوان بريد إلكتروني غير صالح: %s"
 
 #: actions/invite.php:110
 msgid "Invitation(s) sent"
-msgstr ""
+msgstr "أُرسلت الدعوة"
 
 #: actions/invite.php:112
 msgid "Invite new users"
-msgstr ""
+msgstr "ادعُ مستخدمين جددًا"
 
 #: actions/invite.php:128
 msgid "You are already subscribed to these users:"
@@ -1470,7 +1467,7 @@ msgstr ""
 #: actions/invite.php:131 actions/invite.php:139
 #, php-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #: actions/invite.php:136
 msgid ""
@@ -1564,7 +1561,7 @@ msgstr ""
 #: actions/joingroup.php:135 lib/command.php:239
 #, php-format
 msgid "%s joined group %s"
-msgstr ""
+msgstr "%s انضم إلى مجموعة %s"
 
 #: actions/leavegroup.php:60
 msgid "You must be logged in to leave a group."
@@ -1671,7 +1668,7 @@ msgstr ""
 
 #: actions/microsummary.php:69
 msgid "No current status"
-msgstr ""
+msgstr "لا حالة حالية"
 
 #: actions/newgroup.php:53
 msgid "New group"
@@ -1679,7 +1676,7 @@ msgstr "مجموعة جديدة"
 
 #: actions/newgroup.php:110
 msgid "Use this form to create a new group."
-msgstr ""
+msgstr "استخدم هذا النموذج لإنشاء مجموعة جديدة."
 
 #: actions/newmessage.php:71 actions/newmessage.php:231
 msgid "New message"
@@ -1714,7 +1711,7 @@ msgstr ""
 
 #: actions/newmessage.php:210 actions/newnotice.php:233 lib/channel.php:170
 msgid "Ajax Error"
-msgstr ""
+msgstr "خطأ أجاكس"
 
 #: actions/newnotice.php:69
 msgid "New notice"
@@ -1801,11 +1798,11 @@ msgstr ""
 
 #: actions/opensearch.php:64
 msgid "People Search"
-msgstr ""
+msgstr "بحث الأشخاص"
 
 #: actions/opensearch.php:67
 msgid "Notice Search"
-msgstr ""
+msgstr "بحث الإشعارات"
 
 #: actions/othersettings.php:60
 msgid "Other Settings"
@@ -1817,7 +1814,7 @@ msgstr ""
 
 #: actions/othersettings.php:108
 msgid " (free service)"
-msgstr ""
+msgstr " (خدمة حرة)"
 
 #: actions/othersettings.php:116
 msgid "Shorten URLs with"
@@ -1880,11 +1877,11 @@ msgstr ""
 #: actions/passwordsettings.php:112 actions/recoverpassword.php:239
 #: actions/register.php:432 actions/smssettings.php:134
 msgid "Confirm"
-msgstr "أكد"
+msgstr "أكّد"
 
 #: actions/passwordsettings.php:113
 msgid "same as password above"
-msgstr ""
+msgstr "نفس كلمة السر أعلاه"
 
 #: actions/passwordsettings.php:117
 msgid "Change"
@@ -1908,7 +1905,7 @@ msgstr "خطأ أثناء حفظ المستخدم؛ غير صالح."
 
 #: actions/passwordsettings.php:186 actions/recoverpassword.php:368
 msgid "Can't save new password."
-msgstr ""
+msgstr "تعذّر حفظ كلمة السر الجديدة."
 
 #: actions/passwordsettings.php:192 actions/recoverpassword.php:211
 msgid "Password saved."
@@ -1923,7 +1920,7 @@ msgstr ""
 
 #: actions/peoplesearch.php:58
 msgid "People search"
-msgstr ""
+msgstr "بحث الأشخاص"
 
 #: actions/peopletag.php:70
 #, php-format
@@ -1946,7 +1943,7 @@ msgstr ""
 
 #: actions/profilesettings.php:60
 msgid "Profile settings"
-msgstr ""
+msgstr "إعدادات الملف الشخصي"
 
 #: actions/profilesettings.php:71
 msgid ""
@@ -1983,7 +1980,7 @@ msgstr ""
 
 #: actions/profilesettings.php:125 actions/register.php:463
 msgid "Describe yourself and your interests"
-msgstr ""
+msgstr "صِف نفسك واهتماماتك"
 
 #: actions/profilesettings.php:127 actions/register.php:465
 msgid "Bio"
@@ -2060,7 +2057,7 @@ msgstr "تعذّر حفظ الملف الشخصي."
 
 #: actions/profilesettings.php:336
 msgid "Couldn't save tags."
-msgstr ""
+msgstr "تعذّر حفظ الوسوم."
 
 #: actions/profilesettings.php:344
 msgid "Settings saved."
@@ -2069,7 +2066,7 @@ msgstr "حُفظت الإعدادات."
 #: actions/public.php:83
 #, php-format
 msgid "Beyond the page limit (%s)"
-msgstr ""
+msgstr "وراء حد الصفحة (%s)"
 
 #: actions/public.php:92
 msgid "Could not retrieve public stream."
@@ -2078,7 +2075,7 @@ msgstr ""
 #: actions/public.php:129
 #, php-format
 msgid "Public timeline, page %d"
-msgstr ""
+msgstr "المسار الزمني العام، صفحة %d"
 
 #: actions/public.php:131 lib/publicgroupnav.php:79
 msgid "Public timeline"
@@ -2146,7 +2143,7 @@ msgstr ""
 
 #: actions/publictagcloud.php:72
 msgid "Be the first to post one!"
-msgstr ""
+msgstr "كن أول من يُرسل!"
 
 #: actions/publictagcloud.php:75
 #, php-format
@@ -2161,7 +2158,7 @@ msgstr "سحابة الوسوم"
 
 #: actions/recoverpassword.php:36
 msgid "You are already logged in!"
-msgstr ""
+msgstr "أنت والج بالفعل!"
 
 #: actions/recoverpassword.php:62
 msgid "No such recovery code."
@@ -2181,7 +2178,7 @@ msgstr "خطأ في رمز التأكيد."
 
 #: actions/recoverpassword.php:97
 msgid "This confirmation code is too old. Please start again."
-msgstr ""
+msgstr "رمز التأكيد هذا قديم جدًا. من فضلك ابدأ من جديد."
 
 #: actions/recoverpassword.php:111
 msgid "Could not update user with confirmed email address."
@@ -2199,7 +2196,7 @@ msgstr ""
 
 #: actions/recoverpassword.php:188
 msgid "Password recovery"
-msgstr ""
+msgstr "استعادة كلمة السر"
 
 #: actions/recoverpassword.php:191
 msgid "Nickname or email address"
@@ -2211,7 +2208,7 @@ msgstr ""
 
 #: actions/recoverpassword.php:199 actions/recoverpassword.php:200
 msgid "Recover"
-msgstr ""
+msgstr "استرجع"
 
 #: actions/recoverpassword.php:208
 msgid "Reset password"
@@ -2219,11 +2216,11 @@ msgstr "أعد ضبط كلمة السر"
 
 #: actions/recoverpassword.php:209
 msgid "Recover password"
-msgstr ""
+msgstr "استعد كلمة السر"
 
 #: actions/recoverpassword.php:210 actions/recoverpassword.php:322
 msgid "Password recovery requested"
-msgstr ""
+msgstr "طُلبت استعادة كلمة السر"
 
 #: actions/recoverpassword.php:213
 msgid "Unknown action"
@@ -2235,15 +2232,15 @@ msgstr ""
 
 #: actions/recoverpassword.php:240
 msgid "Same as password above"
-msgstr ""
+msgstr "نفس كلمة السر أعلاه"
 
 #: actions/recoverpassword.php:243
 msgid "Reset"
-msgstr ""
+msgstr "أعد الضبط"
 
 #: actions/recoverpassword.php:252
 msgid "Enter a nickname or email address."
-msgstr ""
+msgstr "أدخل اسمًا مستعارًا أو عنوان بريد إلكتروني."
 
 #: actions/recoverpassword.php:272
 msgid "No user with that email address or username."
@@ -2298,7 +2295,7 @@ msgstr "سجّل"
 
 #: actions/register.php:135
 msgid "Registration not allowed."
-msgstr ""
+msgstr "لا يُسمح بالتسجيل."
 
 #: actions/register.php:198
 msgid "You can't register if you don't agree to the license."
@@ -2353,7 +2350,7 @@ msgstr ""
 
 #: actions/register.php:495
 msgid "Creative Commons Attribution 3.0"
-msgstr ""
+msgstr "المشاع المبدع نسبة المنصف إلى مؤلفه 3.0"
 
 #: actions/register.php:496
 msgid ""
@@ -2400,7 +2397,7 @@ msgstr "اشتراك بعيد"
 
 #: actions/remotesubscribe.php:124
 msgid "Subscribe to a remote user"
-msgstr ""
+msgstr "اشترك بمستخدم بعيد"
 
 #: actions/remotesubscribe.php:129
 msgid "User nickname"
@@ -2444,12 +2441,12 @@ msgstr ""
 #: lib/personalgroupnav.php:105
 #, php-format
 msgid "Replies to %s"
-msgstr ""
+msgstr "الردود على %s"
 
 #: actions/replies.php:127
 #, php-format
 msgid "Replies to %s, page %d"
-msgstr ""
+msgstr "الردود على %s، الصفحة %d"
 
 #: actions/replies.php:144
 #, php-format
@@ -2828,11 +2825,11 @@ msgstr ""
 
 #: actions/subedit.php:83
 msgid "Could not save subscription."
-msgstr ""
+msgstr "تعذّر حفظ الاشتراك."
 
 #: actions/subscribe.php:55
 msgid "Not a local user."
-msgstr ""
+msgstr "ليس مُستخدمًا محليًا."
 
 #: actions/subscribe.php:69
 msgid "Subscribed"
@@ -2841,12 +2838,12 @@ msgstr "مُشترك"
 #: actions/subscribers.php:50
 #, php-format
 msgid "%s subscribers"
-msgstr ""
+msgstr "مشتركو %s"
 
 #: actions/subscribers.php:52
 #, php-format
 msgid "%s subscribers, page %d"
-msgstr ""
+msgstr "مشتركو %s، الصفحة %d"
 
 #: actions/subscribers.php:63
 msgid "These are the people who listen to your notices."
@@ -2878,12 +2875,12 @@ msgstr ""
 #: actions/subscriptions.php:52
 #, php-format
 msgid "%s subscriptions"
-msgstr ""
+msgstr "اشتراكات %s"
 
 #: actions/subscriptions.php:54
 #, php-format
 msgid "%s subscriptions, page %d"
-msgstr ""
+msgstr "اشتراكات %s، الصفحة %d"
 
 #: actions/subscriptions.php:65
 msgid "These are the people whose notices you listen to."
@@ -2923,7 +2920,7 @@ msgstr "لست والجًا"
 
 #: actions/tagother.php:39
 msgid "No id argument."
-msgstr ""
+msgstr "لا مُدخل هوية."
 
 #: actions/tagother.php:65
 #, php-format
@@ -2995,7 +2992,7 @@ msgstr ""
 
 #: actions/unsubscribe.php:84
 msgid "No profile with that id."
-msgstr ""
+msgstr "لا ملف بهذه الهوية."
 
 #: actions/unsubscribe.php:98
 msgid "Unsubscribed"
@@ -3040,7 +3037,7 @@ msgstr "ارفض هذا الاشتراك"
 
 #: actions/userauthorization.php:225
 msgid "No authorization request!"
-msgstr ""
+msgstr "لا طلب استيثاق!"
 
 #: actions/userauthorization.php:247
 msgid "Subscription authorized"
@@ -3055,7 +3052,7 @@ msgstr ""
 
 #: actions/userauthorization.php:259
 msgid "Subscription rejected"
-msgstr ""
+msgstr "رُفض الاشتراك"
 
 #: actions/userauthorization.php:261
 msgid ""
@@ -3198,7 +3195,7 @@ msgstr "مشكلة أثناء حفظ الإشعار."
 msgid "DB error inserting reply: %s"
 msgstr ""
 
-#: classes/User.php:333
+#: classes/User.php:347
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
@@ -3258,7 +3255,7 @@ msgstr "الرئيسية"
 
 #: lib/action.php:430
 msgid "Personal profile and friends timeline"
-msgstr ""
+msgstr "الملف الشخصي ومسار الأصدقاء الزمني"
 
 #: lib/action.php:432
 msgid "Account"
@@ -3415,7 +3412,7 @@ msgstr ""
 
 #: lib/attachmentlist.php:87
 msgid "Attachments"
-msgstr ""
+msgstr "مرفقات"
 
 #: lib/attachmentlist.php:265
 msgid "Author"
@@ -3489,7 +3486,7 @@ msgstr ""
 #: lib/command.php:315
 #, php-format
 msgid "%1$s (%2$s)"
-msgstr ""
+msgstr "%1$s (%2$s)"
 
 #: lib/command.php:318
 #, php-format
@@ -3532,7 +3529,7 @@ msgstr "رُد على رسالة %s"
 
 #: lib/command.php:441
 msgid "Error saving notice."
-msgstr "خطأ أثناء حفظ الملاحظة."
+msgstr "خطأ أثناء حفظ الإشعار."
 
 #: lib/command.php:495
 msgid "Specify the name of the user to subscribe to"
@@ -3541,7 +3538,7 @@ msgstr ""
 #: lib/command.php:502
 #, php-format
 msgid "Subscribed to %s"
-msgstr ""
+msgstr "مُشترك ب%s"
 
 #: lib/command.php:523
 msgid "Specify the name of the user to unsubscribe from"
@@ -3729,15 +3726,15 @@ msgstr "استعيدت مبدئيات التصميم."
 
 #: lib/disfavorform.php:114 lib/disfavorform.php:140
 msgid "Disfavor this notice"
-msgstr ""
+msgstr "ألغِ تفضيل هذا الإشعار"
 
 #: lib/favorform.php:114 lib/favorform.php:140
 msgid "Favor this notice"
-msgstr ""
+msgstr "فضّل هذا الإشعار"
 
 #: lib/favorform.php:140
 msgid "Favor"
-msgstr ""
+msgstr "فضّل"
 
 #: lib/feedlist.php:64
 msgid "Export data"
@@ -3757,7 +3754,7 @@ msgstr "أتوم"
 
 #: lib/feed.php:91
 msgid "FOAF"
-msgstr ""
+msgstr "FOAF"
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"
@@ -3886,7 +3883,7 @@ msgstr ""
 
 #: lib/imagefile.php:150 lib/imagefile.php:197
 msgid "Unknown file type"
-msgstr ""
+msgstr "نوع ملف غير معروف"
 
 #: lib/jabber.php:192
 #, php-format
@@ -4002,7 +3999,7 @@ msgstr ""
 #: lib/mail.php:412
 #, php-format
 msgid "%s status"
-msgstr ""
+msgstr "حالة %s"
 
 #: lib/mail.php:438
 msgid "SMS confirmation"
@@ -4032,7 +4029,7 @@ msgstr ""
 #: lib/mail.php:509
 #, php-format
 msgid "New private message from %s"
-msgstr ""
+msgstr "رسالة خاصة جديدة من %s"
 
 #: lib/mail.php:513
 #, php-format
@@ -4153,7 +4150,7 @@ msgstr ""
 
 #: lib/messageform.php:120
 msgid "Send a direct notice"
-msgstr "أرسل ملاحظة مباشرة"
+msgstr "أرسل إشعارًا مباشرًا"
 
 #: lib/messageform.php:146
 msgid "To"
@@ -4214,11 +4211,11 @@ msgstr ""
 
 #: lib/oauthstore.php:311
 msgid "Error inserting remote profile"
-msgstr ""
+msgstr "خطأ أثناء إدراج الملف الشخصي البعيد"
 
 #: lib/oauthstore.php:345
 msgid "Duplicate notice"
-msgstr ""
+msgstr "ضاعف الإشعار"
 
 #: lib/oauthstore.php:487
 msgid "Couldn't insert new subscription."
@@ -4234,7 +4231,7 @@ msgstr "الردود"
 
 #: lib/personalgroupnav.php:114
 msgid "Favorites"
-msgstr "مفضلات"
+msgstr "المفضلات"
 
 #: lib/personalgroupnav.php:115
 msgid "User"
@@ -4254,7 +4251,7 @@ msgstr "صندوق الصادر"
 
 #: lib/personalgroupnav.php:130
 msgid "Your sent messages"
-msgstr ""
+msgstr "رسائلك المُرسلة"
 
 #: lib/personaltagcloudsection.php:56
 #, php-format
@@ -4319,11 +4316,11 @@ msgstr "ابحث في المساعدة"
 
 #: lib/searchgroupnav.php:80
 msgid "People"
-msgstr ""
+msgstr "أشخاص"
 
 #: lib/searchgroupnav.php:81
 msgid "Find people on this site"
-msgstr ""
+msgstr "ابحث عن أشخاص على هذا الموقع"
 
 #: lib/searchgroupnav.php:82
 msgid "Notice"
@@ -4348,17 +4345,17 @@ msgstr "المزيد..."
 #: lib/subgroupnav.php:83
 #, php-format
 msgid "People %s subscribes to"
-msgstr ""
+msgstr "الأشخاص الذين اشترك بهم %s"
 
 #: lib/subgroupnav.php:91
 #, php-format
 msgid "People subscribed to %s"
-msgstr ""
+msgstr "الأشخاص المشتركون ب%s"
 
 #: lib/subgroupnav.php:99
 #, php-format
 msgid "Groups %s is a member of"
-msgstr ""
+msgstr "المجموعات التي %s عضو فيها"
 
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
@@ -4376,7 +4373,7 @@ msgstr "(لا شيء)"
 
 #: lib/subs.php:48
 msgid "Already subscribed!"
-msgstr ""
+msgstr "مُشترك أصلا!"
 
 #: lib/subs.php:52
 msgid "User has blocked you."
@@ -4391,8 +4388,9 @@ msgid "Could not subscribe other to you."
 msgstr ""
 
 #: lib/subs.php:124
-msgid "Not subscribed!."
-msgstr ""
+#, fuzzy
+msgid "Not subscribed!"
+msgstr "لست مُشتركًا!"
 
 #: lib/subs.php:136
 msgid "Couldn't delete subscription."
@@ -4485,7 +4483,7 @@ msgstr "قبل سنة تقريبًا"
 #: lib/webcolor.php:82
 #, php-format
 msgid "%s is not a valid color!"
-msgstr ""
+msgstr "%s ليس لونًا صحيحًا!"
 
 #: lib/webcolor.php:123
 #, php-format
@@ -4494,7 +4492,7 @@ msgstr ""
 
 #: scripts/maildaemon.php:48
 msgid "Could not parse message."
-msgstr ""
+msgstr "تعذّر تحليل الرسالة."
 
 #: scripts/maildaemon.php:53
 msgid "Not a registered user."
@@ -4507,7 +4505,3 @@ msgstr ""
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr ""
-
-#, fuzzy
-#~ msgid "You are not allowed to change your password"
-#~ msgstr "غير كلمة سرّك"

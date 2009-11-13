@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-12 21:38+0000\n"
-"PO-Revision-Date: 2009-11-12 21:39:28+0000\n"
+"POT-Creation-Date: 2009-11-13 20:42+0000\n"
+"PO-Revision-Date: 2009-11-13 20:43:09+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58962); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r59023); Translate extension (2009-11-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: out-statusnet\n"
@@ -123,9 +123,8 @@ msgstr "Updates van %1$s en vrienden op %2$s."
 #: actions/apiaccountupdateprofilebackgroundimage.php:94
 #: actions/apiaccountupdateprofilecolors.php:118
 #: actions/apiaccountupdateprofile.php:97
-#, fuzzy
 msgid "API method not found."
-msgstr "De API-functie is niet aangetroffen!"
+msgstr "De API-functie is niet aangetroffen."
 
 #: actions/apiaccountupdatedeliverydevice.php:85
 #: actions/apiaccountupdateprofilebackgroundimage.php:86
@@ -145,11 +144,12 @@ msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
 "none"
 msgstr ""
+"U moet een parameter met de naam \"device\" opgeven met een waarde uit de "
+"volgende lijst: sms, im, none"
 
 #: actions/apiaccountupdatedeliverydevice.php:132
-#, fuzzy
 msgid "Could not update user."
-msgstr "Kon gebruiker niet actualiseren."
+msgstr "Het was niet mogelijk de gebruiker te actualiseren."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97
@@ -167,13 +167,11 @@ msgstr ""
 #: actions/apiaccountupdateprofilebackgroundimage.php:146
 #: actions/apiaccountupdateprofilecolors.php:164
 #: actions/apiaccountupdateprofilecolors.php:174
-#, fuzzy
 msgid "Unable to save your design settings."
-msgstr "Het was niet mogelijk om uw ontwerpinstellingen op te slaan!"
+msgstr "Het was niet mogelijk om uw ontwerpinstellingen op te slaan."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:187
 #: actions/apiaccountupdateprofilecolors.php:142
-#, fuzzy
 msgid "Could not update your design."
 msgstr "Het was niet mogelijk uw ontwerp bij te werken."
 
@@ -187,9 +185,8 @@ msgid "User has no profile."
 msgstr "Deze gebruiker heeft geen profiel."
 
 #: actions/apiaccountupdateprofile.php:147
-#, fuzzy
 msgid "Could not save profile."
-msgstr "Het profiel kon niet opgeslagen worden."
+msgstr "Het was niet mogelijk het profiel op te slaan."
 
 #: actions/apiblockcreate.php:108
 msgid "Block user failed."
@@ -1874,7 +1871,7 @@ msgstr ""
 "newnotice%%%%?status_textarea=%s)!"
 
 #: actions/noticesearch.php:124
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and be the first to "
 "[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
@@ -1948,7 +1945,7 @@ msgstr "Overige instellingen beheren."
 
 #: actions/othersettings.php:108
 msgid " (free service)"
-msgstr ""
+msgstr " (gratis dienst)"
 
 #: actions/othersettings.php:116
 msgid "Shorten URLs with"
@@ -3482,7 +3479,7 @@ msgid "DB error inserting reply: %s"
 msgstr ""
 "Er is een databasefout opgetreden bij het invoegen van het antwoord: %s"
 
-#: classes/User.php:333
+#: classes/User.php:347
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Welkom bij %1$s, @%2$s!"
@@ -3607,7 +3604,7 @@ msgstr "Kennisgeving van site"
 
 #: lib/action.php:546
 msgid "Local views"
-msgstr ""
+msgstr "Lokale weergaven"
 
 #: lib/action.php:612
 msgid "Page notice"
@@ -4188,7 +4185,7 @@ msgstr "Groepen met de meeste berichten"
 #: lib/grouptagcloudsection.php:56
 #, php-format
 msgid "Tags in %s group's notices"
-msgstr ""
+msgstr "Labels in de groepsmededelingen van %s"
 
 #: lib/htmloutputter.php:104
 msgid "This page is not available in a media type you accept"
@@ -4226,7 +4223,7 @@ msgstr "Onbekend bestandstype"
 #: lib/jabber.php:192
 #, php-format
 msgid "[%s]"
-msgstr ""
+msgstr "[%s]"
 
 #: lib/joinform.php:114
 msgid "Join"
@@ -4822,7 +4819,8 @@ msgid "Could not subscribe other to you."
 msgstr "Het was niet mogelijk om een ander op u te laten abonneren"
 
 #: lib/subs.php:124
-msgid "Not subscribed!."
+#, fuzzy
+msgid "Not subscribed!"
 msgstr "Niet geabonneerd!"
 
 #: lib/subs.php:136
@@ -4938,9 +4936,3 @@ msgstr "Dit is niet uw inkomende e-mailadres."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Inkomende e-mail is niet toegestaan."
-
-#~ msgid "You are not allowed to change your password"
-#~ msgstr "U mag uw wachtwoord niet wijzigen"
-
-#~ msgid "notice id: %s"
-#~ msgstr "mededelingennummer: %s"

@@ -5,12 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-12 21:38+0000\n"
-"PO-Revision-Date: 2009-11-12 21:38:39+0000\n"
+"POT-Creation-Date: 2009-11-13 20:42+0000\n"
+"PO-Revision-Date: 2009-11-13 20:42:21+0000\n"
 "Language-Team: Catalan\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58962); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r59023); Translate extension (2009-11-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: out-statusnet\n"
@@ -3427,7 +3427,7 @@ msgstr "Problema en guardar l'avís."
 msgid "DB error inserting reply: %s"
 msgstr "Error de BD en inserir resposta: %s"
 
-#: classes/User.php:333
+#: classes/User.php:347
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Missatge per a %1$s a %2$s"
@@ -4661,7 +4661,8 @@ msgid "Could not subscribe other to you."
 msgstr "No pots subscriure a un altre a tu mateix."
 
 #: lib/subs.php:124
-msgid "Not subscribed!."
+#, fuzzy
+msgid "Not subscribed!"
 msgstr "No estàs subscrit!"
 
 #: lib/subs.php:136
@@ -4779,10 +4780,3 @@ msgstr "Perdó, aquest no és el teu correu electrònic entrant permès."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Perdó, no hi ha un correu electrònic entrant permès."
-
-#, fuzzy
-#~ msgid "You are not allowed to change your password"
-#~ msgstr "Canviar la teva contrasenya"
-
-#~ msgid "notice id: %s"
-#~ msgstr "Nou avís"

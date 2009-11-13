@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-12 21:38+0000\n"
-"PO-Revision-Date: 2009-11-12 21:39:55+0000\n"
+"POT-Creation-Date: 2009-11-13 20:42+0000\n"
+"PO-Revision-Date: 2009-11-13 20:43:36+0000\n"
 "Language-Team: Simplified Chinese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58962); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r59023); Translate extension (2009-11-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: out-statusnet\n"
@@ -3393,7 +3393,7 @@ msgstr "保存通告时出错。"
 msgid "DB error inserting reply: %s"
 msgstr "添加回复时数据库出错：%s"
 
-#: classes/User.php:333
+#: classes/User.php:347
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "发送给 %1$s 的 %2$s 消息"
@@ -4658,7 +4658,8 @@ msgid "Could not subscribe other to you."
 msgstr "无法订阅他人更新。"
 
 #: lib/subs.php:124
-msgid "Not subscribed!."
+#, fuzzy
+msgid "Not subscribed!"
 msgstr "未订阅！"
 
 #: lib/subs.php:136
@@ -4782,10 +4783,3 @@ msgstr "对不起，这个发布用的电子邮件属于其他用户。"
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "对不起，发布用的电子邮件无法使用。"
-
-#, fuzzy
-#~ msgid "You are not allowed to change your password"
-#~ msgstr "修改密码"
-
-#~ msgid "notice id: %s"
-#~ msgstr "新通告"
