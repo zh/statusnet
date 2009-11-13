@@ -528,12 +528,12 @@ EndCheckPassword: After checking a username/password pair
 - $authenticatedUser: User object if credentials match a user, else null.
 
 StartChangePassword: Before changing a password
-- $nickname: user's nickname
+- $user: user
 - $oldpassword: the user's old password
 - $newpassword: the desired new password
 
 EndChangePassword: After changing a password
-- $nickname: user's nickname
+- $user: user
 
 UserDeleteRelated: Specify additional tables to delete entries from when deleting users
 - $user: User object

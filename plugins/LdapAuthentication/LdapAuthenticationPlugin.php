@@ -48,20 +48,31 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
     public $scope=null;
     public $attributes=array();
 
-    function __construct()
-    {
-        parent::__construct();
+    function onInitializePlugin(){
+        parent::onInitializePlugin();
+        if(!isset($this->host)){
+            throw new Exception("must specify a host");
+        }
+        if(!isset($this->basedn)){
+            throw new Exception("must specify a basedn");
+        }
+        if(!isset($this->attributes['nickname'])){
+            throw new Exception("must specify a nickname attribute");
+        }
+        if(!isset($this->attributes['username'])){
+            throw new Exception("must specify a username attribute");
+        }
     }
     
     //---interface implementation---//
 
-    function checkPassword($nickname, $password)
+    function checkPassword($username, $password)
     {
         $ldap = $this->ldap_get_connection();
         if(!$ldap){
             return false;
         }
-        $entry = $this->ldap_get_user($nickname);
+        $entry = $this->ldap_get_user($username);
         if(!$entry){
             return false;
         }else{
@@ -76,47 +87,32 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
         }
     }
 
-    function autoRegister($nickname)
+    function autoRegister($username)
     {
-        $entry = $this->ldap_get_user($nickname,$this->attributes);
+        $entry = $this->ldap_get_user($username,$this->attributes);
         if($entry){
             $registration_data = array();
             foreach($this->attributes as $sn_attribute=>$ldap_attribute){
-                if($sn_attribute=='email'){
-                    $registration_data[$sn_attribute]=common_canonical_email($entry->getValue($ldap_attribute,'single'));
-                }else if($sn_attribute=='nickname'){
-                    $registration_data[$sn_attribute]=common_canonical_nickname($entry->getValue($ldap_attribute,'single'));
-                }else{
-                    $registration_data[$sn_attribute]=$entry->getValue($ldap_attribute,'single');
-                }
+                $registration_data[$sn_attribute]=$entry->getValue($ldap_attribute,'single');
+            }
+            if(isset($registration_data['email']) && !empty($registration_data['email'])){
+                $registration_data['email_confirmed']=true;
             }
             //set the database saved password to a random string.
             $registration_data['password']=common_good_rand(16);
-            $user = User::register($registration_data);
-            return true;
+            return User::register($registration_data);
         }else{
             //user isn't in ldap, so we cannot register him
-            return null;
+            return false;
         }
     }
 
-    function changePassword($nickname,$oldpassword,$newpassword)
+    function changePassword($username,$oldpassword,$newpassword)
     {
         //TODO implement this
         throw new Exception(_('Sorry, changing LDAP passwords is not supported at this time'));
 
         return false;
-    }
-
-    function canUserChangeField($nickname, $field)
-    {
-        switch($field)
-        {
-            case 'password':
-            case 'nickname':
-            case 'email':
-                return false;
-        }
     }
     
     //---utility functions---//
@@ -159,7 +155,7 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
      */
     function ldap_get_user($username,$attributes=array()){
         $ldap = $this->ldap_get_connection();
-        $filter = Net_LDAP2_Filter::create($this->attributes['nickname'], 'equals',  $username);
+        $filter = Net_LDAP2_Filter::create($this->attributes['username'], 'equals',  $username);
         $options = array(
             'scope' => 'sub',
             'attributes' => $attributes

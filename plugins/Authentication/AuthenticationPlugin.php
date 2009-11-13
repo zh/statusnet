@@ -49,19 +49,19 @@ abstract class AuthenticationPlugin extends Plugin
     public $autoregistration = false;
 
     //can the user change their email address
-    public $email_changeable=true;
-
-    //can the user change their email address
     public $password_changeable=true;
+
+    //unique name for this authentication provider
+    public $provider_name;
 
     //------------Auth plugin should implement some (or all) of these methods------------\\
     /**
     * Check if a nickname/password combination is valid
-    * @param nickname
+    * @param username
     * @param password
     * @return boolean true if the credentials are valid, false if they are invalid.
     */
-    function checkPassword($nickname, $password)
+    function checkPassword($username, $password)
     {
         return false;
     }
@@ -69,88 +69,116 @@ abstract class AuthenticationPlugin extends Plugin
     /**
     * Automatically register a user when they attempt to login with valid credentials.
     * User::register($data) is a very useful method for this implementation
-    * @param nickname
-    * @return boolean true if the user was created, false if autoregistration is not allowed, null if this plugin is not responsible for this nickname
+    * @param username
+    * @return boolean true if the user was created, false if not
     */
-    function autoRegister($nickname)
+    function autoRegister($username)
     {
-        return null;
+        $registration_data = array();
+        $registration_data['nickname'] = $username ;
+        return User::register($registration_data);
     }
 
     /**
     * Change a user's password
     * The old password has been verified to be valid by this plugin before this call is made
-    * @param nickname
+    * @param username
     * @param oldpassword
     * @param newpassword
-    * @return boolean true if the password was changed, false if password changing failed for some reason, null if this plugin is not responsible for this nickname
+    * @return boolean true if the password was changed, false if password changing failed for some reason
     */
-    function changePassword($nickname,$oldpassword,$newpassword)
+    function changePassword($username,$oldpassword,$newpassword)
     {
-        return null;
-    }
-
-    /**
-    * Can a user change this field in his own profile?
-    * @param nickname
-    * @param field
-    * @return boolean true if the field can be changed, false if not allowed to change it, null if this plugin is not responsible for this nickname
-    */
-    function canUserChangeField($nickname, $field)
-    {
-        return null;
+        return false;
     }
 
     //------------Below are the methods that connect StatusNet to the implementing Auth plugin------------\\
-    function __construct()
-    {
-        parent::__construct();
-    }
-    
-    function onStartCheckPassword($nickname, $password, &$authenticatedUser){
-        if($this->password_changeable){
-            $authenticated = $this->checkPassword($nickname, $password);
-            if($authenticated){
-                $authenticatedUser = User::staticGet('nickname', $nickname);
-                if(!$authenticatedUser && $this->autoregistration){
-                    if($this->autoregister($nickname)){
-                        $authenticatedUser = User::staticGet('nickname', $nickname);
-                    }
-                }
-                return false;
-            }else{
-                if($this->authoritative){
-                    return false;
-                }
-            }
-            //we're not authoritative, so let other handlers try
-        }else{
-            if($this->authoritative){
-                //since we're authoritative, no other plugin could do this
-                throw new Exception(_('Password changing is not allowed'));
-            }
+    function onInitializePlugin(){
+        if(!isset($this->provider_name)){
+            throw new Exception("must specify a provider_name for this authentication provider");
         }
     }
 
-    function onStartChangePassword($nickname,$oldpassword,$newpassword)
-    {
-        if($this->password_changeable){
-            $authenticated = $this->checkPassword($nickname, $oldpassword);
+    function onStartCheckPassword($nickname, $password, &$authenticatedUser){
+        //map the nickname to a username
+        $user_username = new User_username();
+        $user_username->username=$nickname;
+        $user_username->provider_name=$this->provider_name;
+        if($user_username->find() && $user_username->fetch()){
+            $username = $user_username->username;
+            $authenticated = $this->checkPassword($username, $password);
             if($authenticated){
-                $result = $this->changePassword($nickname,$oldpassword,$newpassword);
-                if($result){
-                    //stop handling of other handlers, because what was requested was done
-                    return false;
-                }else{
-                    throw new Exception(_('Password changing failed'));
+                $authenticatedUser = User::staticGet('id', $user_username->user_id);
+                return false;
+            }
+        }else{
+            $user = User::staticGet('nickname', $nickname);
+            if($user){
+                //make sure a different provider isn't handling this nickname
+                $user_username = new User_username();
+                $user_username->username=$nickname;
+                if(!$user_username->find()){
+                    //no other provider claims this username, so it's safe for us to handle it
+                    $authenticated = $this->checkPassword($nickname, $password);
+                    if($authenticated){
+                        $authenticatedUser = User::staticGet('nickname', $nickname);
+                        $user_username = new User_username();
+                        $user_username->user_id = $authenticatedUser->id;
+                        $user_username->provider_name = $this->provider_name;
+                        $user_username->username = $nickname;
+                        $user_username->created = DB_DataObject_Cast::dateTime();
+                        $user_username->insert();
+                        return false;
+                    }
                 }
             }else{
-                if($this->authoritative){
-                    //since we're authoritative, no other plugin could do this
-                    throw new Exception(_('Password changing failed'));
+                if($this->autoregistration){
+                    $authenticated = $this->checkPassword($nickname, $password);
+                    if($authenticated && $this->autoregister($nickname)){
+                        $authenticatedUser = User::staticGet('nickname', $nickname);
+                        $user_username = new User_username();
+                        $user_username->user_id = $authenticatedUser->id;
+                        $user_username->provider_name = $this->provider_name;
+                        $user_username->username = $nickname;
+                        $user_username->created = DB_DataObject_Cast::dateTime();
+                        $user_username->insert();
+                        return false;
+                    }
+                }
+            }
+        }
+        if($this->authoritative){
+            return false;
+        }else{
+            //we're not authoritative, so let other handlers try
+            return;
+        }
+    }
+
+    function onStartChangePassword($user,$oldpassword,$newpassword)
+    {
+        if($this->password_changeable){
+            $user_username = new User_username();
+            $user_username->user_id=$user->id;
+            $user_username->provider_name=$this->provider_name;
+            if($user_username->find() && $user_username->fetch()){
+                $authenticated = $this->checkPassword($user_username->username, $oldpassword);
+                if($authenticated){
+                    $result = $this->changePassword($user_username->username,$oldpassword,$newpassword);
+                    if($result){
+                        //stop handling of other handlers, because what was requested was done
+                        return false;
+                    }else{
+                        throw new Exception(_('Password changing failed'));
+                    }
                 }else{
-                    //let another handler try
-                    return null;
+                    if($this->authoritative){
+                        //since we're authoritative, no other plugin could do this
+                        throw new Exception(_('Password changing failed'));
+                    }else{
+                        //let another handler try
+                        return null;
+                    }
                 }
             }
         }else{
@@ -164,9 +192,42 @@ abstract class AuthenticationPlugin extends Plugin
     function onStartAccountSettingsPasswordMenuItem($widget)
     {
         if($this->authoritative && !$this->password_changeable){
-            //since we're authoritative, no other plugin could change passwords, so do render the menu item
+            //since we're authoritative, no other plugin could change passwords, so do not render the menu item
             return false;
         }
+    }
+
+    function onAutoload($cls)
+    {
+        switch ($cls)
+        {
+         case 'User_username':
+            require_once(INSTALLDIR.'/plugins/Authentication/User_username.php');
+            return false;
+         default:
+            return true;
+        }
+    }
+
+    function onCheckSchema() {
+        $schema = Schema::get();
+        $schema->ensureTable('user_username',
+                             array(new ColumnDef('provider_name', 'varchar',
+                                                 '255', false, 'PRI'),
+                                   new ColumnDef('username', 'varchar',
+                                                 '255', false, 'PRI'),
+                                   new ColumnDef('user_id', 'integer',
+                                                 null, false),
+                                   new ColumnDef('created', 'datetime',
+                                                 null, false),
+                                   new ColumnDef('modified', 'timestamp')));
+        return true;
+    }
+
+    function onUserDeleteRelated($user, &$tables)
+    {
+        $tables[] = 'User_username';
+        return true;
     }
 }
 
