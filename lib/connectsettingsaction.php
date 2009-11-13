@@ -116,6 +116,9 @@ class ConnectSettingsNav extends Widget
                         _('Updates by SMS'));
             }
 
+	    $menu['applicationsettings'] = array(_('Applications'),
+						 _('OAuth connected applications'));
+
             foreach ($menu as $menuaction => $menudesc) {
                 $this->action->menuItem(common_local_url($menuaction),
                         $menudesc[0],
@@ -130,5 +133,4 @@ class ConnectSettingsNav extends Widget
     }
 
 }
-
 
