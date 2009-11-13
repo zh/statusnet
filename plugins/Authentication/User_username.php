@@ -22,4 +22,25 @@ class User_username extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+    /**
+    * Register a user with a username on a given provider
+    * @param User User object
+    * @param string username on the given provider
+    * @param provider_name string name of the provider
+    * @return mixed User_username instance if the registration succeeded, false if it did not
+    */
+    static function register($user, $username, $provider_name)
+    {
+        $user_username = new User_username();
+        $user_username->user_id = $user->id;
+        $user_username->provider_name = $provider_name;
+        $user_username->username = $username;
+        $user_username->created = DB_DataObject_Cast::dateTime();
+        if($user_username->insert()){
+            return $user_username;
+        }else{
+            return false;
+        }
+    }
 }

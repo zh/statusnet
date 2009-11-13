@@ -122,12 +122,7 @@ abstract class AuthenticationPlugin extends Plugin
                     $authenticated = $this->checkPassword($nickname, $password);
                     if($authenticated){
                         $authenticatedUser = User::staticGet('nickname', $nickname);
-                        $user_username = new User_username();
-                        $user_username->user_id = $authenticatedUser->id;
-                        $user_username->provider_name = $this->provider_name;
-                        $user_username->username = $nickname;
-                        $user_username->created = DB_DataObject_Cast::dateTime();
-                        $user_username->insert();
+                        User_username::register($authenticatedUser,$nickname,$this->provider_name);
                         return false;
                     }
                 }
@@ -138,12 +133,7 @@ abstract class AuthenticationPlugin extends Plugin
                         $user = $this->autoregister($nickname);
                         if($user){
                             $authenticatedUser = $user;
-                            $user_username = new User_username();
-                            $user_username->user_id = $authenticatedUser->id;
-                            $user_username->provider_name = $this->provider_name;
-                            $user_username->username = $nickname;
-                            $user_username->created = DB_DataObject_Cast::dateTime();
-                            $user_username->insert();
+                            User_username::register($authenticatedUser,$nickname,$this->provider_name);
                             return false;
                         }
                     }
