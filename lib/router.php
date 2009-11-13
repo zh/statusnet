@@ -140,10 +140,12 @@ class Router
 
             // settings
 
-            foreach (array('profile', 'avatar', 'password', 'im',
+            foreach (array('profile', 'avatar', 'password', 'im', 'application',
                            'email', 'sms', 'userdesign', 'other') as $s) {
                 $m->connect('settings/'.$s, array('action' => $s.'settings'));
             }
+
+	    $m->connect('settings/oauthclients', array('action' => 'oauthclients'));
 
             // search
 

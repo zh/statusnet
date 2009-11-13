@@ -352,6 +352,29 @@ class Profile extends Memcached_DataObject
         return $profile;
     }
 
+    function getApplications($offset = 0, $limit = null)
+    {
+        $qry =
+          'SELECT oauth_application_user.* ' .
+          'FROM oauth_application_user ' .
+          'WHERE profile_id = %d ' .
+          'ORDER BY created DESC ';
+
+        if ($offset > 0) {
+            if (common_config('db','type') == 'pgsql') {
+                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+            } else {
+                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+            }
+        }
+
+        $application = new Oauth_application();
+
+        $cnt = $application->query(sprintf($qry, $this->id));
+
+        return $application;
+    }
+
     function subscriptionCount()
     {
         $c = common_memcache();
