@@ -228,6 +228,7 @@ var SN = { // StatusNet
                                 $('#'+notice.id).fadeIn(2500);
                                 SN.U.NoticeAttachments();
                                 SN.U.NoticeReply();
+                                SN.U.NoticeFavor();
                              }
                         }
                         $('#'+form_id+' #'+SN.C.S.NoticeDataText).val('');
@@ -274,6 +275,11 @@ var SN = { // StatusNet
                 }
             }
             return true;
+        },
+
+        NoticeFavor: function() {
+            $('.form_favor').each(function() { SN.U.FormXHR($(this)); });
+            $('.form_disfavor').each(function() { SN.U.FormXHR($(this)); });
         },
 
         NoticeAttachments: function() {
@@ -386,8 +392,7 @@ var SN = { // StatusNet
 
         Notices: function() {
             if ($('body.user_in').length > 0) {
-                $('.form_favor').each(function() { SN.U.FormXHR($(this)); });
-                $('.form_disfavor').each(function() { SN.U.FormXHR($(this)); });
+                SN.U.NoticeFavor();
 
                 SN.U.NoticeReply();
             }
