@@ -46,7 +46,7 @@ require_once INSTALLDIR . '/lib/applicationlist.php';
  * @see      SettingsAction
  */
 
-class ApplicationSettingsAction extends ConnectSettingsAction
+class OauthconnectionssettingsAction extends ConnectSettingsAction
 {
     /**
      * Title of the page
@@ -95,7 +95,7 @@ class ApplicationSettingsAction extends ConnectSettingsAction
         }
 
         $this->pagination($this->page > 1, $cnt > APPS_PER_PAGE,
-                          $this->page, 'applicationsettings',
+                          $this->page, 'connectionssettings',
                           array('nickname' => $this->user->nickname));
     }
 
