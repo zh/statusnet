@@ -6,12 +6,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-13 20:42+0000\n"
-"PO-Revision-Date: 2009-11-13 20:43:25+0000\n"
+"POT-Creation-Date: 2009-11-14 21:06+0000\n"
+"PO-Revision-Date: 2009-11-14 21:08:06+0000\n"
 "Language-Team: Telugu\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59023); Translate extension (2009-11-13)\n"
+"X-Generator: MediaWiki 1.16alpha(r59079); Translate extension (2009-11-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: te\n"
 "X-Message-Group: out-statusnet\n"
@@ -76,7 +76,7 @@ msgstr "%s యొక్క మిత్రుల ఫీడు (ఆటమ్)"
 #, php-format
 msgid ""
 "This is the timeline for %s and friends but no one has posted anything yet."
-msgstr ""
+msgstr "ఇది %s మరియు మిత్రుల కాలరేఖ కానీ ఇంకా ఎవరూ ఏమీ రాయలేదు."
 
 #: actions/all.php:132
 #, php-format
@@ -246,9 +246,8 @@ msgid "No status found with that ID."
 msgstr ""
 
 #: actions/apifavoritecreate.php:119
-#, fuzzy
 msgid "This status is already a favorite!"
-msgstr "అది ఇప్పటికే మీ ఈమెయిల్ చిరునామా."
+msgstr "ఈ నోటీసు ఇప్పటికే మీ ఇష్టాంశం!"
 
 #: actions/apifavoritecreate.php:130 actions/favor.php:84 lib/command.php:176
 msgid "Could not create favorite."
@@ -807,7 +806,7 @@ msgstr ""
 
 #: actions/disfavor.php:94
 msgid "Add to favorites"
-msgstr ""
+msgstr "ఇష్టాంశాలకు చేర్చు"
 
 #: actions/doc.php:69
 msgid "No such document."
@@ -1061,7 +1060,7 @@ msgstr ""
 #: lib/personalgroupnav.php:115
 #, php-format
 msgid "%s's favorite notices"
-msgstr ""
+msgstr "%sకి ఇష్టమైన నోటీసులు"
 
 #: actions/favoritesrss.php:115
 #, fuzzy, php-format
@@ -1151,9 +1150,8 @@ msgid "No such file."
 msgstr "అటువంటి ఫైలు లేదు."
 
 #: actions/getfile.php:79
-#, fuzzy
 msgid "Cannot read file."
-msgstr "అటువంటి సందేశమేమీ లేదు."
+msgstr "ఫైలుని చదవలేకపోతున్నాం."
 
 #: actions/groupblock.php:81 actions/groupunblock.php:81
 #: actions/makeadmin.php:81
@@ -1162,7 +1160,7 @@ msgstr ""
 
 #: actions/groupblock.php:91
 msgid "Only an admin can block group members."
-msgstr ""
+msgstr "నిర్వాహకులు మాత్రమే గుంపు సభ్యులను నిరోధించగలరు."
 
 #: actions/groupblock.php:95
 msgid "User is already blocked from group."
@@ -1170,12 +1168,11 @@ msgstr "వాడుకరిని ఇప్పటికే గుంపున�
 
 #: actions/groupblock.php:100
 msgid "User is not a member of group."
-msgstr ""
+msgstr "వాడుకరి ఈ గుంపులో సభ్యులు కాదు."
 
 #: actions/groupblock.php:136 actions/groupmembers.php:314
-#, fuzzy
 msgid "Block user from group"
-msgstr "అటువంటి వాడుకరి లేరు."
+msgstr "వాడుకరిని గుంపు నుండి నిరోధించు"
 
 #: actions/groupblock.php:162
 #, php-format
@@ -1204,7 +1201,7 @@ msgstr ""
 
 #: actions/groupdesignsettings.php:68
 msgid "You must be logged in to edit a group."
-msgstr ""
+msgstr "గుంపుని మార్చడానికి మీరు ప్రవేశించి ఉండాలి."
 
 #: actions/groupdesignsettings.php:141
 msgid "Group design"
@@ -1610,7 +1607,7 @@ msgstr "ఓపెన్ఐడీ ఫారమును సృష్టించ�
 #: actions/leavegroup.php:134 lib/command.php:289
 #, php-format
 msgid "%s left group %s"
-msgstr ""
+msgstr "%2$s గుంపు నుండి %1$s వైదొలిగారు"
 
 #: actions/login.php:79 actions/register.php:137
 msgid "Already logged in."
@@ -2011,14 +2008,13 @@ msgid "URL of your homepage, blog, or profile on another site"
 msgstr "మీ హోమ్ పేజీ, బ్లాగు, లేదా వేరే సేటులోని మీ ప్రొఫైలు యొక్క చిరునామా"
 
 #: actions/profilesettings.php:122 actions/register.php:460
-#, fuzzy, php-format
+#, php-format
 msgid "Describe yourself and your interests in %d chars"
-msgstr "మీ గురించి మరియు మీ ఆసక్తుల గురించి 140 అక్షరాల్లో చెప్పండి"
+msgstr "మీ గురించి మరియు మీ ఆసక్తుల గురించి %d అక్షరాల్లో చెప్పండి"
 
 #: actions/profilesettings.php:125 actions/register.php:463
-#, fuzzy
 msgid "Describe yourself and your interests"
-msgstr "మీ గురించి మరియు మీ ఆసక్తుల గురించి 140 అక్షరాల్లో చెప్పండి"
+msgstr "మీ గురించి మరియు మీ ఆసక్తుల గురించి చెప్పండి"
 
 #: actions/profilesettings.php:127 actions/register.php:465
 msgid "Bio"
@@ -2242,7 +2238,7 @@ msgstr ""
 
 #: actions/recoverpassword.php:191
 msgid "Nickname or email address"
-msgstr ""
+msgstr "ముద్దుపేరు లేదా ఈమెయిలు చిరునామా"
 
 #: actions/recoverpassword.php:193
 msgid "Your nickname on this server, or your registered email address."
@@ -2320,7 +2316,7 @@ msgstr "మీ కొత్త సంకేతపదం భద్రమైంద
 
 #: actions/register.php:85 actions/register.php:189 actions/register.php:404
 msgid "Sorry, only invited people can register."
-msgstr ""
+msgstr "క్షమించండి, ఆహ్వానితులు మాత్రమే నమోదుకాగలరు."
 
 #: actions/register.php:92
 #, fuzzy
@@ -2372,7 +2368,7 @@ msgstr "6 లేదా అంతకంటే ఎక్కువ అక్షర�
 
 #: actions/register.php:433
 msgid "Same as password above. Required."
-msgstr ""
+msgstr "పై సంకేతపదం మరోసారి. తప్పనిసరి."
 
 #: actions/register.php:437 actions/register.php:441
 #: lib/accountsettingsaction.php:120
@@ -2385,7 +2381,7 @@ msgstr "తాజా విశేషాలు, ప్రకటనలు, మర�
 
 #: actions/register.php:449
 msgid "Longer name, preferably your \"real\" name"
-msgstr ""
+msgstr "పొడుగాటి పేరు, మీ \"అసలు\" పేరైతే మంచిది"
 
 #: actions/register.php:493
 msgid "My text and files are available under "
@@ -3427,13 +3423,13 @@ msgid "StatusNet software license"
 msgstr ""
 
 #: lib/action.php:767
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
 "broughtby%%](%%site.broughtbyurl%%). "
 msgstr ""
-"[%%site.broughtby%%](%%site.broughtbyurl%%) వారు అందిస్తున్న ఈ **%%site.name%%** "
-"అనేది మైక్రో బ్లాగింగు సదుపాయం."
+"**%%site.name%%** అనేది [%%site.broughtby%%](%%site.broughtbyurl%%) వారు "
+"అందిస్తున్న మైక్రో బ్లాగింగు సదుపాయం. "
 
 #: lib/action.php:769
 #, php-format
@@ -3447,6 +3443,9 @@ msgid ""
 "s, available under the [GNU Affero General Public License](http://www.fsf."
 "org/licensing/licenses/agpl-3.0.html)."
 msgstr ""
+"ఇది [గ్నూ ఆఫెరో జెనరల్ పబ్లిక్ లైసెన్సు](http://www.fsf.org/licensing/licenses/agpl-3.0."
+"html) కింద లభ్యమయ్యే [స్టేటస్&zwnj;నెట్](http://status.net/) మైక్రోబ్లాగింగ్ ఉపకరణం సంచిక %s "
+"పై నడుస్తుంది."
 
 #: lib/action.php:785
 #, fuzzy
@@ -3461,19 +3460,19 @@ msgstr "అన్నీ "
 msgid "license."
 msgstr ""
 
-#: lib/action.php:1053
+#: lib/action.php:1052
 msgid "Pagination"
 msgstr "పేజీకరణ"
 
-#: lib/action.php:1062
+#: lib/action.php:1061
 msgid "After"
 msgstr "తర్వాత"
 
-#: lib/action.php:1070
+#: lib/action.php:1069
 msgid "Before"
 msgstr "ఇంతక్రితం"
 
-#: lib/action.php:1119
+#: lib/action.php:1117
 msgid "There was a problem with your session token."
 msgstr ""
 
@@ -3588,7 +3587,7 @@ msgstr ""
 #: lib/command.php:431
 #, php-format
 msgid "Notice too long - maximum is %d characters, you sent %d"
-msgstr ""
+msgstr "నోటిసు చాలా పొడవుగా ఉంది - %d అక్షరాలు గరిష్ఠం, మీరు %d పంపించారు"
 
 #: lib/command.php:439
 #, fuzzy, php-format
@@ -3684,20 +3683,20 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:189
+#: lib/common.php:192
 #, fuzzy
 msgid "No configuration file found. "
 msgstr "నిర్ధారణ సంకేతం లేదు."
 
-#: lib/common.php:190
+#: lib/common.php:193
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:191
+#: lib/common.php:194
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:192
+#: lib/common.php:195
 msgid "Go to the installer."
 msgstr ""
 
@@ -4359,9 +4358,8 @@ msgid "All subscribers"
 msgstr "అందరు చందాదార్లు"
 
 #: lib/profileaction.php:177
-#, fuzzy
 msgid "User ID"
-msgstr "వాడుకరి"
+msgstr "వాడుకరి ID"
 
 #: lib/profileaction.php:182
 msgid "Member since"
@@ -4443,7 +4441,7 @@ msgstr "%sకి స్పందనలు"
 #: lib/subgroupnav.php:99
 #, php-format
 msgid "Groups %s is a member of"
-msgstr ""
+msgstr "%s సభ్యులుగా ఉన్న గుంపులు"
 
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
@@ -4464,9 +4462,8 @@ msgid "Already subscribed!"
 msgstr ""
 
 #: lib/subs.php:52
-#, fuzzy
 msgid "User has blocked you."
-msgstr "వాడుకరికి ప్రొఫైలు లేదు."
+msgstr "వాడుకరి మిమ్మల్ని నిరోధించారు."
 
 #: lib/subs.php:56
 msgid "Could not subscribe."
@@ -4499,7 +4496,7 @@ msgstr ""
 
 #: lib/unsubscribeform.php:137
 msgid "Unsubscribe"
-msgstr ""
+msgstr "చందామాను"
 
 #: lib/userprofile.php:116
 msgid "Edit Avatar"
@@ -4571,9 +4568,9 @@ msgid "about a year ago"
 msgstr "ఒక సంవత్సరం క్రితం"
 
 #: lib/webcolor.php:82
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not a valid color!"
-msgstr "హోమ్ పేజీ URL సరైనది కాదు."
+msgstr "%s అనేది సరైన రంగు కాదు!"
 
 #: lib/webcolor.php:123
 #, php-format
