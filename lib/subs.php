@@ -121,7 +121,7 @@ function subs_unsubscribe_user($user, $other_nickname)
 function subs_unsubscribe_to($user, $other)
 {
     if (!$user->isSubscribed($other))
-        return _('Not subscribed!.');
+        return _('Not subscribed!');
 
     $sub = DB_DataObject::factory('subscription');
 

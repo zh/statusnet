@@ -528,13 +528,27 @@ EndCheckPassword: After checking a username/password pair
 - $authenticatedUser: User object if credentials match a user, else null.
 
 StartChangePassword: Before changing a password
-- $nickname: user's nickname
+- $user: user
 - $oldpassword: the user's old password
 - $newpassword: the desired new password
 
 EndChangePassword: After changing a password
-- $nickname: user's nickname
+- $user: user
 
 UserDeleteRelated: Specify additional tables to delete entries from when deleting users
 - $user: User object
 - &$related: array of DB_DataObject class names to delete entries on matching user_id.
+
+GetUrlShorteners: Specify URL shorteners that are available for use
+- &$shorteners: append your shortener to this array like so: $shorteners[shortenerName]=array('display'=>display, 'freeService'=>boolean)
+
+StartShortenUrl: About to shorten a URL
+- $url: url to be shortened
+- $shortenerName: name of the requested shortener
+- &$shortenedUrl: short version of the url
+
+EndShortenUrl: After a URL has been shortened
+- $url: url to be shortened
+- $shortenerName: name of the requested shortener
+- $shortenedUrl: short version of the url
+

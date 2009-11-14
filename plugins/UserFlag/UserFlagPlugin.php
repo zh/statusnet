@@ -140,4 +140,12 @@ class UserFlagPlugin extends Plugin
 
         return true;
     }
+
+    function onEndShowScripts($action)
+    {
+        $action->elementStart('script', array('type' => 'text/javascript'));
+        $action->raw('/*<![CDATA[*/ SN.U.FormXHR($(".form_entity_flag")); /*]]>*/');
+        $action->elementEnd('script');
+        return true;
+    }
 }

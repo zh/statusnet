@@ -5,12 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-10 20:53+0000\n"
-"PO-Revision-Date: 2009-11-10 20:59:19+0000\n"
+"POT-Creation-Date: 2009-11-13 20:42+0000\n"
+"PO-Revision-Date: 2009-11-13 20:42:57+0000\n"
 "Language-Team: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58872); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r59023); Translate extension (2009-11-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: out-statusnet\n"
@@ -22,12 +22,15 @@ msgid "No such page"
 msgstr "그러한 태그가 없습니다."
 
 #: actions/all.php:74 actions/allrss.php:68
-#: actions/apiaccountupdateprofileimage.php:105 actions/apiblockcreate.php:97
+#: actions/apiaccountupdatedeliverydevice.php:113
+#: actions/apiaccountupdateprofilebackgroundimage.php:116
+#: actions/apiaccountupdateprofileimage.php:105
+#: actions/apiaccountupdateprofile.php:105 actions/apiblockcreate.php:97
 #: actions/apiblockdestroy.php:96 actions/apidirectmessagenew.php:75
 #: actions/apidirectmessage.php:77 actions/apigroupcreate.php:112
 #: actions/apigroupismember.php:90 actions/apigroupjoin.php:99
 #: actions/apigroupleave.php:99 actions/apigrouplist.php:90
-#: actions/apistatusesupdate.php:139 actions/apisubscriptions.php:87
+#: actions/apistatusesupdate.php:144 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:79
 #: actions/apitimelinementions.php:79 actions/apitimelineuser.php:81
 #: actions/avatarbynickname.php:75 actions/favoritesrss.php:74
@@ -106,35 +109,42 @@ msgstr "%s 및 친구들"
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "%1$s 및 %2$s에 있는 친구들의 업데이트!"
 
-#: actions/apiaccountratelimitstatus.php:70 actions/apidirectmessage.php:156
-#: actions/apifavoritecreate.php:99 actions/apifavoritedestroy.php:100
-#: actions/apifriendshipscreate.php:100 actions/apifriendshipsdestroy.php:100
-#: actions/apifriendshipsshow.php:129 actions/apigroupcreate.php:184
-#: actions/apigroupismember.php:114 actions/apigroupjoin.php:155
-#: actions/apigroupleave.php:141 actions/apigrouplistall.php:120
-#: actions/apigrouplist.php:132 actions/apigroupmembership.php:101
-#: actions/apigroupshow.php:105 actions/apihelptest.php:88
-#: actions/apistatusesdestroy.php:102 actions/apistatusesshow.php:108
-#: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
-#: actions/apisubscriptions.php:111 actions/apitimelinefavorites.php:144
-#: actions/apitimelinefriends.php:154 actions/apitimelinegroup.php:141
-#: actions/apitimelinementions.php:149 actions/apitimelinepublic.php:130
-#: actions/apitimelinetag.php:139 actions/apitimelineuser.php:163
-#: actions/apiusershow.php:101
-msgid "API method not found!"
+#: actions/apiaccountratelimitstatus.php:70
+#: actions/apiaccountupdatedeliverydevice.php:93
+#: actions/apiaccountupdateprofilebackgroundimage.php:94
+#: actions/apiaccountupdateprofilecolors.php:118
+#: actions/apiaccountupdateprofile.php:97
+#, fuzzy
+msgid "API method not found."
 msgstr "API 메서드를 찾을 수 없습니다."
 
-#: actions/apiaccountupdateprofileimage.php:84 actions/apiblockcreate.php:89
+#: actions/apiaccountupdatedeliverydevice.php:85
+#: actions/apiaccountupdateprofilebackgroundimage.php:86
+#: actions/apiaccountupdateprofilecolors.php:110
+#: actions/apiaccountupdateprofileimage.php:84
+#: actions/apiaccountupdateprofile.php:89 actions/apiblockcreate.php:89
 #: actions/apiblockdestroy.php:88 actions/apidirectmessagenew.php:117
 #: actions/apifavoritecreate.php:90 actions/apifavoritedestroy.php:91
 #: actions/apifriendshipscreate.php:91 actions/apifriendshipsdestroy.php:91
 #: actions/apigroupcreate.php:104 actions/apigroupjoin.php:91
-#: actions/apigroupleave.php:91 actions/apistatusesupdate.php:109
+#: actions/apigroupleave.php:91 actions/apistatusesupdate.php:114
 msgid "This method requires a POST."
 msgstr "이 메서드는 등록을 요구합니다."
 
+#: actions/apiaccountupdatedeliverydevice.php:105
+msgid ""
+"You must specify a parameter named 'device' with a value of one of: sms, im, "
+"none"
+msgstr ""
+
+#: actions/apiaccountupdatedeliverydevice.php:132
+#, fuzzy
+msgid "Could not update user."
+msgstr "사용자를 업데이트 할 수 없습니다."
+
+#: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97
-#: actions/apistatusesupdate.php:122 actions/avatarsettings.php:254
+#: actions/apistatusesupdate.php:127 actions/avatarsettings.php:254
 #: actions/newnotice.php:94 lib/designsettings.php:283
 #, php-format
 msgid ""
@@ -142,11 +152,33 @@ msgid ""
 "current configuration."
 msgstr ""
 
-#: actions/apiaccountupdateprofileimage.php:130 actions/apiusershow.php:108
+#: actions/apiaccountupdateprofilebackgroundimage.php:136
+#: actions/apiaccountupdateprofilebackgroundimage.php:146
+#: actions/apiaccountupdateprofilecolors.php:164
+#: actions/apiaccountupdateprofilecolors.php:174
+#, fuzzy
+msgid "Unable to save your design settings."
+msgstr "트위터 환경설정을 저장할 수 없습니다."
+
+#: actions/apiaccountupdateprofilebackgroundimage.php:187
+#: actions/apiaccountupdateprofilecolors.php:142
+#, fuzzy
+msgid "Could not update your design."
+msgstr "사용자를 업데이트 할 수 없습니다."
+
+#: actions/apiaccountupdateprofilebackgroundimage.php:194
+#: actions/apiaccountupdateprofilecolors.php:185
+#: actions/apiaccountupdateprofileimage.php:130
+#: actions/apiaccountupdateprofile.php:112 actions/apiusershow.php:108
 #: actions/avatarbynickname.php:80 actions/foaf.php:65 actions/replies.php:80
 #: actions/usergroups.php:98 lib/galleryaction.php:66 lib/profileaction.php:84
 msgid "User has no profile."
 msgstr "이용자가 프로필을 가지고 있지 않습니다."
+
+#: actions/apiaccountupdateprofile.php:147
+#, fuzzy
+msgid "Could not save profile."
+msgstr "프로필을 저장 할 수 없습니다."
 
 #: actions/apiblockcreate.php:108
 msgid "Block user failed."
@@ -192,6 +224,23 @@ msgstr "%s에게 직접 메시지"
 #, php-format
 msgid "All the direct messages sent to %s"
 msgstr "%s에게 모든 직접 메시지"
+
+#: actions/apidirectmessage.php:156 actions/apifavoritecreate.php:99
+#: actions/apifavoritedestroy.php:100 actions/apifriendshipscreate.php:100
+#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:129
+#: actions/apigroupcreate.php:184 actions/apigroupismember.php:114
+#: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
+#: actions/apigrouplistall.php:120 actions/apigrouplist.php:132
+#: actions/apigroupmembership.php:101 actions/apigroupshow.php:105
+#: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
+#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:133
+#: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
+#: actions/apitimelinefavorites.php:144 actions/apitimelinefriends.php:154
+#: actions/apitimelinegroup.php:141 actions/apitimelinementions.php:149
+#: actions/apitimelinepublic.php:130 actions/apitimelinetag.php:139
+#: actions/apitimelineuser.php:163 actions/apiusershow.php:101
+msgid "API method not found!"
+msgstr "API 메서드를 찾을 수 없습니다."
 
 #: actions/apifavoritecreate.php:108 actions/apifavoritedestroy.php:109
 #: actions/apistatusesdestroy.php:113
@@ -389,17 +438,17 @@ msgstr "아바타가 업데이트 되었습니다."
 msgid "No status with that ID found."
 msgstr "발견된 ID의 상태가 없습니다."
 
-#: actions/apistatusesupdate.php:152 actions/newnotice.php:155
+#: actions/apistatusesupdate.php:157 actions/newnotice.php:155
 #: scripts/maildaemon.php:71
 #, fuzzy, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr "너무 깁니다. 통지의 최대 길이는 140글자 입니다."
 
-#: actions/apistatusesupdate.php:193
+#: actions/apistatusesupdate.php:198
 msgid "Not found"
 msgstr "찾지 못함"
 
-#: actions/apistatusesupdate.php:216 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:227 actions/newnotice.php:178
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -483,7 +532,7 @@ msgid "Invalid size."
 msgstr "옳지 않은 크기"
 
 #: actions/avatarsettings.php:67 actions/showgroup.php:221
-#: lib/accountsettingsaction.php:113
+#: lib/accountsettingsaction.php:112
 msgid "Avatar"
 msgstr "아바타"
 
@@ -531,7 +580,7 @@ msgstr "자르기"
 #: actions/groupunblock.php:66 actions/imsettings.php:206
 #: actions/invite.php:56 actions/login.php:131 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
-#: actions/othersettings.php:145 actions/passwordsettings.php:151
+#: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
 #: actions/smssettings.php:228 actions/subedit.php:38 actions/subscribe.php:46
@@ -1661,7 +1710,7 @@ msgid "Nickname"
 msgstr "별명"
 
 #: actions/login.php:249 actions/register.php:428
-#: lib/accountsettingsaction.php:118
+#: lib/accountsettingsaction.php:116
 msgid "Password"
 msgstr "비밀 번호"
 
@@ -1798,7 +1847,7 @@ msgstr ""
 #: actions/noticesearch.php:124
 #, php-format
 msgid ""
-"Why not [register an account](%%%%action.register%%%%) and be the first to  "
+"Why not [register an account](%%%%action.register%%%%) and be the first to "
 "[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
 msgstr ""
 
@@ -1844,8 +1893,8 @@ msgstr "연결"
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:963
-#: lib/api.php:991 lib/api.php:1101
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:999
+#: lib/api.php:1027 lib/api.php:1137
 msgid "Not a supported data format."
 msgstr "지원하는 형식의 데이터가 아닙니다."
 
@@ -1865,11 +1914,15 @@ msgstr "기타 설정"
 msgid "Manage various other options."
 msgstr "다양한 다른 옵션관리"
 
-#: actions/othersettings.php:117
+#: actions/othersettings.php:108
+msgid " (free service)"
+msgstr ""
+
+#: actions/othersettings.php:116
 msgid "Shorten URLs with"
 msgstr ""
 
-#: actions/othersettings.php:118
+#: actions/othersettings.php:117
 msgid "Automatic shortening service to use."
 msgstr "사용할 URL 자동 줄이기 서비스"
 
@@ -1904,65 +1957,60 @@ msgstr "당신의 보낸 쪽지함입니다. 이곳엔 당신이 보냈던 비�
 msgid "Change password"
 msgstr "비밀번호 바꾸기"
 
-#: actions/passwordsettings.php:70
-#, fuzzy
-msgid "You are not allowed to change your password"
-msgstr "비밀번호 바꾸기"
-
-#: actions/passwordsettings.php:82
+#: actions/passwordsettings.php:69
 msgid "Change your password."
 msgstr "비밀번호를 변경하세요."
 
-#: actions/passwordsettings.php:109 actions/recoverpassword.php:231
+#: actions/passwordsettings.php:96 actions/recoverpassword.php:231
 msgid "Password change"
 msgstr "비밀번호 변경"
 
-#: actions/passwordsettings.php:117
+#: actions/passwordsettings.php:104
 msgid "Old password"
 msgstr "기존 비밀 번호"
 
-#: actions/passwordsettings.php:121 actions/recoverpassword.php:235
+#: actions/passwordsettings.php:108 actions/recoverpassword.php:235
 msgid "New password"
 msgstr "새로운 비밀 번호"
 
-#: actions/passwordsettings.php:122
+#: actions/passwordsettings.php:109
 msgid "6 or more characters"
 msgstr "6글자 이상"
 
-#: actions/passwordsettings.php:125 actions/recoverpassword.php:239
+#: actions/passwordsettings.php:112 actions/recoverpassword.php:239
 #: actions/register.php:432 actions/smssettings.php:134
 msgid "Confirm"
 msgstr "인증"
 
-#: actions/passwordsettings.php:126
+#: actions/passwordsettings.php:113
 msgid "same as password above"
 msgstr "위 비밀번호와 동일하게"
 
-#: actions/passwordsettings.php:130
+#: actions/passwordsettings.php:117
 msgid "Change"
 msgstr "변환"
 
-#: actions/passwordsettings.php:167 actions/register.php:230
+#: actions/passwordsettings.php:154 actions/register.php:230
 msgid "Password must be 6 or more characters."
 msgstr "비밀번호는 6자리 이상이어야 합니다."
 
-#: actions/passwordsettings.php:170 actions/register.php:233
+#: actions/passwordsettings.php:157 actions/register.php:233
 msgid "Passwords don't match."
 msgstr "비밀 번호가 일치하지 않습니다."
 
-#: actions/passwordsettings.php:178
+#: actions/passwordsettings.php:165
 msgid "Incorrect old password"
 msgstr "기존 비밀 번호가 틀렸습니다"
 
-#: actions/passwordsettings.php:194
+#: actions/passwordsettings.php:181
 msgid "Error saving user; invalid."
 msgstr "사용자 저장 오류; 무효한 사용자"
 
-#: actions/passwordsettings.php:199 actions/recoverpassword.php:368
+#: actions/passwordsettings.php:186 actions/recoverpassword.php:368
 msgid "Can't save new password."
 msgstr "새 비밀번호를 저장 할 수 없습니다."
 
-#: actions/passwordsettings.php:205 actions/recoverpassword.php:211
+#: actions/passwordsettings.php:192 actions/recoverpassword.php:211
 msgid "Password saved."
 msgstr "비밀 번호 저장"
 
@@ -2401,7 +2449,7 @@ msgid "Same as password above. Required."
 msgstr "위와 같은 비밀 번호. 필수 사항."
 
 #: actions/register.php:437 actions/register.php:441
-#: lib/accountsettingsaction.php:122
+#: lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr "이메일"
 
@@ -3324,36 +3372,36 @@ msgstr "통지를 저장하는데 문제가 발생했습니다."
 msgid "DB error inserting reply: %s"
 msgstr "답신을 추가 할 때에 데이타베이스 에러 : %s"
 
-#: classes/User.php:333
+#: classes/User.php:347
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "%2$s에서 %1$s까지 메시지"
 
-#: lib/accountsettingsaction.php:109 lib/personalgroupnav.php:109
+#: lib/accountsettingsaction.php:108 lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr "프로필"
 
-#: lib/accountsettingsaction.php:110
+#: lib/accountsettingsaction.php:108
 msgid "Change your profile settings"
 msgstr "프로필 세팅 바꾸기"
 
-#: lib/accountsettingsaction.php:114
+#: lib/accountsettingsaction.php:112
 msgid "Upload an avatar"
 msgstr "아바타를 업로드하세요."
 
-#: lib/accountsettingsaction.php:119
+#: lib/accountsettingsaction.php:116
 msgid "Change your password"
 msgstr "비밀번호 바꾸기"
 
-#: lib/accountsettingsaction.php:123
+#: lib/accountsettingsaction.php:120
 msgid "Change email handling"
 msgstr "이메일 처리 변경"
 
-#: lib/accountsettingsaction.php:125 lib/groupnav.php:119
+#: lib/accountsettingsaction.php:124 lib/groupnav.php:119
 msgid "Design"
 msgstr ""
 
-#: lib/accountsettingsaction.php:126
+#: lib/accountsettingsaction.php:124
 #, fuzzy
 msgid "Design your profile"
 msgstr "이용자 프로필"
@@ -3362,7 +3410,7 @@ msgstr "이용자 프로필"
 msgid "Other"
 msgstr "기타"
 
-#: lib/accountsettingsaction.php:129
+#: lib/accountsettingsaction.php:128
 msgid "Other options"
 msgstr "다른 옵션들"
 
@@ -3752,20 +3800,20 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:191
+#: lib/common.php:189
 #, fuzzy
 msgid "No configuration file found. "
 msgstr "확인 코드가 없습니다."
 
-#: lib/common.php:192
+#: lib/common.php:190
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:193
+#: lib/common.php:191
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:194
+#: lib/common.php:192
 #, fuzzy
 msgid "Go to the installer."
 msgstr "이 사이트 로그인"
@@ -4034,8 +4082,8 @@ msgstr "알 수 없는 종류의 파일입니다"
 
 #: lib/jabber.php:192
 #, php-format
-msgid "notice id: %s"
-msgstr "새로운 통지"
+msgid "[%s]"
+msgstr ""
 
 #: lib/joinform.php:114
 msgid "Join"
@@ -4549,7 +4597,8 @@ msgid "Could not subscribe other to you."
 msgstr "다른 사람을 구독 하실 수 없습니다."
 
 #: lib/subs.php:124
-msgid "Not subscribed!."
+#, fuzzy
+msgid "Not subscribed!"
 msgstr "구독하고 있지 않습니다!"
 
 #: lib/subs.php:136
@@ -4598,47 +4647,47 @@ msgstr "이 회원에게 직접 메시지를 보냅니다."
 msgid "Message"
 msgstr "메시지"
 
-#: lib/util.php:818
+#: lib/util.php:821
 msgid "a few seconds ago"
 msgstr "몇 초 전"
 
-#: lib/util.php:820
+#: lib/util.php:823
 msgid "about a minute ago"
 msgstr "1분 전"
 
-#: lib/util.php:822
+#: lib/util.php:825
 #, php-format
 msgid "about %d minutes ago"
 msgstr "%d분 전"
 
-#: lib/util.php:824
+#: lib/util.php:827
 msgid "about an hour ago"
 msgstr "1시간 전"
 
-#: lib/util.php:826
+#: lib/util.php:829
 #, php-format
 msgid "about %d hours ago"
 msgstr "%d시간 전"
 
-#: lib/util.php:828
+#: lib/util.php:831
 msgid "about a day ago"
 msgstr "하루 전"
 
-#: lib/util.php:830
+#: lib/util.php:833
 #, php-format
 msgid "about %d days ago"
 msgstr "%d일 전"
 
-#: lib/util.php:832
+#: lib/util.php:835
 msgid "about a month ago"
 msgstr "1달 전"
 
-#: lib/util.php:834
+#: lib/util.php:837
 #, php-format
 msgid "about %d months ago"
 msgstr "%d달 전"
 
-#: lib/util.php:836
+#: lib/util.php:839
 msgid "about a year ago"
 msgstr "1년 전"
 

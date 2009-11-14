@@ -130,7 +130,7 @@ create table notice (
     location_id integer comment 'location id if possible',
     location_ns integer comment 'namespace for location',
 
-    index notice_profile_id_idx (profile_id),
+    index notice_profile_id_idx (profile_id,created,id),
     index notice_conversation_idx (conversation),
     index notice_created_idx (created),
     index notice_replyto_idx (reply_to),

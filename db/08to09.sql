@@ -51,3 +51,7 @@ alter table subscription
     add index subscription_subscriber_idx (subscriber,created),
     drop index subscription_subscribed_idx,
     add index subscription_subscribed_idx (subscribed,created);
+
+alter table notice
+    drop index notice_profile_id_idx,
+    add index notice_profile_id_idx (profile_id,created,id);

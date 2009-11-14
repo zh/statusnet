@@ -114,7 +114,7 @@ class User extends Memcached_DataObject
         return $result;
     }
 
-    function allowed_nickname($nickname)
+    static function allowed_nickname($nickname)
     {
         // XXX: should already be validated for size, content, etc.
         $blacklist = common_config('nickname', 'blacklist');
@@ -190,7 +190,17 @@ class User extends Memcached_DataObject
 
         $profile->query('BEGIN');
 
+        if(!empty($email))
+        {
+            $email = common_canonical_email($email);
+        }
+
+        $nickname = common_canonical_nickname($nickname);
         $profile->nickname = $nickname;
+        if(! User::allowed_nickname($nickname)){
+            common_log(LOG_WARNING, sprintf("Attempted to register a nickname that is not allowed: %s", $profile->nickname),
+                           __FILE__);
+        }
         $profile->profileurl = common_profile_url($nickname);
 
         if (!empty($fullname)) {
@@ -240,6 +250,10 @@ class User extends Memcached_DataObject
             if ($invite && $invite->address && $invite->address_type == 'email' && $invite->address == $email) {
                 $user->email = $invite->address;
             }
+        }
+
+        if(isset($email_confirmed) && $email_confirmed) {
+            $user->email = $email;
         }
 
         // This flag is ignored but still set to 1

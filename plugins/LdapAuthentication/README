@@ -1,12 +1,13 @@
-The LDAP plugin allows for StatusNet to handle authentication, authorization, and user information through LDAP.
+The LDAP Authentication plugin allows for StatusNet to handle authentication through LDAP.
 
 Installation
 ============
-add "addPlugin('ldap', array('setting'=>'value', 'setting2'=>'value2', ...);" to the bottom of your config.php
+add "addPlugin('ldapAuthentication', array('setting'=>'value', 'setting2'=>'value2', ...);" to the bottom of your config.php
 
 Settings
 ========
-authn_authoritative (false): Set to true if LDAP's responses are authoritative (meaning if LDAP fails, do check the any other plugins or the internal password database).
+provider_name*: a unique name for this authentication provider.
+authoritative (false): Set to true if LDAP's responses are authoritative (meaning if LDAP fails, do check any other plugins or the internal password database).
 autoregistration (false): Set to true if users should be automatically created when they attempt to login.
 email_changeable (true): Are users allowed to change their email address? (true or false)
 password_changeable (true): Are users allowed to change their passwords? (true or false)
@@ -23,6 +24,7 @@ filter: Default search filter. See http://pear.php.net/manual/en/package.network
 scope: Default search scope. See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
 
 attributes: an array with the key being the StatusNet user attribute name, and the value the LDAP attribute name
+    username*
     nickname*
     email
     fullname
@@ -36,8 +38,9 @@ Example
 =======
 Here's an example of an LDAP plugin configuration that connects to Microsoft Active Directory.
 
-addPlugin('ldap', array(
-    'authn_authoritative'=>true,
+addPlugin('ldapAuthentication', array(
+    'provider_name'=>'Example',
+    'authoritative'=>true,
     'autoregistration'=>true,
     'binddn'=>'username',
     'bindpw'=>'password',

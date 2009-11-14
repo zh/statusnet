@@ -85,18 +85,18 @@ class GroupList extends Widget
 
     function showGroup()
     {
-        $this->out->elementStart('li', array('class' => 'profile',
+        $this->out->elementStart('li', array('class' => 'profile hentry',
                                              'id' => 'group-' . $this->group->id));
 
         $user = common_current_user();
 
-        $this->out->elementStart('div', 'entity_profile vcard');
+        $this->out->elementStart('div', 'entity_profile vcard entry-content');
 
         $logo = ($this->group->stream_logo) ?
           $this->group->stream_logo : User_group::defaultLogo(AVATAR_STREAM_SIZE);
 
         $this->out->elementStart('a', array('href' => $this->group->homeUrl(),
-                                            'class' => 'url',
+                                            'class' => 'url entry-title',
                                             'rel' => 'contact group'));
         $this->out->element('img', array('src' => $logo,
                                          'class' => 'photo avatar',

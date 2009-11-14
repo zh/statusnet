@@ -187,7 +187,7 @@ class XMPPDaemon extends Daemon
             return;
         }
         if ($this->handle_command($user, $pl['body'])) {
-            $this->log(LOG_INFO, "Command messag by $from handled.");
+            $this->log(LOG_INFO, "Command message by $from handled.");
             return;
         } else if ($this->is_autoreply($pl['body'])) {
             $this->log(LOG_INFO, 'Ignoring auto reply from ' . $from);

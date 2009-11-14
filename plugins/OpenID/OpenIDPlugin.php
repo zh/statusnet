@@ -302,6 +302,7 @@ class OpenIDPlugin extends Plugin
     function onUserDeleteRelated($user, &$tables)
     {
         $tables[] = 'User_openid';
+        $tables[] = 'User_openid_trustroot';
         return true;
     }
 }

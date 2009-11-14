@@ -244,8 +244,7 @@ class FacebookhomeAction extends FacebookAction
         // XXX: Fix so this uses common_local_url() if possible.
 
         if ($have_before || $have_after) {
-            $this->elementStart('div', array('class' => 'pagination'));
-            $this->elementStart('dl', null);
+            $this->elementStart('dl', 'pagination');
             $this->element('dt', null, _('Pagination'));
             $this->elementStart('dd', null);
             $this->elementStart('ul', array('class' => 'nav'));
@@ -270,7 +269,6 @@ class FacebookhomeAction extends FacebookAction
             $this->elementEnd('ul');
             $this->elementEnd('dd');
             $this->elementEnd('dl');
-            $this->elementEnd('div');
         }
     }
 

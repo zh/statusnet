@@ -1,5 +1,6 @@
 # Translation of StatusNet to British English
 #
+# Author@translatewiki.net: CiaranG
 # --
 # #-#-#-#-#  statusnet.new.pot (PACKAGE VERSION)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
@@ -11,29 +12,31 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-10 20:53+0000\n"
-"PO-Revision-Date: 2009-11-10 20:58:54+0000\n"
+"POT-Creation-Date: 2009-11-13 20:42+0000\n"
+"PO-Revision-Date: 2009-11-13 20:42:31+0000\n"
 "Language-Team: British English\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r58872); Translate extension (2009-08-03)\n"
+"X-Generator: MediaWiki 1.16alpha(r59023); Translate extension (2009-11-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: en-gb\n"
 "X-Message-Group: out-statusnet\n"
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
 #: actions/showfavorites.php:137 actions/tag.php:51
-#, fuzzy
 msgid "No such page"
-msgstr "No such tag."
+msgstr "No such page"
 
 #: actions/all.php:74 actions/allrss.php:68
-#: actions/apiaccountupdateprofileimage.php:105 actions/apiblockcreate.php:97
+#: actions/apiaccountupdatedeliverydevice.php:113
+#: actions/apiaccountupdateprofilebackgroundimage.php:116
+#: actions/apiaccountupdateprofileimage.php:105
+#: actions/apiaccountupdateprofile.php:105 actions/apiblockcreate.php:97
 #: actions/apiblockdestroy.php:96 actions/apidirectmessagenew.php:75
 #: actions/apidirectmessage.php:77 actions/apigroupcreate.php:112
 #: actions/apigroupismember.php:90 actions/apigroupjoin.php:99
 #: actions/apigroupleave.php:99 actions/apigrouplist.php:90
-#: actions/apistatusesupdate.php:139 actions/apisubscriptions.php:87
+#: actions/apistatusesupdate.php:144 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:79
 #: actions/apitimelinementions.php:79 actions/apitimelineuser.php:81
 #: actions/avatarbynickname.php:75 actions/favoritesrss.php:74
@@ -61,19 +64,19 @@ msgid "%s and friends"
 msgstr "%s and friends"
 
 #: actions/all.php:99
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
-msgstr "Feed for friends of %s"
+msgstr "Feed for friends of %s (RSS 1.0)"
 
 #: actions/all.php:107
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
-msgstr "Feed for friends of %s"
+msgstr "Feed for friends of %s (RSS 2.0)"
 
 #: actions/all.php:115
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (Atom)"
-msgstr "Feed for friends of %s"
+msgstr "Feed for friends of %s (Atom)"
 
 #: actions/all.php:127
 #, php-format
@@ -103,44 +106,49 @@ msgid ""
 msgstr ""
 
 #: actions/all.php:165
-#, fuzzy
 msgid "You and friends"
-msgstr "%s and friends"
+msgstr "You and friends"
 
 #: actions/allrss.php:119 actions/apitimelinefriends.php:121
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "Updates from %1$s and friends on %2$s!"
 
-#: actions/apiaccountratelimitstatus.php:70 actions/apidirectmessage.php:156
-#: actions/apifavoritecreate.php:99 actions/apifavoritedestroy.php:100
-#: actions/apifriendshipscreate.php:100 actions/apifriendshipsdestroy.php:100
-#: actions/apifriendshipsshow.php:129 actions/apigroupcreate.php:184
-#: actions/apigroupismember.php:114 actions/apigroupjoin.php:155
-#: actions/apigroupleave.php:141 actions/apigrouplistall.php:120
-#: actions/apigrouplist.php:132 actions/apigroupmembership.php:101
-#: actions/apigroupshow.php:105 actions/apihelptest.php:88
-#: actions/apistatusesdestroy.php:102 actions/apistatusesshow.php:108
-#: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
-#: actions/apisubscriptions.php:111 actions/apitimelinefavorites.php:144
-#: actions/apitimelinefriends.php:154 actions/apitimelinegroup.php:141
-#: actions/apitimelinementions.php:149 actions/apitimelinepublic.php:130
-#: actions/apitimelinetag.php:139 actions/apitimelineuser.php:163
-#: actions/apiusershow.php:101
-msgid "API method not found!"
-msgstr "API method not found!"
+#: actions/apiaccountratelimitstatus.php:70
+#: actions/apiaccountupdatedeliverydevice.php:93
+#: actions/apiaccountupdateprofilebackgroundimage.php:94
+#: actions/apiaccountupdateprofilecolors.php:118
+#: actions/apiaccountupdateprofile.php:97
+msgid "API method not found."
+msgstr "API method not found."
 
-#: actions/apiaccountupdateprofileimage.php:84 actions/apiblockcreate.php:89
+#: actions/apiaccountupdatedeliverydevice.php:85
+#: actions/apiaccountupdateprofilebackgroundimage.php:86
+#: actions/apiaccountupdateprofilecolors.php:110
+#: actions/apiaccountupdateprofileimage.php:84
+#: actions/apiaccountupdateprofile.php:89 actions/apiblockcreate.php:89
 #: actions/apiblockdestroy.php:88 actions/apidirectmessagenew.php:117
 #: actions/apifavoritecreate.php:90 actions/apifavoritedestroy.php:91
 #: actions/apifriendshipscreate.php:91 actions/apifriendshipsdestroy.php:91
 #: actions/apigroupcreate.php:104 actions/apigroupjoin.php:91
-#: actions/apigroupleave.php:91 actions/apistatusesupdate.php:109
+#: actions/apigroupleave.php:91 actions/apistatusesupdate.php:114
 msgid "This method requires a POST."
 msgstr "This method requires a POST."
 
+#: actions/apiaccountupdatedeliverydevice.php:105
+msgid ""
+"You must specify a parameter named 'device' with a value of one of: sms, im, "
+"none"
+msgstr ""
+
+#: actions/apiaccountupdatedeliverydevice.php:132
+#, fuzzy
+msgid "Could not update user."
+msgstr "Couldn't update user."
+
+#: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97
-#: actions/apistatusesupdate.php:122 actions/avatarsettings.php:254
+#: actions/apistatusesupdate.php:127 actions/avatarsettings.php:254
 #: actions/newnotice.php:94 lib/designsettings.php:283
 #, php-format
 msgid ""
@@ -148,11 +156,31 @@ msgid ""
 "current configuration."
 msgstr ""
 
-#: actions/apiaccountupdateprofileimage.php:130 actions/apiusershow.php:108
+#: actions/apiaccountupdateprofilebackgroundimage.php:136
+#: actions/apiaccountupdateprofilebackgroundimage.php:146
+#: actions/apiaccountupdateprofilecolors.php:164
+#: actions/apiaccountupdateprofilecolors.php:174
+msgid "Unable to save your design settings."
+msgstr "Unable to save your design settings!"
+
+#: actions/apiaccountupdateprofilebackgroundimage.php:187
+#: actions/apiaccountupdateprofilecolors.php:142
+msgid "Could not update your design."
+msgstr "Could not update your design."
+
+#: actions/apiaccountupdateprofilebackgroundimage.php:194
+#: actions/apiaccountupdateprofilecolors.php:185
+#: actions/apiaccountupdateprofileimage.php:130
+#: actions/apiaccountupdateprofile.php:112 actions/apiusershow.php:108
 #: actions/avatarbynickname.php:80 actions/foaf.php:65 actions/replies.php:80
 #: actions/usergroups.php:98 lib/galleryaction.php:66 lib/profileaction.php:84
 msgid "User has no profile."
 msgstr "User has no profile."
+
+#: actions/apiaccountupdateprofile.php:147
+#, fuzzy
+msgid "Could not save profile."
+msgstr "Couldn't save profile."
 
 #: actions/apiblockcreate.php:108
 msgid "Block user failed."
@@ -167,9 +195,9 @@ msgid "No message text!"
 msgstr "No message text!"
 
 #: actions/apidirectmessagenew.php:135 actions/newmessage.php:150
-#, fuzzy, php-format
+#, php-format
 msgid "That's too long. Max message size is %d chars."
-msgstr "That's too long. Max message size is 140 chars."
+msgstr "That's too long. Max message size is %d chars."
 
 #: actions/apidirectmessagenew.php:146
 msgid "Recipient user not found."
@@ -180,9 +208,9 @@ msgid "Can't send direct messages to users who aren't your friend."
 msgstr "Can't send direct messages to users who aren't your friend."
 
 #: actions/apidirectmessage.php:89
-#, fuzzy, php-format
+#, php-format
 msgid "Direct messages from %s"
-msgstr "Direct messages to %s"
+msgstr "Direct messages from %s"
 
 #: actions/apidirectmessage.php:93
 #, php-format
@@ -199,24 +227,39 @@ msgstr "Direct messages to %s"
 msgid "All the direct messages sent to %s"
 msgstr "All the direct messages sent to %s"
 
+#: actions/apidirectmessage.php:156 actions/apifavoritecreate.php:99
+#: actions/apifavoritedestroy.php:100 actions/apifriendshipscreate.php:100
+#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:129
+#: actions/apigroupcreate.php:184 actions/apigroupismember.php:114
+#: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
+#: actions/apigrouplistall.php:120 actions/apigrouplist.php:132
+#: actions/apigroupmembership.php:101 actions/apigroupshow.php:105
+#: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
+#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:133
+#: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
+#: actions/apitimelinefavorites.php:144 actions/apitimelinefriends.php:154
+#: actions/apitimelinegroup.php:141 actions/apitimelinementions.php:149
+#: actions/apitimelinepublic.php:130 actions/apitimelinetag.php:139
+#: actions/apitimelineuser.php:163 actions/apiusershow.php:101
+msgid "API method not found!"
+msgstr "API method not found!"
+
 #: actions/apifavoritecreate.php:108 actions/apifavoritedestroy.php:109
 #: actions/apistatusesdestroy.php:113
 msgid "No status found with that ID."
 msgstr "No status found with that ID."
 
 #: actions/apifavoritecreate.php:119
-#, fuzzy
 msgid "This status is already a favorite!"
-msgstr "This notice is already a favourite!"
+msgstr "This status is already a favourite!"
 
 #: actions/apifavoritecreate.php:130 actions/favor.php:84 lib/command.php:176
 msgid "Could not create favorite."
 msgstr "Could not create favourite."
 
 #: actions/apifavoritedestroy.php:122
-#, fuzzy
 msgid "That status is not a favorite!"
-msgstr "This notice is not a favourite!"
+msgstr "That status is not a favourite!"
 
 #: actions/apifavoritedestroy.php:134 actions/disfavor.php:87
 msgid "Could not delete favorite."
@@ -232,9 +275,8 @@ msgid "Could not follow user: %s is already on your list."
 msgstr "Could not follow user: %s is already on your list."
 
 #: actions/apifriendshipsdestroy.php:109
-#, fuzzy
 msgid "Could not unfollow user: User not found."
-msgstr "Could not follow user: User not found."
+msgstr "Could not unfollow user: User not found."
 
 #: actions/apifriendshipsdestroy.php:120
 msgid "You cannot unfollow yourself!"
@@ -260,9 +302,8 @@ msgstr "Could not create group."
 
 #: actions/apigroupcreate.php:147 actions/editgroup.php:259
 #: actions/newgroup.php:210
-#, fuzzy
 msgid "Could not create aliases."
-msgstr "Could not create favourite."
+msgstr "Could not create aliases"
 
 #: actions/apigroupcreate.php:166 actions/newgroup.php:224
 msgid "Could not set group membership."
@@ -333,9 +374,8 @@ msgid "Alias can't be the same as nickname."
 msgstr ""
 
 #: actions/apigroupjoin.php:110
-#, fuzzy
 msgid "You are already a member of that group."
-msgstr "You are already a member of that group"
+msgstr "You are already a member of that group."
 
 #: actions/apigroupjoin.php:119 actions/joingroup.php:95 lib/command.php:221
 msgid "You have been blocked from that group by the admin."
@@ -393,17 +433,17 @@ msgstr "Avatar updated."
 msgid "No status with that ID found."
 msgstr "No status with that ID found."
 
-#: actions/apistatusesupdate.php:152 actions/newnotice.php:155
+#: actions/apistatusesupdate.php:157 actions/newnotice.php:155
 #: scripts/maildaemon.php:71
-#, fuzzy, php-format
+#, php-format
 msgid "That's too long. Max notice size is %d chars."
-msgstr "That's too long. Max notice size is 140 chars."
+msgstr "That's too long. Max notice size is %d chars."
 
-#: actions/apistatusesupdate.php:193
+#: actions/apistatusesupdate.php:198
 msgid "Not found"
 msgstr "Not found"
 
-#: actions/apistatusesupdate.php:216 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:227 actions/newnotice.php:178
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -487,7 +527,7 @@ msgid "Invalid size."
 msgstr "Invalid size."
 
 #: actions/avatarsettings.php:67 actions/showgroup.php:221
-#: lib/accountsettingsaction.php:113
+#: lib/accountsettingsaction.php:112
 msgid "Avatar"
 msgstr "Avatar"
 
@@ -535,7 +575,7 @@ msgstr "Crop"
 #: actions/groupunblock.php:66 actions/imsettings.php:206
 #: actions/invite.php:56 actions/login.php:131 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
-#: actions/othersettings.php:145 actions/passwordsettings.php:151
+#: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
 #: actions/smssettings.php:228 actions/subedit.php:38 actions/subscribe.php:46
@@ -675,9 +715,8 @@ msgid "Failed to save block information."
 msgstr "Failed to save block information."
 
 #: actions/bookmarklet.php:50
-#, fuzzy
 msgid "Post to "
-msgstr "Photo"
+msgstr "Post to "
 
 #: actions/confirmaddress.php:75
 msgid "No confirmation code."
@@ -723,9 +762,8 @@ msgid "The address \"%s\" has been confirmed for your account."
 msgstr "The address \"%s\" has been confirmed for your account."
 
 #: actions/conversation.php:99
-#, fuzzy
 msgid "Conversation"
-msgstr "Confirmation code"
+msgstr "Conversation"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
 #: lib/profileaction.php:206
@@ -758,9 +796,8 @@ msgid "Are you sure you want to delete this notice?"
 msgstr "Are you sure you want to delete this notice?"
 
 #: actions/deletenotice.php:145
-#, fuzzy
 msgid "Do not delete this notice"
-msgstr "Can't delete this notice."
+msgstr "Do not delete this notice"
 
 #: actions/deletenotice.php:146 lib/noticelist.php:522
 msgid "Delete this notice"
@@ -898,9 +935,8 @@ msgid "Send me email when someone sends me a private message."
 msgstr "Send me e-mail when someone sends me a private message."
 
 #: actions/emailsettings.php:174
-#, fuzzy
 msgid "Send me email when someone sends me an \"@-reply\"."
-msgstr "Send me e-mail when someone sends me a private message."
+msgstr "Send me e-mail when someone sends me an \"@-reply\"."
 
 #: actions/emailsettings.php:179
 msgid "Allow friends to nudge me and send me an email."
@@ -1017,12 +1053,15 @@ msgstr "The most popular notices on the site right now."
 #: actions/favorited.php:150
 msgid "Favorite notices appear on this page but no one has favorited one yet."
 msgstr ""
+"Favourite notices appear on this page but no one has favourited one yet"
 
 #: actions/favorited.php:153
 msgid ""
 "Be the first to add a notice to your favorites by clicking the fave button "
 "next to any notice you like."
 msgstr ""
+"Be the first to add a notice to your favourites by clicking the fave button "
+"next to any notice you like."
 
 #: actions/favorited.php:156
 #, php-format
@@ -1030,6 +1069,8 @@ msgid ""
 "Why not [register an account](%%action.register%%) and be the first to add a "
 "notice to your favorites!"
 msgstr ""
+"Why not [register an account](%%action.register%%) and be the first to add a "
+"notice to your favourites!"
 
 #: actions/favoritesrss.php:111 actions/showfavorites.php:77
 #: lib/personalgroupnav.php:115
@@ -1038,9 +1079,9 @@ msgid "%s's favorite notices"
 msgstr "%s's favourite notices"
 
 #: actions/favoritesrss.php:115
-#, fuzzy, php-format
+#, php-format
 msgid "Updates favored by %1$s on %2$s!"
-msgstr "Updates from %1$s on %2$s!"
+msgstr "Updates favoured by %1$s on %2$s!"
 
 #: actions/favor.php:79
 msgid "This notice is already a favorite!"
@@ -1066,14 +1107,12 @@ msgid "A selection of some of the great users on %s"
 msgstr "A selection of some of the great users on %s"
 
 #: actions/file.php:34
-#, fuzzy
 msgid "No notice id"
-msgstr "New notice"
+msgstr "No notice id"
 
 #: actions/file.php:38
-#, fuzzy
 msgid "No notice"
-msgstr "New notice"
+msgstr "No notice."
 
 #: actions/file.php:42
 msgid "No attachments"
@@ -1101,9 +1140,8 @@ msgid "That user has blocked you from subscribing."
 msgstr "That user has blocked you from subscribing."
 
 #: actions/finishremotesubscribe.php:106
-#, fuzzy
 msgid "You are not authorized."
-msgstr "Not authorised."
+msgstr "You are not authorised."
 
 #: actions/finishremotesubscribe.php:109
 #, fuzzy
@@ -1146,14 +1184,12 @@ msgid "Only an admin can block group members."
 msgstr ""
 
 #: actions/groupblock.php:95
-#, fuzzy
 msgid "User is already blocked from group."
-msgstr "User has blocked you."
+msgstr "User is already blocked from group."
 
 #: actions/groupblock.php:100
-#, fuzzy
 msgid "User is not a member of group."
-msgstr "You are not a member of that group."
+msgstr "User is not a member of group."
 
 #: actions/groupblock.php:136 actions/groupmembers.php:314
 #, fuzzy
@@ -1169,9 +1205,8 @@ msgid ""
 msgstr ""
 
 #: actions/groupblock.php:178
-#, fuzzy
 msgid "Do not block this user from this group"
-msgstr "A list of the users in this group."
+msgstr "Do not block this user from this group"
 
 #: actions/groupblock.php:179
 #, fuzzy
@@ -1673,7 +1708,7 @@ msgid "Nickname"
 msgstr "Nickname"
 
 #: actions/login.php:249 actions/register.php:428
-#: lib/accountsettingsaction.php:118
+#: lib/accountsettingsaction.php:116
 msgid "Password"
 msgstr "Password"
 
@@ -1698,14 +1733,13 @@ msgstr ""
 "changing your settings."
 
 #: actions/login.php:286
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Login with your username and password. Don't have a username yet? [Register]"
 "(%%action.register%%) a new account."
 msgstr ""
 "Login with your username and password. Don't have a username yet? [Register]"
-"(%%action.register%%) a new account, or try [OpenID](%%action.openidlogin%"
-"%). "
+"(%%action.register%%) a new account."
 
 #: actions/makeadmin.php:91
 msgid "Only an admin can make another user an admin."
@@ -1811,7 +1845,7 @@ msgstr ""
 #: actions/noticesearch.php:124
 #, php-format
 msgid ""
-"Why not [register an account](%%%%action.register%%%%) and be the first to  "
+"Why not [register an account](%%%%action.register%%%%) and be the first to "
 "[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
 msgstr ""
 
@@ -1857,8 +1891,8 @@ msgstr "Connect"
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:963
-#: lib/api.php:991 lib/api.php:1101
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:999
+#: lib/api.php:1027 lib/api.php:1137
 msgid "Not a supported data format."
 msgstr "Not a supported data format."
 
@@ -1878,11 +1912,15 @@ msgstr "Other Settings"
 msgid "Manage various other options."
 msgstr "Manage various other options."
 
-#: actions/othersettings.php:117
+#: actions/othersettings.php:108
+msgid " (free service)"
+msgstr ""
+
+#: actions/othersettings.php:116
 msgid "Shorten URLs with"
 msgstr ""
 
-#: actions/othersettings.php:118
+#: actions/othersettings.php:117
 msgid "Automatic shortening service to use."
 msgstr "Automatic shortening service to use."
 
@@ -1917,65 +1955,60 @@ msgstr "This is your outbox, which lists private messages you have sent."
 msgid "Change password"
 msgstr "Change password"
 
-#: actions/passwordsettings.php:70
-#, fuzzy
-msgid "You are not allowed to change your password"
-msgstr "Change your password"
-
-#: actions/passwordsettings.php:82
+#: actions/passwordsettings.php:69
 msgid "Change your password."
 msgstr "Change your password."
 
-#: actions/passwordsettings.php:109 actions/recoverpassword.php:231
+#: actions/passwordsettings.php:96 actions/recoverpassword.php:231
 msgid "Password change"
 msgstr "Password change"
 
-#: actions/passwordsettings.php:117
+#: actions/passwordsettings.php:104
 msgid "Old password"
 msgstr "Old password"
 
-#: actions/passwordsettings.php:121 actions/recoverpassword.php:235
+#: actions/passwordsettings.php:108 actions/recoverpassword.php:235
 msgid "New password"
 msgstr "New password"
 
-#: actions/passwordsettings.php:122
+#: actions/passwordsettings.php:109
 msgid "6 or more characters"
 msgstr "6 or more characters"
 
-#: actions/passwordsettings.php:125 actions/recoverpassword.php:239
+#: actions/passwordsettings.php:112 actions/recoverpassword.php:239
 #: actions/register.php:432 actions/smssettings.php:134
 msgid "Confirm"
 msgstr "Confirm"
 
-#: actions/passwordsettings.php:126
+#: actions/passwordsettings.php:113
 msgid "same as password above"
 msgstr "same as password above"
 
-#: actions/passwordsettings.php:130
+#: actions/passwordsettings.php:117
 msgid "Change"
 msgstr "Change"
 
-#: actions/passwordsettings.php:167 actions/register.php:230
+#: actions/passwordsettings.php:154 actions/register.php:230
 msgid "Password must be 6 or more characters."
 msgstr "Password must be 6 or more characters."
 
-#: actions/passwordsettings.php:170 actions/register.php:233
+#: actions/passwordsettings.php:157 actions/register.php:233
 msgid "Passwords don't match."
 msgstr "Passwords don't match."
 
-#: actions/passwordsettings.php:178
+#: actions/passwordsettings.php:165
 msgid "Incorrect old password"
 msgstr "Incorrect old password"
 
-#: actions/passwordsettings.php:194
+#: actions/passwordsettings.php:181
 msgid "Error saving user; invalid."
 msgstr "Error saving user; invalid."
 
-#: actions/passwordsettings.php:199 actions/recoverpassword.php:368
+#: actions/passwordsettings.php:186 actions/recoverpassword.php:368
 msgid "Can't save new password."
 msgstr "Can't save new password."
 
-#: actions/passwordsettings.php:205 actions/recoverpassword.php:211
+#: actions/passwordsettings.php:192 actions/recoverpassword.php:211
 msgid "Password saved."
 msgstr "Password saved."
 
@@ -2414,7 +2447,7 @@ msgid "Same as password above. Required."
 msgstr "Same as password above. Required."
 
 #: actions/register.php:437 actions/register.php:441
-#: lib/accountsettingsaction.php:122
+#: lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr "E-mail"
 
@@ -3345,36 +3378,36 @@ msgstr "Problem saving notice."
 msgid "DB error inserting reply: %s"
 msgstr "DB error inserting reply: %s"
 
-#: classes/User.php:333
+#: classes/User.php:347
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Message to %1$s on %2$s"
 
-#: lib/accountsettingsaction.php:109 lib/personalgroupnav.php:109
+#: lib/accountsettingsaction.php:108 lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr "Profile"
 
-#: lib/accountsettingsaction.php:110
+#: lib/accountsettingsaction.php:108
 msgid "Change your profile settings"
 msgstr "Change your profile settings"
 
-#: lib/accountsettingsaction.php:114
+#: lib/accountsettingsaction.php:112
 msgid "Upload an avatar"
 msgstr "Upload an avatar"
 
-#: lib/accountsettingsaction.php:119
+#: lib/accountsettingsaction.php:116
 msgid "Change your password"
 msgstr "Change your password"
 
-#: lib/accountsettingsaction.php:123
+#: lib/accountsettingsaction.php:120
 msgid "Change email handling"
 msgstr "Change e-mail handling"
 
-#: lib/accountsettingsaction.php:125 lib/groupnav.php:119
+#: lib/accountsettingsaction.php:124 lib/groupnav.php:119
 msgid "Design"
 msgstr ""
 
-#: lib/accountsettingsaction.php:126
+#: lib/accountsettingsaction.php:124
 #, fuzzy
 msgid "Design your profile"
 msgstr "User profile"
@@ -3383,7 +3416,7 @@ msgstr "User profile"
 msgid "Other"
 msgstr "Other"
 
-#: lib/accountsettingsaction.php:129
+#: lib/accountsettingsaction.php:128
 msgid "Other options"
 msgstr "Other options"
 
@@ -3773,20 +3806,19 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:191
-#, fuzzy
+#: lib/common.php:189
 msgid "No configuration file found. "
-msgstr "No confirmation code."
+msgstr "No configuration file found"
 
-#: lib/common.php:192
+#: lib/common.php:190
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:193
+#: lib/common.php:191
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:194
+#: lib/common.php:192
 #, fuzzy
 msgid "Go to the installer."
 msgstr "Login to the site"
@@ -3838,9 +3870,8 @@ msgid "Tile background image"
 msgstr ""
 
 #: lib/designsettings.php:170
-#, fuzzy
 msgid "Change colours"
-msgstr "Change your password"
+msgstr "Change colours"
 
 #: lib/designsettings.php:178
 msgid "Background"
@@ -3883,7 +3914,7 @@ msgstr ""
 
 #: lib/designsettings.php:372
 msgid "Bad default color settings: "
-msgstr ""
+msgstr "Bad default colour settings: "
 
 #: lib/designsettings.php:468
 msgid "Design defaults restored."
@@ -3930,9 +3961,8 @@ msgid "All"
 msgstr "All"
 
 #: lib/galleryaction.php:139
-#, fuzzy
 msgid "Select tag to filter"
-msgstr "Select a carrier"
+msgstr "Select tag to filter"
 
 #: lib/galleryaction.php:140
 msgid "Tag"
@@ -3951,14 +3981,13 @@ msgid "URL of the homepage or blog of the group or topic"
 msgstr "URL of the homepage or blog of the group or topic"
 
 #: lib/groupeditform.php:168
-#, fuzzy
 msgid "Describe the group or topic"
-msgstr "Describe the group or topic in 140 chars"
+msgstr "Describe the group or topic"
 
 #: lib/groupeditform.php:170
-#, fuzzy, php-format
+#, php-format
 msgid "Describe the group or topic in %d characters"
-msgstr "Describe the group or topic in 140 chars"
+msgstr "Describe the group or topic in %d characters"
 
 #: lib/groupeditform.php:172
 msgid "Description"
@@ -4026,9 +4055,9 @@ msgid "This page is not available in a media type you accept"
 msgstr "This page is not available in a media type you accept"
 
 #: lib/imagefile.php:75
-#, fuzzy, php-format
+#, php-format
 msgid "That file is too big. The maximum file size is %s."
-msgstr "You can upload a logo image for your group."
+msgstr "That file is too big. The maximum file size is %s."
 
 #: lib/imagefile.php:80
 msgid "Partial upload."
@@ -4056,8 +4085,8 @@ msgstr "Unknown file type"
 
 #: lib/jabber.php:192
 #, php-format
-msgid "notice id: %s"
-msgstr "New notice"
+msgid "[%s]"
+msgstr ""
 
 #: lib/joinform.php:114
 msgid "Join"
@@ -4364,9 +4393,8 @@ msgid "Attach a file"
 msgstr ""
 
 #: lib/noticelist.php:478
-#, fuzzy
 msgid "in context"
-msgstr "No content!"
+msgstr "in context"
 
 #: lib/noticelist.php:498
 msgid "Reply to this notice"
@@ -4579,7 +4607,8 @@ msgid "Could not subscribe other to you."
 msgstr "Could not subscribe other to you."
 
 #: lib/subs.php:124
-msgid "Not subscribed!."
+#, fuzzy
+msgid "Not subscribed!"
 msgstr "Not subscribed!"
 
 #: lib/subs.php:136
@@ -4603,18 +4632,16 @@ msgid "Unsubscribe"
 msgstr "Unsubscribe"
 
 #: lib/userprofile.php:116
-#, fuzzy
 msgid "Edit Avatar"
-msgstr "Avatar"
+msgstr "Edit Avatar"
 
 #: lib/userprofile.php:236
 msgid "User actions"
 msgstr "User actions"
 
 #: lib/userprofile.php:248
-#, fuzzy
 msgid "Edit profile settings"
-msgstr "Profile settings"
+msgstr "Edit profile settings"
 
 #: lib/userprofile.php:249
 msgid "Edit"
@@ -4628,54 +4655,54 @@ msgstr "Send a direct message to this user"
 msgid "Message"
 msgstr "Message"
 
-#: lib/util.php:818
+#: lib/util.php:821
 msgid "a few seconds ago"
 msgstr "a few seconds ago"
 
-#: lib/util.php:820
+#: lib/util.php:823
 msgid "about a minute ago"
 msgstr "about a minute ago"
 
-#: lib/util.php:822
+#: lib/util.php:825
 #, php-format
 msgid "about %d minutes ago"
 msgstr "about %d minutes ago"
 
-#: lib/util.php:824
+#: lib/util.php:827
 msgid "about an hour ago"
 msgstr "about an hour ago"
 
-#: lib/util.php:826
+#: lib/util.php:829
 #, php-format
 msgid "about %d hours ago"
 msgstr "about %d hours ago"
 
-#: lib/util.php:828
+#: lib/util.php:831
 msgid "about a day ago"
 msgstr "about a day ago"
 
-#: lib/util.php:830
+#: lib/util.php:833
 #, php-format
 msgid "about %d days ago"
 msgstr "about %d days ago"
 
-#: lib/util.php:832
+#: lib/util.php:835
 msgid "about a month ago"
 msgstr "about a month ago"
 
-#: lib/util.php:834
+#: lib/util.php:837
 #, php-format
 msgid "about %d months ago"
 msgstr "about %d months ago"
 
-#: lib/util.php:836
+#: lib/util.php:839
 msgid "about a year ago"
 msgstr "about a year ago"
 
 #: lib/webcolor.php:82
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not a valid color!"
-msgstr "Homepage is not a valid URL."
+msgstr "%s is not a valid colour!"
 
 #: lib/webcolor.php:123
 #, php-format

@@ -34,8 +34,6 @@ require_once INSTALLDIR.'/scripts/commandline.inc';
 require_once INSTALLDIR . '/lib/jabber.php';
 require_once INSTALLDIR . '/lib/xmppqueuehandler.php';
 
-define('CLAIM_TIMEOUT', 1200);
-
 class XmppConfirmHandler extends XmppQueueHandler
 {
     var $_id = 'confirm';
