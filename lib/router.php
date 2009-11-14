@@ -140,13 +140,11 @@ class Router
 
             // settings
 
-            foreach (array('profile', 'avatar', 'password', 'im', 'application',
+            foreach (array('profile', 'avatar', 'password', 'im', 'oauthconnections',
                            'email', 'sms', 'userdesign', 'other') as $s) {
                 $m->connect('settings/'.$s, array('action' => $s.'settings'));
             }
-
-	    $m->connect('settings/oauthclients', array('action' => 'oauthclients'));
-
+        
             // search
 
             foreach (array('group', 'people', 'notice') as $s) {
@@ -636,12 +634,19 @@ class Router
             // user stuff
 
             foreach (array('subscriptions', 'subscribers',
-                           'nudge', 'all', 'foaf', 'xrds',
+                           'nudge', 'all', 'foaf', 'xrds', 'apps',
                            'replies', 'inbox', 'outbox', 'microsummary') as $a) {
                 $m->connect(':nickname/'.$a,
                             array('action' => $a),
                             array('nickname' => '[a-zA-Z0-9]{1,64}'));
             }
+            
+            $m->connect('apps/new', array('action' => 'newapplication'));
+            
+            $m->connect(':nickname/apps/edit', 
+                array('action' => 'editapplication'),
+                array('nickname' => '['.NICKNAME_FMT.']{1,64}')
+            );
 
             foreach (array('subscriptions', 'subscribers') as $a) {
                 $m->connect(':nickname/'.$a.'/:tag',

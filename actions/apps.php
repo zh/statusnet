@@ -45,7 +45,7 @@ require_once INSTALLDIR . '/lib/connectsettingsaction.php';
  * @see      SettingsAction
  */
 
-class OauthClientsAction extends ConnectSettingsAction
+class AppsAction extends ConnectSettingsAction
 {
     /**
      * Title of the page
@@ -55,7 +55,7 @@ class OauthClientsAction extends ConnectSettingsAction
 
     function title()
     {
-        return _('Applications using %%site_name%%');
+        return _('OAuth applications');
     }
 
     /**
