@@ -47,5 +47,8 @@ class Right
 {
     const DELETEOTHERSNOTICE = 'deleteothersnotice';
     const CONFIGURESITE      = 'configuresite';
+    const DELETEUSER         = 'deleteuser';
+    const SILENCEUSER        = 'silenceuser';
+    const SANDBOXUSER        = 'sandboxuser';
 }
 

@@ -48,4 +48,6 @@ class User_role extends Memcached_DataObject
 
     const MODERATOR     = 'moderator';
     const ADMINISTRATOR = 'administrator';
+    const SANDBOXED     = 'sandboxed';
+    const SILENCED      = 'silenced';
 }

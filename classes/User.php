@@ -720,10 +720,14 @@ class User extends Memcached_DataObject
             switch ($right)
             {
             case Right::DELETEOTHERSNOTICE:
+            case Right::SANDBOXUSER:
+            case Right::SILENCEUSER:
+            case Right::DELETEUSER:
                 $result = $this->hasRole(User_role::MODERATOR);
                 break;
             case Right::CONFIGURESITE:
                 $result = $this->hasRole(User_role::ADMINISTRATOR);
+                break;
             default:
                 $result = false;
                 break;
@@ -773,5 +777,15 @@ class User extends Memcached_DataObject
         $block->blocker = $this->id;
         $block->delete();
         // XXX delete group block? Reset blocker?
+    }
+
+    function isSandboxed()
+    {
+        return $this->hasRole(User_role::SANDBOXED);
+    }
+
+    function isSilenced()
+    {
+        return $this->hasRole(User_role::SILENCED);
     }
 }
