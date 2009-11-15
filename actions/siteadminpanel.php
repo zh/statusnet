@@ -92,7 +92,6 @@ class SiteadminpanelAction extends AdminPanelAction
     {
         static $settings = array('name', 'broughtby', 'broughtbyurl',
                                  'email', 'timezone', 'language');
-        static $booleans = array('closed', 'inviteonly', 'private');
 
         $values = array();
 
@@ -240,20 +239,6 @@ class SiteAdminPanelForm extends Form
         $this->out->dropdown('language', _('Language'),
                              get_nice_language_list(), _('Default site language'),
                              false, $this->value('language'));
-
-        $this->unli();
-        $this->li();
-
-        $this->out->checkbox('closed', _('Closed'),
-                             (bool) $this->value('closed'),
-                             _('Is registration on this site prohibited?'));
-
-        $this->unli();
-        $this->li();
-
-        $this->out->checkbox('inviteonly', _('Invite-only'),
-                             (bool) $this->value('inviteonly'),
-                             _('Is registration on this site only open to invited users?'));
 
         $this->unli();
         $this->li();
