@@ -32,8 +32,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/form.php';
-
 /**
  * Form for blocking a user
  *
@@ -47,109 +45,38 @@ require_once INSTALLDIR.'/lib/form.php';
  * @see      UnblockForm
  */
 
-class BlockForm extends Form
+class BlockForm extends ProfileActionForm
 {
     /**
-     * Profile of user to block
-     */
-
-    var $profile = null;
-
-    /**
-     * Return-to args
-     */
-
-    var $args = null;
-
-    /**
-     * Constructor
+     * Action this form provides
      *
-     * @param HTMLOutputter $out     output channel
-     * @param Profile       $profile profile of user to block
-     * @param array         $args    return-to args
+     * @return string Name of the action, lowercased.
      */
 
-    function __construct($out=null, $profile=null, $args=null)
+    function target()
     {
-        parent::__construct($out);
-
-        $this->profile = $profile;
-        $this->args    = $args;
+        return 'block';
     }
 
     /**
-     * ID of the form
+     * Title of the form
      *
-     * @return int ID of the form
+     * @return string Title of the form, internationalized
      */
 
-    function id()
+    function title()
     {
-        return 'block-' . $this->profile->id;
-    }
-
-
-    /**
-     * class of the form
-     *
-     * @return string class of the form
-     */
-
-    function formClass()
-    {
-        return 'form_user_block';
-    }
-
-
-    /**
-     * Action of the form
-     *
-     * @return string URL of the action
-     */
-
-    function action()
-    {
-        return common_local_url('block');
-    }
-
-
-    /**
-     * Legend of the Form
-     *
-     * @return void
-     */
-    function formLegend()
-    {
-        $this->out->element('legend', null, _('Block this user'));
-    }
-
-
-    /**
-     * Data elements of the form
-     *
-     * @return void
-     */
-
-    function formData()
-    {
-        $this->out->hidden('blockto-' . $this->profile->id,
-                           $this->profile->id,
-                           'blockto');
-        if ($this->args) {
-            foreach ($this->args as $k => $v) {
-                $this->out->hidden('returnto-' . $k, $v);
-            }
-        }
+        return _('Block');
     }
 
     /**
-     * Action elements
+     * Description of the form
      *
-     * @return void
+     * @return string description of the form, internationalized
      */
 
-    function formActions()
+    function description()
     {
-        $this->out->submit('submit', _('Block'), 'submit', null, _('Block this user'));
+        return _('Block this user');
     }
 }
