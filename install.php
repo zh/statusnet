@@ -1,3 +1,4 @@
+
 <?php
 /**
  * StatusNet - the distributed open-source microblogging tool
@@ -25,7 +26,7 @@
  * @author   Brion Vibber <brion@pobox.com>
  * @author   CiaranG <ciaran@ciarang.com>
  * @author   Craig Andrews <candrews@integralblue.com>
- * @author   Eric Helgeson <erichelgeson@gmail.com>
+ * @author   Eric Helgeson <helfire@Erics-MBP.local>
  * @author   Evan Prodromou <evan@status.net>
  * @author   Robin Millette <millette@controlyourself.ca>
  * @author   Sarven Capadisli <csarven@status.net>
@@ -499,11 +500,6 @@ function showForm()
                 <input type="password" id="password" name="password" />
                 <p class="form_guide">Database password (optional)</p>
             </li>
-            <li>
-                <label for="snapshot">Send stats to StatusNet Inc?</label>
-                <input type="checkbox" id="snapshot" name="snapshot" checked />
-                <p class="form_guide">Periodically send information about your site to StatusNet Inc</p>
-            </li>
         </ul>
         <input type="submit" name="submit" class="submit" value="Submit" />
     </fieldset>
@@ -525,7 +521,6 @@ function handlePost()
     $username = $_POST['username'];
     $password = $_POST['password'];
     $sitename = $_POST['sitename'];
-    $snapshot = $_POST['snapshot'];
     $fancy    = !empty($_POST['fancy']);
     $server = $_SERVER['HTTP_HOST'];
     $path = substr(dirname($_SERVER['PHP_SELF']), 1);
@@ -572,7 +567,7 @@ STR;
     }
 
     updateStatus("Writing config file...");
-    $res = writeConf($sitename, $server, $path, $fancy, $db, $snapshot);
+    $res = writeConf($sitename, $server, $path, $fancy, $db);
 
     if (!$res) {
         updateStatus("Can't write config file.", true);
@@ -693,7 +688,7 @@ function Mysql_Db_installer($host, $database, $username, $password)
     return $db;
 }
 
-function writeConf($sitename, $server, $path, $fancy, $db, $snapshot)
+function writeConf($sitename, $server, $path, $fancy, $db)
 {
     // assemble configuration file in a string
     $cfg =  "<?php\n".
@@ -708,9 +703,6 @@ function writeConf($sitename, $server, $path, $fancy, $db, $snapshot)
 
             // checks if fancy URLs are enabled
             ($fancy ? "\$config['site']['fancy'] = true;\n\n":'').
-
-            // send site stats to SNI
-            ($snapshot ? "\$config['snapshot']['run'] = 'web';\n\n":'').
 
             // database
             "\$config['db']['database'] = '{$db['database']}';\n\n".
