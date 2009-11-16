@@ -44,6 +44,10 @@ function subs_subscribe_user($user, $other_nickname)
 
 function subs_subscribe_to($user, $other)
 {
+    if (!$user->hasRight(Right::SUBSCRIBE)) {
+        return _('You have been banned from subscribing.');
+    }
+
     if ($user->isSubscribed($other)) {
         return _('Already subscribed!');
     }
