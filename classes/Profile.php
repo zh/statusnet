@@ -590,18 +590,18 @@ class Profile extends Memcached_DataObject
 
     function hasRole($name)
     {
-        $role = User_role::pkeyGet(array('user_id' => $this->id,
-                                         'role' => $name));
+        $role = Profile_role::pkeyGet(array('profile_id' => $this->id,
+                                            'role' => $name));
         return (!empty($role));
     }
 
     function grantRole($name)
     {
-        $role = new User_role();
+        $role = new Profile_role();
 
-        $role->user_id = $this->id;
-        $role->role    = $name;
-        $role->created = common_sql_now();
+        $role->profile_id = $this->id;
+        $role->role       = $name;
+        $role->created    = common_sql_now();
 
         $result = $role->insert();
 
@@ -615,8 +615,8 @@ class Profile extends Memcached_DataObject
 
     function revokeRole($name)
     {
-        $role = User_role::pkeyGet(array('user_id' => $this->id,
-                                         'role' => $name));
+        $role = Profile_role::pkeyGet(array('profile_id' => $this->id,
+                                            'role' => $name));
 
         if (empty($role)) {
             throw new Exception('Cannot revoke role "'.$name.'" for user #'.$this->id.'; does not exist.');
@@ -634,31 +634,31 @@ class Profile extends Memcached_DataObject
 
     function isSandboxed()
     {
-        return $this->hasRole(User_role::SANDBOXED);
+        return $this->hasRole(Profile_role::SANDBOXED);
     }
 
     function isSilenced()
     {
-        return $this->hasRole(User_role::SILENCED);
+        return $this->hasRole(Profile_role::SILENCED);
     }
 
     function sandbox()
     {
-        $this->grantRole(User_role::SANDBOXED);
+        $this->grantRole(Profile_role::SANDBOXED);
     }
 
     function unsandbox()
     {
-        $this->revokeRole(User_role::SANDBOXED);
+        $this->revokeRole(Profile_role::SANDBOXED);
     }
 
     function silence()
     {
-        $this->grantRole(User_role::SILENCED);
+        $this->grantRole(Profile_role::SILENCED);
     }
 
     function unsilence()
     {
-        $this->revokeRole(User_role::SILENCED);
+        $this->revokeRole(Profile_role::SILENCED);
     }
 }

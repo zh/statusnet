@@ -679,10 +679,10 @@ class User extends Memcached_DataObject
             case Right::SANDBOXUSER:
             case Right::SILENCEUSER:
             case Right::DELETEUSER:
-                $result = $this->hasRole(User_role::MODERATOR);
+                $result = $this->hasRole(Profile_role::MODERATOR);
                 break;
             case Right::CONFIGURESITE:
-                $result = $this->hasRole(User_role::ADMINISTRATOR);
+                $result = $this->hasRole(Profile_role::ADMINISTRATOR);
                 break;
             default:
                 $result = false;
