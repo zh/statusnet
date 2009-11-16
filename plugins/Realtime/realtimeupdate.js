@@ -86,6 +86,7 @@ RealtimeUpdate = {
                    $("#notices_primary .notice:last").remove();
               }
 
+              NoticeFavors();
               NoticeReply();
 
               RealtimeUpdate._updatecounter += 1;
