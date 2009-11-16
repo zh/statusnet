@@ -203,12 +203,11 @@ class Notice extends Memcached_DataObject
         $notice = new Notice();
         $notice->profile_id = $profile_id;
 
-        $blacklist = common_config('public', 'blacklist');
         $autosource = common_config('public', 'autosource');
 
-        # Blacklisted are non-false, but not 1, either
+        # Sandboxed are non-false, but not 1, either
 
-        if (($blacklist && in_array($profile_id, $blacklist)) ||
+        if (!$user->hasRight(Right::PUBLICNOTICE) ||
             ($source && $autosource && in_array($source, $autosource))) {
             $notice->is_local = Notice::LOCAL_NONPUBLIC;
         } else {

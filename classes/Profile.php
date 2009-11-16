@@ -692,6 +692,9 @@ class Profile extends Memcached_DataObject
             case Right::NEWNOTICE:
                 $result = !$this->isSilenced();
                 break;
+            case Right::PUBLICNOTICE:
+                $result = !$this->isSandboxed();
+                break;
             default:
                 $result = false;
                 break;
