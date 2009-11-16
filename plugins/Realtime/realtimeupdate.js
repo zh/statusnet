@@ -34,6 +34,8 @@ RealtimeUpdate = {
      _favorurl: '',
      _deleteurl: '',
      _updatecounter: 0,
+     _updatedelay: 500,
+     _maxnotices: 50,
 
      init: function(userid, replyurl, favorurl, deleteurl)
      {
@@ -76,11 +78,16 @@ RealtimeUpdate = {
               $("#notices_primary .notices").prepend(noticeItem);
               $("#notices_primary .notice:first").css({display:"none"});
               $("#notices_primary .notice:first").fadeIn(1000);
+
+              if ($('#notices_primary .notice').length > RealtimeUpdate._maxnotices) {
+                   $("#notices_primary .notice:last").remove();
+              }
+
               NoticeReply();
 
               RealtimeUpdate._updatecounter += 1;
               document.title = '('+RealtimeUpdate._updatecounter+') ' + DT;
-          }, 500);
+          }, RealtimeUpdate._updatedelay);
      },
 
      makeNoticeItem: function(data)
