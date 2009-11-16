@@ -577,11 +577,13 @@ class User extends Memcached_DataObject
           'WHERE group_member.profile_id = %d ' .
           'ORDER BY group_member.created DESC ';
 
-        if ($offset) {
-            if (common_config('db','type') == 'pgsql') {
-                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-            } else {
-                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+        if ($offset>0 && !is_null($limit)) {
+            if ($offset) {
+                if (common_config('db','type') == 'pgsql') {
+                    $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+                } else {
+                    $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+                }
             }
         }
 
