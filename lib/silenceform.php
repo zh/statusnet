@@ -43,7 +43,7 @@ if (!defined('STATUSNET')) {
  * @see      UnSilenceForm
  */
 
-class SilenceForm extends Form
+class SilenceForm extends ProfileActionForm
 {
     /**
      * Action this form provides
