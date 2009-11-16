@@ -6,12 +6,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-14 21:06+0000\n"
-"PO-Revision-Date: 2009-11-14 21:06:59+0000\n"
+"POT-Creation-Date: 2009-11-16 19:42+0000\n"
+"PO-Revision-Date: 2009-11-16 19:42:46+0000\n"
 "Language-Team: Arabic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59079); Translate extension (2009-11-13)\n"
+"X-Generator: MediaWiki 1.16alpha(r59142); Translate extension (2009-11-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ar\n"
 "X-Message-Group: out-statusnet\n"
@@ -204,7 +204,7 @@ msgstr ""
 #: actions/apidirectmessage.php:89
 #, php-format
 msgid "Direct messages from %s"
-msgstr ""
+msgstr "رسائل مباشرة من %s"
 
 #: actions/apidirectmessage.php:93
 #, php-format
@@ -253,7 +253,7 @@ msgstr "تعذّر إنشاء مفضلة."
 
 #: actions/apifavoritedestroy.php:122
 msgid "That status is not a favorite!"
-msgstr ""
+msgstr "تلك الحالة ليست مفضلة!"
 
 #: actions/apifavoritedestroy.php:134 actions/disfavor.php:87
 msgid "Could not delete favorite."
@@ -352,7 +352,7 @@ msgstr ""
 #: actions/newgroup.php:168
 #, php-format
 msgid "Invalid alias: \"%s\""
-msgstr ""
+msgstr "كنية غير صالحة: \"%s\""
 
 #: actions/apigroupcreate.php:321 actions/editgroup.php:228
 #: actions/newgroup.php:172
@@ -688,7 +688,7 @@ msgstr "نعم"
 #: actions/block.php:150 actions/groupmembers.php:346 lib/blockform.php:123
 #: lib/blockform.php:153
 msgid "Block this user"
-msgstr ""
+msgstr "امنع هذا المستخدم"
 
 #: actions/block.php:165
 msgid "You have already blocked this user."
@@ -1060,7 +1060,7 @@ msgstr ""
 
 #: actions/favor.php:92 lib/disfavorform.php:140
 msgid "Disfavor favorite"
-msgstr ""
+msgstr "ألغِ تفضيل المفضلة"
 
 #: actions/featured.php:69 lib/featureduserssection.php:87
 #: lib/publicgroupnav.php:89
@@ -1768,11 +1768,11 @@ msgstr ""
 
 #: actions/nudge.php:94
 msgid "Nudge sent"
-msgstr ""
+msgstr "أرسل التنبيه"
 
 #: actions/nudge.php:97
 msgid "Nudge sent!"
-msgstr ""
+msgstr "أُرسل التنبيه!"
 
 #: actions/oembed.php:79 actions/shownotice.php:100
 msgid "Notice has no profile"
@@ -1822,11 +1822,11 @@ msgstr "قصّر المسارات بـ"
 
 #: actions/othersettings.php:117
 msgid "Automatic shortening service to use."
-msgstr ""
+msgstr "خدمة التقصير المطلوب استخدامها."
 
 #: actions/othersettings.php:122
 msgid "View profile designs"
-msgstr ""
+msgstr "اعرض تصاميم الملف الشخصي"
 
 #: actions/othersettings.php:123
 msgid "Show or hide profile designs."
@@ -2118,6 +2118,10 @@ msgid ""
 "tool. [Join now](%%action.register%%) to share notices about yourself with "
 "friends, family, and colleagues! ([Read more](%%doc.help%%))"
 msgstr ""
+"هنا %%site.name%%، خدمة [التدوين المُصغّر](http://en.wikipedia.org/wiki/Micro-"
+"blogging) المبنية على البرنامج الحر [StatusNet](http://status.net/).  [انضم "
+"الآن](%%action.register%%) لتشارك اشعاراتك مع أصدقائك وعائلتك وزملائك! "
+"([اقرأ المزيد](%%doc.help%%))"
 
 #: actions/public.php:238
 #, php-format
@@ -2126,10 +2130,12 @@ msgid ""
 "blogging) service based on the Free Software [StatusNet](http://status.net/) "
 "tool."
 msgstr ""
+"هنا %%site.name%%، خدمة [التدوين المُصغّر](http://en.wikipedia.org/wiki/Micro-"
+"blogging) المبنية على البرنامج الحر [StatusNet](http://status.net/)."
 
 #: actions/publictagcloud.php:57
 msgid "Public tag cloud"
-msgstr ""
+msgstr "سحابة الوسوم العمومية"
 
 #: actions/publictagcloud.php:63
 #, php-format
@@ -2536,7 +2542,7 @@ msgstr ""
 
 #: actions/showfavorites.php:242
 msgid "This is a way to share what you like."
-msgstr ""
+msgstr "إنها إحدى وسائل مشاركة ما تحب."
 
 #: actions/showgroup.php:82 lib/groupnav.php:86
 #, php-format
@@ -2641,7 +2647,7 @@ msgstr "لا رسالة كهذه."
 
 #: actions/showmessage.php:98
 msgid "Only the sender and recipient may read this message."
-msgstr ""
+msgstr "يحق للمُرسل والمستلم فقط قراءة هذه الرسالة."
 
 #: actions/showmessage.php:108
 #, php-format
@@ -2884,12 +2890,12 @@ msgstr "اشتراكات %s، الصفحة %d"
 
 #: actions/subscriptions.php:65
 msgid "These are the people whose notices you listen to."
-msgstr ""
+msgstr "هؤلاء الأشخاص الذي تستمع إليهم."
 
 #: actions/subscriptions.php:69
 #, php-format
 msgid "These are the people whose notices %s listens to."
-msgstr ""
+msgstr "هؤلاء الأشخاص الذي يستمع %s إليهم."
 
 #: actions/subscriptions.php:121
 #, php-format
@@ -3381,6 +3387,9 @@ msgid ""
 "s, available under the [GNU Affero General Public License](http://www.fsf."
 "org/licensing/licenses/agpl-3.0.html)."
 msgstr ""
+"تعمل على برنامج التدوين المُصغّر [StatusNet](http://status.net/) -النسخة %s- "
+"المتوفر تحت [رخصة غنو أفيرو العمومية](http://www.fsf.org/licensing/licenses/"
+"agpl-3.0.html)."
 
 #: lib/action.php:785
 msgid "Site content license"
@@ -3579,13 +3588,46 @@ msgstr ""
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
-#: lib/command.php:613
+#: lib/command.php:618
+#, fuzzy
+msgid "You are not subscribed to anyone."
+msgstr "لا تملك تصريحًا."
+
+#: lib/command.php:620
+#, fuzzy
+msgid "You are subscribed to these people: "
+msgstr "الأشخاص المشتركون ب%s"
+
+#: lib/command.php:637
+#, fuzzy
+msgid "No one is subscribed to you."
+msgstr "الأشخاص الذين اشترك بهم %s"
+
+#: lib/command.php:639
+#, fuzzy
+msgid "These people are subscribed to you: "
+msgstr "الأشخاص المشتركون ب%s"
+
+#: lib/command.php:656
+#, fuzzy
+msgid "You are not a member of any groups."
+msgstr "لست عضوا في تلك المجموعة."
+
+#: lib/command.php:658
+#, fuzzy
+msgid "You are a member of these groups: "
+msgstr "لست عضوا في تلك المجموعة."
+
+#: lib/command.php:670
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
 "off - turn off notifications\n"
 "help - show this help\n"
 "follow <nickname> - subscribe to user\n"
+"groups - lists the groups you have joined\n"
+"subscriptions - list the people you follow\n"
+"subscribers - list the people that follow you\n"
 "leave <nickname> - unsubscribe from user\n"
 "d <nickname> <text> - direct message to user\n"
 "get <nickname> - get last notice from user\n"
@@ -4191,11 +4233,11 @@ msgstr "رُد"
 
 #: lib/nudgeform.php:116
 msgid "Nudge this user"
-msgstr ""
+msgstr "نبّه هذا المستخدم"
 
 #: lib/nudgeform.php:128
 msgid "Nudge"
-msgstr ""
+msgstr "نبّه"
 
 #: lib/nudgeform.php:128
 msgid "Send a nudge to this user"
