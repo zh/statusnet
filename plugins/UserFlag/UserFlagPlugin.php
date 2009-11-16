@@ -48,7 +48,7 @@ class UserFlagPlugin extends Plugin
         $schema = Schema::get();
 
         // For storing user-submitted flags on profiles
-        $schema->ensureDataObject(User_flag_profile);
+        $schema->ensureDataObject('User_flag_profile');
 
         return true;
     }

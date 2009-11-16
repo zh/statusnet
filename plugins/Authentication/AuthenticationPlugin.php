@@ -204,7 +204,7 @@ abstract class AuthenticationPlugin extends Plugin
 
     function onCheckSchema() {
         $schema = Schema::get();
-        $schema->ensureDataObject(User_username);
+        $schema->ensureDataObject('User_username');
         return true;
     }
 

@@ -281,8 +281,8 @@ class OpenIDPlugin extends Plugin
 
     function onCheckSchema() {
         $schema = Schema::get();
-        $schema->ensureDataObject(User_openid);
-        $schema->ensureDataObject(User_openid_trustroot);
+        $schema->ensureDataObject('User_openid');
+        $schema->ensureDataObject('User_openid_trustroot');
         return true;
     }
 
