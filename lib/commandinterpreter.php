@@ -59,6 +59,12 @@ class CommandInterpreter
             } else {
                 return new SubscriptionsCommand($user);
             }
+         case 'groups':
+            if ($arg) {
+                return null;
+            } else {
+                return new GroupsCommand($user);
+            }
          case 'on':
             if ($arg) {
                 list($other, $extra) = $this->split_arg($arg);

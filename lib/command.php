@@ -643,6 +643,25 @@ class SubscribersCommand extends Command
     }
 }
 
+class GroupsCommand extends Command
+{
+    function execute($channel)
+    {
+        $group = $this->user->getGroups();
+        $groups=array();
+        while ($group->fetch()) {
+            $groups[]=$group->nickname;
+        }
+        if(count($groups)==0){
+            $out=_('You are not a member of any groups.');
+        }else{
+            $out=_('You are a member of these groups: ');
+            $out.=implode(', ',$groups);
+        }
+        $channel->output($this->user,$out);
+    }
+}
+
 class HelpCommand extends Command
 {
     function execute($channel)
@@ -653,6 +672,7 @@ class HelpCommand extends Command
                            "off - turn off notifications\n".
                            "help - show this help\n".
                            "follow <nickname> - subscribe to user\n".
+                           "groups - lists the groups you have joined\n".
                            "subscriptions - list the people you follow\n".
                            "subscribers - list the people that follow you\n".
                            "leave <nickname> - unsubscribe from user\n".
