@@ -52,5 +52,9 @@ class Right
     const SANDBOXUSER        = 'sandboxuser';
     const NEWNOTICE          = 'newnotice';
     const PUBLICNOTICE       = 'publicnotice';
+    const NEWMESSAGE         = 'newmessage';
+    const SUBSCRIBE          = 'subscribe';
+    const EMAILONREPLY       = 'emailonreply';
+    const EMAILONSUBSCRIBE   = 'emailonsubscribe';
 }
 

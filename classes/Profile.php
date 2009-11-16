@@ -690,9 +690,13 @@ class Profile extends Memcached_DataObject
                 $result = $this->hasRole(Profile_role::ADMINISTRATOR);
                 break;
             case Right::NEWNOTICE:
+            case Right::NEWMESSAGE:
+            case Right::SUBSCRIBE:
                 $result = !$this->isSilenced();
                 break;
             case Right::PUBLICNOTICE:
+            case Right::EMAILONREPLY:
+            case Right::EMAILONSUBSCRIBE:
                 $result = !$this->isSandboxed();
                 break;
             default:
