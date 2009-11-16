@@ -557,13 +557,13 @@ create table config (
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
-create table user_role (
+create table profile_role (
 
-    user_id integer not null comment 'user having the role' references user (id),
+    profile_id integer not null comment 'account having the role' references profile (id),
     role    varchar(32) not null comment 'string representing the role',
     created datetime not null comment 'date the role was granted',
 
-    constraint primary key (user_id, role)
+    constraint primary key (profile_id, role)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
