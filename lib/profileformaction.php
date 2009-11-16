@@ -134,6 +134,6 @@ class ProfileFormAction extends Action
 
     function handlePost()
     {
-        return;
+        $this->serverError(_("unimplemented method"));
     }
 }

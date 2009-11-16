@@ -42,57 +42,25 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://status.net/
  */
-class UnblockAction extends Action
-{
-    var $profile = null;
 
-    /**
-     * Take arguments for running
-     *
-     * @param array $args $_REQUEST args
-     *
-     * @return boolean success flag
-     */
+class UnblockAction extends ProfileFormAction
+{
     function prepare($args)
     {
-        parent::prepare($args);
-        if (!common_logged_in()) {
-            $this->clientError(_('Not logged in.'));
+        if (!parent::prepare($args)) {
             return false;
         }
-        $token = $this->trimmed('token');
-        if (!$token || $token != common_session_token()) {
-            $this->clientError(_('There was a problem with your session token. Try again, please.'));
-            return;
-        }
-        $id = $this->trimmed('unblockto');
-        if (!$id) {
-            $this->clientError(_('No profile specified.'));
-            return false;
-        }
-        $this->profile = Profile::staticGet('id', $id);
-        if (!$this->profile) {
-            $this->clientError(_('No profile with that ID.'));
-            return false;
-        }
-        return true;
-    }
 
-    /**
-     * Handle request
-     *
-     * Shows a page with list of favorite notices
-     *
-     * @param array $args $_REQUEST args; handled in prepare()
-     *
-     * @return void
-     */
-    function handle($args)
-    {
-        parent::handle($args);
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->unblockProfile();
+        $cur = common_current_user();
+
+        assert(!empty($cur)); // checked by parent
+
+        if (!$cur->hasBlocked($this->profile)) {
+            $this->clientError(_("You haven't blocked that user."));
+            return false;
         }
+
+        return true;
     }
 
     /**
@@ -100,7 +68,8 @@ class UnblockAction extends Action
      *
      * @return void
      */
-    function unblockProfile()
+
+    function handlePost()
     {
         $cur    = common_current_user();
         $result = $cur->unblock($this->profile);
@@ -108,20 +77,5 @@ class UnblockAction extends Action
             $this->serverError(_('Error removing the block.'));
             return;
         }
-        foreach ($this->args as $k => $v) {
-            if ($k == 'returnto-action') {
-                $action = $v;
-            } else if (substr($k, 0, 9) == 'returnto-') {
-                $args[substr($k, 9)] = $v;
-            }
-        }
-        if ($action) {
-            common_redirect(common_local_url($action, $args), 303);
-        } else {
-            common_redirect(common_local_url('subscribers',
-                                             array('nickname' => $cur->nickname)),
-                            303);
-        }
     }
 }
-

@@ -64,7 +64,7 @@ class BlockAction extends Action
             $this->clientError(_('There was a problem with your session token. Try again, please.'));
             return;
         }
-        $id = $this->trimmed('blockto');
+        $id = $this->trimmed('profileid');
         if (!$id) {
             $this->clientError(_('No profile specified.'));
             return false;
@@ -97,7 +97,7 @@ class BlockAction extends Action
                                 303);
             } elseif ($this->arg('yes')) {
                 $this->blockProfile();
-            } elseif ($this->arg('blockto')) {
+            } else {
                 $this->showPage();
             }
         }
@@ -138,7 +138,7 @@ class BlockAction extends Action
                          'unable to subscribe to you in the future, and '.
                          'you will not be notified of any @-replies from them.'));
         $this->element('input', array('id' => 'blockto-' . $id,
-                                      'name' => 'blockto',
+                                      'name' => 'profileid',
                                       'type' => 'hidden',
                                       'value' => $id));
         foreach ($this->args as $k => $v) {
