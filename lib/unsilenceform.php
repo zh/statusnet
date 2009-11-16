@@ -40,10 +40,10 @@ if (!defined('STATUSNET')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  *
- * @see      UnSilenceForm
+ * @see      SilenceForm
  */
 
-class UnSilenceForm extends Form
+class UnSilenceForm extends ProfileActionForm
 {
     /**
      * Action this form provides
