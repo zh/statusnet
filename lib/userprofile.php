@@ -327,7 +327,7 @@ class UserProfile extends Widget
 
                         if ($cur->hasRight(Right::DELETEUSER)) {
                             $this->out->elementStart('li', 'entity_delete');
-                            $df = DeleteUserForm($this->out, $this->profile, $r2args);
+                            $df = new DeleteUserForm($this->out, $this->profile, $r2args);
                             $df->show();
                             $this->out->elementEnd('li');
                         }
