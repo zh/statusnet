@@ -595,6 +595,10 @@ function mail_notify_attn($user, $notice)
 
     $sender = $notice->getProfile();
 
+    if (!$sender->hasRight(Right::EMAILONREPLY)) {
+        return;
+    }
+
     $bestname = $sender->getBestName();
 
     common_init_locale($user->language);
