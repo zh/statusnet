@@ -310,10 +310,12 @@ class Profile extends Memcached_DataObject
           'AND subscription.subscribed != subscription.subscriber ' .
           'ORDER BY subscription.created DESC ';
 
-        if (common_config('db','type') == 'pgsql') {
-            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-        } else {
-            $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+        if ($offset>0 && !is_null($limit)){
+            if (common_config('db','type') == 'pgsql') {
+                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+            } else {
+                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+            }
         }
 
         $profile = new Profile();
@@ -333,11 +335,13 @@ class Profile extends Memcached_DataObject
           'AND subscription.subscribed != subscription.subscriber ' .
           'ORDER BY subscription.created DESC ';
 
-        if ($offset) {
-            if (common_config('db','type') == 'pgsql') {
-                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-            } else {
-                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+        if ($offset>0 && !is_null($limit)){
+            if ($offset) {
+                if (common_config('db','type') == 'pgsql') {
+                    $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+                } else {
+                    $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+                }
             }
         }
 
