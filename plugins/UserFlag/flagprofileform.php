@@ -45,108 +45,38 @@ require_once INSTALLDIR.'/lib/form.php';
  * @link     http://status.net/
  */
 
-class FlagProfileForm extends Form
+class FlagProfileForm extends ProfileActionForm
 {
     /**
-     * Profile of profile to flag
-     */
-
-    var $profile = null;
-
-    /**
-     * Return-to args
-     */
-
-    var $args = null;
-
-    /**
-     * Constructor
+     * Action this form provides
      *
-     * @param HTMLOutputter $out     output channel
-     * @param Profile       $profile profile of user to flag
-     * @param array         $args    return-to args
+     * @return string Name of the action, lowercased.
      */
 
-    function __construct($out=null, $profile=null, $args=null)
+    function target()
     {
-        parent::__construct($out);
-
-        $this->profile = $profile;
-        $this->args    = $args;
+        return 'flagprofile';
     }
 
     /**
-     * ID of the form
+     * Title of the form
      *
-     * @return int ID of the form
+     * @return string Title of the form, internationalized
      */
 
-    function id()
+    function title()
     {
-        return 'flagprofile-' . $this->profile->id;
+        return _('Flag');
     }
 
     /**
-     * class of the form
+     * Description of the form
      *
-     * @return string class of the form
+     * @return string description of the form, internationalized
      */
 
-    function formClass()
+    function description()
     {
-        return 'form_entity_flag';
-    }
-
-    /**
-     * Action of the form
-     *
-     * @return string URL of the action
-     */
-
-    function action()
-    {
-        return common_local_url('flagprofile');
-    }
-
-    /**
-     * Legend of the Form
-     *
-     * @return void
-     */
-    function formLegend()
-    {
-        $this->out->element('legend', null, _('Flag profile for review'));
-    }
-
-    /**
-     * Data elements of the form
-     *
-     * @return void
-     */
-
-    function formData()
-    {
-        // TODO: let the user choose a flag
-
-        $this->out->hidden('flagprofileto-' . $this->profile->id,
-                           $this->profile->id,
-                           'flagprofileto');
-
-        if ($this->args) {
-            foreach ($this->args as $k => $v) {
-                $this->out->hidden('returnto-' . $k, $v);
-            }
-        }
-    }
-
-    /**
-     * Action elements
-     *
-     * @return void
-     */
-
-    function formActions()
-    {
-        $this->out->submit('submit', _('Flag'), 'submit', null, _('Flag profile for review'));
+        return _('Flag profile for review');
     }
 }

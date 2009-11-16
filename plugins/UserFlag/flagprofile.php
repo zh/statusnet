@@ -41,11 +41,8 @@ if (!defined('STATUSNET')) {
  * @link     http://status.net/
  */
 
-class FlagprofileAction extends Action
+class FlagprofileAction extends ProfileFormAction
 {
-    var $profile = null;
-    var $flag    = null;
-
     /**
      * Take arguments for running
      *
@@ -56,34 +53,14 @@ class FlagprofileAction extends Action
 
     function prepare($args)
     {
-        parent::prepare($args);
-
-        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            throw new ClientException(_('Action only accepts POST'));
-        }
-
-        if (!common_logged_in()) {
-            $this->clientError(_('Not logged in.'));
-            return false;
-        }
-
-        $id = $this->trimmed('flagprofileto');
-
-        if (!$id) {
-            $this->clientError(_('No profile specified.'));
-            return false;
-        }
-
-        $this->profile = Profile::staticGet('id', $id);
-
-        if (empty($this->profile)) {
-            $this->clientError(_('No profile with that ID.'));
+        if (!parent::prepare($args)) {
             return false;
         }
 
         $user = common_current_user();
 
         assert(!empty($user)); // checked above
+        assert(!empty($this->profile)); // checked above
 
         if (User_flag_profile::exists($this->profile->id,
                                       $user->id))
@@ -96,46 +73,12 @@ class FlagprofileAction extends Action
     }
 
     /**
-     * Handle request
-     *
-     * @param array $args $_REQUEST args; handled in prepare()
+     * Handle POST
      *
      * @return void
      */
 
-    function handle($args)
-    {
-        parent::handle($args);
-
-        $this->flagProfile();
-        
-        if ($this->boolean('ajax')) {
-            header('Content-Type: text/xml;charset=utf-8');
-            $this->xw->startDocument('1.0', 'UTF-8');
-            $this->elementStart('html');
-            $this->elementStart('head');
-            $this->element('title', null, _('Flagged for review'));
-            $this->elementEnd('head');
-            $this->elementStart('body');
-            $this->element('p', 'flagged', _('Flagged'));
-            $this->elementEnd('body');
-            $this->elementEnd('html');
-        } else {
-            $this->returnTo();
-        }
-    }
-
-    function title() {
-        return _('Flag profile');
-    }
-
-    /**
-     * save the profile flag
-     *
-     * @return void
-     */
-
-    function flagProfile()
+    function handlePost()
     {
         $user = common_current_user();
 
@@ -149,25 +92,24 @@ class FlagprofileAction extends Action
         $ufp->created    = common_sql_now();
 
         if (!$ufp->insert()) {
-            throw new ServerException(sprintf(_("Couldn't flag profile '%s' with flag '%s'."),
-                                              $this->profile->nickname, $this->flag));
+            throw new ServerException(sprintf(_("Couldn't flag profile '%s' for review."),
+                                              $this->profile->nickname));
         }
 
         $ufp->free();
     }
 
-    function returnTo()
-    {
-        // Now, gotta figure where we go back to
-        foreach ($this->args as $k => $v) {
-            if ($k == 'returnto-action') {
-                $action = $v;
-            } elseif (substr($k, 0, 9) == 'returnto-') {
-                $args[substr($k, 9)] = $v;
-            }
-        }
-
-        common_redirect(common_local_url($action, $args), 303);
+    function ajaxResults() {
+        header('Content-Type: text/xml;charset=utf-8');
+        $this->xw->startDocument('1.0', 'UTF-8');
+        $this->elementStart('html');
+        $this->elementStart('head');
+        $this->element('title', null, _('Flagged for review'));
+        $this->elementEnd('head');
+        $this->elementStart('body');
+        $this->element('p', 'flagged', _('Flagged'));
+        $this->elementEnd('body');
+        $this->elementEnd('html');
     }
 }
 
