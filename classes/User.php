@@ -657,39 +657,10 @@ class User extends Memcached_DataObject
         return Design::staticGet('id', $this->design_id);
     }
 
-    /**
-     * Does this user have the right to do X?
-     *
-     * With our role-based authorization, this is merely a lookup for whether the user
-     * has a particular role. The implementation currently uses a switch statement
-     * to determine if the user has the pre-defined role to exercise the right. Future
-     * implementations may allow per-site roles, and different mappings of roles to rights.
-     *
-     * @param $right string Name of the right, usually a constant in class Right
-     * @return boolean whether the user has the right in question
-     */
-
     function hasRight($right)
     {
-        $result = false;
-        if (Event::handle('UserRightsCheck', array($this, $right, &$result))) {
-            switch ($right)
-            {
-            case Right::DELETEOTHERSNOTICE:
-            case Right::SANDBOXUSER:
-            case Right::SILENCEUSER:
-            case Right::DELETEUSER:
-                $result = $this->hasRole(Profile_role::MODERATOR);
-                break;
-            case Right::CONFIGURESITE:
-                $result = $this->hasRole(Profile_role::ADMINISTRATOR);
-                break;
-            default:
-                $result = false;
-                break;
-            }
-        }
-        return $result;
+        $profile = $this->getProfile();
+        return $profile->hasRight($right);
     }
 
     function delete()

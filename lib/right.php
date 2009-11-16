@@ -50,5 +50,6 @@ class Right
     const DELETEUSER         = 'deleteuser';
     const SILENCEUSER        = 'silenceuser';
     const SANDBOXUSER        = 'sandboxuser';
+    const NEWNOTICE          = 'newnotice';
 }
 

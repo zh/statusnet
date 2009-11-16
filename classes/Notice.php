@@ -195,10 +195,8 @@ class Notice extends Memcached_DataObject
                                         ' take a breather and post again in a few minutes.'));
         }
 
-        $banned = common_config('profile', 'banned');
-
-        if ( in_array($profile_id, $banned) || in_array($profile->nickname, $banned)) {
-            common_log(LOG_WARNING, "Attempted post from banned user: $profile->nickname (user id = $profile_id).");
+        if (!$profile->hasRight(Right::NEWNOTICE)) {
+            common_log(LOG_WARNING, "Attempted post from user disallowed to post: " . $profile->nickname);
             throw new ClientException(_('You are banned from posting notices on this site.'));
         }
 
