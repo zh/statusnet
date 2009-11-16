@@ -47,17 +47,17 @@ class CommandInterpreter
             } else {
                 return new LoginCommand($user);
             }
-         case 'followers':
+         case 'subscribers':
             if ($arg) {
                 return null;
             } else {
-                return new FollowersCommand($user);
+                return new SubscribersCommand($user);
             }
-         case 'following':
+         case 'subscriptions':
             if ($arg) {
                 return null;
             } else {
-                return new FollowingCommand($user);
+                return new SubscriptionsCommand($user);
             }
          case 'on':
             if ($arg) {

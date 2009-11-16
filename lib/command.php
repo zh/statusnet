@@ -605,7 +605,7 @@ class LoginCommand extends Command
     }
 }
 
-class FollowingCommand extends Command
+class SubscriptionsCommand extends Command
 {
     function execute($channel)
     {
@@ -624,7 +624,7 @@ class FollowingCommand extends Command
     }
 }
 
-class FollowersCommand extends Command
+class SubscribersCommand extends Command
 {
     function execute($channel)
     {
@@ -653,8 +653,8 @@ class HelpCommand extends Command
                            "off - turn off notifications\n".
                            "help - show this help\n".
                            "follow <nickname> - subscribe to user\n".
-                           "following - list the people you follow\n".
-                           "followers - list the people that follow you\n".
+                           "subscriptions - list the people you follow\n".
+                           "subscribers - list the people that follow you\n".
                            "leave <nickname> - unsubscribe from user\n".
                            "d <nickname> <text> - direct message to user\n".
                            "get <nickname> - get last notice from user\n".
