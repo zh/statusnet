@@ -986,6 +986,18 @@ class Action extends HTMLOutputter // lawsuit
 
     function selfUrl()
     {
+        list($action, $args) = $this->returnToArgs();
+        return common_local_url($action, $args);
+    }
+
+    /**
+     * Returns arguments sufficient for re-constructing URL
+     *
+     * @return array two elements: action, other args
+     */
+
+    function returnToArgs()
+    {
         $action = $this->trimmed('action');
         $args   = $this->args;
         unset($args['action']);
@@ -998,8 +1010,7 @@ class Action extends HTMLOutputter // lawsuit
         foreach (array_keys($_COOKIE) as $cookie) {
             unset($args[$cookie]);
         }
-
-        return common_local_url($action, $args);
+        return array($action, $args);
     }
 
     /**
