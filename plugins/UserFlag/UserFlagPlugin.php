@@ -122,7 +122,11 @@ class UserFlagPlugin extends Plugin
 
         if (!empty($user)) {
 
-            $form = new FlagProfileForm($item->action, $item->profile);
+            list($action, $args) = $item->action->returnToArgs();
+
+            $args['action'] = $action;
+
+            $form = new FlagProfileForm($item->action, $item->profile, $args);
 
             $form->show();
         }
