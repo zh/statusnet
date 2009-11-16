@@ -45,6 +45,14 @@ define('FOREIGN_FRIEND_RECV', 2);
 
 set_include_path(get_include_path() . PATH_SEPARATOR . INSTALLDIR . '/extlib/');
 
+# To protect against upstream libraries which haven't updated
+# for PHP 5.3 where dl() function may not be present...
+if (!function_exists('dl')) {
+    function dl($library) {
+        return false;
+    }
+}
+
 # global configuration object
 
 require_once('PEAR.php');
