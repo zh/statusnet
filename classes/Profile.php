@@ -697,6 +697,7 @@ class Profile extends Memcached_DataObject
             case Right::PUBLICNOTICE:
             case Right::EMAILONREPLY:
             case Right::EMAILONSUBSCRIBE:
+            case Right::EMAILONFAVE:
                 $result = !$this->isSandboxed();
                 break;
             default:

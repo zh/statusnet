@@ -546,6 +546,10 @@ function mail_notify_message($message, $from=null, $to=null)
 
 function mail_notify_fave($other, $user, $notice)
 {
+    if (!$user->hasRight(Right::EMAILONFAVE)) {
+        return;
+    }
+
     $profile = $user->getProfile();
 
     $bestname = $profile->getBestName();

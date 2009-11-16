@@ -56,5 +56,6 @@ class Right
     const SUBSCRIBE          = 'subscribe';
     const EMAILONREPLY       = 'emailonreply';
     const EMAILONSUBSCRIBE   = 'emailonsubscribe';
+    const EMAILONFAVE        = 'emailonfave';
 }
 
