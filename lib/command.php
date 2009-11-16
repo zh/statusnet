@@ -617,8 +617,11 @@ class SubscriptionsCommand extends Command
         if(count($nicknames)==0){
             $out=_('You are not subscribed to anyone.');
         }else{
-            $out=_('You are subscribed to these people: ');
-            $out.=implode(', ',$nicknames);
+            $out = ngettext('You are subscribed to this person:',
+                'You are subscribed to these people:',
+                count($nicknames));
+            $out .= ' ';
+            $out .= implode(', ',$nicknames);
         }
         $channel->output($this->user,$out);
     }
@@ -636,8 +639,11 @@ class SubscribersCommand extends Command
         if(count($nicknames)==0){
             $out=_('No one is subscribed to you.');
         }else{
-            $out=_('These people are subscribed to you: ');
-            $out.=implode(', ',$nicknames);
+            $out = ngettext('This person is subscribed to you:',
+                'These people are subscribed to you:',
+                count($nicknames));
+            $out .= ' ';
+            $out .= implode(', ',$nicknames);
         }
         $channel->output($this->user,$out);
     }
@@ -655,7 +661,9 @@ class GroupsCommand extends Command
         if(count($groups)==0){
             $out=_('You are not a member of any groups.');
         }else{
-            $out=_('You are a member of these groups: ');
+            $out = ngettext('You are a member of this group:',
+                'You are a member of these groups:',
+                count($nicknames));
             $out.=implode(', ',$groups);
         }
         $channel->output($this->user,$out);
