@@ -39,6 +39,12 @@ class Message extends Memcached_DataObject
 
     static function saveNew($from, $to, $content, $source) {
 
+        $sender = Profile::staticGet('id', $from);
+
+        if (!$sender->hasRight(Right::NEWMESSAGE)) {
+            throw new ClientException(_('You are banned from sending direct messages.'));
+        }
+
         $msg = new Message();
 
         $msg->from_profile = $from;
