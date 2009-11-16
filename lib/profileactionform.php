@@ -131,7 +131,7 @@ class ProfileActionForm extends Form
 
         $this->out->hidden($action.'to-' . $this->profile->id,
                            $this->profile->id,
-                           $action.'to');
+                           'profileid');
 
         if ($this->args) {
             foreach ($this->args as $k => $v) {
