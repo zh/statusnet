@@ -45,7 +45,7 @@ if (!defined('STATUSNET')) {
  * @see      UnSandboxForm
  */
 
-class UnsandboxForm extends Form
+class UnsandboxForm extends ProfileActionForm
 {
     /**
      * Action this form provides
