@@ -285,8 +285,11 @@ class UserProfile extends Widget
 
                         // return-to args, so we don't have to keep re-writing them
 
-                        $r2args = array('action' => 'showstream',
-                                        'nickname' => $this->profile->nickname);
+                        list($action, $r2args) = $this->out->returnToArgs();
+
+                        // push the action into the list
+
+                        $r2args['action'] = $action;
 
                         // block/unblock
 
