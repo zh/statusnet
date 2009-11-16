@@ -96,7 +96,10 @@ class Router
                           'unsubscribe', 'confirmaddress', 'recoverpassword',
                           'invite', 'favor', 'disfavor', 'sup',
                           'block', 'unblock', 'subedit',
-                          'groupblock', 'groupunblock');
+                          'groupblock', 'groupunblock',
+                          'sandbox', 'unsandbox',
+                          'silence', 'unsilence',
+                          'deleteuser');
 
             foreach ($main as $a) {
                 $m->connect('main/'.$a, array('action' => $a));
