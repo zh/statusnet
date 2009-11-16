@@ -47,6 +47,18 @@ class CommandInterpreter
             } else {
                 return new LoginCommand($user);
             }
+         case 'followers':
+            if ($arg) {
+                return null;
+            } else {
+                return new FollowersCommand($user);
+            }
+         case 'following':
+            if ($arg) {
+                return null;
+            } else {
+                return new FollowingCommand($user);
+            }
          case 'on':
             if ($arg) {
                 list($other, $extra) = $this->split_arg($arg);

@@ -605,6 +605,44 @@ class LoginCommand extends Command
     }
 }
 
+class FollowingCommand extends Command
+{
+    function execute($channel)
+    {
+        $profile = $this->user->getSubscriptions(0);
+        $nicknames=array();
+        while ($profile->fetch()) {
+            $nicknames[]=$profile->nickname;
+        }
+        if(count($nicknames)==0){
+            $out=_('You are not subscribed to anyone.');
+        }else{
+            $out=_('You are subscribed to these people: ');
+            $out.=implode(', ',$nicknames);
+        }
+        $channel->output($this->user,$out);
+    }
+}
+
+class FollowersCommand extends Command
+{
+    function execute($channel)
+    {
+        $profile = $this->user->getSubscribers();
+        $nicknames=array();
+        while ($profile->fetch()) {
+            $nicknames[]=$profile->nickname;
+        }
+        if(count($nicknames)==0){
+            $out=_('No one is subscribed to you.');
+        }else{
+            $out=_('These people are subscribed to you: ');
+            $out.=implode(', ',$nicknames);
+        }
+        $channel->output($this->user,$out);
+    }
+}
+
 class HelpCommand extends Command
 {
     function execute($channel)
@@ -615,6 +653,8 @@ class HelpCommand extends Command
                            "off - turn off notifications\n".
                            "help - show this help\n".
                            "follow <nickname> - subscribe to user\n".
+                           "following - list the people you follow\n".
+                           "followers - list the people that follow you\n".
                            "leave <nickname> - unsubscribe from user\n".
                            "d <nickname> <text> - direct message to user\n".
                            "get <nickname> - get last notice from user\n".
