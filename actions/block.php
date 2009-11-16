@@ -42,9 +42,11 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://status.net/
  */
-class BlockAction extends Action
+
+class BlockAction extends ProfileFormAction
 {
     var $profile = null;
+
     /**
      * Take arguments for running
      *
@@ -52,28 +54,22 @@ class BlockAction extends Action
      *
      * @return boolean success flag
      */
+
     function prepare($args)
     {
-        parent::prepare($args);
-        if (!common_logged_in()) {
-            $this->clientError(_('Not logged in.'));
+        if (!parent::prepare($args)) {
             return false;
         }
-        $token = $this->trimmed('token');
-        if (!$token || $token != common_session_token()) {
-            $this->clientError(_('There was a problem with your session token. Try again, please.'));
-            return;
-        }
-        $id = $this->trimmed('profileid');
-        if (!$id) {
-            $this->clientError(_('No profile specified.'));
+
+        $cur = common_current_user();
+
+        assert(!empty($cur)); // checked by parent
+
+        if ($cur->hasBlocked($this->profile)) {
+            $this->clientError(_("You already blocked that user."));
             return false;
         }
-        $this->profile = Profile::staticGet('id', $id);
-        if (!$this->profile) {
-            $this->clientError(_('No profile with that ID.'));
-            return false;
-        }
+
         return true;
     }
 
@@ -86,17 +82,15 @@ class BlockAction extends Action
      *
      * @return void
      */
+
     function handle($args)
     {
-        parent::handle($args);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->arg('no')) {
-                $cur = common_current_user();
-                $other = Profile::staticGet('id', $this->arg('blockto'));
-                common_redirect(common_local_url('showstream', array('nickname' => $other->nickname)),
-                                303);
+                $this->returnToArgs();
             } elseif ($this->arg('yes')) {
-                $this->blockProfile();
+                $this->handlePost();
+                $this->returnToArgs();
             } else {
                 $this->showPage();
             }
@@ -157,35 +151,16 @@ class BlockAction extends Action
      *
      * @return void
      */
-    function blockProfile()
+
+    function handlePost()
     {
         $cur = common_current_user();
 
-        if ($cur->hasBlocked($this->profile)) {
-            $this->clientError(_('You have already blocked this user.'));
-            return;
-        }
         $result = $cur->block($this->profile);
+
         if (!$result) {
             $this->serverError(_('Failed to save block information.'));
             return;
-        }
-
-        // Now, gotta figure where we go back to
-        foreach ($this->args as $k => $v) {
-            if ($k == 'returnto-action') {
-                $action = $v;
-            } elseif (substr($k, 0, 9) == 'returnto-') {
-                $args[substr($k, 9)] = $v;
-            }
-        }
-
-        if ($action) {
-            common_redirect(common_local_url($action, $args), 303);
-        } else {
-            common_redirect(common_local_url('subscribers',
-                                             array('nickname' => $cur->nickname)),
-                            303);
         }
     }
 }
