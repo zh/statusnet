@@ -133,10 +133,15 @@ class FlaggedProfileList extends ProfileList {
 class FlaggedProfileListItem extends ProfileListItem
 {
     var $user = null;
+    var $r2args = null;
 
     function showActions()
     {
         $this->user = common_current_user();
+
+        list($action, $this->r2args) = $this->out->returnToArgs();
+
+        $this->r2args['action'] = $action;
 
         $this->startActions();
         if (Event::handle('StartProfileListItemActionElements', array($this))) {
@@ -153,11 +158,11 @@ class FlaggedProfileListItem extends ProfileListItem
     {
         if ($this->user->hasRight(Right::SANDBOXUSER)) {
             $this->out->elementStart('li', 'entity_sandbox');
-            if ($this->user->isSandboxed()) {
-                $usf = new UnSandboxForm($this->out, $this->profile);
+            if ($this->profile->isSandboxed()) {
+                $usf = new UnSandboxForm($this->out, $this->profile, $this->r2args);
                 $usf->show();
             } else {
-                $sf = new SandboxForm($this->out, $this->profile);
+                $sf = new SandboxForm($this->out, $this->profile, $this->r2args);
                 $sf->show();
             }
             $this->out->elementEnd('li');
@@ -168,11 +173,11 @@ class FlaggedProfileListItem extends ProfileListItem
     {
         if ($this->user->hasRight(Right::SILENCEUSER)) {
             $this->out->elementStart('li', 'entity_silence');
-            if ($this->user->isSilenced()) {
-                $usf = new UnSilenceForm($this->out, $this->profile);
+            if ($this->profile->isSilenced()) {
+                $usf = new UnSilenceForm($this->out, $this->profile, $this->r2args);
                 $usf->show();
             } else {
-                $sf = new SilenceForm($this->out, $this->profile);
+                $sf = new SilenceForm($this->out, $this->profile, $this->r2args);
                 $sf->show();
             }
             $this->out->elementEnd('li');
@@ -184,7 +189,7 @@ class FlaggedProfileListItem extends ProfileListItem
 
         if ($this->user->hasRight(Right::DELETEUSER)) {
             $this->out->elementStart('li', 'entity_delete');
-            $df = new DeleteUserForm($this->out, $this->profile);
+            $df = new DeleteUserForm($this->out, $this->profile, $this->r2args);
             $df->show();
             $this->out->elementEnd('li');
         }
