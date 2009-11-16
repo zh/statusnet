@@ -21,9 +21,9 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'/classes/Plugin_DataObject.php';
 
-class User_flag_profile extends Memcached_DataObject
+class User_flag_profile extends Plugin_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -64,5 +64,22 @@ class User_flag_profile extends Memcached_DataObject
                                                 'user_id' => $user_id));
 
         return !empty($ufp);
+    }
+
+    /**
+    * Get the TableDef object that represents the table backing this class
+    * @return TableDef TableDef instance
+    */
+    function tableDef()
+    {
+        return new TableDef($this->__table,
+                             array(new ColumnDef('profile_id', 'integer', null,
+                                                 false, 'PRI'),
+                                   new ColumnDef('user_id', 'integer', null,
+                                                 false, 'PRI'),
+                                   new ColumnDef('created', 'datetime', null,
+                                                 false, 'MUL'),
+                                   new ColumnDef('cleared', 'datetime', null,
+                                                 true, 'MUL')));
     }
 }
