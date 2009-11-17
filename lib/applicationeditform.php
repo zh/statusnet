@@ -100,11 +100,16 @@ class ApplicationEditForm extends Form
 
     function action()
     {
-        if ($this->application) {
+        $cur = common_current_user();
+
+        if (!empty($this->application)) {
             return common_local_url('editapplication',
-                                    array('id' => $this->application->id));
+                array('id' => $this->application->id,
+                      'nickname' => $cur->nickname)
+            );
         } else {
-            return common_local_url('newapplication');
+            return common_local_url('newapplication',
+                array('nickname' => $cur->nickname));
         }
     }
 
@@ -116,7 +121,7 @@ class ApplicationEditForm extends Form
 
     function formLegend()
     {
-        $this->out->element('legend', null, _('Register a new application'));
+        $this->out->element('legend', null, _('Edit application'));
     }
 
     /**
@@ -130,7 +135,7 @@ class ApplicationEditForm extends Form
         if ($this->application) {
             $id                = $this->application->id;
             $name              = $this->application->name;
-            $description       = $this->application->description; 
+            $description       = $this->application->description;
             $source_url        = $this->application->source_url;
             $organization      = $this->application->organization;
             $homepage          = $this->application->homepage;
@@ -151,34 +156,46 @@ class ApplicationEditForm extends Form
 
         $this->out->elementStart('ul', 'form_data');
         $this->out->elementStart('li');
-        
+
         $this->out->hidden('application_id', $id);
+        $this->out->hidden('token', common_session_token());
+
         $this->out->input('name', _('Name'),
                           ($this->out->arg('name')) ? $this->out->arg('name') : $name);
-                    
+
         $this->out->elementEnd('li');
-        
+
         $this->out->elementStart('li');
-        $this->out->input('description', _('Description'),
-                          ($this->out->arg('Description')) ? $this->out->arg('discription') : $description);
+
+        $maxDesc = Oauth_application::maxDesc();
+        if ($maxDesc > 0) {
+            $descInstr = sprintf(_('Describe your application in %d chars'),
+                                $maxDesc);
+        } else {
+            $descInstr = _('Describe your application');
+        }
+        $this->out->textarea('description', _('Description'),
+                        ($this->out->arg('description')) ? $this->out->arg('description') : $description,
+                        $descInstr);
+
         $this->out->elementEnd('li');
-        
+
         $this->out->elementStart('li');
         $this->out->input('source_url', _('Source URL'),
                           ($this->out->arg('source_url')) ? $this->out->arg('source_url') : $source_url,
                           _('URL of the homepage of this application'));
-        $this->out->elementEnd('li');        
+        $this->out->elementEnd('li');
 
         $this->out->elementStart('li');
-        $this->out->input('Organization', _('Organization'),
-                          ($this->out->arg('organization')) ? $this->out->arg('organization') : $orgranization,
+        $this->out->input('organization', _('Organization'),
+                          ($this->out->arg('organization')) ? $this->out->arg('organization') : $organization,
                           _('Organization responsible for this application'));
         $this->out->elementEnd('li');
 
         $this->out->elementStart('li');
         $this->out->input('homepage', _('Homepage'),
                           ($this->out->arg('homepage')) ? $this->out->arg('homepage') : $homepage,
-                          _('URL of the homepage of the organization'));
+                          _('URL for the homepage of the organization'));
         $this->out->elementEnd('li');
 
         $this->out->elementStart('li');
@@ -188,17 +205,86 @@ class ApplicationEditForm extends Form
         $this->out->elementEnd('li');
 
         $this->out->elementStart('li');
-        $this->out->input('type', _('Application type'),
-                          ($this->out->arg('type')) ? $this->out->arg('type') : $type,
-                          _('Type of application, browser or desktop'));
+
+        $attrs = array('name' => 'app_type',
+                       'type' => 'radio',
+                       'id' => 'app_type-browser',
+                       'class' => 'radio',
+                       'value' => Oauth_application::$browser);
+
+        // Default to Browser
+
+        if ($this->application->type == Oauth_application::$browser
+            || empty($this->applicaiton->type)) {
+            $attrs['checked'] = 'checked';
+        }
+
+        $this->out->element('input', $attrs);
+
+        $this->out->element('label', array('for' => 'app_type-browser',
+                                      'class' => 'radio'),
+                                      _('Browser'));
+
+        $attrs = array('name' => 'app_type',
+                       'type' => 'radio',
+                       'id' => 'app_type-dekstop',
+                       'class' => 'radio',
+                       'value' => Oauth_application::$desktop);
+
+        if ($this->application->type == Oauth_application::$desktop) {
+            $attrs['checked'] = 'checked';
+        }
+
+        $this->out->element('input', $attrs);
+
+        $this->out->element('label', array('for' => 'app_type-desktop',
+                                      'class' => 'radio'),
+                                      _('Desktop'));
+        $this->out->element('p', 'form_guide', _('Type of application, browser or desktop'));
         $this->out->elementEnd('li');
-        
+
         $this->out->elementStart('li');
-        $this->out->input('access_type', _('Default access'),
-                          ($this->out->arg('access_type')) ? $this->out->arg('access_type') : $access_type,
-                          _('Default access for this application: read-write, or read-only'));
+
+        $attrs = array('name' => 'default_access_type',
+                       'type' => 'radio',
+                       'id' => 'default_access_type-r',
+                       'class' => 'radio',
+                       'value' => 'r');
+
+        // default to read-only access
+
+        if ($this->application->access_type & Oauth_application::$readAccess
+            || empty($this->application->access_type)) {
+            $attrs['checked'] = 'checked';
+        }
+
+        $this->out->element('input', $attrs);
+
+        $this->out->element('label', array('for' => 'default_access_type-ro',
+                                      'class' => 'radio'),
+                                      _('Read-only'));
+
+        $attrs = array('name' => 'default_access_type',
+                       'type' => 'radio',
+                       'id' => 'default_access_type-rw',
+                       'class' => 'radio',
+                       'value' => 'rw');
+
+        if ($this->application->access_type & Oauth_application::$readAccess
+            && $this->application->access_type & Oauth_application::$writeAccess
+        ) {
+            $attrs['checked'] = 'checked';
+        }
+
+        $this->out->element('input', $attrs);
+
+        $this->out->element('label', array('for' => 'default_access_type-rw',
+                                      'class' => 'radio'),
+                                      _('Read-write'));
+        $this->out->element('p', 'form_guide', _('Default access for this application: read-only, or read-write'));
+
         $this->out->elementEnd('li');
-        
+
         $this->out->elementEnd('ul');
     }
 
@@ -210,6 +296,7 @@ class ApplicationEditForm extends Form
 
     function formActions()
     {
-        $this->out->submit('submit', _('Save'));
+        $this->out->submit('save', _('Save'));
+        $this->out->submit('cancel', _('Cancel'));
     }
 }

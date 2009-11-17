@@ -132,4 +132,17 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
         $this->elementEnd('div');
     }
 
+    function showSections()
+    {
+       $cur = common_current_user();
+
+       $this->element('h2', null, 'Developers');
+       $this->elementStart('p');
+       $this->raw(_('Developers can edit the registration settings for their applications '));
+       $this->element('a',
+           array('href' => common_local_url('apps', array('nickname' => $cur->nickname))),
+               'here.');
+       $this->elementEnd('p');
+    }
+
 }

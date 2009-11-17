@@ -20,7 +20,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  Public
+ * @category  Application
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
  * @copyright 2008-2009 StatusNet, Inc.
@@ -39,7 +39,7 @@ define('APPS_PER_PAGE', 20);
 /**
  * Widget to show a list of OAuth applications
  *
- * @category Public
+ * @category Application
  * @package  StatusNet
  * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
@@ -50,10 +50,10 @@ class ApplicationList extends Widget
 {
     /** Current application, application query */
     var $application = null;
-    
+
     /** Owner of this list */
     var $owner = null;
-    
+
     /** Action object using us. */
     var $action = null;
 
@@ -87,14 +87,42 @@ class ApplicationList extends Widget
 
     function showApplication()
     {
-        $this->out->elementStart('li', array('class' => 'application',
-                                             'id' => 'oauthclient-' . $this->application->id));
 
         $user = common_current_user();
 
-	$this->out->raw($this->application->name);
-	
-	$this->out->elementEnd('li');
+        $this->out->elementStart('li', array('class' => 'application',
+                                             'id' => 'oauthclient-' . $this->application->id));
+
+        $this->out->elementStart('a',
+            array('href' => common_local_url(
+                    'showapplication',
+                    array(
+                        'nickname' => $user->nickname,
+                        'id' => $this->application->id
+                        )
+                    ),
+                'class' => 'url')
+            );
+
+	    $this->out->raw($this->application->name);
+	    $this->out->elementEnd('a');
+
+	    $this->out->raw(' by ');
+
+	    $this->out->elementStart('a',
+            array(
+                'href' => $this->application->homepage,
+                'class' => 'url'
+                )
+            );
+	    $this->out->raw($this->application->organization);
+	    $this->out->elementEnd('a');
+
+	    $this->out->elementStart('p', 'note');
+        $this->out->raw($this->application->description);
+        $this->out->elementEnd('p');
+
+	    $this->out->elementEnd('li');
     }
 
     /* Override this in subclasses. */
