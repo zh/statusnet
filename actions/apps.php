@@ -31,7 +31,8 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/connectsettingsaction.php';
+require_once INSTALLDIR . '/lib/settingsaction.php';
+require_once INSTALLDIR . '/lib/applicationlist.php';
 
 /**
  * Show a user's registered OAuth applications
@@ -45,8 +46,23 @@ require_once INSTALLDIR . '/lib/connectsettingsaction.php';
  * @see      SettingsAction
  */
 
-class AppsAction extends ConnectSettingsAction
+class AppsAction extends SettingsAction
 {
+    var $page = 0;
+
+    function prepare($args)
+    {
+        parent::prepare($args);
+        $this->page = ($this->arg('page')) ? ($this->arg('page') + 0) : 1;
+
+        if (!common_logged_in()) {
+            $this->clientError(_('You must be logged in to list your applications.'));
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Title of the page
      *
@@ -79,6 +95,49 @@ class AppsAction extends ConnectSettingsAction
     {
         $user = common_current_user();
 
+        $offset = ($this->page - 1) * APPS_PER_PAGE;
+        $limit  =  APPS_PER_PAGE + 1;
+
+        $application = new Oauth_application();
+        $application->owner = $user->id;
+        $application->limit($offset, $limit);
+        $application->orderBy('created DESC');
+        $application->find();
+
+        $cnt = 0;
+
+        if ($application) {
+            $al = new ApplicationList($application, $user, $this);
+            $cnt = $al->show();
+            if (0 == $cnt) {
+                $this->showEmptyListMessage();
+            }
+        }
+
+        $this->element('a',
+            array('href' => common_local_url(
+                'newapplication',
+                array('nickname' => $user->nickname)
+                )
+            ),
+            'Register a new application »');
+
+        $this->pagination(
+            $this->page > 1,
+            $cnt > APPS_PER_PAGE,
+            $this->page,
+            'apps',
+            array('nickname' => $user->nickname)
+        );
+    }
+
+    function showEmptyListMessage()
+    {
+        $message = sprintf(_('You have not registered any applications yet.'));
+
+        $this->elementStart('div', 'guide');
+        $this->raw(common_markup_to_html($message));
+        $this->elementEnd('div');
     }
 
     /**

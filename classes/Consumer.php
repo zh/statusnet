@@ -4,7 +4,7 @@
  */
 require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
-class Consumer extends Memcached_DataObject 
+class Consumer extends Memcached_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -22,4 +22,18 @@ class Consumer extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+    static function generateNew()
+    {
+        $cons = new Consumer();
+        $rand = common_good_rand(16);
+
+        $cons->seed            = $rand;
+        $cons->consumer_key    = md5(time() + $rand);
+        $cons->consumer_secret = md5(md5(time() + time() + $rand));
+        $cons->created         = common_sql_now();
+
+        return $cons;
+    }
+
 }

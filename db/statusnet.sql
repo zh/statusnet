@@ -219,7 +219,7 @@ create table oauth_application (
     organization varchar(255) comment 'name of the organization running the application',
     homepage varchar(255) comment 'homepage for the organization',
     callback_url varchar(255) not null comment 'url to redirect to after authentication',
-    type tinyint default 0 comment 'type of app, 0 = browser, 1 = desktop',
+    type tinyint default 0 comment 'type of app, 1 = browser, 2 = desktop',
     access_type tinyint default 0 comment 'default access type, bit 1 = read, bit 2 = write',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified'

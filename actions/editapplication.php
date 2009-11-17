@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Register a new OAuth Application
+ * Edit an OAuth Application
  *
  * PHP version 5
  *
@@ -32,9 +32,9 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 }
 
 /**
- * Add a new application
+ * Edit the details of an OAuth application
  *
- * This is the form for adding a new application
+ * This is the form for editing an application
  *
  * @category Application
  * @package  StatusNet
@@ -43,13 +43,15 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @link     http://status.net/
  */
 
-class NewApplicationAction extends OwnerDesignAction
+class EditApplicationAction extends OwnerDesignAction
 {
-    var $msg;
+    var $msg = null;
+
+    var $app = null;
 
     function title()
     {
-        return _('New Application');
+        return _('Edit Application');
     }
 
     /**
@@ -61,7 +63,15 @@ class NewApplicationAction extends OwnerDesignAction
         parent::prepare($args);
 
         if (!common_logged_in()) {
-            $this->clientError(_('You must be logged in to register an application.'));
+            $this->clientError(_('You must be logged in to edit an application.'));
+            return false;
+        }
+
+        $id = (int)$this->arg('id');
+        $this->app = Oauth_application::staticGet($id);
+
+        if (!$this->app) {
+            $this->clientError(_('No such application.'));
             return false;
         }
 
@@ -81,14 +91,23 @@ class NewApplicationAction extends OwnerDesignAction
     function handle($args)
     {
         parent::handle($args);
-
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            // CSRF protection
+            $token = $this->trimmed('token');
+            if (!$token || $token != common_session_token()) {
+                $this->clientError(_('There was a problem with your session token.'));
+                return;
+            }
 
             $cur = common_current_user();
 
             if ($this->arg('cancel')) {
-                common_redirect(common_local_url('apps',
-                    array('nickname' => $cur->nickname)), 303);
+                common_redirect(common_local_url('showapplication',
+                    array(
+                        'nickname' => $cur->nickname,
+                        'id' => $this->app->id)
+                    ), 303);
             } elseif ($this->arg('save')) {
                 $this->trySave();
             } else {
@@ -107,17 +126,17 @@ class NewApplicationAction extends OwnerDesignAction
 
     function showContent()
     {
-        $form = new ApplicationEditForm($this);
+        $form = new ApplicationEditForm($this, $this->app);
         $form->show();
     }
 
     function showPageNotice()
     {
-        if ($this->msg) {
+        if (!empty($this->msg)) {
             $this->element('p', 'error', $this->msg);
         } else {
             $this->element('p', 'instructions',
-                           _('Use this form to register a new application.'));
+                           _('Use this form to edit your application.'));
         }
     }
 
@@ -196,57 +215,31 @@ class NewApplicationAction extends OwnerDesignAction
 
         assert(!is_null($cur));
 
-        $app = new Oauth_application();
+        $orig = clone($this->app);
 
-        $app->query('BEGIN');
-
-        $app->name         = $name;
-        $app->owner        = $cur->id;
-        $app->description  = $description;
-        $app->source_url   = $source_url;
-        $app->organization = $organization;
-        $app->homepage     = $homepage;
-        $app->callback_url = $callback_url;
-        $app->type         = $type;
-
-        // Yeah, I dunno why I chose bit flags. I guess so I could
-        // copy this value directly to Oauth_application_user
-        // access_type which I think does need bit flags -- Z
+        $this->app->name         = $name;
+        $this->app->description  = $description;
+        $this->app->source_url   = $source_url;
+        $this->app->organization = $organization;
+        $this->app->homepage     = $homepage;
+        $this->app->callback_url = $callback_url;
+        $this->app->type         = $type;
 
         if ($access_type == 'r') {
-            $app->setAccessFlags(true, false);
+            $this->app->setAccessFlags(true, false);
         } else {
-            $app->setAccessFlags(true, true);
+            $this->app->setAccessFlags(true, true);
         }
 
-        $app->created = common_sql_now();
-
-        // generate consumer key and secret
-
-        $consumer = Consumer::generateNew();
-
-        $result = $consumer->insert();
+        $result = $this->app->update($orig);
 
         if (!$result) {
-            common_log_db_error($consumer, 'INSERT', __FILE__);
-            $this->serverError(_('Could not create application.'));
+            common_log_db_error($app, 'UPDATE', __FILE__);
+            $this->serverError(_('Could not update application.'));
         }
-
-        $app->consumer_key = $consumer->consumer_key;
-
-        $result = $app->insert();
-
-        if (!$result) {
-            common_log_db_error($app, 'INSERT', __FILE__);
-            $this->serverError(_('Could not create application.'));
-            $app->query('ROLLBACK');
-        }
-
-        $app->query('COMMIT');
 
         common_redirect(common_local_url('apps',
             array('nickname' => $cur->nickname)), 303);
-
     }
 
 }

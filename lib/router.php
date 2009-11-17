@@ -641,12 +641,29 @@ class Router
                             array('nickname' => '[a-zA-Z0-9]{1,64}'));
             }
             
-            $m->connect('apps/new', array('action' => 'newapplication'));
-            
-            $m->connect(':nickname/apps/edit', 
-                array('action' => 'editapplication'),
-                array('nickname' => '['.NICKNAME_FMT.']{1,64}')
+            $m->connect(':nickname/apps', 
+                array('action' => 'apps'),
+                array('nickname' => '['.NICKNAME_FMT.']{1,64}'));
+            $m->connect(':nickname/apps/show/:id', 
+                array('action' => 'showapplication'),
+                array('nickname' => '['.NICKNAME_FMT.']{1,64}',
+                      'id' => '[0-9]+')
             );
+            $m->connect(':nickname/apps/new',
+                array('action' => 'newapplication'),
+                array('nickname' => '['.NICKNAME_FMT.']{1,64}'));
+            $m->connect(':nickname/apps/edit/:id', 
+                array('action' => 'editapplication'),
+                array('nickname' => '['.NICKNAME_FMT.']{1,64}',
+                      'id' => '[0-9]+')
+            );
+
+            $m->connect('oauth/request_token',
+                array('action' => 'oauthrequesttoken'));
+            $m->connect('oauth/access_token',
+                array('action' => 'oauthaccesstoken'));
+            $m->connect('oauth/authorize',
+                array('action' => 'oauthauthorize'));
 
             foreach (array('subscriptions', 'subscribers') as $a) {
                 $m->connect(':nickname/'.$a.'/:tag',
