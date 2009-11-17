@@ -203,7 +203,7 @@ class SiteAdminPanelForm extends Form
 
     function id()
     {
-        return 'siteadminpanel';
+        return 'form_site_admin_panel';
     }
 
     /**
@@ -214,7 +214,7 @@ class SiteAdminPanelForm extends Form
 
     function formClass()
     {
-        return 'form_site_admin_panel';
+        return 'form_settings';
     }
 
     /**

@@ -135,7 +135,7 @@ class DesignAdminPanelForm extends Form
 
     function id()
     {
-        return 'designadminpanel';
+        return 'form_design_admin_panel';
     }
 
     /**
@@ -146,7 +146,7 @@ class DesignAdminPanelForm extends Form
 
     function formClass()
     {
-        return 'form_design_admin_panel';
+        return 'form_settings';
     }
 
     /**
