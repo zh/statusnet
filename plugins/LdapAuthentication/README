@@ -1,42 +1,63 @@
-The LDAP Authentication plugin allows for StatusNet to handle authentication through LDAP.
+The LDAP Authentication plugin allows for StatusNet to handle authentication
+through LDAP.
 
 Installation
 ============
-add "addPlugin('ldapAuthentication', array('setting'=>'value', 'setting2'=>'value2', ...);" to the bottom of your config.php
+add "addPlugin('ldapAuthentication',
+    array('setting'=>'value', 'setting2'=>'value2', ...);"
+to the bottom of your config.php
 
 Settings
 ========
 provider_name*: a unique name for this authentication provider.
-authoritative (false): Set to true if LDAP's responses are authoritative (meaning if LDAP fails, do check any other plugins or the internal password database).
-autoregistration (false): Set to true if users should be automatically created when they attempt to login.
-email_changeable (true): Are users allowed to change their email address? (true or false)
-password_changeable (true): Are users allowed to change their passwords? (true or false)
+authoritative (false): Set to true if LDAP's responses are authoritative
+    (if authorative and LDAP fails, no other password checking will be done).
+autoregistration (false): Set to true if users should be automatically created
+    when they attempt to login.
+email_changeable (true): Are users allowed to change their email address?
+    (true or false)
+password_changeable (true): Are users allowed to change their passwords?
+    (true or false)
 
-host*: LDAP server name to connect to. You can provide several hosts in an array in which case the hosts are tried from left to right.. See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
-port: Port on the server. See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
-version: LDAP version. See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
-starttls: TLS is started after connecting. See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
-binddn: The distinguished name to bind as (username). See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
-bindpw: Password for the binddn. See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
-basedn*: LDAP base name (root directory). See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+host*: LDAP server name to connect to. You can provide several hosts in an
+    array in which case the hosts are tried from left to right.
+    See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+port: Port on the server.
+    See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+version: LDAP version.
+    See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+starttls: TLS is started after connecting.
+    See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+binddn: The distinguished name to bind as (username).
+    See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+bindpw: Password for the binddn.
+    See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+basedn*: LDAP base name (root directory).
+    See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
 options: See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
-filter: Default search filter. See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
-scope: Default search scope. See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+filter: Default search filter.
+    See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+scope: Default search scope.
+    See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
 
-attributes: an array with the key being the StatusNet user attribute name, and the value the LDAP attribute name
-    username*
-    nickname*
+attributes: an array that relates StatusNet user attributes to LDAP ones
+    username*: LDAP attribute value entered when authenticating to StatusNet
+    nickname*: LDAP attribute value shown as the user's nickname
     email
     fullname
     homepage
     location
-    
+
 * required
 default values are in (parenthesis)
 
+For most LDAP installations, the "nickname" and "username" attributes should
+    be the same.
+
 Example
 =======
-Here's an example of an LDAP plugin configuration that connects to Microsoft Active Directory.
+Here's an example of an LDAP plugin configuration that connects to
+    Microsoft Active Directory.
 
 addPlugin('ldapAuthentication', array(
     'provider_name'=>'Example',
@@ -47,7 +68,9 @@ addPlugin('ldapAuthentication', array(
     'basedn'=>'OU=Users,OU=StatusNet,OU=US,DC=americas,DC=global,DC=loc',
     'host'=>array('server1', 'server2'),
     'attributes'=>array(
+        'username'=>'sAMAccountName',
         'nickname'=>'sAMAccountName',
         'email'=>'mail',
         'fullname'=>'displayName')
 ));
+

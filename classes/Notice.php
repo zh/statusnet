@@ -207,7 +207,7 @@ class Notice extends Memcached_DataObject
 
         # Sandboxed are non-false, but not 1, either
 
-        if (!$user->hasRight(Right::PUBLICNOTICE) ||
+        if (!$profile->hasRight(Right::PUBLICNOTICE) ||
             ($source && $autosource && in_array($source, $autosource))) {
             $notice->is_local = Notice::LOCAL_NONPUBLIC;
         } else {
