@@ -119,7 +119,9 @@ class UserFlagPlugin extends Plugin
 
             $form = new FlagProfileForm($item->action, $item->profile, $args);
 
+            $item->action->elementStart('li', 'entity_flag');
             $form->show();
+            $item->action->elementEnd('li');
         }
 
         return true;
