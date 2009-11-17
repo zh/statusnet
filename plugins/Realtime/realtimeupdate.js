@@ -36,6 +36,7 @@ RealtimeUpdate = {
      _updatecounter: 0,
      _updatedelay: 500,
      _maxnotices: 50,
+     _windowhasfocus: false,
 
      init: function(userid, replyurl, favorurl, deleteurl)
      {
@@ -46,7 +47,9 @@ RealtimeUpdate = {
 
         DT = document.title;
 
-        $(window).blur(function() {
+        $(window).bind('focus', function(){ RealtimeUpdate._windowhasfocus = true; });
+
+        $(window).bind('blur', function() {
           $('#notices_primary .notice').css({
             'border-top-color':$('#notices_primary .notice:last').css('border-top-color'),
             'border-top-style':'dotted'
@@ -59,6 +62,7 @@ RealtimeUpdate = {
 
           RealtimeUpdate._updatecounter = 0;
           document.title = DT;
+          RealtimeUpdate._windowhasfocus = false;
 
           return false;
         });
@@ -82,15 +86,17 @@ RealtimeUpdate = {
               if ($('#notices_primary .notice').length > RealtimeUpdate._maxnotices) {
                    $("#notices_primary .notice:last .form_disfavor").unbind('submit');
                    $("#notices_primary .notice:last .form_favor").unbind('submit');
-                   $("#notices_primary .notice:last #notice_in-reply-to").unbind('click');
+                   $("#notices_primary .notice:last .notice_reply").unbind('click');
                    $("#notices_primary .notice:last").remove();
               }
 
               NoticeFavors();
               NoticeReply();
 
-              RealtimeUpdate._updatecounter += 1;
-              document.title = '('+RealtimeUpdate._updatecounter+') ' + DT;
+              if (RealtimeUpdate._windowhasfocus === false) {
+                  RealtimeUpdate._updatecounter += 1;
+                  document.title = '('+RealtimeUpdate._updatecounter+') ' + DT;
+              }
           }, RealtimeUpdate._updatedelay);
      },
 
