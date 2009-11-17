@@ -120,6 +120,35 @@ class Config extends Memcached_DataObject
         return $result;
     }
 
+    function &pkeyGet($kv)
+    {
+        return Memcached_DataObject::pkeyGet('Config', $kv);
+    }
+
+    static function save($section, $setting, $value)
+    {
+        $result = null;
+
+        $config = Config::pkeyGet(array('section' => $section,
+                                        'setting' => $setting));
+
+        if (!empty($config)) {
+            $orig = clone($config);
+            $config->value = $value;
+            $result = $config->update($orig);
+        } else {
+            $config = new Config();
+
+            $config->section = $section;
+            $config->setting = $setting;
+            $config->value   = $value;
+
+            $result = $config->insert();
+        }
+
+        return $result;
+    }
+
     function _blowSettingsCache()
     {
         $c = self::memcache();

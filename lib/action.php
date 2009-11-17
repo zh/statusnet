@@ -434,6 +434,10 @@ class Action extends HTMLOutputter // lawsuit
                     $this->menuItem(common_local_url($connect),
                                     _('Connect'), _('Connect to services'), false, 'nav_connect');
                 }
+                if ($user->hasRight(Right::CONFIGURESITE)) {
+                    $this->menuItem(common_local_url('siteadminpanel'),
+                                    _('Admin'), _('Change site configuration'), false, 'nav_admin');
+                }
                 if (common_config('invite', 'enabled')) {
                     $this->menuItem(common_local_url('invite'),
                                     _('Invite'),
