@@ -53,6 +53,8 @@ class AdminprofileflagAction extends Action
 
     function prepare($args)
     {
+        parent::prepare($args);
+
         return true;
     }
 
@@ -83,6 +85,117 @@ class AdminprofileflagAction extends Action
 
     function showContent()
     {
+        $profile = $this->getProfiles();
+
+        $pl = new FlaggedProfileList($profile, $this);
+
+        $pl->show();
+    }
+
+    function getProfiles()
+    {
+        $ufp = new User_flag_profile();
+
+        $ufp->selectAdd();
+        $ufp->selectAdd('profile_id');
+        $ufp->selectAdd('count(*) as flag_count');
+
+        $ufp->whereAdd('cleared is NULL');
+
+        $ufp->groupBy('profile_id');
+        $ufp->orderBy('flag_count DESC');
+
+        $profiles = array();
+
+        if ($ufp->find()) {
+            while ($ufp->fetch()) {
+                $profile = Profile::staticGet('id', $ufp->profile_id);
+                if (!empty($profile)) {
+                    $profiles[] = $profile;
+                }
+            }
+        }
+
+        $ufp->free();
+
+        return new ArrayWrapper($profiles);
     }
 }
 
+class FlaggedProfileList extends ProfileList {
+
+    function newListItem($profile)
+    {
+        return new FlaggedProfileListItem($this->profile, $this->action);
+    }
+}
+
+class FlaggedProfileListItem extends ProfileListItem
+{
+    var $user = null;
+    var $r2args = null;
+
+    function showActions()
+    {
+        $this->user = common_current_user();
+
+        list($action, $this->r2args) = $this->out->returnToArgs();
+
+        $this->r2args['action'] = $action;
+
+        $this->startActions();
+        if (Event::handle('StartProfileListItemActionElements', array($this))) {
+            $this->showSandboxButton();
+            $this->showSilenceButton();
+            $this->showDeleteButton();
+            $this->showClearButton();
+            Event::handle('EndProfileListItemActionElements', array($this));
+        }
+        $this->endActions();
+    }
+
+    function showSandboxButton()
+    {
+        if ($this->user->hasRight(Right::SANDBOXUSER)) {
+            $this->out->elementStart('li', 'entity_sandbox');
+            if ($this->profile->isSandboxed()) {
+                $usf = new UnSandboxForm($this->out, $this->profile, $this->r2args);
+                $usf->show();
+            } else {
+                $sf = new SandboxForm($this->out, $this->profile, $this->r2args);
+                $sf->show();
+            }
+            $this->out->elementEnd('li');
+        }
+    }
+
+    function showSilenceButton()
+    {
+        if ($this->user->hasRight(Right::SILENCEUSER)) {
+            $this->out->elementStart('li', 'entity_silence');
+            if ($this->profile->isSilenced()) {
+                $usf = new UnSilenceForm($this->out, $this->profile, $this->r2args);
+                $usf->show();
+            } else {
+                $sf = new SilenceForm($this->out, $this->profile, $this->r2args);
+                $sf->show();
+            }
+            $this->out->elementEnd('li');
+        }
+    }
+
+    function showDeleteButton()
+    {
+
+        if ($this->user->hasRight(Right::DELETEUSER)) {
+            $this->out->elementStart('li', 'entity_delete');
+            $df = new DeleteUserForm($this->out, $this->profile, $this->r2args);
+            $df->show();
+            $this->out->elementEnd('li');
+        }
+    }
+
+    function showClearButton()
+    {
+    }
+}

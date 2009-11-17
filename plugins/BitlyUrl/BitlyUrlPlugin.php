@@ -31,31 +31,24 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-class BitlyUrlPlugin extends Plugin
+require_once INSTALLDIR.'/plugins/UrlShortener/UrlShortenerPlugin.php';
+
+class BitlyUrlPlugin extends UrlShortenerPlugin
 {
-    function __construct()
-    {
-        parent::__construct();
-    }
+    public $serviceUrl;
 
     function onInitializePlugin(){
-        $this->registerUrlShortener(
-            'bit.ly',
-            array(),
-            array('BitlyUrl',array('http://bit.ly/api?method=shorten&long_url='))
-        );
+        parent::onInitializePlugin();
+        if(!isset($this->serviceUrl)){
+            throw new Exception("must specify a serviceUrl");
+        }
+    }
+
+    protected function shorten($url) {
+        $response = $this->http_get($url);
+        if(!$response) return;
+        return current(json_decode($response)->results)->hashUrl;
     }
 }
 
-class BitlyUrl extends ShortUrlApi
-{
-    protected function shorten_imp($url) {
-        $response = $this->http_get($url);
-        if(!$response){
-            return $url;
-        }else{
-            return current(json_decode($response)->results)->hashUrl;
-        }
-    }
-}
 

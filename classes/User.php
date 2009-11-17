@@ -114,7 +114,7 @@ class User extends Memcached_DataObject
         return $result;
     }
 
-    function allowed_nickname($nickname)
+    static function allowed_nickname($nickname)
     {
         // XXX: should already be validated for size, content, etc.
         $blacklist = common_config('nickname', 'blacklist');
@@ -190,7 +190,17 @@ class User extends Memcached_DataObject
 
         $profile->query('BEGIN');
 
+        if(!empty($email))
+        {
+            $email = common_canonical_email($email);
+        }
+
+        $nickname = common_canonical_nickname($nickname);
         $profile->nickname = $nickname;
+        if(! User::allowed_nickname($nickname)){
+            common_log(LOG_WARNING, sprintf("Attempted to register a nickname that is not allowed: %s", $profile->nickname),
+                           __FILE__);
+        }
         $profile->profileurl = common_profile_url($nickname);
 
         if (!empty($fullname)) {
@@ -240,6 +250,10 @@ class User extends Memcached_DataObject
             if ($invite && $invite->address && $invite->address_type == 'email' && $invite->address == $email) {
                 $user->email = $invite->address;
             }
+        }
+
+        if(isset($email_confirmed) && $email_confirmed) {
+            $user->email = $email;
         }
 
         // This flag is ignored but still set to 1
@@ -563,11 +577,13 @@ class User extends Memcached_DataObject
           'WHERE group_member.profile_id = %d ' .
           'ORDER BY group_member.created DESC ';
 
-        if ($offset) {
-            if (common_config('db','type') == 'pgsql') {
-                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-            } else {
-                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+        if ($offset>0 && !is_null($limit)) {
+            if ($offset) {
+                if (common_config('db','type') == 'pgsql') {
+                    $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+                } else {
+                    $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+                }
             }
         }
 
@@ -643,80 +659,10 @@ class User extends Memcached_DataObject
         return Design::staticGet('id', $this->design_id);
     }
 
-    function hasRole($name)
-    {
-        $role = User_role::pkeyGet(array('user_id' => $this->id,
-                                         'role' => $name));
-        return (!empty($role));
-    }
-
-    function grantRole($name)
-    {
-        $role = new User_role();
-
-        $role->user_id = $this->id;
-        $role->role    = $name;
-        $role->created = common_sql_now();
-
-        $result = $role->insert();
-
-        if (!$result) {
-            common_log_db_error($role, 'INSERT', __FILE__);
-            return false;
-        }
-
-        return true;
-    }
-
-    function revokeRole($name)
-    {
-        $role = User_role::pkeyGet(array('user_id' => $this->id,
-                                         'role' => $name));
-
-        if (empty($role)) {
-            throw new Exception('Cannot revoke role "'.$name.'" for user #'.$this->id.'; does not exist.');
-        }
-
-        $result = $role->delete();
-
-        if (!$result) {
-            common_log_db_error($role, 'DELETE', __FILE__);
-            throw new Exception('Cannot revoke role "'.$name.'" for user #'.$this->id.'; database error.');
-        }
-
-        return true;
-    }
-
-    /**
-     * Does this user have the right to do X?
-     *
-     * With our role-based authorization, this is merely a lookup for whether the user
-     * has a particular role. The implementation currently uses a switch statement
-     * to determine if the user has the pre-defined role to exercise the right. Future
-     * implementations may allow per-site roles, and different mappings of roles to rights.
-     *
-     * @param $right string Name of the right, usually a constant in class Right
-     * @return boolean whether the user has the right in question
-     */
-
     function hasRight($right)
     {
-        $result = false;
-        if (Event::handle('UserRightsCheck', array($this, $right, &$result))) {
-            switch ($right)
-            {
-            case Right::DELETEOTHERSNOTICE:
-                $result = $this->hasRole(User_role::MODERATOR);
-                break;
-            case Right::CONFIGURESITE:
-                $result = $this->hasRole(User_role::ADMINISTRATOR);
-                break;
-            default:
-                $result = false;
-                break;
-            }
-        }
-        return $result;
+        $profile = $this->getProfile();
+        return $profile->hasRight($right);
     }
 
     function delete()
@@ -760,5 +706,35 @@ class User extends Memcached_DataObject
         $block->blocker = $this->id;
         $block->delete();
         // XXX delete group block? Reset blocker?
+    }
+
+    function hasRole($name)
+    {
+        $profile = $this->getProfile();
+        return $profile->hasRole($name);
+    }
+
+    function grantRole($name)
+    {
+        $profile = $this->getProfile();
+        return $profile->grantRole($name);
+    }
+
+    function revokeRole($name)
+    {
+        $profile = $this->getProfile();
+        return $profile->revokeRole($name);
+    }
+
+    function isSandboxed()
+    {
+        $profile = $this->getProfile();
+        return $profile->isSandboxed();
+    }
+
+    function isSilenced()
+    {
+        $profile = $this->getProfile();
+        return $profile->isSilenced();
     }
 }

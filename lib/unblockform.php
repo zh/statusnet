@@ -28,11 +28,9 @@
  * @link      http://status.net/
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) {
+if (!defined('STATUSNET')) {
     exit(1);
 }
-
-require_once INSTALLDIR.'/lib/form.php';
 
 /**
  * Form for unblocking a user
@@ -47,106 +45,38 @@ require_once INSTALLDIR.'/lib/form.php';
  * @see      BlockForm
  */
 
-class UnblockForm extends Form
+class UnblockForm extends ProfileActionForm
 {
     /**
-     * Profile of user to unblock
-     */
-
-    var $profile = null;
-
-    /**
-     * Return-to args
-     */
-
-    var $args = null;
-
-    /**
-     * Constructor
+     * Action this form provides
      *
-     * @param HTMLOutputter $out     output channel
-     * @param Profile       $profile profile of user to unblock
-     * @param array         $args    return-to args
+     * @return string Name of the action, lowercased.
      */
 
-    function __construct($out=null, $profile=null, $args=null)
+    function target()
     {
-        parent::__construct($out);
-
-        $this->profile = $profile;
-        $this->args    = $args;
+        return 'unblock';
     }
 
     /**
-     * ID of the form
+     * Title of the form
      *
-     * @return int ID of the form
+     * @return string Title of the form, internationalized
      */
 
-    function id()
+    function title()
     {
-        return 'unblock-' . $this->profile->id;
+        return _('Unblock');
     }
 
     /**
-     * class of the form
+     * Description of the form
      *
-     * @return string class of the form
+     * @return string description of the form, internationalized
      */
 
-    function formClass()
+    function description()
     {
-        return 'form_user_unblock';
-    }
-
-    /**
-     * Action of the form
-     *
-     * @return string URL of the action
-     */
-
-    function action()
-    {
-        return common_local_url('unblock');
-    }
-
-    /**
-     * Legend of the Form
-     *
-     * @return void
-     */
-    function formLegend()
-    {
-        $this->out->element('legend', null, _('Unblock this user'));
-    }
-
-
-    /**
-     * Data elements of the form
-     *
-     * @return void
-     */
-
-    function formData()
-    {
-        $this->out->hidden('unblockto-' . $this->profile->id,
-                           $this->profile->id,
-                           'unblockto');
-        if ($this->args) {
-            foreach ($this->args as $k => $v) {
-                $this->out->hidden('returnto-' . $k, $v);
-            }
-        }
-    }
-
-    /**
-     * Action elements
-     *
-     * @return void
-     */
-
-    function formActions()
-    {
-        $this->out->submit('submit', _('Unblock'), 'submit', null, _('Unblock this user'));
+        return _('Unlock this user');
     }
 }

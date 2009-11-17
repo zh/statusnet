@@ -76,18 +76,4 @@ class Plugin
     {
         return true;
     }
-
-    /* 
-    * the name of the shortener
-    * shortenerInfo associative array with additional information. One possible element is 'freeService' which can be true or false
-    * shortener array, first element is the name of the class, second element is an array to be passed as constructor parameters to the class
-    */
-    function registerUrlShortener($name, $shortenerInfo, $shortener)
-    {
-        global $_shorteners;
-        if(!is_array($_shorteners)){
-            $_shorteners=array();
-        }
-        $_shorteners[$name]=array('info'=>$shortenerInfo, 'callInfo'=>$shortener);
-    }
 }

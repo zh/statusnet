@@ -462,6 +462,10 @@ class StatusNetOAuthDataStore extends OAuthDataStore
         $subscribed = $this->_getAnyProfile($subscribed_user_uri);
         $subscriber = $this->_getAnyProfile($subscriber_uri);
 
+        if (!$subscriber->hasRight(Right::SUBSCRIBE)) {
+            return _('You have been banned from subscribing.');
+        }
+
         $sub->subscribed = $subscribed->id;
         $sub->subscriber = $subscriber->id;
 

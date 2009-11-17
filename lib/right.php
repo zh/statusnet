@@ -47,5 +47,15 @@ class Right
 {
     const DELETEOTHERSNOTICE = 'deleteothersnotice';
     const CONFIGURESITE      = 'configuresite';
+    const DELETEUSER         = 'deleteuser';
+    const SILENCEUSER        = 'silenceuser';
+    const SANDBOXUSER        = 'sandboxuser';
+    const NEWNOTICE          = 'newnotice';
+    const PUBLICNOTICE       = 'publicnotice';
+    const NEWMESSAGE         = 'newmessage';
+    const SUBSCRIBE          = 'subscribe';
+    const EMAILONREPLY       = 'emailonreply';
+    const EMAILONSUBSCRIBE   = 'emailonsubscribe';
+    const EMAILONFAVE        = 'emailonfave';
 }
 

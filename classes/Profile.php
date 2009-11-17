@@ -310,10 +310,12 @@ class Profile extends Memcached_DataObject
           'AND subscription.subscribed != subscription.subscriber ' .
           'ORDER BY subscription.created DESC ';
 
-        if (common_config('db','type') == 'pgsql') {
-            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-        } else {
-            $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+        if ($offset>0 && !is_null($limit)){
+            if (common_config('db','type') == 'pgsql') {
+                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+            } else {
+                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+            }
         }
 
         $profile = new Profile();
@@ -333,11 +335,13 @@ class Profile extends Memcached_DataObject
           'AND subscription.subscribed != subscription.subscriber ' .
           'ORDER BY subscription.created DESC ';
 
-        if ($offset) {
-            if (common_config('db','type') == 'pgsql') {
-                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-            } else {
-                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+        if ($offset>0 && !is_null($limit)){
+            if ($offset) {
+                if (common_config('db','type') == 'pgsql') {
+                    $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+                } else {
+                    $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+                }
             }
         }
 
@@ -586,5 +590,125 @@ class Profile extends Memcached_DataObject
         }
 
         return $location;
+    }
+
+    function hasRole($name)
+    {
+        $role = Profile_role::pkeyGet(array('profile_id' => $this->id,
+                                            'role' => $name));
+        return (!empty($role));
+    }
+
+    function grantRole($name)
+    {
+        $role = new Profile_role();
+
+        $role->profile_id = $this->id;
+        $role->role       = $name;
+        $role->created    = common_sql_now();
+
+        $result = $role->insert();
+
+        if (!$result) {
+            common_log_db_error($role, 'INSERT', __FILE__);
+            return false;
+        }
+
+        return true;
+    }
+
+    function revokeRole($name)
+    {
+        $role = Profile_role::pkeyGet(array('profile_id' => $this->id,
+                                            'role' => $name));
+
+        if (empty($role)) {
+            throw new Exception('Cannot revoke role "'.$name.'" for user #'.$this->id.'; does not exist.');
+        }
+
+        $result = $role->delete();
+
+        if (!$result) {
+            common_log_db_error($role, 'DELETE', __FILE__);
+            throw new Exception('Cannot revoke role "'.$name.'" for user #'.$this->id.'; database error.');
+        }
+
+        return true;
+    }
+
+    function isSandboxed()
+    {
+        return $this->hasRole(Profile_role::SANDBOXED);
+    }
+
+    function isSilenced()
+    {
+        return $this->hasRole(Profile_role::SILENCED);
+    }
+
+    function sandbox()
+    {
+        $this->grantRole(Profile_role::SANDBOXED);
+    }
+
+    function unsandbox()
+    {
+        $this->revokeRole(Profile_role::SANDBOXED);
+    }
+
+    function silence()
+    {
+        $this->grantRole(Profile_role::SILENCED);
+    }
+
+    function unsilence()
+    {
+        $this->revokeRole(Profile_role::SILENCED);
+    }
+
+    /**
+     * Does this user have the right to do X?
+     *
+     * With our role-based authorization, this is merely a lookup for whether the user
+     * has a particular role. The implementation currently uses a switch statement
+     * to determine if the user has the pre-defined role to exercise the right. Future
+     * implementations may allow per-site roles, and different mappings of roles to rights.
+     *
+     * @param $right string Name of the right, usually a constant in class Right
+     * @return boolean whether the user has the right in question
+     */
+
+    function hasRight($right)
+    {
+        $result = false;
+        if (Event::handle('UserRightsCheck', array($this, $right, &$result))) {
+            switch ($right)
+            {
+            case Right::DELETEOTHERSNOTICE:
+            case Right::SANDBOXUSER:
+            case Right::SILENCEUSER:
+            case Right::DELETEUSER:
+                $result = $this->hasRole(Profile_role::MODERATOR);
+                break;
+            case Right::CONFIGURESITE:
+                $result = $this->hasRole(Profile_role::ADMINISTRATOR);
+                break;
+            case Right::NEWNOTICE:
+            case Right::NEWMESSAGE:
+            case Right::SUBSCRIBE:
+                $result = !$this->isSilenced();
+                break;
+            case Right::PUBLICNOTICE:
+            case Right::EMAILONREPLY:
+            case Right::EMAILONSUBSCRIBE:
+            case Right::EMAILONFAVE:
+                $result = !$this->isSandboxed();
+                break;
+            default:
+                $result = false;
+                break;
+            }
+        }
+        return $result;
     }
 }

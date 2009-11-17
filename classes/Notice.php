@@ -195,22 +195,19 @@ class Notice extends Memcached_DataObject
                                         ' take a breather and post again in a few minutes.'));
         }
 
-        $banned = common_config('profile', 'banned');
-
-        if ( in_array($profile_id, $banned) || in_array($profile->nickname, $banned)) {
-            common_log(LOG_WARNING, "Attempted post from banned user: $profile->nickname (user id = $profile_id).");
+        if (!$profile->hasRight(Right::NEWNOTICE)) {
+            common_log(LOG_WARNING, "Attempted post from user disallowed to post: " . $profile->nickname);
             throw new ClientException(_('You are banned from posting notices on this site.'));
         }
 
         $notice = new Notice();
         $notice->profile_id = $profile_id;
 
-        $blacklist = common_config('public', 'blacklist');
         $autosource = common_config('public', 'autosource');
 
-        # Blacklisted are non-false, but not 1, either
+        # Sandboxed are non-false, but not 1, either
 
-        if (($blacklist && in_array($profile_id, $blacklist)) ||
+        if (!$user->hasRight(Right::PUBLICNOTICE) ||
             ($source && $autosource && in_array($source, $autosource))) {
             $notice->is_local = Notice::LOCAL_NONPUBLIC;
         } else {

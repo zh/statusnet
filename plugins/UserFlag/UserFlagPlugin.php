@@ -48,16 +48,7 @@ class UserFlagPlugin extends Plugin
         $schema = Schema::get();
 
         // For storing user-submitted flags on profiles
-
-        $schema->ensureTable('user_flag_profile',
-                             array(new ColumnDef('profile_id', 'integer', null,
-                                                 false, 'PRI'),
-                                   new ColumnDef('user_id', 'integer', null,
-                                                 false, 'PRI'),
-                                   new ColumnDef('created', 'datetime', null,
-                                                 false, 'MUL'),
-                                   new ColumnDef('cleared', 'datetime', null,
-                                                 true, 'MUL')));
+        $schema->ensureDataObject('User_flag_profile');
 
         return true;
     }
@@ -122,7 +113,11 @@ class UserFlagPlugin extends Plugin
 
         if (!empty($user)) {
 
-            $form = new FlagProfileForm($item->action, $item->profile);
+            list($action, $args) = $item->action->returnToArgs();
+
+            $args['action'] = $action;
+
+            $form = new FlagProfileForm($item->action, $item->profile, $args);
 
             $form->show();
         }
@@ -138,6 +133,14 @@ class UserFlagPlugin extends Plugin
             ' }');
         $action->elementEnd('style');
 
+        return true;
+    }
+
+    function onEndShowScripts($action)
+    {
+        $action->elementStart('script', array('type' => 'text/javascript'));
+        $action->raw('/*<![CDATA[*/ SN.U.FormXHR($(".form_entity_flag")); /*]]>*/');
+        $action->elementEnd('script');
         return true;
     }
 }

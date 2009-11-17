@@ -382,8 +382,7 @@ class FacebookAction extends Action
     {
         // Does a little before-after block for next/prev page
         if ($have_before || $have_after) {
-            $this->elementStart('div', array('class' => 'pagination'));
-            $this->elementStart('dl', null);
+            $this->elementStart('dl', 'pagination');
             $this->element('dt', null, _('Pagination'));
             $this->elementStart('dd', null);
             $this->elementStart('ul', array('class' => 'nav'));
@@ -408,7 +407,6 @@ class FacebookAction extends Action
             $this->elementEnd('ul');
             $this->elementEnd('dd');
             $this->elementEnd('dl');
-            $this->elementEnd('div');
         }
     }
 

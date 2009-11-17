@@ -216,7 +216,8 @@ function mail_subscribe_notify($listenee, $listener)
 
 function mail_subscribe_notify_profile($listenee, $other)
 {
-    if ($listenee->email && $listenee->emailnotifysub) {
+    if ($other->hasRight(Right::EMAILONSUBSCRIBE) &&
+        $listenee->email && $listenee->emailnotifysub) {
 
         // use the recipient's localization
         common_init_locale($listenee->language);
@@ -545,6 +546,10 @@ function mail_notify_message($message, $from=null, $to=null)
 
 function mail_notify_fave($other, $user, $notice)
 {
+    if (!$user->hasRight(Right::EMAILONFAVE)) {
+        return;
+    }
+
     $profile = $user->getProfile();
 
     $bestname = $profile->getBestName();
@@ -594,10 +599,14 @@ function mail_notify_attn($user, $notice)
 
     $sender = $notice->getProfile();
 
+    if (!$sender->hasRight(Right::EMAILONREPLY)) {
+        return;
+    }
+
     $bestname = $sender->getBestName();
 
     common_init_locale($user->language);
-	
+
 	if ($notice->conversation != $notice->id) {
 		$conversationEmailText = "The full conversation can be read here:\n\n".
 								 "\t%5\$s\n\n ";
@@ -607,9 +616,9 @@ function mail_notify_attn($user, $notice)
 		$conversationEmailText = "%5\$s";
 		$conversationUrl = null;
 	}
-	
+
     $subject = sprintf(_('%s (@%s) sent a notice to your attention'), $bestname, $sender->nickname);
-	
+
 	$body = sprintf(_("%1\$s (@%9\$s) just sent a notice to your attention (an '@-reply') on %2\$s.\n\n".
                       "The notice is here:\n\n".
                       "\t%3\$s\n\n" .
@@ -635,7 +644,7 @@ function mail_notify_attn($user, $notice)
                                      array('nickname' => $user->nickname)),//%7
                     common_local_url('emailsettings'), //%8
                     $sender->nickname); //%9
-	
+
     common_init_locale();
     mail_to_user($user, $subject, $body);
 }

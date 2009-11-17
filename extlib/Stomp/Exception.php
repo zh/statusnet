@@ -23,10 +23,8 @@
  *
  *
  * @package Stomp
- * @author Michael Caplan <mcaplan@labnet.net>
- * @version $Revision: 23 $
  */
-class Stomp_Exception extends Exception
+class StompException extends Exception
 {
     protected $_details;
     

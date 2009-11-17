@@ -40,20 +40,23 @@ create table user_role (
 );
 
 create table login_token (
-    user_id integer not null /* comment 'user owning this token'*/ references user (id),
+    user_id integer not null /* comment 'user owning this token'*/ references "user" (id),
     token char(32) not null /* comment 'token useable for logging in'*/,
     created timestamp not null DEFAULT CURRENT_TIMESTAMP /* comment 'date this record was created'*/,
     modified timestamp /* comment 'date this record was modified'*/,
 
-    constraint primary key (user_id)
+    primary key (user_id)
 );
 
-alter table fave
-    drop index fave_user_id_idx,
-    add index fave_user_id_idx using btree(user_id,modified);
+DROP index fave_user_id_idx;
+CREATE index fave_user_id_idx on fave (user_id,modified);
 
-alter table subscription
-    drop index subscription_subscriber_idx,
-    add index subscription_subscriber_idx using btree(subscriber,created),
-    drop index subscription_subscribed_idx,
-    add index subscription_subscribed_idx using btree(subscribed,created);
+DROP index subscription_subscriber_idx;
+CREATE index subscription_subscriber_idx ON subscription (subscriber,created);
+
+DROP index subscription_subscribed_idx;
+CREATE index subscription_subscribed_idx ON subscription (subscribed,created);
+
+DROP index notice_profile_id_idx;
+CREATE index notice_profile_id_idx ON notice (profile_id,created,id);
+

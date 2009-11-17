@@ -44,6 +44,10 @@ function subs_subscribe_user($user, $other_nickname)
 
 function subs_subscribe_to($user, $other)
 {
+    if (!$user->hasRight(Right::SUBSCRIBE)) {
+        return _('You have been banned from subscribing.');
+    }
+
     if ($user->isSubscribed($other)) {
         return _('Already subscribed!');
     }
@@ -121,7 +125,7 @@ function subs_unsubscribe_user($user, $other_nickname)
 function subs_unsubscribe_to($user, $other)
 {
     if (!$user->isSubscribed($other))
-        return _('Not subscribed!.');
+        return _('Not subscribed!');
 
     $sub = DB_DataObject::factory('subscription');
 

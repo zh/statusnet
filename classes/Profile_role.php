@@ -1,7 +1,7 @@
 <?php
 /*
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, StatusNet, Inc.
+ * Copyright (C) 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -10,42 +10,46 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.     See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.     If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET')) {
+    exit(1);
+}
 
 /**
- * Table Definition for user_role
+ * Table Definition for profile_role
  */
 
 require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
-class User_role extends Memcached_DataObject
+class Profile_role extends Memcached_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
 
-    public $__table = 'user_role';                       // table name
-    public $user_id;                         // int(4)  primary_key not_null
+    public $__table = 'profile_role';                    // table name
+    public $profile_id;                      // int(4)  primary_key not_null
     public $role;                            // varchar(32)  primary_key not_null
-    public $created;                         // datetime()   not_null
+    public $created;                         // datetime   not_null default_0000-00-00%2000%3A00%3A00
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('User_role',$k,$v); }
+    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Profile_role',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
     function &pkeyGet($kv)
     {
-        return Memcached_DataObject::pkeyGet('User_role', $kv);
+        return Memcached_DataObject::pkeyGet('Profile_role', $kv);
     }
 
     const MODERATOR     = 'moderator';
     const ADMINISTRATOR = 'administrator';
+    const SANDBOXED     = 'sandboxed';
+    const SILENCED      = 'silenced';
 }

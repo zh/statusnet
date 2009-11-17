@@ -282,7 +282,7 @@ class MailboxAction extends CurrentUserDesignAction
                                     $ns->name);
                 $this->elementEnd('span');
             } else {
-                $this->out->element('span', 'device', $source_name);
+                $this->element('span', 'device', $source_name);
             }
             break;
         }

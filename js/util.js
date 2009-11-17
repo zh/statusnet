@@ -228,6 +228,7 @@ var SN = { // StatusNet
                                 $('#'+notice.id).fadeIn(2500);
                                 SN.U.NoticeAttachments();
                                 SN.U.NoticeReply();
+                                SN.U.NoticeFavor();
                              }
                         }
                         $('#'+form_id+' #'+SN.C.S.NoticeDataText).val('');
@@ -274,6 +275,11 @@ var SN = { // StatusNet
                 }
             }
             return true;
+        },
+
+        NoticeFavor: function() {
+            $('.form_favor').each(function() { SN.U.FormXHR($(this)); });
+            $('.form_disfavor').each(function() { SN.U.FormXHR($(this)); });
         },
 
         NoticeAttachments: function() {
@@ -370,31 +376,53 @@ var SN = { // StatusNet
                 return false;
             });
         }
+    },
+
+    Init: {
+        NoticeForm: function() {
+            if ($('body.user_in').length > 0) {
+                $('.'+SN.C.S.FormNotice).each(function() {
+                    SN.U.FormNoticeXHR($(this));
+                    SN.U.FormNoticeEnhancements($(this));
+                });
+
+                SN.U.NoticeDataAttach();
+            }
+        },
+
+        Notices: function() {
+            if ($('body.user_in').length > 0) {
+                SN.U.NoticeFavor();
+
+                SN.U.NoticeReply();
+            }
+
+            SN.U.NoticeAttachments();
+        },
+
+        EntityActions: function() {
+            if ($('body.user_in').length > 0) {
+                $('.form_user_subscribe').each(function() { SN.U.FormXHR($(this)); });
+                $('.form_user_unsubscribe').each(function() { SN.U.FormXHR($(this)); });
+                $('.form_group_join').each(function() { SN.U.FormXHR($(this)); });
+                $('.form_group_leave').each(function() { SN.U.FormXHR($(this)); });
+                $('.form_user_nudge').each(function() { SN.U.FormXHR($(this)); });
+
+                SN.U.NewDirectMessage();
+            }
+        }
     }
 };
 
 $(document).ready(function(){
-    if ($('body.user_in').length > 0) {
-        $('.'+SN.C.S.FormNotice).each(function() {
-            SN.U.FormNoticeXHR($(this));
-            SN.U.FormNoticeEnhancements($(this));
-        });
-
-        $('.form_user_subscribe').each(function() { SN.U.FormXHR($(this)); });
-        $('.form_user_unsubscribe').each(function() { SN.U.FormXHR($(this)); });
-        $('.form_favor').each(function() { SN.U.FormXHR($(this)); });
-        $('.form_disfavor').each(function() { SN.U.FormXHR($(this)); });
-        $('.form_group_join').each(function() { SN.U.FormXHR($(this)); });
-        $('.form_group_leave').each(function() { SN.U.FormXHR($(this)); });
-        $('.form_user_nudge').each(function() { SN.U.FormXHR($(this)); });
-
-        SN.U.NoticeReply();
-
-        SN.U.NoticeDataAttach();
-
-        SN.U.NewDirectMessage();
+    if ($('.'+SN.C.S.FormNotice).length > 0) {
+        SN.Init.NoticeForm();
     }
-
-    SN.U.NoticeAttachments();
+    if ($('#content .notices').length > 0) {
+        SN.Init.Notices();
+    }
+    if ($('#content .entity_actions').length > 0) {
+        SN.Init.EntityActions();
+    }
 });
 

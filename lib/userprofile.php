@@ -283,22 +283,57 @@ class UserProfile extends Widget
                             }
                         }
 
+                        // return-to args, so we don't have to keep re-writing them
+
+                        list($action, $r2args) = $this->out->returnToArgs();
+
+                        // push the action into the list
+
+                        $r2args['action'] = $action;
+
                         // block/unblock
 
                         $blocked = $cur->hasBlocked($this->profile);
                         $this->out->elementStart('li', 'entity_block');
                         if ($blocked) {
-                            $ubf = new UnblockForm($this->out, $this->profile,
-                                                   array('action' => 'showstream',
-                                                         'nickname' => $this->profile->nickname));
+                            $ubf = new UnblockForm($this->out, $this->profile, $r2args);
                             $ubf->show();
                         } else {
-                            $bf = new BlockForm($this->out, $this->profile,
-                                                array('action' => 'showstream',
-                                                      'nickname' => $this->profile->nickname));
+                            $bf = new BlockForm($this->out, $this->profile, $r2args);
                             $bf->show();
                         }
                         $this->out->elementEnd('li');
+
+                        if ($cur->hasRight(Right::SANDBOXUSER)) {
+                            $this->out->elementStart('li', 'entity_sandbox');
+                            if ($this->user->isSandboxed()) {
+                                $usf = new UnSandboxForm($this->out, $this->profile, $r2args);
+                                $usf->show();
+                            } else {
+                                $sf = new SandboxForm($this->out, $this->profile, $r2args);
+                                $sf->show();
+                            }
+                            $this->out->elementEnd('li');
+                        }
+
+                        if ($cur->hasRight(Right::SILENCEUSER)) {
+                            $this->out->elementStart('li', 'entity_silence');
+                            if ($this->user->isSilenced()) {
+                                $usf = new UnSilenceForm($this->out, $this->profile, $r2args);
+                                $usf->show();
+                            } else {
+                                $sf = new SilenceForm($this->out, $this->profile, $r2args);
+                                $sf->show();
+                            }
+                            $this->out->elementEnd('li');
+                        }
+
+                        if ($cur->hasRight(Right::DELETEUSER)) {
+                            $this->out->elementStart('li', 'entity_delete');
+                            $df = new DeleteUserForm($this->out, $this->profile, $r2args);
+                            $df->show();
+                            $this->out->elementEnd('li');
+                        }
                     }
                 }
 

@@ -350,8 +350,11 @@ function common_current_user()
             common_ensure_session();
             $id = isset($_SESSION['userid']) ? $_SESSION['userid'] : false;
             if ($id) {
-                $_cur = User::staticGet($id);
-                return $_cur;
+                $user = User::staticGet($id);
+                if ($user) {
+                	$_cur = $user;
+                	return $_cur;
+                }
             }
         }
 
@@ -1420,25 +1423,18 @@ function common_shorten_url($long_url)
     if (empty($user)) {
         // common current user does not find a user when called from the XMPP daemon
         // therefore we'll set one here fix, so that XMPP given URLs may be shortened
-        $svc = 'ur1.ca';
+        $shortenerName = 'ur1.ca';
     } else {
-        $svc = $user->urlshorteningservice;
-    }
-    global $_shorteners;
-    if (!isset($_shorteners[$svc])) {
-        //the user selected service doesn't exist, so default to ur1.ca
-        $svc = 'ur1.ca';
-    }
-    if (!isset($_shorteners[$svc])) {
-    	// no shortener plugins installed.
-    	return $long_url;
+        $shortenerName = $user->urlshorteningservice;
     }
 
-    $reflectionObj = new ReflectionClass($_shorteners[$svc]['callInfo'][0]);
-    $short_url_service = $reflectionObj->newInstanceArgs($_shorteners[$svc]['callInfo'][1]);
-    $short_url = $short_url_service->shorten($long_url);
-
-    return $short_url;
+    if(Event::handle('StartShortenUrl', array($long_url,$shortenerName,&$shortenedUrl))){
+        //URL wasn't shortened, so return the long url
+        return $long_url;
+    }else{
+        //URL was shortened, so return the result
+        return $shortenedUrl;
+    }
 }
 
 function common_client_ip()

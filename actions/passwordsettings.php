@@ -170,7 +170,7 @@ class PasswordsettingsAction extends AccountSettingsAction
         }
 
         $success = false;
-        if(! Event::handle('StartChangePassword', array($user->nickname, $oldpassword, $newpassword))){
+        if(! Event::handle('StartChangePassword', array($user, $oldpassword, $newpassword))){
             //no handler changed the password, so change the password internally
             $original = clone($user);
 
@@ -186,7 +186,7 @@ class PasswordsettingsAction extends AccountSettingsAction
                 $this->serverError(_('Can\'t save new password.'));
                 return;
             }
-            Event::handle('EndChangePassword', array($nickname));
+            Event::handle('EndChangePassword', array($user));
         }
 
         $this->showForm(_('Password saved.'), true);

@@ -605,6 +605,71 @@ class LoginCommand extends Command
     }
 }
 
+class SubscriptionsCommand extends Command
+{
+    function execute($channel)
+    {
+        $profile = $this->user->getSubscriptions(0);
+        $nicknames=array();
+        while ($profile->fetch()) {
+            $nicknames[]=$profile->nickname;
+        }
+        if(count($nicknames)==0){
+            $out=_('You are not subscribed to anyone.');
+        }else{
+            $out = ngettext('You are subscribed to this person:',
+                'You are subscribed to these people:',
+                count($nicknames));
+            $out .= ' ';
+            $out .= implode(', ',$nicknames);
+        }
+        $channel->output($this->user,$out);
+    }
+}
+
+class SubscribersCommand extends Command
+{
+    function execute($channel)
+    {
+        $profile = $this->user->getSubscribers();
+        $nicknames=array();
+        while ($profile->fetch()) {
+            $nicknames[]=$profile->nickname;
+        }
+        if(count($nicknames)==0){
+            $out=_('No one is subscribed to you.');
+        }else{
+            $out = ngettext('This person is subscribed to you:',
+                'These people are subscribed to you:',
+                count($nicknames));
+            $out .= ' ';
+            $out .= implode(', ',$nicknames);
+        }
+        $channel->output($this->user,$out);
+    }
+}
+
+class GroupsCommand extends Command
+{
+    function execute($channel)
+    {
+        $group = $this->user->getGroups();
+        $groups=array();
+        while ($group->fetch()) {
+            $groups[]=$group->nickname;
+        }
+        if(count($groups)==0){
+            $out=_('You are not a member of any groups.');
+        }else{
+            $out = ngettext('You are a member of this group:',
+                'You are a member of these groups:',
+                count($nicknames));
+            $out.=implode(', ',$groups);
+        }
+        $channel->output($this->user,$out);
+    }
+}
+
 class HelpCommand extends Command
 {
     function execute($channel)
@@ -615,6 +680,9 @@ class HelpCommand extends Command
                            "off - turn off notifications\n".
                            "help - show this help\n".
                            "follow <nickname> - subscribe to user\n".
+                           "groups - lists the groups you have joined\n".
+                           "subscriptions - list the people you follow\n".
+                           "subscribers - list the people that follow you\n".
                            "leave <nickname> - unsubscribe from user\n".
                            "d <nickname> <text> - direct message to user\n".
                            "get <nickname> - get last notice from user\n".

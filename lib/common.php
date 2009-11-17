@@ -19,6 +19,9 @@
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
+//exit with 200 response, if this is checking fancy from the installer
+if (isset($_REQUEST['p']) && $_REQUEST['p'] == 'check-fancy') {  exit; } 
+
 define('STATUSNET_VERSION', '0.9.0dev');
 define('LACONICA_VERSION', STATUSNET_VERSION); // compatibility
 
@@ -38,11 +41,17 @@ define('FOREIGN_NOTICE_SEND_REPLY', 4);
 define('FOREIGN_FRIEND_SEND', 1);
 define('FOREIGN_FRIEND_RECV', 2);
 
-define_syslog_variables();
-
 # append our extlib dir as the last-resort place to find libs
 
 set_include_path(get_include_path() . PATH_SEPARATOR . INSTALLDIR . '/extlib/');
+
+# To protect against upstream libraries which haven't updated
+# for PHP 5.3 where dl() function may not be present...
+if (!function_exists('dl')) {
+    function dl($library) {
+        return false;
+    }
+}
 
 # global configuration object
 
@@ -229,7 +238,6 @@ require_once INSTALLDIR.'/lib/util.php';
 require_once INSTALLDIR.'/lib/action.php';
 require_once INSTALLDIR.'/lib/mail.php';
 require_once INSTALLDIR.'/lib/subs.php';
-require_once INSTALLDIR.'/lib/Shorturl_api.php';
 
 require_once INSTALLDIR.'/lib/clientexception.php';
 require_once INSTALLDIR.'/lib/serverexception.php';

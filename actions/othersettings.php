@@ -96,28 +96,28 @@ class OthersettingsAction extends AccountSettingsAction
                                           common_local_url('othersettings')));
         $this->elementStart('fieldset');
         $this->hidden('token', common_session_token());
+        $this->elementStart('ul', 'form_data');
 
-        $services=array();
-        global $_shorteners;
-        if($_shorteners){
-            foreach($_shorteners as $name=>$value)
-            {
-                $services[$name]=$name;
-                if(!empty($value['info']['freeService'])){
-                    // I18N
-                    $services[$name].=' (free service)';
-                }
+        $shorteners = array();
+        Event::handle('GetUrlShorteners', array(&$shorteners));
+        $services = array();
+        foreach($shorteners as $name=>$value)
+        {
+            $services[$name]=$name;
+            if($value['freeService']){
+                $services[$name].=_(' (free service)');
             }
         }
-        asort($services);
-        $services['']='None';
+        if($services)
+        {
+            asort($services);
 
-        $this->elementStart('ul', 'form_data');
-        $this->elementStart('li');
-        $this->dropdown('urlshorteningservice', _('Shorten URLs with'),
-                        $services, _('Automatic shortening service to use.'),
-                        false, $user->urlshorteningservice);
-        $this->elementEnd('li');
+            $this->elementStart('li');
+            $this->dropdown('urlshorteningservice', _('Shorten URLs with'),
+                            $services, _('Automatic shortening service to use.'),
+                            false, $user->urlshorteningservice);
+            $this->elementEnd('li');
+        }
         $this->elementStart('li');
         $this->checkbox('viewdesigns', _('View profile designs'),
                         $user->viewdesigns, _('Show or hide profile designs.'));

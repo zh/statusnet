@@ -87,6 +87,11 @@ class ApiGroupMembershipAction extends ApiPrivateAuthAction
     {
         parent::handle($args);
 
+        if (empty($this->group)) {
+            $this->clientError(_('Group not found!'), 404, $this->format);
+            return false;
+        }
+
         // XXX: RSS and Atom
 
         switch($this->format) {

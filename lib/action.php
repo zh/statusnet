@@ -990,6 +990,18 @@ class Action extends HTMLOutputter // lawsuit
 
     function selfUrl()
     {
+        list($action, $args) = $this->returnToArgs();
+        return common_local_url($action, $args);
+    }
+
+    /**
+     * Returns arguments sufficient for re-constructing URL
+     *
+     * @return array two elements: action, other args
+     */
+
+    function returnToArgs()
+    {
         $action = $this->trimmed('action');
         $args   = $this->args;
         unset($args['action']);
@@ -1002,8 +1014,7 @@ class Action extends HTMLOutputter // lawsuit
         foreach (array_keys($_COOKIE) as $cookie) {
             unset($args[$cookie]);
         }
-
-        return common_local_url($action, $args);
+        return array($action, $args);
     }
 
     /**
@@ -1052,8 +1063,7 @@ class Action extends HTMLOutputter // lawsuit
     {
         // Does a little before-after block for next/prev page
         if ($have_before || $have_after) {
-            $this->elementStart('div', array('class' => 'pagination'));
-            $this->elementStart('dl', null);
+            $this->elementStart('dl', 'pagination');
             $this->element('dt', null, _('Pagination'));
             $this->elementStart('dd', null);
             $this->elementStart('ul', array('class' => 'nav'));
@@ -1078,7 +1088,6 @@ class Action extends HTMLOutputter // lawsuit
             $this->elementEnd('ul');
             $this->elementEnd('dd');
             $this->elementEnd('dl');
-            $this->elementEnd('div');
         }
     }
 

@@ -280,6 +280,11 @@ class AutosubmitAction extends Action
     function showContent()
     {
         $this->raw($this->form_html);
+    }
+    
+    function showScripts()
+    {
+        parent::showScripts();
         $this->element('script', null,
                        '$(document).ready(function() { ' .
                        '    $(\'#'. $this->form_id .'\').submit(); '.

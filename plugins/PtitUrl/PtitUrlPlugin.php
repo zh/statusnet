@@ -30,33 +30,28 @@
 if (!defined('STATUSNET')) {
     exit(1);
 }
+require_once INSTALLDIR.'/plugins/UrlShortener/UrlShortenerPlugin.php';
 
-class PtitUrlPlugin extends Plugin
+class PtitUrlPlugin extends UrlShortenerPlugin
 {
-    function __construct()
-    {
-        parent::__construct();
-    }
+    public $serviceUrl;
 
     function onInitializePlugin(){
-        $this->registerUrlShortener(
-            'ptiturl.com',
-            array(),
-            array('PtitUrl',array('http://ptiturl.com/?creer=oui&action=Reduire&url='))
-        );
+        parent::onInitializePlugin();
+        if(!isset($this->serviceUrl)){
+            throw new Exception("must specify a serviceUrl");
+        }
+    }
+
+    protected function shorten($url)
+    {
+        $response = $this->http_get(sprintf($this->serviceUrl,urlencode($url)));
+        if (!$response) return;
+        $response = $this->tidy($response);
+        $y = @simplexml_load_string($response);
+        if (!isset($y->body)) return;
+        $xml = $y->body->center->table->tr->td->pre->a->attributes();
+        if (isset($xml['href'])) return $xml['href'];
     }
 }
 
-class PtitUrl extends ShortUrlApi
-{
-    protected function shorten_imp($url) {
-        $response = $this->http_get($url);
-        if (!$response) return $url;
-        $response = $this->tidy($response);
-        $y = @simplexml_load_string($response);
-        if (!isset($y->body)) return $url;
-        $xml = $y->body->center->table->tr->td->pre->a->attributes();
-        if (isset($xml['href'])) return $xml['href'];
-        return $url;
-    }
-}

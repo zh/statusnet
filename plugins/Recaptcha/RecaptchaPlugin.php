@@ -33,7 +33,9 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 
 define('RECAPTCHA', '0.2');
 
-class recaptcha extends Plugin
+require_once(INSTALLDIR.'/plugins/Recaptcha/recaptchalib.php');
+
+class RecaptchaPlugin extends Plugin
 {
     var $private_key;
     var $public_key;
@@ -41,13 +43,13 @@ class recaptcha extends Plugin
     var $failed;
     var $ssl;
 
-    function __construct($public_key, $private_key, $display_errors=false)
-    {
-        parent::__construct();
-        require_once(INSTALLDIR.'/plugins/recaptcha/recaptchalib.php');
-        $this->public_key = $public_key;
-        $this->private_key = $private_key; 
-        $this->display_errors = $display_errors;
+    function onInitializePlugin(){
+        if(!isset($this->private_key)){
+            common_log(LOG_ERR, "Recaptcha: Must specify private_key in config.php");
+        }
+        if(!isset($this->public_key)){
+            common_log(LOG_ERR, "Recaptcha: Must specify public_key in config.php");
+        }
     }
 
     function checkssl(){
