@@ -92,6 +92,7 @@ class SiteadminpanelAction extends AdminPanelAction
     {
         static $settings = array('name', 'broughtby', 'broughtbyurl',
                                  'email', 'timezone', 'language');
+        static $booleans = array('private');
 
         $values = array();
 
