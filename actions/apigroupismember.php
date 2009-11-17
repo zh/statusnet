@@ -92,7 +92,7 @@ class ApiGroupIsMemberAction extends ApiBareAuthAction
         }
 
         if (empty($this->group)) {
-            $this->clientError('Group not found!', 404, $this->format);
+            $this->clientError(_('Group not found!'), 404, $this->format);
             return false;
         }
 

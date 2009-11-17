@@ -12,12 +12,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-13 20:42+0000\n"
-"PO-Revision-Date: 2009-11-13 20:42:37+0000\n"
+"POT-Creation-Date: 2009-11-16 19:42+0000\n"
+"PO-Revision-Date: 2009-11-16 19:43:24+0000\n"
 "Language-Team: Finnish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59023); Translate extension (2009-11-13)\n"
+"X-Generator: MediaWiki 1.16alpha(r59142); Translate extension (2009-11-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fi\n"
 "X-Message-Group: out-statusnet\n"
@@ -83,6 +83,8 @@ msgstr "Käyttäjän %s kavereiden syöte (Atom)"
 msgid ""
 "This is the timeline for %s and friends but no one has posted anything yet."
 msgstr ""
+"Tämä on käyttäjän %s ja kavereiden aikajana, mutta kukaan ei ole lähettyänyt "
+"vielä mitään."
 
 #: actions/all.php:132
 #, php-format
@@ -90,6 +92,8 @@ msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
 "something yourself."
 msgstr ""
+"Kokeile useamman käyttäjän tilaamista, [liity ryhmään] (%%action.groups%%) "
+"tai lähetä päivitys itse."
 
 #: actions/all.php:134
 #, php-format
@@ -641,9 +645,8 @@ msgid "%s blocked profiles, page %d"
 msgstr "%s ja kaverit, sivu %d"
 
 #: actions/blockedfromgroup.php:108
-#, fuzzy
 msgid "A list of the users blocked from joining this group."
-msgstr "Lista ryhmän käyttäjistä."
+msgstr "Lista käyttäjistä jotka ovat estetty liittymästä tähän ryhmään."
 
 #: actions/blockedfromgroup.php:281
 msgid "Unblock user from group"
@@ -695,9 +698,8 @@ msgid "No"
 msgstr "Ei"
 
 #: actions/block.php:149
-#, fuzzy
 msgid "Do not block this user"
-msgstr "Poista esto tältä käyttäjältä"
+msgstr "Älä estä tätä käyttäjää"
 
 #: actions/block.php:150 actions/deletenotice.php:146
 #: actions/groupblock.php:179
@@ -1082,9 +1084,9 @@ msgid "%s's favorite notices"
 msgstr "Käyttäjän %s suosikkipäivitykset"
 
 #: actions/favoritesrss.php:115
-#, fuzzy, php-format
+#, php-format
 msgid "Updates favored by %1$s on %2$s!"
-msgstr "Käyttäjän %1$s päivitykset palvelussa %2$s!"
+msgstr "Käyttäjän %1$s suosikit palvelussa %2$s!"
 
 #: actions/favor.php:79
 msgid "This notice is already a favorite!"
@@ -1181,7 +1183,7 @@ msgstr "Ryhmää ei ole määritelty."
 
 #: actions/groupblock.php:91
 msgid "Only an admin can block group members."
-msgstr ""
+msgstr "Vain ylläpitäjä voi estää ryhmän jäseniä."
 
 #: actions/groupblock.php:95
 #, fuzzy
@@ -1189,14 +1191,12 @@ msgid "User is already blocked from group."
 msgstr "Käyttäjä on asettanut eston sinulle."
 
 #: actions/groupblock.php:100
-#, fuzzy
 msgid "User is not a member of group."
-msgstr "Sinä et kuulu tähän ryhmään."
+msgstr "Käyttäjä ei kuulu tähän ryhmään."
 
 #: actions/groupblock.php:136 actions/groupmembers.php:314
-#, fuzzy
 msgid "Block user from group"
-msgstr "Estä käyttäjä"
+msgstr "Estä käyttäjä ryhmästä"
 
 #: actions/groupblock.php:162
 #, php-format
@@ -1228,9 +1228,8 @@ msgstr ""
 "Sinun pitää olla kirjautunut sisään, jotta voit muuttaa ryhmän tietoja."
 
 #: actions/groupdesignsettings.php:141
-#, fuzzy
 msgid "Group design"
-msgstr "Ryhmät"
+msgstr "Ryhmän ulkoasu"
 
 #: actions/groupdesignsettings.php:152
 msgid ""
@@ -1240,21 +1239,18 @@ msgstr ""
 
 #: actions/groupdesignsettings.php:262 actions/userdesignsettings.php:186
 #: lib/designsettings.php:434 lib/designsettings.php:464
-#, fuzzy
 msgid "Couldn't update your design."
-msgstr "Ei voitu päivittää käyttäjää."
+msgstr "Ei voitu päivittää sinun sivusi ulkoasua."
 
 #: actions/groupdesignsettings.php:286 actions/groupdesignsettings.php:296
 #: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
 #: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
-#, fuzzy
 msgid "Unable to save your design settings!"
-msgstr "Twitter-asetuksia ei voitu tallentaa!"
+msgstr "Ei voitu tallentaa sinun ulkoasuasetuksia!"
 
 #: actions/groupdesignsettings.php:307 actions/userdesignsettings.php:231
-#, fuzzy
 msgid "Design preferences saved."
-msgstr "Synkronointiasetukset tallennettiin."
+msgstr "Ulkoasuasetukset tallennettu."
 
 #: actions/grouplogo.php:139 actions/grouplogo.php:192
 msgid "Group logo"
@@ -1305,18 +1301,17 @@ msgid "Make user an admin of the group"
 msgstr "Tee tästä käyttäjästä ylläpitäjä"
 
 #: actions/groupmembers.php:473
-#, fuzzy
 msgid "Make Admin"
-msgstr "Ylläpito"
+msgstr "Tee ylläpitäjäksi"
 
 #: actions/groupmembers.php:473
 msgid "Make this user an admin"
 msgstr "Tee tästä käyttäjästä ylläpitäjä"
 
 #: actions/grouprss.php:133
-#, fuzzy, php-format
+#, php-format
 msgid "Updates from members of %1$s on %2$s!"
-msgstr "Käyttäjän %1$s päivitykset palvelussa %2$s!"
+msgstr "Ryhmän  %1$s käyttäjien päivitykset palvelussa %2$s!"
 
 #: actions/groupsearch.php:52
 #, fuzzy, php-format
@@ -1380,9 +1375,8 @@ msgid "Only an admin can unblock group members."
 msgstr "Vain ylläpitäjä voi poistaa eston ryhmän jäseniltä."
 
 #: actions/groupunblock.php:95
-#, fuzzy
 msgid "User is not blocked from group."
-msgstr "Käyttäjä on asettanut eston sinulle."
+msgstr "Käyttäjää ei ole estetty ryhmästä."
 
 #: actions/groupunblock.php:128 actions/unblock.php:108
 msgid "Error removing the block."
@@ -1402,9 +1396,8 @@ msgstr ""
 "im%%) käyttäen. Alla voit määrittää osoitteesi ja asetuksesi. "
 
 #: actions/imsettings.php:89
-#, fuzzy
 msgid "IM is not available."
-msgstr "Tämä sivu ei ole saatavilla "
+msgstr "Pikaviestin ei ole käytettävissä."
 
 #: actions/imsettings.php:106
 msgid "Current confirmed Jabber/GTalk address."
@@ -1501,7 +1494,7 @@ msgstr "Tämä on postilaatikkosi, jossa on sinulle saapuneet yksityisviestit."
 
 #: actions/invite.php:39
 msgid "Invites have been disabled."
-msgstr ""
+msgstr "Kutsut ovat pois käytöstä."
 
 #: actions/invite.php:41
 #, php-format
@@ -1751,22 +1744,22 @@ msgstr ""
 
 #: actions/makeadmin.php:91
 msgid "Only an admin can make another user an admin."
-msgstr ""
+msgstr "Vain ylläpitäjä voi tehdä toisesta käyttäjästä ylläpitäjän."
 
 #: actions/makeadmin.php:95
 #, php-format
 msgid "%s is already an admin for group \"%s\"."
-msgstr ""
+msgstr "%s on jo ryhmän \"%s\" ylläpitäjä."
 
 #: actions/makeadmin.php:132
 #, php-format
 msgid "Can't get membership record for %s in group %s"
-msgstr ""
+msgstr "Ei saatu käyttäjän %s jäsenyystietoja ryhmästä %s"
 
 #: actions/makeadmin.php:145
 #, php-format
 msgid "Can't make %s an admin for group %s"
-msgstr ""
+msgstr "Ei voitu tehdä käyttäjästä %s ylläpitäjää ryhmään %s"
 
 #: actions/microsummary.php:69
 msgid "No current status"
@@ -1847,6 +1840,8 @@ msgid ""
 "Be the first to [post on this topic](%%%%action.newnotice%%%%?"
 "status_textarea=%s)!"
 msgstr ""
+"Ole ensimmäinen joka [lähettää päivityksen tästä aiheesta] (%%%%action."
+"newnotice%%%%?status_textarea=%s)!"
 
 #: actions/noticesearch.php:124
 #, php-format
@@ -1938,7 +1933,7 @@ msgstr "Profiiliasetukset"
 
 #: actions/othersettings.php:123
 msgid "Show or hide profile designs."
-msgstr ""
+msgstr "Näytä tai piillota profiilin ulkoasu."
 
 #: actions/othersettings.php:153
 msgid "URL shortening service is too long (max 50 chars)."
@@ -2221,7 +2216,7 @@ msgstr ""
 
 #: actions/public.php:182
 msgid "Be the first to post!"
-msgstr ""
+msgstr "Ole ensimmäinen joka lähettää päivityksen!"
 
 #: actions/public.php:186
 #, php-format
@@ -2261,10 +2256,12 @@ msgstr "Nämä ovat suosituimmat viimeaikaiset tagit %s -palvelussa"
 #, php-format
 msgid "No one has posted a notice with a [hashtag](%%doc.tags%%) yet."
 msgstr ""
+"Kukaan ei ole vielä lähettänyt päivitystä tagilla [hashtag] (%%doc.tags%%) "
+"vielä."
 
 #: actions/publictagcloud.php:72
 msgid "Be the first to post one!"
-msgstr ""
+msgstr "Ole ensimmäinen joka lähettää päivityksen!"
 
 #: actions/publictagcloud.php:75
 #, php-format
@@ -2313,11 +2310,11 @@ msgstr ""
 
 #: actions/recoverpassword.php:158
 msgid "You have been identified. Enter a new password below. "
-msgstr ""
+msgstr "Sinut on tunnistettu. Syötä uusi salasana alapuolelle. "
 
 #: actions/recoverpassword.php:188
 msgid "Password recovery"
-msgstr ""
+msgstr "Salasanan palautus"
 
 #: actions/recoverpassword.php:191
 msgid "Nickname or email address"
@@ -2406,9 +2403,8 @@ msgid "Sorry, only invited people can register."
 msgstr "Valitettavasti vain kutsutut ihmiset voivat rekisteröityä."
 
 #: actions/register.php:92
-#, fuzzy
 msgid "Sorry, invalid invitation code."
-msgstr "Virhe vahvistuskoodin kanssa."
+msgstr "Virheellinen kutsukoodin."
 
 #: actions/register.php:112
 msgid "Registration successful"
@@ -2485,12 +2481,11 @@ msgid "Creative Commons Attribution 3.0"
 msgstr ""
 
 #: actions/register.php:496
-#, fuzzy
 msgid ""
 " except this private data: password, email address, IM address, and phone "
 "number."
 msgstr ""
-" poislukien yksityinen tieto: salasana, sähköpostiosoite, IM osoite, "
+"poislukien yksityinen tieto: salasana, sähköpostiosoite, IM osoite, "
 "puhelinnumero."
 
 #: actions/register.php:537
@@ -2551,9 +2546,8 @@ msgid "Remote subscribe"
 msgstr "Etätilaus"
 
 #: actions/remotesubscribe.php:124
-#, fuzzy
 msgid "Subscribe to a remote user"
-msgstr "Tilaa tämä käyttäjä"
+msgstr "Tilaa tämä etäkäyttäjä"
 
 #: actions/remotesubscribe.php:129
 msgid "User nickname"
@@ -2589,13 +2583,11 @@ msgstr ""
 "löytynyt)."
 
 #: actions/remotesubscribe.php:176
-#, fuzzy
 msgid "That’s a local profile! Login to subscribe."
 msgstr ""
 "Tämä on paikallinen profiili. Kirjaudu sisään, jotta voit tilata päivitykset."
 
 #: actions/remotesubscribe.php:183
-#, fuzzy
 msgid "Couldn’t get a request token."
 msgstr "Ei saatu request tokenia."
 
@@ -2726,26 +2718,26 @@ msgstr "Huomaa"
 
 #: actions/showgroup.php:284 lib/groupeditform.php:184
 msgid "Aliases"
-msgstr ""
+msgstr "Aliakset"
 
 #: actions/showgroup.php:293
 msgid "Group actions"
 msgstr "Ryhmän toiminnot"
 
 #: actions/showgroup.php:328
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
-msgstr "Päivityssyöte ryhmälle %s"
+msgstr "Syöte ryhmän %s päivityksille (RSS 1.0)"
 
 #: actions/showgroup.php:334
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s group (RSS 2.0)"
-msgstr "Päivityssyöte ryhmälle %s"
+msgstr "Syöte ryhmän %s päivityksille (RSS 2.0)"
 
 #: actions/showgroup.php:340
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s group (Atom)"
-msgstr "Päivityssyöte ryhmälle %s"
+msgstr "Syöte ryhmän %s päivityksille (Atom)"
 
 #: actions/showgroup.php:345
 #, php-format
@@ -2796,9 +2788,8 @@ msgstr ""
 "(http://en.wikipedia.org/wiki/Micro-blogging)"
 
 #: actions/showgroup.php:482
-#, fuzzy
 msgid "Admins"
-msgstr "Ylläpito"
+msgstr "Ylläpitäjät"
 
 #: actions/showmessage.php:81
 msgid "No such message."
@@ -2819,9 +2810,8 @@ msgid "Message from %1$s on %2$s"
 msgstr "Viesti käyttäjältä %1$s, %2$s"
 
 #: actions/shownotice.php:90
-#, fuzzy
 msgid "Notice deleted."
-msgstr "Päivitys lähetetty"
+msgstr "Päivitys on poistettu."
 
 #: actions/showstream.php:73
 #, fuzzy, php-format
@@ -2862,6 +2852,8 @@ msgstr "Käyttäjän %s lähetetyt viestit"
 #, php-format
 msgid "This is the timeline for %s but %s hasn't posted anything yet."
 msgstr ""
+"Tämä on käyttäjän %s aikajana, mutta %s ei ole lähettänyt vielä yhtään "
+"päivitystä."
 
 #: actions/showstream.php:196
 msgid ""
@@ -2906,9 +2898,8 @@ msgstr ""
 "Voit saada SMS viestit sähköpostin välityksellä %%site.name%% -palvelusta."
 
 #: actions/smssettings.php:91
-#, fuzzy
 msgid "SMS is not available."
-msgstr "Tämä sivu ei ole saatavilla "
+msgstr "SMS ei ole käytettävissä."
 
 #: actions/smssettings.php:112
 msgid "Current confirmed SMS-enabled phone number."
@@ -2959,13 +2950,12 @@ msgid "That phone number already belongs to another user."
 msgstr "Tämä puhelinnumero kuuluu jo toiselle käyttäjälle."
 
 #: actions/smssettings.php:347
-#, fuzzy
 msgid ""
 "A confirmation code was sent to the phone number you added. Check your phone "
 "for the code and instructions on how to use it."
 msgstr ""
 "Vahvistuskoodi on lähetetty puhelinnumeroosi. Katso tekstiviesteistäsi "
-"vahvistuskoodisi ja miten sitä käytetään. "
+"vahvistuskoodisi ja ohjeet miten sitä käytetään."
 
 #: actions/smssettings.php:374
 msgid "That is the wrong confirmation number."
@@ -3080,9 +3070,9 @@ msgid ""
 msgstr ""
 
 #: actions/subscriptions.php:123 actions/subscriptions.php:127
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not listening to anyone."
-msgstr "%1$s seuraa nyt käyttäjää"
+msgstr "%s ei seuraa ketään käyttäjää."
 
 #: actions/subscriptions.php:194
 msgid "Jabber"
@@ -3203,9 +3193,8 @@ msgstr ""
 "paina \"Peruuta\"."
 
 #: actions/userauthorization.php:188
-#, fuzzy
 msgid "License"
-msgstr "lisenssi."
+msgstr "Lisenssi"
 
 #: actions/userauthorization.php:209
 msgid "Accept"
@@ -3606,19 +3595,19 @@ msgstr "Kaikki "
 msgid "license."
 msgstr "lisenssi."
 
-#: lib/action.php:1053
+#: lib/action.php:1052
 msgid "Pagination"
 msgstr "Sivutus"
 
-#: lib/action.php:1062
+#: lib/action.php:1061
 msgid "After"
 msgstr "Myöhemmin"
 
-#: lib/action.php:1070
+#: lib/action.php:1069
 msgid "Before"
 msgstr "Aiemmin"
 
-#: lib/action.php:1119
+#: lib/action.php:1117
 msgid "There was a problem with your session token."
 msgstr "Istuntoavaimesi kanssa oli ongelma."
 
@@ -3790,13 +3779,46 @@ msgstr "Ei voitu luoda OpenID lomaketta: %s"
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
-#: lib/command.php:613
+#: lib/command.php:618
+#, fuzzy
+msgid "You are not subscribed to anyone."
+msgstr "Et ole tilannut tämän käyttäjän päivityksiä."
+
+#: lib/command.php:620
+#, fuzzy
+msgid "You are subscribed to these people: "
+msgstr "Et ole tilannut tämän käyttäjän päivityksiä."
+
+#: lib/command.php:637
+#, fuzzy
+msgid "No one is subscribed to you."
+msgstr "Toista ei voitu asettaa tilaamaan sinua."
+
+#: lib/command.php:639
+#, fuzzy
+msgid "These people are subscribed to you: "
+msgstr "Ihmiset jotka ovat käyttäjän %s tilaajia"
+
+#: lib/command.php:656
+#, fuzzy
+msgid "You are not a member of any groups."
+msgstr "Sinä et kuulu tähän ryhmään."
+
+#: lib/command.php:658
+#, fuzzy
+msgid "You are a member of these groups: "
+msgstr "Sinä et kuulu tähän ryhmään."
+
+#: lib/command.php:670
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
 "off - turn off notifications\n"
 "help - show this help\n"
 "follow <nickname> - subscribe to user\n"
+"groups - lists the groups you have joined\n"
+"subscriptions - list the people you follow\n"
+"subscribers - list the people that follow you\n"
 "leave <nickname> - unsubscribe from user\n"
 "d <nickname> <text> - direct message to user\n"
 "get <nickname> - get last notice from user\n"
@@ -3826,20 +3848,20 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:189
+#: lib/common.php:192
 #, fuzzy
 msgid "No configuration file found. "
 msgstr "Varmistuskoodia ei ole annettu."
 
-#: lib/common.php:190
+#: lib/common.php:193
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:191
+#: lib/common.php:194
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:192
+#: lib/common.php:195
 #, fuzzy
 msgid "Go to the installer."
 msgstr "Kirjaudu sisään palveluun"

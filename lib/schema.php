@@ -373,6 +373,26 @@ class Schema
     }
 
     /**
+     * Ensures that the table that backs a given
+     * Plugin_DataObject class exists.
+     *
+     * If the table does not yet exist, it will
+     * create the table. If it does exist, it will
+     * alter the table to match the column definitions.
+     *
+     * @param Plugin_DataObject $dataObjectClass
+     *
+     * @return boolean success flag
+     */
+
+    public function ensureDataObject($dataObjectClass)
+    {
+        $obj = new $dataObjectClass();
+        $tableDef = $obj->tableDef();
+        return $this->ensureTable($tableDef->name,$tableDef->columns);
+    }
+
+    /**
      * Ensures that a table exists with the given
      * name and the given column definitions.
      *
@@ -544,6 +564,19 @@ class TableDef
     public $name;
     /** array of ColumnDef objects for the columns. */
     public $columns;
+    
+    /**
+     * Constructor.
+     *
+     * @param string  $name     name of the table
+     * @param array   $columns  columns in the table
+     */
+
+    function __construct($name=null,$columns=null)
+    {
+        $this->name = $name;
+        $this->columns = $columns;
+    }
 }
 
 /**
@@ -576,6 +609,8 @@ class ColumnDef
     /** 'extra' stuff. Returned by MySQL, largely
      * unused. */
     public $extra;
+    /** auto increment this field if no value is specific for it during an insert **/
+    public $auto_increment;
 
     /**
      * Constructor.
@@ -591,7 +626,7 @@ class ColumnDef
 
     function __construct($name=null, $type=null, $size=null,
                          $nullable=true, $key=null, $default=null,
-                         $extra=null)
+                         $extra=null, $auto_increment=false)
     {
         $this->name     = strtolower($name);
         $this->type     = strtolower($type);
@@ -600,6 +635,7 @@ class ColumnDef
         $this->key      = $key;
         $this->default  = $default;
         $this->extra    = $extra;
+        $this->auto_increment = $auto_increment;
     }
 
     /**
@@ -617,7 +653,8 @@ class ColumnDef
                 $this->_typeMatch($other) &&
                 $this->_defaultMatch($other) &&
                 $this->_nullMatch($other) &&
-                $this->key == $other->key);
+                $this->key == $other->key &&
+                $this->auto_increment == $other->auto_increment);
     }
 
     /**

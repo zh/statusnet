@@ -69,7 +69,6 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
         parent::prepare($args);
 
         $this->group   = $this->getTargetGroup($this->arg('id'));
-        $this->notices = $this->getNotices();
 
         return true;
     }
@@ -87,6 +86,13 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
     function handle($args)
     {
         parent::handle($args);
+
+        if (empty($this->group)) {
+            $this->clientError(_('Group not found!'), 404, $this->format);
+            return false;
+        }
+
+        $this->notices = $this->getNotices();
         $this->showTimeline();
     }
 

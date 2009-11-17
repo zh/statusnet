@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-13 20:42+0000\n"
-"PO-Revision-Date: 2009-11-13 20:43:09+0000\n"
+"POT-Creation-Date: 2009-11-16 19:42+0000\n"
+"PO-Revision-Date: 2009-11-16 19:43:59+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59023); Translate extension (2009-11-13)\n"
+"X-Generator: MediaWiki 1.16alpha(r59142); Translate extension (2009-11-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: out-statusnet\n"
@@ -3683,19 +3683,19 @@ msgstr "Alle "
 msgid "license."
 msgstr "licentie."
 
-#: lib/action.php:1053
+#: lib/action.php:1052
 msgid "Pagination"
 msgstr "Paginering"
 
-#: lib/action.php:1062
+#: lib/action.php:1061
 msgid "After"
 msgstr "Na"
 
-#: lib/action.php:1070
+#: lib/action.php:1069
 msgid "Before"
 msgstr "Voor"
 
-#: lib/action.php:1119
+#: lib/action.php:1117
 msgid "There was a problem with your session token."
 msgstr "Er is een probleem met uw sessietoken."
 
@@ -3875,13 +3875,47 @@ msgstr ""
 "Deze verwijzing kan slechts één keer gebruikt worden en is twee minuten "
 "geldig: %s"
 
-#: lib/command.php:613
+#: lib/command.php:618
+#, fuzzy
+msgid "You are not subscribed to anyone."
+msgstr "U bent niet geabonneerd op dat profiel."
+
+#: lib/command.php:620
+#, fuzzy
+msgid "You are subscribed to these people: "
+msgstr "U bent niet geabonneerd op dat profiel."
+
+#: lib/command.php:637
+#, fuzzy
+msgid "No one is subscribed to you."
+msgstr "Het was niet mogelijk om een ander op u te laten abonneren"
+
+#: lib/command.php:639
+#, fuzzy
+msgid "These people are subscribed to you: "
+msgstr "Gebruikers met een abonnement op %s"
+
+#: lib/command.php:656
+#, fuzzy
+msgid "You are not a member of any groups."
+msgstr "U bent geen lid van deze groep"
+
+#: lib/command.php:658
+#, fuzzy
+msgid "You are a member of these groups: "
+msgstr "U bent geen lid van deze groep."
+
+#: lib/command.php:670
+#, fuzzy
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
 "off - turn off notifications\n"
 "help - show this help\n"
 "follow <nickname> - subscribe to user\n"
+"groups - lists the groups you have joined\n"
+"subscriptions - list the people you follow\n"
+"subscribers - list the people that follow you\n"
 "leave <nickname> - unsubscribe from user\n"
 "d <nickname> <text> - direct message to user\n"
 "get <nickname> - get last notice from user\n"
@@ -3945,20 +3979,20 @@ msgstr ""
 "tracks - nog niet beschikbaar\n"
 "tracking - nog niet beschikbaar\n"
 
-#: lib/common.php:189
+#: lib/common.php:192
 msgid "No configuration file found. "
 msgstr "Er is geen instellingenbestand aangetroffen. "
 
-#: lib/common.php:190
+#: lib/common.php:193
 msgid "I looked for configuration files in the following places: "
 msgstr "Er is gezocht naar instellingenbestanden op de volgende plaatsen: "
 
-#: lib/common.php:191
+#: lib/common.php:194
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 "U kunt proberen de installer uit te voeren om dit probleem op te lossen."
 
-#: lib/common.php:192
+#: lib/common.php:195
 msgid "Go to the installer."
 msgstr "Naar het installatieprogramma gaan."
 
@@ -4819,7 +4853,6 @@ msgid "Could not subscribe other to you."
 msgstr "Het was niet mogelijk om een ander op u te laten abonneren"
 
 #: lib/subs.php:124
-#, fuzzy
 msgid "Not subscribed!"
 msgstr "Niet geabonneerd!"
 

@@ -87,7 +87,7 @@ class ApiGroupShowAction extends ApiPrivateAuthAction
 
         if (empty($this->group)) {
             $this->clientError(
-                'Group not found!',
+                _('Group not found!'),
                 404,
                 $this->format
             );

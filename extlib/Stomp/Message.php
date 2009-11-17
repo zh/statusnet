@@ -24,10 +24,8 @@ require_once 'Stomp/Frame.php';
  * Basic text stomp message
  *
  * @package Stomp
- * @author Dejan Bosanac <dejan@nighttale.net>
- * @version $Revision: 23 $
  */
-class Stomp_Message extends Stomp_Frame
+class StompMessage extends StompFrame
 {
     public function __construct ($body, $headers = null)
     {

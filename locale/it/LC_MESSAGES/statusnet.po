@@ -1,16 +1,17 @@
 # Translation of StatusNet to Italian
 #
+# Author@translatewiki.net: Nemo bis
 # --
 msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-13 20:42+0000\n"
-"PO-Revision-Date: 2009-11-13 20:42:52+0000\n"
+"POT-Creation-Date: 2009-11-16 19:42+0000\n"
+"PO-Revision-Date: 2009-11-16 19:43:39+0000\n"
 "Language-Team: Italian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59023); Translate extension (2009-11-13)\n"
+"X-Generator: MediaWiki 1.16alpha(r59142); Translate extension (2009-11-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: it\n"
 "X-Message-Group: out-statusnet\n"
@@ -3615,19 +3616,19 @@ msgstr "Tutto "
 msgid "license."
 msgstr "licenza."
 
-#: lib/action.php:1053
+#: lib/action.php:1052
 msgid "Pagination"
 msgstr "Paginazione"
 
-#: lib/action.php:1062
+#: lib/action.php:1061
 msgid "After"
 msgstr "Successivi"
 
-#: lib/action.php:1070
+#: lib/action.php:1069
 msgid "Before"
 msgstr "Precedenti"
 
-#: lib/action.php:1119
+#: lib/action.php:1117
 msgid "There was a problem with your session token."
 msgstr "C'è stato un problema con il tuo token di sessione."
 
@@ -3799,13 +3800,46 @@ msgstr "Impossibile creare il modulo OpenID: %s"
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
-#: lib/command.php:613
+#: lib/command.php:618
+#, fuzzy
+msgid "You are not subscribed to anyone."
+msgstr "Non sei abbonato a quel profilo."
+
+#: lib/command.php:620
+#, fuzzy
+msgid "You are subscribed to these people: "
+msgstr "Non sei abbonato a quel profilo."
+
+#: lib/command.php:637
+#, fuzzy
+msgid "No one is subscribed to you."
+msgstr "Impossibile abbonare altri a te."
+
+#: lib/command.php:639
+#, fuzzy
+msgid "These people are subscribed to you: "
+msgstr "Persone abbonate a %s"
+
+#: lib/command.php:656
+#, fuzzy
+msgid "You are not a member of any groups."
+msgstr "Non sei un membro di quel gruppo."
+
+#: lib/command.php:658
+#, fuzzy
+msgid "You are a member of these groups: "
+msgstr "Non sei un membro di quel gruppo."
+
+#: lib/command.php:670
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
 "off - turn off notifications\n"
 "help - show this help\n"
 "follow <nickname> - subscribe to user\n"
+"groups - lists the groups you have joined\n"
+"subscriptions - list the people you follow\n"
+"subscribers - list the people that follow you\n"
 "leave <nickname> - unsubscribe from user\n"
 "d <nickname> <text> - direct message to user\n"
 "get <nickname> - get last notice from user\n"
@@ -3835,20 +3869,20 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:189
+#: lib/common.php:192
 #, fuzzy
 msgid "No configuration file found. "
 msgstr "Nessun codice di conferma."
 
-#: lib/common.php:190
+#: lib/common.php:193
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:191
+#: lib/common.php:194
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:192
+#: lib/common.php:195
 #, fuzzy
 msgid "Go to the installer."
 msgstr "Accedi al sito"
@@ -4414,7 +4448,7 @@ msgstr "Invia un messaggio"
 #: lib/noticeform.php:158
 #, php-format
 msgid "What's up, %s?"
-msgstr "Cosa succede %s?"
+msgstr "Cosa succede, %s?"
 
 #: lib/noticeform.php:180
 msgid "Attach"

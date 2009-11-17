@@ -2,9 +2,9 @@
 /**
  * Table Definition for user_openid
  */
-require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'/classes/Plugin_DataObject.php';
 
-class User_openid extends Memcached_DataObject
+class User_openid extends Plugin_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -32,5 +32,23 @@ class User_openid extends Memcached_DataObject
         $cnt = $oid->find();
 
         return ($cnt > 0);
+    }
+
+    /**
+    * Get the TableDef object that represents the table backing this class
+    * @return TableDef TableDef instance
+    */
+    function tableDef()
+    {
+        return new TableDef($this->__table,
+                             array(new ColumnDef('canonical', 'varchar',
+                                                 '255', false, 'PRI'),
+                                   new ColumnDef('display', 'varchar',
+                                                 '255', false),
+                                   new ColumnDef('user_id', 'integer',
+                                                 null, false, 'MUL'),
+                                   new ColumnDef('created', 'datetime',
+                                                 null, false),
+                                   new ColumnDef('modified', 'timestamp')));
     }
 }
