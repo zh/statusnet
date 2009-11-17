@@ -76,11 +76,16 @@ function handleError($error)
     if (common_config('site', 'logdebug')) {
         $logmsg .= " : ". $error->getDebugInfo();
     }
+    // DB queries often end up with a lot of newlines; merge to a single line
+    // for easier grepability...
+    $logmsg = str_replace("\n", " ", $logmsg);
     common_log(LOG_ERR, $logmsg);
+
+    // @fixme backtrace output should be consistent with exception handling
     if (common_config('site', 'logdebug')) {
         $bt = $error->getBacktrace();
-        foreach ($bt as $line) {
-            common_log(LOG_ERR, $line);
+        foreach ($bt as $n => $line) {
+            common_log(LOG_ERR, formatBacktraceLine($n, $line));
         }
     }
     if ($error instanceof DB_DataObject_Error
@@ -107,6 +112,38 @@ function handleError($error)
     $dac = new DBErrorAction($msg, 500);
     $dac->showPage();
     exit(-1);
+}
+
+/**
+ * Format a backtrace line for debug output roughly like debug_print_backtrace() does.
+ * Exceptions already have this built in, but PEAR error objects just give us the array.
+ *
+ * @param int $n line number
+ * @param array $line per-frame array item from debug_backtrace()
+ * @return string
+ */
+function formatBacktraceLine($n, $line)
+{
+    $out = "#$n ";
+    if (isset($line['class'])) $out .= $line['class'];
+    if (isset($line['type'])) $out .= $line['type'];
+    if (isset($line['function'])) $out .= $line['function'];
+    $out .= '(';
+    if (isset($line['args'])) {
+        $args = array();
+        foreach ($line['args'] as $arg) {
+            // debug_print_backtrace seems to use var_export
+            // but this gets *very* verbose!
+            $args[] = gettype($arg);
+        }
+        $out .= implode(',', $args);
+    }
+    $out .= ')';
+    $out .= ' called at [';
+    if (isset($line['file'])) $out .= $line['file'];
+    if (isset($line['line'])) $out .= ':' . $line['line'];
+    $out .= ']';
+    return $out;
 }
 
 function checkMirror($action_obj, $args)
