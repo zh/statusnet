@@ -90,18 +90,24 @@ class SiteadminpanelAction extends AdminPanelAction
 
     function saveSettings()
     {
-        static $settings = array('name', 'broughtby', 'broughtbyurl',
-                                 'email', 'timezone', 'language');
-        static $booleans = array('private');
+        static $settings = array('site' => array('name', 'broughtby', 'broughtbyurl',
+                                                 'email', 'timezone', 'language'),
+                                 'snapshot' => array('run', 'reporturl', 'frequency'));
+
+        static $booleans = array('site' => array('private'));
 
         $values = array();
 
-        foreach ($settings as $setting) {
-            $values[$setting] = $this->trimmed($setting);
+        foreach ($settings as $section => $parts) {
+            foreach ($parts as $setting) {
+                $values[$section][$setting] = $this->trimmed($setting);
+            }
         }
 
-        foreach ($booleans as $setting) {
-            $values[$setting] = ($this->boolean($setting)) ? 1 : 0;
+        foreach ($booleans as $section => $parts) {
+            foreach ($parts as $setting) {
+                $values[$section][$setting] = ($this->boolean($setting)) ? 1 : 0;
+            }
         }
 
         // This throws an exception on validation errors
@@ -114,8 +120,16 @@ class SiteadminpanelAction extends AdminPanelAction
 
         $config->query('BEGIN');
 
-        foreach (array_merge($settings, $booleans) as $setting) {
-            Config::save('site', $setting, $values[$setting]);
+        foreach ($settings as $section => $parts) {
+            foreach ($parts as $setting) {
+                Config::save($section, $setting, $values[$section][$setting]);
+            }
+        }
+
+        foreach ($booleans as $section => $parts) {
+            foreach ($parts as $setting) {
+                Config::save($section, $setting, $values[$section][$setting]);
+            }
         }
 
         $config->query('COMMIT');
@@ -127,34 +141,55 @@ class SiteadminpanelAction extends AdminPanelAction
     {
         // Validate site name
 
-        if (empty($values['name'])) {
+        if (empty($values['site']['name'])) {
             $this->clientError(_("Site name must have non-zero length."));
         }
 
         // Validate email
 
-        $values['email'] = common_canonical_email($values['email']);
+        $values['site']['email'] = common_canonical_email($values['site']['email']);
 
-        if (empty($values['email'])) {
+        if (empty($values['site']['email'])) {
             $this->clientError(_('You must have a valid contact email address'));
         }
-        if (!Validate::email($values['email'], common_config('email', 'check_domain'))) {
+        if (!Validate::email($values['site']['email'], common_config('email', 'check_domain'))) {
             $this->clientError(_('Not a valid email address'));
         }
 
         // Validate timezone
 
-        if (is_null($values['timezone']) ||
-            !in_array($values['timezone'], DateTimeZone::listIdentifiers())) {
+        if (is_null($values['site']['timezone']) ||
+            !in_array($values['site']['timezone'], DateTimeZone::listIdentifiers())) {
             $this->clientError(_('Timezone not selected.'));
             return;
         }
 
         // Validate language
 
-        if (!is_null($language) && !in_array($language, array_keys(get_nice_language_list()))) {
-            $this->clientError(sprintf(_('Unknown language "%s"'), $language));
+        if (!is_null($values['site']['language']) &&
+            !in_array($values['site']['language'], array_keys(get_nice_language_list()))) {
+            $this->clientError(sprintf(_('Unknown language "%s"'), $values['site']['language']));
         }
+
+        // Validate report URL
+
+        if (!is_null($values['snapshot']['reporturl']) &&
+            !Validate::uri($values['snapshot']['reporturl'], array('allowed_schemes' => array('http', 'https')))) {
+            $this->clientError(_("Invalid snapshot report URL."));
+        }
+
+        // Validate snapshot run value
+
+        if (!in_array($values['snapshot']['run'], array('web', 'cron', 'never'))) {
+            $this->clientError(_("Invalid snapshot run value."));
+        }
+
+        // Validate snapshot run value
+
+        if (!Validate::number($values['snapshot']['frequency'])) {
+            $this->clientError(_("Snapshot frequency must be a number."));
+        }
+
     }
 }
 
@@ -250,6 +285,33 @@ class SiteAdminPanelForm extends Form
 
         $this->unli();
 
+        $this->li();
+
+        $snapshot = array('web' => _('Randomly during Web hit'),
+                          'cron' => _('In a scheduled job'),
+                          'never' => _('Never'));
+
+        $this->out->dropdown('run', _('Data snapshots'),
+                             $snapshot, _('When to send statistical data to status.net servers'),
+                             false, $this->value('run', 'snapshot'));
+
+        $this->unli();
+        $this->li();
+
+        $this->input('frequency', _('Frequency'),
+                     _('Snapshots will be sent once every N Web hits'),
+                     'snapshot');
+
+        $this->unli();
+
+        $this->li();
+
+        $this->input('reporturl', _('Report URL'),
+                     _('Snapshots will be sent to this URL'),
+                     'snapshot');
+
+        $this->unli();
+
         $this->out->elementEnd('ul');
     }
 
@@ -260,28 +322,30 @@ class SiteAdminPanelForm extends Form
      * @param string $setting      Name of the setting
      * @param string $title        Title to use for the input
      * @param string $instructions Instructions for this field
+     * @param string $section      config section, default = 'site'
      *
      * @return void
      */
 
-    function input($setting, $title, $instructions)
+    function input($setting, $title, $instructions, $section='site')
     {
-        $this->out->input($setting, $title, $this->value($setting), $instructions);
+        $this->out->input($setting, $title, $this->value($setting, $section), $instructions);
     }
 
     /**
      * Utility to simplify getting the posted-or-stored setting value
      *
      * @param string $setting Name of the setting
+     * @param string $main    configuration section, default = 'site'
      *
      * @return string param value if posted, or current config value
      */
 
-    function value($setting)
+    function value($setting, $main='site')
     {
         $value = $this->out->trimmed($setting);
         if (empty($value)) {
-            $value = common_config('site', $setting);
+            $value = common_config($main, $setting);
         }
         return $value;
     }
