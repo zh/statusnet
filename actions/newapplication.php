@@ -84,6 +84,13 @@ class NewApplicationAction extends OwnerDesignAction
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+            // CSRF protection
+            $token = $this->trimmed('token');
+            if (!$token || $token != common_session_token()) {
+                $this->clientError(_('There was a problem with your session token.'));
+                return;
+            }
+
             $cur = common_current_user();
 
             if ($this->arg('cancel')) {
