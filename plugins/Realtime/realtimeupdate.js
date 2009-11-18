@@ -58,23 +58,21 @@ RealtimeUpdate = {
 
      receive: function(data)
      {
-          setTimeout(function() {
-              id = data.id;
+          id = data.id;
 
-              // Don't add it if it already exists
-              if ($("#notice-"+id).length > 0) {
-                   return;
-              }
+          // Don't add it if it already exists
+          if ($("#notice-"+id).length > 0) {
+               return;
+          }
 
-              var noticeItem = RealtimeUpdate.makeNoticeItem(data);
-              $("#notices_primary .notices").prepend(noticeItem);
-              $("#notices_primary .notice:first").css({display:"none"});
-              $("#notices_primary .notice:first").fadeIn(1000);
-              SN.U.NoticeReply();
+          var noticeItem = RealtimeUpdate.makeNoticeItem(data);
+          $("#notices_primary .notices").prepend(noticeItem);
+          $("#notices_primary .notice:first").css({display:"none"});
+          $("#notices_primary .notice:first").fadeIn(1000);
+          SN.U.NoticeReply();
 
-              RealtimeUpdate._updatecounter += 1;
-              document.title = '('+RealtimeUpdate._updatecounter+') ' + DT;
-          }, 500);
+          RealtimeUpdate._updatecounter += 1;
+          document.title = '('+RealtimeUpdate._updatecounter+') ' + DT;
      },
 
      makeNoticeItem: function(data)
