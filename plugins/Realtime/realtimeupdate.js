@@ -195,20 +195,6 @@ RealtimeUpdate = {
      {
         var NP = $('#notices_primary');
         NP.prepend('<ul id="realtime_actions"><li id="realtime_playpause"></li><li id="realtime_timeline"></li></ul>');
-        NP.css({'position':'relative'});
-
-        $('#realtime_actions').css({
-             'position':'absolute',
-             'top':'-20px',
-             'right':'0',
-             'margin':'0 0 11px 0'
-        });
-
-        $('#realtime_actions li').css({
-            'margin-left':'18px',
-            'list-style-type':'none',
-            'float':'left'
-        });
 
         RealtimeUpdate._pluginPath = path;
 
@@ -228,16 +214,6 @@ RealtimeUpdate = {
         RT_PP.append('<button id="realtime_pause" class="pause" title="Pause">Pause</button>');
 
         RT_P = $('#realtime_pause');
-        $('#realtime_pause').css({
-            'background':'url('+RealtimeUpdate._pluginPath+'icon_pause.gif) no-repeat 47% 47%',
-             'width':'16px',
-             'height':'16px',
-             'display':'block',
-             'border':'none',
-             'cursor':'pointer',
-             'text-indent':'-9999px',
-             'float':'left'
-        });
         RT_P.bind('click', function() {
             RealtimeUpdate._paused = true;
 
@@ -252,23 +228,7 @@ RealtimeUpdate = {
         RT_PP.empty();
         RT_PP.append('<span id="queued_counter"></span> <button id="realtime_play" class="play" title="Play">Play</button>');
 
-        $('#queued_counter').css({
-            'float':'left',
-            'line-height':'1.2'
-        });
-
         RT_P = $('#realtime_play');
-        RT_P.css({
-            'background':'url('+RealtimeUpdate._pluginPath+'icon_play.gif) no-repeat 47% 47%',
-             'width':'16px',
-             'height':'16px',
-             'display':'block',
-             'border':'none',
-             'cursor':'pointer',
-             'text-indent':'-9999px',
-             'float':'left',
-             'margin-left':'4px'
-        });
         RT_P.bind('click', function() {
             RealtimeUpdate._paused = false;
 
@@ -307,18 +267,6 @@ RealtimeUpdate = {
          NP.append('<button id="realtime_popup" title="Pop up in a window">Pop up</button>');
 
          var PP = $('#realtime_popup');
-         PP.css({
-             'background':'transparent url('+ path + 'icon_external.gif) no-repeat 0 30%',
-             'width':'16px',
-             'height':'16px',
-             'display':'block',
-             'border':'none',
-             'cursor':'pointer',
-             'text-indent':'-9999px',
-             'float':'left'
-         });
-         $('#showstream #notices_primary').css({'margin-top':'18px'});
-
          PP.bind('click', function() {
              window.open(url,
                          '',
