@@ -192,7 +192,20 @@ RealtimeUpdate = {
      initActions: function(url, timeline, path)
      {
         var NP = $('#notices_primary');
-        NP.prepend('<ul id="realtime_actions"><li id="realtime_pauseplay"></li></ul>');
+        NP.prepend('<ul id="realtime_actions"><li id="realtime_pauseplay"></li><li id="realtime_timeline"></li></ul>');
+
+        $('#realtime_actions').css({
+             'position':'absolute',
+             'top':'-20px',
+             'right':'0',
+             'margin':'0 0 11px 0'
+        });
+
+        $('#realtime_actions li').css({
+            'margin-left':'18px',
+            'list-style-type':'none',
+            'float':'left'
+        });
 
         RealtimeUpdate._pluginPath = path;
 
@@ -214,11 +227,12 @@ RealtimeUpdate = {
         RT_P = $('#realtime_pause');
         $('#realtime_pause').css({
             'background':'url('+RealtimeUpdate._pluginPath+'icon_pause.gif) no-repeat 47% 47%',
-            'width':'16px',
-            'height':'16px',
-            'text-indent':'-9999px',
+             'width':'16px',
+             'height':'16px',
+             'display':'block',
              'border':'none',
-             'cursor':'pointer'
+             'cursor':'pointer',
+             'text-indent':'-9999px'
         });
         RT_P.bind('click', function() {
             RealtimeUpdate._paused = true;
@@ -237,11 +251,12 @@ RealtimeUpdate = {
         RT_P = $('#realtime_play');
         RT_P.css({
             'background':'url('+RealtimeUpdate._pluginPath+'icon_play.gif) no-repeat 47% 47%',
-            'width':'16px',
-            'height':'16px',
-            'text-indent':'-9999px',
+             'width':'16px',
+             'height':'16px',
+             'display':'block',
              'border':'none',
-             'cursor':'pointer'
+             'cursor':'pointer',
+             'text-indent':'-9999px'
         });
         RT_P.bind('click', function() {
             RealtimeUpdate._paused = false;
@@ -264,28 +279,22 @@ RealtimeUpdate = {
 
      initAddPopup: function(url, timeline, path)
      {
-         var NP = $('#notices_primary');
-         NP.css({'position':'relative'});
-         NP.prepend('<button id="realtime_timeline" title="Pop up in a window">Pop up</button>');
+         var NP = $('#realtime_timeline');
+         NP.append('<button id="realtime_popup" title="Pop up in a window">Pop up</button>');
 
-         var RT = $('#realtime_timeline');
-         RT.css({
-             'margin':'0 0 11px 0',
+         var PP = $('#realtime_popup');
+         PP.css({
              'background':'transparent url('+ path + 'icon_external.gif) no-repeat 0 30%',
-             'padding':'0 0 0 20px',
+             'width':'16px',
+             'height':'16px',
              'display':'block',
-             'position':'absolute',
-             'top':'-20px',
-             'right':'0',
              'border':'none',
              'cursor':'pointer',
-             'color':$('a').css('color'),
-             'font-weight':'bold',
-             'font-size':'1em'
+             'text-indent':'-9999px'
          });
          $('#showstream #notices_primary').css({'margin-top':'18px'});
 
-         RT.bind('click', function() {
+         PP.bind('click', function() {
              window.open(url,
                          '',
                          'toolbar=no,resizable=yes,scrollbars=yes,status=yes,width=500,height=550');
