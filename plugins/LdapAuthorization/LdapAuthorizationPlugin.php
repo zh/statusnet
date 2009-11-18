@@ -158,24 +158,21 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
 
     //-----the below function were copied from LDAPAuthenticationPlugin. They will be moved to a utility class soon.----\\
     function ldap_get_connection($config = null){
-        if($config == null){
-            static $ldap = null;
-            if($ldap != null){
-                return $ldap;
-            }
-            $config = $this->ldap_get_config();
+        if($config == null && isset($this->default_ldap)){
+            return $this->default_ldap;
         }
         
         //cannot use Net_LDAP2::connect() as StatusNet uses
         //PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 'handleError');
         //PEAR handling can be overridden on instance objects, so we do that.
-        $ldap = new Net_LDAP2($config);
+        $ldap = new Net_LDAP2(isset($config)?$config:$this->ldap_get_config());
         $ldap->setErrorHandling(PEAR_ERROR_RETURN);
         $err=$ldap->bind();
         if (Net_LDAP2::isError($err)) {
             common_log(LOG_WARNING, 'Could not connect to LDAP server: '.$err->getMessage());
             return false;
         }
+        if($config == null) $this->default_ldap=$ldap;
         return $ldap;
     }
     
