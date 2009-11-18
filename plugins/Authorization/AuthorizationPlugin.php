@@ -88,7 +88,7 @@ abstract class AuthorizationPlugin extends Plugin
     }
 
     function onStartSetApiUser(&$user) {
-        return onStartSetUser(&$user);
+        return $this->onStartSetUser(&$user);
     }
 
     function onStartHasRole($profile, $name, &$has_role) {
