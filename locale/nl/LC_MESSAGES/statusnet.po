@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-16 19:42+0000\n"
-"PO-Revision-Date: 2009-11-16 19:43:59+0000\n"
+"POT-Creation-Date: 2009-11-18 19:31+0000\n"
+"PO-Revision-Date: 2009-11-18 19:32:22+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59142); Translate extension (2009-11-13)\n"
+"X-Generator: MediaWiki 1.16alpha(r59207); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: out-statusnet\n"
@@ -43,7 +43,7 @@ msgstr "Deze pagina bestaat niet"
 #: actions/xrds.php:71 lib/command.php:163 lib/command.php:311
 #: lib/command.php:364 lib/command.php:411 lib/command.php:466
 #: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
-#: lib/subs.php:34 lib/subs.php:112
+#: lib/subs.php:34 lib/subs.php:116
 msgid "No such user."
 msgstr "Onbekende gebruiker."
 
@@ -154,7 +154,8 @@ msgstr "Het was niet mogelijk de gebruiker te actualiseren."
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97
 #: actions/apistatusesupdate.php:127 actions/avatarsettings.php:254
-#: actions/newnotice.php:94 lib/designsettings.php:283
+#: actions/designadminpanel.php:125 actions/newnotice.php:94
+#: lib/designsettings.php:283
 #, php-format
 msgid ""
 "The server was unable to handle that much POST data (%s bytes) due to its "
@@ -241,12 +242,12 @@ msgstr "Alle directe berichten verzonden aan %s"
 #: actions/apigroupcreate.php:184 actions/apigroupismember.php:114
 #: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
 #: actions/apigrouplistall.php:120 actions/apigrouplist.php:132
-#: actions/apigroupmembership.php:101 actions/apigroupshow.php:105
+#: actions/apigroupmembership.php:106 actions/apigroupshow.php:105
 #: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
 #: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:133
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
 #: actions/apitimelinefavorites.php:144 actions/apitimelinefriends.php:154
-#: actions/apitimelinegroup.php:141 actions/apitimelinementions.php:149
+#: actions/apitimelinegroup.php:147 actions/apitimelinementions.php:149
 #: actions/apitimelinepublic.php:130 actions/apitimelinetag.php:139
 #: actions/apitimelineuser.php:163 actions/apiusershow.php:101
 msgid "API method not found!"
@@ -385,6 +386,13 @@ msgstr "De alias \"%s\" wordt al gebruikt. Geef een ander alias op."
 msgid "Alias can't be the same as nickname."
 msgstr "Een alias kan niet hetzelfde zijn als de gebruikersnaam."
 
+#: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
+#: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
+#: actions/apigroupshow.php:90 actions/apitimelinegroup.php:91
+#, fuzzy
+msgid "Group not found!"
+msgstr "De API-functie is niet aangetroffen!"
+
 #: actions/apigroupjoin.php:110
 msgid "You are already a member of that group."
 msgstr "U bent al lid van die groep."
@@ -474,13 +482,13 @@ msgstr "%s / Favorieten van %s"
 msgid "%s updates favorited by %s / %s."
 msgstr "%s updates op de favorietenlijst geplaatst door %s / %s"
 
-#: actions/apitimelinegroup.php:102 actions/apitimelineuser.php:117
+#: actions/apitimelinegroup.php:108 actions/apitimelineuser.php:117
 #: actions/grouprss.php:131 actions/userrss.php:90
 #, php-format
 msgid "%s timeline"
 msgstr "%s tijdlijn"
 
-#: actions/apitimelinegroup.php:110 actions/apitimelineuser.php:125
+#: actions/apitimelinegroup.php:116 actions/apitimelineuser.php:125
 #: actions/userrss.php:92
 #, php-format
 msgid "Updates from %1$s on %2$s!"
@@ -568,7 +576,8 @@ msgstr "Origineel"
 msgid "Preview"
 msgstr "Voorvertoning"
 
-#: actions/avatarsettings.php:148 lib/noticelist.php:522
+#: actions/avatarsettings.php:148 lib/deleteuserform.php:66
+#: lib/noticelist.php:522
 msgid "Delete"
 msgstr "Verwijderen"
 
@@ -580,7 +589,7 @@ msgstr "Uploaden"
 msgid "Crop"
 msgstr "Uitsnijden"
 
-#: actions/avatarsettings.php:265 actions/block.php:64 actions/disfavor.php:74
+#: actions/avatarsettings.php:265 actions/disfavor.php:74
 #: actions/emailsettings.php:237 actions/favor.php:75
 #: actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
@@ -590,7 +599,7 @@ msgstr "Uitsnijden"
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
 #: actions/smssettings.php:228 actions/subedit.php:38 actions/subscribe.php:46
-#: actions/tagother.php:166 actions/unblock.php:65 actions/unsubscribe.php:69
+#: actions/tagother.php:166 actions/unsubscribe.php:69
 #: actions/userauthorization.php:52 lib/designsettings.php:294
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
@@ -656,40 +665,24 @@ msgstr "Een lijst met voor deze groep geblokkeerde gebruikers."
 msgid "Unblock user from group"
 msgstr "Deze gebruiker weer toegang geven tot de groep"
 
-#: actions/blockedfromgroup.php:313 lib/unblockform.php:150
+#: actions/blockedfromgroup.php:313 lib/unblockform.php:69
 msgid "Unblock"
 msgstr "Deblokkeer"
 
-#: actions/blockedfromgroup.php:313 lib/unblockform.php:120
-#: lib/unblockform.php:150
+#: actions/blockedfromgroup.php:313
 msgid "Unblock this user"
 msgstr "Deblokkeer deze gebruiker."
 
-#: actions/block.php:59 actions/deletenotice.php:67 actions/disfavor.php:61
-#: actions/favor.php:62 actions/groupblock.php:61 actions/groupunblock.php:61
-#: actions/logout.php:69 actions/makeadmin.php:61 actions/newmessage.php:87
-#: actions/newnotice.php:89 actions/nudge.php:63 actions/subedit.php:31
-#: actions/subscribe.php:30 actions/unblock.php:60 actions/unsubscribe.php:52
-#: lib/settingsaction.php:72
-msgid "Not logged in."
-msgstr "Niet aangemeld."
+#: actions/block.php:69
+#, fuzzy
+msgid "You already blocked that user."
+msgstr "U hebt deze gebruiker reeds geblokkeerd."
 
-#: actions/block.php:69 actions/groupblock.php:71 actions/groupunblock.php:71
-#: actions/makeadmin.php:71 actions/subedit.php:46 actions/unblock.php:70
-msgid "No profile specified."
-msgstr "Er is geen profiel opgegeven."
-
-#: actions/block.php:74 actions/groupblock.php:76 actions/groupunblock.php:76
-#: actions/makeadmin.php:76 actions/subedit.php:53 actions/tagother.php:46
-#: actions/unblock.php:75
-msgid "No profile with that ID."
-msgstr "Er is geen profiel met dat ID."
-
-#: actions/block.php:111 actions/block.php:134 actions/groupblock.php:160
+#: actions/block.php:105 actions/block.php:128 actions/groupblock.php:160
 msgid "Block user"
 msgstr "Gebruiker blokkeren"
 
-#: actions/block.php:136
+#: actions/block.php:130
 msgid ""
 "Are you sure you want to block this user? Afterwards, they will be "
 "unsubscribed from you, unable to subscribe to you in the future, and you "
@@ -700,30 +693,25 @@ msgstr ""
 "toekomst niet op u abonneren. U wordt niet op de hoogte gesteld van \"@\"-"
 "antwoorden van de gebruiker."
 
-#: actions/block.php:149 actions/deletenotice.php:145
-#: actions/groupblock.php:178
+#: actions/block.php:143 actions/deletenotice.php:145
+#: actions/deleteuser.php:147 actions/groupblock.php:178
 msgid "No"
 msgstr "Nee"
 
-#: actions/block.php:149
+#: actions/block.php:143 actions/deleteuser.php:147
 msgid "Do not block this user"
 msgstr "Gebruiker deblokkeren"
 
-#: actions/block.php:150 actions/deletenotice.php:146
-#: actions/groupblock.php:179
+#: actions/block.php:144 actions/deletenotice.php:146
+#: actions/deleteuser.php:148 actions/groupblock.php:179
 msgid "Yes"
 msgstr "Ja"
 
-#: actions/block.php:150 actions/groupmembers.php:346 lib/blockform.php:123
-#: lib/blockform.php:153
+#: actions/block.php:144 actions/groupmembers.php:346 lib/blockform.php:80
 msgid "Block this user"
 msgstr "Deze gebruiker blokkeren"
 
-#: actions/block.php:165
-msgid "You have already blocked this user."
-msgstr "U hebt deze gebruiker reeds geblokkeerd."
-
-#: actions/block.php:170
+#: actions/block.php:162
 msgid "Failed to save block information."
 msgstr "Het was niet mogelijk om de blokkadeinformatie op te slaan."
 
@@ -787,6 +775,15 @@ msgstr "Mededelingen"
 msgid "No such notice."
 msgstr "De mededeling bestaat niet."
 
+#: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
+#: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
+#: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
+#: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
+#: actions/unsubscribe.php:52 lib/adminpanelaction.php:72
+#: lib/profileformaction.php:63 lib/settingsaction.php:72
+msgid "Not logged in."
+msgstr "Niet aangemeld."
+
 #: actions/deletenotice.php:71
 msgid "Can't delete this notice."
 msgstr "Deze mededeling kan niet verwijderd worden."
@@ -819,6 +816,144 @@ msgstr "Deze mededeling verwijderen"
 msgid "There was a problem with your session token.  Try again, please."
 msgstr ""
 "Er is een probleem ontstaan met uw sessietoken. Probeer het nog een keer."
+
+#: actions/deleteuser.php:67
+#, fuzzy
+msgid "You cannot delete users."
+msgstr "Het was niet mogelijk de gebruiker te actualiseren."
+
+#: actions/deleteuser.php:74
+#, fuzzy
+msgid "You can only delete local users."
+msgstr "U kunt de status van een andere gebruiker niet verwijderen."
+
+#: actions/deleteuser.php:110 actions/deleteuser.php:133
+#, fuzzy
+msgid "Delete user"
+msgstr "Verwijderen"
+
+#: actions/deleteuser.php:135
+msgid ""
+"Are you sure you want to delete this user? This will clear all data about "
+"the user from the database, without a backup."
+msgstr ""
+
+#: actions/deleteuser.php:148 lib/deleteuserform.php:77
+#, fuzzy
+msgid "Delete this user"
+msgstr "Deze mededeling verwijderen"
+
+#: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
+#: lib/adminpanelaction.php:275 lib/groupnav.php:119
+msgid "Design"
+msgstr "Ontwerp"
+
+#: actions/designadminpanel.php:73
+msgid "Design settings for this StatusNet site."
+msgstr ""
+
+#: actions/designadminpanel.php:220
+#, fuzzy
+msgid "Unable to delete design setting."
+msgstr "Het was niet mogelijk om uw ontwerpinstellingen op te slaan."
+
+#: actions/designadminpanel.php:301
+#, fuzzy, php-format
+msgid "Theme not available: %s"
+msgstr "IM is niet beschikbaar."
+
+#: actions/designadminpanel.php:406
+#, fuzzy
+msgid "Change theme"
+msgstr "Wijzigen"
+
+#: actions/designadminpanel.php:410
+msgid "Theme"
+msgstr ""
+
+#: actions/designadminpanel.php:411
+#, fuzzy
+msgid "Theme for the site."
+msgstr "Van de site afmelden"
+
+#: actions/designadminpanel.php:420 lib/designsettings.php:101
+msgid "Change background image"
+msgstr "Achtergrondafbeelding wijzigen"
+
+#: actions/designadminpanel.php:424 actions/designadminpanel.php:498
+#: lib/designsettings.php:178
+msgid "Background"
+msgstr "Achtergrond"
+
+#: actions/designadminpanel.php:429
+#, fuzzy, php-format
+msgid ""
+"You can upload a background image for the site. The maximum file size is %1"
+"$s."
+msgstr ""
+"Hier kunt u een logo voor uw groep uploaden. De maximale bestandsgrootte is %"
+"s."
+
+#: actions/designadminpanel.php:459 lib/designsettings.php:139
+msgid "On"
+msgstr "Aan"
+
+#: actions/designadminpanel.php:475 lib/designsettings.php:155
+msgid "Off"
+msgstr "Uit"
+
+#: actions/designadminpanel.php:476 lib/designsettings.php:156
+msgid "Turn background image on or off."
+msgstr "Achtergrondafbeelding inschakelen of uitschakelen."
+
+#: actions/designadminpanel.php:481 lib/designsettings.php:161
+msgid "Tile background image"
+msgstr "Achtergrondafbeelding naast elkaar"
+
+#: actions/designadminpanel.php:490 lib/designsettings.php:170
+msgid "Change colours"
+msgstr "Kleuren wijzigen"
+
+#: actions/designadminpanel.php:511 lib/designsettings.php:191
+msgid "Content"
+msgstr "Inhoud"
+
+#: actions/designadminpanel.php:524 lib/designsettings.php:204
+msgid "Sidebar"
+msgstr "Menubalk"
+
+#: actions/designadminpanel.php:537 lib/designsettings.php:217
+msgid "Text"
+msgstr "Tekst"
+
+#: actions/designadminpanel.php:550 lib/designsettings.php:230
+msgid "Links"
+msgstr "Verwijzingen"
+
+#: actions/designadminpanel.php:611 lib/designsettings.php:247
+msgid "Use defaults"
+msgstr "Standaardinstellingen gebruiken"
+
+#: actions/designadminpanel.php:612 lib/designsettings.php:248
+msgid "Restore default designs"
+msgstr "Standaardontwerp toepassen"
+
+#: actions/designadminpanel.php:618 lib/designsettings.php:254
+msgid "Reset back to default"
+msgstr "Standaardinstellingen toepassen"
+
+#: actions/designadminpanel.php:620 actions/emailsettings.php:195
+#: actions/imsettings.php:163 actions/othersettings.php:126
+#: actions/profilesettings.php:167 actions/siteadminpanel.php:371
+#: actions/smssettings.php:181 actions/subscriptions.php:203
+#: actions/tagother.php:154 actions/useradminpanel.php:226
+#: lib/designsettings.php:256 lib/groupeditform.php:202
+msgid "Save"
+msgstr "Opslaan"
+
+#: actions/designadminpanel.php:621 lib/designsettings.php:257
+msgid "Save design"
+msgstr "Ontwerp opslaan"
 
 #: actions/disfavor.php:81
 msgid "This notice is not a favorite!"
@@ -965,14 +1100,6 @@ msgstr "Ik wil mededelingen per e-mail versturen."
 msgid "Publish a MicroID for my email address."
 msgstr "Een MicroID voor mijn e-mailadres publiceren."
 
-#: actions/emailsettings.php:195 actions/imsettings.php:163
-#: actions/othersettings.php:126 actions/profilesettings.php:167
-#: actions/smssettings.php:181 actions/subscriptions.php:203
-#: actions/tagother.php:154 lib/designsettings.php:256
-#: lib/groupeditform.php:202
-msgid "Save"
-msgstr "Opslaan"
-
 #: actions/emailsettings.php:301 actions/imsettings.php:264
 #: actions/othersettings.php:180 actions/smssettings.php:284
 msgid "Preferences saved."
@@ -986,7 +1113,7 @@ msgstr "Geen e-mailadres"
 msgid "Cannot normalize that email address"
 msgstr "Kan het emailadres niet normaliseren"
 
-#: actions/emailsettings.php:330
+#: actions/emailsettings.php:330 actions/siteadminpanel.php:156
 msgid "Not a valid email address"
 msgstr "Geen geldig e-mailadres."
 
@@ -1190,6 +1317,18 @@ msgstr "Het bestand bestaat niet."
 msgid "Cannot read file."
 msgstr "Het bestand kon niet gelezen worden."
 
+#: actions/groupblock.php:71 actions/groupunblock.php:71
+#: actions/makeadmin.php:71 actions/subedit.php:46
+#: lib/profileformaction.php:70
+msgid "No profile specified."
+msgstr "Er is geen profiel opgegeven."
+
+#: actions/groupblock.php:76 actions/groupunblock.php:76
+#: actions/makeadmin.php:76 actions/subedit.php:53 actions/tagother.php:46
+#: lib/profileformaction.php:77
+msgid "No profile with that ID."
+msgstr "Er is geen profiel met dat ID."
+
 #: actions/groupblock.php:81 actions/groupunblock.php:81
 #: actions/makeadmin.php:81
 msgid "No group specified."
@@ -1309,11 +1448,11 @@ msgstr "% groeps leden, pagina %d"
 msgid "A list of the users in this group."
 msgstr "Ledenlijst van deze groep"
 
-#: actions/groupmembers.php:175 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:439 lib/groupnav.php:107
 msgid "Admin"
 msgstr "Beheerder"
 
-#: actions/groupmembers.php:346 lib/blockform.php:153
+#: actions/groupmembers.php:346 lib/blockform.php:69
 msgid "Block"
 msgstr "Blokkeren"
 
@@ -1409,7 +1548,7 @@ msgstr "Alleen beheerders kunnen groepsleden deblokkeren."
 msgid "User is not blocked from group."
 msgstr "De gebruiker is niet de toegang tot de groep ontzegd."
 
-#: actions/groupunblock.php:128 actions/unblock.php:108
+#: actions/groupunblock.php:128 actions/unblock.php:77
 msgid "Error removing the block."
 msgstr "Er is een fout opgetreden bij het verwijderen van de blokkade."
 
@@ -1720,7 +1859,7 @@ msgstr "De gebruikersnaam of wachtwoord is onjuist."
 msgid "Error setting user."
 msgstr "Er is een fout opgetreden tijdens het instellen van de gebruiker."
 
-#: actions/login.php:204 actions/login.php:257 lib/action.php:453
+#: actions/login.php:204 actions/login.php:257 lib/action.php:457
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Aanmelden"
@@ -2148,7 +2287,7 @@ msgstr ""
 "Eigen labels (letter, getallen, -, ., en _). Gescheiden door komma's of "
 "spaties"
 
-#: actions/profilesettings.php:144
+#: actions/profilesettings.php:144 actions/siteadminpanel.php:275
 msgid "Language"
 msgstr "Taal"
 
@@ -2176,7 +2315,7 @@ msgstr ""
 msgid "Bio is too long (max %d chars)."
 msgstr "De beschrijving is te lang (maximaal %d tekens)."
 
-#: actions/profilesettings.php:228
+#: actions/profilesettings.php:228 actions/siteadminpanel.php:163
 msgid "Timezone not selected."
 msgstr "Er is geen tijdzone geselecteerd."
 
@@ -2203,7 +2342,7 @@ msgstr "Het profiel kon niet opgeslagen worden."
 msgid "Couldn't save tags."
 msgstr "Het was niet mogelijk de labels op te slaan."
 
-#: actions/profilesettings.php:344
+#: actions/profilesettings.php:344 lib/adminpanelaction.php:126
 msgid "Settings saved."
 msgstr "De instellingen zijn opgeslagen."
 
@@ -2456,7 +2595,7 @@ msgstr "Sorry. De uitnodigingscode is ongeldig."
 msgid "Registration successful"
 msgstr "De registratie is voltooid"
 
-#: actions/register.php:114 actions/register.php:502 lib/action.php:450
+#: actions/register.php:114 actions/register.php:502 lib/action.php:454
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Registreren"
@@ -2502,7 +2641,7 @@ msgid "Same as password above. Required."
 msgstr "Gelijk aan het wachtwoord hierboven. Verplicht"
 
 #: actions/register.php:437 actions/register.php:441
-#: lib/accountsettingsaction.php:120
+#: actions/siteadminpanel.php:253 lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr "E-mail"
 
@@ -2609,7 +2748,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "De URL van uw profiel bij een andere, compatibele microblogdienst"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:321
+#: lib/userprofile.php:356
 msgid "Subscribe"
 msgstr "Abonneren"
 
@@ -2689,6 +2828,16 @@ msgstr ""
 #, php-format
 msgid "Replies to %1$s on %2$s!"
 msgstr "Antwoorden aan %1$s op %2$s."
+
+#: actions/sandbox.php:65 actions/unsandbox.php:65
+#, fuzzy
+msgid "You cannot sandbox users on this site."
+msgstr "U kunt geen bericht naar deze gebruiker zenden."
+
+#: actions/sandbox.php:72
+#, fuzzy
+msgid "User is already sandboxed."
+msgstr "Deze gebruiker is al de toegang tot de groep ontzegd."
 
 #: actions/showfavorites.php:79
 #, php-format
@@ -2958,6 +3107,145 @@ msgstr ""
 "**%s** heeft een gebruiker op %%%%site.name%%%%, een [microblogdienst]"
 "(http://en.wikipedia.org/wiki/Micro-blogging) gebaseerd op de Vrije Software "
 "[StatusNet](http://status.net/). "
+
+#: actions/silence.php:65 actions/unsilence.php:65
+#, fuzzy
+msgid "You cannot silence users on this site."
+msgstr "U kunt geen bericht naar deze gebruiker zenden."
+
+#: actions/silence.php:72
+#, fuzzy
+msgid "User is already silenced."
+msgstr "Deze gebruiker is al de toegang tot de groep ontzegd."
+
+#: actions/siteadminpanel.php:58 lib/adminpanelaction.php:272
+#, fuzzy
+msgid "Site"
+msgstr "Uitnodigen"
+
+#: actions/siteadminpanel.php:69
+msgid "Basic settings for this StatusNet site."
+msgstr ""
+
+#: actions/siteadminpanel.php:145
+msgid "Site name must have non-zero length."
+msgstr ""
+
+#: actions/siteadminpanel.php:153
+#, fuzzy
+msgid "You must have a valid contact email address"
+msgstr "Geen geldig e-mailadres."
+
+#: actions/siteadminpanel.php:171
+#, php-format
+msgid "Unknown language \"%s\""
+msgstr ""
+
+#: actions/siteadminpanel.php:178
+msgid "Invalid snapshot report URL."
+msgstr ""
+
+#: actions/siteadminpanel.php:184
+msgid "Invalid snapshot run value."
+msgstr ""
+
+#: actions/siteadminpanel.php:190
+msgid "Snapshot frequency must be a number."
+msgstr ""
+
+#: actions/siteadminpanel.php:241
+#, fuzzy
+msgid "Site name"
+msgstr "Kennisgeving van site"
+
+#: actions/siteadminpanel.php:242
+msgid "The name of your site, like \"Yourcompany Microblog\""
+msgstr ""
+
+#: actions/siteadminpanel.php:245
+msgid "Brought by"
+msgstr ""
+
+#: actions/siteadminpanel.php:246
+msgid "Text used for credits link in footer of each page"
+msgstr ""
+
+#: actions/siteadminpanel.php:249
+msgid "Brought by URL"
+msgstr ""
+
+#: actions/siteadminpanel.php:250
+msgid "URL used for credits link in footer of each page"
+msgstr ""
+
+#: actions/siteadminpanel.php:254
+#, fuzzy
+msgid "contact email address for your site"
+msgstr "Nieuw e-mailadres om e-mail te versturen aan %s"
+
+#: actions/siteadminpanel.php:268
+msgid "Default timezone"
+msgstr ""
+
+#: actions/siteadminpanel.php:269
+msgid "Default timezone for the site; usually UTC."
+msgstr ""
+
+#: actions/siteadminpanel.php:276
+#, fuzzy
+msgid "Default site language"
+msgstr "Voorkeurstaal"
+
+#: actions/siteadminpanel.php:282
+#, fuzzy
+msgid "Private"
+msgstr "Privacy"
+
+#: actions/siteadminpanel.php:284
+msgid "Prohibit anonymous users (not logged in) from viewing site?"
+msgstr ""
+
+#: actions/siteadminpanel.php:290
+msgid "Randomly during Web hit"
+msgstr ""
+
+#: actions/siteadminpanel.php:291
+msgid "In a scheduled job"
+msgstr ""
+
+#: actions/siteadminpanel.php:292
+#, fuzzy
+msgid "Never"
+msgstr "Herstellen"
+
+#: actions/siteadminpanel.php:294
+msgid "Data snapshots"
+msgstr ""
+
+#: actions/siteadminpanel.php:295
+msgid "When to send statistical data to status.net servers"
+msgstr ""
+
+#: actions/siteadminpanel.php:301
+msgid "Frequency"
+msgstr ""
+
+#: actions/siteadminpanel.php:302
+msgid "Snapshots will be sent once every N Web hits"
+msgstr ""
+
+#: actions/siteadminpanel.php:309
+msgid "Report URL"
+msgstr ""
+
+#: actions/siteadminpanel.php:310
+msgid "Snapshots will be sent to this URL"
+msgstr ""
+
+#: actions/siteadminpanel.php:371 actions/useradminpanel.php:226
+#, fuzzy
+msgid "Save site settings"
+msgstr "Avatarinstellingen"
 
 #: actions/smssettings.php:58
 msgid "SMS Settings"
@@ -3241,6 +3529,21 @@ msgstr "Onbekend label."
 msgid "API method under construction."
 msgstr "De API-functie is in bewerking."
 
+#: actions/unblock.php:59
+#, fuzzy
+msgid "You haven't blocked that user."
+msgstr "U hebt deze gebruiker reeds geblokkeerd."
+
+#: actions/unsandbox.php:72
+#, fuzzy
+msgid "User is not sandboxed."
+msgstr "De gebruiker is niet de toegang tot de groep ontzegd."
+
+#: actions/unsilence.php:72
+#, fuzzy
+msgid "User is not silenced."
+msgstr "Deze gebruiker heeft geen profiel."
+
 #: actions/unsubscribe.php:77
 msgid "No profile id in request."
 msgstr "Het profiel-ID was niet aanwezig in het verzoek."
@@ -3259,6 +3562,32 @@ msgid "Listenee stream license ‘%s’ is not compatible with site license ‘%
 msgstr ""
 "De licentie \"%s\" voor de stream die u wilt volgen is niet compatibel met "
 "de sitelicentie \"%s\"."
+
+#: actions/useradminpanel.php:58 lib/personalgroupnav.php:115
+msgid "User"
+msgstr "Gebruiker"
+
+#: actions/useradminpanel.php:69
+msgid "User settings for this StatusNet site."
+msgstr ""
+
+#: actions/useradminpanel.php:171
+#, fuzzy
+msgid "Closed"
+msgstr "Geblokkeerd"
+
+#: actions/useradminpanel.php:173
+msgid "Is registration on this site prohibited?"
+msgstr ""
+
+#: actions/useradminpanel.php:178
+#, fuzzy
+msgid "Invite-only"
+msgstr "Uitnodigen"
+
+#: actions/useradminpanel.php:180
+msgid "Is registration on this site only open to invited users?"
+msgstr ""
 
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
@@ -3424,11 +3753,16 @@ msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
 "Een bestand van deze grootte overschijdt uw maandelijkse quota van %d bytes."
 
-#: classes/Message.php:55
+#: classes/Message.php:45
+#, fuzzy
+msgid "You are banned from sending direct messages."
+msgstr "Er is een fout opgetreden bij het verzonden van het directe bericht."
+
+#: classes/Message.php:61
 msgid "Could not insert message."
 msgstr "Het was niet mogelijk het bericht in te voegen."
 
-#: classes/Message.php:65
+#: classes/Message.php:71
 msgid "Could not update message with new URI."
 msgstr "Het was niet mogelijk het bericht bij te werken met de nieuwe URI."
 
@@ -3464,16 +3798,16 @@ msgstr ""
 "Te veel duplicaatberichten te snel achter elkaar. Neem een adempauze en "
 "plaats over een aantal minuten pas weer een bericht."
 
-#: classes/Notice.php:202
+#: classes/Notice.php:200
 msgid "You are banned from posting notices on this site."
 msgstr ""
 "U bent geblokkeerd en mag geen mededelingen meer achterlaten op deze site."
 
-#: classes/Notice.php:268 classes/Notice.php:293
+#: classes/Notice.php:265 classes/Notice.php:290
 msgid "Problem saving notice."
 msgstr "Er is een probleem opgetreden bij het opslaan van de mededeling."
 
-#: classes/Notice.php:1120
+#: classes/Notice.php:1117
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr ""
@@ -3503,10 +3837,6 @@ msgstr "Uw wachtwoord wijzigen"
 #: lib/accountsettingsaction.php:120
 msgid "Change email handling"
 msgstr "E-mailafhandeling wijzigen"
-
-#: lib/accountsettingsaction.php:124 lib/groupnav.php:119
-msgid "Design"
-msgstr "Ontwerp"
 
 #: lib/accountsettingsaction.php:124
 msgid "Design your profile"
@@ -3557,96 +3887,101 @@ msgstr "Koppelen"
 msgid "Connect to services"
 msgstr "Met diensten verbinden"
 
-#: lib/action.php:439 lib/subgroupnav.php:105
+#: lib/action.php:439
+#, fuzzy
+msgid "Change site configuration"
+msgstr "Primaire sitenavigatie"
+
+#: lib/action.php:443 lib/subgroupnav.php:105
 msgid "Invite"
 msgstr "Uitnodigen"
 
-#: lib/action.php:440 lib/subgroupnav.php:106
+#: lib/action.php:444 lib/subgroupnav.php:106
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Vrienden en collega's uitnodigen om u te vergezellen op %s"
 
-#: lib/action.php:445
+#: lib/action.php:449
 msgid "Logout"
 msgstr "Afmelden"
 
-#: lib/action.php:445
+#: lib/action.php:449
 msgid "Logout from the site"
 msgstr "Van de site afmelden"
 
-#: lib/action.php:450
+#: lib/action.php:454
 msgid "Create an account"
 msgstr "Gebruiker aanmaken"
 
-#: lib/action.php:453
+#: lib/action.php:457
 msgid "Login to the site"
 msgstr "Bij de site aanmelden"
 
-#: lib/action.php:456 lib/action.php:719
+#: lib/action.php:460 lib/action.php:723
 msgid "Help"
 msgstr "Help"
 
-#: lib/action.php:456
+#: lib/action.php:460
 msgid "Help me!"
 msgstr "Help me!"
 
-#: lib/action.php:459
+#: lib/action.php:463
 msgid "Search"
 msgstr "Zoeken"
 
-#: lib/action.php:459
+#: lib/action.php:463
 msgid "Search for people or text"
 msgstr "Naar gebruikers of tekst zoeken"
 
-#: lib/action.php:480
+#: lib/action.php:484
 msgid "Site notice"
 msgstr "Kennisgeving van site"
 
-#: lib/action.php:546
+#: lib/action.php:550
 msgid "Local views"
 msgstr "Lokale weergaven"
 
-#: lib/action.php:612
+#: lib/action.php:616
 msgid "Page notice"
 msgstr "Kennisgeving van pagina"
 
-#: lib/action.php:714
+#: lib/action.php:718
 msgid "Secondary site navigation"
 msgstr "Secundaire sitenavigatie"
 
-#: lib/action.php:721
+#: lib/action.php:725
 msgid "About"
 msgstr "Over"
 
-#: lib/action.php:723
+#: lib/action.php:727
 msgid "FAQ"
 msgstr "Veelgestelde vragen"
 
-#: lib/action.php:727
+#: lib/action.php:731
 msgid "TOS"
 msgstr "TOS"
 
-#: lib/action.php:730
+#: lib/action.php:734
 msgid "Privacy"
 msgstr "Privacy"
 
-#: lib/action.php:732
+#: lib/action.php:736
 msgid "Source"
 msgstr "Bron"
 
-#: lib/action.php:734
+#: lib/action.php:738
 msgid "Contact"
 msgstr "Contact"
 
-#: lib/action.php:736
+#: lib/action.php:740
 msgid "Badge"
 msgstr "Naamplaatje"
 
-#: lib/action.php:764
+#: lib/action.php:768
 msgid "StatusNet software license"
 msgstr "Licentie van de StatusNet-software"
 
-#: lib/action.php:767
+#: lib/action.php:771
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -3655,12 +3990,12 @@ msgstr ""
 "**%%site.name%%** is een microblogdienst van [%%site.broughtby%%](%%site."
 "broughtbyurl%%). "
 
-#: lib/action.php:769
+#: lib/action.php:773
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** is een microblogdienst. "
 
-#: lib/action.php:771
+#: lib/action.php:775
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -3671,33 +4006,58 @@ msgstr ""
 "versie %s, beschikbaar onder de [GNU Affero General Public License](http://"
 "www.fsf.org/licensing/licenses/agpl-3.0.html)."
 
-#: lib/action.php:785
+#: lib/action.php:789
 msgid "Site content license"
 msgstr "Licentie voor siteinhoud"
 
-#: lib/action.php:794
+#: lib/action.php:798
 msgid "All "
 msgstr "Alle "
 
-#: lib/action.php:799
+#: lib/action.php:803
 msgid "license."
 msgstr "licentie."
 
-#: lib/action.php:1052
+#: lib/action.php:1067
 msgid "Pagination"
 msgstr "Paginering"
 
-#: lib/action.php:1061
+#: lib/action.php:1076
 msgid "After"
 msgstr "Na"
 
-#: lib/action.php:1069
+#: lib/action.php:1084
 msgid "Before"
 msgstr "Voor"
 
-#: lib/action.php:1117
+#: lib/action.php:1132
 msgid "There was a problem with your session token."
 msgstr "Er is een probleem met uw sessietoken."
+
+#: lib/adminpanelaction.php:96
+#, fuzzy
+msgid "You cannot make changes to this site."
+msgstr "U kunt geen bericht naar deze gebruiker zenden."
+
+#: lib/adminpanelaction.php:195
+#, fuzzy
+msgid "showForm() not implemented."
+msgstr "Dit commando is nog niet geïmplementeerd."
+
+#: lib/adminpanelaction.php:224
+#, fuzzy
+msgid "saveSettings() not implemented."
+msgstr "Dit commando is nog niet geïmplementeerd."
+
+#: lib/adminpanelaction.php:273
+#, fuzzy
+msgid "Basic site configuration"
+msgstr "E-mailadresbevestiging"
+
+#: lib/adminpanelaction.php:276
+#, fuzzy
+msgid "Design configuration"
+msgstr "SMS-bevestiging"
 
 #: lib/attachmentlist.php:87
 msgid "Attachments"
@@ -3876,37 +4236,39 @@ msgstr ""
 "geldig: %s"
 
 #: lib/command.php:618
-#, fuzzy
 msgid "You are not subscribed to anyone."
-msgstr "U bent niet geabonneerd op dat profiel."
+msgstr "U bent op geen enkele gebruiker geabonneerd."
 
 #: lib/command.php:620
 #, fuzzy
-msgid "You are subscribed to these people: "
-msgstr "U bent niet geabonneerd op dat profiel."
+msgid "You are subscribed to this person:"
+msgid_plural "You are subscribed to these people:"
+msgstr[0] "U bent op de volgende gebruikers geabonneerd: "
+msgstr[1] "U bent op de volgende gebruikers geabonneerd: "
 
-#: lib/command.php:637
-#, fuzzy
+#: lib/command.php:640
 msgid "No one is subscribed to you."
-msgstr "Het was niet mogelijk om een ander op u te laten abonneren"
+msgstr "Niemand heeft een abonnenment op u."
 
-#: lib/command.php:639
+#: lib/command.php:642
 #, fuzzy
-msgid "These people are subscribed to you: "
-msgstr "Gebruikers met een abonnement op %s"
+msgid "This person is subscribed to you:"
+msgid_plural "These people are subscribed to you:"
+msgstr[0] "Niemand heeft een abonnenment op u."
+msgstr[1] "Niemand heeft een abonnenment op u."
 
-#: lib/command.php:656
-#, fuzzy
+#: lib/command.php:662
 msgid "You are not a member of any groups."
-msgstr "U bent geen lid van deze groep"
+msgstr "U bent lid van geen enkele groep."
 
-#: lib/command.php:658
+#: lib/command.php:664
 #, fuzzy
-msgid "You are a member of these groups: "
-msgstr "U bent geen lid van deze groep."
+msgid "You are a member of this group:"
+msgid_plural "You are a member of these groups:"
+msgstr[0] "U bent lid van de volgende groepen: "
+msgstr[1] "U bent lid van de volgende groepen: "
 
-#: lib/command.php:670
-#, fuzzy
+#: lib/command.php:678
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -3949,6 +4311,9 @@ msgstr ""
 "off - notificaties uitschakelen\n"
 "help - deze hulptekst weergeven\n"
 "follow <gebruiker> - abonneren op gebruiker\n"
+"groups - geef uw groepslidmaatschappen weer\n"
+"subscriptions - geeft uw gebruikersabonnenmenten weer\n"
+"subscribers - geeft de gebruikers die een abonnement op u hebben weer\n"
 "leave <gebruiker> - abonnement op gebruiker opzeggen\n"
 "d <gebruiker> <tekst> - direct bericht aan gebruiker\n"
 "get <gebruiker> - laatste mededeling van gebruiker opvragen\n"
@@ -3979,20 +4344,20 @@ msgstr ""
 "tracks - nog niet beschikbaar\n"
 "tracking - nog niet beschikbaar\n"
 
-#: lib/common.php:192
+#: lib/common.php:203
 msgid "No configuration file found. "
 msgstr "Er is geen instellingenbestand aangetroffen. "
 
-#: lib/common.php:193
+#: lib/common.php:204
 msgid "I looked for configuration files in the following places: "
 msgstr "Er is gezocht naar instellingenbestanden op de volgende plaatsen: "
 
-#: lib/common.php:194
+#: lib/common.php:205
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 "U kunt proberen de installer uit te voeren om dit probleem op te lossen."
 
-#: lib/common.php:195
+#: lib/common.php:206
 msgid "Go to the installer."
 msgstr "Naar het installatieprogramma gaan."
 
@@ -4012,10 +4377,6 @@ msgstr "Updates via SMS"
 msgid "Database error"
 msgstr "Databasefout"
 
-#: lib/designsettings.php:101
-msgid "Change background image"
-msgstr "Achtergrondafbeelding wijzigen"
-
 #: lib/designsettings.php:105
 msgid "Upload file"
 msgstr "Bestand uploaden"
@@ -4026,62 +4387,6 @@ msgid ""
 msgstr ""
 "U kunt een persoonlijke achtergrondafbeelding uploaden. De maximale "
 "bestandsgroote is 2 megabyte."
-
-#: lib/designsettings.php:139
-msgid "On"
-msgstr "Aan"
-
-#: lib/designsettings.php:155
-msgid "Off"
-msgstr "Uit"
-
-#: lib/designsettings.php:156
-msgid "Turn background image on or off."
-msgstr "Achtergrondafbeelding inschakelen of uitschakelen."
-
-#: lib/designsettings.php:161
-msgid "Tile background image"
-msgstr "Achtergrondafbeelding naast elkaar"
-
-#: lib/designsettings.php:170
-msgid "Change colours"
-msgstr "Kleuren wijzigen"
-
-#: lib/designsettings.php:178
-msgid "Background"
-msgstr "Achtergrond"
-
-#: lib/designsettings.php:191
-msgid "Content"
-msgstr "Inhoud"
-
-#: lib/designsettings.php:204
-msgid "Sidebar"
-msgstr "Menubalk"
-
-#: lib/designsettings.php:217
-msgid "Text"
-msgstr "Tekst"
-
-#: lib/designsettings.php:230
-msgid "Links"
-msgstr "Verwijzingen"
-
-#: lib/designsettings.php:247
-msgid "Use defaults"
-msgstr "Standaardinstellingen gebruiken"
-
-#: lib/designsettings.php:248
-msgid "Restore default designs"
-msgstr "Standaardontwerp toepassen"
-
-#: lib/designsettings.php:254
-msgid "Reset back to default"
-msgstr "Standaardinstellingen toepassen"
-
-#: lib/designsettings.php:257
-msgid "Save design"
-msgstr "Ontwerp opslaan"
 
 #: lib/designsettings.php:372
 msgid "Bad default color settings: "
@@ -4325,12 +4630,12 @@ msgstr ""
 "Dank u wel voor uw tijd.\n"
 "%s\n"
 
-#: lib/mail.php:235
+#: lib/mail.php:236
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
 msgstr "%1$s volgt nu uw berichten %2$s."
 
-#: lib/mail.php:240
+#: lib/mail.php:241
 #, php-format
 msgid ""
 "%1$s is now listening to your notices on %2$s.\n"
@@ -4355,17 +4660,17 @@ msgstr ""
 "----\n"
 "Wijzig uw e-mailadres of instellingen op %8$s\n"
 
-#: lib/mail.php:253
+#: lib/mail.php:254
 #, php-format
 msgid "Location: %s\n"
 msgstr "Locatie: %s\n"
 
-#: lib/mail.php:255
+#: lib/mail.php:256
 #, php-format
 msgid "Homepage: %s\n"
 msgstr "Thuispagina: %s\n"
 
-#: lib/mail.php:257
+#: lib/mail.php:258
 #, php-format
 msgid ""
 "Bio: %s\n"
@@ -4374,12 +4679,12 @@ msgstr ""
 "Beschrijving: %s\n"
 "\n"
 
-#: lib/mail.php:285
+#: lib/mail.php:286
 #, php-format
 msgid "New email address for posting to %s"
 msgstr "Nieuw e-mailadres om e-mail te versturen aan %s"
 
-#: lib/mail.php:288
+#: lib/mail.php:289
 #, php-format
 msgid ""
 "You have a new posting address on %1$s.\n"
@@ -4400,21 +4705,21 @@ msgstr ""
 "Met vriendelijke groet,\n"
 "%4$s"
 
-#: lib/mail.php:412
+#: lib/mail.php:413
 #, php-format
 msgid "%s status"
 msgstr "%s status"
 
-#: lib/mail.php:438
+#: lib/mail.php:439
 msgid "SMS confirmation"
 msgstr "SMS-bevestiging"
 
-#: lib/mail.php:462
+#: lib/mail.php:463
 #, php-format
 msgid "You've been nudged by %s"
 msgstr "%s heeft u gepord"
 
-#: lib/mail.php:466
+#: lib/mail.php:467
 #, php-format
 msgid ""
 "%1$s (%2$s) is wondering what you are up to these days and is inviting you "
@@ -4442,12 +4747,12 @@ msgstr ""
 "Met vriendelijke groet,\n"
 "%4$s\n"
 
-#: lib/mail.php:509
+#: lib/mail.php:510
 #, php-format
 msgid "New private message from %s"
 msgstr "U hebt een nieuw privébericht van %s."
 
-#: lib/mail.php:513
+#: lib/mail.php:514
 #, php-format
 msgid ""
 "%1$s (%2$s) sent you a private message:\n"
@@ -4481,12 +4786,12 @@ msgstr ""
 "Met vriendelijke groet,\n"
 "%5$s\n"
 
-#: lib/mail.php:554
+#: lib/mail.php:559
 #, php-format
 msgid "%s (@%s) added your notice as a favorite"
 msgstr "%s (@%s) heeft uw mededeling als favoriet toegevoegd"
 
-#: lib/mail.php:556
+#: lib/mail.php:561
 #, php-format
 msgid ""
 "%1$s (@%7$s) just added your notice from %2$s as one of their favorites.\n"
@@ -4524,12 +4829,12 @@ msgstr ""
 "Met vriendelijke groet,\n"
 "%6$s\n"
 
-#: lib/mail.php:611
+#: lib/mail.php:620
 #, php-format
 msgid "%s (@%s) sent a notice to your attention"
 msgstr "%s (@%s) heeft u een mededeling gestuurd"
 
-#: lib/mail.php:613
+#: lib/mail.php:622
 #, php-format
 msgid ""
 "%1$s (@%9$s) just sent a notice to your attention (an '@-reply') on %2$s.\n"
@@ -4682,7 +4987,13 @@ msgstr ""
 msgid "Duplicate notice"
 msgstr "Kennisgeving van duplicaat"
 
-#: lib/oauthstore.php:487
+#: lib/oauthstore.php:466 lib/subs.php:48
+#, fuzzy
+msgid "You have been banned from subscribing."
+msgstr ""
+"Die gebruiker heeft de mogelijkheid om te abonneren voor u geblokkeerd."
+
+#: lib/oauthstore.php:491
 msgid "Couldn't insert new subscription."
 msgstr "Kon nieuw abonnement niet toevoegen."
 
@@ -4697,10 +5008,6 @@ msgstr "Antwoorden"
 #: lib/personalgroupnav.php:114
 msgid "Favorites"
 msgstr "Favorieten"
-
-#: lib/personalgroupnav.php:115
-msgid "User"
-msgstr "Gebruiker"
 
 #: lib/personalgroupnav.php:124
 msgid "Inbox"
@@ -4751,6 +5058,15 @@ msgstr "Lid sinds"
 msgid "All groups"
 msgstr "Alle groepen"
 
+#: lib/profileformaction.php:123
+#, fuzzy
+msgid "No return-to arguments"
+msgstr "Geen ID-argument."
+
+#: lib/profileformaction.php:137
+msgid "unimplemented method"
+msgstr ""
+
 #: lib/publicgroupnav.php:78
 msgid "Public"
 msgstr "Openbaar"
@@ -4770,6 +5086,16 @@ msgstr "Uitgelicht"
 #: lib/publicgroupnav.php:92
 msgid "Popular"
 msgstr "Populair"
+
+#: lib/sandboxform.php:67
+#, fuzzy
+msgid "Sandbox"
+msgstr "Postvak IN"
+
+#: lib/sandboxform.php:78
+#, fuzzy
+msgid "Sandbox this user"
+msgstr "Deblokkeer deze gebruiker."
 
 #: lib/searchaction.php:120
 msgid "Search site"
@@ -4807,6 +5133,16 @@ msgstr "Naamloze sectie"
 msgid "More..."
 msgstr "Meer..."
 
+#: lib/silenceform.php:67
+#, fuzzy
+msgid "Silence"
+msgstr "Kennisgeving van site"
+
+#: lib/silenceform.php:78
+#, fuzzy
+msgid "Silence this user"
+msgstr "Deze gebruiker blokkeren"
+
 #: lib/subgroupnav.php:83
 #, php-format
 msgid "People %s subscribes to"
@@ -4836,27 +5172,27 @@ msgstr ""
 msgid "(none)"
 msgstr "(geen)"
 
-#: lib/subs.php:48
+#: lib/subs.php:52
 msgid "Already subscribed!"
 msgstr "U bent al gebonneerd!"
 
-#: lib/subs.php:52
+#: lib/subs.php:56
 msgid "User has blocked you."
 msgstr "Deze gebruiker negeert u."
 
-#: lib/subs.php:56
+#: lib/subs.php:60
 msgid "Could not subscribe."
 msgstr "Kan niet abonneren "
 
-#: lib/subs.php:75
+#: lib/subs.php:79
 msgid "Could not subscribe other to you."
 msgstr "Het was niet mogelijk om een ander op u te laten abonneren"
 
-#: lib/subs.php:124
+#: lib/subs.php:128
 msgid "Not subscribed!"
 msgstr "Niet geabonneerd!"
 
-#: lib/subs.php:136
+#: lib/subs.php:140
 msgid "Couldn't delete subscription."
 msgstr "Kon abonnement niet verwijderen."
 
@@ -4867,6 +5203,29 @@ msgstr "Geen"
 #: lib/topposterssection.php:74
 msgid "Top posters"
 msgstr "Meest actieve gebruikers"
+
+#: lib/unblockform.php:80
+#, fuzzy
+msgid "Unlock this user"
+msgstr "Deblokkeer deze gebruiker."
+
+#: lib/unsandboxform.php:69
+msgid "Unsandbox"
+msgstr ""
+
+#: lib/unsandboxform.php:80
+#, fuzzy
+msgid "Unsandbox this user"
+msgstr "Deblokkeer deze gebruiker."
+
+#: lib/unsilenceform.php:67
+msgid "Unsilence"
+msgstr ""
+
+#: lib/unsilenceform.php:78
+#, fuzzy
+msgid "Unsilence this user"
+msgstr "Deblokkeer deze gebruiker."
 
 #: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
 msgid "Unsubscribe from this user"
@@ -4969,3 +5328,6 @@ msgstr "Dit is niet uw inkomende e-mailadres."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Inkomende e-mail is niet toegestaan."
+
+#~ msgid "These people are subscribed to you: "
+#~ msgstr "De volgende gebruikers hebben een abonnement op u: "

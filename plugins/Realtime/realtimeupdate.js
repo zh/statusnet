@@ -66,26 +66,26 @@ RealtimeUpdate = {
 
      receive: function(data)
      {
-          id = data.id;
-
-          // Don't add it if it already exists
-          if ($("#notice-"+id).length > 0) {
-               return;
-          }
-
           if (RealtimeUpdate._paused === false) {
               RealtimeUpdate.purgeLastNoticeItem();
 
               RealtimeUpdate.insertNoticeItem(data);
-
-              RealtimeUpdate.updateWindowCounter();
           }
           else {
               RealtimeUpdate._queuedNotices.push(data);
+
+              RealtimeUpdate.updateQueuedCounter();
           }
+
+          RealtimeUpdate.updateWindowCounter();
      },
 
      insertNoticeItem: function(data) {
+        // Don't add it if it already exists
+        if ($("#notice-"+data.id).length > 0) {
+            return;
+        }
+
         var noticeItem = RealtimeUpdate.makeNoticeItem(data);
         $("#notices_primary .notices").prepend(noticeItem);
         $("#notices_primary .notice:first").css({display:"none"});
@@ -192,21 +192,7 @@ RealtimeUpdate = {
      initActions: function(url, timeline, path)
      {
         var NP = $('#notices_primary');
-        NP.prepend('<ul id="realtime_actions"><li id="realtime_pauseplay"></li><li id="realtime_timeline"></li></ul>');
-        NP.css({'position':'relative'});
-
-        $('#realtime_actions').css({
-             'position':'absolute',
-             'top':'-20px',
-             'right':'0',
-             'margin':'0 0 11px 0'
-        });
-
-        $('#realtime_actions li').css({
-            'margin-left':'18px',
-            'list-style-type':'none',
-            'float':'left'
-        });
+        NP.prepend('<ul id="realtime_actions"><li id="realtime_playpause"></li><li id="realtime_timeline"></li></ul>');
 
         RealtimeUpdate._pluginPath = path;
 
@@ -221,20 +207,11 @@ RealtimeUpdate = {
 
      showPause: function()
      {
-        RT_PP = $('#realtime_pauseplay');
+        RT_PP = $('#realtime_playpause');
         RT_PP.empty();
         RT_PP.append('<button id="realtime_pause" class="pause" title="Pause">Pause</button>');
 
         RT_P = $('#realtime_pause');
-        $('#realtime_pause').css({
-            'background':'url('+RealtimeUpdate._pluginPath+'icon_pause.gif) no-repeat 47% 47%',
-             'width':'16px',
-             'height':'16px',
-             'display':'block',
-             'border':'none',
-             'cursor':'pointer',
-             'text-indent':'-9999px'
-        });
         RT_P.bind('click', function() {
             RealtimeUpdate._paused = true;
 
@@ -245,20 +222,11 @@ RealtimeUpdate = {
 
      showPlay: function()
      {
-        RT_PP = $('#realtime_pauseplay');
+        RT_PP = $('#realtime_playpause');
         RT_PP.empty();
-        RT_PP.append('<button id="realtime_play" class="play" title="Play">Play</button>');
+        RT_PP.append('<span id="queued_counter"></span> <button id="realtime_play" class="play" title="Play">Play</button>');
 
         RT_P = $('#realtime_play');
-        RT_P.css({
-            'background':'url('+RealtimeUpdate._pluginPath+'icon_play.gif) no-repeat 47% 47%',
-             'width':'16px',
-             'height':'16px',
-             'display':'block',
-             'border':'none',
-             'cursor':'pointer',
-             'text-indent':'-9999px'
-        });
         RT_P.bind('click', function() {
             RealtimeUpdate._paused = false;
 
@@ -270,12 +238,25 @@ RealtimeUpdate = {
         });
      },
 
-     showQueuedNotices: function() {
+     showQueuedNotices: function()
+     {
         $.each(RealtimeUpdate._queuedNotices, function(i, n) {
             RealtimeUpdate.insertNoticeItem(n);
         });
 
         RealtimeUpdate._queuedNotices = [];
+
+        RealtimeUpdate.removeQueuedCounter();
+     },
+
+     updateQueuedCounter: function()
+     {
+        $('#realtime_playpause #queued_counter').html('('+RealtimeUpdate._queuedNotices.length+')');
+     },
+
+     removeQueuedCounter: function()
+     {
+        $('#realtime_playpause #queued_counter').empty();
      },
 
      initAddPopup: function(url, timeline, path)
@@ -284,17 +265,6 @@ RealtimeUpdate = {
          NP.append('<button id="realtime_popup" title="Pop up in a window">Pop up</button>');
 
          var PP = $('#realtime_popup');
-         PP.css({
-             'background':'transparent url('+ path + 'icon_external.gif) no-repeat 0 30%',
-             'width':'16px',
-             'height':'16px',
-             'display':'block',
-             'border':'none',
-             'cursor':'pointer',
-             'text-indent':'-9999px'
-         });
-         $('#showstream #notices_primary').css({'margin-top':'18px'});
-
          PP.bind('click', function() {
              window.open(url,
                          '',

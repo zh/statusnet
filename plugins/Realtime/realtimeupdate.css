@@ -1,0 +1,49 @@
+#notices_primary {
+position:relative;
+}
+
+#realtime_actions {
+position: absolute;
+top: -20px;
+right: 0;
+margin: 0 0 11px 0;
+}
+
+#realtime_actions li {
+margin-left: 18px;
+list-style-type: none;
+float: left;
+}
+
+#realtime_actions button {
+width: 16px;
+height: 16px;
+display: block;
+border: none;
+cursor: pointer;
+text-indent: -9999px;
+float: left;
+}
+
+#realtime_play {
+background: url(icon_play.gif) no-repeat 47% 47%;
+margin-left: 4px;
+}
+
+#realtime_pause {
+background: url(icon_pause.gif) no-repeat 47% 47%;
+}
+
+#realtime_popup {
+background: url(icon_external.gif) no-repeat 0 30%;
+}
+
+#queued_counter {
+float:left;
+line-height:1.2;
+}
+
+#showstream #notices_primary {
+margin-top: 18px;
+}
+
