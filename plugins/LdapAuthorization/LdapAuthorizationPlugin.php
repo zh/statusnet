@@ -50,6 +50,7 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
     public $uniqueMember_attribute = null;
     public $roles_to_groups = null;
     public $login_group = null;
+    public $attributes = array();
 
     function onInitializePlugin(){
         parent::onInitializePlugin();
@@ -67,6 +68,9 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
         }
         if(!isset($this->roles_to_groups)){
             throw new Exception("roles_to_groups must be set.");
+        }
+        if(!isset($this->attributes['username'])){
+            throw new Exception("username attribute must be set.");
         }
     }
 
@@ -86,7 +90,7 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
                             }
                         }
                     }else{
-                        if($this->isMemberOfGroup($entry->dn(),login_group)){
+                        if($this->isMemberOfGroup($entry->dn(),$this->login_group)){
                             return true;
                         }
                     }
@@ -142,8 +146,8 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
             return false;
         }
     }
-    
-        function ldap_get_config(){
+
+    function ldap_get_config(){
         $config = array();
         $keys = array('host','port','version','starttls','binddn','bindpw','basedn','options','filter','scope');
         foreach($keys as $key){
@@ -187,7 +191,6 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
         }
         $filter = Net_LDAP2_Filter::create($this->attributes['username'], 'equals',  $username);
         $options = array(
-            'scope' => 'sub',
             'attributes' => $attributes
         );
         $search = $ldap->search(null,$filter,$options);

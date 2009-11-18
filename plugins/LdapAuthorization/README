@@ -45,6 +45,9 @@ filter: Default search filter.
 scope: Default search scope.
     See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
 
+attributes: an array that relates StatusNet user attributes to LDAP ones
+    username*: LDAP attribute value entered when authenticating to StatusNet
+
 * required
 default values are in (parenthesis)
 
@@ -72,7 +75,7 @@ addPlugin('ldapAuthentication', array(
 addPlugin('ldapAuthorization', array(
     'provider_name'=>'Example',
     'authoritative'=>false,
-    'uniqueMember_attribute'=>'uniqueMember',
+    'uniqueMember_attribute'=>'member',
     'roles_to_groups'=> array(
         'moderator'=>'CN=SN-Moderators,OU=Users,OU=StatusNet,OU=US,DC=americas,DC=global,DC=loc',
         'administrator'=> array('CN=System-Adminstrators,OU=Users,OU=StatusNet,OU=US,DC=americas,DC=global,DC=loc',
@@ -81,6 +84,8 @@ addPlugin('ldapAuthorization', array(
     'binddn'=>'username',
     'bindpw'=>'password',
     'basedn'=>'OU=Users,OU=StatusNet,OU=US,DC=americas,DC=global,DC=loc',
-    'host'=>array('server1', 'server2')
+    'host'=>array('server1', 'server2'),
+    'attributes'=>array(
+        'username'=>'sAMAccountName')
 ));
 

@@ -189,7 +189,6 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
         }
         $filter = Net_LDAP2_Filter::create($this->attributes['username'], 'equals',  $username);
         $options = array(
-            'scope' => 'sub',
             'attributes' => $attributes
         );
         $search = $ldap->search(null,$filter,$options);
