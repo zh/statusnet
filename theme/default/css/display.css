@@ -135,7 +135,8 @@ button.close,
 .form_group_leave input.submit,
 .form_user_unsubscribe input.submit,
 .form_group_join input.submit,
-.form_user_subscribe input.submit {
+.form_user_subscribe input.submit,
+.entity_subscribe a {
 background-image:url(../../base/images/icons/icons-01.gif);
 background-repeat:no-repeat;
 background-color:transparent;
@@ -178,6 +179,12 @@ background-color:rgba(255, 255, 255, 0.7);
 #site_nav_local_views .current a {
 text-shadow: rgba(194,194,194,0.5) 1px 1px 1px;
 }
+.processing {
+background-image:url(../../base/images/icons/icon_processing.gif);
+background-repeat:no-repeat;
+background-position:47% 47%;
+}
+
 
 .error {
 background-color:#F7E8E8;
@@ -216,7 +223,8 @@ background-position:0 1px;
 .form_group_join input.submit,
 .form_group_leave input.submit,
 .form_user_subscribe input.submit,
-.form_user_unsubscribe input.submit {
+.form_user_unsubscribe input.submit,
+.entity_subscribe a {
 background-color:#AAAAAA;
 color:#FFFFFF;
 }
@@ -225,7 +233,8 @@ color:#FFFFFF;
 background-position:5px -1246px;
 }
 .form_group_join input.submit,
-.form_user_subscribe input.submit {
+.form_user_subscribe input.submit,
+.entity_subscribe a {
 background-position:5px -1181px;
 }
 
@@ -328,3 +337,17 @@ background-position:10% -187px;
 .pagination .nav_next a {
 background-position:105% -252px;
 }
+.pagination .nav .processing {
+background-image:url(../../base/images/icons/icon_processing.gif);
+box-shadow:none;
+-moz-box-shadow:none;
+-webkit-box-shadow:none;
+outline:none;
+}
+.pagination .nav_next a.processing {
+background-position:90% 47%;
+}
+.pagination .nav_prev a.processing {
+background-position:10% 47%;
+}
+
