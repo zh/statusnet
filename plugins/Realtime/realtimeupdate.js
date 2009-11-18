@@ -192,7 +192,7 @@ RealtimeUpdate = {
          });
          $('#showstream #notices_primary').css({'margin-top':'18px'});
 
-         RT.click(function() {
+         RT.bind('click', function() {
              window.open(url,
                          '',
                          'toolbar=no,resizable=yes,scrollbars=yes,status=yes,width=500,height=550');
