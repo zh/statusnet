@@ -179,7 +179,7 @@ class DesignAdminPanelForm extends Form
 
         $this->out->dropdown('theme', _('Theme'),
                              $themes, _('Theme for the site.'),
-                             true, $this->value('theme'));
+                             false, $this->value('theme'));
 
         $this->out->elementEnd('li');
         $this->out->elementEnd('ul');
