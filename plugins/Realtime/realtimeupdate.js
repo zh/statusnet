@@ -37,6 +37,8 @@ RealtimeUpdate = {
      _maxnotices: 50,
      _windowhasfocus: true,
      _documenttitle: '',
+     _paused:false,
+     _queuedNotices:[],
 
      init: function(userid, replyurl, favorurl, deleteurl)
      {
@@ -71,12 +73,16 @@ RealtimeUpdate = {
                return;
           }
 
-          RealtimeUpdate.purgeLastNoticeItem();
+          if (RealtimeUpdate._paused === false) {
+              RealtimeUpdate.purgeLastNoticeItem();
 
-          RealtimeUpdate.insertNoticeItem(data);
+              RealtimeUpdate.insertNoticeItem(data);
 
-          RealtimeUpdate.updateWindowCounter();
-
+              RealtimeUpdate.updateWindowCounter();
+          }
+          else {
+              RealtimeUpdate._queuedNotices.push(data);
+          }
      },
 
      insertNoticeItem: function(data) {
@@ -183,7 +189,80 @@ RealtimeUpdate = {
           return dl;
      },
 
-     addPopup: function(url, timeline, iconurl)
+     initActions: function(url, timeline, path)
+     {
+        var NP = $('#notices_primary');
+        NP.prepend('<ul id="realtime_actions"><li id="realtime_pauseplay"></li></ul>');
+
+        RealtimeUpdate._pluginPath = path;
+
+        RealtimeUpdate.initPlayPause();
+        RealtimeUpdate.initAddPopup(url, timeline, RealtimeUpdate._pluginPath);
+     },
+
+     initPlayPause: function()
+     {
+        RealtimeUpdate.showPause();
+     },
+
+     showPause: function()
+     {
+        RT_PP = $('#realtime_pauseplay');
+        RT_PP.empty();
+        RT_PP.append('<button id="realtime_pause" class="pause" title="Pause">Pause</button>');
+
+        RT_P = $('#realtime_pause');
+        $('#realtime_pause').css({
+            'background':'url('+RealtimeUpdate._pluginPath+'icon_pause.gif) no-repeat 47% 47%',
+            'width':'16px',
+            'height':'16px',
+            'text-indent':'-9999px',
+             'border':'none',
+             'cursor':'pointer'
+        });
+        RT_P.bind('click', function() {
+            RealtimeUpdate._paused = true;
+
+            RealtimeUpdate.showPlay();
+            return false;
+        });
+     },
+
+     showPlay: function()
+     {
+        RT_PP = $('#realtime_pauseplay');
+        RT_PP.empty();
+        RT_PP.append('<button id="realtime_play" class="play" title="Play">Play</button>');
+
+        RT_P = $('#realtime_play');
+        RT_P.css({
+            'background':'url('+RealtimeUpdate._pluginPath+'icon_play.gif) no-repeat 47% 47%',
+            'width':'16px',
+            'height':'16px',
+            'text-indent':'-9999px',
+             'border':'none',
+             'cursor':'pointer'
+        });
+        RT_P.bind('click', function() {
+            RealtimeUpdate._paused = false;
+
+            RealtimeUpdate.showPause();
+
+            RealtimeUpdate.showQueuedNotices();
+
+            return false;
+        });
+     },
+
+     showQueuedNotices: function() {
+        $.each(RealtimeUpdate._queuedNotices, function(i, n) {
+            RealtimeUpdate.insertNoticeItem(n);
+        });
+
+        RealtimeUpdate._queuedNotices = [];
+     },
+
+     initAddPopup: function(url, timeline, path)
      {
          var NP = $('#notices_primary');
          NP.css({'position':'relative'});
@@ -192,7 +271,7 @@ RealtimeUpdate = {
          var RT = $('#realtime_timeline');
          RT.css({
              'margin':'0 0 11px 0',
-             'background':'transparent url('+ iconurl + ') no-repeat 0 30%',
+             'background':'transparent url('+ path + 'icon_external.gif) no-repeat 0 30%',
              'padding':'0 0 0 20px',
              'display':'block',
              'position':'absolute',
