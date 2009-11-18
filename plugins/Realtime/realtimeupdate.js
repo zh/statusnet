@@ -77,12 +77,14 @@ RealtimeUpdate = {
               RealtimeUpdate.purgeLastNoticeItem();
 
               RealtimeUpdate.insertNoticeItem(data);
-
-              RealtimeUpdate.updateWindowCounter();
           }
           else {
               RealtimeUpdate._queuedNotices.push(data);
+
+              RealtimeUpdate.updateQueuedCounter();
           }
+
+          RealtimeUpdate.updateWindowCounter();
      },
 
      insertNoticeItem: function(data) {
@@ -192,7 +194,7 @@ RealtimeUpdate = {
      initActions: function(url, timeline, path)
      {
         var NP = $('#notices_primary');
-        NP.prepend('<ul id="realtime_actions"><li id="realtime_pauseplay"></li><li id="realtime_timeline"></li></ul>');
+        NP.prepend('<ul id="realtime_actions"><li id="realtime_playpause"></li><li id="realtime_timeline"></li></ul>');
         NP.css({'position':'relative'});
 
         $('#realtime_actions').css({
@@ -221,7 +223,7 @@ RealtimeUpdate = {
 
      showPause: function()
      {
-        RT_PP = $('#realtime_pauseplay');
+        RT_PP = $('#realtime_playpause');
         RT_PP.empty();
         RT_PP.append('<button id="realtime_pause" class="pause" title="Pause">Pause</button>');
 
@@ -233,7 +235,8 @@ RealtimeUpdate = {
              'display':'block',
              'border':'none',
              'cursor':'pointer',
-             'text-indent':'-9999px'
+             'text-indent':'-9999px',
+             'float':'left'
         });
         RT_P.bind('click', function() {
             RealtimeUpdate._paused = true;
@@ -245,9 +248,14 @@ RealtimeUpdate = {
 
      showPlay: function()
      {
-        RT_PP = $('#realtime_pauseplay');
+        RT_PP = $('#realtime_playpause');
         RT_PP.empty();
-        RT_PP.append('<button id="realtime_play" class="play" title="Play">Play</button>');
+        RT_PP.append('<span id="queued_counter"></span> <button id="realtime_play" class="play" title="Play">Play</button>');
+
+        $('#queued_counter').css({
+            'float':'left',
+            'line-height':'1.2'
+        });
 
         RT_P = $('#realtime_play');
         RT_P.css({
@@ -257,7 +265,9 @@ RealtimeUpdate = {
              'display':'block',
              'border':'none',
              'cursor':'pointer',
-             'text-indent':'-9999px'
+             'text-indent':'-9999px',
+             'float':'left',
+             'margin-left':'4px'
         });
         RT_P.bind('click', function() {
             RealtimeUpdate._paused = false;
@@ -270,12 +280,25 @@ RealtimeUpdate = {
         });
      },
 
-     showQueuedNotices: function() {
+     showQueuedNotices: function()
+     {
         $.each(RealtimeUpdate._queuedNotices, function(i, n) {
             RealtimeUpdate.insertNoticeItem(n);
         });
 
         RealtimeUpdate._queuedNotices = [];
+
+        RealtimeUpdate.removeQueuedCounter();
+     },
+
+     updateQueuedCounter: function()
+     {
+        QC = $('#realtime_playpause #queued_counter').html('('+RealtimeUpdate._queuedNotices.length+')');
+     },
+
+     removeQueuedCounter: function()
+     {
+        $('#realtime_playpause #queued_counter').empty();
      },
 
      initAddPopup: function(url, timeline, path)
@@ -291,7 +314,8 @@ RealtimeUpdate = {
              'display':'block',
              'border':'none',
              'cursor':'pointer',
-             'text-indent':'-9999px'
+             'text-indent':'-9999px',
+             'float':'left'
          });
          $('#showstream #notices_primary').css({'margin-top':'18px'});
 
