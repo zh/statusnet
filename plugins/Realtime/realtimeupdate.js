@@ -34,6 +34,8 @@ RealtimeUpdate = {
      _favorurl: '',
      _deleteurl: '',
      _updatecounter: 0,
+     _maxnotices: 50,
+     _windowhasfocus: true,
 
      init: function(userid, replyurl, favorurl, deleteurl)
      {
@@ -44,13 +46,16 @@ RealtimeUpdate = {
 
         DT = document.title;
 
-        $(window).blur(function() {
+        $(window).bind('focus', function(){ RealtimeUpdate._windowhasfocus = true; });
+
+        $(window).bind('blur', function() {
           $('#notices_primary .notice').removeClass('mark-top');
 
           $('#notices_primary .notice:first').addClass('mark-top');
 
           RealtimeUpdate._updatecounter = 0;
           document.title = DT;
+          RealtimeUpdate._windowhasfocus = false;
 
           return false;
         });
@@ -58,23 +63,32 @@ RealtimeUpdate = {
 
      receive: function(data)
      {
-          setTimeout(function() {
-              id = data.id;
+          id = data.id;
 
-              // Don't add it if it already exists
-              if ($("#notice-"+id).length > 0) {
-                   return;
-              }
+          // Don't add it if it already exists
+          if ($("#notice-"+id).length > 0) {
+               return;
+          }
 
-              var noticeItem = RealtimeUpdate.makeNoticeItem(data);
-              $("#notices_primary .notices").prepend(noticeItem);
-              $("#notices_primary .notice:first").css({display:"none"});
-              $("#notices_primary .notice:first").fadeIn(1000);
-              SN.U.NoticeReply();
+          var noticeItem = RealtimeUpdate.makeNoticeItem(data);
+          $("#notices_primary .notices").prepend(noticeItem);
+          $("#notices_primary .notice:first").css({display:"none"});
+          $("#notices_primary .notice:first").fadeIn(1000);
 
+          if ($('#notices_primary .notice').length > RealtimeUpdate._maxnotices) {
+               $("#notices_primary .notice:last .form_disfavor").unbind('submit');
+               $("#notices_primary .notice:last .form_favor").unbind('submit');
+               $("#notices_primary .notice:last .notice_reply").unbind('click');
+               $("#notices_primary .notice:last").remove();
+          }
+
+          SN.U.NoticeReply();
+          SN.U.NoticeFavor();
+
+          if (RealtimeUpdate._windowhasfocus === false) {
               RealtimeUpdate._updatecounter += 1;
               document.title = '('+RealtimeUpdate._updatecounter+') ' + DT;
-          }, 500);
+          }
      },
 
      makeNoticeItem: function(data)
@@ -178,9 +192,9 @@ RealtimeUpdate = {
          });
          $('#showstream #notices_primary').css({'margin-top':'18px'});
 
-         RT.click(function() {
+         RT.bind('click', function() {
              window.open(url,
-                         timeline,
+                         '',
                          'toolbar=no,resizable=yes,scrollbars=yes,status=yes,width=500,height=550');
 
              return false;
@@ -207,6 +221,12 @@ RealtimeUpdate = {
          $('#form_notice #notice_data-attach').css({
             'left':'auto',
             'right':'0'
+         });
+
+         $('.notices .entry-title a, .notices .entry-content a').bind('click', function() {
+            window.open(this.href, '');
+            
+            return false;
          });
      }
 }
