@@ -126,6 +126,11 @@ float:left;
 .form_settings .form_data input {
 width:39%;
 }
+.form_settings .form_data input.submit,
+.form_settings .form_data input.checkbox,
+.form_settings .form_data input.radio {
+width:auto;
+}
 .form_settings .form_data textarea {
 width:63%;
 }
@@ -561,7 +566,7 @@ font-weight:bold;
 /* entity_profile */
 .entity_profile {
 position:relative;
-width:74.702%;
+width:73%;
 min-height:123px;
 float:left;
 margin-bottom:18px;
@@ -632,9 +637,9 @@ font-style:italic;
 /*entity_actions*/
 .entity_actions {
 float:right;
-margin-left:2.35%;
+margin-left:2%;
 margin-bottom:18px;
-width:21%;
+max-width:25%;
 }
 .entity_actions h2 {
 display:none;
