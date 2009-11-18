@@ -133,7 +133,7 @@ class LoginAction extends Action
                 return;
             }
 
-            $nickname = common_canonical_nickname($this->trimmed('nickname'));
+            $nickname = $this->trimmed('nickname');
             $password = $this->arg('password');
 
             $user = common_check_user($nickname, $password);
