@@ -85,12 +85,12 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
                 if(isset($this->login_group)){
                     if(is_array($this->login_group)){
                         foreach($this->login_group as $group){
-                            if($this->isMemberOfGroup($entry->dn(),$group)){
+                            if($this->ldap_is_dn_member_of_group($entry->dn(),$group)){
                                 return true;
                             }
                         }
                     }else{
-                        if($this->isMemberOfGroup($entry->dn(),$this->login_group)){
+                        if($this->ldap_is_dn_member_of_group($entry->dn(),$this->login_group)){
                             return true;
                         }
                     }
@@ -117,12 +117,12 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
                 if(isset($this->roles_to_groups[$name])){
                     if(is_array($this->roles_to_groups[$name])){
                         foreach($this->roles_to_groups[$name] as $group){
-                            if($this->isMemberOfGroup($entry->dn(),$group)){
+                            if($this->ldap_is_dn_member_of_group($entry->dn(),$group)){
                                 return true;
                             }
                         }
                     }else{
-                        if($this->isMemberOfGroup($entry->dn(),$this->roles_to_groups[$name])){
+                        if($this->ldap_is_dn_member_of_group($entry->dn(),$this->roles_to_groups[$name])){
                             return true;
                         }
                     }
@@ -132,9 +132,9 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
         return false;
     }
 
-    function isMemberOfGroup($userDn, $groupDn)
+    function ldap_is_dn_member_of_group($userDn, $groupDn)
     {
-        $ldap = ldap_get_connection();
+        $ldap = $this->ldap_get_connection();
         $link = $ldap->getLink();
         $r = ldap_compare($link, $groupDn, $this->uniqueMember_attribute, $userDn);
         if ($r === true){
