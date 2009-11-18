@@ -571,7 +571,7 @@ create table user_role (
 );
 
 create table login_token (
-    user_id integer not null /* comment 'user owning this token'*/ references user (id),
+    user_id integer not null /* comment 'user owning this token'*/ references "user" (id),
     token char(32) not null /* comment 'token useable for logging in'*/,
     created timestamp not null DEFAULT CURRENT_TIMESTAMP /* comment 'date this record was created'*/,
     modified timestamp /* comment 'date this record was modified'*/,
