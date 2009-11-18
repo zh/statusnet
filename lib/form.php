@@ -67,7 +67,7 @@ class Form extends Widget
     {
         $attributes = array('id' => $this->id(),
             'class' => $this->formClass(),
-            'method' => 'post',
+            'method' => $this->method(),
             'action' => $this->action());
 
         if (!empty($this->enctype)) {
@@ -118,6 +118,18 @@ class Form extends Widget
     function formData()
     {
     }
+
+    /**
+     * HTTP method used to submit the form
+     *
+     * Defaults to post. Subclasses can override if they need to.
+     *
+     * @return string the method to use for submitting
+     */
+     function method()
+     {
+         return 'post';
+     }
 
     /**
      * Buttons for form actions
