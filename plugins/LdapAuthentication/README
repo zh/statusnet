@@ -18,6 +18,9 @@ email_changeable (true): Are users allowed to change their email address?
     (true or false)
 password_changeable (true): Are users allowed to change their passwords?
     (true or false)
+password_encoding: required if users are to be able to change their passwords
+    Possible values are: crypt, ext_des, md5crypt, blowfish, md5, sha, ssha,
+        smd5, ad, clear
 
 host*: LDAP server name to connect to. You can provide several hosts in an
     array in which case the hosts are tried from left to right.
@@ -47,6 +50,7 @@ attributes: an array that relates StatusNet user attributes to LDAP ones
     fullname
     homepage
     location
+    password: required if users are to be able to change their passwords
 
 * required
 default values are in (parenthesis)
@@ -67,10 +71,12 @@ addPlugin('ldapAuthentication', array(
     'bindpw'=>'password',
     'basedn'=>'OU=Users,OU=StatusNet,OU=US,DC=americas,DC=global,DC=loc',
     'host'=>array('server1', 'server2'),
+    'password_encoding'=>'ad',
     'attributes'=>array(
         'username'=>'sAMAccountName',
         'nickname'=>'sAMAccountName',
         'email'=>'mail',
-        'fullname'=>'displayName')
+        'fullname'=>'displayName',
+        'password'=>'unicodePwd')
 ));
 
