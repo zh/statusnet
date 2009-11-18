@@ -142,4 +142,69 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
             return false;
         }
     }
+    
+        function ldap_get_config(){
+        $config = array();
+        $keys = array('host','port','version','starttls','binddn','bindpw','basedn','options','filter','scope');
+        foreach($keys as $key){
+            $value = $this->$key;
+            if($value!==null){
+                $config[$key]=$value;
+            }
+        }
+        return $config;
+    }
+
+    //-----the below function were copied from LDAPAuthenticationPlugin. They will be moved to a utility class soon.----\\
+    function ldap_get_connection($config = null){
+        if($config == null){
+            $config = $this->ldap_get_config();
+        }
+        
+        //cannot use Net_LDAP2::connect() as StatusNet uses
+        //PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 'handleError');
+        //PEAR handling can be overridden on instance objects, so we do that.
+        $ldap = new Net_LDAP2($config);
+        $ldap->setErrorHandling(PEAR_ERROR_RETURN);
+        $err=$ldap->bind();
+        if (Net_LDAP2::isError($err)) {
+            common_log(LOG_WARNING, 'Could not connect to LDAP server: '.$err->getMessage());
+            return false;
+        }
+        return $ldap;
+    }
+    
+    /**
+     * get an LDAP entry for a user with a given username
+     * 
+     * @param string $username
+     * $param array $attributes LDAP attributes to retrieve
+     * @return string DN
+     */
+    function ldap_get_user($username,$attributes=array(),$ldap=null){
+        if($ldap==null) {
+            $ldap = $this->ldap_get_connection();
+        }
+        $filter = Net_LDAP2_Filter::create($this->attributes['username'], 'equals',  $username);
+        $options = array(
+            'scope' => 'sub',
+            'attributes' => $attributes
+        );
+        $search = $ldap->search(null,$filter,$options);
+        
+        if (PEAR::isError($search)) {
+            common_log(LOG_WARNING, 'Error while getting DN for user: '.$search->getMessage());
+            return false;
+        }
+
+        if($search->count()==0){
+            return false;
+        }else if($search->count()==1){
+            $entry = $search->shiftEntry();
+            return $entry;
+        }else{
+            common_log(LOG_WARNING, 'Found ' . $search->count() . ' ldap user with the username: ' . $username);
+            return false;
+        }
+    }
 }
