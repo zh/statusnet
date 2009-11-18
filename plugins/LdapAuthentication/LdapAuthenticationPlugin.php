@@ -160,6 +160,10 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
     
     function ldap_get_connection($config = null){
         if($config == null){
+            static $ldap = null;
+            if($ldap != null){
+                return $ldap;
+            }
             $config = $this->ldap_get_config();
         }
         
