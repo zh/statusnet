@@ -401,6 +401,9 @@ class DesignAdminPanelForm extends Form
 
         $themes = array_combine($themes, $themes);
 
+        $this->out->elementStart('fieldset', array('id' =>
+            'settings_design_theme'));
+        $this->out->element('legend', null, _('Change theme'));
         $this->out->elementStart('ul', 'form_data');
 
         $this->out->elementStart('li');
@@ -408,7 +411,14 @@ class DesignAdminPanelForm extends Form
                              $themes, _('Theme for the site.'),
                              false, $this->value('theme'));
         $this->out->elementEnd('li');
+        $this->out->elementEnd('ul');
+        $this->out->elementEnd('fieldset');
 
+
+        $this->out->elementStart('fieldset', array('id' =>
+            'settings_design_background-image'));
+        $this->out->element('legend', null, _('Change background image'));
+        $this->out->elementStart('ul', 'form_data');
         $this->out->elementStart('li');
         $this->out->element('label', array('for' => 'design_background-image_file'),
                                 _('Background'));
@@ -474,6 +484,7 @@ class DesignAdminPanelForm extends Form
         }
 
         $this->out->elementEnd('ul');
+        $this->out->elementEnd('fieldset');
 
         $this->out->elementStart('fieldset', array('id' => 'settings_design_color'));
         $this->out->element('legend', null, _('Change colours'));
