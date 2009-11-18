@@ -29,19 +29,15 @@ ENDOFHELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
-if (function_exists('posix_isatty')) {
-    define('CONSOLE_INTERACTIVE', posix_isatty(0));
-} else {
-    // Windows? Assume we're on a terminal. :P
-    define('CONSOLE_INTERACTIVE', false);
-}
-if (CONSOLE_INTERACTIVE) {
-    define('CONSOLE_READLINE', function_exists('readline'));
-}
+// Assume we're on a terminal if on Windows, otherwise posix_isatty tells us.
+define('CONSOLE_INTERACTIVE', !function_exists('posix_isatty') || posix_isatty(0));
+define('CONSOLE_READLINE', CONSOLE_INTERACTIVE && function_exists('readline'));
 
-if (CONSOLE_READLINE && CONSOLE_INTERACTIVE && file_exists(CONSOLE_HISTORY)) {
-    define(CONSOLE_HISTORY, getenv("HOME") . "/.statusnet_console_history");
-    readline_read_history(CONSOLE_HISTORY);
+if (CONSOLE_READLINE && CONSOLE_INTERACTIVE) {
+    define('CONSOLE_HISTORY', getenv("HOME") . "/.statusnet_console_history");
+    if (file_exists(CONSOLE_HISTORY)) {
+        readline_read_history(CONSOLE_HISTORY);
+    }
 }
 
 function read_input_line($prompt)
@@ -50,6 +46,10 @@ function read_input_line($prompt)
         if (CONSOLE_READLINE) {
             $line = readline($prompt);
             readline_add_history($line);
+            if (defined('CONSOLE_HISTORY')) {
+                // Save often; it's easy to hit fatal errors.
+                readline_write_history(CONSOLE_HISTORY);
+            }
             return $line;
         } else {
             return readline_emulation($prompt);
@@ -155,8 +155,4 @@ while (!feof(STDIN)) {
         }
     }
     print "\n";
-}
-
-if (CONSOLE_READLINE && CONSOLE_INTERACTIVE) {
-    @readline_write_history(CONSOLE_HISTORY);
 }
