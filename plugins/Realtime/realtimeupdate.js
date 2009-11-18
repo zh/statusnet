@@ -193,6 +193,7 @@ RealtimeUpdate = {
      {
         var NP = $('#notices_primary');
         NP.prepend('<ul id="realtime_actions"><li id="realtime_pauseplay"></li><li id="realtime_timeline"></li></ul>');
+        NP.css({'position':'relative'});
 
         $('#realtime_actions').css({
              'position':'absolute',
