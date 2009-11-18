@@ -85,7 +85,7 @@ class ApiStatusesUpdateAction extends ApiAuthAction
         $this->lat    = $this->trimmed('lat');
         $this->lon    = $this->trimmed('long');
 
-        if (empty($this->source) || in_array($source, self::$reserved_sources)) {
+        if (empty($this->source) || in_array($this->source, self::$reserved_sources)) {
             $this->source = 'api';
         }
 
