@@ -5,12 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-16 19:42+0000\n"
-"PO-Revision-Date: 2009-11-16 19:44:15+0000\n"
+"POT-Creation-Date: 2009-11-18 19:31+0000\n"
+"PO-Revision-Date: 2009-11-18 19:32:39+0000\n"
 "Language-Team: Swedish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59142); Translate extension (2009-11-13)\n"
+"X-Generator: MediaWiki 1.16alpha(r59207); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: sv\n"
 "X-Message-Group: out-statusnet\n"
@@ -42,7 +42,7 @@ msgstr "Inget sådant meddelande."
 #: actions/xrds.php:71 lib/command.php:163 lib/command.php:311
 #: lib/command.php:364 lib/command.php:411 lib/command.php:466
 #: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
-#: lib/subs.php:34 lib/subs.php:112
+#: lib/subs.php:34 lib/subs.php:116
 msgid "No such user."
 msgstr "Ingen sådan användare"
 
@@ -145,7 +145,8 @@ msgstr "Kunde inte uppdatera användare."
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97
 #: actions/apistatusesupdate.php:127 actions/avatarsettings.php:254
-#: actions/newnotice.php:94 lib/designsettings.php:283
+#: actions/designadminpanel.php:125 actions/newnotice.php:94
+#: lib/designsettings.php:283
 #, php-format
 msgid ""
 "The server was unable to handle that much POST data (%s bytes) due to its "
@@ -232,12 +233,12 @@ msgstr "Alla direktmeddelanden skickade till %s"
 #: actions/apigroupcreate.php:184 actions/apigroupismember.php:114
 #: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
 #: actions/apigrouplistall.php:120 actions/apigrouplist.php:132
-#: actions/apigroupmembership.php:101 actions/apigroupshow.php:105
+#: actions/apigroupmembership.php:106 actions/apigroupshow.php:105
 #: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
 #: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:133
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
 #: actions/apitimelinefavorites.php:144 actions/apitimelinefriends.php:154
-#: actions/apitimelinegroup.php:141 actions/apitimelinementions.php:149
+#: actions/apitimelinegroup.php:147 actions/apitimelinementions.php:149
 #: actions/apitimelinepublic.php:130 actions/apitimelinetag.php:139
 #: actions/apitimelineuser.php:163 actions/apiusershow.php:101
 msgid "API method not found!"
@@ -379,6 +380,13 @@ msgstr "Användarnamnet används redan, försök med ett annat."
 msgid "Alias can't be the same as nickname."
 msgstr ""
 
+#: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
+#: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
+#: actions/apigroupshow.php:90 actions/apitimelinegroup.php:91
+#, fuzzy
+msgid "Group not found!"
+msgstr "API-metoden hittades inte!"
+
 #: actions/apigroupjoin.php:110
 #, fuzzy
 msgid "You are already a member of that group."
@@ -470,13 +478,13 @@ msgstr "%s / Favoriter från %s"
 msgid "%s updates favorited by %s / %s."
 msgstr "%s uppdaterade favoriter av %s / %s."
 
-#: actions/apitimelinegroup.php:102 actions/apitimelineuser.php:117
+#: actions/apitimelinegroup.php:108 actions/apitimelineuser.php:117
 #: actions/grouprss.php:131 actions/userrss.php:90
 #, php-format
 msgid "%s timeline"
 msgstr "%s tidslinje"
 
-#: actions/apitimelinegroup.php:110 actions/apitimelineuser.php:125
+#: actions/apitimelinegroup.php:116 actions/apitimelineuser.php:125
 #: actions/userrss.php:92
 #, php-format
 msgid "Updates from %1$s on %2$s!"
@@ -566,7 +574,8 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: actions/avatarsettings.php:148 lib/noticelist.php:522
+#: actions/avatarsettings.php:148 lib/deleteuserform.php:66
+#: lib/noticelist.php:522
 #, fuzzy
 msgid "Delete"
 msgstr "Ta bort"
@@ -579,7 +588,7 @@ msgstr "Ladda upp"
 msgid "Crop"
 msgstr ""
 
-#: actions/avatarsettings.php:265 actions/block.php:64 actions/disfavor.php:74
+#: actions/avatarsettings.php:265 actions/disfavor.php:74
 #: actions/emailsettings.php:237 actions/favor.php:75
 #: actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
@@ -589,7 +598,7 @@ msgstr ""
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
 #: actions/smssettings.php:228 actions/subedit.php:38 actions/subscribe.php:46
-#: actions/tagother.php:166 actions/unblock.php:65 actions/unsubscribe.php:69
+#: actions/tagother.php:166 actions/unsubscribe.php:69
 #: actions/userauthorization.php:52 lib/designsettings.php:294
 msgid "There was a problem with your session token. Try again, please."
 msgstr "Det var något problem med din session. Försök igen, tack."
@@ -657,77 +666,53 @@ msgstr ""
 msgid "Unblock user from group"
 msgstr "Ingen sådan användare"
 
-#: actions/blockedfromgroup.php:313 lib/unblockform.php:150
+#: actions/blockedfromgroup.php:313 lib/unblockform.php:69
 msgid "Unblock"
 msgstr ""
 
-#: actions/blockedfromgroup.php:313 lib/unblockform.php:120
-#: lib/unblockform.php:150
+#: actions/blockedfromgroup.php:313
 #, fuzzy
 msgid "Unblock this user"
 msgstr "Ingen sådan användare"
 
-#: actions/block.php:59 actions/deletenotice.php:67 actions/disfavor.php:61
-#: actions/favor.php:62 actions/groupblock.php:61 actions/groupunblock.php:61
-#: actions/logout.php:69 actions/makeadmin.php:61 actions/newmessage.php:87
-#: actions/newnotice.php:89 actions/nudge.php:63 actions/subedit.php:31
-#: actions/subscribe.php:30 actions/unblock.php:60 actions/unsubscribe.php:52
-#: lib/settingsaction.php:72
-msgid "Not logged in."
-msgstr "Inte inloggad."
-
-#: actions/block.php:69 actions/groupblock.php:71 actions/groupunblock.php:71
-#: actions/makeadmin.php:71 actions/subedit.php:46 actions/unblock.php:70
+#: actions/block.php:69
 #, fuzzy
-msgid "No profile specified."
-msgstr "Ingen mottagare tillagd."
+msgid "You already blocked that user."
+msgstr "Du prenumererar redan på dessa användare:"
 
-#: actions/block.php:74 actions/groupblock.php:76 actions/groupunblock.php:76
-#: actions/makeadmin.php:76 actions/subedit.php:53 actions/tagother.php:46
-#: actions/unblock.php:75
-#, fuzzy
-msgid "No profile with that ID."
-msgstr "Ingen status hittad med det ID"
-
-#: actions/block.php:111 actions/block.php:134 actions/groupblock.php:160
+#: actions/block.php:105 actions/block.php:128 actions/groupblock.php:160
 #, fuzzy
 msgid "Block user"
 msgstr "Ingen sådan användare"
 
-#: actions/block.php:136
+#: actions/block.php:130
 msgid ""
 "Are you sure you want to block this user? Afterwards, they will be "
 "unsubscribed from you, unable to subscribe to you in the future, and you "
 "will not be notified of any @-replies from them."
 msgstr ""
 
-#: actions/block.php:149 actions/deletenotice.php:145
-#: actions/groupblock.php:178
+#: actions/block.php:143 actions/deletenotice.php:145
+#: actions/deleteuser.php:147 actions/groupblock.php:178
 msgid "No"
 msgstr "Nej"
 
-#: actions/block.php:149
+#: actions/block.php:143 actions/deleteuser.php:147
 #, fuzzy
 msgid "Do not block this user"
 msgstr "Ingen sådan användare"
 
-#: actions/block.php:150 actions/deletenotice.php:146
-#: actions/groupblock.php:179
+#: actions/block.php:144 actions/deletenotice.php:146
+#: actions/deleteuser.php:148 actions/groupblock.php:179
 msgid "Yes"
 msgstr "Ja"
 
-#: actions/block.php:150 actions/groupmembers.php:346 lib/blockform.php:123
-#: lib/blockform.php:153
+#: actions/block.php:144 actions/groupmembers.php:346 lib/blockform.php:80
 #, fuzzy
 msgid "Block this user"
 msgstr "Ingen sådan användare"
 
-#: actions/block.php:165
-#, fuzzy
-msgid "You have already blocked this user."
-msgstr "Du prenumererar redan på dessa användare:"
-
-#: actions/block.php:170
+#: actions/block.php:162
 msgid "Failed to save block information."
 msgstr ""
 
@@ -792,6 +777,15 @@ msgstr "Inlägg"
 msgid "No such notice."
 msgstr "Inget sådant inlägg."
 
+#: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
+#: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
+#: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
+#: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
+#: actions/unsubscribe.php:52 lib/adminpanelaction.php:72
+#: lib/profileformaction.php:63 lib/settingsaction.php:72
+msgid "Not logged in."
+msgstr "Inte inloggad."
+
 #: actions/deletenotice.php:71
 msgid "Can't delete this notice."
 msgstr "Kan inte ta bort detta inlägg."
@@ -827,6 +821,145 @@ msgstr "Ta bort inlägg"
 #, fuzzy
 msgid "There was a problem with your session token.  Try again, please."
 msgstr "Det var något problem med din session. Försök igen, tack."
+
+#: actions/deleteuser.php:67
+#, fuzzy
+msgid "You cannot delete users."
+msgstr "Kunde inte uppdatera användare."
+
+#: actions/deleteuser.php:74
+#, fuzzy
+msgid "You can only delete local users."
+msgstr "Du kan inte tabort nån annan användares status."
+
+#: actions/deleteuser.php:110 actions/deleteuser.php:133
+#, fuzzy
+msgid "Delete user"
+msgstr "Ta bort"
+
+#: actions/deleteuser.php:135
+msgid ""
+"Are you sure you want to delete this user? This will clear all data about "
+"the user from the database, without a backup."
+msgstr ""
+
+#: actions/deleteuser.php:148 lib/deleteuserform.php:77
+#, fuzzy
+msgid "Delete this user"
+msgstr "Ta bort inlägg"
+
+#: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
+#: lib/adminpanelaction.php:275 lib/groupnav.php:119
+msgid "Design"
+msgstr ""
+
+#: actions/designadminpanel.php:73
+msgid "Design settings for this StatusNet site."
+msgstr ""
+
+#: actions/designadminpanel.php:220
+#, fuzzy
+msgid "Unable to delete design setting."
+msgstr "Kunde inte spara dina Twitter inställningar!"
+
+#: actions/designadminpanel.php:301
+#, fuzzy, php-format
+msgid "Theme not available: %s"
+msgstr "Denna sida är inte tillgänglig i den mediatyp du accepterat"
+
+#: actions/designadminpanel.php:406
+#, fuzzy
+msgid "Change theme"
+msgstr "Ändra"
+
+#: actions/designadminpanel.php:410
+msgid "Theme"
+msgstr ""
+
+#: actions/designadminpanel.php:411
+msgid "Theme for the site."
+msgstr ""
+
+#: actions/designadminpanel.php:420 lib/designsettings.php:101
+msgid "Change background image"
+msgstr ""
+
+#: actions/designadminpanel.php:424 actions/designadminpanel.php:498
+#: lib/designsettings.php:178
+msgid "Background"
+msgstr ""
+
+#: actions/designadminpanel.php:429
+#, fuzzy, php-format
+msgid ""
+"You can upload a background image for the site. The maximum file size is %1"
+"$s."
+msgstr "Du kan uppdatera din personliga profil här"
+
+#: actions/designadminpanel.php:459 lib/designsettings.php:139
+msgid "On"
+msgstr ""
+
+#: actions/designadminpanel.php:475 lib/designsettings.php:155
+msgid "Off"
+msgstr ""
+
+#: actions/designadminpanel.php:476 lib/designsettings.php:156
+msgid "Turn background image on or off."
+msgstr ""
+
+#: actions/designadminpanel.php:481 lib/designsettings.php:161
+msgid "Tile background image"
+msgstr ""
+
+#: actions/designadminpanel.php:490 lib/designsettings.php:170
+#, fuzzy
+msgid "Change colours"
+msgstr "Ändra ditt lösenord"
+
+#: actions/designadminpanel.php:511 lib/designsettings.php:191
+#, fuzzy
+msgid "Content"
+msgstr "Anslut"
+
+#: actions/designadminpanel.php:524 lib/designsettings.php:204
+#, fuzzy
+msgid "Sidebar"
+msgstr "Sök"
+
+#: actions/designadminpanel.php:537 lib/designsettings.php:217
+msgid "Text"
+msgstr "Text"
+
+#: actions/designadminpanel.php:550 lib/designsettings.php:230
+#, fuzzy
+msgid "Links"
+msgstr "Logga in"
+
+#: actions/designadminpanel.php:611 lib/designsettings.php:247
+msgid "Use defaults"
+msgstr ""
+
+#: actions/designadminpanel.php:612 lib/designsettings.php:248
+msgid "Restore default designs"
+msgstr ""
+
+#: actions/designadminpanel.php:618 lib/designsettings.php:254
+msgid "Reset back to default"
+msgstr ""
+
+#: actions/designadminpanel.php:620 actions/emailsettings.php:195
+#: actions/imsettings.php:163 actions/othersettings.php:126
+#: actions/profilesettings.php:167 actions/siteadminpanel.php:371
+#: actions/smssettings.php:181 actions/subscriptions.php:203
+#: actions/tagother.php:154 actions/useradminpanel.php:226
+#: lib/designsettings.php:256 lib/groupeditform.php:202
+msgid "Save"
+msgstr "Spara"
+
+#: actions/designadminpanel.php:621 lib/designsettings.php:257
+msgid "Save design"
+msgstr ""
 
 #: actions/disfavor.php:81
 msgid "This notice is not a favorite!"
@@ -976,14 +1109,6 @@ msgstr "Jag vill posta inlägg via min email."
 msgid "Publish a MicroID for my email address."
 msgstr "Publicera ett MicroID för min emailadress."
 
-#: actions/emailsettings.php:195 actions/imsettings.php:163
-#: actions/othersettings.php:126 actions/profilesettings.php:167
-#: actions/smssettings.php:181 actions/subscriptions.php:203
-#: actions/tagother.php:154 lib/designsettings.php:256
-#: lib/groupeditform.php:202
-msgid "Save"
-msgstr "Spara"
-
 #: actions/emailsettings.php:301 actions/imsettings.php:264
 #: actions/othersettings.php:180 actions/smssettings.php:284
 msgid "Preferences saved."
@@ -997,7 +1122,7 @@ msgstr "Ingen emailadress."
 msgid "Cannot normalize that email address"
 msgstr "Kan inte normalisera den emailadressen"
 
-#: actions/emailsettings.php:330
+#: actions/emailsettings.php:330 actions/siteadminpanel.php:156
 msgid "Not a valid email address"
 msgstr "Ingen giltig emailadress"
 
@@ -1202,6 +1327,20 @@ msgstr "Inget sådant inlägg."
 msgid "Cannot read file."
 msgstr "Inget sådant inlägg."
 
+#: actions/groupblock.php:71 actions/groupunblock.php:71
+#: actions/makeadmin.php:71 actions/subedit.php:46
+#: lib/profileformaction.php:70
+#, fuzzy
+msgid "No profile specified."
+msgstr "Ingen mottagare tillagd."
+
+#: actions/groupblock.php:76 actions/groupunblock.php:76
+#: actions/makeadmin.php:76 actions/subedit.php:53 actions/tagother.php:46
+#: lib/profileformaction.php:77
+#, fuzzy
+msgid "No profile with that ID."
+msgstr "Ingen status hittad med det ID"
+
 #: actions/groupblock.php:81 actions/groupunblock.php:81
 #: actions/makeadmin.php:81
 #, fuzzy
@@ -1324,11 +1463,11 @@ msgstr ""
 msgid "A list of the users in this group."
 msgstr ""
 
-#: actions/groupmembers.php:175 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:439 lib/groupnav.php:107
 msgid "Admin"
 msgstr ""
 
-#: actions/groupmembers.php:346 lib/blockform.php:153
+#: actions/groupmembers.php:346 lib/blockform.php:69
 msgid "Block"
 msgstr ""
 
@@ -1418,7 +1557,7 @@ msgstr ""
 msgid "User is not blocked from group."
 msgstr "Användaren har ingen profil."
 
-#: actions/groupunblock.php:128 actions/unblock.php:108
+#: actions/groupunblock.php:128 actions/unblock.php:77
 #, fuzzy
 msgid "Error removing the block."
 msgstr "Fel uppstog när användaren skulle sparas."
@@ -1731,7 +1870,7 @@ msgstr "Felaktigt användarnamn eller lösenord."
 msgid "Error setting user."
 msgstr "Fel uppstog i användarens inställning"
 
-#: actions/login.php:204 actions/login.php:257 lib/action.php:453
+#: actions/login.php:204 actions/login.php:257 lib/action.php:457
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Logga in"
@@ -2157,7 +2296,7 @@ msgid ""
 "Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
 msgstr ""
 
-#: actions/profilesettings.php:144
+#: actions/profilesettings.php:144 actions/siteadminpanel.php:275
 msgid "Language"
 msgstr "Språk"
 
@@ -2185,7 +2324,7 @@ msgstr ""
 msgid "Bio is too long (max %d chars)."
 msgstr "Biografin är för lång (max 140 tecken)"
 
-#: actions/profilesettings.php:228
+#: actions/profilesettings.php:228 actions/siteadminpanel.php:163
 msgid "Timezone not selected."
 msgstr "Du har inte valt tidszon"
 
@@ -2211,7 +2350,7 @@ msgstr "Kunde inte spara profil."
 msgid "Couldn't save tags."
 msgstr "Kunde inte spara profil."
 
-#: actions/profilesettings.php:344
+#: actions/profilesettings.php:344 lib/adminpanelaction.php:126
 msgid "Settings saved."
 msgstr "Inställningar sparade."
 
@@ -2448,7 +2587,7 @@ msgstr "Fel uppstog med bekräftelsekoden."
 msgid "Registration successful"
 msgstr "Registreringen är genomförd"
 
-#: actions/register.php:114 actions/register.php:502 lib/action.php:450
+#: actions/register.php:114 actions/register.php:502 lib/action.php:454
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Registrera"
@@ -2494,7 +2633,7 @@ msgid "Same as password above. Required."
 msgstr "Samma som lösenordet ovan. Måste fyllas i."
 
 #: actions/register.php:437 actions/register.php:441
-#: lib/accountsettingsaction.php:120
+#: actions/siteadminpanel.php:253 lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr "Epost"
 
@@ -2603,7 +2742,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "URL till din profil på en annan kompatibel mikroblogg"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:321
+#: lib/userprofile.php:356
 msgid "Subscribe"
 msgstr "Prenumerera"
 
@@ -2677,6 +2816,16 @@ msgstr ""
 #, fuzzy, php-format
 msgid "Replies to %1$s on %2$s!"
 msgstr "Meddelande till %1$s på %2$s"
+
+#: actions/sandbox.php:65 actions/unsandbox.php:65
+#, fuzzy
+msgid "You cannot sandbox users on this site."
+msgstr "Du kan inte skicka meddelande till den användaren."
+
+#: actions/sandbox.php:72
+#, fuzzy
+msgid "User is already sandboxed."
+msgstr "Användaren har ingen profil."
 
 #: actions/showfavorites.php:79
 #, fuzzy, php-format
@@ -2920,6 +3069,145 @@ msgid ""
 "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
 "[StatusNet](http://status.net/) tool. "
 msgstr ""
+
+#: actions/silence.php:65 actions/unsilence.php:65
+#, fuzzy
+msgid "You cannot silence users on this site."
+msgstr "Du kan inte skicka meddelande till den användaren."
+
+#: actions/silence.php:72
+#, fuzzy
+msgid "User is already silenced."
+msgstr "Användaren har ingen profil."
+
+#: actions/siteadminpanel.php:58 lib/adminpanelaction.php:272
+#, fuzzy
+msgid "Site"
+msgstr "Bjud in"
+
+#: actions/siteadminpanel.php:69
+msgid "Basic settings for this StatusNet site."
+msgstr ""
+
+#: actions/siteadminpanel.php:145
+msgid "Site name must have non-zero length."
+msgstr ""
+
+#: actions/siteadminpanel.php:153
+#, fuzzy
+msgid "You must have a valid contact email address"
+msgstr "Ingen giltig emailadress"
+
+#: actions/siteadminpanel.php:171
+#, php-format
+msgid "Unknown language \"%s\""
+msgstr ""
+
+#: actions/siteadminpanel.php:178
+msgid "Invalid snapshot report URL."
+msgstr ""
+
+#: actions/siteadminpanel.php:184
+msgid "Invalid snapshot run value."
+msgstr ""
+
+#: actions/siteadminpanel.php:190
+msgid "Snapshot frequency must be a number."
+msgstr ""
+
+#: actions/siteadminpanel.php:241
+#, fuzzy
+msgid "Site name"
+msgstr "Nytt inlägg"
+
+#: actions/siteadminpanel.php:242
+msgid "The name of your site, like \"Yourcompany Microblog\""
+msgstr ""
+
+#: actions/siteadminpanel.php:245
+msgid "Brought by"
+msgstr ""
+
+#: actions/siteadminpanel.php:246
+msgid "Text used for credits link in footer of each page"
+msgstr ""
+
+#: actions/siteadminpanel.php:249
+msgid "Brought by URL"
+msgstr ""
+
+#: actions/siteadminpanel.php:250
+msgid "URL used for credits link in footer of each page"
+msgstr ""
+
+#: actions/siteadminpanel.php:254
+#, fuzzy
+msgid "contact email address for your site"
+msgstr "Ny emailadress för att skicka till %s"
+
+#: actions/siteadminpanel.php:268
+msgid "Default timezone"
+msgstr ""
+
+#: actions/siteadminpanel.php:269
+msgid "Default timezone for the site; usually UTC."
+msgstr ""
+
+#: actions/siteadminpanel.php:276
+#, fuzzy
+msgid "Default site language"
+msgstr "Språkval"
+
+#: actions/siteadminpanel.php:282
+#, fuzzy
+msgid "Private"
+msgstr "Sekretesspolicy"
+
+#: actions/siteadminpanel.php:284
+msgid "Prohibit anonymous users (not logged in) from viewing site?"
+msgstr ""
+
+#: actions/siteadminpanel.php:290
+msgid "Randomly during Web hit"
+msgstr ""
+
+#: actions/siteadminpanel.php:291
+msgid "In a scheduled job"
+msgstr ""
+
+#: actions/siteadminpanel.php:292
+#, fuzzy
+msgid "Never"
+msgstr "Återställ"
+
+#: actions/siteadminpanel.php:294
+msgid "Data snapshots"
+msgstr ""
+
+#: actions/siteadminpanel.php:295
+msgid "When to send statistical data to status.net servers"
+msgstr ""
+
+#: actions/siteadminpanel.php:301
+msgid "Frequency"
+msgstr ""
+
+#: actions/siteadminpanel.php:302
+msgid "Snapshots will be sent once every N Web hits"
+msgstr ""
+
+#: actions/siteadminpanel.php:309
+msgid "Report URL"
+msgstr ""
+
+#: actions/siteadminpanel.php:310
+msgid "Snapshots will be sent to this URL"
+msgstr ""
+
+#: actions/siteadminpanel.php:371 actions/useradminpanel.php:226
+#, fuzzy
+msgid "Save site settings"
+msgstr "Twitter inställningar"
 
 #: actions/smssettings.php:58
 msgid "SMS Settings"
@@ -3202,6 +3490,21 @@ msgstr "Inget sådant meddelande."
 msgid "API method under construction."
 msgstr "API-metoden är under uppbyggnad."
 
+#: actions/unblock.php:59
+#, fuzzy
+msgid "You haven't blocked that user."
+msgstr "Du prenumererar redan på dessa användare:"
+
+#: actions/unsandbox.php:72
+#, fuzzy
+msgid "User is not sandboxed."
+msgstr "Användaren har ingen profil."
+
+#: actions/unsilence.php:72
+#, fuzzy
+msgid "User is not silenced."
+msgstr "Användaren har ingen profil."
+
 #: actions/unsubscribe.php:77
 #, fuzzy
 msgid "No profile id in request."
@@ -3220,6 +3523,32 @@ msgstr "Lämnar pren."
 #: actions/updateprofile.php:62 actions/userauthorization.php:330
 #, php-format
 msgid "Listenee stream license ‘%s’ is not compatible with site license ‘%s’."
+msgstr ""
+
+#: actions/useradminpanel.php:58 lib/personalgroupnav.php:115
+msgid "User"
+msgstr ""
+
+#: actions/useradminpanel.php:69
+msgid "User settings for this StatusNet site."
+msgstr ""
+
+#: actions/useradminpanel.php:171
+#, fuzzy
+msgid "Closed"
+msgstr "Ingen sådan användare"
+
+#: actions/useradminpanel.php:173
+msgid "Is registration on this site prohibited?"
+msgstr ""
+
+#: actions/useradminpanel.php:178
+#, fuzzy
+msgid "Invite-only"
+msgstr "Bjud in"
+
+#: actions/useradminpanel.php:180
+msgid "Is registration on this site only open to invited users?"
 msgstr ""
 
 #: actions/userauthorization.php:105
@@ -3383,11 +3712,15 @@ msgstr ""
 msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
 
-#: classes/Message.php:55
+#: classes/Message.php:45
+msgid "You are banned from sending direct messages."
+msgstr ""
+
+#: classes/Message.php:61
 msgid "Could not insert message."
 msgstr ""
 
-#: classes/Message.php:65
+#: classes/Message.php:71
 msgid "Could not update message with new URI."
 msgstr ""
 
@@ -3417,15 +3750,15 @@ msgid ""
 "few minutes."
 msgstr ""
 
-#: classes/Notice.php:202
+#: classes/Notice.php:200
 msgid "You are banned from posting notices on this site."
 msgstr ""
 
-#: classes/Notice.php:268 classes/Notice.php:293
+#: classes/Notice.php:265 classes/Notice.php:290
 msgid "Problem saving notice."
 msgstr "Det var ett problem när inlägget sparades."
 
-#: classes/Notice.php:1120
+#: classes/Notice.php:1117
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Databasfel för svar: %s"
@@ -3455,10 +3788,6 @@ msgstr "Ändra ditt lösenord"
 #: lib/accountsettingsaction.php:120
 msgid "Change email handling"
 msgstr "Ändra email hantering"
-
-#: lib/accountsettingsaction.php:124 lib/groupnav.php:119
-msgid "Design"
-msgstr ""
 
 #: lib/accountsettingsaction.php:124
 #, fuzzy
@@ -3513,103 +3842,108 @@ msgstr "Anslut"
 msgid "Connect to services"
 msgstr "Kunde inte skicka vidare till servern: %s"
 
-#: lib/action.php:439 lib/subgroupnav.php:105
+#: lib/action.php:439
+#, fuzzy
+msgid "Change site configuration"
+msgstr "Prenumerationer"
+
+#: lib/action.php:443 lib/subgroupnav.php:105
 msgid "Invite"
 msgstr "Bjud in"
 
-#: lib/action.php:440 lib/subgroupnav.php:106
+#: lib/action.php:444 lib/subgroupnav.php:106
 #, fuzzy, php-format
 msgid "Invite friends and colleagues to join you on %s"
 msgstr ""
 "Använd detta formulär för att bjuda in dina vänner och kollegor till denna "
 "sida."
 
-#: lib/action.php:445
+#: lib/action.php:449
 msgid "Logout"
 msgstr "Logga ut"
 
-#: lib/action.php:445
+#: lib/action.php:449
 msgid "Logout from the site"
 msgstr ""
 
-#: lib/action.php:450
+#: lib/action.php:454
 #, fuzzy
 msgid "Create an account"
 msgstr "Skapa ett nytt konto"
 
-#: lib/action.php:453
+#: lib/action.php:457
 msgid "Login to the site"
 msgstr ""
 
-#: lib/action.php:456 lib/action.php:719
+#: lib/action.php:460 lib/action.php:723
 msgid "Help"
 msgstr "Hjälp"
 
-#: lib/action.php:456
+#: lib/action.php:460
 #, fuzzy
 msgid "Help me!"
 msgstr "Hjälp"
 
-#: lib/action.php:459
+#: lib/action.php:463
 msgid "Search"
 msgstr "Sök"
 
-#: lib/action.php:459
+#: lib/action.php:463
 msgid "Search for people or text"
 msgstr ""
 
-#: lib/action.php:480
+#: lib/action.php:484
 #, fuzzy
 msgid "Site notice"
 msgstr "Nytt inlägg"
 
-#: lib/action.php:546
+#: lib/action.php:550
 msgid "Local views"
 msgstr ""
 
-#: lib/action.php:612
+#: lib/action.php:616
 #, fuzzy
 msgid "Page notice"
 msgstr "Nytt inlägg"
 
-#: lib/action.php:714
+#: lib/action.php:718
 #, fuzzy
 msgid "Secondary site navigation"
 msgstr "Prenumerationer"
 
-#: lib/action.php:721
+#: lib/action.php:725
 msgid "About"
 msgstr "Om"
 
-#: lib/action.php:723
+#: lib/action.php:727
 msgid "FAQ"
 msgstr "Frågor & svar"
 
-#: lib/action.php:727
+#: lib/action.php:731
 msgid "TOS"
 msgstr ""
 
-#: lib/action.php:730
+#: lib/action.php:734
 msgid "Privacy"
 msgstr "Sekretesspolicy"
 
-#: lib/action.php:732
+#: lib/action.php:736
 msgid "Source"
 msgstr "Källa"
 
-#: lib/action.php:734
+#: lib/action.php:738
 msgid "Contact"
 msgstr "Kontakta"
 
-#: lib/action.php:736
+#: lib/action.php:740
 msgid "Badge"
 msgstr ""
 
-#: lib/action.php:764
+#: lib/action.php:768
 msgid "StatusNet software license"
 msgstr ""
 
-#: lib/action.php:767
+#: lib/action.php:771
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -3618,12 +3952,12 @@ msgstr ""
 "**%%site.name%%** är en mikroblogg service för dig ifrån [%%site.broughtby%%]"
 "(%%site.broughtbyurl%%)"
 
-#: lib/action.php:769
+#: lib/action.php:773
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** är en mikroblogg service."
 
-#: lib/action.php:771
+#: lib/action.php:775
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -3634,37 +3968,60 @@ msgstr ""
 "version %s, tillgängligt under [GNU Affero General Public License](http://"
 "www.fsf.org/licensing/licenses/agpl-3.0.html)."
 
-#: lib/action.php:785
+#: lib/action.php:789
 #, fuzzy
 msgid "Site content license"
 msgstr "Sök innehåll i inlägg"
 
-#: lib/action.php:794
+#: lib/action.php:798
 msgid "All "
 msgstr ""
 
-#: lib/action.php:799
+#: lib/action.php:803
 msgid "license."
 msgstr ""
 
-#: lib/action.php:1052
+#: lib/action.php:1067
 msgid "Pagination"
 msgstr ""
 
-#: lib/action.php:1061
+#: lib/action.php:1076
 #, fuzzy
 msgid "After"
 msgstr "« Nyare"
 
-#: lib/action.php:1069
+#: lib/action.php:1084
 #, fuzzy
 msgid "Before"
 msgstr "Tidigare »"
 
-#: lib/action.php:1117
+#: lib/action.php:1132
 #, fuzzy
 msgid "There was a problem with your session token."
 msgstr "Det var något problem med din session. Försök igen, tack."
+
+#: lib/adminpanelaction.php:96
+#, fuzzy
+msgid "You cannot make changes to this site."
+msgstr "Du kan inte skicka meddelande till den användaren."
+
+#: lib/adminpanelaction.php:195
+msgid "showForm() not implemented."
+msgstr ""
+
+#: lib/adminpanelaction.php:224
+msgid "saveSettings() not implemented."
+msgstr ""
+
+#: lib/adminpanelaction.php:273
+#, fuzzy
+msgid "Basic site configuration"
+msgstr "Bekräfta epostadress"
+
+#: lib/adminpanelaction.php:276
+#, fuzzy
+msgid "Design configuration"
+msgstr "SMS Bekräftelse"
 
 #: lib/attachmentlist.php:87
 msgid "Attachments"
@@ -3841,30 +4198,36 @@ msgstr "Du skickade inte oss den profilen"
 
 #: lib/command.php:620
 #, fuzzy
-msgid "You are subscribed to these people: "
-msgstr "Du skickade inte oss den profilen"
+msgid "You are subscribed to this person:"
+msgid_plural "You are subscribed to these people:"
+msgstr[0] "Du skickade inte oss den profilen"
+msgstr[1] "Du skickade inte oss den profilen"
 
-#: lib/command.php:637
+#: lib/command.php:640
 #, fuzzy
 msgid "No one is subscribed to you."
 msgstr "Kunde inte prenumerera på annat åt dig."
 
-#: lib/command.php:639
+#: lib/command.php:642
 #, fuzzy
-msgid "These people are subscribed to you: "
-msgstr "Fjärrprenumerera"
+msgid "This person is subscribed to you:"
+msgid_plural "These people are subscribed to you:"
+msgstr[0] "Kunde inte prenumerera på annat åt dig."
+msgstr[1] "Kunde inte prenumerera på annat åt dig."
 
-#: lib/command.php:656
+#: lib/command.php:662
 #, fuzzy
 msgid "You are not a member of any groups."
 msgstr "Du skickade inte oss den profilen"
 
-#: lib/command.php:658
+#: lib/command.php:664
 #, fuzzy
-msgid "You are a member of these groups: "
-msgstr "Du skickade inte oss den profilen"
+msgid "You are a member of this group:"
+msgid_plural "You are a member of these groups:"
+msgstr[0] "Du skickade inte oss den profilen"
+msgstr[1] "Du skickade inte oss den profilen"
 
-#: lib/command.php:670
+#: lib/command.php:678
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -3903,20 +4266,20 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:192
+#: lib/common.php:203
 #, fuzzy
 msgid "No configuration file found. "
 msgstr "Ingen bekräftelsekod."
 
-#: lib/common.php:193
+#: lib/common.php:204
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:194
+#: lib/common.php:205
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:195
+#: lib/common.php:206
 msgid "Go to the installer."
 msgstr ""
 
@@ -3936,10 +4299,6 @@ msgstr "Uppdateringar via SMS"
 msgid "Database error"
 msgstr ""
 
-#: lib/designsettings.php:101
-msgid "Change background image"
-msgstr ""
-
 #: lib/designsettings.php:105
 #, fuzzy
 msgid "Upload file"
@@ -3948,66 +4307,6 @@ msgstr "Ladda upp"
 #: lib/designsettings.php:109
 msgid ""
 "You can upload your personal background image. The maximum file size is 2Mb."
-msgstr ""
-
-#: lib/designsettings.php:139
-msgid "On"
-msgstr ""
-
-#: lib/designsettings.php:155
-msgid "Off"
-msgstr ""
-
-#: lib/designsettings.php:156
-msgid "Turn background image on or off."
-msgstr ""
-
-#: lib/designsettings.php:161
-msgid "Tile background image"
-msgstr ""
-
-#: lib/designsettings.php:170
-#, fuzzy
-msgid "Change colours"
-msgstr "Ändra ditt lösenord"
-
-#: lib/designsettings.php:178
-msgid "Background"
-msgstr ""
-
-#: lib/designsettings.php:191
-#, fuzzy
-msgid "Content"
-msgstr "Anslut"
-
-#: lib/designsettings.php:204
-#, fuzzy
-msgid "Sidebar"
-msgstr "Sök"
-
-#: lib/designsettings.php:217
-msgid "Text"
-msgstr "Text"
-
-#: lib/designsettings.php:230
-#, fuzzy
-msgid "Links"
-msgstr "Logga in"
-
-#: lib/designsettings.php:247
-msgid "Use defaults"
-msgstr ""
-
-#: lib/designsettings.php:248
-msgid "Restore default designs"
-msgstr ""
-
-#: lib/designsettings.php:254
-msgid "Reset back to default"
-msgstr ""
-
-#: lib/designsettings.php:257
-msgid "Save design"
 msgstr ""
 
 #: lib/designsettings.php:372
@@ -4253,12 +4552,12 @@ msgid ""
 "%s\n"
 msgstr ""
 
-#: lib/mail.php:235
+#: lib/mail.php:236
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
 msgstr "%1$s lyssnar nu på dina meddelanden i %2$s."
 
-#: lib/mail.php:240
+#: lib/mail.php:241
 #, fuzzy, php-format
 msgid ""
 "%1$s is now listening to your notices on %2$s.\n"
@@ -4277,29 +4576,29 @@ msgstr ""
 "\tHälsningar,\n"
 "%4$s.\n"
 
-#: lib/mail.php:253
+#: lib/mail.php:254
 #, fuzzy, php-format
 msgid "Location: %s\n"
 msgstr "Plats: %s\n"
 
-#: lib/mail.php:255
+#: lib/mail.php:256
 #, fuzzy, php-format
 msgid "Homepage: %s\n"
 msgstr "Hemsida: %s\n"
 
-#: lib/mail.php:257
+#: lib/mail.php:258
 #, php-format
 msgid ""
 "Bio: %s\n"
 "\n"
 msgstr ""
 
-#: lib/mail.php:285
+#: lib/mail.php:286
 #, php-format
 msgid "New email address for posting to %s"
 msgstr "Ny emailadress för att skicka till %s"
 
-#: lib/mail.php:288
+#: lib/mail.php:289
 #, php-format
 msgid ""
 "You have a new posting address on %1$s.\n"
@@ -4320,21 +4619,21 @@ msgstr ""
 "Mvh,\n"
 "%4$s"
 
-#: lib/mail.php:412
+#: lib/mail.php:413
 #, php-format
 msgid "%s status"
 msgstr "%s status"
 
-#: lib/mail.php:438
+#: lib/mail.php:439
 msgid "SMS confirmation"
 msgstr "SMS Bekräftelse"
 
-#: lib/mail.php:462
+#: lib/mail.php:463
 #, fuzzy, php-format
 msgid "You've been nudged by %s"
 msgstr "Du är identifierad. Skriv in"
 
-#: lib/mail.php:466
+#: lib/mail.php:467
 #, php-format
 msgid ""
 "%1$s (%2$s) is wondering what you are up to these days and is inviting you "
@@ -4350,12 +4649,12 @@ msgid ""
 "%4$s\n"
 msgstr ""
 
-#: lib/mail.php:509
+#: lib/mail.php:510
 #, php-format
 msgid "New private message from %s"
 msgstr ""
 
-#: lib/mail.php:513
+#: lib/mail.php:514
 #, php-format
 msgid ""
 "%1$s (%2$s) sent you a private message:\n"
@@ -4374,12 +4673,12 @@ msgid ""
 "%5$s\n"
 msgstr ""
 
-#: lib/mail.php:554
+#: lib/mail.php:559
 #, fuzzy, php-format
 msgid "%s (@%s) added your notice as a favorite"
 msgstr "%s la till ditt inlägg som favorit"
 
-#: lib/mail.php:556
+#: lib/mail.php:561
 #, php-format
 msgid ""
 "%1$s (@%7$s) just added your notice from %2$s as one of their favorites.\n"
@@ -4400,12 +4699,12 @@ msgid ""
 "%6$s\n"
 msgstr ""
 
-#: lib/mail.php:611
+#: lib/mail.php:620
 #, php-format
 msgid "%s (@%s) sent a notice to your attention"
 msgstr ""
 
-#: lib/mail.php:613
+#: lib/mail.php:622
 #, php-format
 msgid ""
 "%1$s (@%9$s) just sent a notice to your attention (an '@-reply') on %2$s.\n"
@@ -4549,7 +4848,11 @@ msgstr "Fel uppstog när fjärrprofilen skulle läggas till"
 msgid "Duplicate notice"
 msgstr "Tabort inlägg"
 
-#: lib/oauthstore.php:487
+#: lib/oauthstore.php:466 lib/subs.php:48
+msgid "You have been banned from subscribing."
+msgstr ""
+
+#: lib/oauthstore.php:491
 msgid "Couldn't insert new subscription."
 msgstr "Kunde inte lägga till ny prenumeration."
 
@@ -4563,10 +4866,6 @@ msgstr "Svar"
 
 #: lib/personalgroupnav.php:114
 msgid "Favorites"
-msgstr ""
-
-#: lib/personalgroupnav.php:115
-msgid "User"
 msgstr ""
 
 #: lib/personalgroupnav.php:124
@@ -4619,6 +4918,15 @@ msgstr "Medlem sedan"
 msgid "All groups"
 msgstr ""
 
+#: lib/profileformaction.php:123
+#, fuzzy
+msgid "No return-to arguments"
+msgstr "Inget sådant dokument."
+
+#: lib/profileformaction.php:137
+msgid "unimplemented method"
+msgstr ""
+
 #: lib/publicgroupnav.php:78
 msgid "Public"
 msgstr "Publik"
@@ -4640,6 +4948,15 @@ msgstr ""
 #, fuzzy
 msgid "Popular"
 msgstr "Personer"
+
+#: lib/sandboxform.php:67
+msgid "Sandbox"
+msgstr ""
+
+#: lib/sandboxform.php:78
+#, fuzzy
+msgid "Sandbox this user"
+msgstr "Ingen sådan användare"
 
 #: lib/searchaction.php:120
 #, fuzzy
@@ -4681,6 +4998,16 @@ msgstr ""
 msgid "More..."
 msgstr ""
 
+#: lib/silenceform.php:67
+#, fuzzy
+msgid "Silence"
+msgstr "Nytt inlägg"
+
+#: lib/silenceform.php:78
+#, fuzzy
+msgid "Silence this user"
+msgstr "Ingen sådan användare"
+
 #: lib/subgroupnav.php:83
 #, fuzzy, php-format
 msgid "People %s subscribes to"
@@ -4710,29 +5037,29 @@ msgstr ""
 msgid "(none)"
 msgstr ""
 
-#: lib/subs.php:48
+#: lib/subs.php:52
 msgid "Already subscribed!"
 msgstr ""
 
-#: lib/subs.php:52
+#: lib/subs.php:56
 #, fuzzy
 msgid "User has blocked you."
 msgstr "Användaren har ingen profil."
 
-#: lib/subs.php:56
+#: lib/subs.php:60
 msgid "Could not subscribe."
 msgstr "Kunde inte prenumerera."
 
-#: lib/subs.php:75
+#: lib/subs.php:79
 msgid "Could not subscribe other to you."
 msgstr "Kunde inte prenumerera på annat åt dig."
 
-#: lib/subs.php:124
+#: lib/subs.php:128
 #, fuzzy
 msgid "Not subscribed!"
 msgstr "Ingen prenumerant!"
 
-#: lib/subs.php:136
+#: lib/subs.php:140
 msgid "Couldn't delete subscription."
 msgstr "Kunde inte radera prenumerationen. "
 
@@ -4744,6 +5071,29 @@ msgstr "Nej"
 #: lib/topposterssection.php:74
 msgid "Top posters"
 msgstr ""
+
+#: lib/unblockform.php:80
+#, fuzzy
+msgid "Unlock this user"
+msgstr "Ingen sådan användare"
+
+#: lib/unsandboxform.php:69
+msgid "Unsandbox"
+msgstr ""
+
+#: lib/unsandboxform.php:80
+#, fuzzy
+msgid "Unsandbox this user"
+msgstr "Ingen sådan användare"
+
+#: lib/unsilenceform.php:67
+msgid "Unsilence"
+msgstr ""
+
+#: lib/unsilenceform.php:78
+#, fuzzy
+msgid "Unsilence this user"
+msgstr "Ingen sådan användare"
 
 #: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
 msgid "Unsubscribe from this user"
@@ -4851,3 +5201,7 @@ msgstr "Ledsen, men det är inte din inkommande emailadress."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Ledsen, men inga inkommande email är tillåtna."
+
+#, fuzzy
+#~ msgid "These people are subscribed to you: "
+#~ msgstr "Fjärrprenumerera"

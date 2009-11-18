@@ -77,6 +77,6 @@ class UnblockForm extends ProfileActionForm
 
     function description()
     {
-        return _('Unlock this user');
+        return _('Unblock this user');
     }
 }
