@@ -208,6 +208,12 @@ RealtimeUpdate = {
             'left':'auto',
             'right':'0'
          });
+
+         $('.notices .entry-title a, .notices .entry-content a').bind('click', function() {
+            window.open(this.href, '');
+            
+            return false;
+         });
      }
 }
 
