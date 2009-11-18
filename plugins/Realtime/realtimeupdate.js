@@ -66,13 +66,6 @@ RealtimeUpdate = {
 
      receive: function(data)
      {
-          id = data.id;
-
-          // Don't add it if it already exists
-          if ($("#notice-"+id).length > 0) {
-               return;
-          }
-
           if (RealtimeUpdate._paused === false) {
               RealtimeUpdate.purgeLastNoticeItem();
 
@@ -88,6 +81,11 @@ RealtimeUpdate = {
      },
 
      insertNoticeItem: function(data) {
+        // Don't add it if it already exists
+        if ($("#notice-"+data.id).length > 0) {
+            return;
+        }
+
         var noticeItem = RealtimeUpdate.makeNoticeItem(data);
         $("#notices_primary .notices").prepend(noticeItem);
         $("#notices_primary .notice:first").css({display:"none"});
@@ -253,7 +251,7 @@ RealtimeUpdate = {
 
      updateQueuedCounter: function()
      {
-        QC = $('#realtime_playpause #queued_counter').html('('+RealtimeUpdate._queuedNotices.length+')');
+        $('#realtime_playpause #queued_counter').html('('+RealtimeUpdate._queuedNotices.length+')');
      },
 
      removeQueuedCounter: function()
