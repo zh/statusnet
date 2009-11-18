@@ -49,7 +49,7 @@ if (!defined('STATUSNET')) {
 
 class GeonamesPlugin extends Plugin
 {
-    const NAMESPACE = 1;
+    const LOCATION_NS = 1;
 
     /**
      * convert a name into a Location object
@@ -85,7 +85,7 @@ class GeonamesPlugin extends Plugin
                 $location->lon              = $n->lng;
                 $location->names[$language] = $n->name;
                 $location->location_id      = $n->geonameId;
-                $location->location_ns      = self::NAMESPACE;
+                $location->location_ns      = self::LOCATION_NS;
 
                 // handled, don't continue processing!
                 return false;
@@ -109,7 +109,7 @@ class GeonamesPlugin extends Plugin
 
     function onLocationFromId($id, $ns, $language, &$location)
     {
-        if ($ns != self::NAMESPACE) {
+        if ($ns != self::LOCATION_NS) {
             // It's not one of our IDs... keep processing
             return true;
         }
@@ -144,7 +144,7 @@ class GeonamesPlugin extends Plugin
                 $location = new Location();
 
                 $location->location_id      = $last->geonameId;
-                $location->location_ns      = self::NAMESPACE;
+                $location->location_ns      = self::LOCATION_NS;
                 $location->lat              = $last->lat;
                 $location->lon              = $last->lng;
                 $location->names[$language] = implode(', ', array_reverse($parts));
@@ -205,7 +205,7 @@ class GeonamesPlugin extends Plugin
                 }
 
                 $location->location_id = $n->geonameId;
-                $location->location_ns = self::NAMESPACE;
+                $location->location_ns = self::LOCATION_NS;
                 $location->lat         = $lat;
                 $location->lon         = $lon;
 
@@ -237,7 +237,7 @@ class GeonamesPlugin extends Plugin
 
     function onLocationNameLanguage($location, $language, &$name)
     {
-        if ($location->location_ns != self::NAMESPACE) {
+        if ($location->location_ns != self::LOCATION_NS) {
             // It's not one of our IDs... keep processing
             return true;
         }
@@ -292,7 +292,7 @@ class GeonamesPlugin extends Plugin
 
     function onLocationUrl($location, &$url)
     {
-        if ($location->location_ns != self::NAMESPACE) {
+        if ($location->location_ns != self::LOCATION_NS) {
             // It's not one of our IDs... keep processing
             return true;
         }

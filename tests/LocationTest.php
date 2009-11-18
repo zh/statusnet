@@ -48,8 +48,8 @@ class LocationTest extends PHPUnit_Framework_TestCase
 
     static public function locationIds()
     {
-        return array(array(6077243, GeonamesPlugin::NAMESPACE, 'en', null),
-                     array(5391959, GeonamesPlugin::NAMESPACE, 'en', null));
+        return array(array(6077243, GeonamesPlugin::LOCATION_NS, 'en', null),
+                     array(5391959, GeonamesPlugin::LOCATION_NS, 'en', null));
     }
 
     /**
