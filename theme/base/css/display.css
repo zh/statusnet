@@ -120,16 +120,21 @@ float:left;
 .form_settings .form_data textarea,
 .form_settings .form_data select,
 .form_settings .form_data input {
-margin-left:11px;
+margin-left:1.795%;
 float:left;
+width:39%;
 }
+.form_settings .form_data textarea {
+width:63%;
+}
+
 .form_settings .form_data input.submit {
 margin-left:0;
 }
 
 .form_settings label {
 margin-top:2px;
-width:152px;
+width:24%;
 }
 
 .form_actions label {
@@ -166,7 +171,7 @@ display:none;
 
 .form_settings .form_data p.form_guide {
 clear:both;
-margin-left:163px;
+margin-left:26%;
 margin-bottom:0;
 }
 
@@ -224,6 +229,10 @@ margin-left:29px;
 #form_search .submit {
 margin-left:11px;
 }
+#form_search .form_data input {
+width:auto;
+}
+
 
 address {
 float:left;
@@ -1340,6 +1349,7 @@ display:block;
 #settings_design_color .form_data .swatch {
 padding:11px;
 margin-left:0;
+width:auto;
 }
 
 .instructions ul {

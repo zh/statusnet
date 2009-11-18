@@ -83,6 +83,9 @@ function _sn_to_path($sn)
     return $p;
 }
 
+// Save our sanity when code gets loaded through subroutines such as PHPUnit tests
+global $default, $config, $_server, $_path;
+
 // try to figure out where we are. $server and $path
 // can be set by including module, else we guess based
 // on HTTP info.

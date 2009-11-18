@@ -174,7 +174,7 @@ class DesignAdminPanelForm extends Form
 
         $themes = array_combine($themes, $themes);
 
-        $this->out->elementStart('ul');
+        $this->out->elementStart('ul', 'form_data');
         $this->out->elementStart('li');
 
         $this->out->dropdown('theme', _('Theme'),
