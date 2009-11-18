@@ -34,6 +34,7 @@ RealtimeUpdate = {
      _favorurl: '',
      _deleteurl: '',
      _updatecounter: 0,
+     _windowhasfocus: false,
 
      init: function(userid, replyurl, favorurl, deleteurl)
      {
@@ -44,6 +45,8 @@ RealtimeUpdate = {
 
         DT = document.title;
 
+        $(window).bind('focus', function(){ RealtimeUpdate._windowhasfocus = true; });
+
         $(window).blur(function() {
           $('#notices_primary .notice').removeClass('mark-top');
 
@@ -51,6 +54,7 @@ RealtimeUpdate = {
 
           RealtimeUpdate._updatecounter = 0;
           document.title = DT;
+          RealtimeUpdate._windowhasfocus = false;
 
           return false;
         });
@@ -72,8 +76,10 @@ RealtimeUpdate = {
           SN.U.NoticeReply();
           SN.U.NoticeFavor();
 
-          RealtimeUpdate._updatecounter += 1;
-          document.title = '('+RealtimeUpdate._updatecounter+') ' + DT;
+          if (RealtimeUpdate._windowhasfocus === false) {
+              RealtimeUpdate._updatecounter += 1;
+              document.title = '('+RealtimeUpdate._updatecounter+') ' + DT;
+          }
      },
 
      makeNoticeItem: function(data)
