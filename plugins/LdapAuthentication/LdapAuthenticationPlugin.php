@@ -63,6 +63,8 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
         if(!isset($this->attributes['username'])){
             throw new Exception("must specify a username attribute");
         }
+        if($this->password_changeable && (! isset($this->attributes['password']) || !isset($this->password_encoding))){
+            throw new Exception("if password_changeable is set, the password attribute and password_encoding must also be specified");
     }
     
     //---interface implementation---//
