@@ -59,10 +59,6 @@ require_once('PEAR.php');
 require_once('DB/DataObject.php');
 require_once('DB/DataObject/Cast.php'); # for dates
 
-if (!function_exists('gettext')) {
-    require_once("php-gettext/gettext.inc");
-}
-
 require_once(INSTALLDIR.'/lib/language.php');
 
 // This gets included before the config file, so that admin code and plugins
