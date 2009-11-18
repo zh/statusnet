@@ -49,6 +49,7 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
     public $provider_name = null;
     public $uniqueMember_attribute = null;
     public $roles_to_groups = null;
+    public $login_group = null;
 
     function onInitializePlugin(){
         parent::onInitializePlugin();
@@ -77,8 +78,23 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
         if($user_username->find() && $user_username->fetch()){
             $entry = $this->ldap_get_user($user_username->username);
             if($entry){
-                //if a user exists, we can assume he's allowed to login
-                return true;
+                if(isset($this->login_group)){
+                    if(is_array($this->login_group)){
+                        foreach($this->login_group as $group){
+                            if($this->isMemberOfGroup($entry->dn(),$group)){
+                                return true;
+                            }
+                        }
+                    }else{
+                        if($this->isMemberOfGroup($entry->dn(),login_group)){
+                            return true;
+                        }
+                    }
+                    return null;
+                }else{
+                    //if a user exists, we can assume he's allowed to login
+                    return true;
+                }
             }else{
                 return null;
             }
