@@ -852,6 +852,12 @@ locale_path: full path to the directory for locale data. Unless you
 	     store all your locale data in one place, you probably
 	     don't need to use this.
 language: default language for your site. Defaults to US English.
+          Note that this is overridden if a user is logged in and has
+          selected a different language. It is also overridden if the
+          user is NOT logged in, but their browser requests a different
+          langauge. Since pretty much everybody's browser requests a
+          language, that means that changing this setting has little or
+          no effect in practice.
 languages: A list of languages supported on your site. Typically you'd
 	   only change this if you wanted to disable support for one
 	   or another language:

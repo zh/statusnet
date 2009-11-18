@@ -576,6 +576,6 @@ create table login_token (
     created timestamp not null DEFAULT CURRENT_TIMESTAMP /* comment 'date this record was created'*/,
     modified timestamp /* comment 'date this record was modified'*/,
 
-    constraint primary key (user_id)
+    primary key (user_id)
 );
 
