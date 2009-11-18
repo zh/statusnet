@@ -180,7 +180,7 @@ RealtimeUpdate = {
 
          RT.click(function() {
              window.open(url,
-                         timeline,
+                         '',
                          'toolbar=no,resizable=yes,scrollbars=yes,status=yes,width=500,height=550');
 
              return false;
