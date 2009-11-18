@@ -36,6 +36,7 @@ RealtimeUpdate = {
      _updatecounter: 0,
      _maxnotices: 50,
      _windowhasfocus: true,
+     _documenttitle: '',
 
      init: function(userid, replyurl, favorurl, deleteurl)
      {
@@ -44,7 +45,7 @@ RealtimeUpdate = {
         RealtimeUpdate._favorurl = favorurl;
         RealtimeUpdate._deleteurl = deleteurl;
 
-        DT = document.title;
+        RealtimeUpdate._documenttitle = document.title;
 
         $(window).bind('focus', function(){ RealtimeUpdate._windowhasfocus = true; });
 
@@ -54,7 +55,7 @@ RealtimeUpdate = {
           $('#notices_primary .notice:first').addClass('mark-top');
 
           RealtimeUpdate._updatecounter = 0;
-          document.title = DT;
+          document.title = RealtimeUpdate._documenttitle;
           RealtimeUpdate._windowhasfocus = false;
 
           return false;
@@ -70,24 +71,37 @@ RealtimeUpdate = {
                return;
           }
 
-          var noticeItem = RealtimeUpdate.makeNoticeItem(data);
-          $("#notices_primary .notices").prepend(noticeItem);
-          $("#notices_primary .notice:first").css({display:"none"});
-          $("#notices_primary .notice:first").fadeIn(1000);
+          RealtimeUpdate.purgeLastNoticeItem();
 
-          if ($('#notices_primary .notice').length > RealtimeUpdate._maxnotices) {
-               $("#notices_primary .notice:last .form_disfavor").unbind('submit');
-               $("#notices_primary .notice:last .form_favor").unbind('submit');
-               $("#notices_primary .notice:last .notice_reply").unbind('click');
-               $("#notices_primary .notice:last").remove();
-          }
+          RealtimeUpdate.insertNoticeItem(data);
 
-          SN.U.NoticeReply();
-          SN.U.NoticeFavor();
+          RealtimeUpdate.updateWindowCounter();
 
+     },
+
+     insertNoticeItem: function(data) {
+        var noticeItem = RealtimeUpdate.makeNoticeItem(data);
+        $("#notices_primary .notices").prepend(noticeItem);
+        $("#notices_primary .notice:first").css({display:"none"});
+        $("#notices_primary .notice:first").fadeIn(1000);
+
+        SN.U.NoticeReply();
+        SN.U.NoticeFavor();
+     },
+
+     purgeLastNoticeItem: function() {
+        if ($('#notices_primary .notice').length > RealtimeUpdate._maxnotices) {
+            $("#notices_primary .notice:last .form_disfavor").unbind('submit');
+            $("#notices_primary .notice:last .form_favor").unbind('submit');
+            $("#notices_primary .notice:last .notice_reply").unbind('click');
+            $("#notices_primary .notice:last").remove();
+        }
+     },
+
+     updateWindowCounter: function() {
           if (RealtimeUpdate._windowhasfocus === false) {
               RealtimeUpdate._updatecounter += 1;
-              document.title = '('+RealtimeUpdate._updatecounter+') ' + DT;
+              document.title = '('+RealtimeUpdate._updatecounter+') ' + RealtimeUpdate._documenttitle;
           }
      },
 
