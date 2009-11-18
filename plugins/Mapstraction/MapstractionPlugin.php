@@ -144,6 +144,9 @@ class MapstractionPlugin extends Plugin
                                 common_path('plugins/Mapstraction/js/mxn.js'),
                                 $this->provider));
 
+        $action->element('script', array('type' => 'text/javascript'),
+                         sprintf('var _provider = "%s";', $this->provider));
+
         return true;
     }
 }
