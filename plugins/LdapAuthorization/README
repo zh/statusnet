@@ -16,7 +16,7 @@ authoritative (false): should this plugin be authoritative for
     authorization?
 uniqueMember_attribute ('uniqueMember')*: the attribute of a group
     that lists the DNs of its members
-roles_to_groups*: array that maps StatusNet roles to LDAP groups
+roles_to_groups: array that maps StatusNet roles to LDAP groups
     some StatusNet roles are: moderator, administrator, sandboxed, silenced
 login_group: if this is set to a group DN, only members of that group will be
     allowed to login

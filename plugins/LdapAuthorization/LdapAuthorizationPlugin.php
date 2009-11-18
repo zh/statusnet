@@ -48,7 +48,7 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
     public $scope=null;
     public $provider_name = null;
     public $uniqueMember_attribute = null;
-    public $roles_to_groups = null;
+    public $roles_to_groups = array();
     public $login_group = null;
     public $attributes = array();
 
@@ -65,9 +65,6 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
         }
         if(!isset($this->uniqueMember_attribute)){
             throw new Exception("uniqueMember_attribute must be set.");
-        }
-        if(!isset($this->roles_to_groups)){
-            throw new Exception("roles_to_groups must be set.");
         }
         if(!isset($this->attributes['username'])){
             throw new Exception("username attribute must be set.");
