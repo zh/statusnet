@@ -35,7 +35,7 @@ RealtimeUpdate = {
      _deleteurl: '',
      _updatecounter: 0,
      _maxnotices: 50,
-     _windowhasfocus: false,
+     _windowhasfocus: true,
 
      init: function(userid, replyurl, favorurl, deleteurl)
      {
@@ -48,7 +48,7 @@ RealtimeUpdate = {
 
         $(window).bind('focus', function(){ RealtimeUpdate._windowhasfocus = true; });
 
-        $(window).blur(function() {
+        $(window).bind('blur', function() {
           $('#notices_primary .notice').removeClass('mark-top');
 
           $('#notices_primary .notice:first').addClass('mark-top');
