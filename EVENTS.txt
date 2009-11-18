@@ -535,6 +535,28 @@ StartChangePassword: Before changing a password
 EndChangePassword: After changing a password
 - $user: user
 
+StartSetUser: Before setting the currently logged in user
+- $user: user
+
+EndSetUser: After setting the currently logged in user
+- $user: user
+
+StartSetApiUser: Before setting the current API user
+- $user: user
+
+EndSetApiUser: After setting the current API user
+- $user: user
+
+StartHasRole: Before determing if the a profile has a given role
+- $profile: profile in question
+- $name: name of the role in question
+- &$has_role: does this profile have the named role?
+
+EndHasRole: Before determing if the a profile has a given role
+- $profile: profile in question
+- $name: name of the role in question
+- $has_role: does this profile have the named role?
+
 UserDeleteRelated: Specify additional tables to delete entries from when deleting users
 - $user: User object
 - &$related: array of DB_DataObject class names to delete entries on matching user_id.

@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Plugin to enable LDAP Authentication and Authorization
+ * Plugin to enable LDAP Authentication
  *
  * PHP version 5
  *
@@ -65,6 +65,7 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
         }
         if($this->password_changeable && (! isset($this->attributes['password']) || !isset($this->password_encoding))){
             throw new Exception("if password_changeable is set, the password attribute and password_encoding must also be specified");
+        }
     }
     
     //---interface implementation---//

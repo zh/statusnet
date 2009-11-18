@@ -594,9 +594,14 @@ class Profile extends Memcached_DataObject
 
     function hasRole($name)
     {
-        $role = Profile_role::pkeyGet(array('profile_id' => $this->id,
-                                            'role' => $name));
-        return (!empty($role));
+        $has_role = false;
+        if (Event::handle('StartHasRole', array($this, $name, &$has_role))) {
+            $role = Profile_role::pkeyGet(array('profile_id' => $this->id,
+                                                'role' => $name));
+            $has_role = !empty($role);
+            Event::handle('EndHasRole', array($this, $name, $has_role));
+        }
+        return $has_role;
     }
 
     function grantRole($name)

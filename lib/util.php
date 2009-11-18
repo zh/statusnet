@@ -196,10 +196,15 @@ function common_set_user($user)
     }
 
     if ($user) {
-        common_ensure_session();
-        $_SESSION['userid'] = $user->id;
-        $_cur = $user;
-        return $_cur;
+        if (Event::handle('StartSetUser', array(&$user))) {
+            if($user){
+                common_ensure_session();
+                $_SESSION['userid'] = $user->id;
+                $_cur = $user;
+                Event::handle('EndSetUser', array($user));
+                return $_cur;
+            }
+        }
     }
     return false;
 }
