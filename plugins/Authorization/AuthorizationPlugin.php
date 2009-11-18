@@ -73,11 +73,7 @@ abstract class AuthorizationPlugin extends Plugin
     function onStartSetUser(&$user) {
         $loginAllowed = $this->loginAllowed($user);
         if($loginAllowed === true){
-            if($this->authoritative) {
-                return false;
-            }else{
-                return;
-            }
+            return;
         }else if($loginAllowed === false){
             $user = null;
             return false;
