@@ -259,6 +259,7 @@ class Action extends HTMLOutputter // lawsuit
                 Event::handle('StartShowLaconicaScripts', array($this))) {
                 $this->script('js/xbImportNode.js');
                 $this->script('js/util.js');
+                $this->script('js/geometa.js');
                 // Frame-busting code to avoid clickjacking attacks.
                 $this->element('script', array('type' => 'text/javascript'),
                                'if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');

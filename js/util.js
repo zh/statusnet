@@ -46,7 +46,11 @@ var SN = { // StatusNet
             NoticeInReplyTo: 'notice_in-reply-to',
             NoticeDataAttach: 'notice_data-attach',
             NoticeDataAttachSelected: 'notice_data-attach_selected',
-            NoticeActionSubmit: 'notice_action-submit'
+            NoticeActionSubmit: 'notice_action-submit',
+            NoticeLat: 'notice_data-lat',
+            NoticeLon: 'notice_data-lon',
+            NoticeLocationId: 'notice_data-location_id',
+            NoticeLocationNs: 'notice_data-location_ns'
         }
     },
 
@@ -351,6 +355,13 @@ var SN = { // StatusNet
             });
         },
 
+        NoticeLocationAttach: function() {
+            if(navigator.geolocation) navigator.geolocation.watchPosition(function(position) {
+                $('#'+SN.C.S.NoticeLat).val(position.coords.latitude);
+                $('#'+SN.C.S.NoticeLon).val(position.coords.longitude);
+            });
+        },
+
         NewDirectMessage: function() {
             NDM = $('.entity_send-a-message a');
             NDM.attr({'href':NDM.attr('href')+'&ajax=1'});
@@ -387,6 +398,7 @@ var SN = { // StatusNet
                 });
 
                 SN.U.NoticeDataAttach();
+                SN.U.NoticeLocationAttach();
             }
         },
 
