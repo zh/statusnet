@@ -101,8 +101,8 @@ class RealtimePlugin extends Plugin
             $realtimeUI = ' RealtimeUpdate.initPopupWindow();';
         }
         else {
-            $iconurl = common_path('plugins/Realtime/icon_external.gif');
-            $realtimeUI = ' RealtimeUpdate.addPopup("'.$url.'", "'.$timeline.'", "'. $iconurl .'");';
+            $pluginPath = common_path('plugins/Realtime/');
+            $realtimeUI = ' RealtimeUpdate.initActions("'.$url.'", "'.$timeline.'", "'. $pluginPath .'");';
         }
 
         $action->elementStart('script', array('type' => 'text/javascript'));
@@ -115,6 +115,13 @@ class RealtimePlugin extends Plugin
 
         $action->elementEnd('script');
 
+        return true;
+    }
+
+    function onEndShowStatusNetStyles($action)
+    {
+        $action->cssLink(common_path('plugins/Realtime/realtimeupdate.css'), 
+                         null, 'screen, projection, tv');
         return true;
     }
 

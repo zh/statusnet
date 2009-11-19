@@ -28,10 +28,19 @@ input, textarea, select,
 .entity_remote_subscribe {
 border-color:#AAAAAA;
 }
+
+.form_settings fieldset fieldset {
+background:rgba(240, 240, 240, 0.2);
+box-shadow:3px 3px 7px rgba(194, 194, 194, 0.3);
+-moz-box-shadow:3px 3px 7px rgba(194, 194, 194, 0.3);
+-webkit-box-shadow:3px 3px 7px rgba(194, 194, 194, 0.3);
+}
+
 #filter_tags ul li,
 .entity_send-a-message .form_notice,
 .pagination .nav_prev a,
-.pagination .nav_next a {
+.pagination .nav_next a,
+.form_settings fieldset fieldset {
 border-color:#DDDDDD;
 }
 
@@ -52,7 +61,7 @@ input.submit,
 .entity_remote_subscribe,
 .entity_actions a,
 .entity_actions input,
-button.close {
+button {
 box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 -moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 -webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);

@@ -181,4 +181,14 @@ class Form extends Widget
     {
         return 'form';
     }
+
+    function li()
+    {
+        $this->out->elementStart('li');
+    }
+
+    function unli()
+    {
+        $this->out->elementEnd('li');
+    }
 }

@@ -1,0 +1,91 @@
+The LDAP Authorization plugin allows for StatusNet to handle authorization
+through LDAP.
+
+Installation
+============
+add "addPlugin('ldapAuthorization',
+    array('setting'=>'value', 'setting2'=>'value2', ...);"
+to the bottom of your config.php
+
+You *cannot* use this plugin without the LDAP Authentication plugin
+
+Settings
+========
+provider_name*: name of the LDAP authentication provider that this plugin works with.
+authoritative (false): should this plugin be authoritative for
+    authorization?
+uniqueMember_attribute ('uniqueMember')*: the attribute of a group
+    that lists the DNs of its members
+roles_to_groups: array that maps StatusNet roles to LDAP groups
+    some StatusNet roles are: moderator, administrator, sandboxed, silenced
+login_group: if this is set to a group DN, only members of that group will be
+    allowed to login
+    
+The below settings must be exact copies of the settings used for the
+    corresponding LDAP Authentication plugin.
+    
+host*: LDAP server name to connect to. You can provide several hosts in an
+    array in which case the hosts are tried from left to right.
+    See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+port: Port on the server.
+    See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+version: LDAP version.
+    See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+starttls: TLS is started after connecting.
+    See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+binddn: The distinguished name to bind as (username).
+    See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+bindpw: Password for the binddn.
+    See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+basedn*: LDAP base name (root directory).
+    See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+options: See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+filter: Default search filter.
+    See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+scope: Default search scope.
+    See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+
+attributes: an array that relates StatusNet user attributes to LDAP ones
+    username*: LDAP attribute value entered when authenticating to StatusNet
+
+* required
+default values are in (parenthesis)
+
+Example
+=======
+Here's an example of an LDAP plugin configuration that connects to
+    Microsoft Active Directory.
+
+addPlugin('ldapAuthentication', array(
+    'provider_name'=>'Example',
+    'authoritative'=>true,
+    'autoregistration'=>true,
+    'binddn'=>'username',
+    'bindpw'=>'password',
+    'basedn'=>'OU=Users,OU=StatusNet,OU=US,DC=americas,DC=global,DC=loc',
+    'host'=>array('server1', 'server2'),
+    'password_encoding'=>'ad',
+    'attributes'=>array(
+        'username'=>'sAMAccountName',
+        'nickname'=>'sAMAccountName',
+        'email'=>'mail',
+        'fullname'=>'displayName',
+        'password'=>'unicodePwd')
+));
+addPlugin('ldapAuthorization', array(
+    'provider_name'=>'Example',
+    'authoritative'=>false,
+    'uniqueMember_attribute'=>'member',
+    'roles_to_groups'=> array(
+        'moderator'=>'CN=SN-Moderators,OU=Users,OU=StatusNet,OU=US,DC=americas,DC=global,DC=loc',
+        'administrator'=> array('CN=System-Adminstrators,OU=Users,OU=StatusNet,OU=US,DC=americas,DC=global,DC=loc',
+                                'CN=SN-Administrators,OU=Users,OU=StatusNet,OU=US,DC=americas,DC=global,DC=loc')
+        ),
+    'binddn'=>'username',
+    'bindpw'=>'password',
+    'basedn'=>'OU=Users,OU=StatusNet,OU=US,DC=americas,DC=global,DC=loc',
+    'host'=>array('server1', 'server2'),
+    'attributes'=>array(
+        'username'=>'sAMAccountName')
+));
+

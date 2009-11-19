@@ -110,7 +110,11 @@ class ApiAuthAction extends ApiAction
         } else {
             $nickname = $this->auth_user;
             $password = $this->auth_pw;
-            $this->auth_user = common_check_user($nickname, $password);
+            $user = common_check_user($nickname, $password);
+            if (Event::handle('StartSetApiUser', array(&$user))) {
+                $this->auth_user = $user;
+                Event::handle('EndSetApiUser', array($user));
+            }
 
             if (empty($this->auth_user)) {
 

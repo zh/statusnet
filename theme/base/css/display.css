@@ -107,6 +107,20 @@ clear:both;
 .form_settings fieldset {
 margin-bottom:29px;
 }
+.form_settings fieldset fieldset {
+margin-bottom:41px;
+padding:3% 1.795% 1.795% 3%;
+border-radius:11px;
+-moz-border-radius:11px;
+-webkit-border-radius:11px;
+border-width:1px;
+border-style:solid;
+}
+.form_settings fieldset fieldset legend {
+line-height:0;
+}
+
+
 .form_settings input.remove {
 margin-left:11px;
 }
@@ -172,8 +186,7 @@ font-weight:bold;
 #form_password_recover legend,
 #form_password_change legend,
 .form_entity_block legend,
-#form_filter_bytag legend,
-#settings_design_theme legend {
+#form_filter_bytag legend {
 display:none;
 }
 
@@ -939,7 +952,7 @@ clear:left;
 float:left;
 font-size:0.95em;
 margin-left:59px;
-width:50%;
+max-width:74%;
 }
 #showstream .notice div.entry-content,
 #shownotice .notice div.entry-content {
@@ -961,7 +974,6 @@ position:relative;
 font-size:0.95em;
 width:90px;
 float:right;
-margin-right:11px;
 }
 
 .notice-options a {
@@ -971,18 +983,12 @@ float:left;
 .notice-options .notice_reply,
 .notice-options .form_favor,
 .notice-options .form_disfavor {
-position:absolute;
-top:0;
+float:left;
+margin-left:18px;
 }
 .notice-options .form_favor,
 .notice-options .form_disfavor {
-left:0;
-}
-.notice-options .notice_reply {
-left:29px;
-}
-.notice-options .notice_delete {
-right:0;
+margin-left:0;
 }
 .notice-options input,
 .notice-options a {
@@ -1344,7 +1350,7 @@ float:left;
 }
 #settings_design_color .form_data {
 width:400px;
-margin-right:28px;
+margin-right:1%;
 }
 
 #settings_design_color .form_data li {

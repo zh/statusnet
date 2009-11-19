@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Plugin to enable LDAP Authentication and Authorization
+ * Plugin to enable LDAP Authentication
  *
  * PHP version 5
  *
@@ -62,6 +62,9 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
         }
         if(!isset($this->attributes['username'])){
             throw new Exception("must specify a username attribute");
+        }
+        if($this->password_changeable && (! isset($this->attributes['password']) || !isset($this->password_encoding))){
+            throw new Exception("if password_changeable is set, the password attribute and password_encoding must also be specified");
         }
     }
     
@@ -156,20 +159,21 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
     }
     
     function ldap_get_connection($config = null){
-        if($config == null){
-            $config = $this->ldap_get_config();
+        if($config == null && isset($this->default_ldap)){
+            return $this->default_ldap;
         }
         
         //cannot use Net_LDAP2::connect() as StatusNet uses
         //PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 'handleError');
         //PEAR handling can be overridden on instance objects, so we do that.
-        $ldap = new Net_LDAP2($config);
+        $ldap = new Net_LDAP2(isset($config)?$config:$this->ldap_get_config());
         $ldap->setErrorHandling(PEAR_ERROR_RETURN);
         $err=$ldap->bind();
         if (Net_LDAP2::isError($err)) {
             common_log(LOG_WARNING, 'Could not connect to LDAP server: '.$err->getMessage());
             return false;
         }
+        if($config == null) $this->default_ldap=$ldap;
         return $ldap;
     }
     
@@ -186,7 +190,6 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
         }
         $filter = Net_LDAP2_Filter::create($this->attributes['username'], 'equals',  $username);
         $options = array(
-            'scope' => 'sub',
             'attributes' => $attributes
         );
         $search = $ldap->search(null,$filter,$options);

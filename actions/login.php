@@ -133,7 +133,7 @@ class LoginAction extends Action
                 return;
             }
 
-            $nickname = common_canonical_nickname($this->trimmed('nickname'));
+            $nickname = $this->trimmed('nickname');
             $password = $this->arg('password');
 
             $user = common_check_user($nickname, $password);
@@ -146,7 +146,7 @@ class LoginAction extends Action
 
         // success!
         if (!common_set_user($user)) {
-            $this->serverError(_('Error setting user.'));
+            $this->serverError(_('Error setting user. You are probably not authorized.'));
             return;
         }
 

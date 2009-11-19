@@ -32,6 +32,63 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
+if (!function_exists('gettext')) {
+    require_once("php-gettext/gettext.inc");
+}
+
+if (!function_exists('pgettext')) {
+    /**
+     * Context-aware gettext wrapper; use when messages in different contexts
+     * won't be distinguished from the English source but need different translations.
+     * The context string will appear as msgctxt in the .po files.
+     *
+     * Not currently exposed in PHP's gettext module; implemented to be compat
+     * with gettext.h's macros.
+     *
+     * @param string $context context identifier, should be some key like "menu|file"
+     * @param string $msgid English source text
+     * @return string original or translated message
+     */
+    function pgettext($context, $msg)
+    {
+        $msgid = $context . "\004" . $msg;
+        $out = dcgettext(textdomain(NULL), $msgid, LC_MESSAGES);
+        if ($out == $msgid) {
+            return $msg;
+        } else {
+            return $out;
+        }
+    }
+}
+
+if (!function_exists('npgettext')) {
+    /**
+     * Context-aware ngettext wrapper; use when messages in different contexts
+     * won't be distinguished from the English source but need different translations.
+     * The context string will appear as msgctxt in the .po files.
+     *
+     * Not currently exposed in PHP's gettext module; implemented to be compat
+     * with gettext.h's macros.
+     *
+     * @param string $context context identifier, should be some key like "menu|file"
+     * @param string $msg singular English source text
+     * @param string $plural plural English source text
+     * @param int $n number of items to control plural selection
+     * @return string original or translated message
+     */
+    function npgettext($context, $msg, $plural, $n)
+    {
+        $msgid = $context . "\004" . $msg;
+        $out = dcngettext(textdomain(NULL), $msgid, $plural, $n, LC_MESSAGES);
+        if ($out == $msgid) {
+            return $msg;
+        } else {
+            return $out;
+        }
+    }
+}
+
+
 /**
  * Content negotiation for language codes
  *

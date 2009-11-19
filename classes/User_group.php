@@ -354,4 +354,66 @@ class User_group extends Memcached_DataObject
 
         return $xs->getString();
     }
+
+    static function register($fields) {
+
+        // MAGICALLY put fields into current scope
+
+        extract($fields);
+
+        $group = new User_group();
+
+        $group->query('BEGIN');
+
+        $group->nickname    = $nickname;
+        $group->fullname    = $fullname;
+        $group->homepage    = $homepage;
+        $group->description = $description;
+        $group->location    = $location;
+        $group->created     = common_sql_now();
+
+        $result = $group->insert();
+
+        if (!$result) {
+            common_log_db_error($group, 'INSERT', __FILE__);
+            $this->serverError(
+                _('Could not create group.'),
+                500,
+                $this->format
+            );
+            return;
+        }
+        $result = $group->setAliases($aliases);
+
+        if (!$result) {
+            $this->serverError(
+                _('Could not create aliases.'),
+                500,
+                $this->format
+            );
+            return;
+        }
+
+        $member = new Group_member();
+
+        $member->group_id   = $group->id;
+        $member->profile_id = $userid;
+        $member->is_admin   = 1;
+        $member->created    = $group->created;
+
+        $result = $member->insert();
+
+        if (!$result) {
+            common_log_db_error($member, 'INSERT', __FILE__);
+            $this->serverError(
+                _('Could not set group membership.'),
+                500,
+                $this->format
+            );
+            return;
+        }
+
+        $group->query('COMMIT');
+        return $group;
+    }
 }

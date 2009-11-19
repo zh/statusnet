@@ -36,6 +36,9 @@ RealtimeUpdate = {
      _updatecounter: 0,
      _maxnotices: 50,
      _windowhasfocus: true,
+     _documenttitle: '',
+     _paused:false,
+     _queuedNotices:[],
 
      init: function(userid, replyurl, favorurl, deleteurl)
      {
@@ -44,7 +47,7 @@ RealtimeUpdate = {
         RealtimeUpdate._favorurl = favorurl;
         RealtimeUpdate._deleteurl = deleteurl;
 
-        DT = document.title;
+        RealtimeUpdate._documenttitle = document.title;
 
         $(window).bind('focus', function(){ RealtimeUpdate._windowhasfocus = true; });
 
@@ -54,7 +57,7 @@ RealtimeUpdate = {
           $('#notices_primary .notice:first').addClass('mark-top');
 
           RealtimeUpdate._updatecounter = 0;
-          document.title = DT;
+          document.title = RealtimeUpdate._documenttitle;
           RealtimeUpdate._windowhasfocus = false;
 
           return false;
@@ -63,31 +66,48 @@ RealtimeUpdate = {
 
      receive: function(data)
      {
-          id = data.id;
+          if (RealtimeUpdate._paused === false) {
+              RealtimeUpdate.purgeLastNoticeItem();
 
-          // Don't add it if it already exists
-          if ($("#notice-"+id).length > 0) {
-               return;
+              RealtimeUpdate.insertNoticeItem(data);
+          }
+          else {
+              RealtimeUpdate._queuedNotices.push(data);
+
+              RealtimeUpdate.updateQueuedCounter();
           }
 
-          var noticeItem = RealtimeUpdate.makeNoticeItem(data);
-          $("#notices_primary .notices").prepend(noticeItem);
-          $("#notices_primary .notice:first").css({display:"none"});
-          $("#notices_primary .notice:first").fadeIn(1000);
+          RealtimeUpdate.updateWindowCounter();
+     },
 
-          if ($('#notices_primary .notice').length > RealtimeUpdate._maxnotices) {
-               $("#notices_primary .notice:last .form_disfavor").unbind('submit');
-               $("#notices_primary .notice:last .form_favor").unbind('submit');
-               $("#notices_primary .notice:last .notice_reply").unbind('click');
-               $("#notices_primary .notice:last").remove();
-          }
+     insertNoticeItem: function(data) {
+        // Don't add it if it already exists
+        if ($("#notice-"+data.id).length > 0) {
+            return;
+        }
 
-          SN.U.NoticeReply();
-          SN.U.NoticeFavor();
+        var noticeItem = RealtimeUpdate.makeNoticeItem(data);
+        $("#notices_primary .notices").prepend(noticeItem);
+        $("#notices_primary .notice:first").css({display:"none"});
+        $("#notices_primary .notice:first").fadeIn(1000);
 
+        SN.U.NoticeReply();
+        SN.U.NoticeFavor();
+     },
+
+     purgeLastNoticeItem: function() {
+        if ($('#notices_primary .notice').length > RealtimeUpdate._maxnotices) {
+            $("#notices_primary .notice:last .form_disfavor").unbind('submit');
+            $("#notices_primary .notice:last .form_favor").unbind('submit');
+            $("#notices_primary .notice:last .notice_reply").unbind('click');
+            $("#notices_primary .notice:last").remove();
+        }
+     },
+
+     updateWindowCounter: function() {
           if (RealtimeUpdate._windowhasfocus === false) {
               RealtimeUpdate._updatecounter += 1;
-              document.title = '('+RealtimeUpdate._updatecounter+') ' + DT;
+              document.title = '('+RealtimeUpdate._updatecounter+') ' + RealtimeUpdate._documenttitle;
           }
      },
 
@@ -169,30 +189,83 @@ RealtimeUpdate = {
           return dl;
      },
 
-     addPopup: function(url, timeline, iconurl)
+     initActions: function(url, timeline, path)
      {
-         var NP = $('#notices_primary');
-         NP.css({'position':'relative'});
-         NP.prepend('<button id="realtime_timeline" title="Pop up in a window">Pop up</button>');
+        var NP = $('#notices_primary');
+        NP.prepend('<ul id="realtime_actions"><li id="realtime_playpause"></li><li id="realtime_timeline"></li></ul>');
 
-         var RT = $('#realtime_timeline');
-         RT.css({
-             'margin':'0 0 11px 0',
-             'background':'transparent url('+ iconurl + ') no-repeat 0 30%',
-             'padding':'0 0 0 20px',
-             'display':'block',
-             'position':'absolute',
-             'top':'-20px',
-             'right':'0',
-             'border':'none',
-             'cursor':'pointer',
-             'color':$('a').css('color'),
-             'font-weight':'bold',
-             'font-size':'1em'
-         });
-         $('#showstream #notices_primary').css({'margin-top':'18px'});
+        RealtimeUpdate._pluginPath = path;
 
-         RT.bind('click', function() {
+        RealtimeUpdate.initPlayPause();
+        RealtimeUpdate.initAddPopup(url, timeline, RealtimeUpdate._pluginPath);
+     },
+
+     initPlayPause: function()
+     {
+        RealtimeUpdate.showPause();
+     },
+
+     showPause: function()
+     {
+        RT_PP = $('#realtime_playpause');
+        RT_PP.empty();
+        RT_PP.append('<button id="realtime_pause" class="pause" title="Pause">Pause</button>');
+
+        RT_P = $('#realtime_pause');
+        RT_P.bind('click', function() {
+            RealtimeUpdate._paused = true;
+
+            RealtimeUpdate.showPlay();
+            return false;
+        });
+     },
+
+     showPlay: function()
+     {
+        RT_PP = $('#realtime_playpause');
+        RT_PP.empty();
+        RT_PP.append('<span id="queued_counter"></span> <button id="realtime_play" class="play" title="Play">Play</button>');
+
+        RT_P = $('#realtime_play');
+        RT_P.bind('click', function() {
+            RealtimeUpdate._paused = false;
+
+            RealtimeUpdate.showPause();
+
+            RealtimeUpdate.showQueuedNotices();
+
+            return false;
+        });
+     },
+
+     showQueuedNotices: function()
+     {
+        $.each(RealtimeUpdate._queuedNotices, function(i, n) {
+            RealtimeUpdate.insertNoticeItem(n);
+        });
+
+        RealtimeUpdate._queuedNotices = [];
+
+        RealtimeUpdate.removeQueuedCounter();
+     },
+
+     updateQueuedCounter: function()
+     {
+        $('#realtime_playpause #queued_counter').html('('+RealtimeUpdate._queuedNotices.length+')');
+     },
+
+     removeQueuedCounter: function()
+     {
+        $('#realtime_playpause #queued_counter').empty();
+     },
+
+     initAddPopup: function(url, timeline, path)
+     {
+         var NP = $('#realtime_timeline');
+         NP.append('<button id="realtime_popup" title="Pop up in a window">Pop up</button>');
+
+         var PP = $('#realtime_popup');
+         PP.bind('click', function() {
              window.open(url,
                          '',
                          'toolbar=no,resizable=yes,scrollbars=yes,status=yes,width=500,height=550');

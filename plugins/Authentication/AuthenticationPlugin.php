@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Superclass for plugins that do authentication and/or authorization
+ * Superclass for plugins that do authentication
  *
  * PHP version 5
  *
