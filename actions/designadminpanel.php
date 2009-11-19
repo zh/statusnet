@@ -408,7 +408,7 @@ class DesignAdminPanelForm extends AdminForm
     function formData()
     {
 
-        $this->out->elementStart('fieldset', array('id' => 'settings_logo'));
+        $this->out->elementStart('fieldset', array('id' => 'settings_design_logo'));
         $this->out->element('legend', null, _('Change logo'));
 
         $this->out->elementStart('ul', 'form_data');
@@ -420,7 +420,7 @@ class DesignAdminPanelForm extends AdminForm
         $this->out->elementEnd('ul');
 
         $this->out->elementEnd('fieldset');
-        $this->out->elementStart('fieldset', array('id' => 'settings_theme'));
+        $this->out->elementStart('fieldset', array('id' => 'settings_design_theme'));
         $this->out->element('legend', null, _('Change theme'));
 
         $this->out->elementStart('ul', 'form_data');
@@ -458,7 +458,7 @@ class DesignAdminPanelForm extends AdminForm
         $this->out->elementEnd('ul');
 
         $this->out->elementEnd('fieldset');
-        $this->out->elementStart('fieldset', array('id' => 'settings_avatar'));
+        $this->out->elementStart('fieldset', array('id' => 'settings_design_avatar'));
         $this->out->element('legend', null, _('Avatar Settings'));
 
         $this->out->elementStart('ul', 'form_data');
