@@ -323,7 +323,7 @@ class ProfilesettingsAction extends AccountSettingsAction
 
             $result = $profile->update($orig_profile);
 
-            if (!$result) {
+            if ($result === false) {
                 common_log_db_error($profile, 'UPDATE', __FILE__);
                 $this->serverError(_('Couldn\'t save profile.'));
                 return;
