@@ -33,7 +33,8 @@ $(document).ready(function() {
           mkr = new mxn.Marker(pt);
 
           mkr.setIcon(n['user']['profile_image_url']);
-          mkr.setInfoBubble(n['html']);
+          mkr.setInfoBubble('<a href="'+ n['user']['profile_url'] + '">' + n['user']['screen_name'] + '</a>' + ' ' + n['html'] +
+                            '<br/><a href="'+ n['url'] + '">'+ n['created_at'] + '</a>');
 
           mapstraction.addMarker(mkr);
      }
