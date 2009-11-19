@@ -107,6 +107,20 @@ clear:both;
 .form_settings fieldset {
 margin-bottom:29px;
 }
+.form_settings fieldset fieldset {
+margin-bottom:41px;
+padding:3% 1.795% 1.795% 3%;
+border-radius:11px;
+-moz-border-radius:11px;
+-webkit-border-radius:11px;
+border-width:1px;
+border-style:solid;
+}
+.form_settings fieldset fieldset legend {
+line-height:0;
+}
+
+
 .form_settings input.remove {
 margin-left:11px;
 }
@@ -1343,7 +1357,7 @@ float:left;
 }
 #settings_design_color .form_data {
 width:400px;
-margin-right:28px;
+margin-right:1%;
 }
 
 #settings_design_color .form_data li {
