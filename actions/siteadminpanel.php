@@ -92,8 +92,8 @@ class SiteadminpanelAction extends AdminPanelAction
     {
         static $settings = array('site' => array('name', 'broughtby', 'broughtbyurl',
                                                  'email', 'timezone', 'language',
-                                                 'ssl', 'sslserver', 'site', 'path',
-                                                 'textlimit', 'dupelimit', 'locale_path'),
+                                                 'ssl', 'sslserver', 'site',
+                                                 'textlimit', 'dupelimit'),
                                  'snapshot' => array('run', 'reporturl', 'frequency'));
 
         static $booleans = array('site' => array('private', 'inviteonly', 'closed', 'fancy'));
@@ -216,14 +216,6 @@ class SiteadminpanelAction extends AdminPanelAction
             $this->clientError(_("Dupe limit must 1 or more seconds."));
         }
 
-        // Validate locales path
-
-        // XXX: What else do we need to validate for lacales path here? --Z
-
-        if (!empty($values['site']['locale_path']) && !is_readable($values['site']['locale_path'])) {
-            $this->clientError(sprintf(_("Locales directory not readable: %s"), $values['site']['locale_path']));
-        }
-
     }
 }
 
@@ -317,9 +309,6 @@ class SiteAdminPanelForm extends AdminForm
                              false, $this->value('language'));
         $this->unli();
 
-        $this->li();
-        $this->input('locale_path', _('Path to locales'), _('Directory path to locales'));
-        $this->unli();
         $this->out->elementEnd('ul');
         $this->out->elementEnd('fieldset');
 
@@ -328,10 +317,6 @@ class SiteAdminPanelForm extends AdminForm
         $this->out->elementStart('ul', 'form_data');
         $this->li();
         $this->input('server', _('Server'), _('Site\'s server hostname.'));
-        $this->unli();
-
-        $this->li();
-        $this->input('path', _('Path'), _('Site path'));
         $this->unli();
 
         $this->li();

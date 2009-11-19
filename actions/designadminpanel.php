@@ -129,19 +129,14 @@ class DesignadminpanelAction extends AdminPanelAction
 
         $bgimage = $this->saveBackgroundImage();
 
-        static $settings = array(
-            'site' => array('theme', 'logo'),
-            'theme' => array('server', 'dir', 'path'),
-            'avatar' => array('server', 'dir', 'path'),
-            'background' => array('server', 'dir', 'path')
-        );
+        common_debug("background image: $bgimage");
+
+        static $settings = array('theme', 'logo');
 
         $values = array();
 
-        foreach ($settings as $section => $parts) {
-            foreach ($parts as $setting) {
-                $values[$section][$setting] = $this->trimmed("$section-$setting");
-            }
+        foreach ($settings as $setting) {
+            $values[$setting] = $this->trimmed($setting);
         }
 
         $this->validate($values);
@@ -171,10 +166,8 @@ class DesignadminpanelAction extends AdminPanelAction
 
         $config->query('BEGIN');
 
-        foreach ($settings as $section => $parts) {
-            foreach ($parts as $setting) {
-                Config::save($section, $setting, $values[$section][$setting]);
-            }
+        foreach ($settings as $setting) {
+            Config::save('site', $setting, $values[$setting]);
         }
 
         if (isset($bgimage)) {
@@ -272,48 +265,13 @@ class DesignadminpanelAction extends AdminPanelAction
 
     function validate(&$values)
     {
-
-        if (!empty($values['site']['logo']) &&
-            !Validate::uri($values['site']['logo'], array('allowed_schemes' => array('http', 'https')))) {
+        if (!empty($values['logo']) &&
+            !Validate::uri($values['logo'], array('allowed_schemes' => array('http', 'https')))) {
             $this->clientError(_("Invalid logo URL."));
         }
 
-        if (!in_array($values['site']['theme'], Theme::listAvailable())) {
-            $this->clientError(sprintf(_("Theme not available: %s"), $values['site']['theme']));
-        }
-
-        // Make sure the directories are there
-
-        if (!empty($values['theme']['dir']) && !is_readable($values['theme']['dir'])) {
-            $this->clientError(sprintf(_("Theme directory not readable: %s"), $values['theme']['dir']));
-        }
-
-        if (empty($values['avatar']['dir']) || !is_writable($values['avatar']['dir'])) {
-            $this->clientError(sprintf(_("Avatar directory not writable: %s"), $values['avatar']['dir']));
-        }
-
-        if (empty($values['background']['dir']) || !is_writable($values['background']['dir'])) {
-            $this->clientError(sprintf(_("Background directory not writable: %s"), $values['background']['dir']));
-        }
-
-        // Do we need to do anything else but validate the
-        // other fields for length?  Design settings are
-        // validated elsewhere --Z
-
-        static $settings = array(
-            'theme' => array('server', 'path'),
-            'avatar' => array('server', 'path'),
-            'background' => array('server', 'path')
-        );
-
-        foreach ($settings as $section => $parts) {
-            foreach ($parts as $setting) {
-                if (mb_strlen($values[$section][$setting]) > 255) {
-                    $this->clientError(sprintf(_("Max length for %s %s is 255 characters."),
-                        $section, $setting));
-                        return;
-                }
-            }
+        if (!in_array($values['theme'], Theme::listAvailable())) {
+            $this->clientError(sprintf(_("Theme not available: %s"), $values['theme']));
         }
     }
 
@@ -414,7 +372,7 @@ class DesignAdminPanelForm extends AdminForm
         $this->out->elementStart('ul', 'form_data');
 
         $this->li();
-        $this->input('logo', _('Site logo'), 'Logo for the site (full URL)', 'site');
+        $this->input('logo', _('Site logo'), 'Logo for the site (full URL)');
         $this->unli();
 
         $this->out->elementEnd('ul');
@@ -438,41 +396,9 @@ class DesignAdminPanelForm extends AdminForm
         $themes = array_combine($themes, $themes);
 
         $this->li();
-        $this->out->dropdown('site-theme', _('Site theme'),
+        $this->out->dropdown('theme', _('Site theme'),
                              $themes, _('Theme for the site.'),
-                             false, $this->value('theme', 'site'));
-        $this->unli();
-
-        $this->li();
-        $this->input('server', _('Theme server'), 'Server for themes', 'theme');
-        $this->unli();
-
-        $this->li();
-        $this->input('path', _('Theme path'), 'Web path to themes', 'theme');
-        $this->unli();
-
-        $this->li();
-        $this->input('dir', _('Theme directory'), 'Directory where themes are located', 'theme');
-        $this->unli();
-
-        $this->out->elementEnd('ul');
-
-        $this->out->elementEnd('fieldset');
-        $this->out->elementStart('fieldset', array('id' => 'settings_design_avatar'));
-        $this->out->element('legend', null, _('Avatar Settings'));
-
-        $this->out->elementStart('ul', 'form_data');
-
-        $this->li();
-        $this->input('server', _('Avatar server'), 'Server for avatars', 'avatar');
-        $this->unli();
-
-        $this->li();
-        $this->input('path', _('Avatar path'), 'Web path to avatars', 'avatar');
-        $this->unli();
-
-        $this->li();
-        $this->input('dir', _('Avatar directory'), 'Directory where avatars are located', 'avatar');
+                             false, $this->value('theme'));
         $this->unli();
 
         $this->out->elementEnd('ul');
@@ -549,18 +475,6 @@ class DesignAdminPanelForm extends AdminForm
                             ($design->disposition & BACKGROUND_TILE) ? true : false);
             $this->unli();
         }
-
-        $this->li();
-        $this->input('server', _('Background server'), 'Server for backgrounds', 'background');
-        $this->unli();
-
-        $this->li();
-        $this->input('path', _('Background path'), 'Web path to backgrounds', 'background');
-        $this->unli();
-
-        $this->li();
-        $this->input('dir', _('Background directory'), 'Directory where backgrounds are located', 'background');
-        $this->unli();
 
         $this->out->elementEnd('ul');
         $this->out->elementEnd('fieldset');
@@ -666,26 +580,6 @@ class DesignAdminPanelForm extends AdminForm
 
         $this->out->submit('save', _('Save'), 'submit form_action-secondary',
                 'save', _('Save design'));
-    }
-
-
-    /**
-     * Utility to simplify some of the duplicated code around
-     * params and settings. Overriding the input() in the base class
-     * to handle a whole bunch of cases of settings with the same
-     * name under different sections.
-     *
-     * @param string $setting      Name of the setting
-     * @param string $title        Title to use for the input
-     * @param string $instructions Instructions for this field
-     * @param string $section      config section, default = 'site'
-     *
-     * @return void
-     */
-
-    function input($setting, $title, $instructions, $section='site')
-    {
-        $this->out->input("$section-$setting", $title, $this->value($setting, $section), $instructions);
     }
 
 }
