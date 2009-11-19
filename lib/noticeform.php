@@ -76,6 +76,15 @@ class NoticeForm extends Form
     var $inreplyto = null;
 
     /**
+     * Pre-filled location content of the form
+     */
+
+    var $lat;
+    var $lon;
+    var $location_id;
+    var $location_ns;
+
+    /**
      * Constructor
      *
      * @param HTMLOutputter $out     output channel
@@ -83,13 +92,17 @@ class NoticeForm extends Form
      * @param string        $content content to pre-fill
      */
 
-    function __construct($out=null, $action=null, $content=null, $user=null, $inreplyto=null)
+    function __construct($out=null, $action=null, $content=null, $user=null, $inreplyto=null, $lat=null, $lon=null, $location_id=null, $location_ns=null)
     {
         parent::__construct($out);
 
         $this->action  = $action;
         $this->content = $content;
         $this->inreplyto = $inreplyto;
+        $this->lat = $lat;
+        $this->lon = $lon;
+        $this->location_id = $location_id;
+        $this->location_ns = $location_ns;
 
         if ($user) {
             $this->user = $user;
@@ -188,6 +201,10 @@ class NoticeForm extends Form
                 $this->out->hidden('notice_return-to', $this->action, 'returnto');
             }
             $this->out->hidden('notice_in-reply-to', $this->inreplyto, 'inreplyto');
+            $this->out->hidden('notice_data-lat', empty($this->lat) ? null : $this->lat, 'lat');
+            $this->out->hidden('notice_data-lon', empty($this->lon) ? null : $this->lon, 'lon');
+            $this->out->hidden('notice_data-location_id', empty($this->location_id) ? null : $this->location_id, 'location_id');
+            $this->out->hidden('notice_data-location_ns', empty($this->location_ns) ? null : $this->location_ns, 'location_ns');
 
             Event::handle('StartShowNoticeFormData', array($this));
         }

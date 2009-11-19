@@ -164,6 +164,11 @@ class NewnoticeAction extends Action
             $replyto = 'false';
         }
 
+        $lat = $this->trimmed('lat');
+        $lon = $this->trimmed('lon');
+        $location_id = $this->trimmed('location_id');
+        $location_ns = $this->trimmed('location_ns');
+
         $upload = null;
         $upload = MediaFile::fromUpload('attach');
 
@@ -183,7 +188,9 @@ class NewnoticeAction extends Action
         }
 
         $notice = Notice::saveNew($user->id, $content_shortened, 'web', 1,
-                                  ($replyto == 'false') ? null : $replyto);
+                                  ($replyto == 'false') ? null : $replyto,
+                                  null, null,
+                                  $lat, $lon, $location_id, $location_ns);
 
         if (isset($upload)) {
             $upload->attachToNotice($notice);
