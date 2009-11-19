@@ -93,7 +93,7 @@ class SiteadminpanelAction extends AdminPanelAction
         static $settings = array('site' => array('name', 'broughtby', 'broughtbyurl',
                                                  'email', 'timezone', 'language',
                                                  'ssl', 'sslserver', 'site', 'path',
-                                                 'textlimit', 'dupelimit'),
+                                                 'textlimit', 'dupelimit', 'locale_path'),
                                  'snapshot' => array('run', 'reporturl', 'frequency'));
 
         static $booleans = array('site' => array('private', 'inviteonly', 'closed', 'fancy'));
@@ -214,6 +214,14 @@ class SiteadminpanelAction extends AdminPanelAction
 
         if (!Validate::number($values['site']['dupelimit'], array('min' => 1))) {
             $this->clientError(_("Dupe limit must 1 or more seconds."));
+        }
+
+        // Validate locales path
+
+        // XXX: What else do we need to validate for lacales path here? --Z
+
+        if (!empty($values['site']['locale_path']) && !is_readable($values['site']['locale_path'])) {
+            $this->clientError(sprintf(_("Locales directory not readable: %s"), $values['site']['locale_path']));
         }
 
     }
