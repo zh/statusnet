@@ -59,7 +59,7 @@ class LinkbackPlugin extends Plugin
         parent::__construct();
     }
 
-    function onEndNoticeSave($notice)
+    function onHandleQueuedNotice($notice)
     {
         if ($notice->is_local == 1) {
             // Try to avoid actually mucking with the
