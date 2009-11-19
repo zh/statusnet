@@ -1,15 +1,18 @@
 # Translation of StatusNet to Polish
 #
 # --
+# This file is distributed under the same license as the StatusNet package.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-18 19:31+0000\n"
+"POT-Creation-Date: 2009-11-19 10:43+0000\n"
 "PO-Revision-Date: 2009-11-18 19:32:25+0000\n"
 "Language-Team: Polish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10< =4 && (n%100<10 or n%100>=20) ? 1 : 2);\n"
 "X-Generator: MediaWiki 1.16alpha(r59207); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pl\n"
@@ -153,7 +156,7 @@ msgstr "Nie można zaktualizować użytkownika."
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97
 #: actions/apistatusesupdate.php:127 actions/avatarsettings.php:254
-#: actions/designadminpanel.php:125 actions/newnotice.php:94
+#: actions/designadminpanel.php:122 actions/newnotice.php:94
 #: lib/designsettings.php:283
 #, php-format
 msgid ""
@@ -241,7 +244,7 @@ msgstr "Wszystkie bezpośrednie wiadomości wysłane do użytkownika %s"
 #: actions/apidirectmessage.php:156 actions/apifavoritecreate.php:99
 #: actions/apifavoritedestroy.php:100 actions/apifriendshipscreate.php:100
 #: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:129
-#: actions/apigroupcreate.php:184 actions/apigroupismember.php:114
+#: actions/apigroupcreate.php:136 actions/apigroupismember.php:114
 #: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
 #: actions/apigrouplistall.php:120 actions/apigrouplist.php:132
 #: actions/apigroupmembership.php:106 actions/apigroupshow.php:105
@@ -306,79 +309,66 @@ msgstr "Nie można określić użytkownika źródłowego."
 msgid "Could not find target user."
 msgstr "Nie można znaleźć użytkownika docelowego."
 
-#: actions/apigroupcreate.php:136 actions/newgroup.php:204
-msgid "Could not create group."
-msgstr "Nie można utworzyć grupy."
-
-#: actions/apigroupcreate.php:147 actions/editgroup.php:259
-#: actions/newgroup.php:210
-msgid "Could not create aliases."
-msgstr "Nie można utworzyć aliasów."
-
-#: actions/apigroupcreate.php:166 actions/newgroup.php:224
-msgid "Could not set group membership."
-msgstr "Nie można ustawić członkostwa w grupie."
-
-#: actions/apigroupcreate.php:212 actions/editgroup.php:182
+#: actions/apigroupcreate.php:164 actions/editgroup.php:182
 #: actions/newgroup.php:126 actions/profilesettings.php:208
 #: actions/register.php:205
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr "Pseudonim może zawierać tylko małe litery i cyfry, bez spacji."
 
-#: actions/apigroupcreate.php:221 actions/editgroup.php:186
+#: actions/apigroupcreate.php:173 actions/editgroup.php:186
 #: actions/newgroup.php:130 actions/profilesettings.php:231
 #: actions/register.php:208
 msgid "Nickname already in use. Try another one."
 msgstr "Pseudonim jest już używany. Spróbuj innego."
 
-#: actions/apigroupcreate.php:228 actions/editgroup.php:189
+#: actions/apigroupcreate.php:180 actions/editgroup.php:189
 #: actions/newgroup.php:133 actions/profilesettings.php:211
 #: actions/register.php:210
 msgid "Not a valid nickname."
 msgstr "To nie jest prawidłowy pseudonim."
 
-#: actions/apigroupcreate.php:244 actions/editgroup.php:195
+#: actions/apigroupcreate.php:196 actions/editgroup.php:195
 #: actions/newgroup.php:139 actions/profilesettings.php:215
 #: actions/register.php:217
 msgid "Homepage is not a valid URL."
 msgstr "Strona domowa nie jest prawidłowym adresem URL."
 
-#: actions/apigroupcreate.php:253 actions/editgroup.php:198
+#: actions/apigroupcreate.php:205 actions/editgroup.php:198
 #: actions/newgroup.php:142 actions/profilesettings.php:218
 #: actions/register.php:220
 msgid "Full name is too long (max 255 chars)."
 msgstr "Imię i nazwisko jest za długie (maksymalnie 255 znaków)."
 
-#: actions/apigroupcreate.php:261
+#: actions/apigroupcreate.php:213
 #, fuzzy, php-format
 msgid "Description is too long (max %d chars)."
 msgstr "opis jest za długi (maksymalnie 140 znaków)."
 
-#: actions/apigroupcreate.php:272 actions/editgroup.php:204
+#: actions/apigroupcreate.php:224 actions/editgroup.php:204
 #: actions/newgroup.php:148 actions/profilesettings.php:225
 #: actions/register.php:227
 msgid "Location is too long (max 255 chars)."
 msgstr "Położenie jest za długie (maksymalnie 255 znaków)."
 
-#: actions/apigroupcreate.php:291 actions/editgroup.php:215
+#: actions/apigroupcreate.php:243 actions/editgroup.php:215
 #: actions/newgroup.php:159
 #, php-format
 msgid "Too many aliases! Maximum %d."
 msgstr "Za dużo aliasów! Maksymalnie %d."
 
-#: actions/apigroupcreate.php:312 actions/editgroup.php:224
+#: actions/apigroupcreate.php:264 actions/editgroup.php:224
 #: actions/newgroup.php:168
 #, php-format
 msgid "Invalid alias: \"%s\""
 msgstr "Nieprawidłowy alias: \"%s\""
 
-#: actions/apigroupcreate.php:321 actions/editgroup.php:228
+#: actions/apigroupcreate.php:273 actions/editgroup.php:228
 #: actions/newgroup.php:172
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
 msgstr "Alias \"%s\" jest już używany. Spróbuj innego."
 
-#: actions/apigroupcreate.php:334 actions/editgroup.php:234
+#: actions/apigroupcreate.php:286 actions/editgroup.php:234
 #: actions/newgroup.php:178
 msgid "Alias can't be the same as nickname."
 msgstr "Alias nie może być taki sam jak pseudonim."
@@ -602,10 +592,10 @@ msgstr "Przytnij"
 msgid "There was a problem with your session token. Try again, please."
 msgstr "Wystąpił problem z tokenem sesji. Spróbuj ponownie."
 
-#: actions/avatarsettings.php:277 actions/emailsettings.php:255
-#: actions/grouplogo.php:319 actions/imsettings.php:220
-#: actions/recoverpassword.php:44 actions/smssettings.php:248
-#: lib/designsettings.php:304
+#: actions/avatarsettings.php:277 actions/designadminpanel.php:103
+#: actions/emailsettings.php:255 actions/grouplogo.php:319
+#: actions/imsettings.php:220 actions/recoverpassword.php:44
+#: actions/smssettings.php:248 lib/designsettings.php:304
 msgid "Unexpected form submission."
 msgstr "Nieoczekiwane wysłanie formularza."
 
@@ -665,7 +655,7 @@ msgstr "Odblokuj użytkownika w tej grupie"
 msgid "Unblock"
 msgstr "Odblokuj"
 
-#: actions/blockedfromgroup.php:313
+#: actions/blockedfromgroup.php:313 lib/unblockform.php:80
 msgid "Unblock this user"
 msgstr "Odblokuj tego użytkownika"
 
@@ -840,7 +830,7 @@ msgid "Delete this user"
 msgstr "Usuń ten wpis"
 
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
-#: lib/adminpanelaction.php:275 lib/groupnav.php:119
+#: lib/adminpanelaction.php:302 lib/groupnav.php:119
 msgid "Design"
 msgstr "Wygląd"
 
@@ -848,104 +838,182 @@ msgstr "Wygląd"
 msgid "Design settings for this StatusNet site."
 msgstr ""
 
-#: actions/designadminpanel.php:220
+#: actions/designadminpanel.php:278
 #, fuzzy
-msgid "Unable to delete design setting."
-msgstr "Nie można zapisać ustawień wyglądu!"
+msgid "Invalid logo URL."
+msgstr "Nieprawidłowy rozmiar."
 
-#: actions/designadminpanel.php:301
+#: actions/designadminpanel.php:282
 #, fuzzy, php-format
 msgid "Theme not available: %s"
 msgstr "Ta strona nie jest dostępna w "
 
-#: actions/designadminpanel.php:406
+#: actions/designadminpanel.php:288
+#, fuzzy, php-format
+msgid "Theme directory not readable: %s"
+msgstr "Ta strona nie jest dostępna w "
+
+#: actions/designadminpanel.php:292
+#, php-format
+msgid "Avatar directory not writable: %s"
+msgstr ""
+
+#: actions/designadminpanel.php:296
+#, php-format
+msgid "Background directory not writable: %s"
+msgstr ""
+
+#: actions/designadminpanel.php:312
+#, php-format
+msgid "Max length for %s %s is 255 characters."
+msgstr ""
+
+#: actions/designadminpanel.php:412
+#, fuzzy
+msgid "Change logo"
+msgstr "Zmień kolory"
+
+#: actions/designadminpanel.php:417
+#, fuzzy
+msgid "Site logo"
+msgstr "Zaproś"
+
+#: actions/designadminpanel.php:424
 #, fuzzy
 msgid "Change theme"
 msgstr "Zmień"
 
-#: actions/designadminpanel.php:410
-msgid "Theme"
-msgstr ""
+#: actions/designadminpanel.php:441
+#, fuzzy
+msgid "Site theme"
+msgstr "Wpis strony"
 
-#: actions/designadminpanel.php:411
+#: actions/designadminpanel.php:442
 #, fuzzy
 msgid "Theme for the site."
 msgstr "Wyloguj się ze strony"
 
-#: actions/designadminpanel.php:420 lib/designsettings.php:101
+#: actions/designadminpanel.php:447
+msgid "Theme server"
+msgstr ""
+
+#: actions/designadminpanel.php:451
+msgid "Theme path"
+msgstr ""
+
+#: actions/designadminpanel.php:455
+msgid "Theme directory"
+msgstr ""
+
+#: actions/designadminpanel.php:462
+#, fuzzy
+msgid "Avatar Settings"
+msgstr "Ustawienia awatara"
+
+#: actions/designadminpanel.php:467
+#, fuzzy
+msgid "Avatar server"
+msgstr "Ustawienia awatara"
+
+#: actions/designadminpanel.php:471
+#, fuzzy
+msgid "Avatar path"
+msgstr "Zaktualizowano awatar."
+
+#: actions/designadminpanel.php:475
+#, fuzzy
+msgid "Avatar directory"
+msgstr "Usunięto awatar."
+
+#: actions/designadminpanel.php:486 lib/designsettings.php:101
 msgid "Change background image"
 msgstr "Zmień obraz tłas"
 
-#: actions/designadminpanel.php:424 actions/designadminpanel.php:498
+#: actions/designadminpanel.php:491 actions/designadminpanel.php:578
 #: lib/designsettings.php:178
 msgid "Background"
 msgstr "Tło"
 
-#: actions/designadminpanel.php:429
+#: actions/designadminpanel.php:496
 #, fuzzy, php-format
 msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
 "$s."
 msgstr "Można wysłać obraz logo grupy. Maksymalny rozmiar pliku to %s."
 
-#: actions/designadminpanel.php:459 lib/designsettings.php:139
+#: actions/designadminpanel.php:526 lib/designsettings.php:139
 msgid "On"
 msgstr "Włączone"
 
-#: actions/designadminpanel.php:475 lib/designsettings.php:155
+#: actions/designadminpanel.php:542 lib/designsettings.php:155
 msgid "Off"
 msgstr "Wyłączone"
 
-#: actions/designadminpanel.php:476 lib/designsettings.php:156
+#: actions/designadminpanel.php:543 lib/designsettings.php:156
 msgid "Turn background image on or off."
 msgstr "Włącz lub wyłącz obraz tła."
 
-#: actions/designadminpanel.php:481 lib/designsettings.php:161
+#: actions/designadminpanel.php:548 lib/designsettings.php:161
 msgid "Tile background image"
 msgstr "Kafelkowy obraz tła"
 
-#: actions/designadminpanel.php:490 lib/designsettings.php:170
+#: actions/designadminpanel.php:554
+#, fuzzy
+msgid "Background server"
+msgstr "Tło"
+
+#: actions/designadminpanel.php:558
+#, fuzzy
+msgid "Background path"
+msgstr "Tło"
+
+#: actions/designadminpanel.php:562
+#, fuzzy
+msgid "Background directory"
+msgstr "Tło"
+
+#: actions/designadminpanel.php:569 lib/designsettings.php:170
 msgid "Change colours"
 msgstr "Zmień kolory"
 
-#: actions/designadminpanel.php:511 lib/designsettings.php:191
+#: actions/designadminpanel.php:591 lib/designsettings.php:191
 msgid "Content"
 msgstr "Zawartość"
 
-#: actions/designadminpanel.php:524 lib/designsettings.php:204
+#: actions/designadminpanel.php:604 lib/designsettings.php:204
 msgid "Sidebar"
 msgstr "Panel boczny"
 
-#: actions/designadminpanel.php:537 lib/designsettings.php:217
+#: actions/designadminpanel.php:617 lib/designsettings.php:217
 msgid "Text"
 msgstr "Tekst"
 
-#: actions/designadminpanel.php:550 lib/designsettings.php:230
+#: actions/designadminpanel.php:630 lib/designsettings.php:230
 msgid "Links"
 msgstr "Odnośniki"
 
-#: actions/designadminpanel.php:611 lib/designsettings.php:247
+#: actions/designadminpanel.php:658 lib/designsettings.php:247
 msgid "Use defaults"
 msgstr "Użyj domyślnych"
 
-#: actions/designadminpanel.php:612 lib/designsettings.php:248
+#: actions/designadminpanel.php:659 lib/designsettings.php:248
 msgid "Restore default designs"
 msgstr "Przywróć domyślny wygląd"
 
-#: actions/designadminpanel.php:618 lib/designsettings.php:254
+#: actions/designadminpanel.php:665 lib/designsettings.php:254
 msgid "Reset back to default"
 msgstr "Przywróć domyślne ustawienia"
 
-#: actions/designadminpanel.php:620 actions/emailsettings.php:195
+#: actions/designadminpanel.php:667 actions/emailsettings.php:195
 #: actions/imsettings.php:163 actions/othersettings.php:126
-#: actions/profilesettings.php:167 actions/siteadminpanel.php:371
+#: actions/profilesettings.php:167 actions/siteadminpanel.php:414
 #: actions/smssettings.php:181 actions/subscriptions.php:203
 #: actions/tagother.php:154 actions/useradminpanel.php:226
 #: lib/designsettings.php:256 lib/groupeditform.php:202
 msgid "Save"
 msgstr "Zapisz"
 
-#: actions/designadminpanel.php:621 lib/designsettings.php:257
+#: actions/designadminpanel.php:668 lib/designsettings.php:257
 msgid "Save design"
 msgstr "Zapisz wygląd"
 
@@ -987,6 +1055,10 @@ msgstr "opis jest za długi (maksymalnie 140 znaków)."
 #: actions/editgroup.php:253
 msgid "Could not update group."
 msgstr "Nie można zaktualizować grupy."
+
+#: actions/editgroup.php:259 classes/User_group.php:390
+msgid "Could not create aliases."
+msgstr "Nie można utworzyć aliasów."
 
 #: actions/editgroup.php:269
 msgid "Options saved."
@@ -1105,7 +1177,7 @@ msgstr "Brak adresu e-mail."
 msgid "Cannot normalize that email address"
 msgstr "Nie można znormalizować tego adresu e-mail"
 
-#: actions/emailsettings.php:330 actions/siteadminpanel.php:156
+#: actions/emailsettings.php:330 actions/siteadminpanel.php:158
 msgid "Not a valid email address"
 msgstr "To nie jest prawidłowy adres e-mail"
 
@@ -1841,10 +1913,10 @@ msgstr "Nieprawidłowa zawartość wpisu"
 msgid "Incorrect username or password."
 msgstr "Niepoprawna nazwa użytkownika lub hasło."
 
-#: actions/login.php:149 actions/recoverpassword.php:375
-#: actions/register.php:248
-msgid "Error setting user."
-msgstr "Błąd podczas ustawiania użytkownika."
+#: actions/login.php:149
+#, fuzzy
+msgid "Error setting user. You are probably not authorized."
+msgstr "Brak upoważnienia."
 
 #: actions/login.php:204 actions/login.php:257 lib/action.php:457
 #: lib/logingroupnav.php:79
@@ -2276,7 +2348,7 @@ msgstr ""
 "Znaczniki dla siebie (litery, liczby, -, . i _), oddzielone przecinkami lub "
 "spacjami"
 
-#: actions/profilesettings.php:144 actions/siteadminpanel.php:275
+#: actions/profilesettings.php:144 actions/siteadminpanel.php:309
 msgid "Language"
 msgstr "Język"
 
@@ -2304,7 +2376,7 @@ msgstr ""
 msgid "Bio is too long (max %d chars)."
 msgstr "Wpis \"O mnie\" jest za długi (maksymalnie 140 znaków)."
 
-#: actions/profilesettings.php:228 actions/siteadminpanel.php:163
+#: actions/profilesettings.php:228 actions/siteadminpanel.php:165
 msgid "Timezone not selected."
 msgstr "Nie wybrano strefy czasowej."
 
@@ -2557,6 +2629,10 @@ msgstr "Hasło musi mieć sześć lub więcej znaków."
 msgid "Password and confirmation do not match."
 msgstr "Hasło i potwierdzenie nie pasują do siebie."
 
+#: actions/recoverpassword.php:375 actions/register.php:248
+msgid "Error setting user."
+msgstr "Błąd podczas ustawiania użytkownika."
+
 #: actions/recoverpassword.php:382
 msgid "New password successfully saved. You are now logged in."
 msgstr "Pomyślnie zapisano nowe hasło. Jesteś teraz zalogowany."
@@ -2624,7 +2700,7 @@ msgid "Same as password above. Required."
 msgstr "Takie samo jak powyższe hasło. Wymagane."
 
 #: actions/register.php:437 actions/register.php:441
-#: actions/siteadminpanel.php:253 lib/accountsettingsaction.php:120
+#: actions/siteadminpanel.php:287 lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr "E-mail"
 
@@ -3102,7 +3178,7 @@ msgstr "Nie można wysłać wiadomości do tego użytkownika."
 msgid "User is already silenced."
 msgstr "Użytkownik został już zablokował w grupie."
 
-#: actions/siteadminpanel.php:58 lib/adminpanelaction.php:272
+#: actions/siteadminpanel.php:58 lib/adminpanelaction.php:299
 #, fuzzy
 msgid "Site"
 msgstr "Zaproś"
@@ -3111,122 +3187,237 @@ msgstr "Zaproś"
 msgid "Basic settings for this StatusNet site."
 msgstr ""
 
-#: actions/siteadminpanel.php:145
+#: actions/siteadminpanel.php:147
 msgid "Site name must have non-zero length."
 msgstr ""
 
-#: actions/siteadminpanel.php:153
+#: actions/siteadminpanel.php:155
 #, fuzzy
 msgid "You must have a valid contact email address"
 msgstr "To nie jest prawidłowy adres e-mail"
 
-#: actions/siteadminpanel.php:171
+#: actions/siteadminpanel.php:173
 #, php-format
 msgid "Unknown language \"%s\""
 msgstr ""
 
-#: actions/siteadminpanel.php:178
+#: actions/siteadminpanel.php:180
 msgid "Invalid snapshot report URL."
 msgstr ""
 
-#: actions/siteadminpanel.php:184
+#: actions/siteadminpanel.php:186
 msgid "Invalid snapshot run value."
 msgstr ""
 
-#: actions/siteadminpanel.php:190
+#: actions/siteadminpanel.php:192
 msgid "Snapshot frequency must be a number."
 msgstr ""
 
-#: actions/siteadminpanel.php:241
+#: actions/siteadminpanel.php:199
+msgid "You must set an SSL sever when enabling SSL."
+msgstr ""
+
+#: actions/siteadminpanel.php:204
+msgid "Invalid SSL server. Max length is 255 characters."
+msgstr ""
+
+#: actions/siteadminpanel.php:210
+msgid "Minimum text limit is 140c."
+msgstr ""
+
+#: actions/siteadminpanel.php:216
+msgid "Dupe limit must 1 or more seconds."
+msgstr ""
+
+#: actions/siteadminpanel.php:224
+#, php-format
+msgid "Locales directory not readable: %s"
+msgstr ""
+
+#: actions/siteadminpanel.php:275
 #, fuzzy
 msgid "Site name"
 msgstr "Wpis strony"
 
-#: actions/siteadminpanel.php:242
+#: actions/siteadminpanel.php:276
 msgid "The name of your site, like \"Yourcompany Microblog\""
 msgstr ""
 
-#: actions/siteadminpanel.php:245
+#: actions/siteadminpanel.php:279
 msgid "Brought by"
 msgstr ""
 
-#: actions/siteadminpanel.php:246
+#: actions/siteadminpanel.php:280
 msgid "Text used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:249
+#: actions/siteadminpanel.php:283
 msgid "Brought by URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:250
+#: actions/siteadminpanel.php:284
 msgid "URL used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:254
+#: actions/siteadminpanel.php:288
 #, fuzzy
 msgid "contact email address for your site"
 msgstr "Nowy adres e-mail do wysyłania do %s"
 
-#: actions/siteadminpanel.php:268
+#: actions/siteadminpanel.php:302
 msgid "Default timezone"
 msgstr ""
 
-#: actions/siteadminpanel.php:269
+#: actions/siteadminpanel.php:303
 msgid "Default timezone for the site; usually UTC."
 msgstr ""
 
-#: actions/siteadminpanel.php:276
+#: actions/siteadminpanel.php:310
 #, fuzzy
 msgid "Default site language"
 msgstr "Preferowany język"
 
-#: actions/siteadminpanel.php:282
+#: actions/siteadminpanel.php:316
+msgid "Path to locales"
+msgstr ""
+
+#: actions/siteadminpanel.php:316
+msgid "Directory path to locales"
+msgstr ""
+
+#: actions/siteadminpanel.php:320
+#, fuzzy
+msgid "Server"
+msgstr "Przywróć"
+
+#: actions/siteadminpanel.php:320
+msgid "Site's server hostname."
+msgstr ""
+
+#: actions/siteadminpanel.php:324
+msgid "Path"
+msgstr ""
+
+#: actions/siteadminpanel.php:324
+#, fuzzy
+msgid "Site path"
+msgstr "Wpis strony"
+
+#: actions/siteadminpanel.php:328
+msgid "Fancy URLs"
+msgstr ""
+
+#: actions/siteadminpanel.php:330
+msgid "Use fancy (more readable and memorable) URLs?"
+msgstr ""
+
+#: actions/siteadminpanel.php:334
 #, fuzzy
 msgid "Private"
 msgstr "Prywatność"
 
-#: actions/siteadminpanel.php:284
+#: actions/siteadminpanel.php:336
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr ""
 
-#: actions/siteadminpanel.php:290
+#: actions/siteadminpanel.php:340
+#, fuzzy
+msgid "Invite only"
+msgstr "Zaproś"
+
+#: actions/siteadminpanel.php:342
+msgid "Make registration invitation only."
+msgstr ""
+
+#: actions/siteadminpanel.php:346 actions/useradminpanel.php:171
+#, fuzzy
+msgid "Closed"
+msgstr "Zablokowano"
+
+#: actions/siteadminpanel.php:348
+msgid "Disable new registrations."
+msgstr ""
+
+#: actions/siteadminpanel.php:353
 msgid "Randomly during Web hit"
 msgstr ""
 
-#: actions/siteadminpanel.php:291
+#: actions/siteadminpanel.php:354
 msgid "In a scheduled job"
 msgstr ""
 
-#: actions/siteadminpanel.php:292
+#: actions/siteadminpanel.php:355 actions/siteadminpanel.php:380
 #, fuzzy
 msgid "Never"
 msgstr "Przywróć"
 
-#: actions/siteadminpanel.php:294
+#: actions/siteadminpanel.php:357
 msgid "Data snapshots"
 msgstr ""
 
-#: actions/siteadminpanel.php:295
+#: actions/siteadminpanel.php:358
 msgid "When to send statistical data to status.net servers"
 msgstr ""
 
-#: actions/siteadminpanel.php:301
+#: actions/siteadminpanel.php:364
 msgid "Frequency"
 msgstr ""
 
-#: actions/siteadminpanel.php:302
+#: actions/siteadminpanel.php:365
 msgid "Snapshots will be sent once every N Web hits"
 msgstr ""
 
-#: actions/siteadminpanel.php:309
+#: actions/siteadminpanel.php:372
 msgid "Report URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:310
+#: actions/siteadminpanel.php:373
 msgid "Snapshots will be sent to this URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:371 actions/useradminpanel.php:226
+#: actions/siteadminpanel.php:381
+#, fuzzy
+msgid "Sometimes"
+msgstr "Wpisy"
+
+#: actions/siteadminpanel.php:382
+#, fuzzy
+msgid "Always"
+msgstr "Aliasy"
+
+#: actions/siteadminpanel.php:384
+msgid "Use SSL"
+msgstr ""
+
+#: actions/siteadminpanel.php:385
+msgid "When to use SSL"
+msgstr ""
+
+#: actions/siteadminpanel.php:391
+msgid "SSL Server"
+msgstr ""
+
+#: actions/siteadminpanel.php:392
+msgid "Server to direct SSL requests to"
+msgstr ""
+
+#: actions/siteadminpanel.php:396
+msgid "Text limit"
+msgstr ""
+
+#: actions/siteadminpanel.php:396
+msgid "Maximum number of characters for notices."
+msgstr ""
+
+#: actions/siteadminpanel.php:400
+msgid "Dupe limit"
+msgstr ""
+
+#: actions/siteadminpanel.php:400
+msgid "How long users must wait (in seconds) to post the same thing again."
+msgstr ""
+
+#: actions/siteadminpanel.php:414 actions/useradminpanel.php:226
 #, fuzzy
 msgid "Save site settings"
 msgstr "Ustawienia awatara"
@@ -3553,11 +3744,6 @@ msgstr "Użytkownik"
 msgid "User settings for this StatusNet site."
 msgstr ""
 
-#: actions/useradminpanel.php:171
-#, fuzzy
-msgid "Closed"
-msgstr "Zablokowano"
-
 #: actions/useradminpanel.php:173
 msgid "Is registration on this site prohibited?"
 msgstr ""
@@ -3787,6 +3973,14 @@ msgstr "Problem podczas zapisywania wpisu."
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Błąd bazy danych podczas wprowadzania odpowiedzi: %s"
+
+#: classes/User_group.php:380
+msgid "Could not create group."
+msgstr "Nie można utworzyć grupy."
+
+#: classes/User_group.php:409
+msgid "Could not set group membership."
+msgstr "Nie można ustawić członkostwa w grupie."
 
 #: classes/User.php:347
 #, php-format
@@ -4026,12 +4220,17 @@ msgstr "Nie zaimplementowano polecenia."
 msgid "saveSettings() not implemented."
 msgstr "Nie zaimplementowano polecenia."
 
-#: lib/adminpanelaction.php:273
+#: lib/adminpanelaction.php:247
+#, fuzzy
+msgid "Unable to delete design setting."
+msgstr "Nie można zapisać ustawień wyglądu!"
+
+#: lib/adminpanelaction.php:300
 #, fuzzy
 msgid "Basic site configuration"
 msgstr "Potwierdzenie adresu e-mail"
 
-#: lib/adminpanelaction.php:276
+#: lib/adminpanelaction.php:303
 #, fuzzy
 msgid "Design configuration"
 msgstr "Potwierdzenie SMS"
@@ -4308,20 +4507,20 @@ msgstr ""
 "tracks - jeszcze nie zaimplementowano.\n"
 "tracking - jeszcze nie zaimplementowano.\n"
 
-#: lib/common.php:203
+#: lib/common.php:199
 #, fuzzy
 msgid "No configuration file found. "
 msgstr "Brak kodu potwierdzającego."
 
-#: lib/common.php:204
+#: lib/common.php:200
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:205
+#: lib/common.php:201
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:206
+#: lib/common.php:202
 #, fuzzy
 msgid "Go to the installer."
 msgstr "Zaloguj się na stronę"
@@ -5156,11 +5355,6 @@ msgstr "Brak"
 msgid "Top posters"
 msgstr "Najczęściej wysyłający wpisy"
 
-#: lib/unblockform.php:80
-#, fuzzy
-msgid "Unlock this user"
-msgstr "Odblokuj tego użytkownika"
-
 #: lib/unsandboxform.php:69
 msgid "Unsandbox"
 msgstr ""
@@ -5211,47 +5405,47 @@ msgstr "Wyślij bezpośrednią wiadomość do tego użytkownika"
 msgid "Message"
 msgstr "Wiadomość"
 
-#: lib/util.php:821
+#: lib/util.php:826
 msgid "a few seconds ago"
 msgstr "kilka sekund temu"
 
-#: lib/util.php:823
+#: lib/util.php:828
 msgid "about a minute ago"
 msgstr "około minutę temu"
 
-#: lib/util.php:825
+#: lib/util.php:830
 #, php-format
 msgid "about %d minutes ago"
 msgstr "około %d minut temu"
 
-#: lib/util.php:827
+#: lib/util.php:832
 msgid "about an hour ago"
 msgstr "około godzinę temu"
 
-#: lib/util.php:829
+#: lib/util.php:834
 #, php-format
 msgid "about %d hours ago"
 msgstr "około %d godzin temu"
 
-#: lib/util.php:831
+#: lib/util.php:836
 msgid "about a day ago"
 msgstr "blisko dzień temu"
 
-#: lib/util.php:833
+#: lib/util.php:838
 #, php-format
 msgid "about %d days ago"
 msgstr "około %d dni temu"
 
-#: lib/util.php:835
+#: lib/util.php:840
 msgid "about a month ago"
 msgstr "około miesiąc temu"
 
-#: lib/util.php:837
+#: lib/util.php:842
 #, php-format
 msgid "about %d months ago"
 msgstr "około %d miesięcy temu"
 
-#: lib/util.php:839
+#: lib/util.php:844
 msgid "about a year ago"
 msgstr "około rok temu"
 
@@ -5282,6 +5476,10 @@ msgstr "Przepraszamy, to nie jest twój przychodzący adres e-mail."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Przepraszamy, przychodzący e-mail nie jest dozwolony."
+
+#, fuzzy
+#~ msgid "Unlock this user"
+#~ msgstr "Odblokuj tego użytkownika"
 
 #, fuzzy
 #~ msgid "These people are subscribed to you: "
