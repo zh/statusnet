@@ -199,8 +199,8 @@ class NoticeListItem extends Widget
     {
         $this->out->elementStart('div', 'entry-content');
         $this->showNoticeLink();
-        $this->showNoticeLocation();
         $this->showNoticeSource();
+        $this->showNoticeLocation();
         $this->showContext();
         $this->out->elementEnd('div');
     }
