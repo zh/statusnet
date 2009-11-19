@@ -264,7 +264,7 @@ class UserAdminPanelForm extends AdminForm
         $this->out->elementStart('fieldset', array('id' => 'settings_user_sessions'));
         $this->out->element('legend', null, _('Sessions'));
 
-        $this->out->elementStart('ul');
+        $this->out->elementStart('ul', 'form_data');
 
         $this->li();
         $this->out->checkbox('sessions-handle', _('Handle sessions'),
