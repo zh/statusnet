@@ -244,6 +244,16 @@ class Rss10Action extends Action
         $this->element('dc:creator', null, ($profile->fullname) ? $profile->fullname : $profile->nickname);
         $this->element('foaf:maker', array('rdf:resource' => $creator_uri));
         $this->element('sioc:has_creator', array('rdf:resource' => $creator_uri.'#acct'));
+        $location = $notice->getLocation();
+        if ($location && isset($location->lat) && isset($location->lon)) {
+            $location_uri = $location->getRdfURL();
+            $attrs = array('geo:lat' => $location->lat,
+                'geo:long' => $location->lon);
+            if (strlen($location_uri)) {
+                $attrs['rdf:resource'] = $location_uri;
+            }
+            $this->element('statusnet:origin', $attrs);
+        }
         $this->element('statusnet:postIcon', array('rdf:resource' => $profile->avatarUrl()));
         $this->element('cc:licence', array('rdf:resource' => common_config('license', 'url')));
         if ($notice->reply_to) {
@@ -354,6 +364,8 @@ class Rss10Action extends Action
                                               'http://rdfs.org/sioc/types#',
                                               'xmlns:rdfs' =>
                                               'http://www.w3.org/2000/01/rdf-schema#',
+                                              'xmlns:geo' =>
+                                              'http://www.w3.org/2003/01/geo/wgs84_pos#',
                                               'xmlns:statusnet' =>
                                               'http://status.net/ont/',
                                               'xmlns' => 'http://purl.org/rss/1.0/'));

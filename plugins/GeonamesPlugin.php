@@ -302,4 +302,28 @@ class GeonamesPlugin extends Plugin
         // it's been filled, so don't process further.
         return false;
     }
+
+    /**
+     * Machine-readable name for a location
+     *
+     * Given a location, we try to retrieve a geonames.org URL.
+     *
+     * @param Location $location Location to get the url for
+     * @param string   &$url     Place to put the url
+     *
+     * @return boolean whether to continue
+     */
+
+    function onLocationRdfUrl($location, &$url)
+    {
+        if ($location->location_ns != self::LOCATION_NS) {
+            // It's not one of our IDs... keep processing
+            return true;
+        }
+
+        $url = 'http://sw.geonames.org/' . $location->location_id . '/';
+
+        // it's been filled, so don't process further.
+        return false;
+    }
 }
