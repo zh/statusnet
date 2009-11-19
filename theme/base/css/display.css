@@ -974,7 +974,6 @@ position:relative;
 font-size:0.95em;
 width:90px;
 float:right;
-margin-right:7px;
 }
 
 .notice-options a {
@@ -984,18 +983,12 @@ float:left;
 .notice-options .notice_reply,
 .notice-options .form_favor,
 .notice-options .form_disfavor {
-position:absolute;
-top:0;
+float:left;
+margin-left:18px;
 }
 .notice-options .form_favor,
 .notice-options .form_disfavor {
-left:0;
-}
-.notice-options .notice_reply {
-left:29px;
-}
-.notice-options .notice_delete {
-right:0;
+margin-left:0;
 }
 .notice-options input,
 .notice-options a {
