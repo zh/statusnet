@@ -244,6 +244,16 @@ class Rss10Action extends Action
         $this->element('dc:creator', null, ($profile->fullname) ? $profile->fullname : $profile->nickname);
         $this->element('foaf:maker', array('rdf:resource' => $creator_uri));
         $this->element('sioc:has_creator', array('rdf:resource' => $creator_uri.'#acct'));
+        $location = $notice->getLocation();
+        if ($location && isset($location->lat) && isset($location->lon)) {
+            $location_uri = $location->getRdfURL();
+            $attrs = array('geo:lat' => $location->lat,
+                'geo:long' => $location->lon);
+            if (strlen($location_uri)) {
+                $attrs['rdf:resource'] = $location_uri;
+            }
+            $this->element('statusnet:origin', $attrs);
+        }
         $this->element('statusnet:postIcon', array('rdf:resource' => $profile->avatarUrl()));
         $this->element('cc:licence', array('rdf:resource' => common_config('license', 'url')));
         if ($notice->reply_to) {
@@ -260,14 +270,7 @@ class Rss10Action extends Action
             foreach($attachments as $attachment){
                 $enclosure=$attachment->getEnclosure();
                 if ($enclosure) {
-                    // DO NOT move xmlns declaration to root element. Making it
-                    // the default namespace here improves compatibility with
-                    // real-world feed readers.
-                    $attribs = array(
-                        'rdf:resource' => $enclosure->url,
-                        'url' => $enclosure->url,
-                        'xmlns' => 'http://purl.oclc.org/net/rss_2.0/enc#'
-                        );
+                    $attribs = array('rdf:resource' => $enclosure->url);
                     if ($enclosure->title) {
                         $attribs['dc:title'] = $enclosure->title;
                     }
@@ -275,12 +278,12 @@ class Rss10Action extends Action
                         $attribs['dc:date'] = common_date_w3dtf($enclosure->modified);
                     }
                     if ($enclosure->size) {
-                        $attribs['length'] = $enclosure->size;
+                        $attribs['enc:length'] = $enclosure->size;
                     }
                     if ($enclosure->mimetype) {
-                        $attribs['type'] = $enclosure->mimetype;
+                        $attribs['enc:type'] = $enclosure->mimetype;
                     }
-                    $this->element('enclosure', $attribs);
+                    $this->element('enc:enclosure', $attribs);
                 }
                 $this->element('sioc:links_to', array('rdf:resource'=>$attachment->url));
             }
@@ -348,12 +351,16 @@ class Rss10Action extends Action
                                               'http://commontag.org/ns#',
                                               'xmlns:foaf' =>
                                               'http://xmlns.com/foaf/0.1/',
+                                              'xmlns:enc' =>
+                                              'http://purl.oclc.org/net/rss_2.0/enc#',
                                               'xmlns:sioc' =>
                                               'http://rdfs.org/sioc/ns#',
                                               'xmlns:sioct' =>
                                               'http://rdfs.org/sioc/types#',
                                               'xmlns:rdfs' =>
                                               'http://www.w3.org/2000/01/rdf-schema#',
+                                              'xmlns:geo' =>
+                                              'http://www.w3.org/2003/01/geo/wgs84_pos#',
                                               'xmlns:statusnet' =>
                                               'http://status.net/ont/',
                                               'xmlns' => 'http://purl.org/rss/1.0/'));

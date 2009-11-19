@@ -397,16 +397,21 @@ class NoticeListItem extends Widget
             return;
         }
 
+        $lat = $this->notice->lat;
+        $lon = $this->notice->lon;
+        $latlon = (!empty($lat) && !empty($lon)) ? $lat.';'.$lon : '';
+
         $url  = $location->getUrl();
 
-        // TODO: Output @title lat and lon on element @class geo
-        // e.g., class="geo" title="45.5088375;-73.587809"
         $this->out->elementStart('span', array('class' => 'location'));
         $this->out->text(_('at'));
         if (empty($url)) {
-            $this->out->element('span', array('class' => 'geo'), $name);
+            $this->out->element('span', array('class' => 'geo',
+                                              'title' => $latlon),
+                                $name);
         } else {
             $this->out->element('a', array('class' => 'geo',
+                                           'title' => $latlon,
                                            'href' => $url),
                                 $name);
         }
