@@ -239,7 +239,7 @@ class MobileProfilePlugin extends WAP20Plugin
             return true;
         }
 
-        if (file_exists(theme_file('css/mp-screen.css'))) {
+        if (file_exists(Theme::file('css/mp-screen.css'))) {
             $action->cssLink('css/mp-screen.css', null, 'screen');
         } else {
             $action->element('link', array('rel' => 'stylesheet',
@@ -248,7 +248,7 @@ class MobileProfilePlugin extends WAP20Plugin
                                          'media' => 'screen'));
         }
 
-        if (file_exists(theme_file('css/mp-handheld.css'))) {
+        if (file_exists(Theme::file('css/mp-handheld.css'))) {
             $action->cssLink('css/mp-handheld.css', null, 'handheld');
         } else {
             $action->element('link', array('rel' => 'stylesheet',
@@ -285,12 +285,12 @@ class MobileProfilePlugin extends WAP20Plugin
         $action->elementStart('a', array('class' => 'url home bookmark',
                                        'href' => common_local_url('public')));
         if (common_config('site', 'mobilelogo') || 
-            file_exists(theme_file('logo.png')) || 
-            file_exists(theme_file('mobilelogo.gif'))) {
+            file_exists(Theme::file('logo.png')) || 
+            file_exists(Theme::file('mobilelogo.gif'))) {
 
             $action->element('img', array('class' => 'photo',
                 'src' => (common_config('site', 'mobilelogo')) ? common_config('site', 'mobilelogo') : 
-                            ((file_exists(theme_file('mobilelogo.png'))) ? (theme_path('mobilelogo.png')) : theme_path('logo.png')),
+                            ((file_exists(Theme::file('mobilelogo.png'))) ? (Theme::path('mobilelogo.png')) : Theme::path('logo.png')),
                 'alt' => common_config('site', 'name')));
         }
         $action->element('span', array('class' => 'fn org'), common_config('site', 'name'));
