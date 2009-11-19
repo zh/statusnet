@@ -291,7 +291,7 @@ class MobileProfilePlugin extends WAP20Plugin
                                        'href' => common_local_url('public')));
         if (common_config('site', 'mobilelogo') || 
             file_exists(Theme::file('logo.png')) || 
-            file_exists(Theme::file('mobilelogo.gif'))) {
+            file_exists(Theme::file('mobilelogo.png'))) {
 
             $action->element('img', array('class' => 'photo',
                 'src' => (common_config('site', 'mobilelogo')) ? common_config('site', 'mobilelogo') : 
