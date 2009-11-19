@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Show a map of user's notices
+ * Show a map of user's friends' notices
  *
  * PHP version 5
  *
@@ -41,7 +41,7 @@ if (!defined('STATUSNET')) {
  * @link     http://status.net/
  */
 
-class UsermapAction extends OwnerDesignAction
+class AllmapAction extends OwnerDesignAction
 {
     var $profile = null;
     var $page    = null;
@@ -89,8 +89,6 @@ class UsermapAction extends OwnerDesignAction
             $this->page = 1;
         }
 
-        $this->notices = $this->user->getNotices(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
-
         return true;
     }
 
@@ -103,9 +101,10 @@ class UsermapAction extends OwnerDesignAction
         }
 
         if ($this->page == 1) {
-            return $base;
+            return sprintf(_("%s friends map"),
+                           $base);
         } else {
-            return sprintf(_("%s map, page %d"),
+            return sprintf(_("%s friends map, page %d"),
                            $base,
                            $this->page);
         }

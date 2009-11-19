@@ -109,8 +109,9 @@ class MapstractionPlugin extends Plugin
 
     function onEndShowScripts($action)
     {
+        $actionName = $action->trimmed('action');
         // These are the ones that have maps on 'em
-        if (!in_array($action->trimmed('action'),
+        if (!in_array($actionName,
                       array('showstream', 'all', 'allmap', 'usermap'))) {
             return true;
         }
@@ -144,10 +145,101 @@ class MapstractionPlugin extends Plugin
                                 common_path('plugins/Mapstraction/js/mxn.js'),
                                 $this->provider));
 
+        $action->script(common_path('plugins/Mapstraction/usermap.js'));
+
         $action->elementStart('script', array('type' => 'text/javascript'));
         $action->raw(sprintf('var _provider = "%s";', $this->provider));
         $action->elementEnd('script');
 
+        switch ($actionName) {
+        case 'usermap':
+        case 'showstream':
+            $notice = empty($action->tag)
+              ? $action->user->getNotices(($action->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1)
+                : $action->user->getTaggedNotices($action->tag, ($action->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1, 0, 0, null);
+            break;
+        case 'all':
+        case 'allmap':
+            $cur = common_current_user();
+            if (!empty($cur) && $cur->id == $action->user->id) {
+                $notice = $action->user->noticeInbox(($action->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+            } else {
+                $notice = $action->user->noticesWithFriends(($action->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+            }
+            break;
+        }
+
+        $jsonArray = array();
+
+        while ($notice->fetch()) {
+            if (!empty($notice->lat) && !empty($notice->lon)) {
+                $jsonNotice = $this->noticeAsJson($notice);
+                $jsonArray[] = $jsonNotice;
+            }
+        }
+
+        $action->elementStart('script', array('type' => 'text/javascript'));
+        $action->raw('var _notices = ' . json_encode($jsonArray));
+        $action->elementEnd('script');
+
         return true;
+    }
+
+    function onEndShowSections($action)
+    {
+        $actionName = $action->trimmed('action');
+        // These are the ones that have maps on 'em
+        if (!in_array($actionName,
+                      array('showstream', 'all'))) {
+            return true;
+        }
+
+        $action->elementStart('div', array('id' => 'entity_map',
+                                         'class' => 'section'));
+
+        $action->element('h2', null, _('Map'));
+
+        $action->element('div', array('id' => 'map_canvas',
+                                    'class' => 'gray smallmap',
+                                    'style' => "width: 100%; height: 240px"));
+
+        $mapAct = ($actionName == 'showstream') ? 'usermap' : 'allmap';
+        $mapUrl =  common_local_url($mapAct,
+                                    array('nickname' => $action->trimmed('nickname')));
+
+        $action->element('a', array('href' => $mapUrl),
+                         _("Full size"));
+
+        $action->elementEnd('div');
+    }
+
+    function noticeAsJson($notice)
+    {
+        // FIXME: this code should be abstracted to a neutral third
+        // party, like Notice::asJson(). I'm not sure of the ethics
+        // of refactoring from within a plugin, so I'm just abusing
+        // the ApiAction method. Don't do this unless you're me!
+
+        require_once(INSTALLDIR.'/lib/api.php');
+
+        $act = new ApiAction('/dev/null');
+
+        $arr = $act->twitterStatusArray($notice, true);
+        $arr['url'] = $notice->bestUrl();
+        $arr['html'] = htmlspecialchars($notice->rendered);
+        $arr['source'] = htmlspecialchars($arr['source']);
+
+        if (!empty($notice->reply_to)) {
+            $reply_to = Notice::staticGet('id', $notice->reply_to);
+            if (!empty($reply_to)) {
+                $arr['in_reply_to_status_url'] = $reply_to->bestUrl();
+            }
+            $reply_to = null;
+        }
+
+        $profile = $notice->getProfile();
+        $arr['user']['profile_url'] = $profile->profileurl;
+
+        return $arr;
     }
 }
