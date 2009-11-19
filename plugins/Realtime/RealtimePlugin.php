@@ -125,7 +125,7 @@ class RealtimePlugin extends Plugin
         return true;
     }
 
-    function onEndNoticeSave($notice)
+    function onHandleQueuedNotice($notice)
     {
         $paths = array();
 
