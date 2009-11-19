@@ -143,6 +143,31 @@ class UseradminpanelAction extends AdminPanelAction
 
     function validate(&$values)
     {
+        // Validate biolimit
+
+        if (!Validate::number($values['profile']['biolimit'])) {
+            $this->clientError(_("Invalid bio limit. Must be numeric."));
+        }
+
+        // Validate welcome text
+
+        if (mb_strlen($values['newuser']['welcome']) > 255) {
+            $this->clientError(_("Invalid welcome text. Max length is 255 characters."));
+        }
+
+        // Validate default subscription
+
+        if (!empty($values['newuser']['default'])) {
+            $defuser = User::staticGet('nickname', trim($values['newuser']['default']));
+            if (empty($defuser)) {
+                $this->clientError(
+                    sprintf(
+                        _('Invalid default subscripton: \'%1$s\' is not user.'),
+                        $values['newuser']['default']
+                    )
+                );
+            }
+        }
     }
 }
 
@@ -208,7 +233,7 @@ class UserAdminPanelForm extends AdminForm
 
         $this->li();
         $this->input('welcome', _('New user welcome'),
-                     _('Welcome text for new users.'),
+                     _('Welcome text for new users (Max 255 chars).'),
                      'newuser');
         $this->unli();
 

@@ -593,8 +593,6 @@ class Router
             $m->connect('admin/user', array('action' => 'useradminpanel'));
             $m->connect('admin/paths', array('action' => 'pathsadminpanel'));
 
-
-
             $m->connect('getfile/:filename',
                         array('action' => 'getfile'),
                         array('filename' => '[A-Za-z0-9._-]+'));
