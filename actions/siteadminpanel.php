@@ -270,15 +270,19 @@ class SiteAdminPanelForm extends AdminForm
 
     function formData()
     {
+        $this->out->elementStart('fieldset', array('id' => 'settings_admin_general'));
+        $this->out->element('legend', null, _('General'));
         $this->out->elementStart('ul', 'form_data');
         $this->li();
         $this->input('name', _('Site name'),
                      _('The name of your site, like "Yourcompany Microblog"'));
         $this->unli();
+
         $this->li();
         $this->input('broughtby', _('Brought by'),
                      _('Text used for credits link in footer of each page'));
         $this->unli();
+
         $this->li();
         $this->input('broughtbyurl', _('Brought by URL'),
                      _('URL used for credits link in footer of each page'));
@@ -286,9 +290,13 @@ class SiteAdminPanelForm extends AdminForm
         $this->li();
         $this->input('email', _('Email'),
                      _('contact email address for your site'));
-
         $this->unli();
+        $this->out->elementEnd('ul');
+        $this->out->elementEnd('fieldset');
 
+        $this->out->elementStart('fieldset', array('id' => 'settings_admin_local'));
+        $this->out->element('legend', null, _('Local'));
+        $this->out->elementStart('ul', 'form_data');
         $timezones = array();
 
         foreach (DateTimeZone::listIdentifiers() as $k => $v) {
@@ -298,24 +306,26 @@ class SiteAdminPanelForm extends AdminForm
         asort($timezones);
 
         $this->li();
-
         $this->out->dropdown('timezone', _('Default timezone'),
                              $timezones, _('Default timezone for the site; usually UTC.'),
                              true, $this->value('timezone'));
-
         $this->unli();
-        $this->li();
 
+        $this->li();
         $this->out->dropdown('language', _('Language'),
                              get_nice_language_list(), _('Default site language'),
                              false, $this->value('language'));
-
         $this->unli();
 
         $this->li();
         $this->input('locale_path', _('Path to locales'), _('Directory path to locales'));
         $this->unli();
+        $this->out->elementEnd('ul');
+        $this->out->elementEnd('fieldset');
 
+        $this->out->elementStart('fieldset', array('id' => 'settings_admin_urls'));
+        $this->out->element('legend', null, _('URLs'));
+        $this->out->elementStart('ul', 'form_data');
         $this->li();
         $this->input('server', _('Server'), _('Site\'s server hostname.'));
         $this->unli();
@@ -329,7 +339,12 @@ class SiteAdminPanelForm extends AdminForm
                              (bool) $this->value('fancy'),
                              _('Use fancy (more readable and memorable) URLs?'));
         $this->unli();
+        $this->out->elementEnd('ul');
+        $this->out->elementEnd('fieldset');
 
+        $this->out->elementStart('fieldset', array('id' => 'settings_admin_access'));
+        $this->out->element('legend', null, _('Access'));
+        $this->out->elementStart('ul', 'form_data');
         $this->li();
         $this->out->checkbox('private', _('Private'),
                              (bool) $this->value('private'),
@@ -347,36 +362,39 @@ class SiteAdminPanelForm extends AdminForm
                              (bool) $this->value('closed'),
                              _('Disable new registrations.'));
         $this->unli();
+        $this->out->elementEnd('ul');
+        $this->out->elementEnd('fieldset');
 
+        $this->out->elementStart('fieldset', array('id' => 'settings_admin_snapshots'));
+        $this->out->element('legend', null, _('Snapshots'));
+        $this->out->elementStart('ul', 'form_data');
         $this->li();
-
         $snapshot = array('web' => _('Randomly during Web hit'),
                           'cron' => _('In a scheduled job'),
                           'never' => _('Never'));
-
         $this->out->dropdown('run', _('Data snapshots'),
                              $snapshot, _('When to send statistical data to status.net servers'),
                              false, $this->value('run', 'snapshot'));
-
         $this->unli();
-        $this->li();
 
+        $this->li();
         $this->input('frequency', _('Frequency'),
                      _('Snapshots will be sent once every N Web hits'),
                      'snapshot');
-
         $this->unli();
 
         $this->li();
-
         $this->input('reporturl', _('Report URL'),
                      _('Snapshots will be sent to this URL'),
                      'snapshot');
-
         $this->unli();
+        $this->out->elementEnd('ul');
+        $this->out->elementEnd('fieldset');
 
+        $this->out->elementStart('fieldset', array('id' => 'settings_admin_ssl'));
+        $this->out->element('legend', null, _('SSL'));
+        $this->out->elementStart('ul', 'form_data');
         $this->li();
-
         $ssl = array('never' => _('Never'),
                      'sometimes' => _('Sometimes'),
                      'always' => _('Always'));
@@ -384,14 +402,18 @@ class SiteAdminPanelForm extends AdminForm
         $this->out->dropdown('ssl', _('Use SSL'),
                              $ssl, _('When to use SSL'),
                              false, $this->value('ssl', 'site'));
-
         $this->unli();
 
         $this->li();
         $this->input('sslserver', _('SSL Server'),
                      _('Server to direct SSL requests to'));
         $this->unli();
+        $this->out->elementEnd('ul');
+        $this->out->elementEnd('fieldset');
 
+        $this->out->elementStart('fieldset', array('id' => 'settings_admin_limits'));
+        $this->out->element('legend', null, _('Limits'));
+        $this->out->elementStart('ul', 'form_data');
         $this->li();
         $this->input('textlimit', _('Text limit'), _('Maximum number of characters for notices.'));
         $this->unli();
@@ -399,8 +421,8 @@ class SiteAdminPanelForm extends AdminForm
         $this->li();
         $this->input('dupelimit', _('Dupe limit'), _('How long users must wait (in seconds) to post the same thing again.'));
         $this->unli();
-
         $this->out->elementEnd('ul');
+        $this->out->elementEnd('fieldset');
     }
 
     /**
