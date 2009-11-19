@@ -52,6 +52,7 @@ class Location
     public  $location_id;
     public  $location_ns;
     private $_url;
+    private $_rdfurl;
 
     var $names = array();
 
@@ -182,6 +183,29 @@ class Location
         Event::handle('LocationUrl', array($this, &$url));
 
         $this->_url = $url;
+
+        return $url;
+    }
+
+    /**
+     * Get an URL for this location, suitable for embedding in RDF
+     *
+     * @return string URL for this location or NULL
+     */
+
+    function getRdfURL()
+    {
+        // Keep one cached
+
+        if (is_string($this->_rdfurl)) {
+            return $this->_rdfurl;
+        }
+
+        $url = null;
+
+        Event::handle('LocationRdfUrl', array($this, &$url));
+
+        $this->_rdfurl = $url;
 
         return $url;
     }
