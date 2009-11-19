@@ -125,7 +125,7 @@ class Router
             // exceptional
 
             $m->connect('main/remote', array('action' => 'remotesubscribe'));
-            $m->connect('main/remote?nickname=:nickname', array('action' => 'remotesubscribe'), array('nickname' => '['.NICKNAME_FMT.']+'));
+            $m->connect('main/remote?nickname=:nickname', array('action' => 'remotesubscribe'), array('nickname' => '[A-Za-z0-9_-]+'));
 
             foreach (Router::$bare as $action) {
                 $m->connect('index.php?action=' . $action, array('action' => $action));
@@ -169,10 +169,10 @@ class Router
             $m->connect('notice/new', array('action' => 'newnotice'));
             $m->connect('notice/new?replyto=:replyto',
                         array('action' => 'newnotice'),
-                        array('replyto' => '['.NICKNAME_FMT.']+'));
+                        array('replyto' => '[A-Za-z0-9_-]+'));
             $m->connect('notice/new?replyto=:replyto&inreplyto=:inreplyto',
                         array('action' => 'newnotice'),
-                        array('replyto' => '['.NICKNAME_FMT.']+'),
+                        array('replyto' => '[A-Za-z0-9_-]+'),
                         array('inreplyto' => '[0-9]+'));
 
             $m->connect('notice/:notice/file',
@@ -196,7 +196,7 @@ class Router
                         array('id' => '[0-9]+'));
 
             $m->connect('message/new', array('action' => 'newmessage'));
-            $m->connect('message/new?to=:to', array('action' => 'newmessage'), array('to' => '['.NICKNAME_FMT.']+'));
+            $m->connect('message/new?to=:to', array('action' => 'newmessage'), array('to' => '[A-Za-z0-9_-]+'));
             $m->connect('message/:message',
                         array('action' => 'showmessage'),
                         array('message' => '[0-9]+'));
@@ -280,7 +280,7 @@ class Router
 
             $m->connect('api/statuses/friends_timeline/:id.:format',
                         array('action' => 'ApiTimelineFriends',
-                              'id' => '['.NICKNAME_FMT.']+',
+                              'id' => '[a-zA-Z0-9]+',
                               'format' => '(xml|json|rss|atom)'));
             $m->connect('api/statuses/home_timeline.:format',
                         array('action' => 'ApiTimelineFriends',
@@ -288,7 +288,7 @@ class Router
 
             $m->connect('api/statuses/home_timeline/:id.:format',
                         array('action' => 'ApiTimelineFriends',
-                              'id' => '['.NICKNAME_FMT.']+',
+                              'id' => '[a-zA-Z0-9]+',
                               'format' => '(xml|json|rss|atom)'));
 
             $m->connect('api/statuses/user_timeline.:format',
@@ -297,7 +297,7 @@ class Router
 
             $m->connect('api/statuses/user_timeline/:id.:format',
                         array('action' => 'ApiTimelineUser',
-                              'id' => '['.NICKNAME_FMT.']+',
+                              'id' => '[a-zA-Z0-9]+',
                               'format' => '(xml|json|rss|atom)'));
 
             $m->connect('api/statuses/mentions.:format',
@@ -306,7 +306,7 @@ class Router
 
             $m->connect('api/statuses/mentions/:id.:format',
                         array('action' => 'ApiTimelineMentions',
-                              'id' => '['.NICKNAME_FMT.']+',
+                              'id' => '[a-zA-Z0-9]+',
                               'format' => '(xml|json|rss|atom)'));
 
             $m->connect('api/statuses/replies.:format',
@@ -315,7 +315,7 @@ class Router
 
             $m->connect('api/statuses/replies/:id.:format',
                         array('action' => 'ApiTimelineMentions',
-                              'id' => '['.NICKNAME_FMT.']+',
+                              'id' => '[a-zA-Z0-9]+',
                               'format' => '(xml|json|rss|atom)'));
 
             $m->connect('api/statuses/friends.:format',
@@ -324,7 +324,7 @@ class Router
 
             $m->connect('api/statuses/friends/:id.:format',
                         array('action' => 'ApiUserFriends',
-                              'id' => '['.NICKNAME_FMT.']+',
+                              'id' => '[a-zA-Z0-9]+',
                               'format' => '(xml|json)'));
 
             $m->connect('api/statuses/followers.:format',
@@ -333,7 +333,7 @@ class Router
 
             $m->connect('api/statuses/followers/:id.:format',
                         array('action' => 'ApiUserFollowers',
-                              'id' => '['.NICKNAME_FMT.']+',
+                              'id' => '[a-zA-Z0-9]+',
                               'format' => '(xml|json)'));
 
             $m->connect('api/statuses/show.:format',
@@ -362,7 +362,7 @@ class Router
 
             $m->connect('api/users/show/:id.:format',
                         array('action' => 'ApiUserShow',
-                              'id' => '['.NICKNAME_FMT.']+',
+                              'id' => '[a-zA-Z0-9]+',
                               'format' => '(xml|json)'));
 
             // direct messages
@@ -400,12 +400,12 @@ class Router
 
             $m->connect('api/friendships/create/:id.:format',
                         array('action' => 'ApiFriendshipsCreate',
-                              'id' => '['.NICKNAME_FMT.']+',
+                              'id' => '[a-zA-Z0-9]+',
                               'format' => '(xml|json)'));
 
             $m->connect('api/friendships/destroy/:id.:format',
                         array('action' => 'ApiFriendshipsDestroy',
-                              'id' => '['.NICKNAME_FMT.']+',
+                              'id' => '[a-zA-Z0-9]+',
                               'format' => '(xml|json)'));
 
             // Social graph
@@ -462,28 +462,28 @@ class Router
 
             $m->connect('api/favorites/:id.:format',
                         array('action' => 'ApiTimelineFavorites',
-                              'id' => '['.NICKNAME_FMT.']+',
+                              'id' => '[a-zA-Z0-9]+',
                               'format' => '(xmljson|rss|atom)'));
 
             $m->connect('api/favorites/create/:id.:format',
                         array('action' => 'ApiFavoriteCreate',
-                              'id' => '['.NICKNAME_FMT.']+',
+                              'id' => '[a-zA-Z0-9]+',
                               'format' => '(xml|json)'));
 
             $m->connect('api/favorites/destroy/:id.:format',
                         array('action' => 'ApiFavoriteDestroy',
-                              'id' => '['.NICKNAME_FMT.']+',
+                              'id' => '[a-zA-Z0-9]+',
                               'format' => '(xml|json)'));
             // blocks
 
             $m->connect('api/blocks/create/:id.:format',
                         array('action' => 'ApiBlockCreate',
-                              'id' => '['.NICKNAME_FMT.']+',
+                              'id' => '[a-zA-Z0-9]+',
                               'format' => '(xml|json)'));
 
             $m->connect('api/blocks/destroy/:id.:format',
                         array('action' => 'ApiBlockDestroy',
-                              'id' => '['.NICKNAME_FMT.']+',
+                              'id' => '[a-zA-Z0-9]+',
                               'format' => '(xml|json)'));
             // help
 
@@ -604,14 +604,14 @@ class Router
                            'replies', 'inbox', 'outbox', 'microsummary') as $a) {
                 $m->connect(':nickname/'.$a,
                             array('action' => $a),
-                            array('nickname' => '['.NICKNAME_FMT.']{1,64}'));
+                            array('nickname' => '[a-zA-Z0-9]{1,64}'));
             }
 
             foreach (array('subscriptions', 'subscribers') as $a) {
                 $m->connect(':nickname/'.$a.'/:tag',
                             array('action' => $a),
                             array('tag' => '[a-zA-Z0-9]+',
-                                  'nickname' => '['.NICKNAME_FMT.']{1,64}'));
+                                  'nickname' => '[a-zA-Z0-9]{1,64}'));
             }
 
             foreach (array('rss', 'groups') as $a) {
@@ -623,31 +623,31 @@ class Router
             foreach (array('all', 'replies', 'favorites') as $a) {
                 $m->connect(':nickname/'.$a.'/rss',
                             array('action' => $a.'rss'),
-                            array('nickname' => '['.NICKNAME_FMT.']{1,64}'));
+                            array('nickname' => '[a-zA-Z0-9]{1,64}'));
             }
 
             $m->connect(':nickname/favorites',
                         array('action' => 'showfavorites'),
-                        array('nickname' => '['.NICKNAME_FMT.']{1,64}'));
+                        array('nickname' => '[a-zA-Z0-9]{1,64}'));
 
             $m->connect(':nickname/avatar/:size',
                         array('action' => 'avatarbynickname'),
                         array('size' => '(original|96|48|24)',
-                              'nickname' => '['.NICKNAME_FMT.']{1,64}'));
+                              'nickname' => '[a-zA-Z0-9]{1,64}'));
 
             $m->connect(':nickname/tag/:tag/rss',
                         array('action' => 'userrss'),
-                        array('nickname' => '['.NICKNAME_FMT.']{1,64}'),
+                        array('nickname' => '[a-zA-Z0-9]{1,64}'),
                         array('tag' => '[a-zA-Z0-9]+'));
 
             $m->connect(':nickname/tag/:tag',
                         array('action' => 'showstream'),
-                        array('nickname' => '['.NICKNAME_FMT.']{1,64}'),
+                        array('nickname' => '[a-zA-Z0-9]{1,64}'),
                         array('tag' => '[a-zA-Z0-9]+'));
 
             $m->connect(':nickname',
                         array('action' => 'showstream'),
-                        array('nickname' => '['.NICKNAME_FMT.']{1,64}'));
+                        array('nickname' => '[a-zA-Z0-9]{1,64}'));
 
             Event::handle('RouterInitialized', array($m));
         }
