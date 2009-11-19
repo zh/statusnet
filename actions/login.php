@@ -164,7 +164,7 @@ class LoginAction extends Action
         } else {
             $url = common_local_url('all',
                                     array('nickname' =>
-                                          $nickname));
+                                          $user->nickname));
         }
 
         common_redirect($url, 303);
