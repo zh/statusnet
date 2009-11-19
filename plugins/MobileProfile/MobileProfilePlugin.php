@@ -64,20 +64,7 @@ class MobileProfilePlugin extends WAP20Plugin
     function onStartShowHTML($action)
     {
 
-        if (!$type) {
-            $httpaccept = isset($_SERVER['HTTP_ACCEPT']) ?
-              $_SERVER['HTTP_ACCEPT'] : null;
 
-            $cp = common_accept_to_prefs($httpaccept);
-            $sp = common_accept_to_prefs(PAGE_TYPE_PREFS);
-
-            $type = common_negotiate_type($cp, $sp);
-
-            if (!$type) {
-                throw new ClientException(_('This page is not available in a '.
-                                            'media type you accept'), 406);
-            }
-        }
 
         // XXX: This should probably graduate to WAP20Plugin
 
@@ -184,11 +171,29 @@ class MobileProfilePlugin extends WAP20Plugin
             return true;
         }
 
+        if (!$type) {
+            $httpaccept = isset($_SERVER['HTTP_ACCEPT']) ?
+              $_SERVER['HTTP_ACCEPT'] : null;
+
+            $cp = common_accept_to_prefs($httpaccept);
+            $sp = common_accept_to_prefs(PAGE_TYPE_PREFS);
+
+            $type = common_negotiate_type($cp, $sp);
+
+            if (!$type) {
+                throw new ClientException(_('This page is not available in a '.
+                                            'media type you accept'), 406);
+            }
+        }
+
         header('Content-Type: '.$type);
 
-        $action->extraHeaders();
-
-        $action->startXML('html',
+        $this->extraHeaders();
+        if (preg_match("/.*\/.*xml/", $type)) {
+            // Required for XML documents
+            $this->xw->startDocument('1.0', 'UTF-8');
+        }
+        $this->xw->writeDTD('html',
                         '-//WAPFORUM//DTD XHTML Mobile 1.0//EN',
                         $this->DTD);
 
