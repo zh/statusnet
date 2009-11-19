@@ -28,12 +28,17 @@ $(document).ready(function() {
           if (lon > maxLon) {
                maxLon = lon;
           }
+
+          pt = new mxn.LatLonPoint(lat, lon);
+          mkr = new mxn.Marker(pt);
+
+          mkr.setIcon(n['user']['profile_image_url']);
+          mkr.setInfoBubble(n['html']);
+
+          mapstraction.addMarker(mkr);
      }
 
-     var myPoint = new mxn.LatLonPoint(minLat + Math.abs(maxLat - minLat)/2,
-                                       minLon + Math.abs(maxLon - minLon)/2);
+     bounds = new mxn.BoundingBox(minLat, minLon, maxLat, maxLon);
 
-     // display the map centered on a latitude and longitude (Google zoom levels)
-
-     mapstraction.setCenterAndZoom(myPoint, 9);
+     mapstraction.setBounds(bounds);
 });
