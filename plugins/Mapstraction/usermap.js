@@ -32,7 +32,6 @@ $(document).ready(function() {
           pt = new mxn.LatLonPoint(lat, lon);
           mkr = new mxn.Marker(pt);
 
-          mkr.setLabel();
           mkr.setIcon(n['user']['profile_image_url']);
           mkr.setInfoBubble('<a href="'+ n['user']['profile_url'] + '">' + n['user']['screen_name'] + '</a>' + ' ' + n['html'] +
                             '<br/><a href="'+ n['url'] + '">'+ n['created_at'] + '</a>');
