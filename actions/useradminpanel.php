@@ -90,13 +90,28 @@ class UseradminpanelAction extends AdminPanelAction
 
     function saveSettings()
     {
-        static $settings = array('theme');
-        static $booleans = array('closed', 'inviteonly', 'private');
+        static $settings = array(
+                'profile' => array('biolimit'),
+                'newuser' => array('welcome', 'default')
+        );
+
+        static $booleans = array(
+            'sessions' => array('handle', 'debug'),
+            'invite' => array('enabled')
+        );
 
         $values = array();
 
-        foreach ($settings as $setting) {
-            $values[$setting] = $this->trimmed($setting);
+        foreach ($settings as $section => $parts) {
+            foreach ($parts as $setting) {
+                $values[$section][$setting] = $this->trimmed("$section-$setting");
+            }
+        }
+
+        foreach ($booleans as $section => $parts) {
+            foreach ($parts as $setting) {
+                $values[$section][$setting] = ($this->boolean("$section-$setting")) ? 1 : 0;
+            }
         }
 
         // This throws an exception on validation errors
@@ -109,8 +124,16 @@ class UseradminpanelAction extends AdminPanelAction
 
         $config->query('BEGIN');
 
-        foreach ($settings as $setting) {
-            Config::save('site', $setting, $values[$setting]);
+        foreach ($settings as $section => $parts) {
+            foreach ($parts as $setting) {
+                Config::save($section, $setting, $values[$section][$setting]);
+            }
+        }
+
+        foreach ($booleans as $section => $parts) {
+            foreach ($parts as $setting) {
+                Config::save($section, $setting, $values[$section][$setting]);
+            }
         }
 
         $config->query('COMMIT');
@@ -123,7 +146,7 @@ class UseradminpanelAction extends AdminPanelAction
     }
 }
 
-class UserAdminPanelForm extends Form
+class UserAdminPanelForm extends AdminForm
 {
     /**
      * ID of the form
@@ -144,7 +167,7 @@ class UserAdminPanelForm extends Form
 
     function formClass()
     {
-        return 'form_user_admin_panel';
+        return 'form_settings';
     }
 
     /**
@@ -166,53 +189,92 @@ class UserAdminPanelForm extends Form
 
     function formData()
     {
+        $this->out->elementStart('fieldset', array('id' => 'settings_user-profile'));
+        $this->out->element('legend', null, _('Profile'));
+        $this->out->elementStart('ul', 'form_data');
+
+        $this->li();
+        $this->input('biolimit', _('Bio Limit'),
+                     _('Maximum length of a profile bio in characters.'),
+                     'profile');
+        $this->unli();
+
+        $this->out->elementEnd('ul');
+        $this->out->elementEnd('fieldset');
+
+        $this->out->elementStart('fieldset', array('id' => 'settings_user-newusers'));
+        $this->out->element('legend', null, _('New users'));
+        $this->out->elementStart('ul', 'form_data');
+
+        $this->li();
+        $this->input('welcome', _('New user welcome'),
+                     _('Welcome text for new users.'),
+                     'newuser');
+        $this->unli();
+
+        $this->li();
+        $this->input('default', _('Default subscription'),
+                     _('Automatically subscribe new users to this user.'),
+                     'newuser');
+        $this->unli();
+
+        $this->out->elementEnd('ul');
+
+        $this->out->elementEnd('fieldset');
+
+        $this->out->elementStart('fieldset', array('id' => 'settings_user-invitations'));
+        $this->out->element('legend', null, _('Invitations'));
+        $this->out->elementStart('ul', 'form_data');
+
         $this->li();
 
-        $this->out->checkbox('closed', _('Closed'),
-                             (bool) $this->value('closed'),
-                             _('Is registration on this site prohibited?'));
-
+        $this->out->checkbox('invite-enabled', _('Invitations enabled'),
+                              (bool) $this->value('enabled', 'invite'),
+                              _('Whether to allow users to invite new users.'));
         $this->unli();
+
+        $this->out->elementEnd('ul');
+        $this->out->elementEnd('fieldset');
+
+        $this->out->elementStart('fieldset', array('id' => 'settings_user_sessions'));
+        $this->out->element('legend', null, _('Sessions'));
+
+        $this->out->elementStart('ul');
+
         $this->li();
-
-        $this->out->checkbox('inviteonly', _('Invite-only'),
-                             (bool) $this->value('inviteonly'),
-                             _('Is registration on this site only open to invited users?'));
-
+        $this->out->checkbox('sessions-handle', _('Handle sessions'),
+                              (bool) $this->value('handle', 'sessions'),
+                              _('Whether to handle sessions ourselves.'));
         $this->unli();
+
+        $this->li();
+        $this->out->checkbox('sessions-debug', _('Session debugging'),
+                              (bool) $this->value('debug', 'sessions'),
+                              _('Turn on debugging output for sessions.'));
+        $this->unli();
+
+        $this->out->elementEnd('ul');
+
+        $this->out->elementEnd('fieldset');
+
     }
 
     /**
      * Utility to simplify some of the duplicated code around
-     * params and settings.
+     * params and settings.  Overrided from base class to be
+     * more specific about input ids.
      *
      * @param string $setting      Name of the setting
      * @param string $title        Title to use for the input
      * @param string $instructions Instructions for this field
+     * @param string $section      config section, default = 'site'
      *
      * @return void
      */
 
-    function input($setting, $title, $instructions)
+    function input($setting, $title, $instructions, $section='site')
     {
-        $this->out->input($setting, $title, $this->value($setting), $instructions);
-    }
-
-    /**
-     * Utility to simplify getting the posted-or-stored setting value
-     *
-     * @param string $setting Name of the setting
-     *
-     * @return string param value if posted, or current config value
-     */
-
-    function value($cat, $setting)
-    {
-        $value = $this->out->trimmed($setting);
-        if (empty($value)) {
-            $value = common_config($cat, $setting);
-        }
-        return $value;
+        $this->out->input("$section-$setting", $title, $this->value($setting, $section), $instructions);
     }
 
     /**

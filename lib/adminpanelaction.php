@@ -302,6 +302,9 @@ class AdminPanelNav extends Widget
             $this->out->menuItem(common_local_url('designadminpanel'), _('Design'),
                 _('Design configuration'), $action_name == 'designadminpanel', 'nav_design_admin_panel');
 
+            $this->out->menuItem(common_local_url('useradminpanel'), _('User'),
+                _('Paths configuration'), $action_name == 'useradminpanel', 'nav_design_admin_panel');
+
             $this->out->menuItem(common_local_url('pathsadminpanel'), _('Paths'),
                 _('Paths configuration'), $action_name == 'pathsadminpanel', 'nav_design_admin_panel');
 
