@@ -7,7 +7,6 @@ xgettext \
     --language=PHP \
     --keyword="pgettext:1c,2" \
     --keyword="npgettext:1c,2,3" \
-    --join-existing \
     actions/*.php \
     classes/*.php \
     lib/*.php \
