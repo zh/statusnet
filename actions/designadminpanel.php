@@ -74,7 +74,7 @@ class DesignadminpanelAction extends AdminPanelAction
     }
 
     /**
-     * Show the site admin panel form
+     * Get the default design and show the design admin panel form
      *
      * @return void
      */
@@ -82,7 +82,6 @@ class DesignadminpanelAction extends AdminPanelAction
     function showForm()
     {
         $this->design = Design::siteDesign();
-
         $form = new DesignAdminPanelForm($this);
         $form->show();
         return;
@@ -101,8 +100,7 @@ class DesignadminpanelAction extends AdminPanelAction
         } else if ($this->arg('defaults')) {
             $this->restoreDefaults();
         } else {
-            $this->success = false;
-            $this->message = 'Unexpected form submission.';
+            $this->clientError(_('Unexpected form submission.'));
         }
     }
 
@@ -114,7 +112,6 @@ class DesignadminpanelAction extends AdminPanelAction
 
     function saveDesignSettings()
     {
-
         // Workaround for PHP returning empty $_POST and $_FILES when POST
         // length > post_max_size in php.ini
 
@@ -124,8 +121,7 @@ class DesignadminpanelAction extends AdminPanelAction
         ) {
             $msg = _('The server was unable to handle that much POST ' .
                 'data (%s bytes) due to its current configuration.');
-            $this->success = false;
-            $this->msg     = $e->getMessage(sprintf($msg, $_SERVER['CONTENT_LENGTH']));
+            $this->clientException(sprintf($msg, $_SERVER['CONTENT_LENGTH']));
             return;
         }
 
@@ -133,25 +129,30 @@ class DesignadminpanelAction extends AdminPanelAction
 
         $bgimage = $this->saveBackgroundImage();
 
-        static $settings = array('theme');
+        static $settings = array(
+            'site' => array('theme', 'logo'),
+            'theme' => array('server', 'dir', 'path'),
+            'avatar' => array('server', 'dir', 'path'),
+            'background' => array('server', 'dir', 'path')
+        );
+
         $values = array();
 
-        foreach ($settings as $setting) {
-            $values[$setting] = $this->trimmed($setting);
+        foreach ($settings as $section => $parts) {
+            foreach ($parts as $setting) {
+                $values[$section][$setting] = $this->trimmed("$section-$setting");
+            }
         }
 
-        // This throws an exception on validation errors
-        try {
-            $bgcolor = new WebColor($this->trimmed('design_background'));
-            $ccolor  = new WebColor($this->trimmed('design_content'));
-            $sbcolor = new WebColor($this->trimmed('design_sidebar'));
-            $tcolor  = new WebColor($this->trimmed('design_text'));
-            $lcolor  = new WebColor($this->trimmed('design_links'));
-        } catch (WebColorException $e) {
-            $this->success = false;
-            $this->msg = $e->getMessage();
-            return;
-        }
+        $this->validate($values);
+
+        // assert(all values are valid);
+
+        $bgcolor = new WebColor($this->trimmed('design_background'));
+        $ccolor  = new WebColor($this->trimmed('design_content'));
+        $sbcolor = new WebColor($this->trimmed('design_sidebar'));
+        $tcolor  = new WebColor($this->trimmed('design_text'));
+        $lcolor  = new WebColor($this->trimmed('design_links'));
 
         $onoff = $this->arg('design_background-image_onoff');
 
@@ -166,16 +167,14 @@ class DesignadminpanelAction extends AdminPanelAction
 
         $tile = $this->boolean('design_background-image_repeat');
 
-        $this->validate($values);
-
-        // assert(all values are valid);
-
         $config = new Config();
 
         $config->query('BEGIN');
 
-        foreach ($settings as $setting) {
-            Config::save('site', $setting, $values[$setting]);
+        foreach ($settings as $section => $parts) {
+            foreach ($parts as $setting) {
+                Config::save($section, $setting, $values[$section][$setting]);
+            }
         }
 
         if (isset($bgimage)) {
@@ -197,32 +196,6 @@ class DesignadminpanelAction extends AdminPanelAction
         $config->query('COMMIT');
 
         return;
-
-    }
-
-    /**
-     * Delete a design setting
-     *
-     * @return mixed $result false if something didn't work
-     */
-
-    function deleteSetting($section, $setting)
-    {
-        $config = new Config();
-
-        $config->section = $section;
-        $config->setting = $setting;
-
-        if ($config->find(true)) {
-            $result = $config->delete();
-            if (!$result) {
-                common_log_db_error($config, 'DELETE', __FILE__);
-                $this->clientError(_("Unable to delete design setting."));
-                return null;
-            }
-        }
-
-        return $result;
     }
 
     /**
@@ -233,6 +206,7 @@ class DesignadminpanelAction extends AdminPanelAction
 
     function restoreDefaults()
     {
+        $this->deleteSetting('site', 'logo');
         $this->deleteSetting('site', 'theme');
 
         $settings = array(
@@ -243,6 +217,8 @@ class DesignadminpanelAction extends AdminPanelAction
         foreach ($settings as $setting) {
             $this->deleteSetting('design', $setting);
         }
+
+        // XXX: Should we restore the default dir settings, etc.? --Z
     }
 
     /**
@@ -264,8 +240,7 @@ class DesignadminpanelAction extends AdminPanelAction
                 $imagefile =
                     ImageFile::fromUpload('design_background-image_file');
             } catch (Exception $e) {
-                $this->success = false;
-                $this->msg     = $e->getMessage();
+                $this->clientError('Unable to save background image.');
                 return;
             }
 
@@ -297,8 +272,48 @@ class DesignadminpanelAction extends AdminPanelAction
 
     function validate(&$values)
     {
-        if (!in_array($values['theme'], Theme::listAvailable())) {
-            $this->clientError(sprintf(_("Theme not available: %s"), $values['theme']));
+
+        if (!empty($values['site']['logo']) &&
+            !Validate::uri($values['site']['logo'], array('allowed_schemes' => array('http', 'https')))) {
+            $this->clientError(_("Invalid logo URL."));
+        }
+
+        if (!in_array($values['site']['theme'], Theme::listAvailable())) {
+            $this->clientError(sprintf(_("Theme not available: %s"), $values['site']['theme']));
+        }
+
+        // Make sure the directories are there
+
+        if (!empty($values['theme']['dir']) && !is_readable($values['theme']['dir'])) {
+            $this->clientError(sprintf(_("Theme directory not readable: %s"), $values['theme']['dir']));
+        }
+
+        if (empty($values['avatar']['dir']) || !is_writable($values['avatar']['dir'])) {
+            $this->clientError(sprintf(_("Avatar directory not writable: %s"), $values['avatar']['dir']));
+        }
+
+        if (empty($values['background']['dir']) || !is_writable($values['background']['dir'])) {
+            $this->clientError(sprintf(_("Background directory not writable: %s"), $values['background']['dir']));
+        }
+
+        // Do we need to do anything else but validate the
+        // other fields for length?  Design settings are
+        // validated elsewhere --Z
+
+        static $settings = array(
+            'theme' => array('server', 'path'),
+            'avatar' => array('server', 'path'),
+            'background' => array('server', 'path')
+        );
+
+        foreach ($settings as $section => $parts) {
+            foreach ($parts as $setting) {
+                if (mb_strlen($values[$section][$setting]) > 255) {
+                    $this->clientError(sprintf(_("Max length for %s %s is 255 characters."),
+                        $section, $setting));
+                        return;
+                }
+            }
         }
     }
 
@@ -332,7 +347,7 @@ class DesignadminpanelAction extends AdminPanelAction
 
 }
 
-class DesignAdminPanelForm extends Form
+class DesignAdminPanelForm extends AdminForm
 {
 
     /**
@@ -393,33 +408,85 @@ class DesignAdminPanelForm extends Form
     function formData()
     {
 
-        $design = $this->out->design;
+        $this->out->elementStart('fieldset', array('id' => 'settings_logo'));
+        $this->out->element('legend', null, _('Change logo'));
+
+        $this->out->elementStart('ul', 'form_data');
+
+        $this->li();
+        $this->input('logo', _('Site logo'), 'Logo for the site (full URL)', 'site');
+        $this->unli();
+
+        $this->out->elementEnd('ul');
+
+        $this->out->elementEnd('fieldset');
+        $this->out->elementStart('fieldset', array('id' => 'settings_theme'));
+        $this->out->element('legend', null, _('Change theme'));
+
+        $this->out->elementStart('ul', 'form_data');
 
         $themes = Theme::listAvailable();
 
-        asort($themes);
+        // XXX: listAvailable() can return an empty list if you
+        // screw up your settings, so just in case:
 
+        if (empty($themes)) {
+            $themes = array('default', 'default');
+        }
+
+        asort($themes);
         $themes = array_combine($themes, $themes);
 
-        $this->out->elementStart('fieldset', array('id' =>
-            'settings_design_theme'));
-        $this->out->element('legend', null, _('Change theme'));
+        $this->li();
+        $this->out->dropdown('site-theme', _('Site theme'),
+                             $themes, _('Theme for the site.'),
+                             false, $this->value('theme', 'site'));
+        $this->unli();
+
+        $this->li();
+        $this->input('server', _('Theme server'), 'Server for themes', 'theme');
+        $this->unli();
+
+        $this->li();
+        $this->input('path', _('Theme path'), 'Web path to themes', 'theme');
+        $this->unli();
+
+        $this->li();
+        $this->input('dir', _('Theme directory'), 'Directory where themes are located', 'theme');
+        $this->unli();
+
+        $this->out->elementEnd('ul');
+
+        $this->out->elementEnd('fieldset');
+        $this->out->elementStart('fieldset', array('id' => 'settings_avatar'));
+        $this->out->element('legend', null, _('Avatar Settings'));
+
         $this->out->elementStart('ul', 'form_data');
 
-        $this->out->elementStart('li');
-        $this->out->dropdown('theme', _('Theme'),
-                             $themes, _('Theme for the site.'),
-                             false, $this->value('theme'));
-        $this->out->elementEnd('li');
+        $this->li();
+        $this->input('server', _('Avatar server'), 'Server for avatars', 'avatar');
+        $this->unli();
+
+        $this->li();
+        $this->input('path', _('Avatar path'), 'Web path to avatars', 'avatar');
+        $this->unli();
+
+        $this->li();
+        $this->input('dir', _('Avatar directory'), 'Directory where avatars are located', 'avatar');
+        $this->unli();
+
         $this->out->elementEnd('ul');
+
         $this->out->elementEnd('fieldset');
 
+        $design = $this->out->design;
 
         $this->out->elementStart('fieldset', array('id' =>
             'settings_design_background-image'));
         $this->out->element('legend', null, _('Change background image'));
         $this->out->elementStart('ul', 'form_data');
-        $this->out->elementStart('li');
+
+        $this->li();
         $this->out->element('label', array('for' => 'design_background-image_file'),
                                 _('Background'));
         $this->out->element('input', array('name' => 'design_background-image_file',
@@ -432,7 +499,7 @@ class DesignAdminPanelForm extends Form
                                           'type' => 'hidden',
                                           'id' => 'MAX_FILE_SIZE',
                                           'value' => ImageFile::maxFileSizeInt()));
-        $this->out->elementEnd('li');
+        $this->unli();
 
         if (!empty($design->backgroundimage)) {
 
@@ -474,27 +541,40 @@ class DesignAdminPanelForm extends Form
                                           'class' => 'radio'),
                                           _('Off'));
             $this->out->element('p', 'form_guide', _('Turn background image on or off.'));
-            $this->out->elementEnd('li');
+            $this->unli();
 
-            $this->out->elementStart('li');
+            $this->li();
             $this->out->checkbox('design_background-image_repeat',
                             _('Tile background image'),
                             ($design->disposition & BACKGROUND_TILE) ? true : false);
-            $this->out->elementEnd('li');
+            $this->unli();
         }
+
+        $this->li();
+        $this->input('server', _('Background server'), 'Server for backgrounds', 'background');
+        $this->unli();
+
+        $this->li();
+        $this->input('path', _('Background path'), 'Web path to backgrounds', 'background');
+        $this->unli();
+
+        $this->li();
+        $this->input('dir', _('Background directory'), 'Directory where backgrounds are located', 'background');
+        $this->unli();
 
         $this->out->elementEnd('ul');
         $this->out->elementEnd('fieldset');
 
         $this->out->elementStart('fieldset', array('id' => 'settings_design_color'));
         $this->out->element('legend', null, _('Change colours'));
+
         $this->out->elementStart('ul', 'form_data');
 
         try {
 
             $bgcolor = new WebColor($design->backgroundcolor);
 
-            $this->out->elementStart('li');
+            $this->li();
             $this->out->element('label', array('for' => 'swatch-1'), _('Background'));
             $this->out->element('input', array('name' => 'design_background',
                                           'type' => 'text',
@@ -503,11 +583,11 @@ class DesignAdminPanelForm extends Form
                                           'maxlength' => '7',
                                           'size' => '7',
                                           'value' => ''));
-            $this->out->elementEnd('li');
+            $this->unli();
 
             $ccolor = new WebColor($design->contentcolor);
 
-            $this->out->elementStart('li');
+            $this->li();
             $this->out->element('label', array('for' => 'swatch-2'), _('Content'));
             $this->out->element('input', array('name' => 'design_content',
                                           'type' => 'text',
@@ -516,11 +596,11 @@ class DesignAdminPanelForm extends Form
                                           'maxlength' => '7',
                                           'size' => '7',
                                           'value' => ''));
-            $this->out->elementEnd('li');
+            $this->unli();
 
             $sbcolor = new WebColor($design->sidebarcolor);
 
-            $this->out->elementStart('li');
+            $this->li();
             $this->out->element('label', array('for' => 'swatch-3'), _('Sidebar'));
             $this->out->element('input', array('name' => 'design_sidebar',
                                         'type' => 'text',
@@ -529,11 +609,11 @@ class DesignAdminPanelForm extends Form
                                         'maxlength' => '7',
                                         'size' => '7',
                                         'value' => ''));
-            $this->out->elementEnd('li');
+            $this->unli();
 
             $tcolor = new WebColor($design->textcolor);
 
-            $this->out->elementStart('li');
+            $this->li();
             $this->out->element('label', array('for' => 'swatch-4'), _('Text'));
             $this->out->element('input', array('name' => 'design_text',
                                         'type' => 'text',
@@ -542,11 +622,11 @@ class DesignAdminPanelForm extends Form
                                         'maxlength' => '7',
                                         'size' => '7',
                                         'value' => ''));
-            $this->out->elementEnd('li');
+            $this->unli();
 
             $lcolor = new WebColor($design->linkcolor);
 
-            $this->out->elementStart('li');
+            $this->li();
             $this->out->element('label', array('for' => 'swatch-5'), _('Links'));
             $this->out->element('input', array('name' => 'design_links',
                                          'type' => 'text',
@@ -555,49 +635,16 @@ class DesignAdminPanelForm extends Form
                                          'maxlength' => '7',
                                          'size' => '7',
                                          'value' => ''));
-            $this->out->elementEnd('li');
+            $this->unli();
 
         } catch (WebColorException $e) {
             common_log(LOG_ERR, 'Bad color values in site design: ' .
                 $e->getMessage());
         }
 
-        $this->out->elementEnd('ul');
         $this->out->elementEnd('fieldset');
 
-    }
-
-    /**
-     * Utility to simplify some of the duplicated code around
-     * params and settings.
-     *
-     * @param string $setting      Name of the setting
-     * @param string $title        Title to use for the input
-     * @param string $instructions Instructions for this field
-     *
-     * @return void
-     */
-
-    function input($setting, $title, $instructions)
-    {
-        $this->out->input($setting, $title, $this->value($setting), $instructions);
-    }
-
-    /**
-     * Utility to simplify getting the posted-or-stored setting value
-     *
-     * @param string $setting Name of the setting
-     *
-     * @return string param value if posted, or current config value
-     */
-
-    function value($setting)
-    {
-        $value = $this->out->trimmed($setting);
-        if (empty($value)) {
-            $value = common_config('site', $setting);
-        }
-        return $value;
+        $this->out->elementEnd('ul');
     }
 
     /**
@@ -618,5 +665,27 @@ class DesignAdminPanelForm extends Form
                                          'title' => _('Reset back to default')));
 
         $this->out->submit('save', _('Save'), 'submit form_action-secondary',
-                'save', _('Save design'));    }
+                'save', _('Save design'));
+    }
+
+
+    /**
+     * Utility to simplify some of the duplicated code around
+     * params and settings. Overriding the input() in the base class
+     * to handle a whole bunch of cases of settings with the same
+     * name under different sections.
+     *
+     * @param string $setting      Name of the setting
+     * @param string $title        Title to use for the input
+     * @param string $instructions Instructions for this field
+     * @param string $section      config section, default = 'site'
+     *
+     * @return void
+     */
+
+    function input($setting, $title, $instructions, $section='site')
+    {
+        $this->out->input("$section-$setting", $title, $this->value($setting, $section), $instructions);
+    }
+
 }

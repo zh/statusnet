@@ -193,7 +193,7 @@ class SiteadminpanelAction extends AdminPanelAction
     }
 }
 
-class SiteAdminPanelForm extends Form
+class SiteAdminPanelForm extends AdminForm
 {
     /**
      * ID of the form
@@ -313,51 +313,6 @@ class SiteAdminPanelForm extends Form
         $this->unli();
 
         $this->out->elementEnd('ul');
-    }
-
-    /**
-     * Utility to simplify some of the duplicated code around
-     * params and settings.
-     *
-     * @param string $setting      Name of the setting
-     * @param string $title        Title to use for the input
-     * @param string $instructions Instructions for this field
-     * @param string $section      config section, default = 'site'
-     *
-     * @return void
-     */
-
-    function input($setting, $title, $instructions, $section='site')
-    {
-        $this->out->input($setting, $title, $this->value($setting, $section), $instructions);
-    }
-
-    /**
-     * Utility to simplify getting the posted-or-stored setting value
-     *
-     * @param string $setting Name of the setting
-     * @param string $main    configuration section, default = 'site'
-     *
-     * @return string param value if posted, or current config value
-     */
-
-    function value($setting, $main='site')
-    {
-        $value = $this->out->trimmed($setting);
-        if (empty($value)) {
-            $value = common_config($main, $setting);
-        }
-        return $value;
-    }
-
-    function li()
-    {
-        $this->out->elementStart('li');
-    }
-
-    function unli()
-    {
-        $this->out->elementEnd('li');
     }
 
     /**
