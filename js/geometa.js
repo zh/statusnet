@@ -103,7 +103,7 @@ var AjaxGeoLocation = (function() {
         if (!hasGoogleLoader() && !loading) {
             loading = true;
             var s = document.createElement('script');
-            s.src = 'http://www.google.com/jsapi?callback=_google_loader_apiLoaded';
+            s.src = (document.location.protocol == "https:"?"https://":"http://") + 'www.google.com/jsapi?callback=_google_loader_apiLoaded';
             s.type = "text/javascript";
             document.getElementsByTagName('body')[0].appendChild(s);
         }
