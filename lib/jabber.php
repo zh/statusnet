@@ -176,7 +176,6 @@ function jabber_format_entry($profile, $notice)
     $xs = new XMLStringer();
     $xs->elementStart('html', array('xmlns' => 'http://jabber.org/protocol/xhtml-im'));
     $xs->elementStart('body', array('xmlns' => 'http://www.w3.org/1999/xhtml'));
-    $xs->element("img", array('src'=> $profile->avatarUrl(AVATAR_MINI_SIZE)));
     $xs->element('a', array('href' => $profile->profileurl),
                  $profile->nickname);
     $xs->text(": ");
