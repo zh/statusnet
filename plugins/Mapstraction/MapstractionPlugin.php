@@ -179,7 +179,9 @@ class MapstractionPlugin extends Plugin
         }
 
         $action->elementStart('script', array('type' => 'text/javascript'));
+        $action->raw('/*<![CDATA[*/'); // XHTML compat for Safari
         $action->raw('var _notices = ' . json_encode($jsonArray));
+        $action->raw('/*]]>*/'); // XHTML compat for Safari
         $action->elementEnd('script');
 
         return true;
