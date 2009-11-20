@@ -419,8 +419,6 @@ var SN = { // StatusNet
                 $('.form_group_join').each(function() { SN.U.FormXHR($(this)); });
                 $('.form_group_leave').each(function() { SN.U.FormXHR($(this)); });
                 $('.form_user_nudge').each(function() { SN.U.FormXHR($(this)); });
-
-                SN.U.NewDirectMessage();
             }
         }
     }
