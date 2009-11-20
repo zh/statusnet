@@ -161,22 +161,23 @@ var AjaxGeoLocation = (function() {
                 var cl = google.loader.ClientLocation;
                 
                 var position = {
-                    latitude: cl.latitude,
-                    longitude: cl.longitude,
-                    altitude: null,
-                    accuracy: 43000, // same as Gears accuracy over wifi?
-                    altitudeAccuracy: null,
-                    heading: null,
-                    velocity: null,
-                    timestamp: new Date(),
-                    
+                    coords: {
+                        latitude: cl.latitude,
+                        longitude: cl.longitude,
+                        altitude: null,
+                        accuracy: 43000, // same as Gears accuracy over wifi?
+                        altitudeAccuracy: null,
+                        heading: null,
+                        speed: null,
+                    },
                     // extra info that is outside of the bounds of the core API
                     address: {
                         city: cl.address.city,
                         country: cl.address.country,
                         country_code: cl.address.country_code,
                         region: cl.address.region
-                    }
+                    },
+                    timestamp: new Date()
                 };
 
                 successCallback(position);
