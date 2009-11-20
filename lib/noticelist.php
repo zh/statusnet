@@ -397,7 +397,7 @@ class NoticeListItem extends Widget
         $latlon = (!empty($lat) && !empty($lon)) ? $lat.';'.$lon : '';
 
         if (empty($name)) {
-            $name = $lat . ' ' . $lon; //TODO tranform to N/S deg/min/sec format
+            $name = $this->decimalDegreesToDMS(abs($lat)) . ($lat>0?'N ':'S ') . $this->decimalDegreesToDMS(abs($lon)) . ($lon>0?'E':'W');
         }
 
         $url  = $location->getUrl();
@@ -415,6 +415,21 @@ class NoticeListItem extends Widget
                                 $name);
         }
         $this->out->elementEnd('span');
+    }
+
+    function decimalDegreesToDMS($dec)
+    {
+
+        $vars = explode(".",$dec);
+        $deg = $vars[0];
+        $tempma = "0.".$vars[1];
+
+        $tempma = $tempma * 3600;
+        $min = floor($tempma / 60);
+        $sec = $tempma - ($min*60);
+
+        return $deg . '°' . $min . "'" . $sec . "\"";
+        return array("deg"=>$deg,"min"=>$min,"sec"=>$sec);
     }
 
     /**
