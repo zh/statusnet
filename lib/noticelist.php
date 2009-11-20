@@ -392,11 +392,6 @@ class NoticeListItem extends Widget
 
         $name = $location->getName();
 
-        if (empty($name)) {
-            // XXX: Could be a translation issue. Fall back to... something?
-            return;
-        }
-
         $lat = $this->notice->lat;
         $lon = $this->notice->lon;
         $latlon = (!empty($lat) && !empty($lon)) ? $lat.';'.$lon : '';
@@ -405,16 +400,17 @@ class NoticeListItem extends Widget
 
         $this->out->elementStart('span', array('class' => 'location'));
         $this->out->text(_('at'));
-        if (empty($url)) {
-            $this->out->element('span', array('class' => 'geo',
-                                              'title' => $latlon),
-                                $name);
-        } else {
-            $this->out->element('a', array('class' => 'geo',
-                                           'title' => $latlon,
-                                           'href' => $url),
-                                $name);
-        }
+
+        $this->out->elementStart('a', array('class' => 'geo', 'href' => $url));
+        $this->out->elementStart('abbr', array('class' => 'latitude', 'title' => $lat, 'style' => empty($name)?null:'display: none'));
+        $this->out->text($lat); //TODO translate to a prettier format, like "S 37.2 deg" instead of "-37.2"
+        $this->out->elementEnd('abbr');
+        $this->out->elementStart('abbr', array('class' => 'longitude', 'title' => $lon, 'style' => empty($name)?null:'display: none'));
+        $this->out->text($lon);
+        $this->out->elementEnd('abbr');
+        $this->out->text($name);
+        $this->out->elementEnd('a');
+
         $this->out->elementEnd('span');
     }
 
