@@ -392,14 +392,13 @@ class NoticeListItem extends Widget
 
         $name = $location->getName();
 
-        if (empty($name)) {
-            // XXX: Could be a translation issue. Fall back to... something?
-            return;
-        }
-
         $lat = $this->notice->lat;
         $lon = $this->notice->lon;
         $latlon = (!empty($lat) && !empty($lon)) ? $lat.';'.$lon : '';
+
+        if (empty($name)) {
+            $name = $lat . ' ' . $lon; //TODO tranform to N/S deg/min/sec format
+        }
 
         $url  = $location->getUrl();
 
