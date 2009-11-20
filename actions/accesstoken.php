@@ -1,6 +1,6 @@
 <?php
 /**
- * Access token class.
+ * Access token class
  *
  * PHP version 5
  *
@@ -32,10 +32,11 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
+require_once INSTALLDIR.'/extlib/libomb/service_provider.php';
 require_once INSTALLDIR.'/lib/omb.php';
 
 /**
- * Access token class.
+ * Access token class
  *
  * @category Action
  * @package  StatusNet
@@ -47,28 +48,23 @@ require_once INSTALLDIR.'/lib/omb.php';
 class AccesstokenAction extends Action
 {
     /**
-     * Class handler.
+     * Class handler
      *
      * @param array $args query arguments
      *
-     * @return boolean false if user doesn't exist
-     */
+     * @return nothing
+     *
+     **/
     function handle($args)
     {
         parent::handle($args);
         try {
-            common_debug('getting request from env variables', __FILE__);
-            common_remove_magic_from_request();
-            $req = OAuthRequest::from_request('POST', common_local_url('accesstoken'));
-            common_debug('getting a server', __FILE__);
-            $server = omb_oauth_server();
-            common_debug('fetching the access token', __FILE__);
-            $token = $server->fetch_access_token($req);
-            common_debug('got this token: "'.print_r($token, true).'"', __FILE__);
-            common_debug('printing the access token', __FILE__);
-            print $token;
-        } catch (OAuthException $e) {
+            $srv = new OMB_Service_Provider(null, omb_oauth_datastore(),
+                                            omb_oauth_server());
+            $srv->writeAccessToken();
+        } catch (Exception $e) {
             $this->serverError($e->getMessage());
         }
     }
 }
+?>

@@ -98,44 +98,49 @@ class AccountSettingsNav extends Widget
 
     function show()
     {
-        # action => array('prompt', 'title')
-        $menu =
-          array('profilesettings' =>
-                array(_('Profile'),
-                      _('Change your profile settings')),
-                'avatarsettings' =>
-                array(_('Avatar'),
-                      _('Upload an avatar')),
-                'passwordsettings' =>
-                array(_('Password'),
-                      _('Change your password')),
-                'emailsettings' =>
-                array(_('Email'),
-                      _('Change email handling')),
-                'openidsettings' =>
-                array(_('OpenID'),
-                      _('Add or remove OpenIDs')),
-                'userdesignsettings' =>
-                array(_('Design'),
-                      _('Design your profile')),
-                'othersettings' =>
-                array(_('Other'),
-                      _('Other options')));
-
         $action_name = $this->action->trimmed('action');
         $this->action->elementStart('ul', array('class' => 'nav'));
 
-        foreach ($menu as $menuaction => $menudesc) {
-            if ($menuaction == 'openidsettings' &&
-                !common_config('openid', 'enabled')) {
-                continue;
+        if (Event::handle('StartAccountSettingsNav', array(&$this->action))) {
+            $user = common_current_user();
+
+            if(Event::handle('StartAccountSettingsProfileMenuItem', array($this, &$menu))){
+                $this->showMenuItem('profilesettings',_('Profile'),_('Change your profile settings'));
+                Event::handle('EndAccountSettingsProfileMenuItem', array($this, &$menu));
             }
-            $this->action->menuItem(common_local_url($menuaction),
-				    $menudesc[0],
-				    $menudesc[1],
-				    $action_name === $menuaction);
+            if(Event::handle('StartAccountSettingsAvatarMenuItem', array($this, &$menu))){
+                $this->showMenuItem('avatarsettings',_('Avatar'),_('Upload an avatar'));
+                Event::handle('EndAccountSettingsAvatarMenuItem', array($this, &$menu));
+            }
+            if(Event::handle('StartAccountSettingsPasswordMenuItem', array($this, &$menu))){
+                $this->showMenuItem('passwordsettings',_('Password'),_('Change your password'));
+                Event::handle('EndAccountSettingsPasswordMenuItem', array($this, &$menu));
+            }
+            if(Event::handle('StartAccountSettingsEmailMenuItem', array($this, &$menu))){
+                $this->showMenuItem('emailsettings',_('Email'),_('Change email handling'));
+                Event::handle('EndAccountSettingsEmailMenuItem', array($this, &$menu));
+            }
+            if(Event::handle('StartAccountSettingsDesignMenuItem', array($this, &$menu))){
+                $this->showMenuItem('userdesignsettings',_('Design'),_('Design your profile'));
+                Event::handle('EndAccountSettingsDesignMenuItem', array($this, &$menu));
+            }
+            if(Event::handle('StartAccountSettingsOtherMenuItem', array($this, &$menu))){
+                $this->showMenuItem('othersettings',_('Other'),_('Other options'));
+                Event::handle('EndAccountSettingsOtherMenuItem', array($this, &$menu));
+            }
+
+            Event::handle('EndAccountSettingsNav', array(&$this->action));
         }
 
         $this->action->elementEnd('ul');
+    }
+
+    function showMenuItem($menuaction, $desc1, $desc2)
+    {
+        $action_name = $this->action->trimmed('action');
+        $this->action->menuItem(common_local_url($menuaction),
+            $desc1,
+            $desc2,
+            $action_name === $menuaction);
     }
 }

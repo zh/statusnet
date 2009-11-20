@@ -178,9 +178,12 @@ class NoticeListItem extends Widget
     function show()
     {
         $this->showStart();
-        $this->showNotice();
-        $this->showNoticeInfo();
-        $this->showNoticeOptions();
+        if (Event::handle('StartShowNoticeItem', array($this))) {
+            $this->showNotice();
+            $this->showNoticeInfo();
+            $this->showNoticeOptions();
+            Event::handle('EndShowNoticeItem', array($this));
+        }
         $this->showEnd();
     }
 
@@ -197,6 +200,7 @@ class NoticeListItem extends Widget
         $this->out->elementStart('div', 'entry-content');
         $this->showNoticeLink();
         $this->showNoticeSource();
+        $this->showNoticeLocation();
         $this->showContext();
         $this->out->elementEnd('div');
     }
@@ -367,6 +371,54 @@ class NoticeListItem extends Widget
     }
 
     /**
+     * show the notice location
+     *
+     * shows the notice location in the correct language.
+     *
+     * If an URL is available, makes a link. Otherwise, just a span.
+     *
+     * @return void
+     */
+
+    function showNoticeLocation()
+    {
+        $id = $this->notice->id;
+
+        $location = $this->notice->getLocation();
+
+        if (empty($location)) {
+            return;
+        }
+
+        $name = $location->getName();
+
+        if (empty($name)) {
+            // XXX: Could be a translation issue. Fall back to... something?
+            return;
+        }
+
+        $lat = $this->notice->lat;
+        $lon = $this->notice->lon;
+        $latlon = (!empty($lat) && !empty($lon)) ? $lat.';'.$lon : '';
+
+        $url  = $location->getUrl();
+
+        $this->out->elementStart('span', array('class' => 'location'));
+        $this->out->text(_('at'));
+        if (empty($url)) {
+            $this->out->element('span', array('class' => 'geo',
+                                              'title' => $latlon),
+                                $name);
+        } else {
+            $this->out->element('a', array('class' => 'geo',
+                                           'title' => $latlon,
+                                           'href' => $url),
+                                $name);
+        }
+        $this->out->elementEnd('span');
+    }
+
+    /**
      * Show the source of the notice
      *
      * Either the name (and link) of the API client that posted the notice,
@@ -469,7 +521,10 @@ class NoticeListItem extends Widget
     function showDeleteLink()
     {
         $user = common_current_user();
-        if ($user && $this->notice->profile_id == $user->id) {
+
+        if (!empty($user) &&
+            ($this->notice->profile_id == $user->id || $user->hasRight(Right::DELETEOTHERSNOTICE))) {
+
             $deleteurl = common_local_url('deletenotice',
                                           array('notice' => $this->notice->id));
             $this->out->element('a', array('href' => $deleteurl,

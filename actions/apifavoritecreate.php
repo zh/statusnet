@@ -1,0 +1,168 @@
+<?php
+/**
+ * StatusNet, the distributed open-source microblogging tool
+ *
+ * Add a notice to a user's list of favorite notices via the API
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  API
+ * @package   StatusNet
+ * @author    Craig Andrews <candrews@integralblue.com>
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    Zach Copley <zach@status.net>
+ * @copyright 2009 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://status.net/
+ */
+
+if (!defined('STATUSNET')) {
+    exit(1);
+}
+
+require_once INSTALLDIR . '/lib/apiauth.php';
+
+/**
+ * Favorites the status specified in the ID parameter as the authenticating user.
+ * Returns the favorite status when successful.
+ *
+ * @category API
+ * @package  StatusNet
+ * @author   Craig Andrews <candrews@integralblue.com>
+ * @author   Evan Prodromou <evan@status.net>
+ * @author   Zach Copley <zach@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://status.net/
+ */
+
+class ApiFavoriteCreateAction extends ApiAuthAction
+{
+    var $notice = null;
+
+    /**
+     * Take arguments for running
+     *
+     * @param array $args $_REQUEST args
+     *
+     * @return boolean success flag
+     *
+     */
+
+    function prepare($args)
+    {
+        parent::prepare($args);
+
+        $this->user   = $this->auth_user;
+        $this->notice = Notice::staticGet($this->arg('id'));
+
+        return true;
+    }
+
+    /**
+     * Handle the request
+     *
+     * Check the format and show the user info
+     *
+     * @param array $args $_REQUEST data (unused)
+     *
+     * @return void
+     */
+
+    function handle($args)
+    {
+        parent::handle($args);
+
+        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            $this->clientError(
+                _('This method requires a POST.'),
+                400,
+                $this->format
+            );
+            return;
+        }
+
+        if (!in_array($this->format, array('xml', 'json'))) {
+            $this->clientError(
+                _('API method not found!'),
+                404,
+                $this->format
+            );
+            return;
+        }
+
+        if (empty($this->notice)) {
+            $this->clientError(
+                _('No status found with that ID.'),
+                404,
+                $this->format
+            );
+            return;
+        }
+
+        // Note: Twitter lets you fave things repeatedly via API.
+
+        if ($this->user->hasFave($this->notice)) {
+            $this->clientError(
+                _('This status is already a favorite!'),
+                403,
+                $this->format
+            );
+            return;
+        }
+
+        $fave = Fave::addNew($this->user, $this->notice);
+
+        if (empty($fave)) {
+            $this->clientError(
+                _('Could not create favorite.'),
+                403,
+                $this->format
+            );
+            return;
+        }
+
+        $this->notify($fave, $this->notice, $this->user);
+        $this->user->blowFavesCache();
+
+        if ($this->format == 'xml') {
+            $this->showSingleXmlStatus($this->notice);
+        } elseif ($this->format == 'json') {
+            $this->show_single_json_status($this->notice);
+        }
+    }
+
+    /**
+     * Notify the author of the favorite that the user likes their notice
+     *
+     * @param Favorite $fave   the favorite in question
+     * @param Notice   $notice the notice that's been faved
+     * @param User     $user   the user doing the favoriting
+     *
+     * @return void
+     */
+    function notify($fave, $notice, $user)
+    {
+        $other = User::staticGet('id', $notice->profile_id);
+        if ($other && $other->id != $user->id) {
+            if ($other->email && $other->emailnotifyfav) {
+                mail_notify_fave($other, $user, $notice);
+            }
+            // XXX: notify by IM
+            // XXX: notify by SMS
+        }
+    }
+
+}

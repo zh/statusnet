@@ -56,6 +56,12 @@ class RegisterAction extends Action
     var $registered = false;
 
     /**
+     * Are we processing an invite?
+     */
+
+    var $invite = null;
+
+    /**
      * Prepare page to run
      *
      *
@@ -116,8 +122,6 @@ class RegisterAction extends Action
      *
      * Checks if registration is closed and shows an error if so.
      *
-     * Checks if only OpenID is allowed and redirects to openidlogin if so.
-     *
      * @param array $args $_REQUEST data
      *
      * @return void
@@ -129,8 +133,6 @@ class RegisterAction extends Action
 
         if (common_config('site', 'closed')) {
             $this->clientError(_('Registration not allowed.'));
-        } else if (common_config('site', 'openidonly')) {
-            common_redirect(common_local_url('openidlogin'));
         } else if (common_logged_in()) {
             $this->clientError(_('Already logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -195,7 +197,7 @@ class RegisterAction extends Action
             if (!$this->boolean('license')) {
                 $this->showForm(_('You can\'t register if you don\'t '.
                                   'agree to the license.'));
-            } else if ($email && !Validate::email($email, true)) {
+            } else if ($email && !Validate::email($email, common_config('email', 'check_domain'))) {
                 $this->showForm(_('Not a valid email address.'));
             } else if (!Validate::string($nickname, array('min_length' => 1,
                                                           'max_length' => 64,
@@ -217,8 +219,9 @@ class RegisterAction extends Action
             } else if (!is_null($fullname) && mb_strlen($fullname) > 255) {
                 $this->showForm(_('Full name is too long (max 255 chars).'));
                 return;
-            } else if (!is_null($bio) && mb_strlen($bio) > 140) {
-                $this->showForm(_('Bio is too long (max 140 chars).'));
+            } else if (Profile::bioTooLong($bio)) {
+                $this->showForm(sprintf(_('Bio is too long (max %d chars).'),
+                                        Profile::maxBio()));
                 return;
             } else if (!is_null($location) && mb_strlen($location) > 255) {
                 $this->showForm(_('Location is too long (max 255 chars).'));
@@ -335,22 +338,11 @@ class RegisterAction extends Action
         } else if ($this->error) {
             $this->element('p', 'error', $this->error);
         } else {
-            if (common_config('openid', 'enabled')) {
-                $instr =
-                  common_markup_to_html(_('With this form you can create '.
-                                          ' a new account. ' .
-                                          'You can then post notices and '.
-                                          'link up to friends and colleagues. '.
-                                          '(Have an [OpenID](http://openid.net/)? ' .
-                                          'Try our [OpenID registration]'.
-                                          '(%%action.openidlogin%%)!)'));
-            } else {
-                $instr =
-                  common_markup_to_html(_('With this form you can create '.
-                                          ' a new account. ' .
-                                          'You can then post notices and '.
-                                          'link up to friends and colleagues.'));
-            }
+            $instr =
+              common_markup_to_html(_('With this form you can create '.
+                                      ' a new account. ' .
+                                      'You can then post notices and '.
+                                      'link up to friends and colleagues. '));
 
             $this->elementStart('div', 'instructions');
             $this->raw($instr);
@@ -463,10 +455,16 @@ class RegisterAction extends Action
                            'or profile on another site'));
             $this->elementEnd('li');
             $this->elementStart('li');
+            $maxBio = Profile::maxBio();
+            if ($maxBio > 0) {
+                $bioInstr = sprintf(_('Describe yourself and your interests in %d chars'),
+                                    $maxBio);
+            } else {
+                $bioInstr = _('Describe yourself and your interests');
+            }
             $this->textarea('bio', _('Bio'),
                             $this->trimmed('bio'),
-                            _('Describe yourself and your '.
-                              'interests in 140 chars'));
+                            $bioInstr);
             $this->elementEnd('li');
             $this->elementStart('li');
             $this->input('location', _('Location'),

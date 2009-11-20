@@ -103,10 +103,7 @@ class User extends Memcached_DataObject
         }
         $toupdate = implode(', ', $parts);
 
-        $table = $this->tableName();
-        if(common_config('db','quote_identifiers')) {
-            $table = '"' . $table . '"';
-        }
+        $table = common_database_tablename($this->tableName());
         $qry = 'UPDATE ' . $table . ' SET ' . $toupdate .
           ' WHERE id = ' . $this->id;
         $orig->decache();
@@ -117,16 +114,26 @@ class User extends Memcached_DataObject
         return $result;
     }
 
-    function allowed_nickname($nickname)
+    static function allowed_nickname($nickname)
     {
         // XXX: should already be validated for size, content, etc.
-        static $blacklist = array('rss', 'xrds', 'doc', 'main',
-                                  'settings', 'notice', 'user',
-                                  'search', 'avatar', 'tag', 'tags',
-                                  'api', 'message', 'group', 'groups',
-                                  'local');
-        $merged = array_merge($blacklist, common_config('nickname', 'blacklist'));
-        return !in_array($nickname, $merged);
+        $blacklist = common_config('nickname', 'blacklist');
+
+        //all directory and file names should be blacklisted
+        $d = dir(INSTALLDIR);
+        while (false !== ($entry = $d->read())) {
+            $blacklist[]=$entry;
+        }
+        $d->close();
+
+        //all top level names in the router should be blacklisted
+        $router = Router::get();
+        foreach(array_keys($router->m->getPaths()) as $path){
+            if(preg_match('/^\/(.*?)[\/\?]/',$path,$matches)){
+                $blacklist[]=$matches[1];
+            }
+        }
+        return !in_array($nickname, $blacklist);
     }
 
     function getCurrentNotice($dt=null)
@@ -183,7 +190,17 @@ class User extends Memcached_DataObject
 
         $profile->query('BEGIN');
 
+        if(!empty($email))
+        {
+            $email = common_canonical_email($email);
+        }
+
+        $nickname = common_canonical_nickname($nickname);
         $profile->nickname = $nickname;
+        if(! User::allowed_nickname($nickname)){
+            common_log(LOG_WARNING, sprintf("Attempted to register a nickname that is not allowed: %s", $profile->nickname),
+                           __FILE__);
+        }
         $profile->profileurl = common_profile_url($nickname);
 
         if (!empty($fullname)) {
@@ -197,6 +214,15 @@ class User extends Memcached_DataObject
         }
         if (!empty($location)) {
             $profile->location = $location;
+
+            $loc = Location::fromName($location);
+
+            if (!empty($loc)) {
+                $profile->lat         = $loc->lat;
+                $profile->lon         = $loc->lon;
+                $profile->location_id = $loc->location_id;
+                $profile->location_ns = $loc->location_ns;
+            }
         }
 
         $profile->created = common_sql_now();
@@ -226,11 +252,13 @@ class User extends Memcached_DataObject
             }
         }
 
-        $inboxes = common_config('inboxes', 'enabled');
-
-        if ($inboxes === true || $inboxes == 'transitional') {
-            $user->inboxed = 1;
+        if(isset($email_confirmed) && $email_confirmed) {
+            $user->email = $email;
         }
+
+        // This flag is ignored but still set to 1
+
+        $user->inboxed = 1;
 
         $user->created = common_sql_now();
         $user->uri = common_user_uri($user);
@@ -320,6 +348,7 @@ class User extends Memcached_DataObject
                                                   common_config('site', 'name'),
                                                   $user->nickname),
                                           'system');
+                common_broadcast_notice($notice);
             }
         }
 
@@ -432,55 +461,16 @@ class User extends Memcached_DataObject
 
     function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
     {
-        $enabled = common_config('inboxes', 'enabled');
+        $ids = Notice_inbox::stream($this->id, $offset, $limit, $since_id, $before_id, $since, false);
 
-        // Complicated code, depending on whether we support inboxes yet
-        // XXX: make this go away when inboxes become mandatory
-
-        if ($enabled === false ||
-            ($enabled == 'transitional' && $this->inboxed == 0)) {
-            $qry =
-              'SELECT notice.* ' .
-              'FROM notice JOIN subscription ON notice.profile_id = subscription.subscribed ' .
-              'WHERE subscription.subscriber = %d ' .
-              'AND notice.is_local != ' . Notice::GATEWAY;
-            return Notice::getStream(sprintf($qry, $this->id),
-                                     'user:notices_with_friends:' . $this->id,
-                                     $offset, $limit, $since_id, $before_id,
-                                     $order, $since);
-        } else if ($enabled === true ||
-                   ($enabled == 'transitional' && $this->inboxed == 1)) {
-
-            $ids = Notice_inbox::stream($this->id, $offset, $limit, $since_id, $before_id, $since, false);
-
-            return Notice::getStreamByIds($ids);
-        }
+        return Notice::getStreamByIds($ids);
     }
 
     function noticeInbox($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
     {
-        $enabled = common_config('inboxes', 'enabled');
+        $ids = Notice_inbox::stream($this->id, $offset, $limit, $since_id, $before_id, $since, true);
 
-        // Complicated code, depending on whether we support inboxes yet
-        // XXX: make this go away when inboxes become mandatory
-
-        if ($enabled === false ||
-            ($enabled == 'transitional' && $this->inboxed == 0)) {
-            $qry =
-              'SELECT notice.* ' .
-              'FROM notice JOIN subscription ON notice.profile_id = subscription.subscribed ' .
-              'WHERE subscription.subscriber = %d ';
-            return Notice::getStream(sprintf($qry, $this->id),
-                                     'user:notices_with_friends:' . $this->id,
-                                     $offset, $limit, $since_id, $before_id,
-                                     $order, $since);
-        } else if ($enabled === true ||
-                   ($enabled == 'transitional' && $this->inboxed == 1)) {
-
-            $ids = Notice_inbox::stream($this->id, $offset, $limit, $since_id, $before_id, $since, true);
-
-            return Notice::getStreamByIds($ids);
-        }
+        return Notice::getStreamByIds($ids);
     }
 
     function blowFavesCache()
@@ -587,11 +577,13 @@ class User extends Memcached_DataObject
           'WHERE group_member.profile_id = %d ' .
           'ORDER BY group_member.created DESC ';
 
-        if ($offset) {
-            if (common_config('db','type') == 'pgsql') {
-                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-            } else {
-                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+        if ($offset>0 && !is_null($limit)) {
+            if ($offset) {
+                if (common_config('db','type') == 'pgsql') {
+                    $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+                } else {
+                    $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+                }
             }
         }
 
@@ -630,11 +622,7 @@ class User extends Memcached_DataObject
           'ORDER BY subscription.created DESC ';
 
         if ($offset) {
-            if (common_config('db','type') == 'pgsql') {
-                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-            } else {
-                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
-            }
+            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
         }
 
         $profile = new Profile();
@@ -657,11 +645,7 @@ class User extends Memcached_DataObject
           'AND subscription.subscribed != subscription.subscriber ' .
           'ORDER BY subscription.created DESC ';
 
-        if (common_config('db','type') == 'pgsql') {
-            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-        } else {
-            $qry .= ' LIMIT ' . $offset . ', ' . $limit;
-        }
+        $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
 
         $profile = new Profile();
 
@@ -670,38 +654,32 @@ class User extends Memcached_DataObject
         return $profile;
     }
 
-    function hasOpenID()
-    {
-        $oid = new User_openid();
-
-        $oid->user_id = $this->id;
-
-        $cnt = $oid->find();
-
-        return ($cnt > 0);
-    }
-
     function getDesign()
     {
         return Design::staticGet('id', $this->design_id);
     }
 
+    function hasRight($right)
+    {
+        $profile = $this->getProfile();
+        return $profile->hasRight($right);
+    }
+
     function delete()
     {
         $profile = $this->getProfile();
-        $profile->delete();
+        if ($profile) {
+            $profile->delete();
+        }
 
         $related = array('Fave',
-                         'User_openid',
                          'Confirm_address',
                          'Remember_me',
                          'Foreign_link',
                          'Invitation',
+                         'Notice_inbox',
                          );
-
-        if (common_config('inboxes', 'enabled')) {
-            $related[] = 'Notice_inbox';
-        }
+        Event::handle('UserDeleteRelated', array($this, &$related));
 
         foreach ($related as $cls) {
             $inst = new $cls();
@@ -728,5 +706,35 @@ class User extends Memcached_DataObject
         $block->blocker = $this->id;
         $block->delete();
         // XXX delete group block? Reset blocker?
+    }
+
+    function hasRole($name)
+    {
+        $profile = $this->getProfile();
+        return $profile->hasRole($name);
+    }
+
+    function grantRole($name)
+    {
+        $profile = $this->getProfile();
+        return $profile->grantRole($name);
+    }
+
+    function revokeRole($name)
+    {
+        $profile = $this->getProfile();
+        return $profile->revokeRole($name);
+    }
+
+    function isSandboxed()
+    {
+        $profile = $this->getProfile();
+        return $profile->isSandboxed();
+    }
+
+    function isSilenced()
+    {
+        $profile = $this->getProfile();
+        return $profile->isSilenced();
     }
 }

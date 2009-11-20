@@ -76,11 +76,6 @@ class groupRssAction extends Rss10Action
     {
         parent::prepare($args);
 
-        if (!common_config('inboxes','enabled')) {
-            $this->serverError(_('Inboxes must be enabled for groups to work'));
-            return false;
-        }
-
         $nickname_arg = $this->arg('nickname');
         $nickname = common_canonical_nickname($nickname_arg);
 
@@ -104,6 +99,7 @@ class groupRssAction extends Rss10Action
             return false;
         }
 
+        $this->notices = $this->getNotices($this->limit);
         return true;
     }
 

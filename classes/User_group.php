@@ -13,7 +13,7 @@ class User_group extends Memcached_DataObject
     public $nickname;                        // varchar(64)  unique_key
     public $fullname;                        // varchar(255)
     public $homepage;                        // varchar(255)
-    public $description;                     // varchar(140)
+    public $description;                     // text()
     public $location;                        // varchar(255)
     public $original_logo;                   // varchar(255)
     public $homepage_logo;                   // varchar(255)
@@ -34,7 +34,7 @@ class User_group extends Memcached_DataObject
         static $sizenames = array(AVATAR_PROFILE_SIZE => 'profile',
                                   AVATAR_STREAM_SIZE => 'stream',
                                   AVATAR_MINI_SIZE => 'mini');
-        return theme_path('default-avatar-'.$sizenames[$size].'.png');
+        return Theme::path('default-avatar-'.$sizenames[$size].'.png');
     }
 
     function homeUrl()
@@ -298,6 +298,22 @@ class User_group extends Memcached_DataObject
         return $ids;
     }
 
+    static function maxDescription()
+    {
+        $desclimit = common_config('group', 'desclimit');
+        // null => use global limit (distinct from 0!)
+        if (is_null($desclimit)) {
+            $desclimit = common_config('site', 'textlimit');
+        }
+        return $desclimit;
+    }
+
+    static function descriptionTooLong($desc)
+    {
+        $desclimit = self::maxDescription();
+        return ($desclimit > 0 && !empty($desc) && (mb_strlen($desc) > $desclimit));
+    }
+
     function asAtomEntry($namespace=false, $source=false)
     {
         $xs = new XMLStringer(true);
@@ -337,5 +353,67 @@ class User_group extends Memcached_DataObject
         $xs->elementEnd('entry');
 
         return $xs->getString();
+    }
+
+    static function register($fields) {
+
+        // MAGICALLY put fields into current scope
+
+        extract($fields);
+
+        $group = new User_group();
+
+        $group->query('BEGIN');
+
+        $group->nickname    = $nickname;
+        $group->fullname    = $fullname;
+        $group->homepage    = $homepage;
+        $group->description = $description;
+        $group->location    = $location;
+        $group->created     = common_sql_now();
+
+        $result = $group->insert();
+
+        if (!$result) {
+            common_log_db_error($group, 'INSERT', __FILE__);
+            $this->serverError(
+                _('Could not create group.'),
+                500,
+                $this->format
+            );
+            return;
+        }
+        $result = $group->setAliases($aliases);
+
+        if (!$result) {
+            $this->serverError(
+                _('Could not create aliases.'),
+                500,
+                $this->format
+            );
+            return;
+        }
+
+        $member = new Group_member();
+
+        $member->group_id   = $group->id;
+        $member->profile_id = $userid;
+        $member->is_admin   = 1;
+        $member->created    = $group->created;
+
+        $result = $member->insert();
+
+        if (!$result) {
+            common_log_db_error($member, 'INSERT', __FILE__);
+            $this->serverError(
+                _('Could not set group membership.'),
+                500,
+                $this->format
+            );
+            return;
+        }
+
+        $group->query('COMMIT');
+        return $group;
     }
 }

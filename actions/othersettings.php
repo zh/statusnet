@@ -96,27 +96,28 @@ class OthersettingsAction extends AccountSettingsAction
                                           common_local_url('othersettings')));
         $this->elementStart('fieldset');
         $this->hidden('token', common_session_token());
-
-        // I18N
-
-        $services = array(
-                          '' => 'None',
-                          'ur1.ca' => 'ur1.ca (free service)',
-                          '2tu.us' => '2tu.us (free service)',
-                          'ptiturl.com' => 'ptiturl.com',
-                          'bit.ly' => 'bit.ly',
-                          'tinyurl.com' => 'tinyurl.com',
-                          'is.gd' => 'is.gd',
-                          'snipr.com' => 'snipr.com',
-                          'metamark.net' => 'metamark.net'
-                          );
-
         $this->elementStart('ul', 'form_data');
-        $this->elementStart('li');
-        $this->dropdown('urlshorteningservice', _('Shorten URLs with'),
-                        $services, _('Automatic shortening service to use.'),
-                        false, $user->urlshorteningservice);
-        $this->elementEnd('li');
+
+        $shorteners = array();
+        Event::handle('GetUrlShorteners', array(&$shorteners));
+        $services = array();
+        foreach($shorteners as $name=>$value)
+        {
+            $services[$name]=$name;
+            if($value['freeService']){
+                $services[$name].=_(' (free service)');
+            }
+        }
+        if($services)
+        {
+            asort($services);
+
+            $this->elementStart('li');
+            $this->dropdown('urlshorteningservice', _('Shorten URLs with'),
+                            $services, _('Automatic shortening service to use.'),
+                            false, $user->urlshorteningservice);
+            $this->elementEnd('li');
+        }
         $this->elementStart('li');
         $this->checkbox('viewdesigns', _('View profile designs'),
                         $user->viewdesigns, _('Show or hide profile designs.'));

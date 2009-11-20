@@ -20,6 +20,7 @@
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'/classes/File_redirection.php';
 
 /**
  * Table Definition for file_oembed
@@ -34,6 +35,7 @@ class File_oembed extends Memcached_DataObject
     public $file_id;                         // int(4)  primary_key not_null
     public $version;                         // varchar(20)
     public $type;                            // varchar(20)
+    public $mimetype;                        // varchar(50)
     public $provider;                        // varchar(50)
     public $provider_url;                    // varchar(255)
     public $width;                           // int(4)
@@ -93,7 +95,24 @@ class File_oembed extends Memcached_DataObject
         if (!empty($data->title)) $file_oembed->title = $data->title;
         if (!empty($data->author_name)) $file_oembed->author_name = $data->author_name;
         if (!empty($data->author_url)) $file_oembed->author_url = $data->author_url;
-        if (!empty($data->url)) $file_oembed->url = $data->url;
+        if (!empty($data->url)){
+            $file_oembed->url = $data->url;
+            $given_url = File_redirection::_canonUrl($file_oembed->url);
+            if (! empty($given_url)){
+                $file = File::staticGet('url', $given_url);
+                if (empty($file)) {
+                    $file_redir = File_redirection::staticGet('url', $given_url);
+                    if (empty($file_redir)) {
+                        $redir_data = File_redirection::where($given_url);
+                        $file_oembed->mimetype = $redir_data['type'];
+                    } else {
+                        $file_id = $file_redir->file_id;
+                    }
+                } else {
+                    $file_oembed->mimetype=$file->mimetype;
+                }
+            }
+        }
         $file_oembed->insert();
         if (!empty($data->thumbnail_url)) {
             File_thumbnail::saveNew($data, $file_id);

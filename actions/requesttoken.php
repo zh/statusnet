@@ -34,6 +34,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 }
 
 require_once INSTALLDIR.'/lib/omb.php';
+require_once INSTALLDIR.'/extlib/libomb/service_provider.php';
 
 /**
  * Request token action class.
@@ -49,17 +50,17 @@ class RequesttokenAction extends Action
 {
      /**
      * Is read only?
-     * 
+     *
      * @return boolean false
      */
-    function isReadOnly($args)
+    function isReadOnly()
     {
         return false;
     }
-    
+
     /**
      * Class handler.
-     * 
+     *
      * @param array $args array of arguments
      *
      * @return void
@@ -68,14 +69,12 @@ class RequesttokenAction extends Action
     {
         parent::handle($args);
         try {
-            common_remove_magic_from_request();
-            $req    = OAuthRequest::from_request('POST', common_local_url('requesttoken'));
-            $server = omb_oauth_server();
-            $token  = $server->fetch_request_token($req);
-            print $token.'&omb_version='.OMB_VERSION_01;
-        } catch (OAuthException $e) {
+            $srv = new OMB_Service_Provider(null, omb_oauth_datastore(),
+                                            omb_oauth_server());
+            $srv->writeRequestToken();
+        } catch (Exception $e) {
             $this->serverError($e->getMessage());
         }
     }
 }
-
+?>

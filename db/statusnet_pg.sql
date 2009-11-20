@@ -115,8 +115,8 @@ create table subscription (
 
     primary key (subscriber, subscribed)
 );
-create index subscription_subscriber_idx on subscription using btree(subscriber);
-create index subscription_subscribed_idx on subscription using btree(subscribed);
+create index subscription_subscriber_idx on subscription using btree(subscriber,created);
+create index subscription_subscribed_idx on subscription using btree(subscribed,created);
 
 create sequence notice_seq;
 create table notice (
@@ -137,7 +137,7 @@ create table notice (
 
 /*    FULLTEXT(content) */
 );
-create index notice_profile_id_idx on notice using btree(profile_id);
+create index notice_profile_id_idx on notice using btree(profile_id,created,id);
 create index notice_created_idx on notice using btree(created);
 
 create table notice_source (
@@ -171,7 +171,7 @@ create table fave (
 
 );
 create index fave_notice_id_idx on fave using btree(notice_id);
-create index fave_user_id_idx on fave using btree(user_id);
+create index fave_user_id_idx on fave using btree(user_id,modified);
 create index fave_modified_idx on fave using btree(modified);
 
 /* tables for OAuth */
@@ -465,6 +465,7 @@ create table file_oembed (
     file_id bigint default nextval('file_oembed_seq') primary key /* comment 'unique identifier' */,
     version varchar(20),
     type varchar(20),
+    mimetype varchar(50), 
     provider varchar(50),
     provider_url varchar(255),
     width integer,
@@ -529,6 +530,17 @@ create table session (
 
 create index session_modified_idx on session (modified);
 
+create table deleted_notice (
+
+    id integer primary key /* comment 'identity of notice'*/ ,
+    profile_id integer /* not null comment 'author of the notice'*/,
+    uri varchar(255) unique /* comment 'universally unique identifier, usually a tag URI'*/,
+    created timestamp not null  /* comment 'date the notice record was created'*/ ,
+    deleted timestamp not null DEFAULT CURRENT_TIMESTAMP /* comment 'date the notice record was created'*/
+);
+
+CREATE index deleted_notice_profile_id_idx on deleted_notice (profile_id);
+
 
 /* Textsearch stuff */
 
@@ -536,4 +548,34 @@ create index textsearch_idx on profile using gist(textsearch);
 create index noticecontent_idx on notice using gist(to_tsvector('english',content));
 create trigger textsearchupdate before insert or update on profile for each row
 execute procedure tsvector_update_trigger(textsearch, 'pg_catalog.english', nickname, fullname, location, bio, homepage);
+
+
+create table config (
+
+    section varchar(32) /* comment 'configuration section'*/,
+    setting varchar(32) /* comment 'configuration setting'*/,
+    value varchar(255) /* comment 'configuration value'*/,
+
+    primary key (section, setting)
+
+);
+
+create table user_role (
+
+    user_id integer not null /* comment 'user having the role'*/ references "user" (id),
+    role    varchar(32) not null /* comment 'string representing the role'*/,
+    created timestamp /* not null comment 'date the role was granted'*/,
+
+    primary key (user_id, role)
+
+);
+
+create table login_token (
+    user_id integer not null /* comment 'user owning this token'*/ references "user" (id),
+    token char(32) not null /* comment 'token useable for logging in'*/,
+    created timestamp not null DEFAULT CURRENT_TIMESTAMP /* comment 'date this record was created'*/,
+    modified timestamp /* comment 'date this record was modified'*/,
+
+    primary key (user_id)
+);
 

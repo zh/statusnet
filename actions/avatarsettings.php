@@ -244,11 +244,25 @@ class AvatarsettingsAction extends AccountSettingsAction
 
     function handlePost()
     {
+        // Workaround for PHP returning empty $_POST and $_FILES when POST
+        // length > post_max_size in php.ini
+
+        if (empty($_FILES)
+            && empty($_POST)
+            && ($_SERVER['CONTENT_LENGTH'] > 0)
+        ) {
+            $msg = _('The server was unable to handle that much POST ' .
+                'data (%s bytes) due to its current configuration.');
+
+            $this->showForm(sprintf($msg, $_SERVER['CONTENT_LENGTH']));
+            return;
+        }
+
         // CSRF protection
 
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
-            $this->show_form(_('There was a problem with your session token. '.
+            $this->showForm(_('There was a problem with your session token. '.
                                'Try again, please.'));
             return;
         }

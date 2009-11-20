@@ -59,7 +59,7 @@ class LinkbackPlugin extends Plugin
         parent::__construct();
     }
 
-    function onEndNoticeSave($notice)
+    function onHandleQueuedNotice($notice)
     {
         if ($notice->is_local == 1) {
             // Try to avoid actually mucking with the
@@ -129,18 +129,12 @@ class LinkbackPlugin extends Plugin
             }
         }
 
-        $request = xmlrpc_encode_request('pingback.ping', $args);
-        $context = stream_context_create(array('http' => array('method' => "POST",
-                                                               'header' =>
-                                                               "Content-Type: text/xml\r\n".
-                                                               "User-Agent: " . $this->userAgent(),
-                                                               'content' => $request)));
-        $file = file_get_contents($endpoint, false, $context);
-        if (!$file) {
-            common_log(LOG_WARNING,
-	               "Pingback request failed for '$url' ($endpoint)");
-        } else {
-            $response = xmlrpc_decode($file);
+        $request = HTTPClient::start();
+        try {
+            $response = $request->post($endpoint,
+                array('Content-Type: text/xml'),
+                xmlrpc_encode_request('pingback.ping', $args));
+            $response = xmlrpc_decode($response->getBody());
             if (xmlrpc_is_fault($response)) {
                 common_log(LOG_WARNING,
                        "Pingback error for '$url' ($endpoint): ".
@@ -150,6 +144,9 @@ class LinkbackPlugin extends Plugin
                        "Pingback success for '$url' ($endpoint): ".
                        "'$response'");
             }
+        } catch (HTTP_Request2_Exception $e) {
+            common_log(LOG_WARNING,
+                   "Pingback request failed for '$url' ($endpoint)");
         }
     }
 

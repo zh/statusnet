@@ -67,11 +67,7 @@ class ConfirmaddressAction extends Action
         parent::handle($args);
         if (!common_logged_in()) {
             common_set_returnto($this->selfUrl());
-            if (!common_config('site', 'openidonly')) {
-                common_redirect(common_local_url('login'));
-            } else {
-                common_redirect(common_local_url('openidlogin'));
-            }
+            common_redirect(common_local_url('login'));
             return;
         }
         $code = $this->trimmed('code');

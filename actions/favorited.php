@@ -153,8 +153,7 @@ class FavoritedAction extends Action
             $message .= _('Be the first to add a notice to your favorites by clicking the fave button next to any notice you like.');
         }
         else {
-            $message .= sprintf(_('Why not [register an account](%%%%action.%s%%%%) and be the first to add a notice to your favorites!'),
-                                (!common_config('site','openidonly')) ? 'register' : 'openidlogin');
+            $message .= _('Why not [register an account](%%action.register%%) and be the first to add a notice to your favorites!');
         }
 
         $this->elementStart('div', 'guide');

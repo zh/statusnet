@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2008, 2009, StatusNet, Inc.
  *
@@ -15,9 +15,26 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.     If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category Notices
+ * @package  StatusNet
+ * @author   Brenda Wallace <shiny@cpan.org>
+ * @author   Christopher Vollick <psycotica0@gmail.com>
+ * @author   CiaranG <ciaran@ciarang.com>
+ * @author   Craig Andrews <candrews@integralblue.com>
+ * @author   Evan Prodromou <evan@controlezvous.ca>
+ * @author   Gina Haeussge <osd@foosel.net>
+ * @author   Jeffery To <jeffery.to@gmail.com>
+ * @author   Mike Cochrane <mikec@mikenz.geek.nz>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @author   Sarven Capadisli <csarven@controlyourself.ca>
+ * @author   Tom Adams <tom@holizz.com>
+ * @license  GNU Affero General Public License http://www.gnu.org/licenses/
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) {
+    exit(1);
+}
 
 /**
  * Table Definition for notice
@@ -40,7 +57,7 @@ class Notice extends Memcached_DataObject
     public $id;                              // int(4)  primary_key not_null
     public $profile_id;                      // int(4)   not_null
     public $uri;                             // varchar(255)  unique_key
-    public $content;                         // varchar(140)
+    public $content;                         // text()
     public $rendered;                        // text()
     public $url;                             // varchar(255)
     public $created;                         // datetime()   not_null
@@ -49,6 +66,10 @@ class Notice extends Memcached_DataObject
     public $is_local;                        // tinyint(1)
     public $source;                          // varchar(32)
     public $conversation;                    // int(4)
+    public $lat;                             // decimal(10,7)
+    public $lon;                             // decimal(10,7)
+    public $location_id;                     // int(4)
+    public $location_ns;                     // int(4)
 
     /* Static get */
     function staticGet($k,$v=NULL) {
@@ -75,17 +96,30 @@ class Notice extends Memcached_DataObject
         $this->blowFavesCache(true);
         $this->blowSubsCache(true);
 
+        // For auditing purposes, save a record that the notice
+        // was deleted.
+
+        $deleted = new Deleted_notice();
+
+        $deleted->id         = $this->id;
+        $deleted->profile_id = $this->profile_id;
+        $deleted->uri        = $this->uri;
+        $deleted->created    = $this->created;
+        $deleted->deleted    = common_sql_now();
+
         $this->query('BEGIN');
+
+        $deleted->insert();
+
         //Null any notices that are replies to this notice
         $this->query(sprintf("UPDATE notice set reply_to = null WHERE reply_to = %d", $this->id));
         $related = array('Reply',
                          'Fave',
                          'Notice_tag',
                          'Group_inbox',
-                         'Queue_item');
-        if (common_config('inboxes', 'enabled')) {
-            $related[] = 'Notice_inbox';
-        }
+                         'Queue_item',
+                         'Notice_inbox');
+
         foreach ($related as $cls) {
             $inst = new $cls();
             $inst->notice_id = $this->id;
@@ -134,48 +168,46 @@ class Notice extends Memcached_DataObject
     }
 
     static function saveNew($profile_id, $content, $source=null,
-                            $is_local=Notice::LOCAL_PUBLIC, $reply_to=null, $uri=null, $created=null) {
+                            $is_local=Notice::LOCAL_PUBLIC, $reply_to=null, $uri=null, $created=null,
+                            $lat=null, $lon=null, $location_id=null, $location_ns=null) {
 
         $profile = Profile::staticGet($profile_id);
 
         $final = common_shorten_links($content);
 
-        if (mb_strlen($final) > 140) {
-            common_log(LOG_INFO, 'Rejecting notice that is too long.');
-            return _('Problem saving notice. Too long.');
+        if (Notice::contentTooLong($final)) {
+            throw new ClientException(_('Problem saving notice. Too long.'));
         }
 
-        if (!$profile) {
-            common_log(LOG_ERR, 'Problem saving notice. Unknown user.');
-            return _('Problem saving notice. Unknown user.');
+        if (empty($profile)) {
+            throw new ClientException(_('Problem saving notice. Unknown user.'));
         }
 
         if (common_config('throttle', 'enabled') && !Notice::checkEditThrottle($profile_id)) {
             common_log(LOG_WARNING, 'Excessive posting by profile #' . $profile_id . '; throttled.');
-            return _('Too many notices too fast; take a breather and post again in a few minutes.');
+            throw new ClientException(_('Too many notices too fast; take a breather '.
+                                        'and post again in a few minutes.'));
         }
 
         if (common_config('site', 'dupelimit') > 0 && !Notice::checkDupes($profile_id, $final)) {
             common_log(LOG_WARNING, 'Dupe posting by profile #' . $profile_id . '; throttled.');
-			return _('Too many duplicate messages too quickly; take a breather and post again in a few minutes.');
+            throw new ClientException(_('Too many duplicate messages too quickly;'.
+                                        ' take a breather and post again in a few minutes.'));
         }
 
-		$banned = common_config('profile', 'banned');
-
-        if ( in_array($profile_id, $banned) || in_array($profile->nickname, $banned)) {
-            common_log(LOG_WARNING, "Attempted post from banned user: $profile->nickname (user id = $profile_id).");
-            return _('You are banned from posting notices on this site.');
+        if (!$profile->hasRight(Right::NEWNOTICE)) {
+            common_log(LOG_WARNING, "Attempted post from user disallowed to post: " . $profile->nickname);
+            throw new ClientException(_('You are banned from posting notices on this site.'));
         }
 
         $notice = new Notice();
         $notice->profile_id = $profile_id;
 
-        $blacklist = common_config('public', 'blacklist');
         $autosource = common_config('public', 'autosource');
 
-        # Blacklisted are non-false, but not 1, either
+        # Sandboxed are non-false, but not 1, either
 
-        if (($blacklist && in_array($profile_id, $blacklist)) ||
+        if (!$profile->hasRight(Right::PUBLICNOTICE) ||
             ($source && $autosource && in_array($source, $autosource))) {
             $notice->is_local = Notice::LOCAL_NONPUBLIC;
         } else {
@@ -188,16 +220,36 @@ class Notice extends Memcached_DataObject
             $notice->created = common_sql_now();
         }
 
-		$notice->content = $final;
-		$notice->rendered = common_render_content($final, $notice);
-		$notice->source = $source;
-		$notice->uri = $uri;
+        $notice->content = $final;
+        $notice->rendered = common_render_content($final, $notice);
+        $notice->source = $source;
+        $notice->uri = $uri;
 
-		$notice->reply_to = self::getReplyTo($reply_to, $profile_id, $source, $final);
+        $notice->reply_to = self::getReplyTo($reply_to, $profile_id, $source, $final);
 
         if (!empty($notice->reply_to)) {
             $reply = Notice::staticGet('id', $notice->reply_to);
             $notice->conversation = $reply->conversation;
+        }
+
+        if (!empty($lat) && !empty($lon)) {
+            $notice->lat = $lat;
+            $notice->lon = $lon;
+            $notice->location_id = $location_id;
+            $notice->location_ns = $location_ns;
+        } else if (!empty($location_ns) && !empty($location_id)) {
+            $location = Location::fromId($location_id, $location_ns);
+            if (!empty($location)) {
+                $notice->lat = $location->lat;
+                $notice->lon = $location->lon;
+                $notice->location_id = $location_id;
+                $notice->location_ns = $location_ns;
+            }
+        } else {
+            $notice->lat         = $profile->lat;
+            $notice->lon         = $profile->lon;
+            $notice->location_id = $profile->location_id;
+            $notice->location_ns = $profile->location_ns;
         }
 
         if (Event::handle('StartNoticeSave', array(&$notice))) {
@@ -210,7 +262,7 @@ class Notice extends Memcached_DataObject
 
             if (!$id) {
                 common_log_db_error($notice, 'INSERT', __FILE__);
-                return _('Problem saving notice.');
+                throw new ServerException(_('Problem saving notice.'));
             }
 
             // Update ID-dependent columns: URI, conversation
@@ -235,13 +287,12 @@ class Notice extends Memcached_DataObject
             if ($changed) {
                 if (!$notice->update($orig)) {
                     common_log_db_error($notice, 'UPDATE', __FILE__);
-                    return _('Problem saving notice.');
+                    throw new ServerException(_('Problem saving notice.'));
                 }
             }
 
             // XXX: do we need to change this for remote users?
 
-            $notice->saveReplies();
             $notice->saveTags();
 
             $notice->addToInboxes();
@@ -279,11 +330,11 @@ class Notice extends Memcached_DataObject
 
     static function checkDupes($profile_id, $content) {
         $profile = Profile::staticGet($profile_id);
-        if (!$profile) {
+        if (empty($profile)) {
             return false;
         }
         $notice = $profile->getNotices(0, NOTICE_CACHE_WINDOW);
-        if ($notice) {
+        if (!empty($notice)) {
             $last = 0;
             while ($notice->fetch()) {
                 if (time() - strtotime($notice->created) >= common_config('site', 'dupelimit')) {
@@ -309,7 +360,7 @@ class Notice extends Memcached_DataObject
 
     static function checkEditThrottle($profile_id) {
         $profile = Profile::staticGet($profile_id);
-        if (!$profile) {
+        if (empty($profile)) {
             return false;
         }
         # Get the Nth notice
@@ -630,7 +681,7 @@ class Notice extends Memcached_DataObject
 
         $cache = common_memcache();
 
-        if (!$cache) {
+        if (empty($cache)) {
             return Notice::getStreamDirect($qry, $offset, $limit, null, null, $order, null);
         }
 
@@ -691,7 +742,7 @@ class Notice extends Memcached_DataObject
 
         # If there are no hits, just return the value
 
-        if (!$notice) {
+        if (empty($notice)) {
             return $notice;
         }
 
@@ -854,64 +905,74 @@ class Notice extends Memcached_DataObject
 
     function addToInboxes()
     {
-        $enabled = common_config('inboxes', 'enabled');
+        // XXX: loads constants
 
-        if ($enabled === true || $enabled === 'transitional') {
+        $inbox = new Notice_inbox();
 
-            // XXX: loads constants
+        $users = $this->getSubscribedUsers();
 
-            $inbox = new Notice_inbox();
+        // FIXME: kind of ignoring 'transitional'...
+        // we'll probably stop supporting inboxless mode
+        // in 0.9.x
 
-            $users = $this->getSubscribedUsers();
+        $ni = array();
 
-            // FIXME: kind of ignoring 'transitional'...
-            // we'll probably stop supporting inboxless mode
-            // in 0.9.x
+        foreach ($users as $id) {
+            $ni[$id] = NOTICE_INBOX_SOURCE_SUB;
+        }
 
-            $ni = array();
+        $groups = $this->saveGroups();
 
+        foreach ($groups as $group) {
+            $users = $group->getUserMembers();
             foreach ($users as $id) {
-                $ni[$id] = NOTICE_INBOX_SOURCE_SUB;
-            }
-
-            $groups = $this->saveGroups();
-
-            foreach ($groups as $group) {
-                $users = $group->getUserMembers();
-                foreach ($users as $id) {
-                    if (!array_key_exists($id, $ni)) {
+                if (!array_key_exists($id, $ni)) {
+                    $user = User::staticGet('id', $id);
+                    if (!$user->hasBlocked($notice->profile_id)) {
                         $ni[$id] = NOTICE_INBOX_SOURCE_GROUP;
                     }
                 }
             }
+        }
 
-            $cnt = 0;
+        $recipients = $this->saveReplies();
 
-            $qryhdr = 'INSERT INTO notice_inbox (user_id, notice_id, source, created) VALUES ';
-            $qry = $qryhdr;
+        foreach ($recipients as $recipient) {
 
-            foreach ($ni as $id => $source) {
-                if ($cnt > 0) {
-                    $qry .= ', ';
-                }
-                $qry .= '('.$id.', '.$this->id.', '.$source.", '".$this->created. "') ";
-                $cnt++;
-                if (rand() % NOTICE_INBOX_SOFT_LIMIT == 0) {
-                    // FIXME: Causes lag in replicated servers
-                    // Notice_inbox::gc($id);
-                }
-                if ($cnt >= MAX_BOXCARS) {
-                    $inbox = new Notice_inbox();
-                    $inbox->query($qry);
-                    $qry = $qryhdr;
-                    $cnt = 0;
+            if (!array_key_exists($recipient, $ni)) {
+                $recipientUser = User::staticGet('id', $recipient);
+                if (!empty($recipientUser)) {
+                    $ni[$recipient] = NOTICE_INBOX_SOURCE_REPLY;
                 }
             }
+        }
 
+        $cnt = 0;
+
+        $qryhdr = 'INSERT INTO notice_inbox (user_id, notice_id, source, created) VALUES ';
+        $qry = $qryhdr;
+
+        foreach ($ni as $id => $source) {
             if ($cnt > 0) {
+                $qry .= ', ';
+            }
+            $qry .= '('.$id.', '.$this->id.', '.$source.", '".$this->created. "') ";
+            $cnt++;
+            if (rand() % NOTICE_INBOX_SOFT_LIMIT == 0) {
+                // FIXME: Causes lag in replicated servers
+                // Notice_inbox::gc($id);
+            }
+            if ($cnt >= MAX_BOXCARS) {
                 $inbox = new Notice_inbox();
                 $inbox->query($qry);
+                $qry = $qryhdr;
+                $cnt = 0;
             }
+        }
+
+        if ($cnt > 0) {
+            $inbox = new Notice_inbox();
+            $inbox->query($qry);
         }
 
         return;
@@ -947,11 +1008,6 @@ class Notice extends Memcached_DataObject
     function saveGroups()
     {
         $groups = array();
-
-        $enabled = common_config('inboxes', 'enabled');
-        if ($enabled !== true && $enabled !== 'transitional') {
-            return $groups;
-        }
 
         /* extract all !group */
         $count = preg_match_all('/(?:^|\s)!([A-Za-z0-9]{1,64})/',
@@ -1043,12 +1099,12 @@ class Notice extends Memcached_DataObject
         for ($i=0; $i<count($names); $i++) {
             $nickname = $names[$i];
             $recipient = common_relative_profile($sender, $nickname, $this->created);
-            if (!$recipient) {
+            if (empty($recipient)) {
                 continue;
             }
             // Don't save replies from blocked profile to local user
             $recipient_user = User::staticGet('id', $recipient->id);
-            if ($recipient_user && $recipient_user->hasBlocked($sender)) {
+            if (!empty($recipient_user) && $recipient_user->hasBlocked($sender)) {
                 continue;
             }
             $reply = new Reply();
@@ -1059,7 +1115,7 @@ class Notice extends Memcached_DataObject
                 $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
                 common_log(LOG_ERR, 'DB error inserting reply: ' . $last_error->message);
                 common_server_error(sprintf(_('DB error inserting reply: %s'), $last_error->message));
-                return;
+                return array();
             } else {
                 $replied[$recipient->id] = 1;
             }
@@ -1083,7 +1139,7 @@ class Notice extends Memcached_DataObject
                         $id = $reply->insert();
                         if (!$id) {
                             common_log_db_error($reply, 'INSERT', __FILE__);
-                            return;
+                            return array();
                         } else {
                             $replied[$recipient->id] = 1;
                         }
@@ -1092,12 +1148,16 @@ class Notice extends Memcached_DataObject
             }
         }
 
-        foreach (array_keys($replied) as $recipient) {
+        $recipientIds = array_keys($replied);
+
+        foreach ($recipientIds as $recipient) {
             $user = User::staticGet('id', $recipient);
             if ($user) {
                 mail_notify_attn($user, $this);
             }
         }
+
+        return $recipientIds;
     }
 
     function asAtomEntry($namespace=false, $source=false)
@@ -1121,10 +1181,9 @@ class Notice extends Memcached_DataObject
             $xs->element('link', array('href' => $profile->profileurl));
             $user = User::staticGet('id', $profile->id);
             if (!empty($user)) {
-                $atom_feed = common_local_url('api',
-                                              array('apiaction' => 'statuses',
-                                                    'method' => 'user_timeline',
-                                                    'argument' => $profile->nickname.'.atom'));
+                $atom_feed = common_local_url('ApiTimelineUser',
+                                              array('format' => 'atom',
+                                                    'id' => $profile->nickname));
                 $xs->element('link', array('rel' => 'self',
                                            'type' => 'application/atom+xml',
                                            'href' => $profile->profileurl));
@@ -1181,14 +1240,21 @@ class Notice extends Memcached_DataObject
         $attachments = $this->attachments();
         if($attachments){
             foreach($attachments as $attachment){
-                if ($attachment->isEnclosure()) {
-                    $attributes = array('rel'=>'enclosure','href'=>$attachment->url,'type'=>$attachment->mimetype,'length'=>$attachment->size);
-                    if($attachment->title){
-                        $attributes['title']=$attachment->title;
+                $enclosure=$attachment->getEnclosure();
+                if ($enclosure) {
+                    $attributes = array('rel'=>'enclosure','href'=>$enclosure->url,'type'=>$enclosure->mimetype,'length'=>$enclosure->size);
+                    if($enclosure->title){
+                        $attributes['title']=$enclosure->title;
                     }
                     $xs->element('link', $attributes, null);
                 }
             }
+        }
+
+        if (!empty($this->lat) && !empty($this->lon)) {
+            $xs->elementStart('geo', array('xmlns:georss' => 'http://www.georss.org/georss'));
+            $xs->element('georss:point', null, $this->lat . ' ' . $this->lon);
+            $xs->elementEnd('geo');
         }
 
         $xs->elementEnd('entry');
@@ -1334,5 +1400,38 @@ class Notice extends Memcached_DataObject
         if (!empty($last)) {
             return $last->id;
         }
+    }
+
+    static function maxContent()
+    {
+        $contentlimit = common_config('notice', 'contentlimit');
+        // null => use global limit (distinct from 0!)
+        if (is_null($contentlimit)) {
+            $contentlimit = common_config('site', 'textlimit');
+        }
+        return $contentlimit;
+    }
+
+    static function contentTooLong($content)
+    {
+        $contentlimit = self::maxContent();
+        return ($contentlimit > 0 && !empty($content) && (mb_strlen($content) > $contentlimit));
+    }
+
+    function getLocation()
+    {
+        $location = null;
+
+        if (!empty($this->location_id) && !empty($this->location_ns)) {
+            $location = Location::fromId($this->location_id, $this->location_ns);
+        }
+
+        if (is_null($location)) { // no ID, or Location::fromId() failed
+            if (!empty($this->lat) && !empty($this->lon)) {
+                $location = Location::fromLatLon($this->lat, $this->lon);
+            }
+        }
+
+        return $location;
     }
 }

@@ -95,7 +95,7 @@ class EmailsettingsAction extends AccountSettingsAction
                                           'class' => 'form_settings',
                                           'action' =>
                                           common_local_url('emailsettings')));
-
+        $this->elementStart('fieldset');
         $this->elementStart('fieldset', array('id' => 'settings_email_address'));
         $this->element('legend', null, _('Address'));
         $this->hidden('token', common_session_token());
@@ -193,6 +193,7 @@ class EmailsettingsAction extends AccountSettingsAction
         $this->elementEnd('li');
         $this->elementEnd('ul');
         $this->submit('save', _('Save'));
+        $this->elementEnd('fieldset');
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
@@ -326,7 +327,7 @@ class EmailsettingsAction extends AccountSettingsAction
             $this->showForm(_('Cannot normalize that email address'));
             return;
         }
-        if (!Validate::email($email, true)) {
+        if (!Validate::email($email, common_config('email', 'check_domain'))) {
             $this->showForm(_('Not a valid email address'));
             return;
         } else if ($user->email == $email) {

@@ -78,25 +78,12 @@ class Rss10Action extends Action
     function prepare($args)
     {
         parent::prepare($args);
+
         $this->limit = (int) $this->trimmed('limit');
+
         if ($this->limit == 0) {
             $this->limit = DEFAULT_RSS_LIMIT;
         }
-        return true;
-    }
-
-    /**
-     * Handle a request
-     *
-     * @param array $args Arguments from $_REQUEST
-     *
-     * @return void
-     */
-
-    function handle($args)
-    {
-        // Parent handling, including cache check
-        parent::handle($args);
 
         if (common_config('site', 'private')) {
             if (!isset($_SERVER['PHP_AUTH_USER'])) {
@@ -122,8 +109,21 @@ class Rss10Action extends Action
             }
         }
 
-        // Get the list of notices
-        $this->notices = $this->getNotices($this->limit);
+        return true;
+    }
+
+    /**
+     * Handle a request
+     *
+     * @param array $args Arguments from $_REQUEST
+     *
+     * @return void
+     */
+
+    function handle($args)
+    {
+        // Parent handling, including cache check
+        parent::handle($args);
         $this->showRss();
     }
 
@@ -140,7 +140,7 @@ class Rss10Action extends Action
     }
 
     /**
-     * Get the notices to output in this stream
+     * Get the notices to output in this stream.
      *
      * @return array an array of Notice objects sorted in reverse chron
      */
@@ -244,6 +244,16 @@ class Rss10Action extends Action
         $this->element('dc:creator', null, ($profile->fullname) ? $profile->fullname : $profile->nickname);
         $this->element('foaf:maker', array('rdf:resource' => $creator_uri));
         $this->element('sioc:has_creator', array('rdf:resource' => $creator_uri.'#acct'));
+        $location = $notice->getLocation();
+        if ($location && isset($location->lat) && isset($location->lon)) {
+            $location_uri = $location->getRdfURL();
+            $attrs = array('geo:lat' => $location->lat,
+                'geo:long' => $location->lon);
+            if (strlen($location_uri)) {
+                $attrs['rdf:resource'] = $location_uri;
+            }
+            $this->element('statusnet:origin', $attrs);
+        }
         $this->element('statusnet:postIcon', array('rdf:resource' => $profile->avatarUrl()));
         $this->element('cc:licence', array('rdf:resource' => common_config('license', 'url')));
         if ($notice->reply_to) {
@@ -258,28 +268,22 @@ class Rss10Action extends Action
         $attachments = $notice->attachments();
         if($attachments){
             foreach($attachments as $attachment){
-                if ($attachment->isEnclosure()) {
-                    // DO NOT move xmlns declaration to root element. Making it
-                    // the default namespace here improves compatibility with
-                    // real-world feed readers.
-                    $attribs = array(
-                        'rdf:resource' => $attachment->url,
-                        'url' => $attachment->url,
-                        'xmlns' => 'http://purl.oclc.org/net/rss_2.0/enc#'
-                        );
-                    if ($attachment->title) {
-                        $attribs['dc:title'] = $attachment->title;
+                $enclosure=$attachment->getEnclosure();
+                if ($enclosure) {
+                    $attribs = array('rdf:resource' => $enclosure->url);
+                    if ($enclosure->title) {
+                        $attribs['dc:title'] = $enclosure->title;
                     }
-                    if ($attachment->modified) {
-                        $attribs['dc:date'] = common_date_w3dtf($attachment->modified);
+                    if ($enclosure->modified) {
+                        $attribs['dc:date'] = common_date_w3dtf($enclosure->modified);
                     }
-                    if ($attachment->size) {
-                        $attribs['length'] = $attachment->size;
+                    if ($enclosure->size) {
+                        $attribs['enc:length'] = $enclosure->size;
                     }
-                    if ($attachment->mimetype) {
-                        $attribs['type'] = $attachment->mimetype;
+                    if ($enclosure->mimetype) {
+                        $attribs['enc:type'] = $enclosure->mimetype;
                     }
-                    $this->element('enclosure', $attribs);
+                    $this->element('enc:enclosure', $attribs);
                 }
                 $this->element('sioc:links_to', array('rdf:resource'=>$attachment->url));
             }
@@ -347,12 +351,16 @@ class Rss10Action extends Action
                                               'http://commontag.org/ns#',
                                               'xmlns:foaf' =>
                                               'http://xmlns.com/foaf/0.1/',
+                                              'xmlns:enc' =>
+                                              'http://purl.oclc.org/net/rss_2.0/enc#',
                                               'xmlns:sioc' =>
                                               'http://rdfs.org/sioc/ns#',
                                               'xmlns:sioct' =>
                                               'http://rdfs.org/sioc/types#',
                                               'xmlns:rdfs' =>
                                               'http://www.w3.org/2000/01/rdf-schema#',
+                                              'xmlns:geo' =>
+                                              'http://www.w3.org/2003/01/geo/wgs84_pos#',
                                               'xmlns:statusnet' =>
                                               'http://status.net/ont/',
                                               'xmlns' => 'http://purl.org/rss/1.0/'));

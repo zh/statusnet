@@ -61,11 +61,6 @@ class NewgroupAction extends Action
     {
         parent::prepare($args);
 
-        if (!common_config('inboxes','enabled')) {
-            $this->serverError(_('Inboxes must be enabled for groups to work'));
-            return false;
-        }
-
         if (!common_logged_in()) {
             $this->clientError(_('You must be logged in to create a group.'));
             return false;
@@ -146,8 +141,8 @@ class NewgroupAction extends Action
         } else if (!is_null($fullname) && mb_strlen($fullname) > 255) {
             $this->showForm(_('Full name is too long (max 255 chars).'));
             return;
-        } else if (!is_null($description) && mb_strlen($description) > 140) {
-            $this->showForm(_('description is too long (max 140 chars).'));
+        } else if (User_group::descriptionTooLong($description)) {
+            $this->showForm(sprintf(_('description is too long (max %d chars).'), User_group::maxDescription()));
             return;
         } else if (!is_null($location) && mb_strlen($location) > 255) {
             $this->showForm(_('Location is too long (max 255 chars).'));
@@ -191,45 +186,13 @@ class NewgroupAction extends Action
 
         assert(!is_null($cur));
 
-        $group = new User_group();
-
-        $group->query('BEGIN');
-
-        $group->nickname    = $nickname;
-        $group->fullname    = $fullname;
-        $group->homepage    = $homepage;
-        $group->description = $description;
-        $group->location    = $location;
-        $group->created     = common_sql_now();
-
-        $result = $group->insert();
-
-        if (!$result) {
-            common_log_db_error($group, 'INSERT', __FILE__);
-            $this->serverError(_('Could not create group.'));
-        }
-
-        $result = $group->setAliases($aliases);
-
-        if (!$result) {
-            $this->serverError(_('Could not create aliases.'));
-        }
-
-        $member = new Group_member();
-
-        $member->group_id   = $group->id;
-        $member->profile_id = $cur->id;
-        $member->is_admin   = 1;
-        $member->created    = $group->created;
-
-        $result = $member->insert();
-
-        if (!$result) {
-            common_log_db_error($member, 'INSERT', __FILE__);
-            $this->serverError(_('Could not set group membership.'));
-        }
-
-        $group->query('COMMIT');
+        $group = User_group::register(array('nickname' => $nickname,
+                                            'fullname' => $fullname,
+                                            'homepage' => $homepage,
+                                            'description' => $description,
+                                            'location' => $location,
+                                            'aliases'  => $aliases,
+                                            'userid'   => $cur->id));
 
         common_redirect($group->homeUrl(), 303);
     }

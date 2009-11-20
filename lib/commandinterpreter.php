@@ -28,7 +28,7 @@ class CommandInterpreter
         # XXX: localise
 
         $text = preg_replace('/\s+/', ' ', trim($text));
-        list($cmd, $arg) = explode(' ', $text, 2);
+        list($cmd, $arg) = $this->split_arg($text);
 
         # We try to support all the same commands as Twitter, see
         # http://getsatisfaction.com/twitter/topics/what_are_the_twitter_commands
@@ -41,9 +41,33 @@ class CommandInterpreter
                 return null;
             }
             return new HelpCommand($user);
+         case 'login':
+            if ($arg) {
+                return null;
+            } else {
+                return new LoginCommand($user);
+            }
+         case 'subscribers':
+            if ($arg) {
+                return null;
+            } else {
+                return new SubscribersCommand($user);
+            }
+         case 'subscriptions':
+            if ($arg) {
+                return null;
+            } else {
+                return new SubscriptionsCommand($user);
+            }
+         case 'groups':
+            if ($arg) {
+                return null;
+            } else {
+                return new GroupsCommand($user);
+            }
          case 'on':
             if ($arg) {
-                list($other, $extra) = explode(' ', $arg, 2);
+                list($other, $extra) = $this->split_arg($arg);
                 if ($extra) {
                     return null;
                 } else {
@@ -54,7 +78,7 @@ class CommandInterpreter
             }
          case 'off':
             if ($arg) {
-                list($other, $extra) = explode(' ', $arg, 2);
+                list($other, $extra) = $this->split_arg($arg);
                 if ($extra) {
                     return null;
                 } else {
@@ -74,7 +98,7 @@ class CommandInterpreter
              if (!$arg) {
                 return null;
             }
-            list($other, $extra) = explode(' ', $arg, 2);
+            list($other, $extra) = $this->split_arg($arg);
             if ($extra) {
                 return null;
             } else {
@@ -84,7 +108,7 @@ class CommandInterpreter
             if (!$arg) {
                 return null;
             }
-            list($other, $extra) = explode(' ', $arg, 2);
+            list($other, $extra) = $this->split_arg($arg);
             if ($extra) {
                 return null;
             } else {
@@ -95,7 +119,7 @@ class CommandInterpreter
             if (!$arg) {
                 return null;
             }
-            list($other, $extra) = explode(' ', $arg, 2);
+            list($other, $extra) = $this->split_arg($arg);
             if ($extra) {
                 return null;
             } else {
@@ -106,7 +130,7 @@ class CommandInterpreter
             if (!$arg) {
                 return null;
             }
-            list($other, $extra) = explode(' ', $arg, 2);
+            list($other, $extra) = $this->split_arg($arg);
             if ($extra) {
                 return null;
             } else {
@@ -117,7 +141,7 @@ class CommandInterpreter
             if (!$arg) {
                 return null;
             }
-            list($other, $extra) = explode(' ', $arg, 2);
+            list($other, $extra) = $this->split_arg($arg);
             if ($extra) {
                 return null;
             } else {
@@ -128,17 +152,28 @@ class CommandInterpreter
             if (!$arg) {
                 return null;
             }
-            list($other, $extra) = explode(' ', $arg, 2);
+            list($other, $extra) = $this->split_arg($arg);
             if (!$extra) {
                 return null;
             } else {
                 return new MessageCommand($user, $other, $extra);
             }
+         case 'r':
+         case 'reply':
+            if (!$arg) {
+                return null;
+            }
+            list($other, $extra) = $this->split_arg($arg);
+            if (!$extra) {
+                return null;
+            } else {
+                return new ReplyCommand($user, $other, $extra);
+            }
          case 'whois':
             if (!$arg) {
                 return null;
             }
-            list($other, $extra) = explode(' ', $arg, 2);
+            list($other, $extra) = $this->split_arg($arg);
             if ($extra) {
                 return null;
             } else {
@@ -148,7 +183,7 @@ class CommandInterpreter
             if (!$arg) {
                 return null;
             }
-            list($other, $extra) = explode(' ', $arg, 2);
+            list($other, $extra) = $this->split_arg($arg);
             if ($extra) {
                 return null;
             } else {
@@ -158,7 +193,7 @@ class CommandInterpreter
             if (!$arg) {
                 return null;
             }
-            list($other, $extra) = explode(' ', $arg, 2);
+            list($other, $extra) = $this->split_arg($arg);
             if ($extra) {
                 return null;
             } else {
@@ -173,7 +208,7 @@ class CommandInterpreter
             if (!$arg) {
                 return null;
             }
-            list($other, $extra) = explode(' ', $arg, 2);
+            list($other, $extra) = $this->split_arg($arg);
             if ($extra) {
                 return null;
             } else {
@@ -183,7 +218,7 @@ class CommandInterpreter
             if (!$arg) {
                 return null;
             }
-            list($word, $extra) = explode(' ', $arg, 2);
+            list($word, $extra) = $this->split_arg($arg);
             if ($extra) {
                 return null;
             } else if ($word == 'off') {
@@ -195,7 +230,7 @@ class CommandInterpreter
             if (!$arg) {
                 return null;
             }
-            list($word, $extra) = explode(' ', $arg, 2);
+            list($word, $extra) = $this->split_arg($arg);
             if ($extra) {
                 return null;
             } else if ($word == 'all') {
@@ -212,6 +247,18 @@ class CommandInterpreter
          default:
             return false;
         }
+    }
+    
+    /**
+     * Split arguments without triggering a PHP notice warning
+     */
+    function split_arg($text)
+    {
+        $pieces = explode(' ', $text, 2);
+        if (count($pieces) == 1) {
+            $pieces[] = null;
+        }
+        return $pieces;
     }
 }
 

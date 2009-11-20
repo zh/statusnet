@@ -39,24 +39,13 @@ class UnQueueManager
          case 'omb':
             if ($this->_isLocal($notice)) {
                 require_once(INSTALLDIR.'/lib/omb.php');
-                omb_broadcast_remote_subscribers($notice);
+                omb_broadcast_notice($notice);
             }
             break;
          case 'public':
             if ($this->_isLocal($notice)) {
                 require_once(INSTALLDIR.'/lib/jabber.php');
                 jabber_public_notice($notice);
-            }
-            break;
-         case 'twitter':
-            if ($this->_isLocal($notice)) {
-                broadcast_twitter($notice);
-            }
-            break;
-         case 'facebook':
-            if ($this->_isLocal($notice)) {
-                require_once INSTALLDIR . '/lib/facebookutil.php';
-                return facebookBroadcastNotice($notice);
             }
             break;
          case 'ping':
@@ -72,8 +61,13 @@ class UnQueueManager
             require_once(INSTALLDIR.'/lib/jabber.php');
             jabber_broadcast_notice($notice);
             break;
+         case 'plugin':
+            Event::handle('HandleQueuedNotice', array(&$notice));
+            break;
          default:
-            throw ServerException("UnQueueManager: Unknown queue: $type");
+            if (Event::handle('UnqueueHandleNotice', array(&$notice, $queue))) {
+                throw new ServerException("UnQueueManager: Unknown queue: $queue");
+            }
         }
     }
 

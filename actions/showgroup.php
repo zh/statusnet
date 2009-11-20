@@ -101,11 +101,6 @@ class ShowgroupAction extends GroupDesignAction
     {
         parent::prepare($args);
 
-        if (!common_config('inboxes','enabled')) {
-            $this->serverError(_('Inboxes must be enabled for groups to work'));
-            return false;
-        }
-
         $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
         $nickname_arg = $this->arg('nickname');
@@ -333,19 +328,22 @@ class ShowgroupAction extends GroupDesignAction
                               sprintf(_('Notice feed for %s group (RSS 1.0)'),
                                       $this->group->nickname)),
                      new Feed(Feed::RSS2,
-                              common_local_url('api',
-                                               array('apiaction' => 'groups',
-                                                     'method' => 'timeline',
-                                                     'argument' => $this->group->nickname.'.rss')),
+                              common_local_url('ApiTimelineGroup',
+                                               array('format' => 'rss',
+                                                     'id' => $this->group->nickname)),
                               sprintf(_('Notice feed for %s group (RSS 2.0)'),
                                       $this->group->nickname)),
                      new Feed(Feed::ATOM,
-                              common_local_url('api',
-                                               array('apiaction' => 'groups',
-                                                     'method' => 'timeline',
-                                                     'argument' => $this->group->nickname.'.atom')),
+                              common_local_url('ApiTimelineGroup',
+                                               array('format' => 'atom',
+                                                     'id' => $this->group->nickname)),
                               sprintf(_('Notice feed for %s group (Atom)'),
-                                      $this->group->nickname)));
+                                      $this->group->nickname)),
+                     new Feed(Feed::FOAF,
+                              common_local_url('foafgroup',
+                                               array('nickname' => $this->group->nickname)),
+                              sprintf(_('FOAF for %s group'),
+                                       $this->group->nickname)));
     }
 
     /**
@@ -450,9 +448,8 @@ class ShowgroupAction extends GroupDesignAction
             $m = sprintf(_('**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
                 'based on the Free Software [StatusNet](http://status.net/) tool. Its members share ' .
                 'short messages about their life and interests. '.
-                '[Join now](%%%%action.%s%%%%) to become part of this group and many more! ([Read more](%%%%doc.help%%%%))'),
-                     $this->group->nickname,
-                     (!common_config('site','openidonly')) ? 'register' : 'openidlogin');
+                '[Join now](%%%%action.register%%%%) to become part of this group and many more! ([Read more](%%%%doc.help%%%%))'),
+                     $this->group->nickname);
         } else {
             $m = sprintf(_('**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
                 'based on the Free Software [StatusNet](http://status.net/) tool. Its members share ' .

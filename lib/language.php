@@ -32,6 +32,63 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
+if (!function_exists('gettext')) {
+    require_once("php-gettext/gettext.inc");
+}
+
+if (!function_exists('pgettext')) {
+    /**
+     * Context-aware gettext wrapper; use when messages in different contexts
+     * won't be distinguished from the English source but need different translations.
+     * The context string will appear as msgctxt in the .po files.
+     *
+     * Not currently exposed in PHP's gettext module; implemented to be compat
+     * with gettext.h's macros.
+     *
+     * @param string $context context identifier, should be some key like "menu|file"
+     * @param string $msgid English source text
+     * @return string original or translated message
+     */
+    function pgettext($context, $msg)
+    {
+        $msgid = $context . "\004" . $msg;
+        $out = dcgettext(textdomain(NULL), $msgid, LC_MESSAGES);
+        if ($out == $msgid) {
+            return $msg;
+        } else {
+            return $out;
+        }
+    }
+}
+
+if (!function_exists('npgettext')) {
+    /**
+     * Context-aware ngettext wrapper; use when messages in different contexts
+     * won't be distinguished from the English source but need different translations.
+     * The context string will appear as msgctxt in the .po files.
+     *
+     * Not currently exposed in PHP's gettext module; implemented to be compat
+     * with gettext.h's macros.
+     *
+     * @param string $context context identifier, should be some key like "menu|file"
+     * @param string $msg singular English source text
+     * @param string $plural plural English source text
+     * @param int $n number of items to control plural selection
+     * @return string original or translated message
+     */
+    function npgettext($context, $msg, $plural, $n)
+    {
+        $msgid = $context . "\004" . $msg;
+        $out = dcngettext(textdomain(NULL), $msgid, $plural, $n, LC_MESSAGES);
+        if ($out == $msgid) {
+            return $msg;
+        } else {
+            return $out;
+        }
+    }
+}
+
+
 /**
  * Content negotiation for language codes
  *
@@ -100,37 +157,40 @@ function get_nice_language_list()
  * @return array mapping of language codes to language info
  */
 function get_all_languages() {
-	return array(
-		'bg'      => array('q' => 0.8, 'lang' => 'bg_BG', 'name' => 'Bulgarian', 'direction' => 'ltr'),
-		'ca'      => array('q' => 0.5, 'lang' => 'ca_ES', 'name' => 'Catalan', 'direction' => 'ltr'),
-		'cs'      => array('q' => 0.5, 'lang' => 'cs_CZ', 'name' => 'Czech', 'direction' => 'ltr'),
-		'de'      => array('q' => 0.8, 'lang' => 'de_DE', 'name' => 'German', 'direction' => 'ltr'),
-		'el'      => array('q' => 0.1, 'lang' => 'el',    'name' => 'Greek', 'direction' => 'ltr'),
-		'en-us'   => array('q' => 1, 'lang' => 'en_US', 'name' => 'English (US)', 'direction' => 'ltr'),
-		'en-gb'   => array('q' => 1, 'lang' => 'en_GB', 'name' => 'English (British)', 'direction' => 'ltr'),
-		'en'      => array('q' => 1, 'lang' => 'en_US',    'name' => 'English (US)', 'direction' => 'ltr'),
-		'es'      => array('q' => 1, 'lang' => 'es',    'name' => 'Spanish', 'direction' => 'ltr'),
-		'fi'      => array('q' => 1, 'lang' => 'fi', 'name' => 'Finnish', 'direction' => 'ltr'),
-		'fr-fr'   => array('q' => 1, 'lang' => 'fr_FR', 'name' => 'French', 'direction' => 'ltr'),
-		'he'      => array('q' => 0.5, 'lang' => 'he_IL', 'name' => 'Hebrew', 'direction' => 'rtl'),
-		'it'      => array('q' => 1, 'lang' => 'it_IT', 'name' => 'Italian', 'direction' => 'ltr'),
-		'jp'      => array('q' => 0.5, 'lang' => 'ja_JP', 'name' => 'Japanese', 'direction' => 'ltr'),
-		'ko'      => array('q' => 0.9, 'lang' => 'ko_KR',    'name' => 'Korean', 'direction' => 'ltr'),
-		'mk'      => array('q' => 0.5, 'lang' => 'mk_MK', 'name' => 'Macedonian', 'direction' => 'ltr'),
-		'nb'      => array('q' => 0.1, 'lang' => 'nb_NO', 'name' => 'Norwegian (Bokmål)', 'direction' => 'ltr'),
-		'no'      => array('q' => 0.1, 'lang' => 'nb_NO', 'name' => 'Norwegian (Bokmål)', 'direction' => 'ltr'),
-		'nn'      => array('q' => 1, 'lang' => 'nn_NO', 'name' => 'Norwegian (Nynorsk)', 'direction' => 'ltr'),
-		'nl'      => array('q' => 0.5, 'lang' => 'nl_NL', 'name' => 'Dutch', 'direction' => 'ltr'),
-		'pl'      => array('q' => 0.5, 'lang' => 'pl_PL', 'name' => 'Polish', 'direction' => 'ltr'),
-		'pt'      => array('q' => 0.1, 'lang' => 'pt',    'name' => 'Portuguese', 'direction' => 'ltr'),
-		'pt-br'   => array('q' => 0.9, 'lang' => 'pt_BR', 'name' => 'Portuguese Brazil', 'direction' => 'ltr'),
-		'ru'      => array('q' => 0.9, 'lang' => 'ru_RU', 'name' => 'Russian', 'direction' => 'ltr'),
-		'sv'      => array('q' => 0.8, 'lang' => 'sv_SE', 'name' => 'Swedish', 'direction' => 'ltr'),
-		'te'      => array('q' => 0.3, 'lang' => 'te_IN', 'name' => 'Telugu', 'direction' => 'ltr'),
-		'tr'      => array('q' => 0.5, 'lang' => 'tr_TR', 'name' => 'Turkish', 'direction' => 'ltr'),
-		'uk'      => array('q' => 1, 'lang' => 'uk_UA', 'name' => 'Ukrainian', 'direction' => 'ltr'),
-		'vi'      => array('q' => 0.8, 'lang' => 'vi_VN', 'name' => 'Vietnamese', 'direction' => 'ltr'),
-		'zh-cn'   => array('q' => 0.9, 'lang' => 'zh_CN', 'name' => 'Chinese (Simplified)', 'direction' => 'ltr'),
-		'zh-hant' => array('q' => 0.2, 'lang' => 'zh_TW', 'name' => 'Chinese (Taiwanese)', 'direction' => 'ltr'),
-	);
+    return array(
+        'ar'      => array('q' => 0.8, 'lang' => 'ar', 'name' => 'Arabic', 'direction' => 'rtl'),
+        'bg'      => array('q' => 0.8, 'lang' => 'bg', 'name' => 'Bulgarian', 'direction' => 'ltr'),
+        'ca'      => array('q' => 0.5, 'lang' => 'ca', 'name' => 'Catalan', 'direction' => 'ltr'),
+        'cs'      => array('q' => 0.5, 'lang' => 'cs', 'name' => 'Czech', 'direction' => 'ltr'),
+        'de'      => array('q' => 0.8, 'lang' => 'de', 'name' => 'German', 'direction' => 'ltr'),
+        'el'      => array('q' => 0.1, 'lang' => 'el',    'name' => 'Greek', 'direction' => 'ltr'),
+        'en-us'   => array('q' => 1, 'lang' => 'en', 'name' => 'English (US)', 'direction' => 'ltr'),
+        'en-gb'   => array('q' => 1, 'lang' => 'en_GB', 'name' => 'English (British)', 'direction' => 'ltr'),
+        'en'      => array('q' => 1, 'lang' => 'en',    'name' => 'English (US)', 'direction' => 'ltr'),
+        'es'      => array('q' => 1, 'lang' => 'es',    'name' => 'Spanish', 'direction' => 'ltr'),
+        'fi'      => array('q' => 1, 'lang' => 'fi', 'name' => 'Finnish', 'direction' => 'ltr'),
+        'fr-fr'   => array('q' => 1, 'lang' => 'fr', 'name' => 'French', 'direction' => 'ltr'),
+        'ga'      => array('q' => 0.5, 'lang' => 'ga', 'name' => 'Galician', 'direction' => 'ltr'),
+        'he'      => array('q' => 0.5, 'lang' => 'he', 'name' => 'Hebrew', 'direction' => 'rtl'),
+        'is'      => array('q' => 0.1, 'lang' => 'is', 'name' => 'Icelandic', 'direction' => 'ltr'),
+        'it'      => array('q' => 1, 'lang' => 'it', 'name' => 'Italian', 'direction' => 'ltr'),
+        'jp'      => array('q' => 0.5, 'lang' => 'ja', 'name' => 'Japanese', 'direction' => 'ltr'),
+        'ko'      => array('q' => 0.9, 'lang' => 'ko',    'name' => 'Korean', 'direction' => 'ltr'),
+        'mk'      => array('q' => 0.5, 'lang' => 'mk', 'name' => 'Macedonian', 'direction' => 'ltr'),
+        'nb'      => array('q' => 0.1, 'lang' => 'nb', 'name' => 'Norwegian (Bokmål)', 'direction' => 'ltr'),
+        'no'      => array('q' => 0.1, 'lang' => 'nb', 'name' => 'Norwegian (Bokmål)', 'direction' => 'ltr'),
+        'nn'      => array('q' => 1, 'lang' => 'nn', 'name' => 'Norwegian (Nynorsk)', 'direction' => 'ltr'),
+        'nl'      => array('q' => 0.5, 'lang' => 'nl', 'name' => 'Dutch', 'direction' => 'ltr'),
+        'pl'      => array('q' => 0.5, 'lang' => 'pl', 'name' => 'Polish', 'direction' => 'ltr'),
+        'pt'      => array('q' => 0.1, 'lang' => 'pt',    'name' => 'Portuguese', 'direction' => 'ltr'),
+        'pt-br'   => array('q' => 0.9, 'lang' => 'pt_BR', 'name' => 'Portuguese Brazil', 'direction' => 'ltr'),
+        'ru'      => array('q' => 0.9, 'lang' => 'ru', 'name' => 'Russian', 'direction' => 'ltr'),
+        'sv'      => array('q' => 0.8, 'lang' => 'sv', 'name' => 'Swedish', 'direction' => 'ltr'),
+        'te'      => array('q' => 0.3, 'lang' => 'te', 'name' => 'Telugu', 'direction' => 'ltr'),
+        'tr'      => array('q' => 0.5, 'lang' => 'tr', 'name' => 'Turkish', 'direction' => 'ltr'),
+        'uk'      => array('q' => 1, 'lang' => 'uk', 'name' => 'Ukrainian', 'direction' => 'ltr'),
+        'vi'      => array('q' => 0.8, 'lang' => 'vi', 'name' => 'Vietnamese', 'direction' => 'ltr'),
+        'zh-cn'   => array('q' => 0.9, 'lang' => 'zh_CN', 'name' => 'Chinese (Simplified)', 'direction' => 'ltr'),
+        'zh-hant' => array('q' => 0.2, 'lang' => 'zh_TW', 'name' => 'Chinese (Taiwanese)', 'direction' => 'ltr'),
+    );
 }

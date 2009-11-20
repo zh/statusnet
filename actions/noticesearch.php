@@ -104,7 +104,7 @@ class NoticesearchAction extends SearchAction
     {
         $notice        = new Notice();
 
-        $search_engine = $notice->getSearchEngine('identica_notices');
+        $search_engine = $notice->getSearchEngine('notice');
         $search_engine->set_sort_mode('chron');
         // Ask for an extra to see if there's more.
         $search_engine->limit((($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
@@ -121,9 +121,7 @@ class NoticesearchAction extends SearchAction
                 $message = sprintf(_('Be the first to [post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!'), urlencode($q));
             }
             else {
-                $message = sprintf(_('Why not [register an account](%%%%action.%s%%%%) and be the first to [post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!'),
-                                   (!common_config('site','openidonly')) ? 'register' : 'openidlogin',
-                                   urlencode($q));
+                $message = sprintf(_('Why not [register an account](%%%%action.register%%%%) and be the first to [post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!'), urlencode($q));
             }
 
             $this->elementStart('div', 'guide');

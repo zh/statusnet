@@ -32,10 +32,10 @@ StartShowLaconicaStyles: backwards compatibility; deprecated
 EndShowLaconicaStyles: backwards compatibility; deprecated
 - $action: the current action
 
-StartShowUAStyles: Showing custom UA Style links
+StartShowUAStyles: Showing custom User-Agent style links
 - $action: the current action
 
-EndShowUAStyles: End showing custom UA Style links; good place to add user-agent (e.g., filter, -webkit, -moz) specific styles
+EndShowUAStyles: End showing custom User-Agent links; good place to add user-agent (e.g., filter, -webkit, -moz) specific styles
 - $action: the current action
 
 StartShowScripts: Showing JavaScript links
@@ -87,6 +87,18 @@ StartShowContentBlock: Showing before the content container
 EndShowContentBlock: Showing after the content container
 - $action: the current action
 
+StartShowAside: Showing before the Aside container
+- $action: the current action
+
+EndShowAside: Showing after the Aside container
+- $action: the current action
+
+StartShowNoticeFormData: Showing before the notice form data
+- $action: the current action
+
+EndShowNoticeFormData: Showing after the notice form data
+- $action: the current action
+
 StartNoticeSave: before inserting a notice (good place for content filters)
 - $notice: notice being saved (no ID or URI)
 
@@ -117,6 +129,9 @@ StartSubGroupNav: Showing the subscriptions group nav menu
 EndSubGroupNav: At the end of the subscriptions group nav menu
 - $action: the current action
 
+StartInitializeRouter: Before the router instance has been initialized; good place to add routes
+- $m: the Net_URL_Mapper that has just been set up
+
 RouterInitialized: After the router instance has been initialized
 - $m: the Net_URL_Mapper that has just been set up
 
@@ -134,3 +149,428 @@ StartAddressData: Allows the site owner to provide additional information about 
 
 EndAddressData: At the end of <address>
 - $action: the current action
+
+StartLoginGroupNav: Before showing the login and register navigation menu
+- $action: the current action
+
+EndLoginGroupNav: After showing the login and register navigation menu
+- $action: the current action
+
+StartAccountSettingsNav: Before showing the account settings menu
+- $action: the current action
+
+EndAccountSettingsNav: After showing the account settings menu
+- $action: the current action
+
+StartAccountSettingsProfileMenuItem: Before showing the Profile menu item
+- $widget: AccountSettingsNav instance being shown
+
+EndAccountSettingsProfileMenuItem: After showing the Profile menu item
+- $widget: AccountSettingsNav instance being shown
+
+StartAccountSettingsAvatarMenuItem: Before showing the Avatar menu item
+- $widget: AccountSettingsNav instance being shown
+
+EndAccountSettingsAvatarMenuItem: After showing the Avatar menu item
+- $widget: AccountSettingsNav instance being shown
+
+StartAccountSettingsPasswordMenuItem: Before showing the Password menu item
+- $widget: AccountSettingsNav instance being shown
+
+EndAccountSettingsPasswordMenuItem: After showing the Password menu item
+- $widget: AccountSettingsNav instance being shown
+
+StartAccountSettingsEmailMenuItem: Before showing the Email menu item
+- $widget: AccountSettingsNav instance being shown
+
+EndAccountSettingsEmailMenuItem: After showing the Email menu item
+- $widget: AccountSettingsNav instance being shown
+
+StartAccountSettingsDesignMenuItem: Before showing the Design menu item
+- $widget: AccountSettingsNav instance being shown
+
+EndAccountSettingsDesignMenuItem: After showing the Design menu item
+- $widget: AccountSettingsNav instance being shown
+
+StartAccountSettingsOtherMenuItem: Before showing the Other menu item
+- $widget: AccountSettingsNav instance being shown
+
+EndAccountSettingsOtherMenuItem: After showing the Other menu item
+- $widget: AccountSettingsNav instance being shown
+
+Autoload: When trying to autoload a class
+- $cls: the class being sought. A plugin might require_once the file for the class.
+
+SensitiveAction: determines if an action is 'sensitive' and should use SSL
+- $action: name of the action, like 'login'
+- $sensitive: flag for whether this is a sensitive action
+
+LoginAction: determines if an action is a 'login' action (OK for public view in private mode)
+- $action: name of the action, like 'register'
+- $login: flag for whether this is a login action
+
+StartShowHead: called before showing the <head> element and children
+- $action: action object being show
+
+EndShowHead: called after showing the <head> element (and </head>)
+- $action: action object being shown
+
+StartShowBody: called before showing the <body> element and children
+- $action: action object being shown
+
+EndShowBody: called after showing the <body> element (and </body>)
+- $action: action object being shown
+
+StartPersonalGroupNav: beginning of personal group nav menu
+- $action: action object being shown
+
+EndPersonalGroupNav: end of personal group nav menu (good place to add a menu item)
+- $action: action object being shown
+
+StartGroupGroupNav: Showing the group nav menu
+- $action: the current action
+
+EndGroupGroupNav: At the end of the group nav menu
+- $action: the current action
+
+StartEndHTML: just before the </html> tag
+- $action: action object being shown
+
+EndEndHTML: just after the </html> tag
+- $action: action object being shown
+
+StartShowDesign: just before showing a site, user, or group design
+- $action: action object being shown
+
+EndShowDesign: just after showing a site, user, or group design
+- $action: action object being shown
+
+StartShowExportData: just before showing the <div> with export data (feeds)
+- $action: action object being shown
+
+EndShowExportData: just after showing the <div> with export data (feeds)
+- $action: action object being shown
+
+StartShowNoticeItem: just before showing the notice item
+- $action: action object being shown
+
+EndShowNoticeItem: just after showing the notice item
+- $action: action object being shown
+
+StartShowPageNotice: just before showing the page notice (instructions or error)
+- $action: action object being shown
+
+EndShowPageNotice: just after showing the page notice (instructions or error)
+- $action: action object being shown
+
+StartShowPageTitle: just before showing the main h1 title of a page (only for registration)
+- $action: action object being shown
+
+StartProfileFormData: just before showing text entry fields on profile settings page
+- $action: action object being shown
+
+EndProfileFormData: just after showing text entry fields on profile settings page
+- $action: action object being shown
+
+StartProfileSaveForm: before starting to save a profile settings form
+- $action: action object being shown
+
+EndProfileSaveForm: after saving a profile settings form (after commit, no profile or user object!)
+- $action: action object being shown
+
+StartRegistrationFormData: just before showing text entry fields on registration page
+- $action: action object being shown
+
+EndRegistrationFormData: just after showing text entry fields on registration page
+- $action: action object being shown
+
+StartRegistrationTry: before validating and saving a new user
+- $action: action object being shown
+
+EndRegistrationTry: after saving a new user (note: no profile or user object!)
+- $action: action object being shown
+
+StartNewQueueManager: before trying to start a new queue manager; good for plugins implementing new queue manager classes
+- $qm: empty queue manager to set
+
+RedirectToLogin: event when we force a redirect to login (like when going to a settings page on a remembered login)
+- $action: action object being shown
+- $user: current user
+
+StartLoadDoc: before loading a help doc (hook this to show your own documentation)
+- $title: title of the document
+- $output: HTML output to show
+
+EndLoadDoc: after loading a help doc (hook this to modify other documentation)
+- $title: title of the document
+- $output: HTML output to show
+
+StartApiRss: after the rss <channel> element is started
+- $action: action object being shown
+
+StartApiAtom: after the <feed> element is started
+- $action: action object being shown
+
+StartEnqueueNotice: about to add a notice to the queues (good place to add a new transport)
+- $notice: the notice being added
+- &$transports: modifiable list of transports (as strings) to queue for
+
+EndEnqueueNotice: after adding a notice to the queues
+- $notice: the notice being added
+- $transports: modifiable list of transports to use
+
+UnqueueHandleNotice: Handle a notice when no queue manager is available
+- $notice: the notice to handle
+- $queue: the "queue" that is being executed
+
+GetValidDaemons: Just before determining which daemons to run
+- &$daemons: modifiable list of daemon scripts to run, filenames relative to scripts/
+
+HandleQueuedNotice: Handle a queued notice at queue time (or immediately if no queue)
+- &$notice: notice to handle
+
+StartShowHeadElements: Right after the <head> tag
+- $action: the current action
+
+EndShowHeadElements: Right before the </head> tag; put <script>s here if you need them in <head>
+- $action: the current action
+
+CheckSchema: chance to check the schema
+
+StartProfilePageProfileSection: Starting to show the section of the
+                              profile page with the actual profile data;
+                              hook to prevent showing the profile (e.g.)
+- $userprofile: UserProfile widget
+- &$profile: the profile being shown
+
+StartProfilePageProfileElements: inside the section, before the first
+                               element; prepend elements here
+- $userprofile: UserProfile widget
+- &$profile: the profile being shown
+
+EndProfilePageProfileElements: inside the section, after the last element;
+                             append elements here
+- $userprofile: UserProfile widget
+- &$profile: the profile being shown
+
+EndProfilePageProfileSection: After showing the section of the profile
+                            page with the profile elements
+- $userprofile: UserProfile widget
+- &$profile: the profile being shown
+
+StartProfilePageActionsSection: Starting to show the section of the
+                                    profile page with action links; hook
+                                    to hide them (for example)
+- $userprofile: UserProfile widget
+- &$profile: the profile being shown
+
+StartProfilePageActionsElements: inside the list, before the first
+                                     element; prepend elements here
+- $userprofile: UserProfile widget
+- &$profile: the profile being shown
+
+EndProfilePageActionsElements: inside the list, after the last element;
+                                   append elements here
+- $userprofile: UserProfile widget
+- &$profile: the profile being shown
+
+EndProfilePageActionsSection: After showing the section of the profile
+                                  page with the entity actions
+- $userprofile: UserProfile widget
+- &$profile: the profile being shown
+
+StartProfilePageAvatar: before showing the avatar on the profile page
+- $userprofile: UserProfile widget
+- &$profile: the profile being shown
+
+EndProfilePageAvatar: after showing the avatar on the profile page
+- $userprofile: UserProfile widget
+- &$profile: the profile being shown
+
+StartProfilePageNickname: before showing the nickname on the profile page
+- $userprofile: UserProfile widget
+- &$profile: the profile being shown
+
+EndProfilePageNickname: after showing the nickname on the profile page
+- $userprofile: UserProfile widget
+- &$profile: the profile being shown
+
+StartProfilePageFullName: before showing the fullname on the profile page
+- $userprofile: UserProfile widget
+- &$profile: the profile being shown
+
+EndProfilePageFullName: after showing the fullname on the profile page
+- $userprofile: UserProfile widget
+- &$profile: the profile being shown
+
+StartProfilePageLocation: before showing the location on the profile page
+- $userprofile: UserProfile widget
+- &$profile: the profile being shown
+
+EndProfilePageLocation: after showing the location on the profile page
+- $userprofile: UserProfile widget
+- &$profile: the profile being shown
+
+StartProfilePageHomepage: before showing the homepage link on the profile page
+- $userprofile: UserProfile widget
+- &$profile: the profile being shown
+
+EndProfilePageHomepage: after showing the homepage on the profile page
+- $userprofile: UserProfile widget
+- &$profile: the profile being shown
+
+StartProfilePageBio: before showing the bio on the profile page
+- $userprofile: UserProfile widget
+- &$profile: the profile being shown
+
+EndProfilePageBio: after showing the bio on the profile page
+- $userprofile: UserProfile widget
+- &$profile: the profile being shown
+
+StartProfilePageProfileTags: before showing the tags on the profile page
+- $userprofile: UserProfile widget
+- &$profile: the profile being shown
+
+EndProfilePageProfileTags: after showing the tags on the profile page
+- $userprofile: UserProfile widget
+- &$profile: the profile being shown
+
+StartProfileList: when starting a list of profiles (before <ul>)
+- $profilelist: ProfileList widget, with $profile, $action, and $out
+
+EndProfileList: when ending a list of profiles (after </ul>)
+- $profilelist: ProfileList widget
+
+StartProfileListItem: when starting to show a profile list item
+- $item: ProfileListItem widget
+
+EndProfileListItem: after showing a profile list item
+- $item: ProfileListItem widget
+
+StartProfileListItemProfile: the profile data part of the item
+- $item: ProfileListItem widget
+
+EndProfileListItemProfile: the profile data part of the item
+- $item: ProfileListItem widget
+
+StartProfileListItemActions: the actions (buttons) for an item
+- $item: ProfileListItem widget
+
+EndProfileListItemActions: the actions (buttons) for an item
+- $item: ProfileListItem widget
+
+StartProfileListItemProfileElements: inside the <div>
+- $item: ProfileListItem widget
+
+EndProfileListItemProfileElements: inside the <div>
+- $item: ProfileListItem widget
+
+StartProfileListItemAvatar: Showing a profile list avatar
+- $item: ProfileListItem widget
+
+EndProfileListItemAvatar: Showing a profile list avatar
+- $item: ProfileListItem widget
+
+StartProfileListItemFullName: Showing the profile list full name
+- $item: ProfileListItem widget
+
+EndProfileListItemFullName: Showing the profile list full name
+- $item: ProfileListItem widget
+
+StartProfileListItemLocation: Showing the profile list location
+- $item: ProfileListItem widget
+
+EndProfileListItemLocation: Showing the profile list location
+- $item: ProfileListItem widget
+
+StartProfileListItemHomepage: Showing the profile list homepage
+- $item: ProfileListItem widget
+
+EndProfileListItemHomepage: Showing the profile list homepage
+- $item: ProfileListItem widget
+
+StartProfileListItemBio: Showing the profile list bio
+- $item: ProfileListItem widget
+
+EndProfileListItemBio: Showing the profile list bio
+- $item: ProfileListItem widget
+
+StartProfileListItemActionElements: Showing the profile list actions (prepend a button here, or replace all buttons)
+- $item: ProfileListItem widget
+
+EndProfileListItemActionElements: Showing profile list actions (append a button here)
+- $item: ProfileListItem widget
+
+StartUserXRDS: Start XRDS output (right after the opening XRDS tag)
+- $action: the current action
+- &$xrdsoutputter - XRDSOutputter object to write to
+
+EndUserXRDS: End XRDS output (right before the closing XRDS tag)
+- $action: the current action
+- &$xrdsoutputter - XRDSOutputter object to write to
+
+StartPublicXRDS: Start XRDS output (right after the opening XRDS tag)
+- $action: the current action
+- &$xrdsoutputter - XRDSOutputter object to write to
+
+EndPublicXRDS: End XRDS output (right before the closing XRDS tag)
+- $action: the current action
+- &$xrdsoutputter - XRDSOutputter object to write to
+
+StartCheckPassword: Check a username/password
+- $nickname: The nickname to check
+- $password: The password to check
+- &$authenticatedUser: set to User object if credentials match a user.
+
+EndCheckPassword: After checking a username/password pair
+- $nickname: The nickname that was checked
+- $password: The password that was checked
+- $authenticatedUser: User object if credentials match a user, else null.
+
+StartChangePassword: Before changing a password
+- $user: user
+- $oldpassword: the user's old password
+- $newpassword: the desired new password
+
+EndChangePassword: After changing a password
+- $user: user
+
+StartSetUser: Before setting the currently logged in user
+- $user: user
+
+EndSetUser: After setting the currently logged in user
+- $user: user
+
+StartSetApiUser: Before setting the current API user
+- $user: user
+
+EndSetApiUser: After setting the current API user
+- $user: user
+
+StartHasRole: Before determing if the a profile has a given role
+- $profile: profile in question
+- $name: name of the role in question
+- &$has_role: does this profile have the named role?
+
+EndHasRole: Before determing if the a profile has a given role
+- $profile: profile in question
+- $name: name of the role in question
+- $has_role: does this profile have the named role?
+
+UserDeleteRelated: Specify additional tables to delete entries from when deleting users
+- $user: User object
+- &$related: array of DB_DataObject class names to delete entries on matching user_id.
+
+GetUrlShorteners: Specify URL shorteners that are available for use
+- &$shorteners: append your shortener to this array like so: $shorteners[shortenerName]=array('display'=>display, 'freeService'=>boolean)
+
+StartShortenUrl: About to shorten a URL
+- $url: url to be shortened
+- $shortenerName: name of the requested shortener
+- &$shortenedUrl: short version of the url
+
+EndShortenUrl: After a URL has been shortened
+- $url: url to be shortened
+- $shortenerName: name of the requested shortener
+- $shortenedUrl: short version of the url
+

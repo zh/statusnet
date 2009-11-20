@@ -150,6 +150,7 @@ released Aug 26 2009. Notable changes this version:
 - Use the NICKNAME_FMT constant for detecting nicknames.
 - Check for site servername config'd.
 - Compatibility fix for empty status updates with Twitter API.
+- Option to show files privately (EXPERIMENTAL! Use with caution.)
 - a script to register a new user.
 - a script to make a user admin of a group.
 
@@ -388,20 +389,16 @@ the server first.
 Sphinx
 ------
 
-To use a Sphinx server to search users and notices, you also need
-to install, compile and enable the sphinx pecl extension for php on the
-client side, which itself depends on the sphinx development files.
-"pecl install sphinx" should take care of that. Add "extension=sphinx.so"
-to your php.ini and reload apache to enable it.
+To use a Sphinx server to search users and notices, you'll need to
+enable the SphinxSearch plugin. Add to your config.php:
 
-You can update your MySQL or Postgresql databases to drop their fulltext
-search indexes, since they're now provided by sphinx.
+  addPlugin('SphinxSearch');
+  $config['sphinx']['server'] = 'searchhost.local';
 
-On the sphinx server side, a script reads the main database and build
-the keyword index. A cron job reads the database and keeps the sphinx
-indexes up to date. scripts/sphinx-cron.sh should be called by cron
-every 5 minutes, for example. scripts/sphinx.sh is an init.d script
-to start and stop the sphinx search daemon.
+You also need to install, compile and enable the sphinx pecl extension for
+php on the client side, which itself depends on the sphinx development files.
+
+See plugins/SphinxSearch/README for more details and server setup.
 
 SMS
 ---
@@ -558,10 +555,6 @@ This will run eight (for now) queue handlers:
   of registered users.
 * xmppconfirmhandler.php - sends confirmation messages to registered
   users.
-* twitterqueuehandler.php - sends queued notices to Twitter for user
-  who have opted to set up Twitter bridging.
-* facebookqueuehandler.php - sends queued notices to Facebook for users
-  of the built-in Facebook application.
 
 Note that these queue daemons are pretty raw, and need your care. In
 particular, they leak memory, and you may want to restart them on a
@@ -578,101 +571,6 @@ Since version 0.8.0, it's now possible to use a STOMP server instead of
 our kind of hacky home-grown DB-based queue solution. See the "queues"
 config section below for how to configure to use STOMP. As of this
 writing, the software has been tested with ActiveMQ (
-
-Twitter Bridge
---------------
-
-* OAuth
-
-As of 0.8.1, OAuth is used to to access protected resources on Twitter
-instead of HTTP Basic Auth.  To use Twitter bridging you will need
-to register your instance of StatusNet as an application on Twitter
-(http://twitter.com/apps), and update the following variables in your
-config.php with the consumer key and secret Twitter generates for you:
-
-      $config['twitter']['consumer_key']    = 'YOURKEY';
-      $config['twitter']['consumer_secret'] = 'YOURSECRET';
-
-When registering your application with Twitter set the type to "Browser"
-and your Callback URL to:
-
-      http://example.org/mublog/twitter/authorization
-
-The default access type should be, "Read & Write".
-
-* Importing statuses from Twitter
-
-To allow your users to import their friends' Twitter statuses, you will
-need to enable the bidirectional Twitter bridge in config.php:
-
-      $config['twitterbridge']['enabled'] = true;
-
-and run the TwitterStatusFetcher daemon (scripts/twitterstatusfetcher.php).
-Additionally, you will want to set the integration source variable,
-which will keep notices posted to Twitter via StatusNet from looping
-back.  The integration source should be set to the name of your
-application, exactly as you specified it on the settings page for your
-StatusNet application on Twitter, e.g.:
-
-      $config['integration']['source'] = 'YourApp';
-
-* Twitter Friends Syncing
-
-Users may set a flag in their settings ("Subscribe to my Twitter friends
-here" under the Twitter tab) to have StatusNet attempt to locate and
-subscribe to "friends" (people they "follow") on Twitter who also have
-accounts on your StatusNet system, and who have previously set up a link
-for automatically posting notices to Twitter.
-
-As of 0.8.0, this is no longer accomplished via a cron job. Instead you
-must run the SyncTwitterFriends daemon (scripts/synctwitterfreinds.php).
-
-Built-in Facebook Application
------------------------------
-
-StatusNet's Facebook application allows your users to automatically
-update their Facebook statuses with their latest notices, invite
-their friends to use the app (and thus your site), view their notice
-timelines, and post notices -- all from within Facebook. The application
-is built into StatusNet and runs on your host.  For automatic Facebook
-status updating to work you will need to enable queuing and run the
-facebookqueuehandler.php daemon (see the "Queues and daemons" section
-above).
-
-Quick setup instructions*:
-
-Install the Facebook Developer application on Facebook:
-
-    http://www.facebook.com/developers/
-
-Use it to create a new application and generate an API key and secret.
-Uncomment the Facebook app section of your config.php and copy in the
-key and secret, e.g.:
-
-    # Config section for the built-in Facebook application
-    $config['facebook']['apikey'] = 'APIKEY';
-    $config['facebook']['secret'] = 'SECRET';
-
-In Facebook's application editor, specify the following URLs for your app:
-
-- Canvas Callback URL: http://example.net/mublog/facebook/
-- Post-Remove Callback URL: http://example.net/mublog/facebook/remove
-- Post-Add Redirect URL: http://apps.facebook.com/yourapp/
-- Canvas Page URL: http://apps.facebook.com/yourapp/
-
-(Replace 'example.net' with your host's URL, 'mublog' with the path
-to your StatusNet installation, and 'yourapp' with the name of the
-Facebook application you created.)
-
-Additionally, Choose "Web" for Application type in the Advanced tab.
-In the "Canvas setting" section, choose the "FBML" for Render Method,
-"Smart Size" for IFrame size, and "Full width (760px)" for Canvas Width.
-Everything else can be left with default values.
-
-*For more detailed instructions please see the installation guide on the
-StatusNet wiki:
-
-    http://status.net/trac/wiki/FacebookApplication
 
 Sitemaps
 --------
@@ -787,6 +685,16 @@ private site, but users of the private site may be able to subscribe
 to users on a remote site. (Or not... it's not well tested.) The
 "proper behaviour" hasn't been defined here, so handle with care.
 
+If fancy URLs is enabled, access to file attachments can also be
+restricted to logged-in users only. Uncomment the appropriate rewrite
+<<<<<<< HEAD:README
+rule in .htaccess or your server's httpd.conf. (This most likely will
+not work if you are using a virtual server for attachments, so consider
+the performance/security tradeoff.)
+=======
+rule in .htaccess or your server's httpd.conf.
+>>>>>>> 446de62... Revert "Added some explanatory text to README":README
+
 Upgrading
 =========
 
@@ -871,40 +779,8 @@ to update it.
 Notice inboxes
 --------------
 
-Before version 0.6.2, the page showing all notices from people the
-user is subscribed to ("so-and-so with friends") was calculated at run
-time. Starting with 0.6.2, we have a new data structure for holding a
-user's "notice inbox". (Note: distinct from the "message inbox", which
-is the "inbox" tab in the UI. The notice inbox appears under the
-"Personal" tab.)
-
-Notices are added to the inbox when they're created. This speeds up
-the query considerably, and also allows us the opportunity, in the
-future, to add different kind of notices to an inbox -- like @-replies
-or subscriptions to search terms or hashtags.
-
-Notice inboxes are enabled by default for new installations. If you
-are upgrading an existing site, this means that your users will see
-empty "Personal" pages. The following steps will help you fix the
-problem.
-
-0. $config['inboxes']['enabled'] can be set to one of three values. If
-   you set it to 'false', the site will work as before. Support for this
-   will probably be dropped in future versions.
-1. Setting the flag to 'transitional' means that you're in transition.
-   In this mode, the code will run the "new query" or the "old query"
-   based on whether the user's inbox has been updated.
-2. After setting the flag to "transitional", you can run the
-   fixup_inboxes.php script to create the inboxes. You may want to set
-   the memory limit high. You can re-run it without ill effect.
-3. When fixup_inboxes is finished, you can set the enabled flag to
-   'true'.
-
-NOTE: As of version 0.8.1 notice inboxes are automatically trimmed back
-      to ~1000 notices every once in a while.
-
-NOTE: we will drop support for non-inboxed sites in the 0.9.x version
-of StatusNet. It's time to switch now!
+Notice inboxes are now required. If you don't have inboxes enabled,
+StatusNet will no longer run.
 
 UTF-8 Database
 --------------
@@ -976,6 +852,12 @@ locale_path: full path to the directory for locale data. Unless you
 	     store all your locale data in one place, you probably
 	     don't need to use this.
 language: default language for your site. Defaults to US English.
+          Note that this is overridden if a user is logged in and has
+          selected a different language. It is also overridden if the
+          user is NOT logged in, but their browser requests a different
+          langauge. Since pretty much everybody's browser requests a
+          language, that means that changing this setting has little or
+          no effect in practice.
 languages: A list of languages supported on your site. Typically you'd
 	   only change this if you wanted to disable support for one
 	   or another language:
@@ -1000,8 +882,6 @@ closed: If set to 'true', will disallow registration on your site.
 	the service, *then* set this variable to 'true'.
 inviteonly: If set to 'true', will only allow registration if the user
 	    was invited by an existing user.
-openidonly: If set to 'true', will only allow registrations and logins
-	    through OpenID.
 private: If set to 'true', anonymous users will be redirected to the
          'login' page. Also, API methods that normally require no
          authentication will require it. Note that this does not turn
@@ -1029,6 +909,9 @@ shorturllength: Length of URL at which URLs in a message exceeding 140
 dupelimit: minimum time allowed for one person to say the same thing
            twice. Default 60s. Anything lower is considered a user
            or UI error.
+textlimit: default max size for texts in the site. Defaults to 140.
+           0 means no limit. Can be fine-tuned for notices, messages,
+           profile bios and group descriptions.
 
 db
 --
@@ -1068,6 +951,14 @@ utf8: whether to talk to the database in UTF-8 mode. This is the default
       with new installations, but older sites may want to turn it off
       until they get their databases fixed up. See "UTF-8 database"
       above for details.
+schemacheck: when to let plugins check the database schema to add
+             tables or update them. Values can be 'runtime' (default)
+             or 'script'. 'runtime' can be costly (plugins check the
+             schema on every hit, adding potentially several db
+             queries, some quite long), but not everyone knows how to
+             run a script. If you can, set this to 'script' and run
+             scripts/checkschema.php whenever you install or upgrade a
+             plugin.
 
 syslog
 ------
@@ -1229,14 +1120,6 @@ For configuring invites.
 
 enabled: Whether to allow users to send invites. Default true.
 
-openid
-------
-
-For configuring OpenID.
-
-enabled: Whether to allow users to register and login using OpenID. Default
-	 true.
-
 tag
 ---
 
@@ -1287,17 +1170,6 @@ base: memcached uses key-value pairs to store data. We build long,
       StatusNet site using your memcached server.
 port: Port to connect to; defaults to 11211.
 
-sphinx
-------
-
-You can get a significant boost in performance using Sphinx Search
-instead of your database server to search for users and notices.
-<http://sphinxsearch.com/>.
-
-enabled: Set to true to enable. Default false.
-server: a string with the hostname of the sphinx server.
-port: an integer with the port number of the sphinx server.
-
 emailpost
 ---------
 
@@ -1314,24 +1186,11 @@ For SMS integration.
 enabled: Whether to enable SMS integration. Defaults to true. Queues
          should also be enabled.
 
-twitter
--------
-
-For Twitter integration
-
-enabled: Whether to enable Twitter integration. Defaults to true.
-         Queues should also be enabled.
-
 integration
 -----------
 
 A catch-all for integration with other systems.
 
-source: The name to use for the source of posts to Twitter. Defaults
-	to 'statusnet', but if you request your own source name from
-	Twitter <http://twitter.com/help/request_source>, you can use
-	that here instead. Status updates on Twitter will then have
-	links to your site.
 taguri: base for tag:// URIs. Defaults to site-server + ',2009'.
 
 inboxes
@@ -1339,9 +1198,8 @@ inboxes
 
 For notice inboxes.
 
-enabled: A three-valued flag for whether to use notice inboxes (see
-	 upgrading info above for notes about this change). Can be
-	 'false', 'true', or '"transitional"'.
+enabled: No longer used. If you set this to something other than true,
+	 StatusNet will no longer run.
 
 throttle
 --------
@@ -1363,6 +1221,8 @@ banned: an array of usernames and/or profile IDs of 'banned' profiles.
         The site will reject any notices by these users -- they will
         not be accepted at all. (Compare with blacklisted users above,
         whose posts just won't show up in the public stream.)
+biolimit: max character length of bio; 0 means no limit; null means to use
+          the site text limit default.
 
 newuser
 -------
@@ -1459,6 +1319,9 @@ Options for group functionality.
 
 maxaliases: maximum number of aliases a group can have. Default 3. Set
             to 0 or less to prevent aliases in a group.
+desclimit: maximum number of characters to allow in group descriptions.
+           null (default) means to use the site-wide text limits. 0
+           means no limit.
 
 oohembed
 --------
@@ -1505,15 +1368,6 @@ dir: directory to write backgrounds too. Default is '/background/'
 path: path to backgrounds. Default is sub-path of install path; note
       that you may need to change this if you change site-path too.
 
-twitterbridge
--------------
-
-A bi-direction bridge to Twitter (http://twitter.com/).
-
-enabled: default false. If true, will show user's Twitter friends'
-         notices in their inbox and faves pages, only to the user. You
-         must also run the twitterstatusfetcher.php script.
-
 ping
 ----
 
@@ -1536,6 +1390,24 @@ textcolor: Hex color of all non-link text.
 linkcolor: Hex color of all links.
 backgroundimage: Image to use for the background.
 disposition: Flags for whether or not to tile the background image.
+
+notice
+------
+
+Configuration options specific to notices.
+
+contentlimit: max length of the plain-text content of a notice.
+              Default is null, meaning to use the site-wide text limit.
+              0 means no limit.
+
+message
+-------
+
+Configuration options specific to messages.
+
+contentlimit: max length of the plain-text content of a message.
+              Default is null, meaning to use the site-wide text limit.
+              0 means no limit.
 
 Plugins
 =======

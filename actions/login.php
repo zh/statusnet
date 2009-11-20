@@ -67,8 +67,6 @@ class LoginAction extends Action
      *
      * Switches on request method; either shows the form or handles its input.
      *
-     * Checks if only OpenID is allowed and redirects to openidlogin if so.
-     *
      * @param array $args $_REQUEST data
      *
      * @return void
@@ -77,12 +75,12 @@ class LoginAction extends Action
     function handle($args)
     {
         parent::handle($args);
-        if (common_config('site', 'openidonly')) {
-            common_redirect(common_local_url('openidlogin'));
-        } else if (common_is_real_login()) {
+        if (common_is_real_login()) {
             $this->clientError(_('Already logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->checkLogin();
+        } else if (isset($args['user_id']) && isset($args['token'])){
+            $this->checkLogin($args['user_id'],$args['token']);
         } else {
             common_ensure_session();
             $this->showForm();
@@ -99,22 +97,47 @@ class LoginAction extends Action
      * @return void
      */
 
-    function checkLogin()
+    function checkLogin($user_id=null, $token=null)
     {
-        // XXX: login throttle
+        if(isset($token) && isset($user_id)){
+            //Token based login (from the LoginCommand)
+            $login_token = Login_token::staticGet('user_id',$user_id);
+            if($login_token && $login_token->token == $token){
+                if($login_token->modified > time()+2*60){
+                    //token has expired
+                    //delete the token as it is useless
+                    $login_token->delete();
+                    $this->showForm(_('Invalid or expired token.'));
+                    return;
+                }else{
+                    //delete the token so it cannot be reused
+                    $login_token->delete();
+                    //it's a valid token - let them log in
+                    $user = User::staticGet('id', $user_id);
+                    //$user = User::staticGet('nickname', "candrews");
+                }
+            }else{
+                $this->showForm(_('Invalid or expired token.'));
+                return;
+            }
+        }else{
+            // Regular form submission login
 
-        // CSRF protection - token set in NoticeForm
-        $token = $this->trimmed('token');
-        if (!$token || $token != common_session_token()) {
-            $this->clientError(_('There was a problem with your session token. '.
-                                 'Try again, please.'));
-            return;
+            // XXX: login throttle
+
+            // CSRF protection - token set in NoticeForm
+            $token = $this->trimmed('token');
+            if (!$token || $token != common_session_token()) {
+                $this->clientError(_('There was a problem with your session token. '.
+                                     'Try again, please.'));
+                return;
+            }
+
+            $nickname = $this->trimmed('nickname');
+            $password = $this->arg('password');
+
+            $user = common_check_user($nickname, $password);
         }
-
-        $nickname = common_canonical_nickname($this->trimmed('nickname'));
-        $password = $this->arg('password');
-
-        $user = common_check_user($nickname, $password);
 
         if (!$user) {
             $this->showForm(_('Incorrect username or password.'));
@@ -123,7 +146,7 @@ class LoginAction extends Action
 
         // success!
         if (!common_set_user($user)) {
-            $this->serverError(_('Error setting user.'));
+            $this->serverError(_('Error setting user. You are probably not authorized.'));
             return;
         }
 
@@ -141,7 +164,7 @@ class LoginAction extends Action
         } else {
             $url = common_local_url('all',
                                     array('nickname' =>
-                                          $nickname));
+                                          $user->nickname));
         }
 
         common_redirect($url, 303);
@@ -259,11 +282,6 @@ class LoginAction extends Action
             return _('For security reasons, please re-enter your ' .
                      'user name and password ' .
                      'before changing your settings.');
-        } else if (common_config('openid', 'enabled')) {
-            return _('Login with your username and password. ' .
-                     'Don\'t have a username yet? ' .
-                     '[Register](%%action.register%%) a new account, or ' .
-                     'try [OpenID](%%action.openidlogin%%). ');
         } else {
             return _('Login with your username and password. ' .
                      'Don\'t have a username yet? ' .

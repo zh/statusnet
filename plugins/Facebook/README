@@ -1,0 +1,129 @@
+This plugin allows you to use Facebook Connect with StatusNet, provides a
+Facebook application for your users, and allows them to update their
+Facebook statuses from StatusNet.
+
+Facebook Connect
+----------------
+
+Facebook connect allows users to register and login using nothing but their
+Facebook credentials. With Facebook Connect, your users can:
+
+- Authenticate (register/login/logout -- works similar to OpenID)
+- Associate an existing StatusNet account with a Facebook account
+- Disconnect a Facebook account from a StatusNet account
+
+Built-in Facebook Application
+-----------------------------
+
+The plugin also installs a StatusNet Facebook application that allows your
+users to automatically update their Facebook statuses with their latest
+notices, invite their friends to use the app (and thus your site), view
+their notice timelines, and post notices -- all from within Facebook. The
+application is built into the StatusNet Facebook plugin and runs on your
+host.
+
+Quick setup instructions*
+-------------------------
+
+Install the Facebook Developer application on Facebook:
+
+    http://www.facebook.com/developers/
+
+Use it to create a new application and generate an API key and secret. Add a
+Facebook app section of your config.php and copy in the key and secret,
+e.g.:
+
+    // Config section for the built-in Facebook application
+    $config['facebook']['apikey'] = 'APIKEY';
+    $config['facebook']['secret'] = 'SECRET';
+
+In Facebook's application editor, specify the following URLs for your app:
+
+- Canvas Callback URL     : http://example.net/mublog/facebook/app/
+- Post-Remove Callback URL: http://example.net/mublog/facebook/app/remove
+- Post-Add Redirect URL   : http://apps.facebook.com/yourapp/
+- Canvas Page URL         : http://apps.facebook.com/yourapp/
+- Connect URL             : http://example.net/mublog/
+
+    *** ATTENTION ***
+    These URLs have changed slightly since StatusNet version 0.8.1,
+    so if you have been using the Facebook app previously, you will
+    need to update your configuration!
+
+Replace "example.net" with your host's URL, "mublog" with the path to your
+StatusNet installation, and 'yourapp' with the name of the Facebook
+application you created. (If you don't have "Fancy URLs" on, you'll need to
+change http://example.net/mublog/ to http://example.net/mublog/index.php/).
+
+Additionally, Choose "Web" for Application type in the Advanced tab. In the
+"Canvas setting" section, choose the "FBML" for Render Method, "Smart Size"
+for IFrame size, and "Full width (760px)" for Canvas Width. Everything else
+can be left with default values.
+
+* NOTE: For more under-the-hood detailed instructions about setting up a
+        Facebook application and getting an API key, check out the
+        following pages on the Facebook wiki:
+
+    http://wiki.developers.facebook.com/index.php/Connect/Setting_Up_Your_Site
+    http://wiki.developers.facebook.com/index.php/Creating_your_first_application
+
+Finally you must activate the plugin by adding the following line to your
+config.php:
+
+    addPlugin('Facebook');
+
+Testing It Out
+--------------
+
+If the Facebook plugin is enabled and working, there will be a new Facebook
+Connect Settings tab under each user's Connect menu. Users can connect and
+disconnect* to their Facebook accounts from it.
+
+To try out the plugin, fire up your browser and connect to:
+
+    http://SITE/PATH_TO_STATUSNET/main/facebooklogin
+
+or, if you do not have fancy URLs turned on:
+
+    http://SITE/PATH_TO_STATUSNET/index.php/main/facebooklogin
+
+You should see a page with a blue button that says: "Connect with Facebook"
+and you should be able to login or register.
+
+From within Facebook, you should also be able to get to the Facebook
+application, and run it by hitting the link you specified above when
+configuring it:
+
+    http://apps.facebook.com/yourapp/
+
+That link should be present you with a login screen.  After logging in to
+the app, you are given the option to update their Facebook status via
+StatusNet.
+
+* Note: Before a user can disconnect from Facebook, she must set a normal
+  StatusNet password. Otherwise, she might not be able to login in to her
+  account in the future.  This is usually only required for users who have
+  used Facebook Connect to register their StatusNet account, and therefore
+  haven't already set a local password.
+
+Offline Queue Handling
+----------------------
+
+For larger sites needing better performance it's possible to enable queuing
+and have users' notices posted to Facebook via a separate "offline"
+FacebookQueueHandler (facebookqueuhandler.php in the Facebook plugin
+directory), which will be started by the plugin along with their other
+daemons when you run scripts/startdaemons.sh. See the StatusNet README for
+more about queuing and daemons.
+
+TODO
+----
+
+- Invite Facebook friends to use your StatusNet installation via Facebook
+  Connect
+- Auto-subscribe Facebook friends already using StatusNet
+- Share StatusNet favorite notices to your Facebook stream
+- Allow users to update their Facebook statuses once they have authenticated
+  with Facebook Connect (no need for them to use the Facebook app if they
+  don't want to).
+- Re-design the whole thing to support multiple instances of StatusNet

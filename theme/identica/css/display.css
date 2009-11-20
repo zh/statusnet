@@ -28,7 +28,19 @@ input, textarea, select,
 .entity_remote_subscribe {
 border-color:#AAAAAA;
 }
-#filter_tags ul li {
+
+.form_settings fieldset fieldset {
+background:rgba(240, 240, 240, 0.2);
+box-shadow:3px 3px 7px rgba(194, 194, 194, 0.3);
+-moz-box-shadow:3px 3px 7px rgba(194, 194, 194, 0.3);
+-webkit-box-shadow:3px 3px 7px rgba(194, 194, 194, 0.3);
+}
+
+#filter_tags ul li,
+.entity_send-a-message .form_notice,
+.pagination .nav_prev a,
+.pagination .nav_next a,
+.form_settings fieldset fieldset {
 border-color:#DDDDDD;
 }
 
@@ -37,35 +49,47 @@ background:none;
 }
 
 input.submit,
-#form_notice.warning #notice_text-count,
+.form_notice.warning #notice_text-count,
 .form_settings .form_note,
-.entity_remote_subscribe {
+.entity_remote_subscribe,
+.entity_actions .form_notice input.submit {
 background-color:#9BB43E;
 }
-
-input:focus, textarea:focus, select:focus,
-#form_notice.warning #notice_data-text {
-border-color:#9BB43E;
+input.submit,
+.form_notice.warning #notice_text-count,
+.form_settings .form_note,
+.entity_remote_subscribe,
+.entity_actions a,
+.entity_actions input,
+button {
 box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 -moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 -webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 }
-input.submit,
+.entity_actions a,
+.entity_actions input,
+.entity_actions p {
+border-color:transparent;
+background-color:transparent;
+}
+input:focus, textarea:focus, select:focus,
+.form_notice.warning #notice_data-text,
+.form_notice.warning #notice_text-count,
+.form_settings .form_note,
 .entity_remote_subscribe {
+border-color:#9BB43E;
+}
+input.submit,
+.entity_remote_subscribe,
+.entity_actions .form_notice input.submit {
 color:#FFFFFF;
 }
 
 a,
-div.notice-options input,
-.form_user_block input.submit,
-.form_user_unblock input.submit,
-.form_group_block input.submit,
-.form_group_unblock input.submit,
-.entity_send-a-message a,
-.form_user_nudge input.submit,
-.entity_nudge p,
 .form_settings input.form_action-primary,
-.form_make_admin input.submit {
+.notice-options input,
+.entity_actions a,
+.entity_actions input {
 color:#002FA7;
 }
 
@@ -84,14 +108,46 @@ background-color:#CEE1E9;
 #notice_text-count {
 color:#333333;
 }
-#form_notice.warning #notice_text-count {
+.form_notice.warning #notice_text-count {
 color:#000000;
 }
-#form_notice label[for=notice_data-attach] {
-background:transparent url(../../base/images/icons/twotone/green/clip-01.gif) no-repeat 0 45%;
+.form_notice label[for=notice_data-attach] {
+background-position:0 -328px;
 }
-#form_notice #notice_data-attach {
+.form_notice #notice_data-attach {
 opacity:0;
+}
+
+.form_notice label[for=notice_data-attach],
+#export_data li a.rss,
+#export_data li a.atom,
+#export_data li a.foaf,
+.entity_edit a,
+.entity_send-a-message a,
+.entity_nudge p,
+.form_user_nudge input.submit,
+.form_user_block input.submit,
+.form_user_unblock input.submit,
+.form_group_block input.submit,
+.form_group_unblock input.submit,
+.form_make_admin input.submit,
+.notice .attachment,
+.notice-options .notice_reply,
+.notice-options form.form_favor input.submit,
+.notice-options form.form_disfavor input.submit,
+.notice-options .notice_delete,
+#new_group a,
+.pagination .nav_prev a,
+.pagination .nav_next a,
+button.close,
+.form_group_leave input.submit,
+.form_user_unsubscribe input.submit,
+.form_group_join input.submit,
+.form_user_subscribe input.submit,
+.entity_subscribe a {
+background-image:url(../../base/images/icons/icons-01.gif);
+background-repeat:no-repeat;
+background-color:transparent;
 }
 
 #wrap form.processing input.submit {
@@ -112,7 +168,8 @@ box-shadow:5px 7px 7px rgba(194, 194, 194, 0.3);
 border-color:transparent;
 }
 #content,
-#site_nav_local_views .current a {
+#site_nav_local_views .current a,
+.entity_send-a-message .form_notice {
 background-color:#FFFFFF;
 }
 
@@ -130,12 +187,21 @@ background-color:rgba(255, 255, 255, 0.7);
 #site_nav_local_views .current a {
 text-shadow: rgba(194,194,194,0.5) 1px 1px 1px;
 }
+.processing {
+background-image:url(../../base/images/icons/icon_processing.gif);
+background-repeat:no-repeat;
+background-position:47% 47%;
+}
 
 .error {
 background-color:#F7E8E8;
 }
 .success {
 background-color:#EFF3DC;
+}
+
+button.close {
+background-position:0 -1120px;
 }
 
 #anon_notice {
@@ -150,82 +216,79 @@ background-color:#9BB43E;
 
 #export_data li a {
 background-repeat:no-repeat;
-background-position:0 45%;
 }
 #export_data li a.rss {
-background-image:url(../../base/images/icons/icon_rss.png);
+background-position:0 -130px;
 }
 #export_data li a.atom {
-background-image:url(../../base/images/icons/icon_atom.png);
+background-position:0 -64px;
 }
 #export_data li a.foaf {
-background-image:url(../../base/images/icons/icon_foaf.gif);
+background-position:0 1px;
 }
 
-.entity_edit a,
-.entity_send-a-message a,
-.form_user_nudge input.submit,
-.form_user_block input.submit,
-.form_user_unblock input.submit,
-.form_group_block input.submit,
-.form_group_unblock input.submit,
-.entity_nudge p,
-.form_make_admin input.submit {
-background-position: 0 40%;
-background-repeat: no-repeat;
-background-color:transparent;
-}
 .form_group_join input.submit,
-.form_group_leave input.submit
+.form_group_leave input.submit,
 .form_user_subscribe input.submit,
-.form_user_unsubscribe input.submit {
-background-color:#9BB43E;
+.form_user_unsubscribe input.submit,
+.entity_subscribe a {
+background-color:#AAAAAA;
 color:#FFFFFF;
 }
-.form_user_unsubscribe input.submit,
 .form_group_leave input.submit,
-.form_user_authorization input.reject {
-background-color:#87B4C8;
+.form_user_unsubscribe input.submit {
+background-position:5px -1246px;
+}
+.form_group_join input.submit,
+.form_user_subscribe input.submit,
+.entity_subscribe a {
+background-position:5px -1181px;
 }
 
 .entity_edit a {
-background-image:url(../../base/images/icons/twotone/green/edit.gif);
+background-position: 5px -718px;
 }
 .entity_send-a-message a {
-background-image:url(../../base/images/icons/twotone/green/quote.gif);
+background-position: 5px -852px;
 }
+.entity_send-a-message .form_notice {
+box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
+-moz-box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
+-webkit-box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
+}
+
 .entity_nudge p,
 .form_user_nudge input.submit {
-background-image:url(../../base/images/icons/twotone/green/mail.gif);
+background-position: 5px -785px;
 }
 .form_user_block input.submit,
 .form_user_unblock input.submit,
 .form_group_block input.submit,
 .form_group_unblock input.submit {
-background-image:url(../../base/images/icons/twotone/green/shield.gif);
+background-position: 5px -918px;
 }
 .form_make_admin input.submit {
-background-image:url(../../base/images/icons/twotone/green/admin.gif);
+background-position: 5px -983px;
 }
 
 /* NOTICES */
 .notice .attachment {
-background:transparent url(../../base/images/icons/twotone/green/clip-02.gif) no-repeat 0 45%;
+background-position:0 -394px;
 }
 #attachments .attachment {
 background:none;
 }
 .notice-options .notice_reply {
-background:transparent url(../../base/images/icons/twotone/green/reply.gif) no-repeat 0 45%;
+background-position:0 -592px;
 }
 .notice-options form.form_favor input.submit {
-background:transparent url(../../base/images/icons/twotone/green/favourite.gif) no-repeat 0 45%;
+background-position:0 -460px;
 }
 .notice-options form.form_disfavor input.submit {
-background:transparent url(../../base/images/icons/twotone/green/disfavourite.gif) no-repeat 0 45%;
+background-position:0 -526px;
 }
 .notice-options .notice_delete {
-background:transparent url(../../base/images/icons/twotone/green/trash.gif) no-repeat 0 45%;
+background-position:0 -658px;
 }
 
 .notices div.entry-content,
@@ -236,9 +299,12 @@ opacity:0.4;
 .notices li:hover div.notice-options {
 opacity:1;
 }
-div.notice-options a,
-div.notice-options input {
+.notice-options a,
+.notice-options input {
 font-family:sans-serif;
+box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
+-moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
+-webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 }
 #content .notices li:hover {
 background-color:rgba(240, 240, 240, 0.2);
@@ -262,19 +328,33 @@ background-color:rgba(200, 200, 200, 0.300);
 /*END: NOTICES */
 
 #new_group a {
-background:transparent url(../../base/images/icons/twotone/green/news.gif) no-repeat 0 45%;
+background-position:0 -1054px;
 }
 
 .pagination .nav_prev a,
 .pagination .nav_next a {
 background-repeat:no-repeat;
-border-color:#CEE1E9;
+box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
+-moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
+-webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 }
 .pagination .nav_prev a {
-background-image:url(../../base/images/icons/twotone/green/arrow-left.gif);
-background-position:10% 45%;
+background-position:10% -187px;
 }
 .pagination .nav_next a {
-background-image:url(../../base/images/icons/twotone/green/arrow-right.gif);
-background-position:90% 45%;
+background-position:105% -252px;
 }
+.pagination .nav .processing {
+background-image:url(../../base/images/icons/icon_processing.gif);
+box-shadow:none;
+-moz-box-shadow:none;
+-webkit-box-shadow:none;
+outline:none;
+}
+.pagination .nav_next a.processing {
+background-position:90% 47%;
+}
+.pagination .nav_prev a.processing {
+background-position:10% 47%;
+}
+

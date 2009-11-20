@@ -39,12 +39,47 @@ set_time_limit(60);
 $languages = get_all_languages();
 
 /* Update the languages */
+// Language code conversion for translatewiki.net (these are MediaWiki codes)
+$codeMap = array(
+	'nb'    => 'no',
+	'pt_BR' => 'pt-br',
+	'zh_CN' => 'zh-hans',
+	'zh_TW' => 'zh-hant'
+);
+
+$doneCodes = array();
 
 foreach ($languages as $language) {
+	$code = $language['lang'];
 
-    $code = $language['lang'];
-    $file_url = 'http://status.net/pootle/' . $code .
-        '/statusnet/LC_MESSAGES/statusnet.po';
+	// Skip export of source language
+	// and duplicates
+	if( $code == 'en' || $code == 'no' ) {
+		continue;
+	}
+
+	// Do not export codes twice (happens for 'nb')
+	if( in_array( $code, $doneCodes ) ) {
+		continue;
+	} else {
+		$doneCodes[] = $code;
+	}
+
+	// Convert code if needed
+	if( isset( $codeMap[$code] ) ) {
+		$twnCode = $codeMap[$code];
+	} else {
+		$twnCode = str_replace('_', '-', strtolower($code)); // pt_BR -> pt-br
+	}
+
+    // Fetch updates from translatewiki.net...
+    $file_url = 'http://translatewiki.net/w/i.php?' .
+        http_build_query(array(
+            'title' => 'Special:Translate',
+            'task' => 'export-to-file',
+            'group' => 'out-statusnet',
+            'language' => $twnCode));
+
     $lcdir = INSTALLDIR . '/locale/' . $code;
     $msgdir = "$lcdir/LC_MESSAGES";
     $pofile = "$msgdir/statusnet.po";
@@ -72,7 +107,8 @@ foreach ($languages as $language) {
     if (sha1($new_file) != $existingSHA1 || !file_exists($mofile)) {
         echo "Updating ".$code."\n";
         file_put_contents($pofile, $new_file);
-        system(sprintf('msgmerge -U %s %s', $pofile, $statusnet_pot));
+        // --backup=off is workaround for Mac OS X fail
+        system(sprintf('msgmerge -U --backup=off %s %s', $pofile, $statusnet_pot));
         system(sprintf('msgfmt -f -o %s %s', $mofile, $pofile));
     } else {
         echo "Unchanged - ".$code."\n";

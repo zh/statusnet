@@ -1,0 +1,85 @@
+This Twitter "bridge" plugin allows you to integrate your StatusNet
+instance with Twitter.  Installing it will allow your users to:
+
+    - automatically post notices to thier Twitter accounts
+    - automatically subscribe to other Twitter users who are also using
+      your StatusNet install, if possible (requires running a daemon)
+    - import their Twitter friends' tweets (requires running a daemon)
+
+Installation
+------------
+
+To enable the plugin, add the following to your config.php:
+
+    addPlugin("TwitterBridge");
+
+OAuth is used to to access protected resources on Twitter (as opposed to
+HTTP Basic Auth)*.  To use Twitter bridging you will need to register
+your instance of StatusNet as an application on Twitter
+(http://twitter.com/apps), and update the following variables in your
+config.php with the consumer key and secret Twitter generates for you:
+
+    $config['twitter']['consumer_key']    = 'YOURKEY';
+    $config['twitter']['consumer_secret'] = 'YOURSECRET';
+
+When registering your application with Twitter set the type to "Browser"
+and your Callback URL to:
+
+    http://example.org/mublog/twitter/authorization
+
+The default access type should be, "Read & Write".
+
+* Note: The plugin will still push notices to Twitter for users who
+  have previously setup the Twitter bridge using their Twitter name and
+  password under an older versions of StatusNet, but all new Twitter
+  bridge connections will use OAuth.
+
+Deamons
+-------
+
+For friend syncing and importing notices running two additional daemon
+scripts is necessary (synctwitterfriends.php and
+twitterstatusfetcher.php).
+
+In the daemons subidrectory of the plugin are three scripts:
+
+* Twitter Friends Syncing (daemons/synctwitterfriends.php)
+
+Users may set a flag in their settings ("Subscribe to my Twitter friends
+here" under the Twitter tab) to have StatusNet attempt to locate and
+subscribe to "friends" (people they "follow") on Twitter who also have
+accounts on your StatusNet system, and who have previously set up a link
+for automatically posting notices to Twitter.
+
+The plugin will try to start this daemon when you run
+scripts/startdaemons.sh.
+
+* Importing statuses from Twitter (daemons/twitterstatusfetcher.php)
+
+To allow your users to import their friends' Twitter statuses, you will
+need to enable the bidirectional Twitter bridge in your config.php:
+
+    $config['twitterimport']['enabled'] = true;
+
+The plugin will then start the TwitterStatusFetcher daemon along with the
+other daemons when you run scripts/startdaemons.sh.
+
+Additionally, you will want to set the integration source variable,
+which will keep notices posted to Twitter via StatusNet from looping
+back.  The integration source should be set to the name of your
+application, exactly as you specified it on the settings page for your
+StatusNet application on Twitter, e.g.:
+
+    $config['integration']['source'] = 'YourApp';
+
+* TwitterQueueHandler (daemons/twitterqueuehandler.php)
+
+This script sends queued notices to Twitter for user who have opted to
+set up Twitter bridging.
+
+It's not strictly necessary to run this queue handler, and sites that
+haven't enabled queuing are still able to push notices to Twitter, but
+for larger sites and sites that wish to improve performance, this
+script allows notices to be sent "offline" via a separate process.
+
+The plugin will start this script when you run scripts/startdaemons.sh.

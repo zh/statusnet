@@ -33,15 +33,17 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/openid.php';
+require_once INSTALLDIR.'/plugins/OpenID/openid.php';
+require_once INSTALLDIR.'/lib/xrdsoutputter.php';
 
 /**
- * Public XRDS for OpenID
+ * Public XRDS
  *
  * @category Action
  * @package  StatusNet
  * @author   Evan Prodromou <evan@status.net>
  * @author   Robin Millette <millette@status.net>
+ * @author   Craig Andrews <candrews@integralblue.com>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://status.net/
  *
@@ -69,54 +71,11 @@ class PublicxrdsAction extends Action
     function handle($args)
     {
         parent::handle($args);
-        header('Content-Type: application/xrds+xml');
-        $this->startXML();
-        $this->elementStart('XRDS', array('xmlns' => 'xri://$xrds'));
-        $this->elementStart('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
-                                          'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
-                                          'version' => '2.0'));
-        $this->element('Type', null, 'xri://$xrds*simple');
-        foreach (array('finishopenidlogin', 'finishaddopenid') as $finish) {
-            $this->showService(Auth_OpenID_RP_RETURN_TO_URL_TYPE,
-                                common_local_url($finish));
-        }
-        $this->elementEnd('XRD');
-        $this->elementEnd('XRDS');
-        $this->endXML();
-    }
-
-    /**
-     * Show service.
-     *
-     * @param string $type    XRDS type
-     * @param string $uri     URI
-     * @param array  $params  type parameters, null by default
-     * @param array  $sigs    type signatures, null by default
-     * @param string $localId local ID, null by default
-     *
-     * @return void
-     */
-    function showService($type, $uri, $params=null, $sigs=null, $localId=null)
-    {
-        $this->elementStart('Service');
-        if ($uri) {
-            $this->element('URI', null, $uri);
-        }
-        $this->element('Type', null, $type);
-        if ($params) {
-            foreach ($params as $param) {
-                $this->element('Type', null, $param);
-            }
-        }
-        if ($sigs) {
-            foreach ($sigs as $sig) {
-                $this->element('Type', null, $sig);
-            }
-        }
-        if ($localId) {
-            $this->element('LocalID', null, $localId);
-        }
-        $this->elementEnd('Service');
+        $xrdsOutputter = new XRDSOutputter();
+        $xrdsOutputter->startXRDS();
+        Event::handle('StartPublicXRDS', array($this,&$xrdsOutputter));
+        Event::handle('EndPublicXRDS', array($this,&$xrdsOutputter));
+        $xrdsOutputter->endXRDS();
     }
 }
 

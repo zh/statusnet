@@ -64,11 +64,6 @@ class EditgroupAction extends GroupDesignAction
     {
         parent::prepare($args);
 
-        if (!common_config('inboxes','enabled')) {
-            $this->serverError(_('Inboxes must be enabled for groups to work'));
-            return false;
-        }
-
         if (!common_logged_in()) {
             $this->clientError(_('You must be logged in to create a group.'));
             return false;
@@ -202,8 +197,8 @@ class EditgroupAction extends GroupDesignAction
         } else if (!is_null($fullname) && mb_strlen($fullname) > 255) {
             $this->showForm(_('Full name is too long (max 255 chars).'));
             return;
-        } else if (!is_null($description) && mb_strlen($description) > 140) {
-            $this->showForm(_('description is too long (max 140 chars).'));
+        } else if (User_group::descriptionTooLong($description)) {
+            $this->showForm(sprintf(_('description is too long (max %d chars).'), User_group::maxDescription()));
             return;
         } else if (!is_null($location) && mb_strlen($location) > 255) {
             $this->showForm(_('Location is too long (max 255 chars).'));
