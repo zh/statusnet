@@ -58,7 +58,7 @@ class FacebookPlugin extends Plugin
      * @return boolean hook return
      */
 
-    function onRouterInitialized($m)
+    function onStartInitializeRouter($m)
     {
 
         // Facebook App stuff
