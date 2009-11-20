@@ -58,12 +58,12 @@ class MapstractionPlugin extends Plugin
      *
      * The way to register new actions from a plugin.
      *
-     * @param Router &$m reference to router
+     * @param Router $m reference to router
      *
      * @return boolean event handler return
      */
 
-    function onRouterInitialized(&$m)
+    function onRouterInitialized($m)
     {
         $m->connect(':nickname/all/map',
                     array('action' => 'allmap'),
