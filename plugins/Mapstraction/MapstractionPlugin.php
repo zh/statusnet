@@ -226,8 +226,8 @@ class MapstractionPlugin extends Plugin
 
         $arr = $act->twitterStatusArray($notice, true);
         $arr['url'] = $notice->bestUrl();
-        $arr['html'] = htmlspecialchars($notice->rendered);
-        $arr['source'] = htmlspecialchars($arr['source']);
+        $arr['html'] = $notice->rendered;
+        $arr['source'] = $arr['source'];
 
         if (!empty($notice->reply_to)) {
             $reply_to = Notice::staticGet('id', $notice->reply_to);
