@@ -1,5 +1,5 @@
 // A shim to implement the W3C Geolocation API Specification using Gears or the Ajax API
-if ( typeof navigator.geolocation == "undefined" || navigator.geolocation.shim ) (function(){
+if (typeof navigator.geolocation == "undefined" || navigator.geolocation.shim ) (function(){
 
 // -- BEGIN GEARS_INIT
 (function() {
@@ -94,7 +94,7 @@ var GearsGeoLocation = (function() {
         }
 
     };
-})();
+});
 
 var AjaxGeoLocation = (function() {
     // -- PRIVATE
@@ -208,9 +208,9 @@ var AjaxGeoLocation = (function() {
         }
 
     };
-})();
+});
 
 // If you have Gears installed use that, else use Ajax ClientLocation
-navigator.geolocation = (window.google && google.gears) ? GearsGeoLocation : AjaxGeoLocation;
+navigator.geolocation = (window.google && google.gears) ? GearsGeoLocation() : AjaxGeoLocation();
 
 })();
