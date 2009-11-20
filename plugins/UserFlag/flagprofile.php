@@ -86,12 +86,6 @@ class FlagprofileAction extends ProfileFormAction
 
     function handle($args)
     {
-        if ($this->boolean('ajax')) {
-            common_debug("ajax called for");
-        } else {
-            common_debug("no ajax");
-        }
-        
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->handlePost();
             if (!$this->boolean('ajax')) {
@@ -125,7 +119,7 @@ class FlagprofileAction extends ProfileFormAction
         }
 
         $ufp->free();
-        
+
         if ($this->boolean('ajax')) {
             $this->ajaxResults();
         }
