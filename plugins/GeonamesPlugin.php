@@ -63,6 +63,14 @@ class GeonamesPlugin extends Plugin
 
     function onLocationFromName($name, $language, &$location)
     {
+        $loc = $this->getCache(array('name' => $name,
+                                     'language' => $language));
+
+        if (!empty($loc)) {
+            $location = $loc;
+            return false;
+        }
+
         $client = HTTPClient::start();
 
         // XXX: break down a name by commas, narrow by each
@@ -86,6 +94,10 @@ class GeonamesPlugin extends Plugin
                 $location->names[$language] = $n->name;
                 $location->location_id      = $n->geonameId;
                 $location->location_ns      = self::LOCATION_NS;
+
+                $this->setCache(array('name' => $name,
+                                     'language' => $language),
+                                $location);
 
                 // handled, don't continue processing!
                 return false;
@@ -112,6 +124,13 @@ class GeonamesPlugin extends Plugin
         if ($ns != self::LOCATION_NS) {
             // It's not one of our IDs... keep processing
             return true;
+        }
+
+        $loc = $this->getCache(array('id' => $id));
+
+        if (!empty($loc)) {
+            $location = $loc;
+            return false;
         }
 
         $client = HTTPClient::start();
@@ -148,6 +167,9 @@ class GeonamesPlugin extends Plugin
                 $location->lat              = $last->lat;
                 $location->lon              = $last->lng;
                 $location->names[$language] = implode(', ', array_reverse($parts));
+
+                $this->setCache(array('id' => $last->geonameId),
+                                $location);
             }
         }
 
@@ -173,6 +195,14 @@ class GeonamesPlugin extends Plugin
 
     function onLocationFromLatLon($lat, $lon, $language, &$location)
     {
+        $loc = $this->getCache(array('lat' => $lat,
+                                     'lon' => $lon));
+
+        if (!empty($loc)) {
+            $location = $loc;
+            return false;
+        }
+
         $client = HTTPClient::start();
 
         $str = http_build_query(array('lat' => $lat,
@@ -211,6 +241,10 @@ class GeonamesPlugin extends Plugin
 
                 $location->names[$language] = implode(', ', $parts);
 
+                $this->setCache(array('lat' => $lat,
+                                      'lon' => $lon),
+                                $location);
+
                 // Success! We handled it, so no further processing
 
                 return false;
@@ -242,9 +276,17 @@ class GeonamesPlugin extends Plugin
             return true;
         }
 
+        $n = $this->getCache(array('id' => $location->location_id,
+                                   'language' => $language));
+
+        if (!empty($n)) {
+            $name = $n;
+            return false;
+        }
+
         $client = HTTPClient::start();
 
-        $str = http_build_query(array('geonameId' => $id,
+        $str = http_build_query(array('geonameId' => $location->location_id,
                                       'lang' => $language));
 
         $result = $client->get('http://ws.geonames.org/hierarchyJSON?'.$str);
@@ -271,6 +313,9 @@ class GeonamesPlugin extends Plugin
 
                 if (count($parts)) {
                     $name = implode(', ', array_reverse($parts));
+                    $this->setCache(array('id' => $location->location_id,
+                                          'language' => $language),
+                                    $name);
                     return false;
                 }
             }
@@ -325,5 +370,45 @@ class GeonamesPlugin extends Plugin
 
         // it's been filled, so don't process further.
         return false;
+    }
+
+    function getCache($attrs)
+    {
+        $c = common_memcache();
+
+        if (!$c) {
+            return null;
+        }
+
+        return $c->get($this->cacheKey($attrs));
+    }
+
+    function setCache($attrs, $loc)
+    {
+        $c = common_memcache();
+
+        if (!$c) {
+            return null;
+        }
+
+        $c->set($this->cacheKey($attrs), $loc);
+    }
+
+    function clearCache($attrs)
+    {
+        $c = common_memcache();
+
+        if (!$c) {
+            return null;
+        }
+
+        $c->delete($this->cacheKey($attrs));
+    }
+
+    function cacheKey($attrs)
+    {
+        return common_cache_key('geonames:'.
+                                implode(',', array_keys($attrs)) . ':'.
+                                common_keyize(implode(',', array_values($attrs))));
     }
 }
