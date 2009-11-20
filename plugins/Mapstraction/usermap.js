@@ -5,7 +5,7 @@ $(document).ready(function() {
         if(notice['geo'])
             notices.push(notice);
      });
-     if($("#map_canvas") && notices.length>0)
+     if($("#map_canvas").length && notices.length>0)
      {
         showMapstraction($("#map_canvas"), notices);
      }
