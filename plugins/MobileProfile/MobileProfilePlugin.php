@@ -63,9 +63,6 @@ class MobileProfilePlugin extends WAP20Plugin
 
     function onStartShowHTML($action)
     {
-
-
-
         // XXX: This should probably graduate to WAP20Plugin
 
         // If they are on the mobile site, serve them MP
@@ -162,8 +159,7 @@ class MobileProfilePlugin extends WAP20Plugin
                     common_config('site', 'server'))) {
 
                 // FIXME: Redirect to equivalent page on mobile site instead
-                header("Location: ".$this->_common_path(''));
-                exit();
+                common_redirect($this->_common_path(''), 302);
             }
         }
 
