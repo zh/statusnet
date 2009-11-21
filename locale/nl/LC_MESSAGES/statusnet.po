@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-20 10:23+0000\n"
-"PO-Revision-Date: 2009-11-20 10:24:06+0000\n"
+"POT-Creation-Date: 2009-11-21 11:33+0000\n"
+"PO-Revision-Date: 2009-11-21 11:34:07+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59282); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59306); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: out-statusnet\n"
@@ -566,7 +566,7 @@ msgid "Preview"
 msgstr "Voorvertoning"
 
 #: actions/avatarsettings.php:148 lib/deleteuserform.php:66
-#: lib/noticelist.php:528
+#: lib/noticelist.php:546
 msgid "Delete"
 msgstr "Verwijderen"
 
@@ -796,7 +796,7 @@ msgstr "Weet u zeker dat u deze aankondiging wilt verwijderen?"
 msgid "Do not delete this notice"
 msgstr "Deze mededeling niet verwijderen"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:528
+#: actions/deletenotice.php:146 lib/noticelist.php:546
 msgid "Delete this notice"
 msgstr "Deze mededeling verwijderen"
 
@@ -840,9 +840,8 @@ msgid "Design settings for this StatusNet site."
 msgstr "Instellingen voor de vormgeving van deze StatusNet-website."
 
 #: actions/designadminpanel.php:270
-#, fuzzy
 msgid "Invalid logo URL."
-msgstr "Ongeldige afmetingen."
+msgstr "De logo-URL is ongeldig."
 
 #: actions/designadminpanel.php:274
 #, php-format
@@ -850,23 +849,20 @@ msgid "Theme not available: %s"
 msgstr "De vormgeving is niet beschikbaar: %s"
 
 #: actions/designadminpanel.php:370
-#, fuzzy
 msgid "Change logo"
-msgstr "Kleuren wijzigen"
+msgstr "Logo wijzigen"
 
 #: actions/designadminpanel.php:375
-#, fuzzy
 msgid "Site logo"
-msgstr "Uitnodigen"
+msgstr "Websitelogo"
 
 #: actions/designadminpanel.php:382
 msgid "Change theme"
 msgstr "Vormgeving wijzigen"
 
 #: actions/designadminpanel.php:399
-#, fuzzy
 msgid "Site theme"
-msgstr "Kennisgeving van site"
+msgstr "Vormgeving website"
 
 #: actions/designadminpanel.php:400
 msgid "Theme for the site."
@@ -1856,9 +1852,10 @@ msgid "Incorrect username or password."
 msgstr "De gebruikersnaam of wachtwoord is onjuist."
 
 #: actions/login.php:149
-#, fuzzy
 msgid "Error setting user. You are probably not authorized."
-msgstr "U hebt niet de juiste toegangsrechten."
+msgstr ""
+"Er is een fout opgetreden bij het maken van de instellingen. U hebt "
+"waarschijnlijk niet de juiste rechten."
 
 #: actions/login.php:204 actions/login.php:257 lib/action.php:458
 #: lib/logingroupnav.php:79
@@ -2020,12 +2017,12 @@ msgstr ""
 "zijn die een bericht plaatst in [dit onderwerp](%%%%action.newnotice%%%%?"
 "status_textarea=%s)!"
 
-#: actions/noticesearchrss.php:89
+#: actions/noticesearchrss.php:96
 #, php-format
 msgid "Updates with \"%s\""
 msgstr "Updates met \"%s\""
 
-#: actions/noticesearchrss.php:91
+#: actions/noticesearchrss.php:98
 #, php-format
 msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Updates die overeenkomen met de zoekterm \"%1$s\" op %2$s."
@@ -2184,32 +2181,31 @@ msgstr "Het wachtwoord is opgeslagen."
 
 #: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:308
 msgid "Paths"
-msgstr ""
+msgstr "Paden"
 
 #: actions/pathsadminpanel.php:70
-#, fuzzy
 msgid "Path and server settings for this StatusNet site."
-msgstr "Gebruikersinstellingen voor deze StatusNet-website."
+msgstr "Pad- en serverinstellingen voor de StatusNet-website."
 
 #: actions/pathsadminpanel.php:140
-#, fuzzy, php-format
+#, php-format
 msgid "Theme directory not readable: %s"
-msgstr "IM is niet beschikbaar."
+msgstr "Er kan niet uit de vormgevingmap gelezen worden: %s"
 
 #: actions/pathsadminpanel.php:146
 #, php-format
 msgid "Avatar directory not writable: %s"
-msgstr ""
+msgstr "Er kan niet in de avatarmap geschreven worden: %s"
 
 #: actions/pathsadminpanel.php:152
 #, php-format
 msgid "Background directory not writable: %s"
-msgstr ""
+msgstr "Er kan niet in de achtergrondmap geschreven worden: %s"
 
 #: actions/pathsadminpanel.php:160
 #, php-format
 msgid "Locales directory not readable: %s"
-msgstr ""
+msgstr "Er kan niet uit de talenmap gelezen worden: %s"
 
 #: actions/pathsadminpanel.php:212 actions/siteadminpanel.php:58
 #: lib/adminpanelaction.php:299
@@ -2218,81 +2214,71 @@ msgstr "Website"
 
 #: actions/pathsadminpanel.php:216
 msgid "Path"
-msgstr ""
+msgstr "Pad"
 
 #: actions/pathsadminpanel.php:216
-#, fuzzy
 msgid "Site path"
-msgstr "Kennisgeving van site"
+msgstr "Websitepad"
 
 #: actions/pathsadminpanel.php:220
 msgid "Path to locales"
-msgstr ""
+msgstr "Talenpad"
 
 #: actions/pathsadminpanel.php:220
 msgid "Directory path to locales"
-msgstr ""
+msgstr "Talenmap"
 
 #: actions/pathsadminpanel.php:227
 msgid "Theme"
-msgstr ""
+msgstr "Vormgeving"
 
 #: actions/pathsadminpanel.php:232
 msgid "Theme server"
-msgstr ""
+msgstr "Vormgevingsserver"
 
 #: actions/pathsadminpanel.php:236
 msgid "Theme path"
-msgstr ""
+msgstr "Vormgevingspad"
 
 #: actions/pathsadminpanel.php:240
 msgid "Theme directory"
-msgstr ""
+msgstr "Vormgevingsmap"
 
 #: actions/pathsadminpanel.php:247
-#, fuzzy
 msgid "Avatars"
-msgstr "Avatar"
+msgstr "Avatars"
 
 #: actions/pathsadminpanel.php:252
-#, fuzzy
 msgid "Avatar server"
-msgstr "Avatarinstellingen"
+msgstr "Avatarserver"
 
 #: actions/pathsadminpanel.php:256
-#, fuzzy
 msgid "Avatar path"
-msgstr "De avatar is bijgewerkt."
+msgstr "Avatarpad"
 
 #: actions/pathsadminpanel.php:260
-#, fuzzy
 msgid "Avatar directory"
-msgstr "De avatar is verwijderd."
+msgstr "Avatarmap"
 
 #: actions/pathsadminpanel.php:269
-#, fuzzy
 msgid "Backgrounds"
-msgstr "Achtergrond"
+msgstr "Achtergronden"
 
 #: actions/pathsadminpanel.php:273
-#, fuzzy
 msgid "Background server"
-msgstr "Achtergrond"
+msgstr "Achtergrondenserver"
 
 #: actions/pathsadminpanel.php:277
-#, fuzzy
 msgid "Background path"
-msgstr "Achtergrond"
+msgstr "Achtergrondpad"
 
 #: actions/pathsadminpanel.php:281
-#, fuzzy
 msgid "Background directory"
-msgstr "Achtergrond"
+msgstr "Achtergrondenmap"
 
 #: actions/pathsadminpanel.php:297
-#, fuzzy
 msgid "Save paths"
-msgstr "Kennisgeving van site"
+msgstr "Opslagpaden"
 
 #: actions/peoplesearch.php:52
 #, php-format
@@ -3262,24 +3248,27 @@ msgid "Snapshot frequency must be a number."
 msgstr "De snapshotfrequentie moet een getal zijn."
 
 #: actions/siteadminpanel.php:199
-msgid "You must set an SSL sever when enabling SSL."
-msgstr ""
+#, fuzzy
+msgid "You must set an SSL server when enabling SSL."
+msgstr "U moet een SSL-server instellen als u SSL wilt inschakelen."
 
 #: actions/siteadminpanel.php:204
-msgid "Invalid SSL server. Max length is 255 characters."
-msgstr ""
+#, fuzzy
+msgid "Invalid SSL server. The maximum length is 255 characters."
+msgstr "De SSL-server is ongeldig. De maximale lengte is 255 tekens."
 
 #: actions/siteadminpanel.php:210
-msgid "Minimum text limit is 140c."
-msgstr ""
+#, fuzzy
+msgid "Minimum text limit is 140 characters."
+msgstr "De minimale tekstlimiet is 140 tekens."
 
 #: actions/siteadminpanel.php:216
 msgid "Dupe limit must 1 or more seconds."
-msgstr ""
+msgstr "De duplicaatlimiet moet één of meer seconden zijn."
 
 #: actions/siteadminpanel.php:266
 msgid "General"
-msgstr ""
+msgstr "Algemeen"
 
 #: actions/siteadminpanel.php:269
 msgid "Site name"
@@ -3310,13 +3299,13 @@ msgstr ""
 "voettekst van iedere pagina"
 
 #: actions/siteadminpanel.php:284
-msgid "contact email address for your site"
+#, fuzzy
+msgid "Contact email address for your site"
 msgstr "E-mailadres om contact op te nemen met de websitebeheerder"
 
 #: actions/siteadminpanel.php:290
-#, fuzzy
 msgid "Local"
-msgstr "Lokale weergaven"
+msgstr "Lokaal"
 
 #: actions/siteadminpanel.php:301
 msgid "Default timezone"
@@ -3331,31 +3320,28 @@ msgid "Default site language"
 msgstr "Standaardtaal"
 
 #: actions/siteadminpanel.php:316
-#, fuzzy
 msgid "URLs"
-msgstr "URL"
+msgstr "URL's"
 
 #: actions/siteadminpanel.php:319
-#, fuzzy
 msgid "Server"
-msgstr "Herstellen"
+msgstr "Server"
 
 #: actions/siteadminpanel.php:319
 msgid "Site's server hostname."
-msgstr ""
+msgstr "Hostnaam van de website server."
 
 #: actions/siteadminpanel.php:323
 msgid "Fancy URLs"
-msgstr ""
+msgstr "Nette URL's"
 
 #: actions/siteadminpanel.php:325
 msgid "Use fancy (more readable and memorable) URLs?"
-msgstr ""
+msgstr "Nette URL's (meer leesbaar en beter te onthouden) gebruiken?"
 
 #: actions/siteadminpanel.php:331
-#, fuzzy
 msgid "Access"
-msgstr "Aanvaarden"
+msgstr "Toegang"
 
 #: actions/siteadminpanel.php:334
 msgid "Private"
@@ -3366,13 +3352,12 @@ msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr "Mogen anonieme gebruikers (niet aangemeld) de website bekijken?"
 
 #: actions/siteadminpanel.php:340
-#, fuzzy
 msgid "Invite only"
-msgstr "Uitnodigen"
+msgstr "Alleen op uitnodiging"
 
 #: actions/siteadminpanel.php:342
 msgid "Make registration invitation only."
-msgstr ""
+msgstr "Registratie alleen op uitnodiging."
 
 #: actions/siteadminpanel.php:346
 msgid "Closed"
@@ -3380,12 +3365,11 @@ msgstr "Gesloten"
 
 #: actions/siteadminpanel.php:348
 msgid "Disable new registrations."
-msgstr ""
+msgstr "Nieuwe registraties uitschakelen."
 
 #: actions/siteadminpanel.php:354
-#, fuzzy
 msgid "Snapshots"
-msgstr "Snapshots van gegevens"
+msgstr "Snapshots"
 
 #: actions/siteadminpanel.php:357
 msgid "Randomly during Web hit"
@@ -3413,7 +3397,8 @@ msgid "Frequency"
 msgstr "Frequentie"
 
 #: actions/siteadminpanel.php:367
-msgid "Snapshots will be sent once every N Web hits"
+#, fuzzy
+msgid "Snapshots will be sent once every N web hits"
 msgstr "Iedere zoveel websitehits wordt een snapshot verzonden"
 
 #: actions/siteadminpanel.php:372
@@ -3425,55 +3410,54 @@ msgid "Snapshots will be sent to this URL"
 msgstr "Snapshots worden naar deze URL verzonden"
 
 #: actions/siteadminpanel.php:380
-#, fuzzy
 msgid "SSL"
-msgstr "SMS"
+msgstr "SSL"
 
 #: actions/siteadminpanel.php:384
-#, fuzzy
 msgid "Sometimes"
-msgstr "Mededelingen"
+msgstr "Soms"
 
 #: actions/siteadminpanel.php:385
-#, fuzzy
 msgid "Always"
-msgstr "Aliasen"
+msgstr "Altijd"
 
 #: actions/siteadminpanel.php:387
 msgid "Use SSL"
-msgstr ""
+msgstr "SSL gebruiken"
 
 #: actions/siteadminpanel.php:388
 msgid "When to use SSL"
-msgstr ""
+msgstr "Wanneer SSL gebruikt moet worden"
 
 #: actions/siteadminpanel.php:393
 msgid "SSL Server"
-msgstr ""
+msgstr "SSL-server"
 
 #: actions/siteadminpanel.php:394
 msgid "Server to direct SSL requests to"
-msgstr ""
+msgstr "De server waar SSL-verzoeken heen gestuurd moeten worden"
 
 #: actions/siteadminpanel.php:400
 msgid "Limits"
-msgstr ""
+msgstr "Limieten"
 
 #: actions/siteadminpanel.php:403
 msgid "Text limit"
-msgstr ""
+msgstr "Tekstlimiet"
 
 #: actions/siteadminpanel.php:403
 msgid "Maximum number of characters for notices."
-msgstr ""
+msgstr "Maximaal aantal te gebruiken tekens voor mededelingen."
 
 #: actions/siteadminpanel.php:407
 msgid "Dupe limit"
-msgstr ""
+msgstr "Duplicaatlimiet"
 
 #: actions/siteadminpanel.php:407
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
+"Hoe lang gebruikers moeten wachten (in seconden) voor ze hetzelfde kunnen "
+"zenden."
 
 #: actions/siteadminpanel.php:421 actions/useradminpanel.php:313
 msgid "Save site settings"
@@ -3803,16 +3787,16 @@ msgstr "Gebruikersinstellingen voor deze StatusNet-website."
 
 #: actions/useradminpanel.php:149
 msgid "Invalid bio limit. Must be numeric."
-msgstr ""
+msgstr "Ongeldige beschrijvingslimiet. Het moet een getal zijn."
 
 #: actions/useradminpanel.php:155
 msgid "Invalid welcome text. Max length is 255 characters."
-msgstr ""
+msgstr "Ongeldige welkomsttekst. De maximale lengte is 255 tekens."
 
 #: actions/useradminpanel.php:165
 #, php-format
 msgid "Invalid default subscripton: '%1$s' is not user."
-msgstr ""
+msgstr "Ongeldig standaardabonnement: \"%1$s\" is geen gebruiker."
 
 #: actions/useradminpanel.php:218 lib/accountsettingsaction.php:108
 #: lib/personalgroupnav.php:109
@@ -3821,70 +3805,63 @@ msgstr "Profiel"
 
 #: actions/useradminpanel.php:222
 msgid "Bio Limit"
-msgstr ""
+msgstr "Profiellimiet"
 
 #: actions/useradminpanel.php:223
 msgid "Maximum length of a profile bio in characters."
-msgstr ""
+msgstr "De maximale lengte van de profieltekst in tekens."
 
 #: actions/useradminpanel.php:231
-#, fuzzy
 msgid "New users"
-msgstr "Nieuwe gebruikers uitnodigen"
+msgstr "Nieuwe gebruikers"
 
 #: actions/useradminpanel.php:235
 msgid "New user welcome"
-msgstr ""
+msgstr "Welkom voor nieuwe gebruikers"
 
 #: actions/useradminpanel.php:236
 msgid "Welcome text for new users (Max 255 chars)."
-msgstr ""
+msgstr "Welkomsttekst voor nieuwe gebruikers. Maximaal 255 tekens."
 
 #: actions/useradminpanel.php:241
-#, fuzzy
 msgid "Default subscription"
-msgstr "Alle abonnementen"
+msgstr "Standaardabonnement"
 
 #: actions/useradminpanel.php:242
-#, fuzzy
 msgid "Automatically subscribe new users to this user."
-msgstr ""
-"Automatisch abonneren bij abonnement op mij (beste voor automatische "
-"processen)"
+msgstr "Nieuwe gebruikers automatisch op deze gebruiker abonneren"
 
 #: actions/useradminpanel.php:251
-#, fuzzy
 msgid "Invitations"
-msgstr "De uitnodiging(en) zijn verzonden"
+msgstr "Uitnodigingen"
 
 #: actions/useradminpanel.php:256
-#, fuzzy
 msgid "Invitations enabled"
-msgstr "De uitnodiging(en) zijn verzonden"
+msgstr "Uitnodigingen ingeschakeld"
 
 #: actions/useradminpanel.php:258
 msgid "Whether to allow users to invite new users."
-msgstr ""
+msgstr "Of gebruikers nieuwe gebruikers kunnen uitnodigen."
 
 #: actions/useradminpanel.php:265
 msgid "Sessions"
-msgstr ""
+msgstr "Sessies"
 
 #: actions/useradminpanel.php:270
 msgid "Handle sessions"
-msgstr ""
+msgstr "Sessieafhandeling"
 
 #: actions/useradminpanel.php:272
 msgid "Whether to handle sessions ourselves."
-msgstr ""
+msgstr "Of sessies door de software zelf afgehandeld moeten worden."
 
 #: actions/useradminpanel.php:276
 msgid "Session debugging"
-msgstr ""
+msgstr "Sessies debuggen"
 
 #: actions/useradminpanel.php:278
 msgid "Turn on debugging output for sessions."
-msgstr ""
+msgstr "Debuguitvoer voor sessies inschakelen."
 
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
@@ -4358,9 +4335,8 @@ msgid "Design configuration"
 msgstr "Instellingen vormgeving"
 
 #: lib/adminpanelaction.php:306 lib/adminpanelaction.php:309
-#, fuzzy
 msgid "Paths configuration"
-msgstr "Instellingen vormgeving"
+msgstr "Padinstellingen"
 
 #: lib/attachmentlist.php:87
 msgid "Attachments"
@@ -4826,7 +4802,7 @@ msgstr "Groepen met de meeste berichten"
 msgid "Tags in %s group's notices"
 msgstr "Labels in de groepsmededelingen van %s"
 
-#: lib/htmloutputter.php:104
+#: lib/htmloutputter.php:103
 msgid "This page is not available in a media type you accept"
 msgstr "Deze pagina is niet beschikbaar in een mediatype dat u accepteert"
 
@@ -4892,7 +4868,7 @@ msgstr ""
 "U hebt geen privéberichten. U kunt privéberichten verzenden aan andere "
 "gebruikers. Mensen kunnen u privéberichten sturen die alleen u kunt lezen."
 
-#: lib/mailbox.php:227 lib/noticelist.php:430
+#: lib/mailbox.php:227 lib/noticelist.php:448
 msgid "from"
 msgstr "van"
 
@@ -5246,19 +5222,19 @@ msgstr "Toevoegen"
 msgid "Attach a file"
 msgstr "Bestand toevoegen"
 
-#: lib/noticelist.php:402
+#: lib/noticelist.php:406
 msgid "at"
-msgstr ""
+msgstr "op"
 
-#: lib/noticelist.php:484
+#: lib/noticelist.php:502
 msgid "in context"
 msgstr "in context"
 
-#: lib/noticelist.php:504
+#: lib/noticelist.php:522
 msgid "Reply to this notice"
 msgstr "Op deze mededeling antwoorden"
 
-#: lib/noticelist.php:505
+#: lib/noticelist.php:523
 msgid "Reply"
 msgstr "Antwoorden"
 
@@ -5618,18 +5594,3 @@ msgstr "Dit is niet uw inkomende e-mailadres."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Inkomende e-mail is niet toegestaan."
-
-#, fuzzy
-#~ msgid "Avatar Settings"
-#~ msgstr "Avatarinstellingen"
-
-#~ msgid "Is registration on this site prohibited?"
-#~ msgstr "Moet registreren bij deze website onmogelijk zijn?"
-
-#~ msgid "Invite-only"
-#~ msgstr "Alleen op uitnodiging"
-
-#~ msgid "Is registration on this site only open to invited users?"
-#~ msgstr ""
-#~ "Moet registratie bij deze website alleen mogelijk zijn voor gebruikers "
-#~ "met een uitnodiging?"

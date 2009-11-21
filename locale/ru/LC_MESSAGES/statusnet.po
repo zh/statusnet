@@ -9,16 +9,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-20 10:23+0000\n"
-"PO-Revision-Date: 2009-11-20 10:24:17+0000\n"
+"POT-Creation-Date: 2009-11-21 11:33+0000\n"
+"PO-Revision-Date: 2009-11-21 11:34:19+0000\n"
 "Language-Team: Russian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10< =4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: MediaWiki 1.16alpha(r59282); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59306); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ru\n"
 "X-Message-Group: out-statusnet\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10< =4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
 #: actions/showfavorites.php:137 actions/tag.php:51
@@ -81,6 +81,7 @@ msgstr "Лента друзей %s (Atom)"
 msgid ""
 "This is the timeline for %s and friends but no one has posted anything yet."
 msgstr ""
+"Это временная шкала для %s и друзей, однако пока никто ничего не отправил."
 
 #: actions/all.php:132
 #, php-format
@@ -88,6 +89,8 @@ msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
 "something yourself."
 msgstr ""
+"Попробуйте подписаться на большее число людей, [присоединитесь к группе](%%"
+"action.groups%%) или отправьте что-нибудь сами."
 
 #: actions/all.php:134
 #, php-format
@@ -137,7 +140,7 @@ msgstr "Этот метод требует POST."
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
 "none"
-msgstr ""
+msgstr "Укажите параметр с именем 'device' и значением sms, im или none."
 
 #: actions/apiaccountupdatedeliverydevice.php:132
 #, fuzzy
@@ -154,6 +157,8 @@ msgid ""
 "The server was unable to handle that much POST data (%s bytes) due to its "
 "current configuration."
 msgstr ""
+"Сервер не смог обработать столько POST-данных (%s байт) из-за текущей "
+"конфигурации."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:136
 #: actions/apiaccountupdateprofilebackgroundimage.php:146
@@ -196,9 +201,9 @@ msgid "No message text!"
 msgstr "Отсутствует текст сообщения!"
 
 #: actions/apidirectmessagenew.php:135 actions/newmessage.php:150
-#, fuzzy, php-format
+#, php-format
 msgid "That's too long. Max message size is %d chars."
-msgstr "Слишком длинно. Максимальная длина сообщения - 140 знаков."
+msgstr "Слишком длинно. Максимальная длина сообщения — %d знаков."
 
 #: actions/apidirectmessagenew.php:146
 msgid "Recipient user not found."
@@ -287,7 +292,7 @@ msgstr ""
 
 #: actions/apifriendshipsdestroy.php:120
 msgid "You cannot unfollow yourself!"
-msgstr ""
+msgstr "Вы не можете перестать следовать за собой!"
 
 #: actions/apifriendshipsexists.php:94
 msgid "Two user ids or screen_names must be supplied."
@@ -381,18 +386,18 @@ msgid "You have been blocked from that group by the admin."
 msgstr ""
 
 #: actions/apigroupjoin.php:138
-#, fuzzy, php-format
+#, php-format
 msgid "Could not join user %s to group %s."
-msgstr "Не удаётся присоеденить пользователя %s к группе %s"
+msgstr "Не удаётся присоединить пользователя %s к группе %s."
 
 #: actions/apigroupleave.php:114
 msgid "You are not a member of this group."
 msgstr "Вы не являетесь членом этой группы."
 
 #: actions/apigroupleave.php:124
-#, fuzzy, php-format
+#, php-format
 msgid "Could not remove user %s to group %s."
-msgstr "Не удаётся удалить пользователя %s из группы %s"
+msgstr "Не удаётся удалить пользователя %s из группы %s."
 
 #: actions/apigrouplistall.php:90 actions/usergroups.php:62
 #, php-format
@@ -400,9 +405,9 @@ msgid "%s groups"
 msgstr "Группы %s"
 
 #: actions/apigrouplistall.php:94
-#, fuzzy, php-format
+#, php-format
 msgid "groups on %s"
-msgstr "Действия группы"
+msgstr "группы на %s"
 
 #: actions/apigrouplist.php:95
 #, php-format
@@ -554,7 +559,7 @@ msgid "Preview"
 msgstr "Просмотр"
 
 #: actions/avatarsettings.php:148 lib/deleteuserform.php:66
-#: lib/noticelist.php:528
+#: lib/noticelist.php:546
 msgid "Delete"
 msgstr "Удалить"
 
@@ -633,9 +638,8 @@ msgid "%s blocked profiles, page %d"
 msgstr "%s и друзья, страница %d"
 
 #: actions/blockedfromgroup.php:108
-#, fuzzy
 msgid "A list of the users blocked from joining this group."
-msgstr "Список пользователей, являющихся членами этой группы."
+msgstr "Список пользователей, заблокированных от присоединения к этой группе."
 
 #: actions/blockedfromgroup.php:281
 msgid "Unblock user from group"
@@ -663,6 +667,9 @@ msgid ""
 "unsubscribed from you, unable to subscribe to you in the future, and you "
 "will not be notified of any @-replies from them."
 msgstr ""
+"Вы действительно хотите заблокировать этого пользователя? После этого он "
+"будет отписан от вас без возможности подписаться в будущем, а вам не будут "
+"приходить уведомления об @-ответах от него."
 
 #: actions/block.php:143 actions/deletenotice.php:145
 #: actions/deleteuser.php:147 actions/groupblock.php:178
@@ -687,9 +694,8 @@ msgid "Failed to save block information."
 msgstr "Не удаётся сохранить информацию о блокировании."
 
 #: actions/bookmarklet.php:50
-#, fuzzy
 msgid "Post to "
-msgstr "Фото"
+msgstr "Отправить в "
 
 #: actions/confirmaddress.php:75
 msgid "No confirmation code."
@@ -761,7 +767,6 @@ msgid "Can't delete this notice."
 msgstr "Не удаётся удалить эту запись."
 
 #: actions/deletenotice.php:103
-#, fuzzy
 msgid ""
 "You are about to permanently delete a notice. Once this is done, it cannot "
 "be undone."
@@ -781,14 +786,13 @@ msgstr "Вы уверены, что хотите удалить эту запи�
 msgid "Do not delete this notice"
 msgstr "Не удалять эту запись"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:528
+#: actions/deletenotice.php:146 lib/noticelist.php:546
 msgid "Delete this notice"
 msgstr "Удалить эту запись"
 
 #: actions/deletenotice.php:157
-#, fuzzy
 msgid "There was a problem with your session token.  Try again, please."
-msgstr "Проблема с Вашей сессией. Попробуйте ещё раз, пожалуйста."
+msgstr "Проблема с вашим ключом сессии.  Пожалуйста, попробуйте ещё раз."
 
 #: actions/deleteuser.php:67
 msgid "You cannot delete users."
@@ -824,9 +828,8 @@ msgid "Design settings for this StatusNet site."
 msgstr "Настройки оформления для этого сайта StatusNet."
 
 #: actions/designadminpanel.php:270
-#, fuzzy
 msgid "Invalid logo URL."
-msgstr "Неверный размер."
+msgstr "Неверный URL логотипа."
 
 #: actions/designadminpanel.php:274
 #, php-format
@@ -834,23 +837,20 @@ msgid "Theme not available: %s"
 msgstr "Тема не доступна: %s"
 
 #: actions/designadminpanel.php:370
-#, fuzzy
 msgid "Change logo"
-msgstr "Изменение цветовой гаммы"
+msgstr "Изменить логотип"
 
 #: actions/designadminpanel.php:375
-#, fuzzy
 msgid "Site logo"
-msgstr "Пригласить"
+msgstr "Логотип сайта"
 
 #: actions/designadminpanel.php:382
 msgid "Change theme"
 msgstr "Изменить тему"
 
 #: actions/designadminpanel.php:399
-#, fuzzy
 msgid "Site theme"
-msgstr "Новая запись"
+msgstr "Тема сайта"
 
 #: actions/designadminpanel.php:400
 msgid "Theme for the site."
@@ -1073,11 +1073,10 @@ msgstr ""
 "приватное сообщение."
 
 #: actions/emailsettings.php:174
-#, fuzzy
 msgid "Send me email when someone sends me an \"@-reply\"."
 msgstr ""
-"Посылать мне сообщение по электронной почте, если кто-нибудь пошлёт мне "
-"приватное сообщение."
+"Посылать мне сообщение по электронной почте, если кто-нибудь пошлёт мне «@-"
+"ответ»."
 
 #: actions/emailsettings.php:179
 msgid "Allow friends to nudge me and send me an email."
@@ -1257,9 +1256,8 @@ msgid "Not expecting this response!"
 msgstr "Неожиданный ответ!"
 
 #: actions/finishremotesubscribe.php:80
-#, fuzzy
 msgid "User being listened to does not exist."
-msgstr "Пользователь отслеживает несуществующее."
+msgstr "Указанный пользователь не существует."
 
 #: actions/finishremotesubscribe.php:87 actions/remotesubscribe.php:59
 msgid "You can use the local subscription!"
@@ -1274,9 +1272,8 @@ msgid "You are not authorized."
 msgstr "Вы не авторизованы."
 
 #: actions/finishremotesubscribe.php:109
-#, fuzzy
 msgid "Could not convert request token to access token."
-msgstr "Не удаётся преобразовать запросы в доступы."
+msgstr "Не удаётся преобразовать ключ запроса в ключ доступа."
 
 #: actions/finishremotesubscribe.php:114
 msgid "Remote service uses unknown version of OMB protocol."
@@ -1322,19 +1319,16 @@ msgid "Only an admin can block group members."
 msgstr ""
 
 #: actions/groupblock.php:95
-#, fuzzy
 msgid "User is already blocked from group."
-msgstr "Пользователь заблокировал Вас."
+msgstr "Пользователь уже заблокирован из группы."
 
 #: actions/groupblock.php:100
-#, fuzzy
 msgid "User is not a member of group."
-msgstr "Вы не являетесь членом этой группы."
+msgstr "Пользователь не является членом этой группы."
 
 #: actions/groupblock.php:136 actions/groupmembers.php:314
-#, fuzzy
 msgid "Block user from group"
-msgstr "Заблокировать пользователя."
+msgstr "Заблокировать пользователя из группы."
 
 #: actions/groupblock.php:162
 #, php-format
@@ -1350,13 +1344,12 @@ msgid "Do not block this user from this group"
 msgstr "Список пользователей, являющихся членами этой группы."
 
 #: actions/groupblock.php:179
-#, fuzzy
 msgid "Block this user from this group"
-msgstr "Список пользователей, являющихся членами этой группы."
+msgstr "Заблокировать этого пользователя из этой группы"
 
 #: actions/groupblock.php:196
 msgid "Database error blocking user from group."
-msgstr ""
+msgstr "Ошибка базы данных при блокировании пользователя из группы."
 
 #: actions/groupbyid.php:74
 msgid "No ID"
@@ -1386,14 +1379,12 @@ msgstr "Не удаётся обновить пользователя."
 #: actions/groupdesignsettings.php:286 actions/groupdesignsettings.php:296
 #: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
 #: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
-#, fuzzy
 msgid "Unable to save your design settings!"
-msgstr "Не удаётся сохранить Ваши установки по Твиттеру!"
+msgstr "Не удаётся сохранить ваши настройки оформления!"
 
 #: actions/groupdesignsettings.php:307 actions/userdesignsettings.php:231
-#, fuzzy
 msgid "Design preferences saved."
-msgstr "Настройки синхронизации сохранены."
+msgstr "Настройки оформления сохранены."
 
 #: actions/grouplogo.php:139 actions/grouplogo.php:192
 msgid "Group logo"
@@ -1441,18 +1432,16 @@ msgid "Block"
 msgstr "Блокировать"
 
 #: actions/groupmembers.php:441
-#, fuzzy
 msgid "Make user an admin of the group"
-msgstr "Вы должны быть администратором, чтобы изменять информацию о группе"
+msgstr "Сделать пользователя администратором группы"
 
 #: actions/groupmembers.php:473
-#, fuzzy
 msgid "Make Admin"
-msgstr "Настройки"
+msgstr "Сделать администратором"
 
 #: actions/groupmembers.php:473
 msgid "Make this user an admin"
-msgstr ""
+msgstr "Сделать этого пользователя администратором"
 
 #: actions/grouprss.php:133
 #, fuzzy, php-format
@@ -1517,12 +1506,11 @@ msgstr "Создать новую группу"
 
 #: actions/groupunblock.php:91
 msgid "Only an admin can unblock group members."
-msgstr ""
+msgstr "Только администратор может разблокировать участников группы."
 
 #: actions/groupunblock.php:95
-#, fuzzy
 msgid "User is not blocked from group."
-msgstr "Пользователь заблокировал Вас."
+msgstr "Пользователь не заблокировал вас из группы."
 
 #: actions/groupunblock.php:128 actions/unblock.php:77
 msgid "Error removing the block."
@@ -1542,9 +1530,8 @@ msgstr ""
 "(%%doc.im%%). Настройте ваш аккаунт и предпочтения ниже."
 
 #: actions/imsettings.php:89
-#, fuzzy
 msgid "IM is not available."
-msgstr "Страница недоступна для того типа, который Вы задействовали."
+msgstr "IM не доступен."
 
 #: actions/imsettings.php:106
 msgid "Current confirmed Jabber/GTalk address."
@@ -1670,7 +1657,7 @@ msgstr "Вы уже подписаны на пользователя:"
 #: actions/invite.php:131 actions/invite.php:139
 #, php-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #: actions/invite.php:136
 msgid ""
@@ -1789,7 +1776,7 @@ msgstr "Вы уже являетесь членом этой группы"
 #: actions/joingroup.php:128 lib/command.php:234
 #, php-format
 msgid "Could not join user %s to group %s"
-msgstr "Не удаётся присоеденить пользователя %s к группе %s"
+msgstr "Не удаётся присоединить пользователя %s к группе %s"
 
 #: actions/joingroup.php:135 lib/command.php:239
 #, php-format
@@ -1820,7 +1807,7 @@ msgstr "%s покинул группу %s"
 
 #: actions/login.php:79 actions/register.php:137
 msgid "Already logged in."
-msgstr "Уже авторизован."
+msgstr "Вы уже авторизовались."
 
 #: actions/login.php:110 actions/login.php:120
 #, fuzzy
@@ -1889,6 +1876,7 @@ msgstr ""
 #: actions/makeadmin.php:91
 msgid "Only an admin can make another user an admin."
 msgstr ""
+"Только администратор может сделать другого пользователя администратором."
 
 #: actions/makeadmin.php:95
 #, php-format
@@ -1903,7 +1891,7 @@ msgstr ""
 #: actions/makeadmin.php:145
 #, php-format
 msgid "Can't make %s an admin for group %s"
-msgstr ""
+msgstr "Невозможно сделать %s администратором группы %s"
 
 #: actions/microsummary.php:69
 msgid "No current status"
@@ -1976,7 +1964,7 @@ msgstr "Поиск текста"
 #: actions/noticesearch.php:91
 #, php-format
 msgid "Search results for \"%s\" on %s"
-msgstr ""
+msgstr "Результаты поиска для «%s» на %s"
 
 #: actions/noticesearch.php:121
 #, php-format
@@ -1992,12 +1980,12 @@ msgid ""
 "[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
 msgstr ""
 
-#: actions/noticesearchrss.php:89
+#: actions/noticesearchrss.php:96
 #, fuzzy, php-format
 msgid "Updates with \"%s\""
 msgstr "Обновлено от %1$s на %2$s!"
 
-#: actions/noticesearchrss.php:91
+#: actions/noticesearchrss.php:98
 #, php-format
 msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Все обновления, соответствующие поисковому запросу «%s»"
@@ -2027,9 +2015,8 @@ msgid "%1$s's status on %2$s"
 msgstr ""
 
 #: actions/oembed.php:157
-#, fuzzy
 msgid "content type "
-msgstr "Соединить"
+msgstr "тип содержимого "
 
 #: actions/oembed.php:160
 msgid "Only "
@@ -2058,7 +2045,7 @@ msgstr "Управление другими опциями."
 
 #: actions/othersettings.php:108
 msgid " (free service)"
-msgstr ""
+msgstr " (бесплатный сервис)"
 
 #: actions/othersettings.php:116
 msgid "Shorten URLs with"
@@ -2159,7 +2146,7 @@ msgstr "Пароль сохранён."
 
 #: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:308
 msgid "Paths"
-msgstr ""
+msgstr "Пути"
 
 #: actions/pathsadminpanel.php:70
 #, fuzzy
@@ -2193,12 +2180,11 @@ msgstr "Сайт"
 
 #: actions/pathsadminpanel.php:216
 msgid "Path"
-msgstr ""
+msgstr "Путь"
 
 #: actions/pathsadminpanel.php:216
-#, fuzzy
 msgid "Site path"
-msgstr "Новая запись"
+msgstr "Путь к сайту"
 
 #: actions/pathsadminpanel.php:220
 msgid "Path to locales"
@@ -2210,7 +2196,7 @@ msgstr ""
 
 #: actions/pathsadminpanel.php:227
 msgid "Theme"
-msgstr ""
+msgstr "Тема"
 
 #: actions/pathsadminpanel.php:232
 msgid "Theme server"
@@ -2225,9 +2211,8 @@ msgid "Theme directory"
 msgstr ""
 
 #: actions/pathsadminpanel.php:247
-#, fuzzy
 msgid "Avatars"
-msgstr "Аватар"
+msgstr "Аватары"
 
 #: actions/pathsadminpanel.php:252
 #, fuzzy
@@ -2245,29 +2230,24 @@ msgid "Avatar directory"
 msgstr "Аватар удалён."
 
 #: actions/pathsadminpanel.php:269
-#, fuzzy
 msgid "Backgrounds"
-msgstr "Фон"
+msgstr "Фоновые изображения"
 
 #: actions/pathsadminpanel.php:273
-#, fuzzy
 msgid "Background server"
-msgstr "Фон"
+msgstr "Сервер фонового изображения"
 
 #: actions/pathsadminpanel.php:277
-#, fuzzy
 msgid "Background path"
-msgstr "Фон"
+msgstr "Путь к фоновому изображению"
 
 #: actions/pathsadminpanel.php:281
-#, fuzzy
 msgid "Background directory"
-msgstr "Фон"
+msgstr "Директория фонового изображения"
 
 #: actions/pathsadminpanel.php:297
-#, fuzzy
 msgid "Save paths"
-msgstr "Новая запись"
+msgstr "Сохранить пути"
 
 #: actions/peoplesearch.php:52
 #, php-format
@@ -2299,7 +2279,7 @@ msgstr "Неверный контент записи"
 #: actions/postnotice.php:90
 #, php-format
 msgid "Notice license ‘%s’ is not compatible with site license ‘%s’."
-msgstr ""
+msgstr "Лицензия записи «%s» не совместима с лицензией сайта «%s»."
 
 #: actions/profilesettings.php:60
 msgid "Profile settings"
@@ -2430,7 +2410,7 @@ msgstr "Настройки сохранены."
 #: actions/public.php:83
 #, php-format
 msgid "Beyond the page limit (%s)"
-msgstr ""
+msgstr "Превышен предел страницы (%s)"
 
 #: actions/public.php:92
 msgid "Could not retrieve public stream."
@@ -2561,10 +2541,12 @@ msgid ""
 "If you have forgotten or lost your password, you can get a new one sent to "
 "the email address you have stored in your account."
 msgstr ""
+"Если вы забыли или потеряли свой пароль, вы можете запросить новый пароль на "
+"email-адрес вашей учётной записи."
 
 #: actions/recoverpassword.php:158
 msgid "You have been identified. Enter a new password below. "
-msgstr ""
+msgstr "Вы опознаны системой. Введите новый пароль ниже. "
 
 #: actions/recoverpassword.php:188
 msgid "Password recovery"
@@ -2804,9 +2786,8 @@ msgid "Remote subscribe"
 msgstr "Подписаться на пользователя"
 
 #: actions/remotesubscribe.php:124
-#, fuzzy
 msgid "Subscribe to a remote user"
-msgstr "Подписаться на %s"
+msgstr "Подписаться на удалённого пользователя"
 
 #: actions/remotesubscribe.php:129
 msgid "User nickname"
@@ -3008,9 +2989,9 @@ msgid "Notice feed for %s group (Atom)"
 msgstr "Лента записей группы %s (Atom)"
 
 #: actions/showgroup.php:345
-#, fuzzy, php-format
+#, php-format
 msgid "FOAF for %s group"
-msgstr "Исходящие для %s"
+msgstr "FOAF для группы %s"
 
 #: actions/showgroup.php:381 actions/showgroup.php:438 lib/groupnav.php:91
 msgid "Members"
@@ -3087,9 +3068,8 @@ msgid "Message from %1$s on %2$s"
 msgstr "Сообщение от %1$s на %2$s"
 
 #: actions/shownotice.php:90
-#, fuzzy
 msgid "Notice deleted."
-msgstr "Запись опубликована"
+msgstr "Запись удалена."
 
 #: actions/showstream.php:73
 #, fuzzy, php-format
@@ -3122,9 +3102,9 @@ msgid "Notice feed for %s (Atom)"
 msgstr "Лента записей для %s (Atom)"
 
 #: actions/showstream.php:148
-#, fuzzy, php-format
+#, php-format
 msgid "FOAF for %s"
-msgstr "Исходящие для %s"
+msgstr "FOAF для %s"
 
 #: actions/showstream.php:191
 #, php-format
@@ -3183,7 +3163,7 @@ msgstr "Пользователь заблокировал Вас."
 
 #: actions/siteadminpanel.php:69
 msgid "Basic settings for this StatusNet site."
-msgstr ""
+msgstr "Основные настройки для этого сайта StatusNet."
 
 #: actions/siteadminpanel.php:147
 msgid "Site name must have non-zero length."
@@ -3197,7 +3177,7 @@ msgstr "Неверный электронный адрес"
 #: actions/siteadminpanel.php:173
 #, php-format
 msgid "Unknown language \"%s\""
-msgstr ""
+msgstr "Неизвестный язык «%s»"
 
 #: actions/siteadminpanel.php:180
 msgid "Invalid snapshot report URL."
@@ -3212,15 +3192,15 @@ msgid "Snapshot frequency must be a number."
 msgstr ""
 
 #: actions/siteadminpanel.php:199
-msgid "You must set an SSL sever when enabling SSL."
+msgid "You must set an SSL server when enabling SSL."
 msgstr ""
 
 #: actions/siteadminpanel.php:204
-msgid "Invalid SSL server. Max length is 255 characters."
+msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr ""
 
 #: actions/siteadminpanel.php:210
-msgid "Minimum text limit is 140c."
+msgid "Minimum text limit is 140 characters."
 msgstr ""
 
 #: actions/siteadminpanel.php:216
@@ -3256,7 +3236,8 @@ msgid "URL used for credits link in footer of each page"
 msgstr ""
 
 #: actions/siteadminpanel.php:284
-msgid "contact email address for your site"
+#, fuzzy
+msgid "Contact email address for your site"
 msgstr "контактный email-адрес для вашего сайта"
 
 #: actions/siteadminpanel.php:290
@@ -3288,7 +3269,7 @@ msgstr "Восстановление"
 
 #: actions/siteadminpanel.php:319
 msgid "Site's server hostname."
-msgstr ""
+msgstr "Имя хоста сервера сайта."
 
 #: actions/siteadminpanel.php:323
 msgid "Fancy URLs"
@@ -3313,9 +3294,8 @@ msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr ""
 
 #: actions/siteadminpanel.php:340
-#, fuzzy
 msgid "Invite only"
-msgstr "Пригласить"
+msgstr "Только по приглашениям"
 
 #: actions/siteadminpanel.php:342
 msgid "Make registration invitation only."
@@ -3327,7 +3307,7 @@ msgstr "Закрыта"
 
 #: actions/siteadminpanel.php:348
 msgid "Disable new registrations."
-msgstr ""
+msgstr "Отключить новые регистрации."
 
 #: actions/siteadminpanel.php:354
 msgid "Snapshots"
@@ -3355,10 +3335,10 @@ msgstr ""
 
 #: actions/siteadminpanel.php:366
 msgid "Frequency"
-msgstr ""
+msgstr "Частота"
 
 #: actions/siteadminpanel.php:367
-msgid "Snapshots will be sent once every N Web hits"
+msgid "Snapshots will be sent once every N web hits"
 msgstr ""
 
 #: actions/siteadminpanel.php:372
@@ -3370,34 +3350,32 @@ msgid "Snapshots will be sent to this URL"
 msgstr ""
 
 #: actions/siteadminpanel.php:380
-#, fuzzy
 msgid "SSL"
-msgstr "СМС"
+msgstr "SSL"
 
 #: actions/siteadminpanel.php:384
-#, fuzzy
 msgid "Sometimes"
-msgstr "Записи"
+msgstr "Иногда"
 
 #: actions/siteadminpanel.php:385
 msgid "Always"
-msgstr ""
+msgstr "Всегда"
 
 #: actions/siteadminpanel.php:387
 msgid "Use SSL"
-msgstr ""
+msgstr "Использовать SSL"
 
 #: actions/siteadminpanel.php:388
 msgid "When to use SSL"
-msgstr ""
+msgstr "Когда использовать SSL"
 
 #: actions/siteadminpanel.php:393
 msgid "SSL Server"
-msgstr ""
+msgstr "SSL-сервер"
 
 #: actions/siteadminpanel.php:394
 msgid "Server to direct SSL requests to"
-msgstr ""
+msgstr "Сервер, которому направлять SSL-запросы"
 
 #: actions/siteadminpanel.php:400
 msgid "Limits"
@@ -3674,19 +3652,19 @@ msgid "Notices tagged with %s, page %d"
 msgstr "Записи, помеченные %s, страница %d"
 
 #: actions/tag.php:86
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for tag %s (RSS 1.0)"
-msgstr "Лента записей для %s"
+msgstr "Лента записей для тега %s (RSS 1.0)"
 
 #: actions/tag.php:92
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for tag %s (RSS 2.0)"
-msgstr "Лента записей для %s"
+msgstr "Лента записей для тега %s (RSS 2.0)"
 
 #: actions/tag.php:98
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for tag %s (Atom)"
-msgstr "Лента записей для %s"
+msgstr "Лента записей для тега %s (Atom)"
 
 #: actions/tagrss.php:35
 msgid "No such tag."
@@ -3763,22 +3741,20 @@ msgid "Maximum length of a profile bio in characters."
 msgstr ""
 
 #: actions/useradminpanel.php:231
-#, fuzzy
 msgid "New users"
-msgstr "Пригласить новых пользователей"
+msgstr "Новые пользователи"
 
 #: actions/useradminpanel.php:235
 msgid "New user welcome"
-msgstr ""
+msgstr "Приветствие новым пользователям"
 
 #: actions/useradminpanel.php:236
 msgid "Welcome text for new users (Max 255 chars)."
 msgstr ""
 
 #: actions/useradminpanel.php:241
-#, fuzzy
 msgid "Default subscription"
-msgstr "Все подписки."
+msgstr "Подписка по умолчанию"
 
 #: actions/useradminpanel.php:242
 #, fuzzy
@@ -3786,26 +3762,24 @@ msgid "Automatically subscribe new users to this user."
 msgstr "Автоматически подписываться на всех, кто подписался на меня"
 
 #: actions/useradminpanel.php:251
-#, fuzzy
 msgid "Invitations"
-msgstr "Приглашение(я) отослано(ы)"
+msgstr "Приглашения"
 
 #: actions/useradminpanel.php:256
-#, fuzzy
 msgid "Invitations enabled"
-msgstr "Приглашение(я) отослано(ы)"
+msgstr "Приглашения включены"
 
 #: actions/useradminpanel.php:258
 msgid "Whether to allow users to invite new users."
-msgstr ""
+msgstr "Разрешать ли пользователям приглашать новых пользователей."
 
 #: actions/useradminpanel.php:265
 msgid "Sessions"
-msgstr ""
+msgstr "Сессии"
 
 #: actions/useradminpanel.php:270
 msgid "Handle sessions"
-msgstr ""
+msgstr "Управление сессиями"
 
 #: actions/useradminpanel.php:272
 msgid "Whether to handle sessions ourselves."
@@ -3813,11 +3787,11 @@ msgstr ""
 
 #: actions/useradminpanel.php:276
 msgid "Session debugging"
-msgstr ""
+msgstr "Отладка сессий"
 
 #: actions/useradminpanel.php:278
 msgid "Turn on debugging output for sessions."
-msgstr ""
+msgstr "Включить отладочный вывод для сессий."
 
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
@@ -3835,9 +3809,8 @@ msgstr ""
 "\"."
 
 #: actions/userauthorization.php:188
-#, fuzzy
 msgid "License"
-msgstr "лицензия."
+msgstr "Лицензия"
 
 #: actions/userauthorization.php:209
 msgid "Accept"
@@ -3853,9 +3826,8 @@ msgid "Reject"
 msgstr "Отбросить"
 
 #: actions/userauthorization.php:212
-#, fuzzy
 msgid "Reject this subscription"
-msgstr "Подписки %s"
+msgstr "Отвергнуть эту подписку"
 
 #: actions/userauthorization.php:225
 msgid "No authorization request!"
@@ -3981,9 +3953,8 @@ msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
 
 #: classes/Message.php:45
-#, fuzzy
 msgid "You are banned from sending direct messages."
-msgstr "Ошибка при отправке прямого сообщения."
+msgstr "Вы заблокированы от отправки прямых сообщений."
 
 #: classes/Message.php:61
 msgid "Could not insert message."
@@ -4045,9 +4016,9 @@ msgid "Could not set group membership."
 msgstr "Не удаётся назначить членство в группе."
 
 #: classes/User.php:347
-#, fuzzy, php-format
+#, php-format
 msgid "Welcome to %1$s, @%2$s!"
-msgstr "Сообщение для %1$s на %2$s"
+msgstr "Добро пожаловать на %1$s, %2$s!"
 
 #: lib/accountsettingsaction.php:108
 msgid "Change your profile settings"
@@ -4236,9 +4207,8 @@ msgstr ""
 "licenses/agpl-3.0.html)."
 
 #: lib/action.php:790
-#, fuzzy
 msgid "Site content license"
-msgstr "StatusNet лицензия"
+msgstr "Лицензия содержимого сайта"
 
 #: lib/action.php:799
 msgid "All "
@@ -4296,11 +4266,11 @@ msgstr "Подтверждение СМС"
 
 #: lib/attachmentlist.php:87
 msgid "Attachments"
-msgstr ""
+msgstr "Вложения"
 
 #: lib/attachmentlist.php:265
 msgid "Author"
-msgstr ""
+msgstr "Автор"
 
 #: lib/attachmentlist.php:278
 #, fuzzy
@@ -4405,9 +4375,9 @@ msgid "Notice too long - maximum is %d characters, you sent %d"
 msgstr "Сообщение слишком длинное - не больше 140 символов, Вы посылаете %d"
 
 #: lib/command.php:439
-#, fuzzy, php-format
+#, php-format
 msgid "Reply to %s sent"
-msgstr "Ответить на эту запись"
+msgstr "Ответ %s отправлен"
 
 #: lib/command.php:441
 #, fuzzy
@@ -4463,9 +4433,8 @@ msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
 #: lib/command.php:618
-#, fuzzy
 msgid "You are not subscribed to anyone."
-msgstr "Вы не подписаны на этот профиль."
+msgstr "Вы ни на кого не подписаны."
 
 #: lib/command.php:620
 #, fuzzy
@@ -4538,9 +4507,8 @@ msgid ""
 msgstr ""
 
 #: lib/common.php:199
-#, fuzzy
 msgid "No configuration file found. "
-msgstr "Нет кода подтверждения."
+msgstr "Конфигурационный файл не найден. "
 
 #: lib/common.php:200
 msgid "I looked for configuration files in the following places: "
@@ -4551,9 +4519,8 @@ msgid "You may wish to run the installer to fix this."
 msgstr ""
 
 #: lib/common.php:202
-#, fuzzy
 msgid "Go to the installer."
-msgstr "Войти"
+msgstr "Перейти к установщику"
 
 #: lib/connectsettingsaction.php:110
 msgid "IM"
@@ -4608,19 +4575,19 @@ msgstr "Экспорт потока записей"
 
 #: lib/feed.php:85
 msgid "RSS 1.0"
-msgstr ""
+msgstr "RSS 1.0"
 
 #: lib/feed.php:87
 msgid "RSS 2.0"
-msgstr ""
+msgstr "RSS 2.0"
 
 #: lib/feed.php:89
 msgid "Atom"
-msgstr ""
+msgstr "Atom"
 
 #: lib/feed.php:91
 msgid "FOAF"
-msgstr ""
+msgstr "FOAF"
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"
@@ -4631,9 +4598,8 @@ msgid "All"
 msgstr "Все"
 
 #: lib/galleryaction.php:139
-#, fuzzy
 msgid "Select tag to filter"
-msgstr "Выбор провайдера"
+msgstr "Выберите тег для фильтрации"
 
 #: lib/galleryaction.php:140
 msgid "Tag"
@@ -4641,7 +4607,7 @@ msgstr "Теги"
 
 #: lib/galleryaction.php:141
 msgid "Choose a tag to narrow list"
-msgstr "Выберите тэг из выпадающего списка"
+msgstr "Выберите тег из выпадающего списка"
 
 #: lib/galleryaction.php:143
 msgid "Go"
@@ -4720,7 +4686,7 @@ msgstr "Группы с наибольшим количеством записе
 msgid "Tags in %s group's notices"
 msgstr "Теги записей группы %s"
 
-#: lib/htmloutputter.php:104
+#: lib/htmloutputter.php:103
 msgid "This page is not available in a media type you accept"
 msgstr "Страница недоступна для того типа, который Вы задействовали."
 
@@ -4784,7 +4750,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:430
+#: lib/mailbox.php:227 lib/noticelist.php:448
 msgid "from"
 msgstr "от "
 
@@ -4929,9 +4895,9 @@ msgid ""
 msgstr ""
 
 #: lib/mail.php:559
-#, fuzzy, php-format
+#, php-format
 msgid "%s (@%s) added your notice as a favorite"
-msgstr "%s добавил вашу запись в состав своих любимых"
+msgstr "%s (@%s) добавил вашу запись в число своих любимых"
 
 #: lib/mail.php:561
 #, php-format
@@ -5049,26 +5015,26 @@ msgstr "Что нового, %s?"
 
 #: lib/noticeform.php:193
 msgid "Attach"
-msgstr ""
+msgstr "Прикрепить"
 
 #: lib/noticeform.php:197
 msgid "Attach a file"
-msgstr ""
+msgstr "Прикрепить файл"
 
-#: lib/noticelist.php:402
+#: lib/noticelist.php:406
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:484
+#: lib/noticelist.php:502
 #, fuzzy
 msgid "in context"
 msgstr "Нет контента!"
 
-#: lib/noticelist.php:504
+#: lib/noticelist.php:522
 msgid "Reply to this notice"
 msgstr "Ответить на эту запись"
 
-#: lib/noticelist.php:505
+#: lib/noticelist.php:523
 msgid "Reply"
 msgstr "Ответить"
 
@@ -5097,9 +5063,8 @@ msgid "Error inserting remote profile"
 msgstr "Ошибка вставки удалённого профиля"
 
 #: lib/oauthstore.php:345
-#, fuzzy
 msgid "Duplicate notice"
-msgstr "Удалить запись"
+msgstr "Дублировать запись"
 
 #: lib/oauthstore.php:466 lib/subs.php:48
 msgid "You have been banned from subscribing."
@@ -5176,7 +5141,7 @@ msgstr "Нет аргумента return-to."
 
 #: lib/profileformaction.php:137
 msgid "unimplemented method"
-msgstr ""
+msgstr "нереализованный метод"
 
 #: lib/publicgroupnav.php:78
 msgid "Public"
@@ -5188,7 +5153,7 @@ msgstr "Группы"
 
 #: lib/publicgroupnav.php:84 lib/publicgroupnav.php:85
 msgid "Recent tags"
-msgstr "Облаго тэгов"
+msgstr "Облако тегов"
 
 #: lib/publicgroupnav.php:88
 msgid "Featured"
@@ -5209,14 +5174,12 @@ msgid "Sandbox this user"
 msgstr "Разблокировать пользователя."
 
 #: lib/searchaction.php:120
-#, fuzzy
 msgid "Search site"
-msgstr "Поиск"
+msgstr "Поиск по сайту"
 
 #: lib/searchaction.php:162
-#, fuzzy
 msgid "Search help"
-msgstr "Поиск"
+msgstr "Справка по поиску"
 
 #: lib/searchgroupnav.php:80
 msgid "People"
@@ -5312,7 +5275,7 @@ msgstr "Не удаётся удалить подписку."
 
 #: lib/tagcloudsection.php:56
 msgid "None"
-msgstr "Нет тэгов"
+msgstr "Нет тегов"
 
 #: lib/topposterssection.php:74
 msgid "Top posters"
@@ -5345,9 +5308,8 @@ msgid "Unsubscribe"
 msgstr "Отписаться"
 
 #: lib/userprofile.php:116
-#, fuzzy
 msgid "Edit Avatar"
-msgstr "Аватар"
+msgstr "Изменить аватар"
 
 #: lib/userprofile.php:236
 msgid "User actions"
@@ -5438,10 +5400,3 @@ msgstr "Простите, это не Ваш входящий электронн
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Простите, входящих писем нет."
-
-#, fuzzy
-#~ msgid "Avatar Settings"
-#~ msgstr "Настройки аватара"
-
-#~ msgid "Invite-only"
-#~ msgstr "Только по приглашениям"

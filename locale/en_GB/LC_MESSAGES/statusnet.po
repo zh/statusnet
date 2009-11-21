@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-20 10:23+0000\n"
-"PO-Revision-Date: 2009-11-20 10:23:28+0000\n"
+"POT-Creation-Date: 2009-11-21 11:33+0000\n"
+"PO-Revision-Date: 2009-11-21 11:33:31+0000\n"
 "Language-Team: British English\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59282); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59306); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: en-gb\n"
 "X-Message-Group: out-statusnet\n"
@@ -286,14 +286,12 @@ msgid "Two user ids or screen_names must be supplied."
 msgstr "Two user ids or screen_names must be supplied."
 
 #: actions/apifriendshipsshow.php:135
-#, fuzzy
 msgid "Could not determine source user."
-msgstr "Could not retrieve public stream."
+msgstr "Could not determine source user."
 
 #: actions/apifriendshipsshow.php:143
-#, fuzzy
 msgid "Could not find target user."
-msgstr "Couldn't find any statuses."
+msgstr "Could not find target user."
 
 #: actions/apigroupcreate.php:164 actions/editgroup.php:182
 #: actions/newgroup.php:126 actions/profilesettings.php:208
@@ -326,9 +324,9 @@ msgid "Full name is too long (max 255 chars)."
 msgstr "Full name is too long (max 255 chars)."
 
 #: actions/apigroupcreate.php:213
-#, fuzzy, php-format
+#, php-format
 msgid "Description is too long (max %d chars)."
-msgstr "description is too long (max 140 chars)."
+msgstr "Description is too long (max %d chars)"
 
 #: actions/apigroupcreate.php:224 actions/editgroup.php:204
 #: actions/newgroup.php:148 actions/profilesettings.php:225
@@ -344,15 +342,15 @@ msgstr ""
 
 #: actions/apigroupcreate.php:264 actions/editgroup.php:224
 #: actions/newgroup.php:168
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid alias: \"%s\""
-msgstr "Invalid tag: \"%s\""
+msgstr "Invalid alias: \"%s\""
 
 #: actions/apigroupcreate.php:273 actions/editgroup.php:228
 #: actions/newgroup.php:172
-#, fuzzy, php-format
+#, php-format
 msgid "Alias \"%s\" already in use. Try another one."
-msgstr "Nickname already in use. Try another one."
+msgstr "Alias \"%s\" already in use. Try another one."
 
 #: actions/apigroupcreate.php:286 actions/editgroup.php:234
 #: actions/newgroup.php:178
@@ -362,9 +360,8 @@ msgstr ""
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:90 actions/apitimelinegroup.php:91
-#, fuzzy
 msgid "Group not found!"
-msgstr "API method not found!"
+msgstr "Group not found!"
 
 #: actions/apigroupjoin.php:110
 msgid "You are already a member of that group."
@@ -395,19 +392,19 @@ msgid "%s groups"
 msgstr "%s groups"
 
 #: actions/apigrouplistall.php:94
-#, fuzzy, php-format
+#, php-format
 msgid "groups on %s"
-msgstr "Group actions"
+msgstr "groups on %s"
 
 #: actions/apigrouplist.php:95
-#, fuzzy, php-format
+#, php-format
 msgid "%s's groups"
-msgstr "%s groups"
+msgstr "%s's groups"
 
 #: actions/apigrouplist.php:103
-#, fuzzy, php-format
+#, php-format
 msgid "Groups %s is a member of on %s."
-msgstr "Groups %s is a member of"
+msgstr "Groups %s is a member of on %s."
 
 #: actions/apistatusesdestroy.php:107
 msgid "This method requires a POST or DELETE."
@@ -418,9 +415,8 @@ msgid "You may not delete another user's status."
 msgstr "You may not delete another user's status."
 
 #: actions/apistatusesshow.php:138
-#, fuzzy
 msgid "Status deleted."
-msgstr "Avatar updated."
+msgstr "Status deleted."
 
 #: actions/apistatusesshow.php:144
 msgid "No status with that ID found."
@@ -469,9 +465,9 @@ msgid "Updates from %1$s on %2$s!"
 msgstr "Updates from %1$s on %2$s!"
 
 #: actions/apitimelinementions.php:116
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s / Updates mentioning %2$s"
-msgstr "%1$s / Updates replying to %2$s"
+msgstr "%1$s / Updates mentioning %2$s"
 
 #: actions/apitimelinementions.php:126
 #, php-format
@@ -494,9 +490,9 @@ msgid "Notices tagged with %s"
 msgstr "Notices tagged with %s"
 
 #: actions/apitimelinetag.php:107 actions/tagrss.php:64
-#, fuzzy, php-format
+#, php-format
 msgid "Updates tagged with %1$s on %2$s!"
-msgstr "Updates from %1$s on %2$s!"
+msgstr "Updates tagged with %1$s on %2$s!"
 
 #: actions/apiusershow.php:96
 msgid "Not found."
@@ -525,9 +521,9 @@ msgid "Avatar"
 msgstr "Avatar"
 
 #: actions/avatarsettings.php:78
-#, fuzzy, php-format
+#, php-format
 msgid "You can upload your personal avatar. The maximum file size is %s."
-msgstr "You can upload your personal avatar."
+msgstr "You can upload your personal avatar. The maximum file size is %s."
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:182
 #: actions/grouplogo.php:178 actions/remotesubscribe.php:191
@@ -551,7 +547,7 @@ msgid "Preview"
 msgstr "Preview"
 
 #: actions/avatarsettings.php:148 lib/deleteuserform.php:66
-#: lib/noticelist.php:528
+#: lib/noticelist.php:546
 msgid "Delete"
 msgstr "Delete"
 
@@ -621,24 +617,22 @@ msgid "No such group"
 msgstr "No such group"
 
 #: actions/blockedfromgroup.php:90
-#, fuzzy, php-format
+#, php-format
 msgid "%s blocked profiles"
-msgstr "User profile"
+msgstr "%s blocked profiles"
 
 #: actions/blockedfromgroup.php:93
-#, fuzzy, php-format
+#, php-format
 msgid "%s blocked profiles, page %d"
-msgstr "%s and friends, page %d"
+msgstr "%s blocked profiles, page %d"
 
 #: actions/blockedfromgroup.php:108
-#, fuzzy
 msgid "A list of the users blocked from joining this group."
-msgstr "A list of the users in this group."
+msgstr "A list of the users blocked from joining this group."
 
 #: actions/blockedfromgroup.php:281
-#, fuzzy
 msgid "Unblock user from group"
-msgstr "Unblock user failed."
+msgstr "Unblock user from group"
 
 #: actions/blockedfromgroup.php:313 lib/unblockform.php:69
 msgid "Unblock"
@@ -781,7 +775,7 @@ msgstr "Are you sure you want to delete this notice?"
 msgid "Do not delete this notice"
 msgstr "Do not delete this notice"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:528
+#: actions/deletenotice.php:146 lib/noticelist.php:546
 msgid "Delete this notice"
 msgstr "Delete this notice"
 
@@ -812,9 +806,8 @@ msgid ""
 msgstr ""
 
 #: actions/deleteuser.php:148 lib/deleteuserform.php:77
-#, fuzzy
 msgid "Delete this user"
-msgstr "Delete this notice"
+msgstr "Delete this user"
 
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
 #: lib/adminpanelaction.php:302 lib/groupnav.php:119
@@ -836,9 +829,8 @@ msgid "Theme not available: %s"
 msgstr "This page is not available in a "
 
 #: actions/designadminpanel.php:370
-#, fuzzy
 msgid "Change logo"
-msgstr "Change colours"
+msgstr "Change logo"
 
 #: actions/designadminpanel.php:375
 #, fuzzy
@@ -851,9 +843,8 @@ msgid "Change theme"
 msgstr "Change"
 
 #: actions/designadminpanel.php:399
-#, fuzzy
 msgid "Site theme"
-msgstr "Site notice"
+msgstr "Site theme"
 
 #: actions/designadminpanel.php:400
 #, fuzzy
@@ -911,9 +902,8 @@ msgid "Text"
 msgstr "Text"
 
 #: actions/designadminpanel.php:544 lib/designsettings.php:230
-#, fuzzy
 msgid "Links"
-msgstr "Login"
+msgstr "Links"
 
 #: actions/designadminpanel.php:572 lib/designsettings.php:247
 msgid "Use defaults"
@@ -972,9 +962,9 @@ msgid "Use this form to edit the group."
 msgstr "Use this form to edit the group."
 
 #: actions/editgroup.php:201 actions/newgroup.php:145
-#, fuzzy, php-format
+#, php-format
 msgid "description is too long (max %d chars)."
-msgstr "description is too long (max 140 chars)."
+msgstr "description is too long (max %d chars)."
 
 #: actions/editgroup.php:253
 msgid "Could not update group."
@@ -1256,7 +1246,6 @@ msgid "Not expecting this response!"
 msgstr "Not expecting this response!"
 
 #: actions/finishremotesubscribe.php:80
-#, fuzzy
 msgid "User being listened to does not exist."
 msgstr "User being listened to doesn't exist."
 
@@ -1273,7 +1262,6 @@ msgid "You are not authorized."
 msgstr "You are not authorised."
 
 #: actions/finishremotesubscribe.php:109
-#, fuzzy
 msgid "Could not convert request token to access token."
 msgstr "Couldn't convert request tokens to access tokens."
 
@@ -1350,9 +1338,8 @@ msgid "Do not block this user from this group"
 msgstr "Do not block this user from this group"
 
 #: actions/groupblock.php:179
-#, fuzzy
 msgid "Block this user from this group"
-msgstr "A list of the users in this group."
+msgstr "Block this user from this group"
 
 #: actions/groupblock.php:196
 msgid "Database error blocking user from group."
@@ -1522,9 +1509,8 @@ msgid "Only an admin can unblock group members."
 msgstr ""
 
 #: actions/groupunblock.php:95
-#, fuzzy
 msgid "User is not blocked from group."
-msgstr "User has blocked you."
+msgstr "User is not blocked from group."
 
 #: actions/groupunblock.php:128 actions/unblock.php:77
 msgid "Error removing the block."
@@ -1544,9 +1530,8 @@ msgstr ""
 "doc.im%%). Configure your address and settings below."
 
 #: actions/imsettings.php:89
-#, fuzzy
 msgid "IM is not available."
-msgstr "This page is not available in a "
+msgstr "IM is not available."
 
 #: actions/imsettings.php:106
 msgid "Current confirmed Jabber/GTalk address."
@@ -1937,9 +1922,8 @@ msgstr ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
 
 #: actions/newmessage.php:181
-#, fuzzy
 msgid "Message sent"
-msgstr "Message"
+msgstr "Message sent"
 
 #: actions/newmessage.php:185 lib/command.php:375
 #, php-format
@@ -1972,9 +1956,9 @@ msgid "Text search"
 msgstr "Text search"
 
 #: actions/noticesearch.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Search results for \"%s\" on %s"
-msgstr " Search Stream for \"%s\""
+msgstr "Search results for \"%s\" on %s"
 
 #: actions/noticesearch.php:121
 #, php-format
@@ -1990,15 +1974,15 @@ msgid ""
 "[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
 msgstr ""
 
-#: actions/noticesearchrss.php:89
-#, fuzzy, php-format
+#: actions/noticesearchrss.php:96
+#, php-format
 msgid "Updates with \"%s\""
-msgstr "Updates from %1$s on %2$s!"
+msgstr "Updates with \"%s\""
 
-#: actions/noticesearchrss.php:91
-#, fuzzy, php-format
+#: actions/noticesearchrss.php:98
+#, php-format
 msgid "Updates matching search term \"%1$s\" on %2$s!"
-msgstr "All updates matching search term \"%s\""
+msgstr "Updates matching search term \"%1$s\" on %2$s!"
 
 #: actions/nudge.php:85
 msgid ""
@@ -2162,9 +2146,9 @@ msgid "Path and server settings for this StatusNet site."
 msgstr ""
 
 #: actions/pathsadminpanel.php:140
-#, fuzzy, php-format
+#, php-format
 msgid "Theme directory not readable: %s"
-msgstr "This page is not available in a "
+msgstr "Theme directory not readable: %s"
 
 #: actions/pathsadminpanel.php:146
 #, php-format
@@ -2192,9 +2176,8 @@ msgid "Path"
 msgstr ""
 
 #: actions/pathsadminpanel.php:216
-#, fuzzy
 msgid "Site path"
-msgstr "Site notice"
+msgstr "Site path"
 
 #: actions/pathsadminpanel.php:220
 msgid "Path to locales"
@@ -2257,9 +2240,8 @@ msgid "Background directory"
 msgstr ""
 
 #: actions/pathsadminpanel.php:297
-#, fuzzy
 msgid "Save paths"
-msgstr "Site notice"
+msgstr "Save paths"
 
 #: actions/peoplesearch.php:52
 #, php-format
@@ -2327,14 +2309,13 @@ msgid "URL of your homepage, blog, or profile on another site"
 msgstr "URL of your homepage, blog, or profile on another site"
 
 #: actions/profilesettings.php:122 actions/register.php:460
-#, fuzzy, php-format
+#, php-format
 msgid "Describe yourself and your interests in %d chars"
-msgstr "Describe yourself and your interests in 140 chars"
+msgstr "Describe yourself and your interests in %d chars"
 
 #: actions/profilesettings.php:125 actions/register.php:463
-#, fuzzy
 msgid "Describe yourself and your interests"
-msgstr "Describe yourself and your "
+msgstr "Describe yourself and your interests"
 
 #: actions/profilesettings.php:127 actions/register.php:465
 msgid "Bio"
@@ -2386,9 +2367,9 @@ msgstr ""
 "Automatically subscribe to whoever subscribes to me (best for non-humans)"
 
 #: actions/profilesettings.php:221 actions/register.php:223
-#, fuzzy, php-format
+#, php-format
 msgid "Bio is too long (max %d chars)."
-msgstr "Bio is too long (max 140 chars)."
+msgstr "Bio is too long (max %d chars)."
 
 #: actions/profilesettings.php:228 actions/siteadminpanel.php:165
 msgid "Timezone not selected."
@@ -2479,14 +2460,15 @@ msgid ""
 msgstr ""
 
 #: actions/public.php:238
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
 "blogging) service based on the Free Software [StatusNet](http://status.net/) "
 "tool."
 msgstr ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
-"blogging) service "
+"blogging) service based on the Free Software [StatusNet](http://status.net/) "
+"tool."
 
 #: actions/publictagcloud.php:57
 msgid "Public tag cloud"
@@ -2843,14 +2825,14 @@ msgid "Replies to %s, page %d"
 msgstr "Replies to %s, page %d"
 
 #: actions/replies.php:144
-#, fuzzy, php-format
+#, php-format
 msgid "Replies feed for %s (RSS 1.0)"
-msgstr "Notice feed for %s"
+msgstr "Replies feed for %s (RSS 1.0)"
 
 #: actions/replies.php:151
-#, fuzzy, php-format
+#, php-format
 msgid "Replies feed for %s (RSS 2.0)"
-msgstr "Notice feed for %s"
+msgstr "Replies feed for %s (RSS 2.0)"
 
 #: actions/replies.php:158
 #, php-format
@@ -2879,24 +2861,22 @@ msgid ""
 msgstr ""
 
 #: actions/repliesrss.php:72
-#, fuzzy, php-format
+#, php-format
 msgid "Replies to %1$s on %2$s!"
-msgstr "Message to %1$s on %2$s"
+msgstr "Replies to %1$s on %2$s!"
 
 #: actions/sandbox.php:65 actions/unsandbox.php:65
-#, fuzzy
 msgid "You cannot sandbox users on this site."
-msgstr "You can't send a message to this user."
+msgstr "You cannot sandbox users on this site."
 
 #: actions/sandbox.php:72
-#, fuzzy
 msgid "User is already sandboxed."
-msgstr "User is already blocked from group."
+msgstr "User is already sandboxed."
 
 #: actions/showfavorites.php:79
-#, fuzzy, php-format
+#, php-format
 msgid "%s's favorite notices, page %d"
-msgstr "%s favourite notices, page %d"
+msgstr "%s's favourite notices, page %d"
 
 #: actions/showfavorites.php:132
 msgid "Could not retrieve favorite notices."
@@ -3013,9 +2993,8 @@ msgid "Statistics"
 msgstr "Statistics"
 
 #: actions/showgroup.php:432
-#, fuzzy
 msgid "Created"
-msgstr "Create"
+msgstr "Created"
 
 #: actions/showgroup.php:448
 #, php-format
@@ -3062,14 +3041,13 @@ msgid "Message from %1$s on %2$s"
 msgstr "Message from %1$s on %2$s"
 
 #: actions/shownotice.php:90
-#, fuzzy
 msgid "Notice deleted."
-msgstr "Notice posted"
+msgstr "Notice deleted."
 
 #: actions/showstream.php:73
-#, fuzzy, php-format
+#, php-format
 msgid " tagged %s"
-msgstr "Notices tagged with %s"
+msgstr "  tagged %s"
 
 #: actions/showstream.php:79
 #, php-format
@@ -3077,9 +3055,9 @@ msgid "%s, page %d"
 msgstr "%s, page %d"
 
 #: actions/showstream.php:122
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s tagged %s (RSS 1.0)"
-msgstr "Notice feed for %s group"
+msgstr "Notice feed for %s tagged %s (RSS 1.0)"
 
 #: actions/showstream.php:129
 #, fuzzy, php-format
@@ -3097,9 +3075,9 @@ msgid "Notice feed for %s (Atom)"
 msgstr "Notice feed for %s"
 
 #: actions/showstream.php:148
-#, fuzzy, php-format
+#, php-format
 msgid "FOAF for %s"
-msgstr "Outbox for %s"
+msgstr "FOAF for %s"
 
 #: actions/showstream.php:191
 #, php-format
@@ -3129,14 +3107,15 @@ msgid ""
 msgstr ""
 
 #: actions/showstream.php:239
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
 "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
 "[StatusNet](http://status.net/) tool. "
 msgstr ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
-"wikipedia.org/wiki/Micro-blogging) service "
+"wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
+"[StatusNet](http://status.net/) tool. "
 
 #: actions/silence.php:65 actions/unsilence.php:65
 #, fuzzy
@@ -3179,15 +3158,15 @@ msgid "Snapshot frequency must be a number."
 msgstr ""
 
 #: actions/siteadminpanel.php:199
-msgid "You must set an SSL sever when enabling SSL."
+msgid "You must set an SSL server when enabling SSL."
 msgstr ""
 
 #: actions/siteadminpanel.php:204
-msgid "Invalid SSL server. Max length is 255 characters."
+msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr ""
 
 #: actions/siteadminpanel.php:210
-msgid "Minimum text limit is 140c."
+msgid "Minimum text limit is 140 characters."
 msgstr ""
 
 #: actions/siteadminpanel.php:216
@@ -3199,9 +3178,8 @@ msgid "General"
 msgstr ""
 
 #: actions/siteadminpanel.php:269
-#, fuzzy
 msgid "Site name"
-msgstr "Site notice"
+msgstr "Site name"
 
 #: actions/siteadminpanel.php:270
 msgid "The name of your site, like \"Yourcompany Microblog\""
@@ -3225,7 +3203,7 @@ msgstr ""
 
 #: actions/siteadminpanel.php:284
 #, fuzzy
-msgid "contact email address for your site"
+msgid "Contact email address for your site"
 msgstr "New e-mail address for posting to %s"
 
 #: actions/siteadminpanel.php:290
@@ -3242,19 +3220,16 @@ msgid "Default timezone for the site; usually UTC."
 msgstr ""
 
 #: actions/siteadminpanel.php:308
-#, fuzzy
 msgid "Default site language"
-msgstr "Preferred language"
+msgstr "Default site language"
 
 #: actions/siteadminpanel.php:316
-#, fuzzy
 msgid "URLs"
-msgstr "URL"
+msgstr "URLs"
 
 #: actions/siteadminpanel.php:319
-#, fuzzy
 msgid "Server"
-msgstr "Recover"
+msgstr "Server"
 
 #: actions/siteadminpanel.php:319
 msgid "Site's server hostname."
@@ -3269,32 +3244,28 @@ msgid "Use fancy (more readable and memorable) URLs?"
 msgstr ""
 
 #: actions/siteadminpanel.php:331
-#, fuzzy
 msgid "Access"
-msgstr "Accept"
+msgstr "Access"
 
 #: actions/siteadminpanel.php:334
-#, fuzzy
 msgid "Private"
-msgstr "Privacy"
+msgstr "Private"
 
 #: actions/siteadminpanel.php:336
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr ""
 
 #: actions/siteadminpanel.php:340
-#, fuzzy
 msgid "Invite only"
-msgstr "Invite"
+msgstr "Invite only"
 
 #: actions/siteadminpanel.php:342
 msgid "Make registration invitation only."
 msgstr ""
 
 #: actions/siteadminpanel.php:346
-#, fuzzy
 msgid "Closed"
-msgstr "Block"
+msgstr "Closed"
 
 #: actions/siteadminpanel.php:348
 msgid "Disable new registrations."
@@ -3313,9 +3284,8 @@ msgid "In a scheduled job"
 msgstr ""
 
 #: actions/siteadminpanel.php:359 actions/siteadminpanel.php:383
-#, fuzzy
 msgid "Never"
-msgstr "Recover"
+msgstr "Never"
 
 #: actions/siteadminpanel.php:360
 msgid "Data snapshots"
@@ -3330,7 +3300,7 @@ msgid "Frequency"
 msgstr ""
 
 #: actions/siteadminpanel.php:367
-msgid "Snapshots will be sent once every N Web hits"
+msgid "Snapshots will be sent once every N web hits"
 msgstr ""
 
 #: actions/siteadminpanel.php:372
@@ -3342,14 +3312,12 @@ msgid "Snapshots will be sent to this URL"
 msgstr ""
 
 #: actions/siteadminpanel.php:380
-#, fuzzy
 msgid "SSL"
-msgstr "SMS"
+msgstr "SSL"
 
 #: actions/siteadminpanel.php:384
-#, fuzzy
 msgid "Sometimes"
-msgstr "Notices"
+msgstr "Sometimes"
 
 #: actions/siteadminpanel.php:385
 msgid "Always"
@@ -3392,9 +3360,8 @@ msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 
 #: actions/siteadminpanel.php:421 actions/useradminpanel.php:313
-#, fuzzy
 msgid "Save site settings"
-msgstr "Avatar settings"
+msgstr "Save site settings"
 
 #: actions/smssettings.php:58
 msgid "SMS Settings"
@@ -3583,9 +3550,9 @@ msgid ""
 msgstr ""
 
 #: actions/subscriptions.php:123 actions/subscriptions.php:127
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not listening to anyone."
-msgstr "%1$s is now listening to "
+msgstr "%s is not listening to anyone."
 
 #: actions/subscriptions.php:194
 msgid "Jabber"
@@ -3738,9 +3705,8 @@ msgid "Maximum length of a profile bio in characters."
 msgstr ""
 
 #: actions/useradminpanel.php:231
-#, fuzzy
 msgid "New users"
-msgstr "Invite new users"
+msgstr "New users"
 
 #: actions/useradminpanel.php:235
 msgid "New user welcome"
@@ -3751,9 +3717,8 @@ msgid "Welcome text for new users (Max 255 chars)."
 msgstr ""
 
 #: actions/useradminpanel.php:241
-#, fuzzy
 msgid "Default subscription"
-msgstr "All subscriptions"
+msgstr "Default subscription"
 
 #: actions/useradminpanel.php:242
 #, fuzzy
@@ -3811,9 +3776,8 @@ msgstr ""
 "click \"Cancel\"."
 
 #: actions/userauthorization.php:188
-#, fuzzy
 msgid "License"
-msgstr "licence."
+msgstr "License"
 
 #: actions/userauthorization.php:209
 msgid "Accept"
@@ -3829,9 +3793,8 @@ msgid "Reject"
 msgstr "Reject"
 
 #: actions/userauthorization.php:212
-#, fuzzy
 msgid "Reject this subscription"
-msgstr "%s subscriptions"
+msgstr "Reject this subscription"
 
 #: actions/userauthorization.php:225
 msgid "No authorization request!"
@@ -4021,9 +3984,9 @@ msgid "Could not set group membership."
 msgstr "Could not set group membership."
 
 #: classes/User.php:347
-#, fuzzy, php-format
+#, php-format
 msgid "Welcome to %1$s, @%2$s!"
-msgstr "Message to %1$s on %2$s"
+msgstr "Welcome to %1$s, @%2$s!"
 
 #: lib/accountsettingsaction.php:108
 msgid "Change your profile settings"
@@ -4042,9 +4005,8 @@ msgid "Change email handling"
 msgstr "Change e-mail handling"
 
 #: lib/accountsettingsaction.php:124
-#, fuzzy
 msgid "Design your profile"
-msgstr "User profile"
+msgstr "Design your profile"
 
 #: lib/accountsettingsaction.php:128
 msgid "Other"
@@ -4179,9 +4141,8 @@ msgid "Contact"
 msgstr "Contact"
 
 #: lib/action.php:741
-#, fuzzy
 msgid "Badge"
-msgstr "Nudge"
+msgstr "Badge"
 
 #: lib/action.php:769
 msgid "StatusNet software license"
@@ -4213,9 +4174,8 @@ msgstr ""
 "org/licensing/licenses/agpl-3.0.html)."
 
 #: lib/action.php:790
-#, fuzzy
 msgid "Site content license"
-msgstr "StatusNet software licence"
+msgstr "Site content license"
 
 #: lib/action.php:799
 msgid "All "
@@ -4267,9 +4227,8 @@ msgid "Basic site configuration"
 msgstr "E-mail address confirmation"
 
 #: lib/adminpanelaction.php:303
-#, fuzzy
 msgid "Design configuration"
-msgstr "SMS confirmation"
+msgstr "Design configuration"
 
 #: lib/adminpanelaction.php:306 lib/adminpanelaction.php:309
 #, fuzzy
@@ -4314,18 +4273,18 @@ msgid "Sorry, this command is not yet implemented."
 msgstr "Sorry, this command is not yet implemented."
 
 #: lib/command.php:88
-#, fuzzy, php-format
+#, php-format
 msgid "Could not find a user with nickname %s"
-msgstr "Couldn't update user with confirmed e-mail address."
+msgstr "Could not find a user with nickname %s"
 
 #: lib/command.php:92
 msgid "It does not make a lot of sense to nudge yourself!"
 msgstr ""
 
 #: lib/command.php:99
-#, fuzzy, php-format
+#, php-format
 msgid "Nudge sent to %s"
-msgstr "Nudge sent"
+msgstr "Nudge sent to %s"
 
 #: lib/command.php:126
 #, php-format
@@ -4373,28 +4332,27 @@ msgid "About: %s"
 msgstr "About: %s"
 
 #: lib/command.php:358 scripts/xmppdaemon.php:321
-#, fuzzy, php-format
+#, php-format
 msgid "Message too long - maximum is %d characters, you sent %d"
-msgstr "Message too long - maximum is 140 characters, you sent %d"
+msgstr "Message too long - maximum is %d characters, you sent %d"
 
 #: lib/command.php:377
 msgid "Error sending direct message."
 msgstr "Error sending direct message."
 
 #: lib/command.php:431
-#, fuzzy, php-format
+#, php-format
 msgid "Notice too long - maximum is %d characters, you sent %d"
-msgstr "Message too long - maximum is 140 characters, you sent %d"
+msgstr "Notice too long - maximum is %d characters, you sent %d"
 
 #: lib/command.php:439
-#, fuzzy, php-format
+#, php-format
 msgid "Reply to %s sent"
-msgstr "Reply to this notice"
+msgstr "Reply to %s sent"
 
 #: lib/command.php:441
-#, fuzzy
 msgid "Error saving notice."
-msgstr "Problem saving notice."
+msgstr "Error saving notice."
 
 #: lib/command.php:495
 msgid "Specify the name of the user to subscribe to"
@@ -4532,9 +4490,8 @@ msgid "You may wish to run the installer to fix this."
 msgstr ""
 
 #: lib/common.php:202
-#, fuzzy
 msgid "Go to the installer."
-msgstr "Login to the site"
+msgstr "Go to the installer."
 
 #: lib/connectsettingsaction.php:110
 msgid "IM"
@@ -4659,14 +4616,13 @@ msgid "Group"
 msgstr "Group"
 
 #: lib/groupnav.php:101
-#, fuzzy
 msgid "Blocked"
-msgstr "Block"
+msgstr "Blocked"
 
 #: lib/groupnav.php:102
-#, fuzzy, php-format
+#, php-format
 msgid "%s blocked users"
-msgstr "Block user"
+msgstr "%s blocked users"
 
 #: lib/groupnav.php:108
 #, php-format
@@ -4683,9 +4639,9 @@ msgid "Add or edit %s logo"
 msgstr "Add or edit %s logo"
 
 #: lib/groupnav.php:120
-#, fuzzy, php-format
+#, php-format
 msgid "Add or edit %s design"
-msgstr "Add or edit %s logo"
+msgstr "Add or edit %s design"
 
 #: lib/groupsbymemberssection.php:71
 msgid "Groups with most members"
@@ -4700,7 +4656,7 @@ msgstr "Groups with most posts"
 msgid "Tags in %s group's notices"
 msgstr "Tags in %s group's notices"
 
-#: lib/htmloutputter.php:104
+#: lib/htmloutputter.php:103
 msgid "This page is not available in a media type you accept"
 msgstr "This page is not available in a media type you accept"
 
@@ -4764,7 +4720,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:430
+#: lib/mailbox.php:227 lib/noticelist.php:448
 #, fuzzy
 msgid "from"
 msgstr "from"
@@ -4796,7 +4752,7 @@ msgid "%1$s is now listening to your notices on %2$s."
 msgstr "%1$s is now listening to your notices on %2$s."
 
 #: lib/mail.php:241
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%1$s is now listening to your notices on %2$s.\n"
 "\n"
@@ -4811,10 +4767,14 @@ msgid ""
 msgstr ""
 "%1$s is now listening to your notices on %2$s.\n"
 "\n"
-"\t%3$s\n"
+"%3$s\n"
 "\n"
+"%4$s%5$s%6$s\n"
 "Faithfully yours,\n"
-"%4$s.\n"
+"%7$s.\n"
+"\n"
+"----\n"
+"Change your email address or notification options at %8$s\n"
 
 #: lib/mail.php:254
 #, php-format
@@ -4916,9 +4876,9 @@ msgid ""
 msgstr ""
 
 #: lib/mail.php:559
-#, fuzzy, php-format
+#, php-format
 msgid "%s (@%s) added your notice as a favorite"
-msgstr "%s added your notice as a favourite"
+msgstr "%s (@%s) added your notice as a favorite"
 
 #: lib/mail.php:561
 #, php-format
@@ -5042,19 +5002,19 @@ msgstr ""
 msgid "Attach a file"
 msgstr ""
 
-#: lib/noticelist.php:402
+#: lib/noticelist.php:406
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:484
+#: lib/noticelist.php:502
 msgid "in context"
 msgstr "in context"
 
-#: lib/noticelist.php:504
+#: lib/noticelist.php:522
 msgid "Reply to this notice"
 msgstr "Reply to this notice"
 
-#: lib/noticelist.php:505
+#: lib/noticelist.php:523
 msgid "Reply"
 msgstr "Reply"
 
@@ -5083,14 +5043,12 @@ msgid "Error inserting remote profile"
 msgstr "Error inserting remote profile."
 
 #: lib/oauthstore.php:345
-#, fuzzy
 msgid "Duplicate notice"
-msgstr "Delete notice"
+msgstr "Duplicate notice"
 
 #: lib/oauthstore.php:466 lib/subs.php:48
-#, fuzzy
 msgid "You have been banned from subscribing."
-msgstr "That user has blocked you from subscribing."
+msgstr "You have been banned from subscribing."
 
 #: lib/oauthstore.php:491
 msgid "Couldn't insert new subscription."
@@ -5146,9 +5104,8 @@ msgid "All subscribers"
 msgstr "All subscribers"
 
 #: lib/profileaction.php:177
-#, fuzzy
 msgid "User ID"
-msgstr "User"
+msgstr "User ID"
 
 #: lib/profileaction.php:182
 msgid "Member since"
@@ -5188,14 +5145,12 @@ msgid "Popular"
 msgstr "Popular"
 
 #: lib/sandboxform.php:67
-#, fuzzy
 msgid "Sandbox"
-msgstr "Inbox"
+msgstr "Sandbox"
 
 #: lib/sandboxform.php:78
-#, fuzzy
 msgid "Sandbox this user"
-msgstr "Unblock this user"
+msgstr "Sandbox this user"
 
 #: lib/searchaction.php:120
 #, fuzzy
@@ -5203,9 +5158,8 @@ msgid "Search site"
 msgstr "Search"
 
 #: lib/searchaction.php:162
-#, fuzzy
 msgid "Search help"
-msgstr "Search"
+msgstr "Search help"
 
 #: lib/searchgroupnav.php:80
 msgid "People"
@@ -5236,14 +5190,12 @@ msgid "More..."
 msgstr ""
 
 #: lib/silenceform.php:67
-#, fuzzy
 msgid "Silence"
-msgstr "Site notice"
+msgstr "Silence"
 
 #: lib/silenceform.php:78
-#, fuzzy
 msgid "Silence this user"
-msgstr "Block this user"
+msgstr "Silence this user"
 
 #: lib/subgroupnav.php:83
 #, php-format
@@ -5312,18 +5264,16 @@ msgid "Unsandbox"
 msgstr ""
 
 #: lib/unsandboxform.php:80
-#, fuzzy
 msgid "Unsandbox this user"
-msgstr "Unblock this user"
+msgstr "Unsandbox this user"
 
 #: lib/unsilenceform.php:67
 msgid "Unsilence"
 msgstr ""
 
 #: lib/unsilenceform.php:78
-#, fuzzy
 msgid "Unsilence this user"
-msgstr "Unblock this user"
+msgstr "Unsilence this user"
 
 #: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
 msgid "Unsubscribe from this user"
@@ -5409,7 +5359,7 @@ msgstr "%s is not a valid colour!"
 #: lib/webcolor.php:123
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
-msgstr ""
+msgstr "%s is not a valid colour! Use 3 or 6 hex chars."
 
 #: scripts/maildaemon.php:48
 msgid "Could not parse message."
@@ -5426,11 +5376,3 @@ msgstr "Sorry, that is not your incoming e-mail address."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Sorry, no incoming e-mail allowed."
-
-#, fuzzy
-#~ msgid "Avatar Settings"
-#~ msgstr "Avatar settings"
-
-#, fuzzy
-#~ msgid "Invite-only"
-#~ msgstr "Invite"

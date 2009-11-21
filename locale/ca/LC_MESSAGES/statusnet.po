@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-20 10:23+0000\n"
-"PO-Revision-Date: 2009-11-20 10:23:18+0000\n"
+"POT-Creation-Date: 2009-11-21 11:33+0000\n"
+"PO-Revision-Date: 2009-11-21 11:33:20+0000\n"
 "Language-Team: Catalan\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59282); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59306); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: out-statusnet\n"
@@ -559,7 +559,7 @@ msgid "Preview"
 msgstr "Previsualitzar"
 
 #: actions/avatarsettings.php:148 lib/deleteuserform.php:66
-#: lib/noticelist.php:528
+#: lib/noticelist.php:546
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -795,7 +795,7 @@ msgstr "N'estàs segur que vols eliminar aquesta notificació?"
 msgid "Do not delete this notice"
 msgstr "No es pot esborrar la notificació."
 
-#: actions/deletenotice.php:146 lib/noticelist.php:528
+#: actions/deletenotice.php:146 lib/noticelist.php:546
 msgid "Delete this notice"
 msgstr "Eliminar aquesta nota"
 
@@ -807,9 +807,8 @@ msgstr ""
 "us plau."
 
 #: actions/deleteuser.php:67
-#, fuzzy
 msgid "You cannot delete users."
-msgstr "No s'ha pogut actualitzar l'usuari."
+msgstr "No podeu suprimir els usuaris."
 
 #: actions/deleteuser.php:74
 #, fuzzy
@@ -852,19 +851,16 @@ msgid "Theme not available: %s"
 msgstr "Aquesta pàgina no està disponible en "
 
 #: actions/designadminpanel.php:370
-#, fuzzy
 msgid "Change logo"
-msgstr "Canviar la teva contrasenya"
+msgstr "Canvia el logotip"
 
 #: actions/designadminpanel.php:375
-#, fuzzy
 msgid "Site logo"
-msgstr "Invitar"
+msgstr "Logotip del lloc"
 
 #: actions/designadminpanel.php:382
-#, fuzzy
 msgid "Change theme"
-msgstr "Canviar"
+msgstr "Canvia el tema"
 
 #: actions/designadminpanel.php:399
 #, fuzzy
@@ -909,28 +905,24 @@ msgid "Tile background image"
 msgstr ""
 
 #: actions/designadminpanel.php:483 lib/designsettings.php:170
-#, fuzzy
 msgid "Change colours"
-msgstr "Canviar la teva contrasenya"
+msgstr "Canvia els colors"
 
 #: actions/designadminpanel.php:505 lib/designsettings.php:191
-#, fuzzy
 msgid "Content"
-msgstr "Connectar-se"
+msgstr "Contingut"
 
 #: actions/designadminpanel.php:518 lib/designsettings.php:204
-#, fuzzy
 msgid "Sidebar"
-msgstr "Cercar"
+msgstr "Barra lateral"
 
 #: actions/designadminpanel.php:531 lib/designsettings.php:217
 msgid "Text"
 msgstr "Text"
 
 #: actions/designadminpanel.php:544 lib/designsettings.php:230
-#, fuzzy
 msgid "Links"
-msgstr "Inici de sessió"
+msgstr "Enllaços"
 
 #: actions/designadminpanel.php:572 lib/designsettings.php:247
 msgid "Use defaults"
@@ -1497,7 +1489,7 @@ msgstr ""
 
 #: actions/groupsearch.php:58
 msgid "Group search"
-msgstr "Cercar grup"
+msgstr "Cerca de grups"
 
 #: actions/groupsearch.php:79 actions/noticesearch.php:117
 #: actions/peoplesearch.php:83
@@ -2024,12 +2016,12 @@ msgid ""
 "[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
 msgstr ""
 
-#: actions/noticesearchrss.php:89
+#: actions/noticesearchrss.php:96
 #, fuzzy, php-format
 msgid "Updates with \"%s\""
 msgstr "Actualitzacions de %1$s a %2$s!"
 
-#: actions/noticesearchrss.php:91
+#: actions/noticesearchrss.php:98
 #, fuzzy, php-format
 msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Totes les actualitzacions que corresponen a la frase a cercar \"%s\" "
@@ -2059,9 +2051,8 @@ msgid "%1$s's status on %2$s"
 msgstr "estat de %1$s a %2$s"
 
 #: actions/oembed.php:157
-#, fuzzy
 msgid "content type "
-msgstr "Connectar-se"
+msgstr "tipus de contingut "
 
 #: actions/oembed.php:160
 msgid "Only "
@@ -2074,7 +2065,7 @@ msgstr "Format de data no suportat."
 
 #: actions/opensearch.php:64
 msgid "People Search"
-msgstr "Cercar gent"
+msgstr "Cerca de gent"
 
 #: actions/opensearch.php:67
 msgid "Notice Search"
@@ -3224,15 +3215,15 @@ msgid "Snapshot frequency must be a number."
 msgstr ""
 
 #: actions/siteadminpanel.php:199
-msgid "You must set an SSL sever when enabling SSL."
+msgid "You must set an SSL server when enabling SSL."
 msgstr ""
 
 #: actions/siteadminpanel.php:204
-msgid "Invalid SSL server. Max length is 255 characters."
+msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr ""
 
 #: actions/siteadminpanel.php:210
-msgid "Minimum text limit is 140c."
+msgid "Minimum text limit is 140 characters."
 msgstr ""
 
 #: actions/siteadminpanel.php:216
@@ -3270,7 +3261,7 @@ msgstr ""
 
 #: actions/siteadminpanel.php:284
 #, fuzzy
-msgid "contact email address for your site"
+msgid "Contact email address for your site"
 msgstr "Nou correu electrònic per publicar a %s"
 
 #: actions/siteadminpanel.php:290
@@ -3314,14 +3305,12 @@ msgid "Use fancy (more readable and memorable) URLs?"
 msgstr ""
 
 #: actions/siteadminpanel.php:331
-#, fuzzy
 msgid "Access"
-msgstr "Acceptar"
+msgstr "Accés"
 
 #: actions/siteadminpanel.php:334
-#, fuzzy
 msgid "Private"
-msgstr "Privacitat"
+msgstr "Privat"
 
 #: actions/siteadminpanel.php:336
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
@@ -3375,7 +3364,7 @@ msgid "Frequency"
 msgstr ""
 
 #: actions/siteadminpanel.php:367
-msgid "Snapshots will be sent once every N Web hits"
+msgid "Snapshots will be sent once every N web hits"
 msgstr ""
 
 #: actions/siteadminpanel.php:372
@@ -3866,7 +3855,7 @@ msgstr "llicència."
 
 #: actions/userauthorization.php:209
 msgid "Accept"
-msgstr "Acceptar"
+msgstr "Accepta"
 
 #: actions/userauthorization.php:210 lib/subscribeform.php:115
 #: lib/subscribeform.php:139
@@ -3875,7 +3864,7 @@ msgstr "Subscriure's a aquest usuari"
 
 #: actions/userauthorization.php:211
 msgid "Reject"
-msgstr "Rebutjar"
+msgstr "Rebutja"
 
 #: actions/userauthorization.php:212
 #, fuzzy
@@ -4076,19 +4065,19 @@ msgstr "Missatge per a %1$s a %2$s"
 
 #: lib/accountsettingsaction.php:108
 msgid "Change your profile settings"
-msgstr "Canviar les preferències del teu perfil"
+msgstr "Canvieu els paràmetres del vostre perfil"
 
 #: lib/accountsettingsaction.php:112
 msgid "Upload an avatar"
-msgstr "Pujar un avatar"
+msgstr "Puja un avatar"
 
 #: lib/accountsettingsaction.php:116
 msgid "Change your password"
-msgstr "Canviar la teva contrasenya"
+msgstr "Canvieu la vostra contrasenya"
 
 #: lib/accountsettingsaction.php:120
 msgid "Change email handling"
-msgstr "Canviar correu electrònic"
+msgstr "Canvieu la gestió del correu"
 
 #: lib/accountsettingsaction.php:124
 #, fuzzy
@@ -4134,7 +4123,7 @@ msgstr "Canviar correu electrònic, avatar, contrasenya, perfil"
 
 #: lib/action.php:436
 msgid "Connect"
-msgstr "Connectar-se"
+msgstr "Connexió"
 
 #: lib/action.php:436
 #, fuzzy
@@ -4148,7 +4137,7 @@ msgstr "Navegació primària del lloc"
 
 #: lib/action.php:444 lib/subgroupnav.php:105
 msgid "Invite"
-msgstr "Invitar"
+msgstr "Convida"
 
 #: lib/action.php:445 lib/subgroupnav.php:106
 #, php-format
@@ -4157,19 +4146,19 @@ msgstr "Convidar amics i companys perquè participin a %s"
 
 #: lib/action.php:450
 msgid "Logout"
-msgstr "Sortir"
+msgstr "Finalitza la sessió"
 
 #: lib/action.php:450
 msgid "Logout from the site"
-msgstr "Sortir d'aquest lloc"
+msgstr "Finalitza la sessió del lloc"
 
 #: lib/action.php:455
 msgid "Create an account"
-msgstr "Crear nou compte"
+msgstr "Crea un compte"
 
 #: lib/action.php:458
 msgid "Login to the site"
-msgstr "Accedir a aquest lloc"
+msgstr "Inicia una sessió al lloc"
 
 #: lib/action.php:461 lib/action.php:724
 msgid "Help"
@@ -4181,11 +4170,11 @@ msgstr "Ajuda'm"
 
 #: lib/action.php:464
 msgid "Search"
-msgstr "Cercar"
+msgstr "Cerca"
 
 #: lib/action.php:464
 msgid "Search for people or text"
-msgstr "Cercar gent o text"
+msgstr "Cerca gent o text"
 
 #: lib/action.php:485
 msgid "Site notice"
@@ -4205,11 +4194,11 @@ msgstr "Navegació del lloc secundària"
 
 #: lib/action.php:726
 msgid "About"
-msgstr "Sobre"
+msgstr "Quant a"
 
 #: lib/action.php:728
 msgid "FAQ"
-msgstr "Preguntes freqüents"
+msgstr "Preguntes més freqüents"
 
 #: lib/action.php:732
 msgid "TOS"
@@ -4217,7 +4206,7 @@ msgstr ""
 
 #: lib/action.php:735
 msgid "Privacy"
-msgstr "Privacitat"
+msgstr "Privadesa"
 
 #: lib/action.php:737
 msgid "Source"
@@ -4225,12 +4214,11 @@ msgstr "Font"
 
 #: lib/action.php:739
 msgid "Contact"
-msgstr "Posar-se en contacte"
+msgstr "Contacte"
 
 #: lib/action.php:741
-#, fuzzy
 msgid "Badge"
-msgstr "Reclamar"
+msgstr "Insígnia"
 
 #: lib/action.php:769
 msgid "StatusNet software license"
@@ -4327,7 +4315,7 @@ msgstr "Confirmació SMS"
 
 #: lib/attachmentlist.php:87
 msgid "Attachments"
-msgstr ""
+msgstr "Adjuncions"
 
 #: lib/attachmentlist.php:265
 msgid "Author"
@@ -4344,7 +4332,7 @@ msgstr ""
 
 #: lib/attachmenttagcloudsection.php:48
 msgid "Tags for this attachment"
-msgstr ""
+msgstr "Etiquetes de l'adjunció"
 
 #: lib/channel.php:138 lib/channel.php:158
 msgid "Command results"
@@ -4675,7 +4663,7 @@ msgstr "Elegeix una etiqueta para reduir la llista"
 
 #: lib/galleryaction.php:143
 msgid "Go"
-msgstr "Anar"
+msgstr "Vés-hi"
 
 #: lib/groupeditform.php:163
 msgid "URL of the homepage or blog of the group or topic"
@@ -4752,7 +4740,7 @@ msgstr "Grups amb més entrades"
 msgid "Tags in %s group's notices"
 msgstr "Etiquetes en les notificacions del grup %s"
 
-#: lib/htmloutputter.php:104
+#: lib/htmloutputter.php:103
 msgid "This page is not available in a media type you accept"
 msgstr "Aquesta pàgina no està disponible en un tipus de mèdia que acceptis."
 
@@ -4816,7 +4804,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:430
+#: lib/mailbox.php:227 lib/noticelist.php:448
 #, fuzzy
 msgid "from"
 msgstr " de "
@@ -5094,22 +5082,22 @@ msgstr ""
 msgid "Attach a file"
 msgstr ""
 
-#: lib/noticelist.php:402
+#: lib/noticelist.php:406
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:484
+#: lib/noticelist.php:502
 #, fuzzy
 msgid "in context"
 msgstr "Cap contingut!"
 
-#: lib/noticelist.php:504
+#: lib/noticelist.php:522
 msgid "Reply to this notice"
 msgstr "respondre a aquesta nota"
 
-#: lib/noticelist.php:505
+#: lib/noticelist.php:523
 msgid "Reply"
-msgstr "Respondre"
+msgstr "Respon"
 
 #: lib/nudgeform.php:116
 msgid "Nudge this user"
@@ -5251,9 +5239,8 @@ msgid "Sandbox this user"
 msgstr "Desbloquejar aquest usuari"
 
 #: lib/searchaction.php:120
-#, fuzzy
 msgid "Search site"
-msgstr "Cercar"
+msgstr "Cerca al lloc"
 
 #: lib/searchaction.php:162
 #, fuzzy
@@ -5481,11 +5468,3 @@ msgstr "Perdó, aquest no és el teu correu electrònic entrant permès."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Perdó, no hi ha un correu electrònic entrant permès."
-
-#, fuzzy
-#~ msgid "Avatar Settings"
-#~ msgstr "Configuració de l'avatar"
-
-#, fuzzy
-#~ msgid "Invite-only"
-#~ msgstr "Invitar"

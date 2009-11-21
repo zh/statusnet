@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-20 10:23+0000\n"
-"PO-Revision-Date: 2009-11-20 10:24:09+0000\n"
+"POT-Creation-Date: 2009-11-21 11:33+0000\n"
+"PO-Revision-Date: 2009-11-21 11:34:10+0000\n"
 "Language-Team: Polish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10< =4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: MediaWiki 1.16alpha(r59282); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59306); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pl\n"
 "X-Message-Group: out-statusnet\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10< =4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
 #: actions/showfavorites.php:137 actions/tag.php:51
@@ -565,7 +565,7 @@ msgid "Preview"
 msgstr "Podgląd"
 
 #: actions/avatarsettings.php:148 lib/deleteuserform.php:66
-#: lib/noticelist.php:528
+#: lib/noticelist.php:546
 msgid "Delete"
 msgstr "Usuń"
 
@@ -795,7 +795,7 @@ msgstr "Jesteś pewien, że chcesz usunąć ten wpis?"
 msgid "Do not delete this notice"
 msgstr "Nie usuwaj tego wpisu"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:528
+#: actions/deletenotice.php:146 lib/noticelist.php:546
 msgid "Delete this notice"
 msgstr "Usuń ten wpis"
 
@@ -2014,12 +2014,12 @@ msgstr ""
 "pierwszym, który [wyśle coś na ten temat](%%%%action.newnotice%%%%?"
 "status_textarea=%s)!"
 
-#: actions/noticesearchrss.php:89
+#: actions/noticesearchrss.php:96
 #, fuzzy, php-format
 msgid "Updates with \"%s\""
 msgstr "Aktualizacje ze znacznikiem %1$s na %2$s!"
 
-#: actions/noticesearchrss.php:91
+#: actions/noticesearchrss.php:98
 #, fuzzy, php-format
 msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Wszystkie aktualizacje pasujące do wyszukiwanego terminu \"%s\""
@@ -3255,15 +3255,15 @@ msgid "Snapshot frequency must be a number."
 msgstr ""
 
 #: actions/siteadminpanel.php:199
-msgid "You must set an SSL sever when enabling SSL."
+msgid "You must set an SSL server when enabling SSL."
 msgstr ""
 
 #: actions/siteadminpanel.php:204
-msgid "Invalid SSL server. Max length is 255 characters."
+msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr ""
 
 #: actions/siteadminpanel.php:210
-msgid "Minimum text limit is 140c."
+msgid "Minimum text limit is 140 characters."
 msgstr ""
 
 #: actions/siteadminpanel.php:216
@@ -3301,7 +3301,7 @@ msgstr ""
 
 #: actions/siteadminpanel.php:284
 #, fuzzy
-msgid "contact email address for your site"
+msgid "Contact email address for your site"
 msgstr "Nowy adres e-mail do wysyłania do %s"
 
 #: actions/siteadminpanel.php:290
@@ -3406,7 +3406,7 @@ msgid "Frequency"
 msgstr ""
 
 #: actions/siteadminpanel.php:367
-msgid "Snapshots will be sent once every N Web hits"
+msgid "Snapshots will be sent once every N web hits"
 msgstr ""
 
 #: actions/siteadminpanel.php:372
@@ -4817,7 +4817,7 @@ msgstr "Grupy z największą ilością wpisów"
 msgid "Tags in %s group's notices"
 msgstr "Znaczniki we wpisach grupy %s"
 
-#: lib/htmloutputter.php:104
+#: lib/htmloutputter.php:103
 msgid "This page is not available in a media type you accept"
 msgstr "Ta strona jest niedostępna dla akceptowanego typu medium"
 
@@ -4884,7 +4884,7 @@ msgstr ""
 "rozmowę z innymi użytkownikami. Inni mogą wysyłać Ci wiadomości tylko dla "
 "Twoich oczu."
 
-#: lib/mailbox.php:227 lib/noticelist.php:430
+#: lib/mailbox.php:227 lib/noticelist.php:448
 #, fuzzy
 msgid "from"
 msgstr " z "
@@ -5222,19 +5222,19 @@ msgstr "Załącz"
 msgid "Attach a file"
 msgstr "Załącz plik"
 
-#: lib/noticelist.php:402
+#: lib/noticelist.php:406
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:484
+#: lib/noticelist.php:502
 msgid "in context"
 msgstr "w rozmowie"
 
-#: lib/noticelist.php:504
+#: lib/noticelist.php:522
 msgid "Reply to this notice"
 msgstr "Odpowiedz na ten wpis"
 
-#: lib/noticelist.php:505
+#: lib/noticelist.php:523
 msgid "Reply"
 msgstr "Odpowiedz"
 
@@ -5605,11 +5605,3 @@ msgstr "Przepraszamy, to nie jest twój przychodzący adres e-mail."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Przepraszamy, przychodzący e-mail nie jest dozwolony."
-
-#, fuzzy
-#~ msgid "Avatar Settings"
-#~ msgstr "Ustawienia awatara"
-
-#, fuzzy
-#~ msgid "Invite-only"
-#~ msgstr "Zaproś"

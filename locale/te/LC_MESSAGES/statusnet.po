@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-20 10:23+0000\n"
-"PO-Revision-Date: 2009-11-20 10:24:22+0000\n"
+"POT-Creation-Date: 2009-11-21 11:33+0000\n"
+"PO-Revision-Date: 2009-11-21 11:34:24+0000\n"
 "Language-Team: Telugu\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59282); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59306); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: te\n"
 "X-Message-Group: out-statusnet\n"
@@ -551,7 +551,7 @@ msgid "Preview"
 msgstr "మునుజూపు"
 
 #: actions/avatarsettings.php:148 lib/deleteuserform.php:66
-#: lib/noticelist.php:528
+#: lib/noticelist.php:546
 msgid "Delete"
 msgstr "తొలగించు"
 
@@ -778,7 +778,7 @@ msgstr "మీరు నిజంగానే ఈ నోటీసుని త�
 msgid "Do not delete this notice"
 msgstr "ఈ నోటీసుని తొలగించలేము."
 
-#: actions/deletenotice.php:146 lib/noticelist.php:528
+#: actions/deletenotice.php:146 lib/noticelist.php:546
 msgid "Delete this notice"
 msgstr "ఈ నోటీసుని తొలగించు"
 
@@ -1921,12 +1921,12 @@ msgid ""
 "[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
 msgstr ""
 
-#: actions/noticesearchrss.php:89
+#: actions/noticesearchrss.php:96
 #, fuzzy, php-format
 msgid "Updates with \"%s\""
 msgstr "%s యొక్క మైక్రోబ్లాగు"
 
-#: actions/noticesearchrss.php:91
+#: actions/noticesearchrss.php:98
 #, fuzzy, php-format
 msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "\"%s\"తో సరిపోలే అన్ని తాజాకరణలు"
@@ -3076,15 +3076,15 @@ msgid "Snapshot frequency must be a number."
 msgstr ""
 
 #: actions/siteadminpanel.php:199
-msgid "You must set an SSL sever when enabling SSL."
+msgid "You must set an SSL server when enabling SSL."
 msgstr ""
 
 #: actions/siteadminpanel.php:204
-msgid "Invalid SSL server. Max length is 255 characters."
+msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr ""
 
 #: actions/siteadminpanel.php:210
-msgid "Minimum text limit is 140c."
+msgid "Minimum text limit is 140 characters."
 msgstr ""
 
 #: actions/siteadminpanel.php:216
@@ -3122,7 +3122,7 @@ msgstr ""
 
 #: actions/siteadminpanel.php:284
 #, fuzzy
-msgid "contact email address for your site"
+msgid "Contact email address for your site"
 msgstr "ఈ వాడుకరికై నమోదైన ఈమెయిల్ చిరునామాలు ఏమీ లేవు."
 
 #: actions/siteadminpanel.php:290
@@ -3226,7 +3226,7 @@ msgid "Frequency"
 msgstr ""
 
 #: actions/siteadminpanel.php:367
-msgid "Snapshots will be sent once every N Web hits"
+msgid "Snapshots will be sent once every N web hits"
 msgstr ""
 
 #: actions/siteadminpanel.php:372
@@ -4578,7 +4578,7 @@ msgstr "ఎక్కువ టపాలున్న గుంపులు"
 msgid "Tags in %s group's notices"
 msgstr ""
 
-#: lib/htmloutputter.php:104
+#: lib/htmloutputter.php:103
 msgid "This page is not available in a media type you accept"
 msgstr ""
 
@@ -4644,7 +4644,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:430
+#: lib/mailbox.php:227 lib/noticelist.php:448
 msgid "from"
 msgstr "నుండి"
 
@@ -4907,20 +4907,20 @@ msgstr "జోడించు"
 msgid "Attach a file"
 msgstr "ఒక ఫైలుని జోడించు"
 
-#: lib/noticelist.php:402
+#: lib/noticelist.php:406
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:484
+#: lib/noticelist.php:502
 #, fuzzy
 msgid "in context"
 msgstr "విషయం లేదు!"
 
-#: lib/noticelist.php:504
+#: lib/noticelist.php:522
 msgid "Reply to this notice"
 msgstr "ఈ నోటీసుపై స్పందించండి"
 
-#: lib/noticelist.php:505
+#: lib/noticelist.php:523
 msgid "Reply"
 msgstr "స్పందించండి"
 
@@ -5292,11 +5292,3 @@ msgstr ""
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr ""
-
-#, fuzzy
-#~ msgid "Avatar Settings"
-#~ msgstr "అవతారపు అమరికలు"
-
-#, fuzzy
-#~ msgid "Invite-only"
-#~ msgstr "ఆహ్వానించు"
