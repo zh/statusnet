@@ -124,7 +124,7 @@ class SearchAction extends Action
             $this->hidden('action', $this->trimmed('action'));
         }
         $this->input('q', _('Keyword(s)'), $q);
-        $this->submit('search', 'Search');
+        $this->submit('search', _('Search'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
         $this->elementEnd('fieldset');
