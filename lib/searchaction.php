@@ -123,7 +123,7 @@ class SearchAction extends Action
         if (!common_config('site', 'fancy')) {
             $this->hidden('action', $this->trimmed('action'));
         }
-        $this->input('q', 'Keyword(s)', $q);
+        $this->input('q', _('Keyword(s)'), $q);
         $this->submit('search', 'Search');
         $this->elementEnd('li');
         $this->elementEnd('ul');
