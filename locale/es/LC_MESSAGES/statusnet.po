@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-21 11:33+0000\n"
-"PO-Revision-Date: 2009-11-21 11:33:34+0000\n"
+"POT-Creation-Date: 2009-11-22 18:40+0000\n"
+"PO-Revision-Date: 2009-11-22 18:40:23+0000\n"
 "Language-Team: Spanish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59306); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59338); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: es\n"
 "X-Message-Group: out-statusnet\n"
@@ -560,7 +560,7 @@ msgid "Preview"
 msgstr "Vista previa"
 
 #: actions/avatarsettings.php:148 lib/deleteuserform.php:66
-#: lib/noticelist.php:546
+#: lib/noticelist.php:550
 msgid "Delete"
 msgstr "Borrar"
 
@@ -794,7 +794,7 @@ msgstr "¿Estás seguro de que quieres eliminar este aviso?"
 msgid "Do not delete this notice"
 msgstr "No se puede eliminar este aviso."
 
-#: actions/deletenotice.php:146 lib/noticelist.php:546
+#: actions/deletenotice.php:146 lib/noticelist.php:550
 msgid "Delete this notice"
 msgstr "Borrar este aviso"
 
@@ -2164,9 +2164,9 @@ msgstr "6 o más caracteres"
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: actions/passwordsettings.php:113
-msgid "same as password above"
-msgstr "repita la contraseña anterior"
+#: actions/passwordsettings.php:113 actions/recoverpassword.php:240
+msgid "Same as password above"
+msgstr "Igual a la contraseña de arriba"
 
 #: actions/passwordsettings.php:117
 msgid "Change"
@@ -2642,10 +2642,6 @@ msgstr "Acción desconocida"
 #: actions/recoverpassword.php:236
 msgid "6 or more characters, and don't forget it!"
 msgstr "6 o más caracteres, ¡no te olvides!"
-
-#: actions/recoverpassword.php:240
-msgid "Same as password above"
-msgstr "Igual a la contraseña de arriba"
 
 #: actions/recoverpassword.php:243
 msgid "Reset"
@@ -4206,7 +4202,7 @@ msgstr "Ayuda"
 msgid "Help me!"
 msgstr "Ayúdame!"
 
-#: lib/action.php:464
+#: lib/action.php:464 lib/searchaction.php:127
 msgid "Search"
 msgstr "Buscar"
 
@@ -4845,7 +4841,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:448
+#: lib/mailbox.php:227 lib/noticelist.php:452
 msgid "from"
 msgstr "desde"
 
@@ -5124,19 +5120,41 @@ msgstr ""
 msgid "Attach a file"
 msgstr ""
 
-#: lib/noticelist.php:406
+#: lib/noticelist.php:403
+#, php-format
+msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
+msgstr ""
+
+#: lib/noticelist.php:404
+#, fuzzy
+msgid "N"
+msgstr "No"
+
+#: lib/noticelist.php:404
+msgid "S"
+msgstr ""
+
+#: lib/noticelist.php:405
+msgid "E"
+msgstr ""
+
+#: lib/noticelist.php:405
+msgid "W"
+msgstr ""
+
+#: lib/noticelist.php:411
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:502
+#: lib/noticelist.php:506
 msgid "in context"
 msgstr "en contexto"
 
-#: lib/noticelist.php:522
+#: lib/noticelist.php:526
 msgid "Reply to this notice"
 msgstr "Responder este aviso."
 
-#: lib/noticelist.php:523
+#: lib/noticelist.php:527
 msgid "Reply"
 msgstr "Responder"
 
@@ -5282,6 +5300,10 @@ msgstr "Desbloquear este usuario"
 #, fuzzy
 msgid "Search site"
 msgstr "Buscar"
+
+#: lib/searchaction.php:126
+msgid "Keyword(s)"
+msgstr ""
 
 #: lib/searchaction.php:162
 msgid "Search help"
@@ -5510,3 +5532,6 @@ msgstr "Lo sentimos, pero este no es su dirección de correo entrante."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Lo sentimos, pero no se permite correos entrantes"
+
+#~ msgid "same as password above"
+#~ msgstr "repita la contraseña anterior"

@@ -12,12 +12,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-21 11:33+0000\n"
-"PO-Revision-Date: 2009-11-21 11:33:39+0000\n"
+"POT-Creation-Date: 2009-11-22 18:40+0000\n"
+"PO-Revision-Date: 2009-11-22 18:40:29+0000\n"
 "Language-Team: French\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59306); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59338); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: out-statusnet\n"
@@ -102,6 +102,9 @@ msgid ""
 "You can try to [nudge %s](../%s) from his profile or [post something to his "
 "or her attention](%%%%action.newnotice%%%%?status_textarea=%s)."
 msgstr ""
+"Vous pouvez essayer de [donner un coup de coude à %s](../%s) depuis son "
+"profil ou [poster quelque chose à son intention](%%%%action.newnotice%%%%?"
+"status_textarea=%s)."
 
 #: actions/all.php:137 actions/replies.php:209 actions/showstream.php:202
 #, php-format
@@ -109,6 +112,8 @@ msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
 "post a notice to his or her attention."
 msgstr ""
+"Pourquoi ne pas [créer un compte](%%%%action.register%%%%) et ensuite "
+"envoyer un coup de coude à %s ou poster quelque chose à son intention."
 
 #: actions/all.php:165
 msgid "You and friends"
@@ -561,7 +566,7 @@ msgid "Preview"
 msgstr "Aperçu"
 
 #: actions/avatarsettings.php:148 lib/deleteuserform.php:66
-#: lib/noticelist.php:546
+#: lib/noticelist.php:550
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -790,7 +795,7 @@ msgstr "Êtes-vous sûr(e) de vouloir supprimer ce statut ?"
 msgid "Do not delete this notice"
 msgstr "Ne pas supprimer cet avis"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:546
+#: actions/deletenotice.php:146 lib/noticelist.php:550
 msgid "Delete this notice"
 msgstr "Supprimer ce statut"
 
@@ -1375,6 +1380,8 @@ msgid ""
 "Customize the way your group looks with a background image and a colour "
 "palette of your choice."
 msgstr ""
+"Personnalisez le style de votre groupe avec une image de fond et une palette "
+"de couleur de votre choix."
 
 #: actions/groupdesignsettings.php:262 actions/userdesignsettings.php:186
 #: lib/designsettings.php:434 lib/designsettings.php:464
@@ -1510,6 +1517,12 @@ msgid ""
 "for one](%%%%action.groupsearch%%%%) or [start your own!](%%%%action.newgroup"
 "%%%%)"
 msgstr ""
+"Les groupes de %%%%site.name%%%% permettent de trouver et de parler avec des "
+"personnes qui ont le même intérêt. Après avoir rejoint un groupe vous pouvez "
+"envoyer des messages à tous les autres membres en utilisant la syntaxe « !"
+"nomdugroupe ». Vous ne voyez aucun groupe qui vous intéresse ? Essayer d'en "
+"[rechercher un](%%%%action.groupsearch%%%%) ou [commencez le votre !](%%%%"
+"action.newgroup%%%%)"
 
 #: actions/groups.php:107 actions/usergroups.php:124 lib/groupeditform.php:122
 msgid "Create a new group"
@@ -2136,9 +2149,9 @@ msgstr "6 caractères ou plus"
 msgid "Confirm"
 msgstr "Confirmer"
 
-#: actions/passwordsettings.php:113
-msgid "same as password above"
-msgstr "identique au mot de passe ci-dessus"
+#: actions/passwordsettings.php:113 actions/recoverpassword.php:240
+msgid "Same as password above"
+msgstr "Identique au mot de passe ci-dessus"
 
 #: actions/passwordsettings.php:117
 msgid "Change"
@@ -2617,10 +2630,6 @@ msgstr "Action inconnue"
 msgid "6 or more characters, and don't forget it!"
 msgstr "6 caractères ou plus, et ne l’oubliez pas !"
 
-#: actions/recoverpassword.php:240
-msgid "Same as password above"
-msgstr "Identique au mot de passe ci-dessus"
-
 #: actions/recoverpassword.php:243
 msgid "Reset"
 msgstr "Réinitialiser"
@@ -2901,6 +2910,8 @@ msgid ""
 "You can engage other users in a conversation, subscribe to more people or "
 "[join groups](%%action.groups%%)."
 msgstr ""
+"Vous pouvez vous engager dans une conversation avec d'autres personnes, vous "
+"abonner à plus de gens ou [joindre des groupes](%%action.groups%%)."
 
 #: actions/replies.php:205
 #, php-format
@@ -3233,17 +3244,14 @@ msgid "Snapshot frequency must be a number."
 msgstr "La fréquence des instantanés doit être un nombre."
 
 #: actions/siteadminpanel.php:199
-#, fuzzy
 msgid "You must set an SSL server when enabling SSL."
 msgstr "Vous devez définir un serveur SSL quand vous activez SSL."
 
 #: actions/siteadminpanel.php:204
-#, fuzzy
 msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr "Serveur SSL invalide. La longueur maximale est de 255 caractères."
 
 #: actions/siteadminpanel.php:210
-#, fuzzy
 msgid "Minimum text limit is 140 characters."
 msgstr "La limite minimale de texte est de 140 caractères."
 
@@ -3280,9 +3288,8 @@ msgid "URL used for credits link in footer of each page"
 msgstr "URL utilisée pour le lien de crédits au bas de chaque page"
 
 #: actions/siteadminpanel.php:284
-#, fuzzy
 msgid "Contact email address for your site"
-msgstr "adresse de courriel de contact"
+msgstr "adresse de courriel de contact de votre site"
 
 #: actions/siteadminpanel.php:290
 msgid "Local"
@@ -3377,9 +3384,8 @@ msgid "Frequency"
 msgstr "Fréquence"
 
 #: actions/siteadminpanel.php:367
-#, fuzzy
 msgid "Snapshots will be sent once every N web hits"
-msgstr "Les instantanés seront envoyés une fois tous les N hits"
+msgstr "Les instantanés seront envoyés une fois tous les N requêtes"
 
 #: actions/siteadminpanel.php:372
 msgid "Report URL"
@@ -4176,7 +4182,7 @@ msgstr "Aide"
 msgid "Help me!"
 msgstr "À l’aide !"
 
-#: lib/action.php:464
+#: lib/action.php:464 lib/searchaction.php:127
 msgid "Search"
 msgstr "Rechercher"
 
@@ -4844,7 +4850,7 @@ msgstr ""
 "pour démarrer des conversations avec d’autres utilisateurs. Ceux-ci peuvent "
 "vous envoyer des messages destinés à vous seul(e)."
 
-#: lib/mailbox.php:227 lib/noticelist.php:448
+#: lib/mailbox.php:227 lib/noticelist.php:452
 msgid "from"
 msgstr "de"
 
@@ -5195,19 +5201,41 @@ msgstr "Attacher"
 msgid "Attach a file"
 msgstr "Attacher un fichier"
 
-#: lib/noticelist.php:406
+#: lib/noticelist.php:403
+#, php-format
+msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
+msgstr ""
+
+#: lib/noticelist.php:404
+#, fuzzy
+msgid "N"
+msgstr "Non"
+
+#: lib/noticelist.php:404
+msgid "S"
+msgstr ""
+
+#: lib/noticelist.php:405
+msgid "E"
+msgstr ""
+
+#: lib/noticelist.php:405
+msgid "W"
+msgstr ""
+
+#: lib/noticelist.php:411
 msgid "at"
 msgstr "chez"
 
-#: lib/noticelist.php:502
+#: lib/noticelist.php:506
 msgid "in context"
 msgstr "dans le contexte"
 
-#: lib/noticelist.php:522
+#: lib/noticelist.php:526
 msgid "Reply to this notice"
 msgstr "Répondre à ce statut"
 
-#: lib/noticelist.php:523
+#: lib/noticelist.php:527
 msgid "Reply"
 msgstr "Répondre"
 
@@ -5348,6 +5376,10 @@ msgstr "Mettre cet utilisateur dans un bac à sable"
 msgid "Search site"
 msgstr "Rechercher sur le site"
 
+#: lib/searchaction.php:126
+msgid "Keyword(s)"
+msgstr ""
+
 #: lib/searchaction.php:162
 msgid "Search help"
 msgstr "Aide sur la recherche"
@@ -5406,12 +5438,12 @@ msgstr "Groupes de %s"
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
 msgid "People Tagcloud as self-tagged"
-msgstr ""
+msgstr "Nuage de mots clefs des personnes tel que définis par eux-même"
 
 #: lib/subscriberspeopletagcloudsection.php:48
 #: lib/subscriptionspeopletagcloudsection.php:48
 msgid "People Tagcloud as tagged"
-msgstr ""
+msgstr "Nuage de mots clefs des personnes"
 
 #: lib/subscriptionlist.php:126
 msgid "(none)"
@@ -5567,3 +5599,6 @@ msgstr "Désolé, ceci n’est pas votre adresse de courriel entrant."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Désolé, la réception de courriels n’est pas permise."
+
+#~ msgid "same as password above"
+#~ msgstr "identique au mot de passe ci-dessus"

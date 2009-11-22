@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-21 11:33+0000\n"
-"PO-Revision-Date: 2009-11-21 11:33:23+0000\n"
+"POT-Creation-Date: 2009-11-22 18:40+0000\n"
+"PO-Revision-Date: 2009-11-22 18:40:13+0000\n"
 "Language-Team: Czech\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59306); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59338); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: cs\n"
 "X-Message-Group: out-statusnet\n"
@@ -557,7 +557,7 @@ msgid "Preview"
 msgstr ""
 
 #: actions/avatarsettings.php:148 lib/deleteuserform.php:66
-#: lib/noticelist.php:546
+#: lib/noticelist.php:550
 msgid "Delete"
 msgstr ""
 
@@ -790,7 +790,7 @@ msgstr ""
 msgid "Do not delete this notice"
 msgstr "Žádné takové oznámení."
 
-#: actions/deletenotice.php:146 lib/noticelist.php:546
+#: actions/deletenotice.php:146 lib/noticelist.php:550
 msgid "Delete this notice"
 msgstr ""
 
@@ -2100,9 +2100,9 @@ msgstr "6 a více znaků"
 msgid "Confirm"
 msgstr "Heslo znovu"
 
-#: actions/passwordsettings.php:113
-msgid "same as password above"
-msgstr "stejné jako heslo výše"
+#: actions/passwordsettings.php:113 actions/recoverpassword.php:240
+msgid "Same as password above"
+msgstr "Stejné jako heslo výše"
 
 #: actions/passwordsettings.php:117
 msgid "Change"
@@ -2568,10 +2568,6 @@ msgstr ""
 #: actions/recoverpassword.php:236
 msgid "6 or more characters, and don't forget it!"
 msgstr "6 a více znaků, a nezapomeňte"
-
-#: actions/recoverpassword.php:240
-msgid "Same as password above"
-msgstr "Stejné jako heslo výše"
 
 #: actions/recoverpassword.php:243
 msgid "Reset"
@@ -4082,7 +4078,7 @@ msgstr "Nápověda"
 msgid "Help me!"
 msgstr "Nápověda"
 
-#: lib/action.php:464
+#: lib/action.php:464 lib/searchaction.php:127
 msgid "Search"
 msgstr "Hledat"
 
@@ -4726,7 +4722,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:448
+#: lib/mailbox.php:227 lib/noticelist.php:452
 #, fuzzy
 msgid "from"
 msgstr " od "
@@ -4997,20 +4993,41 @@ msgstr ""
 msgid "Attach a file"
 msgstr ""
 
-#: lib/noticelist.php:406
+#: lib/noticelist.php:403
+#, php-format
+msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
+msgstr ""
+
+#: lib/noticelist.php:404
+msgid "N"
+msgstr ""
+
+#: lib/noticelist.php:404
+msgid "S"
+msgstr ""
+
+#: lib/noticelist.php:405
+msgid "E"
+msgstr ""
+
+#: lib/noticelist.php:405
+msgid "W"
+msgstr ""
+
+#: lib/noticelist.php:411
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:502
+#: lib/noticelist.php:506
 #, fuzzy
 msgid "in context"
 msgstr "Žádný obsah!"
 
-#: lib/noticelist.php:522
+#: lib/noticelist.php:526
 msgid "Reply to this notice"
 msgstr ""
 
-#: lib/noticelist.php:523
+#: lib/noticelist.php:527
 #, fuzzy
 msgid "Reply"
 msgstr "odpověď"
@@ -5157,6 +5174,10 @@ msgstr "Žádný takový uživatel."
 #, fuzzy
 msgid "Search site"
 msgstr "Hledat"
+
+#: lib/searchaction.php:126
+msgid "Keyword(s)"
+msgstr ""
 
 #: lib/searchaction.php:162
 #, fuzzy
@@ -5386,3 +5407,6 @@ msgstr ""
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr ""
+
+#~ msgid "same as password above"
+#~ msgstr "stejné jako heslo výše"

@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-21 11:33+0000\n"
-"PO-Revision-Date: 2009-11-21 11:34:07+0000\n"
+"POT-Creation-Date: 2009-11-22 18:40+0000\n"
+"PO-Revision-Date: 2009-11-22 18:40:56+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59306); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59338); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: out-statusnet\n"
@@ -357,7 +357,7 @@ msgstr "Locatie is te lang (maximaal 255 tekens)."
 #: actions/newgroup.php:159
 #, php-format
 msgid "Too many aliases! Maximum %d."
-msgstr "Te veel aliasen! Het maximale aantal is %d."
+msgstr "Te veel aliassen! Het maximale aantal is %d."
 
 #: actions/apigroupcreate.php:264 actions/editgroup.php:224
 #: actions/newgroup.php:168
@@ -566,7 +566,7 @@ msgid "Preview"
 msgstr "Voorvertoning"
 
 #: actions/avatarsettings.php:148 lib/deleteuserform.php:66
-#: lib/noticelist.php:546
+#: lib/noticelist.php:550
 msgid "Delete"
 msgstr "Verwijderen"
 
@@ -796,7 +796,7 @@ msgstr "Weet u zeker dat u deze aankondiging wilt verwijderen?"
 msgid "Do not delete this notice"
 msgstr "Deze mededeling niet verwijderen"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:546
+#: actions/deletenotice.php:146 lib/noticelist.php:550
 msgid "Delete this notice"
 msgstr "Deze mededeling verwijderen"
 
@@ -1056,8 +1056,8 @@ msgstr "Stuur een email naar dit adres om een nieuw bericht te posten"
 #: actions/emailsettings.php:145 actions/smssettings.php:162
 msgid "Make a new email address for posting to; cancels the old one."
 msgstr ""
-"Een nieuw e-mailadres instellen voor het onvangen van e-mail; verwijdert het "
-"eerder geinstelde e-mailadres."
+"Een nieuw e-mailadres instellen voor het ontvangen van e-mail. Hier wordt "
+"het het eerder ingestelde e-mailadres verwijderd."
 
 #: actions/emailsettings.php:148 actions/smssettings.php:164
 msgid "New"
@@ -1074,24 +1074,23 @@ msgstr "Mij e-mailen bij nieuwe abonnementen."
 
 #: actions/emailsettings.php:163
 msgid "Send me email when someone adds my notice as a favorite."
-msgstr "Mij een e-mail sturen als iemand mijn mededeling als favoriet instelt."
+msgstr "Mij e-mailen als iemand mijn mededeling als favoriet instelt."
 
 #: actions/emailsettings.php:169
 msgid "Send me email when someone sends me a private message."
-msgstr "Mij een e-mail sturen als iemand mij een privébericht zendt."
+msgstr "Mij e-mailen als iemand mij een privébericht zendt."
 
 #: actions/emailsettings.php:174
 msgid "Send me email when someone sends me an \"@-reply\"."
-msgstr ""
-"Mij een e-mail sturen als iemand mij een antwoord met \"@\" erin stuurt."
+msgstr "Mij e-mailen als iemand mij een antwoord met \"@\" erin stuurt."
 
 #: actions/emailsettings.php:179
 msgid "Allow friends to nudge me and send me an email."
-msgstr "Vrienden toestaan me te porren en te e-mailen."
+msgstr "Vrienden mogen me porren en e-mailen."
 
 #: actions/emailsettings.php:185
 msgid "I want to post notices by email."
-msgstr "Ik wil mededelingen per e-mail versturen."
+msgstr "Ik wil mededelingen per e-mail plaatsen."
 
 #: actions/emailsettings.php:191
 msgid "Publish a MicroID for my email address."
@@ -1559,8 +1558,8 @@ msgid ""
 "You can send and receive notices through Jabber/GTalk [instant messages](%%"
 "doc.im%%). Configure your address and settings below."
 msgstr ""
-"U kunt berichten verzenden en ontvangen via Jabber/GTalk [\"instant messages"
-"\"](%%doc.im%%). Maak hieronder uw instellingen."
+"U kunt berichten verzenden en ontvangen via Jabber/GTalk [\"onmiddellijke "
+"berichten\"](%%doc.im%%). Maak hieronder uw instellingen."
 
 #: actions/imsettings.php:89
 msgid "IM is not available."
@@ -1595,16 +1594,16 @@ msgstr ""
 
 #: actions/imsettings.php:143
 msgid "Send me notices through Jabber/GTalk."
-msgstr "Stuur mij berichten via Jabber/GTalk."
+msgstr "Mij berichten sturen via Jabber/GTalk."
 
 #: actions/imsettings.php:148
 msgid "Post a notice when my Jabber/GTalk status changes."
-msgstr "Mededeling versturen als mijn Jabber/GTalk-status wijzigt."
+msgstr "Een mededeling versturen als mijn Jabber/GTalk-status wijzigt."
 
 #: actions/imsettings.php:153
 msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
 msgstr ""
-"Stuur me antwoorden via Jabber/GTalk van gebruiker op wie ik niet "
+"Mij antwoorden sturen via Jabber/GTalk van gebruikers op wie ik niet "
 "geabonneerd ben."
 
 #: actions/imsettings.php:159
@@ -2094,7 +2093,7 @@ msgstr "Te gebruiken automatische verkortingsdienst."
 
 #: actions/othersettings.php:122
 msgid "View profile designs"
-msgstr "Profielontwerpen bekijken"
+msgstr "Profielontwerpen gebruiken"
 
 #: actions/othersettings.php:123
 msgid "Show or hide profile designs."
@@ -2147,9 +2146,9 @@ msgstr "Zes of meer tekens"
 msgid "Confirm"
 msgstr "Bevestigen"
 
-#: actions/passwordsettings.php:113
-msgid "same as password above"
-msgstr "gelijk aan wachtwoord hierboven"
+#: actions/passwordsettings.php:113 actions/recoverpassword.php:240
+msgid "Same as password above"
+msgstr "Gelijk aan het wachtwoord hierboven"
 
 #: actions/passwordsettings.php:117
 msgid "Change"
@@ -2506,9 +2505,8 @@ msgid ""
 msgstr ""
 "Dit is %%site.name%%, een [microblogdienst](http://en.wikipedia.org/wiki/"
 "Micro-blogging) gebaseerd op de Vrije Software [StatusNet](http://status."
-"net/). [Registreer nu](%%%%action.register%%%%) om mededelingen over uzelf "
-"te delen met vrienden, familie en collega's! [Meer lezen...](%%%%doc.help%%%"
-"%)"
+"net/). [Registreer nu](%%action.register%%) om mededelingen over uzelf te "
+"delen met vrienden, familie en collega's! [Meer lezen...](%%doc.help%%)"
 
 #: actions/public.php:238
 #, php-format
@@ -2546,8 +2544,8 @@ msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post "
 "one!"
 msgstr ""
-"U kunt een [gebruiker registeren](%%%%action.register%%%%) en dan de eerste "
-"zijn die er een plaatst!"
+"U kunt een [gebruiker registeren](%%action.register%%) en dan de eerste zijn "
+"die er een plaatst!"
 
 #: actions/publictagcloud.php:135
 msgid "Tag cloud"
@@ -2631,10 +2629,6 @@ msgstr "Onbekende handeling"
 #: actions/recoverpassword.php:236
 msgid "6 or more characters, and don't forget it!"
 msgstr "Zes of meer tekens, en vergeet uw wachtwoord niet!"
-
-#: actions/recoverpassword.php:240
-msgid "Same as password above"
-msgstr "Gelijk aan het wachtwoord hierboven"
 
 #: actions/recoverpassword.php:243
 msgid "Reset"
@@ -3024,7 +3018,7 @@ msgstr "Opmerking"
 
 #: actions/showgroup.php:284 lib/groupeditform.php:184
 msgid "Aliases"
-msgstr "Aliasen"
+msgstr "Aliassen"
 
 #: actions/showgroup.php:293
 msgid "Group actions"
@@ -3081,7 +3075,7 @@ msgid ""
 "their life and interests. [Join now](%%%%action.register%%%%) to become part "
 "of this group and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
-"**%s** is een gebruikersgroep bij %%site.name%%, een [microblogdienst]"
+"**%s** is een gebruikersgroep bij %%%%site.name%%%%, een [microblogdienst]"
 "(http://en.wikipedia.org/wiki/Micro-blogging) gebaseerd op de Vrije Software "
 "[StatusNet](http://status.net/). De groepsleden wisselen korte berichten uit "
 "over hun leven en interesses. [Registreer nu](%%%%action.register%%%%) om "
@@ -3193,10 +3187,11 @@ msgid ""
 "[StatusNet](http://status.net/) tool. [Join now](%%%%action.register%%%%) to "
 "follow **%s**'s notices and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
-"**%s** is actief op %%site.name%%, een [microblogdienst](http://en.wikipedia."
-"org/wiki/Micro-blogging) gebaseerd op de Vrije Software [StatusNet](http://"
-"status.net/). [Registreer nu](%%%%action.register%%%%) om te abonneren op de "
-"mededelingen van **%s** en nog veel meer! [Meer lezen...](%%%%doc.help%%%%)"
+"**%s** is actief op %%%%site.name%%%%, een [microblogdienst](http://en."
+"wikipedia.org/wiki/Micro-blogging) gebaseerd op de Vrije Software [StatusNet]"
+"(http://status.net/). [Registreer nu](%%%%action.register%%%%) om te "
+"abonneren op de mededelingen van **%s** en nog veel meer! [Meer lezen...](%%%"
+"%doc.help%%%%)"
 
 #: actions/showstream.php:239
 #, php-format
@@ -3248,17 +3243,14 @@ msgid "Snapshot frequency must be a number."
 msgstr "De snapshotfrequentie moet een getal zijn."
 
 #: actions/siteadminpanel.php:199
-#, fuzzy
 msgid "You must set an SSL server when enabling SSL."
 msgstr "U moet een SSL-server instellen als u SSL wilt inschakelen."
 
 #: actions/siteadminpanel.php:204
-#, fuzzy
 msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr "De SSL-server is ongeldig. De maximale lengte is 255 tekens."
 
 #: actions/siteadminpanel.php:210
-#, fuzzy
 msgid "Minimum text limit is 140 characters."
 msgstr "De minimale tekstlimiet is 140 tekens."
 
@@ -3299,7 +3291,6 @@ msgstr ""
 "voettekst van iedere pagina"
 
 #: actions/siteadminpanel.php:284
-#, fuzzy
 msgid "Contact email address for your site"
 msgstr "E-mailadres om contact op te nemen met de websitebeheerder"
 
@@ -3397,7 +3388,6 @@ msgid "Frequency"
 msgstr "Frequentie"
 
 #: actions/siteadminpanel.php:367
-#, fuzzy
 msgid "Snapshots will be sent once every N web hits"
 msgstr "Iedere zoveel websitehits wordt een snapshot verzonden"
 
@@ -3494,7 +3484,7 @@ msgstr "Voer de code in die u via uw telefoon hebt ontvangen."
 
 #: actions/smssettings.php:138
 msgid "SMS Phone number"
-msgstr "SMS-telefoonnummer"
+msgstr "SMS-nummer"
 
 #: actions/smssettings.php:140
 msgid "Phone number, no punctuation or spaces, with area code"
@@ -3505,8 +3495,8 @@ msgid ""
 "Send me notices through SMS; I understand I may incur exorbitant charges "
 "from my carrier."
 msgstr ""
-"Stuur me mededelingen via SMS. Ik begrijp dat dit exorbitante rekeningen van "
-"mijn provider kan opleveren."
+"Mij mededelingen via SMS sturen. Ik begrijp dat dit exorbitante rekeningen "
+"van mijn provider kan opleveren."
 
 #: actions/smssettings.php:306
 msgid "No phone number."
@@ -3720,7 +3710,7 @@ msgstr ""
 #: actions/tag.php:68
 #, php-format
 msgid "Notices tagged with %s, page %d"
-msgstr "Kennisgevingen met het label %s, pagina %d"
+msgstr "Mededelingen met het label %s, pagina %d"
 
 #: actions/tag.php:86
 #, php-format
@@ -4053,7 +4043,7 @@ msgstr ""
 #: classes/Notice.php:183
 msgid "Problem saving notice. Unknown user."
 msgstr ""
-"Er was een probleem bij het opslaan vna de kennisgeving. De gebruiker is "
+"Er was een probleem bij het opslaan van de mededeling. De gebruiker is "
 "onbekend."
 
 #: classes/Notice.php:188
@@ -4142,7 +4132,7 @@ msgstr "Primaire sitenavigatie"
 
 #: lib/action.php:431
 msgid "Home"
-msgstr "Thuis"
+msgstr "Thuispagina"
 
 #: lib/action.php:431
 msgid "Personal profile and friends timeline"
@@ -4201,7 +4191,7 @@ msgstr "Help"
 msgid "Help me!"
 msgstr "Help me!"
 
-#: lib/action.php:464
+#: lib/action.php:464 lib/searchaction.php:127
 msgid "Search"
 msgstr "Zoeken"
 
@@ -4211,7 +4201,7 @@ msgstr "Naar gebruikers of tekst zoeken"
 
 #: lib/action.php:485
 msgid "Site notice"
-msgstr "Kennisgeving van site"
+msgstr "Mededeling van de website"
 
 #: lib/action.php:551
 msgid "Local views"
@@ -4219,7 +4209,7 @@ msgstr "Lokale weergaven"
 
 #: lib/action.php:617
 msgid "Page notice"
-msgstr "Kennisgeving van pagina"
+msgstr "Mededeling van de pagina"
 
 #: lib/action.php:719
 msgid "Secondary site navigation"
@@ -4231,11 +4221,11 @@ msgstr "Over"
 
 #: lib/action.php:728
 msgid "FAQ"
-msgstr "Veelgestelde vragen"
+msgstr "Veel gestelde vragen"
 
 #: lib/action.php:732
 msgid "TOS"
-msgstr "TOS"
+msgstr "Gebruiksvoorwaarden"
 
 #: lib/action.php:735
 msgid "Privacy"
@@ -4243,7 +4233,7 @@ msgstr "Privacy"
 
 #: lib/action.php:737
 msgid "Source"
-msgstr "Bron"
+msgstr "Broncode"
 
 #: lib/action.php:739
 msgid "Contact"
@@ -4251,7 +4241,7 @@ msgstr "Contact"
 
 #: lib/action.php:741
 msgid "Badge"
-msgstr "Naamplaatje"
+msgstr "Widget"
 
 #: lib/action.php:769
 msgid "StatusNet software license"
@@ -4300,11 +4290,11 @@ msgstr "Paginering"
 
 #: lib/action.php:1077
 msgid "After"
-msgstr "Na"
+msgstr "Later"
 
 #: lib/action.php:1085
 msgid "Before"
-msgstr "Voor"
+msgstr "Eerder"
 
 #: lib/action.php:1133
 msgid "There was a problem with your session token."
@@ -4674,11 +4664,11 @@ msgstr "Het standaardontwerp is weer ingesteld."
 
 #: lib/disfavorform.php:114 lib/disfavorform.php:140
 msgid "Disfavor this notice"
-msgstr "Mededeling uit favorieten verwijderen"
+msgstr "Uit de favorietenlijst verwijderen"
 
 #: lib/favorform.php:114 lib/favorform.php:140
 msgid "Favor this notice"
-msgstr "Deze kennisgeving op de favorietenlijst plaatsen"
+msgstr "Op de favorietenlijst plaatsen"
 
 #: lib/favorform.php:140
 msgid "Favor"
@@ -4686,7 +4676,7 @@ msgstr "Aan favorieten toevoegen"
 
 #: lib/feedlist.php:64
 msgid "Export data"
-msgstr "Gegevens exporteren"
+msgstr "Feeds"
 
 #: lib/feed.php:85
 msgid "RSS 1.0"
@@ -4868,7 +4858,7 @@ msgstr ""
 "U hebt geen privéberichten. U kunt privéberichten verzenden aan andere "
 "gebruikers. Mensen kunnen u privéberichten sturen die alleen u kunt lezen."
 
-#: lib/mailbox.php:227 lib/noticelist.php:448
+#: lib/mailbox.php:227 lib/noticelist.php:452
 msgid "from"
 msgstr "van"
 
@@ -5222,19 +5212,41 @@ msgstr "Toevoegen"
 msgid "Attach a file"
 msgstr "Bestand toevoegen"
 
-#: lib/noticelist.php:406
+#: lib/noticelist.php:403
+#, php-format
+msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
+msgstr ""
+
+#: lib/noticelist.php:404
+#, fuzzy
+msgid "N"
+msgstr "Nee"
+
+#: lib/noticelist.php:404
+msgid "S"
+msgstr ""
+
+#: lib/noticelist.php:405
+msgid "E"
+msgstr ""
+
+#: lib/noticelist.php:405
+msgid "W"
+msgstr ""
+
+#: lib/noticelist.php:411
 msgid "at"
 msgstr "op"
 
-#: lib/noticelist.php:502
+#: lib/noticelist.php:506
 msgid "in context"
 msgstr "in context"
 
-#: lib/noticelist.php:522
+#: lib/noticelist.php:526
 msgid "Reply to this notice"
 msgstr "Op deze mededeling antwoorden"
 
-#: lib/noticelist.php:523
+#: lib/noticelist.php:527
 msgid "Reply"
 msgstr "Antwoorden"
 
@@ -5265,7 +5277,7 @@ msgstr ""
 
 #: lib/oauthstore.php:345
 msgid "Duplicate notice"
-msgstr "Kennisgeving van duplicaat"
+msgstr "Duplicaatmelding"
 
 #: lib/oauthstore.php:466 lib/subs.php:48
 msgid "You have been banned from subscribing."
@@ -5376,6 +5388,10 @@ msgstr "Deze gebruiker in de zandbak plaatsen"
 msgid "Search site"
 msgstr "Site doorzoeken"
 
+#: lib/searchaction.php:126
+msgid "Keyword(s)"
+msgstr ""
+
 #: lib/searchaction.php:162
 msgid "Search help"
 msgstr "Hulp bij zoeken"
@@ -5434,12 +5450,12 @@ msgstr "Groepen waar %s lid van is"
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
 msgid "People Tagcloud as self-tagged"
-msgstr ""
+msgstr "Gebruikerslabelwolk als zelf gelabeld"
 
 #: lib/subscriberspeopletagcloudsection.php:48
 #: lib/subscriptionspeopletagcloudsection.php:48
 msgid "People Tagcloud as tagged"
-msgstr ""
+msgstr "Gebruikerslabelwolk"
 
 #: lib/subscriptionlist.php:126
 msgid "(none)"
@@ -5594,3 +5610,6 @@ msgstr "Dit is niet uw inkomende e-mailadres."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Inkomende e-mail is niet toegestaan."
+
+#~ msgid "same as password above"
+#~ msgstr "gelijk aan wachtwoord hierboven"

@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-21 11:33+0000\n"
-"PO-Revision-Date: 2009-11-21 11:34:10+0000\n"
+"POT-Creation-Date: 2009-11-22 18:40+0000\n"
+"PO-Revision-Date: 2009-11-22 18:40:58+0000\n"
 "Language-Team: Polish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59306); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59338); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pl\n"
 "X-Message-Group: out-statusnet\n"
@@ -565,7 +565,7 @@ msgid "Preview"
 msgstr "Podgląd"
 
 #: actions/avatarsettings.php:148 lib/deleteuserform.php:66
-#: lib/noticelist.php:546
+#: lib/noticelist.php:550
 msgid "Delete"
 msgstr "Usuń"
 
@@ -795,7 +795,7 @@ msgstr "Jesteś pewien, że chcesz usunąć ten wpis?"
 msgid "Do not delete this notice"
 msgstr "Nie usuwaj tego wpisu"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:546
+#: actions/deletenotice.php:146 lib/noticelist.php:550
 msgid "Delete this notice"
 msgstr "Usuń ten wpis"
 
@@ -2145,9 +2145,9 @@ msgstr "6 lub więcej znaków"
 msgid "Confirm"
 msgstr "Potwierdź"
 
-#: actions/passwordsettings.php:113
-msgid "same as password above"
-msgstr "takie samo jak hasło powyżej"
+#: actions/passwordsettings.php:113 actions/recoverpassword.php:240
+msgid "Same as password above"
+msgstr "Takie samo jak powyższe hasło"
 
 #: actions/passwordsettings.php:117
 msgid "Change"
@@ -2630,10 +2630,6 @@ msgstr "Nieznane działanie"
 #: actions/recoverpassword.php:236
 msgid "6 or more characters, and don't forget it!"
 msgstr "6 lub więcej znaków, i nie zapomnij go!"
-
-#: actions/recoverpassword.php:240
-msgid "Same as password above"
-msgstr "Takie samo jak powyższe hasło"
 
 #: actions/recoverpassword.php:243
 msgid "Reset"
@@ -4215,7 +4211,7 @@ msgstr "Pomoc"
 msgid "Help me!"
 msgstr "Pomóż mi!"
 
-#: lib/action.php:464
+#: lib/action.php:464 lib/searchaction.php:127
 msgid "Search"
 msgstr "Znajdź"
 
@@ -4884,7 +4880,7 @@ msgstr ""
 "rozmowę z innymi użytkownikami. Inni mogą wysyłać Ci wiadomości tylko dla "
 "Twoich oczu."
 
-#: lib/mailbox.php:227 lib/noticelist.php:448
+#: lib/mailbox.php:227 lib/noticelist.php:452
 #, fuzzy
 msgid "from"
 msgstr " z "
@@ -5222,19 +5218,41 @@ msgstr "Załącz"
 msgid "Attach a file"
 msgstr "Załącz plik"
 
-#: lib/noticelist.php:406
+#: lib/noticelist.php:403
+#, php-format
+msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
+msgstr ""
+
+#: lib/noticelist.php:404
+#, fuzzy
+msgid "N"
+msgstr "Nie"
+
+#: lib/noticelist.php:404
+msgid "S"
+msgstr ""
+
+#: lib/noticelist.php:405
+msgid "E"
+msgstr ""
+
+#: lib/noticelist.php:405
+msgid "W"
+msgstr ""
+
+#: lib/noticelist.php:411
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:502
+#: lib/noticelist.php:506
 msgid "in context"
 msgstr "w rozmowie"
 
-#: lib/noticelist.php:522
+#: lib/noticelist.php:526
 msgid "Reply to this notice"
 msgstr "Odpowiedz na ten wpis"
 
-#: lib/noticelist.php:523
+#: lib/noticelist.php:527
 msgid "Reply"
 msgstr "Odpowiedz"
 
@@ -5379,6 +5397,10 @@ msgstr "Odblokuj tego użytkownika"
 #: lib/searchaction.php:120
 msgid "Search site"
 msgstr "Znajdź stronę"
+
+#: lib/searchaction.php:126
+msgid "Keyword(s)"
+msgstr ""
 
 #: lib/searchaction.php:162
 msgid "Search help"
@@ -5605,3 +5627,6 @@ msgstr "Przepraszamy, to nie jest twój przychodzący adres e-mail."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Przepraszamy, przychodzący e-mail nie jest dozwolony."
+
+#~ msgid "same as password above"
+#~ msgstr "takie samo jak hasło powyżej"

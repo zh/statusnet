@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-21 11:33+0000\n"
-"PO-Revision-Date: 2009-11-21 11:33:20+0000\n"
+"POT-Creation-Date: 2009-11-22 18:40+0000\n"
+"PO-Revision-Date: 2009-11-22 18:40:09+0000\n"
 "Language-Team: Catalan\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59306); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59338); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: out-statusnet\n"
@@ -209,9 +209,9 @@ msgid "Can't send direct messages to users who aren't your friend."
 msgstr "No pots enviar missatges directes a usuaris que no siguin amics teus."
 
 #: actions/apidirectmessage.php:89
-#, fuzzy, php-format
+#, php-format
 msgid "Direct messages from %s"
-msgstr "Missatges directes a %s"
+msgstr "Missatges directes de %s"
 
 #: actions/apidirectmessage.php:93
 #, php-format
@@ -408,9 +408,9 @@ msgid "groups on %s"
 msgstr "Accions del grup"
 
 #: actions/apigrouplist.php:95
-#, fuzzy, php-format
+#, php-format
 msgid "%s's groups"
-msgstr "%s grups"
+msgstr "Grups de %s"
 
 #: actions/apigrouplist.php:103
 #, fuzzy, php-format
@@ -426,9 +426,8 @@ msgid "You may not delete another user's status."
 msgstr "No pots eliminar l'estatus d'un altre usuari."
 
 #: actions/apistatusesshow.php:138
-#, fuzzy
 msgid "Status deleted."
-msgstr "Avatar actualitzat."
+msgstr "S'ha suprimit l'estat."
 
 #: actions/apistatusesshow.php:144
 msgid "No status with that ID found."
@@ -559,7 +558,7 @@ msgid "Preview"
 msgstr "Previsualitzar"
 
 #: actions/avatarsettings.php:148 lib/deleteuserform.php:66
-#: lib/noticelist.php:546
+#: lib/noticelist.php:550
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -795,7 +794,7 @@ msgstr "N'estàs segur que vols eliminar aquesta notificació?"
 msgid "Do not delete this notice"
 msgstr "No es pot esborrar la notificació."
 
-#: actions/deletenotice.php:146 lib/noticelist.php:546
+#: actions/deletenotice.php:146 lib/noticelist.php:550
 msgid "Delete this notice"
 msgstr "Eliminar aquesta nota"
 
@@ -816,9 +815,8 @@ msgid "You can only delete local users."
 msgstr "No pots eliminar l'estatus d'un altre usuari."
 
 #: actions/deleteuser.php:110 actions/deleteuser.php:133
-#, fuzzy
 msgid "Delete user"
-msgstr "Eliminar"
+msgstr "Suprimeix l'usuari"
 
 #: actions/deleteuser.php:135
 msgid ""
@@ -1258,7 +1256,7 @@ msgstr "Nou avís"
 
 #: actions/file.php:42
 msgid "No attachments"
-msgstr ""
+msgstr "Sense adjuncions"
 
 #: actions/file.php:51
 msgid "No uploaded attachments"
@@ -1282,9 +1280,8 @@ msgid "That user has blocked you from subscribing."
 msgstr "Aquest usuari t'ha bloquejat com a subscriptor."
 
 #: actions/finishremotesubscribe.php:106
-#, fuzzy
 msgid "You are not authorized."
-msgstr "No autoritzat."
+msgstr "No esteu autoritzat."
 
 #: actions/finishremotesubscribe.php:109
 #, fuzzy
@@ -1312,9 +1309,8 @@ msgid "No such file."
 msgstr "No existeix aquest avís."
 
 #: actions/getfile.php:79
-#, fuzzy
 msgid "Cannot read file."
-msgstr "Hem perdut el nostre arxiu."
+msgstr "No es pot llegir el fitxer."
 
 #: actions/groupblock.php:71 actions/groupunblock.php:71
 #: actions/makeadmin.php:71 actions/subedit.php:46
@@ -1330,9 +1326,8 @@ msgstr "No hi ha cap perfil amb aquesta ID."
 
 #: actions/groupblock.php:81 actions/groupunblock.php:81
 #: actions/makeadmin.php:81
-#, fuzzy
 msgid "No group specified."
-msgstr "No s'ha especificat perfil."
+msgstr "No s'ha especificat cap grup."
 
 #: actions/groupblock.php:91
 msgid "Only an admin can block group members."
@@ -1912,7 +1907,7 @@ msgstr ""
 
 #: actions/makeadmin.php:91
 msgid "Only an admin can make another user an admin."
-msgstr ""
+msgstr "Només un administrador poc fer a un altre usuari administrador."
 
 #: actions/makeadmin.php:95
 #, php-format
@@ -2150,9 +2145,9 @@ msgstr "6 o més caràcters"
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: actions/passwordsettings.php:113
-msgid "same as password above"
-msgstr "repeteix la contrasenya anterior"
+#: actions/passwordsettings.php:113 actions/recoverpassword.php:240
+msgid "Same as password above"
+msgstr "Igual a la contrasenya de dalt"
 
 #: actions/passwordsettings.php:117
 msgid "Change"
@@ -2212,9 +2207,8 @@ msgstr ""
 
 #: actions/pathsadminpanel.php:212 actions/siteadminpanel.php:58
 #: lib/adminpanelaction.php:299
-#, fuzzy
 msgid "Site"
-msgstr "Invitar"
+msgstr "Lloc"
 
 #: actions/pathsadminpanel.php:216
 msgid "Path"
@@ -2235,7 +2229,7 @@ msgstr ""
 
 #: actions/pathsadminpanel.php:227
 msgid "Theme"
-msgstr ""
+msgstr "Tema"
 
 #: actions/pathsadminpanel.php:232
 msgid "Theme server"
@@ -2625,10 +2619,6 @@ msgstr "Acció desconeguda"
 #: actions/recoverpassword.php:236
 msgid "6 or more characters, and don't forget it!"
 msgstr "6 o més caràcters, i no te n'oblidis!"
-
-#: actions/recoverpassword.php:240
-msgid "Same as password above"
-msgstr "Igual a la contrasenya de dalt"
 
 #: actions/recoverpassword.php:243
 msgid "Reset"
@@ -3049,9 +3039,8 @@ msgid "Statistics"
 msgstr "Estadístiques"
 
 #: actions/showgroup.php:432
-#, fuzzy
 msgid "Created"
-msgstr "Crear"
+msgstr "S'ha creat"
 
 #: actions/showgroup.php:448
 #, php-format
@@ -3075,9 +3064,8 @@ msgstr ""
 "(http://ca.wikipedia.org/wiki/Microblogging)"
 
 #: actions/showgroup.php:482
-#, fuzzy
 msgid "Admins"
-msgstr "Admin"
+msgstr "Administradors"
 
 #: actions/showmessage.php:81
 msgid "No such message."
@@ -3775,13 +3763,12 @@ msgid "Maximum length of a profile bio in characters."
 msgstr ""
 
 #: actions/useradminpanel.php:231
-#, fuzzy
 msgid "New users"
-msgstr "Invitar nous usuaris"
+msgstr "Usuaris nous"
 
 #: actions/useradminpanel.php:235
 msgid "New user welcome"
-msgstr ""
+msgstr "Benvinguda als usuaris nous"
 
 #: actions/useradminpanel.php:236
 msgid "Welcome text for new users (Max 255 chars)."
@@ -4168,7 +4155,7 @@ msgstr "Ajuda"
 msgid "Help me!"
 msgstr "Ajuda'm"
 
-#: lib/action.php:464
+#: lib/action.php:464 lib/searchaction.php:127
 msgid "Search"
 msgstr "Cerca"
 
@@ -4804,7 +4791,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:448
+#: lib/mailbox.php:227 lib/noticelist.php:452
 #, fuzzy
 msgid "from"
 msgstr " de "
@@ -5082,20 +5069,42 @@ msgstr ""
 msgid "Attach a file"
 msgstr ""
 
-#: lib/noticelist.php:406
+#: lib/noticelist.php:403
+#, php-format
+msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
+msgstr ""
+
+#: lib/noticelist.php:404
+#, fuzzy
+msgid "N"
+msgstr "No"
+
+#: lib/noticelist.php:404
+msgid "S"
+msgstr ""
+
+#: lib/noticelist.php:405
+msgid "E"
+msgstr ""
+
+#: lib/noticelist.php:405
+msgid "W"
+msgstr ""
+
+#: lib/noticelist.php:411
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:502
+#: lib/noticelist.php:506
 #, fuzzy
 msgid "in context"
 msgstr "Cap contingut!"
 
-#: lib/noticelist.php:522
+#: lib/noticelist.php:526
 msgid "Reply to this notice"
 msgstr "respondre a aquesta nota"
 
-#: lib/noticelist.php:523
+#: lib/noticelist.php:527
 msgid "Reply"
 msgstr "Respon"
 
@@ -5242,6 +5251,10 @@ msgstr "Desbloquejar aquest usuari"
 msgid "Search site"
 msgstr "Cerca al lloc"
 
+#: lib/searchaction.php:126
+msgid "Keyword(s)"
+msgstr ""
+
 #: lib/searchaction.php:162
 #, fuzzy
 msgid "Search help"
@@ -5273,7 +5286,7 @@ msgstr "Secció sense títol"
 
 #: lib/section.php:106
 msgid "More..."
-msgstr ""
+msgstr "Més…"
 
 #: lib/silenceform.php:67
 #, fuzzy
@@ -5374,22 +5387,20 @@ msgid "Unsubscribe"
 msgstr "Cancel·lar subscripció"
 
 #: lib/userprofile.php:116
-#, fuzzy
 msgid "Edit Avatar"
-msgstr "Avatar"
+msgstr "Edita l'avatar"
 
 #: lib/userprofile.php:236
 msgid "User actions"
 msgstr "Accions de l'usuari"
 
 #: lib/userprofile.php:248
-#, fuzzy
 msgid "Edit profile settings"
-msgstr "Configuració del perfil"
+msgstr "Edita la configuració del perfil"
 
 #: lib/userprofile.php:249
 msgid "Edit"
-msgstr ""
+msgstr "Edita"
 
 #: lib/userprofile.php:272
 msgid "Send a direct message to this user"
@@ -5444,9 +5455,9 @@ msgid "about a year ago"
 msgstr "fa un any"
 
 #: lib/webcolor.php:82
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not a valid color!"
-msgstr "La pàgina personal no és un URL vàlid."
+msgstr "%s no és un color vàlid!"
 
 #: lib/webcolor.php:123
 #, php-format
@@ -5468,3 +5479,6 @@ msgstr "Perdó, aquest no és el teu correu electrònic entrant permès."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Perdó, no hi ha un correu electrònic entrant permès."
+
+#~ msgid "same as password above"
+#~ msgstr "repeteix la contrasenya anterior"
