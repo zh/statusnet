@@ -397,7 +397,12 @@ class NoticeListItem extends Widget
         $latlon = (!empty($lat) && !empty($lon)) ? $lat.';'.$lon : '';
 
         if (empty($name)) {
-            $name = $this->decimalDegreesToDMS(abs($lat)) . ($lat>0?'N ':'S ') . $this->decimalDegreesToDMS(abs($lon)) . ($lon>0?'E':'W');
+            $latdms = $this->decimalDegreesToDMS(abs($lat));
+            $londms = $this->decimalDegreesToDMS(abs($lon));
+            $name = sprintf(
+                _('%1$u°%2$u\'%3$u"%4$s %5$u°%6$u\'%7$u"%8$s'),
+                $latdms['deg'],$latdms['min'], $latdms['sec'],($lat>0?_('N'):_('S')),
+                $londms['deg'],$londms['min'], $londms['sec'],($lon>0?_('E'):_('W')));
         }
 
         $url  = $location->getUrl();
@@ -428,7 +433,6 @@ class NoticeListItem extends Widget
         $min = floor($tempma / 60);
         $sec = $tempma - ($min*60);
 
-        return $deg . '°' . $min . "'" . $sec . "\"";
         return array("deg"=>$deg,"min"=>$min,"sec"=>$sec);
     }
 
