@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-22 18:40+0000\n"
-"PO-Revision-Date: 2009-11-22 18:40:16+0000\n"
+"POT-Creation-Date: 2009-11-23 21:46+0000\n"
+"PO-Revision-Date: 2009-11-23 21:47:05+0000\n"
 "Language-Team: German\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59338); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59365); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: out-statusnet\n"
@@ -744,7 +744,7 @@ msgid "Conversation"
 msgstr "Bestätigungscode"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:206
+#: lib/profileaction.php:206 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Nachrichten"
 
@@ -1513,7 +1513,7 @@ msgid ""
 msgstr ""
 
 #: actions/groups.php:62 lib/profileaction.php:220 lib/publicgroupnav.php:81
-#: lib/subgroupnav.php:98
+#: lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "Gruppen"
 
@@ -4497,7 +4497,6 @@ msgid "You are not subscribed to anyone."
 msgstr "Du hast dieses Profil nicht abonniert."
 
 #: lib/command.php:620
-#, fuzzy
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Du hast diese Benutzer bereits abonniert:"
@@ -4509,7 +4508,6 @@ msgid "No one is subscribed to you."
 msgstr "Die Gegenseite konnte Dich nicht abonnieren."
 
 #: lib/command.php:642
-#, fuzzy
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Die Gegenseite konnte Dich nicht abonnieren."
@@ -4521,7 +4519,6 @@ msgid "You are not a member of any groups."
 msgstr "Du bist kein Mitglied dieser Gruppe."
 
 #: lib/command.php:664
-#, fuzzy
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Du bist kein Mitglied dieser Gruppe."
@@ -4710,7 +4707,7 @@ msgstr "Ort der Gruppe, optional, z.B. \"Stadt, Gebiet (oder Region), Land\""
 msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr ""
 
-#: lib/groupnav.php:85 lib/searchgroupnav.php:84
+#: lib/groupnav.php:85
 msgid "Group"
 msgstr "Gruppe"
 
@@ -5311,11 +5308,6 @@ msgstr "Leute"
 msgid "Find people on this site"
 msgstr "Finde Leute auf dieser Seite"
 
-#: lib/searchgroupnav.php:82
-#, fuzzy
-msgid "Notice"
-msgstr "Nachricht"
-
 #: lib/searchgroupnav.php:83
 msgid "Find content of notices"
 msgstr "Durchsuche den Inhalt der Notices"
@@ -5528,5 +5520,6 @@ msgstr "Sorry, das ist nicht deine Adresse für eingehende E-Mails."
 msgid "Sorry, no incoming email allowed."
 msgstr "Sorry, keinen eingehenden E-Mails gestattet."
 
-#~ msgid "same as password above"
-#~ msgstr "Gleiches Passwort wie oben"
+#, fuzzy
+#~ msgid "Notice"
+#~ msgstr "Nachricht"

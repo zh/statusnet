@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-22 18:40+0000\n"
-"PO-Revision-Date: 2009-11-22 18:40:56+0000\n"
+"POT-Creation-Date: 2009-11-23 21:46+0000\n"
+"PO-Revision-Date: 2009-11-23 21:47:52+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59338); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59365); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: out-statusnet\n"
@@ -755,7 +755,7 @@ msgid "Conversation"
 msgstr "Dialoog"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:206
+#: lib/profileaction.php:206 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Mededelingen"
 
@@ -1507,7 +1507,7 @@ msgstr ""
 "[aanmaken](%%action.newgroup%%)!"
 
 #: actions/groups.php:62 lib/profileaction.php:220 lib/publicgroupnav.php:81
-#: lib/subgroupnav.php:98
+#: lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "Groepen"
 
@@ -4747,7 +4747,7 @@ msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr ""
 "Extra namen voor de groep, gescheiden door komma's of spaties. Maximaal %d."
 
-#: lib/groupnav.php:85 lib/searchgroupnav.php:84
+#: lib/groupnav.php:85
 msgid "Group"
 msgstr "Groep"
 
@@ -5215,24 +5215,23 @@ msgstr "Bestand toevoegen"
 #: lib/noticelist.php:403
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
-msgstr ""
+msgstr "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 
 #: lib/noticelist.php:404
-#, fuzzy
 msgid "N"
-msgstr "Nee"
+msgstr "N"
 
 #: lib/noticelist.php:404
 msgid "S"
-msgstr ""
+msgstr "Z"
 
 #: lib/noticelist.php:405
 msgid "E"
-msgstr ""
+msgstr "O"
 
 #: lib/noticelist.php:405
 msgid "W"
-msgstr ""
+msgstr "W"
 
 #: lib/noticelist.php:411
 msgid "at"
@@ -5390,7 +5389,7 @@ msgstr "Site doorzoeken"
 
 #: lib/searchaction.php:126
 msgid "Keyword(s)"
-msgstr ""
+msgstr "Term(en)"
 
 #: lib/searchaction.php:162
 msgid "Search help"
@@ -5403,10 +5402,6 @@ msgstr "Gebruikers"
 #: lib/searchgroupnav.php:81
 msgid "Find people on this site"
 msgstr "Gebruikers op deze site vinden"
-
-#: lib/searchgroupnav.php:82
-msgid "Notice"
-msgstr "Mededeling"
 
 #: lib/searchgroupnav.php:83
 msgid "Find content of notices"
@@ -5611,5 +5606,5 @@ msgstr "Dit is niet uw inkomende e-mailadres."
 msgid "Sorry, no incoming email allowed."
 msgstr "Inkomende e-mail is niet toegestaan."
 
-#~ msgid "same as password above"
-#~ msgstr "gelijk aan wachtwoord hierboven"
+#~ msgid "Notice"
+#~ msgstr "Mededeling"

@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-22 18:40+0000\n"
-"PO-Revision-Date: 2009-11-22 18:41:12+0000\n"
+"POT-Creation-Date: 2009-11-23 21:46+0000\n"
+"PO-Revision-Date: 2009-11-23 21:48:12+0000\n"
 "Language-Team: Telugu\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59338); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59365); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: te\n"
 "X-Message-Group: out-statusnet\n"
@@ -364,9 +364,8 @@ msgstr "మారుపేరు పేరుతో సమానంగా ఉం
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:90 actions/apitimelinegroup.php:91
-#, fuzzy
 msgid "Group not found!"
-msgstr "దొరకలేదు"
+msgstr "గుంపు దొరకలేదు!"
 
 #: actions/apigroupjoin.php:110
 msgid "You are already a member of that group."
@@ -738,7 +737,7 @@ msgid "Conversation"
 msgstr "సంభాషణ"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:206
+#: lib/profileaction.php:206 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "సందేశాలు"
 
@@ -1468,7 +1467,7 @@ msgid ""
 msgstr ""
 
 #: actions/groups.php:62 lib/profileaction.php:220 lib/publicgroupnav.php:81
-#: lib/subgroupnav.php:98
+#: lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "గుంపులు"
 
@@ -2137,7 +2136,7 @@ msgstr ""
 
 #: actions/pathsadminpanel.php:227
 msgid "Theme"
-msgstr ""
+msgstr "అలంకారం"
 
 #: actions/pathsadminpanel.php:232
 msgid "Theme server"
@@ -2152,9 +2151,8 @@ msgid "Theme directory"
 msgstr ""
 
 #: actions/pathsadminpanel.php:247
-#, fuzzy
 msgid "Avatars"
-msgstr "అవతారం"
+msgstr "అవతారాలు"
 
 #: actions/pathsadminpanel.php:252
 #, fuzzy
@@ -2738,9 +2736,9 @@ msgid "Replies to %s"
 msgstr "%sకి స్పందనలు"
 
 #: actions/replies.php:127
-#, fuzzy, php-format
+#, php-format
 msgid "Replies to %s, page %d"
-msgstr "%sకి స్పందనలు"
+msgstr "%sకి స్పందనలు, పేజీ %d"
 
 #: actions/replies.php:144
 #, fuzzy, php-format
@@ -3089,12 +3087,11 @@ msgstr ""
 
 #: actions/siteadminpanel.php:266
 msgid "General"
-msgstr ""
+msgstr "సాధారణ"
 
 #: actions/siteadminpanel.php:269
-#, fuzzy
 msgid "Site name"
-msgstr "కొత్త సందేశం"
+msgstr "సైటు పేరు"
 
 #: actions/siteadminpanel.php:270
 msgid "The name of your site, like \"Yourcompany Microblog\""
@@ -3265,7 +3262,7 @@ msgstr ""
 
 #: actions/siteadminpanel.php:400
 msgid "Limits"
-msgstr ""
+msgstr "పరిమితులు"
 
 #: actions/siteadminpanel.php:403
 msgid "Text limit"
@@ -3624,9 +3621,8 @@ msgid "Maximum length of a profile bio in characters."
 msgstr ""
 
 #: actions/useradminpanel.php:231
-#, fuzzy
 msgid "New users"
-msgstr "కొత్త వాడుకరులని ఆహ్వానించండి"
+msgstr "కొత్త వాడుకరులు"
 
 #: actions/useradminpanel.php:235
 msgid "New user welcome"
@@ -3647,9 +3643,8 @@ msgid "Automatically subscribe new users to this user."
 msgstr "ఉపయోగించాల్సిన యాంత్రిక కుదింపు సేవ."
 
 #: actions/useradminpanel.php:251
-#, fuzzy
 msgid "Invitations"
-msgstr "ఆహ్వానము(ల)ని పంపించాం"
+msgstr "ఆహ్వానాలు"
 
 #: actions/useradminpanel.php:256
 #, fuzzy
@@ -4321,7 +4316,6 @@ msgid "You are not subscribed to anyone."
 msgstr "%sకి స్పందనలు"
 
 #: lib/command.php:620
-#, fuzzy
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "%sకి స్పందనలు"
@@ -4333,7 +4327,6 @@ msgid "No one is subscribed to you."
 msgstr "%sకి స్పందనలు"
 
 #: lib/command.php:642
-#, fuzzy
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "%sకి స్పందనలు"
@@ -4345,7 +4338,6 @@ msgid "You are not a member of any groups."
 msgstr "మీరు ఇప్పటికే లోనికి ప్రవేశించారు!"
 
 #: lib/command.php:664
-#, fuzzy
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "మీరు ఇప్పటికే లోనికి ప్రవేశించారు!"
@@ -4528,7 +4520,7 @@ msgstr "మీరు ఎక్కడ నుండి, \"నగరం, రాష�
 msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr ""
 
-#: lib/groupnav.php:85 lib/searchgroupnav.php:84
+#: lib/groupnav.php:85
 msgid "Group"
 msgstr "గుంపు"
 
@@ -4906,7 +4898,7 @@ msgstr "ఒక ఫైలుని జోడించు"
 #: lib/noticelist.php:403
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
-msgstr ""
+msgstr "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 
 #: lib/noticelist.php:404
 #, fuzzy
@@ -5086,7 +5078,7 @@ msgstr "వెతుకు"
 
 #: lib/searchaction.php:126
 msgid "Keyword(s)"
-msgstr ""
+msgstr "కీపదము(లు)"
 
 #: lib/searchaction.php:162
 #, fuzzy
@@ -5100,11 +5092,6 @@ msgstr "ప్రజలు"
 #: lib/searchgroupnav.php:81
 msgid "Find people on this site"
 msgstr ""
-
-#: lib/searchgroupnav.php:82
-#, fuzzy
-msgid "Notice"
-msgstr "సందేశాలు"
 
 #: lib/searchgroupnav.php:83
 msgid "Find content of notices"
@@ -5315,5 +5302,6 @@ msgstr ""
 msgid "Sorry, no incoming email allowed."
 msgstr ""
 
-#~ msgid "same as password above"
-#~ msgstr "పై సంకేతపదం వలెనే"
+#, fuzzy
+#~ msgid "Notice"
+#~ msgstr "సందేశాలు"

@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-22 18:40+0000\n"
-"PO-Revision-Date: 2009-11-22 18:41:22+0000\n"
+"POT-Creation-Date: 2009-11-23 21:46+0000\n"
+"PO-Revision-Date: 2009-11-23 21:48:25+0000\n"
 "Language-Team: Simplified Chinese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59338); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59365); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: out-statusnet\n"
@@ -756,7 +756,7 @@ msgid "Conversation"
 msgstr "确认码"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:206
+#: lib/profileaction.php:206 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "通告"
 
@@ -1521,7 +1521,7 @@ msgid ""
 msgstr ""
 
 #: actions/groups.php:62 lib/profileaction.php:220 lib/publicgroupnav.php:81
-#: lib/subgroupnav.php:98
+#: lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "组"
 
@@ -4472,7 +4472,6 @@ msgid "You are not subscribed to anyone."
 msgstr "您未告知此个人信息"
 
 #: lib/command.php:620
-#, fuzzy
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "您已订阅这些用户："
@@ -4483,7 +4482,6 @@ msgid "No one is subscribed to you."
 msgstr "无法订阅他人更新。"
 
 #: lib/command.php:642
-#, fuzzy
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "无法订阅他人更新。"
@@ -4494,7 +4492,6 @@ msgid "You are not a member of any groups."
 msgstr "您未告知此个人信息"
 
 #: lib/command.php:664
-#, fuzzy
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "您未告知此个人信息"
@@ -4682,7 +4679,7 @@ msgstr "你的位置，格式类似\"城市，省份，国家\""
 msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr ""
 
-#: lib/groupnav.php:85 lib/searchgroupnav.php:84
+#: lib/groupnav.php:85
 msgid "Group"
 msgstr "组"
 
@@ -5283,11 +5280,6 @@ msgstr "用户"
 msgid "Find people on this site"
 msgstr "搜索用户信息"
 
-#: lib/searchgroupnav.php:82
-#, fuzzy
-msgid "Notice"
-msgstr "通告"
-
 #: lib/searchgroupnav.php:83
 msgid "Find content of notices"
 msgstr "搜索通告内容"
@@ -5506,5 +5498,6 @@ msgstr "对不起，这个发布用的电子邮件属于其他用户。"
 msgid "Sorry, no incoming email allowed."
 msgstr "对不起，发布用的电子邮件无法使用。"
 
-#~ msgid "same as password above"
-#~ msgstr "相同的密码"
+#, fuzzy
+#~ msgid "Notice"
+#~ msgstr "通告"

@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-22 18:40+0000\n"
-"PO-Revision-Date: 2009-11-22 18:40:13+0000\n"
+"POT-Creation-Date: 2009-11-23 21:46+0000\n"
+"PO-Revision-Date: 2009-11-23 21:47:02+0000\n"
 "Language-Team: Czech\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59338); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59365); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: cs\n"
 "X-Message-Group: out-statusnet\n"
@@ -750,7 +750,7 @@ msgid "Conversation"
 msgstr "Umístění"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:206
+#: lib/profileaction.php:206 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Sdělení"
 
@@ -1499,7 +1499,7 @@ msgid ""
 msgstr ""
 
 #: actions/groups.php:62 lib/profileaction.php:220 lib/publicgroupnav.php:81
-#: lib/subgroupnav.php:98
+#: lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr ""
 
@@ -4398,11 +4398,11 @@ msgid "You are not subscribed to anyone."
 msgstr "Neodeslal jste nám profil"
 
 #: lib/command.php:620
-#, fuzzy
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Neodeslal jste nám profil"
 msgstr[1] "Neodeslal jste nám profil"
+msgstr[2] ""
 
 #: lib/command.php:640
 #, fuzzy
@@ -4410,11 +4410,11 @@ msgid "No one is subscribed to you."
 msgstr "Vzdálený odběr"
 
 #: lib/command.php:642
-#, fuzzy
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Vzdálený odběr"
 msgstr[1] "Vzdálený odběr"
+msgstr[2] ""
 
 #: lib/command.php:662
 #, fuzzy
@@ -4422,11 +4422,11 @@ msgid "You are not a member of any groups."
 msgstr "Neodeslal jste nám profil"
 
 #: lib/command.php:664
-#, fuzzy
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Neodeslal jste nám profil"
 msgstr[1] "Neodeslal jste nám profil"
+msgstr[2] ""
 
 #: lib/command.php:678
 msgid ""
@@ -4606,7 +4606,7 @@ msgstr "Místo. Město, stát."
 msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr ""
 
-#: lib/groupnav.php:85 lib/searchgroupnav.php:84
+#: lib/groupnav.php:85
 msgid "Group"
 msgstr ""
 
@@ -5192,11 +5192,6 @@ msgstr ""
 msgid "Find people on this site"
 msgstr ""
 
-#: lib/searchgroupnav.php:82
-#, fuzzy
-msgid "Notice"
-msgstr "Sdělení"
-
 #: lib/searchgroupnav.php:83
 msgid "Find content of notices"
 msgstr ""
@@ -5408,5 +5403,6 @@ msgstr ""
 msgid "Sorry, no incoming email allowed."
 msgstr ""
 
-#~ msgid "same as password above"
-#~ msgstr "stejné jako heslo výše"
+#, fuzzy
+#~ msgid "Notice"
+#~ msgstr "Sdělení"

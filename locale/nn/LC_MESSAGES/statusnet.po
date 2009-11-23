@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-22 18:40+0000\n"
-"PO-Revision-Date: 2009-11-22 18:40:53+0000\n"
+"POT-Creation-Date: 2009-11-23 21:46+0000\n"
+"PO-Revision-Date: 2009-11-23 21:47:49+0000\n"
 "Language-Team: Norwegian Nynorsk\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59338); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59365); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nn\n"
 "X-Message-Group: out-statusnet\n"
@@ -748,7 +748,7 @@ msgid "Conversation"
 msgstr "Stadfestingskode"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:206
+#: lib/profileaction.php:206 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Notisar"
 
@@ -1509,7 +1509,7 @@ msgid ""
 msgstr ""
 
 #: actions/groups.php:62 lib/profileaction.php:220 lib/publicgroupnav.php:81
-#: lib/subgroupnav.php:98
+#: lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "Grupper"
 
@@ -4462,7 +4462,6 @@ msgid "You are not subscribed to anyone."
 msgstr "Du tingar ikkje oppdateringar til den profilen."
 
 #: lib/command.php:620
-#, fuzzy
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Du tingar allereie oppdatering frå desse brukarane:"
@@ -4474,7 +4473,6 @@ msgid "No one is subscribed to you."
 msgstr "Kan ikkje tinga andre til deg."
 
 #: lib/command.php:642
-#, fuzzy
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Kan ikkje tinga andre til deg."
@@ -4486,7 +4484,6 @@ msgid "You are not a member of any groups."
 msgstr "Du er ikkje medlem av den gruppa."
 
 #: lib/command.php:664
-#, fuzzy
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Du er ikkje medlem av den gruppa."
@@ -4668,7 +4665,7 @@ msgstr "Kvar er du, t.d. «Stavanger, Rogaland, Noreg»"
 msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr ""
 
-#: lib/groupnav.php:85 lib/searchgroupnav.php:84
+#: lib/groupnav.php:85
 msgid "Group"
 msgstr "Gruppe"
 
@@ -5255,10 +5252,6 @@ msgstr "Folk"
 msgid "Find people on this site"
 msgstr "Finn folk på denne sida"
 
-#: lib/searchgroupnav.php:82
-msgid "Notice"
-msgstr "Notis"
-
 #: lib/searchgroupnav.php:83
 msgid "Find content of notices"
 msgstr "Søk i innhaldet av notisar"
@@ -5469,5 +5462,5 @@ msgstr "Beklager, det er ikkje di inngåande epost addresse."
 msgid "Sorry, no incoming email allowed."
 msgstr "Beklager, inngåande epost er ikkje tillatt."
 
-#~ msgid "same as password above"
-#~ msgstr "same passord som ovanfor"
+#~ msgid "Notice"
+#~ msgstr "Notis"

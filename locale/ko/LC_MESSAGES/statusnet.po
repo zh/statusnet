@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-22 18:40+0000\n"
-"PO-Revision-Date: 2009-11-22 18:40:45+0000\n"
+"POT-Creation-Date: 2009-11-23 21:46+0000\n"
+"PO-Revision-Date: 2009-11-23 21:47:41+0000\n"
 "Language-Team: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59338); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59365); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: out-statusnet\n"
@@ -750,7 +750,7 @@ msgid "Conversation"
 msgstr "인증 코드"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:206
+#: lib/profileaction.php:206 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "통지"
 
@@ -1509,7 +1509,7 @@ msgid ""
 msgstr ""
 
 #: actions/groups.php:62 lib/profileaction.php:220 lib/publicgroupnav.php:81
-#: lib/subgroupnav.php:98
+#: lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "그룹"
 
@@ -4445,7 +4445,6 @@ msgid "You are not subscribed to anyone."
 msgstr "당신은 이 프로필에 구독되지 않고있습니다."
 
 #: lib/command.php:620
-#, fuzzy
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "당신은 다음 사용자를 이미 구독하고 있습니다."
@@ -4456,7 +4455,6 @@ msgid "No one is subscribed to you."
 msgstr "다른 사람을 구독 하실 수 없습니다."
 
 #: lib/command.php:642
-#, fuzzy
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "다른 사람을 구독 하실 수 없습니다."
@@ -4467,7 +4465,6 @@ msgid "You are not a member of any groups."
 msgstr "당신은 해당 그룹의 멤버가 아닙니다."
 
 #: lib/command.php:664
-#, fuzzy
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "당신은 해당 그룹의 멤버가 아닙니다."
@@ -4648,7 +4645,7 @@ msgstr "그룹의 위치, \"시/군/구, 도, 나라\""
 msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr ""
 
-#: lib/groupnav.php:85 lib/searchgroupnav.php:84
+#: lib/groupnav.php:85
 msgid "Group"
 msgstr "그룹"
 
@@ -5228,10 +5225,6 @@ msgstr "사람들"
 msgid "Find people on this site"
 msgstr "이 사이트에 있는 사람 찾기"
 
-#: lib/searchgroupnav.php:82
-msgid "Notice"
-msgstr "게시글"
-
 #: lib/searchgroupnav.php:83
 msgid "Find content of notices"
 msgstr "통지들의 내용 찾기"
@@ -5442,5 +5435,5 @@ msgstr "죄송합니다. 귀하의 이메일이 아닙니다."
 msgid "Sorry, no incoming email allowed."
 msgstr "죄송합니다. 이메일이 허용되지 않습니다."
 
-#~ msgid "same as password above"
-#~ msgstr "위 비밀번호와 동일하게"
+#~ msgid "Notice"
+#~ msgstr "게시글"

@@ -7,16 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-22 18:40+0000\n"
-"PO-Revision-Date: 2009-11-22 18:40:58+0000\n"
+"POT-Creation-Date: 2009-11-23 21:46+0000\n"
+"PO-Revision-Date: 2009-11-23 21:47:55+0000\n"
 "Language-Team: Polish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59338); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59365); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pl\n"
 "X-Message-Group: out-statusnet\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10< =4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10< =4 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
 #: actions/showfavorites.php:137 actions/tag.php:51
@@ -754,7 +755,7 @@ msgid "Conversation"
 msgstr "Rozmowa"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:206
+#: lib/profileaction.php:206 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Wpisy"
 
@@ -1503,7 +1504,7 @@ msgstr ""
 "grupę](%%action.newgroup%%)!"
 
 #: actions/groups.php:62 lib/profileaction.php:220 lib/publicgroupnav.php:81
-#: lib/subgroupnav.php:98
+#: lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "Grupy"
 
@@ -4532,11 +4533,11 @@ msgid "You are not subscribed to anyone."
 msgstr "Nie jesteś zasubskrybowany do tego profilu."
 
 #: lib/command.php:620
-#, fuzzy
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Jesteś już zasubskrybowany do tych użytkowników:"
 msgstr[1] "Jesteś już zasubskrybowany do tych użytkowników:"
+msgstr[2] ""
 
 #: lib/command.php:640
 #, fuzzy
@@ -4544,11 +4545,11 @@ msgid "No one is subscribed to you."
 msgstr "Nie można zasubskrybować innych do Ciebie."
 
 #: lib/command.php:642
-#, fuzzy
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Nie można zasubskrybować innych do Ciebie."
 msgstr[1] "Nie można zasubskrybować innych do Ciebie."
+msgstr[2] ""
 
 #: lib/command.php:662
 #, fuzzy
@@ -4556,11 +4557,11 @@ msgid "You are not a member of any groups."
 msgstr "Nie jesteś członkiem tej grupy."
 
 #: lib/command.php:664
-#, fuzzy
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Nie jesteś członkiem tej grupy."
 msgstr[1] "Nie jesteś członkiem tej grupy."
+msgstr[2] ""
 
 #: lib/command.php:678
 #, fuzzy
@@ -4768,7 +4769,7 @@ msgstr ""
 "Dodatkowe pseudonimy grupy, oddzielone przecinkami lub spacjami, maksymalnie "
 "%d"
 
-#: lib/groupnav.php:85 lib/searchgroupnav.php:84
+#: lib/groupnav.php:85
 msgid "Group"
 msgstr "Grupa"
 
@@ -5414,10 +5415,6 @@ msgstr "Osoby"
 msgid "Find people on this site"
 msgstr "Znajdź osoby na tej stronie"
 
-#: lib/searchgroupnav.php:82
-msgid "Notice"
-msgstr "Wpis"
-
 #: lib/searchgroupnav.php:83
 msgid "Find content of notices"
 msgstr "Przeszukaj zawartość wpisów"
@@ -5628,5 +5625,5 @@ msgstr "Przepraszamy, to nie jest twój przychodzący adres e-mail."
 msgid "Sorry, no incoming email allowed."
 msgstr "Przepraszamy, przychodzący e-mail nie jest dozwolony."
 
-#~ msgid "same as password above"
-#~ msgstr "takie samo jak hasło powyżej"
+#~ msgid "Notice"
+#~ msgstr "Wpis"

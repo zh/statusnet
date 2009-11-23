@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-22 18:40+0000\n"
-"PO-Revision-Date: 2009-11-22 18:40:06+0000\n"
+"POT-Creation-Date: 2009-11-23 21:46+0000\n"
+"PO-Revision-Date: 2009-11-23 21:46:55+0000\n"
 "Language-Team: Bulgarian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59338); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59365); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: bg\n"
 "X-Message-Group: out-statusnet\n"
@@ -746,7 +746,7 @@ msgid "Conversation"
 msgstr "Разговор"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:206
+#: lib/profileaction.php:206 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Бележки"
 
@@ -1496,7 +1496,7 @@ msgid ""
 msgstr ""
 
 #: actions/groups.php:62 lib/profileaction.php:220 lib/publicgroupnav.php:81
-#: lib/subgroupnav.php:98
+#: lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "Групи"
 
@@ -4440,7 +4440,6 @@ msgid "You are not subscribed to anyone."
 msgstr "Не сте абонирани за този профил"
 
 #: lib/command.php:620
-#, fuzzy
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Вече сте абонирани за следните потребители:"
@@ -4452,19 +4451,16 @@ msgid "No one is subscribed to you."
 msgstr "Грешка при абониране на друг потребител за вас."
 
 #: lib/command.php:642
-#, fuzzy
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Грешка при абониране на друг потребител за вас."
 msgstr[1] "Грешка при абониране на друг потребител за вас."
 
 #: lib/command.php:662
-#, fuzzy
 msgid "You are not a member of any groups."
 msgstr "Не членувате в нито една група."
 
 #: lib/command.php:664
-#, fuzzy
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Не членувате в тази група."
@@ -4648,7 +4644,7 @@ msgstr ""
 msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr ""
 
-#: lib/groupnav.php:85 lib/searchgroupnav.php:84
+#: lib/groupnav.php:85
 msgid "Group"
 msgstr "Група"
 
@@ -5227,10 +5223,6 @@ msgstr "Хора"
 msgid "Find people on this site"
 msgstr "Търсене на хора в сайта"
 
-#: lib/searchgroupnav.php:82
-msgid "Notice"
-msgstr "Бележки"
-
 #: lib/searchgroupnav.php:83
 msgid "Find content of notices"
 msgstr "Търсене в съдържанието на бележките"
@@ -5441,5 +5433,5 @@ msgstr "Това не е вашият входящ адрес."
 msgid "Sorry, no incoming email allowed."
 msgstr "Входящата поща не е разрешена."
 
-#~ msgid "same as password above"
-#~ msgstr "също като паролата по-горе"
+#~ msgid "Notice"
+#~ msgstr "Бележки"
