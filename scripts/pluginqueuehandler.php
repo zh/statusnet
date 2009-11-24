@@ -41,6 +41,12 @@ class PluginQueueHandler extends QueueHandler
         return 'plugin';
     }
 
+    function start()
+    {
+        $this->log(LOG_INFO, "INITIALIZE");
+        return true;
+    }
+
     function handle_notice($notice)
     {
         Event::handle('HandleQueuedNotice', array(&$notice));

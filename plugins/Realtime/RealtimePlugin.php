@@ -139,8 +139,8 @@ class RealtimePlugin extends Plugin
 
         // Add to the public timeline
 
-        if ($notice->is_local ||
-            ($notice->is_local == 0 && !common_config('public', 'localonly'))) {
+        if ($notice->is_local == Notice::LOCAL_PUBLIC ||
+            ($notice->is_local == Notice::REMOTE_OMB && !common_config('public', 'localonly'))) {
             $paths[] = array('public');
         }
 
@@ -220,8 +220,9 @@ class RealtimePlugin extends Plugin
 
         $action->elementStart('body',
                               (common_current_user()) ? array('id' => $action->trimmed('action'),
-                                                              'class' => 'user_in')
-                              : array('id' => $action->trimmed('action')));
+                                                              'class' => 'user_in realtime-popup')
+                              : array('id' => $action->trimmed('action'),
+                                      'class'=> 'realtime-popup'));
 
         // XXX hack to deal with JS that tries to get the
         // root url from page output

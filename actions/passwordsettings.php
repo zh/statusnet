@@ -110,7 +110,7 @@ class PasswordsettingsAction extends AccountSettingsAction
         $this->elementEnd('li');
         $this->elementStart('li');
         $this->password('confirm', _('Confirm'),
-                        _('same as password above'));
+                        _('Same as password above'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
 

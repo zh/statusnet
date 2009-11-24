@@ -109,7 +109,7 @@ foreach ($languages as $language) {
         file_put_contents($pofile, $new_file);
         // --backup=off is workaround for Mac OS X fail
         system(sprintf('msgmerge -U --backup=off %s %s', $pofile, $statusnet_pot));
-        system(sprintf('msgfmt -f -o %s %s', $mofile, $pofile));
+        system(sprintf('msgfmt -o %s %s', $mofile, $pofile));
     } else {
         echo "Unchanged - ".$code."\n";
     }

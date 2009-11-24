@@ -396,22 +396,44 @@ class NoticeListItem extends Widget
         $lon = $this->notice->lon;
         $latlon = (!empty($lat) && !empty($lon)) ? $lat.';'.$lon : '';
 
+        if (empty($name)) {
+            $latdms = $this->decimalDegreesToDMS(abs($lat));
+            $londms = $this->decimalDegreesToDMS(abs($lon));
+            $name = sprintf(
+                _('%1$u°%2$u\'%3$u"%4$s %5$u°%6$u\'%7$u"%8$s'),
+                $latdms['deg'],$latdms['min'], $latdms['sec'],($lat>0?_('N'):_('S')),
+                $londms['deg'],$londms['min'], $londms['sec'],($lon>0?_('E'):_('W')));
+        }
+
         $url  = $location->getUrl();
 
         $this->out->elementStart('span', array('class' => 'location'));
         $this->out->text(_('at'));
-
-        $this->out->elementStart('a', array('class' => 'geo', 'href' => $url));
-        $this->out->elementStart('abbr', array('class' => 'latitude', 'title' => $lat, 'style' => empty($name)?null:'display: none'));
-        $this->out->text($lat); //TODO translate to a prettier format, like "S 37.2 deg" instead of "-37.2"
-        $this->out->elementEnd('abbr');
-        $this->out->elementStart('abbr', array('class' => 'longitude', 'title' => $lon, 'style' => empty($name)?null:'display: none'));
-        $this->out->text($lon);
-        $this->out->elementEnd('abbr');
-        $this->out->text($name);
-        $this->out->elementEnd('a');
-
+        if (empty($url)) {
+            $this->out->element('span', array('class' => 'geo',
+                                              'title' => $latlon),
+                                $name);
+        } else {
+            $this->out->element('a', array('class' => 'geo',
+                                           'title' => $latlon,
+                                           'href' => $url),
+                                $name);
+        }
         $this->out->elementEnd('span');
+    }
+
+    function decimalDegreesToDMS($dec)
+    {
+
+        $vars = explode(".",$dec);
+        $deg = $vars[0];
+        $tempma = "0.".$vars[1];
+
+        $tempma = $tempma * 3600;
+        $min = floor($tempma / 60);
+        $sec = $tempma - ($min*60);
+
+        return array("deg"=>$deg,"min"=>$min,"sec"=>$sec);
     }
 
     /**

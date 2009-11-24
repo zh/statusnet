@@ -1,17 +1,17 @@
 $(document).ready(function() {
-     notices = [];
+     var notices = [];
      $(".notice").each(function(){
-        notice = getNoticeFromElement($(this));
+        var notice = getNoticeFromElement($(this));
         if(notice['geo'])
             notices.push(notice);
      });
-     if($("#map_canvas") && notices.length>0)
+     if($("#map_canvas").length && notices.length>0)
      {
         showMapstraction($("#map_canvas"), notices);
      }
 
-     $('a.geo').click(function(){
-        noticeElement = $(this).closest(".notice");
+     $('.geo').click(function(){
+        var noticeElement = $(this).closest(".notice");
         notice = getNoticeFromElement(noticeElement);
 
         $.fn.jOverlay.options = {
@@ -23,7 +23,7 @@ $(document).ready(function() {
             autoHide : true,
             css : {'max-width':'542px', 'top':'5%', 'left':'32.5%'}
         };
-        html="<div id='map_canvas_popup' class='gray smallmap' style='width: 542px; height: 500px' />";
+        var html="<div id='map_canvas_popup' class='gray smallmap' style='width: 542px; height: 500px' />";
         html+="<button class='close'>&#215;</button>";
         html+=$("<div/>").append($(this).clone()).html();
         $().jOverlay({ "html": html });
@@ -47,11 +47,12 @@ function getMicroformatValue(element)
 
 function getNoticeFromElement(noticeElement)
 {
-    notice = {};
-    if(noticeElement.find(".latitude").length){
+    var notice = {};
+    if(noticeElement.find(".geo").length){
+        var latlon = noticeElement.find(".geo").attr('title').split(";");
         notice['geo']={'coordinates': [
-            parseFloat(getMicroformatValue(noticeElement.find(".latitude"))),
-            parseFloat(getMicroformatValue(noticeElement.find(".longitude")))] };
+            parseFloat(latlon[0]),
+            parseFloat(latlon[1])] };
     }
     notice['user']={
         'profile_image_url': noticeElement.find("img.avatar").attr('src'),
