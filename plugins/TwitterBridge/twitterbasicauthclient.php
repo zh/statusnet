@@ -183,7 +183,8 @@ class TwitterBasicAuthClient
             'follow_redirects' => true,
             'connect_timeout' => 120,
             'timeout' => 120,
-            'ssl_verifypeer' => false,
+            'ssl_verify_peer' => false,
+            'ssl_verify_host' => false
         ));
 
         if ($auth) {
