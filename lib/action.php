@@ -120,14 +120,16 @@ class Action extends HTMLOutputter // lawsuit
     {
         // XXX: attributes (profile?)
         $this->elementStart('head');
-        $this->showTitle();
-        $this->showShortcutIcon();
-        $this->showStylesheets();
-        $this->showScripts();
-        $this->showOpenSearch();
-        $this->showFeeds();
-        $this->showDescription();
-        $this->extraHead();
+        if (Event::handle('StartShowHeadElements', array($this))) {
+            $this->showTitle();
+            $this->showShortcutIcon();
+            $this->showStylesheets();
+            $this->showOpenSearch();
+            $this->showFeeds();
+            $this->showDescription();
+            $this->extraHead();
+            Event::handle('EndShowHeadElements', array($this));
+        }
         $this->elementEnd('head');
     }
 
@@ -166,7 +168,7 @@ class Action extends HTMLOutputter // lawsuit
     {
         if (is_readable(INSTALLDIR . '/theme/' . common_config('site', 'theme') . '/favicon.ico')) {
             $this->element('link', array('rel' => 'shortcut icon',
-                                         'href' => theme_path('favicon.ico')));
+                                         'href' => Theme::path('favicon.ico')));
         } else {
             $this->element('link', array('rel' => 'shortcut icon',
                                          'href' => common_path('favicon.ico')));
@@ -175,7 +177,7 @@ class Action extends HTMLOutputter // lawsuit
         if (common_config('site', 'mobile')) {
             if (is_readable(INSTALLDIR . '/theme/' . common_config('site', 'theme') . '/apple-touch-icon.png')) {
                 $this->element('link', array('rel' => 'apple-touch-icon',
-                                             'href' => theme_path('apple-touch-icon.png')));
+                                             'href' => Theme::path('apple-touch-icon.png')));
             } else {
                 $this->element('link', array('rel' => 'apple-touch-icon',
                                              'href' => common_path('apple-touch-icon.png')));
@@ -208,16 +210,16 @@ class Action extends HTMLOutputter // lawsuit
 
             if (Event::handle('StartShowUAStyles', array($this))) {
                 $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
-                               'href="'.theme_path('css/ie.css', 'base').'?version='.STATUSNET_VERSION.'" /><![endif]');
+                               'href="'.Theme::path('css/ie.css', 'base').'?version='.STATUSNET_VERSION.'" /><![endif]');
                 foreach (array(6,7) as $ver) {
-                    if (file_exists(theme_file('css/ie'.$ver.'.css', 'base'))) {
+                    if (file_exists(Theme::file('css/ie'.$ver.'.css', 'base'))) {
                         // Yes, IE people should be put in jail.
                         $this->comment('[if lte IE '.$ver.']><link rel="stylesheet" type="text/css" '.
-                                       'href="'.theme_path('css/ie'.$ver.'.css', 'base').'?version='.STATUSNET_VERSION.'" /><![endif]');
+                                       'href="'.Theme::path('css/ie'.$ver.'.css', 'base').'?version='.STATUSNET_VERSION.'" /><![endif]');
                     }
                 }
                 $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
-                               'href="'.theme_path('css/ie.css', null).'?version='.STATUSNET_VERSION.'" /><![endif]');
+                               'href="'.Theme::path('css/ie.css', null).'?version='.STATUSNET_VERSION.'" /><![endif]');
                 Event::handle('EndShowUAStyles', array($this));
             }
 
@@ -257,6 +259,7 @@ class Action extends HTMLOutputter // lawsuit
                 Event::handle('StartShowLaconicaScripts', array($this))) {
                 $this->script('js/xbImportNode.js');
                 $this->script('js/util.js');
+                $this->script('js/geometa.js');
                 // Frame-busting code to avoid clickjacking attacks.
                 $this->element('script', array('type' => 'text/javascript'),
                                'if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
@@ -352,6 +355,7 @@ class Action extends HTMLOutputter // lawsuit
             Event::handle('EndShowFooter', array($this));
         }
         $this->elementEnd('div');
+        $this->showScripts();
         $this->elementEnd('body');
     }
 
@@ -388,9 +392,9 @@ class Action extends HTMLOutputter // lawsuit
         if (Event::handle('StartAddressData', array($this))) {
             $this->elementStart('a', array('class' => 'url home bookmark',
                                            'href' => common_local_url('public')));
-            if (common_config('site', 'logo') || file_exists(theme_file('logo.png'))) {
+            if (common_config('site', 'logo') || file_exists(Theme::file('logo.png'))) {
                 $this->element('img', array('class' => 'logo photo',
-                                            'src' => (common_config('site', 'logo')) ? common_config('site', 'logo') : theme_path('logo.png'),
+                                            'src' => (common_config('site', 'logo')) ? common_config('site', 'logo') : Theme::path('logo.png'),
                                             'alt' => common_config('site', 'name')));
             }
             $this->element('span', array('class' => 'fn org'), common_config('site', 'name'));
@@ -431,6 +435,10 @@ class Action extends HTMLOutputter // lawsuit
                     $this->menuItem(common_local_url($connect),
                                     _('Connect'), _('Connect to services'), false, 'nav_connect');
                 }
+                if ($user->hasRight(Right::CONFIGURESITE)) {
+                    $this->menuItem(common_local_url('siteadminpanel'),
+                                    _('Admin'), _('Change site configuration'), false, 'nav_admin');
+                }
                 if (common_config('invite', 'enabled')) {
                     $this->menuItem(common_local_url('invite'),
                                     _('Invite'),
@@ -442,17 +450,12 @@ class Action extends HTMLOutputter // lawsuit
                                 _('Logout'), _('Logout from the site'), false, 'nav_logout');
             }
             else {
-                if (!common_config('site', 'openidonly')) {
-                    if (!common_config('site', 'closed')) {
-                        $this->menuItem(common_local_url('register'),
-                                        _('Register'), _('Create an account'), false, 'nav_register');
-                    }
-                    $this->menuItem(common_local_url('login'),
-                                    _('Login'), _('Login to the site'), false, 'nav_login');
-                } else {
-                    $this->menuItem(common_local_url('openidlogin'),
-                                    _('OpenID'), _('Login with OpenID'), false, 'nav_openid');
+                if (!common_config('site', 'closed')) {
+                    $this->menuItem(common_local_url('register'),
+                                    _('Register'), _('Create an account'), false, 'nav_register');
                 }
+                $this->menuItem(common_local_url('login'),
+                                _('Login'), _('Login to the site'), false, 'nav_login');
             }
             $this->menuItem(common_local_url('doc', array('title' => 'help')),
                             _('Help'), _('Help me!'), false, 'nav_help');
@@ -530,7 +533,10 @@ class Action extends HTMLOutputter // lawsuit
             $this->showContentBlock();
             Event::handle('EndShowContentBlock', array($this));
         }
-        $this->showAside();
+        if (Event::handle('StartShowAside', array($this))) {
+            $this->showAside();
+            Event::handle('EndShowAside', array($this));
+        }
         $this->elementEnd('div');
     }
 
@@ -985,6 +991,18 @@ class Action extends HTMLOutputter // lawsuit
 
     function selfUrl()
     {
+        list($action, $args) = $this->returnToArgs();
+        return common_local_url($action, $args);
+    }
+
+    /**
+     * Returns arguments sufficient for re-constructing URL
+     *
+     * @return array two elements: action, other args
+     */
+
+    function returnToArgs()
+    {
         $action = $this->trimmed('action');
         $args   = $this->args;
         unset($args['action']);
@@ -997,8 +1015,7 @@ class Action extends HTMLOutputter // lawsuit
         foreach (array_keys($_COOKIE) as $cookie) {
             unset($args[$cookie]);
         }
-
-        return common_local_url($action, $args);
+        return array($action, $args);
     }
 
     /**
@@ -1047,8 +1064,7 @@ class Action extends HTMLOutputter // lawsuit
     {
         // Does a little before-after block for next/prev page
         if ($have_before || $have_after) {
-            $this->elementStart('div', array('class' => 'pagination'));
-            $this->elementStart('dl', null);
+            $this->elementStart('dl', 'pagination');
             $this->element('dt', null, _('Pagination'));
             $this->elementStart('dd', null);
             $this->elementStart('ul', array('class' => 'nav'));
@@ -1073,7 +1089,6 @@ class Action extends HTMLOutputter // lawsuit
             $this->elementEnd('ul');
             $this->elementEnd('dd');
             $this->elementEnd('dl');
-            $this->elementEnd('div');
         }
     }
 
@@ -1099,5 +1114,23 @@ class Action extends HTMLOutputter // lawsuit
     function getDesign()
     {
         return Design::siteDesign();
+    }
+
+    /**
+     * Check the session token.
+     *
+     * Checks that the current form has the correct session token,
+     * and throw an exception if it does not.
+     *
+     * @return void
+     */
+
+    function checkSessionToken()
+    {
+        // CSRF protection
+        $token = $this->trimmed('token');
+        if (empty($token) || $token != common_session_token()) {
+            $this->clientError(_('There was a problem with your session token.'));
+        }
     }
 }

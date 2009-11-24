@@ -99,7 +99,9 @@ class NewmessageAction extends Action
         $user = common_current_user();
 
         if (!$user) {
-            $this->clientError(_('Only logged-in users can send direct messages.'), 403);
+            /* Go log in, and then come back. */
+            common_set_returnto($_SERVER['REQUEST_URI']);
+            common_redirect(common_local_url('login'));
             return false;
         }
 
@@ -111,7 +113,7 @@ class NewmessageAction extends Action
             $this->other = User::staticGet('id', $this->to);
 
             if (!$this->other) {
-                $this->clientError(_('No such user'), 404);
+                $this->clientError(_('No such user.'), 404);
                 return false;
             }
 
@@ -144,9 +146,10 @@ class NewmessageAction extends Action
         } else {
             $content_shortened = common_shorten_links($this->content);
 
-            if (mb_strlen($content_shortened) > 140) {
-                $this->showForm(_('That\'s too long. ' .
-                    'Max message size is 140 chars.'));
+            if (Message::contentTooLong($content_shortened)) {
+                $this->showForm(sprintf(_('That\'s too long. ' .
+                                          'Max message size is %d chars.'),
+                                        Message::maxContent()));
                 return;
             }
         }
@@ -220,7 +223,21 @@ class NewmessageAction extends Action
         }
 
         $this->msg = $msg;
-        $this->showPage();
+        if ($this->trimmed('ajax')) {
+            header('Content-Type: text/xml;charset=utf-8');
+            $this->xw->startDocument('1.0', 'UTF-8');
+            $this->elementStart('html');
+            $this->elementStart('head');
+            $this->element('title', null, _('New message'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
+            $this->showNoticeForm();
+            $this->elementEnd('body');
+            $this->endHTML();
+        }
+        else {
+            $this->showPage();
+        }
     }
 
     function showPageNotice()

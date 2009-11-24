@@ -111,9 +111,7 @@ class SubscribersAction extends GalleryAction
             }
         }
         else {
-            $message = sprintf(_('%s has no subscribers. Why not [register an account](%%%%action.%s%%%%) and be the first?'),
-                               $this->user->nickname,
-                               (!common_config('site','openidonly')) ? 'register' : 'openidlogin');
+            $message = sprintf(_('%s has no subscribers. Why not [register an account](%%%%action.register%%%%) and be the first?'), $this->user->nickname);
         }
 
         $this->elementStart('div', 'guide');

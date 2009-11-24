@@ -94,7 +94,13 @@ class File extends Memcached_DataObject
             $file_redir = File_redirection::staticGet('url', $given_url);
             if (empty($file_redir)) {
                 $redir_data = File_redirection::where($given_url);
-                $redir_url = $redir_data['url'];
+                if (is_array($redir_data)) {
+                    $redir_url = $redir_data['url'];
+                } elseif (is_string($redir_data)) {
+                    $redir_url = $redir_data;
+                } else {
+                    throw new ServerException("Can't process url '$given_url'");
+                }
                 // TODO: max field length
                 if ($redir_url === $given_url || strlen($redir_url) > 255) {
                     $x = File::saveNew($redir_data, $given_url);
@@ -197,17 +203,44 @@ class File extends Memcached_DataObject
         return 'http://'.$server.$path.$filename;
     }
 
-    function isEnclosure(){
-        if(isset($this->filename)){
-            return true;
+    function getEnclosure(){
+        $enclosure = (object) array();
+        $enclosure->title=$this->title;
+        $enclosure->url=$this->url;
+        $enclosure->title=$this->title;
+        $enclosure->date=$this->date;
+        $enclosure->modified=$this->modified;
+        $enclosure->size=$this->size;
+        $enclosure->mimetype=$this->mimetype;
+
+        if(! isset($this->filename)){
+            $notEnclosureMimeTypes = array('text/html','application/xhtml+xml');
+            $mimetype = strtolower($this->mimetype);
+            $semicolon = strpos($mimetype,';');
+            if($semicolon){
+                $mimetype = substr($mimetype,0,$semicolon);
+            }
+            if(in_array($mimetype,$notEnclosureMimeTypes)){
+                $oembed = File_oembed::staticGet('file_id',$this->id);
+                if($oembed){
+                    $mimetype = strtolower($oembed->mimetype);
+                    $semicolon = strpos($mimetype,';');
+                    if($semicolon){
+                        $mimetype = substr($mimetype,0,$semicolon);
+                    }
+                    if(in_array($mimetype,$notEnclosureMimeTypes)){
+                        return false;
+                    }else{
+                        if($oembed->mimetype) $enclosure->mimetype=$oembed->mimetype;
+                        if($oembed->url) $enclosure->url=$oembed->url;
+                        if($oembed->title) $enclosure->title=$oembed->title;
+                        if($oembed->modified) $enclosure->modified=$oembed->modified;
+                        unset($oembed->size);
+                    }
+                }
+            }
         }
-        $notEnclosureMimeTypes = array('text/html','application/xhtml+xml',null);
-        $mimetype = strtolower($this->mimetype);
-        $semicolon = strpos($mimetype,';');
-        if($semicolon){
-            $mimetype = substr($mimetype,0,$semicolon);
-        }
-        return(! in_array($mimetype,$notEnclosureMimeTypes));
+        return $enclosure;
     }
 }
 

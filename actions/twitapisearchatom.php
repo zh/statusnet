@@ -31,7 +31,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/twitterapi.php';
+require_once INSTALLDIR.'/lib/api.php';
 
 /**
  * Action for outputting search results in Twitter compatible Atom
@@ -46,10 +46,10 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  *
- * @see      TwitterapiAction
+ * @see      ApiAction
  */
 
-class TwitapisearchatomAction extends TwitterapiAction
+class TwitapisearchatomAction extends ApiAction
 {
 
     var $cnt;
@@ -161,7 +161,7 @@ class TwitapisearchatomAction extends TwitterapiAction
         // lcase it for comparison
         $q = strtolower($this->query);
 
-        $search_engine = $notice->getSearchEngine('identica_notices');
+        $search_engine = $notice->getSearchEngine('notice');
         $search_engine->set_sort_mode('chron');
         $search_engine->limit(($this->page - 1) * $this->rpp,
             $this->rpp + 1, true);
@@ -340,7 +340,7 @@ class TwitapisearchatomAction extends TwitterapiAction
         // TODO: Here is where we'd put in a link to an atom feed for threads
 
         $this->element("twitter:source", null,
-            htmlentities($this->source_link($notice->source)));
+            htmlentities($this->sourceLink($notice->source)));
 
         $this->elementStart('author');
 

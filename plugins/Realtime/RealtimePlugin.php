@@ -101,8 +101,8 @@ class RealtimePlugin extends Plugin
             $realtimeUI = ' RealtimeUpdate.initPopupWindow();';
         }
         else {
-            $iconurl = common_path('plugins/Realtime/icon_external.gif');
-            $realtimeUI = ' RealtimeUpdate.addPopup("'.$url.'", "'.$timeline.'", "'. $iconurl .'");';
+            $pluginPath = common_path('plugins/Realtime/');
+            $realtimeUI = ' RealtimeUpdate.initActions("'.$url.'", "'.$timeline.'", "'. $pluginPath .'");';
         }
 
         $action->elementStart('script', array('type' => 'text/javascript'));
@@ -118,7 +118,14 @@ class RealtimePlugin extends Plugin
         return true;
     }
 
-    function onEndNoticeSave($notice)
+    function onEndShowStatusNetStyles($action)
+    {
+        $action->cssLink(common_path('plugins/Realtime/realtimeupdate.css'), 
+                         null, 'screen, projection, tv');
+        return true;
+    }
+
+    function onHandleQueuedNotice($notice)
     {
         $paths = array();
 
@@ -230,6 +237,7 @@ class RealtimePlugin extends Plugin
         }
 
         $action->showContentBlock();
+        $action->showScripts();
         $action->elementEnd('body');
         return false; // No default processing
     }
@@ -239,13 +247,13 @@ class RealtimePlugin extends Plugin
         // FIXME: this code should be abstracted to a neutral third
         // party, like Notice::asJson(). I'm not sure of the ethics
         // of refactoring from within a plugin, so I'm just abusing
-        // the TwitterApiAction method. Don't do this unless you're me!
+        // the ApiAction method. Don't do this unless you're me!
 
-        require_once(INSTALLDIR.'/lib/twitterapi.php');
+        require_once(INSTALLDIR.'/lib/api.php');
 
-        $act = new TwitterApiAction('/dev/null');
+        $act = new ApiAction('/dev/null');
 
-        $arr = $act->twitter_status_array($notice, true);
+        $arr = $act->twitterStatusArray($notice, true);
         $arr['url'] = $notice->bestUrl();
         $arr['html'] = htmlspecialchars($notice->rendered);
         $arr['source'] = htmlspecialchars($arr['source']);

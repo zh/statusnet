@@ -34,9 +34,8 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 
 require_once INSTALLDIR.'/lib/xmloutputter.php';
 
-define('PAGE_TYPE_PREFS',
-       'text/html,application/xhtml+xml,'.
-       'application/xml;q=0.3,text/xml;q=0.2');
+// Can include XHTML options but these are too fragile in practice.
+define('PAGE_TYPE_PREFS', 'text/html');
 
 /**
  * Low-level generator for HTML
@@ -106,7 +105,7 @@ class HTMLOutputter extends XMLOutputter
             }
         }
 
-        header('Content-Type: '.$type.'; charset=UTF-8');
+        header('Content-Type: '.$type);
 
         $this->extraHeaders();
         if (preg_match("/.*\/.*xml/", $type)) {
@@ -375,8 +374,8 @@ class HTMLOutputter extends XMLOutputter
         $url = parse_url($src);
         if( empty($url->scheme) && empty($url->host) && empty($url->query) && empty($url->fragment))
         {
-            if(file_exists(theme_file($src,$theme))){
-               $src = theme_path($src, $theme) . '?version=' . STATUSNET_VERSION;
+            if(file_exists(Theme::file($src,$theme))){
+               $src = Theme::path($src, $theme) . '?version=' . STATUSNET_VERSION;
             }else{
                $src = common_path($src);
             }

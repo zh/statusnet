@@ -1,0 +1,5275 @@
+# Translation of StatusNet to Turkish
+#
+# --
+# This file is distributed under the same license as the StatusNet package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: StatusNet\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-11-19 10:43+0000\n"
+"PO-Revision-Date: 2009-11-18 19:32:45+0000\n"
+"Language-Team: Turkish\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: MediaWiki 1.16alpha(r59207); Translate extension (2009-11-16)\n"
+"X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
+"X-Language-Code: tr\n"
+"X-Message-Group: out-statusnet\n"
+
+#: actions/all.php:63 actions/public.php:97 actions/replies.php:92
+#: actions/showfavorites.php:137 actions/tag.php:51
+#, fuzzy
+msgid "No such page"
+msgstr "Böyle bir durum mesajı yok."
+
+#: actions/all.php:74 actions/allrss.php:68
+#: actions/apiaccountupdatedeliverydevice.php:113
+#: actions/apiaccountupdateprofilebackgroundimage.php:116
+#: actions/apiaccountupdateprofileimage.php:105
+#: actions/apiaccountupdateprofile.php:105 actions/apiblockcreate.php:97
+#: actions/apiblockdestroy.php:96 actions/apidirectmessagenew.php:75
+#: actions/apidirectmessage.php:77 actions/apigroupcreate.php:112
+#: actions/apigroupismember.php:90 actions/apigroupjoin.php:99
+#: actions/apigroupleave.php:99 actions/apigrouplist.php:90
+#: actions/apistatusesupdate.php:144 actions/apisubscriptions.php:87
+#: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:79
+#: actions/apitimelinementions.php:79 actions/apitimelineuser.php:81
+#: actions/avatarbynickname.php:75 actions/favoritesrss.php:74
+#: actions/foaf.php:40 actions/foaf.php:58 actions/microsummary.php:62
+#: actions/newmessage.php:116 actions/remotesubscribe.php:145
+#: actions/remotesubscribe.php:154 actions/replies.php:73
+#: actions/repliesrss.php:38 actions/showfavorites.php:105
+#: actions/userbyid.php:74 actions/usergroups.php:91 actions/userrss.php:38
+#: actions/xrds.php:71 lib/command.php:163 lib/command.php:311
+#: lib/command.php:364 lib/command.php:411 lib/command.php:466
+#: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
+#: lib/subs.php:34 lib/subs.php:116
+msgid "No such user."
+msgstr "Böyle bir kullanıcı yok."
+
+#: actions/all.php:84
+#, fuzzy, php-format
+msgid "%s and friends, page %d"
+msgstr "%s ve arkadaşları"
+
+#: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
+#: actions/apitimelinefriends.php:114 lib/personalgroupnav.php:100
+#, php-format
+msgid "%s and friends"
+msgstr "%s ve arkadaşları"
+
+#: actions/all.php:99
+#, fuzzy, php-format
+msgid "Feed for friends of %s (RSS 1.0)"
+msgstr "%s için arkadaş güncellemeleri RSS beslemesi"
+
+#: actions/all.php:107
+#, fuzzy, php-format
+msgid "Feed for friends of %s (RSS 2.0)"
+msgstr "%s için arkadaş güncellemeleri RSS beslemesi"
+
+#: actions/all.php:115
+#, fuzzy, php-format
+msgid "Feed for friends of %s (Atom)"
+msgstr "%s için arkadaş güncellemeleri RSS beslemesi"
+
+#: actions/all.php:127
+#, php-format
+msgid ""
+"This is the timeline for %s and friends but no one has posted anything yet."
+msgstr ""
+
+#: actions/all.php:132
+#, php-format
+msgid ""
+"Try subscribing to more people, [join a group](%%action.groups%%) or post "
+"something yourself."
+msgstr ""
+
+#: actions/all.php:134
+#, php-format
+msgid ""
+"You can try to [nudge %s](../%s) from his profile or [post something to his "
+"or her attention](%%%%action.newnotice%%%%?status_textarea=%s)."
+msgstr ""
+
+#: actions/all.php:137 actions/replies.php:209 actions/showstream.php:202
+#, php-format
+msgid ""
+"Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
+"post a notice to his or her attention."
+msgstr ""
+
+#: actions/all.php:165
+#, fuzzy
+msgid "You and friends"
+msgstr "%s ve arkadaşları"
+
+#: actions/allrss.php:119 actions/apitimelinefriends.php:121
+#, php-format
+msgid "Updates from %1$s and friends on %2$s!"
+msgstr ""
+
+#: actions/apiaccountratelimitstatus.php:70
+#: actions/apiaccountupdatedeliverydevice.php:93
+#: actions/apiaccountupdateprofilebackgroundimage.php:94
+#: actions/apiaccountupdateprofilecolors.php:118
+#: actions/apiaccountupdateprofile.php:97
+#, fuzzy
+msgid "API method not found."
+msgstr "Onay kodu bulunamadı."
+
+#: actions/apiaccountupdatedeliverydevice.php:85
+#: actions/apiaccountupdateprofilebackgroundimage.php:86
+#: actions/apiaccountupdateprofilecolors.php:110
+#: actions/apiaccountupdateprofileimage.php:84
+#: actions/apiaccountupdateprofile.php:89 actions/apiblockcreate.php:89
+#: actions/apiblockdestroy.php:88 actions/apidirectmessagenew.php:117
+#: actions/apifavoritecreate.php:90 actions/apifavoritedestroy.php:91
+#: actions/apifriendshipscreate.php:91 actions/apifriendshipsdestroy.php:91
+#: actions/apigroupcreate.php:104 actions/apigroupjoin.php:91
+#: actions/apigroupleave.php:91 actions/apistatusesupdate.php:114
+msgid "This method requires a POST."
+msgstr ""
+
+#: actions/apiaccountupdatedeliverydevice.php:105
+msgid ""
+"You must specify a parameter named 'device' with a value of one of: sms, im, "
+"none"
+msgstr ""
+
+#: actions/apiaccountupdatedeliverydevice.php:132
+#, fuzzy
+msgid "Could not update user."
+msgstr "Kullanıcı güncellenemedi."
+
+#: actions/apiaccountupdateprofilebackgroundimage.php:108
+#: actions/apiaccountupdateprofileimage.php:97
+#: actions/apistatusesupdate.php:127 actions/avatarsettings.php:254
+#: actions/designadminpanel.php:122 actions/newnotice.php:94
+#: lib/designsettings.php:283
+#, php-format
+msgid ""
+"The server was unable to handle that much POST data (%s bytes) due to its "
+"current configuration."
+msgstr ""
+
+#: actions/apiaccountupdateprofilebackgroundimage.php:136
+#: actions/apiaccountupdateprofilebackgroundimage.php:146
+#: actions/apiaccountupdateprofilecolors.php:164
+#: actions/apiaccountupdateprofilecolors.php:174
+msgid "Unable to save your design settings."
+msgstr ""
+
+#: actions/apiaccountupdateprofilebackgroundimage.php:187
+#: actions/apiaccountupdateprofilecolors.php:142
+#, fuzzy
+msgid "Could not update your design."
+msgstr "Kullanıcı güncellenemedi."
+
+#: actions/apiaccountupdateprofilebackgroundimage.php:194
+#: actions/apiaccountupdateprofilecolors.php:185
+#: actions/apiaccountupdateprofileimage.php:130
+#: actions/apiaccountupdateprofile.php:112 actions/apiusershow.php:108
+#: actions/avatarbynickname.php:80 actions/foaf.php:65 actions/replies.php:80
+#: actions/usergroups.php:98 lib/galleryaction.php:66 lib/profileaction.php:84
+msgid "User has no profile."
+msgstr "Kullanıcının profili yok."
+
+#: actions/apiaccountupdateprofile.php:147
+#, fuzzy
+msgid "Could not save profile."
+msgstr "Profil kaydedilemedi."
+
+#: actions/apiblockcreate.php:108
+msgid "Block user failed."
+msgstr ""
+
+#: actions/apiblockdestroy.php:107
+msgid "Unblock user failed."
+msgstr ""
+
+#: actions/apidirectmessagenew.php:126
+msgid "No message text!"
+msgstr ""
+
+#: actions/apidirectmessagenew.php:135 actions/newmessage.php:150
+#, fuzzy, php-format
+msgid "That's too long. Max message size is %d chars."
+msgstr ""
+"Ah, durumunuz biraz uzun kaçtı. Azami 180 karaktere sığdırmaya ne dersiniz?"
+
+#: actions/apidirectmessagenew.php:146
+msgid "Recipient user not found."
+msgstr ""
+
+#: actions/apidirectmessagenew.php:150
+msgid "Can't send direct messages to users who aren't your friend."
+msgstr ""
+
+#: actions/apidirectmessage.php:89
+#, php-format
+msgid "Direct messages from %s"
+msgstr ""
+
+#: actions/apidirectmessage.php:93
+#, php-format
+msgid "All the direct messages sent from %s"
+msgstr ""
+
+#: actions/apidirectmessage.php:101
+#, php-format
+msgid "Direct messages to %s"
+msgstr ""
+
+#: actions/apidirectmessage.php:105
+#, php-format
+msgid "All the direct messages sent to %s"
+msgstr ""
+
+#: actions/apidirectmessage.php:156 actions/apifavoritecreate.php:99
+#: actions/apifavoritedestroy.php:100 actions/apifriendshipscreate.php:100
+#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:129
+#: actions/apigroupcreate.php:136 actions/apigroupismember.php:114
+#: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
+#: actions/apigrouplistall.php:120 actions/apigrouplist.php:132
+#: actions/apigroupmembership.php:106 actions/apigroupshow.php:105
+#: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
+#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:133
+#: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
+#: actions/apitimelinefavorites.php:144 actions/apitimelinefriends.php:154
+#: actions/apitimelinegroup.php:147 actions/apitimelinementions.php:149
+#: actions/apitimelinepublic.php:130 actions/apitimelinetag.php:139
+#: actions/apitimelineuser.php:163 actions/apiusershow.php:101
+msgid "API method not found!"
+msgstr ""
+
+#: actions/apifavoritecreate.php:108 actions/apifavoritedestroy.php:109
+#: actions/apistatusesdestroy.php:113
+msgid "No status found with that ID."
+msgstr ""
+
+#: actions/apifavoritecreate.php:119
+msgid "This status is already a favorite!"
+msgstr ""
+
+#: actions/apifavoritecreate.php:130 actions/favor.php:84 lib/command.php:176
+msgid "Could not create favorite."
+msgstr ""
+
+#: actions/apifavoritedestroy.php:122
+msgid "That status is not a favorite!"
+msgstr ""
+
+#: actions/apifavoritedestroy.php:134 actions/disfavor.php:87
+msgid "Could not delete favorite."
+msgstr ""
+
+#: actions/apifriendshipscreate.php:109
+msgid "Could not follow user: User not found."
+msgstr ""
+
+#: actions/apifriendshipscreate.php:118
+#, php-format
+msgid "Could not follow user: %s is already on your list."
+msgstr ""
+
+#: actions/apifriendshipsdestroy.php:109
+#, fuzzy
+msgid "Could not unfollow user: User not found."
+msgstr "Sunucuya yönlendirme yapılamadı: %s"
+
+#: actions/apifriendshipsdestroy.php:120
+msgid "You cannot unfollow yourself!"
+msgstr ""
+
+#: actions/apifriendshipsexists.php:94
+msgid "Two user ids or screen_names must be supplied."
+msgstr ""
+
+#: actions/apifriendshipsshow.php:135
+#, fuzzy
+msgid "Could not determine source user."
+msgstr "Kullanıcı güncellenemedi."
+
+#: actions/apifriendshipsshow.php:143
+#, fuzzy
+msgid "Could not find target user."
+msgstr "Kullanıcı güncellenemedi."
+
+#: actions/apigroupcreate.php:164 actions/editgroup.php:182
+#: actions/newgroup.php:126 actions/profilesettings.php:208
+#: actions/register.php:205
+msgid "Nickname must have only lowercase letters and numbers and no spaces."
+msgstr ""
+"Takma ad sadece küçük harflerden ve rakamlardan oluşabilir, boşluk "
+"kullanılamaz. "
+
+#: actions/apigroupcreate.php:173 actions/editgroup.php:186
+#: actions/newgroup.php:130 actions/profilesettings.php:231
+#: actions/register.php:208
+msgid "Nickname already in use. Try another one."
+msgstr "Takma ad kullanımda. Başka bir tane deneyin."
+
+#: actions/apigroupcreate.php:180 actions/editgroup.php:189
+#: actions/newgroup.php:133 actions/profilesettings.php:211
+#: actions/register.php:210
+msgid "Not a valid nickname."
+msgstr "Geçersiz bir takma ad."
+
+#: actions/apigroupcreate.php:196 actions/editgroup.php:195
+#: actions/newgroup.php:139 actions/profilesettings.php:215
+#: actions/register.php:217
+msgid "Homepage is not a valid URL."
+msgstr "Başlangıç sayfası adresi geçerli bir URL değil."
+
+#: actions/apigroupcreate.php:205 actions/editgroup.php:198
+#: actions/newgroup.php:142 actions/profilesettings.php:218
+#: actions/register.php:220
+msgid "Full name is too long (max 255 chars)."
+msgstr "Tam isim çok uzun (azm: 255 karakter)."
+
+#: actions/apigroupcreate.php:213
+#, fuzzy, php-format
+msgid "Description is too long (max %d chars)."
+msgstr "Hakkında bölümü çok uzun (azm 140 karakter)."
+
+#: actions/apigroupcreate.php:224 actions/editgroup.php:204
+#: actions/newgroup.php:148 actions/profilesettings.php:225
+#: actions/register.php:227
+msgid "Location is too long (max 255 chars)."
+msgstr "Yer bilgisi çok uzun (azm: 255 karakter)."
+
+#: actions/apigroupcreate.php:243 actions/editgroup.php:215
+#: actions/newgroup.php:159
+#, php-format
+msgid "Too many aliases! Maximum %d."
+msgstr ""
+
+#: actions/apigroupcreate.php:264 actions/editgroup.php:224
+#: actions/newgroup.php:168
+#, fuzzy, php-format
+msgid "Invalid alias: \"%s\""
+msgstr "%s Geçersiz başlangıç sayfası"
+
+#: actions/apigroupcreate.php:273 actions/editgroup.php:228
+#: actions/newgroup.php:172
+#, fuzzy, php-format
+msgid "Alias \"%s\" already in use. Try another one."
+msgstr "Takma ad kullanımda. Başka bir tane deneyin."
+
+#: actions/apigroupcreate.php:286 actions/editgroup.php:234
+#: actions/newgroup.php:178
+msgid "Alias can't be the same as nickname."
+msgstr ""
+
+#: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
+#: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
+#: actions/apigroupshow.php:90 actions/apitimelinegroup.php:91
+#, fuzzy
+msgid "Group not found!"
+msgstr "İstek bulunamadı!"
+
+#: actions/apigroupjoin.php:110
+#, fuzzy
+msgid "You are already a member of that group."
+msgstr "Zaten giriş yapmış durumdasıznız!"
+
+#: actions/apigroupjoin.php:119 actions/joingroup.php:95 lib/command.php:221
+msgid "You have been blocked from that group by the admin."
+msgstr ""
+
+#: actions/apigroupjoin.php:138
+#, fuzzy, php-format
+msgid "Could not join user %s to group %s."
+msgstr "Sunucuya yönlendirme yapılamadı: %s"
+
+#: actions/apigroupleave.php:114
+#, fuzzy
+msgid "You are not a member of this group."
+msgstr "Bize o profili yollamadınız"
+
+#: actions/apigroupleave.php:124
+#, fuzzy, php-format
+msgid "Could not remove user %s to group %s."
+msgstr "OpenID formu yaratılamadı: %s"
+
+#: actions/apigrouplistall.php:90 actions/usergroups.php:62
+#, php-format
+msgid "%s groups"
+msgstr ""
+
+#: actions/apigrouplistall.php:94
+#, php-format
+msgid "groups on %s"
+msgstr ""
+
+#: actions/apigrouplist.php:95
+#, fuzzy, php-format
+msgid "%s's groups"
+msgstr "Profil"
+
+#: actions/apigrouplist.php:103
+#, fuzzy, php-format
+msgid "Groups %s is a member of on %s."
+msgstr "Bize o profili yollamadınız"
+
+#: actions/apistatusesdestroy.php:107
+msgid "This method requires a POST or DELETE."
+msgstr ""
+
+#: actions/apistatusesdestroy.php:130
+msgid "You may not delete another user's status."
+msgstr ""
+
+#: actions/apistatusesshow.php:138
+#, fuzzy
+msgid "Status deleted."
+msgstr "Avatar güncellendi."
+
+#: actions/apistatusesshow.php:144
+msgid "No status with that ID found."
+msgstr ""
+
+#: actions/apistatusesupdate.php:157 actions/newnotice.php:155
+#: scripts/maildaemon.php:71
+#, fuzzy, php-format
+msgid "That's too long. Max notice size is %d chars."
+msgstr ""
+"Ah, durumunuz biraz uzun kaçtı. Azami 180 karaktere sığdırmaya ne dersiniz?"
+
+#: actions/apistatusesupdate.php:198
+msgid "Not found"
+msgstr ""
+
+#: actions/apistatusesupdate.php:227 actions/newnotice.php:178
+#, php-format
+msgid "Max notice size is %d chars, including attachment URL."
+msgstr ""
+
+#: actions/apisubscriptions.php:231 actions/apisubscriptions.php:261
+#, fuzzy
+msgid "Unsupported format."
+msgstr "Desteklenmeyen görüntü dosyası biçemi."
+
+#: actions/apitimelinefavorites.php:107
+#, php-format
+msgid "%s / Favorites from %s"
+msgstr ""
+
+#: actions/apitimelinefavorites.php:119
+#, php-format
+msgid "%s updates favorited by %s / %s."
+msgstr ""
+
+#: actions/apitimelinegroup.php:108 actions/apitimelineuser.php:117
+#: actions/grouprss.php:131 actions/userrss.php:90
+#, php-format
+msgid "%s timeline"
+msgstr ""
+
+#: actions/apitimelinegroup.php:116 actions/apitimelineuser.php:125
+#: actions/userrss.php:92
+#, php-format
+msgid "Updates from %1$s on %2$s!"
+msgstr ""
+
+#: actions/apitimelinementions.php:116
+#, fuzzy, php-format
+msgid "%1$s / Updates mentioning %2$s"
+msgstr "%1$s'in %2$s'deki durum mesajları "
+
+#: actions/apitimelinementions.php:126
+#, php-format
+msgid "%1$s updates that reply to updates from %2$s / %3$s."
+msgstr ""
+
+#: actions/apitimelinepublic.php:106 actions/publicrss.php:103
+#, php-format
+msgid "%s public timeline"
+msgstr ""
+
+#: actions/apitimelinepublic.php:110 actions/publicrss.php:105
+#, php-format
+msgid "%s updates from everyone!"
+msgstr ""
+
+#: actions/apitimelinetag.php:101 actions/tag.php:66
+#, php-format
+msgid "Notices tagged with %s"
+msgstr ""
+
+#: actions/apitimelinetag.php:107 actions/tagrss.php:64
+#, fuzzy, php-format
+msgid "Updates tagged with %1$s on %2$s!"
+msgstr "%s adli kullanicinin durum mesajlari"
+
+#: actions/apiusershow.php:96
+#, fuzzy
+msgid "Not found."
+msgstr "İstek bulunamadı!"
+
+#: actions/attachment.php:73
+#, fuzzy
+msgid "No such attachment."
+msgstr "Böyle bir belge yok."
+
+#: actions/avatarbynickname.php:59 actions/leavegroup.php:76
+msgid "No nickname."
+msgstr "Takma ad yok"
+
+#: actions/avatarbynickname.php:64
+msgid "No size."
+msgstr ""
+
+#: actions/avatarbynickname.php:69
+msgid "Invalid size."
+msgstr "Geçersiz büyüklük."
+
+#: actions/avatarsettings.php:67 actions/showgroup.php:221
+#: lib/accountsettingsaction.php:112
+msgid "Avatar"
+msgstr "Avatar"
+
+#: actions/avatarsettings.php:78
+#, php-format
+msgid "You can upload your personal avatar. The maximum file size is %s."
+msgstr ""
+
+#: actions/avatarsettings.php:106 actions/avatarsettings.php:182
+#: actions/grouplogo.php:178 actions/remotesubscribe.php:191
+#: actions/userauthorization.php:72 actions/userrss.php:103
+msgid "User without matching profile"
+msgstr ""
+
+#: actions/avatarsettings.php:119 actions/avatarsettings.php:194
+#: actions/grouplogo.php:251
+#, fuzzy
+msgid "Avatar settings"
+msgstr "Ayarlar"
+
+#: actions/avatarsettings.php:126 actions/avatarsettings.php:202
+#: actions/grouplogo.php:199 actions/grouplogo.php:259
+msgid "Original"
+msgstr ""
+
+#: actions/avatarsettings.php:141 actions/avatarsettings.php:214
+#: actions/grouplogo.php:210 actions/grouplogo.php:271
+msgid "Preview"
+msgstr ""
+
+#: actions/avatarsettings.php:148 lib/deleteuserform.php:66
+#: lib/noticelist.php:522
+msgid "Delete"
+msgstr ""
+
+#: actions/avatarsettings.php:165 actions/grouplogo.php:233
+msgid "Upload"
+msgstr "Yükle"
+
+#: actions/avatarsettings.php:228 actions/grouplogo.php:286
+msgid "Crop"
+msgstr ""
+
+#: actions/avatarsettings.php:265 actions/disfavor.php:74
+#: actions/emailsettings.php:237 actions/favor.php:75
+#: actions/groupblock.php:66 actions/grouplogo.php:309
+#: actions/groupunblock.php:66 actions/imsettings.php:206
+#: actions/invite.php:56 actions/login.php:131 actions/makeadmin.php:66
+#: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
+#: actions/othersettings.php:145 actions/passwordsettings.php:138
+#: actions/profilesettings.php:187 actions/recoverpassword.php:337
+#: actions/register.php:165 actions/remotesubscribe.php:77
+#: actions/smssettings.php:228 actions/subedit.php:38 actions/subscribe.php:46
+#: actions/tagother.php:166 actions/unsubscribe.php:69
+#: actions/userauthorization.php:52 lib/designsettings.php:294
+msgid "There was a problem with your session token. Try again, please."
+msgstr ""
+
+#: actions/avatarsettings.php:277 actions/designadminpanel.php:103
+#: actions/emailsettings.php:255 actions/grouplogo.php:319
+#: actions/imsettings.php:220 actions/recoverpassword.php:44
+#: actions/smssettings.php:248 lib/designsettings.php:304
+msgid "Unexpected form submission."
+msgstr "Beklenmeğen form girdisi."
+
+#: actions/avatarsettings.php:322
+msgid "Pick a square area of the image to be your avatar"
+msgstr ""
+
+#: actions/avatarsettings.php:337 actions/grouplogo.php:377
+msgid "Lost our file data."
+msgstr ""
+
+#: actions/avatarsettings.php:360
+msgid "Avatar updated."
+msgstr "Avatar güncellendi."
+
+#: actions/avatarsettings.php:363
+msgid "Failed updating avatar."
+msgstr "Avatar güncellemede hata."
+
+#: actions/avatarsettings.php:387
+#, fuzzy
+msgid "Avatar deleted."
+msgstr "Avatar güncellendi."
+
+#: actions/blockedfromgroup.php:73 actions/editgroup.php:84
+#: actions/groupdesignsettings.php:84 actions/grouplogo.php:86
+#: actions/groupmembers.php:76 actions/grouprss.php:91
+#: actions/joingroup.php:76 actions/showgroup.php:121
+#, fuzzy
+msgid "No nickname"
+msgstr "Takma ad yok"
+
+#: actions/blockedfromgroup.php:80 actions/editgroup.php:96
+#: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
+#: actions/grouplogo.php:99 actions/groupmembers.php:83
+#: actions/grouprss.php:98 actions/joingroup.php:83 actions/showgroup.php:137
+#, fuzzy
+msgid "No such group"
+msgstr "Böyle bir durum mesajı yok."
+
+#: actions/blockedfromgroup.php:90
+#, fuzzy, php-format
+msgid "%s blocked profiles"
+msgstr "Kullanıcının profili yok."
+
+#: actions/blockedfromgroup.php:93
+#, fuzzy, php-format
+msgid "%s blocked profiles, page %d"
+msgstr "%s ve arkadaşları"
+
+#: actions/blockedfromgroup.php:108
+msgid "A list of the users blocked from joining this group."
+msgstr ""
+
+#: actions/blockedfromgroup.php:281
+#, fuzzy
+msgid "Unblock user from group"
+msgstr "Böyle bir kullanıcı yok."
+
+#: actions/blockedfromgroup.php:313 lib/unblockform.php:69
+msgid "Unblock"
+msgstr ""
+
+#: actions/blockedfromgroup.php:313 lib/unblockform.php:80
+#, fuzzy
+msgid "Unblock this user"
+msgstr "Böyle bir kullanıcı yok."
+
+#: actions/block.php:69
+#, fuzzy
+msgid "You already blocked that user."
+msgstr "Zaten giriş yapmış durumdasıznız!"
+
+#: actions/block.php:105 actions/block.php:128 actions/groupblock.php:160
+#, fuzzy
+msgid "Block user"
+msgstr "Böyle bir kullanıcı yok."
+
+#: actions/block.php:130
+msgid ""
+"Are you sure you want to block this user? Afterwards, they will be "
+"unsubscribed from you, unable to subscribe to you in the future, and you "
+"will not be notified of any @-replies from them."
+msgstr ""
+
+#: actions/block.php:143 actions/deletenotice.php:145
+#: actions/deleteuser.php:147 actions/groupblock.php:178
+msgid "No"
+msgstr ""
+
+#: actions/block.php:143 actions/deleteuser.php:147
+#, fuzzy
+msgid "Do not block this user"
+msgstr "Böyle bir kullanıcı yok."
+
+#: actions/block.php:144 actions/deletenotice.php:146
+#: actions/deleteuser.php:148 actions/groupblock.php:179
+msgid "Yes"
+msgstr ""
+
+#: actions/block.php:144 actions/groupmembers.php:346 lib/blockform.php:80
+#, fuzzy
+msgid "Block this user"
+msgstr "Böyle bir kullanıcı yok."
+
+#: actions/block.php:162
+msgid "Failed to save block information."
+msgstr ""
+
+#: actions/bookmarklet.php:50
+msgid "Post to "
+msgstr ""
+
+#: actions/confirmaddress.php:75
+msgid "No confirmation code."
+msgstr "Onay kodu yok."
+
+#: actions/confirmaddress.php:80
+msgid "Confirmation code not found."
+msgstr "Onay kodu bulunamadı."
+
+#: actions/confirmaddress.php:85
+msgid "That confirmation code is not for you!"
+msgstr "O onay kodu sizin için değil!"
+
+#: actions/confirmaddress.php:90
+#, php-format
+msgid "Unrecognized address type %s"
+msgstr "Tanınmayan adres türü %s"
+
+#: actions/confirmaddress.php:94
+msgid "That address has already been confirmed."
+msgstr "O adres daha önce onaylanmış."
+
+#: actions/confirmaddress.php:114 actions/emailsettings.php:295
+#: actions/emailsettings.php:426 actions/imsettings.php:258
+#: actions/imsettings.php:401 actions/othersettings.php:174
+#: actions/profilesettings.php:276 actions/smssettings.php:278
+#: actions/smssettings.php:420
+msgid "Couldn't update user."
+msgstr "Kullanıcı güncellenemedi."
+
+#: actions/confirmaddress.php:126 actions/emailsettings.php:390
+#: actions/imsettings.php:363 actions/smssettings.php:382
+msgid "Couldn't delete email confirmation."
+msgstr "Eposta onayı silinemedi."
+
+#: actions/confirmaddress.php:144
+msgid "Confirm Address"
+msgstr "Adresi Onayla"
+
+#: actions/confirmaddress.php:159
+#, php-format
+msgid "The address \"%s\" has been confirmed for your account."
+msgstr "\"%s\" adresi hesabınız için onaylandı."
+
+#: actions/conversation.php:99
+#, fuzzy
+msgid "Conversation"
+msgstr "Yer"
+
+#: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
+#: lib/profileaction.php:206
+msgid "Notices"
+msgstr "Durum mesajları"
+
+#: actions/deletenotice.php:52 actions/shownotice.php:92
+msgid "No such notice."
+msgstr "Böyle bir durum mesajı yok."
+
+#: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
+#: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
+#: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
+#: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
+#: actions/unsubscribe.php:52 lib/adminpanelaction.php:72
+#: lib/profileformaction.php:63 lib/settingsaction.php:72
+msgid "Not logged in."
+msgstr "Giriş yapılmadı."
+
+#: actions/deletenotice.php:71
+msgid "Can't delete this notice."
+msgstr ""
+
+#: actions/deletenotice.php:103
+msgid ""
+"You are about to permanently delete a notice. Once this is done, it cannot "
+"be undone."
+msgstr ""
+
+#: actions/deletenotice.php:109 actions/deletenotice.php:141
+msgid "Delete notice"
+msgstr ""
+
+#: actions/deletenotice.php:144
+msgid "Are you sure you want to delete this notice?"
+msgstr ""
+
+#: actions/deletenotice.php:145
+#, fuzzy
+msgid "Do not delete this notice"
+msgstr "Böyle bir durum mesajı yok."
+
+#: actions/deletenotice.php:146 lib/noticelist.php:522
+msgid "Delete this notice"
+msgstr ""
+
+#: actions/deletenotice.php:157
+msgid "There was a problem with your session token.  Try again, please."
+msgstr ""
+
+#: actions/deleteuser.php:67
+#, fuzzy
+msgid "You cannot delete users."
+msgstr "Kullanıcı güncellenemedi."
+
+#: actions/deleteuser.php:74
+#, fuzzy
+msgid "You can only delete local users."
+msgstr "Yerel aboneliği kullanabilirsiniz!"
+
+#: actions/deleteuser.php:110 actions/deleteuser.php:133
+msgid "Delete user"
+msgstr ""
+
+#: actions/deleteuser.php:135
+msgid ""
+"Are you sure you want to delete this user? This will clear all data about "
+"the user from the database, without a backup."
+msgstr ""
+
+#: actions/deleteuser.php:148 lib/deleteuserform.php:77
+#, fuzzy
+msgid "Delete this user"
+msgstr "Böyle bir kullanıcı yok."
+
+#: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
+#: lib/adminpanelaction.php:302 lib/groupnav.php:119
+msgid "Design"
+msgstr ""
+
+#: actions/designadminpanel.php:73
+msgid "Design settings for this StatusNet site."
+msgstr ""
+
+#: actions/designadminpanel.php:278
+#, fuzzy
+msgid "Invalid logo URL."
+msgstr "Geçersiz büyüklük."
+
+#: actions/designadminpanel.php:282
+#, fuzzy, php-format
+msgid "Theme not available: %s"
+msgstr "Bu sayfa kabul ettiğiniz ortam türünde kullanılabilir değil"
+
+#: actions/designadminpanel.php:288
+#, fuzzy, php-format
+msgid "Theme directory not readable: %s"
+msgstr "Bu sayfa kabul ettiğiniz ortam türünde kullanılabilir değil"
+
+#: actions/designadminpanel.php:292
+#, php-format
+msgid "Avatar directory not writable: %s"
+msgstr ""
+
+#: actions/designadminpanel.php:296
+#, php-format
+msgid "Background directory not writable: %s"
+msgstr ""
+
+#: actions/designadminpanel.php:312
+#, php-format
+msgid "Max length for %s %s is 255 characters."
+msgstr ""
+
+#: actions/designadminpanel.php:412
+#, fuzzy
+msgid "Change logo"
+msgstr "Parolayı değiştir"
+
+#: actions/designadminpanel.php:417
+#, fuzzy
+msgid "Site logo"
+msgstr "Yeni durum mesajı"
+
+#: actions/designadminpanel.php:424
+#, fuzzy
+msgid "Change theme"
+msgstr "Değiştir"
+
+#: actions/designadminpanel.php:441
+#, fuzzy
+msgid "Site theme"
+msgstr "Yeni durum mesajı"
+
+#: actions/designadminpanel.php:442
+msgid "Theme for the site."
+msgstr ""
+
+#: actions/designadminpanel.php:447
+msgid "Theme server"
+msgstr ""
+
+#: actions/designadminpanel.php:451
+msgid "Theme path"
+msgstr ""
+
+#: actions/designadminpanel.php:455
+msgid "Theme directory"
+msgstr ""
+
+#: actions/designadminpanel.php:462
+#, fuzzy
+msgid "Avatar Settings"
+msgstr "Ayarlar"
+
+#: actions/designadminpanel.php:467
+#, fuzzy
+msgid "Avatar server"
+msgstr "Ayarlar"
+
+#: actions/designadminpanel.php:471
+#, fuzzy
+msgid "Avatar path"
+msgstr "Avatar güncellendi."
+
+#: actions/designadminpanel.php:475
+#, fuzzy
+msgid "Avatar directory"
+msgstr "Avatar güncellendi."
+
+#: actions/designadminpanel.php:486 lib/designsettings.php:101
+msgid "Change background image"
+msgstr ""
+
+#: actions/designadminpanel.php:491 actions/designadminpanel.php:578
+#: lib/designsettings.php:178
+msgid "Background"
+msgstr ""
+
+#: actions/designadminpanel.php:496
+#, fuzzy, php-format
+msgid ""
+"You can upload a background image for the site. The maximum file size is %1"
+"$s."
+msgstr ""
+"Ah, durumunuz biraz uzun kaçtı. Azami 180 karaktere sığdırmaya ne dersiniz?"
+
+#: actions/designadminpanel.php:526 lib/designsettings.php:139
+msgid "On"
+msgstr ""
+
+#: actions/designadminpanel.php:542 lib/designsettings.php:155
+msgid "Off"
+msgstr ""
+
+#: actions/designadminpanel.php:543 lib/designsettings.php:156
+msgid "Turn background image on or off."
+msgstr ""
+
+#: actions/designadminpanel.php:548 lib/designsettings.php:161
+msgid "Tile background image"
+msgstr ""
+
+#: actions/designadminpanel.php:554
+msgid "Background server"
+msgstr ""
+
+#: actions/designadminpanel.php:558
+msgid "Background path"
+msgstr ""
+
+#: actions/designadminpanel.php:562
+msgid "Background directory"
+msgstr ""
+
+#: actions/designadminpanel.php:569 lib/designsettings.php:170
+#, fuzzy
+msgid "Change colours"
+msgstr "Parolayı değiştir"
+
+#: actions/designadminpanel.php:591 lib/designsettings.php:191
+#, fuzzy
+msgid "Content"
+msgstr "Bağlan"
+
+#: actions/designadminpanel.php:604 lib/designsettings.php:204
+#, fuzzy
+msgid "Sidebar"
+msgstr "Ara"
+
+#: actions/designadminpanel.php:617 lib/designsettings.php:217
+msgid "Text"
+msgstr ""
+
+#: actions/designadminpanel.php:630 lib/designsettings.php:230
+#, fuzzy
+msgid "Links"
+msgstr "Giriş"
+
+#: actions/designadminpanel.php:658 lib/designsettings.php:247
+msgid "Use defaults"
+msgstr ""
+
+#: actions/designadminpanel.php:659 lib/designsettings.php:248
+msgid "Restore default designs"
+msgstr ""
+
+#: actions/designadminpanel.php:665 lib/designsettings.php:254
+msgid "Reset back to default"
+msgstr ""
+
+#: actions/designadminpanel.php:667 actions/emailsettings.php:195
+#: actions/imsettings.php:163 actions/othersettings.php:126
+#: actions/profilesettings.php:167 actions/siteadminpanel.php:414
+#: actions/smssettings.php:181 actions/subscriptions.php:203
+#: actions/tagother.php:154 actions/useradminpanel.php:226
+#: lib/designsettings.php:256 lib/groupeditform.php:202
+msgid "Save"
+msgstr "Kaydet"
+
+#: actions/designadminpanel.php:668 lib/designsettings.php:257
+msgid "Save design"
+msgstr ""
+
+#: actions/disfavor.php:81
+msgid "This notice is not a favorite!"
+msgstr ""
+
+#: actions/disfavor.php:94
+msgid "Add to favorites"
+msgstr ""
+
+#: actions/doc.php:69
+msgid "No such document."
+msgstr "Böyle bir belge yok."
+
+#: actions/editgroup.php:56
+#, php-format
+msgid "Edit %s group"
+msgstr ""
+
+#: actions/editgroup.php:68 actions/grouplogo.php:70 actions/newgroup.php:65
+msgid "You must be logged in to create a group."
+msgstr ""
+
+#: actions/editgroup.php:103 actions/editgroup.php:168
+#: actions/groupdesignsettings.php:104 actions/grouplogo.php:106
+msgid "You must be an admin to edit the group"
+msgstr ""
+
+#: actions/editgroup.php:154
+msgid "Use this form to edit the group."
+msgstr ""
+
+#: actions/editgroup.php:201 actions/newgroup.php:145
+#, fuzzy, php-format
+msgid "description is too long (max %d chars)."
+msgstr "Hakkında bölümü çok uzun (azm 140 karakter)."
+
+#: actions/editgroup.php:253
+#, fuzzy
+msgid "Could not update group."
+msgstr "Kullanıcı güncellenemedi."
+
+#: actions/editgroup.php:259 classes/User_group.php:390
+#, fuzzy
+msgid "Could not create aliases."
+msgstr "Avatar bilgisi kaydedilemedi"
+
+#: actions/editgroup.php:269
+#, fuzzy
+msgid "Options saved."
+msgstr "Ayarlar kaydedildi."
+
+#: actions/emailsettings.php:60
+msgid "Email Settings"
+msgstr ""
+
+#: actions/emailsettings.php:71
+#, php-format
+msgid "Manage how you get email from %%site.name%%."
+msgstr ""
+
+#: actions/emailsettings.php:100 actions/imsettings.php:100
+#: actions/smssettings.php:104
+msgid "Address"
+msgstr "Adres"
+
+#: actions/emailsettings.php:105
+msgid "Current confirmed email address."
+msgstr ""
+
+#: actions/emailsettings.php:107 actions/emailsettings.php:140
+#: actions/imsettings.php:108 actions/smssettings.php:115
+#: actions/smssettings.php:158
+msgid "Remove"
+msgstr "Kaldır"
+
+#: actions/emailsettings.php:113
+msgid ""
+"Awaiting confirmation on this address. Check your inbox (and spam box!) for "
+"a message with further instructions."
+msgstr ""
+
+#: actions/emailsettings.php:117 actions/imsettings.php:120
+#: actions/smssettings.php:126
+msgid "Cancel"
+msgstr "İptal et"
+
+#: actions/emailsettings.php:121
+msgid "Email Address"
+msgstr ""
+
+#: actions/emailsettings.php:123
+msgid "Email address, like \"UserName@example.org\""
+msgstr ""
+
+#: actions/emailsettings.php:126 actions/imsettings.php:133
+#: actions/smssettings.php:145
+msgid "Add"
+msgstr "Ekle"
+
+#: actions/emailsettings.php:133 actions/smssettings.php:152
+msgid "Incoming email"
+msgstr ""
+
+#: actions/emailsettings.php:138 actions/smssettings.php:157
+msgid "Send email to this address to post new notices."
+msgstr ""
+
+#: actions/emailsettings.php:145 actions/smssettings.php:162
+msgid "Make a new email address for posting to; cancels the old one."
+msgstr ""
+
+#: actions/emailsettings.php:148 actions/smssettings.php:164
+msgid "New"
+msgstr ""
+
+#: actions/emailsettings.php:153 actions/imsettings.php:139
+#: actions/smssettings.php:169
+msgid "Preferences"
+msgstr "Tercihler"
+
+#: actions/emailsettings.php:158
+msgid "Send me notices of new subscriptions through email."
+msgstr ""
+
+#: actions/emailsettings.php:163
+msgid "Send me email when someone adds my notice as a favorite."
+msgstr ""
+
+#: actions/emailsettings.php:169
+msgid "Send me email when someone sends me a private message."
+msgstr ""
+
+#: actions/emailsettings.php:174
+msgid "Send me email when someone sends me an \"@-reply\"."
+msgstr ""
+
+#: actions/emailsettings.php:179
+msgid "Allow friends to nudge me and send me an email."
+msgstr ""
+
+#: actions/emailsettings.php:185
+msgid "I want to post notices by email."
+msgstr ""
+
+#: actions/emailsettings.php:191
+msgid "Publish a MicroID for my email address."
+msgstr ""
+
+#: actions/emailsettings.php:301 actions/imsettings.php:264
+#: actions/othersettings.php:180 actions/smssettings.php:284
+msgid "Preferences saved."
+msgstr "Tercihler kaydedildi."
+
+#: actions/emailsettings.php:319
+msgid "No email address."
+msgstr ""
+
+#: actions/emailsettings.php:326
+msgid "Cannot normalize that email address"
+msgstr ""
+
+#: actions/emailsettings.php:330 actions/siteadminpanel.php:158
+msgid "Not a valid email address"
+msgstr ""
+
+#: actions/emailsettings.php:333
+msgid "That is already your email address."
+msgstr ""
+
+#: actions/emailsettings.php:336
+msgid "That email address already belongs to another user."
+msgstr ""
+
+#: actions/emailsettings.php:352 actions/imsettings.php:317
+#: actions/smssettings.php:337
+msgid "Couldn't insert confirmation code."
+msgstr "Onay kodu eklenemedi."
+
+#: actions/emailsettings.php:358
+msgid ""
+"A confirmation code was sent to the email address you added. Check your "
+"inbox (and spam box!) for the code and instructions on how to use it."
+msgstr ""
+
+#: actions/emailsettings.php:378 actions/imsettings.php:351
+#: actions/smssettings.php:370
+msgid "No pending confirmation to cancel."
+msgstr "İptal etmek için beklenen onay yok."
+
+#: actions/emailsettings.php:382 actions/imsettings.php:355
+msgid "That is the wrong IM address."
+msgstr "Yanlış IM adresi."
+
+#: actions/emailsettings.php:394 actions/imsettings.php:367
+#: actions/smssettings.php:386
+msgid "Confirmation cancelled."
+msgstr "Onaylama iptal edildi."
+
+#: actions/emailsettings.php:412
+msgid "That is not your email address."
+msgstr ""
+
+#: actions/emailsettings.php:431 actions/imsettings.php:408
+#: actions/smssettings.php:425
+msgid "The address was removed."
+msgstr "Bu adres kaldırılmıştı."
+
+#: actions/emailsettings.php:445 actions/smssettings.php:518
+msgid "No incoming email address."
+msgstr ""
+
+#: actions/emailsettings.php:455 actions/emailsettings.php:477
+#: actions/smssettings.php:528 actions/smssettings.php:552
+msgid "Couldn't update user record."
+msgstr ""
+
+#: actions/emailsettings.php:458 actions/smssettings.php:531
+msgid "Incoming email address removed."
+msgstr ""
+
+#: actions/emailsettings.php:480 actions/smssettings.php:555
+msgid "New incoming email address added."
+msgstr ""
+
+#: actions/favorited.php:65 lib/popularnoticesection.php:87
+#: lib/publicgroupnav.php:93
+#, fuzzy
+msgid "Popular notices"
+msgstr "Böyle bir durum mesajı yok."
+
+#: actions/favorited.php:67
+#, fuzzy, php-format
+msgid "Popular notices, page %d"
+msgstr "Böyle bir durum mesajı yok."
+
+#: actions/favorited.php:79
+msgid "The most popular notices on the site right now."
+msgstr ""
+
+#: actions/favorited.php:150
+msgid "Favorite notices appear on this page but no one has favorited one yet."
+msgstr ""
+
+#: actions/favorited.php:153
+msgid ""
+"Be the first to add a notice to your favorites by clicking the fave button "
+"next to any notice you like."
+msgstr ""
+
+#: actions/favorited.php:156
+#, php-format
+msgid ""
+"Why not [register an account](%%action.register%%) and be the first to add a "
+"notice to your favorites!"
+msgstr ""
+
+#: actions/favoritesrss.php:111 actions/showfavorites.php:77
+#: lib/personalgroupnav.php:115
+#, php-format
+msgid "%s's favorite notices"
+msgstr ""
+
+#: actions/favoritesrss.php:115
+#, fuzzy, php-format
+msgid "Updates favored by %1$s on %2$s!"
+msgstr "%s adli kullanicinin durum mesajlari"
+
+#: actions/favor.php:79
+msgid "This notice is already a favorite!"
+msgstr ""
+
+#: actions/favor.php:92 lib/disfavorform.php:140
+msgid "Disfavor favorite"
+msgstr ""
+
+#: actions/featured.php:69 lib/featureduserssection.php:87
+#: lib/publicgroupnav.php:89
+msgid "Featured users"
+msgstr ""
+
+#: actions/featured.php:71
+#, php-format
+msgid "Featured users, page %d"
+msgstr ""
+
+#: actions/featured.php:99
+#, php-format
+msgid "A selection of some of the great users on %s"
+msgstr ""
+
+#: actions/file.php:34
+#, fuzzy
+msgid "No notice id"
+msgstr "Yeni durum mesajı"
+
+#: actions/file.php:38
+#, fuzzy
+msgid "No notice"
+msgstr "Yeni durum mesajı"
+
+#: actions/file.php:42
+msgid "No attachments"
+msgstr ""
+
+#: actions/file.php:51
+msgid "No uploaded attachments"
+msgstr ""
+
+#: actions/finishremotesubscribe.php:69
+msgid "Not expecting this response!"
+msgstr ""
+
+#: actions/finishremotesubscribe.php:80
+msgid "User being listened to does not exist."
+msgstr ""
+
+#: actions/finishremotesubscribe.php:87 actions/remotesubscribe.php:59
+msgid "You can use the local subscription!"
+msgstr "Yerel aboneliği kullanabilirsiniz!"
+
+#: actions/finishremotesubscribe.php:96
+msgid "That user has blocked you from subscribing."
+msgstr ""
+
+#: actions/finishremotesubscribe.php:106
+#, fuzzy
+msgid "You are not authorized."
+msgstr "Yetkilendirilmemiş."
+
+#: actions/finishremotesubscribe.php:109
+msgid "Could not convert request token to access token."
+msgstr ""
+
+#: actions/finishremotesubscribe.php:114
+#, fuzzy
+msgid "Remote service uses unknown version of OMB protocol."
+msgstr "OMB protokolünün bilinmeğen sürümü."
+
+#: actions/finishremotesubscribe.php:133 lib/oauthstore.php:306
+msgid "Error updating remote profile"
+msgstr "Uzaktaki profili güncellemede hata oluştu"
+
+#: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
+#: actions/groupunblock.php:86 actions/leavegroup.php:83
+#: actions/makeadmin.php:86 lib/command.php:212 lib/command.php:263
+#, fuzzy
+msgid "No such group."
+msgstr "Böyle bir durum mesajı yok."
+
+#: actions/getfile.php:75
+#, fuzzy
+msgid "No such file."
+msgstr "Böyle bir durum mesajı yok."
+
+#: actions/getfile.php:79
+#, fuzzy
+msgid "Cannot read file."
+msgstr "Böyle bir durum mesajı yok."
+
+#: actions/groupblock.php:71 actions/groupunblock.php:71
+#: actions/makeadmin.php:71 actions/subedit.php:46
+#: lib/profileformaction.php:70
+msgid "No profile specified."
+msgstr ""
+
+#: actions/groupblock.php:76 actions/groupunblock.php:76
+#: actions/makeadmin.php:76 actions/subedit.php:53 actions/tagother.php:46
+#: lib/profileformaction.php:77
+msgid "No profile with that ID."
+msgstr ""
+
+#: actions/groupblock.php:81 actions/groupunblock.php:81
+#: actions/makeadmin.php:81
+msgid "No group specified."
+msgstr ""
+
+#: actions/groupblock.php:91
+msgid "Only an admin can block group members."
+msgstr ""
+
+#: actions/groupblock.php:95
+#, fuzzy
+msgid "User is already blocked from group."
+msgstr "Kullanıcının profili yok."
+
+#: actions/groupblock.php:100
+#, fuzzy
+msgid "User is not a member of group."
+msgstr "Bize o profili yollamadınız"
+
+#: actions/groupblock.php:136 actions/groupmembers.php:314
+#, fuzzy
+msgid "Block user from group"
+msgstr "Böyle bir kullanıcı yok."
+
+#: actions/groupblock.php:162
+#, php-format
+msgid ""
+"Are you sure you want to block user \"%s\" from the group \"%s\"? They will "
+"be removed from the group, unable to post, and unable to subscribe to the "
+"group in the future."
+msgstr ""
+
+#: actions/groupblock.php:178
+#, fuzzy
+msgid "Do not block this user from this group"
+msgstr "Sunucuya yönlendirme yapılamadı: %s"
+
+#: actions/groupblock.php:179
+#, fuzzy
+msgid "Block this user from this group"
+msgstr "Böyle bir kullanıcı yok."
+
+#: actions/groupblock.php:196
+msgid "Database error blocking user from group."
+msgstr ""
+
+#: actions/groupbyid.php:74
+msgid "No ID"
+msgstr ""
+
+#: actions/groupdesignsettings.php:68
+msgid "You must be logged in to edit a group."
+msgstr ""
+
+#: actions/groupdesignsettings.php:141
+msgid "Group design"
+msgstr ""
+
+#: actions/groupdesignsettings.php:152
+msgid ""
+"Customize the way your group looks with a background image and a colour "
+"palette of your choice."
+msgstr ""
+
+#: actions/groupdesignsettings.php:262 actions/userdesignsettings.php:186
+#: lib/designsettings.php:434 lib/designsettings.php:464
+#, fuzzy
+msgid "Couldn't update your design."
+msgstr "Kullanıcı güncellenemedi."
+
+#: actions/groupdesignsettings.php:286 actions/groupdesignsettings.php:296
+#: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
+#: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
+msgid "Unable to save your design settings!"
+msgstr ""
+
+#: actions/groupdesignsettings.php:307 actions/userdesignsettings.php:231
+#, fuzzy
+msgid "Design preferences saved."
+msgstr "Tercihler kaydedildi."
+
+#: actions/grouplogo.php:139 actions/grouplogo.php:192
+msgid "Group logo"
+msgstr ""
+
+#: actions/grouplogo.php:150
+#, php-format
+msgid ""
+"You can upload a logo image for your group. The maximum file size is %s."
+msgstr ""
+
+#: actions/grouplogo.php:362
+msgid "Pick a square area of the image to be the logo."
+msgstr ""
+
+#: actions/grouplogo.php:396
+#, fuzzy
+msgid "Logo updated."
+msgstr "Avatar güncellendi."
+
+#: actions/grouplogo.php:398
+#, fuzzy
+msgid "Failed updating logo."
+msgstr "Avatar güncellemede hata."
+
+#: actions/groupmembers.php:93 lib/groupnav.php:92
+#, php-format
+msgid "%s group members"
+msgstr ""
+
+#: actions/groupmembers.php:96
+#, php-format
+msgid "%s group members, page %d"
+msgstr ""
+
+#: actions/groupmembers.php:111
+msgid "A list of the users in this group."
+msgstr ""
+
+#: actions/groupmembers.php:175 lib/action.php:439 lib/groupnav.php:107
+msgid "Admin"
+msgstr ""
+
+#: actions/groupmembers.php:346 lib/blockform.php:69
+msgid "Block"
+msgstr ""
+
+#: actions/groupmembers.php:441
+msgid "Make user an admin of the group"
+msgstr ""
+
+#: actions/groupmembers.php:473
+msgid "Make Admin"
+msgstr ""
+
+#: actions/groupmembers.php:473
+msgid "Make this user an admin"
+msgstr ""
+
+#: actions/grouprss.php:133
+#, fuzzy, php-format
+msgid "Updates from members of %1$s on %2$s!"
+msgstr "%s adli kullanicinin durum mesajlari"
+
+#: actions/groupsearch.php:52
+#, fuzzy, php-format
+msgid ""
+"Search for groups on %%site.name%% by their name, location, or description. "
+"Separate the terms by spaces; they must be 3 characters or more."
+msgstr ""
+"%%site.name%% üyeleri arasında isim, yer ya da ilgi alanları içinde arama "
+"yap. Anahtar kelimeleri boşluk ile ayırın. Anahtar kelime 3 veya daha fazla "
+"karakterden oluşmalı. "
+
+#: actions/groupsearch.php:58
+#, fuzzy
+msgid "Group search"
+msgstr "Kişi Arama"
+
+#: actions/groupsearch.php:79 actions/noticesearch.php:117
+#: actions/peoplesearch.php:83
+#, fuzzy
+msgid "No results."
+msgstr "Sonuç yok"
+
+#: actions/groupsearch.php:82
+#, php-format
+msgid ""
+"If you can't find the group you're looking for, you can [create it](%%action."
+"newgroup%%) yourself."
+msgstr ""
+
+#: actions/groupsearch.php:85
+#, php-format
+msgid ""
+"Why not [register an account](%%action.register%%) and [create the group](%%"
+"action.newgroup%%) yourself!"
+msgstr ""
+
+#: actions/groups.php:62 lib/profileaction.php:220 lib/publicgroupnav.php:81
+#: lib/subgroupnav.php:98
+msgid "Groups"
+msgstr ""
+
+#: actions/groups.php:64
+#, php-format
+msgid "Groups, page %d"
+msgstr ""
+
+#: actions/groups.php:90
+#, php-format
+msgid ""
+"%%%%site.name%%%% groups let you find and talk with people of similar "
+"interests. After you join a group you can send messages to all other members "
+"using the syntax \"!groupname\". Don't see a group you like? Try [searching "
+"for one](%%%%action.groupsearch%%%%) or [start your own!](%%%%action.newgroup"
+"%%%%)"
+msgstr ""
+
+#: actions/groups.php:107 actions/usergroups.php:124 lib/groupeditform.php:122
+#, fuzzy
+msgid "Create a new group"
+msgstr "Yeni hesap oluştur"
+
+#: actions/groupunblock.php:91
+msgid "Only an admin can unblock group members."
+msgstr ""
+
+#: actions/groupunblock.php:95
+#, fuzzy
+msgid "User is not blocked from group."
+msgstr "Kullanıcının profili yok."
+
+#: actions/groupunblock.php:128 actions/unblock.php:77
+#, fuzzy
+msgid "Error removing the block."
+msgstr "Kullanıcıyı kaydetmede hata oluştu."
+
+#: actions/imsettings.php:59
+msgid "IM Settings"
+msgstr "IM Ayarları"
+
+#: actions/imsettings.php:70
+#, php-format
+msgid ""
+"You can send and receive notices through Jabber/GTalk [instant messages](%%"
+"doc.im%%). Configure your address and settings below."
+msgstr ""
+"Jabber/GTalk kullanarak durum mesaji gÖnderip alabilirsiniz. IM adres "
+"ayarlarinizi aşağıda yapın."
+
+#: actions/imsettings.php:89
+#, fuzzy
+msgid "IM is not available."
+msgstr "Bu sayfa kabul ettiğiniz ortam türünde kullanılabilir değil"
+
+#: actions/imsettings.php:106
+msgid "Current confirmed Jabber/GTalk address."
+msgstr "Onaylanmış Jabber/Gtalk adresi."
+
+#: actions/imsettings.php:114
+#, php-format
+msgid ""
+"Awaiting confirmation on this address. Check your Jabber/GTalk account for a "
+"message with further instructions. (Did you add %s to your buddy list?)"
+msgstr ""
+"Bu adresten onay bekleniyor. Jabber/Google Talk hesabınızı ayrıntılı bilgi "
+"içeren mesajı almak için kontrol edin. (%s'u arkadaş listenize eklediniz mi?)"
+
+#: actions/imsettings.php:124
+msgid "IM Address"
+msgstr "IM adresi"
+
+#: actions/imsettings.php:126
+#, php-format
+msgid ""
+"Jabber or GTalk address, like \"UserName@example.org\". First, make sure to "
+"add %s to your buddy list in your IM client or on GTalk."
+msgstr ""
+"Jabber veya Gtalk adresi: \"KullaniciAdi@ornek.org\" gibi. Öncelikle %s, IM "
+"istemcisi veya Gtalk arkadaşlar listenize eklenmiş olmalıdır."
+
+#: actions/imsettings.php:143
+msgid "Send me notices through Jabber/GTalk."
+msgstr "Durum mesajlarını Jabber/GTalk üzerinden gönder."
+
+#: actions/imsettings.php:148
+msgid "Post a notice when my Jabber/GTalk status changes."
+msgstr ""
+"Jabber/GTalk durum mesajim değiştiğinde nedurum.com'da durumumu güncelle"
+
+#: actions/imsettings.php:153
+msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
+msgstr ""
+
+#: actions/imsettings.php:159
+msgid "Publish a MicroID for my Jabber/GTalk address."
+msgstr ""
+
+#: actions/imsettings.php:285
+msgid "No Jabber ID."
+msgstr "JabberID yok."
+
+#: actions/imsettings.php:292
+msgid "Cannot normalize that Jabber ID"
+msgstr "Jabber işlemlerinde bir hata oluştu."
+
+#: actions/imsettings.php:296
+msgid "Not a valid Jabber ID"
+msgstr "Geçersiz bir Jabber ID"
+
+#: actions/imsettings.php:299
+msgid "That is already your Jabber ID."
+msgstr "Bu zaten sizin Jabber ID'niz."
+
+#: actions/imsettings.php:302
+msgid "Jabber ID already belongs to another user."
+msgstr "Jabber ID başka bir kullanıcıya ait."
+
+#: actions/imsettings.php:327
+#, php-format
+msgid ""
+"A confirmation code was sent to the IM address you added. You must approve %"
+"s for sending messages to you."
+msgstr ""
+"Eklemiş olduğunuz IM adresine bir onay kodu gönderildi. %s tarafından size "
+"mesaj yollanabilmesi için onaylamanız gerekmektedir."
+
+#: actions/imsettings.php:387
+msgid "That is not your Jabber ID."
+msgstr "Bu sizin Jabber ID'niz değil."
+
+#: actions/inbox.php:59
+#, php-format
+msgid "Inbox for %s - page %d"
+msgstr ""
+
+#: actions/inbox.php:62
+#, php-format
+msgid "Inbox for %s"
+msgstr ""
+
+#: actions/inbox.php:115
+msgid "This is your inbox, which lists your incoming private messages."
+msgstr ""
+
+#: actions/invite.php:39
+msgid "Invites have been disabled."
+msgstr ""
+
+#: actions/invite.php:41
+#, php-format
+msgid "You must be logged in to invite other users to use %s"
+msgstr ""
+
+#: actions/invite.php:72
+#, php-format
+msgid "Invalid email address: %s"
+msgstr ""
+
+#: actions/invite.php:110
+msgid "Invitation(s) sent"
+msgstr ""
+
+#: actions/invite.php:112
+msgid "Invite new users"
+msgstr ""
+
+#: actions/invite.php:128
+msgid "You are already subscribed to these users:"
+msgstr ""
+
+#: actions/invite.php:131 actions/invite.php:139
+#, php-format
+msgid "%s (%s)"
+msgstr ""
+
+#: actions/invite.php:136
+msgid ""
+"These people are already users and you were automatically subscribed to them:"
+msgstr ""
+
+#: actions/invite.php:144
+msgid "Invitation(s) sent to the following people:"
+msgstr ""
+
+#: actions/invite.php:150
+msgid ""
+"You will be notified when your invitees accept the invitation and register "
+"on the site. Thanks for growing the community!"
+msgstr ""
+
+#: actions/invite.php:162
+msgid ""
+"Use this form to invite your friends and colleagues to use this service."
+msgstr ""
+
+#: actions/invite.php:187
+msgid "Email addresses"
+msgstr ""
+
+#: actions/invite.php:189
+msgid "Addresses of friends to invite (one per line)"
+msgstr ""
+
+#: actions/invite.php:192
+msgid "Personal message"
+msgstr ""
+
+#: actions/invite.php:194
+msgid "Optionally add a personal message to the invitation."
+msgstr ""
+
+#: actions/invite.php:197 lib/messageform.php:181 lib/noticeform.php:208
+msgid "Send"
+msgstr "Gönder"
+
+#: actions/invite.php:226
+#, php-format
+msgid "%1$s has invited you to join them on %2$s"
+msgstr ""
+
+#: actions/invite.php:228
+#, php-format
+msgid ""
+"%1$s has invited you to join them on %2$s (%3$s).\n"
+"\n"
+"%2$s is a micro-blogging service that lets you keep up-to-date with people "
+"you know and people who interest you.\n"
+"\n"
+"You can also share news about yourself, your thoughts, or your life online "
+"with people who know about you. It's also great for meeting new people who "
+"share your interests.\n"
+"\n"
+"%1$s said:\n"
+"\n"
+"%4$s\n"
+"\n"
+"You can see %1$s's profile page on %2$s here:\n"
+"\n"
+"%5$s\n"
+"\n"
+"If you'd like to try the service, click on the link below to accept the "
+"invitation.\n"
+"\n"
+"%6$s\n"
+"\n"
+"If not, you can ignore this message. Thanks for your patience and your "
+"time.\n"
+"\n"
+"Sincerely, %2$s\n"
+msgstr ""
+
+#: actions/joingroup.php:60
+msgid "You must be logged in to join a group."
+msgstr ""
+
+#: actions/joingroup.php:90 lib/command.php:217
+#, fuzzy
+msgid "You are already a member of that group"
+msgstr "Zaten giriş yapmış durumdasıznız!"
+
+#: actions/joingroup.php:128 lib/command.php:234
+#, fuzzy, php-format
+msgid "Could not join user %s to group %s"
+msgstr "Sunucuya yönlendirme yapılamadı: %s"
+
+#: actions/joingroup.php:135 lib/command.php:239
+#, php-format
+msgid "%s joined group %s"
+msgstr ""
+
+#: actions/leavegroup.php:60
+msgid "You must be logged in to leave a group."
+msgstr ""
+
+#: actions/leavegroup.php:90 lib/command.php:268
+#, fuzzy
+msgid "You are not a member of that group."
+msgstr "Bize o profili yollamadınız"
+
+#: actions/leavegroup.php:119 lib/command.php:278
+msgid "Could not find membership record."
+msgstr ""
+
+#: actions/leavegroup.php:127 lib/command.php:284
+#, fuzzy, php-format
+msgid "Could not remove user %s to group %s"
+msgstr "OpenID formu yaratılamadı: %s"
+
+#: actions/leavegroup.php:134 lib/command.php:289
+#, php-format
+msgid "%s left group %s"
+msgstr ""
+
+#: actions/login.php:79 actions/register.php:137
+msgid "Already logged in."
+msgstr "Zaten giriş yapılmış."
+
+#: actions/login.php:110 actions/login.php:120
+#, fuzzy
+msgid "Invalid or expired token."
+msgstr "Geçersiz durum mesajı"
+
+#: actions/login.php:143
+msgid "Incorrect username or password."
+msgstr "Yanlış kullanıcı adı veya parola."
+
+#: actions/login.php:149
+#, fuzzy
+msgid "Error setting user. You are probably not authorized."
+msgstr "Yetkilendirilmemiş."
+
+#: actions/login.php:204 actions/login.php:257 lib/action.php:457
+#: lib/logingroupnav.php:79
+msgid "Login"
+msgstr "Giriş"
+
+#: actions/login.php:243
+msgid "Login to site"
+msgstr ""
+
+#: actions/login.php:246 actions/profilesettings.php:106
+#: actions/register.php:423 actions/showgroup.php:236 actions/tagother.php:94
+#: lib/groupeditform.php:152 lib/userprofile.php:131
+msgid "Nickname"
+msgstr "Takma ad"
+
+#: actions/login.php:249 actions/register.php:428
+#: lib/accountsettingsaction.php:116
+msgid "Password"
+msgstr "Parola"
+
+#: actions/login.php:252 actions/register.php:477
+msgid "Remember me"
+msgstr "Beni hatırla"
+
+#: actions/login.php:253 actions/register.php:479
+msgid "Automatically login in the future; not for shared computers!"
+msgstr ""
+"Gelecekte kendiliğinden giriş yap, paylaşılan bilgisayarlar için değildir!"
+
+#: actions/login.php:263
+msgid "Lost or forgotten password?"
+msgstr "Parolamı unuttum veya kaybettim"
+
+#: actions/login.php:282
+msgid ""
+"For security reasons, please re-enter your user name and password before "
+"changing your settings."
+msgstr ""
+"Güvenliğiniz için, ayarlarınızı değiştirmeden önce lütfen kullanıcı adınızı "
+"ve parolanızı tekrar giriniz."
+
+#: actions/login.php:286
+#, fuzzy, php-format
+msgid ""
+"Login with your username and password. Don't have a username yet? [Register]"
+"(%%action.register%%) a new account."
+msgstr ""
+"Kullanıcı adı ve parolanızla giriş yapın. Henüz bir hesabınız yok mu? Ne "
+"duruyorsunuz, hemen bir [yeni hesap oluşturun](%%action.register%%) ya da "
+"[OpenID](%%action.openidlogin%%) ile giriş yapın."
+
+#: actions/makeadmin.php:91
+msgid "Only an admin can make another user an admin."
+msgstr ""
+
+#: actions/makeadmin.php:95
+#, php-format
+msgid "%s is already an admin for group \"%s\"."
+msgstr ""
+
+#: actions/makeadmin.php:132
+#, php-format
+msgid "Can't get membership record for %s in group %s"
+msgstr ""
+
+#: actions/makeadmin.php:145
+#, php-format
+msgid "Can't make %s an admin for group %s"
+msgstr ""
+
+#: actions/microsummary.php:69
+msgid "No current status"
+msgstr ""
+
+#: actions/newgroup.php:53
+msgid "New group"
+msgstr ""
+
+#: actions/newgroup.php:110
+msgid "Use this form to create a new group."
+msgstr ""
+
+#: actions/newmessage.php:71 actions/newmessage.php:231
+msgid "New message"
+msgstr ""
+
+#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:367
+msgid "You can't send a message to this user."
+msgstr ""
+
+#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:351
+#: lib/command.php:424
+msgid "No content!"
+msgstr "İçerik yok!"
+
+#: actions/newmessage.php:158
+msgid "No recipient specified."
+msgstr ""
+
+#: actions/newmessage.php:164 lib/command.php:370
+msgid ""
+"Don't send a message to yourself; just say it to yourself quietly instead."
+msgstr ""
+
+#: actions/newmessage.php:181
+msgid "Message sent"
+msgstr ""
+
+#: actions/newmessage.php:185 lib/command.php:375
+#, php-format
+msgid "Direct message to %s sent"
+msgstr ""
+
+#: actions/newmessage.php:210 actions/newnotice.php:233 lib/channel.php:170
+msgid "Ajax Error"
+msgstr ""
+
+#: actions/newnotice.php:69
+msgid "New notice"
+msgstr "Yeni durum mesajı"
+
+#: actions/newnotice.php:199
+#, fuzzy
+msgid "Notice posted"
+msgstr "Durum mesajları"
+
+#: actions/noticesearch.php:68
+#, php-format
+msgid ""
+"Search for notices on %%site.name%% by their contents. Separate search terms "
+"by spaces; they must be 3 characters or more."
+msgstr ""
+"%%site.name%%'da durum mesajlarının içeriğinde arama yap. Anahtar kelimeleri "
+"boşluk ile ayırın. Anahtar kelime 3 veya daha fazla karakterden oluşmalı."
+
+#: actions/noticesearch.php:78
+msgid "Text search"
+msgstr "Metin arama"
+
+#: actions/noticesearch.php:91
+#, fuzzy, php-format
+msgid "Search results for \"%s\" on %s"
+msgstr " \"%s\" için arama sonuçları"
+
+#: actions/noticesearch.php:121
+#, php-format
+msgid ""
+"Be the first to [post on this topic](%%%%action.newnotice%%%%?"
+"status_textarea=%s)!"
+msgstr ""
+
+#: actions/noticesearch.php:124
+#, php-format
+msgid ""
+"Why not [register an account](%%%%action.register%%%%) and be the first to "
+"[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
+msgstr ""
+
+#: actions/noticesearchrss.php:89
+#, fuzzy, php-format
+msgid "Updates with \"%s\""
+msgstr "%s adli kullanicinin durum mesajlari"
+
+#: actions/noticesearchrss.php:91
+#, fuzzy, php-format
+msgid "Updates matching search term \"%1$s\" on %2$s!"
+msgstr "\"%s\" kelimesinin geçtiği tüm güncellemeler"
+
+#: actions/nudge.php:85
+msgid ""
+"This user doesn't allow nudges or hasn't confirmed or set his email yet."
+msgstr ""
+
+#: actions/nudge.php:94
+msgid "Nudge sent"
+msgstr ""
+
+#: actions/nudge.php:97
+msgid "Nudge sent!"
+msgstr ""
+
+#: actions/oembed.php:79 actions/shownotice.php:100
+msgid "Notice has no profile"
+msgstr "Bu durum mesajının ait oldugu kullanıcı profili yok"
+
+#: actions/oembed.php:86 actions/shownotice.php:180
+#, php-format
+msgid "%1$s's status on %2$s"
+msgstr "%1$s'in %2$s'deki durum mesajları "
+
+#: actions/oembed.php:157
+#, fuzzy
+msgid "content type "
+msgstr "Bağlan"
+
+#: actions/oembed.php:160
+msgid "Only "
+msgstr ""
+
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:999
+#: lib/api.php:1027 lib/api.php:1137
+msgid "Not a supported data format."
+msgstr ""
+
+#: actions/opensearch.php:64
+msgid "People Search"
+msgstr ""
+
+#: actions/opensearch.php:67
+msgid "Notice Search"
+msgstr ""
+
+#: actions/othersettings.php:60
+#, fuzzy
+msgid "Other Settings"
+msgstr "Ayarlar"
+
+#: actions/othersettings.php:71
+msgid "Manage various other options."
+msgstr ""
+
+#: actions/othersettings.php:108
+msgid " (free service)"
+msgstr ""
+
+#: actions/othersettings.php:116
+msgid "Shorten URLs with"
+msgstr ""
+
+#: actions/othersettings.php:117
+msgid "Automatic shortening service to use."
+msgstr ""
+
+#: actions/othersettings.php:122
+#, fuzzy
+msgid "View profile designs"
+msgstr "Profil ayarları"
+
+#: actions/othersettings.php:123
+msgid "Show or hide profile designs."
+msgstr ""
+
+#: actions/othersettings.php:153
+#, fuzzy
+msgid "URL shortening service is too long (max 50 chars)."
+msgstr "Yer bilgisi çok uzun (azm: 255 karakter)."
+
+#: actions/outbox.php:58
+#, php-format
+msgid "Outbox for %s - page %d"
+msgstr ""
+
+#: actions/outbox.php:61
+#, php-format
+msgid "Outbox for %s"
+msgstr ""
+
+#: actions/outbox.php:116
+msgid "This is your outbox, which lists private messages you have sent."
+msgstr ""
+
+#: actions/passwordsettings.php:58
+msgid "Change password"
+msgstr "Parolayı değiştir"
+
+#: actions/passwordsettings.php:69
+#, fuzzy
+msgid "Change your password."
+msgstr "Parolayı değiştir"
+
+#: actions/passwordsettings.php:96 actions/recoverpassword.php:231
+#, fuzzy
+msgid "Password change"
+msgstr "Parola kaydedildi."
+
+#: actions/passwordsettings.php:104
+msgid "Old password"
+msgstr "Eski parola"
+
+#: actions/passwordsettings.php:108 actions/recoverpassword.php:235
+msgid "New password"
+msgstr "Yeni parola"
+
+#: actions/passwordsettings.php:109
+msgid "6 or more characters"
+msgstr "6 veya daha fazla karakter"
+
+#: actions/passwordsettings.php:112 actions/recoverpassword.php:239
+#: actions/register.php:432 actions/smssettings.php:134
+msgid "Confirm"
+msgstr "Onayla"
+
+#: actions/passwordsettings.php:113
+msgid "same as password above"
+msgstr "yukaridaki parola ile aynı"
+
+#: actions/passwordsettings.php:117
+msgid "Change"
+msgstr "Değiştir"
+
+#: actions/passwordsettings.php:154 actions/register.php:230
+msgid "Password must be 6 or more characters."
+msgstr ""
+
+#: actions/passwordsettings.php:157 actions/register.php:233
+msgid "Passwords don't match."
+msgstr "Parolalar birbirini tutmuyor."
+
+#: actions/passwordsettings.php:165
+msgid "Incorrect old password"
+msgstr "Eski parola yanlış"
+
+#: actions/passwordsettings.php:181
+msgid "Error saving user; invalid."
+msgstr "Kullanıcıyı kaydetmede hata oluştu; geçersiz."
+
+#: actions/passwordsettings.php:186 actions/recoverpassword.php:368
+msgid "Can't save new password."
+msgstr "Yeni parola kaydedilemedi."
+
+#: actions/passwordsettings.php:192 actions/recoverpassword.php:211
+msgid "Password saved."
+msgstr "Parola kaydedildi."
+
+#: actions/peoplesearch.php:52
+#, php-format
+msgid ""
+"Search for people on %%site.name%% by their name, location, or interests. "
+"Separate the terms by spaces; they must be 3 characters or more."
+msgstr ""
+"%%site.name%% üyeleri arasında isim, yer ya da ilgi alanları içinde arama "
+"yap. Anahtar kelimeleri boşluk ile ayırın. Anahtar kelime 3 veya daha fazla "
+"karakterden oluşmalı. "
+
+#: actions/peoplesearch.php:58
+msgid "People search"
+msgstr "Kişi Arama"
+
+#: actions/peopletag.php:70
+#, fuzzy, php-format
+msgid "Not a valid people tag: %s"
+msgstr "Geçersiz bir eposta adresi."
+
+#: actions/peopletag.php:144
+#, php-format
+msgid "Users self-tagged with %s - page %d"
+msgstr ""
+
+#: actions/postnotice.php:84
+msgid "Invalid notice content"
+msgstr "Geçersiz durum mesajı"
+
+#: actions/postnotice.php:90
+#, php-format
+msgid "Notice license ‘%s’ is not compatible with site license ‘%s’."
+msgstr ""
+
+#: actions/profilesettings.php:60
+msgid "Profile settings"
+msgstr "Profil ayarları"
+
+#: actions/profilesettings.php:71
+msgid ""
+"You can update your personal profile info here so people know more about you."
+msgstr ""
+"Burada kişisel profilinizi güncelleyebilirsiniz, böylelikle insanlar sizin "
+"hakkınızda daha fazla bilgi sahibi olur."
+
+#: actions/profilesettings.php:99
+#, fuzzy
+msgid "Profile information"
+msgstr "Profil bilinmiyor"
+
+#: actions/profilesettings.php:108 lib/groupeditform.php:154
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+msgstr ""
+"1-64 küçük harf veya rakam, noktalama işaretlerine ve boşluklara izin "
+"verilmez"
+
+#: actions/profilesettings.php:111 actions/register.php:447
+#: actions/showgroup.php:247 actions/tagother.php:104
+#: lib/groupeditform.php:157 lib/userprofile.php:149
+msgid "Full name"
+msgstr "Tam İsim"
+
+#: actions/profilesettings.php:115 actions/register.php:452
+#: lib/groupeditform.php:161
+msgid "Homepage"
+msgstr "Başlangıç Sayfası"
+
+#: actions/profilesettings.php:117 actions/register.php:454
+msgid "URL of your homepage, blog, or profile on another site"
+msgstr ""
+"Web Sitenizin, blogunuzun ya da varsa başka bir sitedeki profilinizin adresi"
+
+#: actions/profilesettings.php:122 actions/register.php:460
+#, fuzzy, php-format
+msgid "Describe yourself and your interests in %d chars"
+msgstr "Kendinizi ve ilgi alanlarınızı 140 karakter ile anlatın"
+
+#: actions/profilesettings.php:125 actions/register.php:463
+#, fuzzy
+msgid "Describe yourself and your interests"
+msgstr "Kendinizi ve ilgi alanlarınızı 140 karakter ile anlatın"
+
+#: actions/profilesettings.php:127 actions/register.php:465
+msgid "Bio"
+msgstr "Hakkında"
+
+#: actions/profilesettings.php:132 actions/register.php:470
+#: actions/showgroup.php:256 actions/tagother.php:112
+#: actions/userauthorization.php:158 lib/groupeditform.php:177
+#: lib/userprofile.php:164
+msgid "Location"
+msgstr "Yer"
+
+#: actions/profilesettings.php:134 actions/register.php:472
+msgid "Where you are, like \"City, State (or Region), Country\""
+msgstr "Bulunduğunuz yer, \"Şehir, Eyalet (veya Bölge), Ülke\" gibi"
+
+#: actions/profilesettings.php:138 actions/tagother.php:149
+#: actions/tagother.php:209 lib/subscriptionlist.php:106
+#: lib/subscriptionlist.php:108 lib/userprofile.php:209
+msgid "Tags"
+msgstr ""
+
+#: actions/profilesettings.php:140
+msgid ""
+"Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
+msgstr ""
+
+#: actions/profilesettings.php:144 actions/siteadminpanel.php:309
+msgid "Language"
+msgstr ""
+
+#: actions/profilesettings.php:145
+msgid "Preferred language"
+msgstr ""
+
+#: actions/profilesettings.php:154
+msgid "Timezone"
+msgstr ""
+
+#: actions/profilesettings.php:155
+msgid "What timezone are you normally in?"
+msgstr ""
+
+#: actions/profilesettings.php:160
+msgid ""
+"Automatically subscribe to whoever subscribes to me (best for non-humans)"
+msgstr ""
+
+#: actions/profilesettings.php:221 actions/register.php:223
+#, fuzzy, php-format
+msgid "Bio is too long (max %d chars)."
+msgstr "Hakkında bölümü çok uzun (azm 140 karakter)."
+
+#: actions/profilesettings.php:228 actions/siteadminpanel.php:165
+msgid "Timezone not selected."
+msgstr ""
+
+#: actions/profilesettings.php:234
+msgid "Language is too long (max 50 chars)."
+msgstr ""
+
+#: actions/profilesettings.php:246 actions/tagother.php:178
+#, fuzzy, php-format
+msgid "Invalid tag: \"%s\""
+msgstr "%s Geçersiz başlangıç sayfası"
+
+#: actions/profilesettings.php:295
+msgid "Couldn't update user for autosubscribe."
+msgstr ""
+
+#: actions/profilesettings.php:328
+msgid "Couldn't save profile."
+msgstr "Profil kaydedilemedi."
+
+#: actions/profilesettings.php:336
+#, fuzzy
+msgid "Couldn't save tags."
+msgstr "Profil kaydedilemedi."
+
+#: actions/profilesettings.php:344 lib/adminpanelaction.php:126
+msgid "Settings saved."
+msgstr "Ayarlar kaydedildi."
+
+#: actions/public.php:83
+#, php-format
+msgid "Beyond the page limit (%s)"
+msgstr ""
+
+#: actions/public.php:92
+msgid "Could not retrieve public stream."
+msgstr ""
+
+#: actions/public.php:129
+#, fuzzy, php-format
+msgid "Public timeline, page %d"
+msgstr "Genel zaman çizgisi"
+
+#: actions/public.php:131 lib/publicgroupnav.php:79
+msgid "Public timeline"
+msgstr "Genel zaman çizgisi"
+
+#: actions/public.php:151
+#, fuzzy
+msgid "Public Stream Feed (RSS 1.0)"
+msgstr "Genel Durum Akış RSS Beslemesi"
+
+#: actions/public.php:155
+#, fuzzy
+msgid "Public Stream Feed (RSS 2.0)"
+msgstr "Genel Durum Akış RSS Beslemesi"
+
+#: actions/public.php:159
+#, fuzzy
+msgid "Public Stream Feed (Atom)"
+msgstr "Genel Durum Akış RSS Beslemesi"
+
+#: actions/public.php:179
+#, php-format
+msgid ""
+"This is the public timeline for %%site.name%% but no one has posted anything "
+"yet."
+msgstr ""
+
+#: actions/public.php:182
+msgid "Be the first to post!"
+msgstr ""
+
+#: actions/public.php:186
+#, php-format
+msgid ""
+"Why not [register an account](%%action.register%%) and be the first to post!"
+msgstr ""
+
+#: actions/public.php:233
+#, php-format
+msgid ""
+"This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
+"blogging) service based on the Free Software [StatusNet](http://status.net/) "
+"tool. [Join now](%%action.register%%) to share notices about yourself with "
+"friends, family, and colleagues! ([Read more](%%doc.help%%))"
+msgstr ""
+
+#: actions/public.php:238
+#, php-format
+msgid ""
+"This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
+"blogging) service based on the Free Software [StatusNet](http://status.net/) "
+"tool."
+msgstr ""
+
+#: actions/publictagcloud.php:57
+#, fuzzy
+msgid "Public tag cloud"
+msgstr "Genel Durum Akış RSS Beslemesi"
+
+#: actions/publictagcloud.php:63
+#, php-format
+msgid "These are most popular recent tags on %s "
+msgstr ""
+
+#: actions/publictagcloud.php:69
+#, php-format
+msgid "No one has posted a notice with a [hashtag](%%doc.tags%%) yet."
+msgstr ""
+
+#: actions/publictagcloud.php:72
+msgid "Be the first to post one!"
+msgstr ""
+
+#: actions/publictagcloud.php:75
+#, php-format
+msgid ""
+"Why not [register an account](%%action.register%%) and be the first to post "
+"one!"
+msgstr ""
+
+#: actions/publictagcloud.php:135
+msgid "Tag cloud"
+msgstr ""
+
+#: actions/recoverpassword.php:36
+msgid "You are already logged in!"
+msgstr "Zaten giriş yapmış durumdasıznız!"
+
+#: actions/recoverpassword.php:62
+msgid "No such recovery code."
+msgstr "Böyle bir geri alma kodu yok."
+
+#: actions/recoverpassword.php:66
+msgid "Not a recovery code."
+msgstr "Bir geri alma kodu değil."
+
+#: actions/recoverpassword.php:73
+msgid "Recovery code for unknown user."
+msgstr "Bilinmeye kullanıcı için geri alma kodu"
+
+#: actions/recoverpassword.php:86
+msgid "Error with confirmation code."
+msgstr "Onay kodu hatası."
+
+#: actions/recoverpassword.php:97
+msgid "This confirmation code is too old. Please start again."
+msgstr "Onay kodu çok eski. Lütfen tekrar başlayınız."
+
+#: actions/recoverpassword.php:111
+msgid "Could not update user with confirmed email address."
+msgstr ""
+
+#: actions/recoverpassword.php:152
+msgid ""
+"If you have forgotten or lost your password, you can get a new one sent to "
+"the email address you have stored in your account."
+msgstr ""
+
+#: actions/recoverpassword.php:158
+msgid "You have been identified. Enter a new password below. "
+msgstr ""
+
+#: actions/recoverpassword.php:188
+msgid "Password recovery"
+msgstr ""
+
+#: actions/recoverpassword.php:191
+msgid "Nickname or email address"
+msgstr ""
+
+#: actions/recoverpassword.php:193
+msgid "Your nickname on this server, or your registered email address."
+msgstr "Bu sunucudaki takma adınız  veya kaydedilmiş eposta adresiniz."
+
+#: actions/recoverpassword.php:199 actions/recoverpassword.php:200
+msgid "Recover"
+msgstr "Geri al"
+
+#: actions/recoverpassword.php:208
+msgid "Reset password"
+msgstr "Parolayı sıfırla"
+
+#: actions/recoverpassword.php:209
+msgid "Recover password"
+msgstr "Parolanı geri al"
+
+#: actions/recoverpassword.php:210 actions/recoverpassword.php:322
+msgid "Password recovery requested"
+msgstr "Parola geri alma isteği"
+
+#: actions/recoverpassword.php:213
+msgid "Unknown action"
+msgstr ""
+
+#: actions/recoverpassword.php:236
+msgid "6 or more characters, and don't forget it!"
+msgstr "Unutmayın, 6 veya daha fazla karakter"
+
+#: actions/recoverpassword.php:240
+msgid "Same as password above"
+msgstr "yukarıdaki parolanın aynısı"
+
+#: actions/recoverpassword.php:243
+msgid "Reset"
+msgstr "Sıfırla"
+
+#: actions/recoverpassword.php:252
+msgid "Enter a nickname or email address."
+msgstr "Bir takma ad veya eposta adresi girin."
+
+#: actions/recoverpassword.php:272
+msgid "No user with that email address or username."
+msgstr ""
+
+#: actions/recoverpassword.php:287
+msgid "No registered email address for that user."
+msgstr "Kullanıcı için kaydedilmiş eposta adresi yok."
+
+#: actions/recoverpassword.php:301
+msgid "Error saving address confirmation."
+msgstr "Adres onayını kaydetmede hata."
+
+#: actions/recoverpassword.php:325
+msgid ""
+"Instructions for recovering your password have been sent to the email "
+"address registered to your account."
+msgstr ""
+"Hesabınıza eklemiş olduğunuz eposta adresine parolanızı geri getirmek için "
+"gerekli olan talimatlar yollanmıştır."
+
+#: actions/recoverpassword.php:344
+msgid "Unexpected password reset."
+msgstr "Beklemeğen parola sıfırlaması."
+
+#: actions/recoverpassword.php:352
+msgid "Password must be 6 chars or more."
+msgstr "Parola 6 veya daha fazla karakterden oluşmalıdır."
+
+#: actions/recoverpassword.php:356
+msgid "Password and confirmation do not match."
+msgstr "Parola ve onaylaması birbirini tutmuyor."
+
+#: actions/recoverpassword.php:375 actions/register.php:248
+msgid "Error setting user."
+msgstr "Kullanıcı ayarlamada hata oluştu."
+
+#: actions/recoverpassword.php:382
+msgid "New password successfully saved. You are now logged in."
+msgstr "Yeni parola başarıyla kaydedildi. Şimdi giriş yaptınız."
+
+#: actions/register.php:85 actions/register.php:189 actions/register.php:404
+msgid "Sorry, only invited people can register."
+msgstr ""
+
+#: actions/register.php:92
+#, fuzzy
+msgid "Sorry, invalid invitation code."
+msgstr "Onay kodu hatası."
+
+#: actions/register.php:112
+msgid "Registration successful"
+msgstr ""
+
+#: actions/register.php:114 actions/register.php:502 lib/action.php:454
+#: lib/logingroupnav.php:85
+msgid "Register"
+msgstr "Kayıt"
+
+#: actions/register.php:135
+msgid "Registration not allowed."
+msgstr ""
+
+#: actions/register.php:198
+msgid "You can't register if you don't agree to the license."
+msgstr "Eğer lisansı kabul etmezseniz kayıt olamazsınız."
+
+#: actions/register.php:201
+msgid "Not a valid email address."
+msgstr "Geçersiz bir eposta adresi."
+
+#: actions/register.php:212
+msgid "Email address already exists."
+msgstr "Eposta adresi zaten var."
+
+#: actions/register.php:243 actions/register.php:264
+msgid "Invalid username or password."
+msgstr "Geçersiz kullanıcı adı veya parola."
+
+#: actions/register.php:342
+msgid ""
+"With this form you can create  a new account. You can then post notices and "
+"link up to friends and colleagues. "
+msgstr ""
+
+#: actions/register.php:424
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
+msgstr ""
+
+#: actions/register.php:429
+msgid "6 or more characters. Required."
+msgstr ""
+
+#: actions/register.php:433
+msgid "Same as password above. Required."
+msgstr ""
+
+#: actions/register.php:437 actions/register.php:441
+#: actions/siteadminpanel.php:287 lib/accountsettingsaction.php:120
+msgid "Email"
+msgstr "Eposta"
+
+#: actions/register.php:438 actions/register.php:442
+msgid "Used only for updates, announcements, and password recovery"
+msgstr ""
+"Sadece sistem güncellemeleri, duyurular ve parola geri alma için kullanılır."
+
+#: actions/register.php:449
+msgid "Longer name, preferably your \"real\" name"
+msgstr ""
+
+#: actions/register.php:493
+msgid "My text and files are available under "
+msgstr "Durum mesajlarim ve dosyalarim şu lisans ile korunmaktadır: "
+
+#: actions/register.php:495
+msgid "Creative Commons Attribution 3.0"
+msgstr ""
+
+#: actions/register.php:496
+#, fuzzy
+msgid ""
+" except this private data: password, email address, IM address, and phone "
+"number."
+msgstr ""
+"bu özel veriler haricinde: parola, eposta adresi, IM adresi, telefon "
+"numarası."
+
+#: actions/register.php:537
+#, php-format
+msgid ""
+"Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may "
+"want to...\n"
+"\n"
+"* Go to [your profile](%s) and post your first message.\n"
+"* Add a [Jabber/GTalk address](%%%%action.imsettings%%%%) so you can send "
+"notices through instant messages.\n"
+"* [Search for people](%%%%action.peoplesearch%%%%) that you may know or that "
+"share your interests. \n"
+"* Update your [profile settings](%%%%action.profilesettings%%%%) to tell "
+"others more about you. \n"
+"* Read over the [online docs](%%%%doc.help%%%%) for features you may have "
+"missed. \n"
+"\n"
+"Thanks for signing up and we hope you enjoy using this service."
+msgstr ""
+
+#: actions/register.php:561
+msgid ""
+"(You should receive a message by email momentarily, with instructions on how "
+"to confirm your email address.)"
+msgstr ""
+
+#: actions/remotesubscribe.php:98
+#, php-format
+msgid ""
+"To subscribe, you can [login](%%action.login%%), or [register](%%action."
+"register%%) a new  account. If you already have an account  on a [compatible "
+"microblogging site](%%doc.openmublog%%),  enter your profile URL below."
+msgstr ""
+
+#: actions/remotesubscribe.php:112
+msgid "Remote subscribe"
+msgstr "Uzaktan abonelik"
+
+#: actions/remotesubscribe.php:124
+#, fuzzy
+msgid "Subscribe to a remote user"
+msgstr "Takip talebine izin verildi"
+
+#: actions/remotesubscribe.php:129
+msgid "User nickname"
+msgstr "Kullanıcı takma adı"
+
+#: actions/remotesubscribe.php:130
+msgid "Nickname of the user you want to follow"
+msgstr "Takip etmek istediğiniz kullanıcının takma adı"
+
+#: actions/remotesubscribe.php:133
+msgid "Profile URL"
+msgstr "Profil Adresi"
+
+#: actions/remotesubscribe.php:134
+msgid "URL of your profile on another compatible microblogging service"
+msgstr ""
+
+#: actions/remotesubscribe.php:137 lib/subscribeform.php:139
+#: lib/userprofile.php:356
+msgid "Subscribe"
+msgstr "Abone ol"
+
+#: actions/remotesubscribe.php:159
+msgid "Invalid profile URL (bad format)"
+msgstr ""
+
+#: actions/remotesubscribe.php:168
+#, fuzzy
+msgid ""
+"Not a valid profile URL (no YADIS document or no or invalid XRDS defined)."
+msgstr "Geçersiz profil adresi (YADIS belgesi yok)."
+
+#: actions/remotesubscribe.php:176
+msgid "That’s a local profile! Login to subscribe."
+msgstr ""
+
+#: actions/remotesubscribe.php:183
+msgid "Couldn’t get a request token."
+msgstr ""
+
+#: actions/replies.php:125 actions/repliesrss.php:68
+#: lib/personalgroupnav.php:105
+#, php-format
+msgid "Replies to %s"
+msgstr "%s için cevaplar"
+
+#: actions/replies.php:127
+#, fuzzy, php-format
+msgid "Replies to %s, page %d"
+msgstr "%s için cevaplar"
+
+#: actions/replies.php:144
+#, fuzzy, php-format
+msgid "Replies feed for %s (RSS 1.0)"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/replies.php:151
+#, fuzzy, php-format
+msgid "Replies feed for %s (RSS 2.0)"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/replies.php:158
+#, fuzzy, php-format
+msgid "Replies feed for %s (Atom)"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/replies.php:198
+#, php-format
+msgid ""
+"This is the timeline showing replies to %s but %s hasn't received a notice "
+"to his attention yet."
+msgstr ""
+
+#: actions/replies.php:203
+#, php-format
+msgid ""
+"You can engage other users in a conversation, subscribe to more people or "
+"[join groups](%%action.groups%%)."
+msgstr ""
+
+#: actions/replies.php:205
+#, php-format
+msgid ""
+"You can try to [nudge %s](../%s) or [post something to his or her attention]"
+"(%%%%action.newnotice%%%%?status_textarea=%s)."
+msgstr ""
+
+#: actions/repliesrss.php:72
+#, fuzzy, php-format
+msgid "Replies to %1$s on %2$s!"
+msgstr "%s için cevaplar"
+
+#: actions/sandbox.php:65 actions/unsandbox.php:65
+#, fuzzy
+msgid "You cannot sandbox users on this site."
+msgstr "Bize o profili yollamadınız"
+
+#: actions/sandbox.php:72
+#, fuzzy
+msgid "User is already sandboxed."
+msgstr "Kullanıcının profili yok."
+
+#: actions/showfavorites.php:79
+#, fuzzy, php-format
+msgid "%s's favorite notices, page %d"
+msgstr "Böyle bir durum mesajı yok."
+
+#: actions/showfavorites.php:132
+msgid "Could not retrieve favorite notices."
+msgstr ""
+
+#: actions/showfavorites.php:170
+#, fuzzy, php-format
+msgid "Feed for favorites of %s (RSS 1.0)"
+msgstr "%s için arkadaş güncellemeleri RSS beslemesi"
+
+#: actions/showfavorites.php:177
+#, fuzzy, php-format
+msgid "Feed for favorites of %s (RSS 2.0)"
+msgstr "%s için arkadaş güncellemeleri RSS beslemesi"
+
+#: actions/showfavorites.php:184
+#, fuzzy, php-format
+msgid "Feed for favorites of %s (Atom)"
+msgstr "%s için arkadaş güncellemeleri RSS beslemesi"
+
+#: actions/showfavorites.php:205
+msgid ""
+"You haven't chosen any favorite notices yet. Click the fave button on "
+"notices you like to bookmark them for later or shed a spotlight on them."
+msgstr ""
+
+#: actions/showfavorites.php:207
+#, php-format
+msgid ""
+"%s hasn't added any notices to his favorites yet. Post something interesting "
+"they would add to their favorites :)"
+msgstr ""
+
+#: actions/showfavorites.php:211
+#, php-format
+msgid ""
+"%s hasn't added any notices to his favorites yet. Why not [register an "
+"account](%%%%action.register%%%%) and then post something interesting they "
+"would add to their favorites :)"
+msgstr ""
+
+#: actions/showfavorites.php:242
+msgid "This is a way to share what you like."
+msgstr ""
+
+#: actions/showgroup.php:82 lib/groupnav.php:86
+#, php-format
+msgid "%s group"
+msgstr ""
+
+#: actions/showgroup.php:84
+#, php-format
+msgid "%s group, page %d"
+msgstr ""
+
+#: actions/showgroup.php:218
+#, fuzzy
+msgid "Group profile"
+msgstr "Böyle bir durum mesajı yok."
+
+#: actions/showgroup.php:263 actions/tagother.php:118
+#: actions/userauthorization.php:167 lib/userprofile.php:177
+msgid "URL"
+msgstr ""
+
+#: actions/showgroup.php:274 actions/tagother.php:128
+#: actions/userauthorization.php:179 lib/userprofile.php:194
+#, fuzzy
+msgid "Note"
+msgstr "Durum mesajları"
+
+#: actions/showgroup.php:284 lib/groupeditform.php:184
+msgid "Aliases"
+msgstr ""
+
+#: actions/showgroup.php:293
+msgid "Group actions"
+msgstr ""
+
+#: actions/showgroup.php:328
+#, fuzzy, php-format
+msgid "Notice feed for %s group (RSS 1.0)"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/showgroup.php:334
+#, fuzzy, php-format
+msgid "Notice feed for %s group (RSS 2.0)"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/showgroup.php:340
+#, fuzzy, php-format
+msgid "Notice feed for %s group (Atom)"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/showgroup.php:345
+#, fuzzy, php-format
+msgid "FOAF for %s group"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/showgroup.php:381 actions/showgroup.php:438 lib/groupnav.php:91
+#, fuzzy
+msgid "Members"
+msgstr "Üyelik başlangıcı"
+
+#: actions/showgroup.php:386 lib/profileaction.php:117
+#: lib/profileaction.php:148 lib/profileaction.php:226 lib/section.php:95
+#: lib/tagcloudsection.php:71
+msgid "(None)"
+msgstr ""
+
+#: actions/showgroup.php:392
+msgid "All members"
+msgstr ""
+
+#: actions/showgroup.php:429 lib/profileaction.php:173
+msgid "Statistics"
+msgstr "İstatistikler"
+
+#: actions/showgroup.php:432
+#, fuzzy
+msgid "Created"
+msgstr "Yarat"
+
+#: actions/showgroup.php:448
+#, php-format
+msgid ""
+"**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
+"wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
+"[StatusNet](http://status.net/) tool. Its members share short messages about "
+"their life and interests. [Join now](%%%%action.register%%%%) to become part "
+"of this group and many more! ([Read more](%%%%doc.help%%%%))"
+msgstr ""
+
+#: actions/showgroup.php:454
+#, php-format
+msgid ""
+"**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
+"wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
+"[StatusNet](http://status.net/) tool. Its members share short messages about "
+"their life and interests. "
+msgstr ""
+
+#: actions/showgroup.php:482
+msgid "Admins"
+msgstr ""
+
+#: actions/showmessage.php:81
+msgid "No such message."
+msgstr ""
+
+#: actions/showmessage.php:98
+msgid "Only the sender and recipient may read this message."
+msgstr ""
+
+#: actions/showmessage.php:108
+#, php-format
+msgid "Message to %1$s on %2$s"
+msgstr ""
+
+#: actions/showmessage.php:113
+#, php-format
+msgid "Message from %1$s on %2$s"
+msgstr ""
+
+#: actions/shownotice.php:90
+#, fuzzy
+msgid "Notice deleted."
+msgstr "Durum mesajları"
+
+#: actions/showstream.php:73
+#, php-format
+msgid " tagged %s"
+msgstr ""
+
+#: actions/showstream.php:79
+#, php-format
+msgid "%s, page %d"
+msgstr ""
+
+#: actions/showstream.php:122
+#, fuzzy, php-format
+msgid "Notice feed for %s tagged %s (RSS 1.0)"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/showstream.php:129
+#, fuzzy, php-format
+msgid "Notice feed for %s (RSS 1.0)"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/showstream.php:136
+#, fuzzy, php-format
+msgid "Notice feed for %s (RSS 2.0)"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/showstream.php:143
+#, fuzzy, php-format
+msgid "Notice feed for %s (Atom)"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/showstream.php:148
+#, php-format
+msgid "FOAF for %s"
+msgstr ""
+
+#: actions/showstream.php:191
+#, php-format
+msgid "This is the timeline for %s but %s hasn't posted anything yet."
+msgstr ""
+
+#: actions/showstream.php:196
+msgid ""
+"Seen anything interesting recently? You haven't posted any notices yet, now "
+"would be a good time to start :)"
+msgstr ""
+
+#: actions/showstream.php:198
+#, php-format
+msgid ""
+"You can try to nudge %s or [post something to his or her attention](%%%%"
+"action.newnotice%%%%?status_textarea=%s)."
+msgstr ""
+
+#: actions/showstream.php:234
+#, php-format
+msgid ""
+"**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
+"wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
+"[StatusNet](http://status.net/) tool. [Join now](%%%%action.register%%%%) to "
+"follow **%s**'s notices and many more! ([Read more](%%%%doc.help%%%%))"
+msgstr ""
+
+#: actions/showstream.php:239
+#, php-format
+msgid ""
+"**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
+"wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
+"[StatusNet](http://status.net/) tool. "
+msgstr ""
+
+#: actions/silence.php:65 actions/unsilence.php:65
+msgid "You cannot silence users on this site."
+msgstr ""
+
+#: actions/silence.php:72
+#, fuzzy
+msgid "User is already silenced."
+msgstr "Kullanıcının profili yok."
+
+#: actions/siteadminpanel.php:58 lib/adminpanelaction.php:299
+msgid "Site"
+msgstr ""
+
+#: actions/siteadminpanel.php:69
+msgid "Basic settings for this StatusNet site."
+msgstr ""
+
+#: actions/siteadminpanel.php:147
+msgid "Site name must have non-zero length."
+msgstr ""
+
+#: actions/siteadminpanel.php:155
+#, fuzzy
+msgid "You must have a valid contact email address"
+msgstr "Geçersiz bir eposta adresi."
+
+#: actions/siteadminpanel.php:173
+#, php-format
+msgid "Unknown language \"%s\""
+msgstr ""
+
+#: actions/siteadminpanel.php:180
+msgid "Invalid snapshot report URL."
+msgstr ""
+
+#: actions/siteadminpanel.php:186
+msgid "Invalid snapshot run value."
+msgstr ""
+
+#: actions/siteadminpanel.php:192
+msgid "Snapshot frequency must be a number."
+msgstr ""
+
+#: actions/siteadminpanel.php:199
+msgid "You must set an SSL sever when enabling SSL."
+msgstr ""
+
+#: actions/siteadminpanel.php:204
+msgid "Invalid SSL server. Max length is 255 characters."
+msgstr ""
+
+#: actions/siteadminpanel.php:210
+msgid "Minimum text limit is 140c."
+msgstr ""
+
+#: actions/siteadminpanel.php:216
+msgid "Dupe limit must 1 or more seconds."
+msgstr ""
+
+#: actions/siteadminpanel.php:224
+#, php-format
+msgid "Locales directory not readable: %s"
+msgstr ""
+
+#: actions/siteadminpanel.php:275
+#, fuzzy
+msgid "Site name"
+msgstr "Yeni durum mesajı"
+
+#: actions/siteadminpanel.php:276
+msgid "The name of your site, like \"Yourcompany Microblog\""
+msgstr ""
+
+#: actions/siteadminpanel.php:279
+msgid "Brought by"
+msgstr ""
+
+#: actions/siteadminpanel.php:280
+msgid "Text used for credits link in footer of each page"
+msgstr ""
+
+#: actions/siteadminpanel.php:283
+msgid "Brought by URL"
+msgstr ""
+
+#: actions/siteadminpanel.php:284
+msgid "URL used for credits link in footer of each page"
+msgstr ""
+
+#: actions/siteadminpanel.php:288
+#, fuzzy
+msgid "contact email address for your site"
+msgstr "Kullanıcı için kaydedilmiş eposta adresi yok."
+
+#: actions/siteadminpanel.php:302
+msgid "Default timezone"
+msgstr ""
+
+#: actions/siteadminpanel.php:303
+msgid "Default timezone for the site; usually UTC."
+msgstr ""
+
+#: actions/siteadminpanel.php:310
+msgid "Default site language"
+msgstr ""
+
+#: actions/siteadminpanel.php:316
+msgid "Path to locales"
+msgstr ""
+
+#: actions/siteadminpanel.php:316
+msgid "Directory path to locales"
+msgstr ""
+
+#: actions/siteadminpanel.php:320
+#, fuzzy
+msgid "Server"
+msgstr "Geri al"
+
+#: actions/siteadminpanel.php:320
+msgid "Site's server hostname."
+msgstr ""
+
+#: actions/siteadminpanel.php:324
+msgid "Path"
+msgstr ""
+
+#: actions/siteadminpanel.php:324
+#, fuzzy
+msgid "Site path"
+msgstr "Yeni durum mesajı"
+
+#: actions/siteadminpanel.php:328
+msgid "Fancy URLs"
+msgstr ""
+
+#: actions/siteadminpanel.php:330
+msgid "Use fancy (more readable and memorable) URLs?"
+msgstr ""
+
+#: actions/siteadminpanel.php:334
+#, fuzzy
+msgid "Private"
+msgstr "Gizlilik"
+
+#: actions/siteadminpanel.php:336
+msgid "Prohibit anonymous users (not logged in) from viewing site?"
+msgstr ""
+
+#: actions/siteadminpanel.php:340
+msgid "Invite only"
+msgstr ""
+
+#: actions/siteadminpanel.php:342
+msgid "Make registration invitation only."
+msgstr ""
+
+#: actions/siteadminpanel.php:346 actions/useradminpanel.php:171
+#, fuzzy
+msgid "Closed"
+msgstr "Böyle bir kullanıcı yok."
+
+#: actions/siteadminpanel.php:348
+msgid "Disable new registrations."
+msgstr ""
+
+#: actions/siteadminpanel.php:353
+msgid "Randomly during Web hit"
+msgstr ""
+
+#: actions/siteadminpanel.php:354
+msgid "In a scheduled job"
+msgstr ""
+
+#: actions/siteadminpanel.php:355 actions/siteadminpanel.php:380
+#, fuzzy
+msgid "Never"
+msgstr "Geri al"
+
+#: actions/siteadminpanel.php:357
+msgid "Data snapshots"
+msgstr ""
+
+#: actions/siteadminpanel.php:358
+msgid "When to send statistical data to status.net servers"
+msgstr ""
+
+#: actions/siteadminpanel.php:364
+msgid "Frequency"
+msgstr ""
+
+#: actions/siteadminpanel.php:365
+msgid "Snapshots will be sent once every N Web hits"
+msgstr ""
+
+#: actions/siteadminpanel.php:372
+msgid "Report URL"
+msgstr ""
+
+#: actions/siteadminpanel.php:373
+msgid "Snapshots will be sent to this URL"
+msgstr ""
+
+#: actions/siteadminpanel.php:381
+#, fuzzy
+msgid "Sometimes"
+msgstr "Durum mesajları"
+
+#: actions/siteadminpanel.php:382
+msgid "Always"
+msgstr ""
+
+#: actions/siteadminpanel.php:384
+msgid "Use SSL"
+msgstr ""
+
+#: actions/siteadminpanel.php:385
+msgid "When to use SSL"
+msgstr ""
+
+#: actions/siteadminpanel.php:391
+msgid "SSL Server"
+msgstr ""
+
+#: actions/siteadminpanel.php:392
+msgid "Server to direct SSL requests to"
+msgstr ""
+
+#: actions/siteadminpanel.php:396
+msgid "Text limit"
+msgstr ""
+
+#: actions/siteadminpanel.php:396
+msgid "Maximum number of characters for notices."
+msgstr ""
+
+#: actions/siteadminpanel.php:400
+msgid "Dupe limit"
+msgstr ""
+
+#: actions/siteadminpanel.php:400
+msgid "How long users must wait (in seconds) to post the same thing again."
+msgstr ""
+
+#: actions/siteadminpanel.php:414 actions/useradminpanel.php:226
+#, fuzzy
+msgid "Save site settings"
+msgstr "Ayarlar"
+
+#: actions/smssettings.php:58
+msgid "SMS Settings"
+msgstr ""
+
+#: actions/smssettings.php:69
+#, php-format
+msgid "You can receive SMS messages through email from %%site.name%%."
+msgstr ""
+
+#: actions/smssettings.php:91
+#, fuzzy
+msgid "SMS is not available."
+msgstr "Bu sayfa kabul ettiğiniz ortam türünde kullanılabilir değil"
+
+#: actions/smssettings.php:112
+msgid "Current confirmed SMS-enabled phone number."
+msgstr ""
+
+#: actions/smssettings.php:123
+msgid "Awaiting confirmation on this phone number."
+msgstr ""
+
+#: actions/smssettings.php:130
+msgid "Confirmation code"
+msgstr ""
+
+#: actions/smssettings.php:131
+msgid "Enter the code you received on your phone."
+msgstr ""
+
+#: actions/smssettings.php:138
+msgid "SMS Phone number"
+msgstr ""
+
+#: actions/smssettings.php:140
+msgid "Phone number, no punctuation or spaces, with area code"
+msgstr ""
+
+#: actions/smssettings.php:174
+msgid ""
+"Send me notices through SMS; I understand I may incur exorbitant charges "
+"from my carrier."
+msgstr ""
+
+#: actions/smssettings.php:306
+msgid "No phone number."
+msgstr ""
+
+#: actions/smssettings.php:311
+msgid "No carrier selected."
+msgstr ""
+
+#: actions/smssettings.php:318
+msgid "That is already your phone number."
+msgstr ""
+
+#: actions/smssettings.php:321
+msgid "That phone number already belongs to another user."
+msgstr ""
+
+#: actions/smssettings.php:347
+#, fuzzy
+msgid ""
+"A confirmation code was sent to the phone number you added. Check your phone "
+"for the code and instructions on how to use it."
+msgstr "O onay kodu sizin için değil!"
+
+#: actions/smssettings.php:374
+msgid "That is the wrong confirmation number."
+msgstr ""
+
+#: actions/smssettings.php:405
+msgid "That is not your phone number."
+msgstr ""
+
+#: actions/smssettings.php:465
+msgid "Mobile carrier"
+msgstr ""
+
+#: actions/smssettings.php:469
+msgid "Select a carrier"
+msgstr ""
+
+#: actions/smssettings.php:476
+#, php-format
+msgid ""
+"Mobile carrier for your phone. If you know a carrier that accepts SMS over "
+"email but isn't listed here, send email to let us know at %s."
+msgstr ""
+
+#: actions/smssettings.php:498
+msgid "No code entered"
+msgstr ""
+
+#: actions/subedit.php:70
+#, fuzzy
+msgid "You are not subscribed to that profile."
+msgstr "Bize o profili yollamadınız"
+
+#: actions/subedit.php:83
+#, fuzzy
+msgid "Could not save subscription."
+msgstr "Abonelik oluşturulamadı."
+
+#: actions/subscribe.php:55
+#, fuzzy
+msgid "Not a local user."
+msgstr "Böyle bir kullanıcı yok."
+
+#: actions/subscribe.php:69
+#, fuzzy
+msgid "Subscribed"
+msgstr "Abone ol"
+
+#: actions/subscribers.php:50
+#, fuzzy, php-format
+msgid "%s subscribers"
+msgstr "Abone olanlar"
+
+#: actions/subscribers.php:52
+#, php-format
+msgid "%s subscribers, page %d"
+msgstr ""
+
+#: actions/subscribers.php:63
+msgid "These are the people who listen to your notices."
+msgstr "Sizin durumunuzu takip edenler"
+
+#: actions/subscribers.php:67
+#, php-format
+msgid "These are the people who listen to %s's notices."
+msgstr "%s adlı kullanıcının durumunu takip edenler"
+
+#: actions/subscribers.php:108
+msgid ""
+"You have no subscribers. Try subscribing to people you know and they might "
+"return the favor"
+msgstr ""
+
+#: actions/subscribers.php:110
+#, php-format
+msgid "%s has no subscribers. Want to be the first?"
+msgstr ""
+
+#: actions/subscribers.php:114
+#, php-format
+msgid ""
+"%s has no subscribers. Why not [register an account](%%%%action.register%%%"
+"%) and be the first?"
+msgstr ""
+
+#: actions/subscriptions.php:52
+#, fuzzy, php-format
+msgid "%s subscriptions"
+msgstr "Bütün abonelikler"
+
+#: actions/subscriptions.php:54
+#, fuzzy, php-format
+msgid "%s subscriptions, page %d"
+msgstr "Bütün abonelikler"
+
+#: actions/subscriptions.php:65
+msgid "These are the people whose notices you listen to."
+msgstr "Sizin durumlarını takip ettiğiniz kullanıcılar"
+
+#: actions/subscriptions.php:69
+#, php-format
+msgid "These are the people whose notices %s listens to."
+msgstr "%s adlı kullanıcının durumlarını takip ettiği kullanıcılar"
+
+#: actions/subscriptions.php:121
+#, php-format
+msgid ""
+"You're not listening to anyone's notices right now, try subscribing to "
+"people you know. Try [people search](%%action.peoplesearch%%), look for "
+"members in groups you're interested in and in our [featured users](%%action."
+"featured%%). If you're a [Twitter user](%%action.twittersettings%%), you can "
+"automatically subscribe to people you already follow there."
+msgstr ""
+
+#: actions/subscriptions.php:123 actions/subscriptions.php:127
+#, fuzzy, php-format
+msgid "%s is not listening to anyone."
+msgstr "%1$s %2$s'da durumunuzu takip ediyor"
+
+#: actions/subscriptions.php:194
+#, fuzzy
+msgid "Jabber"
+msgstr "JabberID yok."
+
+#: actions/subscriptions.php:199 lib/connectsettingsaction.php:115
+msgid "SMS"
+msgstr ""
+
+#: actions/tagother.php:33
+#, fuzzy
+msgid "Not logged in"
+msgstr "Giriş yapılmadı."
+
+#: actions/tagother.php:39
+#, fuzzy
+msgid "No id argument."
+msgstr "Böyle bir belge yok."
+
+#: actions/tagother.php:65
+#, php-format
+msgid "Tag %s"
+msgstr ""
+
+#: actions/tagother.php:77 lib/userprofile.php:75
+#, fuzzy
+msgid "User profile"
+msgstr "Kullanıcının profili yok."
+
+#: actions/tagother.php:81 lib/userprofile.php:102
+msgid "Photo"
+msgstr ""
+
+#: actions/tagother.php:141
+msgid "Tag user"
+msgstr ""
+
+#: actions/tagother.php:151
+msgid ""
+"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
+"separated"
+msgstr ""
+
+#: actions/tagother.php:193
+msgid ""
+"You can only tag people you are subscribed to or who are subscribed to you."
+msgstr ""
+
+#: actions/tagother.php:200
+#, fuzzy
+msgid "Could not save tags."
+msgstr "Avatar bilgisi kaydedilemedi"
+
+#: actions/tagother.php:236
+msgid "Use this form to add tags to your subscribers or subscriptions."
+msgstr ""
+
+#: actions/tag.php:68
+#, fuzzy, php-format
+msgid "Notices tagged with %s, page %d"
+msgstr "%s adli kullanicinin durum mesajlari"
+
+#: actions/tag.php:86
+#, fuzzy, php-format
+msgid "Notice feed for tag %s (RSS 1.0)"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/tag.php:92
+#, fuzzy, php-format
+msgid "Notice feed for tag %s (RSS 2.0)"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/tag.php:98
+#, fuzzy, php-format
+msgid "Notice feed for tag %s (Atom)"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/tagrss.php:35
+#, fuzzy
+msgid "No such tag."
+msgstr "Böyle bir durum mesajı yok."
+
+#: actions/twitapitrends.php:87
+msgid "API method under construction."
+msgstr ""
+
+#: actions/unblock.php:59
+#, fuzzy
+msgid "You haven't blocked that user."
+msgstr "Zaten giriş yapmış durumdasıznız!"
+
+#: actions/unsandbox.php:72
+#, fuzzy
+msgid "User is not sandboxed."
+msgstr "Kullanıcının profili yok."
+
+#: actions/unsilence.php:72
+#, fuzzy
+msgid "User is not silenced."
+msgstr "Kullanıcının profili yok."
+
+#: actions/unsubscribe.php:77
+#, fuzzy
+msgid "No profile id in request."
+msgstr "Yetkilendirme isteği yok!"
+
+#: actions/unsubscribe.php:84
+msgid "No profile with that id."
+msgstr ""
+
+#: actions/unsubscribe.php:98
+#, fuzzy
+msgid "Unsubscribed"
+msgstr "Aboneliği sonlandır"
+
+#: actions/updateprofile.php:62 actions/userauthorization.php:330
+#, php-format
+msgid "Listenee stream license ‘%s’ is not compatible with site license ‘%s’."
+msgstr ""
+
+#: actions/useradminpanel.php:58 lib/personalgroupnav.php:115
+msgid "User"
+msgstr ""
+
+#: actions/useradminpanel.php:69
+msgid "User settings for this StatusNet site."
+msgstr ""
+
+#: actions/useradminpanel.php:173
+msgid "Is registration on this site prohibited?"
+msgstr ""
+
+#: actions/useradminpanel.php:178
+msgid "Invite-only"
+msgstr ""
+
+#: actions/useradminpanel.php:180
+msgid "Is registration on this site only open to invited users?"
+msgstr ""
+
+#: actions/userauthorization.php:105
+msgid "Authorize subscription"
+msgstr "Takip isteğini onayla"
+
+#: actions/userauthorization.php:110
+#, fuzzy
+msgid ""
+"Please check these details to make sure that you want to subscribe to this "
+"user’s notices. If you didn’t just ask to subscribe to someone’s notices, "
+"click “Reject”."
+msgstr ""
+"Lütfen bu kullanıcının durumunu takip etmek istediğinizden emin olmak için "
+"detayları gözden geçirin. Kimsenin durumunu taki etme isteğinde "
+"bulunmadıysanız \"İptal\" tuşuna basın. "
+
+#: actions/userauthorization.php:188
+msgid "License"
+msgstr ""
+
+#: actions/userauthorization.php:209
+msgid "Accept"
+msgstr "Kabul et"
+
+#: actions/userauthorization.php:210 lib/subscribeform.php:115
+#: lib/subscribeform.php:139
+#, fuzzy
+msgid "Subscribe to this user"
+msgstr "Takip talebine izin verildi"
+
+#: actions/userauthorization.php:211
+msgid "Reject"
+msgstr "Reddet"
+
+#: actions/userauthorization.php:212
+#, fuzzy
+msgid "Reject this subscription"
+msgstr "Bütün abonelikler"
+
+#: actions/userauthorization.php:225
+msgid "No authorization request!"
+msgstr "Yetkilendirme isteği yok!"
+
+#: actions/userauthorization.php:247
+msgid "Subscription authorized"
+msgstr "Takip talebine izin verildi"
+
+#: actions/userauthorization.php:249
+msgid ""
+"The subscription has been authorized, but no callback URL was passed. Check "
+"with the site’s instructions for details on how to authorize the "
+"subscription. Your subscription token is:"
+msgstr ""
+
+#: actions/userauthorization.php:259
+msgid "Subscription rejected"
+msgstr "Abonelik reddedildi."
+
+#: actions/userauthorization.php:261
+msgid ""
+"The subscription has been rejected, but no callback URL was passed. Check "
+"with the site’s instructions for details on how to fully reject the "
+"subscription."
+msgstr ""
+
+#: actions/userauthorization.php:296
+#, php-format
+msgid "Listener URI ‘%s’ not found here"
+msgstr ""
+
+#: actions/userauthorization.php:301
+#, php-format
+msgid "Listenee URI ‘%s’ is too long."
+msgstr ""
+
+#: actions/userauthorization.php:307
+#, php-format
+msgid "Listenee URI ‘%s’ is a local user."
+msgstr ""
+
+#: actions/userauthorization.php:322
+#, php-format
+msgid "Profile URL ‘%s’ is for a local user."
+msgstr ""
+
+#: actions/userauthorization.php:338
+#, php-format
+msgid "Avatar URL ‘%s’ is not valid."
+msgstr ""
+
+#: actions/userauthorization.php:343
+#, fuzzy, php-format
+msgid "Can’t read avatar URL ‘%s’."
+msgstr "Avatar URLi '%s' okunamıyor"
+
+#: actions/userauthorization.php:348
+#, fuzzy, php-format
+msgid "Wrong image type for avatar URL ‘%s’."
+msgstr "%s için yanlış resim türü"
+
+#: actions/userbyid.php:70
+msgid "No id."
+msgstr "Kullanıcı numarası yok"
+
+#: actions/userdesignsettings.php:76 lib/designsettings.php:65
+#, fuzzy
+msgid "Profile design"
+msgstr "Profil ayarları"
+
+#: actions/userdesignsettings.php:87 lib/designsettings.php:76
+msgid ""
+"Customize the way your profile looks with a background image and a colour "
+"palette of your choice."
+msgstr ""
+
+#: actions/userdesignsettings.php:282
+msgid "Enjoy your hotdog!"
+msgstr ""
+
+#: actions/usergroups.php:64
+#, php-format
+msgid "%s groups, page %d"
+msgstr ""
+
+#: actions/usergroups.php:130
+msgid "Search for more groups"
+msgstr ""
+
+#: actions/usergroups.php:153
+#, fuzzy, php-format
+msgid "%s is not a member of any group."
+msgstr "Bize o profili yollamadınız"
+
+#: actions/usergroups.php:158
+#, php-format
+msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
+msgstr ""
+
+#: classes/File.php:137
+#, php-format
+msgid ""
+"No file may be larger than %d bytes and the file you sent was %d bytes. Try "
+"to upload a smaller version."
+msgstr ""
+
+#: classes/File.php:147
+#, php-format
+msgid "A file this large would exceed your user quota of %d bytes."
+msgstr ""
+
+#: classes/File.php:154
+#, php-format
+msgid "A file this large would exceed your monthly quota of %d bytes."
+msgstr ""
+
+#: classes/Message.php:45
+msgid "You are banned from sending direct messages."
+msgstr ""
+
+#: classes/Message.php:61
+msgid "Could not insert message."
+msgstr ""
+
+#: classes/Message.php:71
+msgid "Could not update message with new URI."
+msgstr ""
+
+#: classes/Notice.php:164
+#, php-format
+msgid "DB error inserting hashtag: %s"
+msgstr ""
+
+#: classes/Notice.php:179
+#, fuzzy
+msgid "Problem saving notice. Too long."
+msgstr "Durum mesajını kaydederken hata oluştu."
+
+#: classes/Notice.php:183
+#, fuzzy
+msgid "Problem saving notice. Unknown user."
+msgstr "Durum mesajını kaydederken hata oluştu."
+
+#: classes/Notice.php:188
+msgid ""
+"Too many notices too fast; take a breather and post again in a few minutes."
+msgstr ""
+
+#: classes/Notice.php:194
+msgid ""
+"Too many duplicate messages too quickly; take a breather and post again in a "
+"few minutes."
+msgstr ""
+
+#: classes/Notice.php:200
+msgid "You are banned from posting notices on this site."
+msgstr ""
+
+#: classes/Notice.php:265 classes/Notice.php:290
+msgid "Problem saving notice."
+msgstr "Durum mesajını kaydederken hata oluştu."
+
+#: classes/Notice.php:1117
+#, php-format
+msgid "DB error inserting reply: %s"
+msgstr "Cevap eklenirken veritabanı hatası: %s"
+
+#: classes/User_group.php:380
+#, fuzzy
+msgid "Could not create group."
+msgstr "Avatar bilgisi kaydedilemedi"
+
+#: classes/User_group.php:409
+#, fuzzy
+msgid "Could not set group membership."
+msgstr "Abonelik oluşturulamadı."
+
+#: classes/User.php:347
+#, php-format
+msgid "Welcome to %1$s, @%2$s!"
+msgstr ""
+
+#: lib/accountsettingsaction.php:108 lib/personalgroupnav.php:109
+msgid "Profile"
+msgstr "Profil"
+
+#: lib/accountsettingsaction.php:108
+msgid "Change your profile settings"
+msgstr ""
+
+#: lib/accountsettingsaction.php:112
+#, fuzzy
+msgid "Upload an avatar"
+msgstr "Avatar güncellemede hata."
+
+#: lib/accountsettingsaction.php:116
+msgid "Change your password"
+msgstr ""
+
+#: lib/accountsettingsaction.php:120
+msgid "Change email handling"
+msgstr ""
+
+#: lib/accountsettingsaction.php:124
+#, fuzzy
+msgid "Design your profile"
+msgstr "Kullanıcının profili yok."
+
+#: lib/accountsettingsaction.php:128
+msgid "Other"
+msgstr ""
+
+#: lib/accountsettingsaction.php:128
+msgid "Other options"
+msgstr ""
+
+#: lib/action.php:144
+#, php-format
+msgid "%s - %s"
+msgstr ""
+
+#: lib/action.php:159
+msgid "Untitled page"
+msgstr ""
+
+#: lib/action.php:424
+msgid "Primary site navigation"
+msgstr ""
+
+#: lib/action.php:430
+msgid "Home"
+msgstr "Başlangıç"
+
+#: lib/action.php:430
+msgid "Personal profile and friends timeline"
+msgstr ""
+
+#: lib/action.php:432
+#, fuzzy
+msgid "Account"
+msgstr "Hakkında"
+
+#: lib/action.php:432
+msgid "Change your email, avatar, password, profile"
+msgstr ""
+
+#: lib/action.php:435
+msgid "Connect"
+msgstr "Bağlan"
+
+#: lib/action.php:435
+#, fuzzy
+msgid "Connect to services"
+msgstr "Sunucuya yönlendirme yapılamadı: %s"
+
+#: lib/action.php:439
+#, fuzzy
+msgid "Change site configuration"
+msgstr "Abonelikler"
+
+#: lib/action.php:443 lib/subgroupnav.php:105
+msgid "Invite"
+msgstr ""
+
+#: lib/action.php:444 lib/subgroupnav.php:106
+#, php-format
+msgid "Invite friends and colleagues to join you on %s"
+msgstr ""
+
+#: lib/action.php:449
+msgid "Logout"
+msgstr "Çıkış"
+
+#: lib/action.php:449
+msgid "Logout from the site"
+msgstr ""
+
+#: lib/action.php:454
+#, fuzzy
+msgid "Create an account"
+msgstr "Yeni hesap oluştur"
+
+#: lib/action.php:457
+msgid "Login to the site"
+msgstr ""
+
+#: lib/action.php:460 lib/action.php:723
+msgid "Help"
+msgstr "Yardım"
+
+#: lib/action.php:460
+#, fuzzy
+msgid "Help me!"
+msgstr "Yardım"
+
+#: lib/action.php:463
+msgid "Search"
+msgstr "Ara"
+
+#: lib/action.php:463
+msgid "Search for people or text"
+msgstr ""
+
+#: lib/action.php:484
+#, fuzzy
+msgid "Site notice"
+msgstr "Yeni durum mesajı"
+
+#: lib/action.php:550
+msgid "Local views"
+msgstr ""
+
+#: lib/action.php:616
+#, fuzzy
+msgid "Page notice"
+msgstr "Yeni durum mesajı"
+
+#: lib/action.php:718
+#, fuzzy
+msgid "Secondary site navigation"
+msgstr "Abonelikler"
+
+#: lib/action.php:725
+msgid "About"
+msgstr "Hakkında"
+
+#: lib/action.php:727
+msgid "FAQ"
+msgstr "SSS"
+
+#: lib/action.php:731
+msgid "TOS"
+msgstr ""
+
+#: lib/action.php:734
+msgid "Privacy"
+msgstr "Gizlilik"
+
+#: lib/action.php:736
+msgid "Source"
+msgstr "Kaynak"
+
+#: lib/action.php:738
+msgid "Contact"
+msgstr "İletişim"
+
+#: lib/action.php:740
+msgid "Badge"
+msgstr ""
+
+#: lib/action.php:768
+msgid "StatusNet software license"
+msgstr ""
+
+#: lib/action.php:771
+#, php-format
+msgid ""
+"**%%site.name%%** is a microblogging service brought to you by [%%site."
+"broughtby%%](%%site.broughtbyurl%%). "
+msgstr ""
+"**%%site.name%%** [%%site.broughtby%%](%%site.broughtbyurl%%)\" tarafından "
+"hazırlanan anında mesajlaşma ağıdır. "
+
+#: lib/action.php:773
+#, php-format
+msgid "**%%site.name%%** is a microblogging service. "
+msgstr "**%%site.name%%** bir aninda mesajlaşma sosyal ağıdır."
+
+#: lib/action.php:775
+#, php-format
+msgid ""
+"It runs the [StatusNet](http://status.net/) microblogging software, version %"
+"s, available under the [GNU Affero General Public License](http://www.fsf."
+"org/licensing/licenses/agpl-3.0.html)."
+msgstr ""
+"nedurum.com [GNU Affero General Public License](http://www.fsf.org/licensing/"
+"licenses/agpl-3.0.html) lisansı ile korunan [StatusNet](http://status.net/) "
+"microbloglama yazılımının %s. versiyonunu kullanmaktadır."
+
+#: lib/action.php:789
+#, fuzzy
+msgid "Site content license"
+msgstr "Yeni durum mesajı"
+
+#: lib/action.php:798
+msgid "All "
+msgstr ""
+
+#: lib/action.php:803
+msgid "license."
+msgstr ""
+
+#: lib/action.php:1067
+msgid "Pagination"
+msgstr ""
+
+#: lib/action.php:1076
+#, fuzzy
+msgid "After"
+msgstr "« Sonra"
+
+#: lib/action.php:1084
+#, fuzzy
+msgid "Before"
+msgstr "Önce »"
+
+#: lib/action.php:1132
+msgid "There was a problem with your session token."
+msgstr ""
+
+#: lib/adminpanelaction.php:96
+msgid "You cannot make changes to this site."
+msgstr ""
+
+#: lib/adminpanelaction.php:195
+msgid "showForm() not implemented."
+msgstr ""
+
+#: lib/adminpanelaction.php:224
+msgid "saveSettings() not implemented."
+msgstr ""
+
+#: lib/adminpanelaction.php:247
+msgid "Unable to delete design setting."
+msgstr ""
+
+#: lib/adminpanelaction.php:300
+#, fuzzy
+msgid "Basic site configuration"
+msgstr "Eposta adresi onayı"
+
+#: lib/adminpanelaction.php:303
+#, fuzzy
+msgid "Design configuration"
+msgstr "Eposta adresi onayı"
+
+#: lib/attachmentlist.php:87
+msgid "Attachments"
+msgstr ""
+
+#: lib/attachmentlist.php:265
+msgid "Author"
+msgstr ""
+
+#: lib/attachmentlist.php:278
+#, fuzzy
+msgid "Provider"
+msgstr "Profil"
+
+#: lib/attachmentnoticesection.php:67
+msgid "Notices where this attachment appears"
+msgstr ""
+
+#: lib/attachmenttagcloudsection.php:48
+msgid "Tags for this attachment"
+msgstr ""
+
+#: lib/channel.php:138 lib/channel.php:158
+msgid "Command results"
+msgstr ""
+
+#: lib/channel.php:210
+msgid "Command complete"
+msgstr ""
+
+#: lib/channel.php:221
+msgid "Command failed"
+msgstr ""
+
+#: lib/command.php:44
+msgid "Sorry, this command is not yet implemented."
+msgstr ""
+
+#: lib/command.php:88
+#, php-format
+msgid "Could not find a user with nickname %s"
+msgstr "Kullanıcı güncellenemedi."
+
+#: lib/command.php:92
+msgid "It does not make a lot of sense to nudge yourself!"
+msgstr ""
+
+#: lib/command.php:99
+#, php-format
+msgid "Nudge sent to %s"
+msgstr ""
+
+#: lib/command.php:126
+#, php-format
+msgid ""
+"Subscriptions: %1$s\n"
+"Subscribers: %2$s\n"
+"Notices: %3$s"
+msgstr ""
+
+#: lib/command.php:152 lib/command.php:400
+msgid "Notice with that id does not exist"
+msgstr ""
+
+#: lib/command.php:168 lib/command.php:416 lib/command.php:471
+msgid "User has no last notice"
+msgstr ""
+
+#: lib/command.php:190
+msgid "Notice marked as fave."
+msgstr ""
+
+#: lib/command.php:315
+#, php-format
+msgid "%1$s (%2$s)"
+msgstr ""
+
+#: lib/command.php:318
+#, php-format
+msgid "Fullname: %s"
+msgstr ""
+
+#: lib/command.php:321
+#, php-format
+msgid "Location: %s"
+msgstr ""
+
+#: lib/command.php:324
+#, php-format
+msgid "Homepage: %s"
+msgstr ""
+
+#: lib/command.php:327
+#, php-format
+msgid "About: %s"
+msgstr ""
+
+#: lib/command.php:358 scripts/xmppdaemon.php:321
+#, php-format
+msgid "Message too long - maximum is %d characters, you sent %d"
+msgstr ""
+
+#: lib/command.php:377
+msgid "Error sending direct message."
+msgstr ""
+
+#: lib/command.php:431
+#, php-format
+msgid "Notice too long - maximum is %d characters, you sent %d"
+msgstr ""
+
+#: lib/command.php:439
+#, fuzzy, php-format
+msgid "Reply to %s sent"
+msgstr "%s için cevaplar"
+
+#: lib/command.php:441
+#, fuzzy
+msgid "Error saving notice."
+msgstr "Durum mesajını kaydederken hata oluştu."
+
+#: lib/command.php:495
+msgid "Specify the name of the user to subscribe to"
+msgstr ""
+
+#: lib/command.php:502
+#, php-format
+msgid "Subscribed to %s"
+msgstr ""
+
+#: lib/command.php:523
+msgid "Specify the name of the user to unsubscribe from"
+msgstr ""
+
+#: lib/command.php:530
+#, php-format
+msgid "Unsubscribed from %s"
+msgstr ""
+
+#: lib/command.php:548 lib/command.php:571
+msgid "Command not yet implemented."
+msgstr ""
+
+#: lib/command.php:551
+msgid "Notification off."
+msgstr ""
+
+#: lib/command.php:553
+msgid "Can't turn off notification."
+msgstr ""
+
+#: lib/command.php:574
+msgid "Notification on."
+msgstr ""
+
+#: lib/command.php:576
+msgid "Can't turn on notification."
+msgstr ""
+
+#: lib/command.php:597
+#, fuzzy, php-format
+msgid "Could not create login token for %s"
+msgstr "OpenID formu yaratılamadı: %s"
+
+#: lib/command.php:602
+#, php-format
+msgid "This link is useable only once, and is good for only 2 minutes: %s"
+msgstr ""
+
+#: lib/command.php:618
+#, fuzzy
+msgid "You are not subscribed to anyone."
+msgstr "Bize o profili yollamadınız"
+
+#: lib/command.php:620
+#, fuzzy
+msgid "You are subscribed to this person:"
+msgid_plural "You are subscribed to these people:"
+msgstr[0] "Bize o profili yollamadınız"
+msgstr[1] "Bize o profili yollamadınız"
+
+#: lib/command.php:640
+#, fuzzy
+msgid "No one is subscribed to you."
+msgstr "Uzaktan abonelik"
+
+#: lib/command.php:642
+#, fuzzy
+msgid "This person is subscribed to you:"
+msgid_plural "These people are subscribed to you:"
+msgstr[0] "Uzaktan abonelik"
+msgstr[1] "Uzaktan abonelik"
+
+#: lib/command.php:662
+#, fuzzy
+msgid "You are not a member of any groups."
+msgstr "Bize o profili yollamadınız"
+
+#: lib/command.php:664
+#, fuzzy
+msgid "You are a member of this group:"
+msgid_plural "You are a member of these groups:"
+msgstr[0] "Bize o profili yollamadınız"
+msgstr[1] "Bize o profili yollamadınız"
+
+#: lib/command.php:678
+msgid ""
+"Commands:\n"
+"on - turn on notifications\n"
+"off - turn off notifications\n"
+"help - show this help\n"
+"follow <nickname> - subscribe to user\n"
+"groups - lists the groups you have joined\n"
+"subscriptions - list the people you follow\n"
+"subscribers - list the people that follow you\n"
+"leave <nickname> - unsubscribe from user\n"
+"d <nickname> <text> - direct message to user\n"
+"get <nickname> - get last notice from user\n"
+"whois <nickname> - get profile info on user\n"
+"fav <nickname> - add user's last notice as a 'fave'\n"
+"fav #<notice_id> - add notice with the given id as a 'fave'\n"
+"reply #<notice_id> - reply to notice with a given id\n"
+"reply <nickname> - reply to the last notice from user\n"
+"join <group> - join group\n"
+"login - Get a link to login to the web interface\n"
+"drop <group> - leave group\n"
+"stats - get your stats\n"
+"stop - same as 'off'\n"
+"quit - same as 'off'\n"
+"sub <nickname> - same as 'follow'\n"
+"unsub <nickname> - same as 'leave'\n"
+"last <nickname> - same as 'get'\n"
+"on <nickname> - not yet implemented.\n"
+"off <nickname> - not yet implemented.\n"
+"nudge <nickname> - remind a user to update.\n"
+"invite <phone number> - not yet implemented.\n"
+"track <word> - not yet implemented.\n"
+"untrack <word> - not yet implemented.\n"
+"track off - not yet implemented.\n"
+"untrack all - not yet implemented.\n"
+"tracks - not yet implemented.\n"
+"tracking - not yet implemented.\n"
+msgstr ""
+
+#: lib/common.php:199
+#, fuzzy
+msgid "No configuration file found. "
+msgstr "Onay kodu yok."
+
+#: lib/common.php:200
+msgid "I looked for configuration files in the following places: "
+msgstr ""
+
+#: lib/common.php:201
+msgid "You may wish to run the installer to fix this."
+msgstr ""
+
+#: lib/common.php:202
+msgid "Go to the installer."
+msgstr ""
+
+#: lib/connectsettingsaction.php:110
+msgid "IM"
+msgstr ""
+
+#: lib/connectsettingsaction.php:111
+msgid "Updates by instant messenger (IM)"
+msgstr ""
+
+#: lib/connectsettingsaction.php:116
+msgid "Updates by SMS"
+msgstr ""
+
+#: lib/dberroraction.php:60
+msgid "Database error"
+msgstr ""
+
+#: lib/designsettings.php:105
+#, fuzzy
+msgid "Upload file"
+msgstr "Yükle"
+
+#: lib/designsettings.php:109
+msgid ""
+"You can upload your personal background image. The maximum file size is 2Mb."
+msgstr ""
+
+#: lib/designsettings.php:372
+msgid "Bad default color settings: "
+msgstr ""
+
+#: lib/designsettings.php:468
+msgid "Design defaults restored."
+msgstr ""
+
+#: lib/disfavorform.php:114 lib/disfavorform.php:140
+msgid "Disfavor this notice"
+msgstr ""
+
+#: lib/favorform.php:114 lib/favorform.php:140
+#, fuzzy
+msgid "Favor this notice"
+msgstr "Böyle bir durum mesajı yok."
+
+#: lib/favorform.php:140
+msgid "Favor"
+msgstr ""
+
+#: lib/feedlist.php:64
+msgid "Export data"
+msgstr ""
+
+#: lib/feed.php:85
+msgid "RSS 1.0"
+msgstr ""
+
+#: lib/feed.php:87
+msgid "RSS 2.0"
+msgstr ""
+
+#: lib/feed.php:89
+msgid "Atom"
+msgstr ""
+
+#: lib/feed.php:91
+msgid "FOAF"
+msgstr ""
+
+#: lib/galleryaction.php:121
+msgid "Filter tags"
+msgstr ""
+
+#: lib/galleryaction.php:131
+msgid "All"
+msgstr ""
+
+#: lib/galleryaction.php:139
+msgid "Select tag to filter"
+msgstr ""
+
+#: lib/galleryaction.php:140
+msgid "Tag"
+msgstr ""
+
+#: lib/galleryaction.php:141
+msgid "Choose a tag to narrow list"
+msgstr ""
+
+#: lib/galleryaction.php:143
+msgid "Go"
+msgstr ""
+
+#: lib/groupeditform.php:163
+#, fuzzy
+msgid "URL of the homepage or blog of the group or topic"
+msgstr ""
+"Web Sitenizin, blogunuzun ya da varsa başka bir sitedeki profilinizin adresi"
+
+#: lib/groupeditform.php:168
+#, fuzzy
+msgid "Describe the group or topic"
+msgstr "Kendinizi ve ilgi alanlarınızı 140 karakter ile anlatın"
+
+#: lib/groupeditform.php:170
+#, fuzzy, php-format
+msgid "Describe the group or topic in %d characters"
+msgstr "Kendinizi ve ilgi alanlarınızı 140 karakter ile anlatın"
+
+#: lib/groupeditform.php:172
+#, fuzzy
+msgid "Description"
+msgstr "Abonelikler"
+
+#: lib/groupeditform.php:179
+#, fuzzy
+msgid ""
+"Location for the group, if any, like \"City, State (or Region), Country\""
+msgstr "Bulunduğunuz yer, \"Şehir, Eyalet (veya Bölge), Ülke\" gibi"
+
+#: lib/groupeditform.php:187
+#, php-format
+msgid "Extra nicknames for the group, comma- or space- separated, max %d"
+msgstr ""
+
+#: lib/groupnav.php:85 lib/searchgroupnav.php:84
+msgid "Group"
+msgstr ""
+
+#: lib/groupnav.php:101
+#, fuzzy
+msgid "Blocked"
+msgstr "Böyle bir kullanıcı yok."
+
+#: lib/groupnav.php:102
+#, fuzzy, php-format
+msgid "%s blocked users"
+msgstr "Böyle bir kullanıcı yok."
+
+#: lib/groupnav.php:108
+#, php-format
+msgid "Edit %s group properties"
+msgstr ""
+
+#: lib/groupnav.php:113
+#, fuzzy
+msgid "Logo"
+msgstr "Çıkış"
+
+#: lib/groupnav.php:114
+#, php-format
+msgid "Add or edit %s logo"
+msgstr ""
+
+#: lib/groupnav.php:120
+#, php-format
+msgid "Add or edit %s design"
+msgstr ""
+
+#: lib/groupsbymemberssection.php:71
+msgid "Groups with most members"
+msgstr ""
+
+#: lib/groupsbypostssection.php:71
+msgid "Groups with most posts"
+msgstr ""
+
+#: lib/grouptagcloudsection.php:56
+#, php-format
+msgid "Tags in %s group's notices"
+msgstr ""
+
+#: lib/htmloutputter.php:104
+msgid "This page is not available in a media type you accept"
+msgstr "Bu sayfa kabul ettiğiniz ortam türünde kullanılabilir değil"
+
+#: lib/imagefile.php:75
+#, fuzzy, php-format
+msgid "That file is too big. The maximum file size is %s."
+msgstr ""
+"Ah, durumunuz biraz uzun kaçtı. Azami 180 karaktere sığdırmaya ne dersiniz?"
+
+#: lib/imagefile.php:80
+msgid "Partial upload."
+msgstr "Kısmi yükleme."
+
+#: lib/imagefile.php:88 lib/mediafile.php:170
+msgid "System error uploading file."
+msgstr "Dosya yüklemede sistem hatası."
+
+#: lib/imagefile.php:96
+msgid "Not an image or corrupt file."
+msgstr "Bu bir resim dosyası değil ya da dosyada hata var"
+
+#: lib/imagefile.php:105
+msgid "Unsupported image file format."
+msgstr "Desteklenmeyen görüntü dosyası biçemi."
+
+#: lib/imagefile.php:118
+#, fuzzy
+msgid "Lost our file."
+msgstr "Böyle bir durum mesajı yok."
+
+#: lib/imagefile.php:150 lib/imagefile.php:197
+msgid "Unknown file type"
+msgstr ""
+
+#: lib/jabber.php:192
+#, php-format
+msgid "[%s]"
+msgstr ""
+
+#: lib/joinform.php:114
+#, fuzzy
+msgid "Join"
+msgstr "Giriş"
+
+#: lib/leaveform.php:114
+#, fuzzy
+msgid "Leave"
+msgstr "Kaydet"
+
+#: lib/logingroupnav.php:80
+#, fuzzy
+msgid "Login with a username and password"
+msgstr "Geçersiz kullanıcı adı veya parola."
+
+#: lib/logingroupnav.php:86
+#, fuzzy
+msgid "Sign up for a new account"
+msgstr "Yeni hesap oluştur"
+
+#: lib/mailbox.php:89
+msgid "Only the user can read their own mailboxes."
+msgstr ""
+
+#: lib/mailbox.php:139
+msgid ""
+"You have no private messages. You can send private message to engage other "
+"users in conversation. People can send you messages for your eyes only."
+msgstr ""
+
+#: lib/mailbox.php:227 lib/noticelist.php:424
+msgid "from"
+msgstr ""
+
+#: lib/mail.php:172
+msgid "Email address confirmation"
+msgstr "Eposta adresi onayı"
+
+#: lib/mail.php:174
+#, php-format
+msgid ""
+"Hey, %s.\n"
+"\n"
+"Someone just entered this email address on %s.\n"
+"\n"
+"If it was you, and you want to confirm your entry, use the URL below:\n"
+"\n"
+"\t%s\n"
+"\n"
+"If not, just ignore this message.\n"
+"\n"
+"Thanks for your time, \n"
+"%s\n"
+msgstr ""
+
+#: lib/mail.php:236
+#, php-format
+msgid "%1$s is now listening to your notices on %2$s."
+msgstr "%1$s %2$s'da durumunuzu takip ediyor"
+
+#: lib/mail.php:241
+#, fuzzy, php-format
+msgid ""
+"%1$s is now listening to your notices on %2$s.\n"
+"\n"
+"\t%3$s\n"
+"\n"
+"%4$s%5$s%6$s\n"
+"Faithfully yours,\n"
+"%7$s.\n"
+"\n"
+"----\n"
+"Change your email address or notification options at %8$s\n"
+msgstr ""
+"%1$s %2$s durum mesajlarınızı takip etmeye başladı.\n"
+"\n"
+"\t%3$s\n"
+"\n"
+"Kendisini durumsuz bırakmayın!,\n"
+"%4$s.\n"
+
+#: lib/mail.php:254
+#, php-format
+msgid "Location: %s\n"
+msgstr ""
+
+#: lib/mail.php:256
+#, php-format
+msgid "Homepage: %s\n"
+msgstr ""
+
+#: lib/mail.php:258
+#, php-format
+msgid ""
+"Bio: %s\n"
+"\n"
+msgstr ""
+
+#: lib/mail.php:286
+#, php-format
+msgid "New email address for posting to %s"
+msgstr ""
+
+#: lib/mail.php:289
+#, php-format
+msgid ""
+"You have a new posting address on %1$s.\n"
+"\n"
+"Send email to %2$s to post new messages.\n"
+"\n"
+"More email instructions at %3$s.\n"
+"\n"
+"Faithfully yours,\n"
+"%4$s"
+msgstr ""
+
+#: lib/mail.php:413
+#, php-format
+msgid "%s status"
+msgstr "%s durum"
+
+#: lib/mail.php:439
+msgid "SMS confirmation"
+msgstr ""
+
+#: lib/mail.php:463
+#, php-format
+msgid "You've been nudged by %s"
+msgstr ""
+
+#: lib/mail.php:467
+#, php-format
+msgid ""
+"%1$s (%2$s) is wondering what you are up to these days and is inviting you "
+"to post some news.\n"
+"\n"
+"So let's hear from you :)\n"
+"\n"
+"%3$s\n"
+"\n"
+"Don't reply to this email; it won't get to them.\n"
+"\n"
+"With kind regards,\n"
+"%4$s\n"
+msgstr ""
+
+#: lib/mail.php:510
+#, php-format
+msgid "New private message from %s"
+msgstr ""
+
+#: lib/mail.php:514
+#, php-format
+msgid ""
+"%1$s (%2$s) sent you a private message:\n"
+"\n"
+"------------------------------------------------------\n"
+"%3$s\n"
+"------------------------------------------------------\n"
+"\n"
+"You can reply to their message here:\n"
+"\n"
+"%4$s\n"
+"\n"
+"Don't reply to this email; it won't get to them.\n"
+"\n"
+"With kind regards,\n"
+"%5$s\n"
+msgstr ""
+
+#: lib/mail.php:559
+#, fuzzy, php-format
+msgid "%s (@%s) added your notice as a favorite"
+msgstr "%1$s %2$s'da durumunuzu takip ediyor"
+
+#: lib/mail.php:561
+#, php-format
+msgid ""
+"%1$s (@%7$s) just added your notice from %2$s as one of their favorites.\n"
+"\n"
+"The URL of your notice is:\n"
+"\n"
+"%3$s\n"
+"\n"
+"The text of your notice is:\n"
+"\n"
+"%4$s\n"
+"\n"
+"You can see the list of %1$s's favorites here:\n"
+"\n"
+"%5$s\n"
+"\n"
+"Faithfully yours,\n"
+"%6$s\n"
+msgstr ""
+
+#: lib/mail.php:620
+#, php-format
+msgid "%s (@%s) sent a notice to your attention"
+msgstr ""
+
+#: lib/mail.php:622
+#, php-format
+msgid ""
+"%1$s (@%9$s) just sent a notice to your attention (an '@-reply') on %2$s.\n"
+"\n"
+"The notice is here:\n"
+"\n"
+"\t%3$s\n"
+"\n"
+"It reads:\n"
+"\n"
+"\t%4$s\n"
+"\n"
+msgstr ""
+
+#: lib/mediafile.php:98 lib/mediafile.php:123
+msgid "There was a database error while saving your file. Please try again."
+msgstr ""
+
+#: lib/mediafile.php:142
+msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
+msgstr ""
+
+#: lib/mediafile.php:147
+msgid ""
+"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
+"the HTML form."
+msgstr ""
+
+#: lib/mediafile.php:152
+msgid "The uploaded file was only partially uploaded."
+msgstr ""
+
+#: lib/mediafile.php:159
+msgid "Missing a temporary folder."
+msgstr ""
+
+#: lib/mediafile.php:162
+msgid "Failed to write file to disk."
+msgstr ""
+
+#: lib/mediafile.php:165
+msgid "File upload stopped by extension."
+msgstr ""
+
+#: lib/mediafile.php:179 lib/mediafile.php:216
+msgid "File exceeds user's quota!"
+msgstr ""
+
+#: lib/mediafile.php:196 lib/mediafile.php:233
+msgid "File could not be moved to destination directory."
+msgstr ""
+
+#: lib/mediafile.php:201 lib/mediafile.php:237
+#, fuzzy
+msgid "Could not determine file's mime-type!"
+msgstr "Kullanıcı güncellenemedi."
+
+#: lib/mediafile.php:270
+#, php-format
+msgid " Try using another %s format."
+msgstr ""
+
+#: lib/mediafile.php:275
+#, php-format
+msgid "%s is not a supported filetype on this server."
+msgstr ""
+
+#: lib/messageform.php:120
+msgid "Send a direct notice"
+msgstr ""
+
+#: lib/messageform.php:146
+msgid "To"
+msgstr ""
+
+#: lib/messageform.php:162 lib/noticeform.php:173
+#, fuzzy
+msgid "Available characters"
+msgstr "6 veya daha fazla karakter"
+
+#: lib/noticeform.php:145
+#, fuzzy
+msgid "Send a notice"
+msgstr "Yeni durum mesajı"
+
+#: lib/noticeform.php:158
+#, php-format
+msgid "What's up, %s?"
+msgstr "N'aber %s?"
+
+#: lib/noticeform.php:180
+msgid "Attach"
+msgstr ""
+
+#: lib/noticeform.php:184
+msgid "Attach a file"
+msgstr ""
+
+#: lib/noticelist.php:478
+#, fuzzy
+msgid "in context"
+msgstr "İçerik yok!"
+
+#: lib/noticelist.php:498
+msgid "Reply to this notice"
+msgstr ""
+
+#: lib/noticelist.php:499
+#, fuzzy
+msgid "Reply"
+msgstr "cevapla"
+
+#: lib/nudgeform.php:116
+msgid "Nudge this user"
+msgstr ""
+
+#: lib/nudgeform.php:128
+msgid "Nudge"
+msgstr ""
+
+#: lib/nudgeform.php:128
+msgid "Send a nudge to this user"
+msgstr ""
+
+#: lib/oauthstore.php:283
+msgid "Error inserting new profile"
+msgstr "Yeni profil eklemede hata oluştu"
+
+#: lib/oauthstore.php:291
+msgid "Error inserting avatar"
+msgstr "Avatar eklemede hata oluştu"
+
+#: lib/oauthstore.php:311
+msgid "Error inserting remote profile"
+msgstr "Uzak profil eklemede hata oluştu"
+
+#: lib/oauthstore.php:345
+#, fuzzy
+msgid "Duplicate notice"
+msgstr "Yeni durum mesajı"
+
+#: lib/oauthstore.php:466 lib/subs.php:48
+msgid "You have been banned from subscribing."
+msgstr ""
+
+#: lib/oauthstore.php:491
+msgid "Couldn't insert new subscription."
+msgstr "Yeni abonelik eklenemedi."
+
+#: lib/personalgroupnav.php:99
+msgid "Personal"
+msgstr "Kişisel"
+
+#: lib/personalgroupnav.php:104
+msgid "Replies"
+msgstr "Cevaplar"
+
+#: lib/personalgroupnav.php:114
+msgid "Favorites"
+msgstr ""
+
+#: lib/personalgroupnav.php:124
+msgid "Inbox"
+msgstr ""
+
+#: lib/personalgroupnav.php:125
+msgid "Your incoming messages"
+msgstr ""
+
+#: lib/personalgroupnav.php:129
+msgid "Outbox"
+msgstr ""
+
+#: lib/personalgroupnav.php:130
+msgid "Your sent messages"
+msgstr ""
+
+#: lib/personaltagcloudsection.php:56
+#, php-format
+msgid "Tags in %s's notices"
+msgstr ""
+
+#: lib/profileaction.php:109 lib/profileaction.php:191 lib/subgroupnav.php:82
+msgid "Subscriptions"
+msgstr "Abonelikler"
+
+#: lib/profileaction.php:126
+msgid "All subscriptions"
+msgstr "Bütün abonelikler"
+
+#: lib/profileaction.php:140 lib/profileaction.php:200 lib/subgroupnav.php:90
+msgid "Subscribers"
+msgstr "Abone olanlar"
+
+#: lib/profileaction.php:157
+#, fuzzy
+msgid "All subscribers"
+msgstr "Abone olanlar"
+
+#: lib/profileaction.php:177
+msgid "User ID"
+msgstr ""
+
+#: lib/profileaction.php:182
+msgid "Member since"
+msgstr "Üyelik başlangıcı"
+
+#: lib/profileaction.php:235
+msgid "All groups"
+msgstr ""
+
+#: lib/profileformaction.php:123
+#, fuzzy
+msgid "No return-to arguments"
+msgstr "Böyle bir belge yok."
+
+#: lib/profileformaction.php:137
+msgid "unimplemented method"
+msgstr ""
+
+#: lib/publicgroupnav.php:78
+msgid "Public"
+msgstr "Genel"
+
+#: lib/publicgroupnav.php:82
+msgid "User groups"
+msgstr ""
+
+#: lib/publicgroupnav.php:84 lib/publicgroupnav.php:85
+msgid "Recent tags"
+msgstr ""
+
+#: lib/publicgroupnav.php:88
+msgid "Featured"
+msgstr ""
+
+#: lib/publicgroupnav.php:92
+#, fuzzy
+msgid "Popular"
+msgstr "Kişi Arama"
+
+#: lib/sandboxform.php:67
+msgid "Sandbox"
+msgstr ""
+
+#: lib/sandboxform.php:78
+#, fuzzy
+msgid "Sandbox this user"
+msgstr "Böyle bir kullanıcı yok."
+
+#: lib/searchaction.php:120
+#, fuzzy
+msgid "Search site"
+msgstr "Ara"
+
+#: lib/searchaction.php:162
+#, fuzzy
+msgid "Search help"
+msgstr "Ara"
+
+#: lib/searchgroupnav.php:80
+msgid "People"
+msgstr ""
+
+#: lib/searchgroupnav.php:81
+msgid "Find people on this site"
+msgstr ""
+
+#: lib/searchgroupnav.php:82
+#, fuzzy
+msgid "Notice"
+msgstr "Durum mesajları"
+
+#: lib/searchgroupnav.php:83
+msgid "Find content of notices"
+msgstr ""
+
+#: lib/searchgroupnav.php:85
+msgid "Find groups on this site"
+msgstr ""
+
+#: lib/section.php:89
+msgid "Untitled section"
+msgstr ""
+
+#: lib/section.php:106
+msgid "More..."
+msgstr ""
+
+#: lib/silenceform.php:67
+#, fuzzy
+msgid "Silence"
+msgstr "Yeni durum mesajı"
+
+#: lib/silenceform.php:78
+#, fuzzy
+msgid "Silence this user"
+msgstr "Böyle bir kullanıcı yok."
+
+#: lib/subgroupnav.php:83
+#, fuzzy, php-format
+msgid "People %s subscribes to"
+msgstr "Uzaktan abonelik"
+
+#: lib/subgroupnav.php:91
+#, fuzzy, php-format
+msgid "People subscribed to %s"
+msgstr "Uzaktan abonelik"
+
+#: lib/subgroupnav.php:99
+#, php-format
+msgid "Groups %s is a member of"
+msgstr ""
+
+#: lib/subscriberspeopleselftagcloudsection.php:48
+#: lib/subscriptionspeopleselftagcloudsection.php:48
+msgid "People Tagcloud as self-tagged"
+msgstr ""
+
+#: lib/subscriberspeopletagcloudsection.php:48
+#: lib/subscriptionspeopletagcloudsection.php:48
+msgid "People Tagcloud as tagged"
+msgstr ""
+
+#: lib/subscriptionlist.php:126
+msgid "(none)"
+msgstr ""
+
+#: lib/subs.php:52
+msgid "Already subscribed!"
+msgstr ""
+
+#: lib/subs.php:56
+#, fuzzy
+msgid "User has blocked you."
+msgstr "Kullanıcının profili yok."
+
+#: lib/subs.php:60
+msgid "Could not subscribe."
+msgstr ""
+
+#: lib/subs.php:79
+msgid "Could not subscribe other to you."
+msgstr ""
+
+#: lib/subs.php:128
+#, fuzzy
+msgid "Not subscribed!"
+msgstr "Bu kullanıcıyı zaten takip etmiyorsunuz!"
+
+#: lib/subs.php:140
+msgid "Couldn't delete subscription."
+msgstr "Abonelik silinemedi."
+
+#: lib/tagcloudsection.php:56
+msgid "None"
+msgstr ""
+
+#: lib/topposterssection.php:74
+msgid "Top posters"
+msgstr ""
+
+#: lib/unsandboxform.php:69
+msgid "Unsandbox"
+msgstr ""
+
+#: lib/unsandboxform.php:80
+#, fuzzy
+msgid "Unsandbox this user"
+msgstr "Böyle bir kullanıcı yok."
+
+#: lib/unsilenceform.php:67
+msgid "Unsilence"
+msgstr ""
+
+#: lib/unsilenceform.php:78
+#, fuzzy
+msgid "Unsilence this user"
+msgstr "Böyle bir kullanıcı yok."
+
+#: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
+msgid "Unsubscribe from this user"
+msgstr ""
+
+#: lib/unsubscribeform.php:137
+msgid "Unsubscribe"
+msgstr "Aboneliği sonlandır"
+
+#: lib/userprofile.php:116
+#, fuzzy
+msgid "Edit Avatar"
+msgstr "Avatar"
+
+#: lib/userprofile.php:236
+msgid "User actions"
+msgstr ""
+
+#: lib/userprofile.php:248
+#, fuzzy
+msgid "Edit profile settings"
+msgstr "Profil ayarları"
+
+#: lib/userprofile.php:249
+msgid "Edit"
+msgstr ""
+
+#: lib/userprofile.php:272
+msgid "Send a direct message to this user"
+msgstr ""
+
+#: lib/userprofile.php:273
+msgid "Message"
+msgstr ""
+
+#: lib/util.php:826
+msgid "a few seconds ago"
+msgstr "birkaç saniye önce"
+
+#: lib/util.php:828
+msgid "about a minute ago"
+msgstr "yaklaşık bir dakika önce"
+
+#: lib/util.php:830
+#, php-format
+msgid "about %d minutes ago"
+msgstr "yaklaşık %d dakika önce"
+
+#: lib/util.php:832
+msgid "about an hour ago"
+msgstr "yaklaşık bir saat önce"
+
+#: lib/util.php:834
+#, php-format
+msgid "about %d hours ago"
+msgstr "yaklaşık %d saat önce"
+
+#: lib/util.php:836
+msgid "about a day ago"
+msgstr "yaklaşık bir gün önce"
+
+#: lib/util.php:838
+#, php-format
+msgid "about %d days ago"
+msgstr "yaklaşık %d gün önce"
+
+#: lib/util.php:840
+msgid "about a month ago"
+msgstr "yaklaşık bir ay önce"
+
+#: lib/util.php:842
+#, php-format
+msgid "about %d months ago"
+msgstr "yaklaşık %d ay önce"
+
+#: lib/util.php:844
+msgid "about a year ago"
+msgstr "yaklaşık bir yıl önce"
+
+#: lib/webcolor.php:82
+#, fuzzy, php-format
+msgid "%s is not a valid color!"
+msgstr "Başlangıç sayfası adresi geçerli bir URL değil."
+
+#: lib/webcolor.php:123
+#, php-format
+msgid "%s is not a valid color! Use 3 or 6 hex chars."
+msgstr ""
+
+#: scripts/maildaemon.php:48
+msgid "Could not parse message."
+msgstr ""
+
+#: scripts/maildaemon.php:53
+msgid "Not a registered user."
+msgstr ""
+
+#: scripts/maildaemon.php:57
+msgid "Sorry, that is not your incoming email address."
+msgstr ""
+
+#: scripts/maildaemon.php:61
+msgid "Sorry, no incoming email allowed."
+msgstr ""
+
+#, fuzzy
+#~ msgid "Unlock this user"
+#~ msgstr "Böyle bir kullanıcı yok."
+
+#, fuzzy
+#~ msgid "These people are subscribed to you: "
+#~ msgstr "Uzaktan abonelik"

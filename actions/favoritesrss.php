@@ -50,11 +50,11 @@ require_once INSTALLDIR.'/lib/rssaction.php';
  */
 class FavoritesrssAction extends Rss10Action
 {
-    
+
     /** The user whose favorites to display */
-    
+
     var $user = null;
-        
+
     /**
      * Find the user to display by supplied nickname
      *
@@ -66,7 +66,7 @@ class FavoritesrssAction extends Rss10Action
     function prepare($args)
     {
         parent::prepare($args);
-        
+
         $nickname   = $this->trimmed('nickname');
         $this->user = User::staticGet('nickname', $nickname);
 
@@ -74,10 +74,11 @@ class FavoritesrssAction extends Rss10Action
             $this->clientError(_('No such user.'));
             return false;
         } else {
+            $this->notices = $this->getNotices($this->limit);
             return true;
         }
     }
-    
+
     /**
      * Get notices
      *

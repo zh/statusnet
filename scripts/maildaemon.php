@@ -29,6 +29,7 @@ END_OF_HELP;
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
 require_once(INSTALLDIR . '/lib/mail.php');
+require_once(INSTALLDIR . '/lib/mediafile.php');
 require_once('Mail/mimeDecode.php');
 
 # FIXME: we use both Mail_mimeDecode and mailparse
@@ -66,135 +67,38 @@ class MailerDaemon
         }
         $msg = $this->cleanup_msg($msg);
         $msg = common_shorten_links($msg);
-        if (mb_strlen($msg) > 140) {
-            $this->error($from,_('That\'s too long. '.
-                'Max notice size is 140 chars.'));
+        if (Notice::contentTooLong($msg)) {
+            $this->error($from, sprintf(_('That\'s too long. '.
+                                          'Max notice size is %d chars.'),
+                                        Notice::maxContent()));
         }
-        $fileRecords = array();
+
+        $mediafiles = array();
+
         foreach($attachments as $attachment){
-            $mimetype = $this->getUploadedFileType($attachment);
-            $stream  = stream_get_meta_data($attachment);
-            if (!$this->isRespectsQuota($user,filesize($stream['uri']))) {
-                die('error() should trigger an exception before reaching here.');
+
+            $mf = null;
+
+            try {
+                $mf = MediaFile::fromFileHandle($attachment, $user);
+            } catch(ClientException $ce) {
+                $this->error($from, $ce->getMessage());
             }
-            $filename = $this->saveFile($user, $attachment,$mimetype);
-            
+
+            $msg .= ' ' . $mf->shortUrl();
+
+            array_push($mediafiles, $mf);
             fclose($attachment);
-            
-            if (empty($filename)) {
-                $this->error($from,_('Couldn\'t save file.'));
-            }
-
-            $fileRecord = $this->storeFile($filename, $mimetype);
-            $fileRecords[] = $fileRecord;
-            $fileurl = common_local_url('attachment',
-                array('attachment' => $fileRecord->id));
-
-            // not sure this is necessary -- Zach
-            $this->maybeAddRedir($fileRecord->id, $fileurl);
-
-            $short_fileurl = common_shorten_url($fileurl);
-            $msg .= ' ' . $short_fileurl;
-
-            if (mb_strlen($msg) > 140) {
-                $this->deleteFile($filename);
-                $this->error($from,_('Max notice size is 140 chars, including attachment URL.'));
-            }
-
-            // Also, not sure this is necessary -- Zach
-            $this->maybeAddRedir($fileRecord->id, $short_fileurl);
         }
 
-        $err = $this->add_notice($user, $msg, $fileRecords);
+        $err = $this->add_notice($user, $msg, $mediafiles);
+
         if (is_string($err)) {
             $this->error($from, $err);
             return false;
         } else {
             return true;
         }
-    }
-
-    function saveFile($user, $attachment, $mimetype) {
-
-        $filename = File::filename($user->getProfile(), "email", $mimetype);
-
-        $filepath = File::path($filename);
-
-        $stream  = stream_get_meta_data($attachment);
-        if (copy($stream['uri'], $filepath) && chmod($filepath,0664)) {
-            return $filename;
-        } else {   
-            $this->error(null,_('File could not be moved to destination directory.' . $stream['uri'] . ' ' . $filepath));
-        }
-    }
-
-    function storeFile($filename, $mimetype) {
-
-        $file = new File;
-        $file->filename = $filename;
-
-        $file->url = File::url($filename);
-
-        $filepath = File::path($filename);
-
-        $file->size = filesize($filepath);
-        $file->date = time();
-        $file->mimetype = $mimetype;
-
-        $file_id = $file->insert();
-
-        if (!$file_id) {
-            common_log_db_error($file, "INSERT", __FILE__);
-            $this->error(null,_('There was a database error while saving your file. Please try again.'));
-        }
-
-        return $file;
-    }
-
-    function maybeAddRedir($file_id, $url)
-    {   
-        $file_redir = File_redirection::staticGet('url', $url);
-
-        if (empty($file_redir)) {
-            $file_redir = new File_redirection;
-            $file_redir->url = $url;
-            $file_redir->file_id = $file_id;
-
-            $result = $file_redir->insert();
-
-            if (!$result) {
-                common_log_db_error($file_redir, "INSERT", __FILE__);
-                $this->error(null,_('There was a database error while saving your file. Please try again.'));
-            }
-        }
-    }
-
-    function getUploadedFileType($fileHandle) {
-        require_once 'MIME/Type.php';
-
-        $cmd = &PEAR::getStaticProperty('MIME_Type', 'fileCmd');
-        $cmd = common_config('attachments', 'filecommand');
-
-        $stream  = stream_get_meta_data($fileHandle);
-        $filetype = MIME_Type::autoDetect($stream['uri']);
-        if (in_array($filetype, common_config('attachments', 'supported'))) {
-            return $filetype;
-        }
-        $media = MIME_Type::getMedia($filetype);
-        if ('application' !== $media) {
-            $hint = sprintf(_(' Try using another %s format.'), $media);
-        } else {
-            $hint = '';
-        }
-        $this->error(null,sprintf(
-            _('%s is not a supported filetype on this server.'), $filetype) . $hint);
-    }
-
-    function isRespectsQuota($user,$fileSize) {
-        $file = new File;
-        $ret = $file->isRespectsQuota($user,$fileSize);
-        if (true === $ret) return true;
-        $this->error(null,$ret);
     }
 
     function error($from, $msg)
@@ -256,28 +160,21 @@ class MailerDaemon
         common_log($level, 'MailDaemon: '.$msg);
     }
 
-    function add_notice($user, $msg, $fileRecords)
+    function add_notice($user, $msg, $mediafiles)
     {
-        $notice = Notice::saveNew($user->id, $msg, 'mail');
-        if (is_string($notice)) {
-            $this->log(LOG_ERR, $notice);
-            return $notice;
+        try {
+            $notice = Notice::saveNew($user->id, $msg, 'mail');
+        } catch (Exception $e) {
+            $this->log(LOG_ERR, $e->getMessage());
+            return $e->getMessage();
         }
-        foreach($fileRecords as $fileRecord){
-            $this->attachFile($notice, $fileRecord);
+        foreach($mediafiles as $mf){
+            $mf->attachToNotice($notice);
         }
         common_broadcast_notice($notice);
         $this->log(LOG_INFO,
                    'Added notice ' . $notice->id . ' from user ' . $user->nickname);
         return true;
-    }
-
-    function attachFile($notice, $filerec)
-    {   
-        File_to_post::processNew($filerec->id, $notice->id);
-
-        $this->maybeAddRedir($filerec->id,
-            common_local_url('file', array('notice' => $notice->id)));
     }
 
     function parse_message($fname)

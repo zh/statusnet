@@ -38,8 +38,6 @@ $config['site']['path'] = 'statusnet';
 // $config['site']['closed'] = true;
 // Only allow registration for people invited by another user
 // $config['site']['inviteonly'] = true;
-// Only allow registrations and logins through OpenID
-// $config['site']['openidonly'] = true;
 // Make the site invisible to  non-logged-in users
 // $config['site']['private'] = true;
 
@@ -99,15 +97,16 @@ $config['sphinx']['port'] = 3312;
 // $config['xmpp']['public'][] = 'someindexer@example.net';
 // $config['xmpp']['debug'] = false;
 
-// Disable OpenID
-// $config['openid']['enabled'] = false;
-
 // Turn off invites
 // $config['invite']['enabled'] = false;
 
 // Default locale info
 // $config['site']['timezone'] = 'Pacific/Auckland';
 // $config['site']['language'] = 'en_NZ';
+
+// When validating user supplied email addresses, validate if the domain
+// is running an SMTP server.
+// $config['mail']['check_domain'] = true;
 
 // Email info, used for all outbound email
 // $config['mail']['notifyfrom'] = 'microblog@example.net';

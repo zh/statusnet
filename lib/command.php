@@ -73,13 +73,33 @@ class UntrackCommand extends UnimplementedCommand
     }
 }
 
-class NudgeCommand extends UnimplementedCommand
+class NudgeCommand extends Command
 {
     var $other = null;
     function __construct($user, $other)
     {
         parent::__construct($user);
         $this->other = $other;
+    }
+    function execute($channel)
+    {
+        $recipient = User::staticGet('nickname', $this->other);
+        if(! $recipient){
+            $channel->error($this->user, sprintf(_('Could not find a user with nickname %s'),
+                               $this->other));
+        }else{
+            if ($recipient->id == $this->user->id) {
+                $channel->error($this->user, _('It does not make a lot of sense to nudge yourself!'));
+            }else{
+                if ($recipient->email && $recipient->emailnotifynudge) {
+                    mail_notify_nudge($this->user, $recipient);
+                }
+                // XXX: notify by IM
+                // XXX: notify by SMS
+                $channel->output($this->user, sprintf(_('Nudge sent to %s'),
+                               $recipient->nickname));
+            }
+        }
     }
 }
 
@@ -124,18 +144,30 @@ class FavCommand extends Command
 
     function execute($channel)
     {
+        if(substr($this->other,0,1)=='#'){
+            //favoriting a specific notice_id
 
-        $recipient =
-          common_relative_profile($this->user, common_canonical_nickname($this->other));
+            $notice = Notice::staticGet(substr($this->other,1));
+            if (!$notice) {
+                $channel->error($this->user, _('Notice with that id does not exist'));
+                return;
+            }
+            $recipient = $notice->getProfile();
+        }else{
+            //favoriting a given user's last notice
 
-        if (!$recipient) {
-            $channel->error($this->user, _('No such user.'));
-            return;
-        }
-        $notice = $recipient->getCurrentNotice();
-        if (!$notice) {
-            $channel->error($this->user, _('User has no last notice'));
-            return;
+            $recipient =
+              common_relative_profile($this->user, common_canonical_nickname($this->other));
+
+            if (!$recipient) {
+                $channel->error($this->user, _('No such user.'));
+                return;
+            }
+            $notice = $recipient->getCurrentNotice();
+            if (!$notice) {
+                $channel->error($this->user, _('User has no last notice'));
+                return;
+            }
         }
 
         $fave = Fave::addNew($this->user, $notice);
@@ -312,16 +344,20 @@ class MessageCommand extends Command
     function execute($channel)
     {
         $other = User::staticGet('nickname', common_canonical_nickname($this->other));
+
         $len = mb_strlen($this->text);
+
         if ($len == 0) {
             $channel->error($this->user, _('No content!'));
             return;
-        } else if ($len > 140) {
-            $content = common_shorten_links($content);
-            if (mb_strlen($content) > 140) {
-                $channel->error($this->user, sprintf(_('Message too long - maximum is 140 characters, you sent %d'), $len));
-                return;
-            }
+        }
+
+        $this->text = common_shorten_links($this->text);
+
+        if (Message::contentTooLong($this->text)) {
+            $channel->error($this->user, sprintf(_('Message too long - maximum is %d characters, you sent %d'),
+                                                 Message::maxContent(), mb_strlen($this->text)));
+            return;
         }
 
         if (!$other) {
@@ -340,6 +376,71 @@ class MessageCommand extends Command
         } else {
             $channel->error($this->user, _('Error sending direct message.'));
         }
+    }
+}
+
+class ReplyCommand extends Command
+{
+    var $other = null;
+    var $text = null;
+    function __construct($user, $other, $text)
+    {
+        parent::__construct($user);
+        $this->other = $other;
+        $this->text = $text;
+    }
+
+    function execute($channel)
+    {
+        if(substr($this->other,0,1)=='#'){
+            //replying to a specific notice_id
+
+            $notice = Notice::staticGet(substr($this->other,1));
+            if (!$notice) {
+                $channel->error($this->user, _('Notice with that id does not exist'));
+                return;
+            }
+            $recipient = $notice->getProfile();
+        }else{
+            //replying to a given user's last notice
+
+            $recipient =
+              common_relative_profile($this->user, common_canonical_nickname($this->other));
+
+            if (!$recipient) {
+                $channel->error($this->user, _('No such user.'));
+                return;
+            }
+            $notice = $recipient->getCurrentNotice();
+            if (!$notice) {
+                $channel->error($this->user, _('User has no last notice'));
+                return;
+            }
+        }
+
+        $len = mb_strlen($this->text);
+
+        if ($len == 0) {
+            $channel->error($this->user, _('No content!'));
+            return;
+        }
+
+        $this->text = common_shorten_links($this->text);
+
+        if (Notice::contentTooLong($this->text)) {
+            $channel->error($this->user, sprintf(_('Notice too long - maximum is %d characters, you sent %d'),
+                                                 Notice::maxContent(), mb_strlen($this->text)));
+            return;
+        }
+
+        $notice = Notice::saveNew($this->user->id, $this->text, $channel->source(), 1,
+                                  $notice->id);
+        if ($notice) {
+            $channel->output($this->user, sprintf(_('Reply to %s sent'), $recipient->nickname));
+        } else {
+            $channel->error($this->user, _('Error saving notice.'));
+        }
+        common_broadcast_notice($notice);
     }
 }
 
@@ -478,6 +579,71 @@ class OnCommand extends Command
     }
 }
 
+class SubscriptionsCommand extends Command
+{
+    function execute($channel)
+    {
+        $profile = $this->user->getSubscriptions(0);
+        $nicknames=array();
+        while ($profile->fetch()) {
+            $nicknames[]=$profile->nickname;
+        }
+        if(count($nicknames)==0){
+            $out=_('You are not subscribed to anyone.');
+        }else{
+            $out = ngettext('You are subscribed to this person:',
+                'You are subscribed to these people:',
+                count($nicknames));
+            $out .= ' ';
+            $out .= implode(', ',$nicknames);
+        }
+        $channel->output($this->user,$out);
+    }
+}
+
+class SubscribersCommand extends Command
+{
+    function execute($channel)
+    {
+        $profile = $this->user->getSubscribers();
+        $nicknames=array();
+        while ($profile->fetch()) {
+            $nicknames[]=$profile->nickname;
+        }
+        if(count($nicknames)==0){
+            $out=_('No one is subscribed to you.');
+        }else{
+            $out = ngettext('This person is subscribed to you:',
+                'These people are subscribed to you:',
+                count($nicknames));
+            $out .= ' ';
+            $out .= implode(', ',$nicknames);
+        }
+        $channel->output($this->user,$out);
+    }
+}
+
+class GroupsCommand extends Command
+{
+    function execute($channel)
+    {
+        $group = $this->user->getGroups();
+        $groups=array();
+        while ($group->fetch()) {
+            $groups[]=$group->nickname;
+        }
+        if(count($groups)==0){
+            $out=_('You are not a member of any groups.');
+        }else{
+            $out = ngettext('You are a member of this group:',
+                'You are a member of these groups:',
+                count($nicknames));
+            $out.=implode(', ',$groups);
+        }
+        $channel->output($this->user,$out);
+    }
+}
+
 class HelpCommand extends Command
 {
     function execute($channel)
@@ -488,11 +654,17 @@ class HelpCommand extends Command
                            "off - turn off notifications\n".
                            "help - show this help\n".
                            "follow <nickname> - subscribe to user\n".
+                           "groups - lists the groups you have joined\n".
+                           "subscriptions - list the people you follow\n".
+                           "subscribers - list the people that follow you\n".
                            "leave <nickname> - unsubscribe from user\n".
                            "d <nickname> <text> - direct message to user\n".
                            "get <nickname> - get last notice from user\n".
                            "whois <nickname> - get profile info on user\n".
                            "fav <nickname> - add user's last notice as a 'fave'\n".
+                           "fav #<notice_id> - add notice with the given id as a 'fave'\n".
+                           "reply #<notice_id> - reply to notice with a given id\n".
+                           "reply <nickname> - reply to the last notice from user\n".
                            "join <group> - join group\n".
                            "drop <group> - leave group\n".
                            "stats - get your stats\n".
@@ -503,7 +675,7 @@ class HelpCommand extends Command
                            "last <nickname> - same as 'get'\n".
                            "on <nickname> - not yet implemented.\n".
                            "off <nickname> - not yet implemented.\n".
-                           "nudge <nickname> - not yet implemented.\n".
+                           "nudge <nickname> - remind a user to update.\n".
                            "invite <phone number> - not yet implemented.\n".
                            "track <word> - not yet implemented.\n".
                            "untrack <word> - not yet implemented.\n".

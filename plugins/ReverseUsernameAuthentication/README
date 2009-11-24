@@ -1,0 +1,26 @@
+The Reverse Username Authentication plugin allows for StatusNet to handle authentication by checking if the provided password is the same as the reverse of the username.
+
+THIS PLUGIN IS FOR TESTING PURPOSES ONLY
+
+Installation
+============
+add "addPlugin('reverseUsernameAuthentication', array('setting'=>'value', 'setting2'=>'value2', ...);" to the bottom of your config.php
+
+Settings
+========
+provider_name*: a unique name for this authentication provider.
+password_changeable*: must be set to false. This plugin does not support changing passwords.
+authoritative (false): Set to true if this plugin's responses are authoritative (meaning if this fails, do check any other plugins or the internal password database).
+autoregistration (false): Set to true if users should be automatically created when they attempt to login.
+
+* required
+default values are in (parenthesis)
+
+Example
+=======
+addPlugin('reverseUsernameAuthentication', array(
+    'provider_name'=>'Example',
+    'password_changeable'=>false,
+    'authoritative'=>true,
+    'autoregistration'=>true
+));

@@ -216,7 +216,8 @@ function mail_subscribe_notify($listenee, $listener)
 
 function mail_subscribe_notify_profile($listenee, $other)
 {
-    if ($listenee->email && $listenee->emailnotifysub) {
+    if ($other->hasRight(Right::EMAILONSUBSCRIBE) &&
+        $listenee->email && $listenee->emailnotifysub) {
 
         // use the recipient's localization
         common_init_locale($listenee->language);
@@ -545,6 +546,10 @@ function mail_notify_message($message, $from=null, $to=null)
 
 function mail_notify_fave($other, $user, $notice)
 {
+    if (!$user->hasRight(Right::EMAILONFAVE)) {
+        return;
+    }
+
     $profile = $user->getProfile();
 
     $bestname = $profile->getBestName();
@@ -594,10 +599,14 @@ function mail_notify_attn($user, $notice)
 
     $sender = $notice->getProfile();
 
+    if (!$sender->hasRight(Right::EMAILONREPLY)) {
+        return;
+    }
+
     $bestname = $sender->getBestName();
 
     common_init_locale($user->language);
-	
+
 	if ($notice->conversation != $notice->id) {
 		$conversationEmailText = "The full conversation can be read here:\n\n".
 								 "\t%5\$s\n\n ";
@@ -607,9 +616,9 @@ function mail_notify_attn($user, $notice)
 		$conversationEmailText = "%5\$s";
 		$conversationUrl = null;
 	}
-	
+
     $subject = sprintf(_('%s (@%s) sent a notice to your attention'), $bestname, $sender->nickname);
-	
+
 	$body = sprintf(_("%1\$s (@%9\$s) just sent a notice to your attention (an '@-reply') on %2\$s.\n\n".
                       "The notice is here:\n\n".
                       "\t%3\$s\n\n" .
@@ -635,80 +644,8 @@ function mail_notify_attn($user, $notice)
                                      array('nickname' => $user->nickname)),//%7
                     common_local_url('emailsettings'), //%8
                     $sender->nickname); //%9
-	
+
     common_init_locale();
     mail_to_user($user, $subject, $body);
 }
-
-/**
- * Send a mail message to notify a user that her Twitter bridge link
- * has stopped working, and therefore has been removed.  This can
- * happen when the user changes her Twitter password, or otherwise
- * revokes access.
- *
- * @param User $user   user whose Twitter bridge link has been removed
- *
- * @return boolean success flag
- */
-
-function mail_twitter_bridge_removed($user)
-{
-    common_init_locale($user->language);
-
-    $profile = $user->getProfile();
-
-    $subject = sprintf(_('Your Twitter bridge has been disabled.'));
-
-    $site_name = common_config('site', 'name');
-
-    $body = sprintf(_('Hi, %1$s. We\'re sorry to inform you that your ' .
-        'link to Twitter has been disabled. We no longer seem to have ' .
-    'permission to update your Twitter status. (Did you revoke ' .
-    '%3$s\'s access?)' . "\n\n" .
-    'You can re-enable your Twitter bridge by visiting your ' .
-    "Twitter settings page:\n\n\t%2\$s\n\n" .
-        "Regards,\n%3\$s\n"),
-        $profile->getBestName(),
-        common_local_url('twittersettings'),
-        common_config('site', 'name'));
-
-    common_init_locale();
-    return mail_to_user($user, $subject, $body);
-}
-
-/**
- * Send a mail message to notify a user that her Facebook Application
- * access has been removed.
- *
- * @param User $user   user whose Facebook app link has been removed
- *
- * @return boolean success flag
- */
-
-function mail_facebook_app_removed($user)
-{
-    common_init_locale($user->language);
-
-    $profile = $user->getProfile();
-
-    $site_name = common_config('site', 'name');
-
-    $subject = sprintf(
-        _('Your %1$s Facebook application access has been disabled.',
-            $site_name));
-
-    $body = sprintf(_("Hi, %1\$s. We're sorry to inform you that we are " .
-        'unable to update your Facebook status from %2$s, and have disabled ' .
-        'the Facebook application for your account. This may be because ' .
-        'you have removed the Facebook application\'s authorization, or ' .
-        'have deleted your Facebook account.  You can re-enable the ' .
-        'Facebook application and automatic status updating by ' .
-        "re-installing the %2\$s Facebook application.\n\nRegards,\n\n%2\$s"),
-        $user->nickname, $site_name);
-
-    common_init_locale();
-    return mail_to_user($user, $subject, $body);
-
-}
-
 

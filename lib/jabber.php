@@ -184,6 +184,11 @@ function jabber_format_entry($profile, $notice)
     } else {
         $xs->raw(common_render_content($notice->content, $notice));
     }
+    $xs->text(" ");
+    $xs->element('a', array(
+        'href'=>common_local_url('conversation',
+            array('id' => $notice->conversation)).'#notice-'.$notice->id
+         ),sprintf(_('[%s]'),$notice->id));
     $xs->elementEnd('body');
     $xs->elementEnd('html');
 
@@ -475,5 +480,5 @@ function jabber_public_notice($notice)
 
 function jabber_format_notice(&$profile, &$notice)
 {
-    return $profile->nickname . ': ' . $notice->content;
+    return $profile->nickname . ': ' . $notice->content . ' [' . $notice->id . ']';
 }

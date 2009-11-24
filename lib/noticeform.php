@@ -76,6 +76,15 @@ class NoticeForm extends Form
     var $inreplyto = null;
 
     /**
+     * Pre-filled location content of the form
+     */
+
+    var $lat;
+    var $lon;
+    var $location_id;
+    var $location_ns;
+
+    /**
      * Constructor
      *
      * @param HTMLOutputter $out     output channel
@@ -83,14 +92,18 @@ class NoticeForm extends Form
      * @param string        $content content to pre-fill
      */
 
-    function __construct($out=null, $action=null, $content=null, $user=null, $inreplyto=null)
+    function __construct($out=null, $action=null, $content=null, $user=null, $inreplyto=null, $lat=null, $lon=null, $location_id=null, $location_ns=null)
     {
         parent::__construct($out);
 
         $this->action  = $action;
         $this->content = $content;
         $this->inreplyto = $inreplyto;
-        
+        $this->lat = $lat;
+        $this->lon = $lon;
+        $this->location_id = $location_id;
+        $this->location_ns = $location_ns;
+
         if ($user) {
             $this->user = $user;
         } else {
@@ -105,10 +118,21 @@ class NoticeForm extends Form
     /**
      * ID of the form
      *
-     * @return int ID of the form
+     * @return string ID of the form
      */
 
     function id()
+    {
+        return 'form_notice';
+    }
+
+   /**
+     * Class of the form
+     *
+     * @return string class of the form
+     */
+
+    function formClass()
     {
         return 'form_notice';
     }
@@ -124,7 +148,6 @@ class NoticeForm extends Form
         return common_local_url('newnotice');
     }
 
-
     /**
      * Legend of the Form
      *
@@ -135,7 +158,6 @@ class NoticeForm extends Form
         $this->out->element('legend', null, _('Send a notice'));
     }
 
-
     /**
      * Data elements
      *
@@ -144,31 +166,48 @@ class NoticeForm extends Form
 
     function formData()
     {
-        $this->out->element('label', array('for' => 'notice_data-text'),
-                            sprintf(_('What\'s up, %s?'), $this->user->nickname));
-        // XXX: vary by defined max size
-        $this->out->element('textarea', array('id' => 'notice_data-text',
-                                              'cols' => 35,
-                                              'rows' => 4,
-                                              'name' => 'status_textarea'),
-                            ($this->content) ? $this->content : '');
-        $this->out->elementStart('dl', 'form_note');
-        $this->out->element('dt', null, _('Available characters'));
-        $this->out->element('dd', array('id' => 'notice_text-count'),
-                            '140');
-        $this->out->elementEnd('dl');
-        if (common_config('attachments', 'uploads')) {
-            $this->out->element('label', array('for' => 'notice_data-attach'),_('Attach'));
-            $this->out->element('input', array('id' => 'notice_data-attach',
-                                               'type' => 'file',
-                                               'name' => 'attach',
-                                               'title' => _('Attach a file')));
-            $this->out->hidden('MAX_FILE_SIZE', common_config('attachments', 'file_quota'));
+        if (Event::handle('StartShowNoticeFormData', array($this))) {
+            $this->out->element('label', array('for' => 'notice_data-text'),
+                                sprintf(_('What\'s up, %s?'), $this->user->nickname));
+            // XXX: vary by defined max size
+            $this->out->element('textarea', array('id' => 'notice_data-text',
+                                                  'cols' => 35,
+                                                  'rows' => 4,
+                                                  'name' => 'status_textarea'),
+                                ($this->content) ? $this->content : '');
+
+            $contentLimit = Notice::maxContent();
+
+            $this->out->element('script', array('type' => 'text/javascript'),
+                                'maxLength = ' . $contentLimit . ';');
+
+            if ($contentLimit > 0) {
+                $this->out->elementStart('dl', 'form_note');
+                $this->out->element('dt', null, _('Available characters'));
+                $this->out->element('dd', array('id' => 'notice_text-count'),
+                                    $contentLimit);
+                $this->out->elementEnd('dl');
+            }
+
+            if (common_config('attachments', 'uploads')) {
+                $this->out->element('label', array('for' => 'notice_data-attach'),_('Attach'));
+                $this->out->element('input', array('id' => 'notice_data-attach',
+                                                   'type' => 'file',
+                                                   'name' => 'attach',
+                                                   'title' => _('Attach a file')));
+                $this->out->hidden('MAX_FILE_SIZE', common_config('attachments', 'file_quota'));
+            }
+            if ($this->action) {
+                $this->out->hidden('notice_return-to', $this->action, 'returnto');
+            }
+            $this->out->hidden('notice_in-reply-to', $this->inreplyto, 'inreplyto');
+            $this->out->hidden('notice_data-lat', empty($this->lat) ? null : $this->lat, 'lat');
+            $this->out->hidden('notice_data-lon', empty($this->lon) ? null : $this->lon, 'lon');
+            $this->out->hidden('notice_data-location_id', empty($this->location_id) ? null : $this->location_id, 'location_id');
+            $this->out->hidden('notice_data-location_ns', empty($this->location_ns) ? null : $this->location_ns, 'location_ns');
+
+            Event::handle('StartShowNoticeFormData', array($this));
         }
-        if ($this->action) {
-            $this->out->hidden('notice_return-to', $this->action, 'returnto');
-        }
-        $this->out->hidden('notice_in-reply-to', $this->inreplyto, 'inreplyto');
     }
 
     /**

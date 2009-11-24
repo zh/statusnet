@@ -108,11 +108,29 @@ class FoafAction extends Action
         if ($this->profile->bio) {
             $this->element('bio:olb', null, $this->profile->bio);
         }
-        // XXX: more structured location data
-        if ($this->profile->location) {
+        
+        $location = $this->profile->getLocation();
+        if ($location) {
+            $attr = array();
+            if ($location->getRdfURL()) {
+                $attr['rdf:about'] = $location->getRdfURL();
+            }
+            $location_name = $location->getName();
+            
             $this->elementStart('based_near');
-            $this->elementStart('geo:SpatialThing');
-            $this->element('name', null, $this->profile->location);
+            $this->elementStart('geo:SpatialThing', $attr);
+            if ($location_name) {
+                $this->element('name', null, $location_name);
+            }
+            if ($location->lat) {
+                $this->element('geo:lat', null, $location->lat);
+            }
+            if ($location->lon) {
+                $this->element('geo:long', null, $location->lat);
+            }
+            if ($location->getURL()) {
+                $this->element('page', array('rdf:resource'=>$location->getURL()));
+            }
             $this->elementEnd('geo:SpatialThing');
             $this->elementEnd('based_near');
         }

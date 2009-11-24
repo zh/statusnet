@@ -68,7 +68,7 @@ class InviteAction extends CurrentUserDesignAction
 
         foreach ($addresses as $email) {
             $email = trim($email);
-            if (!Validate::email($email, true)) {
+            if (!Validate::email($email, common_config('email', 'check_domain'))) {
                 $this->showForm(sprintf(_('Invalid email address: %s'), $email));
                 return;
             }
@@ -241,7 +241,7 @@ class InviteAction extends CurrentUserDesignAction
                         common_root_url(),
                         $personal,
                         common_local_url('showstream', array('nickname' => $user->nickname)),
-                        common_local_url((!common_config('site', 'openidonly')) ? 'register' : 'openidlogin', array('code' => $invite->code)));
+                        common_local_url('register', array('code' => $invite->code)));
 
         mail_send($recipients, $headers, $body);
     }

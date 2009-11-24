@@ -51,13 +51,22 @@ function common_init_locale($language=null)
 function common_init_language()
 {
     mb_internal_encoding('UTF-8');
+
+    // gettext seems very picky... We first need to setlocale()
+    // to a locale which _does_ exist on the system, and _then_
+    // we can set in another locale that may not be set up
+    // (say, ga_ES for Galego/Galician) it seems to take it.
+    common_init_locale("en_US");
+
     $language = common_language();
-    // So we don't have to make people install the gettext locales
     $locale_set = common_init_locale($language);
-    bindtextdomain("statusnet", common_config('site','locale_path'));
+    setlocale(LC_CTYPE, 'C');
+    // So we do not have to make people install the gettext locales
+    $path = common_config('site','locale_path');
+    bindtextdomain("statusnet", $path);
     bind_textdomain_codeset("statusnet", "UTF-8");
     textdomain("statusnet");
-    setlocale(LC_CTYPE, 'C');
+
     if(!$locale_set) {
         common_log(LOG_INFO, 'Language requested:' . $language . ' - locale could not be set. Perhaps that system locale is not installed.', __FILE__);
     }
@@ -107,23 +116,26 @@ function common_munge_password($password, $id)
 }
 
 // check if a username exists and has matching password
+
 function common_check_user($nickname, $password)
 {
-    // NEVER allow blank passwords, even if they match the DB
-    if (mb_strlen($password) == 0) {
-        return false;
-    }
-    $user = User::staticGet('nickname', $nickname);
-    if (is_null($user) || $user === false) {
-        return false;
-    } else {
-        if (0 == strcmp(common_munge_password($password, $user->id),
-                        $user->password)) {
-            return $user;
-        } else {
-            return false;
+    $authenticatedUser = false;
+
+    if (Event::handle('StartCheckPassword', array($nickname, $password, &$authenticatedUser))) {
+        $user = User::staticGet('nickname', $nickname);
+        if (!empty($user)) {
+            if (!empty($password)) { // never allow login with blank password
+                if (0 == strcmp(common_munge_password($password, $user->id),
+                                $user->password)) {
+                    //internal checking passed
+                    $authenticatedUser =& $user;
+                }
+            }
         }
+        Event::handle('EndCheckPassword', array($nickname, $password, $authenticatedUser));
     }
+
+    return $authenticatedUser;
 }
 
 // is the current user logged in?
@@ -184,10 +196,15 @@ function common_set_user($user)
     }
 
     if ($user) {
-        common_ensure_session();
-        $_SESSION['userid'] = $user->id;
-        $_cur = $user;
-        return $_cur;
+        if (Event::handle('StartSetUser', array(&$user))) {
+            if($user){
+                common_ensure_session();
+                $_SESSION['userid'] = $user->id;
+                $_cur = $user;
+                Event::handle('EndSetUser', array($user));
+                return $_cur;
+            }
+        }
     }
     return false;
 }
@@ -338,8 +355,11 @@ function common_current_user()
             common_ensure_session();
             $id = isset($_SESSION['userid']) ? $_SESSION['userid'] : false;
             if ($id) {
-                $_cur = User::staticGet($id);
-                return $_cur;
+                $user = User::staticGet($id);
+                if ($user) {
+                	$_cur = $user;
+                	return $_cur;
+                }
             }
         }
 
@@ -393,8 +413,8 @@ function common_render_content($text, $notice)
     $id = $notice->profile_id;
     $r = preg_replace('/(^|\s+)@(['.NICKNAME_FMT.']{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
     $r = preg_replace('/^T ([A-Z0-9]{1,64}) /e', "'T '.common_at_link($id, '\\1').' '", $r);
-    $r = preg_replace('/(^|\s+)@#([A-Za-z0-9]{1,64})/e', "'\\1@#'.common_at_hash_link($id, '\\2')", $r);
-    $r = preg_replace('/(^|\s)!([A-Za-z0-9]{1,64})/e', "'\\1!'.common_group_link($id, '\\2')", $r);
+    $r = preg_replace('/(^|[\s\.\,\:\;]+)@#([A-Za-z0-9]{1,64})/e', "'\\1@#'.common_at_hash_link($id, '\\2')", $r);
+    $r = preg_replace('/(^|[\s\.\,\:\;]+)!([A-Za-z0-9]{1,64})/e', "'\\1!'.common_group_link($id, '\\2')", $r);
     return $r;
 }
 
@@ -412,7 +432,7 @@ function common_render_text($text)
 function common_replace_urls_callback($text, $callback, $notice_id = null) {
     // Start off with a regex
     $regex = '#'.
-    '(?:^|[\s\(\)\[\]\{\}\\\'\\\";]+)(?![\@\!\#])'.
+    '(?:^|[\s\<\>\(\)\[\]\{\}\\\'\\\";]+)(?![\@\!\#])'.
     '('.
         '(?:'.
             '(?:'. //Known protocols
@@ -442,9 +462,9 @@ function common_replace_urls_callback($text, $callback, $notice_id = null) {
         ')'.
         '(?:'.
             '(?:\:\d+)?'. //:port
-            '(?:/[\pN\pL$\[\]\,\!\(\)\.\:\-\_\+\/\=\&\;\%\~\*\$\+\'\"@]*)?'. // /path
-            '(?:\?[\pN\pL\$\[\]\,\!\(\)\.\:\-\_\+\/\=\&\;\%\~\*\$\+\'\"@\/]*)?'. // ?query string
-            '(?:\#[\pN\pL$\[\]\,\!\(\)\.\:\-\_\+\/\=\&\;\%\~\*\$\+\'\"\@/\?\#]*)?'. // #fragment
+            '(?:/[\pN\pL$\,\!\(\)\.\:\-\_\+\/\=\&\;\%\~\*\$\+\'@]*)?'. // /path
+            '(?:\?[\pN\pL\$\,\!\(\)\.\:\-\_\+\/\=\&\;\%\~\*\$\+\'@\/]*)?'. // ?query string
+            '(?:\#[\pN\pL$\,\!\(\)\.\:\-\_\+\/\=\&\;\%\~\*\$\+\'\@/\?\#]*)?'. // #fragment
         ')(?<![\?\.\,\#\,])'.
     ')'.
     '#ixu';
@@ -470,6 +490,10 @@ function callback_helper($matches, $callback, $notice_id) {
         array(
             'left'=>'{',
             'right'=>'}'
+        ),
+        array(
+            'left'=>'<',
+            'right'=>'>'
         )
     );
     $cannotEndWith=array('.','?',',','#');
@@ -493,7 +517,7 @@ function callback_helper($matches, $callback, $notice_id) {
     }while($original_url!=$url);
 
     if(empty($notice_id)){
-        $result = call_user_func_array($callback,$url);
+        $result = call_user_func_array($callback, array($url));
     }else{
         $result = call_user_func_array($callback, array(array($url,$notice_id)) );
     }
@@ -522,21 +546,22 @@ function common_linkify($url) {
 
    if(strpos($url, '@') !== false && strpos($url, ':') === false) {
        //url is an email address without the mailto: protocol
-       return XMLStringer::estring('a', array('href' => "mailto:$url", 'rel' => 'external'), $url);
-   }
+       $canon = "mailto:$url";
+       $longurl = "mailto:$url";
+   }else{
 
-    $canon = File_redirection::_canonUrl($url);
+        $canon = File_redirection::_canonUrl($url);
 
-    $longurl_data = File_redirection::where($url);
-    if (is_array($longurl_data)) {
-        $longurl = $longurl_data['url'];
-    } elseif (is_string($longurl_data)) {
-        $longurl = $longurl_data;
-    } else {
-        throw new ServerException("Can't linkify url '$url'");
+        $longurl_data = File_redirection::where($canon);
+        if (is_array($longurl_data)) {
+            $longurl = $longurl_data['url'];
+        } elseif (is_string($longurl_data)) {
+            $longurl = $longurl_data;
+        } else {
+            throw new ServerException("Can't linkify url '$url'");
+        }
     }
-
-    $attrs = array('href' => $canon, 'rel' => 'external');
+    $attrs = array('href' => $canon, 'title' => $longurl, 'rel' => 'external');
 
     $is_attachment = false;
     $attachment_id = null;
@@ -584,7 +609,8 @@ function common_linkify($url) {
 
 function common_shorten_links($text)
 {
-    if (mb_strlen($text) <= 140) return $text;
+    $maxLength = Notice::maxContent();
+    if ($maxLength == 0 || mb_strlen($text) <= $maxLength) return $text;
     return common_replace_urls_callback($text, array('File_redirection', 'makeShort'));
 }
 
@@ -729,14 +755,10 @@ function common_relative_profile($sender, $nickname, $dt=null)
 
 function common_local_url($action, $args=null, $params=null, $fragment=null)
 {
-    static $sensitive = array('login', 'register', 'passwordsettings',
-                              'twittersettings', 'finishopenidlogin',
-                              'finishaddopenid', 'api');
-
     $r = Router::get();
     $path = $r->build($action, $args, $params, $fragment);
 
-    $ssl = in_array($action, $sensitive);
+    $ssl = common_is_sensitive($action);
 
     if (common_config('site','fancy')) {
         $url = common_path(mb_substr($path, 1), $ssl);
@@ -748,6 +770,19 @@ function common_local_url($action, $args=null, $params=null, $fragment=null)
         }
     }
     return $url;
+}
+
+function common_is_sensitive($action)
+{
+    static $sensitive = array('login', 'register', 'passwordsettings',
+                              'twittersettings', 'api');
+    $ssl = null;
+
+    if (Event::handle('SensitiveAction', array($action, &$ssl))) {
+        $ssl = in_array($action, $sensitive);
+    }
+
+    return $ssl;
 }
 
 function common_path($relative, $ssl=false)
@@ -891,10 +926,9 @@ function common_broadcast_notice($notice, $remote=false)
 function common_enqueue_notice($notice)
 {
     static $localTransports = array('omb',
-                                    'twitter',
-                                    'facebook',
                                     'ping');
-    static $allTransports = array('sms');
+
+    static $allTransports = array('sms', 'plugin');
 
     $transports = $allTransports;
 
@@ -912,11 +946,16 @@ function common_enqueue_notice($notice)
         }
     }
 
-    $qm = QueueManager::get();
+    if (Event::handle('StartEnqueueNotice', array($notice, &$transports))) {
 
-    foreach ($transports as $transport)
-    {
-        $qm->enqueue($notice, $transport);
+        $qm = QueueManager::get();
+
+        foreach ($transports as $transport)
+        {
+            $qm->enqueue($notice, $transport);
+        }
+
+        Event::handle('EndEnqueueNotice', array($notice, $transports));
     }
 
     return true;
@@ -1055,7 +1094,11 @@ function common_log_objstring(&$object)
     $arr = $object->toArray();
     $fields = array();
     foreach ($arr as $k => $v) {
-        $fields[] = "$k='$v'";
+        if (is_object($v)) {
+            $fields[] = "$k='".get_class($v)."'";
+        } else {
+            $fields[] = "$k='$v'";
+        }
     }
     $objstring = $object->tableName() . '[' . implode(',', $fields) . ']';
     return $objstring;
@@ -1154,7 +1197,7 @@ function common_negotiate_type($cprefs, $sprefs)
     }
 
     if ('text/html' === $besttype) {
-        return "text/html";
+        return "text/html; charset=utf-8";
     }
     return $besttype;
 }
@@ -1162,7 +1205,8 @@ function common_negotiate_type($cprefs, $sprefs)
 function common_config($main, $sub)
 {
     global $config;
-    return isset($config[$main][$sub]) ? $config[$main][$sub] : false;
+    return (array_key_exists($main, $config) &&
+            array_key_exists($sub, $config[$main])) ? $config[$main][$sub] : false;
 }
 
 function common_copy_args($from)
@@ -1340,9 +1384,28 @@ function common_memcache()
     }
 }
 
+function common_license_terms($uri)
+{
+    if(preg_match('/creativecommons.org\/licenses\/([^\/]+)/', $uri, $matches)) {
+        return explode('-',$matches[1]);
+    }
+    return array($uri);
+}
+
 function common_compatible_license($from, $to)
 {
+    $from_terms = common_license_terms($from);
+    // public domain and cc-by are compatible with everything
+    if(count($from_terms) == 1 && ($from_terms[0] == 'publicdomain' || $from_terms[0] == 'by')) {
+        return true;
+    }
+    $to_terms = common_license_terms($to);
+    // sa is compatible across versions. IANAL
+    if(in_array('sa',$from_terms) || in_array('sa',$to_terms)) {
+        return count(array_diff($from_terms, $to_terms)) == 0;
+    }
     // XXX: better compatibility check needed here!
+    // Should at least normalise URIs
     return ($from == $to);
 }
 
@@ -1365,63 +1428,18 @@ function common_shorten_url($long_url)
     if (empty($user)) {
         // common current user does not find a user when called from the XMPP daemon
         // therefore we'll set one here fix, so that XMPP given URLs may be shortened
-        $svc = 'ur1.ca';
+        $shortenerName = 'ur1.ca';
     } else {
-        $svc = $user->urlshorteningservice;
+        $shortenerName = $user->urlshorteningservice;
     }
 
-    $curlh = curl_init();
-    curl_setopt($curlh, CURLOPT_CONNECTTIMEOUT, 20); // # seconds to wait
-    curl_setopt($curlh, CURLOPT_USERAGENT, 'StatusNet');
-    curl_setopt($curlh, CURLOPT_RETURNTRANSFER, true);
-
-    switch($svc) {
-     case 'ur1.ca':
-        require_once INSTALLDIR.'/lib/Shorturl_api.php';
-        $short_url_service = new LilUrl;
-        $short_url = $short_url_service->shorten($long_url);
-        break;
-
-     case '2tu.us':
-        $short_url_service = new TightUrl;
-        require_once INSTALLDIR.'/lib/Shorturl_api.php';
-        $short_url = $short_url_service->shorten($long_url);
-        break;
-
-     case 'ptiturl.com':
-        require_once INSTALLDIR.'/lib/Shorturl_api.php';
-        $short_url_service = new PtitUrl;
-        $short_url = $short_url_service->shorten($long_url);
-        break;
-
-     case 'bit.ly':
-        curl_setopt($curlh, CURLOPT_URL, 'http://bit.ly/api?method=shorten&long_url='.urlencode($long_url));
-        $short_url = current(json_decode(curl_exec($curlh))->results)->hashUrl;
-        break;
-
-     case 'is.gd':
-        curl_setopt($curlh, CURLOPT_URL, 'http://is.gd/api.php?longurl='.urlencode($long_url));
-        $short_url = curl_exec($curlh);
-        break;
-     case 'snipr.com':
-        curl_setopt($curlh, CURLOPT_URL, 'http://snipr.com/site/snip?r=simple&link='.urlencode($long_url));
-        $short_url = curl_exec($curlh);
-        break;
-     case 'metamark.net':
-        curl_setopt($curlh, CURLOPT_URL, 'http://metamark.net/api/rest/simple?long_url='.urlencode($long_url));
-        $short_url = curl_exec($curlh);
-        break;
-     case 'tinyurl.com':
-        curl_setopt($curlh, CURLOPT_URL, 'http://tinyurl.com/api-create.php?url='.urlencode($long_url));
-        $short_url = curl_exec($curlh);
-        break;
-     default:
-        $short_url = false;
+    if(Event::handle('StartShortenUrl', array($long_url,$shortenerName,&$shortenedUrl))){
+        //URL wasn't shortened, so return the long url
+        return $long_url;
+    }else{
+        //URL was shortened, so return the result
+        return $shortenedUrl;
     }
-
-    curl_close($curlh);
-
-    return $short_url;
 }
 
 function common_client_ip()

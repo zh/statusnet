@@ -46,8 +46,8 @@ class EnjitQueueHandler extends QueueHandler
 
     function start()
     {
-                $this->log(LOG_INFO, "Starting EnjitQueueHandler");
-                $this->log(LOG_INFO, "Broadcasting to ".common_config('enjit', 'apiurl'));
+        $this->log(LOG_INFO, "Starting EnjitQueueHandler");
+        $this->log(LOG_INFO, "Broadcasting to ".common_config('enjit', 'apiurl'));
         return true;
     }
 
@@ -56,16 +56,16 @@ class EnjitQueueHandler extends QueueHandler
 
         $profile = Profile::staticGet($notice->profile_id);
 
-                $this->log(LOG_INFO, "Posting Notice ".$notice->id." from ".$profile->nickname);
+        $this->log(LOG_INFO, "Posting Notice ".$notice->id." from ".$profile->nickname);
 
-                if ( ! $notice->is_local ) {
-                    $this->log(LOG_INFO, "Skipping remote notice");
-                    return "skipped";
-                }
+        if ( ! $notice->is_local ) {
+            $this->log(LOG_INFO, "Skipping remote notice");
+            return "skipped";
+        }
 
-                #
-                # Build an Atom message from the notice
-                #
+        #
+        # Build an Atom message from the notice
+        #
         $noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
         $msg = $profile->nickname . ': ' . $notice->content;
 
@@ -86,36 +86,18 @@ class EnjitQueueHandler extends QueueHandler
         $atom .= "<updated>".common_date_w3dtf($notice->modified)."</updated>\n";
         $atom .= "</entry>\n";
 
-                $url  = common_config('enjit', 'apiurl') . "/submit/". common_config('enjit','apikey');
-                $data = "msg=$atom";
+        $url  = common_config('enjit', 'apiurl') . "/submit/". common_config('enjit','apikey');
+        $data = array(
+            'msg' => $atom,
+        );
 
-                #
-                # POST the message to $config['enjit']['apiurl']
-                #
-        $ch   = curl_init();
+        #
+        # POST the message to $config['enjit']['apiurl']
+        #
+        $request = HTTPClient::start();
+        $response = $request->post($url, null, $data);
 
-        curl_setopt($ch, CURLOPT_URL, $url);
-
-                curl_setopt($ch, CURLOPT_HEADER, 1);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_POST, 1) ;
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-
-                # SSL and Debugging options
-                #
-        # curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-        # curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-                # curl_setopt($ch, CURLOPT_VERBOSE, 1);
-
-        $result = curl_exec($ch);
-
-        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE );
-
-                $this->log(LOG_INFO, "Response Code: $code");
-
-        curl_close($ch);
-
-                return $code;
+        return $response->isOk();
     }
 
 }

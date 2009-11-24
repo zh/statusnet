@@ -61,7 +61,7 @@ class PeoplesearchAction extends SearchAction
     function showResults($q, $page)
     {
         $profile = new Profile();
-        $search_engine = $profile->getSearchEngine('identica_people');
+        $search_engine = $profile->getSearchEngine('profile');
         $search_engine->set_sort_mode('chron');
         // Ask for an extra to see if there's more.
         $search_engine->limit((($page-1)*PROFILES_PER_PAGE), PROFILES_PER_PAGE + 1);

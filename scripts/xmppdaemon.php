@@ -187,7 +187,7 @@ class XMPPDaemon extends Daemon
             return;
         }
         if ($this->handle_command($user, $pl['body'])) {
-            $this->log(LOG_INFO, "Command messag by $from handled.");
+            $this->log(LOG_INFO, "Command message by $from handled.");
             return;
         } else if ($this->is_autoreply($pl['body'])) {
             $this->log(LOG_INFO, 'Ignoring auto reply from ' . $from);
@@ -316,17 +316,22 @@ class XMPPDaemon extends Daemon
     {
         $body = trim($pl['body']);
         $content_shortened = common_shorten_links($body);
-        if (mb_strlen($content_shortened) > 140) {
+        if (Notice::contentTooLong($content_shortened)) {
           $from = jabber_normalize_jid($pl['from']);
-          $this->from_site($from, "Message too long - maximum is 140 characters, you sent ".mb_strlen($content_shortened));
+          $this->from_site($from, sprintf(_("Message too long - maximum is %d characters, you sent %d"),
+                                          Notice::maxContent(),
+                                          mb_strlen($content_shortened)));
           return;
         }
-        $notice = Notice::saveNew($user->id, $content_shortened, 'xmpp');
-        if (is_string($notice)) {
-            $this->log(LOG_ERR, $notice);
-            $this->from_site($user->jabber, $notice);
+
+        try {
+            $notice = Notice::saveNew($user->id, $content_shortened, 'xmpp');
+        } catch (Exception $e) {
+            $this->log(LOG_ERR, $e->getMessage());
+            $this->from_site($user->jabber, $e->getMessage());
             return;
         }
+
         common_broadcast_notice($notice);
         $this->log(LOG_INFO,
                    'Added notice ' . $notice->id . ' from user ' . $user->nickname);

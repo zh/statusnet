@@ -19,10 +19,13 @@
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
-define('STATUSNET_VERSION', '0.8.2');
+//exit with 200 response, if this is checking fancy from the installer
+if (isset($_REQUEST['p']) && $_REQUEST['p'] == 'check-fancy') {  exit; } 
+
+define('STATUSNET_VERSION', '0.9.0rc1');
 define('LACONICA_VERSION', STATUSNET_VERSION); // compatibility
 
-define('STATUSNET_CODENAME', 'Life and How to Live It');
+define('STATUSNET_CODENAME', 'Stand');
 
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
@@ -38,11 +41,17 @@ define('FOREIGN_NOTICE_SEND_REPLY', 4);
 define('FOREIGN_FRIEND_SEND', 1);
 define('FOREIGN_FRIEND_RECV', 2);
 
-define_syslog_variables();
-
 # append our extlib dir as the last-resort place to find libs
 
 set_include_path(get_include_path() . PATH_SEPARATOR . INSTALLDIR . '/extlib/');
+
+# To protect against upstream libraries which haven't updated
+# for PHP 5.3 where dl() function may not be present...
+if (!function_exists('dl')) {
+    function dl($library) {
+        return false;
+    }
+}
 
 # global configuration object
 
@@ -50,9 +59,6 @@ require_once('PEAR.php');
 require_once('DB/DataObject.php');
 require_once('DB/DataObject/Cast.php'); # for dates
 
-if (!function_exists('gettext')) {
-    require_once("php-gettext/gettext.inc");
-}
 require_once(INSTALLDIR.'/lib/language.php');
 
 // This gets included before the config file, so that admin code and plugins
@@ -72,6 +78,9 @@ function _sn_to_path($sn)
     }
     return $p;
 }
+
+// Save our sanity when code gets loaded through subroutines such as PHPUnit tests
+global $default, $config, $_server, $_path;
 
 // try to figure out where we are. $server and $path
 // can be set by including module, else we guess based
@@ -93,206 +102,17 @@ if (isset($path)) {
     null;
 }
 
-// default configuration, overwritten in config.php
+require_once(INSTALLDIR.'/lib/default.php');
 
-$config =
-  array('site' =>
-        array('name' => 'Just another StatusNet microblog',
-              'server' => $_server,
-              'theme' => 'default',
-              'path' => $_path,
-              'logfile' => null,
-              'logo' => null,
-              'logdebug' => false,
-              'fancy' => false,
-              'locale_path' => INSTALLDIR.'/locale',
-              'language' => 'en_US',
-              'languages' => get_all_languages(),
-              'email' =>
-              array_key_exists('SERVER_ADMIN', $_SERVER) ? $_SERVER['SERVER_ADMIN'] : null,
-              'broughtby' => null,
-              'timezone' => 'UTC',
-              'broughtbyurl' => null,
-              'closed' => false,
-              'inviteonly' => false,
-              'openidonly' => false,
-              'private' => false,
-              'ssl' => 'never',
-              'sslserver' => null,
-              'shorturllength' => 30,
-              'dupelimit' => 60), # default for same person saying the same thing
-        'syslog' =>
-        array('appname' => 'statusnet', # for syslog
-              'priority' => 'debug', # XXX: currently ignored
-              'facility' => LOG_USER),
-        'queue' =>
-        array('enabled' => false,
-              'subsystem' => 'db', # default to database, or 'stomp'
-              'stomp_server' => null,
-              'queue_basename' => 'statusnet',
-              'stomp_username' => null,
-              'stomp_password' => null,
-              ),
-        'license' =>
-        array('url' => 'http://creativecommons.org/licenses/by/3.0/',
-              'title' => 'Creative Commons Attribution 3.0',
-              'image' => 'http://i.creativecommons.org/l/by/3.0/80x15.png'),
-        'mail' =>
-        array('backend' => 'mail',
-              'params' => null),
-        'nickname' =>
-        array('blacklist' => array(),
-              'featured' => array()),
-        'profile' =>
-        array('banned' => array()),
-        'avatar' =>
-        array('server' => null,
-              'dir' => INSTALLDIR . '/avatar/',
-              'path' => $_path . '/avatar/'),
-        'background' =>
-        array('server' => null,
-              'dir' => INSTALLDIR . '/background/',
-              'path' => $_path . '/background/'),
-        'public' =>
-        array('localonly' => true,
-              'blacklist' => array(),
-              'autosource' => array()),
-        'theme' =>
-        array('server' => null,
-              'dir' => null,
-              'path'=> null),
-        'throttle' =>
-        array('enabled' => false, // whether to throttle edits; false by default
-              'count' => 20, // number of allowed messages in timespan
-              'timespan' => 600), // timespan for throttling
-        'xmpp' =>
-        array('enabled' => false,
-              'server' => 'INVALID SERVER',
-              'port' => 5222,
-              'user' => 'update',
-              'encryption' => true,
-              'resource' => 'uniquename',
-              'password' => 'blahblahblah',
-              'host' => null, # only set if != server
-              'debug' => false, # print extra debug info
-              'public' => array()), # JIDs of users who want to receive the public stream
-        'openid' =>
-        array('enabled' => true),
-        'invite' =>
-        array('enabled' => true),
-        'sphinx' =>
-        array('enabled' => false,
-              'server' => 'localhost',
-              'port' => 3312),
-        'tag' =>
-        array('dropoff' => 864000.0),
-        'popular' =>
-        array('dropoff' => 864000.0),
-        'daemon' =>
-        array('piddir' => '/var/run',
-              'user' => false,
-              'group' => false),
-        'emailpost' =>
-        array('enabled' => true),
-        'sms' =>
-        array('enabled' => true),
-        'twitterbridge' =>
-        array('enabled' => false),
-        'integration' =>
-        array('source' => 'StatusNet', # source attribute for Twitter
-              'taguri' => $_server.',2009'), # base for tag URIs
-	'twitter' =>
-	array('enabled'         => true,
-              'consumer_key'    => null,
-	      'consumer_secret' => null),
-        'memcached' =>
-        array('enabled' => false,
-              'server' => 'localhost',
-              'base' => null,
-              'port' => 11211),
- 		'ping' =>
-        array('notify' => array()),
-        'inboxes' =>
-        array('enabled' => true), # on by default for new sites
-        'newuser' =>
-        array('default' => null,
-              'welcome' => null),
-        'snapshot' =>
-        array('run' => 'web',
-              'frequency' => 10000,
-              'reporturl' => 'http://status.net/stats/report'),
-        'attachments' =>
-        array('server' => null,
-              'dir' => INSTALLDIR . '/file/',
-              'path' => $_path . '/file/',
-              'supported' => array('image/png',
-                                   'image/jpeg',
-                                   'image/gif',
-                                   'image/svg+xml',
-                                   'audio/mpeg',
-                                   'audio/x-speex',
-                                   'application/ogg',
-                                   'application/pdf',
-                                   'application/vnd.oasis.opendocument.text',
-                                   'application/vnd.oasis.opendocument.text-template',
-                                   'application/vnd.oasis.opendocument.graphics',
-                                   'application/vnd.oasis.opendocument.graphics-template',
-                                   'application/vnd.oasis.opendocument.presentation',
-                                   'application/vnd.oasis.opendocument.presentation-template',
-                                   'application/vnd.oasis.opendocument.spreadsheet',
-                                   'application/vnd.oasis.opendocument.spreadsheet-template',
-                                   'application/vnd.oasis.opendocument.chart',
-                                   'application/vnd.oasis.opendocument.chart-template',
-                                   'application/vnd.oasis.opendocument.image',
-                                   'application/vnd.oasis.opendocument.image-template',
-                                   'application/vnd.oasis.opendocument.formula',
-                                   'application/vnd.oasis.opendocument.formula-template',
-                                   'application/vnd.oasis.opendocument.text-master',
-                                   'application/vnd.oasis.opendocument.text-web',
-                                   'application/x-zip',
-                                   'application/zip',
-                                   'text/plain',
-                                   'video/mpeg',
-                                   'video/mp4',
-                                   'video/quicktime',
-                                   'video/mpeg'),
-        'file_quota' => 5000000,
-        'user_quota' => 50000000,
-        'monthly_quota' => 15000000,
-        'uploads' => true,
-        'filecommand' => '/usr/bin/file',
-        ),
-        'group' =>
-        array('maxaliases' => 3),
-        'oohembed' => array('endpoint' => 'http://oohembed.com/oohembed/'),
-        'search' =>
-        array('type' => 'fulltext'),
-        'sessions' =>
-        array('handle' => false, // whether to handle sessions ourselves
-              'debug' => false), // debugging output for sessions
-        'design' =>
-        array('backgroundcolor' => null, // null -> 'use theme default'
-              'contentcolor' => null,
-              'sidebarcolor' => null,
-              'textcolor' => null,
-              'linkcolor' => null,
-              'backgroundimage' => null,
-              'disposition' => null),
-        );
+// Set config values initially to default values
+
+$config = $default;
+
+// default configuration, overwritten in config.php
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
 
-$config['db'] =
-  array('database' => 'YOU HAVE TO SET THIS IN config.php',
-        'schema_location' => INSTALLDIR . '/classes',
-        'class_location' => INSTALLDIR . '/classes',
-        'require_prefix' => 'classes/',
-        'class_prefix' => '',
-        'mirror' => null,
-        'utf8' => true,
-        'db_driver' => 'DB', # XXX: JanRain libs only work with DB
-        'quote_identifiers' => false,
-        'type' => 'mysql' );
+$config['db'] = $default['db'];
 
 // Backward compatibility
 
@@ -357,6 +177,7 @@ if (isset($conffile)) {
     $_config_files[] = INSTALLDIR.'/config.php';
 }
 
+global $_have_a_config;
 $_have_a_config = false;
 
 foreach ($_config_files as $_config_file) {
@@ -373,7 +194,14 @@ function _have_config()
 }
 
 // XXX: Throw a conniption if database not installed
-
+// XXX: Find a way to use htmlwriter for this instead of handcoded markup
+if (!_have_config()) {
+  echo '<p>'. _('No configuration file found. ') .'</p>';
+  echo '<p>'. _('I looked for configuration files in the following places: ') .'<br/> '. implode($_config_files, '<br/>');
+  echo '<p>'. _('You may wish to run the installer to fix this.') .'</p>';
+  echo '<a href="install.php">'. _('Go to the installer.') .'</a>';
+  exit;
+}
 // Fixup for statusnet.ini
 
 $_db_name = substr($config['db']['database'], strrpos($config['db']['database'], '/') + 1);
@@ -382,45 +210,50 @@ if ($_db_name != 'statusnet' && !array_key_exists('ini_'.$_db_name, $config['db'
     $config['db']['ini_'.$_db_name] = INSTALLDIR.'/classes/statusnet.ini';
 }
 
-// Ignore openidonly if OpenID is disabled
-
-if (!$config['openid']['enabled']) {
-    $config['site']['openidonly'] = false;
+function __autoload($cls)
+{
+    if (file_exists(INSTALLDIR.'/classes/' . $cls . '.php')) {
+        require_once(INSTALLDIR.'/classes/' . $cls . '.php');
+    } else if (file_exists(INSTALLDIR.'/lib/' . strtolower($cls) . '.php')) {
+        require_once(INSTALLDIR.'/lib/' . strtolower($cls) . '.php');
+    } else if (mb_substr($cls, -6) == 'Action' &&
+               file_exists(INSTALLDIR.'/actions/' . strtolower(mb_substr($cls, 0, -6)) . '.php')) {
+        require_once(INSTALLDIR.'/actions/' . strtolower(mb_substr($cls, 0, -6)) . '.php');
+    } else if ($cls == 'OAuthRequest') {
+        require_once('OAuth.php');
+    } else {
+        Event::handle('Autoload', array(&$cls));
+    }
 }
 
 // XXX: how many of these could be auto-loaded on use?
+// XXX: note that these files should not use config options
+// at compile time since DB config options are not yet loaded.
 
 require_once 'Validate.php';
 require_once 'markdown.php';
 
 require_once INSTALLDIR.'/lib/util.php';
 require_once INSTALLDIR.'/lib/action.php';
-require_once INSTALLDIR.'/lib/theme.php';
 require_once INSTALLDIR.'/lib/mail.php';
 require_once INSTALLDIR.'/lib/subs.php';
-require_once INSTALLDIR.'/lib/Shorturl_api.php';
-require_once INSTALLDIR.'/lib/twitter.php';
 
 require_once INSTALLDIR.'/lib/clientexception.php';
 require_once INSTALLDIR.'/lib/serverexception.php';
 
+// Load settings from database; note we need autoload for this
+
+Config::loadSettings();
+
+// XXX: if plugins should check the schema at runtime, do that here.
+
+if ($config['db']['schemacheck'] == 'runtime') {
+    Event::handle('CheckSchema');
+}
+
 // XXX: other formats here
 
 define('NICKNAME_FMT', VALIDATE_NUM.VALIDATE_ALPHA_LOWER);
-
-function __autoload($class)
-{
-    if ($class == 'OAuthRequest') {
-        require_once('OAuth.php');
-    } else if (file_exists(INSTALLDIR.'/classes/' . $class . '.php')) {
-        require_once(INSTALLDIR.'/classes/' . $class . '.php');
-    } else if (file_exists(INSTALLDIR.'/lib/' . strtolower($class) . '.php')) {
-        require_once(INSTALLDIR.'/lib/' . strtolower($class) . '.php');
-    } else if (mb_substr($class, -6) == 'Action' &&
-               file_exists(INSTALLDIR.'/actions/' . strtolower(mb_substr($class, 0, -6)) . '.php')) {
-        require_once(INSTALLDIR.'/actions/' . strtolower(mb_substr($class, 0, -6)) . '.php');
-    }
-}
 
 // Give plugins a chance to initialize in a fully-prepared environment
 

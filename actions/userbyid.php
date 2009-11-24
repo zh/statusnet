@@ -74,8 +74,11 @@ class UserbyidAction extends Action
             $this->clientError(_('No such user.'));
         }
 
-        // support redirecting to FOAF rdf/xml if the agent prefers it
-        $page_prefs = 'application/rdf+xml,text/html,application/xhtml+xml,application/xml;q=0.3,text/xml;q=0.2';
+        // Support redirecting to FOAF rdf/xml if the agent prefers it...
+        // Internet Explorer doesn't specify "text/html" and does list "*/*"
+        // at least through version 8. We need to list text/html up front to
+        // ensure that only user-agents who specifically ask for RDF get it.
+        $page_prefs = 'text/html,application/xhtml+xml,application/rdf+xml,application/xml;q=0.3,text/xml;q=0.2';
         $httpaccept = isset($_SERVER['HTTP_ACCEPT'])
                       ? $_SERVER['HTTP_ACCEPT'] : null;
         $type       = common_negotiate_type(common_accept_to_prefs($httpaccept),

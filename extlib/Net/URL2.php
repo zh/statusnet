@@ -1,44 +1,58 @@
 <?php
-// +-----------------------------------------------------------------------+
-// | Copyright (c) 2007-2008, Christian Schmidt, Peytz & Co. A/S           |
-// | All rights reserved.                                                  |
-// |                                                                       |
-// | Redistribution and use in source and binary forms, with or without    |
-// | modification, are permitted provided that the following conditions    |
-// | are met:                                                              |
-// |                                                                       |
-// | o Redistributions of source code must retain the above copyright      |
-// |   notice, this list of conditions and the following disclaimer.       |
-// | o Redistributions in binary form must reproduce the above copyright   |
-// |   notice, this list of conditions and the following disclaimer in the |
-// |   documentation and/or other materials provided with the distribution.|
-// | o The names of the authors may not be used to endorse or promote      |
-// |   products derived from this software without specific prior written  |
-// |   permission.                                                         |
-// |                                                                       |
-// | THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS   |
-// | "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT     |
-// | LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR |
-// | A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT  |
-// | OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, |
-// | SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT      |
-// | LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, |
-// | DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY |
-// | THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT   |
-// | (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE |
-// | OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.  |
-// |                                                                       |
-// +-----------------------------------------------------------------------+
-// | Author: Christian Schmidt <schmidt at php dot net>                    |
-// +-----------------------------------------------------------------------+
-//
-// $Id: URL2.php,v 1.10 2008/04/26 21:57:08 schmidt Exp $
-//
-// Net_URL2 Class (PHP5 Only)
-
-// This code is released under the BSD License - http://www.opensource.org/licenses/bsd-license.php
 /**
- * @license BSD License
+ * Net_URL2, a class representing a URL as per RFC 3986.
+ *
+ * PHP version 5
+ *
+ * LICENSE:
+ *
+ * Copyright (c) 2007-2009, Peytz & Co. A/S
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *   * Redistributions of source code must retain the above copyright
+ *     notice, this list of conditions and the following disclaimer.
+ *   * Redistributions in binary form must reproduce the above copyright
+ *     notice, this list of conditions and the following disclaimer in
+ *     the documentation and/or other materials provided with the distribution.
+ *   * Neither the name of the PHP_LexerGenerator nor the names of its
+ *     contributors may be used to endorse or promote products derived
+ *     from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
+ * OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * @category  Networking
+ * @package   Net_URL2
+ * @author    Christian Schmidt <chsc@peytz.dk>
+ * @copyright 2007-2008 Peytz & Co. A/S
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
+ * @version   CVS: $Id: URL2.php 286661 2009-08-02 12:50:54Z schmidt $
+ * @link      http://www.rfc-editor.org/rfc/rfc3986.txt
+ */
+
+/**
+ * Represents a URL as per RFC 3986.
+ *
+ * @category  Networking
+ * @package   Net_URL2
+ * @author    Christian Schmidt <chsc@peytz.dk>
+ * @copyright 2007-2008 Peytz & Co. ApS
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
+ * @version   Release: @package_version@
+ * @link      http://pear.php.net/package/Net_URL2
  */
 class Net_URL2
 {
@@ -46,24 +60,24 @@ class Net_URL2
      * Do strict parsing in resolve() (see RFC 3986, section 5.2.2). Default
      * is true.
      */
-    const OPTION_STRICT           = 'strict';
+    const OPTION_STRICT = 'strict';
 
     /**
      * Represent arrays in query using PHP's [] notation. Default is true.
      */
-    const OPTION_USE_BRACKETS     = 'use_brackets';
+    const OPTION_USE_BRACKETS = 'use_brackets';
 
     /**
      * URL-encode query variable keys. Default is true.
      */
-    const OPTION_ENCODE_KEYS      = 'encode_keys';
+    const OPTION_ENCODE_KEYS = 'encode_keys';
 
     /**
      * Query variable separators when parsing the query string. Every character
      * is considered a separator. Default is specified by the
      * arg_separator.input php.ini setting (this defaults to "&").
      */
-    const OPTION_SEPARATOR_INPUT  = 'input_separator';
+    const OPTION_SEPARATOR_INPUT = 'input_separator';
 
     /**
      * Query variable separator used when generating the query string. Default
@@ -75,7 +89,7 @@ class Net_URL2
     /**
      * Default options corresponds to how PHP handles $_GET.
      */
-    private $options = array(
+    private $_options = array(
         self::OPTION_STRICT           => true,
         self::OPTION_USE_BRACKETS     => true,
         self::OPTION_ENCODE_KEYS      => true,
@@ -86,41 +100,43 @@ class Net_URL2
     /**
      * @var  string|bool
      */
-    private $scheme = false;
+    private $_scheme = false;
 
     /**
      * @var  string|bool
      */
-    private $userinfo = false;
+    private $_userinfo = false;
 
     /**
      * @var  string|bool
      */
-    private $host = false;
+    private $_host = false;
 
     /**
      * @var  int|bool
      */
-    private $port = false;
+    private $_port = false;
 
     /**
      * @var  string
      */
-    private $path = '';
+    private $_path = '';
 
     /**
      * @var  string|bool
      */
-    private $query = false;
+    private $_query = false;
 
     /**
      * @var  string|bool
      */
-    private $fragment = false;
+    private $_fragment = false;
 
     /**
+     * Constructor.
+     *
      * @param string $url     an absolute or relative URL
-     * @param array  $options
+     * @param array  $options an array of OPTION_xxx constants
      */
     public function __construct($url, $options = null)
     {
@@ -130,12 +146,12 @@ class Net_URL2
                          ini_get('arg_separator.output'));
         if (is_array($options)) {
             foreach ($options as $optionName => $value) {
-                $this->setOption($optionName);
+                $this->setOption($optionName, $value);
             }
         }
 
         if (preg_match('@^([a-z][a-z0-9.+-]*):@i', $url, $reg)) {
-            $this->scheme = $reg[1];
+            $this->_scheme = $reg[1];
             $url = substr($url, strlen($reg[0]));
         }
 
@@ -145,19 +161,58 @@ class Net_URL2
         }
 
         $i = strcspn($url, '?#');
-        $this->path = substr($url, 0, $i);
+        $this->_path = substr($url, 0, $i);
         $url = substr($url, $i);
 
         if (preg_match('@^\?([^#]*)@', $url, $reg)) {
-            $this->query = $reg[1];
+            $this->_query = $reg[1];
             $url = substr($url, strlen($reg[0]));
         }
 
         if ($url) {
-            $this->fragment = substr($url, 1);
+            $this->_fragment = substr($url, 1);
         }
     }
 
+    /**
+     * Magic Setter.
+     *
+     * This method will magically set the value of a private variable ($var)
+     * with the value passed as the args
+     *
+     * @param  string $var      The private variable to set.
+     * @param  mixed  $arg      An argument of any type.
+     * @return void
+     */
+    public function __set($var, $arg)
+    {
+        $method = 'set' . $var;
+        if (method_exists($this, $method)) {
+            $this->$method($arg);
+        }
+    }
+    
+    /**
+     * Magic Getter.
+     *
+     * This is the magic get method to retrieve the private variable 
+     * that was set by either __set() or it's setter...
+     * 
+     * @param  string $var         The property name to retrieve.
+     * @return mixed  $this->$var  Either a boolean false if the
+     *                             property is not set or the value
+     *                             of the private property.
+     */
+    public function __get($var)
+    {
+        $method = 'get' . $var;
+        if (method_exists($this, $method)) {
+            return $this->$method();
+        }
+        
+        return false;
+    }
+    
     /**
      * Returns the scheme, e.g. "http" or "urn", or false if there is no
      * scheme specified, i.e. if this is a relative URL.
@@ -166,18 +221,23 @@ class Net_URL2
      */
     public function getScheme()
     {
-        return $this->scheme;
+        return $this->_scheme;
     }
 
     /**
-     * @param string|bool $scheme
+     * Sets the scheme, e.g. "http" or "urn". Specify false if there is no
+     * scheme specified, i.e. if this is a relative URL.
+     *
+     * @param string|bool $scheme e.g. "http" or "urn", or false if there is no
+     *                            scheme specified, i.e. if this is a relative
+     *                            URL
      *
      * @return void
      * @see    getScheme()
      */
     public function setScheme($scheme)
     {
-        $this->scheme = $scheme;
+        $this->_scheme = $scheme;
     }
 
     /**
@@ -188,7 +248,9 @@ class Net_URL2
      */
     public function getUser()
     {
-        return $this->userinfo !== false ? preg_replace('@:.*$@', '', $this->userinfo) : false;
+        return $this->_userinfo !== false
+            ? preg_replace('@:.*$@', '', $this->_userinfo)
+            : false;
     }
 
     /**
@@ -201,7 +263,9 @@ class Net_URL2
      */
     public function getPassword()
     {
-        return $this->userinfo !== false ? substr(strstr($this->userinfo, ':'), 1) : false;
+        return $this->_userinfo !== false
+            ? substr(strstr($this->_userinfo, ':'), 1)
+            : false;
     }
 
     /**
@@ -212,7 +276,7 @@ class Net_URL2
      */
     public function getUserinfo()
     {
-        return $this->userinfo;
+        return $this->_userinfo;
     }
 
     /**
@@ -220,15 +284,15 @@ class Net_URL2
      * in the userinfo part as username ":" password.
      *
      * @param string|bool $userinfo userinfo or username
-     * @param string|bool $password
+     * @param string|bool $password optional password, or false
      *
      * @return void
      */
     public function setUserinfo($userinfo, $password = false)
     {
-        $this->userinfo = $userinfo;
+        $this->_userinfo = $userinfo;
         if ($password !== false) {
-            $this->userinfo .= ':' . $password;
+            $this->_userinfo .= ':' . $password;
         }
     }
 
@@ -236,21 +300,24 @@ class Net_URL2
      * Returns the host part, or false if there is no authority part, e.g.
      * relative URLs.
      *
-     * @return  string|bool
+     * @return  string|bool a hostname, an IP address, or false
      */
     public function getHost()
     {
-        return $this->host;
+        return $this->_host;
     }
 
     /**
-     * @param string|bool $host
+     * Sets the host part. Specify false if there is no authority part, e.g.
+     * relative URLs.
+     *
+     * @param string|bool $host a hostname, an IP address, or false
      *
      * @return void
      */
     public function setHost($host)
     {
-        $this->host = $host;
+        $this->_host = $host;
     }
 
     /**
@@ -261,65 +328,72 @@ class Net_URL2
      */
     public function getPort()
     {
-        return $this->port;
+        return $this->_port;
     }
 
     /**
-     * @param int|bool $port
+     * Sets the port number. Specify false if there is no port number specified,
+     * i.e. if the default port is to be used.
+     *
+     * @param int|bool $port a port number, or false
      *
      * @return void
      */
     public function setPort($port)
     {
-        $this->port = intval($port);
+        $this->_port = intval($port);
     }
 
     /**
      * Returns the authority part, i.e. [ userinfo "@" ] host [ ":" port ], or
-     * false if there is no authority none.
+     * false if there is no authority.
      *
      * @return string|bool
      */
     public function getAuthority()
     {
-        if (!$this->host) {
+        if (!$this->_host) {
             return false;
         }
 
         $authority = '';
 
-        if ($this->userinfo !== false) {
-            $authority .= $this->userinfo . '@';
+        if ($this->_userinfo !== false) {
+            $authority .= $this->_userinfo . '@';
         }
 
-        $authority .= $this->host;
+        $authority .= $this->_host;
 
-        if ($this->port !== false) {
-            $authority .= ':' . $this->port;
+        if ($this->_port !== false) {
+            $authority .= ':' . $this->_port;
         }
 
         return $authority;
     }
 
     /**
-     * @param string|false $authority
+     * Sets the authority part, i.e. [ userinfo "@" ] host [ ":" port ]. Specify
+     * false if there is no authority.
+     *
+     * @param string|false $authority a hostname or an IP addresse, possibly
+     *                                with userinfo prefixed and port number
+     *                                appended, e.g. "foo:bar@example.org:81".
      *
      * @return void
      */
     public function setAuthority($authority)
     {
-        $this->user = false;
-        $this->pass = false;
-        $this->host = false;
-        $this->port = false;
-        if (preg_match('@^(([^\@]+)\@)?([^:]+)(:(\d*))?$@', $authority, $reg)) {
+        $this->_userinfo = false;
+        $this->_host     = false;
+        $this->_port     = false;
+        if (preg_match('@^(([^\@]*)\@)?([^:]+)(:(\d*))?$@', $authority, $reg)) {
             if ($reg[1]) {
-                $this->userinfo = $reg[2];
+                $this->_userinfo = $reg[2];
             }
 
-            $this->host = $reg[3];
+            $this->_host = $reg[3];
             if (isset($reg[5])) {
-                $this->port = intval($reg[5]);
+                $this->_port = intval($reg[5]);
             }
         }
     }
@@ -331,65 +405,74 @@ class Net_URL2
      */
     public function getPath()
     {
-        return $this->path;
+        return $this->_path;
     }
 
     /**
-     * @param string $path
+     * Sets the path part (possibly an empty string).
+     *
+     * @param string $path a path
      *
      * @return void
      */
     public function setPath($path)
     {
-        $this->path = $path;
+        $this->_path = $path;
     }
 
     /**
      * Returns the query string (excluding the leading "?"), or false if "?"
-     * isn't present in the URL.
+     * is not present in the URL.
      *
      * @return  string|bool
      * @see     self::getQueryVariables()
      */
     public function getQuery()
     {
-        return $this->query;
+        return $this->_query;
     }
 
     /**
-     * @param string|bool $query
+     * Sets the query string (excluding the leading "?"). Specify false if "?"
+     * is not present in the URL.
+     *
+     * @param string|bool $query a query string, e.g. "foo=1&bar=2"
      *
      * @return void
      * @see   self::setQueryVariables()
      */
     public function setQuery($query)
     {
-        $this->query = $query;
+        $this->_query = $query;
     }
 
     /**
-     * Returns the fragment name, or false if "#" isn't present in the URL.
+     * Returns the fragment name, or false if "#" is not present in the URL.
      *
      * @return  string|bool
      */
     public function getFragment()
     {
-        return $this->fragment;
+        return $this->_fragment;
     }
 
     /**
-     * @param string|bool $fragment
+     * Sets the fragment name. Specify false if "#" is not present in the URL.
+     *
+     * @param string|bool $fragment a fragment excluding the leading "#", or
+     *                              false
      *
      * @return void
      */
     public function setFragment($fragment)
     {
-        $this->fragment = $fragment;
+        $this->_fragment = $fragment;
     }
 
     /**
      * Returns the query string like an array as the variables would appear in
-     * $_GET in a PHP script.
+     * $_GET in a PHP script. If the URL does not contain a "?", an empty array
+     * is returned.
      *
      * @return  array
      */
@@ -398,7 +481,7 @@ class Net_URL2
         $pattern = '/[' .
                    preg_quote($this->getOption(self::OPTION_SEPARATOR_INPUT), '/') .
                    ']/';
-        $parts   = preg_split($pattern, $this->query, -1, PREG_SPLIT_NO_EMPTY);
+        $parts   = preg_split($pattern, $this->_query, -1, PREG_SPLIT_NO_EMPTY);
         $return  = array();
 
         foreach ($parts as $part) {
@@ -445,6 +528,8 @@ class Net_URL2
     }
 
     /**
+     * Sets the query string to the specified variable in the query string.
+     *
      * @param array $array (name => value) array
      *
      * @return void
@@ -452,11 +537,11 @@ class Net_URL2
     public function setQueryVariables(array $array)
     {
         if (!$array) {
-            $this->query = false;
+            $this->_query = false;
         } else {
             foreach ($array as $name => $value) {
                 if ($this->getOption(self::OPTION_ENCODE_KEYS)) {
-                    $name = rawurlencode($name);
+                    $name = self::urlencode($name);
                 }
 
                 if (is_array($value)) {
@@ -466,19 +551,21 @@ class Net_URL2
                             : ($name . '=' . $v);
                     }
                 } elseif (!is_null($value)) {
-                    $parts[] = $name . '=' . $value;
+                    $parts[] = $name . '=' . self::urlencode($value);
                 } else {
                     $parts[] = $name;
                 }
             }
-            $this->query = implode($this->getOption(self::OPTION_SEPARATOR_OUTPUT),
-                                   $parts);
+            $this->_query = implode($this->getOption(self::OPTION_SEPARATOR_OUTPUT),
+                                    $parts);
         }
     }
 
     /**
-     * @param string $name
-     * @param mixed  $value
+     * Sets the specified variable in the query string.
+     *
+     * @param string $name  variable name
+     * @param mixed  $value variable value
      *
      * @return  array
      */
@@ -490,7 +577,9 @@ class Net_URL2
     }
 
     /**
-     * @param string $name
+     * Removes the specifed variable from the query string.
+     *
+     * @param string $name a query string variable, e.g. "foo" in "?foo=1"
      *
      * @return void
      */
@@ -511,25 +600,36 @@ class Net_URL2
         // See RFC 3986, section 5.3
         $url = "";
 
-        if ($this->scheme !== false) {
-            $url .= $this->scheme . ':';
+        if ($this->_scheme !== false) {
+            $url .= $this->_scheme . ':';
         }
 
         $authority = $this->getAuthority();
         if ($authority !== false) {
             $url .= '//' . $authority;
         }
-        $url .= $this->path;
+        $url .= $this->_path;
 
-        if ($this->query !== false) {
-            $url .= '?' . $this->query;
+        if ($this->_query !== false) {
+            $url .= '?' . $this->_query;
         }
 
-        if ($this->fragment !== false) {
-            $url .= '#' . $this->fragment;
+        if ($this->_fragment !== false) {
+            $url .= '#' . $this->_fragment;
         }
     
         return $url;
+    }
+
+    /**
+     * Returns a string representation of this URL.
+     *
+     * @return  string
+     * @see toString()
+     */
+    public function __toString()
+    {
+        return $this->getURL();
     }
 
     /** 
@@ -555,36 +655,38 @@ class Net_URL2
         // See RFC 3886, section 6
 
         // Schemes are case-insensitive
-        if ($this->scheme) {
-            $this->scheme = strtolower($this->scheme);
+        if ($this->_scheme) {
+            $this->_scheme = strtolower($this->_scheme);
         }
 
         // Hostnames are case-insensitive
-        if ($this->host) {
-            $this->host = strtolower($this->host);
+        if ($this->_host) {
+            $this->_host = strtolower($this->_host);
         }
 
         // Remove default port number for known schemes (RFC 3986, section 6.2.3)
-        if ($this->port &&
-            $this->scheme &&
-            $this->port == getservbyname($this->scheme, 'tcp')) {
+        if ($this->_port &&
+            $this->_scheme &&
+            $this->_port == getservbyname($this->_scheme, 'tcp')) {
 
-            $this->port = false;
+            $this->_port = false;
         }
 
         // Normalize case of %XX percentage-encodings (RFC 3986, section 6.2.2.1)
-        foreach (array('userinfo', 'host', 'path') as $part) {
+        foreach (array('_userinfo', '_host', '_path') as $part) {
             if ($this->$part) {
-                $this->$part  = preg_replace('/%[0-9a-f]{2}/ie', 'strtoupper("\0")', $this->$part);
+                $this->$part = preg_replace('/%[0-9a-f]{2}/ie',
+                                            'strtoupper("\0")',
+                                            $this->$part);
             }
         }
 
         // Path segment normalization (RFC 3986, section 6.2.2.3)
-        $this->path = self::removeDotSegments($this->path);
+        $this->_path = self::removeDotSegments($this->_path);
 
         // Scheme based normalization (RFC 3986, section 6.2.3)
-        if ($this->host && !$this->path) {
-            $this->path = '/';
+        if ($this->_host && !$this->_path) {
+            $this->_path = '/';
         }
     }
 
@@ -595,7 +697,7 @@ class Net_URL2
      */
     public function isAbsolute()
     {
-        return (bool) $this->scheme;
+        return (bool) $this->_scheme;
     }
 
     /**
@@ -608,7 +710,7 @@ class Net_URL2
      */
     public function resolve($reference)
     {
-        if (is_string($reference)) {
+        if (!$reference instanceof Net_URL2) {
             $reference = new self($reference);
         }
         if (!$this->isAbsolute()) {
@@ -617,54 +719,54 @@ class Net_URL2
 
         // A non-strict parser may ignore a scheme in the reference if it is
         // identical to the base URI's scheme.
-        if (!$this->getOption(self::OPTION_STRICT) && $reference->scheme == $this->scheme) {
-            $reference->scheme = false;
+        if (!$this->getOption(self::OPTION_STRICT) && $reference->_scheme == $this->_scheme) {
+            $reference->_scheme = false;
         }
 
         $target = new self('');
-        if ($reference->scheme !== false) {
-            $target->scheme = $reference->scheme;
+        if ($reference->_scheme !== false) {
+            $target->_scheme = $reference->_scheme;
             $target->setAuthority($reference->getAuthority());
-            $target->path  = self::removeDotSegments($reference->path);
-            $target->query = $reference->query;
+            $target->_path  = self::removeDotSegments($reference->_path);
+            $target->_query = $reference->_query;
         } else {
             $authority = $reference->getAuthority();
             if ($authority !== false) {
                 $target->setAuthority($authority);
-                $target->path  = self::removeDotSegments($reference->path);
-                $target->query = $reference->query;
+                $target->_path  = self::removeDotSegments($reference->_path);
+                $target->_query = $reference->_query;
             } else {
-                if ($reference->path == '') {
-                    $target->path = $this->path;
-                    if ($reference->query !== false) {
-                        $target->query = $reference->query;
+                if ($reference->_path == '') {
+                    $target->_path = $this->_path;
+                    if ($reference->_query !== false) {
+                        $target->_query = $reference->_query;
                     } else {
-                        $target->query = $this->query;
+                        $target->_query = $this->_query;
                     }
                 } else {
-                    if (substr($reference->path, 0, 1) == '/') {
-                        $target->path = self::removeDotSegments($reference->path);
+                    if (substr($reference->_path, 0, 1) == '/') {
+                        $target->_path = self::removeDotSegments($reference->_path);
                     } else {
                         // Merge paths (RFC 3986, section 5.2.3)
-                        if ($this->host !== false && $this->path == '') {
-                            $target->path = '/' . $this->path;
+                        if ($this->_host !== false && $this->_path == '') {
+                            $target->_path = '/' . $this->_path;
                         } else {
-                            $i = strrpos($this->path, '/');
+                            $i = strrpos($this->_path, '/');
                             if ($i !== false) {
-                                $target->path = substr($this->path, 0, $i + 1);
+                                $target->_path = substr($this->_path, 0, $i + 1);
                             }
-                            $target->path .= $reference->path;
+                            $target->_path .= $reference->_path;
                         }
-                        $target->path = self::removeDotSegments($target->path);
+                        $target->_path = self::removeDotSegments($target->_path);
                     }
-                    $target->query = $reference->query;
+                    $target->_query = $reference->_query;
                 }
                 $target->setAuthority($this->getAuthority());
             }
-            $target->scheme = $this->scheme;
+            $target->_scheme = $this->_scheme;
         }
 
-        $target->fragment = $reference->fragment;
+        $target->_fragment = $reference->_fragment;
 
         return $target;
     }
@@ -677,7 +779,7 @@ class Net_URL2
      *
      * @return string a path
      */
-    private static function removeDotSegments($path)
+    public static function removeDotSegments($path)
     {
         $output = '';
 
@@ -685,28 +787,25 @@ class Net_URL2
         // method
         $j = 0; 
         while ($path && $j++ < 100) {
-            // Step A
             if (substr($path, 0, 2) == './') {
+                // Step 2.A
                 $path = substr($path, 2);
             } elseif (substr($path, 0, 3) == '../') {
+                // Step 2.A
                 $path = substr($path, 3);
-
-            // Step B
             } elseif (substr($path, 0, 3) == '/./' || $path == '/.') {
+                // Step 2.B
                 $path = '/' . substr($path, 3);
-
-            // Step C
             } elseif (substr($path, 0, 4) == '/../' || $path == '/..') {
-                $path = '/' . substr($path, 4);
-                $i = strrpos($output, '/');
+                // Step 2.C
+                $path   = '/' . substr($path, 4);
+                $i      = strrpos($output, '/');
                 $output = $i === false ? '' : substr($output, 0, $i);
-
-            // Step D
             } elseif ($path == '.' || $path == '..') {
+                // Step 2.D
                 $path = '';
-
-            // Step E
             } else {
+                // Step 2.E
                 $i = strpos($path, '/');
                 if ($i === 0) {
                     $i = strpos($path, '/', 1);
@@ -720,6 +819,22 @@ class Net_URL2
         }
 
         return $output;
+    }
+
+    /**
+     * Percent-encodes all non-alphanumeric characters except these: _ . - ~
+     * Similar to PHP's rawurlencode(), except that it also encodes ~ in PHP
+     * 5.2.x and earlier.
+     *
+     * @param  $raw the string to encode
+     * @return string
+     */
+    public static function urlencode($string)
+    {
+    	$encoded = rawurlencode($string);
+	// This is only necessary in PHP < 5.3.
+	$encoded = str_replace('%7E', '~', $encoded);
+	return $encoded;
     }
 
     /**
@@ -737,13 +852,13 @@ class Net_URL2
 
         // Begin with a relative URL
         $url = new self($_SERVER['PHP_SELF']);
-        $url->scheme = isset($_SERVER['HTTPS']) ? 'https' : 'http';
-        $url->host = $_SERVER['SERVER_NAME'];
+        $url->_scheme = isset($_SERVER['HTTPS']) ? 'https' : 'http';
+        $url->_host   = $_SERVER['SERVER_NAME'];
         $port = intval($_SERVER['SERVER_PORT']);
-        if ($url->scheme == 'http' && $port != 80 ||
-            $url->scheme == 'https' && $port != 443) {
+        if ($url->_scheme == 'http' && $port != 80 ||
+            $url->_scheme == 'https' && $port != 443) {
 
-            $url->port = $port;
+            $url->_port = $port;
         }
         return $url;
     }
@@ -773,7 +888,7 @@ class Net_URL2
 
         // Begin with a relative URL
         $url = new self($_SERVER['REQUEST_URI']);
-        $url->scheme = isset($_SERVER['HTTPS']) ? 'https' : 'http';
+        $url->_scheme = isset($_SERVER['HTTPS']) ? 'https' : 'http';
         // Set host and possibly port
         $url->setAuthority($_SERVER['HTTP_HOST']);
         return $url;
@@ -792,10 +907,10 @@ class Net_URL2
      */
     function setOption($optionName, $value)
     {
-        if (!array_key_exists($optionName, $this->options)) {
+        if (!array_key_exists($optionName, $this->_options)) {
             return false;
         }
-        $this->options[$optionName] = $value;
+        $this->_options[$optionName] = $value;
     }
 
     /**
@@ -807,7 +922,7 @@ class Net_URL2
      */
     function getOption($optionName)
     {
-        return isset($this->options[$optionName])
-            ? $this->options[$optionName] : false;
+        return isset($this->_options[$optionName])
+            ? $this->_options[$optionName] : false;
     }
 }

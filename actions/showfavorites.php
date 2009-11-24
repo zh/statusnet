@@ -164,13 +164,25 @@ class ShowfavoritesAction extends OwnerDesignAction
 
     function getFeeds()
     {
-        $feedurl   = common_local_url('favoritesrss',
-                                      array('nickname' =>
-                                            $this->user->nickname));
-        $feedtitle = sprintf(_('Feed for favorites of %s'),
-                             $this->user->nickname);
-
-        return array(new Feed(Feed::RSS1, $feedurl, $feedtitle));
+        return array(new Feed(Feed::RSS1,
+                              common_local_url('favoritesrss',
+                                               array('nickname' => $this->user->nickname)),
+                              sprintf(_('Feed for favorites of %s (RSS 1.0)'),
+                                      $this->user->nickname)),
+                     new Feed(Feed::RSS2,
+                              common_local_url('ApiTimelineFavorites',
+                                               array(
+                                                    'id' => $this->user->nickname,
+                                                    'format' => 'rss')),
+                              sprintf(_('Feed for favorites of %s (RSS 2.0)'),
+                                      $this->user->nickname)),
+                     new Feed(Feed::ATOM,
+                              common_local_url('ApiTimelineFavorites',
+                                               array(
+                                                    'id' => $this->user->nickname,
+                                                    'format' => 'atom')),
+                              sprintf(_('Feed for favorites of %s (Atom)'),
+                                      $this->user->nickname)));
     }
 
     /**
@@ -196,9 +208,7 @@ class ShowfavoritesAction extends OwnerDesignAction
             }
         }
         else {
-            $message = sprintf(_('%s hasn\'t added any notices to his favorites yet. Why not [register an account](%%%%action.%s%%%%) and then post something interesting they would add to their favorites :)'),
-                               $this->user->nickname,
-                               (!common_config('site','openidonly')) ? 'register' : 'openidlogin');
+            $message = sprintf(_('%s hasn\'t added any notices to his favorites yet. Why not [register an account](%%%%action.register%%%%) and then post something interesting they would add to their favorites :)'), $this->user->nickname);
         }
 
         $this->elementStart('div', 'guide');

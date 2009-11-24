@@ -114,8 +114,6 @@ class PublicAction extends Action
     {
         parent::handle($args);
 
-        header('X-XRDS-Location: '. common_local_url('publicxrds'));
-
         $this->showPage();
     }
 
@@ -133,6 +131,13 @@ class PublicAction extends Action
             return _('Public timeline');
         }
     }
+    
+    function extraHead()
+    {
+        parent::extraHead();
+        $this->element('meta', array('http-equiv' => 'X-XRDS-Location',
+                                           'content' => common_local_url('publicxrds')));
+    }
 
     /**
      * Output <head> elements for RSS and Atom feeds
@@ -145,31 +150,13 @@ class PublicAction extends Action
         return array(new Feed(Feed::RSS1, common_local_url('publicrss'),
                               _('Public Stream Feed (RSS 1.0)')),
                      new Feed(Feed::RSS2,
-                              common_local_url('api',
-                                               array('apiaction' => 'statuses',
-                                                     'method' => 'public_timeline.rss')),
+                              common_local_url('ApiTimelinePublic',
+                                               array('format' => 'rss')),
                               _('Public Stream Feed (RSS 2.0)')),
                      new Feed(Feed::ATOM,
-                              common_local_url('api',
-                                               array('apiaction' => 'statuses',
-                                                     'method' => 'public_timeline.atom')),
+                              common_local_url('ApiTimelinePublic',
+                                               array('format' => 'atom')),
                               _('Public Stream Feed (Atom)')));
-    }
-
-    /**
-     * Extra head elements
-     *
-     * We include a <meta> element linking to the publicxrds page, for OpenID
-     * client-side authentication.
-     *
-     * @return void
-     */
-
-    function extraHead()
-    {
-        // for client side of OpenID authentication
-        $this->element('meta', array('http-equiv' => 'X-XRDS-Location',
-                                     'content' => common_local_url('publicxrds')));
     }
 
     /**
@@ -196,8 +183,7 @@ class PublicAction extends Action
         }
         else {
             if (! (common_config('site','closed') || common_config('site','inviteonly'))) {
-                $message .= sprintf(_('Why not [register an account](%%%%action.%s%%%%) and be the first to post!'),
-                                    (!common_config('site','openidonly')) ? 'register' : 'openidlogin');
+                $message .= _('Why not [register an account](%%action.register%%) and be the first to post!');
             }
 	}
 
@@ -244,11 +230,10 @@ class PublicAction extends Action
     function showAnonymousMessage()
     {
         if (! (common_config('site','closed') || common_config('site','inviteonly'))) {
-            $m = sprintf(_('This is %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
-                           'based on the Free Software [StatusNet](http://status.net/) tool. ' .
-                           '[Join now](%%%%action.%s%%%%) to share notices about yourself with friends, family, and colleagues! ' .
-                           '([Read more](%%%%doc.help%%%%))'),
-                         (!common_config('site','openidonly')) ? 'register' : 'openidlogin');
+            $m = _('This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
+                   'based on the Free Software [StatusNet](http://status.net/) tool. ' .
+                   '[Join now](%%action.register%%) to share notices about yourself with friends, family, and colleagues! ' .
+                   '([Read more](%%doc.help%%))');
         } else {
             $m = _('This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
                    'based on the Free Software [StatusNet](http://status.net/) tool.');
