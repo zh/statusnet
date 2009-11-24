@@ -102,7 +102,7 @@ function omb_broadcast_notice($notice)
         common_debug('Finished to ' . $rp->postnoticeurl, __FILE__);
     }
 
-    return;
+    return true;
 }
 
 function omb_broadcast_profile($profile)
