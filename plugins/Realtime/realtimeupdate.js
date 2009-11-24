@@ -276,24 +276,6 @@ RealtimeUpdate = {
 
      initPopupWindow: function()
      {
-         $('address').hide();
-         $('#content').css({'width':'93.5%'});
-
-         $('#form_notice').css({
-            'margin':'18px 0 18px 1.795%',
-            'width':'93%',
-            'max-width':'451px'
-         });
-
-         $('#form_notice label[for=notice_data-text], h1').css({'display': 'none'});
-
-         $('#form_notice label[for="notice_data-attach"], #form_notice #notice_data-attach').css({'top':'0'});
-
-         $('#form_notice #notice_data-attach').css({
-            'left':'auto',
-            'right':'0'
-         });
-
          $('.notices .entry-title a, .notices .entry-content a').bind('click', function() {
             window.open(this.href, '');
             
