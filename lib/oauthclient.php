@@ -197,6 +197,7 @@ class OAuthClient
             'timeout' => 120,
             'follow_redirects' => true,
             'ssl_verify_peer' => false,
+            'ssl_verify_host' => false
         ));
 
         // Twitter is strict about accepting invalid "Expect" headers
