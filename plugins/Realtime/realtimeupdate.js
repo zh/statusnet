@@ -287,8 +287,6 @@ RealtimeUpdate = {
 
          $('#form_notice label[for=notice_data-text], h1').css({'display': 'none'});
 
-         $('.notices li:first-child').css({'border-top-color':'transparent'});
-
          $('#form_notice label[for="notice_data-attach"], #form_notice #notice_data-attach').css({'top':'0'});
 
          $('#form_notice #notice_data-attach').css({
