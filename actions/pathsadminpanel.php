@@ -293,7 +293,7 @@ class PathsAdminPanelForm extends AdminForm
 
     function formActions()
     {
-        $this->out->submit('save', _('Save'), 'submit form_action-secondary',
+        $this->out->submit('save', _('Save'), 'submit',
                 'save', _('Save paths'));
     }
 
