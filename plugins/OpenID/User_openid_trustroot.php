@@ -21,9 +21,28 @@ class User_openid_trustroot extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
-    
+
     function &pkeyGet($kv)
     {
         return Memcached_DataObject::pkeyGet('User_openid_trustroot', $kv);
     }
+
+    function table() {
+
+        global $_DB_DATAOBJECT;
+        $dbtype = $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5]->dsn['phptype'];
+
+        return array('trustroot' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+                     'user_id'   => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+                     'created'   => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
+                     'modified'  => ($dbtype == 'mysql') ?
+                     DB_DATAOBJECT_MYSQLTIMESTAMP :
+                     DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME
+                     );
+    }
+
+    function keys() {
+        return array('trustroot' => 'K', 'user_id' => 'K');
+    }
+
 }
