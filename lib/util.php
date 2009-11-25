@@ -58,18 +58,17 @@ function common_init_language()
     // (say, ga_ES for Galego/Galician) it seems to take it.
     common_init_locale("en_US");
 
+    // Note that this setlocale() call may "fail" but this is harmless;
+    // gettext will still select the right language.
     $language = common_language();
     $locale_set = common_init_locale($language);
+    
     setlocale(LC_CTYPE, 'C');
     // So we do not have to make people install the gettext locales
     $path = common_config('site','locale_path');
     bindtextdomain("statusnet", $path);
     bind_textdomain_codeset("statusnet", "UTF-8");
     textdomain("statusnet");
-
-    if(!$locale_set) {
-        common_log(LOG_INFO, 'Language requested:' . $language . ' - locale could not be set. Perhaps that system locale is not installed.', __FILE__);
-    }
 }
 
 function common_timezone()
