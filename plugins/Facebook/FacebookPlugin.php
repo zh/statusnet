@@ -394,37 +394,43 @@ class FacebookPlugin extends Plugin
         return true;
     }
 
-    /**
-     * Alter the local nav menu to have a Facebook Connect login and
-     * settings pages
+    /*
+     * Add a login tab for Facebook Connect
      *
-     * @param Action $action the current action
+     * @param Action &action the current action
      *
      * @return void
-     *
      */
 
-    function onStartShowLocalNavBlock($action)
+    function onEndLoginGroupNav(&$action)
     {
-        $action_name = get_class($action);
 
-        $login_actions = array('LoginAction', 'RegisterAction',
-            'OpenidloginAction', 'FBConnectLoginAction');
+        $action_name = $action->trimmed('action');
 
-        if (in_array($action_name, $login_actions)) {
-            $nav = new FBCLoginGroupNav($action);
-            $nav->show();
-            return false;
-        }
+        $action->menuItem(common_local_url('FBConnectLogin'),
+                                           _('Facebook'),
+                                           _('Login or register using Facebook'),
+                                             'FBConnectLogin' === $action_name);
 
-        $connect_actions = array('SmssettingsAction', 'ImsettingsAction',
-            'TwittersettingsAction', 'FBConnectSettingsAction');
+        return true;
+    }
 
-        if (in_array($action_name, $connect_actions)) {
-            $nav = new FBCSettingsNav($action);
-            $nav->show();
-            return false;
-        }
+    /*
+     * Add a tab for managing Facebook Connect settings
+     *
+     * @param Action &action the current action
+     *
+     * @return void
+     */
+
+    function onEndConnectSettingsNav(&$action)
+    {
+        $action_name = $action->trimmed('action');
+
+        $action->menuItem(common_local_url('FBConnectSettings'),
+                          _('Facebook'),
+                          _('Facebook Connect Settings'),
+                          $action_name === 'FBConnectSettings');
 
         return true;
     }
