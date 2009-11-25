@@ -463,6 +463,7 @@ class StatusNetOAuthDataStore extends OAuthDataStore
         $subscriber = $this->_getAnyProfile($subscriber_uri);
 
         if (!$subscriber->hasRight(Right::SUBSCRIBE)) {
+            common_log(LOG_INFO, __METHOD__ . ": remote subscriber banned ($subscriber_uri subbing to $subscribed_user_uri)");
             return _('You have been banned from subscribing.');
         }
 
