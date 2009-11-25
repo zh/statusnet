@@ -81,7 +81,7 @@ class Avatar extends Memcached_DataObject
         if (empty($server)) {
             $server = common_config('site', 'server');
         }
-        common_debug('path = ' . $path);
+
         // XXX: protocol
 
         return 'http://'.$server.$path.$filename;
