@@ -268,7 +268,7 @@ RealtimeUpdate = {
          PP.bind('click', function() {
              window.open(url,
                          '',
-                         'toolbar=no,resizable=yes,scrollbars=yes,status=yes,width=500,height=550');
+                         'toolbar=no,resizable=yes,scrollbars=yes,status=no,menubar=no,personalbar=no,location=no,width=500,height=550');
 
              return false;
          });
