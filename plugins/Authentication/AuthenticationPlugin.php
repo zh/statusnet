@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Superclass for plugins that do authentication
+ * Superclass for plugins that do authentication and/or authorization
  *
  * PHP version 5
  *
@@ -204,7 +204,16 @@ abstract class AuthenticationPlugin extends Plugin
 
     function onCheckSchema() {
         $schema = Schema::get();
-        $schema->ensureDataObject('User_username');
+        $schema->ensureTable('user_username',
+                             array(new ColumnDef('provider_name', 'varchar',
+                                                 '255', false, 'PRI'),
+                                   new ColumnDef('username', 'varchar',
+                                                 '255', false, 'PRI'),
+                                   new ColumnDef('user_id', 'integer',
+                                                 null, false),
+                                   new ColumnDef('created', 'datetime',
+                                                 null, false),
+                                   new ColumnDef('modified', 'timestamp')));
         return true;
     }
 

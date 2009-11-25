@@ -373,26 +373,6 @@ class Schema
     }
 
     /**
-     * Ensures that the table that backs a given
-     * Plugin_DataObject class exists.
-     *
-     * If the table does not yet exist, it will
-     * create the table. If it does exist, it will
-     * alter the table to match the column definitions.
-     *
-     * @param Plugin_DataObject $dataObjectClass
-     *
-     * @return boolean success flag
-     */
-
-    public function ensureDataObject($dataObjectClass)
-    {
-        $obj = new $dataObjectClass();
-        $tableDef = $obj->tableDef();
-        return $this->ensureTable($tableDef->name,$tableDef->columns);
-    }
-
-    /**
      * Ensures that a table exists with the given
      * name and the given column definitions.
      *
