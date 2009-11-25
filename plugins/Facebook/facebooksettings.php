@@ -52,21 +52,21 @@ class FacebooksettingsAction extends FacebookAction
 
     function saveSettings() {
 
-        $noticesync = $this->arg('noticesync');
-        $replysync = $this->arg('replysync');
-        $prefix = $this->trimmed('prefix');
+        $noticesync = $this->boolean('noticesync');
+        $replysync  = $this->boolean('replysync');
+        $prefix     = $this->trimmed('prefix');
 
         $original = clone($this->flink);
-        $this->flink->set_flags($noticesync, $replysync, false, false);
+        $this->flink->set_flags($noticesync, false, $replysync, false);
         $result = $this->flink->update($original);
 
         if ($prefix == '' || $prefix == '0') {
-        	// Facebook bug: saving empty strings to prefs now fails
-        	// http://bugs.developers.facebook.com/show_bug.cgi?id=7110
-        	$trimmed = $prefix . ' ';
+            // Facebook bug: saving empty strings to prefs now fails
+            // http://bugs.developers.facebook.com/show_bug.cgi?id=7110
+            $trimmed = $prefix . ' ';
         } else {
-	        $trimmed = substr($prefix, 0, 128);
-	    }
+            $trimmed = substr($prefix, 0, 128);
+        }
         $this->facebook->api_client->data_setUserPreference(FACEBOOK_NOTICE_PREFIX,
             $trimmed);
 
