@@ -70,7 +70,7 @@ class PopularNoticeSection extends NoticeSection
                 'notice.rendered,notice.url,notice.created,notice.modified,' .
                 'notice.reply_to,notice.is_local,notice.source,notice.conversation, ' .
                 'notice.lat,notice.long,location_id,location_ns' .
-                'ORDER BY weight DESC';
+                ' ORDER BY weight DESC';
 
         $offset = 0;
         $limit  = NOTICES_PER_SECTION + 1;
