@@ -23,26 +23,28 @@ class User_openid extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    function table() {
+    function table()
+    {
 
-        global $_DB_DATAOBJECT;
-        $dbtype = $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5]->dsn['phptype'];
+        $db = $this->getDatabaseConnection();
+        $dbtype = $db->phptype; // Database type is stored here. Crazy but true.
 
         return array('canonical' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
                      'display'   => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
                      'user_id'   => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
                      'created'   => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
-                     'modified'  => ($dbtype == 'mysql') ?
-                     DB_DATAOBJECT_MYSQLTIMESTAMP :
+                     'modified'  => ($dbtype == 'mysql' || $dbtype == 'mysqli') ?
+                     DB_DATAOBJECT_MYSQLTIMESTAMP + DB_DATAOBJECT_NOTNULL :
                      DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME
                      );
     }
 
-    function keys() {
+    function keys()
+    {
         return array('canonical' => 'K', 'display' => 'U');
     }
 
-    static function hasOpenID($user_id)
+    Static function hasOpenID($user_id)
     {
         $oid = new User_openid();
 
