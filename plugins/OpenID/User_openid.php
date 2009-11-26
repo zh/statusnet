@@ -2,9 +2,9 @@
 /**
  * Table Definition for user_openid
  */
-require_once INSTALLDIR.'/classes/Plugin_DataObject.php';
+require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
-class User_openid extends Plugin_DataObject
+class User_openid extends Memcached_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -23,7 +23,28 @@ class User_openid extends Plugin_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    static function hasOpenID($user_id)
+    function table()
+    {
+
+        $db = $this->getDatabaseConnection();
+        $dbtype = $db->phptype; // Database type is stored here. Crazy but true.
+
+        return array('canonical' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+                     'display'   => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+                     'user_id'   => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+                     'created'   => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
+                     'modified'  => ($dbtype == 'mysql' || $dbtype == 'mysqli') ?
+                     DB_DATAOBJECT_MYSQLTIMESTAMP + DB_DATAOBJECT_NOTNULL :
+                     DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME
+                     );
+    }
+
+    function keys()
+    {
+        return array('canonical' => 'K', 'display' => 'U');
+    }
+
+    Static function hasOpenID($user_id)
     {
         $oid = new User_openid();
 
@@ -32,23 +53,5 @@ class User_openid extends Plugin_DataObject
         $cnt = $oid->find();
 
         return ($cnt > 0);
-    }
-
-    /**
-    * Get the TableDef object that represents the table backing this class
-    * @return TableDef TableDef instance
-    */
-    function tableDef()
-    {
-        return new TableDef($this->__table,
-                             array(new ColumnDef('canonical', 'varchar',
-                                                 '255', false, 'PRI'),
-                                   new ColumnDef('display', 'varchar',
-                                                 '255', false),
-                                   new ColumnDef('user_id', 'integer',
-                                                 null, false, 'MUL'),
-                                   new ColumnDef('created', 'datetime',
-                                                 null, false),
-                                   new ColumnDef('modified', 'timestamp')));
     }
 }

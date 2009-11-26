@@ -43,4 +43,14 @@ class Remote_profile extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+    
+    function hasRight($right)
+    {
+        $profile = Profile::staticGet($this->id);
+        if ($profile) {
+            return $profile->hasright($right);
+        } else {
+            throw new Exception("Missing profile");
+        }
+    }
 }

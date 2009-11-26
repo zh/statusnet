@@ -178,7 +178,7 @@ function broadcast_oauth($notice, $flink) {
 
     try {
         $status = $client->statusesUpdate($statustxt);
-    } catch (OAuthClientCurlException $e) {
+    } catch (OAuthClientException $e) {
         return process_error($e, $flink);
     }
 

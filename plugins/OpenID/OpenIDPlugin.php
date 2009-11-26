@@ -281,8 +281,24 @@ class OpenIDPlugin extends Plugin
 
     function onCheckSchema() {
         $schema = Schema::get();
-        $schema->ensureDataObject('User_openid');
-        $schema->ensureDataObject('User_openid_trustroot');
+        $schema->ensureTable('user_openid',
+                             array(new ColumnDef('canonical', 'varchar',
+                                                 '255', false, 'PRI'),
+                                   new ColumnDef('display', 'varchar',
+                                                 '255', false, 'UNI'),
+                                   new ColumnDef('user_id', 'integer',
+                                                 null, false, 'MUL'),
+                                   new ColumnDef('created', 'datetime',
+                                                 null, false),
+                                   new ColumnDef('modified', 'timestamp')));
+        $schema->ensureTable('user_openid_trustroot',
+                             array(new ColumnDef('trustroot', 'varchar',
+                                                 '255', false, 'PRI'),
+                                   new ColumnDef('user_id', 'integer',
+                                                 null, false, 'PRI'),
+                                   new ColumnDef('created', 'datetime',
+                                                 null, false),
+                                   new ColumnDef('modified', 'timestamp')));
         return true;
     }
 
