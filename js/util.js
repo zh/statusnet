@@ -293,7 +293,7 @@ var SN = { // StatusNet
                 url : '',
                 color : '#000',
                 opacity : '0.6',
-                zIndex : 99,
+                zIndex : 9999,
                 center : false,
                 imgLoading : $('address .url')[0].href+'theme/base/images/illustrations/illu_progress_loading-01.gif',
                 bgClickToClose : true,
