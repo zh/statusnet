@@ -138,12 +138,8 @@ class UserFlagPlugin extends Plugin
 
     function onEndShowStatusNetStyles($action)
     {
-        $action->elementStart('style', array('type' => 'text/css'));
-        $action->raw('.entity_flag input, .entity_flag p {'.
-            ' background:url('.common_path('plugins/UserFlag/icon_flag.gif').') 5px 5px no-repeat;'.
-            ' }');
-        $action->elementEnd('style');
-
+        $action->cssLink(common_path('plugins/UserFlag/userflag.css'), 
+                         null, 'screen, projection, tv');
         return true;
     }
 
