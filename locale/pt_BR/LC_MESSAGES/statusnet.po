@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-23 21:46+0000\n"
-"PO-Revision-Date: 2009-11-23 21:48:02+0000\n"
+"POT-Creation-Date: 2009-11-26 21:33+0000\n"
+"PO-Revision-Date: 2009-11-26 21:34:34+0000\n"
 "Language-Team: Brazilian Portuguese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59365); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59473); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pt-br\n"
 "X-Message-Group: out-statusnet\n"
@@ -104,9 +104,8 @@ msgid ""
 msgstr ""
 
 #: actions/all.php:165
-#, fuzzy
 msgid "You and friends"
-msgstr "%s e amigos"
+msgstr "Você e amigos"
 
 #: actions/allrss.php:119 actions/apitimelinefriends.php:121
 #, php-format
@@ -1182,7 +1181,7 @@ msgid "New incoming email address added."
 msgstr ""
 "Foi adicionado um novo endereço de e-mail para recebimento de mensagens."
 
-#: actions/favorited.php:65 lib/popularnoticesection.php:87
+#: actions/favorited.php:65 lib/popularnoticesection.php:88
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
 msgstr "Mensagens populares"
@@ -2855,7 +2854,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "URL do seu perfil em outro serviço de microblogagem compatível"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:356
+#: lib/userprofile.php:365
 msgid "Subscribe"
 msgstr "Assinar"
 
@@ -5173,12 +5172,12 @@ msgstr "Erro na inserção do perfil remoto"
 msgid "Duplicate notice"
 msgstr "Excluir a mensagem"
 
-#: lib/oauthstore.php:466 lib/subs.php:48
+#: lib/oauthstore.php:467 lib/subs.php:48
 #, fuzzy
 msgid "You have been banned from subscribing."
 msgstr "Esse usuário bloqueou o seu pedido de assinatura."
 
-#: lib/oauthstore.php:491
+#: lib/oauthstore.php:492
 msgid "Couldn't insert new subscription."
 msgstr "Não foi possível inserir a nova assinatura."
 
@@ -5449,47 +5448,51 @@ msgstr "Você não pode enviar uma mensagem para esse usuário."
 msgid "Message"
 msgstr "Nova mensagem"
 
-#: lib/util.php:826
+#: lib/userprofile.php:311
+msgid "Moderate"
+msgstr ""
+
+#: lib/util.php:825
 msgid "a few seconds ago"
 msgstr "segundos atrás"
 
-#: lib/util.php:828
+#: lib/util.php:827
 msgid "about a minute ago"
 msgstr "1 min atrás"
 
-#: lib/util.php:830
+#: lib/util.php:829
 #, php-format
 msgid "about %d minutes ago"
 msgstr "%d mins atrás"
 
-#: lib/util.php:832
+#: lib/util.php:831
 msgid "about an hour ago"
 msgstr "1 hora atrás"
 
-#: lib/util.php:834
+#: lib/util.php:833
 #, php-format
 msgid "about %d hours ago"
 msgstr "%d horas atrás"
 
-#: lib/util.php:836
+#: lib/util.php:835
 msgid "about a day ago"
 msgstr "1 dia atrás"
 
-#: lib/util.php:838
+#: lib/util.php:837
 #, php-format
 msgid "about %d days ago"
 msgstr "%d dias atrás"
 
-#: lib/util.php:840
+#: lib/util.php:839
 msgid "about a month ago"
 msgstr "1 mês atrás"
 
-#: lib/util.php:842
+#: lib/util.php:841
 #, php-format
 msgid "about %d months ago"
 msgstr "%d meses atrás"
 
-#: lib/util.php:844
+#: lib/util.php:843
 msgid "about a year ago"
 msgstr "1 ano atrás"
 
@@ -5518,6 +5521,3 @@ msgstr "Desculpe-me, mas este não é seu endereço de e-mail para recebimento."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Desculpe-me, mas não é permitido o recebimento de emails."
-
-#~ msgid "Notice"
-#~ msgstr "Mensagem"

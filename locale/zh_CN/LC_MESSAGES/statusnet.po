@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-23 21:46+0000\n"
-"PO-Revision-Date: 2009-11-23 21:48:25+0000\n"
+"POT-Creation-Date: 2009-11-26 21:33+0000\n"
+"PO-Revision-Date: 2009-11-26 21:34:54+0000\n"
 "Language-Team: Simplified Chinese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59365); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59475); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: out-statusnet\n"
@@ -1185,7 +1185,7 @@ msgstr "发布用的电子邮件被移除。"
 msgid "New incoming email address added."
 msgstr "已添加新的发布用的电子邮件地址。"
 
-#: actions/favorited.php:65 lib/popularnoticesection.php:87
+#: actions/favorited.php:65 lib/popularnoticesection.php:88
 #: lib/publicgroupnav.php:93
 #, fuzzy
 msgid "Popular notices"
@@ -2816,7 +2816,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "您在其他兼容的微博客服务的个人信息URL"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:356
+#: lib/userprofile.php:365
 msgid "Subscribe"
 msgstr "订阅"
 
@@ -5145,12 +5145,12 @@ msgstr "添加远程的个人信息出错"
 msgid "Duplicate notice"
 msgstr "删除通告"
 
-#: lib/oauthstore.php:466 lib/subs.php:48
+#: lib/oauthstore.php:467 lib/subs.php:48
 #, fuzzy
 msgid "You have been banned from subscribing."
 msgstr "那个用户阻止了你的订阅。"
 
-#: lib/oauthstore.php:491
+#: lib/oauthstore.php:492
 msgid "Couldn't insert new subscription."
 msgstr "无法添加新的订阅。"
 
@@ -5428,47 +5428,51 @@ msgstr "无法向此用户发送消息。"
 msgid "Message"
 msgstr "新消息"
 
-#: lib/util.php:826
+#: lib/userprofile.php:311
+msgid "Moderate"
+msgstr ""
+
+#: lib/util.php:825
 msgid "a few seconds ago"
 msgstr "几秒前"
 
-#: lib/util.php:828
+#: lib/util.php:827
 msgid "about a minute ago"
 msgstr "一分钟前"
 
-#: lib/util.php:830
+#: lib/util.php:829
 #, php-format
 msgid "about %d minutes ago"
 msgstr "%d 分钟前"
 
-#: lib/util.php:832
+#: lib/util.php:831
 msgid "about an hour ago"
 msgstr "一小时前"
 
-#: lib/util.php:834
+#: lib/util.php:833
 #, php-format
 msgid "about %d hours ago"
 msgstr "%d 小时前"
 
-#: lib/util.php:836
+#: lib/util.php:835
 msgid "about a day ago"
 msgstr "一天前"
 
-#: lib/util.php:838
+#: lib/util.php:837
 #, php-format
 msgid "about %d days ago"
 msgstr "%d 天前"
 
-#: lib/util.php:840
+#: lib/util.php:839
 msgid "about a month ago"
 msgstr "一个月前"
 
-#: lib/util.php:842
+#: lib/util.php:841
 #, php-format
 msgid "about %d months ago"
 msgstr "%d 个月前"
 
-#: lib/util.php:844
+#: lib/util.php:843
 msgid "about a year ago"
 msgstr "一年前"
 
@@ -5497,7 +5501,3 @@ msgstr "对不起，这个发布用的电子邮件属于其他用户。"
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "对不起，发布用的电子邮件无法使用。"
-
-#, fuzzy
-#~ msgid "Notice"
-#~ msgstr "通告"

@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-23 21:46+0000\n"
-"PO-Revision-Date: 2009-11-23 21:47:52+0000\n"
+"POT-Creation-Date: 2009-11-26 21:33+0000\n"
+"PO-Revision-Date: 2009-11-26 21:34:25+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59365); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59473); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: out-statusnet\n"
@@ -290,7 +290,7 @@ msgstr "U kunt de gebruiker %s niet volgen, omdat deze al op uw lijst staat."
 #: actions/apifriendshipsdestroy.php:109
 msgid "Could not unfollow user: User not found."
 msgstr ""
-"Het is niet mogelijk deze gebruiker niet langer te volgende: de gebruiker is "
+"Het is niet mogelijk deze gebruiker niet langer te volgen: de gebruiker is "
 "niet aangetroffen."
 
 #: actions/apifriendshipsdestroy.php:120
@@ -369,7 +369,7 @@ msgstr "Ongeldig alias: \"%s\""
 #: actions/newgroup.php:172
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
-msgstr "De alias \"%s\" wordt al gebruikt. Geef een ander alias op."
+msgstr "De alias \"%s\" wordt al gebruikt. Geef een andere alias op."
 
 #: actions/apigroupcreate.php:286 actions/editgroup.php:234
 #: actions/newgroup.php:178
@@ -388,7 +388,7 @@ msgstr "U bent al lid van die groep."
 
 #: actions/apigroupjoin.php:119 actions/joingroup.php:95 lib/command.php:221
 msgid "You have been blocked from that group by the admin."
-msgstr "Een beheerder heeft ingesteld dat u geen lid mag worden can die groep."
+msgstr "Een beheerder heeft ingesteld dat u geen lid mag worden van die groep."
 
 #: actions/apigroupjoin.php:138
 #, php-format
@@ -1175,7 +1175,7 @@ msgstr "Het e-mailadres voor inkomende mail is verwijderd."
 msgid "New incoming email address added."
 msgstr "Het nieuwe binnenkomende e-mailadres is toegevoegd."
 
-#: actions/favorited.php:65 lib/popularnoticesection.php:87
+#: actions/favorited.php:65 lib/popularnoticesection.php:88
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
 msgstr "Populaire mededelingen"
@@ -2845,7 +2845,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "De URL van uw profiel bij een andere, compatibele microblogdienst"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:356
+#: lib/userprofile.php:365
 msgid "Subscribe"
 msgstr "Abonneren"
 
@@ -5278,11 +5278,11 @@ msgstr ""
 msgid "Duplicate notice"
 msgstr "Duplicaatmelding"
 
-#: lib/oauthstore.php:466 lib/subs.php:48
+#: lib/oauthstore.php:467 lib/subs.php:48
 msgid "You have been banned from subscribing."
 msgstr "U mag zich niet abonneren."
 
-#: lib/oauthstore.php:491
+#: lib/oauthstore.php:492
 msgid "Couldn't insert new subscription."
 msgstr "Kon nieuw abonnement niet toevoegen."
 
@@ -5536,47 +5536,51 @@ msgstr "Deze gebruiker een direct bericht zenden"
 msgid "Message"
 msgstr "Bericht"
 
-#: lib/util.php:826
+#: lib/userprofile.php:311
+msgid "Moderate"
+msgstr ""
+
+#: lib/util.php:825
 msgid "a few seconds ago"
 msgstr "een paar seconden geleden"
 
-#: lib/util.php:828
+#: lib/util.php:827
 msgid "about a minute ago"
 msgstr "ongeveer een minuut geleden"
 
-#: lib/util.php:830
+#: lib/util.php:829
 #, php-format
 msgid "about %d minutes ago"
 msgstr "ongeveer %d minuten geleden"
 
-#: lib/util.php:832
+#: lib/util.php:831
 msgid "about an hour ago"
 msgstr "ongeveer een uur geleden"
 
-#: lib/util.php:834
+#: lib/util.php:833
 #, php-format
 msgid "about %d hours ago"
 msgstr "ongeveer %d uur geleden"
 
-#: lib/util.php:836
+#: lib/util.php:835
 msgid "about a day ago"
 msgstr "ongeveer een dag geleden"
 
-#: lib/util.php:838
+#: lib/util.php:837
 #, php-format
 msgid "about %d days ago"
 msgstr "ongeveer %d dagen geleden"
 
-#: lib/util.php:840
+#: lib/util.php:839
 msgid "about a month ago"
 msgstr "ongeveer een maand geleden"
 
-#: lib/util.php:842
+#: lib/util.php:841
 #, php-format
 msgid "about %d months ago"
 msgstr "ongeveer %d maanden geleden"
 
-#: lib/util.php:844
+#: lib/util.php:843
 msgid "about a year ago"
 msgstr "ongeveer een jaar geleden"
 
@@ -5605,6 +5609,3 @@ msgstr "Dit is niet uw inkomende e-mailadres."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Inkomende e-mail is niet toegestaan."
-
-#~ msgid "Notice"
-#~ msgstr "Mededeling"

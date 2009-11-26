@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-23 21:46+0000\n"
-"PO-Revision-Date: 2009-11-23 21:47:12+0000\n"
+"POT-Creation-Date: 2009-11-26 21:33+0000\n"
+"PO-Revision-Date: 2009-11-26 21:33:50+0000\n"
 "Language-Team: British English\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59365); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59473); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: en-gb\n"
 "X-Message-Group: out-statusnet\n"
@@ -1155,7 +1155,7 @@ msgstr "Incoming e-mail address removed."
 msgid "New incoming email address added."
 msgstr "New incoming e-mail address added."
 
-#: actions/favorited.php:65 lib/popularnoticesection.php:87
+#: actions/favorited.php:65 lib/popularnoticesection.php:88
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
 msgstr "Popular notices"
@@ -2785,7 +2785,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "URL of your profile on another compatible microblogging service"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:356
+#: lib/userprofile.php:365
 msgid "Subscribe"
 msgstr "Subscribe"
 
@@ -5061,11 +5061,11 @@ msgstr "Error inserting remote profile."
 msgid "Duplicate notice"
 msgstr "Duplicate notice"
 
-#: lib/oauthstore.php:466 lib/subs.php:48
+#: lib/oauthstore.php:467 lib/subs.php:48
 msgid "You have been banned from subscribing."
 msgstr "You have been banned from subscribing."
 
-#: lib/oauthstore.php:491
+#: lib/oauthstore.php:492
 msgid "Couldn't insert new subscription."
 msgstr "Couldn't insert new subscription."
 
@@ -5322,47 +5322,51 @@ msgstr "Send a direct message to this user"
 msgid "Message"
 msgstr "Message"
 
-#: lib/util.php:826
+#: lib/userprofile.php:311
+msgid "Moderate"
+msgstr ""
+
+#: lib/util.php:825
 msgid "a few seconds ago"
 msgstr "a few seconds ago"
 
-#: lib/util.php:828
+#: lib/util.php:827
 msgid "about a minute ago"
 msgstr "about a minute ago"
 
-#: lib/util.php:830
+#: lib/util.php:829
 #, php-format
 msgid "about %d minutes ago"
 msgstr "about %d minutes ago"
 
-#: lib/util.php:832
+#: lib/util.php:831
 msgid "about an hour ago"
 msgstr "about an hour ago"
 
-#: lib/util.php:834
+#: lib/util.php:833
 #, php-format
 msgid "about %d hours ago"
 msgstr "about %d hours ago"
 
-#: lib/util.php:836
+#: lib/util.php:835
 msgid "about a day ago"
 msgstr "about a day ago"
 
-#: lib/util.php:838
+#: lib/util.php:837
 #, php-format
 msgid "about %d days ago"
 msgstr "about %d days ago"
 
-#: lib/util.php:840
+#: lib/util.php:839
 msgid "about a month ago"
 msgstr "about a month ago"
 
-#: lib/util.php:842
+#: lib/util.php:841
 #, php-format
 msgid "about %d months ago"
 msgstr "about %d months ago"
 
-#: lib/util.php:844
+#: lib/util.php:843
 msgid "about a year ago"
 msgstr "about a year ago"
 
@@ -5391,6 +5395,3 @@ msgstr "Sorry, that is not your incoming e-mail address."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Sorry, no incoming e-mail allowed."
-
-#~ msgid "Notice"
-#~ msgstr "Notice"

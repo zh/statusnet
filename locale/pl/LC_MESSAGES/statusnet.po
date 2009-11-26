@@ -1,4 +1,6 @@
 # Translation of StatusNet to Polish
+#
+# --
 # Paweł Wilk <siefca@gnu.org>, 2008.
 # Piotr Drąg <piotrdrag@gmail.com>, 2009.
 #
@@ -6,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-23 21:46+0000\n"
-"PO-Revision-Date: 2009-11-24 20:09+0100\n"
+"POT-Creation-Date: 2009-11-26 21:33+0000\n"
+"PO-Revision-Date: 2009-11-26 21:34:28+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -15,6 +17,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: MediaWiki 1.16alpha(r59473); Translate extension (2009-11-16)\n"
+"X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
+"X-Language-Code: pl\n"
+"X-Message-Group: out-statusnet\n"
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
 #: actions/showfavorites.php:137 actions/tag.php:51
@@ -146,6 +152,7 @@ msgstr ""
 "Należy podać parametr o nazwie \"device\" z jedną z wartości: sms, im, none"
 
 #: actions/apiaccountupdatedeliverydevice.php:132
+#, fuzzy
 msgid "Could not update user."
 msgstr "Nie można zaktualizować użytkownika."
 
@@ -171,6 +178,7 @@ msgstr "Nie można zapisać ustawień wyglądu."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:187
 #: actions/apiaccountupdateprofilecolors.php:142
+#, fuzzy
 msgid "Could not update your design."
 msgstr "Nie można zaktualizować wyglądu."
 
@@ -184,6 +192,7 @@ msgid "User has no profile."
 msgstr "Użytkownik nie posiada profilu."
 
 #: actions/apiaccountupdateprofile.php:147
+#, fuzzy
 msgid "Could not save profile."
 msgstr "Nie można zapisać profilu."
 
@@ -215,7 +224,7 @@ msgstr ""
 "twoimi przyjaciółmi."
 
 #: actions/apidirectmessage.php:89
-#, php-format
+#, fuzzy, php-format
 msgid "Direct messages from %s"
 msgstr "Bezpośrednia wiadomość do użytkownika %s"
 
@@ -386,6 +395,7 @@ msgid "Could not join user %s to group %s."
 msgstr "Nie można dołączyć użytkownika %s do grupy %s."
 
 #: actions/apigroupleave.php:114
+#, fuzzy
 msgid "You are not a member of this group."
 msgstr "Nie jesteś członkiem tej grupy."
 
@@ -671,6 +681,7 @@ msgid "No"
 msgstr "Nie"
 
 #: actions/block.php:143 actions/deleteuser.php:147
+#, fuzzy
 msgid "Do not block this user"
 msgstr "Odblokuj tego użytkownika"
 
@@ -1154,7 +1165,7 @@ msgstr "Usunięto przychodzący adres e-mail."
 msgid "New incoming email address added."
 msgstr "Dodano nowy przychodzący adres e-mail."
 
-#: actions/favorited.php:65 lib/popularnoticesection.php:87
+#: actions/favorited.php:65 lib/popularnoticesection.php:88
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
 msgstr "Popularne wpisy"
@@ -1258,10 +1269,12 @@ msgid "That user has blocked you from subscribing."
 msgstr "Ten użytkownik zablokował cię z subskrypcji."
 
 #: actions/finishremotesubscribe.php:106
+#, fuzzy
 msgid "You are not authorized."
 msgstr "Brak upoważnienia."
 
 #: actions/finishremotesubscribe.php:109
+#, fuzzy
 msgid "Could not convert request token to access token."
 msgstr "Nie można przekonwertować tokenów żądań na tokeny dostępu."
 
@@ -1555,9 +1568,8 @@ msgid ""
 "Jabber or GTalk address, like \"UserName@example.org\". First, make sure to "
 "add %s to your buddy list in your IM client or on GTalk."
 msgstr ""
-"Adres Jabber lub GTalk, taki jak \"NazwaUżytkownika@przykład.org\". "
-"Najpierw upewnij się, że dodałeś %s do listy znajomych w komunikatorze lub "
-"na GTalk."
+"Adres Jabber lub GTalk, taki jak \"NazwaUżytkownika@przykład.org\". Najpierw "
+"upewnij się, że dodałeś %s do listy znajomych w komunikatorze lub na GTalk."
 
 #: actions/imsettings.php:143
 msgid "Send me notices through Jabber/GTalk."
@@ -2800,7 +2812,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "Adres URL profilu na innej, zgodnej usłudze mikroblogowania"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:356
+#: lib/userprofile.php:365
 msgid "Subscribe"
 msgstr "Subskrybuj"
 
@@ -2820,6 +2832,7 @@ msgid "That’s a local profile! Login to subscribe."
 msgstr "To jest profil lokalny. Zaloguj się, aby subskrybować."
 
 #: actions/remotesubscribe.php:183
+#, fuzzy
 msgid "Couldn’t get a request token."
 msgstr "Nie można uzyskać tokenu żądana."
 
@@ -2932,7 +2945,7 @@ msgstr ""
 "interesującego, aby chcieli dodać to do swoich ulubionych. :)"
 
 #: actions/showfavorites.php:211
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "%s hasn't added any notices to his favorites yet. Why not [register an "
 "account](%%%%action.register%%%%) and then post something interesting they "
@@ -3286,6 +3299,7 @@ msgid "Access"
 msgstr "Dostęp"
 
 #: actions/siteadminpanel.php:334
+#, fuzzy
 msgid "Private"
 msgstr "Prywatność"
 
@@ -3396,7 +3410,8 @@ msgstr "Ograniczenie duplikatów"
 #: actions/siteadminpanel.php:407
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
-"Ile czasu użytkownicy muszą czekać (w sekundach), aby ponownie wysłać to samo."
+"Ile czasu użytkownicy muszą czekać (w sekundach), aby ponownie wysłać to "
+"samo."
 
 #: actions/siteadminpanel.php:421 actions/useradminpanel.php:313
 msgid "Save site settings"
@@ -3845,6 +3860,7 @@ msgid "Subscription authorized"
 msgstr "Upoważniono subskrypcję"
 
 #: actions/userauthorization.php:249
+#, fuzzy
 msgid ""
 "The subscription has been authorized, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to authorize the "
@@ -3858,6 +3874,7 @@ msgid "Subscription rejected"
 msgstr "Odrzucono subskrypcję"
 
 #: actions/userauthorization.php:261
+#, fuzzy
 msgid ""
 "The subscription has been rejected, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to fully reject the "
@@ -5206,11 +5223,11 @@ msgstr "Błąd podczas wprowadzania zdalnego profilu"
 msgid "Duplicate notice"
 msgstr "Duplikat wpisu"
 
-#: lib/oauthstore.php:466 lib/subs.php:48
+#: lib/oauthstore.php:467 lib/subs.php:48
 msgid "You have been banned from subscribing."
 msgstr "Zablokowano subskrybowanie."
 
-#: lib/oauthstore.php:491
+#: lib/oauthstore.php:492
 msgid "Couldn't insert new subscription."
 msgstr "Nie można wprowadzić nowej subskrypcji."
 
@@ -5464,47 +5481,51 @@ msgstr "Wyślij bezpośrednią wiadomość do tego użytkownika"
 msgid "Message"
 msgstr "Wiadomość"
 
-#: lib/util.php:826
+#: lib/userprofile.php:311
+msgid "Moderate"
+msgstr ""
+
+#: lib/util.php:825
 msgid "a few seconds ago"
 msgstr "kilka sekund temu"
 
-#: lib/util.php:828
+#: lib/util.php:827
 msgid "about a minute ago"
 msgstr "około minutę temu"
 
-#: lib/util.php:830
+#: lib/util.php:829
 #, php-format
 msgid "about %d minutes ago"
 msgstr "około %d minut temu"
 
-#: lib/util.php:832
+#: lib/util.php:831
 msgid "about an hour ago"
 msgstr "około godzinę temu"
 
-#: lib/util.php:834
+#: lib/util.php:833
 #, php-format
 msgid "about %d hours ago"
 msgstr "około %d godzin temu"
 
-#: lib/util.php:836
+#: lib/util.php:835
 msgid "about a day ago"
 msgstr "blisko dzień temu"
 
-#: lib/util.php:838
+#: lib/util.php:837
 #, php-format
 msgid "about %d days ago"
 msgstr "około %d dni temu"
 
-#: lib/util.php:840
+#: lib/util.php:839
 msgid "about a month ago"
 msgstr "około miesiąc temu"
 
-#: lib/util.php:842
+#: lib/util.php:841
 #, php-format
 msgid "about %d months ago"
 msgstr "około %d miesięcy temu"
 
-#: lib/util.php:844
+#: lib/util.php:843
 msgid "about a year ago"
 msgstr "około rok temu"
 

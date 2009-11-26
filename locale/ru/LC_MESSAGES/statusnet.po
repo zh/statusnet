@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-23 21:46+0000\n"
-"PO-Revision-Date: 2009-11-23 21:48:05+0000\n"
+"POT-Creation-Date: 2009-11-26 21:33+0000\n"
+"PO-Revision-Date: 2009-11-26 21:34:36+0000\n"
 "Language-Team: Russian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59365); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59473); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ru\n"
 "X-Message-Group: out-statusnet\n"
@@ -495,7 +495,7 @@ msgstr "Общая лента %s"
 #: actions/apitimelinepublic.php:110 actions/publicrss.php:105
 #, php-format
 msgid "%s updates from everyone!"
-msgstr "%s обновлен для всех!"
+msgstr "Обновления %s от всех!"
 
 #: actions/apitimelinetag.php:101 actions/tag.php:66
 #, php-format
@@ -1170,7 +1170,7 @@ msgstr "Входящий электронный адрес удалён."
 msgid "New incoming email address added."
 msgstr "Новый входящий электронный адрес добавлен."
 
-#: actions/favorited.php:65 lib/popularnoticesection.php:87
+#: actions/favorited.php:65 lib/popularnoticesection.php:88
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
 msgstr "Популярные записи"
@@ -1182,7 +1182,7 @@ msgstr "Популярные записи, страница %d"
 
 #: actions/favorited.php:79
 msgid "The most popular notices on the site right now."
-msgstr "Самые популярные записи на %%site.name%% на текущий момент."
+msgstr "Самые популярные записи на сайте на данный момент."
 
 #: actions/favorited.php:150
 msgid "Favorite notices appear on this page but no one has favorited one yet."
@@ -1488,6 +1488,8 @@ msgid ""
 "Why not [register an account](%%action.register%%) and [create the group](%%"
 "action.newgroup%%) yourself!"
 msgstr ""
+"Почему бы не [зарегистрироваться](%%action.register%%), чтобы [создать "
+"группу](%%action.newgroup%%) самому?"
 
 #: actions/groups.php:62 lib/profileaction.php:220 lib/publicgroupnav.php:81
 #: lib/searchgroupnav.php:84 lib/subgroupnav.php:98
@@ -1978,6 +1980,8 @@ msgid ""
 "Be the first to [post on this topic](%%%%action.newnotice%%%%?"
 "status_textarea=%s)!"
 msgstr ""
+"Станьте первыми, кто [напишет на эту тему](%%%%action.newnotice%%%%?"
+"status_textarea=%s)!"
 
 #: actions/noticesearch.php:124
 #, php-format
@@ -2490,7 +2494,7 @@ msgstr "Общее облако тегов"
 #: actions/publictagcloud.php:63
 #, php-format
 msgid "These are most popular recent tags on %s "
-msgstr "Самые популярные теги на %s на текущий момент"
+msgstr "Самые популярные теги на %s на данный момент "
 
 #: actions/publictagcloud.php:69
 #, php-format
@@ -2806,7 +2810,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "Адрес URL твоего профиля на другом подходящем сервисе микроблогинга"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:356
+#: lib/userprofile.php:365
 msgid "Subscribe"
 msgstr "Подписаться"
 
@@ -3189,15 +3193,15 @@ msgstr "Неизвестный язык «%s»"
 
 #: actions/siteadminpanel.php:180
 msgid "Invalid snapshot report URL."
-msgstr ""
+msgstr "Неверный URL отчёта снимка."
 
 #: actions/siteadminpanel.php:186
 msgid "Invalid snapshot run value."
-msgstr ""
+msgstr "Неверное значение запуска снимка."
 
 #: actions/siteadminpanel.php:192
 msgid "Snapshot frequency must be a number."
-msgstr ""
+msgstr "Частота снимков должна быть числом."
 
 #: actions/siteadminpanel.php:199
 msgid "You must set an SSL server when enabling SSL."
@@ -3234,6 +3238,7 @@ msgstr ""
 #: actions/siteadminpanel.php:275
 msgid "Text used for credits link in footer of each page"
 msgstr ""
+"Текст, используемый для указания авторов в нижнем колонтитуле каждой страницы"
 
 #: actions/siteadminpanel.php:279
 msgid "Brought by URL"
@@ -3242,6 +3247,7 @@ msgstr ""
 #: actions/siteadminpanel.php:280
 msgid "URL used for credits link in footer of each page"
 msgstr ""
+"URL, используемый для ссылки на авторов в нижнем колонтитуле каждой страницы"
 
 #: actions/siteadminpanel.php:284
 msgid "Contact email address for your site"
@@ -3330,7 +3336,7 @@ msgstr "Никогда"
 
 #: actions/siteadminpanel.php:360
 msgid "Data snapshots"
-msgstr ""
+msgstr "Снимки данных"
 
 #: actions/siteadminpanel.php:361
 msgid "When to send statistical data to status.net servers"
@@ -3342,7 +3348,7 @@ msgstr "Частота"
 
 #: actions/siteadminpanel.php:367
 msgid "Snapshots will be sent once every N web hits"
-msgstr ""
+msgstr "Снимки будут отправляться каждые N посещений"
 
 #: actions/siteadminpanel.php:372
 msgid "Report URL"
@@ -3350,7 +3356,7 @@ msgstr "URL отчёта"
 
 #: actions/siteadminpanel.php:373
 msgid "Snapshots will be sent to this URL"
-msgstr ""
+msgstr "Снимки будут отправляться по этому URL-адресу"
 
 #: actions/siteadminpanel.php:380
 msgid "SSL"
@@ -3710,6 +3716,7 @@ msgstr "Отписано"
 #, php-format
 msgid "Listenee stream license ‘%s’ is not compatible with site license ‘%s’."
 msgstr ""
+"Лицензия просматриваемого потока «%s» несовместима с лицензией сайта «%s»."
 
 #: actions/useradminpanel.php:58 lib/adminpanelaction.php:305
 #: lib/personalgroupnav.php:115
@@ -3856,29 +3863,28 @@ msgid "Subscription rejected"
 msgstr "Подписка отменена"
 
 #: actions/userauthorization.php:261
-#, fuzzy
 msgid ""
 "The subscription has been rejected, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to fully reject the "
 "subscription."
 msgstr ""
-"Подписка отвергнута, но нет обратного URL. Проверьте инструкции на сайте, "
-"чтобы полностью отказаться от подписки."
+"Подписка отвергнута, но не бы передан URL обратного вызова. Проверьте "
+"инструкции на сайте, чтобы полностью отказаться от подписки."
 
 #: actions/userauthorization.php:296
 #, php-format
 msgid "Listener URI ‘%s’ not found here"
-msgstr ""
+msgstr "Смотрящий URI «%s» здесь не найден"
 
 #: actions/userauthorization.php:301
 #, php-format
 msgid "Listenee URI ‘%s’ is too long."
-msgstr ""
+msgstr "Просматриваемый URI «%s» слишком длинный."
 
 #: actions/userauthorization.php:307
 #, php-format
 msgid "Listenee URI ‘%s’ is a local user."
-msgstr ""
+msgstr "Просматриваемый URI «%s» — локальный пользователь."
 
 #: actions/userauthorization.php:322
 #, php-format
@@ -4442,8 +4448,8 @@ msgstr "Вы ни на кого не подписаны."
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Вы подписаны на этих людей:"
-msgstr[1] ""
-msgstr[2] ""
+msgstr[1] "Вы подписаны на этих людей:"
+msgstr[2] "Вы подписаны на этих людей:"
 
 #: lib/command.php:640
 msgid "No one is subscribed to you."
@@ -4453,8 +4459,8 @@ msgstr "Никто не подписан на вас."
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Эти люди подписались на вас:"
-msgstr[1] ""
-msgstr[2] ""
+msgstr[1] "Эти люди подписались на вас:"
+msgstr[2] "Эти люди подписались на вас:"
 
 #: lib/command.php:662
 msgid "You are not a member of any groups."
@@ -4464,8 +4470,8 @@ msgstr "Вы не состоите ни в одной группе."
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Вы являетесь участником следующих групп:"
-msgstr[1] ""
-msgstr[2] ""
+msgstr[1] "Вы являетесь участником следующих групп:"
+msgstr[2] "Вы являетесь участником следующих групп:"
 
 #: lib/command.php:678
 msgid ""
@@ -5203,11 +5209,11 @@ msgstr "Ошибка вставки удалённого профиля"
 msgid "Duplicate notice"
 msgstr "Дублировать запись"
 
-#: lib/oauthstore.php:466 lib/subs.php:48
+#: lib/oauthstore.php:467 lib/subs.php:48
 msgid "You have been banned from subscribing."
 msgstr "Вы заблокированы от подписки."
 
-#: lib/oauthstore.php:491
+#: lib/oauthstore.php:492
 msgid "Couldn't insert new subscription."
 msgstr "Не удаётся вставить новую подписку."
 
@@ -5461,47 +5467,51 @@ msgstr "Послать приватное сообщение этому поль
 msgid "Message"
 msgstr "Сообщение"
 
-#: lib/util.php:826
+#: lib/userprofile.php:311
+msgid "Moderate"
+msgstr ""
+
+#: lib/util.php:825
 msgid "a few seconds ago"
 msgstr "пару секунд назад"
 
-#: lib/util.php:828
+#: lib/util.php:827
 msgid "about a minute ago"
 msgstr "около минуты назад"
 
-#: lib/util.php:830
+#: lib/util.php:829
 #, php-format
 msgid "about %d minutes ago"
 msgstr "около %d минут(ы) назад"
 
-#: lib/util.php:832
+#: lib/util.php:831
 msgid "about an hour ago"
 msgstr "около часа назад"
 
-#: lib/util.php:834
+#: lib/util.php:833
 #, php-format
 msgid "about %d hours ago"
 msgstr "около %d часа(ов) назад"
 
-#: lib/util.php:836
+#: lib/util.php:835
 msgid "about a day ago"
 msgstr "около дня назад"
 
-#: lib/util.php:838
+#: lib/util.php:837
 #, php-format
 msgid "about %d days ago"
 msgstr "около %d дня(ей) назад"
 
-#: lib/util.php:840
+#: lib/util.php:839
 msgid "about a month ago"
 msgstr "около месяца назад"
 
-#: lib/util.php:842
+#: lib/util.php:841
 #, php-format
 msgid "about %d months ago"
 msgstr "около %d месяца(ев) назад"
 
-#: lib/util.php:844
+#: lib/util.php:843
 msgid "about a year ago"
 msgstr "около года назад"
 
@@ -5532,6 +5542,3 @@ msgstr "Простите, это не Ваш входящий электронн
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Простите, входящих писем нет."
-
-#~ msgid "Notice"
-#~ msgstr "Запись"

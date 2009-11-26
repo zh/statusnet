@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-23 21:46+0000\n"
-"PO-Revision-Date: 2009-11-23 21:47:19+0000\n"
+"POT-Creation-Date: 2009-11-26 21:33+0000\n"
+"PO-Revision-Date: 2009-11-26 21:33:55+0000\n"
 "Language-Team: Finnish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59365); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59473); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fi\n"
 "X-Message-Group: out-statusnet\n"
@@ -372,9 +372,8 @@ msgstr "Alias ei voi olla sama kuin ryhmätunnus."
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:90 actions/apitimelinegroup.php:91
-#, fuzzy
 msgid "Group not found!"
-msgstr "API-metodia ei löytynyt!"
+msgstr "Ryhmää ei löytynyt!"
 
 #: actions/apigroupjoin.php:110
 msgid "You are already a member of that group."
@@ -385,9 +384,9 @@ msgid "You have been blocked from that group by the admin."
 msgstr "Sinut on estetty osallistumasta tähän ryhmään ylläpitäjän toimesta."
 
 #: actions/apigroupjoin.php:138
-#, fuzzy, php-format
+#, php-format
 msgid "Could not join user %s to group %s."
-msgstr "Käyttäjää %s ei voinut liittää ryhmään %s"
+msgstr "Käyttäjä %s ei voinut liittyä ryhmään %s."
 
 #: actions/apigroupleave.php:114
 msgid "You are not a member of this group."
@@ -797,9 +796,8 @@ msgstr ""
 "uudelleen."
 
 #: actions/deleteuser.php:67
-#, fuzzy
 msgid "You cannot delete users."
-msgstr "Ei voitu päivittää käyttäjää."
+msgstr "Sinä et voi poistaa käyttäjiä."
 
 #: actions/deleteuser.php:74
 #, fuzzy
@@ -807,9 +805,8 @@ msgid "You can only delete local users."
 msgstr "Et voi poistaa toisen käyttäjän päivitystä."
 
 #: actions/deleteuser.php:110 actions/deleteuser.php:133
-#, fuzzy
 msgid "Delete user"
-msgstr "Poista"
+msgstr "Poista käyttäjä"
 
 #: actions/deleteuser.php:135
 msgid ""
@@ -825,11 +822,11 @@ msgstr "Poista tämä päivitys"
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
 #: lib/adminpanelaction.php:302 lib/groupnav.php:119
 msgid "Design"
-msgstr ""
+msgstr "Ulkoasu"
 
 #: actions/designadminpanel.php:73
 msgid "Design settings for this StatusNet site."
-msgstr ""
+msgstr "Ulkoasuasetukset tälle StatusNet palvelulle."
 
 #: actions/designadminpanel.php:270
 #, fuzzy
@@ -868,12 +865,12 @@ msgstr "Kirjaudu ulos palvelusta"
 
 #: actions/designadminpanel.php:412 lib/designsettings.php:101
 msgid "Change background image"
-msgstr ""
+msgstr "Vaihda tautakuva"
 
 #: actions/designadminpanel.php:417 actions/designadminpanel.php:492
 #: lib/designsettings.php:178
 msgid "Background"
-msgstr ""
+msgstr "Tausta"
 
 #: actions/designadminpanel.php:422
 #, fuzzy, php-format
@@ -884,11 +881,11 @@ msgstr "Voit ladata ryhmälle logokuvan. Maksimikoko on %s."
 
 #: actions/designadminpanel.php:452 lib/designsettings.php:139
 msgid "On"
-msgstr ""
+msgstr "On"
 
 #: actions/designadminpanel.php:468 lib/designsettings.php:155
 msgid "Off"
-msgstr ""
+msgstr "Off"
 
 #: actions/designadminpanel.php:469 lib/designsettings.php:156
 msgid "Turn background image on or off."
@@ -899,14 +896,12 @@ msgid "Tile background image"
 msgstr ""
 
 #: actions/designadminpanel.php:483 lib/designsettings.php:170
-#, fuzzy
 msgid "Change colours"
-msgstr "Vaihda salasanasi"
+msgstr "Vaihda väriä"
 
 #: actions/designadminpanel.php:505 lib/designsettings.php:191
-#, fuzzy
 msgid "Content"
-msgstr "Yhdistä"
+msgstr "Sisältö"
 
 #: actions/designadminpanel.php:518 lib/designsettings.php:204
 #, fuzzy
@@ -918,13 +913,12 @@ msgid "Text"
 msgstr "Teksti"
 
 #: actions/designadminpanel.php:544 lib/designsettings.php:230
-#, fuzzy
 msgid "Links"
-msgstr "Kirjaudu sisään"
+msgstr "Linkit"
 
 #: actions/designadminpanel.php:572 lib/designsettings.php:247
 msgid "Use defaults"
-msgstr ""
+msgstr "Käytä oletusasetuksia"
 
 #: actions/designadminpanel.php:573 lib/designsettings.php:248
 msgid "Restore default designs"
@@ -1176,7 +1170,7 @@ msgstr "Saapuvan sähköpostin osoite poistettu."
 msgid "New incoming email address added."
 msgstr "Uusi saapuvan sähköpostin osoite lisätty."
 
-#: actions/favorited.php:65 lib/popularnoticesection.php:87
+#: actions/favorited.php:65 lib/popularnoticesection.php:88
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
 msgstr "Suosituimmat päivitykset"
@@ -2158,11 +2152,11 @@ msgstr "Salasana tallennettu."
 
 #: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:308
 msgid "Paths"
-msgstr ""
+msgstr "Polut"
 
 #: actions/pathsadminpanel.php:70
 msgid "Path and server settings for this StatusNet site."
-msgstr ""
+msgstr "Polut ja palvelin asetukset tälle StatusNet palvelulle."
 
 #: actions/pathsadminpanel.php:140
 #, fuzzy, php-format
@@ -2245,19 +2239,19 @@ msgstr "Kuva poistettu."
 
 #: actions/pathsadminpanel.php:269
 msgid "Backgrounds"
-msgstr ""
+msgstr "Taustakuvat"
 
 #: actions/pathsadminpanel.php:273
 msgid "Background server"
-msgstr ""
+msgstr "Taustakuvapalvelin"
 
 #: actions/pathsadminpanel.php:277
 msgid "Background path"
-msgstr ""
+msgstr "Taustakuvan hakemistopolku"
 
 #: actions/pathsadminpanel.php:281
 msgid "Background directory"
-msgstr ""
+msgstr "Taustakuvan hakemisto"
 
 #: actions/pathsadminpanel.php:297
 #, fuzzy
@@ -2816,7 +2810,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "Profiilisi URL-osoite toisessa yhteensopivassa mikroblogauspalvelussa"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:356
+#: lib/userprofile.php:365
 msgid "Subscribe"
 msgstr "Tilaa"
 
@@ -5123,12 +5117,12 @@ msgstr "Virhe tapahtui uuden etäprofiilin lisäämisessä"
 msgid "Duplicate notice"
 msgstr "Poista päivitys"
 
-#: lib/oauthstore.php:466 lib/subs.php:48
+#: lib/oauthstore.php:467 lib/subs.php:48
 #, fuzzy
 msgid "You have been banned from subscribing."
 msgstr "Käyttäjä on estänyt sinua tilaamasta päivityksiä."
 
-#: lib/oauthstore.php:491
+#: lib/oauthstore.php:492
 msgid "Couldn't insert new subscription."
 msgstr "Ei voitu lisätä uutta tilausta."
 
@@ -5395,47 +5389,51 @@ msgstr "Lähetä suora viesti tälle käyttäjälle"
 msgid "Message"
 msgstr "Viesti"
 
-#: lib/util.php:826
+#: lib/userprofile.php:311
+msgid "Moderate"
+msgstr ""
+
+#: lib/util.php:825
 msgid "a few seconds ago"
 msgstr "muutama sekunti sitten"
 
-#: lib/util.php:828
+#: lib/util.php:827
 msgid "about a minute ago"
 msgstr "noin minuutti sitten"
 
-#: lib/util.php:830
+#: lib/util.php:829
 #, php-format
 msgid "about %d minutes ago"
 msgstr "noin %d minuuttia sitten"
 
-#: lib/util.php:832
+#: lib/util.php:831
 msgid "about an hour ago"
 msgstr "noin tunti sitten"
 
-#: lib/util.php:834
+#: lib/util.php:833
 #, php-format
 msgid "about %d hours ago"
 msgstr "noin %d tuntia sitten"
 
-#: lib/util.php:836
+#: lib/util.php:835
 msgid "about a day ago"
 msgstr "noin päivä sitten"
 
-#: lib/util.php:838
+#: lib/util.php:837
 #, php-format
 msgid "about %d days ago"
 msgstr "noin %d päivää sitten"
 
-#: lib/util.php:840
+#: lib/util.php:839
 msgid "about a month ago"
 msgstr "noin kuukausi sitten"
 
-#: lib/util.php:842
+#: lib/util.php:841
 #, php-format
 msgid "about %d months ago"
 msgstr "noin %d kuukautta sitten"
 
-#: lib/util.php:844
+#: lib/util.php:843
 msgid "about a year ago"
 msgstr "noin vuosi sitten"
 
@@ -5464,6 +5462,3 @@ msgstr "Valitettavasti tuo ei ole oikea osoite sähköpostipäivityksille."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Valitettavasti päivitysten teko sähköpostilla ei ole sallittua."
-
-#~ msgid "Notice"
-#~ msgstr "Päivitys"
