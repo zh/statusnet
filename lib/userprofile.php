@@ -304,34 +304,43 @@ class UserProfile extends Widget
                         }
                         $this->out->elementEnd('li');
 
-                        if ($cur->hasRight(Right::SANDBOXUSER)) {
-                            $this->out->elementStart('li', 'entity_sandbox');
-                            if ($this->user->isSandboxed()) {
-                                $usf = new UnSandboxForm($this->out, $this->profile, $r2args);
-                                $usf->show();
-                            } else {
-                                $sf = new SandboxForm($this->out, $this->profile, $r2args);
-                                $sf->show();
+                        if ($cur->hasRight(Right::SANDBOXUSER) ||
+                            $cur->hasRight(Right::SILENCEUSER) ||
+                            $cur->hasRight(Right::DELETEUSER)) {
+                            $this->out->elementStart('li', 'entity_moderation');
+                            $this->out->element('p', null, _('Moderate'));
+                            $this->out->elementStart('ul');
+                            if ($cur->hasRight(Right::SANDBOXUSER)) {
+                                $this->out->elementStart('li', 'entity_sandbox');
+                                if ($this->user->isSandboxed()) {
+                                    $usf = new UnSandboxForm($this->out, $this->profile, $r2args);
+                                    $usf->show();
+                                } else {
+                                    $sf = new SandboxForm($this->out, $this->profile, $r2args);
+                                    $sf->show();
+                                }
+                                $this->out->elementEnd('li');
                             }
-                            $this->out->elementEnd('li');
-                        }
 
-                        if ($cur->hasRight(Right::SILENCEUSER)) {
-                            $this->out->elementStart('li', 'entity_silence');
-                            if ($this->user->isSilenced()) {
-                                $usf = new UnSilenceForm($this->out, $this->profile, $r2args);
-                                $usf->show();
-                            } else {
-                                $sf = new SilenceForm($this->out, $this->profile, $r2args);
-                                $sf->show();
+                            if ($cur->hasRight(Right::SILENCEUSER)) {
+                                $this->out->elementStart('li', 'entity_silence');
+                                if ($this->user->isSilenced()) {
+                                    $usf = new UnSilenceForm($this->out, $this->profile, $r2args);
+                                    $usf->show();
+                                } else {
+                                    $sf = new SilenceForm($this->out, $this->profile, $r2args);
+                                    $sf->show();
+                                }
+                                $this->out->elementEnd('li');
                             }
-                            $this->out->elementEnd('li');
-                        }
 
-                        if ($cur->hasRight(Right::DELETEUSER)) {
-                            $this->out->elementStart('li', 'entity_delete');
-                            $df = new DeleteUserForm($this->out, $this->profile, $r2args);
-                            $df->show();
+                            if ($cur->hasRight(Right::DELETEUSER)) {
+                                $this->out->elementStart('li', 'entity_delete');
+                                $df = new DeleteUserForm($this->out, $this->profile, $r2args);
+                                $df->show();
+                                $this->out->elementEnd('li');
+                            }
+                            $this->out->elementEnd('ul');
                             $this->out->elementEnd('li');
                         }
                     }
