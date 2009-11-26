@@ -285,7 +285,7 @@ class OpenIDPlugin extends Plugin
                              array(new ColumnDef('canonical', 'varchar',
                                                  '255', false, 'PRI'),
                                    new ColumnDef('display', 'varchar',
-                                                 '255', false),
+                                                 '255', false, 'UNI'),
                                    new ColumnDef('user_id', 'integer',
                                                  null, false, 'MUL'),
                                    new ColumnDef('created', 'datetime',
