@@ -140,7 +140,7 @@ class UserFlagPlugin extends Plugin
     {
         $action->elementStart('style', array('type' => 'text/css'));
         $action->raw('.entity_flag input, .entity_flag p {'.
-            ' background:url('.common_path('plugins/UserFlag/flag.gif').') 5px 5px no-repeat;'.
+            ' background:url('.common_path('plugins/UserFlag/icon_flag.gif').') 5px 5px no-repeat;'.
             ' }');
         $action->elementEnd('style');
 
