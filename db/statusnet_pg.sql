@@ -1,6 +1,4 @@
 /* local and remote users have profiles */
-BEGIN;
-
 create sequence profile_seq;
 create table profile (
     id bigint default nextval('profile_seq') primary key /* comment 'unique identifier' */,
@@ -583,4 +581,3 @@ create table login_token (
     primary key (user_id)
 );
 
-ROLLBACK;
