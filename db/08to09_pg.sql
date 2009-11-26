@@ -60,3 +60,13 @@ CREATE index subscription_subscribed_idx ON subscription (subscribed,created);
 DROP index notice_profile_id_idx;
 CREATE index notice_profile_id_idx ON notice (profile_id,created,id);
 
+ALTER TABLE notice ADD COLUMN lat decimal(10, 7) /* comment 'latitude'*/;
+ALTER TABLE notice ADD COLUMN lon decimal(10,7) /* comment 'longitude'*/;
+ALTER TABLE notice ADD COLUMN location_id integer /* comment 'location id if possible'*/ ;
+ALTER TABLE notice ADD COLUMN location_ns integer /* comment 'namespace for location'*/;
+
+ALTER TABLE profile ADD COLUMN lat decimal(10,7) /*comment 'latitude'*/ ;
+ALTER TABLE profile ADD COLUMN lon decimal(10,7) /*comment 'longitude'*/;
+ALTER TABLE profile ADD COLUMN location_id integer /* comment 'location id if possible'*/;
+ALTER TABLE profile ADD COLUMN location_ns integer /* comment 'namespace for location'*/;
+    
