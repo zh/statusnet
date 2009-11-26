@@ -40,7 +40,8 @@ box-shadow:3px 3px 7px rgba(194, 194, 194, 0.3);
 .entity_send-a-message .form_notice,
 .pagination .nav_prev a,
 .pagination .nav_next a,
-.form_settings fieldset fieldset {
+.form_settings fieldset fieldset,
+.entity_moderation:hover ul {
 border-color:#DDDDDD;
 }
 
@@ -61,6 +62,7 @@ input.submit,
 .entity_remote_subscribe,
 .entity_actions a,
 .entity_actions input,
+.entity_moderation p,
 button {
 box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 -moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
@@ -89,7 +91,8 @@ a,
 .form_settings input.form_action-primary,
 .notice-options input,
 .entity_actions a,
-.entity_actions input {
+.entity_actions input,
+.entity_moderation p {
 color:#002FA7;
 }
 
@@ -144,7 +147,11 @@ button.close,
 .form_user_unsubscribe input.submit,
 .form_group_join input.submit,
 .form_user_subscribe input.submit,
-.entity_subscribe a {
+.entity_subscribe a,
+.entity_moderation p,
+.entity_sandbox input.submit,
+.entity_silence input.submit,
+.entity_delete input.submit {
 background-image:url(../../base/images/icons/icons-01.gif);
 background-repeat:no-repeat;
 background-color:transparent;
@@ -169,7 +176,8 @@ border-color:transparent;
 }
 #content,
 #site_nav_local_views .current a,
-.entity_send-a-message .form_notice {
+.entity_send-a-message .form_notice,
+.entity_moderation:hover ul {
 background-color:#FFFFFF;
 }
 
@@ -251,7 +259,8 @@ background-position: 5px -718px;
 .entity_send-a-message a {
 background-position: 5px -852px;
 }
-.entity_send-a-message .form_notice {
+.entity_send-a-message .form_notice,
+.entity_moderation:hover ul {
 box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
 -moz-box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
 -webkit-box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
@@ -269,6 +278,18 @@ background-position: 5px -918px;
 }
 .form_make_admin input.submit {
 background-position: 5px -983px;
+}
+.entity_moderation p {
+background-position: 5px -1313px;
+}
+.form_user_sandbox input.submit {
+background-position: 5px -1380px;
+}
+.form_user_silence input.submit {
+background-position: 5px -1445px;
+}
+.form_user_deleteuser input.submit {
+background-position: 5px -1511px;
 }
 
 /* NOTICES */
