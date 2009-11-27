@@ -366,6 +366,7 @@ var SN = { // StatusNet
             NDM = $('.entity_send-a-message a');
             NDM.attr({'href':NDM.attr('href')+'&ajax=1'});
             NDM.bind('click', function() {
+                $(this).addClass('processing');
                 var NDMF = $('.entity_send-a-message form');
                 if (NDMF.length === 0) {
                     $.get(NDM.attr('href'), null, function(data) {
@@ -384,6 +385,8 @@ var SN = { // StatusNet
                     NDMF.show();
                     $('.entity_send-a-message textarea').focus();
                 }
+
+                $(this).removeClass('processing');
                 return false;
             });
         }
