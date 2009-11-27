@@ -1064,12 +1064,7 @@ function common_request_id()
             $url = $_SERVER['REQUEST_URI'];
         }
         $method = $_SERVER['REQUEST_METHOD'];
-        if (common_logged_in()) {
-            $user = common_current_user()->nickname;
-        } else {
-            $user = 'anon';
-        }
-        return "$pid.$req_id $user $method $url";
+        return "$pid.$req_id $method $url";
     }
 }
 
