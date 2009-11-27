@@ -964,7 +964,10 @@ class Notice extends Memcached_DataObject
             }
             if ($cnt >= MAX_BOXCARS) {
                 $inbox = new Notice_inbox();
-                $inbox->query($qry);
+                $result = $inbox->query($qry);
+                if (PEAR::isError($result)) {
+                    common_log_db_error($inbox, $qry);
+                }
                 $qry = $qryhdr;
                 $cnt = 0;
             }
@@ -972,7 +975,10 @@ class Notice extends Memcached_DataObject
 
         if ($cnt > 0) {
             $inbox = new Notice_inbox();
-            $inbox->query($qry);
+            $result = $inbox->query($qry);
+            if (PEAR::isError($result)) {
+                common_log_db_error($inbox, $qry);
+            }
         }
 
         return;
