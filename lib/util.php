@@ -1050,8 +1050,32 @@ function common_log_line($priority, $msg)
     return date('Y-m-d H:i:s') . ' ' . $syslog_priorities[$priority] . ': ' . $msg . "\n";
 }
 
+function common_request_id()
+{
+    $pid = getmypid();
+    if (php_sapi_name() == 'cli') {
+        return $pid;
+    } else {
+        static $req_id = null;
+        if (!isset($req_id)) {
+            $req_id = substr(md5(mt_rand()), 0, 8);
+        }
+        if (isset($_SERVER['REQUEST_URI'])) {
+            $url = $_SERVER['REQUEST_URI'];
+        }
+        $method = $_SERVER['REQUEST_METHOD'];
+        if (common_logged_in()) {
+            $user = common_current_user()->nickname;
+        } else {
+            $user = 'anon';
+        }
+        return "$pid.$req_id $user $method $url";
+    }
+}
+
 function common_log($priority, $msg, $filename=null)
 {
+    $msg = '[' . common_request_id() . '] ' . $msg;
     $logfile = common_config('site', 'logfile');
     if ($logfile) {
         $log = fopen($logfile, "a");
