@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-26 21:33+0000\n"
-"PO-Revision-Date: 2009-11-26 21:34:28+0000\n"
+"POT-Creation-Date: 2009-11-27 23:50+0000\n"
+"PO-Revision-Date: 2009-11-27 23:52:34+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: MediaWiki 1.16alpha(r59473); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59499); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pl\n"
 "X-Message-Group: out-statusnet\n"
@@ -4026,7 +4026,7 @@ msgstr "Zabroniono ci wysyłania wpisów na tej stronie."
 msgid "Problem saving notice."
 msgstr "Problem podczas zapisywania wpisu."
 
-#: classes/Notice.php:1117
+#: classes/Notice.php:1124
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Błąd bazy danych podczas wprowadzania odpowiedzi: %s"
@@ -4599,8 +4599,9 @@ msgid "Upload file"
 msgstr "Wyślij plik"
 
 #: lib/designsettings.php:109
+#, fuzzy
 msgid ""
-"You can upload your personal background image. The maximum file size is 2Mb."
+"You can upload your personal background image. The maximum file size is 2MB."
 msgstr "Można wysłać swój osobisty obraz. Maksymalny rozmiar pliku to 2 MB."
 
 #: lib/designsettings.php:372
@@ -4775,6 +4776,14 @@ msgstr "Utracono plik."
 #: lib/imagefile.php:150 lib/imagefile.php:197
 msgid "Unknown file type"
 msgstr "Nieznany typ pliku"
+
+#: lib/imagefile.php:217
+msgid "MB"
+msgstr ""
+
+#: lib/imagefile.php:219
+msgid "kB"
+msgstr ""
 
 #: lib/jabber.php:192
 #, php-format

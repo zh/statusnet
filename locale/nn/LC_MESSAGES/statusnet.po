@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-26 21:33+0000\n"
-"PO-Revision-Date: 2009-11-26 21:34:23+0000\n"
+"POT-Creation-Date: 2009-11-27 23:50+0000\n"
+"PO-Revision-Date: 2009-11-27 23:52:27+0000\n"
 "Language-Team: Norwegian Nynorsk\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59473); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59499); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nn\n"
 "X-Message-Group: out-statusnet\n"
@@ -4019,7 +4019,7 @@ msgstr "Du kan ikkje lengre legge inn notisar på denne sida."
 msgid "Problem saving notice."
 msgstr "Eit problem oppstod ved lagring av notis."
 
-#: classes/Notice.php:1117
+#: classes/Notice.php:1124
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Databasefeil, kan ikkje lagra svar: %s"
@@ -4568,9 +4568,10 @@ msgid "Upload file"
 msgstr "Last opp"
 
 #: lib/designsettings.php:109
+#, fuzzy
 msgid ""
-"You can upload your personal background image. The maximum file size is 2Mb."
-msgstr ""
+"You can upload your personal background image. The maximum file size is 2MB."
+msgstr "Du kan laste opp ein personleg avatar."
 
 #: lib/designsettings.php:372
 msgid "Bad default color settings: "
@@ -4743,6 +4744,14 @@ msgstr "Mista fila vår."
 #: lib/imagefile.php:150 lib/imagefile.php:197
 msgid "Unknown file type"
 msgstr "Ukjend fil type"
+
+#: lib/imagefile.php:217
+msgid "MB"
+msgstr ""
+
+#: lib/imagefile.php:219
+msgid "kB"
+msgstr ""
 
 #: lib/jabber.php:192
 #, php-format

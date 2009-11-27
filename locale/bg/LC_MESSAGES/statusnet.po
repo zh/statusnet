@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-26 21:33+0000\n"
-"PO-Revision-Date: 2009-11-26 21:33:36+0000\n"
+"POT-Creation-Date: 2009-11-27 23:50+0000\n"
+"PO-Revision-Date: 2009-11-27 23:51:25+0000\n"
 "Language-Team: Bulgarian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59473); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59499); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: bg\n"
 "X-Message-Group: out-statusnet\n"
@@ -3991,7 +3991,7 @@ msgstr "Забранено ви е да публикувате бележки в
 msgid "Problem saving notice."
 msgstr "Проблем при записване на бележката."
 
-#: classes/Notice.php:1117
+#: classes/Notice.php:1124
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Грешка в базата от данни — отговор при вмъкването: %s"
@@ -4545,9 +4545,10 @@ msgid "Upload file"
 msgstr "Качване"
 
 #: lib/designsettings.php:109
+#, fuzzy
 msgid ""
-"You can upload your personal background image. The maximum file size is 2Mb."
-msgstr ""
+"You can upload your personal background image. The maximum file size is 2MB."
+msgstr "Можете да качите личен аватар тук."
 
 #: lib/designsettings.php:372
 msgid "Bad default color settings: "
@@ -4723,6 +4724,14 @@ msgstr "Няма такава бележка."
 #: lib/imagefile.php:150 lib/imagefile.php:197
 msgid "Unknown file type"
 msgstr "Неподдържан вид файл"
+
+#: lib/imagefile.php:217
+msgid "MB"
+msgstr ""
+
+#: lib/imagefile.php:219
+msgid "kB"
+msgstr ""
 
 #: lib/jabber.php:192
 #, php-format

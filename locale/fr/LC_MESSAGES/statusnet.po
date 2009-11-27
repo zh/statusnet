@@ -3,6 +3,7 @@
 # Author@translatewiki.net: IAlex
 # Author@translatewiki.net: Isoph
 # Author@translatewiki.net: Jean-Frédéric
+# Author@translatewiki.net: McDutchie
 # Author@translatewiki.net: Peter17
 # Author@translatewiki.net: Zetud
 # --
@@ -12,12 +13,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-26 21:33+0000\n"
-"PO-Revision-Date: 2009-11-26 21:33:58+0000\n"
+"POT-Creation-Date: 2009-11-27 23:50+0000\n"
+"PO-Revision-Date: 2009-11-27 23:51:59+0000\n"
 "Language-Team: French\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59473); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59499); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: out-statusnet\n"
@@ -421,7 +422,7 @@ msgstr "Groupes de %s"
 #: actions/apigrouplist.php:103
 #, php-format
 msgid "Groups %s is a member of on %s."
-msgstr "Les groupes %s sont membre de %s."
+msgstr "Les groupes dont %s est membre sur %s."
 
 #: actions/apistatusesdestroy.php:107
 msgid "This method requires a POST or DELETE."
@@ -4062,7 +4063,7 @@ msgstr "Il vous est interdit de publier des statuts dans ce site."
 msgid "Problem saving notice."
 msgstr "Problème lors de l’enregistrement du statut."
 
-#: classes/Notice.php:1117
+#: classes/Notice.php:1124
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Erreur de base de donnée en insérant la réponse :%s"
@@ -4636,8 +4637,9 @@ msgid "Upload file"
 msgstr "Importer un fichier"
 
 #: lib/designsettings.php:109
+#, fuzzy
 msgid ""
-"You can upload your personal background image. The maximum file size is 2Mb."
+"You can upload your personal background image. The maximum file size is 2MB."
 msgstr ""
 "Vous pouvez importer une image d’arrière plan personnelle. La taille "
 "maximale du fichier est de 2 Mo."
@@ -4815,6 +4817,14 @@ msgstr "Fichier perdu."
 #: lib/imagefile.php:150 lib/imagefile.php:197
 msgid "Unknown file type"
 msgstr "Type de fichier inconnu"
+
+#: lib/imagefile.php:217
+msgid "MB"
+msgstr ""
+
+#: lib/imagefile.php:219
+msgid "kB"
+msgstr ""
 
 #: lib/jabber.php:192
 #, php-format
@@ -5526,7 +5536,7 @@ msgstr "Message"
 
 #: lib/userprofile.php:311
 msgid "Moderate"
-msgstr ""
+msgstr "Modérer"
 
 #: lib/util.php:825
 msgid "a few seconds ago"

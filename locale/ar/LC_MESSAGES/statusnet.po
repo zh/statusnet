@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-26 21:33+0000\n"
-"PO-Revision-Date: 2009-11-26 21:33:33+0000\n"
+"POT-Creation-Date: 2009-11-27 23:50+0000\n"
+"PO-Revision-Date: 2009-11-27 23:51:21+0000\n"
 "Language-Team: Arabic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59473); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59499); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ar\n"
 "X-Message-Group: out-statusnet\n"
@@ -3788,7 +3788,7 @@ msgstr ""
 msgid "Problem saving notice."
 msgstr "مشكلة أثناء حفظ الإشعار."
 
-#: classes/Notice.php:1117
+#: classes/Notice.php:1124
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr ""
@@ -4332,9 +4332,10 @@ msgid "Upload file"
 msgstr "ارفع ملفًا"
 
 #: lib/designsettings.php:109
+#, fuzzy
 msgid ""
-"You can upload your personal background image. The maximum file size is 2Mb."
-msgstr ""
+"You can upload your personal background image. The maximum file size is 2MB."
+msgstr "هذا الملف كبير جدًا. إن أقصى حجم للملفات هو %s."
 
 #: lib/designsettings.php:372
 msgid "Bad default color settings: "
@@ -4504,6 +4505,14 @@ msgstr ""
 #: lib/imagefile.php:150 lib/imagefile.php:197
 msgid "Unknown file type"
 msgstr "نوع ملف غير معروف"
+
+#: lib/imagefile.php:217
+msgid "MB"
+msgstr ""
+
+#: lib/imagefile.php:219
+msgid "kB"
+msgstr ""
 
 #: lib/jabber.php:192
 #, php-format

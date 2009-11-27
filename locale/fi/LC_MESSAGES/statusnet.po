@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-26 21:33+0000\n"
-"PO-Revision-Date: 2009-11-26 21:33:55+0000\n"
+"POT-Creation-Date: 2009-11-27 23:50+0000\n"
+"PO-Revision-Date: 2009-11-27 23:51:48+0000\n"
 "Language-Team: Finnish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59473); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59499); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fi\n"
 "X-Message-Group: out-statusnet\n"
@@ -4009,7 +4009,7 @@ msgstr "Päivityksesi tähän palveluun on estetty."
 msgid "Problem saving notice."
 msgstr "Ongelma päivityksen tallentamisessa."
 
-#: classes/Notice.php:1117
+#: classes/Notice.php:1124
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Tietokantavirhe tallennettaessa vastausta: %s"
@@ -4558,9 +4558,10 @@ msgid "Upload file"
 msgstr "Lataa"
 
 #: lib/designsettings.php:109
+#, fuzzy
 msgid ""
-"You can upload your personal background image. The maximum file size is 2Mb."
-msgstr ""
+"You can upload your personal background image. The maximum file size is 2MB."
+msgstr "Voit ladata oman profiilikuvasi. Maksimikoko on %s."
 
 #: lib/designsettings.php:372
 msgid "Bad default color settings: "
@@ -4735,6 +4736,14 @@ msgstr "Tiedosto hävisi."
 #: lib/imagefile.php:150 lib/imagefile.php:197
 msgid "Unknown file type"
 msgstr "Tunnistamaton tiedoston tyyppi"
+
+#: lib/imagefile.php:217
+msgid "MB"
+msgstr ""
+
+#: lib/imagefile.php:219
+msgid "kB"
+msgstr ""
 
 #: lib/jabber.php:192
 #, php-format

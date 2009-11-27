@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-26 21:33+0000\n"
-"PO-Revision-Date: 2009-11-26 21:34:36+0000\n"
+"POT-Creation-Date: 2009-11-27 23:50+0000\n"
+"PO-Revision-Date: 2009-11-27 23:52:45+0000\n"
 "Language-Team: Russian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59473); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59499); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ru\n"
 "X-Message-Group: out-statusnet\n"
@@ -4013,7 +4013,7 @@ msgstr "Вам запрещено поститься на этом сайте (�
 msgid "Problem saving notice."
 msgstr "Проблемы с сохранением записи."
 
-#: classes/Notice.php:1117
+#: classes/Notice.php:1124
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Ошибка баз данных при вставке ответа для %s"
@@ -4584,8 +4584,9 @@ msgid "Upload file"
 msgstr "Загрузить файл"
 
 #: lib/designsettings.php:109
+#, fuzzy
 msgid ""
-"You can upload your personal background image. The maximum file size is 2Mb."
+"You can upload your personal background image. The maximum file size is 2MB."
 msgstr ""
 "Вы можете загрузить собственное фоновое изображение. Максимальный размер "
 "файла составляет 2Mb."
@@ -4760,6 +4761,14 @@ msgstr "Потерян файл."
 #: lib/imagefile.php:150 lib/imagefile.php:197
 msgid "Unknown file type"
 msgstr "Неподдерживаемый тип файла"
+
+#: lib/imagefile.php:217
+msgid "MB"
+msgstr ""
+
+#: lib/imagefile.php:219
+msgid "kB"
+msgstr ""
 
 #: lib/jabber.php:192
 #, php-format

@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-26 21:33+0000\n"
-"PO-Revision-Date: 2009-11-26 21:34:34+0000\n"
+"POT-Creation-Date: 2009-11-27 23:50+0000\n"
+"PO-Revision-Date: 2009-11-27 23:52:41+0000\n"
 "Language-Team: Brazilian Portuguese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59473); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59499); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pt-br\n"
 "X-Message-Group: out-statusnet\n"
@@ -4060,7 +4060,7 @@ msgstr "Você foi banido de publicar mensagens nesse site."
 msgid "Problem saving notice."
 msgstr "Problema ao salvar a mensagem."
 
-#: classes/Notice.php:1117
+#: classes/Notice.php:1124
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Erro no banco de dados na inserção da reposta: %s"
@@ -4618,9 +4618,10 @@ msgid "Upload file"
 msgstr "Enviar"
 
 #: lib/designsettings.php:109
+#, fuzzy
 msgid ""
-"You can upload your personal background image. The maximum file size is 2Mb."
-msgstr ""
+"You can upload your personal background image. The maximum file size is 2MB."
+msgstr "Você pode enviar seu avatar pessoal. O tamanho máximo do arquivo é %s"
 
 #: lib/designsettings.php:372
 msgid "Bad default color settings: "
@@ -4793,6 +4794,14 @@ msgstr "Nosso arquivo foi perdido."
 #: lib/imagefile.php:150 lib/imagefile.php:197
 msgid "Unknown file type"
 msgstr "Tipo de arquivo desconhecido"
+
+#: lib/imagefile.php:217
+msgid "MB"
+msgstr ""
+
+#: lib/imagefile.php:219
+msgid "kB"
+msgstr ""
 
 #: lib/jabber.php:192
 #, php-format

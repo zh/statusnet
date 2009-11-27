@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-26 21:33+0000\n"
-"PO-Revision-Date: 2009-11-26 21:34:51+0000\n"
+"POT-Creation-Date: 2009-11-27 23:50+0000\n"
+"PO-Revision-Date: 2009-11-27 23:53:01+0000\n"
 "Language-Team: Vietnamese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59473); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59499); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: vi\n"
 "X-Message-Group: out-statusnet\n"
@@ -4103,7 +4103,7 @@ msgstr ""
 msgid "Problem saving notice."
 msgstr "Có lỗi xảy ra khi lưu tin nhắn."
 
-#: classes/Notice.php:1117
+#: classes/Notice.php:1124
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Lỗi cơ sở dữ liệu khi chèn trả lời: %s"
@@ -4669,9 +4669,12 @@ msgid "Upload file"
 msgstr "Tải file"
 
 #: lib/designsettings.php:109
+#, fuzzy
 msgid ""
-"You can upload your personal background image. The maximum file size is 2Mb."
+"You can upload your personal background image. The maximum file size is 2MB."
 msgstr ""
+"Bạn có thể cập nhật hồ sơ cá nhân tại đây để mọi người có thể biết thông tin "
+"về bạn."
 
 #: lib/designsettings.php:372
 msgid "Bad default color settings: "
@@ -4856,6 +4859,14 @@ msgstr "Không có tin nhắn nào."
 #, fuzzy
 msgid "Unknown file type"
 msgstr "Không hỗ trợ kiểu file ảnh này."
+
+#: lib/imagefile.php:217
+msgid "MB"
+msgstr ""
+
+#: lib/imagefile.php:219
+msgid "kB"
+msgstr ""
 
 #: lib/jabber.php:192
 #, php-format

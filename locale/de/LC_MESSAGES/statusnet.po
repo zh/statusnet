@@ -1,5 +1,6 @@
 # Translation of StatusNet to German
 #
+# Author@translatewiki.net: Bavatar
 # Author@translatewiki.net: March
 # Author@translatewiki.net: Umherirrender
 # --
@@ -9,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-26 21:33+0000\n"
-"PO-Revision-Date: 2009-11-26 21:33:44+0000\n"
+"POT-Creation-Date: 2009-11-27 23:50+0000\n"
+"PO-Revision-Date: 2009-11-27 23:51:34+0000\n"
 "Language-Team: German\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59473); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59499); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: out-statusnet\n"
@@ -342,7 +343,7 @@ msgstr "Der eingegebene Aufenthaltsort ist zu lang (maximal 255 Zeichen)."
 #: actions/newgroup.php:159
 #, php-format
 msgid "Too many aliases! Maximum %d."
-msgstr ""
+msgstr "Zu viele Pseudonyme! Maximale Anzahl ist %d."
 
 #: actions/apigroupcreate.php:264 actions/editgroup.php:224
 #: actions/newgroup.php:168
@@ -822,9 +823,9 @@ msgid "Invalid logo URL."
 msgstr "Ungültige Größe."
 
 #: actions/designadminpanel.php:274
-#, fuzzy, php-format
+#, php-format
 msgid "Theme not available: %s"
-msgstr "Diese Seite liegt in nicht verfügbar in einem "
+msgstr "Theme nicht verfügbar: %s"
 
 #: actions/designadminpanel.php:370
 msgid "Change logo"
@@ -4026,7 +4027,7 @@ msgstr ""
 msgid "Problem saving notice."
 msgstr "Problem bei Speichern der Nachricht."
 
-#: classes/Notice.php:1117
+#: classes/Notice.php:1124
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Datenbankfehler beim Einfügen der Antwort: %s"
@@ -4576,9 +4577,11 @@ msgid "Upload file"
 msgstr "Hochladen"
 
 #: lib/designsettings.php:109
+#, fuzzy
 msgid ""
-"You can upload your personal background image. The maximum file size is 2Mb."
+"You can upload your personal background image. The maximum file size is 2MB."
 msgstr ""
+"Du kannst dein persönliches Avatar hochladen. Die maximale Dateigröße ist %s."
 
 #: lib/designsettings.php:372
 msgid "Bad default color settings: "
@@ -4759,6 +4762,14 @@ msgstr "Daten verloren."
 #: lib/imagefile.php:150 lib/imagefile.php:197
 msgid "Unknown file type"
 msgstr "Unbekannter Dateityp"
+
+#: lib/imagefile.php:217
+msgid "MB"
+msgstr ""
+
+#: lib/imagefile.php:219
+msgid "kB"
+msgstr ""
 
 #: lib/jabber.php:192
 #, php-format

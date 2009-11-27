@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-26 21:33+0000\n"
-"PO-Revision-Date: 2009-11-26 21:34:14+0000\n"
+"POT-Creation-Date: 2009-11-27 23:50+0000\n"
+"PO-Revision-Date: 2009-11-27 23:52:18+0000\n"
 "Language-Team: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59473); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59499); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: out-statusnet\n"
@@ -4002,7 +4002,7 @@ msgstr "이 사이트에 게시글 포스팅으로부터 당신은 금지되었�
 msgid "Problem saving notice."
 msgstr "통지를 저장하는데 문제가 발생했습니다."
 
-#: classes/Notice.php:1117
+#: classes/Notice.php:1124
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "답신을 추가 할 때에 데이타베이스 에러 : %s"
@@ -4548,9 +4548,10 @@ msgid "Upload file"
 msgstr "올리기"
 
 #: lib/designsettings.php:109
+#, fuzzy
 msgid ""
-"You can upload your personal background image. The maximum file size is 2Mb."
-msgstr ""
+"You can upload your personal background image. The maximum file size is 2MB."
+msgstr "당신의 개인적인 아바타를 업로드할 수 있습니다."
 
 #: lib/designsettings.php:372
 msgid "Bad default color settings: "
@@ -4723,6 +4724,14 @@ msgstr "파일을 잃어버렸습니다."
 #: lib/imagefile.php:150 lib/imagefile.php:197
 msgid "Unknown file type"
 msgstr "알 수 없는 종류의 파일입니다"
+
+#: lib/imagefile.php:217
+msgid "MB"
+msgstr ""
+
+#: lib/imagefile.php:219
+msgid "kB"
+msgstr ""
 
 #: lib/jabber.php:192
 #, php-format

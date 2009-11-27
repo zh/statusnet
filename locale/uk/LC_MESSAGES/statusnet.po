@@ -1,6 +1,7 @@
 # Translation of StatusNet to Ukrainian
 #
 # Author@translatewiki.net: Boogie
+# Author@translatewiki.net: Prima klasy4na
 # --
 # This file is distributed under the same license as the StatusNet package.
 #
@@ -8,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-26 21:33+0000\n"
-"PO-Revision-Date: 2009-11-26 21:34:47+0000\n"
+"POT-Creation-Date: 2009-11-27 23:50+0000\n"
+"PO-Revision-Date: 2009-11-27 23:52:57+0000\n"
 "Language-Team: Ukrainian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59473); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59499); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: out-statusnet\n"
@@ -4023,7 +4024,7 @@ msgstr "Вам заборонено надсилати дописи до цьо�
 msgid "Problem saving notice."
 msgstr "Проблема при збереженні допису."
 
-#: classes/Notice.php:1117
+#: classes/Notice.php:1124
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Помилка бази даних при додаванні відповіді: %s"
@@ -4455,7 +4456,6 @@ msgid "You are not subscribed to anyone."
 msgstr "Ви не маєте жодних підписок."
 
 #: lib/command.php:620
-#, fuzzy
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Ви підписані до цієї особи:"
@@ -4467,7 +4467,6 @@ msgid "No one is subscribed to you."
 msgstr "До Вас ніхто не підписаний."
 
 #: lib/command.php:642
-#, fuzzy
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Ця особа є підписаною до Вас:"
@@ -4479,7 +4478,6 @@ msgid "You are not a member of any groups."
 msgstr "Ви не є учасником жодної групи."
 
 #: lib/command.php:664
-#, fuzzy
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Ви є учасником цієї групи:"
@@ -4597,8 +4595,9 @@ msgid "Upload file"
 msgstr "Завантажити файл"
 
 #: lib/designsettings.php:109
+#, fuzzy
 msgid ""
-"You can upload your personal background image. The maximum file size is 2Mb."
+"You can upload your personal background image. The maximum file size is 2MB."
 msgstr ""
 "Ви можете завантажити власне фонове зображення. Максимум становить 2Мб."
 
@@ -4771,6 +4770,14 @@ msgstr "Файл втрачено."
 #: lib/imagefile.php:150 lib/imagefile.php:197
 msgid "Unknown file type"
 msgstr "Тип файлу не підтримується"
+
+#: lib/imagefile.php:217
+msgid "MB"
+msgstr ""
+
+#: lib/imagefile.php:219
+msgid "kB"
+msgstr ""
 
 #: lib/jabber.php:192
 #, php-format
