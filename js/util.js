@@ -365,9 +365,9 @@ var SN = { // StatusNet
             NDM = $('.entity_send-a-message a');
             NDM.attr({'href':NDM.attr('href')+'&ajax=1'});
             NDM.bind('click', function() {
-                $(this).addClass('processing');
                 var NDMF = $('.entity_send-a-message form');
                 if (NDMF.length === 0) {
+                    $(this).addClass('processing');
                     $.get(NDM.attr('href'), null, function(data) {
                         $('.entity_send-a-message').append(document._importNode($('form', data)[0], true));
                         NDMF = $('.entity_send-a-message .form_notice');
@@ -378,14 +378,13 @@ var SN = { // StatusNet
                             NDMF.hide();
                             return false;
                         });
+                        NDM.removeClass('processing');
                     });
                 }
                 else {
                     NDMF.show();
                     $('.entity_send-a-message textarea').focus();
                 }
-
-                $(this).removeClass('processing');
                 return false;
             });
         }
