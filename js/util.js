@@ -365,7 +365,7 @@ var SN = { // StatusNet
         NewDirectMessage: function() {
             NDM = $('.entity_send-a-message a');
             NDM.attr({'href':NDM.attr('href')+'&ajax=1'});
-            NDM.click(function() {
+            NDM.bind('click', function() {
                 var NDMF = $('.entity_send-a-message form');
                 if (NDMF.length === 0) {
                     $.get(NDM.attr('href'), null, function(data) {
