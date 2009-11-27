@@ -271,17 +271,11 @@ var SN = { // StatusNet
                     text.val(replyto + text.val().replace(RegExp(replyto, 'i'), ''));
                     $('#'+SN.C.S.FormNotice+' #'+SN.C.S.NoticeInReplyTo).val(id);
 
-                    var len = text.val().length;
-                    if (text[0].createTextRange) {
-                        var r = text[0].createTextRange();
-                        r.moveStart('character', len);
-                        r.moveEnd('character', len);
-                        r.select();
-                    } else if (text[0].setSelectionRange) {
+                    text[0].focus();
+                    if (text[0].setSelectionRange) {
+                        var len = text.val().length;
                         text[0].setSelectionRange(len,len);
                     }
-
-                    text[0].focus();
                 }
             }
         },
