@@ -266,19 +266,24 @@ var SN = { // StatusNet
         NoticeReplySet: function(nick,id) {
             if (nick.match(SN.C.I.PatternUsername)) {
                 var text = $('#'+SN.C.S.NoticeDataText);
-                if (text.length) {
+                if (text.length > 0) {
                     replyto = '@' + nick + ' ';
                     text.val(replyto + text.val().replace(RegExp(replyto, 'i'), ''));
-                    $('#'+SN.C.S.FormNotice+' input#'+SN.C.S.NoticeInReplyTo).val(id);
-                    if (text[0].setSelectionRange) {
-                        var len = text.val().length;
+                    $('#'+SN.C.S.FormNotice+' #'+SN.C.S.NoticeInReplyTo).val(id);
+
+                    var len = text.val().length;
+                    if (text[0].createTextRange) {
+                        var r = text[0].createTextRange();
+                        r.moveStart('character', len);
+                        r.moveEnd('character', len);
+                        r.select();
+                    } else if (text[0].setSelectionRange) {
                         text[0].setSelectionRange(len,len);
-                        text[0].focus();
                     }
-                    return false;
+
+                    text[0].focus();
                 }
             }
-            return true;
         },
 
         NoticeFavor: function() {
