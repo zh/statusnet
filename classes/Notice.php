@@ -922,13 +922,14 @@ class Notice extends Memcached_DataObject
         }
 
         $groups = $this->saveGroups();
+        $profile = $this->getProfile();
 
         foreach ($groups as $group) {
             $users = $group->getUserMembers();
             foreach ($users as $id) {
                 if (!array_key_exists($id, $ni)) {
                     $user = User::staticGet('id', $id);
-                    if (!$user->hasBlocked($notice->profile_id)) {
+                    if (!$user->hasBlocked($profile)) {
                         $ni[$id] = NOTICE_INBOX_SOURCE_GROUP;
                     }
                 }
