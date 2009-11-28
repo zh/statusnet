@@ -99,9 +99,6 @@ RealtimeUpdate = {
 
      purgeLastNoticeItem: function() {
         if ($('#notices_primary .notice').length > RealtimeUpdate._maxnotices) {
-            $("#notices_primary .notice:last .form_disfavor").unbind('submit');
-            $("#notices_primary .notice:last .form_favor").unbind('submit');
-            $("#notices_primary .notice:last .notice_reply").unbind('click');
             $("#notices_primary .notice:last").remove();
         }
      },
