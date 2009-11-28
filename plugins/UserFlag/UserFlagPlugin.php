@@ -146,7 +146,7 @@ class UserFlagPlugin extends Plugin
     function onEndShowScripts($action)
     {
         $action->elementStart('script', array('type' => 'text/javascript'));
-        $action->raw('/*<![CDATA[*/ SN.U.FormXHR($(".form_entity_flag")); /*]]>*/');
+        $action->raw('/*<![CDATA[*/ if ($(".form_entity_flag").length > 0) { SN.U.FormXHR($(".form_entity_flag")); } /*]]>*/');
         $action->elementEnd('script');
         return true;
     }
