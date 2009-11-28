@@ -1,5 +1,6 @@
 # Translation of StatusNet to Japanese
 #
+# Author@translatewiki.net: Aotake
 # Author@translatewiki.net: Fryed-peach
 # --
 # This file is distributed under the same license as the StatusNet package.
@@ -9,11 +10,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-27 23:50+0000\n"
-"PO-Revision-Date: 2009-11-27 23:52:15+0000\n"
+"PO-Revision-Date: 2009-11-28 19:50:28+0000\n"
 "Language-Team: Japanese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59499); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59523); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ja\n"
 "X-Message-Group: out-statusnet\n"
@@ -21,9 +22,8 @@ msgstr ""
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
 #: actions/showfavorites.php:137 actions/tag.php:51
-#, fuzzy
 msgid "No such page"
-msgstr "そのような通知はありません。"
+msgstr "そのようなページはありません。"
 
 #: actions/all.php:74 actions/allrss.php:68
 #: actions/apiaccountupdatedeliverydevice.php:113
@@ -51,9 +51,9 @@ msgid "No such user."
 msgstr "そのようなユーザはいません。"
 
 #: actions/all.php:84
-#, fuzzy, php-format
+#, php-format
 msgid "%s and friends, page %d"
-msgstr "%s & ともだち"
+msgstr "%sとともだち、%dページ"
 
 #: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
 #: actions/apitimelinefriends.php:114 lib/personalgroupnav.php:100
@@ -62,25 +62,25 @@ msgid "%s and friends"
 msgstr "%s と友人"
 
 #: actions/all.php:99
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
-msgstr "%s のともだちのフィード"
+msgstr "%s のともだちのフィード(RSS 1.0)"
 
 #: actions/all.php:107
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
-msgstr "%s のともだちのフィード"
+msgstr "%s のともだちのフィード (RSS 2.0)"
 
 #: actions/all.php:115
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (Atom)"
-msgstr "%s のともだちのフィード"
+msgstr "%s のともだちのフィード (Atom)"
 
 #: actions/all.php:127
 #, php-format
 msgid ""
 "This is the timeline for %s and friends but no one has posted anything yet."
-msgstr ""
+msgstr "これは%sとともだちの予定表です。まだ誰も投稿していません。"
 
 #: actions/all.php:132
 #, php-format
@@ -88,6 +88,8 @@ msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
 "something yourself."
 msgstr ""
+"もっと多くの人とつながってみましょう。[グループに参加](%%action.groups%%) し"
+"てみたり、何か投稿してみましょう。"
 
 #: actions/all.php:134
 #, php-format
@@ -95,6 +97,8 @@ msgid ""
 "You can try to [nudge %s](../%s) from his profile or [post something to his "
 "or her attention](%%%%action.newnotice%%%%?status_textarea=%s)."
 msgstr ""
+"プロフィールから[%sさんに合図](../%s) したり、[知らせたいことについて投稿](%%"
+"%%action.newnotice%%%%?status_textarea=%s)したりできます。"
 
 #: actions/all.php:137 actions/replies.php:209 actions/showstream.php:202
 #, php-format
@@ -102,11 +106,12 @@ msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
 "post a notice to his or her attention."
 msgstr ""
+"[アカウントを登録](%%%%action.register%%%%) して%sさんに合図したり、お知らせ"
+"を送ってみませんか。"
 
 #: actions/all.php:165
-#, fuzzy
 msgid "You and friends"
-msgstr "%s & ともだち"
+msgstr "あなたとともだち"
 
 #: actions/allrss.php:119 actions/apitimelinefriends.php:121
 #, php-format

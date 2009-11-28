@@ -1,5 +1,6 @@
 # Translation of StatusNet to Polish
 #
+# Author@translatewiki.net: Raven
 # --
 # Paweł Wilk <siefca@gnu.org>, 2008.
 # Piotr Drąg <piotrdrag@gmail.com>, 2009.
@@ -9,7 +10,7 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-27 23:50+0000\n"
-"PO-Revision-Date: 2009-11-27 23:52:34+0000\n"
+"PO-Revision-Date: 2009-11-28 19:50:45+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: MediaWiki 1.16alpha(r59499); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59523); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pl\n"
 "X-Message-Group: out-statusnet\n"
@@ -152,7 +153,6 @@ msgstr ""
 "Należy podać parametr o nazwie \"device\" z jedną z wartości: sms, im, none"
 
 #: actions/apiaccountupdatedeliverydevice.php:132
-#, fuzzy
 msgid "Could not update user."
 msgstr "Nie można zaktualizować użytkownika."
 
@@ -178,7 +178,6 @@ msgstr "Nie można zapisać ustawień wyglądu."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:187
 #: actions/apiaccountupdateprofilecolors.php:142
-#, fuzzy
 msgid "Could not update your design."
 msgstr "Nie można zaktualizować wyglądu."
 
@@ -192,7 +191,6 @@ msgid "User has no profile."
 msgstr "Użytkownik nie posiada profilu."
 
 #: actions/apiaccountupdateprofile.php:147
-#, fuzzy
 msgid "Could not save profile."
 msgstr "Nie można zapisać profilu."
 
@@ -224,9 +222,9 @@ msgstr ""
 "twoimi przyjaciółmi."
 
 #: actions/apidirectmessage.php:89
-#, fuzzy, php-format
+#, php-format
 msgid "Direct messages from %s"
-msgstr "Bezpośrednia wiadomość do użytkownika %s"
+msgstr "Bezpośrednie wiadomości do użytkownika %s"
 
 #: actions/apidirectmessage.php:93
 #, php-format
@@ -395,7 +393,6 @@ msgid "Could not join user %s to group %s."
 msgstr "Nie można dołączyć użytkownika %s do grupy %s."
 
 #: actions/apigroupleave.php:114
-#, fuzzy
 msgid "You are not a member of this group."
 msgstr "Nie jesteś członkiem tej grupy."
 
@@ -539,7 +536,7 @@ msgstr "Awatar"
 #: actions/avatarsettings.php:78
 #, php-format
 msgid "You can upload your personal avatar. The maximum file size is %s."
-msgstr "Można wysłać swój osobisty awatar. Maksymalny rozmiar pliku to %s."
+msgstr "Można wysłać osobisty awatar. Maksymalny rozmiar pliku to %s."
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:182
 #: actions/grouplogo.php:178 actions/remotesubscribe.php:191
@@ -681,9 +678,8 @@ msgid "No"
 msgstr "Nie"
 
 #: actions/block.php:143 actions/deleteuser.php:147
-#, fuzzy
 msgid "Do not block this user"
-msgstr "Odblokuj tego użytkownika"
+msgstr "Nie blokuj tego użytkownika"
 
 #: actions/block.php:144 actions/deletenotice.php:146
 #: actions/deleteuser.php:148 actions/groupblock.php:179
@@ -1269,12 +1265,10 @@ msgid "That user has blocked you from subscribing."
 msgstr "Ten użytkownik zablokował cię z subskrypcji."
 
 #: actions/finishremotesubscribe.php:106
-#, fuzzy
 msgid "You are not authorized."
 msgstr "Brak upoważnienia."
 
 #: actions/finishremotesubscribe.php:109
-#, fuzzy
 msgid "Could not convert request token to access token."
 msgstr "Nie można przekonwertować tokenów żądań na tokeny dostępu."
 
@@ -2832,7 +2826,6 @@ msgid "That’s a local profile! Login to subscribe."
 msgstr "To jest profil lokalny. Zaloguj się, aby subskrybować."
 
 #: actions/remotesubscribe.php:183
-#, fuzzy
 msgid "Couldn’t get a request token."
 msgstr "Nie można uzyskać tokenu żądana."
 
@@ -2945,7 +2938,7 @@ msgstr ""
 "interesującego, aby chcieli dodać to do swoich ulubionych. :)"
 
 #: actions/showfavorites.php:211
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s hasn't added any notices to his favorites yet. Why not [register an "
 "account](%%%%action.register%%%%) and then post something interesting they "
@@ -3299,9 +3292,8 @@ msgid "Access"
 msgstr "Dostęp"
 
 #: actions/siteadminpanel.php:334
-#, fuzzy
 msgid "Private"
-msgstr "Prywatność"
+msgstr "Prywatna"
 
 #: actions/siteadminpanel.php:336
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
@@ -3860,7 +3852,6 @@ msgid "Subscription authorized"
 msgstr "Upoważniono subskrypcję"
 
 #: actions/userauthorization.php:249
-#, fuzzy
 msgid ""
 "The subscription has been authorized, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to authorize the "
@@ -3874,7 +3865,6 @@ msgid "Subscription rejected"
 msgstr "Odrzucono subskrypcję"
 
 #: actions/userauthorization.php:261
-#, fuzzy
 msgid ""
 "The subscription has been rejected, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to fully reject the "
@@ -4599,10 +4589,9 @@ msgid "Upload file"
 msgstr "Wyślij plik"
 
 #: lib/designsettings.php:109
-#, fuzzy
 msgid ""
 "You can upload your personal background image. The maximum file size is 2MB."
-msgstr "Można wysłać swój osobisty obraz. Maksymalny rozmiar pliku to 2 MB."
+msgstr "Można wysłać osobisty obraz tła. Maksymalny rozmiar pliku to 2 MB."
 
 #: lib/designsettings.php:372
 msgid "Bad default color settings: "
@@ -4779,11 +4768,11 @@ msgstr "Nieznany typ pliku"
 
 #: lib/imagefile.php:217
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #: lib/imagefile.php:219
 msgid "kB"
-msgstr ""
+msgstr "KB"
 
 #: lib/jabber.php:192
 #, php-format
@@ -5492,7 +5481,7 @@ msgstr "Wiadomość"
 
 #: lib/userprofile.php:311
 msgid "Moderate"
-msgstr ""
+msgstr "Moderuj"
 
 #: lib/util.php:825
 msgid "a few seconds ago"

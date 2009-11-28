@@ -9,11 +9,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-27 23:50+0000\n"
-"PO-Revision-Date: 2009-11-27 23:51:28+0000\n"
+"PO-Revision-Date: 2009-11-28 19:49:54+0000\n"
 "Language-Team: Catalan\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59499); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59523); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: out-statusnet\n"
@@ -348,7 +348,7 @@ msgstr "La ubicació és massa llarga (màx. 255 caràcters)."
 #: actions/newgroup.php:159
 #, php-format
 msgid "Too many aliases! Maximum %d."
-msgstr ""
+msgstr "Hi ha massa àlies! Màxim %d."
 
 #: actions/apigroupcreate.php:264 actions/editgroup.php:224
 #: actions/newgroup.php:168
@@ -370,9 +370,8 @@ msgstr ""
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:90 actions/apitimelinegroup.php:91
-#, fuzzy
 msgid "Group not found!"
-msgstr "No s'ha trobat el mètode API!"
+msgstr "No s'ha trobat el grup!"
 
 #: actions/apigroupjoin.php:110
 #, fuzzy
@@ -613,9 +612,8 @@ msgid "Failed updating avatar."
 msgstr "Error en actualitzar avatar."
 
 #: actions/avatarsettings.php:387
-#, fuzzy
 msgid "Avatar deleted."
-msgstr "Avatar actualitzat."
+msgstr "S'ha suprimit l'avatar."
 
 #: actions/blockedfromgroup.php:73 actions/editgroup.php:84
 #: actions/groupdesignsettings.php:84 actions/grouplogo.php:86
@@ -681,9 +679,8 @@ msgid "No"
 msgstr "No"
 
 #: actions/block.php:143 actions/deleteuser.php:147
-#, fuzzy
 msgid "Do not block this user"
-msgstr "Desbloquejar aquest usuari"
+msgstr "No bloquis l'usuari"
 
 #: actions/block.php:144 actions/deletenotice.php:146
 #: actions/deleteuser.php:148 actions/groupblock.php:179
@@ -825,18 +822,17 @@ msgid ""
 msgstr ""
 
 #: actions/deleteuser.php:148 lib/deleteuserform.php:77
-#, fuzzy
 msgid "Delete this user"
-msgstr "Eliminar aquesta nota"
+msgstr "Suprimeix l'usuari"
 
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
 #: lib/adminpanelaction.php:302 lib/groupnav.php:119
 msgid "Design"
-msgstr ""
+msgstr "Disseny"
 
 #: actions/designadminpanel.php:73
 msgid "Design settings for this StatusNet site."
-msgstr ""
+msgstr "Paràmetres de disseny d'aquest lloc StatusNet."
 
 #: actions/designadminpanel.php:270
 #, fuzzy
@@ -866,18 +862,17 @@ msgid "Site theme"
 msgstr "Avís del lloc"
 
 #: actions/designadminpanel.php:400
-#, fuzzy
 msgid "Theme for the site."
-msgstr "Sortir d'aquest lloc"
+msgstr "Tema del lloc."
 
 #: actions/designadminpanel.php:412 lib/designsettings.php:101
 msgid "Change background image"
-msgstr ""
+msgstr "Canvia la imatge de fons"
 
 #: actions/designadminpanel.php:417 actions/designadminpanel.php:492
 #: lib/designsettings.php:178
 msgid "Background"
-msgstr ""
+msgstr "Fons"
 
 #: actions/designadminpanel.php:422
 #, fuzzy, php-format
@@ -946,7 +941,7 @@ msgstr "Guardar"
 
 #: actions/designadminpanel.php:582 lib/designsettings.php:257
 msgid "Save design"
-msgstr ""
+msgstr "Desa el disseny"
 
 #: actions/disfavor.php:81
 msgid "This notice is not a favorite!"
@@ -2179,7 +2174,7 @@ msgstr "Contrasenya guardada."
 
 #: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:308
 msgid "Paths"
-msgstr ""
+msgstr "Camins"
 
 #: actions/pathsadminpanel.php:70
 msgid "Path and server settings for this StatusNet site."
@@ -2212,7 +2207,7 @@ msgstr "Lloc"
 
 #: actions/pathsadminpanel.php:216
 msgid "Path"
-msgstr ""
+msgstr "Camí"
 
 #: actions/pathsadminpanel.php:216
 #, fuzzy
@@ -3181,9 +3176,8 @@ msgid "Site name must have non-zero length."
 msgstr ""
 
 #: actions/siteadminpanel.php:155
-#, fuzzy
 msgid "You must have a valid contact email address"
-msgstr "No és una direcció de correu electrònic vàlida."
+msgstr "Heu de tenir una adreça electrònica de contacte vàlida"
 
 #: actions/siteadminpanel.php:173
 #, php-format
@@ -3220,12 +3214,11 @@ msgstr ""
 
 #: actions/siteadminpanel.php:266
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: actions/siteadminpanel.php:269
-#, fuzzy
 msgid "Site name"
-msgstr "Avís del lloc"
+msgstr "Nom del lloc"
 
 #: actions/siteadminpanel.php:270
 msgid "The name of your site, like \"Yourcompany Microblog\""
@@ -4572,7 +4565,7 @@ msgstr "Actualitzacions per SMS"
 
 #: lib/dberroraction.php:60
 msgid "Database error"
-msgstr ""
+msgstr "Error de la base de dades"
 
 #: lib/designsettings.php:105
 #, fuzzy
@@ -5221,7 +5214,7 @@ msgstr "No argument de la id."
 
 #: lib/profileformaction.php:137
 msgid "unimplemented method"
-msgstr ""
+msgstr "mètode no implementat"
 
 #: lib/publicgroupnav.php:78
 msgid "Public"
@@ -5259,7 +5252,7 @@ msgstr "Cerca al lloc"
 
 #: lib/searchaction.php:126
 msgid "Keyword(s)"
-msgstr ""
+msgstr "Paraules clau"
 
 #: lib/searchaction.php:162
 #, fuzzy
@@ -5414,7 +5407,7 @@ msgstr "Missatge"
 
 #: lib/userprofile.php:311
 msgid "Moderate"
-msgstr ""
+msgstr "Modera"
 
 #: lib/util.php:825
 msgid "a few seconds ago"
