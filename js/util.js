@@ -262,7 +262,7 @@ var SN = { // StatusNet
         NoticeReplyTo: function(notice_item) {
             var notice = notice_item[0];
             var notice_reply = $('.notice_reply', notice)[0];
-            
+
             if (jQuery.data(notice_reply, "ElementData") === undefined) {
                 jQuery.data(notice_reply, "ElementData", {Bind:'submit'});
                 $(notice_reply).bind('click', function() {
