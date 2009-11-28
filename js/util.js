@@ -235,7 +235,7 @@ var SN = { // StatusNet
                                 $('#'+notice.id).fadeIn(2500);
                                 SN.U.NoticeAttachments();
                                 SN.U.NoticeReply();
-                                SN.U.NoticeFavor();
+                                SN.U.FormXHR($('#'+notice.id+' .form_favor'));
                              }
                         }
                         $('#'+form_id+' #'+SN.C.S.NoticeDataText).val('');
