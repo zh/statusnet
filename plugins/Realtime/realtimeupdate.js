@@ -94,7 +94,7 @@ RealtimeUpdate = {
         $("#notices_primary .notice:first").fadeIn(1000);
 
         SN.U.FormXHR($('#'+noticeItemID+' .form_favor'));
-        SN.U.NoticeFavor();
+        SN.U.NoticeReply();
      },
 
      purgeLastNoticeItem: function() {
