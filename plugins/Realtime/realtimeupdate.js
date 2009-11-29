@@ -95,6 +95,7 @@ RealtimeUpdate = {
 
         SN.U.FormXHR($('#'+noticeItemID+' .form_favor'));
         SN.U.NoticeReplyTo($('#'+noticeItemID));
+        SN.U.NoticeWithAttachment($('#'+noticeItemID));
      },
 
      purgeLastNoticeItem: function() {
