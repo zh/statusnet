@@ -296,6 +296,14 @@ var SN = { // StatusNet
         },
 
         NoticeAttachments: function() {
+            $('.notice a.attachment').each(function() { 
+                SN.U.NoticeWithAttachment($(this).closest('.notice'));
+            });
+        },
+
+        NoticeWithAttachment: function(notice) {
+            var notice_id = notice.attr('id');
+
             $.fn.jOverlay.options = {
                 method : 'GET',
                 data : '',
@@ -315,13 +323,13 @@ var SN = { // StatusNet
                 css : {'max-width':'542px', 'top':'5%', 'left':'32.5%'}
             };
 
-            $('#content .notice a.attachment').click(function() {
+            $('#'+notice_id+' a.attachment').click(function() {
                 $().jOverlay({url: $('address .url')[0].href+'attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'});
                 return false;
             });
 
             var t;
-            $("body:not(#shownotice) #content .notice a.thumbnail").hover(
+            $("body:not(#shownotice) #"+notice_id+" a.thumbnail").hover(
                 function() {
                     var anchor = $(this);
                     $("a.thumbnail").children('img').hide();
