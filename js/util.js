@@ -233,7 +233,7 @@ var SN = { // StatusNet
                                 }
                                 $('#'+notice.id).css({display:'none'});
                                 $('#'+notice.id).fadeIn(2500);
-                                SN.U.NoticeAttachments();
+                                SN.U.NoticeWithAttachment($('#'+notice.id));
                                 SN.U.NoticeReplyTo($('#'+notice.id));
                                 SN.U.FormXHR($('#'+notice.id+' .form_favor'));
                              }
