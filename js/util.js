@@ -302,6 +302,10 @@ var SN = { // StatusNet
         },
 
         NoticeWithAttachment: function(notice) {
+            if ($('.attachment', notice).length === 0) {
+                return;
+            }
+
             var notice_id = notice.attr('id');
 
             $.fn.jOverlay.options = {
