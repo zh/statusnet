@@ -1,3 +1,12 @@
+/** theme: mobile profile screen
+ *
+ * @package   StatusNet
+ * @author Sarven Capadisli <csarven@status.net>
+ * @copyright 2009 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://status.net/
+ */
+
 @import url(../../theme/base/css/display.css);
 @import url(../../theme/identica/css/display.css);
 
@@ -168,9 +177,6 @@ margin-bottom:0;
 padding-top:4px;
 padding-bottom:4px;
 }
-.notice .entry-title {
-
-}
 .notice div.entry-content {
 margin-left:0;
 width:65%;
@@ -180,13 +186,20 @@ width:30%;
 margin-right:2%;
 }
 
-
+.notice-options form {
+width:16px;
+height:16px;
+}
+.notice-options a,
+.notice-options input {
+box-shadow:none;
+-moz-box-shadow:none;
+-webkit-box-shadow:none;
+}
 
 .entity_profile {
 width:auto;
 }
-
-
 
 .entity_actions {
 margin-right:0;
@@ -238,8 +251,6 @@ width:auto;
 height:auto;
 margin-right:5%;
 }
-
-
 
 #footer {
 width:96%;
