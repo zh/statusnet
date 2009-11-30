@@ -166,6 +166,7 @@ class ProfileAction extends OwnerDesignAction
         $subs_count   = $this->profile->subscriptionCount();
         $subbed_count = $this->profile->subscriberCount();
         $notice_count = $this->profile->noticeCount();
+        $group_count  = $this->user->getGroups()->N;
 
         $this->elementStart('div', array('id' => 'entity_statistics',
                                          'class' => 'section'));
@@ -200,6 +201,15 @@ class ProfileAction extends OwnerDesignAction
                        _('Subscribers'));
         $this->elementEnd('dt');
         $this->element('dd', 'subscribers', $subbed_count);
+        $this->elementEnd('dl');
+
+        $this->elementStart('dl', 'entity_groups');
+        $this->elementStart('dt');
+        $this->element('a', array('href' => common_local_url('usergroups',
+                                                             array('nickname' => $this->profile->nickname))),
+                       _('Groups'));
+        $this->elementEnd('dt');
+        $this->element('dd', 'groups', $group_count);
         $this->elementEnd('dl');
 
         $this->elementStart('dl', 'entity_notices');
