@@ -73,8 +73,6 @@ width:auto;
 margin-left:0;
 }
 
-
-
 #site_nav_global_primary {
 margin:0;
 width:100%;
@@ -89,7 +87,6 @@ margin-right:4%;
 float:left;
 font-size:0.9em;
 }
-
 
 #form_notice {
 width:100%;
@@ -115,13 +112,16 @@ iPhone/iPod Touch, Android, Opera Mini Simulator
 display:none;
 }
 #form_notice #notice_data-attach {
-top:auto;
-bottom:0;
-left:0;
-right:auto;
-opacity:1;
+position:static;
+clear:both;
+width:50%;
+height:auto;
+display:block;
 z-index:9;
-width:65%;
+padding:0;
+margin:0;
+background:none;
+opacity:1;
 }
 
 #form_notice #notice_action-submit {
