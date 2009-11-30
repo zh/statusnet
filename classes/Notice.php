@@ -922,13 +922,14 @@ class Notice extends Memcached_DataObject
         }
 
         $groups = $this->saveGroups();
+        $profile = $this->getProfile();
 
         foreach ($groups as $group) {
             $users = $group->getUserMembers();
             foreach ($users as $id) {
                 if (!array_key_exists($id, $ni)) {
                     $user = User::staticGet('id', $id);
-                    if (!$user->hasBlocked($notice->profile_id)) {
+                    if (!$user->hasBlocked($profile)) {
                         $ni[$id] = NOTICE_INBOX_SOURCE_GROUP;
                     }
                 }
@@ -964,7 +965,10 @@ class Notice extends Memcached_DataObject
             }
             if ($cnt >= MAX_BOXCARS) {
                 $inbox = new Notice_inbox();
-                $inbox->query($qry);
+                $result = $inbox->query($qry);
+                if (PEAR::isError($result)) {
+                    common_log_db_error($inbox, $qry);
+                }
                 $qry = $qryhdr;
                 $cnt = 0;
             }
@@ -972,7 +976,10 @@ class Notice extends Memcached_DataObject
 
         if ($cnt > 0) {
             $inbox = new Notice_inbox();
-            $inbox->query($qry);
+            $result = $inbox->query($qry);
+            if (PEAR::isError($result)) {
+                common_log_db_error($inbox, $qry);
+            }
         }
 
         return;
