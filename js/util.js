@@ -185,7 +185,7 @@ var SN = { // StatusNet
                     $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeClass(SN.C.S.Disabled);
                     $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeAttr(SN.C.S.Disabled, SN.C.S.Disabled);
                     if (textStatus == 'timeout') {
-                        alert ('Sorry! We had trouble sending your notice. The servers are overloaded. Please try again, and contact the site administrator if this problem persists');
+                        form.append('<p class="error>Sorry! We had trouble sending your notice. The servers are overloaded. Please try again, and contact the site administrator if this problem persists.</p>');
                     }
                     else {
                         if ($('.'+SN.C.S.Error, xhr.responseXML).length > 0) {
@@ -193,7 +193,7 @@ var SN = { // StatusNet
                         }
                         else {
                             if(jQuery.inArray(parseInt(xhr.status), SN.C.I.HTTP20x30x) < 0) {
-                                alert('Sorry! We had trouble sending your notice ('+xhr.status+' '+xhr.statusText+'). Please report the problem to the site administrator if this happens again.');
+                                form.append('<p class="error>(Sorry! We had trouble sending your notice ('+xhr.status+' '+xhr.statusText+'). Please report the problem to the site administrator if this happens again.</p>');
                             }
                             else {
                                 $('#'+form_id+' #'+SN.C.S.NoticeDataText).val('');
@@ -205,8 +205,9 @@ var SN = { // StatusNet
                 success: function(data, textStatus) {
                     var result;
                     if ($('#'+SN.C.S.Error, data).length > 0) {
-                        result = document._importNode($('p', data)[0], true);
-                        alert(result.textContent || result.innerHTML);
+                        result = document._importNode($('p', data)[0], true);  
+                        result = result.textContent || result.innerHTML;
+                        form.append('<p class="error">'+result+'</p>');
                     }
                     else {
                         if($('body')[0].id == 'bookmarklet') {
@@ -215,7 +216,8 @@ var SN = { // StatusNet
 
                         if ($('#'+SN.C.S.CommandResult, data).length > 0) {
                             result = document._importNode($('p', data)[0], true);
-                            alert(result.textContent || result.innerHTML);
+                            result = result.textContent || result.innerHTML;
+                            form.append('<p class="success">'+result+'</p>');
                         }
                         else {
                              notice = document._importNode($('li', data)[0], true);
