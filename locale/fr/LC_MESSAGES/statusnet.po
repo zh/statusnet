@@ -3,6 +3,7 @@
 # Author@translatewiki.net: IAlex
 # Author@translatewiki.net: Isoph
 # Author@translatewiki.net: Jean-Frédéric
+# Author@translatewiki.net: McDutchie
 # Author@translatewiki.net: Peter17
 # Author@translatewiki.net: Zetud
 # --
@@ -12,16 +13,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-19 10:43+0000\n"
-"PO-Revision-Date: 2009-11-18 19:31:52+0000\n"
+"POT-Creation-Date: 2009-11-27 23:50+0000\n"
+"PO-Revision-Date: 2009-11-28 19:50:14+0000\n"
 "Language-Team: French\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: MediaWiki 1.16alpha(r59207); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59523); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: out-statusnet\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
 #: actions/showfavorites.php:137 actions/tag.php:51
@@ -102,6 +103,9 @@ msgid ""
 "You can try to [nudge %s](../%s) from his profile or [post something to his "
 "or her attention](%%%%action.newnotice%%%%?status_textarea=%s)."
 msgstr ""
+"Vous pouvez essayer de [donner un coup de coude à %s](../%s) depuis son "
+"profil ou [poster quelque chose à son intention](%%%%action.newnotice%%%%?"
+"status_textarea=%s)."
 
 #: actions/all.php:137 actions/replies.php:209 actions/showstream.php:202
 #, php-format
@@ -109,6 +113,8 @@ msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
 "post a notice to his or her attention."
 msgstr ""
+"Pourquoi ne pas [créer un compte](%%%%action.register%%%%) et ensuite "
+"envoyer un coup de coude à %s ou poster quelque chose à son intention."
 
 #: actions/all.php:165
 msgid "You and friends"
@@ -145,6 +151,8 @@ msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
 "none"
 msgstr ""
+"Vous devez spécifier un paramètre « device » avec une des valeurs suivantes : "
+"sms, im, none"
 
 #: actions/apiaccountupdatedeliverydevice.php:132
 msgid "Could not update user."
@@ -160,6 +168,8 @@ msgid ""
 "The server was unable to handle that much POST data (%s bytes) due to its "
 "current configuration."
 msgstr ""
+"Le serveur n'a pas pu gérer autant de données de POST (%s octets) en raison "
+"de sa configuration actuelle."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:136
 #: actions/apiaccountupdateprofilebackgroundimage.php:146
@@ -369,9 +379,8 @@ msgstr "L’alias ne peut pas être le même que le pseudo."
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:90 actions/apitimelinegroup.php:91
-#, fuzzy
 msgid "Group not found!"
-msgstr "Méthode API non trouvée !"
+msgstr "Groupe non trouvé !"
 
 #: actions/apigroupjoin.php:110
 msgid "You are already a member of that group."
@@ -411,9 +420,9 @@ msgid "%s's groups"
 msgstr "Groupes de %s"
 
 #: actions/apigrouplist.php:103
-#, fuzzy, php-format
+#, php-format
 msgid "Groups %s is a member of on %s."
-msgstr "Groupes de %s"
+msgstr "Les groupes dont %s est membre sur %s."
 
 #: actions/apistatusesdestroy.php:107
 msgid "This method requires a POST or DELETE."
@@ -441,7 +450,7 @@ msgstr "C’est trop long ! La taille maximale de l’avis est de %d caractères
 msgid "Not found"
 msgstr "Non trouvé"
 
-#: actions/apistatusesupdate.php:227 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:227 actions/newnotice.php:183
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -558,7 +567,7 @@ msgid "Preview"
 msgstr "Aperçu"
 
 #: actions/avatarsettings.php:148 lib/deleteuserform.php:66
-#: lib/noticelist.php:522
+#: lib/noticelist.php:550
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -571,7 +580,7 @@ msgid "Crop"
 msgstr "Recadrer"
 
 #: actions/avatarsettings.php:265 actions/disfavor.php:74
-#: actions/emailsettings.php:237 actions/favor.php:75
+#: actions/emailsettings.php:238 actions/favor.php:75
 #: actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
 #: actions/invite.php:56 actions/login.php:131 actions/makeadmin.php:66
@@ -588,7 +597,7 @@ msgstr ""
 "nouveau."
 
 #: actions/avatarsettings.php:277 actions/designadminpanel.php:103
-#: actions/emailsettings.php:255 actions/grouplogo.php:319
+#: actions/emailsettings.php:256 actions/grouplogo.php:319
 #: actions/imsettings.php:220 actions/recoverpassword.php:44
 #: actions/smssettings.php:248 lib/designsettings.php:304
 msgid "Unexpected form submission."
@@ -655,7 +664,6 @@ msgid "Unblock this user"
 msgstr "Débloquer cet utilisateur"
 
 #: actions/block.php:69
-#, fuzzy
 msgid "You already blocked that user."
 msgstr "Vous avez déjà bloqué cet utilisateur."
 
@@ -720,15 +728,15 @@ msgstr "Type d’adresse non reconnu : %s"
 msgid "That address has already been confirmed."
 msgstr "Cette adresse a déjà été confirmée."
 
-#: actions/confirmaddress.php:114 actions/emailsettings.php:295
-#: actions/emailsettings.php:426 actions/imsettings.php:258
+#: actions/confirmaddress.php:114 actions/emailsettings.php:296
+#: actions/emailsettings.php:427 actions/imsettings.php:258
 #: actions/imsettings.php:401 actions/othersettings.php:174
 #: actions/profilesettings.php:276 actions/smssettings.php:278
 #: actions/smssettings.php:420
 msgid "Couldn't update user."
 msgstr "Impossible de mettre à jour l’utilisateur."
 
-#: actions/confirmaddress.php:126 actions/emailsettings.php:390
+#: actions/confirmaddress.php:126 actions/emailsettings.php:391
 #: actions/imsettings.php:363 actions/smssettings.php:382
 msgid "Couldn't delete email confirmation."
 msgstr "Impossible de supprimer le courriel de confirmation."
@@ -747,7 +755,7 @@ msgid "Conversation"
 msgstr "Conversation"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:206
+#: lib/profileaction.php:206 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Statuts"
 
@@ -788,7 +796,7 @@ msgstr "Êtes-vous sûr(e) de vouloir supprimer ce statut ?"
 msgid "Do not delete this notice"
 msgstr "Ne pas supprimer cet avis"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:522
+#: actions/deletenotice.php:146 lib/noticelist.php:550
 msgid "Delete this notice"
 msgstr "Supprimer ce statut"
 
@@ -799,30 +807,28 @@ msgstr ""
 "nouveau."
 
 #: actions/deleteuser.php:67
-#, fuzzy
 msgid "You cannot delete users."
-msgstr "Impossible de mettre à jour l’utilisateur."
+msgstr "Vous ne pouvez pas supprimer des utilisateurs."
 
 #: actions/deleteuser.php:74
-#, fuzzy
 msgid "You can only delete local users."
-msgstr "Vous ne pouvez pas supprimer le statut d’un autre utilisateur."
+msgstr "Vous pouvez seulement supprimer les utilisateurs locaux."
 
 #: actions/deleteuser.php:110 actions/deleteuser.php:133
-#, fuzzy
 msgid "Delete user"
-msgstr "Supprimer"
+msgstr "Supprimer l'utilsateur"
 
 #: actions/deleteuser.php:135
 msgid ""
 "Are you sure you want to delete this user? This will clear all data about "
 "the user from the database, without a backup."
 msgstr ""
+"Êtes-vous certain de vouloir supprimer cet utilisateur ? Ceci effacera "
+"toutes les données à son propos de la base de données, sans sauvegarde."
 
 #: actions/deleteuser.php:148 lib/deleteuserform.php:77
-#, fuzzy
 msgid "Delete this user"
-msgstr "Supprimer ce statut"
+msgstr "Supprimer cet utilisateur"
 
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
 #: lib/adminpanelaction.php:302 lib/groupnav.php:119
@@ -831,186 +837,114 @@ msgstr "Conception"
 
 #: actions/designadminpanel.php:73
 msgid "Design settings for this StatusNet site."
-msgstr ""
+msgstr "Paramètres de conception pour ce site StatusNet."
 
-#: actions/designadminpanel.php:278
-#, fuzzy
+#: actions/designadminpanel.php:270
 msgid "Invalid logo URL."
-msgstr "Taille incorrecte."
+msgstr "URL du logo invalide."
 
-#: actions/designadminpanel.php:282
-#, fuzzy, php-format
+#: actions/designadminpanel.php:274
+#, php-format
 msgid "Theme not available: %s"
-msgstr "La messagerie instantanée n’est pas disponible."
+msgstr "Le thème n'est pas disponible : %s"
 
-#: actions/designadminpanel.php:288
-#, fuzzy, php-format
-msgid "Theme directory not readable: %s"
-msgstr "La messagerie instantanée n’est pas disponible."
-
-#: actions/designadminpanel.php:292
-#, php-format
-msgid "Avatar directory not writable: %s"
-msgstr ""
-
-#: actions/designadminpanel.php:296
-#, php-format
-msgid "Background directory not writable: %s"
-msgstr ""
-
-#: actions/designadminpanel.php:312
-#, php-format
-msgid "Max length for %s %s is 255 characters."
-msgstr ""
-
-#: actions/designadminpanel.php:412
-#, fuzzy
+#: actions/designadminpanel.php:370
 msgid "Change logo"
-msgstr "Modifier les couleurs"
+msgstr "Modifier le logo"
 
-#: actions/designadminpanel.php:417
-#, fuzzy
+#: actions/designadminpanel.php:375
 msgid "Site logo"
-msgstr "Inviter"
+msgstr "Logo du site"
 
-#: actions/designadminpanel.php:424
-#, fuzzy
+#: actions/designadminpanel.php:382
 msgid "Change theme"
-msgstr "Modifier"
+msgstr "Modifier le thème"
 
-#: actions/designadminpanel.php:441
-#, fuzzy
+#: actions/designadminpanel.php:399
 msgid "Site theme"
-msgstr "Notice du site"
+msgstr "Thème du site"
 
-#: actions/designadminpanel.php:442
-#, fuzzy
+#: actions/designadminpanel.php:400
 msgid "Theme for the site."
-msgstr "Fermer la session"
+msgstr "Thème pour le site."
 
-#: actions/designadminpanel.php:447
-msgid "Theme server"
-msgstr ""
-
-#: actions/designadminpanel.php:451
-msgid "Theme path"
-msgstr ""
-
-#: actions/designadminpanel.php:455
-msgid "Theme directory"
-msgstr ""
-
-#: actions/designadminpanel.php:462
-#, fuzzy
-msgid "Avatar Settings"
-msgstr "Paramètres de l’avatar"
-
-#: actions/designadminpanel.php:467
-#, fuzzy
-msgid "Avatar server"
-msgstr "Paramètres de l’avatar"
-
-#: actions/designadminpanel.php:471
-#, fuzzy
-msgid "Avatar path"
-msgstr "Avatar mis à jour."
-
-#: actions/designadminpanel.php:475
-#, fuzzy
-msgid "Avatar directory"
-msgstr "Avatar supprimé."
-
-#: actions/designadminpanel.php:486 lib/designsettings.php:101
+#: actions/designadminpanel.php:412 lib/designsettings.php:101
 msgid "Change background image"
 msgstr "Changer l’image d’arrière plan"
 
-#: actions/designadminpanel.php:491 actions/designadminpanel.php:578
+#: actions/designadminpanel.php:417 actions/designadminpanel.php:492
 #: lib/designsettings.php:178
 msgid "Background"
 msgstr "Arrière plan"
 
-#: actions/designadminpanel.php:496
-#, fuzzy, php-format
+#: actions/designadminpanel.php:422
+#, php-format
 msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
 "$s."
 msgstr ""
-"Vous pouvez choisir un logo pour votre groupe. La taille maximale du fichier "
-"est de %s."
+"Vous pouvez importer une image d'arrière plan pour ce site. La taille "
+"maximale du fichier est de %1$s."
 
-#: actions/designadminpanel.php:526 lib/designsettings.php:139
+#: actions/designadminpanel.php:452 lib/designsettings.php:139
 msgid "On"
 msgstr "Activé"
 
-#: actions/designadminpanel.php:542 lib/designsettings.php:155
+#: actions/designadminpanel.php:468 lib/designsettings.php:155
 msgid "Off"
 msgstr "Désactivé"
 
-#: actions/designadminpanel.php:543 lib/designsettings.php:156
+#: actions/designadminpanel.php:469 lib/designsettings.php:156
 msgid "Turn background image on or off."
 msgstr "Activer ou désactiver l’image d’arrière plan."
 
-#: actions/designadminpanel.php:548 lib/designsettings.php:161
+#: actions/designadminpanel.php:474 lib/designsettings.php:161
 msgid "Tile background image"
 msgstr "Répéter l’image d’arrière plan"
 
-#: actions/designadminpanel.php:554
-#, fuzzy
-msgid "Background server"
-msgstr "Arrière plan"
-
-#: actions/designadminpanel.php:558
-#, fuzzy
-msgid "Background path"
-msgstr "Arrière plan"
-
-#: actions/designadminpanel.php:562
-#, fuzzy
-msgid "Background directory"
-msgstr "Arrière plan"
-
-#: actions/designadminpanel.php:569 lib/designsettings.php:170
+#: actions/designadminpanel.php:483 lib/designsettings.php:170
 msgid "Change colours"
 msgstr "Modifier les couleurs"
 
-#: actions/designadminpanel.php:591 lib/designsettings.php:191
+#: actions/designadminpanel.php:505 lib/designsettings.php:191
 msgid "Content"
 msgstr "Contenu"
 
-#: actions/designadminpanel.php:604 lib/designsettings.php:204
+#: actions/designadminpanel.php:518 lib/designsettings.php:204
 msgid "Sidebar"
 msgstr "Barre latérale"
 
-#: actions/designadminpanel.php:617 lib/designsettings.php:217
+#: actions/designadminpanel.php:531 lib/designsettings.php:217
 msgid "Text"
 msgstr "Texte"
 
-#: actions/designadminpanel.php:630 lib/designsettings.php:230
+#: actions/designadminpanel.php:544 lib/designsettings.php:230
 msgid "Links"
 msgstr "Liens"
 
-#: actions/designadminpanel.php:658 lib/designsettings.php:247
+#: actions/designadminpanel.php:572 lib/designsettings.php:247
 msgid "Use defaults"
 msgstr "Utiliser les valeurs par défaut"
 
-#: actions/designadminpanel.php:659 lib/designsettings.php:248
+#: actions/designadminpanel.php:573 lib/designsettings.php:248
 msgid "Restore default designs"
 msgstr "Restaurer les conceptions par défaut"
 
-#: actions/designadminpanel.php:665 lib/designsettings.php:254
+#: actions/designadminpanel.php:579 lib/designsettings.php:254
 msgid "Reset back to default"
 msgstr "Revenir aux valeurs par défaut"
 
-#: actions/designadminpanel.php:667 actions/emailsettings.php:195
+#: actions/designadminpanel.php:581 actions/emailsettings.php:195
 #: actions/imsettings.php:163 actions/othersettings.php:126
-#: actions/profilesettings.php:167 actions/siteadminpanel.php:414
-#: actions/smssettings.php:181 actions/subscriptions.php:203
-#: actions/tagother.php:154 actions/useradminpanel.php:226
-#: lib/designsettings.php:256 lib/groupeditform.php:202
+#: actions/pathsadminpanel.php:296 actions/profilesettings.php:167
+#: actions/siteadminpanel.php:421 actions/smssettings.php:181
+#: actions/subscriptions.php:203 actions/tagother.php:154
+#: actions/useradminpanel.php:313 lib/designsettings.php:256
+#: lib/groupeditform.php:202
 msgid "Save"
 msgstr "Enregistrer"
 
-#: actions/designadminpanel.php:668 lib/designsettings.php:257
+#: actions/designadminpanel.php:582 lib/designsettings.php:257
 msgid "Save design"
 msgstr "Sauvegarder la conception"
 
@@ -1162,37 +1096,37 @@ msgstr "Je veux envoyer mes statuts par courriel."
 msgid "Publish a MicroID for my email address."
 msgstr "Publier un MicroID pour mon adresse courriel."
 
-#: actions/emailsettings.php:301 actions/imsettings.php:264
+#: actions/emailsettings.php:302 actions/imsettings.php:264
 #: actions/othersettings.php:180 actions/smssettings.php:284
 msgid "Preferences saved."
 msgstr "Préférences enregistrées"
 
-#: actions/emailsettings.php:319
+#: actions/emailsettings.php:320
 msgid "No email address."
 msgstr "Aucune adresse courriel."
 
-#: actions/emailsettings.php:326
+#: actions/emailsettings.php:327
 msgid "Cannot normalize that email address"
 msgstr "Impossible d’utiliser cette adresse courriel"
 
-#: actions/emailsettings.php:330 actions/siteadminpanel.php:158
+#: actions/emailsettings.php:331 actions/siteadminpanel.php:158
 msgid "Not a valid email address"
 msgstr "Adresse courriel invalide"
 
-#: actions/emailsettings.php:333
+#: actions/emailsettings.php:334
 msgid "That is already your email address."
 msgstr "Vous utilisez déjà cette adresse courriel."
 
-#: actions/emailsettings.php:336
+#: actions/emailsettings.php:337
 msgid "That email address already belongs to another user."
 msgstr "Cette adresse courriel appartient déjà à un autre utilisateur."
 
-#: actions/emailsettings.php:352 actions/imsettings.php:317
+#: actions/emailsettings.php:353 actions/imsettings.php:317
 #: actions/smssettings.php:337
 msgid "Couldn't insert confirmation code."
 msgstr "Impossible d’insérer le code de confirmation."
 
-#: actions/emailsettings.php:358
+#: actions/emailsettings.php:359
 msgid ""
 "A confirmation code was sent to the email address you added. Check your "
 "inbox (and spam box!) for the code and instructions on how to use it."
@@ -1200,47 +1134,47 @@ msgstr ""
 "Un code de confirmation a été envoyé à l’adresse courriel indiquée. Vérifiez "
 "votre boîte de réception pour récupérer le code et les instructions."
 
-#: actions/emailsettings.php:378 actions/imsettings.php:351
+#: actions/emailsettings.php:379 actions/imsettings.php:351
 #: actions/smssettings.php:370
 msgid "No pending confirmation to cancel."
 msgstr "Aucune confirmation à annuler."
 
-#: actions/emailsettings.php:382 actions/imsettings.php:355
+#: actions/emailsettings.php:383 actions/imsettings.php:355
 msgid "That is the wrong IM address."
 msgstr "Cette adresse de messagerie instantanée est erronée."
 
-#: actions/emailsettings.php:394 actions/imsettings.php:367
+#: actions/emailsettings.php:395 actions/imsettings.php:367
 #: actions/smssettings.php:386
 msgid "Confirmation cancelled."
 msgstr "Confirmation annulée."
 
-#: actions/emailsettings.php:412
+#: actions/emailsettings.php:413
 msgid "That is not your email address."
 msgstr "Ceci n’est pas votre adresse courriel."
 
-#: actions/emailsettings.php:431 actions/imsettings.php:408
+#: actions/emailsettings.php:432 actions/imsettings.php:408
 #: actions/smssettings.php:425
 msgid "The address was removed."
 msgstr "L’adresse a été supprimée."
 
-#: actions/emailsettings.php:445 actions/smssettings.php:518
+#: actions/emailsettings.php:446 actions/smssettings.php:518
 msgid "No incoming email address."
 msgstr "Aucune adresse pour le courriel entrant."
 
-#: actions/emailsettings.php:455 actions/emailsettings.php:477
+#: actions/emailsettings.php:456 actions/emailsettings.php:478
 #: actions/smssettings.php:528 actions/smssettings.php:552
 msgid "Couldn't update user record."
 msgstr "Impossible de mettre à jour le dossier de l’utilisateur."
 
-#: actions/emailsettings.php:458 actions/smssettings.php:531
+#: actions/emailsettings.php:459 actions/smssettings.php:531
 msgid "Incoming email address removed."
 msgstr "L’adresse de courriel entrant a été supprimée."
 
-#: actions/emailsettings.php:480 actions/smssettings.php:555
+#: actions/emailsettings.php:481 actions/smssettings.php:555
 msgid "New incoming email address added."
 msgstr "Nouvelle adresse courriel ajoutée."
 
-#: actions/favorited.php:65 lib/popularnoticesection.php:87
+#: actions/favorited.php:65 lib/popularnoticesection.php:88
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
 msgstr "Statuts populaires"
@@ -1284,9 +1218,9 @@ msgid "%s's favorite notices"
 msgstr "Statuts favoris de %s"
 
 #: actions/favoritesrss.php:115
-#, fuzzy, php-format
+#, php-format
 msgid "Updates favored by %1$s on %2$s!"
-msgstr "Statuts de %1$s dans %2$s!"
+msgstr "Mises à jour privilégiées par %1$s sur %2$s !"
 
 #: actions/favor.php:79
 msgid "This notice is already a favorite!"
@@ -1447,6 +1381,8 @@ msgid ""
 "Customize the way your group looks with a background image and a colour "
 "palette of your choice."
 msgstr ""
+"Personnalisez le style de votre groupe avec une image de fond et une palette "
+"de couleur de votre choix."
 
 #: actions/groupdesignsettings.php:262 actions/userdesignsettings.php:186
 #: lib/designsettings.php:434 lib/designsettings.php:464
@@ -1456,14 +1392,12 @@ msgstr "Impossible de mettre à jour votre conception."
 #: actions/groupdesignsettings.php:286 actions/groupdesignsettings.php:296
 #: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
 #: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
-#, fuzzy
 msgid "Unable to save your design settings!"
-msgstr "L’enregistrement de votre configuration Twitter a échoué !"
+msgstr "Impossible de sauvegarder les préférences de conception !"
 
 #: actions/groupdesignsettings.php:307 actions/userdesignsettings.php:231
-#, fuzzy
 msgid "Design preferences saved."
-msgstr "Préférences de synchronisation enregistrées."
+msgstr "Préférences de conception enregistrées."
 
 #: actions/grouplogo.php:139 actions/grouplogo.php:192
 msgid "Group logo"
@@ -1503,7 +1437,7 @@ msgstr "Membres du groupe %s - page %d"
 msgid "A list of the users in this group."
 msgstr "Liste des utilisateurs inscrits à ce groupe."
 
-#: actions/groupmembers.php:175 lib/action.php:439 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:440 lib/groupnav.php:107
 msgid "Admin"
 msgstr "Administrer"
 
@@ -1524,19 +1458,19 @@ msgid "Make this user an admin"
 msgstr "Faire de cet utilisateur un administrateur"
 
 #: actions/grouprss.php:133
-#, fuzzy, php-format
+#, php-format
 msgid "Updates from members of %1$s on %2$s!"
-msgstr "Statuts de %1$s dans %2$s!"
+msgstr "Mises à jour des membres de %1$s dans %2$s !"
 
 #: actions/groupsearch.php:52
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Search for groups on %%site.name%% by their name, location, or description. "
 "Separate the terms by spaces; they must be 3 characters or more."
 msgstr ""
-"Recherchez des personnes dans %%site.name%% par leur nom, leur emplacement "
-"ou leurs intérêts. Séparez les termes de recherche par des espaces. Ils "
-"doivent contenir au moins 3 caractères."
+"Recherchez des groupes sur %%site.name%% par leur nom, leur emplacement ou "
+"leurs intérêts. Séparez les termes de recherche par des espaces. Ils doivent "
+"contenir au moins 3 caractères."
 
 #: actions/groupsearch.php:58
 msgid "Group search"
@@ -1553,6 +1487,8 @@ msgid ""
 "If you can't find the group you're looking for, you can [create it](%%action."
 "newgroup%%) yourself."
 msgstr ""
+"Si vous ne trouvez pas le groupe que vous recherchez, vous pouvez [le créer]"
+"(%%action.newgroup%%) vous-même."
 
 #: actions/groupsearch.php:85
 #, php-format
@@ -1560,9 +1496,11 @@ msgid ""
 "Why not [register an account](%%action.register%%) and [create the group](%%"
 "action.newgroup%%) yourself!"
 msgstr ""
+"Pourquoi ne pas [créer un compte](%%action.register%%) et [créer le groupe](%"
+"%action.newgroup%%) vous-même !"
 
 #: actions/groups.php:62 lib/profileaction.php:220 lib/publicgroupnav.php:81
-#: lib/subgroupnav.php:98
+#: lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "Groupes"
 
@@ -1580,6 +1518,12 @@ msgid ""
 "for one](%%%%action.groupsearch%%%%) or [start your own!](%%%%action.newgroup"
 "%%%%)"
 msgstr ""
+"Les groupes de %%%%site.name%%%% permettent de trouver et de parler avec des "
+"personnes qui ont le même intérêt. Après avoir rejoint un groupe vous pouvez "
+"envoyer des messages à tous les autres membres en utilisant la syntaxe « !"
+"nomdugroupe ». Vous ne voyez aucun groupe qui vous intéresse ? Essayer d'en "
+"[rechercher un](%%%%action.groupsearch%%%%) ou [commencez le votre !](%%%%"
+"action.newgroup%%%%)"
 
 #: actions/groups.php:107 actions/usergroups.php:124 lib/groupeditform.php:122
 msgid "Create a new group"
@@ -1784,7 +1728,7 @@ msgstr "Message personnel"
 msgid "Optionally add a personal message to the invitation."
 msgstr "Ajouter un message personnel à l’invitation (optionnel)."
 
-#: actions/invite.php:197 lib/messageform.php:181 lib/noticeform.php:208
+#: actions/invite.php:197 lib/messageform.php:181 lib/noticeform.php:225
 msgid "Send"
 msgstr "Envoyer"
 
@@ -1905,11 +1849,10 @@ msgid "Incorrect username or password."
 msgstr "Identifiant ou mot de passe incorrect."
 
 #: actions/login.php:149
-#, fuzzy
 msgid "Error setting user. You are probably not authorized."
-msgstr "Vous n'êtes pas autorisé."
+msgstr "Abonnements par défaut"
 
-#: actions/login.php:204 actions/login.php:257 lib/action.php:457
+#: actions/login.php:204 actions/login.php:257 lib/action.php:458
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Ouvrir une session"
@@ -1952,14 +1895,14 @@ msgstr ""
 "votre mot de passe afin d’enregistrer vos préférences."
 
 #: actions/login.php:286
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Login with your username and password. Don't have a username yet? [Register]"
 "(%%action.register%%) a new account."
 msgstr ""
-"Ouvrez une session avec votre identifiant et votre mot de passe, ou [créez "
-"un compte](%%action.register%%), ou utilisez un identifiant [OpenID](%%"
-"action.openidlogin%%)."
+"Ouvrez une session avec votre identifiant et votre mot de passe. Vous n'avez "
+"pas encore d'identifiant ? [Créez-vous](%%action.register%%) un nouveau "
+"compte."
 
 #: actions/makeadmin.php:91
 msgid "Only an admin can make another user an admin."
@@ -1975,6 +1918,8 @@ msgstr "%s est déjà un administrateur du groupe « %s »."
 #, php-format
 msgid "Can't get membership record for %s in group %s"
 msgstr ""
+"Impossible d'avoir les enregistrements d'appartenance pour %s dans le groupe "
+"%s"
 
 #: actions/makeadmin.php:145
 #, php-format
@@ -2025,7 +1970,7 @@ msgstr "Message envoyé"
 msgid "Direct message to %s sent"
 msgstr "Votre message a été envoyé à %s"
 
-#: actions/newmessage.php:210 actions/newnotice.php:233 lib/channel.php:170
+#: actions/newmessage.php:210 actions/newnotice.php:240 lib/channel.php:170
 msgid "Ajax Error"
 msgstr "Erreur Ajax"
 
@@ -2033,7 +1978,7 @@ msgstr "Erreur Ajax"
 msgid "New notice"
 msgstr "Nouveau statut"
 
-#: actions/newnotice.php:199
+#: actions/newnotice.php:206
 msgid "Notice posted"
 msgstr "Statut publié"
 
@@ -2061,6 +2006,8 @@ msgid ""
 "Be the first to [post on this topic](%%%%action.newnotice%%%%?"
 "status_textarea=%s)!"
 msgstr ""
+"Soyez le premier à [poster sur ce sujet](%%%%action.newnotice%%%%?"
+"status_textarea=%s) !"
 
 #: actions/noticesearch.php:124
 #, php-format
@@ -2068,16 +2015,19 @@ msgid ""
 "Why not [register an account](%%%%action.register%%%%) and be the first to "
 "[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
 msgstr ""
+"Pourquoi ne pas [créer un compte](%%%%action.register%%%%) et être le "
+"premier à [poster sur ce sujet](%%%%action.newnotice%%%%?status_textarea=%"
+"s) !"
 
-#: actions/noticesearchrss.php:89
+#: actions/noticesearchrss.php:96
 #, php-format
 msgid "Updates with \"%s\""
 msgstr "Mises à jour avec « %s »"
 
-#: actions/noticesearchrss.php:91
-#, fuzzy, php-format
+#: actions/noticesearchrss.php:98
+#, php-format
 msgid "Updates matching search term \"%1$s\" on %2$s!"
-msgstr "Statuts correspondant au(x) terme(s) \"%s\""
+msgstr "mises à jour correspondant au(x) terme(s) « %1$s » sur %2$s !"
 
 #: actions/nudge.php:85
 msgid ""
@@ -2145,13 +2095,12 @@ msgid "Automatic shortening service to use."
 msgstr "Sélectionnez un service de réduction d’URL."
 
 #: actions/othersettings.php:122
-#, fuzzy
 msgid "View profile designs"
-msgstr "Paramètres du profil"
+msgstr "Afficher les conceptions de profils"
 
 #: actions/othersettings.php:123
 msgid "Show or hide profile designs."
-msgstr ""
+msgstr "Afficher ou masquer les paramètres de conception."
 
 #: actions/othersettings.php:153
 msgid "URL shortening service is too long (max 50 chars)."
@@ -2201,9 +2150,9 @@ msgstr "6 caractères ou plus"
 msgid "Confirm"
 msgstr "Confirmer"
 
-#: actions/passwordsettings.php:113
-msgid "same as password above"
-msgstr "identique au mot de passe ci-dessus"
+#: actions/passwordsettings.php:113 actions/recoverpassword.php:240
+msgid "Same as password above"
+msgstr "Identique au mot de passe ci-dessus"
 
 #: actions/passwordsettings.php:117
 msgid "Change"
@@ -2232,6 +2181,108 @@ msgstr "Impossible de sauvegarder le nouveau mot de passe."
 #: actions/passwordsettings.php:192 actions/recoverpassword.php:211
 msgid "Password saved."
 msgstr "Mot de passe enregistré."
+
+#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:308
+msgid "Paths"
+msgstr "Chemins"
+
+#: actions/pathsadminpanel.php:70
+msgid "Path and server settings for this StatusNet site."
+msgstr "Paramètres de chemin et serveur pour ce site StatusNet."
+
+#: actions/pathsadminpanel.php:140
+#, php-format
+msgid "Theme directory not readable: %s"
+msgstr "Dossier des thème non lisible : %s"
+
+#: actions/pathsadminpanel.php:146
+#, php-format
+msgid "Avatar directory not writable: %s"
+msgstr "Dossier des avatars non inscriptible : %s"
+
+#: actions/pathsadminpanel.php:152
+#, php-format
+msgid "Background directory not writable: %s"
+msgstr "Dossier des arrière plans non inscriptible : %s"
+
+#: actions/pathsadminpanel.php:160
+#, php-format
+msgid "Locales directory not readable: %s"
+msgstr "Dossier des paramètres régionaux non lisible : %s"
+
+#: actions/pathsadminpanel.php:212 actions/siteadminpanel.php:58
+#: lib/adminpanelaction.php:299
+msgid "Site"
+msgstr "Site"
+
+#: actions/pathsadminpanel.php:216
+msgid "Path"
+msgstr "Chemin"
+
+#: actions/pathsadminpanel.php:216
+msgid "Site path"
+msgstr "Chemin du site"
+
+#: actions/pathsadminpanel.php:220
+msgid "Path to locales"
+msgstr "Chemin vers les paramètres régionaux"
+
+#: actions/pathsadminpanel.php:220
+msgid "Directory path to locales"
+msgstr "Chemin de dossier vers les paramètres régionaux"
+
+#: actions/pathsadminpanel.php:227
+msgid "Theme"
+msgstr "Thème"
+
+#: actions/pathsadminpanel.php:232
+msgid "Theme server"
+msgstr "Serveur de thèmes"
+
+#: actions/pathsadminpanel.php:236
+msgid "Theme path"
+msgstr "Chemin des thèmes"
+
+#: actions/pathsadminpanel.php:240
+msgid "Theme directory"
+msgstr "Dossier des thèmes"
+
+#: actions/pathsadminpanel.php:247
+msgid "Avatars"
+msgstr "Avatars"
+
+#: actions/pathsadminpanel.php:252
+msgid "Avatar server"
+msgstr "Serveur d'avatar"
+
+#: actions/pathsadminpanel.php:256
+msgid "Avatar path"
+msgstr "Chemin des avatars"
+
+#: actions/pathsadminpanel.php:260
+msgid "Avatar directory"
+msgstr "Dossier des avatars"
+
+#: actions/pathsadminpanel.php:269
+msgid "Backgrounds"
+msgstr "Arrière plans"
+
+#: actions/pathsadminpanel.php:273
+msgid "Background server"
+msgstr "Serveur des arrière plans"
+
+#: actions/pathsadminpanel.php:277
+msgid "Background path"
+msgstr "Chemin des arrière plans"
+
+#: actions/pathsadminpanel.php:281
+msgid "Background directory"
+msgstr "Dossier des arrière plans"
+
+#: actions/pathsadminpanel.php:297
+msgid "Save paths"
+msgstr ""
+"Impossible de définir l'utilisateur. Vous n'êtes probablement pas autorisé."
 
 #: actions/peoplesearch.php:52
 #, php-format
@@ -2265,6 +2316,8 @@ msgstr "Contenu invalide"
 #, php-format
 msgid "Notice license ‘%s’ is not compatible with site license ‘%s’."
 msgstr ""
+"La licence des statuts « %s » n'est pas compatible avec la licence du site « %"
+"s »."
 
 #: actions/profilesettings.php:60
 msgid "Profile settings"
@@ -2336,7 +2389,7 @@ msgid ""
 msgstr ""
 "Marquages (tags) pour votre profil, séparés par des virgules ou des espaces"
 
-#: actions/profilesettings.php:144 actions/siteadminpanel.php:309
+#: actions/profilesettings.php:144 actions/siteadminpanel.php:307
 msgid "Language"
 msgstr "Langue"
 
@@ -2396,7 +2449,7 @@ msgstr "Préférences enregistrées."
 #: actions/public.php:83
 #, php-format
 msgid "Beyond the page limit (%s)"
-msgstr ""
+msgstr "Au-delà de la limite de page (%s)"
 
 #: actions/public.php:92
 msgid "Could not retrieve public stream."
@@ -2429,6 +2482,8 @@ msgid ""
 "This is the public timeline for %%site.name%% but no one has posted anything "
 "yet."
 msgstr ""
+"Ceci est la chronologie publique de %%site.name%% mais personne n'a encore "
+"rien posté."
 
 #: actions/public.php:182
 msgid "Be the first to post!"
@@ -2439,6 +2494,8 @@ msgstr "Soyez le premier à poster !"
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post!"
 msgstr ""
+"Pourquoi ne pas [créer un compte](%%action.register%%) et être le premier à "
+"poster !"
 
 #: actions/public.php:233
 #, php-format
@@ -2455,14 +2512,14 @@ msgstr ""
 "%))"
 
 #: actions/public.php:238
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
 "blogging) service based on the Free Software [StatusNet](http://status.net/) "
 "tool."
 msgstr ""
 "%%site.name%% est un service de [micro-blogging](http://fr.wikipedia.org/"
-"wiki/Microblog) "
+"wiki/Microblog) basé sur le logiciel libre [StatusNet](http://status.net/)."
 
 #: actions/publictagcloud.php:57
 msgid "Public tag cloud"
@@ -2476,7 +2533,7 @@ msgstr "Derniers marquages les plus populaires dans %s "
 #: actions/publictagcloud.php:69
 #, php-format
 msgid "No one has posted a notice with a [hashtag](%%doc.tags%%) yet."
-msgstr ""
+msgstr "Personne n'a encore posté un statuts avec une [marque](%%doc.tags%%)."
 
 #: actions/publictagcloud.php:72
 msgid "Be the first to post one!"
@@ -2488,6 +2545,8 @@ msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post "
 "one!"
 msgstr ""
+"Pourquoi ne pas [créer un compte](%%action.register%%) et être le premier à "
+"en poster un !"
 
 #: actions/publictagcloud.php:135
 msgid "Tag cloud"
@@ -2527,6 +2586,9 @@ msgid ""
 "If you have forgotten or lost your password, you can get a new one sent to "
 "the email address you have stored in your account."
 msgstr ""
+"Si vous avez oublié ou perdu votre mot de passe, vous pouvez en avoir un "
+"nouveau qui sera envoyé à votre adresse de courriel définie dans votre "
+"compte."
 
 #: actions/recoverpassword.php:158
 msgid "You have been identified. Enter a new password below. "
@@ -2568,10 +2630,6 @@ msgstr "Action inconnue"
 #: actions/recoverpassword.php:236
 msgid "6 or more characters, and don't forget it!"
 msgstr "6 caractères ou plus, et ne l’oubliez pas !"
-
-#: actions/recoverpassword.php:240
-msgid "Same as password above"
-msgstr "Identique au mot de passe ci-dessus"
 
 #: actions/recoverpassword.php:243
 msgid "Reset"
@@ -2634,7 +2692,7 @@ msgstr "Désolé, code d’invitation invalide."
 msgid "Registration successful"
 msgstr "Compte créé avec succès"
 
-#: actions/register.php:114 actions/register.php:502 lib/action.php:454
+#: actions/register.php:114 actions/register.php:502 lib/action.php:455
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Créer un compte"
@@ -2664,6 +2722,8 @@ msgid ""
 "With this form you can create  a new account. You can then post notices and "
 "link up to friends and colleagues. "
 msgstr ""
+"Avec ce formulaire vous pouvez créer un nouveau compte. Vous pourrez ensuite "
+"poster des statuts and et vous relier avec des amis et collègues. "
 
 #: actions/register.php:424
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
@@ -2679,7 +2739,7 @@ msgid "Same as password above. Required."
 msgstr "Identique au mot de passe ci-dessus. Requis."
 
 #: actions/register.php:437 actions/register.php:441
-#: actions/siteadminpanel.php:287 lib/accountsettingsaction.php:120
+#: actions/siteadminpanel.php:283 lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr "Courriel"
 
@@ -2788,7 +2848,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "URL de votre profil sur un autre service de micro-blogging compatible"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:356
+#: lib/userprofile.php:365
 msgid "Subscribe"
 msgstr "S’abonner"
 
@@ -2842,6 +2902,8 @@ msgid ""
 "This is the timeline showing replies to %s but %s hasn't received a notice "
 "to his attention yet."
 msgstr ""
+"Ceci est la chronologie des réponses à %s mais %s n'a encore reçu aucun "
+"statut à son intention."
 
 #: actions/replies.php:203
 #, php-format
@@ -2849,6 +2911,8 @@ msgid ""
 "You can engage other users in a conversation, subscribe to more people or "
 "[join groups](%%action.groups%%)."
 msgstr ""
+"Vous pouvez vous engager dans une conversation avec d'autres personnes, vous "
+"abonner à plus de gens ou [joindre des groupes](%%action.groups%%)."
 
 #: actions/replies.php:205
 #, php-format
@@ -2860,19 +2924,18 @@ msgstr ""
 "quelque chose à son attention](%%%%action.newnotice%%%%?status_textarea=%s)"
 
 #: actions/repliesrss.php:72
-#, fuzzy, php-format
+#, php-format
 msgid "Replies to %1$s on %2$s!"
-msgstr "Message adressé à %1$s le %2$s"
+msgstr "Réponses à %1$s sur %2$s !"
 
 #: actions/sandbox.php:65 actions/unsandbox.php:65
-#, fuzzy
 msgid "You cannot sandbox users on this site."
-msgstr "Vous ne pouvez pas envoyer de messages à cet utilisateur."
+msgstr ""
+"Vous ne pouvez pas mettre des utilisateur dans le bac à sable sur ce site."
 
 #: actions/sandbox.php:72
-#, fuzzy
 msgid "User is already sandboxed."
-msgstr "Cet utilisateur est déjà bloqué pour le groupe."
+msgstr "L'utilisateur est déjà dans le bac à sable."
 
 #: actions/showfavorites.php:79
 #, php-format
@@ -3014,17 +3077,25 @@ msgid ""
 "their life and interests. [Join now](%%%%action.register%%%%) to become part "
 "of this group and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
+"**%s** est un groupe d'utilisateurs sur %%%%site.name%%%%, un service de "
+"[microblogging](http://fr.wikipedia.org/wiki/Microblog) basé sur le logiciel "
+"libre [StatusNet](http://status.net/). Ses membres partagent des courts "
+"messages sur leur vie et leurs intérêts. [Inscrivez-vous maintenant](%%%%"
+"action.register%%%%) pour devenir membre de ce groupe et bien plus ! ([En "
+"lire plus](%%%%doc.help%%%%))"
 
 #: actions/showgroup.php:454
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
 "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
 "[StatusNet](http://status.net/) tool. Its members share short messages about "
 "their life and interests. "
 msgstr ""
-"**%s** est un groupe d’utilisateurs du service de [micro-blogging](http://fr."
-"wikipedia.org/wiki/Microblog)  %%%%site.name%%%%"
+"**%s** est un groupe d’utilisateurs sur %%%%site.name%%%%, un service de "
+"[micro-blogging](http://fr.wikipedia.org/wiki/Microblog)  basé sur le "
+"logiciel libre [StatusNet](http://status.net/). Ses membres partagent des "
+"messages courts à propos de leur vie et leurs intérêts. "
 
 #: actions/showgroup.php:482
 msgid "Admins"
@@ -3119,270 +3190,265 @@ msgid ""
 "[StatusNet](http://status.net/) tool. [Join now](%%%%action.register%%%%) to "
 "follow **%s**'s notices and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
+"**%s** possède un compte sur %%%%site.name%%%%, un service de [microblogging]"
+"(http://fr.wikipedia.org/wiki/Microblog) basé sur le logiciel libre "
+"[StatusNet](http://status.net/). [Inscrivez-vous maintenant](%%%%action."
+"register%%%%) pour suivre les statuts de **%s** et bien plus ! ([En lire "
+"plus](%%%%doc.help%%%%))"
 
 #: actions/showstream.php:239
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
 "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
 "[StatusNet](http://status.net/) tool. "
 msgstr ""
-"**%s** est inscrit au service de [micro-blogging](http://fr.wikipedia.org/"
-"wiki/Microblog)  %%%%site.name%%%%"
+"**%s** est inscrit à %%%%site.name%%%%, service de [microblogging](http://fr."
+"wikipedia.org/wiki/Microblog)  basé sur le logiciel libre [StatusNet](http://"
+"status.net/). "
 
 #: actions/silence.php:65 actions/unsilence.php:65
-#, fuzzy
 msgid "You cannot silence users on this site."
-msgstr "Vous ne pouvez pas envoyer de messages à cet utilisateur."
+msgstr "Vous ne pouvez pas réduire des utilisateurs au silence sur ce site."
 
 #: actions/silence.php:72
-#, fuzzy
 msgid "User is already silenced."
-msgstr "Cet utilisateur est déjà bloqué pour le groupe."
-
-#: actions/siteadminpanel.php:58 lib/adminpanelaction.php:299
-#, fuzzy
-msgid "Site"
-msgstr "Inviter"
+msgstr "Cet utilisateur est déjà réduit au silence."
 
 #: actions/siteadminpanel.php:69
 msgid "Basic settings for this StatusNet site."
-msgstr ""
+msgstr "Paramètres basiques pour ce site StatusNet."
 
 #: actions/siteadminpanel.php:147
 msgid "Site name must have non-zero length."
-msgstr ""
+msgstr "Le nom du site ne peut pas être vide."
 
 #: actions/siteadminpanel.php:155
-#, fuzzy
 msgid "You must have a valid contact email address"
-msgstr "Adresse courriel invalide"
+msgstr "Vous devez avoir une adresse de courriel de contact valide."
 
 #: actions/siteadminpanel.php:173
 #, php-format
 msgid "Unknown language \"%s\""
-msgstr ""
+msgstr "Langue « %s » inconnue"
 
 #: actions/siteadminpanel.php:180
 msgid "Invalid snapshot report URL."
-msgstr ""
+msgstr "URL de rapport d'instantanés invalide."
 
 #: actions/siteadminpanel.php:186
 msgid "Invalid snapshot run value."
-msgstr ""
+msgstr "Valeur de lancement d'instantanés invalide."
 
 #: actions/siteadminpanel.php:192
 msgid "Snapshot frequency must be a number."
-msgstr ""
+msgstr "La fréquence des instantanés doit être un nombre."
 
 #: actions/siteadminpanel.php:199
-msgid "You must set an SSL sever when enabling SSL."
-msgstr ""
+msgid "You must set an SSL server when enabling SSL."
+msgstr "Vous devez définir un serveur SSL quand vous activez SSL."
 
 #: actions/siteadminpanel.php:204
-msgid "Invalid SSL server. Max length is 255 characters."
-msgstr ""
+msgid "Invalid SSL server. The maximum length is 255 characters."
+msgstr "Serveur SSL invalide. La longueur maximale est de 255 caractères."
 
 #: actions/siteadminpanel.php:210
-msgid "Minimum text limit is 140c."
-msgstr ""
+msgid "Minimum text limit is 140 characters."
+msgstr "La limite minimale de texte est de 140 caractères."
 
 #: actions/siteadminpanel.php:216
 msgid "Dupe limit must 1 or more seconds."
-msgstr ""
+msgstr "La limite de doublon doit être d'une seconde ou plus."
 
-#: actions/siteadminpanel.php:224
-#, php-format
-msgid "Locales directory not readable: %s"
-msgstr ""
+#: actions/siteadminpanel.php:266
+msgid "General"
+msgstr "Général"
+
+#: actions/siteadminpanel.php:269
+msgid "Site name"
+msgstr "Nom du site"
+
+#: actions/siteadminpanel.php:270
+msgid "The name of your site, like \"Yourcompany Microblog\""
+msgstr "Le nom de votre site, comme « Microblog de votre compagnie »"
+
+#: actions/siteadminpanel.php:274
+msgid "Brought by"
+msgstr "Apporté par"
 
 #: actions/siteadminpanel.php:275
-#, fuzzy
-msgid "Site name"
-msgstr "Notice du site"
-
-#: actions/siteadminpanel.php:276
-msgid "The name of your site, like \"Yourcompany Microblog\""
-msgstr ""
+msgid "Text used for credits link in footer of each page"
+msgstr "Texte utilisé pour le lien de crédits au bas de chaque page"
 
 #: actions/siteadminpanel.php:279
-msgid "Brought by"
-msgstr ""
+msgid "Brought by URL"
+msgstr "Apporté par URL"
 
 #: actions/siteadminpanel.php:280
-msgid "Text used for credits link in footer of each page"
-msgstr ""
-
-#: actions/siteadminpanel.php:283
-msgid "Brought by URL"
-msgstr ""
+msgid "URL used for credits link in footer of each page"
+msgstr "URL utilisée pour le lien de crédits au bas de chaque page"
 
 #: actions/siteadminpanel.php:284
-msgid "URL used for credits link in footer of each page"
-msgstr ""
+msgid "Contact email address for your site"
+msgstr "adresse de courriel de contact de votre site"
 
-#: actions/siteadminpanel.php:288
-#, fuzzy
-msgid "contact email address for your site"
-msgstr "Nouvelle adresse courriel pour poster dans %s"
+#: actions/siteadminpanel.php:290
+msgid "Local"
+msgstr "Local"
+
+#: actions/siteadminpanel.php:301
+msgid "Default timezone"
+msgstr "Zone horaire par défaut"
 
 #: actions/siteadminpanel.php:302
-msgid "Default timezone"
-msgstr ""
-
-#: actions/siteadminpanel.php:303
 msgid "Default timezone for the site; usually UTC."
-msgstr ""
+msgstr "Zone horaire par défaut pour ce site ; généralement UTC."
 
-#: actions/siteadminpanel.php:310
-#, fuzzy
+#: actions/siteadminpanel.php:308
 msgid "Default site language"
-msgstr "Langue préférée"
+msgstr "Langue du site par défaut"
 
 #: actions/siteadminpanel.php:316
-msgid "Path to locales"
-msgstr ""
+msgid "URLs"
+msgstr "URL"
 
-#: actions/siteadminpanel.php:316
-msgid "Directory path to locales"
-msgstr ""
-
-#: actions/siteadminpanel.php:320
-#, fuzzy
+#: actions/siteadminpanel.php:319
 msgid "Server"
-msgstr "Récupérer"
+msgstr "Serveur"
 
-#: actions/siteadminpanel.php:320
+#: actions/siteadminpanel.php:319
 msgid "Site's server hostname."
-msgstr ""
+msgstr "Nom d'hôte du serveur du site."
 
-#: actions/siteadminpanel.php:324
-msgid "Path"
-msgstr ""
-
-#: actions/siteadminpanel.php:324
-#, fuzzy
-msgid "Site path"
-msgstr "Notice du site"
-
-#: actions/siteadminpanel.php:328
+#: actions/siteadminpanel.php:323
 msgid "Fancy URLs"
-msgstr ""
+msgstr "Jolies URL"
 
-#: actions/siteadminpanel.php:330
+#: actions/siteadminpanel.php:325
 msgid "Use fancy (more readable and memorable) URLs?"
-msgstr ""
+msgstr "Utiliser des jolies URL (plus lisibles et mémorable) ?"
+
+#: actions/siteadminpanel.php:331
+msgid "Access"
+msgstr "Accès"
 
 #: actions/siteadminpanel.php:334
-#, fuzzy
 msgid "Private"
-msgstr "Confidentialité"
+msgstr "Privé"
 
 #: actions/siteadminpanel.php:336
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
-msgstr ""
+msgstr "Interdire aux utilisateurs anonymes (non connectés) de voir le site ?"
 
 #: actions/siteadminpanel.php:340
-#, fuzzy
 msgid "Invite only"
-msgstr "Inviter"
+msgstr "Sur invitation uniquement"
 
 #: actions/siteadminpanel.php:342
 msgid "Make registration invitation only."
-msgstr ""
+msgstr "Rendre l'inscription sur invitation seulement."
 
-#: actions/siteadminpanel.php:346 actions/useradminpanel.php:171
-#, fuzzy
+#: actions/siteadminpanel.php:346
 msgid "Closed"
-msgstr "Bloqué"
+msgstr "Fermé"
 
 #: actions/siteadminpanel.php:348
 msgid "Disable new registrations."
-msgstr ""
-
-#: actions/siteadminpanel.php:353
-msgid "Randomly during Web hit"
-msgstr ""
+msgstr "Désactiver les nouvelles inscriptions."
 
 #: actions/siteadminpanel.php:354
-msgid "In a scheduled job"
-msgstr ""
-
-#: actions/siteadminpanel.php:355 actions/siteadminpanel.php:380
-#, fuzzy
-msgid "Never"
-msgstr "Récupérer"
+msgid "Snapshots"
+msgstr "Instantanés"
 
 #: actions/siteadminpanel.php:357
-msgid "Data snapshots"
-msgstr ""
+msgid "Randomly during Web hit"
+msgstr "Au hasard lors des requêtes web"
 
 #: actions/siteadminpanel.php:358
+msgid "In a scheduled job"
+msgstr "Dans une tâche programée"
+
+#: actions/siteadminpanel.php:359 actions/siteadminpanel.php:383
+msgid "Never"
+msgstr "Jamais"
+
+#: actions/siteadminpanel.php:360
+msgid "Data snapshots"
+msgstr "Instantanés de données"
+
+#: actions/siteadminpanel.php:361
 msgid "When to send statistical data to status.net servers"
-msgstr ""
+msgstr "Quand envoyer des données statistiques aux serveurs status.net"
 
-#: actions/siteadminpanel.php:364
+#: actions/siteadminpanel.php:366
 msgid "Frequency"
-msgstr ""
+msgstr "Fréquence"
 
-#: actions/siteadminpanel.php:365
-msgid "Snapshots will be sent once every N Web hits"
-msgstr ""
+#: actions/siteadminpanel.php:367
+msgid "Snapshots will be sent once every N web hits"
+msgstr "Les instantanés seront envoyés une fois tous les N requêtes"
 
 #: actions/siteadminpanel.php:372
 msgid "Report URL"
-msgstr ""
+msgstr "URL de rapport"
 
 #: actions/siteadminpanel.php:373
 msgid "Snapshots will be sent to this URL"
-msgstr ""
+msgstr "Les instantanés seront envoyés à cette URL"
 
-#: actions/siteadminpanel.php:381
-#, fuzzy
-msgid "Sometimes"
-msgstr "Statuts"
-
-#: actions/siteadminpanel.php:382
-#, fuzzy
-msgid "Always"
-msgstr "Alias"
+#: actions/siteadminpanel.php:380
+msgid "SSL"
+msgstr "SSL"
 
 #: actions/siteadminpanel.php:384
-msgid "Use SSL"
-msgstr ""
+msgid "Sometimes"
+msgstr "Quelquefois"
 
 #: actions/siteadminpanel.php:385
+msgid "Always"
+msgstr "Toujours"
+
+#: actions/siteadminpanel.php:387
+msgid "Use SSL"
+msgstr "Utiliser SSL"
+
+#: actions/siteadminpanel.php:388
 msgid "When to use SSL"
-msgstr ""
+msgstr "Quand utiliser SSL"
 
-#: actions/siteadminpanel.php:391
+#: actions/siteadminpanel.php:393
 msgid "SSL Server"
-msgstr ""
+msgstr "Serveur SSL"
 
-#: actions/siteadminpanel.php:392
+#: actions/siteadminpanel.php:394
 msgid "Server to direct SSL requests to"
-msgstr ""
+msgstr "Serveur vers lequel rediriger les requêtes SSL"
 
-#: actions/siteadminpanel.php:396
+#: actions/siteadminpanel.php:400
+msgid "Limits"
+msgstr "Limites"
+
+#: actions/siteadminpanel.php:403
 msgid "Text limit"
-msgstr ""
+msgstr "Limite de texte"
 
-#: actions/siteadminpanel.php:396
+#: actions/siteadminpanel.php:403
 msgid "Maximum number of characters for notices."
-msgstr ""
+msgstr "Nombre maximal de caractères pour les statuts."
 
-#: actions/siteadminpanel.php:400
+#: actions/siteadminpanel.php:407
 msgid "Dupe limit"
-msgstr ""
+msgstr "Limite de doublons"
 
-#: actions/siteadminpanel.php:400
+#: actions/siteadminpanel.php:407
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
+"Combien de temps (en secondes) les utilisateurs doivent attendre pour poster "
+"la même chose de nouveau."
 
-#: actions/siteadminpanel.php:414 actions/useradminpanel.php:226
-#, fuzzy
+#: actions/siteadminpanel.php:421 actions/useradminpanel.php:313
 msgid "Save site settings"
-msgstr "Paramètres de l’avatar"
+msgstr "Sauvegarder les paramètres du site"
 
 #: actions/smssettings.php:58
 msgid "SMS Settings"
@@ -3668,19 +3734,16 @@ msgid "API method under construction."
 msgstr "Méthode API en construction."
 
 #: actions/unblock.php:59
-#, fuzzy
 msgid "You haven't blocked that user."
-msgstr "Vous avez déjà bloqué cet utilisateur."
+msgstr "Vous n'avez pas bloqué cet utilisateur."
 
 #: actions/unsandbox.php:72
-#, fuzzy
 msgid "User is not sandboxed."
-msgstr "Cet utilisateur n’est pas bloqué du groupe."
+msgstr "L'utilisateur ne se trouve pas dans le bac à sable."
 
 #: actions/unsilence.php:72
-#, fuzzy
 msgid "User is not silenced."
-msgstr "Aucun profil ne correspond à cet utilisateur."
+msgstr "L'utilisateur n'est pas réduit au silence."
 
 #: actions/unsubscribe.php:77
 msgid "No profile id in request."
@@ -3701,26 +3764,94 @@ msgstr ""
 "La licence du flux auquel vous avez souscrit ‘%s’ n’est pas compatible avec "
 "la licence du site ‘%s’."
 
-#: actions/useradminpanel.php:58 lib/personalgroupnav.php:115
+#: actions/useradminpanel.php:58 lib/adminpanelaction.php:305
+#: lib/personalgroupnav.php:115
 msgid "User"
 msgstr "Utilisateur"
 
 #: actions/useradminpanel.php:69
 msgid "User settings for this StatusNet site."
-msgstr ""
+msgstr "Paramètres des utilisateurs pour ce site StatusNet."
 
-#: actions/useradminpanel.php:173
-msgid "Is registration on this site prohibited?"
-msgstr ""
+#: actions/useradminpanel.php:149
+msgid "Invalid bio limit. Must be numeric."
+msgstr "Limite de bio invalide : doit être numérique."
 
-#: actions/useradminpanel.php:178
-#, fuzzy
-msgid "Invite-only"
-msgstr "Inviter"
+#: actions/useradminpanel.php:155
+msgid "Invalid welcome text. Max length is 255 characters."
+msgstr "Texte de bienvenue invalide. La taille maximale est de 255 caractères."
 
-#: actions/useradminpanel.php:180
-msgid "Is registration on this site only open to invited users?"
+#: actions/useradminpanel.php:165
+#, php-format
+msgid "Invalid default subscripton: '%1$s' is not user."
+msgstr "Abonnement par défaut invalide : « %1$s » n'est pas un utilisateur."
+
+#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:108
+#: lib/personalgroupnav.php:109
+msgid "Profile"
+msgstr "Profil"
+
+#: actions/useradminpanel.php:222
+msgid "Bio Limit"
+msgstr "Limite de bio"
+
+#: actions/useradminpanel.php:223
+msgid "Maximum length of a profile bio in characters."
+msgstr "Longueur maximale de la bio d'un profil en caractères."
+
+#: actions/useradminpanel.php:231
+msgid "New users"
+msgstr "Nouveaux utilisateurs"
+
+#: actions/useradminpanel.php:235
+msgid "New user welcome"
+msgstr "Accueil des nouveaux utilisateurs"
+
+#: actions/useradminpanel.php:236
+msgid "Welcome text for new users (Max 255 chars)."
 msgstr ""
+"Texte de bienvenue pour les nouveaux utilisateurs (maximum 255 caractères)."
+
+#: actions/useradminpanel.php:241
+msgid "Default subscription"
+msgstr "Abonnements par défaut"
+
+#: actions/useradminpanel.php:242
+msgid "Automatically subscribe new users to this user."
+msgstr "Abonner automatiquement les nouveaux utilisateurs à cet utilisateur."
+
+#: actions/useradminpanel.php:251
+msgid "Invitations"
+msgstr "Invitations"
+
+#: actions/useradminpanel.php:256
+msgid "Invitations enabled"
+msgstr "Invitations activées"
+
+#: actions/useradminpanel.php:258
+msgid "Whether to allow users to invite new users."
+msgstr ""
+"S'il faut autoriser les utilisateurs à inviter de nouveaux utilisateurs."
+
+#: actions/useradminpanel.php:265
+msgid "Sessions"
+msgstr "Sessions"
+
+#: actions/useradminpanel.php:270
+msgid "Handle sessions"
+msgstr "Gérer les sessions"
+
+#: actions/useradminpanel.php:272
+msgid "Whether to handle sessions ourselves."
+msgstr "S'il faut gérer les sessions nous-même."
+
+#: actions/useradminpanel.php:276
+msgid "Session debugging"
+msgstr "Déboguage de session"
+
+#: actions/useradminpanel.php:278
+msgid "Turn on debugging output for sessions."
+msgstr "Activer la sortie de déboguage pour les sessions."
 
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
@@ -3885,9 +4016,8 @@ msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr "Un fichier aussi gros dépasserai votre quota mensuel de %d octets."
 
 #: classes/Message.php:45
-#, fuzzy
 msgid "You are banned from sending direct messages."
-msgstr "Une erreur est survenue pendant l’envoi de votre message."
+msgstr "Il vous est interdit d'envoyer des messages directs."
 
 #: classes/Message.php:61
 msgid "Could not insert message."
@@ -3918,13 +4048,12 @@ msgstr ""
 "quelques minutes."
 
 #: classes/Notice.php:194
-#, fuzzy
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
-"Trop de statuts, trop vite ! Prenez une pause et publiez à nouveau dans "
-"quelques minutes."
+"Trop de messages en double trop vite ! Prenez une pause et publiez à nouveau "
+"dans quelques minutes."
 
 #: classes/Notice.php:200
 msgid "You are banned from posting notices on this site."
@@ -3934,7 +4063,7 @@ msgstr "Il vous est interdit de publier des statuts dans ce site."
 msgid "Problem saving notice."
 msgstr "Problème lors de l’enregistrement du statut."
 
-#: classes/Notice.php:1117
+#: classes/Notice.php:1124
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Erreur de base de donnée en insérant la réponse :%s"
@@ -3951,10 +4080,6 @@ msgstr "Impossible d'établir l’inscription au groupe."
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Bienvenu à %1$s, %2$s !"
-
-#: lib/accountsettingsaction.php:108 lib/personalgroupnav.php:109
-msgid "Profile"
-msgstr "Profil"
 
 #: lib/accountsettingsaction.php:108
 msgid "Change your profile settings"
@@ -3993,130 +4118,128 @@ msgstr "%s - %s"
 msgid "Untitled page"
 msgstr "Page sans nom"
 
-#: lib/action.php:424
+#: lib/action.php:425
 msgid "Primary site navigation"
 msgstr "Navigation primaire du site"
 
-#: lib/action.php:430
+#: lib/action.php:431
 msgid "Home"
 msgstr "Accueil"
 
-#: lib/action.php:430
+#: lib/action.php:431
 msgid "Personal profile and friends timeline"
 msgstr "Profil personnel et flux des amis"
 
-#: lib/action.php:432
+#: lib/action.php:433
 msgid "Account"
 msgstr "Compte"
 
-#: lib/action.php:432
+#: lib/action.php:433
 msgid "Change your email, avatar, password, profile"
 msgstr "Modifier votre courriel, avatar, mot de passe, profil"
 
-#: lib/action.php:435
+#: lib/action.php:436
 msgid "Connect"
 msgstr "Connecter"
 
-#: lib/action.php:435
+#: lib/action.php:436
 msgid "Connect to services"
 msgstr "Se connecter aux services"
 
-#: lib/action.php:439
-#, fuzzy
+#: lib/action.php:440
 msgid "Change site configuration"
-msgstr "Navigation primaire du site"
+msgstr "Modifier la configuration du site"
 
-#: lib/action.php:443 lib/subgroupnav.php:105
+#: lib/action.php:444 lib/subgroupnav.php:105
 msgid "Invite"
 msgstr "Inviter"
 
-#: lib/action.php:444 lib/subgroupnav.php:106
+#: lib/action.php:445 lib/subgroupnav.php:106
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Inviter des amis et collègues à vous rejoindre dans %s"
 
-#: lib/action.php:449
+#: lib/action.php:450
 msgid "Logout"
 msgstr "Fermeture de session"
 
-#: lib/action.php:449
+#: lib/action.php:450
 msgid "Logout from the site"
 msgstr "Fermer la session"
 
-#: lib/action.php:454
+#: lib/action.php:455
 msgid "Create an account"
 msgstr "Créer un compte"
 
-#: lib/action.php:457
+#: lib/action.php:458
 msgid "Login to the site"
 msgstr "Ouvrir une session"
 
-#: lib/action.php:460 lib/action.php:723
+#: lib/action.php:461 lib/action.php:724
 msgid "Help"
 msgstr "Aide"
 
-#: lib/action.php:460
+#: lib/action.php:461
 msgid "Help me!"
 msgstr "À l’aide !"
 
-#: lib/action.php:463
+#: lib/action.php:464 lib/searchaction.php:127
 msgid "Search"
 msgstr "Rechercher"
 
-#: lib/action.php:463
+#: lib/action.php:464
 msgid "Search for people or text"
 msgstr "Rechercher des personnes ou du texte"
 
-#: lib/action.php:484
+#: lib/action.php:485
 msgid "Site notice"
 msgstr "Notice du site"
 
-#: lib/action.php:550
+#: lib/action.php:551
 msgid "Local views"
 msgstr "Vues locales"
 
-#: lib/action.php:616
+#: lib/action.php:617
 msgid "Page notice"
 msgstr "Avis de la page"
 
-#: lib/action.php:718
+#: lib/action.php:719
 msgid "Secondary site navigation"
 msgstr "Navigation secondaire du site"
 
-#: lib/action.php:725
+#: lib/action.php:726
 msgid "About"
 msgstr "À propos"
 
-#: lib/action.php:727
+#: lib/action.php:728
 msgid "FAQ"
 msgstr "FAQ"
 
-#: lib/action.php:731
+#: lib/action.php:732
 msgid "TOS"
 msgstr "CGU"
 
-#: lib/action.php:734
+#: lib/action.php:735
 msgid "Privacy"
 msgstr "Confidentialité"
 
-#: lib/action.php:736
+#: lib/action.php:737
 msgid "Source"
 msgstr "Source"
 
-#: lib/action.php:738
+#: lib/action.php:739
 msgid "Contact"
 msgstr "Contact"
 
-#: lib/action.php:740
-#, fuzzy
+#: lib/action.php:741
 msgid "Badge"
-msgstr "Clin d’œil"
+msgstr "Insigne"
 
-#: lib/action.php:768
+#: lib/action.php:769
 msgid "StatusNet software license"
 msgstr "Licence du logiciel StatusNet"
 
-#: lib/action.php:771
+#: lib/action.php:772
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4125,12 +4248,12 @@ msgstr ""
 "**%%site.name%%** est un service de microblogging qui vous est proposé par  "
 "[%%site.broughtby%%](%%site.broughtbyurl%%)."
 
-#: lib/action.php:773
+#: lib/action.php:774
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** est un service de micro-blogging."
 
-#: lib/action.php:775
+#: lib/action.php:776
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4141,63 +4264,61 @@ msgstr ""
 "version %s, disponible sous la licence [GNU Affero General Public License] "
 "(http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
 
-#: lib/action.php:789
+#: lib/action.php:790
 msgid "Site content license"
 msgstr "Licence du contenu du site"
 
-#: lib/action.php:798
+#: lib/action.php:799
 msgid "All "
 msgstr "Tous "
 
-#: lib/action.php:803
+#: lib/action.php:804
 msgid "license."
 msgstr "licence."
 
-#: lib/action.php:1067
+#: lib/action.php:1068
 msgid "Pagination"
 msgstr "Pagination"
 
-#: lib/action.php:1076
+#: lib/action.php:1077
 msgid "After"
 msgstr "Après"
 
-#: lib/action.php:1084
+#: lib/action.php:1085
 msgid "Before"
 msgstr "Avant"
 
-#: lib/action.php:1132
+#: lib/action.php:1133
 msgid "There was a problem with your session token."
 msgstr "Un problème est survenu avec votre jeton de session."
 
 #: lib/adminpanelaction.php:96
-#, fuzzy
 msgid "You cannot make changes to this site."
-msgstr "Vous ne pouvez pas envoyer de messages à cet utilisateur."
+msgstr "Vous ne pouvez pas faire de modifications sur ce site."
 
 #: lib/adminpanelaction.php:195
-#, fuzzy
 msgid "showForm() not implemented."
-msgstr "Cette commande n’a pas encore été implémentée."
+msgstr "showForm() n’a pas été implémentée."
 
 #: lib/adminpanelaction.php:224
-#, fuzzy
 msgid "saveSettings() not implemented."
-msgstr "Cette commande n’a pas encore été implémentée."
+msgstr "saveSettings() n’a pas été implémentée."
 
 #: lib/adminpanelaction.php:247
-#, fuzzy
 msgid "Unable to delete design setting."
-msgstr "Impossible de sauvegarder les parmètres de la conception."
+msgstr "Impossible de supprimer les paramètres de conception."
 
 #: lib/adminpanelaction.php:300
-#, fuzzy
 msgid "Basic site configuration"
-msgstr "Confirmation de l’adresse courriel"
+msgstr "Configuration basique du site"
 
 #: lib/adminpanelaction.php:303
-#, fuzzy
 msgid "Design configuration"
-msgstr "Confirmation SMS"
+msgstr "Configuration de la conception"
+
+#: lib/adminpanelaction.php:306 lib/adminpanelaction.php:309
+msgid "Paths configuration"
+msgstr "Configuration des chemins"
 
 #: lib/attachmentlist.php:87
 msgid "Attachments"
@@ -4245,9 +4366,9 @@ msgid "It does not make a lot of sense to nudge yourself!"
 msgstr "Ça n’a pas de sens de se faire un clin d’œil à soi-même !"
 
 #: lib/command.php:99
-#, fuzzy, php-format
+#, php-format
 msgid "Nudge sent to %s"
-msgstr "Clin d’œil envoyé"
+msgstr "Coup de code envoyé à %s"
 
 #: lib/command.php:126
 #, php-format
@@ -4379,33 +4500,30 @@ msgid "You are not subscribed to anyone."
 msgstr "Vous n'êtes pas abonné(e) à personne."
 
 #: lib/command.php:620
-#, fuzzy
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
-msgstr[0] "Vous êtes abonné à ces personnes : "
-msgstr[1] "Vous êtes abonné à ces personnes : "
+msgstr[0] "Vous êtes abonné à cette personne :"
+msgstr[1] "Vous êtes abonné à ces personnes :"
 
 #: lib/command.php:640
 msgid "No one is subscribed to you."
 msgstr "Personne ne s'est abonné à vous."
 
 #: lib/command.php:642
-#, fuzzy
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
-msgstr[0] "Personne ne s'est abonné à vous."
-msgstr[1] "Personne ne s'est abonné à vous."
+msgstr[0] "Cette personne est abonnée à vous :"
+msgstr[1] "Ces personnes sont abonnées à vous :"
 
 #: lib/command.php:662
 msgid "You are not a member of any groups."
 msgstr "Vous n'êtes pas membre d'aucun groupe."
 
 #: lib/command.php:664
-#, fuzzy
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
-msgstr[0] "Vous êtes membre de ces groupes : "
-msgstr[1] "Vous êtes membre de ces groupes : "
+msgstr[0] "Vous êtes membre de ce groupe :"
+msgstr[1] "Vous êtes membre de ces groupes :"
 
 #: lib/command.php:678
 msgid ""
@@ -4520,9 +4638,9 @@ msgstr "Importer un fichier"
 
 #: lib/designsettings.php:109
 msgid ""
-"You can upload your personal background image. The maximum file size is 2Mb."
+"You can upload your personal background image. The maximum file size is 2MB."
 msgstr ""
-"Vous pouvez importer une image d’arrière plan personnelle. La taille "
+"Vous pouvez importer votre image d’arrière plan personnelle. La taille "
 "maximale du fichier est de 2 Mo."
 
 #: lib/designsettings.php:372
@@ -4620,7 +4738,7 @@ msgstr ""
 "Pseudos supplémentaires pour le groupe, séparés par des virgules ou des "
 "espaces, %d au maximum"
 
-#: lib/groupnav.php:85 lib/searchgroupnav.php:84
+#: lib/groupnav.php:85
 msgid "Group"
 msgstr "Groupe"
 
@@ -4665,15 +4783,15 @@ msgstr "Groupes avec le plus d'éléments publiés"
 msgid "Tags in %s group's notices"
 msgstr "Marquages des statuts du groupe %s"
 
-#: lib/htmloutputter.php:104
+#: lib/htmloutputter.php:103
 msgid "This page is not available in a media type you accept"
 msgstr ""
 "Cette page n’est pas disponible dans un des formats que vous avez autorisés."
 
 #: lib/imagefile.php:75
-#, fuzzy, php-format
+#, php-format
 msgid "That file is too big. The maximum file size is %s."
-msgstr "Ce fichier est trop lourd. La taille maximale est %d."
+msgstr "Ce fichier est trop grand. La taille maximale est %s."
 
 #: lib/imagefile.php:80
 msgid "Partial upload."
@@ -4698,6 +4816,14 @@ msgstr "Fichier perdu."
 #: lib/imagefile.php:150 lib/imagefile.php:197
 msgid "Unknown file type"
 msgstr "Type de fichier inconnu"
+
+#: lib/imagefile.php:217
+msgid "MB"
+msgstr "Mo"
+
+#: lib/imagefile.php:219
+msgid "kB"
+msgstr "Ko"
 
 #: lib/jabber.php:192
 #, php-format
@@ -4733,7 +4859,7 @@ msgstr ""
 "pour démarrer des conversations avec d’autres utilisateurs. Ceux-ci peuvent "
 "vous envoyer des messages destinés à vous seul(e)."
 
-#: lib/mailbox.php:227 lib/noticelist.php:424
+#: lib/mailbox.php:227 lib/noticelist.php:452
 msgid "from"
 msgstr "de"
 
@@ -5063,36 +5189,61 @@ msgstr "Envoyer un message direct"
 msgid "To"
 msgstr "À"
 
-#: lib/messageform.php:162 lib/noticeform.php:173
+#: lib/messageform.php:162 lib/noticeform.php:186
 msgid "Available characters"
 msgstr "Caractères restants"
 
-#: lib/noticeform.php:145
+#: lib/noticeform.php:158
 msgid "Send a notice"
 msgstr "Envoyer un statut"
 
-#: lib/noticeform.php:158
+#: lib/noticeform.php:171
 #, php-format
 msgid "What's up, %s?"
 msgstr "Quoi de neuf, %s ?"
 
-#: lib/noticeform.php:180
+#: lib/noticeform.php:193
 msgid "Attach"
 msgstr "Attacher"
 
-#: lib/noticeform.php:184
+#: lib/noticeform.php:197
 msgid "Attach a file"
 msgstr "Attacher un fichier"
 
-#: lib/noticelist.php:478
+#: lib/noticelist.php:403
+#, php-format
+msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
+msgstr "%1$u° %2$u' %3$u\" %4$s %5$u° %6$u' %7$u\" %8$s"
+
+#: lib/noticelist.php:404
+msgid "N"
+msgstr "N"
+
+#: lib/noticelist.php:404
+msgid "S"
+msgstr "S"
+
+#: lib/noticelist.php:405
+msgid "E"
+msgstr "E"
+
+#: lib/noticelist.php:405
+msgid "W"
+msgstr "O"
+
+#: lib/noticelist.php:411
+msgid "at"
+msgstr "chez"
+
+#: lib/noticelist.php:506
 msgid "in context"
 msgstr "dans le contexte"
 
-#: lib/noticelist.php:498
+#: lib/noticelist.php:526
 msgid "Reply to this notice"
 msgstr "Répondre à ce statut"
 
-#: lib/noticelist.php:499
+#: lib/noticelist.php:527
 msgid "Reply"
 msgstr "Répondre"
 
@@ -5124,12 +5275,11 @@ msgstr "Erreur lors de l’insertion du profil distant"
 msgid "Duplicate notice"
 msgstr "Dupliquer l’avis"
 
-#: lib/oauthstore.php:466 lib/subs.php:48
-#, fuzzy
+#: lib/oauthstore.php:467 lib/subs.php:48
 msgid "You have been banned from subscribing."
-msgstr "Cet utilisateur vous a empêché de vous inscrire."
+msgstr "Il vous avez été interdit de vous abonner."
 
-#: lib/oauthstore.php:491
+#: lib/oauthstore.php:492
 msgid "Couldn't insert new subscription."
 msgstr "Impossible d’insérer un nouvel abonnement."
 
@@ -5195,13 +5345,12 @@ msgid "All groups"
 msgstr "Tous les groupes"
 
 #: lib/profileformaction.php:123
-#, fuzzy
 msgid "No return-to arguments"
-msgstr "Aucun argument d’identification."
+msgstr "Aucun argument de retour."
 
 #: lib/profileformaction.php:137
 msgid "unimplemented method"
-msgstr ""
+msgstr "méthode non implémentée"
 
 #: lib/publicgroupnav.php:78
 msgid "Public"
@@ -5224,18 +5373,20 @@ msgid "Popular"
 msgstr "Populaires"
 
 #: lib/sandboxform.php:67
-#, fuzzy
 msgid "Sandbox"
-msgstr "Boîte de réception"
+msgstr "Bac à sable"
 
 #: lib/sandboxform.php:78
-#, fuzzy
 msgid "Sandbox this user"
-msgstr "Débloquer cet utilisateur"
+msgstr "Mettre cet utilisateur dans un bac à sable"
 
 #: lib/searchaction.php:120
 msgid "Search site"
 msgstr "Rechercher sur le site"
+
+#: lib/searchaction.php:126
+msgid "Keyword(s)"
+msgstr "Mot(s) celf(s)"
 
 #: lib/searchaction.php:162
 msgid "Search help"
@@ -5248,10 +5399,6 @@ msgstr "Personnes"
 #: lib/searchgroupnav.php:81
 msgid "Find people on this site"
 msgstr "Chercher des personnes sur ce site"
-
-#: lib/searchgroupnav.php:82
-msgid "Notice"
-msgstr "Statut"
 
 #: lib/searchgroupnav.php:83
 msgid "Find content of notices"
@@ -5270,14 +5417,12 @@ msgid "More..."
 msgstr "Plus..."
 
 #: lib/silenceform.php:67
-#, fuzzy
 msgid "Silence"
-msgstr "Notice du site"
+msgstr "Silence"
 
 #: lib/silenceform.php:78
-#, fuzzy
 msgid "Silence this user"
-msgstr "Bloquer cet utilisateur"
+msgstr "Réduire cet utilisateur au silence"
 
 #: lib/subgroupnav.php:83
 #, php-format
@@ -5297,12 +5442,12 @@ msgstr "Groupes de %s"
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
 msgid "People Tagcloud as self-tagged"
-msgstr ""
+msgstr "Nuage de mots clefs des personnes tel que définis par eux-même"
 
 #: lib/subscriberspeopletagcloudsection.php:48
 #: lib/subscriptionspeopletagcloudsection.php:48
 msgid "People Tagcloud as tagged"
-msgstr ""
+msgstr "Nuage de mots clefs des personnes"
 
 #: lib/subscriptionlist.php:126
 msgid "(none)"
@@ -5342,21 +5487,19 @@ msgstr "Utilisateurs les plus actifs"
 
 #: lib/unsandboxform.php:69
 msgid "Unsandbox"
-msgstr ""
+msgstr "Sortir du bac à sable"
 
 #: lib/unsandboxform.php:80
-#, fuzzy
 msgid "Unsandbox this user"
-msgstr "Débloquer cet utilisateur"
+msgstr "Sortir cet utilisateur du bac à sable"
 
 #: lib/unsilenceform.php:67
 msgid "Unsilence"
-msgstr ""
+msgstr "Sortir du silence"
 
 #: lib/unsilenceform.php:78
-#, fuzzy
 msgid "Unsilence this user"
-msgstr "Débloquer cet utilisateur"
+msgstr "Sortir cet utilisateur du silence"
 
 #: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
 msgid "Unsubscribe from this user"
@@ -5390,47 +5533,51 @@ msgstr "Envoyer un message à cet utilisateur"
 msgid "Message"
 msgstr "Message"
 
-#: lib/util.php:826
+#: lib/userprofile.php:311
+msgid "Moderate"
+msgstr "Modérer"
+
+#: lib/util.php:825
 msgid "a few seconds ago"
 msgstr "il y a quelques secondes"
 
-#: lib/util.php:828
+#: lib/util.php:827
 msgid "about a minute ago"
 msgstr "il y a 1 minute"
 
-#: lib/util.php:830
+#: lib/util.php:829
 #, php-format
 msgid "about %d minutes ago"
 msgstr "il y a %d minutes"
 
-#: lib/util.php:832
+#: lib/util.php:831
 msgid "about an hour ago"
 msgstr "il y a 1 heure"
 
-#: lib/util.php:834
+#: lib/util.php:833
 #, php-format
 msgid "about %d hours ago"
 msgstr "il y a %d heures"
 
-#: lib/util.php:836
+#: lib/util.php:835
 msgid "about a day ago"
 msgstr "il y a 1 jour"
 
-#: lib/util.php:838
+#: lib/util.php:837
 #, php-format
 msgid "about %d days ago"
 msgstr "il y a %d jours"
 
-#: lib/util.php:840
+#: lib/util.php:839
 msgid "about a month ago"
 msgstr "il y a 1 mois"
 
-#: lib/util.php:842
+#: lib/util.php:841
 #, php-format
 msgid "about %d months ago"
 msgstr "il y a %d mois"
 
-#: lib/util.php:844
+#: lib/util.php:843
 msgid "about a year ago"
 msgstr "il y a environ 1 an"
 
@@ -5460,10 +5607,3 @@ msgstr "Désolé, ceci n’est pas votre adresse de courriel entrant."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Désolé, la réception de courriels n’est pas permise."
-
-#, fuzzy
-#~ msgid "Unlock this user"
-#~ msgstr "Débloquer cet utilisateur"
-
-#~ msgid "These people are subscribed to you: "
-#~ msgstr "Ces personnes sont abonnées à vous : "
