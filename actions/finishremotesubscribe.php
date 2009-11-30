@@ -89,12 +89,16 @@ class FinishremotesubscribeAction extends Action
         }
 
         $remote = Remote_profile::staticGet('uri', $service->getListenerURI());
+        if ($remote) {
+            // Note remote profile may not have been saved yet.
+            // @fixme not convinced this is correct at all!
 
-        $profile = Profile::staticGet($remote->id);
+            $profile = Profile::staticGet($remote->id);
 
-        if ($user->hasBlocked($profile)) {
-            $this->clientError(_('That user has blocked you from subscribing.'));
-            return;
+            if ($user->hasBlocked($profile)) {
+                $this->clientError(_('That user has blocked you from subscribing.'));
+                return;
+            }
         }
 
         /* Perform the handling itself via libomb. */
@@ -122,6 +126,7 @@ class FinishremotesubscribeAction extends Action
 
         /* The service URLs are not accessible from datastore, so setting them
            after insertion of the profile. */
+        $remote = Remote_profile::staticGet('uri', $service->getListenerURI());
         $orig_remote = clone($remote);
 
         $remote->postnoticeurl    =

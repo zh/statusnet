@@ -281,6 +281,8 @@ RealtimeUpdate = {
             
             return false;
          });
+
+         $('#showstream .entity_profile').css({'width':'69%'});
      }
 }
 

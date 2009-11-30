@@ -97,7 +97,7 @@ class UserFlagPlugin extends Plugin
     {
         $user = common_current_user();
 
-        if (!empty($user)) {
+        if (!empty($user) && ($user->id != $profile->id)) {
 
             $action->elementStart('li', 'entity_flag');
 

@@ -31,7 +31,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-define('PAGE_TYPE_PREFS',
+define('PAGE_TYPE_PREFS_MOBILEPROFILE',
        'application/vnd.wap.xhtml+xml, application/xhtml+xml, text/html;q=0.9');
 
 require_once INSTALLDIR.'/plugins/Mobile/WAP20Plugin.php';
@@ -159,8 +159,7 @@ class MobileProfilePlugin extends WAP20Plugin
                     common_config('site', 'server'))) {
 
                 // FIXME: Redirect to equivalent page on mobile site instead
-                header("Location: ".$this->_common_path(''));
-                exit();
+                common_redirect($this->_common_path(''), 302);
             }
         }
 
@@ -173,7 +172,7 @@ class MobileProfilePlugin extends WAP20Plugin
               $_SERVER['HTTP_ACCEPT'] : null;
 
             $cp = common_accept_to_prefs($httpaccept);
-            $sp = common_accept_to_prefs(PAGE_TYPE_PREFS);
+            $sp = common_accept_to_prefs(PAGE_TYPE_PREFS_MOBILEPROFILE);
 
             $type = common_negotiate_type($cp, $sp);
 

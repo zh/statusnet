@@ -110,6 +110,11 @@ class MapstractionPlugin extends Plugin
     function onEndShowScripts($action)
     {
         $actionName = $action->trimmed('action');
+        // These are the ones that have maps on 'em
+        if (!in_array($actionName,
+                      array('showstream', 'all', 'allmap', 'usermap'))) {
+            return true;
+        }
 
         switch ($this->provider)
         {
@@ -146,6 +151,39 @@ class MapstractionPlugin extends Plugin
         $action->raw(sprintf('var _provider = "%s";', $this->provider));
         $action->elementEnd('script');
 
+        switch ($actionName) {
+        case 'usermap':
+        case 'showstream':
+            $notice = empty($action->tag)
+              ? $action->user->getNotices(($action->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1)
+                : $action->user->getTaggedNotices($action->tag, ($action->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1, 0, 0, null);
+            break;
+        case 'all':
+        case 'allmap':
+            $cur = common_current_user();
+            if (!empty($cur) && $cur->id == $action->user->id) {
+                $notice = $action->user->noticeInbox(($action->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+            } else {
+                $notice = $action->user->noticesWithFriends(($action->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+            }
+            break;
+        }
+
+        $jsonArray = array();
+
+        while ($notice->fetch()) {
+            if (!empty($notice->lat) && !empty($notice->lon)) {
+                $jsonNotice = $this->noticeAsJson($notice);
+                $jsonArray[] = $jsonNotice;
+            }
+        }
+
+        $action->elementStart('script', array('type' => 'text/javascript'));
+        $action->raw('/*<![CDATA[*/'); // XHTML compat for Safari
+        $action->raw('var _notices = ' . json_encode($jsonArray));
+        $action->raw('/*]]>*/'); // XHTML compat for Safari
+        $action->elementEnd('script');
+
         return true;
     }
 
@@ -175,5 +213,35 @@ class MapstractionPlugin extends Plugin
                          _("Full size"));
 
         $action->elementEnd('div');
+    }
+
+    function noticeAsJson($notice)
+    {
+        // FIXME: this code should be abstracted to a neutral third
+        // party, like Notice::asJson(). I'm not sure of the ethics
+        // of refactoring from within a plugin, so I'm just abusing
+        // the ApiAction method. Don't do this unless you're me!
+
+        require_once(INSTALLDIR.'/lib/api.php');
+
+        $act = new ApiAction('/dev/null');
+
+        $arr = $act->twitterStatusArray($notice, true);
+        $arr['url'] = $notice->bestUrl();
+        $arr['html'] = $notice->rendered;
+        $arr['source'] = $arr['source'];
+
+        if (!empty($notice->reply_to)) {
+            $reply_to = Notice::staticGet('id', $notice->reply_to);
+            if (!empty($reply_to)) {
+                $arr['in_reply_to_status_url'] = $reply_to->bestUrl();
+            }
+            $reply_to = null;
+        }
+
+        $profile = $notice->getProfile();
+        $arr['user']['profile_url'] = $profile->profileurl;
+
+        return $arr;
     }
 }

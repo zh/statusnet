@@ -72,6 +72,28 @@ class FlagprofileAction extends ProfileFormAction
         return true;
     }
 
+
+    /**
+     * Handle request
+     *
+     * Overriding the base Action's handle() here to deal check
+     * for Ajax and return an HXR response if necessary
+     *
+     * @param array $args $_REQUEST args; handled in prepare()
+     *
+     * @return void
+     */
+
+    function handle($args)
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $this->handlePost();
+            if (!$this->boolean('ajax')) {
+                $this->returnToArgs();
+            }
+        }
+    }
+
     /**
      * Handle POST
      *
@@ -97,6 +119,10 @@ class FlagprofileAction extends ProfileFormAction
         }
 
         $ufp->free();
+
+        if ($this->boolean('ajax')) {
+            $this->ajaxResults();
+        }
     }
 
     function ajaxResults() {
