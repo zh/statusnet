@@ -63,9 +63,6 @@ class MobileProfilePlugin extends WAP20Plugin
 
     function onStartShowHTML($action)
     {
-
-
-
         // XXX: This should probably graduate to WAP20Plugin
 
         // If they are on the mobile site, serve them MP
