@@ -54,7 +54,7 @@ class LilUrlPlugin extends UrlShortenerPlugin
         if (!isset($y->body)) return;
         $x = $y->body->p[0]->a->attributes();
         if (isset($x['href'])) {
-            return $x['href'];
+            return strval($x['href']);
         }
     }
 }
