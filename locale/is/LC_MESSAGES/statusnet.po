@@ -7,16 +7,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-19 10:43+0000\n"
-"PO-Revision-Date: 2009-11-18 19:32:01+0000\n"
+"POT-Creation-Date: 2009-11-27 23:50+0000\n"
+"PO-Revision-Date: 2009-11-28 19:50:23+0000\n"
 "Language-Team: Icelandic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n % 100 != 1 && n % 100 != 21 && n % 100 != 31 && n % 100 != 41 && n % 100 != 51 && n % 100 != 61 && n % 100 != 71 && n % 100 != 81 && n % 100 != 91);\n"
-"X-Generator: MediaWiki 1.16alpha(r59207); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59523); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: is\n"
 "X-Message-Group: out-statusnet\n"
+"Plural-Forms: nplurals=2; plural=(n % 100 != 1 && n % 100 != 21 && n % 100 !"
+"= 31 && n % 100 != 41 && n % 100 != 51 && n % 100 != 61 && n % 100 != 71 && "
+"n % 100 != 81 && n % 100 != 91);\n"
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
 #: actions/showfavorites.php:137 actions/tag.php:51
@@ -437,7 +439,7 @@ msgstr "Þetta er of langt. Hámarkslengd babls er 140 tákn."
 msgid "Not found"
 msgstr "Fannst ekki"
 
-#: actions/apistatusesupdate.php:227 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:227 actions/newnotice.php:183
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -551,7 +553,7 @@ msgid "Preview"
 msgstr "Forsýn"
 
 #: actions/avatarsettings.php:148 lib/deleteuserform.php:66
-#: lib/noticelist.php:522
+#: lib/noticelist.php:550
 msgid "Delete"
 msgstr "Eyða"
 
@@ -564,7 +566,7 @@ msgid "Crop"
 msgstr "Skera af"
 
 #: actions/avatarsettings.php:265 actions/disfavor.php:74
-#: actions/emailsettings.php:237 actions/favor.php:75
+#: actions/emailsettings.php:238 actions/favor.php:75
 #: actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
 #: actions/invite.php:56 actions/login.php:131 actions/makeadmin.php:66
@@ -579,7 +581,7 @@ msgid "There was a problem with your session token. Try again, please."
 msgstr "Það kom upp vandamál með setutókann þinn. Vinsamlegast reyndu aftur."
 
 #: actions/avatarsettings.php:277 actions/designadminpanel.php:103
-#: actions/emailsettings.php:255 actions/grouplogo.php:319
+#: actions/emailsettings.php:256 actions/grouplogo.php:319
 #: actions/imsettings.php:220 actions/recoverpassword.php:44
 #: actions/smssettings.php:248 lib/designsettings.php:304
 msgid "Unexpected form submission."
@@ -711,15 +713,15 @@ msgstr "Óþekkt gerð tölvupóstfangs %s"
 msgid "That address has already been confirmed."
 msgstr "Þetta tölvupóstfang hefur nú þegar verið staðfest."
 
-#: actions/confirmaddress.php:114 actions/emailsettings.php:295
-#: actions/emailsettings.php:426 actions/imsettings.php:258
+#: actions/confirmaddress.php:114 actions/emailsettings.php:296
+#: actions/emailsettings.php:427 actions/imsettings.php:258
 #: actions/imsettings.php:401 actions/othersettings.php:174
 #: actions/profilesettings.php:276 actions/smssettings.php:278
 #: actions/smssettings.php:420
 msgid "Couldn't update user."
 msgstr "Gat ekki uppfært notanda."
 
-#: actions/confirmaddress.php:126 actions/emailsettings.php:390
+#: actions/confirmaddress.php:126 actions/emailsettings.php:391
 #: actions/imsettings.php:363 actions/smssettings.php:382
 msgid "Couldn't delete email confirmation."
 msgstr "Gat ekki eytt tölvupóstsstaðfestingu."
@@ -739,7 +741,7 @@ msgid "Conversation"
 msgstr ""
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:206
+#: lib/profileaction.php:206 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Babl"
 
@@ -778,7 +780,7 @@ msgstr "Ertu viss um að þú viljir eyða þessu babli?"
 msgid "Do not delete this notice"
 msgstr ""
 
-#: actions/deletenotice.php:146 lib/noticelist.php:522
+#: actions/deletenotice.php:146 lib/noticelist.php:550
 msgid "Delete this notice"
 msgstr "Eyða þessu babli"
 
@@ -821,178 +823,116 @@ msgstr ""
 msgid "Design settings for this StatusNet site."
 msgstr ""
 
-#: actions/designadminpanel.php:278
+#: actions/designadminpanel.php:270
 #, fuzzy
 msgid "Invalid logo URL."
 msgstr "Ótæk stærð."
 
-#: actions/designadminpanel.php:282
+#: actions/designadminpanel.php:274
 #, fuzzy, php-format
 msgid "Theme not available: %s"
 msgstr "Þessi síða er ekki aðgengileg í "
 
-#: actions/designadminpanel.php:288
-#, fuzzy, php-format
-msgid "Theme directory not readable: %s"
-msgstr "Þessi síða er ekki aðgengileg í "
-
-#: actions/designadminpanel.php:292
-#, php-format
-msgid "Avatar directory not writable: %s"
-msgstr ""
-
-#: actions/designadminpanel.php:296
-#, php-format
-msgid "Background directory not writable: %s"
-msgstr ""
-
-#: actions/designadminpanel.php:312
-#, php-format
-msgid "Max length for %s %s is 255 characters."
-msgstr ""
-
-#: actions/designadminpanel.php:412
+#: actions/designadminpanel.php:370
 #, fuzzy
 msgid "Change logo"
 msgstr "Breyta"
 
-#: actions/designadminpanel.php:417
+#: actions/designadminpanel.php:375
 #, fuzzy
 msgid "Site logo"
 msgstr "Bjóða"
 
-#: actions/designadminpanel.php:424
+#: actions/designadminpanel.php:382
 #, fuzzy
 msgid "Change theme"
 msgstr "Breyta"
 
-#: actions/designadminpanel.php:441
+#: actions/designadminpanel.php:399
 #, fuzzy
 msgid "Site theme"
 msgstr "Babl vefsíðunnar"
 
-#: actions/designadminpanel.php:442
+#: actions/designadminpanel.php:400
 #, fuzzy
 msgid "Theme for the site."
 msgstr "Skrá þig út af síðunni"
 
-#: actions/designadminpanel.php:447
-msgid "Theme server"
-msgstr ""
-
-#: actions/designadminpanel.php:451
-msgid "Theme path"
-msgstr ""
-
-#: actions/designadminpanel.php:455
-msgid "Theme directory"
-msgstr ""
-
-#: actions/designadminpanel.php:462
-#, fuzzy
-msgid "Avatar Settings"
-msgstr "Stillingar fyrir mynd"
-
-#: actions/designadminpanel.php:467
-#, fuzzy
-msgid "Avatar server"
-msgstr "Stillingar fyrir mynd"
-
-#: actions/designadminpanel.php:471
-#, fuzzy
-msgid "Avatar path"
-msgstr "Mynd hefur verið uppfærð."
-
-#: actions/designadminpanel.php:475
-msgid "Avatar directory"
-msgstr ""
-
-#: actions/designadminpanel.php:486 lib/designsettings.php:101
+#: actions/designadminpanel.php:412 lib/designsettings.php:101
 msgid "Change background image"
 msgstr ""
 
-#: actions/designadminpanel.php:491 actions/designadminpanel.php:578
+#: actions/designadminpanel.php:417 actions/designadminpanel.php:492
 #: lib/designsettings.php:178
 msgid "Background"
 msgstr ""
 
-#: actions/designadminpanel.php:496
+#: actions/designadminpanel.php:422
 #, fuzzy, php-format
 msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
 "$s."
 msgstr "Þetta er of langt. Hámarkslengd babls er 140 tákn."
 
-#: actions/designadminpanel.php:526 lib/designsettings.php:139
+#: actions/designadminpanel.php:452 lib/designsettings.php:139
 msgid "On"
 msgstr ""
 
-#: actions/designadminpanel.php:542 lib/designsettings.php:155
+#: actions/designadminpanel.php:468 lib/designsettings.php:155
 msgid "Off"
 msgstr ""
 
-#: actions/designadminpanel.php:543 lib/designsettings.php:156
+#: actions/designadminpanel.php:469 lib/designsettings.php:156
 msgid "Turn background image on or off."
 msgstr ""
 
-#: actions/designadminpanel.php:548 lib/designsettings.php:161
+#: actions/designadminpanel.php:474 lib/designsettings.php:161
 msgid "Tile background image"
 msgstr ""
 
-#: actions/designadminpanel.php:554
-msgid "Background server"
-msgstr ""
-
-#: actions/designadminpanel.php:558
-msgid "Background path"
-msgstr ""
-
-#: actions/designadminpanel.php:562
-msgid "Background directory"
-msgstr ""
-
-#: actions/designadminpanel.php:569 lib/designsettings.php:170
+#: actions/designadminpanel.php:483 lib/designsettings.php:170
 msgid "Change colours"
 msgstr ""
 
-#: actions/designadminpanel.php:591 lib/designsettings.php:191
+#: actions/designadminpanel.php:505 lib/designsettings.php:191
 msgid "Content"
 msgstr ""
 
-#: actions/designadminpanel.php:604 lib/designsettings.php:204
+#: actions/designadminpanel.php:518 lib/designsettings.php:204
 msgid "Sidebar"
 msgstr ""
 
-#: actions/designadminpanel.php:617 lib/designsettings.php:217
+#: actions/designadminpanel.php:531 lib/designsettings.php:217
 msgid "Text"
 msgstr "Texti"
 
-#: actions/designadminpanel.php:630 lib/designsettings.php:230
+#: actions/designadminpanel.php:544 lib/designsettings.php:230
 msgid "Links"
 msgstr ""
 
-#: actions/designadminpanel.php:658 lib/designsettings.php:247
+#: actions/designadminpanel.php:572 lib/designsettings.php:247
 msgid "Use defaults"
 msgstr ""
 
-#: actions/designadminpanel.php:659 lib/designsettings.php:248
+#: actions/designadminpanel.php:573 lib/designsettings.php:248
 msgid "Restore default designs"
 msgstr ""
 
-#: actions/designadminpanel.php:665 lib/designsettings.php:254
+#: actions/designadminpanel.php:579 lib/designsettings.php:254
 msgid "Reset back to default"
 msgstr ""
 
-#: actions/designadminpanel.php:667 actions/emailsettings.php:195
+#: actions/designadminpanel.php:581 actions/emailsettings.php:195
 #: actions/imsettings.php:163 actions/othersettings.php:126
-#: actions/profilesettings.php:167 actions/siteadminpanel.php:414
-#: actions/smssettings.php:181 actions/subscriptions.php:203
-#: actions/tagother.php:154 actions/useradminpanel.php:226
-#: lib/designsettings.php:256 lib/groupeditform.php:202
+#: actions/pathsadminpanel.php:296 actions/profilesettings.php:167
+#: actions/siteadminpanel.php:421 actions/smssettings.php:181
+#: actions/subscriptions.php:203 actions/tagother.php:154
+#: actions/useradminpanel.php:313 lib/designsettings.php:256
+#: lib/groupeditform.php:202
 msgid "Save"
 msgstr "Vista"
 
-#: actions/designadminpanel.php:668 lib/designsettings.php:257
+#: actions/designadminpanel.php:582 lib/designsettings.php:257
 msgid "Save design"
 msgstr ""
 
@@ -1142,37 +1082,37 @@ msgstr "Ég vil babla í gegnum tölvupóst."
 msgid "Publish a MicroID for my email address."
 msgstr "Birta MicroID fyrir tölvupóstfangið mitt."
 
-#: actions/emailsettings.php:301 actions/imsettings.php:264
+#: actions/emailsettings.php:302 actions/imsettings.php:264
 #: actions/othersettings.php:180 actions/smssettings.php:284
 msgid "Preferences saved."
 msgstr "Stillingar vistaðar."
 
-#: actions/emailsettings.php:319
+#: actions/emailsettings.php:320
 msgid "No email address."
 msgstr "Ekkert tölvupóstfang."
 
-#: actions/emailsettings.php:326
+#: actions/emailsettings.php:327
 msgid "Cannot normalize that email address"
 msgstr "Get ekki staðlað þetta tölvupóstfang"
 
-#: actions/emailsettings.php:330 actions/siteadminpanel.php:158
+#: actions/emailsettings.php:331 actions/siteadminpanel.php:158
 msgid "Not a valid email address"
 msgstr "Ekki tækt tölvupóstfang"
 
-#: actions/emailsettings.php:333
+#: actions/emailsettings.php:334
 msgid "That is already your email address."
 msgstr "Þetta er nú þegar tölvupóstfangið þitt."
 
-#: actions/emailsettings.php:336
+#: actions/emailsettings.php:337
 msgid "That email address already belongs to another user."
 msgstr "Þetta tölvupóstfang tilheyrir öðrum notanda."
 
-#: actions/emailsettings.php:352 actions/imsettings.php:317
+#: actions/emailsettings.php:353 actions/imsettings.php:317
 #: actions/smssettings.php:337
 msgid "Couldn't insert confirmation code."
 msgstr "Gat ekki sett inn staðfestingarlykil."
 
-#: actions/emailsettings.php:358
+#: actions/emailsettings.php:359
 msgid ""
 "A confirmation code was sent to the email address you added. Check your "
 "inbox (and spam box!) for the code and instructions on how to use it."
@@ -1181,47 +1121,47 @@ msgstr ""
 "Athugaðu innhólfið þitt (og ruslpóstinn þinn!). Þar ætti "
 "staðfestingarlykillinn að vera og leiðbeingar um hvernig eigi að nota hann. "
 
-#: actions/emailsettings.php:378 actions/imsettings.php:351
+#: actions/emailsettings.php:379 actions/imsettings.php:351
 #: actions/smssettings.php:370
 msgid "No pending confirmation to cancel."
 msgstr "Engin staðfesting í bið sem þarf að hætta við."
 
-#: actions/emailsettings.php:382 actions/imsettings.php:355
+#: actions/emailsettings.php:383 actions/imsettings.php:355
 msgid "That is the wrong IM address."
 msgstr "Þetta er rangt snarskilaboðafang."
 
-#: actions/emailsettings.php:394 actions/imsettings.php:367
+#: actions/emailsettings.php:395 actions/imsettings.php:367
 #: actions/smssettings.php:386
 msgid "Confirmation cancelled."
 msgstr "Hætt við staðfestingu."
 
-#: actions/emailsettings.php:412
+#: actions/emailsettings.php:413
 msgid "That is not your email address."
 msgstr "Þetta er ekki tölvupóstfangið þitt."
 
-#: actions/emailsettings.php:431 actions/imsettings.php:408
+#: actions/emailsettings.php:432 actions/imsettings.php:408
 #: actions/smssettings.php:425
 msgid "The address was removed."
 msgstr "Tölvupóstfangið hefur verið fjarlægt."
 
-#: actions/emailsettings.php:445 actions/smssettings.php:518
+#: actions/emailsettings.php:446 actions/smssettings.php:518
 msgid "No incoming email address."
 msgstr "Ekkert móttökutölvupóstfang."
 
-#: actions/emailsettings.php:455 actions/emailsettings.php:477
+#: actions/emailsettings.php:456 actions/emailsettings.php:478
 #: actions/smssettings.php:528 actions/smssettings.php:552
 msgid "Couldn't update user record."
 msgstr "Gat ekki uppfært skráarfærslu notanda."
 
-#: actions/emailsettings.php:458 actions/smssettings.php:531
+#: actions/emailsettings.php:459 actions/smssettings.php:531
 msgid "Incoming email address removed."
 msgstr "Móttökutölvupóstfang fjarlægt."
 
-#: actions/emailsettings.php:480 actions/smssettings.php:555
+#: actions/emailsettings.php:481 actions/smssettings.php:555
 msgid "New incoming email address added."
 msgstr "Nýju móttökutölvupóstfangi bætt við."
 
-#: actions/favorited.php:65 lib/popularnoticesection.php:87
+#: actions/favorited.php:65 lib/popularnoticesection.php:88
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
 msgstr "Vinsælt babl"
@@ -1476,7 +1416,7 @@ msgstr "Hópmeðlimir %s, síða %d"
 msgid "A list of the users in this group."
 msgstr "Listi yfir notendur í þessum hóp."
 
-#: actions/groupmembers.php:175 lib/action.php:439 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:440 lib/groupnav.php:107
 msgid "Admin"
 msgstr "Stjórnandi"
 
@@ -1532,7 +1472,7 @@ msgid ""
 msgstr ""
 
 #: actions/groups.php:62 lib/profileaction.php:220 lib/publicgroupnav.php:81
-#: lib/subgroupnav.php:98
+#: lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "Hópar"
 
@@ -1751,7 +1691,7 @@ msgstr "Persónuleg skilaboð"
 msgid "Optionally add a personal message to the invitation."
 msgstr "Bættu persónulegum skilaboðum við boðskortið ef þú vilt."
 
-#: actions/invite.php:197 lib/messageform.php:181 lib/noticeform.php:208
+#: actions/invite.php:197 lib/messageform.php:181 lib/noticeform.php:225
 msgid "Send"
 msgstr "Senda"
 
@@ -1875,7 +1815,7 @@ msgstr "Rangt notendanafn eða lykilorð."
 msgid "Error setting user. You are probably not authorized."
 msgstr "Engin heimild."
 
-#: actions/login.php:204 actions/login.php:257 lib/action.php:457
+#: actions/login.php:204 actions/login.php:257 lib/action.php:458
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Innskráning"
@@ -1991,7 +1931,7 @@ msgstr ""
 msgid "Direct message to %s sent"
 msgstr "Bein skilaboð send til %s"
 
-#: actions/newmessage.php:210 actions/newnotice.php:233 lib/channel.php:170
+#: actions/newmessage.php:210 actions/newnotice.php:240 lib/channel.php:170
 msgid "Ajax Error"
 msgstr "Ajax villa"
 
@@ -1999,7 +1939,7 @@ msgstr "Ajax villa"
 msgid "New notice"
 msgstr "Nýtt babl"
 
-#: actions/newnotice.php:199
+#: actions/newnotice.php:206
 msgid "Notice posted"
 msgstr "Babl sent inn"
 
@@ -2035,12 +1975,12 @@ msgid ""
 "[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
 msgstr ""
 
-#: actions/noticesearchrss.php:89
+#: actions/noticesearchrss.php:96
 #, php-format
 msgid "Updates with \"%s\""
 msgstr ""
 
-#: actions/noticesearchrss.php:91
+#: actions/noticesearchrss.php:98
 #, fuzzy, php-format
 msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Allar færslur sem passa við \"%s\""
@@ -2167,9 +2107,9 @@ msgstr "6 eða fleiri tákn"
 msgid "Confirm"
 msgstr "Staðfesta"
 
-#: actions/passwordsettings.php:113
-msgid "same as password above"
-msgstr "sama og lykilorðið hér fyrir ofan"
+#: actions/passwordsettings.php:113 actions/recoverpassword.php:240
+msgid "Same as password above"
+msgstr "Sama og lykilorðið hér fyrir ofan"
 
 #: actions/passwordsettings.php:117
 msgid "Change"
@@ -2198,6 +2138,113 @@ msgstr "Get ekki vistað nýja lykilorðið."
 #: actions/passwordsettings.php:192 actions/recoverpassword.php:211
 msgid "Password saved."
 msgstr "Lykilorð vistað."
+
+#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:308
+msgid "Paths"
+msgstr ""
+
+#: actions/pathsadminpanel.php:70
+msgid "Path and server settings for this StatusNet site."
+msgstr ""
+
+#: actions/pathsadminpanel.php:140
+#, fuzzy, php-format
+msgid "Theme directory not readable: %s"
+msgstr "Þessi síða er ekki aðgengileg í "
+
+#: actions/pathsadminpanel.php:146
+#, php-format
+msgid "Avatar directory not writable: %s"
+msgstr ""
+
+#: actions/pathsadminpanel.php:152
+#, php-format
+msgid "Background directory not writable: %s"
+msgstr ""
+
+#: actions/pathsadminpanel.php:160
+#, php-format
+msgid "Locales directory not readable: %s"
+msgstr ""
+
+#: actions/pathsadminpanel.php:212 actions/siteadminpanel.php:58
+#: lib/adminpanelaction.php:299
+#, fuzzy
+msgid "Site"
+msgstr "Bjóða"
+
+#: actions/pathsadminpanel.php:216
+msgid "Path"
+msgstr ""
+
+#: actions/pathsadminpanel.php:216
+#, fuzzy
+msgid "Site path"
+msgstr "Babl vefsíðunnar"
+
+#: actions/pathsadminpanel.php:220
+msgid "Path to locales"
+msgstr ""
+
+#: actions/pathsadminpanel.php:220
+msgid "Directory path to locales"
+msgstr ""
+
+#: actions/pathsadminpanel.php:227
+msgid "Theme"
+msgstr ""
+
+#: actions/pathsadminpanel.php:232
+msgid "Theme server"
+msgstr ""
+
+#: actions/pathsadminpanel.php:236
+msgid "Theme path"
+msgstr ""
+
+#: actions/pathsadminpanel.php:240
+msgid "Theme directory"
+msgstr ""
+
+#: actions/pathsadminpanel.php:247
+#, fuzzy
+msgid "Avatars"
+msgstr "Mynd"
+
+#: actions/pathsadminpanel.php:252
+#, fuzzy
+msgid "Avatar server"
+msgstr "Stillingar fyrir mynd"
+
+#: actions/pathsadminpanel.php:256
+#, fuzzy
+msgid "Avatar path"
+msgstr "Mynd hefur verið uppfærð."
+
+#: actions/pathsadminpanel.php:260
+msgid "Avatar directory"
+msgstr ""
+
+#: actions/pathsadminpanel.php:269
+msgid "Backgrounds"
+msgstr ""
+
+#: actions/pathsadminpanel.php:273
+msgid "Background server"
+msgstr ""
+
+#: actions/pathsadminpanel.php:277
+msgid "Background path"
+msgstr ""
+
+#: actions/pathsadminpanel.php:281
+msgid "Background directory"
+msgstr ""
+
+#: actions/pathsadminpanel.php:297
+#, fuzzy
+msgid "Save paths"
+msgstr "Babl vefsíðunnar"
 
 #: actions/peoplesearch.php:52
 #, php-format
@@ -2305,7 +2352,7 @@ msgstr ""
 "Merki fyrir þig (bókstafir, tölustafir, -, ., og _), aðskilin með kommu eða "
 "bili"
 
-#: actions/profilesettings.php:144 actions/siteadminpanel.php:309
+#: actions/profilesettings.php:144 actions/siteadminpanel.php:307
 msgid "Language"
 msgstr "Tungumál"
 
@@ -2531,10 +2578,6 @@ msgstr "Óþekkt aðgerð"
 msgid "6 or more characters, and don't forget it!"
 msgstr "6 eða fleiri tákn og ekki gleyma því!"
 
-#: actions/recoverpassword.php:240
-msgid "Same as password above"
-msgstr "Sama og lykilorðið hér fyrir ofan"
-
 #: actions/recoverpassword.php:243
 msgid "Reset"
 msgstr "Endurstilla"
@@ -2595,7 +2638,7 @@ msgstr ""
 msgid "Registration successful"
 msgstr "Nýskráning tókst"
 
-#: actions/register.php:114 actions/register.php:502 lib/action.php:454
+#: actions/register.php:114 actions/register.php:502 lib/action.php:455
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Nýskrá"
@@ -2640,7 +2683,7 @@ msgid "Same as password above. Required."
 msgstr "Sama og lykilorðið hér fyrir ofan. Nauðsynlegt."
 
 #: actions/register.php:437 actions/register.php:441
-#: actions/siteadminpanel.php:287 lib/accountsettingsaction.php:120
+#: actions/siteadminpanel.php:283 lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr "Tölvupóstur"
 
@@ -2745,7 +2788,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "Veffang persónulegrar síðu á samvirkandi örbloggsþjónustu"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:356
+#: lib/userprofile.php:365
 msgid "Subscribe"
 msgstr "Gerast áskrifandi"
 
@@ -3080,11 +3123,6 @@ msgstr "Þú getur ekki sent þessum notanda skilaboð."
 msgid "User is already silenced."
 msgstr ""
 
-#: actions/siteadminpanel.php:58 lib/adminpanelaction.php:299
-#, fuzzy
-msgid "Site"
-msgstr "Bjóða"
-
 #: actions/siteadminpanel.php:69
 msgid "Basic settings for this StatusNet site."
 msgstr ""
@@ -3116,102 +3154,99 @@ msgid "Snapshot frequency must be a number."
 msgstr ""
 
 #: actions/siteadminpanel.php:199
-msgid "You must set an SSL sever when enabling SSL."
+msgid "You must set an SSL server when enabling SSL."
 msgstr ""
 
 #: actions/siteadminpanel.php:204
-msgid "Invalid SSL server. Max length is 255 characters."
+msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr ""
 
 #: actions/siteadminpanel.php:210
-msgid "Minimum text limit is 140c."
+msgid "Minimum text limit is 140 characters."
 msgstr ""
 
 #: actions/siteadminpanel.php:216
 msgid "Dupe limit must 1 or more seconds."
 msgstr ""
 
-#: actions/siteadminpanel.php:224
-#, php-format
-msgid "Locales directory not readable: %s"
+#: actions/siteadminpanel.php:266
+msgid "General"
 msgstr ""
 
-#: actions/siteadminpanel.php:275
+#: actions/siteadminpanel.php:269
 #, fuzzy
 msgid "Site name"
 msgstr "Babl vefsíðunnar"
 
-#: actions/siteadminpanel.php:276
+#: actions/siteadminpanel.php:270
 msgid "The name of your site, like \"Yourcompany Microblog\""
 msgstr ""
 
-#: actions/siteadminpanel.php:279
+#: actions/siteadminpanel.php:274
 msgid "Brought by"
 msgstr ""
 
-#: actions/siteadminpanel.php:280
+#: actions/siteadminpanel.php:275
 msgid "Text used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:283
+#: actions/siteadminpanel.php:279
 msgid "Brought by URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:284
+#: actions/siteadminpanel.php:280
 msgid "URL used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:288
+#: actions/siteadminpanel.php:284
 #, fuzzy
-msgid "contact email address for your site"
+msgid "Contact email address for your site"
 msgstr "Nýtt tölvupóstfang til að senda á %s"
 
-#: actions/siteadminpanel.php:302
+#: actions/siteadminpanel.php:290
+#, fuzzy
+msgid "Local"
+msgstr "Staðbundin sýn"
+
+#: actions/siteadminpanel.php:301
 msgid "Default timezone"
 msgstr ""
 
-#: actions/siteadminpanel.php:303
+#: actions/siteadminpanel.php:302
 msgid "Default timezone for the site; usually UTC."
 msgstr ""
 
-#: actions/siteadminpanel.php:310
+#: actions/siteadminpanel.php:308
 #, fuzzy
 msgid "Default site language"
 msgstr "Tungumál (ákjósanlegt)"
 
 #: actions/siteadminpanel.php:316
-msgid "Path to locales"
-msgstr ""
+#, fuzzy
+msgid "URLs"
+msgstr "Vefslóð"
 
-#: actions/siteadminpanel.php:316
-msgid "Directory path to locales"
-msgstr ""
-
-#: actions/siteadminpanel.php:320
+#: actions/siteadminpanel.php:319
 #, fuzzy
 msgid "Server"
 msgstr "Endurheimta"
 
-#: actions/siteadminpanel.php:320
+#: actions/siteadminpanel.php:319
 msgid "Site's server hostname."
 msgstr ""
 
-#: actions/siteadminpanel.php:324
-msgid "Path"
-msgstr ""
-
-#: actions/siteadminpanel.php:324
-#, fuzzy
-msgid "Site path"
-msgstr "Babl vefsíðunnar"
-
-#: actions/siteadminpanel.php:328
+#: actions/siteadminpanel.php:323
 msgid "Fancy URLs"
 msgstr ""
 
-#: actions/siteadminpanel.php:330
+#: actions/siteadminpanel.php:325
 msgid "Use fancy (more readable and memorable) URLs?"
 msgstr ""
+
+#: actions/siteadminpanel.php:331
+#, fuzzy
+msgid "Access"
+msgstr "Samþykkja"
 
 #: actions/siteadminpanel.php:334
 #, fuzzy
@@ -3231,7 +3266,7 @@ msgstr "Bjóða"
 msgid "Make registration invitation only."
 msgstr ""
 
-#: actions/siteadminpanel.php:346 actions/useradminpanel.php:171
+#: actions/siteadminpanel.php:346
 msgid "Closed"
 msgstr ""
 
@@ -3239,33 +3274,37 @@ msgstr ""
 msgid "Disable new registrations."
 msgstr ""
 
-#: actions/siteadminpanel.php:353
+#: actions/siteadminpanel.php:354
+msgid "Snapshots"
+msgstr ""
+
+#: actions/siteadminpanel.php:357
 msgid "Randomly during Web hit"
 msgstr ""
 
-#: actions/siteadminpanel.php:354
+#: actions/siteadminpanel.php:358
 msgid "In a scheduled job"
 msgstr ""
 
-#: actions/siteadminpanel.php:355 actions/siteadminpanel.php:380
+#: actions/siteadminpanel.php:359 actions/siteadminpanel.php:383
 #, fuzzy
 msgid "Never"
 msgstr "Endurheimta"
 
-#: actions/siteadminpanel.php:357
+#: actions/siteadminpanel.php:360
 msgid "Data snapshots"
 msgstr ""
 
-#: actions/siteadminpanel.php:358
+#: actions/siteadminpanel.php:361
 msgid "When to send statistical data to status.net servers"
 msgstr ""
 
-#: actions/siteadminpanel.php:364
+#: actions/siteadminpanel.php:366
 msgid "Frequency"
 msgstr ""
 
-#: actions/siteadminpanel.php:365
-msgid "Snapshots will be sent once every N Web hits"
+#: actions/siteadminpanel.php:367
+msgid "Snapshots will be sent once every N web hits"
 msgstr ""
 
 #: actions/siteadminpanel.php:372
@@ -3276,48 +3315,57 @@ msgstr ""
 msgid "Snapshots will be sent to this URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:381
+#: actions/siteadminpanel.php:380
+#, fuzzy
+msgid "SSL"
+msgstr "SMS"
+
+#: actions/siteadminpanel.php:384
 #, fuzzy
 msgid "Sometimes"
 msgstr "Babl"
 
-#: actions/siteadminpanel.php:382
+#: actions/siteadminpanel.php:385
 msgid "Always"
 msgstr ""
 
-#: actions/siteadminpanel.php:384
+#: actions/siteadminpanel.php:387
 msgid "Use SSL"
 msgstr ""
 
-#: actions/siteadminpanel.php:385
+#: actions/siteadminpanel.php:388
 msgid "When to use SSL"
 msgstr ""
 
-#: actions/siteadminpanel.php:391
+#: actions/siteadminpanel.php:393
 msgid "SSL Server"
 msgstr ""
 
-#: actions/siteadminpanel.php:392
+#: actions/siteadminpanel.php:394
 msgid "Server to direct SSL requests to"
 msgstr ""
 
-#: actions/siteadminpanel.php:396
+#: actions/siteadminpanel.php:400
+msgid "Limits"
+msgstr ""
+
+#: actions/siteadminpanel.php:403
 msgid "Text limit"
 msgstr ""
 
-#: actions/siteadminpanel.php:396
+#: actions/siteadminpanel.php:403
 msgid "Maximum number of characters for notices."
 msgstr ""
 
-#: actions/siteadminpanel.php:400
+#: actions/siteadminpanel.php:407
 msgid "Dupe limit"
 msgstr ""
 
-#: actions/siteadminpanel.php:400
+#: actions/siteadminpanel.php:407
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 
-#: actions/siteadminpanel.php:414 actions/useradminpanel.php:226
+#: actions/siteadminpanel.php:421 actions/useradminpanel.php:313
 #, fuzzy
 msgid "Save site settings"
 msgstr "Stillingar fyrir mynd"
@@ -3625,7 +3673,8 @@ msgstr "Ekki lengur áskrifandi"
 msgid "Listenee stream license ‘%s’ is not compatible with site license ‘%s’."
 msgstr ""
 
-#: actions/useradminpanel.php:58 lib/personalgroupnav.php:115
+#: actions/useradminpanel.php:58 lib/adminpanelaction.php:305
+#: lib/personalgroupnav.php:115
 msgid "User"
 msgstr "Notandi"
 
@@ -3633,17 +3682,89 @@ msgstr "Notandi"
 msgid "User settings for this StatusNet site."
 msgstr ""
 
-#: actions/useradminpanel.php:173
-msgid "Is registration on this site prohibited?"
+#: actions/useradminpanel.php:149
+msgid "Invalid bio limit. Must be numeric."
 msgstr ""
 
-#: actions/useradminpanel.php:178
-#, fuzzy
-msgid "Invite-only"
-msgstr "Bjóða"
+#: actions/useradminpanel.php:155
+msgid "Invalid welcome text. Max length is 255 characters."
+msgstr ""
 
-#: actions/useradminpanel.php:180
-msgid "Is registration on this site only open to invited users?"
+#: actions/useradminpanel.php:165
+#, php-format
+msgid "Invalid default subscripton: '%1$s' is not user."
+msgstr ""
+
+#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:108
+#: lib/personalgroupnav.php:109
+msgid "Profile"
+msgstr "Persónuleg síða"
+
+#: actions/useradminpanel.php:222
+msgid "Bio Limit"
+msgstr ""
+
+#: actions/useradminpanel.php:223
+msgid "Maximum length of a profile bio in characters."
+msgstr ""
+
+#: actions/useradminpanel.php:231
+#, fuzzy
+msgid "New users"
+msgstr "Bjóða nýjum notendum að vera með"
+
+#: actions/useradminpanel.php:235
+msgid "New user welcome"
+msgstr ""
+
+#: actions/useradminpanel.php:236
+msgid "Welcome text for new users (Max 255 chars)."
+msgstr ""
+
+#: actions/useradminpanel.php:241
+#, fuzzy
+msgid "Default subscription"
+msgstr "Allar áskriftir"
+
+#: actions/useradminpanel.php:242
+#, fuzzy
+msgid "Automatically subscribe new users to this user."
+msgstr ""
+"Gerast sjálfkrafa áskrifandi að hverjum þeim sem gerist áskrifandi að þér "
+"(best fyrir ómannlega notendur)"
+
+#: actions/useradminpanel.php:251
+#, fuzzy
+msgid "Invitations"
+msgstr "Boðskort hefur verið sent út"
+
+#: actions/useradminpanel.php:256
+#, fuzzy
+msgid "Invitations enabled"
+msgstr "Boðskort hefur verið sent út"
+
+#: actions/useradminpanel.php:258
+msgid "Whether to allow users to invite new users."
+msgstr ""
+
+#: actions/useradminpanel.php:265
+msgid "Sessions"
+msgstr ""
+
+#: actions/useradminpanel.php:270
+msgid "Handle sessions"
+msgstr ""
+
+#: actions/useradminpanel.php:272
+msgid "Whether to handle sessions ourselves."
+msgstr ""
+
+#: actions/useradminpanel.php:276
+msgid "Session debugging"
+msgstr ""
+
+#: actions/useradminpanel.php:278
+msgid "Turn on debugging output for sessions."
 msgstr ""
 
 #: actions/userauthorization.php:105
@@ -3851,7 +3972,7 @@ msgstr "Það hefur verið lagt bann við babli frá þér á þessari síðu."
 msgid "Problem saving notice."
 msgstr "Vandamál komu upp við að vista babl."
 
-#: classes/Notice.php:1117
+#: classes/Notice.php:1124
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Gagnagrunnsvilla við innsetningu svars: %s"
@@ -3868,10 +3989,6 @@ msgstr "Gat ekki skráð hópmeðlimi."
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
-
-#: lib/accountsettingsaction.php:108 lib/personalgroupnav.php:109
-msgid "Profile"
-msgstr "Persónuleg síða"
 
 #: lib/accountsettingsaction.php:108
 msgid "Change your profile settings"
@@ -3910,132 +4027,132 @@ msgstr "%s - %s"
 msgid "Untitled page"
 msgstr "Ónafngreind síða"
 
-#: lib/action.php:424
+#: lib/action.php:425
 msgid "Primary site navigation"
 msgstr "Stikl aðalsíðu"
 
-#: lib/action.php:430
+#: lib/action.php:431
 msgid "Home"
 msgstr "Heim"
 
-#: lib/action.php:430
+#: lib/action.php:431
 msgid "Personal profile and friends timeline"
 msgstr "Persónuleg síða og vinarás"
 
-#: lib/action.php:432
+#: lib/action.php:433
 msgid "Account"
 msgstr "Aðgangur"
 
-#: lib/action.php:432
+#: lib/action.php:433
 msgid "Change your email, avatar, password, profile"
 msgstr ""
 "Breyttu tölvupóstinum þínum, einkennismyndinni þinni, lykilorðinu þínu, "
 "persónulegu síðunni þinni"
 
-#: lib/action.php:435
+#: lib/action.php:436
 msgid "Connect"
 msgstr "Tengjast"
 
-#: lib/action.php:435
+#: lib/action.php:436
 #, fuzzy
 msgid "Connect to services"
 msgstr "Gat ekki framsent til vefþjóns: %s"
 
-#: lib/action.php:439
+#: lib/action.php:440
 #, fuzzy
 msgid "Change site configuration"
 msgstr "Stikl aðalsíðu"
 
-#: lib/action.php:443 lib/subgroupnav.php:105
+#: lib/action.php:444 lib/subgroupnav.php:105
 msgid "Invite"
 msgstr "Bjóða"
 
-#: lib/action.php:444 lib/subgroupnav.php:106
+#: lib/action.php:445 lib/subgroupnav.php:106
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Bjóða vinum og vandamönnum að slást í hópinn á %s"
 
-#: lib/action.php:449
+#: lib/action.php:450
 msgid "Logout"
 msgstr "Útskráning"
 
-#: lib/action.php:449
+#: lib/action.php:450
 msgid "Logout from the site"
 msgstr "Skrá þig út af síðunni"
 
-#: lib/action.php:454
+#: lib/action.php:455
 msgid "Create an account"
 msgstr "Búa til aðgang"
 
-#: lib/action.php:457
+#: lib/action.php:458
 msgid "Login to the site"
 msgstr "Skrá þig inn á síðuna"
 
-#: lib/action.php:460 lib/action.php:723
+#: lib/action.php:461 lib/action.php:724
 msgid "Help"
 msgstr "Hjálp"
 
-#: lib/action.php:460
+#: lib/action.php:461
 msgid "Help me!"
 msgstr "Hjálp!"
 
-#: lib/action.php:463
+#: lib/action.php:464 lib/searchaction.php:127
 msgid "Search"
 msgstr "Leita"
 
-#: lib/action.php:463
+#: lib/action.php:464
 msgid "Search for people or text"
 msgstr "Leita að fólki eða texta"
 
-#: lib/action.php:484
+#: lib/action.php:485
 msgid "Site notice"
 msgstr "Babl vefsíðunnar"
 
-#: lib/action.php:550
+#: lib/action.php:551
 msgid "Local views"
 msgstr "Staðbundin sýn"
 
-#: lib/action.php:616
+#: lib/action.php:617
 msgid "Page notice"
 msgstr "Babl síðunnar"
 
-#: lib/action.php:718
+#: lib/action.php:719
 msgid "Secondary site navigation"
 msgstr "Stikl undirsíðu"
 
-#: lib/action.php:725
+#: lib/action.php:726
 msgid "About"
 msgstr "Um"
 
-#: lib/action.php:727
+#: lib/action.php:728
 msgid "FAQ"
 msgstr "Spurt og svarað"
 
-#: lib/action.php:731
+#: lib/action.php:732
 msgid "TOS"
 msgstr ""
 
-#: lib/action.php:734
+#: lib/action.php:735
 msgid "Privacy"
 msgstr "Friðhelgi"
 
-#: lib/action.php:736
+#: lib/action.php:737
 msgid "Source"
 msgstr "Frumþula"
 
-#: lib/action.php:738
+#: lib/action.php:739
 msgid "Contact"
 msgstr "Tengiliður"
 
-#: lib/action.php:740
+#: lib/action.php:741
 msgid "Badge"
 msgstr ""
 
-#: lib/action.php:768
+#: lib/action.php:769
 msgid "StatusNet software license"
 msgstr "Hugbúnaðarleyfi StatusNet"
 
-#: lib/action.php:771
+#: lib/action.php:772
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4044,12 +4161,12 @@ msgstr ""
 "**%%site.name%%** er örbloggsþjónusta í boði [%%site.broughtby%%](%%site."
 "broughtbyurl%%). "
 
-#: lib/action.php:773
+#: lib/action.php:774
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** er örbloggsþjónusta."
 
-#: lib/action.php:775
+#: lib/action.php:776
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4060,32 +4177,32 @@ msgstr ""
 "sem er gefinn út undir [GNU Affero almenningsleyfinu](http://www.fsf.org/"
 "licensing/licenses/agpl-3.0.html)."
 
-#: lib/action.php:789
+#: lib/action.php:790
 #, fuzzy
 msgid "Site content license"
 msgstr "Hugbúnaðarleyfi StatusNet"
 
-#: lib/action.php:798
+#: lib/action.php:799
 msgid "All "
 msgstr "Allt "
 
-#: lib/action.php:803
+#: lib/action.php:804
 msgid "license."
 msgstr "leyfi."
 
-#: lib/action.php:1067
+#: lib/action.php:1068
 msgid "Pagination"
 msgstr "Uppröðun"
 
-#: lib/action.php:1076
+#: lib/action.php:1077
 msgid "After"
 msgstr "Eftir"
 
-#: lib/action.php:1084
+#: lib/action.php:1085
 msgid "Before"
 msgstr "Áður"
 
-#: lib/action.php:1132
+#: lib/action.php:1133
 msgid "There was a problem with your session token."
 msgstr "Það komu upp vandamál varðandi setutókann þinn."
 
@@ -4116,6 +4233,11 @@ msgstr "Staðfesting tölvupóstfangs"
 #: lib/adminpanelaction.php:303
 #, fuzzy
 msgid "Design configuration"
+msgstr "SMS staðfesting"
+
+#: lib/adminpanelaction.php:306 lib/adminpanelaction.php:309
+#, fuzzy
+msgid "Paths configuration"
 msgstr "SMS staðfesting"
 
 #: lib/attachmentlist.php:87
@@ -4291,11 +4413,10 @@ msgid "You are not subscribed to anyone."
 msgstr "Þú ert ekki áskrifandi."
 
 #: lib/command.php:620
-#, fuzzy
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
-msgstr[0] "Þú ert ekki áskrifandi."
-msgstr[1] "Þú ert ekki áskrifandi."
+msgstr[0] "Þú ert nú þegar í áskrift að þessum notendum:"
+msgstr[1] "Þú ert nú þegar í áskrift að þessum notendum:"
 
 #: lib/command.php:640
 #, fuzzy
@@ -4303,7 +4424,6 @@ msgid "No one is subscribed to you."
 msgstr "Gat ekki leyft öðrum að gerast áskrifandi að þér."
 
 #: lib/command.php:642
-#, fuzzy
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Gat ekki leyft öðrum að gerast áskrifandi að þér."
@@ -4315,7 +4435,6 @@ msgid "You are not a member of any groups."
 msgstr "Þú ert ekki meðlimur í þessum hópi."
 
 #: lib/command.php:664
-#, fuzzy
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Þú ert ekki meðlimur í þessum hópi."
@@ -4399,9 +4518,10 @@ msgid "Upload file"
 msgstr ""
 
 #: lib/designsettings.php:109
+#, fuzzy
 msgid ""
-"You can upload your personal background image. The maximum file size is 2Mb."
-msgstr ""
+"You can upload your personal background image. The maximum file size is 2MB."
+msgstr "Þetta er of langt. Hámarkslengd babls er 140 tákn."
 
 #: lib/designsettings.php:372
 msgid "Bad default color settings: "
@@ -4496,7 +4616,7 @@ msgstr "Staðsetning hópsins, ef einhver, eins og \"Borg, landshluti, land\""
 msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr ""
 
-#: lib/groupnav.php:85 lib/searchgroupnav.php:84
+#: lib/groupnav.php:85
 msgid "Group"
 msgstr "Hópur"
 
@@ -4541,7 +4661,7 @@ msgstr "Hóparnir með mesta bablið"
 msgid "Tags in %s group's notices"
 msgstr "Merki í babli %s hópsins"
 
-#: lib/htmloutputter.php:104
+#: lib/htmloutputter.php:103
 msgid "This page is not available in a media type you accept"
 msgstr ""
 "Þessi síða er ekki aðgengileg í margmiðlunargerðinni sem þú tekur á móti"
@@ -4575,6 +4695,14 @@ msgstr "Týndum skránni okkar"
 msgid "Unknown file type"
 msgstr "Óþekkt skráargerð"
 
+#: lib/imagefile.php:217
+msgid "MB"
+msgstr ""
+
+#: lib/imagefile.php:219
+msgid "kB"
+msgstr ""
+
 #: lib/jabber.php:192
 #, php-format
 msgid "[%s]"
@@ -4606,7 +4734,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:424
+#: lib/mailbox.php:227 lib/noticelist.php:452
 #, fuzzy
 msgid "from"
 msgstr "frá"
@@ -4858,36 +4986,62 @@ msgstr "Senda bein skilaboð"
 msgid "To"
 msgstr "Til"
 
-#: lib/messageform.php:162 lib/noticeform.php:173
+#: lib/messageform.php:162 lib/noticeform.php:186
 msgid "Available characters"
 msgstr "Leyfileg tákn"
 
-#: lib/noticeform.php:145
+#: lib/noticeform.php:158
 msgid "Send a notice"
 msgstr "Senda babl"
 
-#: lib/noticeform.php:158
+#: lib/noticeform.php:171
 #, php-format
 msgid "What's up, %s?"
 msgstr "Hvað er að frétta %s?"
 
-#: lib/noticeform.php:180
+#: lib/noticeform.php:193
 msgid "Attach"
 msgstr ""
 
-#: lib/noticeform.php:184
+#: lib/noticeform.php:197
 msgid "Attach a file"
 msgstr ""
 
-#: lib/noticelist.php:478
+#: lib/noticelist.php:403
+#, php-format
+msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
+msgstr ""
+
+#: lib/noticelist.php:404
+#, fuzzy
+msgid "N"
+msgstr "Nei"
+
+#: lib/noticelist.php:404
+msgid "S"
+msgstr ""
+
+#: lib/noticelist.php:405
+msgid "E"
+msgstr ""
+
+#: lib/noticelist.php:405
+msgid "W"
+msgstr ""
+
+#: lib/noticelist.php:411
+msgid "at"
+msgstr ""
+
+#: lib/noticelist.php:506
 msgid "in context"
 msgstr ""
 
-#: lib/noticelist.php:498
+#: lib/noticelist.php:526
 msgid "Reply to this notice"
 msgstr "Svara þessu babli"
 
-#: lib/noticelist.php:499
+#: lib/noticelist.php:527
 msgid "Reply"
 msgstr "Svara"
 
@@ -4920,12 +5074,12 @@ msgstr "Villa kom upp við að setja inn persónulega fjarsíðu"
 msgid "Duplicate notice"
 msgstr "Eyða babli"
 
-#: lib/oauthstore.php:466 lib/subs.php:48
+#: lib/oauthstore.php:467 lib/subs.php:48
 #, fuzzy
 msgid "You have been banned from subscribing."
 msgstr "Þessi notandi hefur bannað þér að gerast áskrifandi"
 
-#: lib/oauthstore.php:491
+#: lib/oauthstore.php:492
 msgid "Couldn't insert new subscription."
 msgstr "Gat ekki sett inn nýja áskrift."
 
@@ -5033,6 +5187,10 @@ msgstr "Opna á þennan notanda"
 msgid "Search site"
 msgstr ""
 
+#: lib/searchaction.php:126
+msgid "Keyword(s)"
+msgstr ""
+
 #: lib/searchaction.php:162
 msgid "Search help"
 msgstr ""
@@ -5044,10 +5202,6 @@ msgstr "Fólk"
 #: lib/searchgroupnav.php:81
 msgid "Find people on this site"
 msgstr "Finna persónur á þessu vefsvæði"
-
-#: lib/searchgroupnav.php:82
-msgid "Notice"
-msgstr "Babl"
 
 #: lib/searchgroupnav.php:83
 msgid "Find content of notices"
@@ -5187,47 +5341,51 @@ msgstr "Senda bein skilaboð til þessa notanda"
 msgid "Message"
 msgstr "Skilaboð"
 
-#: lib/util.php:826
+#: lib/userprofile.php:311
+msgid "Moderate"
+msgstr ""
+
+#: lib/util.php:825
 msgid "a few seconds ago"
 msgstr "fyrir nokkrum sekúndum"
 
-#: lib/util.php:828
+#: lib/util.php:827
 msgid "about a minute ago"
 msgstr "fyrir um einni mínútu síðan"
 
-#: lib/util.php:830
+#: lib/util.php:829
 #, php-format
 msgid "about %d minutes ago"
 msgstr "fyrir um %d mínútum síðan"
 
-#: lib/util.php:832
+#: lib/util.php:831
 msgid "about an hour ago"
 msgstr "fyrir um einum klukkutíma síðan"
 
-#: lib/util.php:834
+#: lib/util.php:833
 #, php-format
 msgid "about %d hours ago"
 msgstr "fyrir um %d klukkutímum síðan"
 
-#: lib/util.php:836
+#: lib/util.php:835
 msgid "about a day ago"
 msgstr "fyrir um einum degi síðan"
 
-#: lib/util.php:838
+#: lib/util.php:837
 #, php-format
 msgid "about %d days ago"
 msgstr "fyrir um %d dögum síðan"
 
-#: lib/util.php:840
+#: lib/util.php:839
 msgid "about a month ago"
 msgstr "fyrir um einum mánuði síðan"
 
-#: lib/util.php:842
+#: lib/util.php:841
 #, php-format
 msgid "about %d months ago"
 msgstr "fyrir um %d mánuðum síðan"
 
-#: lib/util.php:844
+#: lib/util.php:843
 msgid "about a year ago"
 msgstr "fyrir um einu ári síðan"
 
@@ -5256,11 +5414,3 @@ msgstr "Afsakið en þetta er ekki móttökutölvupóstfangið þitt."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Því miður er móttökutölvupóstur ekki leyfður."
-
-#, fuzzy
-#~ msgid "Unlock this user"
-#~ msgstr "Opna á þennan notanda"
-
-#, fuzzy
-#~ msgid "These people are subscribed to you: "
-#~ msgstr "Fólk sem eru áskrifendur að %s"

@@ -1,5 +1,6 @@
 # Translation of StatusNet to Bulgarian
 #
+# Author@translatewiki.net: Turin
 # --
 # This file is distributed under the same license as the StatusNet package.
 #
@@ -7,22 +8,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-19 10:43+0000\n"
-"PO-Revision-Date: 2009-11-18 19:31:26+0000\n"
+"POT-Creation-Date: 2009-11-27 23:50+0000\n"
+"PO-Revision-Date: 2009-11-28 19:49:52+0000\n"
 "Language-Team: Bulgarian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: MediaWiki 1.16alpha(r59207); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59523); Translate extension (2009-11-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: bg\n"
 "X-Message-Group: out-statusnet\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
 #: actions/showfavorites.php:137 actions/tag.php:51
-#, fuzzy
 msgid "No such page"
-msgstr "Няма такъв етикет."
+msgstr "Няма такака страница."
 
 #: actions/all.php:74 actions/allrss.php:68
 #: actions/apiaccountupdatedeliverydevice.php:113
@@ -61,19 +61,19 @@ msgid "%s and friends"
 msgstr "%s и приятели"
 
 #: actions/all.php:99
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
-msgstr "Емисия с приятелите на %s"
+msgstr "Емисия с приятелите на %s (RSS 1.0)"
 
 #: actions/all.php:107
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
-msgstr "Емисия с приятелите на %s"
+msgstr "Емисия с приятелите на %s (RSS 2.0)"
 
 #: actions/all.php:115
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (Atom)"
-msgstr "Емисия с приятелите на %s"
+msgstr "Емисия с приятелите на %s (Atom)"
 
 #: actions/all.php:127
 #, php-format
@@ -103,9 +103,8 @@ msgid ""
 msgstr ""
 
 #: actions/all.php:165
-#, fuzzy
 msgid "You and friends"
-msgstr "%s и приятели"
+msgstr "Вие и приятелите"
 
 #: actions/allrss.php:119 actions/apitimelinefriends.php:121
 #, php-format
@@ -117,7 +116,6 @@ msgstr "Бележки от %1$s и приятели в %2$s."
 #: actions/apiaccountupdateprofilebackgroundimage.php:94
 #: actions/apiaccountupdateprofilecolors.php:118
 #: actions/apiaccountupdateprofile.php:97
-#, fuzzy
 msgid "API method not found."
 msgstr "Не е открит методът в API."
 
@@ -141,7 +139,6 @@ msgid ""
 msgstr ""
 
 #: actions/apiaccountupdatedeliverydevice.php:132
-#, fuzzy
 msgid "Could not update user."
 msgstr "Грешка при обновяване на потребителя."
 
@@ -180,7 +177,6 @@ msgid "User has no profile."
 msgstr "Потребителят няма профил."
 
 #: actions/apiaccountupdateprofile.php:147
-#, fuzzy
 msgid "Could not save profile."
 msgstr "Грешка при запазване на профила."
 
@@ -197,9 +193,9 @@ msgid "No message text!"
 msgstr "Липсва текст на съобщението"
 
 #: actions/apidirectmessagenew.php:135 actions/newmessage.php:150
-#, fuzzy, php-format
+#, php-format
 msgid "That's too long. Max message size is %d chars."
-msgstr "Твърде дълго. Може да е най-много 140 знака."
+msgstr "Твърде дълго. Може да е най-много %d знака."
 
 #: actions/apidirectmessagenew.php:146
 msgid "Recipient user not found."
@@ -212,9 +208,9 @@ msgstr ""
 "приятели."
 
 #: actions/apidirectmessage.php:89
-#, fuzzy, php-format
+#, php-format
 msgid "Direct messages from %s"
-msgstr "Преки съобщения до %s"
+msgstr "Преки съобщения от %s"
 
 #: actions/apidirectmessage.php:93
 #, php-format
@@ -254,7 +250,6 @@ msgid "No status found with that ID."
 msgstr "Не е открита бележка с такъв идентификатор."
 
 #: actions/apifavoritecreate.php:119
-#, fuzzy
 msgid "This status is already a favorite!"
 msgstr "Тази бележка вече е отбелязана като любима!"
 
@@ -263,7 +258,6 @@ msgid "Could not create favorite."
 msgstr "Грешка при отбелязване като любима."
 
 #: actions/apifavoritedestroy.php:122
-#, fuzzy
 msgid "That status is not a favorite!"
 msgstr "Тази бележка не е отбелязана като любима!"
 
@@ -336,9 +330,9 @@ msgid "Full name is too long (max 255 chars)."
 msgstr "Пълното име е твърде дълго (макс. 255 знака)"
 
 #: actions/apigroupcreate.php:213
-#, fuzzy, php-format
+#, php-format
 msgid "Description is too long (max %d chars)."
-msgstr "Автобиографията е твърде дълга (до 140 символа)."
+msgstr "Описанието е твърде дълго (до %d символа)."
 
 #: actions/apigroupcreate.php:224 actions/editgroup.php:204
 #: actions/newgroup.php:148 actions/profilesettings.php:225
@@ -354,9 +348,9 @@ msgstr ""
 
 #: actions/apigroupcreate.php:264 actions/editgroup.php:224
 #: actions/newgroup.php:168
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid alias: \"%s\""
-msgstr "Неправилен етикет: \"%s\""
+msgstr "Неправилен псевдоним: \"%s\""
 
 #: actions/apigroupcreate.php:273 actions/editgroup.php:228
 #: actions/newgroup.php:172
@@ -372,12 +366,10 @@ msgstr ""
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:90 actions/apitimelinegroup.php:91
-#, fuzzy
 msgid "Group not found!"
-msgstr "Не е открит методът в API."
+msgstr "Групата не е открита."
 
 #: actions/apigroupjoin.php:110
-#, fuzzy
 msgid "You are already a member of that group."
 msgstr "Вече членувате в тази група."
 
@@ -391,7 +383,6 @@ msgid "Could not join user %s to group %s."
 msgstr "Грешка при проследяване — потребителят не е намерен."
 
 #: actions/apigroupleave.php:114
-#, fuzzy
 msgid "You are not a member of this group."
 msgstr "Не членувате в тази група."
 
@@ -411,7 +402,7 @@ msgid "groups on %s"
 msgstr "Търсене на групи в сайта"
 
 #: actions/apigrouplist.php:95
-#, fuzzy, php-format
+#, php-format
 msgid "%s's groups"
 msgstr "Групи на %s"
 
@@ -429,9 +420,8 @@ msgid "You may not delete another user's status."
 msgstr "Не може да изтривате бележки на друг потребител."
 
 #: actions/apistatusesshow.php:138
-#, fuzzy
 msgid "Status deleted."
-msgstr "Аватарът е обновен."
+msgstr "Бележката е изтрита."
 
 #: actions/apistatusesshow.php:144
 msgid "No status with that ID found."
@@ -447,15 +437,14 @@ msgstr "Твърде дълга бележка. Трябва да е най-мн
 msgid "Not found"
 msgstr "Не е открито."
 
-#: actions/apistatusesupdate.php:227 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:227 actions/newnotice.php:183
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
 
 #: actions/apisubscriptions.php:231 actions/apisubscriptions.php:261
-#, fuzzy
 msgid "Unsupported format."
-msgstr "Форматът на файла с изображението не се поддържа."
+msgstr "Неподдържан формат."
 
 #: actions/apitimelinefavorites.php:107
 #, php-format
@@ -562,7 +551,7 @@ msgid "Preview"
 msgstr "Преглед"
 
 #: actions/avatarsettings.php:148 lib/deleteuserform.php:66
-#: lib/noticelist.php:522
+#: lib/noticelist.php:550
 msgid "Delete"
 msgstr "Изтриване"
 
@@ -575,7 +564,7 @@ msgid "Crop"
 msgstr "Изрязване"
 
 #: actions/avatarsettings.php:265 actions/disfavor.php:74
-#: actions/emailsettings.php:237 actions/favor.php:75
+#: actions/emailsettings.php:238 actions/favor.php:75
 #: actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
 #: actions/invite.php:56 actions/login.php:131 actions/makeadmin.php:66
@@ -590,7 +579,7 @@ msgid "There was a problem with your session token. Try again, please."
 msgstr "Имаше проблем със сесията ви в сайта. Моля, опитайте отново!"
 
 #: actions/avatarsettings.php:277 actions/designadminpanel.php:103
-#: actions/emailsettings.php:255 actions/grouplogo.php:319
+#: actions/emailsettings.php:256 actions/grouplogo.php:319
 #: actions/imsettings.php:220 actions/recoverpassword.php:44
 #: actions/smssettings.php:248 lib/designsettings.php:304
 msgid "Unexpected form submission."
@@ -613,9 +602,8 @@ msgid "Failed updating avatar."
 msgstr "Неуспешно обновяване на аватара."
 
 #: actions/avatarsettings.php:387
-#, fuzzy
 msgid "Avatar deleted."
-msgstr "Аватарът е обновен."
+msgstr "Аватарът е изтрит."
 
 #: actions/blockedfromgroup.php:73 actions/editgroup.php:84
 #: actions/groupdesignsettings.php:84 actions/grouplogo.php:86
@@ -724,15 +712,15 @@ msgstr "Неразпознат вид адрес %s"
 msgid "That address has already been confirmed."
 msgstr "Този адрес е вече потвърден."
 
-#: actions/confirmaddress.php:114 actions/emailsettings.php:295
-#: actions/emailsettings.php:426 actions/imsettings.php:258
+#: actions/confirmaddress.php:114 actions/emailsettings.php:296
+#: actions/emailsettings.php:427 actions/imsettings.php:258
 #: actions/imsettings.php:401 actions/othersettings.php:174
 #: actions/profilesettings.php:276 actions/smssettings.php:278
 #: actions/smssettings.php:420
 msgid "Couldn't update user."
 msgstr "Грешка при обновяване на потребителя."
 
-#: actions/confirmaddress.php:126 actions/emailsettings.php:390
+#: actions/confirmaddress.php:126 actions/emailsettings.php:391
 #: actions/imsettings.php:363 actions/smssettings.php:382
 msgid "Couldn't delete email confirmation."
 msgstr "Грешка при изтриване потвърждението по е-поща."
@@ -747,12 +735,11 @@ msgid "The address \"%s\" has been confirmed for your account."
 msgstr "Адресът \"%s\" е потвърден за сметката ви."
 
 #: actions/conversation.php:99
-#, fuzzy
 msgid "Conversation"
-msgstr "Код за потвърждение"
+msgstr "Разговор"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:206
+#: lib/profileaction.php:206 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Бележки"
 
@@ -789,11 +776,10 @@ msgid "Are you sure you want to delete this notice?"
 msgstr "Наистина ли искате да изтриете тази бележка?"
 
 #: actions/deletenotice.php:145
-#, fuzzy
 msgid "Do not delete this notice"
-msgstr "Грешка при изтриване на бележката."
+msgstr "Да не се изтрива бележката"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:522
+#: actions/deletenotice.php:146 lib/noticelist.php:550
 msgid "Delete this notice"
 msgstr "Изтриване на бележката"
 
@@ -803,19 +789,16 @@ msgid "There was a problem with your session token.  Try again, please."
 msgstr "Имаше проблем със сесията ви в сайта. Моля, опитайте отново!"
 
 #: actions/deleteuser.php:67
-#, fuzzy
 msgid "You cannot delete users."
-msgstr "Грешка при обновяване на потребителя."
+msgstr "Не можете да изтривате потребители."
 
 #: actions/deleteuser.php:74
-#, fuzzy
 msgid "You can only delete local users."
-msgstr "Не може да изтривате бележки на друг потребител."
+msgstr "Може да изтривате само локални потребители."
 
 #: actions/deleteuser.php:110 actions/deleteuser.php:133
-#, fuzzy
 msgid "Delete user"
-msgstr "Изтриване"
+msgstr "Изтриване на потребител"
 
 #: actions/deleteuser.php:135
 msgid ""
@@ -824,9 +807,8 @@ msgid ""
 msgstr ""
 
 #: actions/deleteuser.php:148 lib/deleteuserform.php:77
-#, fuzzy
 msgid "Delete this user"
-msgstr "Изтриване на бележката"
+msgstr "Изтриване на този потребител"
 
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
 #: lib/adminpanelaction.php:302 lib/groupnav.php:119
@@ -837,183 +819,116 @@ msgstr ""
 msgid "Design settings for this StatusNet site."
 msgstr ""
 
-#: actions/designadminpanel.php:278
+#: actions/designadminpanel.php:270
 #, fuzzy
 msgid "Invalid logo URL."
 msgstr "Неправилен размер."
 
-#: actions/designadminpanel.php:282
+#: actions/designadminpanel.php:274
 #, fuzzy, php-format
 msgid "Theme not available: %s"
 msgstr "Страницата не е достъпна във вида медия, който приемате"
 
-#: actions/designadminpanel.php:288
-#, fuzzy, php-format
-msgid "Theme directory not readable: %s"
-msgstr "Страницата не е достъпна във вида медия, който приемате"
-
-#: actions/designadminpanel.php:292
-#, php-format
-msgid "Avatar directory not writable: %s"
-msgstr ""
-
-#: actions/designadminpanel.php:296
-#, php-format
-msgid "Background directory not writable: %s"
-msgstr ""
-
-#: actions/designadminpanel.php:312
-#, php-format
-msgid "Max length for %s %s is 255 characters."
-msgstr ""
-
-#: actions/designadminpanel.php:412
-#, fuzzy
+#: actions/designadminpanel.php:370
 msgid "Change logo"
-msgstr "Смяна на паролата"
+msgstr "Смяна на логото"
 
-#: actions/designadminpanel.php:417
+#: actions/designadminpanel.php:375
 #, fuzzy
 msgid "Site logo"
 msgstr "Покани"
 
-#: actions/designadminpanel.php:424
+#: actions/designadminpanel.php:382
 #, fuzzy
 msgid "Change theme"
 msgstr "Промяна"
 
-#: actions/designadminpanel.php:441
+#: actions/designadminpanel.php:399
 #, fuzzy
 msgid "Site theme"
 msgstr "Нова бележка"
 
-#: actions/designadminpanel.php:442
+#: actions/designadminpanel.php:400
 #, fuzzy
 msgid "Theme for the site."
 msgstr "Излизане от сайта"
 
-#: actions/designadminpanel.php:447
-msgid "Theme server"
-msgstr ""
-
-#: actions/designadminpanel.php:451
-msgid "Theme path"
-msgstr ""
-
-#: actions/designadminpanel.php:455
-msgid "Theme directory"
-msgstr ""
-
-#: actions/designadminpanel.php:462
-#, fuzzy
-msgid "Avatar Settings"
-msgstr "Настройки за аватар"
-
-#: actions/designadminpanel.php:467
-#, fuzzy
-msgid "Avatar server"
-msgstr "Настройки за аватар"
-
-#: actions/designadminpanel.php:471
-#, fuzzy
-msgid "Avatar path"
-msgstr "Аватарът е обновен."
-
-#: actions/designadminpanel.php:475
-#, fuzzy
-msgid "Avatar directory"
-msgstr "Аватарът е обновен."
-
-#: actions/designadminpanel.php:486 lib/designsettings.php:101
+#: actions/designadminpanel.php:412 lib/designsettings.php:101
 msgid "Change background image"
-msgstr ""
+msgstr "Смяна на изображението за фон"
 
-#: actions/designadminpanel.php:491 actions/designadminpanel.php:578
+#: actions/designadminpanel.php:417 actions/designadminpanel.php:492
 #: lib/designsettings.php:178
 msgid "Background"
-msgstr ""
+msgstr "Фон"
 
-#: actions/designadminpanel.php:496
+#: actions/designadminpanel.php:422
 #, fuzzy, php-format
 msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
 "$s."
 msgstr "Може да качите лого за групата ви."
 
-#: actions/designadminpanel.php:526 lib/designsettings.php:139
+#: actions/designadminpanel.php:452 lib/designsettings.php:139
 msgid "On"
-msgstr ""
+msgstr "Вкл."
 
-#: actions/designadminpanel.php:542 lib/designsettings.php:155
+#: actions/designadminpanel.php:468 lib/designsettings.php:155
 msgid "Off"
-msgstr ""
+msgstr "Изкл."
 
-#: actions/designadminpanel.php:543 lib/designsettings.php:156
+#: actions/designadminpanel.php:469 lib/designsettings.php:156
 msgid "Turn background image on or off."
 msgstr ""
 
-#: actions/designadminpanel.php:548 lib/designsettings.php:161
+#: actions/designadminpanel.php:474 lib/designsettings.php:161
 msgid "Tile background image"
 msgstr ""
 
-#: actions/designadminpanel.php:554
-msgid "Background server"
-msgstr ""
-
-#: actions/designadminpanel.php:558
-msgid "Background path"
-msgstr ""
-
-#: actions/designadminpanel.php:562
-msgid "Background directory"
-msgstr ""
-
-#: actions/designadminpanel.php:569 lib/designsettings.php:170
-#, fuzzy
+#: actions/designadminpanel.php:483 lib/designsettings.php:170
 msgid "Change colours"
-msgstr "Смяна на паролата"
+msgstr "Смяна на цветовете"
 
-#: actions/designadminpanel.php:591 lib/designsettings.php:191
-#, fuzzy
+#: actions/designadminpanel.php:505 lib/designsettings.php:191
 msgid "Content"
-msgstr "Свързване"
+msgstr "Съдържание"
 
-#: actions/designadminpanel.php:604 lib/designsettings.php:204
-#, fuzzy
+#: actions/designadminpanel.php:518 lib/designsettings.php:204
 msgid "Sidebar"
-msgstr "Търсене"
+msgstr "Страничен панел"
 
-#: actions/designadminpanel.php:617 lib/designsettings.php:217
+#: actions/designadminpanel.php:531 lib/designsettings.php:217
 msgid "Text"
 msgstr "Текст"
 
-#: actions/designadminpanel.php:630 lib/designsettings.php:230
+#: actions/designadminpanel.php:544 lib/designsettings.php:230
 #, fuzzy
 msgid "Links"
 msgstr "Списък"
 
-#: actions/designadminpanel.php:658 lib/designsettings.php:247
+#: actions/designadminpanel.php:572 lib/designsettings.php:247
 msgid "Use defaults"
 msgstr ""
 
-#: actions/designadminpanel.php:659 lib/designsettings.php:248
+#: actions/designadminpanel.php:573 lib/designsettings.php:248
 msgid "Restore default designs"
 msgstr ""
 
-#: actions/designadminpanel.php:665 lib/designsettings.php:254
+#: actions/designadminpanel.php:579 lib/designsettings.php:254
 msgid "Reset back to default"
 msgstr ""
 
-#: actions/designadminpanel.php:667 actions/emailsettings.php:195
+#: actions/designadminpanel.php:581 actions/emailsettings.php:195
 #: actions/imsettings.php:163 actions/othersettings.php:126
-#: actions/profilesettings.php:167 actions/siteadminpanel.php:414
-#: actions/smssettings.php:181 actions/subscriptions.php:203
-#: actions/tagother.php:154 actions/useradminpanel.php:226
-#: lib/designsettings.php:256 lib/groupeditform.php:202
+#: actions/pathsadminpanel.php:296 actions/profilesettings.php:167
+#: actions/siteadminpanel.php:421 actions/smssettings.php:181
+#: actions/subscriptions.php:203 actions/tagother.php:154
+#: actions/useradminpanel.php:313 lib/designsettings.php:256
+#: lib/groupeditform.php:202
 msgid "Save"
 msgstr "Запазване"
 
-#: actions/designadminpanel.php:668 lib/designsettings.php:257
+#: actions/designadminpanel.php:582 lib/designsettings.php:257
 msgid "Save design"
 msgstr ""
 
@@ -1165,37 +1080,37 @@ msgstr "Искам да изпращам бележки по пощата."
 msgid "Publish a MicroID for my email address."
 msgstr "Публикуване на MicroID за адреса на е-пощата."
 
-#: actions/emailsettings.php:301 actions/imsettings.php:264
+#: actions/emailsettings.php:302 actions/imsettings.php:264
 #: actions/othersettings.php:180 actions/smssettings.php:284
 msgid "Preferences saved."
 msgstr "Настройките са запазени."
 
-#: actions/emailsettings.php:319
+#: actions/emailsettings.php:320
 msgid "No email address."
 msgstr "Не е въведена е-поща."
 
-#: actions/emailsettings.php:326
+#: actions/emailsettings.php:327
 msgid "Cannot normalize that email address"
 msgstr "Грешка при нормализиране адреса на е-пощата"
 
-#: actions/emailsettings.php:330 actions/siteadminpanel.php:158
+#: actions/emailsettings.php:331 actions/siteadminpanel.php:158
 msgid "Not a valid email address"
 msgstr "Това не е правилен адрес на е-поща."
 
-#: actions/emailsettings.php:333
+#: actions/emailsettings.php:334
 msgid "That is already your email address."
 msgstr "Това и сега е адресът на е-пощата ви."
 
-#: actions/emailsettings.php:336
+#: actions/emailsettings.php:337
 msgid "That email address already belongs to another user."
 msgstr "Тази е-поща вече се използва от друг потребител."
 
-#: actions/emailsettings.php:352 actions/imsettings.php:317
+#: actions/emailsettings.php:353 actions/imsettings.php:317
 #: actions/smssettings.php:337
 msgid "Couldn't insert confirmation code."
 msgstr "Не може да се вмъкне код за потвърждение."
 
-#: actions/emailsettings.php:358
+#: actions/emailsettings.php:359
 msgid ""
 "A confirmation code was sent to the email address you added. Check your "
 "inbox (and spam box!) for the code and instructions on how to use it."
@@ -1204,47 +1119,47 @@ msgstr ""
 "Проверете кутията (или папката за спам) за кода и указанията за използването "
 "му."
 
-#: actions/emailsettings.php:378 actions/imsettings.php:351
+#: actions/emailsettings.php:379 actions/imsettings.php:351
 #: actions/smssettings.php:370
 msgid "No pending confirmation to cancel."
 msgstr "Няма потвърждения, очакващи да бъдат отказани."
 
-#: actions/emailsettings.php:382 actions/imsettings.php:355
+#: actions/emailsettings.php:383 actions/imsettings.php:355
 msgid "That is the wrong IM address."
 msgstr "Грешен IM адрес."
 
-#: actions/emailsettings.php:394 actions/imsettings.php:367
+#: actions/emailsettings.php:395 actions/imsettings.php:367
 #: actions/smssettings.php:386
 msgid "Confirmation cancelled."
 msgstr "Потвърждаването е прекъснато."
 
-#: actions/emailsettings.php:412
+#: actions/emailsettings.php:413
 msgid "That is not your email address."
 msgstr "Това не е вашият адрес на е-поща."
 
-#: actions/emailsettings.php:431 actions/imsettings.php:408
+#: actions/emailsettings.php:432 actions/imsettings.php:408
 #: actions/smssettings.php:425
 msgid "The address was removed."
 msgstr "Адресът е премахнат."
 
-#: actions/emailsettings.php:445 actions/smssettings.php:518
+#: actions/emailsettings.php:446 actions/smssettings.php:518
 msgid "No incoming email address."
 msgstr "Няма входящ адрес на е-поща."
 
-#: actions/emailsettings.php:455 actions/emailsettings.php:477
+#: actions/emailsettings.php:456 actions/emailsettings.php:478
 #: actions/smssettings.php:528 actions/smssettings.php:552
 msgid "Couldn't update user record."
 msgstr "Грешка при обновяване записа на потребител."
 
-#: actions/emailsettings.php:458 actions/smssettings.php:531
+#: actions/emailsettings.php:459 actions/smssettings.php:531
 msgid "Incoming email address removed."
 msgstr "Входящият адрес на е-поща е премахнат."
 
-#: actions/emailsettings.php:480 actions/smssettings.php:555
+#: actions/emailsettings.php:481 actions/smssettings.php:555
 msgid "New incoming email address added."
 msgstr "Добавен е нов входящ адрес на е-поща."
 
-#: actions/favorited.php:65 lib/popularnoticesection.php:87
+#: actions/favorited.php:65 lib/popularnoticesection.php:88
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
 msgstr "Популярни бележки"
@@ -1371,9 +1286,8 @@ msgid "No such group."
 msgstr "Няма такава група"
 
 #: actions/getfile.php:75
-#, fuzzy
 msgid "No such file."
-msgstr "Няма такава бележка."
+msgstr "Няма такъв файл."
 
 #: actions/getfile.php:79
 #, fuzzy
@@ -1394,9 +1308,8 @@ msgstr "Не е открит профил с такъв идентификато
 
 #: actions/groupblock.php:81 actions/groupunblock.php:81
 #: actions/makeadmin.php:81
-#, fuzzy
 msgid "No group specified."
-msgstr "Не е указан профил."
+msgstr "Не е указана група."
 
 #: actions/groupblock.php:91
 msgid "Only an admin can block group members."
@@ -1444,9 +1357,8 @@ msgid "No ID"
 msgstr "Липсва ID"
 
 #: actions/groupdesignsettings.php:68
-#, fuzzy
 msgid "You must be logged in to edit a group."
-msgstr "За да създавате група, трябва да сте влезли."
+msgstr "За да редактирате група, трябва да сте влезли."
 
 #: actions/groupdesignsettings.php:141
 #, fuzzy
@@ -1514,9 +1426,9 @@ msgstr ""
 msgid "A list of the users in this group."
 msgstr "Списък с потребителите в тази група."
 
-#: actions/groupmembers.php:175 lib/action.php:439 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:440 lib/groupnav.php:107
 msgid "Admin"
-msgstr ""
+msgstr "Настройки"
 
 #: actions/groupmembers.php:346 lib/blockform.php:69
 msgid "Block"
@@ -1555,9 +1467,8 @@ msgstr "Търсене на групи"
 
 #: actions/groupsearch.php:79 actions/noticesearch.php:117
 #: actions/peoplesearch.php:83
-#, fuzzy
 msgid "No results."
-msgstr "Няма резултати"
+msgstr "Няма резултати."
 
 #: actions/groupsearch.php:82
 #, php-format
@@ -1574,7 +1485,7 @@ msgid ""
 msgstr ""
 
 #: actions/groups.php:62 lib/profileaction.php:220 lib/publicgroupnav.php:81
-#: lib/subgroupnav.php:98
+#: lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "Групи"
 
@@ -1720,7 +1631,7 @@ msgstr "Това е входящата ви кутия с лични съобщ�
 
 #: actions/invite.php:39
 msgid "Invites have been disabled."
-msgstr ""
+msgstr "Поканите са изключени."
 
 #: actions/invite.php:41
 #, php-format
@@ -1789,7 +1700,7 @@ msgstr "Лично съобщение"
 msgid "Optionally add a personal message to the invitation."
 msgstr "Може да добавите и лично съобщение към поканата."
 
-#: actions/invite.php:197 lib/messageform.php:181 lib/noticeform.php:208
+#: actions/invite.php:197 lib/messageform.php:181 lib/noticeform.php:225
 msgid "Send"
 msgstr "Прати"
 
@@ -1894,7 +1805,7 @@ msgstr "Грешка при проследяване — потребителя�
 #: actions/leavegroup.php:134 lib/command.php:289
 #, php-format
 msgid "%s left group %s"
-msgstr ""
+msgstr "%s напусна групата %s"
 
 #: actions/login.php:79 actions/register.php:137
 msgid "Already logged in."
@@ -1914,7 +1825,7 @@ msgstr "Грешно име или парола."
 msgid "Error setting user. You are probably not authorized."
 msgstr "Забранено."
 
-#: actions/login.php:204 actions/login.php:257 lib/action.php:457
+#: actions/login.php:204 actions/login.php:257 lib/action.php:458
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Вход"
@@ -2019,16 +1930,15 @@ msgstr ""
 "тихичко."
 
 #: actions/newmessage.php:181
-#, fuzzy
 msgid "Message sent"
-msgstr "Съобщение"
+msgstr "Съобщението е изпратено"
 
 #: actions/newmessage.php:185 lib/command.php:375
 #, php-format
 msgid "Direct message to %s sent"
 msgstr "Прякото съобщение до %s е изпратено."
 
-#: actions/newmessage.php:210 actions/newnotice.php:233 lib/channel.php:170
+#: actions/newmessage.php:210 actions/newnotice.php:240 lib/channel.php:170
 msgid "Ajax Error"
 msgstr "Грешка в Ajax"
 
@@ -2036,10 +1946,9 @@ msgstr "Грешка в Ajax"
 msgid "New notice"
 msgstr "Нова бележка"
 
-#: actions/newnotice.php:199
-#, fuzzy
+#: actions/newnotice.php:206
 msgid "Notice posted"
-msgstr "Бележки"
+msgstr "Бележката е публикувана"
 
 #: actions/noticesearch.php:68
 #, php-format
@@ -2073,12 +1982,12 @@ msgid ""
 "[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
 msgstr ""
 
-#: actions/noticesearchrss.php:89
+#: actions/noticesearchrss.php:96
 #, fuzzy, php-format
 msgid "Updates with \"%s\""
 msgstr "Бележки от %1$s в %2$s."
 
-#: actions/noticesearchrss.php:91
+#: actions/noticesearchrss.php:98
 #, fuzzy, php-format
 msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Всички бележки, намерени с \"%s\""
@@ -2204,9 +2113,9 @@ msgstr "6 или повече знака"
 msgid "Confirm"
 msgstr "Потвърждаване"
 
-#: actions/passwordsettings.php:113
-msgid "same as password above"
-msgstr "също като паролата по-горе"
+#: actions/passwordsettings.php:113 actions/recoverpassword.php:240
+msgid "Same as password above"
+msgstr "Също като паролата по-горе"
 
 #: actions/passwordsettings.php:117
 msgid "Change"
@@ -2235,6 +2144,113 @@ msgstr "Грешка при запазване на новата парола."
 #: actions/passwordsettings.php:192 actions/recoverpassword.php:211
 msgid "Password saved."
 msgstr "Паролата е записана."
+
+#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:308
+msgid "Paths"
+msgstr ""
+
+#: actions/pathsadminpanel.php:70
+msgid "Path and server settings for this StatusNet site."
+msgstr ""
+
+#: actions/pathsadminpanel.php:140
+#, fuzzy, php-format
+msgid "Theme directory not readable: %s"
+msgstr "Страницата не е достъпна във вида медия, който приемате"
+
+#: actions/pathsadminpanel.php:146
+#, php-format
+msgid "Avatar directory not writable: %s"
+msgstr ""
+
+#: actions/pathsadminpanel.php:152
+#, php-format
+msgid "Background directory not writable: %s"
+msgstr ""
+
+#: actions/pathsadminpanel.php:160
+#, php-format
+msgid "Locales directory not readable: %s"
+msgstr ""
+
+#: actions/pathsadminpanel.php:212 actions/siteadminpanel.php:58
+#: lib/adminpanelaction.php:299
+#, fuzzy
+msgid "Site"
+msgstr "Покани"
+
+#: actions/pathsadminpanel.php:216
+msgid "Path"
+msgstr ""
+
+#: actions/pathsadminpanel.php:216
+#, fuzzy
+msgid "Site path"
+msgstr "Нова бележка"
+
+#: actions/pathsadminpanel.php:220
+msgid "Path to locales"
+msgstr ""
+
+#: actions/pathsadminpanel.php:220
+msgid "Directory path to locales"
+msgstr ""
+
+#: actions/pathsadminpanel.php:227
+msgid "Theme"
+msgstr ""
+
+#: actions/pathsadminpanel.php:232
+msgid "Theme server"
+msgstr ""
+
+#: actions/pathsadminpanel.php:236
+msgid "Theme path"
+msgstr ""
+
+#: actions/pathsadminpanel.php:240
+msgid "Theme directory"
+msgstr ""
+
+#: actions/pathsadminpanel.php:247
+msgid "Avatars"
+msgstr "Аватари"
+
+#: actions/pathsadminpanel.php:252
+#, fuzzy
+msgid "Avatar server"
+msgstr "Настройки за аватар"
+
+#: actions/pathsadminpanel.php:256
+#, fuzzy
+msgid "Avatar path"
+msgstr "Аватарът е обновен."
+
+#: actions/pathsadminpanel.php:260
+#, fuzzy
+msgid "Avatar directory"
+msgstr "Аватарът е обновен."
+
+#: actions/pathsadminpanel.php:269
+msgid "Backgrounds"
+msgstr ""
+
+#: actions/pathsadminpanel.php:273
+msgid "Background server"
+msgstr ""
+
+#: actions/pathsadminpanel.php:277
+msgid "Background path"
+msgstr ""
+
+#: actions/pathsadminpanel.php:281
+msgid "Background directory"
+msgstr ""
+
+#: actions/pathsadminpanel.php:297
+#, fuzzy
+msgid "Save paths"
+msgstr "Нова бележка"
 
 #: actions/peoplesearch.php:52
 #, php-format
@@ -2301,14 +2317,13 @@ msgid "URL of your homepage, blog, or profile on another site"
 msgstr "Адрес на личната ви страница, блог или профил в друг сайт"
 
 #: actions/profilesettings.php:122 actions/register.php:460
-#, fuzzy, php-format
+#, php-format
 msgid "Describe yourself and your interests in %d chars"
-msgstr "Опишете себе си и интересите си в до 140 букви"
+msgstr "Опишете себе си и интересите си в до %d букви"
 
 #: actions/profilesettings.php:125 actions/register.php:463
-#, fuzzy
 msgid "Describe yourself and your interests"
-msgstr "Опишете себе си и интересите си в до 140 букви"
+msgstr "Опишете себе си и интересите си"
 
 #: actions/profilesettings.php:127 actions/register.php:465
 msgid "Bio"
@@ -2336,7 +2351,7 @@ msgid ""
 "Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
 msgstr ""
 
-#: actions/profilesettings.php:144 actions/siteadminpanel.php:309
+#: actions/profilesettings.php:144 actions/siteadminpanel.php:307
 msgid "Language"
 msgstr "Език"
 
@@ -2360,9 +2375,9 @@ msgstr ""
 "ботове)."
 
 #: actions/profilesettings.php:221 actions/register.php:223
-#, fuzzy, php-format
+#, php-format
 msgid "Bio is too long (max %d chars)."
-msgstr "Автобиографията е твърде дълга (до 140 символа)."
+msgstr "Биографията е твърде дълга (до %d символа)."
 
 #: actions/profilesettings.php:228 actions/siteadminpanel.php:165
 msgid "Timezone not selected."
@@ -2412,19 +2427,16 @@ msgid "Public timeline"
 msgstr "Общ поток"
 
 #: actions/public.php:151
-#, fuzzy
 msgid "Public Stream Feed (RSS 1.0)"
-msgstr "Емисия на общия поток"
+msgstr "Емисия на общия поток (RSS 1.0)"
 
 #: actions/public.php:155
-#, fuzzy
 msgid "Public Stream Feed (RSS 2.0)"
-msgstr "Емисия на общия поток"
+msgstr "Емисия на общия поток (RSS 2.0)"
 
 #: actions/public.php:159
-#, fuzzy
 msgid "Public Stream Feed (Atom)"
-msgstr "Емисия на общия поток"
+msgstr "Емисия на общия поток (Atom)"
 
 #: actions/public.php:179
 #, php-format
@@ -2530,11 +2542,11 @@ msgstr ""
 
 #: actions/recoverpassword.php:188
 msgid "Password recovery"
-msgstr ""
+msgstr "Възстановяване на парола"
 
 #: actions/recoverpassword.php:191
 msgid "Nickname or email address"
-msgstr ""
+msgstr "Псевдоним или е-поща"
 
 #: actions/recoverpassword.php:193
 msgid "Your nickname on this server, or your registered email address."
@@ -2563,10 +2575,6 @@ msgstr "Непознато действие"
 #: actions/recoverpassword.php:236
 msgid "6 or more characters, and don't forget it!"
 msgstr "6 или повече знака. И не ги забравяйте!"
-
-#: actions/recoverpassword.php:240
-msgid "Same as password above"
-msgstr "Също като паролата по-горе"
 
 #: actions/recoverpassword.php:243
 msgid "Reset"
@@ -2629,7 +2637,7 @@ msgstr "Грешка в кода за потвърждение."
 msgid "Registration successful"
 msgstr "Записването е успешно."
 
-#: actions/register.php:114 actions/register.php:502 lib/action.php:454
+#: actions/register.php:114 actions/register.php:502 lib/action.php:455
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Регистриране"
@@ -2675,7 +2683,7 @@ msgid "Same as password above. Required."
 msgstr "Същото като паролата по-горе. Задължително поле."
 
 #: actions/register.php:437 actions/register.php:441
-#: actions/siteadminpanel.php:287 lib/accountsettingsaction.php:120
+#: actions/siteadminpanel.php:283 lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr "Е-поща"
 
@@ -2781,7 +2789,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "Адрес на профила ви в друга, съвместима услуга за микроблогване"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:356
+#: lib/userprofile.php:365
 msgid "Subscribe"
 msgstr "Абониране"
 
@@ -2936,9 +2944,8 @@ msgstr ""
 
 #: actions/showgroup.php:274 actions/tagother.php:128
 #: actions/userauthorization.php:179 lib/userprofile.php:194
-#, fuzzy
 msgid "Note"
-msgstr "Бележки"
+msgstr "Бележка"
 
 #: actions/showgroup.php:284 lib/groupeditform.php:184
 msgid "Aliases"
@@ -3012,7 +3019,7 @@ msgstr ""
 
 #: actions/showgroup.php:482
 msgid "Admins"
-msgstr ""
+msgstr "Администратори"
 
 #: actions/showmessage.php:81
 msgid "No such message."
@@ -3033,9 +3040,8 @@ msgid "Message from %1$s on %2$s"
 msgstr "Съобщение от %1$s в %2$s"
 
 #: actions/shownotice.php:90
-#, fuzzy
 msgid "Notice deleted."
-msgstr "Бележки"
+msgstr "Бележката е изтрита."
 
 #: actions/showstream.php:73
 #, fuzzy, php-format
@@ -3113,14 +3119,8 @@ msgid "You cannot silence users on this site."
 msgstr "Не може да изпращате съобщения до този потребител."
 
 #: actions/silence.php:72
-#, fuzzy
 msgid "User is already silenced."
-msgstr "Потребителят ви е блокирал."
-
-#: actions/siteadminpanel.php:58 lib/adminpanelaction.php:299
-#, fuzzy
-msgid "Site"
-msgstr "Покани"
+msgstr "Потребителят вече е заглушен."
 
 #: actions/siteadminpanel.php:69
 msgid "Basic settings for this StatusNet site."
@@ -3153,157 +3153,151 @@ msgid "Snapshot frequency must be a number."
 msgstr ""
 
 #: actions/siteadminpanel.php:199
-msgid "You must set an SSL sever when enabling SSL."
+msgid "You must set an SSL server when enabling SSL."
 msgstr ""
 
 #: actions/siteadminpanel.php:204
-msgid "Invalid SSL server. Max length is 255 characters."
+msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr ""
 
 #: actions/siteadminpanel.php:210
-msgid "Minimum text limit is 140c."
+msgid "Minimum text limit is 140 characters."
 msgstr ""
 
 #: actions/siteadminpanel.php:216
 msgid "Dupe limit must 1 or more seconds."
 msgstr ""
 
-#: actions/siteadminpanel.php:224
-#, php-format
-msgid "Locales directory not readable: %s"
+#: actions/siteadminpanel.php:266
+msgid "General"
 msgstr ""
 
-#: actions/siteadminpanel.php:275
+#: actions/siteadminpanel.php:269
 #, fuzzy
 msgid "Site name"
 msgstr "Нова бележка"
 
-#: actions/siteadminpanel.php:276
+#: actions/siteadminpanel.php:270
 msgid "The name of your site, like \"Yourcompany Microblog\""
 msgstr ""
 
-#: actions/siteadminpanel.php:279
+#: actions/siteadminpanel.php:274
 msgid "Brought by"
 msgstr ""
 
-#: actions/siteadminpanel.php:280
+#: actions/siteadminpanel.php:275
 msgid "Text used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:283
+#: actions/siteadminpanel.php:279
 msgid "Brought by URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:284
+#: actions/siteadminpanel.php:280
 msgid "URL used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:288
+#: actions/siteadminpanel.php:284
 #, fuzzy
-msgid "contact email address for your site"
+msgid "Contact email address for your site"
 msgstr "Нов адрес на е-поща за публикщуване в %s"
 
-#: actions/siteadminpanel.php:302
+#: actions/siteadminpanel.php:290
+#, fuzzy
+msgid "Local"
+msgstr "Местоположение"
+
+#: actions/siteadminpanel.php:301
 msgid "Default timezone"
 msgstr ""
 
-#: actions/siteadminpanel.php:303
+#: actions/siteadminpanel.php:302
 msgid "Default timezone for the site; usually UTC."
 msgstr ""
 
-#: actions/siteadminpanel.php:310
+#: actions/siteadminpanel.php:308
 #, fuzzy
 msgid "Default site language"
 msgstr "Предпочитан език"
 
 #: actions/siteadminpanel.php:316
-msgid "Path to locales"
+msgid "URLs"
 msgstr ""
 
-#: actions/siteadminpanel.php:316
-msgid "Directory path to locales"
-msgstr ""
-
-#: actions/siteadminpanel.php:320
-#, fuzzy
+#: actions/siteadminpanel.php:319
 msgid "Server"
-msgstr "Възстановяване"
+msgstr "Сървър"
 
-#: actions/siteadminpanel.php:320
+#: actions/siteadminpanel.php:319
 msgid "Site's server hostname."
 msgstr ""
 
-#: actions/siteadminpanel.php:324
-msgid "Path"
-msgstr ""
-
-#: actions/siteadminpanel.php:324
-#, fuzzy
-msgid "Site path"
-msgstr "Нова бележка"
-
-#: actions/siteadminpanel.php:328
+#: actions/siteadminpanel.php:323
 msgid "Fancy URLs"
 msgstr ""
 
-#: actions/siteadminpanel.php:330
+#: actions/siteadminpanel.php:325
 msgid "Use fancy (more readable and memorable) URLs?"
 msgstr ""
 
+#: actions/siteadminpanel.php:331
+msgid "Access"
+msgstr "Достъп"
+
 #: actions/siteadminpanel.php:334
-#, fuzzy
 msgid "Private"
-msgstr "Поверителност"
+msgstr "Частен"
 
 #: actions/siteadminpanel.php:336
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr ""
 
 #: actions/siteadminpanel.php:340
-#, fuzzy
 msgid "Invite only"
-msgstr "Покани"
+msgstr "Само с покани"
 
 #: actions/siteadminpanel.php:342
 msgid "Make registration invitation only."
-msgstr ""
+msgstr "Новите регистрации да са само с покани."
 
-#: actions/siteadminpanel.php:346 actions/useradminpanel.php:171
-#, fuzzy
+#: actions/siteadminpanel.php:346
 msgid "Closed"
-msgstr "Блокиране"
+msgstr "Затворен"
 
 #: actions/siteadminpanel.php:348
 msgid "Disable new registrations."
+msgstr "Изключване на новите регистрации."
+
+#: actions/siteadminpanel.php:354
+msgid "Snapshots"
 msgstr ""
 
-#: actions/siteadminpanel.php:353
+#: actions/siteadminpanel.php:357
 msgid "Randomly during Web hit"
 msgstr ""
 
-#: actions/siteadminpanel.php:354
+#: actions/siteadminpanel.php:358
 msgid "In a scheduled job"
 msgstr ""
 
-#: actions/siteadminpanel.php:355 actions/siteadminpanel.php:380
-#, fuzzy
+#: actions/siteadminpanel.php:359 actions/siteadminpanel.php:383
 msgid "Never"
-msgstr "Възстановяване"
+msgstr "Никога"
 
-#: actions/siteadminpanel.php:357
+#: actions/siteadminpanel.php:360
 msgid "Data snapshots"
 msgstr ""
 
-#: actions/siteadminpanel.php:358
+#: actions/siteadminpanel.php:361
 msgid "When to send statistical data to status.net servers"
 msgstr ""
 
-#: actions/siteadminpanel.php:364
+#: actions/siteadminpanel.php:366
 msgid "Frequency"
 msgstr ""
 
-#: actions/siteadminpanel.php:365
-msgid "Snapshots will be sent once every N Web hits"
+#: actions/siteadminpanel.php:367
+msgid "Snapshots will be sent once every N web hits"
 msgstr ""
 
 #: actions/siteadminpanel.php:372
@@ -3314,48 +3308,55 @@ msgstr ""
 msgid "Snapshots will be sent to this URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:381
-#, fuzzy
-msgid "Sometimes"
-msgstr "Бележки"
-
-#: actions/siteadminpanel.php:382
-msgid "Always"
-msgstr ""
+#: actions/siteadminpanel.php:380
+msgid "SSL"
+msgstr "SSL"
 
 #: actions/siteadminpanel.php:384
-msgid "Use SSL"
-msgstr ""
+msgid "Sometimes"
+msgstr "Понякога"
 
 #: actions/siteadminpanel.php:385
+msgid "Always"
+msgstr "Винаги"
+
+#: actions/siteadminpanel.php:387
+msgid "Use SSL"
+msgstr "Използване на SSL"
+
+#: actions/siteadminpanel.php:388
 msgid "When to use SSL"
-msgstr ""
+msgstr "Кога да се използва SSL"
 
-#: actions/siteadminpanel.php:391
+#: actions/siteadminpanel.php:393
 msgid "SSL Server"
-msgstr ""
+msgstr "SSL-сървър"
 
-#: actions/siteadminpanel.php:392
+#: actions/siteadminpanel.php:394
 msgid "Server to direct SSL requests to"
 msgstr ""
 
-#: actions/siteadminpanel.php:396
+#: actions/siteadminpanel.php:400
+msgid "Limits"
+msgstr "Ограничения"
+
+#: actions/siteadminpanel.php:403
 msgid "Text limit"
 msgstr ""
 
-#: actions/siteadminpanel.php:396
+#: actions/siteadminpanel.php:403
 msgid "Maximum number of characters for notices."
 msgstr ""
 
-#: actions/siteadminpanel.php:400
+#: actions/siteadminpanel.php:407
 msgid "Dupe limit"
 msgstr ""
 
-#: actions/siteadminpanel.php:400
+#: actions/siteadminpanel.php:407
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 
-#: actions/siteadminpanel.php:414 actions/useradminpanel.php:226
+#: actions/siteadminpanel.php:421 actions/useradminpanel.php:313
 #, fuzzy
 msgid "Save site settings"
 msgstr "Настройки за аватар"
@@ -3481,9 +3482,9 @@ msgid "Subscribed"
 msgstr "Абониране"
 
 #: actions/subscribers.php:50
-#, fuzzy, php-format
+#, php-format
 msgid "%s subscribers"
-msgstr "Абонати"
+msgstr "%s абоната"
 
 #: actions/subscribers.php:52
 #, php-format
@@ -3669,7 +3670,8 @@ msgstr "Отписване"
 msgid "Listenee stream license ‘%s’ is not compatible with site license ‘%s’."
 msgstr ""
 
-#: actions/useradminpanel.php:58 lib/personalgroupnav.php:115
+#: actions/useradminpanel.php:58 lib/adminpanelaction.php:305
+#: lib/personalgroupnav.php:115
 msgid "User"
 msgstr "Потребител"
 
@@ -3677,17 +3679,87 @@ msgstr "Потребител"
 msgid "User settings for this StatusNet site."
 msgstr ""
 
-#: actions/useradminpanel.php:173
-msgid "Is registration on this site prohibited?"
+#: actions/useradminpanel.php:149
+msgid "Invalid bio limit. Must be numeric."
 msgstr ""
 
-#: actions/useradminpanel.php:178
+#: actions/useradminpanel.php:155
+msgid "Invalid welcome text. Max length is 255 characters."
+msgstr ""
+
+#: actions/useradminpanel.php:165
+#, php-format
+msgid "Invalid default subscripton: '%1$s' is not user."
+msgstr ""
+
+#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:108
+#: lib/personalgroupnav.php:109
+msgid "Profile"
+msgstr "Профил"
+
+#: actions/useradminpanel.php:222
+msgid "Bio Limit"
+msgstr ""
+
+#: actions/useradminpanel.php:223
+msgid "Maximum length of a profile bio in characters."
+msgstr ""
+
+#: actions/useradminpanel.php:231
+msgid "New users"
+msgstr "Нови потребители"
+
+#: actions/useradminpanel.php:235
+msgid "New user welcome"
+msgstr ""
+
+#: actions/useradminpanel.php:236
+msgid "Welcome text for new users (Max 255 chars)."
+msgstr ""
+
+#: actions/useradminpanel.php:241
 #, fuzzy
-msgid "Invite-only"
+msgid "Default subscription"
+msgstr "Всички абонаменти"
+
+#: actions/useradminpanel.php:242
+#, fuzzy
+msgid "Automatically subscribe new users to this user."
+msgstr ""
+"Автоматично абониране за всеки, който се абонира за мен (подходящо за "
+"ботове)."
+
+#: actions/useradminpanel.php:251
+msgid "Invitations"
 msgstr "Покани"
 
-#: actions/useradminpanel.php:180
-msgid "Is registration on this site only open to invited users?"
+#: actions/useradminpanel.php:256
+#, fuzzy
+msgid "Invitations enabled"
+msgstr "Поканите са изпратени."
+
+#: actions/useradminpanel.php:258
+msgid "Whether to allow users to invite new users."
+msgstr ""
+
+#: actions/useradminpanel.php:265
+msgid "Sessions"
+msgstr "Сесии"
+
+#: actions/useradminpanel.php:270
+msgid "Handle sessions"
+msgstr "Управление на сесии"
+
+#: actions/useradminpanel.php:272
+msgid "Whether to handle sessions ourselves."
+msgstr ""
+
+#: actions/useradminpanel.php:276
+msgid "Session debugging"
+msgstr ""
+
+#: actions/useradminpanel.php:278
+msgid "Turn on debugging output for sessions."
 msgstr ""
 
 #: actions/userauthorization.php:105
@@ -3705,9 +3777,8 @@ msgstr ""
 "на този потребител. Ако не искате абонамента, натиснете \"Cancel\" (Отказ)."
 
 #: actions/userauthorization.php:188
-#, fuzzy
 msgid "License"
-msgstr "лиценз."
+msgstr "Лиценз"
 
 #: actions/userauthorization.php:209
 msgid "Accept"
@@ -3901,7 +3972,7 @@ msgstr "Забранено ви е да публикувате бележки в
 msgid "Problem saving notice."
 msgstr "Проблем при записване на бележката."
 
-#: classes/Notice.php:1117
+#: classes/Notice.php:1124
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Грешка в базата от данни — отговор при вмъкването: %s"
@@ -3919,10 +3990,6 @@ msgstr "Грешка при създаване на нов абонамент."
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Съобщение до %1$s в %2$s"
-
-#: lib/accountsettingsaction.php:108 lib/personalgroupnav.php:109
-msgid "Profile"
-msgstr "Профил"
 
 #: lib/accountsettingsaction.php:108
 msgid "Change your profile settings"
@@ -3954,143 +4021,142 @@ msgid "Other options"
 msgstr "Други настройки"
 
 #: lib/action.php:144
-#, fuzzy, php-format
+#, php-format
 msgid "%s - %s"
-msgstr "%s (%s)"
+msgstr "%s - %s"
 
 #: lib/action.php:159
 msgid "Untitled page"
 msgstr "Неозаглавена страница"
 
-#: lib/action.php:424
+#: lib/action.php:425
 msgid "Primary site navigation"
 msgstr ""
 
-#: lib/action.php:430
+#: lib/action.php:431
 msgid "Home"
 msgstr "Начало"
 
-#: lib/action.php:430
+#: lib/action.php:431
 msgid "Personal profile and friends timeline"
 msgstr ""
 
-#: lib/action.php:432
+#: lib/action.php:433
 msgid "Account"
 msgstr "Сметка"
 
-#: lib/action.php:432
+#: lib/action.php:433
 msgid "Change your email, avatar, password, profile"
 msgstr "Промяна на поща, аватар, парола, профил"
 
-#: lib/action.php:435
+#: lib/action.php:436
 msgid "Connect"
 msgstr "Свързване"
 
-#: lib/action.php:435
+#: lib/action.php:436
 #, fuzzy
 msgid "Connect to services"
 msgstr "Грешка при пренасочване към сървър: %s"
 
-#: lib/action.php:439
+#: lib/action.php:440
 #, fuzzy
 msgid "Change site configuration"
 msgstr "Абонаменти"
 
-#: lib/action.php:443 lib/subgroupnav.php:105
+#: lib/action.php:444 lib/subgroupnav.php:105
 msgid "Invite"
 msgstr "Покани"
 
-#: lib/action.php:444 lib/subgroupnav.php:106
+#: lib/action.php:445 lib/subgroupnav.php:106
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Поканете приятели и колеги да се присъединят към вас в %s"
 
-#: lib/action.php:449
+#: lib/action.php:450
 msgid "Logout"
 msgstr "Изход"
 
-#: lib/action.php:449
+#: lib/action.php:450
 msgid "Logout from the site"
 msgstr "Излизане от сайта"
 
-#: lib/action.php:454
+#: lib/action.php:455
 msgid "Create an account"
 msgstr "Създаване на нова сметка"
 
-#: lib/action.php:457
+#: lib/action.php:458
 msgid "Login to the site"
 msgstr "Влизане в сайта"
 
-#: lib/action.php:460 lib/action.php:723
+#: lib/action.php:461 lib/action.php:724
 msgid "Help"
 msgstr "Помощ"
 
-#: lib/action.php:460
+#: lib/action.php:461
 #, fuzzy
 msgid "Help me!"
 msgstr "Помощ"
 
-#: lib/action.php:463
+#: lib/action.php:464 lib/searchaction.php:127
 msgid "Search"
 msgstr "Търсене"
 
-#: lib/action.php:463
+#: lib/action.php:464
 msgid "Search for people or text"
 msgstr "Търсене за хора или бележки"
 
-#: lib/action.php:484
+#: lib/action.php:485
 #, fuzzy
 msgid "Site notice"
 msgstr "Нова бележка"
 
-#: lib/action.php:550
+#: lib/action.php:551
 msgid "Local views"
 msgstr ""
 
-#: lib/action.php:616
+#: lib/action.php:617
 #, fuzzy
 msgid "Page notice"
 msgstr "Нова бележка"
 
-#: lib/action.php:718
+#: lib/action.php:719
 #, fuzzy
 msgid "Secondary site navigation"
 msgstr "Абонаменти"
 
-#: lib/action.php:725
+#: lib/action.php:726
 msgid "About"
 msgstr "Относно"
 
-#: lib/action.php:727
+#: lib/action.php:728
 msgid "FAQ"
 msgstr "Въпроси"
 
-#: lib/action.php:731
+#: lib/action.php:732
 msgid "TOS"
 msgstr ""
 
-#: lib/action.php:734
+#: lib/action.php:735
 msgid "Privacy"
 msgstr "Поверителност"
 
-#: lib/action.php:736
+#: lib/action.php:737
 msgid "Source"
 msgstr "Изходен код"
 
-#: lib/action.php:738
+#: lib/action.php:739
 msgid "Contact"
 msgstr "Контакт"
 
-#: lib/action.php:740
-#, fuzzy
+#: lib/action.php:741
 msgid "Badge"
-msgstr "Побутване"
+msgstr "Табелка"
 
-#: lib/action.php:768
+#: lib/action.php:769
 msgid "StatusNet software license"
 msgstr "Лиценз на програмата StatusNet"
 
-#: lib/action.php:771
+#: lib/action.php:772
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4099,12 +4165,12 @@ msgstr ""
 "**%%site.name%%** е услуга за микроблогване, предоставена ви от [%%site."
 "broughtby%%](%%site.broughtbyurl%%). "
 
-#: lib/action.php:773
+#: lib/action.php:774
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** е услуга за микроблогване. "
 
-#: lib/action.php:775
+#: lib/action.php:776
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4115,32 +4181,32 @@ msgstr ""
 "достъпна под [GNU Affero General Public License](http://www.fsf.org/"
 "licensing/licenses/agpl-3.0.html)."
 
-#: lib/action.php:789
+#: lib/action.php:790
 #, fuzzy
 msgid "Site content license"
 msgstr "Лиценз на програмата StatusNet"
 
-#: lib/action.php:798
+#: lib/action.php:799
 msgid "All "
 msgstr "Всички "
 
-#: lib/action.php:803
+#: lib/action.php:804
 msgid "license."
 msgstr "лиценз."
 
-#: lib/action.php:1067
+#: lib/action.php:1068
 msgid "Pagination"
 msgstr "Страниране"
 
-#: lib/action.php:1076
+#: lib/action.php:1077
 msgid "After"
 msgstr "След"
 
-#: lib/action.php:1084
+#: lib/action.php:1085
 msgid "Before"
 msgstr "Преди"
 
-#: lib/action.php:1132
+#: lib/action.php:1133
 msgid "There was a problem with your session token."
 msgstr "Имаше проблем със сесията ви в сайта."
 
@@ -4172,6 +4238,11 @@ msgstr "Потвърждаване адреса на е-поща"
 #: lib/adminpanelaction.php:303
 #, fuzzy
 msgid "Design configuration"
+msgstr "Потвърждение за SMS"
+
+#: lib/adminpanelaction.php:306 lib/adminpanelaction.php:309
+#, fuzzy
+msgid "Paths configuration"
 msgstr "Потвърждение за SMS"
 
 #: lib/attachmentlist.php:87
@@ -4350,11 +4421,10 @@ msgid "You are not subscribed to anyone."
 msgstr "Не сте абонирани за този профил"
 
 #: lib/command.php:620
-#, fuzzy
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
-msgstr[0] "Не сте абонирани за този профил"
-msgstr[1] "Не сте абонирани за този профил"
+msgstr[0] "Вече сте абонирани за следните потребители:"
+msgstr[1] "Вече сте абонирани за следните потребители:"
 
 #: lib/command.php:640
 #, fuzzy
@@ -4362,19 +4432,16 @@ msgid "No one is subscribed to you."
 msgstr "Грешка при абониране на друг потребител за вас."
 
 #: lib/command.php:642
-#, fuzzy
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Грешка при абониране на друг потребител за вас."
 msgstr[1] "Грешка при абониране на друг потребител за вас."
 
 #: lib/command.php:662
-#, fuzzy
 msgid "You are not a member of any groups."
-msgstr "Не членувате в тази група."
+msgstr "Не членувате в нито една група."
 
 #: lib/command.php:664
-#, fuzzy
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Не членувате в тази група."
@@ -4420,9 +4487,8 @@ msgid ""
 msgstr ""
 
 #: lib/common.php:199
-#, fuzzy
 msgid "No configuration file found. "
-msgstr "Няма код за потвърждение."
+msgstr "Не е открит файл с настройки. "
 
 #: lib/common.php:200
 msgid "I looked for configuration files in the following places: "
@@ -4451,17 +4517,17 @@ msgstr "Бележки през SMS"
 
 #: lib/dberroraction.php:60
 msgid "Database error"
-msgstr ""
+msgstr "Грешка в базата от данни"
 
 #: lib/designsettings.php:105
-#, fuzzy
 msgid "Upload file"
-msgstr "Качване"
+msgstr "Качване на файл"
 
 #: lib/designsettings.php:109
+#, fuzzy
 msgid ""
-"You can upload your personal background image. The maximum file size is 2Mb."
-msgstr ""
+"You can upload your personal background image. The maximum file size is 2MB."
+msgstr "Можете да качите личен аватар тук."
 
 #: lib/designsettings.php:372
 msgid "Bad default color settings: "
@@ -4490,19 +4556,19 @@ msgstr "Изнасяне на данните"
 
 #: lib/feed.php:85
 msgid "RSS 1.0"
-msgstr ""
+msgstr "RSS 1.0"
 
 #: lib/feed.php:87
 msgid "RSS 2.0"
-msgstr ""
+msgstr "RSS 2.0"
 
 #: lib/feed.php:89
 msgid "Atom"
-msgstr ""
+msgstr "Atom"
 
 #: lib/feed.php:91
 msgid "FOAF"
-msgstr ""
+msgstr "FOAF"
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"
@@ -4558,7 +4624,7 @@ msgstr ""
 msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr ""
 
-#: lib/groupnav.php:85 lib/searchgroupnav.php:84
+#: lib/groupnav.php:85
 msgid "Group"
 msgstr "Група"
 
@@ -4604,7 +4670,7 @@ msgstr "Групи с най-много бележки"
 msgid "Tags in %s group's notices"
 msgstr "Етикети в бележките към групата %s"
 
-#: lib/htmloutputter.php:104
+#: lib/htmloutputter.php:103
 msgid "This page is not available in a media type you accept"
 msgstr "Страницата не е достъпна във вида медия, който приемате"
 
@@ -4638,6 +4704,14 @@ msgstr "Няма такава бележка."
 msgid "Unknown file type"
 msgstr "Неподдържан вид файл"
 
+#: lib/imagefile.php:217
+msgid "MB"
+msgstr ""
+
+#: lib/imagefile.php:219
+msgid "kB"
+msgstr ""
+
 #: lib/jabber.php:192
 #, php-format
 msgid "[%s]"
@@ -4669,10 +4743,9 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:424
-#, fuzzy
+#: lib/mailbox.php:227 lib/noticelist.php:452
 msgid "from"
-msgstr " от "
+msgstr "от"
 
 #: lib/mail.php:172
 msgid "Email address confirmation"
@@ -4813,9 +4886,9 @@ msgid ""
 msgstr ""
 
 #: lib/mail.php:559
-#, fuzzy, php-format
+#, php-format
 msgid "%s (@%s) added your notice as a favorite"
-msgstr "%s отбеляза бележката ви като любима"
+msgstr "%s (@%s) отбеляза бележката ви като любима"
 
 #: lib/mail.php:561
 #, php-format
@@ -4918,37 +4991,62 @@ msgstr "Изпращане на пряко съобщеие"
 msgid "To"
 msgstr "До"
 
-#: lib/messageform.php:162 lib/noticeform.php:173
+#: lib/messageform.php:162 lib/noticeform.php:186
 msgid "Available characters"
 msgstr "Налични знаци"
 
-#: lib/noticeform.php:145
+#: lib/noticeform.php:158
 msgid "Send a notice"
 msgstr "Изпращане на бележка"
 
-#: lib/noticeform.php:158
+#: lib/noticeform.php:171
 #, php-format
 msgid "What's up, %s?"
 msgstr "Какво става, %s?"
 
-#: lib/noticeform.php:180
+#: lib/noticeform.php:193
 msgid "Attach"
 msgstr ""
 
-#: lib/noticeform.php:184
+#: lib/noticeform.php:197
 msgid "Attach a file"
 msgstr ""
 
-#: lib/noticelist.php:478
-#, fuzzy
-msgid "in context"
-msgstr "Няма съдържание!"
+#: lib/noticelist.php:403
+#, php-format
+msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
+msgstr ""
 
-#: lib/noticelist.php:498
+#: lib/noticelist.php:404
+#, fuzzy
+msgid "N"
+msgstr "Не"
+
+#: lib/noticelist.php:404
+msgid "S"
+msgstr ""
+
+#: lib/noticelist.php:405
+msgid "E"
+msgstr ""
+
+#: lib/noticelist.php:405
+msgid "W"
+msgstr ""
+
+#: lib/noticelist.php:411
+msgid "at"
+msgstr ""
+
+#: lib/noticelist.php:506
+msgid "in context"
+msgstr "в контекст"
+
+#: lib/noticelist.php:526
 msgid "Reply to this notice"
 msgstr "Отговаряне на тази бележка"
 
-#: lib/noticelist.php:499
+#: lib/noticelist.php:527
 msgid "Reply"
 msgstr "Отговор"
 
@@ -4981,12 +5079,12 @@ msgstr "Грешка при вмъкване на отдалечен профи�
 msgid "Duplicate notice"
 msgstr "Изтриване на бележката"
 
-#: lib/oauthstore.php:466 lib/subs.php:48
+#: lib/oauthstore.php:467 lib/subs.php:48
 #, fuzzy
 msgid "You have been banned from subscribing."
 msgstr "Потребителят е забранил да се абонирате за него."
 
-#: lib/oauthstore.php:491
+#: lib/oauthstore.php:492
 msgid "Couldn't insert new subscription."
 msgstr "Грешка при добавяне на нов абонамент."
 
@@ -5096,6 +5194,10 @@ msgstr "Разблокиране на този потребител"
 msgid "Search site"
 msgstr "Търсене"
 
+#: lib/searchaction.php:126
+msgid "Keyword(s)"
+msgstr ""
+
 #: lib/searchaction.php:162
 #, fuzzy
 msgid "Search help"
@@ -5108,10 +5210,6 @@ msgstr "Хора"
 #: lib/searchgroupnav.php:81
 msgid "Find people on this site"
 msgstr "Търсене на хора в сайта"
-
-#: lib/searchgroupnav.php:82
-msgid "Notice"
-msgstr "Бележки"
 
 #: lib/searchgroupnav.php:83
 msgid "Find content of notices"
@@ -5130,14 +5228,12 @@ msgid "More..."
 msgstr ""
 
 #: lib/silenceform.php:67
-#, fuzzy
 msgid "Silence"
-msgstr "Нова бележка"
+msgstr "Заглушаване"
 
 #: lib/silenceform.php:78
-#, fuzzy
 msgid "Silence this user"
-msgstr "Блокиране на потребителя"
+msgstr "Заглушаване на този потребител."
 
 #: lib/subgroupnav.php:83
 #, php-format
@@ -5243,7 +5339,7 @@ msgstr "Настройки на профила"
 
 #: lib/userprofile.php:249
 msgid "Edit"
-msgstr ""
+msgstr "Редактиране"
 
 #: lib/userprofile.php:272
 msgid "Send a direct message to this user"
@@ -5253,47 +5349,51 @@ msgstr "Изпращате на пряко съобщение до този по
 msgid "Message"
 msgstr "Съобщение"
 
-#: lib/util.php:826
+#: lib/userprofile.php:311
+msgid "Moderate"
+msgstr ""
+
+#: lib/util.php:825
 msgid "a few seconds ago"
 msgstr "преди няколко секунди"
 
-#: lib/util.php:828
+#: lib/util.php:827
 msgid "about a minute ago"
 msgstr "преди около минута"
 
-#: lib/util.php:830
+#: lib/util.php:829
 #, php-format
 msgid "about %d minutes ago"
 msgstr "преди около %d минути"
 
-#: lib/util.php:832
+#: lib/util.php:831
 msgid "about an hour ago"
 msgstr "преди около час"
 
-#: lib/util.php:834
+#: lib/util.php:833
 #, php-format
 msgid "about %d hours ago"
 msgstr "преди около %d часа"
 
-#: lib/util.php:836
+#: lib/util.php:835
 msgid "about a day ago"
 msgstr "преди около ден"
 
-#: lib/util.php:838
+#: lib/util.php:837
 #, php-format
 msgid "about %d days ago"
 msgstr "преди около %d дни"
 
-#: lib/util.php:840
+#: lib/util.php:839
 msgid "about a month ago"
 msgstr "преди около месец"
 
-#: lib/util.php:842
+#: lib/util.php:841
 #, php-format
 msgid "about %d months ago"
 msgstr "преди около %d месеца"
 
-#: lib/util.php:844
+#: lib/util.php:843
 msgid "about a year ago"
 msgstr "преди около година"
 
@@ -5322,11 +5422,3 @@ msgstr "Това не е вашият входящ адрес."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Входящата поща не е разрешена."
-
-#, fuzzy
-#~ msgid "Unlock this user"
-#~ msgstr "Разблокиране на този потребител"
-
-#, fuzzy
-#~ msgid "These people are subscribed to you: "
-#~ msgstr "Абонирани за %s"
