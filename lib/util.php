@@ -58,18 +58,17 @@ function common_init_language()
     // (say, ga_ES for Galego/Galician) it seems to take it.
     common_init_locale("en_US");
 
+    // Note that this setlocale() call may "fail" but this is harmless;
+    // gettext will still select the right language.
     $language = common_language();
     $locale_set = common_init_locale($language);
+    
     setlocale(LC_CTYPE, 'C');
     // So we do not have to make people install the gettext locales
     $path = common_config('site','locale_path');
     bindtextdomain("statusnet", $path);
     bind_textdomain_codeset("statusnet", "UTF-8");
     textdomain("statusnet");
-
-    if(!$locale_set) {
-        common_log(LOG_INFO, 'Language requested:' . $language . ' - locale could not be set. Perhaps that system locale is not installed.', __FILE__);
-    }
 }
 
 function common_timezone()
@@ -1051,8 +1050,27 @@ function common_log_line($priority, $msg)
     return date('Y-m-d H:i:s') . ' ' . $syslog_priorities[$priority] . ': ' . $msg . "\n";
 }
 
+function common_request_id()
+{
+    $pid = getmypid();
+    if (php_sapi_name() == 'cli') {
+        return $pid;
+    } else {
+        static $req_id = null;
+        if (!isset($req_id)) {
+            $req_id = substr(md5(mt_rand()), 0, 8);
+        }
+        if (isset($_SERVER['REQUEST_URI'])) {
+            $url = $_SERVER['REQUEST_URI'];
+        }
+        $method = $_SERVER['REQUEST_METHOD'];
+        return "$pid.$req_id $method $url";
+    }
+}
+
 function common_log($priority, $msg, $filename=null)
 {
+    $msg = '[' . common_request_id() . '] ' . $msg;
     $logfile = common_config('site', 'logfile');
     if ($logfile) {
         $log = fopen($logfile, "a");

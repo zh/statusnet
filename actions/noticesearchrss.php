@@ -53,6 +53,13 @@ class NoticesearchrssAction extends Rss10Action
     {
         return true;
     }
+    
+    function prepare($args)
+    {
+        parent::prepare($args);
+        $this->notices = $this->getNotices();
+        return true;
+    }
 
     function getNotices($limit=0)
     {

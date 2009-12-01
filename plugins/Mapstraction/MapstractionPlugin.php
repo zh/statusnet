@@ -58,12 +58,12 @@ class MapstractionPlugin extends Plugin
      *
      * The way to register new actions from a plugin.
      *
-     * @param Router &$m reference to router
+     * @param Router $m reference to router
      *
      * @return boolean event handler return
      */
 
-    function onRouterInitialized(&$m)
+    function onRouterInitialized($m)
     {
         $m->connect(':nickname/all/map',
                     array('action' => 'allmap'),
@@ -179,7 +179,9 @@ class MapstractionPlugin extends Plugin
         }
 
         $action->elementStart('script', array('type' => 'text/javascript'));
+        $action->raw('/*<![CDATA[*/'); // XHTML compat for Safari
         $action->raw('var _notices = ' . json_encode($jsonArray));
+        $action->raw('/*]]>*/'); // XHTML compat for Safari
         $action->elementEnd('script');
 
         return true;
@@ -226,8 +228,8 @@ class MapstractionPlugin extends Plugin
 
         $arr = $act->twitterStatusArray($notice, true);
         $arr['url'] = $notice->bestUrl();
-        $arr['html'] = htmlspecialchars($notice->rendered);
-        $arr['source'] = htmlspecialchars($arr['source']);
+        $arr['html'] = $notice->rendered;
+        $arr['source'] = $arr['source'];
 
         if (!empty($notice->reply_to)) {
             $reply_to = Notice::staticGet('id', $notice->reply_to);

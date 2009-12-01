@@ -67,7 +67,14 @@ function omb_hmac_sha1()
 function omb_broadcast_notice($notice)
 {
 
-    $omb_notice = notice_to_omb_notice($notice);
+    try {
+        $omb_notice = notice_to_omb_notice($notice);
+    } catch (Exception $e) {
+        // @fixme we should clean up or highlight the problem item
+        common_log(LOG_ERR, 'Invalid OMB outgoing notice for notice ' . $notice->id);
+        common_log(LOG_ERR, 'Error status '.$e);
+        return true;
+    }
 
     /* Get remote users subscribed to this profile. */
     $rp = new Remote_profile();
@@ -102,7 +109,7 @@ function omb_broadcast_notice($notice)
         common_debug('Finished to ' . $rp->postnoticeurl, __FILE__);
     }
 
-    return;
+    return true;
 }
 
 function omb_broadcast_profile($profile)

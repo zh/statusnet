@@ -21,7 +21,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-
 require_once INSTALLDIR . '/plugins/Facebook/FacebookPlugin.php';
 
 class FBConnectLoginAction extends Action
@@ -65,4 +64,9 @@ class FBConnectLoginAction extends Action
         $this->elementEnd('fieldset');
     }
 
+    function showLocalNav()
+    {
+        $nav = new LoginGroupNav($this);
+        $nav->show();
+    }
 }
