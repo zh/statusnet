@@ -167,6 +167,7 @@ class StatusNet_OMB_Service_Consumer extends OMB_Service_Consumer {
         $this->datastore      = omb_oauth_datastore();
         $this->oauth_consumer = omb_oauth_consumer();
         $this->fetcher        = Auth_Yadis_Yadis::getHTTPFetcher();
+        $this->fetcher->timeout = intval(common_config('omb', 'timeout'));
     }
 
 }
