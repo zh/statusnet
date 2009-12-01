@@ -1142,10 +1142,15 @@ class ApiAction extends Action
 
     function getTargetUser($id)
     {
-        if (!preg_match('/^[a-zA-Z0-9]+$/', $id)) {
+        if (empty($id)) {
 
             // Twitter supports these other ways of passing the user ID
-            if ($this->arg('user_id')) {
+            if (is_numeric($this->arg('id'))) {
+                return User::staticGet($this->arg('id'));
+            } else if ($this->arg('id')) {
+                $nickname = common_canonical_nickname($this->arg('id'));
+                return User::staticGet('nickname', $nickname);
+            } else if ($this->arg('user_id')) {
                 // This is to ensure that a non-numeric user_id still
                 // overrides screen_name even if it doesn't get used
                 if (is_numeric($this->arg('user_id'))) {
@@ -1153,12 +1158,6 @@ class ApiAction extends Action
                 }
             } else if ($this->arg('screen_name')) {
                 $nickname = common_canonical_nickname($this->arg('screen_name'));
-                return User::staticGet('nickname', $nickname);
-
-            } else if (is_numeric($this->arg('id'))) {
-                return User::staticGet($this->arg('id'));
-            } else if ($this->arg('id')) {
-                $nickname = common_canonical_nickname($this->arg('id'));
                 return User::staticGet('nickname', $nickname);
             } else {
                 // Fall back to trying the currently authenticated user
