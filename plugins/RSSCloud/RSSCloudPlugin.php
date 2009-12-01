@@ -50,7 +50,7 @@ class RSSCloudPlugin extends Plugin
 
         // set defaults
 
-        $local_server = parse_url(common_path('rsscloud/request_notify'));
+        $local_server = parse_url(common_path('/main/rsscloud/request_notify'));
 
         if (empty($this->domain)) {
             $this->domain = $local_server['host'];
@@ -61,7 +61,7 @@ class RSSCloudPlugin extends Plugin
         }
 
         if (empty($this->path)) {
-            $this->path = '/rsscloud/request_notify';
+            $this->path = '/main/rsscloud/request_notify';
         }
 
         if (empty($this->funct)) {
@@ -83,10 +83,10 @@ class RSSCloudPlugin extends Plugin
 
     function onRouterInitialized(&$m)
     {
-        $m->connect('rsscloud/request_notify', array('action' => 'RSSCloudRequestNotify'));
+        $m->connect('/main/rsscloud/request_notify', array('action' => 'RSSCloudRequestNotify'));
 
         // XXX: This is just for end-to-end testing
-        $m->connect('rsscloud/notify', array('action' => 'LoggingAggregator'));
+        $m->connect('/main/rsscloud/notify', array('action' => 'LoggingAggregator'));
 
         return true;
     }
@@ -110,8 +110,8 @@ class RSSCloudPlugin extends Plugin
         }
     }
 
-    function onStartApiRss($action){
-
+    function onStartApiRss($action)
+    {
         if (get_class($action) == 'ApiTimelineUserAction') {
 
             $attrs = array('domain'            => $this->domain,
@@ -126,8 +126,8 @@ class RSSCloudPlugin extends Plugin
             foreach ($attrs as $name => $value) {
                 $action->xw->writeAttribute($name, $value);
             }
-            $action->xw->endElement();
 
+            $action->xw->endElement();
         }
     }
 
@@ -178,7 +178,6 @@ class RSSCloudPlugin extends Plugin
                 $notice->is_local == Notice::LOCAL_NONPUBLIC);
     }
 
-
     function onCheckSchema() {
         $schema = Schema::get();
         $schema->ensureTable('rsscloud_subscription',
@@ -187,10 +186,13 @@ class RSSCloudPlugin extends Plugin
                                    new ColumnDef('url', 'varchar',
                                                  '255', false, 'PRI'),
                                    new ColumnDef('failures', 'integer',
-                                                 null, false, 'MUL'),
+                                                 null, false, null, 0),
                                    new ColumnDef('created', 'datetime',
                                                  null, false),
-                                   new ColumnDef('modified', 'timestamp')
+                                   new ColumnDef('modified', 'timestamp',
+                                                 null, false, null,
+                                                 'CURRENT_TIMESTAMP',
+                                                 'on update CURRENT_TIMESTAMP')
                                   )
                             );
          return true;
