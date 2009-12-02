@@ -2,10 +2,12 @@
 
 all : translations
 
-translations : */LC_MESSAGES/statusnet.mo
+trans = $(patsubst %.po,%.mo,$(wildcard */LC_MESSAGES/statusnet.po))
+
+translations : $(trans)
 
 clean :
-	rm -f */LC_MESSAGES/statusnet.mo
+	rm -f $(trans)
 
 %.mo : %.po
 	msgfmt -o $@ $<
