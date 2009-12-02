@@ -170,7 +170,7 @@ class PasswordsettingsAction extends AccountSettingsAction
         }
 
         $success = false;
-        if(! Event::handle('StartChangePassword', array($user, $oldpassword, $newpassword))){
+        if(Event::handle('StartChangePassword', array($user, $oldpassword, $newpassword))){
             //no handler changed the password, so change the password internally
             $original = clone($user);
 

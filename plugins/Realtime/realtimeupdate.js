@@ -87,12 +87,14 @@ RealtimeUpdate = {
         }
 
         var noticeItem = RealtimeUpdate.makeNoticeItem(data);
+        var noticeItemID = $(noticeItem).attr('id');
+
         $("#notices_primary .notices").prepend(noticeItem);
         $("#notices_primary .notice:first").css({display:"none"});
         $("#notices_primary .notice:first").fadeIn(1000);
 
+        SN.U.FormXHR($('#'+noticeItemID+' .form_favor'));
         SN.U.NoticeReply();
-        SN.U.NoticeFavor();
      },
 
      purgeLastNoticeItem: function() {
