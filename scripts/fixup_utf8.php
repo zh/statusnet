@@ -145,7 +145,7 @@ class UTF8FixerUpper
 
             echo "$id...";
 
-            $result =& $this->dbu->execute($sth, array($content, $rendered, $id));
+            $result = $this->dbu->execute($sth, array($content, $rendered, $id));
 
             if (PEAR::isError($result)) {
                 echo "ERROR: " . $result->getMessage() . "\n";
@@ -209,7 +209,7 @@ class UTF8FixerUpper
 
             echo "$id...";
 
-            $result =& $this->dbu->execute($sth, array($fullname, $location, $bio, $id));
+            $result = $this->dbu->execute($sth, array($fullname, $location, $bio, $id));
 
             if (PEAR::isError($result)) {
                 echo "ERROR: " . $result->getMessage() . "\n";
@@ -273,7 +273,7 @@ class UTF8FixerUpper
 
             echo "$id...";
 
-            $result =& $this->dbu->execute($sth, array($fullname, $location, $description, $id));
+            $result = $this->dbu->execute($sth, array($fullname, $location, $description, $id));
 
             if (PEAR::isError($result)) {
                 echo "ERROR: " . $result->getMessage() . "\n";
@@ -330,7 +330,7 @@ class UTF8FixerUpper
 
             echo "$id...";
 
-            $result =& $this->dbu->execute($sth, array($content, $rendered, $id));
+            $result = $this->dbu->execute($sth, array($content, $rendered, $id));
 
             if (PEAR::isError($result)) {
                 echo "ERROR: " . $result->getMessage() . "\n";

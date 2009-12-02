@@ -69,7 +69,7 @@ class UserbyidAction extends Action
         if (!$id) {
             $this->clientError(_('No id.'));
         }
-        $user =& User::staticGet($id);
+        $user = User::staticGet($id);
         if (!$user) {
             $this->clientError(_('No such user.'));
         }

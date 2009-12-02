@@ -80,7 +80,7 @@ class FinishaddopenidAction extends Action
 
     function tryLogin()
     {
-        $consumer =& oid_consumer();
+        $consumer = oid_consumer();
 
         $response = $consumer->complete(common_local_url('finishaddopenid'));
 
@@ -103,7 +103,7 @@ class FinishaddopenidAction extends Action
                 $sreg = $sreg_resp->contents();
             }
 
-            $cur =& common_current_user();
+            $cur = common_current_user();
 
             $other = oid_get_user($canonical);
 

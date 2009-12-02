@@ -127,7 +127,7 @@ function common_check_user($nickname, $password)
                 if (0 == strcmp(common_munge_password($password, $user->id),
                                 $user->password)) {
                     //internal checking passed
-                    $authenticatedUser =& $user;
+                    $authenticatedUser = $user;
                 }
             }
         }
