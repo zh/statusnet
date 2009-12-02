@@ -20,7 +20,13 @@ font-size:1em;
 address {
 margin-right:5.7%;
 }
-
+input, textarea, select {
+border-width:2px;
+border-style: solid;
+border-radius:4px;
+-moz-border-radius:4px;
+-webkit-border-radius:4px;
+}
 input, textarea, select, option {
 font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
