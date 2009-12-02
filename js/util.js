@@ -214,41 +214,37 @@ var SN = { // StatusNet
                             self.close();
                         }
 
-                        var notices = $("#notices_primary .notices");
-
-                        if (notices.length > 0) {
-                            if ($('#'+SN.C.S.CommandResult, data).length > 0) {
-                                result = document._importNode($('p', data)[0], true);
-                                result = result.textContent || result.innerHTML;
-                                form.append('<p class="success">'+result+'</p>');
-                            }
-                            else {
-                                 notice = document._importNode($('li', data)[0], true);
-                                 if ($('#'+notice.id).length === 0) {
-                                    var notice_irt_value = $('#'+SN.C.S.NoticeInReplyTo).val();
-                                    var notice_irt = '#notices_primary #notice-'+notice_irt_value;
-                                    if($('body')[0].id == 'conversation') {
-                                        if(notice_irt_value.length > 0 && $(notice_irt+' .notices').length < 1) {
-                                            $(notice_irt).append('<ul class="notices"></ul>');
-                                        }
-                                        $($(notice_irt+' .notices')[0]).append(notice);
-                                    }
-                                    else {
-                                        notices.prepend(notice);
-                                    }
-                                    $('#'+notice.id).css({display:'none'});
-                                    $('#'+notice.id).fadeIn(2500);
-                                    SN.U.NoticeWithAttachment($('#'+notice.id));
-                                    SN.U.NoticeReplyTo($('#'+notice.id));
-                                    SN.U.FormXHR($('#'+notice.id+' .form_favor'));
-                                 }
-                            }
-                            $('#'+form_id+' #'+SN.C.S.NoticeDataText).val('');
-                            $('#'+form_id+' #'+SN.C.S.NoticeDataAttach).val('');
-                            $('#'+form_id+' #'+SN.C.S.NoticeInReplyTo).val('');
-                            $('#'+form_id+' #'+SN.C.S.NoticeDataAttachSelected).remove();
-                            SN.U.FormNoticeEnhancements($('#'+form_id));
+                        if ($('#'+SN.C.S.CommandResult, data).length > 0) {
+                            result = document._importNode($('p', data)[0], true);
+                            result = result.textContent || result.innerHTML;
+                            form.append('<p class="success">'+result+'</p>');
                         }
+                        else {
+                             notice = document._importNode($('li', data)[0], true);
+                             if ($('#'+notice.id).length === 0) {
+                                var notice_irt_value = $('#'+SN.C.S.NoticeInReplyTo).val();
+                                var notice_irt = '#notices_primary #notice-'+notice_irt_value;
+                                if($('body')[0].id == 'conversation') {
+                                    if(notice_irt_value.length > 0 && $(notice_irt+' .notices').length < 1) {
+                                        $(notice_irt).append('<ul class="notices"></ul>');
+                                    }
+                                    $($(notice_irt+' .notices')[0]).append(notice);
+                                }
+                                else {
+                                    $("#notices_primary .notices").prepend(notice);
+                                }
+                                $('#'+notice.id).css({display:'none'});
+                                $('#'+notice.id).fadeIn(2500);
+                                SN.U.NoticeWithAttachment($('#'+notice.id));
+                                SN.U.NoticeReplyTo($('#'+notice.id));
+                                SN.U.FormXHR($('#'+notice.id+' .form_favor'));
+                             }
+                        }
+                        $('#'+form_id+' #'+SN.C.S.NoticeDataText).val('');
+                        $('#'+form_id+' #'+SN.C.S.NoticeDataAttach).val('');
+                        $('#'+form_id+' #'+SN.C.S.NoticeInReplyTo).val('');
+                        $('#'+form_id+' #'+SN.C.S.NoticeDataAttachSelected).remove();
+                        SN.U.FormNoticeEnhancements($('#'+form_id));
                     }
                 },
                 complete: function(xhr, textStatus) {
