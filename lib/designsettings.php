@@ -334,49 +334,6 @@ class DesignSettingsAction extends AccountSettingsAction
     }
 
     /**
-     * Get a default design
-     *
-     * @return Design design
-     */
-
-    function defaultDesign()
-    {
-        $defaults = common_config('site', 'design');
-
-        $design = new Design();
-
-        try {
-
-            $color = new WebColor();
-
-            $color->parseColor($defaults['backgroundcolor']);
-            $design->backgroundcolor = $color->intValue();
-
-            $color->parseColor($defaults['contentcolor']);
-            $design->contentcolor = $color->intValue();
-
-            $color->parseColor($defaults['sidebarcolor']);
-            $design->sidebarcolor = $color->intValue();
-
-            $color->parseColor($defaults['textcolor']);
-            $design->textcolor = $color->intValue();
-
-            $color->parseColor($defaults['linkcolor']);
-            $design->linkcolor = $color->intValue();
-
-            $design->backgroundimage = $defaults['backgroundimage'];
-
-            $design->disposition = $defaults['disposition'];
-
-        } catch (WebColorException $e) {
-            common_log(LOG_ERR, _('Bad default color settings: ' .
-                $e->getMessage()));
-        }
-
-        return $design;
-    }
-
-    /**
      * Save the background image, if any, and set its disposition
      *
      * @param Design $design a working design to attach the img to
@@ -445,24 +402,17 @@ class DesignSettingsAction extends AccountSettingsAction
 
     function restoreDefaults()
     {
-        $design   = $this->getWorkingDesign();
-        $default  = $this->defaultDesign();
-        $original = clone($design);
+        $design = $this->getWorkingDesign();
 
-        $design->backgroundcolor = $default->backgroundcolor;
-        $design->contentcolor    = $default->contentcolor;
-        $design->sidebarcolor    = $default->sidebarcolor;
-        $design->textcolor       = $default->textcolor;
-        $design->linkcolor       = $default->linkcolor;
+        if (!empty($design)) {
 
-        $design->setDisposition(false, true, false);
+            $result = $design->delete();
 
-        $result = $design->update($original);
-
-        if ($result === false) {
-            common_log_db_error($design, 'UPDATE', __FILE__);
-            $this->showForm(_('Couldn\'t update your design.'));
-            return;
+            if ($result === false) {
+                common_log_db_error($design, 'DELETE', __FILE__);
+                $this->showForm(_('Couldn\'t update your design.'));
+                return;
+            }
         }
 
         $this->showForm(_('Design defaults restored.'), true);

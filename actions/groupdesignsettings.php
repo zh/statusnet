@@ -173,15 +173,10 @@ class GroupDesignSettingsAction extends DesignSettingsAction
 
     function getWorkingDesign()
     {
-
         $design = null;
 
         if (isset($this->group)) {
             $design = $this->group->getDesign();
-        }
-
-        if (empty($design)) {
-            $design = $this->defaultDesign();
         }
 
         return $design;
@@ -197,7 +192,13 @@ class GroupDesignSettingsAction extends DesignSettingsAction
 
     function showContent()
     {
-        $this->showDesignForm($this->getWorkingDesign());
+        $design = $this->getWorkingDesign();
+
+        if (empty($design)) {
+            $design = Design::siteDesign();
+        }
+
+        $this->showDesignForm($design);
     }
 
     /**

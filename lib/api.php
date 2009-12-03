@@ -134,7 +134,6 @@ class ApiAction extends Action
         $twitter_user['protected'] = false; # not supported by StatusNet yet
         $twitter_user['followers_count'] = $profile->subscriberCount();
 
-        $defaultDesign = Design::siteDesign();
         $design        = null;
         $user          = $profile->getUser();
 
@@ -145,7 +144,7 @@ class ApiAction extends Action
         }
 
         if (empty($design)) {
-            $design = $defaultDesign;
+            $design = Design::siteDesign();
         }
 
         $color = Design::toWebColor(empty($design->backgroundcolor) ? $defaultDesign->backgroundcolor : $design->backgroundcolor);
