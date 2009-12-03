@@ -213,6 +213,10 @@ class DesignadminpanelAction extends AdminPanelAction
         }
 
         // XXX: Should we restore the default dir settings, etc.? --Z
+
+        // XXX: I can't get it to show the new settings without forcing
+        // this terrible reload -- FIX ME!
+        common_redirect(common_local_url('designadminpanel'), 303);
     }
 
     /**
