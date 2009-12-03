@@ -145,10 +145,15 @@ class FlaggedProfileListItem extends ProfileListItem
 
         $this->startActions();
         if (Event::handle('StartProfileListItemActionElements', array($this))) {
+            $this->out->elementStart('li', 'entity_moderation');
+            $this->out->element('p', null, _('Moderate'));
+            $this->out->elementStart('ul');
             $this->showSandboxButton();
             $this->showSilenceButton();
             $this->showDeleteButton();
             $this->showClearButton();
+            $this->out->elementEnd('ul');
+            $this->out->elementEnd('li');
             Event::handle('EndProfileListItemActionElements', array($this));
         }
         $this->endActions();

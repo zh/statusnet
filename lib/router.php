@@ -88,8 +88,6 @@ class Router
 
             $m->connect('doc/:title', array('action' => 'doc'));
 
-            $m->connect('main/login?user_id=:user_id&token=:token', array('action'=>'login'), array('user_id'=> '[0-9]+', 'token'=>'.+'));
-
             // main stuff is repetitive
 
             $main = array('login', 'logout', 'register', 'subscribe',
@@ -359,6 +357,10 @@ class Router
                               'format' => '(xml|json)'));
 
             // users
+
+            $m->connect('api/users/show.:format',
+                        array('action' => 'ApiUserShow',
+                              'format' => '(xml|json)'));
 
             $m->connect('api/users/show/:id.:format',
                         array('action' => 'ApiUserShow',

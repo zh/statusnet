@@ -87,19 +87,19 @@ RealtimeUpdate = {
         }
 
         var noticeItem = RealtimeUpdate.makeNoticeItem(data);
+        var noticeItemID = $(noticeItem).attr('id');
+
         $("#notices_primary .notices").prepend(noticeItem);
         $("#notices_primary .notice:first").css({display:"none"});
         $("#notices_primary .notice:first").fadeIn(1000);
 
-        SN.U.NoticeReply();
-        SN.U.NoticeFavor();
+        SN.U.FormXHR($('#'+noticeItemID+' .form_favor'));
+        SN.U.NoticeReplyTo($('#'+noticeItemID));
+        SN.U.NoticeWithAttachment($('#'+noticeItemID));
      },
 
      purgeLastNoticeItem: function() {
         if ($('#notices_primary .notice').length > RealtimeUpdate._maxnotices) {
-            $("#notices_primary .notice:last .form_disfavor").unbind('submit');
-            $("#notices_primary .notice:last .form_favor").unbind('submit');
-            $("#notices_primary .notice:last .notice_reply").unbind('click');
             $("#notices_primary .notice:last").remove();
         }
      },
@@ -281,6 +281,8 @@ RealtimeUpdate = {
             
             return false;
          });
+
+         $('#showstream .entity_profile').css({'width':'69%'});
      }
 }
 

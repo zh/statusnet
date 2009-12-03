@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-23 21:46+0000\n"
-"PO-Revision-Date: 2009-11-23 21:47:41+0000\n"
+"POT-Creation-Date: 2009-12-02 23:18+0000\n"
+"PO-Revision-Date: 2009-12-02 23:20:03+0000\n"
 "Language-Team: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59365); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59683); Translate extension (2009-11-29)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: out-statusnet\n"
@@ -576,7 +576,7 @@ msgstr "자르기"
 #: actions/emailsettings.php:238 actions/favor.php:75
 #: actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
-#: actions/invite.php:56 actions/login.php:131 actions/makeadmin.php:66
+#: actions/invite.php:56 actions/login.php:129 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
@@ -750,7 +750,7 @@ msgid "Conversation"
 msgstr "인증 코드"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:206 lib/searchgroupnav.php:82
+#: lib/profileaction.php:216 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "통지"
 
@@ -1179,7 +1179,7 @@ msgstr "받은 이메일 계정 삭제"
 msgid "New incoming email address added."
 msgstr "새로운 이메일 주소가 추가 되었습니다."
 
-#: actions/favorited.php:65 lib/popularnoticesection.php:87
+#: actions/favorited.php:65 lib/popularnoticesection.php:88
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
 msgstr "인기있는 게시글"
@@ -1275,26 +1275,26 @@ msgstr "살펴 보고 있는 사용자가 없습니다."
 msgid "You can use the local subscription!"
 msgstr "당신은 로컬 구독을 사용할 수 있습니다."
 
-#: actions/finishremotesubscribe.php:96
+#: actions/finishremotesubscribe.php:99
 msgid "That user has blocked you from subscribing."
 msgstr "이 회원은 구독으로부터 당신을 차단해왔다."
 
-#: actions/finishremotesubscribe.php:106
+#: actions/finishremotesubscribe.php:110
 #, fuzzy
 msgid "You are not authorized."
 msgstr "인증이 되지 않았습니다."
 
-#: actions/finishremotesubscribe.php:109
+#: actions/finishremotesubscribe.php:113
 #, fuzzy
 msgid "Could not convert request token to access token."
 msgstr "리퀘스트 토큰을 엑세스 토큰으로 변환 할 수 없습니다."
 
-#: actions/finishremotesubscribe.php:114
+#: actions/finishremotesubscribe.php:118
 #, fuzzy
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr "OMB 프로토콜의 알려지지 않은 버전"
 
-#: actions/finishremotesubscribe.php:133 lib/oauthstore.php:306
+#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
 msgid "Error updating remote profile"
 msgstr "리모트 프로필 업데이트 오류"
 
@@ -1508,8 +1508,8 @@ msgid ""
 "action.newgroup%%) yourself!"
 msgstr ""
 
-#: actions/groups.php:62 lib/profileaction.php:220 lib/publicgroupnav.php:81
-#: lib/searchgroupnav.php:84 lib/subgroupnav.php:98
+#: actions/groups.php:62 lib/profileaction.php:210 lib/profileaction.php:230
+#: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "그룹"
 
@@ -1827,60 +1827,60 @@ msgstr "%s가 그룹%s를 떠났습니다."
 msgid "Already logged in."
 msgstr "이미 로그인 하셨습니다."
 
-#: actions/login.php:110 actions/login.php:120
+#: actions/login.php:108 actions/login.php:118
 #, fuzzy
 msgid "Invalid or expired token."
 msgstr "옳지 않은 통지 내용"
 
-#: actions/login.php:143
+#: actions/login.php:146
 msgid "Incorrect username or password."
 msgstr "틀린 계정 또는 비밀 번호"
 
-#: actions/login.php:149
+#: actions/login.php:152
 #, fuzzy
 msgid "Error setting user. You are probably not authorized."
 msgstr "인증이 되지 않았습니다."
 
-#: actions/login.php:204 actions/login.php:257 lib/action.php:458
+#: actions/login.php:207 actions/login.php:260 lib/action.php:458
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "로그인"
 
-#: actions/login.php:243
+#: actions/login.php:246
 msgid "Login to site"
 msgstr "사이트에 로그인하세요."
 
-#: actions/login.php:246 actions/profilesettings.php:106
+#: actions/login.php:249 actions/profilesettings.php:106
 #: actions/register.php:423 actions/showgroup.php:236 actions/tagother.php:94
 #: lib/groupeditform.php:152 lib/userprofile.php:131
 msgid "Nickname"
 msgstr "별명"
 
-#: actions/login.php:249 actions/register.php:428
+#: actions/login.php:252 actions/register.php:428
 #: lib/accountsettingsaction.php:116
 msgid "Password"
 msgstr "비밀 번호"
 
-#: actions/login.php:252 actions/register.php:477
+#: actions/login.php:255 actions/register.php:477
 msgid "Remember me"
 msgstr "자동 로그인"
 
-#: actions/login.php:253 actions/register.php:479
+#: actions/login.php:256 actions/register.php:479
 msgid "Automatically login in the future; not for shared computers!"
 msgstr "앞으로는 자동으로 로그인합니다. 공용 컴퓨터에서는 이용하지 마십시오!"
 
-#: actions/login.php:263
+#: actions/login.php:266
 msgid "Lost or forgotten password?"
 msgstr "비밀 번호를 잊으셨나요?"
 
-#: actions/login.php:282
+#: actions/login.php:285
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
 msgstr ""
 "보안을 위해 세팅을 저장하기 전에 계정과 비밀 번호를 다시 입력 해 주십시오."
 
-#: actions/login.php:286
+#: actions/login.php:289
 #, fuzzy, php-format
 msgid ""
 "Login with your username and password. Don't have a username yet? [Register]"
@@ -2809,7 +2809,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "다른 마이크로블로깅 서비스의 귀하의 프로필 URL"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:356
+#: lib/userprofile.php:365
 msgid "Subscribe"
 msgstr "구독"
 
@@ -2819,8 +2819,7 @@ msgstr "옳지 않은 프로필 URL (나쁜 포멧)"
 
 #: actions/remotesubscribe.php:168
 #, fuzzy
-msgid ""
-"Not a valid profile URL (no YADIS document or no or invalid XRDS defined)."
+msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
 msgstr "유효한 프로필 URL이 아닙니다. (YADIS 문서가 없습니다)"
 
 #: actions/remotesubscribe.php:176
@@ -3001,7 +3000,7 @@ msgid "Members"
 msgstr "회원"
 
 #: actions/showgroup.php:386 lib/profileaction.php:117
-#: lib/profileaction.php:148 lib/profileaction.php:226 lib/section.php:95
+#: lib/profileaction.php:148 lib/profileaction.php:236 lib/section.php:95
 #: lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(없습니다.)"
@@ -3010,7 +3009,7 @@ msgstr "(없습니다.)"
 msgid "All members"
 msgstr "모든 회원"
 
-#: actions/showgroup.php:429 lib/profileaction.php:173
+#: actions/showgroup.php:429 lib/profileaction.php:174
 msgid "Statistics"
 msgstr "통계"
 
@@ -4002,7 +4001,7 @@ msgstr "이 사이트에 게시글 포스팅으로부터 당신은 금지되었�
 msgid "Problem saving notice."
 msgstr "통지를 저장하는데 문제가 발생했습니다."
 
-#: classes/Notice.php:1117
+#: classes/Notice.php:1124
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "답신을 추가 할 때에 데이타베이스 에러 : %s"
@@ -4429,47 +4428,37 @@ msgstr "알림이 켜졌습니다."
 msgid "Can't turn on notification."
 msgstr "알림을 켤 수 없습니다."
 
-#: lib/command.php:597
-#, fuzzy, php-format
-msgid "Could not create login token for %s"
-msgstr "OpenID를 작성 할 수 없습니다 : %s"
-
-#: lib/command.php:602
-#, php-format
-msgid "This link is useable only once, and is good for only 2 minutes: %s"
-msgstr ""
-
-#: lib/command.php:618
+#: lib/command.php:592
 #, fuzzy
 msgid "You are not subscribed to anyone."
 msgstr "당신은 이 프로필에 구독되지 않고있습니다."
 
-#: lib/command.php:620
+#: lib/command.php:594
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "당신은 다음 사용자를 이미 구독하고 있습니다."
 
-#: lib/command.php:640
+#: lib/command.php:614
 #, fuzzy
 msgid "No one is subscribed to you."
 msgstr "다른 사람을 구독 하실 수 없습니다."
 
-#: lib/command.php:642
+#: lib/command.php:616
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "다른 사람을 구독 하실 수 없습니다."
 
-#: lib/command.php:662
+#: lib/command.php:636
 #, fuzzy
 msgid "You are not a member of any groups."
 msgstr "당신은 해당 그룹의 멤버가 아닙니다."
 
-#: lib/command.php:664
+#: lib/command.php:638
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "당신은 해당 그룹의 멤버가 아닙니다."
 
-#: lib/command.php:678
+#: lib/command.php:652
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4488,7 +4477,6 @@ msgid ""
 "reply #<notice_id> - reply to notice with a given id\n"
 "reply <nickname> - reply to the last notice from user\n"
 "join <group> - join group\n"
-"login - Get a link to login to the web interface\n"
 "drop <group> - leave group\n"
 "stats - get your stats\n"
 "stop - same as 'off'\n"
@@ -4548,9 +4536,10 @@ msgid "Upload file"
 msgstr "올리기"
 
 #: lib/designsettings.php:109
+#, fuzzy
 msgid ""
-"You can upload your personal background image. The maximum file size is 2Mb."
-msgstr ""
+"You can upload your personal background image. The maximum file size is 2MB."
+msgstr "당신의 개인적인 아바타를 업로드할 수 있습니다."
 
 #: lib/designsettings.php:372
 msgid "Bad default color settings: "
@@ -4724,7 +4713,15 @@ msgstr "파일을 잃어버렸습니다."
 msgid "Unknown file type"
 msgstr "알 수 없는 종류의 파일입니다"
 
-#: lib/jabber.php:192
+#: lib/imagefile.php:217
+msgid "MB"
+msgstr ""
+
+#: lib/imagefile.php:219
+msgid "kB"
+msgstr ""
+
+#: lib/jabber.php:191
 #, php-format
 msgid "[%s]"
 msgstr ""
@@ -5093,12 +5090,12 @@ msgstr "리모트 프로필 추가 오류"
 msgid "Duplicate notice"
 msgstr "통지 삭제"
 
-#: lib/oauthstore.php:466 lib/subs.php:48
+#: lib/oauthstore.php:467 lib/subs.php:48
 #, fuzzy
 msgid "You have been banned from subscribing."
 msgstr "이 회원은 구독으로부터 당신을 차단해왔다."
 
-#: lib/oauthstore.php:491
+#: lib/oauthstore.php:492
 msgid "Couldn't insert new subscription."
 msgstr "예약 구독을 추가 할 수 없습니다."
 
@@ -5135,7 +5132,7 @@ msgstr "당신의 보낸 메시지들"
 msgid "Tags in %s's notices"
 msgstr "%s의 게시글의 태그"
 
-#: lib/profileaction.php:109 lib/profileaction.php:191 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:192 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "구독"
 
@@ -5143,7 +5140,7 @@ msgstr "구독"
 msgid "All subscriptions"
 msgstr "모든 예약 구독"
 
-#: lib/profileaction.php:140 lib/profileaction.php:200 lib/subgroupnav.php:90
+#: lib/profileaction.php:140 lib/profileaction.php:201 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "구독자"
 
@@ -5151,16 +5148,16 @@ msgstr "구독자"
 msgid "All subscribers"
 msgstr "모든 구독자"
 
-#: lib/profileaction.php:177
+#: lib/profileaction.php:178
 #, fuzzy
 msgid "User ID"
 msgstr "이용자"
 
-#: lib/profileaction.php:182
+#: lib/profileaction.php:183
 msgid "Member since"
 msgstr "가입한 때"
 
-#: lib/profileaction.php:235
+#: lib/profileaction.php:245
 msgid "All groups"
 msgstr "모든 그룹"
 
@@ -5365,47 +5362,51 @@ msgstr "이 회원에게 직접 메시지를 보냅니다."
 msgid "Message"
 msgstr "메시지"
 
-#: lib/util.php:826
+#: lib/userprofile.php:311
+msgid "Moderate"
+msgstr ""
+
+#: lib/util.php:825
 msgid "a few seconds ago"
 msgstr "몇 초 전"
 
-#: lib/util.php:828
+#: lib/util.php:827
 msgid "about a minute ago"
 msgstr "1분 전"
 
-#: lib/util.php:830
+#: lib/util.php:829
 #, php-format
 msgid "about %d minutes ago"
 msgstr "%d분 전"
 
-#: lib/util.php:832
+#: lib/util.php:831
 msgid "about an hour ago"
 msgstr "1시간 전"
 
-#: lib/util.php:834
+#: lib/util.php:833
 #, php-format
 msgid "about %d hours ago"
 msgstr "%d시간 전"
 
-#: lib/util.php:836
+#: lib/util.php:835
 msgid "about a day ago"
 msgstr "하루 전"
 
-#: lib/util.php:838
+#: lib/util.php:837
 #, php-format
 msgid "about %d days ago"
 msgstr "%d일 전"
 
-#: lib/util.php:840
+#: lib/util.php:839
 msgid "about a month ago"
 msgstr "1달 전"
 
-#: lib/util.php:842
+#: lib/util.php:841
 #, php-format
 msgid "about %d months ago"
 msgstr "%d달 전"
 
-#: lib/util.php:844
+#: lib/util.php:843
 msgid "about a year ago"
 msgstr "1년 전"
 
@@ -5434,6 +5435,3 @@ msgstr "죄송합니다. 귀하의 이메일이 아닙니다."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "죄송합니다. 이메일이 허용되지 않습니다."
-
-#~ msgid "Notice"
-#~ msgstr "게시글"

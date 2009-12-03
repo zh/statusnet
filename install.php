@@ -301,7 +301,7 @@ function checkPrereqs()
     }
 
     $reqs = array('gd', 'curl',
-                  'xmlwriter', 'mbstring','tidy');
+                  'xmlwriter', 'mbstring', 'xml', 'dom', 'simplexml');
 
     foreach ($reqs as $req) {
         if (!checkExtension($req)) {

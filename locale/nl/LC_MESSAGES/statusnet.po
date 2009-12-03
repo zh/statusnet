@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-23 21:46+0000\n"
-"PO-Revision-Date: 2009-11-23 21:47:52+0000\n"
+"POT-Creation-Date: 2009-12-02 23:18+0000\n"
+"PO-Revision-Date: 2009-12-02 23:20:26+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59365); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59683); Translate extension (2009-11-29)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: out-statusnet\n"
@@ -290,7 +290,7 @@ msgstr "U kunt de gebruiker %s niet volgen, omdat deze al op uw lijst staat."
 #: actions/apifriendshipsdestroy.php:109
 msgid "Could not unfollow user: User not found."
 msgstr ""
-"Het is niet mogelijk deze gebruiker niet langer te volgende: de gebruiker is "
+"Het is niet mogelijk deze gebruiker niet langer te volgen: de gebruiker is "
 "niet aangetroffen."
 
 #: actions/apifriendshipsdestroy.php:120
@@ -369,7 +369,7 @@ msgstr "Ongeldig alias: \"%s\""
 #: actions/newgroup.php:172
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
-msgstr "De alias \"%s\" wordt al gebruikt. Geef een ander alias op."
+msgstr "De alias \"%s\" wordt al gebruikt. Geef een andere alias op."
 
 #: actions/apigroupcreate.php:286 actions/editgroup.php:234
 #: actions/newgroup.php:178
@@ -388,7 +388,7 @@ msgstr "U bent al lid van die groep."
 
 #: actions/apigroupjoin.php:119 actions/joingroup.php:95 lib/command.php:221
 msgid "You have been blocked from that group by the admin."
-msgstr "Een beheerder heeft ingesteld dat u geen lid mag worden can die groep."
+msgstr "Een beheerder heeft ingesteld dat u geen lid mag worden van die groep."
 
 #: actions/apigroupjoin.php:138
 #, php-format
@@ -582,7 +582,7 @@ msgstr "Uitsnijden"
 #: actions/emailsettings.php:238 actions/favor.php:75
 #: actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
-#: actions/invite.php:56 actions/login.php:131 actions/makeadmin.php:66
+#: actions/invite.php:56 actions/login.php:129 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
@@ -755,7 +755,7 @@ msgid "Conversation"
 msgstr "Dialoog"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:206 lib/searchgroupnav.php:82
+#: lib/profileaction.php:216 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Mededelingen"
 
@@ -1175,7 +1175,7 @@ msgstr "Het e-mailadres voor inkomende mail is verwijderd."
 msgid "New incoming email address added."
 msgstr "Het nieuwe binnenkomende e-mailadres is toegevoegd."
 
-#: actions/favorited.php:65 lib/popularnoticesection.php:87
+#: actions/favorited.php:65 lib/popularnoticesection.php:88
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
 msgstr "Populaire mededelingen"
@@ -1275,26 +1275,26 @@ msgstr "De gebruiker waarnaar wordt geluisterd bestaat niet."
 msgid "You can use the local subscription!"
 msgstr "U kunt het lokale abonnement gebruiken!"
 
-#: actions/finishremotesubscribe.php:96
+#: actions/finishremotesubscribe.php:99
 msgid "That user has blocked you from subscribing."
 msgstr ""
 "Die gebruiker heeft de mogelijkheid om te abonneren voor u geblokkeerd."
 
-#: actions/finishremotesubscribe.php:106
+#: actions/finishremotesubscribe.php:110
 msgid "You are not authorized."
 msgstr "U hebt niet de juiste toegangsrechten."
 
-#: actions/finishremotesubscribe.php:109
+#: actions/finishremotesubscribe.php:113
 msgid "Could not convert request token to access token."
 msgstr ""
 "Het was niet mogelijk het verzoektoken te converteren naar een toegangstoken."
 
-#: actions/finishremotesubscribe.php:114
+#: actions/finishremotesubscribe.php:118
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr ""
 "De diensten op afstand gebruiken een onbekende versie van het OMB-protocol."
 
-#: actions/finishremotesubscribe.php:133 lib/oauthstore.php:306
+#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
 msgid "Error updating remote profile"
 msgstr ""
 "Er is een fout opgetreden tijdens het bijwerken van het profiel op afstand."
@@ -1506,8 +1506,8 @@ msgstr ""
 "U kunt een [gebruiker registreren](%%action.register%%) en de groep zelf "
 "[aanmaken](%%action.newgroup%%)!"
 
-#: actions/groups.php:62 lib/profileaction.php:220 lib/publicgroupnav.php:81
-#: lib/searchgroupnav.php:84 lib/subgroupnav.php:98
+#: actions/groups.php:62 lib/profileaction.php:210 lib/profileaction.php:230
+#: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "Groepen"
 
@@ -1842,53 +1842,53 @@ msgstr "%s heeft de groep %s verlaten"
 msgid "Already logged in."
 msgstr "U bent al aangemeld."
 
-#: actions/login.php:110 actions/login.php:120
+#: actions/login.php:108 actions/login.php:118
 msgid "Invalid or expired token."
 msgstr "Het token is ongeldig of verlopen."
 
-#: actions/login.php:143
+#: actions/login.php:146
 msgid "Incorrect username or password."
 msgstr "De gebruikersnaam of wachtwoord is onjuist."
 
-#: actions/login.php:149
+#: actions/login.php:152
 msgid "Error setting user. You are probably not authorized."
 msgstr ""
 "Er is een fout opgetreden bij het maken van de instellingen. U hebt "
 "waarschijnlijk niet de juiste rechten."
 
-#: actions/login.php:204 actions/login.php:257 lib/action.php:458
+#: actions/login.php:207 actions/login.php:260 lib/action.php:458
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Aanmelden"
 
-#: actions/login.php:243
+#: actions/login.php:246
 msgid "Login to site"
 msgstr "Aanmelden"
 
-#: actions/login.php:246 actions/profilesettings.php:106
+#: actions/login.php:249 actions/profilesettings.php:106
 #: actions/register.php:423 actions/showgroup.php:236 actions/tagother.php:94
 #: lib/groupeditform.php:152 lib/userprofile.php:131
 msgid "Nickname"
 msgstr "Gebruikersnaam"
 
-#: actions/login.php:249 actions/register.php:428
+#: actions/login.php:252 actions/register.php:428
 #: lib/accountsettingsaction.php:116
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: actions/login.php:252 actions/register.php:477
+#: actions/login.php:255 actions/register.php:477
 msgid "Remember me"
 msgstr "Aanmeldgegevens onthouden"
 
-#: actions/login.php:253 actions/register.php:479
+#: actions/login.php:256 actions/register.php:479
 msgid "Automatically login in the future; not for shared computers!"
 msgstr "Voortaan automatisch aanmelden. Niet gebruiken op gedeelde computers!"
 
-#: actions/login.php:263
+#: actions/login.php:266
 msgid "Lost or forgotten password?"
 msgstr "Wachtwoord kwijt of vergeten?"
 
-#: actions/login.php:282
+#: actions/login.php:285
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
@@ -1896,7 +1896,7 @@ msgstr ""
 "Om veiligheidsredenen moet u uw gebruikersnaam en wachtwoord nogmaals "
 "invoeren alvorens u uw instellingen kunt wijzigen."
 
-#: actions/login.php:286
+#: actions/login.php:289
 #, php-format
 msgid ""
 "Login with your username and password. Don't have a username yet? [Register]"
@@ -2845,7 +2845,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "De URL van uw profiel bij een andere, compatibele microblogdienst"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:356
+#: lib/userprofile.php:365
 msgid "Subscribe"
 msgstr "Abonneren"
 
@@ -2854,8 +2854,8 @@ msgid "Invalid profile URL (bad format)"
 msgstr "Ongeldige profiel-URL (foutieve opmaak)"
 
 #: actions/remotesubscribe.php:168
-msgid ""
-"Not a valid profile URL (no YADIS document or no or invalid XRDS defined)."
+#, fuzzy
+msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
 msgstr ""
 "De URL voor het profiel is niet geldig (het is geen YADIS-document of er is "
 "geen of ongeldige XRDS gedefinieerd)."
@@ -3049,7 +3049,7 @@ msgid "Members"
 msgstr "Leden"
 
 #: actions/showgroup.php:386 lib/profileaction.php:117
-#: lib/profileaction.php:148 lib/profileaction.php:226 lib/section.php:95
+#: lib/profileaction.php:148 lib/profileaction.php:236 lib/section.php:95
 #: lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(geen)"
@@ -3058,7 +3058,7 @@ msgstr "(geen)"
 msgid "All members"
 msgstr "Alle leden"
 
-#: actions/showgroup.php:429 lib/profileaction.php:173
+#: actions/showgroup.php:429 lib/profileaction.php:174
 msgid "Statistics"
 msgstr "Statistieken"
 
@@ -4070,7 +4070,7 @@ msgstr ""
 msgid "Problem saving notice."
 msgstr "Er is een probleem opgetreden bij het opslaan van de mededeling."
 
-#: classes/Notice.php:1117
+#: classes/Notice.php:1124
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr ""
@@ -4132,7 +4132,7 @@ msgstr "Primaire sitenavigatie"
 
 #: lib/action.php:431
 msgid "Home"
-msgstr "Thuispagina"
+msgstr "Start"
 
 #: lib/action.php:431
 msgid "Personal profile and friends timeline"
@@ -4492,49 +4492,38 @@ msgstr "Notificaties ingeschakeld."
 msgid "Can't turn on notification."
 msgstr "Het is niet mogelijk de notificatie uit te schakelen."
 
-#: lib/command.php:597
-#, php-format
-msgid "Could not create login token for %s"
-msgstr "Het was niet mogelijk een aanmeldtoken aan te maken voor %s"
-
-#: lib/command.php:602
-#, php-format
-msgid "This link is useable only once, and is good for only 2 minutes: %s"
-msgstr ""
-"Deze verwijzing kan slechts één keer gebruikt worden en is twee minuten "
-"geldig: %s"
-
-#: lib/command.php:618
+#: lib/command.php:592
 msgid "You are not subscribed to anyone."
 msgstr "U bent op geen enkele gebruiker geabonneerd."
 
-#: lib/command.php:620
+#: lib/command.php:594
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "U bent geabonneerd op deze gebruiker:"
 msgstr[1] "U bent geabonneerd op deze gebruikers:"
 
-#: lib/command.php:640
+#: lib/command.php:614
 msgid "No one is subscribed to you."
 msgstr "Niemand heeft een abonnenment op u."
 
-#: lib/command.php:642
+#: lib/command.php:616
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Deze gebruiker is op u geabonneerd:"
 msgstr[1] "Deze gebruikers zijn op u geabonneerd:"
 
-#: lib/command.php:662
+#: lib/command.php:636
 msgid "You are not a member of any groups."
 msgstr "U bent lid van geen enkele groep."
 
-#: lib/command.php:664
+#: lib/command.php:638
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "U bent lid van deze groep:"
 msgstr[1] "U bent lid van deze groepen:"
 
-#: lib/command.php:678
+#: lib/command.php:652
+#, fuzzy
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4553,7 +4542,6 @@ msgid ""
 "reply #<notice_id> - reply to notice with a given id\n"
 "reply <nickname> - reply to the last notice from user\n"
 "join <group> - join group\n"
-"login - Get a link to login to the web interface\n"
 "drop <group> - leave group\n"
 "stats - get your stats\n"
 "stop - same as 'off'\n"
@@ -4649,10 +4637,10 @@ msgstr "Bestand uploaden"
 
 #: lib/designsettings.php:109
 msgid ""
-"You can upload your personal background image. The maximum file size is 2Mb."
+"You can upload your personal background image. The maximum file size is 2MB."
 msgstr ""
 "U kunt een persoonlijke achtergrondafbeelding uploaden. De maximale "
-"bestandsgroote is 2 megabyte."
+"bestandsgrootte is 2 megabyte."
 
 #: lib/designsettings.php:372
 msgid "Bad default color settings: "
@@ -4825,7 +4813,15 @@ msgstr "Het bestand is zoekgeraakt."
 msgid "Unknown file type"
 msgstr "Onbekend bestandstype"
 
-#: lib/jabber.php:192
+#: lib/imagefile.php:217
+msgid "MB"
+msgstr "MB"
+
+#: lib/imagefile.php:219
+msgid "kB"
+msgstr "kB"
+
+#: lib/jabber.php:191
 #, php-format
 msgid "[%s]"
 msgstr "[%s]"
@@ -5278,11 +5274,11 @@ msgstr ""
 msgid "Duplicate notice"
 msgstr "Duplicaatmelding"
 
-#: lib/oauthstore.php:466 lib/subs.php:48
+#: lib/oauthstore.php:467 lib/subs.php:48
 msgid "You have been banned from subscribing."
 msgstr "U mag zich niet abonneren."
 
-#: lib/oauthstore.php:491
+#: lib/oauthstore.php:492
 msgid "Couldn't insert new subscription."
 msgstr "Kon nieuw abonnement niet toevoegen."
 
@@ -5319,7 +5315,7 @@ msgstr "Uw verzonden berichten"
 msgid "Tags in %s's notices"
 msgstr "Labels in de mededelingen van %s"
 
-#: lib/profileaction.php:109 lib/profileaction.php:191 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:192 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "Abonnementen"
 
@@ -5327,7 +5323,7 @@ msgstr "Abonnementen"
 msgid "All subscriptions"
 msgstr "Alle abonnementen"
 
-#: lib/profileaction.php:140 lib/profileaction.php:200 lib/subgroupnav.php:90
+#: lib/profileaction.php:140 lib/profileaction.php:201 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "Abonnees"
 
@@ -5335,15 +5331,15 @@ msgstr "Abonnees"
 msgid "All subscribers"
 msgstr "Alle abonnees"
 
-#: lib/profileaction.php:177
+#: lib/profileaction.php:178
 msgid "User ID"
 msgstr "Gebruikers-ID"
 
-#: lib/profileaction.php:182
+#: lib/profileaction.php:183
 msgid "Member since"
 msgstr "Lid sinds"
 
-#: lib/profileaction.php:235
+#: lib/profileaction.php:245
 msgid "All groups"
 msgstr "Alle groepen"
 
@@ -5536,47 +5532,51 @@ msgstr "Deze gebruiker een direct bericht zenden"
 msgid "Message"
 msgstr "Bericht"
 
-#: lib/util.php:826
+#: lib/userprofile.php:311
+msgid "Moderate"
+msgstr "Modereren"
+
+#: lib/util.php:825
 msgid "a few seconds ago"
 msgstr "een paar seconden geleden"
 
-#: lib/util.php:828
+#: lib/util.php:827
 msgid "about a minute ago"
 msgstr "ongeveer een minuut geleden"
 
-#: lib/util.php:830
+#: lib/util.php:829
 #, php-format
 msgid "about %d minutes ago"
 msgstr "ongeveer %d minuten geleden"
 
-#: lib/util.php:832
+#: lib/util.php:831
 msgid "about an hour ago"
 msgstr "ongeveer een uur geleden"
 
-#: lib/util.php:834
+#: lib/util.php:833
 #, php-format
 msgid "about %d hours ago"
 msgstr "ongeveer %d uur geleden"
 
-#: lib/util.php:836
+#: lib/util.php:835
 msgid "about a day ago"
 msgstr "ongeveer een dag geleden"
 
-#: lib/util.php:838
+#: lib/util.php:837
 #, php-format
 msgid "about %d days ago"
 msgstr "ongeveer %d dagen geleden"
 
-#: lib/util.php:840
+#: lib/util.php:839
 msgid "about a month ago"
 msgstr "ongeveer een maand geleden"
 
-#: lib/util.php:842
+#: lib/util.php:841
 #, php-format
 msgid "about %d months ago"
 msgstr "ongeveer %d maanden geleden"
 
-#: lib/util.php:844
+#: lib/util.php:843
 msgid "about a year ago"
 msgstr "ongeveer een jaar geleden"
 
@@ -5605,6 +5605,3 @@ msgstr "Dit is niet uw inkomende e-mailadres."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Inkomende e-mail is niet toegestaan."
-
-#~ msgid "Notice"
-#~ msgstr "Mededeling"

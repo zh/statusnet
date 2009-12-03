@@ -97,7 +97,7 @@ class UserFlagPlugin extends Plugin
     {
         $user = common_current_user();
 
-        if (!empty($user)) {
+        if (!empty($user) && ($user->id != $profile->id)) {
 
             $action->elementStart('li', 'entity_flag');
 
@@ -138,19 +138,15 @@ class UserFlagPlugin extends Plugin
 
     function onEndShowStatusNetStyles($action)
     {
-        $action->elementStart('style', array('type' => 'text/css'));
-        $action->raw('.entity_flag input, .entity_flag p {'.
-            ' background:url('.common_path('plugins/UserFlag/flag.gif').') 5px 5px no-repeat;'.
-            ' }');
-        $action->elementEnd('style');
-
+        $action->cssLink(common_path('plugins/UserFlag/userflag.css'), 
+                         null, 'screen, projection, tv');
         return true;
     }
 
     function onEndShowScripts($action)
     {
         $action->elementStart('script', array('type' => 'text/javascript'));
-        $action->raw('/*<![CDATA[*/ SN.U.FormXHR($(".form_entity_flag")); /*]]>*/');
+        $action->raw('/*<![CDATA[*/ if ($(".form_entity_flag").length > 0) { SN.U.FormXHR($(".form_entity_flag")); } /*]]>*/');
         $action->elementEnd('script');
         return true;
     }

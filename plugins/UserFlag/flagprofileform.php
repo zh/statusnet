@@ -48,6 +48,18 @@ require_once INSTALLDIR.'/lib/form.php';
 class FlagProfileForm extends ProfileActionForm
 {
     /**
+     * class of the form
+     * Action this form provides
+     *
+     * @return string class of the form
+     */
+
+    function formClass()
+    {
+        return 'form_entity_flag';
+    }
+
+    /**
      * Action this form provides
      *
      * @return string Name of the action, lowercased.

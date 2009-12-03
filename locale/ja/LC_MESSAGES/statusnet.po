@@ -1,5 +1,6 @@
 # Translation of StatusNet to Japanese
 #
+# Author@translatewiki.net: Aotake
 # Author@translatewiki.net: Fryed-peach
 # --
 # This file is distributed under the same license as the StatusNet package.
@@ -8,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-23 21:46+0000\n"
-"PO-Revision-Date: 2009-11-23 21:47:38+0000\n"
+"POT-Creation-Date: 2009-12-02 23:18+0000\n"
+"PO-Revision-Date: 2009-12-02 23:19:59+0000\n"
 "Language-Team: Japanese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59365); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59683); Translate extension (2009-11-29)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ja\n"
 "X-Message-Group: out-statusnet\n"
@@ -21,9 +22,8 @@ msgstr ""
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
 #: actions/showfavorites.php:137 actions/tag.php:51
-#, fuzzy
 msgid "No such page"
-msgstr "そのような通知はありません。"
+msgstr "そのようなページはありません。"
 
 #: actions/all.php:74 actions/allrss.php:68
 #: actions/apiaccountupdatedeliverydevice.php:113
@@ -51,9 +51,9 @@ msgid "No such user."
 msgstr "そのようなユーザはいません。"
 
 #: actions/all.php:84
-#, fuzzy, php-format
+#, php-format
 msgid "%s and friends, page %d"
-msgstr "%s & ともだち"
+msgstr "%sとともだち、%dページ"
 
 #: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
 #: actions/apitimelinefriends.php:114 lib/personalgroupnav.php:100
@@ -62,25 +62,25 @@ msgid "%s and friends"
 msgstr "%s と友人"
 
 #: actions/all.php:99
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
-msgstr "%s のともだちのフィード"
+msgstr "%s のともだちのフィード(RSS 1.0)"
 
 #: actions/all.php:107
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
-msgstr "%s のともだちのフィード"
+msgstr "%s のともだちのフィード (RSS 2.0)"
 
 #: actions/all.php:115
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (Atom)"
-msgstr "%s のともだちのフィード"
+msgstr "%s のともだちのフィード (Atom)"
 
 #: actions/all.php:127
 #, php-format
 msgid ""
 "This is the timeline for %s and friends but no one has posted anything yet."
-msgstr ""
+msgstr "これは%sとともだちの予定表です。まだ誰も投稿していません。"
 
 #: actions/all.php:132
 #, php-format
@@ -88,6 +88,8 @@ msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
 "something yourself."
 msgstr ""
+"もっと多くの人とつながってみましょう。[グループに参加](%%action.groups%%) し"
+"てみたり、何か投稿してみましょう。"
 
 #: actions/all.php:134
 #, php-format
@@ -95,6 +97,8 @@ msgid ""
 "You can try to [nudge %s](../%s) from his profile or [post something to his "
 "or her attention](%%%%action.newnotice%%%%?status_textarea=%s)."
 msgstr ""
+"プロフィールから[%sさんに合図](../%s) したり、[知らせたいことについて投稿](%%"
+"%%action.newnotice%%%%?status_textarea=%s)したりできます。"
 
 #: actions/all.php:137 actions/replies.php:209 actions/showstream.php:202
 #, php-format
@@ -102,11 +106,12 @@ msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
 "post a notice to his or her attention."
 msgstr ""
+"[アカウントを登録](%%%%action.register%%%%) して%sさんに合図したり、お知らせ"
+"を送ってみませんか。"
 
 #: actions/all.php:165
-#, fuzzy
 msgid "You and friends"
-msgstr "%s & ともだち"
+msgstr "あなたとともだち"
 
 #: actions/allrss.php:119 actions/apitimelinefriends.php:121
 #, php-format
@@ -576,7 +581,7 @@ msgstr ""
 #: actions/emailsettings.php:238 actions/favor.php:75
 #: actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
-#: actions/invite.php:56 actions/login.php:131 actions/makeadmin.php:66
+#: actions/invite.php:56 actions/login.php:129 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
@@ -751,7 +756,7 @@ msgid "Conversation"
 msgstr "確認コード"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:206 lib/searchgroupnav.php:82
+#: lib/profileaction.php:216 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "通知"
 
@@ -1178,7 +1183,7 @@ msgstr ""
 msgid "New incoming email address added."
 msgstr ""
 
-#: actions/favorited.php:65 lib/popularnoticesection.php:87
+#: actions/favorited.php:65 lib/popularnoticesection.php:88
 #: lib/publicgroupnav.php:93
 #, fuzzy
 msgid "Popular notices"
@@ -1275,26 +1280,26 @@ msgstr "リストされているユーザは存在しません。"
 msgid "You can use the local subscription!"
 msgstr "ローカルサブスクリプションを使用可能です！"
 
-#: actions/finishremotesubscribe.php:96
+#: actions/finishremotesubscribe.php:99
 msgid "That user has blocked you from subscribing."
 msgstr ""
 
-#: actions/finishremotesubscribe.php:106
+#: actions/finishremotesubscribe.php:110
 #, fuzzy
 msgid "You are not authorized."
 msgstr "認証されていません。"
 
-#: actions/finishremotesubscribe.php:109
+#: actions/finishremotesubscribe.php:113
 #, fuzzy
 msgid "Could not convert request token to access token."
 msgstr "リクエストトークンをアクセストークンに変換できません"
 
-#: actions/finishremotesubscribe.php:114
+#: actions/finishremotesubscribe.php:118
 #, fuzzy
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr "予期せぬ OMB プロトコルのバージョンです。"
 
-#: actions/finishremotesubscribe.php:133 lib/oauthstore.php:306
+#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
 msgid "Error updating remote profile"
 msgstr "リモートプロファイル更新エラー"
 
@@ -1505,8 +1510,8 @@ msgid ""
 "action.newgroup%%) yourself!"
 msgstr ""
 
-#: actions/groups.php:62 lib/profileaction.php:220 lib/publicgroupnav.php:81
-#: lib/searchgroupnav.php:84 lib/subgroupnav.php:98
+#: actions/groups.php:62 lib/profileaction.php:210 lib/profileaction.php:230
+#: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr ""
 
@@ -1829,53 +1834,53 @@ msgstr ""
 msgid "Already logged in."
 msgstr "既にログインしています。"
 
-#: actions/login.php:110 actions/login.php:120
+#: actions/login.php:108 actions/login.php:118
 #, fuzzy
 msgid "Invalid or expired token."
 msgstr "不正な通知内容"
 
-#: actions/login.php:143
+#: actions/login.php:146
 msgid "Incorrect username or password."
 msgstr "ユーザ名またはパスワードが間違っています。"
 
-#: actions/login.php:149
+#: actions/login.php:152
 #, fuzzy
 msgid "Error setting user. You are probably not authorized."
 msgstr "認証されていません。"
 
-#: actions/login.php:204 actions/login.php:257 lib/action.php:458
+#: actions/login.php:207 actions/login.php:260 lib/action.php:458
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "ログイン"
 
-#: actions/login.php:243
+#: actions/login.php:246
 msgid "Login to site"
 msgstr ""
 
-#: actions/login.php:246 actions/profilesettings.php:106
+#: actions/login.php:249 actions/profilesettings.php:106
 #: actions/register.php:423 actions/showgroup.php:236 actions/tagother.php:94
 #: lib/groupeditform.php:152 lib/userprofile.php:131
 msgid "Nickname"
 msgstr "ニックネーム"
 
-#: actions/login.php:249 actions/register.php:428
+#: actions/login.php:252 actions/register.php:428
 #: lib/accountsettingsaction.php:116
 msgid "Password"
 msgstr "パスワード"
 
-#: actions/login.php:252 actions/register.php:477
+#: actions/login.php:255 actions/register.php:477
 msgid "Remember me"
 msgstr "ログイン状態を保持"
 
-#: actions/login.php:253 actions/register.php:479
+#: actions/login.php:256 actions/register.php:479
 msgid "Automatically login in the future; not for shared computers!"
 msgstr "以降は自動的にログインする。共用コンピューターでは避けましょう！"
 
-#: actions/login.php:263
+#: actions/login.php:266
 msgid "Lost or forgotten password?"
 msgstr "パスワードを紛失、忘れた？"
 
-#: actions/login.php:282
+#: actions/login.php:285
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
@@ -1883,7 +1888,7 @@ msgstr ""
 "セキュリティー上の理由により、設定を変更する前にユーザ名とパスワードを入力し"
 "て下さい。"
 
-#: actions/login.php:286
+#: actions/login.php:289
 #, php-format
 msgid ""
 "Login with your username and password. Don't have a username yet? [Register]"
@@ -2806,7 +2811,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "プロファイルサービスまたはマイクロブロギングサービスのURL"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:356
+#: lib/userprofile.php:365
 msgid "Subscribe"
 msgstr "購読"
 
@@ -2816,8 +2821,7 @@ msgstr "不正なプロファイルURL。（形式不備）"
 
 #: actions/remotesubscribe.php:168
 #, fuzzy
-msgid ""
-"Not a valid profile URL (no YADIS document or no or invalid XRDS defined)."
+msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
 msgstr "有効なプロファイルURLではありません。（XRDSドキュメントが無い）"
 
 #: actions/remotesubscribe.php:176
@@ -3000,7 +3004,7 @@ msgid "Members"
 msgstr "からのメンバー"
 
 #: actions/showgroup.php:386 lib/profileaction.php:117
-#: lib/profileaction.php:148 lib/profileaction.php:226 lib/section.php:95
+#: lib/profileaction.php:148 lib/profileaction.php:236 lib/section.php:95
 #: lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr ""
@@ -3009,7 +3013,7 @@ msgstr ""
 msgid "All members"
 msgstr ""
 
-#: actions/showgroup.php:429 lib/profileaction.php:173
+#: actions/showgroup.php:429 lib/profileaction.php:174
 msgid "Statistics"
 msgstr "統計データ"
 
@@ -3983,7 +3987,7 @@ msgstr ""
 msgid "Problem saving notice."
 msgstr "通知を保存する際に問題が発生しました。"
 
-#: classes/Notice.php:1117
+#: classes/Notice.php:1124
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "返信を追加する際にデータベースエラー : %s"
@@ -4413,47 +4417,37 @@ msgstr ""
 msgid "Can't turn on notification."
 msgstr ""
 
-#: lib/command.php:597
-#, fuzzy, php-format
-msgid "Could not create login token for %s"
-msgstr "OpenIDを作成できません : %s"
-
-#: lib/command.php:602
-#, php-format
-msgid "This link is useable only once, and is good for only 2 minutes: %s"
-msgstr ""
-
-#: lib/command.php:618
+#: lib/command.php:592
 #, fuzzy
 msgid "You are not subscribed to anyone."
 msgstr "そのプロファイルは送信されていません。"
 
-#: lib/command.php:620
+#: lib/command.php:594
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "そのプロファイルは送信されていません。"
 
-#: lib/command.php:640
+#: lib/command.php:614
 #, fuzzy
 msgid "No one is subscribed to you."
 msgstr "リモートサブスクライブ"
 
-#: lib/command.php:642
+#: lib/command.php:616
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "リモートサブスクライブ"
 
-#: lib/command.php:662
+#: lib/command.php:636
 #, fuzzy
 msgid "You are not a member of any groups."
 msgstr "そのプロファイルは送信されていません。"
 
-#: lib/command.php:664
+#: lib/command.php:638
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "そのプロファイルは送信されていません。"
 
-#: lib/command.php:678
+#: lib/command.php:652
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4472,7 +4466,6 @@ msgid ""
 "reply #<notice_id> - reply to notice with a given id\n"
 "reply <nickname> - reply to the last notice from user\n"
 "join <group> - join group\n"
-"login - Get a link to login to the web interface\n"
 "drop <group> - leave group\n"
 "stats - get your stats\n"
 "stop - same as 'off'\n"
@@ -4532,9 +4525,10 @@ msgid "Upload file"
 msgstr "アップロード"
 
 #: lib/designsettings.php:109
+#, fuzzy
 msgid ""
-"You can upload your personal background image. The maximum file size is 2Mb."
-msgstr ""
+"You can upload your personal background image. The maximum file size is 2MB."
+msgstr "長すぎます。通知は最大 140 字までです。"
 
 #: lib/designsettings.php:372
 msgid "Bad default color settings: "
@@ -4709,7 +4703,15 @@ msgstr "そのような通知はありません。"
 msgid "Unknown file type"
 msgstr ""
 
-#: lib/jabber.php:192
+#: lib/imagefile.php:217
+msgid "MB"
+msgstr ""
+
+#: lib/imagefile.php:219
+msgid "kB"
+msgstr ""
+
+#: lib/jabber.php:191
 #, php-format
 msgid "[%s]"
 msgstr ""
@@ -5075,11 +5077,11 @@ msgstr "リモートプロファイル追加エラー"
 msgid "Duplicate notice"
 msgstr "新しい通知"
 
-#: lib/oauthstore.php:466 lib/subs.php:48
+#: lib/oauthstore.php:467 lib/subs.php:48
 msgid "You have been banned from subscribing."
 msgstr ""
 
-#: lib/oauthstore.php:491
+#: lib/oauthstore.php:492
 msgid "Couldn't insert new subscription."
 msgstr "サブスクリプションを追加できません"
 
@@ -5116,7 +5118,7 @@ msgstr ""
 msgid "Tags in %s's notices"
 msgstr ""
 
-#: lib/profileaction.php:109 lib/profileaction.php:191 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:192 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "サブスクリプション"
 
@@ -5124,7 +5126,7 @@ msgstr "サブスクリプション"
 msgid "All subscriptions"
 msgstr "すべての購読"
 
-#: lib/profileaction.php:140 lib/profileaction.php:200 lib/subgroupnav.php:90
+#: lib/profileaction.php:140 lib/profileaction.php:201 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "購読者"
 
@@ -5133,15 +5135,15 @@ msgstr "購読者"
 msgid "All subscribers"
 msgstr "購読者"
 
-#: lib/profileaction.php:177
+#: lib/profileaction.php:178
 msgid "User ID"
 msgstr ""
 
-#: lib/profileaction.php:182
+#: lib/profileaction.php:183
 msgid "Member since"
 msgstr "からのメンバー"
 
-#: lib/profileaction.php:235
+#: lib/profileaction.php:245
 msgid "All groups"
 msgstr ""
 
@@ -5346,47 +5348,51 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: lib/util.php:826
+#: lib/userprofile.php:311
+msgid "Moderate"
+msgstr ""
+
+#: lib/util.php:825
 msgid "a few seconds ago"
 msgstr "数秒前"
 
-#: lib/util.php:828
+#: lib/util.php:827
 msgid "about a minute ago"
 msgstr "約 1 分前"
 
-#: lib/util.php:830
+#: lib/util.php:829
 #, php-format
 msgid "about %d minutes ago"
 msgstr "約 %d 分前"
 
-#: lib/util.php:832
+#: lib/util.php:831
 msgid "about an hour ago"
 msgstr "約 1 時間前"
 
-#: lib/util.php:834
+#: lib/util.php:833
 #, php-format
 msgid "about %d hours ago"
 msgstr "約 %d 時間前"
 
-#: lib/util.php:836
+#: lib/util.php:835
 msgid "about a day ago"
 msgstr "約 1 日前"
 
-#: lib/util.php:838
+#: lib/util.php:837
 #, php-format
 msgid "about %d days ago"
 msgstr "約 %d 日前"
 
-#: lib/util.php:840
+#: lib/util.php:839
 msgid "about a month ago"
 msgstr "約 1 ヵ月前"
 
-#: lib/util.php:842
+#: lib/util.php:841
 #, php-format
 msgid "about %d months ago"
 msgstr "約 %d ヵ月前"
 
-#: lib/util.php:844
+#: lib/util.php:843
 msgid "about a year ago"
 msgstr "約 1 年前"
 
@@ -5415,6 +5421,3 @@ msgstr ""
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr ""
-
-#~ msgid "Notice"
-#~ msgstr "通知"

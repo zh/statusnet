@@ -166,7 +166,7 @@ class RemotesubscribeAction extends Action
                                                 omb_oauth_datastore());
         } catch (OMB_InvalidYadisException $e) {
             $this->showForm(_('Not a valid profile URL (no YADIS document or ' .
-                              'no or invalid XRDS defined).'));
+                              'invalid XRDS defined).'));
             return;
         }
 

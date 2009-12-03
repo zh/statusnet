@@ -48,10 +48,13 @@ class TightUrlPlugin extends UrlShortenerPlugin
     {
         $response = $this->http_get(sprintf($this->serviceUrl,urlencode($url)));
         if (!$response) return;
-        $response = $this->tidy($response);
-        $y = @simplexml_load_string($response);
+        $dom = new DOMDocument();
+        @$dom->loadHTML($response);
+        $y = @simplexml_import_dom($dom);
         if (!isset($y->body)) return;
         $xml = $y->body->p[0]->code[0]->a->attributes();
-        if (isset($xml['href'])) return $xml['href'];
+        if (isset($xml['href'])) {
+            return strval($xml['href']);
+        }
     }
 }

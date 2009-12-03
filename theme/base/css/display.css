@@ -48,14 +48,6 @@ padding:4px;
 font-family:sans-serif;
 font-size:1em;
 }
-input, textarea, select {
-border-width:2px;
-border-style: solid;
-border-radius:4px;
--moz-border-radius:4px;
--webkit-border-radius:4px;
-}
-
 input.submit {
 font-weight:bold;
 cursor:pointer;
@@ -574,6 +566,7 @@ padding:0;
 border:0;
 text-align:center;
 font-weight:bold;
+cursor:pointer;
 }
 
 /* entity_profile */
@@ -701,7 +694,7 @@ padding-left:23px;
 
 .entity_actions a,
 .entity_actions p {
-padding:1px 4px 1px 26px;
+padding:2px 4px 1px 26px;
 }
 
 .entity_remote_subscribe {
@@ -749,6 +742,35 @@ display:none;
 text-align:center;
 }
 
+.entity_moderation {
+position:relative;
+}
+.entity_moderation p {
+border-radius:4px;
+-moz-border-radius:4px;
+-webkit-border-radius:4px;
+font-weight:bold;
+padding-bottom:2px;
+margin-bottom:7px;
+}
+.entity_moderation ul {
+display:none;
+}
+.entity_moderation:hover ul {
+display:block;
+min-width:21%;
+width:100%;
+padding:11px;
+position:absolute;
+top:-1px;
+right:-1px;
+z-index:1;
+border-width:1px;
+border-style:solid;
+border-radius:7px;
+-moz-border-radius:7px;
+-webkit-border-radius:7px;
+}
 
 .entity_tags ul {
 list-style-type:none;
@@ -986,7 +1008,7 @@ float:left;
 .notice-options .form_favor,
 .notice-options .form_disfavor {
 float:left;
-margin-left:18px;
+margin-left:20%;
 }
 .notice-options .form_favor,
 .notice-options .form_disfavor {

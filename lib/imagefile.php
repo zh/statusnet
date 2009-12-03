@@ -214,9 +214,9 @@ class ImageFile
         $value = ImageFile::maxFileSizeInt();
 
         if ($value > 1024 * 1024) {
-            return ($value/(1024*1024)).'Mb';
+            return ($value/(1024*1024)) . _('MB');
         } else if ($value > 1024) {
-            return ($value/(1024)).'kB';
+            return ($value/(1024)) . _('kB');
         } else {
             return $value;
         }

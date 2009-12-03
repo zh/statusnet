@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-23 21:46+0000\n"
-"PO-Revision-Date: 2009-11-23 21:47:26+0000\n"
+"POT-Creation-Date: 2009-12-02 23:18+0000\n"
+"PO-Revision-Date: 2009-12-02 23:19:42+0000\n"
 "Language-Team: Irish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59365); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59683); Translate extension (2009-11-29)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ga\n"
 "X-Message-Group: out-statusnet\n"
@@ -580,7 +580,7 @@ msgstr ""
 #: actions/emailsettings.php:238 actions/favor.php:75
 #: actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
-#: actions/invite.php:56 actions/login.php:131 actions/makeadmin.php:66
+#: actions/invite.php:56 actions/login.php:129 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
@@ -760,7 +760,7 @@ msgid "Conversation"
 msgstr "Código de confirmación."
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:206 lib/searchgroupnav.php:82
+#: lib/profileaction.php:216 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Chíos"
 
@@ -1196,7 +1196,7 @@ msgstr "Dirección de correo entrante eliminada."
 msgid "New incoming email address added."
 msgstr "Engadida nova dirección de correo entrante."
 
-#: actions/favorited.php:65 lib/popularnoticesection.php:87
+#: actions/favorited.php:65 lib/popularnoticesection.php:88
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
 msgstr "Chíos populares"
@@ -1293,26 +1293,26 @@ msgstr "O usuario  que está sendo escoitado non existe."
 msgid "You can use the local subscription!"
 msgstr "¡Podes empregar a túa subscrición local!"
 
-#: actions/finishremotesubscribe.php:96
+#: actions/finishremotesubscribe.php:99
 msgid "That user has blocked you from subscribing."
 msgstr "Este usuario non che permite suscribirte a el."
 
-#: actions/finishremotesubscribe.php:106
+#: actions/finishremotesubscribe.php:110
 #, fuzzy
 msgid "You are not authorized."
 msgstr "Non está autorizado."
 
-#: actions/finishremotesubscribe.php:109
+#: actions/finishremotesubscribe.php:113
 #, fuzzy
 msgid "Could not convert request token to access token."
 msgstr "Non se pode convertir o token da petición a tokens de acceso."
 
-#: actions/finishremotesubscribe.php:114
+#: actions/finishremotesubscribe.php:118
 #, fuzzy
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr "Versión de protocolo OMB descoñecida."
 
-#: actions/finishremotesubscribe.php:133 lib/oauthstore.php:306
+#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
 msgid "Error updating remote profile"
 msgstr "Acounteceu un erro actualizando o perfil remoto"
 
@@ -1525,8 +1525,8 @@ msgid ""
 "action.newgroup%%) yourself!"
 msgstr ""
 
-#: actions/groups.php:62 lib/profileaction.php:220 lib/publicgroupnav.php:81
-#: lib/searchgroupnav.php:84 lib/subgroupnav.php:98
+#: actions/groups.php:62 lib/profileaction.php:210 lib/profileaction.php:230
+#: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr ""
 
@@ -1856,53 +1856,53 @@ msgstr ""
 msgid "Already logged in."
 msgstr "Sesión xa iniciada"
 
-#: actions/login.php:110 actions/login.php:120
+#: actions/login.php:108 actions/login.php:118
 #, fuzzy
 msgid "Invalid or expired token."
 msgstr "Contido do chío inválido"
 
-#: actions/login.php:143
+#: actions/login.php:146
 msgid "Incorrect username or password."
 msgstr "Usuario ou contrasinal incorrectos."
 
-#: actions/login.php:149
+#: actions/login.php:152
 #, fuzzy
 msgid "Error setting user. You are probably not authorized."
 msgstr "Non está autorizado."
 
-#: actions/login.php:204 actions/login.php:257 lib/action.php:458
+#: actions/login.php:207 actions/login.php:260 lib/action.php:458
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Inicio de sesión"
 
-#: actions/login.php:243
+#: actions/login.php:246
 msgid "Login to site"
 msgstr ""
 
-#: actions/login.php:246 actions/profilesettings.php:106
+#: actions/login.php:249 actions/profilesettings.php:106
 #: actions/register.php:423 actions/showgroup.php:236 actions/tagother.php:94
 #: lib/groupeditform.php:152 lib/userprofile.php:131
 msgid "Nickname"
 msgstr "Alcume"
 
-#: actions/login.php:249 actions/register.php:428
+#: actions/login.php:252 actions/register.php:428
 #: lib/accountsettingsaction.php:116
 msgid "Password"
 msgstr "Contrasinal"
 
-#: actions/login.php:252 actions/register.php:477
+#: actions/login.php:255 actions/register.php:477
 msgid "Remember me"
 msgstr "Lembrarme"
 
-#: actions/login.php:253 actions/register.php:479
+#: actions/login.php:256 actions/register.php:479
 msgid "Automatically login in the future; not for shared computers!"
 msgstr "Endiante acceder automáticamente, coidado en equipos compartidos!"
 
-#: actions/login.php:263
+#: actions/login.php:266
 msgid "Lost or forgotten password?"
 msgstr "¿Perdeches a contrasinal?"
 
-#: actions/login.php:282
+#: actions/login.php:285
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
@@ -1910,7 +1910,7 @@ msgstr ""
 "Por razóns de seguranza, por favor re-insire o teu nome de usuario e "
 "contrasinal antes de cambiar as túas preferenzas."
 
-#: actions/login.php:286
+#: actions/login.php:289
 #, fuzzy, php-format
 msgid ""
 "Login with your username and password. Don't have a username yet? [Register]"
@@ -2865,7 +2865,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "Enderezo do teu perfil en outro servizo de microblogaxe compatíbel"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:356
+#: lib/userprofile.php:365
 msgid "Subscribe"
 msgstr "Subscribir"
 
@@ -2875,8 +2875,7 @@ msgstr "Enderezo de perfil inválido (formato incorrecto)"
 
 #: actions/remotesubscribe.php:168
 #, fuzzy
-msgid ""
-"Not a valid profile URL (no YADIS document or no or invalid XRDS defined)."
+msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
 msgstr "Non é un enderezo de perfil válido (non ten documento YADIS)."
 
 #: actions/remotesubscribe.php:176
@@ -3061,7 +3060,7 @@ msgid "Members"
 msgstr "Membro dende"
 
 #: actions/showgroup.php:386 lib/profileaction.php:117
-#: lib/profileaction.php:148 lib/profileaction.php:226 lib/section.php:95
+#: lib/profileaction.php:148 lib/profileaction.php:236 lib/section.php:95
 #: lib/tagcloudsection.php:71
 #, fuzzy
 msgid "(None)"
@@ -3071,7 +3070,7 @@ msgstr "(nada)"
 msgid "All members"
 msgstr ""
 
-#: actions/showgroup.php:429 lib/profileaction.php:173
+#: actions/showgroup.php:429 lib/profileaction.php:174
 msgid "Statistics"
 msgstr "Estatísticas"
 
@@ -4084,7 +4083,7 @@ msgstr "Tes restrinxido o envio de chíos neste sitio."
 msgid "Problem saving notice."
 msgstr "Aconteceu un erro ó gardar o chío."
 
-#: classes/Notice.php:1117
+#: classes/Notice.php:1124
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Erro ó inserir a contestación na BD: %s"
@@ -4529,22 +4528,12 @@ msgstr "Notificación habilitada."
 msgid "Can't turn on notification."
 msgstr "Non se pode activar a notificación."
 
-#: lib/command.php:597
-#, fuzzy, php-format
-msgid "Could not create login token for %s"
-msgstr "Non se pode crear o formulario OpenID: %s"
-
-#: lib/command.php:602
-#, php-format
-msgid "This link is useable only once, and is good for only 2 minutes: %s"
-msgstr ""
-
-#: lib/command.php:618
+#: lib/command.php:592
 #, fuzzy
 msgid "You are not subscribed to anyone."
 msgstr "Non estás suscrito a ese perfil"
 
-#: lib/command.php:620
+#: lib/command.php:594
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Xa estas suscrito a estes usuarios:"
@@ -4553,12 +4542,12 @@ msgstr[2] ""
 msgstr[3] ""
 msgstr[4] ""
 
-#: lib/command.php:640
+#: lib/command.php:614
 #, fuzzy
 msgid "No one is subscribed to you."
 msgstr "Outro usuario non se puido suscribir a ti."
 
-#: lib/command.php:642
+#: lib/command.php:616
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Outro usuario non se puido suscribir a ti."
@@ -4567,12 +4556,12 @@ msgstr[2] ""
 msgstr[3] ""
 msgstr[4] ""
 
-#: lib/command.php:662
+#: lib/command.php:636
 #, fuzzy
 msgid "You are not a member of any groups."
 msgstr "Non estás suscrito a ese perfil"
 
-#: lib/command.php:664
+#: lib/command.php:638
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Non estás suscrito a ese perfil"
@@ -4581,7 +4570,7 @@ msgstr[2] ""
 msgstr[3] ""
 msgstr[4] ""
 
-#: lib/command.php:678
+#: lib/command.php:652
 #, fuzzy
 msgid ""
 "Commands:\n"
@@ -4601,7 +4590,6 @@ msgid ""
 "reply #<notice_id> - reply to notice with a given id\n"
 "reply <nickname> - reply to the last notice from user\n"
 "join <group> - join group\n"
-"login - Get a link to login to the web interface\n"
 "drop <group> - leave group\n"
 "stats - get your stats\n"
 "stop - same as 'off'\n"
@@ -4686,9 +4674,10 @@ msgid "Upload file"
 msgstr "Subir"
 
 #: lib/designsettings.php:109
+#, fuzzy
 msgid ""
-"You can upload your personal background image. The maximum file size is 2Mb."
-msgstr ""
+"You can upload your personal background image. The maximum file size is 2MB."
+msgstr "Podes actualizar a túa información do perfil persoal aquí"
 
 #: lib/designsettings.php:372
 msgid "Bad default color settings: "
@@ -4870,7 +4859,15 @@ msgstr "Bloqueo de usuario fallido."
 msgid "Unknown file type"
 msgstr "tipo de ficheiro non soportado"
 
-#: lib/jabber.php:192
+#: lib/imagefile.php:217
+msgid "MB"
+msgstr ""
+
+#: lib/imagefile.php:219
+msgid "kB"
+msgstr ""
+
+#: lib/jabber.php:191
 #, php-format
 msgid "[%s]"
 msgstr ""
@@ -5305,12 +5302,12 @@ msgstr "Aconteceu un erro ó inserir o perfil remoto"
 msgid "Duplicate notice"
 msgstr "Eliminar chío"
 
-#: lib/oauthstore.php:466 lib/subs.php:48
+#: lib/oauthstore.php:467 lib/subs.php:48
 #, fuzzy
 msgid "You have been banned from subscribing."
 msgstr "Este usuario non che permite suscribirte a el."
 
-#: lib/oauthstore.php:491
+#: lib/oauthstore.php:492
 msgid "Couldn't insert new subscription."
 msgstr "Non se puido inserir a nova subscrición."
 
@@ -5347,7 +5344,7 @@ msgstr "As túas mensaxes enviadas"
 msgid "Tags in %s's notices"
 msgstr "O usuario non ten último chio."
 
-#: lib/profileaction.php:109 lib/profileaction.php:191 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:192 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "Subscricións"
 
@@ -5355,7 +5352,7 @@ msgstr "Subscricións"
 msgid "All subscriptions"
 msgstr "Tódalas subscricións"
 
-#: lib/profileaction.php:140 lib/profileaction.php:200 lib/subgroupnav.php:90
+#: lib/profileaction.php:140 lib/profileaction.php:201 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "Subscritores"
 
@@ -5364,16 +5361,16 @@ msgstr "Subscritores"
 msgid "All subscribers"
 msgstr "Subscritores"
 
-#: lib/profileaction.php:177
+#: lib/profileaction.php:178
 #, fuzzy
 msgid "User ID"
 msgstr "Usuario"
 
-#: lib/profileaction.php:182
+#: lib/profileaction.php:183
 msgid "Member since"
 msgstr "Membro dende"
 
-#: lib/profileaction.php:235
+#: lib/profileaction.php:245
 #, fuzzy
 msgid "All groups"
 msgstr "Tódalas etiquetas"
@@ -5586,47 +5583,51 @@ msgstr "Non podes enviar mensaxes a este usurio."
 msgid "Message"
 msgstr "Nova mensaxe"
 
-#: lib/util.php:826
+#: lib/userprofile.php:311
+msgid "Moderate"
+msgstr ""
+
+#: lib/util.php:825
 msgid "a few seconds ago"
 msgstr "fai uns segundos"
 
-#: lib/util.php:828
+#: lib/util.php:827
 msgid "about a minute ago"
 msgstr "fai un minuto"
 
-#: lib/util.php:830
+#: lib/util.php:829
 #, php-format
 msgid "about %d minutes ago"
 msgstr "fai %d minutos"
 
-#: lib/util.php:832
+#: lib/util.php:831
 msgid "about an hour ago"
 msgstr "fai unha hora"
 
-#: lib/util.php:834
+#: lib/util.php:833
 #, php-format
 msgid "about %d hours ago"
 msgstr "fai %d horas"
 
-#: lib/util.php:836
+#: lib/util.php:835
 msgid "about a day ago"
 msgstr "fai un día"
 
-#: lib/util.php:838
+#: lib/util.php:837
 #, php-format
 msgid "about %d days ago"
 msgstr "fai %d días"
 
-#: lib/util.php:840
+#: lib/util.php:839
 msgid "about a month ago"
 msgstr "fai un mes"
 
-#: lib/util.php:842
+#: lib/util.php:841
 #, php-format
 msgid "about %d months ago"
 msgstr "fai %d meses"
 
-#: lib/util.php:844
+#: lib/util.php:843
 msgid "about a year ago"
 msgstr "fai un ano"
 
@@ -5655,7 +5656,3 @@ msgstr "Ise é un enderezo IM incorrecto."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Aivá, non se permiten correos entrantes."
-
-#, fuzzy
-#~ msgid "Notice"
-#~ msgstr "Chíos"

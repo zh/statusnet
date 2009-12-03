@@ -107,7 +107,7 @@ class DesignSettingsAction extends AccountSettingsAction
                                       'type' => 'file',
                                       'id' => 'design_background-image_file'));
         $this->element('p', 'form_guide', _('You can upload your personal ' .
-            'background image. The maximum file size is 2Mb.'));
+            'background image. The maximum file size is 2MB.'));
         $this->element('input', array('name' => 'MAX_FILE_SIZE',
                                       'type' => 'hidden',
                                       'id' => 'MAX_FILE_SIZE',

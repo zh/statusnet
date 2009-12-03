@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-23 21:46+0000\n"
-"PO-Revision-Date: 2009-11-23 21:47:32+0000\n"
+"POT-Creation-Date: 2009-12-02 23:18+0000\n"
+"PO-Revision-Date: 2009-12-02 23:19:52+0000\n"
 "Language-Team: Icelandic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59365); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59683); Translate extension (2009-11-29)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: is\n"
 "X-Message-Group: out-statusnet\n"
@@ -569,7 +569,7 @@ msgstr "Skera af"
 #: actions/emailsettings.php:238 actions/favor.php:75
 #: actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
-#: actions/invite.php:56 actions/login.php:131 actions/makeadmin.php:66
+#: actions/invite.php:56 actions/login.php:129 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
@@ -741,7 +741,7 @@ msgid "Conversation"
 msgstr ""
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:206 lib/searchgroupnav.php:82
+#: lib/profileaction.php:216 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Babl"
 
@@ -1161,7 +1161,7 @@ msgstr "Móttökutölvupóstfang fjarlægt."
 msgid "New incoming email address added."
 msgstr "Nýju móttökutölvupóstfangi bætt við."
 
-#: actions/favorited.php:65 lib/popularnoticesection.php:87
+#: actions/favorited.php:65 lib/popularnoticesection.php:88
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
 msgstr "Vinsælt babl"
@@ -1255,26 +1255,26 @@ msgstr "Notandi sem verið er að hlusta á er ekki til."
 msgid "You can use the local subscription!"
 msgstr "Þú getur notað staðbundna áskrift!"
 
-#: actions/finishremotesubscribe.php:96
+#: actions/finishremotesubscribe.php:99
 msgid "That user has blocked you from subscribing."
 msgstr "Þessi notandi hefur bannað þér að gerast áskrifandi"
 
-#: actions/finishremotesubscribe.php:106
+#: actions/finishremotesubscribe.php:110
 #, fuzzy
 msgid "You are not authorized."
 msgstr "Engin heimild."
 
-#: actions/finishremotesubscribe.php:109
+#: actions/finishremotesubscribe.php:113
 #, fuzzy
 msgid "Could not convert request token to access token."
 msgstr "Gat ekki breytt beiðnistókum í aðgangstóka."
 
-#: actions/finishremotesubscribe.php:114
+#: actions/finishremotesubscribe.php:118
 #, fuzzy
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr "Óþekkt útgáfa OMB samskiptamátans."
 
-#: actions/finishremotesubscribe.php:133 lib/oauthstore.php:306
+#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
 msgid "Error updating remote profile"
 msgstr "Villa kom upp í uppfærslu persónulegrar fjarsíðu"
 
@@ -1471,8 +1471,8 @@ msgid ""
 "action.newgroup%%) yourself!"
 msgstr ""
 
-#: actions/groups.php:62 lib/profileaction.php:220 lib/publicgroupnav.php:81
-#: lib/searchgroupnav.php:84 lib/subgroupnav.php:98
+#: actions/groups.php:62 lib/profileaction.php:210 lib/profileaction.php:230
+#: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "Hópar"
 
@@ -1801,55 +1801,55 @@ msgstr "%s gekk úr hópnum %s"
 msgid "Already logged in."
 msgstr "Þú hefur nú þegar skráð þig inn."
 
-#: actions/login.php:110 actions/login.php:120
+#: actions/login.php:108 actions/login.php:118
 #, fuzzy
 msgid "Invalid or expired token."
 msgstr "Ótækt bablinnihald"
 
-#: actions/login.php:143
+#: actions/login.php:146
 msgid "Incorrect username or password."
 msgstr "Rangt notendanafn eða lykilorð."
 
-#: actions/login.php:149
+#: actions/login.php:152
 #, fuzzy
 msgid "Error setting user. You are probably not authorized."
 msgstr "Engin heimild."
 
-#: actions/login.php:204 actions/login.php:257 lib/action.php:458
+#: actions/login.php:207 actions/login.php:260 lib/action.php:458
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Innskráning"
 
-#: actions/login.php:243
+#: actions/login.php:246
 msgid "Login to site"
 msgstr "Skrá þig inn á síðuna"
 
-#: actions/login.php:246 actions/profilesettings.php:106
+#: actions/login.php:249 actions/profilesettings.php:106
 #: actions/register.php:423 actions/showgroup.php:236 actions/tagother.php:94
 #: lib/groupeditform.php:152 lib/userprofile.php:131
 msgid "Nickname"
 msgstr "Stuttnefni"
 
-#: actions/login.php:249 actions/register.php:428
+#: actions/login.php:252 actions/register.php:428
 #: lib/accountsettingsaction.php:116
 msgid "Password"
 msgstr "Lykilorð"
 
-#: actions/login.php:252 actions/register.php:477
+#: actions/login.php:255 actions/register.php:477
 msgid "Remember me"
 msgstr "Muna eftir mér"
 
-#: actions/login.php:253 actions/register.php:479
+#: actions/login.php:256 actions/register.php:479
 msgid "Automatically login in the future; not for shared computers!"
 msgstr ""
 "Sjálfvirk innskráning í framtíðinni. Ekki nota þetta á tölvu sem aðrir deila "
 "með þér!"
 
-#: actions/login.php:263
+#: actions/login.php:266
 msgid "Lost or forgotten password?"
 msgstr "Tapað eða gleymt lykilorð?"
 
-#: actions/login.php:282
+#: actions/login.php:285
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
@@ -1857,7 +1857,7 @@ msgstr ""
 "Af öryggisástæðum, vinsamlegast sláðu aftur inn notendanafnið þitt og "
 "lykilorð áður en þú breytir stillingunum þínum."
 
-#: actions/login.php:286
+#: actions/login.php:289
 #, fuzzy, php-format
 msgid ""
 "Login with your username and password. Don't have a username yet? [Register]"
@@ -2788,7 +2788,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "Veffang persónulegrar síðu á samvirkandi örbloggsþjónustu"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:356
+#: lib/userprofile.php:365
 msgid "Subscribe"
 msgstr "Gerast áskrifandi"
 
@@ -2798,8 +2798,7 @@ msgstr "Ótækt veffang persónulegrar síðu (vitlaust snið)"
 
 #: actions/remotesubscribe.php:168
 #, fuzzy
-msgid ""
-"Not a valid profile URL (no YADIS document or no or invalid XRDS defined)."
+msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
 msgstr "Ekki tækt veffang á persónulega síðu (ekkert YADIS skjal)."
 
 #: actions/remotesubscribe.php:176
@@ -2981,7 +2980,7 @@ msgid "Members"
 msgstr "Meðlimir"
 
 #: actions/showgroup.php:386 lib/profileaction.php:117
-#: lib/profileaction.php:148 lib/profileaction.php:226 lib/section.php:95
+#: lib/profileaction.php:148 lib/profileaction.php:236 lib/section.php:95
 #: lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(Ekkert)"
@@ -2990,7 +2989,7 @@ msgstr "(Ekkert)"
 msgid "All members"
 msgstr "Allir meðlimir"
 
-#: actions/showgroup.php:429 lib/profileaction.php:173
+#: actions/showgroup.php:429 lib/profileaction.php:174
 msgid "Statistics"
 msgstr "Tölfræði"
 
@@ -3972,7 +3971,7 @@ msgstr "Það hefur verið lagt bann við babli frá þér á þessari síðu."
 msgid "Problem saving notice."
 msgstr "Vandamál komu upp við að vista babl."
 
-#: classes/Notice.php:1117
+#: classes/Notice.php:1124
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Gagnagrunnsvilla við innsetningu svars: %s"
@@ -4397,50 +4396,40 @@ msgstr "Tilkynningar á."
 msgid "Can't turn on notification."
 msgstr "Get ekki kveikt á tilkynningum."
 
-#: lib/command.php:597
-#, fuzzy, php-format
-msgid "Could not create login token for %s"
-msgstr "Gat ekki búið til OpenID eyðublað: %s"
-
-#: lib/command.php:602
-#, php-format
-msgid "This link is useable only once, and is good for only 2 minutes: %s"
-msgstr ""
-
-#: lib/command.php:618
+#: lib/command.php:592
 #, fuzzy
 msgid "You are not subscribed to anyone."
 msgstr "Þú ert ekki áskrifandi."
 
-#: lib/command.php:620
+#: lib/command.php:594
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Þú ert nú þegar í áskrift að þessum notendum:"
 msgstr[1] "Þú ert nú þegar í áskrift að þessum notendum:"
 
-#: lib/command.php:640
+#: lib/command.php:614
 #, fuzzy
 msgid "No one is subscribed to you."
 msgstr "Gat ekki leyft öðrum að gerast áskrifandi að þér."
 
-#: lib/command.php:642
+#: lib/command.php:616
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Gat ekki leyft öðrum að gerast áskrifandi að þér."
 msgstr[1] "Gat ekki leyft öðrum að gerast áskrifandi að þér."
 
-#: lib/command.php:662
+#: lib/command.php:636
 #, fuzzy
 msgid "You are not a member of any groups."
 msgstr "Þú ert ekki meðlimur í þessum hópi."
 
-#: lib/command.php:664
+#: lib/command.php:638
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Þú ert ekki meðlimur í þessum hópi."
 msgstr[1] "Þú ert ekki meðlimur í þessum hópi."
 
-#: lib/command.php:678
+#: lib/command.php:652
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4459,7 +4448,6 @@ msgid ""
 "reply #<notice_id> - reply to notice with a given id\n"
 "reply <nickname> - reply to the last notice from user\n"
 "join <group> - join group\n"
-"login - Get a link to login to the web interface\n"
 "drop <group> - leave group\n"
 "stats - get your stats\n"
 "stop - same as 'off'\n"
@@ -4518,9 +4506,10 @@ msgid "Upload file"
 msgstr ""
 
 #: lib/designsettings.php:109
+#, fuzzy
 msgid ""
-"You can upload your personal background image. The maximum file size is 2Mb."
-msgstr ""
+"You can upload your personal background image. The maximum file size is 2MB."
+msgstr "Þetta er of langt. Hámarkslengd babls er 140 tákn."
 
 #: lib/designsettings.php:372
 msgid "Bad default color settings: "
@@ -4694,7 +4683,15 @@ msgstr "Týndum skránni okkar"
 msgid "Unknown file type"
 msgstr "Óþekkt skráargerð"
 
-#: lib/jabber.php:192
+#: lib/imagefile.php:217
+msgid "MB"
+msgstr ""
+
+#: lib/imagefile.php:219
+msgid "kB"
+msgstr ""
+
+#: lib/jabber.php:191
 #, php-format
 msgid "[%s]"
 msgstr ""
@@ -5065,12 +5062,12 @@ msgstr "Villa kom upp við að setja inn persónulega fjarsíðu"
 msgid "Duplicate notice"
 msgstr "Eyða babli"
 
-#: lib/oauthstore.php:466 lib/subs.php:48
+#: lib/oauthstore.php:467 lib/subs.php:48
 #, fuzzy
 msgid "You have been banned from subscribing."
 msgstr "Þessi notandi hefur bannað þér að gerast áskrifandi"
 
-#: lib/oauthstore.php:491
+#: lib/oauthstore.php:492
 msgid "Couldn't insert new subscription."
 msgstr "Gat ekki sett inn nýja áskrift."
 
@@ -5107,7 +5104,7 @@ msgstr "Skilaboð sem þú hefur sent"
 msgid "Tags in %s's notices"
 msgstr "Merki í babli %s"
 
-#: lib/profileaction.php:109 lib/profileaction.php:191 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:192 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "Áskriftir"
 
@@ -5115,7 +5112,7 @@ msgstr "Áskriftir"
 msgid "All subscriptions"
 msgstr "Allar áskriftir"
 
-#: lib/profileaction.php:140 lib/profileaction.php:200 lib/subgroupnav.php:90
+#: lib/profileaction.php:140 lib/profileaction.php:201 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "Áskrifendur"
 
@@ -5123,15 +5120,15 @@ msgstr "Áskrifendur"
 msgid "All subscribers"
 msgstr "Allir áskrifendur"
 
-#: lib/profileaction.php:177
+#: lib/profileaction.php:178
 msgid "User ID"
 msgstr ""
 
-#: lib/profileaction.php:182
+#: lib/profileaction.php:183
 msgid "Member since"
 msgstr "Meðlimur síðan"
 
-#: lib/profileaction.php:235
+#: lib/profileaction.php:245
 msgid "All groups"
 msgstr "Allir hópar"
 
@@ -5332,47 +5329,51 @@ msgstr "Senda bein skilaboð til þessa notanda"
 msgid "Message"
 msgstr "Skilaboð"
 
-#: lib/util.php:826
+#: lib/userprofile.php:311
+msgid "Moderate"
+msgstr ""
+
+#: lib/util.php:825
 msgid "a few seconds ago"
 msgstr "fyrir nokkrum sekúndum"
 
-#: lib/util.php:828
+#: lib/util.php:827
 msgid "about a minute ago"
 msgstr "fyrir um einni mínútu síðan"
 
-#: lib/util.php:830
+#: lib/util.php:829
 #, php-format
 msgid "about %d minutes ago"
 msgstr "fyrir um %d mínútum síðan"
 
-#: lib/util.php:832
+#: lib/util.php:831
 msgid "about an hour ago"
 msgstr "fyrir um einum klukkutíma síðan"
 
-#: lib/util.php:834
+#: lib/util.php:833
 #, php-format
 msgid "about %d hours ago"
 msgstr "fyrir um %d klukkutímum síðan"
 
-#: lib/util.php:836
+#: lib/util.php:835
 msgid "about a day ago"
 msgstr "fyrir um einum degi síðan"
 
-#: lib/util.php:838
+#: lib/util.php:837
 #, php-format
 msgid "about %d days ago"
 msgstr "fyrir um %d dögum síðan"
 
-#: lib/util.php:840
+#: lib/util.php:839
 msgid "about a month ago"
 msgstr "fyrir um einum mánuði síðan"
 
-#: lib/util.php:842
+#: lib/util.php:841
 #, php-format
 msgid "about %d months ago"
 msgstr "fyrir um %d mánuðum síðan"
 
-#: lib/util.php:844
+#: lib/util.php:843
 msgid "about a year ago"
 msgstr "fyrir um einu ári síðan"
 
@@ -5401,6 +5402,3 @@ msgstr "Afsakið en þetta er ekki móttökutölvupóstfangið þitt."
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr "Því miður er móttökutölvupóstur ekki leyfður."
-
-#~ msgid "Notice"
-#~ msgstr "Babl"
