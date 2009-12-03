@@ -123,4 +123,68 @@ class UsermapAction extends OwnerDesignAction
                                     'class' => 'gray smallmap',
                                     'style' => "width: 100%; height: 400px"));
     }
+
+    /**
+     * Hook for adding extra JavaScript
+     *
+     * @param Action $action Action object for the page
+     *
+     * @return boolean event handler return
+     */
+
+    function showScripts()
+    {
+        parent::showScripts();
+        $notice = empty($this->tag)
+          ? $this->user->getNotices(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1)
+            : $this->user->getTaggedNotices($this->tag, ($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1, 0, 0, null);
+
+        $jsonArray = array();
+
+        while ($notice->fetch()) {
+            if (!empty($notice->lat) && !empty($notice->lon)) {
+                $jsonNotice = $this->noticeAsJson($notice);
+                $jsonArray[] = $jsonNotice;
+            }
+        }
+
+        $this->elementStart('script', array('type' => 'text/javascript'));
+        $this->raw('/*<![CDATA[*/'); // XHTML compat for Safari
+        $this->raw('var _notices = ' . json_encode($jsonArray).'; ');
+        $this->raw('showMapstraction($("#map_canvas"),_notices);');
+        $this->raw('/*]]>*/'); // XHTML compat for Safari
+        $this->elementEnd('script');
+
+        return true;
+    }
+
+    function noticeAsJson($notice)
+    {
+        // FIXME: this code should be abstracted to a neutral third
+        // party, like Notice::asJson(). I'm not sure of the ethics
+        // of refactoring from within a plugin, so I'm just abusing
+        // the ApiAction method. Don't do this unless you're me!
+
+        require_once(INSTALLDIR.'/lib/api.php');
+
+        $act = new ApiAction('/dev/null');
+
+        $arr = $act->twitterStatusArray($notice, true);
+        $arr['url'] = $notice->bestUrl();
+        $arr['html'] = $notice->rendered;
+        $arr['source'] = $arr['source'];
+
+        if (!empty($notice->reply_to)) {
+            $reply_to = Notice::staticGet('id', $notice->reply_to);
+            if (!empty($reply_to)) {
+                $arr['in_reply_to_status_url'] = $reply_to->bestUrl();
+            }
+            $reply_to = null;
+        }
+
+        $profile = $notice->getProfile();
+        $arr['user']['profile_url'] = $profile->profileurl;
+
+        return $arr;
+    }
 }
