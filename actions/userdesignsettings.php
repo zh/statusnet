@@ -96,14 +96,8 @@ class UserDesignSettingsAction extends DesignSettingsAction
 
     function getWorkingDesign()
     {
-
         $user   = common_current_user();
         $design = $user->getDesign();
-
-        if (empty($design)) {
-            $design = $this->defaultDesign();
-        }
-
         return $design;
     }
 
@@ -117,7 +111,13 @@ class UserDesignSettingsAction extends DesignSettingsAction
 
     function showContent()
     {
-        $this->showDesignForm($this->getWorkingDesign());
+        $design = $this->getWorkingDesign();
+
+        if (empty($design)) {
+            $design = Design::siteDesign();
+        }
+
+        $this->showDesignForm($design);
     }
 
     /**
