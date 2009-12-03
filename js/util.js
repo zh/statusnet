@@ -218,33 +218,25 @@ var SN = { // StatusNet
                             alert(result.textContent || result.innerHTML);
                         }
                         else {
-                            var notices = $('#notices_primary .notices');
-                            if (notices.length > 0) {
-                                var notice = document._importNode($('li', data)[0], true);
-                                if ($('#'+notice.id).length === 0) {
-                                    var notice_irt_value = $('#'+SN.C.S.NoticeInReplyTo).val();
-                                    var notice_irt = '#notices_primary #notice-'+notice_irt_value;
-                                    if($('body')[0].id == 'conversation') {
-                                        if(notice_irt_value.length > 0 && $(notice_irt+' .notices').length < 1) {
-                                            $(notice_irt).append('<ul class="notices"></ul>');
-                                        }
-                                        $($(notice_irt+' .notices')[0]).append(notice);
+                             notice = document._importNode($('li', data)[0], true);
+                             if ($('#'+notice.id).length === 0) {
+                                var notice_irt_value = $('#'+SN.C.S.NoticeInReplyTo).val();
+                                var notice_irt = '#notices_primary #notice-'+notice_irt_value;
+                                if($('body')[0].id == 'conversation') {
+                                    if(notice_irt_value.length > 0 && $(notice_irt+' .notices').length < 1) {
+                                        $(notice_irt).append('<ul class="notices"></ul>');
                                     }
-                                    else {
-                                        notices.prepend(notice);
-                                    }
-                                    $('#'+notice.id).css({display:'none'});
-                                    $('#'+notice.id).fadeIn(2500);
-                                    SN.U.NoticeWithAttachment($('#'+notice.id));
-                                    SN.U.NoticeReplyTo($('#'+notice.id));
-                                    SN.U.FormXHR($('#'+notice.id+' .form_favor'));
+                                    $($(notice_irt+' .notices')[0]).append(notice);
                                 }
-                            }
-                            else {
-                                result = document._importNode($('title', data)[0], true);
-                                result_title = result.textContent || result.innerHTML;
-                                form.append('<p class="success">'+result_title+'</p>');
-                            }
+                                else {
+                                    $("#notices_primary .notices").prepend(notice);
+                                }
+                                $('#'+notice.id).css({display:'none'});
+                                $('#'+notice.id).fadeIn(2500);
+                                SN.U.NoticeAttachments();
+                                SN.U.NoticeReplyTo($('#'+notice.id));
+                                SN.U.FormXHR($('#'+notice.id+' .form_favor'));
+                             }
                         }
                         $('#'+form_id+' #'+SN.C.S.NoticeDataText).val('');
                         $('#'+form_id+' #'+SN.C.S.NoticeDataAttach).val('');
