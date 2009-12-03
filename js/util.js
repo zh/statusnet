@@ -214,17 +214,16 @@ var SN = { // StatusNet
                             self.close();
                         }
 
-                        var notices = $("#notices_primary .notices");
-
-                        if (notices.length > 0) {
-                            if ($('#'+SN.C.S.CommandResult, data).length > 0) {
-                                result = document._importNode($('p', data)[0], true);
-                                result = result.textContent || result.innerHTML;
-                                form.append('<p class="success">'+result+'</p>');
-                            }
-                            else {
-                                 notice = document._importNode($('li', data)[0], true);
-                                 if ($('#'+notice.id).length === 0) {
+                        if ($('#'+SN.C.S.CommandResult, data).length > 0) {
+                            result = document._importNode($('p', data)[0], true);
+                            result = result.textContent || result.innerHTML;
+                            form.append('<p class="success">'+result+'</p>');
+                        }
+                        else {
+                            var notices = $('#notices_primary .notices');
+                            if (notices.length > 0) {
+                                var notice = document._importNode($('li', data)[0], true);
+                                if ($('#'+notice.id).length === 0) {
                                     var notice_irt_value = $('#'+SN.C.S.NoticeInReplyTo).val();
                                     var notice_irt = '#notices_primary #notice-'+notice_irt_value;
                                     if($('body')[0].id == 'conversation') {
@@ -241,7 +240,12 @@ var SN = { // StatusNet
                                     SN.U.NoticeWithAttachment($('#'+notice.id));
                                     SN.U.NoticeReplyTo($('#'+notice.id));
                                     SN.U.FormXHR($('#'+notice.id+' .form_favor'));
-                                 }
+                                }
+                            }
+                            else {
+                                result = document._importNode($('title', data)[0], true);
+                                result_title = result.textContent || result.innerHTML;
+                                form.append('<p class="success">'+result_title+'</p>');
                             }
                         }
                         $('#'+form_id+' #'+SN.C.S.NoticeDataText).val('');

@@ -1,5 +1,6 @@
 # Translation of StatusNet to Russian
 #
+# Author@translatewiki.net: Brion
 # Author@translatewiki.net: Lockal
 # Author@translatewiki.net: Александр Сигачёв
 # --
@@ -9,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-27 23:50+0000\n"
-"PO-Revision-Date: 2009-11-28 19:50:53+0000\n"
+"POT-Creation-Date: 2009-12-02 23:18+0000\n"
+"PO-Revision-Date: 2009-12-02 23:20:42+0000\n"
 "Language-Team: Russian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59523); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59683); Translate extension (2009-11-29)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ru\n"
 "X-Message-Group: out-statusnet\n"
@@ -480,12 +481,12 @@ msgstr "Обновлено от %1$s на %2$s!"
 #: actions/apitimelinementions.php:116
 #, php-format
 msgid "%1$s / Updates mentioning %2$s"
-msgstr ""
+msgstr "%1$s / Обновления, упоминающие %2$s"
 
 #: actions/apitimelinementions.php:126
 #, php-format
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
-msgstr ""
+msgstr "%1$s обновил этот ответ на сообщение: %2$s / %3$s."
 
 #: actions/apitimelinepublic.php:106 actions/publicrss.php:103
 #, php-format
@@ -500,7 +501,7 @@ msgstr "Обновления %s от всех!"
 #: actions/apitimelinetag.php:101 actions/tag.php:66
 #, php-format
 msgid "Notices tagged with %s"
-msgstr "Записи, помеченные %s"
+msgstr "Записи с тегом %s"
 
 #: actions/apitimelinetag.php:107 actions/tagrss.php:64
 #, php-format
@@ -576,7 +577,7 @@ msgstr "Обрезать"
 #: actions/emailsettings.php:238 actions/favor.php:75
 #: actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
-#: actions/invite.php:56 actions/login.php:131 actions/makeadmin.php:66
+#: actions/invite.php:56 actions/login.php:129 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
@@ -746,7 +747,7 @@ msgid "Conversation"
 msgstr "Дискуссия"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:206 lib/searchgroupnav.php:82
+#: lib/profileaction.php:216 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Записи"
 
@@ -1045,11 +1046,12 @@ msgstr "Посылать электронные письма на этот ад�
 #: actions/emailsettings.php:145 actions/smssettings.php:162
 msgid "Make a new email address for posting to; cancels the old one."
 msgstr ""
-"Создать новый электронный адрес для постинга здесь; отменить один из старых."
+"Создать новый адрес электронной почты для отсылки сообщений; отменяет старый "
+"адрес."
 
 #: actions/emailsettings.php:148 actions/smssettings.php:164
 msgid "New"
-msgstr "Новое"
+msgstr "Новый"
 
 #: actions/emailsettings.php:153 actions/imsettings.php:139
 #: actions/smssettings.php:169
@@ -1269,23 +1271,23 @@ msgstr "Указанный пользователь не существует."
 msgid "You can use the local subscription!"
 msgstr "Вы можете использовать локальную подписку!"
 
-#: actions/finishremotesubscribe.php:96
+#: actions/finishremotesubscribe.php:99
 msgid "That user has blocked you from subscribing."
 msgstr "Этот пользователь заблокировал вас на его подписку."
 
-#: actions/finishremotesubscribe.php:106
+#: actions/finishremotesubscribe.php:110
 msgid "You are not authorized."
 msgstr "Вы не авторизованы."
 
-#: actions/finishremotesubscribe.php:109
+#: actions/finishremotesubscribe.php:113
 msgid "Could not convert request token to access token."
 msgstr "Не удаётся преобразовать ключ запроса в ключ доступа."
 
-#: actions/finishremotesubscribe.php:114
+#: actions/finishremotesubscribe.php:118
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr "Удалённый сервис использует неизвестную версию протокола OMB."
 
-#: actions/finishremotesubscribe.php:133 lib/oauthstore.php:306
+#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
 msgid "Error updating remote profile"
 msgstr "Ошибка обновления удалённого профиля"
 
@@ -1481,6 +1483,8 @@ msgid ""
 "If you can't find the group you're looking for, you can [create it](%%action."
 "newgroup%%) yourself."
 msgstr ""
+"Если вы не можете найти группу, которая вас интересует, [создайте её](%% "
+"action.newgroup%%) сами."
 
 #: actions/groupsearch.php:85
 #, php-format
@@ -1491,8 +1495,8 @@ msgstr ""
 "Почему бы не [зарегистрироваться](%%action.register%%), чтобы [создать "
 "группу](%%action.newgroup%%) самому?"
 
-#: actions/groups.php:62 lib/profileaction.php:220 lib/publicgroupnav.php:81
-#: lib/searchgroupnav.php:84 lib/subgroupnav.php:98
+#: actions/groups.php:62 lib/profileaction.php:210 lib/profileaction.php:230
+#: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "Группы"
 
@@ -1510,6 +1514,11 @@ msgid ""
 "for one](%%%%action.groupsearch%%%%) or [start your own!](%%%%action.newgroup"
 "%%%%)"
 msgstr ""
+"Группы на сайте %%%%site.name%%%% позволяют искать и общаться с людьми с "
+"общими интересами. После присоединения к группе и вы сможете отправлять "
+"сообщения до всех её участников, используя команду «!имягруппы». Не видите "
+"группу, которая вас интересует? Попробуйте [найти её](%%%%action.groupsearch%"
+"%%%) или [создайте собственную!](%%%%action.newgroup%%%%)"
 
 #: actions/groups.php:107 actions/usergroups.php:124 lib/groupeditform.php:122
 msgid "Create a new group"
@@ -1820,51 +1829,51 @@ msgstr "%s покинул группу %s"
 msgid "Already logged in."
 msgstr "Вы уже авторизовались."
 
-#: actions/login.php:110 actions/login.php:120
+#: actions/login.php:108 actions/login.php:118
 msgid "Invalid or expired token."
 msgstr "Неверный или устаревший ключ."
 
-#: actions/login.php:143
+#: actions/login.php:146
 msgid "Incorrect username or password."
 msgstr "Некорректное имя или пароль."
 
-#: actions/login.php:149
+#: actions/login.php:152
 msgid "Error setting user. You are probably not authorized."
 msgstr "Ошибка установки пользователя. Вы, вероятно, не авторизованы."
 
-#: actions/login.php:204 actions/login.php:257 lib/action.php:458
+#: actions/login.php:207 actions/login.php:260 lib/action.php:458
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Вход"
 
-#: actions/login.php:243
+#: actions/login.php:246
 msgid "Login to site"
 msgstr "Авторизоваться"
 
-#: actions/login.php:246 actions/profilesettings.php:106
+#: actions/login.php:249 actions/profilesettings.php:106
 #: actions/register.php:423 actions/showgroup.php:236 actions/tagother.php:94
 #: lib/groupeditform.php:152 lib/userprofile.php:131
 msgid "Nickname"
 msgstr "Имя"
 
-#: actions/login.php:249 actions/register.php:428
+#: actions/login.php:252 actions/register.php:428
 #: lib/accountsettingsaction.php:116
 msgid "Password"
 msgstr "Пароль"
 
-#: actions/login.php:252 actions/register.php:477
+#: actions/login.php:255 actions/register.php:477
 msgid "Remember me"
 msgstr "Запомнить меня"
 
-#: actions/login.php:253 actions/register.php:479
+#: actions/login.php:256 actions/register.php:479
 msgid "Automatically login in the future; not for shared computers!"
 msgstr "Автоматическии входить в дальнейшем. Не для общедоступных компьютеров!"
 
-#: actions/login.php:263
+#: actions/login.php:266
 msgid "Lost or forgotten password?"
 msgstr "Потеряли или забыли пароль?"
 
-#: actions/login.php:282
+#: actions/login.php:285
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
@@ -1872,7 +1881,7 @@ msgstr ""
 "По причинам сохранения безопасности введите имя и пароль ещё раз, прежде чем "
 "изменять Ваши установки."
 
-#: actions/login.php:286
+#: actions/login.php:289
 #, php-format
 msgid ""
 "Login with your username and password. Don't have a username yet? [Register]"
@@ -1989,6 +1998,8 @@ msgid ""
 "Why not [register an account](%%%%action.register%%%%) and be the first to "
 "[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
 msgstr ""
+"Почему бы не [зарегистрироваться](%%%%action.register%%%%) и не отправить "
+"первое [сообщение на эту тему](%%%%action.newnotice%%%%?status_textarea=%s)?"
 
 #: actions/noticesearchrss.php:96
 #, php-format
@@ -2090,8 +2101,8 @@ msgstr "Исходящие для %s"
 #: actions/outbox.php:116
 msgid "This is your outbox, which lists private messages you have sent."
 msgstr ""
-"Это ящик Ваших исходящих писем, здесь приватные сообщения, которые отосланы "
-"Вами."
+"Это список исходящих писем, в котором перечислены отправленные вами личные "
+"сообщения."
 
 #: actions/passwordsettings.php:58
 msgid "Change password"
@@ -2819,8 +2830,8 @@ msgid "Invalid profile URL (bad format)"
 msgstr "Неверный URL профиля (плохой формат)"
 
 #: actions/remotesubscribe.php:168
-msgid ""
-"Not a valid profile URL (no YADIS document or no or invalid XRDS defined)."
+#, fuzzy
+msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
 msgstr ""
 "Неверный URL профиля (не YADIS-документ либо не указан или указан неверный "
 "XRDS)."
@@ -2947,6 +2958,9 @@ msgid ""
 "account](%%%%action.register%%%%) and then post something interesting they "
 "would add to their favorites :)"
 msgstr ""
+"%s пока не добавил ни одноз записи в любимые. Почему бы не "
+"[зарегистрироваться](%%%%action.register%%%%) и не написать что-нибудь "
+"интересное, что понравилось бы этому пользователю? :)"
 
 #: actions/showfavorites.php:242
 msgid "This is a way to share what you like."
@@ -3009,7 +3023,7 @@ msgid "Members"
 msgstr "Участники"
 
 #: actions/showgroup.php:386 lib/profileaction.php:117
-#: lib/profileaction.php:148 lib/profileaction.php:226 lib/section.php:95
+#: lib/profileaction.php:148 lib/profileaction.php:236 lib/section.php:95
 #: lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(пока ничего нет)"
@@ -3018,7 +3032,7 @@ msgstr "(пока ничего нет)"
 msgid "All members"
 msgstr "Все участники"
 
-#: actions/showgroup.php:429 lib/profileaction.php:173
+#: actions/showgroup.php:429 lib/profileaction.php:174
 msgid "Statistics"
 msgstr "Статистика"
 
@@ -3233,7 +3247,7 @@ msgstr "Имя вашего сайта, например, «Yourcompany Microblo
 
 #: actions/siteadminpanel.php:274
 msgid "Brought by"
-msgstr ""
+msgstr "Предоставлено"
 
 #: actions/siteadminpanel.php:275
 msgid "Text used for credits link in footer of each page"
@@ -3242,7 +3256,7 @@ msgstr ""
 
 #: actions/siteadminpanel.php:279
 msgid "Brought by URL"
-msgstr ""
+msgstr "URL-адрес поставщика услуг"
 
 #: actions/siteadminpanel.php:280
 msgid "URL used for credits link in footer of each page"
@@ -3597,6 +3611,12 @@ msgid ""
 "featured%%). If you're a [Twitter user](%%action.twittersettings%%), you can "
 "automatically subscribe to people you already follow there."
 msgstr ""
+"Вы сейчас не следите ни за чьими-либо записями; попробуйте подписаться на "
+"знакомых вам людей. Попробуйте использовать [поиск людей](%%action."
+"peoplesearch%%), посмотрите среди учасников групп, которые вас интересуют "
+"или просмотрите список [особых пользователей](%%action.featured%%). Если Вы "
+"пользуетесь [Твиттером](%%action.twittersettings%%), то можете автоматически "
+"подписаться на тех людей, за которыми уже следите там."
 
 #: actions/subscriptions.php:123 actions/subscriptions.php:127
 #, php-format
@@ -3663,7 +3683,7 @@ msgstr ""
 #: actions/tag.php:68
 #, php-format
 msgid "Notices tagged with %s, page %d"
-msgstr "Записи, помеченные %s, страница %d"
+msgstr "Записи с тегом %s, страница %d"
 
 #: actions/tag.php:86
 #, php-format
@@ -4281,7 +4301,7 @@ msgstr "Автор"
 
 #: lib/attachmentlist.php:278
 msgid "Provider"
-msgstr "Поставщик услуг"
+msgstr "Сервис"
 
 #: lib/attachmentnoticesection.php:67
 msgid "Notices where this attachment appears"
@@ -4430,50 +4450,41 @@ msgstr "Есть оповещение."
 msgid "Can't turn on notification."
 msgstr "Есть оповещение."
 
-#: lib/command.php:597
-#, php-format
-msgid "Could not create login token for %s"
-msgstr "Не удаётся создать ключ входа для %s"
-
-#: lib/command.php:602
-#, php-format
-msgid "This link is useable only once, and is good for only 2 minutes: %s"
-msgstr "Эта ссылка действительна только один раз в течение 2 минут: %s"
-
-#: lib/command.php:618
+#: lib/command.php:592
 msgid "You are not subscribed to anyone."
 msgstr "Вы ни на кого не подписаны."
 
-#: lib/command.php:620
+#: lib/command.php:594
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Вы подписаны на этих людей:"
 msgstr[1] "Вы подписаны на этих людей:"
 msgstr[2] "Вы подписаны на этих людей:"
 
-#: lib/command.php:640
+#: lib/command.php:614
 msgid "No one is subscribed to you."
 msgstr "Никто не подписан на вас."
 
-#: lib/command.php:642
+#: lib/command.php:616
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Эти люди подписались на вас:"
 msgstr[1] "Эти люди подписались на вас:"
 msgstr[2] "Эти люди подписались на вас:"
 
-#: lib/command.php:662
+#: lib/command.php:636
 msgid "You are not a member of any groups."
 msgstr "Вы не состоите ни в одной группе."
 
-#: lib/command.php:664
+#: lib/command.php:638
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Вы являетесь участником следующих групп:"
 msgstr[1] "Вы являетесь участником следующих групп:"
 msgstr[2] "Вы являетесь участником следующих групп:"
 
-#: lib/command.php:678
+#: lib/command.php:652
+#, fuzzy
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4492,7 +4503,6 @@ msgid ""
 "reply #<notice_id> - reply to notice with a given id\n"
 "reply <nickname> - reply to the last notice from user\n"
 "join <group> - join group\n"
-"login - Get a link to login to the web interface\n"
 "drop <group> - leave group\n"
 "stats - get your stats\n"
 "stop - same as 'off'\n"
@@ -4584,12 +4594,11 @@ msgid "Upload file"
 msgstr "Загрузить файл"
 
 #: lib/designsettings.php:109
-#, fuzzy
 msgid ""
 "You can upload your personal background image. The maximum file size is 2MB."
 msgstr ""
 "Вы можете загрузить собственное фоновое изображение. Максимальный размер "
-"файла составляет 2Mb."
+"файла составляет 2МБ."
 
 #: lib/designsettings.php:372
 msgid "Bad default color settings: "
@@ -4764,13 +4773,13 @@ msgstr "Неподдерживаемый тип файла"
 
 #: lib/imagefile.php:217
 msgid "MB"
-msgstr ""
+msgstr "МБ"
 
 #: lib/imagefile.php:219
 msgid "kB"
-msgstr ""
+msgstr "КБ"
 
-#: lib/jabber.php:192
+#: lib/jabber.php:191
 #, php-format
 msgid "[%s]"
 msgstr "[%s]"
@@ -5259,7 +5268,7 @@ msgstr "Ваши исходящие сообщения"
 msgid "Tags in %s's notices"
 msgstr "Теги записей пользователя %s"
 
-#: lib/profileaction.php:109 lib/profileaction.php:191 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:192 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "Подписки"
 
@@ -5267,7 +5276,7 @@ msgstr "Подписки"
 msgid "All subscriptions"
 msgstr "Все подписки."
 
-#: lib/profileaction.php:140 lib/profileaction.php:200 lib/subgroupnav.php:90
+#: lib/profileaction.php:140 lib/profileaction.php:201 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "Подписчики"
 
@@ -5275,15 +5284,15 @@ msgstr "Подписчики"
 msgid "All subscribers"
 msgstr "Все подписчики"
 
-#: lib/profileaction.php:177
+#: lib/profileaction.php:178
 msgid "User ID"
 msgstr "ID пользователя"
 
-#: lib/profileaction.php:182
+#: lib/profileaction.php:183
 msgid "Member since"
 msgstr "Регистрация"
 
-#: lib/profileaction.php:235
+#: lib/profileaction.php:245
 msgid "All groups"
 msgstr "Все группы"
 
@@ -5478,7 +5487,7 @@ msgstr "Сообщение"
 
 #: lib/userprofile.php:311
 msgid "Moderate"
-msgstr ""
+msgstr "Модерировать"
 
 #: lib/util.php:825
 msgid "a few seconds ago"
