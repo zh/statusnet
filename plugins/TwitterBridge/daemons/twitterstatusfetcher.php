@@ -109,7 +109,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         $flink->find();
 
         $flinks = array();
-        common_log(LOG_INFO, "hello");
 
         while ($flink->fetch()) {
 

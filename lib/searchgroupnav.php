@@ -79,9 +79,9 @@ class SearchGroupNav extends Widget
         }
         $this->out->menuItem(common_local_url('peoplesearch', $args), _('People'),
             _('Find people on this site'), $action_name == 'peoplesearch', 'nav_search_people');
-        $this->out->menuItem(common_local_url('noticesearch', $args), _('Notice'),
+        $this->out->menuItem(common_local_url('noticesearch', $args), _('Notices'),
             _('Find content of notices'), $action_name == 'noticesearch', 'nav_search_notice');
-        $this->out->menuItem(common_local_url('groupsearch', $args), _('Group'),
+        $this->out->menuItem(common_local_url('groupsearch', $args), _('Groups'),
             _('Find groups on this site'), $action_name == 'groupsearch', 'nav_search_group');
         $this->action->elementEnd('ul');
     }

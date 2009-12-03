@@ -79,7 +79,7 @@ class ApiDirectMessageNewAction extends ApiAuthAction
         $this->source = $this->trimmed('source'); // Not supported by Twitter.
 
         $reserved_sources = array('web', 'omb', 'mail', 'xmpp', 'api');
-        if (empty($thtis->source) || in_array($this->source, $reserved_sources)) {
+        if (empty($this->source) || in_array($this->source, $reserved_sources)) {
             $source = 'api';
         }
 

@@ -392,14 +392,18 @@ class NoticeListItem extends Widget
 
         $name = $location->getName();
 
-        if (empty($name)) {
-            // XXX: Could be a translation issue. Fall back to... something?
-            return;
-        }
-
         $lat = $this->notice->lat;
         $lon = $this->notice->lon;
         $latlon = (!empty($lat) && !empty($lon)) ? $lat.';'.$lon : '';
+
+        if (empty($name)) {
+            $latdms = $this->decimalDegreesToDMS(abs($lat));
+            $londms = $this->decimalDegreesToDMS(abs($lon));
+            $name = sprintf(
+                _('%1$u°%2$u\'%3$u"%4$s %5$u°%6$u\'%7$u"%8$s'),
+                $latdms['deg'],$latdms['min'], $latdms['sec'],($lat>0?_('N'):_('S')),
+                $londms['deg'],$londms['min'], $londms['sec'],($lon>0?_('E'):_('W')));
+        }
 
         $url  = $location->getUrl();
 
@@ -416,6 +420,20 @@ class NoticeListItem extends Widget
                                 $name);
         }
         $this->out->elementEnd('span');
+    }
+
+    function decimalDegreesToDMS($dec)
+    {
+
+        $vars = explode(".",$dec);
+        $deg = $vars[0];
+        $tempma = "0.".$vars[1];
+
+        $tempma = $tempma * 3600;
+        $min = floor($tempma / 60);
+        $sec = $tempma - ($min*60);
+
+        return array("deg"=>$deg,"min"=>$min,"sec"=>$sec);
     }
 
     /**
