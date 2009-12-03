@@ -129,8 +129,6 @@ class DesignadminpanelAction extends AdminPanelAction
 
         $bgimage = $this->saveBackgroundImage();
 
-        common_debug("background image: $bgimage");
-
         static $settings = array('theme', 'logo');
 
         $values = array();
@@ -141,13 +139,28 @@ class DesignadminpanelAction extends AdminPanelAction
 
         $this->validate($values);
 
-        // assert(all values are valid);
+        $oldtheme = common_config('site', 'theme');
 
-        $bgcolor = new WebColor($this->trimmed('design_background'));
-        $ccolor  = new WebColor($this->trimmed('design_content'));
-        $sbcolor = new WebColor($this->trimmed('design_sidebar'));
-        $tcolor  = new WebColor($this->trimmed('design_text'));
-        $lcolor  = new WebColor($this->trimmed('design_links'));
+        $config = new Config();
+
+        $config->query('BEGIN');
+
+        // Only update colors if the theme has not changed.
+
+        if ($oldtheme == $values['theme']) {
+
+            $bgcolor = new WebColor($this->trimmed('design_background'));
+            $ccolor  = new WebColor($this->trimmed('design_content'));
+            $sbcolor = new WebColor($this->trimmed('design_sidebar'));
+            $tcolor  = new WebColor($this->trimmed('design_text'));
+            $lcolor  = new WebColor($this->trimmed('design_links'));
+
+            Config::save('design', 'backgroundcolor', $bgcolor->intValue());
+            Config::save('design', 'contentcolor', $ccolor->intValue());
+            Config::save('design', 'sidebarcolor', $sbcolor->intValue());
+            Config::save('design', 'textcolor', $tcolor->intValue());
+            Config::save('design', 'linkcolor', $lcolor->intValue());
+        }
 
         $onoff = $this->arg('design_background-image_onoff');
 
@@ -162,9 +175,11 @@ class DesignadminpanelAction extends AdminPanelAction
 
         $tile = $this->boolean('design_background-image_repeat');
 
-        $config = new Config();
+        // Hack to use Design's bit setter
+        $scratch = new Design();
+        $scratch->setDisposition($on, $off, $tile);
 
-        $config->query('BEGIN');
+        Config::save('design', 'disposition', $scratch->disposition);
 
         foreach ($settings as $setting) {
             Config::save('site', $setting, $values[$setting]);
@@ -174,21 +189,7 @@ class DesignadminpanelAction extends AdminPanelAction
             Config::save('design', 'backgroundimage', $bgimage);
         }
 
-        Config::save('design', 'backgroundcolor', $bgcolor->intValue());
-        Config::save('design', 'contentcolor', $ccolor->intValue());
-        Config::save('design', 'sidebarcolor', $sbcolor->intValue());
-        Config::save('design', 'textcolor', $tcolor->intValue());
-        Config::save('design', 'linkcolor', $lcolor->intValue());
-
-        // Hack to use Design's bit setter
-        $scratch = new Design();
-        $scratch->setDisposition($on, $off, $tile);
-
-        Config::save('design', 'disposition', $scratch->disposition);
-
         $config->query('COMMIT');
-
-        return;
     }
 
     /**
@@ -212,6 +213,10 @@ class DesignadminpanelAction extends AdminPanelAction
         }
 
         // XXX: Should we restore the default dir settings, etc.? --Z
+
+        // XXX: I can't get it to show the new settings without forcing
+        // this terrible reload -- FIX ME!
+        common_redirect(common_local_url('designadminpanel'), 303);
     }
 
     /**
