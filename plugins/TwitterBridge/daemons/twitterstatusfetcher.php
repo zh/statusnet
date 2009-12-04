@@ -213,7 +213,9 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
             $notice = $this->saveStatus($status, $flink);
 
-            common_broadcast_notice($notice);
+            if (!empty($notice)) {
+                common_broadcast_notice($notice);
+            }
         }
 
         // Okay, record the time we synced with Twitter for posterity
