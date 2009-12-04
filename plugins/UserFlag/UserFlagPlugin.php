@@ -68,7 +68,7 @@ class UserFlagPlugin extends Plugin
         return true;
     }
 
-    function onRouterInitialized(&$m) {
+    function onRouterInitialized($m) {
         $m->connect('main/flag/profile', array('action' => 'flagprofile'));
         $m->connect('admin/profile/flag', array('action' => 'adminprofileflag'));
         return true;
