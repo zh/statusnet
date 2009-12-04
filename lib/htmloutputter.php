@@ -361,6 +361,25 @@ class HTMLOutputter extends XMLOutputter
     }
 
     /**
+     * output a script (almost always javascript) tag with inline
+     * code.
+     *
+     * @param string $code          relative or absolute script path
+     * @param string $type         'type' attribute value of the tag
+     *
+     * @return void
+     */
+
+    function inlineScript($code, $type='text/javascript')
+    {
+        $this->elementStart('script', array('type' => $type));
+        $this->raw('/*<![CDATA[*/ '); // XHTML compat for Safari
+        $this->raw($code);
+        $this->raw(' /*]]>*/'); // XHTML compat for Safari
+        $this->elementEnd('script');
+    }
+
+    /**
      * output a css link
      *
      * @param string $src     relative path within the theme directory, or an absolute path
@@ -413,7 +432,6 @@ class HTMLOutputter extends XMLOutputter
             $this->element('p', 'form_guide', $instructions);
         }
     }
-
 
     /**
     * Internal script to autofocus the given element on page onload.
