@@ -112,6 +112,11 @@ class MapstractionPlugin extends Plugin
     {
         $actionName = $action->trimmed('action');
 
+        if (!in_array($actionName,
+                      array('showstream', 'all', 'usermap', 'allmap'))) {
+            return true;
+        }
+
         switch ($this->provider)
         {
         case 'cloudmade':
@@ -143,9 +148,19 @@ class MapstractionPlugin extends Plugin
 
         $action->script(common_path('plugins/Mapstraction/usermap.js'));
 
-        $action->elementStart('script', array('type' => 'text/javascript'));
-        $action->raw(sprintf('var _provider = "%s";', $this->provider));
-        $action->elementEnd('script');
+        $action->inlineScript(sprintf('var _provider = "%s";', $this->provider));
+
+        // usermap and allmap handle this themselves
+
+        if (in_array($actionName,
+                     array('showstream', 'all'))) {
+            $action->inlineScript('$(document).ready(function() { '.
+                                  ' var user = null; '.
+                                  (($actionName == 'showstream') ? ' user = scrapeUser(); ' : '') .
+                                  ' var notices = scrapeNotices(user); ' .
+                                  ' showMapstraction($("#map_canvas"), notices); '.
+                                  '});');
+        }
 
         return true;
     }
