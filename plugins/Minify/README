@@ -1,0 +1,20 @@
+The Minify plugin minifies your CSS and Javascript, removing whitespace and comments.
+
+Note that if enabled this plugin and use a theme server
+    ($config['theme']['server']), your theme server will not be used.
+
+Installation
+============
+add "addPlugin('minify',
+    array('setting'=>'value', 'setting2'=>'value2', ...);"
+to the bottom of your config.php
+
+Settings
+========
+None at the moment
+
+Example
+=======
+
+addPlugin('minify', array());
+
