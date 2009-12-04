@@ -90,6 +90,7 @@ class MapstractionPlugin extends Plugin
         {
         case 'AllmapAction':
         case 'UsermapAction':
+        case 'MapAction':
             include_once INSTALLDIR.'/plugins/Mapstraction/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
         default:
