@@ -128,12 +128,9 @@ class MapAction extends OwnerDesignAction
             }
         }
 
-        $this->elementStart('script', array('type' => 'text/javascript'));
-        $this->raw('/*<![CDATA[*/'); // XHTML compat for Safari
-        $this->raw('var _notices = ' . json_encode($jsonArray).'; ');
-        $this->raw('showMapstraction($("#map_canvas"),_notices);');
-        $this->raw('/*]]>*/'); // XHTML compat for Safari
-        $this->elementEnd('script');
+        $this->inlineScript('$(document).ready(function() { '.
+                            ' var _notices = ' . json_encode($jsonArray).'; ' .
+                            'showMapstraction($("#map_canvas"), _notices); });');
 
         return true;
     }
