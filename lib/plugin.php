@@ -76,4 +76,14 @@ class Plugin
     {
         return true;
     }
+
+    protected function log($level, $msg)
+    {
+        common_log($level, get_class($this) . ': '.$msg);
+    }
+
+    protected function debug($msg)
+    {
+        $this->log(LOG_DEBUG, $msg);
+    }
 }

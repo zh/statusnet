@@ -574,3 +574,24 @@ EndShortenUrl: After a URL has been shortened
 - $shortenerName: name of the requested shortener
 - $shortenedUrl: short version of the url
 
+StartCssLinkElement: Before a <link rel="stylesheet"..> element is written
+- $action
+- &$src
+- &$theme
+- &$media
+
+EndCssLinkElement: After a <link rel="stylesheet"..> element is written
+- $action
+- $src
+- $theme
+- $media
+
+StartScriptElement: Before a <script...> element is written
+- $action
+- &$src
+- &$type
+
+EndScriptElement: After a <script...> element is written
+- $action
+- $src
+- $type

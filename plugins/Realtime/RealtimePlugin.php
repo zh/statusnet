@@ -120,7 +120,7 @@ class RealtimePlugin extends Plugin
 
     function onEndShowStatusNetStyles($action)
     {
-        $action->cssLink(common_path('plugins/Realtime/realtimeupdate.css'), 
+        $action->cssLink(common_path('plugins/Realtime/realtimeupdate.css'),
                          null, 'screen, projection, tv');
         return true;
     }
@@ -291,13 +291,6 @@ class RealtimePlugin extends Plugin
         $nt = null;
 
         return $tags;
-    }
-
-    // Push this up to Plugin
-
-    function log($level, $msg)
-    {
-        common_log($level, get_class($this) . ': '.$msg);
     }
 
     function _getScripts()
