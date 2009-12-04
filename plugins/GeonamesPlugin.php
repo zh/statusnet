@@ -54,6 +54,7 @@ class GeonamesPlugin extends Plugin
     public $host     = 'ws.geonames.org';
     public $username = null;
     public $token    = null;
+    public $expiry   = 7776000; // 90-day expiry
 
     /**
      * convert a name into a Location object
@@ -197,6 +198,9 @@ class GeonamesPlugin extends Plugin
 
     function onLocationFromLatLon($lat, $lon, $language, &$location)
     {
+        $lat = rtrim($lat, "0");
+        $lon = rtrim($lon, "0");
+
         $loc = $this->getCache(array('lat' => $lat,
                                      'lon' => $lon));
 
@@ -380,7 +384,11 @@ class GeonamesPlugin extends Plugin
             return null;
         }
 
-        return $c->get($this->cacheKey($attrs));
+        $key = $this->cacheKey($attrs);
+
+        $value = $c->get($key);
+
+        return $value;
     }
 
     function setCache($attrs, $loc)
@@ -391,18 +399,11 @@ class GeonamesPlugin extends Plugin
             return null;
         }
 
-        $c->set($this->cacheKey($attrs), $loc);
-    }
+        $key = $this->cacheKey($attrs);
 
-    function clearCache($attrs)
-    {
-        $c = common_memcache();
+        $result = $c->set($key, $loc, 0, time() + $this->expiry);
 
-        if (empty($c)) {
-            return null;
-        }
-
-        $c->delete($this->cacheKey($attrs));
+        return $result;
     }
 
     function cacheKey($attrs)
