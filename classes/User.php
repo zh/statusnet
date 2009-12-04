@@ -533,21 +533,7 @@ class User extends Memcached_DataObject
 
         // Cancel their subscription, if it exists
 
-        $result = subs_unsubscribe_to($this, $other);
-
-        if ($result !== true) {
-            common_log(LOG_WARNING,
-                sprintf(
-                    "Error trying to unsubscribe profile ID %d (%s) from user ID %d (%s): %s",
-                    $other->id,
-                    $other->nickname,
-                    $this->id,
-                    $this->nickname,
-                    $result
-                )
-            );
-            return false;
-        }
+        subs_unsubscribe_to($other->getUser(),$this->getProfile());
 
         $block->query('COMMIT');
 
