@@ -350,14 +350,17 @@ class HTMLOutputter extends XMLOutputter
      */
     function script($src, $type='text/javascript')
     {
-        $url = parse_url($src);
-        if( empty($url->scheme) && empty($url->host) && empty($url->query) && empty($url->fragment))
-        {
-            $src = common_path($src) . '?version=' . STATUSNET_VERSION;
+        if(Event::handle('StartScriptElement', array($this,&$src,&$type))) {
+            $url = parse_url($src);
+            if( empty($url->scheme) && empty($url->host) && empty($url->query) && empty($url->fragment))
+            {
+                $src = common_path($src) . '?version=' . STATUSNET_VERSION;
+            }
+            $this->element('script', array('type' => $type,
+                                                   'src' => $src),
+                                   ' ');
+            Event::handle('EndScriptElement', array($this,$src,$type));
         }
-        $this->element('script', array('type' => $type,
-                                               'src' => $src),
-                               ' ');
     }
 
     /**
@@ -371,19 +374,22 @@ class HTMLOutputter extends XMLOutputter
      */
     function cssLink($src,$theme=null,$media=null)
     {
-        $url = parse_url($src);
-        if( empty($url->scheme) && empty($url->host) && empty($url->query) && empty($url->fragment))
-        {
-            if(file_exists(Theme::file($src,$theme))){
-               $src = Theme::path($src, $theme) . '?version=' . STATUSNET_VERSION;
-            }else{
-               $src = common_path($src);
+        if(Event::handle('StartCssLinkElement', array($this,&$src,&$theme,&$media))) {
+            $url = parse_url($src);
+            if( empty($url->scheme) && empty($url->host) && empty($url->query) && empty($url->fragment))
+            {
+                if(file_exists(Theme::file($src,$theme))){
+                   $src = Theme::path($src, $theme) . '?version=' . STATUSNET_VERSION;
+                }else{
+                   $src = common_path($src);
+                }
             }
+            $this->element('link', array('rel' => 'stylesheet',
+                                    'type' => 'text/css',
+                                    'href' => $src,
+                                    'media' => $media));
+            Event::handle('EndCssLinkElement', array($this,$src,$theme,$media));
         }
-        $this->element('link', array('rel' => 'stylesheet',
-                                'type' => 'text/css',
-                                'href' => $src,
-                                'media' => $media));
     }
 
     /**
