@@ -51,6 +51,10 @@ class GeonamesPlugin extends Plugin
 {
     const LOCATION_NS = 1;
 
+    public $host     = 'ws.geonames.org';
+    public $username = null;
+    public $token    = null;
+
     /**
      * convert a name into a Location object
      *
@@ -75,12 +79,11 @@ class GeonamesPlugin extends Plugin
 
         // XXX: break down a name by commas, narrow by each
 
-        $str = http_build_query(array('maxRows' => 1,
-                                      'q' => $name,
-                                      'lang' => $language,
-                                      'type' => 'json'));
-
-        $result = $client->get('http://ws.geonames.org/search?'.$str);
+        $result = $client->get($this->wsUrl('search',
+                                            array('maxRows' => 1,
+                                                  'q' => $name,
+                                                  'lang' => $language,
+                                                  'type' => 'json')));
 
         if ($result->isOk()) {
             $rj = json_decode($result->getBody());
@@ -135,10 +138,9 @@ class GeonamesPlugin extends Plugin
 
         $client = HTTPClient::start();
 
-        $str = http_build_query(array('geonameId' => $id,
-                                      'lang' => $language));
-
-        $result = $client->get('http://ws.geonames.org/hierarchyJSON?'.$str);
+        $result = $client->get($this->wsUrl('hierarchyJSON',
+                                            array('geonameId' => $id,
+                                                  'lang' => $language)));
 
         if ($result->isOk()) {
 
@@ -205,12 +207,11 @@ class GeonamesPlugin extends Plugin
 
         $client = HTTPClient::start();
 
-        $str = http_build_query(array('lat' => $lat,
-                                      'lng' => $lon,
-                                      'lang' => $language));
-
         $result =
-          $client->get('http://ws.geonames.org/findNearbyPlaceNameJSON?'.$str);
+          $client->get($this->wsUrl('findNearbyPlaceNameJSON',
+                                    array('lat' => $lat,
+                                          'lng' => $lon,
+                                          'lang' => $language)));
 
         if ($result->isOk()) {
 
@@ -286,10 +287,9 @@ class GeonamesPlugin extends Plugin
 
         $client = HTTPClient::start();
 
-        $str = http_build_query(array('geonameId' => $location->location_id,
-                                      'lang' => $language));
-
-        $result = $client->get('http://ws.geonames.org/hierarchyJSON?'.$str);
+        $result = $client->get($this->wsUrl('hierarchyJSON',
+                                            array('geonameId' => $location->location_id,
+                                                  'lang' => $language)));
 
         if ($result->isOk()) {
 
@@ -376,7 +376,7 @@ class GeonamesPlugin extends Plugin
     {
         $c = common_memcache();
 
-        if (!$c) {
+        if (empty($c)) {
             return null;
         }
 
@@ -387,7 +387,7 @@ class GeonamesPlugin extends Plugin
     {
         $c = common_memcache();
 
-        if (!$c) {
+        if (empty($c)) {
             return null;
         }
 
@@ -398,7 +398,7 @@ class GeonamesPlugin extends Plugin
     {
         $c = common_memcache();
 
-        if (!$c) {
+        if (empty($c)) {
             return null;
         }
 
@@ -410,5 +410,20 @@ class GeonamesPlugin extends Plugin
         return common_cache_key('geonames:'.
                                 implode(',', array_keys($attrs)) . ':'.
                                 common_keyize(implode(',', array_values($attrs))));
+    }
+
+    function wsUrl($method, $params)
+    {
+        if (!empty($this->username)) {
+            $params['username'] = $this->username;
+        }
+
+        if (!empty($this->token)) {
+            $params['token'] = $this->token;
+        }
+
+        $str = http_build_query($params);
+
+        return 'http://'.$this->host.'/'.$method.'?'.$str;
     }
 }
