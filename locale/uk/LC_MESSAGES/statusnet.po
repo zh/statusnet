@@ -2,7 +2,6 @@
 #
 # Author@translatewiki.net: AS
 # Author@translatewiki.net: Boogie
-# Author@translatewiki.net: Prima klasy4na
 # --
 # This file is distributed under the same license as the StatusNet package.
 #
@@ -10,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-27 23:50+0000\n"
-"PO-Revision-Date: 2009-11-28 19:51:04+0000\n"
+"POT-Creation-Date: 2009-12-02 23:18+0000\n"
+"PO-Revision-Date: 2009-12-02 23:20:56+0000\n"
 "Language-Team: Ukrainian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59523); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59683); Translate extension (2009-11-29)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: out-statusnet\n"
@@ -574,7 +573,7 @@ msgstr "Втяти"
 #: actions/emailsettings.php:238 actions/favor.php:75
 #: actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
-#: actions/invite.php:56 actions/login.php:131 actions/makeadmin.php:66
+#: actions/invite.php:56 actions/login.php:129 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
@@ -745,7 +744,7 @@ msgid "Conversation"
 msgstr "Розмова"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:206 lib/searchgroupnav.php:82
+#: lib/profileaction.php:216 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Дописи"
 
@@ -911,11 +910,11 @@ msgstr "Посилання"
 
 #: actions/designadminpanel.php:572 lib/designsettings.php:247
 msgid "Use defaults"
-msgstr "За замовчанням"
+msgstr "За замовч."
 
 #: actions/designadminpanel.php:573 lib/designsettings.php:248
 msgid "Restore default designs"
-msgstr "Оновити налаштування за замовчанням"
+msgstr "Оновити налаштування за замовчуванням"
 
 #: actions/designadminpanel.php:579 lib/designsettings.php:254
 msgid "Reset back to default"
@@ -989,7 +988,7 @@ msgstr "Налаштування пошти"
 #: actions/emailsettings.php:71
 #, php-format
 msgid "Manage how you get email from %%site.name%%."
-msgstr "Зазначте, як само ви бажаєте отримувати листи з %%site.name%%."
+msgstr "Зазначте, як саме Ви бажаєте отримувати листи з %%site.name%%."
 
 #: actions/emailsettings.php:100 actions/imsettings.php:100
 #: actions/smssettings.php:104
@@ -1257,23 +1256,23 @@ msgstr "Користувача, який слідкував за Вашими п
 msgid "You can use the local subscription!"
 msgstr "Ви можете користуватись локальними підписками!"
 
-#: actions/finishremotesubscribe.php:96
+#: actions/finishremotesubscribe.php:99
 msgid "That user has blocked you from subscribing."
 msgstr "Цей користувач заблокував Вашу можливість підписатись."
 
-#: actions/finishremotesubscribe.php:106
+#: actions/finishremotesubscribe.php:110
 msgid "You are not authorized."
 msgstr "Не авторизовано."
 
-#: actions/finishremotesubscribe.php:109
+#: actions/finishremotesubscribe.php:113
 msgid "Could not convert request token to access token."
 msgstr "Не вдалося перетворити токени запиту на токени звернення."
 
-#: actions/finishremotesubscribe.php:114
+#: actions/finishremotesubscribe.php:118
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr "Невідома версія протоколу OMB."
 
-#: actions/finishremotesubscribe.php:133 lib/oauthstore.php:306
+#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
 msgid "Error updating remote profile"
 msgstr "Помилка при оновленні віддаленого профілю"
 
@@ -1482,8 +1481,8 @@ msgstr ""
 "Чому б не [зареєструватись](%%action.register%%) і не [створити](%%action."
 "newgroup%%) свою власну групу!"
 
-#: actions/groups.php:62 lib/profileaction.php:220 lib/publicgroupnav.php:81
-#: lib/searchgroupnav.php:84 lib/subgroupnav.php:98
+#: actions/groups.php:62 lib/profileaction.php:210 lib/profileaction.php:230
+#: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "Групи"
 
@@ -1686,7 +1685,7 @@ msgstr ""
 msgid ""
 "Use this form to invite your friends and colleagues to use this service."
 msgstr ""
-"Скористуйтесь цією формою аби запросити Ваших друзів та колег до нашого "
+"Скористайтесь цією формою аби запросити Ваших друзів та колег до нашого "
 "сервісу."
 
 #: actions/invite.php:187
@@ -1817,53 +1816,53 @@ msgstr "%s залишив групу %s"
 msgid "Already logged in."
 msgstr "Тепер Ви увійшли."
 
-#: actions/login.php:110 actions/login.php:120
+#: actions/login.php:108 actions/login.php:118
 msgid "Invalid or expired token."
 msgstr "Недійсний або неправильний токен."
 
-#: actions/login.php:143
+#: actions/login.php:146
 msgid "Incorrect username or password."
 msgstr "Неточне ім’я або пароль."
 
-#: actions/login.php:149
+#: actions/login.php:152
 msgid "Error setting user. You are probably not authorized."
 msgstr "Помилка. Можливо, Ви не авторизовані."
 
-#: actions/login.php:204 actions/login.php:257 lib/action.php:458
+#: actions/login.php:207 actions/login.php:260 lib/action.php:458
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Увійти"
 
-#: actions/login.php:243
+#: actions/login.php:246
 msgid "Login to site"
 msgstr "Вхід на сайт"
 
-#: actions/login.php:246 actions/profilesettings.php:106
+#: actions/login.php:249 actions/profilesettings.php:106
 #: actions/register.php:423 actions/showgroup.php:236 actions/tagother.php:94
 #: lib/groupeditform.php:152 lib/userprofile.php:131
 msgid "Nickname"
 msgstr "Ім’я користувача"
 
-#: actions/login.php:249 actions/register.php:428
+#: actions/login.php:252 actions/register.php:428
 #: lib/accountsettingsaction.php:116
 msgid "Password"
 msgstr "Пароль"
 
-#: actions/login.php:252 actions/register.php:477
+#: actions/login.php:255 actions/register.php:477
 msgid "Remember me"
 msgstr "Пам’ятати мене"
 
-#: actions/login.php:253 actions/register.php:479
+#: actions/login.php:256 actions/register.php:479
 msgid "Automatically login in the future; not for shared computers!"
 msgstr ""
 "Автоматично входити у майбутньому; не для комп’ютерів загального "
 "користування!"
 
-#: actions/login.php:263
+#: actions/login.php:266
 msgid "Lost or forgotten password?"
 msgstr "Загубили або забули пароль?"
 
-#: actions/login.php:282
+#: actions/login.php:285
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
@@ -1871,7 +1870,7 @@ msgstr ""
 "З міркувань безпеки, будь ласка, введіть ще раз ім’я та пароль, перед тим як "
 "змінювати налаштування."
 
-#: actions/login.php:286
+#: actions/login.php:289
 #, php-format
 msgid ""
 "Login with your username and password. Don't have a username yet? [Register]"
@@ -2061,7 +2060,7 @@ msgstr " (безкоштовно)"
 
 #: actions/othersettings.php:116
 msgid "Shorten URLs with"
-msgstr "Скорочені URL-адреси з"
+msgstr "Зручні URL"
 
 #: actions/othersettings.php:117
 msgid "Automatic shortening service to use."
@@ -2298,7 +2297,7 @@ msgstr "Налаштування профілю"
 msgid ""
 "You can update your personal profile info here so people know more about you."
 msgstr ""
-"Ви можете доповнити свій особистий профіль і люди знатимуть про Вас більше."
+"Ви можете заповнити свій особистий профіль і люди знатимуть про Вас більше."
 
 #: actions/profilesettings.php:99
 msgid "Profile information"
@@ -2307,7 +2306,7 @@ msgstr "Інформація профілю"
 #: actions/profilesettings.php:108 lib/groupeditform.php:154
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr ""
-"1-64 літери нижнього регістра і цифри, ніякої пунктуації або інтервалів"
+"1-64 літери нижнього регістру і цифри, ніякої пунктуації або інтервалів"
 
 #: actions/profilesettings.php:111 actions/register.php:447
 #: actions/showgroup.php:247 actions/tagother.php:104
@@ -2381,8 +2380,7 @@ msgstr "За яким часовим поясом Ви живете?"
 msgid ""
 "Automatically subscribe to whoever subscribes to me (best for non-humans)"
 msgstr ""
-"Автоматично підписуватись до тих, хто підписався до мене. (Якщо Ви — бот, то "
-"це саме для Вас. Слава роботам!)"
+"Автоматично підписуватись до тих, хто підписався до мене. (Слава роботам!)"
 
 #: actions/profilesettings.php:221 actions/register.php:223
 #, php-format
@@ -2720,7 +2718,7 @@ msgstr "Використовується лише для оновлень, ог�
 
 #: actions/register.php:449
 msgid "Longer name, preferably your \"real\" name"
-msgstr "Довше ім’я, звичайно ж Ваше \"справжнє\" ім’я :)"
+msgstr "Повне ім’я, звісно ж Ваше справжнє ім’я :)"
 
 #: actions/register.php:493
 msgid "My text and files are available under "
@@ -2825,8 +2823,8 @@ msgid "Invalid profile URL (bad format)"
 msgstr "Недійсна URL-адреса профілю (неправильний формат)"
 
 #: actions/remotesubscribe.php:168
-msgid ""
-"Not a valid profile URL (no YADIS document or no or invalid XRDS defined)."
+#, fuzzy
+msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
 msgstr ""
 "Це недійсна URL-адреса профілю (немає документа YADIS; немає або помилкове "
 "визначення XRDS)."
@@ -3019,7 +3017,7 @@ msgid "Members"
 msgstr "Учасники"
 
 #: actions/showgroup.php:386 lib/profileaction.php:117
-#: lib/profileaction.php:148 lib/profileaction.php:226 lib/section.php:95
+#: lib/profileaction.php:148 lib/profileaction.php:236 lib/section.php:95
 #: lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(Пусто)"
@@ -3028,7 +3026,7 @@ msgstr "(Пусто)"
 msgid "All members"
 msgstr "Всі учасники"
 
-#: actions/showgroup.php:429 lib/profileaction.php:173
+#: actions/showgroup.php:429 lib/profileaction.php:174
 msgid "Statistics"
 msgstr "Статистика"
 
@@ -3265,15 +3263,15 @@ msgstr "Локаль"
 
 #: actions/siteadminpanel.php:301
 msgid "Default timezone"
-msgstr "Часовий пояс за замовчанням"
+msgstr "Часовий пояс за замовчуванням"
 
 #: actions/siteadminpanel.php:302
 msgid "Default timezone for the site; usually UTC."
-msgstr "Часовий пояс за замовчанням для сайту; зазвичай UTC."
+msgstr "Часовий пояс за замовчуванням для сайту; зазвичай UTC."
 
 #: actions/siteadminpanel.php:308
 msgid "Default site language"
-msgstr "Мова сайту за замовчанням"
+msgstr "Мова сайту за замовчуванням"
 
 #: actions/siteadminpanel.php:316
 msgid "URLs"
@@ -3748,7 +3746,7 @@ msgstr "Помилковий текст привітання. Максималь
 #: actions/useradminpanel.php:165
 #, php-format
 msgid "Invalid default subscripton: '%1$s' is not user."
-msgstr "Помилкова підписка за замовчанням: '%1$s' не є користувачем."
+msgstr "Помилкова підписка за замовчуванням: '%1$s' не є користувачем."
 
 #: actions/useradminpanel.php:218 lib/accountsettingsaction.php:108
 #: lib/personalgroupnav.php:109
@@ -3777,7 +3775,7 @@ msgstr "Текст привітання нових користувачів (255
 
 #: actions/useradminpanel.php:241
 msgid "Default subscription"
-msgstr "Підписка за замовчанням"
+msgstr "Підписка за замовчуванням"
 
 #: actions/useradminpanel.php:242
 msgid "Automatically subscribe new users to this user."
@@ -4195,7 +4193,7 @@ msgstr "Контакт"
 
 #: lib/action.php:741
 msgid "Badge"
-msgstr "«Розштовхати»"
+msgstr "Бедж"
 
 #: lib/action.php:769
 msgid "StatusNet software license"
@@ -4441,51 +4439,41 @@ msgstr "Сповіщення увімкнуто."
 msgid "Can't turn on notification."
 msgstr "Не можна увімкнути сповіщення."
 
-#: lib/command.php:597
-#, php-format
-msgid "Could not create login token for %s"
-msgstr "Не вдалося створити токен входу для %s"
-
-#: lib/command.php:602
-#, php-format
-msgid "This link is useable only once, and is good for only 2 minutes: %s"
-msgstr ""
-"Це посилання можна використати лише раз, воно дійсне протягом 2 хвилин: %s"
-
-#: lib/command.php:618
+#: lib/command.php:592
 msgid "You are not subscribed to anyone."
 msgstr "Ви не маєте жодних підписок."
 
-#: lib/command.php:620
+#: lib/command.php:594
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Ви підписані до цієї особи:"
 msgstr[1] "Ви підписані до цих людей:"
 msgstr[2] "Ви підписані до цих людей:"
 
-#: lib/command.php:640
+#: lib/command.php:614
 msgid "No one is subscribed to you."
 msgstr "До Вас ніхто не підписаний."
 
-#: lib/command.php:642
+#: lib/command.php:616
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Ця особа є підписаною до Вас:"
 msgstr[1] "Ці люди підписані до Вас:"
 msgstr[2] "Ці люди підписані до Вас:"
 
-#: lib/command.php:662
+#: lib/command.php:636
 msgid "You are not a member of any groups."
 msgstr "Ви не є учасником жодної групи."
 
-#: lib/command.php:664
+#: lib/command.php:638
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Ви є учасником групи:"
 msgstr[1] "Ви є учасником таких груп:"
 msgstr[2] "Ви є учасником таких груп:"
 
-#: lib/command.php:678
+#: lib/command.php:652
+#, fuzzy
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4504,7 +4492,6 @@ msgid ""
 "reply #<notice_id> - reply to notice with a given id\n"
 "reply <nickname> - reply to the last notice from user\n"
 "join <group> - join group\n"
-"login - Get a link to login to the web interface\n"
 "drop <group> - leave group\n"
 "stats - get your stats\n"
 "stop - same as 'off'\n"
@@ -4780,7 +4767,7 @@ msgstr "Мб"
 msgid "kB"
 msgstr "кб"
 
-#: lib/jabber.php:192
+#: lib/jabber.php:191
 #, php-format
 msgid "[%s]"
 msgstr "[%s]"
@@ -5185,7 +5172,7 @@ msgstr "Зах."
 
 #: lib/noticelist.php:411
 msgid "at"
-msgstr "о"
+msgstr "в"
 
 #: lib/noticelist.php:506
 msgid "in context"
@@ -5268,7 +5255,7 @@ msgstr "Надіслані вами повідомлення"
 msgid "Tags in %s's notices"
 msgstr "Теґи у дописах %s"
 
-#: lib/profileaction.php:109 lib/profileaction.php:191 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:192 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "Підписки"
 
@@ -5276,7 +5263,7 @@ msgstr "Підписки"
 msgid "All subscriptions"
 msgstr "Всі підписки"
 
-#: lib/profileaction.php:140 lib/profileaction.php:200 lib/subgroupnav.php:90
+#: lib/profileaction.php:140 lib/profileaction.php:201 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "Підписчики"
 
@@ -5284,15 +5271,15 @@ msgstr "Підписчики"
 msgid "All subscribers"
 msgstr "Всі підписчики"
 
-#: lib/profileaction.php:177
+#: lib/profileaction.php:178
 msgid "User ID"
 msgstr "ІД"
 
-#: lib/profileaction.php:182
+#: lib/profileaction.php:183
 msgid "Member since"
 msgstr "З нами від"
 
-#: lib/profileaction.php:235
+#: lib/profileaction.php:245
 msgid "All groups"
 msgstr "Всі групи"
 

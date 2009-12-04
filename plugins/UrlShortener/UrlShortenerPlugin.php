@@ -68,14 +68,6 @@ abstract class UrlShortenerPlugin extends Plugin
         return $response->getBody();
     }
 
-    protected function tidy($response) {
-        $response = str_replace('&nbsp;', ' ', $response);
-        $config = array('output-xhtml' => true);
-        $tidy = new tidy;
-        $tidy->parseString($response, $config, 'utf8');
-        $tidy->cleanRepair();
-        return (string)$tidy;
-    }
     //------------Below are the methods that connect StatusNet to the implementing Url Shortener plugin------------\\
 
     function onInitializePlugin(){

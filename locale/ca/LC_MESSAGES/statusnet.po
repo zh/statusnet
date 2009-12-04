@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-27 23:50+0000\n"
-"PO-Revision-Date: 2009-11-28 19:49:54+0000\n"
+"POT-Creation-Date: 2009-12-02 23:18+0000\n"
+"PO-Revision-Date: 2009-12-02 23:19:11+0000\n"
 "Language-Team: Catalan\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59523); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59683); Translate extension (2009-11-29)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: out-statusnet\n"
@@ -573,7 +573,7 @@ msgstr "Crop"
 #: actions/emailsettings.php:238 actions/favor.php:75
 #: actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
-#: actions/invite.php:56 actions/login.php:131 actions/makeadmin.php:66
+#: actions/invite.php:56 actions/login.php:129 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
@@ -748,7 +748,7 @@ msgid "Conversation"
 msgstr "Conversa"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:206 lib/searchgroupnav.php:82
+#: lib/profileaction.php:216 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Avisos"
 
@@ -1270,25 +1270,25 @@ msgstr "L'usuari que vols seguir no existeix."
 msgid "You can use the local subscription!"
 msgstr "Pots utilitzar la subscripció local!"
 
-#: actions/finishremotesubscribe.php:96
+#: actions/finishremotesubscribe.php:99
 msgid "That user has blocked you from subscribing."
 msgstr "Aquest usuari t'ha bloquejat com a subscriptor."
 
-#: actions/finishremotesubscribe.php:106
+#: actions/finishremotesubscribe.php:110
 msgid "You are not authorized."
 msgstr "No esteu autoritzat."
 
-#: actions/finishremotesubscribe.php:109
+#: actions/finishremotesubscribe.php:113
 #, fuzzy
 msgid "Could not convert request token to access token."
 msgstr "No s'han pogut convertir els senyals de petició a senyals d'accés."
 
-#: actions/finishremotesubscribe.php:114
+#: actions/finishremotesubscribe.php:118
 #, fuzzy
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr "Versió desconeguda del protocol OMB."
 
-#: actions/finishremotesubscribe.php:133 lib/oauthstore.php:306
+#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
 msgid "Error updating remote profile"
 msgstr "Error en actualitzar el perfil remot"
 
@@ -1461,7 +1461,7 @@ msgstr "Admin"
 
 #: actions/groupmembers.php:473
 msgid "Make this user an admin"
-msgstr ""
+msgstr "Fes l'usuari administrador"
 
 #: actions/grouprss.php:133
 #, fuzzy, php-format
@@ -1500,8 +1500,8 @@ msgid ""
 "action.newgroup%%) yourself!"
 msgstr ""
 
-#: actions/groups.php:62 lib/profileaction.php:220 lib/publicgroupnav.php:81
-#: lib/searchgroupnav.php:84 lib/subgroupnav.php:98
+#: actions/groups.php:62 lib/profileaction.php:210 lib/profileaction.php:230
+#: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "Grups"
 
@@ -1526,7 +1526,7 @@ msgstr "Crear nou grup"
 
 #: actions/groupunblock.php:91
 msgid "Only an admin can unblock group members."
-msgstr ""
+msgstr "Només un administrador pot desblocar els membres del grup."
 
 #: actions/groupunblock.php:95
 #, fuzzy
@@ -1834,55 +1834,55 @@ msgstr "%s ha abandonat el grup %s"
 msgid "Already logged in."
 msgstr "Ja estàs connectat."
 
-#: actions/login.php:110 actions/login.php:120
+#: actions/login.php:108 actions/login.php:118
 #, fuzzy
 msgid "Invalid or expired token."
 msgstr "El contingut de l'avís és invàlid"
 
-#: actions/login.php:143
+#: actions/login.php:146
 msgid "Incorrect username or password."
 msgstr "Nom d'usuari o contrasenya incorrectes."
 
-#: actions/login.php:149
+#: actions/login.php:152
 #, fuzzy
 msgid "Error setting user. You are probably not authorized."
 msgstr "No autoritzat."
 
-#: actions/login.php:204 actions/login.php:257 lib/action.php:458
+#: actions/login.php:207 actions/login.php:260 lib/action.php:458
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Inici de sessió"
 
-#: actions/login.php:243
+#: actions/login.php:246
 msgid "Login to site"
 msgstr "Accedir al lloc"
 
-#: actions/login.php:246 actions/profilesettings.php:106
+#: actions/login.php:249 actions/profilesettings.php:106
 #: actions/register.php:423 actions/showgroup.php:236 actions/tagother.php:94
 #: lib/groupeditform.php:152 lib/userprofile.php:131
 msgid "Nickname"
 msgstr "Sobrenom"
 
-#: actions/login.php:249 actions/register.php:428
+#: actions/login.php:252 actions/register.php:428
 #: lib/accountsettingsaction.php:116
 msgid "Password"
 msgstr "Contrasenya"
 
-#: actions/login.php:252 actions/register.php:477
+#: actions/login.php:255 actions/register.php:477
 msgid "Remember me"
 msgstr "Recorda'm"
 
-#: actions/login.php:253 actions/register.php:479
+#: actions/login.php:256 actions/register.php:479
 msgid "Automatically login in the future; not for shared computers!"
 msgstr ""
 "Iniciar sessió automàticament en el futur; no utilitzar en ordinadors "
 "compartits!"
 
-#: actions/login.php:263
+#: actions/login.php:266
 msgid "Lost or forgotten password?"
 msgstr "Contrasenya oblidada o perduda?"
 
-#: actions/login.php:282
+#: actions/login.php:285
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
@@ -1890,7 +1890,7 @@ msgstr ""
 "Per raons de seguretat, si us plau torna a escriure el teu nom d'usuari i "
 "contrasenya abans de canviar la teva configuració."
 
-#: actions/login.php:286
+#: actions/login.php:289
 #, fuzzy, php-format
 msgid ""
 "Login with your username and password. Don't have a username yet? [Register]"
@@ -2838,8 +2838,7 @@ msgstr "L'URL del perfil és invàlid (format incorrecte)"
 
 #: actions/remotesubscribe.php:168
 #, fuzzy
-msgid ""
-"Not a valid profile URL (no YADIS document or no or invalid XRDS defined)."
+msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
 msgstr "URL de perfil no vàlid (cap document YADIS)."
 
 #: actions/remotesubscribe.php:176
@@ -3020,7 +3019,7 @@ msgid "Members"
 msgstr "Membres"
 
 #: actions/showgroup.php:386 lib/profileaction.php:117
-#: lib/profileaction.php:148 lib/profileaction.php:226 lib/section.php:95
+#: lib/profileaction.php:148 lib/profileaction.php:236 lib/section.php:95
 #: lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(Cap)"
@@ -3029,7 +3028,7 @@ msgstr "(Cap)"
 msgid "All members"
 msgstr "Tots els membres"
 
-#: actions/showgroup.php:429 lib/profileaction.php:173
+#: actions/showgroup.php:429 lib/profileaction.php:174
 msgid "Statistics"
 msgstr "Estadístiques"
 
@@ -3264,14 +3263,12 @@ msgid "Default site language"
 msgstr "Preferència d'idioma"
 
 #: actions/siteadminpanel.php:316
-#, fuzzy
 msgid "URLs"
 msgstr "URL"
 
 #: actions/siteadminpanel.php:319
-#, fuzzy
 msgid "Server"
-msgstr "Recuperar"
+msgstr "Servidor"
 
 #: actions/siteadminpanel.php:319
 msgid "Site's server hostname."
@@ -3313,7 +3310,7 @@ msgstr "Bloquejar"
 
 #: actions/siteadminpanel.php:348
 msgid "Disable new registrations."
-msgstr ""
+msgstr "Inhabilita els nous registres."
 
 #: actions/siteadminpanel.php:354
 msgid "Snapshots"
@@ -3328,9 +3325,8 @@ msgid "In a scheduled job"
 msgstr ""
 
 #: actions/siteadminpanel.php:359 actions/siteadminpanel.php:383
-#, fuzzy
 msgid "Never"
-msgstr "Recuperar"
+msgstr "Mai"
 
 #: actions/siteadminpanel.php:360
 msgid "Data snapshots"
@@ -3342,7 +3338,7 @@ msgstr ""
 
 #: actions/siteadminpanel.php:366
 msgid "Frequency"
-msgstr ""
+msgstr "Freqüència"
 
 #: actions/siteadminpanel.php:367
 msgid "Snapshots will be sent once every N web hits"
@@ -3357,22 +3353,20 @@ msgid "Snapshots will be sent to this URL"
 msgstr ""
 
 #: actions/siteadminpanel.php:380
-#, fuzzy
 msgid "SSL"
-msgstr "SMS"
+msgstr "SSL"
 
 #: actions/siteadminpanel.php:384
-#, fuzzy
 msgid "Sometimes"
-msgstr "Avisos"
+msgstr "A vegades"
 
 #: actions/siteadminpanel.php:385
 msgid "Always"
-msgstr ""
+msgstr "Sempre"
 
 #: actions/siteadminpanel.php:387
 msgid "Use SSL"
-msgstr ""
+msgstr "Utilitza l'SSL"
 
 #: actions/siteadminpanel.php:388
 msgid "When to use SSL"
@@ -3380,7 +3374,7 @@ msgstr ""
 
 #: actions/siteadminpanel.php:393
 msgid "SSL Server"
-msgstr ""
+msgstr "Servidor SSL"
 
 #: actions/siteadminpanel.php:394
 msgid "Server to direct SSL requests to"
@@ -3388,11 +3382,11 @@ msgstr ""
 
 #: actions/siteadminpanel.php:400
 msgid "Limits"
-msgstr ""
+msgstr "Límits"
 
 #: actions/siteadminpanel.php:403
 msgid "Text limit"
-msgstr ""
+msgstr "Límits del text"
 
 #: actions/siteadminpanel.php:403
 msgid "Maximum number of characters for notices."
@@ -4279,19 +4273,16 @@ msgid "Unable to delete design setting."
 msgstr "No s'ha pogut guardar la teva configuració de Twitter!"
 
 #: lib/adminpanelaction.php:300
-#, fuzzy
 msgid "Basic site configuration"
-msgstr "Confirmació de l'adreça de correu electrònic"
+msgstr "Configuració bàsica del lloc"
 
 #: lib/adminpanelaction.php:303
-#, fuzzy
 msgid "Design configuration"
-msgstr "Confirmació SMS"
+msgstr "Configuració del disseny"
 
 #: lib/adminpanelaction.php:306 lib/adminpanelaction.php:309
-#, fuzzy
 msgid "Paths configuration"
-msgstr "Confirmació SMS"
+msgstr "Configuració dels camins"
 
 #: lib/attachmentlist.php:87
 msgid "Attachments"
@@ -4299,7 +4290,7 @@ msgstr "Adjuncions"
 
 #: lib/attachmentlist.php:265
 msgid "Author"
-msgstr ""
+msgstr "Autoria"
 
 #: lib/attachmentlist.php:278
 #, fuzzy
@@ -4451,50 +4442,40 @@ msgstr "Notificacions on."
 msgid "Can't turn on notification."
 msgstr "No es poden posar en on les notificacions."
 
-#: lib/command.php:597
-#, fuzzy, php-format
-msgid "Could not create login token for %s"
-msgstr "No s'ha pogut crear el formulari OpenID: %s"
-
-#: lib/command.php:602
-#, php-format
-msgid "This link is useable only once, and is good for only 2 minutes: %s"
-msgstr ""
-
-#: lib/command.php:618
+#: lib/command.php:592
 #, fuzzy
 msgid "You are not subscribed to anyone."
 msgstr "No estàs subscrit a aquest perfil."
 
-#: lib/command.php:620
+#: lib/command.php:594
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Ja estàs subscrit a aquests usuaris:"
 msgstr[1] "Ja estàs subscrit a aquests usuaris:"
 
-#: lib/command.php:640
+#: lib/command.php:614
 #, fuzzy
 msgid "No one is subscribed to you."
 msgstr "No pots subscriure a un altre a tu mateix."
 
-#: lib/command.php:642
+#: lib/command.php:616
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "No pots subscriure a un altre a tu mateix."
 msgstr[1] "No pots subscriure a un altre a tu mateix."
 
-#: lib/command.php:662
+#: lib/command.php:636
 #, fuzzy
 msgid "You are not a member of any groups."
 msgstr "No ets membre d'aquest grup."
 
-#: lib/command.php:664
+#: lib/command.php:638
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "No sou un membre del grup."
 msgstr[1] "No sou un membre del grup."
 
-#: lib/command.php:678
+#: lib/command.php:652
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4513,7 +4494,6 @@ msgid ""
 "reply #<notice_id> - reply to notice with a given id\n"
 "reply <nickname> - reply to the last notice from user\n"
 "join <group> - join group\n"
-"login - Get a link to login to the web interface\n"
 "drop <group> - leave group\n"
 "stats - get your stats\n"
 "stop - same as 'off'\n"
@@ -4759,7 +4739,7 @@ msgstr ""
 msgid "kB"
 msgstr ""
 
-#: lib/jabber.php:192
+#: lib/jabber.php:191
 #, php-format
 msgid "[%s]"
 msgstr ""
@@ -5178,7 +5158,7 @@ msgstr "Els teus missatges enviats"
 msgid "Tags in %s's notices"
 msgstr "Etiquetes en les notificacions de %s's"
 
-#: lib/profileaction.php:109 lib/profileaction.php:191 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:192 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "Subscripcions"
 
@@ -5186,7 +5166,7 @@ msgstr "Subscripcions"
 msgid "All subscriptions"
 msgstr "Totes les subscripcions"
 
-#: lib/profileaction.php:140 lib/profileaction.php:200 lib/subgroupnav.php:90
+#: lib/profileaction.php:140 lib/profileaction.php:201 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "Subscriptors"
 
@@ -5194,16 +5174,16 @@ msgstr "Subscriptors"
 msgid "All subscribers"
 msgstr "Tots els subscriptors"
 
-#: lib/profileaction.php:177
+#: lib/profileaction.php:178
 #, fuzzy
 msgid "User ID"
 msgstr "Usuari"
 
-#: lib/profileaction.php:182
+#: lib/profileaction.php:183
 msgid "Member since"
 msgstr "Membre des de"
 
-#: lib/profileaction.php:235
+#: lib/profileaction.php:245
 msgid "All groups"
 msgstr "Tots els grups"
 
@@ -5255,9 +5235,8 @@ msgid "Keyword(s)"
 msgstr "Paraules clau"
 
 #: lib/searchaction.php:162
-#, fuzzy
 msgid "Search help"
-msgstr "Cercar"
+msgstr "Ajuda de la cerca"
 
 #: lib/searchgroupnav.php:80
 msgid "People"

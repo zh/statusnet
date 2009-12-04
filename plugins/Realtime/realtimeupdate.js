@@ -94,14 +94,12 @@ RealtimeUpdate = {
         $("#notices_primary .notice:first").fadeIn(1000);
 
         SN.U.FormXHR($('#'+noticeItemID+' .form_favor'));
-        SN.U.NoticeReply();
+        SN.U.NoticeReplyTo($('#'+noticeItemID));
+        SN.U.NoticeWithAttachment($('#'+noticeItemID));
      },
 
      purgeLastNoticeItem: function() {
         if ($('#notices_primary .notice').length > RealtimeUpdate._maxnotices) {
-            $("#notices_primary .notice:last .form_disfavor").unbind('submit');
-            $("#notices_primary .notice:last .form_favor").unbind('submit');
-            $("#notices_primary .notice:last .notice_reply").unbind('click');
             $("#notices_primary .notice:last").remove();
         }
      },
@@ -270,7 +268,7 @@ RealtimeUpdate = {
          PP.bind('click', function() {
              window.open(url,
                          '',
-                         'toolbar=no,resizable=yes,scrollbars=yes,status=yes,width=500,height=550');
+                         'toolbar=no,resizable=yes,scrollbars=yes,status=no,menubar=no,personalbar=no,location=no,width=500,height=550');
 
              return false;
          });
@@ -278,26 +276,6 @@ RealtimeUpdate = {
 
      initPopupWindow: function()
      {
-         $('address').hide();
-         $('#content').css({'width':'93.5%'});
-
-         $('#form_notice').css({
-            'margin':'18px 0 18px 1.795%',
-            'width':'93%',
-            'max-width':'451px'
-         });
-
-         $('#form_notice label[for=notice_data-text], h1').css({'display': 'none'});
-
-         $('.notices li:first-child').css({'border-top-color':'transparent'});
-
-         $('#form_notice label[for="notice_data-attach"], #form_notice #notice_data-attach').css({'top':'0'});
-
-         $('#form_notice #notice_data-attach').css({
-            'left':'auto',
-            'right':'0'
-         });
-
          $('.notices .entry-title a, .notices .entry-content a').bind('click', function() {
             window.open(this.href, '');
             

@@ -196,18 +196,18 @@ class SiteadminpanelAction extends AdminPanelAction
 
         if (in_array($values['site']['ssl'], array('sometimes', 'always'))) {
             if (empty($values['site']['sslserver'])) {
-                $this->clientError(_("You must set an SSL sever when enabling SSL."));
+                $this->clientError(_("You must set an SSL server when enabling SSL."));
             }
         }
 
         if (mb_strlen($values['site']['sslserver']) > 255) {
-            $this->clientError(_("Invalid SSL server. Max length is 255 characters."));
+            $this->clientError(_("Invalid SSL server. The maximum length is 255 characters."));
         }
 
         // Validate text limit
 
         if (!Validate::number($values['site']['textlimit'], array('min' => 140))) {
-            $this->clientError(_("Minimum text limit is 140c."));
+            $this->clientError(_("Minimum text limit is 140 characters."));
         }
 
         // Validate dupe limit
@@ -281,7 +281,7 @@ class SiteAdminPanelForm extends AdminForm
         $this->unli();
         $this->li();
         $this->input('email', _('Email'),
-                     _('contact email address for your site'));
+                     _('Contact email address for your site'));
         $this->unli();
         $this->out->elementEnd('ul');
         $this->out->elementEnd('fieldset');
@@ -364,7 +364,7 @@ class SiteAdminPanelForm extends AdminForm
 
         $this->li();
         $this->input('frequency', _('Frequency'),
-                     _('Snapshots will be sent once every N Web hits'),
+                     _('Snapshots will be sent once every N web hits'),
                      'snapshot');
         $this->unli();
 

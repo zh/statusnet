@@ -1,5 +1,5 @@
 // A shim to implement the W3C Geolocation API Specification using Gears or the Ajax API
-if ( typeof navigator.geolocation == "undefined" || navigator.geolocation.shim ) (function(){
+if (typeof navigator.geolocation == "undefined" || navigator.geolocation.shim ) (function(){
 
 // -- BEGIN GEARS_INIT
 (function() {
@@ -94,7 +94,7 @@ var GearsGeoLocation = (function() {
         }
 
     };
-})();
+});
 
 var AjaxGeoLocation = (function() {
     // -- PRIVATE
@@ -103,7 +103,7 @@ var AjaxGeoLocation = (function() {
         if (!hasGoogleLoader() && !loading) {
             loading = true;
             var s = document.createElement('script');
-            s.src = 'http://www.google.com/jsapi?callback=_google_loader_apiLoaded';
+            s.src = (document.location.protocol == "https:"?"https://":"http://") + 'www.google.com/jsapi?callback=_google_loader_apiLoaded';
             s.type = "text/javascript";
             document.getElementsByTagName('body')[0].appendChild(s);
         }
@@ -161,22 +161,23 @@ var AjaxGeoLocation = (function() {
                 var cl = google.loader.ClientLocation;
                 
                 var position = {
-                    latitude: cl.latitude,
-                    longitude: cl.longitude,
-                    altitude: null,
-                    accuracy: 43000, // same as Gears accuracy over wifi?
-                    altitudeAccuracy: null,
-                    heading: null,
-                    velocity: null,
-                    timestamp: new Date(),
-                    
+                    coords: {
+                        latitude: cl.latitude,
+                        longitude: cl.longitude,
+                        altitude: null,
+                        accuracy: 43000, // same as Gears accuracy over wifi?
+                        altitudeAccuracy: null,
+                        heading: null,
+                        speed: null,
+                    },
                     // extra info that is outside of the bounds of the core API
                     address: {
                         city: cl.address.city,
                         country: cl.address.country,
                         country_code: cl.address.country_code,
                         region: cl.address.region
-                    }
+                    },
+                    timestamp: new Date()
                 };
 
                 successCallback(position);
@@ -208,9 +209,9 @@ var AjaxGeoLocation = (function() {
         }
 
     };
-})();
+});
 
 // If you have Gears installed use that, else use Ajax ClientLocation
-navigator.geolocation = (window.google && google.gears) ? GearsGeoLocation : AjaxGeoLocation;
+navigator.geolocation = (window.google && google.gears) ? GearsGeoLocation() : AjaxGeoLocation();
 
 })();

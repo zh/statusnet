@@ -176,8 +176,10 @@ class Rss10Action extends Action
         $this->showChannel();
         $this->showImage();
 
-        foreach ($this->notices as $n) {
-            $this->showItem($n);
+        if (count($this->notices)) {
+            foreach ($this->notices as $n) {
+                $this->showItem($n);
+            }
         }
 
         $this->showCreators();
@@ -203,8 +205,10 @@ class Rss10Action extends Action
         $this->elementStart('items');
         $this->elementStart('rdf:Seq');
 
-        foreach ($this->notices as $notice) {
-            $this->element('rdf:li', array('rdf:resource' => $notice->uri));
+        if (count($this->notices)) {
+            foreach ($this->notices as $notice) {
+                $this->element('rdf:li', array('rdf:resource' => $notice->uri));
+            }
         }
 
         $this->elementEnd('rdf:Seq');

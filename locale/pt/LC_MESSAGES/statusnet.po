@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-27 23:50+0000\n"
-"PO-Revision-Date: 2009-11-28 19:50:48+0000\n"
+"POT-Creation-Date: 2009-12-02 23:18+0000\n"
+"PO-Revision-Date: 2009-12-02 23:20:35+0000\n"
 "Language-Team: Portuguese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59523); Translate extension (2009-11-16)\n"
+"X-Generator: MediaWiki 1.16alpha(r59683); Translate extension (2009-11-29)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pt\n"
 "X-Message-Group: out-statusnet\n"
@@ -291,7 +291,7 @@ msgstr "Não pode deixar de seguir-se a si próprio!"
 
 #: actions/apifriendshipsexists.php:94
 msgid "Two user ids or screen_names must be supplied."
-msgstr ""
+msgstr "Devem ser fornecidos dois nomes de utilizador ou alcunhas."
 
 #: actions/apifriendshipsshow.php:135
 msgid "Could not determine source user."
@@ -451,7 +451,7 @@ msgstr "Formato não suportado."
 #: actions/apitimelinefavorites.php:107
 #, php-format
 msgid "%s / Favorites from %s"
-msgstr ""
+msgstr "%s / Favoritas de %s"
 
 #: actions/apitimelinefavorites.php:119
 #, php-format
@@ -568,7 +568,7 @@ msgstr "Cortar"
 #: actions/emailsettings.php:238 actions/favor.php:75
 #: actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
-#: actions/invite.php:56 actions/login.php:131 actions/makeadmin.php:66
+#: actions/invite.php:56 actions/login.php:129 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
@@ -739,7 +739,7 @@ msgid "Conversation"
 msgstr "Conversação"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:206 lib/searchgroupnav.php:82
+#: lib/profileaction.php:216 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Notas"
 
@@ -883,7 +883,7 @@ msgstr ""
 
 #: actions/designadminpanel.php:474 lib/designsettings.php:161
 msgid "Tile background image"
-msgstr ""
+msgstr "Repetir imagem de fundo em mosaico"
 
 #: actions/designadminpanel.php:483 lib/designsettings.php:170
 msgid "Change colours"
@@ -1195,7 +1195,7 @@ msgid ""
 "notice to your favorites!"
 msgstr ""
 "Podia [registar uma conta](%%action.register%%) e ser o primeiro a adicionar "
-"uma nota aos favoritos!"
+"uma nota às favoritas!"
 
 #: actions/favoritesrss.php:111 actions/showfavorites.php:77
 #: lib/personalgroupnav.php:115
@@ -1259,23 +1259,23 @@ msgstr "O utilizador que está a escutar não existe."
 msgid "You can use the local subscription!"
 msgstr "Pode usar a subscrição local!"
 
-#: actions/finishremotesubscribe.php:96
+#: actions/finishremotesubscribe.php:99
 msgid "That user has blocked you from subscribing."
 msgstr "Esse utilizador bloqueou-o, impedindo que o subscreva."
 
-#: actions/finishremotesubscribe.php:106
+#: actions/finishremotesubscribe.php:110
 msgid "You are not authorized."
 msgstr "Não tem autorização."
 
-#: actions/finishremotesubscribe.php:109
+#: actions/finishremotesubscribe.php:113
 msgid "Could not convert request token to access token."
 msgstr "Não foi possível converter a chave de pedido numa chave de acesso."
 
-#: actions/finishremotesubscribe.php:114
+#: actions/finishremotesubscribe.php:118
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr "Serviço remoto usa uma versão desconhecida do protocolo OMB."
 
-#: actions/finishremotesubscribe.php:133 lib/oauthstore.php:306
+#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
 msgid "Error updating remote profile"
 msgstr "Erro ao actualizar o perfil remoto"
 
@@ -1303,7 +1303,7 @@ msgstr "Não foi especificado um perfil."
 #: actions/makeadmin.php:76 actions/subedit.php:53 actions/tagother.php:46
 #: lib/profileformaction.php:77
 msgid "No profile with that ID."
-msgstr "Não foi encontrado um perfil com essa ID."
+msgstr "Não foi encontrado um perfil com essa identificação."
 
 #: actions/groupblock.php:81 actions/groupunblock.php:81
 #: actions/makeadmin.php:81
@@ -1483,8 +1483,8 @@ msgstr ""
 "Podia [registar uma conta](%%action.register%%) e [criar o grupo](%%action."
 "newgroup%%) você mesmo!"
 
-#: actions/groups.php:62 lib/profileaction.php:220 lib/publicgroupnav.php:81
-#: lib/searchgroupnav.php:84 lib/subgroupnav.php:98
+#: actions/groups.php:62 lib/profileaction.php:210 lib/profileaction.php:230
+#: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "Grupos"
 
@@ -1815,53 +1815,53 @@ msgstr "%s deixou o grupo %s"
 msgid "Already logged in."
 msgstr "Sessão já foi iniciada."
 
-#: actions/login.php:110 actions/login.php:120
+#: actions/login.php:108 actions/login.php:118
 msgid "Invalid or expired token."
 msgstr "Chave inválida ou expirada."
 
-#: actions/login.php:143
+#: actions/login.php:146
 msgid "Incorrect username or password."
 msgstr "Nome de utilizador ou palavra-passe incorrectos."
 
-#: actions/login.php:149
+#: actions/login.php:152
 msgid "Error setting user. You are probably not authorized."
-msgstr ""
+msgstr "Erro ao preparar o utilizador. Provavelmente não está autorizado."
 
-#: actions/login.php:204 actions/login.php:257 lib/action.php:458
+#: actions/login.php:207 actions/login.php:260 lib/action.php:458
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Entrar"
 
-#: actions/login.php:243
+#: actions/login.php:246
 msgid "Login to site"
 msgstr "Iniciar sessão no site"
 
-#: actions/login.php:246 actions/profilesettings.php:106
+#: actions/login.php:249 actions/profilesettings.php:106
 #: actions/register.php:423 actions/showgroup.php:236 actions/tagother.php:94
 #: lib/groupeditform.php:152 lib/userprofile.php:131
 msgid "Nickname"
 msgstr "Alcunha"
 
-#: actions/login.php:249 actions/register.php:428
+#: actions/login.php:252 actions/register.php:428
 #: lib/accountsettingsaction.php:116
 msgid "Password"
 msgstr "Palavra-chave"
 
-#: actions/login.php:252 actions/register.php:477
+#: actions/login.php:255 actions/register.php:477
 msgid "Remember me"
 msgstr "Lembrar-me neste computador"
 
-#: actions/login.php:253 actions/register.php:479
+#: actions/login.php:256 actions/register.php:479
 msgid "Automatically login in the future; not for shared computers!"
 msgstr ""
 "De futuro, iniciar sessão automaticamente. Não usar em computadores "
 "partilhados!"
 
-#: actions/login.php:263
+#: actions/login.php:266
 msgid "Lost or forgotten password?"
 msgstr "Perdeu ou esqueceu-se da palavra-passe?"
 
-#: actions/login.php:282
+#: actions/login.php:285
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
@@ -1869,7 +1869,7 @@ msgstr ""
 "Por razões de segurança, por favor reintroduza o seu nome de utilizador e "
 "palavra-passe antes de alterar as suas configurações."
 
-#: actions/login.php:286
+#: actions/login.php:289
 #, php-format
 msgid ""
 "Login with your username and password. Don't have a username yet? [Register]"
@@ -2821,8 +2821,8 @@ msgid "Invalid profile URL (bad format)"
 msgstr "URL de perfil inválido (formato incorrecto)"
 
 #: actions/remotesubscribe.php:168
-msgid ""
-"Not a valid profile URL (no YADIS document or no or invalid XRDS defined)."
+#, fuzzy
+msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
 msgstr ""
 "URL de perfil não é válida (nenhum documento Yadis ou nenhum XRDS inválido "
 "definidos)."
@@ -2832,9 +2832,8 @@ msgid "That’s a local profile! Login to subscribe."
 msgstr "Esse perfil é local! Inicie uma sessão para o subscrever."
 
 #: actions/remotesubscribe.php:183
-#, fuzzy
 msgid "Couldn’t get a request token."
-msgstr "Não foi possível obter um token de requisição."
+msgstr "Não foi possível obter uma chave de pedido."
 
 #: actions/replies.php:125 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
@@ -3016,7 +3015,7 @@ msgid "Members"
 msgstr "Membros"
 
 #: actions/showgroup.php:386 lib/profileaction.php:117
-#: lib/profileaction.php:148 lib/profileaction.php:226 lib/section.php:95
+#: lib/profileaction.php:148 lib/profileaction.php:236 lib/section.php:95
 #: lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(Nenhum)"
@@ -3025,7 +3024,7 @@ msgstr "(Nenhum)"
 msgid "All members"
 msgstr "Todos os membros"
 
-#: actions/showgroup.php:429 lib/profileaction.php:173
+#: actions/showgroup.php:429 lib/profileaction.php:174
 msgid "Statistics"
 msgstr "Estatísticas"
 
@@ -3180,119 +3179,116 @@ msgstr "O utilizador já está silenciado."
 
 #: actions/siteadminpanel.php:69
 msgid "Basic settings for this StatusNet site."
-msgstr ""
+msgstr "Configurações básicas para este site StatusNet."
 
 #: actions/siteadminpanel.php:147
 msgid "Site name must have non-zero length."
-msgstr ""
+msgstr "Nome do site não pode ter comprimento zero."
 
 #: actions/siteadminpanel.php:155
-#, fuzzy
 msgid "You must have a valid contact email address"
-msgstr "Não é possível normalizar esse endereço de email"
+msgstr "Tem de ter um endereço válido para o correio electrónico de contacto"
 
 #: actions/siteadminpanel.php:173
 #, php-format
 msgid "Unknown language \"%s\""
-msgstr ""
+msgstr "Língua desconhecida \"%s\""
 
 #: actions/siteadminpanel.php:180
 msgid "Invalid snapshot report URL."
-msgstr ""
+msgstr "URL para onde enviar instantâneos é inválida"
 
 #: actions/siteadminpanel.php:186
 msgid "Invalid snapshot run value."
-msgstr ""
+msgstr "Valor de criação do instantâneo é inválido."
 
 #: actions/siteadminpanel.php:192
 msgid "Snapshot frequency must be a number."
-msgstr ""
+msgstr "Frequência dos instantâneos estatísticos tem de ser um número."
 
 #: actions/siteadminpanel.php:199
 msgid "You must set an SSL server when enabling SSL."
-msgstr ""
+msgstr "Tem de configurar um servidor SSL quando activa o SSL."
 
 #: actions/siteadminpanel.php:204
 msgid "Invalid SSL server. The maximum length is 255 characters."
-msgstr ""
+msgstr "Servidor SSL inválido. O tamanho máximo é 255 caracteres."
 
 #: actions/siteadminpanel.php:210
 msgid "Minimum text limit is 140 characters."
-msgstr ""
+msgstr "O valor mínimo de limite para o texto é 140 caracteres."
 
 #: actions/siteadminpanel.php:216
 msgid "Dupe limit must 1 or more seconds."
-msgstr ""
+msgstr "O limite de dupes tem de ser 1 ou mais segundos."
 
 #: actions/siteadminpanel.php:266
 msgid "General"
-msgstr ""
+msgstr "Geral"
 
 #: actions/siteadminpanel.php:269
 msgid "Site name"
-msgstr ""
+msgstr "Nome do site"
 
 #: actions/siteadminpanel.php:270
 msgid "The name of your site, like \"Yourcompany Microblog\""
-msgstr ""
+msgstr "O nome do seu site, por exemplo \"Microblogue NomeDaEmpresa\""
 
 #: actions/siteadminpanel.php:274
 msgid "Brought by"
-msgstr ""
+msgstr "Disponibilizado por"
 
 #: actions/siteadminpanel.php:275
 msgid "Text used for credits link in footer of each page"
-msgstr ""
+msgstr "Texto usado para a ligação de atribuição no rodapé de cada página"
 
 #: actions/siteadminpanel.php:279
 msgid "Brought by URL"
-msgstr ""
+msgstr "URL da atribuição"
 
 #: actions/siteadminpanel.php:280
 msgid "URL used for credits link in footer of each page"
-msgstr ""
+msgstr "URL usada para a ligação de atribuição no rodapé de cada página"
 
 #: actions/siteadminpanel.php:284
-#, fuzzy
 msgid "Contact email address for your site"
-msgstr "O endereço de email de recepção removido."
+msgstr "Endereço de correio electrónico de contacto para o site"
 
 #: actions/siteadminpanel.php:290
-#, fuzzy
 msgid "Local"
-msgstr "Localidade"
+msgstr "Local"
 
 #: actions/siteadminpanel.php:301
 msgid "Default timezone"
-msgstr ""
+msgstr "Fuso horário, por omissão"
 
 #: actions/siteadminpanel.php:302
 msgid "Default timezone for the site; usually UTC."
-msgstr ""
+msgstr "Fuso horário por omissão, para o site; normalmente, UTC."
 
 #: actions/siteadminpanel.php:308
 msgid "Default site language"
-msgstr ""
+msgstr "Língua do site, por omissão"
 
 #: actions/siteadminpanel.php:316
 msgid "URLs"
-msgstr ""
+msgstr "URLs"
 
 #: actions/siteadminpanel.php:319
 msgid "Server"
-msgstr ""
+msgstr "Servidor"
 
 #: actions/siteadminpanel.php:319
 msgid "Site's server hostname."
-msgstr ""
+msgstr "Hostname do servidor do site."
 
 #: actions/siteadminpanel.php:323
 msgid "Fancy URLs"
-msgstr ""
+msgstr "URLs caprichosas"
 
 #: actions/siteadminpanel.php:325
 msgid "Use fancy (more readable and memorable) URLs?"
-msgstr ""
+msgstr "Usar URLs caprichosas (fancy URLs) mais legíveis e memoráveis"
 
 #: actions/siteadminpanel.php:331
 msgid "Access"
@@ -3344,89 +3340,90 @@ msgstr "Instantâneos dos dados"
 
 #: actions/siteadminpanel.php:361
 msgid "When to send statistical data to status.net servers"
-msgstr ""
+msgstr "Quando enviar dados estatísticos para os servidores do status.net"
 
 #: actions/siteadminpanel.php:366
 msgid "Frequency"
-msgstr ""
+msgstr "Frequência"
 
 #: actions/siteadminpanel.php:367
 msgid "Snapshots will be sent once every N web hits"
-msgstr ""
+msgstr "Instantâneos serão enviados uma vez a cada N acessos da internet"
 
 #: actions/siteadminpanel.php:372
 msgid "Report URL"
-msgstr ""
+msgstr "URL para relatórios"
 
 #: actions/siteadminpanel.php:373
 msgid "Snapshots will be sent to this URL"
-msgstr ""
+msgstr "Instantâneos serão enviados para esta URL"
 
 #: actions/siteadminpanel.php:380
 msgid "SSL"
-msgstr ""
+msgstr "SSL"
 
 #: actions/siteadminpanel.php:384
 msgid "Sometimes"
-msgstr ""
+msgstr "Às vezes"
 
 #: actions/siteadminpanel.php:385
 msgid "Always"
-msgstr ""
+msgstr "Sempre"
 
 #: actions/siteadminpanel.php:387
 msgid "Use SSL"
-msgstr ""
+msgstr "Usar SSL"
 
 #: actions/siteadminpanel.php:388
 msgid "When to use SSL"
-msgstr ""
+msgstr "Quando usar SSL"
 
 #: actions/siteadminpanel.php:393
 msgid "SSL Server"
-msgstr ""
+msgstr "Servidor SSL"
 
 #: actions/siteadminpanel.php:394
 msgid "Server to direct SSL requests to"
-msgstr ""
+msgstr "Servidor para onde encaminhar pedidos SSL"
 
 #: actions/siteadminpanel.php:400
 msgid "Limits"
-msgstr ""
+msgstr "Limites"
 
 #: actions/siteadminpanel.php:403
 msgid "Text limit"
-msgstr ""
+msgstr "Limite de texto"
 
 #: actions/siteadminpanel.php:403
 msgid "Maximum number of characters for notices."
-msgstr ""
+msgstr "Número máximo de caracteres nas notas."
 
 #: actions/siteadminpanel.php:407
 msgid "Dupe limit"
-msgstr ""
+msgstr "Limite de dupes (duplicações)"
 
 #: actions/siteadminpanel.php:407
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
+"Quanto tempo os utilizadores terão de esperar (em segundos) para publicar a "
+"mesma coisa outra vez."
 
 #: actions/siteadminpanel.php:421 actions/useradminpanel.php:313
-#, fuzzy
 msgid "Save site settings"
-msgstr "Definições do Email"
+msgstr "Gravar configurações do site"
 
 #: actions/smssettings.php:58
 msgid "SMS Settings"
-msgstr ""
+msgstr "Configurações de SMS"
 
 #: actions/smssettings.php:69
 #, php-format
 msgid "You can receive SMS messages through email from %%site.name%%."
-msgstr ""
+msgstr "Pode receber SMSs do site %%site.name%% por correio electrónico."
 
 #: actions/smssettings.php:91
 msgid "SMS is not available."
-msgstr ""
+msgstr "SMS não está disponível."
 
 #: actions/smssettings.php:112
 msgid "Current confirmed SMS-enabled phone number."
@@ -3626,7 +3623,7 @@ msgstr "Não iniciou sessão."
 
 #: actions/tagother.php:39
 msgid "No id argument."
-msgstr ""
+msgstr "Argumento de identificação em falta."
 
 #: actions/tagother.php:65
 #, php-format
@@ -3710,20 +3707,21 @@ msgstr "Utilizador não está silenciado."
 
 #: actions/unsubscribe.php:77
 msgid "No profile id in request."
-msgstr ""
+msgstr "O pedido não tem a identificação do perfil."
 
 #: actions/unsubscribe.php:84
 msgid "No profile with that id."
-msgstr ""
+msgstr "Não existe um perfil com essa identificação."
 
 #: actions/unsubscribe.php:98
 msgid "Unsubscribed"
-msgstr ""
+msgstr "Subscrição cancelada"
 
 #: actions/updateprofile.php:62 actions/userauthorization.php:330
 #, php-format
 msgid "Listenee stream license ‘%s’ is not compatible with site license ‘%s’."
 msgstr ""
+"Licença ‘%s’ da listenee stream não é compatível com a licença ‘%s’ do site."
 
 #: actions/useradminpanel.php:58 lib/adminpanelaction.php:305
 #: lib/personalgroupnav.php:115
@@ -3806,11 +3804,11 @@ msgstr "Se devemos gerir sessões nós próprios."
 
 #: actions/useradminpanel.php:276
 msgid "Session debugging"
-msgstr ""
+msgstr "Depuração de sessões"
 
 #: actions/useradminpanel.php:278
 msgid "Turn on debugging output for sessions."
-msgstr ""
+msgstr "Ligar a impressão de dados de depuração, para sessões."
 
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
@@ -3849,7 +3847,7 @@ msgstr "Rejeitar esta subscrição"
 
 #: actions/userauthorization.php:225
 msgid "No authorization request!"
-msgstr ""
+msgstr "Não há pedido de autorização!"
 
 #: actions/userauthorization.php:247
 msgid "Subscription authorized"
@@ -3882,17 +3880,17 @@ msgstr ""
 #: actions/userauthorization.php:296
 #, php-format
 msgid "Listener URI ‘%s’ not found here"
-msgstr ""
+msgstr "Listener URI ‘%s’ não foi encontrado aqui"
 
 #: actions/userauthorization.php:301
 #, php-format
 msgid "Listenee URI ‘%s’ is too long."
-msgstr ""
+msgstr "Listenee URI ‘%s’ é demasiado longo."
 
 #: actions/userauthorization.php:307
 #, php-format
 msgid "Listenee URI ‘%s’ is a local user."
-msgstr ""
+msgstr "Listenee URI ‘%s’ é um utilizador local."
 
 #: actions/userauthorization.php:322
 #, php-format
@@ -4191,7 +4189,7 @@ msgstr "Contacto"
 
 #: lib/action.php:741
 msgid "Badge"
-msgstr ""
+msgstr "Emblema"
 
 #: lib/action.php:769
 msgid "StatusNet software license"
@@ -4437,49 +4435,38 @@ msgstr "Notificação ligada."
 msgid "Can't turn on notification."
 msgstr "Não foi possível ligar a notificação."
 
-#: lib/command.php:597
-#, php-format
-msgid "Could not create login token for %s"
-msgstr "Não foi possível criar a chave de entrada para %s"
-
-#: lib/command.php:602
-#, php-format
-msgid "This link is useable only once, and is good for only 2 minutes: %s"
-msgstr ""
-"Esta ligação é utilizável uma única vez e só durante os próximos 2 minutos: %"
-"s"
-
-#: lib/command.php:618
+#: lib/command.php:592
 msgid "You are not subscribed to anyone."
 msgstr "Não subscreveu ninguém."
 
-#: lib/command.php:620
+#: lib/command.php:594
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Subscreve esta pessoa:"
 msgstr[1] "Subscreve estas pessoas:"
 
-#: lib/command.php:640
+#: lib/command.php:614
 msgid "No one is subscribed to you."
 msgstr "Ninguém subscreve as suas notas."
 
-#: lib/command.php:642
+#: lib/command.php:616
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Esta pessoa subscreve as suas notas:"
 msgstr[1] "Estas pessoas subscrevem as suas notas:"
 
-#: lib/command.php:662
+#: lib/command.php:636
 msgid "You are not a member of any groups."
 msgstr "Não está em nenhum grupo."
 
-#: lib/command.php:664
+#: lib/command.php:638
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Está no grupo:"
 msgstr[1] "Está nos grupos:"
 
-#: lib/command.php:678
+#: lib/command.php:652
+#, fuzzy
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4498,7 +4485,6 @@ msgid ""
 "reply #<notice_id> - reply to notice with a given id\n"
 "reply <nickname> - reply to the last notice from user\n"
 "join <group> - join group\n"
-"login - Get a link to login to the web interface\n"
 "drop <group> - leave group\n"
 "stats - get your stats\n"
 "stop - same as 'off'\n"
@@ -4530,8 +4516,8 @@ msgstr ""
 "get <alcunha> - receber última nota do utilizador\n"
 "whois <alcunha> - receber perfil do utilizador\n"
 "fav <alcunha> - adicionar última nota do utilizador às favoritas\n"
-"fav #<id_da_nota> - adicionar nota com esta id às favoritas\n"
-"reply #<id_da_nota> - responder à nota com esta id\n"
+"fav #<id_da_nota> - adicionar nota com esta identificação às favoritas\n"
+"reply #<id_da_nota> - responder à nota com esta identificação\n"
 "reply <alcunha> - responder à última nota do utilizador\n"
 "join <grupo> - juntar-se ao grupo\n"
 "login - Receber uma ligação para iniciar sessão na interface web\n"
@@ -4775,7 +4761,7 @@ msgstr "MB"
 msgid "kB"
 msgstr "kB"
 
-#: lib/jabber.php:192
+#: lib/jabber.php:191
 #, php-format
 msgid "[%s]"
 msgstr "[%s]"
@@ -5265,7 +5251,7 @@ msgstr "Mensagens enviadas"
 msgid "Tags in %s's notices"
 msgstr "Categorias nas notas de %s"
 
-#: lib/profileaction.php:109 lib/profileaction.php:191 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:192 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "Subscrições"
 
@@ -5273,7 +5259,7 @@ msgstr "Subscrições"
 msgid "All subscriptions"
 msgstr "Todas as subscrições"
 
-#: lib/profileaction.php:140 lib/profileaction.php:200 lib/subgroupnav.php:90
+#: lib/profileaction.php:140 lib/profileaction.php:201 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "Subscritores"
 
@@ -5281,15 +5267,15 @@ msgstr "Subscritores"
 msgid "All subscribers"
 msgstr "Todos os subscritores"
 
-#: lib/profileaction.php:177
+#: lib/profileaction.php:178
 msgid "User ID"
 msgstr "ID de utilizador"
 
-#: lib/profileaction.php:182
+#: lib/profileaction.php:183
 msgid "Member since"
 msgstr "Membro desde"
 
-#: lib/profileaction.php:235
+#: lib/profileaction.php:245
 msgid "All groups"
 msgstr "Todos os grupos"
 
