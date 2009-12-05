@@ -79,23 +79,33 @@ class MinifyPlugin extends Plugin
         $url = parse_url($src);
         if( empty($url->scheme) && empty($url->host) && empty($url->query) && empty($url->fragment))
         {
-            $src = common_path('main/min?f='.$src.'&v=' . STATUSNET_VERSION);
+            $src = $this->minifyUrl($src);
         }
     }
 
     function onStartCssLinkElement($action,&$src,&$theme,&$media) {
+        $allowThemeMinification =
+            is_null(common_config('theme', 'dir'))
+            && is_null(common_config('theme', 'path'))
+            && is_null(common_config('theme', 'server'));
         $url = parse_url($src);
         if( empty($url->scheme) && empty($url->host) && empty($url->query) && empty($url->fragment))
         {
-            if(file_exists(Theme::file($src,$theme))){
-                //src is a relative path, so we can do minification
-                if(isset($theme)) {
-                    $src = common_path('main/min?f=theme/'.$theme.'/'.$src.'&v=' . STATUSNET_VERSION);
-                } else {
-                    $src = common_path('main/min?f=theme/default/'.$src.'&v=' . STATUSNET_VERSION);
-                }
+            if(!isset($theme)) {
+                $theme = common_config('site', 'theme');
+            }
+            if($allowThemeMinification && file_exists(INSTALLDIR.'/local/theme/'.$theme.'/'.$src)) {
+                $src = $this->minifyUrl('local/theme/'.$theme.'/'.$src);
+            } else if($allowThemeMinification && file_exists(INSTALLDIR.'/theme/'.$theme.'/'.$src)) {
+                $src = $this->minifyUrl('theme/'.$theme.'/'.$src);
+            }else if(file_exists(INSTALLDIR.'/'.$src)){
+                $src = $this->minifyUrl($src);
             }
         }
+    }
+
+    function minifyUrl($src) {
+        return common_local_url('minify',null,array('f' => $src ,v => STATUSNET_VERSION));
     }
 }
 

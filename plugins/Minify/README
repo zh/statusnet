@@ -1,7 +1,8 @@
 The Minify plugin minifies your CSS and Javascript, removing whitespace and comments.
 
-Note that if enabled this plugin and use a theme server
-    ($config['theme']['server']), your theme server will not be used.
+Note that if enabled this plugin and use a theme server,
+    (if any of $config['theme']['server'], $config['theme']['path'],
+    $config['theme']['dir'] are set) theme CSS will not be minified.
 
 Installation
 ============
