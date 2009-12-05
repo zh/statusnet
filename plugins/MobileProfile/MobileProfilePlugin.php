@@ -352,8 +352,7 @@ class MobileProfilePlugin extends WAP20Plugin
 
         $contentLimit = Notice::maxContent();
 
-        $form->out->element('script', array('type' => 'text/javascript'),
-                            'maxLength = ' . $contentLimit . ';');
+        $form->out->inlineScript('maxLength = ' . $contentLimit . ';');
 
         if ($contentLimit > 0) {
             $form->out->element('div', array('id' => 'notice_text-count'),
