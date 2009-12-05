@@ -405,10 +405,11 @@ class HTMLOutputter extends XMLOutputter
             if( empty($url->scheme) && empty($url->host) && empty($url->query) && empty($url->fragment))
             {
                 if(file_exists(Theme::file($src,$theme))){
-                   $src = Theme::path($src, $theme) . '?version=' . STATUSNET_VERSION;
+                   $src = Theme::path($src, $theme);
                 }else{
                    $src = common_path($src);
                 }
+                $src.= '?version=' . STATUSNET_VERSION;
             }
             $this->element('link', array('rel' => 'stylesheet',
                                     'type' => 'text/css',
