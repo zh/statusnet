@@ -105,15 +105,11 @@ class RealtimePlugin extends Plugin
             $realtimeUI = ' RealtimeUpdate.initActions("'.$url.'", "'.$timeline.'", "'. $pluginPath .'");';
         }
 
-        $action->elementStart('script', array('type' => 'text/javascript'));
-
         $script = ' $(document).ready(function() { '.
           $realtimeUI.
           $this->_updateInitialize($timeline, $user_id).
           '}); ';
-        $action->raw($script);
-
-        $action->elementEnd('script');
+        $action->inlineScript($script);
 
         return true;
     }
