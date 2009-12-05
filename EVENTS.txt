@@ -595,3 +595,13 @@ EndScriptElement: After a <script...> element is written
 - $action
 - $src
 - $type
+
+StartInlineScriptElement: Before a <script...> element is written
+- $action
+- &$code
+- &$type
+
+EndInlineScriptElement: After a <script...> element is written
+- $action
+- $code
+- $type

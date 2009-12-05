@@ -375,15 +375,18 @@ class HTMLOutputter extends XMLOutputter
 
     function inlineScript($code, $type='text/javascript')
     {
-        $this->elementStart('script', array('type' => $type));
-        if($type == 'text/javascript') {
-            $this->raw('/*<![CDATA[*/ '); // XHTML compat
+        if(Event::handle('StartInlineScriptElement', array($this,&$code,&$type))) {
+            $this->elementStart('script', array('type' => $type));
+            if($type == 'text/javascript') {
+                $this->raw('/*<![CDATA[*/ '); // XHTML compat
+            }
+            $this->raw($code);
+            if($type == 'text/javascript') {
+                $this->raw(' /*]]>*/'); // XHTML compat
+            }
+            $this->elementEnd('script');
+            Event::handle('EndInlineScriptElement', array($this,$code,$type));
         }
-        $this->raw($code);
-        if($type == 'text/javascript') {
-            $this->raw(' /*]]>*/'); // XHTML compat
-        }
-        $this->elementEnd('script');
     }
 
     /**
