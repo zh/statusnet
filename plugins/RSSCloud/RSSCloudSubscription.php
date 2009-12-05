@@ -65,7 +65,7 @@ class RSSCloudSubscription extends Memcached_DataObject {
     {
         $sub = new RSSCloudSubscription();
         $sub->whereAdd("subscribed = $subscribed");
-        $sub->whereAdd("url = $url");
+        $sub->whereAdd("url = '$url'");
         $sub->limit(1);
 
         if ($sub->find()) {
@@ -77,4 +77,3 @@ class RSSCloudSubscription extends Memcached_DataObject {
     }
 
 }
-?>
