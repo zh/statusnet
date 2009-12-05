@@ -33,6 +33,7 @@ class MinifyAction extends Action
     const cacheKey = 'minify';
 
     var $file;
+    var $v;
 
     function isReadOnly($args)
     {
@@ -80,13 +81,14 @@ class MinifyAction extends Action
         
         $c = common_memcache();
         if (!empty($c)) {
-            $out = $c->get(common_cache_key(self::cacheKey . ':' . $this->file));
+            $cacheKey = common_cache_key(self::cacheKey . ':' . $this->file . '?v=' . empty($this->v)?'':$this->v);
+            $out = $c->get($cacheKey);
         }
         if(empty($out)) {
             $out = $this->minify($this->file);
         }
         if (!empty($c)) {
-            $c->set(common_cache_key(self::cacheKey . ':' . $this->file), $out);
+            $c->set($cacheKey, $out);
         }
 
         $sec = session_cache_expire() * 60;
