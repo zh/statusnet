@@ -191,13 +191,13 @@ RealtimeUpdate = {
 
      initActions: function(url, timeline, path)
      {
-        var NP = $('#notices_primary');
-        NP.prepend('<ul id="realtime_actions"><li id="realtime_playpause"></li><li id="realtime_timeline"></li></ul>');
+        $('#notices_primary').prepend('<ul id="realtime_actions"><li id="realtime_playpause"></li><li id="realtime_timeline"></li></ul>');
 
         RealtimeUpdate._pluginPath = path;
 
         RealtimeUpdate.initPlayPause();
         RealtimeUpdate.initAddPopup(url, timeline, RealtimeUpdate._pluginPath);
+        RealtimeUpdate.addNoticesHover();
      },
 
      initPlayPause: function()
@@ -207,14 +207,14 @@ RealtimeUpdate = {
 
      showPause: function()
      {
-        RT_PP = $('#realtime_playpause');
-        RT_PP.empty();
-        RT_PP.append('<button id="realtime_pause" class="pause" title="Pause">Pause</button>');
+        RealtimeUpdate._paused = false;
+        RealtimeUpdate.showQueuedNotices();
 
-        RT_P = $('#realtime_pause');
-        RT_P.bind('click', function() {
-            RealtimeUpdate._paused = true;
+        $('#realtime_playpause').remove();
+        $('#realtime_actions').prepend('<li id="realtime_playpause"><button id="realtime_pause" class="pause" title="Pause">Pause</button></li>');
 
+        $('#realtime_pause').bind('click', function() {
+            RealtimeUpdate.removeNoticesHover();
             RealtimeUpdate.showPlay();
             return false;
         });
@@ -222,18 +222,14 @@ RealtimeUpdate = {
 
      showPlay: function()
      {
-        RT_PP = $('#realtime_playpause');
-        RT_PP.empty();
-        RT_PP.append('<span id="queued_counter"></span> <button id="realtime_play" class="play" title="Play">Play</button>');
+        RealtimeUpdate._paused = true;
 
-        RT_P = $('#realtime_play');
-        RT_P.bind('click', function() {
-            RealtimeUpdate._paused = false;
+        $('#realtime_playpause').remove();
+        $('#realtime_actions').prepend('<li id="realtime_playpause"><span id="queued_counter"></span> <button id="realtime_play" class="play" title="Play">Play</button></li>');
 
+        $('#realtime_play').bind('click', function() {
+            RealtimeUpdate.addNoticesHover();
             RealtimeUpdate.showPause();
-
-            RealtimeUpdate.showQueuedNotices();
-
             return false;
         });
      },
@@ -259,13 +255,32 @@ RealtimeUpdate = {
         $('#realtime_playpause #queued_counter').empty();
      },
 
+     addNoticesHover: function()
+     {
+        $('#notices_primary .notices').hover(
+            function() {
+                if (RealtimeUpdate._paused === false) {
+                    RealtimeUpdate.showPlay();
+                }
+            },
+            function() {
+                if (RealtimeUpdate._paused === true) {
+                    RealtimeUpdate.showPause();
+                }
+            }
+        );
+     },
+
+     removeNoticesHover: function()
+     {
+        $('#notices_primary .notices').unbind('hover');
+     },
+
      initAddPopup: function(url, timeline, path)
      {
-         var NP = $('#realtime_timeline');
-         NP.append('<button id="realtime_popup" title="Pop up in a window">Pop up</button>');
+         $('#realtime_timeline').append('<button id="realtime_popup" title="Pop up in a window">Pop up</button>');
 
-         var PP = $('#realtime_popup');
-         PP.bind('click', function() {
+         $('#realtime_popup').bind('click', function() {
              window.open(url,
                          '',
                          'toolbar=no,resizable=yes,scrollbars=yes,status=no,menubar=no,personalbar=no,location=no,width=500,height=550');
