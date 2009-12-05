@@ -33,8 +33,15 @@ Author URI: http://candrews.integralblue.com/
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
+// We bundle the minify library...
+set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/extlib/minify/min/lib');
+
 class MinifyPlugin extends Plugin
 {
+    private $minifyInlineJs = true;
+    private $minifyInlineCss = true;
+
+    const cacheKey = 'minify';
 
     /**
      * Add Minification related paths to the router table
@@ -104,8 +111,58 @@ class MinifyPlugin extends Plugin
         }
     }
 
+    function onStartInlineScriptElement($action,&$code,&$type)
+    {
+        if($this->minifyInlineJs && $type=='text/javascript'){
+            $c = common_memcache();
+            if (!empty($c)) {
+                $cacheKey = common_cache_key(self::cacheKey . ':' . crc32($code));
+                $out = $c->get($cacheKey);
+            }
+            if(empty($out)) {
+                $out = $this->minifyJs($code);
+            }
+            if (!empty($c)) {
+                $c->set($cacheKey, $out);
+            }
+            if(!empty($out)) {
+                $code = $out;
+            }
+        }
+    }
+
+    function onStartStyleElement($action,&$code,&$type,&$media)
+    {
+        if($this->minifyInlineCss && $type=='text/css'){
+            $c = common_memcache();
+            if (!empty($c)) {
+                $cacheKey = common_cache_key(self::cacheKey . ':' . crc32($code));
+                $out = $c->get($cacheKey);
+            }
+            if(empty($out)) {
+                $out = $this->minifyCss($code);
+            }
+            if (!empty($c)) {
+                $c->set($cacheKey, $out);
+            }
+            if(!empty($out)) {
+                $code = $out;
+            }
+        }
+    }
+
     function minifyUrl($src) {
         return common_local_url('minify',null,array('f' => $src ,v => STATUSNET_VERSION));
+    }
+
+    static function minifyJs($code) {
+        require_once('JSMin.php');
+        return JSMin::minify($code);
+    }
+
+    static function minifyCss($code, $options = array()) {
+        require_once('Minify/CSS.php');
+        return Minify_CSS::minify($code,$options);
     }
 }
 

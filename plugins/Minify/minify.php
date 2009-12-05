@@ -19,9 +19,6 @@
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
-// We bundle the minify library...
-set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/extlib/minify/min/lib');
-
 class MinifyAction extends Action
 {
     const TYPE_CSS = 'text/css';
@@ -29,8 +26,6 @@ class MinifyAction extends Action
     // there is some debate over the ideal JS Content-Type, but this is the
     // Apache default and what Yahoo! uses..
     const TYPE_JS = 'application/x-javascript';
-
-    const cacheKey = 'minify';
 
     var $file;
     var $v;
@@ -81,7 +76,7 @@ class MinifyAction extends Action
         
         $c = common_memcache();
         if (!empty($c)) {
-            $cacheKey = common_cache_key(self::cacheKey . ':' . $this->file . '?v=' . empty($this->v)?'':$this->v);
+            $cacheKey = common_cache_key(MinifyPlugin::cacheKey . ':' . $this->file . '?v=' . empty($this->v)?'':$this->v);
             $out = $c->get($cacheKey);
         }
         if(empty($out)) {
@@ -102,16 +97,14 @@ class MinifyAction extends Action
         $info = pathinfo($file);
         switch(strtolower($info['extension'])){
             case 'js':
-                require_once('JSMin.php');
-                $out = JSMin::minify(file_get_contents($file));
+                $out = MinifyPlugin::minifyJs(file_get_contents($file));
                 header('Content-Type: ' . self::TYPE_JS);
                 break;
             case 'css':
-                require_once('Minify/CSS.php');
                 $options = array();
                 $options['currentDir'] = dirname($file);
                 $options['docRoot'] = INSTALLDIR;
-                $out = Minify_CSS::minify(file_get_contents($file),$options);
+                $out = MinifyPlugin::minifyCss(file_get_contents($file),$options);
                 header('Content-Type: ' . self::TYPE_CSS);
                 break;
             default:
