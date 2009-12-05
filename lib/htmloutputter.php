@@ -67,7 +67,7 @@ class HTMLOutputter extends XMLOutputter
      * @param boolean $indent Whether to indent output, default true
      */
 
-    function __construct($output='php://output', $indent=true)
+    function __construct($output='php://output', $indent=null)
     {
         parent::__construct($output, $indent);
     }

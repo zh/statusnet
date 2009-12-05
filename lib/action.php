@@ -68,7 +68,7 @@ class Action extends HTMLOutputter // lawsuit
      * @see XMLOutputter::__construct
      * @see HTMLOutputter::__construct
      */
-    function __construct($output='php://output', $indent=true)
+    function __construct($output='php://output', $indent=null)
     {
         parent::__construct($output, $indent);
     }

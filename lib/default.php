@@ -53,6 +53,7 @@ $default =
               'shorturllength' => 30,
               'dupelimit' => 60, # default for same person saying the same thing
               'textlimit' => 140,
+              'indent' => true,
               ),
         'db' =>
         array('database' => 'YOU HAVE TO SET THIS IN config.php',
