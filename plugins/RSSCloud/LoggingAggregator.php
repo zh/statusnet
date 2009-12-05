@@ -36,6 +36,9 @@ if (!defined('STATUSNET')) {
 class LoggingAggregatorAction extends Action
 {
 
+    var $challenge = null;
+    var $url       = null;
+
     /**
      * Initialization.
      *
@@ -46,6 +49,13 @@ class LoggingAggregatorAction extends Action
     function prepare($args)
     {
         parent::prepare($args);
+
+        $this->url       = $this->arg('url');
+        $this->challenge = $this->arg('challenge');
+
+        common_debug("args = " . var_export($this->args, true));
+        common_debug('url = ' . $this->url . ' challenge = ' . $this->challenge);
+
         return true;
     }
 
@@ -53,33 +63,50 @@ class LoggingAggregatorAction extends Action
     {
         parent::handle($args);
 
-        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-			$this->showError('This resource requires an HTTP POST.');
-        }
-
-        $this->url = $this->arg('url');
-
         if (empty($this->url)) {
             $this->showError('Hey, you have to provide a url parameter.');
+            return;
         }
 
-        $this->ip  = $_SERVER['REMOTE_ADDR'];
+        if (!empty($this->challenge)) {
+
+            // must be a GET
+
+            if ($_SERVER['REQUEST_METHOD'] != 'GET') {
+                $this->showError('This resource requires an HTTP GET.');
+                return;
+            }
+
+            header('Content-Type: text/xml');
+            echo "<notifyResult success='true' msg='Thanks for the update.' challenge='" .
+              $this->challenge . "' />\n";
+
+        } else {
+
+            // must be a POST
+
+            if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+                $this->showError('This resource requires an HTTP POST.');
+                return;
+            }
+
+            header('Content-Type: text/xml');
+            echo '<notifyResult success=\'true\' msg=\'Thanks for the update.\' />' . "\n";
+
+        }
+
+        $this->ip = $_SERVER['REMOTE_ADDR'];
 
         common_log(LOG_INFO, 'RSSCloud Logging Aggregator - ' . $this->ip . ' claims the feed at ' .
                    $this->url . ' has been updated.');
-
-        header('Content-Type: text/xml');
-        echo '<notifyResult success=\'true\' msg=\'Thanks for the update.\' />' . "\n";
-
-	}
+    }
 
     function showError($msg)
     {
-        header('HTTP/1.1 403 Forbidden');
+        header('HTTP/1.1 400 Bad Request');
         header('Content-Type: text/xml');
         echo "<?xml version='1.0'?>\n";
         echo "<notifyResult success='false' msg='$msg' />\n";
-        exit();
     }
 
 }
