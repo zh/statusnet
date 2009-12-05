@@ -367,7 +367,7 @@ class HTMLOutputter extends XMLOutputter
      * output a script (almost always javascript) tag with inline
      * code.
      *
-     * @param string $code          relative or absolute script path
+     * @param string $code         code to put in the script tag
      * @param string $type         'type' attribute value of the tag
      *
      * @return void
@@ -376,9 +376,13 @@ class HTMLOutputter extends XMLOutputter
     function inlineScript($code, $type='text/javascript')
     {
         $this->elementStart('script', array('type' => $type));
-        $this->raw('/*<![CDATA[*/ '); // XHTML compat for Safari
+        if($type == 'text/javascript') {
+            $this->raw('/*<![CDATA[*/ '); // XHTML compat
+        }
         $this->raw($code);
-        $this->raw(' /*]]>*/'); // XHTML compat for Safari
+        if($type == 'text/javascript') {
+            $this->raw(' /*]]>*/'); // XHTML compat
+        }
         $this->elementEnd('script');
     }
 
