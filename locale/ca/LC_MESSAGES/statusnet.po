@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-02 23:18+0000\n"
-"PO-Revision-Date: 2009-12-02 23:19:11+0000\n"
+"POT-Creation-Date: 2009-12-05 19:53+0000\n"
+"PO-Revision-Date: 2009-12-05 19:53:53+0000\n"
 "Language-Team: Catalan\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59683); Translate extension (2009-11-29)\n"
+"X-Generator: MediaWiki 1.16alpha(r59747); Translate extension (2009-11-29)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: out-statusnet\n"
@@ -183,7 +183,12 @@ msgstr "L'usuari no té perfil."
 msgid "Could not save profile."
 msgstr "No s'ha pogut guardar el perfil."
 
-#: actions/apiblockcreate.php:108
+#: actions/apiblockcreate.php:105
+#, fuzzy
+msgid "You cannot block yourself!"
+msgstr "No podeu suprimir els usuaris."
+
+#: actions/apiblockcreate.php:119
 msgid "Block user failed."
 msgstr "Ha fallat el bloqueig d'usuari."
 
@@ -266,7 +271,7 @@ msgstr "Aquesta notificació no és un favorit!"
 
 #: actions/apifavoritedestroy.php:134 actions/disfavor.php:87
 msgid "Could not delete favorite."
-msgstr "No pots eliminar favorits."
+msgstr "No s'ha pogut suprimir el preferit."
 
 #: actions/apifriendshipscreate.php:109
 msgid "Could not follow user: User not found."
@@ -834,102 +839,102 @@ msgstr "Disseny"
 msgid "Design settings for this StatusNet site."
 msgstr "Paràmetres de disseny d'aquest lloc StatusNet."
 
-#: actions/designadminpanel.php:270
+#: actions/designadminpanel.php:275
 #, fuzzy
 msgid "Invalid logo URL."
 msgstr "Mida invàlida."
 
-#: actions/designadminpanel.php:274
+#: actions/designadminpanel.php:279
 #, fuzzy, php-format
 msgid "Theme not available: %s"
 msgstr "Aquesta pàgina no està disponible en "
 
-#: actions/designadminpanel.php:370
+#: actions/designadminpanel.php:375
 msgid "Change logo"
 msgstr "Canvia el logotip"
 
-#: actions/designadminpanel.php:375
+#: actions/designadminpanel.php:380
 msgid "Site logo"
 msgstr "Logotip del lloc"
 
-#: actions/designadminpanel.php:382
+#: actions/designadminpanel.php:387
 msgid "Change theme"
 msgstr "Canvia el tema"
 
-#: actions/designadminpanel.php:399
+#: actions/designadminpanel.php:404
 #, fuzzy
 msgid "Site theme"
 msgstr "Avís del lloc"
 
-#: actions/designadminpanel.php:400
+#: actions/designadminpanel.php:405
 msgid "Theme for the site."
 msgstr "Tema del lloc."
 
-#: actions/designadminpanel.php:412 lib/designsettings.php:101
+#: actions/designadminpanel.php:417 lib/designsettings.php:101
 msgid "Change background image"
 msgstr "Canvia la imatge de fons"
 
-#: actions/designadminpanel.php:417 actions/designadminpanel.php:492
+#: actions/designadminpanel.php:422 actions/designadminpanel.php:497
 #: lib/designsettings.php:178
 msgid "Background"
 msgstr "Fons"
 
-#: actions/designadminpanel.php:422
+#: actions/designadminpanel.php:427
 #, fuzzy, php-format
 msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
 "$s."
 msgstr "Pots pujar una imatge de logo per al grup."
 
-#: actions/designadminpanel.php:452 lib/designsettings.php:139
+#: actions/designadminpanel.php:457 lib/designsettings.php:139
 msgid "On"
 msgstr ""
 
-#: actions/designadminpanel.php:468 lib/designsettings.php:155
+#: actions/designadminpanel.php:473 lib/designsettings.php:155
 msgid "Off"
 msgstr ""
 
-#: actions/designadminpanel.php:469 lib/designsettings.php:156
+#: actions/designadminpanel.php:474 lib/designsettings.php:156
 msgid "Turn background image on or off."
 msgstr ""
 
-#: actions/designadminpanel.php:474 lib/designsettings.php:161
+#: actions/designadminpanel.php:479 lib/designsettings.php:161
 msgid "Tile background image"
 msgstr ""
 
-#: actions/designadminpanel.php:483 lib/designsettings.php:170
+#: actions/designadminpanel.php:488 lib/designsettings.php:170
 msgid "Change colours"
 msgstr "Canvia els colors"
 
-#: actions/designadminpanel.php:505 lib/designsettings.php:191
+#: actions/designadminpanel.php:510 lib/designsettings.php:191
 msgid "Content"
 msgstr "Contingut"
 
-#: actions/designadminpanel.php:518 lib/designsettings.php:204
+#: actions/designadminpanel.php:523 lib/designsettings.php:204
 msgid "Sidebar"
 msgstr "Barra lateral"
 
-#: actions/designadminpanel.php:531 lib/designsettings.php:217
+#: actions/designadminpanel.php:536 lib/designsettings.php:217
 msgid "Text"
 msgstr "Text"
 
-#: actions/designadminpanel.php:544 lib/designsettings.php:230
+#: actions/designadminpanel.php:549 lib/designsettings.php:230
 msgid "Links"
 msgstr "Enllaços"
 
-#: actions/designadminpanel.php:572 lib/designsettings.php:247
+#: actions/designadminpanel.php:577 lib/designsettings.php:247
 msgid "Use defaults"
 msgstr ""
 
-#: actions/designadminpanel.php:573 lib/designsettings.php:248
+#: actions/designadminpanel.php:578 lib/designsettings.php:248
 msgid "Restore default designs"
 msgstr ""
 
-#: actions/designadminpanel.php:579 lib/designsettings.php:254
+#: actions/designadminpanel.php:584 lib/designsettings.php:254
 msgid "Reset back to default"
 msgstr ""
 
-#: actions/designadminpanel.php:581 actions/emailsettings.php:195
+#: actions/designadminpanel.php:586 actions/emailsettings.php:195
 #: actions/imsettings.php:163 actions/othersettings.php:126
 #: actions/pathsadminpanel.php:296 actions/profilesettings.php:167
 #: actions/siteadminpanel.php:421 actions/smssettings.php:181
@@ -939,7 +944,7 @@ msgstr ""
 msgid "Save"
 msgstr "Guardar"
 
-#: actions/designadminpanel.php:582 lib/designsettings.php:257
+#: actions/designadminpanel.php:587 lib/designsettings.php:257
 msgid "Save design"
 msgstr "Desa el disseny"
 
@@ -949,7 +954,7 @@ msgstr "Aquesta notificació no és un favorit!"
 
 #: actions/disfavor.php:94
 msgid "Add to favorites"
-msgstr "Afegir a favorits"
+msgstr "Afegeix als preferits"
 
 #: actions/doc.php:69
 msgid "No such document."
@@ -1007,13 +1012,13 @@ msgstr "Adreça"
 
 #: actions/emailsettings.php:105
 msgid "Current confirmed email address."
-msgstr "Correu electrònic confirmat actualment."
+msgstr "Adreça electrònica confirmada actualment."
 
 #: actions/emailsettings.php:107 actions/emailsettings.php:140
 #: actions/imsettings.php:108 actions/smssettings.php:115
 #: actions/smssettings.php:158
 msgid "Remove"
-msgstr "Eliminar"
+msgstr "Suprimeix"
 
 #: actions/emailsettings.php:113
 msgid ""
@@ -1026,7 +1031,7 @@ msgstr ""
 #: actions/emailsettings.php:117 actions/imsettings.php:120
 #: actions/smssettings.php:126
 msgid "Cancel"
-msgstr "Cancel·lar"
+msgstr "Cancel·la"
 
 #: actions/emailsettings.php:121
 msgid "Email Address"
@@ -1039,7 +1044,7 @@ msgstr "Correu electrònic, com Email address, like \"UserName@example.org\""
 #: actions/emailsettings.php:126 actions/imsettings.php:133
 #: actions/smssettings.php:145
 msgid "Add"
-msgstr "Afegir"
+msgstr "Afegeix"
 
 #: actions/emailsettings.php:133 actions/smssettings.php:152
 msgid "Incoming email"
@@ -1048,7 +1053,7 @@ msgstr "Correu electrònic entrant"
 #: actions/emailsettings.php:138 actions/smssettings.php:157
 msgid "Send email to this address to post new notices."
 msgstr ""
-"Enviar correu electrònic a aquesta direcció per publicar noves notificacions."
+"Envia correu electrònic a aquesta adreça per publicar noves notificacions."
 
 #: actions/emailsettings.php:145 actions/smssettings.php:162
 msgid "Make a new email address for posting to; cancels the old one."
@@ -1384,20 +1389,20 @@ msgid ""
 "palette of your choice."
 msgstr ""
 
-#: actions/groupdesignsettings.php:262 actions/userdesignsettings.php:186
-#: lib/designsettings.php:434 lib/designsettings.php:464
+#: actions/groupdesignsettings.php:263 actions/userdesignsettings.php:186
+#: lib/designsettings.php:391 lib/designsettings.php:413
 #, fuzzy
 msgid "Couldn't update your design."
 msgstr "No s'ha pogut actualitzar l'usuari."
 
-#: actions/groupdesignsettings.php:286 actions/groupdesignsettings.php:296
+#: actions/groupdesignsettings.php:287 actions/groupdesignsettings.php:297
 #: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
 #: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
 #, fuzzy
 msgid "Unable to save your design settings!"
 msgstr "No s'ha pogut guardar la teva configuració de Twitter!"
 
-#: actions/groupdesignsettings.php:307 actions/userdesignsettings.php:231
+#: actions/groupdesignsettings.php:308 actions/userdesignsettings.php:231
 #, fuzzy
 msgid "Design preferences saved."
 msgstr "Preferències de sincronització guardades."
@@ -1447,7 +1452,7 @@ msgstr "Admin"
 
 #: actions/groupmembers.php:346 lib/blockform.php:69
 msgid "Block"
-msgstr "Bloquejar"
+msgstr "Bloca"
 
 #: actions/groupmembers.php:441
 #, fuzzy
@@ -1724,9 +1729,9 @@ msgstr "Missatge personal"
 msgid "Optionally add a personal message to the invitation."
 msgstr "Opcionalment pots afegir un missatge a la invitació."
 
-#: actions/invite.php:197 lib/messageform.php:181 lib/noticeform.php:225
+#: actions/invite.php:197 lib/messageform.php:180 lib/noticeform.php:224
 msgid "Send"
-msgstr "Enviar"
+msgstr "Envia"
 
 #: actions/invite.php:226
 #, php-format
@@ -1937,7 +1942,7 @@ msgstr "Nou missatge"
 
 #: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:367
 msgid "You can't send a message to this user."
-msgstr "No pots enviar un missatge a aquest usuari."
+msgstr "No podeu enviar un misssatge a aquest usuari."
 
 #: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:351
 #: lib/command.php:424
@@ -2048,8 +2053,8 @@ msgstr "tipus de contingut "
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:999
-#: lib/api.php:1027 lib/api.php:1137
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:996
+#: lib/api.php:1024 lib/api.php:1134
 msgid "Not a supported data format."
 msgstr "Format de data no suportat."
 
@@ -4514,9 +4519,8 @@ msgid ""
 msgstr ""
 
 #: lib/common.php:199
-#, fuzzy
 msgid "No configuration file found. "
-msgstr "Cap codi de confirmació."
+msgstr "No s'ha trobat cap fitxer de configuració. "
 
 #: lib/common.php:200
 msgid "I looked for configuration files in the following places: "
@@ -4527,9 +4531,8 @@ msgid "You may wish to run the installer to fix this."
 msgstr ""
 
 #: lib/common.php:202
-#, fuzzy
 msgid "Go to the installer."
-msgstr "Accedir a aquest lloc"
+msgstr "Vés a l'instal·lador."
 
 #: lib/connectsettingsaction.php:110
 msgid "IM"
@@ -4558,11 +4561,7 @@ msgid ""
 "You can upload your personal background image. The maximum file size is 2MB."
 msgstr "Pots pujar el teu avatar personal."
 
-#: lib/designsettings.php:372
-msgid "Bad default color settings: "
-msgstr ""
-
-#: lib/designsettings.php:468
+#: lib/designsettings.php:418
 msgid "Design defaults restored."
 msgstr ""
 
@@ -5027,7 +5026,7 @@ msgstr "Enviar notificació directa"
 msgid "To"
 msgstr "A"
 
-#: lib/messageform.php:162 lib/noticeform.php:186
+#: lib/messageform.php:161 lib/noticeform.php:185
 msgid "Available characters"
 msgstr "Caràcters disponibles"
 
@@ -5040,11 +5039,11 @@ msgstr "Enviar notificació"
 msgid "What's up, %s?"
 msgstr "Què tal, %s?"
 
-#: lib/noticeform.php:193
+#: lib/noticeform.php:192
 msgid "Attach"
 msgstr ""
 
-#: lib/noticeform.php:197
+#: lib/noticeform.php:196
 msgid "Attach a file"
 msgstr ""
 
@@ -5135,7 +5134,7 @@ msgstr "Respostes"
 
 #: lib/personalgroupnav.php:114
 msgid "Favorites"
-msgstr "Favorits"
+msgstr "Preferits"
 
 #: lib/personalgroupnav.php:124
 msgid "Inbox"
@@ -5322,7 +5321,12 @@ msgstr "No pots subscriure a un altre a tu mateix."
 msgid "Not subscribed!"
 msgstr "No estàs subscrit!"
 
-#: lib/subs.php:140
+#: lib/subs.php:133
+#, fuzzy
+msgid "Couldn't delete self-subscription."
+msgstr "No s'ha pogut eliminar la subscripció."
+
+#: lib/subs.php:146
 msgid "Couldn't delete subscription."
 msgstr "No s'ha pogut eliminar la subscripció."
 
