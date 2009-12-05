@@ -617,3 +617,14 @@ EndInlineScriptElement: After a <script...> element is written
 - $action
 - $code
 - $type
+
+StartLog: Before writing to the logs
+- &$priority
+- &$msg
+- &$filename
+
+EndLog: After writing to the logs
+- $priority
+- $msg
+- $filename
+
