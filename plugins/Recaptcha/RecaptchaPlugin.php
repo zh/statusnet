@@ -69,7 +69,7 @@ class RecaptchaPlugin extends Plugin
 
         $action->startXML('html');
 
-        $action->raw('<style type="text/css">#recaptcha_area{float:left;}</style>');
+        $action->style('#recaptcha_area{float:left;}');
         return false;
     }
 
