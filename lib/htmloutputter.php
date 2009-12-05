@@ -419,6 +419,27 @@ class HTMLOutputter extends XMLOutputter
     }
 
     /**
+     * output a style (almost always css) tag with inline
+     * code.
+     *
+     * @param string $code         code to put in the style tag
+     * @param string $type         'type' attribute value of the tag
+     * @param string $media        'media' attribute value of the tag
+     *
+     * @return void
+     */
+
+    function style($code, $type = 'text/css', $media = null)
+    {
+        if(Event::handle('StartStyleElement', array($this,&$code,&$type,&$media))) {
+            $this->elementStart('style', array('type' => $type, 'media' => $media));
+            $this->raw($code);
+            $this->elementEnd('style');
+            Event::handle('EndStyleElement', array($this,$code,$type,$media));
+        }
+    }
+
+    /**
      * output an HTML textarea and associated elements
      *
      * @param string $id           element ID, must be unique on page
