@@ -41,6 +41,12 @@ class CommandInterpreter
                 return null;
             }
             return new HelpCommand($user);
+         case 'login':
+            if ($arg) {
+                return null;
+            } else {
+                return new LoginCommand($user);
+            }
          case 'subscribers':
             if ($arg) {
                 return null;

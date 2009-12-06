@@ -579,6 +579,32 @@ class OnCommand extends Command
     }
 }
 
+class LoginCommand extends Command
+{
+    function execute($channel)
+    {
+        $login_token = Login_token::staticGet('user_id',$this->user->id);
+        if($login_token){
+            $login_token->delete();
+        }
+        $login_token = new Login_token();
+        $login_token->user_id = $this->user->id;
+        $login_token->token = common_good_rand(16);
+        $login_token->created = common_sql_now();
+        $result = $login_token->insert();
+        if (!$result) {
+          common_log_db_error($login_token, 'INSERT', __FILE__);
+          $channel->error($this->user, sprintf(_('Could not create login token for %s'),
+                                       $this->user->nickname));
+          return;
+        }
+        $channel->output($this->user,
+            sprintf(_('This link is useable only once, and is good for only 2 minutes: %s'),
+                    common_local_url('login',
+                        array('user_id'=>$login_token->user_id, 'token'=>$login_token->token))));
+    }
+}
+
 class SubscriptionsCommand extends Command
 {
     function execute($channel)
@@ -666,6 +692,7 @@ class HelpCommand extends Command
                            "reply #<notice_id> - reply to notice with a given id\n".
                            "reply <nickname> - reply to the last notice from user\n".
                            "join <group> - join group\n".
+                           "login - Get a link to login to the web interface\n".
                            "drop <group> - leave group\n".
                            "stats - get your stats\n".
                            "stop - same as 'off'\n".

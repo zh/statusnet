@@ -39,6 +39,15 @@ create table profile_role (
 
 );
 
+create table login_token (
+    user_id integer not null /* comment 'user owning this token'*/ references "user" (id),
+    token char(32) not null /* comment 'token useable for logging in'*/,
+    created timestamp not null DEFAULT CURRENT_TIMESTAMP /* comment 'date this record was created'*/,
+    modified timestamp /* comment 'date this record was modified'*/,
+
+    primary key (user_id)
+);
+
 DROP index fave_user_id_idx;
 CREATE index fave_user_id_idx on fave (user_id,modified);
 
@@ -60,4 +69,3 @@ ALTER TABLE profile ADD COLUMN lat decimal(10,7) /*comment 'latitude'*/ ;
 ALTER TABLE profile ADD COLUMN lon decimal(10,7) /*comment 'longitude'*/;
 ALTER TABLE profile ADD COLUMN location_id integer /* comment 'location id if possible'*/;
 ALTER TABLE profile ADD COLUMN location_ns integer /* comment 'namespace for location'*/;
-    
