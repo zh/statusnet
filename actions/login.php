@@ -75,11 +75,14 @@ class LoginAction extends Action
     function handle($args)
     {
         parent::handle($args);
+
+        $disabled = common_config('logincommand','disabled');
+
         if (common_is_real_login()) {
             $this->clientError(_('Already logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->checkLogin();
-        } else if (isset($args['user_id']) && isset($args['token'])){
+        } else if (!isset($disabled) && isset($args['user_id']) && isset($args['token'])){
             $this->checkLogin($args['user_id'],$args['token']);
         } else {
             common_ensure_session();

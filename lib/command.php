@@ -583,6 +583,11 @@ class LoginCommand extends Command
 {
     function execute($channel)
     {
+        $disabled = common_config('logincommand','disabled');
+        if(isset($disabled)) {
+            $channel->error($this->user, _('Login command is disabled'));
+            return;
+        }
         $login_token = Login_token::staticGet('user_id',$this->user->id);
         if($login_token){
             $login_token->delete();
