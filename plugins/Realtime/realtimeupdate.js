@@ -197,7 +197,6 @@ RealtimeUpdate = {
 
         RealtimeUpdate.initPlayPause();
         RealtimeUpdate.initAddPopup(url, timeline, RealtimeUpdate._pluginPath);
-        RealtimeUpdate.addNoticesHover();
      },
 
      initPlayPause: function()
@@ -209,6 +208,7 @@ RealtimeUpdate = {
      {
         RealtimeUpdate._paused = false;
         RealtimeUpdate.showQueuedNotices();
+        RealtimeUpdate.addNoticesHover();
 
         $('#realtime_playpause').remove();
         $('#realtime_actions').prepend('<li id="realtime_playpause"><button id="realtime_pause" class="pause" title="Pause">Pause</button></li>');
@@ -228,7 +228,6 @@ RealtimeUpdate = {
         $('#realtime_actions').prepend('<li id="realtime_playpause"><span id="queued_counter"></span> <button id="realtime_play" class="play" title="Play">Play</button></li>');
 
         $('#realtime_play').bind('click', function() {
-            RealtimeUpdate.addNoticesHover();
             RealtimeUpdate.showPause();
             return false;
         });
@@ -273,7 +272,7 @@ RealtimeUpdate = {
 
      removeNoticesHover: function()
      {
-        $('#notices_primary .notices').unbind('hover');
+        $('#notices_primary .notices').unbind();
      },
 
      initAddPopup: function(url, timeline, path)
