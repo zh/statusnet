@@ -201,12 +201,19 @@ RealtimeUpdate = {
 
      initPlayPause: function()
      {
-        RealtimeUpdate.showPause();
+        if (typeof(localStorage) != 'undefined') {
+            if (localStorage.getItem('RealtimeUpdate_paused') === 'true') {
+                RealtimeUpdate.showPlay();
+            }
+            else {
+                RealtimeUpdate.showPause();
+            }
+        }
      },
 
      showPause: function()
      {
-        RealtimeUpdate._paused = false;
+        RealtimeUpdate.setPause(false);
         RealtimeUpdate.showQueuedNotices();
         RealtimeUpdate.addNoticesHover();
 
@@ -222,8 +229,7 @@ RealtimeUpdate = {
 
      showPlay: function()
      {
-        RealtimeUpdate._paused = true;
-
+        RealtimeUpdate.setPause(true);
         $('#realtime_playpause').remove();
         $('#realtime_actions').prepend('<li id="realtime_playpause"><span id="queued_counter"></span> <button id="realtime_play" class="play" title="Play">Play</button></li>');
 
@@ -231,6 +237,14 @@ RealtimeUpdate = {
             RealtimeUpdate.showPause();
             return false;
         });
+     },
+
+     setPause: function(state)
+     {
+        RealtimeUpdate._paused = state;
+        if (typeof(localStorage) != 'undefined') {
+            localStorage.setItem('RealtimeUpdate_paused', RealtimeUpdate._paused);
+        }
      },
 
      showQueuedNotices: function()
