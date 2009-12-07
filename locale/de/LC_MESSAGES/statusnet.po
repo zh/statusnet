@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-05 19:53+0000\n"
-"PO-Revision-Date: 2009-12-05 19:54:00+0000\n"
+"POT-Creation-Date: 2009-12-07 21:25+0000\n"
+"PO-Revision-Date: 2009-12-07 21:26:11+0000\n"
 "Language-Team: German\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59747); Translate extension (2009-11-29)\n"
+"X-Generator: MediaWiki 1.16alpha(r59800); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: out-statusnet\n"
@@ -574,7 +574,7 @@ msgstr "Zuschneiden"
 #: actions/emailsettings.php:238 actions/favor.php:75
 #: actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
-#: actions/invite.php:56 actions/login.php:129 actions/makeadmin.php:66
+#: actions/invite.php:56 actions/login.php:134 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
@@ -1800,11 +1800,11 @@ msgstr "Konnte Benutzer %s aus der Gruppe %s nicht entfernen"
 msgid "%s left group %s"
 msgstr "%s hat die Gruppe %s verlassen"
 
-#: actions/login.php:79 actions/register.php:137
+#: actions/login.php:82 actions/register.php:137
 msgid "Already logged in."
 msgstr "Bereits angemeldet."
 
-#: actions/login.php:108 actions/login.php:118
+#: actions/login.php:113 actions/login.php:123
 msgid "Invalid or expired token."
 msgstr "Token ungültig oder abgelaufen."
 
@@ -2700,12 +2700,11 @@ msgid "Creative Commons Attribution 3.0"
 msgstr ""
 
 #: actions/register.php:496
-#, fuzzy
 msgid ""
 " except this private data: password, email address, IM address, and phone "
 "number."
 msgstr ""
-"außer folgende private Daten: Passwort, E-Mail, Adresse, IM Adresse, "
+"außer folgende private Daten: Passwort, E-Mail-Adresse, IM-Adresse und "
 "Telefonnummer."
 
 #: actions/register.php:537
@@ -2726,28 +2725,27 @@ msgid ""
 "\n"
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
-"Hallo %s, herzlich willkommen auf %%%%site.name%%%%.\n"
-"\n"
-"Danke für deine Anmeldung, wir hoffen das dir der Service gefällt.\n"
-"\n"
-"Als nächstes möchtest du eventuell …\n"
+"Hallo %s, herzlich willkommen auf %%%%site.name%%%%. Als nächstes möchtest "
+"du eventuell …\n"
 "\n"
 "* zu [deinem Profil gehen](%s) und deine erste Nachricht schreiben\n"
-"* deine [Jabber/GTalk Adresse](%%%%action.imsettings%%%%) eintragen damit du "
+"* deine [Jabber/GTalk-Adresse](%%%%action.imsettings%%%%) eintragen damit du "
 "Nachrichten über diese Dienste schreiben kannst.\n"
 "* [Leute suchen](%%%%action.peoplesearch%%%%) die du kennst oder die "
 "gleichen Interessen wie du haben.\n"
 "* deine [Profildaten ergänzen](%%%%action.profilesettings%%%%) um mehr über "
 "dich zu veröffentlichen\n"
 "* die [Dokumentation](%%%%doc.help%%%%) lesen um mehr über weitere Features "
-"zu erfahren"
+"zu erfahren\n"
+"\n"
+"Danke für deine Anmeldung, wir hoffen das dir der Service gefällt."
 
 #: actions/register.php:561
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
 msgstr ""
-"(Sie sollten in Kürze eine E-Mail mit der Anleitung zur Überprüfung Ihrer "
+"(Du solltest in Kürze eine E-Mail mit der Anleitung zur Überprüfung deiner "
 "Mailadresse erhalten.)"
 
 #: actions/remotesubscribe.php:98
@@ -2797,16 +2795,15 @@ msgid "Invalid profile URL (bad format)"
 msgstr "Ungültige Profil-URL (falsches Format)"
 
 #: actions/remotesubscribe.php:168
-#, fuzzy
 msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
-msgstr "Ungültige Profil-URL (kein YADIS-Dokument)."
+msgstr ""
+"Ungültige Profil-URL (kein YADIS-Dokument oder ungültige XRDS definiert)."
 
 #: actions/remotesubscribe.php:176
 msgid "That’s a local profile! Login to subscribe."
 msgstr "Das ist ein lokales Profil! Zum Abonnieren anmelden."
 
 #: actions/remotesubscribe.php:183
-#, fuzzy
 msgid "Couldn’t get a request token."
 msgstr "Konnte keinen Anfrage-Token bekommen."
 
@@ -2834,7 +2831,7 @@ msgstr "Feed der Antworten an %s (RSS 2.0)"
 #: actions/replies.php:158
 #, php-format
 msgid "Replies feed for %s (Atom)"
-msgstr "Feed der Nachrichten von %s"
+msgstr "Feed der Nachrichten von %s (Atom)"
 
 #: actions/replies.php:198
 #, php-format
@@ -2858,9 +2855,9 @@ msgid ""
 msgstr ""
 
 #: actions/repliesrss.php:72
-#, fuzzy, php-format
+#, php-format
 msgid "Replies to %1$s on %2$s!"
-msgstr "Nachricht an %1$s auf %2$s"
+msgstr "Antworten an %1$s auf %2$s!"
 
 #: actions/sandbox.php:65 actions/unsandbox.php:65
 #, fuzzy
@@ -2884,17 +2881,17 @@ msgstr "Konnte Favoriten nicht abrufen."
 #: actions/showfavorites.php:170
 #, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
-msgstr "Feed der Freunde von %s"
+msgstr "Feed der Freunde von %s (RSS 1.0)"
 
 #: actions/showfavorites.php:177
 #, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
-msgstr "Feed der Freunde von %s"
+msgstr "Feed der Freunde von %s (RSS 2.0)"
 
 #: actions/showfavorites.php:184
 #, php-format
 msgid "Feed for favorites of %s (Atom)"
-msgstr "Feed der Freunde von %s"
+msgstr "Feed der Freunde von %s (Atom)"
 
 #: actions/showfavorites.php:205
 msgid ""
@@ -2992,9 +2989,8 @@ msgid "Statistics"
 msgstr "Statistiken"
 
 #: actions/showgroup.php:432
-#, fuzzy
 msgid "Created"
-msgstr "Erstellen"
+msgstr "Erstellt"
 
 #: actions/showgroup.php:448
 #, php-format
@@ -3007,15 +3003,17 @@ msgid ""
 msgstr ""
 
 #: actions/showgroup.php:454
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
 "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
 "[StatusNet](http://status.net/) tool. Its members share short messages about "
 "their life and interests. "
 msgstr ""
-"**%s** ist eine Benutzergruppe auf %%site.name%%, einem [mikro-blogging] "
-"(http://de.wikipedia.org/wiki/Mikro-blogging) Dienst "
+"**%s** ist eine Benutzergruppe auf %%%%site.name%%%%, einem [Mikro-blogging-"
+"Dienst](http://de.wikipedia.org/wiki/Mikro-blogging) basierend auf der "
+"Freien Software [StatusNet](http://status.net/). Seine Mitglieder erstellen "
+"kurze Nachrichten über Ihr Leben und Interessen. "
 
 #: actions/showgroup.php:482
 msgid "Admins"
@@ -3044,7 +3042,7 @@ msgid "Notice deleted."
 msgstr "Nachricht gelöscht."
 
 #: actions/showstream.php:73
-#, fuzzy, php-format
+#, php-format
 msgid " tagged %s"
 msgstr "Nachrichten, die mit %s getagt sind"
 
@@ -3106,14 +3104,15 @@ msgid ""
 msgstr ""
 
 #: actions/showstream.php:239
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
 "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
 "[StatusNet](http://status.net/) tool. "
 msgstr ""
-"**%s** hat ein Konto auf %%site.name%%, einem [mikro-blogging] (http://de."
-"wikipedia.org/wiki/Mikro-blogging) Dienst "
+"**%s** hat ein Konto auf %%%%site.name%%%%, einem [Mikro-blogging-Dienst]"
+"(http://de.wikipedia.org/wiki/Mikro-blogging) basierend auf der Freien "
+"Software [StatusNet](http://status.net/). "
 
 #: actions/silence.php:65 actions/unsilence.php:65
 #, fuzzy
@@ -3134,14 +3133,13 @@ msgid "Site name must have non-zero length."
 msgstr ""
 
 #: actions/siteadminpanel.php:155
-#, fuzzy
 msgid "You must have a valid contact email address"
-msgstr "Ungültige E-Mail-Adresse"
+msgstr "Du musst eine gültige E-Mail-Adresse haben"
 
 #: actions/siteadminpanel.php:173
 #, php-format
 msgid "Unknown language \"%s\""
-msgstr "Unbekannte Sprache &quot;%s&quot;"
+msgstr "Unbekannte Sprache „%s“"
 
 #: actions/siteadminpanel.php:180
 msgid "Invalid snapshot report URL."
@@ -3388,7 +3386,7 @@ msgstr "SMS ist nicht verfügbar."
 
 #: actions/smssettings.php:112
 msgid "Current confirmed SMS-enabled phone number."
-msgstr "Aktuelle für den SMS-Dienst bestätigte Telefon-Nummer."
+msgstr "Aktuelle für den SMS-Dienst bestätigte Telefonnummer."
 
 #: actions/smssettings.php:123
 msgid "Awaiting confirmation on this phone number."
@@ -3777,7 +3775,6 @@ msgid "Authorize subscription"
 msgstr "Abonnement bestätigen"
 
 #: actions/userauthorization.php:110
-#, fuzzy
 msgid ""
 "Please check these details to make sure that you want to subscribe to this "
 "user’s notices. If you didn’t just ask to subscribe to someone’s notices, "
@@ -3785,7 +3782,7 @@ msgid ""
 msgstr ""
 "Bitte überprüfe diese Angaben, um sicher zu gehen, dass du die Nachrichten "
 "dieses Nutzers abonnieren möchtest. Wenn du das nicht wolltest, klicke auf "
-"\"Abbrechen\"."
+"„Abbrechen“."
 
 #: actions/userauthorization.php:188
 msgid "License"
@@ -3885,7 +3882,7 @@ msgstr "Keine ID."
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 msgid "Profile design"
-msgstr "Profil Design Einstellungen"
+msgstr "Profil-Design-Einstellungen"
 
 #: actions/userdesignsettings.php:87 lib/designsettings.php:76
 msgid ""
@@ -4016,7 +4013,7 @@ msgstr "Ändere dein Passwort"
 
 #: lib/accountsettingsaction.php:120
 msgid "Change email handling"
-msgstr "Ändere die E-Mail Verarbeitung"
+msgstr "Ändere die E-Mail-Verarbeitung"
 
 #: lib/accountsettingsaction.php:124
 #, fuzzy
@@ -4185,7 +4182,7 @@ msgid ""
 "s, available under the [GNU Affero General Public License](http://www.fsf."
 "org/licensing/licenses/agpl-3.0.html)."
 msgstr ""
-" Es wird mit der Microbloggingsoftware [StatusNet](http://status.net/) "
+"Es wird mit der Microbloggingsoftware [StatusNet](http://status.net/) "
 "(Version %s) betrieben, die unter der [GNU Affero General Public License]"
 "(http://www.fsf.org/licensing/licenses/agpl-3.0.html) erhältlich ist."
 
@@ -4407,40 +4404,54 @@ msgstr "Benachrichtigung aktiviert."
 msgid "Can't turn on notification."
 msgstr "Konnte Benachrichtigung nicht aktivieren."
 
-#: lib/command.php:592
+#: lib/command.php:588
+msgid "Login command is disabled"
+msgstr ""
+
+#: lib/command.php:602
+#, fuzzy, php-format
+msgid "Could not create login token for %s"
+msgstr "Konnte keinen Favoriten erstellen."
+
+#: lib/command.php:607
+#, php-format
+msgid "This link is useable only once, and is good for only 2 minutes: %s"
+msgstr ""
+
+#: lib/command.php:623
 #, fuzzy
 msgid "You are not subscribed to anyone."
 msgstr "Du hast dieses Profil nicht abonniert."
 
-#: lib/command.php:594
+#: lib/command.php:625
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Du hast diese Benutzer bereits abonniert:"
 msgstr[1] "Du hast diese Benutzer bereits abonniert:"
 
-#: lib/command.php:614
+#: lib/command.php:645
 #, fuzzy
 msgid "No one is subscribed to you."
 msgstr "Die Gegenseite konnte Dich nicht abonnieren."
 
-#: lib/command.php:616
+#: lib/command.php:647
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Die Gegenseite konnte Dich nicht abonnieren."
 msgstr[1] "Die Gegenseite konnte Dich nicht abonnieren."
 
-#: lib/command.php:636
+#: lib/command.php:667
 #, fuzzy
 msgid "You are not a member of any groups."
 msgstr "Du bist kein Mitglied dieser Gruppe."
 
-#: lib/command.php:638
+#: lib/command.php:669
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Du bist kein Mitglied dieser Gruppe."
 msgstr[1] "Du bist kein Mitglied dieser Gruppe."
 
-#: lib/command.php:652
+#: lib/command.php:683
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4459,6 +4470,7 @@ msgid ""
 "reply #<notice_id> - reply to notice with a given id\n"
 "reply <nickname> - reply to the last notice from user\n"
 "join <group> - join group\n"
+"login - Get a link to login to the web interface\n"
 "drop <group> - leave group\n"
 "stats - get your stats\n"
 "stop - same as 'off'\n"
@@ -4610,10 +4622,10 @@ msgid "Description"
 msgstr "Beschreibung"
 
 #: lib/groupeditform.php:179
-#, fuzzy
 msgid ""
 "Location for the group, if any, like \"City, State (or Region), Country\""
-msgstr "Ort der Gruppe, optional, z.B. \"Stadt, Gebiet (oder Region), Land\""
+msgstr ""
+"Ort der Gruppe, optional, beispielsweise „Stadt, Gebiet (oder Region), Land“"
 
 #: lib/groupeditform.php:187
 #, php-format
