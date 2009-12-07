@@ -112,6 +112,8 @@ class RSSCloudPlugin extends Plugin
 
     function onStartApiRss($action)
     {
+        // XXX: Add RSS 1.0 user feeds
+
         if (get_class($action) == 'ApiTimelineUserAction') {
 
             $attrs = array('domain'            => $this->domain,

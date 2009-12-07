@@ -52,7 +52,7 @@ class RSSCloudRequestNotifyAction extends Action
         $this->protocol  = $this->arg('protocol');
         $this->procedure = $this->arg('notifyProcedure');
         $this->domain    = $this->arg('domain');
-        
+
         $this->feeds     = $this->getFeeds();
 
         return true;
@@ -103,29 +103,29 @@ class RSSCloudRequestNotifyAction extends Action
         }
 
         // We have to validate everything before saving anything.
-        // We only return one success or failure no matter how 
+        // We only return one success or failure no matter how
         // many feeds the subscriber is trying to subscribe to
 
         foreach ($this->feeds as $feed) {
-            
+
             if (!$this->validateFeed($feed)) {
                 $msg = 'Feed subscription failed - Not a valid feed.';
                 $this->showResult(false, $msg);
                 return;
             }
-            
+
             if (!$this->testNotificationHandler($feed)) {
                 $msg = 'Feed subscription failed - ' .
                 'notification handler doesn\'t respond correctly.';
                 $this->showResult(false, $msg);
-                return;  
+                return;
             }
-            
+
         }
 
         foreach ($this->feeds as $feed) {
             $this->saveSubscription($feed);
-        } 
+        }
 
         // XXX: What to do about deleting stale subscriptions?  25 hours seems harsh.
         // WordPress doesn't ever remove subscriptions.
@@ -133,7 +133,7 @@ class RSSCloudRequestNotifyAction extends Action
         $msg = 'Thanks for the registration. It worked. When the feed(s) update(s) we\'ll notify you. ' .
                ' Don\'t forget to re-register after 24 hours, your subscription will expire in 25.';
 
-        $this->showResult(true, $msg);        
+        $this->showResult(true, $msg);
     }
 
     function validateFeed($feed)
@@ -147,51 +147,53 @@ class RSSCloudRequestNotifyAction extends Action
         return true;
     }
 
-
     function getFeeds()
     {
         $feeds = array();
-            
-        while (list($key, $feed) = each ($this->args)) {            
+
+        while (list($key, $feed) = each ($this->args)) {
             if (preg_match('/^url\d*$/', $key)) {
                 $feeds[] = $feed;
-            } 
+            }
         }
 
         return $feeds;
     }
 
     function testNotificationHandler($feed)
-    {        
+    {
         common_debug("RSSCloudPlugin - testNotificationHandler()");
-        
+
         $notifier = new RSSCloudNotifier();
-        
+
         if (isset($this->domain)) {
-            
-            //get
-            
-            $this->url = 'http://' . $this->domain . ':' . $this->port . '/' . $this->path;
-            
-            common_debug('domain set need to send challenge');
-            
+
+            // 'domain' param set, so we have to use GET and send a challenge
+
+            $endpoint = 'http://' . $this->domain . ':' . $this->port . '/' . $this->path;
+
+            common_log(LOG_INFO, 'Testing notification handler with challenge: ' .
+                       $endpoint);
+
+            return $notifier->challenge($endpoint, $feed);
+
         } else {
-            
-            //post
-            
-            $this->url = 'http://' . $this->ip . ':' . $this->port . '/' . $this->path;
-            
-            //return $notifier->postUpdate($endpoint, $feed);
 
-        }   
+            $endpoint = 'http://' . $this->ip . ':' . $this->port . '/' . $this->path;
 
-        return true;
+            common_log(LOG_INFO, 'Testing notification handler: ' .
+                       $endpoint);
+
+            return $notifier->postUpdate($endpoint, $feed);
+        }
 
     }
 
     function userFromFeed($feed)
     {
         // We only do profile feeds
+
+        // XXX: Add cloud element to RSS 1.0 feeds
 
         $path = common_path('api/statuses/user_timeline/');
         $valid = '%^' . $path . '(?<nickname>.*)\.rss$%';
@@ -209,37 +211,31 @@ class RSSCloudRequestNotifyAction extends Action
     function saveSubscription($feed)
     {
         $user = $this->userFromFeed($feed);
-        
-        common_debug('user = ' . $user->id);
-        
+
         $sub = RSSCloudSubscription::getSubscription($user->id, $this->url);
-        
+
         if ($sub) {
-            common_debug("already subscribed to that!");
+            common_debug("Already subscribed to that!");
         } else {
-            common_debug('No feed for user ' . $user->id . ' notify: ' . $this->url);
+
+            $sub = new RSSCloudSubscription();
+
+            $sub->subscribed = $user->id;
+            $sub->url        = $this->url;
+            $sub->created    = common_sql_now();
+
+            // auto timestamp doesn't seem to work for me
+
+            // $sub->modified   = common_sql_now();
+
+            if (!$sub->insert()) {
+                common_log_db_error($sub, 'INSERT', __FILE__);
+                return false;
+            }
+
+            DB_DataObject::debugLevel();
         }
-        
-        common_debug('RSSPlugin - saveSubscription');
-        // turn debugging high
-        DB_DataObject::debugLevel(5);
-        
-        $sub = new RSSCloudSubscription();
-        
-        $sub->subscribed = $user->id;
-        $sub->url        = $this->url;
-        $sub->created    = common_sql_now();
-        
-        // auto timestamp doesn't seem to work for me
-        
-        $sub->modified   = common_sql_now();
-        
-        if (!$sub->insert()) {
-            common_log_db_error($sub, 'INSERT', __FILE__);
-            return false;
-        }
-        DB_DataObject::debugLevel();
-        
+
         return true;
     }
 
@@ -252,6 +248,4 @@ class RSSCloudRequestNotifyAction extends Action
     }
 
 }
-
-
 

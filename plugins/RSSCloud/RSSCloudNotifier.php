@@ -33,59 +33,77 @@ if (!defined('STATUSNET')) {
 
 class RSSCloudNotifier {
 
-    function postUpdate($endpoint, $feed) {
-        common_debug("CloudNotifier->notify: $feed");
+    function challenge($endpoint, $feed)
+    {
+        $code   = common_confirmation_code(128);
+        $params = array('url' => $feed, 'challenge' => $code);
+        $url    = $endpoint . '?' . http_build_query($params);
 
-        $params = 'url=' . urlencode($feed);
-
-        $result = $this->httpPost($endpoint, $params);
-
-        // XXX: Make all this use CurlClient (lib/curlclient.php)
-
-        if ($result) {
-            common_debug('RSSCloud plugin - success notifying cloud endpoint!');
-        } else {
-            common_debug('RSSClous plugin - failure notifying cloud endpoint!');
+        try {
+            $client = new HTTPClient();
+            $response = $client->get($url);
+        } catch (HTTP_Request2_Exception $e) {
+            common_log(LOG_INFO, 'RSSCloud plugin - failure testing notify handler ' .
+                       $endpoint . ' - '  . $e->getMessage());
+            return false;
         }
 
-        return $result;
+        // Check response is betweet 200 and 299 and body contains challenge data
+
+        $status = $response->getStatus();
+        $body   = $response->getBody();
+
+        if ($status >= 200 && $status < 300) {
+
+            if (strpos($body, $code) !== false) {
+                common_log(LOG_INFO, 'RSSCloud plugin - ' .
+                           "success testing notify handler:  $endpoint");
+                return true;
+            } else {
+                common_log(LOG_INFO, 'RSSCloud plugin - ' .
+                          'challenge/repsonse failed for notify handler ' .
+                           $endpoint);
+                common_debug('body = ' . var_export($body, true));
+                return false;
+            }
+        } else {
+            common_log(LOG_INFO, 'RSSCloud plugin - ' .
+                       "failure testing notify handler:  $endpoint " .
+                       ' - got HTTP ' . $status);
+            common_debug('body = ' . var_export($body, true));
+            return false;
+        }
     }
 
-    function userAgent()
-    {
-        return 'rssCloudPlugin/' . RSSCLOUDPLUGIN_VERSION .
-          ' StatusNet/' . STATUSNET_VERSION;
-    }
+    function postUpdate($endpoint, $feed) {
 
-    private function httpPost($url, $params) {
+        $headers  = array();
+        $postdata = array('url' => $feed);
 
-        $options = array(CURLOPT_URL            => $url,
-                         CURLOPT_POST           => true,
-                         CURLOPT_POSTFIELDS     => $params,
-                         CURLOPT_USERAGENT      => $this->userAgent(),
-                         CURLOPT_RETURNTRANSFER => true,
-                         CURLOPT_FAILONERROR    => true,
-                         CURLOPT_HEADER         => false,
-                         CURLOPT_FOLLOWLOCATION => true,
-                         CURLOPT_CONNECTTIMEOUT => 5,
-                         CURLOPT_TIMEOUT        => 5);
+        try {
+            $client = new HTTPClient();
+            $response = $client->post($endpoint, $headers, $postdata);
+        } catch (HTTP_Request2_Exception $e) {
+            common_log(LOG_INFO, 'RSSCloud plugin - failure notifying ' .
+                       $endpoint . ' that feed ' . $feed .
+                       ' has changed: ' . $e->getMessage());
+            return false;
+        }
 
-        $ch = curl_init();
-        curl_setopt_array($ch, $options);
+        $status = $response->getStatus();
 
-        $response = curl_exec($ch);
-
-        $info = curl_getinfo($ch);
-
-        curl_close($ch);
-
-        if ($info['http_code'] == 200) {
+        if ($status >= 200 && $status < 300) {
+            common_log(LOG_INFO, 'RSSCloud plugin - success notifying ' .
+                       $endpoint . ' that feed ' . $feed . ' has changed.');
             return true;
         } else {
+            common_log(LOG_INFO, 'RSSCloud plugin - failure notifying ' .
+                       $endpoint . ' that feed ' . $feed .
+                       ' has changed: got HTTP ' . $status);
+            common_debug('body = ' . var_export($response->getBody(), true));
             return false;
         }
     }
 
 }
-
 

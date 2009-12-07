@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This test class pretends to be an RSS aggregator. It logs notifications
  * from the cloud.
@@ -78,8 +77,7 @@ class LoggingAggregatorAction extends Action
             }
 
             header('Content-Type: text/xml');
-            echo "<notifyResult success='true' msg='Thanks for the update.' challenge='" .
-              $this->challenge . "' />\n";
+            echo $this->challenge;
 
         } else {
 
@@ -92,7 +90,6 @@ class LoggingAggregatorAction extends Action
 
             header('Content-Type: text/xml');
             echo '<notifyResult success=\'true\' msg=\'Thanks for the update.\' />' . "\n";
-
         }
 
         $this->ip = $_SERVER['REMOTE_ADDR'];
