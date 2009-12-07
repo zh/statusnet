@@ -184,8 +184,9 @@ var SN = { // StatusNet
                     form.removeClass(SN.C.S.Processing);
                     $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeClass(SN.C.S.Disabled);
                     $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeAttr(SN.C.S.Disabled, SN.C.S.Disabled);
+                    $('#'+form_id+' .form_response').remove();
                     if (textStatus == 'timeout') {
-                        form.append('<p class="error">Sorry! We had trouble sending your notice. The servers are overloaded. Please try again, and contact the site administrator if this problem persists.</p>');
+                        form.append('<p class="form_response error">Sorry! We had trouble sending your notice. The servers are overloaded. Please try again, and contact the site administrator if this problem persists.</p>');
                     }
                     else {
                         if ($('.'+SN.C.S.Error, xhr.responseXML).length > 0) {
@@ -198,17 +199,18 @@ var SN = { // StatusNet
                                 SN.U.FormNoticeEnhancements($('#'+form_id));
                             }
                             else {
-                                form.append('<p class="error">(Sorry! We had trouble sending your notice ('+xhr.status+' '+xhr.statusText+'). Please report the problem to the site administrator if this happens again.</p>');
+                                form.append('<p class="form_response error">(Sorry! We had trouble sending your notice ('+xhr.status+' '+xhr.statusText+'). Please report the problem to the site administrator if this happens again.</p>');
                             }
                         }
                     }
                 },
                 success: function(data, textStatus) {
+                    $('#'+form_id+' .form_response').remove();
                     var result;
                     if ($('#'+SN.C.S.Error, data).length > 0) {
                         result = document._importNode($('p', data)[0], true);  
                         result = result.textContent || result.innerHTML;
-                        form.append('<p class="error">'+result+'</p>');
+                        form.append('<p class="form_response error">'+result+'</p>');
                     }
                     else {
                         if($('body')[0].id == 'bookmarklet') {
@@ -218,7 +220,7 @@ var SN = { // StatusNet
                         if ($('#'+SN.C.S.CommandResult, data).length > 0) {
                             result = document._importNode($('p', data)[0], true);
                             result = result.textContent || result.innerHTML;
-                            form.append('<p class="success">'+result+'</p>');
+                            form.append('<p class="form_response success">'+result+'</p>');
                         }
                         else {
                             var notices = $('#notices_primary .notices');
@@ -246,7 +248,7 @@ var SN = { // StatusNet
                             else {
                                 result = document._importNode($('title', data)[0], true);
                                 result_title = result.textContent || result.innerHTML;
-                                form.append('<p class="success">'+result_title+'</p>');
+                                form.append('<p class="form_response success">'+result_title+'</p>');
                             }
                         }
                         $('#'+form_id).resetForm();
