@@ -185,7 +185,7 @@ var SN = { // StatusNet
                     $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeClass(SN.C.S.Disabled);
                     $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeAttr(SN.C.S.Disabled, SN.C.S.Disabled);
                     if (textStatus == 'timeout') {
-                        form.append('<p class="error>Sorry! We had trouble sending your notice. The servers are overloaded. Please try again, and contact the site administrator if this problem persists.</p>');
+                        form.append('<p class="error">Sorry! We had trouble sending your notice. The servers are overloaded. Please try again, and contact the site administrator if this problem persists.</p>');
                     }
                     else {
                         if ($('.'+SN.C.S.Error, xhr.responseXML).length > 0) {
@@ -198,7 +198,7 @@ var SN = { // StatusNet
                                 SN.U.FormNoticeEnhancements($('#'+form_id));
                             }
                             else {
-                                form.append('<p class="error>(Sorry! We had trouble sending your notice ('+xhr.status+' '+xhr.statusText+'). Please report the problem to the site administrator if this happens again.</p>');
+                                form.append('<p class="error">(Sorry! We had trouble sending your notice ('+xhr.status+' '+xhr.statusText+'). Please report the problem to the site administrator if this happens again.</p>');
                             }
                         }
                     }
