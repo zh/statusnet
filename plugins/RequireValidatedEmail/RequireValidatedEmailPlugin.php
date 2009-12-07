@@ -21,7 +21,7 @@
  *
  * @category  Plugin
  * @package   StatusNet
- * @author    Craig Andrews <candrews@integralblue.com>
+ * @author    Craig Andrews <candrews@integralblue.com>, Brion Vibber <brion@status.net>
  * @copyright 2009 Craig Andrews http://candrews.integralblue.com
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
@@ -33,20 +33,68 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 
 class RequireValidatedEmailPlugin extends Plugin
 {
+    // Users created before this time will be grandfathered in
+    // without the validation requirement.
+    public $grandfatherCutoff=null;
+
     function __construct()
     {
         parent::__construct();
     }
 
+    /**
+     * Event handler for notice saves; rejects the notice
+     * if user's address isn't validated.
+     *
+     * @param Notice $notice
+     * @return bool hook result code
+     */
     function onStartNoticeSave($notice)
     {
         $user = User::staticGet('id', $notice->profile_id);
         if (!empty($user)) { // it's a remote notice
-            if (empty($user->email)) {
+            if (!$this->validated($user)) {
                 throw new ClientException(_("You must validate your email address before posting."));
             }
         }
         return true;
+    }
+
+    /**
+     * Check if a user has a validated email address or has been
+     * otherwise grandfathered in.
+     *
+     * @param User $user
+     * @return bool
+     */
+    protected function validated($user)
+    {
+        if ($this->grandfathered($user)) {
+            return true;
+        }
+
+        // The email field is only stored after validation...
+        // Until then you'll find them in confirm_address.
+        return !empty($user->email);
+    }
+
+    /**
+     * Check if a user was created before the grandfathering cutoff.
+     * If so, we won't need to check for validation.
+     *
+     * @param User $user
+     * @return bool
+     */
+    protected function grandfathered($user)
+    {
+        if ($this->grandfatherCutoff) {
+            $created = strtotime($user->created . " GMT");
+            $cutoff = strtotime($this->grandfatherCutoff);
+            if ($created < $cutoff) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 
