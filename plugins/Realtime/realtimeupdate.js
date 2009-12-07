@@ -201,7 +201,10 @@ RealtimeUpdate = {
 
      initPlayPause: function()
      {
-        if (typeof(localStorage) != 'undefined') {
+        if (typeof(localStorage) == 'undefined') {
+            RealtimeUpdate.showPause();
+        }
+        else {
             if (localStorage.getItem('RealtimeUpdate_paused') === 'true') {
                 RealtimeUpdate.showPlay();
             }
