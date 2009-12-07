@@ -44,11 +44,11 @@ class RecaptchaPlugin extends Plugin
     var $ssl;
 
     function onInitializePlugin(){
-        if(!isset($this->private_key)){
-            common_log(LOG_ERR, "Recaptcha: Must specify private_key in config.php");
+        if(!isset($this->private_key)) {
+            common_log(LOG_ERR, 'Recaptcha: Must specify private_key in config.php');
         }
-        if(!isset($this->public_key)){
-            common_log(LOG_ERR, "Recaptcha: Must specify public_key in config.php");
+        if(!isset($this->public_key)) {
+            common_log(LOG_ERR, 'Recaptcha: Must specify public_key in config.php');
         }
     }
 
@@ -59,25 +59,13 @@ class RecaptchaPlugin extends Plugin
         return false;
     }
 
-    function onStartShowHTML($action)
-    {
-        //XXX: Horrible hack to make Safari, FF2, and Chrome work with
-        //reChapcha. reChapcha beaks xhtml strict
-        header('Content-Type: text/html');
-
-        $action->extraHeaders();
-
-        $action->startXML('html');
-
-        $action->style('#recaptcha_area{float:left;}');
-        return false;
-    }
 
     function onEndRegistrationFormData($action)
     {
+        $action->style('#recaptcha_area{float:left;}');
         $action->elementStart('li');
         $action->raw('<label for="recaptcha_area">Captcha</label>');
-        if($this->checkssl() === true){
+        if($this->checkssl() === true) {
             $action->raw(recaptcha_get_html($this->public_key), null, true);
         } else { 
             $action->raw(recaptcha_get_html($this->public_key));
@@ -93,11 +81,9 @@ class RecaptchaPlugin extends Plugin
                                         $action->trimmed('recaptcha_challenge_field'),
                                         $action->trimmed('recaptcha_response_field'));
 
-        if (!$resp->is_valid) 
-        {
-            if($this->display_errors)
-            { 
-                $action->showForm ("(reCAPTCHA said: " . $resp->error . ")");
+        if (!$resp->is_valid) {
+            if($this->display_errors) {
+                $action->showForm ("(reCAPTCHA error: " . $resp->error . ")");
             }
             $action->showForm("Captcha does not match!");
             return false;
