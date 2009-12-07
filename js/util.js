@@ -249,9 +249,7 @@ var SN = { // StatusNet
                                 form.append('<p class="success">'+result_title+'</p>');
                             }
                         }
-                        $('#'+form_id+' #'+SN.C.S.NoticeDataText).val('');
-                        $('#'+form_id+' #'+SN.C.S.NoticeDataAttach).val('');
-                        $('#'+form_id+' #'+SN.C.S.NoticeInReplyTo).val('');
+                        $('#'+form_id).resetForm();
                         $('#'+form_id+' #'+SN.C.S.NoticeDataAttachSelected).remove();
                         SN.U.FormNoticeEnhancements($('#'+form_id));
                     }
