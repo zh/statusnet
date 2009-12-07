@@ -192,12 +192,13 @@ var SN = { // StatusNet
                             form.append(document._importNode($('.'+SN.C.S.Error, xhr.responseXML)[0], true));
                         }
                         else {
-                            if(jQuery.inArray(parseInt(xhr.status), SN.C.I.HTTP20x30x) < 0) {
-                                form.append('<p class="error>(Sorry! We had trouble sending your notice ('+xhr.status+' '+xhr.statusText+'). Please report the problem to the site administrator if this happens again.</p>');
+                            if (parseInt(xhr.status) === 0 || jQuery.inArray(parseInt(xhr.status), SN.C.I.HTTP20x30x) >= 0) {
+                                $('#'+form_id).resetForm();
+                                $('#'+form_id+' #'+SN.C.S.NoticeDataAttachSelected).remove();
+                                SN.U.FormNoticeEnhancements($('#'+form_id));
                             }
                             else {
-                                $('#'+form_id+' #'+SN.C.S.NoticeDataText).val('');
-                                SN.U.FormNoticeEnhancements($('#'+form_id));
+                                form.append('<p class="error>(Sorry! We had trouble sending your notice ('+xhr.status+' '+xhr.statusText+'). Please report the problem to the site administrator if this happens again.</p>');
                             }
                         }
                     }
