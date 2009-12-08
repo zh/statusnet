@@ -134,15 +134,17 @@ class ApiAction extends Action
         $twitter_user['protected'] = false; # not supported by StatusNet yet
         $twitter_user['followers_count'] = $profile->subscriberCount();
 
-        $user          = $profile->getUser();
         $design        = null;
+        $user          = $profile->getUser();
 
         // Note: some profiles don't have an associated user
 
-        $defaultDesign = Design::siteDesign();
-
         if (!empty($user)) {
             $design = $user->getDesign();
+        }
+
+        if (empty($design)) {
+            $design = Design::siteDesign();
         }
 
         $color = Design::toWebColor(empty($design->backgroundcolor) ? $defaultDesign->backgroundcolor : $design->backgroundcolor);
@@ -163,7 +165,7 @@ class ApiAction extends Action
 
         $timezone = 'UTC';
 
-        if (!empty($user) && !empty($user->timezone)) {
+        if ($user->timezone) {
             $timezone = $user->timezone;
         }
 
@@ -586,7 +588,7 @@ class ApiAction extends Action
         $this->endDocument('xml');
     }
 
-    function showRssTimeline($notice, $title, $link, $subtitle, $suplink=null)
+    function showRssTimeline($notice, $title, $link, $subtitle, $suplink=null, $logo=null)
     {
 
         $this->initDocument('rss');
@@ -600,6 +602,15 @@ class ApiAction extends Action
                                          'href' => $suplink,
                                          'type' => 'application/json'));
         }
+
+        if (!is_null($logo)) {
+            $this->elementStart('image');
+            $this->element('link', null, $link);
+            $this->element('title', null, $title);
+            $this->element('url', null, $logo);
+            $this->elementEnd('image');
+        }
+
         $this->element('description', null, $subtitle);
         $this->element('language', null, 'en-us');
         $this->element('ttl', null, '40');
@@ -619,7 +630,7 @@ class ApiAction extends Action
         $this->endTwitterRss();
     }
 
-    function showAtomTimeline($notice, $title, $id, $link, $subtitle=null, $suplink=null, $selfuri=null)
+    function showAtomTimeline($notice, $title, $id, $link, $subtitle=null, $suplink=null, $selfuri=null, $logo=null)
     {
 
         $this->initDocument('atom');
@@ -627,6 +638,10 @@ class ApiAction extends Action
         $this->element('title', null, $title);
         $this->element('id', null, $id);
         $this->element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), null);
+
+        if (!is_null($logo)) {
+            $this->element('logo',null,$logo);
+        }
 
         if (!is_null($suplink)) {
             # For FriendFeed's SUP protocol

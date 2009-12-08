@@ -103,6 +103,7 @@ class ApiTimelinePublicAction extends ApiPrivateAuthAction
     function showTimeline()
     {
         $sitename   = common_config('site', 'name');
+        $sitelogo   = (common_config('site', 'logo')) ? common_config('site', 'logo') : Theme::path('logo.png');
         $title      = sprintf(_("%s public timeline"), $sitename);
         $taguribase = common_config('integration', 'taguri');
         $id         = "tag:$taguribase:PublicTimeline";
@@ -114,13 +115,13 @@ class ApiTimelinePublicAction extends ApiPrivateAuthAction
             $this->showXmlTimeline($this->notices);
             break;
         case 'rss':
-            $this->showRssTimeline($this->notices, $title, $link, $subtitle);
+            $this->showRssTimeline($this->notices, $title, $link, $subtitle, null, $sitelogo);
             break;
         case 'atom':
             $selfuri = common_root_url() . 'api/statuses/public_timeline.atom';
             $this->showAtomTimeline(
                 $this->notices, $title, $id, $link,
-                $subtitle, null, $selfuri
+                $subtitle, null, $selfuri, $sitelogo
             );
             break;
         case 'json':
