@@ -154,7 +154,7 @@ $config['sphinx']['port'] = 3312;
 // $config['queue']['subsystem'] = 'stomp';
 // $config['queue']['stomp_server'] = 'tcp://localhost:61613';
 // use different queue_basename for each statusnet instance managed by the server
-// $config['queue']['queue_basename'] = 'statusnet';
+// $config['queue']['queue_basename'] = '/queue/statusnet/';
 
 // The following customise the behaviour of the various daemons:
 // $config['daemon']['piddir'] = '/var/run';

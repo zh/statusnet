@@ -75,7 +75,7 @@ $default =
         array('enabled' => false,
               'subsystem' => 'db', # default to database, or 'stomp'
               'stomp_server' => null,
-              'queue_basename' => 'statusnet',
+              'queue_basename' => '/queue/statusnet/',
               'stomp_username' => null,
               'stomp_password' => null,
               ),
