@@ -42,4 +42,68 @@ class Forward extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+    static function saveNew($profile_id, $notice_id)
+    {
+        $forward = new Forward();
+
+        $forward->profile_id = $profile_id;
+        $forward->notice_id  = $notice_id;
+        $forward->created    = common_sql_now();
+
+        $forward->query('BEGIN');
+
+        if (!$forward->insert()) {
+            throw new ServerException(_("Couldn't insert forward."));
+        }
+
+        $ni = $forward->addToInboxes();
+
+        $forward->query('COMMIT');
+
+        $forward->blowCache($ni);
+    }
+
+    function addToInboxes()
+    {
+        $inbox = new Notice_inbox();
+
+        $user = new User();
+
+        $user->query('SELECT id FROM user JOIN subscription ON user.id = subscription.subscriber '.
+                     'WHERE subscription.subscribed = '.$this->profile_id);
+
+        $ni = array();
+
+        while ($user->fetch()) {
+            $inbox = Notice_inbox::pkeyGet(array('user_id' => $user->id,
+                                                 'notice_id' => $this->notice_id));
+
+            if (empty($inbox)) {
+                $ni[$user->id] = NOTICE_INBOX_SOURCE_FORWARD;
+            } else {
+                $inbox->free();
+            }
+        }
+
+        $user->free();
+
+        Notice_inbox::bulkInsert($this->notice_id, $this->created, $ni);
+
+        return $ni;
+    }
+
+    function blowCache($ni)
+    {
+        $cache = common_memcache();
+
+        if (!empty($cache)) {
+            foreach ($ni as $id => $source) {
+                $cache->delete(common_cache_key('notice_inbox:by_user:'.$id));
+                $cache->delete(common_cache_key('notice_inbox:by_user_own:'.$id));
+                $cache->delete(common_cache_key('notice_inbox:by_user:'.$id.';last'));
+                $cache->delete(common_cache_key('notice_inbox:by_user_own:'.$id.';last'));
+            }
+        }
+    }
 }
