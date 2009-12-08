@@ -127,6 +127,8 @@ class RSSCloudNotifier {
                 }
             }
         }
+
+        return true;
     }
 
     function handleFailure($cloudSub)

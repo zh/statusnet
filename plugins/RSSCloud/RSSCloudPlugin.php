@@ -205,5 +205,12 @@ class RSSCloudPlugin extends Plugin
          return true;
     }
 
+    function onGetValidDaemons($daemons)
+    {
+        array_push($daemons, INSTALLDIR .
+                   '/plugins/RSSCloud/RSSCloudQueueHandler.php');
+        return true;
+    }
+
 }
 
