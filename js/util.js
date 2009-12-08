@@ -208,7 +208,7 @@ var SN = { // StatusNet
                     $('#'+form_id+' .form_response').remove();
                     var result;
                     if ($('#'+SN.C.S.Error, data).length > 0) {
-                        result = document._importNode($('p', data)[0], true);  
+                        result = document._importNode($('p', data)[0], true);
                         result = result.textContent || result.innerHTML;
                         form.append('<p class="form_response error">'+result+'</p>');
                     }
@@ -306,8 +306,12 @@ var SN = { // StatusNet
             $('.form_disfavor').each(function() { SN.U.FormXHR($(this)); });
         },
 
+        NoticeForward: function() {
+            $('.form_forward').each(function() { SN.U.FormXHR($(this)); });
+        },
+
         NoticeAttachments: function() {
-            $('.notice a.attachment').each(function() { 
+            $('.notice a.attachment').each(function() {
                 SN.U.NoticeWithAttachment($(this).closest('.notice'));
             });
         },
@@ -439,7 +443,7 @@ var SN = { // StatusNet
         Notices: function() {
             if ($('body.user_in').length > 0) {
                 SN.U.NoticeFavor();
-
+                SN.U.NoticeForward();
                 SN.U.NoticeReply();
             }
 

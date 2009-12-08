@@ -72,7 +72,7 @@ class ForwardAction extends Action
             return false;
         }
 
-        $token  = $this->trimmed('token');
+        $token  = $this->trimmed('token-'.$id);
 
         if (empty($token) || $token != common_session_token()) {
             $this->clientError(_("There was a problem with your session token. Try again, please."));
