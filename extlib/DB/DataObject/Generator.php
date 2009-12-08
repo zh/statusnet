@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    CVS: $Id: Generator.php 284150 2009-07-15 23:27:59Z alan_k $
+ * @version    CVS: $Id: Generator.php 289384 2009-10-09 00:17:26Z alan_k $
  * @link       http://pear.php.net/package/DB_DataObject
  */
  
@@ -33,7 +33,7 @@
  /**
  * 
  * Config _$ptions
- * [DB_DataObject_Generator]
+ * [DB_DataObject]
  * ; optional default = DB/DataObject.php
  * extends_location =
  * ; optional default = DB_DataObject
@@ -775,11 +775,9 @@ class DB_DataObject_Generator extends DB_DataObject
         //echo "Generating Class files:        \n";
         $options = &PEAR::getStaticProperty('DB_DataObject','options');
        
-        
-        if ($extends = @$options['extends']) {
-            $this->_extends = $extends;
-            $this->_extendsFile = $options['extends_location'];
-        }
+	$this->_extends = empty($options['extends']) ? $this->_extends : $options['extends'];
+	$this->_extendsFile = empty($options['extends_location']) ? $this->_extendsFile : $options['extends_location'];
+ 
 
         foreach($this->tables as $this->table) {
             $this->table        = trim($this->table);
@@ -814,7 +812,7 @@ class DB_DataObject_Generator extends DB_DataObject
     }
 
     /**
-     * class being extended (can be overridden by [DB_DataObject_Generator] extends=xxxx
+     * class being extended (can be overridden by [DB_DataObject] extends=xxxx
      *
      * @var    string
      * @access private
@@ -1142,10 +1140,9 @@ class DB_DataObject_Generator extends DB_DataObject
         $options = &PEAR::getStaticProperty('DB_DataObject','options');
         $class_prefix  = empty($options['class_prefix']) ? '' : $options['class_prefix'];
         
-        if ($extends = @$options['extends']) {
-            $this->_extends = $extends;
-            $this->_extendsFile = $options['extends_location'];
-        }
+        $this->_extends = empty($options['extends']) ? $this->_extends : $options['extends'];
+	$this->_extendsFile = empty($options['extends_location']) ? $this->_extendsFile : $options['extends_location'];
+ 
         $classname = $this->classname = $this->getClassNameFromTableName($this->table);
         
         $out = $this->_generateClassTable();

@@ -105,22 +105,18 @@ class RealtimePlugin extends Plugin
             $realtimeUI = ' RealtimeUpdate.initActions("'.$url.'", "'.$timeline.'", "'. $pluginPath .'");';
         }
 
-        $action->elementStart('script', array('type' => 'text/javascript'));
-
         $script = ' $(document).ready(function() { '.
           $realtimeUI.
           $this->_updateInitialize($timeline, $user_id).
           '}); ';
-        $action->raw($script);
-
-        $action->elementEnd('script');
+        $action->inlineScript($script);
 
         return true;
     }
 
     function onEndShowStatusNetStyles($action)
     {
-        $action->cssLink(common_path('plugins/Realtime/realtimeupdate.css'), 
+        $action->cssLink(common_path('plugins/Realtime/realtimeupdate.css'),
                          null, 'screen, projection, tv');
         return true;
     }
@@ -291,13 +287,6 @@ class RealtimePlugin extends Plugin
         $nt = null;
 
         return $tags;
-    }
-
-    // Push this up to Plugin
-
-    function log($level, $msg)
-    {
-        common_log($level, get_class($this) . ': '.$msg);
     }
 
     function _getScripts()

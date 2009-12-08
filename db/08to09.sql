@@ -73,3 +73,24 @@ create table location_namespace (
     modified timestamp comment 'date this record was modified'
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table login_token (
+    user_id integer not null comment 'user owning this token' references user (id),
+    token char(32) not null comment 'token useable for logging in',
+    created datetime not null comment 'date this record was created',
+    modified timestamp comment 'date this record was modified',
+
+    constraint primary key (user_id)
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table forward (
+
+    profile_id integer not null comment 'profile who forwarded the notice' references profile (id),
+    notice_id integer not null comment 'notice they forwarded' references notice (id),
+
+    created datetime not null comment 'date this record was created',
+
+    constraint primary key (profile_id, notice_id)
+
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+

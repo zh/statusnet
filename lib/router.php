@@ -88,6 +88,8 @@ class Router
 
             $m->connect('doc/:title', array('action' => 'doc'));
 
+            $m->connect('main/login?user_id=:user_id&token=:token', array('action'=>'login'), array('user_id'=> '[0-9]+', 'token'=>'.+'));
+
             // main stuff is repetitive
 
             $main = array('login', 'logout', 'register', 'subscribe',
@@ -97,7 +99,7 @@ class Router
                           'groupblock', 'groupunblock',
                           'sandbox', 'unsandbox',
                           'silence', 'unsilence',
-                          'deleteuser');
+                          'deleteuser', 'forward');
 
             foreach ($main as $a) {
                 $m->connect('main/'.$a, array('action' => $a));

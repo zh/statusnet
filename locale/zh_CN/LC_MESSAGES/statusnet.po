@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-02 23:18+0000\n"
-"PO-Revision-Date: 2009-12-02 23:21:03+0000\n"
+"POT-Creation-Date: 2009-12-07 21:25+0000\n"
+"PO-Revision-Date: 2009-12-07 21:27:39+0000\n"
 "Language-Team: Simplified Chinese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59683); Translate extension (2009-11-29)\n"
+"X-Generator: MediaWiki 1.16alpha(r59800); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: out-statusnet\n"
@@ -186,7 +186,12 @@ msgstr "用户没有个人信息。"
 msgid "Could not save profile."
 msgstr "无法保存个人信息。"
 
-#: actions/apiblockcreate.php:108
+#: actions/apiblockcreate.php:105
+#, fuzzy
+msgid "You cannot block yourself!"
+msgstr "无法更新用户。"
+
+#: actions/apiblockcreate.php:119
 msgid "Block user failed."
 msgstr "阻止用户失败。"
 
@@ -578,7 +583,7 @@ msgstr "剪裁"
 #: actions/emailsettings.php:238 actions/favor.php:75
 #: actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
-#: actions/invite.php:56 actions/login.php:129 actions/makeadmin.php:66
+#: actions/invite.php:56 actions/login.php:134 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
@@ -842,110 +847,110 @@ msgstr ""
 msgid "Design settings for this StatusNet site."
 msgstr ""
 
-#: actions/designadminpanel.php:270
+#: actions/designadminpanel.php:275
 #, fuzzy
 msgid "Invalid logo URL."
 msgstr "大小不正确。"
 
-#: actions/designadminpanel.php:274
+#: actions/designadminpanel.php:279
 #, fuzzy, php-format
 msgid "Theme not available: %s"
 msgstr "这个页面不提供您想要的媒体类型"
 
-#: actions/designadminpanel.php:370
+#: actions/designadminpanel.php:375
 #, fuzzy
 msgid "Change logo"
 msgstr "修改密码"
 
-#: actions/designadminpanel.php:375
+#: actions/designadminpanel.php:380
 #, fuzzy
 msgid "Site logo"
 msgstr "邀请"
 
-#: actions/designadminpanel.php:382
+#: actions/designadminpanel.php:387
 #, fuzzy
 msgid "Change theme"
 msgstr "修改"
 
-#: actions/designadminpanel.php:399
+#: actions/designadminpanel.php:404
 #, fuzzy
 msgid "Site theme"
 msgstr "新通告"
 
-#: actions/designadminpanel.php:400
+#: actions/designadminpanel.php:405
 #, fuzzy
 msgid "Theme for the site."
 msgstr "登出本站"
 
-#: actions/designadminpanel.php:412 lib/designsettings.php:101
+#: actions/designadminpanel.php:417 lib/designsettings.php:101
 msgid "Change background image"
 msgstr ""
 
-#: actions/designadminpanel.php:417 actions/designadminpanel.php:492
+#: actions/designadminpanel.php:422 actions/designadminpanel.php:497
 #: lib/designsettings.php:178
 msgid "Background"
 msgstr ""
 
-#: actions/designadminpanel.php:422
+#: actions/designadminpanel.php:427
 #, fuzzy, php-format
 msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
 "$s."
 msgstr "你可以给你的组上载一个logo图。"
 
-#: actions/designadminpanel.php:452 lib/designsettings.php:139
+#: actions/designadminpanel.php:457 lib/designsettings.php:139
 msgid "On"
 msgstr ""
 
-#: actions/designadminpanel.php:468 lib/designsettings.php:155
+#: actions/designadminpanel.php:473 lib/designsettings.php:155
 msgid "Off"
 msgstr ""
 
-#: actions/designadminpanel.php:469 lib/designsettings.php:156
+#: actions/designadminpanel.php:474 lib/designsettings.php:156
 msgid "Turn background image on or off."
 msgstr ""
 
-#: actions/designadminpanel.php:474 lib/designsettings.php:161
+#: actions/designadminpanel.php:479 lib/designsettings.php:161
 msgid "Tile background image"
 msgstr ""
 
-#: actions/designadminpanel.php:483 lib/designsettings.php:170
+#: actions/designadminpanel.php:488 lib/designsettings.php:170
 #, fuzzy
 msgid "Change colours"
 msgstr "修改密码"
 
-#: actions/designadminpanel.php:505 lib/designsettings.php:191
+#: actions/designadminpanel.php:510 lib/designsettings.php:191
 #, fuzzy
 msgid "Content"
 msgstr "连接"
 
-#: actions/designadminpanel.php:518 lib/designsettings.php:204
+#: actions/designadminpanel.php:523 lib/designsettings.php:204
 #, fuzzy
 msgid "Sidebar"
 msgstr "搜索"
 
-#: actions/designadminpanel.php:531 lib/designsettings.php:217
+#: actions/designadminpanel.php:536 lib/designsettings.php:217
 msgid "Text"
 msgstr "文本"
 
-#: actions/designadminpanel.php:544 lib/designsettings.php:230
+#: actions/designadminpanel.php:549 lib/designsettings.php:230
 #, fuzzy
 msgid "Links"
 msgstr "登录"
 
-#: actions/designadminpanel.php:572 lib/designsettings.php:247
+#: actions/designadminpanel.php:577 lib/designsettings.php:247
 msgid "Use defaults"
 msgstr ""
 
-#: actions/designadminpanel.php:573 lib/designsettings.php:248
+#: actions/designadminpanel.php:578 lib/designsettings.php:248
 msgid "Restore default designs"
 msgstr ""
 
-#: actions/designadminpanel.php:579 lib/designsettings.php:254
+#: actions/designadminpanel.php:584 lib/designsettings.php:254
 msgid "Reset back to default"
 msgstr ""
 
-#: actions/designadminpanel.php:581 actions/emailsettings.php:195
+#: actions/designadminpanel.php:586 actions/emailsettings.php:195
 #: actions/imsettings.php:163 actions/othersettings.php:126
 #: actions/pathsadminpanel.php:296 actions/profilesettings.php:167
 #: actions/siteadminpanel.php:421 actions/smssettings.php:181
@@ -955,7 +960,7 @@ msgstr ""
 msgid "Save"
 msgstr "保存"
 
-#: actions/designadminpanel.php:582 lib/designsettings.php:257
+#: actions/designadminpanel.php:587 lib/designsettings.php:257
 msgid "Save design"
 msgstr ""
 
@@ -1404,20 +1409,20 @@ msgid ""
 "palette of your choice."
 msgstr ""
 
-#: actions/groupdesignsettings.php:262 actions/userdesignsettings.php:186
-#: lib/designsettings.php:434 lib/designsettings.php:464
+#: actions/groupdesignsettings.php:263 actions/userdesignsettings.php:186
+#: lib/designsettings.php:391 lib/designsettings.php:413
 #, fuzzy
 msgid "Couldn't update your design."
 msgstr "无法更新用户。"
 
-#: actions/groupdesignsettings.php:286 actions/groupdesignsettings.php:296
+#: actions/groupdesignsettings.php:287 actions/groupdesignsettings.php:297
 #: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
 #: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
 #, fuzzy
 msgid "Unable to save your design settings!"
 msgstr "无法保存 Twitter 设置！"
 
-#: actions/groupdesignsettings.php:307 actions/userdesignsettings.php:231
+#: actions/groupdesignsettings.php:308 actions/userdesignsettings.php:231
 #, fuzzy
 msgid "Design preferences saved."
 msgstr "同步选项已保存。"
@@ -1731,7 +1736,7 @@ msgstr "个人消息"
 msgid "Optionally add a personal message to the invitation."
 msgstr "在邀请中加几句话(可选)。"
 
-#: actions/invite.php:197 lib/messageform.php:181 lib/noticeform.php:225
+#: actions/invite.php:197 lib/messageform.php:180 lib/noticeform.php:224
 msgid "Send"
 msgstr "发送"
 
@@ -1835,11 +1840,11 @@ msgstr "无法订阅用户：未找到。"
 msgid "%s left group %s"
 msgstr "%s 离开群 %s"
 
-#: actions/login.php:79 actions/register.php:137
+#: actions/login.php:82 actions/register.php:137
 msgid "Already logged in."
 msgstr "已登录。"
 
-#: actions/login.php:108 actions/login.php:118
+#: actions/login.php:113 actions/login.php:123
 #, fuzzy
 msgid "Invalid or expired token."
 msgstr "通告内容不正确"
@@ -2048,8 +2053,8 @@ msgstr "连接"
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:999
-#: lib/api.php:1027 lib/api.php:1137
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:996
+#: lib/api.php:1024 lib/api.php:1134
 msgid "Not a supported data format."
 msgstr "不支持的数据格式。"
 
@@ -4455,37 +4460,51 @@ msgstr "通告开启。"
 msgid "Can't turn on notification."
 msgstr "无法开启通告。"
 
-#: lib/command.php:592
+#: lib/command.php:588
+msgid "Login command is disabled"
+msgstr ""
+
+#: lib/command.php:602
+#, fuzzy, php-format
+msgid "Could not create login token for %s"
+msgstr "无法创建收藏。"
+
+#: lib/command.php:607
+#, php-format
+msgid "This link is useable only once, and is good for only 2 minutes: %s"
+msgstr ""
+
+#: lib/command.php:623
 #, fuzzy
 msgid "You are not subscribed to anyone."
 msgstr "您未告知此个人信息"
 
-#: lib/command.php:594
+#: lib/command.php:625
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "您已订阅这些用户："
 
-#: lib/command.php:614
+#: lib/command.php:645
 #, fuzzy
 msgid "No one is subscribed to you."
 msgstr "无法订阅他人更新。"
 
-#: lib/command.php:616
+#: lib/command.php:647
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "无法订阅他人更新。"
 
-#: lib/command.php:636
+#: lib/command.php:667
 #, fuzzy
 msgid "You are not a member of any groups."
 msgstr "您未告知此个人信息"
 
-#: lib/command.php:638
+#: lib/command.php:669
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "您未告知此个人信息"
 
-#: lib/command.php:652
+#: lib/command.php:683
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4504,6 +4523,7 @@ msgid ""
 "reply #<notice_id> - reply to notice with a given id\n"
 "reply <nickname> - reply to the last notice from user\n"
 "join <group> - join group\n"
+"login - Get a link to login to the web interface\n"
 "drop <group> - leave group\n"
 "stats - get your stats\n"
 "stop - same as 'off'\n"
@@ -4568,11 +4588,7 @@ msgid ""
 "You can upload your personal background image. The maximum file size is 2MB."
 msgstr "您可以在这里上传个人头像。"
 
-#: lib/designsettings.php:372
-msgid "Bad default color settings: "
-msgstr ""
-
-#: lib/designsettings.php:468
+#: lib/designsettings.php:418
 msgid "Design defaults restored."
 msgstr ""
 
@@ -5048,7 +5064,7 @@ msgstr "删除通告"
 msgid "To"
 msgstr "到"
 
-#: lib/messageform.php:162 lib/noticeform.php:186
+#: lib/messageform.php:161 lib/noticeform.php:185
 #, fuzzy
 msgid "Available characters"
 msgstr "6 个或更多字符"
@@ -5063,11 +5079,11 @@ msgstr "发送消息"
 msgid "What's up, %s?"
 msgstr "怎么样，%s？"
 
-#: lib/noticeform.php:193
+#: lib/noticeform.php:192
 msgid "Attach"
 msgstr ""
 
-#: lib/noticeform.php:197
+#: lib/noticeform.php:196
 msgid "Attach a file"
 msgstr ""
 
@@ -5355,7 +5371,12 @@ msgstr "无法订阅他人更新。"
 msgid "Not subscribed!"
 msgstr "未订阅！"
 
-#: lib/subs.php:140
+#: lib/subs.php:133
+#, fuzzy
+msgid "Couldn't delete self-subscription."
+msgstr "无法删除订阅。"
+
+#: lib/subs.php:146
 msgid "Couldn't delete subscription."
 msgstr "无法删除订阅。"
 

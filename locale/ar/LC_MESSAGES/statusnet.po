@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-02 23:18+0000\n"
-"PO-Revision-Date: 2009-12-02 23:19:01+0000\n"
+"POT-Creation-Date: 2009-12-07 21:25+0000\n"
+"PO-Revision-Date: 2009-12-07 21:25:58+0000\n"
 "Language-Team: Arabic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59683); Translate extension (2009-11-29)\n"
+"X-Generator: MediaWiki 1.16alpha(r59800); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ar\n"
 "X-Message-Group: out-statusnet\n"
@@ -181,7 +181,12 @@ msgstr "ليس للمستخدم ملف شخصي."
 msgid "Could not save profile."
 msgstr "تعذّر حفظ الملف الشخصي."
 
-#: actions/apiblockcreate.php:108
+#: actions/apiblockcreate.php:105
+#, fuzzy
+msgid "You cannot block yourself!"
+msgstr "لا يمكنك حذف المستخدمين."
+
+#: actions/apiblockcreate.php:119
 msgid "Block user failed."
 msgstr "فشل منع المستخدم."
 
@@ -560,7 +565,7 @@ msgstr ""
 #: actions/emailsettings.php:238 actions/favor.php:75
 #: actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
-#: actions/invite.php:56 actions/login.php:129 actions/makeadmin.php:66
+#: actions/invite.php:56 actions/login.php:134 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
@@ -805,100 +810,100 @@ msgstr "التصميم"
 msgid "Design settings for this StatusNet site."
 msgstr ""
 
-#: actions/designadminpanel.php:270
+#: actions/designadminpanel.php:275
 msgid "Invalid logo URL."
 msgstr "مسار شعار غير صالح."
 
-#: actions/designadminpanel.php:274
+#: actions/designadminpanel.php:279
 #, php-format
 msgid "Theme not available: %s"
 msgstr "السمة غير متوفرة: %s"
 
-#: actions/designadminpanel.php:370
+#: actions/designadminpanel.php:375
 msgid "Change logo"
 msgstr "غيّر الشعار"
 
-#: actions/designadminpanel.php:375
+#: actions/designadminpanel.php:380
 msgid "Site logo"
 msgstr "شعار الموقع"
 
-#: actions/designadminpanel.php:382
+#: actions/designadminpanel.php:387
 msgid "Change theme"
 msgstr "غيّر السمة"
 
-#: actions/designadminpanel.php:399
+#: actions/designadminpanel.php:404
 msgid "Site theme"
 msgstr "سمة الموقع"
 
-#: actions/designadminpanel.php:400
+#: actions/designadminpanel.php:405
 msgid "Theme for the site."
 msgstr "سمة الموقع."
 
-#: actions/designadminpanel.php:412 lib/designsettings.php:101
+#: actions/designadminpanel.php:417 lib/designsettings.php:101
 msgid "Change background image"
 msgstr "تغيير صورة الخلفية"
 
-#: actions/designadminpanel.php:417 actions/designadminpanel.php:492
+#: actions/designadminpanel.php:422 actions/designadminpanel.php:497
 #: lib/designsettings.php:178
 msgid "Background"
 msgstr "الخلفية"
 
-#: actions/designadminpanel.php:422
+#: actions/designadminpanel.php:427
 #, php-format
 msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
 "$s."
 msgstr ""
 
-#: actions/designadminpanel.php:452 lib/designsettings.php:139
+#: actions/designadminpanel.php:457 lib/designsettings.php:139
 msgid "On"
 msgstr "مكّن"
 
-#: actions/designadminpanel.php:468 lib/designsettings.php:155
+#: actions/designadminpanel.php:473 lib/designsettings.php:155
 msgid "Off"
 msgstr "عطّل"
 
-#: actions/designadminpanel.php:469 lib/designsettings.php:156
+#: actions/designadminpanel.php:474 lib/designsettings.php:156
 msgid "Turn background image on or off."
 msgstr "مكّن صورة الخلفية أو عطّلها."
 
-#: actions/designadminpanel.php:474 lib/designsettings.php:161
+#: actions/designadminpanel.php:479 lib/designsettings.php:161
 msgid "Tile background image"
 msgstr ""
 
-#: actions/designadminpanel.php:483 lib/designsettings.php:170
+#: actions/designadminpanel.php:488 lib/designsettings.php:170
 msgid "Change colours"
 msgstr "تغيير الألوان"
 
-#: actions/designadminpanel.php:505 lib/designsettings.php:191
+#: actions/designadminpanel.php:510 lib/designsettings.php:191
 msgid "Content"
 msgstr "المحتوى"
 
-#: actions/designadminpanel.php:518 lib/designsettings.php:204
+#: actions/designadminpanel.php:523 lib/designsettings.php:204
 msgid "Sidebar"
 msgstr "الشريط الجانبي"
 
-#: actions/designadminpanel.php:531 lib/designsettings.php:217
+#: actions/designadminpanel.php:536 lib/designsettings.php:217
 msgid "Text"
 msgstr "النص"
 
-#: actions/designadminpanel.php:544 lib/designsettings.php:230
+#: actions/designadminpanel.php:549 lib/designsettings.php:230
 msgid "Links"
 msgstr "وصلات"
 
-#: actions/designadminpanel.php:572 lib/designsettings.php:247
+#: actions/designadminpanel.php:577 lib/designsettings.php:247
 msgid "Use defaults"
 msgstr "استخدم المبدئيات"
 
-#: actions/designadminpanel.php:573 lib/designsettings.php:248
+#: actions/designadminpanel.php:578 lib/designsettings.php:248
 msgid "Restore default designs"
 msgstr "استعد التصميمات المبدئية"
 
-#: actions/designadminpanel.php:579 lib/designsettings.php:254
+#: actions/designadminpanel.php:584 lib/designsettings.php:254
 msgid "Reset back to default"
 msgstr "ارجع إلى المبدئي"
 
-#: actions/designadminpanel.php:581 actions/emailsettings.php:195
+#: actions/designadminpanel.php:586 actions/emailsettings.php:195
 #: actions/imsettings.php:163 actions/othersettings.php:126
 #: actions/pathsadminpanel.php:296 actions/profilesettings.php:167
 #: actions/siteadminpanel.php:421 actions/smssettings.php:181
@@ -908,7 +913,7 @@ msgstr "ارجع إلى المبدئي"
 msgid "Save"
 msgstr "أرسل"
 
-#: actions/designadminpanel.php:582 lib/designsettings.php:257
+#: actions/designadminpanel.php:587 lib/designsettings.php:257
 msgid "Save design"
 msgstr "احفظ التصميم"
 
@@ -1135,16 +1140,16 @@ msgstr ""
 #: actions/favorited.php:65 lib/popularnoticesection.php:88
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
-msgstr ""
+msgstr "إشعارات مشهورة"
 
 #: actions/favorited.php:67
 #, php-format
 msgid "Popular notices, page %d"
-msgstr ""
+msgstr "إشعارات مشهورة، الصفحة %d"
 
 #: actions/favorited.php:79
 msgid "The most popular notices on the site right now."
-msgstr ""
+msgstr "أشهر الإشعارات على الموقع حاليًا."
 
 #: actions/favorited.php:150
 msgid "Favorite notices appear on this page but no one has favorited one yet."
@@ -1306,11 +1311,11 @@ msgstr "لا تمنع هذا المستخدم من هذه المجموعة"
 
 #: actions/groupblock.php:179
 msgid "Block this user from this group"
-msgstr ""
+msgstr "امنع هذا المستخدم من هذه المجموعة"
 
 #: actions/groupblock.php:196
 msgid "Database error blocking user from group."
-msgstr ""
+msgstr "خطأ في قاعدة البيانات أثناء منع المستخدم من المجموعة."
 
 #: actions/groupbyid.php:74
 msgid "No ID"
@@ -1330,18 +1335,18 @@ msgid ""
 "palette of your choice."
 msgstr ""
 
-#: actions/groupdesignsettings.php:262 actions/userdesignsettings.php:186
-#: lib/designsettings.php:434 lib/designsettings.php:464
+#: actions/groupdesignsettings.php:263 actions/userdesignsettings.php:186
+#: lib/designsettings.php:391 lib/designsettings.php:413
 msgid "Couldn't update your design."
 msgstr "تعذّر تحديث تصميمك."
 
-#: actions/groupdesignsettings.php:286 actions/groupdesignsettings.php:296
+#: actions/groupdesignsettings.php:287 actions/groupdesignsettings.php:297
 #: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
 #: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
 msgid "Unable to save your design settings!"
 msgstr ""
 
-#: actions/groupdesignsettings.php:307 actions/userdesignsettings.php:231
+#: actions/groupdesignsettings.php:308 actions/userdesignsettings.php:231
 msgid "Design preferences saved."
 msgstr ""
 
@@ -1637,7 +1642,7 @@ msgstr "رسالة شخصية"
 msgid "Optionally add a personal message to the invitation."
 msgstr ""
 
-#: actions/invite.php:197 lib/messageform.php:181 lib/noticeform.php:225
+#: actions/invite.php:197 lib/messageform.php:180 lib/noticeform.php:224
 msgid "Send"
 msgstr "أرسل"
 
@@ -1717,11 +1722,11 @@ msgstr ""
 msgid "%s left group %s"
 msgstr ""
 
-#: actions/login.php:79 actions/register.php:137
+#: actions/login.php:82 actions/register.php:137
 msgid "Already logged in."
 msgstr "والج بالفعل."
 
-#: actions/login.php:108 actions/login.php:118
+#: actions/login.php:113 actions/login.php:123
 msgid "Invalid or expired token."
 msgstr ""
 
@@ -1922,8 +1927,8 @@ msgstr "نوع المحتوى "
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:999
-#: lib/api.php:1027 lib/api.php:1137
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:996
+#: lib/api.php:1024 lib/api.php:1134
 msgid "Not a supported data format."
 msgstr "ليس نسق بيانات مدعوم."
 
@@ -2500,7 +2505,7 @@ msgstr ""
 
 #: actions/recoverpassword.php:352
 msgid "Password must be 6 chars or more."
-msgstr ""
+msgstr "يجب أن تكون كلمة السر 6 محارف أو أكثر."
 
 #: actions/recoverpassword.php:356
 msgid "Password and confirmation do not match."
@@ -2516,7 +2521,7 @@ msgstr ""
 
 #: actions/register.php:85 actions/register.php:189 actions/register.php:404
 msgid "Sorry, only invited people can register."
-msgstr ""
+msgstr "عذرًا، الأشخاص المدعوون وحدهم يستطيعون التسجيل."
 
 #: actions/register.php:92
 msgid "Sorry, invalid invitation code."
@@ -3062,9 +3067,8 @@ msgid "Contact email address for your site"
 msgstr "عنوان البريد الإلكتروني للاتصال بموقعك"
 
 #: actions/siteadminpanel.php:290
-#, fuzzy
 msgid "Local"
-msgstr "الموقع"
+msgstr "محلي"
 
 #: actions/siteadminpanel.php:301
 msgid "Default timezone"
@@ -3103,13 +3107,12 @@ msgid "Access"
 msgstr "نفاذ"
 
 #: actions/siteadminpanel.php:334
-#, fuzzy
 msgid "Private"
-msgstr "خصوصية"
+msgstr "خاص"
 
 #: actions/siteadminpanel.php:336
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
-msgstr ""
+msgstr "أأمنع المستخدمين المجهولين (غير الوالجين) من عرض الموقع؟"
 
 #: actions/siteadminpanel.php:340
 #, fuzzy
@@ -4203,11 +4206,25 @@ msgstr ""
 msgid "Can't turn on notification."
 msgstr ""
 
-#: lib/command.php:592
+#: lib/command.php:588
+msgid "Login command is disabled"
+msgstr ""
+
+#: lib/command.php:602
+#, fuzzy, php-format
+msgid "Could not create login token for %s"
+msgstr "تعذّر إنشاء الكنى."
+
+#: lib/command.php:607
+#, php-format
+msgid "This link is useable only once, and is good for only 2 minutes: %s"
+msgstr ""
+
+#: lib/command.php:623
 msgid "You are not subscribed to anyone."
 msgstr "لست مُشتركًا بأي أحد."
 
-#: lib/command.php:594
+#: lib/command.php:625
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "لست مشتركًا بأحد."
@@ -4217,11 +4234,11 @@ msgstr[3] "أنت مشترك بهؤلاء الأشخاص:"
 msgstr[4] ""
 msgstr[5] ""
 
-#: lib/command.php:614
+#: lib/command.php:645
 msgid "No one is subscribed to you."
 msgstr "لا أحد مشترك بك."
 
-#: lib/command.php:616
+#: lib/command.php:647
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "لا أحد مشترك بك."
@@ -4231,11 +4248,11 @@ msgstr[3] "هؤلاء الأشخاص مشتركون بك:"
 msgstr[4] ""
 msgstr[5] ""
 
-#: lib/command.php:636
+#: lib/command.php:667
 msgid "You are not a member of any groups."
 msgstr "لست عضوًا في أي مجموعة."
 
-#: lib/command.php:638
+#: lib/command.php:669
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "لست عضوًا في أي مجموعة."
@@ -4245,7 +4262,7 @@ msgstr[3] "أنت عضو في هذه المجموعات:"
 msgstr[4] ""
 msgstr[5] ""
 
-#: lib/command.php:652
+#: lib/command.php:683
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4264,6 +4281,7 @@ msgid ""
 "reply #<notice_id> - reply to notice with a given id\n"
 "reply <nickname> - reply to the last notice from user\n"
 "join <group> - join group\n"
+"login - Get a link to login to the web interface\n"
 "drop <group> - leave group\n"
 "stats - get your stats\n"
 "stop - same as 'off'\n"
@@ -4320,16 +4338,11 @@ msgid "Upload file"
 msgstr "ارفع ملفًا"
 
 #: lib/designsettings.php:109
-#, fuzzy
 msgid ""
 "You can upload your personal background image. The maximum file size is 2MB."
-msgstr "هذا الملف كبير جدًا. إن أقصى حجم للملفات هو %s."
+msgstr "تستطيع رفع صورتك الشخصية. أقصى حجم للملف هو 2 م.ب."
 
-#: lib/designsettings.php:372
-msgid "Bad default color settings: "
-msgstr ""
-
-#: lib/designsettings.php:468
+#: lib/designsettings.php:418
 msgid "Design defaults restored."
 msgstr "استعيدت مبدئيات التصميم."
 
@@ -4773,7 +4786,7 @@ msgstr "أرسل إشعارًا مباشرًا"
 msgid "To"
 msgstr "إلى"
 
-#: lib/messageform.php:162 lib/noticeform.php:186
+#: lib/messageform.php:161 lib/noticeform.php:185
 msgid "Available characters"
 msgstr "المحارف المتوفرة"
 
@@ -4786,11 +4799,11 @@ msgstr "أرسل إشعارًا"
 msgid "What's up, %s?"
 msgstr "ما الأخبار يا %s؟"
 
-#: lib/noticeform.php:193
+#: lib/noticeform.php:192
 msgid "Attach"
 msgstr "أرفق"
 
-#: lib/noticeform.php:197
+#: lib/noticeform.php:196
 msgid "Attach a file"
 msgstr "أرفق ملفًا"
 
@@ -4955,7 +4968,7 @@ msgstr "مُختارون"
 
 #: lib/publicgroupnav.php:92
 msgid "Popular"
-msgstr ""
+msgstr "مشهورة"
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"
@@ -5060,7 +5073,12 @@ msgstr ""
 msgid "Not subscribed!"
 msgstr "لست مُشتركًا!"
 
-#: lib/subs.php:140
+#: lib/subs.php:133
+#, fuzzy
+msgid "Couldn't delete self-subscription."
+msgstr "تعذّر حذف الاشتراك."
+
+#: lib/subs.php:146
 msgid "Couldn't delete subscription."
 msgstr "تعذّر حذف الاشتراك."
 

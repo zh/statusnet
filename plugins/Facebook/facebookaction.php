@@ -44,7 +44,7 @@ class FacebookAction extends Action
     var $app_uri  = null;
     var $app_name = null;
 
-    function __construct($output='php://output', $indent=true, $facebook=null, $flink=null)
+    function __construct($output='php://output', $indent=null, $facebook=null, $flink=null)
     {
         parent::__construct($output, $indent);
 
@@ -168,7 +168,7 @@ class FacebookAction extends Action
         $this->elementStart('li', array('class' =>
             ($this->action == 'facebookhome') ? 'current' : 'facebook_home'));
         $this->element('a',
-            array('href' => 'index.php', 'title' => _('Home')), _('Home'));
+            array('href' => 'index.php', 'title' => _m('Home')), _m('Home'));
         $this->elementEnd('li');
 
         if (common_config('invite', 'enabled')) {
@@ -176,7 +176,7 @@ class FacebookAction extends Action
                 array('class' =>
                     ($this->action == 'facebookinvite') ? 'current' : 'facebook_invite'));
             $this->element('a',
-                array('href' => 'invite.php', 'title' => _('Invite')), _('Invite'));
+                array('href' => 'invite.php', 'title' => _m('Invite')), _m('Invite'));
             $this->elementEnd('li');
         }
 
@@ -185,7 +185,7 @@ class FacebookAction extends Action
                 ($this->action == 'facebooksettings') ? 'current' : 'facebook_settings'));
         $this->element('a',
             array('href' => 'settings.php',
-                'title' => _('Settings')), _('Settings'));
+                'title' => _m('Settings')), _m('Settings'));
         $this->elementEnd('li');
 
         $this->elementEnd('ul');
@@ -225,15 +225,15 @@ class FacebookAction extends Action
         $this->elementStart('dl', array('class' => 'system_notice'));
         $this->element('dt', null, 'Page Notice');
 
-        $loginmsg_part1 = _('To use the %s Facebook Application you need to login ' .
+        $loginmsg_part1 = _m('To use the %s Facebook Application you need to login ' .
             'with your username and password. Don\'t have a username yet? ');
-        $loginmsg_part2 = _(' a new account.');
+        $loginmsg_part2 = _m(' a new account.');
 
         $this->elementStart('dd');
         $this->elementStart('p');
         $this->text(sprintf($loginmsg_part1, common_config('site', 'name')));
         $this->element('a',
-            array('href' => common_local_url('register')), _('Register'));
+            array('href' => common_local_url('register')), _m('Register'));
         $this->text($loginmsg_part2);
         $this->elementEnd('p');
         $this->elementEnd('dd');
@@ -246,7 +246,7 @@ class FacebookAction extends Action
     {
 
         $this->elementStart('div', array('id' => 'content'));
-        $this->element('h1', null, _('Login'));
+        $this->element('h1', null, _m('Login'));
 
         if ($msg) {
              $this->element('fb:error', array('message' => $msg));
@@ -265,20 +265,20 @@ class FacebookAction extends Action
 
         $this->elementStart('ul', array('class' => 'form_datas'));
         $this->elementStart('li');
-        $this->input('nickname', _('Nickname'));
+        $this->input('nickname', _m('Nickname'));
         $this->elementEnd('li');
         $this->elementStart('li');
-        $this->password('password', _('Password'));
+        $this->password('password', _m('Password'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
 
-        $this->submit('submit', _('Login'));
+        $this->submit('submit', _m('Login'));
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
 
         $this->elementStart('p');
         $this->element('a', array('href' => common_local_url('recoverpassword')),
-                       _('Lost or forgotten password?'));
+                       _m('Lost or forgotten password?'));
         $this->elementEnd('p');
 
         $this->elementEnd('div');
@@ -383,7 +383,7 @@ class FacebookAction extends Action
         // Does a little before-after block for next/prev page
         if ($have_before || $have_after) {
             $this->elementStart('dl', 'pagination');
-            $this->element('dt', null, _('Pagination'));
+            $this->element('dt', null, _m('Pagination'));
             $this->elementStart('dd', null);
             $this->elementStart('ul', array('class' => 'nav'));
         }
@@ -392,7 +392,7 @@ class FacebookAction extends Action
             $newargs = $args ? array_merge($args, $pargs) : $pargs;
             $this->elementStart('li', array('class' => 'nav_prev'));
             $this->element('a', array('href' => "$this->app_uri/$action?page=$newargs[page]", 'rel' => 'prev'),
-                           _('After'));
+                           _m('After'));
             $this->elementEnd('li');
         }
         if ($have_after) {
@@ -400,7 +400,7 @@ class FacebookAction extends Action
             $newargs = $args ? array_merge($args, $pargs) : $pargs;
             $this->elementStart('li', array('class' => 'nav_next'));
             $this->element('a', array('href' => "$this->app_uri/$action?page=$newargs[page]", 'rel' => 'next'),
-                           _('Before'));
+                           _m('Before'));
             $this->elementEnd('li');
         }
         if ($have_before || $have_after) {
@@ -418,13 +418,13 @@ class FacebookAction extends Action
         $content = $this->trimmed('status_textarea');
 
         if (!$content) {
-            $this->showPage(_('No notice content!'));
+            $this->showPage(_m('No notice content!'));
             return;
         } else {
             $content_shortened = common_shorten_links($content);
 
             if (Notice::contentTooLong($content_shortened)) {
-                $this->showPage(sprintf(_('That\'s too long. Max notice size is %d chars.'),
+                $this->showPage(sprintf(_m('That\'s too long. Max notice size is %d chars.'),
                                         Notice::maxContent()));
                 return;
             }
@@ -520,7 +520,7 @@ class FacebookNoticeList extends NoticeList
     function show()
     {
         $this->out->elementStart('div', array('id' =>'notices_primary'));
-        $this->out->element('h2', null, _('Notices'));
+        $this->out->element('h2', null, _m('Notices'));
         $this->out->elementStart('ul', array('class' => 'notices'));
 
         $cnt = 0;

@@ -6,7 +6,6 @@
 # Author@translatewiki.net: Jean-Frédéric
 # Author@translatewiki.net: McDutchie
 # Author@translatewiki.net: Peter17
-# Author@translatewiki.net: Zetud
 # --
 # This file is distributed under the same license as the StatusNet package.
 #
@@ -14,12 +13,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-02 23:18+0000\n"
-"PO-Revision-Date: 2009-12-02 23:19:36+0000\n"
+"POT-Creation-Date: 2009-12-07 21:25+0000\n"
+"PO-Revision-Date: 2009-12-07 21:26:29+0000\n"
 "Language-Team: French\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59683); Translate extension (2009-11-29)\n"
+"X-Generator: MediaWiki 1.16alpha(r59800); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: out-statusnet\n"
@@ -96,7 +95,7 @@ msgid ""
 "something yourself."
 msgstr ""
 "Essayez de vous abonner à plus d’utilisateurs, de vous [inscrire à un groupe]"
-"(%%action.groups%%) ou de publier quelque chose vous-même."
+"(%%action.groups%%) ou de poster quelque chose vous-même."
 
 #: actions/all.php:134
 #, php-format
@@ -104,8 +103,8 @@ msgid ""
 "You can try to [nudge %s](../%s) from his profile or [post something to his "
 "or her attention](%%%%action.newnotice%%%%?status_textarea=%s)."
 msgstr ""
-"Vous pouvez essayer de [donner un coup de coude à %s](../%s) depuis son "
-"profil ou [poster quelque chose à son intention](%%%%action.newnotice%%%%?"
+"Vous pouvez essayer de [faire un clin d’œil à %s](../%s) depuis son profil "
+"ou [poster quelque chose à son intention](%%%%action.newnotice%%%%?"
 "status_textarea=%s)."
 
 #: actions/all.php:137 actions/replies.php:209 actions/showstream.php:202
@@ -114,8 +113,8 @@ msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
 "post a notice to his or her attention."
 msgstr ""
-"Pourquoi ne pas [créer un compte](%%%%action.register%%%%) et ensuite "
-"envoyer un coup de coude à %s ou poster quelque chose à son intention."
+"Pourquoi ne pas [créer un compte](%%%%action.register%%%%) et ensuite faire "
+"un clin d’œil à %s ou poster un avis à son intention."
 
 #: actions/all.php:165
 msgid "You and friends"
@@ -197,7 +196,11 @@ msgstr "Aucun profil ne correspond à cet utilisateur."
 msgid "Could not save profile."
 msgstr "Impossible d’enregistrer le profil."
 
-#: actions/apiblockcreate.php:108
+#: actions/apiblockcreate.php:105
+msgid "You cannot block yourself!"
+msgstr "Vous ne pouvez pas vous bloquer vous-même !"
+
+#: actions/apiblockcreate.php:119
 msgid "Block user failed."
 msgstr "Le blocage de l’utilisateur a échoué."
 
@@ -268,7 +271,7 @@ msgstr "Aucun statut trouvé avec cet identifiant. "
 
 #: actions/apifavoritecreate.php:119
 msgid "This status is already a favorite!"
-msgstr "Ce statut a déjà été ajouté à vos favoris !"
+msgstr "Cet avis a déjà été ajouté à vos favoris !"
 
 #: actions/apifavoritecreate.php:130 actions/favor.php:84 lib/command.php:176
 msgid "Could not create favorite."
@@ -276,7 +279,7 @@ msgstr "Impossible de créer le favori."
 
 #: actions/apifavoritedestroy.php:122
 msgid "That status is not a favorite!"
-msgstr "Ce statut n’est pas un favori !"
+msgstr "Cet avis n’est pas un favori !"
 
 #: actions/apifavoritedestroy.php:134 actions/disfavor.php:87
 msgid "Could not delete favorite."
@@ -455,7 +458,7 @@ msgstr "Non trouvé"
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
-"La taille maximale du statut est de %d caractères, en incluant l’URL de la "
+"La taille maximale de l’avis est de %d caractères, en incluant l’URL de la "
 "pièce jointe."
 
 #: actions/apisubscriptions.php:231 actions/apisubscriptions.php:261
@@ -502,12 +505,12 @@ msgstr "Activité publique %s"
 #: actions/apitimelinepublic.php:110 actions/publicrss.php:105
 #, php-format
 msgid "%s updates from everyone!"
-msgstr "%s statuts  "
+msgstr "%s statuts de tout le monde !"
 
 #: actions/apitimelinetag.php:101 actions/tag.php:66
 #, php-format
 msgid "Notices tagged with %s"
-msgstr "Statuts marqués avec %s"
+msgstr "Avis marqués avec %s"
 
 #: actions/apitimelinetag.php:107 actions/tagrss.php:64
 #, php-format
@@ -584,7 +587,7 @@ msgstr "Recadrer"
 #: actions/emailsettings.php:238 actions/favor.php:75
 #: actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
-#: actions/invite.php:56 actions/login.php:129 actions/makeadmin.php:66
+#: actions/invite.php:56 actions/login.php:134 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
@@ -758,11 +761,11 @@ msgstr "Conversation"
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
 #: lib/profileaction.php:216 lib/searchgroupnav.php:82
 msgid "Notices"
-msgstr "Statuts"
+msgstr "Avis"
 
 #: actions/deletenotice.php:52 actions/shownotice.php:92
 msgid "No such notice."
-msgstr "Statut non trouvé."
+msgstr "Avis non trouvé."
 
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
@@ -775,7 +778,7 @@ msgstr "Non connecté."
 
 #: actions/deletenotice.php:71
 msgid "Can't delete this notice."
-msgstr "Impossible de supprimer ce statut."
+msgstr "Impossible de supprimer cet avis."
 
 #: actions/deletenotice.php:103
 msgid ""
@@ -787,11 +790,11 @@ msgstr ""
 
 #: actions/deletenotice.php:109 actions/deletenotice.php:141
 msgid "Delete notice"
-msgstr "Supprimer ce statut"
+msgstr "Supprimer cet avis"
 
 #: actions/deletenotice.php:144
 msgid "Are you sure you want to delete this notice?"
-msgstr "Êtes-vous sûr(e) de vouloir supprimer ce statut ?"
+msgstr "Êtes-vous sûr(e) de vouloir supprimer cet avis ?"
 
 #: actions/deletenotice.php:145
 msgid "Do not delete this notice"
@@ -799,7 +802,7 @@ msgstr "Ne pas supprimer cet avis"
 
 #: actions/deletenotice.php:146 lib/noticelist.php:550
 msgid "Delete this notice"
-msgstr "Supprimer ce statut"
+msgstr "Supprimer cet avis"
 
 #: actions/deletenotice.php:157
 msgid "There was a problem with your session token.  Try again, please."
@@ -840,45 +843,45 @@ msgstr "Conception"
 msgid "Design settings for this StatusNet site."
 msgstr "Paramètres de conception pour ce site StatusNet."
 
-#: actions/designadminpanel.php:270
+#: actions/designadminpanel.php:275
 msgid "Invalid logo URL."
 msgstr "URL du logo invalide."
 
-#: actions/designadminpanel.php:274
+#: actions/designadminpanel.php:279
 #, php-format
 msgid "Theme not available: %s"
 msgstr "Le thème n'est pas disponible : %s"
 
-#: actions/designadminpanel.php:370
+#: actions/designadminpanel.php:375
 msgid "Change logo"
 msgstr "Modifier le logo"
 
-#: actions/designadminpanel.php:375
+#: actions/designadminpanel.php:380
 msgid "Site logo"
 msgstr "Logo du site"
 
-#: actions/designadminpanel.php:382
+#: actions/designadminpanel.php:387
 msgid "Change theme"
 msgstr "Modifier le thème"
 
-#: actions/designadminpanel.php:399
+#: actions/designadminpanel.php:404
 msgid "Site theme"
 msgstr "Thème du site"
 
-#: actions/designadminpanel.php:400
+#: actions/designadminpanel.php:405
 msgid "Theme for the site."
 msgstr "Thème pour le site."
 
-#: actions/designadminpanel.php:412 lib/designsettings.php:101
+#: actions/designadminpanel.php:417 lib/designsettings.php:101
 msgid "Change background image"
 msgstr "Changer l’image d’arrière plan"
 
-#: actions/designadminpanel.php:417 actions/designadminpanel.php:492
+#: actions/designadminpanel.php:422 actions/designadminpanel.php:497
 #: lib/designsettings.php:178
 msgid "Background"
 msgstr "Arrière plan"
 
-#: actions/designadminpanel.php:422
+#: actions/designadminpanel.php:427
 #, php-format
 msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
@@ -887,55 +890,55 @@ msgstr ""
 "Vous pouvez importer une image d'arrière plan pour ce site. La taille "
 "maximale du fichier est de %1$s."
 
-#: actions/designadminpanel.php:452 lib/designsettings.php:139
+#: actions/designadminpanel.php:457 lib/designsettings.php:139
 msgid "On"
 msgstr "Activé"
 
-#: actions/designadminpanel.php:468 lib/designsettings.php:155
+#: actions/designadminpanel.php:473 lib/designsettings.php:155
 msgid "Off"
 msgstr "Désactivé"
 
-#: actions/designadminpanel.php:469 lib/designsettings.php:156
+#: actions/designadminpanel.php:474 lib/designsettings.php:156
 msgid "Turn background image on or off."
 msgstr "Activer ou désactiver l’image d’arrière plan."
 
-#: actions/designadminpanel.php:474 lib/designsettings.php:161
+#: actions/designadminpanel.php:479 lib/designsettings.php:161
 msgid "Tile background image"
 msgstr "Répéter l’image d’arrière plan"
 
-#: actions/designadminpanel.php:483 lib/designsettings.php:170
+#: actions/designadminpanel.php:488 lib/designsettings.php:170
 msgid "Change colours"
 msgstr "Modifier les couleurs"
 
-#: actions/designadminpanel.php:505 lib/designsettings.php:191
+#: actions/designadminpanel.php:510 lib/designsettings.php:191
 msgid "Content"
 msgstr "Contenu"
 
-#: actions/designadminpanel.php:518 lib/designsettings.php:204
+#: actions/designadminpanel.php:523 lib/designsettings.php:204
 msgid "Sidebar"
 msgstr "Barre latérale"
 
-#: actions/designadminpanel.php:531 lib/designsettings.php:217
+#: actions/designadminpanel.php:536 lib/designsettings.php:217
 msgid "Text"
 msgstr "Texte"
 
-#: actions/designadminpanel.php:544 lib/designsettings.php:230
+#: actions/designadminpanel.php:549 lib/designsettings.php:230
 msgid "Links"
 msgstr "Liens"
 
-#: actions/designadminpanel.php:572 lib/designsettings.php:247
+#: actions/designadminpanel.php:577 lib/designsettings.php:247
 msgid "Use defaults"
 msgstr "Utiliser les valeurs par défaut"
 
-#: actions/designadminpanel.php:573 lib/designsettings.php:248
+#: actions/designadminpanel.php:578 lib/designsettings.php:248
 msgid "Restore default designs"
 msgstr "Restaurer les conceptions par défaut"
 
-#: actions/designadminpanel.php:579 lib/designsettings.php:254
+#: actions/designadminpanel.php:584 lib/designsettings.php:254
 msgid "Reset back to default"
 msgstr "Revenir aux valeurs par défaut"
 
-#: actions/designadminpanel.php:581 actions/emailsettings.php:195
+#: actions/designadminpanel.php:586 actions/emailsettings.php:195
 #: actions/imsettings.php:163 actions/othersettings.php:126
 #: actions/pathsadminpanel.php:296 actions/profilesettings.php:167
 #: actions/siteadminpanel.php:421 actions/smssettings.php:181
@@ -945,13 +948,13 @@ msgstr "Revenir aux valeurs par défaut"
 msgid "Save"
 msgstr "Enregistrer"
 
-#: actions/designadminpanel.php:582 lib/designsettings.php:257
+#: actions/designadminpanel.php:587 lib/designsettings.php:257
 msgid "Save design"
 msgstr "Sauvegarder la conception"
 
 #: actions/disfavor.php:81
 msgid "This notice is not a favorite!"
-msgstr "Ce statut n’est pas un favori !"
+msgstr "Cet avis n’est pas un favori !"
 
 #: actions/disfavor.php:94
 msgid "Add to favorites"
@@ -1052,7 +1055,7 @@ msgstr "Courriel entrant"
 
 #: actions/emailsettings.php:138 actions/smssettings.php:157
 msgid "Send email to this address to post new notices."
-msgstr "Écrivez à cette adresse courriel pour publier de nouveaux statuts. "
+msgstr "Écrivez à cette adresse courriel pour poster de nouveaux avis. "
 
 #: actions/emailsettings.php:145 actions/smssettings.php:162
 msgid "Make a new email address for posting to; cancels the old one."
@@ -1074,7 +1077,7 @@ msgstr "Avertissez-moi par courriel des nouveaux abonnements."
 #: actions/emailsettings.php:163
 msgid "Send me email when someone adds my notice as a favorite."
 msgstr ""
-"Envoyez-moi un courriel quand un utilisateur ajoute un de mes statuts à ses "
+"Envoyez-moi un courriel quand un utilisateur ajoute un de mes avis à ses "
 "favoris."
 
 #: actions/emailsettings.php:169
@@ -1091,7 +1094,7 @@ msgstr "Autoriser mes amis à m’envoyer des courriels et des clins d’œil."
 
 #: actions/emailsettings.php:185
 msgid "I want to post notices by email."
-msgstr "Je veux envoyer mes statuts par courriel."
+msgstr "Je veux envoyer mes avis par courriel."
 
 #: actions/emailsettings.php:191
 msgid "Publish a MicroID for my email address."
@@ -1178,30 +1181,30 @@ msgstr "Nouvelle adresse courriel ajoutée."
 #: actions/favorited.php:65 lib/popularnoticesection.php:88
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
-msgstr "Statuts populaires"
+msgstr "Avis populaires"
 
 #: actions/favorited.php:67
 #, php-format
 msgid "Popular notices, page %d"
-msgstr "Statuts populaires - page %d"
+msgstr "Avis populaires - page %d"
 
 #: actions/favorited.php:79
 msgid "The most popular notices on the site right now."
-msgstr "Statuts les plus populaires sur le site en ce moment."
+msgstr "Les avis les plus populaires sur le site en ce moment."
 
 #: actions/favorited.php:150
 msgid "Favorite notices appear on this page but no one has favorited one yet."
 msgstr ""
-"Les statuts favoris apparaissent sur cette page mais personne ne n’en a mis "
-"un en favori actuellement."
+"Les avis favoris apparaissent sur cette page mais personne n’a mis d’avis en "
+"favori pour le moment."
 
 #: actions/favorited.php:153
 msgid ""
 "Be the first to add a notice to your favorites by clicking the fave button "
 "next to any notice you like."
 msgstr ""
-"Soyez le premier à un statut dans vos favoris en cliquant sur le bouton "
-"favori à côté d’un statut que vous aimez."
+"Soyez le premier à ajouter un avis dans vos favoris en cliquant sur le "
+"bouton favori à côté d’un avis que vous aimez."
 
 #: actions/favorited.php:156
 #, php-format
@@ -1216,7 +1219,7 @@ msgstr ""
 #: lib/personalgroupnav.php:115
 #, php-format
 msgid "%s's favorite notices"
-msgstr "Statuts favoris de %s"
+msgstr "Avis favoris de %s"
 
 #: actions/favoritesrss.php:115
 #, php-format
@@ -1225,7 +1228,7 @@ msgstr "Mises à jour privilégiées par %1$s sur %2$s !"
 
 #: actions/favor.php:79
 msgid "This notice is already a favorite!"
-msgstr "Ce statut a déjà été ajouté à vos favoris !"
+msgstr "Cet avis a déjà été ajouté à vos favoris !"
 
 #: actions/favor.php:92 lib/disfavorform.php:140
 msgid "Disfavor favorite"
@@ -1248,11 +1251,11 @@ msgstr "Les utilisateurs à ne pas manquer dans %s"
 
 #: actions/file.php:34
 msgid "No notice id"
-msgstr "Pas d’identifiant de statut"
+msgstr "Pas d’identifiant d’avis"
 
 #: actions/file.php:38
 msgid "No notice"
-msgstr "Aucun statut"
+msgstr "Aucun avis"
 
 #: actions/file.php:42
 msgid "No attachments"
@@ -1349,7 +1352,7 @@ msgid ""
 "group in the future."
 msgstr ""
 "Êtes-vous sûr(e) de vouloir bloquer l’utilisateur \"%s\" du groupe \"%s\"? "
-"Ils seront supprimés du groupe, il leur sera interdit d’y publier, et de s’y "
+"Ils seront supprimés du groupe, il leur sera interdit d’y poster, et de s’y "
 "abonner à l’avenir."
 
 #: actions/groupblock.php:178
@@ -1382,21 +1385,21 @@ msgid ""
 "Customize the way your group looks with a background image and a colour "
 "palette of your choice."
 msgstr ""
-"Personnalisez le style de votre groupe avec une image de fond et une palette "
-"de couleur de votre choix."
+"Personnalisez l’apparence de votre groupe avec une image d’arrière plan et "
+"une palette de couleurs de votre choix"
 
-#: actions/groupdesignsettings.php:262 actions/userdesignsettings.php:186
-#: lib/designsettings.php:434 lib/designsettings.php:464
+#: actions/groupdesignsettings.php:263 actions/userdesignsettings.php:186
+#: lib/designsettings.php:391 lib/designsettings.php:413
 msgid "Couldn't update your design."
 msgstr "Impossible de mettre à jour votre conception."
 
-#: actions/groupdesignsettings.php:286 actions/groupdesignsettings.php:296
+#: actions/groupdesignsettings.php:287 actions/groupdesignsettings.php:297
 #: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
 #: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
 msgid "Unable to save your design settings!"
 msgstr "Impossible de sauvegarder les préférences de conception !"
 
-#: actions/groupdesignsettings.php:307 actions/userdesignsettings.php:231
+#: actions/groupdesignsettings.php:308 actions/userdesignsettings.php:231
 msgid "Design preferences saved."
 msgstr "Préférences de conception enregistrées."
 
@@ -1520,11 +1523,11 @@ msgid ""
 "%%%%)"
 msgstr ""
 "Les groupes de %%%%site.name%%%% permettent de trouver et de parler avec des "
-"personnes qui ont le même intérêt. Après avoir rejoint un groupe vous pouvez "
-"envoyer des messages à tous les autres membres en utilisant la syntaxe « !"
-"nomdugroupe ». Vous ne voyez aucun groupe qui vous intéresse ? Essayer d'en "
-"[rechercher un](%%%%action.groupsearch%%%%) ou [commencez le votre !](%%%%"
-"action.newgroup%%%%)"
+"personnes qui ont des intérêts en commun avec vous. Après avoir rejoint un "
+"groupe, vous pouvez envoyer des messages à tous les autres membres en "
+"utilisant la syntaxe « !nomdugroupe ». Vous ne voyez aucun groupe qui vous "
+"intéresse ? Essayez d’en [rechercher un](%%%%action.groupsearch%%%%) ou de "
+"[créer le vôtre !](%%%%action.newgroup%%%%)"
 
 #: actions/groups.php:107 actions/usergroups.php:124 lib/groupeditform.php:122
 msgid "Create a new group"
@@ -1590,12 +1593,12 @@ msgstr ""
 
 #: actions/imsettings.php:143
 msgid "Send me notices through Jabber/GTalk."
-msgstr "Envoyez-moi les statuts par Jabber/GTalk."
+msgstr "Envoyez-moi les avis par Jabber/GTalk."
 
 #: actions/imsettings.php:148
 msgid "Post a notice when my Jabber/GTalk status changes."
 msgstr ""
-"Publier un statut chaque fois que mon statut est modifié dans Jabber/GTalk"
+"Poster un avis chaque fois que mon statut est modifié dans Jabber/GTalk"
 
 #: actions/imsettings.php:153
 msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
@@ -1729,7 +1732,7 @@ msgstr "Message personnel"
 msgid "Optionally add a personal message to the invitation."
 msgstr "Ajouter un message personnel à l’invitation (optionnel)."
 
-#: actions/invite.php:197 lib/messageform.php:181 lib/noticeform.php:225
+#: actions/invite.php:197 lib/messageform.php:180 lib/noticeform.php:224
 msgid "Send"
 msgstr "Envoyer"
 
@@ -1837,11 +1840,11 @@ msgstr "Impossible de retirer l’utilisateur %s du groupe %s"
 msgid "%s left group %s"
 msgstr "%s a quitté le groupe %s"
 
-#: actions/login.php:79 actions/register.php:137
+#: actions/login.php:82 actions/register.php:137
 msgid "Already logged in."
 msgstr "Déjà connecté."
 
-#: actions/login.php:108 actions/login.php:118
+#: actions/login.php:113 actions/login.php:123
 msgid "Invalid or expired token."
 msgstr "Jeton invalide ou expiré."
 
@@ -1977,11 +1980,11 @@ msgstr "Erreur Ajax"
 
 #: actions/newnotice.php:69
 msgid "New notice"
-msgstr "Nouveau statut"
+msgstr "Nouvel avis"
 
 #: actions/newnotice.php:206
 msgid "Notice posted"
-msgstr "Statut publié"
+msgstr "Avis publié"
 
 #: actions/noticesearch.php:68
 #, php-format
@@ -1989,7 +1992,7 @@ msgid ""
 "Search for notices on %%site.name%% by their contents. Separate search terms "
 "by spaces; they must be 3 characters or more."
 msgstr ""
-"Recherchez les statuts %%site.name%% par leur contenu. Séparez les termes de "
+"Recherchez les avis %%site.name%% par leur contenu. Séparez les termes de "
 "recherche par des espaces. Ils doivent contenir au moins 3 caractères."
 
 #: actions/noticesearch.php:78
@@ -2047,7 +2050,7 @@ msgstr "Clin d’œil envoyé !"
 
 #: actions/oembed.php:79 actions/shownotice.php:100
 msgid "Notice has no profile"
-msgstr "Le statut n’a pas de profil"
+msgstr "L’avis n’a pas de profil"
 
 #: actions/oembed.php:86 actions/shownotice.php:180
 #, php-format
@@ -2062,8 +2065,8 @@ msgstr "type de contenu "
 msgid "Only "
 msgstr "Seulement "
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:999
-#: lib/api.php:1027 lib/api.php:1137
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:996
+#: lib/api.php:1024 lib/api.php:1134
 msgid "Not a supported data format."
 msgstr "Format de données non supporté."
 
@@ -2073,7 +2076,7 @@ msgstr "Recherche de personnes"
 
 #: actions/opensearch.php:67
 msgid "Notice Search"
-msgstr "Recherche de statut"
+msgstr "Recherche d’avis"
 
 #: actions/othersettings.php:60
 msgid "Other Settings"
@@ -2302,12 +2305,12 @@ msgstr "Recherche de personnes"
 #: actions/peopletag.php:70
 #, php-format
 msgid "Not a valid people tag: %s"
-msgstr "Ce marquage est invalide : %s"
+msgstr "Cette marque est invalide : %s"
 
 #: actions/peopletag.php:144
 #, php-format
 msgid "Users self-tagged with %s - page %d"
-msgstr "Utilisateurs marqués &s - page %d"
+msgstr "Utilisateurs marqués par eux-mêmes %s - page %d"
 
 #: actions/postnotice.php:84
 msgid "Invalid notice content"
@@ -2317,8 +2320,7 @@ msgstr "Contenu invalide"
 #, php-format
 msgid "Notice license ‘%s’ is not compatible with site license ‘%s’."
 msgstr ""
-"La licence des statuts « %s » n'est pas compatible avec la licence du site « %"
-"s »."
+"La licence des avis « %s » n'est pas compatible avec la licence du site « %s »."
 
 #: actions/profilesettings.php:60
 msgid "Profile settings"
@@ -2382,13 +2384,14 @@ msgstr "Indiquez votre emplacement, ex.: « Ville, État (ou région), Pays »"
 #: actions/tagother.php:209 lib/subscriptionlist.php:106
 #: lib/subscriptionlist.php:108 lib/userprofile.php:209
 msgid "Tags"
-msgstr "Marquages"
+msgstr "Marques"
 
 #: actions/profilesettings.php:140
 msgid ""
 "Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
 msgstr ""
-"Marquages (tags) pour votre profil, séparés par des virgules ou des espaces"
+"Marques pour vous-même (lettres, chiffres, -, ., et _), séparées par des "
+"virgules ou des espaces"
 
 #: actions/profilesettings.php:144 actions/siteadminpanel.php:307
 msgid "Language"
@@ -2429,7 +2432,7 @@ msgstr "La langue est trop longue (255 caractères maximum)."
 #: actions/profilesettings.php:246 actions/tagother.php:178
 #, php-format
 msgid "Invalid tag: \"%s\""
-msgstr "Marquage invalide : « %s »"
+msgstr "Marque invalide : « %s »"
 
 #: actions/profilesettings.php:295
 msgid "Couldn't update user for autosubscribe."
@@ -2441,7 +2444,7 @@ msgstr "Impossible d’enregistrer le profil."
 
 #: actions/profilesettings.php:336
 msgid "Couldn't save tags."
-msgstr "Impossible d’enregistrer les marquages."
+msgstr "Impossible d’enregistrer les marques."
 
 #: actions/profilesettings.php:344 lib/adminpanelaction.php:126
 msgid "Settings saved."
@@ -2524,17 +2527,18 @@ msgstr ""
 
 #: actions/publictagcloud.php:57
 msgid "Public tag cloud"
-msgstr "Nuage de mots clefs public"
+msgstr "Nuage de marques public"
 
 #: actions/publictagcloud.php:63
 #, php-format
 msgid "These are most popular recent tags on %s "
-msgstr "Derniers marquages les plus populaires dans %s "
+msgstr "Dernières marques les plus populaires sur %s "
 
 #: actions/publictagcloud.php:69
 #, php-format
 msgid "No one has posted a notice with a [hashtag](%%doc.tags%%) yet."
-msgstr "Personne n'a encore posté un statuts avec une [marque](%%doc.tags%%)."
+msgstr ""
+"Personne n'a encore posté d’avis avec une [marque (hashtag)](%%doc.tags%%)."
 
 #: actions/publictagcloud.php:72
 msgid "Be the first to post one!"
@@ -2551,7 +2555,7 @@ msgstr ""
 
 #: actions/publictagcloud.php:135
 msgid "Tag cloud"
-msgstr "Nuage de mots clefs"
+msgstr "Nuage de marques"
 
 #: actions/recoverpassword.php:36
 msgid "You are already logged in!"
@@ -2724,7 +2728,7 @@ msgid ""
 "link up to friends and colleagues. "
 msgstr ""
 "Avec ce formulaire vous pouvez créer un nouveau compte. Vous pourrez ensuite "
-"poster des statuts and et vous relier avec des amis et collègues. "
+"poster des avis and et vous relier à des amis et collègues. "
 
 #: actions/register.php:424
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
@@ -2747,8 +2751,8 @@ msgstr "Courriel"
 #: actions/register.php:438 actions/register.php:442
 msgid "Used only for updates, announcements, and password recovery"
 msgstr ""
-"Utilisé uniquement pour les mises à jour de statut, les avertissements, et "
-"la récupération de mot de passe"
+"Utilisé uniquement pour les mises à jour, les notifications, et la "
+"récupération de mot de passe"
 
 #: actions/register.php:449
 msgid "Longer name, preferably your \"real\" name"
@@ -2791,9 +2795,9 @@ msgstr ""
 "Félicitations, %s! Bienvenue dans %%%%site.name%%%%. Vous pouvez "
 "maintenant :\n"
 "\n"
-"* Visiter [votre profil](%s) et publier votre premier statut.\n"
+"* Visiter [votre profil](%s) et poster votre premier message.\n"
 "* Ajouter une adresse [Jabber/GTalk](%%%%action.imsettings%%%%) afin "
-"d’envoyer et recevoir vos statuts par messagerie instantanée.\n"
+"d’envoyer et recevoir vos avis par messagerie instantanée.\n"
 "* [Chercher des personnes](%%%%action.peoplesearch%%%%) que vous pourriez "
 "connaître ou qui partagent vos intêrets.\n"
 "* Mettre votre [profil](%%%%action.profilesettings%%%%) à jour pour en dire "
@@ -2858,7 +2862,6 @@ msgid "Invalid profile URL (bad format)"
 msgstr "URL du profil invalide (mauvais format)"
 
 #: actions/remotesubscribe.php:168
-#, fuzzy
 msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
 msgstr ""
 "URL de profil invalide (aucun document YADIS ou définition XRDS invalide)."
@@ -2903,8 +2906,8 @@ msgid ""
 "This is the timeline showing replies to %s but %s hasn't received a notice "
 "to his attention yet."
 msgstr ""
-"Ceci est la chronologie des réponses à %s mais %s n'a encore reçu aucun "
-"statut à son intention."
+"Ceci est la chronologie des réponses à %s mais %s n’a encore reçu aucun avis "
+"à son intention."
 
 #: actions/replies.php:203
 #, php-format
@@ -2912,8 +2915,9 @@ msgid ""
 "You can engage other users in a conversation, subscribe to more people or "
 "[join groups](%%action.groups%%)."
 msgstr ""
-"Vous pouvez vous engager dans une conversation avec d'autres personnes, vous "
-"abonner à plus de gens ou [joindre des groupes](%%action.groups%%)."
+"Vous pouvez entamer une conversation avec d’autres utilisateurs, vous "
+"abonner à plus de personnes ou vous [inscrire à des groupes](%%action.groups%"
+"%)."
 
 #: actions/replies.php:205
 #, php-format
@@ -2921,8 +2925,8 @@ msgid ""
 "You can try to [nudge %s](../%s) or [post something to his or her attention]"
 "(%%%%action.newnotice%%%%?status_textarea=%s)."
 msgstr ""
-"Vous pouvez essayer de [faire un clin d’œil à %s](../%s) ou de [publier "
-"quelque chose à son attention](%%%%action.newnotice%%%%?status_textarea=%s)"
+"Vous pouvez essayer de [faire un clin d’œil à %s](../%s) ou de [poster "
+"quelque chose à son intention](%%%%action.newnotice%%%%?status_textarea=%s)"
 
 #: actions/repliesrss.php:72
 #, php-format
@@ -2988,7 +2992,7 @@ msgid ""
 "would add to their favorites :)"
 msgstr ""
 "%s n’a pas ajouté d’avis à ses favoris pour le moment. Vous pourriez [créer "
-"un compte](%%%%action.register%%%%), puis publier quelque chose "
+"un compte](%%%%action.register%%%%), puis poster quelque chose "
 "d’intéressant, qui serait ajouté à ses favoris :)"
 
 #: actions/showfavorites.php:242
@@ -3139,22 +3143,22 @@ msgstr "%s - page %d"
 #: actions/showstream.php:122
 #, php-format
 msgid "Notice feed for %s tagged %s (RSS 1.0)"
-msgstr "Fil des statuts pour %s marqués %s (RSS 1.0)"
+msgstr "Fil des avis pour %s marqués %s (RSS 1.0)"
 
 #: actions/showstream.php:129
 #, php-format
 msgid "Notice feed for %s (RSS 1.0)"
-msgstr "Flux des statuts de %s (RSS 1.0)"
+msgstr "Flux des avis de %s (RSS 1.0)"
 
 #: actions/showstream.php:136
 #, php-format
 msgid "Notice feed for %s (RSS 2.0)"
-msgstr "Flux des statuts de %s (RSS 2.0)"
+msgstr "Flux des avis de %s (RSS 2.0)"
 
 #: actions/showstream.php:143
 #, php-format
 msgid "Notice feed for %s (Atom)"
-msgstr "Flux des statuts de %s (Atom)"
+msgstr "Flux des avis de %s (Atom)"
 
 #: actions/showstream.php:148
 #, php-format
@@ -3180,8 +3184,8 @@ msgid ""
 "You can try to nudge %s or [post something to his or her attention](%%%%"
 "action.newnotice%%%%?status_textarea=%s)."
 msgstr ""
-"Vous pouvez essayer de faire un clin d’œil à %s ou de [publier quelque chose "
-"à son attention](%%%%action.newnotice%%%%?status_textarea=%s)."
+"Vous pouvez essayer de faire un clin d’œil à %s ou de [poster quelque chose "
+"à son intention](%%%%action.newnotice%%%%?status_textarea=%s)."
 
 #: actions/showstream.php:234
 #, php-format
@@ -3194,8 +3198,8 @@ msgstr ""
 "**%s** possède un compte sur %%%%site.name%%%%, un service de [microblogging]"
 "(http://fr.wikipedia.org/wiki/Microblog) basé sur le logiciel libre "
 "[StatusNet](http://status.net/). [Inscrivez-vous maintenant](%%%%action."
-"register%%%%) pour suivre les statuts de **%s** et bien plus ! ([En lire "
-"plus](%%%%doc.help%%%%))"
+"register%%%%) pour suivre les avis de **%s** et bien plus ! ([En lire plus](%"
+"%%%doc.help%%%%))"
 
 #: actions/showstream.php:239
 #, php-format
@@ -3291,7 +3295,7 @@ msgstr "URL utilisée pour le lien de crédits au bas de chaque page"
 
 #: actions/siteadminpanel.php:284
 msgid "Contact email address for your site"
-msgstr "adresse de courriel de contact de votre site"
+msgstr "Adresse de courriel de contact de votre site"
 
 #: actions/siteadminpanel.php:290
 msgid "Local"
@@ -3435,7 +3439,7 @@ msgstr "Limite de texte"
 
 #: actions/siteadminpanel.php:403
 msgid "Maximum number of characters for notices."
-msgstr "Nombre maximal de caractères pour les statuts."
+msgstr "Nombre maximal de caractères pour les avis."
 
 #: actions/siteadminpanel.php:407
 msgid "Dupe limit"
@@ -3496,7 +3500,7 @@ msgid ""
 "Send me notices through SMS; I understand I may incur exorbitant charges "
 "from my carrier."
 msgstr ""
-"Envoyez-moi les statuts par SMS ; je comprends que cela pourrait affecter ma "
+"Envoyez-moi les avis par SMS ; je comprends que cela pourrait affecter ma "
 "facture de téléphonie mobile."
 
 #: actions/smssettings.php:306
@@ -3568,7 +3572,7 @@ msgstr "Ceci n’est pas un utilisateur local."
 
 #: actions/subscribe.php:69
 msgid "Subscribed"
-msgstr "Souscrit"
+msgstr "Abonné"
 
 #: actions/subscribers.php:50
 #, php-format
@@ -3582,12 +3586,12 @@ msgstr "Abonnés à %s - page &d"
 
 #: actions/subscribers.php:63
 msgid "These are the people who listen to your notices."
-msgstr "Ces personnes suivent vos statuts."
+msgstr "Ces personnes suivent vos avis."
 
 #: actions/subscribers.php:67
 #, php-format
 msgid "These are the people who listen to %s's notices."
-msgstr "Ces personnes suivent les statuts de %s."
+msgstr "Ces personnes suivent les avis de %s."
 
 #: actions/subscribers.php:108
 msgid ""
@@ -3623,12 +3627,12 @@ msgstr "Abonnements de %s - page %d"
 
 #: actions/subscriptions.php:65
 msgid "These are the people whose notices you listen to."
-msgstr "Vous suivez les statuts de ces personnes. "
+msgstr "Vous suivez les avis de ces personnes."
 
 #: actions/subscriptions.php:69
 #, php-format
 msgid "These are the people whose notices %s listens to."
-msgstr "Les statuts de ces personnes sont suivis par %s."
+msgstr "Les avis de ces personnes sont suivis par %s."
 
 #: actions/subscriptions.php:121
 #, php-format
@@ -3670,7 +3674,7 @@ msgstr "Aucun argument d’identification."
 #: actions/tagother.php:65
 #, php-format
 msgid "Tag %s"
-msgstr "Marquage %s"
+msgstr "Marque %s"
 
 #: actions/tagother.php:77 lib/userprofile.php:75
 msgid "User profile"
@@ -3688,7 +3692,9 @@ msgstr "Marquer l’utilisateur"
 msgid ""
 "Tags for this user (letters, numbers, -, ., and _), comma- or space- "
 "separated"
-msgstr "Marquer cet utilisateur (séparer par des espaces ou des virgules)"
+msgstr ""
+"Marques pour cet utilisateur (lettres, chiffres, -, ., et _), séparées par "
+"des virgules ou des espaces"
 
 #: actions/tagother.php:193
 msgid ""
@@ -3699,7 +3705,7 @@ msgstr ""
 
 #: actions/tagother.php:200
 msgid "Could not save tags."
-msgstr "Impossible d’enregistrer les marquages."
+msgstr "Impossible d’enregistrer les marques."
 
 #: actions/tagother.php:236
 msgid "Use this form to add tags to your subscribers or subscriptions."
@@ -3709,26 +3715,26 @@ msgstr ""
 #: actions/tag.php:68
 #, php-format
 msgid "Notices tagged with %s, page %d"
-msgstr "Statuts marqués %s - page %d"
+msgstr "Avis marqués %s - page %d"
 
 #: actions/tag.php:86
 #, php-format
 msgid "Notice feed for tag %s (RSS 1.0)"
-msgstr "Flux des statuts pour le marquage %s (RSS 1.0)"
+msgstr "Flux des avis pour la marque %s (RSS 1.0)"
 
 #: actions/tag.php:92
 #, php-format
 msgid "Notice feed for tag %s (RSS 2.0)"
-msgstr "Flux des statuts pour le marquage %s (RSS 2.0)"
+msgstr "Flux des avis pour la marque %s (RSS 2.0)"
 
 #: actions/tag.php:98
 #, php-format
 msgid "Notice feed for tag %s (Atom)"
-msgstr "Flux des statuts pour le marquage %s (Atom)"
+msgstr "Flux des avis pour la marque %s (Atom)"
 
 #: actions/tagrss.php:35
 msgid "No such tag."
-msgstr "Aucun marquage trouvé."
+msgstr "Cette marque n’existe pas."
 
 #: actions/twitapitrends.php:87
 msgid "API method under construction."
@@ -3762,7 +3768,7 @@ msgstr "Désabonné"
 #, php-format
 msgid "Listenee stream license ‘%s’ is not compatible with site license ‘%s’."
 msgstr ""
-"La licence du flux auquel vous avez souscrit ‘%s’ n’est pas compatible avec "
+"La licence du flux auquel vous êtes abonné(e) ‘%s’ n’est pas compatible avec "
 "la licence du site ‘%s’."
 
 #: actions/useradminpanel.php:58 lib/adminpanelaction.php:305
@@ -3865,8 +3871,8 @@ msgid ""
 "click “Reject”."
 msgstr ""
 "Veuillez vérifier ces détails pour vous assurer que vous souhaitez vous "
-"abonner aux statuts de cet utilisateur. Si vous n’avez pas demandé à vous "
-"abonner aux statuts de quelqu’un, cliquez « Rejeter »."
+"abonner aux avis de cet utilisateur. Si vous n’avez pas demandé à vous "
+"abonner aux avis de quelqu’un, cliquez « Rejeter »."
 
 #: actions/userauthorization.php:188
 msgid "License"
@@ -3887,7 +3893,7 @@ msgstr "Refuser"
 
 #: actions/userauthorization.php:212
 msgid "Reject this subscription"
-msgstr "Rejeter cette souscription"
+msgstr "Rejeter cet abonnement"
 
 #: actions/userauthorization.php:225
 msgid "No authorization request!"
@@ -3929,12 +3935,13 @@ msgstr "L’URI de l’auditeur ‘%s’ n’a pas été trouvée"
 #: actions/userauthorization.php:301
 #, php-format
 msgid "Listenee URI ‘%s’ is too long."
-msgstr "L’URI à laquelle vous avez souscrit ‘%s’ est trop longue."
+msgstr "L’URI à laquelle vous vous êtes abonné(e) ‘%s’ est trop longue."
 
 #: actions/userauthorization.php:307
 #, php-format
 msgid "Listenee URI ‘%s’ is a local user."
-msgstr "L’URI à laquelle vous avez souscrit ‘%s’ est un utilisateur local."
+msgstr ""
+"L’URI à laquelle vous vous êtes abonné(e) ‘%s’ est un utilisateur local."
 
 #: actions/userauthorization.php:322
 #, php-format
@@ -4031,7 +4038,7 @@ msgstr "Impossible de mettre à jour le message avec un nouvel URI."
 #: classes/Notice.php:164
 #, php-format
 msgid "DB error inserting hashtag: %s"
-msgstr "Erreur de base de donnée en insérant le hashtag : %s"
+msgstr "Erreur de base de donnée en insérant la marque (hashtag) : %s"
 
 #: classes/Notice.php:179
 msgid "Problem saving notice. Too long."
@@ -4039,14 +4046,14 @@ msgstr "Problème lors de l’enregistrement de l’avis ; trop long."
 
 #: classes/Notice.php:183
 msgid "Problem saving notice. Unknown user."
-msgstr "Erreur lors de l’enregistrement du statut. Utilisateur inconnu."
+msgstr "Erreur lors de l’enregistrement de l’avis. Utilisateur inconnu."
 
 #: classes/Notice.php:188
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
-"Trop de statuts, trop vite ! Prenez une pause et publiez à nouveau dans "
-"quelques minutes."
+"Trop d’avis, trop vite ! Faites une pause et publiez à nouveau dans quelques "
+"minutes."
 
 #: classes/Notice.php:194
 msgid ""
@@ -4058,11 +4065,11 @@ msgstr ""
 
 #: classes/Notice.php:200
 msgid "You are banned from posting notices on this site."
-msgstr "Il vous est interdit de publier des statuts dans ce site."
+msgstr "Il vous est interdit de poster des avis sur ce site."
 
 #: classes/Notice.php:265 classes/Notice.php:290
 msgid "Problem saving notice."
-msgstr "Problème lors de l’enregistrement du statut."
+msgstr "Problème lors de l’enregistrement de l’avis."
 
 #: classes/Notice.php:1124
 #, php-format
@@ -4335,7 +4342,7 @@ msgstr "Fournisseur"
 
 #: lib/attachmentnoticesection.php:67
 msgid "Notices where this attachment appears"
-msgstr "Statuts sur lesquels cette pièce jointe apparait."
+msgstr "Avis sur lesquels cette pièce jointe apparaît."
 
 #: lib/attachmenttagcloudsection.php:48
 msgid "Tags for this attachment"
@@ -4384,15 +4391,15 @@ msgstr ""
 
 #: lib/command.php:152 lib/command.php:400
 msgid "Notice with that id does not exist"
-msgstr "Aucun statut avec cet identifiant n’existe"
+msgstr "Aucun avis avec cet identifiant n’existe"
 
 #: lib/command.php:168 lib/command.php:416 lib/command.php:471
 msgid "User has no last notice"
-msgstr "Aucun statut récent pour cet utilisateur"
+msgstr "Aucun avis récent pour cet utilisateur"
 
 #: lib/command.php:190
 msgid "Notice marked as fave."
-msgstr "Statut ajouté aux favoris."
+msgstr "Avis ajouté aux favoris."
 
 #: lib/command.php:315
 #, php-format
@@ -4484,37 +4491,51 @@ msgstr "Avertissements activés."
 msgid "Can't turn on notification."
 msgstr "Impossible d’activer les avertissements."
 
-#: lib/command.php:592
+#: lib/command.php:588
+msgid "Login command is disabled"
+msgstr ""
+
+#: lib/command.php:602
+#, fuzzy, php-format
+msgid "Could not create login token for %s"
+msgstr "Impossible de créer les alias."
+
+#: lib/command.php:607
+#, php-format
+msgid "This link is useable only once, and is good for only 2 minutes: %s"
+msgstr ""
+
+#: lib/command.php:623
 msgid "You are not subscribed to anyone."
 msgstr "Vous n'êtes pas abonné(e) à personne."
 
-#: lib/command.php:594
+#: lib/command.php:625
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Vous êtes abonné à cette personne :"
 msgstr[1] "Vous êtes abonné à ces personnes :"
 
-#: lib/command.php:614
+#: lib/command.php:645
 msgid "No one is subscribed to you."
 msgstr "Personne ne s'est abonné à vous."
 
-#: lib/command.php:616
+#: lib/command.php:647
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Cette personne est abonnée à vous :"
 msgstr[1] "Ces personnes sont abonnées à vous :"
 
-#: lib/command.php:636
+#: lib/command.php:667
 msgid "You are not a member of any groups."
 msgstr "Vous n'êtes pas membre d'aucun groupe."
 
-#: lib/command.php:638
+#: lib/command.php:669
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Vous êtes membre de ce groupe :"
 msgstr[1] "Vous êtes membre de ces groupes :"
 
-#: lib/command.php:652
+#: lib/command.php:683
 #, fuzzy
 msgid ""
 "Commands:\n"
@@ -4534,6 +4555,7 @@ msgid ""
 "reply #<notice_id> - reply to notice with a given id\n"
 "reply <nickname> - reply to the last notice from user\n"
 "join <group> - join group\n"
+"login - Get a link to login to the web interface\n"
 "drop <group> - leave group\n"
 "stats - get your stats\n"
 "stop - same as 'off'\n"
@@ -4579,7 +4601,7 @@ msgstr ""
 "last <nickname> - même effet que 'get'\n"
 "on <nickname> - pas encore implémenté.\n"
 "off <nickname> - pas encore implémenté.\n"
-"nudge <nickname> - rappeler à un utilisateur de publier.\n"
+"nudge <nickname> - clin d’œil : rappeler à un utilisateur de poster.\n"
 "invite <phone number> - pas encore implémenté.\n"
 "track <word> - pas encore implémenté.\n"
 "untrack <word> - pas encore implémenté.\n"
@@ -4611,11 +4633,11 @@ msgstr "IM"
 
 #: lib/connectsettingsaction.php:111
 msgid "Updates by instant messenger (IM)"
-msgstr "Suivi des statuts par messagerie instantanée"
+msgstr "Suivi des avis par messagerie instantanée"
 
 #: lib/connectsettingsaction.php:116
 msgid "Updates by SMS"
-msgstr "Suivi des statuts par SMS"
+msgstr "Suivi des avis par SMS"
 
 #: lib/dberroraction.php:60
 msgid "Database error"
@@ -4632,11 +4654,7 @@ msgstr ""
 "Vous pouvez importer votre image d’arrière plan personnelle. La taille "
 "maximale du fichier est de 2 Mo."
 
-#: lib/designsettings.php:372
-msgid "Bad default color settings: "
-msgstr "Mauvais paramètres de couleur par défaut : "
-
-#: lib/designsettings.php:468
+#: lib/designsettings.php:418
 msgid "Design defaults restored."
 msgstr "Les paramètre par défaut de la conception ont été restaurés."
 
@@ -4674,7 +4692,7 @@ msgstr "Ami d’un ami"
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"
-msgstr "Filtrer les balises"
+msgstr "Filtrer les marques"
 
 #: lib/galleryaction.php:131
 msgid "All"
@@ -4686,11 +4704,11 @@ msgstr "Sélectionner une marque à filtrer"
 
 #: lib/galleryaction.php:140
 msgid "Tag"
-msgstr "Marquer"
+msgstr "Marque"
 
 #: lib/galleryaction.php:141
 msgid "Choose a tag to narrow list"
-msgstr "Choissez un marquage pour réduire la liste"
+msgstr "Choissez une marque pour réduire la liste"
 
 #: lib/galleryaction.php:143
 msgid "Go"
@@ -4770,7 +4788,7 @@ msgstr "Groupes avec le plus d'éléments publiés"
 #: lib/grouptagcloudsection.php:56
 #, php-format
 msgid "Tags in %s group's notices"
-msgstr "Marquages des statuts du groupe %s"
+msgstr "Marques dans les avis du groupe %s"
 
 #: lib/htmloutputter.php:103
 msgid "This page is not available in a media type you accept"
@@ -4889,7 +4907,7 @@ msgstr ""
 #: lib/mail.php:236
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
-msgstr "%1$s suit maintenant vos statuts dans %2$s."
+msgstr "%1$s suit maintenant vos avis sur %2$s."
 
 #: lib/mail.php:241
 #, php-format
@@ -4905,7 +4923,7 @@ msgid ""
 "----\n"
 "Change your email address or notification options at %8$s\n"
 msgstr ""
-"%1$s suit maintenant vos statuts sur %2$s.\n"
+"%1$s suit maintenant vos avis sur %2$s.\n"
 "\n"
 "%3$s\n"
 "\n"
@@ -4952,14 +4970,13 @@ msgid ""
 "Faithfully yours,\n"
 "%4$s"
 msgstr ""
-"Une nouvelle adresse vous a été attribuée pour publier vos statuts dans %1"
-"$s.\n"
+"Une nouvelle adresse vous a été attribuée pour poster vos avis sur %1$s.\n"
 "\n"
-"Écrivez à %2$s pour mettre à jour votre statut.\n"
+"Écrivez à %2$s pour poster un nouvel avis.\n"
 "\n"
 "Plus d’info : %3$s.\n"
 "\n"
-"Amicalement vôtre,\n"
+"Cordialement,\n"
 "%4$s"
 
 #: lib/mail.php:413
@@ -4992,7 +5009,7 @@ msgid ""
 "%4$s\n"
 msgstr ""
 "%1$s (%2$s) se demande ce que vous devenez ces temps-ci et vous invite à "
-"publier des nouvelles.\n"
+"poster des nouvelles.\n"
 "\n"
 "Donc on vous écoute :)\n"
 "\n"
@@ -5044,7 +5061,7 @@ msgstr ""
 #: lib/mail.php:559
 #, php-format
 msgid "%s (@%s) added your notice as a favorite"
-msgstr "%s (@%s) a ajouté un de vos statut à ses favoris"
+msgstr "%s (@%s) a ajouté un de vos avis à ses favoris"
 
 #: lib/mail.php:561
 #, php-format
@@ -5178,24 +5195,24 @@ msgstr "Envoyer un message direct"
 msgid "To"
 msgstr "À"
 
-#: lib/messageform.php:162 lib/noticeform.php:186
+#: lib/messageform.php:161 lib/noticeform.php:185
 msgid "Available characters"
 msgstr "Caractères restants"
 
 #: lib/noticeform.php:158
 msgid "Send a notice"
-msgstr "Envoyer un statut"
+msgstr "Envoyer un avis"
 
 #: lib/noticeform.php:171
 #, php-format
 msgid "What's up, %s?"
 msgstr "Quoi de neuf, %s ?"
 
-#: lib/noticeform.php:193
+#: lib/noticeform.php:192
 msgid "Attach"
 msgstr "Attacher"
 
-#: lib/noticeform.php:197
+#: lib/noticeform.php:196
 msgid "Attach a file"
 msgstr "Attacher un fichier"
 
@@ -5230,7 +5247,7 @@ msgstr "dans le contexte"
 
 #: lib/noticelist.php:526
 msgid "Reply to this notice"
-msgstr "Répondre à ce statut"
+msgstr "Répondre à cet avis"
 
 #: lib/noticelist.php:527
 msgid "Reply"
@@ -5303,7 +5320,7 @@ msgstr "Vos messages envoyés"
 #: lib/personaltagcloudsection.php:56
 #, php-format
 msgid "Tags in %s's notices"
-msgstr "Marquages des statuts de %s"
+msgstr "Marques dans les avis de %s"
 
 #: lib/profileaction.php:109 lib/profileaction.php:192 lib/subgroupnav.php:82
 msgid "Subscriptions"
@@ -5351,7 +5368,7 @@ msgstr "Groupes d’utilisateurs"
 
 #: lib/publicgroupnav.php:84 lib/publicgroupnav.php:85
 msgid "Recent tags"
-msgstr "Marquages récents"
+msgstr "Marques récentes"
 
 #: lib/publicgroupnav.php:88
 msgid "Featured"
@@ -5375,7 +5392,7 @@ msgstr "Rechercher sur le site"
 
 #: lib/searchaction.php:126
 msgid "Keyword(s)"
-msgstr "Mot(s) celf(s)"
+msgstr "Mot(s) clef(s)"
 
 #: lib/searchaction.php:162
 msgid "Search help"
@@ -5391,7 +5408,7 @@ msgstr "Chercher des personnes sur ce site"
 
 #: lib/searchgroupnav.php:83
 msgid "Find content of notices"
-msgstr "Chercher dans le contenu des statuts"
+msgstr "Chercher dans le contenu des avis"
 
 #: lib/searchgroupnav.php:85
 msgid "Find groups on this site"
@@ -5431,12 +5448,12 @@ msgstr "Groupes de %s"
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
 msgid "People Tagcloud as self-tagged"
-msgstr "Nuage de mots clefs des personnes tel que définis par eux-même"
+msgstr "Nuage de marques pour une personne (ajoutées par eux-même)"
 
 #: lib/subscriberspeopletagcloudsection.php:48
 #: lib/subscriptionspeopletagcloudsection.php:48
 msgid "People Tagcloud as tagged"
-msgstr "Nuage de mots clefs des personnes"
+msgstr "Nuage de marques pour une personne"
 
 #: lib/subscriptionlist.php:126
 msgid "(none)"
@@ -5444,7 +5461,7 @@ msgstr "(aucun)"
 
 #: lib/subs.php:52
 msgid "Already subscribed!"
-msgstr "Déjà souscrit !"
+msgstr "Déjà abonné !"
 
 #: lib/subs.php:56
 msgid "User has blocked you."
@@ -5462,7 +5479,11 @@ msgstr "Impossible d’abonner une autre personne à votre profil."
 msgid "Not subscribed!"
 msgstr "Pas abonné !"
 
-#: lib/subs.php:140
+#: lib/subs.php:133
+msgid "Couldn't delete self-subscription."
+msgstr "Impossible de supprimer l’abonnement à soi-même."
+
+#: lib/subs.php:146
 msgid "Couldn't delete subscription."
 msgstr "Impossible de cesser l’abonnement"
 

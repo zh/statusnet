@@ -127,7 +127,7 @@ function common_check_user($nickname, $password)
                 if (0 == strcmp(common_munge_password($password, $user->id),
                                 $user->password)) {
                     //internal checking passed
-                    $authenticatedUser =& $user;
+                    $authenticatedUser = $user;
                 }
             }
         }
@@ -1070,18 +1070,21 @@ function common_request_id()
 
 function common_log($priority, $msg, $filename=null)
 {
-    $msg = '[' . common_request_id() . '] ' . $msg;
-    $logfile = common_config('site', 'logfile');
-    if ($logfile) {
-        $log = fopen($logfile, "a");
-        if ($log) {
-            $output = common_log_line($priority, $msg);
-            fwrite($log, $output);
-            fclose($log);
+    if(Event::handle('StartLog', array(&$priority, &$msg, &$filename))){
+        $msg = '[' . common_request_id() . '] ' . $msg;
+        $logfile = common_config('site', 'logfile');
+        if ($logfile) {
+            $log = fopen($logfile, "a");
+            if ($log) {
+                $output = common_log_line($priority, $msg);
+                fwrite($log, $output);
+                fclose($log);
+            }
+        } else {
+            common_ensure_syslog();
+            syslog($priority, $msg);
         }
-    } else {
-        common_ensure_syslog();
-        syslog($priority, $msg);
+        Event::handle('EndLog', array($priority, $msg, $filename));
     }
 }
 

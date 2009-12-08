@@ -32,6 +32,7 @@ define('NOTICE_INBOX_SOFT_LIMIT', 1000);
 define('NOTICE_INBOX_SOURCE_SUB', 1);
 define('NOTICE_INBOX_SOURCE_GROUP', 2);
 define('NOTICE_INBOX_SOURCE_REPLY', 3);
+define('NOTICE_INBOX_SOURCE_FORWARD', 4);
 define('NOTICE_INBOX_SOURCE_GATEWAY', -1);
 
 class Notice_inbox extends Memcached_DataObject
@@ -83,7 +84,7 @@ class Notice_inbox extends Memcached_DataObject
             $inbox->whereAdd('created > \'' . date('Y-m-d H:i:s', $since) . '\'');
         }
 
-        $inbox->orderBy('notice_id DESC');
+        $inbox->orderBy('created DESC');
 
         if (!is_null($offset)) {
             $inbox->limit($offset, $limit);
@@ -140,5 +141,44 @@ class Notice_inbox extends Memcached_DataObject
         return $entry->query('DELETE FROM notice_inbox '.
                              'WHERE user_id = ' . $user_id . ' ' .
                              'AND notice_id in ('.implode(',', $notices).')');
+    }
+
+    static function bulkInsert($notice_id, $created, $ni)
+    {
+        $cnt = 0;
+
+        $qryhdr = 'INSERT INTO notice_inbox (user_id, notice_id, source, created) VALUES ';
+        $qry = $qryhdr;
+
+        foreach ($ni as $id => $source) {
+            if ($cnt > 0) {
+                $qry .= ', ';
+            }
+            $qry .= '('.$id.', '.$notice_id.', '.$source.", '".$created. "') ";
+            $cnt++;
+            if (rand() % NOTICE_INBOX_SOFT_LIMIT == 0) {
+                // FIXME: Causes lag in replicated servers
+                // Notice_inbox::gc($id);
+            }
+            if ($cnt >= MAX_BOXCARS) {
+                $inbox = new Notice_inbox();
+                $result = $inbox->query($qry);
+                if (PEAR::isError($result)) {
+                    common_log_db_error($inbox, $qry);
+                }
+                $qry = $qryhdr;
+                $cnt = 0;
+            }
+        }
+
+        if ($cnt > 0) {
+            $inbox = new Notice_inbox();
+            $result = $inbox->query($qry);
+            if (PEAR::isError($result)) {
+                common_log_db_error($inbox, $qry);
+            }
+        }
+
+        return;
     }
 }

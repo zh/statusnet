@@ -101,7 +101,7 @@ class Design extends Memcached_DataObject
         }
 
         if (0 != mb_strlen($css)) {
-            $out->element('style', array('type' => 'text/css'), $css);
+            $out->style($css);
         }
     }
 

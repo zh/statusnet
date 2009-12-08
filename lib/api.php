@@ -134,18 +134,15 @@ class ApiAction extends Action
         $twitter_user['protected'] = false; # not supported by StatusNet yet
         $twitter_user['followers_count'] = $profile->subscriberCount();
 
-        $defaultDesign = Design::siteDesign();
-        $design        = null;
         $user          = $profile->getUser();
+        $design        = null;
 
         // Note: some profiles don't have an associated user
 
+        $defaultDesign = Design::siteDesign();
+
         if (!empty($user)) {
             $design = $user->getDesign();
-        }
-
-        if (empty($design)) {
-            $design = $defaultDesign;
         }
 
         $color = Design::toWebColor(empty($design->backgroundcolor) ? $defaultDesign->backgroundcolor : $design->backgroundcolor);
@@ -166,7 +163,7 @@ class ApiAction extends Action
 
         $timezone = 'UTC';
 
-        if ($user->timezone) {
+        if (!empty($user) && !empty($user->timezone)) {
             $timezone = $user->timezone;
         }
 

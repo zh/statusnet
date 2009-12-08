@@ -185,7 +185,6 @@ class FacebookPlugin extends Plugin
             // XXX: Facebook says we don't need this FB_RequireFeatures(),
             // but we actually do, for IE and Safari. Gar.
 
-            $js  = '<script type="text/javascript">';
             $js .= '    $(document).ready(function () {';
             $js .= '         FB_RequireFeatures(';
             $js .= '             ["XFBML"], function() {';
@@ -219,7 +218,6 @@ class FacebookPlugin extends Plugin
             $js .= '            }';
             $js .= '        );';
             $js .= '     });';
-            $js .= '</script>';
 
             $js = sprintf($js, $apikey, $login_url, $logout_url);
 
@@ -227,7 +225,7 @@ class FacebookPlugin extends Plugin
 
             $js = str_replace('  ', '', $js);
 
-            $action->raw("  $js");  // leading two spaces to make it line up
+            $action->inlineScript($js);
         }
 
     }
@@ -408,9 +406,9 @@ class FacebookPlugin extends Plugin
         $action_name = $action->trimmed('action');
 
         $action->menuItem(common_local_url('FBConnectLogin'),
-                                           _('Facebook'),
-                                           _('Login or register using Facebook'),
-                                             'FBConnectLogin' === $action_name);
+                                           _m('Facebook'),
+                                           _m('Login or register using Facebook'),
+                                           'FBConnectLogin' === $action_name);
 
         return true;
     }
@@ -428,8 +426,8 @@ class FacebookPlugin extends Plugin
         $action_name = $action->trimmed('action');
 
         $action->menuItem(common_local_url('FBConnectSettings'),
-                          _('Facebook'),
-                          _('Facebook Connect Settings'),
+                          _m('Facebook'),
+                          _m('Facebook Connect Settings'),
                           $action_name === 'FBConnectSettings');
 
         return true;

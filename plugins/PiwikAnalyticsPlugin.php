@@ -81,25 +81,20 @@ class PiwikAnalyticsPlugin extends Plugin
 
     function onEndShowScripts($action)
     {
-        $piwikCode = <<<ENDOFPIWIK
-
-<!-- Piwik -->
-<script type="text/javascript">
+        $piwikCode1 = <<<ENDOFPIWIK
 var pkBaseURL = (("https:" == document.location.protocol) ? "https://{$this->piwikroot}" : "http://{$this->piwikroot}");
 document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
+ENDOFPIWIK;
+        $piwikCode2 = <<<ENDOFPIWIK
 try {
     var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", {$this->piwikId});
     piwikTracker.trackPageView();
     piwikTracker.enableLinkTracking();
 } catch( err ) {}
-</script>
-<!-- End Piwik Tag -->
-
 ENDOFPIWIK;
 
-        $action->raw($piwikCode);
+        $action->inlineScript($piwikCode1);
+        $action->inlineScript($piwikCode2);
         return true;
     }
 }

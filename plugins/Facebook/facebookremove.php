@@ -55,7 +55,7 @@ class FacebookremoveAction extends FacebookAction
 
             if (!$result) {
                 common_log_db_error($flink, 'DELETE', __FILE__);
-                $this->serverError(_('Couldn\'t remove Facebook user.'));
+                $this->serverError(_m('Couldn\'t remove Facebook user.'));
                 return;
             }
 

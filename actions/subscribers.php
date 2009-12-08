@@ -57,7 +57,7 @@ class SubscribersAction extends GalleryAction
 
     function showPageNotice()
     {
-        $user =& common_current_user();
+        $user = common_current_user();
         if ($user && ($user->id == $this->profile->id)) {
             $this->element('p', null,
                            _('These are the people who listen to '.

@@ -67,11 +67,7 @@ class GoogleAnalyticsPlugin extends Plugin
                        'pageTracker._trackPageview();'.
                        '} catch(err) {}',
                        $this->code);
-        $action->elementStart('script', array('type' => 'text/javascript'));
-        $action->raw($js1);
-        $action->elementEnd('script');
-        $action->elementStart('script', array('type' => 'text/javascript'));
-        $action->raw($js2);
-        $action->elementEnd('script');
+        $action->inlineScript($js1);
+        $action->inlineScript($js2);
     }
 }

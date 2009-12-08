@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    CVS: $Id: DataObject.php 284150 2009-07-15 23:27:59Z alan_k $
+ * @version    CVS: $Id: DataObject.php 291349 2009-11-27 09:15:18Z alan_k $
  * @link       http://pear.php.net/package/DB_DataObject
  */
   
@@ -235,7 +235,7 @@ class DB_DataObject extends DB_DataObject_Overload
     * @access   private
     * @var      string
     */
-    var $_DB_DataObject_version = "1.8.12";
+    var $_DB_DataObject_version = "1.9.0";
 
     /**
      * The Database table (used by table extends)
@@ -309,7 +309,8 @@ class DB_DataObject extends DB_DataObject_Overload
 
     /**
      * An autoloading, caching static get method  using key, value (based on get)
-     *
+     * (depreciated - use ::get / and your own caching method)
+     * 
      * Usage:
      * $object = DB_DataObject::staticGet("DbTable_mytable",12);
      * or
@@ -942,9 +943,13 @@ class DB_DataObject extends DB_DataObject_Overload
             }
             $this->$key = $keyvalue;
         }
-
-
-
+        
+        // if we haven't set disable_null_strings to "full"
+        $ignore_null = !isset($options['disable_null_strings'])
+                    || !is_string($options['disable_null_strings'])
+                    || strtolower($options['disable_null_strings']) !== 'full' ;
+                    
+             
         foreach($items as $k => $v) {
             
             // if we are using autoincrement - skip the column...
@@ -953,7 +958,10 @@ class DB_DataObject extends DB_DataObject_Overload
             }
         
             
-            if (!isset($this->$k)) {
+           
+           
+            // Ignore variables which aren't set to a value
+        	if ( !isset($this->$k) && $ignore_null) {
                 continue;
             }
             // dont insert data into mysql timestamps 
@@ -980,8 +988,7 @@ class DB_DataObject extends DB_DataObject_Overload
             }
             
             
-
-            if (!isset($options['disable_null_strings']) && is_string($this->$k) && (strtolower($this->$k) === 'null') && !($v & DB_DATAOBJECT_NOTNULL)) {
+            if (!($v & DB_DATAOBJECT_NOTNULL) && DB_DataObject::_is_null($this,$k)) {
                 $rightq .= " NULL ";
                 continue;
             }
@@ -1194,8 +1201,14 @@ class DB_DataObject extends DB_DataObject_Overload
         $options = $_DB_DATAOBJECT['CONFIG'];
         
         
+        $ignore_null = !isset($options['disable_null_strings'])
+                    || !is_string($options['disable_null_strings'])
+                    || strtolower($options['disable_null_strings']) !== 'full' ;
+                    
+        
         foreach($items as $k => $v) {
-            if (!isset($this->$k)) {
+            
+            if (!isset($this->$k) && $ignore_null) {
                 continue;
             }
             // ignore stuff thats 
@@ -1234,7 +1247,7 @@ class DB_DataObject extends DB_DataObject_Overload
             }
             
             // special values ... at least null is handled...
-            if (!isset($options['disable_null_strings']) && (strtolower($this->$k) === 'null') && !($v & DB_DATAOBJECT_NOTNULL)) {
+            if (!($v & DB_DATAOBJECT_NOTNULL) && DB_DataObject::_is_null($this,$k)) {
                 $settings .= "$kSql = NULL ";
                 continue;
             }
@@ -1796,10 +1809,15 @@ class DB_DataObject extends DB_DataObject_Overload
         }
                     
          
-        
+        $_DB_DATAOBJECT['INI'][$this->_database] = array();
         foreach ($schemas as $ini) {
              if (file_exists($ini) && is_file($ini)) {
-                $_DB_DATAOBJECT['INI'][$this->_database] = parse_ini_file($ini, true);
+                
+                $_DB_DATAOBJECT['INI'][$this->_database] = array_merge(
+                    $_DB_DATAOBJECT['INI'][$this->_database],
+                    parse_ini_file($ini, true)
+                );
+                    
                 if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) { 
                     if (!is_readable ($ini)) {
                         $this->debug("ini file is not readable: $ini","databaseStructure",1);
@@ -2478,7 +2496,8 @@ class DB_DataObject extends DB_DataObject_Overload
             $x = new DB_DataObject;
             $this->_query= $x->_query;
         }
-
+       
+                    
         foreach($keys as $k => $v) {
             // index keys is an indexed array
             /* these filter checks are a bit suspicious..
@@ -2519,7 +2538,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 continue;
             }
             
-            if (!isset($options['disable_null_strings']) &&  (strtolower($this->$k) === 'null') && !($v & DB_DATAOBJECT_NOTNULL)) {
+            if (!($v & DB_DATAOBJECT_NOTNULL) && DB_DataObject::_is_null($this,$k)) {
                 $this->whereAdd(" $kSql  IS NULL");
                 continue;
             }
@@ -2624,15 +2643,31 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         
         // does this need multi db support??
-        $p = isset($_DB_DATAOBJECT['CONFIG']['class_prefix']) ?
-            $_DB_DATAOBJECT['CONFIG']['class_prefix'] : '';
-        $class = $p . preg_replace('/[^A-Z0-9]/i','_',ucfirst($table));
-        $ce = substr(phpversion(),0,1) > 4 ? class_exists($class,false) : class_exists($class);
+        $cp = isset($_DB_DATAOBJECT['CONFIG']['class_prefix']) ?
+            explode(PATH_SEPARATOR, $_DB_DATAOBJECT['CONFIG']['class_prefix']) : '';
         
-        $class = $ce ? $class  : DB_DataObject::_autoloadClass($class);
+        // multiprefix support.
+        $tbl = preg_replace('/[^A-Z0-9]/i','_',ucfirst($table));
+        if (is_array($cp)) {
+            $class = array();
+            foreach($cp as $cpr) {
+                $ce = substr(phpversion(),0,1) > 4 ? class_exists($cpr . $tbl,false) : class_exists($cpr . $tbl);
+                if ($ce) {
+                    $class = $cpr . $tbl;
+                    break;
+                }
+                $class[] = $cpr . $tbl;
+            }
+        } else {
+            $class = $tbl;
+            $ce = substr(phpversion(),0,1) > 4 ? class_exists($class,false) : class_exists($class);
+        }
+        
+        
+        $rclass = $ce ? $class  : DB_DataObject::_autoloadClass($class, $table);
         
         // proxy = full|light
-        if (!$class && isset($_DB_DATAOBJECT['CONFIG']['proxy'])) { 
+        if (!$rclass && isset($_DB_DATAOBJECT['CONFIG']['proxy'])) { 
         
             DB_DataObject::debug("FAILED TO Autoload  $database.$table - using proxy.","FACTORY",1);
         
@@ -2653,12 +2688,14 @@ class DB_DataObject extends DB_DataObject_Overload
             return $x->$proxyMethod( $d->_database, $table);
         }
         
-        if (!$class) {
+        if (!$rclass) {
             return DB_DataObject::raiseError(
-                "factory could not find class $class from $table",
+                "factory could not find class " . 
+                (is_array($class) ? implode(PATH_SEPARATOR, $class)  : $class  ). 
+                "from $table",
                 DB_DATAOBJECT_ERROR_INVALIDCONFIG);
         }
-        $ret = new $class;
+        $ret = new $rclass;
         if (!empty($database)) {
             DB_DataObject::debug("Setting database to $database","FACTORY",1);
             $ret->database($database);
@@ -2668,11 +2705,12 @@ class DB_DataObject extends DB_DataObject_Overload
     /**
      * autoload Class
      *
-     * @param  string  $class  Class
+     * @param  string|array  $class  Class
+     * @param  string  $table  Table trying to load.
      * @access private
      * @return string classname on Success
      */
-    function _autoloadClass($class)
+    function _autoloadClass($class, $table=false)
     {
         global $_DB_DATAOBJECT;
         
@@ -2682,32 +2720,62 @@ class DB_DataObject extends DB_DataObject_Overload
         $class_prefix = empty($_DB_DATAOBJECT['CONFIG']['class_prefix']) ? 
                 '' : $_DB_DATAOBJECT['CONFIG']['class_prefix'];
                 
-        $table   = substr($class,strlen($class_prefix));
+        $table   = $table ? $table : substr($class,strlen($class_prefix));
 
         // only include the file if it exists - and barf badly if it has parse errors :)
         if (!empty($_DB_DATAOBJECT['CONFIG']['proxy']) || empty($_DB_DATAOBJECT['CONFIG']['class_location'])) {
             return false;
         }
+        // support for:
+        // class_location = mydir/ => maps to mydir/Tablename.php
+        // class_location = mydir/myfile_%s.php => maps to mydir/myfile_Tablename
+        // with directory sepr
+        // class_location = mydir/:mydir2/: => tries all of thes locations.
+        $cl = $_DB_DATAOBJECT['CONFIG']['class_location'];
         
         
-        if (strpos($_DB_DATAOBJECT['CONFIG']['class_location'],'%s') !== false) {
-            $file = sprintf($_DB_DATAOBJECT['CONFIG']['class_location'], preg_replace('/[^A-Z0-9]/i','_',ucfirst($table)));
-        } else {
-            $file = $_DB_DATAOBJECT['CONFIG']['class_location'].'/'.preg_replace('/[^A-Z0-9]/i','_',ucfirst($table)).".php";
+        switch (true) {
+            case (strpos($cl ,'%s') !== false):
+                $file = sprintf($cl , preg_replace('/[^A-Z0-9]/i','_',ucfirst($table)));
+                break;
+                
+            case (strpos($cl , PATH_SEPARATOR) !== false):
+                $file = array();
+                foreach(explode(PATH_SEPARATOR, $cl ) as $p) {
+                    $file[] =  $p .'/'.preg_replace('/[^A-Z0-9]/i','_',ucfirst($table)).".php";
+                }
+                break;
+            default:
+                $file = $cl .'/'.preg_replace('/[^A-Z0-9]/i','_',ucfirst($table)).".php";
+                break;
         }
         
-        if (!file_exists($file)) {
+        $cls = is_array($class) ? $class : array($class);
+        
+        if (is_array($file) || !file_exists($file)) {
             $found = false;
-            foreach(explode(PATH_SEPARATOR, ini_get('include_path')) as $p) {
-                if (file_exists("$p/$file")) {
-                    $file = "$p/$file";
-                    $found = true;
+            
+            $file = is_array($file) ? $file : array($file);
+            $search = implode(PATH_SEPARATOR, $file);
+            foreach($file as $f) {
+                foreach(explode(PATH_SEPARATOR, '' . PATH_SEPARATOR . ini_get('include_path')) as $p) {
+                    $ff = empty($p) ? $f : "$p/$f";
+
+                    if (file_exists($ff)) {
+                        $file = $ff;
+                        $found = true;
+                        break;
+                    }
+                }
+                if ($found) {
                     break;
                 }
             }
             if (!$found) {
                 DB_DataObject::raiseError(
-                    "autoload:Could not find class {$class} using class_location value", 
+                    "autoload:Could not find class " . implode(',', $cls) .
+                    " using class_location value :" . $search .
+                    " using include_path value :" . ini_get('include_path'), 
                     DB_DATAOBJECT_ERROR_INVALIDCONFIG);
                 return false;
             }
@@ -2715,12 +2783,18 @@ class DB_DataObject extends DB_DataObject_Overload
         
         include_once $file;
         
-        
-        $ce = substr(phpversion(),0,1) > 4 ? class_exists($class,false) : class_exists($class);
-        
+       
+        $ce = false;
+        foreach($cls as $c) {
+            $ce = substr(phpversion(),0,1) > 4 ? class_exists($c,false) : class_exists($c);
+            if ($ce) {
+                $class = $c;
+                break;
+            }
+        }
         if (!$ce) {
             DB_DataObject::raiseError(
-                "autoload:Could not autoload {$class}", 
+                "autoload:Could not autoload " . implode(',', $cls) , 
                 DB_DATAOBJECT_ERROR_INVALIDCONFIG);
             return false;
         }
@@ -2786,7 +2860,7 @@ class DB_DataObject extends DB_DataObject_Overload
             }
                         
              
-            
+            $_DB_DATAOBJECT['LINKS'][$this->_database] = array();
             foreach ($schemas as $ini) {
                 
                 $links =
@@ -2794,9 +2868,13 @@ class DB_DataObject extends DB_DataObject_Overload
                         $_DB_DATAOBJECT['CONFIG']["links_{$this->_database}"] :
                         str_replace('.ini','.links.ini',$ini);
         
-                if (empty($_DB_DATAOBJECT['LINKS'][$this->_database]) && file_exists($links) && is_file($links)) {
+                if (file_exists($links) && is_file($links)) {
                     /* not sure why $links = ... here  - TODO check if that works */
-                    $_DB_DATAOBJECT['LINKS'][$this->_database] = parse_ini_file($links, true);
+                    $_DB_DATAOBJECT['LINKS'][$this->_database] = array_merge(
+                        $_DB_DATAOBJECT['LINKS'][$this->_database],
+                        parse_ini_file($links, true)
+                    );
+                        
                     if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
                         $this->debug("Loaded links.ini file: $links","links",1);
                     }
@@ -2977,14 +3055,12 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         if ($link) {
             if ($obj->get($link, $this->$row)) {
-                $obj->free();
                 return $obj;
             } 
             return  false;
         }
         
         if ($obj->get($this->$row)) {
-            $obj->free();
             return $obj;
         }
         return false;
@@ -3315,14 +3391,23 @@ class DB_DataObject extends DB_DataObject_Overload
                     DB_DATAOBJECT_ERROR_INVALIDCONFIG);
                 return false;
             }
+            
+            $ignore_null = !isset($options['disable_null_strings'])
+                    || !is_string($options['disable_null_strings'])
+                    || strtolower($options['disable_null_strings']) !== 'full' ;
+            
 
             foreach($items as $k => $v) {
-                if (!isset($obj->$k)) {
+                if (!isset($obj->$k) && $ignore_null) {
                     continue;
                 }
                 
                 $kSql = ($quoteIdentifiers ? $DB->quoteIdentifier($k) : $k);
                 
+                if (DB_DataObject::_is_null($obj,$k)) {
+                	$obj->whereAdd("{$joinAs}.{$kSql} IS NULL");
+                	continue;
+                }
                 
                 if ($v & DB_DATAOBJECT_STR) {
                     $obj->whereAdd("{$joinAs}.{$kSql} = " . $this->_quote((string) (
@@ -3344,14 +3429,9 @@ class DB_DataObject extends DB_DataObject_Overload
                     if (PEAR::isError($value)) {
                         $this->raiseError($value->getMessage() ,DB_DATAOBJECT_ERROR_INVALIDARG);
                         return false;
-                    }
-                    if (!isset($options['disable_null_strings']) && strtolower($value) === 'null') {
-                        $obj->whereAdd("{$joinAs}.{$kSql} IS NULL");
-                        continue;
-                    } else {
-                        $obj->whereAdd("{$joinAs}.{$kSql} = $value");
-                        continue;
-                    }
+                    } 
+                    $obj->whereAdd("{$joinAs}.{$kSql} = $value");
+                    continue;
                 }
                 
                 
@@ -3514,7 +3594,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 continue;
             }
             
-            if (!isset($from[sprintf($format,$k)])) {
+            if (!isset($from[sprintf($format,$k)]) && !DB_DataObject::_is_null($from, sprintf($format,$k))) {
                 continue;
             }
            
@@ -3643,7 +3723,7 @@ class DB_DataObject extends DB_DataObject_Overload
             
             // if not null - and it's not set.......
             
-            if (!isset($this->$key) && ($val & DB_DATAOBJECT_NOTNULL)) {
+            if ($val & DB_DATAOBJECT_NOTNULL && DB_DataObject::_is_null($this, $key)) {
                 // dont check empty sequence key values..
                 if (($key == $seq[0]) && ($seq[1] == true)) {
                     continue;
@@ -3653,7 +3733,7 @@ class DB_DataObject extends DB_DataObject_Overload
             }
             
             
-            if (!isset($options['disable_null_strings']) && is_string($this->$key) && (strtolower($this->$key) == 'null')) {
+             if (DB_DataObject::_is_null($this, $key)) {
                 if ($val & DB_DATAOBJECT_NOTNULL) {
                     $this->debug("'null' field used for '$key', but it is defined as NOT NULL", 'VALIDATION', 4);
                     $ret[$key] = false;
@@ -3868,13 +3948,14 @@ class DB_DataObject extends DB_DataObject_Overload
         //echo "FROM VALUE $col, {$cols[$col]}, $value\n";
         switch (true) {
             // set to null and column is can be null...
-            case (!isset($options['disable_null_strings']) && (strtolower($value) == 'null') && (!($cols[$col] & DB_DATAOBJECT_NOTNULL))):
+            case ((!($cols[$col] & DB_DATAOBJECT_NOTNULL)) && DB_DataObject::_is_null($value, false)):
             case (is_object($value) && is_a($value,'DB_DataObject_Cast')): 
                 $this->$col = $value;
                 return true;
                 
             // fail on setting null on a not null field..
-            case (!isset($options['disable_null_strings']) && (strtolower($value) == 'null') && ($cols[$col] & DB_DATAOBJECT_NOTNULL)):
+            case (($cols[$col] & DB_DATAOBJECT_NOTNULL) && DB_DataObject::_is_null($value,false)):
+
                 return false;
         
             case (($cols[$col] & DB_DATAOBJECT_DATE) &&  ($cols[$col] & DB_DATAOBJECT_TIME)):
@@ -4189,9 +4270,65 @@ class DB_DataObject extends DB_DataObject_Overload
         if (isset($_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5])) {
             $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5]->num_rows = array();
         }
+
+        if (is_array($this->_link_loaded)) {
+            foreach ($this->_link_loaded as $do) {
+                $do->free();
+            }
+        }
+
         
     }
+    /**
+    * Evaluate whether or not a value is set to null, taking the 'disable_null_strings' option into account.
+    * If the value is a string set to "null" and the "disable_null_strings" option is not set to 
+    * true, then the value is considered to be null.
+    * If the value is actually a PHP NULL value, and "disable_null_strings" has been set to 
+    * the value "full", then it will also be considered null. - this can not differenticate between not set
+    * 
+    * 
+    * @param  object|array $obj_or_ar 
+    * @param  string|false $prop prperty
     
+    * @access private
+    * @return bool  object
+    */
+    function _is_null($obj_or_ar , $prop) 
+    {
+    	global $_DB_DATAOBJECT;
+    	
+        
+        $isset = $prop === false ? isset($obj_or_ar) : 
+            (is_array($obj_or_ar) ? isset($obj_or_ar[$prop]) : isset($obj_or_ar->$prop));
+        
+        $value = $isset ? 
+            ($prop === false ? $obj_or_ar : 
+                (is_array($obj_or_ar) ? $obj_or_ar[$prop] : $obj_or_ar->$prop))
+            : null;
+        
+        
+        
+    	$options = $_DB_DATAOBJECT['CONFIG'];
+    	
+        $null_strings = !isset($options['disable_null_strings'])
+                    || $options['disable_null_strings'] === false;
+                    
+        $crazy_null = isset($options['disable_null_strings'])
+                && is_string($options['disable_null_strings'])
+                && strtolower($options['disable_null_strings'] === 'full');
+        
+        if ( $null_strings && $isset  && is_string($value)  && (strtolower($value) === 'null') ) {
+            return true;
+        }
+        
+        if ( $crazy_null && !$isset )  {
+        	return true;
+        }
+        
+        return false;
+        
+    	
+    }
     
     /* ---- LEGACY BC METHODS - NOT DOCUMENTED - See Documentation on New Methods. ---*/
     
@@ -4213,4 +4350,5 @@ if (!defined('DB_DATAOBJECT_NO_OVERLOAD')) {
         $GLOBALS['_DB_DATAOBJECT']['OVERLOADED'] = true;
     }
 }
+
 

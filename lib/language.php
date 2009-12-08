@@ -36,6 +36,33 @@ if (!function_exists('gettext')) {
     require_once("php-gettext/gettext.inc");
 }
 
+
+if (!function_exists('dpgettext')) {
+    /**
+     * Context-aware dgettext wrapper; use when messages in different contexts
+     * won't be distinguished from the English source but need different translations.
+     * The context string will appear as msgctxt in the .po files.
+     *
+     * Not currently exposed in PHP's gettext module; implemented to be compat
+     * with gettext.h's macros.
+     *
+     * @param string $domain domain identifier, or null for default domain
+     * @param string $context context identifier, should be some key like "menu|file"
+     * @param string $msgid English source text
+     * @return string original or translated message
+     */
+    function dpgettext($domain, $context, $msg)
+    {
+        $msgid = $context . "\004" . $msg;
+        $out = dcgettext($domain, $msgid, LC_MESSAGES);
+        if ($out == $msgid) {
+            return $msg;
+        } else {
+            return $out;
+        }
+    }
+}
+
 if (!function_exists('pgettext')) {
     /**
      * Context-aware gettext wrapper; use when messages in different contexts
@@ -51,8 +78,30 @@ if (!function_exists('pgettext')) {
      */
     function pgettext($context, $msg)
     {
+        return dpgettext(textdomain(NULL), $context, $msg);
+    }
+}
+
+if (!function_exists('dnpgettext')) {
+    /**
+     * Context-aware dngettext wrapper; use when messages in different contexts
+     * won't be distinguished from the English source but need different translations.
+     * The context string will appear as msgctxt in the .po files.
+     *
+     * Not currently exposed in PHP's gettext module; implemented to be compat
+     * with gettext.h's macros.
+     *
+     * @param string $domain domain identifier, or null for default domain
+     * @param string $context context identifier, should be some key like "menu|file"
+     * @param string $msg singular English source text
+     * @param string $plural plural English source text
+     * @param int $n number of items to control plural selection
+     * @return string original or translated message
+     */
+    function dnpgettext($domain, $context, $msg, $plural, $n)
+    {
         $msgid = $context . "\004" . $msg;
-        $out = dcgettext(textdomain(NULL), $msgid, LC_MESSAGES);
+        $out = dcngettext($domain, $msgid, $plural, $n, LC_MESSAGES);
         if ($out == $msgid) {
             return $msg;
         } else {
@@ -78,14 +127,78 @@ if (!function_exists('npgettext')) {
      */
     function npgettext($context, $msg, $plural, $n)
     {
-        $msgid = $context . "\004" . $msg;
-        $out = dcngettext(textdomain(NULL), $msgid, $plural, $n, LC_MESSAGES);
-        if ($out == $msgid) {
-            return $msg;
+        return dnpgettext(textdomain(NULL), $msgid, $plural, $n, LC_MESSAGES);
+    }
+}
+
+/**
+ * Shortcut for *gettext functions with smart domain detection.
+ *
+ * If calling from a plugin, this function checks which plugin was
+ * being called from and uses that as text domain, which will have
+ * been set up during plugin initialization.
+ *
+ * Also handles plurals and contexts depending on what parameters
+ * are passed to it:
+ *
+ *   gettext -> _m($msg)
+ *  ngettext -> _m($msg1, $msg2, $n)
+ *  pgettext -> _m($ctx, $msg)
+ * npgettext -> _m($ctx, $msg1, $msg2, $n)
+ *
+ * @fixme may not work properly in eval'd code
+ *
+ * @param string $msg
+ * @return string
+ */
+function _m($msg/*, ...*/)
+{
+    $domain = _mdomain(debug_backtrace(false));
+    $args = func_get_args();
+    switch(count($args)) {
+    case 1: return dgettext($domain, $msg);
+    case 2: return dpgettext($domain, $args[0], $args[1]);
+    case 3: return dngettext($domain, $args[0], $args[1], $args[2]);
+    case 4: return dnpgettext($domain, $args[0], $args[1], $args[2], $args[3]);
+    default: throw new Exception("Bad parameter count to _m()");
+    }
+}
+
+/**
+ * Looks for which plugin we've been called from to set the gettext domain.
+ *
+ * @param array $backtrace debug_backtrace() output
+ * @return string
+ * @private
+ * @fixme could explode if SN is under a 'plugins' folder or share name.
+ */
+function _mdomain($backtrace)
+{
+    /*
+      0 => 
+        array
+          'file' => string '/var/www/mublog/plugins/FeedSub/FeedSubPlugin.php' (length=49)
+          'line' => int 77
+          'function' => string '_m' (length=2)
+          'args' => 
+            array
+              0 => &string 'Feeds' (length=5)
+    */
+    static $cached;
+    $path = $backtrace[0]['file'];
+    if (!isset($cached[$path])) {
+        if (DIRECTORY_SEPARATOR !== '/') {
+            $path = strtr($path, DIRECTORY_SEPARATOR, '/');
+        }
+        $cut = strpos($path, '/plugins/') + 9;
+        $cut2 = strpos($path, '/', $cut);
+        if ($cut && $cut2) {
+            $cached[$path] = substr($path, $cut, $cut2 - $cut);
         } else {
-            return $out;
+            return null;
         }
     }
+    return $cached[$path];
 }
 
 
