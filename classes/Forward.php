@@ -43,6 +43,11 @@ class Forward extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
+    function &pkeyGet($kv)
+    {
+        return Memcached_DataObject::pkeyGet('Forward', $kv);
+    }
+
     static function saveNew($profile_id, $notice_id)
     {
         $forward = new Forward();
@@ -62,6 +67,8 @@ class Forward extends Memcached_DataObject
         $forward->query('COMMIT');
 
         $forward->blowCache($ni);
+
+        return $forward;
     }
 
     function addToInboxes()
