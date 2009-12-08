@@ -540,7 +540,7 @@ class NoticeListItem extends Widget
     function showForwardForm()
     {
         $user = common_current_user();
-        if ($user) {
+        if ($user && $user->id != $this->notice->profile_id) {
             $profile = $user->getProfile();
             if ($profile->hasForwarded($this->notice->id)) {
                 $this->out->text(_('Forwarded'));

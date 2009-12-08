@@ -72,6 +72,11 @@ class ForwardAction extends Action
             return false;
         }
 
+        if ($this->user->id == $this->notice->profile_id) {
+            $this->clientError(_("You can't forward your own notice."));
+            return false;
+        }
+
         $token  = $this->trimmed('token-'.$id);
 
         if (empty($token) || $token != common_session_token()) {
