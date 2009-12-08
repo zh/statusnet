@@ -56,7 +56,7 @@ class OpenidsettingsAction extends AccountSettingsAction
 
     function title()
     {
-        return _('OpenID settings');
+        return _m('OpenID settings');
     }
 
     /**
@@ -67,7 +67,7 @@ class OpenidsettingsAction extends AccountSettingsAction
 
     function getInstructions()
     {
-        return _('[OpenID](%%doc.openid%%) lets you log into many sites' .
+        return _m('[OpenID](%%doc.openid%%) lets you log into many sites' .
                  ' with the same user account.'.
                  ' Manage your associated OpenIDs from here.');
     }
@@ -96,15 +96,15 @@ class OpenidsettingsAction extends AccountSettingsAction
                                           'action' =>
                                           common_local_url('openidsettings')));
         $this->elementStart('fieldset', array('id' => 'settings_openid_add'));
-        $this->element('legend', null, _('Add OpenID'));
+        $this->element('legend', null, _m('Add OpenID'));
         $this->hidden('token', common_session_token());
         $this->element('p', 'form_guide',
-                       _('If you want to add an OpenID to your account, ' .
+                       _m('If you want to add an OpenID to your account, ' .
                          'enter it in the box below and click "Add".'));
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
         $this->element('label', array('for' => 'openid_url'),
-                       _('OpenID URL'));
+                       _m('OpenID URL'));
         $this->element('input', array('name' => 'openid_url',
                                       'type' => 'text',
                                       'id' => 'openid_url'));
@@ -114,7 +114,7 @@ class OpenidsettingsAction extends AccountSettingsAction
                                       'id' => 'settings_openid_add_action-submit',
                                       'name' => 'add',
                                       'class' => 'submit',
-                                      'value' => _('Add')));
+                                      'value' => _m('Add')));
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
 
@@ -126,12 +126,12 @@ class OpenidsettingsAction extends AccountSettingsAction
 
         if ($cnt > 0) {
 
-            $this->element('h2', null, _('Remove OpenID'));
+            $this->element('h2', null, _m('Remove OpenID'));
 
             if ($cnt == 1 && !$user->password) {
 
                 $this->element('p', 'form_guide',
-                               _('Removing your only OpenID '.
+                               _m('Removing your only OpenID '.
                                  'would make it impossible to log in! ' .
                                  'If you need to remove it, '.
                                  'add another OpenID first.'));
@@ -146,7 +146,7 @@ class OpenidsettingsAction extends AccountSettingsAction
             } else {
 
                 $this->element('p', 'form_guide',
-                               _('You can remove an OpenID from your account '.
+                               _m('You can remove an OpenID from your account '.
                                  'by clicking the button marked "Remove".'));
                 $idx = 0;
 
@@ -169,7 +169,7 @@ class OpenidsettingsAction extends AccountSettingsAction
                                                   'id' => 'remove'.$idx,
                                                   'name' => 'remove',
                                                   'class' => 'submit remove',
-                                                  'value' => _('Remove')));
+                                                  'value' => _m('Remove')));
                     $this->elementEnd('fieldset');
                     $this->elementEnd('form');
                     $idx++;
@@ -191,7 +191,7 @@ class OpenidsettingsAction extends AccountSettingsAction
         // CSRF protection
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
-            $this->showForm(_('There was a problem with your session token. '.
+            $this->showForm(_m('There was a problem with your session token. '.
                               'Try again, please.'));
             return;
         }
@@ -205,7 +205,7 @@ class OpenidsettingsAction extends AccountSettingsAction
         } else if ($this->arg('remove')) {
             $this->removeOpenid();
         } else {
-            $this->showForm(_('Something weird happened.'));
+            $this->showForm(_m('Something weird happened.'));
         }
     }
 
@@ -225,16 +225,16 @@ class OpenidsettingsAction extends AccountSettingsAction
         $oid = User_openid::staticGet('canonical', $openid_url);
 
         if (!$oid) {
-            $this->showForm(_('No such OpenID.'));
+            $this->showForm(_m('No such OpenID.'));
             return;
         }
         $cur = common_current_user();
         if (!$cur || $oid->user_id != $cur->id) {
-            $this->showForm(_('That OpenID does not belong to you.'));
+            $this->showForm(_m('That OpenID does not belong to you.'));
             return;
         }
         $oid->delete();
-        $this->showForm(_('OpenID removed.'), true);
+        $this->showForm(_m('OpenID removed.'), true);
         return;
     }
 }

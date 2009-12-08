@@ -69,9 +69,9 @@ class FacebookinviteAction extends FacebookAction
     function showSuccessContent()
     {
 
-        $this->element('h2', null, sprintf(_('Thanks for inviting your friends to use %s'),
+        $this->element('h2', null, sprintf(_m('Thanks for inviting your friends to use %s'),
             common_config('site', 'name')));
-        $this->element('p', null, _('Invitations have been sent to the following users:'));
+        $this->element('p', null, _m('Invitations have been sent to the following users:'));
 
         $friend_ids = $_POST['ids']; // XXX: Hmm... is this the best way to access the list?
 
@@ -91,7 +91,7 @@ class FacebookinviteAction extends FacebookAction
 
     function showFormContent()
     {
-        $content = sprintf(_('You have been invited to %s'), common_config('site', 'name')) .
+        $content = sprintf(_m('You have been invited to %s'), common_config('site', 'name')) .
             htmlentities('<fb:req-choice url="' . $this->app_uri . '" label="Add"/>');
 
         $this->elementStart('fb:request-form', array('action' => 'invite.php',
@@ -100,7 +100,7 @@ class FacebookinviteAction extends FacebookAction
                                                       'type' => common_config('site', 'name'),
                                                       'content' => $content));
         $this->hidden('invite', 'true');
-        $actiontext = sprintf(_('Invite your friends to use %s'), common_config('site', 'name'));
+        $actiontext = sprintf(_m('Invite your friends to use %s'), common_config('site', 'name'));
 
         $multi_params = array('showborder' => 'false');
         $multi_params['actiontext'] = $actiontext;
@@ -122,7 +122,7 @@ class FacebookinviteAction extends FacebookAction
 
         if ($exclude_ids) {
 
-            $this->element('h2', null, sprintf(_('Friends already using %s:'),
+            $this->element('h2', null, sprintf(_m('Friends already using %s:'),
                 common_config('site', 'name')));
             $this->elementStart('ul', array('id' => 'facebook-friends'));
 
@@ -140,7 +140,7 @@ class FacebookinviteAction extends FacebookAction
 
     function title()
     {
-        return sprintf(_('Send invitations'));
+        return sprintf(_m('Send invitations'));
     }
 
 }

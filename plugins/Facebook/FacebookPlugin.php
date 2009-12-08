@@ -406,9 +406,9 @@ class FacebookPlugin extends Plugin
         $action_name = $action->trimmed('action');
 
         $action->menuItem(common_local_url('FBConnectLogin'),
-                                           _('Facebook'),
-                                           _('Login or register using Facebook'),
-                                             'FBConnectLogin' === $action_name);
+                                           _m('Facebook'),
+                                           _m('Login or register using Facebook'),
+                                           'FBConnectLogin' === $action_name);
 
         return true;
     }
@@ -426,8 +426,8 @@ class FacebookPlugin extends Plugin
         $action_name = $action->trimmed('action');
 
         $action->menuItem(common_local_url('FBConnectSettings'),
-                          _('Facebook'),
-                          _('Facebook Connect Settings'),
+                          _m('Facebook'),
+                          _m('Facebook Connect Settings'),
                           $action_name === 'FBConnectSettings');
 
         return true;

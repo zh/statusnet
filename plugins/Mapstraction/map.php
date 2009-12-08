@@ -69,14 +69,14 @@ class MapAction extends OwnerDesignAction
         $this->user = User::staticGet('nickname', $nickname);
 
         if (!$this->user) {
-            $this->clientError(_('No such user.'), 404);
+            $this->clientError(_m('No such user.'), 404);
             return false;
         }
 
         $this->profile = $this->user->getProfile();
 
         if (!$this->profile) {
-            $this->serverError(_('User has no profile.'));
+            $this->serverError(_m('User has no profile.'));
             return false;
         }
 

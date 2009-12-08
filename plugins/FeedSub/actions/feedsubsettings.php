@@ -38,7 +38,7 @@ class FeedSubSettingsAction extends ConnectSettingsAction
 
     function title()
     {
-        return dgettext('FeedSubPlugin', 'Feed subscriptions');
+        return _m('Feed subscriptions');
     }
 
     /**
@@ -49,9 +49,8 @@ class FeedSubSettingsAction extends ConnectSettingsAction
 
     function getInstructions()
     {
-        return dgettext('FeedSubPlugin',
-                        'You can subscribe to feeds from other sites; ' .
-                        'updates will appear in your personal timeline.');
+        return _m('You can subscribe to feeds from other sites; ' .
+                  'updates will appear in your personal timeline.');
     }
 
     /**
@@ -94,9 +93,9 @@ class FeedSubSettingsAction extends ConnectSettingsAction
         $this->elementEnd('ul');
 
         if ($this->preview) {
-            $this->submit('subscribe', dgettext('FeedSubPlugin', 'Subscribe'));
+            $this->submit('subscribe', _m('Subscribe'));
         } else {
-            $this->submit('validate', dgettext('FeedSubPlugin', 'Continue'));
+            $this->submit('validate', _m('Continue'));
         }
 
         $this->elementEnd('fieldset');
@@ -149,8 +148,7 @@ class FeedSubSettingsAction extends ConnectSettingsAction
         $feedurl = trim($this->arg('feedurl'));
         
         if ($feedurl == '') {
-            $this->showForm(dgettext('FeedSubPlugin',
-                                     'Empty feed URL!'));
+            $this->showForm(_m('Empty feed URL!'));
             return;
         }
         $this->feedurl = $feedurl;
@@ -160,26 +158,26 @@ class FeedSubSettingsAction extends ConnectSettingsAction
             $discover = new FeedDiscovery();
             $uri = $discover->discoverFromURL($feedurl);
         } catch (FeedSubBadURLException $e) {
-            $this->showForm(dgettext('FeedSubPlugin', 'Invalid URL or could not reach server.'));
+            $this->showForm(_m('Invalid URL or could not reach server.'));
             return false;
         } catch (FeedSubBadResponseException $e) {
-            $this->showForm(dgettext('FeedSubPlugin', 'Cannot read feed; server returned error.'));
+            $this->showForm(_m('Cannot read feed; server returned error.'));
             return false;
         } catch (FeedSubEmptyException $e) {
-            $this->showForm(dgettext('FeedSubPlugin', 'Cannot read feed; server returned an empty page.'));
+            $this->showForm(_m('Cannot read feed; server returned an empty page.'));
             return false;
         } catch (FeedSubBadHTMLException $e) {
-            $this->showForm(dgettext('FeedSubPlugin', 'Bad HTML, could not find feed link.'));
+            $this->showForm(_m('Bad HTML, could not find feed link.'));
             return false;
         } catch (FeedSubNoFeedException $e) {
-            $this->showForm(dgettext('FeedSubPlugin', 'Could not find a feed linked from this URL.'));
+            $this->showForm(_m('Could not find a feed linked from this URL.'));
             return false;
         } catch (FeedSubUnrecognizedTypeException $e) {
-            $this->showForm(dgettext('FeedSubPlugin', 'Not a recognized feed type.'));
+            $this->showForm(_m('Not a recognized feed type.'));
             return false;
         } catch (FeedSubException $e) {
             // Any new ones we forgot about
-            $this->showForm(dgettext('FeedSubPlugin', 'Bad feed URL.'));
+            $this->showForm(_m('Bad feed URL.'));
             return false;
         }
         
@@ -187,7 +185,7 @@ class FeedSubSettingsAction extends ConnectSettingsAction
         $this->feedinfo = $this->munger->feedInfo();
 
         if ($this->feedinfo->huburi == '') {
-            $this->showForm(dgettext('FeedSubPlugin', 'Feed is not PuSH-enabled; cannot subscribe.'));
+            $this->showForm(_m('Feed is not PuSH-enabled; cannot subscribe.'));
             return false;
         }
         
@@ -207,7 +205,7 @@ class FeedSubSettingsAction extends ConnectSettingsAction
                 $ok = $this->feedinfo->subscribe();
                 common_log(LOG_INFO, __METHOD__ . ": sub was $ok");
                 if (!$ok) {
-                    $this->showForm(dgettext('FeedSubPlugin', 'Feed subscription failed! Bad response from hub.'));
+                    $this->showForm(_m('Feed subscription failed! Bad response from hub.'));
                     return;
                 }
             }
@@ -217,11 +215,11 @@ class FeedSubSettingsAction extends ConnectSettingsAction
             $profile = $this->feedinfo->getProfile();
             
             if ($user->isSubscribed($profile)) {
-                $this->showForm(dgettext('FeedSubPlugin', 'Already subscribed!'));
+                $this->showForm(_m('Already subscribed!'));
             } elseif ($user->subscribeTo($profile)) {
-                $this->showForm(dgettext('FeedSubPlugin', 'Feed subscribed!'));
+                $this->showForm(_m('Feed subscribed!'));
             } else {
-                $this->showForm(dgettext('FeedSubPlugin', 'Feed subscription failed!'));
+                $this->showForm(_m('Feed subscription failed!'));
             }
         }
     }
@@ -230,7 +228,7 @@ class FeedSubSettingsAction extends ConnectSettingsAction
     {
         if ($this->validateFeed()) {
             $this->preview = true;
-            $this->showForm(dgettext('FeedSubPlugin', 'Previewing feed:'));
+            $this->showForm(_m('Previewing feed:'));
         }
     }
 

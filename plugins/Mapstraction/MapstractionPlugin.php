@@ -177,7 +177,7 @@ class MapstractionPlugin extends Plugin
         $action->elementStart('div', array('id' => 'entity_map',
                                          'class' => 'section'));
 
-        $action->element('h2', null, _('Map'));
+        $action->element('h2', null, _m('Map'));
 
         $action->element('div', array('id' => 'map_canvas',
                                     'class' => 'gray smallmap',
@@ -188,7 +188,7 @@ class MapstractionPlugin extends Plugin
                                     array('nickname' => $action->trimmed('nickname')));
 
         $action->element('a', array('href' => $mapUrl),
-                         _("Full size"));
+                         _m("Full size"));
 
         $action->elementEnd('div');
     }
