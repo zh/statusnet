@@ -129,7 +129,7 @@ class ApiTimelineFavoritesAction extends ApiBareAuthAction
             $this->showXmlTimeline($this->notices);
             break;
         case 'rss':
-            $this->showRssTimeline($this->notices, $title, $link, $subtitle, null, $logo, null, $logo);
+            $this->showRssTimeline($this->notices, $title, $link, $subtitle, null, $logo);
             break;
         case 'atom':
             $selfuri = common_root_url() .
