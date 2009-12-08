@@ -72,9 +72,34 @@ class TwitterBridgePlugin extends Plugin
         $m->connect('twitter/authorization',
                     array('action' => 'twitterauthorization'));
         $m->connect('settings/twitter', array('action' => 'twittersettings'));
+        
+        $m->connect('main/twitterlogin', array('action' => 'twitterlogin'));
 
         return true;
     }
+    
+    
+    
+    /*
+     * Add a login tab for Twitter Connect
+     *
+     * @param Action &action the current action
+     *
+     * @return void
+     */
+    function onEndLoginGroupNav(&$action)
+    {
+
+        $action_name = $action->trimmed('action');
+
+        $action->menuItem(common_local_url('twitterlogin'),
+                                           _('Twitter'),
+                                           _('Login or register using Twitter'),
+                                             'twitterlogin' === $action_name);
+
+        return true;
+    }
+    
 
     /**
      * Add the Twitter Settings page to the Connect Settings menu
@@ -108,6 +133,7 @@ class TwitterBridgePlugin extends Plugin
         switch ($cls) {
         case 'TwittersettingsAction':
         case 'TwitterauthorizationAction':
+        case 'TwitterloginAction':
             include_once INSTALLDIR . '/plugins/TwitterBridge/' .
               strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;

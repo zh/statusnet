@@ -21,7 +21,7 @@
  *
  * @category  TwitterauthorizationAction
  * @package   StatusNet
- * @author    Zach Copely <zach@status.net>
+ * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
@@ -50,6 +50,10 @@ require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
  */
 class TwitterauthorizationAction extends Action
 {
+    var $twuid = null;
+    var $tw_fields  = null;
+    var $access_token = null;
+    
     /**
      * Initialize class members. Looks for 'oauth_token' parameter.
      *
@@ -76,29 +80,56 @@ class TwitterauthorizationAction extends Action
     function handle($args)
     {
         parent::handle($args);
-
-        if (!common_logged_in()) {
-            $this->clientError(_m('Not logged in.'), 403);
+        
+        if (common_logged_in()) {
+            $user  = common_current_user();
+            $flink = Foreign_link::getByUserID($user->id, TWITTER_SERVICE);
+    
+            // If there's already a foreign link record, it means we already
+            // have an access token, and this is unecessary. So go back.
+    
+            if (isset($flink)) {
+                common_redirect(common_local_url('twittersettings'));
+            }
         }
+        
+        
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // User was not logged in to StatusNet before
+            $this->twuid = $this->trimmed('twuid');
+            $this->tw_fields = array("name" => $this->trimmed('name'), "fullname" => $this->trimmed('fullname'));
+            $this->access_token = new OAuthToken($this->trimmed('access_token_key'), $this->trimmed('access_token_secret'));
 
-        $user  = common_current_user();
-        $flink = Foreign_link::getByUserID($user->id, TWITTER_SERVICE);
-
-        // If there's already a foreign link record, it means we already
-        // have an access token, and this is unecessary. So go back.
-
-        if (isset($flink)) {
-            common_redirect(common_local_url('twittersettings'));
-        }
-
-        // $this->oauth_token is only populated once Twitter authorizes our
-        // request token. If it's empty we're at the beginning of the auth
-        // process
-
-        if (empty($this->oauth_token)) {
-            $this->authorizeRequestToken();
+            $token = $this->trimmed('token');
+            if (!$token || $token != common_session_token()) {
+                $this->showForm(_('There was a problem with your session token. Try again, please.'));
+                return;
+            }
+            if ($this->arg('create')) {
+                if (!$this->boolean('license')) {
+                    $this->showForm(_('You can\'t register if you don\'t agree to the license.'),
+                                    $this->trimmed('newname'));
+                    return;
+                }
+                $this->createNewUser();
+            } else if ($this->arg('connect')) {
+                $this->connectNewUser();
+            } else {
+                common_debug('Twitter Connect Plugin - ' .
+                             print_r($this->args, true));
+                $this->showForm(_('Something weird happened.'),
+                                $this->trimmed('newname'));
+            }
         } else {
-            $this->saveAccessToken();
+            // $this->oauth_token is only populated once Twitter authorizes our
+            // request token. If it's empty we're at the beginning of the auth
+            // process
+    
+            if (empty($this->oauth_token)) {
+                $this->authorizeRequestToken();
+            } else {
+                $this->saveAccessToken();
+            }
         }
     }
 
@@ -170,16 +201,25 @@ class TwitterauthorizationAction extends Action
             $this->serverError(_m('Couldn\'t link your Twitter account.'));
         }
 
-        // Save the access token and Twitter user info
-
-        $this->saveForeignLink($atok, $twitter_user);
+        if (common_logged_in()) {
+            // Save the access token and Twitter user info
+            $this->saveForeignLink($atok, $twitter_user);
+        }
+        else{
+            $this->twuid = $twitter_user->id;
+            $this->tw_fields = array("name" => $twitter_user->screen_name, "fullname" => $twitter_user->name);
+            $this->access_token = $atok;
+            $this->tryLogin();
+        }
 
         // Clean up the the mess we made in the session
 
         unset($_SESSION['twitter_request_token']);
         unset($_SESSION['twitter_request_token_secret']);
-
-        common_redirect(common_local_url('twittersettings'));
+        
+        if (common_logged_in()) {
+            common_redirect(common_local_url('twittersettings'));
+        }
     }
 
     /**
@@ -218,6 +258,345 @@ class TwitterauthorizationAction extends Action
         }
 
         save_twitter_user($twitter_user->id, $twitter_user->screen_name);
+    }
+
+
+
+
+    function showPageNotice()
+    {
+        if ($this->error) {
+            $this->element('div', array('class' => 'error'), $this->error);
+        } else {
+            $this->element('div', 'instructions',
+                           sprintf(_('This is the first time you\'ve logged into %s so we must connect your Twitter account to a local account. You can either create a new account, or connect with your existing account, if you have one.'), common_config('site', 'name')));
+        }
+    }
+
+    function title()
+    {
+        return _('Twitter Account Setup');
+    }
+
+    function showForm($error=null, $username=null)
+    {
+        $this->error = $error;
+        $this->username = $username;
+
+        $this->showPage();
+    }
+
+    function showPage()
+    {
+        parent::showPage();
+    }
+
+    function showContent()
+    {
+        if (!empty($this->message_text)) {
+            $this->element('p', null, $this->message);
+            return;
+        }
+
+        $this->elementStart('form', array('method' => 'post',
+                                          'id' => 'form_settings_twitter_connect',
+                                          'class' => 'form_settings',
+                                          'action' => common_local_url('twitterauthorization')));
+        $this->elementStart('fieldset', array('id' => 'settings_twitter_connect_options'));
+        $this->element('legend', null, _('Connection options'));
+        $this->elementStart('ul', 'form_data');
+        $this->elementStart('li');
+        $this->element('input', array('type' => 'checkbox',
+                                      'id' => 'license',
+                                      'class' => 'checkbox',
+                                      'name' => 'license',
+                                      'value' => 'true'));
+        $this->elementStart('label', array('class' => 'checkbox', 'for' => 'license'));
+        $this->text(_('My text and files are available under '));
+        $this->element('a', array('href' => common_config('license', 'url')),
+                       common_config('license', 'title'));
+        $this->text(_(' except this private data: password, email address, IM address, phone number.'));
+        $this->elementEnd('label');
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
+        $this->hidden('access_token_key', $this->access_token->key);
+        $this->hidden('access_token_secret', $this->access_token->secret);
+        $this->hidden('twuid', $this->twuid);
+        $this->hidden('tw_fields_name', $this->tw_fields['name']);
+        $this->hidden('tw_fields_fullname', $this->tw_fields['fullname']);
+
+        $this->elementStart('fieldset');
+        $this->hidden('token', common_session_token());
+        $this->element('legend', null,
+                       _('Create new account'));
+        $this->element('p', null,
+                       _('Create a new user with this nickname.'));
+        $this->elementStart('ul', 'form_data');
+        $this->elementStart('li');
+        $this->input('newname', _('New nickname'),
+                     ($this->username) ? $this->username : '',
+                     _('1-64 lowercase letters or numbers, no punctuation or spaces'));
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
+        $this->submit('create', _('Create'));
+        $this->elementEnd('fieldset');
+
+        $this->elementStart('fieldset');
+        $this->element('legend', null,
+                       _('Connect existing account'));
+        $this->element('p', null,
+                       _('If you already have an account, login with your username and password to connect it to your Twitter account.'));
+        $this->elementStart('ul', 'form_data');
+        $this->elementStart('li');
+        $this->input('nickname', _('Existing nickname'));
+        $this->elementEnd('li');
+        $this->elementStart('li');
+        $this->password('password', _('Password'));
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
+        $this->submit('connect', _('Connect'));
+        $this->elementEnd('fieldset');
+
+        $this->elementEnd('fieldset');
+        $this->elementEnd('form');
+    }
+
+    function message($msg)
+    {
+        $this->message_text = $msg;
+        $this->showPage();
+    }
+
+    function createNewUser()
+    {
+        if (common_config('site', 'closed')) {
+            $this->clientError(_('Registration not allowed.'));
+            return;
+        }
+
+        $invite = null;
+
+        if (common_config('site', 'inviteonly')) {
+            $code = $_SESSION['invitecode'];
+            if (empty($code)) {
+                $this->clientError(_('Registration not allowed.'));
+                return;
+            }
+
+            $invite = Invitation::staticGet($code);
+
+            if (empty($invite)) {
+                $this->clientError(_('Not a valid invitation code.'));
+                return;
+            }
+        }
+
+        $nickname = $this->trimmed('newname');
+
+        if (!Validate::string($nickname, array('min_length' => 1,
+                                               'max_length' => 64,
+                                               'format' => NICKNAME_FMT))) {
+            $this->showForm(_('Nickname must have only lowercase letters and numbers and no spaces.'));
+            return;
+        }
+
+        if (!User::allowed_nickname($nickname)) {
+            $this->showForm(_('Nickname not allowed.'));
+            return;
+        }
+
+        if (User::staticGet('nickname', $nickname)) {
+            $this->showForm(_('Nickname already in use. Try another one.'));
+            return;
+        }
+
+        $fullname = trim($this->tw_fields['fullname']);
+
+        $args = array('nickname' => $nickname, 'fullname' => $fullname);
+
+        if (!empty($invite)) {
+            $args['code'] = $invite->code;
+        }
+
+        $user = User::register($args);
+
+        $result = $this->flinkUser($user->id, $this->twuid);
+
+        if (!$result) {
+            $this->serverError(_('Error connecting user to Twitter.'));
+            return;
+        }
+
+        common_set_user($user);
+        common_real_login(true);
+
+        common_debug('Twitter Connect Plugin - ' .
+                     "Registered new user $user->id from Twitter user $this->fbuid");
+
+        common_redirect(common_local_url('showstream', array('nickname' => $user->nickname)),
+                        303);
+    }
+
+    function connectNewUser()
+    {
+        $nickname = $this->trimmed('nickname');
+        $password = $this->trimmed('password');
+
+        if (!common_check_user($nickname, $password)) {
+            $this->showForm(_('Invalid username or password.'));
+            return;
+        }
+
+        $user = User::staticGet('nickname', $nickname);
+
+        if (!empty($user)) {
+            common_debug('Twitter Connect Plugin - ' .
+                         "Legit user to connect to Twitter: $nickname");
+        }
+
+        $result = $this->flinkUser($user->id, $this->twuid);
+
+        if (!$result) {
+            $this->serverError(_('Error connecting user to Twitter.'));
+            return;
+        }
+
+        common_debug('Twitter Connnect Plugin - ' .
+                     "Connected Twitter user $this->fbuid to local user $user->id");
+
+        common_set_user($user);
+        common_real_login(true);
+
+        $this->goHome($user->nickname);
+    }
+
+    function connectUser()
+    {
+        $user = common_current_user();
+
+        $result = $this->flinkUser($user->id, $this->twuid);
+
+        if (empty($result)) {
+            $this->serverError(_('Error connecting user to Twitter.'));
+            return;
+        }
+
+        common_debug('Twitter Connect Plugin - ' .
+                     "Connected Twitter user $this->fbuid to local user $user->id");
+
+        // Return to Twitter connection settings tab
+        common_redirect(common_local_url('twittersettings'), 303);
+    }
+    
+    function tryLogin()
+    {
+        common_debug('Twitter Connect Plugin - ' .
+                     "Trying login for Twitter user $this->fbuid.");
+
+        $flink = Foreign_link::getByForeignID($this->twuid, TWITTER_SERVICE);
+
+        if (!empty($flink)) {
+            $user = $flink->getUser();
+
+            if (!empty($user)) {
+
+                common_debug('Twitter Connect Plugin - ' .
+                             "Logged in Twitter user $flink->foreign_id as user $user->id ($user->nickname)");
+
+                common_set_user($user);
+                common_real_login(true);
+                $this->goHome($user->nickname);
+            }
+
+        } else {
+
+            common_debug('Twitter Connect Plugin - ' .
+                         "No flink found for twuid: $this->twuid - new user");
+
+            $this->showForm(null, $this->bestNewNickname());
+        }
+    }
+
+    function goHome($nickname)
+    {
+        $url = common_get_returnto();
+        if ($url) {
+            // We don't have to return to it again
+            common_set_returnto(null);
+        } else {
+            $url = common_local_url('all',
+                                    array('nickname' =>
+                                          $nickname));
+        }
+
+        common_redirect($url, 303);
+    }
+    
+    function flinkUser($user_id, $twuid)
+    {
+        $flink = new Foreign_link();
+
+        $flink->user_id     = $user_id;
+        $flink->foreign_id  = $twuid;
+        $flink->service     = TWITTER_SERVICE;
+        
+        $creds = TwitterOAuthClient::packToken($this->access_token);
+
+        $flink->credentials = $creds;
+        $flink->created     = common_sql_now();
+
+        // Defaults: noticesync on, everything else off
+
+        $flink->set_flags(true, false, false, false);
+
+        $flink_id = $flink->insert();
+
+        if (empty($flink_id)) {
+            common_log_db_error($flink, 'INSERT', __FILE__);
+                $this->serverError(_('Couldn\'t link your Twitter account.'));
+        }
+
+        save_twitter_user($twuid, $this->tw_fields['name']);
+        
+        return $flink_id;
+    }
+    
+    
+    function bestNewNickname()
+    {
+        if (!empty($this->tw_fields['name'])) {
+            $nickname = $this->nicknamize($this->tw_fields['name']);
+            if ($this->isNewNickname($nickname)) {
+                return $nickname;
+            }
+        }
+
+        return null;
+    }
+
+     // Given a string, try to make it work as a nickname
+
+     function nicknamize($str)
+     {
+         $str = preg_replace('/\W/', '', $str);
+         $str = str_replace(array('-', '_'), '', $str);
+         return strtolower($str);
+     }
+
+    function isNewNickname($str)
+    {
+        if (!Validate::string($str, array('min_length' => 1,
+                                          'max_length' => 64,
+                                          'format' => NICKNAME_FMT))) {
+            return false;
+        }
+        if (!User::allowed_nickname($str)) {
+            return false;
+        }
+        if (User::staticGet('nickname', $str)) {
+            return false;
+        }
+        return true;
     }
 
 }
