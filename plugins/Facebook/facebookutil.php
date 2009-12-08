@@ -168,7 +168,7 @@ function facebookBroadcastNotice($notice)
 
 function updateProfileBox($facebook, $flink, $notice) {
     $fbaction = new FacebookAction($output = 'php://output',
-                                   $indent = true, $facebook, $flink);
+                                   $indent = null, $facebook, $flink);
     $fbaction->updateProfileBox($notice);
 }
 

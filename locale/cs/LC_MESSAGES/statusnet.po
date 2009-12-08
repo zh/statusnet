@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-02 23:18+0000\n"
-"PO-Revision-Date: 2009-12-02 23:19:14+0000\n"
+"POT-Creation-Date: 2009-12-07 21:25+0000\n"
+"PO-Revision-Date: 2009-12-07 21:26:08+0000\n"
 "Language-Team: Czech\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha(r59683); Translate extension (2009-11-29)\n"
+"X-Generator: MediaWiki 1.16alpha(r59800); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: cs\n"
 "X-Message-Group: out-statusnet\n"
@@ -184,7 +184,12 @@ msgstr "Uživatel nemá profil."
 msgid "Could not save profile."
 msgstr "Nelze uložit profil"
 
-#: actions/apiblockcreate.php:108
+#: actions/apiblockcreate.php:105
+#, fuzzy
+msgid "You cannot block yourself!"
+msgstr "Nelze aktualizovat uživatele"
+
+#: actions/apiblockcreate.php:119
 msgid "Block user failed."
 msgstr ""
 
@@ -265,7 +270,7 @@ msgstr ""
 
 #: actions/apifavoritedestroy.php:134 actions/disfavor.php:87
 msgid "Could not delete favorite."
-msgstr ""
+msgstr "Nelze smazat oblíbenou položku."
 
 #: actions/apifriendshipscreate.php:109
 msgid "Could not follow user: User not found."
@@ -574,7 +579,7 @@ msgstr ""
 #: actions/emailsettings.php:238 actions/favor.php:75
 #: actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
-#: actions/invite.php:56 actions/login.php:129 actions/makeadmin.php:66
+#: actions/invite.php:56 actions/login.php:134 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
@@ -609,25 +614,22 @@ msgid "Failed updating avatar."
 msgstr "Nahrávání obrázku selhalo."
 
 #: actions/avatarsettings.php:387
-#, fuzzy
 msgid "Avatar deleted."
-msgstr "Obrázek nahrán"
+msgstr "Avatar smazán."
 
 #: actions/blockedfromgroup.php:73 actions/editgroup.php:84
 #: actions/groupdesignsettings.php:84 actions/grouplogo.php:86
 #: actions/groupmembers.php:76 actions/grouprss.php:91
 #: actions/joingroup.php:76 actions/showgroup.php:121
-#, fuzzy
 msgid "No nickname"
-msgstr "Žádná přezdívka."
+msgstr "Žádná přezdívka"
 
 #: actions/blockedfromgroup.php:80 actions/editgroup.php:96
 #: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
 #: actions/grouplogo.php:99 actions/groupmembers.php:83
 #: actions/grouprss.php:98 actions/joingroup.php:83 actions/showgroup.php:137
-#, fuzzy
 msgid "No such group"
-msgstr "Žádné takové oznámení."
+msgstr "Žádná taková skupina"
 
 #: actions/blockedfromgroup.php:90
 #, fuzzy, php-format
@@ -677,7 +679,7 @@ msgstr ""
 #: actions/block.php:143 actions/deletenotice.php:145
 #: actions/deleteuser.php:147 actions/groupblock.php:178
 msgid "No"
-msgstr ""
+msgstr "Ne"
 
 #: actions/block.php:143 actions/deleteuser.php:147
 #, fuzzy
@@ -687,12 +689,11 @@ msgstr "Žádný takový uživatel."
 #: actions/block.php:144 actions/deletenotice.php:146
 #: actions/deleteuser.php:148 actions/groupblock.php:179
 msgid "Yes"
-msgstr ""
+msgstr "Ano"
 
 #: actions/block.php:144 actions/groupmembers.php:346 lib/blockform.php:80
-#, fuzzy
 msgid "Block this user"
-msgstr "Žádný takový uživatel."
+msgstr "Zablokovat tohoto uživatele"
 
 #: actions/block.php:162
 msgid "Failed to save block information."
@@ -770,7 +771,7 @@ msgstr "Nepřihlášen"
 
 #: actions/deletenotice.php:71
 msgid "Can't delete this notice."
-msgstr ""
+msgstr "Toto oznámení nelze odstranit."
 
 #: actions/deletenotice.php:103
 msgid ""
@@ -793,7 +794,7 @@ msgstr "Žádné takové oznámení."
 
 #: actions/deletenotice.php:146 lib/noticelist.php:550
 msgid "Delete this notice"
-msgstr ""
+msgstr "Odstranit toto oznámení"
 
 #: actions/deletenotice.php:157
 msgid "There was a problem with your session token.  Try again, please."
@@ -820,122 +821,118 @@ msgid ""
 msgstr ""
 
 #: actions/deleteuser.php:148 lib/deleteuserform.php:77
-#, fuzzy
 msgid "Delete this user"
-msgstr "Žádný takový uživatel."
+msgstr "Odstranit tohoto uživatele"
 
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
 #: lib/adminpanelaction.php:302 lib/groupnav.php:119
 msgid "Design"
-msgstr ""
+msgstr "Vzhled"
 
 #: actions/designadminpanel.php:73
 msgid "Design settings for this StatusNet site."
 msgstr ""
 
-#: actions/designadminpanel.php:270
+#: actions/designadminpanel.php:275
 #, fuzzy
 msgid "Invalid logo URL."
 msgstr "Neplatná velikost"
 
-#: actions/designadminpanel.php:274
+#: actions/designadminpanel.php:279
 #, fuzzy, php-format
 msgid "Theme not available: %s"
 msgstr "Tato stránka není k dispozici v typu média která přijímáte."
 
-#: actions/designadminpanel.php:370
+#: actions/designadminpanel.php:375
 #, fuzzy
 msgid "Change logo"
 msgstr "Změnit heslo"
 
-#: actions/designadminpanel.php:375
+#: actions/designadminpanel.php:380
 #, fuzzy
 msgid "Site logo"
 msgstr "Nové sdělení"
 
-#: actions/designadminpanel.php:382
+#: actions/designadminpanel.php:387
 #, fuzzy
 msgid "Change theme"
 msgstr "Změnit"
 
-#: actions/designadminpanel.php:399
+#: actions/designadminpanel.php:404
 #, fuzzy
 msgid "Site theme"
 msgstr "Nové sdělení"
 
-#: actions/designadminpanel.php:400
+#: actions/designadminpanel.php:405
 msgid "Theme for the site."
 msgstr ""
 
-#: actions/designadminpanel.php:412 lib/designsettings.php:101
+#: actions/designadminpanel.php:417 lib/designsettings.php:101
 msgid "Change background image"
 msgstr ""
 
-#: actions/designadminpanel.php:417 actions/designadminpanel.php:492
+#: actions/designadminpanel.php:422 actions/designadminpanel.php:497
 #: lib/designsettings.php:178
 msgid "Background"
-msgstr ""
+msgstr "Pozadí"
 
-#: actions/designadminpanel.php:422
+#: actions/designadminpanel.php:427
 #, fuzzy, php-format
 msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
 "$s."
 msgstr "Je to příliš dlouhé. Maximální sdělení délka je 140 znaků"
 
-#: actions/designadminpanel.php:452 lib/designsettings.php:139
+#: actions/designadminpanel.php:457 lib/designsettings.php:139
 msgid "On"
 msgstr ""
 
-#: actions/designadminpanel.php:468 lib/designsettings.php:155
+#: actions/designadminpanel.php:473 lib/designsettings.php:155
 msgid "Off"
 msgstr ""
 
-#: actions/designadminpanel.php:469 lib/designsettings.php:156
+#: actions/designadminpanel.php:474 lib/designsettings.php:156
 msgid "Turn background image on or off."
 msgstr ""
 
-#: actions/designadminpanel.php:474 lib/designsettings.php:161
+#: actions/designadminpanel.php:479 lib/designsettings.php:161
 msgid "Tile background image"
 msgstr ""
 
-#: actions/designadminpanel.php:483 lib/designsettings.php:170
-#, fuzzy
+#: actions/designadminpanel.php:488 lib/designsettings.php:170
 msgid "Change colours"
-msgstr "Změnit heslo"
+msgstr "Změnit barvy"
 
-#: actions/designadminpanel.php:505 lib/designsettings.php:191
-#, fuzzy
+#: actions/designadminpanel.php:510 lib/designsettings.php:191
 msgid "Content"
-msgstr "Připojit"
+msgstr "Obsah"
 
-#: actions/designadminpanel.php:518 lib/designsettings.php:204
+#: actions/designadminpanel.php:523 lib/designsettings.php:204
 #, fuzzy
 msgid "Sidebar"
 msgstr "Hledat"
 
-#: actions/designadminpanel.php:531 lib/designsettings.php:217
+#: actions/designadminpanel.php:536 lib/designsettings.php:217
 msgid "Text"
 msgstr ""
 
-#: actions/designadminpanel.php:544 lib/designsettings.php:230
-#, fuzzy
+#: actions/designadminpanel.php:549 lib/designsettings.php:230
 msgid "Links"
-msgstr "Přihlásit"
+msgstr "Odkazy"
 
-#: actions/designadminpanel.php:572 lib/designsettings.php:247
+#: actions/designadminpanel.php:577 lib/designsettings.php:247
 msgid "Use defaults"
 msgstr ""
 
-#: actions/designadminpanel.php:573 lib/designsettings.php:248
+#: actions/designadminpanel.php:578 lib/designsettings.php:248
 msgid "Restore default designs"
 msgstr ""
 
-#: actions/designadminpanel.php:579 lib/designsettings.php:254
+#: actions/designadminpanel.php:584 lib/designsettings.php:254
 msgid "Reset back to default"
 msgstr ""
 
-#: actions/designadminpanel.php:581 actions/emailsettings.php:195
+#: actions/designadminpanel.php:586 actions/emailsettings.php:195
 #: actions/imsettings.php:163 actions/othersettings.php:126
 #: actions/pathsadminpanel.php:296 actions/profilesettings.php:167
 #: actions/siteadminpanel.php:421 actions/smssettings.php:181
@@ -945,7 +942,7 @@ msgstr ""
 msgid "Save"
 msgstr "Uložit"
 
-#: actions/designadminpanel.php:582 lib/designsettings.php:257
+#: actions/designadminpanel.php:587 lib/designsettings.php:257
 msgid "Save design"
 msgstr ""
 
@@ -955,7 +952,7 @@ msgstr ""
 
 #: actions/disfavor.php:94
 msgid "Add to favorites"
-msgstr ""
+msgstr "Přidat do oblíbených"
 
 #: actions/doc.php:69
 msgid "No such document."
@@ -964,7 +961,7 @@ msgstr "Žádný takový dokument."
 #: actions/editgroup.php:56
 #, php-format
 msgid "Edit %s group"
-msgstr ""
+msgstr "Upravit %s skupinu"
 
 #: actions/editgroup.php:68 actions/grouplogo.php:70 actions/newgroup.php:65
 msgid "You must be logged in to create a group."
@@ -995,13 +992,12 @@ msgid "Could not create aliases."
 msgstr "Nelze uložin informace o obrázku"
 
 #: actions/editgroup.php:269
-#, fuzzy
 msgid "Options saved."
-msgstr "Nastavení uloženo"
+msgstr "Nastavení uloženo."
 
 #: actions/emailsettings.php:60
 msgid "Email Settings"
-msgstr ""
+msgstr "Nastavení E-mailu"
 
 #: actions/emailsettings.php:71
 #, php-format
@@ -1061,7 +1057,7 @@ msgstr ""
 
 #: actions/emailsettings.php:148 actions/smssettings.php:164
 msgid "New"
-msgstr ""
+msgstr "Nový"
 
 #: actions/emailsettings.php:153 actions/imsettings.php:139
 #: actions/smssettings.php:169
@@ -1244,9 +1240,8 @@ msgid "No notice id"
 msgstr "Nové sdělení"
 
 #: actions/file.php:38
-#, fuzzy
 msgid "No notice"
-msgstr "Nové sdělení"
+msgstr "Žádné oznámení"
 
 #: actions/file.php:42
 msgid "No attachments"
@@ -1385,26 +1380,26 @@ msgid ""
 "palette of your choice."
 msgstr ""
 
-#: actions/groupdesignsettings.php:262 actions/userdesignsettings.php:186
-#: lib/designsettings.php:434 lib/designsettings.php:464
+#: actions/groupdesignsettings.php:263 actions/userdesignsettings.php:186
+#: lib/designsettings.php:391 lib/designsettings.php:413
 #, fuzzy
 msgid "Couldn't update your design."
 msgstr "Nelze aktualizovat uživatele"
 
-#: actions/groupdesignsettings.php:286 actions/groupdesignsettings.php:296
+#: actions/groupdesignsettings.php:287 actions/groupdesignsettings.php:297
 #: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
 #: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
 msgid "Unable to save your design settings!"
 msgstr ""
 
-#: actions/groupdesignsettings.php:307 actions/userdesignsettings.php:231
+#: actions/groupdesignsettings.php:308 actions/userdesignsettings.php:231
 #, fuzzy
 msgid "Design preferences saved."
 msgstr "Nastavení uloženo"
 
 #: actions/grouplogo.php:139 actions/grouplogo.php:192
 msgid "Group logo"
-msgstr ""
+msgstr "Logo skupiny"
 
 #: actions/grouplogo.php:150
 #, php-format
@@ -1502,7 +1497,7 @@ msgstr ""
 #: actions/groups.php:62 lib/profileaction.php:210 lib/profileaction.php:230
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
-msgstr ""
+msgstr "Skupiny"
 
 #: actions/groups.php:64
 #, php-format
@@ -1712,7 +1707,7 @@ msgstr ""
 msgid "Optionally add a personal message to the invitation."
 msgstr ""
 
-#: actions/invite.php:197 lib/messageform.php:181 lib/noticeform.php:225
+#: actions/invite.php:197 lib/messageform.php:180 lib/noticeform.php:224
 msgid "Send"
 msgstr "Odeslat"
 
@@ -1794,11 +1789,11 @@ msgstr "Nelze vytvořit OpenID z: %s"
 msgid "%s left group %s"
 msgstr ""
 
-#: actions/login.php:79 actions/register.php:137
+#: actions/login.php:82 actions/register.php:137
 msgid "Already logged in."
 msgstr "Již přihlášen"
 
-#: actions/login.php:108 actions/login.php:118
+#: actions/login.php:113 actions/login.php:123
 #, fuzzy
 msgid "Invalid or expired token."
 msgstr "Neplatný obsah sdělení"
@@ -1885,7 +1880,7 @@ msgstr ""
 
 #: actions/newgroup.php:53
 msgid "New group"
-msgstr ""
+msgstr "Nová skupina"
 
 #: actions/newgroup.php:110
 msgid "Use this form to create a new group."
@@ -2008,8 +2003,8 @@ msgstr "Připojit"
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:999
-#: lib/api.php:1027 lib/api.php:1137
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:996
+#: lib/api.php:1024 lib/api.php:1134
 msgid "Not a supported data format."
 msgstr ""
 
@@ -2313,9 +2308,8 @@ msgid "Describe yourself and your interests in %d chars"
 msgstr "Popiš sebe a své zájmy ve 140 znacích"
 
 #: actions/profilesettings.php:125 actions/register.php:463
-#, fuzzy
 msgid "Describe yourself and your interests"
-msgstr "Popiš sebe a své zájmy ve 140 znacích"
+msgstr "Popište sebe a své zájmy"
 
 #: actions/profilesettings.php:127 actions/register.php:465
 msgid "Bio"
@@ -2345,7 +2339,7 @@ msgstr ""
 
 #: actions/profilesettings.php:144 actions/siteadminpanel.php:307
 msgid "Language"
-msgstr ""
+msgstr "Jazyk"
 
 #: actions/profilesettings.php:145
 msgid "Preferred language"
@@ -2629,7 +2623,7 @@ msgstr "Chyba v ověřovacím kódu"
 
 #: actions/register.php:112
 msgid "Registration successful"
-msgstr ""
+msgstr "Registrace úspěšná"
 
 #: actions/register.php:114 actions/register.php:502 lib/action.php:455
 #: lib/logingroupnav.php:85
@@ -2921,9 +2915,8 @@ msgstr ""
 
 #: actions/showgroup.php:274 actions/tagother.php:128
 #: actions/userauthorization.php:179 lib/userprofile.php:194
-#, fuzzy
 msgid "Note"
-msgstr "Sdělení"
+msgstr "Poznámka"
 
 #: actions/showgroup.php:284 lib/groupeditform.php:184
 msgid "Aliases"
@@ -3392,7 +3385,7 @@ msgstr ""
 
 #: actions/smssettings.php:306
 msgid "No phone number."
-msgstr ""
+msgstr "Žádné telefonní číslo."
 
 #: actions/smssettings.php:311
 msgid "No carrier selected."
@@ -3759,7 +3752,7 @@ msgstr ""
 
 #: actions/userauthorization.php:188
 msgid "License"
-msgstr ""
+msgstr "Licence"
 
 #: actions/userauthorization.php:209
 msgid "Accept"
@@ -4074,9 +4067,8 @@ msgid "Help"
 msgstr "Nápověda"
 
 #: lib/action.php:461
-#, fuzzy
 msgid "Help me!"
-msgstr "Nápověda"
+msgstr "Pomoci mi!"
 
 #: lib/action.php:464 lib/searchaction.php:127
 msgid "Search"
@@ -4233,9 +4225,8 @@ msgid "Author"
 msgstr ""
 
 #: lib/attachmentlist.php:278
-#, fuzzy
 msgid "Provider"
-msgstr "Profil"
+msgstr "Poskytovatel"
 
 #: lib/attachmentnoticesection.php:67
 msgid "Notices where this attachment appears"
@@ -4382,43 +4373,57 @@ msgstr ""
 msgid "Can't turn on notification."
 msgstr ""
 
-#: lib/command.php:592
+#: lib/command.php:588
+msgid "Login command is disabled"
+msgstr ""
+
+#: lib/command.php:602
+#, fuzzy, php-format
+msgid "Could not create login token for %s"
+msgstr "Nelze uložin informace o obrázku"
+
+#: lib/command.php:607
+#, php-format
+msgid "This link is useable only once, and is good for only 2 minutes: %s"
+msgstr ""
+
+#: lib/command.php:623
 #, fuzzy
 msgid "You are not subscribed to anyone."
 msgstr "Neodeslal jste nám profil"
 
-#: lib/command.php:594
+#: lib/command.php:625
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Neodeslal jste nám profil"
 msgstr[1] "Neodeslal jste nám profil"
 msgstr[2] ""
 
-#: lib/command.php:614
+#: lib/command.php:645
 #, fuzzy
 msgid "No one is subscribed to you."
 msgstr "Vzdálený odběr"
 
-#: lib/command.php:616
+#: lib/command.php:647
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Vzdálený odběr"
 msgstr[1] "Vzdálený odběr"
 msgstr[2] ""
 
-#: lib/command.php:636
+#: lib/command.php:667
 #, fuzzy
 msgid "You are not a member of any groups."
 msgstr "Neodeslal jste nám profil"
 
-#: lib/command.php:638
+#: lib/command.php:669
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Neodeslal jste nám profil"
 msgstr[1] "Neodeslal jste nám profil"
 msgstr[2] ""
 
-#: lib/command.php:652
+#: lib/command.php:683
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4437,6 +4442,7 @@ msgid ""
 "reply #<notice_id> - reply to notice with a given id\n"
 "reply <nickname> - reply to the last notice from user\n"
 "join <group> - join group\n"
+"login - Get a link to login to the web interface\n"
 "drop <group> - leave group\n"
 "stats - get your stats\n"
 "stop - same as 'off'\n"
@@ -4500,11 +4506,7 @@ msgid ""
 "You can upload your personal background image. The maximum file size is 2MB."
 msgstr "Je to příliš dlouhé. Maximální sdělení délka je 140 znaků"
 
-#: lib/designsettings.php:372
-msgid "Bad default color settings: "
-msgstr ""
-
-#: lib/designsettings.php:468
+#: lib/designsettings.php:418
 msgid "Design defaults restored."
 msgstr ""
 
@@ -4616,9 +4618,8 @@ msgid "Edit %s group properties"
 msgstr ""
 
 #: lib/groupnav.php:113
-#, fuzzy
 msgid "Logo"
-msgstr "Odhlásit"
+msgstr "Logo"
 
 #: lib/groupnav.php:114
 #, php-format
@@ -4691,9 +4692,8 @@ msgid "[%s]"
 msgstr ""
 
 #: lib/joinform.php:114
-#, fuzzy
 msgid "Join"
-msgstr "Přihlásit"
+msgstr "Přidat se"
 
 #: lib/leaveform.php:114
 #, fuzzy
@@ -4773,9 +4773,9 @@ msgstr ""
 "%4$s.\n"
 
 #: lib/mail.php:254
-#, fuzzy, php-format
+#, php-format
 msgid "Location: %s\n"
-msgstr "Umístění %s\n"
+msgstr "Umístění: %s\n"
 
 #: lib/mail.php:256
 #, fuzzy, php-format
@@ -4968,7 +4968,7 @@ msgstr ""
 msgid "To"
 msgstr ""
 
-#: lib/messageform.php:162 lib/noticeform.php:186
+#: lib/messageform.php:161 lib/noticeform.php:185
 #, fuzzy
 msgid "Available characters"
 msgstr "6 a více znaků"
@@ -4983,11 +4983,11 @@ msgstr "Nové sdělení"
 msgid "What's up, %s?"
 msgstr "Co se děje %s?"
 
-#: lib/noticeform.php:193
+#: lib/noticeform.php:192
 msgid "Attach"
 msgstr ""
 
-#: lib/noticeform.php:197
+#: lib/noticeform.php:196
 msgid "Attach a file"
 msgstr ""
 
@@ -5077,7 +5077,7 @@ msgstr "Odpovědi"
 
 #: lib/personalgroupnav.php:114
 msgid "Favorites"
-msgstr ""
+msgstr "Oblíbené"
 
 #: lib/personalgroupnav.php:124
 msgid "Inbox"
@@ -5113,9 +5113,8 @@ msgid "Subscribers"
 msgstr "Odběratelé"
 
 #: lib/profileaction.php:157
-#, fuzzy
 msgid "All subscribers"
-msgstr "Odběratelé"
+msgstr "Všichni odběratelé"
 
 #: lib/profileaction.php:178
 msgid "User ID"
@@ -5267,7 +5266,12 @@ msgstr ""
 msgid "Not subscribed!"
 msgstr "Nepřihlášen!"
 
-#: lib/subs.php:140
+#: lib/subs.php:133
+#, fuzzy
+msgid "Couldn't delete self-subscription."
+msgstr "Nelze smazat odebírání"
+
+#: lib/subs.php:146
 msgid "Couldn't delete subscription."
 msgstr "Nelze smazat odebírání"
 
@@ -5306,13 +5310,12 @@ msgid "Unsubscribe"
 msgstr "Odhlásit"
 
 #: lib/userprofile.php:116
-#, fuzzy
 msgid "Edit Avatar"
-msgstr "Obrázek"
+msgstr "Upravit avatar"
 
 #: lib/userprofile.php:236
 msgid "User actions"
-msgstr ""
+msgstr "Akce uživatele"
 
 #: lib/userprofile.php:248
 #, fuzzy
@@ -5329,7 +5332,7 @@ msgstr ""
 
 #: lib/userprofile.php:273
 msgid "Message"
-msgstr ""
+msgstr "Zpráva"
 
 #: lib/userprofile.php:311
 msgid "Moderate"
@@ -5395,7 +5398,7 @@ msgstr ""
 
 #: scripts/maildaemon.php:53
 msgid "Not a registered user."
-msgstr ""
+msgstr "Není registrovaný uživatel."
 
 #: scripts/maildaemon.php:57
 msgid "Sorry, that is not your incoming email address."

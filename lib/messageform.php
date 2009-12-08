@@ -154,8 +154,7 @@ class MessageForm extends Form
 
         $contentLimit = Message::maxContent();
 
-        $this->out->element('script', array('type' => 'text/javascript'),
-                            'maxLength = ' . $contentLimit . ';');
+        $this->out->inlineScript('maxLength = ' . $contentLimit . ';');
 
         if ($contentLimit > 0) {
             $this->out->elementStart('dl', 'form_note');

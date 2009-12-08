@@ -127,7 +127,12 @@ class TwitterBridgePlugin extends Plugin
      */
     function onStartEnqueueNotice($notice, &$transports)
     {
-        array_push($transports, 'twitter');
+        // Avoid a possible loop
+
+        if ($notice->source != 'twitter') {
+            array_push($transports, 'twitter');
+        }
+
         return true;
     }
 

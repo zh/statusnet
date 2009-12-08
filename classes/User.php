@@ -502,6 +502,19 @@ class User extends Memcached_DataObject
     {
         // Add a new block record
 
+        // no blocking (and thus unsubbing from) yourself
+
+        if ($this->id == $other->id) {
+            common_log(LOG_WARNING,
+                sprintf(
+                    "Profile ID %d (%s) tried to block his or herself.",
+                    $profile->id,
+                    $profile->nickname
+                )
+            );
+            return false;
+        }
+
         $block = new Profile_block();
 
         // Begin a transaction
@@ -520,16 +533,7 @@ class User extends Memcached_DataObject
 
         // Cancel their subscription, if it exists
 
-        $sub = Subscription::pkeyGet(array('subscriber' => $other->id,
-                                           'subscribed' => $this->id));
-
-        if ($sub) {
-            $result = $sub->delete();
-            if (!$result) {
-                common_log_db_error($sub, 'DELETE', __FILE__);
-                return false;
-            }
-        }
+        subs_unsubscribe_to($other->getUser(),$this->getProfile());
 
         $block->query('COMMIT');
 

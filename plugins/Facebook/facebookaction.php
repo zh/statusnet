@@ -44,7 +44,7 @@ class FacebookAction extends Action
     var $app_uri  = null;
     var $app_name = null;
 
-    function __construct($output='php://output', $indent=true, $facebook=null, $flink=null)
+    function __construct($output='php://output', $indent=null, $facebook=null, $flink=null)
     {
         parent::__construct($output, $indent);
 
