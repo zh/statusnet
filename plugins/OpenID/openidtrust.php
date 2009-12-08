@@ -48,7 +48,7 @@ class OpenidtrustAction extends Action
 
     function title()
     {
-        return _('OpenID Identity Verification');
+        return _m('OpenID Identity Verification');
     }
 
     function prepare($args)
@@ -66,7 +66,7 @@ class OpenidtrustAction extends Action
         $this->allowUrl = $_SESSION['openid_allow_url'];
         $this->denyUrl = $_SESSION['openid_deny_url'];
         if(empty($this->trust_root) || empty($this->allowUrl) || empty($this->denyUrl)){
-            $this->clientError(_('This page should only be reached during OpenID processing, not directly.'));
+            $this->clientError(_m('This page should only be reached during OpenID processing, not directly.'));
             return;
         }
         return true;
@@ -115,7 +115,7 @@ class OpenidtrustAction extends Action
 
     function showPageNotice()
     {
-        $this->element('p',null,sprintf(_('%s  has asked to verify your identity. Click Continue to verify your identity and login without creating a new password.'),$this->trust_root));
+        $this->element('p',null,sprintf(_m('%s  has asked to verify your identity. Click Continue to verify your identity and login without creating a new password.'),$this->trust_root));
     }
 
     /**
@@ -133,8 +133,8 @@ class OpenidtrustAction extends Action
                                    'class' => 'form_settings',
                                    'action' => common_local_url('openidtrust')));
         $this->elementStart('fieldset');
-        $this->submit('allow', _('Continue'));
-        $this->submit('deny', _('Cancel'));
+        $this->submit('allow', _m('Continue'));
+        $this->submit('deny', _m('Cancel'));
         
         $this->elementEnd('fieldset');
         $this->elementEnd('form');

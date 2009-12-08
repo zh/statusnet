@@ -65,6 +65,8 @@ class Plugin
                 Event::addHandler(mb_substr($method, 2), array($this, $method));
             }
         }
+
+        $this->setupGettext();
     }
 
     function initialize()
@@ -77,6 +79,22 @@ class Plugin
         return true;
     }
 
+    /**
+     * Checks if this plugin has localization that needs to be set up.
+     * Gettext localizations can be called via the _m() helper function.
+     */
+    protected function setupGettext()
+    {
+        $class = get_class($this);
+        if (substr($class, -6) == 'Plugin') {
+            $name = substr($class, 0, -6);
+            $path = INSTALLDIR . "/plugins/$name/locale";
+            if (file_exists($path) && is_dir($path)) {
+                bindtextdomain($name, $path);
+            }
+        }
+    }
+
     protected function log($level, $msg)
     {
         common_log($level, get_class($this) . ': '.$msg);
@@ -87,3 +105,4 @@ class Plugin
         $this->log(LOG_DEBUG, $msg);
     }
 }
+

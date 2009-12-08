@@ -88,7 +88,7 @@ class FacebookinviteAction extends FacebookAction
 
     function title()
     {
-        return sprintf(_('Login'));
+        return sprintf(_m('Login'));
     }
 
     function redirectHome()

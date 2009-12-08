@@ -53,7 +53,7 @@ class FBConnectSettingsAction extends ConnectSettingsAction
 
     function title()
     {
-        return _('Facebook Connect Settings');
+        return _m('Facebook Connect Settings');
     }
 
     /**
@@ -64,7 +64,7 @@ class FBConnectSettingsAction extends ConnectSettingsAction
 
     function getInstructions()
     {
-        return _('Manage how your account connects to Facebook');
+        return _m('Manage how your account connects to Facebook');
     }
 
     /**
@@ -89,7 +89,7 @@ class FBConnectSettingsAction extends ConnectSettingsAction
         if (!$flink) {
 
             $this->element('p', 'instructions',
-                _('There is no Facebook user connected to this account.'));
+                _m('There is no Facebook user connected to this account.'));
 
             $this->element('fb:login-button', array('onlogin' => 'goto_login()',
                 'length' => 'long'));
@@ -97,7 +97,7 @@ class FBConnectSettingsAction extends ConnectSettingsAction
         } else {
 
             $this->element('p', 'form_note',
-                           _('Connected Facebook user'));
+                           _m('Connected Facebook user'));
 
             $this->elementStart('p', array('class' => 'facebook-user-display'));
             $this->elementStart('fb:profile-pic',
@@ -116,18 +116,18 @@ class FBConnectSettingsAction extends ConnectSettingsAction
 
             $this->elementStart('fieldset');
 
-            $this->element('legend', null, _('Disconnect my account from Facebook'));
+            $this->element('legend', null, _m('Disconnect my account from Facebook'));
 
             if (!$user->password) {
 
                 $this->elementStart('p', array('class' => 'form_guide'));
-                $this->text(_('Disconnecting your Faceboook ' .
-                              'would make it impossible to log in! Please '));
+                $this->text(_m('Disconnecting your Faceboook ' .
+                               'would make it impossible to log in! Please '));
                 $this->element('a',
                     array('href' => common_local_url('passwordsettings')),
-                        _('set a password'));
+                        _m('set a password'));
 
-                $this->text(_(' first.'));
+                $this->text(_m(' first.'));
                 $this->elementEnd('p');
             } else {
 
@@ -139,7 +139,7 @@ class FBConnectSettingsAction extends ConnectSettingsAction
                 $this->element('p', 'instructions',
                     sprintf($note, $site, $site));
 
-                $this->submit('disconnect', _('Disconnect'));
+                $this->submit('disconnect', _m('Disconnect'));
             }
 
             $this->elementEnd('fieldset');
@@ -161,8 +161,8 @@ class FBConnectSettingsAction extends ConnectSettingsAction
         // CSRF protection
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
-            $this->showForm(_('There was a problem with your session token. '.
-                              'Try again, please.'));
+            $this->showForm(_m('There was a problem with your session token. '.
+                               'Try again, please.'));
             return;
         }
 
@@ -175,7 +175,7 @@ class FBConnectSettingsAction extends ConnectSettingsAction
 
             if ($result === false) {
                 common_log_db_error($user, 'DELETE', __FILE__);
-                $this->serverError(_('Couldn\'t delete link to Facebook.'));
+                $this->serverError(_m('Couldn\'t delete link to Facebook.'));
                 return;
             }
 
@@ -191,10 +191,10 @@ class FBConnectSettingsAction extends ConnectSettingsAction
                            $e->getMessage());
             }
 
-            $this->showForm(_('You have disconnected from Facebook.'), true);
+            $this->showForm(_m('You have disconnected from Facebook.'), true);
 
         } else {
-            $this->showForm(_('Not sure what you\'re trying to do.'));
+            $this->showForm(_m('Not sure what you\'re trying to do.'));
             return;
         }
 
