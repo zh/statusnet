@@ -77,23 +77,33 @@ class Forward extends Memcached_DataObject
 
         $user = new User();
 
-        $user->query('SELECT id FROM user JOIN subscription ON user.id = subscription.subscriber '.
+        $user->query('SELECT user.* FROM user JOIN subscription ON user.id = subscription.subscriber '.
                      'WHERE subscription.subscribed = '.$this->profile_id);
 
         $ni = array();
+
+        $notice = Notice::staticGet('id', $this->notice_id);
+
+        $author = Profile::staticGet('id', $notice->profile_id);
 
         while ($user->fetch()) {
             $inbox = Notice_inbox::pkeyGet(array('user_id' => $user->id,
                                                  'notice_id' => $this->notice_id));
 
             if (empty($inbox)) {
-                $ni[$user->id] = NOTICE_INBOX_SOURCE_FORWARD;
+                if (!$user->hasBlocked($author)) {
+                    $ni[$user->id] = NOTICE_INBOX_SOURCE_FORWARD;
+                }
             } else {
                 $inbox->free();
             }
         }
 
         $user->free();
+        $author->free();
+
+        unset($user);
+        unset($author);
 
         Notice_inbox::bulkInsert($this->notice_id, $this->created, $ni);
 
