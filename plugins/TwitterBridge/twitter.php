@@ -330,11 +330,11 @@ function mail_twitter_bridge_removed($user)
 
     $profile = $user->getProfile();
 
-    $subject = sprintf(_('Your Twitter bridge has been disabled.'));
+    $subject = sprintf(_m('Your Twitter bridge has been disabled.'));
 
     $site_name = common_config('site', 'name');
 
-    $body = sprintf(_('Hi, %1$s. We\'re sorry to inform you that your ' .
+    $body = sprintf(_m('Hi, %1$s. We\'re sorry to inform you that your ' .
         'link to Twitter has been disabled. We no longer seem to have ' .
     'permission to update your Twitter status. (Did you revoke ' .
     '%3$s\'s access?)' . "\n\n" .

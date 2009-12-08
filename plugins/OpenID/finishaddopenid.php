@@ -64,7 +64,7 @@ class FinishaddopenidAction extends Action
     {
         parent::handle($args);
         if (!common_logged_in()) {
-            $this->clientError(_('Not logged in.'));
+            $this->clientError(_m('Not logged in.'));
         } else {
             $this->tryLogin();
         }
@@ -85,11 +85,11 @@ class FinishaddopenidAction extends Action
         $response = $consumer->complete(common_local_url('finishaddopenid'));
 
         if ($response->status == Auth_OpenID_CANCEL) {
-            $this->message(_('OpenID authentication cancelled.'));
+            $this->message(_m('OpenID authentication cancelled.'));
             return;
         } else if ($response->status == Auth_OpenID_FAILURE) {
             // Authentication failed; display the error message.
-            $this->message(sprintf(_('OpenID authentication failed: %s'),
+            $this->message(sprintf(_m('OpenID authentication failed: %s'),
                                    $response->message));
         } else if ($response->status == Auth_OpenID_SUCCESS) {
 
@@ -109,9 +109,9 @@ class FinishaddopenidAction extends Action
 
             if ($other) {
                 if ($other->id == $cur->id) {
-                    $this->message(_('You already have this OpenID!'));
+                    $this->message(_m('You already have this OpenID!'));
                 } else {
-                    $this->message(_('Someone else already has this OpenID.'));
+                    $this->message(_m('Someone else already has this OpenID.'));
                 }
                 return;
             }
@@ -123,12 +123,12 @@ class FinishaddopenidAction extends Action
             $result = oid_link_user($cur->id, $canonical, $display);
 
             if (!$result) {
-                $this->message(_('Error connecting user.'));
+                $this->message(_m('Error connecting user.'));
                 return;
             }
             if ($sreg) {
                 if (!oid_update_user($cur, $sreg)) {
-                    $this->message(_('Error updating profile'));
+                    $this->message(_m('Error updating profile'));
                     return;
                 }
             }
@@ -167,7 +167,7 @@ class FinishaddopenidAction extends Action
 
     function title()
     {
-        return _('OpenID Login');
+        return _m('OpenID Login');
     }
 
     /**

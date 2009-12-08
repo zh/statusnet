@@ -68,7 +68,7 @@ class UsermapAction extends MapAction
         if ($this->page == 1) {
             return $base;
         } else {
-            return sprintf(_("%s map, page %d"),
+            return sprintf(_m("%s map, page %d"),
                            $base,
                            $this->page);
         }

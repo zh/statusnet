@@ -78,7 +78,7 @@ class TwitterauthorizationAction extends Action
         parent::handle($args);
 
         if (!common_logged_in()) {
-            $this->clientError(_('Not logged in.'), 403);
+            $this->clientError(_m('Not logged in.'), 403);
         }
 
         $user  = common_current_user();
@@ -128,7 +128,7 @@ class TwitterauthorizationAction extends Action
         } catch (OAuthClientException $e) {
             $msg = sprintf('OAuth client cURL error - code: %1s, msg: %2s',
                            $e->getCode(), $e->getMessage());
-            $this->serverError(_('Couldn\'t link your Twitter account.'));
+            $this->serverError(_m('Couldn\'t link your Twitter account.'));
         }
 
         common_redirect($auth_link);
@@ -147,7 +147,7 @@ class TwitterauthorizationAction extends Action
         // token we sent them
 
         if ($_SESSION['twitter_request_token'] != $this->oauth_token) {
-            $this->serverError(_('Couldn\'t link your Twitter account.'));
+            $this->serverError(_m('Couldn\'t link your Twitter account.'));
         }
 
         try {
@@ -167,7 +167,7 @@ class TwitterauthorizationAction extends Action
         } catch (OAuthClientException $e) {
             $msg = sprintf('OAuth client cURL error - code: %1$s, msg: %2$s',
                            $e->getCode(), $e->getMessage());
-            $this->serverError(_('Couldn\'t link your Twitter account.'));
+            $this->serverError(_m('Couldn\'t link your Twitter account.'));
         }
 
         // Save the access token and Twitter user info
@@ -214,7 +214,7 @@ class TwitterauthorizationAction extends Action
 
         if (empty($flink_id)) {
             common_log_db_error($flink, 'INSERT', __FILE__);
-                $this->serverError(_('Couldn\'t link your Twitter account.'));
+                $this->serverError(_m('Couldn\'t link your Twitter account.'));
         }
 
         save_twitter_user($twitter_user->id, $twitter_user->screen_name);

@@ -56,7 +56,7 @@ class TwittersettingsAction extends ConnectSettingsAction
 
     function title()
     {
-        return _('Twitter settings');
+        return _m('Twitter settings');
     }
 
     /**
@@ -67,8 +67,8 @@ class TwittersettingsAction extends ConnectSettingsAction
 
     function getInstructions()
     {
-        return _('Connect your Twitter account to share your updates ' .
-                 'with your Twitter friends and vice-versa.');
+        return _m('Connect your Twitter account to share your updates ' .
+                  'with your Twitter friends and vice-versa.');
     }
 
     /**
@@ -115,38 +115,38 @@ class TwittersettingsAction extends ConnectSettingsAction
 
             $this->elementEnd('fieldset');
         } else {
-            $this->element('legend', null, _('Twitter account'));
+            $this->element('legend', null, _m('Twitter account'));
             $this->elementStart('p', array('id' => 'form_confirmed'));
             $this->element('a', array('href' => $fuser->uri), $fuser->nickname);
             $this->elementEnd('p');
             $this->element('p', 'form_note',
-                           _('Connected Twitter account'));
+                           _m('Connected Twitter account'));
 
-            $this->submit('remove', _('Remove'));
+            $this->submit('remove', _m('Remove'));
 
             $this->elementEnd('fieldset');
 
             $this->elementStart('fieldset', array('id' => 'settings_twitter_preferences'));
 
-            $this->element('legend', null, _('Preferences'));
+            $this->element('legend', null, _m('Preferences'));
             $this->elementStart('ul', 'form_data');
             $this->elementStart('li');
             $this->checkbox('noticesend',
-                            _('Automatically send my notices to Twitter.'),
+                            _m('Automatically send my notices to Twitter.'),
                             ($flink) ?
                             ($flink->noticesync & FOREIGN_NOTICE_SEND) :
                             true);
             $this->elementEnd('li');
             $this->elementStart('li');
             $this->checkbox('replysync',
-                            _('Send local "@" replies to Twitter.'),
+                            _m('Send local "@" replies to Twitter.'),
                             ($flink) ?
                             ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) :
                             true);
             $this->elementEnd('li');
             $this->elementStart('li');
             $this->checkbox('friendsync',
-                            _('Subscribe to my Twitter friends here.'),
+                            _m('Subscribe to my Twitter friends here.'),
                             ($flink) ?
                             ($flink->friendsync & FOREIGN_FRIEND_RECV) :
                             false);
@@ -155,7 +155,7 @@ class TwittersettingsAction extends ConnectSettingsAction
             if (common_config('twitterimport','enabled')) {
                 $this->elementStart('li');
                 $this->checkbox('noticerecv',
-                                _('Import my Friends Timeline.'),
+                                _m('Import my Friends Timeline.'),
                                 ($flink) ?
                                 ($flink->noticesync & FOREIGN_NOTICE_RECV) :
                                 false);
@@ -171,9 +171,9 @@ class TwittersettingsAction extends ConnectSettingsAction
             $this->elementEnd('ul');
 
             if ($flink) {
-                $this->submit('save', _('Save'));
+                $this->submit('save', _m('Save'));
             } else {
-                $this->submit('add', _('Add'));
+                $this->submit('add', _m('Add'));
             }
 
             $this->elementEnd('fieldset');
@@ -198,8 +198,8 @@ class TwittersettingsAction extends ConnectSettingsAction
         // CSRF protection
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
-            $this->showForm(_('There was a problem with your session token. '.
-                              'Try again, please.'));
+            $this->showForm(_m('There was a problem with your session token. '.
+                               'Try again, please.'));
             return;
         }
 
@@ -208,7 +208,7 @@ class TwittersettingsAction extends ConnectSettingsAction
         } else if ($this->arg('remove')) {
             $this->removeTwitterAccount();
         } else {
-            $this->showForm(_('Unexpected form submission.'));
+            $this->showForm(_m('Unexpected form submission.'));
         }
     }
 
@@ -227,11 +227,11 @@ class TwittersettingsAction extends ConnectSettingsAction
 
         if (empty($result)) {
             common_log_db_error($flink, 'DELETE', __FILE__);
-            $this->serverError(_('Couldn\'t remove Twitter user.'));
+            $this->serverError(_m('Couldn\'t remove Twitter user.'));
             return;
         }
 
-        $this->showForm(_('Twitter account removed.'), true);
+        $this->showForm(_m('Twitter account removed.'), true);
     }
 
     /**
@@ -252,7 +252,7 @@ class TwittersettingsAction extends ConnectSettingsAction
 
         if (empty($flink)) {
             common_log_db_error($flink, 'SELECT', __FILE__);
-            $this->showForm(_('Couldn\'t save Twitter preferences.'));
+            $this->showForm(_m('Couldn\'t save Twitter preferences.'));
             return;
         }
 
@@ -262,11 +262,11 @@ class TwittersettingsAction extends ConnectSettingsAction
 
         if ($result === false) {
             common_log_db_error($flink, 'UPDATE', __FILE__);
-            $this->showForm(_('Couldn\'t save Twitter preferences.'));
+            $this->showForm(_m('Couldn\'t save Twitter preferences.'));
             return;
         }
 
-        $this->showForm(_('Twitter preferences saved.'), true);
+        $this->showForm(_m('Twitter preferences saved.'), true);
     }
 
 }

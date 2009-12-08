@@ -71,9 +71,9 @@ class FacebooksettingsAction extends FacebookAction
             $trimmed);
 
         if ($result === false) {
-            $this->showForm(_('There was a problem saving your sync preferences!'));
+            $this->showForm(_m('There was a problem saving your sync preferences!'));
         } else {
-            $this->showForm(_('Sync preferences saved.'), true);
+            $this->showForm(_m('Sync preferences saved.'), true);
         }
     }
 
@@ -96,14 +96,14 @@ class FacebooksettingsAction extends FacebookAction
 
             $this->elementStart('li');
 
-            $this->checkbox('noticesync', _('Automatically update my Facebook status with my notices.'),
+            $this->checkbox('noticesync', _m('Automatically update my Facebook status with my notices.'),
                                 ($this->flink) ? ($this->flink->noticesync & FOREIGN_NOTICE_SEND) : true);
 
             $this->elementEnd('li');
 
             $this->elementStart('li');
 
-            $this->checkbox('replysync', _('Send "@" replies to Facebook.'),
+            $this->checkbox('replysync', _m('Send "@" replies to Facebook.'),
                              ($this->flink) ? ($this->flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) : true);
 
             $this->elementEnd('li');
@@ -112,15 +112,15 @@ class FacebooksettingsAction extends FacebookAction
 
             $prefix = trim($this->facebook->api_client->data_getUserPreference(FACEBOOK_NOTICE_PREFIX));
 
-            $this->input('prefix', _('Prefix'),
+            $this->input('prefix', _m('Prefix'),
                          ($prefix) ? $prefix : null,
-                         _('A string to prefix notices with.'));
+                         _m('A string to prefix notices with.'));
 
             $this->elementEnd('li');
 
             $this->elementStart('li');
 
-            $this->submit('save', _('Save'));
+            $this->submit('save', _m('Save'));
 
             $this->elementEnd('li');
 
@@ -130,7 +130,7 @@ class FacebooksettingsAction extends FacebookAction
 
         } else {
 
-            $instructions = sprintf(_('If you would like %s to automatically update ' .
+            $instructions = sprintf(_m('If you would like %s to automatically update ' .
                 'your Facebook status with your latest notice, you need ' .
                 'to give it permission.'), $this->app_name);
 
@@ -143,7 +143,7 @@ class FacebooksettingsAction extends FacebookAction
             $this->elementStart('fb:prompt-permission', array('perms' => 'publish_stream',
                 'next_fbjs' => 'document.setLocation(\'' . "$this->app_uri/settings.php" . '\')'));
             $this->element('span', array('class' => 'facebook-button'),
-                sprintf(_('Allow %s to update my Facebook status'), common_config('site', 'name')));
+                sprintf(_m('Allow %s to update my Facebook status'), common_config('site', 'name')));
             $this->elementEnd('fb:prompt-permission');
             $this->elementEnd('li');
             $this->elementEnd('ul');
@@ -153,7 +153,7 @@ class FacebooksettingsAction extends FacebookAction
 
     function title()
     {
-        return _('Sync preferences');
+        return _m('Sync preferences');
     }
 
 }
