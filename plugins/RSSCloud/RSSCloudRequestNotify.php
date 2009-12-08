@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Action to let RSSCloud aggregators request update notification when
  * user profile feeds change.
@@ -49,6 +48,11 @@ class RSSCloudRequestNotifyAction extends Action
         $this->ip        = $_SERVER['REMOTE_ADDR'];
         $this->port      = $this->arg('port');
         $this->path      = $this->arg('path');
+
+        if ($this->path[0] != '/') {
+            $this->path = '/' . $this->path;
+        }
+
         $this->protocol  = $this->arg('protocol');
         $this->procedure = $this->arg('notifyProcedure');
         $this->domain    = $this->arg('domain');
@@ -73,13 +77,9 @@ class RSSCloudRequestNotifyAction extends Action
             $missing[] = 'port';
         }
 
-        $path = $this->arg('path');
-
         if (empty($this->path)) {
             $missing[] = 'path';
         }
-
-        $protocol = $this->arg('protocol');
 
         if (empty($this->protocol)) {
             $missing[] = 'protocol';
@@ -127,11 +127,12 @@ class RSSCloudRequestNotifyAction extends Action
             $this->saveSubscription($feed);
         }
 
-        // XXX: What to do about deleting stale subscriptions?  25 hours seems harsh.
-        // WordPress doesn't ever remove subscriptions.
+        // XXX: What to do about deleting stale subscriptions?
+        // 25 hours seems harsh. WordPress doesn't ever remove
+        // subscriptions.
 
-        $msg = 'Thanks for the registration. It worked. When the feed(s) update(s) we\'ll notify you. ' .
-               ' Don\'t forget to re-register after 24 hours, your subscription will expire in 25.';
+        $msg = 'Thanks for the subscription. ' .
+          'When the feed(s) update(s) we\'ll notify you.';
 
         $this->showResult(true, $msg);
     }
@@ -164,36 +165,40 @@ class RSSCloudRequestNotifyAction extends Action
     {
         common_debug("RSSCloudPlugin - testNotificationHandler()");
 
+        $notifyUrl = $this->getNotifyUrl();
+
         $notifier = new RSSCloudNotifier();
 
         if (isset($this->domain)) {
 
             // 'domain' param set, so we have to use GET and send a challenge
 
-            $endpoint = 'http://' . $this->domain . ':' . $this->port . '/' . $this->path;
-
             common_log(LOG_INFO, 'Testing notification handler with challenge: ' .
-                       $endpoint);
-
-            return $notifier->challenge($endpoint, $feed);
+                       $notifyUrl);
+            return $notifier->challenge($notifyUrl, $feed);
 
         } else {
-
-            $endpoint = 'http://' . $this->ip . ':' . $this->port . '/' . $this->path;
-
             common_log(LOG_INFO, 'Testing notification handler: ' .
-                       $endpoint);
+                       $notifyUrl);
 
-            return $notifier->postUpdate($endpoint, $feed);
+            return $notifier->postUpdate($notifyUrl, $feed);
         }
-
     }
+
+    function getNotifyUrl()
+    {
+        if (isset($this->domain)) {
+            return 'http://' . $this->domain . ':' . $this->port . $this->path;
+        } else {
+            return 'http://' . $this->ip . ':' . $this->port . $this->path;
+        }
+     }
 
     function userFromFeed($feed)
     {
         // We only do profile feeds
 
-        // XXX: Add cloud element to RSS 1.0 feeds
+        // XXX: Add cloud element to RSS 1.0 feeds?
 
         $path = common_path('api/statuses/user_timeline/');
         $valid = '%^' . $path . '(?<nickname>.*)\.rss$%';
@@ -212,7 +217,9 @@ class RSSCloudRequestNotifyAction extends Action
     {
         $user = $this->userFromFeed($feed);
 
-        $sub = RSSCloudSubscription::getSubscription($user->id, $this->url);
+        $notifyUrl = $this->getNotifyUrl();
+
+        $sub = RSSCloudSubscription::getSubscription($user->id, $notifyUrl);
 
         if ($sub) {
             common_debug("Already subscribed to that!");
@@ -221,19 +228,14 @@ class RSSCloudRequestNotifyAction extends Action
             $sub = new RSSCloudSubscription();
 
             $sub->subscribed = $user->id;
-            $sub->url        = $this->url;
+            $sub->url        = $notifyUrl;
             $sub->created    = common_sql_now();
-
-            // auto timestamp doesn't seem to work for me
-
-            // $sub->modified   = common_sql_now();
 
             if (!$sub->insert()) {
                 common_log_db_error($sub, 'INSERT', __FILE__);
                 return false;
             }
 
-            DB_DataObject::debugLevel();
         }
 
         return true;

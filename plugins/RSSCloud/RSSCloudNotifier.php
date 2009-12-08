@@ -33,6 +33,8 @@ if (!defined('STATUSNET')) {
 
 class RSSCloudNotifier {
 
+    const MAX_FAILURES = 3;
+
     function challenge($endpoint, $feed)
     {
         $code   = common_confirmation_code(128);
@@ -54,6 +56,11 @@ class RSSCloudNotifier {
         $body   = $response->getBody();
 
         if ($status >= 200 && $status < 300) {
+
+            // NOTE: the spec says that the body must contain the string
+            // challenge.  It doesn't say that the body must contain the
+            // challenge string ONLY, although that seems to be the way
+            // the other implementations have interpreted it.
 
             if (strpos($body, $code) !== false) {
                 common_log(LOG_INFO, 'RSSCloud plugin - ' .
@@ -100,9 +107,78 @@ class RSSCloudNotifier {
             common_log(LOG_INFO, 'RSSCloud plugin - failure notifying ' .
                        $endpoint . ' that feed ' . $feed .
                        ' has changed: got HTTP ' . $status);
-            common_debug('body = ' . var_export($response->getBody(), true));
             return false;
         }
+    }
+
+    function notify($profile)
+    {
+        $feed = common_path('api/statuses/user_timeline/') .
+          $profile->nickname . '.rss';
+
+        $cloudSub = new RSSCloudSubscription();
+        $cloudSub->subscribed = $profile->id;
+
+        if ($cloudSub->find()) {
+            while ($cloudSub->fetch()) {
+                $result = $this->postUpdate($cloudSub->url, $feed);
+                if ($result == false) {
+                    $this->handleFailure($cloudSub);
+                }
+            }
+        }
+    }
+
+    function handleFailure($cloudSub)
+    {
+        $failCnt = $cloudSub->failures + 1;
+
+        if ($failCnt == self::MAX_FAILURES) {
+
+            common_log(LOG_INFO,
+                       'Deleting RSSCloud subcription (max failure count reached), profile: ' .
+                       $cloudSub->subscribed .
+                       ' handler: ' .
+                       $cloudSub->url);
+
+            // XXX: WTF! ->delete() doesn't work. Clearly, there are some issues with
+            // the DB_DataObject, or my understanding of it.  Have to drop into SQL.
+
+            // $result = $cloudSub->delete();
+
+            $qry = 'DELETE from rsscloud_subscription' .
+              ' WHERE subscribed = ' . $cloudSub->subscribed .
+              ' AND url = \'' . $cloudSub->url . '\'';
+
+            $result = $cloudSub->query($qry);
+
+            if (!$result) {
+                common_log_db_error($cloudSub, 'DELETE', __FILE__);
+                common_log(LOG_ERR, 'Could not delete RSSCloud subscription.');
+            }
+
+        } else {
+
+            common_debug('Updating failure count on RSSCloud subscription. ' . $failCnt);
+
+            $failCnt = $cloudSub->failures + 1;
+
+            // XXX: ->update() not working either, gar!
+
+            $qry = 'UPDATE rsscloud_subscription' .
+              ' SET failures = ' . $failCnt .
+              ' WHERE subscribed = ' . $cloudSub->subscribed .
+              ' AND url = \'' . $cloudSub->url . '\'';
+
+            common_debug($qry);
+
+            $result = $cloudSub->query($qry);
+
+            if (!$result) {
+                common_log_db_error($cloudsub, 'UPDATE', __FILE__);
+                common_log(LOG_ERR, 'Could not update failure count on RSSCloud subscription');
+            }
+         }
     }
 
 }

@@ -159,11 +159,16 @@ class RSSCloudPlugin extends Plugin
     {
         if (($queue == 'rsscloud') && ($this->_isLocal($notice))) {
 
-            // broadcast the notice here
             common_debug('broadcasting rssCloud bound notice ' . $notice->id);
+
+            $profile = $notice->getProfile();
+
+            $notifier = new RSSCloudNotifier();
+            $notifier->notify($profile);
 
             return false;
         }
+
         return true;
     }
 
