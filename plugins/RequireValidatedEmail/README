@@ -1,0 +1,21 @@
+This plugin disables posting for accounts that do not have a
+validated email address.
+
+Example:
+
+  addPlugin('RequireValidatedEmail');
+
+If you don't want to apply the validationr equirement to existing
+accounts, you can specify a cutoff date to grandfather in users
+registered prior to that timestamp.
+
+  addPlugin('RequireValidatedEmail',
+            array('grandfatherCutoff' => 'Dec 7, 2009');
+
+
+Todo:
+* make email field required on registration form
+* add a more visible indicator that validation is still outstanding
+* localization for UI strings
+* test with XMPP, API posting
+
