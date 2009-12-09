@@ -788,10 +788,24 @@ class Notice extends Memcached_DataObject
                 return $notice;
             }
             $notice->whereAdd('id in (' . implode(', ', $ids) . ')');
-            $notice->orderBy('id DESC');
 
             $notice->find();
-            return $notice;
+
+            $temp = array();
+
+            while ($notice->fetch()) {
+                $temp[$notice->id] = clone($notice);
+            }
+
+            $wrapped = array();
+
+            foreach ($ids as $id) {
+                if (array_key_exists($id, $temp)) {
+                    $wrapped[] = $temp[$id];
+                }
+            }
+
+            return new ArrayWrapper($wrapped);
         }
     }
 
