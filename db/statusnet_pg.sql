@@ -572,6 +572,18 @@ create table profile_role (
 
 );
 
+create table location_namespace (
+
+    id integer /*comment 'identity for this namespace'*/,
+    description text /* comment 'description of the namespace'*/ ,
+    created integer not null /*comment 'date the record was created*/ ,
+   /* modified timestamp comment 'date this record was modified',*/
+    primary key (id)
+
+);
+
+
+
 create table login_token (
     user_id integer not null /* comment 'user owning this token'*/ references "user" (id),
     token char(32) not null /* comment 'token useable for logging in'*/,
@@ -581,3 +593,9 @@ create table login_token (
     primary key (user_id)
 );
 
+CREATE TABLE forward (
+    profile_id integer not null /*comment 'profile who forwarded the notice'*/ references profile (id),
+    notice_id integer not null /*comment 'notice they forwarded'*/ references notice (id),
+    created timestamp not null /*comment 'date this record was created'*/ DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (profile_id, notice_id)
+);
