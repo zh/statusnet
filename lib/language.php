@@ -153,7 +153,7 @@ if (!function_exists('npgettext')) {
  */
 function _m($msg/*, ...*/)
 {
-    $domain = _mdomain(debug_backtrace(false));
+    $domain = _mdomain(debug_backtrace());
     $args = func_get_args();
     switch(count($args)) {
     case 1: return dgettext($domain, $msg);
