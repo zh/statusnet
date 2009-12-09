@@ -77,7 +77,8 @@ class Forward extends Memcached_DataObject
 
         $user = new User();
 
-        $user->query('SELECT user.* FROM user JOIN subscription ON user.id = subscription.subscriber '.
+        $usertable = common_database_tablename('user');
+        $user->query("SELECT $usertable.* FROM $usertable INNER JOIN subscription ON $usertable.id = subscription.subscriber ".
                      'WHERE subscription.subscribed = '.$this->profile_id);
 
         $ni = array();
