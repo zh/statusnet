@@ -528,6 +528,10 @@ class Schema
             $sql .= " auto_increment ";
         }
 
+        if (!empty($cd->extra)) {
+            $sql .= "{$cd->extra} ";
+        }
+
         return $sql;
     }
 }
