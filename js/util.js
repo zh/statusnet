@@ -77,6 +77,9 @@ var SN = { // StatusNet
                     SN.U.SubmitOnReturn(e, form);
                 });
             }
+            else {
+                $('#'+form_id+' #'+SN.C.S.NoticeTextCount).text(jQuery.data(form[0], 'ElementData').MaxLength);
+            }
 
             if ($('body')[0].id != 'conversation') {
                 $('#'+form_id+' textarea').focus();
