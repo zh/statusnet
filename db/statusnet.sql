@@ -585,14 +585,3 @@ create table login_token (
     constraint primary key (user_id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
-create table forward (
-
-    profile_id integer not null comment 'profile who forwarded the notice' references profile (id),
-    notice_id integer not null comment 'notice they forwarded' references notice (id),
-
-    created datetime not null comment 'date this record was created',
-
-    constraint primary key (profile_id, notice_id)
-
-) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
-
