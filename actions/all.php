@@ -144,7 +144,7 @@ class AllAction extends ProfileAction
 
     function showContent()
     {
-        $nl = new NoticeList($this->notice, $this->user, $this);
+        $nl = new NoticeList($this->notice, $this);
 
         $cnt = $nl->show();
 
