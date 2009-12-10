@@ -212,7 +212,6 @@ class NoticeListItem extends Widget
             $this->out->elementStart('div', 'notice-options');
             $this->showFaveForm();
             $this->showReplyLink();
-            $this->showForwardForm();
             $this->showDeleteLink();
             $this->out->elementEnd('div');
         }
@@ -528,26 +527,6 @@ class NoticeListItem extends Widget
             $this->out->text(_('Reply'));
             $this->out->element('span', 'notice_id', $this->notice->id);
             $this->out->elementEnd('a');
-        }
-    }
-
-    /**
-     * show the form to forward a notice
-     *
-     * @return void
-     */
-
-    function showForwardForm()
-    {
-        $user = common_current_user();
-        if ($user && $user->id != $this->notice->profile_id) {
-            $profile = $user->getProfile();
-            if ($profile->hasForwarded($this->notice->id)) {
-                $this->out->text(_('Forwarded'));
-            } else {
-                $ff = new ForwardForm($this->out, $this->notice);
-                $ff->show();
-            }
         }
     }
 
