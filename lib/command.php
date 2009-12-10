@@ -584,7 +584,7 @@ class LoginCommand extends Command
     function execute($channel)
     {
         $disabled = common_config('logincommand','disabled');
-        if(isset($disabled)) {
+        if(isset($disabled) && $disabled) {
             $channel->error($this->user, _('Login command is disabled'));
             return;
         }
