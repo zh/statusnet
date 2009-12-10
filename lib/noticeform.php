@@ -178,8 +178,6 @@ class NoticeForm extends Form
 
             $contentLimit = Notice::maxContent();
 
-            $this->out->inlineScript('maxLength = ' . $contentLimit . ';');
-
             if ($contentLimit > 0) {
                 $this->out->elementStart('dl', 'form_note');
                 $this->out->element('dt', null, _('Available characters'));
