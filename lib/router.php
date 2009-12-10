@@ -99,7 +99,7 @@ class Router
                           'groupblock', 'groupunblock',
                           'sandbox', 'unsandbox',
                           'silence', 'unsilence',
-                          'deleteuser', 'forward');
+                          'deleteuser');
 
             foreach ($main as $a) {
                 $m->connect('main/'.$a, array('action' => $a));
