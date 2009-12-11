@@ -147,6 +147,10 @@ class NoticeListItem extends Widget
 
     var $notice = null;
 
+    /** The notice that was repeated. */
+
+    var $repeat = null;
+
     /** The profile of the author of the notice, extracted once for convenience. */
 
     var $profile = null;
@@ -162,8 +166,13 @@ class NoticeListItem extends Widget
     function __construct($notice, $out=null)
     {
         parent::__construct($out);
-        $this->notice  = $notice;
-        $this->profile = $notice->getProfile();
+        if (!empty($notice->repeat_of)) {
+            $this->notice = Notice::staticGet('id', $notice->repeat_of);
+            $this->repeat = $notice;
+        } else {
+            $this->notice  = $notice;
+        }
+        $this->profile = $this->notice->getProfile();
     }
 
     /**
@@ -202,6 +211,7 @@ class NoticeListItem extends Widget
         $this->showNoticeSource();
         $this->showNoticeLocation();
         $this->showContext();
+        $this->showRepeat();
         $this->out->elementEnd('div');
     }
 
@@ -505,6 +515,52 @@ class NoticeListItem extends Widget
             $this->out->element('a', array('href' => $convurl.'#notice-'.$this->notice->id,
                                            'class' => 'response'),
                                 _('in context'));
+        }
+    }
+
+    /**
+     * show a link to the author of repeat
+     *
+     * @return void
+     */
+
+    function showRepeat()
+    {
+        if (!empty($this->repeat)) {
+
+            $repeater = Profile::staticGet('id', $this->repeat->profile_id);
+
+            $attrs = array('href' => $repeater->profileurl,
+                           'class' => 'url');
+
+            if (!empty($repeater->fullname)) {
+                $attrs['title'] = $repeater->fullname . ' (' . $repeater->nickname . ')';
+            }
+
+            $this->out->elementStart('span', 'repeat');
+
+            $this->out->elementStart('a', $attrs);
+
+            $avatar = $repeater->getAvatar(AVATAR_MINI_SIZE);
+
+            $this->out->element('img', array('src' => ($avatar) ?
+                                             $avatar->displayUrl() :
+                                             Avatar::defaultImage(AVATAR_MINI_SIZE),
+                                             'class' => 'avatar photo',
+                                             'width' => AVATAR_MINI_SIZE,
+                                             'height' => AVATAR_MINI_SIZE,
+                                             'alt' =>
+                                             ($repeater->fullname) ?
+                                             $repeater->fullname :
+                                             $repeater->nickname));
+
+            $this->out->elementEnd('a');
+
+            $text_link = XMLStringer::estring('a', $attrs, $repeater->nickname);
+
+            $this->out->raw(sprintf(_('Repeated by %s'), $text_link));
+
+            $this->out->elementEnd('span');
         }
     }
 
