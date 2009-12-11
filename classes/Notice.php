@@ -966,6 +966,9 @@ class Notice extends Memcached_DataObject
         return true;
     }
 
+    /**
+     * @return array of integer profile IDs
+     */
     function saveReplies()
     {
         // Alternative reply format
@@ -1044,8 +1047,8 @@ class Notice extends Memcached_DataObject
 
         $recipientIds = array_keys($replied);
 
-        foreach ($recipientIds as $recipient) {
-            $user = User::staticGet('id', $recipient);
+        foreach ($recipientIds as $recipientId) {
+            $user = User::staticGet('id', $recipientId);
             if ($user) {
                 mail_notify_attn($user, $this);
             }
