@@ -55,13 +55,13 @@ class Notice extends Memcached_DataObject
 
     public $__table = 'notice';                          // table name
     public $id;                              // int(4)  primary_key not_null
-    public $profile_id;                      // int(4)   not_null
+    public $profile_id;                      // int(4)  multiple_key not_null
     public $uri;                             // varchar(255)  unique_key
-    public $content;                         // text()
-    public $rendered;                        // text()
+    public $content;                         // text
+    public $rendered;                        // text
     public $url;                             // varchar(255)
-    public $created;                         // datetime()   not_null
-    public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
+    public $created;                         // datetime  multiple_key not_null default_0000-00-00%2000%3A00%3A00
+    public $modified;                        // timestamp   not_null default_CURRENT_TIMESTAMP
     public $reply_to;                        // int(4)
     public $is_local;                        // tinyint(1)
     public $source;                          // varchar(32)
@@ -70,9 +70,11 @@ class Notice extends Memcached_DataObject
     public $lon;                             // decimal(10,7)
     public $location_id;                     // int(4)
     public $location_ns;                     // int(4)
+    public $repeat_of;                       // int(4)
 
     /* Static get */
-    function staticGet($k,$v=NULL) {
+    function staticGet($k,$v=NULL)
+    {
         return Memcached_DataObject::staticGet('Notice',$k,$v);
     }
 
