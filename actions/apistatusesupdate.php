@@ -231,19 +231,22 @@ class ApiStatusesUpdateAction extends ApiAuthAction
                 }
             }
 
-            $this->notice = Notice::saveNew(
-                $this->user->id,
-                html_entity_decode($status_shortened, ENT_NOQUOTES, 'UTF-8'),
-                $this->source,
-                1,
-                $reply_to,
-                null,
-                null,
-                empty($location) ? null : $location->lat,
-                empty($location) ? null : $location->lon,
-                empty($location) ? null : $location->location_id,
-                empty($location) ? null : $location->location_ns
-            );
+            $content = html_entity_decode($status_shortened, ENT_NOQUOTES, 'UTF-8'),
+
+            $options = array('reply_to' => $reply_to);
+
+            if (!empty($location)) {
+                $options['lat'] = $location->lat;
+                $options['lon'] = $location->lon;
+                $options['location_id'] = $location->location_id;
+                $options['location_ns'] = $location->location_ns;
+            }
+
+            $this->notice =
+              Notice::saveNew($this->user->id,
+                              $content,
+                              $this->source,
+                              $options);
 
             if (isset($upload)) {
                 $upload->attachToNotice($this->notice);
