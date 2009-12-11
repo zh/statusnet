@@ -214,6 +214,20 @@ class ApiAction extends Action
 
     function twitterStatusArray($notice, $include_user=true)
     {
+        $base = $this->twitterSimpleStatusArray($notice, $include_user);
+
+        if (empty($notice->repeat_of)) {
+            return $base;
+        } else {
+            $original = Notice::staticGet('id', $notice->repeat_of);
+            $original_array = $this->twitterSimpleStatusArray($original, $include_user);
+            $original_array['retweeted_status'] = $base;
+            return $original_array;
+        }
+    }
+
+    function twitterSimpleStatusArray($notice, $include_user=true)
+    {
         $profile = $notice->getProfile();
 
         $twitter_status = array();
@@ -446,9 +460,9 @@ class ApiAction extends Action
         }
     }
 
-    function showTwitterXmlStatus($twitter_status)
+    function showTwitterXmlStatus($twitter_status, $tag='status')
     {
-        $this->elementStart('status');
+        $this->elementStart($tag);
         foreach($twitter_status as $element => $value) {
             switch ($element) {
             case 'user':
@@ -463,11 +477,14 @@ class ApiAction extends Action
             case 'geo':
                 $this->showGeoRSS($value);
                 break;
+            case 'retweeted_status':
+                $this->showTwitterXmlStatus($value, 'retweeted_status');
+                break;
             default:
                 $this->element($element, null, $value);
             }
         }
-        $this->elementEnd('status');
+        $this->elementEnd($tag);
     }
 
     function showTwitterXmlGroup($twitter_group)
