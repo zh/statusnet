@@ -212,6 +212,7 @@ class NoticeListItem extends Widget
             $this->out->elementStart('div', 'notice-options');
             $this->showFaveForm();
             $this->showReplyLink();
+            $this->showRepeatForm();
             $this->showDeleteLink();
             $this->out->elementEnd('div');
         }
@@ -548,6 +549,26 @@ class NoticeListItem extends Widget
             $this->out->element('a', array('href' => $deleteurl,
                                            'class' => 'notice_delete',
                                            'title' => _('Delete this notice')), _('Delete'));
+        }
+    }
+
+    /**
+     * show the form to repeat a notice
+     *
+     * @return void
+     */
+
+    function showRepeatForm()
+    {
+        $user = common_current_user();
+        if ($user && $user->id != $this->notice->profile_id) {
+            $profile = $user->getProfile();
+            if ($profile->hasRepeated($this->notice->id)) {
+                $this->out->text(_('Repeated'));
+            } else {
+                $rf = new RepeatForm($this->out, $this->notice);
+                $rf->show();
+            }
         }
     }
 
