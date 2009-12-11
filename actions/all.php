@@ -167,5 +167,4 @@ class AllAction extends ProfileAction
             $this->element('h1', null, sprintf(_('%s and friends'), $this->user->nickname));
         }
     }
-
 }

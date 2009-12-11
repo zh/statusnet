@@ -30,8 +30,7 @@ border-radius:4px;
 input, textarea, select, option {
 font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
-input, textarea, select,
-.entity_remote_subscribe {
+input, textarea, select {
 border-color:#AAAAAA;
 }
 
@@ -56,15 +55,12 @@ background:none;
 }
 
 .form_notice.warning #notice_text-count,
-.form_settings .form_note,
-.entity_remote_subscribe,
-.entity_actions .form_notice input.submit {
+.form_settings .form_note {
 background-color:#9BB43E;
 }
 input.submit,
 .form_notice.warning #notice_text-count,
 .form_settings .form_note,
-.entity_remote_subscribe,
 .entity_actions a,
 .entity_actions input,
 .entity_moderation p,
@@ -82,16 +78,18 @@ background-color:transparent;
 input:focus, textarea:focus, select:focus,
 .form_notice.warning #notice_data-text,
 .form_notice.warning #notice_text-count,
-.form_settings .form_note,
-.entity_remote_subscribe {
+.form_settings .form_note {
 border-color:#9BB43E;
 }
-input.submit,
-.entity_remote_subscribe,
-.entity_actions .form_notice input.submit {
+input.submit {
 color:#FFFFFF;
 }
-input.submit {
+.entity_actions input.submit {
+border-color:transparent;
+text-shadow:none;
+}
+input.submit,
+.form_notice input.submit {
 background:#AAAAAA url(../../base/images/illustrations/illu_pattern-01.png) 0 0 repeat-x;
 text-shadow:0 1px 0 #FFFFFF;
 color:#000000;
@@ -107,9 +105,6 @@ background-position:0 -15px;
 box-shadow:3px 3px 3px rgba(194, 194, 194, 0.1);
 -moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.1);
 -webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.1);
-text-shadow:none;
-}
-.entity_actions input.submit {
 text-shadow:none;
 }
 

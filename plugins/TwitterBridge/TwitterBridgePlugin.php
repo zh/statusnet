@@ -86,8 +86,8 @@ class TwitterBridgePlugin extends Plugin
         $action_name = $action->trimmed('action');
 
         $action->menuItem(common_local_url('twittersettings'),
-                          _('Twitter'),
-                          _('Twitter integration options'),
+                          _m('Twitter'),
+                          _m('Twitter integration options'),
                           $action_name === 'twittersettings');
 
         return true;

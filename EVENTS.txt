@@ -290,6 +290,18 @@ StartRegistrationTry: before validating and saving a new user
 EndRegistrationTry: after saving a new user (note: no profile or user object!)
 - $action: action object being shown
 
+StartAvatarFormData: before displaying avatar form
+- $action: action object being shown
+
+EndAvatarFormData: after displaying avatar form
+- $action: action object being shown
+
+StartAvatarSaveForm: before saving the avatar
+- $action: action object being shown
+
+EndAvatarSaveForm: after saving the avatar
+- $action: action object being shown
+
 StartNewQueueManager: before trying to start a new queue manager; good for plugins implementing new queue manager classes
 - $qm: empty queue manager to set
 

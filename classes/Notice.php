@@ -788,10 +788,24 @@ class Notice extends Memcached_DataObject
                 return $notice;
             }
             $notice->whereAdd('id in (' . implode(', ', $ids) . ')');
-            $notice->orderBy('id DESC');
 
             $notice->find();
-            return $notice;
+
+            $temp = array();
+
+            while ($notice->fetch()) {
+                $temp[$notice->id] = clone($notice);
+            }
+
+            $wrapped = array();
+
+            foreach ($ids as $id) {
+                if (array_key_exists($id, $temp)) {
+                    $wrapped[] = $temp[$id];
+                }
+            }
+
+            return new ArrayWrapper($wrapped);
         }
     }
 
@@ -948,39 +962,7 @@ class Notice extends Memcached_DataObject
             }
         }
 
-        $cnt = 0;
-
-        $qryhdr = 'INSERT INTO notice_inbox (user_id, notice_id, source, created) VALUES ';
-        $qry = $qryhdr;
-
-        foreach ($ni as $id => $source) {
-            if ($cnt > 0) {
-                $qry .= ', ';
-            }
-            $qry .= '('.$id.', '.$this->id.', '.$source.", '".$this->created. "') ";
-            $cnt++;
-            if (rand() % NOTICE_INBOX_SOFT_LIMIT == 0) {
-                // FIXME: Causes lag in replicated servers
-                // Notice_inbox::gc($id);
-            }
-            if ($cnt >= MAX_BOXCARS) {
-                $inbox = new Notice_inbox();
-                $result = $inbox->query($qry);
-                if (PEAR::isError($result)) {
-                    common_log_db_error($inbox, $qry);
-                }
-                $qry = $qryhdr;
-                $cnt = 0;
-            }
-        }
-
-        if ($cnt > 0) {
-            $inbox = new Notice_inbox();
-            $result = $inbox->query($qry);
-            if (PEAR::isError($result)) {
-                common_log_db_error($inbox, $qry);
-            }
-        }
+        Notice_inbox::bulkInsert($this->id, $this->created, $ni);
 
         return;
     }

@@ -43,4 +43,19 @@ class User_username extends Memcached_DataObject
             return false;
         }
     }
+
+    function table() {
+        return array(
+            'user_id'     => DB_DATAOBJECT_INT,
+            'username'   => DB_DATAOBJECT_STR,
+            'provider_name'   => DB_DATAOBJECT_STR ,
+            'created'   => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME
+        );
+    }
+
+    // now define the keys.
+    function keys() {
+        return array('provider_name', 'username');
+    }
+
 }

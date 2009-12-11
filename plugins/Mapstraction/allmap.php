@@ -68,10 +68,10 @@ class AllmapAction extends MapAction
         }
 
         if ($this->page == 1) {
-            return sprintf(_("%s friends map"),
+            return sprintf(_m("%s friends map"),
                            $base);
         } else {
-            return sprintf(_("%s friends map, page %d"),
+            return sprintf(_m("%s friends map, page %d"),
                            $base,
                            $this->page);
         }

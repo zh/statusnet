@@ -112,7 +112,6 @@ border-style:solid;
 line-height:0;
 }
 
-
 .form_settings input.remove {
 margin-left:11px;
 }
@@ -245,7 +244,6 @@ margin-left:11px;
 #form_search .form_data input {
 width:auto;
 }
-
 
 address {
 float:left;
@@ -672,8 +670,7 @@ display:block;
 text-align:left;
 width:100%;
 }
-.entity_actions a,
-.entity_remote_subscribe {
+.entity_actions a {
 text-decoration:none;
 font-weight:bold;
 display:block;
@@ -688,7 +685,8 @@ border-radius:4px;
 .entity_actions a,
 .entity_actions input,
 .entity_actions p {
-border:0;
+border-width:2px;
+border-style:solid;
 padding-left:23px;
 }
 
@@ -697,18 +695,9 @@ padding-left:23px;
 padding:2px 4px 1px 26px;
 }
 
-.entity_remote_subscribe {
-padding:4px;
-border-width:2px;
-border-style:solid;
-border-radius:4px;
--moz-border-radius:4px;
--webkit-border-radius:4px;
-}
 .entity_actions .accept {
 margin-bottom:18px;
 }
-
 
 .entity_send-a-message button {
 position:absolute;

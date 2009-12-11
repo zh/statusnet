@@ -120,8 +120,8 @@ class OpenIDPlugin extends Plugin
         $action_name = $action->trimmed('action');
 
         $action->menuItem(common_local_url('openidlogin'),
-                          _('OpenID'),
-                          _('Login or register with OpenID'),
+                          _m('OpenID'),
+                          _m('Login or register with OpenID'),
                           $action_name === 'openidlogin');
 
         return true;
@@ -132,8 +132,8 @@ class OpenIDPlugin extends Plugin
         $action_name = $action->trimmed('action');
 
         $action->menuItem(common_local_url('openidsettings'),
-                          _('OpenID'),
-                          _('Add or remove OpenIDs'),
+                          _m('OpenID'),
+                          _m('Add or remove OpenIDs'),
                           $action_name === 'openidsettings');
 
         return true;
