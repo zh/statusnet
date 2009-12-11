@@ -994,11 +994,13 @@ float:left;
 }
 .notice-options .notice_delete,
 .notice-options .notice_reply,
+.notice-options .form_forward,
 .notice-options .form_favor,
 .notice-options .form_disfavor {
 float:left;
 margin-left:20%;
 }
+.notice-options .form_forward,
 .notice-options .form_favor,
 .notice-options .form_disfavor {
 margin-left:0;
@@ -1024,10 +1026,12 @@ border-radius:0;
 -moz-border-radius:0;
 -webkit-border-radius:0;
 }
+.notice-options .form_forward legend,
 .notice-options .form_favor legend,
 .notice-options .form_disfavor legend {
 display:none;
 }
+.notice-options .form_forward fieldset,
 .notice-options .form_favor fieldset,
 .notice-options .form_disfavor fieldset {
 border:0;
