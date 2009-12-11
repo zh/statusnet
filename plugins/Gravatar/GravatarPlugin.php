@@ -92,11 +92,23 @@ class GravatarPlugin extends Plugin
     function onStartAvatarSaveForm($action) {
         if ($action->arg('add')) {
             $result = $this->gravatar_save();
+
+            if($result['success']===true) {
+                common_broadcast_profile(common_current_user()->getProfile());
+            }
+
             $action->showForm($result['message'], $result['success']);
+
             return false;
         } else if ($action->arg('remove')) {
             $result = $this->gravatar_remove();
+
+            if($result['success']===true) {
+                common_broadcast_profile(common_current_user()->getProfile());
+            }
+
             $action->showForm($result['message'], $result['success']);
+
             return false;
         } else {
             return true;
