@@ -99,6 +99,7 @@ class Router
                           'groupblock', 'groupunblock',
                           'sandbox', 'unsandbox',
                           'silence', 'unsilence',
+                          'repeat',
                           'deleteuser');
 
             foreach ($main as $a) {

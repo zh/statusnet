@@ -236,7 +236,14 @@ class Notice extends Memcached_DataObject
         $notice->source = $source;
         $notice->uri = $uri;
 
-        $notice->reply_to = self::getReplyTo($reply_to, $profile_id, $source, $final);
+        // Handle repeat case
+
+        if (isset($repeat_of)) {
+            $notice->repeat_of = $repeat_of;
+            $notice->reply_to = $repeat_of;
+        } else {
+            $notice->reply_to = self::getReplyTo($reply_to, $profile_id, $source, $final);
+        }
 
         if (!empty($notice->reply_to)) {
             $reply = Notice::staticGet('id', $notice->reply_to);
@@ -1433,5 +1440,19 @@ class Notice extends Memcached_DataObject
         }
 
         return $location;
+    }
+
+    function repeat($repeater_id, $source)
+    {
+        $author = Profile::staticGet('id', $this->profile_id);
+
+        // FIXME: truncate on long repeats...?
+
+        $content = sprintf(_('RT @%1$s %2$s'),
+                           $author->nickname,
+                           $this->content);
+
+        return self::saveNew($repeater_id, $content, $source,
+                             array('repeat_of' => $this->id));
     }
 }
