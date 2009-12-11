@@ -315,6 +315,10 @@ var SN = { // StatusNet
             $('.form_disfavor').each(function() { SN.U.FormXHR($(this)); });
         },
 
+        NoticeForward: function() {
+            $('.form_forward').each(function() { SN.U.FormXHR($(this)); });
+        },
+
         NoticeAttachments: function() {
             $('.notice a.attachment').each(function() {
                 SN.U.NoticeWithAttachment($(this).closest('.notice'));
@@ -448,6 +452,7 @@ var SN = { // StatusNet
         Notices: function() {
             if ($('body.user_in').length > 0) {
                 SN.U.NoticeFavor();
+                SN.U.NoticeForward();
                 SN.U.NoticeReply();
             }
 
