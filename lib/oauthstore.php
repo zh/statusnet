@@ -359,9 +359,8 @@ class StatusNetOAuthDataStore extends OAuthDataStore
         $notice = Notice::saveNew($author->id,
                                   $omb_notice->getContent(),
                                   'omb',
-                                  false,
-                                  null,
-                                  $omb_notice->getIdentifierURI());
+                                  array('is_local' => Notice::REMOTE_OMB,
+                                        'uri' => $omb_notice->getIdentifierURI()));
 
         common_broadcast_notice($notice, true);
     }

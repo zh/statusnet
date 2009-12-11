@@ -169,9 +169,18 @@ class Notice extends Memcached_DataObject
         }
     }
 
-    static function saveNew($profile_id, $content, $source=null,
-                            $is_local=Notice::LOCAL_PUBLIC, $reply_to=null, $uri=null, $created=null,
-                            $lat=null, $lon=null, $location_id=null, $location_ns=null) {
+    static function saveNew($profile_id, $content, $source, $options=null) {
+
+        if (!empty($options)) {
+            extract($options);
+            if (!isset($reply_to)) {
+                $reply_to = NULL;
+            }
+        }
+
+        if (empty($is_local)) {
+            $is_local = Notice::LOCAL_PUBLIC;
+        }
 
         $profile = Profile::staticGet($profile_id);
 
