@@ -741,4 +741,56 @@ class User extends Memcached_DataObject
         $profile = $this->getProfile();
         return $profile->isSilenced();
     }
+
+    function repeatedByMe($offset=0, $limit=20, $since_id=null, $max_id=null)
+    {
+        $ids = Notice::stream(array($this, '_repeatedByMeDirect'),
+                              array(),
+                              'user:repeated_by_me:'.$this->id,
+                              $offset, $limit, $since_id, $max_id, null);
+
+        return Notice::getStreamByIds($ids);
+    }
+
+    function _repeatedByMeDirect($offset, $limit, $since_id, $max_id, $since)
+    {
+        $notice = new Notice();
+
+        $notice->selectAdd(); // clears it
+        $notice->selectAdd('id');
+
+        $notice->profile_id = $this->id;
+        $notice->whereAdd('repeat_of IS NOT NULL');
+
+        $notice->orderBy('id DESC');
+
+        if (!is_null($offset)) {
+            $notice->limit($offset, $limit);
+        }
+
+        if ($since_id != 0) {
+            $notice->whereAdd('id > ' . $since_id);
+        }
+
+        if ($max_id != 0) {
+            $notice->whereAdd('id <= ' . $max_id);
+        }
+
+        if (!is_null($since)) {
+            $notice->whereAdd('created > \'' . date('Y-m-d H:i:s', $since) . '\'');
+        }
+
+        $ids = array();
+
+        if ($notice->find()) {
+            while ($notice->fetch()) {
+                $ids[] = $notice->id;
+            }
+        }
+
+        $notice->free();
+        $notice = NULL;
+
+        return $ids;
+    }
 }

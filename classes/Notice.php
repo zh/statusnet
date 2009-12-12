@@ -454,6 +454,15 @@ class Notice extends Memcached_DataObject
                 // XXX: only blow if <100 in cache
                 $ck = common_cache_key('notice:repeats:'.$this->repeat_of);
                 $result = $cache->delete($ck);
+
+                $user = User::staticGet('id', $this->profile_id);
+
+                if (!empty($user)) {
+                    $uk = common_cache_key('user:repeated_by_me:'.$user->id);
+                    $cache->delete($uk);
+                    $user->free();
+                    unset($user);
+                }
             }
         }
     }
