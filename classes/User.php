@@ -793,4 +793,57 @@ class User extends Memcached_DataObject
 
         return $ids;
     }
+
+    function repeatsOfMe($offset=0, $limit=20, $since_id=null, $max_id=null)
+    {
+        $ids = Notice::stream(array($this, '_repeatsOfMeDirect'),
+                              array(),
+                              'user:repeats_of_me:'.$this->id,
+                              $offset, $limit, $since_id, $max_id, null);
+
+        return Notice::getStreamByIds($ids);
+    }
+
+    function _repeatsOfMeDirect($offset, $limit, $since_id, $max_id, $since)
+    {
+        $qry =
+          'SELECT DISTINCT original.id AS id ' .
+          'FROM notice original JOIN notice rept ON original.id = rept.repeat_of ' .
+          'WHERE original.profile_id = ' . $this->id . ' ';
+
+        if ($since_id != 0) {
+            $qry .= 'AND original.id > ' . $since_id . ' ';
+        }
+
+        if ($max_id != 0) {
+            $qry .= 'AND original.id <= ' . $max_id . ' ';
+        }
+
+        if (!is_null($since)) {
+            $qry .= 'AND original.modified > \'' . date('Y-m-d H:i:s', $since) . '\' ';
+        }
+
+        // NOTE: we sort by fave time, not by notice time!
+
+        $qry .= 'ORDER BY original.id DESC ';
+
+        if (!is_null($offset)) {
+            $qry .= "LIMIT $limit OFFSET $offset";
+        }
+
+        $ids = array();
+
+        $notice = new Notice();
+
+        $notice->query($qry);
+
+        while ($notice->fetch()) {
+            $ids[] = $notice->id;
+        }
+
+        $notice->free();
+        $notice = NULL;
+
+        return $ids;
+    }
 }

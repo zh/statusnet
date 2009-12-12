@@ -463,6 +463,20 @@ class Notice extends Memcached_DataObject
                     $user->free();
                     unset($user);
                 }
+
+                $original = Notice::staticGet('id', $this->repeat_of);
+
+                if (!empty($original)) {
+                    $originalUser = User::staticGet('id', $original->profile_id);
+                    if (!empty($originalUser)) {
+                        $ouk = common_cache_key('user:repeats_of_me:'.$originalUser->id);
+                        $cache->delete($ouk);
+                        $originalUser->free();
+                        unset($originalUser);
+                    }
+                    $original->free();
+                    unset($original);
+                }
             }
         }
     }
