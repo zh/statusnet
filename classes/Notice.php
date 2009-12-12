@@ -441,8 +441,21 @@ class Notice extends Memcached_DataObject
         $this->blowTagCache($blowLast);
         $this->blowGroupCache($blowLast);
         $this->blowConversationCache($blowLast);
+        $this->blowRepeatCache();
         $profile = Profile::staticGet($this->profile_id);
         $profile->blowNoticeCount();
+    }
+
+    function blowRepeatCache()
+    {
+        if (!empty($this->repeat_of)) {
+            $cache = common_memcache();
+            if (!empty($cache)) {
+                // XXX: only blow if <100 in cache
+                $ck = common_cache_key('notice:repeats:'.$this->repeat_of);
+                $result = $cache->delete($ck);
+            }
+        }
     }
 
     function blowConversationCache($blowLast=false)
@@ -1454,5 +1467,59 @@ class Notice extends Memcached_DataObject
 
         return self::saveNew($repeater_id, $content, $source,
                              array('repeat_of' => $this->id));
+    }
+
+    // These are supposed to be in chron order!
+
+    function repeatStream($limit=100)
+    {
+        $cache = common_memcache();
+
+        if (empty($cache)) {
+            $ids = $this->_repeatStreamDirect($limit);
+        } else {
+            $idstr = $cache->get(common_cache_key('notice:repeats:'.$this->id));
+            if (!empty($idstr)) {
+                $ids = explode(',', $idstr);
+            } else {
+                $ids = $this->_repeatStreamDirect(100);
+                $cache->set(common_cache_key('notice:repeats:'.$this->id), implode(',', $ids));
+            }
+            if ($limit < 100) {
+                // We do a max of 100, so slice down to limit
+                $ids = array_slice($ids, 0, $limit);
+            }
+        }
+
+        return Notice::getStreamByIds($ids);
+    }
+
+    function _repeatStreamDirect($limit)
+    {
+        $notice = new Notice();
+
+        $notice->selectAdd(); // clears it
+        $notice->selectAdd('id');
+
+        $notice->repeat_of = $this->id;
+
+        $notice->orderBy('created'); // NB: asc!
+
+        if (!is_null($offset)) {
+            $notice->limit($offset, $limit);
+        }
+
+        $ids = array();
+
+        if ($notice->find()) {
+            while ($notice->fetch()) {
+                $ids[] = $notice->id;
+            }
+        }
+
+        $notice->free();
+        $notice = NULL;
+
+        return $ids;
     }
 }

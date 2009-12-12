@@ -364,6 +364,11 @@ class Router
                               'id' => '[0-9]+',
                               'format' => '(xml|json)'));
 
+            $m->connect('api/statuses/retweets/:id.:format',
+                        array('action' => 'ApiStatusesRetweets',
+                              'id' => '[0-9]+',
+                              'format' => '(xml|json)'));
+
             // users
 
             $m->connect('api/users/show.:format',
