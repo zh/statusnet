@@ -32,6 +32,16 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
+/**
+ * Action class to handle RSSCloud notification (subscription) requests
+ *
+ * @category Plugin
+ * @package  StatusNet
+ * @author   Zach Copley <zach@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://status.net/
+ **/
+
 class RSSCloudRequestNotifyAction extends Action
 {
     /**
@@ -41,6 +51,7 @@ class RSSCloudRequestNotifyAction extends Action
      *
      * @return boolean false if user doesn't exist
      */
+
     function prepare($args)
     {
         parent::prepare($args);
@@ -61,6 +72,18 @@ class RSSCloudRequestNotifyAction extends Action
 
         return true;
     }
+
+    /**
+     * Handle the request
+     *
+     * Checks for all the required parameters for a subscription,
+     * validates that the feed being subscribed to is real, and then
+     * saves the subsctiption.
+     *
+     * @param array $args $_REQUEST data (unused)
+     *
+     * @return void
+     */
 
     function handle($args)
     {
@@ -137,6 +160,15 @@ class RSSCloudRequestNotifyAction extends Action
         $this->showResult(true, $msg);
     }
 
+    /**
+     * Validate that the requested feed is one we serve
+     * up via RSSCloud.
+     *
+     * @param string $feed the feed in question
+     *
+     * @return void
+     */
+
     function validateFeed($feed)
     {
         $user = $this->userFromFeed($feed);
@@ -147,6 +179,13 @@ class RSSCloudRequestNotifyAction extends Action
 
         return true;
     }
+
+    /**
+     * Pull all of the urls (url1, url2, url3...urlN) that
+     * the subscriber wants to subscribe to.
+     *
+     * @return array $feeds the list of feeds
+     */
 
     function getFeeds()
     {
@@ -160,6 +199,15 @@ class RSSCloudRequestNotifyAction extends Action
 
         return $feeds;
     }
+
+    /**
+     * Test that a notification handler is there and is reponding
+     * correctly.  This is called before adding a subscription.
+     *
+     * @param string $feed the feed to verify
+     *
+     * @return boolean success result
+     */
 
     function testNotificationHandler($feed)
     {
@@ -185,6 +233,13 @@ class RSSCloudRequestNotifyAction extends Action
         }
     }
 
+    /**
+     * Build the URL for the notification handler based on the
+     * parameters passed in with the subscription request.
+     *
+     * @return string notification handler url
+     */
+
     function getNotifyUrl()
     {
         if (isset($this->domain)) {
@@ -194,11 +249,19 @@ class RSSCloudRequestNotifyAction extends Action
         }
      }
 
+    /**
+     * Uses the nickname part of the subscribed feed URL to figure out
+     * whethere there's really a user with such a feed.  Used to
+     * validate feeds before adding a subscription.
+     *
+     * @param string $feed the feed in question
+     *
+     * @return boolean success
+     */
+
     function userFromFeed($feed)
     {
         // We only do profile feeds
-
-        // XXX: Add cloud element to RSS 1.0 feeds?
 
         $path = common_path('api/statuses/user_timeline/');
         $valid = '%^' . $path . '(?<nickname>.*)\.rss$%';
@@ -212,6 +275,14 @@ class RSSCloudRequestNotifyAction extends Action
 
         return false;
     }
+
+    /**
+     * Save an RSSCloud subscription
+     *
+     * @param $feed a valid profile feed
+     *
+     * @return boolean success result
+     */
 
     function saveSubscription($feed)
     {
@@ -240,6 +311,16 @@ class RSSCloudRequestNotifyAction extends Action
 
         return true;
     }
+
+    /**
+     * Show an XML message indicating the subscription
+     * was successful or failed.
+     *
+     * @param boolean $success whether it was good or bad
+     * @param string  $msg     the message to output
+     *
+     * @return boolean success result
+     */
 
     function showResult($success, $msg)
     {

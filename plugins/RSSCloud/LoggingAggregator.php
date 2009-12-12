@@ -32,6 +32,19 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
+/**
+ * Dummy aggregator that acts as a proper notification handler. It
+ * doesn't do anything but respond correctly when notified via
+ * REST.  Mostly, this is just and action I used to develop the plugin
+ * and easily test things end-to-end. I'm leaving it in here as it
+ * may be useful for developing the plugin further.
+ *
+ * @category Plugin
+ * @package  StatusNet
+ * @author   Zach Copley <zach@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://status.net/
+ **/
 class LoggingAggregatorAction extends Action
 {
 
@@ -45,6 +58,7 @@ class LoggingAggregatorAction extends Action
      *
      * @return boolean false if user doesn't exist
      */
+
     function prepare($args)
     {
         parent::prepare($args);
@@ -57,6 +71,14 @@ class LoggingAggregatorAction extends Action
 
         return true;
     }
+
+    /**
+     * Handle the request
+     *
+     * @param array $args $_REQUEST data (unused)
+     *
+     * @return void
+     */
 
     function handle($args)
     {
@@ -97,6 +119,14 @@ class LoggingAggregatorAction extends Action
         common_log(LOG_INFO, 'RSSCloud Logging Aggregator - ' . $this->ip . ' claims the feed at ' .
                    $this->url . ' has been updated.');
     }
+
+    /**
+     * Show an XML error when things go badly
+     *
+     * @param string $msg the error message
+     *
+     * @return void
+     */
 
     function showError($msg)
     {

@@ -31,14 +31,34 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-define('RSSCLOUDPLUGIN_VERSION', '0.1');
+/**
+ * Plugin class for adding RSSCloud capabilities to StatusNet
+ *
+ * @category Plugin
+ * @package  StatusNet
+ * @author   Zach Copley <zach@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://status.net/
+ **/
 
 class RSSCloudPlugin extends Plugin
 {
+    /**
+     * Our friend, the constructor
+     *
+     * @return void
+     */
     function __construct()
     {
         parent::__construct();
     }
+
+    /**
+     * Setup the info for the subscription handler. Allow overriding
+     * to point at another cloud hub (not currently used).
+     *
+     * @return void
+     */
 
     function onInitializePlugin()
     {
@@ -91,6 +111,16 @@ class RSSCloudPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Automatically load the actions and libraries used by
+     * the RSSCloud plugin
+     *
+     * @param Class $cls the class
+     *
+     * @return boolean hook return
+     *
+     */
+
     function onAutoload($cls)
     {
         switch ($cls)
@@ -110,10 +140,17 @@ class RSSCloudPlugin extends Plugin
         }
     }
 
+    /**
+     * Add a <cloud> element to the RSS feed (after the rss <channel>
+     * element is started).
+     *
+     * @param Action $action
+     *
+     * @return void
+     */
+
     function onStartApiRss($action)
     {
-        // XXX: Add RSS 1.0 user feeds
-
         if (get_class($action) == 'ApiTimelineUserAction') {
 
             $attrs = array('domain'            => $this->domain,
@@ -141,6 +178,7 @@ class RSSCloudPlugin extends Plugin
      *
      * @return boolean hook return
      */
+
     function onStartEnqueueNotice($notice, &$transports)
     {
         array_push($transports, 'rsscloud');
@@ -155,6 +193,7 @@ class RSSCloudPlugin extends Plugin
      *
      * @return boolean hook return
      */
+
     function onUnqueueHandleNotice(&$notice, $queue)
     {
         if (($queue == 'rsscloud') && ($this->_isLocal($notice))) {
@@ -179,11 +218,19 @@ class RSSCloudPlugin extends Plugin
      *
      * @return boolean locality
      */
+
     function _isLocal($notice)
     {
         return ($notice->is_local == Notice::LOCAL_PUBLIC ||
                 $notice->is_local == Notice::LOCAL_NONPUBLIC);
     }
+
+    /**
+     * Create the rsscloud_subscription table if it's not
+     * already in the DB
+     *
+     * @return boolean hook return
+     */
 
     function onCheckSchema() {
         $schema = Schema::get();
@@ -204,6 +251,16 @@ class RSSCloudPlugin extends Plugin
                             );
          return true;
     }
+
+    /**
+     * Add RSSCloudQueueHandler to the list of valid daemons to
+     * start
+     *
+     * @param array $daemons the list of daemons to run
+     *
+     * @return boolean hook return
+     *
+     */
 
     function onGetValidDaemons($daemons)
     {

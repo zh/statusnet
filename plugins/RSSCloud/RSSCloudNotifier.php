@@ -31,10 +31,29 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
+/**
+ * Class for notifying cloud-enabled RSS aggregators that StatusNet
+ * feeds have been updated.
+ *
+ * @category Plugin
+ * @package  StatusNet
+ * @author   Zach Copley <zach@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://status.net/
+ **/
 class RSSCloudNotifier {
 
     const MAX_FAILURES = 3;
 
+    /**
+     * Send an HTTP GET to the notification handler with a
+     * challenge string to see if it repsonds correctly.
+     *
+     * @param String  $endpoint URL of the notification handler
+     * @param String  $feed     the feed being subscribed to
+     *
+     * @return boolean success
+     */
     function challenge($endpoint, $feed)
     {
         $code   = common_confirmation_code(128);
@@ -60,7 +79,7 @@ class RSSCloudNotifier {
             // NOTE: the spec says that the body must contain the string
             // challenge.  It doesn't say that the body must contain the
             // challenge string ONLY, although that seems to be the way
-            // the other implementations have interpreted it.
+            // the other implementors have interpreted it.
 
             if (strpos($body, $code) !== false) {
                 common_log(LOG_INFO, 'RSSCloud plugin - ' .
@@ -82,6 +101,15 @@ class RSSCloudNotifier {
         }
     }
 
+    /**
+     * HTTP POST a notification that a feed has been updated
+     * ('ping the cloud').
+     *
+     * @param String  $endpoint URL of the notification handler
+     * @param String  $feed     the feed being subscribed to
+     *
+     * @return boolean success
+     */
     function postUpdate($endpoint, $feed) {
 
         $headers  = array();
@@ -111,6 +139,14 @@ class RSSCloudNotifier {
         }
     }
 
+    /**
+     * Notify all subscribers to a profile feed that it has changed.
+     *
+     * @param Profile $profile the profile whose feed has been
+     *        updated
+     *
+     * @return boolean success
+     */
     function notify($profile)
     {
         $feed = common_path('api/statuses/user_timeline/') .
@@ -131,6 +167,18 @@ class RSSCloudNotifier {
         return true;
     }
 
+    /**
+     * Handle problems posting cloud notifications. Increment the failure
+     * count, or delete the subscription if the maximum number of failures
+     * is exceeded.
+     *
+     * XXX: Redo with proper DB_DataObject methods once I figure out what
+     * what the problem is with pluginized DB_DataObjects. -Z
+     *
+     * @param RSSCloudSubscription $cloudSub the subscription in question
+     *
+     * @return boolean success
+     */
     function handleFailure($cloudSub)
     {
         $failCnt = $cloudSub->failures + 1;
@@ -171,8 +219,6 @@ class RSSCloudNotifier {
               ' SET failures = ' . $failCnt .
               ' WHERE subscribed = ' . $cloudSub->subscribed .
               ' AND url = \'' . $cloudSub->url . '\'';
-
-            common_debug($qry);
 
             $result = $cloudSub->query($qry);
 
