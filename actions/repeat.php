@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Forward action.
+ * Repeat action.
  *
  * PHP version 5
  *
@@ -33,7 +33,7 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * Forward action
+ * Repeat action
  *
  * @category Action
  * @package  StatusNet
@@ -42,7 +42,7 @@ if (!defined('STATUSNET')) {
  * @link     http://status.net/
  */
 
-class ForwardAction extends Action
+class RepeatAction extends Action
 {
     var $user = null;
     var $notice = null;
@@ -54,7 +54,7 @@ class ForwardAction extends Action
         $this->user = common_current_user();
 
         if (empty($this->user)) {
-            $this->clientError(_("Only logged-in users can forward notices."));
+            $this->clientError(_("Only logged-in users can repeat notices."));
             return false;
         }
 
@@ -73,7 +73,7 @@ class ForwardAction extends Action
         }
 
         if ($this->user->id == $this->notice->profile_id) {
-            $this->clientError(_("You can't forward your own notice."));
+            $this->clientError(_("You can't repeat your own notice."));
             return false;
         }
 
@@ -86,8 +86,8 @@ class ForwardAction extends Action
 
         $profile = $this->user->getProfile();
 
-        if ($profile->hasForwarded($id)) {
-            $this->clientError(_("You already forwarded that notice."));
+        if ($profile->hasRepeated($id)) {
+            $this->clientError(_("You already repeated that notice."));
             return false;
         }
 
@@ -104,15 +104,15 @@ class ForwardAction extends Action
 
     function handle($args)
     {
-        $forward = Forward::saveNew($this->user->id, $this->notice->id);
+        $repeat = $this->notice->repeat($this->user->id, 'web');
 
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
-            $this->element('title', null, _('Forwarded'));
+            $this->element('title', null, _('Repeated'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            $this->element('p', array('id' => 'forward_response'), _('Forwarded!'));
+            $this->element('p', array('id' => 'repeat_response'), _('Repeated!'));
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {

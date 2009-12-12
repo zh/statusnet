@@ -129,11 +129,13 @@ create table notice (
     lon decimal(10,7) comment 'longitude',
     location_id integer comment 'location id if possible',
     location_ns integer comment 'namespace for location',
+    repeat_of integer comment 'notice this is a repeat of' references notice (id),
 
     index notice_profile_id_idx (profile_id,created,id),
     index notice_conversation_idx (conversation),
     index notice_created_idx (created),
     index notice_replyto_idx (reply_to),
+    index notice_repeatof_idx (repeat_of),
     FULLTEXT(content)
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
@@ -583,16 +585,5 @@ create table login_token (
     modified timestamp comment 'date this record was modified',
 
     constraint primary key (user_id)
-) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
-
-create table forward (
-
-    profile_id integer not null comment 'profile who forwarded the notice' references profile (id),
-    notice_id integer not null comment 'notice they forwarded' references notice (id),
-
-    created datetime not null comment 'date this record was created',
-
-    constraint primary key (profile_id, notice_id)
-
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 

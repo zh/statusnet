@@ -147,6 +147,10 @@ class NoticeListItem extends Widget
 
     var $notice = null;
 
+    /** The notice that was repeated. */
+
+    var $repeat = null;
+
     /** The profile of the author of the notice, extracted once for convenience. */
 
     var $profile = null;
@@ -162,8 +166,18 @@ class NoticeListItem extends Widget
     function __construct($notice, $out=null)
     {
         parent::__construct($out);
-        $this->notice  = $notice;
-        $this->profile = $notice->getProfile();
+        if (!empty($notice->repeat_of)) {
+            $original = Notice::staticGet('id', $notice->repeat_of);
+            if (empty($original)) { // could have been deleted
+                $this->notice = $notice;
+            } else {
+                $this->notice = $original;
+                $this->repeat = $notice;
+            }
+        } else {
+            $this->notice  = $notice;
+        }
+        $this->profile = $this->notice->getProfile();
     }
 
     /**
@@ -202,6 +216,7 @@ class NoticeListItem extends Widget
         $this->showNoticeSource();
         $this->showNoticeLocation();
         $this->showContext();
+        $this->showRepeat();
         $this->out->elementEnd('div');
     }
 
@@ -212,7 +227,7 @@ class NoticeListItem extends Widget
             $this->out->elementStart('div', 'notice-options');
             $this->showFaveForm();
             $this->showReplyLink();
-            $this->showForwardForm();
+            $this->showRepeatForm();
             $this->showDeleteLink();
             $this->out->elementEnd('div');
         }
@@ -509,6 +524,52 @@ class NoticeListItem extends Widget
     }
 
     /**
+     * show a link to the author of repeat
+     *
+     * @return void
+     */
+
+    function showRepeat()
+    {
+        if (!empty($this->repeat)) {
+
+            $repeater = Profile::staticGet('id', $this->repeat->profile_id);
+
+            $attrs = array('href' => $repeater->profileurl,
+                           'class' => 'url');
+
+            if (!empty($repeater->fullname)) {
+                $attrs['title'] = $repeater->fullname . ' (' . $repeater->nickname . ')';
+            }
+
+            $this->out->elementStart('span', 'repeat');
+
+            $this->out->elementStart('a', $attrs);
+
+            $avatar = $repeater->getAvatar(AVATAR_MINI_SIZE);
+
+            $this->out->element('img', array('src' => ($avatar) ?
+                                             $avatar->displayUrl() :
+                                             Avatar::defaultImage(AVATAR_MINI_SIZE),
+                                             'class' => 'avatar photo',
+                                             'width' => AVATAR_MINI_SIZE,
+                                             'height' => AVATAR_MINI_SIZE,
+                                             'alt' =>
+                                             ($repeater->fullname) ?
+                                             $repeater->fullname :
+                                             $repeater->nickname));
+
+            $this->out->elementEnd('a');
+
+            $text_link = XMLStringer::estring('a', $attrs, $repeater->nickname);
+
+            $this->out->raw(sprintf(_('Repeated by %s'), $text_link));
+
+            $this->out->elementEnd('span');
+        }
+    }
+
+    /**
      * show a link to reply to the current notice
      *
      * Should either do the reply in the current notice form (if available), or
@@ -532,26 +593,6 @@ class NoticeListItem extends Widget
     }
 
     /**
-     * show the form to forward a notice
-     *
-     * @return void
-     */
-
-    function showForwardForm()
-    {
-        $user = common_current_user();
-        if ($user && $user->id != $this->notice->profile_id) {
-            $profile = $user->getProfile();
-            if ($profile->hasForwarded($this->notice->id)) {
-                $this->out->text(_('Forwarded'));
-            } else {
-                $ff = new ForwardForm($this->out, $this->notice);
-                $ff->show();
-            }
-        }
-    }
-
-    /**
      * if the user is the author, let them delete the notice
      *
      * @return void
@@ -569,6 +610,26 @@ class NoticeListItem extends Widget
             $this->out->element('a', array('href' => $deleteurl,
                                            'class' => 'notice_delete',
                                            'title' => _('Delete this notice')), _('Delete'));
+        }
+    }
+
+    /**
+     * show the form to repeat a notice
+     *
+     * @return void
+     */
+
+    function showRepeatForm()
+    {
+        $user = common_current_user();
+        if ($user && $user->id != $this->notice->profile_id) {
+            $profile = $user->getProfile();
+            if ($profile->hasRepeated($this->notice->id)) {
+                $this->out->text(_('Repeated'));
+            } else {
+                $rf = new RepeatForm($this->out, $this->notice);
+                $rf->show();
+            }
         }
     }
 

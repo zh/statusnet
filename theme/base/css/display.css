@@ -670,8 +670,7 @@ display:block;
 text-align:left;
 width:100%;
 }
-.entity_actions a,
-.entity_remote_subscribe {
+.entity_actions a {
 text-decoration:none;
 font-weight:bold;
 display:block;
@@ -686,7 +685,8 @@ border-radius:4px;
 .entity_actions a,
 .entity_actions input,
 .entity_actions p {
-border:0;
+border-width:2px;
+border-style:solid;
 padding-left:23px;
 }
 
@@ -695,14 +695,6 @@ padding-left:23px;
 padding:2px 4px 1px 26px;
 }
 
-.entity_remote_subscribe {
-padding:4px;
-border-width:2px;
-border-style:solid;
-border-radius:4px;
--moz-border-radius:4px;
--webkit-border-radius:4px;
-}
 .entity_actions .accept {
 margin-bottom:18px;
 }
@@ -1002,13 +994,13 @@ float:left;
 }
 .notice-options .notice_delete,
 .notice-options .notice_reply,
-.notice-options .form_forward,
+.notice-options .form_repeat,
 .notice-options .form_favor,
 .notice-options .form_disfavor {
 float:left;
 margin-left:20%;
 }
-.notice-options .form_forward,
+.notice-options .form_repeat,
 .notice-options .form_favor,
 .notice-options .form_disfavor {
 margin-left:0;
@@ -1034,12 +1026,12 @@ border-radius:0;
 -moz-border-radius:0;
 -webkit-border-radius:0;
 }
-.notice-options .form_forward legend,
+.notice-options .form_repeat legend,
 .notice-options .form_favor legend,
 .notice-options .form_disfavor legend {
 display:none;
 }
-.notice-options .form_forward fieldset,
+.notice-options .form_repeat fieldset,
 .notice-options .form_favor fieldset,
 .notice-options .form_disfavor fieldset {
 border:0;

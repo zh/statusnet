@@ -134,15 +134,17 @@ class ApiAction extends Action
         $twitter_user['protected'] = false; # not supported by StatusNet yet
         $twitter_user['followers_count'] = $profile->subscriberCount();
 
-        $user          = $profile->getUser();
         $design        = null;
+        $user          = $profile->getUser();
 
         // Note: some profiles don't have an associated user
 
-        $defaultDesign = Design::siteDesign();
-
         if (!empty($user)) {
             $design = $user->getDesign();
+        }
+
+        if (empty($design)) {
+            $design = Design::siteDesign();
         }
 
         $color = Design::toWebColor(empty($design->backgroundcolor) ? $defaultDesign->backgroundcolor : $design->backgroundcolor);
@@ -163,7 +165,7 @@ class ApiAction extends Action
 
         $timezone = 'UTC';
 
-        if (!empty($user) && !empty($user->timezone)) {
+        if ($user->timezone) {
             $timezone = $user->timezone;
         }
 
@@ -213,6 +215,20 @@ class ApiAction extends Action
     }
 
     function twitterStatusArray($notice, $include_user=true)
+    {
+        $base = $this->twitterSimpleStatusArray($notice, $include_user);
+
+        if (empty($notice->repeat_of)) {
+            return $base;
+        } else {
+            $original = Notice::staticGet('id', $notice->repeat_of);
+            $original_array = $this->twitterSimpleStatusArray($original, $include_user);
+            $original_array['retweeted_status'] = $base;
+            return $original_array;
+        }
+    }
+
+    function twitterSimpleStatusArray($notice, $include_user=true)
     {
         $profile = $notice->getProfile();
 
@@ -446,9 +462,9 @@ class ApiAction extends Action
         }
     }
 
-    function showTwitterXmlStatus($twitter_status)
+    function showTwitterXmlStatus($twitter_status, $tag='status')
     {
-        $this->elementStart('status');
+        $this->elementStart($tag);
         foreach($twitter_status as $element => $value) {
             switch ($element) {
             case 'user':
@@ -463,11 +479,14 @@ class ApiAction extends Action
             case 'geo':
                 $this->showGeoRSS($value);
                 break;
+            case 'retweeted_status':
+                $this->showTwitterXmlStatus($value, 'retweeted_status');
+                break;
             default:
                 $this->element($element, null, $value);
             }
         }
-        $this->elementEnd('status');
+        $this->elementEnd($tag);
     }
 
     function showTwitterXmlGroup($twitter_group)
@@ -586,7 +605,7 @@ class ApiAction extends Action
         $this->endDocument('xml');
     }
 
-    function showRssTimeline($notice, $title, $link, $subtitle, $suplink=null)
+    function showRssTimeline($notice, $title, $link, $subtitle, $suplink=null, $logo=null)
     {
 
         $this->initDocument('rss');
@@ -600,6 +619,15 @@ class ApiAction extends Action
                                          'href' => $suplink,
                                          'type' => 'application/json'));
         }
+
+        if (!is_null($logo)) {
+            $this->elementStart('image');
+            $this->element('link', null, $link);
+            $this->element('title', null, $title);
+            $this->element('url', null, $logo);
+            $this->elementEnd('image');
+        }
+
         $this->element('description', null, $subtitle);
         $this->element('language', null, 'en-us');
         $this->element('ttl', null, '40');
@@ -619,7 +647,7 @@ class ApiAction extends Action
         $this->endTwitterRss();
     }
 
-    function showAtomTimeline($notice, $title, $id, $link, $subtitle=null, $suplink=null, $selfuri=null)
+    function showAtomTimeline($notice, $title, $id, $link, $subtitle=null, $suplink=null, $selfuri=null, $logo=null)
     {
 
         $this->initDocument('atom');
@@ -627,6 +655,10 @@ class ApiAction extends Action
         $this->element('title', null, $title);
         $this->element('id', null, $id);
         $this->element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), null);
+
+        if (!is_null($logo)) {
+            $this->element('logo',null,$logo);
+        }
 
         if (!is_null($suplink)) {
             # For FriendFeed's SUP protocol

@@ -433,8 +433,9 @@ class ReplyCommand extends Command
             return;
         }
 
-        $notice = Notice::saveNew($this->user->id, $this->text, $channel->source(), 1,
-                                  $notice->id);
+        $notice = Notice::saveNew($this->user->id, $this->text, $channel->source(),
+                                  array('reply_to' => $notice->id));
+
         if ($notice) {
             $channel->output($this->user, sprintf(_('Reply to %s sent'), $recipient->nickname));
         } else {
@@ -584,7 +585,8 @@ class LoginCommand extends Command
     function execute($channel)
     {
         $disabled = common_config('logincommand','disabled');
-        if(isset($disabled)) {
+        $disabled = isset($disabled) && $disabled;
+        if($disabled) {
             $channel->error($this->user, _('Login command is disabled'));
             return;
         }

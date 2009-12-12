@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Form for forwarding a notice
+ * Form for repeating a notice
  *
  * PHP version 5
  *
@@ -27,14 +27,12 @@
  * @link      http://status.net/
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) {
+if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/form.php';
-
 /**
- * Form for forwarding a notice
+ * Form for repeating a notice
  *
  * @category Form
  * @package  StatusNet
@@ -43,10 +41,10 @@ require_once INSTALLDIR.'/lib/form.php';
  * @link     http://status.net/
  */
 
-class ForwardForm extends Form
+class RepeatForm extends Form
 {
     /**
-     * Notice to forward
+     * Notice to repeat
      */
 
     var $notice = null;
@@ -55,7 +53,7 @@ class ForwardForm extends Form
      * Constructor
      *
      * @param HTMLOutputter $out    output channel
-     * @param Notice        $notice notice to forward
+     * @param Notice        $notice notice to repeat
      */
 
     function __construct($out=null, $notice=null)
@@ -73,7 +71,7 @@ class ForwardForm extends Form
 
     function id()
     {
-        return 'forward-' . $this->notice->id;
+        return 'repeat-' . $this->notice->id;
     }
 
     /**
@@ -84,7 +82,7 @@ class ForwardForm extends Form
 
     function action()
     {
-        return common_local_url('forward');
+        return common_local_url('repeat');
     }
 
     /**
@@ -106,7 +104,7 @@ class ForwardForm extends Form
      */
     function formLegend()
     {
-        $this->out->element('legend', null, _('Forward this notice'));
+        $this->out->element('legend', null, _('Repeat this notice'));
     }
 
     /**
@@ -130,8 +128,8 @@ class ForwardForm extends Form
 
     function formActions()
     {
-        $this->out->submit('forward-submit-' . $this->notice->id,
-                           _('Forward'), 'submit', null, _('Forward this notice'));
+        $this->out->submit('repeat-submit-' . $this->notice->id,
+                           _('Repeat'), 'submit', null, _('Repeat this notice'));
     }
 
     /**
@@ -142,6 +140,6 @@ class ForwardForm extends Form
 
     function formClass()
     {
-        return 'form_forward';
+        return 'form_repeat';
     }
 }

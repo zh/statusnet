@@ -153,7 +153,7 @@ if (!function_exists('npgettext')) {
  */
 function _m($msg/*, ...*/)
 {
-    $domain = _mdomain(debug_backtrace(false));
+    $domain = _mdomain(debug_backtrace());
     $args = func_get_args();
     switch(count($args)) {
     case 1: return dgettext($domain, $msg);
@@ -272,6 +272,7 @@ function get_nice_language_list()
 function get_all_languages() {
     return array(
         'ar'      => array('q' => 0.8, 'lang' => 'ar', 'name' => 'Arabic', 'direction' => 'rtl'),
+        'arz'     => array('q' => 0.8, 'lang' => 'arz', 'name' => 'Egyptian Spoken Arabic', 'direction' => 'rtl'),
         'bg'      => array('q' => 0.8, 'lang' => 'bg', 'name' => 'Bulgarian', 'direction' => 'ltr'),
         'ca'      => array('q' => 0.5, 'lang' => 'ca', 'name' => 'Catalan', 'direction' => 'ltr'),
         'cs'      => array('q' => 0.5, 'lang' => 'cs', 'name' => 'Czech', 'direction' => 'ltr'),

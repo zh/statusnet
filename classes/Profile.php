@@ -717,11 +717,14 @@ class Profile extends Memcached_DataObject
         return $result;
     }
 
-    function hasForwarded($notice_id)
+    function hasRepeated($notice_id)
     {
-        $forward = Forward::pkeyGet(array('profile_id' => $this->id,
-                                          'notice_id' => $notice_id));
+        // XXX: not really a pkey, but should work
 
-        return (!empty($forward));
+        $notice = Memcached_DataObject::pkeyGet('Notice',
+                                                array('profile_id' => $this->id,
+                                                      'repeat_of' => $notice_id));
+
+        return !empty($notice);
     }
 }

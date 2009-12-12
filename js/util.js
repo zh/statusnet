@@ -57,21 +57,31 @@ var SN = { // StatusNet
     U: { // Utils
         FormNoticeEnhancements: function(form) {
             form_id = form.attr('id');
-            $('#'+form_id+' #'+SN.C.S.NoticeDataText).unbind('keyup');
-            $('#'+form_id+' #'+SN.C.S.NoticeDataText).unbind('keydown');
-            if (maxLength > 0) {
-                $('#'+form_id+' #'+SN.C.S.NoticeDataText).bind('keyup', function(e) {
+
+            if (jQuery.data(form[0], 'ElementData') === undefined) {
+                MaxLength = $('#'+form_id+' #'+SN.C.S.NoticeTextCount).text();
+                if (typeof(MaxLength) == 'undefined') {
+                     MaxLength = SN.C.I.MaxLength;
+                }
+                jQuery.data(form[0], 'ElementData', {MaxLength:MaxLength});
+
+                SN.U.Counter(form);
+
+                NDT = $('#'+form_id+' #'+SN.C.S.NoticeDataText);
+
+                NDT.bind('keyup', function(e) {
                     SN.U.Counter(form);
                 });
-                // run once in case there's something in there
-                SN.U.Counter(form);
+
+                NDT.bind('keydown', function(e) {
+                    SN.U.SubmitOnReturn(e, form);
+                });
+            }
+            else {
+                $('#'+form_id+' #'+SN.C.S.NoticeTextCount).text(jQuery.data(form[0], 'ElementData').MaxLength);
             }
 
-            $('#'+form_id+' #'+SN.C.S.NoticeDataText).bind('keydown', function(e) {
-                SN.U.SubmitOnReturn(e, form);
-            });
-
-            if($('body')[0].id != 'conversation') {
+            if ($('body')[0].id != 'conversation') {
                 $('#'+form_id+' textarea').focus();
             }
         },
@@ -91,15 +101,14 @@ var SN = { // StatusNet
         Counter: function(form) {
             SN.C.I.FormNoticeCurrent = form;
             form_id = form.attr('id');
-            if (typeof(maxLength) == "undefined") {
-                 maxLength = SN.C.I.MaxLength;
-            }
 
-            if (maxLength <= 0) {
+            var MaxLength = jQuery.data(form[0], 'ElementData').MaxLength;
+
+            if (MaxLength <= 0) {
                 return;
             }
 
-            var remaining = maxLength - $('#'+form_id+' #'+SN.C.S.NoticeDataText).val().length;
+            var remaining = MaxLength - $('#'+form_id+' #'+SN.C.S.NoticeDataText).val().length;
             var counter = $('#'+form_id+' #'+SN.C.S.NoticeTextCount);
 
             if (remaining.toString() != counter.text()) {
@@ -306,8 +315,8 @@ var SN = { // StatusNet
             $('.form_disfavor').each(function() { SN.U.FormXHR($(this)); });
         },
 
-        NoticeForward: function() {
-            $('.form_forward').each(function() { SN.U.FormXHR($(this)); });
+        NoticeRepeat: function() {
+            $('.form_repeat').each(function() { SN.U.FormXHR($(this)); });
         },
 
         NoticeAttachments: function() {
@@ -443,7 +452,7 @@ var SN = { // StatusNet
         Notices: function() {
             if ($('body.user_in').length > 0) {
                 SN.U.NoticeFavor();
-                SN.U.NoticeForward();
+                SN.U.NoticeRepeat();
                 SN.U.NoticeReply();
             }
 
@@ -457,6 +466,8 @@ var SN = { // StatusNet
                 $('.form_group_join').each(function() { SN.U.FormXHR($(this)); });
                 $('.form_group_leave').each(function() { SN.U.FormXHR($(this)); });
                 $('.form_user_nudge').each(function() { SN.U.FormXHR($(this)); });
+
+                SN.U.NewDirectMessage();
             }
         }
     }

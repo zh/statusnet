@@ -99,7 +99,8 @@ class Router
                           'groupblock', 'groupunblock',
                           'sandbox', 'unsandbox',
                           'silence', 'unsilence',
-                          'deleteuser', 'forward');
+                          'repeat',
+                          'deleteuser');
 
             foreach ($main as $a) {
                 $m->connect('main/'.$a, array('action' => $a));
@@ -318,6 +319,18 @@ class Router
                               'id' => '[a-zA-Z0-9]+',
                               'format' => '(xml|json|rss|atom)'));
 
+            $m->connect('api/statuses/retweeted_by_me.:format',
+                        array('action' => 'ApiTimelineRetweetedByMe',
+                              'format' => '(xml|json|atom)'));
+
+            $m->connect('api/statuses/retweeted_to_me.:format',
+                        array('action' => 'ApiTimelineRetweetedToMe',
+                              'format' => '(xml|json|atom)'));
+
+            $m->connect('api/statuses/retweets_of_me.:format',
+                        array('action' => 'ApiTimelineRetweetsOfMe',
+                              'format' => '(xml|json|atom)'));
+
             $m->connect('api/statuses/friends.:format',
                         array('action' => 'ApiUserFriends',
                               'format' => '(xml|json)'));
@@ -355,6 +368,16 @@ class Router
 
             $m->connect('api/statuses/destroy/:id.:format',
                         array('action' => 'ApiStatusesDestroy',
+                              'id' => '[0-9]+',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/statuses/retweet/:id.:format',
+                        array('action' => 'ApiStatusesRetweet',
+                              'id' => '[0-9]+',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/statuses/retweets/:id.:format',
+                        array('action' => 'ApiStatusesRetweets',
                               'id' => '[0-9]+',
                               'format' => '(xml|json)'));
 
