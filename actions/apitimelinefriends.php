@@ -110,6 +110,7 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
     function showTimeline()
     {
         $profile    = $this->user->getProfile();
+        $avatar     = $profile->getAvatar(AVATAR_PROFILE_SIZE);
         $sitename   = common_config('site', 'name');
         $title      = sprintf(_("%s and friends"), $this->user->nickname);
         $taguribase = common_config('integration', 'taguri');
@@ -121,13 +122,14 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
             _('Updates from %1$s and friends on %2$s!'),
             $this->user->nickname, $sitename
         );
+        $logo       = ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_PROFILE_SIZE);
 
         switch($this->format) {
         case 'xml':
             $this->showXmlTimeline($this->notices);
             break;
         case 'rss':
-            $this->showRssTimeline($this->notices, $title, $link, $subtitle);
+            $this->showRssTimeline($this->notices, $title, $link, $subtitle, null, $logo);
             break;
         case 'atom':
 
@@ -144,7 +146,7 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
 
             $this->showAtomTimeline(
                 $this->notices, $title, $id, $link,
-                $subtitle, null, $selfuri
+                $subtitle, null, $selfuri, $logo
             );
             break;
         case 'json':
