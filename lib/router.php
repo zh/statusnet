@@ -323,6 +323,10 @@ class Router
                         array('action' => 'ApiTimelineRetweetedByMe',
                               'format' => '(xml|json|atom)'));
 
+            $m->connect('api/statuses/retweeted_to_me.:format',
+                        array('action' => 'ApiTimelineRetweetedToMe',
+                              'format' => '(xml|json|atom)'));
+
             $m->connect('api/statuses/retweets_of_me.:format',
                         array('action' => 'ApiTimelineRetweetsOfMe',
                               'format' => '(xml|json|atom)'));

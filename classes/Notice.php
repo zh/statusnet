@@ -483,6 +483,20 @@ class Notice extends Memcached_DataObject
                     $original->free();
                     unset($original);
                 }
+
+                $ni = new Notice_inbox();
+
+                $ni->notice_id = $this->id;
+
+                if ($ni->find()) {
+                    while ($ni->fetch()) {
+                        $tmk = common_cache_key('user:repeated_to_me:'.$ni->user_id);
+                        $cache->delete($tmk);
+                    }
+                }
+
+                $ni->free();
+                unset($ni);
             }
         }
     }
