@@ -4,8 +4,10 @@ alter table notice
      add column lon decimal(10,7) comment 'longitude',
      add column location_id integer comment 'location id if possible',
      add column location_ns integer comment 'namespace for location',
+     add column repeat_of integer comment 'notice this is a repeat of' references notice (id),
      drop index notice_profile_id_idx,
-     add index notice_profile_id_idx (profile_id,created,id);
+     add index notice_profile_id_idx (profile_id,created,id),
+     add index notice_repeatof_idx (repeat_of);
 
 alter table message
      modify column content text comment 'message content';
