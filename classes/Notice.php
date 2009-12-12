@@ -115,6 +115,12 @@ class Notice extends Memcached_DataObject
 
         //Null any notices that are replies to this notice
         $this->query(sprintf("UPDATE notice set reply_to = null WHERE reply_to = %d", $this->id));
+
+        //Null any notices that are repeats of this notice
+        //XXX: probably need to uncache these, too
+
+        $this->query(sprintf("UPDATE notice set repeat_of = null WHERE repeat_of = %d", $this->id));
+
         $related = array('Reply',
                          'Fave',
                          'Notice_tag',
