@@ -167,8 +167,13 @@ class NoticeListItem extends Widget
     {
         parent::__construct($out);
         if (!empty($notice->repeat_of)) {
-            $this->notice = Notice::staticGet('id', $notice->repeat_of);
-            $this->repeat = $notice;
+            $original = Notice::staticGet('id', $notice->repeat_of);
+            if (empty($original)) { // could have been deleted
+                $this->notice = $notice;
+            } else {
+                $this->notice = $original;
+                $this->repeat = $notice;
+            }
         } else {
             $this->notice  = $notice;
         }
