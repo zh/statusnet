@@ -47,17 +47,17 @@ class UserbyidAction extends Action
 {
      /**
      * Is read only?
-     * 
+     *
      * @return boolean true
      */
     function isReadOnly($args)
-    {                
+    {
         return true;
     }
 
      /**
      * Class handler.
-     * 
+     *
      * @param array $args array of arguments
      *
      * @return nothing
@@ -67,7 +67,7 @@ class UserbyidAction extends Action
         parent::handle($args);
         $id = $this->trimmed('id');
         if (!$id) {
-            $this->clientError(_('No id.'));
+            $this->clientError(_('No ID.'));
         }
         $user = User::staticGet($id);
         if (!$user) {
@@ -88,4 +88,3 @@ class UserbyidAction extends Action
         common_redirect($url, 303);
     }
 }
-

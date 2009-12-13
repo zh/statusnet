@@ -103,7 +103,7 @@ class OpenidserverAction extends Action
                 $response = $this->generateDenyResponse($request);
             } else {
                 //invalid
-                $this->clientError(sprintf(_m('You are not authorized to use the identity %s'),$request->identity),$code=403);
+                $this->clientError(sprintf(_m('You are not authorized to use the identity %s.'),$request->identity),$code=403);
             }
         } else {
             $response = $this->oserver->handleRequest($request);

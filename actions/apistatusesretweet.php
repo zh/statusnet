@@ -72,7 +72,7 @@ class ApiStatusesRetweetAction extends ApiAuthAction
         $this->original = Notice::staticGet('id', $id);
 
         if (empty($this->original)) {
-            $this->clientError(_('No such notice'),
+            $this->clientError(_('No such notice.'),
                                400, $this->format);
             return false;
         }
@@ -80,7 +80,7 @@ class ApiStatusesRetweetAction extends ApiAuthAction
         $this->user = $this->auth_user;
 
         if ($this->user->id == $notice->profile_id) {
-            $this->clientError(_('Cannot repeat your own notice'));
+            $this->clientError(_('Cannot repeat your own notice.'));
                                400, $this->format);
             return false;
         }
@@ -88,7 +88,7 @@ class ApiStatusesRetweetAction extends ApiAuthAction
         $profile = $this->user->getProfile();
 
         if ($profile->hasRepeated($id)) {
-            $this->clientError(_('Already repeated that notice'),
+            $this->clientError(_('Already repeated that notice.'),
                                400, $this->format);
             return false;
         }

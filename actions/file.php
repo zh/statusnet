@@ -31,15 +31,15 @@ class FileAction extends Action
         parent::prepare($args);
         $this->id = $this->trimmed('notice');
         if (empty($this->id)) {
-            $this->clientError(_('No notice id'));
+            $this->clientError(_('No notice ID.'));
         }
         $notice = Notice::staticGet('id', $this->id);
         if (empty($notice)) {
-            $this->clientError(_('No notice'));
+            $this->clientError(_('No notice.'));
         }
         $atts = $notice->attachments();
         if (empty($atts)) {
-            $this->clientError(_('No attachments'));
+            $this->clientError(_('No attachments.'));
         }
         foreach ($atts as $att) {
             if (!empty($att->filename)) {
@@ -48,7 +48,7 @@ class FileAction extends Action
             }
         }
         if (empty($this->filerec)) {
-            $this->clientError(_('No uploaded attachments'));
+            $this->clientError(_('No uploaded attachments.'));
         }
         return true;
     }
