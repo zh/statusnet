@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-12 17:09+0000\n"
-"PO-Revision-Date: 2009-12-12 17:10:25+0000\n"
+"POT-Creation-Date: 2009-12-13 17:14+0000\n"
+"PO-Revision-Date: 2009-12-13 17:16:17+0000\n"
 "Language-Team: Russian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r59992); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60008); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ru\n"
 "X-Message-Group: out-statusnet\n"
@@ -46,9 +46,9 @@ msgstr "Нет такой страницы"
 #: actions/repliesrss.php:38 actions/showfavorites.php:105
 #: actions/userbyid.php:74 actions/usergroups.php:91 actions/userrss.php:38
 #: actions/xrds.php:71 lib/command.php:163 lib/command.php:311
-#: lib/command.php:364 lib/command.php:411 lib/command.php:467
-#: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
-#: lib/subs.php:34 lib/subs.php:116
+#: lib/command.php:364 lib/command.php:409 lib/command.php:470
+#: lib/command.php:526 lib/galleryaction.php:59 lib/mailbox.php:82
+#: lib/profileaction.php:77 lib/subs.php:34 lib/subs.php:116
 msgid "No such user."
 msgstr "Нет такого пользователя."
 
@@ -138,7 +138,8 @@ msgstr "Метод API не найден."
 #: actions/apifavoritecreate.php:90 actions/apifavoritedestroy.php:91
 #: actions/apifriendshipscreate.php:91 actions/apifriendshipsdestroy.php:91
 #: actions/apigroupcreate.php:104 actions/apigroupjoin.php:91
-#: actions/apigroupleave.php:91 actions/apistatusesupdate.php:114
+#: actions/apigroupleave.php:91 actions/apistatusesretweet.php:65
+#: actions/apistatusesupdate.php:114
 msgid "This method requires a POST."
 msgstr "Этот метод требует POST."
 
@@ -230,11 +231,14 @@ msgstr "Все прямые сообщения посланные для %s"
 #: actions/apigrouplist.php:132 actions/apigrouplistall.php:120
 #: actions/apigroupmembership.php:106 actions/apigroupshow.php:105
 #: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
-#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:133
-#: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
-#: actions/apitimelinefavorites.php:146 actions/apitimelinefriends.php:156
-#: actions/apitimelinegroup.php:150 actions/apitimelinementions.php:151
-#: actions/apitimelinepublic.php:131 actions/apitimelinetag.php:141
+#: actions/apistatusesretweets.php:112 actions/apistatusesshow.php:108
+#: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
+#: actions/apisubscriptions.php:111 actions/apitimelinefavorites.php:146
+#: actions/apitimelinefriends.php:156 actions/apitimelinegroup.php:150
+#: actions/apitimelinementions.php:151 actions/apitimelinepublic.php:131
+#: actions/apitimelineretweetedbyme.php:122
+#: actions/apitimelineretweetedtome.php:121
+#: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
 #: actions/apitimelineuser.php:165 actions/apiusershow.php:101
 msgid "API method not found!"
 msgstr "Метод API не найден!"
@@ -433,6 +437,21 @@ msgstr "Этот метод требует POST или DELETE."
 msgid "You may not delete another user's status."
 msgstr "Вы не можете удалять статус других пользователей."
 
+#: actions/apistatusesretweet.php:75 actions/apistatusesretweets.php:72
+#, fuzzy
+msgid "No such notice"
+msgstr "Нет такой записи."
+
+#: actions/apistatusesretweet.php:83 lib/command.php:421
+#, fuzzy
+msgid "Cannot repeat your own notice"
+msgstr "Есть оповещение."
+
+#: actions/apistatusesretweet.php:91 lib/command.php:426
+#, fuzzy
+msgid "Already repeated that notice"
+msgstr "Удалить эту запись"
+
 #: actions/apistatusesshow.php:138
 msgid "Status deleted."
 msgstr "Статус удалён."
@@ -502,6 +521,21 @@ msgstr "Общая лента %s"
 msgid "%s updates from everyone!"
 msgstr "Обновления %s от всех!"
 
+#: actions/apitimelineretweetedbyme.php:112 lib/noticelist.php:566
+#, php-format
+msgid "Repeated by %s"
+msgstr ""
+
+#: actions/apitimelineretweetedtome.php:111
+#, fuzzy, php-format
+msgid "Repeated to %s"
+msgstr "Ответы для %s"
+
+#: actions/apitimelineretweetsofme.php:112
+#, fuzzy, php-format
+msgid "Repeats of %s"
+msgstr "Ответы для %s"
+
 #: actions/apitimelinetag.php:102 actions/tag.php:66
 #, php-format
 msgid "Notices tagged with %s"
@@ -565,7 +599,7 @@ msgid "Preview"
 msgstr "Просмотр"
 
 #: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:550
+#: lib/noticelist.php:612
 msgid "Delete"
 msgstr "Удалить"
 
@@ -586,9 +620,10 @@ msgstr "Обрезать"
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
-#: actions/smssettings.php:228 actions/subedit.php:38 actions/subscribe.php:46
-#: actions/tagother.php:166 actions/unsubscribe.php:69
-#: actions/userauthorization.php:52 lib/designsettings.php:294
+#: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
+#: actions/subscribe.php:46 actions/tagother.php:166
+#: actions/unsubscribe.php:69 actions/userauthorization.php:52
+#: lib/designsettings.php:294
 msgid "There was a problem with your session token. Try again, please."
 msgstr "Проблема с Вашей сессией. Попробуйте ещё раз, пожалуйста."
 
@@ -792,7 +827,7 @@ msgstr "Вы уверены, что хотите удалить эту запи�
 msgid "Do not delete this notice"
 msgstr "Не удалять эту запись"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:550
+#: actions/deletenotice.php:146 lib/noticelist.php:612
 msgid "Delete this notice"
 msgstr "Удалить эту запись"
 
@@ -1936,7 +1971,7 @@ msgid "You can't send a message to this user."
 msgstr "Вы не можете послать сообщение этому пользователю."
 
 #: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:351
-#: lib/command.php:424
+#: lib/command.php:483
 msgid "No content!"
 msgstr "Нет контента!"
 
@@ -2048,8 +2083,8 @@ msgstr "тип содержимого "
 msgid "Only "
 msgstr "Только "
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1011
-#: lib/api.php:1039 lib/api.php:1149
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1028
+#: lib/api.php:1056 lib/api.php:1166
 msgid "Not a supported data format."
 msgstr "Неподдерживаемый формат данных."
 
@@ -2846,6 +2881,38 @@ msgstr "Это локальный профиль! Авторизуйтесь д�
 msgid "Couldn’t get a request token."
 msgstr "Не удаётся получить получить ключ запроса."
 
+#: actions/repeat.php:57
+#, fuzzy
+msgid "Only logged-in users can repeat notices."
+msgstr "Только сам пользователь может читать собственный почтовый ящик."
+
+#: actions/repeat.php:64 actions/repeat.php:71
+#, fuzzy
+msgid "No notice specified."
+msgstr "Профиль не определен."
+
+#: actions/repeat.php:76
+#, fuzzy
+msgid "You can't repeat your own notice."
+msgstr ""
+"Вы не можете зарегистрироваться, если Вы не подтверждаете лицензионного "
+"соглашения."
+
+#: actions/repeat.php:90
+#, fuzzy
+msgid "You already repeated that notice."
+msgstr "Вы уже заблокировали этого пользователя."
+
+#: actions/repeat.php:112 lib/noticelist.php:628
+#, fuzzy
+msgid "Repeated"
+msgstr "Создано"
+
+#: actions/repeat.php:115
+#, fuzzy
+msgid "Repeated!"
+msgstr "Создано"
+
 #: actions/replies.php:125 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
 #, php-format
@@ -3181,6 +3248,11 @@ msgstr ""
 "[микроблогинга](http://ru.wikipedia.org/wiki/Микроблоггинг), созданного с "
 "использованием свободного программного обеспечения [StatusNet](http://status."
 "net/)."
+
+#: actions/showstream.php:313
+#, fuzzy, php-format
+msgid "Repeat of %s"
+msgstr "Ответы для %s"
 
 #: actions/silence.php:65 actions/unsilence.php:65
 msgid "You cannot silence users on this site."
@@ -3999,27 +4071,27 @@ msgstr "Не удаётся вставить сообщение."
 msgid "Could not update message with new URI."
 msgstr "Не удаётся обновить сообщение с новым URI."
 
-#: classes/Notice.php:164
+#: classes/Notice.php:172
 #, php-format
 msgid "DB error inserting hashtag: %s"
 msgstr "Ошибка баз данных при вставке хеш-тегов для %s"
 
-#: classes/Notice.php:188
+#: classes/Notice.php:196
 msgid "Problem saving notice. Too long."
 msgstr "Проблемы с сохранением записи. Слишком длинно."
 
-#: classes/Notice.php:192
+#: classes/Notice.php:200
 msgid "Problem saving notice. Unknown user."
 msgstr "Проблема при сохранении записи. Неизвестный пользователь."
 
-#: classes/Notice.php:197
+#: classes/Notice.php:205
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "Слишком много записей за столь короткий срок; передохните немного и "
 "попробуйте вновь через пару минут."
 
-#: classes/Notice.php:203
+#: classes/Notice.php:211
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -4027,18 +4099,23 @@ msgstr ""
 "Слишком много одинаковых записей за столь короткий срок; передохните немного "
 "и попробуйте вновь через пару минут."
 
-#: classes/Notice.php:209
+#: classes/Notice.php:217
 msgid "You are banned from posting notices on this site."
 msgstr "Вам запрещено поститься на этом сайте (бан)"
 
-#: classes/Notice.php:274 classes/Notice.php:299
+#: classes/Notice.php:289 classes/Notice.php:314
 msgid "Problem saving notice."
 msgstr "Проблемы с сохранением записи."
 
-#: classes/Notice.php:1115
+#: classes/Notice.php:993
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Ошибка баз данных при вставке ответа для %s"
+
+#: classes/Notice.php:1320
+#, fuzzy, php-format
+msgid "RT @%1$s %2$s"
+msgstr "%1$s (%2$s)"
 
 #: classes/User.php:347
 #, php-format
@@ -4249,19 +4326,19 @@ msgstr "All "
 msgid "license."
 msgstr "license."
 
-#: lib/action.php:1068
+#: lib/action.php:1098
 msgid "Pagination"
 msgstr "Разбиение на страницы"
 
-#: lib/action.php:1077
+#: lib/action.php:1107
 msgid "After"
 msgstr "Сюда"
 
-#: lib/action.php:1085
+#: lib/action.php:1115
 msgid "Before"
 msgstr "Туда"
 
-#: lib/action.php:1133
+#: lib/action.php:1163
 msgid "There was a problem with your session token."
 msgstr "Проблема с Вашей сессией. Попробуйте ещё раз, пожалуйста."
 
@@ -4354,11 +4431,12 @@ msgstr ""
 "Подписчиков: %2$s\n"
 "Записей: %3$s"
 
-#: lib/command.php:152 lib/command.php:400
+#: lib/command.php:152 lib/command.php:398 lib/command.php:459
 msgid "Notice with that id does not exist"
 msgstr "Записи с таким id не существует"
 
-#: lib/command.php:168 lib/command.php:416 lib/command.php:472
+#: lib/command.php:168 lib/command.php:414 lib/command.php:475
+#: lib/command.php:531
 msgid "User has no last notice"
 msgstr "У пользователя нет записей"
 
@@ -4400,106 +4478,117 @@ msgstr "Сообщение слишком длинное — не больше %
 msgid "Error sending direct message."
 msgstr "Ошибка при отправке прямого сообщения."
 
-#: lib/command.php:431
+#: lib/command.php:434
+#, fuzzy, php-format
+msgid "Notice from %s repeated"
+msgstr "Запись опубликована"
+
+#: lib/command.php:436
+#, fuzzy
+msgid "Error repeating notice."
+msgstr "Проблемы с сохранением записи."
+
+#: lib/command.php:490
 #, php-format
 msgid "Notice too long - maximum is %d characters, you sent %d"
 msgstr "Запись слишком длинная — не больше %d символов, вы посылаете %d"
 
-#: lib/command.php:440
+#: lib/command.php:499
 #, php-format
 msgid "Reply to %s sent"
 msgstr "Ответ %s отправлен"
 
-#: lib/command.php:442
+#: lib/command.php:501
 msgid "Error saving notice."
 msgstr "Проблемы с сохранением записи."
 
-#: lib/command.php:496
+#: lib/command.php:555
 msgid "Specify the name of the user to subscribe to"
 msgstr "Определите имя пользователя при подписке на"
 
-#: lib/command.php:503
+#: lib/command.php:562
 #, php-format
 msgid "Subscribed to %s"
 msgstr "Подписано на %s"
 
-#: lib/command.php:524
+#: lib/command.php:583
 msgid "Specify the name of the user to unsubscribe from"
 msgstr "Определите имя пользователя для отписки от"
 
-#: lib/command.php:531
+#: lib/command.php:590
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr "Отписано от %s"
 
-#: lib/command.php:549 lib/command.php:572
+#: lib/command.php:608 lib/command.php:631
 msgid "Command not yet implemented."
 msgstr "Команда ещё не выполнена."
 
-#: lib/command.php:552
+#: lib/command.php:611
 msgid "Notification off."
 msgstr "Оповещение отсутствует."
 
-#: lib/command.php:554
+#: lib/command.php:613
 msgid "Can't turn off notification."
 msgstr "Нет оповещения."
 
-#: lib/command.php:575
+#: lib/command.php:634
 msgid "Notification on."
 msgstr "Есть оповещение."
 
-#: lib/command.php:577
+#: lib/command.php:636
 msgid "Can't turn on notification."
 msgstr "Есть оповещение."
 
-#: lib/command.php:590
+#: lib/command.php:649
 msgid "Login command is disabled"
 msgstr "Команда входа отключена"
 
-#: lib/command.php:604
+#: lib/command.php:663
 #, php-format
 msgid "Could not create login token for %s"
 msgstr "Не удаётся создать токен входа для %s"
 
-#: lib/command.php:609
+#: lib/command.php:668
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr "Эта ссылка действительна только один раз в течение 2 минут: %s"
 
-#: lib/command.php:625
+#: lib/command.php:684
 msgid "You are not subscribed to anyone."
 msgstr "Вы ни на кого не подписаны."
 
-#: lib/command.php:627
+#: lib/command.php:686
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Вы подписаны на этих людей:"
 msgstr[1] "Вы подписаны на этих людей:"
 msgstr[2] "Вы подписаны на этих людей:"
 
-#: lib/command.php:647
+#: lib/command.php:706
 msgid "No one is subscribed to you."
 msgstr "Никто не подписан на вас."
 
-#: lib/command.php:649
+#: lib/command.php:708
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Эти люди подписались на вас:"
 msgstr[1] "Эти люди подписались на вас:"
 msgstr[2] "Эти люди подписались на вас:"
 
-#: lib/command.php:669
+#: lib/command.php:728
 msgid "You are not a member of any groups."
 msgstr "Вы не состоите ни в одной группе."
 
-#: lib/command.php:671
+#: lib/command.php:730
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Вы являетесь участником следующих групп:"
 msgstr[1] "Вы являетесь участником следующих групп:"
 msgstr[2] "Вы являетесь участником следующих групп:"
 
-#: lib/command.php:685
+#: lib/command.php:744
+#, fuzzy
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4515,6 +4604,8 @@ msgid ""
 "whois <nickname> - get profile info on user\n"
 "fav <nickname> - add user's last notice as a 'fave'\n"
 "fav #<notice_id> - add notice with the given id as a 'fave'\n"
+"repeat #<notice_id> - repeat a notice with a given id\n"
+"repeat <nickname> - repeat the last notice from user\n"
 "reply #<notice_id> - reply to notice with a given id\n"
 "reply <nickname> - reply to the last notice from user\n"
 "join <group> - join group\n"
@@ -5086,7 +5177,7 @@ msgstr ""
 "вовлечения других пользователей в разговор. Сообщения, получаемые от других "
 "людей, видите только вы."
 
-#: lib/mailbox.php:227 lib/noticelist.php:452
+#: lib/mailbox.php:227 lib/noticelist.php:468
 msgid "from"
 msgstr "от "
 
@@ -5174,40 +5265,40 @@ msgstr "Прикрепить"
 msgid "Attach a file"
 msgstr "Прикрепить файл"
 
-#: lib/noticelist.php:403
+#: lib/noticelist.php:419
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr "%1$u°%2$u'%3$u\" %4$s %5$u°%6$u'%7$u\" %8$s"
 
-#: lib/noticelist.php:404
+#: lib/noticelist.php:420
 msgid "N"
 msgstr "с. ш."
 
-#: lib/noticelist.php:404
+#: lib/noticelist.php:420
 msgid "S"
 msgstr "ю. ш."
 
-#: lib/noticelist.php:405
+#: lib/noticelist.php:421
 msgid "E"
 msgstr "в. д."
 
-#: lib/noticelist.php:405
+#: lib/noticelist.php:421
 msgid "W"
 msgstr "з. д."
 
-#: lib/noticelist.php:411
+#: lib/noticelist.php:427
 msgid "at"
 msgstr "на"
 
-#: lib/noticelist.php:506
+#: lib/noticelist.php:522
 msgid "in context"
 msgstr "в контексте"
 
-#: lib/noticelist.php:526
+#: lib/noticelist.php:588
 msgid "Reply to this notice"
 msgstr "Ответить на эту запись"
 
-#: lib/noticelist.php:527
+#: lib/noticelist.php:589
 msgid "Reply"
 msgstr "Ответить"
 
@@ -5335,6 +5426,16 @@ msgstr "Особые"
 #: lib/publicgroupnav.php:92
 msgid "Popular"
 msgstr "Популярное"
+
+#: lib/repeatform.php:107 lib/repeatform.php:132
+#, fuzzy
+msgid "Repeat this notice"
+msgstr "Ответить на эту запись"
+
+#: lib/repeatform.php:132
+#, fuzzy
+msgid "Repeat"
+msgstr "Сбросить"
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"
