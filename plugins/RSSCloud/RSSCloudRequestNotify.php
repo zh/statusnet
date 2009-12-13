@@ -106,6 +106,10 @@ class RSSCloudRequestNotifyAction extends Action
 
         if (empty($this->protocol)) {
             $missing[] = 'protocol';
+        } else if (strtolower($this->protocol) != 'http-post') {
+            $msg = 'Only http-post notifications are supported at this time.';
+            $this->showResult(false, $msg);
+            return;
         }
 
         if (!isset($this->procedure)) {
@@ -120,8 +124,8 @@ class RSSCloudRequestNotifyAction extends Action
         }
 
         if (empty($this->feeds)) {
-            $this->showResult(false,
-                              'You must provide at least one valid profile feed url (url1, url2, url3 ... urlN).');
+            $msg = 'You must provide at least one valid profile feed url (url1, url2, url3 ... urlN).';
+            $this->showResult(false, $msg);
             return;
         }
 
