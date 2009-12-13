@@ -379,6 +379,65 @@ class MessageCommand extends Command
     }
 }
 
+class RepeatCommand extends Command
+{
+    var $other = null;
+    function __construct($user, $other)
+    {
+        parent::__construct($user);
+        $this->other = $other;
+    }
+
+    function execute($channel)
+    {
+        if(substr($this->other,0,1)=='#'){
+            //repeating a specific notice_id
+
+            $notice = Notice::staticGet(substr($this->other,1));
+            if (!$notice) {
+                $channel->error($this->user, _('Notice with that id does not exist'));
+                return;
+            }
+            $recipient = $notice->getProfile();
+        }else{
+            //repeating a given user's last notice
+
+            $recipient =
+              common_relative_profile($this->user, common_canonical_nickname($this->other));
+
+            if (!$recipient) {
+                $channel->error($this->user, _('No such user.'));
+                return;
+            }
+            $notice = $recipient->getCurrentNotice();
+            if (!$notice) {
+                $channel->error($this->user, _('User has no last notice'));
+                return;
+            }
+        }
+
+        if($this->user->id == $notice->profile_id)
+        {
+            $channel->error($this->user, _('Cannot repeat your own notice'));
+            return;
+        }
+
+        if ($recipient->hasRepeated($notice->id)) {
+            $channel->error($this->user, _('Already repeated that notice'));
+            return;
+        }
+
+        $repeat = $notice->repeat($this->user->id, $channel->source);
+
+        if ($repeat) {
+            common_broadcast_notice($repeat);
+            $channel->output($this->user, sprintf(_('Notice from %s repeated'), $recipient->nickname));
+        } else {
+            $channel->error($this->user, _('Error repeating notice.'));
+        }
+    }
+}
+
 class ReplyCommand extends Command
 {
     var $other = null;
@@ -696,6 +755,8 @@ class HelpCommand extends Command
                            "whois <nickname> - get profile info on user\n".
                            "fav <nickname> - add user's last notice as a 'fave'\n".
                            "fav #<notice_id> - add notice with the given id as a 'fave'\n".
+                           "repeat #<notice_id> - repeat a notice with a given id\n".
+                           "repeat <nickname> - repeat the last notice from user\n".
                            "reply #<notice_id> - reply to notice with a given id\n".
                            "reply <nickname> - reply to the last notice from user\n".
                            "join <group> - join group\n".
