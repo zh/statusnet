@@ -473,6 +473,77 @@ class User extends Memcached_DataObject
         return Notice::getStreamByIds($ids);
     }
 
+    function friendsTimeline($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
+    {
+        $ids = Notice::stream(array($this, '_friendsTimelineDirect'),
+                              array(false),
+                              'user:friends_timeline:'.$this->id,
+                              $offset, $limit, $since_id, $before_id, $since);
+
+        return Notice::getStreamByIds($ids);
+    }
+
+    function ownFriendsTimeline($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
+    {
+        $ids = Notice::stream(array($this, '_friendsTimelineDirect'),
+                              array(true),
+                              'user:friends_timeline_own:'.$this->id,
+                              $offset, $limit, $since_id, $before_id, $since);
+
+        return Notice::getStreamByIds($ids);
+    }
+
+    function _friendsTimelineDirect($own, $offset, $limit, $since_id, $max_id, $since)
+    {
+        $qry =
+          'SELECT notice.id AS id ' .
+          'FROM notice JOIN notice_inbox ON notice.id = notice_inbox.notice_id ' .
+          'WHERE notice_inbox.user_id = ' . $this->id . ' ' .
+          'AND notice.repeat_of IS NULL ';
+
+        if (!$own) {
+            // XXX: autoload notice inbox for constant
+            $inbox = new Notice_inbox();
+
+            $qry .= 'AND notice_inbox.source != ' . NOTICE_INBOX_SOURCE_GATEWAY . ' ';
+        }
+
+        if ($since_id != 0) {
+            $qry .= 'AND notice.id > ' . $since_id . ' ';
+        }
+
+        if ($max_id != 0) {
+            $qry .= 'AND notice.id <= ' . $max_id . ' ';
+        }
+
+        if (!is_null($since)) {
+            $qry .= 'AND notice.modified > \'' . date('Y-m-d H:i:s', $since) . '\' ';
+        }
+
+        // NOTE: we sort by fave time, not by notice time!
+
+        $qry .= 'ORDER BY notice.id DESC ';
+
+        if (!is_null($offset)) {
+            $qry .= "LIMIT $limit OFFSET $offset";
+        }
+
+        $ids = array();
+
+        $notice = new Notice();
+
+        $notice->query($qry);
+
+        while ($notice->fetch()) {
+            $ids[] = $notice->id;
+        }
+
+        $notice->free();
+        $notice = NULL;
+
+        return $ids;
+    }
+
     function blowFavesCache()
     {
         $cache = common_memcache();

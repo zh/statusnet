@@ -530,8 +530,18 @@ class Notice extends Memcached_DataObject
                     if ($member->find()) {
                         while ($member->fetch()) {
                             $cache->delete(common_cache_key('notice_inbox:by_user:' . $member->profile_id));
+                            $cache->delete(common_cache_key('notice_inbox:by_user_own:' . $member->profile_id));
+                            if (empty($this->repeat_of)) {
+                                $cache->delete(common_cache_key('user:friends_timeline:' . $member->profile_id));
+                                $cache->delete(common_cache_key('user:friends_timeline_own:' . $member->profile_id));
+                            }
                             if ($blowLast) {
                                 $cache->delete(common_cache_key('notice_inbox:by_user:' . $member->profile_id . ';last'));
+                                $cache->delete(common_cache_key('notice_inbox:by_user_own:' . $member->profile_id . ';last'));
+                                if (empty($this->repeat_of)) {
+                                    $cache->delete(common_cache_key('user:friends_timeline:' . $member->profile_id . ';last'));
+                                    $cache->delete(common_cache_key('user:friends_timeline_own:' . $member->profile_id . ';last'));
+                                }
                             }
                         }
                     }
@@ -579,9 +589,17 @@ class Notice extends Memcached_DataObject
             while ($user->fetch()) {
                 $cache->delete(common_cache_key('notice_inbox:by_user:'.$user->id));
                 $cache->delete(common_cache_key('notice_inbox:by_user_own:'.$user->id));
+                if (empty($this->repeat_of)) {
+                    $cache->delete(common_cache_key('user:friends_timeline:'.$user->id));
+                    $cache->delete(common_cache_key('user:friends_timeline_own:'.$user->id));
+                }
                 if ($blowLast) {
                     $cache->delete(common_cache_key('notice_inbox:by_user:'.$user->id.';last'));
                     $cache->delete(common_cache_key('notice_inbox:by_user_own:'.$user->id.';last'));
+                    if (empty($this->repeat_of)) {
+                        $cache->delete(common_cache_key('user:friends_timeline:'.$user->id.';last'));
+                        $cache->delete(common_cache_key('user:friends_timeline_own:'.$user->id.';last'));
+                    }
                 }
             }
             $user->free();
