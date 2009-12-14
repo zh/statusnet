@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-13 17:14+0000\n"
-"PO-Revision-Date: 2009-12-13 17:16:35+0000\n"
+"POT-Creation-Date: 2009-12-14 20:34+0000\n"
+"PO-Revision-Date: 2009-12-14 20:35:53+0000\n"
 "Language-Team: Simplified Chinese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60008); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60044); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: out-statusnet\n"
@@ -436,18 +436,18 @@ msgid "You may not delete another user's status."
 msgstr "您不能删除其他用户的状态。"
 
 #: actions/apistatusesretweet.php:75 actions/apistatusesretweets.php:72
-#, fuzzy
-msgid "No such notice"
+#: actions/deletenotice.php:52 actions/shownotice.php:92
+msgid "No such notice."
 msgstr "没有这份通告。"
 
-#: actions/apistatusesretweet.php:83 lib/command.php:421
+#: actions/apistatusesretweet.php:83
 #, fuzzy
-msgid "Cannot repeat your own notice"
+msgid "Cannot repeat your own notice."
 msgstr "无法开启通告。"
 
-#: actions/apistatusesretweet.php:91 lib/command.php:426
+#: actions/apistatusesretweet.php:91
 #, fuzzy
-msgid "Already repeated that notice"
+msgid "Already repeated that notice."
 msgstr "删除通告"
 
 #: actions/apistatusesshow.php:138
@@ -521,7 +521,7 @@ msgstr "%s 公众时间表"
 msgid "%s updates from everyone!"
 msgstr "来自所有人的 %s 消息！"
 
-#: actions/apitimelineretweetedbyme.php:112 lib/noticelist.php:566
+#: actions/apitimelineretweetedbyme.php:112
 #, php-format
 msgid "Repeated by %s"
 msgstr ""
@@ -556,7 +556,8 @@ msgstr "未找到"
 msgid "No such attachment."
 msgstr "没有这份文档。"
 
-#: actions/avatarbynickname.php:59 actions/leavegroup.php:76
+#: actions/avatarbynickname.php:59 actions/grouprss.php:91
+#: actions/leavegroup.php:76
 msgid "No nickname."
 msgstr "没有昵称。"
 
@@ -600,7 +601,7 @@ msgid "Preview"
 msgstr "预览"
 
 #: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:612
+#: lib/noticelist.php:611
 #, fuzzy
 msgid "Delete"
 msgstr "删除"
@@ -700,8 +701,8 @@ msgstr "保存阻止信息失败。"
 
 #: actions/blockedfromgroup.php:73 actions/editgroup.php:84
 #: actions/groupdesignsettings.php:84 actions/grouplogo.php:86
-#: actions/groupmembers.php:76 actions/grouprss.php:91
-#: actions/joingroup.php:76 actions/showgroup.php:121
+#: actions/groupmembers.php:76 actions/joingroup.php:76
+#: actions/showgroup.php:121
 #, fuzzy
 msgid "No nickname"
 msgstr "没有昵称。"
@@ -709,7 +710,7 @@ msgstr "没有昵称。"
 #: actions/blockedfromgroup.php:80 actions/editgroup.php:96
 #: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
 #: actions/grouplogo.php:99 actions/groupmembers.php:83
-#: actions/grouprss.php:98 actions/joingroup.php:83 actions/showgroup.php:137
+#: actions/joingroup.php:83 actions/showgroup.php:137
 msgid "No such group"
 msgstr "没有这个组"
 
@@ -800,16 +801,13 @@ msgstr "确认码"
 msgid "Notices"
 msgstr "通告"
 
-#: actions/deletenotice.php:52 actions/shownotice.php:92
-msgid "No such notice."
-msgstr "没有这份通告。"
-
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
 #: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
-#: actions/unsubscribe.php:52 lib/adminpanelaction.php:72
-#: lib/profileformaction.php:63 lib/settingsaction.php:72
+#: actions/tagother.php:33 actions/unsubscribe.php:52
+#: lib/adminpanelaction.php:72 lib/profileformaction.php:63
+#: lib/settingsaction.php:72
 msgid "Not logged in."
 msgstr "未登录。"
 
@@ -837,7 +835,7 @@ msgstr "确定要删除这条消息吗？"
 msgid "Do not delete this notice"
 msgstr "无法删除通告。"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:612
+#: actions/deletenotice.php:146 lib/noticelist.php:611
 #, fuzzy
 msgid "Delete this notice"
 msgstr "删除通告"
@@ -1295,21 +1293,23 @@ msgstr "%s 优秀用户摘选"
 
 #: actions/file.php:34
 #, fuzzy
-msgid "No notice id"
+msgid "No notice ID."
 msgstr "新通告"
 
 #: actions/file.php:38
 #, fuzzy
-msgid "No notice"
+msgid "No notice."
 msgstr "新通告"
 
 #: actions/file.php:42
-msgid "No attachments"
-msgstr ""
+#, fuzzy
+msgid "No attachments."
+msgstr "没有这份文档。"
 
 #: actions/file.php:51
-msgid "No uploaded attachments"
-msgstr ""
+#, fuzzy
+msgid "No uploaded attachments."
+msgstr "没有这份文档。"
 
 #: actions/finishremotesubscribe.php:69
 msgid "Not expecting this response!"
@@ -1348,8 +1348,9 @@ msgid "Error updating remote profile"
 msgstr "更新远程的个人信息时出错"
 
 #: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
-#: actions/groupunblock.php:86 actions/leavegroup.php:83
-#: actions/makeadmin.php:86 lib/command.php:212 lib/command.php:263
+#: actions/grouprss.php:98 actions/groupunblock.php:86
+#: actions/leavegroup.php:83 actions/makeadmin.php:86 lib/command.php:212
+#: lib/command.php:263
 msgid "No such group."
 msgstr "没有这个组。"
 
@@ -2088,8 +2089,8 @@ msgstr "连接"
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1028
-#: lib/api.php:1056 lib/api.php:1166
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1030
+#: lib/api.php:1058 lib/api.php:1168
 msgid "Not a supported data format."
 msgstr "不支持的数据格式。"
 
@@ -2899,7 +2900,7 @@ msgstr "您必须同意此授权方可注册。"
 msgid "You already repeated that notice."
 msgstr "您已成功阻止该用户："
 
-#: actions/repeat.php:112 lib/noticelist.php:628
+#: actions/repeat.php:112 lib/noticelist.php:627
 #, fuzzy
 msgid "Repeated"
 msgstr "创建"
@@ -3701,14 +3702,9 @@ msgstr "%s 的通告聚合"
 msgid "Notice feed for tag %s (Atom)"
 msgstr "%s 的通告聚合"
 
-#: actions/tagother.php:33
-#, fuzzy
-msgid "Not logged in"
-msgstr "未登录。"
-
 #: actions/tagother.php:39
 #, fuzzy
-msgid "No id argument."
+msgid "No ID argument."
 msgstr "没有这份文档。"
 
 #: actions/tagother.php:65
@@ -3990,8 +3986,9 @@ msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "'%s' 图像格式错误"
 
 #: actions/userbyid.php:70
-msgid "No id."
-msgstr "没有 id。"
+#, fuzzy
+msgid "No ID."
+msgstr "没有ID"
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 #, fuzzy
@@ -4482,6 +4479,16 @@ msgstr "您的消息包含 %d 个字符，超出长度限制 - 不能超过 140 
 #: lib/command.php:377
 msgid "Error sending direct message."
 msgstr "发送消息出错。"
+
+#: lib/command.php:421
+#, fuzzy
+msgid "Cannot repeat your own notice"
+msgstr "无法开启通告。"
+
+#: lib/command.php:426
+#, fuzzy
+msgid "Already repeated that notice"
+msgstr "删除通告"
 
 #: lib/command.php:434
 #, fuzzy, php-format
@@ -5206,12 +5213,17 @@ msgstr ""
 msgid "in context"
 msgstr "没有内容！"
 
-#: lib/noticelist.php:588
+#: lib/noticelist.php:549
+#, fuzzy
+msgid "Repeated by"
+msgstr "创建"
+
+#: lib/noticelist.php:587
 #, fuzzy
 msgid "Reply to this notice"
 msgstr "无法删除通告。"
 
-#: lib/noticelist.php:589
+#: lib/noticelist.php:588
 #, fuzzy
 msgid "Reply"
 msgstr "回复"
@@ -5320,11 +5332,11 @@ msgstr "所有组"
 
 #: lib/profileformaction.php:123
 #, fuzzy
-msgid "No return-to arguments"
+msgid "No return-to arguments."
 msgstr "没有这份文档。"
 
 #: lib/profileformaction.php:137
-msgid "unimplemented method"
+msgid "Unimplemented method."
 msgstr ""
 
 #: lib/publicgroupnav.php:78

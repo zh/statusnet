@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-13 17:14+0000\n"
-"PO-Revision-Date: 2009-12-13 17:15:51+0000\n"
+"POT-Creation-Date: 2009-12-14 20:34+0000\n"
+"PO-Revision-Date: 2009-12-14 20:35:09+0000\n"
 "Language-Team: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60008); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60044); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: out-statusnet\n"
@@ -436,18 +436,18 @@ msgid "You may not delete another user's status."
 msgstr "당신은 다른 사용자의 상태를 삭제하지 않아도 된다."
 
 #: actions/apistatusesretweet.php:75 actions/apistatusesretweets.php:72
-#, fuzzy
-msgid "No such notice"
+#: actions/deletenotice.php:52 actions/shownotice.php:92
+msgid "No such notice."
 msgstr "그러한 통지는 없습니다."
 
-#: actions/apistatusesretweet.php:83 lib/command.php:421
+#: actions/apistatusesretweet.php:83
 #, fuzzy
-msgid "Cannot repeat your own notice"
+msgid "Cannot repeat your own notice."
 msgstr "알림을 켤 수 없습니다."
 
-#: actions/apistatusesretweet.php:91 lib/command.php:426
+#: actions/apistatusesretweet.php:91
 #, fuzzy
-msgid "Already repeated that notice"
+msgid "Already repeated that notice."
 msgstr "이 게시글 삭제하기"
 
 #: actions/apistatusesshow.php:138
@@ -521,7 +521,7 @@ msgstr "%s 공개 타임라인"
 msgid "%s updates from everyone!"
 msgstr "모두로부터의 업데이트 %s개!"
 
-#: actions/apitimelineretweetedbyme.php:112 lib/noticelist.php:566
+#: actions/apitimelineretweetedbyme.php:112
 #, php-format
 msgid "Repeated by %s"
 msgstr ""
@@ -555,7 +555,8 @@ msgstr "찾을 수가 없습니다."
 msgid "No such attachment."
 msgstr "그러한 문서는 없습니다."
 
-#: actions/avatarbynickname.php:59 actions/leavegroup.php:76
+#: actions/avatarbynickname.php:59 actions/grouprss.php:91
+#: actions/leavegroup.php:76
 msgid "No nickname."
 msgstr "별명이 없습니다."
 
@@ -599,7 +600,7 @@ msgid "Preview"
 msgstr "미리보기"
 
 #: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:612
+#: lib/noticelist.php:611
 msgid "Delete"
 msgstr "삭제"
 
@@ -696,15 +697,15 @@ msgstr "정보차단을 저장하는데 실패했습니다."
 
 #: actions/blockedfromgroup.php:73 actions/editgroup.php:84
 #: actions/groupdesignsettings.php:84 actions/grouplogo.php:86
-#: actions/groupmembers.php:76 actions/grouprss.php:91
-#: actions/joingroup.php:76 actions/showgroup.php:121
+#: actions/groupmembers.php:76 actions/joingroup.php:76
+#: actions/showgroup.php:121
 msgid "No nickname"
 msgstr "닉네임이 없습니다"
 
 #: actions/blockedfromgroup.php:80 actions/editgroup.php:96
 #: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
 #: actions/grouplogo.php:99 actions/groupmembers.php:83
-#: actions/grouprss.php:98 actions/joingroup.php:83 actions/showgroup.php:137
+#: actions/joingroup.php:83 actions/showgroup.php:137
 msgid "No such group"
 msgstr "그러한 그룹이 없습니다."
 
@@ -794,16 +795,13 @@ msgstr "인증 코드"
 msgid "Notices"
 msgstr "통지"
 
-#: actions/deletenotice.php:52 actions/shownotice.php:92
-msgid "No such notice."
-msgstr "그러한 통지는 없습니다."
-
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
 #: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
-#: actions/unsubscribe.php:52 lib/adminpanelaction.php:72
-#: lib/profileformaction.php:63 lib/settingsaction.php:72
+#: actions/tagother.php:33 actions/unsubscribe.php:52
+#: lib/adminpanelaction.php:72 lib/profileformaction.php:63
+#: lib/settingsaction.php:72
 msgid "Not logged in."
 msgstr "로그인하고 있지 않습니다."
 
@@ -832,7 +830,7 @@ msgstr "정말로 통지를 삭제하시겠습니까?"
 msgid "Do not delete this notice"
 msgstr "이 통지를 지울 수 없습니다."
 
-#: actions/deletenotice.php:146 lib/noticelist.php:612
+#: actions/deletenotice.php:146 lib/noticelist.php:611
 msgid "Delete this notice"
 msgstr "이 게시글 삭제하기"
 
@@ -1286,21 +1284,23 @@ msgstr "%s의 훌륭한 회원의 일부 선택"
 
 #: actions/file.php:34
 #, fuzzy
-msgid "No notice id"
+msgid "No notice ID."
 msgstr "새로운 통지"
 
 #: actions/file.php:38
 #, fuzzy
-msgid "No notice"
+msgid "No notice."
 msgstr "새로운 통지"
 
 #: actions/file.php:42
-msgid "No attachments"
-msgstr ""
+#, fuzzy
+msgid "No attachments."
+msgstr "그러한 문서는 없습니다."
 
 #: actions/file.php:51
-msgid "No uploaded attachments"
-msgstr ""
+#, fuzzy
+msgid "No uploaded attachments."
+msgstr "그러한 문서는 없습니다."
 
 #: actions/finishremotesubscribe.php:69
 msgid "Not expecting this response!"
@@ -1339,8 +1339,9 @@ msgid "Error updating remote profile"
 msgstr "리모트 프로필 업데이트 오류"
 
 #: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
-#: actions/groupunblock.php:86 actions/leavegroup.php:83
-#: actions/makeadmin.php:86 lib/command.php:212 lib/command.php:263
+#: actions/grouprss.php:98 actions/groupunblock.php:86
+#: actions/leavegroup.php:83 actions/makeadmin.php:86 lib/command.php:212
+#: lib/command.php:263
 msgid "No such group."
 msgstr "그러한 그룹이 없습니다."
 
@@ -2080,8 +2081,8 @@ msgstr "연결"
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1028
-#: lib/api.php:1056 lib/api.php:1166
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1030
+#: lib/api.php:1058 lib/api.php:1168
 msgid "Not a supported data format."
 msgstr "지원하는 형식의 데이터가 아닙니다."
 
@@ -2892,7 +2893,7 @@ msgstr "라이선스에 동의하지 않는다면 등록할 수 없습니다."
 msgid "You already repeated that notice."
 msgstr "당신은 이미 이 사용자를 차단하고 있습니다."
 
-#: actions/repeat.php:112 lib/noticelist.php:628
+#: actions/repeat.php:112 lib/noticelist.php:627
 #, fuzzy
 msgid "Repeated"
 msgstr "생성"
@@ -3686,12 +3687,9 @@ msgstr "%s의 통지 피드"
 msgid "Notice feed for tag %s (Atom)"
 msgstr "%s의 통지 피드"
 
-#: actions/tagother.php:33
-msgid "Not logged in"
-msgstr "로그인되지 않았습니다."
-
 #: actions/tagother.php:39
-msgid "No id argument."
+#, fuzzy
+msgid "No ID argument."
 msgstr "id 인자가 없습니다."
 
 #: actions/tagother.php:65
@@ -3970,8 +3968,9 @@ msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "%S 잘못된 그림 파일 타입입니다. "
 
 #: actions/userbyid.php:70
-msgid "No id."
-msgstr "id가 없습니다."
+#, fuzzy
+msgid "No ID."
+msgstr "ID가 없습니다."
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 #, fuzzy
@@ -4455,6 +4454,16 @@ msgstr "당신이 보낸 메시지가 너무 길어요. 최대 140글자까지�
 #: lib/command.php:377
 msgid "Error sending direct message."
 msgstr "직접 메시지 보내기 오류."
+
+#: lib/command.php:421
+#, fuzzy
+msgid "Cannot repeat your own notice"
+msgstr "알림을 켤 수 없습니다."
+
+#: lib/command.php:426
+#, fuzzy
+msgid "Already repeated that notice"
+msgstr "이 게시글 삭제하기"
 
 #: lib/command.php:434
 #, fuzzy, php-format
@@ -5157,11 +5166,16 @@ msgstr ""
 msgid "in context"
 msgstr "내용이 없습니다!"
 
-#: lib/noticelist.php:588
+#: lib/noticelist.php:549
+#, fuzzy
+msgid "Repeated by"
+msgstr "생성"
+
+#: lib/noticelist.php:587
 msgid "Reply to this notice"
 msgstr "이 게시글에 대해 답장하기"
 
-#: lib/noticelist.php:589
+#: lib/noticelist.php:588
 msgid "Reply"
 msgstr "답장하기"
 
@@ -5267,11 +5281,11 @@ msgstr "모든 그룹"
 
 #: lib/profileformaction.php:123
 #, fuzzy
-msgid "No return-to arguments"
+msgid "No return-to arguments."
 msgstr "id 인자가 없습니다."
 
 #: lib/profileformaction.php:137
-msgid "unimplemented method"
+msgid "Unimplemented method."
 msgstr ""
 
 #: lib/publicgroupnav.php:78

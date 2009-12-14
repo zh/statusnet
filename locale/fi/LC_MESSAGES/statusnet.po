@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-13 17:14+0000\n"
-"PO-Revision-Date: 2009-12-13 17:15:25+0000\n"
+"POT-Creation-Date: 2009-12-14 20:34+0000\n"
+"PO-Revision-Date: 2009-12-14 20:34:42+0000\n"
 "Language-Team: Finnish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60008); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60044); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fi\n"
 "X-Message-Group: out-statusnet\n"
@@ -436,18 +436,18 @@ msgid "You may not delete another user's status."
 msgstr "Et voi poistaa toisen käyttäjän päivitystä."
 
 #: actions/apistatusesretweet.php:75 actions/apistatusesretweets.php:72
-#, fuzzy
-msgid "No such notice"
+#: actions/deletenotice.php:52 actions/shownotice.php:92
+msgid "No such notice."
 msgstr "Päivitystä ei ole."
 
-#: actions/apistatusesretweet.php:83 lib/command.php:421
+#: actions/apistatusesretweet.php:83
 #, fuzzy
-msgid "Cannot repeat your own notice"
+msgid "Cannot repeat your own notice."
 msgstr "Ilmoituksia ei voi pistää päälle."
 
-#: actions/apistatusesretweet.php:91 lib/command.php:426
+#: actions/apistatusesretweet.php:91
 #, fuzzy
-msgid "Already repeated that notice"
+msgid "Already repeated that notice."
 msgstr "Poista tämä päivitys"
 
 #: actions/apistatusesshow.php:138
@@ -520,7 +520,7 @@ msgstr "%s julkinen aikajana"
 msgid "%s updates from everyone!"
 msgstr "%s päivitykset kaikilta!"
 
-#: actions/apitimelineretweetedbyme.php:112 lib/noticelist.php:566
+#: actions/apitimelineretweetedbyme.php:112
 #, php-format
 msgid "Repeated by %s"
 msgstr ""
@@ -553,7 +553,8 @@ msgstr "Ei löytynyt."
 msgid "No such attachment."
 msgstr "Liitettä ei ole."
 
-#: actions/avatarbynickname.php:59 actions/leavegroup.php:76
+#: actions/avatarbynickname.php:59 actions/grouprss.php:91
+#: actions/leavegroup.php:76
 msgid "No nickname."
 msgstr "Tunnusta ei ole."
 
@@ -597,7 +598,7 @@ msgid "Preview"
 msgstr "Esikatselu"
 
 #: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:612
+#: lib/noticelist.php:611
 msgid "Delete"
 msgstr "Poista"
 
@@ -694,15 +695,15 @@ msgstr "Käyttäjän estotiedon tallennus epäonnistui."
 
 #: actions/blockedfromgroup.php:73 actions/editgroup.php:84
 #: actions/groupdesignsettings.php:84 actions/grouplogo.php:86
-#: actions/groupmembers.php:76 actions/grouprss.php:91
-#: actions/joingroup.php:76 actions/showgroup.php:121
+#: actions/groupmembers.php:76 actions/joingroup.php:76
+#: actions/showgroup.php:121
 msgid "No nickname"
 msgstr "Tunnusta ei ole."
 
 #: actions/blockedfromgroup.php:80 actions/editgroup.php:96
 #: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
 #: actions/grouplogo.php:99 actions/groupmembers.php:83
-#: actions/grouprss.php:98 actions/joingroup.php:83 actions/showgroup.php:137
+#: actions/joingroup.php:83 actions/showgroup.php:137
 msgid "No such group"
 msgstr "Tuota ryhmää ei ole."
 
@@ -789,16 +790,13 @@ msgstr "Keskustelu"
 msgid "Notices"
 msgstr "Päivitykset"
 
-#: actions/deletenotice.php:52 actions/shownotice.php:92
-msgid "No such notice."
-msgstr "Päivitystä ei ole."
-
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
 #: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
-#: actions/unsubscribe.php:52 lib/adminpanelaction.php:72
-#: lib/profileformaction.php:63 lib/settingsaction.php:72
+#: actions/tagother.php:33 actions/unsubscribe.php:52
+#: lib/adminpanelaction.php:72 lib/profileformaction.php:63
+#: lib/settingsaction.php:72
 msgid "Not logged in."
 msgstr "Et ole kirjautunut sisään."
 
@@ -826,7 +824,7 @@ msgstr "Oletko varma että haluat poistaa tämän päivityksen?"
 msgid "Do not delete this notice"
 msgstr "Älä poista tätä päivitystä"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:612
+#: actions/deletenotice.php:146 lib/noticelist.php:611
 msgid "Delete this notice"
 msgstr "Poista tämä päivitys"
 
@@ -1277,19 +1275,23 @@ msgid "A selection of some of the great users on %s"
 msgstr "Valikoima joitakin loistavia palvelun %s käyttäjiä"
 
 #: actions/file.php:34
-msgid "No notice id"
-msgstr "Ei päivitystä id-tunnusta"
+#, fuzzy
+msgid "No notice ID."
+msgstr "Ei päivitystä"
 
 #: actions/file.php:38
-msgid "No notice"
+#, fuzzy
+msgid "No notice."
 msgstr "Ei päivitystä"
 
 #: actions/file.php:42
-msgid "No attachments"
+#, fuzzy
+msgid "No attachments."
 msgstr "Ei liitteitä"
 
 #: actions/file.php:51
-msgid "No uploaded attachments"
+#, fuzzy
+msgid "No uploaded attachments."
 msgstr "Ei ladattuja liitteitä"
 
 #: actions/finishremotesubscribe.php:69
@@ -1328,8 +1330,9 @@ msgid "Error updating remote profile"
 msgstr "Virhe tapahtui etäprofiilin päivittämisessä"
 
 #: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
-#: actions/groupunblock.php:86 actions/leavegroup.php:83
-#: actions/makeadmin.php:86 lib/command.php:212 lib/command.php:263
+#: actions/grouprss.php:98 actions/groupunblock.php:86
+#: actions/leavegroup.php:83 actions/makeadmin.php:86 lib/command.php:212
+#: lib/command.php:263
 msgid "No such group."
 msgstr "Tuota ryhmää ei ole."
 
@@ -2070,8 +2073,8 @@ msgstr "Yhdistä"
 msgid "Only "
 msgstr "Vain "
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1028
-#: lib/api.php:1056 lib/api.php:1166
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1030
+#: lib/api.php:1058 lib/api.php:1168
 msgid "Not a supported data format."
 msgstr "Tuo ei ole tuettu tietomuoto."
 
@@ -2895,7 +2898,7 @@ msgstr "Et voi rekisteröityä, jos et hyväksy lisenssiehtoja."
 msgid "You already repeated that notice."
 msgstr "Sinä olet jo estänyt tämän käyttäjän."
 
-#: actions/repeat.php:112 lib/noticelist.php:628
+#: actions/repeat.php:112 lib/noticelist.php:627
 #, fuzzy
 msgid "Repeated"
 msgstr "Luotu"
@@ -3690,12 +3693,9 @@ msgstr "Päivityksien syöte käyttäjälle %s"
 msgid "Notice feed for tag %s (Atom)"
 msgstr "Päivityksien syöte käyttäjälle %s"
 
-#: actions/tagother.php:33
-msgid "Not logged in"
-msgstr "Et ole kirjautunut sisään"
-
 #: actions/tagother.php:39
-msgid "No id argument."
+#, fuzzy
+msgid "No ID argument."
 msgstr "Ei id parametria."
 
 #: actions/tagother.php:65
@@ -3980,8 +3980,9 @@ msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "Kuvan '%s' tyyppi on väärä"
 
 #: actions/userbyid.php:70
-msgid "No id."
-msgstr "Id puuttuu."
+#, fuzzy
+msgid "No ID."
+msgstr "ID-tunnusta ei ole"
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 #, fuzzy
@@ -4463,6 +4464,16 @@ msgstr "Viesti oli liian pitkä - maksimikoko on 140 merkkiä, lähetit %d"
 #: lib/command.php:377
 msgid "Error sending direct message."
 msgstr "Tapahtui virhe suoran viestin lähetyksessä."
+
+#: lib/command.php:421
+#, fuzzy
+msgid "Cannot repeat your own notice"
+msgstr "Ilmoituksia ei voi pistää päälle."
+
+#: lib/command.php:426
+#, fuzzy
+msgid "Already repeated that notice"
+msgstr "Poista tämä päivitys"
 
 #: lib/command.php:434
 #, fuzzy, php-format
@@ -5182,11 +5193,16 @@ msgstr ""
 msgid "in context"
 msgstr "Ei sisältöä!"
 
-#: lib/noticelist.php:588
+#: lib/noticelist.php:549
+#, fuzzy
+msgid "Repeated by"
+msgstr "Luotu"
+
+#: lib/noticelist.php:587
 msgid "Reply to this notice"
 msgstr "Vastaa tähän päivitykseen"
 
-#: lib/noticelist.php:589
+#: lib/noticelist.php:588
 msgid "Reply"
 msgstr "Vastaus"
 
@@ -5292,11 +5308,11 @@ msgstr "Kaikki ryhmät"
 
 #: lib/profileformaction.php:123
 #, fuzzy
-msgid "No return-to arguments"
+msgid "No return-to arguments."
 msgstr "Ei id parametria."
 
 #: lib/profileformaction.php:137
-msgid "unimplemented method"
+msgid "Unimplemented method."
 msgstr ""
 
 #: lib/publicgroupnav.php:78

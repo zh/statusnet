@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-13 17:14+0000\n"
-"PO-Revision-Date: 2009-12-13 17:16:10+0000\n"
+"POT-Creation-Date: 2009-12-14 20:34+0000\n"
+"PO-Revision-Date: 2009-12-14 20:35:28+0000\n"
 "Language-Team: Portuguese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60008); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60044); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pt\n"
 "X-Message-Group: out-statusnet\n"
@@ -432,19 +432,19 @@ msgid "You may not delete another user's status."
 msgstr "Não pode apagar o estado de outro utilizador."
 
 #: actions/apistatusesretweet.php:75 actions/apistatusesretweets.php:72
-#, fuzzy
-msgid "No such notice"
+#: actions/deletenotice.php:52 actions/shownotice.php:92
+msgid "No such notice."
 msgstr "Nota não encontrada."
 
-#: actions/apistatusesretweet.php:83 lib/command.php:421
+#: actions/apistatusesretweet.php:83
 #, fuzzy
-msgid "Cannot repeat your own notice"
-msgstr "Não foi possível ligar a notificação."
+msgid "Cannot repeat your own notice."
+msgstr "Não pode repetir a sua própria nota"
 
-#: actions/apistatusesretweet.php:91 lib/command.php:426
+#: actions/apistatusesretweet.php:91
 #, fuzzy
-msgid "Already repeated that notice"
-msgstr "Apagar esta nota"
+msgid "Already repeated that notice."
+msgstr "Já repetiu essa nota"
 
 #: actions/apistatusesshow.php:138
 msgid "Status deleted."
@@ -515,20 +515,20 @@ msgstr "Notas públicas de %s"
 msgid "%s updates from everyone!"
 msgstr "%s actualizações de todos!"
 
-#: actions/apitimelineretweetedbyme.php:112 lib/noticelist.php:566
+#: actions/apitimelineretweetedbyme.php:112
 #, php-format
 msgid "Repeated by %s"
-msgstr ""
+msgstr "Repetida por %s"
 
 #: actions/apitimelineretweetedtome.php:111
-#, fuzzy, php-format
+#, php-format
 msgid "Repeated to %s"
-msgstr "Respostas a %s"
+msgstr "Repetida para %s"
 
 #: actions/apitimelineretweetsofme.php:112
-#, fuzzy, php-format
+#, php-format
 msgid "Repeats of %s"
-msgstr "Respostas a %s"
+msgstr "Repetências de %s"
 
 #: actions/apitimelinetag.php:102 actions/tag.php:66
 #, php-format
@@ -548,7 +548,8 @@ msgstr "Não encontrado."
 msgid "No such attachment."
 msgstr "Anexo não encontrado."
 
-#: actions/avatarbynickname.php:59 actions/leavegroup.php:76
+#: actions/avatarbynickname.php:59 actions/grouprss.php:91
+#: actions/leavegroup.php:76
 msgid "No nickname."
 msgstr "Nenhuma alcunha."
 
@@ -592,7 +593,7 @@ msgid "Preview"
 msgstr "Antevisão"
 
 #: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:612
+#: lib/noticelist.php:611
 msgid "Delete"
 msgstr "Apagar"
 
@@ -690,15 +691,15 @@ msgstr "Não foi possível gravar informação do bloqueio."
 
 #: actions/blockedfromgroup.php:73 actions/editgroup.php:84
 #: actions/groupdesignsettings.php:84 actions/grouplogo.php:86
-#: actions/groupmembers.php:76 actions/grouprss.php:91
-#: actions/joingroup.php:76 actions/showgroup.php:121
+#: actions/groupmembers.php:76 actions/joingroup.php:76
+#: actions/showgroup.php:121
 msgid "No nickname"
 msgstr "Sem alcunha"
 
 #: actions/blockedfromgroup.php:80 actions/editgroup.php:96
 #: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
 #: actions/grouplogo.php:99 actions/groupmembers.php:83
-#: actions/grouprss.php:98 actions/joingroup.php:83 actions/showgroup.php:137
+#: actions/joingroup.php:83 actions/showgroup.php:137
 msgid "No such group"
 msgstr "Grupo não existe"
 
@@ -784,16 +785,13 @@ msgstr "Conversação"
 msgid "Notices"
 msgstr "Notas"
 
-#: actions/deletenotice.php:52 actions/shownotice.php:92
-msgid "No such notice."
-msgstr "Nota não encontrada."
-
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
 #: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
-#: actions/unsubscribe.php:52 lib/adminpanelaction.php:72
-#: lib/profileformaction.php:63 lib/settingsaction.php:72
+#: actions/tagother.php:33 actions/unsubscribe.php:52
+#: lib/adminpanelaction.php:72 lib/profileformaction.php:63
+#: lib/settingsaction.php:72
 msgid "Not logged in."
 msgstr "Não iniciou sessão."
 
@@ -821,7 +819,7 @@ msgstr "Tem a certeza de que quer apagar esta nota?"
 msgid "Do not delete this notice"
 msgstr "Não apagar esta nota"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:612
+#: actions/deletenotice.php:146 lib/noticelist.php:611
 msgid "Delete this notice"
 msgstr "Apagar esta nota"
 
@@ -1222,7 +1220,7 @@ msgstr "Notas populares, página %d"
 
 #: actions/favorited.php:79
 msgid "The most popular notices on the site right now."
-msgstr "As notas mais populares do site neste momento."
+msgstr "As notas mais populares do site nesta altura."
 
 #: actions/favorited.php:150
 msgid "Favorite notices appear on this page but no one has favorited one yet."
@@ -1270,22 +1268,26 @@ msgstr "utilizadores em destaque, página %d"
 #: actions/featured.php:99
 #, php-format
 msgid "A selection of some of the great users on %s"
-msgstr "Uma selecção de alguns utilizadores excelentes em %s"
+msgstr "Uma selecção dos participantes excelentes no %s"
 
 #: actions/file.php:34
-msgid "No notice id"
-msgstr "Sem ID de nota"
+#, fuzzy
+msgid "No notice ID."
+msgstr "Sem notas"
 
 #: actions/file.php:38
-msgid "No notice"
+#, fuzzy
+msgid "No notice."
 msgstr "Sem notas"
 
 #: actions/file.php:42
-msgid "No attachments"
+#, fuzzy
+msgid "No attachments."
 msgstr "Sem anexos"
 
 #: actions/file.php:51
-msgid "No uploaded attachments"
+#, fuzzy
+msgid "No uploaded attachments."
 msgstr "Sem anexos carregados"
 
 #: actions/finishremotesubscribe.php:69
@@ -1321,8 +1323,9 @@ msgid "Error updating remote profile"
 msgstr "Erro ao actualizar o perfil remoto"
 
 #: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
-#: actions/groupunblock.php:86 actions/leavegroup.php:83
-#: actions/makeadmin.php:86 lib/command.php:212 lib/command.php:263
+#: actions/grouprss.php:98 actions/groupunblock.php:86
+#: actions/leavegroup.php:83 actions/makeadmin.php:86 lib/command.php:212
+#: lib/command.php:263
 msgid "No such group."
 msgstr "Grupo não foi encontrado."
 
@@ -1524,7 +1527,7 @@ msgid ""
 "Separate the terms by spaces; they must be 3 characters or more."
 msgstr ""
 "Procure grupos neste site pesquisando o nome, localização ou descrição. Os "
-"termos de busca devem ter 3 ou mais caracteres e ser separados por espaços."
+"termos de busca devem ter 3 ou mais caracteres e estar separados por espaços."
 
 #: actions/groupsearch.php:58
 msgid "Group search"
@@ -2000,8 +2003,8 @@ msgid ""
 "Search for notices on %%site.name%% by their contents. Separate search terms "
 "by spaces; they must be 3 characters or more."
 msgstr ""
-"Procure notas neste site pesquisando o seu conteúdo. Os termos de busca "
-"devem ter 3 ou mais caracteres e ser separados por espaços."
+"Procure notas no %%site.name%%, pesquisando o seu conteúdo. Os termos de "
+"busca devem ter 3 ou mais caracteres e estar separados por espaços."
 
 #: actions/noticesearch.php:78
 msgid "Text search"
@@ -2072,8 +2075,8 @@ msgstr "tipo de conteúdo "
 msgid "Only "
 msgstr "Apenas "
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1028
-#: lib/api.php:1056 lib/api.php:1166
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1030
+#: lib/api.php:1058 lib/api.php:1168
 msgid "Not a supported data format."
 msgstr "Formato de dados não suportado."
 
@@ -2300,8 +2303,9 @@ msgid ""
 "Search for people on %%site.name%% by their name, location, or interests. "
 "Separate the terms by spaces; they must be 3 characters or more."
 msgstr ""
-"Procure pessoas neste site pesquisando o nome, localidade ou interesses. Os "
-"termos de busca devem ter 3 ou mais caracteres e ser separados por espaços."
+"Procure pessoas no %%site.name%% pesquisando o nome, localidade ou "
+"interesses. Os termos de busca devem ter 3 ou mais caracteres e estar "
+"separados por espaços."
 
 #: actions/peoplesearch.php:58
 msgid "People search"
@@ -2879,34 +2883,28 @@ msgid "Couldn’t get a request token."
 msgstr "Não foi possível obter uma chave de pedido."
 
 #: actions/repeat.php:57
-#, fuzzy
 msgid "Only logged-in users can repeat notices."
-msgstr "Só o próprio utilizador pode ler a sua caixa de correio."
+msgstr "Só utilizadores com sessão iniciada podem repetir notas."
 
 #: actions/repeat.php:64 actions/repeat.php:71
-#, fuzzy
 msgid "No notice specified."
-msgstr "Não foi especificado um perfil."
+msgstr "Nota não foi especificada."
 
 #: actions/repeat.php:76
-#, fuzzy
 msgid "You can't repeat your own notice."
-msgstr "Não se pode registar se não aceita a licença."
+msgstr "Não pode repetir a sua própria nota."
 
 #: actions/repeat.php:90
-#, fuzzy
 msgid "You already repeated that notice."
-msgstr "Já bloqueou esse utilizador."
+msgstr "Já repetiu essa nota."
 
-#: actions/repeat.php:112 lib/noticelist.php:628
-#, fuzzy
+#: actions/repeat.php:112 lib/noticelist.php:627
 msgid "Repeated"
-msgstr "Criado"
+msgstr "Repetida"
 
 #: actions/repeat.php:115
-#, fuzzy
 msgid "Repeated!"
-msgstr "Criado"
+msgstr "Repetida!"
 
 #: actions/replies.php:125 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
@@ -3243,9 +3241,9 @@ msgstr ""
 "Software Livre [StatusNet](http://status.net/). "
 
 #: actions/showstream.php:313
-#, fuzzy, php-format
+#, php-format
 msgid "Repeat of %s"
-msgstr "Respostas a %s"
+msgstr "Repetência de %s"
 
 #: actions/silence.php:65 actions/unsilence.php:65
 msgid "You cannot silence users on this site."
@@ -3715,12 +3713,9 @@ msgstr "Feed de notas para a categoria %s (RSS 2.0)"
 msgid "Notice feed for tag %s (Atom)"
 msgstr "Feed de notas para a categoria %s (Atom)"
 
-#: actions/tagother.php:33
-msgid "Not logged in"
-msgstr "Não iniciou sessão."
-
 #: actions/tagother.php:39
-msgid "No id argument."
+#, fuzzy
+msgid "No ID argument."
 msgstr "Argumento de identificação em falta."
 
 #: actions/tagother.php:65
@@ -3991,8 +3986,9 @@ msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "Tipo de imagem incorrecto para o avatar da URL ‘%s’."
 
 #: actions/userbyid.php:70
-msgid "No id."
-msgstr "Nenhuma identificação."
+#, fuzzy
+msgid "No ID."
+msgstr "Sem ID"
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 msgid "Profile design"
@@ -4103,9 +4099,9 @@ msgid "DB error inserting reply: %s"
 msgstr "Ocorreu um erro na base de dados ao inserir a resposta: %s"
 
 #: classes/Notice.php:1320
-#, fuzzy, php-format
+#, php-format
 msgid "RT @%1$s %2$s"
-msgstr "%1$s (%2$s)"
+msgstr "RT @%1$s %2$s"
 
 #: classes/User.php:347
 #, php-format
@@ -4467,15 +4463,22 @@ msgstr "Mensagem demasiado extensa - máx. %d caracteres, enviou %d"
 msgid "Error sending direct message."
 msgstr "Erro no envio da mensagem directa."
 
+#: lib/command.php:421
+msgid "Cannot repeat your own notice"
+msgstr "Não pode repetir a sua própria nota"
+
+#: lib/command.php:426
+msgid "Already repeated that notice"
+msgstr "Já repetiu essa nota"
+
 #: lib/command.php:434
-#, fuzzy, php-format
+#, php-format
 msgid "Notice from %s repeated"
-msgstr "Nota publicada"
+msgstr "Nota de %s repetida"
 
 #: lib/command.php:436
-#, fuzzy
 msgid "Error repeating notice."
-msgstr "Erro ao gravar nota."
+msgstr "Erro ao repetir nota."
 
 #: lib/command.php:490
 #, php-format
@@ -4576,7 +4579,6 @@ msgstr[0] "Está no grupo:"
 msgstr[1] "Está nos grupos:"
 
 #: lib/command.php:744
-#, fuzzy
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4630,6 +4632,8 @@ msgstr ""
 "whois <alcunha> - receber perfil do utilizador\n"
 "fav <alcunha> - adicionar última nota do utilizador às favoritas\n"
 "fav #<id_da_nota> - adicionar nota com esta identificação às favoritas\n"
+"repeat #<id_da_nota> - repetir uma nota com uma certa identificação\n"
+"repeat <alcunha> - repetir a última nota do utilizador\n"
 "reply #<id_da_nota> - responder à nota com esta identificação\n"
 "reply <alcunha> - responder à última nota do utilizador\n"
 "join <grupo> - juntar-se ao grupo\n"
@@ -4757,17 +4761,16 @@ msgstr "Prosseguir"
 
 #: lib/groupeditform.php:163
 msgid "URL of the homepage or blog of the group or topic"
-msgstr ""
-"URL da página de acolhimento ou blogue, pertencentes ao grupo ou tópico"
+msgstr "URL da página de acolhimento ou do blogue, deste grupo ou assunto"
 
 #: lib/groupeditform.php:168
 msgid "Describe the group or topic"
-msgstr "Descreva o grupo ou tópico"
+msgstr "Descreva o grupo ou assunto"
 
 #: lib/groupeditform.php:170
 #, php-format
 msgid "Describe the group or topic in %d characters"
-msgstr "Descreva o grupo ou tópico em %d caracteres"
+msgstr "Descreva o grupo ou o assunto em %d caracteres"
 
 #: lib/groupeditform.php:172
 msgid "Description"
@@ -5161,8 +5164,8 @@ msgid ""
 "You have no private messages. You can send private message to engage other "
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
-"Não tem messagens privadas. Pode enviar mensagens privadas para encetar "
-"conversas com outros utilizadores. Outros podem enviar-lhe mensagens, a que "
+"Não tem messagens privadas. Pode enviar mensagens privadas para meter "
+"conversa com outros utilizadores. Outros podem enviar-lhe mensagens, a que "
 "só você terá acesso."
 
 #: lib/mailbox.php:227 lib/noticelist.php:468
@@ -5283,11 +5286,16 @@ msgstr "coords."
 msgid "in context"
 msgstr "em contexto"
 
-#: lib/noticelist.php:588
+#: lib/noticelist.php:549
+#, fuzzy
+msgid "Repeated by"
+msgstr "Repetida por %s"
+
+#: lib/noticelist.php:587
 msgid "Reply to this notice"
 msgstr "Responder a esta nota"
 
-#: lib/noticelist.php:589
+#: lib/noticelist.php:588
 msgid "Reply"
 msgstr "Responder"
 
@@ -5389,11 +5397,13 @@ msgid "All groups"
 msgstr "Todos os grupos"
 
 #: lib/profileformaction.php:123
-msgid "No return-to arguments"
+#, fuzzy
+msgid "No return-to arguments."
 msgstr "Sem argumentos return-to"
 
 #: lib/profileformaction.php:137
-msgid "unimplemented method"
+#, fuzzy
+msgid "Unimplemented method."
 msgstr "método não implementado"
 
 #: lib/publicgroupnav.php:78
@@ -5417,14 +5427,12 @@ msgid "Popular"
 msgstr "Populares"
 
 #: lib/repeatform.php:107 lib/repeatform.php:132
-#, fuzzy
 msgid "Repeat this notice"
-msgstr "Responder a esta nota"
+msgstr "Repetir esta nota"
 
 #: lib/repeatform.php:132
-#, fuzzy
 msgid "Repeat"
-msgstr "Reiniciar"
+msgstr "Repetir"
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"

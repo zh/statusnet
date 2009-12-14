@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-13 17:14+0000\n"
-"PO-Revision-Date: 2009-12-13 17:16:04+0000\n"
+"POT-Creation-Date: 2009-12-14 20:34+0000\n"
+"PO-Revision-Date: 2009-12-14 20:35:22+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60008); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60044); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: out-statusnet\n"
@@ -441,19 +441,19 @@ msgid "You may not delete another user's status."
 msgstr "U kunt de status van een andere gebruiker niet verwijderen."
 
 #: actions/apistatusesretweet.php:75 actions/apistatusesretweets.php:72
-#, fuzzy
-msgid "No such notice"
+#: actions/deletenotice.php:52 actions/shownotice.php:92
+msgid "No such notice."
 msgstr "De mededeling bestaat niet."
 
-#: actions/apistatusesretweet.php:83 lib/command.php:421
+#: actions/apistatusesretweet.php:83
 #, fuzzy
-msgid "Cannot repeat your own notice"
-msgstr "Het is niet mogelijk de notificatie uit te schakelen."
+msgid "Cannot repeat your own notice."
+msgstr "U kunt uw eigen mededelingen niet herhalen."
 
-#: actions/apistatusesretweet.php:91 lib/command.php:426
+#: actions/apistatusesretweet.php:91
 #, fuzzy
-msgid "Already repeated that notice"
-msgstr "Deze mededeling verwijderen"
+msgid "Already repeated that notice."
+msgstr "U hebt die mededeling al herhaald."
 
 #: actions/apistatusesshow.php:138
 msgid "Status deleted."
@@ -526,20 +526,20 @@ msgstr "%s publieke tijdlijn"
 msgid "%s updates from everyone!"
 msgstr "%s updates van iedereen"
 
-#: actions/apitimelineretweetedbyme.php:112 lib/noticelist.php:566
+#: actions/apitimelineretweetedbyme.php:112
 #, php-format
 msgid "Repeated by %s"
-msgstr ""
+msgstr "Herhaald door %s"
 
 #: actions/apitimelineretweetedtome.php:111
-#, fuzzy, php-format
+#, php-format
 msgid "Repeated to %s"
-msgstr "Antwoorden aan %s"
+msgstr "Herhaald naar %s"
 
 #: actions/apitimelineretweetsofme.php:112
-#, fuzzy, php-format
+#, php-format
 msgid "Repeats of %s"
-msgstr "Antwoorden aan %s"
+msgstr "Herhaald van %s"
 
 #: actions/apitimelinetag.php:102 actions/tag.php:66
 #, php-format
@@ -559,7 +559,8 @@ msgstr "Niet aangetroffen."
 msgid "No such attachment."
 msgstr "Dat document bestaat niet."
 
-#: actions/avatarbynickname.php:59 actions/leavegroup.php:76
+#: actions/avatarbynickname.php:59 actions/grouprss.php:91
+#: actions/leavegroup.php:76
 msgid "No nickname."
 msgstr "Geen gebruikersnaam."
 
@@ -604,7 +605,7 @@ msgid "Preview"
 msgstr "Voorvertoning"
 
 #: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:612
+#: lib/noticelist.php:611
 msgid "Delete"
 msgstr "Verwijderen"
 
@@ -704,15 +705,15 @@ msgstr "Het was niet mogelijk om de blokkadeinformatie op te slaan."
 
 #: actions/blockedfromgroup.php:73 actions/editgroup.php:84
 #: actions/groupdesignsettings.php:84 actions/grouplogo.php:86
-#: actions/groupmembers.php:76 actions/grouprss.php:91
-#: actions/joingroup.php:76 actions/showgroup.php:121
+#: actions/groupmembers.php:76 actions/joingroup.php:76
+#: actions/showgroup.php:121
 msgid "No nickname"
 msgstr "Geen gebruikersnaam"
 
 #: actions/blockedfromgroup.php:80 actions/editgroup.php:96
 #: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
 #: actions/grouplogo.php:99 actions/groupmembers.php:83
-#: actions/grouprss.php:98 actions/joingroup.php:83 actions/showgroup.php:137
+#: actions/joingroup.php:83 actions/showgroup.php:137
 msgid "No such group"
 msgstr "Deze groep bestaat niet"
 
@@ -798,16 +799,13 @@ msgstr "Dialoog"
 msgid "Notices"
 msgstr "Mededelingen"
 
-#: actions/deletenotice.php:52 actions/shownotice.php:92
-msgid "No such notice."
-msgstr "De mededeling bestaat niet."
-
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
 #: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
-#: actions/unsubscribe.php:52 lib/adminpanelaction.php:72
-#: lib/profileformaction.php:63 lib/settingsaction.php:72
+#: actions/tagother.php:33 actions/unsubscribe.php:52
+#: lib/adminpanelaction.php:72 lib/profileformaction.php:63
+#: lib/settingsaction.php:72
 msgid "Not logged in."
 msgstr "Niet aangemeld."
 
@@ -835,7 +833,7 @@ msgstr "Weet u zeker dat u deze aankondiging wilt verwijderen?"
 msgid "Do not delete this notice"
 msgstr "Deze mededeling niet verwijderen"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:612
+#: actions/deletenotice.php:146 lib/noticelist.php:611
 msgid "Delete this notice"
 msgstr "Deze mededeling verwijderen"
 
@@ -1287,19 +1285,23 @@ msgid "A selection of some of the great users on %s"
 msgstr "Een selectie van de actieve gebruikers op %s"
 
 #: actions/file.php:34
-msgid "No notice id"
-msgstr "Geen mededelings-ID"
+#, fuzzy
+msgid "No notice ID."
+msgstr "Geen mededeling"
 
 #: actions/file.php:38
-msgid "No notice"
+#, fuzzy
+msgid "No notice."
 msgstr "Geen mededeling"
 
 #: actions/file.php:42
-msgid "No attachments"
+#, fuzzy
+msgid "No attachments."
 msgstr "Geen bijlagen"
 
 #: actions/file.php:51
-msgid "No uploaded attachments"
+#, fuzzy
+msgid "No uploaded attachments."
 msgstr "Geen toegevoegde bijlagen"
 
 #: actions/finishremotesubscribe.php:69
@@ -1339,8 +1341,9 @@ msgstr ""
 "Er is een fout opgetreden tijdens het bijwerken van het profiel op afstand."
 
 #: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
-#: actions/groupunblock.php:86 actions/leavegroup.php:83
-#: actions/makeadmin.php:86 lib/command.php:212 lib/command.php:263
+#: actions/grouprss.php:98 actions/groupunblock.php:86
+#: actions/leavegroup.php:83 actions/makeadmin.php:86 lib/command.php:212
+#: lib/command.php:263
 msgid "No such group."
 msgstr "De opgegeven groep bestaat niet."
 
@@ -1870,7 +1873,7 @@ msgstr "Er is geen groepslidmaatschap aangetroffen."
 #: actions/leavegroup.php:127 lib/command.php:284
 #, php-format
 msgid "Could not remove user %s to group %s"
-msgstr "De gebruiker %s kon niet uit de groet %s verwijderd worden"
+msgstr "De gebruiker %s kon niet uit de groep %s verwijderd worden"
 
 #: actions/leavegroup.php:134 lib/command.php:289
 #, php-format
@@ -2097,8 +2100,8 @@ msgstr "inhoudstype "
 msgid "Only "
 msgstr "Alleen "
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1028
-#: lib/api.php:1056 lib/api.php:1166
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1030
+#: lib/api.php:1058 lib/api.php:1168
 msgid "Not a supported data format."
 msgstr "Geen ondersteund gegevensformaat."
 
@@ -2907,34 +2910,28 @@ msgid "Couldn’t get a request token."
 msgstr "Het was niet mogelijk een verzoektoken te krijgen."
 
 #: actions/repeat.php:57
-#, fuzzy
 msgid "Only logged-in users can repeat notices."
-msgstr "Gebruikers kunnen alleen hun eigen postvakken lezen."
+msgstr "Alleen aangemelde gebruikers kunnen hun mededelingen herhalen."
 
 #: actions/repeat.php:64 actions/repeat.php:71
-#, fuzzy
 msgid "No notice specified."
-msgstr "Er is geen profiel opgegeven."
+msgstr "Er is geen mededeling opgegeven."
 
 #: actions/repeat.php:76
-#, fuzzy
 msgid "You can't repeat your own notice."
-msgstr "U kunt zich niet registreren als u niet met de licentie akkoord gaat."
+msgstr "U kunt uw eigen mededeling niet herhalen."
 
 #: actions/repeat.php:90
-#, fuzzy
 msgid "You already repeated that notice."
-msgstr "U hebt deze gebruiker reeds geblokkeerd."
+msgstr "U hent die mededeling al herhaald."
 
-#: actions/repeat.php:112 lib/noticelist.php:628
-#, fuzzy
+#: actions/repeat.php:112 lib/noticelist.php:627
 msgid "Repeated"
-msgstr "Aangemaakt"
+msgstr "Herhaald"
 
 #: actions/repeat.php:115
-#, fuzzy
 msgid "Repeated!"
-msgstr "Aangemaakt"
+msgstr "Herhaald!"
 
 #: actions/replies.php:125 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
@@ -3273,9 +3270,9 @@ msgstr ""
 "[StatusNet](http://status.net/). "
 
 #: actions/showstream.php:313
-#, fuzzy, php-format
+#, php-format
 msgid "Repeat of %s"
-msgstr "Antwoorden aan %s"
+msgstr "Herhaald van %s"
 
 #: actions/silence.php:65 actions/unsilence.php:65
 msgid "You cannot silence users on this site."
@@ -3750,12 +3747,9 @@ msgstr "Mededelingenfeed voor label %s (RSS 2.0)"
 msgid "Notice feed for tag %s (Atom)"
 msgstr "Mededelingenfeed voor label %s (Atom)"
 
-#: actions/tagother.php:33
-msgid "Not logged in"
-msgstr "Niet aangemeld."
-
 #: actions/tagother.php:39
-msgid "No id argument."
+#, fuzzy
+msgid "No ID argument."
 msgstr "Geen ID-argument."
 
 #: actions/tagother.php:65
@@ -4030,8 +4024,9 @@ msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "Er staat een verkeerd afbeeldingsttype op de avatar-URL \"%s\"."
 
 #: actions/userbyid.php:70
-msgid "No id."
-msgstr "Geen ID."
+#, fuzzy
+msgid "No ID."
+msgstr "Geen ID"
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 msgid "Profile design"
@@ -4150,9 +4145,9 @@ msgstr ""
 "Er is een databasefout opgetreden bij het invoegen van het antwoord: %s"
 
 #: classes/Notice.php:1320
-#, fuzzy, php-format
+#, php-format
 msgid "RT @%1$s %2$s"
-msgstr "%1$s (%2$s)"
+msgstr "RT @%1$s %2$s"
 
 #: classes/User.php:347
 #, php-format
@@ -4516,15 +4511,22 @@ msgstr ""
 msgid "Error sending direct message."
 msgstr "Er is een fout opgetreden bij het verzonden van het directe bericht."
 
+#: lib/command.php:421
+msgid "Cannot repeat your own notice"
+msgstr "U kunt uw eigen mededelingen niet herhalen."
+
+#: lib/command.php:426
+msgid "Already repeated that notice"
+msgstr "U hebt die mededeling al herhaald."
+
 #: lib/command.php:434
-#, fuzzy, php-format
+#, php-format
 msgid "Notice from %s repeated"
-msgstr "De mededeling is verzonden"
+msgstr "De mededeling van %s is herhaald"
 
 #: lib/command.php:436
-#, fuzzy
 msgid "Error repeating notice."
-msgstr "Er is een fout opgetreden bij het opslaan van de mededeling."
+msgstr "Er is een fout opgetreden bij het herhalen van de mededeling."
 
 #: lib/command.php:490
 #, php-format
@@ -5341,11 +5343,16 @@ msgstr "op"
 msgid "in context"
 msgstr "in context"
 
-#: lib/noticelist.php:588
+#: lib/noticelist.php:549
+#, fuzzy
+msgid "Repeated by"
+msgstr "Herhaald door %s"
+
+#: lib/noticelist.php:587
 msgid "Reply to this notice"
 msgstr "Op deze mededeling antwoorden"
 
-#: lib/noticelist.php:589
+#: lib/noticelist.php:588
 msgid "Reply"
 msgstr "Antwoorden"
 
@@ -5448,11 +5455,13 @@ msgid "All groups"
 msgstr "Alle groepen"
 
 #: lib/profileformaction.php:123
-msgid "No return-to arguments"
+#, fuzzy
+msgid "No return-to arguments."
 msgstr "Er zijn geen \"terug naar\"-parameters opgegeven"
 
 #: lib/profileformaction.php:137
-msgid "unimplemented method"
+#, fuzzy
+msgid "Unimplemented method."
 msgstr "methode niet geïmplementeerd"
 
 #: lib/publicgroupnav.php:78
@@ -5476,14 +5485,12 @@ msgid "Popular"
 msgstr "Populair"
 
 #: lib/repeatform.php:107 lib/repeatform.php:132
-#, fuzzy
 msgid "Repeat this notice"
-msgstr "Op deze mededeling antwoorden"
+msgstr "Deze mededeling herhalen"
 
 #: lib/repeatform.php:132
-#, fuzzy
 msgid "Repeat"
-msgstr "Herstellen"
+msgstr "Herhalen"
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"

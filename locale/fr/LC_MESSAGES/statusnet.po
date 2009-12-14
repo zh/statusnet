@@ -13,12 +13,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-13 17:14+0000\n"
-"PO-Revision-Date: 2009-12-13 17:15:28+0000\n"
+"POT-Creation-Date: 2009-12-14 20:34+0000\n"
+"PO-Revision-Date: 2009-12-14 20:34:44+0000\n"
 "Language-Team: French\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60008); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60044); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: out-statusnet\n"
@@ -441,18 +441,18 @@ msgid "You may not delete another user's status."
 msgstr "Vous ne pouvez pas supprimer le statut d’un autre utilisateur."
 
 #: actions/apistatusesretweet.php:75 actions/apistatusesretweets.php:72
-#, fuzzy
-msgid "No such notice"
+#: actions/deletenotice.php:52 actions/shownotice.php:92
+msgid "No such notice."
 msgstr "Avis non trouvé."
 
-#: actions/apistatusesretweet.php:83 lib/command.php:421
+#: actions/apistatusesretweet.php:83
 #, fuzzy
-msgid "Cannot repeat your own notice"
+msgid "Cannot repeat your own notice."
 msgstr "Impossible d’activer les avertissements."
 
-#: actions/apistatusesretweet.php:91 lib/command.php:426
+#: actions/apistatusesretweet.php:91
 #, fuzzy
-msgid "Already repeated that notice"
+msgid "Already repeated that notice."
 msgstr "Supprimer cet avis"
 
 #: actions/apistatusesshow.php:138
@@ -526,7 +526,7 @@ msgstr "Activité publique %s"
 msgid "%s updates from everyone!"
 msgstr "%s statuts de tout le monde !"
 
-#: actions/apitimelineretweetedbyme.php:112 lib/noticelist.php:566
+#: actions/apitimelineretweetedbyme.php:112
 #, php-format
 msgid "Repeated by %s"
 msgstr ""
@@ -559,7 +559,8 @@ msgstr "Non trouvé."
 msgid "No such attachment."
 msgstr "Pièce jointe non trouvée."
 
-#: actions/avatarbynickname.php:59 actions/leavegroup.php:76
+#: actions/avatarbynickname.php:59 actions/grouprss.php:91
+#: actions/leavegroup.php:76
 msgid "No nickname."
 msgstr "Aucun pseudo."
 
@@ -605,7 +606,7 @@ msgid "Preview"
 msgstr "Aperçu"
 
 #: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:612
+#: lib/noticelist.php:611
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -704,15 +705,15 @@ msgstr "Impossible d’enregistrer les informations de blocage."
 
 #: actions/blockedfromgroup.php:73 actions/editgroup.php:84
 #: actions/groupdesignsettings.php:84 actions/grouplogo.php:86
-#: actions/groupmembers.php:76 actions/grouprss.php:91
-#: actions/joingroup.php:76 actions/showgroup.php:121
+#: actions/groupmembers.php:76 actions/joingroup.php:76
+#: actions/showgroup.php:121
 msgid "No nickname"
 msgstr "Aucun pseudo"
 
 #: actions/blockedfromgroup.php:80 actions/editgroup.php:96
 #: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
 #: actions/grouplogo.php:99 actions/groupmembers.php:83
-#: actions/grouprss.php:98 actions/joingroup.php:83 actions/showgroup.php:137
+#: actions/joingroup.php:83 actions/showgroup.php:137
 msgid "No such group"
 msgstr "Aucun groupe trouvé"
 
@@ -798,16 +799,13 @@ msgstr "Conversation"
 msgid "Notices"
 msgstr "Avis"
 
-#: actions/deletenotice.php:52 actions/shownotice.php:92
-msgid "No such notice."
-msgstr "Avis non trouvé."
-
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
 #: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
-#: actions/unsubscribe.php:52 lib/adminpanelaction.php:72
-#: lib/profileformaction.php:63 lib/settingsaction.php:72
+#: actions/tagother.php:33 actions/unsubscribe.php:52
+#: lib/adminpanelaction.php:72 lib/profileformaction.php:63
+#: lib/settingsaction.php:72
 msgid "Not logged in."
 msgstr "Non connecté."
 
@@ -835,7 +833,7 @@ msgstr "Êtes-vous sûr(e) de vouloir supprimer cet avis ?"
 msgid "Do not delete this notice"
 msgstr "Ne pas supprimer cet avis"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:612
+#: actions/deletenotice.php:146 lib/noticelist.php:611
 msgid "Delete this notice"
 msgstr "Supprimer cet avis"
 
@@ -1285,19 +1283,23 @@ msgid "A selection of some of the great users on %s"
 msgstr "Les utilisateurs à ne pas manquer dans %s"
 
 #: actions/file.php:34
-msgid "No notice id"
-msgstr "Pas d’identifiant d’avis"
+#, fuzzy
+msgid "No notice ID."
+msgstr "Aucun avis"
 
 #: actions/file.php:38
-msgid "No notice"
+#, fuzzy
+msgid "No notice."
 msgstr "Aucun avis"
 
 #: actions/file.php:42
-msgid "No attachments"
+#, fuzzy
+msgid "No attachments."
 msgstr "Aucune pièce jointe"
 
 #: actions/file.php:51
-msgid "No uploaded attachments"
+#, fuzzy
+msgid "No uploaded attachments."
 msgstr "Aucune pièce jointe importée"
 
 #: actions/finishremotesubscribe.php:69
@@ -1333,8 +1335,9 @@ msgid "Error updating remote profile"
 msgstr "Erreur lors de la mise à jour du profil distant"
 
 #: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
-#: actions/groupunblock.php:86 actions/leavegroup.php:83
-#: actions/makeadmin.php:86 lib/command.php:212 lib/command.php:263
+#: actions/grouprss.php:98 actions/groupunblock.php:86
+#: actions/leavegroup.php:83 actions/makeadmin.php:86 lib/command.php:212
+#: lib/command.php:263
 msgid "No such group."
 msgstr "Aucun groupe trouvé."
 
@@ -1888,6 +1891,7 @@ msgid "Incorrect username or password."
 msgstr "Identifiant ou mot de passe incorrect."
 
 #: actions/login.php:153
+#, fuzzy
 msgid "Error setting user. You are probably not authorized."
 msgstr "Abonnements par défaut"
 
@@ -2100,8 +2104,8 @@ msgstr "type de contenu "
 msgid "Only "
 msgstr "Seulement "
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1028
-#: lib/api.php:1056 lib/api.php:1166
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1030
+#: lib/api.php:1058 lib/api.php:1168
 msgid "Not a supported data format."
 msgstr "Format de données non supporté."
 
@@ -2929,7 +2933,7 @@ msgstr "Vous devez accepter les termes de la licence pour créer un compte."
 msgid "You already repeated that notice."
 msgstr "Vous avez déjà bloqué cet utilisateur."
 
-#: actions/repeat.php:112 lib/noticelist.php:628
+#: actions/repeat.php:112 lib/noticelist.php:627
 #, fuzzy
 msgid "Repeated"
 msgstr "Créé"
@@ -3753,12 +3757,9 @@ msgstr "Flux des avis pour la marque %s (RSS 2.0)"
 msgid "Notice feed for tag %s (Atom)"
 msgstr "Flux des avis pour la marque %s (Atom)"
 
-#: actions/tagother.php:33
-msgid "Not logged in"
-msgstr "Aucune session ouverte"
-
 #: actions/tagother.php:39
-msgid "No id argument."
+#, fuzzy
+msgid "No ID argument."
 msgstr "Aucun argument d’identification."
 
 #: actions/tagother.php:65
@@ -4034,8 +4035,9 @@ msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "Format d’image invalide pour l’URL de l’avatar « %s »."
 
 #: actions/userbyid.php:70
-msgid "No id."
-msgstr "Aucun identifiant."
+#, fuzzy
+msgid "No ID."
+msgstr "Aucun identifiant"
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 msgid "Profile design"
@@ -4512,6 +4514,16 @@ msgstr ""
 #: lib/command.php:377
 msgid "Error sending direct message."
 msgstr "Une erreur est survenue pendant l’envoi de votre message."
+
+#: lib/command.php:421
+#, fuzzy
+msgid "Cannot repeat your own notice"
+msgstr "Impossible d’activer les avertissements."
+
+#: lib/command.php:426
+#, fuzzy
+msgid "Already repeated that notice"
+msgstr "Supprimer cet avis"
 
 #: lib/command.php:434
 #, fuzzy, php-format
@@ -5336,11 +5348,16 @@ msgstr "chez"
 msgid "in context"
 msgstr "dans le contexte"
 
-#: lib/noticelist.php:588
+#: lib/noticelist.php:549
+#, fuzzy
+msgid "Repeated by"
+msgstr "Créé"
+
+#: lib/noticelist.php:587
 msgid "Reply to this notice"
 msgstr "Répondre à cet avis"
 
-#: lib/noticelist.php:589
+#: lib/noticelist.php:588
 msgid "Reply"
 msgstr "Répondre"
 
@@ -5442,11 +5459,13 @@ msgid "All groups"
 msgstr "Tous les groupes"
 
 #: lib/profileformaction.php:123
-msgid "No return-to arguments"
+#, fuzzy
+msgid "No return-to arguments."
 msgstr "Aucun argument de retour."
 
 #: lib/profileformaction.php:137
-msgid "unimplemented method"
+#, fuzzy
+msgid "Unimplemented method."
 msgstr "méthode non implémentée"
 
 #: lib/publicgroupnav.php:78

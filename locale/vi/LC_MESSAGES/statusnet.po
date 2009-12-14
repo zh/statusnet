@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-13 17:14+0000\n"
-"PO-Revision-Date: 2009-12-13 17:16:32+0000\n"
+"POT-Creation-Date: 2009-12-14 20:34+0000\n"
+"PO-Revision-Date: 2009-12-14 20:35:50+0000\n"
 "Language-Team: Vietnamese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60008); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60044); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: vi\n"
 "X-Message-Group: out-statusnet\n"
@@ -438,17 +438,18 @@ msgid "You may not delete another user's status."
 msgstr "Bạn đã không xóa trạng thái của những người khác."
 
 #: actions/apistatusesretweet.php:75 actions/apistatusesretweets.php:72
-#, fuzzy
-msgid "No such notice"
+#: actions/deletenotice.php:52 actions/shownotice.php:92
+msgid "No such notice."
 msgstr "Không có tin nhắn nào."
 
-#: actions/apistatusesretweet.php:83 lib/command.php:421
-msgid "Cannot repeat your own notice"
-msgstr ""
-
-#: actions/apistatusesretweet.php:91 lib/command.php:426
+#: actions/apistatusesretweet.php:83
 #, fuzzy
-msgid "Already repeated that notice"
+msgid "Cannot repeat your own notice."
+msgstr "Bạn không thể đăng ký nếu không đồng ý các điều khoản."
+
+#: actions/apistatusesretweet.php:91
+#, fuzzy
+msgid "Already repeated that notice."
 msgstr "Xóa tin nhắn"
 
 #: actions/apistatusesshow.php:138
@@ -522,7 +523,7 @@ msgstr "Dòng tin công cộng"
 msgid "%s updates from everyone!"
 msgstr "%s cập nhật từ tất cả mọi người!"
 
-#: actions/apitimelineretweetedbyme.php:112 lib/noticelist.php:566
+#: actions/apitimelineretweetedbyme.php:112
 #, php-format
 msgid "Repeated by %s"
 msgstr ""
@@ -557,7 +558,8 @@ msgstr "Không tìm thấy"
 msgid "No such attachment."
 msgstr "Không có tài liệu nào."
 
-#: actions/avatarbynickname.php:59 actions/leavegroup.php:76
+#: actions/avatarbynickname.php:59 actions/grouprss.php:91
+#: actions/leavegroup.php:76
 msgid "No nickname."
 msgstr "Không có biệt hiệu."
 
@@ -604,7 +606,7 @@ msgid "Preview"
 msgstr "Xem trước"
 
 #: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:612
+#: lib/noticelist.php:611
 #, fuzzy
 msgid "Delete"
 msgstr "Xóa tin nhắn"
@@ -705,8 +707,8 @@ msgstr ""
 
 #: actions/blockedfromgroup.php:73 actions/editgroup.php:84
 #: actions/groupdesignsettings.php:84 actions/grouplogo.php:86
-#: actions/groupmembers.php:76 actions/grouprss.php:91
-#: actions/joingroup.php:76 actions/showgroup.php:121
+#: actions/groupmembers.php:76 actions/joingroup.php:76
+#: actions/showgroup.php:121
 #, fuzzy
 msgid "No nickname"
 msgstr "Không có biệt hiệu."
@@ -714,7 +716,7 @@ msgstr "Không có biệt hiệu."
 #: actions/blockedfromgroup.php:80 actions/editgroup.php:96
 #: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
 #: actions/grouplogo.php:99 actions/groupmembers.php:83
-#: actions/grouprss.php:98 actions/joingroup.php:83 actions/showgroup.php:137
+#: actions/joingroup.php:83 actions/showgroup.php:137
 #, fuzzy
 msgid "No such group"
 msgstr "Không có user nào."
@@ -803,16 +805,13 @@ msgstr "Không có mã số xác nhận."
 msgid "Notices"
 msgstr "Tin nhắn"
 
-#: actions/deletenotice.php:52 actions/shownotice.php:92
-msgid "No such notice."
-msgstr "Không có tin nhắn nào."
-
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
 #: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
-#: actions/unsubscribe.php:52 lib/adminpanelaction.php:72
-#: lib/profileformaction.php:63 lib/settingsaction.php:72
+#: actions/tagother.php:33 actions/unsubscribe.php:52
+#: lib/adminpanelaction.php:72 lib/profileformaction.php:63
+#: lib/settingsaction.php:72
 msgid "Not logged in."
 msgstr "Chưa đăng nhập."
 
@@ -840,7 +839,7 @@ msgstr "Bạn có chắc chắn là muốn xóa tin nhắn này không?"
 msgid "Do not delete this notice"
 msgstr "Không thể xóa tin nhắn này."
 
-#: actions/deletenotice.php:146 lib/noticelist.php:612
+#: actions/deletenotice.php:146 lib/noticelist.php:611
 #, fuzzy
 msgid "Delete this notice"
 msgstr "Xóa tin nhắn"
@@ -1322,21 +1321,23 @@ msgstr ""
 
 #: actions/file.php:34
 #, fuzzy
-msgid "No notice id"
+msgid "No notice ID."
 msgstr "Thông báo mới"
 
 #: actions/file.php:38
 #, fuzzy
-msgid "No notice"
+msgid "No notice."
 msgstr "Thông báo mới"
 
 #: actions/file.php:42
-msgid "No attachments"
-msgstr ""
+#, fuzzy
+msgid "No attachments."
+msgstr "Không có tài liệu nào."
 
 #: actions/file.php:51
-msgid "No uploaded attachments"
-msgstr ""
+#, fuzzy
+msgid "No uploaded attachments."
+msgstr "Không có tài liệu nào."
 
 #: actions/finishremotesubscribe.php:69
 msgid "Not expecting this response!"
@@ -1375,8 +1376,9 @@ msgid "Error updating remote profile"
 msgstr "Lỗi xảy ra khi cập nhật hồ sơ cá nhân"
 
 #: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
-#: actions/groupunblock.php:86 actions/leavegroup.php:83
-#: actions/makeadmin.php:86 lib/command.php:212 lib/command.php:263
+#: actions/grouprss.php:98 actions/groupunblock.php:86
+#: actions/leavegroup.php:83 actions/makeadmin.php:86 lib/command.php:212
+#: lib/command.php:263
 #, fuzzy
 msgid "No such group."
 msgstr "Không có tin nhắn nào."
@@ -2145,8 +2147,8 @@ msgstr "Kết nối"
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1028
-#: lib/api.php:1056 lib/api.php:1166
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1030
+#: lib/api.php:1058 lib/api.php:1168
 msgid "Not a supported data format."
 msgstr "Không hỗ trợ định dạng dữ liệu này."
 
@@ -2973,7 +2975,7 @@ msgstr "Bạn không thể đăng ký nếu không đồng ý các điều kho�
 msgid "You already repeated that notice."
 msgstr "Bạn đã theo những người này:"
 
-#: actions/repeat.php:112 lib/noticelist.php:628
+#: actions/repeat.php:112 lib/noticelist.php:627
 #, fuzzy
 msgid "Repeated"
 msgstr "Tạo"
@@ -3780,14 +3782,9 @@ msgstr "Dòng tin nhắn cho %s"
 msgid "Notice feed for tag %s (Atom)"
 msgstr "Dòng tin nhắn cho %s"
 
-#: actions/tagother.php:33
-#, fuzzy
-msgid "Not logged in"
-msgstr "Chưa đăng nhập."
-
 #: actions/tagother.php:39
 #, fuzzy
-msgid "No id argument."
+msgid "No ID argument."
 msgstr "Không có tài liệu nào."
 
 #: actions/tagother.php:65
@@ -4072,7 +4069,8 @@ msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "Kiểu file ảnh không phù hợp với  '%s'"
 
 #: actions/userbyid.php:70
-msgid "No id."
+#, fuzzy
+msgid "No ID."
 msgstr "Không có id."
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
@@ -4573,6 +4571,15 @@ msgstr ""
 #, fuzzy
 msgid "Error sending direct message."
 msgstr "Thư bạn đã gửi"
+
+#: lib/command.php:421
+msgid "Cannot repeat your own notice"
+msgstr ""
+
+#: lib/command.php:426
+#, fuzzy
+msgid "Already repeated that notice"
+msgstr "Xóa tin nhắn"
 
 #: lib/command.php:434
 #, fuzzy, php-format
@@ -5345,12 +5352,17 @@ msgstr ""
 msgid "in context"
 msgstr "Không có nội dung!"
 
-#: lib/noticelist.php:588
+#: lib/noticelist.php:549
+#, fuzzy
+msgid "Repeated by"
+msgstr "Tạo"
+
+#: lib/noticelist.php:587
 #, fuzzy
 msgid "Reply to this notice"
 msgstr "Trả lời tin nhắn này"
 
-#: lib/noticelist.php:589
+#: lib/noticelist.php:588
 msgid "Reply"
 msgstr "Trả lời"
 
@@ -5459,11 +5471,11 @@ msgstr "Nhóm"
 
 #: lib/profileformaction.php:123
 #, fuzzy
-msgid "No return-to arguments"
+msgid "No return-to arguments."
 msgstr "Không có tài liệu nào."
 
 #: lib/profileformaction.php:137
-msgid "unimplemented method"
+msgid "Unimplemented method."
 msgstr ""
 
 #: lib/publicgroupnav.php:78
