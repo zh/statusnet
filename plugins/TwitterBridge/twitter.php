@@ -179,7 +179,7 @@ function broadcast_oauth($notice, $flink) {
     try {
         $status = $client->statusesUpdate($statustxt);
     } catch (OAuthClientException $e) {
-        return process_error($e, $flink);
+        return process_error($e, $flink, $notice);
     }
 
     if (empty($status)) {
@@ -188,8 +188,11 @@ function broadcast_oauth($notice, $flink) {
         // or the Twitter API might just be behaving flakey.
 
         $errmsg = sprintf('Twitter bridge - No data returned by Twitter API when ' .
-                          'trying to send update for %1$s (user id %2$s).',
-                          $user->nickname, $user->id);
+                          'trying to post notice %d for User %s (user id %d).',
+                          $notice->id,
+                          $user->nickname,
+                          $user->id);
+
         common_log(LOG_WARNING, $errmsg);
 
         return false;
@@ -197,8 +200,12 @@ function broadcast_oauth($notice, $flink) {
 
     // Notice crossed the great divide
 
-    $msg = sprintf('Twitter bridge - posted notice %s to Twitter using OAuth.',
-                   $notice->id);
+    $msg = sprintf('Twitter bridge - posted notice %d to Twitter using ' .
+                   'OAuth for User %s (user id %d).',
+                   $notice->id,
+                   $user->nickname,
+                   $user->id);
+
     common_log(LOG_INFO, $msg);
 
     return true;
@@ -215,62 +222,69 @@ function broadcast_basicauth($notice, $flink)
 
     try {
         $status = $client->statusesUpdate($statustxt);
-    } catch (HTTP_Request2_Exception $e) {
-        return process_error($e, $flink);
+    } catch (BasicAuthException $e) {
+        return process_error($e, $flink, $notice);
     }
 
     if (empty($status)) {
 
         $errmsg = sprintf('Twitter bridge - No data returned by Twitter API when ' .
-                          'trying to send update for %1$s (user id %2$s).',
-                          $user->nickname, $user->id);
+                          'trying to post notice %d for %s (user id %d).',
+                          $notice->id,
+                          $user->nickname,
+                          $user->id);
+
         common_log(LOG_WARNING, $errmsg);
 
-            $errmsg = sprintf('No data returned by Twitter API when ' .
-                             'trying to send update for %1$s (user id %2$s).',
-                             $user->nickname, $user->id);
-            common_log(LOG_WARNING, $errmsg);
+        $errmsg = sprintf('No data returned by Twitter API when ' .
+                          'trying to post notice %d for %s (user id %d).',
+                          $notice->id,
+                          $user->nickname,
+                          $user->id);
+        common_log(LOG_WARNING, $errmsg);
         return false;
     }
 
-    $msg = sprintf('Twitter bridge - posted notice %s to Twitter using basic auth.',
-                   $notice->id);
+    $msg = sprintf('Twitter bridge - posted notice %d to Twitter using ' .
+                   'HTTP basic auth for User %s (user id %d).',
+                   $notice->id,
+                   $user->nickname,
+                   $user->id);
+
     common_log(LOG_INFO, $msg);
 
     return true;
 }
 
-function process_error($e, $flink)
+function process_error($e, $flink, $notice)
 {
-    $user        = $flink->getUser();
-    $errmsg      = $e->getMessage();
-    $delivered   = false;
+    $user = $flink->getUser();
+    $code = $e->getCode();
 
-    switch($errmsg) {
-     case 'The requested URL returned error: 401':
-        $logmsg = sprintf('Twiter bridge - User %1$s (user id: %2$s) has an invalid ' .
-                          'Twitter screen_name/password combo or an invalid acesss token.',
-                          $user->nickname, $user->id);
-        $delivered = true;
-        remove_twitter_link($flink);
-        break;
-     case 'The requested URL returned error: 403':
-        $logmsg = sprintf('Twitter bridge - User %1$s (user id: %2$s) has exceeded ' .
-                          'his/her Twitter request limit.',
-                          $user->nickname, $user->id);
-        break;
-     default:
-        $logmsg = sprintf('Twitter bridge - cURL error trying to send notice to Twitter ' .
-                          'for user %1$s (user id: %2$s) - ' .
-                          'code: %3$s message: %4$s.',
-                          $user->nickname, $user->id,
-                          $e->getCode(), $e->getMessage());
-        break;
-    }
+    $logmsg = sprintf('Twitter bridge - %d posting notice %d for ' .
+                      'User %s (user id: %d): %s.',
+                      $code,
+                      $notice->id,
+                      $user->nickname,
+                      $user->id,
+                      $e->getMessage());
 
     common_log(LOG_WARNING, $logmsg);
 
-    return $delivered;
+    if ($code == 401) {
+
+        // Probably a revoked or otherwise bad access token - nuke!
+
+        remove_twitter_link($flink);
+        return true;
+
+    } else {
+
+        // For every other case, it's probably some flakiness so try
+        // sending the notice again later (requeue).
+
+        return false;
+    }
 }
 
 function format_status($notice)
