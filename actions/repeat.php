@@ -112,7 +112,9 @@ class RepeatAction extends Action
             $this->element('title', null, _('Repeated'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            $this->element('p', array('id' => 'repeat_response'), _('Repeated!'));
+            $this->element('p', array('id' => 'repeat_response',
+                                      'class' => 'repeated'),
+                                _('Repeated!'));
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {

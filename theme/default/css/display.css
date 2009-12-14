@@ -173,7 +173,8 @@ button.close,
 .entity_moderation p,
 .entity_sandbox input.submit,
 .entity_silence input.submit,
-.entity_delete input.submit {
+.entity_delete input.submit,
+.notice-options .repeated {
 background-image:url(../../base/images/icons/icons-01.gif);
 background-repeat:no-repeat;
 background-color:transparent;
@@ -337,6 +338,9 @@ background-position:0 -658px;
 }
 .notice-options form.form_repeat input.submit {
 background-position:0 -1582px;
+}
+.notice-options .repeated {
+background-position:0 -1648px;
 }
 
 .notices div.entry-content,

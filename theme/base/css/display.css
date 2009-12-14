@@ -964,7 +964,7 @@ float:left;
 font-size:0.95em;
 margin-left:59px;
 min-width:60%;
-max-width:74%;
+max-width:70%;
 }
 #showstream .notice div.entry-content,
 #shownotice .notice div.entry-content {
@@ -996,7 +996,7 @@ left:0;
 .notice-options {
 position:relative;
 font-size:0.95em;
-width:90px;
+width:125px;
 float:right;
 }
 
@@ -1007,16 +1007,18 @@ float:left;
 .notice-options .notice_reply,
 .notice-options .form_repeat,
 .notice-options .form_favor,
-.notice-options .form_disfavor {
+.notice-options .form_disfavor,
+.notice-options .repeated {
 float:left;
-margin-left:20%;
+margin-left:14%;
 }
 .notice-options .form_favor,
 .notice-options .form_disfavor {
 margin-left:0;
 }
 .notice-options input,
-.notice-options a {
+.notice-options a,
+.notice-options .repeated {
 text-indent:-9999px;
 outline:none;
 }
@@ -1047,7 +1049,8 @@ display:none;
 border:0;
 padding:0;
 }
-.notice-options a {
+.notice-options a,
+.notice-options .repeated {
 width:16px;
 height:16px;
 }

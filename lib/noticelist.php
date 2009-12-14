@@ -627,7 +627,9 @@ class NoticeListItem extends Widget
         if ($user && $user->id != $this->notice->profile_id) {
             $profile = $user->getProfile();
             if ($profile->hasRepeated($this->notice->id)) {
-                $this->out->text(_('Repeated'));
+                $this->out->element('span', array('class' => 'repeated',
+                                                  'title' => _('Notice repeated')),
+                                            _('Repeated'));
             } else {
                 $rf = new RepeatForm($this->out, $this->notice);
                 $rf->show();
