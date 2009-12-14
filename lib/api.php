@@ -224,9 +224,13 @@ class ApiAction extends Action
             return $base;
         } else {
             $original = Notice::staticGet('id', $notice->repeat_of);
-            $original_array = $this->twitterSimpleStatusArray($original, $include_user);
-            $original_array['retweeted_status'] = $base;
-            return $original_array;
+            if (empty($original)) {
+                return $base;
+            } else {
+                $original_array = $this->twitterSimpleStatusArray($original, $include_user);
+                $original_array['retweeted_status'] = $base;
+                return $original_array;
+            }
         }
     }
 
