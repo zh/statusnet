@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-13 17:14+0000\n"
-"PO-Revision-Date: 2009-12-13 17:15:13+0000\n"
+"POT-Creation-Date: 2009-12-14 20:34+0000\n"
+"PO-Revision-Date: 2009-12-14 20:34:30+0000\n"
 "Language-Team: German\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60008); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60044); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: out-statusnet\n"
@@ -428,18 +428,18 @@ msgid "You may not delete another user's status."
 msgstr "Du kannst den Status eines anderen Benutzers nicht löschen."
 
 #: actions/apistatusesretweet.php:75 actions/apistatusesretweets.php:72
-#, fuzzy
-msgid "No such notice"
+#: actions/deletenotice.php:52 actions/shownotice.php:92
+msgid "No such notice."
 msgstr "Unbekannte Nachricht."
 
-#: actions/apistatusesretweet.php:83 lib/command.php:421
+#: actions/apistatusesretweet.php:83
 #, fuzzy
-msgid "Cannot repeat your own notice"
+msgid "Cannot repeat your own notice."
 msgstr "Konnte Benachrichtigung nicht aktivieren."
 
-#: actions/apistatusesretweet.php:91 lib/command.php:426
+#: actions/apistatusesretweet.php:91
 #, fuzzy
-msgid "Already repeated that notice"
+msgid "Already repeated that notice."
 msgstr "Nachricht löschen"
 
 #: actions/apistatusesshow.php:138
@@ -514,7 +514,7 @@ msgstr "%s öffentliche Zeitleiste"
 msgid "%s updates from everyone!"
 msgstr "%s Nachrichten von allen!"
 
-#: actions/apitimelineretweetedbyme.php:112 lib/noticelist.php:566
+#: actions/apitimelineretweetedbyme.php:112
 #, php-format
 msgid "Repeated by %s"
 msgstr ""
@@ -547,7 +547,8 @@ msgstr "Nicht gefunden."
 msgid "No such attachment."
 msgstr "Kein solcher Anhang."
 
-#: actions/avatarbynickname.php:59 actions/leavegroup.php:76
+#: actions/avatarbynickname.php:59 actions/grouprss.php:91
+#: actions/leavegroup.php:76
 msgid "No nickname."
 msgstr "Kein Nutzername."
 
@@ -592,7 +593,7 @@ msgid "Preview"
 msgstr "Vorschau"
 
 #: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:612
+#: lib/noticelist.php:611
 msgid "Delete"
 msgstr "Löschen"
 
@@ -687,15 +688,15 @@ msgstr "Konnte Blockierungsdaten nicht speichern."
 
 #: actions/blockedfromgroup.php:73 actions/editgroup.php:84
 #: actions/groupdesignsettings.php:84 actions/grouplogo.php:86
-#: actions/groupmembers.php:76 actions/grouprss.php:91
-#: actions/joingroup.php:76 actions/showgroup.php:121
+#: actions/groupmembers.php:76 actions/joingroup.php:76
+#: actions/showgroup.php:121
 msgid "No nickname"
 msgstr "Kein Benutzername"
 
 #: actions/blockedfromgroup.php:80 actions/editgroup.php:96
 #: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
 #: actions/grouplogo.php:99 actions/groupmembers.php:83
-#: actions/grouprss.php:98 actions/joingroup.php:83 actions/showgroup.php:137
+#: actions/joingroup.php:83 actions/showgroup.php:137
 msgid "No such group"
 msgstr "Keine derartige Gruppe"
 
@@ -781,16 +782,13 @@ msgstr "Unterhaltung"
 msgid "Notices"
 msgstr "Nachrichten"
 
-#: actions/deletenotice.php:52 actions/shownotice.php:92
-msgid "No such notice."
-msgstr "Unbekannte Nachricht."
-
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
 #: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
-#: actions/unsubscribe.php:52 lib/adminpanelaction.php:72
-#: lib/profileformaction.php:63 lib/settingsaction.php:72
+#: actions/tagother.php:33 actions/unsubscribe.php:52
+#: lib/adminpanelaction.php:72 lib/profileformaction.php:63
+#: lib/settingsaction.php:72
 msgid "Not logged in."
 msgstr "Nicht angemeldet."
 
@@ -818,7 +816,7 @@ msgstr "Bist du sicher, dass du diese Nachricht löschen möchtest?"
 msgid "Do not delete this notice"
 msgstr "Diese Nachricht nicht löschen"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:612
+#: actions/deletenotice.php:146 lib/noticelist.php:611
 msgid "Delete this notice"
 msgstr "Nachricht löschen"
 
@@ -1261,20 +1259,24 @@ msgid "A selection of some of the great users on %s"
 msgstr "Eine Auswahl der tollen Benutzer auf %s"
 
 #: actions/file.php:34
-msgid "No notice id"
-msgstr "Keine Nachrichten ID"
+#, fuzzy
+msgid "No notice ID."
+msgstr "Keine Nachricht"
 
 #: actions/file.php:38
-msgid "No notice"
+#, fuzzy
+msgid "No notice."
 msgstr "Keine Nachricht"
 
 #: actions/file.php:42
-msgid "No attachments"
+#, fuzzy
+msgid "No attachments."
 msgstr "Keine Anhänge vorhanden"
 
 #: actions/file.php:51
-msgid "No uploaded attachments"
-msgstr ""
+#, fuzzy
+msgid "No uploaded attachments."
+msgstr "Kein solcher Anhang."
 
 #: actions/finishremotesubscribe.php:69
 msgid "Not expecting this response!"
@@ -1309,8 +1311,9 @@ msgid "Error updating remote profile"
 msgstr "Fehler beim Aktualisieren des entfernten Profils"
 
 #: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
-#: actions/groupunblock.php:86 actions/leavegroup.php:83
-#: actions/makeadmin.php:86 lib/command.php:212 lib/command.php:263
+#: actions/grouprss.php:98 actions/groupunblock.php:86
+#: actions/leavegroup.php:83 actions/makeadmin.php:86 lib/command.php:212
+#: lib/command.php:263
 msgid "No such group."
 msgstr "Keine derartige Gruppe."
 
@@ -2051,8 +2054,8 @@ msgstr "Content-Typ "
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1028
-#: lib/api.php:1056 lib/api.php:1166
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1030
+#: lib/api.php:1058 lib/api.php:1168
 msgid "Not a supported data format."
 msgstr "Kein unterstütztes Datenformat."
 
@@ -2863,7 +2866,7 @@ msgstr ""
 msgid "You already repeated that notice."
 msgstr "Du hast diesen Benutzer bereits blockiert."
 
-#: actions/repeat.php:112 lib/noticelist.php:628
+#: actions/repeat.php:112 lib/noticelist.php:627
 #, fuzzy
 msgid "Repeated"
 msgstr "Erstellt"
@@ -3658,12 +3661,9 @@ msgstr "Feed der Nachrichten von %s"
 msgid "Notice feed for tag %s (Atom)"
 msgstr "Feed der Nachrichten von %s"
 
-#: actions/tagother.php:33
-msgid "Not logged in"
-msgstr "Nicht angemeldet"
-
 #: actions/tagother.php:39
-msgid "No id argument."
+#, fuzzy
+msgid "No ID argument."
 msgstr "Kein id Argument."
 
 #: actions/tagother.php:65
@@ -3948,8 +3948,9 @@ msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "Falscher Bildtyp für „%s“"
 
 #: actions/userbyid.php:70
-msgid "No id."
-msgstr "Keine ID."
+#, fuzzy
+msgid "No ID."
+msgstr "Keine ID"
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 msgid "Profile design"
@@ -4428,6 +4429,16 @@ msgstr "Nachricht zu lang - maximal %d Zeichen erlaubt, du hast %d gesendet"
 #: lib/command.php:377
 msgid "Error sending direct message."
 msgstr "Fehler beim Senden der Nachricht"
+
+#: lib/command.php:421
+#, fuzzy
+msgid "Cannot repeat your own notice"
+msgstr "Konnte Benachrichtigung nicht aktivieren."
+
+#: lib/command.php:426
+#, fuzzy
+msgid "Already repeated that notice"
+msgstr "Nachricht löschen"
 
 #: lib/command.php:434
 #, fuzzy, php-format
@@ -5155,11 +5166,16 @@ msgstr ""
 msgid "in context"
 msgstr "im Zusammenhang"
 
-#: lib/noticelist.php:588
+#: lib/noticelist.php:549
+#, fuzzy
+msgid "Repeated by"
+msgstr "Erstellt"
+
+#: lib/noticelist.php:587
 msgid "Reply to this notice"
 msgstr "Auf diese Nachricht antworten"
 
-#: lib/noticelist.php:589
+#: lib/noticelist.php:588
 msgid "Reply"
 msgstr "Antworten"
 
@@ -5267,11 +5283,11 @@ msgstr "Alle Gruppen"
 
 #: lib/profileformaction.php:123
 #, fuzzy
-msgid "No return-to arguments"
+msgid "No return-to arguments."
 msgstr "Kein id Argument."
 
 #: lib/profileformaction.php:137
-msgid "unimplemented method"
+msgid "Unimplemented method."
 msgstr ""
 
 #: lib/publicgroupnav.php:78

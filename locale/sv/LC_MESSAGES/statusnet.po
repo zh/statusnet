@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-13 17:14+0000\n"
-"PO-Revision-Date: 2009-12-13 17:16:20+0000\n"
+"POT-Creation-Date: 2009-12-14 20:34+0000\n"
+"PO-Revision-Date: 2009-12-14 20:35:37+0000\n"
 "Language-Team: Swedish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60008); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60044); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: sv\n"
 "X-Message-Group: out-statusnet\n"
@@ -430,18 +430,18 @@ msgid "You may not delete another user's status."
 msgstr "Du kan inte ta bort en annan användares status."
 
 #: actions/apistatusesretweet.php:75 actions/apistatusesretweets.php:72
-#, fuzzy
-msgid "No such notice"
+#: actions/deletenotice.php:52 actions/shownotice.php:92
+msgid "No such notice."
 msgstr "Ingen sådan notis."
 
-#: actions/apistatusesretweet.php:83 lib/command.php:421
+#: actions/apistatusesretweet.php:83
 #, fuzzy
-msgid "Cannot repeat your own notice"
+msgid "Cannot repeat your own notice."
 msgstr "Kan inte stänga av notifikation."
 
-#: actions/apistatusesretweet.php:91 lib/command.php:426
+#: actions/apistatusesretweet.php:91
 #, fuzzy
-msgid "Already repeated that notice"
+msgid "Already repeated that notice."
 msgstr "Ta bort denna notis"
 
 #: actions/apistatusesshow.php:138
@@ -513,7 +513,7 @@ msgstr "%s publika tidslinje"
 msgid "%s updates from everyone!"
 msgstr "%s uppdateringar från alla!"
 
-#: actions/apitimelineretweetedbyme.php:112 lib/noticelist.php:566
+#: actions/apitimelineretweetedbyme.php:112
 #, php-format
 msgid "Repeated by %s"
 msgstr ""
@@ -546,7 +546,8 @@ msgstr "Hittades inte."
 msgid "No such attachment."
 msgstr "Ingen sådan bilaga."
 
-#: actions/avatarbynickname.php:59 actions/leavegroup.php:76
+#: actions/avatarbynickname.php:59 actions/grouprss.php:91
+#: actions/leavegroup.php:76
 msgid "No nickname."
 msgstr "Inget smeknamn."
 
@@ -591,7 +592,7 @@ msgid "Preview"
 msgstr "Förhandsgranska"
 
 #: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:612
+#: lib/noticelist.php:611
 msgid "Delete"
 msgstr "Ta bort"
 
@@ -688,15 +689,15 @@ msgstr "Misslyckades att spara blockeringsinformation."
 
 #: actions/blockedfromgroup.php:73 actions/editgroup.php:84
 #: actions/groupdesignsettings.php:84 actions/grouplogo.php:86
-#: actions/groupmembers.php:76 actions/grouprss.php:91
-#: actions/joingroup.php:76 actions/showgroup.php:121
+#: actions/groupmembers.php:76 actions/joingroup.php:76
+#: actions/showgroup.php:121
 msgid "No nickname"
 msgstr "Inget smeknamn"
 
 #: actions/blockedfromgroup.php:80 actions/editgroup.php:96
 #: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
 #: actions/grouplogo.php:99 actions/groupmembers.php:83
-#: actions/grouprss.php:98 actions/joingroup.php:83 actions/showgroup.php:137
+#: actions/joingroup.php:83 actions/showgroup.php:137
 msgid "No such group"
 msgstr "Ingen sådan grupp"
 
@@ -783,16 +784,13 @@ msgstr "Konversationer"
 msgid "Notices"
 msgstr "Notiser"
 
-#: actions/deletenotice.php:52 actions/shownotice.php:92
-msgid "No such notice."
-msgstr "Ingen sådan notis."
-
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
 #: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
-#: actions/unsubscribe.php:52 lib/adminpanelaction.php:72
-#: lib/profileformaction.php:63 lib/settingsaction.php:72
+#: actions/tagother.php:33 actions/unsubscribe.php:52
+#: lib/adminpanelaction.php:72 lib/profileformaction.php:63
+#: lib/settingsaction.php:72
 msgid "Not logged in."
 msgstr "Inte inloggad."
 
@@ -820,7 +818,7 @@ msgstr "Är du säker på att du vill ta bort denna notis?"
 msgid "Do not delete this notice"
 msgstr "Ta inte bort denna notis"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:612
+#: actions/deletenotice.php:146 lib/noticelist.php:611
 msgid "Delete this notice"
 msgstr "Ta bort denna notis"
 
@@ -1266,19 +1264,23 @@ msgid "A selection of some of the great users on %s"
 msgstr "Ett urval av några av de stora användarna på% s"
 
 #: actions/file.php:34
-msgid "No notice id"
-msgstr "Ingen notis-ID"
+#, fuzzy
+msgid "No notice ID."
+msgstr "Ingen notis"
 
 #: actions/file.php:38
-msgid "No notice"
+#, fuzzy
+msgid "No notice."
 msgstr "Ingen notis"
 
 #: actions/file.php:42
-msgid "No attachments"
+#, fuzzy
+msgid "No attachments."
 msgstr "Inga bilagor"
 
 #: actions/file.php:51
-msgid "No uploaded attachments"
+#, fuzzy
+msgid "No uploaded attachments."
 msgstr "Inga uppladdade bilagor"
 
 #: actions/finishremotesubscribe.php:69
@@ -1314,8 +1316,9 @@ msgid "Error updating remote profile"
 msgstr "Fel vid uppdatering av fjärrprofil"
 
 #: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
-#: actions/groupunblock.php:86 actions/leavegroup.php:83
-#: actions/makeadmin.php:86 lib/command.php:212 lib/command.php:263
+#: actions/grouprss.php:98 actions/groupunblock.php:86
+#: actions/leavegroup.php:83 actions/makeadmin.php:86 lib/command.php:212
+#: lib/command.php:263
 msgid "No such group."
 msgstr "Ingen sådan grupp."
 
@@ -2039,8 +2042,8 @@ msgstr "innehållstyp "
 msgid "Only "
 msgstr "Bara "
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1028
-#: lib/api.php:1056 lib/api.php:1166
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1030
+#: lib/api.php:1058 lib/api.php:1168
 msgid "Not a supported data format."
 msgstr "Ett dataformat som inte stödjs"
 
@@ -2846,7 +2849,7 @@ msgstr "Du kan inte registrera dig om du inte godkänner licensen."
 msgid "You already repeated that notice."
 msgstr "Du har redan blockerat denna användare."
 
-#: actions/repeat.php:112 lib/noticelist.php:628
+#: actions/repeat.php:112 lib/noticelist.php:627
 #, fuzzy
 msgid "Repeated"
 msgstr "Skapad"
@@ -3649,12 +3652,9 @@ msgstr "Flöde av notiser för tagg %s (RSS 2.0)"
 msgid "Notice feed for tag %s (Atom)"
 msgstr "Flöde av notiser för tagg %s (Atom)"
 
-#: actions/tagother.php:33
-msgid "Not logged in"
-msgstr "Inte inloggad"
-
 #: actions/tagother.php:39
-msgid "No id argument."
+#, fuzzy
+msgid "No ID argument."
 msgstr "Inget ID-argument."
 
 #: actions/tagother.php:65
@@ -3930,8 +3930,9 @@ msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "Fel bildtyp för avatar-URL '%s'."
 
 #: actions/userbyid.php:70
-msgid "No id."
-msgstr "Ingen ID."
+#, fuzzy
+msgid "No ID."
+msgstr "Ingen ID"
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 msgid "Profile design"
@@ -4404,6 +4405,16 @@ msgstr "Meddelande för långt - maximum är %d tecken, du skickade %d"
 #: lib/command.php:377
 msgid "Error sending direct message."
 msgstr "Fel vid sändning av direktmeddelande."
+
+#: lib/command.php:421
+#, fuzzy
+msgid "Cannot repeat your own notice"
+msgstr "Kan inte stänga av notifikation."
+
+#: lib/command.php:426
+#, fuzzy
+msgid "Already repeated that notice"
+msgstr "Ta bort denna notis"
 
 #: lib/command.php:434
 #, fuzzy, php-format
@@ -5107,11 +5118,16 @@ msgstr "på"
 msgid "in context"
 msgstr "i sammanhang"
 
-#: lib/noticelist.php:588
+#: lib/noticelist.php:549
+#, fuzzy
+msgid "Repeated by"
+msgstr "Skapad"
+
+#: lib/noticelist.php:587
 msgid "Reply to this notice"
 msgstr "Svara på detta inlägg"
 
-#: lib/noticelist.php:589
+#: lib/noticelist.php:588
 msgid "Reply"
 msgstr "Svara"
 
@@ -5213,11 +5229,13 @@ msgid "All groups"
 msgstr "Alla grupper"
 
 #: lib/profileformaction.php:123
-msgid "No return-to arguments"
+#, fuzzy
+msgid "No return-to arguments."
 msgstr "Inga \"return-to\"-argument"
 
 #: lib/profileformaction.php:137
-msgid "unimplemented method"
+#, fuzzy
+msgid "Unimplemented method."
 msgstr "inte implementerad metod"
 
 #: lib/publicgroupnav.php:78

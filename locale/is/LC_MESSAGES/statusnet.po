@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-13 17:14+0000\n"
-"PO-Revision-Date: 2009-12-13 17:15:42+0000\n"
+"POT-Creation-Date: 2009-12-14 20:34+0000\n"
+"PO-Revision-Date: 2009-12-14 20:34:59+0000\n"
 "Language-Team: Icelandic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60008); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60044); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: is\n"
 "X-Message-Group: out-statusnet\n"
@@ -432,18 +432,18 @@ msgid "You may not delete another user's status."
 msgstr "Þú getur ekki eytt stöðu annars notanda."
 
 #: actions/apistatusesretweet.php:75 actions/apistatusesretweets.php:72
-#, fuzzy
-msgid "No such notice"
+#: actions/deletenotice.php:52 actions/shownotice.php:92
+msgid "No such notice."
 msgstr "Ekkert svoleiðis babl."
 
-#: actions/apistatusesretweet.php:83 lib/command.php:421
+#: actions/apistatusesretweet.php:83
 #, fuzzy
-msgid "Cannot repeat your own notice"
+msgid "Cannot repeat your own notice."
 msgstr "Get ekki kveikt á tilkynningum."
 
-#: actions/apistatusesretweet.php:91 lib/command.php:426
+#: actions/apistatusesretweet.php:91
 #, fuzzy
-msgid "Already repeated that notice"
+msgid "Already repeated that notice."
 msgstr "Eyða þessu babli"
 
 #: actions/apistatusesshow.php:138
@@ -516,7 +516,7 @@ msgstr "Almenningsrás %s"
 msgid "%s updates from everyone!"
 msgstr "%s færslur frá öllum!"
 
-#: actions/apitimelineretweetedbyme.php:112 lib/noticelist.php:566
+#: actions/apitimelineretweetedbyme.php:112
 #, php-format
 msgid "Repeated by %s"
 msgstr ""
@@ -549,7 +549,8 @@ msgstr "Fannst ekki."
 msgid "No such attachment."
 msgstr ""
 
-#: actions/avatarbynickname.php:59 actions/leavegroup.php:76
+#: actions/avatarbynickname.php:59 actions/grouprss.php:91
+#: actions/leavegroup.php:76
 msgid "No nickname."
 msgstr "Ekkert stuttnefni."
 
@@ -593,7 +594,7 @@ msgid "Preview"
 msgstr "Forsýn"
 
 #: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:612
+#: lib/noticelist.php:611
 msgid "Delete"
 msgstr "Eyða"
 
@@ -690,15 +691,15 @@ msgstr "Mistókst að vista upplýsingar um notendalokun"
 
 #: actions/blockedfromgroup.php:73 actions/editgroup.php:84
 #: actions/groupdesignsettings.php:84 actions/grouplogo.php:86
-#: actions/groupmembers.php:76 actions/grouprss.php:91
-#: actions/joingroup.php:76 actions/showgroup.php:121
+#: actions/groupmembers.php:76 actions/joingroup.php:76
+#: actions/showgroup.php:121
 msgid "No nickname"
 msgstr "Ekkert stuttnefni"
 
 #: actions/blockedfromgroup.php:80 actions/editgroup.php:96
 #: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
 #: actions/grouplogo.php:99 actions/groupmembers.php:83
-#: actions/grouprss.php:98 actions/joingroup.php:83 actions/showgroup.php:137
+#: actions/joingroup.php:83 actions/showgroup.php:137
 msgid "No such group"
 msgstr "Enginn þannig hópur"
 
@@ -786,16 +787,13 @@ msgstr ""
 msgid "Notices"
 msgstr "Babl"
 
-#: actions/deletenotice.php:52 actions/shownotice.php:92
-msgid "No such notice."
-msgstr "Ekkert svoleiðis babl."
-
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
 #: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
-#: actions/unsubscribe.php:52 lib/adminpanelaction.php:72
-#: lib/profileformaction.php:63 lib/settingsaction.php:72
+#: actions/tagother.php:33 actions/unsubscribe.php:52
+#: lib/adminpanelaction.php:72 lib/profileformaction.php:63
+#: lib/settingsaction.php:72
 msgid "Not logged in."
 msgstr "Ekki innskráð(ur)."
 
@@ -821,7 +819,7 @@ msgstr "Ertu viss um að þú viljir eyða þessu babli?"
 msgid "Do not delete this notice"
 msgstr ""
 
-#: actions/deletenotice.php:146 lib/noticelist.php:612
+#: actions/deletenotice.php:146 lib/noticelist.php:611
 msgid "Delete this notice"
 msgstr "Eyða þessu babli"
 
@@ -1268,19 +1266,22 @@ msgid "A selection of some of the great users on %s"
 msgstr "Úrval nokkurra frábærra notenda á %s"
 
 #: actions/file.php:34
-msgid "No notice id"
-msgstr ""
+#, fuzzy
+msgid "No notice ID."
+msgstr "Ekkert svoleiðis babl."
 
 #: actions/file.php:38
-msgid "No notice"
-msgstr ""
+#, fuzzy
+msgid "No notice."
+msgstr "Ekkert svoleiðis babl."
 
 #: actions/file.php:42
-msgid "No attachments"
-msgstr ""
+#, fuzzy
+msgid "No attachments."
+msgstr "Ekkert svoleiðis skjal."
 
 #: actions/file.php:51
-msgid "No uploaded attachments"
+msgid "No uploaded attachments."
 msgstr ""
 
 #: actions/finishremotesubscribe.php:69
@@ -1320,8 +1321,9 @@ msgid "Error updating remote profile"
 msgstr "Villa kom upp í uppfærslu persónulegrar fjarsíðu"
 
 #: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
-#: actions/groupunblock.php:86 actions/leavegroup.php:83
-#: actions/makeadmin.php:86 lib/command.php:212 lib/command.php:263
+#: actions/grouprss.php:98 actions/groupunblock.php:86
+#: actions/leavegroup.php:83 actions/makeadmin.php:86 lib/command.php:212
+#: lib/command.php:263
 msgid "No such group."
 msgstr "Enginn þannig hópur."
 
@@ -2058,8 +2060,8 @@ msgstr ""
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1028
-#: lib/api.php:1056 lib/api.php:1166
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1030
+#: lib/api.php:1058 lib/api.php:1168
 msgid "Not a supported data format."
 msgstr "Enginn stuðningur við gagnasnið."
 
@@ -2874,7 +2876,7 @@ msgstr "Þú getur ekki nýskráð þig nema þú samþykkir leyfið."
 msgid "You already repeated that notice."
 msgstr "Þú hefur nú þegar lokað á þennan notanda."
 
-#: actions/repeat.php:112 lib/noticelist.php:628
+#: actions/repeat.php:112 lib/noticelist.php:627
 #, fuzzy
 msgid "Repeated"
 msgstr "Í sviðsljósinu"
@@ -3657,12 +3659,9 @@ msgstr "Bablveita fyrir %s"
 msgid "Notice feed for tag %s (Atom)"
 msgstr ""
 
-#: actions/tagother.php:33
-msgid "Not logged in"
-msgstr "Ekki innskráð(ur)"
-
 #: actions/tagother.php:39
-msgid "No id argument."
+#, fuzzy
+msgid "No ID argument."
 msgstr "Ekkert einkenni gefið upp."
 
 #: actions/tagother.php:65
@@ -3946,8 +3945,9 @@ msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "Röng gerð myndar fyrir '%s'"
 
 #: actions/userbyid.php:70
-msgid "No id."
-msgstr "Ekkert kenni."
+#, fuzzy
+msgid "No ID."
+msgstr "Ekkert einkenni"
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 msgid "Profile design"
@@ -4423,6 +4423,16 @@ msgstr "Skilaboð eru of löng - 140 tákn eru í mesta lagi leyfð en þú send
 #: lib/command.php:377
 msgid "Error sending direct message."
 msgstr "Villa kom upp við að senda bein skilaboð"
+
+#: lib/command.php:421
+#, fuzzy
+msgid "Cannot repeat your own notice"
+msgstr "Get ekki kveikt á tilkynningum."
+
+#: lib/command.php:426
+#, fuzzy
+msgid "Already repeated that notice"
+msgstr "Eyða þessu babli"
 
 #: lib/command.php:434
 #, fuzzy, php-format
@@ -5129,11 +5139,16 @@ msgstr ""
 msgid "in context"
 msgstr ""
 
-#: lib/noticelist.php:588
+#: lib/noticelist.php:549
+#, fuzzy
+msgid "Repeated by"
+msgstr "Í sviðsljósinu"
+
+#: lib/noticelist.php:587
 msgid "Reply to this notice"
 msgstr "Svara þessu babli"
 
-#: lib/noticelist.php:589
+#: lib/noticelist.php:588
 msgid "Reply"
 msgstr "Svara"
 
@@ -5238,11 +5253,11 @@ msgstr "Allir hópar"
 
 #: lib/profileformaction.php:123
 #, fuzzy
-msgid "No return-to arguments"
+msgid "No return-to arguments."
 msgstr "Ekkert einkenni gefið upp."
 
 #: lib/profileformaction.php:137
-msgid "unimplemented method"
+msgid "Unimplemented method."
 msgstr ""
 
 #: lib/publicgroupnav.php:78

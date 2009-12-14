@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-13 17:14+0000\n"
-"PO-Revision-Date: 2009-12-13 17:15:37+0000\n"
+"POT-Creation-Date: 2009-12-14 20:34+0000\n"
+"PO-Revision-Date: 2009-12-14 20:34:53+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60008); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60044); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: hsb\n"
 "X-Message-Group: out-statusnet\n"
@@ -421,18 +421,19 @@ msgid "You may not delete another user's status."
 msgstr "Njemóžeš status druheho wužiwarja zničić."
 
 #: actions/apistatusesretweet.php:75 actions/apistatusesretweets.php:72
-#, fuzzy
-msgid "No such notice"
+#: actions/deletenotice.php:52 actions/shownotice.php:92
+msgid "No such notice."
 msgstr "Zdźělenka njeeksistuje."
 
-#: actions/apistatusesretweet.php:83 lib/command.php:421
-msgid "Cannot repeat your own notice"
-msgstr ""
-
-#: actions/apistatusesretweet.php:91 lib/command.php:426
+#: actions/apistatusesretweet.php:83
 #, fuzzy
-msgid "Already repeated that notice"
-msgstr "Tutu zdźělenku wušmórnyć"
+msgid "Cannot repeat your own notice."
+msgstr "Njemóžeš swójsku zdźělenku wospjetować."
+
+#: actions/apistatusesretweet.php:91
+#, fuzzy
+msgid "Already repeated that notice."
+msgstr "Tuta zdźělenka bu hižo wospjetowana"
 
 #: actions/apistatusesshow.php:138
 msgid "Status deleted."
@@ -503,7 +504,7 @@ msgstr ""
 msgid "%s updates from everyone!"
 msgstr ""
 
-#: actions/apitimelineretweetedbyme.php:112 lib/noticelist.php:566
+#: actions/apitimelineretweetedbyme.php:112
 #, php-format
 msgid "Repeated by %s"
 msgstr ""
@@ -536,7 +537,8 @@ msgstr "Njenamakany."
 msgid "No such attachment."
 msgstr "Přiwěšk njeeksistuje."
 
-#: actions/avatarbynickname.php:59 actions/leavegroup.php:76
+#: actions/avatarbynickname.php:59 actions/grouprss.php:91
+#: actions/leavegroup.php:76
 msgid "No nickname."
 msgstr "Žane přimjeno."
 
@@ -581,7 +583,7 @@ msgid "Preview"
 msgstr "Přehlad"
 
 #: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:612
+#: lib/noticelist.php:611
 msgid "Delete"
 msgstr "Zničić"
 
@@ -675,15 +677,15 @@ msgstr ""
 
 #: actions/blockedfromgroup.php:73 actions/editgroup.php:84
 #: actions/groupdesignsettings.php:84 actions/grouplogo.php:86
-#: actions/groupmembers.php:76 actions/grouprss.php:91
-#: actions/joingroup.php:76 actions/showgroup.php:121
+#: actions/groupmembers.php:76 actions/joingroup.php:76
+#: actions/showgroup.php:121
 msgid "No nickname"
 msgstr "Žane přimjeno"
 
 #: actions/blockedfromgroup.php:80 actions/editgroup.php:96
 #: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
 #: actions/grouplogo.php:99 actions/groupmembers.php:83
-#: actions/grouprss.php:98 actions/joingroup.php:83 actions/showgroup.php:137
+#: actions/joingroup.php:83 actions/showgroup.php:137
 msgid "No such group"
 msgstr "Skupina njeeksistuje"
 
@@ -769,16 +771,13 @@ msgstr "Konwersacija"
 msgid "Notices"
 msgstr "Zdźělenki"
 
-#: actions/deletenotice.php:52 actions/shownotice.php:92
-msgid "No such notice."
-msgstr "Zdźělenka njeeksistuje."
-
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
 #: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
-#: actions/unsubscribe.php:52 lib/adminpanelaction.php:72
-#: lib/profileformaction.php:63 lib/settingsaction.php:72
+#: actions/tagother.php:33 actions/unsubscribe.php:52
+#: lib/adminpanelaction.php:72 lib/profileformaction.php:63
+#: lib/settingsaction.php:72
 msgid "Not logged in."
 msgstr "Njepřizjewjeny."
 
@@ -804,7 +803,7 @@ msgstr "Chceš woprawdźe tutu zdźělenku wušmórnyć?"
 msgid "Do not delete this notice"
 msgstr "Tutu zdźělenku njewušmórnyć"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:612
+#: actions/deletenotice.php:146 lib/noticelist.php:611
 msgid "Delete this notice"
 msgstr "Tutu zdźělenku wušmórnyć"
 
@@ -1237,19 +1236,23 @@ msgid "A selection of some of the great users on %s"
 msgstr ""
 
 #: actions/file.php:34
-msgid "No notice id"
-msgstr "Žadyn ID zdźělenki"
+#, fuzzy
+msgid "No notice ID."
+msgstr "Žana zdźělenka"
 
 #: actions/file.php:38
-msgid "No notice"
+#, fuzzy
+msgid "No notice."
 msgstr "Žana zdźělenka"
 
 #: actions/file.php:42
-msgid "No attachments"
+#, fuzzy
+msgid "No attachments."
 msgstr "Žane přiwěški"
 
 #: actions/file.php:51
-msgid "No uploaded attachments"
+#, fuzzy
+msgid "No uploaded attachments."
 msgstr "Žane nahrate přiwěški"
 
 #: actions/finishremotesubscribe.php:69
@@ -1285,8 +1288,9 @@ msgid "Error updating remote profile"
 msgstr ""
 
 #: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
-#: actions/groupunblock.php:86 actions/leavegroup.php:83
-#: actions/makeadmin.php:86 lib/command.php:212 lib/command.php:263
+#: actions/grouprss.php:98 actions/groupunblock.php:86
+#: actions/leavegroup.php:83 actions/makeadmin.php:86 lib/command.php:212
+#: lib/command.php:263
 msgid "No such group."
 msgstr "Skupina njeeksistuje."
 
@@ -1965,8 +1969,8 @@ msgstr ""
 msgid "Only "
 msgstr "Jenož "
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1028
-#: lib/api.php:1056 lib/api.php:1166
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1030
+#: lib/api.php:1058 lib/api.php:1168
 msgid "Not a supported data format."
 msgstr "Njeje podpěrany datowy format."
 
@@ -2717,28 +2721,24 @@ msgid "Only logged-in users can repeat notices."
 msgstr ""
 
 #: actions/repeat.php:64 actions/repeat.php:71
-#, fuzzy
 msgid "No notice specified."
-msgstr "Žadyn profil podaty."
+msgstr "Žana zdźělenka podata."
 
 #: actions/repeat.php:76
 msgid "You can't repeat your own notice."
-msgstr ""
+msgstr "Njemóžeš swójsku zdźělenku wospjetować."
 
 #: actions/repeat.php:90
-#, fuzzy
 msgid "You already repeated that notice."
-msgstr "Sy tutoho wužiwarja hižo zablokował."
+msgstr "Sy tutu zdźělenku hižo wospjetował."
 
-#: actions/repeat.php:112 lib/noticelist.php:628
-#, fuzzy
+#: actions/repeat.php:112 lib/noticelist.php:627
 msgid "Repeated"
-msgstr "Wutworjeny"
+msgstr "Wospjetowany"
 
 #: actions/repeat.php:115
-#, fuzzy
 msgid "Repeated!"
-msgstr "Wutworjeny"
+msgstr "Wospjetowany!"
 
 #: actions/replies.php:125 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
@@ -3491,12 +3491,9 @@ msgstr ""
 msgid "Notice feed for tag %s (Atom)"
 msgstr ""
 
-#: actions/tagother.php:33
-msgid "Not logged in"
-msgstr "Njepřizjewjeny"
-
 #: actions/tagother.php:39
-msgid "No id argument."
+#, fuzzy
+msgid "No ID argument."
 msgstr "Žadyn argument ID."
 
 #: actions/tagother.php:65
@@ -3753,8 +3750,9 @@ msgid "Wrong image type for avatar URL ‘%s’."
 msgstr ""
 
 #: actions/userbyid.php:70
-msgid "No id."
-msgstr ""
+#, fuzzy
+msgid "No ID."
+msgstr "Žadyn ID"
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 msgid "Profile design"
@@ -3895,20 +3893,20 @@ msgstr ""
 
 #: lib/accountsettingsaction.php:128
 msgid "Other"
-msgstr ""
+msgstr "Druhe"
 
 #: lib/accountsettingsaction.php:128
 msgid "Other options"
-msgstr ""
+msgstr "Druhe opcije"
 
 #: lib/action.php:144
 #, php-format
 msgid "%s - %s"
-msgstr ""
+msgstr "%s - %s"
 
 #: lib/action.php:159
 msgid "Untitled page"
-msgstr ""
+msgstr "Strona bjez titula"
 
 #: lib/action.php:425
 msgid "Primary site navigation"
@@ -3924,7 +3922,7 @@ msgstr ""
 
 #: lib/action.php:433
 msgid "Account"
-msgstr ""
+msgstr "Konto"
 
 #: lib/action.php:433
 msgid "Change your email, avatar, password, profile"
@@ -3932,7 +3930,7 @@ msgstr ""
 
 #: lib/action.php:436
 msgid "Connect"
-msgstr ""
+msgstr "Zwjazać"
 
 #: lib/action.php:436
 msgid "Connect to services"
@@ -3944,7 +3942,7 @@ msgstr ""
 
 #: lib/action.php:444 lib/subgroupnav.php:105
 msgid "Invite"
-msgstr ""
+msgstr "Přeprosyć"
 
 #: lib/action.php:445 lib/subgroupnav.php:106
 #, php-format
@@ -3969,7 +3967,7 @@ msgstr ""
 
 #: lib/action.php:461 lib/action.php:724
 msgid "Help"
-msgstr ""
+msgstr "Pomoc"
 
 #: lib/action.php:461
 msgid "Help me!"
@@ -4201,7 +4199,7 @@ msgstr ""
 #: lib/command.php:327
 #, php-format
 msgid "About: %s"
-msgstr ""
+msgstr "Wo: %s"
 
 #: lib/command.php:358 scripts/xmppdaemon.php:321
 #, php-format
@@ -4212,15 +4210,22 @@ msgstr ""
 msgid "Error sending direct message."
 msgstr ""
 
+#: lib/command.php:421
+msgid "Cannot repeat your own notice"
+msgstr ""
+
+#: lib/command.php:426
+msgid "Already repeated that notice"
+msgstr "Tuta zdźělenka bu hižo wospjetowana"
+
 #: lib/command.php:434
-#, fuzzy, php-format
+#, php-format
 msgid "Notice from %s repeated"
-msgstr "Zdźělenka wotpósłana"
+msgstr "Zdźělenka wot %s wospjetowana"
 
 #: lib/command.php:436
-#, fuzzy
 msgid "Error repeating notice."
-msgstr "Zmylk při zasunjenju noweho profila"
+msgstr "Zmylk při wospjetowanju zdźělenki"
 
 #: lib/command.php:490
 #, php-format
@@ -4367,7 +4372,7 @@ msgstr ""
 
 #: lib/common.php:199
 msgid "No configuration file found. "
-msgstr ""
+msgstr "Žana konfiguraciska dataja namakana. "
 
 #: lib/common.php:200
 msgid "I looked for configuration files in the following places: "
@@ -4383,7 +4388,7 @@ msgstr ""
 
 #: lib/connectsettingsaction.php:110
 msgid "IM"
-msgstr ""
+msgstr "IM"
 
 #: lib/connectsettingsaction.php:111
 msgid "Updates by instant messenger (IM)"
@@ -4395,11 +4400,11 @@ msgstr ""
 
 #: lib/dberroraction.php:60
 msgid "Database error"
-msgstr ""
+msgstr "Zmylk w datowej bance"
 
 #: lib/designsettings.php:105
 msgid "Upload file"
-msgstr ""
+msgstr "Dataju nahrać"
 
 #: lib/designsettings.php:109
 msgid ""
@@ -4573,11 +4578,11 @@ msgstr "Njeznaty datajowy typ"
 
 #: lib/imagefile.php:217
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #: lib/imagefile.php:219
 msgid "kB"
-msgstr ""
+msgstr "KB"
 
 #: lib/jabber.php:191
 #, php-format
@@ -4902,11 +4907,16 @@ msgstr ""
 msgid "in context"
 msgstr ""
 
-#: lib/noticelist.php:588
+#: lib/noticelist.php:549
+#, fuzzy
+msgid "Repeated by"
+msgstr "Wospjetowany"
+
+#: lib/noticelist.php:587
 msgid "Reply to this notice"
 msgstr "Na tutu zdźělenku wotmołwić"
 
-#: lib/noticelist.php:589
+#: lib/noticelist.php:588
 msgid "Reply"
 msgstr "Wotmołwić"
 
@@ -5008,11 +5018,12 @@ msgid "All groups"
 msgstr "Wšě skupiny"
 
 #: lib/profileformaction.php:123
-msgid "No return-to arguments"
-msgstr ""
+#, fuzzy
+msgid "No return-to arguments."
+msgstr "Žadyn argument ID."
 
 #: lib/profileformaction.php:137
-msgid "unimplemented method"
+msgid "Unimplemented method."
 msgstr ""
 
 #: lib/publicgroupnav.php:78
@@ -5036,14 +5047,12 @@ msgid "Popular"
 msgstr "Woblubowany"
 
 #: lib/repeatform.php:107 lib/repeatform.php:132
-#, fuzzy
 msgid "Repeat this notice"
-msgstr "Na tutu zdźělenku wotmołwić"
+msgstr "Tutu zdźělenku wospjetować"
 
 #: lib/repeatform.php:132
-#, fuzzy
 msgid "Repeat"
-msgstr "Wróćo stajić"
+msgstr "Wospjetować"
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"

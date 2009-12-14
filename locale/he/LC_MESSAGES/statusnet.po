@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-13 17:14+0000\n"
-"PO-Revision-Date: 2009-12-13 17:15:34+0000\n"
+"POT-Creation-Date: 2009-12-14 20:34+0000\n"
+"PO-Revision-Date: 2009-12-14 20:34:50+0000\n"
 "Language-Team: Hebrew\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60008); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60044); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: he\n"
 "X-Message-Group: out-statusnet\n"
@@ -431,17 +431,19 @@ msgid "You may not delete another user's status."
 msgstr ""
 
 #: actions/apistatusesretweet.php:75 actions/apistatusesretweets.php:72
-#, fuzzy
-msgid "No such notice"
+#: actions/deletenotice.php:52 actions/shownotice.php:92
+msgid "No such notice."
 msgstr "אין הודעה כזו."
 
-#: actions/apistatusesretweet.php:83 lib/command.php:421
-msgid "Cannot repeat your own notice"
-msgstr ""
+#: actions/apistatusesretweet.php:83
+#, fuzzy
+msgid "Cannot repeat your own notice."
+msgstr "לא ניתן להירשם ללא הסכמה לרשיון"
 
-#: actions/apistatusesretweet.php:91 lib/command.php:426
-msgid "Already repeated that notice"
-msgstr ""
+#: actions/apistatusesretweet.php:91
+#, fuzzy
+msgid "Already repeated that notice."
+msgstr "כבר נכנסת למערכת!"
 
 #: actions/apistatusesshow.php:138
 #, fuzzy
@@ -514,7 +516,7 @@ msgstr ""
 msgid "%s updates from everyone!"
 msgstr ""
 
-#: actions/apitimelineretweetedbyme.php:112 lib/noticelist.php:566
+#: actions/apitimelineretweetedbyme.php:112
 #, php-format
 msgid "Repeated by %s"
 msgstr ""
@@ -549,7 +551,8 @@ msgstr "לא נמצא"
 msgid "No such attachment."
 msgstr "אין מסמך כזה."
 
-#: actions/avatarbynickname.php:59 actions/leavegroup.php:76
+#: actions/avatarbynickname.php:59 actions/grouprss.php:91
+#: actions/leavegroup.php:76
 msgid "No nickname."
 msgstr "אין כינוי"
 
@@ -594,7 +597,7 @@ msgid "Preview"
 msgstr ""
 
 #: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:612
+#: lib/noticelist.php:611
 #, fuzzy
 msgid "Delete"
 msgstr "מחק"
@@ -694,8 +697,8 @@ msgstr ""
 
 #: actions/blockedfromgroup.php:73 actions/editgroup.php:84
 #: actions/groupdesignsettings.php:84 actions/grouplogo.php:86
-#: actions/groupmembers.php:76 actions/grouprss.php:91
-#: actions/joingroup.php:76 actions/showgroup.php:121
+#: actions/groupmembers.php:76 actions/joingroup.php:76
+#: actions/showgroup.php:121
 #, fuzzy
 msgid "No nickname"
 msgstr "אין כינוי"
@@ -703,7 +706,7 @@ msgstr "אין כינוי"
 #: actions/blockedfromgroup.php:80 actions/editgroup.php:96
 #: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
 #: actions/grouplogo.php:99 actions/groupmembers.php:83
-#: actions/grouprss.php:98 actions/joingroup.php:83 actions/showgroup.php:137
+#: actions/joingroup.php:83 actions/showgroup.php:137
 #, fuzzy
 msgid "No such group"
 msgstr "אין הודעה כזו."
@@ -793,16 +796,13 @@ msgstr "מיקום"
 msgid "Notices"
 msgstr "הודעות"
 
-#: actions/deletenotice.php:52 actions/shownotice.php:92
-msgid "No such notice."
-msgstr "אין הודעה כזו."
-
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
 #: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
-#: actions/unsubscribe.php:52 lib/adminpanelaction.php:72
-#: lib/profileformaction.php:63 lib/settingsaction.php:72
+#: actions/tagother.php:33 actions/unsubscribe.php:52
+#: lib/adminpanelaction.php:72 lib/profileformaction.php:63
+#: lib/settingsaction.php:72
 msgid "Not logged in."
 msgstr "לא מחובר."
 
@@ -829,7 +829,7 @@ msgstr ""
 msgid "Do not delete this notice"
 msgstr "אין הודעה כזו."
 
-#: actions/deletenotice.php:146 lib/noticelist.php:612
+#: actions/deletenotice.php:146 lib/noticelist.php:611
 msgid "Delete this notice"
 msgstr ""
 
@@ -1280,21 +1280,23 @@ msgstr ""
 
 #: actions/file.php:34
 #, fuzzy
-msgid "No notice id"
+msgid "No notice ID."
 msgstr "הודעה חדשה"
 
 #: actions/file.php:38
 #, fuzzy
-msgid "No notice"
+msgid "No notice."
 msgstr "הודעה חדשה"
 
 #: actions/file.php:42
-msgid "No attachments"
-msgstr ""
+#, fuzzy
+msgid "No attachments."
+msgstr "אין מסמך כזה."
 
 #: actions/file.php:51
-msgid "No uploaded attachments"
-msgstr ""
+#, fuzzy
+msgid "No uploaded attachments."
+msgstr "אין מסמך כזה."
 
 #: actions/finishremotesubscribe.php:69
 msgid "Not expecting this response!"
@@ -1333,8 +1335,9 @@ msgid "Error updating remote profile"
 msgstr "שגיאה בעדכון פרופיל מרוחק"
 
 #: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
-#: actions/groupunblock.php:86 actions/leavegroup.php:83
-#: actions/makeadmin.php:86 lib/command.php:212 lib/command.php:263
+#: actions/grouprss.php:98 actions/groupunblock.php:86
+#: actions/leavegroup.php:83 actions/makeadmin.php:86 lib/command.php:212
+#: lib/command.php:263
 #, fuzzy
 msgid "No such group."
 msgstr "אין הודעה כזו."
@@ -2049,8 +2052,8 @@ msgstr "התחבר"
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1028
-#: lib/api.php:1056 lib/api.php:1166
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1030
+#: lib/api.php:1058 lib/api.php:1168
 msgid "Not a supported data format."
 msgstr ""
 
@@ -2841,7 +2844,7 @@ msgstr "לא ניתן להירשם ללא הסכמה לרשיון"
 msgid "You already repeated that notice."
 msgstr "כבר נכנסת למערכת!"
 
-#: actions/repeat.php:112 lib/noticelist.php:628
+#: actions/repeat.php:112 lib/noticelist.php:627
 #, fuzzy
 msgid "Repeated"
 msgstr "צור"
@@ -3627,14 +3630,9 @@ msgstr "הזנת הודעות של %s"
 msgid "Notice feed for tag %s (Atom)"
 msgstr "הזנת הודעות של %s"
 
-#: actions/tagother.php:33
-#, fuzzy
-msgid "Not logged in"
-msgstr "לא מחובר."
-
 #: actions/tagother.php:39
 #, fuzzy
-msgid "No id argument."
+msgid "No ID argument."
 msgstr "אין מסמך כזה."
 
 #: actions/tagother.php:65
@@ -3915,7 +3913,8 @@ msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "סוג התמונה של '%s' אינו מתאים"
 
 #: actions/userbyid.php:70
-msgid "No id."
+#, fuzzy
+msgid "No ID."
 msgstr "אין זיהוי."
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
@@ -4398,6 +4397,14 @@ msgstr ""
 
 #: lib/command.php:377
 msgid "Error sending direct message."
+msgstr ""
+
+#: lib/command.php:421
+msgid "Cannot repeat your own notice"
+msgstr ""
+
+#: lib/command.php:426
+msgid "Already repeated that notice"
 msgstr ""
 
 #: lib/command.php:434
@@ -5111,11 +5118,16 @@ msgstr ""
 msgid "in context"
 msgstr "אין תוכן!"
 
-#: lib/noticelist.php:588
+#: lib/noticelist.php:549
+#, fuzzy
+msgid "Repeated by"
+msgstr "צור"
+
+#: lib/noticelist.php:587
 msgid "Reply to this notice"
 msgstr ""
 
-#: lib/noticelist.php:589
+#: lib/noticelist.php:588
 #, fuzzy
 msgid "Reply"
 msgstr "הגב"
@@ -5222,11 +5234,11 @@ msgstr ""
 
 #: lib/profileformaction.php:123
 #, fuzzy
-msgid "No return-to arguments"
+msgid "No return-to arguments."
 msgstr "אין מסמך כזה."
 
 #: lib/profileformaction.php:137
-msgid "unimplemented method"
+msgid "Unimplemented method."
 msgstr ""
 
 #: lib/publicgroupnav.php:78
