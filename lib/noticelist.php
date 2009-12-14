@@ -243,8 +243,9 @@ class NoticeListItem extends Widget
     {
         // XXX: RDFa
         // TODO: add notice_type class e.g., notice_video, notice_image
+        $id = (empty($this->repeat)) ? $this->notice->id : $this->repeat->id;
         $this->out->elementStart('li', array('class' => 'hentry notice',
-                                             'id' => 'notice-' . $this->notice->id));
+                                             'id' => 'notice-' . $id));
     }
 
     /**
