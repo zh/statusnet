@@ -41,16 +41,16 @@ if (!defined('STATUSNET')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  **/
-class RSSCloudNotifier {
-
+class RSSCloudNotifier
+{
     const MAX_FAILURES = 3;
 
     /**
      * Send an HTTP GET to the notification handler with a
      * challenge string to see if it repsonds correctly.
      *
-     * @param String  $endpoint URL of the notification handler
-     * @param String  $feed     the feed being subscribed to
+     * @param string $endpoint URL of the notification handler
+     * @param string $feed     the feed being subscribed to
      *
      * @return boolean success
      */
@@ -61,10 +61,11 @@ class RSSCloudNotifier {
         $url    = $endpoint . '?' . http_build_query($params);
 
         try {
-            $client = new HTTPClient();
+            $client   = new HTTPClient();
             $response = $client->get($url);
         } catch (HTTP_Request2_Exception $e) {
-            common_log(LOG_INFO, 'RSSCloud plugin - failure testing notify handler ' .
+            common_log(LOG_INFO,
+                       'RSSCloud plugin - failure testing notify handler ' .
                        $endpoint . ' - '  . $e->getMessage());
             return false;
         }
@@ -105,18 +106,19 @@ class RSSCloudNotifier {
      * HTTP POST a notification that a feed has been updated
      * ('ping the cloud').
      *
-     * @param String  $endpoint URL of the notification handler
-     * @param String  $feed     the feed being subscribed to
+     * @param String $endpoint URL of the notification handler
+     * @param String $feed     the feed being subscribed to
      *
      * @return boolean success
      */
-    function postUpdate($endpoint, $feed) {
+    function postUpdate($endpoint, $feed)
+    {
 
         $headers  = array();
         $postdata = array('url' => $feed);
 
         try {
-            $client = new HTTPClient();
+            $client   = new HTTPClient();
             $response = $client->post($endpoint, $headers, $postdata);
         } catch (HTTP_Request2_Exception $e) {
             common_log(LOG_INFO, 'RSSCloud plugin - failure notifying ' .
@@ -153,6 +155,7 @@ class RSSCloudNotifier {
           $profile->nickname . '.rss';
 
         $cloudSub = new RSSCloudSubscription();
+
         $cloudSub->subscribed = $profile->id;
 
         if ($cloudSub->find()) {
@@ -186,7 +189,8 @@ class RSSCloudNotifier {
         if ($failCnt == self::MAX_FAILURES) {
 
             common_log(LOG_INFO,
-                       'Deleting RSSCloud subcription (max failure count reached), profile: ' .
+                       'Deleting RSSCloud subcription ' .
+                       '(max failure count reached), profile: ' .
                        $cloudSub->subscribed .
                        ' handler: ' .
                        $cloudSub->url);
@@ -209,7 +213,8 @@ class RSSCloudNotifier {
 
         } else {
 
-            common_debug('Updating failure count on RSSCloud subscription. ' . $failCnt);
+            common_debug('Updating failure count on RSSCloud subscription. ' .
+                         $failCnt);
 
             $failCnt = $cloudSub->failures + 1;
 
@@ -224,9 +229,11 @@ class RSSCloudNotifier {
 
             if (!$result) {
                 common_log_db_error($cloudsub, 'UPDATE', __FILE__);
-                common_log(LOG_ERR, 'Could not update failure count on RSSCloud subscription');
+                common_log(LOG_ERR,
+                           'Could not update failure ' .
+                           'count on RSSCloud subscription');
             }
-         }
+        }
     }
 
 }

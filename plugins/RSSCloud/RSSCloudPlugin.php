@@ -98,16 +98,20 @@ class RSSCloudPlugin extends Plugin
      *
      * Hook for RouterInitialized event.
      *
+     * @param Mapper &$m URL parser and mapper
+     *
      * @return boolean hook return
      */
 
     function onRouterInitialized(&$m)
     {
-        $m->connect('/main/rsscloud/request_notify', array('action' => 'RSSCloudRequestNotify'));
+        $m->connect('/main/rsscloud/request_notify',
+                    array('action' => 'RSSCloudRequestNotify'));
 
         // XXX: This is just for end-to-end testing. Uncomment if you need to pretend
         //      to be a cloud hub for some reason.
-        // $m->connect('/main/rsscloud/notify', array('action' => 'LoggingAggregator'));
+        //$m->connect('/main/rsscloud/notify',
+        //            array('action' => 'LoggingAggregator'));
 
         return true;
     }
@@ -126,17 +130,18 @@ class RSSCloudPlugin extends Plugin
     {
         switch ($cls)
         {
-         case 'RSSCloudSubscription':
-            include_once(INSTALLDIR . '/plugins/RSSCloud/RSSCloudSubscription.php');
+        case 'RSSCloudSubscription':
+            include_once INSTALLDIR . '/plugins/RSSCloud/RSSCloudSubscription.php';
             return false;
-         case 'RSSCloudNotifier':
-            include_once(INSTALLDIR . '/plugins/RSSCloud/RSSCloudNotifier.php');
+        case 'RSSCloudNotifier':
+            include_once INSTALLDIR . '/plugins/RSSCloud/RSSCloudNotifier.php';
             return false;
-         case 'RSSCloudRequestNotifyAction':
-         case 'LoggingAggregatorAction':
-            include_once(INSTALLDIR . '/plugins/RSSCloud/' . mb_substr($cls, 0, -6) . '.php');
+        case 'RSSCloudRequestNotifyAction':
+        case 'LoggingAggregatorAction':
+            include_once INSTALLDIR . '/plugins/RSSCloud/' .
+              mb_substr($cls, 0, -6) . '.php';
             return false;
-         default:
+        default:
             return true;
         }
     }
@@ -145,7 +150,7 @@ class RSSCloudPlugin extends Plugin
      * Add a <cloud> element to the RSS feed (after the rss <channel>
      * element is started).
      *
-     * @param Action $action
+     * @param Action $action the ApiAction
      *
      * @return void
      */
@@ -215,7 +220,7 @@ class RSSCloudPlugin extends Plugin
     /**
      * Determine whether the notice was locally created
      *
-     * @param Notice $notice
+     * @param Notice $notice the notice in question
      *
      * @return boolean locality
      */
@@ -233,7 +238,8 @@ class RSSCloudPlugin extends Plugin
      * @return boolean hook return
      */
 
-    function onCheckSchema() {
+    function onCheckSchema()
+    {
         $schema = Schema::get();
         $schema->ensureTable('rsscloud_subscription',
                              array(new ColumnDef('subscribed', 'integer',
@@ -248,8 +254,7 @@ class RSSCloudPlugin extends Plugin
                                                  null, false, null,
                                                  'CURRENT_TIMESTAMP',
                                                  'on update CURRENT_TIMESTAMP')
-                                  )
-                            );
+                                   ));
          return true;
     }
 

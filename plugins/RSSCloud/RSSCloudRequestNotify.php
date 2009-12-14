@@ -56,9 +56,9 @@ class RSSCloudRequestNotifyAction extends Action
     {
         parent::prepare($args);
 
-        $this->ip        = $_SERVER['REMOTE_ADDR'];
-        $this->port      = $this->arg('port');
-        $this->path      = $this->arg('path');
+        $this->ip   = $_SERVER['REMOTE_ADDR'];
+        $this->port = $this->arg('port');
+        $this->path = $this->arg('path');
 
         if ($this->path[0] != '/') {
             $this->path = '/' . $this->path;
@@ -68,7 +68,7 @@ class RSSCloudRequestNotifyAction extends Action
         $this->procedure = $this->arg('notifyProcedure');
         $this->domain    = $this->arg('domain');
 
-        $this->feeds     = $this->getFeeds();
+        $this->feeds = $this->getFeeds();
 
         return true;
     }
@@ -124,7 +124,8 @@ class RSSCloudRequestNotifyAction extends Action
         }
 
         if (empty($this->feeds)) {
-            $msg = 'You must provide at least one valid profile feed url (url1, url2, url3 ... urlN).';
+            $msg = 'You must provide at least one valid profile feed url ' .
+              '(url1, url2, url3 ... urlN).';
             $this->showResult(false, $msg);
             return;
         }
@@ -195,7 +196,7 @@ class RSSCloudRequestNotifyAction extends Action
     {
         $feeds = array();
 
-        while (list($key, $feed) = each ($this->args)) {
+        while (list($key, $feed) = each($this->args)) {
             if (preg_match('/^url\d*$/', $key)) {
                 $feeds[] = $feed;
             }
@@ -251,7 +252,7 @@ class RSSCloudRequestNotifyAction extends Action
         } else {
             return 'http://' . $this->ip . ':' . $this->port . $this->path;
         }
-     }
+    }
 
     /**
      * Uses the nickname part of the subscribed feed URL to figure out
@@ -267,7 +268,7 @@ class RSSCloudRequestNotifyAction extends Action
     {
         // We only do profile feeds
 
-        $path = common_path('api/statuses/user_timeline/');
+        $path  = common_path('api/statuses/user_timeline/');
         $valid = '%^' . $path . '(?<nickname>.*)\.rss$%';
 
         if (preg_match($valid, $feed, $matches)) {
@@ -283,7 +284,7 @@ class RSSCloudRequestNotifyAction extends Action
     /**
      * Save an RSSCloud subscription
      *
-     * @param $feed a valid profile feed
+     * @param string $feed a valid profile feed
      *
      * @return boolean success result
      */
@@ -329,8 +330,9 @@ class RSSCloudRequestNotifyAction extends Action
     function showResult($success, $msg)
     {
         $this->startXML();
-        $this->elementStart('notifyResult', array('success' => ($success) ? 'true' : 'false',
-                                                  'msg'     => $msg));
+        $this->elementStart('notifyResult',
+                            array('success' => ($success) ? 'true' : 'false',
+                                  'msg'     => $msg));
         $this->endXML();
     }
 

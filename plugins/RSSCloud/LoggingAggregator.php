@@ -111,12 +111,13 @@ class LoggingAggregatorAction extends Action
             }
 
             header('Content-Type: text/xml');
-            echo '<notifyResult success=\'true\' msg=\'Thanks for the update.\' />' . "\n";
+            Echo "<notifyResult success='true' msg='Thanks for the update.' />\n";
         }
 
         $this->ip = $_SERVER['REMOTE_ADDR'];
 
-        common_log(LOG_INFO, 'RSSCloud Logging Aggregator - ' . $this->ip . ' claims the feed at ' .
+        common_log(LOG_INFO, 'RSSCloud Logging Aggregator - ' .
+                   $this->ip . ' claims the feed at ' .
                    $this->url . ' has been updated.');
     }
 
