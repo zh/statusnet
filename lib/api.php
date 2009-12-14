@@ -53,13 +53,14 @@ if (!defined('STATUSNET')) {
 
 class ApiAction extends Action
 {
-     var $format   = null;
-     var $user     = null;
-     var $page     = null;
-     var $count    = null;
-     var $max_id   = null;
-     var $since_id = null;
-     var $since    = null;
+    var $format    = null;
+    var $user      = null;
+    var $auth_user = null;
+    var $page      = null;
+    var $count     = null;
+    var $max_id    = null;
+    var $since_id  = null;
+    var $since     = null;
 
     /**
      * Initialization.
@@ -190,13 +191,14 @@ class ApiAction extends Action
         $twitter_user['following'] = false;
         $twitter_user['notifications'] = false;
 
-        if (isset($apidata['user'])) {
+        if (isset($this->auth_user)) {
 
-            $twitter_user['following'] = $apidata['user']->isSubscribed($profile);
+            $twitter_user['following'] = $this->auth_user->isSubscribed($profile);
 
             // Notifications on?
             $sub = Subscription::pkeyGet(array('subscriber' =>
-                $apidata['user']->id, 'subscribed' => $profile->id));
+                                               $this->auth_user->id,
+                                               'subscribed' => $profile->id));
 
             if ($sub) {
                 $twitter_user['notifications'] = ($sub->jabber || $sub->sms);
