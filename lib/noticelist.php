@@ -601,11 +601,13 @@ class NoticeListItem extends Widget
     {
         $user = common_current_user();
 
+        $todel = (empty($this->repeat)) ? $this->notice : $this->repeat;
+
         if (!empty($user) &&
-            ($this->notice->profile_id == $user->id || $user->hasRight(Right::DELETEOTHERSNOTICE))) {
+            ($todel->profile_id == $user->id || $user->hasRight(Right::DELETEOTHERSNOTICE))) {
 
             $deleteurl = common_local_url('deletenotice',
-                                          array('notice' => $this->notice->id));
+                                          array('notice' => $todel->id));
             $this->out->element('a', array('href' => $deleteurl,
                                            'class' => 'notice_delete',
                                            'title' => _('Delete this notice')), _('Delete'));

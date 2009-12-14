@@ -220,18 +220,15 @@ class ApiAction extends Action
     {
         $base = $this->twitterSimpleStatusArray($notice, $include_user);
 
-        if (empty($notice->repeat_of)) {
-            return $base;
-        } else {
+        if (!empty($notice->repeat_of)) {
             $original = Notice::staticGet('id', $notice->repeat_of);
-            if (empty($original)) {
-                return $base;
-            } else {
+            if (!empty($original)) {
                 $original_array = $this->twitterSimpleStatusArray($original, $include_user);
-                $original_array['retweeted_status'] = $base;
-                return $original_array;
+                $base['retweeted_status'] = $original_array;
             }
         }
+
+        return $base;
     }
 
     function twitterSimpleStatusArray($notice, $include_user=true)
