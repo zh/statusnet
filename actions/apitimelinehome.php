@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Show the friends timeline
+ * Show the home timeline
  *
  * PHP version 5
  *
@@ -56,7 +56,7 @@ require_once INSTALLDIR . '/lib/apibareauth.php';
  * @link     http://status.net/
  */
 
-class ApiTimelineFriendsAction extends ApiBareAuthAction
+class ApiTimelineHomeAction extends ApiBareAuthAction
 {
     var $notices  = null;
 
@@ -72,7 +72,7 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
     function prepare($args)
     {
         parent::prepare($args);
-        common_debug("api friends_timeline");
+        common_debug("api home_timeline");
         $this->user = $this->getTargetUser($this->arg('id'));
 
         if (empty($this->user)) {
@@ -114,7 +114,7 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
         $sitename   = common_config('site', 'name');
         $title      = sprintf(_("%s and friends"), $this->user->nickname);
         $taguribase = common_config('integration', 'taguri');
-        $id         = "tag:$taguribase:FriendsTimeline:" . $this->user->id;
+        $id         = "tag:$taguribase:HomeTimeline:" . $this->user->id;
         $link       = common_local_url(
             'all', array('nickname' => $this->user->nickname)
         );
@@ -137,11 +137,11 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
 
             if (isset($target_id)) {
                 $selfuri = common_root_url() .
-                    'api/statuses/friends_timeline/' .
+                    'api/statuses/home_timeline/' .
                     $target_id . '.atom';
             } else {
                 $selfuri = common_root_url() .
-                    'api/statuses/friends_timeline.atom';
+                    'api/statuses/home_timeline.atom';
             }
 
             $this->showAtomTimeline(

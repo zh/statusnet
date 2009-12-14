@@ -283,12 +283,13 @@ class Router
                         array('action' => 'ApiTimelineFriends',
                               'id' => '[a-zA-Z0-9]+',
                               'format' => '(xml|json|rss|atom)'));
+
             $m->connect('api/statuses/home_timeline.:format',
-                        array('action' => 'ApiTimelineFriends',
+                        array('action' => 'ApiTimelineHome',
                               'format' => '(xml|json|rss|atom)'));
 
             $m->connect('api/statuses/home_timeline/:id.:format',
-                        array('action' => 'ApiTimelineFriends',
+                        array('action' => 'ApiTimelineHome',
                               'id' => '[a-zA-Z0-9]+',
                               'format' => '(xml|json|rss|atom)'));
 
