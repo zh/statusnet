@@ -1407,6 +1407,21 @@ contentlimit: max length of the plain-text content of a message.
               Default is null, meaning to use the site-wide text limit.
               0 means no limit.
 
+logincommand
+------------
+
+Configuration options for the login command.
+
+disabled: whether to enable this command. If enabled, users who send
+	  the text 'login' to the site through any channel will
+	  receive a link to login to the site automatically in return.
+	  Possibly useful for users who primarily use an XMPP or SMS
+	  interface and can't be bothered to remember their site
+	  password. Note that the security implications of this are
+	  pretty serious and have not been thoroughly tested. You
+	  should enable it only after you've convinced yourself that
+	  it is safe. Default is 'false'.
+
 Plugins
 =======
 
