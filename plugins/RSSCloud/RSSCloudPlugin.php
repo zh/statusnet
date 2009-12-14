@@ -105,8 +105,9 @@ class RSSCloudPlugin extends Plugin
     {
         $m->connect('/main/rsscloud/request_notify', array('action' => 'RSSCloudRequestNotify'));
 
-        // XXX: This is just for end-to-end testing
-        $m->connect('/main/rsscloud/notify', array('action' => 'LoggingAggregator'));
+        // XXX: This is just for end-to-end testing. Uncomment if you need to pretend
+        //      to be a cloud hub for some reason.
+        // $m->connect('/main/rsscloud/notify', array('action' => 'LoggingAggregator'));
 
         return true;
     }
