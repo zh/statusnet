@@ -535,16 +535,18 @@ class NoticeListItem extends Widget
 
             $repeater = Profile::staticGet('id', $this->repeat->profile_id);
 
-            $attrs = array('href' => $repeater->profileurl,
+            $attrs = array('href' => $this->profile->profileurl,
                            'class' => 'url');
 
             if (!empty($repeater->fullname)) {
                 $attrs['title'] = $repeater->fullname . ' (' . $repeater->nickname . ')';
             }
 
-            $this->out->elementStart('span', 'repeat');
+            $this->out->elementStart('span', 'repeat vcard');
 
             $this->out->elementStart('a', $attrs);
+
+            $this->out->raw(_('Repeated by'));
 
             $avatar = $repeater->getAvatar(AVATAR_MINI_SIZE);
 
@@ -559,11 +561,8 @@ class NoticeListItem extends Widget
                                              $repeater->fullname :
                                              $repeater->nickname));
 
+            $this->out->element('span', 'nickname', $repeater->nickname);
             $this->out->elementEnd('a');
-
-            $text_link = XMLStringer::estring('a', $attrs, $repeater->nickname);
-
-            $this->out->raw(sprintf(_('Repeated by %s'), $text_link));
 
             $this->out->elementEnd('span');
         }
