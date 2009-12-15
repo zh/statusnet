@@ -180,6 +180,27 @@ class User extends Memcached_DataObject
         return $result;
     }
 
+    /**
+     * Register a new user account and profile and set up default subscriptions.
+     * If a new-user welcome message is configured, this will be sent.
+     *
+     * @param array $fields associative array of optional properties
+     *              string 'bio'
+     *              string 'email'
+     *              bool 'email_confirmed' pass true to mark email as pre-confirmed
+     *              string 'fullname'
+     *              string 'homepage'
+     *              string 'location' informal string description of geolocation
+     *              float 'lat' decimal latitude for geolocation
+     *              float 'lon' decimal longitude for geolocation
+     *              int 'location_id' geoname identifier
+     *              int 'location_ns' geoname namespace to interpret location_id
+     *              string 'nickname' REQUIRED
+     *              string 'password' (may be missing for eg OpenID registrations)
+     *              string 'code' invite code
+     *              ?string 'uri' permalink to notice; defaults to local notice URL
+     * @return mixed User object or false on failure
+     */
     static function register($fields) {
 
         // MAGICALLY put fields into current scope
