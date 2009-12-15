@@ -31,7 +31,6 @@ class Memcached_DataObject extends DB_DataObject
     function __destruct()
     {
         $this->free();
-        parent::__destruct();
     }
 
     function &staticGet($cls, $k, $v=null)
