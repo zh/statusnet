@@ -116,11 +116,24 @@ RealtimeUpdate = {
 
      makeNoticeItem: function(data)
      {
+          if (data.hasOwnProperty('retweeted_status')) {
+               original = data['retweeted_status'];
+               repeat   = data;
+               data     = original;
+               unique   = repeat['id'];
+               responsible = repeat['user'];
+          } else {
+               original = null;
+               repeat = null;
+               unique = data['id'];
+               responsible = data['user'];
+          }
+
           user = data['user'];
           html = data['html'].replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"');
           source = data['source'].replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"');
 
-          ni = "<li class=\"hentry notice\" id=\"notice-"+data['id']+"\">"+
+          ni = "<li class=\"hentry notice\" id=\"notice-"+unique+"\">"+
                "<div class=\"entry-title\">"+
                "<span class=\"vcard author\">"+
                "<a href=\""+user['profile_url']+"\" class=\"url\">"+
@@ -142,15 +155,24 @@ RealtimeUpdate = {
                ni = ni+" <a class=\"response\" href=\""+data['in_reply_to_status_url']+"\">in context</a>";
           }
 
-          ni = ni+"</div>"+
-            "<div class=\"notice-options\">";
+          if (repeat) {
+               ru = repeat['user'];
+               ni = ni + "<span class=\"repeat vcard\">Repeated by " +
+                    "<a href=\"" + ru['profile_url'] + "\" class=\"url\">" +
+                    "<img src=\"" + ru['profile_image_url'] + "\" class=\"avatar photo\" width=\"24\" height=\"24\" alt=\"" + ru['screen_name'] + "\"/>" +
+                    "<span class=\"nickname\">"+ ru['screen_name'] + "</span></a></span>";
+          }
+
+          ni = ni+"</div>";
+
+          ni = ni + "<div class=\"notice-options\">";
 
           if (RealtimeUpdate._userid != 0) {
                var input = $("form#form_notice fieldset input#token");
                var session_key = input.val();
                ni = ni+RealtimeUpdate.makeFavoriteForm(data['id'], session_key);
                ni = ni+RealtimeUpdate.makeReplyLink(data['id'], data['user']['screen_name']);
-               if (RealtimeUpdate._userid == data['user']['id']) {
+               if (RealtimeUpdate._userid == responsible['id']) {
                     ni = ni+RealtimeUpdate.makeDeleteLink(data['id']);
                }
                else {
@@ -158,7 +180,8 @@ RealtimeUpdate = {
                }
           }
 
-          ni = ni+"</div>"+
+          ni = ni+"</div>";
+
                "</li>";
           return ni;
      },
@@ -330,7 +353,7 @@ RealtimeUpdate = {
      {
          $('.notices .entry-title a, .notices .entry-content a').bind('click', function() {
             window.open(this.href, '');
-            
+
             return false;
          });
 

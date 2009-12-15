@@ -267,6 +267,24 @@ class RealtimePlugin extends Plugin
         $profile = $notice->getProfile();
         $arr['user']['profile_url'] = $profile->profileurl;
 
+        // Add needed repeat data
+
+        if (!empty($notice->repeat_of)) {
+            $original = Notice::staticGet('id', $notice->repeat_of);
+            if (!empty($original)) {
+                $arr['retweeted_status']['url'] = $original->bestUrl();
+                $arr['retweeted_status']['html'] = htmlspecialchars($original->rendered);
+                $arr['retweeted_status']['source'] = htmlspecialchars($original->source);
+                $originalProfile = $original->getProfile();
+                $arr['retweeted_status']['user']['profile_url'] = $originalProfile->profileurl;
+                if (!empty($original->reply_to)) {
+                    $originalReply = Notice::staticGet('id', $original->reply_to);
+                    $arr['retweeted_status']['in_reply_to_status_url'] = $originalReply->bestUrl();
+                }
+            }
+            $original = null;
+        }
+
         return $arr;
     }
 
