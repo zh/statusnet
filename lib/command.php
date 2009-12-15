@@ -372,6 +372,7 @@ class MessageCommand extends Command
         }
         $message = Message::saveNew($this->user->id, $other->id, $this->text, $channel->source());
         if ($message) {
+            mail_notify_message($message, $this->user, $other);
             $channel->output($this->user, sprintf(_('Direct message to %s sent'), $this->other));
         } else {
             $channel->error($this->user, _('Error sending direct message.'));
