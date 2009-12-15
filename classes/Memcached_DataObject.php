@@ -23,6 +23,17 @@ require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 class Memcached_DataObject extends DB_DataObject
 {
+    /**
+     * Destructor to free global memory resources associated with
+     * this data object when it's unset or goes out of scope.
+     * DB_DataObject doesn't do this yet by itself.
+     */
+    function __destruct()
+    {
+        $this->free();
+        parent::__destruct();
+    }
+
     function &staticGet($cls, $k, $v=null)
     {
         if (is_null($v)) {
