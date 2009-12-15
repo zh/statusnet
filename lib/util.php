@@ -1244,8 +1244,12 @@ function common_copy_args($from)
     return $to;
 }
 
-// Neutralise the evil effects of magic_quotes_gpc in the current request.
-// This is used before handing a request off to OAuthRequest::from_request.
+/**
+ * Neutralise the evil effects of magic_quotes_gpc in the current request.
+ * This is used before handing a request off to OAuthRequest::from_request.
+ * @fixme Doesn't consider vars other than _POST and _GET?
+ * @fixme Can't be undone and could corrupt data if run twice.
+ */
 function common_remove_magic_from_request()
 {
     if(get_magic_quotes_gpc()) {
@@ -1447,6 +1451,17 @@ function common_database_tablename($tablename)
   return $tablename;
 }
 
+/**
+ * Shorten a URL with the current user's configured shortening service,
+ * or ur1.ca if configured, or not at all if no shortening is set up.
+ * Length is not considered.
+ *
+ * @param string $long_url
+ * @return string may return the original URL if shortening failed
+ *
+ * @fixme provide a way to specify a particular shortener
+ * @fixme provide a way to specify to use a given user's shortening preferences
+ */
 function common_shorten_url($long_url)
 {
     $user = common_current_user();
@@ -1467,6 +1482,16 @@ function common_shorten_url($long_url)
     }
 }
 
+/**
+ * @return mixed array($proxy, $ip) for web requests; proxy may be null
+ *               null if not a web request
+ *
+ * @fixme X-Forwarded-For can be chained by multiple proxies;
+          we should parse the list and provide a cleaner array
+ * @fixme X-Forwarded-For can be forged by clients; only use them if trusted
+ * @fixme X_Forwarded_For headers will override X-Forwarded-For read through $_SERVER;
+ *        use function to get exact request headers from Apache if possible.
+ */
 function common_client_ip()
 {
     if (!isset($_SERVER) || !array_key_exists('REQUEST_METHOD', $_SERVER)) {
