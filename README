@@ -358,7 +358,7 @@ It's possible to configure the software so it looks like this instead:
 
 These "fancy URLs" are more readable and memorable for users. To use
 fancy URLs, you must either have Apache 2.x with .htaccess enabled and
-mod_redirect enabled, -OR- know how to configure "url redirection" in
+mod_rewrite enabled, -OR- know how to configure "url redirection" in
 your server.
 
 1. Copy the htaccess.sample file to .htaccess in your StatusNet
@@ -383,6 +383,18 @@ like:
 
 If you changed your HTTP server configuration, you may need to restart
 the server first.
+
+If it doesn't work, double-check that AllowOverride for the StatusNet
+directory is 'All' in your Apache configuration file. This is usually
+/etc/httpd.conf, /etc/apache/httpd.conf, or (on Debian and Ubuntu)
+/etc/apache2/sites-available/default. See the Apache documentation for
+.htaccess files for more details:
+
+   http://httpd.apache.org/docs/2.2/howto/htaccess.html
+
+Also, check that mod_rewrite is installed and enabled:
+
+   http://httpd.apache.org/docs/2.2/mod/mod_rewrite.html
 
 Sphinx
 ------
@@ -1406,6 +1418,21 @@ Configuration options specific to messages.
 contentlimit: max length of the plain-text content of a message.
               Default is null, meaning to use the site-wide text limit.
               0 means no limit.
+
+logincommand
+------------
+
+Configuration options for the login command.
+
+disabled: whether to enable this command. If enabled, users who send
+	  the text 'login' to the site through any channel will
+	  receive a link to login to the site automatically in return.
+	  Possibly useful for users who primarily use an XMPP or SMS
+	  interface and can't be bothered to remember their site
+	  password. Note that the security implications of this are
+	  pretty serious and have not been thoroughly tested. You
+	  should enable it only after you've convinced yourself that
+	  it is safe. Default is 'false'.
 
 Plugins
 =======

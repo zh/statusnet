@@ -952,6 +952,36 @@ class Action extends HTMLOutputter // lawsuit
     }
 
     /**
+     * Integer value of an argument
+     *
+     * @param string $key      query key we're interested in
+     * @param string $defValue optional default value (default null)
+     * @param string $maxValue optional max value (default null)
+     * @param string $minValue optional min value (default null)
+     *
+     * @return integer integer value
+     */
+
+    function int($key, $defValue=null, $maxValue=null, $minValue=null)
+    {
+        $arg = strtolower($this->trimmed($key));
+
+        if (is_null($arg) || !is_integer($arg)) {
+            return $defValue;
+        }
+
+        if (!is_null($maxValue)) {
+            $arg = min($arg, $maxValue);
+        }
+
+        if (!is_null($minValue)) {
+            $arg = max($arg, $minValue);
+        }
+
+        return $arg;
+    }
+
+    /**
      * Server error
      *
      * @param string  $msg  error message to display

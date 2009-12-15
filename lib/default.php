@@ -229,4 +229,6 @@ $default =
         array('namespace' => 1), // 1 = geonames, 2 = Yahoo Where on Earth
         'omb' =>
         array('timeout' => 5), // HTTP request timeout in seconds when contacting remote hosts for OMB updates
+        'logincommand' =>
+        array('disabled' => true),
         );

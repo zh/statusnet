@@ -272,6 +272,7 @@ function get_nice_language_list()
 function get_all_languages() {
     return array(
         'ar'      => array('q' => 0.8, 'lang' => 'ar', 'name' => 'Arabic', 'direction' => 'rtl'),
+        'arz'     => array('q' => 0.8, 'lang' => 'arz', 'name' => 'Egyptian Spoken Arabic', 'direction' => 'rtl'),
         'bg'      => array('q' => 0.8, 'lang' => 'bg', 'name' => 'Bulgarian', 'direction' => 'ltr'),
         'ca'      => array('q' => 0.5, 'lang' => 'ca', 'name' => 'Catalan', 'direction' => 'ltr'),
         'cs'      => array('q' => 0.5, 'lang' => 'cs', 'name' => 'Czech', 'direction' => 'ltr'),
@@ -286,6 +287,7 @@ function get_all_languages() {
         'ga'      => array('q' => 0.5, 'lang' => 'ga', 'name' => 'Galician', 'direction' => 'ltr'),
         'he'      => array('q' => 0.5, 'lang' => 'he', 'name' => 'Hebrew', 'direction' => 'rtl'),
         'hsb'     => array('q' => 0.8, 'lang' => 'hsb', 'name' => 'Upper Sorbian', 'direction' => 'ltr'),
+        'ia'      => array('q' => 0.8, 'lang' => 'ia', 'name' => 'Interlingua', 'direction' => 'ltr'),
         'is'      => array('q' => 0.1, 'lang' => 'is', 'name' => 'Icelandic', 'direction' => 'ltr'),
         'it'      => array('q' => 1, 'lang' => 'it', 'name' => 'Italian', 'direction' => 'ltr'),
         'jp'      => array('q' => 0.5, 'lang' => 'ja', 'name' => 'Japanese', 'direction' => 'ltr'),

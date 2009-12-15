@@ -32,6 +32,20 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 }
 
 /**
+ * General Exception wrapper for HTTP basic auth errors
+ *
+ *  @category Integration
+ *  @package  StatusNet
+ *  @author   Zach Copley <zach@status.net>
+ *  @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ *  @link     http://status.net/
+ *
+ */
+class BasicAuthException extends Exception
+{
+}
+
+/**
  * Class for talking to the Twitter API with HTTP Basic Auth.
  *
  * @category Integration
@@ -169,12 +183,13 @@ class TwitterBasicAuthClient
     }
 
     /**
-     * Make a HTTP request using cURL.
+     * Make an HTTP request
      *
      * @param string $url    Where to make the request
      * @param array  $params post parameters
      *
      * @return mixed the request
+     * @throws BasicAuthException
      */
     function httpRequest($url, $params = null, $auth = true)
     {
@@ -197,6 +212,12 @@ class TwitterBasicAuthClient
             $response = $request->post($url, $headers, $params);
         } else {
             $response = $request->get($url);
+        }
+
+        $code = $response->getStatus();
+
+        if ($code < 200 || $code >= 400) {
+            throw new BasicAuthException($response->getBody(), $code);
         }
 
         return $response->getBody();

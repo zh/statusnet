@@ -445,8 +445,9 @@ class FacebookAction extends Action
         $replyto = $this->trimmed('inreplyto');
 
         try {
-            $notice = Notice::saveNew($user->id, $content,
-                                      'web', 1, ($replyto == 'false') ? null : $replyto);
+            $notice = Notice::saveNew($user->id, $content, 'web',
+                                      array('reply_to' => ($replyto == 'false') ? null : $replyto));
+
         } catch (Exception $e) {
             $this->showPage($e->getMessage());
             return;

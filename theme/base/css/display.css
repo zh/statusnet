@@ -964,7 +964,7 @@ float:left;
 font-size:0.95em;
 margin-left:59px;
 min-width:60%;
-max-width:74%;
+max-width:70%;
 }
 #showstream .notice div.entry-content,
 #shownotice .notice div.entry-content {
@@ -982,10 +982,21 @@ font-size:1.025em;
 display:inline-block;
 }
 
+.entry-content .repeat {
+display:block;
+}
+.entry-content .repeat .photo {
+float:none;
+margin-right:1px;
+position:relative;
+top:4px;
+left:0;
+}
+
 .notice-options {
 position:relative;
 font-size:0.95em;
-width:90px;
+width:125px;
 float:right;
 }
 
@@ -994,17 +1005,20 @@ float:left;
 }
 .notice-options .notice_delete,
 .notice-options .notice_reply,
+.notice-options .form_repeat,
 .notice-options .form_favor,
-.notice-options .form_disfavor {
+.notice-options .form_disfavor,
+.notice-options .repeated {
 float:left;
-margin-left:20%;
+margin-left:14%;
 }
 .notice-options .form_favor,
 .notice-options .form_disfavor {
 margin-left:0;
 }
 .notice-options input,
-.notice-options a {
+.notice-options a,
+.notice-options .repeated {
 text-indent:-9999px;
 outline:none;
 }
@@ -1024,16 +1038,19 @@ border-radius:0;
 -moz-border-radius:0;
 -webkit-border-radius:0;
 }
+.notice-options .form_repeat legend,
 .notice-options .form_favor legend,
 .notice-options .form_disfavor legend {
 display:none;
 }
+.notice-options .form_repeat fieldset,
 .notice-options .form_favor fieldset,
 .notice-options .form_disfavor fieldset {
 border:0;
 padding:0;
 }
-.notice-options a {
+.notice-options a,
+.notice-options .repeated {
 width:16px;
 height:16px;
 }
