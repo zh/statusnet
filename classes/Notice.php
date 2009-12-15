@@ -176,12 +176,13 @@ class Notice extends Memcached_DataObject
     }
 
     static function saveNew($profile_id, $content, $source, $options=null) {
+        $defaults = array('uri' => null,
+                          'reply_to' => null,
+                          'repeat_of' => null);
 
         if (!empty($options)) {
+            $options = $options + $defaults;
             extract($options);
-            if (!isset($reply_to)) {
-                $reply_to = NULL;
-            }
         }
 
         if (empty($is_local)) {
