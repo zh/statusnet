@@ -32,6 +32,7 @@ RealtimeUpdate = {
      _userid: 0,
      _replyurl: '',
      _favorurl: '',
+     _repeaturl: '',
      _deleteurl: '',
      _updatecounter: 0,
      _maxnotices: 50,
@@ -40,11 +41,12 @@ RealtimeUpdate = {
      _paused:false,
      _queuedNotices:[],
 
-     init: function(userid, replyurl, favorurl, deleteurl)
+     init: function(userid, replyurl, favorurl, repeaturl, deleteurl)
      {
         RealtimeUpdate._userid = userid;
         RealtimeUpdate._replyurl = replyurl;
         RealtimeUpdate._favorurl = favorurl;
+        RealtimeUpdate._repeaturl = repeaturl;
         RealtimeUpdate._deleteurl = deleteurl;
 
         RealtimeUpdate._documenttitle = document.title;
@@ -95,6 +97,7 @@ RealtimeUpdate = {
 
         SN.U.FormXHR($('#'+noticeItemID+' .form_favor'));
         SN.U.NoticeReplyTo($('#'+noticeItemID));
+        SN.U.FormXHR($('#'+noticeItemID+' .form_repeat'));
         SN.U.NoticeWithAttachment($('#'+noticeItemID));
      },
 
@@ -150,6 +153,9 @@ RealtimeUpdate = {
                if (RealtimeUpdate._userid == data['user']['id']) {
                     ni = ni+RealtimeUpdate.makeDeleteLink(data['id']);
                }
+               else {
+                    ni = ni+RealtimeUpdate.makeRepeatForm(data['id'],  session_key);
+               }
           }
 
           ni = ni+"</div>"+
@@ -177,7 +183,22 @@ RealtimeUpdate = {
           var rl;
           rl = "<a class=\"notice_reply\" href=\""+RealtimeUpdate._replyurl+"?replyto="+nickname+"\" title=\"Reply to this notice\">Reply <span class=\"notice_id\">"+id+"</span></a>";
           return rl;
-        },
+     },
+
+     makeRepeatForm: function(id, session_key)
+     {
+          var rf;
+          rf = "<form id=\"repeat-"+id+"\" class=\"form_repeat\" method=\"post\" action=\""+RealtimeUpdate._repeaturl+"\">"+
+               "<fieldset>"+
+               "<legend>Favor this notice</legend>"+
+               "<input name=\"token-"+id+"\" type=\"hidden\" id=\"token-"+id+"\" value=\""+session_key+"\"/>"+
+               "<input name=\"notice\" type=\"hidden\" id=\"notice-n"+id+"\" value=\""+id+"\"/>"+
+               "<input type=\"submit\" id=\"repeat-submit-"+id+"\" name=\"repeat-submit-"+id+"\" class=\"submit\" value=\"Favor\" title=\"Repeat this notice\"/>"+
+               "</fieldset>"+
+               "</form>";
+
+          return rf;
+     },
 
      makeDeleteLink: function(id)
      {
