@@ -551,17 +551,6 @@ class NoticeListItem extends Widget
 
             $this->out->elementStart('a', $attrs);
 
-            $this->out->element('img', array('src' => ($avatar) ?
-                                             $avatar->displayUrl() :
-                                             Avatar::defaultImage(AVATAR_MINI_SIZE),
-                                             'class' => 'avatar photo',
-                                             'width' => AVATAR_MINI_SIZE,
-                                             'height' => AVATAR_MINI_SIZE,
-                                             'alt' =>
-                                             ($repeater->fullname) ?
-                                             $repeater->fullname :
-                                             $repeater->nickname));
-
             $this->out->element('span', 'nickname', $repeater->nickname);
             $this->out->elementEnd('a');
 

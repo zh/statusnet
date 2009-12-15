@@ -159,7 +159,6 @@ RealtimeUpdate = {
                ru = repeat['user'];
                ni = ni + "<span class=\"repeat vcard\">Repeated by " +
                     "<a href=\"" + ru['profile_url'] + "\" class=\"url\">" +
-                    "<img src=\"" + ru['profile_image_url'] + "\" class=\"avatar photo\" width=\"24\" height=\"24\" alt=\"" + ru['screen_name'] + "\"/>" +
                     "<span class=\"nickname\">"+ ru['screen_name'] + "</span></a></span>";
           }
 
