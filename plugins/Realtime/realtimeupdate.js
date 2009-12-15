@@ -173,8 +173,7 @@ RealtimeUpdate = {
                ni = ni+RealtimeUpdate.makeReplyLink(data['id'], data['user']['screen_name']);
                if (RealtimeUpdate._userid == responsible['id']) {
                     ni = ni+RealtimeUpdate.makeDeleteLink(data['id']);
-               }
-               else {
+               } else if (RealtimeUpdate._userid != user['id']) {
                     ni = ni+RealtimeUpdate.makeRepeatForm(data['id'],  session_key);
                }
           }
