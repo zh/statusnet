@@ -523,19 +523,23 @@ function callback_helper($matches, $callback, $notice_id) {
     return substr($matches[0],0,$left) . $result . substr($matches[0],$right);
 }
 
-function curry($fn) {
-    //TODO switch to a PHP 5.3 function closure based approach if PHP 5.3 is used
-    $args = func_get_args();
-    array_shift($args);
-    $id = uniqid('_partial');
-    $GLOBALS[$id] = array($fn, $args);
-    return create_function('',
-                           '$args = func_get_args(); '.
-                           'return call_user_func_array('.
-                           '$GLOBALS["'.$id.'"][0],'.
-                           'array_merge('.
-                           '$args,'.
-                           '$GLOBALS["'.$id.'"][1]));');
+if (version_compare(PHP_VERSION, '5.3.0', 'ge')) {
+    // lambda implementation in a separate file; PHP 5.2 won't parse it.
+    require_once INSTALLDIR . "/lib/curry.php";
+} else {
+    function curry($fn) {
+        $args = func_get_args();
+        array_shift($args);
+        $id = uniqid('_partial');
+        $GLOBALS[$id] = array($fn, $args);
+        return create_function('',
+                               '$args = func_get_args(); '.
+                               'return call_user_func_array('.
+                               '$GLOBALS["'.$id.'"][0],'.
+                               'array_merge('.
+                               '$args,'.
+                               '$GLOBALS["'.$id.'"][1]));');
+    }
 }
 
 function common_linkify($url) {
