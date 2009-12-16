@@ -1,5 +1,6 @@
 # Translation of StatusNet to Greek
 #
+# Author@translatewiki.net: Crazymadlover
 # Author@translatewiki.net: Omnipaedista
 # --
 # This file is distributed under the same license as the StatusNet package.
@@ -8,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-14 20:34+0000\n"
-"PO-Revision-Date: 2009-12-14 20:34:33+0000\n"
+"POT-Creation-Date: 2009-12-16 22:51+0000\n"
+"PO-Revision-Date: 2009-12-16 22:52:01+0000\n"
 "Language-Team: Greek\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60044); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60142); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: el\n"
 "X-Message-Group: out-statusnet\n"
@@ -21,9 +22,8 @@ msgstr ""
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
 #: actions/showfavorites.php:137 actions/tag.php:51
-#, fuzzy
 msgid "No such page"
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Δεν υπάρχει τέτοιο σελίδα."
 
 #: actions/all.php:74 actions/allrss.php:68
 #: actions/apiaccountupdatedeliverydevice.php:113
@@ -36,45 +36,47 @@ msgstr "Αδύνατη η αποθήκευση του προφίλ."
 #: actions/apigroupleave.php:99 actions/apigrouplist.php:90
 #: actions/apistatusesupdate.php:144 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:79
-#: actions/apitimelinementions.php:79 actions/apitimelineuser.php:81
-#: actions/avatarbynickname.php:75 actions/favoritesrss.php:74
-#: actions/foaf.php:40 actions/foaf.php:58 actions/microsummary.php:62
-#: actions/newmessage.php:116 actions/remotesubscribe.php:145
-#: actions/remotesubscribe.php:154 actions/replies.php:73
-#: actions/repliesrss.php:38 actions/showfavorites.php:105
-#: actions/userbyid.php:74 actions/usergroups.php:91 actions/userrss.php:38
-#: actions/xrds.php:71 lib/command.php:163 lib/command.php:311
-#: lib/command.php:364 lib/command.php:409 lib/command.php:470
-#: lib/command.php:526 lib/galleryaction.php:59 lib/mailbox.php:82
-#: lib/profileaction.php:77 lib/subs.php:34 lib/subs.php:116
+#: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
+#: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
+#: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
+#: actions/microsummary.php:62 actions/newmessage.php:116
+#: actions/remotesubscribe.php:145 actions/remotesubscribe.php:154
+#: actions/replies.php:73 actions/repliesrss.php:38
+#: actions/showfavorites.php:105 actions/userbyid.php:74
+#: actions/usergroups.php:91 actions/userrss.php:38 actions/xrds.php:71
+#: lib/command.php:163 lib/command.php:311 lib/command.php:364
+#: lib/command.php:410 lib/command.php:471 lib/command.php:527
+#: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
+#: lib/subs.php:34 lib/subs.php:116
 msgid "No such user."
 msgstr "Κανένας τέτοιος χρήστης."
 
 #: actions/all.php:84
-#, fuzzy, php-format
+#, php-format
 msgid "%s and friends, page %d"
-msgstr "%s και οι φίλοι του/της"
+msgstr "%s και οι φίλοι του/της, σελίδα %d"
 
 #: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
-#: actions/apitimelinefriends.php:115 lib/personalgroupnav.php:100
+#: actions/apitimelinefriends.php:115 actions/apitimelinehome.php:115
+#: lib/personalgroupnav.php:100
 #, php-format
 msgid "%s and friends"
 msgstr "%s και οι φίλοι του/της"
 
 #: actions/all.php:99
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
-msgstr "Ροή φίλων του/της %s"
+msgstr "Ροή φίλων του/της %s (RSS 1.0)"
 
 #: actions/all.php:107
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
-msgstr "Ροή φίλων του/της %s"
+msgstr "Ροή φίλων του/της %s (RSS 2.0)"
 
 #: actions/all.php:115
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (Atom)"
-msgstr "Ροή φίλων του/της %s"
+msgstr "Ροή φίλων του/της %s (Atom)"
 
 #: actions/all.php:127
 #, php-format
@@ -104,11 +106,11 @@ msgid ""
 msgstr ""
 
 #: actions/all.php:165
-#, fuzzy
 msgid "You and friends"
-msgstr "%s και οι φίλοι του/της"
+msgstr "Εσείς και οι φίλοι σας"
 
 #: actions/allrss.php:119 actions/apitimelinefriends.php:122
+#: actions/apitimelinehome.php:122
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr ""
@@ -186,9 +188,8 @@ msgid "Could not update your design."
 msgstr "Απέτυχε η ενημέρωση του χρήστη."
 
 #: actions/apiblockcreate.php:105
-#, fuzzy
 msgid "You cannot block yourself!"
-msgstr "Απέτυχε η ενημέρωση του χρήστη."
+msgstr "Δεν μπορείτε να εμποδίσετε τον εαυτό σας!"
 
 #: actions/apiblockcreate.php:119
 msgid "Block user failed."
@@ -230,8 +231,8 @@ msgstr ""
 #: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
 #: actions/apisubscriptions.php:111 actions/apitimelinefavorites.php:146
 #: actions/apitimelinefriends.php:156 actions/apitimelinegroup.php:150
-#: actions/apitimelinementions.php:151 actions/apitimelinepublic.php:131
-#: actions/apitimelineretweetedbyme.php:122
+#: actions/apitimelinehome.php:156 actions/apitimelinementions.php:151
+#: actions/apitimelinepublic.php:131 actions/apitimelineretweetedbyme.php:122
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
 #: actions/apitimelineuser.php:165 actions/apiusershow.php:101
@@ -340,9 +341,9 @@ msgid "Full name is too long (max 255 chars)."
 msgstr "Το ονοματεπώνυμο είναι πολύ μεγάλο (μέγιστο 255 χαρακτ.)."
 
 #: actions/apigroupcreate.php:213
-#, fuzzy, php-format
+#, php-format
 msgid "Description is too long (max %d chars)."
-msgstr "Το βιογραφικό είναι πολύ μεγάλο (μέγιστο 140 χαρακτ.)."
+msgstr "Η περιγραφή είναι πολύ μεγάλη (μέγιστο %d χαρακτ.)."
 
 #: actions/apigroupcreate.php:224 actions/editgroup.php:204
 #: actions/newgroup.php:148 actions/profilesettings.php:225
@@ -376,9 +377,8 @@ msgstr ""
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:90 actions/apitimelinegroup.php:91
-#, fuzzy
 msgid "Group not found!"
-msgstr "Η μέθοδος του ΑΡΙ δε βρέθηκε!"
+msgstr "Ομάδα δεν βρέθηκε!"
 
 #: actions/apigroupjoin.php:110
 msgid "You are already a member of that group."
@@ -446,9 +446,8 @@ msgid "Already repeated that notice."
 msgstr "Αδυναμία διαγραφής αυτού του μηνύματος."
 
 #: actions/apistatusesshow.php:138
-#, fuzzy
 msgid "Status deleted."
-msgstr "Ρυθμίσεις OpenID"
+msgstr "Η κατάσταση διαγράφεται."
 
 #: actions/apistatusesshow.php:144
 msgid "No status with that ID found."
@@ -593,9 +592,9 @@ msgid "Preview"
 msgstr ""
 
 #: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:611
+#: lib/noticelist.php:603
 msgid "Delete"
-msgstr ""
+msgstr "Διαγραφή"
 
 #: actions/avatarsettings.php:166 actions/grouplogo.php:233
 msgid "Upload"
@@ -678,7 +677,7 @@ msgstr "Αδυναμία διαγραφής αυτού του μηνύματος
 #: actions/block.php:144 actions/deletenotice.php:146
 #: actions/deleteuser.php:148 actions/groupblock.php:179
 msgid "Yes"
-msgstr ""
+msgstr "Ναί"
 
 #: actions/block.php:144 actions/groupmembers.php:346 lib/blockform.php:80
 msgid "Block this user"
@@ -699,9 +698,8 @@ msgstr "Κανένα ψευδώνυμο"
 #: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
 #: actions/grouplogo.php:99 actions/groupmembers.php:83
 #: actions/joingroup.php:83 actions/showgroup.php:137
-#, fuzzy
 msgid "No such group"
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Δεν υπάρχει τέτοιο ομάδα"
 
 #: actions/blockedfromgroup.php:90
 #, fuzzy, php-format
@@ -819,7 +817,7 @@ msgstr "Είσαι σίγουρος ότι θες να διαγράψεις αυ
 msgid "Do not delete this notice"
 msgstr "Αδυναμία διαγραφής αυτού του μηνύματος."
 
-#: actions/deletenotice.php:146 lib/noticelist.php:611
+#: actions/deletenotice.php:146 lib/noticelist.php:603
 msgid "Delete this notice"
 msgstr ""
 
@@ -837,9 +835,8 @@ msgid "You can only delete local users."
 msgstr ""
 
 #: actions/deleteuser.php:110 actions/deleteuser.php:133
-#, fuzzy
 msgid "Delete user"
-msgstr "Διαγραφή μηνύματος"
+msgstr "Διαγραφή χρήστη"
 
 #: actions/deleteuser.php:135
 msgid ""
@@ -848,9 +845,8 @@ msgid ""
 msgstr ""
 
 #: actions/deleteuser.php:148 lib/deleteuserform.php:77
-#, fuzzy
 msgid "Delete this user"
-msgstr "Διαγραφή μηνύματος"
+msgstr "Διαγράψτε αυτόν τον χρήστη"
 
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
 #: lib/adminpanelaction.php:302 lib/groupnav.php:119
@@ -926,14 +922,12 @@ msgid "Tile background image"
 msgstr ""
 
 #: actions/designadminpanel.php:488 lib/designsettings.php:170
-#, fuzzy
 msgid "Change colours"
-msgstr "Αλλάξτε τον κωδικό σας"
+msgstr "Αλλαγή χρωμάτων"
 
 #: actions/designadminpanel.php:510 lib/designsettings.php:191
-#, fuzzy
 msgid "Content"
-msgstr "Σύνδεση"
+msgstr "Περιεχόμενο"
 
 #: actions/designadminpanel.php:523 lib/designsettings.php:204
 msgid "Sidebar"
@@ -944,9 +938,8 @@ msgid "Text"
 msgstr ""
 
 #: actions/designadminpanel.php:549 lib/designsettings.php:230
-#, fuzzy
 msgid "Links"
-msgstr "Σύνδεση"
+msgstr "Σύνδεσμοι"
 
 #: actions/designadminpanel.php:577 lib/designsettings.php:247
 msgid "Use defaults"
@@ -1911,7 +1904,7 @@ msgid "You can't send a message to this user."
 msgstr ""
 
 #: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:351
-#: lib/command.php:483
+#: lib/command.php:484
 msgid "No content!"
 msgstr ""
 
@@ -1928,7 +1921,7 @@ msgstr ""
 msgid "Message sent"
 msgstr ""
 
-#: actions/newmessage.php:185 lib/command.php:375
+#: actions/newmessage.php:185 lib/command.php:376
 #, php-format
 msgid "Direct message to %s sent"
 msgstr ""
@@ -2016,8 +2009,8 @@ msgstr "Σύνδεση"
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1030
-#: lib/api.php:1058 lib/api.php:1168
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1031
+#: lib/api.php:1059 lib/api.php:1169
 msgid "Not a supported data format."
 msgstr ""
 
@@ -2818,12 +2811,12 @@ msgstr ""
 msgid "You already repeated that notice."
 msgstr "Αδυναμία διαγραφής αυτού του μηνύματος."
 
-#: actions/repeat.php:112 lib/noticelist.php:627
+#: actions/repeat.php:114 lib/noticelist.php:621
 #, fuzzy
 msgid "Repeated"
 msgstr "Δημιουργία"
 
-#: actions/repeat.php:115
+#: actions/repeat.php:119
 #, fuzzy
 msgid "Repeated!"
 msgstr "Δημιουργία"
@@ -2991,9 +2984,8 @@ msgid "FOAF for %s group"
 msgstr "Αδύνατη η αποθήκευση του προφίλ."
 
 #: actions/showgroup.php:381 actions/showgroup.php:438 lib/groupnav.php:91
-#, fuzzy
 msgid "Members"
-msgstr "Μέλος από"
+msgstr "Μέλη"
 
 #: actions/showgroup.php:386 lib/profileaction.php:117
 #: lib/profileaction.php:148 lib/profileaction.php:236 lib/section.php:95
@@ -3010,9 +3002,8 @@ msgid "Statistics"
 msgstr ""
 
 #: actions/showgroup.php:432
-#, fuzzy
 msgid "Created"
-msgstr "Δημιουργία"
+msgstr "Δημιουργημένος"
 
 #: actions/showgroup.php:448
 #, php-format
@@ -3223,9 +3214,8 @@ msgid "Contact email address for your site"
 msgstr "Η διεύθυνση του εισερχόμενου email αφαιρέθηκε."
 
 #: actions/siteadminpanel.php:290
-#, fuzzy
 msgid "Local"
-msgstr "Τοποθεσία"
+msgstr "Τοπικός"
 
 #: actions/siteadminpanel.php:301
 msgid "Default timezone"
@@ -3605,9 +3595,8 @@ msgid "Tag %s"
 msgstr ""
 
 #: actions/tagother.php:77 lib/userprofile.php:75
-#, fuzzy
 msgid "User profile"
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Προφίλ χρήστη"
 
 #: actions/tagother.php:81 lib/userprofile.php:102
 msgid "Photo"
@@ -3711,9 +3700,8 @@ msgid "Maximum length of a profile bio in characters."
 msgstr ""
 
 #: actions/useradminpanel.php:231
-#, fuzzy
 msgid "New users"
-msgstr "Διαγραφή μηνύματος"
+msgstr "Νέοι χρήστες"
 
 #: actions/useradminpanel.php:235
 msgid "New user welcome"
@@ -3736,9 +3724,8 @@ msgstr ""
 "κυρίως από λογισμικό και όχι ανθρώπους)"
 
 #: actions/useradminpanel.php:251
-#, fuzzy
 msgid "Invitations"
-msgstr "Τοποθεσία"
+msgstr "Προσκλήσεις"
 
 #: actions/useradminpanel.php:256
 msgid "Invitations enabled"
@@ -3933,52 +3920,51 @@ msgstr ""
 msgid "DB error inserting hashtag: %s"
 msgstr "Σφάλμα στη βάση δεδομένων κατά την εισαγωγή hashtag: %s"
 
-#: classes/Notice.php:196
+#: classes/Notice.php:226
 msgid "Problem saving notice. Too long."
 msgstr ""
 
-#: classes/Notice.php:200
+#: classes/Notice.php:230
 msgid "Problem saving notice. Unknown user."
 msgstr ""
 
-#: classes/Notice.php:205
+#: classes/Notice.php:235
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 
-#: classes/Notice.php:211
+#: classes/Notice.php:241
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
 
-#: classes/Notice.php:217
+#: classes/Notice.php:247
 msgid "You are banned from posting notices on this site."
 msgstr ""
 
-#: classes/Notice.php:289 classes/Notice.php:314
+#: classes/Notice.php:319 classes/Notice.php:344
 msgid "Problem saving notice."
 msgstr ""
 
-#: classes/Notice.php:993
+#: classes/Notice.php:1044
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Σφάλμα βάσης δεδομένων κατά την εισαγωγή απάντησης: %s"
 
-#: classes/Notice.php:1320
+#: classes/Notice.php:1371
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
 
-#: classes/User.php:347
+#: classes/User.php:368
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
 
 #: classes/User_group.php:380
-#, fuzzy
 msgid "Could not create group."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Δεν ήταν δυνατή η δημιουργία ομάδας."
 
 #: classes/User_group.php:409
 #, fuzzy
@@ -4002,9 +3988,8 @@ msgid "Change email handling"
 msgstr ""
 
 #: lib/accountsettingsaction.php:124
-#, fuzzy
 msgid "Design your profile"
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Σχεδιάστε το προφίλ σας"
 
 #: lib/accountsettingsaction.php:128
 msgid "Other"
@@ -4036,9 +4021,8 @@ msgid "Personal profile and friends timeline"
 msgstr ""
 
 #: lib/action.php:433
-#, fuzzy
 msgid "Account"
-msgstr "Περί"
+msgstr "Λογαριασμός"
 
 #: lib/action.php:433
 msgid "Change your email, avatar, password, profile"
@@ -4075,9 +4059,8 @@ msgid "Logout from the site"
 msgstr ""
 
 #: lib/action.php:455
-#, fuzzy
 msgid "Create an account"
-msgstr "Δημιουργία νέου λογαριασμού"
+msgstr "Δημιουργία έναν λογαριασμού"
 
 #: lib/action.php:458
 msgid "Login to the site"
@@ -4088,9 +4071,8 @@ msgid "Help"
 msgstr "Βοήθεια"
 
 #: lib/action.php:461
-#, fuzzy
 msgid "Help me!"
-msgstr "Βοήθεια"
+msgstr "Βοηθήστε με!"
 
 #: lib/action.php:464 lib/searchaction.php:127
 msgid "Search"
@@ -4288,12 +4270,12 @@ msgid ""
 "Notices: %3$s"
 msgstr ""
 
-#: lib/command.php:152 lib/command.php:398 lib/command.php:459
+#: lib/command.php:152 lib/command.php:399 lib/command.php:460
 msgid "Notice with that id does not exist"
 msgstr ""
 
-#: lib/command.php:168 lib/command.php:414 lib/command.php:475
-#: lib/command.php:531
+#: lib/command.php:168 lib/command.php:415 lib/command.php:476
+#: lib/command.php:532
 msgid "User has no last notice"
 msgstr ""
 
@@ -4326,133 +4308,132 @@ msgstr ""
 msgid "About: %s"
 msgstr ""
 
-#: lib/command.php:358 scripts/xmppdaemon.php:321
+#: lib/command.php:358 scripts/xmppdaemon.php:301
 #, php-format
 msgid "Message too long - maximum is %d characters, you sent %d"
 msgstr ""
 
-#: lib/command.php:377
+#: lib/command.php:378
 msgid "Error sending direct message."
 msgstr ""
 
-#: lib/command.php:421
+#: lib/command.php:422
 msgid "Cannot repeat your own notice"
 msgstr ""
 
-#: lib/command.php:426
+#: lib/command.php:427
 #, fuzzy
 msgid "Already repeated that notice"
 msgstr "Αδυναμία διαγραφής αυτού του μηνύματος."
 
-#: lib/command.php:434
+#: lib/command.php:435
 #, fuzzy, php-format
 msgid "Notice from %s repeated"
 msgstr "Ρυθμίσεις OpenID"
 
-#: lib/command.php:436
+#: lib/command.php:437
 msgid "Error repeating notice."
 msgstr ""
 
-#: lib/command.php:490
+#: lib/command.php:491
 #, php-format
 msgid "Notice too long - maximum is %d characters, you sent %d"
 msgstr ""
 
-#: lib/command.php:499
+#: lib/command.php:500
 #, php-format
 msgid "Reply to %s sent"
 msgstr ""
 
-#: lib/command.php:501
+#: lib/command.php:502
 msgid "Error saving notice."
 msgstr ""
 
-#: lib/command.php:555
+#: lib/command.php:556
 msgid "Specify the name of the user to subscribe to"
 msgstr ""
 
-#: lib/command.php:562
+#: lib/command.php:563
 #, php-format
 msgid "Subscribed to %s"
 msgstr ""
 
-#: lib/command.php:583
+#: lib/command.php:584
 msgid "Specify the name of the user to unsubscribe from"
 msgstr ""
 
-#: lib/command.php:590
+#: lib/command.php:591
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr ""
 
-#: lib/command.php:608 lib/command.php:631
+#: lib/command.php:609 lib/command.php:632
 msgid "Command not yet implemented."
 msgstr ""
 
-#: lib/command.php:611
+#: lib/command.php:612
 msgid "Notification off."
 msgstr ""
 
-#: lib/command.php:613
+#: lib/command.php:614
 msgid "Can't turn off notification."
 msgstr ""
 
-#: lib/command.php:634
+#: lib/command.php:635
 msgid "Notification on."
 msgstr ""
 
-#: lib/command.php:636
+#: lib/command.php:637
 msgid "Can't turn on notification."
 msgstr ""
 
-#: lib/command.php:649
+#: lib/command.php:650
 msgid "Login command is disabled"
 msgstr ""
 
-#: lib/command.php:663
+#: lib/command.php:664
 #, fuzzy, php-format
 msgid "Could not create login token for %s"
 msgstr "Αδύνατη η αποθήκευση του προφίλ."
 
-#: lib/command.php:668
+#: lib/command.php:669
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
-#: lib/command.php:684
+#: lib/command.php:685
 #, fuzzy
 msgid "You are not subscribed to anyone."
 msgstr "Δεν επιτρέπεται να κάνεις συνδρομητές του λογαριασμού σου άλλους."
 
-#: lib/command.php:686
+#: lib/command.php:687
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Δεν επιτρέπεται να κάνεις συνδρομητές του λογαριασμού σου άλλους."
 msgstr[1] "Δεν επιτρέπεται να κάνεις συνδρομητές του λογαριασμού σου άλλους."
 
-#: lib/command.php:706
+#: lib/command.php:707
 #, fuzzy
 msgid "No one is subscribed to you."
 msgstr "Δεν επιτρέπεται να κάνεις συνδρομητές του λογαριασμού σου άλλους."
 
-#: lib/command.php:708
+#: lib/command.php:709
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Δεν επιτρέπεται να κάνεις συνδρομητές του λογαριασμού σου άλλους."
 msgstr[1] "Δεν επιτρέπεται να κάνεις συνδρομητές του λογαριασμού σου άλλους."
 
-#: lib/command.php:728
-#, fuzzy
+#: lib/command.php:729
 msgid "You are not a member of any groups."
-msgstr "Ομάδες με τα περισσότερα μέλη"
+msgstr "Δεν είστε μέλος καμίας ομάδας."
 
-#: lib/command.php:730
+#: lib/command.php:731
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Ομάδες με τα περισσότερα μέλη"
 msgstr[1] "Ομάδες με τα περισσότερα μέλη"
 
-#: lib/command.php:744
+#: lib/command.php:745
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4601,14 +4582,13 @@ msgid "URL of the homepage or blog of the group or topic"
 msgstr ""
 
 #: lib/groupeditform.php:168
-#, fuzzy
 msgid "Describe the group or topic"
-msgstr "Περιγράψτε την ομάδα ή το θέμα μέχρι 140 χαρακτήρες"
+msgstr "Περιγράψτε την ομάδα ή το θέμα"
 
 #: lib/groupeditform.php:170
-#, fuzzy, php-format
+#, php-format
 msgid "Describe the group or topic in %d characters"
-msgstr "Περιγράψτε την ομάδα ή το θέμα μέχρι 140 χαρακτήρες"
+msgstr "Περιγράψτε την ομάδα ή το θέμα μέχρι %d χαρακτήρες"
 
 #: lib/groupeditform.php:172
 msgid "Description"
@@ -4717,7 +4697,6 @@ msgid "[%s]"
 msgstr ""
 
 #: lib/joinform.php:114
-#, fuzzy
 msgid "Join"
 msgstr "Συμμετοχή"
 
@@ -4730,9 +4709,8 @@ msgid "Login with a username and password"
 msgstr "Σύνδεση με όνομα χρήστη και κωδικό"
 
 #: lib/logingroupnav.php:86
-#, fuzzy
 msgid "Sign up for a new account"
-msgstr "Δημιουργία νέου λογαριασμού"
+msgstr "Εγγραφή για ένα νέο λογαριασμό"
 
 #: lib/mail.php:172
 msgid "Email address confirmation"
@@ -4922,8 +4900,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:468
-#, fuzzy
+#: lib/mailbox.php:227 lib/noticelist.php:469
 msgid "from"
 msgstr "από"
 
@@ -4989,9 +4966,8 @@ msgid "To"
 msgstr ""
 
 #: lib/messageform.php:159 lib/noticeform.php:183
-#, fuzzy
 msgid "Available characters"
-msgstr "6 ή περισσότεροι χαρακτήρες"
+msgstr "Διαθέσιμοι χαρακτήρες"
 
 #: lib/noticeform.php:158
 msgid "Send a notice"
@@ -5010,47 +4986,51 @@ msgstr ""
 msgid "Attach a file"
 msgstr ""
 
-#: lib/noticelist.php:419
+#: lib/noticelist.php:420
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr ""
 
-#: lib/noticelist.php:420
+#: lib/noticelist.php:421
 msgid "N"
 msgstr ""
 
-#: lib/noticelist.php:420
+#: lib/noticelist.php:421
 msgid "S"
 msgstr ""
 
-#: lib/noticelist.php:421
+#: lib/noticelist.php:422
 msgid "E"
 msgstr ""
 
-#: lib/noticelist.php:421
+#: lib/noticelist.php:422
 msgid "W"
 msgstr ""
 
-#: lib/noticelist.php:427
+#: lib/noticelist.php:428
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:522
+#: lib/noticelist.php:523
 msgid "in context"
 msgstr ""
 
-#: lib/noticelist.php:549
-#, fuzzy
+#: lib/noticelist.php:548
 msgid "Repeated by"
-msgstr "Δημιουργία"
+msgstr "Επαναλαμβάνεται από"
 
-#: lib/noticelist.php:587
+#: lib/noticelist.php:577
 msgid "Reply to this notice"
 msgstr ""
 
-#: lib/noticelist.php:588
+#: lib/noticelist.php:578
 msgid "Reply"
 msgstr ""
+
+#: lib/noticelist.php:620
+#, fuzzy
+msgid "Notice repeated"
+msgstr "Ρυθμίσεις OpenID"
 
 #: lib/nudgeform.php:116
 msgid "Nudge this user"
@@ -5297,7 +5277,6 @@ msgid "People Tagcloud as tagged"
 msgstr ""
 
 #: lib/subscriptionlist.php:126
-#, fuzzy
 msgid "(none)"
 msgstr "(κανένα)"
 
@@ -5344,13 +5323,12 @@ msgid "User actions"
 msgstr ""
 
 #: lib/userprofile.php:248
-#, fuzzy
 msgid "Edit profile settings"
-msgstr "Αλλάξτε τις ρυθμίσεις του προφίλ σας"
+msgstr "Επεξεργασία ρυθμίσεων προφίλ"
 
 #: lib/userprofile.php:249
 msgid "Edit"
-msgstr ""
+msgstr "Επεξεργασία"
 
 #: lib/userprofile.php:272
 msgid "Send a direct message to this user"
@@ -5358,60 +5336,60 @@ msgstr ""
 
 #: lib/userprofile.php:273
 msgid "Message"
-msgstr ""
+msgstr "Μήνυμα"
 
 #: lib/userprofile.php:311
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:825
+#: lib/util.php:829
 msgid "a few seconds ago"
 msgstr ""
 
-#: lib/util.php:827
-msgid "about a minute ago"
-msgstr ""
-
-#: lib/util.php:829
-#, php-format
-msgid "about %d minutes ago"
-msgstr ""
-
 #: lib/util.php:831
-msgid "about an hour ago"
+msgid "about a minute ago"
 msgstr ""
 
 #: lib/util.php:833
 #, php-format
-msgid "about %d hours ago"
+msgid "about %d minutes ago"
 msgstr ""
 
 #: lib/util.php:835
-msgid "about a day ago"
+msgid "about an hour ago"
 msgstr ""
 
 #: lib/util.php:837
 #, php-format
-msgid "about %d days ago"
+msgid "about %d hours ago"
 msgstr ""
 
 #: lib/util.php:839
-msgid "about a month ago"
+msgid "about a day ago"
 msgstr ""
 
 #: lib/util.php:841
 #, php-format
-msgid "about %d months ago"
+msgid "about %d days ago"
 msgstr ""
 
 #: lib/util.php:843
+msgid "about a month ago"
+msgstr ""
+
+#: lib/util.php:845
+#, php-format
+msgid "about %d months ago"
+msgstr ""
+
+#: lib/util.php:847
 msgid "about a year ago"
 msgstr ""
 
 #: lib/webcolor.php:82
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not a valid color!"
-msgstr "Η αρχική σελίδα δεν είναι έγκυρο URL."
+msgstr "%s δεν είναι ένα έγκυρο χρώμα!"
 
 #: lib/webcolor.php:123
 #, php-format
