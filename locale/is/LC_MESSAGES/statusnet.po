@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-14 20:34+0000\n"
-"PO-Revision-Date: 2009-12-14 20:34:59+0000\n"
+"POT-Creation-Date: 2009-12-16 22:51+0000\n"
+"PO-Revision-Date: 2009-12-16 22:52:28+0000\n"
 "Language-Team: Icelandic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60044); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60142); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: is\n"
 "X-Message-Group: out-statusnet\n"
@@ -38,17 +38,18 @@ msgstr "Ekkert þannig merki."
 #: actions/apigroupleave.php:99 actions/apigrouplist.php:90
 #: actions/apistatusesupdate.php:144 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:79
-#: actions/apitimelinementions.php:79 actions/apitimelineuser.php:81
-#: actions/avatarbynickname.php:75 actions/favoritesrss.php:74
-#: actions/foaf.php:40 actions/foaf.php:58 actions/microsummary.php:62
-#: actions/newmessage.php:116 actions/remotesubscribe.php:145
-#: actions/remotesubscribe.php:154 actions/replies.php:73
-#: actions/repliesrss.php:38 actions/showfavorites.php:105
-#: actions/userbyid.php:74 actions/usergroups.php:91 actions/userrss.php:38
-#: actions/xrds.php:71 lib/command.php:163 lib/command.php:311
-#: lib/command.php:364 lib/command.php:409 lib/command.php:470
-#: lib/command.php:526 lib/galleryaction.php:59 lib/mailbox.php:82
-#: lib/profileaction.php:77 lib/subs.php:34 lib/subs.php:116
+#: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
+#: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
+#: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
+#: actions/microsummary.php:62 actions/newmessage.php:116
+#: actions/remotesubscribe.php:145 actions/remotesubscribe.php:154
+#: actions/replies.php:73 actions/repliesrss.php:38
+#: actions/showfavorites.php:105 actions/userbyid.php:74
+#: actions/usergroups.php:91 actions/userrss.php:38 actions/xrds.php:71
+#: lib/command.php:163 lib/command.php:311 lib/command.php:364
+#: lib/command.php:410 lib/command.php:471 lib/command.php:527
+#: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
+#: lib/subs.php:34 lib/subs.php:116
 msgid "No such user."
 msgstr "Enginn svoleiðis notandi."
 
@@ -58,7 +59,8 @@ msgid "%s and friends, page %d"
 msgstr "%s og vinirnir, síða %d"
 
 #: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
-#: actions/apitimelinefriends.php:115 lib/personalgroupnav.php:100
+#: actions/apitimelinefriends.php:115 actions/apitimelinehome.php:115
+#: lib/personalgroupnav.php:100
 #, php-format
 msgid "%s and friends"
 msgstr "%s og vinirnir"
@@ -110,6 +112,7 @@ msgid "You and friends"
 msgstr ""
 
 #: actions/allrss.php:119 actions/apitimelinefriends.php:122
+#: actions/apitimelinehome.php:122
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "Færslur frá %1$s og vinum á %2$s!"
@@ -231,8 +234,8 @@ msgstr "Öll bein skilaboð til %s"
 #: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
 #: actions/apisubscriptions.php:111 actions/apitimelinefavorites.php:146
 #: actions/apitimelinefriends.php:156 actions/apitimelinegroup.php:150
-#: actions/apitimelinementions.php:151 actions/apitimelinepublic.php:131
-#: actions/apitimelineretweetedbyme.php:122
+#: actions/apitimelinehome.php:156 actions/apitimelinementions.php:151
+#: actions/apitimelinepublic.php:131 actions/apitimelineretweetedbyme.php:122
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
 #: actions/apitimelineuser.php:165 actions/apiusershow.php:101
@@ -594,7 +597,7 @@ msgid "Preview"
 msgstr "Forsýn"
 
 #: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:611
+#: lib/noticelist.php:603
 msgid "Delete"
 msgstr "Eyða"
 
@@ -819,7 +822,7 @@ msgstr "Ertu viss um að þú viljir eyða þessu babli?"
 msgid "Do not delete this notice"
 msgstr ""
 
-#: actions/deletenotice.php:146 lib/noticelist.php:611
+#: actions/deletenotice.php:146 lib/noticelist.php:603
 msgid "Delete this notice"
 msgstr "Eyða þessu babli"
 
@@ -1950,7 +1953,7 @@ msgid "You can't send a message to this user."
 msgstr "Þú getur ekki sent þessum notanda skilaboð."
 
 #: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:351
-#: lib/command.php:483
+#: lib/command.php:484
 msgid "No content!"
 msgstr "Ekkert innihald!"
 
@@ -1969,7 +1972,7 @@ msgstr ""
 msgid "Message sent"
 msgstr ""
 
-#: actions/newmessage.php:185 lib/command.php:375
+#: actions/newmessage.php:185 lib/command.php:376
 #, php-format
 msgid "Direct message to %s sent"
 msgstr "Bein skilaboð send til %s"
@@ -2060,8 +2063,8 @@ msgstr ""
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1030
-#: lib/api.php:1058 lib/api.php:1168
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1031
+#: lib/api.php:1059 lib/api.php:1169
 msgid "Not a supported data format."
 msgstr "Enginn stuðningur við gagnasnið."
 
@@ -2876,12 +2879,12 @@ msgstr "Þú getur ekki nýskráð þig nema þú samþykkir leyfið."
 msgid "You already repeated that notice."
 msgstr "Þú hefur nú þegar lokað á þennan notanda."
 
-#: actions/repeat.php:112 lib/noticelist.php:627
+#: actions/repeat.php:114 lib/noticelist.php:621
 #, fuzzy
 msgid "Repeated"
 msgstr "Í sviðsljósinu"
 
-#: actions/repeat.php:115
+#: actions/repeat.php:119
 msgid "Repeated!"
 msgstr ""
 
@@ -4017,46 +4020,46 @@ msgstr "Gat ekki uppfært skilaboð með nýju veffangi."
 msgid "DB error inserting hashtag: %s"
 msgstr "Gagnagrunnsvilla við innsetningu myllumerkis: %s"
 
-#: classes/Notice.php:196
+#: classes/Notice.php:226
 msgid "Problem saving notice. Too long."
 msgstr ""
 
-#: classes/Notice.php:200
+#: classes/Notice.php:230
 msgid "Problem saving notice. Unknown user."
 msgstr "Gat ekki vistað babl. Óþekktur notandi."
 
-#: classes/Notice.php:205
+#: classes/Notice.php:235
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "Of mikið babl í einu; slakaðu aðeins á og haltu svo áfram eftir nokkrar "
 "mínútur."
 
-#: classes/Notice.php:211
+#: classes/Notice.php:241
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
 
-#: classes/Notice.php:217
+#: classes/Notice.php:247
 msgid "You are banned from posting notices on this site."
 msgstr "Það hefur verið lagt bann við babli frá þér á þessari síðu."
 
-#: classes/Notice.php:289 classes/Notice.php:314
+#: classes/Notice.php:319 classes/Notice.php:344
 msgid "Problem saving notice."
 msgstr "Vandamál komu upp við að vista babl."
 
-#: classes/Notice.php:993
+#: classes/Notice.php:1044
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Gagnagrunnsvilla við innsetningu svars: %s"
 
-#: classes/Notice.php:1320
+#: classes/Notice.php:1371
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
 
-#: classes/User.php:347
+#: classes/User.php:368
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
@@ -4377,12 +4380,12 @@ msgid ""
 "Notices: %3$s"
 msgstr ""
 
-#: lib/command.php:152 lib/command.php:398 lib/command.php:459
+#: lib/command.php:152 lib/command.php:399 lib/command.php:460
 msgid "Notice with that id does not exist"
 msgstr ""
 
-#: lib/command.php:168 lib/command.php:414 lib/command.php:475
-#: lib/command.php:531
+#: lib/command.php:168 lib/command.php:415 lib/command.php:476
+#: lib/command.php:532
 msgid "User has no last notice"
 msgstr "Notandi hefur ekkert nýtt babl"
 
@@ -4415,136 +4418,136 @@ msgstr "Heimasíða: %s"
 msgid "About: %s"
 msgstr "Um: %s"
 
-#: lib/command.php:358 scripts/xmppdaemon.php:321
+#: lib/command.php:358 scripts/xmppdaemon.php:301
 #, fuzzy, php-format
 msgid "Message too long - maximum is %d characters, you sent %d"
 msgstr "Skilaboð eru of löng - 140 tákn eru í mesta lagi leyfð en þú sendir %d"
 
-#: lib/command.php:377
+#: lib/command.php:378
 msgid "Error sending direct message."
 msgstr "Villa kom upp við að senda bein skilaboð"
 
-#: lib/command.php:421
+#: lib/command.php:422
 #, fuzzy
 msgid "Cannot repeat your own notice"
 msgstr "Get ekki kveikt á tilkynningum."
 
-#: lib/command.php:426
+#: lib/command.php:427
 #, fuzzy
 msgid "Already repeated that notice"
 msgstr "Eyða þessu babli"
 
-#: lib/command.php:434
+#: lib/command.php:435
 #, fuzzy, php-format
 msgid "Notice from %s repeated"
 msgstr "Babl sent inn"
 
-#: lib/command.php:436
+#: lib/command.php:437
 #, fuzzy
 msgid "Error repeating notice."
 msgstr "Vandamál komu upp við að vista babl."
 
-#: lib/command.php:490
+#: lib/command.php:491
 #, fuzzy, php-format
 msgid "Notice too long - maximum is %d characters, you sent %d"
 msgstr "Skilaboð eru of löng - 140 tákn eru í mesta lagi leyfð en þú sendir %d"
 
-#: lib/command.php:499
+#: lib/command.php:500
 #, fuzzy, php-format
 msgid "Reply to %s sent"
 msgstr "Svara þessu babli"
 
-#: lib/command.php:501
+#: lib/command.php:502
 #, fuzzy
 msgid "Error saving notice."
 msgstr "Vandamál komu upp við að vista babl."
 
-#: lib/command.php:555
+#: lib/command.php:556
 msgid "Specify the name of the user to subscribe to"
 msgstr "Tilgreindu nafn notandans sem þú vilt gerast áskrifandi að"
 
-#: lib/command.php:562
+#: lib/command.php:563
 #, php-format
 msgid "Subscribed to %s"
 msgstr "Nú ert þú áskrifandi að %s"
 
-#: lib/command.php:583
+#: lib/command.php:584
 msgid "Specify the name of the user to unsubscribe from"
 msgstr "Tilgreindu nafn notandans sem þú vilt hætta sem áskrifandi að"
 
-#: lib/command.php:590
+#: lib/command.php:591
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr "Nú ert þú ekki lengur áskrifandi að %s"
 
-#: lib/command.php:608 lib/command.php:631
+#: lib/command.php:609 lib/command.php:632
 msgid "Command not yet implemented."
 msgstr "Skipun hefur ekki verið fullbúin"
 
-#: lib/command.php:611
+#: lib/command.php:612
 msgid "Notification off."
 msgstr "Tilkynningar af."
 
-#: lib/command.php:613
+#: lib/command.php:614
 msgid "Can't turn off notification."
 msgstr "Get ekki slökkt á tilkynningum."
 
-#: lib/command.php:634
+#: lib/command.php:635
 msgid "Notification on."
 msgstr "Tilkynningar á."
 
-#: lib/command.php:636
+#: lib/command.php:637
 msgid "Can't turn on notification."
 msgstr "Get ekki kveikt á tilkynningum."
 
-#: lib/command.php:649
+#: lib/command.php:650
 msgid "Login command is disabled"
 msgstr ""
 
-#: lib/command.php:663
+#: lib/command.php:664
 #, fuzzy, php-format
 msgid "Could not create login token for %s"
 msgstr "Gat ekki búið til uppáhald."
 
-#: lib/command.php:668
+#: lib/command.php:669
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
-#: lib/command.php:684
+#: lib/command.php:685
 #, fuzzy
 msgid "You are not subscribed to anyone."
 msgstr "Þú ert ekki áskrifandi."
 
-#: lib/command.php:686
+#: lib/command.php:687
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Þú ert nú þegar í áskrift að þessum notendum:"
 msgstr[1] "Þú ert nú þegar í áskrift að þessum notendum:"
 
-#: lib/command.php:706
+#: lib/command.php:707
 #, fuzzy
 msgid "No one is subscribed to you."
 msgstr "Gat ekki leyft öðrum að gerast áskrifandi að þér."
 
-#: lib/command.php:708
+#: lib/command.php:709
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Gat ekki leyft öðrum að gerast áskrifandi að þér."
 msgstr[1] "Gat ekki leyft öðrum að gerast áskrifandi að þér."
 
-#: lib/command.php:728
+#: lib/command.php:729
 #, fuzzy
 msgid "You are not a member of any groups."
 msgstr "Þú ert ekki meðlimur í þessum hópi."
 
-#: lib/command.php:730
+#: lib/command.php:731
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Þú ert ekki meðlimur í þessum hópi."
 msgstr[1] "Þú ert ekki meðlimur í þessum hópi."
 
-#: lib/command.php:744
+#: lib/command.php:745
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5022,7 +5025,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:468
+#: lib/mailbox.php:227 lib/noticelist.php:469
 #, fuzzy
 msgid "from"
 msgstr "frá"
@@ -5109,48 +5112,53 @@ msgstr ""
 msgid "Attach a file"
 msgstr ""
 
-#: lib/noticelist.php:419
+#: lib/noticelist.php:420
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr ""
 
-#: lib/noticelist.php:420
+#: lib/noticelist.php:421
 #, fuzzy
 msgid "N"
 msgstr "Nei"
 
-#: lib/noticelist.php:420
+#: lib/noticelist.php:421
 msgid "S"
 msgstr ""
 
-#: lib/noticelist.php:421
+#: lib/noticelist.php:422
 msgid "E"
 msgstr ""
 
-#: lib/noticelist.php:421
+#: lib/noticelist.php:422
 msgid "W"
 msgstr ""
 
-#: lib/noticelist.php:427
+#: lib/noticelist.php:428
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:522
+#: lib/noticelist.php:523
 msgid "in context"
 msgstr ""
 
-#: lib/noticelist.php:549
+#: lib/noticelist.php:548
 #, fuzzy
 msgid "Repeated by"
 msgstr "Í sviðsljósinu"
 
-#: lib/noticelist.php:587
+#: lib/noticelist.php:577
 msgid "Reply to this notice"
 msgstr "Svara þessu babli"
 
-#: lib/noticelist.php:588
+#: lib/noticelist.php:578
 msgid "Reply"
 msgstr "Svara"
+
+#: lib/noticelist.php:620
+#, fuzzy
+msgid "Notice repeated"
+msgstr "Babl sent inn"
 
 #: lib/nudgeform.php:116
 msgid "Nudge this user"
@@ -5467,47 +5475,47 @@ msgstr "Skilaboð"
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:825
+#: lib/util.php:829
 msgid "a few seconds ago"
 msgstr "fyrir nokkrum sekúndum"
 
-#: lib/util.php:827
+#: lib/util.php:831
 msgid "about a minute ago"
 msgstr "fyrir um einni mínútu síðan"
 
-#: lib/util.php:829
+#: lib/util.php:833
 #, php-format
 msgid "about %d minutes ago"
 msgstr "fyrir um %d mínútum síðan"
 
-#: lib/util.php:831
+#: lib/util.php:835
 msgid "about an hour ago"
 msgstr "fyrir um einum klukkutíma síðan"
 
-#: lib/util.php:833
+#: lib/util.php:837
 #, php-format
 msgid "about %d hours ago"
 msgstr "fyrir um %d klukkutímum síðan"
 
-#: lib/util.php:835
+#: lib/util.php:839
 msgid "about a day ago"
 msgstr "fyrir um einum degi síðan"
 
-#: lib/util.php:837
+#: lib/util.php:841
 #, php-format
 msgid "about %d days ago"
 msgstr "fyrir um %d dögum síðan"
 
-#: lib/util.php:839
+#: lib/util.php:843
 msgid "about a month ago"
 msgstr "fyrir um einum mánuði síðan"
 
-#: lib/util.php:841
+#: lib/util.php:845
 #, php-format
 msgid "about %d months ago"
 msgstr "fyrir um %d mánuðum síðan"
 
-#: lib/util.php:843
+#: lib/util.php:847
 msgid "about a year ago"
 msgstr "fyrir um einu ári síðan"
 
