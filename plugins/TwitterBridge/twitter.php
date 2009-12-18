@@ -170,8 +170,6 @@ function broadcast_twitter($notice)
 function broadcast_oauth($notice, $flink) {
     $user = $flink->getUser();
     $statustxt = format_status($notice);
-    // Convert !groups to #hashes
-    $statustxt = preg_replace('/(^|\s)!([A-Za-z0-9]{1,64})/', "\\1#\\2", $statustxt);
     $token = TwitterOAuthClient::unpackToken($flink->credentials);
     $client = new TwitterOAuthClient($token->key, $token->secret);
     $status = null;
@@ -276,7 +274,12 @@ function process_error($e, $flink)
 function format_status($notice)
 {
     // XXX: Hack to get around PHP cURL's use of @ being a a meta character
-    return preg_replace('/^@/', ' @', $notice->content);
+    $statustxt = preg_replace('/^@/', ' @', $notice->content);
+
+    // Convert !groups to #hashes
+    $statustxt = preg_replace('/(^|\s)!([A-Za-z0-9]{1,64})/', "\\1#\\2", $statustxt);
+
+    return $statustxt;
 }
 
 function remove_twitter_link($flink)
