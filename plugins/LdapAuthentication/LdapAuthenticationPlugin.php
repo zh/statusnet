@@ -174,6 +174,15 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
             return false;
         }
         if($config == null) $this->default_ldap=$ldap;
+
+        if (isset($this->schema_cachefile)) {
+            $cacheConfig = array(
+                    'path'    => $this->schema_cachefile,
+                    'max_age' => (isset($this->schema_maxage) ? $this->schema_maxage : 1200 )
+                );
+            $cacheObj = new Net_LDAP2_SimpleFileSchemaCache($cacheConfig);
+            $ldap->registerSchemaCache($cacheObj);
+        }
         return $ldap;
     }
     
