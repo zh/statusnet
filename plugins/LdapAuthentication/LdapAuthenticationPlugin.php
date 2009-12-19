@@ -192,7 +192,7 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
         $options = array(
             'attributes' => $attributes
         );
-        $search = $ldap->search(null,$filter,$options);
+        $search = $ldap->search($this->basedn, $filter, $options);
         
         if (PEAR::isError($search)) {
             common_log(LOG_WARNING, 'Error while getting DN for user: '.$search->getMessage());
