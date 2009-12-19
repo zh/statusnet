@@ -199,13 +199,14 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
             return false;
         }
 
-        if($search->count()==0){
+        $searchcount = $search->count();
+        if($searchcount == 0) {
             return false;
-        }else if($search->count()==1){
+        }else if($searchcount == 1) {
             $entry = $search->shiftEntry();
             return $entry;
         }else{
-            common_log(LOG_WARNING, 'Found ' . $search->count() . ' ldap user with the username: ' . $username);
+            common_log(LOG_WARNING, 'Found ' . $searchcount . ' ldap user with the username: ' . $username);
             return false;
         }
     }
