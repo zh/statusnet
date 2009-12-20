@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-16 22:51+0000\n"
-"PO-Revision-Date: 2009-12-16 22:51:52+0000\n"
+"POT-Creation-Date: 2009-12-20 09:27+0000\n"
+"PO-Revision-Date: 2009-12-20 09:28:10+0000\n"
 "Language-Team: Catalan\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60142); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60237); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: out-statusnet\n"
@@ -274,9 +274,8 @@ msgid "Could not create favorite."
 msgstr "No es pot crear favorit."
 
 #: actions/apifavoritedestroy.php:122
-#, fuzzy
 msgid "That status is not a favorite!"
-msgstr "Aquesta notificació no és un favorit!"
+msgstr "L'estat no és un preferit!"
 
 #: actions/apifavoritedestroy.php:134 actions/disfavor.php:87
 msgid "Could not delete favorite."
@@ -396,9 +395,9 @@ msgid "You have been blocked from that group by the admin."
 msgstr ""
 
 #: actions/apigroupjoin.php:138
-#, fuzzy, php-format
+#, php-format
 msgid "Could not join user %s to group %s."
-msgstr "No s'ha pogut afegir l'usuari %s al grup %s"
+msgstr "No s'ha pogut afegir l'usuari %s al grup %s."
 
 #: actions/apigroupleave.php:114
 msgid "You are not a member of this group."
@@ -425,9 +424,9 @@ msgid "%s groups"
 msgstr "%s grups"
 
 #: actions/apigrouplistall.php:94
-#, fuzzy, php-format
+#, php-format
 msgid "groups on %s"
-msgstr "Accions del grup"
+msgstr "grups sobre %s"
 
 #: actions/apistatusesdestroy.php:107
 msgid "This method requires a POST or DELETE."
@@ -1286,9 +1285,8 @@ msgid "No notice."
 msgstr "Nou avís"
 
 #: actions/file.php:42
-#, fuzzy
 msgid "No attachments."
-msgstr "Sense adjuncions"
+msgstr "Cap adjunció."
 
 #: actions/file.php:51
 #, fuzzy
@@ -1372,14 +1370,12 @@ msgid "User is already blocked from group."
 msgstr "Un usuari t'ha bloquejat."
 
 #: actions/groupblock.php:100
-#, fuzzy
 msgid "User is not a member of group."
-msgstr "No ets membre d'aquest grup."
+msgstr "L'usuari no és membre del grup."
 
 #: actions/groupblock.php:136 actions/groupmembers.php:314
-#, fuzzy
 msgid "Block user from group"
-msgstr "Usuari bloquejat."
+msgstr "Bloca l'usuari del grup"
 
 #: actions/groupblock.php:162
 #, php-format
@@ -1408,9 +1404,8 @@ msgid "No ID"
 msgstr "No ID"
 
 #: actions/groupdesignsettings.php:68
-#, fuzzy
 msgid "You must be logged in to edit a group."
-msgstr "Has d'haver entrat per crear un grup."
+msgstr "Heu d'iniciar una sessió per editar un grup."
 
 #: actions/groupdesignsettings.php:141
 msgid "Group design"
@@ -2045,9 +2040,9 @@ msgid ""
 msgstr ""
 
 #: actions/noticesearchrss.php:96
-#, fuzzy, php-format
+#, php-format
 msgid "Updates with \"%s\""
-msgstr "Actualitzacions de %1$s a %2$s!"
+msgstr "Actualitzacions amb «%s»"
 
 #: actions/noticesearchrss.php:98
 #, fuzzy, php-format
@@ -2273,22 +2268,19 @@ msgstr "Camí dels temes"
 
 #: actions/pathsadminpanel.php:240
 msgid "Theme directory"
-msgstr ""
+msgstr "Directori de temes"
 
 #: actions/pathsadminpanel.php:247
-#, fuzzy
 msgid "Avatars"
-msgstr "Avatar"
+msgstr "Avatars"
 
 #: actions/pathsadminpanel.php:252
-#, fuzzy
 msgid "Avatar server"
-msgstr "Configuració de l'avatar"
+msgstr "Servidor d'avatars"
 
 #: actions/pathsadminpanel.php:256
-#, fuzzy
 msgid "Avatar path"
-msgstr "Avatar actualitzat."
+msgstr "Camí de l'avatar"
 
 #: actions/pathsadminpanel.php:260
 #, fuzzy
@@ -2384,9 +2376,9 @@ msgid "URL of your homepage, blog, or profile on another site"
 msgstr "URL del teu web, blog o perfil en un altre lloc"
 
 #: actions/profilesettings.php:122 actions/register.php:460
-#, fuzzy, php-format
+#, php-format
 msgid "Describe yourself and your interests in %d chars"
-msgstr "Explica'ns alguna cosa sobre tu i els teus interessos en 140 caràcters"
+msgstr "Descriviu qui sou i els vostres interessos en %d caràcters"
 
 #: actions/profilesettings.php:125 actions/register.php:463
 #, fuzzy
@@ -2507,9 +2499,8 @@ msgid "Public Stream Feed (RSS 2.0)"
 msgstr "Feed del flux públic"
 
 #: actions/public.php:159
-#, fuzzy
 msgid "Public Stream Feed (Atom)"
-msgstr "Feed del flux públic"
+msgstr "Flux de canal públic (Atom)"
 
 #: actions/public.php:179
 #, php-format
@@ -2520,13 +2511,15 @@ msgstr ""
 
 #: actions/public.php:182
 msgid "Be the first to post!"
-msgstr ""
+msgstr "Sigueu el primer en escriure-hi!"
 
 #: actions/public.php:186
 #, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post!"
 msgstr ""
+"Per què no [registreu un compte](%%action.register%%) i sou el primer en "
+"escriure-hi!"
 
 #: actions/public.php:233
 #, php-format
@@ -2563,7 +2556,7 @@ msgstr ""
 
 #: actions/publictagcloud.php:72
 msgid "Be the first to post one!"
-msgstr ""
+msgstr "Sigueu el primer en escriure'n un!"
 
 #: actions/publictagcloud.php:75
 #, php-format
@@ -2612,7 +2605,7 @@ msgstr ""
 
 #: actions/recoverpassword.php:158
 msgid "You have been identified. Enter a new password below. "
-msgstr ""
+msgstr "Esteu identificat. Introduïu una contrasenya nova a continuació. "
 
 #: actions/recoverpassword.php:188
 msgid "Password recovery"
@@ -2620,7 +2613,7 @@ msgstr "Recuperació de la contrasenya"
 
 #: actions/recoverpassword.php:191
 msgid "Nickname or email address"
-msgstr ""
+msgstr "Sobrenom o adreça electrònica"
 
 #: actions/recoverpassword.php:193
 msgid "Your nickname on this server, or your registered email address."
@@ -2705,9 +2698,8 @@ msgid "Sorry, only invited people can register."
 msgstr "Ho senti, però només la gent convidada pot registrar-se."
 
 #: actions/register.php:92
-#, fuzzy
 msgid "Sorry, invalid invitation code."
-msgstr "Error amb el codi de confirmació."
+msgstr "El codi d'invitació no és vàlid."
 
 #: actions/register.php:112
 msgid "Registration successful"
@@ -2909,14 +2901,12 @@ msgid "You already repeated that notice."
 msgstr "Ja heu blocat l'usuari."
 
 #: actions/repeat.php:114 lib/noticelist.php:621
-#, fuzzy
 msgid "Repeated"
-msgstr "S'ha creat"
+msgstr "Repetit"
 
 #: actions/repeat.php:119
-#, fuzzy
 msgid "Repeated!"
-msgstr "S'ha creat"
+msgstr "Repetit!"
 
 #: actions/replies.php:125 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
@@ -2966,9 +2956,9 @@ msgid ""
 msgstr ""
 
 #: actions/repliesrss.php:72
-#, fuzzy, php-format
+#, php-format
 msgid "Replies to %1$s on %2$s!"
-msgstr "Missatge per a %1$s a %2$s"
+msgstr "Respostes a %1$s el %2$s!"
 
 #: actions/sandbox.php:65 actions/unsandbox.php:65
 #, fuzzy
@@ -3027,7 +3017,7 @@ msgstr ""
 
 #: actions/showfavorites.php:242
 msgid "This is a way to share what you like."
-msgstr ""
+msgstr "És una forma de compartir allò que us agrada."
 
 #: actions/showgroup.php:82 lib/groupnav.php:86
 #, php-format
@@ -3055,7 +3045,7 @@ msgstr "Avisos"
 
 #: actions/showgroup.php:284 lib/groupeditform.php:184
 msgid "Aliases"
-msgstr ""
+msgstr "Àlies"
 
 #: actions/showgroup.php:293
 msgid "Group actions"
@@ -3224,27 +3214,25 @@ msgstr ""
 "ca.wikipedia.org/wiki/Microblogging) "
 
 #: actions/showstream.php:313
-#, fuzzy, php-format
+#, php-format
 msgid "Repeat of %s"
-msgstr "Respostes a %s"
+msgstr "Repetició de %s"
 
 #: actions/silence.php:65 actions/unsilence.php:65
-#, fuzzy
 msgid "You cannot silence users on this site."
-msgstr "No pots enviar un missatge a aquest usuari."
+msgstr "No podeu silenciar els usuaris d'aquest lloc."
 
 #: actions/silence.php:72
-#, fuzzy
 msgid "User is already silenced."
-msgstr "Un usuari t'ha bloquejat."
+msgstr "L'usuari ja està silenciat."
 
 #: actions/siteadminpanel.php:69
 msgid "Basic settings for this StatusNet site."
-msgstr ""
+msgstr "Paràmetres bàsic d'aquest lloc basat en l'StatusNet."
 
 #: actions/siteadminpanel.php:147
 msgid "Site name must have non-zero length."
-msgstr ""
+msgstr "El nom del lloc ha de tenir una longitud superior a zero."
 
 #: actions/siteadminpanel.php:155
 msgid "You must have a valid contact email address"
@@ -3253,7 +3241,7 @@ msgstr "Heu de tenir una adreça electrònica de contacte vàlida"
 #: actions/siteadminpanel.php:173
 #, php-format
 msgid "Unknown language \"%s\""
-msgstr ""
+msgstr "Llengua desconeguda «%s»"
 
 #: actions/siteadminpanel.php:180
 msgid "Invalid snapshot report URL."
@@ -3293,7 +3281,7 @@ msgstr "Nom del lloc"
 
 #: actions/siteadminpanel.php:270
 msgid "The name of your site, like \"Yourcompany Microblog\""
-msgstr ""
+msgstr "El nom del vostre lloc, com ara «El microblog de l'empresa»"
 
 #: actions/siteadminpanel.php:274
 msgid "Brought by"
@@ -3317,22 +3305,20 @@ msgid "Contact email address for your site"
 msgstr "Nou correu electrònic per publicar a %s"
 
 #: actions/siteadminpanel.php:290
-#, fuzzy
 msgid "Local"
-msgstr "Vistes locals"
+msgstr "Local"
 
 #: actions/siteadminpanel.php:301
 msgid "Default timezone"
-msgstr ""
+msgstr "Fus horari per defecte"
 
 #: actions/siteadminpanel.php:302
 msgid "Default timezone for the site; usually UTC."
-msgstr ""
+msgstr "Fus horari per defecte del lloc; normalment UTC."
 
 #: actions/siteadminpanel.php:308
-#, fuzzy
 msgid "Default site language"
-msgstr "Preferència d'idioma"
+msgstr "Llengua per defecte del lloc"
 
 #: actions/siteadminpanel.php:316
 msgid "URLs"
@@ -3367,18 +3353,16 @@ msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr ""
 
 #: actions/siteadminpanel.php:340
-#, fuzzy
 msgid "Invite only"
-msgstr "Invitar"
+msgstr "Només invitació"
 
 #: actions/siteadminpanel.php:342
 msgid "Make registration invitation only."
-msgstr ""
+msgstr "Fes que el registre sigui només amb invitacions."
 
 #: actions/siteadminpanel.php:346
-#, fuzzy
 msgid "Closed"
-msgstr "Bloquejar"
+msgstr "Tancat"
 
 #: actions/siteadminpanel.php:348
 msgid "Disable new registrations."
@@ -3466,11 +3450,13 @@ msgstr ""
 
 #: actions/siteadminpanel.php:407
 msgid "Dupe limit"
-msgstr ""
+msgstr "Límit de duplicats"
 
 #: actions/siteadminpanel.php:407
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
+"Quant de temps cal que esperin els usuaris (en segons) per enviar el mateix "
+"de nou."
 
 #: actions/siteadminpanel.php:421 actions/useradminpanel.php:313
 #, fuzzy
@@ -3621,6 +3607,8 @@ msgid ""
 "You have no subscribers. Try subscribing to people you know and they might "
 "return the favor"
 msgstr ""
+"No teniu cap subscriptor. Proveu de subscriure-us a gent que coneixeu i ells "
+"podrien tornar-vos així el favor"
 
 #: actions/subscribers.php:110
 #, php-format
@@ -3664,9 +3652,9 @@ msgid ""
 msgstr ""
 
 #: actions/subscriptions.php:123 actions/subscriptions.php:127
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not listening to anyone."
-msgstr "%1$s ara està escoltant "
+msgstr "%s no escolta a ningú."
 
 #: actions/subscriptions.php:194
 msgid "Jabber"
@@ -5512,47 +5500,47 @@ msgstr "Missatge"
 msgid "Moderate"
 msgstr "Modera"
 
-#: lib/util.php:829
+#: lib/util.php:837
 msgid "a few seconds ago"
 msgstr "fa pocs segons"
 
-#: lib/util.php:831
+#: lib/util.php:839
 msgid "about a minute ago"
 msgstr "fa un minut"
 
-#: lib/util.php:833
+#: lib/util.php:841
 #, php-format
 msgid "about %d minutes ago"
 msgstr "fa %d minuts"
 
-#: lib/util.php:835
+#: lib/util.php:843
 msgid "about an hour ago"
 msgstr "fa una hora"
 
-#: lib/util.php:837
+#: lib/util.php:845
 #, php-format
 msgid "about %d hours ago"
 msgstr "fa %d hores"
 
-#: lib/util.php:839
+#: lib/util.php:847
 msgid "about a day ago"
 msgstr "fa un dia"
 
-#: lib/util.php:841
+#: lib/util.php:849
 #, php-format
 msgid "about %d days ago"
 msgstr "fa %d dies"
 
-#: lib/util.php:843
+#: lib/util.php:851
 msgid "about a month ago"
 msgstr "fa un mes"
 
-#: lib/util.php:845
+#: lib/util.php:853
 #, php-format
 msgid "about %d months ago"
 msgstr "fa %d mesos"
 
-#: lib/util.php:847
+#: lib/util.php:855
 msgid "about a year ago"
 msgstr "fa un any"
 

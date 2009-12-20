@@ -1,6 +1,7 @@
 # Translation of StatusNet to German
 #
 # Author@translatewiki.net: Bavatar
+# Author@translatewiki.net: Lutzgh
 # Author@translatewiki.net: March
 # Author@translatewiki.net: Umherirrender
 # --
@@ -10,12 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-16 22:51+0000\n"
-"PO-Revision-Date: 2009-12-16 22:51:58+0000\n"
+"POT-Creation-Date: 2009-12-20 09:27+0000\n"
+"PO-Revision-Date: 2009-12-20 09:28:17+0000\n"
 "Language-Team: German\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60142); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60237); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: out-statusnet\n"
@@ -84,6 +85,8 @@ msgstr "Feed der Freunde von %s (Atom)"
 msgid ""
 "This is the timeline for %s and friends but no one has posted anything yet."
 msgstr ""
+"Dies ist die Zeitleiste für %s und Freunde aber bisher hat niemand etwas "
+"gepostet."
 
 #: actions/all.php:132
 #, php-format
@@ -91,6 +94,8 @@ msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
 "something yourself."
 msgstr ""
+"Abonniere doch mehr Leute, [tritt einer Gruppe bei](%%action.groups%%) oder "
+"poste selber etwas."
 
 #: actions/all.php:134
 #, php-format
@@ -98,6 +103,9 @@ msgid ""
 "You can try to [nudge %s](../%s) from his profile or [post something to his "
 "or her attention](%%%%action.newnotice%%%%?status_textarea=%s)."
 msgstr ""
+"Du kannst [%s in seinem Profil einen Stups geben](../%s) oder [ihm etwas "
+"posten](%%%%action.newnotice%%%%?status_textarea=%s) um seine Aufmerksamkeit "
+"zu erregen."
 
 #: actions/all.php:137 actions/replies.php:209 actions/showstream.php:202
 #, php-format
@@ -105,6 +113,9 @@ msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
 "post a notice to his or her attention."
 msgstr ""
+"Warum [registrierst Du nicht einen Account](%%%%action.register%%%%) und "
+"gibst %s dann einen Stups oder postest ihm etwas, um seine Aufmerksamkeit zu "
+"erregen?"
 
 #: actions/all.php:165
 msgid "You and friends"
@@ -1535,6 +1546,8 @@ msgid ""
 "Why not [register an account](%%action.register%%) and [create the group](%%"
 "action.newgroup%%) yourself!"
 msgstr ""
+"Warum [registrierst Du nicht einen Account](%%action.register%%) und [legst "
+"diese Gruppe selbst an](%%action.newgroup%%)?"
 
 #: actions/groupunblock.php:91
 msgid "Only an admin can unblock group members."
@@ -3236,7 +3249,7 @@ msgstr ""
 
 #: actions/siteadminpanel.php:204
 msgid "Invalid SSL server. The maximum length is 255 characters."
-msgstr ""
+msgstr "Ungültiger SSL-Server. Die maximale Länge ist 255 Zeichen."
 
 #: actions/siteadminpanel.php:210
 msgid "Minimum text limit is 140 characters."
@@ -3276,9 +3289,8 @@ msgid "URL used for credits link in footer of each page"
 msgstr ""
 
 #: actions/siteadminpanel.php:284
-#, fuzzy
 msgid "Contact email address for your site"
-msgstr "Neue E-Mail-Adresse um auf %s zu schreiben"
+msgstr "Kontakt-E-Mail-Adresse für Deine Site."
 
 #: actions/siteadminpanel.php:290
 #, fuzzy
@@ -3314,11 +3326,11 @@ msgstr ""
 
 #: actions/siteadminpanel.php:323
 msgid "Fancy URLs"
-msgstr ""
+msgstr "Schicke URLs."
 
 #: actions/siteadminpanel.php:325
 msgid "Use fancy (more readable and memorable) URLs?"
-msgstr ""
+msgstr "Schicke URLs (lesbarer und besser zu merken) verwenden?"
 
 #: actions/siteadminpanel.php:331
 #, fuzzy
@@ -3379,7 +3391,7 @@ msgstr ""
 
 #: actions/siteadminpanel.php:366
 msgid "Frequency"
-msgstr ""
+msgstr "Frequenz"
 
 #: actions/siteadminpanel.php:367
 msgid "Snapshots will be sent once every N web hits"
@@ -3394,22 +3406,20 @@ msgid "Snapshots will be sent to this URL"
 msgstr ""
 
 #: actions/siteadminpanel.php:380
-#, fuzzy
 msgid "SSL"
-msgstr "SMS"
+msgstr "SSL"
 
 #: actions/siteadminpanel.php:384
-#, fuzzy
 msgid "Sometimes"
-msgstr "Nachrichten"
+msgstr "Manchmal"
 
 #: actions/siteadminpanel.php:385
 msgid "Always"
-msgstr ""
+msgstr "Immer"
 
 #: actions/siteadminpanel.php:387
 msgid "Use SSL"
-msgstr ""
+msgstr "SSL verwenden"
 
 #: actions/siteadminpanel.php:388
 msgid "When to use SSL"
@@ -3417,7 +3427,7 @@ msgstr ""
 
 #: actions/siteadminpanel.php:393
 msgid "SSL Server"
-msgstr ""
+msgstr "SSL-Server"
 
 #: actions/siteadminpanel.php:394
 msgid "Server to direct SSL requests to"
@@ -3444,9 +3454,8 @@ msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 
 #: actions/siteadminpanel.php:421 actions/useradminpanel.php:313
-#, fuzzy
 msgid "Save site settings"
-msgstr "Avatar-Einstellungen"
+msgstr "Site-Einstellungen speichern"
 
 #: actions/smssettings.php:58
 msgid "SMS Settings"
@@ -3589,6 +3598,8 @@ msgid ""
 "You have no subscribers. Try subscribing to people you know and they might "
 "return the favor"
 msgstr ""
+"Du hast keine Abonnenten. Warum abonnierst Du nicht Leute, die Du kennst? "
+"Sie werden Dir diesen Gefallen vielleicht auch tun."
 
 #: actions/subscribers.php:110
 #, php-format
@@ -3601,6 +3612,8 @@ msgid ""
 "%s has no subscribers. Why not [register an account](%%%%action.register%%%"
 "%) and be the first?"
 msgstr ""
+"% hat keine Abonnenten. Warum [registrierst Du nicht einen Account](%%%%"
+"action.register%%%%) und bist der erste?"
 
 #: actions/subscriptions.php:52
 #, php-format
@@ -3720,9 +3733,8 @@ msgid "API method under construction."
 msgstr "API-Methode im Aufbau."
 
 #: actions/unblock.php:59
-#, fuzzy
 msgid "You haven't blocked that user."
-msgstr "Du hast diesen Benutzer bereits blockiert."
+msgstr "Du hast diesen Benutzer nicht blockiert."
 
 #: actions/unsandbox.php:72
 #, fuzzy
@@ -4218,7 +4230,7 @@ msgstr "FAQ"
 
 #: lib/action.php:732
 msgid "TOS"
-msgstr ""
+msgstr "AGB"
 
 #: lib/action.php:735
 msgid "Privacy"
@@ -4276,7 +4288,6 @@ msgid "All "
 msgstr "Alle "
 
 #: lib/action.php:804
-#, fuzzy
 msgid "license."
 msgstr "Lizenz."
 
@@ -4531,9 +4542,8 @@ msgstr[0] "Du hast diese Benutzer bereits abonniert:"
 msgstr[1] "Du hast diese Benutzer bereits abonniert:"
 
 #: lib/command.php:707
-#, fuzzy
 msgid "No one is subscribed to you."
-msgstr "Die Gegenseite konnte Dich nicht abonnieren."
+msgstr "Niemand hat Dich abonniert."
 
 #: lib/command.php:709
 msgid "This person is subscribed to you:"
@@ -4542,9 +4552,8 @@ msgstr[0] "Die Gegenseite konnte Dich nicht abonnieren."
 msgstr[1] "Die Gegenseite konnte Dich nicht abonnieren."
 
 #: lib/command.php:729
-#, fuzzy
 msgid "You are not a member of any groups."
-msgstr "Du bist kein Mitglied dieser Gruppe."
+msgstr "Du bist in keiner Gruppe Mitglied."
 
 #: lib/command.php:731
 msgid "You are a member of this group:"
@@ -4594,13 +4603,12 @@ msgid ""
 msgstr ""
 
 #: lib/common.php:199
-#, fuzzy
 msgid "No configuration file found. "
-msgstr "Kein Bestätigungs-Code."
+msgstr "Keine Konfigurationsdatei gefunden."
 
 #: lib/common.php:200
 msgid "I looked for configuration files in the following places: "
-msgstr ""
+msgstr "Ich habe an folgenden Stellen nach Konfigurationsdateien gesucht: "
 
 #: lib/common.php:201
 msgid "You may wish to run the installer to fix this."
@@ -4625,19 +4633,18 @@ msgstr "Aktualisierungen via SMS"
 
 #: lib/dberroraction.php:60
 msgid "Database error"
-msgstr ""
+msgstr "Datenbankfehler."
 
 #: lib/designsettings.php:105
-#, fuzzy
 msgid "Upload file"
-msgstr "Hochladen"
+msgstr "Datei hochladen"
 
 #: lib/designsettings.php:109
-#, fuzzy
 msgid ""
 "You can upload your personal background image. The maximum file size is 2MB."
 msgstr ""
-"Du kannst dein persönliches Avatar hochladen. Die maximale Dateigröße ist %s."
+"Du kannst dein persönliches Hintergrundbild hochladen. Die maximale "
+"Dateigröße ist 2MB."
 
 #: lib/designsettings.php:418
 msgid "Design defaults restored."
@@ -4700,9 +4707,8 @@ msgid "Choose a tag to narrow list"
 msgstr "Wähle einen Tag, um die Liste einzuschränken"
 
 #: lib/galleryaction.php:143
-#, fuzzy
 msgid "Go"
-msgstr "Los"
+msgstr "Los geht's"
 
 #: lib/groupeditform.php:163
 #, fuzzy
@@ -4720,7 +4726,6 @@ msgid "Describe the group or topic in %d characters"
 msgstr "Beschreibe die Gruppe oder das Thema in 140 Zeichen"
 
 #: lib/groupeditform.php:172
-#, fuzzy
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -4740,9 +4745,8 @@ msgid "Group"
 msgstr "Gruppe"
 
 #: lib/groupnav.php:101
-#, fuzzy
 msgid "Blocked"
-msgstr "Blockieren"
+msgstr "Blockiert"
 
 #: lib/groupnav.php:102
 #, fuzzy, php-format
@@ -4755,7 +4759,6 @@ msgid "Edit %s group properties"
 msgstr "%s Gruppeneinstellungen bearbeiten"
 
 #: lib/groupnav.php:113
-#, fuzzy
 msgid "Logo"
 msgstr "Logo"
 
@@ -4829,12 +4832,10 @@ msgid "[%s]"
 msgstr ""
 
 #: lib/joinform.php:114
-#, fuzzy
 msgid "Join"
 msgstr "Beitreten"
 
 #: lib/leaveform.php:114
-#, fuzzy
 msgid "Leave"
 msgstr "Verlassen"
 
@@ -4868,6 +4869,19 @@ msgid ""
 "Thanks for your time, \n"
 "%s\n"
 msgstr ""
+"Hallo %s,\n"
+"\n"
+"jemand hat diese E-Mail-Adresse gerade auf %s eingegeben.\n"
+"\n"
+"Falls Du es warst und Du Deinen Eintrag bestätigen möchtest, benutze\n"
+"bitte diese URL:\n"
+"\n"
+"%s\n"
+"\n"
+"Falls nicht, ignoriere diese Nachricht einfach.\n"
+"\n"
+"Vielen Dank!\n"
+"%s\n"
 
 #: lib/mail.php:236
 #, php-format
@@ -4875,7 +4889,7 @@ msgid "%1$s is now listening to your notices on %2$s."
 msgstr "%1$s hat deine Nachrichten auf %2$s abonniert."
 
 #: lib/mail.php:241
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%1$s is now listening to your notices on %2$s.\n"
 "\n"
@@ -4890,23 +4904,28 @@ msgid ""
 msgstr ""
 "%1$s hat deine Nachrichten auf %2$s abonniert.\n"
 "\n"
-"\t%3$s\n"
+"%3$s\n"
 "\n"
-"Gruß,\n"
-"%4$s.\n"
+"%4$s%5$s%6$s\n"
+"Mit freundlichen Grüßen,\n"
+"%7$s.\n"
+"\n"
+"----\n"
+"Du kannst Deine E-Mail-Adresse und die Benachrichtigungseinstellungen auf %8"
+"$s ändern.\n"
 
 #: lib/mail.php:254
-#, fuzzy, php-format
+#, php-format
 msgid "Location: %s\n"
 msgstr "Standort: %s\n"
 
 #: lib/mail.php:256
-#, fuzzy, php-format
+#, php-format
 msgid "Homepage: %s\n"
 msgstr "Homepage: %s\n"
 
 #: lib/mail.php:258
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Bio: %s\n"
 "\n"
@@ -4969,6 +4988,17 @@ msgid ""
 "With kind regards,\n"
 "%4$s\n"
 msgstr ""
+"%1$s (%2$s) fragt sicht, was Du zur Zeit wohl so machst und lädt Dich ein, "
+"etwas Neues zu posten.\n"
+"\n"
+"Lass von Dir hören :)\n"
+"\n"
+"%3$s\n"
+"\n"
+"Antworte nicht auf diese E-Mail, sie wird niemanden erreichen.\n"
+"\n"
+"Mit freundlichen Grüßen,\n"
+"%4$s\n"
 
 #: lib/mail.php:510
 #, php-format
@@ -4993,11 +5023,25 @@ msgid ""
 "With kind regards,\n"
 "%5$s\n"
 msgstr ""
+"%1$s (%2$s) hat Dir eine private Nachricht geschickt:\n"
+"\n"
+"------------------------------------------------------\n"
+"%3$s\n"
+"------------------------------------------------------\n"
+"\n"
+"Du kannst auf diese Nachricht hier antworten:\n"
+"\n"
+"%4$s\n"
+"\n"
+"Antworte nicht auf diese E-Mail, sie wird niemanden erreichen.\n"
+"\n"
+"Mit freundlichen Grüßen,\n"
+"%5$s\n"
 
 #: lib/mail.php:559
-#, fuzzy, php-format
+#, php-format
 msgid "%s (@%s) added your notice as a favorite"
-msgstr "%s hat deine Nachricht als Favorit gespeichert"
+msgstr "%s (@%s) hat deine Nachricht als Favorit gespeichert"
 
 #: lib/mail.php:561
 #, php-format
@@ -5049,6 +5093,9 @@ msgid ""
 "You have no private messages. You can send private message to engage other "
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
+"Du hast keine privaten Nachrichten. Du kannst anderen private Nachrichten "
+"schicken, um sie in eine Konversation zu verwickeln. Andere Leute können Dir "
+"Nachrichten schicken, die nur Du sehen kannst."
 
 #: lib/mailbox.php:227 lib/noticelist.php:469
 #, fuzzy
@@ -5188,19 +5235,16 @@ msgid "Notice repeated"
 msgstr "Nachricht gelöscht."
 
 #: lib/nudgeform.php:116
-#, fuzzy
 msgid "Nudge this user"
-msgstr "Diesen Benutzer stupsen"
+msgstr "Gib diesem Benutzer einen Stups"
 
 #: lib/nudgeform.php:128
-#, fuzzy
 msgid "Nudge"
 msgstr "Stups"
 
 #: lib/nudgeform.php:128
-#, fuzzy
 msgid "Send a nudge to this user"
-msgstr "Sende diesem Benutzer einen Stupser"
+msgstr "Sende diesem Benutzer einen Stups"
 
 #: lib/oauthstore.php:283
 msgid "Error inserting new profile"
@@ -5339,9 +5383,8 @@ msgid "Sandbox this user"
 msgstr "Benutzer freigeben"
 
 #: lib/searchaction.php:120
-#, fuzzy
 msgid "Search site"
-msgstr "Suchen"
+msgstr "Site durchsuchen"
 
 #: lib/searchaction.php:126
 msgid "Keyword(s)"
@@ -5403,7 +5446,7 @@ msgstr "Gruppen in denen %s Mitglied ist"
 
 #: lib/subs.php:52
 msgid "Already subscribed!"
-msgstr ""
+msgstr "Bereits abonniert!"
 
 #: lib/subs.php:56
 msgid "User has blocked you."
@@ -5508,47 +5551,47 @@ msgstr "Nachricht"
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:829
+#: lib/util.php:837
 msgid "a few seconds ago"
 msgstr "vor wenigen Sekunden"
 
-#: lib/util.php:831
+#: lib/util.php:839
 msgid "about a minute ago"
 msgstr "vor einer Minute"
 
-#: lib/util.php:833
+#: lib/util.php:841
 #, php-format
 msgid "about %d minutes ago"
 msgstr "vor %d Minuten"
 
-#: lib/util.php:835
+#: lib/util.php:843
 msgid "about an hour ago"
 msgstr "vor einer Stunde"
 
-#: lib/util.php:837
+#: lib/util.php:845
 #, php-format
 msgid "about %d hours ago"
 msgstr "vor %d Stunden"
 
-#: lib/util.php:839
+#: lib/util.php:847
 msgid "about a day ago"
 msgstr "vor einem Tag"
 
-#: lib/util.php:841
+#: lib/util.php:849
 #, php-format
 msgid "about %d days ago"
 msgstr "vor %d Tagen"
 
-#: lib/util.php:843
+#: lib/util.php:851
 msgid "about a month ago"
 msgstr "vor einem Monat"
 
-#: lib/util.php:845
+#: lib/util.php:853
 #, php-format
 msgid "about %d months ago"
 msgstr "vor %d Monaten"
 
-#: lib/util.php:847
+#: lib/util.php:855
 msgid "about a year ago"
 msgstr "vor einem Jahr"
 
