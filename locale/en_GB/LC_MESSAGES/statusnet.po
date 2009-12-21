@@ -1,5 +1,6 @@
 # Translation of StatusNet to British English
 #
+# Author@translatewiki.net: Bruce89
 # Author@translatewiki.net: CiaranG
 # Author@translatewiki.net: Lockal
 # --
@@ -9,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-20 09:27+0000\n"
-"PO-Revision-Date: 2009-12-20 09:28:24+0000\n"
+"POT-Creation-Date: 2009-12-21 21:17+0000\n"
+"PO-Revision-Date: 2009-12-21 21:17:32+0000\n"
 "Language-Team: British English\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60237); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60279); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: en-gb\n"
 "X-Message-Group: out-statusnet\n"
@@ -83,6 +84,7 @@ msgstr "Feed for friends of %s (Atom)"
 msgid ""
 "This is the timeline for %s and friends but no one has posted anything yet."
 msgstr ""
+"This is the timeline for %s and friends but no one has posted anything yet."
 
 #: actions/all.php:132
 #, php-format
@@ -90,6 +92,8 @@ msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
 "something yourself."
 msgstr ""
+"Try subscribing to more people, [join a group](%%action.groups%%) or post "
+"something yourself."
 
 #: actions/all.php:134
 #, php-format
@@ -97,6 +101,8 @@ msgid ""
 "You can try to [nudge %s](../%s) from his profile or [post something to his "
 "or her attention](%%%%action.newnotice%%%%?status_textarea=%s)."
 msgstr ""
+"You can try to [nudge %s](../%s) from his profile or [post something to his "
+"or her attention](%%%%action.newnotice%%%%?status_textarea=%s)."
 
 #: actions/all.php:137 actions/replies.php:209 actions/showstream.php:202
 #, php-format
@@ -104,6 +110,8 @@ msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
 "post a notice to his or her attention."
 msgstr ""
+"Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
+"post a notice to his or her attention."
 
 #: actions/all.php:165
 msgid "You and friends"
@@ -142,6 +150,8 @@ msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
 "none"
 msgstr ""
+"You must specify a parameter named 'device' with a value of one of: sms, im, "
+"none"
 
 #: actions/apiaccountupdatedeliverydevice.php:132
 #, fuzzy
@@ -172,6 +182,8 @@ msgid ""
 "The server was unable to handle that much POST data (%s bytes) due to its "
 "current configuration."
 msgstr ""
+"The server was unable to handle that much POST data (%s bytes) due to its "
+"current configuration."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:136
 #: actions/apiaccountupdateprofilebackgroundimage.php:146
@@ -186,9 +198,8 @@ msgid "Could not update your design."
 msgstr "Could not update your design."
 
 #: actions/apiblockcreate.php:105
-#, fuzzy
 msgid "You cannot block yourself!"
-msgstr "Couldn't update user."
+msgstr "You cannot block yourself!"
 
 #: actions/apiblockcreate.php:119
 msgid "Block user failed."
@@ -291,7 +302,7 @@ msgstr "Could not unfollow user: User not found."
 
 #: actions/apifriendshipsdestroy.php:120
 msgid "You cannot unfollow yourself!"
-msgstr ""
+msgstr "You cannot unfollow yourself!"
 
 #: actions/apifriendshipsexists.php:94
 msgid "Two user ids or screen_names must be supplied."
@@ -350,7 +361,7 @@ msgstr "Location is too long (max 255 chars)."
 #: actions/newgroup.php:159
 #, php-format
 msgid "Too many aliases! Maximum %d."
-msgstr ""
+msgstr "Too many aliases! Maximum %d."
 
 #: actions/apigroupcreate.php:264 actions/editgroup.php:224
 #: actions/newgroup.php:168
@@ -367,7 +378,7 @@ msgstr "Alias \"%s\" already in use. Try another one."
 #: actions/apigroupcreate.php:286 actions/editgroup.php:234
 #: actions/newgroup.php:178
 msgid "Alias can't be the same as nickname."
-msgstr ""
+msgstr "Alias can't be the same as nickname."
 
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
@@ -381,22 +392,21 @@ msgstr "You are already a member of that group."
 
 #: actions/apigroupjoin.php:119 actions/joingroup.php:95 lib/command.php:221
 msgid "You have been blocked from that group by the admin."
-msgstr ""
+msgstr "You have been blocked from that group by the admin."
 
 #: actions/apigroupjoin.php:138
-#, fuzzy, php-format
+#, php-format
 msgid "Could not join user %s to group %s."
-msgstr "Could not join user %s to group %s"
+msgstr "Could not join user %s to group %s."
 
 #: actions/apigroupleave.php:114
-#, fuzzy
 msgid "You are not a member of this group."
-msgstr "You are not a member of that group."
+msgstr "You are not a member of this group."
 
 #: actions/apigroupleave.php:124
-#, fuzzy, php-format
+#, php-format
 msgid "Could not remove user %s to group %s."
-msgstr "Could not remove user %s to group %s"
+msgstr "Could not remove user %s to group %s."
 
 #: actions/apigrouplist.php:95
 #, php-format
@@ -432,14 +442,12 @@ msgid "No such notice."
 msgstr "No such notice."
 
 #: actions/apistatusesretweet.php:83
-#, fuzzy
 msgid "Cannot repeat your own notice."
-msgstr "Can't turn on notification."
+msgstr "Cannot repeat your own notice."
 
 #: actions/apistatusesretweet.php:91
-#, fuzzy
 msgid "Already repeated that notice."
-msgstr "Delete this notice"
+msgstr "Already repeated that notice."
 
 #: actions/apistatusesshow.php:138
 msgid "Status deleted."
@@ -462,12 +470,11 @@ msgstr "Not found"
 #: actions/apistatusesupdate.php:227 actions/newnotice.php:183
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
-msgstr ""
+msgstr "Max notice size is %d chars, including attachment URL."
 
 #: actions/apisubscriptions.php:231 actions/apisubscriptions.php:261
-#, fuzzy
 msgid "Unsupported format."
-msgstr "Unsupported image file format."
+msgstr "Unsupported format."
 
 #: actions/apitimelinefavorites.php:108
 #, php-format
@@ -514,17 +521,17 @@ msgstr "%s updates from everyone!"
 #: actions/apitimelineretweetedbyme.php:112
 #, php-format
 msgid "Repeated by %s"
-msgstr ""
+msgstr "Repeated by %s"
 
 #: actions/apitimelineretweetedtome.php:111
-#, fuzzy, php-format
+#, php-format
 msgid "Repeated to %s"
-msgstr "Replies to %s"
+msgstr "Repeated to %s"
 
 #: actions/apitimelineretweetsofme.php:112
-#, fuzzy, php-format
+#, php-format
 msgid "Repeats of %s"
-msgstr "Replies to %s"
+msgstr "Repeats of %s"
 
 #: actions/apitimelinetag.php:102 actions/tag.php:66
 #, php-format
@@ -541,9 +548,8 @@ msgid "Not found."
 msgstr "Not found."
 
 #: actions/attachment.php:73
-#, fuzzy
 msgid "No such attachment."
-msgstr "No such document."
+msgstr "No such attachment."
 
 #: actions/avatarbynickname.php:59 actions/grouprss.php:91
 #: actions/leavegroup.php:76
@@ -642,14 +648,12 @@ msgid "Failed updating avatar."
 msgstr "Failed updating avatar."
 
 #: actions/avatarsettings.php:393
-#, fuzzy
 msgid "Avatar deleted."
-msgstr "Avatar updated."
+msgstr "Avatar deleted."
 
 #: actions/block.php:69
-#, fuzzy
 msgid "You already blocked that user."
-msgstr "You have already blocked this user."
+msgstr "You already blocked that user."
 
 #: actions/block.php:105 actions/block.php:128 actions/groupblock.php:160
 msgid "Block user"
@@ -661,6 +665,9 @@ msgid ""
 "unsubscribed from you, unable to subscribe to you in the future, and you "
 "will not be notified of any @-replies from them."
 msgstr ""
+"Are you sure you want to block this user? Afterwards, they will be "
+"unsubscribed from you, unable to subscribe to you in the future, and you "
+"will not be notified of any @-replies from them."
 
 #: actions/block.php:143 actions/deletenotice.php:145
 #: actions/deleteuser.php:147 actions/groupblock.php:178
@@ -668,9 +675,8 @@ msgid "No"
 msgstr "No"
 
 #: actions/block.php:143 actions/deleteuser.php:147
-#, fuzzy
 msgid "Do not block this user"
-msgstr "Unblock this user"
+msgstr "Do not block this user"
 
 #: actions/block.php:144 actions/deletenotice.php:146
 #: actions/deleteuser.php:148 actions/groupblock.php:179
@@ -796,7 +802,6 @@ msgid "Can't delete this notice."
 msgstr "Can't delete this notice."
 
 #: actions/deletenotice.php:103
-#, fuzzy
 msgid ""
 "You are about to permanently delete a notice. Once this is done, it cannot "
 "be undone."
@@ -1262,8 +1267,8 @@ msgid "Featured users, page %d"
 msgstr "Featured users, page %d"
 
 #: actions/featured.php:99
-#, php-format
-msgid "A selection of some of the great users on %s"
+#, fuzzy, php-format
+msgid "A selection of some great users on %s"
 msgstr "A selection of some of the great users on %s"
 
 #: actions/file.php:34

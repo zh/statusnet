@@ -32,6 +32,21 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
+// Locale category constants are usually predefined, but may not be
+// on some systems such as Win32.
+$LC_CATEGORIES = array('LC_CTYPE',
+                       'LC_NUMERIC',
+                       'LC_TIME',
+                       'LC_COLLATE',
+                       'LC_MONETARY',
+                       'LC_MESSAGES',
+                       'LC_ALL');
+foreach ($LC_CATEGORIES as $key => $name) {
+    if (!defined($name)) {
+        define($name, $key);
+    }
+}
+
 if (!function_exists('gettext')) {
     require_once("php-gettext/gettext.inc");
 }
