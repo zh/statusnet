@@ -1007,21 +1007,21 @@ left:0;
 .notice-options {
 position:relative;
 font-size:0.95em;
-width:125px;
+width:113px;
 float:right;
+margin-right:4px;
 }
 
 .notice-options a {
 float:left;
 }
-.notice-options .notice_delete,
 .notice-options .notice_reply,
 .notice-options .form_repeat,
 .notice-options .form_favor,
 .notice-options .form_disfavor,
 .notice-options .repeated {
 float:left;
-margin-left:14%;
+margin-left:14.2%;
 }
 .notice-options .form_favor,
 .notice-options .form_disfavor {
@@ -1040,6 +1040,9 @@ border:0;
 .notice-options .notice_reply,
 .notice-options .notice_delete {
 text-decoration:none;
+}
+.notice .notice-options .notice_delete {
+float:right;
 }
 .notice-options form input.submit {
 width:16px;
