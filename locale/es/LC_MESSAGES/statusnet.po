@@ -11,12 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-16 22:51+0000\n"
-"PO-Revision-Date: 2009-12-16 22:52:08+0000\n"
+"POT-Creation-Date: 2009-12-21 21:17+0000\n"
+"PO-Revision-Date: 2009-12-21 21:17:35+0000\n"
 "Language-Team: Spanish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60142); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60279); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: es\n"
 "X-Message-Group: out-statusnet\n"
@@ -724,16 +724,14 @@ msgid "A list of the users blocked from joining this group."
 msgstr "Lista de los usuarios en este grupo."
 
 #: actions/blockedfromgroup.php:281
-#, fuzzy
 msgid "Unblock user from group"
-msgstr "Falló desbloquear usuario."
+msgstr "Desbloquear usuario de grupo"
 
 #: actions/blockedfromgroup.php:313 lib/unblockform.php:69
 msgid "Unblock"
 msgstr "Desbloquear"
 
 #: actions/blockedfromgroup.php:313 lib/unblockform.php:80
-#, fuzzy
 msgid "Unblock this user"
 msgstr "Desbloquear este usuario"
 
@@ -785,9 +783,8 @@ msgid "The address \"%s\" has been confirmed for your account."
 msgstr "La dirección \"%s\" fue confirmada para tu cuenta."
 
 #: actions/conversation.php:99
-#, fuzzy
 msgid "Conversation"
-msgstr "Código de confirmación"
+msgstr "Conversación"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
 #: lib/profileaction.php:216 lib/searchgroupnav.php:82
@@ -841,9 +838,8 @@ msgstr ""
 "Hubo un problema con tu clave de sesión.  Por favor, intenta nuevamente."
 
 #: actions/deleteuser.php:67
-#, fuzzy
 msgid "You cannot delete users."
-msgstr "No se pudo actualizar el usuario."
+msgstr "No puedes borrar usuarios."
 
 #: actions/deleteuser.php:74
 #, fuzzy
@@ -851,9 +847,8 @@ msgid "You can only delete local users."
 msgstr "No puedes borrar el estado de otro usuario."
 
 #: actions/deleteuser.php:110 actions/deleteuser.php:133
-#, fuzzy
 msgid "Delete user"
-msgstr "Borrar"
+msgstr "Borrar usuario"
 
 #: actions/deleteuser.php:135
 msgid ""
@@ -862,9 +857,8 @@ msgid ""
 msgstr ""
 
 #: actions/deleteuser.php:148 lib/deleteuserform.php:77
-#, fuzzy
 msgid "Delete this user"
-msgstr "Borrar este aviso"
+msgstr "Borrar este usuario"
 
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
 #: lib/adminpanelaction.php:302 lib/groupnav.php:119
@@ -881,14 +875,13 @@ msgid "Invalid logo URL."
 msgstr "Tamaño inválido."
 
 #: actions/designadminpanel.php:279
-#, fuzzy, php-format
+#, php-format
 msgid "Theme not available: %s"
-msgstr "Esta página no está disponible en un "
+msgstr "Tema no disponible"
 
 #: actions/designadminpanel.php:375
-#, fuzzy
 msgid "Change logo"
-msgstr "Cambiar colores"
+msgstr "Cambiar logo"
 
 #: actions/designadminpanel.php:380
 #, fuzzy
@@ -1282,8 +1275,8 @@ msgid "Featured users, page %d"
 msgstr "Usuarios que figuran, página %d"
 
 #: actions/featured.php:99
-#, php-format
-msgid "A selection of some of the great users on %s"
+#, fuzzy, php-format
+msgid "A selection of some great users on %s"
 msgstr "Una selección de algunos de los grandes usuarios en %s"
 
 #: actions/file.php:34
@@ -1292,28 +1285,24 @@ msgid "No notice ID."
 msgstr "Nuevo aviso"
 
 #: actions/file.php:38
-#, fuzzy
 msgid "No notice."
-msgstr "Nuevo aviso"
+msgstr "Sin aviso."
 
 #: actions/file.php:42
-#, fuzzy
 msgid "No attachments."
-msgstr "No existe ese documento."
+msgstr "Sin archivo adjunto"
 
 #: actions/file.php:51
-#, fuzzy
 msgid "No uploaded attachments."
-msgstr "No existe ese documento."
+msgstr "No hay archivos adjuntos cargados."
 
 #: actions/finishremotesubscribe.php:69
 msgid "Not expecting this response!"
 msgstr "¡Respuesta inesperada!"
 
 #: actions/finishremotesubscribe.php:80
-#, fuzzy
 msgid "User being listened to does not exist."
-msgstr "El usuario al que quieres seguir no existe."
+msgstr "El usuario al que quieres listar no existe."
 
 #: actions/finishremotesubscribe.php:87 actions/remotesubscribe.php:59
 msgid "You can use the local subscription!"
@@ -1324,9 +1313,8 @@ msgid "That user has blocked you from subscribing."
 msgstr "Ese usuario te ha bloqueado la suscripción."
 
 #: actions/finishremotesubscribe.php:110
-#, fuzzy
 msgid "You are not authorized."
-msgstr "No autorizado."
+msgstr "No estás autorizado."
 
 #: actions/finishremotesubscribe.php:113
 #, fuzzy
@@ -1346,19 +1334,16 @@ msgstr "Error al actualizar el perfil remoto"
 #: actions/grouprss.php:98 actions/groupunblock.php:86
 #: actions/leavegroup.php:83 actions/makeadmin.php:86 lib/command.php:212
 #: lib/command.php:263
-#, fuzzy
 msgid "No such group."
 msgstr "No existe ese grupo."
 
 #: actions/getfile.php:75
-#, fuzzy
 msgid "No such file."
-msgstr "No existe ese aviso."
+msgstr "No existe tal archivo."
 
 #: actions/getfile.php:79
-#, fuzzy
 msgid "Cannot read file."
-msgstr "Se perdió nuestro archivo"
+msgstr "No se puede leer archivo."
 
 #: actions/groupblock.php:71 actions/groupunblock.php:71
 #: actions/makeadmin.php:71 actions/subedit.php:46
@@ -1374,28 +1359,24 @@ msgstr "No existe perfil con ese ID"
 
 #: actions/groupblock.php:81 actions/groupunblock.php:81
 #: actions/makeadmin.php:81
-#, fuzzy
 msgid "No group specified."
-msgstr "No se especificó perfil."
+msgstr "Grupo no especificado."
 
 #: actions/groupblock.php:91
 msgid "Only an admin can block group members."
 msgstr ""
 
 #: actions/groupblock.php:95
-#, fuzzy
 msgid "User is already blocked from group."
-msgstr "El usuario te ha bloqueado."
+msgstr "Usuario ya está bloqueado del grupo."
 
 #: actions/groupblock.php:100
-#, fuzzy
 msgid "User is not a member of group."
-msgstr "No eres miembro de ese grupo"
+msgstr "Usuario no es miembro del grupo"
 
 #: actions/groupblock.php:136 actions/groupmembers.php:314
-#, fuzzy
 msgid "Block user from group"
-msgstr "Bloquear usuario."
+msgstr "Bloquear usuario de grupo"
 
 #: actions/groupblock.php:162
 #, php-format
@@ -1406,14 +1387,12 @@ msgid ""
 msgstr ""
 
 #: actions/groupblock.php:178
-#, fuzzy
 msgid "Do not block this user from this group"
-msgstr "Lista de los usuarios en este grupo."
+msgstr "No bloquear este usuario de este grupo"
 
 #: actions/groupblock.php:179
-#, fuzzy
 msgid "Block this user from this group"
-msgstr "Lista de los usuarios en este grupo."
+msgstr "Bloquear este usuario de este grupo"
 
 #: actions/groupblock.php:196
 msgid "Database error blocking user from group."
@@ -1424,9 +1403,8 @@ msgid "No ID"
 msgstr "Sin ID"
 
 #: actions/groupdesignsettings.php:68
-#, fuzzy
 msgid "You must be logged in to edit a group."
-msgstr "Debes estar conectado para crear un grupo"
+msgstr "Debes estar conectado para editar un grupo."
 
 #: actions/groupdesignsettings.php:141
 #, fuzzy
@@ -3802,9 +3780,8 @@ msgid "API method under construction."
 msgstr "Método API en construcción."
 
 #: actions/unblock.php:59
-#, fuzzy
 msgid "You haven't blocked that user."
-msgstr "Ya has bloqueado este usuario."
+msgstr "No has bloqueado ese usuario."
 
 #: actions/unsandbox.php:72
 #, fuzzy
@@ -3870,9 +3847,8 @@ msgid "Maximum length of a profile bio in characters."
 msgstr ""
 
 #: actions/useradminpanel.php:231
-#, fuzzy
 msgid "New users"
-msgstr "Invitar nuevos usuarios:"
+msgstr "Nuevos usuarios"
 
 #: actions/useradminpanel.php:235
 msgid "New user welcome"
@@ -3895,9 +3871,8 @@ msgstr ""
 "para no-humanos)"
 
 #: actions/useradminpanel.php:251
-#, fuzzy
 msgid "Invitations"
-msgstr "Invitacion(es) enviada(s)"
+msgstr "Invitaciones"
 
 #: actions/useradminpanel.php:256
 #, fuzzy
@@ -3910,7 +3885,7 @@ msgstr ""
 
 #: actions/useradminpanel.php:265
 msgid "Sessions"
-msgstr ""
+msgstr "Sesiones"
 
 #: actions/useradminpanel.php:270
 msgid "Handle sessions"
@@ -3933,20 +3908,18 @@ msgid "Authorize subscription"
 msgstr "Autorizar la suscripción"
 
 #: actions/userauthorization.php:110
-#, fuzzy
 msgid ""
 "Please check these details to make sure that you want to subscribe to this "
 "user’s notices. If you didn’t just ask to subscribe to someone’s notices, "
 "click “Reject”."
 msgstr ""
 "Por favor revisa estos detalles para asegurar que deseas suscribirte a los "
-"avisos de este usuario. Si no pediste esta suscripción, haz clic en "
-"\"Cancelar\"."
+"avisos de este usuario. Si no pediste suscribirte a los avisos de alguien, "
+"haz clic en \"Cancelar\"."
 
 #: actions/userauthorization.php:188
-#, fuzzy
 msgid "License"
-msgstr "Licencia."
+msgstr "Licencia"
 
 #: actions/userauthorization.php:209
 msgid "Accept"
@@ -3963,9 +3936,8 @@ msgid "Reject"
 msgstr "Rechazar"
 
 #: actions/userauthorization.php:212
-#, fuzzy
 msgid "Reject this subscription"
-msgstr "Suscripciones %s"
+msgstr "Rechazar esta suscripción"
 
 #: actions/userauthorization.php:225
 msgid "No authorization request!"
@@ -4037,9 +4009,8 @@ msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "Tipo de imagen incorrecto para '%s'"
 
 #: actions/userbyid.php:70
-#, fuzzy
 msgid "No ID."
-msgstr "Sin ID"
+msgstr "Sin ID."
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 #, fuzzy
@@ -4151,17 +4122,16 @@ msgid "DB error inserting reply: %s"
 msgstr "Error de BD al insertar respuesta: %s"
 
 #: classes/Notice.php:1371
-#, fuzzy, php-format
+#, php-format
 msgid "RT @%1$s %2$s"
-msgstr "%1$s (%2$s)"
+msgstr "RT @%1$s %2$s"
 
 #: classes/User.php:368
-#, fuzzy, php-format
+#, php-format
 msgid "Welcome to %1$s, @%2$s!"
-msgstr "Mensaje a %1$s en %2$s"
+msgstr "Bienvenido a %1$s, @%2$s!"
 
 #: classes/User_group.php:380
-#, fuzzy
 msgid "Could not create group."
 msgstr "No se pudo crear grupo."
 
@@ -4220,12 +4190,10 @@ msgid "Personal profile and friends timeline"
 msgstr "Perfil personal y línea de tiempo de amigos"
 
 #: lib/action.php:433
-#, fuzzy
 msgid "Account"
 msgstr "Cuenta"
 
 #: lib/action.php:433
-#, fuzzy
 msgid "Change your email, avatar, password, profile"
 msgstr "Cambia tu correo electrónico, avatar, contraseña, perfil"
 
@@ -4234,9 +4202,8 @@ msgid "Connect"
 msgstr "Conectarse"
 
 #: lib/action.php:436
-#, fuzzy
 msgid "Connect to services"
-msgstr "No se pudo redirigir al servidor: %s"
+msgstr "Conectar a los servicios"
 
 #: lib/action.php:440
 #, fuzzy
@@ -4261,7 +4228,6 @@ msgid "Logout from the site"
 msgstr "Salir de sitio"
 
 #: lib/action.php:455
-#, fuzzy
 msgid "Create an account"
 msgstr "Crear una cuenta"
 
@@ -4294,7 +4260,6 @@ msgid "Local views"
 msgstr "Vistas locales"
 
 #: lib/action.php:617
-#, fuzzy
 msgid "Page notice"
 msgstr "Aviso de página"
 
@@ -4327,9 +4292,8 @@ msgid "Contact"
 msgstr "Ponerse en contacto"
 
 #: lib/action.php:741
-#, fuzzy
 msgid "Badge"
-msgstr "Zumbido "
+msgstr "Insignia"
 
 #: lib/action.php:769
 msgid "StatusNet software license"
@@ -4361,9 +4325,8 @@ msgstr ""
 "licensing/licenses/agpl-3.0.html)."
 
 #: lib/action.php:790
-#, fuzzy
 msgid "Site content license"
-msgstr "Licencia de software de StatusNet"
+msgstr "Licencia de contenido del sitio"
 
 #: lib/action.php:799
 msgid "All "
@@ -4618,9 +4581,8 @@ msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
 #: lib/command.php:685
-#, fuzzy
 msgid "You are not subscribed to anyone."
-msgstr "No estás suscrito a ese perfil."
+msgstr "No estás suscrito a nadie."
 
 #: lib/command.php:687
 msgid "You are subscribed to this person:"
@@ -4629,9 +4591,8 @@ msgstr[0] "Ya estás suscrito a estos usuarios:"
 msgstr[1] "Ya estás suscrito a estos usuarios:"
 
 #: lib/command.php:707
-#, fuzzy
 msgid "No one is subscribed to you."
-msgstr "No se pudo suscribir otro a ti."
+msgstr "Nadie está suscrito a ti."
 
 #: lib/command.php:709
 msgid "This person is subscribed to you:"
@@ -4640,9 +4601,8 @@ msgstr[0] "No se pudo suscribir otro a ti."
 msgstr[1] "No se pudo suscribir otro a ti."
 
 #: lib/command.php:729
-#, fuzzy
 msgid "You are not a member of any groups."
-msgstr "No eres miembro de ese grupo"
+msgstr "No eres miembro de ningún grupo"
 
 #: lib/command.php:731
 msgid "You are a member of this group:"
@@ -4904,11 +4864,11 @@ msgstr "Tipo de archivo desconocido"
 
 #: lib/imagefile.php:217
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #: lib/imagefile.php:219
 msgid "kB"
-msgstr ""
+msgstr "kB"
 
 #: lib/jabber.php:191
 #, php-format
@@ -4916,24 +4876,20 @@ msgid "[%s]"
 msgstr ""
 
 #: lib/joinform.php:114
-#, fuzzy
 msgid "Join"
 msgstr "Unirse"
 
 #: lib/leaveform.php:114
-#, fuzzy
 msgid "Leave"
-msgstr "Dejar"
+msgstr "Salir"
 
 #: lib/logingroupnav.php:80
-#, fuzzy
 msgid "Login with a username and password"
 msgstr "Ingresar con un nombre de usuario y contraseña."
 
 #: lib/logingroupnav.php:86
-#, fuzzy
 msgid "Sign up for a new account"
-msgstr "Registrar una cuenta nueva "
+msgstr "Registrarse para una nueva cuenta"
 
 #: lib/mail.php:172
 msgid "Email address confirmation"
@@ -5230,17 +5186,16 @@ msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr ""
 
 #: lib/noticelist.php:421
-#, fuzzy
 msgid "N"
-msgstr "No"
+msgstr "N"
 
 #: lib/noticelist.php:421
 msgid "S"
-msgstr ""
+msgstr "S"
 
 #: lib/noticelist.php:422
 msgid "E"
-msgstr ""
+msgstr "E"
 
 #: lib/noticelist.php:422
 msgid "W"
@@ -5248,7 +5203,7 @@ msgstr ""
 
 #: lib/noticelist.php:428
 msgid "at"
-msgstr ""
+msgstr "en"
 
 #: lib/noticelist.php:523
 msgid "in context"
@@ -5301,9 +5256,8 @@ msgid "Duplicate notice"
 msgstr "Duplicar aviso"
 
 #: lib/oauthstore.php:466 lib/subs.php:48
-#, fuzzy
 msgid "You have been banned from subscribing."
-msgstr "Ese usuario te ha bloqueado la suscripción."
+msgstr "Se te ha prohibido la suscripción."
 
 #: lib/oauthstore.php:491
 msgid "Couldn't insert new subscription."
@@ -5561,23 +5515,20 @@ msgid "Unsubscribe"
 msgstr "Cancelar suscripción"
 
 #: lib/userprofile.php:116
-#, fuzzy
 msgid "Edit Avatar"
-msgstr "Avatar"
+msgstr "editar avatar"
 
 #: lib/userprofile.php:236
-#, fuzzy
 msgid "User actions"
 msgstr "Acciones de usuario"
 
 #: lib/userprofile.php:248
-#, fuzzy
 msgid "Edit profile settings"
-msgstr "Configuración del perfil"
+msgstr "Editar configuración del perfil"
 
 #: lib/userprofile.php:249
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: lib/userprofile.php:272
 msgid "Send a direct message to this user"
@@ -5589,49 +5540,49 @@ msgstr "Mensaje"
 
 #: lib/userprofile.php:311
 msgid "Moderate"
-msgstr ""
+msgstr "Moderar"
 
-#: lib/util.php:829
+#: lib/util.php:837
 msgid "a few seconds ago"
 msgstr "hace unos segundos"
 
-#: lib/util.php:831
+#: lib/util.php:839
 msgid "about a minute ago"
 msgstr "hace un minuto"
 
-#: lib/util.php:833
+#: lib/util.php:841
 #, php-format
 msgid "about %d minutes ago"
 msgstr "hace %d minutos"
 
-#: lib/util.php:835
+#: lib/util.php:843
 msgid "about an hour ago"
 msgstr "hace una hora"
 
-#: lib/util.php:837
+#: lib/util.php:845
 #, php-format
 msgid "about %d hours ago"
 msgstr "hace %d horas"
 
-#: lib/util.php:839
+#: lib/util.php:847
 msgid "about a day ago"
 msgstr "hace un día"
 
-#: lib/util.php:841
+#: lib/util.php:849
 #, php-format
 msgid "about %d days ago"
 msgstr "hace %d días"
 
-#: lib/util.php:843
+#: lib/util.php:851
 msgid "about a month ago"
 msgstr "hace un mes"
 
-#: lib/util.php:845
+#: lib/util.php:853
 #, php-format
 msgid "about %d months ago"
 msgstr "hace %d meses"
 
-#: lib/util.php:847
+#: lib/util.php:855
 msgid "about a year ago"
 msgstr "hace un año"
 

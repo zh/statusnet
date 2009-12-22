@@ -91,8 +91,16 @@ function common_language()
     if (_have_config() && common_logged_in()) {
         $user = common_current_user();
         $user_language = $user->language;
-        if ($user_language)
-          return $user_language;
+
+        if ($user->language) {
+            // Validate -- we don't want to end up with a bogus code
+            // left over from some old junk.
+            foreach (common_config('site', 'languages') as $code => $info) {
+                if ($info['lang'] == $user_language) {
+                    return $user_language;
+                }
+            }
+        }
     }
 
     // Otherwise, find the best match for the languages requested by the

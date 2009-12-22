@@ -1,5 +1,6 @@
 # Translation of StatusNet to Norwegian (bokmål)‬
 #
+# Author@translatewiki.net: Nghtwlkr
 # --
 # This file is distributed under the same license as the StatusNet package.
 #
@@ -7,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-16 22:51+0000\n"
-"PO-Revision-Date: 2009-12-16 22:52:42+0000\n"
+"POT-Creation-Date: 2009-12-21 21:17+0000\n"
+"PO-Revision-Date: 2009-12-21 21:18:18+0000\n"
 "Language-Team: Norwegian (bokmål)‬\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60142); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60279); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: no\n"
 "X-Message-Group: out-statusnet\n"
@@ -20,9 +21,8 @@ msgstr ""
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
 #: actions/showfavorites.php:137 actions/tag.php:51
-#, fuzzy
 msgid "No such page"
-msgstr "Klarte ikke å lagre profil."
+msgstr "Ingen slik side"
 
 #: actions/all.php:74 actions/allrss.php:68
 #: actions/apiaccountupdatedeliverydevice.php:113
@@ -48,12 +48,12 @@ msgstr "Klarte ikke å lagre profil."
 #: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
 #: lib/subs.php:34 lib/subs.php:116
 msgid "No such user."
-msgstr ""
+msgstr "Ingen slik bruker"
 
 #: actions/all.php:84
-#, fuzzy, php-format
+#, php-format
 msgid "%s and friends, page %d"
-msgstr "%s og venner"
+msgstr "%s og venner, side %d"
 
 #: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
 #: actions/apitimelinefriends.php:115 actions/apitimelinehome.php:115
@@ -63,25 +63,25 @@ msgid "%s and friends"
 msgstr "%s og venner"
 
 #: actions/all.php:99
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
-msgstr "Feed for %s sine venner"
+msgstr "Mating for venner av %s (RSS 1.0)"
 
 #: actions/all.php:107
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
-msgstr "Feed for %s sine venner"
+msgstr "Mating for venner av %s (RSS 2.0)"
 
 #: actions/all.php:115
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (Atom)"
-msgstr "Feed for %s sine venner"
+msgstr "Mating for venner av %s (Atom)"
 
 #: actions/all.php:127
 #, php-format
 msgid ""
 "This is the timeline for %s and friends but no one has posted anything yet."
-msgstr ""
+msgstr "Dette er tidslinjen for %s og venner, men ingen har postet noe enda."
 
 #: actions/all.php:132
 #, php-format
@@ -89,6 +89,8 @@ msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
 "something yourself."
 msgstr ""
+"Prøv å abbonere på flere personer, [bli med i en gruppe](%%action.groups%%) "
+"eller post noe selv."
 
 #: actions/all.php:134
 #, php-format
@@ -96,6 +98,9 @@ msgid ""
 "You can try to [nudge %s](../%s) from his profile or [post something to his "
 "or her attention](%%%%action.newnotice%%%%?status_textarea=%s)."
 msgstr ""
+"Du kan prøve å [knuffe %s](../%s) fra dennes profil eller [post noe for å få "
+"hans eller hennes oppmerksomhet](%%%%action.newnotice%%%%?status_textarea=%"
+"s)."
 
 #: actions/all.php:137 actions/replies.php:209 actions/showstream.php:202
 #, php-format
@@ -103,17 +108,18 @@ msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
 "post a notice to his or her attention."
 msgstr ""
+"Hvorfor ikke [opprette en konto](%%%%action.register%%%%) og så knuff %s "
+"eller post en notis for å få hans eller hennes oppmerksomhet."
 
 #: actions/all.php:165
-#, fuzzy
 msgid "You and friends"
-msgstr "%s og venner"
+msgstr "Du og venner"
 
 #: actions/allrss.php:119 actions/apitimelinefriends.php:122
 #: actions/apitimelinehome.php:122
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
-msgstr ""
+msgstr "Oppdateringer fra %1$s og venner på %2$s!"
 
 #: actions/apiaccountratelimitstatus.php:70
 #: actions/apiaccountupdatedeliverydevice.php:93
@@ -136,13 +142,13 @@ msgstr "API-metode ikke funnet!"
 #: actions/apigroupleave.php:91 actions/apistatusesretweet.php:65
 #: actions/apistatusesupdate.php:114
 msgid "This method requires a POST."
-msgstr ""
+msgstr "Denne metoden krever en POST."
 
 #: actions/apiaccountupdatedeliverydevice.php:105
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
 "none"
-msgstr ""
+msgstr "Du må angi en verdi for parameteren 'device' med en av: sms, im, none"
 
 #: actions/apiaccountupdatedeliverydevice.php:132
 #, fuzzy
@@ -156,7 +162,7 @@ msgstr "Klarte ikke å oppdatere bruker."
 #: actions/avatarbynickname.php:80 actions/foaf.php:65 actions/replies.php:80
 #: actions/usergroups.php:98 lib/galleryaction.php:66 lib/profileaction.php:84
 msgid "User has no profile."
-msgstr ""
+msgstr "Brukeren har ingen profil."
 
 #: actions/apiaccountupdateprofile.php:147
 #, fuzzy
@@ -173,13 +179,15 @@ msgid ""
 "The server was unable to handle that much POST data (%s bytes) due to its "
 "current configuration."
 msgstr ""
+"Tjeneren kunne ikke håndtere så mye POST-data (%s bytes) på grunn av sitt "
+"nåværende oppsett."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:136
 #: actions/apiaccountupdateprofilebackgroundimage.php:146
 #: actions/apiaccountupdateprofilecolors.php:164
 #: actions/apiaccountupdateprofilecolors.php:174
 msgid "Unable to save your design settings."
-msgstr ""
+msgstr "Kunne ikke lagre dine innstillinger for utseende."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:187
 #: actions/apiaccountupdateprofilecolors.php:142
@@ -188,37 +196,36 @@ msgid "Could not update your design."
 msgstr "Klarte ikke å oppdatere bruker."
 
 #: actions/apiblockcreate.php:105
-#, fuzzy
 msgid "You cannot block yourself!"
-msgstr "Klarte ikke å oppdatere bruker."
+msgstr "Du kan ikke blokkere deg selv!"
 
 #: actions/apiblockcreate.php:119
 msgid "Block user failed."
-msgstr ""
+msgstr "Blokkering av bruker mislyktes."
 
 #: actions/apiblockdestroy.php:107
 msgid "Unblock user failed."
-msgstr ""
+msgstr "Oppheving av blokkering av bruker mislyktes."
 
 #: actions/apidirectmessage.php:89
 #, php-format
 msgid "Direct messages from %s"
-msgstr ""
+msgstr "Direktemeldinger fra %s"
 
 #: actions/apidirectmessage.php:93
 #, php-format
 msgid "All the direct messages sent from %s"
-msgstr ""
+msgstr "Alle direktemeldinger sendt fra %s"
 
 #: actions/apidirectmessage.php:101
 #, php-format
 msgid "Direct messages to %s"
-msgstr ""
+msgstr "Direktemeldinger til %s"
 
 #: actions/apidirectmessage.php:105
 #, php-format
 msgid "All the direct messages sent to %s"
-msgstr ""
+msgstr "Alle direktemeldinger sendt til %s"
 
 #: actions/apidirectmessage.php:156 actions/apifavoritecreate.php:99
 #: actions/apifavoritedestroy.php:100 actions/apifriendshipscreate.php:100
@@ -242,64 +249,62 @@ msgstr "API-metode ikke funnet!"
 
 #: actions/apidirectmessagenew.php:126
 msgid "No message text!"
-msgstr ""
+msgstr "Ingen meldingstekst!"
 
 #: actions/apidirectmessagenew.php:135 actions/newmessage.php:150
 #, php-format
 msgid "That's too long. Max message size is %d chars."
-msgstr ""
+msgstr "Dette er for langt. Meldingen kan bare være %d tegn lang."
 
 #: actions/apidirectmessagenew.php:146
 msgid "Recipient user not found."
-msgstr ""
+msgstr "Fant ikke mottakeren."
 
 #: actions/apidirectmessagenew.php:150
 msgid "Can't send direct messages to users who aren't your friend."
-msgstr ""
+msgstr "Kan ikke sende direktemeldinger til brukere du ikke er venn med."
 
 #: actions/apifavoritecreate.php:108 actions/apifavoritedestroy.php:109
 #: actions/apistatusesdestroy.php:113
 msgid "No status found with that ID."
-msgstr ""
+msgstr "Fant ingen status med den ID-en."
 
 #: actions/apifavoritecreate.php:119
-#, fuzzy
 msgid "This status is already a favorite!"
-msgstr "Det er allerede din e-postadresse."
+msgstr "Denne statusen er allerede en favoritt!"
 
 #: actions/apifavoritecreate.php:130 actions/favor.php:84 lib/command.php:176
 msgid "Could not create favorite."
-msgstr ""
+msgstr "Kunne ikke opprette favoritt."
 
 #: actions/apifavoritedestroy.php:122
 msgid "That status is not a favorite!"
-msgstr ""
+msgstr "Den statusen er ikke en favoritt!"
 
 #: actions/apifavoritedestroy.php:134 actions/disfavor.php:87
 msgid "Could not delete favorite."
-msgstr ""
+msgstr "Kunne ikke slette favoritt."
 
 #: actions/apifriendshipscreate.php:109
 msgid "Could not follow user: User not found."
-msgstr ""
+msgstr "Kunne ikke følge brukeren: Fant ikke brukeren."
 
 #: actions/apifriendshipscreate.php:118
 #, php-format
 msgid "Could not follow user: %s is already on your list."
-msgstr ""
+msgstr "Kunne ikke følge brukeren: %s er allerede i listen din."
 
 #: actions/apifriendshipsdestroy.php:109
-#, fuzzy
 msgid "Could not unfollow user: User not found."
-msgstr "Klarte ikke å oppdatere bruker."
+msgstr "Kunne ikke slutte å følge brukeren: Fant ikke brukeren."
 
 #: actions/apifriendshipsdestroy.php:120
 msgid "You cannot unfollow yourself!"
-msgstr ""
+msgstr "Du kan ikke slutte å følge deg selv!"
 
 #: actions/apifriendshipsexists.php:94
 msgid "Two user ids or screen_names must be supplied."
-msgstr ""
+msgstr "To bruker ID-er eller kallenavn må oppgis."
 
 #: actions/apifriendshipsshow.php:135
 #, fuzzy
@@ -315,7 +320,7 @@ msgstr "Klarte ikke å oppdatere bruker."
 #: actions/newgroup.php:126 actions/profilesettings.php:208
 #: actions/register.php:205
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
-msgstr ""
+msgstr "Kallenavn kan kun ha små bokstaver og tall og ingen mellomrom."
 
 #: actions/apigroupcreate.php:173 actions/editgroup.php:186
 #: actions/newgroup.php:130 actions/profilesettings.php:231
@@ -333,7 +338,7 @@ msgstr "Ugyldig nick."
 #: actions/newgroup.php:139 actions/profilesettings.php:215
 #: actions/register.php:217
 msgid "Homepage is not a valid URL."
-msgstr ""
+msgstr "Hjemmesiden er ikke en gyldig URL."
 
 #: actions/apigroupcreate.php:205 actions/editgroup.php:198
 #: actions/newgroup.php:142 actions/profilesettings.php:218
@@ -342,9 +347,9 @@ msgid "Full name is too long (max 255 chars)."
 msgstr "Beklager, navnet er for langt (max 250 tegn)."
 
 #: actions/apigroupcreate.php:213
-#, fuzzy, php-format
+#, php-format
 msgid "Description is too long (max %d chars)."
-msgstr "Bioen er for lang (max 140 tegn)"
+msgstr "Beskrivelsen er for lang (maks %d tegn)."
 
 #: actions/apigroupcreate.php:224 actions/editgroup.php:204
 #: actions/newgroup.php:148 actions/profilesettings.php:225
@@ -383,9 +388,8 @@ msgid "Group not found!"
 msgstr "API-metode ikke funnet!"
 
 #: actions/apigroupjoin.php:110
-#, fuzzy
 msgid "You are already a member of that group."
-msgstr "Du er allerede logget inn!"
+msgstr "Du er allerede medlem av den gruppen."
 
 #: actions/apigroupjoin.php:119 actions/joingroup.php:95 lib/command.php:221
 msgid "You have been blocked from that group by the admin."
@@ -409,7 +413,7 @@ msgstr "Klarte ikke å oppdatere bruker."
 #: actions/apigrouplist.php:95
 #, php-format
 msgid "%s's groups"
-msgstr ""
+msgstr "%s sine grupper"
 
 #: actions/apigrouplist.php:103
 #, php-format
@@ -920,11 +924,11 @@ msgstr ""
 
 #: actions/designadminpanel.php:457 lib/designsettings.php:139
 msgid "On"
-msgstr ""
+msgstr "På"
 
 #: actions/designadminpanel.php:473 lib/designsettings.php:155
 msgid "Off"
-msgstr ""
+msgstr "Av"
 
 #: actions/designadminpanel.php:474 lib/designsettings.php:156
 msgid "Turn background image on or off."
@@ -935,9 +939,8 @@ msgid "Tile background image"
 msgstr ""
 
 #: actions/designadminpanel.php:488 lib/designsettings.php:170
-#, fuzzy
 msgid "Change colours"
-msgstr "Endre passordet ditt"
+msgstr "Endre farger"
 
 #: actions/designadminpanel.php:510 lib/designsettings.php:191
 #, fuzzy
@@ -954,9 +957,8 @@ msgid "Text"
 msgstr "Tekst"
 
 #: actions/designadminpanel.php:549 lib/designsettings.php:230
-#, fuzzy
 msgid "Links"
-msgstr "Logg inn"
+msgstr "Lenker"
 
 #: actions/designadminpanel.php:577 lib/designsettings.php:247
 msgid "Use defaults"
@@ -1272,7 +1274,7 @@ msgstr ""
 
 #: actions/featured.php:99
 #, php-format
-msgid "A selection of some of the great users on %s"
+msgid "A selection of some great users on %s"
 msgstr ""
 
 #: actions/file.php:34
@@ -1400,7 +1402,7 @@ msgstr ""
 
 #: actions/groupbyid.php:74
 msgid "No ID"
-msgstr ""
+msgstr "Ingen ID"
 
 #: actions/groupdesignsettings.php:68
 msgid "You must be logged in to edit a group."
@@ -1467,37 +1469,37 @@ msgstr ""
 
 #: actions/groupmembers.php:111
 msgid "A list of the users in this group."
-msgstr ""
+msgstr "En liste over brukerne i denne gruppen."
 
 #: actions/groupmembers.php:175 lib/action.php:440 lib/groupnav.php:107
 msgid "Admin"
-msgstr ""
+msgstr "Administrator"
 
 #: actions/groupmembers.php:346 lib/blockform.php:69
 msgid "Block"
-msgstr ""
+msgstr "Blokkér"
 
 #: actions/groupmembers.php:441
 msgid "Make user an admin of the group"
-msgstr ""
+msgstr "Gjør brukeren til en administrator for gruppen"
 
 #: actions/groupmembers.php:473
 msgid "Make Admin"
-msgstr ""
+msgstr "Gjør til administrator"
 
 #: actions/groupmembers.php:473
 msgid "Make this user an admin"
-msgstr ""
+msgstr "Gjør denne brukeren til administrator"
 
 #: actions/grouprss.php:133
 #, php-format
 msgid "Updates from members of %1$s on %2$s!"
-msgstr ""
+msgstr "Oppdateringer fra medlemmer av %1$s på %2$s!"
 
 #: actions/groups.php:62 lib/profileaction.php:210 lib/profileaction.php:230
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
-msgstr ""
+msgstr "Grupper"
 
 #: actions/groups.php:64
 #, php-format
@@ -5405,47 +5407,47 @@ msgstr ""
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:829
+#: lib/util.php:837
 msgid "a few seconds ago"
 msgstr "noen få sekunder siden"
 
-#: lib/util.php:831
+#: lib/util.php:839
 msgid "about a minute ago"
 msgstr "omtrent ett minutt siden"
 
-#: lib/util.php:833
+#: lib/util.php:841
 #, php-format
 msgid "about %d minutes ago"
 msgstr "omtrent %d minutter siden"
 
-#: lib/util.php:835
+#: lib/util.php:843
 msgid "about an hour ago"
 msgstr "omtrent én time siden"
 
-#: lib/util.php:837
+#: lib/util.php:845
 #, php-format
 msgid "about %d hours ago"
 msgstr "omtrent %d timer siden"
 
-#: lib/util.php:839
+#: lib/util.php:847
 msgid "about a day ago"
 msgstr "omtrent én dag siden"
 
-#: lib/util.php:841
+#: lib/util.php:849
 #, php-format
 msgid "about %d days ago"
 msgstr "omtrent %d dager siden"
 
-#: lib/util.php:843
+#: lib/util.php:851
 msgid "about a month ago"
 msgstr "omtrent én måned siden"
 
-#: lib/util.php:845
+#: lib/util.php:853
 #, php-format
 msgid "about %d months ago"
 msgstr "omtrent %d måneder siden"
 
-#: lib/util.php:847
+#: lib/util.php:855
 msgid "about a year ago"
 msgstr "omtrent ett år siden"
 

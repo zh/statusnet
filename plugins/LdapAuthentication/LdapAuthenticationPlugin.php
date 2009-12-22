@@ -67,6 +67,18 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
             throw new Exception("if password_changeable is set, the password attribute and password_encoding must also be specified");
         }
     }
+
+    function onAutoload($cls)
+    {   
+        switch ($cls)
+        {
+         case 'MemcacheSchemaCache':
+            require_once(INSTALLDIR.'/plugins/LdapAuthentication/MemcacheSchemaCache.php');
+            return false;
+         default:
+            return parent::onAutoload($cls);
+        }
+    }
     
     //---interface implementation---//
 
@@ -174,6 +186,14 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
             return false;
         }
         if($config == null) $this->default_ldap=$ldap;
+
+        $c = common_memcache();
+        if (!empty($c)) {
+            $cacheObj = new MemcacheSchemaCache(
+                array('c'=>$c,
+                   'cacheKey' => common_cache_key('ldap_schema:' . crc32(serialize($config)))));
+            $ldap->registerSchemaCache($cacheObj);
+        }
         return $ldap;
     }
     
@@ -192,20 +212,21 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
         $options = array(
             'attributes' => $attributes
         );
-        $search = $ldap->search(null,$filter,$options);
+        $search = $ldap->search($this->basedn, $filter, $options);
         
         if (PEAR::isError($search)) {
             common_log(LOG_WARNING, 'Error while getting DN for user: '.$search->getMessage());
             return false;
         }
 
-        if($search->count()==0){
+        $searchcount = $search->count();
+        if($searchcount == 0) {
             return false;
-        }else if($search->count()==1){
+        }else if($searchcount == 1) {
             $entry = $search->shiftEntry();
             return $entry;
         }else{
-            common_log(LOG_WARNING, 'Found ' . $search->count() . ' ldap user with the username: ' . $username);
+            common_log(LOG_WARNING, 'Found ' . $searchcount . ' ldap user with the username: ' . $username);
             return false;
         }
     }

@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-16 22:51+0000\n"
-"PO-Revision-Date: 2009-12-16 22:53:03+0000\n"
+"POT-Creation-Date: 2009-12-21 21:17+0000\n"
+"PO-Revision-Date: 2009-12-21 21:18:39+0000\n"
 "Language-Team: Swedish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60142); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60279); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: sv\n"
 "X-Message-Group: out-statusnet\n"
@@ -438,14 +438,12 @@ msgid "No such notice."
 msgstr "Ingen sådan notis."
 
 #: actions/apistatusesretweet.php:83
-#, fuzzy
 msgid "Cannot repeat your own notice."
-msgstr "Kan inte stänga av notifikation."
+msgstr "Kan inte upprepa din egen notis."
 
 #: actions/apistatusesretweet.php:91
-#, fuzzy
 msgid "Already repeated that notice."
-msgstr "Ta bort denna notis"
+msgstr "Redan upprepat denna notis."
 
 #: actions/apistatusesshow.php:138
 msgid "Status deleted."
@@ -519,17 +517,17 @@ msgstr "%s uppdateringar från alla!"
 #: actions/apitimelineretweetedbyme.php:112
 #, php-format
 msgid "Repeated by %s"
-msgstr ""
+msgstr "Upprepat av %s"
 
 #: actions/apitimelineretweetedtome.php:111
-#, fuzzy, php-format
+#, php-format
 msgid "Repeated to %s"
-msgstr "Svarat på %s"
+msgstr "Upprepat till %s"
 
 #: actions/apitimelineretweetsofme.php:112
-#, fuzzy, php-format
+#, php-format
 msgid "Repeats of %s"
-msgstr "Svarat på %s"
+msgstr "Upprepningar av %s"
 
 #: actions/apitimelinetag.php:102 actions/tag.php:66
 #, php-format
@@ -1262,29 +1260,25 @@ msgid "Featured users, page %d"
 msgstr "Profilerade användare, sida %d"
 
 #: actions/featured.php:99
-#, php-format
-msgid "A selection of some of the great users on %s"
+#, fuzzy, php-format
+msgid "A selection of some great users on %s"
 msgstr "Ett urval av några av de stora användarna på% s"
 
 #: actions/file.php:34
-#, fuzzy
 msgid "No notice ID."
-msgstr "Ingen notis"
+msgstr "Ingen notis-ID."
 
 #: actions/file.php:38
-#, fuzzy
 msgid "No notice."
-msgstr "Ingen notis"
+msgstr "Ingen notis."
 
 #: actions/file.php:42
-#, fuzzy
 msgid "No attachments."
-msgstr "Inga bilagor"
+msgstr "Inga bilagor."
 
 #: actions/file.php:51
-#, fuzzy
 msgid "No uploaded attachments."
-msgstr "Inga uppladdade bilagor"
+msgstr "Inga uppladdade bilagor."
 
 #: actions/finishremotesubscribe.php:69
 msgid "Not expecting this response!"
@@ -2833,34 +2827,28 @@ msgid "Couldn’t get a request token."
 msgstr "Kunde inte få en förfrågnings-token."
 
 #: actions/repeat.php:57
-#, fuzzy
 msgid "Only logged-in users can repeat notices."
-msgstr "Bara användaren kan läsa sina egna brevlådor."
+msgstr "Bara inloggade användaren kan upprepa notiser."
 
 #: actions/repeat.php:64 actions/repeat.php:71
-#, fuzzy
 msgid "No notice specified."
-msgstr "Ingen profil angiven."
+msgstr "Ingen notis angiven."
 
 #: actions/repeat.php:76
-#, fuzzy
 msgid "You can't repeat your own notice."
-msgstr "Du kan inte registrera dig om du inte godkänner licensen."
+msgstr "Du kan inte upprepa din egna notis."
 
 #: actions/repeat.php:90
-#, fuzzy
 msgid "You already repeated that notice."
-msgstr "Du har redan blockerat denna användare."
+msgstr "Du har redan upprepat denna notis."
 
 #: actions/repeat.php:114 lib/noticelist.php:621
-#, fuzzy
 msgid "Repeated"
-msgstr "Skapad"
+msgstr "Upprepad"
 
 #: actions/repeat.php:119
-#, fuzzy
 msgid "Repeated!"
-msgstr "Skapad"
+msgstr "Upprepad!"
 
 #: actions/replies.php:125 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
@@ -3189,9 +3177,9 @@ msgstr ""
 "[StatusNet](http://status.net/). "
 
 #: actions/showstream.php:313
-#, fuzzy, php-format
+#, php-format
 msgid "Repeat of %s"
-msgstr "Svarat på %s"
+msgstr "Upprepning av %s"
 
 #: actions/silence.php:65 actions/unsilence.php:65
 msgid "You cannot silence users on this site."
@@ -3656,7 +3644,6 @@ msgid "Notice feed for tag %s (Atom)"
 msgstr "Flöde av notiser för tagg %s (Atom)"
 
 #: actions/tagother.php:39
-#, fuzzy
 msgid "No ID argument."
 msgstr "Inget ID-argument."
 
@@ -3933,9 +3920,8 @@ msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "Fel bildtyp för avatar-URL '%s'."
 
 #: actions/userbyid.php:70
-#, fuzzy
 msgid "No ID."
-msgstr "Ingen ID"
+msgstr "Ingen ID."
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 msgid "Profile design"
@@ -4047,7 +4033,7 @@ msgstr "Databasfel vid infogning av svar: %s"
 #: classes/Notice.php:1371
 #, php-format
 msgid "RT @%1$s %2$s"
-msgstr ""
+msgstr "RT @%1$s %2$s"
 
 #: classes/User.php:368
 #, php-format
@@ -4378,7 +4364,7 @@ msgstr "Notis markerad som favorit."
 #: lib/command.php:315
 #, php-format
 msgid "%1$s (%2$s)"
-msgstr ""
+msgstr "%1$s (%2$s)"
 
 #: lib/command.php:318
 #, php-format
@@ -4410,24 +4396,21 @@ msgid "Error sending direct message."
 msgstr "Fel vid sändning av direktmeddelande."
 
 #: lib/command.php:422
-#, fuzzy
 msgid "Cannot repeat your own notice"
-msgstr "Kan inte stänga av notifikation."
+msgstr "Kan inte upprepa din egen notis"
 
 #: lib/command.php:427
-#, fuzzy
 msgid "Already repeated that notice"
-msgstr "Ta bort denna notis"
+msgstr "Redan upprepat denna notis"
 
 #: lib/command.php:435
-#, fuzzy, php-format
+#, php-format
 msgid "Notice from %s repeated"
-msgstr "Notis postad"
+msgstr "Notis fron %s upprepad"
 
 #: lib/command.php:437
-#, fuzzy
 msgid "Error repeating notice."
-msgstr "Fel vid sparande av notis."
+msgstr "Fel vid upprepning av notis."
 
 #: lib/command.php:491
 #, php-format
@@ -4486,9 +4469,9 @@ msgid "Login command is disabled"
 msgstr "Inloggningskommando är inaktiverat"
 
 #: lib/command.php:664
-#, fuzzy, php-format
+#, php-format
 msgid "Could not create login token for %s"
-msgstr "Kunde inte skapa alias."
+msgstr "Kunde inte skapa inloggnings-token för %s"
 
 #: lib/command.php:669
 #, php-format
@@ -4786,7 +4769,7 @@ msgstr "kB"
 #: lib/jabber.php:191
 #, php-format
 msgid "[%s]"
-msgstr ""
+msgstr "[%s]"
 
 #: lib/joinform.php:114
 msgid "Join"
@@ -5122,9 +5105,8 @@ msgid "in context"
 msgstr "i sammanhang"
 
 #: lib/noticelist.php:548
-#, fuzzy
 msgid "Repeated by"
-msgstr "Skapad"
+msgstr "Upprepad av"
 
 #: lib/noticelist.php:577
 msgid "Reply to this notice"
@@ -5135,9 +5117,8 @@ msgid "Reply"
 msgstr "Svara"
 
 #: lib/noticelist.php:620
-#, fuzzy
 msgid "Notice repeated"
-msgstr "Notis borttagen."
+msgstr "Notis upprepad"
 
 #: lib/nudgeform.php:116
 msgid "Nudge this user"
@@ -5237,14 +5218,12 @@ msgid "All groups"
 msgstr "Alla grupper"
 
 #: lib/profileformaction.php:123
-#, fuzzy
 msgid "No return-to arguments."
-msgstr "Inga \"return-to\"-argument"
+msgstr "Inga \"return-to\"-argument."
 
 #: lib/profileformaction.php:137
-#, fuzzy
 msgid "Unimplemented method."
-msgstr "inte implementerad metod"
+msgstr "Inte implementerad metod."
 
 #: lib/publicgroupnav.php:78
 msgid "Public"
@@ -5267,14 +5246,12 @@ msgid "Popular"
 msgstr "Populärt"
 
 #: lib/repeatform.php:107 lib/repeatform.php:132
-#, fuzzy
 msgid "Repeat this notice"
-msgstr "Svara på detta inlägg"
+msgstr "Upprepa detta inlägg"
 
 #: lib/repeatform.php:132
-#, fuzzy
 msgid "Repeat"
-msgstr "Återställ"
+msgstr "Upprepa"
 
 #: lib/sandboxform.php:67
 #, fuzzy
@@ -5446,51 +5423,50 @@ msgid "Message"
 msgstr "Meddelande"
 
 #: lib/userprofile.php:311
-#, fuzzy
 msgid "Moderate"
 msgstr "Moderera"
 
-#: lib/util.php:829
+#: lib/util.php:837
 msgid "a few seconds ago"
 msgstr "ett par sekunder sedan"
 
-#: lib/util.php:831
+#: lib/util.php:839
 msgid "about a minute ago"
 msgstr "för nån minut sedan"
 
-#: lib/util.php:833
+#: lib/util.php:841
 #, php-format
 msgid "about %d minutes ago"
 msgstr "för %d minuter sedan"
 
-#: lib/util.php:835
+#: lib/util.php:843
 msgid "about an hour ago"
 msgstr "för en timma sedan"
 
-#: lib/util.php:837
+#: lib/util.php:845
 #, php-format
 msgid "about %d hours ago"
 msgstr "för %d timmar sedan"
 
-#: lib/util.php:839
+#: lib/util.php:847
 msgid "about a day ago"
 msgstr "för en dag sedan"
 
-#: lib/util.php:841
+#: lib/util.php:849
 #, php-format
 msgid "about %d days ago"
 msgstr "för %d dagar sedan"
 
-#: lib/util.php:843
+#: lib/util.php:851
 msgid "about a month ago"
 msgstr "för en månad sedan"
 
-#: lib/util.php:845
+#: lib/util.php:853
 #, php-format
 msgid "about %d months ago"
 msgstr "för %d månader sedan"
 
-#: lib/util.php:847
+#: lib/util.php:855
 msgid "about a year ago"
 msgstr "för ett år sedan"
 

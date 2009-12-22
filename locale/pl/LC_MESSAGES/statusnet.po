@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-16 22:51+0000\n"
-"PO-Revision-Date: 2009-12-16 22:52:51+0000\n"
+"POT-Creation-Date: 2009-12-21 21:17+0000\n"
+"PO-Revision-Date: 2009-12-21 21:18:27+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: MediaWiki 1.16alpha (r60142); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60279); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pl\n"
 "X-Message-Group: out-statusnet\n"
@@ -447,14 +447,12 @@ msgid "No such notice."
 msgstr "Nie ma takiego wpisu."
 
 #: actions/apistatusesretweet.php:83
-#, fuzzy
 msgid "Cannot repeat your own notice."
-msgstr "Nie można włączyć powiadomień."
+msgstr "Nie można powtórzyć własnego wpisu."
 
 #: actions/apistatusesretweet.php:91
-#, fuzzy
 msgid "Already repeated that notice."
-msgstr "Usuń ten wpis"
+msgstr "Już powtórzono ten wpis."
 
 #: actions/apistatusesshow.php:138
 msgid "Status deleted."
@@ -528,17 +526,17 @@ msgstr "Użytkownik %s aktualizuje od każdego."
 #: actions/apitimelineretweetedbyme.php:112
 #, php-format
 msgid "Repeated by %s"
-msgstr ""
+msgstr "Powtórzone przez użytkownika %s"
 
 #: actions/apitimelineretweetedtome.php:111
-#, fuzzy, php-format
+#, php-format
 msgid "Repeated to %s"
-msgstr "Odpowiedzi na %s"
+msgstr "Powtórzone dla %s"
 
 #: actions/apitimelineretweetsofme.php:112
-#, fuzzy, php-format
+#, php-format
 msgid "Repeats of %s"
-msgstr "Odpowiedzi na %s"
+msgstr "Powtórzenia %s"
 
 #: actions/apitimelinetag.php:102 actions/tag.php:66
 #, php-format
@@ -1269,29 +1267,25 @@ msgid "Featured users, page %d"
 msgstr "Znani użytkownicy, strona %d"
 
 #: actions/featured.php:99
-#, php-format
-msgid "A selection of some of the great users on %s"
+#, fuzzy, php-format
+msgid "A selection of some great users on %s"
 msgstr "Wybór znanych użytkowników na %s"
 
 #: actions/file.php:34
-#, fuzzy
 msgid "No notice ID."
-msgstr "Brak wpisu"
+msgstr "Brak identyfikatora wpisu."
 
 #: actions/file.php:38
-#, fuzzy
 msgid "No notice."
-msgstr "Brak wpisu"
+msgstr "Brak wpisu."
 
 #: actions/file.php:42
-#, fuzzy
 msgid "No attachments."
-msgstr "Brak załączników"
+msgstr "Brak załączników."
 
 #: actions/file.php:51
-#, fuzzy
 msgid "No uploaded attachments."
-msgstr "Nie wysłano załączników"
+msgstr "Nie wysłano załączników."
 
 #: actions/finishremotesubscribe.php:69
 msgid "Not expecting this response!"
@@ -2875,35 +2869,28 @@ msgid "Couldn’t get a request token."
 msgstr "Nie można uzyskać tokenu żądana."
 
 #: actions/repeat.php:57
-#, fuzzy
 msgid "Only logged-in users can repeat notices."
-msgstr "Tylko użytkownik może czytać swoje skrzynki pocztowe."
+msgstr "Tylko zalogowani użytkownicy mogą powtarzać wpisy."
 
 #: actions/repeat.php:64 actions/repeat.php:71
-#, fuzzy
 msgid "No notice specified."
-msgstr "Nie podano profilu."
+msgstr "Nie podano wpisu."
 
 #: actions/repeat.php:76
-#, fuzzy
 msgid "You can't repeat your own notice."
-msgstr ""
-"Nie można się zarejestrować, jeśli nie zgadzasz się z warunkami licencji."
+msgstr "Nie można powtórzyć własnego wpisu."
 
 #: actions/repeat.php:90
-#, fuzzy
 msgid "You already repeated that notice."
-msgstr "Użytkownik jest już zablokowany."
+msgstr "Już powtórzono ten wpis."
 
 #: actions/repeat.php:114 lib/noticelist.php:621
-#, fuzzy
 msgid "Repeated"
-msgstr "Utworzono"
+msgstr "Powtórzono"
 
 #: actions/repeat.php:119
-#, fuzzy
 msgid "Repeated!"
-msgstr "Utworzono"
+msgstr "Powtórzono."
 
 #: actions/replies.php:125 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
@@ -3241,9 +3228,9 @@ msgstr ""
 "(http://status.net/). "
 
 #: actions/showstream.php:313
-#, fuzzy, php-format
+#, php-format
 msgid "Repeat of %s"
-msgstr "Odpowiedzi na %s"
+msgstr "Powtórzenia %s"
 
 #: actions/silence.php:65 actions/unsilence.php:65
 msgid "You cannot silence users on this site."
@@ -3715,7 +3702,6 @@ msgid "Notice feed for tag %s (Atom)"
 msgstr "Kanał wpisów dla znacznika %s (Atom)"
 
 #: actions/tagother.php:39
-#, fuzzy
 msgid "No ID argument."
 msgstr "Brak parametru identyfikatora."
 
@@ -3987,9 +3973,8 @@ msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "Błędny typ obrazu dla adresu URL awatara \"%s\"."
 
 #: actions/userbyid.php:70
-#, fuzzy
 msgid "No ID."
-msgstr "Brak identyfikatora"
+msgstr "Brak identyfikatora."
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 msgid "Profile design"
@@ -4101,9 +4086,9 @@ msgid "DB error inserting reply: %s"
 msgstr "Błąd bazy danych podczas wprowadzania odpowiedzi: %s"
 
 #: classes/Notice.php:1371
-#, fuzzy, php-format
+#, php-format
 msgid "RT @%1$s %2$s"
-msgstr "%1$s (%2$s)"
+msgstr "RT @%1$s %2$s"
 
 #: classes/User.php:368
 #, php-format
@@ -4466,24 +4451,21 @@ msgid "Error sending direct message."
 msgstr "Błąd podczas wysyłania bezpośredniej wiadomości."
 
 #: lib/command.php:422
-#, fuzzy
 msgid "Cannot repeat your own notice"
-msgstr "Nie można włączyć powiadomień."
+msgstr "Nie można powtórzyć własnego wpisu"
 
 #: lib/command.php:427
-#, fuzzy
 msgid "Already repeated that notice"
-msgstr "Usuń ten wpis"
+msgstr "Już powtórzono ten wpis"
 
 #: lib/command.php:435
-#, fuzzy, php-format
+#, php-format
 msgid "Notice from %s repeated"
-msgstr "Wysłano wpis"
+msgstr "Powtórzono wpis od użytkownika %s"
 
 #: lib/command.php:437
-#, fuzzy
 msgid "Error repeating notice."
-msgstr "Błąd podczas zapisywania wpisu."
+msgstr "Błąd podczas powtarzania wpisu."
 
 #: lib/command.php:491
 #, php-format
@@ -5294,9 +5276,8 @@ msgid "in context"
 msgstr "w rozmowie"
 
 #: lib/noticelist.php:548
-#, fuzzy
 msgid "Repeated by"
-msgstr "Utworzono"
+msgstr "Powtórzone przez"
 
 #: lib/noticelist.php:577
 msgid "Reply to this notice"
@@ -5307,9 +5288,8 @@ msgid "Reply"
 msgstr "Odpowiedz"
 
 #: lib/noticelist.php:620
-#, fuzzy
 msgid "Notice repeated"
-msgstr "Usunięto wpis."
+msgstr "Powtórzono wpis"
 
 #: lib/nudgeform.php:116
 msgid "Nudge this user"
@@ -5409,14 +5389,12 @@ msgid "All groups"
 msgstr "Wszystkie grupy"
 
 #: lib/profileformaction.php:123
-#, fuzzy
 msgid "No return-to arguments."
-msgstr "Brak parametrów powrotu"
+msgstr "Brak parametrów powrotu."
 
 #: lib/profileformaction.php:137
-#, fuzzy
 msgid "Unimplemented method."
-msgstr "niezaimplementowana metoda"
+msgstr "Niezaimplementowana metoda."
 
 #: lib/publicgroupnav.php:78
 msgid "Public"
@@ -5439,14 +5417,12 @@ msgid "Popular"
 msgstr "Popularne"
 
 #: lib/repeatform.php:107 lib/repeatform.php:132
-#, fuzzy
 msgid "Repeat this notice"
-msgstr "Odpowiedz na ten wpis"
+msgstr "Powtórz ten wpis"
 
 #: lib/repeatform.php:132
-#, fuzzy
 msgid "Repeat"
-msgstr "Przywróć"
+msgstr "Powtórz"
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"
@@ -5617,47 +5593,47 @@ msgstr "Wiadomość"
 msgid "Moderate"
 msgstr "Moderuj"
 
-#: lib/util.php:829
+#: lib/util.php:837
 msgid "a few seconds ago"
 msgstr "kilka sekund temu"
 
-#: lib/util.php:831
+#: lib/util.php:839
 msgid "about a minute ago"
 msgstr "około minutę temu"
 
-#: lib/util.php:833
+#: lib/util.php:841
 #, php-format
 msgid "about %d minutes ago"
 msgstr "około %d minut temu"
 
-#: lib/util.php:835
+#: lib/util.php:843
 msgid "about an hour ago"
 msgstr "około godzinę temu"
 
-#: lib/util.php:837
+#: lib/util.php:845
 #, php-format
 msgid "about %d hours ago"
 msgstr "około %d godzin temu"
 
-#: lib/util.php:839
+#: lib/util.php:847
 msgid "about a day ago"
 msgstr "blisko dzień temu"
 
-#: lib/util.php:841
+#: lib/util.php:849
 #, php-format
 msgid "about %d days ago"
 msgstr "około %d dni temu"
 
-#: lib/util.php:843
+#: lib/util.php:851
 msgid "about a month ago"
 msgstr "około miesiąc temu"
 
-#: lib/util.php:845
+#: lib/util.php:853
 #, php-format
 msgid "about %d months ago"
 msgstr "około %d miesięcy temu"
 
-#: lib/util.php:847
+#: lib/util.php:855
 msgid "about a year ago"
 msgstr "około rok temu"
 

@@ -1,90 +1,86 @@
-# Translation of StatusNet to Icelandic
+# Translation of StatusNet to Persian
 #
-# Author@translatewiki.net: McDutchie
+# Author@translatewiki.net: Everplays
 # --
 # This file is distributed under the same license as the StatusNet package.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: StatusNet\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-21 21:17+0000\n"
-"PO-Revision-Date: 2009-12-21 21:17:59+0000\n"
-"Language-Team: Icelandic\n"
+"POT-Creation-Date: 2009-11-19 10:43+0000\n"
+"PO-Revision-Date: 2009-12-17 15:32+0330\n"
+"Last-Translator: Ahmad Sufi Mahmudi\n"
+"Language-Team: Persian\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60279); Translate extension (2009-12-06)\n"
-"X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
-"X-Language-Code: is\n"
+"X-Language-Code: fa\n"
 "X-Message-Group: out-statusnet\n"
-"Plural-Forms: nplurals=2; plural=(n % 100 != 1 && n % 100 != 21 && n % 100 !"
-"= 31 && n % 100 != 41 && n % 100 != 51 && n % 100 != 61 && n % 100 != 71 && "
-"n % 100 != 81 && n % 100 != 91);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 1.0\n"
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
 #: actions/showfavorites.php:137 actions/tag.php:51
-#, fuzzy
 msgid "No such page"
-msgstr "Ekkert þannig merki."
+msgstr "چنین صفحه‌ای وجود ندارد"
 
 #: actions/all.php:74 actions/allrss.php:68
 #: actions/apiaccountupdatedeliverydevice.php:113
-#: actions/apiaccountupdateprofile.php:105
 #: actions/apiaccountupdateprofilebackgroundimage.php:116
-#: actions/apiaccountupdateprofileimage.php:105 actions/apiblockcreate.php:97
-#: actions/apiblockdestroy.php:96 actions/apidirectmessage.php:77
-#: actions/apidirectmessagenew.php:75 actions/apigroupcreate.php:112
+#: actions/apiaccountupdateprofileimage.php:105
+#: actions/apiaccountupdateprofile.php:105 actions/apiblockcreate.php:97
+#: actions/apiblockdestroy.php:96 actions/apidirectmessagenew.php:75
+#: actions/apidirectmessage.php:77 actions/apigroupcreate.php:112
 #: actions/apigroupismember.php:90 actions/apigroupjoin.php:99
 #: actions/apigroupleave.php:99 actions/apigrouplist.php:90
 #: actions/apistatusesupdate.php:144 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:79
-#: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
-#: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
-#: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
-#: actions/microsummary.php:62 actions/newmessage.php:116
-#: actions/remotesubscribe.php:145 actions/remotesubscribe.php:154
-#: actions/replies.php:73 actions/repliesrss.php:38
-#: actions/showfavorites.php:105 actions/userbyid.php:74
-#: actions/usergroups.php:91 actions/userrss.php:38 actions/xrds.php:71
-#: lib/command.php:163 lib/command.php:311 lib/command.php:364
-#: lib/command.php:410 lib/command.php:471 lib/command.php:527
+#: actions/apitimelinementions.php:79 actions/apitimelineuser.php:81
+#: actions/avatarbynickname.php:75 actions/favoritesrss.php:74
+#: actions/foaf.php:40 actions/foaf.php:58 actions/microsummary.php:62
+#: actions/newmessage.php:116 actions/remotesubscribe.php:145
+#: actions/remotesubscribe.php:154 actions/replies.php:73
+#: actions/repliesrss.php:38 actions/showfavorites.php:105
+#: actions/userbyid.php:74 actions/usergroups.php:91 actions/userrss.php:38
+#: actions/xrds.php:71 lib/command.php:163 lib/command.php:311
+#: lib/command.php:364 lib/command.php:411 lib/command.php:466
 #: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
 #: lib/subs.php:34 lib/subs.php:116
 msgid "No such user."
-msgstr "Enginn svoleiðis notandi."
+msgstr "چنین کاربری وجود ندارد."
 
 #: actions/all.php:84
 #, php-format
 msgid "%s and friends, page %d"
-msgstr "%s og vinirnir, síða %d"
+msgstr "%s و دوستان، صفحهٔ %d"
 
 #: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
-#: actions/apitimelinefriends.php:115 actions/apitimelinehome.php:115
-#: lib/personalgroupnav.php:100
+#: actions/apitimelinefriends.php:114 lib/personalgroupnav.php:100
 #, php-format
 msgid "%s and friends"
-msgstr "%s og vinirnir"
+msgstr "%s و دوستان"
 
 #: actions/all.php:99
 #, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
-msgstr ""
+msgstr "خوراک دوستان %s (RSS 1.0)"
 
 #: actions/all.php:107
 #, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
-msgstr ""
+msgstr "خوراک دوستان %s (RSS 2.0)"
 
 #: actions/all.php:115
 #, php-format
 msgid "Feed for friends of %s (Atom)"
-msgstr ""
+msgstr "خوراک دوستان %s (Atom)"
 
 #: actions/all.php:127
 #, php-format
 msgid ""
 "This is the timeline for %s and friends but no one has posted anything yet."
-msgstr ""
+msgstr "این خط‌زمانی %s و دوستانش است، اما هیچ‌یک تاکنون چیزی پست نکرده‌اند."
 
 #: actions/all.php:132
 #, php-format
@@ -92,6 +88,8 @@ msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
 "something yourself."
 msgstr ""
+"پیگیری افراد بیش‌تری بشوید [به یک گروه بپیوندید](%%action.groups%%) یا "
+"خودتان چیزی را ارسال کنید."
 
 #: actions/all.php:134
 #, php-format
@@ -105,270 +103,254 @@ msgstr ""
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
 "post a notice to his or her attention."
-msgstr ""
+msgstr "چرا [ثبت نام](%%%%action.register%%%%) نمی‌کنید و سپس با فرستادن پیام توجه %s را جلب کنید."
 
 #: actions/all.php:165
 msgid "You and friends"
-msgstr ""
+msgstr "شما و دوستان"
 
-#: actions/allrss.php:119 actions/apitimelinefriends.php:122
-#: actions/apitimelinehome.php:122
+#: actions/allrss.php:119 actions/apitimelinefriends.php:121
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
-msgstr "Færslur frá %1$s og vinum á %2$s!"
+msgstr "به روز رسانی از %1$ و دوستان در %2$"
 
 #: actions/apiaccountratelimitstatus.php:70
 #: actions/apiaccountupdatedeliverydevice.php:93
-#: actions/apiaccountupdateprofile.php:97
 #: actions/apiaccountupdateprofilebackgroundimage.php:94
 #: actions/apiaccountupdateprofilecolors.php:118
-#, fuzzy
+#: actions/apiaccountupdateprofile.php:97
 msgid "API method not found."
-msgstr "Aðferð í forritsskilum fannst ekki!"
+msgstr "رابط مورد نظر پیدا نشد."
 
 #: actions/apiaccountupdatedeliverydevice.php:85
-#: actions/apiaccountupdateprofile.php:89
 #: actions/apiaccountupdateprofilebackgroundimage.php:86
 #: actions/apiaccountupdateprofilecolors.php:110
-#: actions/apiaccountupdateprofileimage.php:84 actions/apiblockcreate.php:89
+#: actions/apiaccountupdateprofileimage.php:84
+#: actions/apiaccountupdateprofile.php:89 actions/apiblockcreate.php:89
 #: actions/apiblockdestroy.php:88 actions/apidirectmessagenew.php:117
 #: actions/apifavoritecreate.php:90 actions/apifavoritedestroy.php:91
 #: actions/apifriendshipscreate.php:91 actions/apifriendshipsdestroy.php:91
 #: actions/apigroupcreate.php:104 actions/apigroupjoin.php:91
-#: actions/apigroupleave.php:91 actions/apistatusesretweet.php:65
-#: actions/apistatusesupdate.php:114
+#: actions/apigroupleave.php:91 actions/apistatusesupdate.php:114
 msgid "This method requires a POST."
-msgstr "Þessi aðferð krefst POST."
+msgstr "برای استفاده از این روش باید اطلاعات را به صورت پست بفرستید"
 
 #: actions/apiaccountupdatedeliverydevice.php:105
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
 "none"
-msgstr ""
+msgstr "شما باید یک پارامتر با نام device و مقدار sms، im یا none مشخص کنید."
 
 #: actions/apiaccountupdatedeliverydevice.php:132
-#, fuzzy
 msgid "Could not update user."
-msgstr "Gat ekki uppfært notanda."
-
-#: actions/apiaccountupdateprofile.php:112
-#: actions/apiaccountupdateprofilebackgroundimage.php:194
-#: actions/apiaccountupdateprofilecolors.php:185
-#: actions/apiaccountupdateprofileimage.php:130 actions/apiusershow.php:108
-#: actions/avatarbynickname.php:80 actions/foaf.php:65 actions/replies.php:80
-#: actions/usergroups.php:98 lib/galleryaction.php:66 lib/profileaction.php:84
-msgid "User has no profile."
-msgstr "Notandi hefur enga persónulega síðu."
-
-#: actions/apiaccountupdateprofile.php:147
-#, fuzzy
-msgid "Could not save profile."
-msgstr "Gat ekki vistað persónulega síðu."
+msgstr "نمی‌توان کاربر را به‌هنگام‌سازی کرد."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97
-#: actions/apistatusesupdate.php:127 actions/avatarsettings.php:257
+#: actions/apistatusesupdate.php:127 actions/avatarsettings.php:254
 #: actions/designadminpanel.php:122 actions/newnotice.php:94
 #: lib/designsettings.php:283
 #, php-format
 msgid ""
 "The server was unable to handle that much POST data (%s bytes) due to its "
 "current configuration."
-msgstr ""
+msgstr "به دلیل تنظبمات، سرور نمی‌تواند این مقدار اطلاعات (%s بایت( را دریافت کند."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:136
 #: actions/apiaccountupdateprofilebackgroundimage.php:146
 #: actions/apiaccountupdateprofilecolors.php:164
 #: actions/apiaccountupdateprofilecolors.php:174
 msgid "Unable to save your design settings."
-msgstr ""
+msgstr "نمی‌توان تنظیمات طرح‌تان را ذخیره کرد."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:187
 #: actions/apiaccountupdateprofilecolors.php:142
-#, fuzzy
 msgid "Could not update your design."
-msgstr "Gat ekki uppfært hóp."
+msgstr "نمی‌توان طرح‌تان به‌هنگام‌سازی کرد."
 
-#: actions/apiblockcreate.php:105
-#, fuzzy
-msgid "You cannot block yourself!"
-msgstr "Gat ekki uppfært notanda."
+#: actions/apiaccountupdateprofilebackgroundimage.php:194
+#: actions/apiaccountupdateprofilecolors.php:185
+#: actions/apiaccountupdateprofileimage.php:130
+#: actions/apiaccountupdateprofile.php:112 actions/apiusershow.php:108
+#: actions/avatarbynickname.php:80 actions/foaf.php:65 actions/replies.php:80
+#: actions/usergroups.php:98 lib/galleryaction.php:66 lib/profileaction.php:84
+msgid "User has no profile."
+msgstr "کاربر هیچ شناس‌نامه‌ای ندارد."
 
-#: actions/apiblockcreate.php:119
+#: actions/apiaccountupdateprofile.php:147
+msgid "Could not save profile."
+msgstr "نمی‌توان شناس‌نامه را ذخیره کرد."
+
+#: actions/apiblockcreate.php:108
 msgid "Block user failed."
-msgstr "Mistókst að loka á notanda."
+msgstr "مسدود کردن کاربر شکست خورد."
 
 #: actions/apiblockdestroy.php:107
 msgid "Unblock user failed."
-msgstr "Mistókst að opna fyrir notanda."
+msgstr "باز کردن کاربر ناموفق بود."
+
+#: actions/apidirectmessagenew.php:126
+msgid "No message text!"
+msgstr "هیچ پیام متنی وجود ندارد!"
+
+#: actions/apidirectmessagenew.php:135 actions/newmessage.php:150
+#, php-format
+msgid "That's too long. Max message size is %d chars."
+msgstr "این بسیار طولانی است. بیشینهٔ اندازهٔ پیام %d حرف است."
+
+#: actions/apidirectmessagenew.php:146
+msgid "Recipient user not found."
+msgstr "کاربر گیرنده یافت نشد."
+
+#: actions/apidirectmessagenew.php:150
+msgid "Can't send direct messages to users who aren't your friend."
+msgstr "نمی‌توان پیام مستقیم را به کاربرانی که دوست شما نیستند، فرستاد."
 
 #: actions/apidirectmessage.php:89
-#, fuzzy, php-format
+#, php-format
 msgid "Direct messages from %s"
-msgstr "Bein skilaboð til %s"
+msgstr "پیام‌های مستقیم از %s"
 
 #: actions/apidirectmessage.php:93
 #, php-format
 msgid "All the direct messages sent from %s"
-msgstr "Öll bein skilaboð send frá %s"
+msgstr "تمام پیام‌های مستقیم فرستاده‌شده از %s"
 
 #: actions/apidirectmessage.php:101
 #, php-format
 msgid "Direct messages to %s"
-msgstr "Bein skilaboð til %s"
+msgstr "پیام‌های مستقیم به %s"
 
 #: actions/apidirectmessage.php:105
 #, php-format
 msgid "All the direct messages sent to %s"
-msgstr "Öll bein skilaboð til %s"
+msgstr "تمام پیام‌های مستقیم فرستاده‌شده به %s"
 
 #: actions/apidirectmessage.php:156 actions/apifavoritecreate.php:99
 #: actions/apifavoritedestroy.php:100 actions/apifriendshipscreate.php:100
 #: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:129
 #: actions/apigroupcreate.php:136 actions/apigroupismember.php:114
 #: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
-#: actions/apigrouplist.php:132 actions/apigrouplistall.php:120
+#: actions/apigrouplistall.php:120 actions/apigrouplist.php:132
 #: actions/apigroupmembership.php:106 actions/apigroupshow.php:105
 #: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
-#: actions/apistatusesretweets.php:112 actions/apistatusesshow.php:108
-#: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
-#: actions/apisubscriptions.php:111 actions/apitimelinefavorites.php:146
-#: actions/apitimelinefriends.php:156 actions/apitimelinegroup.php:150
-#: actions/apitimelinehome.php:156 actions/apitimelinementions.php:151
-#: actions/apitimelinepublic.php:131 actions/apitimelineretweetedbyme.php:122
-#: actions/apitimelineretweetedtome.php:121
-#: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
-#: actions/apitimelineuser.php:165 actions/apiusershow.php:101
+#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:133
+#: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
+#: actions/apitimelinefavorites.php:144 actions/apitimelinefriends.php:154
+#: actions/apitimelinegroup.php:147 actions/apitimelinementions.php:149
+#: actions/apitimelinepublic.php:130 actions/apitimelinetag.php:139
+#: actions/apitimelineuser.php:163 actions/apiusershow.php:101
 msgid "API method not found!"
-msgstr "Aðferð í forritsskilum fannst ekki!"
-
-#: actions/apidirectmessagenew.php:126
-msgid "No message text!"
-msgstr "Enginn texti í skilaboðum!"
-
-#: actions/apidirectmessagenew.php:135 actions/newmessage.php:150
-#, fuzzy, php-format
-msgid "That's too long. Max message size is %d chars."
-msgstr "Þetta er of langt. Hámarkslengd skilaboða er 140 tákn."
-
-#: actions/apidirectmessagenew.php:146
-msgid "Recipient user not found."
-msgstr "Móttakandi fannst ekki."
-
-#: actions/apidirectmessagenew.php:150
-msgid "Can't send direct messages to users who aren't your friend."
-msgstr "Gat ekki sent bein skilaboð til notenda sem eru ekki vinir þínir."
+msgstr "رابط پیدا نشد!"
 
 #: actions/apifavoritecreate.php:108 actions/apifavoritedestroy.php:109
 #: actions/apistatusesdestroy.php:113
 msgid "No status found with that ID."
-msgstr "Engin staða fundin með þessu kenni."
+msgstr "هیچ وضعیتی با آن شناسه پیدا نشد."
 
 #: actions/apifavoritecreate.php:119
 msgid "This status is already a favorite!"
-msgstr ""
+msgstr "این وضعیت درحال حاضر یک وضعیت مورد علاقه است!"
 
 #: actions/apifavoritecreate.php:130 actions/favor.php:84 lib/command.php:176
 msgid "Could not create favorite."
-msgstr "Gat ekki búið til uppáhald."
+msgstr "نمی‌توان وضعیت را موردعلاقه کرد."
 
 #: actions/apifavoritedestroy.php:122
 msgid "That status is not a favorite!"
-msgstr ""
+msgstr "این وضعیت یک وضعیت موردعلاقه نیست!"
 
 #: actions/apifavoritedestroy.php:134 actions/disfavor.php:87
 msgid "Could not delete favorite."
-msgstr "Gat ekki eytt uppáhaldi."
+msgstr "نمی‌توان وضعیت موردعلاقه را حذف کرد."
 
 #: actions/apifriendshipscreate.php:109
 msgid "Could not follow user: User not found."
-msgstr "Get ekki fylgst með notanda: Notandinn finnst ekki."
+msgstr "نمی‌توان کاربر را دنبال کرد: کاربر یافت نشد."
 
 #: actions/apifriendshipscreate.php:118
 #, php-format
 msgid "Could not follow user: %s is already on your list."
-msgstr ""
-"Get ekki fylgst með notanda: %s. Þessi notandi er nú þegar í listanum þínum."
+msgstr "نمی‌توان کاربر را دنبال کرد: %s  هم‌اکنون در لیست شما است."
 
 #: actions/apifriendshipsdestroy.php:109
-#, fuzzy
 msgid "Could not unfollow user: User not found."
-msgstr "Get ekki fylgst með notanda: Notandinn finnst ekki."
+msgstr "نمی‌توان کاربر را دنبال نکرد: کاربر یافت نشد."
 
 #: actions/apifriendshipsdestroy.php:120
 msgid "You cannot unfollow yourself!"
-msgstr ""
+msgstr "نمی‌توانید خودتان را دنبال نکنید!"
 
 #: actions/apifriendshipsexists.php:94
 msgid "Two user ids or screen_names must be supplied."
-msgstr "Tvo notendakenni eða skjáarnöfn verða að vera uppgefin."
+msgstr "باید ۲ شناسه‌ی کاربر یا نام ظاهری وارد کنید."
 
 #: actions/apifriendshipsshow.php:135
 msgid "Could not determine source user."
-msgstr ""
+msgstr "نمی‌توان کاربر منبع را تعیین کرد."
 
 #: actions/apifriendshipsshow.php:143
 msgid "Could not find target user."
-msgstr ""
+msgstr "نمی‌توان کاربر هدف را پیدا کرد."
 
 #: actions/apigroupcreate.php:164 actions/editgroup.php:182
 #: actions/newgroup.php:126 actions/profilesettings.php:208
 #: actions/register.php:205
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
-msgstr "Stuttnefni geta bara verið lágstafir og tölustafir en engin bil."
+msgstr "لقب باید شامل حروف کوچک و اعداد و بدون فاصله باشد."
 
 #: actions/apigroupcreate.php:173 actions/editgroup.php:186
 #: actions/newgroup.php:130 actions/profilesettings.php:231
 #: actions/register.php:208
 msgid "Nickname already in use. Try another one."
-msgstr "Stuttnefni nú þegar í notkun. Prófaðu eitthvað annað."
+msgstr "این لقب در حال حاضر ثبت شده است. لطفا یکی دیگر انتخاب کنید."
 
 #: actions/apigroupcreate.php:180 actions/editgroup.php:189
 #: actions/newgroup.php:133 actions/profilesettings.php:211
 #: actions/register.php:210
 msgid "Not a valid nickname."
-msgstr "Ekki tækt stuttnefni."
+msgstr "لقب نا معتبر."
 
 #: actions/apigroupcreate.php:196 actions/editgroup.php:195
 #: actions/newgroup.php:139 actions/profilesettings.php:215
 #: actions/register.php:217
 msgid "Homepage is not a valid URL."
-msgstr "Heimasíða er ekki gild vefslóð."
+msgstr "برگهٔ آغازین یک نشانی معتبر نیست."
 
 #: actions/apigroupcreate.php:205 actions/editgroup.php:198
 #: actions/newgroup.php:142 actions/profilesettings.php:218
 #: actions/register.php:220
 msgid "Full name is too long (max 255 chars)."
-msgstr "Fullt nafn er of langt (í mesta lagi 255 stafir)."
+msgstr "نام کامل طولانی است (۲۵۵ حرف در حالت بیشینه(."
 
 #: actions/apigroupcreate.php:213
-#, fuzzy, php-format
+#, php-format
 msgid "Description is too long (max %d chars)."
-msgstr "Lýsing er of löng (í mesta lagi 140 tákn)."
+msgstr "توصیف بسیار زیاد است (حداکثر %d حرف)."
 
 #: actions/apigroupcreate.php:224 actions/editgroup.php:204
 #: actions/newgroup.php:148 actions/profilesettings.php:225
 #: actions/register.php:227
 msgid "Location is too long (max 255 chars)."
-msgstr "Staðsetning er of löng (í mesta lagi 255 stafir)."
+msgstr "مکان طولانی است (حداکثر ۲۵۵ حرف)"
 
 #: actions/apigroupcreate.php:243 actions/editgroup.php:215
 #: actions/newgroup.php:159
 #, php-format
 msgid "Too many aliases! Maximum %d."
-msgstr ""
+msgstr "نام‌های مستعار بسیار زیاد هستند! حداکثر %d."
 
 #: actions/apigroupcreate.php:264 actions/editgroup.php:224
 #: actions/newgroup.php:168
 #, php-format
 msgid "Invalid alias: \"%s\""
-msgstr ""
+msgstr "نام‌مستعار غیر مجاز: «%s»"
 
 #: actions/apigroupcreate.php:273 actions/editgroup.php:228
 #: actions/newgroup.php:172
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
-msgstr ""
+msgstr "نام‌مستعار «%s» ازپیش گرفته‌شده‌است. یکی دیگر را امتحان کنید."
 
 #: actions/apigroupcreate.php:286 actions/editgroup.php:234
 #: actions/newgroup.php:178
@@ -378,289 +360,292 @@ msgstr ""
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:90 actions/apitimelinegroup.php:91
-#, fuzzy
 msgid "Group not found!"
-msgstr "Aðferð í forritsskilum fannst ekki!"
+msgstr "گروه یافت نشد!"
 
 #: actions/apigroupjoin.php:110
-#, fuzzy
 msgid "You are already a member of that group."
-msgstr "Þú ert nú þegar meðlimur í þessum hópi"
+msgstr "شما از پیش یک عضو این گروه هستید."
 
 #: actions/apigroupjoin.php:119 actions/joingroup.php:95 lib/command.php:221
 msgid "You have been blocked from that group by the admin."
-msgstr ""
+msgstr "دسترسی شما به گروه توسط مدیر آن محدود شده است."
 
 #: actions/apigroupjoin.php:138
-#, fuzzy, php-format
+#, php-format
 msgid "Could not join user %s to group %s."
-msgstr "Gat ekki bætt notandanum %s í hópinn %s"
+msgstr "عضویت %s در گروه %s نا موفق بود."
 
 #: actions/apigroupleave.php:114
-#, fuzzy
 msgid "You are not a member of this group."
-msgstr "Þú ert ekki meðlimur í þessum hópi."
+msgstr "شما یک عضو این گروه نیستید."
 
 #: actions/apigroupleave.php:124
-#, fuzzy, php-format
+#, php-format
 msgid "Could not remove user %s to group %s."
-msgstr "Gat ekki fjarlægt notandann %s úr hópnum %s"
-
-#: actions/apigrouplist.php:95
-#, fuzzy, php-format
-msgid "%s's groups"
-msgstr "Hópar %s"
-
-#: actions/apigrouplist.php:103
-#, fuzzy, php-format
-msgid "Groups %s is a member of on %s."
-msgstr "Hópar sem %s er meðlimur í"
+msgstr "خارج شدن %s از گروه %s نا موفق بود"
 
 #: actions/apigrouplistall.php:90 actions/usergroups.php:62
 #, php-format
 msgid "%s groups"
-msgstr "Hópar %s"
+msgstr "%s گروه"
 
 #: actions/apigrouplistall.php:94
-#, fuzzy, php-format
+#, php-format
 msgid "groups on %s"
-msgstr "Hópsaðgerðir"
+msgstr "گروه‌ها در %s"
+
+#: actions/apigrouplist.php:95
+#, php-format
+msgid "%s's groups"
+msgstr "گروه‌های %s"
+
+#: actions/apigrouplist.php:103
+#, php-format
+msgid "Groups %s is a member of on %s."
+msgstr ""
 
 #: actions/apistatusesdestroy.php:107
 msgid "This method requires a POST or DELETE."
-msgstr "Þessi aðferð krefst POST eða DELETE."
+msgstr "این روش نیازمند POST یا DELETE است."
 
 #: actions/apistatusesdestroy.php:130
 msgid "You may not delete another user's status."
-msgstr "Þú getur ekki eytt stöðu annars notanda."
-
-#: actions/apistatusesretweet.php:75 actions/apistatusesretweets.php:72
-#: actions/deletenotice.php:52 actions/shownotice.php:92
-msgid "No such notice."
-msgstr "Ekkert svoleiðis babl."
-
-#: actions/apistatusesretweet.php:83
-#, fuzzy
-msgid "Cannot repeat your own notice."
-msgstr "Get ekki kveikt á tilkynningum."
-
-#: actions/apistatusesretweet.php:91
-#, fuzzy
-msgid "Already repeated that notice."
-msgstr "Eyða þessu babli"
+msgstr "شما توانایی حذف وضعیت کاربر دیگری را ندارید."
 
 #: actions/apistatusesshow.php:138
 msgid "Status deleted."
-msgstr ""
+msgstr "وضعیت حذف شد."
 
 #: actions/apistatusesshow.php:144
 msgid "No status with that ID found."
-msgstr "Engin staða með þessu kenni fannst."
+msgstr "هیچ وضعیتی با آن شناسه یافت نشد."
 
 #: actions/apistatusesupdate.php:157 actions/newnotice.php:155
 #: scripts/maildaemon.php:71
-#, fuzzy, php-format
+#, php-format
 msgid "That's too long. Max notice size is %d chars."
-msgstr "Þetta er of langt. Hámarkslengd babls er 140 tákn."
+msgstr "خیلی طولانی است. حداکثر طول مجاز پیام %d حرف است."
 
 #: actions/apistatusesupdate.php:198
 msgid "Not found"
-msgstr "Fannst ekki"
+msgstr "یافت نشد"
 
-#: actions/apistatusesupdate.php:227 actions/newnotice.php:183
+#: actions/apistatusesupdate.php:227 actions/newnotice.php:178
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
-msgstr ""
+msgstr "حداکثر طول پیام %d حرف است که شامل ضمیمه نیز می‌باشد"
 
 #: actions/apisubscriptions.php:231 actions/apisubscriptions.php:261
-#, fuzzy
 msgid "Unsupported format."
-msgstr "Skráarsnið myndar ekki stutt."
+msgstr "قالب پشتیبانی نشده."
 
-#: actions/apitimelinefavorites.php:108
+#: actions/apitimelinefavorites.php:107
 #, php-format
 msgid "%s / Favorites from %s"
-msgstr "%s / Uppáhaldsbabl frá %s"
+msgstr "%s / دوست داشتنی از %s"
 
-#: actions/apitimelinefavorites.php:120
+#: actions/apitimelinefavorites.php:119
 #, php-format
 msgid "%s updates favorited by %s / %s."
-msgstr "%s færslur gerðar að uppáhaldsbabli af %s / %s."
+msgstr "%s به روز رسانی های دوست داشتنی %s / %s"
 
-#: actions/apitimelinegroup.php:109 actions/apitimelineuser.php:118
+#: actions/apitimelinegroup.php:108 actions/apitimelineuser.php:117
 #: actions/grouprss.php:131 actions/userrss.php:90
 #, php-format
 msgid "%s timeline"
-msgstr "Rás %s"
+msgstr "خط زمانی %s"
 
-#: actions/apitimelinegroup.php:117 actions/apitimelineuser.php:126
+#: actions/apitimelinegroup.php:116 actions/apitimelineuser.php:125
 #: actions/userrss.php:92
 #, php-format
 msgid "Updates from %1$s on %2$s!"
-msgstr "Færslur frá %1$s á %2$s!"
+msgstr "به روز رسانی‌های %1$s در %2$s"
 
-#: actions/apitimelinementions.php:117
+#: actions/apitimelinementions.php:116
 #, php-format
 msgid "%1$s / Updates mentioning %2$s"
-msgstr ""
+msgstr "%$1s / به روز رسانی های شامل %2$s"
 
-#: actions/apitimelinementions.php:127
+#: actions/apitimelinementions.php:126
 #, php-format
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
-msgstr "%1$s færslur sem svara færslum frá %2$s / %3$s."
+msgstr "%1$s به روز رسانی هایی که در پاسخ به $2$s / %3$s"
 
-#: actions/apitimelinepublic.php:107 actions/publicrss.php:103
+#: actions/apitimelinepublic.php:106 actions/publicrss.php:103
 #, php-format
 msgid "%s public timeline"
-msgstr "Almenningsrás %s"
+msgstr "%s خط‌زمانی عمومی"
 
-#: actions/apitimelinepublic.php:111 actions/publicrss.php:105
+#: actions/apitimelinepublic.php:110 actions/publicrss.php:105
 #, php-format
 msgid "%s updates from everyone!"
-msgstr "%s færslur frá öllum!"
+msgstr "%s به روز رسانی های عموم"
 
-#: actions/apitimelineretweetedbyme.php:112
-#, php-format
-msgid "Repeated by %s"
-msgstr ""
-
-#: actions/apitimelineretweetedtome.php:111
-#, fuzzy, php-format
-msgid "Repeated to %s"
-msgstr "Svör við %s"
-
-#: actions/apitimelineretweetsofme.php:112
-#, fuzzy, php-format
-msgid "Repeats of %s"
-msgstr "Svör við %s"
-
-#: actions/apitimelinetag.php:102 actions/tag.php:66
+#: actions/apitimelinetag.php:101 actions/tag.php:66
 #, php-format
 msgid "Notices tagged with %s"
-msgstr "Babl merkt með %s"
+msgstr "پیام‌هایی که با %s نشانه گزاری شده اند."
 
-#: actions/apitimelinetag.php:108 actions/tagrss.php:64
+#: actions/apitimelinetag.php:107 actions/tagrss.php:64
 #, php-format
 msgid "Updates tagged with %1$s on %2$s!"
-msgstr ""
+msgstr "پیام‌های نشانه گزاری شده با %1$s در %2$s"
 
 #: actions/apiusershow.php:96
 msgid "Not found."
-msgstr "Fannst ekki."
+msgstr "یافت نشد."
 
 #: actions/attachment.php:73
 msgid "No such attachment."
-msgstr ""
+msgstr "چنین پیوستی وجود ندارد."
 
-#: actions/avatarbynickname.php:59 actions/grouprss.php:91
-#: actions/leavegroup.php:76
+#: actions/avatarbynickname.php:59 actions/leavegroup.php:76
 msgid "No nickname."
-msgstr "Ekkert stuttnefni."
+msgstr "بدون لقب."
 
 #: actions/avatarbynickname.php:64
 msgid "No size."
-msgstr "Engin stærð."
+msgstr "بدون اندازه."
 
 #: actions/avatarbynickname.php:69
 msgid "Invalid size."
-msgstr "Ótæk stærð."
+msgstr "اندازه‌ی نادرست"
 
 #: actions/avatarsettings.php:67 actions/showgroup.php:221
 #: lib/accountsettingsaction.php:112
 msgid "Avatar"
-msgstr "Mynd"
+msgstr "چهره"
 
 #: actions/avatarsettings.php:78
 #, php-format
 msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr ""
+"شما می‌توانید چهرهٔ شخصی خود را بارگذاری کنید. حداکثر اندازه پرونده %s است."
 
-#: actions/avatarsettings.php:106 actions/avatarsettings.php:185
+#: actions/avatarsettings.php:106 actions/avatarsettings.php:182
 #: actions/grouplogo.php:178 actions/remotesubscribe.php:191
 #: actions/userauthorization.php:72 actions/userrss.php:103
 msgid "User without matching profile"
-msgstr "Notandi með enga persónulega síðu sem passar við"
+msgstr "کاربر بدون مشخصات"
 
-#: actions/avatarsettings.php:119 actions/avatarsettings.php:197
+#: actions/avatarsettings.php:119 actions/avatarsettings.php:194
 #: actions/grouplogo.php:251
 msgid "Avatar settings"
-msgstr "Stillingar fyrir mynd"
+msgstr "تنظیمات چهره"
 
-#: actions/avatarsettings.php:127 actions/avatarsettings.php:205
+#: actions/avatarsettings.php:126 actions/avatarsettings.php:202
 #: actions/grouplogo.php:199 actions/grouplogo.php:259
 msgid "Original"
-msgstr "Upphafleg mynd"
+msgstr "اصلی"
 
-#: actions/avatarsettings.php:142 actions/avatarsettings.php:217
+#: actions/avatarsettings.php:141 actions/avatarsettings.php:214
 #: actions/grouplogo.php:210 actions/grouplogo.php:271
 msgid "Preview"
-msgstr "Forsýn"
+msgstr "پیش‌نمایش"
 
-#: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:603
+#: actions/avatarsettings.php:148 lib/deleteuserform.php:66
+#: lib/noticelist.php:522
 msgid "Delete"
-msgstr "Eyða"
+msgstr "حذف"
 
-#: actions/avatarsettings.php:166 actions/grouplogo.php:233
+#: actions/avatarsettings.php:165 actions/grouplogo.php:233
 msgid "Upload"
-msgstr "Hlaða upp"
+msgstr "پایین‌گذاری"
 
-#: actions/avatarsettings.php:231 actions/grouplogo.php:286
+#: actions/avatarsettings.php:228 actions/grouplogo.php:286
 msgid "Crop"
-msgstr "Skera af"
+msgstr "برش"
 
-#: actions/avatarsettings.php:268 actions/disfavor.php:74
-#: actions/emailsettings.php:238 actions/favor.php:75
+#: actions/avatarsettings.php:265 actions/disfavor.php:74
+#: actions/emailsettings.php:237 actions/favor.php:75
 #: actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
-#: actions/invite.php:56 actions/login.php:135 actions/makeadmin.php:66
+#: actions/invite.php:56 actions/login.php:131 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
-#: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
-#: actions/subscribe.php:46 actions/tagother.php:166
-#: actions/unsubscribe.php:69 actions/userauthorization.php:52
-#: lib/designsettings.php:294
+#: actions/smssettings.php:228 actions/subedit.php:38 actions/subscribe.php:46
+#: actions/tagother.php:166 actions/unsubscribe.php:69
+#: actions/userauthorization.php:52 lib/designsettings.php:294
 msgid "There was a problem with your session token. Try again, please."
-msgstr "Það kom upp vandamál með setutókann þinn. Vinsamlegast reyndu aftur."
+msgstr "مشکلی در دریافت جلسه‌ی شما وجود دارد. لطفا بعدا سعی کنید."
 
-#: actions/avatarsettings.php:281 actions/designadminpanel.php:103
-#: actions/emailsettings.php:256 actions/grouplogo.php:319
+#: actions/avatarsettings.php:277 actions/designadminpanel.php:103
+#: actions/emailsettings.php:255 actions/grouplogo.php:319
 #: actions/imsettings.php:220 actions/recoverpassword.php:44
 #: actions/smssettings.php:248 lib/designsettings.php:304
 msgid "Unexpected form submission."
-msgstr "Bjóst ekki við innsendingu eyðublaðs."
+msgstr "ارسال غیر قابل انتظار فرم."
 
-#: actions/avatarsettings.php:328
+#: actions/avatarsettings.php:322
 msgid "Pick a square area of the image to be your avatar"
-msgstr ""
-"Veldu ferningslaga svæði á upphaflegu myndinni sem einkennismyndina þína"
+msgstr "یک مربع از عکس خود را انتخاب کنید تا چهره‌ی شما باشد."
 
-#: actions/avatarsettings.php:343 actions/grouplogo.php:377
+#: actions/avatarsettings.php:337 actions/grouplogo.php:377
 msgid "Lost our file data."
-msgstr "Týndum skráargögnunum okkar"
+msgstr "فایل اطلاعات خود را گم کرده ایم."
 
-#: actions/avatarsettings.php:366
+#: actions/avatarsettings.php:360
 msgid "Avatar updated."
-msgstr "Mynd hefur verið uppfærð."
+msgstr "چهره به روز رسانی شد."
 
-#: actions/avatarsettings.php:369
+#: actions/avatarsettings.php:363
 msgid "Failed updating avatar."
-msgstr "Mistókst að uppfæra mynd"
+msgstr "به روز رسانی چهره موفقیت آمیر نبود."
 
-#: actions/avatarsettings.php:393
+#: actions/avatarsettings.php:387
 msgid "Avatar deleted."
-msgstr ""
+msgstr "چهره پاک شد."
+
+#: actions/blockedfromgroup.php:73 actions/editgroup.php:84
+#: actions/groupdesignsettings.php:84 actions/grouplogo.php:86
+#: actions/groupmembers.php:76 actions/grouprss.php:91
+#: actions/joingroup.php:76 actions/showgroup.php:121
+msgid "No nickname"
+msgstr "بدون لقب"
+
+#: actions/blockedfromgroup.php:80 actions/editgroup.php:96
+#: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
+#: actions/grouplogo.php:99 actions/groupmembers.php:83
+#: actions/grouprss.php:98 actions/joingroup.php:83 actions/showgroup.php:137
+msgid "No such group"
+msgstr "چنین گروهی وجود ندارد"
+
+#: actions/blockedfromgroup.php:90
+#, php-format
+msgid "%s blocked profiles"
+msgstr "%s کاربران مسدود شده"
+
+#: actions/blockedfromgroup.php:93
+#, php-format
+msgid "%s blocked profiles, page %d"
+msgstr "%s کاربران مسدود شده، صفحه‌ی %d"
+
+#: actions/blockedfromgroup.php:108
+msgid "A list of the users blocked from joining this group."
+msgstr "فهرستی از افراد مسدود شده در پیوستن به این گروه."
+
+#: actions/blockedfromgroup.php:281
+msgid "Unblock user from group"
+msgstr "آزاد کردن کاربر در پیوستن به گروه"
+
+#: actions/blockedfromgroup.php:313 lib/unblockform.php:69
+msgid "Unblock"
+msgstr "آزاد سازی"
+
+#: actions/blockedfromgroup.php:313 lib/unblockform.php:80
+msgid "Unblock this user"
+msgstr "آزاد سازی کاربر"
 
 #: actions/block.php:69
-#, fuzzy
 msgid "You already blocked that user."
-msgstr "Þú hefur nú þegar lokað á þennan notanda."
+msgstr "شما هم اکنون آن کاربر را مسدود کرده اید."
 
 #: actions/block.php:105 actions/block.php:128 actions/groupblock.php:160
 msgid "Block user"
-msgstr "Loka á notanda"
+msgstr "مسدود کردن کاربر"
 
 #: actions/block.php:130
 msgid ""
@@ -668,710 +653,710 @@ msgid ""
 "unsubscribed from you, unable to subscribe to you in the future, and you "
 "will not be notified of any @-replies from them."
 msgstr ""
+"آیا شما اطمینان دارید که می‌خواهید این کاربر را مسدود کنید؟ "
+"پس از آن دیگر پیام‌های شما را مشاهده نخواهد کرد و نمی‌تواند درخواست کند که "
+"پیام‌های شما را دنبال کند. همچنین دیگر شما از پیام‌هایی که در آن از شما یاد "
+"می‌کند با خبر نخواهید شد"
 
 #: actions/block.php:143 actions/deletenotice.php:145
 #: actions/deleteuser.php:147 actions/groupblock.php:178
 msgid "No"
-msgstr "Nei"
+msgstr "خیر"
 
 #: actions/block.php:143 actions/deleteuser.php:147
-#, fuzzy
 msgid "Do not block this user"
-msgstr "Opna á þennan notanda"
+msgstr "کاربر را مسدود نکن"
 
 #: actions/block.php:144 actions/deletenotice.php:146
 #: actions/deleteuser.php:148 actions/groupblock.php:179
 msgid "Yes"
-msgstr "Já"
+msgstr "بله"
 
 #: actions/block.php:144 actions/groupmembers.php:346 lib/blockform.php:80
 msgid "Block this user"
-msgstr "Loka á þennan notanda"
+msgstr "کاربر را مسدود کن"
 
 #: actions/block.php:162
 msgid "Failed to save block information."
-msgstr "Mistókst að vista upplýsingar um notendalokun"
-
-#: actions/blockedfromgroup.php:73 actions/editgroup.php:84
-#: actions/groupdesignsettings.php:84 actions/grouplogo.php:86
-#: actions/groupmembers.php:76 actions/joingroup.php:76
-#: actions/showgroup.php:121
-msgid "No nickname"
-msgstr "Ekkert stuttnefni"
-
-#: actions/blockedfromgroup.php:80 actions/editgroup.php:96
-#: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
-#: actions/grouplogo.php:99 actions/groupmembers.php:83
-#: actions/joingroup.php:83 actions/showgroup.php:137
-msgid "No such group"
-msgstr "Enginn þannig hópur"
-
-#: actions/blockedfromgroup.php:90
-#, php-format
-msgid "%s blocked profiles"
 msgstr ""
-
-#: actions/blockedfromgroup.php:93
-#, php-format
-msgid "%s blocked profiles, page %d"
-msgstr ""
-
-#: actions/blockedfromgroup.php:108
-msgid "A list of the users blocked from joining this group."
-msgstr ""
-
-#: actions/blockedfromgroup.php:281
-msgid "Unblock user from group"
-msgstr ""
-
-#: actions/blockedfromgroup.php:313 lib/unblockform.php:69
-msgid "Unblock"
-msgstr "Opna"
-
-#: actions/blockedfromgroup.php:313 lib/unblockform.php:80
-msgid "Unblock this user"
-msgstr "Opna á þennan notanda"
 
 #: actions/bookmarklet.php:50
-#, fuzzy
 msgid "Post to "
-msgstr "Ljósmynd"
+msgstr "ارسال به "
 
 #: actions/confirmaddress.php:75
 msgid "No confirmation code."
-msgstr "Enginn staðfestingarlykill."
+msgstr "بدون کد تصدیق."
 
 #: actions/confirmaddress.php:80
 msgid "Confirmation code not found."
-msgstr "Staðfestingarlykill fannst ekki."
+msgstr "کد تصدیق پیدا نشد."
 
 #: actions/confirmaddress.php:85
 msgid "That confirmation code is not for you!"
-msgstr "Þessi staðfestingarlykill er ekki fyrir þig!"
+msgstr "آن کد تصدیق برای شما نیست!"
 
 #: actions/confirmaddress.php:90
 #, php-format
 msgid "Unrecognized address type %s"
-msgstr "Óþekkt gerð tölvupóstfangs %s"
+msgstr "نوع نشانی نامشخص است %s"
 
 #: actions/confirmaddress.php:94
 msgid "That address has already been confirmed."
-msgstr "Þetta tölvupóstfang hefur nú þegar verið staðfest."
+msgstr "آن نشانی در حال حاضر تصدیق شده است."
 
-#: actions/confirmaddress.php:114 actions/emailsettings.php:296
-#: actions/emailsettings.php:427 actions/imsettings.php:258
+#: actions/confirmaddress.php:114 actions/emailsettings.php:295
+#: actions/emailsettings.php:426 actions/imsettings.php:258
 #: actions/imsettings.php:401 actions/othersettings.php:174
 #: actions/profilesettings.php:276 actions/smssettings.php:278
 #: actions/smssettings.php:420
 msgid "Couldn't update user."
-msgstr "Gat ekki uppfært notanda."
+msgstr "نمی‌توان کاربر را به روز کرد."
 
-#: actions/confirmaddress.php:126 actions/emailsettings.php:391
+#: actions/confirmaddress.php:126 actions/emailsettings.php:390
 #: actions/imsettings.php:363 actions/smssettings.php:382
 msgid "Couldn't delete email confirmation."
-msgstr "Gat ekki eytt tölvupóstsstaðfestingu."
+msgstr "نمی‌توان تصدیق پست الکترونیک را پاک کرد."
 
 #: actions/confirmaddress.php:144
 msgid "Confirm Address"
-msgstr "Staðfesta tölvupóstfang"
+msgstr "تایید نشانی"
 
 #: actions/confirmaddress.php:159
 #, php-format
 msgid "The address \"%s\" has been confirmed for your account."
-msgstr ""
-"Þetta tölvupóstfang, \"%s\", hefur verið staðfest fyrir aðganginn þinn."
+msgstr "نشانی «%s« برای شما تصدیق شد."
 
 #: actions/conversation.php:99
 msgid "Conversation"
-msgstr ""
+msgstr "مکالمه"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:216 lib/searchgroupnav.php:82
+#: lib/profileaction.php:206
 msgid "Notices"
-msgstr "Babl"
+msgstr "پیام‌ها"
+
+#: actions/deletenotice.php:52 actions/shownotice.php:92
+msgid "No such notice."
+msgstr "چنین پیامی وجود ندارد."
 
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
 #: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
-#: actions/tagother.php:33 actions/unsubscribe.php:52
-#: lib/adminpanelaction.php:72 lib/profileformaction.php:63
-#: lib/settingsaction.php:72
+#: actions/unsubscribe.php:52 lib/adminpanelaction.php:72
+#: lib/profileformaction.php:63 lib/settingsaction.php:72
 msgid "Not logged in."
-msgstr "Ekki innskráð(ur)."
+msgstr "شما به سیستم وارد نشده اید."
 
 #: actions/deletenotice.php:71
 msgid "Can't delete this notice."
-msgstr "Get ekki eytt þessu babli."
+msgstr "نمی‌توان این پیام را پاک کرد."
 
 #: actions/deletenotice.php:103
 msgid ""
 "You are about to permanently delete a notice. Once this is done, it cannot "
 "be undone."
-msgstr ""
+msgstr "شما می‌خواهید یک پیام را به طور کامل پاک کنید. پس از انجام این کار نمی‌توان پیام را بازگرداند."
 
 #: actions/deletenotice.php:109 actions/deletenotice.php:141
 msgid "Delete notice"
-msgstr "Eyða babli"
+msgstr "پیام را پاک کن"
 
 #: actions/deletenotice.php:144
 msgid "Are you sure you want to delete this notice?"
-msgstr "Ertu viss um að þú viljir eyða þessu babli?"
+msgstr "آیا اطمینان دارید که می‌خواهید این پیام را پاک کنید؟"
 
 #: actions/deletenotice.php:145
 msgid "Do not delete this notice"
-msgstr ""
+msgstr "این پیام را پاک نکن"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:603
+#: actions/deletenotice.php:146 lib/noticelist.php:522
 msgid "Delete this notice"
-msgstr "Eyða þessu babli"
+msgstr "این پیام را پاک کن"
 
 #: actions/deletenotice.php:157
 msgid "There was a problem with your session token.  Try again, please."
-msgstr ""
+msgstr "مشکلی در دریافت جلسه‌ی شما وجود دارد. لطفا بعدا سعی کنید."
 
 #: actions/deleteuser.php:67
-#, fuzzy
 msgid "You cannot delete users."
-msgstr "Gat ekki uppfært notanda."
+msgstr "شما نمی‌توانید کاربران را پاک کنید."
 
 #: actions/deleteuser.php:74
-#, fuzzy
 msgid "You can only delete local users."
-msgstr "Þú getur ekki eytt stöðu annars notanda."
+msgstr "شما فقط می‌توانید کاربران محلی را پاک کنید."
 
 #: actions/deleteuser.php:110 actions/deleteuser.php:133
-#, fuzzy
 msgid "Delete user"
-msgstr "Eyða"
+msgstr "حذف کاربر"
 
 #: actions/deleteuser.php:135
 msgid ""
 "Are you sure you want to delete this user? This will clear all data about "
 "the user from the database, without a backup."
-msgstr ""
+msgstr "آیا مطمئن هستید که می‌خواهید این کاربر را پاک کنید؟ با این کار تمام اطلاعات پاک و بدون برگشت خواهند بود."
 
 #: actions/deleteuser.php:148 lib/deleteuserform.php:77
-#, fuzzy
 msgid "Delete this user"
-msgstr "Eyða þessu babli"
+msgstr "حذف این کاربر"
 
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
 #: lib/adminpanelaction.php:302 lib/groupnav.php:119
 msgid "Design"
-msgstr ""
+msgstr "طرح"
 
 #: actions/designadminpanel.php:73
 msgid "Design settings for this StatusNet site."
-msgstr ""
+msgstr "تنظیمات ظاهری برای این سایت."
 
-#: actions/designadminpanel.php:275
-#, fuzzy
+#: actions/designadminpanel.php:278
 msgid "Invalid logo URL."
-msgstr "Ótæk stærð."
+msgstr "نشانی اینترنتی نشان نامعتبر است."
 
-#: actions/designadminpanel.php:279
-#, fuzzy, php-format
+#: actions/designadminpanel.php:282
+#, php-format
 msgid "Theme not available: %s"
-msgstr "Þessi síða er ekki aðgengileg í "
+msgstr "پوسته در دسترس نمی‌باشد: %s"
 
-#: actions/designadminpanel.php:375
-#, fuzzy
-msgid "Change logo"
-msgstr "Breyta"
+#: actions/designadminpanel.php:288
+#, php-format
+msgid "Theme directory not readable: %s"
+msgstr "شاخه‌ی پوسته‌ها خواندنی نیست: %s"
 
-#: actions/designadminpanel.php:380
-#, fuzzy
-msgid "Site logo"
-msgstr "Bjóða"
+#: actions/designadminpanel.php:292
+#, php-format
+msgid "Avatar directory not writable: %s"
+msgstr "شاخه‌ی چهره‌ها نوشتنی نیست: %s"
 
-#: actions/designadminpanel.php:387
-#, fuzzy
-msgid "Change theme"
-msgstr "Breyta"
+#: actions/designadminpanel.php:296
+#, php-format
+msgid "Background directory not writable: %s"
+msgstr "شاخه‌ی پس زمینه‌ها نوشتنی نیست: %s"
 
-#: actions/designadminpanel.php:404
-#, fuzzy
-msgid "Site theme"
-msgstr "Babl vefsíðunnar"
-
-#: actions/designadminpanel.php:405
-#, fuzzy
-msgid "Theme for the site."
-msgstr "Skrá þig út af síðunni"
-
-#: actions/designadminpanel.php:417 lib/designsettings.php:101
-msgid "Change background image"
+#: actions/designadminpanel.php:312
+#, php-format
+msgid "Max length for %s %s is 255 characters."
 msgstr ""
 
-#: actions/designadminpanel.php:422 actions/designadminpanel.php:497
+#: actions/designadminpanel.php:412
+msgid "Change logo"
+msgstr "تغییر نشان"
+
+#: actions/designadminpanel.php:417
+msgid "Site logo"
+msgstr "نشان وب‌گاه"
+
+#: actions/designadminpanel.php:424
+msgid "Change theme"
+msgstr "تغییر پوسته"
+
+#: actions/designadminpanel.php:441
+msgid "Site theme"
+msgstr "پوستهٔ وب‌گاه"
+
+#: actions/designadminpanel.php:442
+msgid "Theme for the site."
+msgstr "پوسته برای وب‌گاه"
+
+#: actions/designadminpanel.php:447
+msgid "Theme server"
+msgstr "کارگزار پوسته"
+
+#: actions/designadminpanel.php:451
+msgid "Theme path"
+msgstr "مسیر پوسته"
+
+#: actions/designadminpanel.php:455
+msgid "Theme directory"
+msgstr "شاخهٔ پوسته"
+
+#: actions/designadminpanel.php:462
+msgid "Avatar Settings"
+msgstr "تنظیمات نیم‌رخ"
+
+#: actions/designadminpanel.php:467
+msgid "Avatar server"
+msgstr "کارگزار نیم‌رخ"
+
+#: actions/designadminpanel.php:471
+msgid "Avatar path"
+msgstr "مسیر نیم‌رخ"
+
+#: actions/designadminpanel.php:475
+msgid "Avatar directory"
+msgstr "شاخهٔ نیم‌رخ"
+
+#: actions/designadminpanel.php:486 lib/designsettings.php:101
+msgid "Change background image"
+msgstr "تغییر تصویر پیش‌زمینه"
+
+#: actions/designadminpanel.php:491 actions/designadminpanel.php:578
 #: lib/designsettings.php:178
 msgid "Background"
-msgstr ""
+msgstr "پیش‌زمینه"
 
-#: actions/designadminpanel.php:427
-#, fuzzy, php-format
+#: actions/designadminpanel.php:496
+#, php-format
 msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
 "$s."
-msgstr "Þetta er of langt. Hámarkslengd babls er 140 tákn."
+msgstr ""
+"شما می‌توانید یک تصویر پیش‌زمینه را برای وب‌گاه بارگذاری کنید. بیشینهٔ "
+"اندازهٔ پرونده %1 $s است."
 
-#: actions/designadminpanel.php:457 lib/designsettings.php:139
+#: actions/designadminpanel.php:526 lib/designsettings.php:139
 msgid "On"
-msgstr ""
+msgstr "روشن"
 
-#: actions/designadminpanel.php:473 lib/designsettings.php:155
+#: actions/designadminpanel.php:542 lib/designsettings.php:155
 msgid "Off"
-msgstr ""
+msgstr "خاموش"
 
-#: actions/designadminpanel.php:474 lib/designsettings.php:156
+#: actions/designadminpanel.php:543 lib/designsettings.php:156
 msgid "Turn background image on or off."
-msgstr ""
+msgstr "تصویر پیش‌زمینه را فعال یا غیرفعال کنید."
 
-#: actions/designadminpanel.php:479 lib/designsettings.php:161
+#: actions/designadminpanel.php:548 lib/designsettings.php:161
 msgid "Tile background image"
-msgstr ""
+msgstr "تصویر پیش‌زمینهٔ موزاییکی"
 
-#: actions/designadminpanel.php:488 lib/designsettings.php:170
+#: actions/designadminpanel.php:554
+msgid "Background server"
+msgstr "کارگذار تصاویر پیش‌زمینه"
+
+#: actions/designadminpanel.php:558
+msgid "Background path"
+msgstr "مسیر تصاویر پیش‌زمینه"
+
+#: actions/designadminpanel.php:562
+msgid "Background directory"
+msgstr "شاخهٔ تصاویر پیش‌زمینه"
+
+#: actions/designadminpanel.php:569 lib/designsettings.php:170
 msgid "Change colours"
-msgstr ""
+msgstr "عوض‌کردن رنگ‌ها"
 
-#: actions/designadminpanel.php:510 lib/designsettings.php:191
+#: actions/designadminpanel.php:591 lib/designsettings.php:191
 msgid "Content"
-msgstr ""
+msgstr "محتوا"
 
-#: actions/designadminpanel.php:523 lib/designsettings.php:204
+#: actions/designadminpanel.php:604 lib/designsettings.php:204
 msgid "Sidebar"
-msgstr ""
+msgstr "ستون کناری"
 
-#: actions/designadminpanel.php:536 lib/designsettings.php:217
+#: actions/designadminpanel.php:617 lib/designsettings.php:217
 msgid "Text"
-msgstr "Texti"
+msgstr "متن"
 
-#: actions/designadminpanel.php:549 lib/designsettings.php:230
+#: actions/designadminpanel.php:630 lib/designsettings.php:230
 msgid "Links"
-msgstr ""
+msgstr "پیوندها"
 
-#: actions/designadminpanel.php:577 lib/designsettings.php:247
+#: actions/designadminpanel.php:658 lib/designsettings.php:247
 msgid "Use defaults"
-msgstr ""
+msgstr "استفاده‌کردن از پیش‌فرض‌ها"
 
-#: actions/designadminpanel.php:578 lib/designsettings.php:248
+#: actions/designadminpanel.php:659 lib/designsettings.php:248
 msgid "Restore default designs"
-msgstr ""
+msgstr "بازگرداندن طرح‌های پیش‌فرض"
 
-#: actions/designadminpanel.php:584 lib/designsettings.php:254
+#: actions/designadminpanel.php:665 lib/designsettings.php:254
 msgid "Reset back to default"
-msgstr ""
+msgstr "برگشت به حالت پیش گزیده"
 
-#: actions/designadminpanel.php:586 actions/emailsettings.php:195
+#: actions/designadminpanel.php:667 actions/emailsettings.php:195
 #: actions/imsettings.php:163 actions/othersettings.php:126
-#: actions/pathsadminpanel.php:296 actions/profilesettings.php:167
-#: actions/siteadminpanel.php:421 actions/smssettings.php:181
-#: actions/subscriptions.php:203 actions/tagother.php:154
-#: actions/useradminpanel.php:313 lib/designsettings.php:256
-#: lib/groupeditform.php:202
+#: actions/profilesettings.php:167 actions/siteadminpanel.php:414
+#: actions/smssettings.php:181 actions/subscriptions.php:203
+#: actions/tagother.php:154 actions/useradminpanel.php:226
+#: lib/designsettings.php:256 lib/groupeditform.php:202
 msgid "Save"
-msgstr "Vista"
+msgstr "ذخیره‌کردن"
 
-#: actions/designadminpanel.php:587 lib/designsettings.php:257
+#: actions/designadminpanel.php:668 lib/designsettings.php:257
 msgid "Save design"
-msgstr ""
+msgstr "ذخیره‌کردن طرح"
 
 #: actions/disfavor.php:81
 msgid "This notice is not a favorite!"
-msgstr "Þetta babl er ekki í uppáhaldi!"
+msgstr "این آگهی یک آگهی برگزیده نیست!"
 
 #: actions/disfavor.php:94
 msgid "Add to favorites"
-msgstr "Bæta við sem uppáhaldsbabli"
+msgstr "افزودن به علاقه‌مندی‌ها"
 
 #: actions/doc.php:69
 msgid "No such document."
-msgstr "Ekkert svoleiðis skjal."
+msgstr "چنین سندی وجود ندارد."
 
 #: actions/editgroup.php:56
 #, php-format
 msgid "Edit %s group"
-msgstr "Breyta hópnum %s"
+msgstr "ویرایش گروه %s"
 
 #: actions/editgroup.php:68 actions/grouplogo.php:70 actions/newgroup.php:65
 msgid "You must be logged in to create a group."
-msgstr "Þú verður að hafa skráð þig inn til að búa til hóp."
+msgstr "برای ساخت یک گروه، باید وارد شده باشید."
 
 #: actions/editgroup.php:103 actions/editgroup.php:168
 #: actions/groupdesignsettings.php:104 actions/grouplogo.php:106
 msgid "You must be an admin to edit the group"
-msgstr "Þú verður að vera stjórnandi til að geta breytt hópnum"
+msgstr "برای ویرایش گروه، باید یک مدیر باشید."
 
 #: actions/editgroup.php:154
 msgid "Use this form to edit the group."
-msgstr "Notaðu þetta eyðublað til að breyta hópnum."
+msgstr "از این روش برای ویرایش گروه استفاده کنید."
 
 #: actions/editgroup.php:201 actions/newgroup.php:145
-#, fuzzy, php-format
+#, php-format
 msgid "description is too long (max %d chars)."
-msgstr "Lýsing er of löng (í mesta lagi 140 tákn)."
+msgstr "توصیف بسیار زیاد است (حداکثر %d حرف)."
 
 #: actions/editgroup.php:253
 msgid "Could not update group."
-msgstr "Gat ekki uppfært hóp."
+msgstr "نمی‌توان گروه را به‌هنگام‌سازی کرد."
 
 #: actions/editgroup.php:259 classes/User_group.php:390
 msgid "Could not create aliases."
-msgstr ""
+msgstr "نمی‌توان نام‌های مستعار را ساخت."
 
 #: actions/editgroup.php:269
 msgid "Options saved."
-msgstr "Valmöguleikar vistaðir."
+msgstr "گزینه‌ها ذخیره شدند."
 
 #: actions/emailsettings.php:60
 msgid "Email Settings"
-msgstr "Tölvupóstsstillingar"
+msgstr "تنظیمات پست الکترونیک"
 
 #: actions/emailsettings.php:71
 #, php-format
 msgid "Manage how you get email from %%site.name%%."
-msgstr "Stilla það hvernig þú færð tölvupóst frá %%site.name%%."
+msgstr "چگونگی دریافت نامه از %%site.name%% را اداره کنید."
 
 #: actions/emailsettings.php:100 actions/imsettings.php:100
 #: actions/smssettings.php:104
 msgid "Address"
-msgstr "Tölvupóstfang"
+msgstr "نشانی"
 
 #: actions/emailsettings.php:105
 msgid "Current confirmed email address."
-msgstr "Núverandi staðfesta tölvupóstfangið."
+msgstr "نشانی پست الکترونیکی تایید شدهٔ کنونی"
 
 #: actions/emailsettings.php:107 actions/emailsettings.php:140
 #: actions/imsettings.php:108 actions/smssettings.php:115
 #: actions/smssettings.php:158
 msgid "Remove"
-msgstr "Fjarlægja"
+msgstr "حذف"
 
 #: actions/emailsettings.php:113
 msgid ""
 "Awaiting confirmation on this address. Check your inbox (and spam box!) for "
 "a message with further instructions."
 msgstr ""
-"Býð eftir staðfestingu frá þessu netfangi. Athugaðu innhólfið þitt (og "
-"ruslpóstinn þinn!). Þar ættu að vera skilaboð með ítarlegri leiðbeiningum."
 
 #: actions/emailsettings.php:117 actions/imsettings.php:120
 #: actions/smssettings.php:126
 msgid "Cancel"
-msgstr "Hætta við"
+msgstr "انصراف"
 
 #: actions/emailsettings.php:121
 msgid "Email Address"
-msgstr "Tölvupóstfang"
+msgstr "نشانی پست الکترونیکی"
 
 #: actions/emailsettings.php:123
 msgid "Email address, like \"UserName@example.org\""
-msgstr "Tölvupóstfang eins og \"notandi@example.org\""
+msgstr "نشانی پست الکترونیکی، مانند «UserName@example.org»"
 
 #: actions/emailsettings.php:126 actions/imsettings.php:133
 #: actions/smssettings.php:145
 msgid "Add"
-msgstr "Bæta við"
+msgstr "افزودن"
 
 #: actions/emailsettings.php:133 actions/smssettings.php:152
 msgid "Incoming email"
-msgstr "Móttökutölvupóstur"
+msgstr "پست الکترونیک ورودی"
 
 #: actions/emailsettings.php:138 actions/smssettings.php:157
 msgid "Send email to this address to post new notices."
-msgstr "Sendu tölvupóst á þetta póstfang til þess að senda inn nýtt babl."
+msgstr "برای ارسال پیام با استفاده از پست الکترونیک به این نشانی نامه بفرستید."
 
 #: actions/emailsettings.php:145 actions/smssettings.php:162
 msgid "Make a new email address for posting to; cancels the old one."
-msgstr "Búa til nýtt tölvupóstfang til að senda til. Skrifar yfir það gamla."
+msgstr "نشانی جدید برای ارسال پیام ایجاد کن؛ نشانی قبلی فسخ می‌شود."
 
 #: actions/emailsettings.php:148 actions/smssettings.php:164
 msgid "New"
-msgstr "Nýtt"
+msgstr "جدید"
 
 #: actions/emailsettings.php:153 actions/imsettings.php:139
 #: actions/smssettings.php:169
 msgid "Preferences"
-msgstr "Stillingar"
+msgstr "ترجیحات"
 
 #: actions/emailsettings.php:158
 msgid "Send me notices of new subscriptions through email."
-msgstr "Sendu mér tilkynningu varðandi nýjar áskriftir í gegnum tölvupóst."
+msgstr "پیام‌های کسانی را که به تازگی دنبال می‌کنم با پست الکترونیک برایم بفرست."
 
 #: actions/emailsettings.php:163
 msgid "Send me email when someone adds my notice as a favorite."
-msgstr "Senda mér tölvupóst þegar einhver setur babl í mér í uppáhald hjá sér."
+msgstr "هر وقت کسی پیام های مرا دوست داشتنی کرد، مرا با پست اکترونیک با خبر کن."
 
 #: actions/emailsettings.php:169
 msgid "Send me email when someone sends me a private message."
-msgstr "Senda mér tölvupóst þegar einhver sendir mér persónuleg skilaboð."
+msgstr "هر وقت کسی برای من پیام خصوصی فرستاد، مرا با پست الکترونیک با خبر کن."
 
 #: actions/emailsettings.php:174
 msgid "Send me email when someone sends me an \"@-reply\"."
-msgstr ""
+msgstr "هر وقت کسی از من در پیام خود یاد کرد، مرا با پست الکترونیک با خبر کن."
 
 #: actions/emailsettings.php:179
 msgid "Allow friends to nudge me and send me an email."
-msgstr "Leyfa vinum að ýta við mér og senda mér tölvupóst."
+msgstr "اجازه بده دوستان توجه مرا جذب کنند و به من نامه بفرستند."
 
 #: actions/emailsettings.php:185
 msgid "I want to post notices by email."
-msgstr "Ég vil babla í gegnum tölvupóst."
+msgstr "می‌خواهم با نامه پیام ارسال کنم."
 
 #: actions/emailsettings.php:191
 msgid "Publish a MicroID for my email address."
-msgstr "Birta MicroID fyrir tölvupóstfangið mitt."
+msgstr "یک شناسه برای پست الکترونیک  من منتشر کن."
 
-#: actions/emailsettings.php:302 actions/imsettings.php:264
+#: actions/emailsettings.php:301 actions/imsettings.php:264
 #: actions/othersettings.php:180 actions/smssettings.php:284
 msgid "Preferences saved."
-msgstr "Stillingar vistaðar."
+msgstr "تنظیمات ذخیره شد."
 
-#: actions/emailsettings.php:320
+#: actions/emailsettings.php:319
 msgid "No email address."
-msgstr "Ekkert tölvupóstfang."
+msgstr "پست الکترونیک وجود ندارد."
 
-#: actions/emailsettings.php:327
+#: actions/emailsettings.php:326
 msgid "Cannot normalize that email address"
-msgstr "Get ekki staðlað þetta tölvupóstfang"
+msgstr "نمی‌توان نشانی را قانونی کرد"
 
-#: actions/emailsettings.php:331 actions/siteadminpanel.php:158
+#: actions/emailsettings.php:330 actions/siteadminpanel.php:158
 msgid "Not a valid email address"
-msgstr "Ekki tækt tölvupóstfang"
+msgstr "این یک نشانی صحیح نیست"
 
-#: actions/emailsettings.php:334
+#: actions/emailsettings.php:333
 msgid "That is already your email address."
-msgstr "Þetta er nú þegar tölvupóstfangið þitt."
+msgstr "هم اکنون نشانی شما همین است."
 
-#: actions/emailsettings.php:337
+#: actions/emailsettings.php:336
 msgid "That email address already belongs to another user."
-msgstr "Þetta tölvupóstfang tilheyrir öðrum notanda."
+msgstr "این نشانی در حال حاضر متعلق به فرد دیگری است."
 
-#: actions/emailsettings.php:353 actions/imsettings.php:317
+#: actions/emailsettings.php:352 actions/imsettings.php:317
 #: actions/smssettings.php:337
 msgid "Couldn't insert confirmation code."
-msgstr "Gat ekki sett inn staðfestingarlykil."
+msgstr "نمی‌توان کد تایید را اضافه کرد."
 
-#: actions/emailsettings.php:359
+#: actions/emailsettings.php:358
 msgid ""
 "A confirmation code was sent to the email address you added. Check your "
 "inbox (and spam box!) for the code and instructions on how to use it."
-msgstr ""
-"Staðfestingarlykill var sendur á tölvupóstfangið sem þú varst að bæta við. "
-"Athugaðu innhólfið þitt (og ruslpóstinn þinn!). Þar ætti "
-"staðfestingarlykillinn að vera og leiðbeingar um hvernig eigi að nota hann. "
+msgstr "کد تایید به نشانی شما ارسال شد. نامه های خود را بررسی کنید برای کد تایید و راه استفاده."
 
-#: actions/emailsettings.php:379 actions/imsettings.php:351
+#: actions/emailsettings.php:378 actions/imsettings.php:351
 #: actions/smssettings.php:370
 msgid "No pending confirmation to cancel."
-msgstr "Engin staðfesting í bið sem þarf að hætta við."
+msgstr "هیچ تاییدی برای فسخ کردن وجود ندارد."
 
-#: actions/emailsettings.php:383 actions/imsettings.php:355
+#: actions/emailsettings.php:382 actions/imsettings.php:355
 msgid "That is the wrong IM address."
-msgstr "Þetta er rangt snarskilaboðafang."
+msgstr "نشانی پیام رسان اشتباه است."
 
-#: actions/emailsettings.php:395 actions/imsettings.php:367
+#: actions/emailsettings.php:394 actions/imsettings.php:367
 #: actions/smssettings.php:386
 msgid "Confirmation cancelled."
-msgstr "Hætt við staðfestingu."
+msgstr "تایید فسخ شد."
 
-#: actions/emailsettings.php:413
+#: actions/emailsettings.php:412
 msgid "That is not your email address."
-msgstr "Þetta er ekki tölvupóstfangið þitt."
+msgstr "آن نشانی شما نیست."
 
-#: actions/emailsettings.php:432 actions/imsettings.php:408
+#: actions/emailsettings.php:431 actions/imsettings.php:408
 #: actions/smssettings.php:425
 msgid "The address was removed."
-msgstr "Tölvupóstfangið hefur verið fjarlægt."
+msgstr "نشانی پاک شده است."
 
-#: actions/emailsettings.php:446 actions/smssettings.php:518
+#: actions/emailsettings.php:445 actions/smssettings.php:518
 msgid "No incoming email address."
-msgstr "Ekkert móttökutölvupóstfang."
+msgstr "هیچ نشانی ورودی وجود ندارد."
 
-#: actions/emailsettings.php:456 actions/emailsettings.php:478
+#: actions/emailsettings.php:455 actions/emailsettings.php:477
 #: actions/smssettings.php:528 actions/smssettings.php:552
 msgid "Couldn't update user record."
-msgstr "Gat ekki uppfært skráarfærslu notanda."
+msgstr "نمی‌توان اطلاعات کاربر را به روز کرد."
 
-#: actions/emailsettings.php:459 actions/smssettings.php:531
+#: actions/emailsettings.php:458 actions/smssettings.php:531
 msgid "Incoming email address removed."
-msgstr "Móttökutölvupóstfang fjarlægt."
+msgstr "نشانی ورودی پاک شد."
 
-#: actions/emailsettings.php:481 actions/smssettings.php:555
+#: actions/emailsettings.php:480 actions/smssettings.php:555
 msgid "New incoming email address added."
-msgstr "Nýju móttökutölvupóstfangi bætt við."
+msgstr "نشانی ورودی جدید اضافه شد."
 
-#: actions/favor.php:79
-msgid "This notice is already a favorite!"
-msgstr "Þetta babl er nú þegar í uppáhaldi!"
-
-#: actions/favor.php:92 lib/disfavorform.php:140
-msgid "Disfavor favorite"
-msgstr "Ekki lengur í uppáhaldi"
-
-#: actions/favorited.php:65 lib/popularnoticesection.php:88
+#: actions/favorited.php:65 lib/popularnoticesection.php:87
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
-msgstr "Vinsælt babl"
+msgstr "آگهی‌های محبوب"
 
 #: actions/favorited.php:67
 #, php-format
 msgid "Popular notices, page %d"
-msgstr "Vinsælt babl, síða %d"
+msgstr "آگهی‌های محبوب، صفحهٔ %d"
 
 #: actions/favorited.php:79
 msgid "The most popular notices on the site right now."
-msgstr "Vinsælasta bablið á síðunni um þessar mundir."
+msgstr "دوست داشتنی ترین پیام های سایت در حال حاضر."
 
 #: actions/favorited.php:150
 msgid "Favorite notices appear on this page but no one has favorited one yet."
-msgstr ""
+msgstr "پیام‌های دوست داشتنی در این صفحه نمایش داده می‌شوند اما هیچ کس پیامی را دوست داشتنی نکرده است."
 
 #: actions/favorited.php:153
 msgid ""
 "Be the first to add a notice to your favorites by clicking the fave button "
 "next to any notice you like."
-msgstr ""
+msgstr "یک پیام را دوست داشتنی کنید با کلیک کردن روی دکمه‌ی دوست داشتنی نزدیک هر پیام."
 
 #: actions/favorited.php:156
 #, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to add a "
 "notice to your favorites!"
-msgstr ""
+msgstr "چرا [ثبت نام](%%action.register%%) نمی‌کنید و یک پیام را دوست داشتنی کنید؟"
 
 #: actions/favoritesrss.php:111 actions/showfavorites.php:77
 #: lib/personalgroupnav.php:115
 #, php-format
 msgid "%s's favorite notices"
-msgstr "Uppáhaldsbabl %s"
+msgstr "دوست داشتنی های %s"
 
 #: actions/favoritesrss.php:115
-#, fuzzy, php-format
+#, php-format
 msgid "Updates favored by %1$s on %2$s!"
-msgstr "Færslur frá %1$s á %2$s!"
+msgstr "پیام‌های دوست داشتنی %s در %s"
+
+#: actions/favor.php:79
+msgid "This notice is already a favorite!"
+msgstr "این پیام هم اکنون دوست داشتنی شده است."
+
+#: actions/favor.php:92 lib/disfavorform.php:140
+msgid "Disfavor favorite"
+msgstr "دوست ندارم"
 
 #: actions/featured.php:69 lib/featureduserssection.php:87
 #: lib/publicgroupnav.php:89
 msgid "Featured users"
-msgstr "Notendur í sviðsljósinu"
+msgstr "کاربران ویژه"
 
 #: actions/featured.php:71
 #, php-format
 msgid "Featured users, page %d"
-msgstr "Notendur í sviðsljósinu, síða %d"
+msgstr "کاربران ویژه، صفحه‌ی %d"
 
 #: actions/featured.php:99
-#, fuzzy, php-format
-msgid "A selection of some great users on %s"
-msgstr "Úrval nokkurra frábærra notenda á %s"
+#, php-format
+msgid "A selection of some of the great users on %s"
+msgstr "گلچینی از چند کاربر خوب در %s"
 
 #: actions/file.php:34
-#, fuzzy
-msgid "No notice ID."
-msgstr "Ekkert svoleiðis babl."
+msgid "No notice id"
+msgstr "هیچ شناسهٔ آگهی وجود ندارد"
 
 #: actions/file.php:38
-#, fuzzy
-msgid "No notice."
-msgstr "Ekkert svoleiðis babl."
+msgid "No notice"
+msgstr "هیچ آگهی وجود ندارد"
 
 #: actions/file.php:42
-#, fuzzy
-msgid "No attachments."
-msgstr "Ekkert svoleiðis skjal."
+msgid "No attachments"
+msgstr "هیچ پیوستی وجود ندارد"
 
 #: actions/file.php:51
-msgid "No uploaded attachments."
-msgstr ""
+msgid "No uploaded attachments"
+msgstr "هیچ پیوست بارگذاری شده‌ای وجود ندارد"
 
 #: actions/finishremotesubscribe.php:69
 msgid "Not expecting this response!"
-msgstr "Bjóst ekki við þessu svari!"
+msgstr "انتظار چنین جوابی وجود نداشت!"
 
 #: actions/finishremotesubscribe.php:80
-#, fuzzy
 msgid "User being listened to does not exist."
-msgstr "Notandi sem verið er að hlusta á er ekki til."
+msgstr "کاربری که دنبالش هستید وجود ندارد."
 
 #: actions/finishremotesubscribe.php:87 actions/remotesubscribe.php:59
 msgid "You can use the local subscription!"
-msgstr "Þú getur notað staðbundna áskrift!"
+msgstr "شما می‌توانید از دنبال کردن محلی استفاده کنید!"
 
-#: actions/finishremotesubscribe.php:99
+#: actions/finishremotesubscribe.php:96
 msgid "That user has blocked you from subscribing."
-msgstr "Þessi notandi hefur bannað þér að gerast áskrifandi"
+msgstr "این کاربر شما را از دنبال کردن خودش منع کرده است."
 
-#: actions/finishremotesubscribe.php:110
-#, fuzzy
+#: actions/finishremotesubscribe.php:106
 msgid "You are not authorized."
-msgstr "Engin heimild."
+msgstr "شما شناسایی نشده اید."
 
-#: actions/finishremotesubscribe.php:113
-#, fuzzy
+#: actions/finishremotesubscribe.php:109
 msgid "Could not convert request token to access token."
-msgstr "Gat ekki breytt beiðnistókum í aðgangstóka."
+msgstr "نمی‌توان نشانه‌ی درخواست شما را به نشانه‌ی دسترسی تبدیل کرد."
 
-#: actions/finishremotesubscribe.php:118
-#, fuzzy
+#: actions/finishremotesubscribe.php:114
 msgid "Remote service uses unknown version of OMB protocol."
-msgstr "Óþekkt útgáfa OMB samskiptamátans."
+msgstr "خدمات مورد نظر از نسخه‌ی نا مفهومی از قرارداد OMB استفاده می‌کند."
 
-#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
+#: actions/finishremotesubscribe.php:133 lib/oauthstore.php:306
 msgid "Error updating remote profile"
-msgstr "Villa kom upp í uppfærslu persónulegrar fjarsíðu"
+msgstr "اشکال در به روز کردن کاربر دوردست."
 
 #: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
-#: actions/grouprss.php:98 actions/groupunblock.php:86
-#: actions/leavegroup.php:83 actions/makeadmin.php:86 lib/command.php:212
-#: lib/command.php:263
+#: actions/groupunblock.php:86 actions/leavegroup.php:83
+#: actions/makeadmin.php:86 lib/command.php:212 lib/command.php:263
 msgid "No such group."
-msgstr "Enginn þannig hópur."
+msgstr "چنین گروهی وجود ندارد."
 
 #: actions/getfile.php:75
-#, fuzzy
 msgid "No such file."
-msgstr "Ekkert svoleiðis babl."
+msgstr "چنین پرونده‌ای وجود ندارد."
 
 #: actions/getfile.php:79
-#, fuzzy
 msgid "Cannot read file."
-msgstr "Týndum skránni okkar"
+msgstr "نمی‌توان پرونده را خواند."
 
 #: actions/groupblock.php:71 actions/groupunblock.php:71
 #: actions/makeadmin.php:71 actions/subedit.php:46
 #: lib/profileformaction.php:70
 msgid "No profile specified."
-msgstr "Engin persónuleg síða tilgreind"
+msgstr "کاربری مشخص نشده است."
 
 #: actions/groupblock.php:76 actions/groupunblock.php:76
 #: actions/makeadmin.php:76 actions/subedit.php:53 actions/tagother.php:46
 #: lib/profileformaction.php:77
 msgid "No profile with that ID."
-msgstr "Engin persónulega síða með þessu einkenni"
+msgstr "کاربری با چنین شناسه‌ای وجود ندارد."
 
 #: actions/groupblock.php:81 actions/groupunblock.php:81
 #: actions/makeadmin.php:81
 msgid "No group specified."
-msgstr ""
+msgstr "گروهی مشخص نشده است."
 
 #: actions/groupblock.php:91
 msgid "Only an admin can block group members."
-msgstr ""
+msgstr "فقط یک مدیر می‌تواند اعضای یک گروه را مسدود کند."
 
 #: actions/groupblock.php:95
 msgid "User is already blocked from group."
-msgstr ""
+msgstr "هم اکنون دسترسی کاربر به گروه مسدود شده است."
 
 #: actions/groupblock.php:100
 msgid "User is not a member of group."
-msgstr ""
+msgstr "کاربر عضو گروه نیست."
 
 #: actions/groupblock.php:136 actions/groupmembers.php:314
 msgid "Block user from group"
-msgstr ""
+msgstr "دسترسی کاربر به گروه را مسدود کن"
 
 #: actions/groupblock.php:162
 #, php-format
@@ -1379,123 +1364,153 @@ msgid ""
 "Are you sure you want to block user \"%s\" from the group \"%s\"? They will "
 "be removed from the group, unable to post, and unable to subscribe to the "
 "group in the future."
-msgstr ""
+msgstr "آیا مطمئن هستید می‌خواهید دسترسی »%s« را به گروه »%s« مسدود کنید؟"
 
 #: actions/groupblock.php:178
 msgid "Do not block this user from this group"
-msgstr ""
+msgstr "دسترسی کاربر به گروه را مسدود نکن"
 
 #: actions/groupblock.php:179
 msgid "Block this user from this group"
-msgstr ""
+msgstr "دسترسی کاربر را به گروه مسدود کن"
 
 #: actions/groupblock.php:196
 msgid "Database error blocking user from group."
-msgstr ""
+msgstr "اشکال پایگاه داده در مسدود کردن کاربر"
 
 #: actions/groupbyid.php:74
 msgid "No ID"
-msgstr "Ekkert einkenni"
+msgstr "شناسه وجود ندارد"
 
 #: actions/groupdesignsettings.php:68
 msgid "You must be logged in to edit a group."
-msgstr ""
+msgstr "برای ویرایش گروه باید وارد شوید."
 
 #: actions/groupdesignsettings.php:141
 msgid "Group design"
-msgstr ""
+msgstr "ظاهر گروه"
 
 #: actions/groupdesignsettings.php:152
 msgid ""
 "Customize the way your group looks with a background image and a colour "
 "palette of your choice."
-msgstr ""
+msgstr "ظاهر گروه را تغییر دهید تا شما را راضی کند."
 
-#: actions/groupdesignsettings.php:263 actions/userdesignsettings.php:186
-#: lib/designsettings.php:391 lib/designsettings.php:413
+#: actions/groupdesignsettings.php:262 actions/userdesignsettings.php:186
+#: lib/designsettings.php:434 lib/designsettings.php:464
 msgid "Couldn't update your design."
-msgstr ""
+msgstr "نمی‌توان ظاهر را به روز کرد."
 
-#: actions/groupdesignsettings.php:287 actions/groupdesignsettings.php:297
+#: actions/groupdesignsettings.php:286 actions/groupdesignsettings.php:296
 #: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
 #: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
 msgid "Unable to save your design settings!"
-msgstr ""
+msgstr "نمی‌توان تنظیمات شما را ذخیره کرد!"
 
-#: actions/groupdesignsettings.php:308 actions/userdesignsettings.php:231
+#: actions/groupdesignsettings.php:307 actions/userdesignsettings.php:231
 msgid "Design preferences saved."
-msgstr ""
+msgstr "ترجیحات طرح ذخیره شد."
 
 #: actions/grouplogo.php:139 actions/grouplogo.php:192
 msgid "Group logo"
-msgstr "Einkennismynd hópsins"
+msgstr "نشان گروه"
 
 #: actions/grouplogo.php:150
 #, php-format
 msgid ""
 "You can upload a logo image for your group. The maximum file size is %s."
-msgstr ""
+msgstr "شما می‌توانید یک نشان برای گروه خود با بیشینه حجم %s بفرستید."
 
 #: actions/grouplogo.php:362
 msgid "Pick a square area of the image to be the logo."
-msgstr ""
+msgstr "یک ناحیه‌ی مربع از تصویر را انتخاب کنید تا به عنوان نشان باشد."
 
 #: actions/grouplogo.php:396
 msgid "Logo updated."
-msgstr "Einkennismynd uppfærð."
+msgstr "نشان به‌هنگام‌سازی شد."
 
 #: actions/grouplogo.php:398
 msgid "Failed updating logo."
-msgstr "Tókst ekki að uppfæra einkennismynd"
+msgstr "اشکال در ارسال نشان."
 
 #: actions/groupmembers.php:93 lib/groupnav.php:92
 #, php-format
 msgid "%s group members"
-msgstr "Hópmeðlimir %s"
+msgstr "اعضای گروه %s"
 
 #: actions/groupmembers.php:96
 #, php-format
 msgid "%s group members, page %d"
-msgstr "Hópmeðlimir %s, síða %d"
+msgstr "اعضای گروه %s، صفحهٔ %d"
 
 #: actions/groupmembers.php:111
 msgid "A list of the users in this group."
-msgstr "Listi yfir notendur í þessum hóp."
+msgstr "یک فهرست از کاربران در این گروه"
 
-#: actions/groupmembers.php:175 lib/action.php:440 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:439 lib/groupnav.php:107
 msgid "Admin"
-msgstr "Stjórnandi"
+msgstr "مدیر"
 
 #: actions/groupmembers.php:346 lib/blockform.php:69
 msgid "Block"
-msgstr "Loka"
+msgstr "بازداشتن"
 
 #: actions/groupmembers.php:441
 msgid "Make user an admin of the group"
-msgstr ""
+msgstr "کاربر یک مدیر گروه شود"
 
 #: actions/groupmembers.php:473
 msgid "Make Admin"
-msgstr ""
+msgstr "مدیر شود"
 
 #: actions/groupmembers.php:473
 msgid "Make this user an admin"
-msgstr ""
+msgstr "این کاربر یک مدیر شود"
 
 #: actions/grouprss.php:133
-#, fuzzy, php-format
+#, php-format
 msgid "Updates from members of %1$s on %2$s!"
-msgstr "Færslur frá %1$s á %2$s!"
+msgstr "به روز رسانی کابران %1$s در %2$s"
 
-#: actions/groups.php:62 lib/profileaction.php:210 lib/profileaction.php:230
-#: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
+#: actions/groupsearch.php:52
+#, php-format
+msgid ""
+"Search for groups on %%site.name%% by their name, location, or description. "
+"Separate the terms by spaces; they must be 3 characters or more."
+msgstr "با وارد کردن ۳ حرف و بیش‌تر در گروه‌های %%site.name%% جست‌و‌جو کنید."
+
+#: actions/groupsearch.php:58
+msgid "Group search"
+msgstr "جست‌وجوی گروه"
+
+#: actions/groupsearch.php:79 actions/noticesearch.php:117
+#: actions/peoplesearch.php:83
+msgid "No results."
+msgstr "بدون نتیجه."
+
+#: actions/groupsearch.php:82
+#, php-format
+msgid ""
+"If you can't find the group you're looking for, you can [create it](%%action."
+"newgroup%%) yourself."
+msgstr "اگر نمی‌توانید گروه مورد نظر را پیدا کنید خودتان می‌توانید آن را [ایجاد](%%action.newgroup%%) کنید."
+
+#: actions/groupsearch.php:85
+#, php-format
+msgid ""
+"Why not [register an account](%%action.register%%) and [create the group](%%"
+"action.newgroup%%) yourself!"
+msgstr "چرا [ثبت نام](%%action.register%%) نمی‌کنید و گروه را خود [ایجاد](%%action.newgroup%%) نمی‌کنید!"
+
+#: actions/groups.php:62 lib/profileaction.php:220 lib/publicgroupnav.php:81
+#: lib/subgroupnav.php:98
 msgid "Groups"
-msgstr "Hópar"
+msgstr "گروه‌ها"
 
 #: actions/groups.php:64
 #, php-format
 msgid "Groups, page %d"
-msgstr "Hópar, síða %d"
+msgstr "گروه‌ها، صفحهٔ %d"
 
 #: actions/groups.php:90
 #, php-format
@@ -1505,90 +1520,58 @@ msgid ""
 "using the syntax \"!groupname\". Don't see a group you like? Try [searching "
 "for one](%%%%action.groupsearch%%%%) or [start your own!](%%%%action.newgroup"
 "%%%%)"
-msgstr ""
+msgstr "گروه های %%%site.name%%% به شما اجازه می‌دهد با کسانی که همانند شما علاقه‌مندی های خاصی دارد صحبت کنید. "
+"بعد از پیوستن به یک گروه می‌توانید به شکل !groupname به اعضای آن گروه پیام ارسال کنید ."
+"گروهی که دوست دارید را نمی‌بینید؟ می‌توانید برای یافتن آن [بگردید](%%%action.groupsearch%%%) یا آن را "
+"خودتان [ایجاد](%%%action.newgroup%%%) کنید."
 
 #: actions/groups.php:107 actions/usergroups.php:124 lib/groupeditform.php:122
 msgid "Create a new group"
-msgstr "Búa til nýjan hóp"
-
-#: actions/groupsearch.php:52
-#, php-format
-msgid ""
-"Search for groups on %%site.name%% by their name, location, or description. "
-"Separate the terms by spaces; they must be 3 characters or more."
-msgstr ""
-
-#: actions/groupsearch.php:58
-msgid "Group search"
-msgstr "Hópleit"
-
-#: actions/groupsearch.php:79 actions/noticesearch.php:117
-#: actions/peoplesearch.php:83
-msgid "No results."
-msgstr ""
-
-#: actions/groupsearch.php:82
-#, php-format
-msgid ""
-"If you can't find the group you're looking for, you can [create it](%%action."
-"newgroup%%) yourself."
-msgstr ""
-
-#: actions/groupsearch.php:85
-#, php-format
-msgid ""
-"Why not [register an account](%%action.register%%) and [create the group](%%"
-"action.newgroup%%) yourself!"
-msgstr ""
+msgstr "یک گروه جدید بساز"
 
 #: actions/groupunblock.php:91
 msgid "Only an admin can unblock group members."
-msgstr ""
+msgstr "تنها یک مدیر توانایی برداشتن منع کاربران گروه را دارد."
 
 #: actions/groupunblock.php:95
 msgid "User is not blocked from group."
-msgstr ""
+msgstr "کاربر از گروه منع نشده است."
 
 #: actions/groupunblock.php:128 actions/unblock.php:77
 msgid "Error removing the block."
-msgstr "Vill kom upp við að aflétta notendalokun."
+msgstr "اشکال در پاکسازی"
 
 #: actions/imsettings.php:59
 msgid "IM Settings"
-msgstr "Snarskilaboðastillingar"
+msgstr "تنظیمات پیام‌رسان فوری"
 
 #: actions/imsettings.php:70
 #, php-format
 msgid ""
 "You can send and receive notices through Jabber/GTalk [instant messages](%%"
 "doc.im%%). Configure your address and settings below."
-msgstr ""
-"Þú getur sent og tekið á móti babli í gegnum Jabber/GTalk "
-"[snarskilaboðaþjónustuna](%%doc.im%%). Settu upp netfangið þitt hér fyrir "
-"neðan og stilltu notkunina."
+msgstr "شما می‌توانید پیام‌های خود را با استفاده از [پیام‌رسان‌های](%%doc.im%%) Jabber یا Gtalk ارسال/دریافت کنید. "
+"نشانی خود را در این قسمت تنظیم کنید"
 
 #: actions/imsettings.php:89
-#, fuzzy
 msgid "IM is not available."
-msgstr "Þessi síða er ekki aðgengileg í "
+msgstr "پیام‌رسان فوری در دسترس نیست."
 
 #: actions/imsettings.php:106
 msgid "Current confirmed Jabber/GTalk address."
-msgstr "Núverandi staðfesta Jabber/GTalk snarskilaboðafangið."
+msgstr "نشانی Jabber/GTalk تایید شده کنونی"
 
 #: actions/imsettings.php:114
 #, php-format
 msgid ""
 "Awaiting confirmation on this address. Check your Jabber/GTalk account for a "
 "message with further instructions. (Did you add %s to your buddy list?)"
-msgstr ""
-"Býð eftir staðfestingu frá þessu netfangi. Athugaðu Jabber/GTalk aðganginn "
-"þinn. Þar ættu að vera skilaboð með ítarlegri leiðbeiningum. (Hefurðu bætt %"
-"s við í vinalistann þinn?)"
+msgstr "منتظر تایید این نشانی هستیم. لطفا Jabber/Gtalk خود را برای "
+"دریافت توضیحات بیش‌تر بررسی کنید. (آیا %s را به فهرست خود اضافه کرده اید؟) "
 
 #: actions/imsettings.php:124
 msgid "IM Address"
-msgstr "Snarskilaboðafang"
+msgstr "نشانی پیام‌رسان فوری"
 
 #: actions/imsettings.php:126
 #, php-format
@@ -1596,155 +1579,147 @@ msgid ""
 "Jabber or GTalk address, like \"UserName@example.org\". First, make sure to "
 "add %s to your buddy list in your IM client or on GTalk."
 msgstr ""
-"Jabber eða GTalk netfang eins og \"notandi@example.org\". Fyrst skaltu vera "
-"viss um að bæta %s við í vinalistann þinn í snarskilaboðaforritinu þínu eða "
-"á GTalk."
+"نشانی Jabber یا GTalk، مانند «UserName@example.org». ابتدا از اضافه کردن %s "
+"به فهرست دوستان خود در کارگیر پیام‌رسان فوری‌تان یا در GTalk مطمئن شوید."
 
 #: actions/imsettings.php:143
 msgid "Send me notices through Jabber/GTalk."
-msgstr "Sendur mér babl í gegnum Jabber/GTalk."
+msgstr "آگهی‌ها را از راه Jabber/GTalk برای من بفرست."
 
 #: actions/imsettings.php:148
 msgid "Post a notice when my Jabber/GTalk status changes."
-msgstr "Senda inn babl þegar Jabber/GTalk staðan breytist."
+msgstr "هر وقت که وضعیت Jabber/Gtalk من فرق کرد، یک پیام ارسال کن."
 
 #: actions/imsettings.php:153
 msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
-msgstr ""
-"Sendu mér svör í gegnum Jabber/GTalk frá fólki sem ég er ekki áskrifandi að."
+msgstr "جواب کسانی که من آن ها را دنبال نمی‌کنم را با Jabber/Gtalk برایم ارسال کن."
 
 #: actions/imsettings.php:159
 msgid "Publish a MicroID for my Jabber/GTalk address."
-msgstr "Birta MicroID fyrir Jabber/GTalk netfangið mitt."
+msgstr "یک شناسه‌ی کوچک برای Jabber/Gtalk من منتشر کن."
 
 #: actions/imsettings.php:285
 msgid "No Jabber ID."
-msgstr "Ekkert Jabber-kenni"
+msgstr "هیچ شناسهٔ Jabber ای وجود ندارد."
 
 #: actions/imsettings.php:292
 msgid "Cannot normalize that Jabber ID"
-msgstr "Get ekki staðlað þetta Jabber kenni"
+msgstr "نمی‌توان شناسه‌ی Jabber را تایید کرد"
 
 #: actions/imsettings.php:296
 msgid "Not a valid Jabber ID"
-msgstr "Ekki tækt Jabber-kenni"
+msgstr "شناسه‌ی Jabber درست نیست"
 
 #: actions/imsettings.php:299
 msgid "That is already your Jabber ID."
-msgstr "Þetta er nú þegar Jabber-kennið þitt."
+msgstr "این شناسه Jabber کنونی شماست."
 
 #: actions/imsettings.php:302
 msgid "Jabber ID already belongs to another user."
-msgstr "Jabber-kennið tilheyrir öðrum notanda."
+msgstr "شناسه Jabber به یک کاربر دیگر مربوط است."
 
 #: actions/imsettings.php:327
 #, php-format
 msgid ""
 "A confirmation code was sent to the IM address you added. You must approve %"
 "s for sending messages to you."
-msgstr ""
-"Staðfestingarlykill var sendur á snarskilaboðafangið sem þú varst að bæta "
-"við. Þú verður að leyfa %s að senda snarskilaboð til þín."
+msgstr "کد تایید به پیام‌رسان شما ارسال شد. شما باید %s را تایید کنید "
+"تا پیام‌ها به شما ارسال شود."
 
 #: actions/imsettings.php:387
 msgid "That is not your Jabber ID."
-msgstr "Þetta er ekki Jabber-kennið þitt."
+msgstr "این شناسه‌ی Jabber شما نیست."
 
 #: actions/inbox.php:59
 #, php-format
 msgid "Inbox for %s - page %d"
-msgstr "Innhólf %s - síða %d"
+msgstr "ورودی‌های %s - صفحه‌ی %d"
 
 #: actions/inbox.php:62
 #, php-format
 msgid "Inbox for %s"
-msgstr "Innhólf %s"
+msgstr "صندوق ورودی %s"
 
 #: actions/inbox.php:115
 msgid "This is your inbox, which lists your incoming private messages."
-msgstr ""
-"Þetta er innhólfið þitt sem sýnir persónuleg skilaboð sem voru send til þín."
+msgstr "این صندوق ورودی‌های شماست که پیام‌های خصوصی شما در آن خواهد بود."
 
 #: actions/invite.php:39
 msgid "Invites have been disabled."
-msgstr ""
+msgstr "دعوت‌کردن از کار انداخته شده‌است."
 
 #: actions/invite.php:41
 #, php-format
 msgid "You must be logged in to invite other users to use %s"
-msgstr "Þú verður að vera innskráð(ur) til að geta boðið öðrum að nota %s"
+msgstr "شما برای دعوت دیگران برای استفاده از %s باید وارد شودید."
 
 #: actions/invite.php:72
 #, php-format
 msgid "Invalid email address: %s"
-msgstr "Ótækt tölvupóstfang: %s"
+msgstr "پست‌الکترونیک صحیح نیست: %s"
 
 #: actions/invite.php:110
 msgid "Invitation(s) sent"
-msgstr "Boðskort hefur verið sent út"
+msgstr "دعوت‌نامه(ها) فرستاده‌شد"
 
 #: actions/invite.php:112
 msgid "Invite new users"
-msgstr "Bjóða nýjum notendum að vera með"
+msgstr "دعوت کردن کاربران تازه"
 
 #: actions/invite.php:128
 msgid "You are already subscribed to these users:"
-msgstr "Þú ert nú þegar í áskrift að þessum notendum:"
+msgstr "هم اکنون شما این کاربران را دنبال می‌کنید: "
 
 #: actions/invite.php:131 actions/invite.php:139
 #, php-format
 msgid "%s (%s)"
-msgstr "%s (%s)"
+msgstr "%s )%s("
 
 #: actions/invite.php:136
 msgid ""
 "These people are already users and you were automatically subscribed to them:"
-msgstr ""
-"Þetta fólk er nú þegar notendur og þú varðst sjálfkrafa áskrifandi að þeim:"
+msgstr "این کاربرانی هستند که شما به صورت خودکار آن‌ها را دنبال می‌کنید: "
 
 #: actions/invite.php:144
 msgid "Invitation(s) sent to the following people:"
-msgstr "Boðskort sent á eftirfarandi aðila:"
+msgstr "دعوت‌نامه(ها) برای افراد زیر فرستاده شد:"
 
 #: actions/invite.php:150
 msgid ""
 "You will be notified when your invitees accept the invitation and register "
 "on the site. Thanks for growing the community!"
-msgstr ""
-"Við sendum þér tilkynningu þegar þeir sem þú býður samþykkja boðskortið og "
-"skrá sig á síðuna. Takk fyrir að stækka samfélagið!"
+msgstr "هر زمان که دعوت شدگان شما دعوتتان را بپذیرند شما با خبر خواهید شد. "
+"با تشکر از شما برای بزرگ کردن اجتماع کابران."
 
 #: actions/invite.php:162
 msgid ""
 "Use this form to invite your friends and colleagues to use this service."
-msgstr ""
-"Notaðu þetta eyðublað til þess að bjóða vinum þínum og kunningjum að nota "
-"þessa örbloggsþjónustu."
+msgstr "برای دعوت دوستان و تشویق آن‌ها به استفاده از خدمات از فرم زیر استفاده کنید."
 
 #: actions/invite.php:187
 msgid "Email addresses"
-msgstr "Tölvupóstföng"
+msgstr "نشانی‌های پست الکترونیکی"
 
 #: actions/invite.php:189
 msgid "Addresses of friends to invite (one per line)"
-msgstr "Tölvupóstfang vina sem þú vilt bjóða (eitt póstfang í hverja línu)"
+msgstr "نشانی دوستان (یک نشانی در هر خط("
 
 #: actions/invite.php:192
 msgid "Personal message"
-msgstr "Persónuleg skilaboð"
+msgstr "پیام خصوصی"
 
 #: actions/invite.php:194
 msgid "Optionally add a personal message to the invitation."
-msgstr "Bættu persónulegum skilaboðum við boðskortið ef þú vilt."
+msgstr "اگر دوست دارید می‌توانید یک پیام به همراه دعوت نامه ارسال کنید."
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:222
+#: actions/invite.php:197 lib/messageform.php:181 lib/noticeform.php:208
 msgid "Send"
-msgstr "Senda"
+msgstr "فرستادن"
 
 #: actions/invite.php:226
 #, php-format
 msgid "%1$s has invited you to join them on %2$s"
-msgstr "%1$s hefur boðið þér að slást í hópinn með þeim á %2$s"
+msgstr "%1$s شما را دعوت کرده است که در %2$s به آن‌ها بپیوندید."
 
 #: actions/invite.php:228
 #, php-format
@@ -1776,142 +1751,107 @@ msgid ""
 "\n"
 "Sincerely, %2$s\n"
 msgstr ""
-"%1$s hefur boðið þér að slást í hópinn með þeim á %2$s (%3$s).\n"
-"\n"
-"%2$s er örbloggsþjónusta sem leyfir þér að fylgjast með með fólki sem þú "
-"þekkir eða öðru áhugaverðu fólki í rauntíma.\n"
-"\n"
-"Þú getur líka sent inn fréttir af þér og deilt hugleiðingum og netveru þinni "
-"með fólki sem þekkir til þín. Þetta er frábær leið til þess að kynnast fólki "
-"sem hefur sömu áhugamál og þú.\n"
-"\n"
-"%1$s sagði:\n"
-"\n"
-"%4$s\n"
-"\n"
-"Þú getur séð persónulega síðu %1$s á %2$s hér:\n"
-"\n"
-"%5$s\n"
-"\n"
-"Ef þig langar til að prófa þjónustuna, smelltu þá á hlekkinn hér fyrir neðan "
-"til að taka þessu boði.\n"
-"\n"
-"%6$s\n"
-"\n"
-"Ef ekki, þá getur þú hunsað þessi skilaboð. Takk fyrir tímann og "
-"þolinmæðina.\n"
-"\n"
-"Með bestu kveðju, %2$s\n"
 
 #: actions/joingroup.php:60
 msgid "You must be logged in to join a group."
-msgstr "Þú verður að hafa skráð þig inn til að bæta þér í hóp."
+msgstr "برای پیوستن به یک گروه، باید وارد شده باشید."
 
 #: actions/joingroup.php:90 lib/command.php:217
 msgid "You are already a member of that group"
-msgstr "Þú ert nú þegar meðlimur í þessum hópi"
+msgstr "شما یک کاربر این گروه هستید."
 
 #: actions/joingroup.php:128 lib/command.php:234
 #, php-format
 msgid "Could not join user %s to group %s"
-msgstr "Gat ekki bætt notandanum %s í hópinn %s"
+msgstr "نمی‌توان کاربر %s را به گروه %s پیوند داد."
 
 #: actions/joingroup.php:135 lib/command.php:239
 #, php-format
 msgid "%s joined group %s"
-msgstr "%s bætti sér í hópinn %s"
+msgstr ""
 
 #: actions/leavegroup.php:60
 msgid "You must be logged in to leave a group."
-msgstr "Þú verður aða hafa skráð þig inn til að ganga úr hóp."
+msgstr "برای ترک یک گروه، شما باید وارد شده باشید."
 
 #: actions/leavegroup.php:90 lib/command.php:268
 msgid "You are not a member of that group."
-msgstr "Þú ert ekki meðlimur í þessum hópi."
+msgstr "شما یک کاربر این گروه نیستید."
 
 #: actions/leavegroup.php:119 lib/command.php:278
 msgid "Could not find membership record."
-msgstr "Gat ekki fundið meðlimaskrá."
+msgstr ""
 
 #: actions/leavegroup.php:127 lib/command.php:284
 #, php-format
 msgid "Could not remove user %s to group %s"
-msgstr "Gat ekki fjarlægt notandann %s úr hópnum %s"
+msgstr ""
 
 #: actions/leavegroup.php:134 lib/command.php:289
 #, php-format
 msgid "%s left group %s"
-msgstr "%s gekk úr hópnum %s"
+msgstr ""
 
-#: actions/login.php:83 actions/register.php:137
+#: actions/login.php:79 actions/register.php:137
 msgid "Already logged in."
-msgstr "Þú hefur nú þegar skráð þig inn."
+msgstr ""
 
-#: actions/login.php:114 actions/login.php:124
-#, fuzzy
+#: actions/login.php:110 actions/login.php:120
 msgid "Invalid or expired token."
-msgstr "Ótækt bablinnihald"
+msgstr ""
 
-#: actions/login.php:147
+#: actions/login.php:143
 msgid "Incorrect username or password."
-msgstr "Rangt notendanafn eða lykilorð."
+msgstr ""
 
-#: actions/login.php:153
-#, fuzzy
+#: actions/login.php:149
 msgid "Error setting user. You are probably not authorized."
-msgstr "Engin heimild."
+msgstr ""
 
-#: actions/login.php:208 actions/login.php:261 lib/action.php:458
+#: actions/login.php:204 actions/login.php:257 lib/action.php:457
 #: lib/logingroupnav.php:79
 msgid "Login"
-msgstr "Innskráning"
+msgstr "ورود"
 
-#: actions/login.php:247
+#: actions/login.php:243
 msgid "Login to site"
-msgstr "Skrá þig inn á síðuna"
+msgstr "ورود به وب‌گاه"
 
-#: actions/login.php:250 actions/profilesettings.php:106
+#: actions/login.php:246 actions/profilesettings.php:106
 #: actions/register.php:423 actions/showgroup.php:236 actions/tagother.php:94
 #: lib/groupeditform.php:152 lib/userprofile.php:131
 msgid "Nickname"
-msgstr "Stuttnefni"
+msgstr ""
 
-#: actions/login.php:253 actions/register.php:428
+#: actions/login.php:249 actions/register.php:428
 #: lib/accountsettingsaction.php:116
 msgid "Password"
-msgstr "Lykilorð"
+msgstr "گذرواژه"
 
-#: actions/login.php:256 actions/register.php:477
+#: actions/login.php:252 actions/register.php:477
 msgid "Remember me"
-msgstr "Muna eftir mér"
+msgstr "مرا به یاد بسپار"
 
-#: actions/login.php:257 actions/register.php:479
+#: actions/login.php:253 actions/register.php:479
 msgid "Automatically login in the future; not for shared computers!"
 msgstr ""
-"Sjálfvirk innskráning í framtíðinni. Ekki nota þetta á tölvu sem aðrir deila "
-"með þér!"
 
-#: actions/login.php:267
+#: actions/login.php:263
 msgid "Lost or forgotten password?"
-msgstr "Tapað eða gleymt lykilorð?"
+msgstr ""
 
-#: actions/login.php:286
+#: actions/login.php:282
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
 msgstr ""
-"Af öryggisástæðum, vinsamlegast sláðu aftur inn notendanafnið þitt og "
-"lykilorð áður en þú breytir stillingunum þínum."
 
-#: actions/login.php:290
-#, fuzzy, php-format
+#: actions/login.php:286
+#, php-format
 msgid ""
 "Login with your username and password. Don't have a username yet? [Register]"
 "(%%action.register%%) a new account."
 msgstr ""
-"Skráðu þig inn með notendanafninu þínu og lykilorði. Ertu ekki með "
-"notendanafn? [Nýskráðu þig](%%action.register%%) eða prófaðu [OpenID](%%"
-"action.openidlogin%%). "
 
 #: actions/makeadmin.php:91
 msgid "Only an admin can make another user an admin."
@@ -1934,60 +1874,58 @@ msgstr ""
 
 #: actions/microsummary.php:69
 msgid "No current status"
-msgstr "Engin núverandi staða"
+msgstr ""
 
 #: actions/newgroup.php:53
 msgid "New group"
-msgstr "Nýr hópur"
+msgstr "گروه جدید"
 
 #: actions/newgroup.php:110
 msgid "Use this form to create a new group."
-msgstr "Notaðu þetta eyðublað til að búa til nýjan hóp."
+msgstr ""
 
 #: actions/newmessage.php:71 actions/newmessage.php:231
 msgid "New message"
-msgstr "Ný skilaboð"
+msgstr "پیام جدید"
 
 #: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:367
 msgid "You can't send a message to this user."
-msgstr "Þú getur ekki sent þessum notanda skilaboð."
+msgstr ""
 
 #: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:351
-#: lib/command.php:484
+#: lib/command.php:424
 msgid "No content!"
-msgstr "Ekkert innihald!"
+msgstr ""
 
 #: actions/newmessage.php:158
 msgid "No recipient specified."
-msgstr "Enginn móttökuaðili tilgreindur."
+msgstr ""
 
 #: actions/newmessage.php:164 lib/command.php:370
 msgid ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr ""
-"Ekki senda þér skilaboð. Þú getur sagt þetta í hljóði við sjálfa(n) þig í "
-"staðinn."
 
 #: actions/newmessage.php:181
 msgid "Message sent"
-msgstr ""
+msgstr "پیام فرستاده‌شد"
 
-#: actions/newmessage.php:185 lib/command.php:376
+#: actions/newmessage.php:185 lib/command.php:375
 #, php-format
 msgid "Direct message to %s sent"
-msgstr "Bein skilaboð send til %s"
+msgstr ""
 
-#: actions/newmessage.php:210 actions/newnotice.php:242 lib/channel.php:170
+#: actions/newmessage.php:210 actions/newnotice.php:233 lib/channel.php:170
 msgid "Ajax Error"
-msgstr "Ajax villa"
+msgstr ""
 
 #: actions/newnotice.php:69
 msgid "New notice"
-msgstr "Nýtt babl"
+msgstr "آگهی جدید"
 
-#: actions/newnotice.php:208
+#: actions/newnotice.php:199
 msgid "Notice posted"
-msgstr "Babl sent inn"
+msgstr "آگهی فرستاده‌شد."
 
 #: actions/noticesearch.php:68
 #, php-format
@@ -1995,12 +1933,10 @@ msgid ""
 "Search for notices on %%site.name%% by their contents. Separate search terms "
 "by spaces; they must be 3 characters or more."
 msgstr ""
-"Leita í innihaldi babls á %%site.name%%. Leitarorð eru aðskilin með bili og "
-"verða að vera að minnsta kosti 3 tákn."
 
 #: actions/noticesearch.php:78
 msgid "Text search"
-msgstr "Textaleit"
+msgstr "جست‌وجوی متن"
 
 #: actions/noticesearch.php:91
 #, php-format
@@ -2021,80 +1957,78 @@ msgid ""
 "[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
 msgstr ""
 
-#: actions/noticesearchrss.php:96
+#: actions/noticesearchrss.php:89
 #, php-format
 msgid "Updates with \"%s\""
 msgstr ""
 
-#: actions/noticesearchrss.php:98
-#, fuzzy, php-format
+#: actions/noticesearchrss.php:91
+#, php-format
 msgid "Updates matching search term \"%1$s\" on %2$s!"
-msgstr "Allar færslur sem passa við \"%s\""
+msgstr ""
 
 #: actions/nudge.php:85
 msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set his email yet."
 msgstr ""
-"Þessi notandi leyfir ekki að ýta við sér eða hefur ekki staðfest eða skráð "
-"tölvupóstinn sinn."
 
 #: actions/nudge.php:94
 msgid "Nudge sent"
-msgstr "Ýtt við notanda"
+msgstr ""
 
 #: actions/nudge.php:97
 msgid "Nudge sent!"
-msgstr "Ýtt við notanda!"
+msgstr ""
 
 #: actions/oembed.php:79 actions/shownotice.php:100
 msgid "Notice has no profile"
-msgstr "Babl hefur enga persónulega síðu"
+msgstr ""
 
 #: actions/oembed.php:86 actions/shownotice.php:180
 #, php-format
 msgid "%1$s's status on %2$s"
-msgstr "Staða %1$s á %2$s"
+msgstr "وضعیت %1$s در %2$s"
 
 #: actions/oembed.php:157
 msgid "content type "
-msgstr ""
+msgstr "نوع محتوا "
 
 #: actions/oembed.php:160
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1031
-#: lib/api.php:1059 lib/api.php:1169
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:999
+#: lib/api.php:1027 lib/api.php:1137
 msgid "Not a supported data format."
-msgstr "Enginn stuðningur við gagnasnið."
+msgstr "یک قالب دادهٔ پشتیبانی‌شده نیست."
 
 #: actions/opensearch.php:64
 msgid "People Search"
-msgstr "Leit að fólki"
+msgstr "جست‌وجوی کاربران"
 
 #: actions/opensearch.php:67
 msgid "Notice Search"
-msgstr "Leit í babli"
+msgstr "جست‌وجوی آگهی‌ها"
 
 #: actions/othersettings.php:60
 msgid "Other Settings"
-msgstr "Aðrar stillingar"
+msgstr "تنظیمات دیگر"
 
 #: actions/othersettings.php:71
 msgid "Manage various other options."
-msgstr "Sjá um ýmsar aðrar stillingar."
+msgstr ""
 
 #: actions/othersettings.php:108
 msgid " (free service)"
-msgstr ""
+msgstr " (سرویس‌ آزاد)"
 
 #: actions/othersettings.php:116
 msgid "Shorten URLs with"
-msgstr ""
+msgstr "کوتاه‌کردن نشانی‌های اینترنتی با"
 
 #: actions/othersettings.php:117
 msgid "Automatic shortening service to use."
-msgstr "Þjónusta sem sér um sjálfkrafa styttingu."
+msgstr ""
 
 #: actions/othersettings.php:122
 msgid "View profile designs"
@@ -2107,190 +2041,81 @@ msgstr ""
 #: actions/othersettings.php:153
 msgid "URL shortening service is too long (max 50 chars)."
 msgstr ""
-"Þjónusta sjálfvirkrar vefslóðastyttingar er of löng (í mesta lagi 50 stafir)."
 
 #: actions/outbox.php:58
 #, php-format
 msgid "Outbox for %s - page %d"
-msgstr "Úthólf %s - síða %d"
+msgstr ""
 
 #: actions/outbox.php:61
 #, php-format
 msgid "Outbox for %s"
-msgstr "Úthólf %s"
+msgstr ""
 
 #: actions/outbox.php:116
 msgid "This is your outbox, which lists private messages you have sent."
 msgstr ""
-"Þetta er úthólfið þitt sem sýnir persónuleg skilaboð sem þú hefur sent."
 
 #: actions/passwordsettings.php:58
 msgid "Change password"
-msgstr "Breyta lykilorði"
+msgstr "تغییر گذرواژه"
 
 #: actions/passwordsettings.php:69
 msgid "Change your password."
-msgstr "Breyta lykilorðinu þínu."
+msgstr "تغییر گذرواژه‌تان"
 
 #: actions/passwordsettings.php:96 actions/recoverpassword.php:231
 msgid "Password change"
-msgstr "Lykilorðabreyting"
+msgstr ""
 
 #: actions/passwordsettings.php:104
 msgid "Old password"
-msgstr "Eldra lykilorð"
+msgstr "گذرواژهٔ قدیمی"
 
 #: actions/passwordsettings.php:108 actions/recoverpassword.php:235
 msgid "New password"
-msgstr "Nýtt lykilorð"
+msgstr "گذرواژهٔ جدید"
 
 #: actions/passwordsettings.php:109
 msgid "6 or more characters"
-msgstr "6 eða fleiri tákn"
+msgstr "۶ نویسه یا بیش‌تر"
 
 #: actions/passwordsettings.php:112 actions/recoverpassword.php:239
 #: actions/register.php:432 actions/smssettings.php:134
 msgid "Confirm"
-msgstr "Staðfesta"
+msgstr "تایید"
 
-#: actions/passwordsettings.php:113 actions/recoverpassword.php:240
-msgid "Same as password above"
-msgstr "Sama og lykilorðið hér fyrir ofan"
+#: actions/passwordsettings.php:113
+msgid "same as password above"
+msgstr "همانند گذرواژه بالا"
 
 #: actions/passwordsettings.php:117
 msgid "Change"
-msgstr "Breyta"
+msgstr "تغییر"
 
 #: actions/passwordsettings.php:154 actions/register.php:230
 msgid "Password must be 6 or more characters."
-msgstr "Lykilorð verður að vera að minnsta kosti 6 tákn."
+msgstr "گذرواژه باید ۶ نویسه یا بیش‌تر باشد."
 
 #: actions/passwordsettings.php:157 actions/register.php:233
 msgid "Passwords don't match."
-msgstr "Lykilorðin passa ekki saman."
+msgstr "گذرواژه‌ها مطابقت ندارند."
 
 #: actions/passwordsettings.php:165
 msgid "Incorrect old password"
-msgstr "Rangt eldra lykilorð"
+msgstr "گذرواژه قدیمی اشتباه است"
 
 #: actions/passwordsettings.php:181
 msgid "Error saving user; invalid."
-msgstr "Villa kom upp í vistun notanda: ótækt."
+msgstr ""
 
 #: actions/passwordsettings.php:186 actions/recoverpassword.php:368
 msgid "Can't save new password."
-msgstr "Get ekki vistað nýja lykilorðið."
+msgstr "نمی‌توان گذرواژه جدید را ذخیره کرد."
 
 #: actions/passwordsettings.php:192 actions/recoverpassword.php:211
 msgid "Password saved."
-msgstr "Lykilorð vistað."
-
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:308
-msgid "Paths"
-msgstr ""
-
-#: actions/pathsadminpanel.php:70
-msgid "Path and server settings for this StatusNet site."
-msgstr ""
-
-#: actions/pathsadminpanel.php:140
-#, fuzzy, php-format
-msgid "Theme directory not readable: %s"
-msgstr "Þessi síða er ekki aðgengileg í "
-
-#: actions/pathsadminpanel.php:146
-#, php-format
-msgid "Avatar directory not writable: %s"
-msgstr ""
-
-#: actions/pathsadminpanel.php:152
-#, php-format
-msgid "Background directory not writable: %s"
-msgstr ""
-
-#: actions/pathsadminpanel.php:160
-#, php-format
-msgid "Locales directory not readable: %s"
-msgstr ""
-
-#: actions/pathsadminpanel.php:212 actions/siteadminpanel.php:58
-#: lib/adminpanelaction.php:299
-#, fuzzy
-msgid "Site"
-msgstr "Bjóða"
-
-#: actions/pathsadminpanel.php:216
-msgid "Path"
-msgstr ""
-
-#: actions/pathsadminpanel.php:216
-#, fuzzy
-msgid "Site path"
-msgstr "Babl vefsíðunnar"
-
-#: actions/pathsadminpanel.php:220
-msgid "Path to locales"
-msgstr ""
-
-#: actions/pathsadminpanel.php:220
-msgid "Directory path to locales"
-msgstr ""
-
-#: actions/pathsadminpanel.php:227
-msgid "Theme"
-msgstr ""
-
-#: actions/pathsadminpanel.php:232
-msgid "Theme server"
-msgstr ""
-
-#: actions/pathsadminpanel.php:236
-msgid "Theme path"
-msgstr ""
-
-#: actions/pathsadminpanel.php:240
-msgid "Theme directory"
-msgstr ""
-
-#: actions/pathsadminpanel.php:247
-#, fuzzy
-msgid "Avatars"
-msgstr "Mynd"
-
-#: actions/pathsadminpanel.php:252
-#, fuzzy
-msgid "Avatar server"
-msgstr "Stillingar fyrir mynd"
-
-#: actions/pathsadminpanel.php:256
-#, fuzzy
-msgid "Avatar path"
-msgstr "Mynd hefur verið uppfærð."
-
-#: actions/pathsadminpanel.php:260
-msgid "Avatar directory"
-msgstr ""
-
-#: actions/pathsadminpanel.php:269
-msgid "Backgrounds"
-msgstr ""
-
-#: actions/pathsadminpanel.php:273
-msgid "Background server"
-msgstr ""
-
-#: actions/pathsadminpanel.php:277
-msgid "Background path"
-msgstr ""
-
-#: actions/pathsadminpanel.php:281
-msgid "Background directory"
-msgstr ""
-
-#: actions/pathsadminpanel.php:297
-#, fuzzy
-msgid "Save paths"
-msgstr "Babl vefsíðunnar"
+msgstr "گذرواژه ذخیره شد."
 
 #: actions/peoplesearch.php:52
 #, php-format
@@ -2298,26 +2123,24 @@ msgid ""
 "Search for people on %%site.name%% by their name, location, or interests. "
 "Separate the terms by spaces; they must be 3 characters or more."
 msgstr ""
-"Leita að fólki á %%site.name%% eftir nafni, staðsetningu eða áhugamáli. "
-"Leitarorð eru aðskilin með bili og verða að vera að minnsta kosti 3 tákn."
 
 #: actions/peoplesearch.php:58
 msgid "People search"
-msgstr "Leit að fólki"
+msgstr "جست‌وجوی کاربران"
 
 #: actions/peopletag.php:70
 #, php-format
 msgid "Not a valid people tag: %s"
-msgstr "Ekki gilt persónumerki: %s"
+msgstr "یک برچسب کاربری معتبر نیست: %s"
 
 #: actions/peopletag.php:144
 #, php-format
 msgid "Users self-tagged with %s - page %d"
-msgstr "Notendur sjálfmerktir með %s - síða %d"
+msgstr "کاربران خود برچسب‌گذاری شده با %s - صفحهٔ %d"
 
 #: actions/postnotice.php:84
 msgid "Invalid notice content"
-msgstr "Ótækt bablinnihald"
+msgstr "محتوای آگهی نامعتبر"
 
 #: actions/postnotice.php:90
 #, php-format
@@ -2326,134 +2149,126 @@ msgstr ""
 
 #: actions/profilesettings.php:60
 msgid "Profile settings"
-msgstr "Stillingar persónulegrar síðu"
+msgstr "تنظیمات شناس‌نامه"
 
 #: actions/profilesettings.php:71
 msgid ""
 "You can update your personal profile info here so people know more about you."
 msgstr ""
-"Þú getur uppfært persónulegu síðuna þína hér þannig að fólk geti lært meira "
-"um þig."
 
 #: actions/profilesettings.php:99
 msgid "Profile information"
-msgstr "Upplýsingar á persónulegri síðu"
+msgstr "اطلاعات شناس‌نامه"
 
 #: actions/profilesettings.php:108 lib/groupeditform.php:154
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
-msgstr "1-64 lágstafir eða tölustafir, engin greinarmerki eða bil"
+msgstr ""
 
 #: actions/profilesettings.php:111 actions/register.php:447
 #: actions/showgroup.php:247 actions/tagother.php:104
 #: lib/groupeditform.php:157 lib/userprofile.php:149
 msgid "Full name"
-msgstr "Fullt nafn"
+msgstr "نام‌کامل"
 
 #: actions/profilesettings.php:115 actions/register.php:452
 #: lib/groupeditform.php:161
 msgid "Homepage"
-msgstr "Heimasíða"
+msgstr "صفحهٔ خانگی"
 
 #: actions/profilesettings.php:117 actions/register.php:454
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr ""
-"Veffang heimasíðunnar þinnar, bloggsins þíns eða persónulegrar síðu á öðru "
-"vefsvæði"
+"نشانی اینترنتی صفحهٔ خانگی، وبلاگ یا مشخصات کاربری‌تان در یک وب‌گاه دیگر"
 
 #: actions/profilesettings.php:122 actions/register.php:460
-#, fuzzy, php-format
+#, php-format
 msgid "Describe yourself and your interests in %d chars"
-msgstr "Lýstu þér og áhugamálum þínum í 140 táknum"
+msgstr ""
 
 #: actions/profilesettings.php:125 actions/register.php:463
-#, fuzzy
 msgid "Describe yourself and your interests"
-msgstr "Lýstu þér og þínum "
+msgstr ""
 
 #: actions/profilesettings.php:127 actions/register.php:465
 msgid "Bio"
-msgstr "Lýsing"
+msgstr "شرح‌حال"
 
 #: actions/profilesettings.php:132 actions/register.php:470
 #: actions/showgroup.php:256 actions/tagother.php:112
 #: actions/userauthorization.php:158 lib/groupeditform.php:177
 #: lib/userprofile.php:164
 msgid "Location"
-msgstr "Staðsetning"
+msgstr "موقعیت"
 
 #: actions/profilesettings.php:134 actions/register.php:472
 msgid "Where you are, like \"City, State (or Region), Country\""
-msgstr "Staðsetning þín, eins og \"borg, sýsla, land\""
+msgstr ""
 
 #: actions/profilesettings.php:138 actions/tagother.php:149
 #: actions/tagother.php:209 lib/subscriptionlist.php:106
 #: lib/subscriptionlist.php:108 lib/userprofile.php:209
 msgid "Tags"
-msgstr "Merki"
+msgstr "برچسب‌ها"
 
 #: actions/profilesettings.php:140
 msgid ""
 "Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
 msgstr ""
-"Merki fyrir þig (bókstafir, tölustafir, -, ., og _), aðskilin með kommu eða "
-"bili"
 
-#: actions/profilesettings.php:144 actions/siteadminpanel.php:307
+#: actions/profilesettings.php:144 actions/siteadminpanel.php:309
 msgid "Language"
-msgstr "Tungumál"
+msgstr "زبان"
 
 #: actions/profilesettings.php:145
 msgid "Preferred language"
-msgstr "Tungumál (ákjósanlegt)"
+msgstr "زبان برگزیده"
 
 #: actions/profilesettings.php:154
 msgid "Timezone"
-msgstr "Tímabelti"
+msgstr "منطقهٔ‌زمانی"
 
 #: actions/profilesettings.php:155
 msgid "What timezone are you normally in?"
-msgstr "Í hvaða tímabelti eru í rauninni?"
+msgstr ""
 
 #: actions/profilesettings.php:160
 msgid ""
 "Automatically subscribe to whoever subscribes to me (best for non-humans)"
 msgstr ""
-"Gerast sjálfkrafa áskrifandi að hverjum þeim sem gerist áskrifandi að þér "
-"(best fyrir ómannlega notendur)"
 
 #: actions/profilesettings.php:221 actions/register.php:223
-#, fuzzy, php-format
+#, php-format
 msgid "Bio is too long (max %d chars)."
-msgstr "Lýsingin er of löng (í mesta lagi 140 tákn)."
+msgstr ""
 
 #: actions/profilesettings.php:228 actions/siteadminpanel.php:165
 msgid "Timezone not selected."
-msgstr "Tímabelti ekki valið."
+msgstr ""
 
 #: actions/profilesettings.php:234
 msgid "Language is too long (max 50 chars)."
-msgstr "Tungumál er of langt (í mesta lagi 50 stafir)."
+msgstr ""
 
 #: actions/profilesettings.php:246 actions/tagother.php:178
 #, php-format
 msgid "Invalid tag: \"%s\""
-msgstr "Ógilt merki: \"%s\""
+msgstr ""
 
 #: actions/profilesettings.php:295
 msgid "Couldn't update user for autosubscribe."
-msgstr "Gat ekki uppfært notanda í sjálfvirka áskrift."
+msgstr ""
 
 #: actions/profilesettings.php:328
 msgid "Couldn't save profile."
-msgstr "Gat ekki vistað persónulega síðu."
+msgstr ""
 
 #: actions/profilesettings.php:336
 msgid "Couldn't save tags."
-msgstr "Gat ekki vistað merki."
+msgstr ""
 
 #: actions/profilesettings.php:344 lib/adminpanelaction.php:126
 msgid "Settings saved."
-msgstr "Stillingar vistaðar."
+msgstr ""
 
 #: actions/public.php:83
 #, php-format
@@ -2462,16 +2277,16 @@ msgstr ""
 
 #: actions/public.php:92
 msgid "Could not retrieve public stream."
-msgstr "Gat ekki sótt efni úr almenningsveitu."
+msgstr ""
 
 #: actions/public.php:129
 #, php-format
 msgid "Public timeline, page %d"
-msgstr "Almenningsrás, síða %d"
+msgstr ""
 
 #: actions/public.php:131 lib/publicgroupnav.php:79
 msgid "Public timeline"
-msgstr "Almenningsrás"
+msgstr ""
 
 #: actions/public.php:151
 msgid "Public Stream Feed (RSS 1.0)"
@@ -2521,12 +2336,12 @@ msgstr ""
 
 #: actions/publictagcloud.php:57
 msgid "Public tag cloud"
-msgstr "Merkjaský almenningsins"
+msgstr ""
 
 #: actions/publictagcloud.php:63
 #, php-format
 msgid "These are most popular recent tags on %s "
-msgstr "Þetta eru vinsælustu nýlegu merkin á %s "
+msgstr ""
 
 #: actions/publictagcloud.php:69
 #, php-format
@@ -2546,37 +2361,35 @@ msgstr ""
 
 #: actions/publictagcloud.php:135
 msgid "Tag cloud"
-msgstr "Merkjaský"
+msgstr ""
 
 #: actions/recoverpassword.php:36
 msgid "You are already logged in!"
-msgstr "Þú ert nú þegar innskráð(ur)!"
+msgstr ""
 
 #: actions/recoverpassword.php:62
 msgid "No such recovery code."
-msgstr "Enginn svoleiðis staðfestingarlykill."
+msgstr ""
 
 #: actions/recoverpassword.php:66
 msgid "Not a recovery code."
-msgstr "Þetta er ekki staðfestingarlykill."
+msgstr ""
 
 #: actions/recoverpassword.php:73
 msgid "Recovery code for unknown user."
-msgstr "Lykill fyrir endurheimtingu óþekkts notanda."
+msgstr ""
 
 #: actions/recoverpassword.php:86
 msgid "Error with confirmation code."
-msgstr "Villa kom upp varðandi staðfestingarlykilinn."
+msgstr ""
 
 #: actions/recoverpassword.php:97
 msgid "This confirmation code is too old. Please start again."
 msgstr ""
-"Þessi staðfestingarlykill er of gamall. Vinsamlegast byrjaðu aftur upp á "
-"nýtt."
 
 #: actions/recoverpassword.php:111
 msgid "Could not update user with confirmed email address."
-msgstr "Gat ekki uppfært notanda með staðfestu tölvupóstfangi."
+msgstr ""
 
 #: actions/recoverpassword.php:152
 msgid ""
@@ -2598,83 +2411,85 @@ msgstr ""
 
 #: actions/recoverpassword.php:193
 msgid "Your nickname on this server, or your registered email address."
-msgstr "Stuttnefnið þitt á þessum vefþjóni eða skráða tölvupóstfangið."
+msgstr ""
 
 #: actions/recoverpassword.php:199 actions/recoverpassword.php:200
 msgid "Recover"
-msgstr "Endurheimta"
+msgstr ""
 
 #: actions/recoverpassword.php:208
 msgid "Reset password"
-msgstr "Endurstilla lykilorð"
+msgstr ""
 
 #: actions/recoverpassword.php:209
 msgid "Recover password"
-msgstr "Endurheimta lykilorð"
+msgstr ""
 
 #: actions/recoverpassword.php:210 actions/recoverpassword.php:322
 msgid "Password recovery requested"
-msgstr "Beiðni um að endurheimta lykilorð hefur verið send inn"
+msgstr ""
 
 #: actions/recoverpassword.php:213
 msgid "Unknown action"
-msgstr "Óþekkt aðgerð"
+msgstr ""
 
 #: actions/recoverpassword.php:236
 msgid "6 or more characters, and don't forget it!"
-msgstr "6 eða fleiri tákn og ekki gleyma því!"
+msgstr ""
+
+#: actions/recoverpassword.php:240
+msgid "Same as password above"
+msgstr ""
 
 #: actions/recoverpassword.php:243
 msgid "Reset"
-msgstr "Endurstilla"
+msgstr ""
 
 #: actions/recoverpassword.php:252
 msgid "Enter a nickname or email address."
-msgstr "Sláðu inn stuttnefni eða tölvupóstfang."
+msgstr ""
 
 #: actions/recoverpassword.php:272
 msgid "No user with that email address or username."
-msgstr "Enginn notandi með þetta tölvupóstfang eða notendanafn"
+msgstr ""
 
 #: actions/recoverpassword.php:287
 msgid "No registered email address for that user."
-msgstr "Ekkert tölvupóstfang á skrá fyrir þennan notanda."
+msgstr ""
 
 #: actions/recoverpassword.php:301
 msgid "Error saving address confirmation."
-msgstr "Villa kom upp í vistun netfangsstaðfestingar."
+msgstr ""
 
 #: actions/recoverpassword.php:325
 msgid ""
 "Instructions for recovering your password have been sent to the email "
 "address registered to your account."
 msgstr ""
-"Leiðbeiningar um það hvernig þú getur endurheimt lykilorðið þitt hafa verið "
-"sendar á tölvupóstfangið sem er tengt notendaaðganginum þínum."
 
 #: actions/recoverpassword.php:344
 msgid "Unexpected password reset."
-msgstr "Bjóst ekki við endurstillingu lykilorðs."
+msgstr ""
 
 #: actions/recoverpassword.php:352
 msgid "Password must be 6 chars or more."
-msgstr "Lykilorð verður að vera 6 tákn eða fleiri."
+msgstr ""
 
 #: actions/recoverpassword.php:356
 msgid "Password and confirmation do not match."
-msgstr "Lykilorð og staðfesting passa ekki saman."
+msgstr ""
 
 #: actions/recoverpassword.php:375 actions/register.php:248
 msgid "Error setting user."
-msgstr "Villa kom upp í stillingu notanda."
+msgstr ""
 
 #: actions/recoverpassword.php:382
 msgid "New password successfully saved. You are now logged in."
-msgstr "Tókst að vista nýtt lykilorð. Þú ert núna innskráð(ur)"
+msgstr ""
 
 #: actions/register.php:85 actions/register.php:189 actions/register.php:404
 msgid "Sorry, only invited people can register."
-msgstr "Afsakið en aðeins fólki sem er boðið getur nýskráð sig."
+msgstr ""
 
 #: actions/register.php:92
 msgid "Sorry, invalid invitation code."
@@ -2682,32 +2497,32 @@ msgstr ""
 
 #: actions/register.php:112
 msgid "Registration successful"
-msgstr "Nýskráning tókst"
+msgstr ""
 
-#: actions/register.php:114 actions/register.php:502 lib/action.php:455
+#: actions/register.php:114 actions/register.php:502 lib/action.php:454
 #: lib/logingroupnav.php:85
 msgid "Register"
-msgstr "Nýskrá"
+msgstr ""
 
 #: actions/register.php:135
 msgid "Registration not allowed."
-msgstr "Nýskráning ekki leyfð."
+msgstr ""
 
 #: actions/register.php:198
 msgid "You can't register if you don't agree to the license."
-msgstr "Þú getur ekki nýskráð þig nema þú samþykkir leyfið."
+msgstr ""
 
 #: actions/register.php:201
 msgid "Not a valid email address."
-msgstr "Ekki tækt tölvupóstfang."
+msgstr ""
 
 #: actions/register.php:212
 msgid "Email address already exists."
-msgstr "Tölvupóstfang er nú þegar skráð."
+msgstr ""
 
 #: actions/register.php:243 actions/register.php:264
 msgid "Invalid username or password."
-msgstr "Ótækt notendanafn eða lykilorð."
+msgstr ""
 
 #: actions/register.php:342
 msgid ""
@@ -2718,33 +2533,31 @@ msgstr ""
 #: actions/register.php:424
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
 msgstr ""
-"1-64 lágstafir eða tölustafir, engin greinarmerki eða bil. Nauðsynlegt."
 
 #: actions/register.php:429
 msgid "6 or more characters. Required."
-msgstr "6 eða fleiri tákn. Nauðsynlegt"
+msgstr ""
 
 #: actions/register.php:433
 msgid "Same as password above. Required."
-msgstr "Sama og lykilorðið hér fyrir ofan. Nauðsynlegt."
+msgstr ""
 
 #: actions/register.php:437 actions/register.php:441
-#: actions/siteadminpanel.php:283 lib/accountsettingsaction.php:120
+#: actions/siteadminpanel.php:287 lib/accountsettingsaction.php:120
 msgid "Email"
-msgstr "Tölvupóstur"
+msgstr "پست الکترونیکی"
 
 #: actions/register.php:438 actions/register.php:442
 msgid "Used only for updates, announcements, and password recovery"
 msgstr ""
-"Aðeins notað fyrir uppfærslur, tilkynningar og endurheimtingu lykilorða."
 
 #: actions/register.php:449
 msgid "Longer name, preferably your \"real\" name"
-msgstr "Lengra nafn, ákjósalegast að það sé \"rétta\" nafnið þitt"
+msgstr ""
 
 #: actions/register.php:493
 msgid "My text and files are available under "
-msgstr "Textinn og skrárnar mínar eru aðgengilegar undir "
+msgstr ""
 
 #: actions/register.php:495
 msgid "Creative Commons Attribution 3.0"
@@ -2774,28 +2587,12 @@ msgid ""
 "\n"
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
-"Til hamingju %s! Frábært að þú skulir hafa skráð þig á %%%%site.name%%%%. "
-"Héðan vilt þú kannski...\n"
-"\n"
-"* Fara á [persónulegu síðuna þína](%s) senda inn þitt fyrsta babl.\n"
-"* Bæta við [Jabber/GTalk snarskilaboðafangi](%%%%action.imsettings%%%%) svo "
-"þú getir sent inn babl í snarskilaboðum.\n"
-"* [Leita að fólki](%%%%action.peoplesearch%%%%) sem þú þekkir eða hefur sömu "
-"áhugamál og þú. \n"
-"* Uppfæra [persónulegu síðuna](%%%%action.profilesettings%%%%) þína til þess "
-"að leyfa öðrum að kynnast þér betur.\n"
-"* Lesa [vefleiðbeiningarnar](%%%%doc.help%%%%) til þess að læra að babla "
-"betur.\n"
-"\n"
-"Takk fyrir að skrá þig og við vonum að þú njótir þjónustunnar."
 
 #: actions/register.php:561
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
 msgstr ""
-"(Þú ættir að fá tölvupóst eftir smá stund. Í tölvupóstinum eru leiðbeiningar "
-"um það hvernig þú staðfestir tölvupóstfangið þitt.)"
 
 #: actions/remotesubscribe.php:98
 #, php-format
@@ -2804,14 +2601,10 @@ msgid ""
 "register%%) a new  account. If you already have an account  on a [compatible "
 "microblogging site](%%doc.openmublog%%),  enter your profile URL below."
 msgstr ""
-"Til þess að gerast áskrifandi getur þú [skráð þig inn](%%action.login%%) eða "
-"[nýskráð þig](%%action.register%%). Ef þú hefur nú þegar búið til aðgang á "
-"[samvirkandi örbloggsþjónustu](%%doc.openmublog%%), sláðu þá inn veffang "
-"persónulegu síðunnar þinnar hér fyrir neðan."
 
 #: actions/remotesubscribe.php:112
 msgid "Remote subscribe"
-msgstr "Fara í fjaráskrift"
+msgstr ""
 
 #: actions/remotesubscribe.php:124
 msgid "Subscribe to a remote user"
@@ -2819,100 +2612,67 @@ msgstr ""
 
 #: actions/remotesubscribe.php:129
 msgid "User nickname"
-msgstr "Stuttnefni notanda"
+msgstr ""
 
 #: actions/remotesubscribe.php:130
 msgid "Nickname of the user you want to follow"
-msgstr "Stuttnefni notandans sem þú vilt fylgja"
+msgstr ""
 
 #: actions/remotesubscribe.php:133
 msgid "Profile URL"
-msgstr "Veffang persónulegrar síðu"
+msgstr ""
 
 #: actions/remotesubscribe.php:134
 msgid "URL of your profile on another compatible microblogging service"
-msgstr "Veffang persónulegrar síðu á samvirkandi örbloggsþjónustu"
+msgstr ""
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:365
+#: lib/userprofile.php:356
 msgid "Subscribe"
-msgstr "Gerast áskrifandi"
+msgstr ""
 
 #: actions/remotesubscribe.php:159
 msgid "Invalid profile URL (bad format)"
-msgstr "Ótækt veffang persónulegrar síðu (vitlaust snið)"
+msgstr ""
 
 #: actions/remotesubscribe.php:168
-#, fuzzy
-msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
-msgstr "Ekki tækt veffang á persónulega síðu (ekkert YADIS skjal)."
+msgid ""
+"Not a valid profile URL (no YADIS document or no or invalid XRDS defined)."
+msgstr ""
 
 #: actions/remotesubscribe.php:176
-#, fuzzy
 msgid "That’s a local profile! Login to subscribe."
 msgstr ""
-"Þetta er staðbundinn persónuaðgangur! Skráðu þig inn til að gerast "
-"áskrifandi."
 
 #: actions/remotesubscribe.php:183
-#, fuzzy
 msgid "Couldn’t get a request token."
-msgstr "Gat ekki komist yfir beiðnistóka."
-
-#: actions/repeat.php:57
-#, fuzzy
-msgid "Only logged-in users can repeat notices."
-msgstr "Aðeins notandinn getur lesið hans eigin pósthólf."
-
-#: actions/repeat.php:64 actions/repeat.php:71
-#, fuzzy
-msgid "No notice specified."
-msgstr "Engin persónuleg síða tilgreind"
-
-#: actions/repeat.php:76
-#, fuzzy
-msgid "You can't repeat your own notice."
-msgstr "Þú getur ekki nýskráð þig nema þú samþykkir leyfið."
-
-#: actions/repeat.php:90
-#, fuzzy
-msgid "You already repeated that notice."
-msgstr "Þú hefur nú þegar lokað á þennan notanda."
-
-#: actions/repeat.php:114 lib/noticelist.php:621
-#, fuzzy
-msgid "Repeated"
-msgstr "Í sviðsljósinu"
-
-#: actions/repeat.php:119
-msgid "Repeated!"
 msgstr ""
 
 #: actions/replies.php:125 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
 #, php-format
 msgid "Replies to %s"
-msgstr "Svör við %s"
+msgstr "پاسخ‌های به %s"
 
 #: actions/replies.php:127
 #, php-format
 msgid "Replies to %s, page %d"
-msgstr "Svör við %s, síða %d"
+msgstr "پاسخ‌های به %s، صفحهٔ %d"
 
 #: actions/replies.php:144
 #, php-format
 msgid "Replies feed for %s (RSS 1.0)"
-msgstr ""
+msgstr "خوراک پاسخ‌ها برای %s (RSS 1.0)"
 
 #: actions/replies.php:151
 #, php-format
 msgid "Replies feed for %s (RSS 2.0)"
-msgstr ""
+msgstr "خوراک پاسخ‌ها برای %s (RSS 2.0)"
 
 #: actions/replies.php:158
-#, fuzzy, php-format
+#, php-format
 msgid "Replies feed for %s (Atom)"
-msgstr "Bablveita fyrir hópinn %s"
+msgstr "خوراک پاسخ‌ها برای %s (Atom)"
 
 #: actions/replies.php:198
 #, php-format
@@ -2936,14 +2696,13 @@ msgid ""
 msgstr ""
 
 #: actions/repliesrss.php:72
-#, fuzzy, php-format
+#, php-format
 msgid "Replies to %1$s on %2$s!"
-msgstr "Skilaboð til %1$s á %2$s"
+msgstr ""
 
 #: actions/sandbox.php:65 actions/unsandbox.php:65
-#, fuzzy
 msgid "You cannot sandbox users on this site."
-msgstr "Þú getur ekki sent þessum notanda skilaboð."
+msgstr ""
 
 #: actions/sandbox.php:72
 msgid "User is already sandboxed."
@@ -2956,22 +2715,22 @@ msgstr ""
 
 #: actions/showfavorites.php:132
 msgid "Could not retrieve favorite notices."
-msgstr "Gat ekki sótt uppáhaldsbabl."
+msgstr ""
 
 #: actions/showfavorites.php:170
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
-msgstr "Bablveita uppáhaldsbabls %s"
+msgstr ""
 
 #: actions/showfavorites.php:177
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
-msgstr "Bablveita uppáhaldsbabls %s"
+msgstr ""
 
 #: actions/showfavorites.php:184
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for favorites of %s (Atom)"
-msgstr "Bablveita uppáhaldsbabls %s"
+msgstr ""
 
 #: actions/showfavorites.php:205
 msgid ""
@@ -3001,26 +2760,26 @@ msgstr ""
 #: actions/showgroup.php:82 lib/groupnav.php:86
 #, php-format
 msgid "%s group"
-msgstr "%s hópurinn"
+msgstr ""
 
 #: actions/showgroup.php:84
 #, php-format
 msgid "%s group, page %d"
-msgstr "%s hópurinn, síða %d"
+msgstr ""
 
 #: actions/showgroup.php:218
 msgid "Group profile"
-msgstr "Hópssíðan"
+msgstr ""
 
 #: actions/showgroup.php:263 actions/tagother.php:118
 #: actions/userauthorization.php:167 lib/userprofile.php:177
 msgid "URL"
-msgstr "Vefslóð"
+msgstr ""
 
 #: actions/showgroup.php:274 actions/tagother.php:128
 #: actions/userauthorization.php:179 lib/userprofile.php:194
 msgid "Note"
-msgstr "Athugasemd"
+msgstr ""
 
 #: actions/showgroup.php:284 lib/groupeditform.php:184
 msgid "Aliases"
@@ -3028,7 +2787,7 @@ msgstr ""
 
 #: actions/showgroup.php:293
 msgid "Group actions"
-msgstr "Hópsaðgerðir"
+msgstr ""
 
 #: actions/showgroup.php:328
 #, php-format
@@ -3046,27 +2805,27 @@ msgid "Notice feed for %s group (Atom)"
 msgstr ""
 
 #: actions/showgroup.php:345
-#, fuzzy, php-format
+#, php-format
 msgid "FOAF for %s group"
-msgstr "%s hópurinn"
+msgstr ""
 
 #: actions/showgroup.php:381 actions/showgroup.php:438 lib/groupnav.php:91
 msgid "Members"
-msgstr "Meðlimir"
+msgstr ""
 
 #: actions/showgroup.php:386 lib/profileaction.php:117
-#: lib/profileaction.php:148 lib/profileaction.php:236 lib/section.php:95
+#: lib/profileaction.php:148 lib/profileaction.php:226 lib/section.php:95
 #: lib/tagcloudsection.php:71
 msgid "(None)"
-msgstr "(Ekkert)"
+msgstr ""
 
 #: actions/showgroup.php:392
 msgid "All members"
-msgstr "Allir meðlimir"
+msgstr ""
 
-#: actions/showgroup.php:429 lib/profileaction.php:174
+#: actions/showgroup.php:429 lib/profileaction.php:173
 msgid "Statistics"
-msgstr "Tölfræði"
+msgstr ""
 
 #: actions/showgroup.php:432
 msgid "Created"
@@ -3097,26 +2856,25 @@ msgstr ""
 
 #: actions/showmessage.php:81
 msgid "No such message."
-msgstr "Engin þannig skilaboð."
+msgstr ""
 
 #: actions/showmessage.php:98
 msgid "Only the sender and recipient may read this message."
-msgstr "Aðeins sendandi og móttakandi geta lesið þessi skilaboð."
+msgstr ""
 
 #: actions/showmessage.php:108
 #, php-format
 msgid "Message to %1$s on %2$s"
-msgstr "Skilaboð til %1$s á %2$s"
+msgstr ""
 
 #: actions/showmessage.php:113
 #, php-format
 msgid "Message from %1$s on %2$s"
-msgstr "Skilaboð frá %1$s á %2$s"
+msgstr ""
 
 #: actions/shownotice.php:90
-#, fuzzy
 msgid "Notice deleted."
-msgstr "Babl sent inn"
+msgstr ""
 
 #: actions/showstream.php:73
 #, php-format
@@ -3126,7 +2884,7 @@ msgstr ""
 #: actions/showstream.php:79
 #, php-format
 msgid "%s, page %d"
-msgstr "%s, síða %d"
+msgstr ""
 
 #: actions/showstream.php:122
 #, php-format
@@ -3188,18 +2946,16 @@ msgid ""
 "[StatusNet](http://status.net/) tool. "
 msgstr ""
 
-#: actions/showstream.php:313
-#, fuzzy, php-format
-msgid "Repeat of %s"
-msgstr "Svör við %s"
-
 #: actions/silence.php:65 actions/unsilence.php:65
-#, fuzzy
 msgid "You cannot silence users on this site."
-msgstr "Þú getur ekki sent þessum notanda skilaboð."
+msgstr ""
 
 #: actions/silence.php:72
 msgid "User is already silenced."
+msgstr ""
+
+#: actions/siteadminpanel.php:58 lib/adminpanelaction.php:299
+msgid "Site"
 msgstr ""
 
 #: actions/siteadminpanel.php:69
@@ -3211,9 +2967,8 @@ msgid "Site name must have non-zero length."
 msgstr ""
 
 #: actions/siteadminpanel.php:155
-#, fuzzy
 msgid "You must have a valid contact email address"
-msgstr "Ekki tækt tölvupóstfang"
+msgstr ""
 
 #: actions/siteadminpanel.php:173
 #, php-format
@@ -3233,119 +2988,115 @@ msgid "Snapshot frequency must be a number."
 msgstr ""
 
 #: actions/siteadminpanel.php:199
-msgid "You must set an SSL server when enabling SSL."
+msgid "You must set an SSL sever when enabling SSL."
 msgstr ""
 
 #: actions/siteadminpanel.php:204
-msgid "Invalid SSL server. The maximum length is 255 characters."
+msgid "Invalid SSL server. Max length is 255 characters."
 msgstr ""
 
 #: actions/siteadminpanel.php:210
-msgid "Minimum text limit is 140 characters."
+msgid "Minimum text limit is 140c."
 msgstr ""
 
 #: actions/siteadminpanel.php:216
 msgid "Dupe limit must 1 or more seconds."
 msgstr ""
 
-#: actions/siteadminpanel.php:266
-msgid "General"
-msgstr ""
-
-#: actions/siteadminpanel.php:269
-#, fuzzy
-msgid "Site name"
-msgstr "Babl vefsíðunnar"
-
-#: actions/siteadminpanel.php:270
-msgid "The name of your site, like \"Yourcompany Microblog\""
-msgstr ""
-
-#: actions/siteadminpanel.php:274
-msgid "Brought by"
+#: actions/siteadminpanel.php:224
+#, php-format
+msgid "Locales directory not readable: %s"
 msgstr ""
 
 #: actions/siteadminpanel.php:275
-msgid "Text used for credits link in footer of each page"
-msgstr ""
+msgid "Site name"
+msgstr "نام وب‌گاه"
+
+#: actions/siteadminpanel.php:276
+msgid "The name of your site, like \"Yourcompany Microblog\""
+msgstr "نام وب‌گاه شما، مانند «میکروبلاگ شرکت شما»"
 
 #: actions/siteadminpanel.php:279
-msgid "Brought by URL"
+msgid "Brought by"
 msgstr ""
 
 #: actions/siteadminpanel.php:280
-msgid "URL used for credits link in footer of each page"
+msgid "Text used for credits link in footer of each page"
+msgstr ""
+
+#: actions/siteadminpanel.php:283
+msgid "Brought by URL"
 msgstr ""
 
 #: actions/siteadminpanel.php:284
-#, fuzzy
-msgid "Contact email address for your site"
-msgstr "Nýtt tölvupóstfang til að senda á %s"
+msgid "URL used for credits link in footer of each page"
+msgstr ""
 
-#: actions/siteadminpanel.php:290
-#, fuzzy
-msgid "Local"
-msgstr "Staðbundin sýn"
-
-#: actions/siteadminpanel.php:301
-msgid "Default timezone"
+#: actions/siteadminpanel.php:288
+msgid "contact email address for your site"
 msgstr ""
 
 #: actions/siteadminpanel.php:302
+msgid "Default timezone"
+msgstr ""
+
+#: actions/siteadminpanel.php:303
 msgid "Default timezone for the site; usually UTC."
 msgstr ""
 
-#: actions/siteadminpanel.php:308
-#, fuzzy
+#: actions/siteadminpanel.php:310
 msgid "Default site language"
-msgstr "Tungumál (ákjósanlegt)"
+msgstr ""
 
 #: actions/siteadminpanel.php:316
-#, fuzzy
-msgid "URLs"
-msgstr "Vefslóð"
+msgid "Path to locales"
+msgstr ""
 
-#: actions/siteadminpanel.php:319
-#, fuzzy
+#: actions/siteadminpanel.php:316
+msgid "Directory path to locales"
+msgstr ""
+
+#: actions/siteadminpanel.php:320
 msgid "Server"
-msgstr "Endurheimta"
+msgstr "کارگزار"
 
-#: actions/siteadminpanel.php:319
+#: actions/siteadminpanel.php:320
 msgid "Site's server hostname."
 msgstr ""
 
-#: actions/siteadminpanel.php:323
+#: actions/siteadminpanel.php:324
+msgid "Path"
+msgstr "مسیر"
+
+#: actions/siteadminpanel.php:324
+msgid "Site path"
+msgstr "مسیر وب‌گاه"
+
+#: actions/siteadminpanel.php:328
 msgid "Fancy URLs"
 msgstr ""
 
-#: actions/siteadminpanel.php:325
+#: actions/siteadminpanel.php:330
 msgid "Use fancy (more readable and memorable) URLs?"
 msgstr ""
 
-#: actions/siteadminpanel.php:331
-#, fuzzy
-msgid "Access"
-msgstr "Samþykkja"
-
 #: actions/siteadminpanel.php:334
-#, fuzzy
 msgid "Private"
-msgstr "Friðhelgi"
+msgstr "خصوصی"
 
 #: actions/siteadminpanel.php:336
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr ""
 
 #: actions/siteadminpanel.php:340
-#, fuzzy
 msgid "Invite only"
-msgstr "Bjóða"
+msgstr ""
 
 #: actions/siteadminpanel.php:342
 msgid "Make registration invitation only."
 msgstr ""
 
-#: actions/siteadminpanel.php:346
+#: actions/siteadminpanel.php:346 actions/useradminpanel.php:171
 msgid "Closed"
 msgstr ""
 
@@ -3353,37 +3104,32 @@ msgstr ""
 msgid "Disable new registrations."
 msgstr ""
 
-#: actions/siteadminpanel.php:354
-msgid "Snapshots"
-msgstr ""
-
-#: actions/siteadminpanel.php:357
+#: actions/siteadminpanel.php:353
 msgid "Randomly during Web hit"
 msgstr ""
 
-#: actions/siteadminpanel.php:358
+#: actions/siteadminpanel.php:354
 msgid "In a scheduled job"
 msgstr ""
 
-#: actions/siteadminpanel.php:359 actions/siteadminpanel.php:383
-#, fuzzy
+#: actions/siteadminpanel.php:355 actions/siteadminpanel.php:380
 msgid "Never"
-msgstr "Endurheimta"
+msgstr ""
 
-#: actions/siteadminpanel.php:360
+#: actions/siteadminpanel.php:357
 msgid "Data snapshots"
 msgstr ""
 
-#: actions/siteadminpanel.php:361
+#: actions/siteadminpanel.php:358
 msgid "When to send statistical data to status.net servers"
 msgstr ""
 
-#: actions/siteadminpanel.php:366
+#: actions/siteadminpanel.php:364
 msgid "Frequency"
 msgstr ""
 
-#: actions/siteadminpanel.php:367
-msgid "Snapshots will be sent once every N web hits"
+#: actions/siteadminpanel.php:365
+msgid "Snapshots will be sent once every N Web hits"
 msgstr ""
 
 #: actions/siteadminpanel.php:372
@@ -3394,122 +3140,108 @@ msgstr ""
 msgid "Snapshots will be sent to this URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:380
-#, fuzzy
-msgid "SSL"
-msgstr "SMS"
+#: actions/siteadminpanel.php:381
+msgid "Sometimes"
+msgstr "گاهی اوقات"
+
+#: actions/siteadminpanel.php:382
+msgid "Always"
+msgstr "برای همیشه"
 
 #: actions/siteadminpanel.php:384
-#, fuzzy
-msgid "Sometimes"
-msgstr "Babl"
+msgid "Use SSL"
+msgstr "استفاده از SSL"
 
 #: actions/siteadminpanel.php:385
-msgid "Always"
-msgstr ""
-
-#: actions/siteadminpanel.php:387
-msgid "Use SSL"
-msgstr ""
-
-#: actions/siteadminpanel.php:388
 msgid "When to use SSL"
 msgstr ""
 
-#: actions/siteadminpanel.php:393
+#: actions/siteadminpanel.php:391
 msgid "SSL Server"
 msgstr ""
 
-#: actions/siteadminpanel.php:394
+#: actions/siteadminpanel.php:392
 msgid "Server to direct SSL requests to"
 msgstr ""
 
-#: actions/siteadminpanel.php:400
-msgid "Limits"
-msgstr ""
-
-#: actions/siteadminpanel.php:403
+#: actions/siteadminpanel.php:396
 msgid "Text limit"
-msgstr ""
+msgstr "محدودیت متن"
 
-#: actions/siteadminpanel.php:403
+#: actions/siteadminpanel.php:396
 msgid "Maximum number of characters for notices."
-msgstr ""
+msgstr "بیشینهٔ تعداد حروف برای آگهی‌ها"
 
-#: actions/siteadminpanel.php:407
+#: actions/siteadminpanel.php:400
 msgid "Dupe limit"
 msgstr ""
 
-#: actions/siteadminpanel.php:407
+#: actions/siteadminpanel.php:400
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 
-#: actions/siteadminpanel.php:421 actions/useradminpanel.php:313
-#, fuzzy
+#: actions/siteadminpanel.php:414 actions/useradminpanel.php:226
 msgid "Save site settings"
-msgstr "Stillingar fyrir mynd"
+msgstr ""
 
 #: actions/smssettings.php:58
 msgid "SMS Settings"
-msgstr "SMS stillingar"
+msgstr ""
 
 #: actions/smssettings.php:69
 #, php-format
 msgid "You can receive SMS messages through email from %%site.name%%."
-msgstr "Þú getur fengið SMS í gegnum tölvupóst frá %%site.name%%."
+msgstr ""
 
 #: actions/smssettings.php:91
-#, fuzzy
 msgid "SMS is not available."
-msgstr "Þessi síða er ekki aðgengileg í "
+msgstr ""
 
 #: actions/smssettings.php:112
 msgid "Current confirmed SMS-enabled phone number."
-msgstr "Núverandi staðfesta SMS símanúmerið."
+msgstr ""
 
 #: actions/smssettings.php:123
 msgid "Awaiting confirmation on this phone number."
-msgstr "Býð eftir staðfestingu varðandi þetta símanúmer."
+msgstr ""
 
 #: actions/smssettings.php:130
 msgid "Confirmation code"
-msgstr "Staðfestingarlykill"
+msgstr ""
 
 #: actions/smssettings.php:131
 msgid "Enter the code you received on your phone."
-msgstr "Sláðu inn lykilinn sem þú fékkst í símann þinn."
+msgstr ""
 
 #: actions/smssettings.php:138
 msgid "SMS Phone number"
-msgstr "SMS símanúmer"
+msgstr ""
 
 #: actions/smssettings.php:140
 msgid "Phone number, no punctuation or spaces, with area code"
-msgstr "Símanúmer, með svæðisnúmeri ef við á, án greinarmerkja eða bila"
+msgstr ""
 
 #: actions/smssettings.php:174
 msgid ""
 "Send me notices through SMS; I understand I may incur exorbitant charges "
 "from my carrier."
 msgstr ""
-"Sendu mér babl í gegnum SMS. Ég veit að það er möguleiki að "
-"farsímafyrirtækið rukki fyrir móttöku á SMSunum."
 
 #: actions/smssettings.php:306
 msgid "No phone number."
-msgstr "Ekkert símanúmer."
+msgstr ""
 
 #: actions/smssettings.php:311
 msgid "No carrier selected."
-msgstr "Ekkert farsímafélag valið."
+msgstr ""
 
 #: actions/smssettings.php:318
 msgid "That is already your phone number."
-msgstr "Þetta er nú þegar símanúmerið þitt."
+msgstr ""
 
 #: actions/smssettings.php:321
 msgid "That phone number already belongs to another user."
-msgstr "Þetta símanúmer tilheyri nú þegar öðrum notanda."
+msgstr ""
 
 #: actions/smssettings.php:347
 msgid ""
@@ -3519,19 +3251,19 @@ msgstr ""
 
 #: actions/smssettings.php:374
 msgid "That is the wrong confirmation number."
-msgstr "Þetta er rangur staðfestingarlykill."
+msgstr ""
 
 #: actions/smssettings.php:405
 msgid "That is not your phone number."
-msgstr "Þetta er ekki símanúmerið þitt."
+msgstr ""
 
 #: actions/smssettings.php:465
 msgid "Mobile carrier"
-msgstr "Farsímafyrirtæki"
+msgstr ""
 
 #: actions/smssettings.php:469
 msgid "Select a carrier"
-msgstr "Veldu farsímafyrirtæki"
+msgstr ""
 
 #: actions/smssettings.php:476
 #, php-format
@@ -3539,48 +3271,45 @@ msgid ""
 "Mobile carrier for your phone. If you know a carrier that accepts SMS over "
 "email but isn't listed here, send email to let us know at %s."
 msgstr ""
-"Farsímafélagið þitt. Ef þú veist um farsímafélag sem tekur á móti SMS í "
-"gegnum tölvupóst sem er ekki í þessum lista, sendu okkur tölvupóst í %s og "
-"láttu okkur vita."
 
 #: actions/smssettings.php:498
 msgid "No code entered"
-msgstr "Enginn lykill sleginn inn"
+msgstr ""
 
 #: actions/subedit.php:70
 msgid "You are not subscribed to that profile."
-msgstr "Þú ert ekki áskrifandi."
+msgstr ""
 
 #: actions/subedit.php:83
 msgid "Could not save subscription."
-msgstr "Gat ekki vistað áskrift."
+msgstr ""
 
 #: actions/subscribe.php:55
 msgid "Not a local user."
-msgstr "Ekki staðbundinn notandi."
+msgstr ""
 
 #: actions/subscribe.php:69
 msgid "Subscribed"
-msgstr "Þú ert nú í áskrift"
+msgstr ""
 
 #: actions/subscribers.php:50
 #, php-format
 msgid "%s subscribers"
-msgstr "%s áskrifendur"
+msgstr ""
 
 #: actions/subscribers.php:52
 #, php-format
 msgid "%s subscribers, page %d"
-msgstr "%s áskrifendur, síða %d"
+msgstr ""
 
 #: actions/subscribers.php:63
 msgid "These are the people who listen to your notices."
-msgstr "Þetta er fólkið sem hlustar á bablið í þér."
+msgstr ""
 
 #: actions/subscribers.php:67
 #, php-format
 msgid "These are the people who listen to %s's notices."
-msgstr "Þetta er fólkið sem hlustar á bablið í %s."
+msgstr ""
 
 #: actions/subscribers.php:108
 msgid ""
@@ -3603,21 +3332,21 @@ msgstr ""
 #: actions/subscriptions.php:52
 #, php-format
 msgid "%s subscriptions"
-msgstr "%s áskriftir"
+msgstr ""
 
 #: actions/subscriptions.php:54
 #, php-format
 msgid "%s subscriptions, page %d"
-msgstr "%s áskriftir, síða %d"
+msgstr ""
 
 #: actions/subscriptions.php:65
 msgid "These are the people whose notices you listen to."
-msgstr "Þetta er fólkið sem þú hlustar á bablið í."
+msgstr ""
 
 #: actions/subscriptions.php:69
 #, php-format
 msgid "These are the people whose notices %s listens to."
-msgstr "Þetta er fólkið sem %s hlustar á bablið í."
+msgstr ""
 
 #: actions/subscriptions.php:121
 #, php-format
@@ -3636,16 +3365,60 @@ msgstr ""
 
 #: actions/subscriptions.php:194
 msgid "Jabber"
-msgstr "Jabber snarskilaboðaþjónusta"
+msgstr ""
 
 #: actions/subscriptions.php:199 lib/connectsettingsaction.php:115
 msgid "SMS"
-msgstr "SMS"
+msgstr ""
+
+#: actions/tagother.php:33
+msgid "Not logged in"
+msgstr ""
+
+#: actions/tagother.php:39
+msgid "No id argument."
+msgstr ""
+
+#: actions/tagother.php:65
+#, php-format
+msgid "Tag %s"
+msgstr ""
+
+#: actions/tagother.php:77 lib/userprofile.php:75
+msgid "User profile"
+msgstr ""
+
+#: actions/tagother.php:81 lib/userprofile.php:102
+msgid "Photo"
+msgstr ""
+
+#: actions/tagother.php:141
+msgid "Tag user"
+msgstr ""
+
+#: actions/tagother.php:151
+msgid ""
+"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
+"separated"
+msgstr ""
+
+#: actions/tagother.php:193
+msgid ""
+"You can only tag people you are subscribed to or who are subscribed to you."
+msgstr ""
+
+#: actions/tagother.php:200
+msgid "Could not save tags."
+msgstr ""
+
+#: actions/tagother.php:236
+msgid "Use this form to add tags to your subscribers or subscriptions."
+msgstr ""
 
 #: actions/tag.php:68
 #, php-format
 msgid "Notices tagged with %s, page %d"
-msgstr "Babl merkt með %s, síða %d"
+msgstr ""
 
 #: actions/tag.php:86
 #, php-format
@@ -3653,210 +3426,82 @@ msgid "Notice feed for tag %s (RSS 1.0)"
 msgstr ""
 
 #: actions/tag.php:92
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for tag %s (RSS 2.0)"
-msgstr "Bablveita fyrir %s"
+msgstr ""
 
 #: actions/tag.php:98
 #, php-format
 msgid "Notice feed for tag %s (Atom)"
 msgstr ""
 
-#: actions/tagother.php:39
-#, fuzzy
-msgid "No ID argument."
-msgstr "Ekkert einkenni gefið upp."
-
-#: actions/tagother.php:65
-#, php-format
-msgid "Tag %s"
-msgstr "Merki %s"
-
-#: actions/tagother.php:77 lib/userprofile.php:75
-msgid "User profile"
-msgstr "Persónuleg síða notanda"
-
-#: actions/tagother.php:81 lib/userprofile.php:102
-msgid "Photo"
-msgstr "Ljósmynd"
-
-#: actions/tagother.php:141
-msgid "Tag user"
-msgstr "Merkja notanda"
-
-#: actions/tagother.php:151
-msgid ""
-"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
-"separated"
-msgstr ""
-"Merki fyrir þennan notanda (bókstafir, tölustafir, -, ., og _), aðskilin með "
-"kommu eða bili"
-
-#: actions/tagother.php:193
-msgid ""
-"You can only tag people you are subscribed to or who are subscribed to you."
-msgstr ""
-"Þú getur aðeins merkt fólk sem þú ert áskrifandi að eða þau sem eru "
-"áskrifendur að þér."
-
-#: actions/tagother.php:200
-msgid "Could not save tags."
-msgstr "Gat ekki vistað merki."
-
-#: actions/tagother.php:236
-msgid "Use this form to add tags to your subscribers or subscriptions."
-msgstr ""
-"Notaðu þetta eyðublað til að bæta við merkjum við áskrifendur þína eða þau "
-"sem þú ert áskrifandi að."
-
 #: actions/tagrss.php:35
 msgid "No such tag."
-msgstr "Ekkert þannig merki."
+msgstr ""
 
 #: actions/twitapitrends.php:87
 msgid "API method under construction."
-msgstr "Aðferð í forritsskilum er í þróun."
+msgstr ""
 
 #: actions/unblock.php:59
-#, fuzzy
 msgid "You haven't blocked that user."
-msgstr "Þú hefur nú þegar lokað á þennan notanda."
+msgstr ""
 
 #: actions/unsandbox.php:72
-#, fuzzy
 msgid "User is not sandboxed."
-msgstr "Notandi hefur ekkert nýtt babl"
+msgstr ""
 
 #: actions/unsilence.php:72
-#, fuzzy
 msgid "User is not silenced."
-msgstr "Notandi hefur enga persónulega síðu."
+msgstr ""
 
 #: actions/unsubscribe.php:77
 msgid "No profile id in request."
-msgstr "Ekkert einkenni persónulegrar síðu í beiðni."
+msgstr ""
 
 #: actions/unsubscribe.php:84
 msgid "No profile with that id."
-msgstr "Enginn persónuleg síða með þessu einkenni."
+msgstr ""
 
 #: actions/unsubscribe.php:98
 msgid "Unsubscribed"
-msgstr "Ekki lengur áskrifandi"
+msgstr ""
 
 #: actions/updateprofile.php:62 actions/userauthorization.php:330
 #, php-format
 msgid "Listenee stream license ‘%s’ is not compatible with site license ‘%s’."
 msgstr ""
 
-#: actions/useradminpanel.php:58 lib/adminpanelaction.php:305
-#: lib/personalgroupnav.php:115
+#: actions/useradminpanel.php:58 lib/personalgroupnav.php:115
 msgid "User"
-msgstr "Notandi"
+msgstr ""
 
 #: actions/useradminpanel.php:69
 msgid "User settings for this StatusNet site."
 msgstr ""
 
-#: actions/useradminpanel.php:149
-msgid "Invalid bio limit. Must be numeric."
+#: actions/useradminpanel.php:173
+msgid "Is registration on this site prohibited?"
 msgstr ""
 
-#: actions/useradminpanel.php:155
-msgid "Invalid welcome text. Max length is 255 characters."
+#: actions/useradminpanel.php:178
+msgid "Invite-only"
 msgstr ""
 
-#: actions/useradminpanel.php:165
-#, php-format
-msgid "Invalid default subscripton: '%1$s' is not user."
-msgstr ""
-
-#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:108
-#: lib/personalgroupnav.php:109
-msgid "Profile"
-msgstr "Persónuleg síða"
-
-#: actions/useradminpanel.php:222
-msgid "Bio Limit"
-msgstr ""
-
-#: actions/useradminpanel.php:223
-msgid "Maximum length of a profile bio in characters."
-msgstr ""
-
-#: actions/useradminpanel.php:231
-#, fuzzy
-msgid "New users"
-msgstr "Bjóða nýjum notendum að vera með"
-
-#: actions/useradminpanel.php:235
-msgid "New user welcome"
-msgstr ""
-
-#: actions/useradminpanel.php:236
-msgid "Welcome text for new users (Max 255 chars)."
-msgstr ""
-
-#: actions/useradminpanel.php:241
-#, fuzzy
-msgid "Default subscription"
-msgstr "Allar áskriftir"
-
-#: actions/useradminpanel.php:242
-#, fuzzy
-msgid "Automatically subscribe new users to this user."
-msgstr ""
-"Gerast sjálfkrafa áskrifandi að hverjum þeim sem gerist áskrifandi að þér "
-"(best fyrir ómannlega notendur)"
-
-#: actions/useradminpanel.php:251
-#, fuzzy
-msgid "Invitations"
-msgstr "Boðskort hefur verið sent út"
-
-#: actions/useradminpanel.php:256
-#, fuzzy
-msgid "Invitations enabled"
-msgstr "Boðskort hefur verið sent út"
-
-#: actions/useradminpanel.php:258
-msgid "Whether to allow users to invite new users."
-msgstr ""
-
-#: actions/useradminpanel.php:265
-msgid "Sessions"
-msgstr ""
-
-#: actions/useradminpanel.php:270
-msgid "Handle sessions"
-msgstr ""
-
-#: actions/useradminpanel.php:272
-msgid "Whether to handle sessions ourselves."
-msgstr ""
-
-#: actions/useradminpanel.php:276
-msgid "Session debugging"
-msgstr ""
-
-#: actions/useradminpanel.php:278
-msgid "Turn on debugging output for sessions."
+#: actions/useradminpanel.php:180
+msgid "Is registration on this site only open to invited users?"
 msgstr ""
 
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
-msgstr "Heimila áskriftir"
+msgstr ""
 
 #: actions/userauthorization.php:110
-#, fuzzy
 msgid ""
 "Please check these details to make sure that you want to subscribe to this "
 "user’s notices. If you didn’t just ask to subscribe to someone’s notices, "
 "click “Reject”."
 msgstr ""
-"Vinsamlegast athugaðu þessi atriði til þess að vera viss um að þú viljir "
-"gerast áskrifandi að babli þessa notanda. Ef þú baðst ekki um að gerast "
-"áskrifandi að babli, smelltu þá á \"Hætta við\"."
 
 #: actions/userauthorization.php:188
 msgid "License"
@@ -3864,16 +3509,16 @@ msgstr ""
 
 #: actions/userauthorization.php:209
 msgid "Accept"
-msgstr "Samþykkja"
+msgstr ""
 
 #: actions/userauthorization.php:210 lib/subscribeform.php:115
 #: lib/subscribeform.php:139
 msgid "Subscribe to this user"
-msgstr "Gerast áskrifandi að þessum notanda"
+msgstr ""
 
 #: actions/userauthorization.php:211
 msgid "Reject"
-msgstr "Hafna"
+msgstr ""
 
 #: actions/userauthorization.php:212
 msgid "Reject this subscription"
@@ -3881,36 +3526,29 @@ msgstr ""
 
 #: actions/userauthorization.php:225
 msgid "No authorization request!"
-msgstr "Engin heimildarbeiðni!"
+msgstr ""
 
 #: actions/userauthorization.php:247
 msgid "Subscription authorized"
-msgstr "Áskrift heimiluð"
+msgstr ""
 
 #: actions/userauthorization.php:249
-#, fuzzy
 msgid ""
 "The subscription has been authorized, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to authorize the "
 "subscription. Your subscription token is:"
 msgstr ""
-"Áskriftin hefur verið heimiluð en afturkallsveffang var ekki sent. Athugaðu "
-"leiðbeiningar síðunnar um það hvernig á að heimila áskrift. Áskriftartókinn "
-"þinn er;"
 
 #: actions/userauthorization.php:259
 msgid "Subscription rejected"
-msgstr "Áskrift hafnað"
+msgstr ""
 
 #: actions/userauthorization.php:261
-#, fuzzy
 msgid ""
 "The subscription has been rejected, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to fully reject the "
 "subscription."
 msgstr ""
-"Áskriftinni hefur verið hafnað en afturkallsveffang var ekki sent. Athugaðu "
-"leiðbeiningar síðunnar um það hvernig á að hafna áskrift alveg."
 
 #: actions/userauthorization.php:296
 #, php-format
@@ -3938,19 +3576,18 @@ msgid "Avatar URL ‘%s’ is not valid."
 msgstr ""
 
 #: actions/userauthorization.php:343
-#, fuzzy, php-format
+#, php-format
 msgid "Can’t read avatar URL ‘%s’."
-msgstr "Get ekki lesið slóðina fyrir myndina '%s'"
+msgstr ""
 
 #: actions/userauthorization.php:348
-#, fuzzy, php-format
+#, php-format
 msgid "Wrong image type for avatar URL ‘%s’."
-msgstr "Röng gerð myndar fyrir '%s'"
+msgstr ""
 
 #: actions/userbyid.php:70
-#, fuzzy
-msgid "No ID."
-msgstr "Ekkert einkenni"
+msgid "No id."
+msgstr ""
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 msgid "Profile design"
@@ -3969,7 +3606,7 @@ msgstr ""
 #: actions/usergroups.php:64
 #, php-format
 msgid "%s groups, page %d"
-msgstr "Hópar %s, síða %d"
+msgstr ""
 
 #: actions/usergroups.php:130
 msgid "Search for more groups"
@@ -4003,90 +3640,86 @@ msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
 
 #: classes/Message.php:45
-#, fuzzy
 msgid "You are banned from sending direct messages."
-msgstr "Villa kom upp við að senda bein skilaboð"
+msgstr ""
 
 #: classes/Message.php:61
 msgid "Could not insert message."
-msgstr "Gat ekki skeytt skilaboðum inn í."
+msgstr ""
 
 #: classes/Message.php:71
 msgid "Could not update message with new URI."
-msgstr "Gat ekki uppfært skilaboð með nýju veffangi."
+msgstr ""
 
-#: classes/Notice.php:172
+#: classes/Notice.php:164
 #, php-format
 msgid "DB error inserting hashtag: %s"
-msgstr "Gagnagrunnsvilla við innsetningu myllumerkis: %s"
+msgstr ""
 
-#: classes/Notice.php:226
+#: classes/Notice.php:179
 msgid "Problem saving notice. Too long."
 msgstr ""
 
-#: classes/Notice.php:230
+#: classes/Notice.php:183
 msgid "Problem saving notice. Unknown user."
-msgstr "Gat ekki vistað babl. Óþekktur notandi."
+msgstr ""
 
-#: classes/Notice.php:235
+#: classes/Notice.php:188
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
-"Of mikið babl í einu; slakaðu aðeins á og haltu svo áfram eftir nokkrar "
-"mínútur."
 
-#: classes/Notice.php:241
+#: classes/Notice.php:194
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
 
-#: classes/Notice.php:247
+#: classes/Notice.php:200
 msgid "You are banned from posting notices on this site."
-msgstr "Það hefur verið lagt bann við babli frá þér á þessari síðu."
+msgstr ""
 
-#: classes/Notice.php:319 classes/Notice.php:344
+#: classes/Notice.php:265 classes/Notice.php:290
 msgid "Problem saving notice."
-msgstr "Vandamál komu upp við að vista babl."
+msgstr ""
 
-#: classes/Notice.php:1044
+#: classes/Notice.php:1117
 #, php-format
 msgid "DB error inserting reply: %s"
-msgstr "Gagnagrunnsvilla við innsetningu svars: %s"
-
-#: classes/Notice.php:1371
-#, fuzzy, php-format
-msgid "RT @%1$s %2$s"
-msgstr "%1$s (%2$s)"
-
-#: classes/User.php:368
-#, php-format
-msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
 
 #: classes/User_group.php:380
 msgid "Could not create group."
-msgstr "Gat ekki búið til hóp."
+msgstr ""
 
 #: classes/User_group.php:409
 msgid "Could not set group membership."
-msgstr "Gat ekki skráð hópmeðlimi."
+msgstr ""
+
+#: classes/User.php:347
+#, php-format
+msgid "Welcome to %1$s, @%2$s!"
+msgstr ""
+
+#: lib/accountsettingsaction.php:108 lib/personalgroupnav.php:109
+msgid "Profile"
+msgstr ""
 
 #: lib/accountsettingsaction.php:108
 msgid "Change your profile settings"
-msgstr "Breyta persónulegu stillingunum þínum"
+msgstr ""
 
 #: lib/accountsettingsaction.php:112
 msgid "Upload an avatar"
-msgstr "Hlaða upp einkennismynd"
+msgstr ""
 
 #: lib/accountsettingsaction.php:116
 msgid "Change your password"
-msgstr "Breyta lykilorðinu þínu"
+msgstr ""
 
 #: lib/accountsettingsaction.php:120
 msgid "Change email handling"
-msgstr "Breyta tölvupóstumsjón"
+msgstr ""
 
 #: lib/accountsettingsaction.php:124
 msgid "Design your profile"
@@ -4094,233 +3727,213 @@ msgstr ""
 
 #: lib/accountsettingsaction.php:128
 msgid "Other"
-msgstr "Annað"
+msgstr ""
 
 #: lib/accountsettingsaction.php:128
 msgid "Other options"
-msgstr "Aðrir valkostir"
+msgstr ""
 
 #: lib/action.php:144
 #, php-format
 msgid "%s - %s"
-msgstr "%s - %s"
+msgstr ""
 
 #: lib/action.php:159
 msgid "Untitled page"
-msgstr "Ónafngreind síða"
+msgstr ""
 
-#: lib/action.php:425
+#: lib/action.php:424
 msgid "Primary site navigation"
-msgstr "Stikl aðalsíðu"
+msgstr ""
 
-#: lib/action.php:431
+#: lib/action.php:430
 msgid "Home"
-msgstr "Heim"
+msgstr ""
 
-#: lib/action.php:431
+#: lib/action.php:430
 msgid "Personal profile and friends timeline"
-msgstr "Persónuleg síða og vinarás"
+msgstr ""
 
-#: lib/action.php:433
+#: lib/action.php:432
 msgid "Account"
-msgstr "Aðgangur"
+msgstr ""
 
-#: lib/action.php:433
+#: lib/action.php:432
 msgid "Change your email, avatar, password, profile"
 msgstr ""
-"Breyttu tölvupóstinum þínum, einkennismyndinni þinni, lykilorðinu þínu, "
-"persónulegu síðunni þinni"
 
-#: lib/action.php:436
+#: lib/action.php:435
 msgid "Connect"
-msgstr "Tengjast"
+msgstr "وصل‌شدن"
 
-#: lib/action.php:436
-#, fuzzy
+#: lib/action.php:435
 msgid "Connect to services"
-msgstr "Gat ekki framsent til vefþjóns: %s"
+msgstr ""
 
-#: lib/action.php:440
-#, fuzzy
+#: lib/action.php:439
 msgid "Change site configuration"
-msgstr "Stikl aðalsíðu"
+msgstr ""
 
-#: lib/action.php:444 lib/subgroupnav.php:105
+#: lib/action.php:443 lib/subgroupnav.php:105
 msgid "Invite"
-msgstr "Bjóða"
+msgstr "دعوت‌کردن"
 
-#: lib/action.php:445 lib/subgroupnav.php:106
+#: lib/action.php:444 lib/subgroupnav.php:106
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
-msgstr "Bjóða vinum og vandamönnum að slást í hópinn á %s"
+msgstr ""
 
-#: lib/action.php:450
+#: lib/action.php:449
 msgid "Logout"
-msgstr "Útskráning"
+msgstr "خروج"
 
-#: lib/action.php:450
+#: lib/action.php:449
 msgid "Logout from the site"
-msgstr "Skrá þig út af síðunni"
+msgstr ""
 
-#: lib/action.php:455
+#: lib/action.php:454
 msgid "Create an account"
-msgstr "Búa til aðgang"
+msgstr ""
 
-#: lib/action.php:458
+#: lib/action.php:457
 msgid "Login to the site"
-msgstr "Skrá þig inn á síðuna"
+msgstr "ورود به وب‌گاه"
 
-#: lib/action.php:461 lib/action.php:724
+#: lib/action.php:460 lib/action.php:723
 msgid "Help"
-msgstr "Hjálp"
+msgstr "کمک"
 
-#: lib/action.php:461
+#: lib/action.php:460
 msgid "Help me!"
-msgstr "Hjálp!"
+msgstr "به من کمک کنید!"
 
-#: lib/action.php:464 lib/searchaction.php:127
+#: lib/action.php:463
 msgid "Search"
-msgstr "Leita"
+msgstr "جست‌وجو"
 
-#: lib/action.php:464
+#: lib/action.php:463
 msgid "Search for people or text"
-msgstr "Leita að fólki eða texta"
+msgstr ""
 
-#: lib/action.php:485
+#: lib/action.php:484
 msgid "Site notice"
-msgstr "Babl vefsíðunnar"
+msgstr ""
 
-#: lib/action.php:551
+#: lib/action.php:550
 msgid "Local views"
-msgstr "Staðbundin sýn"
+msgstr ""
 
-#: lib/action.php:617
+#: lib/action.php:616
 msgid "Page notice"
-msgstr "Babl síðunnar"
+msgstr ""
 
-#: lib/action.php:719
+#: lib/action.php:718
 msgid "Secondary site navigation"
-msgstr "Stikl undirsíðu"
+msgstr ""
 
-#: lib/action.php:726
+#: lib/action.php:725
 msgid "About"
-msgstr "Um"
+msgstr "دربارهٔ"
 
-#: lib/action.php:728
+#: lib/action.php:727
 msgid "FAQ"
-msgstr "Spurt og svarað"
+msgstr "سوال‌های رایج"
 
-#: lib/action.php:732
+#: lib/action.php:731
 msgid "TOS"
 msgstr ""
 
-#: lib/action.php:735
+#: lib/action.php:734
 msgid "Privacy"
-msgstr "Friðhelgi"
+msgstr "خصوصی"
 
-#: lib/action.php:737
+#: lib/action.php:736
 msgid "Source"
-msgstr "Frumþula"
+msgstr "منبع"
 
-#: lib/action.php:739
+#: lib/action.php:738
 msgid "Contact"
-msgstr "Tengiliður"
+msgstr "تماس"
 
-#: lib/action.php:741
+#: lib/action.php:740
 msgid "Badge"
 msgstr ""
 
-#: lib/action.php:769
+#: lib/action.php:768
 msgid "StatusNet software license"
-msgstr "Hugbúnaðarleyfi StatusNet"
+msgstr ""
 
-#: lib/action.php:772
+#: lib/action.php:771
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
 "broughtby%%](%%site.broughtbyurl%%). "
 msgstr ""
-"**%%site.name%%** er örbloggsþjónusta í boði [%%site.broughtby%%](%%site."
-"broughtbyurl%%). "
 
-#: lib/action.php:774
+#: lib/action.php:773
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
-msgstr "**%%site.name%%** er örbloggsþjónusta."
+msgstr ""
 
-#: lib/action.php:776
+#: lib/action.php:775
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
 "s, available under the [GNU Affero General Public License](http://www.fsf."
 "org/licensing/licenses/agpl-3.0.html)."
 msgstr ""
-"Það keyrir [StatusNet](http://status.net/) örbloggshugbúnaðinn, útgáfu %s, "
-"sem er gefinn út undir [GNU Affero almenningsleyfinu](http://www.fsf.org/"
-"licensing/licenses/agpl-3.0.html)."
 
-#: lib/action.php:790
-#, fuzzy
+#: lib/action.php:789
 msgid "Site content license"
-msgstr "Hugbúnaðarleyfi StatusNet"
+msgstr ""
 
-#: lib/action.php:799
+#: lib/action.php:798
 msgid "All "
-msgstr "Allt "
+msgstr ""
 
-#: lib/action.php:804
+#: lib/action.php:803
 msgid "license."
-msgstr "leyfi."
+msgstr ""
 
-#: lib/action.php:1098
+#: lib/action.php:1067
 msgid "Pagination"
-msgstr "Uppröðun"
+msgstr ""
 
-#: lib/action.php:1107
+#: lib/action.php:1076
 msgid "After"
-msgstr "Eftir"
+msgstr ""
 
-#: lib/action.php:1115
+#: lib/action.php:1084
 msgid "Before"
-msgstr "Áður"
+msgstr ""
 
-#: lib/action.php:1163
+#: lib/action.php:1132
 msgid "There was a problem with your session token."
-msgstr "Það komu upp vandamál varðandi setutókann þinn."
+msgstr ""
 
 #: lib/adminpanelaction.php:96
-#, fuzzy
 msgid "You cannot make changes to this site."
-msgstr "Þú getur ekki sent þessum notanda skilaboð."
+msgstr ""
 
 #: lib/adminpanelaction.php:195
-#, fuzzy
 msgid "showForm() not implemented."
-msgstr "Skipun hefur ekki verið fullbúin"
+msgstr ""
 
 #: lib/adminpanelaction.php:224
-#, fuzzy
 msgid "saveSettings() not implemented."
-msgstr "Skipun hefur ekki verið fullbúin"
+msgstr ""
 
 #: lib/adminpanelaction.php:247
 msgid "Unable to delete design setting."
 msgstr ""
 
 #: lib/adminpanelaction.php:300
-#, fuzzy
 msgid "Basic site configuration"
-msgstr "Staðfesting tölvupóstfangs"
+msgstr ""
 
 #: lib/adminpanelaction.php:303
-#, fuzzy
 msgid "Design configuration"
-msgstr "SMS staðfesting"
-
-#: lib/adminpanelaction.php:306 lib/adminpanelaction.php:309
-#, fuzzy
-msgid "Paths configuration"
-msgstr "SMS staðfesting"
+msgstr ""
 
 #: lib/attachmentlist.php:87
 msgid "Attachments"
@@ -4344,33 +3957,33 @@ msgstr ""
 
 #: lib/channel.php:138 lib/channel.php:158
 msgid "Command results"
-msgstr "Niðurstöður skipunar"
+msgstr ""
 
 #: lib/channel.php:210
 msgid "Command complete"
-msgstr "Fullkláruð skipun"
+msgstr ""
 
 #: lib/channel.php:221
 msgid "Command failed"
-msgstr "Misheppnuð skipun"
+msgstr ""
 
 #: lib/command.php:44
 msgid "Sorry, this command is not yet implemented."
-msgstr "Fyrirgefðu en þessi skipun hefur ekki enn verið útbúin."
+msgstr ""
 
 #: lib/command.php:88
-#, fuzzy, php-format
+#, php-format
 msgid "Could not find a user with nickname %s"
-msgstr "Gat ekki uppfært notanda með staðfestu tölvupóstfangi."
+msgstr ""
 
 #: lib/command.php:92
 msgid "It does not make a lot of sense to nudge yourself!"
 msgstr ""
 
 #: lib/command.php:99
-#, fuzzy, php-format
+#, php-format
 msgid "Nudge sent to %s"
-msgstr "Ýtt við notanda"
+msgstr ""
 
 #: lib/command.php:126
 #, php-format
@@ -4380,174 +3993,145 @@ msgid ""
 "Notices: %3$s"
 msgstr ""
 
-#: lib/command.php:152 lib/command.php:399 lib/command.php:460
+#: lib/command.php:152 lib/command.php:400
 msgid "Notice with that id does not exist"
 msgstr ""
 
-#: lib/command.php:168 lib/command.php:415 lib/command.php:476
-#: lib/command.php:532
+#: lib/command.php:168 lib/command.php:416 lib/command.php:471
 msgid "User has no last notice"
-msgstr "Notandi hefur ekkert nýtt babl"
+msgstr ""
 
 #: lib/command.php:190
 msgid "Notice marked as fave."
-msgstr "Babl gert að uppáhaldi."
+msgstr ""
 
 #: lib/command.php:315
 #, php-format
 msgid "%1$s (%2$s)"
-msgstr "%1$s (%2$s)"
+msgstr ""
 
 #: lib/command.php:318
 #, php-format
 msgid "Fullname: %s"
-msgstr "Fullt nafn: %s"
+msgstr ""
 
 #: lib/command.php:321
 #, php-format
 msgid "Location: %s"
-msgstr "Staðsetning: %s"
+msgstr ""
 
 #: lib/command.php:324
 #, php-format
 msgid "Homepage: %s"
-msgstr "Heimasíða: %s"
+msgstr ""
 
 #: lib/command.php:327
 #, php-format
 msgid "About: %s"
-msgstr "Um: %s"
-
-#: lib/command.php:358 scripts/xmppdaemon.php:301
-#, fuzzy, php-format
-msgid "Message too long - maximum is %d characters, you sent %d"
-msgstr "Skilaboð eru of löng - 140 tákn eru í mesta lagi leyfð en þú sendir %d"
-
-#: lib/command.php:378
-msgid "Error sending direct message."
-msgstr "Villa kom upp við að senda bein skilaboð"
-
-#: lib/command.php:422
-#, fuzzy
-msgid "Cannot repeat your own notice"
-msgstr "Get ekki kveikt á tilkynningum."
-
-#: lib/command.php:427
-#, fuzzy
-msgid "Already repeated that notice"
-msgstr "Eyða þessu babli"
-
-#: lib/command.php:435
-#, fuzzy, php-format
-msgid "Notice from %s repeated"
-msgstr "Babl sent inn"
-
-#: lib/command.php:437
-#, fuzzy
-msgid "Error repeating notice."
-msgstr "Vandamál komu upp við að vista babl."
-
-#: lib/command.php:491
-#, fuzzy, php-format
-msgid "Notice too long - maximum is %d characters, you sent %d"
-msgstr "Skilaboð eru of löng - 140 tákn eru í mesta lagi leyfð en þú sendir %d"
-
-#: lib/command.php:500
-#, fuzzy, php-format
-msgid "Reply to %s sent"
-msgstr "Svara þessu babli"
-
-#: lib/command.php:502
-#, fuzzy
-msgid "Error saving notice."
-msgstr "Vandamál komu upp við að vista babl."
-
-#: lib/command.php:556
-msgid "Specify the name of the user to subscribe to"
-msgstr "Tilgreindu nafn notandans sem þú vilt gerast áskrifandi að"
-
-#: lib/command.php:563
-#, php-format
-msgid "Subscribed to %s"
-msgstr "Nú ert þú áskrifandi að %s"
-
-#: lib/command.php:584
-msgid "Specify the name of the user to unsubscribe from"
-msgstr "Tilgreindu nafn notandans sem þú vilt hætta sem áskrifandi að"
-
-#: lib/command.php:591
-#, php-format
-msgid "Unsubscribed from %s"
-msgstr "Nú ert þú ekki lengur áskrifandi að %s"
-
-#: lib/command.php:609 lib/command.php:632
-msgid "Command not yet implemented."
-msgstr "Skipun hefur ekki verið fullbúin"
-
-#: lib/command.php:612
-msgid "Notification off."
-msgstr "Tilkynningar af."
-
-#: lib/command.php:614
-msgid "Can't turn off notification."
-msgstr "Get ekki slökkt á tilkynningum."
-
-#: lib/command.php:635
-msgid "Notification on."
-msgstr "Tilkynningar á."
-
-#: lib/command.php:637
-msgid "Can't turn on notification."
-msgstr "Get ekki kveikt á tilkynningum."
-
-#: lib/command.php:650
-msgid "Login command is disabled"
 msgstr ""
 
-#: lib/command.php:664
-#, fuzzy, php-format
-msgid "Could not create login token for %s"
-msgstr "Gat ekki búið til uppáhald."
+#: lib/command.php:358 scripts/xmppdaemon.php:321
+#, php-format
+msgid "Message too long - maximum is %d characters, you sent %d"
+msgstr ""
 
-#: lib/command.php:669
+#: lib/command.php:377
+msgid "Error sending direct message."
+msgstr ""
+
+#: lib/command.php:431
+#, php-format
+msgid "Notice too long - maximum is %d characters, you sent %d"
+msgstr ""
+
+#: lib/command.php:439
+#, php-format
+msgid "Reply to %s sent"
+msgstr ""
+
+#: lib/command.php:441
+msgid "Error saving notice."
+msgstr ""
+
+#: lib/command.php:495
+msgid "Specify the name of the user to subscribe to"
+msgstr ""
+
+#: lib/command.php:502
+#, php-format
+msgid "Subscribed to %s"
+msgstr ""
+
+#: lib/command.php:523
+msgid "Specify the name of the user to unsubscribe from"
+msgstr ""
+
+#: lib/command.php:530
+#, php-format
+msgid "Unsubscribed from %s"
+msgstr ""
+
+#: lib/command.php:548 lib/command.php:571
+msgid "Command not yet implemented."
+msgstr ""
+
+#: lib/command.php:551
+msgid "Notification off."
+msgstr ""
+
+#: lib/command.php:553
+msgid "Can't turn off notification."
+msgstr ""
+
+#: lib/command.php:574
+msgid "Notification on."
+msgstr ""
+
+#: lib/command.php:576
+msgid "Can't turn on notification."
+msgstr ""
+
+#: lib/command.php:597
+#, php-format
+msgid "Could not create login token for %s"
+msgstr ""
+
+#: lib/command.php:602
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
-#: lib/command.php:685
-#, fuzzy
+#: lib/command.php:618
 msgid "You are not subscribed to anyone."
-msgstr "Þú ert ekki áskrifandi."
+msgstr ""
 
-#: lib/command.php:687
+#: lib/command.php:620
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
-msgstr[0] "Þú ert nú þegar í áskrift að þessum notendum:"
-msgstr[1] "Þú ert nú þegar í áskrift að þessum notendum:"
+msgstr[0] ""
+msgstr[1] ""
 
-#: lib/command.php:707
-#, fuzzy
+#: lib/command.php:640
 msgid "No one is subscribed to you."
-msgstr "Gat ekki leyft öðrum að gerast áskrifandi að þér."
+msgstr ""
 
-#: lib/command.php:709
+#: lib/command.php:642
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
-msgstr[0] "Gat ekki leyft öðrum að gerast áskrifandi að þér."
-msgstr[1] "Gat ekki leyft öðrum að gerast áskrifandi að þér."
+msgstr[0] ""
+msgstr[1] ""
 
-#: lib/command.php:729
-#, fuzzy
+#: lib/command.php:662
 msgid "You are not a member of any groups."
-msgstr "Þú ert ekki meðlimur í þessum hópi."
+msgstr ""
 
-#: lib/command.php:731
+#: lib/command.php:664
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
-msgstr[0] "Þú ert ekki meðlimur í þessum hópi."
-msgstr[1] "Þú ert ekki meðlimur í þessum hópi."
+msgstr[0] ""
+msgstr[1] ""
 
-#: lib/command.php:745
+#: lib/command.php:678
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4563,8 +4147,6 @@ msgid ""
 "whois <nickname> - get profile info on user\n"
 "fav <nickname> - add user's last notice as a 'fave'\n"
 "fav #<notice_id> - add notice with the given id as a 'fave'\n"
-"repeat #<notice_id> - repeat a notice with a given id\n"
-"repeat <nickname> - repeat the last notice from user\n"
 "reply #<notice_id> - reply to notice with a given id\n"
 "reply <nickname> - reply to the last notice from user\n"
 "join <group> - join group\n"
@@ -4589,9 +4171,8 @@ msgid ""
 msgstr ""
 
 #: lib/common.php:199
-#, fuzzy
 msgid "No configuration file found. "
-msgstr "Enginn staðfestingarlykill."
+msgstr ""
 
 #: lib/common.php:200
 msgid "I looked for configuration files in the following places: "
@@ -4602,21 +4183,20 @@ msgid "You may wish to run the installer to fix this."
 msgstr ""
 
 #: lib/common.php:202
-#, fuzzy
 msgid "Go to the installer."
-msgstr "Skrá þig inn á síðuna"
+msgstr ""
 
 #: lib/connectsettingsaction.php:110
 msgid "IM"
-msgstr "Snarskilaboð"
+msgstr "پیام‌رسان فوری"
 
 #: lib/connectsettingsaction.php:111
 msgid "Updates by instant messenger (IM)"
-msgstr "Færslur sendar með snarskilaboðaþjónustu (instant messaging)"
+msgstr ""
 
 #: lib/connectsettingsaction.php:116
 msgid "Updates by SMS"
-msgstr "Færslur sendar með SMS"
+msgstr ""
 
 #: lib/dberroraction.php:60
 msgid "Database error"
@@ -4627,26 +4207,33 @@ msgid "Upload file"
 msgstr ""
 
 #: lib/designsettings.php:109
-#, fuzzy
 msgid ""
-"You can upload your personal background image. The maximum file size is 2MB."
-msgstr "Þetta er of langt. Hámarkslengd babls er 140 tákn."
+"You can upload your personal background image. The maximum file size is 2Mb."
+msgstr ""
 
-#: lib/designsettings.php:418
+#: lib/designsettings.php:372
+msgid "Bad default color settings: "
+msgstr ""
+
+#: lib/designsettings.php:468
 msgid "Design defaults restored."
 msgstr ""
 
 #: lib/disfavorform.php:114 lib/disfavorform.php:140
 msgid "Disfavor this notice"
-msgstr "Taka þetta babl út sem uppáhald"
+msgstr ""
 
 #: lib/favorform.php:114 lib/favorform.php:140
 msgid "Favor this notice"
-msgstr "Setja þetta babl í uppáhald"
+msgstr ""
 
 #: lib/favorform.php:140
 msgid "Favor"
-msgstr "Uppáhald"
+msgstr ""
+
+#: lib/feedlist.php:64
+msgid "Export data"
+msgstr ""
 
 #: lib/feed.php:85
 msgid "RSS 1.0"
@@ -4664,66 +4251,60 @@ msgstr ""
 msgid "FOAF"
 msgstr ""
 
-#: lib/feedlist.php:64
-msgid "Export data"
-msgstr "Flytja út gögn"
-
 #: lib/galleryaction.php:121
 msgid "Filter tags"
-msgstr "Sía merki"
+msgstr ""
 
 #: lib/galleryaction.php:131
 msgid "All"
-msgstr "Allt"
+msgstr "همه"
 
 #: lib/galleryaction.php:139
-#, fuzzy
 msgid "Select tag to filter"
-msgstr "Veldu farsímafyrirtæki"
+msgstr ""
 
 #: lib/galleryaction.php:140
 msgid "Tag"
-msgstr "Merki"
+msgstr ""
 
 #: lib/galleryaction.php:141
 msgid "Choose a tag to narrow list"
-msgstr "Veldu merki til að þrengja lista"
+msgstr ""
 
 #: lib/galleryaction.php:143
 msgid "Go"
-msgstr "Áfram"
+msgstr "برو"
 
 #: lib/groupeditform.php:163
 msgid "URL of the homepage or blog of the group or topic"
-msgstr "Vefslóð vefsíðu hópsins eða umfjöllunarefnisins"
+msgstr ""
 
 #: lib/groupeditform.php:168
-#, fuzzy
 msgid "Describe the group or topic"
-msgstr "Lýstu hópnum eða umfjöllunarefninu með 140 táknum"
+msgstr ""
 
 #: lib/groupeditform.php:170
-#, fuzzy, php-format
+#, php-format
 msgid "Describe the group or topic in %d characters"
-msgstr "Lýstu hópnum eða umfjöllunarefninu með 140 táknum"
+msgstr ""
 
 #: lib/groupeditform.php:172
 msgid "Description"
-msgstr "Lýsing"
+msgstr ""
 
 #: lib/groupeditform.php:179
 msgid ""
 "Location for the group, if any, like \"City, State (or Region), Country\""
-msgstr "Staðsetning hópsins, ef einhver, eins og \"Borg, landshluti, land\""
+msgstr ""
 
 #: lib/groupeditform.php:187
 #, php-format
 msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr ""
 
-#: lib/groupnav.php:85
+#: lib/groupnav.php:85 lib/searchgroupnav.php:84
 msgid "Group"
-msgstr "Hópur"
+msgstr "گروه"
 
 #: lib/groupnav.php:101
 msgid "Blocked"
@@ -4737,16 +4318,16 @@ msgstr ""
 #: lib/groupnav.php:108
 #, php-format
 msgid "Edit %s group properties"
-msgstr "Breyta hópstillingum %s"
+msgstr ""
 
 #: lib/groupnav.php:113
 msgid "Logo"
-msgstr "Einkennismerki"
+msgstr "نشان"
 
 #: lib/groupnav.php:114
 #, php-format
 msgid "Add or edit %s logo"
-msgstr "Bæta við eða breyta einkennismerki %s"
+msgstr ""
 
 #: lib/groupnav.php:120
 #, php-format
@@ -4755,83 +4336,88 @@ msgstr ""
 
 #: lib/groupsbymemberssection.php:71
 msgid "Groups with most members"
-msgstr "Hóparnir með flestu meðlimina"
+msgstr ""
 
 #: lib/groupsbypostssection.php:71
 msgid "Groups with most posts"
-msgstr "Hóparnir með mesta bablið"
+msgstr ""
 
 #: lib/grouptagcloudsection.php:56
 #, php-format
 msgid "Tags in %s group's notices"
-msgstr "Merki í babli %s hópsins"
+msgstr ""
 
-#: lib/htmloutputter.php:103
+#: lib/htmloutputter.php:104
 msgid "This page is not available in a media type you accept"
 msgstr ""
-"Þessi síða er ekki aðgengileg í margmiðlunargerðinni sem þú tekur á móti"
 
 #: lib/imagefile.php:75
-#, fuzzy, php-format
+#, php-format
 msgid "That file is too big. The maximum file size is %s."
-msgstr "Þetta er of langt. Hámarkslengd babls er 140 tákn."
+msgstr ""
 
 #: lib/imagefile.php:80
 msgid "Partial upload."
-msgstr "Upphal að hluta til."
+msgstr ""
 
 #: lib/imagefile.php:88 lib/mediafile.php:170
 msgid "System error uploading file."
-msgstr "Kerfisvilla kom upp við upphal skráar."
+msgstr ""
 
 #: lib/imagefile.php:96
 msgid "Not an image or corrupt file."
-msgstr "Annaðhvort ekki mynd eða þá að skráin er gölluð."
+msgstr ""
 
 #: lib/imagefile.php:105
 msgid "Unsupported image file format."
-msgstr "Skráarsnið myndar ekki stutt."
+msgstr ""
 
 #: lib/imagefile.php:118
 msgid "Lost our file."
-msgstr "Týndum skránni okkar"
+msgstr ""
 
 #: lib/imagefile.php:150 lib/imagefile.php:197
 msgid "Unknown file type"
-msgstr "Óþekkt skráargerð"
-
-#: lib/imagefile.php:217
-msgid "MB"
 msgstr ""
 
-#: lib/imagefile.php:219
-msgid "kB"
-msgstr ""
-
-#: lib/jabber.php:191
+#: lib/jabber.php:192
 #, php-format
 msgid "[%s]"
 msgstr ""
 
 #: lib/joinform.php:114
 msgid "Join"
-msgstr "Gerast meðlimur"
+msgstr ""
 
 #: lib/leaveform.php:114
 msgid "Leave"
-msgstr "Hætta sem meðlimur"
+msgstr ""
 
 #: lib/logingroupnav.php:80
 msgid "Login with a username and password"
-msgstr "Skráðu þig inn með notendanafni og lykilorði"
+msgstr ""
 
 #: lib/logingroupnav.php:86
 msgid "Sign up for a new account"
-msgstr "Búðu til nýjan aðgang"
+msgstr ""
+
+#: lib/mailbox.php:89
+msgid "Only the user can read their own mailboxes."
+msgstr ""
+
+#: lib/mailbox.php:139
+msgid ""
+"You have no private messages. You can send private message to engage other "
+"users in conversation. People can send you messages for your eyes only."
+msgstr ""
+
+#: lib/mailbox.php:227 lib/noticelist.php:424
+msgid "from"
+msgstr ""
 
 #: lib/mail.php:172
 msgid "Email address confirmation"
-msgstr "Staðfesting tölvupóstfangs"
+msgstr ""
 
 #: lib/mail.php:174
 #, php-format
@@ -4853,7 +4439,7 @@ msgstr ""
 #: lib/mail.php:236
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
-msgstr "%1$s er að hlusta á bablið þitt á %2$s."
+msgstr ""
 
 #: lib/mail.php:241
 #, php-format
@@ -4873,12 +4459,12 @@ msgstr ""
 #: lib/mail.php:254
 #, php-format
 msgid "Location: %s\n"
-msgstr "Staðsetning: %s\n"
+msgstr ""
 
 #: lib/mail.php:256
 #, php-format
 msgid "Homepage: %s\n"
-msgstr "Vefsíða: %s\n"
+msgstr ""
 
 #: lib/mail.php:258
 #, php-format
@@ -4886,13 +4472,11 @@ msgid ""
 "Bio: %s\n"
 "\n"
 msgstr ""
-"Lýsing: %s\n"
-"\n"
 
 #: lib/mail.php:286
 #, php-format
 msgid "New email address for posting to %s"
-msgstr "Nýtt tölvupóstfang til að senda á %s"
+msgstr ""
 
 #: lib/mail.php:289
 #, php-format
@@ -4906,28 +4490,20 @@ msgid ""
 "Faithfully yours,\n"
 "%4$s"
 msgstr ""
-"Þú hefur nýtt bablpóstfang á %1$s.\n"
-"\n"
-"Sendu tölvupóst á %2$s til að senda inn babl.\n"
-"\n"
-"Ítarlegri tölvupóstleiðbeiningar eru á %3$s.\n"
-"\n"
-"Með kærri kveðju,\n"
-"%4$s"
 
 #: lib/mail.php:413
 #, php-format
 msgid "%s status"
-msgstr "Staða %s"
+msgstr ""
 
 #: lib/mail.php:439
 msgid "SMS confirmation"
-msgstr "SMS staðfesting"
+msgstr ""
 
 #: lib/mail.php:463
 #, php-format
 msgid "You've been nudged by %s"
-msgstr "%s ýtti við þér"
+msgstr ""
 
 #: lib/mail.php:467
 #, php-format
@@ -4948,7 +4524,7 @@ msgstr ""
 #: lib/mail.php:510
 #, php-format
 msgid "New private message from %s"
-msgstr "Ný persónuleg skilaboð frá %s"
+msgstr ""
 
 #: lib/mail.php:514
 #, php-format
@@ -4970,9 +4546,9 @@ msgid ""
 msgstr ""
 
 #: lib/mail.php:559
-#, fuzzy, php-format
+#, php-format
 msgid "%s (@%s) added your notice as a favorite"
-msgstr "%s heldur upp á babl frá þér"
+msgstr ""
 
 #: lib/mail.php:561
 #, php-format
@@ -5015,21 +4591,6 @@ msgid ""
 "\n"
 msgstr ""
 
-#: lib/mailbox.php:89
-msgid "Only the user can read their own mailboxes."
-msgstr "Aðeins notandinn getur lesið hans eigin pósthólf."
-
-#: lib/mailbox.php:139
-msgid ""
-"You have no private messages. You can send private message to engage other "
-"users in conversation. People can send you messages for your eyes only."
-msgstr ""
-
-#: lib/mailbox.php:227 lib/noticelist.php:469
-#, fuzzy
-msgid "from"
-msgstr "frá"
-
 #: lib/mediafile.php:98 lib/mediafile.php:123
 msgid "There was a database error while saving your file. Please try again."
 msgstr ""
@@ -5069,9 +4630,8 @@ msgid "File could not be moved to destination directory."
 msgstr ""
 
 #: lib/mediafile.php:201 lib/mediafile.php:237
-#, fuzzy
 msgid "Could not determine file's mime-type!"
-msgstr "Gat ekki eytt uppáhaldi."
+msgstr ""
 
 #: lib/mediafile.php:270
 #, php-format
@@ -5085,236 +4645,181 @@ msgstr ""
 
 #: lib/messageform.php:120
 msgid "Send a direct notice"
-msgstr "Senda bein skilaboð"
+msgstr ""
 
 #: lib/messageform.php:146
 msgid "To"
-msgstr "Til"
+msgstr ""
 
-#: lib/messageform.php:159 lib/noticeform.php:183
+#: lib/messageform.php:162 lib/noticeform.php:173
 msgid "Available characters"
-msgstr "Leyfileg tákn"
+msgstr ""
+
+#: lib/noticeform.php:145
+msgid "Send a notice"
+msgstr ""
 
 #: lib/noticeform.php:158
-msgid "Send a notice"
-msgstr "Senda babl"
-
-#: lib/noticeform.php:171
 #, php-format
 msgid "What's up, %s?"
-msgstr "Hvað er að frétta %s?"
+msgstr ""
 
-#: lib/noticeform.php:190
+#: lib/noticeform.php:180
 msgid "Attach"
 msgstr ""
 
-#: lib/noticeform.php:194
+#: lib/noticeform.php:184
 msgid "Attach a file"
 msgstr ""
 
-#: lib/noticelist.php:420
-#, php-format
-msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
-msgstr ""
-
-#: lib/noticelist.php:421
-#, fuzzy
-msgid "N"
-msgstr "Nei"
-
-#: lib/noticelist.php:421
-msgid "S"
-msgstr ""
-
-#: lib/noticelist.php:422
-msgid "E"
-msgstr ""
-
-#: lib/noticelist.php:422
-msgid "W"
-msgstr ""
-
-#: lib/noticelist.php:428
-msgid "at"
-msgstr ""
-
-#: lib/noticelist.php:523
+#: lib/noticelist.php:478
 msgid "in context"
 msgstr ""
 
-#: lib/noticelist.php:548
-#, fuzzy
-msgid "Repeated by"
-msgstr "Í sviðsljósinu"
-
-#: lib/noticelist.php:577
+#: lib/noticelist.php:498
 msgid "Reply to this notice"
-msgstr "Svara þessu babli"
+msgstr ""
 
-#: lib/noticelist.php:578
+#: lib/noticelist.php:499
 msgid "Reply"
-msgstr "Svara"
-
-#: lib/noticelist.php:620
-#, fuzzy
-msgid "Notice repeated"
-msgstr "Babl sent inn"
+msgstr ""
 
 #: lib/nudgeform.php:116
 msgid "Nudge this user"
-msgstr "Ýta við þessum notanda"
+msgstr ""
 
 #: lib/nudgeform.php:128
 msgid "Nudge"
-msgstr "Pot"
+msgstr ""
 
 #: lib/nudgeform.php:128
 msgid "Send a nudge to this user"
-msgstr "Ýta við þessum notanda"
+msgstr ""
 
 #: lib/oauthstore.php:283
 msgid "Error inserting new profile"
-msgstr "Villa kom upp við að setja inn nýja persónulega síðu"
+msgstr ""
 
 #: lib/oauthstore.php:291
 msgid "Error inserting avatar"
-msgstr "Villa kom upp við að setja inn mynd"
+msgstr ""
 
 #: lib/oauthstore.php:311
 msgid "Error inserting remote profile"
-msgstr "Villa kom upp við að setja inn persónulega fjarsíðu"
+msgstr ""
 
 #: lib/oauthstore.php:345
-#, fuzzy
 msgid "Duplicate notice"
-msgstr "Eyða babli"
+msgstr ""
 
 #: lib/oauthstore.php:466 lib/subs.php:48
-#, fuzzy
 msgid "You have been banned from subscribing."
-msgstr "Þessi notandi hefur bannað þér að gerast áskrifandi"
+msgstr ""
 
 #: lib/oauthstore.php:491
 msgid "Couldn't insert new subscription."
-msgstr "Gat ekki sett inn nýja áskrift."
+msgstr ""
 
 #: lib/personalgroupnav.php:99
 msgid "Personal"
-msgstr "Persónulegt"
+msgstr ""
 
 #: lib/personalgroupnav.php:104
 msgid "Replies"
-msgstr "Svör"
+msgstr ""
 
 #: lib/personalgroupnav.php:114
 msgid "Favorites"
-msgstr "Uppáhald"
+msgstr ""
 
 #: lib/personalgroupnav.php:124
 msgid "Inbox"
-msgstr "Innhólf"
+msgstr ""
 
 #: lib/personalgroupnav.php:125
 msgid "Your incoming messages"
-msgstr "Mótteknu skilaboðin þín"
+msgstr ""
 
 #: lib/personalgroupnav.php:129
 msgid "Outbox"
-msgstr "Úthólf"
+msgstr ""
 
 #: lib/personalgroupnav.php:130
 msgid "Your sent messages"
-msgstr "Skilaboð sem þú hefur sent"
+msgstr ""
 
 #: lib/personaltagcloudsection.php:56
 #, php-format
 msgid "Tags in %s's notices"
-msgstr "Merki í babli %s"
+msgstr ""
 
-#: lib/profileaction.php:109 lib/profileaction.php:192 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:191 lib/subgroupnav.php:82
 msgid "Subscriptions"
-msgstr "Áskriftir"
+msgstr "اشتراک‌ها"
 
 #: lib/profileaction.php:126
 msgid "All subscriptions"
-msgstr "Allar áskriftir"
+msgstr "تمام اشتراک‌ها"
 
-#: lib/profileaction.php:140 lib/profileaction.php:201 lib/subgroupnav.php:90
+#: lib/profileaction.php:140 lib/profileaction.php:200 lib/subgroupnav.php:90
 msgid "Subscribers"
-msgstr "Áskrifendur"
+msgstr "مشترک‌ها"
 
 #: lib/profileaction.php:157
 msgid "All subscribers"
-msgstr "Allir áskrifendur"
+msgstr "تمام مشترک‌ها"
 
-#: lib/profileaction.php:178
+#: lib/profileaction.php:177
 msgid "User ID"
-msgstr ""
+msgstr "شناسه کاربر"
 
-#: lib/profileaction.php:183
+#: lib/profileaction.php:182
 msgid "Member since"
-msgstr "Meðlimur síðan"
+msgstr "عضو شده از"
 
-#: lib/profileaction.php:245
+#: lib/profileaction.php:235
 msgid "All groups"
-msgstr "Allir hópar"
+msgstr "تمام گروه‌ها"
 
 #: lib/profileformaction.php:123
-#, fuzzy
-msgid "No return-to arguments."
-msgstr "Ekkert einkenni gefið upp."
+msgid "No return-to arguments"
+msgstr ""
 
 #: lib/profileformaction.php:137
-msgid "Unimplemented method."
+msgid "unimplemented method"
 msgstr ""
 
 #: lib/publicgroupnav.php:78
 msgid "Public"
-msgstr "Almenn"
+msgstr "عمومی"
 
 #: lib/publicgroupnav.php:82
 msgid "User groups"
-msgstr "Notendahópar"
+msgstr "گروه‌های کاربر"
 
 #: lib/publicgroupnav.php:84 lib/publicgroupnav.php:85
 msgid "Recent tags"
-msgstr "Nýleg merki"
+msgstr "برچسب‌های اخیر"
 
 #: lib/publicgroupnav.php:88
 msgid "Featured"
-msgstr "Í sviðsljósinu"
+msgstr ""
 
 #: lib/publicgroupnav.php:92
 msgid "Popular"
-msgstr "Vinsælt"
-
-#: lib/repeatform.php:107 lib/repeatform.php:132
-#, fuzzy
-msgid "Repeat this notice"
-msgstr "Svara þessu babli"
-
-#: lib/repeatform.php:132
-#, fuzzy
-msgid "Repeat"
-msgstr "Endurstilla"
+msgstr "محبوب"
 
 #: lib/sandboxform.php:67
-#, fuzzy
 msgid "Sandbox"
-msgstr "Innhólf"
+msgstr ""
 
 #: lib/sandboxform.php:78
-#, fuzzy
 msgid "Sandbox this user"
-msgstr "Opna á þennan notanda"
+msgstr ""
 
 #: lib/searchaction.php:120
 msgid "Search site"
-msgstr ""
-
-#: lib/searchaction.php:126
-msgid "Keyword(s)"
-msgstr ""
+msgstr "جست‌وجوی وب‌گاه"
 
 #: lib/searchaction.php:162
 msgid "Search help"
@@ -5322,82 +4827,54 @@ msgstr ""
 
 #: lib/searchgroupnav.php:80
 msgid "People"
-msgstr "Fólk"
+msgstr ""
 
 #: lib/searchgroupnav.php:81
 msgid "Find people on this site"
-msgstr "Finna persónur á þessu vefsvæði"
+msgstr ""
+
+#: lib/searchgroupnav.php:82
+msgid "Notice"
+msgstr "آگهی"
 
 #: lib/searchgroupnav.php:83
 msgid "Find content of notices"
-msgstr "Finna innihald babls"
+msgstr ""
 
 #: lib/searchgroupnav.php:85
 msgid "Find groups on this site"
-msgstr "Finna hópa á þessari síðu"
+msgstr ""
 
 #: lib/section.php:89
 msgid "Untitled section"
-msgstr "Ónafngreindur hluti"
+msgstr ""
 
 #: lib/section.php:106
 msgid "More..."
-msgstr ""
+msgstr "بیش‌تر..."
 
 #: lib/silenceform.php:67
-#, fuzzy
 msgid "Silence"
-msgstr "Babl vefsíðunnar"
+msgstr ""
 
 #: lib/silenceform.php:78
-#, fuzzy
 msgid "Silence this user"
-msgstr "Loka á þennan notanda"
+msgstr ""
 
 #: lib/subgroupnav.php:83
 #, php-format
 msgid "People %s subscribes to"
-msgstr "Fólk sem %s er áskrifandi að"
+msgstr ""
 
 #: lib/subgroupnav.php:91
 #, php-format
 msgid "People subscribed to %s"
-msgstr "Fólk sem eru áskrifendur að %s"
+msgstr ""
 
 #: lib/subgroupnav.php:99
 #, php-format
 msgid "Groups %s is a member of"
-msgstr "Hópar sem %s er meðlimur í"
-
-#: lib/subs.php:52
-msgid "Already subscribed!"
 msgstr ""
-
-#: lib/subs.php:56
-msgid "User has blocked you."
-msgstr "Notandinn hefur lokað á þig."
-
-#: lib/subs.php:60
-msgid "Could not subscribe."
-msgstr "Gat ekki farið í áskrift."
-
-#: lib/subs.php:79
-msgid "Could not subscribe other to you."
-msgstr "Gat ekki leyft öðrum að gerast áskrifandi að þér."
-
-#: lib/subs.php:128
-#, fuzzy
-msgid "Not subscribed!"
-msgstr "Ekki í áskrift!"
-
-#: lib/subs.php:133
-#, fuzzy
-msgid "Couldn't delete self-subscription."
-msgstr "Gat ekki eytt áskrift."
-
-#: lib/subs.php:146
-msgid "Couldn't delete subscription."
-msgstr "Gat ekki eytt áskrift."
 
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
@@ -5411,41 +4888,63 @@ msgstr ""
 
 #: lib/subscriptionlist.php:126
 msgid "(none)"
-msgstr "(ekkert)"
+msgstr ""
+
+#: lib/subs.php:52
+msgid "Already subscribed!"
+msgstr ""
+
+#: lib/subs.php:56
+msgid "User has blocked you."
+msgstr ""
+
+#: lib/subs.php:60
+msgid "Could not subscribe."
+msgstr ""
+
+#: lib/subs.php:79
+msgid "Could not subscribe other to you."
+msgstr ""
+
+#: lib/subs.php:128
+msgid "Not subscribed!"
+msgstr ""
+
+#: lib/subs.php:140
+msgid "Couldn't delete subscription."
+msgstr ""
 
 #: lib/tagcloudsection.php:56
 msgid "None"
-msgstr "Ekkert"
+msgstr ""
 
 #: lib/topposterssection.php:74
 msgid "Top posters"
-msgstr "Aðalbablararnir"
+msgstr ""
 
 #: lib/unsandboxform.php:69
 msgid "Unsandbox"
 msgstr ""
 
 #: lib/unsandboxform.php:80
-#, fuzzy
 msgid "Unsandbox this user"
-msgstr "Opna á þennan notanda"
+msgstr ""
 
 #: lib/unsilenceform.php:67
 msgid "Unsilence"
 msgstr ""
 
 #: lib/unsilenceform.php:78
-#, fuzzy
 msgid "Unsilence this user"
-msgstr "Opna á þennan notanda"
+msgstr ""
 
 #: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
 msgid "Unsubscribe from this user"
-msgstr "Hætta sem áskrifandi að þessum notanda"
+msgstr ""
 
 #: lib/unsubscribeform.php:137
 msgid "Unsubscribe"
-msgstr "Fara úr áskrift"
+msgstr ""
 
 #: lib/userprofile.php:116
 msgid "Edit Avatar"
@@ -5453,7 +4952,7 @@ msgstr ""
 
 #: lib/userprofile.php:236
 msgid "User actions"
-msgstr "Notandaaðgerðir"
+msgstr ""
 
 #: lib/userprofile.php:248
 msgid "Edit profile settings"
@@ -5461,86 +4960,84 @@ msgstr ""
 
 #: lib/userprofile.php:249
 msgid "Edit"
-msgstr ""
+msgstr "ویرایش"
 
 #: lib/userprofile.php:272
 msgid "Send a direct message to this user"
-msgstr "Senda bein skilaboð til þessa notanda"
+msgstr "پیام مستقیم به این کاربر بفرستید"
 
 #: lib/userprofile.php:273
 msgid "Message"
-msgstr "Skilaboð"
+msgstr "پیام"
 
-#: lib/userprofile.php:311
-msgid "Moderate"
-msgstr ""
-
-#: lib/util.php:837
+#: lib/util.php:826
 msgid "a few seconds ago"
-msgstr "fyrir nokkrum sekúndum"
+msgstr "چند ثانیه پیش"
 
-#: lib/util.php:839
+#: lib/util.php:828
 msgid "about a minute ago"
-msgstr "fyrir um einni mínútu síðan"
+msgstr "حدود یک دقیقه پیش"
 
-#: lib/util.php:841
+#: lib/util.php:830
 #, php-format
 msgid "about %d minutes ago"
-msgstr "fyrir um %d mínútum síðan"
+msgstr "حدود %d دقیقه پیش"
 
-#: lib/util.php:843
+#: lib/util.php:832
 msgid "about an hour ago"
-msgstr "fyrir um einum klukkutíma síðan"
+msgstr "حدود یک ساعت پیش"
 
-#: lib/util.php:845
+#: lib/util.php:834
 #, php-format
 msgid "about %d hours ago"
-msgstr "fyrir um %d klukkutímum síðan"
+msgstr "حدود %d ساعت پیش"
 
-#: lib/util.php:847
+#: lib/util.php:836
 msgid "about a day ago"
-msgstr "fyrir um einum degi síðan"
+msgstr "حدود یک روز پیش"
 
-#: lib/util.php:849
+#: lib/util.php:838
 #, php-format
 msgid "about %d days ago"
-msgstr "fyrir um %d dögum síðan"
+msgstr "حدود %d روز پیش"
 
-#: lib/util.php:851
+#: lib/util.php:840
 msgid "about a month ago"
-msgstr "fyrir um einum mánuði síðan"
+msgstr "حدود یک ماه پیش"
 
-#: lib/util.php:853
+#: lib/util.php:842
 #, php-format
 msgid "about %d months ago"
-msgstr "fyrir um %d mánuðum síðan"
+msgstr "حدود %d ماه پیش"
 
-#: lib/util.php:855
+#: lib/util.php:844
 msgid "about a year ago"
-msgstr "fyrir um einu ári síðan"
+msgstr "حدود یک سال پیش"
 
 #: lib/webcolor.php:82
 #, php-format
 msgid "%s is not a valid color!"
-msgstr ""
+msgstr "%s یک رنگ صحیح نیست!"
 
 #: lib/webcolor.php:123
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
-msgstr ""
+msgstr "%s یک رنگ صحیح نیست! از ۳ یا ۶ حرف مبنای شانزده استفاده کنید"
 
 #: scripts/maildaemon.php:48
 msgid "Could not parse message."
-msgstr "Gat ekki þáttað skilaboðin."
+msgstr "نمی‌توان پیام را تجزیه کرد."
 
 #: scripts/maildaemon.php:53
 msgid "Not a registered user."
-msgstr "Ekki skráður notandi."
+msgstr "یک کاربر ثبت نام شده نیستید"
 
 #: scripts/maildaemon.php:57
 msgid "Sorry, that is not your incoming email address."
-msgstr "Afsakið en þetta er ekki móttökutölvupóstfangið þitt."
+msgstr "با عرض پوزش، این پست الکترونیک شما نیست."
 
 #: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
-msgstr "Því miður er móttökutölvupóstur ekki leyfður."
+msgstr "با عرض پوزش، اجازه‌ی ورودی پست الکترونیک وجود ندارد"
+
+
