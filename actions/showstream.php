@@ -269,4 +269,50 @@ class ProfileNoticeListItem extends NoticeListItem
     {
         return;
     }
+
+    /**
+     * show a link to the author of repeat
+     *
+     * @return void
+     */
+
+    function showRepeat()
+    {
+        if (!empty($this->repeat)) {
+
+            // FIXME: this code is almost identical to default; need to refactor
+
+            $attrs = array('href' => $this->profile->profileurl,
+                           'class' => 'url');
+
+            if (!empty($this->profile->fullname)) {
+                $attrs['title'] = $this->profile->fullname . ' (' . $this->profile->nickname . ')';
+            }
+
+            $this->out->elementStart('span', 'repeat');
+
+            $this->out->elementStart('a', $attrs);
+
+            $avatar = $this->profile->getAvatar(AVATAR_MINI_SIZE);
+
+            $this->out->element('img', array('src' => ($avatar) ?
+                                             $avatar->displayUrl() :
+                                             Avatar::defaultImage(AVATAR_MINI_SIZE),
+                                             'class' => 'avatar photo',
+                                             'width' => AVATAR_MINI_SIZE,
+                                             'height' => AVATAR_MINI_SIZE,
+                                             'alt' =>
+                                             ($this->profile->fullname) ?
+                                             $this->profile->fullname :
+                                             $this->profile->nickname));
+
+            $this->out->elementEnd('a');
+
+            $text_link = XMLStringer::estring('a', $attrs, $this->profile->nickname);
+
+            $this->out->raw(sprintf(_('Repeat of %s'), $text_link));
+
+            $this->out->elementEnd('span');
+        }
+    }
 }

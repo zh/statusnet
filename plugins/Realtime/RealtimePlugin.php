@@ -59,6 +59,7 @@ class RealtimePlugin extends Plugin
     {
         $this->replyurl = common_local_url('newnotice');
         $this->favorurl = common_local_url('favor');
+        $this->repeaturl = common_local_url('repeat');
         // FIXME: need to find a better way to pass this pattern in
         $this->deleteurl = common_local_url('deletenotice',
                                             array('notice' => '0000000000'));
@@ -105,22 +106,18 @@ class RealtimePlugin extends Plugin
             $realtimeUI = ' RealtimeUpdate.initActions("'.$url.'", "'.$timeline.'", "'. $pluginPath .'");';
         }
 
-        $action->elementStart('script', array('type' => 'text/javascript'));
-
         $script = ' $(document).ready(function() { '.
           $realtimeUI.
           $this->_updateInitialize($timeline, $user_id).
           '}); ';
-        $action->raw($script);
-
-        $action->elementEnd('script');
+        $action->inlineScript($script);
 
         return true;
     }
 
     function onEndShowStatusNetStyles($action)
     {
-        $action->cssLink(common_path('plugins/Realtime/realtimeupdate.css'), 
+        $action->cssLink(common_path('plugins/Realtime/realtimeupdate.css'),
                          null, 'screen, projection, tv');
         return true;
     }
@@ -270,6 +267,24 @@ class RealtimePlugin extends Plugin
         $profile = $notice->getProfile();
         $arr['user']['profile_url'] = $profile->profileurl;
 
+        // Add needed repeat data
+
+        if (!empty($notice->repeat_of)) {
+            $original = Notice::staticGet('id', $notice->repeat_of);
+            if (!empty($original)) {
+                $arr['retweeted_status']['url'] = $original->bestUrl();
+                $arr['retweeted_status']['html'] = htmlspecialchars($original->rendered);
+                $arr['retweeted_status']['source'] = htmlspecialchars($original->source);
+                $originalProfile = $original->getProfile();
+                $arr['retweeted_status']['user']['profile_url'] = $originalProfile->profileurl;
+                if (!empty($original->reply_to)) {
+                    $originalReply = Notice::staticGet('id', $original->reply_to);
+                    $arr['retweeted_status']['in_reply_to_status_url'] = $originalReply->bestUrl();
+                }
+            }
+            $original = null;
+        }
+
         return $arr;
     }
 
@@ -293,13 +308,6 @@ class RealtimePlugin extends Plugin
         return $tags;
     }
 
-    // Push this up to Plugin
-
-    function log($level, $msg)
-    {
-        common_log($level, get_class($this) . ': '.$msg);
-    }
-
     function _getScripts()
     {
         return array('plugins/Realtime/realtimeupdate.js',
@@ -308,7 +316,7 @@ class RealtimePlugin extends Plugin
 
     function _updateInitialize($timeline, $user_id)
     {
-        return "RealtimeUpdate.init($user_id, \"$this->replyurl\", \"$this->favorurl\", \"$this->deleteurl\"); ";
+        return "RealtimeUpdate.init($user_id, \"$this->replyurl\", \"$this->favorurl\", \"$this->repeaturl\", \"$this->deleteurl\"); ";
     }
 
     function _connect()

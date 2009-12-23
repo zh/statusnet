@@ -1,40 +1,32 @@
-$(document).ready(function() {
+function scrapeNotices(user)
+{
      var notices = [];
      $(".notice").each(function(){
-        var notice = getNoticeFromElement($(this));
-        if(notice['geo'])
-            notices.push(notice);
+          var notice = getNoticeFromElement($(this));
+          if (user) {
+               notice['user'] = user;
+          } else {
+               notice['user'] = getUserFromElement($(this));
+          }
+          if(notice['geo'])
+               notices.push(notice);
      });
-     if($("#map_canvas").length && notices.length>0)
-     {
-        showMapstraction($("#map_canvas"), notices);
-     }
 
-     $('.geo').click(function(){
-        var noticeElement = $(this).closest(".notice");
-        notice = getNoticeFromElement(noticeElement);
+     return notices;
+}
 
-        $.fn.jOverlay.options = {
-            color : '#000',
-            opacity : '0.6',
-            zIndex : 99,
-            center : false,
-            bgClickToClose : true,
-            autoHide : true,
-            css : {'max-width':'542px', 'top':'5%', 'left':'32.5%'}
-        };
-        var html="<div id='map_canvas_popup' class='gray smallmap' style='width: 542px; height: 500px' />";
-        html+="<button class='close'>&#215;</button>";
-        html+=$("<div/>").append($(this).clone()).html();
-        $().jOverlay({ "html": html });
-        $('#jOverlayContent').show();
-        $('#jOverlayContent button').click($.closeOverlay);
-        
-        showMapstraction($("#map_canvas_popup"), notice);
+function scrapeUser()
+{
+     var avatarURL = $(".entity_profile .entity_depiction img.avatar").attr('src');
+     var profileURL = $(".entity_profile .entity_nickname .url").attr('href');
+     var nickname = $(".entity_profile .entity_nickname .nickname").text();
 
-        return false;
-     });
-});
+     return {
+        'profile_image_url': avatarURL,
+        'profile_url': profileURL,
+        'screen_name': nickname
+     };
+}
 
 function getMicroformatValue(element)
 {
@@ -48,21 +40,32 @@ function getMicroformatValue(element)
 function getNoticeFromElement(noticeElement)
 {
     var notice = {};
-    if(noticeElement.find(".geo").length){
+
+    if(noticeElement.find(".geo").length) {
         var latlon = noticeElement.find(".geo").attr('title').split(";");
         notice['geo']={'coordinates': [
             parseFloat(latlon[0]),
             parseFloat(latlon[1])] };
     }
-    notice['user']={
-        'profile_image_url': noticeElement.find("img.avatar").attr('src'),
-        'profile_url': noticeElement.find(".author a.url").attr('href'),
-        'screen_name': noticeElement.find(".author .nickname").text()
-    };
-    notice['html']=noticeElement.find(".entry-content").html();
-    notice['url']=noticeElement.find("a.timestamp").attr('href');
-    notice['created_at']=noticeElement.find("abbr.published").text();
+
+    notice['html'] = noticeElement.find(".entry-content").html();
+    notice['url'] = noticeElement.find("a.timestamp").attr('href');
+    notice['created_at'] = noticeElement.find("abbr.published").text();
+
     return notice;
+}
+
+function getUserFromElement(noticeElement)
+{
+     var avatarURL = noticeElement.find("img.avatar").attr('src');
+     var profileURL = noticeElement.find(".author a.url").attr('href');
+     var nickname =  noticeElement.find(".author .nickname").text();
+
+     return {
+          'profile_image_url': avatarURL,
+          'profile_url': profileURL,
+          'screen_name': nickname
+    };
 }
 
 function showMapstraction(element, notices) {

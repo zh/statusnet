@@ -243,19 +243,13 @@ class MobileProfilePlugin extends WAP20Plugin
         if (file_exists(Theme::file('css/mp-screen.css'))) {
             $action->cssLink('css/mp-screen.css', null, 'screen');
         } else {
-            $action->element('link', array('rel' => 'stylesheet',
-                                         'type' => 'text/css',
-                                         'href' => common_path('plugins/MobileProfile/mp-screen.css') . '?version=' . STATUSNET_VERSION,
-                                         'media' => 'screen'));
+            $action->cssLink('plugins/MobileProfile/mp-screen.css',null,'screen');
         }
 
         if (file_exists(Theme::file('css/mp-handheld.css'))) {
             $action->cssLink('css/mp-handheld.css', null, 'handheld');
         } else {
-            $action->element('link', array('rel' => 'stylesheet',
-                                         'type' => 'text/css',
-                                         'href' => common_path('plugins/MobileProfile/mp-handheld.css') . '?version=' . STATUSNET_VERSION,
-                                         'media' => 'handheld'));
+            $action->cssLink('plugins/MobileProfile/mp-handheld.css',null,'handheld');
         }
 
         return false;
@@ -358,8 +352,7 @@ class MobileProfilePlugin extends WAP20Plugin
 
         $contentLimit = Notice::maxContent();
 
-        $form->out->element('script', array('type' => 'text/javascript'),
-                            'maxLength = ' . $contentLimit . ';');
+        $form->out->inlineScript('maxLength = ' . $contentLimit . ';');
 
         if ($contentLimit > 0) {
             $form->out->element('div', array('id' => 'notice_text-count'),

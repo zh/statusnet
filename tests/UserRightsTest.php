@@ -16,14 +16,26 @@ class UserRightsTest extends PHPUnit_Framework_TestCase
 
     function setUp()
     {
+        $user = User::staticGet('nickname', 'userrightstestuser');
+        if ($user) {
+            // Leftover from a broken test run?
+            $profile = $user->getProfile();
+            $user->delete();
+            $profile->delete();
+        }
         $this->user = User::register(array('nickname' => 'userrightstestuser'));
+        if (!$this->user) {
+            throw new Exception("Couldn't register userrightstestuser");
+        }
     }
 
     function tearDown()
     {
-        $profile = $this->user->getProfile();
-        $this->user->delete();
-        $profile->delete();
+        if ($this->user) {
+            $profile = $this->user->getProfile();
+            $this->user->delete();
+            $profile->delete();
+        }
     }
 
     function testInvalidRole()
@@ -33,7 +45,8 @@ class UserRightsTest extends PHPUnit_Framework_TestCase
 
     function standardRoles()
     {
-        return array('admin', 'moderator');
+        return array(array('admin'),
+                     array('moderator'));
     }
 
     /**
@@ -54,6 +67,6 @@ class UserRightsTest extends PHPUnit_Framework_TestCase
     function testGrantedRole($role)
     {
         $this->user->grantRole($role);
-        $this->assertFalse($this->user->hasRole($role));
+        $this->assertTrue($this->user->hasRole($role));
     }
 }

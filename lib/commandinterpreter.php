@@ -41,6 +41,12 @@ class CommandInterpreter
                 return null;
             }
             return new HelpCommand($user);
+         case 'login':
+            if ($arg) {
+                return null;
+            } else {
+                return new LoginCommand($user);
+            }
          case 'subscribers':
             if ($arg) {
                 return null;
@@ -162,6 +168,19 @@ class CommandInterpreter
                 return null;
             } else {
                 return new ReplyCommand($user, $other, $extra);
+            }
+         case 'repeat':
+         case 'rp':
+         case 'rt':
+         case 'rd':
+            if (!$arg) {
+                return null;
+            }
+            list($other, $extra) = $this->split_arg($arg);
+            if ($extra) {
+                return null;
+            } else {
+                return new RepeatCommand($user, $other);
             }
          case 'whois':
             if (!$arg) {

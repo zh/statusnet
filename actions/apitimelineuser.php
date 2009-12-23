@@ -112,6 +112,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
     function showTimeline()
     {
         $profile = $this->user->getProfile();
+        $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
 
         $sitename   = common_config('site', 'name');
         $title      = sprintf(_("%s timeline"), $this->user->nickname);
@@ -125,6 +126,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
             _('Updates from %1$s on %2$s!'),
             $this->user->nickname, $sitename
         );
+        $logo = ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_PROFILE_SIZE);
 
         // FriendFeed's SUP protocol
         // Also added RSS and Atom feeds
@@ -139,7 +141,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
         case 'rss':
             $this->showRssTimeline(
                 $this->notices, $title, $link,
-                $subtitle, $suplink
+                $subtitle, $suplink, $logo
             );
             break;
         case 'atom':
@@ -153,7 +155,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
             }
             $this->showAtomTimeline(
                 $this->notices, $title, $id, $link,
-                $subtitle, $suplink, $selfuri
+                $subtitle, $suplink, $selfuri, $logo
             );
             break;
         case 'json':

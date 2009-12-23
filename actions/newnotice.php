@@ -187,10 +187,12 @@ class NewnoticeAction extends Action
             }
         }
 
-        $notice = Notice::saveNew($user->id, $content_shortened, 'web', 1,
-                                  ($replyto == 'false') ? null : $replyto,
-                                  null, null,
-                                  $lat, $lon, $location_id, $location_ns);
+        $notice = Notice::saveNew($user->id, $content_shortened, 'web',
+                                  array('reply_to' => ($replyto == 'false') ? null : $replyto,
+                                        'lat' => $lat,
+                                        'lon' => $lon,
+                                        'location_id' => $location_id,
+                                        'location_ns' => $location_ns));
 
         if (isset($upload)) {
             $upload->attachToNotice($notice);

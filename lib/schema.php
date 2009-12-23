@@ -94,7 +94,7 @@ class Schema
 
     public function getTableDef($name)
     {
-        $res =& $this->conn->query('DESCRIBE ' . $name);
+        $res = $this->conn->query('DESCRIBE ' . $name);
 
         if (PEAR::isError($res)) {
             throw new Exception($res->getMessage());
@@ -213,7 +213,7 @@ class Schema
 
         $sql .= "); ";
 
-        $res =& $this->conn->query($sql);
+        $res = $this->conn->query($sql);
 
         if (PEAR::isError($res)) {
             throw new Exception($res->getMessage());
@@ -234,7 +234,7 @@ class Schema
 
     public function dropTable($name)
     {
-        $res =& $this->conn->query("DROP TABLE $name");
+        $res = $this->conn->query("DROP TABLE $name");
 
         if (PEAR::isError($res)) {
             throw new Exception($res->getMessage());
@@ -269,7 +269,7 @@ class Schema
             $name = "$table_".implode("_", $columnNames)."_idx";
         }
 
-        $res =& $this->conn->query("ALTER TABLE $table ".
+        $res = $this->conn->query("ALTER TABLE $table ".
                                    "ADD INDEX $name (".
                                    implode(",", $columnNames).")");
 
@@ -291,7 +291,7 @@ class Schema
 
     public function dropIndex($table, $name)
     {
-        $res =& $this->conn->query("ALTER TABLE $table DROP INDEX $name");
+        $res = $this->conn->query("ALTER TABLE $table DROP INDEX $name");
 
         if (PEAR::isError($res)) {
             throw new Exception($res->getMessage());
@@ -314,7 +314,7 @@ class Schema
     {
         $sql = "ALTER TABLE $table ADD COLUMN " . $this->_columnSql($columndef);
 
-        $res =& $this->conn->query($sql);
+        $res = $this->conn->query($sql);
 
         if (PEAR::isError($res)) {
             throw new Exception($res->getMessage());
@@ -339,7 +339,7 @@ class Schema
         $sql = "ALTER TABLE $table MODIFY COLUMN " .
           $this->_columnSql($columndef);
 
-        $res =& $this->conn->query($sql);
+        $res = $this->conn->query($sql);
 
         if (PEAR::isError($res)) {
             throw new Exception($res->getMessage());
@@ -363,7 +363,7 @@ class Schema
     {
         $sql = "ALTER TABLE $table DROP COLUMN $columnName";
 
-        $res =& $this->conn->query($sql);
+        $res = $this->conn->query($sql);
 
         if (PEAR::isError($res)) {
             throw new Exception($res->getMessage());
@@ -446,7 +446,7 @@ class Schema
 
         $sql = 'ALTER TABLE ' . $tableName . ' ' . implode(', ', $phrase);
 
-        $res =& $this->conn->query($sql);
+        $res = $this->conn->query($sql);
 
         if (PEAR::isError($res)) {
             throw new Exception($res->getMessage());

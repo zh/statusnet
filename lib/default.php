@@ -53,6 +53,7 @@ $default =
               'shorturllength' => 30,
               'dupelimit' => 60, # default for same person saying the same thing
               'textlimit' => 140,
+              'indent' => true,
               ),
         'db' =>
         array('database' => 'YOU HAVE TO SET THIS IN config.php',
@@ -74,7 +75,7 @@ $default =
         array('enabled' => false,
               'subsystem' => 'db', # default to database, or 'stomp'
               'stomp_server' => null,
-              'queue_basename' => 'statusnet',
+              'queue_basename' => '/queue/statusnet/',
               'stomp_username' => null,
               'stomp_password' => null,
               ),
@@ -228,4 +229,6 @@ $default =
         array('namespace' => 1), // 1 = geonames, 2 = Yahoo Where on Earth
         'omb' =>
         array('timeout' => 5), // HTTP request timeout in seconds when contacting remote hosts for OMB updates
+        'logincommand' =>
+        array('disabled' => true),
         );

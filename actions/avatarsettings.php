@@ -118,53 +118,56 @@ class AvatarsettingsAction extends AccountSettingsAction
         $this->elementStart('fieldset');
         $this->element('legend', null, _('Avatar settings'));
         $this->hidden('token', common_session_token());
+        
+        if (Event::handle('StartAvatarFormData', array($this))) {
+            $this->elementStart('ul', 'form_data');
+            if ($original) {
+                $this->elementStart('li', array('id' => 'avatar_original',
+                                                'class' => 'avatar_view'));
+                $this->element('h2', null, _("Original"));
+                $this->elementStart('div', array('id'=>'avatar_original_view'));
+                $this->element('img', array('src' => $original->url,
+                                            'width' => $original->width,
+                                            'height' => $original->height,
+                                            'alt' => $user->nickname));
+                $this->elementEnd('div');
+                $this->elementEnd('li');
+            }
 
-        $this->elementStart('ul', 'form_data');
-        if ($original) {
-            $this->elementStart('li', array('id' => 'avatar_original',
-                                            'class' => 'avatar_view'));
-            $this->element('h2', null, _("Original"));
-            $this->elementStart('div', array('id'=>'avatar_original_view'));
-            $this->element('img', array('src' => $original->url,
-                                        'width' => $original->width,
-                                        'height' => $original->height,
-                                        'alt' => $user->nickname));
-            $this->elementEnd('div');
+            $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
+
+            if ($avatar) {
+                $this->elementStart('li', array('id' => 'avatar_preview',
+                                                'class' => 'avatar_view'));
+                $this->element('h2', null, _("Preview"));
+                $this->elementStart('div', array('id'=>'avatar_preview_view'));
+                $this->element('img', array('src' => $original->url,
+                                            'width' => AVATAR_PROFILE_SIZE,
+                                            'height' => AVATAR_PROFILE_SIZE,
+                                            'alt' => $user->nickname));
+                $this->elementEnd('div');
+                $this->submit('delete', _('Delete'));
+                $this->elementEnd('li');
+            }
+
+            $this->elementStart('li', array ('id' => 'settings_attach'));
+            $this->element('input', array('name' => 'avatarfile',
+                                          'type' => 'file',
+                                          'id' => 'avatarfile'));
+            $this->element('input', array('name' => 'MAX_FILE_SIZE',
+                                          'type' => 'hidden',
+                                          'id' => 'MAX_FILE_SIZE',
+                                          'value' => ImageFile::maxFileSizeInt()));
             $this->elementEnd('li');
-        }
+            $this->elementEnd('ul');
 
-        $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
-
-        if ($avatar) {
-            $this->elementStart('li', array('id' => 'avatar_preview',
-                                            'class' => 'avatar_view'));
-            $this->element('h2', null, _("Preview"));
-            $this->elementStart('div', array('id'=>'avatar_preview_view'));
-            $this->element('img', array('src' => $original->url,
-                                        'width' => AVATAR_PROFILE_SIZE,
-                                        'height' => AVATAR_PROFILE_SIZE,
-                                        'alt' => $user->nickname));
-            $this->elementEnd('div');
-            $this->submit('delete', _('Delete'));
+            $this->elementStart('ul', 'form_actions');
+            $this->elementStart('li');
+            $this->submit('upload', _('Upload'));
             $this->elementEnd('li');
+            $this->elementEnd('ul');
         }
-
-        $this->elementStart('li', array ('id' => 'settings_attach'));
-        $this->element('input', array('name' => 'avatarfile',
-                                      'type' => 'file',
-                                      'id' => 'avatarfile'));
-        $this->element('input', array('name' => 'MAX_FILE_SIZE',
-                                      'type' => 'hidden',
-                                      'id' => 'MAX_FILE_SIZE',
-                                      'value' => ImageFile::maxFileSizeInt()));
-        $this->elementEnd('li');
-        $this->elementEnd('ul');
-
-        $this->elementStart('ul', 'form_actions');
-        $this->elementStart('li');
-        $this->submit('upload', _('Upload'));
-        $this->elementEnd('li');
-        $this->elementEnd('ul');
+        Event::handle('EndAvatarFormData', array($this));
 
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
@@ -266,15 +269,18 @@ class AvatarsettingsAction extends AccountSettingsAction
                                'Try again, please.'));
             return;
         }
-
-        if ($this->arg('upload')) {
-            $this->uploadAvatar();
-        } else if ($this->arg('crop')) {
-            $this->cropAvatar();
-        } else if ($this->arg('delete')) {
-            $this->deleteAvatar();
-        } else {
-            $this->showForm(_('Unexpected form submission.'));
+        
+        if (Event::handle('StartAvatarSaveForm', array($this))) {
+            if ($this->arg('upload')) {
+                $this->uploadAvatar();
+                } else if ($this->arg('crop')) {
+                    $this->cropAvatar();
+                } else if ($this->arg('delete')) {
+                    $this->deleteAvatar();
+                } else {
+                    $this->showForm(_('Unexpected form submission.'));
+                }
+            Event::handle('EndAvatarSaveForm', array($this));
         }
     }
 

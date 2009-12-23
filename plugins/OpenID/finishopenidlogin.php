@@ -31,16 +31,16 @@ class FinishopenidloginAction extends Action
     {
         parent::handle($args);
         if (common_is_real_login()) {
-            $this->clientError(_('Already logged in.'));
+            $this->clientError(_m('Already logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $token = $this->trimmed('token');
             if (!$token || $token != common_session_token()) {
-                $this->showForm(_('There was a problem with your session token. Try again, please.'));
+                $this->showForm(_m('There was a problem with your session token. Try again, please.'));
                 return;
             }
             if ($this->arg('create')) {
                 if (!$this->boolean('license')) {
-                    $this->showForm(_('You can\'t register if you don\'t agree to the license.'),
+                    $this->showForm(_m('You can\'t register if you don\'t agree to the license.'),
                                     $this->trimmed('newname'));
                     return;
                 }
@@ -49,7 +49,7 @@ class FinishopenidloginAction extends Action
                 $this->connectUser();
             } else {
                 common_debug(print_r($this->args, true), __FILE__);
-                $this->showForm(_('Something weird happened.'),
+                $this->showForm(_m('Something weird happened.'),
                                 $this->trimmed('newname'));
             }
         } else {
@@ -63,13 +63,13 @@ class FinishopenidloginAction extends Action
             $this->element('div', array('class' => 'error'), $this->error);
         } else {
             $this->element('div', 'instructions',
-                           sprintf(_('This is the first time you\'ve logged into %s so we must connect your OpenID to a local account. You can either create a new account, or connect with your existing account, if you have one.'), common_config('site', 'name')));
+                           sprintf(_m('This is the first time you\'ve logged into %s so we must connect your OpenID to a local account. You can either create a new account, or connect with your existing account, if you have one.'), common_config('site', 'name')));
         }
     }
 
     function title()
     {
-        return _('OpenID Account Setup');
+        return _m('OpenID Account Setup');
     }
 
     function showForm($error=null, $username=null)
@@ -94,14 +94,14 @@ class FinishopenidloginAction extends Action
         $this->hidden('token', common_session_token());
         $this->elementStart('fieldset', array('id' => 'form_openid_createaccount'));
         $this->element('legend', null,
-                       _('Create new account'));
+                       _m('Create new account'));
         $this->element('p', null,
-                       _('Create a new user with this nickname.'));
+                       _m('Create a new user with this nickname.'));
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
-        $this->input('newname', _('New nickname'),
+        $this->input('newname', _m('New nickname'),
                      ($this->username) ? $this->username : '',
-                     _('1-64 lowercase letters or numbers, no punctuation or spaces'));
+                     _m('1-64 lowercase letters or numbers, no punctuation or spaces'));
         $this->elementEnd('li');
         $this->elementStart('li');
         $this->element('input', array('type' => 'checkbox',
@@ -111,30 +111,30 @@ class FinishopenidloginAction extends Action
                                       'value' => 'true'));
         $this->elementStart('label', array('for' => 'license',
                                           'class' => 'checkbox'));
-        $this->text(_('My text and files are available under '));
+        $this->text(_m('My text and files are available under '));
         $this->element('a', array('href' => common_config('license', 'url')),
                        common_config('license', 'title'));
-        $this->text(_(' except this private data: password, email address, IM address, phone number.'));
+        $this->text(_m(' except this private data: password, email address, IM address, phone number.'));
         $this->elementEnd('label');
         $this->elementEnd('li');
         $this->elementEnd('ul');
-        $this->submit('create', _('Create'));
+        $this->submit('create', _m('Create'));
         $this->elementEnd('fieldset');
 
         $this->elementStart('fieldset', array('id' => 'form_openid_createaccount'));
         $this->element('legend', null,
-                       _('Connect existing account'));
+                       _m('Connect existing account'));
         $this->element('p', null,
-                       _('If you already have an account, login with your username and password to connect it to your OpenID.'));
+                       _m('If you already have an account, login with your username and password to connect it to your OpenID.'));
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
-        $this->input('nickname', _('Existing nickname'));
+        $this->input('nickname', _m('Existing nickname'));
         $this->elementEnd('li');
         $this->elementStart('li');
-        $this->password('password', _('Password'));
+        $this->password('password', _m('Password'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
-        $this->submit('connect', _('Connect'));
+        $this->submit('connect', _m('Connect'));
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
@@ -146,11 +146,11 @@ class FinishopenidloginAction extends Action
         $response = $consumer->complete(common_local_url('finishopenidlogin'));
 
         if ($response->status == Auth_OpenID_CANCEL) {
-            $this->message(_('OpenID authentication cancelled.'));
+            $this->message(_m('OpenID authentication cancelled.'));
             return;
         } else if ($response->status == Auth_OpenID_FAILURE) {
             // Authentication failed; display the error message.
-            $this->message(sprintf(_('OpenID authentication failed: %s'), $response->message));
+            $this->message(sprintf(_m('OpenID authentication failed: %s'), $response->message));
         } else if ($response->status == Auth_OpenID_SUCCESS) {
             // This means the authentication succeeded; extract the
             // identity URL and Simple Registration data (if it was
@@ -212,7 +212,7 @@ class FinishopenidloginAction extends Action
         # FIXME: save invite code before redirect, and check here
 
         if (common_config('site', 'closed')) {
-            $this->clientError(_('Registration not allowed.'));
+            $this->clientError(_m('Registration not allowed.'));
             return;
         }
 
@@ -221,14 +221,14 @@ class FinishopenidloginAction extends Action
         if (common_config('site', 'inviteonly')) {
             $code = $_SESSION['invitecode'];
             if (empty($code)) {
-                $this->clientError(_('Registration not allowed.'));
+                $this->clientError(_m('Registration not allowed.'));
                 return;
             }
 
             $invite = Invitation::staticGet($code);
 
             if (empty($invite)) {
-                $this->clientError(_('Not a valid invitation code.'));
+                $this->clientError(_m('Not a valid invitation code.'));
                 return;
             }
         }
@@ -238,24 +238,24 @@ class FinishopenidloginAction extends Action
         if (!Validate::string($nickname, array('min_length' => 1,
                                                'max_length' => 64,
                                                'format' => NICKNAME_FMT))) {
-            $this->showForm(_('Nickname must have only lowercase letters and numbers and no spaces.'));
+            $this->showForm(_m('Nickname must have only lowercase letters and numbers and no spaces.'));
             return;
         }
 
         if (!User::allowed_nickname($nickname)) {
-            $this->showForm(_('Nickname not allowed.'));
+            $this->showForm(_m('Nickname not allowed.'));
             return;
         }
 
         if (User::staticGet('nickname', $nickname)) {
-            $this->showForm(_('Nickname already in use. Try another one.'));
+            $this->showForm(_m('Nickname already in use. Try another one.'));
             return;
         }
 
         list($display, $canonical, $sreg) = $this->getSavedValues();
 
         if (!$display || !$canonical) {
-            $this->serverError(_('Stored OpenID not found.'));
+            $this->serverError(_m('Stored OpenID not found.'));
             return;
         }
 
@@ -264,7 +264,7 @@ class FinishopenidloginAction extends Action
         $other = oid_get_user($canonical);
 
         if ($other) {
-            $this->serverError(_('Creating new account for OpenID that already has a user.'));
+            $this->serverError(_m('Creating new account for OpenID that already has a user.'));
             return;
         }
 
@@ -324,7 +324,7 @@ class FinishopenidloginAction extends Action
         $password = $this->trimmed('password');
 
         if (!common_check_user($nickname, $password)) {
-            $this->showForm(_('Invalid username or password.'));
+            $this->showForm(_m('Invalid username or password.'));
             return;
         }
 
@@ -335,14 +335,14 @@ class FinishopenidloginAction extends Action
         list($display, $canonical, $sreg) = $this->getSavedValues();
 
         if (!$display || !$canonical) {
-            $this->serverError(_('Stored OpenID not found.'));
+            $this->serverError(_m('Stored OpenID not found.'));
             return;
         }
 
         $result = oid_link_user($user->id, $canonical, $display);
 
         if (!$result) {
-            $this->serverError(_('Error connecting user to OpenID.'));
+            $this->serverError(_m('Error connecting user to OpenID.'));
             return;
         }
 

@@ -67,7 +67,7 @@ class HTMLOutputter extends XMLOutputter
      * @param boolean $indent Whether to indent output, default true
      */
 
-    function __construct($output='php://output', $indent=true)
+    function __construct($output='php://output', $indent=null)
     {
         parent::__construct($output, $indent);
     }
@@ -350,14 +350,43 @@ class HTMLOutputter extends XMLOutputter
      */
     function script($src, $type='text/javascript')
     {
-        $url = parse_url($src);
-        if( empty($url->scheme) && empty($url->host) && empty($url->query) && empty($url->fragment))
-        {
-            $src = common_path($src) . '?version=' . STATUSNET_VERSION;
+        if(Event::handle('StartScriptElement', array($this,&$src,&$type))) {
+            $url = parse_url($src);
+            if( empty($url->scheme) && empty($url->host) && empty($url->query) && empty($url->fragment))
+            {
+                $src = common_path($src) . '?version=' . STATUSNET_VERSION;
+            }
+            $this->element('script', array('type' => $type,
+                                                   'src' => $src),
+                                   ' ');
+            Event::handle('EndScriptElement', array($this,$src,$type));
         }
-        $this->element('script', array('type' => $type,
-                                               'src' => $src),
-                               ' ');
+    }
+
+    /**
+     * output a script (almost always javascript) tag with inline
+     * code.
+     *
+     * @param string $code         code to put in the script tag
+     * @param string $type         'type' attribute value of the tag
+     *
+     * @return void
+     */
+
+    function inlineScript($code, $type='text/javascript')
+    {
+        if(Event::handle('StartInlineScriptElement', array($this,&$code,&$type))) {
+            $this->elementStart('script', array('type' => $type));
+            if($type == 'text/javascript') {
+                $this->raw('/*<![CDATA[*/ '); // XHTML compat
+            }
+            $this->raw($code);
+            if($type == 'text/javascript') {
+                $this->raw(' /*]]>*/'); // XHTML compat
+            }
+            $this->elementEnd('script');
+            Event::handle('EndInlineScriptElement', array($this,$code,$type));
+        }
     }
 
     /**
@@ -371,19 +400,44 @@ class HTMLOutputter extends XMLOutputter
      */
     function cssLink($src,$theme=null,$media=null)
     {
-        $url = parse_url($src);
-        if( empty($url->scheme) && empty($url->host) && empty($url->query) && empty($url->fragment))
-        {
-            if(file_exists(Theme::file($src,$theme))){
-               $src = Theme::path($src, $theme) . '?version=' . STATUSNET_VERSION;
-            }else{
-               $src = common_path($src);
+        if(Event::handle('StartCssLinkElement', array($this,&$src,&$theme,&$media))) {
+            $url = parse_url($src);
+            if( empty($url->scheme) && empty($url->host) && empty($url->query) && empty($url->fragment))
+            {
+                if(file_exists(Theme::file($src,$theme))){
+                   $src = Theme::path($src, $theme);
+                }else{
+                   $src = common_path($src);
+                }
+                $src.= '?version=' . STATUSNET_VERSION;
             }
+            $this->element('link', array('rel' => 'stylesheet',
+                                    'type' => 'text/css',
+                                    'href' => $src,
+                                    'media' => $media));
+            Event::handle('EndCssLinkElement', array($this,$src,$theme,$media));
         }
-        $this->element('link', array('rel' => 'stylesheet',
-                                'type' => 'text/css',
-                                'href' => $src,
-                                'media' => $media));
+    }
+
+    /**
+     * output a style (almost always css) tag with inline
+     * code.
+     *
+     * @param string $code         code to put in the style tag
+     * @param string $type         'type' attribute value of the tag
+     * @param string $media        'media' attribute value of the tag
+     *
+     * @return void
+     */
+
+    function style($code, $type = 'text/css', $media = null)
+    {
+        if(Event::handle('StartStyleElement', array($this,&$code,&$type,&$media))) {
+            $this->elementStart('style', array('type' => $type, 'media' => $media));
+            $this->raw($code);
+            $this->elementEnd('style');
+            Event::handle('EndStyleElement', array($this,$code,$type,$media));
+        }
     }
 
     /**
@@ -414,7 +468,6 @@ class HTMLOutputter extends XMLOutputter
         }
     }
 
-
     /**
     * Internal script to autofocus the given element on page onload.
     *
@@ -425,13 +478,10 @@ class HTMLOutputter extends XMLOutputter
     */
     function autofocus($id)
     {
-        $this->elementStart('script', array('type' => 'text/javascript'));
-        $this->raw('/*<![CDATA[*/'.
+        $this->inlineScript(
                    ' $(document).ready(function() {'.
                    ' var el = $("#' . $id . '");'.
                    ' if (el.length) { el.focus(); }'.
-                   ' });'.
-                   ' /*]]>*/');
-        $this->elementEnd('script');
+                   ' });');
     }
 }

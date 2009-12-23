@@ -51,7 +51,6 @@ class FeedSubPlugin extends Plugin
      * @param Net_URL_Mapper $m path-to-action mapper
      * @return boolean hook return
      */
-
     function onRouterInitialized($m)
     {
         $m->connect('feedsub/callback/:feed',
@@ -74,8 +73,8 @@ class FeedSubPlugin extends Plugin
         $action_name = $action->trimmed('action');
 
         $action->menuItem(common_local_url('feedsubsettings'),
-                          dgettext('FeebSubPlugin', 'Feeds'),
-                          dgettext('FeedSubPlugin', 'Feed subscription options'),
+                          _m('Feeds'),
+                          _m('Feed subscription options'),
                           $action_name === 'feedsubsettings');
 
         return true;

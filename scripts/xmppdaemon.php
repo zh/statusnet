@@ -195,17 +195,6 @@ class XMPPDaemon extends Daemon
         } else if ($this->is_otr($pl['body'])) {
             $this->log(LOG_INFO, 'Ignoring OTR from ' . $from);
             return;
-        } else if ($this->is_direct($pl['body'])) {
-            $this->log(LOG_INFO, 'Got a direct message ' . $from);
-
-            preg_match_all('/d[\ ]*([a-z0-9]{1,64})/', $pl['body'], $to);
-
-            $to = preg_replace('/^d([\ ])*/', '', $to[0][0]);
-            $body = preg_replace('/d[\ ]*('. $to .')[\ ]*/', '', $pl['body']);
-
-            $this->log(LOG_INFO, 'Direct message from '. $user->nickname . ' to ' . $to);
-
-            $this->add_direct($user, $body, $to, $from);
         } else {
 
             $this->log(LOG_INFO, 'Posting a notice from ' . $user->nickname);
@@ -278,15 +267,6 @@ class XMPPDaemon extends Daemon
     function is_otr($txt)
     {
         if (preg_match('/^\?OTR/', $txt)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    function is_direct($txt)
-    {
-        if (strtolower(substr($txt, 0, 2))=='d ') {
             return true;
         } else {
             return false;

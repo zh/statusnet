@@ -120,7 +120,7 @@ class ProfileFormAction extends Action
         if ($action) {
             common_redirect(common_local_url($action, $args), 303);
         } else {
-            $this->clientError(_("No return-to arguments"));
+            $this->clientError(_("No return-to arguments."));
         }
     }
 
@@ -134,6 +134,6 @@ class ProfileFormAction extends Action
 
     function handlePost()
     {
-        $this->serverError(_("unimplemented method"));
+        $this->serverError(_("Unimplemented method."));
     }
 }

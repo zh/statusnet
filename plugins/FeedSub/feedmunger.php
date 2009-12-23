@@ -212,7 +212,7 @@ class FeedMunger
         // try adding #hashtags from the categories/tags on a post.
         
         // @todo Should we force a language here?
-        $format = dgettext("FeedSubPlugin", 'New post: "%1$s" %2$s');
+        $format = _m('New post: "%1$s" %2$s');
         $title = $entry->title;
         $link = $this->getAltLink($entry);
         $out = sprintf($format, $title, $link);

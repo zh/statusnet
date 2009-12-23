@@ -716,4 +716,15 @@ class Profile extends Memcached_DataObject
         }
         return $result;
     }
+
+    function hasRepeated($notice_id)
+    {
+        // XXX: not really a pkey, but should work
+
+        $notice = Memcached_DataObject::pkeyGet('Notice',
+                                                array('profile_id' => $this->id,
+                                                      'repeat_of' => $notice_id));
+
+        return !empty($notice);
+    }
 }

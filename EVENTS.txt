@@ -290,6 +290,18 @@ StartRegistrationTry: before validating and saving a new user
 EndRegistrationTry: after saving a new user (note: no profile or user object!)
 - $action: action object being shown
 
+StartAvatarFormData: before displaying avatar form
+- $action: action object being shown
+
+EndAvatarFormData: after displaying avatar form
+- $action: action object being shown
+
+StartAvatarSaveForm: before saving the avatar
+- $action: action object being shown
+
+EndAvatarSaveForm: after saving the avatar
+- $action: action object being shown
+
 StartNewQueueManager: before trying to start a new queue manager; good for plugins implementing new queue manager classes
 - $qm: empty queue manager to set
 
@@ -573,4 +585,58 @@ EndShortenUrl: After a URL has been shortened
 - $url: url to be shortened
 - $shortenerName: name of the requested shortener
 - $shortenedUrl: short version of the url
+
+StartCssLinkElement: Before a <link rel="stylesheet"..> element is written
+- $action
+- &$src
+- &$theme
+- &$media
+
+EndCssLinkElement: After a <link rel="stylesheet"..> element is written
+- $action
+- $src
+- $theme
+- $media
+
+StartStyleElement: Before a <style...> element is written
+- $action
+- &$code
+- &$type
+- &$media
+
+EndStyleElement: After a <style...> element is written
+- $action
+- $code
+- $type
+- $media
+
+StartScriptElement: Before a <script...> element is written
+- $action
+- &$src
+- &$type
+
+EndScriptElement: After a <script...> element is written
+- $action
+- $src
+- $type
+
+StartInlineScriptElement: Before a <script...> element is written
+- $action
+- &$code
+- &$type
+
+EndInlineScriptElement: After a <script...> element is written
+- $action
+- $code
+- $type
+
+StartLog: Before writing to the logs
+- &$priority
+- &$msg
+- &$filename
+
+EndLog: After writing to the logs
+- $priority
+- $msg
+- $filename
 

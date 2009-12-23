@@ -105,6 +105,7 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
     function showTimeline()
     {
         $sitename   = common_config('site', 'name');
+        $avatar     = $this->group->homepage_logo;
         $title      = sprintf(_("%s timeline"), $this->group->nickname);
         $taguribase = common_config('integration', 'taguri');
         $id         = "tag:$taguribase:GroupTimeline:" . $this->group->id;
@@ -117,13 +118,14 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
             $this->group->nickname,
             $sitename
         );
+        $logo       = ($avatar) ? $avatar : User_group::defaultLogo(AVATAR_PROFILE_SIZE);
 
         switch($this->format) {
         case 'xml':
             $this->showXmlTimeline($this->notices);
             break;
         case 'rss':
-            $this->showRssTimeline($this->notices, $title, $link, $subtitle);
+            $this->showRssTimeline($this->notices, $title, $link, $subtitle, null, $logo);
             break;
         case 'atom':
             $selfuri = common_root_url() .
@@ -136,7 +138,8 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
                 $link,
                 $subtitle,
                 null,
-                $selfuri
+                $selfuri,
+                $logo
             );
             break;
         case 'json':

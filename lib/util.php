@@ -135,7 +135,7 @@ function common_check_user($nickname, $password)
                 if (0 == strcmp(common_munge_password($password, $user->id),
                                 $user->password)) {
                     //internal checking passed
-                    $authenticatedUser =& $user;
+                    $authenticatedUser = $user;
                 }
             }
         }
@@ -531,19 +531,23 @@ function callback_helper($matches, $callback, $notice_id) {
     return substr($matches[0],0,$left) . $result . substr($matches[0],$right);
 }
 
-function curry($fn) {
-    //TODO switch to a PHP 5.3 function closure based approach if PHP 5.3 is used
-    $args = func_get_args();
-    array_shift($args);
-    $id = uniqid('_partial');
-    $GLOBALS[$id] = array($fn, $args);
-    return create_function('',
-                           '$args = func_get_args(); '.
-                           'return call_user_func_array('.
-                           '$GLOBALS["'.$id.'"][0],'.
-                           'array_merge('.
-                           '$args,'.
-                           '$GLOBALS["'.$id.'"][1]));');
+if (version_compare(PHP_VERSION, '5.3.0', 'ge')) {
+    // lambda implementation in a separate file; PHP 5.2 won't parse it.
+    require_once INSTALLDIR . "/lib/curry.php";
+} else {
+    function curry($fn) {
+        $args = func_get_args();
+        array_shift($args);
+        $id = uniqid('_partial');
+        $GLOBALS[$id] = array($fn, $args);
+        return create_function('',
+                               '$args = func_get_args(); '.
+                               'return call_user_func_array('.
+                               '$GLOBALS["'.$id.'"][0],'.
+                               'array_merge('.
+                               '$args,'.
+                               '$GLOBALS["'.$id.'"][1]));');
+    }
 }
 
 function common_linkify($url) {
@@ -1078,18 +1082,21 @@ function common_request_id()
 
 function common_log($priority, $msg, $filename=null)
 {
-    $msg = '[' . common_request_id() . '] ' . $msg;
-    $logfile = common_config('site', 'logfile');
-    if ($logfile) {
-        $log = fopen($logfile, "a");
-        if ($log) {
-            $output = common_log_line($priority, $msg);
-            fwrite($log, $output);
-            fclose($log);
+    if(Event::handle('StartLog', array(&$priority, &$msg, &$filename))){
+        $msg = '[' . common_request_id() . '] ' . $msg;
+        $logfile = common_config('site', 'logfile');
+        if ($logfile) {
+            $log = fopen($logfile, "a");
+            if ($log) {
+                $output = common_log_line($priority, $msg);
+                fwrite($log, $output);
+                fclose($log);
+            }
+        } else {
+            common_ensure_syslog();
+            syslog($priority, $msg);
         }
-    } else {
-        common_ensure_syslog();
-        syslog($priority, $msg);
+        Event::handle('EndLog', array($priority, $msg, $filename));
     }
 }
 
@@ -1245,8 +1252,12 @@ function common_copy_args($from)
     return $to;
 }
 
-// Neutralise the evil effects of magic_quotes_gpc in the current request.
-// This is used before handing a request off to OAuthRequest::from_request.
+/**
+ * Neutralise the evil effects of magic_quotes_gpc in the current request.
+ * This is used before handing a request off to OAuthRequest::from_request.
+ * @fixme Doesn't consider vars other than _POST and _GET?
+ * @fixme Can't be undone and could corrupt data if run twice.
+ */
 function common_remove_magic_from_request()
 {
     if(get_magic_quotes_gpc()) {
@@ -1448,6 +1459,17 @@ function common_database_tablename($tablename)
   return $tablename;
 }
 
+/**
+ * Shorten a URL with the current user's configured shortening service,
+ * or ur1.ca if configured, or not at all if no shortening is set up.
+ * Length is not considered.
+ *
+ * @param string $long_url
+ * @return string may return the original URL if shortening failed
+ *
+ * @fixme provide a way to specify a particular shortener
+ * @fixme provide a way to specify to use a given user's shortening preferences
+ */
 function common_shorten_url($long_url)
 {
     $user = common_current_user();
@@ -1468,6 +1490,16 @@ function common_shorten_url($long_url)
     }
 }
 
+/**
+ * @return mixed array($proxy, $ip) for web requests; proxy may be null
+ *               null if not a web request
+ *
+ * @fixme X-Forwarded-For can be chained by multiple proxies;
+          we should parse the list and provide a cleaner array
+ * @fixme X-Forwarded-For can be forged by clients; only use them if trusted
+ * @fixme X_Forwarded_For headers will override X-Forwarded-For read through $_SERVER;
+ *        use function to get exact request headers from Apache if possible.
+ */
 function common_client_ip()
 {
     if (!isset($_SERVER) || !array_key_exists('REQUEST_METHOD', $_SERVER)) {

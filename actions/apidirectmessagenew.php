@@ -175,7 +175,7 @@ class ApiDirectMessageNewAction extends ApiAuthAction
             return;
         }
 
-        mail_notify_message($message, $this->user, $this->other);
+        $message->notify();
 
         if ($this->format == 'xml') {
             $this->showSingleXmlDirectMessage($message);

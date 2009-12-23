@@ -60,7 +60,8 @@ try {
             }
         }
     } else {
-        throw new Exception("You have to provide an ID or nickname or 'all'.");
+        show_help();
+        exit(1);
     }
 } catch (Exception $e) {
     print $e->getMessage()."\n";
@@ -123,6 +124,9 @@ function updateAvatars($user)
     }
 
     if (have_option('v', 'verbose')) {
-        print "DONE.\n";
+        print "DONE.";
+    }
+    if (!have_option('q', 'quiet') || have_option('v', 'verbose')) {
+        print "\n";
     }
 }

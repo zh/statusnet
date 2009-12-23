@@ -180,6 +180,27 @@ class User extends Memcached_DataObject
         return $result;
     }
 
+    /**
+     * Register a new user account and profile and set up default subscriptions.
+     * If a new-user welcome message is configured, this will be sent.
+     *
+     * @param array $fields associative array of optional properties
+     *              string 'bio'
+     *              string 'email'
+     *              bool 'email_confirmed' pass true to mark email as pre-confirmed
+     *              string 'fullname'
+     *              string 'homepage'
+     *              string 'location' informal string description of geolocation
+     *              float 'lat' decimal latitude for geolocation
+     *              float 'lon' decimal longitude for geolocation
+     *              int 'location_id' geoname identifier
+     *              int 'location_ns' geoname namespace to interpret location_id
+     *              string 'nickname' REQUIRED
+     *              string 'password' (may be missing for eg OpenID registrations)
+     *              string 'code' invite code
+     *              ?string 'uri' permalink to notice; defaults to local notice URL
+     * @return mixed User object or false on failure
+     */
     static function register($fields) {
 
         // MAGICALLY put fields into current scope
@@ -329,7 +350,7 @@ class User extends Memcached_DataObject
 
         $profile->query('COMMIT');
 
-        if ($email && !$user->email) {
+        if (!empty($email) && !$user->email) {
             mail_confirm_address($user, $confirm->code, $profile->nickname, $email);
         }
 
@@ -473,6 +494,77 @@ class User extends Memcached_DataObject
         return Notice::getStreamByIds($ids);
     }
 
+    function friendsTimeline($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
+    {
+        $ids = Notice::stream(array($this, '_friendsTimelineDirect'),
+                              array(false),
+                              'user:friends_timeline:'.$this->id,
+                              $offset, $limit, $since_id, $before_id, $since);
+
+        return Notice::getStreamByIds($ids);
+    }
+
+    function ownFriendsTimeline($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
+    {
+        $ids = Notice::stream(array($this, '_friendsTimelineDirect'),
+                              array(true),
+                              'user:friends_timeline_own:'.$this->id,
+                              $offset, $limit, $since_id, $before_id, $since);
+
+        return Notice::getStreamByIds($ids);
+    }
+
+    function _friendsTimelineDirect($own, $offset, $limit, $since_id, $max_id, $since)
+    {
+        $qry =
+          'SELECT notice.id AS id ' .
+          'FROM notice JOIN notice_inbox ON notice.id = notice_inbox.notice_id ' .
+          'WHERE notice_inbox.user_id = ' . $this->id . ' ' .
+          'AND notice.repeat_of IS NULL ';
+
+        if (!$own) {
+            // XXX: autoload notice inbox for constant
+            $inbox = new Notice_inbox();
+
+            $qry .= 'AND notice_inbox.source != ' . NOTICE_INBOX_SOURCE_GATEWAY . ' ';
+        }
+
+        if ($since_id != 0) {
+            $qry .= 'AND notice.id > ' . $since_id . ' ';
+        }
+
+        if ($max_id != 0) {
+            $qry .= 'AND notice.id <= ' . $max_id . ' ';
+        }
+
+        if (!is_null($since)) {
+            $qry .= 'AND notice.modified > \'' . date('Y-m-d H:i:s', $since) . '\' ';
+        }
+
+        // NOTE: we sort by fave time, not by notice time!
+
+        $qry .= 'ORDER BY notice.id DESC ';
+
+        if (!is_null($offset)) {
+            $qry .= "LIMIT $limit OFFSET $offset";
+        }
+
+        $ids = array();
+
+        $notice = new Notice();
+
+        $notice->query($qry);
+
+        while ($notice->fetch()) {
+            $ids[] = $notice->id;
+        }
+
+        $notice->free();
+        $notice = NULL;
+
+        return $ids;
+    }
+
     function blowFavesCache()
     {
         $cache = common_memcache();
@@ -502,6 +594,19 @@ class User extends Memcached_DataObject
     {
         // Add a new block record
 
+        // no blocking (and thus unsubbing from) yourself
+
+        if ($this->id == $other->id) {
+            common_log(LOG_WARNING,
+                sprintf(
+                    "Profile ID %d (%s) tried to block his or herself.",
+                    $profile->id,
+                    $profile->nickname
+                )
+            );
+            return false;
+        }
+
         $block = new Profile_block();
 
         // Begin a transaction
@@ -520,16 +625,7 @@ class User extends Memcached_DataObject
 
         // Cancel their subscription, if it exists
 
-        $sub = Subscription::pkeyGet(array('subscriber' => $other->id,
-                                           'subscribed' => $this->id));
-
-        if ($sub) {
-            $result = $sub->delete();
-            if (!$result) {
-                common_log_db_error($sub, 'DELETE', __FILE__);
-                return false;
-            }
-        }
+        subs_unsubscribe_to($other->getUser(),$this->getProfile());
 
         $block->query('COMMIT');
 
@@ -736,5 +832,164 @@ class User extends Memcached_DataObject
     {
         $profile = $this->getProfile();
         return $profile->isSilenced();
+    }
+
+    function repeatedByMe($offset=0, $limit=20, $since_id=null, $max_id=null)
+    {
+        $ids = Notice::stream(array($this, '_repeatedByMeDirect'),
+                              array(),
+                              'user:repeated_by_me:'.$this->id,
+                              $offset, $limit, $since_id, $max_id, null);
+
+        return Notice::getStreamByIds($ids);
+    }
+
+    function _repeatedByMeDirect($offset, $limit, $since_id, $max_id, $since)
+    {
+        $notice = new Notice();
+
+        $notice->selectAdd(); // clears it
+        $notice->selectAdd('id');
+
+        $notice->profile_id = $this->id;
+        $notice->whereAdd('repeat_of IS NOT NULL');
+
+        $notice->orderBy('id DESC');
+
+        if (!is_null($offset)) {
+            $notice->limit($offset, $limit);
+        }
+
+        if ($since_id != 0) {
+            $notice->whereAdd('id > ' . $since_id);
+        }
+
+        if ($max_id != 0) {
+            $notice->whereAdd('id <= ' . $max_id);
+        }
+
+        if (!is_null($since)) {
+            $notice->whereAdd('created > \'' . date('Y-m-d H:i:s', $since) . '\'');
+        }
+
+        $ids = array();
+
+        if ($notice->find()) {
+            while ($notice->fetch()) {
+                $ids[] = $notice->id;
+            }
+        }
+
+        $notice->free();
+        $notice = NULL;
+
+        return $ids;
+    }
+
+    function repeatsOfMe($offset=0, $limit=20, $since_id=null, $max_id=null)
+    {
+        $ids = Notice::stream(array($this, '_repeatsOfMeDirect'),
+                              array(),
+                              'user:repeats_of_me:'.$this->id,
+                              $offset, $limit, $since_id, $max_id, null);
+
+        return Notice::getStreamByIds($ids);
+    }
+
+    function _repeatsOfMeDirect($offset, $limit, $since_id, $max_id, $since)
+    {
+        $qry =
+          'SELECT DISTINCT original.id AS id ' .
+          'FROM notice original JOIN notice rept ON original.id = rept.repeat_of ' .
+          'WHERE original.profile_id = ' . $this->id . ' ';
+
+        if ($since_id != 0) {
+            $qry .= 'AND original.id > ' . $since_id . ' ';
+        }
+
+        if ($max_id != 0) {
+            $qry .= 'AND original.id <= ' . $max_id . ' ';
+        }
+
+        if (!is_null($since)) {
+            $qry .= 'AND original.modified > \'' . date('Y-m-d H:i:s', $since) . '\' ';
+        }
+
+        // NOTE: we sort by fave time, not by notice time!
+
+        $qry .= 'ORDER BY original.id DESC ';
+
+        if (!is_null($offset)) {
+            $qry .= "LIMIT $limit OFFSET $offset";
+        }
+
+        $ids = array();
+
+        $notice = new Notice();
+
+        $notice->query($qry);
+
+        while ($notice->fetch()) {
+            $ids[] = $notice->id;
+        }
+
+        $notice->free();
+        $notice = NULL;
+
+        return $ids;
+    }
+
+    function repeatedToMe($offset=0, $limit=20, $since_id=null, $max_id=null)
+    {
+        $ids = Notice::stream(array($this, '_repeatedToMeDirect'),
+                              array(),
+                              'user:repeated_to_me:'.$this->id,
+                              $offset, $limit, $since_id, $max_id, null);
+
+        return Notice::getStreamByIds($ids);
+    }
+
+    function _repeatedToMeDirect($offset, $limit, $since_id, $max_id, $since)
+    {
+        $qry =
+          'SELECT notice.id AS id ' .
+          'FROM notice JOIN notice_inbox ON notice.id = notice_inbox.notice_id ' .
+          'WHERE notice_inbox.user_id = ' . $this->id . ' ' .
+          'AND notice.repeat_of IS NOT NULL ';
+
+        if ($since_id != 0) {
+            $qry .= 'AND notice.id > ' . $since_id . ' ';
+        }
+
+        if ($max_id != 0) {
+            $qry .= 'AND notice.id <= ' . $max_id . ' ';
+        }
+
+        if (!is_null($since)) {
+            $qry .= 'AND notice.modified > \'' . date('Y-m-d H:i:s', $since) . '\' ';
+        }
+
+        // NOTE: we sort by fave time, not by notice time!
+
+        $qry .= 'ORDER BY notice.id DESC ';
+
+        if (!is_null($offset)) {
+            $qry .= "LIMIT $limit OFFSET $offset";
+        }
+
+        $ids = array();
+
+        $notice = new Notice();
+
+        $notice->query($qry);
+
+        while ($notice->fetch()) {
+            $ids[] = $notice->id;
+        }
+
+        $notice->free();
+        $notice = NULL;
+
+        return $ids;
     }
 }

@@ -108,7 +108,7 @@ class FacebookhomeAction extends FacebookAction
                 $user = User::staticGet('nickname', $nickname);
 
                 if (!$user) {
-                    $this->showLoginForm(_("Server error - couldn't get user!"));
+                    $this->showLoginForm(_m("Server error - couldn't get user!"));
                 }
 
                 $flink = DB_DataObject::factory('foreign_link');
@@ -128,7 +128,7 @@ class FacebookhomeAction extends FacebookAction
                 return;
 
             } else {
-                $msg = _('Incorrect username or password.');
+                $msg = _m('Incorrect username or password.');
             }
         }
 
@@ -155,9 +155,9 @@ class FacebookhomeAction extends FacebookAction
     function title()
     {
         if ($this->page > 1) {
-            return sprintf(_("%s and friends, page %d"), $this->user->nickname, $this->page);
+            return sprintf(_m("%s and friends, page %d"), $this->user->nickname, $this->page);
         } else {
-            return sprintf(_("%s and friends"), $this->user->nickname);
+            return sprintf(_m("%s and friends"), $this->user->nickname);
         }
     }
 
@@ -186,7 +186,7 @@ class FacebookhomeAction extends FacebookAction
 
         $this->elementStart('div', array('class' => 'facebook_guide'));
 
-        $instructions = sprintf(_('If you would like the %s app to automatically update ' .
+        $instructions = sprintf(_m('If you would like the %s app to automatically update ' .
             'your Facebook status with your latest notice, you need ' .
             'to give it permission.'), $this->app_name);
 
@@ -210,13 +210,13 @@ class FacebookhomeAction extends FacebookAction
 
         $this->elementStart('span', array('class' => 'facebook-button'));
         $this->element('a', array('href' => $auth_url),
-            sprintf(_('Okay, do it!'), $this->app_name));
+            sprintf(_m('Okay, do it!'), $this->app_name));
         $this->elementEnd('span');
 
         $this->elementEnd('li');
 
         $this->elementStart('li', array('id' => 'fb-permissions-item'));
-        $this->submit('skip', _('Skip'));
+        $this->submit('skip', _m('Skip'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
 
@@ -245,7 +245,7 @@ class FacebookhomeAction extends FacebookAction
 
         if ($have_before || $have_after) {
             $this->elementStart('dl', 'pagination');
-            $this->element('dt', null, _('Pagination'));
+            $this->element('dt', null, _m('Pagination'));
             $this->elementStart('dd', null);
             $this->elementStart('ul', array('class' => 'nav'));
         }
@@ -254,7 +254,7 @@ class FacebookhomeAction extends FacebookAction
             $newargs = $args ? array_merge($args, $pargs) : $pargs;
             $this->elementStart('li', array('class' => 'nav_prev'));
             $this->element('a', array('href' => "$action?page=$newargs[page]", 'rel' => 'prev'),
-                           _('After'));
+                           _m('After'));
             $this->elementEnd('li');
         }
         if ($have_after) {
@@ -262,7 +262,7 @@ class FacebookhomeAction extends FacebookAction
             $newargs = $args ? array_merge($args, $pargs) : $pargs;
             $this->elementStart('li', array('class' => 'nav_next'));
             $this->element('a', array('href' => "$action?page=$newargs[page]", 'rel' => 'next'),
-                           _('Before'));
+                           _m('Before'));
             $this->elementEnd('li');
         }
         if ($have_before || $have_after) {

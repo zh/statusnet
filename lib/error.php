@@ -50,7 +50,7 @@ class ErrorAction extends Action
     var $message = null;
     var $default = null;
 
-    function __construct($message, $code, $output='php://output', $indent=true)
+    function __construct($message, $code, $output='php://output', $indent=null)
     {
         parent::__construct($output, $indent);
 
