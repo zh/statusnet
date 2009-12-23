@@ -1027,13 +1027,15 @@ display:block !important;
 margin-right:18px;
 }
 
-.form_repeat.dialogbox legend:after {
-content:'?';
-}
-.dialogbox button {
+.dialogbox button.close {
 position:absolute;
 right:3px;
 top:3px;
+}
+
+.dialogbox .submit_dialogbox {
+text-indent:0;
+font-weight:bold;
 }
 
 .notice-options {

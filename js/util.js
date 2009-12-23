@@ -345,6 +345,7 @@ var SN = { // StatusNet
 
                 var submit = form.find('.submit').clone();
                 submit.addClass('submit_dialogbox');
+                submit.removeClass('submit');
                 form.append(submit);
 
                 $(this).hide();
