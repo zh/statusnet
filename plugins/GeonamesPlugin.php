@@ -86,30 +86,36 @@ class GeonamesPlugin extends Plugin
                                                   'lang' => $language,
                                                   'type' => 'json')));
 
-        if ($result->isOk()) {
-            $rj = json_decode($result->getBody());
-            if (count($rj->geonames) > 0) {
-                $n = $rj->geonames[0];
-
-                $location = new Location();
-
-                $location->lat              = $n->lat;
-                $location->lon              = $n->lng;
-                $location->names[$language] = $n->name;
-                $location->location_id      = $n->geonameId;
-                $location->location_ns      = self::LOCATION_NS;
-
-                $this->setCache(array('name' => $name,
-                                     'language' => $language),
-                                $location);
-
-                // handled, don't continue processing!
-                return false;
-            }
+        if (!$result->isOk()) {
+            $this->log(LOG_WARNING, "Error code " . $result->code .
+                       " from " . $this->host . " for $name");
+            return true;
         }
 
-        // Continue processing; we don't have the answer
-        return true;
+        $rj = json_decode($result->getBody());
+
+        if (count($rj->geonames) <= 0) {
+            $this->log(LOG_WARNING, "No results in response from " .
+                       $this->host . " for $name");
+            return true;
+        }
+
+        $n = $rj->geonames[0];
+
+        $location = new Location();
+
+        $location->lat              = $n->lat;
+        $location->lon              = $n->lng;
+        $location->names[$language] = $n->name;
+        $location->location_id      = $n->geonameId;
+        $location->location_ns      = self::LOCATION_NS;
+
+        $this->setCache(array('name' => $name,
+                              'language' => $language),
+                        $location);
+
+        // handled, don't continue processing!
+        return false;
     }
 
     /**
@@ -143,38 +149,46 @@ class GeonamesPlugin extends Plugin
                                             array('geonameId' => $id,
                                                   'lang' => $language)));
 
-        if ($result->isOk()) {
+        if (!$result->isOk()) {
+            $this->log(LOG_WARNING,
+                       "Error code " . $result->code .
+                       " from " . $this->host . " for ID $id");
+            return false;
+        }
 
-            $rj = json_decode($result->getBody());
+        $rj = json_decode($result->getBody());
 
-            if (count($rj->geonames) > 0) {
+        if (count($rj->geonames) <= 0) {
+            $this->log(LOG_WARNING,
+                       "No results in response from " .
+                       $this->host . " for ID $id");
+            return false;
+        }
 
-                $parts = array();
+        $parts = array();
 
-                foreach ($rj->geonames as $level) {
-                    if (in_array($level->fcode, array('PCLI', 'ADM1', 'PPL'))) {
-                        $parts[] = $level->name;
-                    }
-                }
-
-                $last = $rj->geonames[count($rj->geonames)-1];
-
-                if (!in_array($level->fcode, array('PCLI', 'ADM1', 'PPL'))) {
-                    $parts[] = $last->name;
-                }
-
-                $location = new Location();
-
-                $location->location_id      = $last->geonameId;
-                $location->location_ns      = self::LOCATION_NS;
-                $location->lat              = $last->lat;
-                $location->lon              = $last->lng;
-                $location->names[$language] = implode(', ', array_reverse($parts));
-
-                $this->setCache(array('id' => $last->geonameId),
-                                $location);
+        foreach ($rj->geonames as $level) {
+            if (in_array($level->fcode, array('PCLI', 'ADM1', 'PPL'))) {
+                $parts[] = $level->name;
             }
         }
+
+        $last = $rj->geonames[count($rj->geonames)-1];
+
+        if (!in_array($level->fcode, array('PCLI', 'ADM1', 'PPL'))) {
+            $parts[] = $last->name;
+        }
+
+        $location = new Location();
+
+        $location->location_id      = $last->geonameId;
+        $location->location_ns      = self::LOCATION_NS;
+        $location->lat              = $last->lat;
+        $location->lon              = $last->lng;
+        $location->names[$language] = implode(', ', array_reverse($parts));
+
+        $this->setCache(array('id' => $last->geonameId),
+                        $location);
 
         // We're responsible for this NAMESPACE; nobody else
         // can resolve it
@@ -217,48 +231,52 @@ class GeonamesPlugin extends Plugin
                                           'lng' => $lon,
                                           'lang' => $language)));
 
-        if ($result->isOk()) {
-
-            $rj = json_decode($result->getBody());
-
-            if (count($rj->geonames) > 0) {
-
-                $n = $rj->geonames[0];
-
-                $parts = array();
-
-                $location = new Location();
-
-                $parts[] = $n->name;
-
-                if (!empty($n->adminName1)) {
-                    $parts[] = $n->adminName1;
-                }
-
-                if (!empty($n->countryName)) {
-                    $parts[] = $n->countryName;
-                }
-
-                $location->location_id = $n->geonameId;
-                $location->location_ns = self::LOCATION_NS;
-                $location->lat         = $lat;
-                $location->lon         = $lon;
-
-                $location->names[$language] = implode(', ', $parts);
-
-                $this->setCache(array('lat' => $lat,
-                                      'lon' => $lon),
-                                $location);
-
-                // Success! We handled it, so no further processing
-
-                return false;
-            }
+        if (!$result->isOk()) {
+            $this->log(LOG_WARNING,
+                       "Error code " . $result->code .
+                       " from " . $this->host . " for coords $lat, $lon");
+            return true;
         }
 
-        // For some reason we don't know, so pass.
+        $rj = json_decode($result->getBody());
 
-        return true;
+        if (count($rj->geonames) <= 0) {
+            $this->log(LOG_WARNING,
+                       "No results in response from " .
+                       $this->host . " for coords $lat, $lon");
+            return true;
+        }
+
+        $n = $rj->geonames[0];
+
+        $parts = array();
+
+        $location = new Location();
+
+        $parts[] = $n->name;
+
+        if (!empty($n->adminName1)) {
+            $parts[] = $n->adminName1;
+        }
+
+        if (!empty($n->countryName)) {
+            $parts[] = $n->countryName;
+        }
+
+        $location->location_id = $n->geonameId;
+        $location->location_ns = self::LOCATION_NS;
+        $location->lat         = $lat;
+        $location->lon         = $lon;
+
+        $location->names[$language] = implode(', ', $parts);
+
+        $this->setCache(array('lat' => $lat,
+                              'lon' => $lon),
+                        $location);
+
+        // Success! We handled it, so no further processing
+
+        return false;
     }
 
     /**
@@ -295,37 +313,44 @@ class GeonamesPlugin extends Plugin
                                             array('geonameId' => $location->location_id,
                                                   'lang' => $language)));
 
-        if ($result->isOk()) {
+        if (!$result->isOk()) {
+            $this->log(LOG_WARNING,
+                       "Error code " . $result->code .
+                       " from " . $this->host . " for ID " . $location->location_id);
+            return false;
+        }
 
-            $rj = json_decode($result->getBody());
+        $rj = json_decode($result->getBody());
 
-            if (count($rj->geonames) > 0) {
+        if (count($rj->geonames) <= 0) {
+            $this->log(LOG_WARNING,
+                       "No results " .
+                       " from " . $this->host . " for ID " . $location->location_id);
+            return false;
+        }
 
-                $parts = array();
+        $parts = array();
 
-                foreach ($rj->geonames as $level) {
-                    if (in_array($level->fcode, array('PCLI', 'ADM1', 'PPL'))) {
-                        $parts[] = $level->name;
-                    }
-                }
-
-                $last = $rj->geonames[count($rj->geonames)-1];
-
-                if (!in_array($level->fcode, array('PCLI', 'ADM1', 'PPL'))) {
-                    $parts[] = $last->name;
-                }
-
-                if (count($parts)) {
-                    $name = implode(', ', array_reverse($parts));
-                    $this->setCache(array('id' => $location->location_id,
-                                          'language' => $language),
-                                    $name);
-                    return false;
-                }
+        foreach ($rj->geonames as $level) {
+            if (in_array($level->fcode, array('PCLI', 'ADM1', 'PPL'))) {
+                $parts[] = $level->name;
             }
         }
 
-        return true;
+        $last = $rj->geonames[count($rj->geonames)-1];
+
+        if (!in_array($level->fcode, array('PCLI', 'ADM1', 'PPL'))) {
+            $parts[] = $last->name;
+        }
+
+        if (count($parts)) {
+            $name = implode(', ', array_reverse($parts));
+            $this->setCache(array('id' => $location->location_id,
+                                  'language' => $language),
+                            $name);
+        }
+
+        return false;
     }
 
     /**
