@@ -169,6 +169,14 @@ class NewnoticeAction extends Action
         $location_id = $this->trimmed('location_id');
         $location_ns = $this->trimmed('location_ns');
 
+        if (!empty($lat) && !empty($lon) && empty($location_id)) {
+            $location = Location::fromLatLon($lat, $lon);
+            if (!empty($location)) {
+                $location_id = $location->location_id;
+                $location_ns = $location->location_ns;
+            }
+        }
+
         $upload = null;
         $upload = MediaFile::fromUpload('attach');
 

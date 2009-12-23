@@ -107,6 +107,11 @@ class Memcached_DataObject extends DB_DataObject
     }
 
     static function cacheKey($cls, $k, $v) {
+        if (is_object($cls) || is_object($j) || is_object($v)) {
+            $e = new Exception();
+            common_log(LOG_ERR, __METHOD__ . ' object in param: ' .
+                str_replace("\n", " ", $e->getTraceAsString()));
+        }
         return common_cache_key(strtolower($cls).':'.$k.':'.$v);
     }
 

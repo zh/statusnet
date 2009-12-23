@@ -2,8 +2,8 @@
 README
 ------
 
-StatusNet 0.8.2 ("Life and How to Live It")
-1 Nov 2009
+StatusNet 0.9.0 ("Stand") Release Candidate 2
+22 Dec 2009
 
 This is the README file for StatusNet (formerly Laconica), the Open
 Source microblogging platform. It includes installation instructions,
@@ -16,10 +16,10 @@ About
 
 StatusNet (formerly Laconica) is a Free and Open Source microblogging
 platform. It helps people in a community, company or group to exchange
-short (140 character) messages over the Web. Users can choose which
-people to "follow" and receive only their friends' or colleagues'
-status messages. It provides a similar service to sites like Twitter,
-Jaiku, Yammer, and Plurk.
+short (140 characters, by default) messages over the Web. Users can
+choose which people to "follow" and receive only their friends' or
+colleagues' status messages. It provides a similar service to sites
+like Twitter, Jaiku, Yammer, and Plurk.
 
 With a little work, status messages can be sent to mobile phones,
 instant messenger programs (GTalk/Jabber), and specially-designed
@@ -77,81 +77,96 @@ for additional terms.
 New this version
 ================
 
-This is a minor feature and bugfix release since version 0.8.1,
-released Aug 26 2009. Notable changes this version:
+This is a major feature release since version 0.8.2, released Nov 1 2009.
+Notable changes this version:
 
-- New script for deleting user accounts. Not particularly safe or
-  community-friendly. Better for deleting abusive accounts than for
-  users who are 'retiring'.
-- Improved detection of URLs in notices, specifically for punctuation
-  chars like ~, :, $, _, -, +, !, @, and %.
-- Removed some extra <dl> semantic HTML code.
-- Correct error in status-network database ini file (having multiple
-  statusnet sites with a single codebase)
-- Fixed error output for Twitter posting failures.
-- Fixed bug in Twitter queue handler that requeued inapplicable
-  notices ad infinitum.
-- Improve FOAF output for remote users.
-- new commands to join and leave groups.
-- Fixed bug in which you cannot turn off importing friends timelines
-  flag.
-- Better error handling in Twitter posting.
-- Show oEmbed data for XHTML files as well as plain HTML.
-- Updated bug database link in README.
-- add support for HTTP Basic Auth in PHP CGI or FastCGI (e.g. GoDaddy).
-- autofocus input to selected entry elements depending on page.
-- updated layout for filter-by-tag form.
-- better layout for inbox and outbox pages.
-- fix highlighting search terms in attributes of notice list elements.
-- Correctly handle errors in linkback plugin.
-- Updated biz theme.
-- Updated cloudy theme.
-- Don't match '::' as an IPv6 address.
-- Use the same decision logic for deciding whether to mark an
-  attachment as an enclosure in RSS or as a paperclip item in Web
-  output.
-- Fixed a bug in the Piwik plugin that hard-coded the site ID.
-- Add a param, inreplyto, to notice/new to allow an explicit response
-  to another notice.
-- Show username in subject of emails.
-- Check if avatar exists before trying to delete it.
-- Correctly add omb_version to response for request token in OMB.
-- Add a few more SMS carriers.
-- Add a few more notice sources.
-- Vary: header.
-- Improvements to the AutoCompletePlugin.
-- Check for 'dl' before using it.
-- Make it impossible to delete self-subscriptions via the API.
-- Fix pagination of tagged user pages.
-- Make PiwikAnalyticsPlugin work with addPlugin().
-- Removed trailing single space in user nicknames in notice lists.
-- Show context link if a notice starts a conversation.
-- blacklist all files and directories in install dir.
-- handle GoDaddy-style PATH_INFO, including script name.
-- add home_timeline synonym for friends_timeline.
-- Add a popup window for the realtime plugin.
-- Add some more streams for the realtime plugin.
-- Fix a bug that overwrote group creation timestamp on every edit.
-- Moved HTTP error code strings to a class variable.
-- The Twitter API now returns server errors in the correct format.
-- Reset the doctype for HTML output.
-- Fixed a number of notices.
-- Don't show search suggestions for private sites.
-- Some corrections to FBConnect nav overrides.
-- Slightly less database-intensive session management.
-- Updated name of software in installer script.
-- Include long-form attachment URLs if url-shortener is disabled.
-- Include updated localisations for Polish, Greek, Hebrew, Icelandic,
-  Norwegian, and Chinese.
-- Include upstream fixes to gettext.php.
-- Correct for regression in Facebook API for updates.
-- Ignore "Sent from my iPhone" (and similar) in mail updates.
-- Use the NICKNAME_FMT constant for detecting nicknames.
-- Check for site servername config'd.
-- Compatibility fix for empty status updates with Twitter API.
-- Option to show files privately (EXPERIMENTAL! Use with caution.)
-- a script to register a new user.
-- a script to make a user admin of a group.
+- Records of deleted notices are stored without the notice content.
+- Much of the optional core featureset has been moved to plugins.
+- OpenID support moved from core to a plugin. Helps test the strength of
+  our plugin architecture and makes it easy to disable this
+  functionality for e.g. intranet sites.
+- Many additional hook events (see EVENTS.txt for details).
+- OMB 0.1 support re-implemented using libomb.
+- Re-structure database so notices, messages, bios and group
+  descriptions can be over 140 characters. Limit defined by
+  site administrator as configuration option; can be unlimited.
+- Configuration data now optionally stored in the database, which
+  overrides any settings in config files.
+- Twitter integration re-implemented as a plugin.
+- Facebook integration re-implemented as a plugin.
+- Role-based authorization framework. Users can have named roles, and
+  roles can have rights (e.g., to delete notices, change configuration
+  data, or ban uncooperative users). Default roles 'admin' (for
+  configuration) and 'moderator' (for community management) added.
+- Plugin for PubSubHubBub (PuSH) support.
+- Considerable code style cleanup to meet PEAR code standards.
+- Made a common library for HTTP-client access which uses available
+  HTTP libraries where possible.
+- Added statuses/home_timeline method to API.
+- Hooks for plugins to handle notices offline, either by defining
+  their own queue handler scripts or to use a default plugin queue
+  handler script.
+- Plugins can now modify the database schema, adding their own tables
+  or modifying existing ones.
+- Groups API.
+- Twitter API supports Web caching for some methods.
+- Twitter API refactored into one-action-per-method.
+- Realtime plugin supports a tear-off window.
+- FOAF for groups.
+- Moved all JavaScript tags to just before </body> by default,
+  significantly speeding up apparent page load time.
+- Added a Realtime plugin for Orbited server.
+- Added a mobile plugin to give a more mobile-phone-friendly layout
+  when a mobile browser is detected.
+- Use CSS sprites for most common icons.
+- Fixes for images and buttons on Web output.
+- New plugin requires that users validate their email before posting.
+- New plugin UserFlag lets users flag other profiles for review.
+- Considerably better i18n support. Use TranslateWiki to update
+  translations.
+- Notices and profiles now store location information.
+- New plugin, Geonames, for turning location names and lat/long pairs
+  into structured IDs and vice versa. Architecture reusable for other
+  systems.
+- Better check of license compatibility between site licenses.
+- Some improvements in XMPP output.
+- Media upload in the API.
+- Replies appear in the user's inbox.
+- Improved the UI on the bookmarklet.
+- StatusNet identities can be used as OpenID identities.
+- Script to register a user.
+- Script to make someone a group admin.
+- Script to make someone a site admin or moderator.
+- 'login' command.
+- Pluggable authentication.
+- LDAP authentication plugin.
+- Script for console interaction with the site (!).
+- Users don't see group posts from people they've blocked.
+- Admin panel interface for changing site configuration.
+- Users can be sandboxed (limited contributions) or silenced
+  (no contributions) by moderators.
+- Many changes to make language usage more consistent.
+- Sphinx search moved to a plugin.
+- GeoURL plugin.
+- Profile and group lists support hAtom.
+- Massive refactoring of util.js.
+- Mapstraction plugin to show maps on inbox and profile pages.
+- Play/pause buttons for realtime notices.
+- Support for geo microformat.
+- Partial support for feed subscriptions, RSSCloud, PubSubHubBub.
+- Support for geolocation in browser (Chrome, Firefox).
+- Quit trying to negotiate HTML format. Always use text/html.
+  We lose, and so do Web standards. Boo.
+- Better logging of request info.
+- Better output for errors in Web interface.
+- No longer store .mo files; these need to be generated.
+- Minify plugin.
+- Events to allow pluginizing logger.
+- New framework for plugin localization.
+- Gravatar plugin.
+- Add support for "repeats" (similar to Twitter's "retweets").
+- Support for repeats in Twitter API.
+- Better notification of direct messages.
 
 Prerequisites
 =============
@@ -1596,6 +1611,7 @@ if anyone's been overlooked in error.
 * Federico Marani
 * Craig Andrews
 * mEDI
+* Brett Taylor
 
 Thanks also to the developers of our upstream library code and to the
 thousands of people who have tried out Identi.ca, installed StatusNet,
