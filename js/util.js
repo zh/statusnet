@@ -316,7 +316,42 @@ var SN = { // StatusNet
         },
 
         NoticeRepeat: function() {
-            $('.form_repeat').each(function() { SN.U.FormXHR($(this)); });
+            $('.form_repeat').each(function() {
+                SN.U.FormXHR($(this));
+                SN.U.NoticeRepeatConfirmation($(this));
+            });
+        },
+
+        NoticeRepeatConfirmation: function(form) {
+            function NRC() {
+                form.closest('.notice-options').addClass('opaque');
+                form.addClass('dialogbox');
+
+                form.append('<button class="close">&#215;</button>');
+                form.find('button.close').click(function(){
+                    $(this).remove();
+
+                    form.closest('.notice-options').removeClass('opaque');
+                    form.removeClass('dialogbox');
+                    form.find('.submit_dialogbox').remove();
+                    form.find('.submit').show();
+
+                    return false;
+                });
+            };
+
+            form.find('.submit').bind('click', function(e) {
+                e.preventDefault();
+
+                var submit = form.find('.submit').clone();
+                submit.addClass('submit_dialogbox');
+                submit.removeClass('submit');
+                form.append(submit);
+
+                $(this).hide();
+
+                NRC();
+            });
         },
 
         NoticeAttachments: function() {
