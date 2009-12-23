@@ -448,7 +448,7 @@ class GeonamesPlugin extends Plugin
             $params['token'] = $this->token;
         }
 
-        $str = http_build_query($params);
+        $str = http_build_query($params, null, '&');
 
         return 'http://'.$this->host.'/'.$method.'?'.$str;
     }
