@@ -11,11 +11,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-12-21 21:17+0000\n"
-"PO-Revision-Date: 2009-12-21 21:18:36+0000\n"
+"PO-Revision-Date: 2009-12-22 22:39:35+0000\n"
 "Language-Team: Russian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60279); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60291); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ru\n"
 "X-Message-Group: out-statusnet\n"
@@ -446,14 +446,12 @@ msgid "No such notice."
 msgstr "Нет такой записи."
 
 #: actions/apistatusesretweet.php:83
-#, fuzzy
 msgid "Cannot repeat your own notice."
-msgstr "Есть оповещение."
+msgstr "Невозможно повторить собственную запись."
 
 #: actions/apistatusesretweet.php:91
-#, fuzzy
 msgid "Already repeated that notice."
-msgstr "Удалить эту запись"
+msgstr "Запись уже повторена."
 
 #: actions/apistatusesshow.php:138
 msgid "Status deleted."
@@ -527,17 +525,17 @@ msgstr "Обновления %s от всех!"
 #: actions/apitimelineretweetedbyme.php:112
 #, php-format
 msgid "Repeated by %s"
-msgstr ""
+msgstr "Повторено %s"
 
 #: actions/apitimelineretweetedtome.php:111
-#, fuzzy, php-format
+#, php-format
 msgid "Repeated to %s"
-msgstr "Ответы для %s"
+msgstr "Повторено для %s"
 
 #: actions/apitimelineretweetsofme.php:112
-#, fuzzy, php-format
+#, php-format
 msgid "Repeats of %s"
-msgstr "Ответы для %s"
+msgstr "Повторы %s"
 
 #: actions/apitimelinetag.php:102 actions/tag.php:66
 #, php-format
@@ -1280,29 +1278,25 @@ msgid "Featured users, page %d"
 msgstr "Особые пользователи, страница %d"
 
 #: actions/featured.php:99
-#, fuzzy, php-format
+#, php-format
 msgid "A selection of some great users on %s"
-msgstr "Список наиболее активных, знаменитых и уважаемых пользователей на %s"
+msgstr "Некоторые из известных пользователей на %s"
 
 #: actions/file.php:34
-#, fuzzy
 msgid "No notice ID."
-msgstr "Запись отсутствует"
+msgstr "Нет ID записи."
 
 #: actions/file.php:38
-#, fuzzy
 msgid "No notice."
-msgstr "Запись отсутствует"
+msgstr "Запись отсутствует."
 
 #: actions/file.php:42
-#, fuzzy
 msgid "No attachments."
-msgstr "Нет вложений"
+msgstr "Нет вложений."
 
 #: actions/file.php:51
-#, fuzzy
 msgid "No uploaded attachments."
-msgstr "Нет загруженных вложений"
+msgstr "Нет загруженных вложений."
 
 #: actions/finishremotesubscribe.php:69
 msgid "Not expecting this response!"
@@ -2888,36 +2882,28 @@ msgid "Couldn’t get a request token."
 msgstr "Не удаётся получить получить ключ запроса."
 
 #: actions/repeat.php:57
-#, fuzzy
 msgid "Only logged-in users can repeat notices."
-msgstr "Только сам пользователь может читать собственный почтовый ящик."
+msgstr "Повторять записи могут только вошедшие пользователи."
 
 #: actions/repeat.php:64 actions/repeat.php:71
-#, fuzzy
 msgid "No notice specified."
-msgstr "Профиль не определен."
+msgstr "Не указана запись."
 
 #: actions/repeat.php:76
-#, fuzzy
 msgid "You can't repeat your own notice."
-msgstr ""
-"Вы не можете зарегистрироваться, если Вы не подтверждаете лицензионного "
-"соглашения."
+msgstr "Вы не можете повторить собственную запись."
 
 #: actions/repeat.php:90
-#, fuzzy
 msgid "You already repeated that notice."
-msgstr "Вы уже заблокировали этого пользователя."
+msgstr "Вы уже повторили эту запись."
 
 #: actions/repeat.php:114 lib/noticelist.php:621
-#, fuzzy
 msgid "Repeated"
-msgstr "Создано"
+msgstr "Повторено"
 
 #: actions/repeat.php:119
-#, fuzzy
 msgid "Repeated!"
-msgstr "Создано"
+msgstr "Повторено!"
 
 #: actions/replies.php:125 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
@@ -3256,9 +3242,9 @@ msgstr ""
 "net/)."
 
 #: actions/showstream.php:313
-#, fuzzy, php-format
+#, php-format
 msgid "Repeat of %s"
-msgstr "Ответы для %s"
+msgstr "Повтор %s"
 
 #: actions/silence.php:65 actions/unsilence.php:65
 msgid "You cannot silence users on this site."
@@ -3732,9 +3718,8 @@ msgid "Notice feed for tag %s (Atom)"
 msgstr "Лента записей для тега %s (Atom)"
 
 #: actions/tagother.php:39
-#, fuzzy
 msgid "No ID argument."
-msgstr "Нет ID аргумента."
+msgstr "Нет аргумента ID."
 
 #: actions/tagother.php:65
 #, php-format
@@ -4004,9 +3989,8 @@ msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "Неверный тип изображения для URL аватары «%s»."
 
 #: actions/userbyid.php:70
-#, fuzzy
 msgid "No ID."
-msgstr "Нет ID"
+msgstr "Нет ID."
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 msgid "Profile design"
@@ -4117,9 +4101,9 @@ msgid "DB error inserting reply: %s"
 msgstr "Ошибка баз данных при вставке ответа для %s"
 
 #: classes/Notice.php:1371
-#, fuzzy, php-format
+#, php-format
 msgid "RT @%1$s %2$s"
-msgstr "%1$s (%2$s)"
+msgstr "RT @%1$s %2$s"
 
 #: classes/User.php:368
 #, php-format
@@ -4483,24 +4467,21 @@ msgid "Error sending direct message."
 msgstr "Ошибка при отправке прямого сообщения."
 
 #: lib/command.php:422
-#, fuzzy
 msgid "Cannot repeat your own notice"
-msgstr "Есть оповещение."
+msgstr "Невозможно повторить собственную запись."
 
 #: lib/command.php:427
-#, fuzzy
 msgid "Already repeated that notice"
-msgstr "Удалить эту запись"
+msgstr "Эта запись уже повторена"
 
 #: lib/command.php:435
-#, fuzzy, php-format
+#, php-format
 msgid "Notice from %s repeated"
-msgstr "Запись опубликована"
+msgstr "Запись %s повторена"
 
 #: lib/command.php:437
-#, fuzzy
 msgid "Error repeating notice."
-msgstr "Проблемы с сохранением записи."
+msgstr "Ошибка при повторении записи."
 
 #: lib/command.php:491
 #, php-format
@@ -4602,7 +4583,6 @@ msgstr[1] "Вы являетесь участником следующих гр�
 msgstr[2] "Вы являетесь участником следующих групп:"
 
 #: lib/command.php:745
-#, fuzzy
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4656,6 +4636,8 @@ msgstr ""
 "whois <nickname> — получить информацию из профиля пользователя\n"
 "fav <nickname> — добавить последнюю запись пользователя в число любимых\n"
 "fav #<notice_id> — добавить запись с заданным id в число любимых\n"
+"repeat #<notice_id> — повторить уведомление с заданным id\n"
+"repeat <nickname> — повторить последнее уведомление от пользователя\n"
 "reply #<notice_id> — ответить на запись с заданным id\n"
 "reply <nickname> — ответить на последнюю запись пользователя\n"
 "join <group> — присоединиться к группе\n"
@@ -5309,9 +5291,8 @@ msgid "in context"
 msgstr "в контексте"
 
 #: lib/noticelist.php:548
-#, fuzzy
 msgid "Repeated by"
-msgstr "Создано"
+msgstr "Повторено"
 
 #: lib/noticelist.php:577
 msgid "Reply to this notice"
@@ -5322,9 +5303,8 @@ msgid "Reply"
 msgstr "Ответить"
 
 #: lib/noticelist.php:620
-#, fuzzy
 msgid "Notice repeated"
-msgstr "Запись удалена."
+msgstr "Запись повторена"
 
 #: lib/nudgeform.php:116
 msgid "Nudge this user"
@@ -5424,14 +5404,12 @@ msgid "All groups"
 msgstr "Все группы"
 
 #: lib/profileformaction.php:123
-#, fuzzy
 msgid "No return-to arguments."
-msgstr "Нет аргумента return-to"
+msgstr "Нет аргумента return-to."
 
 #: lib/profileformaction.php:137
-#, fuzzy
 msgid "Unimplemented method."
-msgstr "нереализованный метод"
+msgstr "Нереализованный метод."
 
 #: lib/publicgroupnav.php:78
 msgid "Public"
@@ -5454,14 +5432,12 @@ msgid "Popular"
 msgstr "Популярное"
 
 #: lib/repeatform.php:107 lib/repeatform.php:132
-#, fuzzy
 msgid "Repeat this notice"
-msgstr "Ответить на эту запись"
+msgstr "Повторить эту запись"
 
 #: lib/repeatform.php:132
-#, fuzzy
 msgid "Repeat"
-msgstr "Сбросить"
+msgstr "Повторить"
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"

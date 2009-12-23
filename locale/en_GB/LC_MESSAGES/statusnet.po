@@ -11,11 +11,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-12-21 21:17+0000\n"
-"PO-Revision-Date: 2009-12-21 21:17:32+0000\n"
+"PO-Revision-Date: 2009-12-22 22:38:37+0000\n"
 "Language-Team: British English\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60279); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60291); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: en-gb\n"
 "X-Message-Group: out-statusnet\n"
@@ -826,19 +826,16 @@ msgid "Delete this notice"
 msgstr "Delete this notice"
 
 #: actions/deletenotice.php:157
-#, fuzzy
 msgid "There was a problem with your session token.  Try again, please."
-msgstr "There was a problem with your session token. Try again, please."
+msgstr "There was a problem with your session token.  Try again, please."
 
 #: actions/deleteuser.php:67
-#, fuzzy
 msgid "You cannot delete users."
-msgstr "Couldn't update user."
+msgstr "You cannot delete users."
 
 #: actions/deleteuser.php:74
-#, fuzzy
 msgid "You can only delete local users."
-msgstr "You may not delete another user's status."
+msgstr "You can only delete local users."
 
 #: actions/deleteuser.php:110 actions/deleteuser.php:133
 #, fuzzy
@@ -850,6 +847,8 @@ msgid ""
 "Are you sure you want to delete this user? This will clear all data about "
 "the user from the database, without a backup."
 msgstr ""
+"Are you sure you want to delete this user? This will clear all data about "
+"the user from the database, without a backup."
 
 #: actions/deleteuser.php:148 lib/deleteuserform.php:77
 msgid "Delete this user"
@@ -858,11 +857,11 @@ msgstr "Delete this user"
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
 #: lib/adminpanelaction.php:302 lib/groupnav.php:119
 msgid "Design"
-msgstr ""
+msgstr "Design"
 
 #: actions/designadminpanel.php:73
 msgid "Design settings for this StatusNet site."
-msgstr ""
+msgstr "Design settings for this StausNet site."
 
 #: actions/designadminpanel.php:275
 #, fuzzy
@@ -899,12 +898,12 @@ msgstr "Logout from the site"
 
 #: actions/designadminpanel.php:417 lib/designsettings.php:101
 msgid "Change background image"
-msgstr ""
+msgstr "Change background image"
 
 #: actions/designadminpanel.php:422 actions/designadminpanel.php:497
 #: lib/designsettings.php:178
 msgid "Background"
-msgstr ""
+msgstr "Background"
 
 #: actions/designadminpanel.php:427
 #, fuzzy, php-format
@@ -915,19 +914,19 @@ msgstr "You can upload a logo image for your group."
 
 #: actions/designadminpanel.php:457 lib/designsettings.php:139
 msgid "On"
-msgstr ""
+msgstr "On"
 
 #: actions/designadminpanel.php:473 lib/designsettings.php:155
 msgid "Off"
-msgstr ""
+msgstr "Off"
 
 #: actions/designadminpanel.php:474 lib/designsettings.php:156
 msgid "Turn background image on or off."
-msgstr ""
+msgstr "Turn background image on or off."
 
 #: actions/designadminpanel.php:479 lib/designsettings.php:161
 msgid "Tile background image"
-msgstr ""
+msgstr "Tile background image"
 
 #: actions/designadminpanel.php:488 lib/designsettings.php:170
 msgid "Change colours"
@@ -953,15 +952,15 @@ msgstr "Links"
 
 #: actions/designadminpanel.php:577 lib/designsettings.php:247
 msgid "Use defaults"
-msgstr ""
+msgstr "Use defaults"
 
 #: actions/designadminpanel.php:578 lib/designsettings.php:248
 msgid "Restore default designs"
-msgstr ""
+msgstr "Restore default designs"
 
 #: actions/designadminpanel.php:584 lib/designsettings.php:254
 msgid "Reset back to default"
-msgstr ""
+msgstr "Reset back to default"
 
 #: actions/designadminpanel.php:586 actions/emailsettings.php:195
 #: actions/imsettings.php:163 actions/othersettings.php:126
@@ -975,7 +974,7 @@ msgstr "Save"
 
 #: actions/designadminpanel.php:587 lib/designsettings.php:257
 msgid "Save design"
-msgstr ""
+msgstr "Save design"
 
 #: actions/disfavor.php:81
 msgid "This notice is not a favorite!"
@@ -1361,7 +1360,7 @@ msgstr "No profile specified."
 
 #: actions/groupblock.php:91
 msgid "Only an admin can block group members."
-msgstr ""
+msgstr "Only an admin can block group members."
 
 #: actions/groupblock.php:95
 msgid "User is already blocked from group."
@@ -1383,6 +1382,9 @@ msgid ""
 "be removed from the group, unable to post, and unable to subscribe to the "
 "group in the future."
 msgstr ""
+"Are you sure you want to block user \"%s\" from the group \"%s\"? They will "
+"be removed from the group, unable to post, and unable to subscribe to the "
+"group in the future."
 
 #: actions/groupblock.php:178
 msgid "Do not block this user from this group"
@@ -1394,7 +1396,7 @@ msgstr "Block this user from this group"
 
 #: actions/groupblock.php:196
 msgid "Database error blocking user from group."
-msgstr ""
+msgstr "Database error blocking user from group."
 
 #: actions/groupbyid.php:74
 msgid "No ID"
@@ -1415,6 +1417,8 @@ msgid ""
 "Customize the way your group looks with a background image and a colour "
 "palette of your choice."
 msgstr ""
+"Customise the way your group looks with a background image and a colour "
+"palette of your choice."
 
 #: actions/groupdesignsettings.php:263 actions/userdesignsettings.php:186
 #: lib/designsettings.php:391 lib/designsettings.php:413
@@ -1589,7 +1593,7 @@ msgid "Current confirmed Jabber/GTalk address."
 msgstr "Current confirmed Jabber/GTalk address."
 
 #: actions/imsettings.php:114
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Awaiting confirmation on this address. Check your Jabber/GTalk account for a "
 "message with further instructions. (Did you add %s to your buddy list?)"
@@ -2324,7 +2328,7 @@ msgstr "Invalid notice content"
 #: actions/postnotice.php:90
 #, php-format
 msgid "Notice license ‘%s’ is not compatible with site license ‘%s’."
-msgstr ""
+msgstr "Notice licence ‘%s’ is not compatible with site licence ‘%s’."
 
 #: actions/profilesettings.php:60
 msgid "Profile settings"
@@ -2509,6 +2513,10 @@ msgid ""
 "tool. [Join now](%%action.register%%) to share notices about yourself with "
 "friends, family, and colleagues! ([Read more](%%doc.help%%))"
 msgstr ""
+"This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
+"blogging) service based on the Free Software [StatusNet](http://status.net/) "
+"tool. [Join now](%%action.register%%) to share notices about yourself with "
+"friends, family, and colleagues! ([Read more](%%doc.help%%))"
 
 #: actions/public.php:238
 #, php-format
@@ -2870,9 +2878,8 @@ msgid "No notice specified."
 msgstr "No profile specified."
 
 #: actions/repeat.php:76
-#, fuzzy
 msgid "You can't repeat your own notice."
-msgstr "You can't register if you don't agree to the licence."
+msgstr "You can't repeat your own notice."
 
 #: actions/repeat.php:90
 #, fuzzy

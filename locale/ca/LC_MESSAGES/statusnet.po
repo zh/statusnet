@@ -10,11 +10,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-12-21 21:17+0000\n"
-"PO-Revision-Date: 2009-12-21 21:17:21+0000\n"
+"PO-Revision-Date: 2009-12-22 22:38:25+0000\n"
 "Language-Team: Catalan\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60279); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60291); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: out-statusnet\n"
@@ -258,7 +258,9 @@ msgstr "No has escrit cap usuari receptor."
 
 #: actions/apidirectmessagenew.php:150
 msgid "Can't send direct messages to users who aren't your friend."
-msgstr "No pots enviar missatges directes a usuaris que no siguin amics teus."
+msgstr ""
+"No es pot enviar missatges directes a usuaris que no siguin els vostres "
+"amics."
 
 #: actions/apifavoritecreate.php:108 actions/apifavoritedestroy.php:109
 #: actions/apistatusesdestroy.php:113
@@ -571,9 +573,10 @@ msgid "Avatar"
 msgstr "Avatar"
 
 #: actions/avatarsettings.php:78
-#, fuzzy, php-format
+#, php-format
 msgid "You can upload your personal avatar. The maximum file size is %s."
-msgstr "Pots pujar el teu avatar personal."
+msgstr ""
+"Podeu pujar el vostre avatar personal. La mida màxima del fitxer és %s."
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
 #: actions/grouplogo.php:178 actions/remotesubscribe.php:191
@@ -1063,11 +1066,11 @@ msgstr "Cancel·la"
 
 #: actions/emailsettings.php:121
 msgid "Email Address"
-msgstr "Direcció de correu electrònic"
+msgstr "Adreça electrònica"
 
 #: actions/emailsettings.php:123
 msgid "Email address, like \"UserName@example.org\""
-msgstr "Correu electrònic, com Email address, like \"UserName@example.org\""
+msgstr "Adreça electrònica, com ara «nomusuari@example.org»"
 
 #: actions/emailsettings.php:126 actions/imsettings.php:133
 #: actions/smssettings.php:145
@@ -1131,27 +1134,27 @@ msgstr "Publica una MicroID per al meu correu electrònic."
 #: actions/emailsettings.php:302 actions/imsettings.php:264
 #: actions/othersettings.php:180 actions/smssettings.php:284
 msgid "Preferences saved."
-msgstr "Preferències guardades."
+msgstr "S'han desat les preferències."
 
 #: actions/emailsettings.php:320
 msgid "No email address."
-msgstr "No hi ha cap direcció de correu electrònic."
+msgstr "No hi ha cap adreça electrònica."
 
 #: actions/emailsettings.php:327
 msgid "Cannot normalize that email address"
-msgstr "No es pot normalitzar aquesta direcció de correu electrònic"
+msgstr "No es pot normalitzar l'adreça electrònica."
 
 #: actions/emailsettings.php:331 actions/siteadminpanel.php:158
 msgid "Not a valid email address"
-msgstr "No és una direcció de correu electrònic vàlida."
+msgstr "No és una adreça electrònica vàlida."
 
 #: actions/emailsettings.php:334
 msgid "That is already your email address."
-msgstr "Aquest ja és el teu correu electrònic."
+msgstr "Ja és la vostra adreça electrònica."
 
 #: actions/emailsettings.php:337
 msgid "That email address already belongs to another user."
-msgstr "Aquest correu electrònic pertany a un altre usuari."
+msgstr "L'adreça electrònica ja pertany a un altre usuari."
 
 #: actions/emailsettings.php:353 actions/imsettings.php:317
 #: actions/smssettings.php:337
@@ -1514,7 +1517,7 @@ msgstr ""
 
 #: actions/groups.php:107 actions/usergroups.php:124 lib/groupeditform.php:122
 msgid "Create a new group"
-msgstr "Crear nou grup"
+msgstr "Crea un grup nou"
 
 #: actions/groupsearch.php:52
 #, fuzzy, php-format
@@ -1558,7 +1561,7 @@ msgstr "L'usuari no està blocat del grup."
 
 #: actions/groupunblock.php:128 actions/unblock.php:77
 msgid "Error removing the block."
-msgstr "Error al moure el block."
+msgstr "S'ha produït un error en suprimir el bloc."
 
 #: actions/imsettings.php:59
 msgid "IM Settings"
@@ -1607,11 +1610,11 @@ msgstr ""
 
 #: actions/imsettings.php:143
 msgid "Send me notices through Jabber/GTalk."
-msgstr "Enviar-me avisos per Jabber/GTalk."
+msgstr "Envia'm avisos per Jabber/GTalk."
 
 #: actions/imsettings.php:148
 msgid "Post a notice when my Jabber/GTalk status changes."
-msgstr "Enviar un avís quan el meu estat Jabber/GTalk canvii."
+msgstr "Envia'm un avís quan el meu estat Jabber/GTalk canvii."
 
 #: actions/imsettings.php:153
 msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
@@ -5296,9 +5299,8 @@ msgid "Popular"
 msgstr "Popular"
 
 #: lib/repeatform.php:107 lib/repeatform.php:132
-#, fuzzy
 msgid "Repeat this notice"
-msgstr "respondre a aquesta nota"
+msgstr "Repeteix l'avís"
 
 #: lib/repeatform.php:132
 #, fuzzy

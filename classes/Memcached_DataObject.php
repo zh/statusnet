@@ -37,6 +37,15 @@ class Memcached_DataObject extends DB_DataObject
         }
     }
 
+    /**
+     * Wrapper for DB_DataObject's static lookup using memcached
+     * as backing instead of an in-process cache array.
+     *
+     * @param string $cls classname of object type to load
+     * @param mixed $k key field name, or value for primary key
+     * @param mixed $v key field value, or leave out for primary key lookup
+     * @return mixed Memcached_DataObject subtype or false
+     */
     function &staticGet($cls, $k, $v=null)
     {
         if (is_null($v)) {
@@ -53,6 +62,13 @@ class Memcached_DataObject extends DB_DataObject
         } else {
             $i = DB_DataObject::staticGet($cls, $k, $v);
             if ($i) {
+                // DB_DataObject's in-process lookup cache interferes with GC
+                // to cause massive memory leaks in long-running processes.
+                if (php_sapi_name() == 'cli') {
+                    $i->_clear_cache();
+                }
+                
+                // Now store it into the shared memcached, if present...
                 $i->encache();
             }
             return $i;
