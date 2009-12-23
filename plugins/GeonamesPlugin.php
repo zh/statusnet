@@ -76,38 +76,25 @@ class GeonamesPlugin extends Plugin
             return false;
         }
 
-        $client = HTTPClient::start();
-
-        // XXX: break down a name by commas, narrow by each
-
-        $result = $client->get($this->wsUrl('search',
-                                            array('maxRows' => 1,
-                                                  'q' => $name,
-                                                  'lang' => $language,
-                                                  'type' => 'json')));
-
-        if (!$result->isOk()) {
-            $this->log(LOG_WARNING, "Error code " . $result->code .
-                       " from " . $this->host . " for $name");
+        try {
+            $geonames = $this->getGeonames('search',
+                                           array('maxRows' => 1,
+                                                 'q' => $name,
+                                                 'lang' => $language,
+                                                 'type' => 'xml'));
+        } catch (Exception $e) {
+            $this->log(LOG_WARNING, "Error for $name: " . $e->getMessage());
             return true;
         }
 
-        $rj = json_decode($result->getBody());
-
-        if (count($rj->geonames) <= 0) {
-            $this->log(LOG_WARNING, "No results in response from " .
-                       $this->host . " for $name");
-            return true;
-        }
-
-        $n = $rj->geonames[0];
+        $n = $geonames[0];
 
         $location = new Location();
 
-        $location->lat              = $n->lat;
-        $location->lon              = $n->lng;
-        $location->names[$language] = $n->name;
-        $location->location_id      = $n->geonameId;
+        $location->lat              = (string)$n->lat;
+        $location->lon              = (string)$n->lng;
+        $location->names[$language] = (string)$n->name;
+        $location->location_id      = (string)$n->geonameId;
         $location->location_ns      = self::LOCATION_NS;
 
         $this->setCache(array('name' => $name,
@@ -143,54 +130,41 @@ class GeonamesPlugin extends Plugin
             return false;
         }
 
-        $client = HTTPClient::start();
-
-        $result = $client->get($this->wsUrl('hierarchyJSON',
-                                            array('geonameId' => $id,
-                                                  'lang' => $language)));
-
-        if (!$result->isOk()) {
-            $this->log(LOG_WARNING,
-                       "Error code " . $result->code .
-                       " from " . $this->host . " for ID $id");
-            return false;
-        }
-
-        $rj = json_decode($result->getBody());
-
-        if (count($rj->geonames) <= 0) {
-            $this->log(LOG_WARNING,
-                       "No results in response from " .
-                       $this->host . " for ID $id");
+        try {
+            $geonames = $this->getGeonames('hierarchy',
+                                           array('geonameId' => $id,
+                                                 'lang' => $language));
+        } catch (Exception $e) {
+            $this->log(LOG_WARNING, "Error for ID $id: " . $e->getMessage());
             return false;
         }
 
         $parts = array();
 
-        foreach ($rj->geonames as $level) {
+        foreach ($geonames as $level) {
             if (in_array($level->fcode, array('PCLI', 'ADM1', 'PPL'))) {
-                $parts[] = $level->name;
+                $parts[] = (string)$level->name;
             }
         }
 
-        $last = $rj->geonames[count($rj->geonames)-1];
+        $last = $geonames[count($geonames)-1];
 
         if (!in_array($level->fcode, array('PCLI', 'ADM1', 'PPL'))) {
-            $parts[] = $last->name;
+            $parts[] = (string)$last->name;
         }
 
         $location = new Location();
 
-        $location->location_id      = $last->geonameId;
+        $location->location_id      = (string)$last->geonameId;
         $location->location_ns      = self::LOCATION_NS;
-        $location->lat              = $last->lat;
-        $location->lon              = $last->lng;
+        $location->lat              = (string)$last->lat;
+        $location->lon              = (string)$last->lng;
         $location->names[$language] = implode(', ', array_reverse($parts));
 
-        $this->setCache(array('id' => $last->geonameId),
+        $this->setCache(array('id' => (string)$last->geonameId),
                         $location);
 
-        // We're responsible for this NAMESPACE; nobody else
+        // We're responsible for this namespace; nobody else
         // can resolve it
 
         return false;
@@ -223,50 +197,36 @@ class GeonamesPlugin extends Plugin
             return false;
         }
 
-        $client = HTTPClient::start();
-
-        $result =
-          $client->get($this->wsUrl('findNearbyPlaceNameJSON',
-                                    array('lat' => $lat,
-                                          'lng' => $lon,
-                                          'lang' => $language)));
-
-        if (!$result->isOk()) {
-            $this->log(LOG_WARNING,
-                       "Error code " . $result->code .
-                       " from " . $this->host . " for coords $lat, $lon");
+        try {
+          $geonames = $this->getGeonames('findNearbyPlaceName',
+                                         array('lat' => $lat,
+                                               'lng' => $lon,
+                                               'lang' => $language));
+        } catch (Exception $e) {
+            $this->log(LOG_WARNING, "Error for coords $lat, $lon: " . $e->getMessage());
             return true;
         }
 
-        $rj = json_decode($result->getBody());
-
-        if (count($rj->geonames) <= 0) {
-            $this->log(LOG_WARNING,
-                       "No results in response from " .
-                       $this->host . " for coords $lat, $lon");
-            return true;
-        }
-
-        $n = $rj->geonames[0];
+        $n = $geonames[0];
 
         $parts = array();
 
         $location = new Location();
 
-        $parts[] = $n->name;
+        $parts[] = (string)$n->name;
 
         if (!empty($n->adminName1)) {
-            $parts[] = $n->adminName1;
+            $parts[] = (string)$n->adminName1;
         }
 
         if (!empty($n->countryName)) {
-            $parts[] = $n->countryName;
+            $parts[] = (string)$n->countryName;
         }
 
-        $location->location_id = $n->geonameId;
+        $location->location_id = (string)$n->geonameId;
         $location->location_ns = self::LOCATION_NS;
-        $location->lat         = $lat;
-        $location->lon         = $lon;
+        $location->lat         = (string)$lat;
+        $location->lon         = (string)$lon;
 
         $location->names[$language] = implode(', ', $parts);
 
@@ -299,7 +259,9 @@ class GeonamesPlugin extends Plugin
             return true;
         }
 
-        $n = $this->getCache(array('id' => $location->location_id,
+        $id = $location->location_id;
+
+        $n = $this->getCache(array('id' => $id,
                                    'language' => $language));
 
         if (!empty($n)) {
@@ -307,45 +269,32 @@ class GeonamesPlugin extends Plugin
             return false;
         }
 
-        $client = HTTPClient::start();
-
-        $result = $client->get($this->wsUrl('hierarchyJSON',
-                                            array('geonameId' => $location->location_id,
-                                                  'lang' => $language)));
-
-        if (!$result->isOk()) {
-            $this->log(LOG_WARNING,
-                       "Error code " . $result->code .
-                       " from " . $this->host . " for ID " . $location->location_id);
-            return false;
-        }
-
-        $rj = json_decode($result->getBody());
-
-        if (count($rj->geonames) <= 0) {
-            $this->log(LOG_WARNING,
-                       "No results " .
-                       " from " . $this->host . " for ID " . $location->location_id);
+        try {
+            $geonames = $this->getGeonames('hierarchy',
+                                           array('geonameId' => $id,
+                                                 'lang' => $language));
+        } catch (Exception $e) {
+            $this->log(LOG_WARNING, "Error for ID $id: " . $e->getMessage());
             return false;
         }
 
         $parts = array();
 
-        foreach ($rj->geonames as $level) {
+        foreach ($geonames as $level) {
             if (in_array($level->fcode, array('PCLI', 'ADM1', 'PPL'))) {
-                $parts[] = $level->name;
+                $parts[] = (string)$level->name;
             }
         }
 
-        $last = $rj->geonames[count($rj->geonames)-1];
+        $last = $geonames[count($geonames)-1];
 
         if (!in_array($level->fcode, array('PCLI', 'ADM1', 'PPL'))) {
-            $parts[] = $last->name;
+            $parts[] = (string)$last->name;
         }
 
         if (count($parts)) {
             $name = implode(', ', array_reverse($parts));
-            $this->setCache(array('id' => $location->location_id,
+            $this->setCache(array('id' => $id,
                                   'language' => $language),
                             $name);
         }
@@ -354,7 +303,7 @@ class GeonamesPlugin extends Plugin
     }
 
     /**
-     * Human-readable name for a location
+     * Human-readable URL for a location
      *
      * Given a location, we try to retrieve a geonames.org URL.
      *
@@ -451,5 +400,30 @@ class GeonamesPlugin extends Plugin
         $str = http_build_query($params);
 
         return 'http://'.$this->host.'/'.$method.'?'.$str;
+    }
+
+    function getGeonames($method, $params)
+    {
+        $client = HTTPClient::start();
+
+        $result = $client->get($this->wsUrl($method, $params));
+
+        if (!$result->isOk()) {
+            throw new Exception("HTTP error code " . $result->code);
+        }
+
+        $document = new SimpleXMLElement($result->getBody());
+
+        if (empty($document)) {
+            throw new Exception("No results in response");
+        }
+
+        if (isset($document->status)) {
+            throw new Exception("Error #".$document->status['value']." ('".$document->status['message']."')");
+        }
+
+        // Array of elements
+
+        return $document->geoname;
     }
 }
