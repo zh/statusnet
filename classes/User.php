@@ -543,7 +543,7 @@ class User extends Memcached_DataObject
 
         // NOTE: we sort by fave time, not by notice time!
 
-        $qry .= 'ORDER BY notice.id DESC ';
+        $qry .= 'ORDER BY notice_id DESC ';
 
         if (!is_null($offset)) {
             $qry .= "LIMIT $limit OFFSET $offset";
