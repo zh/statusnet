@@ -209,7 +209,13 @@ class TwitterStatusFetcher extends ParallelizingDaemon
                 continue;
             }
 
-            $this->saveStatus($status, $flink);
+            $notice = null;
+
+            $notice = $this->saveStatus($status, $flink);
+
+            if (!empty($notice)) {
+                common_broadcast_notice($notice);
+            }
         }
 
         // Okay, record the time we synced with Twitter for posterity
@@ -235,11 +241,13 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         $uri = 'http://twitter.com/' . $status->user->screen_name .
             '/status/' . $status->id;
 
-        $notice = Notice::staticGet('uri', $uri);
-
         // check to see if we've already imported the status
 
+        $notice = Notice::staticGet('uri', $uri);
+
         if (empty($notice)) {
+
+            // XXX: transaction here?
 
             $notice = new Notice();
 
@@ -257,6 +265,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
                 $id = $notice->insert();
                 Event::handle('EndNoticeSave', array($notice));
             }
+
         }
 
         if (!Notice_inbox::pkeyGet(array('notice_id' => $notice->id,
@@ -270,7 +279,12 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             $inbox->source    = NOTICE_INBOX_SOURCE_GATEWAY; // From a private source
 
             $inbox->insert();
+
         }
+
+        $notice->blowCaches();
+
+        return $notice;
     }
 
     function ensureProfile($user)

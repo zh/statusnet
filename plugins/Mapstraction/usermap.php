@@ -37,61 +37,24 @@ if (!defined('STATUSNET')) {
  * @category Mapstraction
  * @package  StatusNet
  * @author   Evan Prodromou <evan@status.net>
+ * @author   Craig Andrews <candrews@integralblue.com>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
 
-class UsermapAction extends OwnerDesignAction
+class UsermapAction extends MapAction
 {
-    var $profile = null;
-    var $page    = null;
-    var $notices = null;
-
-    public $plugin  = null;
 
     function prepare($args)
     {
-        parent::prepare($args);
-
-        $nickname_arg = $this->arg('nickname');
-        $nickname     = common_canonical_nickname($nickname_arg);
-
-        // Permanent redirect on non-canonical nickname
-
-        if ($nickname_arg != $nickname) {
-            $args = array('nickname' => $nickname);
-            if ($this->arg('page') && $this->arg('page') != 1) {
-                $args['page'] = $this->arg['page'];
-            }
-            common_redirect(common_local_url($this->trimmed('action'), $args), 301);
+        if(parent::prepare($args)) {
+            $this->notice = empty($this->tag)
+              ? $this->user->getNotices(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1)
+                : $this->user->getTaggedNotices($this->tag, ($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1, 0, 0, null);
+            return true;
+        }else{
             return false;
         }
-
-        $this->user = User::staticGet('nickname', $nickname);
-
-        if (!$this->user) {
-            $this->clientError(_('No such user.'), 404);
-            return false;
-        }
-
-        $this->profile = $this->user->getProfile();
-
-        if (!$this->profile) {
-            $this->serverError(_('User has no profile.'));
-            return false;
-        }
-
-        $page = $this->trimmed('page');
-
-        if (!empty($page) && Validate::number($page)) {
-            $this->page = $page+0;
-        } else {
-            $this->page = 1;
-        }
-
-        $this->notices = $this->user->getNotices(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
-
-        return true;
     }
 
     function title()
@@ -105,22 +68,9 @@ class UsermapAction extends OwnerDesignAction
         if ($this->page == 1) {
             return $base;
         } else {
-            return sprintf(_("%s map, page %d"),
+            return sprintf(_m("%s map, page %d"),
                            $base,
                            $this->page);
         }
-    }
-
-    function handle($args)
-    {
-        parent::handle($args);
-        $this->showPage();
-    }
-
-    function showContent()
-    {
-        $this->element('div', array('id' => 'map_canvas',
-                                    'class' => 'gray smallmap',
-                                    'style' => "width: 100%; height: 400px"));
     }
 }

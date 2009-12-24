@@ -127,6 +127,12 @@ function subs_unsubscribe_to($user, $other)
     if (!$user->isSubscribed($other))
         return _('Not subscribed!');
 
+    // Don't allow deleting self subs
+
+    if ($user->id == $other->id) {
+        return _('Couldn\'t delete self-subscription.');
+    }
+
     $sub = DB_DataObject::factory('subscription');
 
     $sub->subscriber = $user->id;

@@ -30,7 +30,7 @@ class FBConnectLoginAction extends Action
         parent::handle($args);
 
         if (common_is_real_login()) {
-            $this->clientError(_('Already logged in.'));
+            $this->clientError(_m('Already logged in.'));
         }
 
         $this->showPage();
@@ -38,7 +38,7 @@ class FBConnectLoginAction extends Action
 
     function getInstructions()
     {
-        return _('Login with your Facebook Account');
+        return _m('Login with your Facebook Account');
     }
 
     function showPageNotice()
@@ -52,7 +52,7 @@ class FBConnectLoginAction extends Action
 
     function title()
     {
-        return _('Facebook Login');
+        return _m('Facebook Login');
     }
 
     function showContent() {

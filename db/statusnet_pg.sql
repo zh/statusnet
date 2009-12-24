@@ -64,7 +64,7 @@ create table "user" (
     emailnotifyfav integer default 1 /* comment 'Notify by email of favorites' */,
     emailnotifynudge integer default 1 /* comment 'Notify by email of nudges' */,
     emailnotifymsg integer default 1 /* comment 'Notify by email of direct messages' */,
-    emailnotifyattn integer default 1 /* command 'Notify by email of @-replies' */, 
+    emailnotifyattn integer default 1 /* command 'Notify by email of @-replies' */,
     emailmicroid integer default 1 /* comment 'whether to publish email microid' */,
     language varchar(50) /* comment 'preferred language' */,
     timezone varchar(50) /* comment 'timezone' */,
@@ -82,7 +82,7 @@ create table "user" (
     uri varchar(255) unique /* comment 'universally unique identifier, usually a tag URI' */,
     autosubscribe integer default 0 /* comment 'automatically subscribe to users who subscribe to us' */,
     urlshorteningservice varchar(50) default 'ur1.ca' /* comment 'service to use for auto-shortening URLs' */,
-    inboxed integer default 0 /* comment 'has an inbox been created for this user?' */, 
+    inboxed integer default 0 /* comment 'has an inbox been created for this user?' */,
     design_id integer /* comment 'id of a design' */references design(id),
     viewdesigns integer default 1 /* comment 'whether to view user-provided designs'*/,
     created timestamp not null default CURRENT_TIMESTAMP /* comment 'date this record was created' */,
@@ -135,7 +135,9 @@ create table notice (
     lat decimal(10,7) /* comment 'latitude'*/ ,
     lon decimal(10,7) /* comment 'longitude'*/ ,
     location_id integer /* comment 'location id if possible'*/ ,
-    location_ns integer /* comment 'namespace for location'*/
+    location_ns integer /* comment 'namespace for location'*/ ,
+    repeat_of integer /* comment 'notice this is a repeat of' */ references notice (id) ,
+
 /*    FULLTEXT(content) */
 );
 
@@ -298,7 +300,7 @@ create table foreign_user (
      nickname varchar(255) /* comment 'nickname on foreign service' */,
      created timestamp not null default CURRENT_TIMESTAMP /* comment 'date this record was created' */,
      modified timestamp /* comment 'date this record was modified' */,
-     
+
      primary key (id, service)
 );
 
@@ -308,7 +310,7 @@ create table foreign_link (
      service int not null /* comment 'foreign key to service' */ references foreign_service (id),
      credentials varchar(255) /* comment 'authc credentials, typically a password' */,
      noticesync int not null default 1 /* comment 'notice synchronisation, bit 1 = sync outgoing, bit 2 = sync incoming, bit 3 = filter local replies' */,
-     friendsync int not null default 2 /* comment 'friend synchronisation, bit 1 = sync outgoing, bit 2 = sync incoming */, 
+     friendsync int not null default 2 /* comment 'friend synchronisation, bit 1 = sync outgoing, bit 2 = sync incoming */,
      profilesync int not null default 1 /* comment 'profile synchronization, bit 1 = sync outgoing, bit 2 = sync incoming' */,
      last_noticesync timestamp default null /* comment 'last time notices were imported' */,
      last_friendsync timestamp default null /* comment 'last time friends were imported' */,
@@ -324,7 +326,7 @@ create table foreign_subscription (
      subscriber int not null /* comment 'subscriber on foreign service' */ ,
      subscribed int not null /* comment 'subscribed user' */ ,
      created timestamp not null default CURRENT_TIMESTAMP /* comment 'date this record was created' */,
-     
+
      primary key (service, subscriber, subscribed)
 );
 create index foreign_subscription_subscriber_idx on foreign_subscription using btree(subscriber);
@@ -354,7 +356,7 @@ create table message (
     created timestamp not null default CURRENT_TIMESTAMP /* comment 'date this record was created' */,
     modified timestamp /* comment 'date this record was modified' */,
     source varchar(32) /* comment 'source of comment, like "web", "im", or "clientname"' */
-    
+
 );
 create index message_from_idx on message using btree(from_profile);
 create index message_to_idx on message using btree(to_profile);
@@ -409,7 +411,6 @@ create table user_group (
     mini_logo varchar(255) /* comment 'mini logo' */,
     design_id integer /*comment 'id of a design' */ references design(id),
 
-
     created timestamp not null default CURRENT_TIMESTAMP /* comment 'date this record was created' */,
     modified timestamp /* comment 'date this record was modified' */
 
@@ -447,16 +448,15 @@ create table group_inbox (
 );
 create index group_inbox_created_idx on group_inbox using btree(created);
 
-
 /*attachments and URLs stuff */
 create sequence file_seq;
 create table file (
     id bigint default nextval('file_seq') primary key /* comment 'unique identifier' */,
-    url varchar(255) unique, 
-    mimetype varchar(50), 
-    size integer, 
-    title varchar(255), 
-    date integer, 
+    url varchar(255) unique,
+    mimetype varchar(50),
+    size integer,
+    title varchar(255),
+    date integer,
     protected integer,
     filename text /* comment 'if a local file, name of the file' */,
     modified timestamp default CURRENT_TIMESTAMP /* comment 'date this record was modified'*/
@@ -467,38 +467,38 @@ create table file_oembed (
     file_id bigint default nextval('file_oembed_seq') primary key /* comment 'unique identifier' */,
     version varchar(20),
     type varchar(20),
-    mimetype varchar(50), 
+    mimetype varchar(50),
     provider varchar(50),
     provider_url varchar(255),
     width integer,
     height integer,
     html text,
     title varchar(255),
-    author_name varchar(50), 
-    author_url varchar(255), 
-    url varchar(255) 
+    author_name varchar(50),
+    author_url varchar(255),
+    url varchar(255)
 );
 
 create sequence file_redirection_seq;
 create table file_redirection (
-    url varchar(255) primary key, 
-    file_id bigint, 
-    redirections integer, 
+    url varchar(255) primary key,
+    file_id bigint,
+    redirections integer,
     httpcode integer
 );
 
 create sequence file_thumbnail_seq;
 create table file_thumbnail (
-    file_id bigint primary key, 
-    url varchar(255) unique, 
-    width integer, 
-    height integer 
+    file_id bigint primary key,
+    url varchar(255) unique,
+    width integer,
+    height integer
 );
 
 create sequence file_to_post_seq;
 create table file_to_post (
-    file_id bigint, 
-    post_id bigint, 
+    file_id bigint,
+    post_id bigint,
 
     primary key (file_id, post_id)
 );
@@ -527,7 +527,7 @@ create table session (
     id varchar(32) primary key /* comment 'session ID'*/,
     session_data text /* comment 'session data'*/,
     created timestamp not null DEFAULT CURRENT_TIMESTAMP /* comment 'date this record was created'*/,
-    modified integer DEFAULT extract(epoch from CURRENT_TIMESTAMP) /* comment 'date this record was modified'*/ 
+    modified integer DEFAULT extract(epoch from CURRENT_TIMESTAMP) /* comment 'date this record was modified'*/
 );
 
 create index session_modified_idx on session (modified);
@@ -543,14 +543,12 @@ create table deleted_notice (
 
 CREATE index deleted_notice_profile_id_idx on deleted_notice (profile_id);
 
-
 /* Textsearch stuff */
 
 create index textsearch_idx on profile using gist(textsearch);
 create index noticecontent_idx on notice using gist(to_tsvector('english',content));
 create trigger textsearchupdate before insert or update on profile for each row
 execute procedure tsvector_update_trigger(textsearch, 'pg_catalog.english', nickname, fullname, location, bio, homepage);
-
 
 create table config (
 
@@ -571,3 +569,23 @@ create table profile_role (
     primary key (profile_id, role)
 
 );
+
+create table location_namespace (
+
+    id integer /*comment 'identity for this namespace'*/,
+    description text /* comment 'description of the namespace'*/ ,
+    created integer not null /*comment 'date the record was created*/ ,
+   /* modified timestamp comment 'date this record was modified',*/
+    primary key (id)
+
+);
+
+create table login_token (
+    user_id integer not null /* comment 'user owning this token'*/ references "user" (id),
+    token char(32) not null /* comment 'token useable for logging in'*/,
+    created timestamp not null DEFAULT CURRENT_TIMESTAMP /* comment 'date this record was created'*/,
+    modified timestamp /* comment 'date this record was modified'*/,
+
+    primary key (user_id)
+);
+

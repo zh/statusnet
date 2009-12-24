@@ -160,12 +160,11 @@ class AllAction extends ProfileAction
 
     function showPageTitle()
     {
-        $user =& common_current_user();
+        $user = common_current_user();
         if ($user && ($user->id == $this->user->id)) {
             $this->element('h1', null, _("You and friends"));
         } else {
             $this->element('h1', null, sprintf(_('%s and friends'), $this->user->nickname));
         }
     }
-
 }

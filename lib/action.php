@@ -68,7 +68,7 @@ class Action extends HTMLOutputter // lawsuit
      * @see XMLOutputter::__construct
      * @see HTMLOutputter::__construct
      */
-    function __construct($output='php://output', $indent=true)
+    function __construct($output='php://output', $indent=null)
     {
         parent::__construct($output, $indent);
     }
@@ -949,6 +949,36 @@ class Action extends HTMLOutputter // lawsuit
         } else {
             return $def;
         }
+    }
+
+    /**
+     * Integer value of an argument
+     *
+     * @param string $key      query key we're interested in
+     * @param string $defValue optional default value (default null)
+     * @param string $maxValue optional max value (default null)
+     * @param string $minValue optional min value (default null)
+     *
+     * @return integer integer value
+     */
+
+    function int($key, $defValue=null, $maxValue=null, $minValue=null)
+    {
+        $arg = strtolower($this->trimmed($key));
+
+        if (is_null($arg) || !is_integer($arg)) {
+            return $defValue;
+        }
+
+        if (!is_null($maxValue)) {
+            $arg = min($arg, $maxValue);
+        }
+
+        if (!is_null($minValue)) {
+            $arg = max($arg, $minValue);
+        }
+
+        return $arg;
     }
 
     /**

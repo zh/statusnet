@@ -30,13 +30,13 @@ class TagotherAction extends Action
     {
         parent::prepare($args);
         if (!common_logged_in()) {
-            $this->clientError(_('Not logged in'), 403);
+            $this->clientError(_('Not logged in.'), 403);
             return false;
         }
 
         $id = $this->trimmed('id');
         if (!$id) {
-            $this->clientError(_('No id argument.'));
+            $this->clientError(_('No ID argument.'));
             return false;
         }
 

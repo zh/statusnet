@@ -57,21 +57,31 @@ var SN = { // StatusNet
     U: { // Utils
         FormNoticeEnhancements: function(form) {
             form_id = form.attr('id');
-            $('#'+form_id+' #'+SN.C.S.NoticeDataText).unbind('keyup');
-            $('#'+form_id+' #'+SN.C.S.NoticeDataText).unbind('keydown');
-            if (maxLength > 0) {
-                $('#'+form_id+' #'+SN.C.S.NoticeDataText).bind('keyup', function(e) {
+
+            if (jQuery.data(form[0], 'ElementData') === undefined) {
+                MaxLength = $('#'+form_id+' #'+SN.C.S.NoticeTextCount).text();
+                if (typeof(MaxLength) == 'undefined') {
+                     MaxLength = SN.C.I.MaxLength;
+                }
+                jQuery.data(form[0], 'ElementData', {MaxLength:MaxLength});
+
+                SN.U.Counter(form);
+
+                NDT = $('#'+form_id+' #'+SN.C.S.NoticeDataText);
+
+                NDT.bind('keyup', function(e) {
                     SN.U.Counter(form);
                 });
-                // run once in case there's something in there
-                SN.U.Counter(form);
+
+                NDT.bind('keydown', function(e) {
+                    SN.U.SubmitOnReturn(e, form);
+                });
+            }
+            else {
+                $('#'+form_id+' #'+SN.C.S.NoticeTextCount).text(jQuery.data(form[0], 'ElementData').MaxLength);
             }
 
-            $('#'+form_id+' #'+SN.C.S.NoticeDataText).bind('keydown', function(e) {
-                SN.U.SubmitOnReturn(e, form);
-            });
-
-            if($('body')[0].id != 'conversation') {
+            if ($('body')[0].id != 'conversation') {
                 $('#'+form_id+' textarea').focus();
             }
         },
@@ -91,15 +101,14 @@ var SN = { // StatusNet
         Counter: function(form) {
             SN.C.I.FormNoticeCurrent = form;
             form_id = form.attr('id');
-            if (typeof(maxLength) == "undefined") {
-                 maxLength = SN.C.I.MaxLength;
-            }
 
-            if (maxLength <= 0) {
+            var MaxLength = jQuery.data(form[0], 'ElementData').MaxLength;
+
+            if (MaxLength <= 0) {
                 return;
             }
 
-            var remaining = maxLength - $('#'+form_id+' #'+SN.C.S.NoticeDataText).val().length;
+            var remaining = MaxLength - $('#'+form_id+' #'+SN.C.S.NoticeDataText).val().length;
             var counter = $('#'+form_id+' #'+SN.C.S.NoticeTextCount);
 
             if (remaining.toString() != counter.text()) {
@@ -184,30 +193,33 @@ var SN = { // StatusNet
                     form.removeClass(SN.C.S.Processing);
                     $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeClass(SN.C.S.Disabled);
                     $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeAttr(SN.C.S.Disabled, SN.C.S.Disabled);
+                    $('#'+form_id+' .form_response').remove();
                     if (textStatus == 'timeout') {
-                        form.append('<p class="error>Sorry! We had trouble sending your notice. The servers are overloaded. Please try again, and contact the site administrator if this problem persists.</p>');
+                        form.append('<p class="form_response error">Sorry! We had trouble sending your notice. The servers are overloaded. Please try again, and contact the site administrator if this problem persists.</p>');
                     }
                     else {
                         if ($('.'+SN.C.S.Error, xhr.responseXML).length > 0) {
                             form.append(document._importNode($('.'+SN.C.S.Error, xhr.responseXML)[0], true));
                         }
                         else {
-                            if(jQuery.inArray(parseInt(xhr.status), SN.C.I.HTTP20x30x) < 0) {
-                                form.append('<p class="error>(Sorry! We had trouble sending your notice ('+xhr.status+' '+xhr.statusText+'). Please report the problem to the site administrator if this happens again.</p>');
+                            if (parseInt(xhr.status) === 0 || jQuery.inArray(parseInt(xhr.status), SN.C.I.HTTP20x30x) >= 0) {
+                                $('#'+form_id).resetForm();
+                                $('#'+form_id+' #'+SN.C.S.NoticeDataAttachSelected).remove();
+                                SN.U.FormNoticeEnhancements($('#'+form_id));
                             }
                             else {
-                                $('#'+form_id+' #'+SN.C.S.NoticeDataText).val('');
-                                SN.U.FormNoticeEnhancements($('#'+form_id));
+                                form.append('<p class="form_response error">(Sorry! We had trouble sending your notice ('+xhr.status+' '+xhr.statusText+'). Please report the problem to the site administrator if this happens again.</p>');
                             }
                         }
                     }
                 },
                 success: function(data, textStatus) {
+                    $('#'+form_id+' .form_response').remove();
                     var result;
                     if ($('#'+SN.C.S.Error, data).length > 0) {
-                        result = document._importNode($('p', data)[0], true);  
+                        result = document._importNode($('p', data)[0], true);
                         result = result.textContent || result.innerHTML;
-                        form.append('<p class="error">'+result+'</p>');
+                        form.append('<p class="form_response error">'+result+'</p>');
                     }
                     else {
                         if($('body')[0].id == 'bookmarklet') {
@@ -217,7 +229,7 @@ var SN = { // StatusNet
                         if ($('#'+SN.C.S.CommandResult, data).length > 0) {
                             result = document._importNode($('p', data)[0], true);
                             result = result.textContent || result.innerHTML;
-                            form.append('<p class="success">'+result+'</p>');
+                            form.append('<p class="form_response success">'+result+'</p>');
                         }
                         else {
                             var notices = $('#notices_primary .notices');
@@ -245,12 +257,10 @@ var SN = { // StatusNet
                             else {
                                 result = document._importNode($('title', data)[0], true);
                                 result_title = result.textContent || result.innerHTML;
-                                form.append('<p class="success">'+result_title+'</p>');
+                                form.append('<p class="form_response success">'+result_title+'</p>');
                             }
                         }
-                        $('#'+form_id+' #'+SN.C.S.NoticeDataText).val('');
-                        $('#'+form_id+' #'+SN.C.S.NoticeDataAttach).val('');
-                        $('#'+form_id+' #'+SN.C.S.NoticeInReplyTo).val('');
+                        $('#'+form_id).resetForm();
                         $('#'+form_id+' #'+SN.C.S.NoticeDataAttachSelected).remove();
                         SN.U.FormNoticeEnhancements($('#'+form_id));
                     }
@@ -305,8 +315,12 @@ var SN = { // StatusNet
             $('.form_disfavor').each(function() { SN.U.FormXHR($(this)); });
         },
 
+        NoticeRepeat: function() {
+            $('.form_repeat').each(function() { SN.U.FormXHR($(this)); });
+        },
+
         NoticeAttachments: function() {
-            $('.notice a.attachment').each(function() { 
+            $('.notice a.attachment').each(function() {
                 SN.U.NoticeWithAttachment($(this).closest('.notice'));
             });
         },
@@ -438,7 +452,7 @@ var SN = { // StatusNet
         Notices: function() {
             if ($('body.user_in').length > 0) {
                 SN.U.NoticeFavor();
-
+                SN.U.NoticeRepeat();
                 SN.U.NoticeReply();
             }
 
@@ -452,6 +466,8 @@ var SN = { // StatusNet
                 $('.form_group_join').each(function() { SN.U.FormXHR($(this)); });
                 $('.form_group_leave').each(function() { SN.U.FormXHR($(this)); });
                 $('.form_user_nudge').each(function() { SN.U.FormXHR($(this)); });
+
+                SN.U.NewDirectMessage();
             }
         }
     }

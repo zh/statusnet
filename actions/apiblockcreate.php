@@ -98,6 +98,17 @@ class ApiBlockCreateAction extends ApiAuthAction
             return;
         }
 
+        // Don't allow blocking yourself!
+
+        if ($this->user->id == $this->other->id) {
+            $this->clientError(
+                _("You cannot block yourself!"),
+                403,
+                $this->format
+            );
+            return;
+        }
+
         if ($this->user->hasBlocked($this->other)
             || $this->user->block($this->other)
         ) {

@@ -75,10 +75,16 @@ class LoginAction extends Action
     function handle($args)
     {
         parent::handle($args);
+
+        $disabled = common_config('logincommand','disabled');
+        $disabled = isset($disabled) && $disabled;
+
         if (common_is_real_login()) {
             $this->clientError(_('Already logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->checkLogin();
+        } else if (!$disabled && isset($args['user_id']) && isset($args['token'])){
+            $this->checkLogin($args['user_id'],$args['token']);
         } else {
             common_ensure_session();
             $this->showForm();
@@ -95,7 +101,7 @@ class LoginAction extends Action
      * @return void
      */
 
-    function checkLogin()
+    function checkLogin($user_id=null, $token=null)
     {
         if(isset($token) && isset($user_id)){
             //Token based login (from the LoginCommand)
@@ -136,11 +142,6 @@ class LoginAction extends Action
 
             $user = common_check_user($nickname, $password);
         }
-
-        $nickname = common_canonical_nickname($this->trimmed('nickname'));
-        $password = $this->arg('password');
-
-        $user = common_check_user($nickname, $password);
 
         if (!$user) {
             $this->showForm(_('Incorrect username or password.'));

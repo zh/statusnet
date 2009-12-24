@@ -71,7 +71,7 @@ class TwitapisearchatomAction extends ApiAction
      * @see Action::__construct
      */
 
-    function __construct($output='php://output', $indent=true)
+    function __construct($output='php://output', $indent=null)
     {
         parent::__construct($output, $indent);
     }

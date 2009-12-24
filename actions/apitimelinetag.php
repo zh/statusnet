@@ -98,6 +98,7 @@ class ApiTimelineTagAction extends ApiPrivateAuthAction
     function showTimeline()
     {
         $sitename   = common_config('site', 'name');
+        $sitelogo   = (common_config('site', 'logo')) ? common_config('site', 'logo') : Theme::path('logo.png');
         $title      = sprintf(_("Notices tagged with %s"), $this->tag);
         $link       = common_local_url(
             'tag',
@@ -116,7 +117,7 @@ class ApiTimelineTagAction extends ApiPrivateAuthAction
             $this->showXmlTimeline($this->notices);
             break;
         case 'rss':
-            $this->showRssTimeline($this->notices, $title, $link, $subtitle);
+            $this->showRssTimeline($this->notices, $title, $link, $subtitle, null, $sitelogo);
             break;
         case 'atom':
             $selfuri = common_root_url() .
@@ -129,7 +130,8 @@ class ApiTimelineTagAction extends ApiPrivateAuthAction
                 $link,
                 $subtitle,
                 null,
-                $selfuri
+                $selfuri,
+                $sitelogo
             );
             break;
         case 'json':

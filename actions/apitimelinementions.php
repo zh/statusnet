@@ -110,6 +110,7 @@ class ApiTimelineMentionsAction extends ApiBareAuthAction
     function showTimeline()
     {
         $profile = $this->user->getProfile();
+        $avatar     = $profile->getAvatar(AVATAR_PROFILE_SIZE);
 
         $sitename   = common_config('site', 'name');
         $title      = sprintf(
@@ -126,20 +127,21 @@ class ApiTimelineMentionsAction extends ApiBareAuthAction
             _('%1$s updates that reply to updates from %2$s / %3$s.'),
             $sitename, $this->user->nickname, $profile->getBestName()
         );
+        $logo = ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_PROFILE_SIZE);
 
         switch($this->format) {
         case 'xml':
             $this->showXmlTimeline($this->notices);
             break;
         case 'rss':
-            $this->showRssTimeline($this->notices, $title, $link, $subtitle);
+            $this->showRssTimeline($this->notices, $title, $link, $subtitle, null, $logo);
             break;
         case 'atom':
             $selfuri = common_root_url() .
                 ltrim($_SERVER['QUERY_STRING'], 'p=');
             $this->showAtomTimeline(
                 $this->notices, $title, $id, $link, $subtitle,
-                null, $selfuri
+                null, $selfuri, $logo
             );
             break;
         case 'json':

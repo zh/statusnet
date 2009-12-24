@@ -67,10 +67,13 @@ class XMLOutputter
      * @param boolean $indent Whether to indent output, default true
      */
 
-    function __construct($output='php://output', $indent=true)
+    function __construct($output='php://output', $indent=null)
     {
         $this->xw = new XMLWriter();
         $this->xw->openURI($output);
+        if(is_null($indent)) {
+            $indent = common_config('site', 'indent');
+        }
         $this->xw->setIndent($indent);
     }
 
