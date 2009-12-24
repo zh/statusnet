@@ -191,10 +191,6 @@ class SiteadminpanelAction extends AdminPanelAction
             $this->clientError(_("Snapshot frequency must be a number."));
         }
 
-        if (mb_strlen($values['site']['sslserver']) > 255) {
-            $this->clientError(_("Invalid SSL server. The maximum length is 255 characters."));
-        }
-
         // Validate text limit
 
         if (!Validate::number($values['site']['textlimit'], array('min' => 140))) {
