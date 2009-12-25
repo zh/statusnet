@@ -92,8 +92,7 @@ class SiteadminpanelAction extends AdminPanelAction
     {
         static $settings = array('site' => array('name', 'broughtby', 'broughtbyurl',
                                                  'email', 'timezone', 'language',
-                                                 'ssl', 'sslserver', 'site',
-                                                 'textlimit', 'dupelimit'),
+                                                 'site', 'textlimit', 'dupelimit'),
                                  'snapshot' => array('run', 'reporturl', 'frequency'));
 
         static $booleans = array('site' => array('private', 'inviteonly', 'closed', 'fancy'));
@@ -190,18 +189,6 @@ class SiteadminpanelAction extends AdminPanelAction
 
         if (!Validate::number($values['snapshot']['frequency'])) {
             $this->clientError(_("Snapshot frequency must be a number."));
-        }
-
-        // Validate SSL setup
-
-        if (in_array($values['site']['ssl'], array('sometimes', 'always'))) {
-            if (empty($values['site']['sslserver'])) {
-                $this->clientError(_("You must set an SSL server when enabling SSL."));
-            }
-        }
-
-        if (mb_strlen($values['site']['sslserver']) > 255) {
-            $this->clientError(_("Invalid SSL server. The maximum length is 255 characters."));
         }
 
         // Validate text limit
@@ -372,26 +359,6 @@ class SiteAdminPanelForm extends AdminForm
         $this->input('reporturl', _('Report URL'),
                      _('Snapshots will be sent to this URL'),
                      'snapshot');
-        $this->unli();
-        $this->out->elementEnd('ul');
-        $this->out->elementEnd('fieldset');
-
-        $this->out->elementStart('fieldset', array('id' => 'settings_admin_ssl'));
-        $this->out->element('legend', null, _('SSL'));
-        $this->out->elementStart('ul', 'form_data');
-        $this->li();
-        $ssl = array('never' => _('Never'),
-                     'sometimes' => _('Sometimes'),
-                     'always' => _('Always'));
-
-        $this->out->dropdown('ssl', _('Use SSL'),
-                             $ssl, _('When to use SSL'),
-                             false, $this->value('ssl', 'site'));
-        $this->unli();
-
-        $this->li();
-        $this->input('sslserver', _('SSL Server'),
-                     _('Server to direct SSL requests to'));
         $this->unli();
         $this->out->elementEnd('ul');
         $this->out->elementEnd('fieldset');

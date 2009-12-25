@@ -92,7 +92,7 @@ class PathsadminpanelAction extends AdminPanelAction
     function saveSettings()
     {
         static $settings = array(
-            'site' => array('path', 'locale_path'),
+            'site' => array('path', 'locale_path', 'ssl', 'sslserver'),
             'theme' => array('server', 'dir', 'path'),
             'avatar' => array('server', 'dir', 'path'),
             'background' => array('server', 'dir', 'path')
@@ -160,6 +160,11 @@ class PathsadminpanelAction extends AdminPanelAction
             $this->clientError(sprintf(_("Locales directory not readable: %s"), $values['site']['locale_path']));
         }
 
+        // Validate SSL setup
+
+        if (mb_strlen($values['site']['sslserver']) > 255) {
+            $this->clientError(_("Invalid SSL server. The maximum length is 255 characters."));
+        }
     }
 
 }
@@ -283,6 +288,29 @@ class PathsAdminPanelForm extends AdminForm
 
         $this->out->elementEnd('ul');
         $this->out->elementEnd('fieldset');
+
+        $this->out->elementStart('fieldset', array('id' => 'settings_admin_ssl'));
+        $this->out->element('legend', null, _('SSL'));
+        $this->out->elementStart('ul', 'form_data');
+        $this->li();
+        $ssl = array('never' => _('Never'),
+                     'sometimes' => _('Sometimes'),
+                     'always' => _('Always'));
+
+        common_debug("site ssl = " . $this->value('site', 'ssl'));
+
+        $this->out->dropdown('site-ssl', _('Use SSL'),
+                             $ssl, _('When to use SSL'),
+                             false, $this->value('ssl', 'site'));
+        $this->unli();
+
+        $this->li();
+        $this->input('sslserver', _('SSL Server'),
+                     _('Server to direct SSL requests to'), 'site');
+        $this->unli();
+        $this->out->elementEnd('ul');
+        $this->out->elementEnd('fieldset');
+
     }
 
     /**
@@ -296,7 +324,6 @@ class PathsAdminPanelForm extends AdminForm
         $this->out->submit('save', _('Save'), 'submit',
                 'save', _('Save paths'));
     }
-
 
     /**
      * Utility to simplify some of the duplicated code around
