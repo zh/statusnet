@@ -43,7 +43,8 @@ if (!defined('STATUSNET')) {
 
 class AdminprofileflagAction extends Action
 {
-    var $page = null;
+    var $page     = null;
+    var $profiles = null;
 
     /**
      * Take arguments for running
@@ -90,13 +91,13 @@ class AdminprofileflagAction extends Action
             return false;
         }
 
-        $page = $this->int('page');
+        $this->page = $this->trimmed('page');
 
-        if (empty($page)) {
+        if (empty($this->page)) {
             $this->page = 1;
-        } else {
-            $this->page = $page;
         }
+
+        $this->profiles = $this->getProfiles();
 
         return true;
     }
@@ -128,11 +129,12 @@ class AdminprofileflagAction extends Action
 
     function showContent()
     {
-        $profile = $this->getProfiles();
+        $pl = new FlaggedProfileList($this->profiles, $this);
 
-        $pl = new FlaggedProfileList($profile, $this);
+        $cnt = $pl->show();
 
-        $pl->show();
+        $this->pagination($this->page > 1, $cnt > PROFILES_PER_PAGE,
+                          $this->page, 'adminprofileflag');
     }
 
     function getProfiles()
@@ -146,7 +148,12 @@ class AdminprofileflagAction extends Action
         $ufp->whereAdd('cleared is NULL');
 
         $ufp->groupBy('profile_id');
-        $ufp->orderBy('flag_count DESC');
+        $ufp->orderBy('flag_count DESC, profile_id DESC');
+
+        $offset = ($this->page-1) * PROFILES_PER_PAGE;
+        $limit =  PROFILES_PER_PAGE + 1;
+
+        $ufp->limit($offset, $limit);
 
         $profiles = array();
 
