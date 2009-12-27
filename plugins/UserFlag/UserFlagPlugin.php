@@ -43,6 +43,8 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 
 class UserFlagPlugin extends Plugin
 {
+    const REVIEWFLAGS = 'UserFlagPlugin::reviewflags';
+
     function onCheckSchema()
     {
         $schema = Schema::get();
@@ -138,7 +140,7 @@ class UserFlagPlugin extends Plugin
 
     function onEndShowStatusNetStyles($action)
     {
-        $action->cssLink(common_path('plugins/UserFlag/userflag.css'), 
+        $action->cssLink(common_path('plugins/UserFlag/userflag.css'),
                          null, 'screen, projection, tv');
         return true;
     }
@@ -147,5 +149,13 @@ class UserFlagPlugin extends Plugin
     {
         $action->inlineScript('if ($(".form_entity_flag").length > 0) { SN.U.FormXHR($(".form_entity_flag")); }');
         return true;
+    }
+
+    function onUserRightsCheck($user, $right, &$result) {
+        if ($right == self::REVIEWFLAGS) {
+            $result = $user->hasRole('moderator');
+            return false; // done processing!
+        }
+        return true; // unchanged!
     }
 }

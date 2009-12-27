@@ -43,6 +43,8 @@ if (!defined('STATUSNET')) {
 
 class AdminprofileflagAction extends Action
 {
+    var $page = null;
+
     /**
      * Take arguments for running
      *
@@ -54,6 +56,47 @@ class AdminprofileflagAction extends Action
     function prepare($args)
     {
         parent::prepare($args);
+
+        $user = common_current_user();
+
+        // User must be logged in.
+
+        if (!common_logged_in()) {
+            $this->clientError(_('Not logged in.'));
+            return;
+        }
+
+        $user = common_current_user();
+
+        // ...because they're logged in
+
+        assert(!empty($user));
+
+        // It must be a "real" login, not saved cookie login
+
+        if (!common_is_real_login()) {
+            // Cookie theft is too easy; we require automatic
+            // logins to re-authenticate before admining the site
+            common_set_returnto($this->selfUrl());
+            if (Event::handle('RedirectToLogin', array($this, $user))) {
+                common_redirect(common_local_url('login'), 303);
+            }
+        }
+
+        // User must have the right to review flags
+
+        if (!$user->hasRight(UserFlagPlugin::REVIEWFLAGS)) {
+            $this->clientError(_('You cannot review profile flags.'));
+            return false;
+        }
+
+        $page = $this->int('page');
+
+        if (empty($page)) {
+            $this->page = 1;
+        } else {
+            $this->page = $page;
+        }
 
         return true;
     }
