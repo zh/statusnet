@@ -46,6 +46,8 @@ class UserFlagPlugin extends Plugin
     const REVIEWFLAGS = 'UserFlagPlugin::reviewflags';
     const CLEARFLAGS  = 'UserFlagPlugin::clearflags';
 
+    public $flagOnBlock = true;
+
     /**
      * Hook for ensuring our tables are created
      *
@@ -234,5 +236,24 @@ class UserFlagPlugin extends Plugin
         }
 
         return true; // unchanged!
+    }
+
+    /**
+     * Optionally flag profile when a block happens
+     *
+     * We optionally add a flag when a profile has been blocked
+     *
+     * @param User    $user    User doing the block
+     * @param Profile $profile Profile being blocked
+     *
+     * @return boolean hook result
+     */
+
+    function onEndBlockProfile($user, $profile)
+    {
+        if ($this->flagOnBlock) {
+            User_flag_profile::create($user->id, $profile->id);
+        }
+        return true;
     }
 }
