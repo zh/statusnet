@@ -289,21 +289,11 @@ class Notice extends Memcached_DataObject
         if (!empty($lat) && !empty($lon)) {
             $notice->lat = $lat;
             $notice->lon = $lon;
+        }
+
+        if (!empty($location_ns) && !empty($location_id)) {
             $notice->location_id = $location_id;
             $notice->location_ns = $location_ns;
-        } else if (!empty($location_ns) && !empty($location_id)) {
-            $location = Location::fromId($location_id, $location_ns);
-            if (!empty($location)) {
-                $notice->lat = $location->lat;
-                $notice->lon = $location->lon;
-                $notice->location_id = $location_id;
-                $notice->location_ns = $location_ns;
-            }
-        } else {
-            $notice->lat         = $profile->lat;
-            $notice->lon         = $profile->lon;
-            $notice->location_id = $profile->location_id;
-            $notice->location_ns = $profile->location_ns;
         }
 
         if (Event::handle('StartNoticeSave', array(&$notice))) {
@@ -1428,5 +1418,48 @@ class Notice extends Memcached_DataObject
         $notice = NULL;
 
         return $ids;
+    }
+
+    function locationOptions($lat, $lon, $location_id, $location_ns, $profile = null)
+    {
+        $options = array();
+
+        if (!empty($location_id) && !empty($location_ns)) {
+
+            $options['location_id'] = $location_id;
+            $options['location_ns'] = $location_ns;
+
+            $location = Location::fromId($location_id, $location_ns);
+
+            if (!empty($location)) {
+                $options['lat'] = $location->lat;
+                $options['lon'] = $location->lon;
+            }
+
+        } else if (!empty($lat) && !empty($lon)) {
+
+            $options['lat'] = $lat;
+            $options['lon'] = $lon;
+
+            $location = Location::fromLatLon($lat, $lon);
+
+            if (!empty($location)) {
+                $options['location_id'] = $location->location_id;
+                $options['location_ns'] = $location->location_ns;
+            }
+        } else if (!empty($profile)) {
+
+            if (isset($profile->lat) && isset($profile->lon)) {
+                $options['lat'] = $profile->lat;
+                $options['lon'] = $profile->lon;
+            }
+
+            if (isset($profile->location_id) && isset($profile->location_ns)) {
+                $options['location_id'] = $profile->location_id;
+                $options['location_ns'] = $profile->location_ns;
+            }
+        }
+
+        return $options;
     }
 }
