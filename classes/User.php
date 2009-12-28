@@ -999,17 +999,25 @@ class User extends Memcached_DataObject
 
     function shareLocation()
     {
-        $share = true;
+        $cfg = common_config('location', 'share');
 
-        $prefs = User_location_prefs::staticGet('user_id', $this->id);
+        if ($cfg == 'always') {
+            return true;
+        } else if ($cfg == 'never') {
+            return false;
+        } else { // user
+            $share = true;
 
-        if (empty($prefs)) {
-            $share = common_config('location', 'share');
-        } else {
-            $share = $prefs->share_location;
-            $prefs->free();
+            $prefs = User_location_prefs::staticGet('user_id', $this->id);
+
+            if (empty($prefs)) {
+                $share = common_config('location', 'sharedefault');
+            } else {
+                $share = $prefs->share_location;
+                $prefs->free();
+            }
+
+            return $share;
         }
-
-        return $share;
     }
 }
