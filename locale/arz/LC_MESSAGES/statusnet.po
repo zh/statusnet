@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-21 21:17+0000\n"
-"PO-Revision-Date: 2009-12-22 22:38:19+0000\n"
+"POT-Creation-Date: 2009-12-25 09:42+0000\n"
+"PO-Revision-Date: 2009-12-28 08:09:44+0000\n"
 "Language-Team: Egyptian Spoken Arabic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60291); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60437); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: arz\n"
 "X-Message-Group: out-statusnet\n"
@@ -120,9 +120,8 @@ msgstr ""
 #: actions/apiaccountupdateprofile.php:97
 #: actions/apiaccountupdateprofilebackgroundimage.php:94
 #: actions/apiaccountupdateprofilecolors.php:118
-#, fuzzy
 msgid "API method not found."
-msgstr "لم يوجد رمز التأكيد."
+msgstr "لم يتم العثور على وسيلة API."
 
 #: actions/apiaccountupdatedeliverydevice.php:85
 #: actions/apiaccountupdateprofile.php:89
@@ -158,9 +157,8 @@ msgid "User has no profile."
 msgstr "ليس للمستخدم ملف شخصى."
 
 #: actions/apiaccountupdateprofile.php:147
-#, fuzzy
 msgid "Could not save profile."
-msgstr "تعذّر حفظ الملف الشخصى."
+msgstr "لم يمكن حفظ الملف."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97
@@ -186,9 +184,8 @@ msgid "Could not update your design."
 msgstr "تعذّر تحديث تصميمك."
 
 #: actions/apiblockcreate.php:105
-#, fuzzy
 msgid "You cannot block yourself!"
-msgstr "لا يمكنك حذف المستخدمين."
+msgstr "ا يمكنك منع نفسك!"
 
 #: actions/apiblockcreate.php:119
 msgid "Block user failed."
@@ -431,14 +428,12 @@ msgid "No such notice."
 msgstr "لا إشعار كهذا."
 
 #: actions/apistatusesretweet.php:83
-#, fuzzy
 msgid "Cannot repeat your own notice."
-msgstr "لا يمكنك إسكات المستخدمين على هذا الموقع."
+msgstr "لا يمكنك تكرار ملحوظتك الخاصة."
 
 #: actions/apistatusesretweet.php:91
-#, fuzzy
 msgid "Already repeated that notice."
-msgstr "احذف هذا الإشعار"
+msgstr "كرر بالفعل هذه الملاحظة."
 
 #: actions/apistatusesshow.php:138
 msgid "Status deleted."
@@ -458,7 +453,7 @@ msgstr ""
 msgid "Not found"
 msgstr "لم يوجد"
 
-#: actions/apistatusesupdate.php:227 actions/newnotice.php:183
+#: actions/apistatusesupdate.php:227 actions/newnotice.php:191
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -515,14 +510,14 @@ msgid "Repeated by %s"
 msgstr ""
 
 #: actions/apitimelineretweetedtome.php:111
-#, fuzzy, php-format
+#, php-format
 msgid "Repeated to %s"
-msgstr "الردود على %s"
+msgstr "كرر إلى %s"
 
 #: actions/apitimelineretweetsofme.php:112
-#, fuzzy, php-format
+#, php-format
 msgid "Repeats of %s"
-msgstr "الردود على %s"
+msgstr "تكرارات %s"
 
 #: actions/apitimelinetag.php:102 actions/tag.php:66
 #, php-format
@@ -668,6 +663,7 @@ msgstr "لا تمنع هذا المستخدم"
 
 #: actions/block.php:144 actions/deletenotice.php:146
 #: actions/deleteuser.php:148 actions/groupblock.php:179
+#: lib/repeatform.php:132
 msgid "Yes"
 msgstr "نعم"
 
@@ -941,8 +937,8 @@ msgstr "ارجع إلى المبدئي"
 
 #: actions/designadminpanel.php:586 actions/emailsettings.php:195
 #: actions/imsettings.php:163 actions/othersettings.php:126
-#: actions/pathsadminpanel.php:296 actions/profilesettings.php:167
-#: actions/siteadminpanel.php:421 actions/smssettings.php:181
+#: actions/pathsadminpanel.php:324 actions/profilesettings.php:167
+#: actions/siteadminpanel.php:388 actions/smssettings.php:181
 #: actions/subscriptions.php:203 actions/tagother.php:154
 #: actions/useradminpanel.php:313 lib/designsettings.php:256
 #: lib/groupeditform.php:202
@@ -1110,7 +1106,7 @@ msgstr "لا عنوان بريد إلكترونى."
 msgid "Cannot normalize that email address"
 msgstr ""
 
-#: actions/emailsettings.php:331 actions/siteadminpanel.php:158
+#: actions/emailsettings.php:331 actions/siteadminpanel.php:157
 msgid "Not a valid email address"
 msgstr "ليس عنوان بريد صالح"
 
@@ -1234,29 +1230,25 @@ msgid "Featured users, page %d"
 msgstr "مستخدمون مختارون، صفحه %d"
 
 #: actions/featured.php:99
-#, fuzzy, php-format
+#, php-format
 msgid "A selection of some great users on %s"
-msgstr "قسم للمستخدمين المتميزين على %s"
+msgstr "اختيار لبعض المستخدمين المتميزين على %s"
 
 #: actions/file.php:34
-#, fuzzy
 msgid "No notice ID."
-msgstr "لا إشعار"
+msgstr "لا رقم ملاحظة."
 
 #: actions/file.php:38
-#, fuzzy
 msgid "No notice."
-msgstr "لا إشعار"
+msgstr "لا ملاحظة."
 
 #: actions/file.php:42
-#, fuzzy
 msgid "No attachments."
-msgstr "لا مرفقات"
+msgstr "لا مرفقات."
 
 #: actions/file.php:51
-#, fuzzy
 msgid "No uploaded attachments."
-msgstr "لا مرفقات مرفوعة"
+msgstr "لا مرفقات مرفوعة."
 
 #: actions/finishremotesubscribe.php:69
 msgid "Not expecting this response!"
@@ -1886,7 +1878,7 @@ msgstr "أُرسلت الرسالة"
 msgid "Direct message to %s sent"
 msgstr ""
 
-#: actions/newmessage.php:210 actions/newnotice.php:242 lib/channel.php:170
+#: actions/newmessage.php:210 actions/newnotice.php:250 lib/channel.php:170
 msgid "Ajax Error"
 msgstr "خطأ أجاكس"
 
@@ -1894,7 +1886,7 @@ msgstr "خطأ أجاكس"
 msgid "New notice"
 msgstr "إشعار جديد"
 
-#: actions/newnotice.php:208
+#: actions/newnotice.php:216
 msgid "Notice posted"
 msgstr "أُرسل الإشعار"
 
@@ -2116,76 +2108,112 @@ msgstr "لا يمكن الكتابه فى دليل الخلفيات: %s"
 msgid "Locales directory not readable: %s"
 msgstr "لا يمكن قراءه دليل المحليات: %s"
 
-#: actions/pathsadminpanel.php:212 actions/siteadminpanel.php:58
+#: actions/pathsadminpanel.php:166
+msgid "Invalid SSL server. The maximum length is 255 characters."
+msgstr ""
+
+#: actions/pathsadminpanel.php:217 actions/siteadminpanel.php:58
 #: lib/adminpanelaction.php:299
 msgid "Site"
 msgstr "الموقع"
 
-#: actions/pathsadminpanel.php:216
+#: actions/pathsadminpanel.php:221
 msgid "Path"
 msgstr "المسار"
 
-#: actions/pathsadminpanel.php:216
+#: actions/pathsadminpanel.php:221
 msgid "Site path"
 msgstr "مسار الموقع"
 
-#: actions/pathsadminpanel.php:220
+#: actions/pathsadminpanel.php:225
 msgid "Path to locales"
 msgstr "مسار المحليات"
 
-#: actions/pathsadminpanel.php:220
+#: actions/pathsadminpanel.php:225
 msgid "Directory path to locales"
 msgstr "مسار دليل المحليات"
 
-#: actions/pathsadminpanel.php:227
+#: actions/pathsadminpanel.php:232
 msgid "Theme"
 msgstr "السمة"
 
-#: actions/pathsadminpanel.php:232
+#: actions/pathsadminpanel.php:237
 msgid "Theme server"
 msgstr "خادوم السمات"
 
-#: actions/pathsadminpanel.php:236
+#: actions/pathsadminpanel.php:241
 msgid "Theme path"
 msgstr "مسار السمات"
 
-#: actions/pathsadminpanel.php:240
+#: actions/pathsadminpanel.php:245
 msgid "Theme directory"
 msgstr "دليل السمات"
 
-#: actions/pathsadminpanel.php:247
+#: actions/pathsadminpanel.php:252
 msgid "Avatars"
 msgstr "أفتارات"
 
-#: actions/pathsadminpanel.php:252
+#: actions/pathsadminpanel.php:257
 msgid "Avatar server"
 msgstr "خادوم الأفتارات"
 
-#: actions/pathsadminpanel.php:256
+#: actions/pathsadminpanel.php:261
 msgid "Avatar path"
 msgstr "مسار الأفتارات"
 
-#: actions/pathsadminpanel.php:260
+#: actions/pathsadminpanel.php:265
 msgid "Avatar directory"
 msgstr "دليل الأفتار."
 
-#: actions/pathsadminpanel.php:269
+#: actions/pathsadminpanel.php:274
 msgid "Backgrounds"
 msgstr "خلفيات"
 
-#: actions/pathsadminpanel.php:273
+#: actions/pathsadminpanel.php:278
 msgid "Background server"
 msgstr "خادوم الخلفيات"
 
-#: actions/pathsadminpanel.php:277
+#: actions/pathsadminpanel.php:282
 msgid "Background path"
 msgstr "مسار الخلفيات"
 
-#: actions/pathsadminpanel.php:281
+#: actions/pathsadminpanel.php:286
 msgid "Background directory"
 msgstr "دليل الخلفيات"
 
+#: actions/pathsadminpanel.php:293
+msgid "SSL"
+msgstr "SSL"
+
+#: actions/pathsadminpanel.php:296 actions/siteadminpanel.php:346
+msgid "Never"
+msgstr "مطلقا"
+
 #: actions/pathsadminpanel.php:297
+msgid "Sometimes"
+msgstr "أحيانًا"
+
+#: actions/pathsadminpanel.php:298
+msgid "Always"
+msgstr "دائمًا"
+
+#: actions/pathsadminpanel.php:302
+msgid "Use SSL"
+msgstr "استخدم SSL"
+
+#: actions/pathsadminpanel.php:303
+msgid "When to use SSL"
+msgstr ""
+
+#: actions/pathsadminpanel.php:308
+msgid "SSL Server"
+msgstr "خادوم SSL"
+
+#: actions/pathsadminpanel.php:309
+msgid "Server to direct SSL requests to"
+msgstr ""
+
+#: actions/pathsadminpanel.php:325
 msgid "Save paths"
 msgstr "احفظ المسارات"
 
@@ -2286,7 +2314,7 @@ msgid ""
 "Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
 msgstr ""
 
-#: actions/profilesettings.php:144 actions/siteadminpanel.php:307
+#: actions/profilesettings.php:144 actions/siteadminpanel.php:294
 msgid "Language"
 msgstr "اللغة"
 
@@ -2312,7 +2340,7 @@ msgstr ""
 msgid "Bio is too long (max %d chars)."
 msgstr ""
 
-#: actions/profilesettings.php:228 actions/siteadminpanel.php:165
+#: actions/profilesettings.php:228 actions/siteadminpanel.php:164
 msgid "Timezone not selected."
 msgstr "لم تُختر المنطقه الزمنيه."
 
@@ -2616,7 +2644,7 @@ msgid "Same as password above. Required."
 msgstr "نفس كلمه السر أعلاه. مطلوب."
 
 #: actions/register.php:437 actions/register.php:441
-#: actions/siteadminpanel.php:283 lib/accountsettingsaction.php:120
+#: actions/siteadminpanel.php:270 lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr "البريد الإلكتروني"
 
@@ -2725,29 +2753,24 @@ msgid "Only logged-in users can repeat notices."
 msgstr ""
 
 #: actions/repeat.php:64 actions/repeat.php:71
-#, fuzzy
 msgid "No notice specified."
-msgstr "لا ملف شخصى مُحدّد."
+msgstr "لا ملاحظة محددة."
 
 #: actions/repeat.php:76
-#, fuzzy
 msgid "You can't repeat your own notice."
-msgstr "لا يمكنك إسكات المستخدمين على هذا الموقع."
+msgstr "لا يمكنك تكرار ملاحظتك الشخصية."
 
 #: actions/repeat.php:90
-#, fuzzy
 msgid "You already repeated that notice."
-msgstr "لقد منعت مسبقا هذا المستخدم."
+msgstr "أنت كررت هذه الملاحظة بالفعل."
 
 #: actions/repeat.php:114 lib/noticelist.php:621
-#, fuzzy
 msgid "Repeated"
-msgstr "أنشئ"
+msgstr "مكرر"
 
 #: actions/repeat.php:119
-#, fuzzy
 msgid "Repeated!"
-msgstr "أنشئ"
+msgstr "مكرر!"
 
 #: actions/replies.php:125 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
@@ -3052,9 +3075,9 @@ msgid ""
 msgstr ""
 
 #: actions/showstream.php:313
-#, fuzzy, php-format
+#, php-format
 msgid "Repeat of %s"
-msgstr "الردود على %s"
+msgstr "تكرارات %s"
 
 #: actions/silence.php:65 actions/unsilence.php:65
 msgid "You cannot silence users on this site."
@@ -3068,233 +3091,192 @@ msgstr "المستخدم مسكت من قبل."
 msgid "Basic settings for this StatusNet site."
 msgstr "الإعدادات الأساسيه لموقع StatusNet هذا."
 
-#: actions/siteadminpanel.php:147
+#: actions/siteadminpanel.php:146
 msgid "Site name must have non-zero length."
 msgstr "يجب ألا يكون طول اسم الموقع صفرًا."
 
-#: actions/siteadminpanel.php:155
+#: actions/siteadminpanel.php:154
 msgid "You must have a valid contact email address"
 msgstr "يجب أن تملك عنوان بريد إلكترونى صالح للاتصال"
 
-#: actions/siteadminpanel.php:173
+#: actions/siteadminpanel.php:172
 #, php-format
 msgid "Unknown language \"%s\""
 msgstr "لغه غير معروفه \"%s\""
 
-#: actions/siteadminpanel.php:180
+#: actions/siteadminpanel.php:179
 msgid "Invalid snapshot report URL."
 msgstr ""
 
-#: actions/siteadminpanel.php:186
+#: actions/siteadminpanel.php:185
 msgid "Invalid snapshot run value."
 msgstr ""
 
-#: actions/siteadminpanel.php:192
+#: actions/siteadminpanel.php:191
 msgid "Snapshot frequency must be a number."
 msgstr ""
 
-#: actions/siteadminpanel.php:199
-msgid "You must set an SSL server when enabling SSL."
-msgstr ""
-
-#: actions/siteadminpanel.php:204
-msgid "Invalid SSL server. The maximum length is 255 characters."
-msgstr ""
-
-#: actions/siteadminpanel.php:210
+#: actions/siteadminpanel.php:197
 msgid "Minimum text limit is 140 characters."
 msgstr "حد النص الأدنى هو 140 حرفًا."
 
-#: actions/siteadminpanel.php:216
+#: actions/siteadminpanel.php:203
 msgid "Dupe limit must 1 or more seconds."
 msgstr ""
 
-#: actions/siteadminpanel.php:266
+#: actions/siteadminpanel.php:253
 msgid "General"
 msgstr "عام"
 
-#: actions/siteadminpanel.php:269
+#: actions/siteadminpanel.php:256
 msgid "Site name"
 msgstr "اسم الموقع"
 
-#: actions/siteadminpanel.php:270
+#: actions/siteadminpanel.php:257
 msgid "The name of your site, like \"Yourcompany Microblog\""
 msgstr "اسم موقعك، \"التدوين المصغر لشركتك\" مثلا"
 
-#: actions/siteadminpanel.php:274
+#: actions/siteadminpanel.php:261
 msgid "Brought by"
 msgstr ""
 
-#: actions/siteadminpanel.php:275
+#: actions/siteadminpanel.php:262
 msgid "Text used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:279
+#: actions/siteadminpanel.php:266
 msgid "Brought by URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:280
+#: actions/siteadminpanel.php:267
 msgid "URL used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:284
+#: actions/siteadminpanel.php:271
 msgid "Contact email address for your site"
 msgstr "عنوان البريد الإلكترونى للاتصال بموقعك"
 
-#: actions/siteadminpanel.php:290
+#: actions/siteadminpanel.php:277
 msgid "Local"
 msgstr "محلي"
 
-#: actions/siteadminpanel.php:301
+#: actions/siteadminpanel.php:288
 msgid "Default timezone"
 msgstr "المنطقه الزمنيه المبدئية"
 
-#: actions/siteadminpanel.php:302
+#: actions/siteadminpanel.php:289
 msgid "Default timezone for the site; usually UTC."
 msgstr "المنطقه الزمنيه المبدئيه للموقع؛ ت‌ع‌م عاده."
 
-#: actions/siteadminpanel.php:308
+#: actions/siteadminpanel.php:295
 msgid "Default site language"
 msgstr "لغه الموقع المبدئية"
 
-#: actions/siteadminpanel.php:316
+#: actions/siteadminpanel.php:303
 msgid "URLs"
 msgstr "مسارات"
 
-#: actions/siteadminpanel.php:319
+#: actions/siteadminpanel.php:306
 msgid "Server"
 msgstr "خادوم"
 
-#: actions/siteadminpanel.php:319
+#: actions/siteadminpanel.php:306
 msgid "Site's server hostname."
 msgstr "اسم مضيف خادوم الموقع."
 
-#: actions/siteadminpanel.php:323
+#: actions/siteadminpanel.php:310
 msgid "Fancy URLs"
 msgstr "مسارات فاخرة"
 
-#: actions/siteadminpanel.php:325
+#: actions/siteadminpanel.php:312
 msgid "Use fancy (more readable and memorable) URLs?"
 msgstr "أأستخدم مسارات فاخره (يمكن قراءتها وتذكرها بسهوله أكبر)؟"
 
-#: actions/siteadminpanel.php:331
+#: actions/siteadminpanel.php:318
 msgid "Access"
 msgstr "نفاذ"
 
-#: actions/siteadminpanel.php:334
+#: actions/siteadminpanel.php:321
 msgid "Private"
 msgstr "خاص"
 
-#: actions/siteadminpanel.php:336
+#: actions/siteadminpanel.php:323
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr "أأمنع المستخدمين المجهولين (غير الوالجين) من عرض الموقع؟"
 
-#: actions/siteadminpanel.php:340
-#, fuzzy
+#: actions/siteadminpanel.php:327
 msgid "Invite only"
-msgstr "ادعُ"
+msgstr "بالدعوه فقط"
 
-#: actions/siteadminpanel.php:342
+#: actions/siteadminpanel.php:329
 msgid "Make registration invitation only."
 msgstr ""
 
-#: actions/siteadminpanel.php:346
+#: actions/siteadminpanel.php:333
 msgid "Closed"
 msgstr "مُغلق"
 
-#: actions/siteadminpanel.php:348
+#: actions/siteadminpanel.php:335
 msgid "Disable new registrations."
 msgstr "عطّل التسجيل الجديد."
 
-#: actions/siteadminpanel.php:354
+#: actions/siteadminpanel.php:341
 msgid "Snapshots"
 msgstr ""
 
-#: actions/siteadminpanel.php:357
+#: actions/siteadminpanel.php:344
 msgid "Randomly during Web hit"
 msgstr ""
 
-#: actions/siteadminpanel.php:358
+#: actions/siteadminpanel.php:345
 msgid "In a scheduled job"
 msgstr "فى مهمه مُجدولة"
 
-#: actions/siteadminpanel.php:359 actions/siteadminpanel.php:383
-msgid "Never"
-msgstr "مطلقا"
-
-#: actions/siteadminpanel.php:360
+#: actions/siteadminpanel.php:347
 msgid "Data snapshots"
 msgstr ""
 
-#: actions/siteadminpanel.php:361
+#: actions/siteadminpanel.php:348
 msgid "When to send statistical data to status.net servers"
 msgstr ""
 
-#: actions/siteadminpanel.php:366
+#: actions/siteadminpanel.php:353
 msgid "Frequency"
 msgstr "التكرار"
 
-#: actions/siteadminpanel.php:367
+#: actions/siteadminpanel.php:354
 msgid "Snapshots will be sent once every N web hits"
 msgstr ""
 
-#: actions/siteadminpanel.php:372
+#: actions/siteadminpanel.php:359
 msgid "Report URL"
 msgstr "بلّغ عن المسار"
 
-#: actions/siteadminpanel.php:373
+#: actions/siteadminpanel.php:360
 msgid "Snapshots will be sent to this URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:380
-msgid "SSL"
-msgstr "SSL"
-
-#: actions/siteadminpanel.php:384
-msgid "Sometimes"
-msgstr "أحيانًا"
-
-#: actions/siteadminpanel.php:385
-msgid "Always"
-msgstr "دائمًا"
-
-#: actions/siteadminpanel.php:387
-msgid "Use SSL"
-msgstr "استخدم SSL"
-
-#: actions/siteadminpanel.php:388
-msgid "When to use SSL"
-msgstr ""
-
-#: actions/siteadminpanel.php:393
-msgid "SSL Server"
-msgstr "خادوم SSL"
-
-#: actions/siteadminpanel.php:394
-msgid "Server to direct SSL requests to"
-msgstr ""
-
-#: actions/siteadminpanel.php:400
+#: actions/siteadminpanel.php:367
 msgid "Limits"
 msgstr "الحدود"
 
-#: actions/siteadminpanel.php:403
+#: actions/siteadminpanel.php:370
 msgid "Text limit"
 msgstr "حد النص"
 
-#: actions/siteadminpanel.php:403
+#: actions/siteadminpanel.php:370
 msgid "Maximum number of characters for notices."
 msgstr "أقصى عدد للحروف فى الإشعارات."
 
-#: actions/siteadminpanel.php:407
+#: actions/siteadminpanel.php:374
 msgid "Dupe limit"
 msgstr ""
 
-#: actions/siteadminpanel.php:407
+#: actions/siteadminpanel.php:374
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 
-#: actions/siteadminpanel.php:421 actions/useradminpanel.php:313
+#: actions/siteadminpanel.php:388 actions/useradminpanel.php:313
 msgid "Save site settings"
 msgstr "اذف إعدادت الموقع"
 
@@ -3506,9 +3488,8 @@ msgid "Notice feed for tag %s (Atom)"
 msgstr ""
 
 #: actions/tagother.php:39
-#, fuzzy
 msgid "No ID argument."
-msgstr "لا مُدخل هويه."
+msgstr "لا مدخل هويه."
 
 #: actions/tagother.php:65
 #, php-format
@@ -3559,9 +3540,8 @@ msgid "You haven't blocked that user."
 msgstr "لم تمنع هذا المستخدم."
 
 #: actions/unsandbox.php:72
-#, fuzzy
 msgid "User is not sandboxed."
-msgstr "ليس للمستخدم إشعار أخير"
+msgstr "المستخدم ليس في صندوق الرمل."
 
 #: actions/unsilence.php:72
 msgid "User is not silenced."
@@ -3765,9 +3745,8 @@ msgid "Wrong image type for avatar URL ‘%s’."
 msgstr ""
 
 #: actions/userbyid.php:70
-#, fuzzy
 msgid "No ID."
-msgstr "لا هوية"
+msgstr "لا هويه."
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 msgid "Profile design"
@@ -3869,9 +3848,9 @@ msgid "DB error inserting reply: %s"
 msgstr ""
 
 #: classes/Notice.php:1371
-#, fuzzy, php-format
+#, php-format
 msgid "RT @%1$s %2$s"
-msgstr "%1$s (%2$s)"
+msgstr "آر تي @%1$s %2$s"
 
 #: classes/User.php:368
 #, php-format
@@ -4238,19 +4217,17 @@ msgid "Cannot repeat your own notice"
 msgstr ""
 
 #: lib/command.php:427
-#, fuzzy
 msgid "Already repeated that notice"
-msgstr "احذف هذا الإشعار"
+msgstr "كرر بالفعل هذا الإشعار"
 
 #: lib/command.php:435
-#, fuzzy, php-format
+#, php-format
 msgid "Notice from %s repeated"
-msgstr "أُرسل الإشعار"
+msgstr "الإشعار من %s مكرر"
 
 #: lib/command.php:437
-#, fuzzy
 msgid "Error repeating notice."
-msgstr "خطأ أثناء حفظ الإشعار."
+msgstr "خطأ تكرار الإشعار."
 
 #: lib/command.php:491
 #, php-format
@@ -4792,12 +4769,12 @@ msgid ""
 "%6$s\n"
 msgstr ""
 
-#: lib/mail.php:620
+#: lib/mail.php:624
 #, php-format
 msgid "%s (@%s) sent a notice to your attention"
 msgstr ""
 
-#: lib/mail.php:622
+#: lib/mail.php:626
 #, php-format
 msgid ""
 "%1$s (@%9$s) just sent a notice to your attention (an '@-reply') on %2$s.\n"
@@ -4937,9 +4914,8 @@ msgid "in context"
 msgstr "فى السياق"
 
 #: lib/noticelist.php:548
-#, fuzzy
 msgid "Repeated by"
-msgstr "أنشئ"
+msgstr "مكرر بواسطه"
 
 #: lib/noticelist.php:577
 msgid "Reply to this notice"
@@ -4950,9 +4926,8 @@ msgid "Reply"
 msgstr "رُد"
 
 #: lib/noticelist.php:620
-#, fuzzy
 msgid "Notice repeated"
-msgstr "حُذف الإشعار."
+msgstr "الإشعار مكرر"
 
 #: lib/nudgeform.php:116
 msgid "Nudge this user"
@@ -5052,9 +5027,8 @@ msgid "All groups"
 msgstr "كل المجموعات"
 
 #: lib/profileformaction.php:123
-#, fuzzy
 msgid "No return-to arguments."
-msgstr "لا مُدخل هويه."
+msgstr "لا مدخلات رجوع إلى."
 
 #: lib/profileformaction.php:137
 msgid "Unimplemented method."
@@ -5080,24 +5054,21 @@ msgstr "مُختارون"
 msgid "Popular"
 msgstr "مشهورة"
 
-#: lib/repeatform.php:107 lib/repeatform.php:132
-#, fuzzy
-msgid "Repeat this notice"
-msgstr "رُد على هذا الإشعار"
+#: lib/repeatform.php:107
+msgid "Repeat this notice?"
+msgstr "كرر هذا الإشعار؟"
 
 #: lib/repeatform.php:132
-#, fuzzy
-msgid "Repeat"
-msgstr "أعد الضبط"
+msgid "Repeat this notice"
+msgstr "كرر هذا الإشعار"
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"
 msgstr ""
 
 #: lib/sandboxform.php:78
-#, fuzzy
 msgid "Sandbox this user"
-msgstr "ألغِ منع هذا المستخدم"
+msgstr "أضف هذا المستخدم إلى صندوق الرمل"
 
 #: lib/searchaction.php:120
 msgid "Search site"
@@ -5175,14 +5146,12 @@ msgid "Could not subscribe other to you."
 msgstr ""
 
 #: lib/subs.php:128
-#, fuzzy
 msgid "Not subscribed!"
-msgstr "لست مُشتركًا!"
+msgstr "غير مشترك!"
 
 #: lib/subs.php:133
-#, fuzzy
 msgid "Couldn't delete self-subscription."
-msgstr "تعذّر حذف الاشتراك."
+msgstr "م يمكن حذف اشتراك ذاتي."
 
 #: lib/subs.php:146
 msgid "Couldn't delete subscription."
@@ -5215,9 +5184,8 @@ msgid "Unsandbox"
 msgstr ""
 
 #: lib/unsandboxform.php:80
-#, fuzzy
 msgid "Unsandbox this user"
-msgstr "ألغِ منع هذا المستخدم"
+msgstr "أزل هذا المستخدم من صندوق الرمل"
 
 #: lib/unsilenceform.php:67
 msgid "Unsilence"

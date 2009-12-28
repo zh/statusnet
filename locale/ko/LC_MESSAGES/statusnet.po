@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-21 21:17+0000\n"
-"PO-Revision-Date: 2009-12-22 22:39:12+0000\n"
+"POT-Creation-Date: 2009-12-25 09:42+0000\n"
+"PO-Revision-Date: 2009-12-28 08:10:45+0000\n"
 "Language-Team: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60291); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60437); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: out-statusnet\n"
@@ -472,7 +472,7 @@ msgstr "너무 깁니다. 통지의 최대 길이는 140글자 입니다."
 msgid "Not found"
 msgstr "찾지 못함"
 
-#: actions/apistatusesupdate.php:227 actions/newnotice.php:183
+#: actions/apistatusesupdate.php:227 actions/newnotice.php:191
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -687,6 +687,7 @@ msgstr "이 사용자를 차단해제합니다."
 
 #: actions/block.php:144 actions/deletenotice.php:146
 #: actions/deleteuser.php:148 actions/groupblock.php:179
+#: lib/repeatform.php:132
 msgid "Yes"
 msgstr "네, 맞습니다."
 
@@ -982,8 +983,8 @@ msgstr ""
 
 #: actions/designadminpanel.php:586 actions/emailsettings.php:195
 #: actions/imsettings.php:163 actions/othersettings.php:126
-#: actions/pathsadminpanel.php:296 actions/profilesettings.php:167
-#: actions/siteadminpanel.php:421 actions/smssettings.php:181
+#: actions/pathsadminpanel.php:324 actions/profilesettings.php:167
+#: actions/siteadminpanel.php:388 actions/smssettings.php:181
 #: actions/subscriptions.php:203 actions/tagother.php:154
 #: actions/useradminpanel.php:313 lib/designsettings.php:256
 #: lib/groupeditform.php:202
@@ -1155,7 +1156,7 @@ msgstr "이메일이 추가 되지 않았습니다."
 msgid "Cannot normalize that email address"
 msgstr "그 이메일 주소를 정규화 할 수 없습니다."
 
-#: actions/emailsettings.php:331 actions/siteadminpanel.php:158
+#: actions/emailsettings.php:331 actions/siteadminpanel.php:157
 msgid "Not a valid email address"
 msgstr "유효한 이메일 주소가 아닙니다."
 
@@ -1998,7 +1999,7 @@ msgstr "메시지"
 msgid "Direct message to %s sent"
 msgstr "%s에게 보낸 직접 메시지"
 
-#: actions/newmessage.php:210 actions/newnotice.php:242 lib/channel.php:170
+#: actions/newmessage.php:210 actions/newnotice.php:250 lib/channel.php:170
 msgid "Ajax Error"
 msgstr "Ajax 에러입니다."
 
@@ -2006,7 +2007,7 @@ msgstr "Ajax 에러입니다."
 msgid "New notice"
 msgstr "새로운 통지"
 
-#: actions/newnotice.php:208
+#: actions/newnotice.php:216
 msgid "Notice posted"
 msgstr "게시글이 등록되었습니다."
 
@@ -2233,82 +2234,121 @@ msgstr ""
 msgid "Locales directory not readable: %s"
 msgstr ""
 
-#: actions/pathsadminpanel.php:212 actions/siteadminpanel.php:58
+#: actions/pathsadminpanel.php:166
+msgid "Invalid SSL server. The maximum length is 255 characters."
+msgstr ""
+
+#: actions/pathsadminpanel.php:217 actions/siteadminpanel.php:58
 #: lib/adminpanelaction.php:299
 #, fuzzy
 msgid "Site"
 msgstr "초대"
 
-#: actions/pathsadminpanel.php:216
+#: actions/pathsadminpanel.php:221
 msgid "Path"
 msgstr ""
 
-#: actions/pathsadminpanel.php:216
+#: actions/pathsadminpanel.php:221
 #, fuzzy
 msgid "Site path"
 msgstr "사이트 공지"
 
-#: actions/pathsadminpanel.php:220
+#: actions/pathsadminpanel.php:225
 msgid "Path to locales"
 msgstr ""
 
-#: actions/pathsadminpanel.php:220
+#: actions/pathsadminpanel.php:225
 msgid "Directory path to locales"
 msgstr ""
 
-#: actions/pathsadminpanel.php:227
+#: actions/pathsadminpanel.php:232
 msgid "Theme"
 msgstr ""
 
-#: actions/pathsadminpanel.php:232
+#: actions/pathsadminpanel.php:237
 msgid "Theme server"
 msgstr ""
 
-#: actions/pathsadminpanel.php:236
+#: actions/pathsadminpanel.php:241
 msgid "Theme path"
 msgstr ""
 
-#: actions/pathsadminpanel.php:240
+#: actions/pathsadminpanel.php:245
 msgid "Theme directory"
 msgstr ""
 
-#: actions/pathsadminpanel.php:247
+#: actions/pathsadminpanel.php:252
 #, fuzzy
 msgid "Avatars"
 msgstr "아바타"
 
-#: actions/pathsadminpanel.php:252
+#: actions/pathsadminpanel.php:257
 #, fuzzy
 msgid "Avatar server"
 msgstr "아바타 설정"
 
-#: actions/pathsadminpanel.php:256
+#: actions/pathsadminpanel.php:261
 #, fuzzy
 msgid "Avatar path"
 msgstr "아바타가 업데이트 되었습니다."
 
-#: actions/pathsadminpanel.php:260
+#: actions/pathsadminpanel.php:265
 #, fuzzy
 msgid "Avatar directory"
 msgstr "아바타가 업데이트 되었습니다."
 
-#: actions/pathsadminpanel.php:269
+#: actions/pathsadminpanel.php:274
 msgid "Backgrounds"
 msgstr ""
 
-#: actions/pathsadminpanel.php:273
+#: actions/pathsadminpanel.php:278
 msgid "Background server"
 msgstr ""
 
-#: actions/pathsadminpanel.php:277
+#: actions/pathsadminpanel.php:282
 msgid "Background path"
 msgstr ""
 
-#: actions/pathsadminpanel.php:281
+#: actions/pathsadminpanel.php:286
 msgid "Background directory"
 msgstr ""
 
+#: actions/pathsadminpanel.php:293
+#, fuzzy
+msgid "SSL"
+msgstr "SMS"
+
+#: actions/pathsadminpanel.php:296 actions/siteadminpanel.php:346
+#, fuzzy
+msgid "Never"
+msgstr "복구"
+
 #: actions/pathsadminpanel.php:297
+#, fuzzy
+msgid "Sometimes"
+msgstr "통지"
+
+#: actions/pathsadminpanel.php:298
+msgid "Always"
+msgstr ""
+
+#: actions/pathsadminpanel.php:302
+msgid "Use SSL"
+msgstr ""
+
+#: actions/pathsadminpanel.php:303
+msgid "When to use SSL"
+msgstr ""
+
+#: actions/pathsadminpanel.php:308
+msgid "SSL Server"
+msgstr ""
+
+#: actions/pathsadminpanel.php:309
+msgid "Server to direct SSL requests to"
+msgstr ""
+
+#: actions/pathsadminpanel.php:325
 #, fuzzy
 msgid "Save paths"
 msgstr "사이트 공지"
@@ -2415,7 +2455,7 @@ msgid ""
 "Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
 msgstr "당신을 위한 태그, (문자,숫자,-, ., _로 구성) 콤마 혹은 공백으로 구분."
 
-#: actions/profilesettings.php:144 actions/siteadminpanel.php:307
+#: actions/profilesettings.php:144 actions/siteadminpanel.php:294
 msgid "Language"
 msgstr "언어"
 
@@ -2441,7 +2481,7 @@ msgstr "나에게 구독하는 사람에게 자동 구독 신청"
 msgid "Bio is too long (max %d chars)."
 msgstr "자기소개가 너무 깁니다. (최대 140글자)"
 
-#: actions/profilesettings.php:228 actions/siteadminpanel.php:165
+#: actions/profilesettings.php:228 actions/siteadminpanel.php:164
 msgid "Timezone not selected."
 msgstr "타임존이 설정 되지 않았습니다."
 
@@ -2748,7 +2788,7 @@ msgid "Same as password above. Required."
 msgstr "위와 같은 비밀 번호. 필수 사항."
 
 #: actions/register.php:437 actions/register.php:441
-#: actions/siteadminpanel.php:283 lib/accountsettingsaction.php:120
+#: actions/siteadminpanel.php:270 lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr "이메일"
 
@@ -3232,246 +3272,203 @@ msgstr "회원이 당신을 차단해왔습니다."
 msgid "Basic settings for this StatusNet site."
 msgstr ""
 
-#: actions/siteadminpanel.php:147
+#: actions/siteadminpanel.php:146
 msgid "Site name must have non-zero length."
 msgstr ""
 
-#: actions/siteadminpanel.php:155
+#: actions/siteadminpanel.php:154
 #, fuzzy
 msgid "You must have a valid contact email address"
 msgstr "유효한 이메일 주소가 아닙니다."
 
-#: actions/siteadminpanel.php:173
+#: actions/siteadminpanel.php:172
 #, php-format
 msgid "Unknown language \"%s\""
 msgstr ""
 
-#: actions/siteadminpanel.php:180
+#: actions/siteadminpanel.php:179
 msgid "Invalid snapshot report URL."
 msgstr ""
 
-#: actions/siteadminpanel.php:186
+#: actions/siteadminpanel.php:185
 msgid "Invalid snapshot run value."
 msgstr ""
 
-#: actions/siteadminpanel.php:192
+#: actions/siteadminpanel.php:191
 msgid "Snapshot frequency must be a number."
 msgstr ""
 
-#: actions/siteadminpanel.php:199
-msgid "You must set an SSL server when enabling SSL."
-msgstr ""
-
-#: actions/siteadminpanel.php:204
-msgid "Invalid SSL server. The maximum length is 255 characters."
-msgstr ""
-
-#: actions/siteadminpanel.php:210
+#: actions/siteadminpanel.php:197
 msgid "Minimum text limit is 140 characters."
 msgstr ""
 
-#: actions/siteadminpanel.php:216
+#: actions/siteadminpanel.php:203
 msgid "Dupe limit must 1 or more seconds."
 msgstr ""
 
-#: actions/siteadminpanel.php:266
+#: actions/siteadminpanel.php:253
 msgid "General"
 msgstr ""
 
-#: actions/siteadminpanel.php:269
+#: actions/siteadminpanel.php:256
 #, fuzzy
 msgid "Site name"
 msgstr "사이트 공지"
 
-#: actions/siteadminpanel.php:270
+#: actions/siteadminpanel.php:257
 msgid "The name of your site, like \"Yourcompany Microblog\""
 msgstr ""
 
-#: actions/siteadminpanel.php:274
+#: actions/siteadminpanel.php:261
 msgid "Brought by"
 msgstr ""
 
-#: actions/siteadminpanel.php:275
+#: actions/siteadminpanel.php:262
 msgid "Text used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:279
+#: actions/siteadminpanel.php:266
 msgid "Brought by URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:280
+#: actions/siteadminpanel.php:267
 msgid "URL used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:284
+#: actions/siteadminpanel.php:271
 #, fuzzy
 msgid "Contact email address for your site"
 msgstr "%s에 포스팅 할 새로운 이메일 주소"
 
-#: actions/siteadminpanel.php:290
+#: actions/siteadminpanel.php:277
 #, fuzzy
 msgid "Local"
 msgstr "로컬 뷰"
 
-#: actions/siteadminpanel.php:301
+#: actions/siteadminpanel.php:288
 msgid "Default timezone"
 msgstr ""
 
-#: actions/siteadminpanel.php:302
+#: actions/siteadminpanel.php:289
 msgid "Default timezone for the site; usually UTC."
 msgstr ""
 
-#: actions/siteadminpanel.php:308
+#: actions/siteadminpanel.php:295
 #, fuzzy
 msgid "Default site language"
 msgstr "언어 설정"
 
-#: actions/siteadminpanel.php:316
+#: actions/siteadminpanel.php:303
 #, fuzzy
 msgid "URLs"
 msgstr "URL"
 
-#: actions/siteadminpanel.php:319
+#: actions/siteadminpanel.php:306
 #, fuzzy
 msgid "Server"
 msgstr "복구"
 
-#: actions/siteadminpanel.php:319
+#: actions/siteadminpanel.php:306
 msgid "Site's server hostname."
 msgstr ""
 
-#: actions/siteadminpanel.php:323
+#: actions/siteadminpanel.php:310
 msgid "Fancy URLs"
 msgstr ""
 
-#: actions/siteadminpanel.php:325
+#: actions/siteadminpanel.php:312
 msgid "Use fancy (more readable and memorable) URLs?"
 msgstr ""
 
-#: actions/siteadminpanel.php:331
+#: actions/siteadminpanel.php:318
 #, fuzzy
 msgid "Access"
 msgstr "수락"
 
-#: actions/siteadminpanel.php:334
+#: actions/siteadminpanel.php:321
 #, fuzzy
 msgid "Private"
 msgstr "개인정보 취급방침"
 
-#: actions/siteadminpanel.php:336
+#: actions/siteadminpanel.php:323
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr ""
 
-#: actions/siteadminpanel.php:340
+#: actions/siteadminpanel.php:327
 #, fuzzy
 msgid "Invite only"
 msgstr "초대"
 
-#: actions/siteadminpanel.php:342
+#: actions/siteadminpanel.php:329
 msgid "Make registration invitation only."
 msgstr ""
 
-#: actions/siteadminpanel.php:346
+#: actions/siteadminpanel.php:333
 #, fuzzy
 msgid "Closed"
 msgstr "차단하기"
 
-#: actions/siteadminpanel.php:348
+#: actions/siteadminpanel.php:335
 msgid "Disable new registrations."
 msgstr ""
 
-#: actions/siteadminpanel.php:354
+#: actions/siteadminpanel.php:341
 msgid "Snapshots"
 msgstr ""
 
-#: actions/siteadminpanel.php:357
+#: actions/siteadminpanel.php:344
 msgid "Randomly during Web hit"
 msgstr ""
 
-#: actions/siteadminpanel.php:358
+#: actions/siteadminpanel.php:345
 msgid "In a scheduled job"
 msgstr ""
 
-#: actions/siteadminpanel.php:359 actions/siteadminpanel.php:383
-#, fuzzy
-msgid "Never"
-msgstr "복구"
-
-#: actions/siteadminpanel.php:360
+#: actions/siteadminpanel.php:347
 msgid "Data snapshots"
 msgstr ""
 
-#: actions/siteadminpanel.php:361
+#: actions/siteadminpanel.php:348
 msgid "When to send statistical data to status.net servers"
 msgstr ""
 
-#: actions/siteadminpanel.php:366
+#: actions/siteadminpanel.php:353
 msgid "Frequency"
 msgstr ""
 
-#: actions/siteadminpanel.php:367
+#: actions/siteadminpanel.php:354
 msgid "Snapshots will be sent once every N web hits"
 msgstr ""
 
-#: actions/siteadminpanel.php:372
+#: actions/siteadminpanel.php:359
 msgid "Report URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:373
+#: actions/siteadminpanel.php:360
 msgid "Snapshots will be sent to this URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:380
-#, fuzzy
-msgid "SSL"
-msgstr "SMS"
-
-#: actions/siteadminpanel.php:384
-#, fuzzy
-msgid "Sometimes"
-msgstr "통지"
-
-#: actions/siteadminpanel.php:385
-msgid "Always"
-msgstr ""
-
-#: actions/siteadminpanel.php:387
-msgid "Use SSL"
-msgstr ""
-
-#: actions/siteadminpanel.php:388
-msgid "When to use SSL"
-msgstr ""
-
-#: actions/siteadminpanel.php:393
-msgid "SSL Server"
-msgstr ""
-
-#: actions/siteadminpanel.php:394
-msgid "Server to direct SSL requests to"
-msgstr ""
-
-#: actions/siteadminpanel.php:400
+#: actions/siteadminpanel.php:367
 msgid "Limits"
 msgstr ""
 
-#: actions/siteadminpanel.php:403
+#: actions/siteadminpanel.php:370
 msgid "Text limit"
 msgstr ""
 
-#: actions/siteadminpanel.php:403
+#: actions/siteadminpanel.php:370
 msgid "Maximum number of characters for notices."
 msgstr ""
 
-#: actions/siteadminpanel.php:407
+#: actions/siteadminpanel.php:374
 msgid "Dupe limit"
 msgstr ""
 
-#: actions/siteadminpanel.php:407
+#: actions/siteadminpanel.php:374
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 
-#: actions/siteadminpanel.php:421 actions/useradminpanel.php:313
+#: actions/siteadminpanel.php:388 actions/useradminpanel.php:313
 #, fuzzy
 msgid "Save site settings"
 msgstr "아바타 설정"
@@ -5022,12 +5019,12 @@ msgid ""
 "%6$s\n"
 msgstr ""
 
-#: lib/mail.php:620
+#: lib/mail.php:624
 #, php-format
 msgid "%s (@%s) sent a notice to your attention"
 msgstr ""
 
-#: lib/mail.php:622
+#: lib/mail.php:626
 #, php-format
 msgid ""
 "%1$s (@%9$s) just sent a notice to your attention (an '@-reply') on %2$s.\n"
@@ -5316,15 +5313,15 @@ msgstr "피쳐링됨"
 msgid "Popular"
 msgstr "인기있는"
 
-#: lib/repeatform.php:107 lib/repeatform.php:132
+#: lib/repeatform.php:107
 #, fuzzy
-msgid "Repeat this notice"
+msgid "Repeat this notice?"
 msgstr "이 게시글에 대해 답장하기"
 
 #: lib/repeatform.php:132
 #, fuzzy
-msgid "Repeat"
-msgstr "초기화"
+msgid "Repeat this notice"
+msgstr "이 게시글에 대해 답장하기"
 
 #: lib/sandboxform.php:67
 #, fuzzy

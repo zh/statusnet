@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-22 22:38+0000\n"
-"PO-Revision-Date: 2009-12-22 22:38:45+0000\n"
+"POT-Creation-Date: 2009-12-25 09:42+0000\n"
+"PO-Revision-Date: 2009-12-28 08:10:17+0000\n"
 "Last-Translator: Ahmad Sufi Mahmudi\n"
 "Language-Team: Persian\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Language-Code: fa\n"
 "X-Message-Group: out-statusnet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: MediaWiki 1.16alpha (r60291); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60437); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
@@ -461,7 +461,7 @@ msgstr "خیلی طولانی است. حداکثر طول مجاز پیام %d �
 msgid "Not found"
 msgstr "یافت نشد"
 
-#: actions/apistatusesupdate.php:227 actions/newnotice.php:183
+#: actions/apistatusesupdate.php:227 actions/newnotice.php:191
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr "حداکثر طول پیام %d حرف است که شامل ضمیمه نیز می‌باشد"
@@ -676,6 +676,7 @@ msgstr "کاربر را مسدود نکن"
 
 #: actions/block.php:144 actions/deletenotice.php:146
 #: actions/deleteuser.php:148 actions/groupblock.php:179
+#: lib/repeatform.php:132
 msgid "Yes"
 msgstr "بله"
 
@@ -955,8 +956,8 @@ msgstr "برگشت به حالت پیش گزیده"
 
 #: actions/designadminpanel.php:586 actions/emailsettings.php:195
 #: actions/imsettings.php:163 actions/othersettings.php:126
-#: actions/pathsadminpanel.php:296 actions/profilesettings.php:167
-#: actions/siteadminpanel.php:421 actions/smssettings.php:181
+#: actions/pathsadminpanel.php:324 actions/profilesettings.php:167
+#: actions/siteadminpanel.php:388 actions/smssettings.php:181
 #: actions/subscriptions.php:203 actions/tagother.php:154
 #: actions/useradminpanel.php:313 lib/designsettings.php:256
 #: lib/groupeditform.php:202
@@ -1125,7 +1126,7 @@ msgstr "پست الکترونیک وجود ندارد."
 msgid "Cannot normalize that email address"
 msgstr "نمی‌توان نشانی را قانونی کرد"
 
-#: actions/emailsettings.php:331 actions/siteadminpanel.php:158
+#: actions/emailsettings.php:331 actions/siteadminpanel.php:157
 msgid "Not a valid email address"
 msgstr "این یک نشانی صحیح نیست"
 
@@ -1928,7 +1929,7 @@ msgstr "پیام فرستاده‌شد"
 msgid "Direct message to %s sent"
 msgstr "پیام مستقیم به %s فرستاده شد."
 
-#: actions/newmessage.php:210 actions/newnotice.php:242 lib/channel.php:170
+#: actions/newmessage.php:210 actions/newnotice.php:250 lib/channel.php:170
 msgid "Ajax Error"
 msgstr "اشکال آژاکسی"
 
@@ -1936,7 +1937,7 @@ msgstr "اشکال آژاکسی"
 msgid "New notice"
 msgstr "آگهی جدید"
 
-#: actions/newnotice.php:208
+#: actions/newnotice.php:216
 msgid "Notice posted"
 msgstr "آگهی فرستاده‌شد."
 
@@ -2168,76 +2169,112 @@ msgstr "شاخه‌ی پس زمینه‌ها نوشتنی نیست: %s"
 msgid "Locales directory not readable: %s"
 msgstr "پوشه‌ی تنظیمات محلی خواندنی نیست: %s"
 
-#: actions/pathsadminpanel.php:212 actions/siteadminpanel.php:58
+#: actions/pathsadminpanel.php:166
+msgid "Invalid SSL server. The maximum length is 255 characters."
+msgstr ""
+
+#: actions/pathsadminpanel.php:217 actions/siteadminpanel.php:58
 #: lib/adminpanelaction.php:299
 msgid "Site"
 msgstr "سایت"
 
-#: actions/pathsadminpanel.php:216
+#: actions/pathsadminpanel.php:221
 msgid "Path"
 msgstr "مسیر"
 
-#: actions/pathsadminpanel.php:216
+#: actions/pathsadminpanel.php:221
 msgid "Site path"
 msgstr "مسیر وب‌گاه"
 
-#: actions/pathsadminpanel.php:220
+#: actions/pathsadminpanel.php:225
 msgid "Path to locales"
 msgstr "نشانی تنظیمات محلی"
 
-#: actions/pathsadminpanel.php:220
+#: actions/pathsadminpanel.php:225
 msgid "Directory path to locales"
 msgstr ""
 
-#: actions/pathsadminpanel.php:227
+#: actions/pathsadminpanel.php:232
 msgid "Theme"
 msgstr "پوسته"
 
-#: actions/pathsadminpanel.php:232
+#: actions/pathsadminpanel.php:237
 msgid "Theme server"
 msgstr "کارگزار پوسته"
 
-#: actions/pathsadminpanel.php:236
+#: actions/pathsadminpanel.php:241
 msgid "Theme path"
 msgstr "مسیر پوسته"
 
-#: actions/pathsadminpanel.php:240
+#: actions/pathsadminpanel.php:245
 msgid "Theme directory"
 msgstr "شاخهٔ پوسته"
 
-#: actions/pathsadminpanel.php:247
+#: actions/pathsadminpanel.php:252
 msgid "Avatars"
 msgstr "چهره‌ها"
 
-#: actions/pathsadminpanel.php:252
+#: actions/pathsadminpanel.php:257
 msgid "Avatar server"
 msgstr "کارگزار نیم‌رخ"
 
-#: actions/pathsadminpanel.php:256
+#: actions/pathsadminpanel.php:261
 msgid "Avatar path"
 msgstr "مسیر نیم‌رخ"
 
-#: actions/pathsadminpanel.php:260
+#: actions/pathsadminpanel.php:265
 msgid "Avatar directory"
 msgstr "شاخهٔ نیم‌رخ"
 
-#: actions/pathsadminpanel.php:269
+#: actions/pathsadminpanel.php:274
 msgid "Backgrounds"
 msgstr "پس زمینه‌ها"
 
-#: actions/pathsadminpanel.php:273
+#: actions/pathsadminpanel.php:278
 msgid "Background server"
 msgstr "کارگذار تصاویر پیش‌زمینه"
 
-#: actions/pathsadminpanel.php:277
+#: actions/pathsadminpanel.php:282
 msgid "Background path"
 msgstr "مسیر تصاویر پیش‌زمینه"
 
-#: actions/pathsadminpanel.php:281
+#: actions/pathsadminpanel.php:286
 msgid "Background directory"
 msgstr "شاخهٔ تصاویر پیش‌زمینه"
 
+#: actions/pathsadminpanel.php:293
+msgid "SSL"
+msgstr ""
+
+#: actions/pathsadminpanel.php:296 actions/siteadminpanel.php:346
+msgid "Never"
+msgstr "هیچ وقت"
+
 #: actions/pathsadminpanel.php:297
+msgid "Sometimes"
+msgstr "گاهی اوقات"
+
+#: actions/pathsadminpanel.php:298
+msgid "Always"
+msgstr "برای همیشه"
+
+#: actions/pathsadminpanel.php:302
+msgid "Use SSL"
+msgstr "استفاده از SSL"
+
+#: actions/pathsadminpanel.php:303
+msgid "When to use SSL"
+msgstr ""
+
+#: actions/pathsadminpanel.php:308
+msgid "SSL Server"
+msgstr ""
+
+#: actions/pathsadminpanel.php:309
+msgid "Server to direct SSL requests to"
+msgstr ""
+
+#: actions/pathsadminpanel.php:325
 msgid "Save paths"
 msgstr "نشانی ذخیره سازی"
 
@@ -2342,7 +2379,7 @@ msgid ""
 "Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
 msgstr ""
 
-#: actions/profilesettings.php:144 actions/siteadminpanel.php:307
+#: actions/profilesettings.php:144 actions/siteadminpanel.php:294
 msgid "Language"
 msgstr "زبان"
 
@@ -2368,7 +2405,7 @@ msgstr ""
 msgid "Bio is too long (max %d chars)."
 msgstr ""
 
-#: actions/profilesettings.php:228 actions/siteadminpanel.php:165
+#: actions/profilesettings.php:228 actions/siteadminpanel.php:164
 msgid "Timezone not selected."
 msgstr "منطقه‌ی زمانی انتخاب نشده است."
 
@@ -2670,7 +2707,7 @@ msgid "Same as password above. Required."
 msgstr ""
 
 #: actions/register.php:437 actions/register.php:441
-#: actions/siteadminpanel.php:283 lib/accountsettingsaction.php:120
+#: actions/siteadminpanel.php:270 lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr "پست الکترونیکی"
 
@@ -3119,234 +3156,194 @@ msgstr "کاربر قبلا ساکت شده است."
 msgid "Basic settings for this StatusNet site."
 msgstr "تنظیمات پایه ای برای این سایت StatusNet."
 
-#: actions/siteadminpanel.php:147
+#: actions/siteadminpanel.php:146
 msgid "Site name must have non-zero length."
 msgstr "نام سایت باید طولی غیر صفر داشته باشد."
 
-#: actions/siteadminpanel.php:155
+#: actions/siteadminpanel.php:154
 msgid "You must have a valid contact email address"
 msgstr "شما باید یک آدرس ایمیل قابل قبول برای ارتباط داشته باشید"
 
-#: actions/siteadminpanel.php:173
+#: actions/siteadminpanel.php:172
 #, php-format
 msgid "Unknown language \"%s\""
 msgstr ""
 
-#: actions/siteadminpanel.php:180
+#: actions/siteadminpanel.php:179
 msgid "Invalid snapshot report URL."
 msgstr ""
 
-#: actions/siteadminpanel.php:186
+#: actions/siteadminpanel.php:185
 msgid "Invalid snapshot run value."
 msgstr ""
 
-#: actions/siteadminpanel.php:192
+#: actions/siteadminpanel.php:191
 msgid "Snapshot frequency must be a number."
 msgstr ""
 
-#: actions/siteadminpanel.php:199
-msgid "You must set an SSL server when enabling SSL."
-msgstr ""
-
-#: actions/siteadminpanel.php:204
-msgid "Invalid SSL server. The maximum length is 255 characters."
-msgstr ""
-
-#: actions/siteadminpanel.php:210
+#: actions/siteadminpanel.php:197
 msgid "Minimum text limit is 140 characters."
 msgstr ""
 
-#: actions/siteadminpanel.php:216
+#: actions/siteadminpanel.php:203
 msgid "Dupe limit must 1 or more seconds."
 msgstr ""
 
-#: actions/siteadminpanel.php:266
+#: actions/siteadminpanel.php:253
 msgid "General"
 msgstr ""
 
-#: actions/siteadminpanel.php:269
+#: actions/siteadminpanel.php:256
 msgid "Site name"
 msgstr "نام وب‌گاه"
 
-#: actions/siteadminpanel.php:270
+#: actions/siteadminpanel.php:257
 msgid "The name of your site, like \"Yourcompany Microblog\""
 msgstr "نام وب‌گاه شما، مانند «میکروبلاگ شرکت شما»"
 
-#: actions/siteadminpanel.php:274
+#: actions/siteadminpanel.php:261
 msgid "Brought by"
 msgstr "أورده شده به وسیله ی"
 
-#: actions/siteadminpanel.php:275
+#: actions/siteadminpanel.php:262
 msgid "Text used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:279
+#: actions/siteadminpanel.php:266
 msgid "Brought by URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:280
+#: actions/siteadminpanel.php:267
 msgid "URL used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:284
+#: actions/siteadminpanel.php:271
 msgid "Contact email address for your site"
 msgstr ""
 
-#: actions/siteadminpanel.php:290
+#: actions/siteadminpanel.php:277
 msgid "Local"
 msgstr "محلی"
 
-#: actions/siteadminpanel.php:301
+#: actions/siteadminpanel.php:288
 msgid "Default timezone"
 msgstr "منطقه ی زمانی پیش فرض"
 
-#: actions/siteadminpanel.php:302
+#: actions/siteadminpanel.php:289
 msgid "Default timezone for the site; usually UTC."
 msgstr "منظقه ی زمانی پیش فرض برای سایت؛ معمولا UTC."
 
-#: actions/siteadminpanel.php:308
+#: actions/siteadminpanel.php:295
 msgid "Default site language"
 msgstr "زبان پیش فرض سایت"
 
-#: actions/siteadminpanel.php:316
+#: actions/siteadminpanel.php:303
 msgid "URLs"
 msgstr ""
 
-#: actions/siteadminpanel.php:319
+#: actions/siteadminpanel.php:306
 msgid "Server"
 msgstr "کارگزار"
 
-#: actions/siteadminpanel.php:319
+#: actions/siteadminpanel.php:306
 msgid "Site's server hostname."
 msgstr ""
 
-#: actions/siteadminpanel.php:323
+#: actions/siteadminpanel.php:310
 msgid "Fancy URLs"
 msgstr ""
 
-#: actions/siteadminpanel.php:325
+#: actions/siteadminpanel.php:312
 msgid "Use fancy (more readable and memorable) URLs?"
 msgstr ""
 
-#: actions/siteadminpanel.php:331
+#: actions/siteadminpanel.php:318
 msgid "Access"
 msgstr "دسترسی"
 
-#: actions/siteadminpanel.php:334
+#: actions/siteadminpanel.php:321
 msgid "Private"
 msgstr "خصوصی"
 
-#: actions/siteadminpanel.php:336
+#: actions/siteadminpanel.php:323
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr ""
 
-#: actions/siteadminpanel.php:340
+#: actions/siteadminpanel.php:327
 msgid "Invite only"
 msgstr "فقط دعوت کردن"
 
-#: actions/siteadminpanel.php:342
+#: actions/siteadminpanel.php:329
 msgid "Make registration invitation only."
 msgstr "تنها آماده کردن دعوت نامه های ثبت نام."
 
-#: actions/siteadminpanel.php:346
+#: actions/siteadminpanel.php:333
 msgid "Closed"
 msgstr "مسدود"
 
-#: actions/siteadminpanel.php:348
+#: actions/siteadminpanel.php:335
 msgid "Disable new registrations."
 msgstr "غیر فعال کردن نام نوبسی جدید"
 
-#: actions/siteadminpanel.php:354
+#: actions/siteadminpanel.php:341
 msgid "Snapshots"
 msgstr ""
 
-#: actions/siteadminpanel.php:357
+#: actions/siteadminpanel.php:344
 msgid "Randomly during Web hit"
 msgstr ""
 
-#: actions/siteadminpanel.php:358
+#: actions/siteadminpanel.php:345
 msgid "In a scheduled job"
 msgstr ""
 
-#: actions/siteadminpanel.php:359 actions/siteadminpanel.php:383
-msgid "Never"
-msgstr "هیچ وقت"
-
-#: actions/siteadminpanel.php:360
+#: actions/siteadminpanel.php:347
 msgid "Data snapshots"
 msgstr ""
 
-#: actions/siteadminpanel.php:361
+#: actions/siteadminpanel.php:348
 msgid "When to send statistical data to status.net servers"
 msgstr ""
 
-#: actions/siteadminpanel.php:366
+#: actions/siteadminpanel.php:353
 msgid "Frequency"
 msgstr ""
 
-#: actions/siteadminpanel.php:367
+#: actions/siteadminpanel.php:354
 msgid "Snapshots will be sent once every N web hits"
 msgstr ""
 
-#: actions/siteadminpanel.php:372
+#: actions/siteadminpanel.php:359
 msgid "Report URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:373
+#: actions/siteadminpanel.php:360
 msgid "Snapshots will be sent to this URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:380
-msgid "SSL"
-msgstr ""
-
-#: actions/siteadminpanel.php:384
-msgid "Sometimes"
-msgstr "گاهی اوقات"
-
-#: actions/siteadminpanel.php:385
-msgid "Always"
-msgstr "برای همیشه"
-
-#: actions/siteadminpanel.php:387
-msgid "Use SSL"
-msgstr "استفاده از SSL"
-
-#: actions/siteadminpanel.php:388
-msgid "When to use SSL"
-msgstr ""
-
-#: actions/siteadminpanel.php:393
-msgid "SSL Server"
-msgstr ""
-
-#: actions/siteadminpanel.php:394
-msgid "Server to direct SSL requests to"
-msgstr ""
-
-#: actions/siteadminpanel.php:400
+#: actions/siteadminpanel.php:367
 msgid "Limits"
 msgstr "محدودیت ها"
 
-#: actions/siteadminpanel.php:403
+#: actions/siteadminpanel.php:370
 msgid "Text limit"
 msgstr "محدودیت متن"
 
-#: actions/siteadminpanel.php:403
+#: actions/siteadminpanel.php:370
 msgid "Maximum number of characters for notices."
 msgstr "بیشینهٔ تعداد حروف برای آگهی‌ها"
 
-#: actions/siteadminpanel.php:407
+#: actions/siteadminpanel.php:374
 msgid "Dupe limit"
 msgstr ""
 
-#: actions/siteadminpanel.php:407
+#: actions/siteadminpanel.php:374
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 "چه مدت کاربران باید منتظر بمانند ( به ثانیه ) تا همان چیز را مجددا ارسال "
 "کنند."
 
-#: actions/siteadminpanel.php:421 actions/useradminpanel.php:313
+#: actions/siteadminpanel.php:388 actions/useradminpanel.php:313
 msgid "Save site settings"
 msgstr ""
 
@@ -3822,7 +3819,7 @@ msgstr ""
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 msgid "Profile design"
-msgstr ""
+msgstr "طراحی پروفیل"
 
 #: actions/userdesignsettings.php:87 lib/designsettings.php:76
 msgid ""
@@ -3876,7 +3873,7 @@ msgstr "شما از فرستادن پیام مستقیم مردود شده ای�
 
 #: classes/Message.php:61
 msgid "Could not insert message."
-msgstr ""
+msgstr "پیغام نمی تواند درج گردد"
 
 #: classes/Message.php:71
 msgid "Could not update message with new URI."
@@ -3912,7 +3909,7 @@ msgstr ""
 
 #: classes/Notice.php:247
 msgid "You are banned from posting notices on this site."
-msgstr ""
+msgstr "شما از فرستادن پست در این سایت مردود شدید ."
 
 #: classes/Notice.php:319 classes/Notice.php:344
 msgid "Problem saving notice."
@@ -3931,7 +3928,7 @@ msgstr ""
 #: classes/User.php:368
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
-msgstr ""
+msgstr "خوش امدید به %1$s , @%2$s!"
 
 #: classes/User_group.php:380
 msgid "Could not create group."
@@ -4004,7 +4001,7 @@ msgstr "وصل‌شدن"
 
 #: lib/action.php:436
 msgid "Connect to services"
-msgstr ""
+msgstr "متصل شدن به خدمات"
 
 #: lib/action.php:440
 msgid "Change site configuration"
@@ -4053,7 +4050,7 @@ msgstr "جستجو برای شخص با متن"
 
 #: lib/action.php:485
 msgid "Site notice"
-msgstr ""
+msgstr "خبر سایت"
 
 #: lib/action.php:551
 msgid "Local views"
@@ -4061,7 +4058,7 @@ msgstr "دید محلی"
 
 #: lib/action.php:617
 msgid "Page notice"
-msgstr ""
+msgstr "خبر صفحه"
 
 #: lib/action.php:719
 msgid "Secondary site navigation"
@@ -4097,7 +4094,7 @@ msgstr ""
 
 #: lib/action.php:769
 msgid "StatusNet software license"
-msgstr ""
+msgstr "StatusNet مجوز نرم افزار"
 
 #: lib/action.php:772
 #, php-format
@@ -4133,7 +4130,7 @@ msgstr "مجوز."
 
 #: lib/action.php:1098
 msgid "Pagination"
-msgstr ""
+msgstr "صفحه بندى"
 
 #: lib/action.php:1107
 msgid "After"
@@ -4165,7 +4162,7 @@ msgstr "نمی توان تنظیمات طراحی شده را پاک کرد ."
 
 #: lib/adminpanelaction.php:300
 msgid "Basic site configuration"
-msgstr ""
+msgstr "پیکره بندی اصلی سایت"
 
 #: lib/adminpanelaction.php:303
 msgid "Design configuration"
@@ -4197,7 +4194,7 @@ msgstr ""
 
 #: lib/channel.php:138 lib/channel.php:158
 msgid "Command results"
-msgstr ""
+msgstr "نتیجه دستور"
 
 #: lib/channel.php:210
 msgid "Command complete"
@@ -4214,7 +4211,7 @@ msgstr "متاسفانه این دستور هنوز اجرا نشده."
 #: lib/command.php:88
 #, php-format
 msgid "Could not find a user with nickname %s"
-msgstr ""
+msgstr "پیدا نشد %s کاریری یا نام مستعار"
 
 #: lib/command.php:92
 msgid "It does not make a lot of sense to nudge yourself!"
@@ -4232,10 +4229,13 @@ msgid ""
 "Subscribers: %2$s\n"
 "Notices: %3$s"
 msgstr ""
+"اشتراک : %1$s\n"
+"مشترک : %2$s\n"
+"خبر : %3$s"
 
 #: lib/command.php:152 lib/command.php:399 lib/command.php:460
 msgid "Notice with that id does not exist"
-msgstr ""
+msgstr "خبری با این مشخصه ایجاد نشد"
 
 #: lib/command.php:168 lib/command.php:415 lib/command.php:476
 #: lib/command.php:532
@@ -4275,6 +4275,8 @@ msgstr "درباره ی : %s"
 #, php-format
 msgid "Message too long - maximum is %d characters, you sent %d"
 msgstr ""
+"پیغام بسیار طولانی است - بیشترین اندازه امکان پذیر %d کاراکتر است , شما %d "
+"تا فرستادید"
 
 #: lib/command.php:378
 msgid "Error sending direct message."
@@ -4368,28 +4370,24 @@ msgid "You are not subscribed to anyone."
 msgstr "شما توسط هیچ کس تصویب نشده اید ."
 
 #: lib/command.php:687
-#, fuzzy
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "هم اکنون شما این کاربران را دنبال می‌کنید: "
 
 #: lib/command.php:707
 msgid "No one is subscribed to you."
-msgstr ""
+msgstr "هیچکس شما را تایید نکرده ."
 
 #: lib/command.php:709
-#, fuzzy
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
-msgstr[0] "شما توسط هیچ کس تصویب نشده اید ."
+msgstr[0] "هیچکس شما را تایید نکرده ."
 
 #: lib/command.php:729
-#, fuzzy
 msgid "You are not a member of any groups."
 msgstr "شما در هیچ گروهی عضو نیستید ."
 
 #: lib/command.php:731
-#, fuzzy
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "شما یک عضو این گروه نیستید."
@@ -4490,7 +4488,7 @@ msgstr "طرفدار این خبر"
 
 #: lib/favorform.php:140
 msgid "Favor"
-msgstr ""
+msgstr "توجه کردن"
 
 #: lib/feed.php:85
 msgid "RSS 1.0"
@@ -4579,7 +4577,7 @@ msgstr ""
 #: lib/groupnav.php:108
 #, php-format
 msgid "Edit %s group properties"
-msgstr ""
+msgstr "خصوصیلت گروه %s ویرایش"
 
 #: lib/groupnav.php:113
 msgid "Logo"
@@ -4695,7 +4693,7 @@ msgstr ""
 #: lib/mail.php:236
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
-msgstr ""
+msgstr "%2$s از حالا به خبر های شما گوش میده  %1$s"
 
 #: lib/mail.php:241
 #, php-format
@@ -4746,15 +4744,21 @@ msgid ""
 "Faithfully yours,\n"
 "%4$s"
 msgstr ""
+" %1$s شما یک ادرس پست جدید دارید در .\n"
+"ایمیل بزنید %s برای پست یک پیغام جدید به .\n"
+" %3$s راهنمای ایمیل بیشتر در .\n"
+"\n"
+", ازروی وفاداری خود شما \n"
+"%4$s"
 
 #: lib/mail.php:413
 #, php-format
 msgid "%s status"
-msgstr ""
+msgstr "وضعیت %s"
 
 #: lib/mail.php:439
 msgid "SMS confirmation"
-msgstr ""
+msgstr "تایید پیامک"
 
 #: lib/mail.php:463
 #, php-format
@@ -4827,12 +4831,12 @@ msgid ""
 "%6$s\n"
 msgstr ""
 
-#: lib/mail.php:620
+#: lib/mail.php:624
 #, php-format
 msgid "%s (@%s) sent a notice to your attention"
-msgstr ""
+msgstr "به توجه شما یک خبر فرستاده شده %s (@%s)"
 
-#: lib/mail.php:622
+#: lib/mail.php:626
 #, php-format
 msgid ""
 "%1$s (@%9$s) just sent a notice to your attention (an '@-reply') on %2$s.\n"
@@ -4907,7 +4911,7 @@ msgstr ""
 #: lib/mediafile.php:270
 #, php-format
 msgid " Try using another %s format."
-msgstr ""
+msgstr "تلاش برای امتحان نوع دیگر %s"
 
 #: lib/mediafile.php:275
 #, php-format
@@ -4974,7 +4978,7 @@ msgstr "در زمینه"
 
 #: lib/noticelist.php:548
 msgid "Repeated by"
-msgstr ""
+msgstr "تکرار از"
 
 #: lib/noticelist.php:577
 msgid "Reply to this notice"
@@ -5113,13 +5117,14 @@ msgstr "خصوصیت"
 msgid "Popular"
 msgstr "محبوب"
 
-#: lib/repeatform.php:107 lib/repeatform.php:132
-msgid "Repeat this notice"
-msgstr ""
+#: lib/repeatform.php:107
+#, fuzzy
+msgid "Repeat this notice?"
+msgstr "به این آگهی جواب دهید"
 
 #: lib/repeatform.php:132
-msgid "Repeat"
-msgstr "تکرار"
+msgid "Repeat this notice"
+msgstr ""
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"
@@ -5186,11 +5191,11 @@ msgstr ""
 #: lib/subgroupnav.php:99
 #, php-format
 msgid "Groups %s is a member of"
-msgstr ""
+msgstr "هست عضو %s گروه"
 
 #: lib/subs.php:52
 msgid "Already subscribed!"
-msgstr ""
+msgstr "قبلا تایید شده !"
 
 #: lib/subs.php:56
 msgid "User has blocked you."
@@ -5206,7 +5211,7 @@ msgstr ""
 
 #: lib/subs.php:128
 msgid "Not subscribed!"
-msgstr ""
+msgstr "تایید نشده!"
 
 #: lib/subs.php:133
 msgid "Couldn't delete self-subscription."
