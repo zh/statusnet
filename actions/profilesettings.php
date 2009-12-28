@@ -133,6 +133,11 @@ class ProfilesettingsAction extends AccountSettingsAction
                          ($this->arg('location')) ? $this->arg('location') : $profile->location,
                          _('Where you are, like "City, State (or Region), Country"'));
             $this->elementEnd('li');
+            $this->elementStart('li');
+            $this->checkbox('sharelocation', _('Share my current location when posting notices'),
+                            ($this->arg('sharelocation')) ?
+                            $this->arg('sharelocation') : $user->shareLocation());
+            $this->elementEnd('li');
             Event::handle('EndProfileFormData', array($this));
             $this->elementStart('li');
             $this->input('tags', _('Tags'),
