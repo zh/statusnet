@@ -133,6 +133,13 @@ class ProfilesettingsAction extends AccountSettingsAction
                          ($this->arg('location')) ? $this->arg('location') : $profile->location,
                          _('Where you are, like "City, State (or Region), Country"'));
             $this->elementEnd('li');
+            if (common_config('location', 'share') == 'user') {
+                $this->elementStart('li');
+                $this->checkbox('sharelocation', _('Share my current location when posting notices'),
+                                ($this->arg('sharelocation')) ?
+                                $this->arg('sharelocation') : $user->shareLocation());
+                $this->elementEnd('li');
+            }
             Event::handle('EndProfileFormData', array($this));
             $this->elementStart('li');
             $this->input('tags', _('Tags'),
@@ -317,6 +324,37 @@ class ProfilesettingsAction extends AccountSettingsAction
             }
 
             $profile->profileurl = common_profile_url($nickname);
+
+            if (common_config('location', 'share') == 'user') {
+
+                $exists = false;
+
+                $prefs = User_location_prefs::staticGet('user_id', $user->id);
+
+                if (empty($prefs)) {
+                    $prefs = new User_location_prefs();
+
+                    $prefs->user_id = $user->id;
+                    $prefs->created = common_sql_now();
+                } else {
+                    $exists = true;
+                    $orig = clone($prefs);
+                }
+
+                $prefs->share_location = $this->boolean('sharelocation');
+
+                if ($exists) {
+                    $result = $prefs->update($orig);
+                } else {
+                    $result = $prefs->insert();
+                }
+
+                if ($result === false) {
+                    common_log_db_error($prefs, ($exists) ? 'UPDATE' : 'INSERT', __FILE__);
+                    $this->serverError(_('Couldn\'t save location prefs.'));
+                    return;
+                }
+            }
 
             common_debug('Old profile: ' . common_log_objstring($orig_profile), __FILE__);
             common_debug('New profile: ' . common_log_objstring($profile), __FILE__);
