@@ -625,7 +625,11 @@ class User extends Memcached_DataObject
 
         // Cancel their subscription, if it exists
 
-        subs_unsubscribe_to($other->getUser(),$this->getProfile());
+        $otherUser = User::staticGet('id', $other->id);
+
+        if (!empty($otherUser)) {
+            subs_unsubscribe_to($otherUser, $this->getProfile());
+        }
 
         $block->query('COMMIT');
 
