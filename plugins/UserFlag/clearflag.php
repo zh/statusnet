@@ -89,6 +89,8 @@ class ClearflagAction extends ProfileFormAction
     /**
      * Handle POST
      *
+     * Executes the actions; deletes all flags
+     *
      * @return void
      */
 
@@ -102,8 +104,9 @@ class ClearflagAction extends ProfileFormAction
                               'AND profile_id = ' . $this->profile->id);
 
         if ($result == false) {
-            throw new ServerException(sprintf(_("Couldn't clear flags for profile '%s'."),
-                                              $this->profile->nickname));
+            $msg = sprintf(_("Couldn't clear flags for profile '%s'."),
+                           $this->profile->nickname);
+            throw new ServerException($msg);
         }
 
         $ufp->free();
@@ -113,7 +116,14 @@ class ClearflagAction extends ProfileFormAction
         }
     }
 
-    function ajaxResults() {
+    /**
+     * Return results in ajax form
+     *
+     * @return void
+     */
+
+    function ajaxResults()
+    {
         header('Content-Type: text/xml;charset=utf-8');
         $this->xw->startDocument('1.0', 'UTF-8');
         $this->elementStart('html');
@@ -126,4 +136,3 @@ class ClearflagAction extends ProfileFormAction
         $this->elementEnd('html');
     }
 }
-
