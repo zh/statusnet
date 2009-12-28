@@ -106,13 +106,17 @@ class RepeatAction extends Action
     {
         $repeat = $this->notice->repeat($this->user->id, 'web');
 
+        common_broadcast_notice($repeat);
+
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
             $this->element('title', null, _('Repeated'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            $this->element('p', array('id' => 'repeat_response'), _('Repeated!'));
+            $this->element('p', array('id' => 'repeat_response',
+                                      'class' => 'repeated'),
+                                _('Repeated!'));
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {

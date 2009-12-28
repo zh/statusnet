@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-12 17:09+0000\n"
-"PO-Revision-Date: 2009-12-12 17:10:12+0000\n"
+"POT-Creation-Date: 2009-12-25 09:42+0000\n"
+"PO-Revision-Date: 2009-12-25 09:43:30+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r59992); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60380); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: out-statusnet\n"
@@ -36,15 +36,16 @@ msgstr "Deze pagina bestaat niet"
 #: actions/apigroupleave.php:99 actions/apigrouplist.php:90
 #: actions/apistatusesupdate.php:144 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:79
-#: actions/apitimelinementions.php:79 actions/apitimelineuser.php:81
-#: actions/avatarbynickname.php:75 actions/favoritesrss.php:74
-#: actions/foaf.php:40 actions/foaf.php:58 actions/microsummary.php:62
-#: actions/newmessage.php:116 actions/remotesubscribe.php:145
-#: actions/remotesubscribe.php:154 actions/replies.php:73
-#: actions/repliesrss.php:38 actions/showfavorites.php:105
-#: actions/userbyid.php:74 actions/usergroups.php:91 actions/userrss.php:38
-#: actions/xrds.php:71 lib/command.php:163 lib/command.php:311
-#: lib/command.php:364 lib/command.php:411 lib/command.php:467
+#: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
+#: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
+#: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
+#: actions/microsummary.php:62 actions/newmessage.php:116
+#: actions/remotesubscribe.php:145 actions/remotesubscribe.php:154
+#: actions/replies.php:73 actions/repliesrss.php:38
+#: actions/showfavorites.php:105 actions/userbyid.php:74
+#: actions/usergroups.php:91 actions/userrss.php:38 actions/xrds.php:71
+#: lib/command.php:163 lib/command.php:311 lib/command.php:364
+#: lib/command.php:410 lib/command.php:471 lib/command.php:527
 #: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
 #: lib/subs.php:34 lib/subs.php:116
 msgid "No such user."
@@ -56,7 +57,8 @@ msgid "%s and friends, page %d"
 msgstr "%s en vrienden, pagina %d"
 
 #: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
-#: actions/apitimelinefriends.php:115 lib/personalgroupnav.php:100
+#: actions/apitimelinefriends.php:115 actions/apitimelinehome.php:115
+#: lib/personalgroupnav.php:100
 #, php-format
 msgid "%s and friends"
 msgstr "%s en vrienden"
@@ -117,6 +119,7 @@ msgid "You and friends"
 msgstr "U en vrienden"
 
 #: actions/allrss.php:119 actions/apitimelinefriends.php:122
+#: actions/apitimelinehome.php:122
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "Updates van %1$s en vrienden op %2$s."
@@ -138,7 +141,8 @@ msgstr "De API-functie is niet aangetroffen."
 #: actions/apifavoritecreate.php:90 actions/apifavoritedestroy.php:91
 #: actions/apifriendshipscreate.php:91 actions/apifriendshipsdestroy.php:91
 #: actions/apigroupcreate.php:104 actions/apigroupjoin.php:91
-#: actions/apigroupleave.php:91 actions/apistatusesupdate.php:114
+#: actions/apigroupleave.php:91 actions/apistatusesretweet.php:65
+#: actions/apistatusesupdate.php:114
 msgid "This method requires a POST."
 msgstr "Deze methode heeft een POST nodig."
 
@@ -232,11 +236,14 @@ msgstr "Alle directe berichten verzonden aan %s"
 #: actions/apigrouplist.php:132 actions/apigrouplistall.php:120
 #: actions/apigroupmembership.php:106 actions/apigroupshow.php:105
 #: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
-#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:133
-#: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
-#: actions/apitimelinefavorites.php:146 actions/apitimelinefriends.php:156
-#: actions/apitimelinegroup.php:150 actions/apitimelinementions.php:151
-#: actions/apitimelinepublic.php:131 actions/apitimelinetag.php:141
+#: actions/apistatusesretweets.php:112 actions/apistatusesshow.php:108
+#: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
+#: actions/apisubscriptions.php:111 actions/apitimelinefavorites.php:146
+#: actions/apitimelinefriends.php:156 actions/apitimelinegroup.php:150
+#: actions/apitimelinehome.php:156 actions/apitimelinementions.php:151
+#: actions/apitimelinepublic.php:131 actions/apitimelineretweetedbyme.php:122
+#: actions/apitimelineretweetedtome.php:121
+#: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
 #: actions/apitimelineuser.php:165 actions/apiusershow.php:101
 msgid "API method not found!"
 msgstr "De API-functie is niet aangetroffen!"
@@ -436,6 +443,19 @@ msgstr "Deze methode heeft een POST of DELETE nodig."
 msgid "You may not delete another user's status."
 msgstr "U kunt de status van een andere gebruiker niet verwijderen."
 
+#: actions/apistatusesretweet.php:75 actions/apistatusesretweets.php:72
+#: actions/deletenotice.php:52 actions/shownotice.php:92
+msgid "No such notice."
+msgstr "De mededeling bestaat niet."
+
+#: actions/apistatusesretweet.php:83
+msgid "Cannot repeat your own notice."
+msgstr "U kunt uw eigen mededelingen niet herhalen."
+
+#: actions/apistatusesretweet.php:91
+msgid "Already repeated that notice."
+msgstr "U hebt die mededeling al herhaald."
+
 #: actions/apistatusesshow.php:138
 msgid "Status deleted."
 msgstr "De status is verwijderd."
@@ -454,7 +474,7 @@ msgstr "Dat is te lang. De maximale mededelingslengte is 140 tekens."
 msgid "Not found"
 msgstr "Niet gevonden"
 
-#: actions/apistatusesupdate.php:227 actions/newnotice.php:183
+#: actions/apistatusesupdate.php:227 actions/newnotice.php:191
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -507,6 +527,21 @@ msgstr "%s publieke tijdlijn"
 msgid "%s updates from everyone!"
 msgstr "%s updates van iedereen"
 
+#: actions/apitimelineretweetedbyme.php:112
+#, php-format
+msgid "Repeated by %s"
+msgstr "Herhaald door %s"
+
+#: actions/apitimelineretweetedtome.php:111
+#, php-format
+msgid "Repeated to %s"
+msgstr "Herhaald naar %s"
+
+#: actions/apitimelineretweetsofme.php:112
+#, php-format
+msgid "Repeats of %s"
+msgstr "Herhaald van %s"
+
 #: actions/apitimelinetag.php:102 actions/tag.php:66
 #, php-format
 msgid "Notices tagged with %s"
@@ -525,7 +560,8 @@ msgstr "Niet aangetroffen."
 msgid "No such attachment."
 msgstr "Dat document bestaat niet."
 
-#: actions/avatarbynickname.php:59 actions/leavegroup.php:76
+#: actions/avatarbynickname.php:59 actions/grouprss.php:91
+#: actions/leavegroup.php:76
 msgid "No nickname."
 msgstr "Geen gebruikersnaam."
 
@@ -570,7 +606,7 @@ msgid "Preview"
 msgstr "Voorvertoning"
 
 #: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:550
+#: lib/noticelist.php:603
 msgid "Delete"
 msgstr "Verwijderen"
 
@@ -591,9 +627,10 @@ msgstr "Uitsnijden"
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
-#: actions/smssettings.php:228 actions/subedit.php:38 actions/subscribe.php:46
-#: actions/tagother.php:166 actions/unsubscribe.php:69
-#: actions/userauthorization.php:52 lib/designsettings.php:294
+#: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
+#: actions/subscribe.php:46 actions/tagother.php:166
+#: actions/unsubscribe.php:69 actions/userauthorization.php:52
+#: lib/designsettings.php:294
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 "Er is een probleem ontstaan met uw sessie. Probeer het nog een keer, "
@@ -656,6 +693,7 @@ msgstr "Gebruiker niet blokkeren"
 
 #: actions/block.php:144 actions/deletenotice.php:146
 #: actions/deleteuser.php:148 actions/groupblock.php:179
+#: lib/repeatform.php:132
 msgid "Yes"
 msgstr "Ja"
 
@@ -669,15 +707,15 @@ msgstr "Het was niet mogelijk om de blokkadeinformatie op te slaan."
 
 #: actions/blockedfromgroup.php:73 actions/editgroup.php:84
 #: actions/groupdesignsettings.php:84 actions/grouplogo.php:86
-#: actions/groupmembers.php:76 actions/grouprss.php:91
-#: actions/joingroup.php:76 actions/showgroup.php:121
+#: actions/groupmembers.php:76 actions/joingroup.php:76
+#: actions/showgroup.php:121
 msgid "No nickname"
 msgstr "Geen gebruikersnaam"
 
 #: actions/blockedfromgroup.php:80 actions/editgroup.php:96
 #: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
 #: actions/grouplogo.php:99 actions/groupmembers.php:83
-#: actions/grouprss.php:98 actions/joingroup.php:83 actions/showgroup.php:137
+#: actions/joingroup.php:83 actions/showgroup.php:137
 msgid "No such group"
 msgstr "Deze groep bestaat niet"
 
@@ -763,16 +801,13 @@ msgstr "Dialoog"
 msgid "Notices"
 msgstr "Mededelingen"
 
-#: actions/deletenotice.php:52 actions/shownotice.php:92
-msgid "No such notice."
-msgstr "De mededeling bestaat niet."
-
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
 #: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
-#: actions/unsubscribe.php:52 lib/adminpanelaction.php:72
-#: lib/profileformaction.php:63 lib/settingsaction.php:72
+#: actions/tagother.php:33 actions/unsubscribe.php:52
+#: lib/adminpanelaction.php:72 lib/profileformaction.php:63
+#: lib/settingsaction.php:72
 msgid "Not logged in."
 msgstr "Niet aangemeld."
 
@@ -800,7 +835,7 @@ msgstr "Weet u zeker dat u deze aankondiging wilt verwijderen?"
 msgid "Do not delete this notice"
 msgstr "Deze mededeling niet verwijderen"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:550
+#: actions/deletenotice.php:146 lib/noticelist.php:603
 msgid "Delete this notice"
 msgstr "Deze mededeling verwijderen"
 
@@ -940,8 +975,8 @@ msgstr "Standaardinstellingen toepassen"
 
 #: actions/designadminpanel.php:586 actions/emailsettings.php:195
 #: actions/imsettings.php:163 actions/othersettings.php:126
-#: actions/pathsadminpanel.php:296 actions/profilesettings.php:167
-#: actions/siteadminpanel.php:421 actions/smssettings.php:181
+#: actions/pathsadminpanel.php:324 actions/profilesettings.php:167
+#: actions/siteadminpanel.php:388 actions/smssettings.php:181
 #: actions/subscriptions.php:203 actions/tagother.php:154
 #: actions/useradminpanel.php:313 lib/designsettings.php:256
 #: lib/groupeditform.php:202
@@ -1113,7 +1148,7 @@ msgstr "Geen e-mailadres"
 msgid "Cannot normalize that email address"
 msgstr "Kan het emailadres niet normaliseren"
 
-#: actions/emailsettings.php:331 actions/siteadminpanel.php:158
+#: actions/emailsettings.php:331 actions/siteadminpanel.php:157
 msgid "Not a valid email address"
 msgstr "Geen geldig e-mailadres."
 
@@ -1248,24 +1283,24 @@ msgstr "Nieuwe gebruikers, pagina %d"
 
 #: actions/featured.php:99
 #, php-format
-msgid "A selection of some of the great users on %s"
-msgstr "Een selectie van de actieve gebruikers op %s"
+msgid "A selection of some great users on %s"
+msgstr "Een selectie van gewaardeerde gebruikers op %s"
 
 #: actions/file.php:34
-msgid "No notice id"
-msgstr "Geen mededelings-ID"
+msgid "No notice ID."
+msgstr "Geen mededelingnummer."
 
 #: actions/file.php:38
-msgid "No notice"
-msgstr "Geen mededeling"
+msgid "No notice."
+msgstr "Geen mededeling."
 
 #: actions/file.php:42
-msgid "No attachments"
-msgstr "Geen bijlagen"
+msgid "No attachments."
+msgstr "Geen bijlagen."
 
 #: actions/file.php:51
-msgid "No uploaded attachments"
-msgstr "Geen toegevoegde bijlagen"
+msgid "No uploaded attachments."
+msgstr "Geen toegevoegde bijlagen."
 
 #: actions/finishremotesubscribe.php:69
 msgid "Not expecting this response!"
@@ -1304,8 +1339,9 @@ msgstr ""
 "Er is een fout opgetreden tijdens het bijwerken van het profiel op afstand."
 
 #: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
-#: actions/groupunblock.php:86 actions/leavegroup.php:83
-#: actions/makeadmin.php:86 lib/command.php:212 lib/command.php:263
+#: actions/grouprss.php:98 actions/groupunblock.php:86
+#: actions/leavegroup.php:83 actions/makeadmin.php:86 lib/command.php:212
+#: lib/command.php:263
 msgid "No such group."
 msgstr "De opgegeven groep bestaat niet."
 
@@ -1392,7 +1428,7 @@ msgid ""
 "Customize the way your group looks with a background image and a colour "
 "palette of your choice."
 msgstr ""
-"De vormgeving van uw groep aanpassen met een achtergrondafbeeldingen en een "
+"De vormgeving van uw groep aanpassen met een achtergrondafbeelding en een "
 "kleurenpalet van uw keuze."
 
 #: actions/groupdesignsettings.php:263 actions/userdesignsettings.php:186
@@ -1835,7 +1871,7 @@ msgstr "Er is geen groepslidmaatschap aangetroffen."
 #: actions/leavegroup.php:127 lib/command.php:284
 #, php-format
 msgid "Could not remove user %s to group %s"
-msgstr "De gebruiker %s kon niet uit de groet %s verwijderd worden"
+msgstr "De gebruiker %s kon niet uit de groep %s verwijderd worden"
 
 #: actions/leavegroup.php:134 lib/command.php:289
 #, php-format
@@ -1949,7 +1985,7 @@ msgid "You can't send a message to this user."
 msgstr "U kunt geen bericht naar deze gebruiker zenden."
 
 #: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:351
-#: lib/command.php:424
+#: lib/command.php:484
 msgid "No content!"
 msgstr "Geen inhoud!"
 
@@ -1966,12 +2002,12 @@ msgstr "Stuur geen berichten naar uzelf. Zeg het gewoon in uw hoofd."
 msgid "Message sent"
 msgstr "Bericht verzonden."
 
-#: actions/newmessage.php:185 lib/command.php:375
+#: actions/newmessage.php:185 lib/command.php:376
 #, php-format
 msgid "Direct message to %s sent"
 msgstr "Het directe bericht aan %s is verzonden"
 
-#: actions/newmessage.php:210 actions/newnotice.php:242 lib/channel.php:170
+#: actions/newmessage.php:210 actions/newnotice.php:250 lib/channel.php:170
 msgid "Ajax Error"
 msgstr "Er is een Ajax-fout opgetreden"
 
@@ -1979,7 +2015,7 @@ msgstr "Er is een Ajax-fout opgetreden"
 msgid "New notice"
 msgstr "Nieuw bericht"
 
-#: actions/newnotice.php:208
+#: actions/newnotice.php:216
 msgid "Notice posted"
 msgstr "De mededeling is verzonden"
 
@@ -2062,8 +2098,8 @@ msgstr "inhoudstype "
 msgid "Only "
 msgstr "Alleen "
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1011
-#: lib/api.php:1039 lib/api.php:1149
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1031
+#: lib/api.php:1059 lib/api.php:1169
 msgid "Not a supported data format."
 msgstr "Geen ondersteund gegevensformaat."
 
@@ -2210,76 +2246,112 @@ msgstr "Er kan niet in de achtergrondmap geschreven worden: %s"
 msgid "Locales directory not readable: %s"
 msgstr "Er kan niet uit de talenmap gelezen worden: %s"
 
-#: actions/pathsadminpanel.php:212 actions/siteadminpanel.php:58
+#: actions/pathsadminpanel.php:166
+msgid "Invalid SSL server. The maximum length is 255 characters."
+msgstr "De SSL-server is ongeldig. De maximale lengte is 255 tekens."
+
+#: actions/pathsadminpanel.php:217 actions/siteadminpanel.php:58
 #: lib/adminpanelaction.php:299
 msgid "Site"
 msgstr "Website"
 
-#: actions/pathsadminpanel.php:216
+#: actions/pathsadminpanel.php:221
 msgid "Path"
 msgstr "Pad"
 
-#: actions/pathsadminpanel.php:216
+#: actions/pathsadminpanel.php:221
 msgid "Site path"
 msgstr "Websitepad"
 
-#: actions/pathsadminpanel.php:220
+#: actions/pathsadminpanel.php:225
 msgid "Path to locales"
 msgstr "Talenpad"
 
-#: actions/pathsadminpanel.php:220
+#: actions/pathsadminpanel.php:225
 msgid "Directory path to locales"
 msgstr "Talenmap"
 
-#: actions/pathsadminpanel.php:227
+#: actions/pathsadminpanel.php:232
 msgid "Theme"
 msgstr "Vormgeving"
 
-#: actions/pathsadminpanel.php:232
+#: actions/pathsadminpanel.php:237
 msgid "Theme server"
 msgstr "Vormgevingsserver"
 
-#: actions/pathsadminpanel.php:236
+#: actions/pathsadminpanel.php:241
 msgid "Theme path"
 msgstr "Vormgevingspad"
 
-#: actions/pathsadminpanel.php:240
+#: actions/pathsadminpanel.php:245
 msgid "Theme directory"
 msgstr "Vormgevingsmap"
 
-#: actions/pathsadminpanel.php:247
+#: actions/pathsadminpanel.php:252
 msgid "Avatars"
 msgstr "Avatars"
 
-#: actions/pathsadminpanel.php:252
+#: actions/pathsadminpanel.php:257
 msgid "Avatar server"
 msgstr "Avatarserver"
 
-#: actions/pathsadminpanel.php:256
+#: actions/pathsadminpanel.php:261
 msgid "Avatar path"
 msgstr "Avatarpad"
 
-#: actions/pathsadminpanel.php:260
+#: actions/pathsadminpanel.php:265
 msgid "Avatar directory"
 msgstr "Avatarmap"
 
-#: actions/pathsadminpanel.php:269
+#: actions/pathsadminpanel.php:274
 msgid "Backgrounds"
 msgstr "Achtergronden"
 
-#: actions/pathsadminpanel.php:273
+#: actions/pathsadminpanel.php:278
 msgid "Background server"
 msgstr "Achtergrondenserver"
 
-#: actions/pathsadminpanel.php:277
+#: actions/pathsadminpanel.php:282
 msgid "Background path"
 msgstr "Achtergrondpad"
 
-#: actions/pathsadminpanel.php:281
+#: actions/pathsadminpanel.php:286
 msgid "Background directory"
 msgstr "Achtergrondenmap"
 
+#: actions/pathsadminpanel.php:293
+msgid "SSL"
+msgstr "SSL"
+
+#: actions/pathsadminpanel.php:296 actions/siteadminpanel.php:346
+msgid "Never"
+msgstr "Nooit"
+
 #: actions/pathsadminpanel.php:297
+msgid "Sometimes"
+msgstr "Soms"
+
+#: actions/pathsadminpanel.php:298
+msgid "Always"
+msgstr "Altijd"
+
+#: actions/pathsadminpanel.php:302
+msgid "Use SSL"
+msgstr "SSL gebruiken"
+
+#: actions/pathsadminpanel.php:303
+msgid "When to use SSL"
+msgstr "Wanneer SSL gebruikt moet worden"
+
+#: actions/pathsadminpanel.php:308
+msgid "SSL Server"
+msgstr "SSL-server"
+
+#: actions/pathsadminpanel.php:309
+msgid "Server to direct SSL requests to"
+msgstr "De server waar SSL-verzoeken heen gestuurd moeten worden"
+
+#: actions/pathsadminpanel.php:325
 msgid "Save paths"
 msgstr "Opslagpaden"
 
@@ -2389,7 +2461,7 @@ msgstr ""
 "Eigen labels (letter, getallen, -, ., en _). Gescheiden door komma's of "
 "spaties"
 
-#: actions/profilesettings.php:144 actions/siteadminpanel.php:307
+#: actions/profilesettings.php:144 actions/siteadminpanel.php:294
 msgid "Language"
 msgstr "Taal"
 
@@ -2417,7 +2489,7 @@ msgstr ""
 msgid "Bio is too long (max %d chars)."
 msgstr "De beschrijving is te lang (maximaal %d tekens)."
 
-#: actions/profilesettings.php:228 actions/siteadminpanel.php:165
+#: actions/profilesettings.php:228 actions/siteadminpanel.php:164
 msgid "Timezone not selected."
 msgstr "Er is geen tijdzone geselecteerd."
 
@@ -2715,7 +2787,7 @@ msgstr "Geen geldig e-mailadres."
 
 #: actions/register.php:212
 msgid "Email address already exists."
-msgstr "Het e--mailadres bestaat al."
+msgstr "Het e-mailadres bestaat al."
 
 #: actions/register.php:243 actions/register.php:264
 msgid "Invalid username or password."
@@ -2742,7 +2814,7 @@ msgid "Same as password above. Required."
 msgstr "Gelijk aan het wachtwoord hierboven. Verplicht"
 
 #: actions/register.php:437 actions/register.php:441
-#: actions/siteadminpanel.php:283 lib/accountsettingsaction.php:120
+#: actions/siteadminpanel.php:270 lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr "E-mail"
 
@@ -2870,6 +2942,30 @@ msgstr "Dat is een lokaal profiel. Meld u aan om te abonneren."
 #: actions/remotesubscribe.php:183
 msgid "Couldn’t get a request token."
 msgstr "Het was niet mogelijk een verzoektoken te krijgen."
+
+#: actions/repeat.php:57
+msgid "Only logged-in users can repeat notices."
+msgstr "Alleen aangemelde gebruikers kunnen hun mededelingen herhalen."
+
+#: actions/repeat.php:64 actions/repeat.php:71
+msgid "No notice specified."
+msgstr "Er is geen mededeling opgegeven."
+
+#: actions/repeat.php:76
+msgid "You can't repeat your own notice."
+msgstr "U kunt uw eigen mededeling niet herhalen."
+
+#: actions/repeat.php:90
+msgid "You already repeated that notice."
+msgstr "U hent die mededeling al herhaald."
+
+#: actions/repeat.php:114 lib/noticelist.php:621
+msgid "Repeated"
+msgstr "Herhaald"
+
+#: actions/repeat.php:119
+msgid "Repeated!"
+msgstr "Herhaald!"
 
 #: actions/replies.php:125 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
@@ -3207,6 +3303,11 @@ msgstr ""
 "(http://en.wikipedia.org/wiki/Micro-blogging) gebaseerd op de Vrije Software "
 "[StatusNet](http://status.net/). "
 
+#: actions/showstream.php:313
+#, php-format
+msgid "Repeat of %s"
+msgstr "Herhaald van %s"
+
 #: actions/silence.php:65 actions/unsilence.php:65
 msgid "You cannot silence users on this site."
 msgstr "U kunt gebruikers op deze website niet muilkorven."
@@ -3219,240 +3320,200 @@ msgstr "Deze gebruiker is al gemuilkorfd."
 msgid "Basic settings for this StatusNet site."
 msgstr "Basisinstellingen voor deze StatusNet-website."
 
-#: actions/siteadminpanel.php:147
+#: actions/siteadminpanel.php:146
 msgid "Site name must have non-zero length."
 msgstr "De sitenaam moet ingevoerd worden en mag niet leeg zijn."
 
-#: actions/siteadminpanel.php:155
+#: actions/siteadminpanel.php:154
 msgid "You must have a valid contact email address"
 msgstr ""
 "U moet een geldig e-mailadres opgeven waarop contact opgenomen kan worden"
 
-#: actions/siteadminpanel.php:173
+#: actions/siteadminpanel.php:172
 #, php-format
 msgid "Unknown language \"%s\""
 msgstr "De taal \"%s\" is niet bekend"
 
-#: actions/siteadminpanel.php:180
+#: actions/siteadminpanel.php:179
 msgid "Invalid snapshot report URL."
 msgstr "De rapportage-URL voor snapshots is ongeldig."
 
-#: actions/siteadminpanel.php:186
+#: actions/siteadminpanel.php:185
 msgid "Invalid snapshot run value."
 msgstr "De waarde voor het uitvoeren van snapshots is ongeldig."
 
-#: actions/siteadminpanel.php:192
+#: actions/siteadminpanel.php:191
 msgid "Snapshot frequency must be a number."
 msgstr "De snapshotfrequentie moet een getal zijn."
 
-#: actions/siteadminpanel.php:199
-msgid "You must set an SSL server when enabling SSL."
-msgstr "U moet een SSL-server instellen als u SSL wilt inschakelen."
-
-#: actions/siteadminpanel.php:204
-msgid "Invalid SSL server. The maximum length is 255 characters."
-msgstr "De SSL-server is ongeldig. De maximale lengte is 255 tekens."
-
-#: actions/siteadminpanel.php:210
+#: actions/siteadminpanel.php:197
 msgid "Minimum text limit is 140 characters."
 msgstr "De minimale tekstlimiet is 140 tekens."
 
-#: actions/siteadminpanel.php:216
+#: actions/siteadminpanel.php:203
 msgid "Dupe limit must 1 or more seconds."
 msgstr "De duplicaatlimiet moet één of meer seconden zijn."
 
-#: actions/siteadminpanel.php:266
+#: actions/siteadminpanel.php:253
 msgid "General"
 msgstr "Algemeen"
 
-#: actions/siteadminpanel.php:269
+#: actions/siteadminpanel.php:256
 msgid "Site name"
 msgstr "Websitenaam"
 
-#: actions/siteadminpanel.php:270
+#: actions/siteadminpanel.php:257
 msgid "The name of your site, like \"Yourcompany Microblog\""
 msgstr "De naam van de website, zoals \"UwBedrijf Microblog\""
 
-#: actions/siteadminpanel.php:274
+#: actions/siteadminpanel.php:261
 msgid "Brought by"
 msgstr "Mogelijk gemaakt door"
 
-#: actions/siteadminpanel.php:275
+#: actions/siteadminpanel.php:262
 msgid "Text used for credits link in footer of each page"
 msgstr ""
 "De tekst die gebruikt worden in de \"creditsverwijzing\" in de voettekst van "
 "iedere pagina"
 
-#: actions/siteadminpanel.php:279
+#: actions/siteadminpanel.php:266
 msgid "Brought by URL"
 msgstr "\"Mogelijk gemaakt door\"-URL"
 
-#: actions/siteadminpanel.php:280
+#: actions/siteadminpanel.php:267
 msgid "URL used for credits link in footer of each page"
 msgstr ""
 "URL die wordt gebruikt voor de verwijzing naar de hoster en dergelijke in de "
 "voettekst van iedere pagina"
 
-#: actions/siteadminpanel.php:284
+#: actions/siteadminpanel.php:271
 msgid "Contact email address for your site"
 msgstr "E-mailadres om contact op te nemen met de websitebeheerder"
 
-#: actions/siteadminpanel.php:290
+#: actions/siteadminpanel.php:277
 msgid "Local"
 msgstr "Lokaal"
 
-#: actions/siteadminpanel.php:301
+#: actions/siteadminpanel.php:288
 msgid "Default timezone"
 msgstr "Standaardtijdzone"
 
-#: actions/siteadminpanel.php:302
+#: actions/siteadminpanel.php:289
 msgid "Default timezone for the site; usually UTC."
 msgstr "Standaardtijdzone voor de website. Meestal UTC."
 
-#: actions/siteadminpanel.php:308
+#: actions/siteadminpanel.php:295
 msgid "Default site language"
 msgstr "Standaardtaal"
 
-#: actions/siteadminpanel.php:316
+#: actions/siteadminpanel.php:303
 msgid "URLs"
 msgstr "URL's"
 
-#: actions/siteadminpanel.php:319
+#: actions/siteadminpanel.php:306
 msgid "Server"
 msgstr "Server"
 
-#: actions/siteadminpanel.php:319
+#: actions/siteadminpanel.php:306
 msgid "Site's server hostname."
 msgstr "Hostnaam van de website server."
 
-#: actions/siteadminpanel.php:323
+#: actions/siteadminpanel.php:310
 msgid "Fancy URLs"
 msgstr "Nette URL's"
 
-#: actions/siteadminpanel.php:325
+#: actions/siteadminpanel.php:312
 msgid "Use fancy (more readable and memorable) URLs?"
 msgstr "Nette URL's (meer leesbaar en beter te onthouden) gebruiken?"
 
-#: actions/siteadminpanel.php:331
+#: actions/siteadminpanel.php:318
 msgid "Access"
 msgstr "Toegang"
 
-#: actions/siteadminpanel.php:334
+#: actions/siteadminpanel.php:321
 msgid "Private"
 msgstr "Privé"
 
-#: actions/siteadminpanel.php:336
+#: actions/siteadminpanel.php:323
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr "Mogen anonieme gebruikers (niet aangemeld) de website bekijken?"
 
-#: actions/siteadminpanel.php:340
+#: actions/siteadminpanel.php:327
 msgid "Invite only"
 msgstr "Alleen op uitnodiging"
 
-#: actions/siteadminpanel.php:342
+#: actions/siteadminpanel.php:329
 msgid "Make registration invitation only."
 msgstr "Registratie alleen op uitnodiging."
 
-#: actions/siteadminpanel.php:346
+#: actions/siteadminpanel.php:333
 msgid "Closed"
 msgstr "Gesloten"
 
-#: actions/siteadminpanel.php:348
+#: actions/siteadminpanel.php:335
 msgid "Disable new registrations."
 msgstr "Nieuwe registraties uitschakelen."
 
-#: actions/siteadminpanel.php:354
+#: actions/siteadminpanel.php:341
 msgid "Snapshots"
 msgstr "Snapshots"
 
-#: actions/siteadminpanel.php:357
+#: actions/siteadminpanel.php:344
 msgid "Randomly during Web hit"
 msgstr "Willekeurig tijdens een websitehit"
 
-#: actions/siteadminpanel.php:358
+#: actions/siteadminpanel.php:345
 msgid "In a scheduled job"
 msgstr "Als geplande taak"
 
-#: actions/siteadminpanel.php:359 actions/siteadminpanel.php:383
-msgid "Never"
-msgstr "Nooit"
-
-#: actions/siteadminpanel.php:360
+#: actions/siteadminpanel.php:347
 msgid "Data snapshots"
 msgstr "Snapshots van gegevens"
 
-#: actions/siteadminpanel.php:361
+#: actions/siteadminpanel.php:348
 msgid "When to send statistical data to status.net servers"
 msgstr ""
 "Wanneer statistische gegevens naar de status.net-servers verzonden worden"
 
-#: actions/siteadminpanel.php:366
+#: actions/siteadminpanel.php:353
 msgid "Frequency"
 msgstr "Frequentie"
 
-#: actions/siteadminpanel.php:367
+#: actions/siteadminpanel.php:354
 msgid "Snapshots will be sent once every N web hits"
 msgstr "Iedere zoveel websitehits wordt een snapshot verzonden"
 
-#: actions/siteadminpanel.php:372
+#: actions/siteadminpanel.php:359
 msgid "Report URL"
 msgstr "Rapportage-URL"
 
-#: actions/siteadminpanel.php:373
+#: actions/siteadminpanel.php:360
 msgid "Snapshots will be sent to this URL"
 msgstr "Snapshots worden naar deze URL verzonden"
 
-#: actions/siteadminpanel.php:380
-msgid "SSL"
-msgstr "SSL"
-
-#: actions/siteadminpanel.php:384
-msgid "Sometimes"
-msgstr "Soms"
-
-#: actions/siteadminpanel.php:385
-msgid "Always"
-msgstr "Altijd"
-
-#: actions/siteadminpanel.php:387
-msgid "Use SSL"
-msgstr "SSL gebruiken"
-
-#: actions/siteadminpanel.php:388
-msgid "When to use SSL"
-msgstr "Wanneer SSL gebruikt moet worden"
-
-#: actions/siteadminpanel.php:393
-msgid "SSL Server"
-msgstr "SSL-server"
-
-#: actions/siteadminpanel.php:394
-msgid "Server to direct SSL requests to"
-msgstr "De server waar SSL-verzoeken heen gestuurd moeten worden"
-
-#: actions/siteadminpanel.php:400
+#: actions/siteadminpanel.php:367
 msgid "Limits"
 msgstr "Limieten"
 
-#: actions/siteadminpanel.php:403
+#: actions/siteadminpanel.php:370
 msgid "Text limit"
 msgstr "Tekstlimiet"
 
-#: actions/siteadminpanel.php:403
+#: actions/siteadminpanel.php:370
 msgid "Maximum number of characters for notices."
 msgstr "Maximaal aantal te gebruiken tekens voor mededelingen."
 
-#: actions/siteadminpanel.php:407
+#: actions/siteadminpanel.php:374
 msgid "Dupe limit"
 msgstr "Duplicaatlimiet"
 
-#: actions/siteadminpanel.php:407
+#: actions/siteadminpanel.php:374
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 "Hoe lang gebruikers moeten wachten (in seconden) voor ze hetzelfde kunnen "
 "zenden."
 
-#: actions/siteadminpanel.php:421 actions/useradminpanel.php:313
+#: actions/siteadminpanel.php:388 actions/useradminpanel.php:313
 msgid "Save site settings"
 msgstr "Websiteinstellingen opslaan"
 
@@ -3680,12 +3741,8 @@ msgstr "Mededelingenfeed voor label %s (RSS 2.0)"
 msgid "Notice feed for tag %s (Atom)"
 msgstr "Mededelingenfeed voor label %s (Atom)"
 
-#: actions/tagother.php:33
-msgid "Not logged in"
-msgstr "Niet aangemeld."
-
 #: actions/tagother.php:39
-msgid "No id argument."
+msgid "No ID argument."
 msgstr "Geen ID-argument."
 
 #: actions/tagother.php:65
@@ -3960,7 +4017,7 @@ msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "Er staat een verkeerd afbeeldingsttype op de avatar-URL \"%s\"."
 
 #: actions/userbyid.php:70
-msgid "No id."
+msgid "No ID."
 msgstr "Geen ID."
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
@@ -4032,31 +4089,31 @@ msgstr "Het was niet mogelijk het bericht in te voegen."
 msgid "Could not update message with new URI."
 msgstr "Het was niet mogelijk het bericht bij te werken met de nieuwe URI."
 
-#: classes/Notice.php:164
+#: classes/Notice.php:172
 #, php-format
 msgid "DB error inserting hashtag: %s"
 msgstr "Er is een databasefout opgetreden bij de invoer van de hashtag: %s"
 
-#: classes/Notice.php:188
+#: classes/Notice.php:226
 msgid "Problem saving notice. Too long."
 msgstr ""
 "Er is een probleem opgetreden bij het opslaan van de mededeling. Deze is te "
 "lang."
 
-#: classes/Notice.php:192
+#: classes/Notice.php:230
 msgid "Problem saving notice. Unknown user."
 msgstr ""
 "Er was een probleem bij het opslaan van de mededeling. De gebruiker is "
 "onbekend."
 
-#: classes/Notice.php:197
+#: classes/Notice.php:235
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "U hebt te snel te veel mededelingen verstuurd. Kom even op adem en probeer "
 "het over enige tijd weer."
 
-#: classes/Notice.php:203
+#: classes/Notice.php:241
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -4064,22 +4121,27 @@ msgstr ""
 "Te veel duplicaatberichten te snel achter elkaar. Neem een adempauze en "
 "plaats over een aantal minuten pas weer een bericht."
 
-#: classes/Notice.php:209
+#: classes/Notice.php:247
 msgid "You are banned from posting notices on this site."
 msgstr ""
 "U bent geblokkeerd en mag geen mededelingen meer achterlaten op deze site."
 
-#: classes/Notice.php:274 classes/Notice.php:299
+#: classes/Notice.php:319 classes/Notice.php:344
 msgid "Problem saving notice."
 msgstr "Er is een probleem opgetreden bij het opslaan van de mededeling."
 
-#: classes/Notice.php:1115
+#: classes/Notice.php:1044
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr ""
 "Er is een databasefout opgetreden bij het invoegen van het antwoord: %s"
 
-#: classes/User.php:347
+#: classes/Notice.php:1371
+#, php-format
+msgid "RT @%1$s %2$s"
+msgstr "RT @%1$s %2$s"
+
+#: classes/User.php:368
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Welkom bij %1$s, @%2$s!"
@@ -4287,19 +4349,19 @@ msgstr "Alle "
 msgid "license."
 msgstr "licentie."
 
-#: lib/action.php:1068
+#: lib/action.php:1098
 msgid "Pagination"
 msgstr "Paginering"
 
-#: lib/action.php:1077
+#: lib/action.php:1107
 msgid "After"
 msgstr "Later"
 
-#: lib/action.php:1085
+#: lib/action.php:1115
 msgid "Before"
 msgstr "Eerder"
 
-#: lib/action.php:1133
+#: lib/action.php:1163
 msgid "There was a problem with your session token."
 msgstr "Er is een probleem met uw sessietoken."
 
@@ -4392,11 +4454,12 @@ msgstr ""
 "Abonnees: %2$s\n"
 "Mededelingen: %3$s"
 
-#: lib/command.php:152 lib/command.php:400
+#: lib/command.php:152 lib/command.php:399 lib/command.php:460
 msgid "Notice with that id does not exist"
 msgstr "Er bestaat geen mededeling met dat ID"
 
-#: lib/command.php:168 lib/command.php:416 lib/command.php:472
+#: lib/command.php:168 lib/command.php:415 lib/command.php:476
+#: lib/command.php:532
 msgid "User has no last notice"
 msgstr "Deze gebruiker heeft geen laatste mededeling"
 
@@ -4429,119 +4492,136 @@ msgstr "Thuispagina: %s"
 msgid "About: %s"
 msgstr "Over: %s"
 
-#: lib/command.php:358 scripts/xmppdaemon.php:321
+#: lib/command.php:358 scripts/xmppdaemon.php:301
 #, php-format
 msgid "Message too long - maximum is %d characters, you sent %d"
 msgstr ""
 "Het bericht te is lang. De maximale lengte is %d tekens. De lengte van uw "
 "bericht was %d"
 
-#: lib/command.php:377
+#: lib/command.php:378
 msgid "Error sending direct message."
 msgstr "Er is een fout opgetreden bij het verzonden van het directe bericht."
 
-#: lib/command.php:431
+#: lib/command.php:422
+msgid "Cannot repeat your own notice"
+msgstr "U kunt uw eigen mededelingen niet herhalen."
+
+#: lib/command.php:427
+msgid "Already repeated that notice"
+msgstr "U hebt die mededeling al herhaald."
+
+#: lib/command.php:435
+#, php-format
+msgid "Notice from %s repeated"
+msgstr "De mededeling van %s is herhaald"
+
+#: lib/command.php:437
+msgid "Error repeating notice."
+msgstr "Er is een fout opgetreden bij het herhalen van de mededeling."
+
+#: lib/command.php:491
 #, php-format
 msgid "Notice too long - maximum is %d characters, you sent %d"
 msgstr ""
 "De mededeling is te lang. De maximale lengte is %d tekens. Uw mededeling "
 "bevatte %d tekens"
 
-#: lib/command.php:440
+#: lib/command.php:500
 #, php-format
 msgid "Reply to %s sent"
 msgstr "Het antwoord aan %s is verzonden"
 
-#: lib/command.php:442
+#: lib/command.php:502
 msgid "Error saving notice."
 msgstr "Er is een fout opgetreden bij het opslaan van de mededeling."
 
-#: lib/command.php:496
+#: lib/command.php:556
 msgid "Specify the name of the user to subscribe to"
 msgstr "Geef de naam op van de gebruiker waarop u wilt abonneren"
 
-#: lib/command.php:503
+#: lib/command.php:563
 #, php-format
 msgid "Subscribed to %s"
 msgstr "Geabonneerd op %s"
 
-#: lib/command.php:524
+#: lib/command.php:584
 msgid "Specify the name of the user to unsubscribe from"
 msgstr ""
 "Geef de naam op van de gebruiker waarvoor u het abonnement wilt opzeggen"
 
-#: lib/command.php:531
+#: lib/command.php:591
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr "Uw abonnement op %s is opgezegd"
 
-#: lib/command.php:549 lib/command.php:572
+#: lib/command.php:609 lib/command.php:632
 msgid "Command not yet implemented."
 msgstr "Dit commando is nog niet geïmplementeerd."
 
-#: lib/command.php:552
+#: lib/command.php:612
 msgid "Notification off."
 msgstr "Notificaties uitgeschakeld."
 
-#: lib/command.php:554
+#: lib/command.php:614
 msgid "Can't turn off notification."
 msgstr "Het is niet mogelijk de mededelingen uit te schakelen."
 
-#: lib/command.php:575
+#: lib/command.php:635
 msgid "Notification on."
 msgstr "Notificaties ingeschakeld."
 
-#: lib/command.php:577
+#: lib/command.php:637
 msgid "Can't turn on notification."
 msgstr "Het is niet mogelijk de notificatie uit te schakelen."
 
-#: lib/command.php:590
+#: lib/command.php:650
 msgid "Login command is disabled"
 msgstr "Het aanmeldcommando is uitgeschakeld"
 
-#: lib/command.php:604
+#: lib/command.php:664
 #, php-format
 msgid "Could not create login token for %s"
 msgstr "Het was niet mogelijk een aanmeldtoken aan te maken voor %s"
 
-#: lib/command.php:609
+#: lib/command.php:669
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 "Deze verwijzing kan slechts één keer gebruikt worden en is twee minuten "
 "geldig: %s"
 
-#: lib/command.php:625
+#: lib/command.php:685
 msgid "You are not subscribed to anyone."
 msgstr "U bent op geen enkele gebruiker geabonneerd."
 
-#: lib/command.php:627
+#: lib/command.php:687
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "U bent geabonneerd op deze gebruiker:"
 msgstr[1] "U bent geabonneerd op deze gebruikers:"
 
-#: lib/command.php:647
+#: lib/command.php:707
 msgid "No one is subscribed to you."
 msgstr "Niemand heeft een abonnenment op u."
 
-#: lib/command.php:649
+#: lib/command.php:709
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Deze gebruiker is op u geabonneerd:"
 msgstr[1] "Deze gebruikers zijn op u geabonneerd:"
 
-#: lib/command.php:669
+#: lib/command.php:729
 msgid "You are not a member of any groups."
 msgstr "U bent lid van geen enkele groep."
 
-#: lib/command.php:671
+#: lib/command.php:731
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "U bent lid van deze groep:"
 msgstr[1] "U bent lid van deze groepen:"
 
-#: lib/command.php:685
+#: lib/command.php:745
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4557,6 +4637,8 @@ msgid ""
 "whois <nickname> - get profile info on user\n"
 "fav <nickname> - add user's last notice as a 'fave'\n"
 "fav #<notice_id> - add notice with the given id as a 'fave'\n"
+"repeat #<notice_id> - repeat a notice with a given id\n"
+"repeat <nickname> - repeat the last notice from user\n"
 "reply #<notice_id> - reply to notice with a given id\n"
 "reply <nickname> - reply to the last notice from user\n"
 "join <group> - join group\n"
@@ -4595,6 +4677,8 @@ msgstr ""
 "zetten\n"
 "fav #<mededeling-ID> - mededelingen met aangegeven ID op favorietenlijst "
 "zetten\n"
+"repeat #<mededeling-ID> - herhaal een mededelingen met een opgegeven ID\n"
+"repeat <gebruiker> - herhaal de laatste mededelingen van gebruiker\n"
 "reply #<mededeling-ID> - antwoorden op de mededeling met het aangegeven ID\n"
 "reply <gebruiker> - antwoorden op de laatste mededeling van gebruiker\n"
 "join <groep> - lid worden van groep\n"
@@ -5090,12 +5174,12 @@ msgstr ""
 "Met vriendelijke groet,\n"
 "%6$s\n"
 
-#: lib/mail.php:620
+#: lib/mail.php:624
 #, php-format
 msgid "%s (@%s) sent a notice to your attention"
 msgstr "%s (@%s) heeft u een mededeling gestuurd"
 
-#: lib/mail.php:622
+#: lib/mail.php:626
 #, php-format
 msgid ""
 "%1$s (@%9$s) just sent a notice to your attention (an '@-reply') on %2$s.\n"
@@ -5132,7 +5216,7 @@ msgstr ""
 "U hebt geen privéberichten. U kunt privéberichten verzenden aan andere "
 "gebruikers. Mensen kunnen u privéberichten sturen die alleen u kunt lezen."
 
-#: lib/mailbox.php:227 lib/noticelist.php:452
+#: lib/mailbox.php:227 lib/noticelist.php:469
 msgid "from"
 msgstr "van"
 
@@ -5223,42 +5307,50 @@ msgstr "Toevoegen"
 msgid "Attach a file"
 msgstr "Bestand toevoegen"
 
-#: lib/noticelist.php:403
+#: lib/noticelist.php:420
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 
-#: lib/noticelist.php:404
+#: lib/noticelist.php:421
 msgid "N"
 msgstr "N"
 
-#: lib/noticelist.php:404
+#: lib/noticelist.php:421
 msgid "S"
 msgstr "Z"
 
-#: lib/noticelist.php:405
+#: lib/noticelist.php:422
 msgid "E"
 msgstr "O"
 
-#: lib/noticelist.php:405
+#: lib/noticelist.php:422
 msgid "W"
 msgstr "W"
 
-#: lib/noticelist.php:411
+#: lib/noticelist.php:428
 msgid "at"
 msgstr "op"
 
-#: lib/noticelist.php:506
+#: lib/noticelist.php:523
 msgid "in context"
 msgstr "in context"
 
-#: lib/noticelist.php:526
+#: lib/noticelist.php:548
+msgid "Repeated by"
+msgstr "Herhaald door"
+
+#: lib/noticelist.php:577
 msgid "Reply to this notice"
 msgstr "Op deze mededeling antwoorden"
 
-#: lib/noticelist.php:527
+#: lib/noticelist.php:578
 msgid "Reply"
 msgstr "Antwoorden"
+
+#: lib/noticelist.php:620
+msgid "Notice repeated"
+msgstr "Mededeling herhaald"
 
 #: lib/nudgeform.php:116
 msgid "Nudge this user"
@@ -5359,12 +5451,12 @@ msgid "All groups"
 msgstr "Alle groepen"
 
 #: lib/profileformaction.php:123
-msgid "No return-to arguments"
-msgstr "Er zijn geen \"terug naar\"-parameters opgegeven"
+msgid "No return-to arguments."
+msgstr "Er zijn geen \"terug naar\"-parameters opgegeven."
 
 #: lib/profileformaction.php:137
-msgid "unimplemented method"
-msgstr "methode niet geïmplementeerd"
+msgid "Unimplemented method."
+msgstr "Methode niet geïmplementeerd."
 
 #: lib/publicgroupnav.php:78
 msgid "Public"
@@ -5385,6 +5477,15 @@ msgstr "Uitgelicht"
 #: lib/publicgroupnav.php:92
 msgid "Popular"
 msgstr "Populair"
+
+#: lib/repeatform.php:107
+#, fuzzy
+msgid "Repeat this notice?"
+msgstr "Deze mededeling herhalen"
+
+#: lib/repeatform.php:132
+msgid "Repeat this notice"
+msgstr "Deze mededeling herhalen"
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"
@@ -5555,47 +5656,47 @@ msgstr "Bericht"
 msgid "Moderate"
 msgstr "Modereren"
 
-#: lib/util.php:825
+#: lib/util.php:837
 msgid "a few seconds ago"
 msgstr "een paar seconden geleden"
 
-#: lib/util.php:827
+#: lib/util.php:839
 msgid "about a minute ago"
 msgstr "ongeveer een minuut geleden"
 
-#: lib/util.php:829
+#: lib/util.php:841
 #, php-format
 msgid "about %d minutes ago"
 msgstr "ongeveer %d minuten geleden"
 
-#: lib/util.php:831
+#: lib/util.php:843
 msgid "about an hour ago"
 msgstr "ongeveer een uur geleden"
 
-#: lib/util.php:833
+#: lib/util.php:845
 #, php-format
 msgid "about %d hours ago"
 msgstr "ongeveer %d uur geleden"
 
-#: lib/util.php:835
+#: lib/util.php:847
 msgid "about a day ago"
 msgstr "ongeveer een dag geleden"
 
-#: lib/util.php:837
+#: lib/util.php:849
 #, php-format
 msgid "about %d days ago"
 msgstr "ongeveer %d dagen geleden"
 
-#: lib/util.php:839
+#: lib/util.php:851
 msgid "about a month ago"
 msgstr "ongeveer een maand geleden"
 
-#: lib/util.php:841
+#: lib/util.php:853
 #, php-format
 msgid "about %d months ago"
 msgstr "ongeveer %d maanden geleden"
 
-#: lib/util.php:843
+#: lib/util.php:855
 msgid "about a year ago"
 msgstr "ongeveer een jaar geleden"
 

@@ -42,6 +42,8 @@ filter: Default search filter.
     See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
 scope: Default search scope.
     See http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
+schema_cachefile: File location to store ldap schema.
+schema_maxage: TTL for cache file.
 
 attributes: an array that relates StatusNet user attributes to LDAP ones
     username*: LDAP attribute value entered when authenticating to StatusNet

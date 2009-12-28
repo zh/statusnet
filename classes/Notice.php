@@ -175,13 +175,43 @@ class Notice extends Memcached_DataObject
         }
     }
 
+    /**
+     * Save a new notice and push it out to subscribers' inboxes.
+     * Poster's permissions are checked before sending.
+     *
+     * @param int $profile_id Profile ID of the poster
+     * @param string $content source message text; links may be shortened
+     *                        per current user's preference
+     * @param string $source source key ('web', 'api', etc)
+     * @param array $options Associative array of optional properties:
+     *              string 'created' timestamp of notice; defaults to now
+     *              int 'is_local' source/gateway ID, one of:
+     *                  Notice::LOCAL_PUBLIC    - Local, ok to appear in public timeline
+     *                  Notice::REMOTE_OMB      - Sent from a remote OMB service;
+     *                                            hide from public timeline but show in
+     *                                            local "and friends" timelines
+     *                  Notice::LOCAL_NONPUBLIC - Local, but hide from public timeline
+     *                  Notice::GATEWAY         - From another non-OMB service;
+     *                                            will not appear in public views
+     *              float 'lat' decimal latitude for geolocation
+     *              float 'lon' decimal longitude for geolocation
+     *              int 'location_id' geoname identifier
+     *              int 'location_ns' geoname namespace to interpret location_id
+     *              int 'reply_to'; notice ID this is a reply to
+     *              int 'repeat_of'; notice ID this is a repeat of
+     *              string 'uri' permalink to notice; defaults to local notice URL
+     *
+     * @return Notice
+     * @throws ClientException
+     */
     static function saveNew($profile_id, $content, $source, $options=null) {
+        $defaults = array('uri' => null,
+                          'reply_to' => null,
+                          'repeat_of' => null);
 
         if (!empty($options)) {
+            $options = $options + $defaults;
             extract($options);
-            if (!isset($reply_to)) {
-                $reply_to = NULL;
-            }
         }
 
         if (empty($is_local)) {
@@ -530,8 +560,18 @@ class Notice extends Memcached_DataObject
                     if ($member->find()) {
                         while ($member->fetch()) {
                             $cache->delete(common_cache_key('notice_inbox:by_user:' . $member->profile_id));
+                            $cache->delete(common_cache_key('notice_inbox:by_user_own:' . $member->profile_id));
+                            if (empty($this->repeat_of)) {
+                                $cache->delete(common_cache_key('user:friends_timeline:' . $member->profile_id));
+                                $cache->delete(common_cache_key('user:friends_timeline_own:' . $member->profile_id));
+                            }
                             if ($blowLast) {
                                 $cache->delete(common_cache_key('notice_inbox:by_user:' . $member->profile_id . ';last'));
+                                $cache->delete(common_cache_key('notice_inbox:by_user_own:' . $member->profile_id . ';last'));
+                                if (empty($this->repeat_of)) {
+                                    $cache->delete(common_cache_key('user:friends_timeline:' . $member->profile_id . ';last'));
+                                    $cache->delete(common_cache_key('user:friends_timeline_own:' . $member->profile_id . ';last'));
+                                }
                             }
                         }
                     }
@@ -579,9 +619,17 @@ class Notice extends Memcached_DataObject
             while ($user->fetch()) {
                 $cache->delete(common_cache_key('notice_inbox:by_user:'.$user->id));
                 $cache->delete(common_cache_key('notice_inbox:by_user_own:'.$user->id));
+                if (empty($this->repeat_of)) {
+                    $cache->delete(common_cache_key('user:friends_timeline:'.$user->id));
+                    $cache->delete(common_cache_key('user:friends_timeline_own:'.$user->id));
+                }
                 if ($blowLast) {
                     $cache->delete(common_cache_key('notice_inbox:by_user:'.$user->id.';last'));
                     $cache->delete(common_cache_key('notice_inbox:by_user_own:'.$user->id.';last'));
+                    if (empty($this->repeat_of)) {
+                        $cache->delete(common_cache_key('user:friends_timeline:'.$user->id.';last'));
+                        $cache->delete(common_cache_key('user:friends_timeline_own:'.$user->id.';last'));
+                    }
                 }
             }
             $user->free();
@@ -948,6 +996,9 @@ class Notice extends Memcached_DataObject
         return true;
     }
 
+    /**
+     * @return array of integer profile IDs
+     */
     function saveReplies()
     {
         // Alternative reply format
@@ -1026,8 +1077,8 @@ class Notice extends Memcached_DataObject
 
         $recipientIds = array_keys($replied);
 
-        foreach ($recipientIds as $recipient) {
-            $user = User::staticGet('id', $recipient);
+        foreach ($recipientIds as $recipientId) {
+            $user = User::staticGet('id', $recipientId);
             if ($user) {
                 mail_notify_attn($user, $this);
             }

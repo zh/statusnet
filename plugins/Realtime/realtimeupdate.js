@@ -32,6 +32,7 @@ RealtimeUpdate = {
      _userid: 0,
      _replyurl: '',
      _favorurl: '',
+     _repeaturl: '',
      _deleteurl: '',
      _updatecounter: 0,
      _maxnotices: 50,
@@ -40,11 +41,12 @@ RealtimeUpdate = {
      _paused:false,
      _queuedNotices:[],
 
-     init: function(userid, replyurl, favorurl, deleteurl)
+     init: function(userid, replyurl, favorurl, repeaturl, deleteurl)
      {
         RealtimeUpdate._userid = userid;
         RealtimeUpdate._replyurl = replyurl;
         RealtimeUpdate._favorurl = favorurl;
+        RealtimeUpdate._repeaturl = repeaturl;
         RealtimeUpdate._deleteurl = deleteurl;
 
         RealtimeUpdate._documenttitle = document.title;
@@ -95,6 +97,7 @@ RealtimeUpdate = {
 
         SN.U.FormXHR($('#'+noticeItemID+' .form_favor'));
         SN.U.NoticeReplyTo($('#'+noticeItemID));
+        SN.U.FormXHR($('#'+noticeItemID+' .form_repeat'));
         SN.U.NoticeWithAttachment($('#'+noticeItemID));
      },
 
@@ -113,11 +116,24 @@ RealtimeUpdate = {
 
      makeNoticeItem: function(data)
      {
-          user = data['user'];
-          html = data['html'].replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"');
-          source = data['source'].replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"');
+          if (data.hasOwnProperty('retweeted_status')) {
+               original = data['retweeted_status'];
+               repeat   = data;
+               data     = original;
+               unique   = repeat['id'];
+               responsible = repeat['user'];
+          } else {
+               original = null;
+               repeat = null;
+               unique = data['id'];
+               responsible = data['user'];
+          }
 
-          ni = "<li class=\"hentry notice\" id=\"notice-"+data['id']+"\">"+
+          user = data['user'];
+          html = data['html'].replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&amp;/g,'&');
+          source = data['source'].replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&amp;/g,'&');
+
+          ni = "<li class=\"hentry notice\" id=\"notice-"+unique+"\">"+
                "<div class=\"entry-title\">"+
                "<span class=\"vcard author\">"+
                "<a href=\""+user['profile_url']+"\" class=\"url\">"+
@@ -139,20 +155,31 @@ RealtimeUpdate = {
                ni = ni+" <a class=\"response\" href=\""+data['in_reply_to_status_url']+"\">in context</a>";
           }
 
-          ni = ni+"</div>"+
-            "<div class=\"notice-options\">";
+          if (repeat) {
+               ru = repeat['user'];
+               ni = ni + "<span class=\"repeat vcard\">Repeated by " +
+                    "<a href=\"" + ru['profile_url'] + "\" class=\"url\">" +
+                    "<span class=\"nickname\">"+ ru['screen_name'] + "</span></a></span>";
+          }
+
+          ni = ni+"</div>";
+
+          ni = ni + "<div class=\"notice-options\">";
 
           if (RealtimeUpdate._userid != 0) {
                var input = $("form#form_notice fieldset input#token");
                var session_key = input.val();
                ni = ni+RealtimeUpdate.makeFavoriteForm(data['id'], session_key);
                ni = ni+RealtimeUpdate.makeReplyLink(data['id'], data['user']['screen_name']);
-               if (RealtimeUpdate._userid == data['user']['id']) {
+               if (RealtimeUpdate._userid == responsible['id']) {
                     ni = ni+RealtimeUpdate.makeDeleteLink(data['id']);
+               } else if (RealtimeUpdate._userid != user['id']) {
+                    ni = ni+RealtimeUpdate.makeRepeatForm(data['id'],  session_key);
                }
           }
 
-          ni = ni+"</div>"+
+          ni = ni+"</div>";
+
                "</li>";
           return ni;
      },
@@ -177,7 +204,22 @@ RealtimeUpdate = {
           var rl;
           rl = "<a class=\"notice_reply\" href=\""+RealtimeUpdate._replyurl+"?replyto="+nickname+"\" title=\"Reply to this notice\">Reply <span class=\"notice_id\">"+id+"</span></a>";
           return rl;
-        },
+     },
+
+     makeRepeatForm: function(id, session_key)
+     {
+          var rf;
+          rf = "<form id=\"repeat-"+id+"\" class=\"form_repeat\" method=\"post\" action=\""+RealtimeUpdate._repeaturl+"\">"+
+               "<fieldset>"+
+               "<legend>Favor this notice</legend>"+
+               "<input name=\"token-"+id+"\" type=\"hidden\" id=\"token-"+id+"\" value=\""+session_key+"\"/>"+
+               "<input name=\"notice\" type=\"hidden\" id=\"notice-n"+id+"\" value=\""+id+"\"/>"+
+               "<input type=\"submit\" id=\"repeat-submit-"+id+"\" name=\"repeat-submit-"+id+"\" class=\"submit\" value=\"Favor\" title=\"Repeat this notice\"/>"+
+               "</fieldset>"+
+               "</form>";
+
+          return rf;
+     },
 
      makeDeleteLink: function(id)
      {
@@ -309,7 +351,7 @@ RealtimeUpdate = {
      {
          $('.notices .entry-title a, .notices .entry-content a').bind('click', function() {
             window.open(this.href, '');
-            
+
             return false;
          });
 

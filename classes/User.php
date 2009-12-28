@@ -180,6 +180,27 @@ class User extends Memcached_DataObject
         return $result;
     }
 
+    /**
+     * Register a new user account and profile and set up default subscriptions.
+     * If a new-user welcome message is configured, this will be sent.
+     *
+     * @param array $fields associative array of optional properties
+     *              string 'bio'
+     *              string 'email'
+     *              bool 'email_confirmed' pass true to mark email as pre-confirmed
+     *              string 'fullname'
+     *              string 'homepage'
+     *              string 'location' informal string description of geolocation
+     *              float 'lat' decimal latitude for geolocation
+     *              float 'lon' decimal longitude for geolocation
+     *              int 'location_id' geoname identifier
+     *              int 'location_ns' geoname namespace to interpret location_id
+     *              string 'nickname' REQUIRED
+     *              string 'password' (may be missing for eg OpenID registrations)
+     *              string 'code' invite code
+     *              ?string 'uri' permalink to notice; defaults to local notice URL
+     * @return mixed User object or false on failure
+     */
     static function register($fields) {
 
         // MAGICALLY put fields into current scope
@@ -329,7 +350,7 @@ class User extends Memcached_DataObject
 
         $profile->query('COMMIT');
 
-        if ($email && !$user->email) {
+        if (!empty($email) && !$user->email) {
             mail_confirm_address($user, $confirm->code, $profile->nickname, $email);
         }
 
@@ -471,6 +492,77 @@ class User extends Memcached_DataObject
         $ids = Notice_inbox::stream($this->id, $offset, $limit, $since_id, $before_id, $since, true);
 
         return Notice::getStreamByIds($ids);
+    }
+
+    function friendsTimeline($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
+    {
+        $ids = Notice::stream(array($this, '_friendsTimelineDirect'),
+                              array(false),
+                              'user:friends_timeline:'.$this->id,
+                              $offset, $limit, $since_id, $before_id, $since);
+
+        return Notice::getStreamByIds($ids);
+    }
+
+    function ownFriendsTimeline($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
+    {
+        $ids = Notice::stream(array($this, '_friendsTimelineDirect'),
+                              array(true),
+                              'user:friends_timeline_own:'.$this->id,
+                              $offset, $limit, $since_id, $before_id, $since);
+
+        return Notice::getStreamByIds($ids);
+    }
+
+    function _friendsTimelineDirect($own, $offset, $limit, $since_id, $max_id, $since)
+    {
+        $qry =
+          'SELECT notice.id AS id ' .
+          'FROM notice JOIN notice_inbox ON notice.id = notice_inbox.notice_id ' .
+          'WHERE notice_inbox.user_id = ' . $this->id . ' ' .
+          'AND notice.repeat_of IS NULL ';
+
+        if (!$own) {
+            // XXX: autoload notice inbox for constant
+            $inbox = new Notice_inbox();
+
+            $qry .= 'AND notice_inbox.source != ' . NOTICE_INBOX_SOURCE_GATEWAY . ' ';
+        }
+
+        if ($since_id != 0) {
+            $qry .= 'AND notice.id > ' . $since_id . ' ';
+        }
+
+        if ($max_id != 0) {
+            $qry .= 'AND notice.id <= ' . $max_id . ' ';
+        }
+
+        if (!is_null($since)) {
+            $qry .= 'AND notice.modified > \'' . date('Y-m-d H:i:s', $since) . '\' ';
+        }
+
+        // NOTE: we sort by fave time, not by notice time!
+
+        $qry .= 'ORDER BY notice_id DESC ';
+
+        if (!is_null($offset)) {
+            $qry .= "LIMIT $limit OFFSET $offset";
+        }
+
+        $ids = array();
+
+        $notice = new Notice();
+
+        $notice->query($qry);
+
+        while ($notice->fetch()) {
+            $ids[] = $notice->id;
+        }
+
+        $notice->free();
+        $notice = NULL;
+
+        return $ids;
     }
 
     function blowFavesCache()

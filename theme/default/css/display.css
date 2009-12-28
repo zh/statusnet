@@ -88,6 +88,7 @@ color:#FFFFFF;
 border-color:transparent;
 text-shadow:none;
 }
+.dialogbox .submit_dialogbox,
 input.submit,
 .form_notice input.submit {
 background:#AAAAAA url(../../base/images/illustrations/illu_pattern-01.png) 0 0 repeat-x;
@@ -97,9 +98,11 @@ border-color:#AAAAAA;
 border-top-color:#CCCCCC;
 border-left-color:#CCCCCC;
 }
+.dialogbox .submit_dialogbox:hover,
 input.submit:hover {
 background-position:0 -5px;
 }
+.dialogbox .submit_dialogbox:focus,
 input.submit:focus {
 background-position:0 -15px;
 box-shadow:3px 3px 3px rgba(194, 194, 194, 0.1);
@@ -160,6 +163,7 @@ opacity:0;
 .notice-options form.form_favor input.submit,
 .notice-options form.form_disfavor input.submit,
 .notice-options .notice_delete,
+.notice-options form.form_repeat input.submit,
 #new_group a,
 .pagination .nav_prev a,
 .pagination .nav_next a,
@@ -172,7 +176,8 @@ button.close,
 .entity_moderation p,
 .entity_sandbox input.submit,
 .entity_silence input.submit,
-.entity_delete input.submit {
+.entity_delete input.submit,
+.notice-options .repeated {
 background-image:url(../../base/images/icons/icons-01.gif);
 background-repeat:no-repeat;
 background-color:transparent;
@@ -334,6 +339,12 @@ background-position:0 -526px;
 .notice-options .notice_delete {
 background-position:0 -658px;
 }
+.notice-options form.form_repeat input.submit {
+background-position:0 -1582px;
+}
+.notice-options .repeated {
+background-position:0 -1648px;
+}
 
 .notices div.entry-content,
 .notices div.notice-options {
@@ -342,6 +353,9 @@ opacity:0.4;
 .notices li:hover div.entry-content,
 .notices li:hover div.notice-options {
 opacity:1;
+}
+.opaque {
+opacity:1 !important;
 }
 .notice-options a,
 .notice-options input {

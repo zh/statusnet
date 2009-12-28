@@ -74,7 +74,7 @@ ALTER TABLE notice ADD COLUMN lat decimal(10, 7) /* comment 'latitude'*/;
 ALTER TABLE notice ADD COLUMN lon decimal(10,7) /* comment 'longitude'*/;
 ALTER TABLE notice ADD COLUMN location_id integer /* comment 'location id if possible'*/ ;
 ALTER TABLE notice ADD COLUMN location_ns integer /* comment 'namespace for location'*/;
-ALTER TABLE notice ADD COLUMN repeat_of integer / * comment 'notice this is a repeat of' */ references notice (id);
+ALTER TABLE notice ADD COLUMN repeat_of integer /* comment 'notice this is a repeat of' */ references notice (id);
 
 ALTER TABLE profile ADD COLUMN lat decimal(10,7) /*comment 'latitude'*/ ;
 ALTER TABLE profile ADD COLUMN lon decimal(10,7) /*comment 'longitude'*/;

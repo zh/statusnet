@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-12 17:09+0000\n"
-"PO-Revision-Date: 2009-12-12 17:09:46+0000\n"
+"POT-Creation-Date: 2009-12-25 09:42+0000\n"
+"PO-Revision-Date: 2009-12-25 09:42:57+0000\n"
 "Language-Team: Hebrew\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r59992); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60380); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: he\n"
 "X-Message-Group: out-statusnet\n"
@@ -35,15 +35,16 @@ msgstr "אין הודעה כזו."
 #: actions/apigroupleave.php:99 actions/apigrouplist.php:90
 #: actions/apistatusesupdate.php:144 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:79
-#: actions/apitimelinementions.php:79 actions/apitimelineuser.php:81
-#: actions/avatarbynickname.php:75 actions/favoritesrss.php:74
-#: actions/foaf.php:40 actions/foaf.php:58 actions/microsummary.php:62
-#: actions/newmessage.php:116 actions/remotesubscribe.php:145
-#: actions/remotesubscribe.php:154 actions/replies.php:73
-#: actions/repliesrss.php:38 actions/showfavorites.php:105
-#: actions/userbyid.php:74 actions/usergroups.php:91 actions/userrss.php:38
-#: actions/xrds.php:71 lib/command.php:163 lib/command.php:311
-#: lib/command.php:364 lib/command.php:411 lib/command.php:467
+#: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
+#: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
+#: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
+#: actions/microsummary.php:62 actions/newmessage.php:116
+#: actions/remotesubscribe.php:145 actions/remotesubscribe.php:154
+#: actions/replies.php:73 actions/repliesrss.php:38
+#: actions/showfavorites.php:105 actions/userbyid.php:74
+#: actions/usergroups.php:91 actions/userrss.php:38 actions/xrds.php:71
+#: lib/command.php:163 lib/command.php:311 lib/command.php:364
+#: lib/command.php:410 lib/command.php:471 lib/command.php:527
 #: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
 #: lib/subs.php:34 lib/subs.php:116
 msgid "No such user."
@@ -55,7 +56,8 @@ msgid "%s and friends, page %d"
 msgstr "%s וחברים"
 
 #: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
-#: actions/apitimelinefriends.php:115 lib/personalgroupnav.php:100
+#: actions/apitimelinefriends.php:115 actions/apitimelinehome.php:115
+#: lib/personalgroupnav.php:100
 #, php-format
 msgid "%s and friends"
 msgstr "%s וחברים"
@@ -108,6 +110,7 @@ msgid "You and friends"
 msgstr "%s וחברים"
 
 #: actions/allrss.php:119 actions/apitimelinefriends.php:122
+#: actions/apitimelinehome.php:122
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr ""
@@ -130,7 +133,8 @@ msgstr "קוד האישור לא נמצא."
 #: actions/apifavoritecreate.php:90 actions/apifavoritedestroy.php:91
 #: actions/apifriendshipscreate.php:91 actions/apifriendshipsdestroy.php:91
 #: actions/apigroupcreate.php:104 actions/apigroupjoin.php:91
-#: actions/apigroupleave.php:91 actions/apistatusesupdate.php:114
+#: actions/apigroupleave.php:91 actions/apistatusesretweet.php:65
+#: actions/apistatusesupdate.php:114
 msgid "This method requires a POST."
 msgstr ""
 
@@ -224,11 +228,14 @@ msgstr ""
 #: actions/apigrouplist.php:132 actions/apigrouplistall.php:120
 #: actions/apigroupmembership.php:106 actions/apigroupshow.php:105
 #: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
-#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:133
-#: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
-#: actions/apitimelinefavorites.php:146 actions/apitimelinefriends.php:156
-#: actions/apitimelinegroup.php:150 actions/apitimelinementions.php:151
-#: actions/apitimelinepublic.php:131 actions/apitimelinetag.php:141
+#: actions/apistatusesretweets.php:112 actions/apistatusesshow.php:108
+#: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
+#: actions/apisubscriptions.php:111 actions/apitimelinefavorites.php:146
+#: actions/apitimelinefriends.php:156 actions/apitimelinegroup.php:150
+#: actions/apitimelinehome.php:156 actions/apitimelinementions.php:151
+#: actions/apitimelinepublic.php:131 actions/apitimelineretweetedbyme.php:122
+#: actions/apitimelineretweetedtome.php:121
+#: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
 #: actions/apitimelineuser.php:165 actions/apiusershow.php:101
 msgid "API method not found!"
 msgstr ""
@@ -426,6 +433,21 @@ msgstr ""
 msgid "You may not delete another user's status."
 msgstr ""
 
+#: actions/apistatusesretweet.php:75 actions/apistatusesretweets.php:72
+#: actions/deletenotice.php:52 actions/shownotice.php:92
+msgid "No such notice."
+msgstr "אין הודעה כזו."
+
+#: actions/apistatusesretweet.php:83
+#, fuzzy
+msgid "Cannot repeat your own notice."
+msgstr "לא ניתן להירשם ללא הסכמה לרשיון"
+
+#: actions/apistatusesretweet.php:91
+#, fuzzy
+msgid "Already repeated that notice."
+msgstr "כבר נכנסת למערכת!"
+
 #: actions/apistatusesshow.php:138
 #, fuzzy
 msgid "Status deleted."
@@ -445,7 +467,7 @@ msgstr "זה ארוך מידי. אורך מירבי להודעה הוא 140 או
 msgid "Not found"
 msgstr "לא נמצא"
 
-#: actions/apistatusesupdate.php:227 actions/newnotice.php:183
+#: actions/apistatusesupdate.php:227 actions/newnotice.php:191
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -497,6 +519,21 @@ msgstr ""
 msgid "%s updates from everyone!"
 msgstr ""
 
+#: actions/apitimelineretweetedbyme.php:112
+#, php-format
+msgid "Repeated by %s"
+msgstr ""
+
+#: actions/apitimelineretweetedtome.php:111
+#, fuzzy, php-format
+msgid "Repeated to %s"
+msgstr "תגובת עבור %s"
+
+#: actions/apitimelineretweetsofme.php:112
+#, fuzzy, php-format
+msgid "Repeats of %s"
+msgstr "תגובת עבור %s"
+
 #: actions/apitimelinetag.php:102 actions/tag.php:66
 #, php-format
 msgid "Notices tagged with %s"
@@ -517,7 +554,8 @@ msgstr "לא נמצא"
 msgid "No such attachment."
 msgstr "אין מסמך כזה."
 
-#: actions/avatarbynickname.php:59 actions/leavegroup.php:76
+#: actions/avatarbynickname.php:59 actions/grouprss.php:91
+#: actions/leavegroup.php:76
 msgid "No nickname."
 msgstr "אין כינוי"
 
@@ -562,7 +600,7 @@ msgid "Preview"
 msgstr ""
 
 #: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:550
+#: lib/noticelist.php:603
 #, fuzzy
 msgid "Delete"
 msgstr "מחק"
@@ -584,9 +622,10 @@ msgstr ""
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:187 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
-#: actions/smssettings.php:228 actions/subedit.php:38 actions/subscribe.php:46
-#: actions/tagother.php:166 actions/unsubscribe.php:69
-#: actions/userauthorization.php:52 lib/designsettings.php:294
+#: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
+#: actions/subscribe.php:46 actions/tagother.php:166
+#: actions/unsubscribe.php:69 actions/userauthorization.php:52
+#: lib/designsettings.php:294
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 
@@ -647,6 +686,7 @@ msgstr "אין משתמש כזה."
 
 #: actions/block.php:144 actions/deletenotice.php:146
 #: actions/deleteuser.php:148 actions/groupblock.php:179
+#: lib/repeatform.php:132
 msgid "Yes"
 msgstr "כן"
 
@@ -661,8 +701,8 @@ msgstr ""
 
 #: actions/blockedfromgroup.php:73 actions/editgroup.php:84
 #: actions/groupdesignsettings.php:84 actions/grouplogo.php:86
-#: actions/groupmembers.php:76 actions/grouprss.php:91
-#: actions/joingroup.php:76 actions/showgroup.php:121
+#: actions/groupmembers.php:76 actions/joingroup.php:76
+#: actions/showgroup.php:121
 #, fuzzy
 msgid "No nickname"
 msgstr "אין כינוי"
@@ -670,7 +710,7 @@ msgstr "אין כינוי"
 #: actions/blockedfromgroup.php:80 actions/editgroup.php:96
 #: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
 #: actions/grouplogo.php:99 actions/groupmembers.php:83
-#: actions/grouprss.php:98 actions/joingroup.php:83 actions/showgroup.php:137
+#: actions/joingroup.php:83 actions/showgroup.php:137
 #, fuzzy
 msgid "No such group"
 msgstr "אין הודעה כזו."
@@ -760,16 +800,13 @@ msgstr "מיקום"
 msgid "Notices"
 msgstr "הודעות"
 
-#: actions/deletenotice.php:52 actions/shownotice.php:92
-msgid "No such notice."
-msgstr "אין הודעה כזו."
-
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
 #: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
-#: actions/unsubscribe.php:52 lib/adminpanelaction.php:72
-#: lib/profileformaction.php:63 lib/settingsaction.php:72
+#: actions/tagother.php:33 actions/unsubscribe.php:52
+#: lib/adminpanelaction.php:72 lib/profileformaction.php:63
+#: lib/settingsaction.php:72
 msgid "Not logged in."
 msgstr "לא מחובר."
 
@@ -796,7 +833,7 @@ msgstr ""
 msgid "Do not delete this notice"
 msgstr "אין הודעה כזו."
 
-#: actions/deletenotice.php:146 lib/noticelist.php:550
+#: actions/deletenotice.php:146 lib/noticelist.php:603
 msgid "Delete this notice"
 msgstr ""
 
@@ -943,8 +980,8 @@ msgstr ""
 
 #: actions/designadminpanel.php:586 actions/emailsettings.php:195
 #: actions/imsettings.php:163 actions/othersettings.php:126
-#: actions/pathsadminpanel.php:296 actions/profilesettings.php:167
-#: actions/siteadminpanel.php:421 actions/smssettings.php:181
+#: actions/pathsadminpanel.php:324 actions/profilesettings.php:167
+#: actions/siteadminpanel.php:388 actions/smssettings.php:181
 #: actions/subscriptions.php:203 actions/tagother.php:154
 #: actions/useradminpanel.php:313 lib/designsettings.php:256
 #: lib/groupeditform.php:202
@@ -1116,7 +1153,7 @@ msgstr ""
 msgid "Cannot normalize that email address"
 msgstr ""
 
-#: actions/emailsettings.php:331 actions/siteadminpanel.php:158
+#: actions/emailsettings.php:331 actions/siteadminpanel.php:157
 msgid "Not a valid email address"
 msgstr ""
 
@@ -1242,26 +1279,28 @@ msgstr ""
 
 #: actions/featured.php:99
 #, php-format
-msgid "A selection of some of the great users on %s"
+msgid "A selection of some great users on %s"
 msgstr ""
 
 #: actions/file.php:34
 #, fuzzy
-msgid "No notice id"
+msgid "No notice ID."
 msgstr "הודעה חדשה"
 
 #: actions/file.php:38
 #, fuzzy
-msgid "No notice"
+msgid "No notice."
 msgstr "הודעה חדשה"
 
 #: actions/file.php:42
-msgid "No attachments"
-msgstr ""
+#, fuzzy
+msgid "No attachments."
+msgstr "אין מסמך כזה."
 
 #: actions/file.php:51
-msgid "No uploaded attachments"
-msgstr ""
+#, fuzzy
+msgid "No uploaded attachments."
+msgstr "אין מסמך כזה."
 
 #: actions/finishremotesubscribe.php:69
 msgid "Not expecting this response!"
@@ -1300,8 +1339,9 @@ msgid "Error updating remote profile"
 msgstr "שגיאה בעדכון פרופיל מרוחק"
 
 #: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
-#: actions/groupunblock.php:86 actions/leavegroup.php:83
-#: actions/makeadmin.php:86 lib/command.php:212 lib/command.php:263
+#: actions/grouprss.php:98 actions/groupunblock.php:86
+#: actions/leavegroup.php:83 actions/makeadmin.php:86 lib/command.php:212
+#: lib/command.php:263
 #, fuzzy
 msgid "No such group."
 msgstr "אין הודעה כזו."
@@ -1907,7 +1947,7 @@ msgid "You can't send a message to this user."
 msgstr ""
 
 #: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:351
-#: lib/command.php:424
+#: lib/command.php:484
 msgid "No content!"
 msgstr "אין תוכן!"
 
@@ -1925,12 +1965,12 @@ msgstr ""
 msgid "Message sent"
 msgstr "הודעה חדשה"
 
-#: actions/newmessage.php:185 lib/command.php:375
+#: actions/newmessage.php:185 lib/command.php:376
 #, php-format
 msgid "Direct message to %s sent"
 msgstr ""
 
-#: actions/newmessage.php:210 actions/newnotice.php:242 lib/channel.php:170
+#: actions/newmessage.php:210 actions/newnotice.php:250 lib/channel.php:170
 msgid "Ajax Error"
 msgstr ""
 
@@ -1938,7 +1978,7 @@ msgstr ""
 msgid "New notice"
 msgstr "הודעה חדשה"
 
-#: actions/newnotice.php:208
+#: actions/newnotice.php:216
 #, fuzzy
 msgid "Notice posted"
 msgstr "הודעות"
@@ -2016,8 +2056,8 @@ msgstr "התחבר"
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1011
-#: lib/api.php:1039 lib/api.php:1149
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1031
+#: lib/api.php:1059 lib/api.php:1169
 msgid "Not a supported data format."
 msgstr ""
 
@@ -2169,81 +2209,120 @@ msgstr ""
 msgid "Locales directory not readable: %s"
 msgstr ""
 
-#: actions/pathsadminpanel.php:212 actions/siteadminpanel.php:58
+#: actions/pathsadminpanel.php:166
+msgid "Invalid SSL server. The maximum length is 255 characters."
+msgstr ""
+
+#: actions/pathsadminpanel.php:217 actions/siteadminpanel.php:58
 #: lib/adminpanelaction.php:299
 msgid "Site"
 msgstr ""
 
-#: actions/pathsadminpanel.php:216
+#: actions/pathsadminpanel.php:221
 msgid "Path"
 msgstr ""
 
-#: actions/pathsadminpanel.php:216
+#: actions/pathsadminpanel.php:221
 #, fuzzy
 msgid "Site path"
 msgstr "הודעה חדשה"
 
-#: actions/pathsadminpanel.php:220
+#: actions/pathsadminpanel.php:225
 msgid "Path to locales"
 msgstr ""
 
-#: actions/pathsadminpanel.php:220
+#: actions/pathsadminpanel.php:225
 msgid "Directory path to locales"
 msgstr ""
 
-#: actions/pathsadminpanel.php:227
+#: actions/pathsadminpanel.php:232
 msgid "Theme"
 msgstr ""
 
-#: actions/pathsadminpanel.php:232
+#: actions/pathsadminpanel.php:237
 msgid "Theme server"
 msgstr ""
 
-#: actions/pathsadminpanel.php:236
+#: actions/pathsadminpanel.php:241
 msgid "Theme path"
 msgstr ""
 
-#: actions/pathsadminpanel.php:240
+#: actions/pathsadminpanel.php:245
 msgid "Theme directory"
 msgstr ""
 
-#: actions/pathsadminpanel.php:247
+#: actions/pathsadminpanel.php:252
 #, fuzzy
 msgid "Avatars"
 msgstr "תמונה"
 
-#: actions/pathsadminpanel.php:252
+#: actions/pathsadminpanel.php:257
 #, fuzzy
 msgid "Avatar server"
 msgstr "הגדרות"
 
-#: actions/pathsadminpanel.php:256
+#: actions/pathsadminpanel.php:261
 #, fuzzy
 msgid "Avatar path"
 msgstr "התמונה עודכנה."
 
-#: actions/pathsadminpanel.php:260
+#: actions/pathsadminpanel.php:265
 #, fuzzy
 msgid "Avatar directory"
 msgstr "התמונה עודכנה."
 
-#: actions/pathsadminpanel.php:269
+#: actions/pathsadminpanel.php:274
 msgid "Backgrounds"
 msgstr ""
 
-#: actions/pathsadminpanel.php:273
+#: actions/pathsadminpanel.php:278
 msgid "Background server"
 msgstr ""
 
-#: actions/pathsadminpanel.php:277
+#: actions/pathsadminpanel.php:282
 msgid "Background path"
 msgstr ""
 
-#: actions/pathsadminpanel.php:281
+#: actions/pathsadminpanel.php:286
 msgid "Background directory"
 msgstr ""
 
+#: actions/pathsadminpanel.php:293
+#, fuzzy
+msgid "SSL"
+msgstr "סמס"
+
+#: actions/pathsadminpanel.php:296 actions/siteadminpanel.php:346
+#, fuzzy
+msgid "Never"
+msgstr "שיחזור"
+
 #: actions/pathsadminpanel.php:297
+#, fuzzy
+msgid "Sometimes"
+msgstr "הודעות"
+
+#: actions/pathsadminpanel.php:298
+msgid "Always"
+msgstr ""
+
+#: actions/pathsadminpanel.php:302
+msgid "Use SSL"
+msgstr ""
+
+#: actions/pathsadminpanel.php:303
+msgid "When to use SSL"
+msgstr ""
+
+#: actions/pathsadminpanel.php:308
+msgid "SSL Server"
+msgstr ""
+
+#: actions/pathsadminpanel.php:309
+msgid "Server to direct SSL requests to"
+msgstr ""
+
+#: actions/pathsadminpanel.php:325
 #, fuzzy
 msgid "Save paths"
 msgstr "הודעה חדשה"
@@ -2349,7 +2428,7 @@ msgid ""
 "Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
 msgstr ""
 
-#: actions/profilesettings.php:144 actions/siteadminpanel.php:307
+#: actions/profilesettings.php:144 actions/siteadminpanel.php:294
 msgid "Language"
 msgstr "שפה"
 
@@ -2375,7 +2454,7 @@ msgstr ""
 msgid "Bio is too long (max %d chars)."
 msgstr "הביוגרפיה ארוכה מידי (לכל היותר 140 אותיות)"
 
-#: actions/profilesettings.php:228 actions/siteadminpanel.php:165
+#: actions/profilesettings.php:228 actions/siteadminpanel.php:164
 msgid "Timezone not selected."
 msgstr ""
 
@@ -2679,7 +2758,7 @@ msgid "Same as password above. Required."
 msgstr ""
 
 #: actions/register.php:437 actions/register.php:441
-#: actions/siteadminpanel.php:283 lib/accountsettingsaction.php:120
+#: actions/siteadminpanel.php:270 lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr ""
 
@@ -2788,6 +2867,35 @@ msgstr ""
 #, fuzzy
 msgid "Couldn’t get a request token."
 msgstr "אסימון הבקשה לא התקבל."
+
+#: actions/repeat.php:57
+msgid "Only logged-in users can repeat notices."
+msgstr ""
+
+#: actions/repeat.php:64 actions/repeat.php:71
+#, fuzzy
+msgid "No notice specified."
+msgstr "הודעה חדשה"
+
+#: actions/repeat.php:76
+#, fuzzy
+msgid "You can't repeat your own notice."
+msgstr "לא ניתן להירשם ללא הסכמה לרשיון"
+
+#: actions/repeat.php:90
+#, fuzzy
+msgid "You already repeated that notice."
+msgstr "כבר נכנסת למערכת!"
+
+#: actions/repeat.php:114 lib/noticelist.php:621
+#, fuzzy
+msgid "Repeated"
+msgstr "צור"
+
+#: actions/repeat.php:119
+#, fuzzy
+msgid "Repeated!"
+msgstr "צור"
 
 #: actions/replies.php:125 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
@@ -3094,6 +3202,11 @@ msgid ""
 "[StatusNet](http://status.net/) tool. "
 msgstr ""
 
+#: actions/showstream.php:313
+#, fuzzy, php-format
+msgid "Repeat of %s"
+msgstr "תגובת עבור %s"
+
 #: actions/silence.php:65 actions/unsilence.php:65
 msgid "You cannot silence users on this site."
 msgstr ""
@@ -3107,241 +3220,198 @@ msgstr "למשתמש אין פרופיל."
 msgid "Basic settings for this StatusNet site."
 msgstr ""
 
-#: actions/siteadminpanel.php:147
+#: actions/siteadminpanel.php:146
 msgid "Site name must have non-zero length."
 msgstr ""
 
-#: actions/siteadminpanel.php:155
+#: actions/siteadminpanel.php:154
 msgid "You must have a valid contact email address"
 msgstr ""
 
-#: actions/siteadminpanel.php:173
+#: actions/siteadminpanel.php:172
 #, php-format
 msgid "Unknown language \"%s\""
 msgstr ""
 
-#: actions/siteadminpanel.php:180
+#: actions/siteadminpanel.php:179
 msgid "Invalid snapshot report URL."
 msgstr ""
 
-#: actions/siteadminpanel.php:186
+#: actions/siteadminpanel.php:185
 msgid "Invalid snapshot run value."
 msgstr ""
 
-#: actions/siteadminpanel.php:192
+#: actions/siteadminpanel.php:191
 msgid "Snapshot frequency must be a number."
 msgstr ""
 
-#: actions/siteadminpanel.php:199
-msgid "You must set an SSL server when enabling SSL."
-msgstr ""
-
-#: actions/siteadminpanel.php:204
-msgid "Invalid SSL server. The maximum length is 255 characters."
-msgstr ""
-
-#: actions/siteadminpanel.php:210
+#: actions/siteadminpanel.php:197
 msgid "Minimum text limit is 140 characters."
 msgstr ""
 
-#: actions/siteadminpanel.php:216
+#: actions/siteadminpanel.php:203
 msgid "Dupe limit must 1 or more seconds."
 msgstr ""
 
-#: actions/siteadminpanel.php:266
+#: actions/siteadminpanel.php:253
 msgid "General"
 msgstr ""
 
-#: actions/siteadminpanel.php:269
+#: actions/siteadminpanel.php:256
 #, fuzzy
 msgid "Site name"
 msgstr "הודעה חדשה"
 
-#: actions/siteadminpanel.php:270
+#: actions/siteadminpanel.php:257
 msgid "The name of your site, like \"Yourcompany Microblog\""
 msgstr ""
 
-#: actions/siteadminpanel.php:274
+#: actions/siteadminpanel.php:261
 msgid "Brought by"
 msgstr ""
 
-#: actions/siteadminpanel.php:275
+#: actions/siteadminpanel.php:262
 msgid "Text used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:279
+#: actions/siteadminpanel.php:266
 msgid "Brought by URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:280
+#: actions/siteadminpanel.php:267
 msgid "URL used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:284
+#: actions/siteadminpanel.php:271
 msgid "Contact email address for your site"
 msgstr ""
 
-#: actions/siteadminpanel.php:290
+#: actions/siteadminpanel.php:277
 #, fuzzy
 msgid "Local"
 msgstr "מיקום"
 
-#: actions/siteadminpanel.php:301
+#: actions/siteadminpanel.php:288
 msgid "Default timezone"
 msgstr ""
 
-#: actions/siteadminpanel.php:302
+#: actions/siteadminpanel.php:289
 msgid "Default timezone for the site; usually UTC."
 msgstr ""
 
-#: actions/siteadminpanel.php:308
+#: actions/siteadminpanel.php:295
 msgid "Default site language"
 msgstr ""
 
-#: actions/siteadminpanel.php:316
+#: actions/siteadminpanel.php:303
 msgid "URLs"
 msgstr ""
 
-#: actions/siteadminpanel.php:319
+#: actions/siteadminpanel.php:306
 #, fuzzy
 msgid "Server"
 msgstr "שיחזור"
 
-#: actions/siteadminpanel.php:319
+#: actions/siteadminpanel.php:306
 msgid "Site's server hostname."
 msgstr ""
 
-#: actions/siteadminpanel.php:323
+#: actions/siteadminpanel.php:310
 msgid "Fancy URLs"
 msgstr ""
 
-#: actions/siteadminpanel.php:325
+#: actions/siteadminpanel.php:312
 msgid "Use fancy (more readable and memorable) URLs?"
 msgstr ""
 
-#: actions/siteadminpanel.php:331
+#: actions/siteadminpanel.php:318
 #, fuzzy
 msgid "Access"
 msgstr "קבל"
 
-#: actions/siteadminpanel.php:334
+#: actions/siteadminpanel.php:321
 #, fuzzy
 msgid "Private"
 msgstr "פרטיות"
 
-#: actions/siteadminpanel.php:336
+#: actions/siteadminpanel.php:323
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr ""
 
-#: actions/siteadminpanel.php:340
+#: actions/siteadminpanel.php:327
 msgid "Invite only"
 msgstr ""
 
-#: actions/siteadminpanel.php:342
+#: actions/siteadminpanel.php:329
 msgid "Make registration invitation only."
 msgstr ""
 
-#: actions/siteadminpanel.php:346
+#: actions/siteadminpanel.php:333
 #, fuzzy
 msgid "Closed"
 msgstr "אין משתמש כזה."
 
-#: actions/siteadminpanel.php:348
+#: actions/siteadminpanel.php:335
 msgid "Disable new registrations."
 msgstr ""
 
-#: actions/siteadminpanel.php:354
+#: actions/siteadminpanel.php:341
 msgid "Snapshots"
 msgstr ""
 
-#: actions/siteadminpanel.php:357
+#: actions/siteadminpanel.php:344
 msgid "Randomly during Web hit"
 msgstr ""
 
-#: actions/siteadminpanel.php:358
+#: actions/siteadminpanel.php:345
 msgid "In a scheduled job"
 msgstr ""
 
-#: actions/siteadminpanel.php:359 actions/siteadminpanel.php:383
-#, fuzzy
-msgid "Never"
-msgstr "שיחזור"
-
-#: actions/siteadminpanel.php:360
+#: actions/siteadminpanel.php:347
 msgid "Data snapshots"
 msgstr ""
 
-#: actions/siteadminpanel.php:361
+#: actions/siteadminpanel.php:348
 msgid "When to send statistical data to status.net servers"
 msgstr ""
 
-#: actions/siteadminpanel.php:366
+#: actions/siteadminpanel.php:353
 msgid "Frequency"
 msgstr ""
 
-#: actions/siteadminpanel.php:367
+#: actions/siteadminpanel.php:354
 msgid "Snapshots will be sent once every N web hits"
 msgstr ""
 
-#: actions/siteadminpanel.php:372
+#: actions/siteadminpanel.php:359
 msgid "Report URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:373
+#: actions/siteadminpanel.php:360
 msgid "Snapshots will be sent to this URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:380
-#, fuzzy
-msgid "SSL"
-msgstr "סמס"
-
-#: actions/siteadminpanel.php:384
-#, fuzzy
-msgid "Sometimes"
-msgstr "הודעות"
-
-#: actions/siteadminpanel.php:385
-msgid "Always"
-msgstr ""
-
-#: actions/siteadminpanel.php:387
-msgid "Use SSL"
-msgstr ""
-
-#: actions/siteadminpanel.php:388
-msgid "When to use SSL"
-msgstr ""
-
-#: actions/siteadminpanel.php:393
-msgid "SSL Server"
-msgstr ""
-
-#: actions/siteadminpanel.php:394
-msgid "Server to direct SSL requests to"
-msgstr ""
-
-#: actions/siteadminpanel.php:400
+#: actions/siteadminpanel.php:367
 msgid "Limits"
 msgstr ""
 
-#: actions/siteadminpanel.php:403
+#: actions/siteadminpanel.php:370
 msgid "Text limit"
 msgstr ""
 
-#: actions/siteadminpanel.php:403
+#: actions/siteadminpanel.php:370
 msgid "Maximum number of characters for notices."
 msgstr ""
 
-#: actions/siteadminpanel.php:407
+#: actions/siteadminpanel.php:374
 msgid "Dupe limit"
 msgstr ""
 
-#: actions/siteadminpanel.php:407
+#: actions/siteadminpanel.php:374
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 
-#: actions/siteadminpanel.php:421 actions/useradminpanel.php:313
+#: actions/siteadminpanel.php:388 actions/useradminpanel.php:313
 #, fuzzy
 msgid "Save site settings"
 msgstr "הגדרות"
@@ -3560,14 +3630,9 @@ msgstr "הזנת הודעות של %s"
 msgid "Notice feed for tag %s (Atom)"
 msgstr "הזנת הודעות של %s"
 
-#: actions/tagother.php:33
-#, fuzzy
-msgid "Not logged in"
-msgstr "לא מחובר."
-
 #: actions/tagother.php:39
 #, fuzzy
-msgid "No id argument."
+msgid "No ID argument."
 msgstr "אין מסמך כזה."
 
 #: actions/tagother.php:65
@@ -3848,7 +3913,8 @@ msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "סוג התמונה של '%s' אינו מתאים"
 
 #: actions/userbyid.php:70
-msgid "No id."
+#, fuzzy
+msgid "No ID."
 msgstr "אין זיהוי."
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
@@ -3914,46 +3980,51 @@ msgstr ""
 msgid "Could not update message with new URI."
 msgstr ""
 
-#: classes/Notice.php:164
+#: classes/Notice.php:172
 #, php-format
 msgid "DB error inserting hashtag: %s"
 msgstr ""
 
-#: classes/Notice.php:188
+#: classes/Notice.php:226
 #, fuzzy
 msgid "Problem saving notice. Too long."
 msgstr "בעיה בשמירת ההודעה."
 
-#: classes/Notice.php:192
+#: classes/Notice.php:230
 #, fuzzy
 msgid "Problem saving notice. Unknown user."
 msgstr "בעיה בשמירת ההודעה."
 
-#: classes/Notice.php:197
+#: classes/Notice.php:235
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 
-#: classes/Notice.php:203
+#: classes/Notice.php:241
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
 
-#: classes/Notice.php:209
+#: classes/Notice.php:247
 msgid "You are banned from posting notices on this site."
 msgstr ""
 
-#: classes/Notice.php:274 classes/Notice.php:299
+#: classes/Notice.php:319 classes/Notice.php:344
 msgid "Problem saving notice."
 msgstr "בעיה בשמירת ההודעה."
 
-#: classes/Notice.php:1115
+#: classes/Notice.php:1044
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "שגיאת מסד נתונים בהכנסת התגובה: %s"
 
-#: classes/User.php:347
+#: classes/Notice.php:1371
+#, php-format
+msgid "RT @%1$s %2$s"
+msgstr ""
+
+#: classes/User.php:368
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
@@ -4174,21 +4245,21 @@ msgstr ""
 msgid "license."
 msgstr ""
 
-#: lib/action.php:1068
+#: lib/action.php:1098
 msgid "Pagination"
 msgstr ""
 
-#: lib/action.php:1077
+#: lib/action.php:1107
 #, fuzzy
 msgid "After"
 msgstr "<< אחרי"
 
-#: lib/action.php:1085
+#: lib/action.php:1115
 #, fuzzy
 msgid "Before"
 msgstr "לפני >>"
 
-#: lib/action.php:1133
+#: lib/action.php:1163
 msgid "There was a problem with your session token."
 msgstr ""
 
@@ -4281,11 +4352,12 @@ msgid ""
 "Notices: %3$s"
 msgstr ""
 
-#: lib/command.php:152 lib/command.php:400
+#: lib/command.php:152 lib/command.php:399 lib/command.php:460
 msgid "Notice with that id does not exist"
 msgstr ""
 
-#: lib/command.php:168 lib/command.php:416 lib/command.php:472
+#: lib/command.php:168 lib/command.php:415 lib/command.php:476
+#: lib/command.php:532
 msgid "User has no last notice"
 msgstr ""
 
@@ -4318,116 +4390,134 @@ msgstr ""
 msgid "About: %s"
 msgstr "אודות: %s"
 
-#: lib/command.php:358 scripts/xmppdaemon.php:321
+#: lib/command.php:358 scripts/xmppdaemon.php:301
 #, php-format
 msgid "Message too long - maximum is %d characters, you sent %d"
 msgstr ""
 
-#: lib/command.php:377
+#: lib/command.php:378
 msgid "Error sending direct message."
 msgstr ""
 
-#: lib/command.php:431
+#: lib/command.php:422
+msgid "Cannot repeat your own notice"
+msgstr ""
+
+#: lib/command.php:427
+msgid "Already repeated that notice"
+msgstr ""
+
+#: lib/command.php:435
+#, fuzzy, php-format
+msgid "Notice from %s repeated"
+msgstr "הודעות"
+
+#: lib/command.php:437
+#, fuzzy
+msgid "Error repeating notice."
+msgstr "בעיה בשמירת ההודעה."
+
+#: lib/command.php:491
 #, php-format
 msgid "Notice too long - maximum is %d characters, you sent %d"
 msgstr ""
 
-#: lib/command.php:440
+#: lib/command.php:500
 #, fuzzy, php-format
 msgid "Reply to %s sent"
 msgstr "תגובת עבור %s"
 
-#: lib/command.php:442
+#: lib/command.php:502
 #, fuzzy
 msgid "Error saving notice."
 msgstr "בעיה בשמירת ההודעה."
 
-#: lib/command.php:496
+#: lib/command.php:556
 msgid "Specify the name of the user to subscribe to"
 msgstr ""
 
-#: lib/command.php:503
+#: lib/command.php:563
 #, php-format
 msgid "Subscribed to %s"
 msgstr ""
 
-#: lib/command.php:524
+#: lib/command.php:584
 msgid "Specify the name of the user to unsubscribe from"
 msgstr ""
 
-#: lib/command.php:531
+#: lib/command.php:591
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr ""
 
-#: lib/command.php:549 lib/command.php:572
+#: lib/command.php:609 lib/command.php:632
 msgid "Command not yet implemented."
 msgstr ""
 
-#: lib/command.php:552
+#: lib/command.php:612
 msgid "Notification off."
 msgstr ""
 
-#: lib/command.php:554
+#: lib/command.php:614
 msgid "Can't turn off notification."
 msgstr ""
 
-#: lib/command.php:575
+#: lib/command.php:635
 msgid "Notification on."
 msgstr ""
 
-#: lib/command.php:577
+#: lib/command.php:637
 msgid "Can't turn on notification."
 msgstr ""
 
-#: lib/command.php:590
+#: lib/command.php:650
 msgid "Login command is disabled"
 msgstr ""
 
-#: lib/command.php:604
+#: lib/command.php:664
 #, fuzzy, php-format
 msgid "Could not create login token for %s"
 msgstr "שמירת מידע התמונה נכשל"
 
-#: lib/command.php:609
+#: lib/command.php:669
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
-#: lib/command.php:625
+#: lib/command.php:685
 #, fuzzy
 msgid "You are not subscribed to anyone."
 msgstr "לא שלחנו אלינו את הפרופיל הזה"
 
-#: lib/command.php:627
+#: lib/command.php:687
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "לא שלחנו אלינו את הפרופיל הזה"
 msgstr[1] "לא שלחנו אלינו את הפרופיל הזה"
 
-#: lib/command.php:647
+#: lib/command.php:707
 #, fuzzy
 msgid "No one is subscribed to you."
 msgstr "הרשמה מרוחקת"
 
-#: lib/command.php:649
+#: lib/command.php:709
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "הרשמה מרוחקת"
 msgstr[1] "הרשמה מרוחקת"
 
-#: lib/command.php:669
+#: lib/command.php:729
 #, fuzzy
 msgid "You are not a member of any groups."
 msgstr "לא שלחנו אלינו את הפרופיל הזה"
 
-#: lib/command.php:671
+#: lib/command.php:731
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "לא שלחנו אלינו את הפרופיל הזה"
 msgstr[1] "לא שלחנו אלינו את הפרופיל הזה"
 
-#: lib/command.php:685
+#: lib/command.php:745
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4443,6 +4533,8 @@ msgid ""
 "whois <nickname> - get profile info on user\n"
 "fav <nickname> - add user's last notice as a 'fave'\n"
 "fav #<notice_id> - add notice with the given id as a 'fave'\n"
+"repeat #<notice_id> - repeat a notice with a given id\n"
+"repeat <nickname> - repeat the last notice from user\n"
 "reply #<notice_id> - reply to notice with a given id\n"
 "reply <nickname> - reply to the last notice from user\n"
 "join <group> - join group\n"
@@ -4877,12 +4969,12 @@ msgid ""
 "%6$s\n"
 msgstr ""
 
-#: lib/mail.php:620
+#: lib/mail.php:624
 #, php-format
 msgid "%s (@%s) sent a notice to your attention"
 msgstr ""
 
-#: lib/mail.php:622
+#: lib/mail.php:626
 #, php-format
 msgid ""
 "%1$s (@%9$s) just sent a notice to your attention (an '@-reply') on %2$s.\n"
@@ -4907,7 +4999,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:452
+#: lib/mailbox.php:227 lib/noticelist.php:469
 msgid "from"
 msgstr ""
 
@@ -4995,45 +5087,55 @@ msgstr ""
 msgid "Attach a file"
 msgstr ""
 
-#: lib/noticelist.php:403
+#: lib/noticelist.php:420
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr ""
 
-#: lib/noticelist.php:404
+#: lib/noticelist.php:421
 #, fuzzy
 msgid "N"
 msgstr "לא"
 
-#: lib/noticelist.php:404
+#: lib/noticelist.php:421
 msgid "S"
 msgstr ""
 
-#: lib/noticelist.php:405
+#: lib/noticelist.php:422
 msgid "E"
 msgstr ""
 
-#: lib/noticelist.php:405
+#: lib/noticelist.php:422
 msgid "W"
 msgstr ""
 
-#: lib/noticelist.php:411
+#: lib/noticelist.php:428
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:506
+#: lib/noticelist.php:523
 #, fuzzy
 msgid "in context"
 msgstr "אין תוכן!"
 
-#: lib/noticelist.php:526
+#: lib/noticelist.php:548
+#, fuzzy
+msgid "Repeated by"
+msgstr "צור"
+
+#: lib/noticelist.php:577
 msgid "Reply to this notice"
 msgstr ""
 
-#: lib/noticelist.php:527
+#: lib/noticelist.php:578
 #, fuzzy
 msgid "Reply"
 msgstr "הגב"
+
+#: lib/noticelist.php:620
+#, fuzzy
+msgid "Notice repeated"
+msgstr "הודעות"
 
 #: lib/nudgeform.php:116
 msgid "Nudge this user"
@@ -5137,11 +5239,11 @@ msgstr ""
 
 #: lib/profileformaction.php:123
 #, fuzzy
-msgid "No return-to arguments"
+msgid "No return-to arguments."
 msgstr "אין מסמך כזה."
 
 #: lib/profileformaction.php:137
-msgid "unimplemented method"
+msgid "Unimplemented method."
 msgstr ""
 
 #: lib/publicgroupnav.php:78
@@ -5164,6 +5266,16 @@ msgstr ""
 #, fuzzy
 msgid "Popular"
 msgstr "אנשים"
+
+#: lib/repeatform.php:107
+#, fuzzy
+msgid "Repeat this notice?"
+msgstr "אין הודעה כזו."
+
+#: lib/repeatform.php:132
+#, fuzzy
+msgid "Repeat this notice"
+msgstr "אין הודעה כזו."
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"
@@ -5348,47 +5460,47 @@ msgstr "הודעה חדשה"
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:825
+#: lib/util.php:837
 msgid "a few seconds ago"
 msgstr "לפני מספר שניות"
 
-#: lib/util.php:827
+#: lib/util.php:839
 msgid "about a minute ago"
 msgstr "לפני כדקה"
 
-#: lib/util.php:829
+#: lib/util.php:841
 #, php-format
 msgid "about %d minutes ago"
 msgstr "לפני כ-%d דקות"
 
-#: lib/util.php:831
+#: lib/util.php:843
 msgid "about an hour ago"
 msgstr "לפני כשעה"
 
-#: lib/util.php:833
+#: lib/util.php:845
 #, php-format
 msgid "about %d hours ago"
 msgstr "לפני כ-%d שעות"
 
-#: lib/util.php:835
+#: lib/util.php:847
 msgid "about a day ago"
 msgstr "לפני כיום"
 
-#: lib/util.php:837
+#: lib/util.php:849
 #, php-format
 msgid "about %d days ago"
 msgstr "לפני כ-%d ימים"
 
-#: lib/util.php:839
+#: lib/util.php:851
 msgid "about a month ago"
 msgstr "לפני כחודש"
 
-#: lib/util.php:841
+#: lib/util.php:853
 #, php-format
 msgid "about %d months ago"
 msgstr "לפני כ-%d חודשים"
 
-#: lib/util.php:843
+#: lib/util.php:855
 msgid "about a year ago"
 msgstr "לפני כשנה"
 

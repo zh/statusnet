@@ -69,7 +69,7 @@ class ApiStatusesRetweetsAction extends ApiAuthAction
         $this->original = Notice::staticGet('id', $id);
 
         if (empty($this->original)) {
-            $this->clientError(_('No such notice'),
+            $this->clientError(_('No such notice.'),
                                400, $this->format);
             return false;
         }

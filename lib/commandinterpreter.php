@@ -169,6 +169,19 @@ class CommandInterpreter
             } else {
                 return new ReplyCommand($user, $other, $extra);
             }
+         case 'repeat':
+         case 'rp':
+         case 'rt':
+         case 'rd':
+            if (!$arg) {
+                return null;
+            }
+            list($other, $extra) = $this->split_arg($arg);
+            if ($extra) {
+                return null;
+            } else {
+                return new RepeatCommand($user, $other);
+            }
          case 'whois':
             if (!$arg) {
                 return null;

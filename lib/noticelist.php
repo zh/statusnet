@@ -243,8 +243,9 @@ class NoticeListItem extends Widget
     {
         // XXX: RDFa
         // TODO: add notice_type class e.g., notice_video, notice_image
+        $id = (empty($this->repeat)) ? $this->notice->id : $this->repeat->id;
         $this->out->elementStart('li', array('class' => 'hentry notice',
-                                             'id' => 'notice-' . $this->notice->id));
+                                             'id' => 'notice-' . $id));
     }
 
     /**
@@ -542,28 +543,16 @@ class NoticeListItem extends Widget
                 $attrs['title'] = $repeater->fullname . ' (' . $repeater->nickname . ')';
             }
 
-            $this->out->elementStart('span', 'repeat');
+            $this->out->elementStart('span', 'repeat vcard');
 
-            $this->out->elementStart('a', $attrs);
+            $this->out->raw(_('Repeated by'));
 
             $avatar = $repeater->getAvatar(AVATAR_MINI_SIZE);
 
-            $this->out->element('img', array('src' => ($avatar) ?
-                                             $avatar->displayUrl() :
-                                             Avatar::defaultImage(AVATAR_MINI_SIZE),
-                                             'class' => 'avatar photo',
-                                             'width' => AVATAR_MINI_SIZE,
-                                             'height' => AVATAR_MINI_SIZE,
-                                             'alt' =>
-                                             ($repeater->fullname) ?
-                                             $repeater->fullname :
-                                             $repeater->nickname));
+            $this->out->elementStart('a', $attrs);
 
+            $this->out->element('span', 'nickname', $repeater->nickname);
             $this->out->elementEnd('a');
-
-            $text_link = XMLStringer::estring('a', $attrs, $repeater->nickname);
-
-            $this->out->raw(sprintf(_('Repeated by %s'), $text_link));
 
             $this->out->elementEnd('span');
         }
@@ -602,11 +591,13 @@ class NoticeListItem extends Widget
     {
         $user = common_current_user();
 
+        $todel = (empty($this->repeat)) ? $this->notice : $this->repeat;
+
         if (!empty($user) &&
-            ($this->notice->profile_id == $user->id || $user->hasRight(Right::DELETEOTHERSNOTICE))) {
+            ($todel->profile_id == $user->id || $user->hasRight(Right::DELETEOTHERSNOTICE))) {
 
             $deleteurl = common_local_url('deletenotice',
-                                          array('notice' => $this->notice->id));
+                                          array('notice' => $todel->id));
             $this->out->element('a', array('href' => $deleteurl,
                                            'class' => 'notice_delete',
                                            'title' => _('Delete this notice')), _('Delete'));
@@ -625,7 +616,9 @@ class NoticeListItem extends Widget
         if ($user && $user->id != $this->notice->profile_id) {
             $profile = $user->getProfile();
             if ($profile->hasRepeated($this->notice->id)) {
-                $this->out->text(_('Repeated'));
+                $this->out->element('span', array('class' => 'repeated',
+                                                  'title' => _('Notice repeated')),
+                                            _('Repeated'));
             } else {
                 $rf = new RepeatForm($this->out, $this->notice);
                 $rf->show();

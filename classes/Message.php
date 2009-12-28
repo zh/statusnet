@@ -89,4 +89,12 @@ class Message extends Memcached_DataObject
         $contentlimit = self::maxContent();
         return ($contentlimit > 0 && !empty($content) && (mb_strlen($content) > $contentlimit));
     }
+
+    function notify()
+    {
+        $from = User::staticGet('id', $this->from_profile);
+        $to   = User::staticGet('id', $this->to_profile);
+
+        mail_notify_message($this, $from, $to);
+    }
 }

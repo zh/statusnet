@@ -259,6 +259,17 @@ font-weight:bold;
 address img + .fn {
 display:none;
 }
+address a {
+text-decoration:none;
+}
+address .poweredby {
+float:left;
+clear:left;
+display:block;
+position:relative;
+top:7px;
+margin-right:-47px;
+}
 
 #header {
 width:100%;
@@ -964,12 +975,12 @@ float:left;
 font-size:0.95em;
 margin-left:59px;
 min-width:60%;
-max-width:74%;
+max-width:70%;
 }
 #showstream .notice div.entry-content,
 #shownotice .notice div.entry-content {
 margin-left:0;
-max-width:82%;
+max-width:79%;
 }
 
 .notice .notice-options a,
@@ -982,31 +993,77 @@ font-size:1.025em;
 display:inline-block;
 }
 
+.entry-content .repeat {
+display:block;
+}
+.entry-content .repeat .photo {
+float:none;
+margin-right:1px;
+position:relative;
+top:4px;
+left:0;
+}
+
+.dialogbox {
+position:absolute;
+top:-4px;
+right:29px;
+z-index:9;
+min-width:199px;
+float:none;
+background-color:#FFF;
+padding:11px;
+border-radius:7px;
+-moz-border-radius:7px;
+-webkit-border-radius:7px;
+border-style:solid;
+border-width:1px;
+border-color:#DDDDDD;
+-moz-box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
+}
+
+.dialogbox legend {
+display:block !important;
+margin-right:18px;
+}
+
+.dialogbox button.close {
+position:absolute;
+right:3px;
+top:3px;
+}
+
+.dialogbox .submit_dialogbox {
+text-indent:0;
+font-weight:bold;
+}
+
 .notice-options {
 position:relative;
 font-size:0.95em;
-width:90px;
+width:113px;
 float:right;
+margin-right:4px;
 }
 
 .notice-options a {
 float:left;
 }
-.notice-options .notice_delete,
 .notice-options .notice_reply,
 .notice-options .form_repeat,
 .notice-options .form_favor,
-.notice-options .form_disfavor {
+.notice-options .form_disfavor,
+.notice-options .repeated {
 float:left;
-margin-left:20%;
+margin-left:14.2%;
 }
-.notice-options .form_repeat,
 .notice-options .form_favor,
 .notice-options .form_disfavor {
 margin-left:0;
 }
 .notice-options input,
-.notice-options a {
+.notice-options a,
+.notice-options .repeated {
 text-indent:-9999px;
 outline:none;
 }
@@ -1017,6 +1074,9 @@ border:0;
 .notice-options .notice_reply,
 .notice-options .notice_delete {
 text-decoration:none;
+}
+.notice .notice-options .notice_delete {
+float:right;
 }
 .notice-options form input.submit {
 width:16px;
@@ -1037,7 +1097,8 @@ display:none;
 border:0;
 padding:0;
 }
-.notice-options a {
+.notice-options a,
+.notice-options .repeated {
 width:16px;
 height:16px;
 }

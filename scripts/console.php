@@ -73,7 +73,7 @@ function read_input_line($prompt)
  */
 function readline_emulation($prompt)
 {
-    if(file_exists(trim(shell_exec('which bash')))) {
+    if(CONSOLE_INTERACTIVE && file_exists(trim(shell_exec('which bash')))) {
         $encPrompt = escapeshellarg($prompt);
         $command = "read -er -p $encPrompt && echo \"\$REPLY\"";
         $encCommand = escapeshellarg($command);
@@ -103,7 +103,9 @@ function readline_emulation($prompt)
     if (feof(STDIN)) {
         return false;
     }
-    print $prompt;
+    if (CONSOLE_INTERACTIVE) {
+        print $prompt;
+    }
     return fgets(STDIN);
 }
 
@@ -123,13 +125,16 @@ function console_help()
     print "Type ctrl+D or enter 'exit' to exit.\n";
 }
 
-
-print "StatusNet interactive PHP console... type ctrl+D or enter 'exit' to exit.\n";
-$prompt = common_config('site', 'name') . '> ';
+if (CONSOLE_INTERACTIVE) {
+    print "StatusNet interactive PHP console... type ctrl+D or enter 'exit' to exit.\n";
+    $prompt = common_config('site', 'name') . '> ';
+}
 while (!feof(STDIN)) {
     $line = read_input_line($prompt);
     if ($line === false) {
-        print "\n";
+        if (CONSOLE_INTERACTIVE) {
+            print "\n";
+        }
         break;
     } elseif ($line !== '') {
         try {
@@ -154,5 +159,7 @@ while (!feof(STDIN)) {
             print get_class($e) . ": " . $e->getMessage() . "\n";
         }
     }
-    print "\n";
+    if (CONSOLE_INTERACTIVE) {
+        print "\n";
+    }
 }

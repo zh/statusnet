@@ -316,6 +316,10 @@ class MobileProfilePlugin extends WAP20Plugin
                 $action->menuItem(common_local_url($connect),
                                 _('Connect'));
             }
+            if ($user->hasRight(Right::CONFIGURESITE)) {
+                $action->menuItem(common_local_url('siteadminpanel'),
+                                _('Admin'), _('Change site configuration'), false, 'nav_admin');
+            }
             if (common_config('invite', 'enabled')) {
                 $action->menuItem(common_local_url('invite'),
                                 _('Invite'));

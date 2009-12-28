@@ -300,7 +300,7 @@ class TemplateAction extends Action
         
         // verify that user is admin
         if (!($user->id == 1))
-          $this->clientError(_('only User #1 can update the template'), $code = 401);
+          $this->clientError(_('Only User #1 can update the template.'), $code = 401);
         
         // open the old template
         $tpl_file = $this->templateFolder() . '/index.html';

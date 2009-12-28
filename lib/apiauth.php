@@ -53,8 +53,6 @@ require_once INSTALLDIR . '/lib/api.php';
 class ApiAuthAction extends ApiAction
 {
 
-    var $auth_user = null;
-
     /**
      * Take arguments for running, and output basic auth header if needed
      *

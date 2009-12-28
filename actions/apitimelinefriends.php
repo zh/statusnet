@@ -116,12 +116,12 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
         $taguribase = common_config('integration', 'taguri');
         $id         = "tag:$taguribase:FriendsTimeline:" . $this->user->id;
         $link       = common_local_url(
-            'all', array('nickname' => $this->user->nickname)
-        );
+                                       'all', array('nickname' => $this->user->nickname)
+                                       );
         $subtitle   = sprintf(
-            _('Updates from %1$s and friends on %2$s!'),
-            $this->user->nickname, $sitename
-        );
+                              _('Updates from %1$s and friends on %2$s!'),
+                              $this->user->nickname, $sitename
+                              );
         $logo       = ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_PROFILE_SIZE);
 
         switch($this->format) {
@@ -137,17 +137,17 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
 
             if (isset($target_id)) {
                 $selfuri = common_root_url() .
-                    'api/statuses/friends_timeline/' .
-                    $target_id . '.atom';
+                  'api/statuses/friends_timeline/' .
+                  $target_id . '.atom';
             } else {
                 $selfuri = common_root_url() .
-                    'api/statuses/friends_timeline.atom';
+                  'api/statuses/friends_timeline.atom';
             }
 
             $this->showAtomTimeline(
-                $this->notices, $title, $id, $link,
-                $subtitle, null, $selfuri, $logo
-            );
+                                    $this->notices, $title, $id, $link,
+                                    $subtitle, null, $selfuri, $logo
+                                    );
             break;
         case 'json':
             $this->showJsonTimeline($this->notices);
@@ -169,17 +169,13 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
         $notices = array();
 
         if (!empty($this->auth_user) && $this->auth_user->id == $this->user->id) {
-            $notice = $this->user->noticeInbox(
-                ($this->page-1) * $this->count,
-                $this->count, $this->since_id,
-                $this->max_id, $this->since
-            );
+            $notice = $this->user->ownFriendsTimeline(($this->page-1) * $this->count,
+                                                      $this->count, $this->since_id,
+                                                      $this->max_id, $this->since);
         } else {
-            $notice = $this->user->noticesWithFriends(
-                ($this->page-1) * $this->count,
-                $this->count, $this->since_id,
-                $this->max_id, $this->since
-            );
+            $notice = $this->user->friendsTimeline(($this->page-1) * $this->count,
+                                                   $this->count, $this->since_id,
+                                                   $this->max_id, $this->since);
         }
 
         while ($notice->fetch()) {
@@ -233,14 +229,14 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
             $last = count($this->notices) - 1;
 
             return '"' . implode(
-                ':',
-                array($this->arg('action'),
-                      common_language(),
-                      $this->user->id,
-                      strtotime($this->notices[0]->created),
-                      strtotime($this->notices[$last]->created))
-            )
-            . '"';
+                                 ':',
+                                 array($this->arg('action'),
+                                       common_language(),
+                                       $this->user->id,
+                                       strtotime($this->notices[0]->created),
+                                       strtotime($this->notices[$last]->created))
+                                 )
+              . '"';
         }
 
         return null;

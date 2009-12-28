@@ -32,6 +32,21 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
+// Locale category constants are usually predefined, but may not be
+// on some systems such as Win32.
+$LC_CATEGORIES = array('LC_CTYPE',
+                       'LC_NUMERIC',
+                       'LC_TIME',
+                       'LC_COLLATE',
+                       'LC_MONETARY',
+                       'LC_MESSAGES',
+                       'LC_ALL');
+foreach ($LC_CATEGORIES as $key => $name) {
+    if (!defined($name)) {
+        define($name, $key);
+    }
+}
+
 if (!function_exists('gettext')) {
     require_once("php-gettext/gettext.inc");
 }
@@ -283,10 +298,12 @@ function get_all_languages() {
         'en'      => array('q' => 1, 'lang' => 'en',    'name' => 'English (US)', 'direction' => 'ltr'),
         'es'      => array('q' => 1, 'lang' => 'es',    'name' => 'Spanish', 'direction' => 'ltr'),
         'fi'      => array('q' => 1, 'lang' => 'fi', 'name' => 'Finnish', 'direction' => 'ltr'),
+        'fa'      => array('q' => 1, 'lang' => 'fa', 'name' => 'Persian', 'direction' => 'rtl'),
         'fr-fr'   => array('q' => 1, 'lang' => 'fr', 'name' => 'French', 'direction' => 'ltr'),
         'ga'      => array('q' => 0.5, 'lang' => 'ga', 'name' => 'Galician', 'direction' => 'ltr'),
         'he'      => array('q' => 0.5, 'lang' => 'he', 'name' => 'Hebrew', 'direction' => 'rtl'),
         'hsb'     => array('q' => 0.8, 'lang' => 'hsb', 'name' => 'Upper Sorbian', 'direction' => 'ltr'),
+        'ia'      => array('q' => 0.8, 'lang' => 'ia', 'name' => 'Interlingua', 'direction' => 'ltr'),
         'is'      => array('q' => 0.1, 'lang' => 'is', 'name' => 'Icelandic', 'direction' => 'ltr'),
         'it'      => array('q' => 1, 'lang' => 'it', 'name' => 'Italian', 'direction' => 'ltr'),
         'jp'      => array('q' => 0.5, 'lang' => 'ja', 'name' => 'Japanese', 'direction' => 'ltr'),

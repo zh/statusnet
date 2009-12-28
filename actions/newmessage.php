@@ -173,7 +173,7 @@ class NewmessageAction extends Action
             return;
         }
 
-        $this->notify($user, $this->other, $message);
+        $message->notify();
 
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
@@ -245,12 +245,6 @@ class NewmessageAction extends Action
         if ($this->msg) {
             $this->element('p', 'error', $this->msg);
         }
-    }
-
-    function notify($from, $to, $message)
-    {
-        mail_notify_message($message, $from, $to);
-        // XXX: Jabber, SMS notifications... probably queued
     }
 
     // Do nothing (override)
