@@ -117,7 +117,14 @@ class AdminprofileflagAction extends Action
         $this->showPage();
     }
 
-    function title() {
+    /**
+     * Title of this page
+     *
+     * @return string Title of the page
+     */
+
+    function title()
+    {
         return _('Flagged profiles');
     }
 
@@ -137,6 +144,12 @@ class AdminprofileflagAction extends Action
                           $this->page, 'adminprofileflag');
     }
 
+    /**
+     * Retrieve this action's profiles
+     *
+     * @return Profile $profile Profile query results
+     */
+
     function getProfiles()
     {
         $ufp = new User_flag_profile();
@@ -151,7 +164,7 @@ class AdminprofileflagAction extends Action
         $ufp->orderBy('flag_count DESC, profile_id DESC');
 
         $offset = ($this->page-1) * PROFILES_PER_PAGE;
-        $limit =  PROFILES_PER_PAGE + 1;
+        $limit  = PROFILES_PER_PAGE + 1;
 
         $ufp->limit($offset, $limit);
 
@@ -172,7 +185,27 @@ class AdminprofileflagAction extends Action
     }
 }
 
-class FlaggedProfileList extends ProfileList {
+/**
+ * Specialization of ProfileList to show flagging information
+ *
+ * Most of the hard part is done in FlaggedProfileListItem.
+ *
+ * @category Widget
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://status.net/
+ */
+
+class FlaggedProfileList extends ProfileList
+{
+    /**
+     * Factory method for creating new list items
+     *
+     * @param Profile $profile Profile to create an item for
+     *
+     * @return ProfileListItem newly-created item
+     */
 
     function newListItem($profile)
     {
@@ -180,12 +213,28 @@ class FlaggedProfileList extends ProfileList {
     }
 }
 
+/**
+ * Specialization of ProfileListItem to show flagging information
+ *
+ * @category Widget
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://status.net/
+ */
+
 class FlaggedProfileListItem extends ProfileListItem
 {
     const MAX_FLAGGERS = 5;
 
-    var $user = null;
+    var $user   = null;
     var $r2args = null;
+
+    /**
+     * Overload parent's action list with our own moderation-oriented buttons
+     *
+     * @return void
+     */
 
     function showActions()
     {
@@ -211,6 +260,12 @@ class FlaggedProfileListItem extends ProfileListItem
         $this->endActions();
     }
 
+    /**
+     * Show a button to sandbox the profile
+     *
+     * @return void
+     */
+
     function showSandboxButton()
     {
         if ($this->user->hasRight(Right::SANDBOXUSER)) {
@@ -225,6 +280,12 @@ class FlaggedProfileListItem extends ProfileListItem
             $this->out->elementEnd('li');
         }
     }
+
+    /**
+     * Show a button to silence the profile
+     *
+     * @return void
+     */
 
     function showSilenceButton()
     {
@@ -241,6 +302,12 @@ class FlaggedProfileListItem extends ProfileListItem
         }
     }
 
+    /**
+     * Show a button to delete user and profile
+     *
+     * @return void
+     */
+
     function showDeleteButton()
     {
 
@@ -252,6 +319,12 @@ class FlaggedProfileListItem extends ProfileListItem
         }
     }
 
+    /**
+     * Show a button to clear flags
+     *
+     * @return void
+     */
+
     function showClearButton()
     {
         if ($this->user->hasRight(UserFlagPlugin::CLEARFLAGS)) {
@@ -262,11 +335,23 @@ class FlaggedProfileListItem extends ProfileListItem
         }
     }
 
+    /**
+     * Overload parent function to add flaggers list
+     *
+     * @return void
+     */
+
     function endProfile()
     {
         $this->showFlaggersList();
         parent::endProfile();
     }
+
+    /**
+     * Show a list of people who've flagged this profile
+     *
+     * @return void
+     */
 
     function showFlaggersList()
     {
@@ -288,12 +373,12 @@ class FlaggedProfileListItem extends ProfileListItem
             }
         }
 
-        $cnt = count($flaggers);
+        $cnt    = count($flaggers);
         $others = 0;
 
         if ($cnt > self::MAX_FLAGGERS) {
             $flaggers = array_slice($flaggers, 0, self::MAX_FLAGGERS);
-            $others = $cnt - self::MAX_FLAGGERS;
+            $others   = $cnt - self::MAX_FLAGGERS;
         }
 
         $lnks = array();
@@ -310,7 +395,9 @@ class FlaggedProfileListItem extends ProfileListItem
 
         if ($cnt > 0) {
             $text = _('Flagged by ');
+
             $text .= implode(', ', $lnks);
+
             if ($others > 0) {
                 $text .= sprintf(_(' and %d others'), $others);
             }
