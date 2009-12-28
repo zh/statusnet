@@ -44,6 +44,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 class UserFlagPlugin extends Plugin
 {
     const REVIEWFLAGS = 'UserFlagPlugin::reviewflags';
+    const CLEARFLAGS  = 'UserFlagPlugin::clearflags';
 
     function onCheckSchema()
     {
@@ -72,6 +73,7 @@ class UserFlagPlugin extends Plugin
 
     function onRouterInitialized($m) {
         $m->connect('main/flag/profile', array('action' => 'flagprofile'));
+        $m->connect('main/flag/clear', array('action' => 'clearflag'));
         $m->connect('admin/profile/flag', array('action' => 'adminprofileflag'));
         return true;
     }
@@ -82,9 +84,11 @@ class UserFlagPlugin extends Plugin
         {
         case 'FlagprofileAction':
         case 'AdminprofileflagAction':
+        case 'ClearflagAction':
             require_once(INSTALLDIR.'/plugins/UserFlag/' . strtolower(mb_substr($cls, 0, -6)) . '.php');
             return false;
         case 'FlagProfileForm':
+        case 'ClearFlagForm':
             require_once(INSTALLDIR.'/plugins/UserFlag/' . strtolower($cls . '.php'));
             return false;
         case 'User_flag_profile':
@@ -152,10 +156,13 @@ class UserFlagPlugin extends Plugin
     }
 
     function onUserRightsCheck($user, $right, &$result) {
-        if ($right == self::REVIEWFLAGS) {
+        switch ($right) {
+        case self::REVIEWFLAGS:
+        case self::CLEARFLAGS:
             $result = $user->hasRole('moderator');
             return false; // done processing!
         }
+
         return true; // unchanged!
     }
 }
