@@ -156,7 +156,12 @@ class BlockAction extends ProfileFormAction
     {
         $cur = common_current_user();
 
-        $result = $cur->block($this->profile);
+        if (Event::handle('StartBlockProfile', array($cur, $this->profile))) {
+            $result = $cur->block($this->profile);
+            if ($result) {
+                Event::handle('EndBlockProfile', array($cur, $this->profile));
+            }
+        }
 
         if (!$result) {
             $this->serverError(_('Failed to save block information.'));
@@ -164,4 +169,3 @@ class BlockAction extends ProfileFormAction
         }
     }
 }
-
