@@ -182,6 +182,8 @@ class FlaggedProfileList extends ProfileList {
 
 class FlaggedProfileListItem extends ProfileListItem
 {
+    const MAX_FLAGGERS = 5;
+
     var $user = null;
     var $r2args = null;
 
@@ -252,5 +254,70 @@ class FlaggedProfileListItem extends ProfileListItem
 
     function showClearButton()
     {
+        if ($this->user->hasRight(UserFlagPlugin::CLEARFLAGS)) {
+            $this->out->elementStart('li', 'entity_clear');
+            $cf = new ClearFlagForm($this->out, $this->profile, $this->r2args);
+            $cf->show();
+            $this->out->elementEnd('li');
+        }
+    }
+
+    function endProfile()
+    {
+        $this->showFlaggersList();
+        parent::endProfile();
+    }
+
+    function showFlaggersList()
+    {
+        $flaggers = array();
+
+        $ufp = new User_flag_profile();
+
+        $ufp->selectAdd();
+        $ufp->selectAdd('user_id');
+        $ufp->profile_id = $this->profile->id;
+        $ufp->orderBy('created');
+
+        if ($ufp->find()) { // XXX: this should always happen
+            while ($ufp->fetch()) {
+                $user = User::staticGet('id', $ufp->user_id);
+                if (!empty($user)) { // XXX: this would also be unusual
+                    $flaggers[] = clone($user);
+                }
+            }
+        }
+
+        $cnt = count($flaggers);
+        $others = 0;
+
+        if ($cnt > self::MAX_FLAGGERS) {
+            $flaggers = array_slice($flaggers, 0, self::MAX_FLAGGERS);
+            $others = $cnt - self::MAX_FLAGGERS;
+        }
+
+        $lnks = array();
+
+        foreach ($flaggers as $flagger) {
+
+            $url = common_local_url('showstream',
+                                    array('nickname' => $flagger->nickname));
+
+            $lnks[] = XMLStringer::estring('a', array('href' => $url,
+                                                      'class' => 'flagger'),
+                                           $flagger->nickname);
+        }
+
+        if ($cnt > 0) {
+            $text = _('Flagged by ');
+            $text .= implode(', ', $lnks);
+            if ($others > 0) {
+                $text .= sprintf(_(' and %d others'), $others);
+            }
+
+            $this->out->elementStart('p', array('class' => 'flaggers'));
+            $this->out->raw($text);
+            $this->out->elementEnd('p');
+        }
     }
 }
