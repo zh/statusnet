@@ -1,5 +1,15 @@
 <?php
-/*
+/**
+ * Data class for profile flags
+ *
+ * PHP version 5
+ *
+ * @category Data
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://status.net/
+ *
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2009, StatusNet, Inc.
  *
@@ -23,6 +33,18 @@ if (!defined('STATUSNET')) {
 
 require_once INSTALLDIR . '/classes/Memcached_DataObject.php';
 
+/**
+ * Data class for profile flags
+ *
+ * A class representing a user flagging another profile for review.
+ *
+ * @category Action
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://status.net/
+ */
+
 class User_flag_profile extends Memcached_DataObject
 {
     ###START_AUTOCODE
@@ -40,7 +62,14 @@ class User_flag_profile extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    function table() {
+    /**
+     * return table definition for DB_DataObject
+     *
+     * @return array array of column definitions
+     */
+
+    function table()
+    {
         return array(
                      'profile_id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
                      'user_id'    => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
@@ -49,14 +78,38 @@ class User_flag_profile extends Memcached_DataObject
                      );
     }
 
-    function keys() {
+    /**
+     * return key definitions for DB_DataObject
+     *
+     * @return array key definitions
+     */
+
+    function keys()
+    {
         return array('profile_id' => 'N', 'user_id' => 'N');
     }
+
+    /**
+     * Get a single object with multiple keys
+     *
+     * @param array $kv Map of key-value pairs
+     *
+     * @return User_flag_profile found object or null
+     */
 
     function &pkeyGet($kv)
     {
         return Memcached_DataObject::pkeyGet('User_flag_profile', $kv);
     }
+
+    /**
+     * Check if a flag exists for given profile and user
+     *
+     * @param integer $profile_id Profile to check for
+     * @param integer $user_id    User to check for
+     *
+     * @return boolean true if exists, else false
+     */
 
     static function exists($profile_id, $user_id)
     {
