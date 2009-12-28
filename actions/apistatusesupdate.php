@@ -203,12 +203,6 @@ class ApiStatusesUpdateAction extends ApiAuthAction
                 }
             }
 
-            $location = null;
-
-            if (!empty($this->lat) && !empty($this->lon)) {
-                $location = Location::fromLatLon($this->lat, $this->lon);
-            }
-
             $upload = null;
 
             try {
@@ -235,11 +229,15 @@ class ApiStatusesUpdateAction extends ApiAuthAction
 
             $options = array('reply_to' => $reply_to);
 
-            if (!empty($location)) {
-                $options['lat'] = $location->lat;
-                $options['lon'] = $location->lon;
-                $options['location_id'] = $location->location_id;
-                $options['location_ns'] = $location->location_ns;
+            if ($this->user->shareLocation()) {
+
+                $locOptions = Notice::locationOptions($this->lat,
+                                                      $this->lon,
+                                                      null,
+                                                      null,
+                                                      $this->user->getProfile());
+
+                $options = array_merge($options, $locOptions);
             }
 
             $this->notice =

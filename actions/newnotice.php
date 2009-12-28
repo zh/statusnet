@@ -186,23 +186,13 @@ class NewnoticeAction extends Action
 
         if ($user->shareLocation()) {
 
-            $lat = $this->trimmed('lat');
-            $lon = $this->trimmed('lon');
-            $location_id = $this->trimmed('location_id');
-            $location_ns = $this->trimmed('location_ns');
+            $locOptions = Notice::locationOptions($this->trimmed('lat'),
+                                                  $this->trimmed('lon'),
+                                                  $this->trimmed('location_id'),
+                                                  $this->trimmed('location_ns'),
+                                                  $user->getProfile());
 
-            if (!empty($lat) && !empty($lon) && empty($location_id)) {
-                $location = Location::fromLatLon($lat, $lon);
-                if (!empty($location)) {
-                    $location_id = $location->location_id;
-                    $location_ns = $location->location_ns;
-                }
-            }
-
-            $options['lat'] = $lat;
-            $options['lon'] = $lon;
-            $options['location_id'] = $location_id;
-            $options['location_ns'] = $location_ns;
+            $options = array_merge($options, $locOptions);
         }
 
         $notice = Notice::saveNew($user->id, $content_shortened, 'web', $options);
