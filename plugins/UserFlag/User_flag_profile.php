@@ -118,4 +118,23 @@ class User_flag_profile extends Memcached_DataObject
 
         return !empty($ufp);
     }
+
+    static function create($user_id, $profile_id)
+    {
+        $ufp = new User_flag_profile();
+
+        $ufp->profile_id = $profile_id;
+        $ufp->user_id    = $user_id;
+        $ufp->created    = common_sql_now();
+
+        if (!$ufp->insert()) {
+            $msg = sprintf(_("Couldn't flag profile '%d' for review."),
+                           $profile_id);
+            throw new ServerException($msg);
+        }
+
+        $ufp->free();
+
+        return true;
+    }
 }

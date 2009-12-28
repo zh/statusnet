@@ -105,19 +105,9 @@ class FlagprofileAction extends ProfileFormAction
         assert(!empty($user));
         assert(!empty($this->profile));
 
-        $ufp = new User_flag_profile();
+        // throws an exception on error
 
-        $ufp->profile_id = $this->profile->id;
-        $ufp->user_id    = $user->id;
-        $ufp->created    = common_sql_now();
-
-        if (!$ufp->insert()) {
-            $msg = sprintf(_("Couldn't flag profile '%s' for review."),
-                           $this->profile->nickname);
-            throw new ServerException($msg);
-        }
-
-        $ufp->free();
+        User_flag_profile::create($user->id, $this->profile->id);
 
         if ($this->boolean('ajax')) {
             $this->ajaxResults();
