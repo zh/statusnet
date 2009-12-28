@@ -9,11 +9,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-12-25 09:42+0000\n"
-"PO-Revision-Date: 2009-12-25 09:42:12+0000\n"
+"PO-Revision-Date: 2009-12-28 08:09:44+0000\n"
 "Language-Team: Egyptian Spoken Arabic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60380); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60437); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: arz\n"
 "X-Message-Group: out-statusnet\n"
@@ -120,9 +120,8 @@ msgstr ""
 #: actions/apiaccountupdateprofile.php:97
 #: actions/apiaccountupdateprofilebackgroundimage.php:94
 #: actions/apiaccountupdateprofilecolors.php:118
-#, fuzzy
 msgid "API method not found."
-msgstr "لم يوجد رمز التأكيد."
+msgstr "لم يتم العثور على وسيلة API."
 
 #: actions/apiaccountupdatedeliverydevice.php:85
 #: actions/apiaccountupdateprofile.php:89
@@ -158,9 +157,8 @@ msgid "User has no profile."
 msgstr "ليس للمستخدم ملف شخصى."
 
 #: actions/apiaccountupdateprofile.php:147
-#, fuzzy
 msgid "Could not save profile."
-msgstr "تعذّر حفظ الملف الشخصى."
+msgstr "لم يمكن حفظ الملف."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97
@@ -186,9 +184,8 @@ msgid "Could not update your design."
 msgstr "تعذّر تحديث تصميمك."
 
 #: actions/apiblockcreate.php:105
-#, fuzzy
 msgid "You cannot block yourself!"
-msgstr "لا يمكنك حذف المستخدمين."
+msgstr "ا يمكنك منع نفسك!"
 
 #: actions/apiblockcreate.php:119
 msgid "Block user failed."
@@ -431,14 +428,12 @@ msgid "No such notice."
 msgstr "لا إشعار كهذا."
 
 #: actions/apistatusesretweet.php:83
-#, fuzzy
 msgid "Cannot repeat your own notice."
-msgstr "لا يمكنك إسكات المستخدمين على هذا الموقع."
+msgstr "لا يمكنك تكرار ملحوظتك الخاصة."
 
 #: actions/apistatusesretweet.php:91
-#, fuzzy
 msgid "Already repeated that notice."
-msgstr "احذف هذا الإشعار"
+msgstr "كرر بالفعل هذه الملاحظة."
 
 #: actions/apistatusesshow.php:138
 msgid "Status deleted."
@@ -515,14 +510,14 @@ msgid "Repeated by %s"
 msgstr ""
 
 #: actions/apitimelineretweetedtome.php:111
-#, fuzzy, php-format
+#, php-format
 msgid "Repeated to %s"
-msgstr "الردود على %s"
+msgstr "كرر إلى %s"
 
 #: actions/apitimelineretweetsofme.php:112
-#, fuzzy, php-format
+#, php-format
 msgid "Repeats of %s"
-msgstr "الردود على %s"
+msgstr "تكرارات %s"
 
 #: actions/apitimelinetag.php:102 actions/tag.php:66
 #, php-format
@@ -1235,29 +1230,25 @@ msgid "Featured users, page %d"
 msgstr "مستخدمون مختارون، صفحه %d"
 
 #: actions/featured.php:99
-#, fuzzy, php-format
+#, php-format
 msgid "A selection of some great users on %s"
-msgstr "قسم للمستخدمين المتميزين على %s"
+msgstr "اختيار لبعض المستخدمين المتميزين على %s"
 
 #: actions/file.php:34
-#, fuzzy
 msgid "No notice ID."
-msgstr "لا إشعار"
+msgstr "لا رقم ملاحظة."
 
 #: actions/file.php:38
-#, fuzzy
 msgid "No notice."
-msgstr "لا إشعار"
+msgstr "لا ملاحظة."
 
 #: actions/file.php:42
-#, fuzzy
 msgid "No attachments."
-msgstr "لا مرفقات"
+msgstr "لا مرفقات."
 
 #: actions/file.php:51
-#, fuzzy
 msgid "No uploaded attachments."
-msgstr "لا مرفقات مرفوعة"
+msgstr "لا مرفقات مرفوعة."
 
 #: actions/finishremotesubscribe.php:69
 msgid "Not expecting this response!"
@@ -2762,29 +2753,24 @@ msgid "Only logged-in users can repeat notices."
 msgstr ""
 
 #: actions/repeat.php:64 actions/repeat.php:71
-#, fuzzy
 msgid "No notice specified."
-msgstr "لا ملف شخصى مُحدّد."
+msgstr "لا ملاحظة محددة."
 
 #: actions/repeat.php:76
-#, fuzzy
 msgid "You can't repeat your own notice."
-msgstr "لا يمكنك إسكات المستخدمين على هذا الموقع."
+msgstr "لا يمكنك تكرار ملاحظتك الشخصية."
 
 #: actions/repeat.php:90
-#, fuzzy
 msgid "You already repeated that notice."
-msgstr "لقد منعت مسبقا هذا المستخدم."
+msgstr "أنت كررت هذه الملاحظة بالفعل."
 
 #: actions/repeat.php:114 lib/noticelist.php:621
-#, fuzzy
 msgid "Repeated"
-msgstr "أنشئ"
+msgstr "مكرر"
 
 #: actions/repeat.php:119
-#, fuzzy
 msgid "Repeated!"
-msgstr "أنشئ"
+msgstr "مكرر!"
 
 #: actions/replies.php:125 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
@@ -3089,9 +3075,9 @@ msgid ""
 msgstr ""
 
 #: actions/showstream.php:313
-#, fuzzy, php-format
+#, php-format
 msgid "Repeat of %s"
-msgstr "الردود على %s"
+msgstr "تكرارات %s"
 
 #: actions/silence.php:65 actions/unsilence.php:65
 msgid "You cannot silence users on this site."
@@ -3219,9 +3205,8 @@ msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr "أأمنع المستخدمين المجهولين (غير الوالجين) من عرض الموقع؟"
 
 #: actions/siteadminpanel.php:327
-#, fuzzy
 msgid "Invite only"
-msgstr "ادعُ"
+msgstr "بالدعوه فقط"
 
 #: actions/siteadminpanel.php:329
 msgid "Make registration invitation only."
@@ -3503,9 +3488,8 @@ msgid "Notice feed for tag %s (Atom)"
 msgstr ""
 
 #: actions/tagother.php:39
-#, fuzzy
 msgid "No ID argument."
-msgstr "لا مُدخل هويه."
+msgstr "لا مدخل هويه."
 
 #: actions/tagother.php:65
 #, php-format
@@ -3556,9 +3540,8 @@ msgid "You haven't blocked that user."
 msgstr "لم تمنع هذا المستخدم."
 
 #: actions/unsandbox.php:72
-#, fuzzy
 msgid "User is not sandboxed."
-msgstr "ليس للمستخدم إشعار أخير"
+msgstr "المستخدم ليس في صندوق الرمل."
 
 #: actions/unsilence.php:72
 msgid "User is not silenced."
@@ -3762,9 +3745,8 @@ msgid "Wrong image type for avatar URL ‘%s’."
 msgstr ""
 
 #: actions/userbyid.php:70
-#, fuzzy
 msgid "No ID."
-msgstr "لا هوية"
+msgstr "لا هويه."
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 msgid "Profile design"
@@ -3866,9 +3848,9 @@ msgid "DB error inserting reply: %s"
 msgstr ""
 
 #: classes/Notice.php:1371
-#, fuzzy, php-format
+#, php-format
 msgid "RT @%1$s %2$s"
-msgstr "%1$s (%2$s)"
+msgstr "آر تي @%1$s %2$s"
 
 #: classes/User.php:368
 #, php-format
@@ -4235,19 +4217,17 @@ msgid "Cannot repeat your own notice"
 msgstr ""
 
 #: lib/command.php:427
-#, fuzzy
 msgid "Already repeated that notice"
-msgstr "احذف هذا الإشعار"
+msgstr "كرر بالفعل هذا الإشعار"
 
 #: lib/command.php:435
-#, fuzzy, php-format
+#, php-format
 msgid "Notice from %s repeated"
-msgstr "أُرسل الإشعار"
+msgstr "الإشعار من %s مكرر"
 
 #: lib/command.php:437
-#, fuzzy
 msgid "Error repeating notice."
-msgstr "خطأ أثناء حفظ الإشعار."
+msgstr "خطأ تكرار الإشعار."
 
 #: lib/command.php:491
 #, php-format
@@ -4934,9 +4914,8 @@ msgid "in context"
 msgstr "فى السياق"
 
 #: lib/noticelist.php:548
-#, fuzzy
 msgid "Repeated by"
-msgstr "أنشئ"
+msgstr "مكرر بواسطه"
 
 #: lib/noticelist.php:577
 msgid "Reply to this notice"
@@ -4947,9 +4926,8 @@ msgid "Reply"
 msgstr "رُد"
 
 #: lib/noticelist.php:620
-#, fuzzy
 msgid "Notice repeated"
-msgstr "حُذف الإشعار."
+msgstr "الإشعار مكرر"
 
 #: lib/nudgeform.php:116
 msgid "Nudge this user"
@@ -5049,9 +5027,8 @@ msgid "All groups"
 msgstr "كل المجموعات"
 
 #: lib/profileformaction.php:123
-#, fuzzy
 msgid "No return-to arguments."
-msgstr "لا مُدخل هويه."
+msgstr "لا مدخلات رجوع إلى."
 
 #: lib/profileformaction.php:137
 msgid "Unimplemented method."
@@ -5078,23 +5055,20 @@ msgid "Popular"
 msgstr "مشهورة"
 
 #: lib/repeatform.php:107
-#, fuzzy
 msgid "Repeat this notice?"
-msgstr "رُد على هذا الإشعار"
+msgstr "كرر هذا الإشعار؟"
 
 #: lib/repeatform.php:132
-#, fuzzy
 msgid "Repeat this notice"
-msgstr "رُد على هذا الإشعار"
+msgstr "كرر هذا الإشعار"
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"
 msgstr ""
 
 #: lib/sandboxform.php:78
-#, fuzzy
 msgid "Sandbox this user"
-msgstr "ألغِ منع هذا المستخدم"
+msgstr "أضف هذا المستخدم إلى صندوق الرمل"
 
 #: lib/searchaction.php:120
 msgid "Search site"
@@ -5172,14 +5146,12 @@ msgid "Could not subscribe other to you."
 msgstr ""
 
 #: lib/subs.php:128
-#, fuzzy
 msgid "Not subscribed!"
-msgstr "لست مُشتركًا!"
+msgstr "غير مشترك!"
 
 #: lib/subs.php:133
-#, fuzzy
 msgid "Couldn't delete self-subscription."
-msgstr "تعذّر حذف الاشتراك."
+msgstr "م يمكن حذف اشتراك ذاتي."
 
 #: lib/subs.php:146
 msgid "Couldn't delete subscription."
@@ -5212,9 +5184,8 @@ msgid "Unsandbox"
 msgstr ""
 
 #: lib/unsandboxform.php:80
-#, fuzzy
 msgid "Unsandbox this user"
-msgstr "ألغِ منع هذا المستخدم"
+msgstr "أزل هذا المستخدم من صندوق الرمل"
 
 #: lib/unsilenceform.php:67
 msgid "Unsilence"
