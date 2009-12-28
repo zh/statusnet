@@ -226,7 +226,8 @@ $default =
         'message' =>
         array('contentlimit' => null),
         'location' =>
-        array(),
+        array('share' => 'user', // whether to share location; 'always', 'user', 'never'
+              'sharedefault' => true),
         'omb' =>
         array('timeout' => 5), // HTTP request timeout in seconds when contacting remote hosts for OMB updates
         'logincommand' =>
