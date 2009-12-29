@@ -251,7 +251,9 @@ class UserFlagPlugin extends Plugin
 
     function onEndBlockProfile($user, $profile)
     {
-        if ($this->flagOnBlock) {
+        if ($this->flagOnBlock && !User_flag_profile::exists($profile->id,
+                                                             $user->id)) {
+
             User_flag_profile::create($user->id, $profile->id);
         }
         return true;
