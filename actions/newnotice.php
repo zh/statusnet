@@ -184,7 +184,7 @@ class NewnoticeAction extends Action
 
         $options = array('reply_to' => ($replyto == 'false') ? null : $replyto);
 
-        if ($user->shareLocation()) {
+        if ($user->shareLocation() && $this->arg('notice_data-location_enabled')) {
 
             $locOptions = Notice::locationOptions($this->trimmed('lat'),
                                                   $this->trimmed('lon'),

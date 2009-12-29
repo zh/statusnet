@@ -50,7 +50,9 @@ var SN = { // StatusNet
             NoticeLat: 'notice_data-lat',
             NoticeLon: 'notice_data-lon',
             NoticeLocationId: 'notice_data-location_id',
-            NoticeLocationNs: 'notice_data-location_ns'
+            NoticeLocationNs: 'notice_data-location_ns',
+            NoticeLocationName: 'notice_data-location_name',
+            NoticeLocationCookieName: 'location_enabled'
         }
     },
 
@@ -436,10 +438,44 @@ var SN = { // StatusNet
         },
 
         NoticeLocationAttach: function() {
-            if(navigator.geolocation) navigator.geolocation.watchPosition(function(position) {
-                $('#'+SN.C.S.NoticeLat).val(position.coords.latitude);
-                $('#'+SN.C.S.NoticeLon).val(position.coords.longitude);
-            });
+            if($('#notice_data-location_enabled').size()) {
+                if(navigator.geolocation) {
+                    $('#notice_data-location_enabled').change(function() {
+                        $.cookie(SN.C.S.NoticeLocationCookieName, $('#notice_data-location_enabled').attr('checked'));
+                        if($('#notice_data-location_enabled').attr('checked')) {
+                            $('#'+SN.C.S.NoticeLocationName).show();
+                            $('#'+SN.C.S.NoticeLocationName).addClass('processing');
+                            navigator.geolocation.getCurrentPosition(function(position) {
+                                $('#'+SN.C.S.NoticeLat).val(position.coords.latitude);
+                                $('#'+SN.C.S.NoticeLon).val(position.coords.longitude);
+                                var data = {'lat': position.coords.latitude,'lon': position.coords.longitude, 'token': $('#token').val()};
+                                $.getJSON($('#notice_data-location_enabled_container').attr('data-geocode-url'), data,function(location) {
+                                    $('#'+SN.C.S.NoticeLocationName).removeClass('processing');
+                                    if(typeof(location.location_ns)!="undefined") $('#'+SN.C.S.NoticeLocationNs).val(location.location_ns);
+                                    if(typeof(location.location_id)!="undefined") $('#'+SN.C.S.NoticeLocationId).val(location.location_id);
+                                    if(typeof(location.name)=="undefined") {
+                                        $('#'+SN.C.S.NoticeLocationName).text(position.coords.latitude + ' ' + position.coords.longitude);
+                                    } else {
+                                        $('#'+SN.C.S.NoticeLocationName).text(location.name);
+                                        $('#'+SN.C.S.NoticeLocationName).attr('href',location.url);
+                                    }
+                                });
+                            });
+                        } else {
+                            $('#'+SN.C.S.NoticeLocationName).hide();
+                            $('#'+SN.C.S.NoticeLat).val("");
+                            $('#'+SN.C.S.NoticeLon).val("");
+                            $('#'+SN.C.S.NoticeLocationNs).val("");
+                            $('#'+SN.C.S.NoticeLocationId).val("");
+                        }
+                    });
+                    var cookieVal = $.cookie(SN.C.S.NoticeLocationCookieName);
+                    $('#notice_data-location_enabled').attr('checked',(cookieVal == null || cookieVal == 'true'));
+                    $('#notice_data-location_enabled').change();
+                } else {
+                    $('#notice_data-location_enabled_container').remove();
+                }
+            }
         },
 
         NewDirectMessage: function() {
