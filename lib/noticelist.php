@@ -191,6 +191,14 @@ class NoticeListItem extends Widget
 
     function show()
     {
+        if (empty($this->notice)) {
+            common_log(LOG_WARNING, "Trying to show missing notice; skipping.");
+            return;
+        } else if (empty($this->profile)) {
+            common_log(LOG_WARNING, "Trying to show missing profile (" . $this->notice->profile_id . "); skipping.");
+            return;
+        }
+
         $this->showStart();
         if (Event::handle('StartShowNoticeItem', array($this))) {
             $this->showNotice();
