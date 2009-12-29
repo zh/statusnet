@@ -70,7 +70,7 @@ class RSSCloudPlugin extends Plugin
 
         // set defaults
 
-        $local_server = parse_url(common_path('/main/rsscloud/request_notify'));
+        $local_server = parse_url(common_path('main/rsscloud/request_notify'));
 
         if (empty($this->domain)) {
             $this->domain = $local_server['host'];
@@ -81,7 +81,7 @@ class RSSCloudPlugin extends Plugin
         }
 
         if (empty($this->path)) {
-            $this->path = '/main/rsscloud/request_notify';
+            $this->path = $local_server['path'];
         }
 
         if (empty($this->funct)) {
