@@ -1,4 +1,4 @@
-// A shim to implement the W3C Geolocation API Specification using Gears
+// A shim to implement the W3C Geolocation API Specification using Gears or the Ajax API
 if (typeof navigator.geolocation == "undefined" || navigator.geolocation.shim ) (function(){
 
 // -- BEGIN GEARS_INIT
@@ -96,9 +96,122 @@ var GearsGeoLocation = (function() {
     };
 });
 
-// If you have Gears installed use that
-if (window.google && google.gears) {
-    navigator.geolocation = GearsGeoLocation();
-}
+var AjaxGeoLocation = (function() {
+    // -- PRIVATE
+    var loading = false;
+    var loadGoogleLoader = function() {
+        if (!hasGoogleLoader() && !loading) {
+            loading = true;
+            var s = document.createElement('script');
+            s.src = (document.location.protocol == "https:"?"https://":"http://") + 'www.google.com/jsapi?callback=_google_loader_apiLoaded';
+            s.type = "text/javascript";
+            document.getElementsByTagName('body')[0].appendChild(s);
+        }
+    };
+    
+    var queue = [];
+    var addLocationQueue = function(callback) {
+        queue.push(callback);
+    }
+    
+    var runLocationQueue = function() {
+        if (hasGoogleLoader()) {
+            while (queue.length > 0) {
+                var call = queue.pop();
+                call();
+            }
+        }
+    }
+    
+    window['_google_loader_apiLoaded'] = function() {
+        runLocationQueue();
+    }
+    
+    var hasGoogleLoader = function() {
+        return (window['google'] && google['loader']);
+    }
+    
+    var checkGoogleLoader = function(callback) {
+        if (hasGoogleLoader()) return true;
+
+        addLocationQueue(callback);
+                
+        loadGoogleLoader();
+        
+        return false;
+    };
+    
+    loadGoogleLoader(); // start to load as soon as possible just in case
+    
+    // -- PUBLIC
+    return {
+        shim: true,
+        
+        type: "ClientLocation",
+        
+        lastPosition: null,
+        
+        getCurrentPosition: function(successCallback, errorCallback, options) {
+            var self = this;
+            if (!checkGoogleLoader(function() {
+                self.getCurrentPosition(successCallback, errorCallback, options);
+            })) return;
+            
+            if (google.loader.ClientLocation) {
+                var cl = google.loader.ClientLocation;
+                
+                var position = {
+                    coords: {
+                        latitude: cl.latitude,
+                        longitude: cl.longitude,
+                        altitude: null,
+                        accuracy: 43000, // same as Gears accuracy over wifi?
+                        altitudeAccuracy: null,
+                        heading: null,
+                        speed: null,
+                    },
+                    // extra info that is outside of the bounds of the core API
+                    address: {
+                        city: cl.address.city,
+                        country: cl.address.country,
+                        country_code: cl.address.country_code,
+                        region: cl.address.region
+                    },
+                    timestamp: new Date()
+                };
+
+                successCallback(position);
+                
+                this.lastPosition = position;
+            } else if (errorCallback === "function")  {
+                errorCallback({ code: 3, message: "Using the Google ClientLocation API and it is not able to calculate a location."});
+            }
+        },
+        
+        watchPosition: function(successCallback, errorCallback, options) {
+            this.getCurrentPosition(successCallback, errorCallback, options);
+            
+            var self = this;
+            var watchId = setInterval(function() {
+                self.getCurrentPosition(successCallback, errorCallback, options);
+            }, 10000);
+            
+            return watchId;
+        },
+        
+        clearWatch: function(watchId) {
+            clearInterval(watchId);
+        },
+        
+        getPermission: function(siteName, imageUrl, extraMessage) {
+            // for now just say yes :)
+            return true;
+        }
+
+    };
+});
+
+// If you have Gears installed use that, else use Ajax ClientLocation
+navigator.geolocation = (window.google && google.gears) ? GearsGeoLocation() : AjaxGeoLocation();
 
 })();
