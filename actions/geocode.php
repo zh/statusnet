@@ -52,7 +52,12 @@ class GeocodeAction extends Action
         }
         $this->lat = $this->trimmed('lat');
         $this->lon = $this->trimmed('lon');
-        $this->location = Location::fromLatLon($this->lat, $this->lon);
+        $location = Location::fromLatLon($this->lat, $this->lon);
+        if ($location) {
+            $this->location = Location::fromId($location->location_id, $location->location_ns);
+            $this->lat = $this->location->lat;
+            $this->lon = $this->location->lon;
+        }
         return true;
     }
 
