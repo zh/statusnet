@@ -1129,7 +1129,7 @@ class Notice extends Memcached_DataObject
         $xs->element('id', null, $this->uri);
 
         $xs->element('published', null, common_date_w3dtf($this->created));
-        $xs->element('updated', null, common_date_w3dtf($this->modified));
+        $xs->element('updated', null, common_date_w3dtf($this->created));
 
         if ($this->reply_to) {
             $reply_notice = Notice::staticGet('id', $this->reply_to);
