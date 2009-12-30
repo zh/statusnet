@@ -86,16 +86,21 @@ class ProfileList extends Widget
 
     function showProfiles()
     {
+        $log = strtolower(get_class($this)) == 'subscriberslist' && $this->owner->nickname == 'petercook';
         $cnt = 0;
 
+        if ($log) common_log(LOG_INFO, "subbug: starting with {$this->profile->N}");
         while ($this->profile->fetch()) {
             $cnt++;
             if($cnt > PROFILES_PER_PAGE) {
+                if ($log) common_log(LOG_INFO, "subbug: breaking at $cnt");
                 break;
             }
+            if ($log) common_log(LOG_INFO, "subbug: showing at $cnt");
             $pli = $this->newListItem($this->profile);
             $pli->show();
         }
+        if ($log) common_log(LOG_INFO, "subbug: ended at $cnt");
 
         return $cnt;
     }
