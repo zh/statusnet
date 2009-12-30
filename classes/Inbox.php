@@ -31,6 +31,8 @@ require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 class Inbox extends Memcached_DataObject
 {
+    const BOXCAR = 128;
+
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
 
@@ -47,5 +49,56 @@ class Inbox extends Memcached_DataObject
     function sequenceKey()
     {
         return array(false, false, false);
+    }
+
+    static function insertNotice($user_id, $notice_id)
+    {
+        $inbox = new Inbox();
+
+        $inbox->query(sprintf('UPDATE inbox '.
+                              'set notice_ids = concat(cast(%08x as binary(4)), '.
+                              'substr(notice_ids, 1, 4092)) '.
+                              'WHERE user_id = %d',
+                              $notice_id, $user_id));
+    }
+
+    static function bulkInsert($notice_id, $user_ids)
+    {
+        $cnt = count($user_ids);
+
+        for ($off = 0; $off < $cnt; $off += self::BOXCAR) {
+
+            $boxcar = array_slice($user_ids, $off, self::BOXCAR);
+
+            if (empty($boxcar)) { // jump in, hobo!
+                break;
+            }
+
+            $inbox = new Inbox();
+
+            $inbox->query(sprintf('UPDATE inbox '.
+                                  'set notice_ids = concat(cast(%08x as binary(4)), '.
+                                  'substr(notice_ids, 1, 4092)) '.
+                                  'WHERE user_id in (%s)',
+                                  $notice_id, implode(',', $boxcar)));
+
+            $inbox->free();
+        }
+    }
+
+    function stream($user_id, $offset, $limit, $since_id, $max_id, $since, $own=false)
+    {
+        $inbox = Inbox::staticGet('user_id', $user_id);
+
+        if (empty($inbox)) {
+            return array();
+        }
+
+        $ids = unpack('L*', $inbox->notice_ids);
+
+        // XXX: handle since_id
+        // XXX: handle max_id
+
+        $ids = array_slice($ids, $offset, $limit);
     }
 }

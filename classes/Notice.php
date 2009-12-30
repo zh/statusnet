@@ -125,8 +125,7 @@ class Notice extends Memcached_DataObject
                          'Fave',
                          'Notice_tag',
                          'Group_inbox',
-                         'Queue_item',
-                         'Notice_inbox');
+                         'Queue_item');
 
         foreach ($related as $cls) {
             $inst = new $cls();
@@ -504,17 +503,6 @@ class Notice extends Memcached_DataObject
                     unset($original);
                 }
 
-                $ni = new Notice_inbox();
-
-                $ni->notice_id = $this->id;
-
-                if ($ni->find()) {
-                    while ($ni->fetch()) {
-                        $tmk = common_cache_key('user:repeated_to_me:'.$ni->user_id);
-                        $cache->delete($tmk);
-                    }
-                }
-
                 $ni->free();
                 unset($ni);
             }
@@ -844,10 +832,6 @@ class Notice extends Memcached_DataObject
 
     function addToInboxes()
     {
-        // XXX: loads constants
-
-        $inbox = new Notice_inbox();
-
         $users = $this->getSubscribedUsers();
 
         // FIXME: kind of ignoring 'transitional'...
@@ -887,7 +871,7 @@ class Notice extends Memcached_DataObject
             }
         }
 
-        Notice_inbox::bulkInsert($this->id, $this->created, $ni);
+        Inbox::bulkInsert($this->id, array_keys($ni));
 
         return;
     }
