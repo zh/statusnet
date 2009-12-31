@@ -438,7 +438,7 @@ var SN = { // StatusNet
         },
 
         NoticeLocationAttach: function() {
-            if($('#notice_data-location_enabled').size()) {
+            if ($('#notice_data-location_enabled').length > 0) {
                 if(navigator.geolocation) {
                     $('#notice_data-location_enabled').change(function() {
                         $.cookie(SN.C.S.NoticeLocationCookieName, $('#notice_data-location_enabled').attr('checked'));
