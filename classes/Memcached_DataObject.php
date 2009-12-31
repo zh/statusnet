@@ -31,19 +31,10 @@ class Memcached_DataObject extends DB_DataObject
 
     function __destruct()
     {
-        if (get_class($this) == 'Profile')
-            common_log(LOG_INFO, 'subbug: destructing result id ' . $this->_DB_resultid);
         $this->free();
         if (method_exists('DB_DataObject', '__destruct')) {
             parent::__destruct();
         }
-    }
-    
-    function free()
-    {
-        if (get_class($this) == 'Profile')
-            common_log(LOG_INFO, 'subbug: freeing result id ' . $this->_DB_resultid);
-        parent::free();
     }
 
     function &staticGet($cls, $k, $v=null)
