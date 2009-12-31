@@ -446,17 +446,32 @@ var SN = { // StatusNet
                         if ($('#notice_data-location_enabled').attr('checked') === true) {
                             $('#'+SN.C.S.NoticeLocationName).show();
                             $('#'+SN.C.S.NoticeLocationName).addClass('processing');
+
                             navigator.geolocation.getCurrentPosition(function(position) {
                                 $('#'+SN.C.S.NoticeLat).val(position.coords.latitude);
                                 $('#'+SN.C.S.NoticeLon).val(position.coords.longitude);
-                                var data = {'lat': position.coords.latitude,'lon': position.coords.longitude, 'token': $('#token').val()};
+
+                                var data = {
+                                    'lat': position.coords.latitude,
+                                    'lon': position.coords.longitude,
+                                    'token': $('#token').val()
+                                };
+
                                 $.getJSON($('#notice_data-location_enabled_container').attr('data-geocode-url'), data,function(location) {
                                     $('#'+SN.C.S.NoticeLocationName).removeClass('processing');
-                                    if(typeof(location.location_ns)!="undefined") $('#'+SN.C.S.NoticeLocationNs).val(location.location_ns);
-                                    if(typeof(location.location_id)!="undefined") $('#'+SN.C.S.NoticeLocationId).val(location.location_id);
-                                    if(typeof(location.name)=="undefined") {
+
+                                    if (typeof(location.location_ns) != 'undefined') {
+                                        $('#'+SN.C.S.NoticeLocationNs).val(location.location_ns);
+                                    }
+
+                                    if (typeof(location.location_id) != 'undefined') {
+                                        $('#'+SN.C.S.NoticeLocationId).val(location.location_id);
+                                    }
+
+                                    if (typeof(location.name) == 'undefined') {
                                         $('#'+SN.C.S.NoticeLocationName).text(position.coords.latitude + ' ' + position.coords.longitude);
-                                    } else {
+                                    }
+                                    else {
                                         $('#'+SN.C.S.NoticeLocationName).text(location.name);
                                         $('#'+SN.C.S.NoticeLocationName).attr('href',location.url);
                                     }
@@ -465,12 +480,13 @@ var SN = { // StatusNet
                         }
                         else {
                             $('#'+SN.C.S.NoticeLocationName).hide();
-                            $('#'+SN.C.S.NoticeLat).val("");
-                            $('#'+SN.C.S.NoticeLon).val("");
-                            $('#'+SN.C.S.NoticeLocationNs).val("");
-                            $('#'+SN.C.S.NoticeLocationId).val("");
+                            $('#'+SN.C.S.NoticeLat).val('');
+                            $('#'+SN.C.S.NoticeLon).val('');
+                            $('#'+SN.C.S.NoticeLocationNs).val('');
+                            $('#'+SN.C.S.NoticeLocationId).val('');
                         }
                     });
+
                     var cookieVal = $.cookie(SN.C.S.NoticeLocationCookieName);
                     $('#notice_data-location_enabled').attr('checked',(cookieVal == null || cookieVal == 'true'));
                     $('#notice_data-location_enabled').change();
