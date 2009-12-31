@@ -469,7 +469,7 @@ var SN = { // StatusNet
                                     }
 
                                     if (typeof(location.name) == 'undefined') {
-                                        $('#'+SN.C.S.NoticeLocationName).text(position.coords.latitude + ' ' + position.coords.longitude);
+                                        $('#'+SN.C.S.NoticeLocationName).text(position.coords.latitude + ';' + position.coords.longitude);
                                     }
                                     else {
                                         $('#'+SN.C.S.NoticeLocationName).text(location.name);
