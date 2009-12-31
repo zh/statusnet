@@ -440,8 +440,20 @@ var SN = { // StatusNet
         NoticeLocationAttach: function() {
             if ($('#notice_data-location_enabled').length > 0) {
                 if (navigator.geolocation) {
-                    $('#notice_data-location_enabled').change(function() {
+                    var NLE = $('#notice_data-location_wrap');
+                    var geocodeURL = NLE.attr('title');
+
+                    NLE.change(function() {
+                        NLE.removeAttr('title');
+
                         $.cookie(SN.C.S.NoticeLocationCookieName, $('#notice_data-location_enabled').attr('checked'));
+
+                        var NLN = $('#'+SN.C.S.NoticeLocationName);
+                        if (NLN.length > 0) {
+                            NLN.remove();
+                        }
+
+                        NLE.append('<span id="'+SN.C.S.NoticeLocationName+'">Geo</span>');
                         NLN = $('#'+SN.C.S.NoticeLocationName);
 
                         if ($('#notice_data-location_enabled').attr('checked') === true) {
@@ -458,8 +470,9 @@ var SN = { // StatusNet
                                     'token': $('#token').val()
                                 };
 
-                                $.getJSON($('#notice_data-location_enabled_container').attr('data-geocode-url'), data, function(location) {
-                                    NLN.removeClass('processing');
+                                $.getJSON(geocodeURL, data, function(location) {
+                                    NLN.replaceWith('<a id="notice_data-location_name"/>');
+                                    NLN = $('#'+SN.C.S.NoticeLocationName);
 
                                     if (typeof(location.location_ns) != 'undefined') {
                                         $('#'+SN.C.S.NoticeLocationNs).val(location.location_ns);
@@ -470,12 +483,14 @@ var SN = { // StatusNet
                                     }
 
                                     if (typeof(location.name) == 'undefined') {
-                                        NLN.text(position.coords.latitude + ';' + position.coords.longitude);
+                                        NLN_text = position.coords.latitude + ';' + position.coords.longitude;
                                     }
                                     else {
-                                       NLN.text(location.name);
-                                       NLN.attr('href',location.url);
+                                        NLN_text = location.name;
                                     }
+
+                                    NLN.attr('href', location.url);
+                                    NLN.text(NLN_text);
                                 });
                             });
                         }
@@ -490,7 +505,7 @@ var SN = { // StatusNet
 
                     var cookieVal = $.cookie(SN.C.S.NoticeLocationCookieName);
                     $('#notice_data-location_enabled').attr('checked',(cookieVal == null || cookieVal == 'true'));
-                    $('#notice_data-location_enabled').change();
+                    NLE.change();
                 }
             }
         },
