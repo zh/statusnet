@@ -455,7 +455,7 @@ var SN = { // StatusNet
                             NLN.remove();
                         }
 
-                        NLE.append('<span id="'+SN.C.S.NoticeLocationName+'">Geo</span>');
+                        NLE.prepend('<span id="'+SN.C.S.NoticeLocationName+'">Geo</span>');
                         NLN = $('#'+SN.C.S.NoticeLocationName);
 
                         if ($('#notice_data-location_enabled').attr('checked') === true) {
