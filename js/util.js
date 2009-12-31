@@ -442,7 +442,8 @@ var SN = { // StatusNet
                 if (navigator.geolocation) {
                     $('#notice_data-location_enabled').change(function() {
                         $.cookie(SN.C.S.NoticeLocationCookieName, $('#notice_data-location_enabled').attr('checked'));
-                        if($('#notice_data-location_enabled').attr('checked')) {
+
+                        if ($('#notice_data-location_enabled').attr('checked') === true) {
                             $('#'+SN.C.S.NoticeLocationName).show();
                             $('#'+SN.C.S.NoticeLocationName).addClass('processing');
                             navigator.geolocation.getCurrentPosition(function(position) {
@@ -461,7 +462,8 @@ var SN = { // StatusNet
                                     }
                                 });
                             });
-                        } else {
+                        }
+                        else {
                             $('#'+SN.C.S.NoticeLocationName).hide();
                             $('#'+SN.C.S.NoticeLat).val("");
                             $('#'+SN.C.S.NoticeLon).val("");
