@@ -203,7 +203,7 @@ class NoticeForm extends Form
             $this->out->hidden('notice_data-location_id', empty($this->location_id) ? null : $this->location_id, 'location_id');
             $this->out->hidden('notice_data-location_ns', empty($this->location_ns) ? null : $this->location_ns, 'location_ns');
 
-            Event::handle('StartShowNoticeFormData', array($this));
+            Event::handle('EndShowNoticeFormData', array($this));
         }
     }
 
