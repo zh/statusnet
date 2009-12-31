@@ -209,7 +209,7 @@ class NoticeForm extends Form
 
                 $this->out->elementStart('div',array('id' => 'notice_data-location_enabled_container', 'data-geocode-url' => common_local_url('geocode')));
                 $this->out->checkbox('notice_data-location_enabled', _('Share your location'), true);
-                $this->out->element('a', array('style' => 'display: none', 'target' => '_blank', 'id' => 'notice_data-location_name'), _('Finding your location...'));
+                $this->out->element('a', array('id' => 'notice_data-location_name'), _('Finding your location...'));
                 $this->out->elementEnd('div');
             }
 
