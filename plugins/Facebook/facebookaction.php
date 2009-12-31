@@ -399,9 +399,6 @@ class FacebookAction extends Action
 
         common_broadcast_notice($notice);
 
-        // Also update the user's Facebook status
-        facebookBroadcastNotice($notice);
-
     }
 
 }
