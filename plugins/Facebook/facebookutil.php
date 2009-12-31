@@ -138,21 +138,23 @@ function facebookBroadcastNotice($notice)
 
             $code = $e->getCode();
 
-            common_log(LOG_WARNING, 'Facebook returned error code ' .
-                       $code . ': ' . $e->getMessage());
-            common_log(LOG_WARNING,
-                       'Unable to update Facebook status for ' .
-                       "$user->nickname (user id: $user->id)!");
+            $msg = "Facebook returned error code $code: " .
+              $e->getMessage() . ' - ' .
+              "Unable to update Facebook status (notice $notice->id) " .
+              "for $user->nickname (user id: $user->id)!";
 
-            if ($code == 200 || $code == 250) {
+            common_log(LOG_WARNING, $msg);
 
+            if ($code == 100 || $code == 200 || $code == 250) {
+
+                // 100 The account is 'inactive' (probably - this is not well documented)
                 // 200 The application does not have permission to operate on the passed in uid parameter.
                 // 250 Updating status requires the extended permission status_update or publish_stream.
                 // see: http://wiki.developers.facebook.com/index.php/Users.setStatus#Example_Return_XML
 
                 remove_facebook_app($flink);
 
-            } else {
+        } else {
 
                 // Try sending again later.
 
