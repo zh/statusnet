@@ -56,7 +56,7 @@ class Inbox extends Memcached_DataObject
         $inbox = new Inbox();
 
         $inbox->query(sprintf('UPDATE inbox '.
-                              'set notice_ids = concat(cast(%08x as binary(4)), '.
+                              'set notice_ids = concat(cast(0x%08x as binary(4)), '.
                               'substr(notice_ids, 1, 4092)) '.
                               'WHERE user_id = %d',
                               $notice_id, $user_id));
@@ -77,7 +77,7 @@ class Inbox extends Memcached_DataObject
             $inbox = new Inbox();
 
             $inbox->query(sprintf('UPDATE inbox '.
-                                  'set notice_ids = concat(cast(%08x as binary(4)), '.
+                                  'set notice_ids = concat(cast(0x%08x as binary(4)), '.
                                   'substr(notice_ids, 1, 4092)) '.
                                   'WHERE user_id in (%s)',
                                   $notice_id, implode(',', $boxcar)));
@@ -94,11 +94,13 @@ class Inbox extends Memcached_DataObject
             return array();
         }
 
-        $ids = unpack('L*', $inbox->notice_ids);
+        $ids = unpack('N*', $inbox->notice_ids);
 
         // XXX: handle since_id
         // XXX: handle max_id
 
         $ids = array_slice($ids, $offset, $limit);
+
+        return $ids;
     }
 }

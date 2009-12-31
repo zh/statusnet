@@ -296,6 +296,7 @@ class User extends Memcached_DataObject
         $inbox = new Inbox();
 
         $inbox->user_id = $user->id;
+        $inbox->notice_ids = '';
 
         $result = $inbox->insert();
 
