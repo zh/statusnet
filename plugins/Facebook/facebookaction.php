@@ -32,7 +32,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 }
 
 require_once INSTALLDIR . '/plugins/Facebook/facebookutil.php';
-require_once INSTALLDIR . '/lib/noticeform.php';
+require_once INSTALLDIR . '/plugins/Facebook/facebooknoticeform.php';
 
 class FacebookAction extends Action
 {
@@ -458,39 +458,6 @@ class FacebookAction extends Action
         // Also update the user's Facebook status
         facebookBroadcastNotice($notice);
 
-    }
-
-}
-
-class FacebookNoticeForm extends NoticeForm
-{
-
-    var $post_action = null;
-
-    /**
-     * Constructor
-     *
-     * @param HTMLOutputter $out     output channel
-     * @param string        $action  action to return to, if any
-     * @param string        $content content to pre-fill
-     */
-
-    function __construct($out=null, $action=null, $content=null,
-        $post_action=null, $user=null)
-    {
-        parent::__construct($out, $action, $content, $user);
-        $this->post_action = $post_action;
-    }
-
-    /**
-     * Action of the form
-     *
-     * @return string URL of the action
-     */
-
-    function action()
-    {
-        return $this->post_action;
     }
 
 }
