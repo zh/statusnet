@@ -439,10 +439,12 @@ var SN = { // StatusNet
 
         NoticeLocationAttach: function() {
             if ($('#notice_data-location_enabled').length > 0) {
-                if (navigator.geolocation) {
-                    var NLE = $('#notice_data-location_wrap');
-                    var geocodeURL = NLE.attr('title');
+                var NLE = $('#notice_data-location_wrap');
+                var geocodeURL = NLE.attr('title');
 
+                NLE.insertAfter('#'+SN.C.S.FormNotice+' fieldset');
+
+                if (navigator.geolocation) {
                     NLE.change(function() {
                         NLE.removeAttr('title');
 
@@ -504,7 +506,7 @@ var SN = { // StatusNet
                     });
 
                     var cookieVal = $.cookie(SN.C.S.NoticeLocationCookieName);
-                    $('#notice_data-location_enabled').attr('checked',(cookieVal == null || cookieVal == 'true'));
+                    $('#notice_data-location_enabled').attr('checked', (cookieVal == null || cookieVal == 'true'));
                     NLE.change();
                 }
             }
