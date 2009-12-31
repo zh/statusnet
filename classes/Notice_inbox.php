@@ -106,6 +106,13 @@ class Notice_inbox extends Memcached_DataObject
         return Memcached_DataObject::pkeyGet('Notice_inbox', $kv);
     }
 
+    /**
+     * Trim inbox for a given user to latest NOTICE_INBOX_LIMIT items
+     * (up to NOTICE_INBOX_GC_MAX will be deleted).
+     *
+     * @param int $user_id
+     * @return int count of notices dropped from the inbox, if any
+     */
     static function gc($user_id)
     {
         $entry = new Notice_inbox();
@@ -133,6 +140,8 @@ class Notice_inbox extends Memcached_DataObject
                 $notices = array();
             }
         }
+
+        return $total;
     }
 
     static function deleteMatching($user_id, $notices)

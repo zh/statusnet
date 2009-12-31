@@ -100,7 +100,8 @@ class Router
                           'sandbox', 'unsandbox',
                           'silence', 'unsilence',
                           'repeat',
-                          'deleteuser');
+                          'deleteuser',
+                          'geocode');
 
             foreach ($main as $a) {
                 $m->connect('main/'.$a, array('action' => $a));

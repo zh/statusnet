@@ -1416,6 +1416,7 @@ function common_memcache()
             } else {
                 $cache->addServer($servers);
             }
+            $cache->setCompressThreshold(20000, 0.2);
         }
         return $cache;
     }

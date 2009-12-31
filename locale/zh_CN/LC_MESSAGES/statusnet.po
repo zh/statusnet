@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-25 09:42+0000\n"
-"PO-Revision-Date: 2009-12-28 08:11:32+0000\n"
+"POT-Creation-Date: 2009-12-30 19:06+0000\n"
+"PO-Revision-Date: 2009-12-30 19:07:53+0000\n"
 "Language-Team: Simplified Chinese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60437); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60512); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: out-statusnet\n"
@@ -195,11 +195,11 @@ msgstr "无法更新用户。"
 msgid "You cannot block yourself!"
 msgstr "无法更新用户。"
 
-#: actions/apiblockcreate.php:119
+#: actions/apiblockcreate.php:126
 msgid "Block user failed."
 msgstr "阻止用户失败。"
 
-#: actions/apiblockdestroy.php:107
+#: actions/apiblockdestroy.php:114
 msgid "Unblock user failed."
 msgstr "取消阻止用户失败。"
 
@@ -316,31 +316,31 @@ msgid "Could not find target user."
 msgstr "找不到任何信息。"
 
 #: actions/apigroupcreate.php:164 actions/editgroup.php:182
-#: actions/newgroup.php:126 actions/profilesettings.php:208
+#: actions/newgroup.php:126 actions/profilesettings.php:215
 #: actions/register.php:205
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr "昵称只能使用小写字母和数字，不包含空格。"
 
 #: actions/apigroupcreate.php:173 actions/editgroup.php:186
-#: actions/newgroup.php:130 actions/profilesettings.php:231
+#: actions/newgroup.php:130 actions/profilesettings.php:238
 #: actions/register.php:208
 msgid "Nickname already in use. Try another one."
 msgstr "昵称已被使用，换一个吧。"
 
 #: actions/apigroupcreate.php:180 actions/editgroup.php:189
-#: actions/newgroup.php:133 actions/profilesettings.php:211
+#: actions/newgroup.php:133 actions/profilesettings.php:218
 #: actions/register.php:210
 msgid "Not a valid nickname."
 msgstr "不是有效的昵称。"
 
 #: actions/apigroupcreate.php:196 actions/editgroup.php:195
-#: actions/newgroup.php:139 actions/profilesettings.php:215
+#: actions/newgroup.php:139 actions/profilesettings.php:222
 #: actions/register.php:217
 msgid "Homepage is not a valid URL."
 msgstr "主页的URL不正确。"
 
 #: actions/apigroupcreate.php:205 actions/editgroup.php:198
-#: actions/newgroup.php:142 actions/profilesettings.php:218
+#: actions/newgroup.php:142 actions/profilesettings.php:225
 #: actions/register.php:220
 msgid "Full name is too long (max 255 chars)."
 msgstr "全名过长(不能超过 255 个字符)。"
@@ -351,7 +351,7 @@ msgid "Description is too long (max %d chars)."
 msgstr "描述过长(不能超过140字符)。"
 
 #: actions/apigroupcreate.php:224 actions/editgroup.php:204
-#: actions/newgroup.php:148 actions/profilesettings.php:225
+#: actions/newgroup.php:148 actions/profilesettings.php:232
 #: actions/register.php:227
 msgid "Location is too long (max 255 chars)."
 msgstr "位置过长(不能超过255个字符)。"
@@ -472,7 +472,7 @@ msgstr "超出长度限制。不能超过 140 个字符。"
 msgid "Not found"
 msgstr "未找到"
 
-#: actions/apistatusesupdate.php:227 actions/newnotice.php:191
+#: actions/apistatusesupdate.php:221 actions/newnotice.php:178
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -618,13 +618,13 @@ msgid "Crop"
 msgstr "剪裁"
 
 #: actions/avatarsettings.php:268 actions/disfavor.php:74
-#: actions/emailsettings.php:238 actions/favor.php:75
+#: actions/emailsettings.php:238 actions/favor.php:75 actions/geocode.php:50
 #: actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
 #: actions/invite.php:56 actions/login.php:135 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
-#: actions/profilesettings.php:187 actions/recoverpassword.php:337
+#: actions/profilesettings.php:194 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
 #: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
 #: actions/subscribe.php:46 actions/tagother.php:166
@@ -699,7 +699,7 @@ msgstr "是"
 msgid "Block this user"
 msgstr "阻止该用户"
 
-#: actions/block.php:162
+#: actions/block.php:167
 msgid "Failed to save block information."
 msgstr "保存阻止信息失败。"
 
@@ -776,7 +776,7 @@ msgstr "此地址已被确认。"
 #: actions/confirmaddress.php:114 actions/emailsettings.php:296
 #: actions/emailsettings.php:427 actions/imsettings.php:258
 #: actions/imsettings.php:401 actions/othersettings.php:174
-#: actions/profilesettings.php:276 actions/smssettings.php:278
+#: actions/profilesettings.php:283 actions/smssettings.php:278
 #: actions/smssettings.php:420
 msgid "Couldn't update user."
 msgstr "无法更新用户。"
@@ -989,7 +989,7 @@ msgstr ""
 
 #: actions/designadminpanel.php:586 actions/emailsettings.php:195
 #: actions/imsettings.php:163 actions/othersettings.php:126
-#: actions/pathsadminpanel.php:324 actions/profilesettings.php:167
+#: actions/pathsadminpanel.php:324 actions/profilesettings.php:174
 #: actions/siteadminpanel.php:388 actions/smssettings.php:181
 #: actions/subscriptions.php:203 actions/tagother.php:154
 #: actions/useradminpanel.php:313 lib/designsettings.php:256
@@ -1505,7 +1505,7 @@ msgstr "%s 组成员, 第 %d 页"
 msgid "A list of the users in this group."
 msgstr "该组成员列表。"
 
-#: actions/groupmembers.php:175 lib/action.php:440 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:441 lib/groupnav.php:107
 msgid "Admin"
 msgstr "admin管理员"
 
@@ -1599,7 +1599,7 @@ msgstr ""
 msgid "User is not blocked from group."
 msgstr "用户没有个人信息。"
 
-#: actions/groupunblock.php:128 actions/unblock.php:77
+#: actions/groupunblock.php:128 actions/unblock.php:86
 #, fuzzy
 msgid "Error removing the block."
 msgstr "保存用户时出错。"
@@ -1898,7 +1898,7 @@ msgstr "用户名或密码不正确。"
 msgid "Error setting user. You are probably not authorized."
 msgstr "未认证。"
 
-#: actions/login.php:208 actions/login.php:261 lib/action.php:458
+#: actions/login.php:208 actions/login.php:261 lib/action.php:459
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "登录"
@@ -2008,7 +2008,7 @@ msgstr "新消息"
 msgid "Direct message to %s sent"
 msgstr "已向 %s 发送消息"
 
-#: actions/newmessage.php:210 actions/newnotice.php:250 lib/channel.php:170
+#: actions/newmessage.php:210 actions/newnotice.php:245 lib/channel.php:170
 msgid "Ajax Error"
 msgstr "Ajax错误"
 
@@ -2016,7 +2016,7 @@ msgstr "Ajax错误"
 msgid "New notice"
 msgstr "新通告"
 
-#: actions/newnotice.php:216
+#: actions/newnotice.php:211
 msgid "Notice posted"
 msgstr "消息已发布。"
 
@@ -2455,70 +2455,79 @@ msgstr "位置"
 msgid "Where you are, like \"City, State (or Region), Country\""
 msgstr "你的位置，格式类似\"城市，省份，国家\""
 
-#: actions/profilesettings.php:138 actions/tagother.php:149
+#: actions/profilesettings.php:138
+msgid "Share my current location when posting notices"
+msgstr ""
+
+#: actions/profilesettings.php:145 actions/tagother.php:149
 #: actions/tagother.php:209 lib/subscriptionlist.php:106
 #: lib/subscriptionlist.php:108 lib/userprofile.php:209
 msgid "Tags"
 msgstr "标签"
 
-#: actions/profilesettings.php:140
+#: actions/profilesettings.php:147
 msgid ""
 "Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
 msgstr "你的标签 (字母letters, 数字numbers, -, ., 和 _), 以逗号或空格分隔"
 
-#: actions/profilesettings.php:144 actions/siteadminpanel.php:294
+#: actions/profilesettings.php:151 actions/siteadminpanel.php:294
 msgid "Language"
 msgstr "语言"
 
-#: actions/profilesettings.php:145
+#: actions/profilesettings.php:152
 msgid "Preferred language"
 msgstr "首选语言"
 
-#: actions/profilesettings.php:154
+#: actions/profilesettings.php:161
 msgid "Timezone"
 msgstr "时区"
 
-#: actions/profilesettings.php:155
+#: actions/profilesettings.php:162
 msgid "What timezone are you normally in?"
 msgstr "您一般处于哪个时区？"
 
-#: actions/profilesettings.php:160
+#: actions/profilesettings.php:167
 msgid ""
 "Automatically subscribe to whoever subscribes to me (best for non-humans)"
 msgstr "自动订阅任何订阅我的更新的人(这个选项最适合机器人)"
 
-#: actions/profilesettings.php:221 actions/register.php:223
+#: actions/profilesettings.php:228 actions/register.php:223
 #, fuzzy, php-format
 msgid "Bio is too long (max %d chars)."
 msgstr "自述过长(不能超过140字符)。"
 
-#: actions/profilesettings.php:228 actions/siteadminpanel.php:164
+#: actions/profilesettings.php:235 actions/siteadminpanel.php:164
 msgid "Timezone not selected."
 msgstr "未选择时区。"
 
-#: actions/profilesettings.php:234
+#: actions/profilesettings.php:241
 msgid "Language is too long (max 50 chars)."
 msgstr "语言过长(不能超过50个字符)。"
 
-#: actions/profilesettings.php:246 actions/tagother.php:178
+#: actions/profilesettings.php:253 actions/tagother.php:178
 #, fuzzy, php-format
 msgid "Invalid tag: \"%s\""
 msgstr "主页'%s'不正确"
 
-#: actions/profilesettings.php:295
+#: actions/profilesettings.php:302
 msgid "Couldn't update user for autosubscribe."
 msgstr "无法更新用户的自动订阅选项。"
 
-#: actions/profilesettings.php:328
+#: actions/profilesettings.php:354
+#, fuzzy
+msgid "Couldn't save location prefs."
+msgstr "无法保存个人信息。"
+
+#: actions/profilesettings.php:366
 msgid "Couldn't save profile."
 msgstr "无法保存个人信息。"
 
-#: actions/profilesettings.php:336
+#: actions/profilesettings.php:374
 #, fuzzy
 msgid "Couldn't save tags."
 msgstr "无法保存个人信息。"
 
-#: actions/profilesettings.php:344 lib/adminpanelaction.php:126
+#: actions/profilesettings.php:382 lib/adminpanelaction.php:126
 msgid "Settings saved."
 msgstr "设置已保存。"
 
@@ -2755,7 +2764,7 @@ msgstr "验证码出错。"
 msgid "Registration successful"
 msgstr "注册成功。"
 
-#: actions/register.php:114 actions/register.php:502 lib/action.php:455
+#: actions/register.php:114 actions/register.php:502 lib/action.php:456
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "注册"
@@ -4086,16 +4095,16 @@ msgstr "你在短时间里发布了过多的消息，请深呼吸，过几分钟
 msgid "You are banned from posting notices on this site."
 msgstr "在这个网站你被禁止发布消息。"
 
-#: classes/Notice.php:319 classes/Notice.php:344
+#: classes/Notice.php:309 classes/Notice.php:334
 msgid "Problem saving notice."
 msgstr "保存通告时出错。"
 
-#: classes/Notice.php:1044
+#: classes/Notice.php:1034
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "添加回复时数据库出错：%s"
 
-#: classes/Notice.php:1371
+#: classes/Notice.php:1361
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -4152,137 +4161,137 @@ msgstr "%s (%s)"
 msgid "Untitled page"
 msgstr "无标题页"
 
-#: lib/action.php:425
+#: lib/action.php:426
 msgid "Primary site navigation"
 msgstr "主站导航"
 
-#: lib/action.php:431
+#: lib/action.php:432
 msgid "Home"
 msgstr "主页"
 
-#: lib/action.php:431
+#: lib/action.php:432
 msgid "Personal profile and friends timeline"
 msgstr "个人资料及朋友年表"
 
-#: lib/action.php:433
+#: lib/action.php:434
 msgid "Account"
 msgstr "帐号"
 
-#: lib/action.php:433
+#: lib/action.php:434
 #, fuzzy
 msgid "Change your email, avatar, password, profile"
 msgstr "修改资料"
 
-#: lib/action.php:436
+#: lib/action.php:437
 msgid "Connect"
 msgstr "连接"
 
-#: lib/action.php:436
+#: lib/action.php:437
 #, fuzzy
 msgid "Connect to services"
 msgstr "无法重定向到服务器：%s"
 
-#: lib/action.php:440
+#: lib/action.php:441
 #, fuzzy
 msgid "Change site configuration"
 msgstr "主站导航"
 
-#: lib/action.php:444 lib/subgroupnav.php:105
+#: lib/action.php:445 lib/subgroupnav.php:105
 msgid "Invite"
 msgstr "邀请"
 
-#: lib/action.php:445 lib/subgroupnav.php:106
+#: lib/action.php:446 lib/subgroupnav.php:106
 #, fuzzy, php-format
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "使用这个表单来邀请好友和同事加入。"
 
-#: lib/action.php:450
+#: lib/action.php:451
 msgid "Logout"
 msgstr "登出"
 
-#: lib/action.php:450
+#: lib/action.php:451
 msgid "Logout from the site"
 msgstr "登出本站"
 
-#: lib/action.php:455
+#: lib/action.php:456
 #, fuzzy
 msgid "Create an account"
 msgstr "创建新帐号"
 
-#: lib/action.php:458
+#: lib/action.php:459
 msgid "Login to the site"
 msgstr "登入本站"
 
-#: lib/action.php:461 lib/action.php:724
+#: lib/action.php:462 lib/action.php:725
 msgid "Help"
 msgstr "帮助"
 
-#: lib/action.php:461
+#: lib/action.php:462
 #, fuzzy
 msgid "Help me!"
 msgstr "帮助"
 
-#: lib/action.php:464 lib/searchaction.php:127
+#: lib/action.php:465 lib/searchaction.php:127
 msgid "Search"
 msgstr "搜索"
 
-#: lib/action.php:464
+#: lib/action.php:465
 msgid "Search for people or text"
 msgstr "检索人或文字"
 
-#: lib/action.php:485
+#: lib/action.php:486
 #, fuzzy
 msgid "Site notice"
 msgstr "新通告"
 
-#: lib/action.php:551
+#: lib/action.php:552
 msgid "Local views"
 msgstr "本地显示"
 
-#: lib/action.php:617
+#: lib/action.php:618
 #, fuzzy
 msgid "Page notice"
 msgstr "新通告"
 
-#: lib/action.php:719
+#: lib/action.php:720
 #, fuzzy
 msgid "Secondary site navigation"
 msgstr "次项站导航"
 
-#: lib/action.php:726
+#: lib/action.php:727
 msgid "About"
 msgstr "关于"
 
-#: lib/action.php:728
+#: lib/action.php:729
 msgid "FAQ"
 msgstr "常见问题FAQ"
 
-#: lib/action.php:732
+#: lib/action.php:733
 msgid "TOS"
 msgstr ""
 
-#: lib/action.php:735
+#: lib/action.php:736
 msgid "Privacy"
 msgstr "隐私"
 
-#: lib/action.php:737
+#: lib/action.php:738
 msgid "Source"
 msgstr "来源"
 
-#: lib/action.php:739
+#: lib/action.php:740
 msgid "Contact"
 msgstr "联系人"
 
-#: lib/action.php:741
+#: lib/action.php:742
 #, fuzzy
 msgid "Badge"
 msgstr "呼叫"
 
-#: lib/action.php:769
+#: lib/action.php:770
 msgid "StatusNet software license"
 msgstr "StatusNet软件注册证"
 
-#: lib/action.php:772
+#: lib/action.php:773
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4291,12 +4300,12 @@ msgstr ""
 "**%%site.name%%** 是一个微博客服务，提供者为 [%%site.broughtby%%](%%site."
 "broughtbyurl%%)。"
 
-#: lib/action.php:774
+#: lib/action.php:775
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** 是一个微博客服务。"
 
-#: lib/action.php:776
+#: lib/action.php:777
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4307,34 +4316,34 @@ msgstr ""
 "General Public License](http://www.fsf.org/licensing/licenses/agpl-3.0.html)"
 "授权。"
 
-#: lib/action.php:790
+#: lib/action.php:791
 #, fuzzy
 msgid "Site content license"
 msgstr "StatusNet软件注册证"
 
-#: lib/action.php:799
+#: lib/action.php:800
 msgid "All "
 msgstr "全部"
 
-#: lib/action.php:804
+#: lib/action.php:805
 msgid "license."
 msgstr "注册证"
 
-#: lib/action.php:1098
+#: lib/action.php:1099
 msgid "Pagination"
 msgstr "分页"
 
-#: lib/action.php:1107
+#: lib/action.php:1108
 #, fuzzy
 msgid "After"
 msgstr "« 之后"
 
-#: lib/action.php:1115
+#: lib/action.php:1116
 #, fuzzy
 msgid "Before"
 msgstr "之前 »"
 
-#: lib/action.php:1163
+#: lib/action.php:1164
 #, fuzzy
 msgid "There was a problem with your session token."
 msgstr "会话标识有问题，请重试。"
@@ -5180,6 +5189,14 @@ msgstr ""
 
 #: lib/noticeform.php:194
 msgid "Attach a file"
+msgstr ""
+
+#: lib/noticeform.php:225
+msgid "Share your location "
+msgstr ""
+
+#: lib/noticeform.php:226
+msgid "Finding your location..."
 msgstr ""
 
 #: lib/noticelist.php:420

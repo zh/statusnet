@@ -50,7 +50,9 @@ var SN = { // StatusNet
             NoticeLat: 'notice_data-lat',
             NoticeLon: 'notice_data-lon',
             NoticeLocationId: 'notice_data-location_id',
-            NoticeLocationNs: 'notice_data-location_ns'
+            NoticeLocationNs: 'notice_data-location_ns',
+            NoticeLocationName: 'notice_data-location_name',
+            NoticeLocationCookieName: 'location_enabled'
         }
     },
 
@@ -436,10 +438,78 @@ var SN = { // StatusNet
         },
 
         NoticeLocationAttach: function() {
-            if(navigator.geolocation) navigator.geolocation.watchPosition(function(position) {
-                $('#'+SN.C.S.NoticeLat).val(position.coords.latitude);
-                $('#'+SN.C.S.NoticeLon).val(position.coords.longitude);
-            });
+            if ($('#notice_data-location_enabled').length > 0) {
+                var NLE = $('#notice_data-location_wrap');
+                var geocodeURL = NLE.attr('title');
+
+                NLE.insertAfter('#'+SN.C.S.FormNotice+' fieldset');
+
+                if (navigator.geolocation) {
+                    NLE.change(function() {
+                        NLE.removeAttr('title');
+
+                        $.cookie(SN.C.S.NoticeLocationCookieName, $('#notice_data-location_enabled').attr('checked'));
+
+                        var NLN = $('#'+SN.C.S.NoticeLocationName);
+                        if (NLN.length > 0) {
+                            NLN.remove();
+                        }
+
+                        NLE.prepend('<span id="'+SN.C.S.NoticeLocationName+'">Geo</span>');
+                        NLN = $('#'+SN.C.S.NoticeLocationName);
+
+                        if ($('#notice_data-location_enabled').attr('checked') === true) {
+                            NLN.show();
+                            NLN.addClass('processing');
+
+                            navigator.geolocation.getCurrentPosition(function(position) {
+                                $('#'+SN.C.S.NoticeLat).val(position.coords.latitude);
+                                $('#'+SN.C.S.NoticeLon).val(position.coords.longitude);
+
+                                var data = {
+                                    'lat': position.coords.latitude,
+                                    'lon': position.coords.longitude,
+                                    'token': $('#token').val()
+                                };
+
+                                $.getJSON(geocodeURL, data, function(location) {
+                                    NLN.replaceWith('<a id="notice_data-location_name"/>');
+                                    NLN = $('#'+SN.C.S.NoticeLocationName);
+
+                                    if (typeof(location.location_ns) != 'undefined') {
+                                        $('#'+SN.C.S.NoticeLocationNs).val(location.location_ns);
+                                    }
+
+                                    if (typeof(location.location_id) != 'undefined') {
+                                        $('#'+SN.C.S.NoticeLocationId).val(location.location_id);
+                                    }
+
+                                    if (typeof(location.name) == 'undefined') {
+                                        NLN_text = position.coords.latitude + ';' + position.coords.longitude;
+                                    }
+                                    else {
+                                        NLN_text = location.name;
+                                    }
+
+                                    NLN.attr('href', location.url);
+                                    NLN.text(NLN_text);
+                                });
+                            });
+                        }
+                        else {
+                            NLN.hide();
+                            $('#'+SN.C.S.NoticeLat).val('');
+                            $('#'+SN.C.S.NoticeLon).val('');
+                            $('#'+SN.C.S.NoticeLocationNs).val('');
+                            $('#'+SN.C.S.NoticeLocationId).val('');
+                        }
+                    });
+
+                    var cookieVal = $.cookie(SN.C.S.NoticeLocationCookieName);
+                    $('#notice_data-location_enabled').attr('checked', (cookieVal == null || cookieVal == 'true'));
+                    NLE.change();
+                }
+            }
         },
 
         NewDirectMessage: function() {

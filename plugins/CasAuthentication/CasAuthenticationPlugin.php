@@ -34,6 +34,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 // We bundle the phpCAS library...
 set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/extlib/CAS');
 
+require_once INSTALLDIR.'/plugins/Authentication/AuthenticationPlugin.php';
 class CasAuthenticationPlugin extends AuthenticationPlugin
 {
     public $server;
