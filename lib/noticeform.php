@@ -203,6 +203,13 @@ class NoticeForm extends Form
             $this->out->hidden('notice_data-location_id', empty($this->location_id) ? null : $this->location_id, 'location_id');
             $this->out->hidden('notice_data-location_ns', empty($this->location_ns) ? null : $this->location_ns, 'location_ns');
 
+            if($this->user->shareLocation()) {
+                $this->out->elementStart('div',array('id' => 'notice_data-location_enabled_container', 'data-geocode-url' => common_local_url('geocode')));
+                $this->out->checkbox('notice_data-location_enabled',_('Share your location'));
+                $this->out->element('a', array('style' => 'display: none', 'target' => '_blank', 'id' => 'notice_data-location_name'), _('Finding your location...'));
+                $this->out->elementEnd('div');
+            }
+
             Event::handle('EndShowNoticeFormData', array($this));
         }
     }
@@ -220,11 +227,5 @@ class NoticeForm extends Form
                                            'name' => 'status_submit',
                                            'type' => 'submit',
                                            'value' => _('Send')));
-        if($this->user->shareLocation()) {
-            $this->out->elementStart('div',array('id' => 'notice_data-location_enabled_container', 'data-geocode-url' => common_local_url('geocode')));
-            $this->out->checkbox('notice_data-location_enabled',_('Share your location'));
-            $this->out->element('a', array('style' => 'display: none', 'target' => '_blank', 'id' => 'notice_data-location_name'), _('Finding your location...'));
-            $this->out->elementEnd('div');
-        }
     }
 }
