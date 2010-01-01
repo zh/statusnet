@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-30 19:06+0000\n"
-"PO-Revision-Date: 2009-12-30 19:06:10+0000\n"
+"POT-Creation-Date: 2010-01-01 18:13+0000\n"
+"PO-Revision-Date: 2010-01-01 18:13:49+0000\n"
 "Language-Team: Egyptian Spoken Arabic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60512); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60542); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: arz\n"
 "X-Message-Group: out-statusnet\n"
@@ -121,7 +121,7 @@ msgstr ""
 #: actions/apiaccountupdateprofilebackgroundimage.php:94
 #: actions/apiaccountupdateprofilecolors.php:118
 msgid "API method not found."
-msgstr "لم يتم العثور على وسيلة API."
+msgstr "لم يتم العثور على وسيله API."
 
 #: actions/apiaccountupdatedeliverydevice.php:85
 #: actions/apiaccountupdateprofile.php:89
@@ -185,7 +185,7 @@ msgstr "تعذّر تحديث تصميمك."
 
 #: actions/apiblockcreate.php:105
 msgid "You cannot block yourself!"
-msgstr "ا يمكنك منع نفسك!"
+msgstr "لا يمكنك منع نفسك!"
 
 #: actions/apiblockcreate.php:126
 msgid "Block user failed."
@@ -429,11 +429,11 @@ msgstr "لا إشعار كهذا."
 
 #: actions/apistatusesretweet.php:83
 msgid "Cannot repeat your own notice."
-msgstr "لا يمكنك تكرار ملحوظتك الخاصة."
+msgstr "لا يمكنك تكرار ملحوظتك الخاصه."
 
 #: actions/apistatusesretweet.php:91
 msgid "Already repeated that notice."
-msgstr "كرر بالفعل هذه الملاحظة."
+msgstr "كرر بالفعل هذه الملاحظه."
 
 #: actions/apistatusesshow.php:138
 msgid "Status deleted."
@@ -1236,11 +1236,11 @@ msgstr "اختيار لبعض المستخدمين المتميزين على %s"
 
 #: actions/file.php:34
 msgid "No notice ID."
-msgstr "لا رقم ملاحظة."
+msgstr "لا رقم ملاحظه."
 
 #: actions/file.php:38
 msgid "No notice."
-msgstr "لا ملاحظة."
+msgstr "لا ملاحظه."
 
 #: actions/file.php:42
 msgid "No attachments."
@@ -1248,7 +1248,7 @@ msgstr "لا مرفقات."
 
 #: actions/file.php:51
 msgid "No uploaded attachments."
-msgstr "لا مرفقات مرفوعة."
+msgstr "لا مرفقات مرفوعه."
 
 #: actions/finishremotesubscribe.php:69
 msgid "Not expecting this response!"
@@ -1675,7 +1675,7 @@ msgstr "رساله شخصية"
 msgid "Optionally add a personal message to the invitation."
 msgstr ""
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:222
+#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:233
 msgid "Send"
 msgstr "أرسل"
 
@@ -2362,9 +2362,8 @@ msgid "Couldn't update user for autosubscribe."
 msgstr ""
 
 #: actions/profilesettings.php:354
-#, fuzzy
 msgid "Couldn't save location prefs."
-msgstr "تعذّر حفظ الوسوم."
+msgstr "لم يمكن حفظ تفضيلات الموقع."
 
 #: actions/profilesettings.php:366
 msgid "Couldn't save profile."
@@ -2763,15 +2762,15 @@ msgstr ""
 
 #: actions/repeat.php:64 actions/repeat.php:71
 msgid "No notice specified."
-msgstr "لا ملاحظة محددة."
+msgstr "لا ملاحظه محدده."
 
 #: actions/repeat.php:76
 msgid "You can't repeat your own notice."
-msgstr "لا يمكنك تكرار ملاحظتك الشخصية."
+msgstr "لا يمكنك تكرار ملاحظتك الشخصيه."
 
 #: actions/repeat.php:90
 msgid "You already repeated that notice."
-msgstr "أنت كررت هذه الملاحظة بالفعل."
+msgstr "أنت كررت هذه الملاحظه بالفعل."
 
 #: actions/repeat.php:114 lib/noticelist.php:621
 msgid "Repeated"
@@ -3515,7 +3514,7 @@ msgstr "صورة"
 
 #: actions/tagother.php:141
 msgid "Tag user"
-msgstr ""
+msgstr "اوسم المستخدم"
 
 #: actions/tagother.php:151
 msgid ""
@@ -3550,7 +3549,7 @@ msgstr "لم تمنع هذا المستخدم."
 
 #: actions/unsandbox.php:72
 msgid "User is not sandboxed."
-msgstr "المستخدم ليس في صندوق الرمل."
+msgstr "المستخدم ليس فى صندوق الرمل."
 
 #: actions/unsilence.php:72
 msgid "User is not silenced."
@@ -3859,7 +3858,7 @@ msgstr ""
 #: classes/Notice.php:1361
 #, php-format
 msgid "RT @%1$s %2$s"
-msgstr "آر تي @%1$s %2$s"
+msgstr "آر تى @%1$s %2$s"
 
 #: classes/User.php:368
 #, php-format
@@ -4297,7 +4296,7 @@ msgstr ""
 #: lib/command.php:664
 #, php-format
 msgid "Could not create login token for %s"
-msgstr ""
+msgstr "لم يمكن إنشاء توكن الولوج ل%s"
 
 #: lib/command.php:669
 #, php-format
@@ -4595,11 +4594,11 @@ msgstr "نوع ملف غير معروف"
 
 #: lib/imagefile.php:217
 msgid "MB"
-msgstr ""
+msgstr "ميجابايت"
 
 #: lib/imagefile.php:219
 msgid "kB"
-msgstr ""
+msgstr "كيلوبايت"
 
 #: lib/jabber.php:191
 #, php-format
@@ -4872,33 +4871,29 @@ msgstr "أرسل إشعارًا مباشرًا"
 msgid "To"
 msgstr "إلى"
 
-#: lib/messageform.php:159 lib/noticeform.php:183
+#: lib/messageform.php:159 lib/noticeform.php:185
 msgid "Available characters"
 msgstr "المحارف المتوفرة"
 
-#: lib/noticeform.php:158
+#: lib/noticeform.php:160
 msgid "Send a notice"
 msgstr "أرسل إشعارًا"
 
-#: lib/noticeform.php:171
+#: lib/noticeform.php:173
 #, php-format
 msgid "What's up, %s?"
 msgstr "ما الأخبار يا %s؟"
 
-#: lib/noticeform.php:190
+#: lib/noticeform.php:192
 msgid "Attach"
 msgstr "أرفق"
 
-#: lib/noticeform.php:194
+#: lib/noticeform.php:196
 msgid "Attach a file"
 msgstr "أرفق ملفًا"
 
-#: lib/noticeform.php:225
-msgid "Share your location "
-msgstr ""
-
-#: lib/noticeform.php:226
-msgid "Finding your location..."
+#: lib/noticeform.php:213
+msgid "Share your location"
 msgstr ""
 
 #: lib/noticelist.php:420
@@ -4932,7 +4927,7 @@ msgstr "فى السياق"
 
 #: lib/noticelist.php:548
 msgid "Repeated by"
-msgstr "مكرر بواسطه"
+msgstr "مكرر بواسطة"
 
 #: lib/noticelist.php:577
 msgid "Reply to this notice"
@@ -5168,7 +5163,7 @@ msgstr "غير مشترك!"
 
 #: lib/subs.php:133
 msgid "Couldn't delete self-subscription."
-msgstr "م يمكن حذف اشتراك ذاتي."
+msgstr "لم يمكن حذف اشتراك ذاتى."
 
 #: lib/subs.php:146
 msgid "Couldn't delete subscription."

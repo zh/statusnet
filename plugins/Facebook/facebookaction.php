@@ -32,7 +32,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 }
 
 require_once INSTALLDIR . '/plugins/Facebook/facebookutil.php';
-require_once INSTALLDIR . '/lib/noticeform.php';
+require_once INSTALLDIR . '/plugins/Facebook/facebooknoticeform.php';
 
 class FacebookAction extends Action
 {
@@ -294,63 +294,7 @@ class FacebookAction extends Action
         $app_props = $this->facebook->api_client->Admin_getAppProperties(array('icon_url'));
         $icon_url = $app_props['icon_url'];
 
-        $style = '<style>
-     .entry-title *,
-     .entry-content * {
-     font-size:14px;
-     font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
-     }
-     .entry-title a,
-     .entry-content a {
-     color:#002E6E;
-     }
-
-         .entry-title .vcard .photo {
-         float:left;
-         display:inline;
-     margin-right:11px;
-     margin-bottom:11px
-         }
-     .entry-title {
-     margin-bottom:11px;
-     }
-         .entry-title p.entry-content {
-         display:inline;
-     margin-left:5px;
-         }
-
-     div.entry-content {
-     clear:both;
-     }
-         div.entry-content dl,
-         div.entry-content dt,
-         div.entry-content dd {
-         display:inline;
-     text-transform:lowercase;
-         }
-
-         div.entry-content dd,
-     div.entry-content .device dt {
-     margin-left:0;
-     margin-right:5px;
-         }
-         div.entry-content dl.timestamp dt,
-     div.entry-content dl.response dt {
-         display:none;
-         }
-         div.entry-content dd a {
-         display:inline-block;
-         }
-
-     #facebook_statusnet_app {
-     text-indent:-9999px;
-     height:16px;
-     width:16px;
-     display:block;
-     background:url('.$icon_url.') no-repeat 0 0;
-     float:right;
-     }
-         </style>';
+        $style = '<style> .entry-title *, .entry-content * { font-size:14px; font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif; } .entry-title a, .entry-content a { color:#002E6E; } .entry-title .vcard .photo { float:left; display:inline; margin-right:11px; margin-bottom:11px } .entry-title { margin-bottom:11px; } .entry-title p.entry-content { display:inline; margin-left:5px; } div.entry-content { clear:both; } div.entry-content dl, div.entry-content dt, div.entry-content dd { display:inline; text-transform:lowercase; } div.entry-content dd, div.entry-content .device dt { margin-left:0; margin-right:5px; } div.entry-content dl.timestamp dt, div.entry-content dl.response dt { display:none; } div.entry-content dd a { display:inline-block; } #facebook_statusnet_app { text-indent:-9999px; height:16px; width:16px; display:block; background:url('.$icon_url.') no-repeat 0 0; float:right; } </style>';
 
         $this->xw->openMemory();
 
@@ -455,42 +399,6 @@ class FacebookAction extends Action
 
         common_broadcast_notice($notice);
 
-        // Also update the user's Facebook status
-        facebookBroadcastNotice($notice);
-
-    }
-
-}
-
-class FacebookNoticeForm extends NoticeForm
-{
-
-    var $post_action = null;
-
-    /**
-     * Constructor
-     *
-     * @param HTMLOutputter $out     output channel
-     * @param string        $action  action to return to, if any
-     * @param string        $content content to pre-fill
-     */
-
-    function __construct($out=null, $action=null, $content=null,
-        $post_action=null, $user=null)
-    {
-        parent::__construct($out, $action, $content, $user);
-        $this->post_action = $post_action;
-    }
-
-    /**
-     * Action of the form
-     *
-     * @return string URL of the action
-     */
-
-    function action()
-    {
-        return $this->post_action;
     }
 
 }

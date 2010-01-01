@@ -13,12 +13,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-30 19:06+0000\n"
-"PO-Revision-Date: 2009-12-30 19:06:42+0000\n"
+"POT-Creation-Date: 2010-01-01 18:13+0000\n"
+"PO-Revision-Date: 2010-01-01 18:14:25+0000\n"
 "Language-Team: French\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60512); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60542); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: out-statusnet\n"
@@ -1768,7 +1768,7 @@ msgstr "Message personnel"
 msgid "Optionally add a personal message to the invitation."
 msgstr "Ajouter un message personnel à l’invitation (optionnel)."
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:222
+#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:233
 msgid "Send"
 msgstr "Envoyer"
 
@@ -2456,7 +2456,7 @@ msgstr "Indiquez votre emplacement, ex.: « Ville, État (ou région), Pays »"
 
 #: actions/profilesettings.php:138
 msgid "Share my current location when posting notices"
-msgstr ""
+msgstr "Partager ma localisation lorsque je poste des avis"
 
 #: actions/profilesettings.php:145 actions/tagother.php:149
 #: actions/tagother.php:209 lib/subscriptionlist.php:106
@@ -2517,9 +2517,8 @@ msgid "Couldn't update user for autosubscribe."
 msgstr "Impossible de mettre à jour l’auto-abonnement."
 
 #: actions/profilesettings.php:354
-#, fuzzy
 msgid "Couldn't save location prefs."
-msgstr "Impossible d’enregistrer les marques."
+msgstr "Impossible d’enregistrer les préférences de localisation."
 
 #: actions/profilesettings.php:366
 msgid "Couldn't save profile."
@@ -5292,34 +5291,31 @@ msgstr "Envoyer un message direct"
 msgid "To"
 msgstr "À"
 
-#: lib/messageform.php:159 lib/noticeform.php:183
+#: lib/messageform.php:159 lib/noticeform.php:185
 msgid "Available characters"
 msgstr "Caractères restants"
 
-#: lib/noticeform.php:158
+#: lib/noticeform.php:160
 msgid "Send a notice"
 msgstr "Envoyer un avis"
 
-#: lib/noticeform.php:171
+#: lib/noticeform.php:173
 #, php-format
 msgid "What's up, %s?"
 msgstr "Quoi de neuf, %s ?"
 
-#: lib/noticeform.php:190
+#: lib/noticeform.php:192
 msgid "Attach"
 msgstr "Attacher"
 
-#: lib/noticeform.php:194
+#: lib/noticeform.php:196
 msgid "Attach a file"
 msgstr "Attacher un fichier"
 
-#: lib/noticeform.php:225
-msgid "Share your location "
-msgstr ""
-
-#: lib/noticeform.php:226
-msgid "Finding your location..."
-msgstr ""
+#: lib/noticeform.php:213
+#, fuzzy
+msgid "Share your location"
+msgstr "Partager votre localisation "
 
 #: lib/noticelist.php:420
 #, php-format

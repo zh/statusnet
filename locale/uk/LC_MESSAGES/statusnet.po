@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-30 19:06+0000\n"
-"PO-Revision-Date: 2009-12-30 19:07:47+0000\n"
+"POT-Creation-Date: 2010-01-01 18:13+0000\n"
+"PO-Revision-Date: 2010-01-01 18:15:30+0000\n"
 "Language-Team: Ukrainian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60512); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60542); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: out-statusnet\n"
@@ -1746,7 +1746,7 @@ msgstr "Особисті повідомлення"
 msgid "Optionally add a personal message to the invitation."
 msgstr "Можна додати персональне повідомлення до запрошення (опціонально)."
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:222
+#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:233
 msgid "Send"
 msgstr "Так!"
 
@@ -2486,9 +2486,8 @@ msgid "Couldn't update user for autosubscribe."
 msgstr "Не вдалося оновити користувача для автопідписки."
 
 #: actions/profilesettings.php:354
-#, fuzzy
 msgid "Couldn't save location prefs."
-msgstr "Не вдалося зберегти теґи."
+msgstr "Не вдалося зберегти налаштування розташування."
 
 #: actions/profilesettings.php:366
 msgid "Couldn't save profile."
@@ -5233,33 +5232,29 @@ msgstr "Надіслати прямий допис"
 msgid "To"
 msgstr "До"
 
-#: lib/messageform.php:159 lib/noticeform.php:183
+#: lib/messageform.php:159 lib/noticeform.php:185
 msgid "Available characters"
 msgstr "Лишилось знаків"
 
-#: lib/noticeform.php:158
+#: lib/noticeform.php:160
 msgid "Send a notice"
 msgstr "Надіслати допис"
 
-#: lib/noticeform.php:171
+#: lib/noticeform.php:173
 #, php-format
 msgid "What's up, %s?"
 msgstr "Що нового, %s?"
 
-#: lib/noticeform.php:190
+#: lib/noticeform.php:192
 msgid "Attach"
 msgstr "Вкласти"
 
-#: lib/noticeform.php:194
+#: lib/noticeform.php:196
 msgid "Attach a file"
 msgstr "Вкласти файл"
 
-#: lib/noticeform.php:225
-msgid "Share your location "
-msgstr ""
-
-#: lib/noticeform.php:226
-msgid "Finding your location..."
+#: lib/noticeform.php:213
+msgid "Share your location"
 msgstr ""
 
 #: lib/noticelist.php:420
