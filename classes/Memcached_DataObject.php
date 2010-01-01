@@ -253,6 +253,18 @@ class Memcached_DataObject extends DB_DataObject
         return new ArrayWrapper($cached);
     }
 
+    function cleanup()
+    {
+        global $_DB_DATAOBJECT;
+
+        if (isset($_DB_DATAOBJECT['RESULTFIELDS'][$this->_DB_resultid])) {
+            unset($_DB_DATAOBJECT['RESULTFIELDS'][$this->_DB_resultid]);
+        }
+        if (isset($_DB_DATAOBJECT['RESULTS'][$this->_DB_resultid])) {
+            unset($_DB_DATAOBJECT['RESULTS'][$this->_DB_resultid]);
+        }
+    }
+
     // We overload so that 'SET NAMES "utf8"' is called for
     // each connection
 
