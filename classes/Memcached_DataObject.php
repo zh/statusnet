@@ -60,18 +60,17 @@ class Memcached_DataObject extends DB_DataObject
         if ($i) {
             return $i;
         } else {
-            $i = DB_DataObject::staticGet($cls, $k, $v);
-            if ($i) {
-                // DB_DataObject's in-process lookup cache interferes with GC
-                // to cause massive memory leaks in long-running processes.
-                if (php_sapi_name() == 'cli') {
-                    $i->_clear_cache();
-                }
-                
-                // Now store it into the shared memcached, if present...
-                $i->encache();
+            $i = DB_DataObject::factory($cls);
+            if (empty($i)) {
+                return null;
             }
-            return $i;
+            $result = $i->get($k, $v);
+            if ($result) {
+                $i->encache();
+                return $i;
+            } else {
+                return null;
+            }
         }
     }
 
@@ -261,6 +260,18 @@ class Memcached_DataObject extends DB_DataObject
         $inst->free();
         $c->set($ckey, $cached, MEMCACHE_COMPRESSED, $expiry);
         return new ArrayWrapper($cached);
+    }
+
+    function cleanup()
+    {
+        global $_DB_DATAOBJECT;
+
+        if (isset($_DB_DATAOBJECT['RESULTFIELDS'][$this->_DB_resultid])) {
+            unset($_DB_DATAOBJECT['RESULTFIELDS'][$this->_DB_resultid]);
+        }
+        if (isset($_DB_DATAOBJECT['RESULTS'][$this->_DB_resultid])) {
+            unset($_DB_DATAOBJECT['RESULTS'][$this->_DB_resultid]);
+        }
     }
 
     // We overload so that 'SET NAMES "utf8"' is called for
