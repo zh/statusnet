@@ -111,8 +111,11 @@ box-shadow:3px 3px 3px rgba(194, 194, 194, 0.1);
 text-shadow:none;
 }
 
-.form_notice #notice_data-location_name {
+.form_notice span#notice_data-location_name {
 background-position:0 47%;
+}
+.form_notice a#notice_data-location_name {
+background-position:0 -1711px;
 }
 
 a,
@@ -181,7 +184,8 @@ button.close,
 .entity_sandbox input.submit,
 .entity_silence input.submit,
 .entity_delete input.submit,
-.notice-options .repeated {
+.notice-options .repeated,
+.form_notice a#notice_data-location_name {
 background-image:url(../../base/images/icons/icons-01.gif);
 background-repeat:no-repeat;
 background-color:transparent;

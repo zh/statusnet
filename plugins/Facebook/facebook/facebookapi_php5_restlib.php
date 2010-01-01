@@ -56,6 +56,8 @@ class FacebookRestClient {
   private $call_as_apikey;
   private $use_curl_if_available;
   private $format = null;
+  private $using_session_secret = false;
+  private $rawData = null;
 
   const BATCH_MODE_DEFAULT = 0;
   const BATCH_MODE_SERVER_PARALLEL = 0;
@@ -76,7 +78,10 @@ class FacebookRestClient {
     $this->last_call_id = 0;
     $this->call_as_apikey = '';
     $this->use_curl_if_available = true;
-    $this->server_addr  = Facebook::get_facebook_url('api') . '/restserver.php';
+    $this->server_addr =
+      Facebook::get_facebook_url('api') . '/restserver.php';
+    $this->photo_server_addr =
+      Facebook::get_facebook_url('api-photo') . '/restserver.php';
 
     if (!empty($GLOBALS['facebook_config']['debug'])) {
       $this->cur_id = 0;
@@ -126,6 +131,16 @@ function toggleDisplay(id, type) {
    */
   public function set_user($uid) {
     $this->user = $uid;
+  }
+
+
+  /**
+   * Switch to use the session secret instead of the app secret,
+   * for desktop and unsecured environment
+   */
+  public function use_session_secret($session_secret) {
+    $this->secret = $session_secret;
+    $this->using_session_secret = true;
   }
 
   /**
@@ -270,25 +285,35 @@ function toggleDisplay(id, type) {
   /**
    * Returns the session information available after current user logs in.
    *
-   * @param string $auth_token             the token returned by
-   *                                       auth_createToken or passed back to
-   *                                       your callback_url.
-   * @param bool $generate_session_secret  whether the session returned should
-   *                                       include a session secret
+   * @param string $auth_token the token returned by auth_createToken or
+   *               passed back to your callback_url.
+   * @param bool $generate_session_secret whether the session returned should
+   *             include a session secret
+   * @param string $host_url the connect site URL for which the session is
+   *               being generated.  This parameter is optional, unless
+   *               you want Facebook to determine which of several base domains
+   *               to choose from.  If this third argument isn't provided but
+   *               there are several base domains, the first base domain is
+   *               chosen.
    *
    * @return array  An assoc array containing session_key, uid
    */
-  public function auth_getSession($auth_token, $generate_session_secret=false) {
+  public function auth_getSession($auth_token,
+                                  $generate_session_secret = false,
+                                  $host_url = null) {
     if (!$this->pending_batch()) {
-      $result = $this->call_method('facebook.auth.getSession',
-          array('auth_token' => $auth_token,
-                'generate_session_secret' => $generate_session_secret));
+      $result = $this->call_method(
+        'facebook.auth.getSession',
+        array('auth_token' => $auth_token,
+              'generate_session_secret' => $generate_session_secret,
+              'host_url' => $host_url));
       $this->session_key = $result['session_key'];
 
-    if (!empty($result['secret']) && !$generate_session_secret) {
-      // desktop apps have a special secret
-      $this->secret = $result['secret'];
-    }
+      if (!empty($result['secret']) && !$generate_session_secret) {
+        // desktop apps have a special secret
+        $this->secret = $result['secret'];
+      }
+
       return $result;
     }
   }
@@ -519,11 +544,32 @@ function toggleDisplay(id, type) {
       return $this->call_upload_method('facebook.events.create',
         array('event_info' => $event_info),
         $file,
-        Facebook::get_facebook_url('api-photo') . '/restserver.php');
+        $this->photo_server_addr);
     } else {
       return $this->call_method('facebook.events.create',
         array('event_info' => $event_info));
     }
+  }
+
+  /**
+   * Invites users to an event. If a session user exists, the session user
+   * must have permissions to invite friends to the event and $uids must contain
+   * a list of friend ids. Otherwise, the event must have been
+   * created by the app and $uids must contain users of the app.
+   * This method requires the 'create_event' extended permission to
+   * invite people on behalf of a user.
+   *
+   * @param $eid   the event id
+   * @param $uids  an array of users to invite
+   * @param $personal_message  a string containing the user's message
+   *                           (text only)
+   *
+   */
+  public function events_invite($eid, $uids, $personal_message) {
+    return $this->call_method('facebook.events.invite',
+                              array('eid' => $eid,
+                                    'uids' => $uids,
+                                    'personal_message', $personal_message));
   }
 
   /**
@@ -540,7 +586,7 @@ function toggleDisplay(id, type) {
       return $this->call_upload_method('facebook.events.edit',
         array('eid' => $eid, 'event_info' => $event_info),
         $file,
-        Facebook::get_facebook_url('api-photo') . '/restserver.php');
+        $this->photo_server_addr);
     } else {
       return $this->call_method('facebook.events.edit',
         array('eid' => $eid,
@@ -576,21 +622,7 @@ function toggleDisplay(id, type) {
         array('url' => $url));
   }
 
-  /**
-   * Lets you insert text strings in their native language into the Facebook
-   * Translations database so they can be translated.
-   *
-   * @param array $native_strings  An array of maps, where each map has a 'text'
-   *                               field and a 'description' field.
-   *
-   * @return int  Number of strings uploaded.
-   */
-  public function &fbml_uploadNativeStrings($native_strings) {
-    return $this->call_method('facebook.fbml.uploadNativeStrings',
-        array('native_strings' => json_encode($native_strings)));
-  }
-
-  /**
+ /**
    * Associates a given "handle" with FBML markup so that the handle can be
    * used within the fb:ref FBML tag. A handle is unique within an application
    * and allows an application to publish identical FBML to many user profiles
@@ -668,7 +700,44 @@ function toggleDisplay(id, type) {
                               array('tag_names' => json_encode($tag_names)));
   }
 
+  /**
+   * Gets the best translations for native strings submitted by an application
+   * for translation. If $locale is not specified, only native strings and their
+   * descriptions are returned. If $all is true, then unapproved translations
+   * are returned as well, otherwise only approved translations are returned.
+   *
+   * A mapping of locale codes -> language names is available at
+   * http://wiki.developers.facebook.com/index.php/Facebook_Locales
+   *
+   * @param string $locale the locale to get translations for, or 'all' for all
+   *                       locales, or 'en_US' for native strings
+   * @param bool   $all    whether to return all or only approved translations
+   *
+   * @return array (locale, array(native_strings, array('best translation
+   *                available given enough votes or manual approval', approval
+   *                                                                  status)))
+   * @error API_EC_PARAM
+   * @error API_EC_PARAM_BAD_LOCALE
+   */
+  public function &intl_getTranslations($locale = 'en_US', $all = false) {
+    return $this->call_method('facebook.intl.getTranslations',
+                              array('locale' => $locale,
+                                    'all'    => $all));
+  }
 
+  /**
+   * Lets you insert text strings in their native language into the Facebook
+   * Translations database so they can be translated.
+   *
+   * @param array $native_strings  An array of maps, where each map has a 'text'
+   *                               field and a 'description' field.
+   *
+   * @return int  Number of strings uploaded.
+   */
+  public function &intl_uploadNativeStrings($native_strings) {
+    return $this->call_method('facebook.intl.uploadNativeStrings',
+        array('native_strings' => json_encode($native_strings)));
+  }
 
   /**
    * This method is deprecated for calls made on behalf of users. This method
@@ -1249,6 +1318,87 @@ function toggleDisplay(id, type) {
   }
 
   /**
+   * Gifts API
+   */
+
+  /**
+   * Get Gifts associated with an app
+   *
+   * @return             array of gifts
+   */
+  public function gifts_get() {
+    return json_decode(
+        $this->call_method('facebook.gifts.get',
+                           array()),
+        true
+        );
+  }
+
+  /*
+   * Update gifts stored by an app
+   *
+   * @param array containing gift_id => gift_data to be updated
+   * @return array containing gift_id => true/false indicating success
+   *                                     in updating that gift
+   */
+  public function gifts_update($update_array) {
+    return json_decode(
+      $this->call_method('facebook.gifts.update',
+                         array('update_str' => json_encode($update_array))
+                        ),
+      true
+    );
+  }
+
+  /**
+   * Dashboard API
+   */
+
+  /**
+   * Set the news for the specified user.
+   *
+   * @param int    $uid     The user for whom you are setting news for
+   * @param string $news    Text of news to display
+   *
+   * @return bool   Success
+   */
+  public function dashboard_setNews($uid, $news) {
+    return $this->call_method('facebook.dashboard.setNews',
+                              array('uid'  => $uid,
+                                    'news' => $news)
+                             );
+  }
+
+  /**
+   * Get the current news of the specified user.
+   *
+   * @param int    $uid     The user to get the news of
+   *
+   * @return string   The text of the current news for the user
+   */
+  public function dashboard_getNews($uid) {
+    return json_decode(
+      $this->call_method('facebook.dashboard.getNews',
+                         array('uid' => $uid)
+                        ), true);
+  }
+
+  /**
+   * Set the news for the specified user.
+   *
+   * @param int    $uid     The user you are clearing the news of
+   *
+   * @return bool   Success
+   */
+  public function dashboard_clearNews($uid) {
+    return $this->call_method('facebook.dashboard.clearNews',
+                              array('uid' => $uid)
+                             );
+  }
+
+
+
+  /**
    * Creates a note with the specified title and content.
    *
    * @param string $title   Title of the note.
@@ -1795,14 +1945,20 @@ function toggleDisplay(id, type) {
                               $start_time = 0,
                               $end_time = 0,
                               $limit = 30,
-                              $filter_key = '') {
+                              $filter_key = '',
+                              $exportable_only = false,
+                              $metadata = null,
+                              $post_ids = null) {
     $args = array(
       'viewer_id'  => $viewer_id,
       'source_ids' => $source_ids,
       'start_time' => $start_time,
       'end_time'   => $end_time,
       'limit'      => $limit,
-      'filter_key' => $filter_key);
+      'filter_key' => $filter_key,
+      'exportable_only' => $exportable_only,
+      'metadata' => $metadata,
+      'post_ids' => $post_ids);
     return $this->call_method('facebook.stream.get', $args);
   }
 
@@ -1947,97 +2103,6 @@ function toggleDisplay(id, type) {
     return $this->call_method('facebook.profile.setInfoOptions',
         array('field'   => $field,
               'options' => json_encode($options)));
-  }
-
-  /**
-   * Get all the marketplace categories.
-   *
-   * @return array  A list of category names
-   */
-  function marketplace_getCategories() {
-    return $this->call_method('facebook.marketplace.getCategories',
-        array());
-  }
-
-  /**
-   * Get all the marketplace subcategories for a particular category.
-   *
-   * @param  category  The category for which we are pulling subcategories
-   *
-   * @return array A list of subcategory names
-   */
-  function marketplace_getSubCategories($category) {
-    return $this->call_method('facebook.marketplace.getSubCategories',
-        array('category' => $category));
-  }
-
-  /**
-   * Get listings by either listing_id or user.
-   *
-   * @param listing_ids   An array of listing_ids (optional)
-   * @param uids          An array of user ids (optional)
-   *
-   * @return array  The data for matched listings
-   */
-  function marketplace_getListings($listing_ids, $uids) {
-    return $this->call_method('facebook.marketplace.getListings',
-        array('listing_ids' => $listing_ids, 'uids' => $uids));
-  }
-
-  /**
-   * Search for Marketplace listings.  All arguments are optional, though at
-   * least one must be filled out to retrieve results.
-   *
-   * @param category     The category in which to search (optional)
-   * @param subcategory  The subcategory in which to search (optional)
-   * @param query        A query string (optional)
-   *
-   * @return array  The data for matched listings
-   */
-  function marketplace_search($category, $subcategory, $query) {
-    return $this->call_method('facebook.marketplace.search',
-        array('category' => $category,
-              'subcategory' => $subcategory,
-              'query' => $query));
-  }
-
-  /**
-   * Remove a listing from Marketplace.
-   *
-   * @param listing_id  The id of the listing to be removed
-   * @param status      'SUCCESS', 'NOT_SUCCESS', or 'DEFAULT'
-   *
-   * @return bool  True on success
-   */
-  function marketplace_removeListing($listing_id,
-                                     $status='DEFAULT',
-                                     $uid=null) {
-    return $this->call_method('facebook.marketplace.removeListing',
-        array('listing_id' => $listing_id,
-              'status' => $status,
-              'uid' => $uid));
-  }
-
-  /**
-   * Create/modify a Marketplace listing for the loggedinuser.
-   *
-   * @param int              listing_id  The id of a listing to be modified, 0
-   *                                     for a new listing.
-   * @param show_on_profile  bool        Should we show this listing on the
-   *                                     user's profile
-   * @param listing_attrs    array       An array of the listing data
-   *
-   * @return int  The listing_id (unchanged if modifying an existing listing).
-   */
-  function marketplace_createListing($listing_id,
-                                     $show_on_profile,
-                                     $attrs,
-                                     $uid=null) {
-    return $this->call_method('facebook.marketplace.createListing',
-        array('listing_id' => $listing_id,
-              'show_on_profile' => $show_on_profile,
-              'listing_attrs' => json_encode($attrs),
-              'uid' => $uid));
   }
 
   /////////////////////////////////////////////////////////////////////////////
@@ -2876,6 +2941,35 @@ function toggleDisplay(id, type) {
   }
 
   /**
+   * Sets href and text for a Live Stream Box xid's via link
+   *
+   * @param  string  $xid       xid of the Live Stream
+   * @param  string  $via_href  Href for the via link
+   * @param  string  $via_text  Text for the via link
+   *
+   * @return boolWhether the set was successful
+   */
+  public function admin_setLiveStreamViaLink($xid, $via_href, $via_text) {
+    return $this->call_method('facebook.admin.setLiveStreamViaLink',
+                              array('xid'      => $xid,
+                                    'via_href' => $via_href,
+                                    'via_text' => $via_text));
+  }
+
+  /**
+   * Gets href and text for a Live Stream Box xid's via link
+   *
+   * @param  string  $xid  xid of the Live Stream
+   *
+   * @return Array  Associative array with keys 'via_href' and 'via_text'
+   *                False if there was an error.
+   */
+  public function admin_getLiveStreamViaLink($xid) {
+    return $this->call_method('facebook.admin.getLiveStreamViaLink',
+                              array('xid' => $xid));
+  }
+
+  /**
    * Returns the allocation limit value for a specified integration point name
    * Integration point names are defined in lib/api/karma/constants.php in the
    * limit_map.
@@ -3012,6 +3106,7 @@ function toggleDisplay(id, type) {
         $params['call_as_apikey'] = $this->call_as_apikey;
       }
       $data = $this->post_request($method, $params);
+      $this->rawData = $data;
       $result = $this->convert_result($data, $method, $params);
       if (is_array($result) && isset($result['error_code'])) {
         throw new FacebookRestClientException($result['error_msg'],
@@ -3052,6 +3147,16 @@ function toggleDisplay(id, type) {
   public function getFormat() {
     return $this->format;
   }
+
+  /**
+   * Returns the raw JSON or XML output returned by the server in the most
+   * recent API call.
+   *
+   * @return string
+   */
+   public function getRawData() {
+     return $this->rawData;
+   }
 
   /**
    * Calls the specified file-upload POST method with the specified parameters
@@ -3144,6 +3249,10 @@ function toggleDisplay(id, type) {
     if ($this->call_as_apikey) {
       $get['call_as_apikey'] = $this->call_as_apikey;
     }
+    if ($this->using_session_secret) {
+      $get['ss'] = '1';
+    }
+
     $get['method'] = $method;
     $get['session_key'] = $this->session_key;
     $get['api_key'] = $this->api_key;
@@ -3241,7 +3350,7 @@ function toggleDisplay(id, type) {
       return $result;
   }
 
-  private function post_upload_request($method, $params, $file, $server_addr = null) {
+  protected function post_upload_request($method, $params, $file, $server_addr = null) {
     $server_addr = $server_addr ? $server_addr : $this->server_addr;
     list($get, $post) = $this->finalize_params($method, $params);
     $get_string = $this->create_url_string($get);
@@ -3345,6 +3454,8 @@ class FacebookAPIErrorCodes {
   const API_EC_VERSION = 12;
   const API_EC_INTERNAL_FQL_ERROR = 13;
   const API_EC_HOST_PUP = 14;
+  const API_EC_SESSION_SECRET_NOT_ALLOWED = 15;
+  const API_EC_HOST_READONLY = 16;
 
   /*
    * PARAMETER ERRORS
@@ -3372,6 +3483,8 @@ class FacebookAPIErrorCodes {
   const API_EC_PARAM_BAD_EID = 150;
   const API_EC_PARAM_UNKNOWN_CITY = 151;
   const API_EC_PARAM_BAD_PAGE_TYPE = 152;
+  const API_EC_PARAM_BAD_LOCALE = 170;
+  const API_EC_PARAM_BLOCKED_NOTIFICATION = 180;
 
   /*
    * USER PERMISSIONS ERRORS
@@ -3394,6 +3507,7 @@ class FacebookAPIErrorCodes {
   const API_EC_PERMISSION_EVENT = 290;
   const API_EC_PERMISSION_LARGE_FBML_TEMPLATE = 291;
   const API_EC_PERMISSION_LIVEMESSAGE = 292;
+  const API_EC_PERMISSION_CREATE_EVENT = 296;
   const API_EC_PERMISSION_RSVP_EVENT = 299;
 
   /*
@@ -3469,6 +3583,8 @@ class FacebookAPIErrorCodes {
   const FQL_EC_EXTENDED_PERMISSION = 612;
   const FQL_EC_RATE_LIMIT_EXCEEDED = 613;
   const FQL_EC_UNRESOLVED_DEPENDENCY = 614;
+  const FQL_EC_INVALID_SEARCH = 615;
+  const FQL_EC_CONTAINS_ERROR = 616;
 
   const API_EC_REF_SET_FAILED = 700;
 
@@ -3506,6 +3622,7 @@ class FacebookAPIErrorCodes {
    * EVENT API ERRORS
    */
   const API_EC_EVENT_INVALID_TIME = 1000;
+  const API_EC_EVENT_NAME_LOCKED  = 1001;
 
   /*
    * INFO BOX ERRORS
@@ -3565,6 +3682,21 @@ class FacebookAPIErrorCodes {
   const API_EC_COMMENTS_INVALID_UID = 1704;
   const API_EC_COMMENTS_INVALID_POST = 1705;
   const API_EC_COMMENTS_INVALID_REMOVE = 1706;
+
+  /*
+   * GIFTS
+   */
+  const API_EC_GIFTS_UNKNOWN = 1900;
+
+  /*
+   * APPLICATION MORATORIUM ERRORS
+   */
+  const API_EC_DISABLED_ALL = 2000;
+  const API_EC_DISABLED_STATUS = 2001;
+  const API_EC_DISABLED_FEED_STORIES = 2002;
+  const API_EC_DISABLED_NOTIFICATIONS = 2003;
+  const API_EC_DISABLED_REQUESTS = 2004;
+  const API_EC_DISABLED_EMAIL = 2005;
 
   /**
    * This array is no longer maintained; to view the description of an error
