@@ -214,7 +214,7 @@ class Notice extends Memcached_DataObject
             extract($options);
         }
 
-        if (empty($is_local)) {
+        if (!isset($is_local)) {
             $is_local = Notice::LOCAL_PUBLIC;
         }
 
