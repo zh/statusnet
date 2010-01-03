@@ -435,6 +435,8 @@ var SN = { // StatusNet
                 $('#'+SN.C.S.NoticeDataAttachSelected+' button').click(function(){
                     $('#'+SN.C.S.NoticeDataAttachSelected).remove();
                     NDA.val('');
+
+                    return false;
                 });
             });
         },
