@@ -557,10 +557,11 @@ line-height:1.618;
 .form_notice #notice_data-attach_selected code,
 .form_notice #notice_data-location_name {
 float:left;
-width:87%;
+width:80%;
 display:block;
 line-height:1.8;
 overflow:auto;
+margin-right:2.5%;
 }
 .form_notice #notice_data-attach_selected code {
 font-size:1.1em;
@@ -569,6 +570,10 @@ font-size:1.1em;
 .form_notice #notice_data-geo_selected button.close {
 float:right;
 font-size:0.8em;
+}
+,
+.form_notice #notice_data-geo_selected button.minimize {
+float:left;
 }
 
 .form_notice #notice_data-location_wrap label {
@@ -595,7 +600,8 @@ display:block;
 padding-left:21px;
 }
 
-button.close {
+button.close,
+button.minimize {
 width:16px;
 height:16px;
 text-indent:-9999px;

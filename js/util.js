@@ -446,7 +446,7 @@ var SN = { // StatusNet
                 var NLE = $('#notice_data-location_wrap');
                 var geocodeURL = NLE.attr('title');
 
-                var S = '<div id="'+SN.C.S.NoticeDataGeoSelected+'" class="'+SN.C.S.Success+'"><button class="close">&#215;</button></div>';
+                var S = '<div id="'+SN.C.S.NoticeDataGeoSelected+'" class="'+SN.C.S.Success+'"> <button class="minimize">&#95;</button> <button class="close">&#215;</button></div>';
                 var NDGS = $('#'+SN.C.S.NoticeDataGeoSelected);
 
                 if (NDGS.length > 0) {
@@ -460,6 +460,14 @@ var SN = { // StatusNet
                 $('#'+SN.C.S.NoticeDataGeoSelected+' button.close').click(function(){
                     $('#'+SN.C.S.NoticeDataGeoSelected).remove();
                     $('#'+SN.C.S.NoticeDataGeo).attr('checked', false);
+
+                    return false;
+                });
+
+                $('#'+SN.C.S.NoticeDataGeoSelected+' button.minimize').click(function(){
+                    $('#'+SN.C.S.NoticeDataGeoSelected).hide();
+
+                    return false;
                 });
 
                 if (navigator.geolocation) {
