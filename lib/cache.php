@@ -30,14 +30,30 @@
 /**
  * Interface for caching
  *
- * An abstract interface for caching.
+ * An abstract interface for caching. Because we originally used the
+ * Memcache plugin directly, the interface uses a small subset of the
+ * Memcache interface.
  *
+ * @category  Cache
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2009 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
+ * @link      http://status.net/
  */
 
 class Cache
 {
-    var $_items = array();
+    var $_items   = array();
     static $_inst = null;
+
+    /**
+     * Singleton constructor
+     *
+     * Use this to get the singleton instance of Cache.
+     *
+     * @return Cache cache object
+     */
 
     static function instance()
     {
@@ -47,6 +63,18 @@ class Cache
 
         return self::$_inst;
     }
+
+    /**
+     * Create a cache key from input text
+     *
+     * Builds a cache key from input text. Helps to namespace
+     * the cache area (if shared with other applications or sites)
+     * and prevent conflicts.
+     *
+     * @param string $extra the real part of the key
+     *
+     * @return string full key
+     */
 
     static function key($extra)
     {
@@ -59,12 +87,32 @@ class Cache
         return 'statusnet:' . $base_key . ':' . $extra;
     }
 
+    /**
+     * Make a string suitable for use as a key
+     *
+     * Useful for turning primary keys of tables into cache keys.
+     *
+     * @param string $str string to turn into a key
+     *
+     * @return string keyized string
+     */
+
     static function keyize($str)
     {
         $str = strtolower($str);
         $str = preg_replace('/\s/', '_', $str);
         return $str;
     }
+
+    /**
+     * Get a value associated with a key
+     *
+     * The value should have been set previously.
+     *
+     * @param string $key Lookup key
+     *
+     * @return string retrieved value or null if unfound
+     */
 
     function get($key)
     {
@@ -83,19 +131,43 @@ class Cache
         return $value;
     }
 
+    /**
+     * Set the value associated with a key
+     *
+     * @param string  $key    The key to use for lookups
+     * @param string  $value  The value to store
+     * @param integer $flag   Flags to use, mostly ignored
+     * @param integer $expiry Expiry value, mostly ignored
+     *
+     * @return boolean success flag
+     */
+
     function set($key, $value, $flag=null, $expiry=null)
     {
         $success = false;
 
-        if (Event::handle('StartCacheSet', array(&$key, &$value, &$flag, &$expiry, &$success))) {
+        if (Event::handle('StartCacheSet', array(&$key, &$value, &$flag,
+                                                 &$expiry, &$success))) {
             common_log(LOG_INFO, 'Setting cache value for key ' . $key);
+
             $this->_items[$key] = $value;
+
             $success = true;
-            Event::handle('EndCacheSet', array($key, $value, $flag, $expiry));
+
+            Event::handle('EndCacheSet', array($key, $value, $flag,
+                                               $expiry));
         }
 
         return $success;
     }
+
+    /**
+     * Delete the value associated with a key
+     *
+     * @param string $key Key to delete
+     *
+     * @return boolean success flag
+     */
 
     function delete($key)
     {
