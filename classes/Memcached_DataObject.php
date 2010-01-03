@@ -139,6 +139,16 @@ class Memcached_DataObject extends DB_DataObject
         }
     }
 
+    function keyTypes()
+    {
+        global $_DB_DATAOBJECT;
+        if (!isset($_DB_DATAOBJECT['INI'][$this->_database][$this->__table."__keys"])) {
+            $this->databaseStructure();
+
+        }
+        return $_DB_DATAOBJECT['INI'][$this->_database][$this->__table."__keys"];
+    }
+
     function encache()
     {
         $c = $this->memcache();
@@ -147,7 +157,7 @@ class Memcached_DataObject extends DB_DataObject
         } else {
             $pkey = array();
             $pval = array();
-            $types = $this->keys();
+            $types = $this->keyTypes();
             ksort($types);
             foreach ($types as $key => $type) {
                 if ($type == 'K') {
@@ -172,7 +182,7 @@ class Memcached_DataObject extends DB_DataObject
         } else {
             $pkey = array();
             $pval = array();
-            $types = $this->keys();
+            $types = $this->keyTypes();
             ksort($types);
             foreach ($types as $key => $type) {
                 if ($type == 'K') {
