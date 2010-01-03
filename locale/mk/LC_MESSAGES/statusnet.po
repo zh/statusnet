@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-01 18:13+0000\n"
-"PO-Revision-Date: 2010-01-01 18:14:53+0000\n"
+"POT-Creation-Date: 2010-01-03 10:37+0000\n"
+"PO-Revision-Date: 2010-01-03 10:38:21+0000\n"
 "Language-Team: Macedonian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60542); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60575); Translate extension (2009-12-06)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: out-statusnet\n"
@@ -590,7 +590,7 @@ msgid "Preview"
 msgstr "Преглед"
 
 #: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:603
+#: lib/noticelist.php:611
 msgid "Delete"
 msgstr "Бриши"
 
@@ -623,7 +623,7 @@ msgstr ""
 #: actions/imsettings.php:220 actions/recoverpassword.php:44
 #: actions/smssettings.php:248 lib/designsettings.php:304
 msgid "Unexpected form submission."
-msgstr "Неочекувано испраќање на формулар."
+msgstr "Неочекувано поднесување на образец."
 
 #: actions/avatarsettings.php:328
 msgid "Pick a square area of the image to be your avatar"
@@ -764,7 +764,7 @@ msgstr "Корисникот не може да се освежи/"
 #: actions/confirmaddress.php:126 actions/emailsettings.php:391
 #: actions/imsettings.php:363 actions/smssettings.php:382
 msgid "Couldn't delete email confirmation."
-msgstr "Не може да се креира потврда за е-пошта."
+msgstr "Не можев да ја избришам потврдата по е-пошта."
 
 #: actions/confirmaddress.php:144
 msgid "Confirm Address"
@@ -816,7 +816,7 @@ msgstr ""
 msgid "Do not delete this notice"
 msgstr "Не ја бриши оваа забелешка"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:603
+#: actions/deletenotice.php:146 lib/noticelist.php:611
 msgid "Delete this notice"
 msgstr "Бриши ја оваа забелешка"
 
@@ -1724,7 +1724,7 @@ msgstr ""
 msgid "Optionally add a personal message to the invitation."
 msgstr ""
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:233
+#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:232
 msgid "Send"
 msgstr "Испрати"
 
@@ -1797,9 +1797,9 @@ msgid "Could not find membership record."
 msgstr ""
 
 #: actions/leavegroup.php:127 lib/command.php:284
-#, fuzzy, php-format
+#, php-format
 msgid "Could not remove user %s to group %s"
-msgstr "OpenID формуларот не може да се креира:%s"
+msgstr "Не можев да го отстранам корисникот %s од групата %s"
 
 #: actions/leavegroup.php:134 lib/command.php:289
 #, php-format
@@ -2870,7 +2870,7 @@ msgstr "Не може да се регистрирате ако не ја при
 msgid "You already repeated that notice."
 msgstr "Веќе сте пријавени!"
 
-#: actions/repeat.php:114 lib/noticelist.php:621
+#: actions/repeat.php:114 lib/noticelist.php:629
 msgid "Repeated"
 msgstr "Повторено"
 
@@ -3492,9 +3492,8 @@ msgid "You are not subscribed to that profile."
 msgstr "Не ни го испративте тој профил."
 
 #: actions/subedit.php:83
-#, fuzzy
 msgid "Could not save subscription."
-msgstr "Не може да се креира претплатата"
+msgstr "Не можев да ја зачувам претплатата."
 
 #: actions/subscribe.php:55
 #, fuzzy
@@ -4011,9 +4010,8 @@ msgid "Could not create group."
 msgstr "Информациите за аватарот не може да се снимат"
 
 #: classes/User_group.php:409
-#, fuzzy
 msgid "Could not set group membership."
-msgstr "Не може да се креира претплатата"
+msgstr "Не можев да назначам членство во групата."
 
 #: lib/accountsettingsaction.php:108
 msgid "Change your profile settings"
@@ -4447,9 +4445,9 @@ msgid "Login command is disabled"
 msgstr ""
 
 #: lib/command.php:664
-#, fuzzy, php-format
+#, php-format
 msgid "Could not create login token for %s"
-msgstr "OpenID формуларот не може да се креира:%s"
+msgstr "Не можам да создадам најавен жетон за"
 
 #: lib/command.php:669
 #, php-format
@@ -4971,7 +4969,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:469
+#: lib/mailbox.php:227 lib/noticelist.php:477
 msgid "from"
 msgstr ""
 
@@ -5058,53 +5056,53 @@ msgstr "Прикачи"
 msgid "Attach a file"
 msgstr "Прикаќи податотека"
 
-#: lib/noticeform.php:213
+#: lib/noticeform.php:212
 msgid "Share your location"
 msgstr ""
 
-#: lib/noticelist.php:420
+#: lib/noticelist.php:428
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr ""
 
-#: lib/noticelist.php:421
+#: lib/noticelist.php:429
 msgid "N"
 msgstr ""
 
-#: lib/noticelist.php:421
+#: lib/noticelist.php:429
 msgid "S"
 msgstr ""
 
-#: lib/noticelist.php:422
+#: lib/noticelist.php:430
 msgid "E"
 msgstr ""
 
-#: lib/noticelist.php:422
+#: lib/noticelist.php:430
 msgid "W"
 msgstr ""
 
-#: lib/noticelist.php:428
+#: lib/noticelist.php:436
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:523
+#: lib/noticelist.php:531
 #, fuzzy
 msgid "in context"
 msgstr "Нема содржина!"
 
-#: lib/noticelist.php:548
+#: lib/noticelist.php:556
 msgid "Repeated by"
 msgstr "Повторено од"
 
-#: lib/noticelist.php:577
+#: lib/noticelist.php:585
 msgid "Reply to this notice"
 msgstr ""
 
-#: lib/noticelist.php:578
+#: lib/noticelist.php:586
 msgid "Reply"
 msgstr "Одговор"
 
-#: lib/noticelist.php:620
+#: lib/noticelist.php:628
 #, fuzzy
 msgid "Notice repeated"
 msgstr "Известувања"
