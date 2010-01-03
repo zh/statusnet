@@ -442,37 +442,13 @@ var SN = { // StatusNet
         NoticeLocationAttach: function() {
             var NDG = $('#'+SN.C.S.NoticeDataGeo);
             if (NDG.length > 0) {
-                NDG.attr('title', NDG.text());
                 var NLE = $('#notice_data-location_wrap');
                 var geocodeURL = NLE.attr('title');
 
-                var S = '<div id="'+SN.C.S.NoticeDataGeoSelected+'" class="'+SN.C.S.Success+'"> <button class="minimize">&#95;</button> <button class="close">&#215;</button></div>';
-                var NDGS = $('#'+SN.C.S.NoticeDataGeoSelected);
-
-                if (NDGS.length > 0) {
-                    NDGS.replaceWith(S);
-                }
-                else {
-                    $('#'+SN.C.S.FormNotice).append(S);
-                }
-                NDGS = $('#'+SN.C.S.NoticeDataGeoSelected);
-
-                $('#'+SN.C.S.NoticeDataGeoSelected+' button.close').click(function(){
-                    $('#'+SN.C.S.NoticeDataGeoSelected).remove();
-                    $('#'+SN.C.S.NoticeDataGeo).attr('checked', false);
-                    $('label[for=notice_data-geo]').removeClass('checked');
-
-                    return false;
-                });
-
-                $('#'+SN.C.S.NoticeDataGeoSelected+' button.minimize').click(function(){
-                    $('#'+SN.C.S.NoticeDataGeoSelected).hide();
-
-                    return false;
-                });
+                $('label[for=notice_data-geo]').attr('title', NLE.text());
 
                 if (navigator.geolocation) {
-                    NLE.change(function() {
+                    NDG.change(function() {
                         NLE.removeAttr('title');
 
                         $.cookie(SN.C.S.NoticeLocationCookieName, $('#'+SN.C.S.NoticeDataGeo).attr('checked'));
@@ -482,13 +458,38 @@ var SN = { // StatusNet
                             NLN.remove();
                         }
 
+                        var S = '<div id="'+SN.C.S.NoticeDataGeoSelected+'" class="'+SN.C.S.Success+'"/div>';
+                        NDGS = $('#'+SN.C.S.NoticeDataGeoSelected);
+                        if (NDGS.length > 0) {
+                            NDGS.replaceWith(S);
+                        }
+                        else {
+                            $('#'+SN.C.S.FormNotice).append(S);
+                        }
+                        NDGS = $('#'+SN.C.S.NoticeDataGeoSelected);
                         NDGS.prepend('<span id="'+SN.C.S.NoticeLocationName+'">Geo</span>');
+
                         NLN = $('#'+SN.C.S.NoticeLocationName);
 
                         if ($('#'+SN.C.S.NoticeDataGeo).attr('checked') === true) {
-                            NDGS.show();
                             NLN.addClass('processing');
                             $('label[for=notice_data-geo]').addClass('checked');
+
+                            NDGS.append('<button class="minimize">&#95;</button> <button class="close">&#215;</button>');
+
+                            $('#'+SN.C.S.NoticeDataGeoSelected+' button.close').click(function(){
+                                $('#'+SN.C.S.NoticeDataGeoSelected).remove();
+                                $('#'+SN.C.S.NoticeDataGeo).attr('checked', false);
+                                $('label[for=notice_data-geo]').removeClass('checked');
+
+                                return false;
+                            });
+
+                            $('#'+SN.C.S.NoticeDataGeoSelected+' button.minimize').click(function(){
+                                $('#'+SN.C.S.NoticeDataGeoSelected).hide();
+
+                                return false;
+                            });
 
                             navigator.geolocation.getCurrentPosition(function(position) {
                                 $('#'+SN.C.S.NoticeLat).val(position.coords.latitude);
@@ -535,8 +536,8 @@ var SN = { // StatusNet
                     });
 
                     var cookieVal = $.cookie(SN.C.S.NoticeLocationCookieName);
-                    $('#'+SN.C.S.NoticeDataGeo).attr('checked', (cookieVal == null || cookieVal == 'true'));
-                    NLE.change();
+                    NDG.attr('checked', (cookieVal == null || cookieVal == 'true'));
+                    NDG.change();
                 }
             }
         },
