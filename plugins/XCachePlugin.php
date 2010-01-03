@@ -85,8 +85,7 @@ class XCachePlugin extends Plugin
 
     function onStartCacheSet(&$key, &$value, &$flag, &$expiry, &$success)
     {
-        $success = xcache_set($key, serialize($value),
-                              (is_null($expiry) ? 0 : $expiry));
+        $success = xcache_set($key, serialize($value));
 
         Event::handle('EndCacheSet', array($key, $value, $flag,
                                            $expiry));
