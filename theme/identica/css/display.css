@@ -117,6 +117,12 @@ background-position:0 47%;
 .form_notice a#notice_data-location_name {
 background-position:0 -1711px;
 }
+.form_notice label[for=notice_data-geo] {
+background-position:0 -1780px;
+}
+.form_notice label[for=notice_data-geo].checked {
+background-position:0 -1847px;
+}
 
 a,
 .form_settings input.form_action-primary,
@@ -185,7 +191,8 @@ button.close,
 .entity_silence input.submit,
 .entity_delete input.submit,
 .notice-options .repeated,
-.form_notice a#notice_data-location_name {
+.form_notice a#notice_data-location_name,
+.form_notice label[for=notice_data-geo] {
 background-image:url(../../base/images/icons/icons-01.gif);
 background-repeat:no-repeat;
 background-color:transparent;
