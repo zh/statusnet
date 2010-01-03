@@ -70,7 +70,7 @@ class Cache
     {
         $value = null;
 
-        if (!Event::handle('StartCacheGet', array(&$key, &$value))) {
+        if (Event::handle('StartCacheGet', array(&$key, &$value))) {
             if (array_key_exists($key, $this->_items)) {
                 common_log(LOG_INFO, 'Cache HIT for key ' . $key);
                 $value = $this->_items[$key];
@@ -87,7 +87,7 @@ class Cache
     {
         $success = false;
 
-        if (!Event::handle('StartCacheSet', array(&$key, &$value, &$flag, &$expiry, &$success))) {
+        if (Event::handle('StartCacheSet', array(&$key, &$value, &$flag, &$expiry, &$success))) {
             common_log(LOG_INFO, 'Setting cache value for key ' . $key);
             $this->_items[$key] = $value;
             $success = true;
@@ -101,7 +101,7 @@ class Cache
     {
         $success = false;
 
-        if (!Event::handle('StartCacheDelete', array(&$key, &$success))) {
+        if (Event::handle('StartCacheDelete', array(&$key, &$success))) {
             if (array_key_exists($key, $this->_items[$key])) {
                 common_log(LOG_INFO, 'Deleting cache value for key ' . $key);
                 unset($this->_items[$key]);
