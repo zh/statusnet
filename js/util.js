@@ -460,7 +460,7 @@ var SN = { // StatusNet
                             NLN.remove();
                         }
 
-                        var S = '<div id="'+SN.C.S.NoticeDataGeoSelected+'" class="'+SN.C.S.Success+'"/div>';
+                        var S = '<div id="'+SN.C.S.NoticeDataGeoSelected+'" class="'+SN.C.S.Success+'"/>';
                         NDGS = $('#'+SN.C.S.NoticeDataGeoSelected);
                         if (NDGS.length > 0) {
                             NDGS.replaceWith(S);
