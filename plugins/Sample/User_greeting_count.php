@@ -106,6 +106,20 @@ class User_greeting_count extends Memcached_DataObject
     }
 
     /**
+     * return key definitions for Memcached_DataObject
+     *
+     * Our caching system uses the same key definitions, but uses a different
+     * method to get them.
+     *
+     * @return array key definitions
+     */
+
+    function keyTypes()
+    {
+        return $this->keys();
+    }
+
+    /**
      * Magic formula for non-autoincrementing integer primary keys
      *
      * If a table has a single integer column as its primary key, DB_DataObject
