@@ -78,7 +78,7 @@ class Cache
 
     static function key($extra)
     {
-        $base_key = common_config('memcached', 'base');
+        $base_key = common_config('cache', 'base');
 
         if (empty($base_key)) {
             $base_key = common_keyize(common_config('site', 'name'));
