@@ -554,34 +554,54 @@ width:81.5%;
 margin-bottom:0;
 line-height:1.618;
 }
-.form_notice #notice_data-attach_selected code {
+.form_notice #notice_data-attach_selected code,
+.form_notice #notice_data-location_name {
 float:left;
-width:90%;
+width:80%;
 display:block;
-font-size:1.1em;
 line-height:1.8;
 overflow:auto;
+margin-right:2.5%;
 }
-.form_notice #notice_data-attach_selected button {
+.form_notice #notice_data-attach_selected code {
+font-size:1.1em;
+}
+.form_notice #notice_data-attach_selected button.close,
+.form_notice #notice_data-geo_selected button.close {
 float:right;
 font-size:0.8em;
 }
-.form_notice #notice_data-location_wrap input {
-margin-right:7px;
+,
+.form_notice #notice_data-geo_selected button.minimize {
 float:left;
-top:3px;
+}
+
+.form_notice #notice_data-location_wrap label {
+position:absolute;
+top:25px;
+right:4px;
+left:auto;
+cursor:pointer;
+width:16px;
+height:16px;
+display:block;
+}
+.form_notice #notice_data-location_wrap input {
+display:none;
 }
 .form_notice #notice_data-location_wrap label {
 font-weight:normal;
 font-size:1em;
+margin-bottom:0;
+text-indent:-9999px;
 }
 .form_notice #notice_data-location_name {
 display:block;
-line-height:1.6;
 padding-left:21px;
 }
 
-button.close {
+button.close,
+button.minimize {
 width:16px;
 height:16px;
 text-indent:-9999px;
