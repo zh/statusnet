@@ -62,7 +62,7 @@ function common_init_language()
     // gettext will still select the right language.
     $language = common_language();
     $locale_set = common_init_locale($language);
-    
+
     setlocale(LC_CTYPE, 'C');
     // So we do not have to make people install the gettext locales
     $path = common_config('site','locale_path');
