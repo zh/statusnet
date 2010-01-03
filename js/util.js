@@ -460,6 +460,7 @@ var SN = { // StatusNet
                 $('#'+SN.C.S.NoticeDataGeoSelected+' button.close').click(function(){
                     $('#'+SN.C.S.NoticeDataGeoSelected).remove();
                     $('#'+SN.C.S.NoticeDataGeo).attr('checked', false);
+                    $('label[for=notice_data-geo]').removeClass('checked');
 
                     return false;
                 });
