@@ -152,52 +152,69 @@ class Memcached_DataObject extends DB_DataObject
     function encache()
     {
         $c = $this->memcache();
+
         if (!$c) {
             return false;
-        } else {
-            $pkey = array();
-            $pval = array();
-            $types = $this->keyTypes();
-            ksort($types);
-            foreach ($types as $key => $type) {
-                if ($type == 'K') {
-                    $pkey[] = $key;
-                    $pval[] = $this->$key;
-                } else {
-                    $c->set($this->cacheKey($this->tableName(), $key, $this->$key), $this);
-                }
-            }
-            # XXX: should work for both compound and scalar pkeys
-            $pvals = implode(',', $pval);
-            $pkeys = implode(',', $pkey);
-            $c->set($this->cacheKey($this->tableName(), $pkeys, $pvals), $this);
+        }
+
+        $keys = $this->_allCacheKeys();
+
+        foreach ($keys as $key) {
+            $c->set($key, $this);
         }
     }
 
     function decache()
     {
         $c = $this->memcache();
+
         if (!$c) {
             return false;
-        } else {
-            $pkey = array();
-            $pval = array();
-            $types = $this->keyTypes();
-            ksort($types);
-            foreach ($types as $key => $type) {
-                if ($type == 'K') {
-                    $pkey[] = $key;
-                    $pval[] = $this->$key;
-                } else {
-                    $c->delete($this->cacheKey($this->tableName(), $key, $this->$key));
-                }
-            }
-            # should work for both compound and scalar pkeys
-            # XXX: comma works for now but may not be safe separator for future keys
-            $pvals = implode(',', $pval);
-            $pkeys = implode(',', $pkey);
-            $c->delete($this->cacheKey($this->tableName(), $pkeys, $pvals));
         }
+
+        $keys = $this->_allCacheKeys();
+
+        foreach ($keys as $key) {
+            $c->delete($key, $this);
+        }
+    }
+
+    function _allCacheKeys()
+    {
+        $ckeys = array();
+
+        $types = $this->keyTypes();
+        ksort($types);
+
+        $pkey = array();
+        $pval = array();
+
+        foreach ($types as $key => $type) {
+
+            assert(!empty($key));
+
+            if ($type == 'U') {
+                if (empty($this->$key)) {
+                    continue;
+                }
+                $ckeys[] = $this->cacheKey($this->tableName(), $key, $this->$key);
+            } else if ($type == 'K' || $type == 'N') {
+                $pkey[] = $key;
+                $pval[] = $this->$key;
+            } else {
+                throw new Exception("Unknown key type $key => $type for " . $this->tableName());
+            }
+        }
+
+        assert(count($pkey) > 0);
+
+        // XXX: should work for both compound and scalar pkeys
+        $pvals = implode(',', $pval);
+        $pkeys = implode(',', $pkey);
+
+        $ckeys[] = $this->cacheKey($this->tableName(), $pkeys, $pvals);
+
+        return $ckeys;
     }
 
     function multicache($cls, $kv)
