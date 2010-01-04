@@ -59,7 +59,7 @@ class Config extends Memcached_DataObject
 
         if (!empty($c)) {
             $settings = $c->get(common_cache_key(self::settingsKey));
-            if (!empty($settings)) {
+            if ($settings !== false) {
                 return $settings;
             }
         }
