@@ -535,23 +535,13 @@ var SN = { // StatusNet
 
                                 function(error) {
                                     if (error.PERMISSION_DENIED == 1) {
-                                        $('label[for='+SN.C.S.NoticeDataGeo+']').removeClass('checked');
-                                        NDGS.hide();
-                                        $('#'+SN.C.S.NoticeLat).val('');
-                                        $('#'+SN.C.S.NoticeLon).val('');
-                                        $('#'+SN.C.S.NoticeLocationNs).val('');
-                                        $('#'+SN.C.S.NoticeLocationId).val('');
+                                        removeNoticeDataGeo();
                                     }
                                 }
                             );
                         }
                         else {
-                            $('label[for='+SN.C.S.NoticeDataGeo+']').removeClass('checked');
-                            NDGS.hide();
-                            $('#'+SN.C.S.NoticeLat).val('');
-                            $('#'+SN.C.S.NoticeLon).val('');
-                            $('#'+SN.C.S.NoticeLocationNs).val('');
-                            $('#'+SN.C.S.NoticeLocationId).val('');
+                            removeNoticeDataGeo();
                         }
                     });
 
@@ -559,6 +549,15 @@ var SN = { // StatusNet
                     NDG.attr('checked', (cookieVal == null || cookieVal == 'true'));
                     NDG.change();
                 }
+            }
+
+            function removeNoticeDataGeo() {
+                $('label[for='+SN.C.S.NoticeDataGeo+']').removeClass('checked');
+                $('#'+SN.C.S.NoticeDataGeoSelected).hide();
+                $('#'+SN.C.S.NoticeLat).val('');
+                $('#'+SN.C.S.NoticeLon).val('');
+                $('#'+SN.C.S.NoticeLocationNs).val('');
+                $('#'+SN.C.S.NoticeLocationId).val('');
             }
         },
 
