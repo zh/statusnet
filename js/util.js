@@ -524,6 +524,11 @@ var SN = { // StatusNet
 
                                     NLN.attr('href', location.url);
                                     NLN.text(NLN_text);
+                                    NLN.click(function() {
+                                        window.open(location.url);
+
+                                        return false;
+                                    });
                                 });
                             });
                         }
