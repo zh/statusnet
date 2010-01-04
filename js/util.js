@@ -493,44 +493,57 @@ var SN = { // StatusNet
                                 return false;
                             });
 
-                            navigator.geolocation.getCurrentPosition(function(position) {
-                                $('#'+SN.C.S.NoticeLat).val(position.coords.latitude);
-                                $('#'+SN.C.S.NoticeLon).val(position.coords.longitude);
+                            navigator.geolocation.getCurrentPosition(
+                                function(position) {
+                                    $('#'+SN.C.S.NoticeLat).val(position.coords.latitude);
+                                    $('#'+SN.C.S.NoticeLon).val(position.coords.longitude);
 
-                                var data = {
-                                    'lat': position.coords.latitude,
-                                    'lon': position.coords.longitude,
-                                    'token': $('#token').val()
-                                };
+                                    var data = {
+                                        'lat': position.coords.latitude,
+                                        'lon': position.coords.longitude,
+                                        'token': $('#token').val()
+                                    };
 
-                                $.getJSON(geocodeURL, data, function(location) {
-                                    NLN.replaceWith('<a id="notice_data-location_name"/>');
-                                    NLN = $('#'+SN.C.S.NoticeLocationName);
+                                    $.getJSON(geocodeURL, data, function(location) {
+                                        NLN.replaceWith('<a id="notice_data-location_name"/>');
+                                        NLN = $('#'+SN.C.S.NoticeLocationName);
 
-                                    if (typeof(location.location_ns) != 'undefined') {
-                                        $('#'+SN.C.S.NoticeLocationNs).val(location.location_ns);
-                                    }
+                                        if (typeof(location.location_ns) != 'undefined') {
+                                            $('#'+SN.C.S.NoticeLocationNs).val(location.location_ns);
+                                        }
 
-                                    if (typeof(location.location_id) != 'undefined') {
-                                        $('#'+SN.C.S.NoticeLocationId).val(location.location_id);
-                                    }
+                                        if (typeof(location.location_id) != 'undefined') {
+                                            $('#'+SN.C.S.NoticeLocationId).val(location.location_id);
+                                        }
 
-                                    if (typeof(location.name) == 'undefined') {
-                                        NLN_text = position.coords.latitude + ';' + position.coords.longitude;
-                                    }
-                                    else {
-                                        NLN_text = location.name;
-                                    }
+                                        if (typeof(location.name) == 'undefined') {
+                                            NLN_text = position.coords.latitude + ';' + position.coords.longitude;
+                                        }
+                                        else {
+                                            NLN_text = location.name;
+                                        }
 
-                                    NLN.attr('href', location.url);
-                                    NLN.text(NLN_text);
-                                    NLN.click(function() {
-                                        window.open(location.url);
+                                        NLN.attr('href', location.url);
+                                        NLN.text(NLN_text);
+                                        NLN.click(function() {
+                                            window.open(location.url);
 
-                                        return false;
+                                            return false;
+                                        });
                                     });
-                                });
-                            });
+                                },
+
+                                function(error) {
+                                    if (error.PERMISSION_DENIED == 1) {
+                                        $('label[for='+SN.C.S.NoticeDataGeo+']').removeClass('checked');
+                                        NDGS.hide();
+                                        $('#'+SN.C.S.NoticeLat).val('');
+                                        $('#'+SN.C.S.NoticeLon).val('');
+                                        $('#'+SN.C.S.NoticeLocationNs).val('');
+                                        $('#'+SN.C.S.NoticeLocationId).val('');
+                                    }
+                                }
+                            );
                         }
                         else {
                             $('label[for='+SN.C.S.NoticeDataGeo+']').removeClass('checked');
