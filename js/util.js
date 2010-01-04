@@ -447,7 +447,7 @@ var SN = { // StatusNet
                 var NLE = $('#notice_data-location_wrap');
                 var geocodeURL = NLE.attr('title');
 
-                $('label[for='+SN.C.S.NoticeDataGeo+']').attr('title', NLE.text());
+                $('label[for='+SN.C.S.NoticeDataGeo+']').attr('title', jQuery.trim($('label[for='+SN.C.S.NoticeDataGeo+']').text()));
 
                 if (navigator.geolocation) {
                     NDG.change(function() {
