@@ -97,9 +97,16 @@ class ApiBlockDestroyAction extends ApiAuthAction
             return;
         }
 
-        if (!$this->user->hasBlocked($this->other)
-            || $this->user->unblock($this->other)
-        ) {
+        if ($this->user->hasBlocked($this->other)) {
+            if (Event::handle('StartUnblockProfile', array($this->user, $this->other))) {
+                $result = $this->user->unblock($this->other);
+                if ($result) {
+                    Event::handle('EndUnblockProfile', array($this->user, $this->other));
+                }
+            }
+        }
+
+        if (!$this->user->hasBlocked($this->other)) {
             $this->initDocument($this->format);
             $this->showProfile($this->other, $this->format);
             $this->endDocument($this->format);

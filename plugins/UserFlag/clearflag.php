@@ -1,6 +1,6 @@
 <?php
 /**
- * Add a flag to a profile
+ * Clear all flags for a profile
  *
  * PHP version 5
  *
@@ -32,7 +32,7 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * Action to flag a profile.
+ * Action to clear flags for a profile
  *
  * @category Action
  * @package  StatusNet
@@ -41,7 +41,7 @@ if (!defined('STATUSNET')) {
  * @link     http://status.net/
  */
 
-class FlagprofileAction extends ProfileFormAction
+class ClearflagAction extends ProfileFormAction
 {
     /**
      * Take arguments for running
@@ -61,12 +61,6 @@ class FlagprofileAction extends ProfileFormAction
 
         assert(!empty($user)); // checked above
         assert(!empty($this->profile)); // checked above
-
-        if (User_flag_profile::exists($this->profile->id,
-                                      $user->id)) {
-            $this->clientError(_('Flag already exists.'));
-            return false;
-        }
 
         return true;
     }
@@ -95,19 +89,27 @@ class FlagprofileAction extends ProfileFormAction
     /**
      * Handle POST
      *
+     * Executes the actions; deletes all flags
+     *
      * @return void
      */
 
     function handlePost()
     {
-        $user = common_current_user();
+        $ufp = new User_flag_profile();
 
-        assert(!empty($user));
-        assert(!empty($this->profile));
+        $result = $ufp->query('UPDATE user_flag_profile ' .
+                              'SET cleared = now() ' .
+                              'WHERE cleared is null ' .
+                              'AND profile_id = ' . $this->profile->id);
 
-        // throws an exception on error
+        if ($result == false) {
+            $msg = sprintf(_("Couldn't clear flags for profile '%s'."),
+                           $this->profile->nickname);
+            throw new ServerException($msg);
+        }
 
-        User_flag_profile::create($user->id, $this->profile->id);
+        $ufp->free();
 
         if ($this->boolean('ajax')) {
             $this->ajaxResults();
@@ -115,7 +117,7 @@ class FlagprofileAction extends ProfileFormAction
     }
 
     /**
-     * Return results as AJAX message
+     * Return results in ajax form
      *
      * @return void
      */
@@ -126,12 +128,11 @@ class FlagprofileAction extends ProfileFormAction
         $this->xw->startDocument('1.0', 'UTF-8');
         $this->elementStart('html');
         $this->elementStart('head');
-        $this->element('title', null, _('Flagged for review'));
+        $this->element('title', null, _('Flags cleared'));
         $this->elementEnd('head');
         $this->elementStart('body');
-        $this->element('p', 'flagged', _('Flagged'));
+        $this->element('p', 'cleared', _('Cleared'));
         $this->elementEnd('body');
         $this->elementEnd('html');
     }
 }
-

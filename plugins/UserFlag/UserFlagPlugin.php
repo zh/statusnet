@@ -27,7 +27,7 @@
  * @link      http://status.net/
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) {
+if (!defined('STATUSNET')) {
     exit(1);
 }
 
@@ -43,6 +43,20 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 
 class UserFlagPlugin extends Plugin
 {
+    const REVIEWFLAGS = 'UserFlagPlugin::reviewflags';
+    const CLEARFLAGS  = 'UserFlagPlugin::clearflags';
+
+    public $flagOnBlock = true;
+
+    /**
+     * Hook for ensuring our tables are created
+     *
+     * Ensures that the user_flag_profile table exists
+     * and has the right columns.
+     *
+     * @return boolean hook return
+     */
+
     function onCheckSchema()
     {
         $schema = Schema::get();
@@ -62,36 +76,60 @@ class UserFlagPlugin extends Plugin
         return true;
     }
 
-    function onInitializePlugin()
-    {
-        // XXX: do something here?
-        return true;
-    }
+    /**
+     * Add our actions to the URL router
+     *
+     * @param Net_URL_Mapper $m URL mapper for this hit
+     *
+     * @return boolean hook return
+     */
 
-    function onRouterInitialized($m) {
+    function onRouterInitialized($m)
+    {
         $m->connect('main/flag/profile', array('action' => 'flagprofile'));
+        $m->connect('main/flag/clear', array('action' => 'clearflag'));
         $m->connect('admin/profile/flag', array('action' => 'adminprofileflag'));
         return true;
     }
 
-   function onAutoload($cls)
+    /**
+     * Auto-load our classes if called
+     *
+     * @param string $cls Class to load
+     *
+     * @return boolean hook return
+     */
+
+    function onAutoload($cls)
     {
         switch ($cls)
         {
         case 'FlagprofileAction':
         case 'AdminprofileflagAction':
-            require_once(INSTALLDIR.'/plugins/UserFlag/' . strtolower(mb_substr($cls, 0, -6)) . '.php');
+        case 'ClearflagAction':
+            include_once INSTALLDIR.'/plugins/UserFlag/' .
+              strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
         case 'FlagProfileForm':
-            require_once(INSTALLDIR.'/plugins/UserFlag/' . strtolower($cls . '.php'));
+        case 'ClearFlagForm':
+            include_once INSTALLDIR.'/plugins/UserFlag/' . strtolower($cls . '.php');
             return false;
         case 'User_flag_profile':
-            require_once(INSTALLDIR.'/plugins/UserFlag/'.$cls.'.php');
+            include_once INSTALLDIR.'/plugins/UserFlag/'.$cls.'.php';
             return false;
         default:
             return true;
         }
     }
+
+    /**
+     * Add a 'flag' button to profile page
+     *
+     * @param Action  &$action The action being called
+     * @param Profile $profile Profile being shown
+     *
+     * @return boolean hook result
+     */
 
     function onEndProfilePageActionsElements(&$action, $profile)
     {
@@ -105,8 +143,8 @@ class UserFlagPlugin extends Plugin
                 $action->element('p', 'flagged', _('Flagged'));
             } else {
                 $form = new FlagProfileForm($action, $profile,
-                                        array('action' => 'showstream',
-                                              'nickname' => $profile->nickname));
+                                            array('action' => 'showstream',
+                                                  'nickname' => $profile->nickname));
                 $form->show();
             }
 
@@ -115,6 +153,14 @@ class UserFlagPlugin extends Plugin
 
         return true;
     }
+
+    /**
+     * Add a 'flag' button to profiles in a list
+     *
+     * @param ProfileListItem $item item being shown
+     *
+     * @return boolean hook result
+     */
 
     function onEndProfileListItemActionElements($item)
     {
@@ -136,16 +182,80 @@ class UserFlagPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Add our plugin's CSS to page output
+     *
+     * @param Action $action action being shown
+     *
+     * @return boolean hook result
+     */
+
     function onEndShowStatusNetStyles($action)
     {
-        $action->cssLink(common_path('plugins/UserFlag/userflag.css'), 
+        $action->cssLink(common_path('plugins/UserFlag/userflag.css'),
                          null, 'screen, projection, tv');
         return true;
     }
 
+    /**
+     * Initialize any flagging buttons on the page
+     *
+     * @param Action $action action being shown
+     *
+     * @return boolean hook result
+     */
+
     function onEndShowScripts($action)
     {
-        $action->inlineScript('if ($(".form_entity_flag").length > 0) { SN.U.FormXHR($(".form_entity_flag")); }');
+        $action->inlineScript('if ($(".form_entity_flag").length > 0) { '.
+                              'SN.U.FormXHR($(".form_entity_flag")); '.
+                              '}');
+        return true;
+    }
+
+    /**
+     * Check whether a user has one of our defined rights
+     *
+     * We define extra rights; this function checks to see if a
+     * user has one of them.
+     *
+     * @param User    $user    User being checked
+     * @param string  $right   Right we're checking
+     * @param boolean &$result out, result of the check
+     *
+     * @return boolean hook result
+     */
+
+    function onUserRightsCheck($user, $right, &$result)
+    {
+        switch ($right) {
+        case self::REVIEWFLAGS:
+        case self::CLEARFLAGS:
+            $result = $user->hasRole('moderator');
+            return false; // done processing!
+        }
+
+        return true; // unchanged!
+    }
+
+    /**
+     * Optionally flag profile when a block happens
+     *
+     * We optionally add a flag when a profile has been blocked
+     *
+     * @param User    $user    User doing the block
+     * @param Profile $profile Profile being blocked
+     *
+     * @return boolean hook result
+     */
+
+    function onEndBlockProfile($user, $profile)
+    {
+        if ($this->flagOnBlock && !User_flag_profile::exists($profile->id,
+                                                             $user->id)) {
+
+            User_flag_profile::create($user->id, $profile->id);
+        }
         return true;
     }
 }

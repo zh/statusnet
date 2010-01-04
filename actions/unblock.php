@@ -71,8 +71,17 @@ class UnblockAction extends ProfileFormAction
 
     function handlePost()
     {
-        $cur    = common_current_user();
-        $result = $cur->unblock($this->profile);
+        $cur = common_current_user();
+
+        $result = false;
+
+        if (Event::handle('StartUnblockProfile', array($cur, $this->profile))) {
+            $result = $cur->unblock($this->profile);
+            if ($result) {
+                Event::handle('EndUnblockProfile', array($cur, $this->profile));
+            }
+        }
+
         if (!$result) {
             $this->serverError(_('Error removing the block.'));
             return;

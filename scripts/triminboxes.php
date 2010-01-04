@@ -21,19 +21,21 @@
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 
 $shortoptions = 'u::';
-$longoptions = array('start-user-id::');
+$longoptions = array('start-user-id=', 'sleep-time=');
 
 $helptext = <<<END_OF_TRIM_HELP
 Batch script for trimming notice inboxes to a reasonable size.
 
     -u <id>
     --start-user-id=<id>   User ID to start after. Default is all.
+    --sleep-time=<integer> Amount of time to wait (in seconds) between trims. Default is zero.
 
 END_OF_TRIM_HELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
 $id = null;
+$sleep_time = 0;
 
 if (have_option('u')) {
     $id = get_option_value('u');
@@ -42,6 +44,12 @@ if (have_option('u')) {
 } else {
     $id = null;
 }
+
+if (have_option('--sleep-time')) {
+    $sleep_time = intval(get_option_value('--sleep-time'));
+}
+
+$quiet = have_option('q') || have_option('--quiet');
 
 $user = new User();
 
@@ -52,5 +60,17 @@ if (!empty($id)) {
 $cnt = $user->find();
 
 while ($user->fetch()) {
-    Notice_inbox::gc($user->id);
+    if (!$quiet) {
+        print "Trimming inbox for user $user->id";
+    }
+    $count = Notice_inbox::gc($user->id);
+    if ($count) {
+        if (!$quiet) {
+            print ": $count trimmed...";
+        }
+        sleep($sleep_time);
+    }
+    if (!$quiet) {
+        print "\n";
+    }
 }

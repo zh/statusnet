@@ -23,20 +23,6 @@ require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 class Memcached_DataObject extends DB_DataObject
 {
-    /**
-     * Destructor to free global memory resources associated with
-     * this data object when it's unset or goes out of scope.
-     * DB_DataObject doesn't do this yet by itself.
-     */
-
-    function __destruct()
-    {
-        $this->free();
-        if (method_exists('DB_DataObject', '__destruct')) {
-            parent::__destruct();
-        }
-    }
-
     function &staticGet($cls, $k, $v=null)
     {
         if (is_null($v)) {
@@ -51,11 +37,17 @@ class Memcached_DataObject extends DB_DataObject
         if ($i) {
             return $i;
         } else {
-            $i = DB_DataObject::staticGet($cls, $k, $v);
-            if ($i) {
-                $i->encache();
+            $i = DB_DataObject::factory($cls);
+            if (empty($i)) {
+                return false;
             }
-            return $i;
+            $result = $i->get($k, $v);
+            if ($result) {
+                $i->encache();
+                return $i;
+            } else {
+                return false;
+            }
         }
     }
 
@@ -107,7 +99,7 @@ class Memcached_DataObject extends DB_DataObject
     }
 
     static function cacheKey($cls, $k, $v) {
-        if (is_object($cls) || is_object($j) || is_object($v)) {
+        if (is_object($cls) || is_object($k) || is_object($v)) {
             $e = new Exception();
             common_log(LOG_ERR, __METHOD__ . ' object in param: ' .
                 str_replace("\n", " ", $e->getTraceAsString()));
