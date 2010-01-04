@@ -21,6 +21,9 @@ password_changeable*: must be set to false. This plugin does not support changin
 server*: CAS server to authentication against
 port (443): Port the CAS server listens on. Almost always 443
 path (): Path on the server to CAS. Usually blank.
+takeOverLogin (false): Take over the main login action. If takeOverLogin is
+    set, anytime the standard username/password login form would be shown,
+    a CAS login will be done instead.
 
 * required
 default values are in (parenthesis)
@@ -33,6 +36,7 @@ addPlugin('casAuthentication', array(
     'autoregistration'=>true,
     'server'=>'sso-cas.univ-rennes1.fr',
     'port'=>443,
-    'path'=>''
+    'path'=>'',
+    'takeOverLogin'=>true
 ));
 
