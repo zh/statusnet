@@ -156,6 +156,11 @@ class MemcachePlugin extends Plugin
                 }
                 $this->_conn->addServer($host, $port);
             }
+            //Compress items stored in the cache if they're over 2k in size
+            //and the compression would save more than 20%.
+            //Allows the cache to store objects larger than 1MB (if they
+            //compress to less than 1MB), and improves cache memory efficiency.
+            $this->_conn->setCompressThreshold(20000, 0.2);
         }
     }
 }
