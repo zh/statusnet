@@ -185,11 +185,7 @@ class FavoritedAction extends Action
 
     function showContent()
     {
-        if (common_config('db', 'type') == 'pgsql') {
-            $weightexpr='sum(exp(-extract(epoch from (now() - fave.modified)) / %s))';
-        } else {
-            $weightexpr='sum(exp(-(now() - fave.modified) / %s))';
-        }
+        $weightexpr = common_sql_weight('fave.modified', common_config('popular', 'dropoff'));
 
         $qry = 'SELECT notice.*, '.
           $weightexpr . ' as weight ' .
@@ -207,7 +203,7 @@ class FavoritedAction extends Action
         }
 
         $notice = Memcached_DataObject::cachedQuery('Notice',
-                                                    sprintf($qry, common_config('popular', 'dropoff')),
+                                                    $qry,
                                                     600);
 
         $nl = new NoticeList($notice, $this);

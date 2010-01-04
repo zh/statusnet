@@ -58,11 +58,7 @@ class GroupTagCloudSection extends TagCloudSection
 
     function getTags()
     {
-        if (common_config('db', 'type') == 'pgsql') {
-            $weightexpr='sum(exp(-extract(epoch from (now() - notice_tag.created)) / %s))';
-        } else {
-            $weightexpr='sum(exp(-(now() - notice_tag.created) / %s))';
-        }
+        $weightexpr = common_sql_weight('notice_tag.created', common_config('tag', 'dropoff'));
 
         $names = $this->group->getAliases();
 
@@ -99,7 +95,6 @@ class GroupTagCloudSection extends TagCloudSection
 
         $tag = Memcached_DataObject::cachedQuery('Notice_tag',
                                                  sprintf($qry,
-                                                         common_config('tag', 'dropoff'),
                                                          $this->group->id,
                                                          $namestring),
                                                  3600);

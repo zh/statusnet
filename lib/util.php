@@ -908,6 +908,26 @@ function common_sql_date($datetime)
     return strftime('%Y-%m-%d %H:%M:%S', $datetime);
 }
 
+/**
+ * Return an SQL fragment to calculate an age-based weight from a given
+ * timestamp or datetime column.
+ *
+ * @param string $column name of field we're comparing against current time
+ * @param integer $dropoff divisor for age in seconds before exponentiation
+ * @return string SQL fragment
+ */
+function common_sql_weight($column, $dropoff)
+{
+    if (common_config('db', 'type') == 'pgsql') {
+        // PostgreSQL doesn't support timestampdiff function.
+        // @fixme will this use the right time zone?
+        // @fixme does this handle cross-year subtraction correctly?
+        return "sum(exp(-extract(epoch from (now() - $column)) / $dropoff))";
+    } else {
+        return "sum(exp(timestampdiff(second, utc_timestamp(), $column) / $dropoff))";
+    }
+}
+
 function common_redirect($url, $code=307)
 {
     static $status = array(301 => "Moved Permanently",

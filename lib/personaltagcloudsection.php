@@ -58,13 +58,9 @@ class PersonalTagCloudSection extends TagCloudSection
 
     function getTags()
     {
-        if (common_config('db', 'type') == 'pgsql') {
-            $weightexpr='sum(exp(-extract(epoch from (now() - notice_tag.created)) / %s))';
-        } else {
-            $weightexpr='sum(exp(-(now() - notice_tag.created) / %s))';
-        }
- 
-       $qry = 'SELECT notice_tag.tag, '.
+        $weightexpr = common_sql_weight('notice_tag.created', common_config('tag', 'dropoff'));
+
+        $qry = 'SELECT notice_tag.tag, '.
           $weightexpr . ' as weight ' .
           'FROM notice_tag JOIN notice ' .
           'ON notice_tag.notice_id = notice.id ' .
@@ -83,7 +79,6 @@ class PersonalTagCloudSection extends TagCloudSection
 
         $tag = Memcached_DataObject::cachedQuery('Notice_tag',
                                                  sprintf($qry,
-                                                         common_config('tag', 'dropoff'),
                                                          $this->user->id),
                                                  3600);
         return $tag;
