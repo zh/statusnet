@@ -74,6 +74,7 @@ class ColumnDef
      * @param string  $key      type of key
      * @param value   $default  default value
      * @param value   $extra    unused
+     * @param boolean $auto_increment
      */
 
     function __construct($name=null, $type=null, $size=null,

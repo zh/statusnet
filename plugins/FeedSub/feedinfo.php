@@ -31,7 +31,7 @@ class FeedDBException extends FeedSubException
     }
 }
 
-class Feedinfo extends Plugin_DataObject
+class Feedinfo extends Memcached_DataObject
 {
     public $__table = 'feedinfo';
 
@@ -56,34 +56,90 @@ class Feedinfo extends Plugin_DataObject
         return parent::staticGet(__CLASS__, $k, $v);
     }
 
-    function tableDef()
+    /**
+     * return table definition for DB_DataObject
+     *
+     * DB_DataObject needs to know something about the table to manipulate
+     * instances. This method provides all the DB_DataObject needs to know.
+     *
+     * @return array array of column definitions
+     */
+
+    function table()
     {
-        class_exists('Schema'); // autoload hack
-        // warning: the autoincrement doesn't seem to set.
-        // alter table feedinfo change column id id int(11) not null  auto_increment;
-        return new TableDef($this->__table,
-                            array(new ColumnDef('id', 'integer',
-                                                null, false, 'PRI', '0', null, true),
-                                  new ColumnDef('profile_id', 'integer',
-                                                null, false),
-                                  new ColumnDef('feeduri', 'varchar',
-                                                255, false, 'UNI'),
-                                  new ColumnDef('homeuri', 'varchar',
-                                                255, false),
-                                  new ColumnDef('huburi', 'varchar',
-                                                255, false),
-                                  new ColumnDef('verify_token', 'varchar',
-                                                32, true),
-                                  new ColumnDef('sub_start', 'datetime',
-                                                null, true),
-                                  new ColumnDef('sub_end', 'datetime',
-                                                null, true),
-                                  new ColumnDef('created', 'datetime',
-                                                null, false),
-                                  new ColumnDef('lastupdate', 'datetime',
-                                                null, false)));
+        return array('id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+                     'profile_id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+                     'feeduri' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+                     'homeuri' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+                     'huburi' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+                     'verify_token' => DB_DATAOBJECT_STR,
+                     'sub_start' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME,
+                     'sub_end' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME,
+                     'created' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
+                     'lastupdate' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL);
+    }
+    
+    static function schemaDef()
+    {
+        return array(new ColumnDef('id', 'integer',
+                                   /*size*/ null,
+                                   /*nullable*/ false,
+                                   /*key*/ 'PRI',
+                                   /*default*/ '0',
+                                   /*extra*/ null,
+                                   /*auto_increment*/ true),
+                     new ColumnDef('profile_id', 'integer',
+                                   null, false),
+                     new ColumnDef('feeduri', 'varchar',
+                                   255, false, 'UNI'),
+                     new ColumnDef('homeuri', 'varchar',
+                                   255, false),
+                     new ColumnDef('huburi', 'varchar',
+                                   255, false),
+                     new ColumnDef('verify_token', 'varchar',
+                                   32, true),
+                     new ColumnDef('sub_start', 'datetime',
+                                   null, true),
+                     new ColumnDef('sub_end', 'datetime',
+                                   null, true),
+                     new ColumnDef('created', 'datetime',
+                                   null, false),
+                     new ColumnDef('lastupdate', 'datetime',
+                                   null, false));
     }
 
+    /**
+     * return key definitions for DB_DataObject
+     *
+     * DB_DataObject needs to know about keys that the table has; this function
+     * defines them.
+     *
+     * @return array key definitions
+     */
+
+    function keys()
+    {
+        return array('id' => 'P'); //?
+    }
+
+    /**
+     * return key definitions for Memcached_DataObject
+     *
+     * Our caching system uses the same key definitions, but uses a different
+     * method to get them.
+     *
+     * @return array key definitions
+     */
+
+    function keyTypes()
+    {
+        return $this->keys();
+    }
+
+    /**
+     * Fetch the StatusNet-side profile for this feed
+     * @return Profile
+     */
     public function getProfile()
     {
         return Profile::staticGet('id', $this->profile_id);
