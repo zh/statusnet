@@ -442,6 +442,15 @@ var SN = { // StatusNet
         },
 
         NoticeLocationAttach: function() {
+            function removeNoticeDataGeo() {
+                $('label[for='+SN.C.S.NoticeDataGeo+']').removeClass('checked');
+                $('#'+SN.C.S.NoticeDataGeoSelected).hide();
+                $('#'+SN.C.S.NoticeLat).val('');
+                $('#'+SN.C.S.NoticeLon).val('');
+                $('#'+SN.C.S.NoticeLocationNs).val('');
+                $('#'+SN.C.S.NoticeLocationId).val('');
+            }
+
             var NDG = $('#'+SN.C.S.NoticeDataGeo);
             if (NDG.length > 0) {
                 var NLE = $('#notice_data-location_wrap');
@@ -460,7 +469,7 @@ var SN = { // StatusNet
                         }
 
                         var S = '<div id="'+SN.C.S.NoticeDataGeoSelected+'" class="'+SN.C.S.Success+'"/>';
-                        NDGS = $('#'+SN.C.S.NoticeDataGeoSelected);
+                        var NDGS = $('#'+SN.C.S.NoticeDataGeoSelected);
                         if (NDGS.length > 0) {
                             NDGS.replaceWith(S);
                         }
@@ -470,7 +479,7 @@ var SN = { // StatusNet
                         NDGS = $('#'+SN.C.S.NoticeDataGeoSelected);
                         NDGS.prepend('<span id="'+SN.C.S.NoticeLocationName+'">Geo</span>');
 
-                        NLN = $('#'+SN.C.S.NoticeLocationName);
+                        var NLN = $('#'+SN.C.S.NoticeLocationName);
 
                         if ($('#'+SN.C.S.NoticeDataGeo).attr('checked') === true) {
                             NLN.addClass('processing');
@@ -504,6 +513,7 @@ var SN = { // StatusNet
                                     };
 
                                     $.getJSON(geocodeURL, data, function(location) {
+                                        NLN = $('#'+SN.C.S.NoticeLocationName);
                                         NLN.replaceWith('<a id="notice_data-location_name"/>');
                                         NLN = $('#'+SN.C.S.NoticeLocationName);
 
@@ -542,21 +552,11 @@ var SN = { // StatusNet
                         else {
                             removeNoticeDataGeo();
                         }
-                    });
+                    }).change();
 
                     var cookieVal = $.cookie(SN.C.S.NoticeLocationCookieName);
-                    NDG.attr('checked', (cookieVal == null || cookieVal == 'true'));
-                    NDG.change();
+                    NDG.attr('checked', (cookieVal === null || cookieVal == 'true'));
                 }
-            }
-
-            function removeNoticeDataGeo() {
-                $('label[for='+SN.C.S.NoticeDataGeo+']').removeClass('checked');
-                $('#'+SN.C.S.NoticeDataGeoSelected).hide();
-                $('#'+SN.C.S.NoticeLat).val('');
-                $('#'+SN.C.S.NoticeLon).val('');
-                $('#'+SN.C.S.NoticeLocationNs).val('');
-                $('#'+SN.C.S.NoticeLocationId).val('');
             }
         },
 
