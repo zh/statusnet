@@ -136,7 +136,12 @@ class PublictagcloudAction extends Action
             $this->elementStart('dd');
             $this->elementStart('ul', 'tags xoxo tag-cloud');
             foreach ($tw as $tag => $weight) {
-                $this->showTag($tag, $weight, $weight/$sum);
+                if ($sum) {
+                    $weightedSum = $weight/$sum;
+                } else {
+                    $weightedSum = 1;
+                }
+                $this->showTag($tag, $weight, $weightedSum);
             }
             $this->elementEnd('ul');
             $this->elementEnd('dd');

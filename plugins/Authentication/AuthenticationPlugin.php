@@ -99,6 +99,23 @@ abstract class AuthenticationPlugin extends Plugin
         }
     }
 
+    /**
+    * Internal AutoRegister event handler
+    * @param nickname
+    * @param provider_name
+    * @param user - the newly registered user
+    */
+    function onAutoRegister($nickname, $provider_name, &$user)
+    {
+        if($provider_name == $this->provider_name && $this->autoregistration){
+            $user = $this->autoregister($nickname);
+            if($user){
+                User_username::register($user,$nickname,$this->provider_name);
+                return false;
+            }
+        }
+    }
+
     function onStartCheckPassword($nickname, $password, &$authenticatedUser){
         //map the nickname to a username
         $user_username = new User_username();
@@ -127,13 +144,10 @@ abstract class AuthenticationPlugin extends Plugin
                     }
                 }
             }else{
-                if($this->autoregistration){
-                    $authenticated = $this->checkPassword($nickname, $password);
-                    if($authenticated){
-                        $user = $this->autoregister($nickname);
-                        if($user){
-                            $authenticatedUser = $user;
-                            User_username::register($authenticatedUser,$nickname,$this->provider_name);
+                $authenticated = $this->checkPassword($nickname, $password);
+                if($authenticated){
+                    if(Event::handle('AutoRegister', array($nickname, $this->provider_name, &$authenticatedUser))){
+                        if($authenticatedUser){
                             return false;
                         }
                     }

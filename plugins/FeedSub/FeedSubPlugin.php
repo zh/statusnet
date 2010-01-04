@@ -105,12 +105,11 @@ class FeedSubPlugin extends Plugin
         return true;
     }
 
-    /*
-    // auto increment seems to be broken
     function onCheckSchema() {
+        // warning: the autoincrement doesn't seem to set.
+        // alter table feedinfo change column id id int(11) not null  auto_increment;
         $schema = Schema::get();
-        $schema->ensureDataObject('Feedinfo');
+        $schema->ensureTable('feedinfo', Feedinfo::schemaDef());
         return true;
     }
-    */
 }
