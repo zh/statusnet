@@ -54,6 +54,9 @@ class MemcachePlugin extends Plugin
     private $_conn  = null;
     public $servers = array('127.0.0.1;11211');
 
+    public $compressThreshold = 20480;
+    public $compressMinSaving = 0.2;
+
     /**
      * Initialize the plugin
      *
@@ -156,11 +159,16 @@ class MemcachePlugin extends Plugin
                 }
                 $this->_conn->addServer($host, $port);
             }
-            //Compress items stored in the cache if they're over 2k in size
-            //and the compression would save more than 20%.
-            //Allows the cache to store objects larger than 1MB (if they
-            //compress to less than 1MB), and improves cache memory efficiency.
-            $this->_conn->setCompressThreshold(20000, 0.2);
+
+            // Compress items stored in the cache if they're over threshold in size
+            // (default 2KiB) and the compression would save more than min savings
+            // ratio (default 0.2).
+
+            // Allows the cache to store objects larger than 1MB (if they
+            // compress to less than 1MB), and improves cache memory efficiency.
+
+            $this->_conn->setCompressThreshold($this->compressThreshold,
+                                               $this->compressMinSaving);
         }
     }
 }
