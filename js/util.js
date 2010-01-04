@@ -446,13 +446,12 @@ var SN = { // StatusNet
             if (NDG.length > 0) {
                 var NLE = $('#notice_data-location_wrap');
                 var geocodeURL = NLE.attr('title');
+                NLE.removeAttr('title');
 
                 $('label[for='+SN.C.S.NoticeDataGeo+']').attr('title', jQuery.trim($('label[for='+SN.C.S.NoticeDataGeo+']').text()));
 
                 if (navigator.geolocation) {
                     NDG.change(function() {
-                        NLE.removeAttr('title');
-
                         $.cookie(SN.C.S.NoticeLocationCookieName, $('#'+SN.C.S.NoticeDataGeo).attr('checked'));
 
                         var NLN = $('#'+SN.C.S.NoticeLocationName);
