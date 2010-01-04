@@ -48,17 +48,17 @@ class PopularNoticeSection extends NoticeSection
 {
     function getNotices()
     {
+        // @fixme there should be a common func for this
         if (common_config('db', 'type') == 'pgsql') {
-            $weightexpr='sum(exp(-extract(epoch from (now() - fave.modified)) / %s))';
             if (!empty($this->out->tag)) {
                 $tag = pg_escape_string($this->out->tag);
             }
         } else {
-            $weightexpr='sum(exp(-(now() - fave.modified) / %s))';
             if (!empty($this->out->tag)) {
                  $tag = mysql_escape_string($this->out->tag);
             }
         }
+        $weightexpr = common_sql_weight('fave.modified', common_config('popular', 'dropoff'));
         $qry = "SELECT notice.*, $weightexpr as weight ";
         if(isset($tag)) {
             $qry .= 'FROM notice_tag, notice JOIN fave ON notice.id = fave.notice_id ' .
@@ -78,7 +78,7 @@ class PopularNoticeSection extends NoticeSection
         $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
 
         $notice = Memcached_DataObject::cachedQuery('Notice',
-                                                    sprintf($qry, common_config('popular', 'dropoff')),
+                                                    $qry,
                                                     1200);
         return $notice;
     }
