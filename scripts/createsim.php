@@ -41,9 +41,12 @@ require_once INSTALLDIR.'/scripts/commandline.inc';
 function newUser($i)
 {
     global $userprefix;
-    User::register(array('nickname' => sprintf('%s%d', $userprefix, $i),
-                         'password' => sprintf('password%d', $i),
-                         'fullname' => sprintf('Test User %d', $i)));
+    $user = User::register(array('nickname' => sprintf('%s%d', $userprefix, $i),
+                                 'password' => sprintf('password%d', $i),
+                                 'fullname' => sprintf('Test User %d', $i)));
+    if (!empty($user)) {
+        $user->free();
+    }
 }
 
 function newNotice($i, $tagmax)
@@ -73,6 +76,9 @@ function newNotice($i, $tagmax)
     }
 
     $notice = Notice::saveNew($user->id, $content, 'system');
+
+    $user->free();
+    $notice->free();
 }
 
 function newSub($i)
@@ -106,6 +112,9 @@ function newSub($i)
     }
 
     subs_subscribe_to($from, $to);
+
+    $from->free();
+    $to->free();
 }
 
 function main($usercount, $noticeavg, $subsavg, $tagmax)
