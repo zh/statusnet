@@ -146,7 +146,10 @@ abstract class AuthenticationPlugin extends Plugin
             }else{
                 $authenticated = $this->checkPassword($nickname, $password);
                 if($authenticated){
-                    if(Event::handle('AutoRegister', array($nickname, $this->provider_name, &$authenticatedUser))){
+                    if(! Event::handle('AutoRegister', array($nickname, $this->provider_name, &$authenticatedUser))){
+                        //unlike most Event::handle lines of code, this one has a ! (not)
+                        //we want to do this if the event *was* handled - this isn't a "default" implementation
+                        //like most code of this form.
                         if($authenticatedUser){
                             return false;
                         }
