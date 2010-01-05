@@ -66,7 +66,6 @@ class Memcached_DataObject extends DB_DataObject
         // Clear this out so we don't accidentally break global
         // state in *this* process.
         $this->_DB_resultid = null;
-
         // We don't have any local DBO refs, so clear these out.
         $this->_link_loaded = false;
     }
