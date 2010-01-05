@@ -457,7 +457,7 @@ border-right:0;
 border-top:0;
 }
 
-#form_notice {
+.form_notice {
 width:515px;
 line-height:1;
 position:absolute;
@@ -465,66 +465,63 @@ top:200px;
 left:20px;
 z-index:9;
 }
-#form_notice fieldset {
+.form_notice fieldset {
 border:0;
-padding:0 0 50px 0;
+padding:0;
+position:relative;
 }
-#form_notice legend {
+.form_notice legend {
 display:none;
 }
-#form_notice textarea {
+.form_notice textarea {
 float:left;
-width:94.75%;
-height:45px;
+border-radius:7px;
+-moz-border-radius:7px;
+-webkit-border-radius:7px;
+width:80.789%;
+height:67px;
 line-height:1.5;
-padding:2.5%;
-border-width:1px;
+padding:7px 7px 16px 7px;
+position:relative;
+z-index:2;
 }
-#form_notice label {
+.form_notice label {
 display:block;
 float:left;
 font-size:1.3em;
 margin-bottom:7px;
 }
-#form_notice #notice_submit label {
-display:none;
-}
-#form_notice label[for=notice_data-attach],
-#form_notice #notice_data-attach {
+.form_notice label[for=notice_data-attach],
+.form_notice #notice_data-attach {
 position:absolute;
-top:101px;
+top:25px;
+right:10.5%;
 cursor:pointer;
 }
-#form_notice label[for=notice_data-attach] {
+.form_notice label[for=notice_data-attach] {
 text-indent:-9999px;
-left:72%;
 width:16px;
 height:16px;
 }
-#form_notice #notice_data-attach {
-left:18%;
+.form_notice #notice_data-attach {
 padding:0;
 height:16px;
 }
-
-#form_notice .form_note {
+.form_notice .form_note {
 position:absolute;
-top:-10px;
-right:0;
+bottom:2px;
+right:21.715%;
 z-index:9;
-font-family:Georgia, serif;
-font-size:1.7em;
 }
-#form_notice .form_note dt {
+.form_notice .form_note dt {
 font-weight:bold;
 display:none;
 }
-#notice_text-count {
+.form_notice #notice_text-count {
 font-weight:bold;
 line-height:1.15;
 padding:1px 2px;
 }
-
 .form_notice #notice_action-submit {
 width:14%;
 height:47px;
@@ -533,13 +530,14 @@ position:absolute;
 bottom:0;
 right:0;
 }
-#form_notice label[for=to] {
+.form_notice label[for=to] {
 margin-top:7px;
 }
-#form_notice select[id=to] {
+.form_notice select[id=to] {
 margin-bottom:7px;
 margin-left:18px;
 float:left;
+max-width:322px;
 }
 .form_notice .error,
 .form_notice .success {
@@ -572,8 +570,9 @@ float:left;
 
 .form_notice #notice_data-location_wrap label {
 position:absolute;
-top:101px;
-left:79%;
+top:25px;
+right:4px;
+left:auto;
 cursor:pointer;
 width:16px;
 height:16px;
@@ -608,7 +607,7 @@ cursor:pointer;
 /* entity_profile */
 .entity_profile {
 position:relative;
-width:67.702%;
+width:68%;
 min-height:123px;
 float:left;
 margin-bottom:18px;
@@ -635,7 +634,8 @@ margin-bottom:18px;
 .entity_profile .entity_location,
 .entity_profile .entity_url,
 .entity_profile .entity_note,
-.entity_profile .entity_tags {
+.entity_profile .entity_tags,
+.entity_profile .entity_aliases {
 margin-left:113px;
 margin-bottom:4px;
 }
@@ -644,26 +644,34 @@ margin-bottom:4px;
 .entity_profile .entity_nickname {
 margin-left:11px;
 display:inline;
-font-weight:bold;
 }
 .entity_profile .entity_nickname {
 margin-left:0;
 }
-
-.entity_profile .entity_fn dd:before {
+.entity_profile .fn,
+.entity_profile .nickname {
+font-size:1.1em;
+font-weight:bold;
+}
+.entity_profile .fn:before {
 content: "(";
 font-weight:normal;
 }
-.entity_profile .entity_fn dd:after {
+.entity_profile .fn:after {
 content: ")";
 font-weight:normal;
 }
-
-.entity_profile dt {
-display:none;
+.entity_profile .nickname:after,
+.entity_profile .nickname:before {
+content:"";
 }
+.entity_profile dt,
 .entity_profile h2 {
 display:none;
+}
+.entity_profile .role {
+margin-left:11px;
+font-style:italic;
 }
 /* entity_profile */
 
@@ -671,8 +679,9 @@ display:none;
 /*entity_actions*/
 .entity_actions {
 float:right;
-margin-left:4.35%;
-max-width:25%;
+margin-left:2%;
+margin-bottom:18px;
+min-width:21%;
 }
 .entity_actions h2 {
 display:none;
@@ -681,7 +690,7 @@ display:none;
 list-style-type:none;
 }
 .entity_actions li {
-margin-bottom:4px;
+margin-bottom:7px;
 }
 .entity_actions li:first-child {
 border-top:0;
@@ -699,40 +708,95 @@ display:block;
 text-align:left;
 width:100%;
 }
-.entity_actions a,
-.entity_nudge p,
-.entity_remote_subscribe {
+.entity_actions a {
 text-decoration:none;
 font-weight:bold;
 display:block;
 }
-
-.form_user_block input.submit,
-.form_user_unblock input.submit,
-.entity_send-a-message a,
-.entity_edit a,
-.form_user_nudge input.submit,
-.entity_nudge p {
-border:0;
-padding-left:20px;
-}
-
-.entity_edit a,
-.entity_send-a-message a,
-.entity_nudge p {
-padding:4px 4px 4px 23px;
-}
-
-.entity_remote_subscribe {
-padding:4px;
-border-width:2px;
-border-style:solid;
+.entity_actions a,
+.entity_actions input {
 border-radius:4px;
 -moz-border-radius:4px;
 -webkit-border-radius:4px;
 }
+
+.entity_actions a,
+.entity_actions input,
+.entity_actions p {
+border-width:2px;
+border-style:solid;
+padding-left:23px;
+}
+
+.entity_actions a,
+.entity_actions p {
+padding:2px 4px 1px 26px;
+}
+
 .entity_actions .accept {
 margin-bottom:18px;
+}
+
+.entity_send-a-message button {
+position:absolute;
+top:3px;
+right:3px;
+}
+
+.entity_send-a-message .form_notice {
+position:absolute;
+top:34px;
+right:-1px;
+padding:1.795%;
+width:92%;
+z-index:2;
+ border-radius:7px;
+-moz-border-radius:7px;
+-webkit-border-radius:7px;
+border-width:1px;
+border-style:solid;
+}
+.entity_send-a-message .form_notice legend {
+display:block;
+margin-bottom:11px;
+}
+
+.entity_send-a-message .form_notice label,
+.entity_send-a-message .form_notice select {
+display:none;
+}
+.entity_send-a-message .form_notice input.submit {
+text-align:center;
+}
+
+.entity_moderation {
+position:relative;
+}
+.entity_moderation p {
+border-radius:4px;
+-moz-border-radius:4px;
+-webkit-border-radius:4px;
+font-weight:bold;
+padding-bottom:2px;
+margin-bottom:7px;
+}
+.entity_moderation ul {
+display:none;
+}
+.entity_moderation:hover ul {
+display:block;
+min-width:21%;
+width:100%;
+padding:11px;
+position:absolute;
+top:-1px;
+right:-1px;
+z-index:1;
+border-width:1px;
+border-style:solid;
+border-radius:7px;
+-moz-border-radius:7px;
+-webkit-border-radius:7px;
 }
 
 .entity_tags ul {
@@ -791,7 +855,6 @@ margin-bottom:0;
 min-height:60px;
 }
 
-
 .profile .form_group_join legend,
 .profile .form_group_leave legend,
 .profile .form_user_subscribe legend,
@@ -802,18 +865,22 @@ display:none;
 .profiles {
 list-style-type:none;
 }
-.profile .entity_profile .entity_location {
+.profile .entity_profile .fn.nickname,
+.profile .entity_profile .url[rel~=contact] {
+margin-left:0;
+display:inline;
+}
+
+.profile .entity_profile .fn,
+.profile .entity_profile .location {
+margin-left:11px;
+margin-bottom:4px;
 width:auto;
 clear:none;
-margin-left:11px;
 }
-.profile .entity_profile dl,
-.profile .entity_profile dd {
-display:inline;
-float:none;
-}
-.profile .entity_profile .entity_note,
-.profile .entity_profile .entity_url,
+
+.profile .entity_profile .note,
+.profile .entity_profile .url,
 .profile .entity_profile .entity_tags,
 .profile .entity_profile .form_subscription_edit {
 margin-left:59px;
@@ -826,12 +893,10 @@ display:inline;
 margin-right:11px;
 }
 
-
 .profile .entity_profile .form_subscription_edit label {
 font-weight:normal;
 margin-right:11px;
 }
-
 
 /* NOTICE */
 .notice,
@@ -940,7 +1005,7 @@ max-width:66%;
 #showstream .notice div.entry-content,
 #shownotice .notice div.entry-content {
 margin-left:0;
-max-width:79%;
+max-width:77%;
 }
 
 .notice .notice-options a,
@@ -1664,13 +1729,11 @@ background-position:0 -1846px;
 }
 
 a,
-div.notice-options input,
-.form_user_block input.submit,
-.form_user_unblock input.submit,
-.entity_send-a-message a,
-.form_user_nudge input.submit,
-.entity_nudge p,
-.form_settings input.form_action-primary {
+.form_settings input.form_action-primary,
+.notice-options input,
+.entity_actions a,
+.entity_actions input,
+.entity_moderation p {
 color:#0084B4;
 }
 
@@ -1715,11 +1778,13 @@ text-indent:-9999px;
 #content,
 #site_nav_local_views a,
 #aside_primary {
-border-color:#fff;
+border-color:#FFFFFF;
 }
 #content,
-#site_nav_local_views .current a {
-background-color:#fff;
+#site_nav_local_views .current a,
+.entity_send-a-message .form_notice,
+.entity_moderation:hover ul {
+background-color:#FFFFFF;
 }
 
 #site_nav_local_views a {
@@ -1763,6 +1828,14 @@ background-position:0 -64px;
 background-position:0 1px;
 }
 
+.form_group_join input.submit,
+.form_group_leave input.submit,
+.form_user_subscribe input.submit,
+.form_user_unsubscribe input.submit,
+.entity_subscribe a {
+background-color:#AAAAAA;
+color:#FFFFFF;
+}
 .form_group_leave input.submit,
 .form_user_unsubscribe input.submit {
 background-position:5px -1246px;
@@ -1811,7 +1884,6 @@ background-position: 5px -1445px;
 .entity_delete input.submit {
 background-position: 5px -1511px;
 }
-
 
 
 /* NOTICES */
