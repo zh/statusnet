@@ -484,6 +484,7 @@ var SN = { // StatusNet
                     });
                 });
             }
+
             var NDG = $('#'+SN.C.S.NoticeDataGeo);
             if (NDG.length > 0) {
                 var NLE = $('#notice_data-location_wrap');
@@ -567,6 +568,7 @@ var SN = { // StatusNet
                             }
                             else {
                                 removeNoticeDataGeo();
+                                $('#'+SN.C.S.NoticeDataGeo).remove();
                                 $('label[for='+SN.C.S.NoticeDataGeo+']').remove();
                             }
                         }
