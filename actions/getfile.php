@@ -1,13 +1,13 @@
 <?php
 /**
- * StatusNet, the distributed open-source microblogging tool
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2009, StatusNet, Inc.
  *
- * Returns a given file attachment, allowing private sites to only allow
- * access to file attachments after login.
+ * Return a requested file
  *
  * PHP version 5
  *
- * LICENCE: This program is free software: you can redistribute it and/or modify
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -20,28 +20,32 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  Personal
+ * @category  PrivateAttachments
  * @package   StatusNet
  * @author    Jeffery To <jeffery.to@gmail.com>
- * @copyright 2008-2009 StatusNet, Inc.
- * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @copyright 2009 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) {
+if (!defined('STATUSNET')) {
     exit(1);
 }
 
 require_once 'MIME/Type.php';
 
 /**
- * Action for getting a file attachment
+ * An action for returning a requested file
  *
- * @category Personal
- * @package  StatusNet
- * @author   Jeffery To <jeffery.to@gmail.com>
- * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://status.net/
+ * The StatusNet system will do an implicit user check if the site is
+ * private before allowing this to continue
+ *
+ * @category  PrivateAttachments
+ * @package   StatusNet
+ * @author    Jeffery To <jeffery.to@gmail.com>
+ * @copyright 2009 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
+ * @link      http://status.net/
  */
 
 class GetfileAction extends Action
@@ -68,7 +72,7 @@ class GetfileAction extends Action
         $path = null;
 
         if ($filename) {
-            $path = common_config('attachments', 'dir') . $filename;
+            $path = File::path($filename);
         }
 
         if (empty($path) or !file_exists($path)) {
@@ -103,6 +107,10 @@ class GetfileAction extends Action
 
     function lastModified()
     {
+        if (common_config('site', 'use_x_sendfile')) {
+            return null;
+        }
+
         return filemtime($this->path);
     }
 
@@ -114,8 +122,24 @@ class GetfileAction extends Action
      *
      * @return string etag http header
      */
+
     function etag()
     {
+        if (common_config('site', 'use_x_sendfile')) {
+            return null;
+        }
+
+        $cache = common_memcache();
+        if($cache) {
+            $key = common_cache_key('attachments:etag:' . $this->path);
+            $etag = $cache->get($key);
+            if($etag === false) {
+                $etag = crc32(file_get_contents($this->path));
+                $cache->set($key,$etag);
+            }
+            return $etag;
+        }
+
         $stat = stat($this->path);
         return '"' . $stat['ino'] . '-' . $stat['size'] . '-' . $stat['mtime'] . '"';
     }
@@ -133,13 +157,19 @@ class GetfileAction extends Action
         // undo headers set by PHP sessions
         $sec = session_cache_expire() * 60;
         header('Expires: ' . date(DATE_RFC1123, time() + $sec));
-        header('Cache-Control: public, max-age=' . $sec);
-        header('Pragma: public');
+        header('Cache-Control: max-age=' . $sec);
 
         parent::handle($args);
 
         $path = $this->path;
+
         header('Content-Type: ' . MIME_Type::autoDetect($path));
-        readfile($path);
+
+        if (common_config('site', 'use_x_sendfile')) {
+            header('X-Sendfile: ' . $path);
+        } else {
+            header('Content-Length: ' . filesize($path));
+            readfile($path);
+        }
     }
 }
