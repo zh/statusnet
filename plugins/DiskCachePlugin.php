@@ -69,11 +69,8 @@ class DiskCachePlugin extends Plugin
     {
         $filename = $this->keyToFilename($key);
         if (file_exists($filename)) {
-            $this->log(LOG_INFO, "Cache hit on key '$key'");
             $data = file_get_contents($filename);
             $value = unserialize($data);
-        } else {
-            $this->log(LOG_INFO, "Cache miss on key '$key'");
         }
 
         Event::handle('EndCacheGet', array($key, &$value));
@@ -94,8 +91,6 @@ class DiskCachePlugin extends Plugin
 
     function onStartCacheSet(&$key, &$value, &$flag, &$expiry, &$success)
     {
-        $this->log(LOG_INFO, "Setting value for key '$key'");
-
         $filename = $this->keyToFilename($key);
         $parent = dirname($filename);
 
@@ -140,8 +135,6 @@ class DiskCachePlugin extends Plugin
 
     function onStartCacheDelete(&$key, &$success)
     {
-        $this->log(LOG_INFO, "Deleting value for key '$key'");
-
         $filename = $this->keyToFilename($key);
 
         if (file_exists($filename) && !is_dir($filename)) {
