@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-03 10:37+0000\n"
-"PO-Revision-Date: 2010-01-03 10:38:21+0000\n"
+"POT-Creation-Date: 2010-01-05 22:10+0000\n"
+"PO-Revision-Date: 2010-01-05 22:11:58+0000\n"
 "Language-Team: Macedonian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60575); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60693); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: out-statusnet\n"
@@ -429,9 +429,8 @@ msgid "No such notice."
 msgstr "Нема такво известување."
 
 #: actions/apistatusesretweet.php:83
-#, fuzzy
 msgid "Cannot repeat your own notice."
-msgstr "Не може да се регистрирате ако не ја прифаќате лиценцата."
+msgstr "Не можете да ја повторувате сопствената белешка."
 
 #: actions/apistatusesretweet.php:91
 #, fuzzy
@@ -439,9 +438,8 @@ msgid "Already repeated that notice."
 msgstr "Веќе сте пријавени!"
 
 #: actions/apistatusesshow.php:138
-#, fuzzy
 msgid "Status deleted."
-msgstr "Аватарот е ажуриран."
+msgstr "Статусот е избришан."
 
 #: actions/apistatusesshow.php:144
 msgid "No status with that ID found."
@@ -449,9 +447,9 @@ msgstr ""
 
 #: actions/apistatusesupdate.php:157 actions/newnotice.php:155
 #: scripts/maildaemon.php:71
-#, fuzzy, php-format
+#, php-format
 msgid "That's too long. Max notice size is %d chars."
-msgstr "Ова е предолго. Максималната должина е 140 знаци."
+msgstr "Ова е предолго. Максималната дозволена должина изнесува %d знаци."
 
 #: actions/apistatusesupdate.php:198
 msgid "Not found"
@@ -463,9 +461,8 @@ msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
 
 #: actions/apisubscriptions.php:231 actions/apisubscriptions.php:261
-#, fuzzy
 msgid "Unsupported format."
-msgstr "Неподдржан фомрат на слики."
+msgstr "Неподдржан формат."
 
 #: actions/apitimelinefavorites.php:108
 #, php-format
@@ -490,9 +487,9 @@ msgid "Updates from %1$s on %2$s!"
 msgstr ""
 
 #: actions/apitimelinementions.php:117
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s / Updates mentioning %2$s"
-msgstr "%1$s статус на %2$s"
+msgstr "%1$s / Подновувања кои споменуваат %2$s"
 
 #: actions/apitimelinementions.php:127
 #, php-format
@@ -530,19 +527,17 @@ msgid "Notices tagged with %s"
 msgstr ""
 
 #: actions/apitimelinetag.php:108 actions/tagrss.php:64
-#, fuzzy, php-format
+#, php-format
 msgid "Updates tagged with %1$s on %2$s!"
-msgstr "Микроблог на %s"
+msgstr "Подновувањата се означени со %1$s на %2$s!"
 
 #: actions/apiusershow.php:96
-#, fuzzy
 msgid "Not found."
-msgstr "Не е пронаједено барање."
+msgstr "Не е пронајдено."
 
 #: actions/attachment.php:73
-#, fuzzy
 msgid "No such attachment."
-msgstr "Нема таков документ."
+msgstr "Нема таков прилог."
 
 #: actions/avatarbynickname.php:59 actions/grouprss.php:91
 #: actions/leavegroup.php:76
@@ -575,9 +570,8 @@ msgstr ""
 
 #: actions/avatarsettings.php:119 actions/avatarsettings.php:197
 #: actions/grouplogo.php:251
-#, fuzzy
 msgid "Avatar settings"
-msgstr "Поставки"
+msgstr "Нагодувања на аватарот"
 
 #: actions/avatarsettings.php:127 actions/avatarsettings.php:205
 #: actions/grouplogo.php:199 actions/grouplogo.php:259
@@ -642,14 +636,12 @@ msgid "Failed updating avatar."
 msgstr "Товарањето на аватарот не успеа."
 
 #: actions/avatarsettings.php:393
-#, fuzzy
 msgid "Avatar deleted."
-msgstr "Аватарот е ажуриран."
+msgstr "Аватарот е избришан."
 
 #: actions/block.php:69
-#, fuzzy
 msgid "You already blocked that user."
-msgstr "Веќе сте пријавени!"
+msgstr "Веќе го имате блокирано тој корисник."
 
 #: actions/block.php:105 actions/block.php:128 actions/groupblock.php:160
 #, fuzzy
@@ -1005,14 +997,12 @@ msgid "Could not update group."
 msgstr "Корисникот не може да се освежи/"
 
 #: actions/editgroup.php:259 classes/User_group.php:390
-#, fuzzy
 msgid "Could not create aliases."
-msgstr "Информациите за аватарот не може да се снимат"
+msgstr "Не можеше да се создадат алијаси."
 
 #: actions/editgroup.php:269
-#, fuzzy
 msgid "Options saved."
-msgstr "Поставките се снимени."
+msgstr "Нагодувањата се зачувани."
 
 #: actions/emailsettings.php:60
 msgid "Email Settings"
@@ -1411,9 +1401,8 @@ msgid "Unable to save your design settings!"
 msgstr ""
 
 #: actions/groupdesignsettings.php:308 actions/userdesignsettings.php:231
-#, fuzzy
 msgid "Design preferences saved."
-msgstr "Преференциите се снимени."
+msgstr "Нагодувањата се зачувани."
 
 #: actions/grouplogo.php:139 actions/grouplogo.php:192
 msgid "Group logo"
@@ -1430,9 +1419,8 @@ msgid "Pick a square area of the image to be the logo."
 msgstr ""
 
 #: actions/grouplogo.php:396
-#, fuzzy
 msgid "Logo updated."
-msgstr "Аватарот е ажуриран."
+msgstr "Логото е подновено."
 
 #: actions/grouplogo.php:398
 #, fuzzy
@@ -1474,9 +1462,9 @@ msgid "Make this user an admin"
 msgstr ""
 
 #: actions/grouprss.php:133
-#, fuzzy, php-format
+#, php-format
 msgid "Updates from members of %1$s on %2$s!"
-msgstr "Микроблог на %s"
+msgstr "Подновувања од членови на %1$s на %2$s!"
 
 #: actions/groups.php:62 lib/profileaction.php:210 lib/profileaction.php:230
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
@@ -1546,9 +1534,8 @@ msgid "User is not blocked from group."
 msgstr "Корисникот нема профил."
 
 #: actions/groupunblock.php:128 actions/unblock.php:86
-#, fuzzy
 msgid "Error removing the block."
-msgstr "Грешка во снимањето на корисникот."
+msgstr "Грешка при отстранување на блокот."
 
 #: actions/imsettings.php:59
 msgid "IM Settings"
@@ -2036,9 +2023,8 @@ msgid "Notice Search"
 msgstr ""
 
 #: actions/othersettings.php:60
-#, fuzzy
 msgid "Other Settings"
-msgstr "Поставки"
+msgstr "Други нагодувања"
 
 #: actions/othersettings.php:71
 msgid "Manage various other options."
@@ -2057,9 +2043,8 @@ msgid "Automatic shortening service to use."
 msgstr ""
 
 #: actions/othersettings.php:122
-#, fuzzy
 msgid "View profile designs"
-msgstr "Поставки на профилот"
+msgstr "Види изгледи на профилот"
 
 #: actions/othersettings.php:123
 msgid "Show or hide profile designs."
@@ -2094,9 +2079,8 @@ msgid "Change your password."
 msgstr "Промени ја лозинката"
 
 #: actions/passwordsettings.php:96 actions/recoverpassword.php:231
-#, fuzzy
 msgid "Password change"
-msgstr "Лозинката е снимена."
+msgstr "Промена на лозинка"
 
 #: actions/passwordsettings.php:104
 msgid "Old password"
@@ -2223,19 +2207,16 @@ msgid "Avatars"
 msgstr "Аватар"
 
 #: actions/pathsadminpanel.php:257
-#, fuzzy
 msgid "Avatar server"
-msgstr "Поставки"
+msgstr "Сервер на аватарот"
 
 #: actions/pathsadminpanel.php:261
-#, fuzzy
 msgid "Avatar path"
-msgstr "Аватарот е ажуриран."
+msgstr "Патека на аватарот"
 
 #: actions/pathsadminpanel.php:265
-#, fuzzy
 msgid "Avatar directory"
-msgstr "Аватарот е ажуриран."
+msgstr "Директориум на аватарот"
 
 #: actions/pathsadminpanel.php:274
 msgid "Backgrounds"
@@ -2442,18 +2423,16 @@ msgid "Couldn't update user for autosubscribe."
 msgstr ""
 
 #: actions/profilesettings.php:354
-#, fuzzy
 msgid "Couldn't save location prefs."
-msgstr "Профилот не може да се сними."
+msgstr "Не можев да ги зачувам нагодувањата за локација"
 
 #: actions/profilesettings.php:366
 msgid "Couldn't save profile."
 msgstr "Профилот не може да се сними."
 
 #: actions/profilesettings.php:374
-#, fuzzy
 msgid "Couldn't save tags."
-msgstr "Профилот не може да се сними."
+msgstr "Не можев да ги зачувам ознаките."
 
 #: actions/profilesettings.php:382 lib/adminpanelaction.php:126
 msgid "Settings saved."
@@ -2552,7 +2531,7 @@ msgid ""
 "one!"
 msgstr ""
 
-#: actions/publictagcloud.php:135
+#: actions/publictagcloud.php:131
 msgid "Tag cloud"
 msgstr ""
 
@@ -3388,9 +3367,8 @@ msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 
 #: actions/siteadminpanel.php:388 actions/useradminpanel.php:313
-#, fuzzy
 msgid "Save site settings"
-msgstr "Поставки"
+msgstr "Зачувај нагодувања на веб-страницата"
 
 #: actions/smssettings.php:58
 msgid "SMS Settings"
@@ -3893,9 +3871,8 @@ msgid "No ID."
 msgstr "Нема id."
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
-#, fuzzy
 msgid "Profile design"
-msgstr "Поставки на профилот"
+msgstr "Изглед на профилот"
 
 #: actions/userdesignsettings.php:87 lib/designsettings.php:76
 msgid ""
@@ -4283,6 +4260,16 @@ msgstr ""
 #: lib/attachmenttagcloudsection.php:48
 msgid "Tags for this attachment"
 msgstr ""
+
+#: lib/authenticationplugin.php:182 lib/authenticationplugin.php:187
+#, fuzzy
+msgid "Password changing failed"
+msgstr "Промена на лозинка"
+
+#: lib/authenticationplugin.php:197
+#, fuzzy
+msgid "Password changing is not allowed"
+msgstr "Промена на лозинка"
 
 #: lib/channel.php:138 lib/channel.php:158
 msgid "Command results"
@@ -5403,9 +5390,8 @@ msgid "User actions"
 msgstr ""
 
 #: lib/userprofile.php:248
-#, fuzzy
 msgid "Edit profile settings"
-msgstr "Поставки на профилот"
+msgstr "Уреди нагодувања на профилот"
 
 #: lib/userprofile.php:249
 msgid "Edit"

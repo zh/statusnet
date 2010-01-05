@@ -11,12 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-03 10:37+0000\n"
-"PO-Revision-Date: 2010-01-03 10:37:32+0000\n"
+"POT-Creation-Date: 2010-01-05 22:10+0000\n"
+"PO-Revision-Date: 2010-01-05 22:10:52+0000\n"
 "Language-Team: German\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60575); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r60693); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: out-statusnet\n"
@@ -196,9 +196,8 @@ msgid "Could not update your design."
 msgstr "Konnte Benutzerdesign nicht aktualisieren."
 
 #: actions/apiblockcreate.php:105
-#, fuzzy
 msgid "You cannot block yourself!"
-msgstr "Du kannst dich nicht selbst entfolgen!"
+msgstr "Du kannst dich nicht selbst sperren!"
 
 #: actions/apiblockcreate.php:126
 msgid "Block user failed."
@@ -383,7 +382,7 @@ msgstr "Nutzername „%s“ wird bereits verwendet. Suche dir einen anderen aus.
 #: actions/apigroupcreate.php:286 actions/editgroup.php:234
 #: actions/newgroup.php:178
 msgid "Alias can't be the same as nickname."
-msgstr ""
+msgstr "Alias kann nicht das gleiche wie der Spitznamen sein."
 
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
@@ -452,9 +451,8 @@ msgid "Cannot repeat your own notice."
 msgstr "Konnte Benachrichtigung nicht aktivieren."
 
 #: actions/apistatusesretweet.php:91
-#, fuzzy
 msgid "Already repeated that notice."
-msgstr "Nachricht löschen"
+msgstr "Nachricht bereits wiederholt"
 
 #: actions/apistatusesshow.php:138
 msgid "Status deleted."
@@ -531,7 +529,7 @@ msgstr "%s Nachrichten von allen!"
 #: actions/apitimelineretweetedbyme.php:112
 #, php-format
 msgid "Repeated by %s"
-msgstr ""
+msgstr "Von %s wiederholt"
 
 #: actions/apitimelineretweetedtome.php:111
 #, fuzzy, php-format
@@ -1274,24 +1272,20 @@ msgid "A selection of some great users on %s"
 msgstr "Eine Auswahl der tollen Benutzer auf %s"
 
 #: actions/file.php:34
-#, fuzzy
 msgid "No notice ID."
-msgstr "Keine Nachricht"
+msgstr "Keine Nachrichten ID"
 
 #: actions/file.php:38
-#, fuzzy
 msgid "No notice."
 msgstr "Keine Nachricht"
 
 #: actions/file.php:42
-#, fuzzy
 msgid "No attachments."
 msgstr "Keine Anhänge vorhanden"
 
 #: actions/file.php:51
-#, fuzzy
 msgid "No uploaded attachments."
-msgstr "Kein solcher Anhang."
+msgstr "Kein Anhang geladen."
 
 #: actions/finishremotesubscribe.php:69
 msgid "Not expecting this response!"
@@ -2593,7 +2587,7 @@ msgid ""
 "one!"
 msgstr ""
 
-#: actions/publictagcloud.php:135
+#: actions/publictagcloud.php:131
 msgid "Tag cloud"
 msgstr "Tag-Wolke"
 
@@ -4364,6 +4358,16 @@ msgstr "Nachrichten in denen dieser Anhang erscheint"
 #: lib/attachmenttagcloudsection.php:48
 msgid "Tags for this attachment"
 msgstr "Tags für diesen Anhang"
+
+#: lib/authenticationplugin.php:182 lib/authenticationplugin.php:187
+#, fuzzy
+msgid "Password changing failed"
+msgstr "Passwort geändert"
+
+#: lib/authenticationplugin.php:197
+#, fuzzy
+msgid "Password changing is not allowed"
+msgstr "Passwort geändert"
 
 #: lib/channel.php:138 lib/channel.php:158
 msgid "Command results"
