@@ -565,11 +565,13 @@ var SN = { // StatusNet
 
                                 getJSONgeocodeURL(geocodeURL, data);
                             }
+                            else {
+                                removeNoticeDataGeo();
+                                $('label[for='+SN.C.S.NoticeDataGeo+']').remove();
+                            }
                         }
                     }
                     else {
-                        $('label[for='+SN.C.S.NoticeDataGeo+']').removeClass('checked');
-
                         removeNoticeDataGeo();
                     }
                 }).change();
