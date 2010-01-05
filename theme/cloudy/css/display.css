@@ -458,7 +458,7 @@ border-top:0;
 }
 
 #form_notice {
-width:505px;
+width:515px;
 line-height:1;
 position:absolute;
 top:200px;
@@ -474,10 +474,10 @@ display:none;
 }
 #form_notice textarea {
 float:left;
-width:505px;
+width:94.75%;
 height:45px;
 line-height:1.5;
-padding:5px;
+padding:2.5%;
 border-width:1px;
 }
 #form_notice label {
@@ -492,7 +492,7 @@ display:none;
 #form_notice label[for=notice_data-attach],
 #form_notice #notice_data-attach {
 position:absolute;
-top:87px;
+top:101px;
 cursor:pointer;
 }
 #form_notice label[for=notice_data-attach] {
@@ -510,7 +510,7 @@ height:16px;
 #form_notice .form_note {
 position:absolute;
 top:-10px;
-right:-10px;
+right:0;
 z-index:9;
 font-family:Georgia, serif;
 font-size:1.7em;
@@ -525,14 +525,13 @@ line-height:1.15;
 padding:1px 2px;
 }
 
-#form_notice #notice_action-submit {
+.form_notice #notice_action-submit {
 width:14%;
-height:35px;
-padding-top:0;
-padding-bottom:0;
+height:47px;
+padding:0;
 position:absolute;
-bottom:10px;
-right:-10px;
+bottom:0;
+right:0;
 }
 #form_notice label[for=to] {
 margin-top:7px;
@@ -573,8 +572,8 @@ float:left;
 
 .form_notice #notice_data-location_wrap label {
 position:absolute;
-top:87px;
-left:82%;
+top:101px;
+left:79%;
 cursor:pointer;
 width:16px;
 height:16px;
@@ -1584,46 +1583,71 @@ background-position:0 -1912px;
 }
 
 input.submit,
-#form_notice.warning #notice_text-count,
-#nav_register a,
+.form_notice.warning #notice_text-count,
 .form_settings .form_note,
-.entity_remote_subscribe {
-background-color:#9BB43E;
+.entity_actions a,
+.entity_actions input,
+.entity_moderation p,
+button {
+box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
+-moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
+-webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 }
-
+.entity_actions a,
+.entity_actions input,
+.entity_actions p {
+border-color:transparent;
+background-color:transparent;
+}
 input:focus, textarea:focus, select:focus,
-#form_notice.warning #notice_data-text {
+.form_notice.warning #notice_data-text,
+.form_notice.warning #notice_text-count,
+.form_settings .form_note {
 border-color:#9BB43E;
 }
+input.submit {
+color:#FFFFFF;
+}
+.entity_actions a,
+.entity_actions input,
+.entity_actions p {
+border-color:transparent;
+background-color:transparent;
+}
+input:focus, textarea:focus, select:focus,
+.form_notice.warning #notice_data-text,
+.form_notice.warning #notice_text-count,
+.form_settings .form_note {
+border-color:#9BB43E;
+}
+input.submit {
+color:#FFFFFF;
+}
+.entity_actions input.submit {
+border-color:transparent;
+text-shadow:none;
+}
+.dialogbox .submit_dialogbox,
 input.submit,
-#nav_register a,
-.entity_remote_subscribe {
-color:#fff;
-}
-
-a,
-div.notice-options input,
-.form_user_block input.submit,
-.form_user_unblock input.submit,
-.entity_send-a-message a,
-.form_user_nudge input.submit,
-.entity_nudge p,
-.form_settings input.form_action-primary {
-color:#0084B4;
-}
-.notice,
-.profile {
-border-top-color:#CEE1E9;
-}
-.notice,
-.profile {
-border-top-color:#DDFFCC;
-}
-.section .profile {
-border-top-color:#87B4C8;
-}
-.mark-top {
+.form_notice input.submit {
+background:#AAAAAA url(../../base/images/illustrations/illu_pattern-01.png) 0 0 repeat-x;
+text-shadow:0 1px 0 #FFFFFF;
+color:#000000;
 border-color:#AAAAAA;
+border-top-color:#CCCCCC;
+border-left-color:#CCCCCC;
+}
+.dialogbox .submit_dialogbox:hover,
+input.submit:hover {
+background-position:0 -5px;
+}
+.dialogbox .submit_dialogbox:focus,
+input.submit:focus {
+background-position:0 -15px;
+box-shadow:3px 3px 3px rgba(194, 194, 194, 0.1);
+-moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.1);
+-webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.1);
+text-shadow:none;
 }
 
 .form_notice span#notice_data-location_name {
@@ -1639,9 +1663,31 @@ background-position:0 -1780px;
 background-position:0 -1846px;
 }
 
+a,
+div.notice-options input,
+.form_user_block input.submit,
+.form_user_unblock input.submit,
+.entity_send-a-message a,
+.form_user_nudge input.submit,
+.entity_nudge p,
+.form_settings input.form_action-primary {
+color:#0084B4;
+}
 
-
-
+.notice,
+.profile {
+border-top-color:#CEE1E9;
+}
+.notice,
+.profile {
+border-top-color:#DDFFCC;
+}
+.section .profile {
+border-top-color:#87B4C8;
+}
+.mark-top {
+border-color:#AAAAAA;
+}
 
 #aside_primary {
 background-color:#DDFFCC;
@@ -1899,15 +1945,6 @@ border-color:#FFFF00;
 #form_notice .form_note {
 color:#CCC;
 }
-input.submit {
-background-color:#eee;
-color:#666;
-}
-
-.notices li.hover {
-background-color:#F7F7F7;
-}
-
 
 .notice div.entry-content,
 .notice div.entry-content a {
@@ -1933,12 +1970,12 @@ border-color:transparent;
 color:#4C4C4C;
 }
 #site_nav_local_views .current {
-border-left-color:#fff;
+border-left-color:#FFFFFF;
 }
 
 #site_nav_local_views .current a,
 #site_nav_global_primary,
 #footer {
-background-color:#fff;
+background-color:#FFFFFF;
 }
 
