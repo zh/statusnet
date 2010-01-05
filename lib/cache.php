@@ -170,7 +170,7 @@ class Cache
         $success = false;
 
         if (Event::handle('StartCacheDelete', array(&$key, &$success))) {
-            if (array_key_exists($key, $this->_items[$key])) {
+            if (array_key_exists($key, $this->_items)) {
                 unset($this->_items[$key]);
             }
             $success = true;
