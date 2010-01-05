@@ -207,18 +207,6 @@ abstract class AuthenticationPlugin extends Plugin
         }
     }
 
-    function onAutoload($cls)
-    {
-        switch ($cls)
-        {
-         case 'User_username':
-            require_once(INSTALLDIR.'/plugins/Authentication/User_username.php');
-            return false;
-         default:
-            return true;
-        }
-    }
-
     function onCheckSchema() {
         $schema = Schema::get();
         $schema->ensureTable('user_username',

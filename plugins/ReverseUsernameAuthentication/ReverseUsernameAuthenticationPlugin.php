@@ -31,8 +31,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/plugins/Authentication/AuthenticationPlugin.php';
-
 class ReverseUsernameAuthenticationPlugin extends AuthenticationPlugin
 {
     //---interface implementation---//
