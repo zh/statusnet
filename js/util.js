@@ -503,6 +503,9 @@ var SN = { // StatusNet
 
             var NDG = $('#'+SN.C.S.NoticeDataGeo);
             if (NDG.length > 0) {
+                var cookieVal = $.cookie(SN.C.S.NoticeLocationCookieName);
+                NDG.attr('checked', (cookieVal === null || cookieVal == 'true'));
+
                 var NLE = $('#notice_data-location_wrap');
                 var geocodeURL = NLE.attr('title');
                 NLE.removeAttr('title');
@@ -593,9 +596,6 @@ var SN = { // StatusNet
                         removeNoticeDataGeo();
                     }
                 }).change();
-
-                var cookieVal = $.cookie(SN.C.S.NoticeLocationCookieName);
-                NDG.attr('checked', (cookieVal === null || cookieVal == 'true'));
             }
         },
 
