@@ -178,12 +178,13 @@ var SN = { // StatusNet
         },
 
         FormNoticeXHR: function(form) {
+            var NDG, NLat, NLon, NLNS, NLID;
             form_id = form.attr('id');
             form.append('<input type="hidden" name="ajax" value="1"/>');
             form.ajaxForm({
                 dataType: 'xml',
                 timeout: '60000',
-                beforeSend: function(xhr) {
+                beforeSend: function(formData) {
                     if ($('#'+form_id+' #'+SN.C.S.NoticeDataText)[0].value.length === 0) {
                         form.addClass(SN.C.S.Warning);
                         return false;
@@ -191,6 +192,13 @@ var SN = { // StatusNet
                     form.addClass(SN.C.S.Processing);
                     $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).addClass(SN.C.S.Disabled);
                     $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).attr(SN.C.S.Disabled, SN.C.S.Disabled);
+
+                    NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked');
+                    NLat = $('#'+SN.C.S.NoticeLat).val();
+                    NLon = $('#'+SN.C.S.NoticeLon).val();
+                    NLNS = $('#'+SN.C.S.NoticeLocationNs).val();
+                    NLID = $('#'+SN.C.S.NoticeLocationId).val();
+
                     return true;
                 },
                 error: function (xhr, textStatus, errorThrown) {
@@ -273,6 +281,12 @@ var SN = { // StatusNet
                     form.removeClass(SN.C.S.Processing);
                     $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeAttr(SN.C.S.Disabled);
                     $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeClass(SN.C.S.Disabled);
+
+                    $('#'+SN.C.S.NoticeDataGeo).attr('checked', NDG);
+                    $('#'+SN.C.S.NoticeLat).val(NLat);
+                    $('#'+SN.C.S.NoticeLon).val(NLon);
+                    $('#'+SN.C.S.NoticeLocationNs).val(NLNS);
+                    $('#'+SN.C.S.NoticeLocationId).val(NLID);
                 }
             });
         },
@@ -444,6 +458,8 @@ var SN = { // StatusNet
         NoticeLocationAttach: function() {
             var NLat = $('#'+SN.C.S.NoticeLat).val();
             var NLon = $('#'+SN.C.S.NoticeLon).val();
+            var NLNS = $('#'+SN.C.S.NoticeLocationNs).val();
+            var NLID = $('#'+SN.C.S.NoticeLocationId).val();
 
             function removeNoticeDataGeo() {
                 $('label[for='+SN.C.S.NoticeDataGeo+']').removeClass('checked');
