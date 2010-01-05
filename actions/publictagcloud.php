@@ -105,12 +105,8 @@ class PublictagcloudAction extends Action
 
         #Add the aggregated columns...
         $tags->selectAdd('max(notice_id) as last_notice_id');
-        if(common_config('db','type')=='pgsql') {
-            $calc='sum(exp(-extract(epoch from (now()-created))/%s)) as weight';
-        } else {
-            $calc='sum(exp(-(now() - created)/%s)) as weight';
-        }
-        $tags->selectAdd(sprintf($calc, common_config('tag', 'dropoff')));
+        $calc = common_sql_weight('created', common_config('tag', 'dropoff'));
+        $tags->selectAdd($calc . ' as weight');
         $tags->groupBy('tag');
         $tags->orderBy('weight DESC');
 
@@ -136,7 +132,12 @@ class PublictagcloudAction extends Action
             $this->elementStart('dd');
             $this->elementStart('ul', 'tags xoxo tag-cloud');
             foreach ($tw as $tag => $weight) {
-                $this->showTag($tag, $weight, $weight/$sum);
+                if ($sum) {
+                    $weightedSum = $weight/$sum;
+                } else {
+                    $weightedSum = 0.5;
+                }
+                $this->showTag($tag, $weight, $weightedSum);
             }
             $this->elementEnd('ul');
             $this->elementEnd('dd');

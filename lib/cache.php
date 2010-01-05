@@ -116,7 +116,7 @@ class Cache
 
     function get($key)
     {
-        $value = null;
+        $value = false;
 
         if (Event::handle('StartCacheGet', array(&$key, &$value))) {
             if (array_key_exists($key, $this->_items)) {

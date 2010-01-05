@@ -61,7 +61,7 @@ class CacheLogPlugin extends Plugin
 
     function onEndCacheGet($key, &$value)
     {
-        if (is_null($value)) {
+        if ($value === false) {
             $this->log(LOG_INFO, "Cache MISS for key '$key'");
         } else {
             $this->log(LOG_INFO, "Cache HIT for key '$key'");
@@ -71,7 +71,21 @@ class CacheLogPlugin extends Plugin
 
     function onStartCacheSet(&$key, &$value, &$flag, &$expiry, &$success)
     {
-        $this->log(LOG_INFO, "Setting cache value for key '$key'");
+        if (empty($value)) {
+            if (is_array($value)) {
+                $this->log(LOG_INFO, "Setting empty array for key '$key'");
+            } else if (is_null($value)) {
+                $this->log(LOG_INFO, "Setting null value for key '$key'");
+            } else if (is_string($value)) {
+                $this->log(LOG_INFO, "Setting empty string for key '$key'");
+            } else if (is_integer($value)) {
+                $this->log(LOG_INFO, "Setting integer 0 for key '$key'");
+            } else {
+                $this->log(LOG_INFO, "Setting empty value '$value' for key '$key'");
+            }
+        } else {
+            $this->log(LOG_INFO, "Setting non-empty value for key '$key'");
+        }
         return true;
     }
 

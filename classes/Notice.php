@@ -1207,7 +1207,7 @@ class Notice extends Memcached_DataObject
 
         $idstr = $cache->get($idkey);
 
-        if (!empty($idstr)) {
+        if ($idstr !== false) {
             // Cache hit! Woohoo!
             $window = explode(',', $idstr);
             $ids = array_slice($window, $offset, $limit);
@@ -1216,7 +1216,7 @@ class Notice extends Memcached_DataObject
 
         $laststr = $cache->get($idkey.';last');
 
-        if (!empty($laststr)) {
+        if ($laststr !== false) {
             $window = explode(',', $laststr);
             $last_id = $window[0];
             $new_ids = call_user_func_array($fn, array_merge($args, array(0, NOTICE_CACHE_WINDOW,
@@ -1376,7 +1376,7 @@ class Notice extends Memcached_DataObject
             $ids = $this->_repeatStreamDirect($limit);
         } else {
             $idstr = $cache->get(common_cache_key('notice:repeats:'.$this->id));
-            if (!empty($idstr)) {
+            if ($idstr !== false) {
                 $ids = explode(',', $idstr);
             } else {
                 $ids = $this->_repeatStreamDirect(100);

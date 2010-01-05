@@ -63,8 +63,10 @@ class XCachePlugin extends Plugin
 
     function onStartCacheGet(&$key, &$value)
     {
-        $value = xcache_get($key);
-        if (!is_null($value)) {
+        if (!xcache_isset($key)) {
+            $value = false;
+        } else {
+            $value = xcache_get($key);
             $value = unserialize($value);
         }
         Event::handle('EndCacheGet', array($key, &$value));

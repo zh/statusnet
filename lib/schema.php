@@ -523,6 +523,10 @@ class Schema
         } else {
             $sql .= ($cd->nullable) ? "null " : "not null ";
         }
+        
+        if (!empty($cd->auto_increment)) {
+            $sql .= " auto_increment ";
+        }
 
         return $sql;
     }
