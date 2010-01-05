@@ -120,7 +120,7 @@ class Cache
 
         if (Event::handle('StartCacheGet', array(&$key, &$value))) {
             if (array_key_exists($key, $this->_items)) {
-                $value = $this->_items[$key];
+                $value = unserialize($this->_items[$key]);
             }
             Event::handle('EndCacheGet', array($key, &$value));
         }
@@ -146,7 +146,7 @@ class Cache
         if (Event::handle('StartCacheSet', array(&$key, &$value, &$flag,
                                                  &$expiry, &$success))) {
 
-            $this->_items[$key] = $value;
+            $this->_items[$key] = serialize($value);
 
             $success = true;
 
