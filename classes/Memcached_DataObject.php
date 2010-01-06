@@ -90,17 +90,16 @@ class Memcached_DataObject extends DB_DataObject
             unset($i);
         }
         $i = Memcached_DataObject::getcached($cls, $k, $v);
-        if ($i !== false) { // false == cache miss
-            return $i;
-        } else {
+        if ($i === false) { // false == cache miss
             $i = DB_DataObject::factory($cls);
             if (empty($i)) {
-                return false;
+                $i = false;
+                return $i;
             }
             $result = $i->get($k, $v);
             if ($result) {
+                // Hit!
                 $i->encache();
-                return $i;
             } else {
                 // save the fact that no such row exists
                 $c = self::memcache();
@@ -108,12 +107,16 @@ class Memcached_DataObject extends DB_DataObject
                     $ck = self::cachekey($cls, $k, $v);
                     $c->set($ck, null);
                 }
-                return false;
+                $i = false;
             }
         }
+        return $i;
     }
 
-    function &pkeyGet($cls, $kv)
+    /**
+     * @fixme Should this return false on lookup fail to match staticGet?
+     */
+    function pkeyGet($cls, $kv)
     {
         $i = Memcached_DataObject::multicache($cls, $kv);
         if ($i !== false) { // false == cache miss
