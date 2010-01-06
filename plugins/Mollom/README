@@ -1,0 +1,18 @@
+== Dependencies ==
+Your webserver needs to have xmlrpc php extention loaded.
+This is called php5-xmlrpc in Debian/Ubuntu
+
+== Installation ==
+Add the following to your config.php
+<?php
+addPlugin('Mollom');
+
+$config['mollom']['public_key'] = '...';
+$config['mollom']['private_key'] = '...';
+$config['mollom']['servers'] = array('http://88.151.243.81', 'http://82.103.131.136');
+
+?>
+
+replace '...' with your own public and private keys for your site, which you can get from mollom.com
+
+If you're using this plugin, i'd love to know about it -- shiny@cpan.org or shiny on freenode.
