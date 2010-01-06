@@ -75,7 +75,6 @@ class MollomPlugin extends Plugin
 
     function onStartNoticeSave($notice)
     {
-    error_log(print_r($notice, 1));
       if (common_config('mollom', 'public_key')) {
         //Check spam
         $data = array(
@@ -145,14 +144,14 @@ class MollomPlugin extends Plugin
     
           // Debug output:
           if (isset($data['session_id'])) {
-            error_log("called $method at server $server with session ID '". $data['session_id'] ."'");
+            common_debug("called $method at server $server with session ID '". $data['session_id'] ."'");
           }
           else {
-            error_log("called $method at server $server with no session ID");
+            common_debug("called $method at server $server with no session ID");
           }
           
           if ($errno = $this->xmlrpc_errno()) {
-            error_log(sprintf('Error @errno: %s - %s - %s - <pre>%s</pre>', $this->xmlrpc_errno(), $server, $this->xmlrpc_error_msg(), $method, print_r($data, TRUE)));
+            common_log(LOG_ERR, sprintf('Error @errno: %s - %s - %s - <pre>%s</pre>', $this->xmlrpc_errno(), $server, $this->xmlrpc_error_msg(), $method, print_r($data, TRUE)));
     
             if ($errno == MOLLOM_REFRESH) {
               // Retrieve a list of valid Mollom servers from mollom.com:
@@ -172,14 +171,14 @@ class MollomPlugin extends Plugin
             $this->xmlrpc_error(0);  // FIXME: this is crazy.
           }
           else {
-            error_log("Result = " . print_r($result, TRUE));
+            common_debug("Result = " . print_r($result, TRUE));
             return $result;
           }
         }
       }
     
       // If none of the servers worked, activate the fallback mechanism:
-      error_log("none of the servers worked");
+      common_debug("none of the servers worked");
     //   _mollom_fallback();
       
       // If everything failed, we reset the server list to force Mollom to request a new list:
