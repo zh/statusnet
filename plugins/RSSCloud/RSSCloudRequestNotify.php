@@ -137,6 +137,11 @@ class RSSCloudRequestNotifyAction extends Action
         foreach ($this->feeds as $feed) {
 
             if (!$this->validateFeed($feed)) {
+
+                $nh = $this->getNotifyUrl();
+                common_log(LOG_WARNING,
+                           "RSSCloud plugin - $nh tried to subscribe to invalid feed: $feed");
+
                 $msg = 'Feed subscription failed - Not a valid feed.';
                 $this->showResult(false, $msg);
                 return;
@@ -216,8 +221,6 @@ class RSSCloudRequestNotifyAction extends Action
 
     function testNotificationHandler($feed)
     {
-        common_debug("RSSCloudPlugin - testNotificationHandler()");
-
         $notifyUrl = $this->getNotifyUrl();
 
         $notifier = new RSSCloudNotifier();
@@ -226,12 +229,13 @@ class RSSCloudRequestNotifyAction extends Action
 
             // 'domain' param set, so we have to use GET and send a challenge
 
-            common_log(LOG_INFO, 'Testing notification handler with challenge: ' .
+            common_log(LOG_INFO,
+                       'RSSCloud plugin - Testing notification handler with challenge: ' .
                        $notifyUrl);
             return $notifier->challenge($notifyUrl, $feed);
 
         } else {
-            common_log(LOG_INFO, 'Testing notification handler: ' .
+            common_log(LOG_INFO, 'RSSCloud plugin - Testing notification handler: ' .
                        $notifyUrl);
 
             return $notifier->postUpdate($notifyUrl, $feed);
@@ -298,7 +302,8 @@ class RSSCloudRequestNotifyAction extends Action
         $sub = RSSCloudSubscription::getSubscription($user->id, $notifyUrl);
 
         if ($sub) {
-            common_debug("Already subscribed to that!");
+            common_log(LOG_INFO, "RSSCloud plugin - $notifyUrl refreshed subscription" .
+                         " to user $user->nickname (id: $user->id).");
         } else {
 
             $sub = new RSSCloudSubscription();
@@ -312,6 +317,8 @@ class RSSCloudRequestNotifyAction extends Action
                 return false;
             }
 
+            common_log(LOG_INFO, "RSSCloud plugin - $notifyUrl subscribed" .
+                       " to user $user->nickname (id: $user->id)");
         }
 
         return true;

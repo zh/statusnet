@@ -4,7 +4,8 @@ http://SITE/PATH/api/statuses/user_timeline/USERNAME.rss). When the
 plugin is enabled, StatusNet acts as both the publisher and hub ('writer' and
 'cloud' in RSSCloud parlance), but only for local StatusNet feeds. It's
 not possible to use it as a general purpose hub -- for instance you can't
-subscribe and get updates to a Wordpress feed from StatusNet.
+subscribe and get updates to a Wordpress feed from StatusNet using this
+plugin.
 
 To use the plugin, add the following to your config.php:
 
@@ -33,7 +34,7 @@ Notes
 -----
 
 - Again, only RSS 2.0 profile feeds may be subscribed to, and they have
-  be the ones with user names in them, like:
+  to be the ones with user names in them, like:
       http://SITE/PATH/api/statuses/user_timeline/USERNAME.rss
 - Subscriptions are deleted after three notification failures in a row
   (not sure this is optimal).
