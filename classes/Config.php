@@ -120,7 +120,7 @@ class Config extends Memcached_DataObject
         return $result;
     }
 
-    function &pkeyGet($kv)
+    function pkeyGet($kv)
     {
         return Memcached_DataObject::pkeyGet('Config', $kv);
     }

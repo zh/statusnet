@@ -22,7 +22,7 @@ class User_openid_trustroot extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    function &pkeyGet($kv)
+    function pkeyGet($kv)
     {
         return Memcached_DataObject::pkeyGet('User_openid_trustroot', $kv);
     }
