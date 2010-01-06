@@ -69,13 +69,13 @@ define('MOLLOM_REDIRECT', 1200);
 
 class MollomPlugin extends Plugin
 {
-    function __construct($url=null) {
-        parent::__construct();
-    }
+    public $public_key;
+    public $private_key;
+    public $servers;
 
     function onStartNoticeSave($notice)
     {
-      if (common_config('mollom', 'public_key')) {
+      if ( $this->public_key ) {
         //Check spam
         $data = array(
             'post_body'      => $notice->content,
@@ -123,9 +123,9 @@ class MollomPlugin extends Plugin
         }
     
       // Construct the server URL:
-      $public_key = common_config('mollom', 'public_key');
+      $public_key = $this->public_key;
       // Retrieve the list of Mollom servers from the database:
-      $servers = common_config('mollom', 'servers');
+      $servers = $this->servers;
     
       if ($servers == NULL) {
         // Retrieve a list of valid Mollom servers from mollom.com:
@@ -205,8 +205,8 @@ class MollomPlugin extends Plugin
     */
     private function authentication() {
     
-      $public_key = common_config('mollom', 'public_key');
-      $private_key = common_config('mollom', 'private_key');
+      $public_key = $this->public_key;
+      $private_key = $this->private_key;
     
       // Generate a timestamp according to the dateTime format (http://www.w3.org/TR/xmlschema-2/#dateTime):
       $time = gmdate("Y-m-d\TH:i:s.\\0\\0\\0O", time());

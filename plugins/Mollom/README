@@ -1,3 +1,5 @@
+The mollom plugin uses mollom.com to filter SN notices for spam.
+
 == Dependencies ==
 Your webserver needs to have xmlrpc php extention loaded.
 This is called php5-xmlrpc in Debian/Ubuntu
@@ -5,11 +7,13 @@ This is called php5-xmlrpc in Debian/Ubuntu
 == Installation ==
 Add the following to your config.php
 <?php
-addPlugin('Mollom');
-
-$config['mollom']['public_key'] = '...';
-$config['mollom']['private_key'] = '...';
-$config['mollom']['servers'] = array('http://88.151.243.81', 'http://82.103.131.136');
+addPlugin('Mollom',
+    array(
+        'public_key' => '...',
+        'private_key' => '...',
+        'servers' => array('http://88.151.243.81', 'http://82.103.131.136')
+    )
+);
 
 ?>
 
