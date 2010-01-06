@@ -1371,7 +1371,7 @@ class Notice extends Memcached_DataObject
                            $this->content);
 
         $maxlen = common_config('site', 'textlimit');
-        if (mb_strlen($content) > $maxlen) {
+        if ($maxlen > 0 && mb_strlen($content) > $maxlen) {
             // Web interface and current Twitter API clients will
             // pull the original notice's text, but some older
             // clients and RSS/Atom feeds will see this trimmed text.
