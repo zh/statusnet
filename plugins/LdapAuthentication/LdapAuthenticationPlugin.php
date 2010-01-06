@@ -74,8 +74,6 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
          case 'MemcacheSchemaCache':
             require_once(INSTALLDIR.'/plugins/LdapAuthentication/MemcacheSchemaCache.php');
             return false;
-         default:
-            return parent::onAutoload($cls);
         }
     }
     

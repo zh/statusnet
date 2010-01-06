@@ -57,8 +57,6 @@ class CasAuthenticationPlugin extends AuthenticationPlugin
          case 'CasloginAction':
             require_once(INSTALLDIR.'/plugins/CasAuthentication/' . strtolower(mb_substr($cls, 0, -6)) . '.php');
             return false;
-         default:
-            return parent::onAutoload($cls);
         }
     }
 
