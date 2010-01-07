@@ -81,7 +81,7 @@ class EditApplicationAction extends OwnerDesignAction
     /**
      * Handle the request
      *
-     * On GET, show the form. On POST, try to save the group.
+     * On GET, show the form. On POST, try to save the app.
      *
      * @param array $args unused
      *
@@ -91,31 +91,49 @@ class EditApplicationAction extends OwnerDesignAction
     function handle($args)
     {
         parent::handle($args);
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	    $this->handlePost($args);
+	} else {
+	    $this->showForm();
+	}
+    }
 
-            // CSRF protection
-            $token = $this->trimmed('token');
-            if (!$token || $token != common_session_token()) {
-                $this->clientError(_('There was a problem with your session token.'));
-                return;
-            }
+    function handlePost($args)
+    {
+	// Workaround for PHP returning empty $_POST and $_FILES when POST
+        // length > post_max_size in php.ini
 
-            $cur = common_current_user();
-
-            if ($this->arg('cancel')) {
-                common_redirect(common_local_url('showapplication',
-                    array(
-                        'nickname' => $cur->nickname,
-                        'id' => $this->app->id)
-                    ), 303);
-            } elseif ($this->arg('save')) {
-                $this->trySave();
-            } else {
-                $this->clientError(_('Unexpected form submission.'));
-            }
-        } else {
-            $this->showForm();
+        if (empty($_FILES)
+            && empty($_POST)
+            && ($_SERVER['CONTENT_LENGTH'] > 0)
+	    ) {
+            $msg = _('The server was unable to handle that much POST ' .
+		     'data (%s bytes) due to its current configuration.');
+            $this->clientException(sprintf($msg, $_SERVER['CONTENT_LENGTH']));
+            return;
         }
+
+	// CSRF protection
+	$token = $this->trimmed('token');
+	if (!$token || $token != common_session_token()) {
+	    $this->clientError(_('There was a problem with your session token.'));
+	    return;
+	}
+
+	$cur = common_current_user();
+
+	if ($this->arg('cancel')) {
+	    common_redirect(common_local_url('showapplication',
+					     array(
+						   'nickname' => $cur->nickname,
+						   'id' => $this->app->id)
+					     ), 303);
+	} elseif ($this->arg('save')) {
+	    $this->trySave();
+	} else {
+                $this->clientError(_('Unexpected form submission.'));
+	}
     }
 
     function showForm($msg=null)
@@ -149,7 +167,7 @@ class EditApplicationAction extends OwnerDesignAction
         $homepage     = $this->trimmed('homepage');
         $callback_url = $this->trimmed('callback_url');
         $type         = $this->arg('app_type');
-        $access_type  = $this->arg('access_type');
+        $access_type  = $this->arg('default_access_type');
 
         if (empty($name)) {
              $this->showForm(_('Name is required.'));
@@ -214,6 +232,7 @@ class EditApplicationAction extends OwnerDesignAction
         // Checked in prepare() above
 
         assert(!is_null($cur));
+	assert(!is_null($this->app));
 
         $orig = clone($this->app);
 
@@ -225,16 +244,18 @@ class EditApplicationAction extends OwnerDesignAction
         $this->app->callback_url = $callback_url;
         $this->app->type         = $type;
 
-        if ($access_type == 'r') {
-            $this->app->setAccessFlags(true, false);
-        } else {
-            $this->app->setAccessFlags(true, true);
-        }
-
         $result = $this->app->update($orig);
 
+	common_debug("access_type = $access_type");
+
+        if ($access_type == 'r') {
+            $this->app->access_type = 1;
+        } else {
+            $this->app->access_type = 3;
+        }
+
         if (!$result) {
-            common_log_db_error($app, 'UPDATE', __FILE__);
+            common_log_db_error($this->app, 'UPDATE', __FILE__);
             $this->serverError(_('Could not update application.'));
         }
 

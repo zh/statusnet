@@ -55,7 +55,6 @@ class ShowApplicationAction extends OwnerDesignAction
 
     var $owner = null;
 
-
     var $msg = null;
 
     var $success = null;
@@ -186,6 +185,14 @@ class ShowApplicationAction extends OwnerDesignAction
         $this->elementStart('div', 'entity-application');
 
         $this->elementStart('ul', 'entity_application_details');
+
+	$this->elementStart('li', 'entity_application-icon');
+
+	if (!empty($this->application->icon)) {
+	    $this->element('img', array('src' => $this->application->icon));
+	}
+
+	$this->elementEnd('li');
 
         $this->elementStart('li', 'entity_application_name');
         $this->element('span', array('class' => 'big'), $this->application->name);
