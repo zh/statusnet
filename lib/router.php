@@ -659,11 +659,11 @@ class Router
             );
 
             $m->connect('oauth/request_token',
-                array('action' => 'oauthrequesttoken'));
+                array('action' => 'apioauthrequesttoken'));
             $m->connect('oauth/access_token',
-                array('action' => 'oauthaccesstoken'));
+                array('action' => 'apioauthaccesstoken'));
             $m->connect('oauth/authorize',
-                array('action' => 'oauthauthorize'));
+                array('action' => 'apioauthauthorize'));
 
             foreach (array('subscriptions', 'subscribers') as $a) {
                 $m->connect(':nickname/'.$a.'/:tag',
