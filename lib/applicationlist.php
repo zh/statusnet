@@ -93,6 +93,10 @@ class ApplicationList extends Widget
         $this->out->elementStart('li', array('class' => 'application',
                                              'id' => 'oauthclient-' . $this->application->id));
 
+	if (!empty($this->application->icon)) {
+	    $this->out->element('img', array('src' => $this->application->icon));
+	}
+
         $this->out->elementStart('a',
             array('href' => common_local_url(
                     'showapplication',

@@ -75,4 +75,17 @@ class Oauth_application extends Memcached_DataObject
         }
     }
 
+    function setOriginal($filename)
+    {
+        $imagefile = new ImageFile($this->id, Avatar::path($filename));
+
+        // XXX: Do we want to have a bunch of different size icons? homepage, stream, mini?
+        // or just one and control size via CSS? --Zach
+
+        $orig = clone($this);
+        $this->icon = Avatar::url($filename);
+        common_debug(common_log_objstring($this));
+        return $this->update($orig);
+    }
+
 }

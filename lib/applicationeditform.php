@@ -82,6 +82,21 @@ class ApplicationEditForm extends Form
     }
 
     /**
+     * HTTP method used to submit the form
+     *
+     * For image data we need to send multipart/form-data
+     * so we set that here too
+     *
+     * @return string the method to use for submitting
+     */
+
+    function method()
+    {
+        $this->enctype = 'multipart/form-data';
+        return 'post';
+    }
+
+    /**
      * class of the form
      *
      * @return string of the form class
@@ -134,6 +149,7 @@ class ApplicationEditForm extends Form
     {
         if ($this->application) {
             $id                = $this->application->id;
+	    $icon              = $this->application->icon;
             $name              = $this->application->name;
             $description       = $this->application->description;
             $source_url        = $this->application->source_url;
@@ -144,6 +160,7 @@ class ApplicationEditForm extends Form
             $this->access_type = $this->application->access_type;
         } else {
             $id                = '';
+	    $icon              = '';
             $name              = '';
             $description       = '';
             $source_url        = '';
@@ -154,11 +171,31 @@ class ApplicationEditForm extends Form
             $this->access_type = '';
         }
 
+	$this->out->hidden('token', common_session_token());
+
         $this->out->elementStart('ul', 'form_data');
-        $this->out->elementStart('li');
+
+	$this->out->elementStart('li');
+
+	if (!empty($icon)) {
+	    $this->out->element('img', array('src' => $icon));
+	}
+
+	$this->out->element('label', array('for' => 'app_icon'),
+                                _('Icon'));
+        $this->out->element('input', array('name' => 'app_icon',
+                                      'type' => 'file',
+                                      'id' => 'app_icon'));
+        $this->out->element('p', 'form_guide', _('Icon for this application'));
+        $this->out->element('input', array('name' => 'MAX_FILE_SIZE',
+                                      'type' => 'hidden',
+                                      'id' => 'MAX_FILE_SIZE',
+                                      'value' => ImageFile::maxFileSizeInt()));
+        $this->out->elementEnd('li');
+
+	$this->out->elementStart('li');
 
         $this->out->hidden('application_id', $id);
-        $this->out->hidden('token', common_session_token());
 
         $this->out->input('name', _('Name'),
                           ($this->out->arg('name')) ? $this->out->arg('name') : $name);
@@ -215,7 +252,7 @@ class ApplicationEditForm extends Form
         // Default to Browser
 
         if ($this->application->type == Oauth_application::$browser
-            || empty($this->applicaiton->type)) {
+            || empty($this->application->type)) {
             $attrs['checked'] = 'checked';
         }
 

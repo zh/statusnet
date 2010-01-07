@@ -71,7 +71,7 @@ class NewApplicationAction extends OwnerDesignAction
     /**
      * Handle the request
      *
-     * On GET, show the form. On POST, try to save the group.
+     * On GET, show the form. On POST, try to save the app.
      *
      * @param array $args unused
      *
@@ -83,27 +83,44 @@ class NewApplicationAction extends OwnerDesignAction
         parent::handle($args);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-            // CSRF protection
-            $token = $this->trimmed('token');
-            if (!$token || $token != common_session_token()) {
-                $this->clientError(_('There was a problem with your session token.'));
-                return;
-            }
-
-            $cur = common_current_user();
-
-            if ($this->arg('cancel')) {
-                common_redirect(common_local_url('apps',
-                    array('nickname' => $cur->nickname)), 303);
-            } elseif ($this->arg('save')) {
-                $this->trySave();
-            } else {
-                $this->clientError(_('Unexpected form submission.'));
-            }
+	    $this->handlePost($args);
         } else {
             $this->showForm();
         }
+    }
+
+    function handlePost($args)
+    {
+	// Workaround for PHP returning empty $_POST and $_FILES when POST
+        // length > post_max_size in php.ini
+
+        if (empty($_FILES)
+            && empty($_POST)
+            && ($_SERVER['CONTENT_LENGTH'] > 0)
+	    ) {
+            $msg = _('The server was unable to handle that much POST ' .
+		     'data (%s bytes) due to its current configuration.');
+            $this->clientException(sprintf($msg, $_SERVER['CONTENT_LENGTH']));
+            return;
+        }
+
+	// CSRF protection
+	$token = $this->trimmed('token');
+	if (!$token || $token != common_session_token()) {
+	    $this->clientError(_('There was a problem with your session token.'));
+	    return;
+	}
+
+	$cur = common_current_user();
+
+	if ($this->arg('cancel')) {
+	    common_redirect(common_local_url('apps',
+					     array('nickname' => $cur->nickname)), 303);
+	} elseif ($this->arg('save')) {
+	    $this->trySave();
+	} else {
+	    $this->clientError(_('Unexpected form submission.'));
+	}
     }
 
     function showForm($msg=null)
@@ -130,14 +147,14 @@ class NewApplicationAction extends OwnerDesignAction
 
     function trySave()
     {
-        $name         = $this->trimmed('name');
+	$name         = $this->trimmed('name');
         $description  = $this->trimmed('description');
         $source_url   = $this->trimmed('source_url');
         $organization = $this->trimmed('organization');
         $homepage     = $this->trimmed('homepage');
         $callback_url = $this->trimmed('callback_url');
         $type         = $this->arg('app_type');
-        $access_type  = $this->arg('access_type');
+        $access_type  = $this->arg('default_access_type');
 
         if (empty($name)) {
              $this->showForm(_('Name is required.'));
@@ -241,19 +258,56 @@ class NewApplicationAction extends OwnerDesignAction
 
         $app->consumer_key = $consumer->consumer_key;
 
-        $result = $app->insert();
+        $this->app_id = $app->insert();
 
-        if (!$result) {
+        if (!$this->app_id) {
             common_log_db_error($app, 'INSERT', __FILE__);
             $this->serverError(_('Could not create application.'));
             $app->query('ROLLBACK');
         }
+
+	$this->uploadLogo($app);
 
         $app->query('COMMIT');
 
         common_redirect(common_local_url('apps',
             array('nickname' => $cur->nickname)), 303);
 
+    }
+
+    /**
+     * Handle an image upload
+     *
+     * Does all the magic for handling an image upload, and crops the
+     * image by default.
+     *
+     * @return void
+     */
+
+    function uploadLogo($app)
+    {
+        if ($_FILES['app_icon']['error'] ==
+            UPLOAD_ERR_OK) {
+
+	    try {
+		$imagefile = ImageFile::fromUpload('app_icon');
+	    } catch (Exception $e) {
+		common_debug("damn that sucks");
+		$this->showForm($e->getMessage());
+		return;
+	    }
+
+	    $filename = Avatar::filename($app->id,
+					 image_type_to_extension($imagefile->type),
+					 null,
+					 'oauth-app-icon-'.common_timestamp());
+
+	    $filepath = Avatar::path($filename);
+
+	    move_uploaded_file($imagefile->filepath, $filepath);
+
+	    $app->setOriginal($filename);
+	}
     }
 
 }
