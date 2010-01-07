@@ -316,7 +316,12 @@ class ProfilesettingsAction extends AccountSettingsAction
 
             $loc = Location::fromName($location);
 
-            if (!empty($loc)) {
+            if (empty($loc)) {
+                $profile->lat         = null;
+                $profile->lon         = null;
+                $profile->location_id = null;
+                $profile->location_ns = null;
+            } else {
                 $profile->lat         = $loc->lat;
                 $profile->lon         = $loc->lon;
                 $profile->location_id = $loc->location_id;
