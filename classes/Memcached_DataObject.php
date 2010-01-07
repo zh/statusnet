@@ -143,7 +143,9 @@ class Memcached_DataObject extends DB_DataObject
     function insert()
     {
         $result = parent::insert();
-        $this->encache(); // in case of cached negative lookups
+        if ($result) {
+            $this->encache(); // in case of cached negative lookups
+        }
         return $result;
     }
 
