@@ -1518,12 +1518,7 @@ min-width:0;
 #subscribers.user_in #content,
 #showgroup.user_in #content,
 #conversation.user_in #content,
-#attachment.user_in #content,
-#siteadminpanel.user_in #content,
-#designadminpanel.user_in #content,
-#useradminpanel.user_in #content,
-#pathsadminpanel.user_in #content,
-#adminprofileflag.user_in #content {
+#attachment.user_in #content {
 padding-top:12.5em;
 }
 
@@ -1550,7 +1545,12 @@ padding-top:12.5em;
 #register #form_notice,
 #shownotice #form_notice,
 #confirmaddress #form_notice,
-#tag #form_notice {
+#tag #form_notice,
+#siteadminpanel #form_notice,
+#designadminpanel #form_notice,
+#useradminpanel #form_notice,
+#pathsadminpanel #form_notice,
+#adminprofileflag #form_notice {
 display:none;
 }
 
