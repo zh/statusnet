@@ -32,7 +32,7 @@ class Fave extends Memcached_DataObject
         return $fave;
     }
 
-    function &pkeyGet($kv)
+    function pkeyGet($kv)
     {
         return Memcached_DataObject::pkeyGet('Fave', $kv);
     }

@@ -208,7 +208,14 @@ class TwitapisearchatomAction extends ApiAction
         $this->showFeed();
 
         foreach ($notices as $n) {
-            $this->showEntry($n);
+
+            $profile = $n->getProfile();
+
+            // Don't show notices from deleted users
+
+            if (!empty($profile)) {
+                $this->showEntry($n);
+            }
         }
 
         $this->endAtom();

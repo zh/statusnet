@@ -102,20 +102,20 @@ class UserFlagPlugin extends Plugin
 
     function onAutoload($cls)
     {
-        switch ($cls)
+        switch (strtolower($cls))
         {
-        case 'FlagprofileAction':
-        case 'AdminprofileflagAction':
-        case 'ClearflagAction':
+        case 'flagprofileaction':
+        case 'adminprofileflagaction':
+        case 'clearflagaction':
             include_once INSTALLDIR.'/plugins/UserFlag/' .
               strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
-        case 'FlagProfileForm':
-        case 'ClearFlagForm':
+        case 'flagprofileform':
+        case 'clearflagform':
             include_once INSTALLDIR.'/plugins/UserFlag/' . strtolower($cls . '.php');
             return false;
-        case 'User_flag_profile':
-            include_once INSTALLDIR.'/plugins/UserFlag/'.$cls.'.php';
+        case 'user_flag_profile':
+            include_once INSTALLDIR.'/plugins/UserFlag/'.ucfirst(strtolower($cls)).'.php';
             return false;
         default:
             return true;
@@ -256,6 +256,41 @@ class UserFlagPlugin extends Plugin
 
             User_flag_profile::create($user->id, $profile->id);
         }
+        return true;
+    }
+
+    /**
+     * Ensure that flag entries for a profile are deleted
+     * along with the profile when deleting users.
+     * This prevents breakage of the admin profile flag UI.
+     *
+     * @param Profile $profile
+     * @param array &$related list of related tables; entries
+     *              with matching profile_id will be deleted.
+     *
+     * @return boolean hook result
+     */
+
+    function onProfileDeleteRelated($profile, &$related)
+    {
+        $related[] = 'user_flag_profile';
+        return true;
+    }
+
+    /**
+     * Ensure that flag entries created by a user are deleted
+     * when that user gets deleted.
+     *
+     * @param User $user
+     * @param array &$related list of related tables; entries
+     *              with matching user_id will be deleted.
+     *
+     * @return boolean hook result
+     */
+
+    function onUserDeleteRelated($user, &$related)
+    {
+        $related[] = 'user_flag_profile';
         return true;
     }
 }

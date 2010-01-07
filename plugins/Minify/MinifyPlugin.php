@@ -84,7 +84,7 @@ class MinifyPlugin extends Plugin
 
     function onStartScriptElement($action,&$src,&$type) {
         $url = parse_url($src);
-        if( empty($url->scheme) && empty($url->host) && empty($url->query) && empty($url->fragment))
+        if( empty($url['scheme']) && empty($url['host']) && empty($url['query']) && empty($url['fragment']))
         {
             $src = $this->minifyUrl($src);
         }
