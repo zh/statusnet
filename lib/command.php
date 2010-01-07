@@ -742,42 +742,42 @@ class HelpCommand extends Command
     function execute($channel)
     {
         $channel->output($this->user,
-                         _("Commands:\n".
-                           "on - turn on notifications\n".
-                           "off - turn off notifications\n".
-                           "help - show this help\n".
-                           "follow <nickname> - subscribe to user\n".
-                           "groups - lists the groups you have joined\n".
-                           "subscriptions - list the people you follow\n".
-                           "subscribers - list the people that follow you\n".
-                           "leave <nickname> - unsubscribe from user\n".
-                           "d <nickname> <text> - direct message to user\n".
-                           "get <nickname> - get last notice from user\n".
-                           "whois <nickname> - get profile info on user\n".
-                           "fav <nickname> - add user's last notice as a 'fave'\n".
-                           "fav #<notice_id> - add notice with the given id as a 'fave'\n".
-                           "repeat #<notice_id> - repeat a notice with a given id\n".
-                           "repeat <nickname> - repeat the last notice from user\n".
-                           "reply #<notice_id> - reply to notice with a given id\n".
-                           "reply <nickname> - reply to the last notice from user\n".
-                           "join <group> - join group\n".
-                           "login - Get a link to login to the web interface\n".
-                           "drop <group> - leave group\n".
-                           "stats - get your stats\n".
-                           "stop - same as 'off'\n".
-                           "quit - same as 'off'\n".
-                           "sub <nickname> - same as 'follow'\n".
-                           "unsub <nickname> - same as 'leave'\n".
-                           "last <nickname> - same as 'get'\n".
-                           "on <nickname> - not yet implemented.\n".
-                           "off <nickname> - not yet implemented.\n".
-                           "nudge <nickname> - remind a user to update.\n".
-                           "invite <phone number> - not yet implemented.\n".
-                           "track <word> - not yet implemented.\n".
-                           "untrack <word> - not yet implemented.\n".
-                           "track off - not yet implemented.\n".
-                           "untrack all - not yet implemented.\n".
-                           "tracks - not yet implemented.\n".
-                           "tracking - not yet implemented.\n"));
+                         _("Commands:")."\n".
+                         _("on - turn on notifications")."\n".
+                         _("off - turn off notifications")."\n".
+                         _("help - show this help")."\n".
+                         _("follow <nickname> - subscribe to user")."\n".
+                         _("groups - lists the groups you have joined")."\n".
+                         _("subscriptions - list the people you follow")."\n".
+                         _("subscribers - list the people that follow you")."\n".
+                         _("leave <nickname> - unsubscribe from user")."\n".
+                         _("d <nickname> <text> - direct message to user")."\n".
+                         _("get <nickname> - get last notice from user")."\n".
+                         _("whois <nickname> - get profile info on user")."\n".
+                         _("fav <nickname> - add user's last notice as a 'fave'")."\n".
+                         _("fav #<notice_id> - add notice with the given id as a 'fave'")."\n".
+                         _("repeat #<notice_id> - repeat a notice with a given id")."\n".
+                         _("repeat <nickname> - repeat the last notice from user")."\n".
+                         _("reply #<notice_id> - reply to notice with a given id")."\n".
+                         _("reply <nickname> - reply to the last notice from user")."\n".
+                         _("join <group> - join group")."\n".
+                         #_("login - Get a link to login to the web interface")."\n".
+                         _("drop <group> - leave group")."\n".
+                         _("stats - get your stats")."\n".
+                         _("stop - same as 'off'")."\n".
+                         _("quit - same as 'off'")."\n".
+                         _("sub <nickname> - same as 'follow'")."\n".
+                         _("unsub <nickname> - same as 'leave'")."\n".
+                         _("last <nickname> - same as 'get'")."\n".
+                         #_("on <nickname> - not yet implemented.")."\n".
+                         #_("off <nickname> - not yet implemented.")."\n".
+                         _("nudge <nickname> - remind a user to update.")."\n");
+                         #_("invite <phone number> - not yet implemented.")."\n".
+                         #_("track <word> - not yet implemented.")."\n".
+                         #_("untrack <word> - not yet implemented.")."\n".
+                         #_("track off - not yet implemented.")."\n".
+                         #_("untrack all - not yet implemented.")."\n".
+                         #_("tracks - not yet implemented.")."\n".
+                         #_("tracking - not yet implemented.")."\n"
     }
 }
