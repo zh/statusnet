@@ -63,7 +63,7 @@ class Notice extends Memcached_DataObject
     public $created;                         // datetime  multiple_key not_null default_0000-00-00%2000%3A00%3A00
     public $modified;                        // timestamp   not_null default_CURRENT_TIMESTAMP
     public $reply_to;                        // int(4)
-    public $is_local;                        // tinyint(1)
+    public $is_local;                        // int(4)
     public $source;                          // varchar(32)
     public $conversation;                    // int(4)
     public $lat;                             // decimal(10,7)
