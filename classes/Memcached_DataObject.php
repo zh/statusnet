@@ -194,6 +194,17 @@ class Memcached_DataObject extends DB_DataObject
 
     function keyTypes()
     {
+        // ini-based classes return number-indexed arrays. handbuilt
+        // classes return column => keytype. Make this uniform.
+
+        $keys = $this->keys();
+
+        $keyskeys = array_keys($keys);
+
+        if (is_string($keyskeys[0])) {
+            return $keys;
+        }
+
         global $_DB_DATAOBJECT;
         if (!isset($_DB_DATAOBJECT['INI'][$this->_database][$this->__table."__keys"])) {
             $this->databaseStructure();
