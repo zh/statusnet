@@ -242,6 +242,7 @@ margin-right:-47px;
 
 #header {
 width:100%;
+height:10.5em;
 position:relative;
 float:left;
 padding-top:18px;
@@ -1000,7 +1001,7 @@ float:left;
 font-size:0.95em;
 margin-left:59px;
 min-width:60%;
-max-width:66%;
+max-width:62%;
 }
 #showstream .notice div.entry-content,
 #shownotice .notice div.entry-content {
@@ -1517,12 +1518,13 @@ min-width:0;
 #subscribers.user_in #content,
 #showgroup.user_in #content,
 #conversation.user_in #content,
-#siteadminpanel #content,
-#designadminpanel #content,
-#useradminpanel #content,
-#pathsadminpanel #content,
-#adminprofileflag #content {
-padding-top:170px;
+#attachment.user_in #content,
+#siteadminpanel.user_in #content,
+#designadminpanel.user_in #content,
+#useradminpanel.user_in #content,
+#pathsadminpanel.user_in #content,
+#adminprofileflag.user_in #content {
+padding-top:12.5em;
 }
 
 #profilesettings #form_notice,

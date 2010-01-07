@@ -52,7 +52,6 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
     public $attributes = array();
 
     function onInitializePlugin(){
-        parent::onInitializePlugin();
         if(!isset($this->host)){
             throw new Exception("must specify a host");
         }

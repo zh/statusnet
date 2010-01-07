@@ -108,7 +108,7 @@ class User_flag_profile extends Memcached_DataObject
      * @return User_flag_profile found object or null
      */
 
-    function &pkeyGet($kv)
+    function pkeyGet($kv)
     {
         return Memcached_DataObject::pkeyGet('User_flag_profile', $kv);
     }
