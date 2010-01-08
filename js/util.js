@@ -589,6 +589,8 @@ var SN = { // StatusNet
 
                             $('#'+SN.C.S.NoticeDataGeoSelected).remove();
 
+                            $('#'+SN.C.S.NoticeDataText).focus();
+
                             return false;
                         });
 
@@ -606,6 +608,8 @@ var SN = { // StatusNet
                                 'NDGSM': true
                             };
                             $.cookie(SN.C.S.NoticeDataGeoCookie, JSON.stringify(cookieValue));
+
+                            $('#'+SN.C.S.NoticeDataText).focus();
 
                             return false;
                         });
@@ -679,6 +683,8 @@ var SN = { // StatusNet
                     else {
                         removeNoticeDataGeo();
                     }
+
+                    $('#'+SN.C.S.NoticeDataText).focus();
                 }).change();
             }
         },
