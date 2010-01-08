@@ -57,6 +57,8 @@ class MemcachePlugin extends Plugin
     public $compressThreshold = 20480;
     public $compressMinSaving = 0.2;
 
+    public $persistent = null;
+
     /**
      * Initialize the plugin
      *
@@ -67,6 +69,9 @@ class MemcachePlugin extends Plugin
 
     function onInitializePlugin()
     {
+        if (is_null($this->persistent)) {
+            $this->persistent = (php_sapi_name() == 'cli') ? false : true;
+        }
         $this->_ensureConn();
         return true;
     }
@@ -149,15 +154,15 @@ class MemcachePlugin extends Plugin
                         $port = 11211;
                     }
 
-                    $this->_conn->addServer($host, $port);
+                    $this->_conn->addServer($host, $port, $this->persistent);
                 }
             } else {
-                $this->_conn->addServer($this->servers);
+                $this->_conn->addServer($this->servers, $this->persistent);
                 list($host, $port) = explode(';', $this->servers);
                 if (empty($port)) {
                     $port = 11211;
                 }
-                $this->_conn->addServer($host, $port);
+                $this->_conn->addServer($host, $port, $this->persistent);
             }
 
             // Compress items stored in the cache if they're over threshold in size
