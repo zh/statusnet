@@ -207,7 +207,7 @@ class NoticeForm extends Form
                 $this->out->hidden('notice_data-location_id', empty($this->location_id) ? (empty($this->profile->location_id) ? null : $this->profile->location_id) : $this->location_id, 'location_id');
                 $this->out->hidden('notice_data-location_ns', empty($this->location_ns) ? (empty($this->profile->location_ns) ? null : $this->profile->location_ns) : $this->location_ns, 'location_ns');
 
-                $this->out->elementStart('div', array('id' => 'notice_data-location_wrap',
+                $this->out->elementStart('div', array('id' => 'notice_data-geo_wrap',
                                                       'title' => common_local_url('geocode')));
                 $this->out->checkbox('notice_data-geo', _('Share your location'), true);
                 $this->out->elementEnd('div');

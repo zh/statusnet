@@ -555,7 +555,7 @@ margin-bottom:0;
 line-height:1.618;
 }
 .form_notice #notice_data-attach_selected code,
-.form_notice #notice_data-location_name {
+.form_notice #notice_data-geo_name {
 float:left;
 width:80%;
 display:block;
@@ -575,7 +575,7 @@ font-size:0.8em;
 float:left;
 }
 
-.form_notice #notice_data-location_wrap label {
+.form_notice #notice_data-geo_wrap label {
 position:absolute;
 top:25px;
 right:4px;
@@ -585,16 +585,16 @@ width:16px;
 height:16px;
 display:block;
 }
-.form_notice #notice_data-location_wrap input {
+.form_notice #notice_data-geo_wrap input {
 display:none;
 }
-.form_notice #notice_data-location_wrap label {
+.form_notice #notice_data-geo_wrap label {
 font-weight:normal;
 font-size:1em;
 margin-bottom:0;
 text-indent:-9999px;
 }
-.form_notice #notice_data-location_name {
+.form_notice #notice_data-geo_name {
 display:block;
 padding-left:21px;
 }

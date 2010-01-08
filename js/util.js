@@ -51,8 +51,7 @@ var SN = { // StatusNet
             NoticeLon: 'notice_data-lon',
             NoticeLocationId: 'notice_data-location_id',
             NoticeLocationNs: 'notice_data-location_ns',
-            NoticeLocationName: 'notice_data-location_name',
-            NoticeLocationCookieName: 'location_enabled',
+            NoticeGeoName: 'notice_data-geo_name',
             NoticeDataGeo: 'notice_data-geo',
             NoticeDataGeoSelected: 'notice_data-geo_selected'
         }
@@ -460,7 +459,7 @@ var SN = { // StatusNet
             var NLon = $('#'+SN.C.S.NoticeLon).val();
             var NLNS = $('#'+SN.C.S.NoticeLocationNs).val();
             var NLID = $('#'+SN.C.S.NoticeLocationId).val();
-            var NLN = $('#'+SN.C.S.NoticeLocationName).text();
+            var NLN = $('#'+SN.C.S.NoticeGeoName).text();
             var NDGe = $('#'+SN.C.S.NoticeDataGeo);
 
             function removeNoticeDataGeo() {
@@ -473,7 +472,7 @@ var SN = { // StatusNet
                 $('#'+SN.C.S.NoticeLocationId).val('');
                 $('#'+SN.C.S.NoticeDataGeo).attr('checked', false);
 
-                $.cookie(SN.C.S.NoticeLocationCookieName, 'disabled');
+                $.cookie(SN.C.S.NoticeDataGeo, 'disabled');
             }
 
             function getJSONgeocodeURL(geocodeURL, data) {
@@ -497,10 +496,10 @@ var SN = { // StatusNet
                         NLN_text = location.name;
                     }
 
-                    $('#'+SN.C.S.NoticeLocationName)
-                        .replaceWith('<a id="notice_data-location_name"/>');
+                    $('#'+SN.C.S.NoticeGeoName)
+                        .replaceWith('<a id="notice_data-geo_name"/>');
 
-                    $('#'+SN.C.S.NoticeLocationName)
+                    $('#'+SN.C.S.NoticeGeoName)
                         .attr('href', location.url)
                         .text(NLN_text)
                         .click(function() {
@@ -524,32 +523,31 @@ var SN = { // StatusNet
                         'NLNU': location.url,
                         'NDG': true
                     };
-                    $.cookie(SN.C.S.NoticeLocationCookieName, JSON.stringify(cookieValue));
+                    $.cookie(SN.C.S.NoticeDataGeo, JSON.stringify(cookieValue));
                 });
             }
 
             if (NDGe.length > 0) {
-                var cookieValue = $.cookie(SN.C.S.NoticeLocationCookieName);
-                if (cookieValue == 'disabled') {
+                if ($.cookie(SN.C.S.NoticeDataGeo) == 'disabled') {
                     NDGe.attr('checked', false);
                 }
                 else {
                     NDGe.attr('checked', true);
                 }
 
-                var NLE = $('#notice_data-location_wrap');
-                var geocodeURL = NLE.attr('title');
-                NLE.removeAttr('title');
+                var NGW = $('#notice_data-geo_wrap');
+                var geocodeURL = NGW.attr('title');
+                NGW.removeAttr('title');
 
                 $('label[for='+SN.C.S.NoticeDataGeo+']').attr('title', jQuery.trim($('label[for='+SN.C.S.NoticeDataGeo+']').text()));
 
                 NDGe.change(function() {
-                    var NLN = $('#'+SN.C.S.NoticeLocationName);
+                    var NLN = $('#'+SN.C.S.NoticeGeoName);
                     if (NLN.length > 0) {
                         NLN.remove();
                     }
 
-                    if ($('#'+SN.C.S.NoticeDataGeo).attr('checked') === true || $.cookie(SN.C.S.NoticeLocationCookieName) === null) {
+                    if ($('#'+SN.C.S.NoticeDataGeo).attr('checked') === true || $.cookie(SN.C.S.NoticeDataGeo) === null) {
                         $('label[for='+SN.C.S.NoticeDataGeo+']').addClass('checked');
 
                         var S = '<div id="'+SN.C.S.NoticeDataGeoSelected+'" class="'+SN.C.S.Success+'"/>';
@@ -563,9 +561,9 @@ var SN = { // StatusNet
                         }
 
                         NDGS = $('#'+SN.C.S.NoticeDataGeoSelected);
-                        NDGS.prepend('<span id="'+SN.C.S.NoticeLocationName+'">Geo</span> <button class="minimize">&#95;</button> <button class="close">&#215;</button>');
+                        NDGS.prepend('<span id="'+SN.C.S.NoticeGeoName+'">Geo</span> <button class="minimize">&#95;</button> <button class="close">&#215;</button>');
 
-                        var NLN = $('#'+SN.C.S.NoticeLocationName);
+                        var NLN = $('#'+SN.C.S.NoticeGeoName);
                         NLN.addClass('processing');
 
                         $('#'+SN.C.S.NoticeDataGeoSelected+' button.close').click(function(){
@@ -582,7 +580,7 @@ var SN = { // StatusNet
                             return false;
                         });
 
-                        if ($.cookie(SN.C.S.NoticeLocationCookieName) === null || $.cookie(SN.C.S.NoticeLocationCookieName) == 'disabled') {
+                        if ($.cookie(SN.C.S.NoticeDataGeo) === null || $.cookie(SN.C.S.NoticeDataGeo) == 'disabled') {
                             if (navigator.geolocation) {
                                 navigator.geolocation.getCurrentPosition(
                                     function(position) {
@@ -623,17 +621,17 @@ var SN = { // StatusNet
                             }
                         }
                         else {
-                            var cookieValue = JSON.parse($.cookie(SN.C.S.NoticeLocationCookieName));
+                            var cookieValue = JSON.parse($.cookie(SN.C.S.NoticeDataGeo));
                             $('#'+SN.C.S.NoticeLat).val(cookieValue.NLat);
                             $('#'+SN.C.S.NoticeLon).val(cookieValue.NLon);
                             $('#'+SN.C.S.NoticeLocationNs).val(cookieValue.NLNS);
                             $('#'+SN.C.S.NoticeLocationId).val(cookieValue.NLID);
                             $('#'+SN.C.S.NoticeDataGeo).attr('checked', cookieValue.NDG);
 
-                            $('#'+SN.C.S.NoticeLocationName)
-                                .replaceWith('<a id="notice_data-location_name"/>');
+                            $('#'+SN.C.S.NoticeGeoName)
+                                .replaceWith('<a id="notice_data-geo_name"/>');
 
-                            $('#'+SN.C.S.NoticeLocationName)
+                            $('#'+SN.C.S.NoticeGeoName)
                                 .attr('href', cookieValue.NLNU)
                                 .text(cookieValue.NLN)
                                 .click(function() {
