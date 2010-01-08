@@ -234,7 +234,7 @@ $default =
         array('default' => array('LilUrl' => array('shortenerName'=>'ur1.ca',
                                                    'freeService' => true,
                                                    'serviceUrl'=>'http://ur1.ca/'),
-                                 'PtitUrl' => array('shortenerName' => 'ptiturl1.com',
+                                 'PtitUrl' => array('shortenerName' => 'ptiturl.com',
                                                     'serviceUrl' => 'http://ptiturl.com/?creer=oui&action=Reduire&url=%1$s'),
                                  'SimpleUrl' => array(array('shortenerName' => 'is.gd', 'serviceUrl' => 'http://is.gd/api.php?longurl=%1$s'),
                                                       array('shortenerName' => 'snipr.com', 'serviceUrl' => 'http://snipr.com/site/snip?r=simple&link=%1$s'),
