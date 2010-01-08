@@ -104,5 +104,16 @@ class Plugin
     {
         $this->log(LOG_DEBUG, $msg);
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $cls = get_class($this);
+        $name = mb_substr($cls, 0, -6);
+
+        $versions[] = array('name' => $name,
+                            'version' => _('Unknown'));
+
+        return true;
+    }
 }
 
