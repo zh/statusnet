@@ -1332,13 +1332,38 @@ margin-bottom:18px;
 .instructions ul,
 .hentry entry-content ol,
 .hentry .entry-content ul {
-list-style-position:inside;
+margin-left:1.795%;
 }
 .hentry .entry-content li {
 margin-bottom:18px;
 }
 .hentry .entry-content li li {
 margin-left:18px;
+}
+
+#content #plugin_authors {
+min-width:122px;
+}
+#content thead th {
+text-align:left;
+}
+#content tbody th {
+vertical-align:top;
+text-align:left;
+font-weight:normal;
+padding-top:11px;
+padding-right:18px;
+}
+#content tbody tr {
+border-top-width:1px;
+border-top-style:dotted;
+}
+#content td {
+padding:11px 18px 11px 0;
+vertical-align:top;
+}
+#content td:last-child {
+padding-right:0;
 }
 
 /* TOP_POSTERS */

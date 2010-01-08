@@ -134,7 +134,8 @@ color:#002FA7;
 }
 
 .notice,
-.profile {
+.profile,
+#content tbody tr {
 border-top-color:#C8D1D5;
 }
 .mark-top {
@@ -383,7 +384,8 @@ box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 -moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 -webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 }
-#content .notices li:hover {
+#content .notices li:hover,
+#content tbody tr:hover {
 background-color:rgba(240, 240, 240, 0.2);
 }
 #conversation .notices li:hover {
