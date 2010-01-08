@@ -171,5 +171,16 @@ class MemcachePlugin extends Plugin
                                                $this->compressMinSaving);
         }
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'Memcache',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Evan Prodromou, Craig Andrews',
+                            'homepage' => 'http://status.net/wiki/Plugin:Memcache',
+                            'rawdescription' =>
+                            _m('Use <a href="http://memcached.org/">Memcached</a> to cache query results.'));
+        return true;
+    }
 }
 
