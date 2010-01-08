@@ -480,7 +480,7 @@ var SN = { // StatusNet
             var NDGe = $('#'+SN.C.S.NoticeDataGeo);
 
             function removeNoticeDataGeo() {
-                $('label[for='+SN.C.S.NoticeDataGeo+']').removeClass('checked');
+                $('label[for='+SN.C.S.NoticeDataGeo+']').removeClass('checked').attr('title', jQuery.trim($('label[for='+SN.C.S.NoticeDataGeo+']').text()));
                 $('#'+SN.C.S.NoticeDataGeoSelected).hide();
 
                 $('#'+SN.C.S.NoticeLat).val('');
@@ -566,7 +566,7 @@ var SN = { // StatusNet
                     }
 
                     if ($('#'+SN.C.S.NoticeDataGeo).attr('checked') === true || $.cookie(SN.C.S.NoticeDataGeoCookie) === null) {
-                        $('label[for='+SN.C.S.NoticeDataGeo+']').addClass('checked');
+                        $('label[for='+SN.C.S.NoticeDataGeo+']').addClass('checked').attr('title', NoticeDataGeoShareDisable_text);
 
                         var S = '<div id="'+SN.C.S.NoticeDataGeoSelected+'" class="'+SN.C.S.Success+'"/>';
                         var NDGS = $('#'+SN.C.S.NoticeDataGeoSelected);
@@ -579,7 +579,7 @@ var SN = { // StatusNet
                         }
 
                         NDGS = $('#'+SN.C.S.NoticeDataGeoSelected);
-                        NDGS.prepend('<span id="'+SN.C.S.NoticeGeoName+'">Geo</span> <button class="minimize">&#95;</button> <button class="close">&#215;</button>');
+                        NDGS.prepend('<span id="'+SN.C.S.NoticeGeoName+'">Geo</span> <button class="minimize" title="'+NoticeDataGeoInfoMinimize_text+'">&#95;</button> <button class="close" title="'+NoticeDataGeoShareDisable_text+'">&#215;</button>');
 
                         var NLN = $('#'+SN.C.S.NoticeGeoName);
                         NLN.addClass('processing');
