@@ -246,5 +246,7 @@ $default =
                                  'Linkback' => null,
                                  'WikiHashtags' => null,
                                  'OpenID' => null),
-              )
+              ),
+        'admin' =>
+        array('panels' => array('design', 'site', 'user', 'paths')),
         );
