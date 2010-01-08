@@ -310,8 +310,7 @@ class RealtimePlugin extends Plugin
 
     function _getScripts()
     {
-        return array('plugins/Realtime/realtimeupdate.js',
-                     'plugins/Realtime/json2.js');
+        return array('plugins/Realtime/realtimeupdate.js');
     }
 
     function _updateInitialize($timeline, $user_id)
