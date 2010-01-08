@@ -266,5 +266,16 @@ class SamplePlugin extends Plugin
                           _m('Hello'), _m('A warm greeting'), false, 'nav_hello');
         return true;
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'Sample',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Brion Vibber, Evan Prodromou',
+                            'homepage' => 'http://status.net/wiki/Plugin:Sample',
+                            'rawdescription' =>
+                            _m('A sample plugin to show basics of development for new hackers.'));
+        return true;
+    }
 }
 
