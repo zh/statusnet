@@ -228,5 +228,6 @@ class VersionAction extends Action
                               'Federico Marani',
                               'Craig Andrews',
                               'mEDI',
-                              'Brett Taylor');
+                              'Brett Taylor',
+                              'Brigitte Schuster');
 }
