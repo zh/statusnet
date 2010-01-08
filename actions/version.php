@@ -110,6 +110,36 @@ class VersionAction extends Action
         $this->showPage();
     }
 
+
+    /*
+    * Override to add hentry, and content-inner classes
+    *
+    * @return void
+    */
+    function showContentBlock()
+     {
+         $this->elementStart('div', array('id' => 'content', 'class' => 'hentry'));
+         $this->showPageTitle();
+         $this->showPageNoticeBlock();
+         $this->elementStart('div', array('id' => 'content_inner',
+                                          'class' => 'entry-content'));
+         // show the actual content (forms, lists, whatever)
+         $this->showContent();
+         $this->elementEnd('div');
+         $this->elementEnd('div');
+     }
+
+
+    /*
+    * Overrride to add entry-title class
+    *
+    * @return void
+    */
+    function showPageTitle() {
+        $this->element('h1', array('class' => 'entry-title'), $this->title());
+    }
+
+
     /**
      * Show version information
      *
@@ -158,39 +188,46 @@ class VersionAction extends Action
         if (count($this->pluginVersions)) {
             $this->element('h2', null, _('Plugins'));
 
-            $this->elementStart('ul');
+            $this->elementStart('table', array('id' => 'plugins_enabled'));
 
+            $this->elementStart('thead');
+            $this->elementStart('tr');
+            $this->element('th', array('id' => 'plugin_name'), _('Name'));
+            $this->element('th', array('id' => 'plugin_version'), _('Version'));
+            $this->element('th', array('id' => 'plugin_authors'), _('Author(s)'));
+            $this->element('th', array('id' => 'plugin_description'), _('Description'));
+            $this->elementEnd('tr');
+            $this->elementEnd('thead');
+
+            $this->elementStart('tbody');
             foreach ($this->pluginVersions as $plugin) {
-                $this->elementStart('li');
-                $this->elementStart('dl');
-                $this->element('dt', null, _('Name'));
+                $this->elementStart('tr');
                 if (array_key_exists('homepage', $plugin)) {
-                    $this->elementStart('dd');
+                    $this->elementStart('th');
                     $this->element('a', array('href' => $plugin['homepage']),
                                    $plugin['name']);
-                    $this->elementEnd('dd');
+                    $this->elementEnd('th');
                 } else {
-                    $this->element('dd', null, $plugin['name']);
+                    $this->element('th', null, $plugin['name']);
                 }
-                $this->element('dt', null, _('Version'));
-                $this->element('dd', null, $plugin['version']);
+
+                $this->element('td', null, $plugin['version']);
+
                 if (array_key_exists('author', $plugin)) {
-                    $this->element('dt', null, _('Author(s)'));
-                    $this->element('dd', null, $plugin['author']);
+                    $this->element('td', null, $plugin['author']);
                 }
+
                 if (array_key_exists('rawdescription', $plugin)) {
-                    $this->element('dt', null, _('Description'));
-                    $this->elementStart('dd');
+                    $this->elementStart('td');
                     $this->raw($plugin['rawdescription']);
-                    $this->elementEnd('dd');
+                    $this->elementEnd('td');
                 } else if (array_key_exists('description', $plugin)) {
-                    $this->element('dt', null, _('Description'));
-                    $this->element('dd', null, $plugin['description']);
+                    $this->element('td', null, $plugin['description']);
                 }
-                $this->elementEnd('dl');
-                $this->elementEnd('li');
+                $this->elementEnd('tr');
             }
-            $this->elementEnd('ul');
+            $this->elementEnd('tbody');
+            $this->elementEnd('table');
         }
 
     }
