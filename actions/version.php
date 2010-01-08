@@ -158,7 +158,10 @@ class VersionAction extends Action
         if (count($this->pluginVersions)) {
             $this->element('h2', null, _('Plugins'));
 
+            $this->elementStart('ul');
+
             foreach ($this->pluginVersions as $plugin) {
+                $this->elementStart('li');
                 $this->elementStart('dl');
                 $this->element('dt', null, _('Name'));
                 if (array_key_exists('homepage', $plugin)) {
@@ -185,7 +188,9 @@ class VersionAction extends Action
                     $this->element('dd', null, $plugin['description']);
                 }
                 $this->elementEnd('dl');
+                $this->elementEnd('li');
             }
+            $this->elementEnd('ul');
         }
 
     }
