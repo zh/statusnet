@@ -426,4 +426,16 @@ class GeonamesPlugin extends Plugin
 
         return $document->geoname;
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'Geonames',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Evan Prodromou',
+                            'homepage' => 'http://status.net/wiki/Plugin:Geonames',
+                            'rawdescription' =>
+                            _m('Uses <a href="http://geonames.org/">Geonames</a> service to get human-readable '.
+                               'names for locations based on user-provided lat/long pairs.'));
+        return true;
+    }
 }
