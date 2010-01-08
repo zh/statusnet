@@ -70,7 +70,7 @@ class OpenIDPlugin extends Plugin
         $m->connect('index.php?action=finishopenidlogin', array('action' => 'finishopenidlogin'));
         $m->connect('index.php?action=finishaddopenid', array('action' => 'finishaddopenid'));
         $m->connect('main/openidserver', array('action' => 'openidserver'));
-        
+
         return true;
     }
 
@@ -101,11 +101,11 @@ class OpenIDPlugin extends Plugin
                                           'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
                                           'version' => '2.0'));
         $xrdsOutputter->element('Type', null, 'xri://$xrds*simple');
-        
+
         //consumer
         $xrdsOutputter->showXrdsService('http://specs.openid.net/auth/2.0/return_to',
                             common_local_url('finishopenidlogin'));
-                            
+
         //provider
         $xrdsOutputter->showXrdsService('http://specs.openid.net/auth/2.0/signon',
                             common_local_url('openidserver'),
@@ -306,6 +306,17 @@ class OpenIDPlugin extends Plugin
     {
         $tables[] = 'User_openid';
         $tables[] = 'User_openid_trustroot';
+        return true;
+    }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'OpenID',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Evan Prodromou, Craig Andrews',
+                            'homepage' => 'http://status.net/wiki/Plugin:OpenID',
+                            'rawdescription' =>
+                            _m('Use <a href="http://openid.net/">OpenID</a> to login to the site.'));
         return true;
     }
 }
