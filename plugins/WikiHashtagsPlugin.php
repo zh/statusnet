@@ -31,8 +31,6 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-define('WIKIHASHTAGSPLUGIN_VERSION', '0.1');
-
 /**
  * Plugin to use WikiHashtags
  *
@@ -47,6 +45,8 @@ define('WIKIHASHTAGSPLUGIN_VERSION', '0.1');
 
 class WikiHashtagsPlugin extends Plugin
 {
+    const VERSION = '0.1';
+
     function __construct($code=null)
     {
         parent::__construct();
@@ -97,6 +97,17 @@ class WikiHashtagsPlugin extends Plugin
             }
         }
 
+        return true;
+    }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'WikiHashtags',
+                            'version' => self::VERSION,
+                            'author' => 'Evan Prodromou',
+                            'homepage' => 'http://status.net/wiki/Plugin:WikiHashtags',
+                            'rawdescription' =>
+                            _m('Gets hashtag descriptions from <a href="http://hashtags.wikia.com/">WikiHashtags</a>.'));
         return true;
     }
 }
