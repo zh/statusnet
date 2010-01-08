@@ -238,6 +238,27 @@ function __autoload($cls)
     }
 }
 
+// Load default plugins
+
+foreach ($config['plugins']['default'] as $name => $params) {
+    if (is_null($params)) {
+        addPlugin($name);
+    } else if (is_array($params)) {
+        if (count($params) == 0) {
+            addPlugin($name);
+        } else {
+            $keys = array_keys($params);
+            if (is_string($keys[0])) {
+                addPlugin($name, $params);
+            } else {
+                foreach ($params as $paramset) {
+                    addPlugin($name, $paramset);
+                }
+            }
+        }
+    }
+}
+
 // XXX: how many of these could be auto-loaded on use?
 // XXX: note that these files should not use config options
 // at compile time since DB config options are not yet loaded.
