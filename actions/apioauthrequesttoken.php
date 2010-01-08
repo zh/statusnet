@@ -32,6 +32,7 @@ if (!defined('STATUSNET')) {
 }
 
 require_once INSTALLDIR . '/lib/api.php';
+require_once INSTALLDIR . '/lib/apioauthstore.php';
 
 /**
  * Get an OAuth request token
@@ -43,7 +44,45 @@ require_once INSTALLDIR . '/lib/api.php';
  * @link     http://status.net/
  */
 
-class ApiOauthRequestTokenAction extends ApiAction
+class ApiOauthRequestTokenAction extends Action
 {
+    /**
+     * Is read only?
+     *
+     * @return boolean false
+     */
+    function isReadOnly()
+    {
+        return false;
+    }
+
+    /**
+     * Class handler.
+     *
+     * @param array $args array of arguments
+     *
+     * @return void
+     */
+    function handle($args)
+    {
+        parent::handle($args);
+
+        $datastore   = new ApiStatusNetOAuthDataStore();
+        $server      = new OAuthServer($datastore);
+        $hmac_method = new OAuthSignatureMethod_HMAC_SHA1();
+        $server->add_signature_method($hmac_method);
+
+        try {
+            $req   = OAuthRequest::from_request();
+            $token = $server->fetch_request_token($req);
+            print $token;
+        } catch (OAuthException $e) {
+            common_log(LOG_WARN, $e->getMessage());
+            common_debug(var_export($req, true));
+            header('HTTP/1.1 401 Unauthorized');
+            header('Content-Type: text/html; charset=utf-8');
+            print $e->getMessage() . "\n";
+        }
+    }
 
 }
