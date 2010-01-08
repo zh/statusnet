@@ -101,7 +101,9 @@ class Router
                           'silence', 'unsilence',
                           'repeat',
                           'deleteuser',
-                          'geocode');
+                          'geocode',
+                          'version',
+                          );
 
             foreach ($main as $a) {
                 $m->connect('main/'.$a, array('action' => $a));

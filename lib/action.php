@@ -736,6 +736,8 @@ class Action extends HTMLOutputter // lawsuit
                             _('Privacy'));
             $this->menuItem(common_local_url('doc', array('title' => 'source')),
                             _('Source'));
+            $this->menuItem(common_local_url('version'),
+                            _('Version'));
             $this->menuItem(common_local_url('doc', array('title' => 'contact')),
                             _('Contact'));
             $this->menuItem(common_local_url('doc', array('title' => 'badge')),
