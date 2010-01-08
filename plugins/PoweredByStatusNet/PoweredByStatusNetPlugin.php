@@ -31,6 +31,16 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
+/**
+ * Outputs 'powered by StatusNet' after site name
+ *
+ * @category Plugin
+ * @package  StatusNet
+ * @author   Sarven Capadisli <csarven@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://status.net/
+ */
+
 class PoweredByStatusNetPlugin extends Plugin
 {
     function onEndAddressData($action)
@@ -40,6 +50,17 @@ class PoweredByStatusNetPlugin extends Plugin
         $action->element('a', array('href' => 'http://status.net/'), 'StatusNet');
         $action->elementEnd('span');
 
+        return true;
+    }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'PoweredByStatusNet',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Sarven Capdaisli',
+                            'homepage' => 'http://status.net/wiki/Plugin:PoweredByStatusNet',
+                            'rawdescription' =>
+                            _m('Outputs powered by <a href="http://status.net/">StatusNet</a> after site name.'));
         return true;
     }
 }
