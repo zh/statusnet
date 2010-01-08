@@ -106,5 +106,16 @@ class CacheLogPlugin extends Plugin
         $this->log(LOG_INFO, "Done deleting cache value for key '$key'");
         return true;
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'CacheLog',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Evan Prodromou',
+                            'homepage' => 'http://status.net/wiki/Plugin:CacheLog',
+                            'description' =>
+                            _m('Log reads and writes to the cache'));
+        return true;
+    }
 }
 
