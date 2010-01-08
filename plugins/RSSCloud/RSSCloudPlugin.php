@@ -31,6 +31,8 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
+define('RSSCLOUDPLUGIN_VERSION', '0.1');
+
 /**
  * Plugin class for adding RSSCloud capabilities to StatusNet
  *
@@ -272,6 +274,20 @@ class RSSCloudPlugin extends Plugin
     {
         array_push($daemons, INSTALLDIR .
                    '/plugins/RSSCloud/RSSCloudQueueHandler.php');
+        return true;
+    }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'RSSCloud',
+                            'version' => RSSCLOUDPLUGIN_VERSION,
+                            'author' => 'Zach Copley',
+                            'homepage' => 'http://status.net/wiki/Plugin:RSSCloud',
+                            'rawdescription' =>
+                            _m('The RSSCloud plugin enables your StatusNet instance to publish ' .
+                               'real-time updates for profile RSS feeds using the ' .
+                               '<a href="http://rsscloud.org/">RSSCloud protocol</a>".'));
+
         return true;
     }
 

@@ -32,6 +32,7 @@ if (!defined('STATUSNET')) {
 }
 
 define("FACEBOOK_CONNECT_SERVICE", 3);
+define('FACEBOOKPLUGIN_VERSION', '0.9');
 
 require_once INSTALLDIR . '/plugins/Facebook/facebookutil.php';
 
@@ -551,6 +552,20 @@ class FacebookPlugin extends Plugin
     {
         array_push($daemons, INSTALLDIR .
                    '/plugins/Facebook/facebookqueuehandler.php');
+        return true;
+    }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'Facebook',
+                            'version' => FACEBOOKPLUGIN_VERSION,
+                            'author' => 'Zach Copley',
+                            'homepage' => 'http://status.net/wiki/Plugin:Facebook',
+                            'rawdescription' =>
+                            _m('The Facebook plugin allows you to integrate ' .
+                               'your StatusNet instance with ' .
+                               '<a href="http://facebook.com/">Facebook</a> ' .
+                               'and Facebook Connect.'));
         return true;
     }
 
