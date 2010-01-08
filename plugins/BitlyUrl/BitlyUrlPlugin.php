@@ -49,6 +49,18 @@ class BitlyUrlPlugin extends UrlShortenerPlugin
         if(!$response) return;
         return current(json_decode($response)->results)->hashUrl;
     }
-}
 
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => sprintf('BitlyUrl (%s)', $this->shortenerName),
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Craig Andrews',
+                            'homepage' => 'http://status.net/wiki/Plugin:BitlyUrl',
+                            'rawdescription' =>
+                            sprintf(_m('Uses <a href="http://%1$s/">%1$s</a> URL-shortener service.'),
+                                    $this->shortenerName));
+
+        return true;
+    }
+}
 

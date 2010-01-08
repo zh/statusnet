@@ -56,5 +56,18 @@ class PtitUrlPlugin extends UrlShortenerPlugin
             return strval($xml['href']);
         }
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => sprintf('PtitUrl (%s)', $this->shortenerName),
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Craig Andrews',
+                            'homepage' => 'http://status.net/wiki/Plugin:PtitUrl',
+                            'rawdescription' =>
+                            sprintf(_m('Uses <a href="http://%1$s/">%1$s</a> URL-shortener service.'),
+                                    $this->shortenerName));
+
+        return true;
+    }
 }
 
