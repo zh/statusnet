@@ -830,7 +830,7 @@ class Notice extends Memcached_DataObject
         return $ids;
     }
 
-    function addToInboxes()
+    function whoGets()
     {
         $users = $this->getSubscribedUsers();
 
@@ -870,6 +870,13 @@ class Notice extends Memcached_DataObject
                 }
             }
         }
+
+        return $ni;
+    }
+
+    function addToInboxes()
+    {
+        $ni = $this->whoGets();
 
         Inbox::bulkInsert($this->id, array_keys($ni));
 
