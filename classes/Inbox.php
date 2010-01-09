@@ -51,15 +51,73 @@ class Inbox extends Memcached_DataObject
         return array(false, false, false);
     }
 
-    static function insertNotice($user_id, $notice_id)
+    /**
+     * Create a new inbox from existing Notice_inbox stuff
+     */
+
+    static function initialize($user_id)
     {
+        $ids = array();
+
+        $ni = new Notice_inbox();
+
+        $ni->user_id = $user_id;
+        $ni->selectAdd();
+        $ni->selectAdd('notice_id');
+        $ni->orderBy('notice_id DESC');
+        $ni->limit(0, 1024);
+
+        if ($ni->find()) {
+            while($ni->fetch()) {
+                $ids[] = $ni->notice_id;
+            }
+        }
+
+        $ni->free();
+        unset($ni);
+
         $inbox = new Inbox();
 
-        $inbox->query(sprintf('UPDATE inbox '.
-                              'set notice_ids = concat(cast(0x%08x as binary(4)), '.
-                              'substr(notice_ids, 1, 4092)) '.
-                              'WHERE user_id = %d',
-                              $notice_id, $user_id));
+        $inbox->user_id = $user_id;
+        $inbox->notice_ids = pack('N*', $ids);
+
+        $result = $inbox->insert();
+
+        if (!$result) {
+            common_log_db_error($inbox, 'INSERT', __FILE__);
+            return null;
+        }
+
+        return $inbox;
+    }
+
+    static function insertNotice($user_id, $notice_id)
+    {
+        $inbox = Inbox::staticGet('user_id', $user_id);
+
+        if (empty($inbox)) {
+            $inbox = Inbox::initialize($user_id);
+        }
+
+        if (empty($inbox)) {
+            return false;
+        }
+
+        $result = $inbox->query(sprintf('UPDATE inbox '.
+                                        'set notice_ids = concat(cast(0x%08x as binary(4)), '.
+                                        'substr(notice_ids, 1, 4092)) '.
+                                        'WHERE user_id = %d',
+                                        $notice_id, $user_id));
+
+        if ($result) {
+            $c = $this->memcache();
+
+            if (!empty($c)) {
+                $c->delete($this->cacheKey($this->tableName(), 'user_id', $user_id));
+            }
+        }
+
+        return $result;
     }
 
     static function bulkInsert($notice_id, $user_ids)
@@ -91,7 +149,10 @@ class Inbox extends Memcached_DataObject
         $inbox = Inbox::staticGet('user_id', $user_id);
 
         if (empty($inbox)) {
-            return array();
+            $inbox = Inbox::initialize($user_id);
+            if (empty($inbox)) {
+                return array();
+            }
         }
 
         $ids = unpack('N*', $inbox->notice_ids);
