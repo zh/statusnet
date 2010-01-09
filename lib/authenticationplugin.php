@@ -99,6 +99,23 @@ abstract class AuthenticationPlugin extends Plugin
         }
     }
 
+    /**
+    * Internal AutoRegister event handler
+    * @param nickname
+    * @param provider_name
+    * @param user - the newly registered user
+    */
+    function onAutoRegister($nickname, $provider_name, &$user)
+    {
+        if($provider_name == $this->provider_name && $this->autoregistration){
+            $user = $this->autoregister($nickname);
+            if($user){
+                User_username::register($user,$nickname,$this->provider_name);
+                return false;
+            }
+        }
+    }
+
     function onStartCheckPassword($nickname, $password, &$authenticatedUser){
         //map the nickname to a username
         $user_username = new User_username();
@@ -127,13 +144,13 @@ abstract class AuthenticationPlugin extends Plugin
                     }
                 }
             }else{
-                if($this->autoregistration){
-                    $authenticated = $this->checkPassword($nickname, $password);
-                    if($authenticated){
-                        $user = $this->autoregister($nickname);
-                        if($user){
-                            $authenticatedUser = $user;
-                            User_username::register($authenticatedUser,$nickname,$this->provider_name);
+                $authenticated = $this->checkPassword($nickname, $password);
+                if($authenticated){
+                    if(! Event::handle('AutoRegister', array($nickname, $this->provider_name, &$authenticatedUser))){
+                        //unlike most Event::handle lines of code, this one has a ! (not)
+                        //we want to do this if the event *was* handled - this isn't a "default" implementation
+                        //like most code of this form.
+                        if($authenticatedUser){
                             return false;
                         }
                     }
@@ -187,18 +204,6 @@ abstract class AuthenticationPlugin extends Plugin
         if($this->authoritative && !$this->password_changeable){
             //since we're authoritative, no other plugin could change passwords, so do not render the menu item
             return false;
-        }
-    }
-
-    function onAutoload($cls)
-    {
-        switch ($cls)
-        {
-         case 'User_username':
-            require_once(INSTALLDIR.'/plugins/Authentication/User_username.php');
-            return false;
-         default:
-            return true;
         }
     }
 

@@ -31,7 +31,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/plugins/Authorization/AuthorizationPlugin.php';
 require_once 'Net/LDAP2.php';
 
 class LdapAuthorizationPlugin extends AuthorizationPlugin
@@ -53,7 +52,6 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
     public $attributes = array();
 
     function onInitializePlugin(){
-        parent::onInitializePlugin();
         if(!isset($this->host)){
             throw new Exception("must specify a host");
         }

@@ -116,4 +116,16 @@ class GeoURLPlugin extends Plugin
 
         return true;
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'GeoURL',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Evan Prodromou',
+                            'homepage' => 'http://status.net/wiki/Plugin:GeoURL',
+                            'rawdescription' =>
+                            _m('Ping <a href="http://geourl.org/">GeoURL</a> when '.
+                               'new geolocation-enhanced notices are posted.'));
+        return true;
+    }
 }

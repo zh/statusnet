@@ -62,7 +62,7 @@ function common_init_language()
     // gettext will still select the right language.
     $language = common_language();
     $locale_set = common_init_locale($language);
-    
+
     setlocale(LC_CTYPE, 'C');
     // So we do not have to make people install the gettext locales
     $path = common_config('site','locale_path');
@@ -908,6 +908,26 @@ function common_sql_date($datetime)
     return strftime('%Y-%m-%d %H:%M:%S', $datetime);
 }
 
+/**
+ * Return an SQL fragment to calculate an age-based weight from a given
+ * timestamp or datetime column.
+ *
+ * @param string $column name of field we're comparing against current time
+ * @param integer $dropoff divisor for age in seconds before exponentiation
+ * @return string SQL fragment
+ */
+function common_sql_weight($column, $dropoff)
+{
+    if (common_config('db', 'type') == 'pgsql') {
+        // PostgreSQL doesn't support timestampdiff function.
+        // @fixme will this use the right time zone?
+        // @fixme does this handle cross-year subtraction correctly?
+        return "sum(exp(-extract(epoch from (now() - $column)) / $dropoff))";
+    } else {
+        return "sum(exp(timestampdiff(second, utc_timestamp(), $column) / $dropoff))";
+    }
+}
+
 function common_redirect($url, $code=307)
 {
     static $status = array(301 => "Moved Permanently",
@@ -1384,41 +1404,17 @@ function common_session_token()
 
 function common_cache_key($extra)
 {
-    $base_key = common_config('memcached', 'base');
-
-    if (empty($base_key)) {
-        $base_key = common_keyize(common_config('site', 'name'));
-    }
-
-    return 'statusnet:' . $base_key . ':' . $extra;
+    return Cache::key($extra);
 }
 
 function common_keyize($str)
 {
-    $str = strtolower($str);
-    $str = preg_replace('/\s/', '_', $str);
-    return $str;
+    return Cache::keyize($str);
 }
 
 function common_memcache()
 {
-    static $cache = null;
-    if (!common_config('memcached', 'enabled')) {
-        return null;
-    } else {
-        if (!$cache) {
-            $cache = new Memcache();
-            $servers = common_config('memcached', 'server');
-            if (is_array($servers)) {
-                foreach($servers as $server) {
-                    $cache->addServer($server);
-                }
-            } else {
-                $cache->addServer($servers);
-            }
-        }
-        return $cache;
-    }
+    return Cache::instance();
 }
 
 function common_license_terms($uri)

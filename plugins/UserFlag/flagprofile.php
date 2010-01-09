@@ -63,15 +63,13 @@ class FlagprofileAction extends ProfileFormAction
         assert(!empty($this->profile)); // checked above
 
         if (User_flag_profile::exists($this->profile->id,
-                                      $user->id))
-        {
+                                      $user->id)) {
             $this->clientError(_('Flag already exists.'));
             return false;
         }
 
         return true;
     }
-
 
     /**
      * Handle request
@@ -107,25 +105,23 @@ class FlagprofileAction extends ProfileFormAction
         assert(!empty($user));
         assert(!empty($this->profile));
 
-        $ufp = new User_flag_profile();
+        // throws an exception on error
 
-        $ufp->profile_id = $this->profile->id;
-        $ufp->user_id    = $user->id;
-        $ufp->created    = common_sql_now();
-
-        if (!$ufp->insert()) {
-            throw new ServerException(sprintf(_("Couldn't flag profile '%s' for review."),
-                                              $this->profile->nickname));
-        }
-
-        $ufp->free();
+        User_flag_profile::create($user->id, $this->profile->id);
 
         if ($this->boolean('ajax')) {
             $this->ajaxResults();
         }
     }
 
-    function ajaxResults() {
+    /**
+     * Return results as AJAX message
+     *
+     * @return void
+     */
+
+    function ajaxResults()
+    {
         header('Content-Type: text/xml;charset=utf-8');
         $this->xw->startDocument('1.0', 'UTF-8');
         $this->elementStart('html');

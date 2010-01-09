@@ -43,6 +43,9 @@ if (!defined('STATUSNET')) {
 
 class AdminprofileflagAction extends Action
 {
+    var $page     = null;
+    var $profiles = null;
+
     /**
      * Take arguments for running
      *
@@ -54,6 +57,47 @@ class AdminprofileflagAction extends Action
     function prepare($args)
     {
         parent::prepare($args);
+
+        $user = common_current_user();
+
+        // User must be logged in.
+
+        if (!common_logged_in()) {
+            $this->clientError(_('Not logged in.'));
+            return;
+        }
+
+        $user = common_current_user();
+
+        // ...because they're logged in
+
+        assert(!empty($user));
+
+        // It must be a "real" login, not saved cookie login
+
+        if (!common_is_real_login()) {
+            // Cookie theft is too easy; we require automatic
+            // logins to re-authenticate before admining the site
+            common_set_returnto($this->selfUrl());
+            if (Event::handle('RedirectToLogin', array($this, $user))) {
+                common_redirect(common_local_url('login'), 303);
+            }
+        }
+
+        // User must have the right to review flags
+
+        if (!$user->hasRight(UserFlagPlugin::REVIEWFLAGS)) {
+            $this->clientError(_('You cannot review profile flags.'));
+            return false;
+        }
+
+        $this->page = $this->trimmed('page');
+
+        if (empty($this->page)) {
+            $this->page = 1;
+        }
+
+        $this->profiles = $this->getProfiles();
 
         return true;
     }
@@ -73,7 +117,14 @@ class AdminprofileflagAction extends Action
         $this->showPage();
     }
 
-    function title() {
+    /**
+     * Title of this page
+     *
+     * @return string Title of the page
+     */
+
+    function title()
+    {
         return _('Flagged profiles');
     }
 
@@ -85,12 +136,19 @@ class AdminprofileflagAction extends Action
 
     function showContent()
     {
-        $profile = $this->getProfiles();
+        $pl = new FlaggedProfileList($this->profiles, $this);
 
-        $pl = new FlaggedProfileList($profile, $this);
+        $cnt = $pl->show();
 
-        $pl->show();
+        $this->pagination($this->page > 1, $cnt > PROFILES_PER_PAGE,
+                          $this->page, 'adminprofileflag');
     }
+
+    /**
+     * Retrieve this action's profiles
+     *
+     * @return Profile $profile Profile query results
+     */
 
     function getProfiles()
     {
@@ -103,7 +161,12 @@ class AdminprofileflagAction extends Action
         $ufp->whereAdd('cleared is NULL');
 
         $ufp->groupBy('profile_id');
-        $ufp->orderBy('flag_count DESC');
+        $ufp->orderBy('flag_count DESC, profile_id DESC');
+
+        $offset = ($this->page-1) * PROFILES_PER_PAGE;
+        $limit  = PROFILES_PER_PAGE + 1;
+
+        $ufp->limit($offset, $limit);
 
         $profiles = array();
 
@@ -122,7 +185,27 @@ class AdminprofileflagAction extends Action
     }
 }
 
-class FlaggedProfileList extends ProfileList {
+/**
+ * Specialization of ProfileList to show flagging information
+ *
+ * Most of the hard part is done in FlaggedProfileListItem.
+ *
+ * @category Widget
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://status.net/
+ */
+
+class FlaggedProfileList extends ProfileList
+{
+    /**
+     * Factory method for creating new list items
+     *
+     * @param Profile $profile Profile to create an item for
+     *
+     * @return ProfileListItem newly-created item
+     */
 
     function newListItem($profile)
     {
@@ -130,10 +213,28 @@ class FlaggedProfileList extends ProfileList {
     }
 }
 
+/**
+ * Specialization of ProfileListItem to show flagging information
+ *
+ * @category Widget
+ * @package  StatusNet
+ * @author   Evan Prodromou <evan@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://status.net/
+ */
+
 class FlaggedProfileListItem extends ProfileListItem
 {
-    var $user = null;
+    const MAX_FLAGGERS = 5;
+
+    var $user   = null;
     var $r2args = null;
+
+    /**
+     * Overload parent's action list with our own moderation-oriented buttons
+     *
+     * @return void
+     */
 
     function showActions()
     {
@@ -159,6 +260,12 @@ class FlaggedProfileListItem extends ProfileListItem
         $this->endActions();
     }
 
+    /**
+     * Show a button to sandbox the profile
+     *
+     * @return void
+     */
+
     function showSandboxButton()
     {
         if ($this->user->hasRight(Right::SANDBOXUSER)) {
@@ -173,6 +280,12 @@ class FlaggedProfileListItem extends ProfileListItem
             $this->out->elementEnd('li');
         }
     }
+
+    /**
+     * Show a button to silence the profile
+     *
+     * @return void
+     */
 
     function showSilenceButton()
     {
@@ -189,6 +302,12 @@ class FlaggedProfileListItem extends ProfileListItem
         }
     }
 
+    /**
+     * Show a button to delete user and profile
+     *
+     * @return void
+     */
+
     function showDeleteButton()
     {
 
@@ -200,7 +319,92 @@ class FlaggedProfileListItem extends ProfileListItem
         }
     }
 
+    /**
+     * Show a button to clear flags
+     *
+     * @return void
+     */
+
     function showClearButton()
     {
+        if ($this->user->hasRight(UserFlagPlugin::CLEARFLAGS)) {
+            $this->out->elementStart('li', 'entity_clear');
+            $cf = new ClearFlagForm($this->out, $this->profile, $this->r2args);
+            $cf->show();
+            $this->out->elementEnd('li');
+        }
+    }
+
+    /**
+     * Overload parent function to add flaggers list
+     *
+     * @return void
+     */
+
+    function endProfile()
+    {
+        $this->showFlaggersList();
+        parent::endProfile();
+    }
+
+    /**
+     * Show a list of people who've flagged this profile
+     *
+     * @return void
+     */
+
+    function showFlaggersList()
+    {
+        $flaggers = array();
+
+        $ufp = new User_flag_profile();
+
+        $ufp->selectAdd();
+        $ufp->selectAdd('user_id');
+        $ufp->profile_id = $this->profile->id;
+        $ufp->orderBy('created');
+
+        if ($ufp->find()) { // XXX: this should always happen
+            while ($ufp->fetch()) {
+                $user = User::staticGet('id', $ufp->user_id);
+                if (!empty($user)) { // XXX: this would also be unusual
+                    $flaggers[] = clone($user);
+                }
+            }
+        }
+
+        $cnt    = count($flaggers);
+        $others = 0;
+
+        if ($cnt > self::MAX_FLAGGERS) {
+            $flaggers = array_slice($flaggers, 0, self::MAX_FLAGGERS);
+            $others   = $cnt - self::MAX_FLAGGERS;
+        }
+
+        $lnks = array();
+
+        foreach ($flaggers as $flagger) {
+
+            $url = common_local_url('showstream',
+                                    array('nickname' => $flagger->nickname));
+
+            $lnks[] = XMLStringer::estring('a', array('href' => $url,
+                                                      'class' => 'flagger'),
+                                           $flagger->nickname);
+        }
+
+        if ($cnt > 0) {
+            $text = _('Flagged by ');
+
+            $text .= implode(', ', $lnks);
+
+            if ($others > 0) {
+                $text .= sprintf(_(' and %d others'), $others);
+            }
+
+            $this->out->elementStart('p', array('class' => 'flaggers'));
+            $this->out->raw($text);
+            $this->out->elementEnd('p');
+        }
     }
 }

@@ -554,20 +554,53 @@ width:81.5%;
 margin-bottom:0;
 line-height:1.618;
 }
-.form_notice #notice_data-attach_selected code {
+.form_notice #notice_data-attach_selected code,
+.form_notice #notice_data-geo_name {
 float:left;
-width:90%;
+width:80%;
 display:block;
-font-size:1.1em;
-line-height:1.8;
 overflow:auto;
+margin-right:2.5%;
 }
-.form_notice #notice_data-attach_selected button {
+.form_notice #notice_data-attach_selected code {
+font-size:1.1em;
+}
+.form_notice #notice_data-attach_selected button.close,
+.form_notice #notice_data-geo_selected button.close {
 float:right;
 font-size:0.8em;
 }
 
-button.close {
+.form_notice #notice_data-geo_selected button.minimize {
+float:left;
+}
+
+.form_notice #notice_data-geo_wrap label {
+position:absolute;
+top:25px;
+right:4px;
+left:auto;
+cursor:pointer;
+width:16px;
+height:16px;
+display:block;
+}
+.form_notice #notice_data-geo_wrap input {
+display:none;
+}
+.form_notice #notice_data-geo_wrap label {
+font-weight:normal;
+font-size:1em;
+margin-bottom:0;
+text-indent:-9999px;
+}
+.form_notice #notice_data-geo_name {
+display:block;
+padding-left:21px;
+}
+
+button.close,
+button.minimize {
 width:16px;
 height:16px;
 text-indent:-9999px;
@@ -1295,17 +1328,40 @@ padding-right:30px;
 .hentry .entry-content p {
 margin-bottom:18px;
 }
-.system_notice ul,
-.instructions ul,
-.hentry entry-content ol,
+.hentry .entry-content ol,
 .hentry .entry-content ul {
-list-style-position:inside;
+margin-left:1.795%;
 }
 .hentry .entry-content li {
 margin-bottom:18px;
 }
 .hentry .entry-content li li {
 margin-left:18px;
+}
+
+#content #plugin_authors {
+min-width:122px;
+}
+#content thead th {
+text-align:left;
+}
+#content tbody th {
+vertical-align:top;
+text-align:left;
+font-weight:normal;
+padding-top:11px;
+padding-right:18px;
+}
+#content tbody tr {
+border-top-width:1px;
+border-top-style:dotted;
+}
+#content td {
+padding:11px 18px 11px 0;
+vertical-align:top;
+}
+#content td:last-child {
+padding-right:0;
 }
 
 /* TOP_POSTERS */
@@ -1444,6 +1500,7 @@ margin-left:0;
 width:auto;
 }
 
+.system_notice ul,
 .instructions ul {
 list-style-position:inside;
 }

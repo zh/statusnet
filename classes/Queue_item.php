@@ -55,7 +55,7 @@ class Queue_item extends Memcached_DataObject
         return null;
     }
 
-    function &pkeyGet($kv)
+    function pkeyGet($kv)
     {
         return Memcached_DataObject::pkeyGet('Queue_item', $kv);
     }

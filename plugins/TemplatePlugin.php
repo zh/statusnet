@@ -22,13 +22,13 @@ if (!defined('STATUSNET')) {
 define('TEMPLATEPLUGIN_VERSION', '0.1');
 
 class TemplatePlugin extends Plugin {
-  
+
   var $blocks = array();
-  
+
   function __construct() {
     parent::__construct();
   }
-  
+
   // capture the RouterInitialized event
   // and connect a new API method
   // for updating the template
@@ -37,8 +37,7 @@ class TemplatePlugin extends Plugin {
       'action'      => 'template',
     ));
   }
-  
-  
+
   // <%styles%>
   // <%scripts%>
   // <%search%>
@@ -50,18 +49,18 @@ class TemplatePlugin extends Plugin {
     $act->extraHead();
     $this->blocks['head'] = $act->xw->flush();
     $act->showStylesheets();
-    $this->blocks['styles'] = $act->xw->flush();    
+    $this->blocks['styles'] = $act->xw->flush();
     $act->showScripts();
-    $this->blocks['scripts'] = $act->xw->flush();    
+    $this->blocks['scripts'] = $act->xw->flush();
     $act->showFeeds();
-    $this->blocks['feeds'] = $act->xw->flush();    
+    $this->blocks['feeds'] = $act->xw->flush();
     $act->showOpenSearch();
-    $this->blocks['search'] = $act->xw->flush();    
+    $this->blocks['search'] = $act->xw->flush();
     $act->showDescription();
     $this->blocks['description'] = $act->xw->flush();
     return false;
   }
-  
+
   // <%bodytext%>
   function onStartShowContentBlock( &$act ) {
     $this->clear_xmlWriter($act);
@@ -70,7 +69,7 @@ class TemplatePlugin extends Plugin {
   function onEndShowContentBlock( &$act ) {
     $this->blocks['bodytext'] = $act->xw->flush();
   }
-  
+
   // <%localnav%>
   function onStartShowLocalNavBlock( &$act ) {
     $this->clear_xmlWriter($act);
@@ -79,7 +78,7 @@ class TemplatePlugin extends Plugin {
   function onEndShowLocalNavBlock( &$act ) {
     $this->blocks['localnav'] = $act->xw->flush();
   }
-  
+
   // <%export%>
   function onStartShowExportData( &$act ) {
     $this->clear_xmlWriter($act);
@@ -88,7 +87,7 @@ class TemplatePlugin extends Plugin {
   function onEndShowExportData( &$act ) {
     $this->blocks['export'] = $act->xw->flush();
   }
-  
+
   // <%subscriptions%>
   // <%subscribers%>
   // <%groups%>
@@ -149,7 +148,7 @@ class TemplatePlugin extends Plugin {
     }
     return false;
   }
-  
+
   // <%logo%>
   // <%nav%>
   // <%notice%>
@@ -170,7 +169,7 @@ class TemplatePlugin extends Plugin {
     $this->blocks['noticeform'] = $act->xw->flush();
     return false;
   }
-  
+
   // <%secondarynav%>
   // <%licenses%>
   function onStartShowFooter( &$act ) {
@@ -181,19 +180,19 @@ class TemplatePlugin extends Plugin {
     $this->blocks['licenses'] = $act->xw->flush();
     return false;
   }
-  
+
   // capture the EndHTML event
   // and include the template
   function onEndEndHTML($act) {
-    
+
     global $action, $tags;
-    
+
     // set the action and title values
     $vars = array(
       'action'=>$action,
       'title'=>$act->title(). " - ". common_config('site', 'name')
     );
-    
+
     // use the PHP template
     // unless statusnet config:
     //   $config['template']['mode'] = 'html';
@@ -203,55 +202,55 @@ class TemplatePlugin extends Plugin {
       include $tpl_file;
       return;
     }
-    
+
     $tpl_file = $this->templateFolder() . '/index.html';
-    
+
     // read the static template
     $output = file_get_contents( $tpl_file );
-    
+
     $tags = array();
-    
+
     // get a list of the <%tags%> in the template
     $pattern='/<%([a-z]+)%>/';
-    
+
     if ( 1 <= preg_match_all( $pattern, $output, $found ))
       $tags[] = $found;
-    
+
     // for each found tag, set its value from the rendered blocks
     foreach( $tags[0][1] as $pos=>$tag ) {
       if (isset($this->blocks[$tag]))
         $vars[$tag] = $this->blocks[$tag];
-        
+
       // didn't find a block for the tag
       elseif (!isset($vars[$tag]))
         $vars[$tag] = '';
     }
-    
+
     // replace the tags in the template
     foreach( $vars as $key=>$val )
       $output = str_replace( '<%'.$key.'%>', $val, $output );
-    
+
     echo $output;
-    
+
     return true;
-    
+
   }
   function templateFolder() {
     return 'tpl';
   }
-  
+
   // catching the StartShowHTML event to halt the rendering
   function onStartShowHTML( &$act ) {
     $this->clear_xmlWriter($act);
     return true;
   }
-  
+
   // clear the xmlWriter
   function clear_xmlWriter( &$act ) {
     $act->xw->openMemory();
     $act->xw->setIndent(true);
   }
-  
+
 }
 
 /**
@@ -267,7 +266,7 @@ class TemplatePlugin extends Plugin {
  * @link     http://megapump.com/
  *
  */
- 
+
 class TemplateAction extends Action
 {
 
@@ -275,54 +274,65 @@ class TemplateAction extends Action
     parent::prepare($args);
     return true;
   }
-  
+
   function handle($args) {
-    
+
     parent::handle($args);
-    
+
     if (!isset($_SERVER['PHP_AUTH_USER'])) {
-      
+
       // not authenticated, show login form
       header('WWW-Authenticate: Basic realm="StatusNet API"');
-      
+
       // cancelled the browser login form
       $this->clientError(_('Authentication error!'), $code = 401);
-      
+
     } else {
-      
+
       $nick = $_SERVER['PHP_AUTH_USER'];
       $pass = $_SERVER['PHP_AUTH_PW'];
-      
+
       // check username and password
       $user = common_check_user($nick,$pass);
-      
+
       if ($user) {
-        
+
         // verify that user is admin
         if (!($user->id == 1))
           $this->clientError(_('Only User #1 can update the template.'), $code = 401);
-        
+
         // open the old template
         $tpl_file = $this->templateFolder() . '/index.html';
         $fp = fopen( $tpl_file, 'w+' );
-        
+
         // overwrite with the new template
         fwrite($fp, $this->arg('template'));
         fclose($fp);
-        
+
         header('HTTP/1.1 200 OK');
         header('Content-type: text/plain');
         print "Template Updated!";
-        
+
       } else {
-        
+
         // bad username and password
         $this->clientError(_('Authentication error!'), $code = 401);
-        
+
       }
-      
+
     }
   }
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'Template',
+                            'version' => TEMPLATEPLUGIN_VERSION,
+                            'author' => 'Brian Hendrickson',
+                            'homepage' => 'http://status.net/wiki/Plugin:Template',
+                            'rawdescription' =>
+                            _m('Use an HTML template for Web output.'));
+        return true;
+    }
+
 }
 
 /**

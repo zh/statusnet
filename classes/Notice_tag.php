@@ -96,7 +96,7 @@ class Notice_tag extends Memcached_DataObject
         }
     }
 
-    function &pkeyGet($kv)
+    function pkeyGet($kv)
     {
         return Memcached_DataObject::pkeyGet('Notice_tag', $kv);
     }

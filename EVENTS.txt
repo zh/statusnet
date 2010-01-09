@@ -640,3 +640,18 @@ EndLog: After writing to the logs
 - $msg
 - $filename
 
+StartBlockProfile: when we're about to block
+- $user: the person doing the block
+- $profile: the person getting blocked, can be remote
+
+EndBlockProfile: when a block has succeeded
+- $user: the person doing the block
+- $profile: the person blocked, can be remote
+
+StartUnblockProfile: when we're about to unblock
+- $user: the person doing the unblock
+- $profile: the person getting unblocked, can be remote
+
+EndUnblockProfile: when an unblock has succeeded
+- $user: the person doing the unblock
+- $profile: the person unblocked, can be remote

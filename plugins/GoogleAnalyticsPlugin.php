@@ -70,4 +70,16 @@ class GoogleAnalyticsPlugin extends Plugin
         $action->inlineScript($js1);
         $action->inlineScript($js2);
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'GoogleAnalytics',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Evan Prodromou',
+                            'homepage' => 'http://status.net/wiki/Plugin:GoogleAnalytics',
+                            'rawdescription' =>
+                            _m('Use <a href="http://www.google.com/analytics/">Google Analytics</a>'.
+                               ' to track Web access.'));
+        return true;
+    }
 }

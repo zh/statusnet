@@ -123,8 +123,8 @@ class LeavegroupAction extends Action
         $result = $member->delete();
 
         if (!$result) {
-            common_log_db_error($member, 'INSERT', __FILE__);
-            $this->serverError(sprintf(_('Could not remove user %s to group %s'),
+            common_log_db_error($member, 'DELETE', __FILE__);
+            $this->serverError(sprintf(_('Could not remove user %s from group %s'),
                                        $cur->nickname, $this->group->nickname));
         }
 

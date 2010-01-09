@@ -31,6 +31,8 @@ if (!defined('STATUSNET')) {
 
 require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
 
+define('TWITTERBRIDGEPLUGIN_VERSION', '0.9');
+
 /**
  * Plugin for sending and importing Twitter statuses
  *
@@ -186,6 +188,19 @@ class TwitterBridgePlugin extends Plugin
                 . '/plugins/TwitterBridge/daemons/twitterstatusfetcher.php');
         }
 
+        return true;
+    }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'TwitterBridge',
+                            'version' => TWITTERBRIDGEPLUGIN_VERSION,
+                            'author' => 'Zach Copley',
+                            'homepage' => 'http://status.net/wiki/Plugin:TwitterBridge',
+                            'rawdescription' =>
+                            _m('The Twitter "bridge" plugin allows you to integrate ' .
+                               'your StatusNet instance with ' .
+                               '<a href="http://twitter.com/">Twitter</a>.'));
         return true;
     }
 

@@ -39,6 +39,7 @@ class CasAuthenticationPlugin extends AuthenticationPlugin
     public $server;
     public $port = 443;
     public $path = '';
+    public $takeOverLogin = false;
 
     function checkPassword($username, $password)
     {
@@ -56,8 +57,14 @@ class CasAuthenticationPlugin extends AuthenticationPlugin
          case 'CasloginAction':
             require_once(INSTALLDIR.'/plugins/CasAuthentication/' . strtolower(mb_substr($cls, 0, -6)) . '.php');
             return false;
-         default:
-            return parent::onAutoload($cls);
+        }
+    }
+
+    function onArgsInitialize(&$args)
+    {
+        if($this->takeOverLogin && $args['action'] == 'login')
+        {
+            $args['action'] = 'caslogin';
         }
     }
 

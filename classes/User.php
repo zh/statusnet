@@ -625,7 +625,11 @@ class User extends Memcached_DataObject
 
         // Cancel their subscription, if it exists
 
-        subs_unsubscribe_to($other->getUser(),$this->getProfile());
+        $otherUser = User::staticGet('id', $other->id);
+
+        if (!empty($otherUser)) {
+            subs_unsubscribe_to($otherUser, $this->getProfile());
+        }
 
         $block->query('COMMIT');
 
@@ -991,5 +995,29 @@ class User extends Memcached_DataObject
         $notice = NULL;
 
         return $ids;
+    }
+
+    function shareLocation()
+    {
+        $cfg = common_config('location', 'share');
+
+        if ($cfg == 'always') {
+            return true;
+        } else if ($cfg == 'never') {
+            return false;
+        } else { // user
+            $share = true;
+
+            $prefs = User_location_prefs::staticGet('user_id', $this->id);
+
+            if (empty($prefs)) {
+                $share = common_config('location', 'sharedefault');
+            } else {
+                $share = $prefs->share_location;
+                $prefs->free();
+            }
+
+            return $share;
+        }
     }
 }

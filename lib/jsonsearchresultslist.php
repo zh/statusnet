@@ -105,8 +105,14 @@ class JSONSearchResultsList
                 break;
             }
 
-            $item = new ResultItem($this->notice);
-            array_push($this->results, $item);
+            $profile = $this->notice->getProfile();
+
+            // Don't show notices from deleted users
+
+            if (!empty($profile)) {
+                $item = new ResultItem($this->notice);
+                array_push($this->results, $item);
+            }
         }
 
         $time_end           = microtime(true);

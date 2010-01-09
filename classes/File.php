@@ -182,25 +182,32 @@ class File extends Memcached_DataObject
 
     static function url($filename)
     {
-        $path = common_config('attachments', 'path');
+        if(common_config('site','private')) {
 
-        if ($path[strlen($path)-1] != '/') {
-            $path .= '/';
+            return common_local_url('getfile',
+                                array('filename' => $filename));
+
+        } else {
+            $path = common_config('attachments', 'path');
+
+            if ($path[strlen($path)-1] != '/') {
+                $path .= '/';
+            }
+
+            if ($path[0] != '/') {
+                $path = '/'.$path;
+            }
+
+            $server = common_config('attachments', 'server');
+
+            if (empty($server)) {
+                $server = common_config('site', 'server');
+            }
+
+            // XXX: protocol
+
+            return 'http://'.$server.$path.$filename;
         }
-
-        if ($path[0] != '/') {
-            $path = '/'.$path;
-        }
-
-        $server = common_config('attachments', 'server');
-
-        if (empty($server)) {
-            $server = common_config('site', 'server');
-        }
-
-        // XXX: protocol
-
-        return 'http://'.$server.$path.$filename;
     }
 
     function getEnclosure(){

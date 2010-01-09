@@ -63,7 +63,7 @@ class Notice extends Memcached_DataObject
     public $created;                         // datetime  multiple_key not_null default_0000-00-00%2000%3A00%3A00
     public $modified;                        // timestamp   not_null default_CURRENT_TIMESTAMP
     public $reply_to;                        // int(4)
-    public $is_local;                        // tinyint(1)
+    public $is_local;                        // int(4)
     public $source;                          // varchar(32)
     public $conversation;                    // int(4)
     public $lat;                             // decimal(10,7)
@@ -214,7 +214,7 @@ class Notice extends Memcached_DataObject
             extract($options);
         }
 
-        if (empty($is_local)) {
+        if (!isset($is_local)) {
             $is_local = Notice::LOCAL_PUBLIC;
         }
 
@@ -289,21 +289,11 @@ class Notice extends Memcached_DataObject
         if (!empty($lat) && !empty($lon)) {
             $notice->lat = $lat;
             $notice->lon = $lon;
+        }
+
+        if (!empty($location_ns) && !empty($location_id)) {
             $notice->location_id = $location_id;
             $notice->location_ns = $location_ns;
-        } else if (!empty($location_ns) && !empty($location_id)) {
-            $location = Location::fromId($location_id, $location_ns);
-            if (!empty($location)) {
-                $notice->lat = $location->lat;
-                $notice->lon = $location->lon;
-                $notice->location_id = $location_id;
-                $notice->location_ns = $location_ns;
-            }
-        } else {
-            $notice->lat         = $profile->lat;
-            $notice->lon         = $profile->lon;
-            $notice->location_id = $profile->location_id;
-            $notice->location_ns = $profile->location_ns;
         }
 
         if (Event::handle('StartNoticeSave', array(&$notice))) {
@@ -1139,7 +1129,7 @@ class Notice extends Memcached_DataObject
         $xs->element('id', null, $this->uri);
 
         $xs->element('published', null, common_date_w3dtf($this->created));
-        $xs->element('updated', null, common_date_w3dtf($this->modified));
+        $xs->element('updated', null, common_date_w3dtf($this->created));
 
         if ($this->reply_to) {
             $reply_notice = Notice::staticGet('id', $this->reply_to);
@@ -1217,7 +1207,7 @@ class Notice extends Memcached_DataObject
 
         $idstr = $cache->get($idkey);
 
-        if (!empty($idstr)) {
+        if ($idstr !== false) {
             // Cache hit! Woohoo!
             $window = explode(',', $idstr);
             $ids = array_slice($window, $offset, $limit);
@@ -1226,7 +1216,7 @@ class Notice extends Memcached_DataObject
 
         $laststr = $cache->get($idkey.';last');
 
-        if (!empty($laststr)) {
+        if ($laststr !== false) {
             $window = explode(',', $laststr);
             $last_id = $window[0];
             $new_ids = call_user_func_array($fn, array_merge($args, array(0, NOTICE_CACHE_WINDOW,
@@ -1366,11 +1356,20 @@ class Notice extends Memcached_DataObject
     {
         $author = Profile::staticGet('id', $this->profile_id);
 
-        // FIXME: truncate on long repeats...?
-
         $content = sprintf(_('RT @%1$s %2$s'),
                            $author->nickname,
                            $this->content);
+
+        $maxlen = common_config('site', 'textlimit');
+        if ($maxlen > 0 && mb_strlen($content) > $maxlen) {
+            // Web interface and current Twitter API clients will
+            // pull the original notice's text, but some older
+            // clients and RSS/Atom feeds will see this trimmed text.
+            //
+            // Unfortunately this is likely to lose tags or URLs
+            // at the end of long notices.
+            $content = mb_substr($content, 0, $maxlen - 4) . ' ...';
+        }
 
         return self::saveNew($repeater_id, $content, $source,
                              array('repeat_of' => $this->id));
@@ -1386,7 +1385,7 @@ class Notice extends Memcached_DataObject
             $ids = $this->_repeatStreamDirect($limit);
         } else {
             $idstr = $cache->get(common_cache_key('notice:repeats:'.$this->id));
-            if (!empty($idstr)) {
+            if ($idstr !== false) {
                 $ids = explode(',', $idstr);
             } else {
                 $ids = $this->_repeatStreamDirect(100);
@@ -1428,5 +1427,48 @@ class Notice extends Memcached_DataObject
         $notice = NULL;
 
         return $ids;
+    }
+
+    function locationOptions($lat, $lon, $location_id, $location_ns, $profile = null)
+    {
+        $options = array();
+
+        if (!empty($location_id) && !empty($location_ns)) {
+
+            $options['location_id'] = $location_id;
+            $options['location_ns'] = $location_ns;
+
+            $location = Location::fromId($location_id, $location_ns);
+
+            if (!empty($location)) {
+                $options['lat'] = $location->lat;
+                $options['lon'] = $location->lon;
+            }
+
+        } else if (!empty($lat) && !empty($lon)) {
+
+            $options['lat'] = $lat;
+            $options['lon'] = $lon;
+
+            $location = Location::fromLatLon($lat, $lon);
+
+            if (!empty($location)) {
+                $options['location_id'] = $location->location_id;
+                $options['location_ns'] = $location->location_ns;
+            }
+        } else if (!empty($profile)) {
+
+            if (isset($profile->lat) && isset($profile->lon)) {
+                $options['lat'] = $profile->lat;
+                $options['lon'] = $profile->lon;
+            }
+
+            if (isset($profile->location_id) && isset($profile->location_ns)) {
+                $options['location_id'] = $profile->location_id;
+                $options['location_ns'] = $profile->location_ns;
+            }
+        }
+
+        return $options;
     }
 }

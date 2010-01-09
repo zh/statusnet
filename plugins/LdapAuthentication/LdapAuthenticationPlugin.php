@@ -31,7 +31,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/plugins/Authentication/AuthenticationPlugin.php';
 require_once 'Net/LDAP2.php';
 
 class LdapAuthenticationPlugin extends AuthenticationPlugin
@@ -75,8 +74,6 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
          case 'MemcacheSchemaCache':
             require_once(INSTALLDIR.'/plugins/LdapAuthentication/MemcacheSchemaCache.php');
             return false;
-         default:
-            return parent::onAutoload($cls);
         }
     }
     

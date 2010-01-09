@@ -62,9 +62,8 @@ class RecaptchaPlugin extends Plugin
 
     function onEndRegistrationFormData($action)
     {
-        $action->style('#recaptcha_area{float:left;}');
         $action->elementStart('li');
-        $action->raw('<label for="recaptcha_area">Captcha</label>');
+        $action->raw('<label for="recaptcha">Captcha</label>');
         if($this->checkssl() === true) {
             $action->raw(recaptcha_get_html($this->public_key), null, true);
         } else { 
