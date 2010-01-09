@@ -79,7 +79,7 @@ class Inbox extends Memcached_DataObject
         $inbox = new Inbox();
 
         $inbox->user_id = $user_id;
-        $inbox->notice_ids = pack('N*', $ids);
+        $inbox->notice_ids = call_user_func_array('pack', array_merge(array('N*'), $ids));
 
         $result = $inbox->insert();
 
@@ -110,10 +110,10 @@ class Inbox extends Memcached_DataObject
                                         $notice_id, $user_id));
 
         if ($result) {
-            $c = $this->memcache();
+            $c = self::memcache();
 
             if (!empty($c)) {
-                $c->delete($this->cacheKey($this->tableName(), 'user_id', $user_id));
+                $c->delete(self::cacheKey('inbox', 'user_id', $user_id));
             }
         }
 
@@ -122,25 +122,9 @@ class Inbox extends Memcached_DataObject
 
     static function bulkInsert($notice_id, $user_ids)
     {
-        $cnt = count($user_ids);
-
-        for ($off = 0; $off < $cnt; $off += self::BOXCAR) {
-
-            $boxcar = array_slice($user_ids, $off, self::BOXCAR);
-
-            if (empty($boxcar)) { // jump in, hobo!
-                break;
-            }
-
-            $inbox = new Inbox();
-
-            $inbox->query(sprintf('UPDATE inbox '.
-                                  'set notice_ids = concat(cast(0x%08x as binary(4)), '.
-                                  'substr(notice_ids, 1, 4092)) '.
-                                  'WHERE user_id in (%s)',
-                                  $notice_id, implode(',', $boxcar)));
-
-            $inbox->free();
+        foreach ($user_ids as $user_id)
+        {
+            Inbox::insertNotice($user_id, $notice_id);
         }
     }
 
