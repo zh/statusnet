@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-05 22:10+0000\n"
-"PO-Revision-Date: 2010-01-05 22:11:54+0000\n"
+"POT-Creation-Date: 2010-01-09 23:44+0000\n"
+"PO-Revision-Date: 2010-01-09 23:45:36+0000\n"
 "Language-Team: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60693); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r60878); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: out-statusnet\n"
@@ -407,7 +407,7 @@ msgstr "당신은 해당 그룹의 멤버가 아닙니다."
 
 #: actions/apigroupleave.php:124
 #, fuzzy, php-format
-msgid "Could not remove user %s to group %s."
+msgid "Could not remove user %s from group %s."
 msgstr "그룹 %s에서 %s 사용자를 제거할 수 없습니다."
 
 #: actions/apigrouplist.php:95
@@ -463,7 +463,7 @@ msgid "No status with that ID found."
 msgstr "발견된 ID의 상태가 없습니다."
 
 #: actions/apistatusesupdate.php:157 actions/newnotice.php:155
-#: scripts/maildaemon.php:71
+#: lib/mailhandler.php:60
 #, fuzzy, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr "너무 깁니다. 통지의 최대 길이는 140글자 입니다."
@@ -870,7 +870,7 @@ msgid "Delete this user"
 msgstr "이 게시글 삭제하기"
 
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
-#: lib/adminpanelaction.php:302 lib/groupnav.php:119
+#: lib/adminpanelaction.php:316 lib/groupnav.php:119
 msgid "Design"
 msgstr ""
 
@@ -1349,12 +1349,12 @@ msgstr "리모트 프로필 업데이트 오류"
 msgid "No such group."
 msgstr "그러한 그룹이 없습니다."
 
-#: actions/getfile.php:75
+#: actions/getfile.php:79
 #, fuzzy
 msgid "No such file."
 msgstr "그러한 통지는 없습니다."
 
-#: actions/getfile.php:79
+#: actions/getfile.php:83
 #, fuzzy
 msgid "Cannot read file."
 msgstr "파일을 잃어버렸습니다."
@@ -1493,7 +1493,7 @@ msgstr "%s 그룹 회원, %d페이지"
 msgid "A list of the users in this group."
 msgstr "이 그룹의 회원리스트"
 
-#: actions/groupmembers.php:175 lib/action.php:441 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:442 lib/groupnav.php:107
 msgid "Admin"
 msgstr "관리자"
 
@@ -1767,7 +1767,7 @@ msgstr "개인적인 메시지"
 msgid "Optionally add a personal message to the invitation."
 msgstr "초대장에 메시지 첨부하기."
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:232
+#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:234
 msgid "Send"
 msgstr "보내기"
 
@@ -1858,9 +1858,9 @@ msgstr "당신은 해당 그룹의 멤버가 아닙니다."
 msgid "Could not find membership record."
 msgstr "멤버십 기록을 발견할 수 없습니다."
 
-#: actions/leavegroup.php:127 lib/command.php:284
-#, php-format
-msgid "Could not remove user %s to group %s"
+#: actions/leavegroup.php:127
+#, fuzzy, php-format
+msgid "Could not remove user %s from group %s"
 msgstr "그룹 %s에서 %s 사용자를 제거할 수 없습니다."
 
 #: actions/leavegroup.php:134 lib/command.php:289
@@ -1886,7 +1886,7 @@ msgstr "틀린 계정 또는 비밀 번호"
 msgid "Error setting user. You are probably not authorized."
 msgstr "인증이 되지 않았습니다."
 
-#: actions/login.php:208 actions/login.php:261 lib/action.php:459
+#: actions/login.php:208 actions/login.php:261 lib/action.php:460
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "로그인"
@@ -2206,7 +2206,7 @@ msgstr "새 비밀번호를 저장 할 수 없습니다."
 msgid "Password saved."
 msgstr "비밀 번호 저장"
 
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:308
+#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:326
 msgid "Paths"
 msgstr ""
 
@@ -2239,7 +2239,7 @@ msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr ""
 
 #: actions/pathsadminpanel.php:217 actions/siteadminpanel.php:58
-#: lib/adminpanelaction.php:299
+#: lib/adminpanelaction.php:311
 #, fuzzy
 msgid "Site"
 msgstr "초대"
@@ -2502,20 +2502,20 @@ msgstr "유효하지 않은태그: \"%s\""
 msgid "Couldn't update user for autosubscribe."
 msgstr "자동구독에 사용자를 업데이트 할 수 없습니다."
 
-#: actions/profilesettings.php:354
+#: actions/profilesettings.php:359
 #, fuzzy
 msgid "Couldn't save location prefs."
 msgstr "태그를 저장할 수 없습니다."
 
-#: actions/profilesettings.php:366
+#: actions/profilesettings.php:371
 msgid "Couldn't save profile."
 msgstr "프로필을 저장 할 수 없습니다."
 
-#: actions/profilesettings.php:374
+#: actions/profilesettings.php:379
 msgid "Couldn't save tags."
 msgstr "태그를 저장할 수 없습니다."
 
-#: actions/profilesettings.php:382 lib/adminpanelaction.php:126
+#: actions/profilesettings.php:387 lib/adminpanelaction.php:137
 msgid "Settings saved."
 msgstr "설정 저장"
 
@@ -2751,7 +2751,7 @@ msgstr "확인 코드 오류"
 msgid "Registration successful"
 msgstr "회원 가입이 성공적입니다."
 
-#: actions/register.php:114 actions/register.php:502 lib/action.php:456
+#: actions/register.php:114 actions/register.php:502 lib/action.php:457
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "회원가입"
@@ -3780,7 +3780,7 @@ msgstr "구독취소 되었습니다."
 msgid "Listenee stream license ‘%s’ is not compatible with site license ‘%s’."
 msgstr ""
 
-#: actions/useradminpanel.php:58 lib/adminpanelaction.php:305
+#: actions/useradminpanel.php:58 lib/adminpanelaction.php:321
 #: lib/personalgroupnav.php:115
 msgid "User"
 msgstr "이용자"
@@ -3886,7 +3886,7 @@ msgstr ""
 "사용자의 통지를 구독하려면 상세를 확인해 주세요. 구독하지 않는 경우는, \"취소"
 "\"를 클릭해 주세요."
 
-#: actions/userauthorization.php:188
+#: actions/userauthorization.php:188 actions/version.php:165
 #, fuzzy
 msgid "License"
 msgstr "라이선스"
@@ -4016,6 +4016,72 @@ msgstr "당신은 해당 그룹의 멤버가 아닙니다."
 msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
 msgstr ""
 
+#: actions/version.php:73
+#, fuzzy, php-format
+msgid "StatusNet %s"
+msgstr "통계"
+
+#: actions/version.php:153
+#, php-format
+msgid ""
+"This site is powered by %s version %s, Copyright 2008-2010 StatusNet, Inc. "
+"and contributors."
+msgstr ""
+
+#: actions/version.php:157
+#, fuzzy
+msgid "StatusNet"
+msgstr "아바타가 업데이트 되었습니다."
+
+#: actions/version.php:161
+msgid "Contributors"
+msgstr ""
+
+#: actions/version.php:168
+msgid ""
+"StatusNet is free software: you can redistribute it and/or modify it under "
+"the terms of the GNU Affero General Public License as published by the Free "
+"Software Foundation, either version 3 of the License, or (at your option) "
+"any later version. "
+msgstr ""
+
+#: actions/version.php:174
+msgid ""
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License "
+"for more details. "
+msgstr ""
+
+#: actions/version.php:180
+#, php-format
+msgid ""
+"You should have received a copy of the GNU Affero General Public License "
+"along with this program.  If not, see %s."
+msgstr ""
+
+#: actions/version.php:189
+msgid "Plugins"
+msgstr ""
+
+#: actions/version.php:195
+#, fuzzy
+msgid "Name"
+msgstr "별명"
+
+#: actions/version.php:196 lib/action.php:741
+#, fuzzy
+msgid "Version"
+msgstr "개인적인"
+
+#: actions/version.php:197
+msgid "Author(s)"
+msgstr ""
+
+#: actions/version.php:198 lib/groupeditform.php:172
+msgid "Description"
+msgstr "설명"
+
 #: classes/File.php:137
 #, php-format
 msgid ""
@@ -4089,7 +4155,7 @@ msgstr "통지를 저장하는데 문제가 발생했습니다."
 msgid "DB error inserting reply: %s"
 msgstr "답신을 추가 할 때에 데이타베이스 에러 : %s"
 
-#: classes/Notice.php:1361
+#: classes/Notice.php:1359
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -4145,131 +4211,131 @@ msgstr "%s - %s"
 msgid "Untitled page"
 msgstr "제목없는 페이지"
 
-#: lib/action.php:426
+#: lib/action.php:427
 msgid "Primary site navigation"
 msgstr "주 사이트 네비게이션"
 
-#: lib/action.php:432
+#: lib/action.php:433
 msgid "Home"
 msgstr "홈"
 
-#: lib/action.php:432
+#: lib/action.php:433
 msgid "Personal profile and friends timeline"
 msgstr "개인 프로필과 친구 타임라인"
 
-#: lib/action.php:434
+#: lib/action.php:435
 msgid "Account"
 msgstr "계정"
 
-#: lib/action.php:434
+#: lib/action.php:435
 msgid "Change your email, avatar, password, profile"
 msgstr "당신의 이메일, 아바타, 비밀 번호, 프로필을 변경하세요."
 
-#: lib/action.php:437
+#: lib/action.php:438
 msgid "Connect"
 msgstr "연결"
 
-#: lib/action.php:437
+#: lib/action.php:438
 #, fuzzy
 msgid "Connect to services"
 msgstr "서버에 재접속 할 수 없습니다 : %s"
 
-#: lib/action.php:441
+#: lib/action.php:442
 #, fuzzy
 msgid "Change site configuration"
 msgstr "주 사이트 네비게이션"
 
-#: lib/action.php:445 lib/subgroupnav.php:105
+#: lib/action.php:446 lib/subgroupnav.php:105
 msgid "Invite"
 msgstr "초대"
 
-#: lib/action.php:446 lib/subgroupnav.php:106
+#: lib/action.php:447 lib/subgroupnav.php:106
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "%s에 친구를 가입시키기 위해 친구와 동료를 초대합니다."
 
-#: lib/action.php:451
+#: lib/action.php:452
 msgid "Logout"
 msgstr "로그아웃"
 
-#: lib/action.php:451
+#: lib/action.php:452
 msgid "Logout from the site"
 msgstr "이 사이트로부터 로그아웃"
 
-#: lib/action.php:456
+#: lib/action.php:457
 msgid "Create an account"
 msgstr "계정 만들기"
 
-#: lib/action.php:459
+#: lib/action.php:460
 msgid "Login to the site"
 msgstr "이 사이트 로그인"
 
-#: lib/action.php:462 lib/action.php:725
+#: lib/action.php:463 lib/action.php:726
 msgid "Help"
 msgstr "도움말"
 
-#: lib/action.php:462
+#: lib/action.php:463
 msgid "Help me!"
 msgstr "도움이 필요해!"
 
-#: lib/action.php:465 lib/searchaction.php:127
+#: lib/action.php:466 lib/searchaction.php:127
 msgid "Search"
 msgstr "검색"
 
-#: lib/action.php:465
+#: lib/action.php:466
 msgid "Search for people or text"
 msgstr "프로필이나 텍스트 검색"
 
-#: lib/action.php:486
+#: lib/action.php:487
 msgid "Site notice"
 msgstr "사이트 공지"
 
-#: lib/action.php:552
+#: lib/action.php:553
 msgid "Local views"
 msgstr "로컬 뷰"
 
-#: lib/action.php:618
+#: lib/action.php:619
 msgid "Page notice"
 msgstr "페이지 공지"
 
-#: lib/action.php:720
+#: lib/action.php:721
 msgid "Secondary site navigation"
 msgstr "보조 사이트 네비게이션"
 
-#: lib/action.php:727
+#: lib/action.php:728
 msgid "About"
 msgstr "정보"
 
-#: lib/action.php:729
+#: lib/action.php:730
 msgid "FAQ"
 msgstr "자주 묻는 질문"
 
-#: lib/action.php:733
+#: lib/action.php:734
 msgid "TOS"
 msgstr ""
 
-#: lib/action.php:736
+#: lib/action.php:737
 msgid "Privacy"
 msgstr "개인정보 취급방침"
 
-#: lib/action.php:738
+#: lib/action.php:739
 msgid "Source"
 msgstr "소스 코드"
 
-#: lib/action.php:740
+#: lib/action.php:743
 msgid "Contact"
 msgstr "연락하기"
 
-#: lib/action.php:742
+#: lib/action.php:745
 #, fuzzy
 msgid "Badge"
 msgstr "찔러 보기"
 
-#: lib/action.php:770
+#: lib/action.php:773
 msgid "StatusNet software license"
 msgstr "라코니카 소프트웨어 라이선스"
 
-#: lib/action.php:773
+#: lib/action.php:776
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4278,12 +4344,12 @@ msgstr ""
 "**%%site.name%%** 는 [%%site.broughtby%%](%%site.broughtbyurl%%)가 제공하는 "
 "마이크로블로깅서비스입니다."
 
-#: lib/action.php:775
+#: lib/action.php:778
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** 는 마이크로블로깅서비스입니다."
 
-#: lib/action.php:777
+#: lib/action.php:780
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4294,32 +4360,32 @@ msgstr ""
 "을 사용합니다. StatusNet는 [GNU Affero General Public License](http://www."
 "fsf.org/licensing/licenses/agpl-3.0.html) 라이선스에 따라 사용할 수 있습니다."
 
-#: lib/action.php:791
+#: lib/action.php:794
 #, fuzzy
 msgid "Site content license"
 msgstr "라코니카 소프트웨어 라이선스"
 
-#: lib/action.php:800
+#: lib/action.php:803
 msgid "All "
 msgstr "모든 것"
 
-#: lib/action.php:805
+#: lib/action.php:808
 msgid "license."
 msgstr "라이선스"
 
-#: lib/action.php:1099
+#: lib/action.php:1102
 msgid "Pagination"
 msgstr "페이지수"
 
-#: lib/action.php:1108
+#: lib/action.php:1111
 msgid "After"
 msgstr "뒷 페이지"
 
-#: lib/action.php:1116
+#: lib/action.php:1119
 msgid "Before"
 msgstr "앞 페이지"
 
-#: lib/action.php:1164
+#: lib/action.php:1167
 msgid "There was a problem with your session token."
 msgstr "당신의 세션토큰관련 문제가 있습니다."
 
@@ -4328,32 +4394,37 @@ msgstr "당신의 세션토큰관련 문제가 있습니다."
 msgid "You cannot make changes to this site."
 msgstr "당신은 이 사용자에게 메시지를 보낼 수 없습니다."
 
-#: lib/adminpanelaction.php:195
+#: lib/adminpanelaction.php:107
+#, fuzzy
+msgid "Changes to that panel are not allowed."
+msgstr "가입이 허용되지 않습니다."
+
+#: lib/adminpanelaction.php:206
 #, fuzzy
 msgid "showForm() not implemented."
 msgstr "명령이 아직 실행되지 않았습니다."
 
-#: lib/adminpanelaction.php:224
+#: lib/adminpanelaction.php:235
 #, fuzzy
 msgid "saveSettings() not implemented."
 msgstr "명령이 아직 실행되지 않았습니다."
 
-#: lib/adminpanelaction.php:247
+#: lib/adminpanelaction.php:258
 #, fuzzy
 msgid "Unable to delete design setting."
 msgstr "트위터 환경설정을 저장할 수 없습니다."
 
-#: lib/adminpanelaction.php:300
+#: lib/adminpanelaction.php:312
 #, fuzzy
 msgid "Basic site configuration"
 msgstr "이메일 주소 확인서"
 
-#: lib/adminpanelaction.php:303
+#: lib/adminpanelaction.php:317
 #, fuzzy
 msgid "Design configuration"
 msgstr "SMS 인증"
 
-#: lib/adminpanelaction.php:306 lib/adminpanelaction.php:309
+#: lib/adminpanelaction.php:322 lib/adminpanelaction.php:327
 #, fuzzy
 msgid "Paths configuration"
 msgstr "SMS 인증"
@@ -4439,6 +4510,11 @@ msgstr "이용자의 지속적인 게시글이 없습니다."
 #: lib/command.php:190
 msgid "Notice marked as fave."
 msgstr "게시글이 좋아하는 글로 지정되었습니다."
+
+#: lib/command.php:284
+#, php-format
+msgid "Could not remove user %s to group %s"
+msgstr "그룹 %s에서 %s 사용자를 제거할 수 없습니다."
 
 #: lib/command.php:315
 #, php-format
@@ -4751,10 +4827,6 @@ msgstr "140글자로 그룹이나 토픽 설명하기"
 #, fuzzy, php-format
 msgid "Describe the group or topic in %d characters"
 msgstr "140글자로 그룹이나 토픽 설명하기"
-
-#: lib/groupeditform.php:172
-msgid "Description"
-msgstr "설명"
 
 #: lib/groupeditform.php:179
 msgid ""
@@ -5073,6 +5145,22 @@ msgstr ""
 msgid "from"
 msgstr "다음에서:"
 
+#: lib/mailhandler.php:37
+msgid "Could not parse message."
+msgstr "메시지를 분리할 수 없습니다."
+
+#: lib/mailhandler.php:42
+msgid "Not a registered user."
+msgstr "가입된 사용자가 아닙니다."
+
+#: lib/mailhandler.php:46
+msgid "Sorry, that is not your incoming email address."
+msgstr "죄송합니다. 귀하의 이메일이 아닙니다."
+
+#: lib/mailhandler.php:50
+msgid "Sorry, no incoming email allowed."
+msgstr "죄송합니다. 이메일이 허용되지 않습니다."
+
 #: lib/mediafile.php:98 lib/mediafile.php:123
 msgid "There was a database error while saving your file. Please try again."
 msgstr ""
@@ -5155,7 +5243,16 @@ msgid "Attach a file"
 msgstr ""
 
 #: lib/noticeform.php:212
-msgid "Share your location"
+msgid "Share my location"
+msgstr ""
+
+#: lib/noticeform.php:214
+#, fuzzy
+msgid "Do not share my location."
+msgstr "태그를 저장할 수 없습니다."
+
+#: lib/noticeform.php:215
+msgid "Hide this info"
 msgstr ""
 
 #: lib/noticelist.php:428
@@ -5277,6 +5374,11 @@ msgstr "당신의 보낸 메시지들"
 #, php-format
 msgid "Tags in %s's notices"
 msgstr "%s의 게시글의 태그"
+
+#: lib/plugin.php:114
+#, fuzzy
+msgid "Unknown"
+msgstr "알려지지 않은 행동"
 
 #: lib/profileaction.php:109 lib/profileaction.php:192 lib/subgroupnav.php:82
 msgid "Subscriptions"
@@ -5580,19 +5682,3 @@ msgstr "홈페이지 주소형식이 올바르지 않습니다."
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
 msgstr ""
-
-#: scripts/maildaemon.php:48
-msgid "Could not parse message."
-msgstr "메시지를 분리할 수 없습니다."
-
-#: scripts/maildaemon.php:53
-msgid "Not a registered user."
-msgstr "가입된 사용자가 아닙니다."
-
-#: scripts/maildaemon.php:57
-msgid "Sorry, that is not your incoming email address."
-msgstr "죄송합니다. 귀하의 이메일이 아닙니다."
-
-#: scripts/maildaemon.php:61
-msgid "Sorry, no incoming email allowed."
-msgstr "죄송합니다. 이메일이 허용되지 않습니다."

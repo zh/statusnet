@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-05 22:10+0000\n"
-"PO-Revision-Date: 2010-01-05 22:12:24+0000\n"
+"POT-Creation-Date: 2010-01-09 23:44+0000\n"
+"PO-Revision-Date: 2010-01-09 23:46:01+0000\n"
 "Language-Team: Brazilian Portuguese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60693); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r60878); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pt-br\n"
 "X-Message-Group: out-statusnet\n"
@@ -408,8 +408,8 @@ msgid "You are not a member of this group."
 msgstr "Você não é membro deste grupo."
 
 #: actions/apigroupleave.php:124
-#, php-format
-msgid "Could not remove user %s to group %s."
+#, fuzzy, php-format
+msgid "Could not remove user %s from group %s."
 msgstr "Não foi possível remover o usuário %s do grupo %s."
 
 #: actions/apigrouplist.php:95
@@ -462,7 +462,7 @@ msgid "No status with that ID found."
 msgstr "Não foi encontrada nenhuma mensagem com esse ID."
 
 #: actions/apistatusesupdate.php:157 actions/newnotice.php:155
-#: scripts/maildaemon.php:71
+#: lib/mailhandler.php:60
 #, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr "Está muito extenso. O tamanho máximo é de %s caracteres."
@@ -863,7 +863,7 @@ msgid "Delete this user"
 msgstr "Excluir este usuário"
 
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
-#: lib/adminpanelaction.php:302 lib/groupnav.php:119
+#: lib/adminpanelaction.php:316 lib/groupnav.php:119
 msgid "Design"
 msgstr "Aparência"
 
@@ -1336,11 +1336,11 @@ msgstr "Ocorreu um erro na atualização do perfil remoto"
 msgid "No such group."
 msgstr "Esse grupo não existe."
 
-#: actions/getfile.php:75
+#: actions/getfile.php:79
 msgid "No such file."
 msgstr "Esse arquivo não existe."
 
-#: actions/getfile.php:79
+#: actions/getfile.php:83
 msgid "Cannot read file."
 msgstr "Não foi possível ler o arquivo."
 
@@ -1474,7 +1474,7 @@ msgstr "Membros do grupo %s, pág. %d"
 msgid "A list of the users in this group."
 msgstr "Uma lista dos usuários deste grupo."
 
-#: actions/groupmembers.php:175 lib/action.php:441 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:442 lib/groupnav.php:107
 msgid "Admin"
 msgstr "Admin"
 
@@ -1760,7 +1760,7 @@ msgstr "Mensagem pessoal"
 msgid "Optionally add a personal message to the invitation."
 msgstr "Você pode, opcionalmente, adicionar uma mensagem pessoal ao convite."
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:232
+#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:234
 msgid "Send"
 msgstr "Enviar"
 
@@ -1856,9 +1856,9 @@ msgstr "Você não é um membro desse grupo."
 msgid "Could not find membership record."
 msgstr "Não foi possível encontrar o registro do membro."
 
-#: actions/leavegroup.php:127 lib/command.php:284
-#, php-format
-msgid "Could not remove user %s to group %s"
+#: actions/leavegroup.php:127
+#, fuzzy, php-format
+msgid "Could not remove user %s from group %s"
 msgstr "Não foi possível remover o usuário %s do grupo %s"
 
 #: actions/leavegroup.php:134 lib/command.php:289
@@ -1883,7 +1883,7 @@ msgid "Error setting user. You are probably not authorized."
 msgstr ""
 "Erro na configuração do usuário. Você provavelmente não tem autorização."
 
-#: actions/login.php:208 actions/login.php:261 lib/action.php:459
+#: actions/login.php:208 actions/login.php:261 lib/action.php:460
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Entrar"
@@ -2213,7 +2213,7 @@ msgstr "Não é possível salvar a nova senha."
 msgid "Password saved."
 msgstr "A senha foi salva."
 
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:308
+#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:326
 msgid "Paths"
 msgstr "Caminhos"
 
@@ -2247,7 +2247,7 @@ msgstr ""
 "Servidor SSL inválido. O comprimento máximo deve ser de 255 caracteres."
 
 #: actions/pathsadminpanel.php:217 actions/siteadminpanel.php:58
-#: lib/adminpanelaction.php:299
+#: lib/adminpanelaction.php:311
 msgid "Site"
 msgstr "Site"
 
@@ -2503,19 +2503,19 @@ msgstr "Etiqueta inválida: \"%s\""
 msgid "Couldn't update user for autosubscribe."
 msgstr "Não foi possível atualizar o usuário para assinar automaticamente."
 
-#: actions/profilesettings.php:354
+#: actions/profilesettings.php:359
 msgid "Couldn't save location prefs."
 msgstr "Não foi possível salvar as preferências de localização."
 
-#: actions/profilesettings.php:366
+#: actions/profilesettings.php:371
 msgid "Couldn't save profile."
 msgstr "Não foi possível salvar o perfil."
 
-#: actions/profilesettings.php:374
+#: actions/profilesettings.php:379
 msgid "Couldn't save tags."
 msgstr "Não foi possível salvar as etiquetas."
 
-#: actions/profilesettings.php:382 lib/adminpanelaction.php:126
+#: actions/profilesettings.php:387 lib/adminpanelaction.php:137
 msgid "Settings saved."
 msgstr "As configurações foram salvas."
 
@@ -2766,7 +2766,7 @@ msgstr "Desculpe, mas o código do convite é inválido."
 msgid "Registration successful"
 msgstr "Registro realizado com sucesso"
 
-#: actions/register.php:114 actions/register.php:502 lib/action.php:456
+#: actions/register.php:114 actions/register.php:502 lib/action.php:457
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Registrar-se"
@@ -3813,7 +3813,7 @@ msgstr ""
 "A licença '%s' do fluxo do usuário não é compatível com a licença '%s' do "
 "site."
 
-#: actions/useradminpanel.php:58 lib/adminpanelaction.php:305
+#: actions/useradminpanel.php:58 lib/adminpanelaction.php:321
 #: lib/personalgroupnav.php:115
 msgid "User"
 msgstr "Usuário"
@@ -3915,7 +3915,7 @@ msgstr ""
 "as mensagens deste usuário. Se você não solicitou assinar as mensagens de "
 "alguém, clique em \"Recusar\"."
 
-#: actions/userauthorization.php:188
+#: actions/userauthorization.php:188 actions/version.php:165
 msgid "License"
 msgstr "Licença"
 
@@ -4044,6 +4044,73 @@ msgstr ""
 "Experimente [procurar por grupos](%%action.groupsearch%%) e associar-se à "
 "eles."
 
+#: actions/version.php:73
+#, fuzzy, php-format
+msgid "StatusNet %s"
+msgstr "Estatísticas"
+
+#: actions/version.php:153
+#, php-format
+msgid ""
+"This site is powered by %s version %s, Copyright 2008-2010 StatusNet, Inc. "
+"and contributors."
+msgstr ""
+
+#: actions/version.php:157
+#, fuzzy
+msgid "StatusNet"
+msgstr "A mensagem foi excluída."
+
+#: actions/version.php:161
+msgid "Contributors"
+msgstr ""
+
+#: actions/version.php:168
+msgid ""
+"StatusNet is free software: you can redistribute it and/or modify it under "
+"the terms of the GNU Affero General Public License as published by the Free "
+"Software Foundation, either version 3 of the License, or (at your option) "
+"any later version. "
+msgstr ""
+
+#: actions/version.php:174
+msgid ""
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License "
+"for more details. "
+msgstr ""
+
+#: actions/version.php:180
+#, php-format
+msgid ""
+"You should have received a copy of the GNU Affero General Public License "
+"along with this program.  If not, see %s."
+msgstr ""
+
+#: actions/version.php:189
+msgid "Plugins"
+msgstr ""
+
+#: actions/version.php:195
+#, fuzzy
+msgid "Name"
+msgstr "Usuário"
+
+#: actions/version.php:196 lib/action.php:741
+#, fuzzy
+msgid "Version"
+msgstr "Sessões"
+
+#: actions/version.php:197
+#, fuzzy
+msgid "Author(s)"
+msgstr "Autor"
+
+#: actions/version.php:198 lib/groupeditform.php:172
+msgid "Description"
+msgstr "Descrição"
+
 #: classes/File.php:137
 #, php-format
 msgid ""
@@ -4116,7 +4183,7 @@ msgstr "Problema no salvamento da mensagem."
 msgid "DB error inserting reply: %s"
 msgstr "Erro no banco de dados na inserção da reposta: %s"
 
-#: classes/Notice.php:1361
+#: classes/Notice.php:1359
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4171,128 +4238,128 @@ msgstr "%s - %s"
 msgid "Untitled page"
 msgstr "Página sem título"
 
-#: lib/action.php:426
+#: lib/action.php:427
 msgid "Primary site navigation"
 msgstr "Navegação primária no site"
 
-#: lib/action.php:432
+#: lib/action.php:433
 msgid "Home"
 msgstr "Início"
 
-#: lib/action.php:432
+#: lib/action.php:433
 msgid "Personal profile and friends timeline"
 msgstr "Perfil pessoal e fluxo de mensagens dos amigos"
 
-#: lib/action.php:434
+#: lib/action.php:435
 msgid "Account"
 msgstr "Conta"
 
-#: lib/action.php:434
+#: lib/action.php:435
 msgid "Change your email, avatar, password, profile"
 msgstr "Mude seu e-mail, avatar, senha, perfil"
 
-#: lib/action.php:437
+#: lib/action.php:438
 msgid "Connect"
 msgstr "Conectar"
 
-#: lib/action.php:437
+#: lib/action.php:438
 msgid "Connect to services"
 msgstr "Conecte-se a outros serviços"
 
-#: lib/action.php:441
+#: lib/action.php:442
 msgid "Change site configuration"
 msgstr "Mude as configurações do site"
 
-#: lib/action.php:445 lib/subgroupnav.php:105
+#: lib/action.php:446 lib/subgroupnav.php:105
 msgid "Invite"
 msgstr "Convidar"
 
-#: lib/action.php:446 lib/subgroupnav.php:106
+#: lib/action.php:447 lib/subgroupnav.php:106
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Convide seus amigos e colegas para unir-se a você no %s"
 
-#: lib/action.php:451
+#: lib/action.php:452
 msgid "Logout"
 msgstr "Sair"
 
-#: lib/action.php:451
+#: lib/action.php:452
 msgid "Logout from the site"
 msgstr "Sai do site"
 
-#: lib/action.php:456
+#: lib/action.php:457
 msgid "Create an account"
 msgstr "Cria uma conta"
 
-#: lib/action.php:459
+#: lib/action.php:460
 msgid "Login to the site"
 msgstr "Autentique-se no site"
 
-#: lib/action.php:462 lib/action.php:725
+#: lib/action.php:463 lib/action.php:726
 msgid "Help"
 msgstr "Ajuda"
 
-#: lib/action.php:462
+#: lib/action.php:463
 msgid "Help me!"
 msgstr "Ajudem-me!"
 
-#: lib/action.php:465 lib/searchaction.php:127
+#: lib/action.php:466 lib/searchaction.php:127
 msgid "Search"
 msgstr "Procurar"
 
-#: lib/action.php:465
+#: lib/action.php:466
 msgid "Search for people or text"
 msgstr "Procura por pessoas ou textos"
 
-#: lib/action.php:486
+#: lib/action.php:487
 msgid "Site notice"
 msgstr "Mensagem do site"
 
-#: lib/action.php:552
+#: lib/action.php:553
 msgid "Local views"
 msgstr "Visualizações locais"
 
-#: lib/action.php:618
+#: lib/action.php:619
 msgid "Page notice"
 msgstr "Notícia da página"
 
-#: lib/action.php:720
+#: lib/action.php:721
 msgid "Secondary site navigation"
 msgstr "Navegação secundária no site"
 
-#: lib/action.php:727
+#: lib/action.php:728
 msgid "About"
 msgstr "Sobre"
 
-#: lib/action.php:729
+#: lib/action.php:730
 msgid "FAQ"
 msgstr "FAQ"
 
-#: lib/action.php:733
+#: lib/action.php:734
 msgid "TOS"
 msgstr "Termos de uso"
 
-#: lib/action.php:736
+#: lib/action.php:737
 msgid "Privacy"
 msgstr "Privacidade"
 
-#: lib/action.php:738
+#: lib/action.php:739
 msgid "Source"
 msgstr "Fonte"
 
-#: lib/action.php:740
+#: lib/action.php:743
 msgid "Contact"
 msgstr "Contato"
 
-#: lib/action.php:742
+#: lib/action.php:745
 msgid "Badge"
 msgstr "Mini-aplicativo"
 
-#: lib/action.php:770
+#: lib/action.php:773
 msgid "StatusNet software license"
 msgstr "Licença do software StatusNet"
 
-#: lib/action.php:773
+#: lib/action.php:776
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4301,12 +4368,12 @@ msgstr ""
 "**%%site.name%%** é um serviço de microblog disponibilizado por [%%site."
 "broughtby%%](%%site.broughtbyurl%%). "
 
-#: lib/action.php:775
+#: lib/action.php:778
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** é um serviço de microblog. "
 
-#: lib/action.php:777
+#: lib/action.php:780
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4317,31 +4384,31 @@ msgstr ""
 "versão %s, disponível sob a [GNU Affero General Public License] (http://www."
 "fsf.org/licensing/licenses/agpl-3.0.html)."
 
-#: lib/action.php:791
+#: lib/action.php:794
 msgid "Site content license"
 msgstr "Licença do conteúdo do site"
 
-#: lib/action.php:800
+#: lib/action.php:803
 msgid "All "
 msgstr "Todas "
 
-#: lib/action.php:805
+#: lib/action.php:808
 msgid "license."
 msgstr "licença."
 
-#: lib/action.php:1099
+#: lib/action.php:1102
 msgid "Pagination"
 msgstr "Paginação"
 
-#: lib/action.php:1108
+#: lib/action.php:1111
 msgid "After"
 msgstr "Próximo"
 
-#: lib/action.php:1116
+#: lib/action.php:1119
 msgid "Before"
 msgstr "Anterior"
 
-#: lib/action.php:1164
+#: lib/action.php:1167
 msgid "There was a problem with your session token."
 msgstr "Ocorreu um problema com o seu token de sessão."
 
@@ -4349,27 +4416,32 @@ msgstr "Ocorreu um problema com o seu token de sessão."
 msgid "You cannot make changes to this site."
 msgstr "Você não pode fazer alterações neste site."
 
-#: lib/adminpanelaction.php:195
+#: lib/adminpanelaction.php:107
+#, fuzzy
+msgid "Changes to that panel are not allowed."
+msgstr "Não é permitido o registro."
+
+#: lib/adminpanelaction.php:206
 msgid "showForm() not implemented."
 msgstr "showForm() não implementado."
 
-#: lib/adminpanelaction.php:224
+#: lib/adminpanelaction.php:235
 msgid "saveSettings() not implemented."
 msgstr "saveSettings() não implementado."
 
-#: lib/adminpanelaction.php:247
+#: lib/adminpanelaction.php:258
 msgid "Unable to delete design setting."
 msgstr "Não foi possível excluir as configurações da aparência."
 
-#: lib/adminpanelaction.php:300
+#: lib/adminpanelaction.php:312
 msgid "Basic site configuration"
 msgstr "Configuração básica do site"
 
-#: lib/adminpanelaction.php:303
+#: lib/adminpanelaction.php:317
 msgid "Design configuration"
 msgstr "Configuração da aparência"
 
-#: lib/adminpanelaction.php:306 lib/adminpanelaction.php:309
+#: lib/adminpanelaction.php:322 lib/adminpanelaction.php:327
 msgid "Paths configuration"
 msgstr "Configuração dos caminhos"
 
@@ -4456,6 +4528,11 @@ msgstr "O usuário não tem uma \"última mensagem\""
 #: lib/command.php:190
 msgid "Notice marked as fave."
 msgstr "Mensagem marcada como favorita."
+
+#: lib/command.php:284
+#, php-format
+msgid "Could not remove user %s to group %s"
+msgstr "Não foi possível remover o usuário %s do grupo %s"
 
 #: lib/command.php:315
 #, php-format
@@ -4801,10 +4878,6 @@ msgstr "Descreva o grupo ou tópico"
 #, php-format
 msgid "Describe the group or topic in %d characters"
 msgstr "Descreva o grupo ou tópico em %d caracteres."
-
-#: lib/groupeditform.php:172
-msgid "Description"
-msgstr "Descrição"
 
 #: lib/groupeditform.php:179
 msgid ""
@@ -5203,6 +5276,22 @@ msgstr ""
 msgid "from"
 msgstr "de"
 
+#: lib/mailhandler.php:37
+msgid "Could not parse message."
+msgstr "Não foi possível analisar a mensagem."
+
+#: lib/mailhandler.php:42
+msgid "Not a registered user."
+msgstr "Não é um usuário registrado."
+
+#: lib/mailhandler.php:46
+msgid "Sorry, that is not your incoming email address."
+msgstr "Desculpe-me, mas este não é seu endereço de e-mail para recebimento."
+
+#: lib/mailhandler.php:50
+msgid "Sorry, no incoming email allowed."
+msgstr "Desculpe-me, mas não é permitido o recebimento de e-mails."
+
 #: lib/mediafile.php:98 lib/mediafile.php:123
 msgid "There was a database error while saving your file. Please try again."
 msgstr ""
@@ -5291,8 +5380,18 @@ msgid "Attach a file"
 msgstr "Anexar um arquivo"
 
 #: lib/noticeform.php:212
-msgid "Share your location"
+#, fuzzy
+msgid "Share my location"
 msgstr "Indique a sua localização"
+
+#: lib/noticeform.php:214
+#, fuzzy
+msgid "Do not share my location."
+msgstr "Indique a sua localização"
+
+#: lib/noticeform.php:215
+msgid "Hide this info"
+msgstr ""
 
 #: lib/noticelist.php:428
 #, php-format
@@ -5407,6 +5506,11 @@ msgstr "Suas mensagens enviadas"
 #, php-format
 msgid "Tags in %s's notices"
 msgstr "Etiquetas nas mensagens de %s"
+
+#: lib/plugin.php:114
+#, fuzzy
+msgid "Unknown"
+msgstr "Ação desconhecida"
 
 #: lib/profileaction.php:109 lib/profileaction.php:192 lib/subgroupnav.php:82
 msgid "Subscriptions"
@@ -5694,19 +5798,3 @@ msgstr "%s não é uma cor válida!"
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
 msgstr "%s não é uma cor válida! Utilize 3 ou 6 caracteres hexadecimais."
-
-#: scripts/maildaemon.php:48
-msgid "Could not parse message."
-msgstr "Não foi possível analisar a mensagem."
-
-#: scripts/maildaemon.php:53
-msgid "Not a registered user."
-msgstr "Não é um usuário registrado."
-
-#: scripts/maildaemon.php:57
-msgid "Sorry, that is not your incoming email address."
-msgstr "Desculpe-me, mas este não é seu endereço de e-mail para recebimento."
-
-#: scripts/maildaemon.php:61
-msgid "Sorry, no incoming email allowed."
-msgstr "Desculpe-me, mas não é permitido o recebimento de e-mails."

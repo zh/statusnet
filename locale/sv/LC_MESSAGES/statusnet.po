@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-05 22:10+0000\n"
-"PO-Revision-Date: 2010-01-05 22:12:32+0000\n"
+"POT-Creation-Date: 2010-01-09 23:44+0000\n"
+"PO-Revision-Date: 2010-01-09 23:46:09+0000\n"
 "Language-Team: Swedish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60693); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r60878); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: sv\n"
 "X-Message-Group: out-statusnet\n"
@@ -400,8 +400,8 @@ msgid "You are not a member of this group."
 msgstr "Du är inte en medlem i denna grupp."
 
 #: actions/apigroupleave.php:124
-#, php-format
-msgid "Could not remove user %s to group %s."
+#, fuzzy, php-format
+msgid "Could not remove user %s from group %s."
 msgstr "Kunde inte ta bort användare %s från grupp %s."
 
 #: actions/apigrouplist.php:95
@@ -454,7 +454,7 @@ msgid "No status with that ID found."
 msgstr "Ingen status med det ID:t hittades."
 
 #: actions/apistatusesupdate.php:157 actions/newnotice.php:155
-#: scripts/maildaemon.php:71
+#: lib/mailhandler.php:60
 #, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr "Det är för långt. Maximal notisstorlek är %d tecken."
@@ -853,7 +853,7 @@ msgid "Delete this user"
 msgstr "Ta bort denna användare"
 
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
-#: lib/adminpanelaction.php:302 lib/groupnav.php:119
+#: lib/adminpanelaction.php:316 lib/groupnav.php:119
 msgid "Design"
 msgstr "Utseende"
 
@@ -1095,7 +1095,7 @@ msgstr "Skicka notiser om nya prenumerationer till mig genom e-post."
 
 #: actions/emailsettings.php:163
 msgid "Send me email when someone adds my notice as a favorite."
-msgstr "Skicka mig ett email när någon lägger till mitt inlägg som favorit."
+msgstr "Skicka mig e-post när någon lägger till min notis som en favorit."
 
 #: actions/emailsettings.php:169
 msgid "Send me email when someone sends me a private message."
@@ -1229,6 +1229,8 @@ msgid ""
 "Be the first to add a notice to your favorites by clicking the fave button "
 "next to any notice you like."
 msgstr ""
+"Bli först att lägga en notis till dina favoriter genom att klicka på favorit-"
+"knappen bredvid någon notis du gillar."
 
 #: actions/favorited.php:156
 #, php-format
@@ -1261,9 +1263,9 @@ msgid "Featured users, page %d"
 msgstr "Profilerade användare, sida %d"
 
 #: actions/featured.php:99
-#, fuzzy, php-format
+#, php-format
 msgid "A selection of some great users on %s"
-msgstr "Ett urval av några av de stora användarna på% s"
+msgstr "Ett urval av några av de stora användarna på %s"
 
 #: actions/file.php:34
 msgid "No notice ID."
@@ -1320,11 +1322,11 @@ msgstr "Fel vid uppdatering av fjärrprofil"
 msgid "No such group."
 msgstr "Ingen sådan grupp."
 
-#: actions/getfile.php:75
+#: actions/getfile.php:79
 msgid "No such file."
 msgstr "Ingen sådan fil."
 
-#: actions/getfile.php:79
+#: actions/getfile.php:83
 msgid "Cannot read file."
 msgstr "Kan inte läsa fil."
 
@@ -1456,7 +1458,7 @@ msgstr "%s gruppmedlemmar, sida %d"
 msgid "A list of the users in this group."
 msgstr "En lista av användarna i denna grupp."
 
-#: actions/groupmembers.php:175 lib/action.php:441 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:442 lib/groupnav.php:107
 msgid "Admin"
 msgstr "Administratör"
 
@@ -1741,7 +1743,7 @@ msgstr "Personligt meddelande"
 msgid "Optionally add a personal message to the invitation."
 msgstr "Om du vill, skriv ett personligt meddelande till inbjudan."
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:232
+#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:234
 msgid "Send"
 msgstr "Skicka"
 
@@ -1811,9 +1813,9 @@ msgstr "Du är inte en medlem i den gruppen."
 msgid "Could not find membership record."
 msgstr "Kunde inte hitta uppgift om medlemskap."
 
-#: actions/leavegroup.php:127 lib/command.php:284
-#, php-format
-msgid "Could not remove user %s to group %s"
+#: actions/leavegroup.php:127
+#, fuzzy, php-format
+msgid "Could not remove user %s from group %s"
 msgstr "Kunde inte ta bort användare %s från grupp %s"
 
 #: actions/leavegroup.php:134 lib/command.php:289
@@ -1837,7 +1839,7 @@ msgstr "Felaktigt användarnamn eller lösenord."
 msgid "Error setting user. You are probably not authorized."
 msgstr "Fel vid inställning av användare. Du har sannolikt inte tillstånd."
 
-#: actions/login.php:208 actions/login.php:261 lib/action.php:459
+#: actions/login.php:208 actions/login.php:261 lib/action.php:460
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Logga in"
@@ -2160,7 +2162,7 @@ msgstr "Kan inte spara nytt lösenord."
 msgid "Password saved."
 msgstr "Lösenord sparat."
 
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:308
+#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:326
 msgid "Paths"
 msgstr "Sökvägar"
 
@@ -2193,7 +2195,7 @@ msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr "Ogiltigt SSL-servernamn. Den maximala längden är 255 tecken."
 
 #: actions/pathsadminpanel.php:217 actions/siteadminpanel.php:58
-#: lib/adminpanelaction.php:299
+#: lib/adminpanelaction.php:311
 msgid "Site"
 msgstr "Webbplats"
 
@@ -2389,7 +2391,7 @@ msgstr "Var du håller till, såsom \"Stad, Län, Land\""
 
 #: actions/profilesettings.php:138
 msgid "Share my current location when posting notices"
-msgstr ""
+msgstr "Dela min nuvarande plats när jag skickar notiser"
 
 #: actions/profilesettings.php:145 actions/tagother.php:149
 #: actions/tagother.php:209 lib/subscriptionlist.php:106
@@ -2448,20 +2450,19 @@ msgstr "Ogiltig tagg: \"%s\""
 msgid "Couldn't update user for autosubscribe."
 msgstr "Kunde inte uppdatera användaren för automatisk prenumeration."
 
-#: actions/profilesettings.php:354
-#, fuzzy
+#: actions/profilesettings.php:359
 msgid "Couldn't save location prefs."
-msgstr "Kunde inte spara taggar."
+msgstr "Kunde inte spara platsinställningar."
 
-#: actions/profilesettings.php:366
+#: actions/profilesettings.php:371
 msgid "Couldn't save profile."
 msgstr "Kunde inte spara profil."
 
-#: actions/profilesettings.php:374
+#: actions/profilesettings.php:379
 msgid "Couldn't save tags."
 msgstr "Kunde inte spara taggar."
 
-#: actions/profilesettings.php:382 lib/adminpanelaction.php:126
+#: actions/profilesettings.php:387 lib/adminpanelaction.php:137
 msgid "Settings saved."
 msgstr "Inställningar sparade."
 
@@ -2708,7 +2709,7 @@ msgstr "Ledsen, ogiltig inbjudningskod."
 msgid "Registration successful"
 msgstr "Registreringen genomförd"
 
-#: actions/register.php:114 actions/register.php:502 lib/action.php:456
+#: actions/register.php:114 actions/register.php:502 lib/action.php:457
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Registrera"
@@ -2955,14 +2956,12 @@ msgid "Replies to %1$s on %2$s!"
 msgstr "Svar till %1$s på %2$s"
 
 #: actions/sandbox.php:65 actions/unsandbox.php:65
-#, fuzzy
 msgid "You cannot sandbox users on this site."
-msgstr "Du kan inte flytta användare till sandlåda på denna webbplats."
+msgstr "Du kan inte flytta användare till sandlådan på denna webbplats."
 
 #: actions/sandbox.php:72
-#, fuzzy
 msgid "User is already sandboxed."
-msgstr "Användare är redan flyttad till sandlåda."
+msgstr "Användare är redan flyttad till sandlådan."
 
 #: actions/showfavorites.php:79
 #, php-format
@@ -3376,7 +3375,7 @@ msgstr "Ögonblicksbild"
 
 #: actions/siteadminpanel.php:344
 msgid "Randomly during Web hit"
-msgstr ""
+msgstr "Slumpmässigt vid webbförfrågningar"
 
 #: actions/siteadminpanel.php:345
 msgid "In a scheduled job"
@@ -3707,9 +3706,8 @@ msgid "You haven't blocked that user."
 msgstr "Du har inte blockerat denna användared."
 
 #: actions/unsandbox.php:72
-#, fuzzy
 msgid "User is not sandboxed."
-msgstr "Användare är inte flyttad till sandlåda."
+msgstr "Användare är inte flyttad till sandlådan."
 
 #: actions/unsilence.php:72
 msgid "User is not silenced."
@@ -3734,7 +3732,7 @@ msgstr ""
 "Licensen för lyssnarströmmen '%s' är inte förenlig med webbplatslicensen '%"
 "s'."
 
-#: actions/useradminpanel.php:58 lib/adminpanelaction.php:305
+#: actions/useradminpanel.php:58 lib/adminpanelaction.php:321
 #: lib/personalgroupnav.php:115
 msgid "User"
 msgstr "Användare"
@@ -3837,7 +3835,7 @@ msgstr ""
 "prenumerera på den här användarens notiser. Om du inte bett att prenumerera "
 "på någons meddelanden, klicka på \"Avvisa\"."
 
-#: actions/userauthorization.php:188
+#: actions/userauthorization.php:188 actions/version.php:165
 msgid "License"
 msgstr "Licens"
 
@@ -3942,7 +3940,7 @@ msgstr ""
 
 #: actions/userdesignsettings.php:282
 msgid "Enjoy your hotdog!"
-msgstr ""
+msgstr "Smaklig måltid!"
 
 #: actions/usergroups.php:64
 #, php-format
@@ -3963,6 +3961,73 @@ msgstr "%s är inte en medlem i någon grupp."
 msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
 msgstr ""
 "Prova att [söka efter grupper](%%action.groupsearch%%) och gå med i dem."
+
+#: actions/version.php:73
+#, fuzzy, php-format
+msgid "StatusNet %s"
+msgstr "Statistik"
+
+#: actions/version.php:153
+#, php-format
+msgid ""
+"This site is powered by %s version %s, Copyright 2008-2010 StatusNet, Inc. "
+"and contributors."
+msgstr ""
+
+#: actions/version.php:157
+#, fuzzy
+msgid "StatusNet"
+msgstr "Status borttagen."
+
+#: actions/version.php:161
+msgid "Contributors"
+msgstr ""
+
+#: actions/version.php:168
+msgid ""
+"StatusNet is free software: you can redistribute it and/or modify it under "
+"the terms of the GNU Affero General Public License as published by the Free "
+"Software Foundation, either version 3 of the License, or (at your option) "
+"any later version. "
+msgstr ""
+
+#: actions/version.php:174
+msgid ""
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License "
+"for more details. "
+msgstr ""
+
+#: actions/version.php:180
+#, php-format
+msgid ""
+"You should have received a copy of the GNU Affero General Public License "
+"along with this program.  If not, see %s."
+msgstr ""
+
+#: actions/version.php:189
+msgid "Plugins"
+msgstr ""
+
+#: actions/version.php:195
+#, fuzzy
+msgid "Name"
+msgstr "Smeknamn"
+
+#: actions/version.php:196 lib/action.php:741
+#, fuzzy
+msgid "Version"
+msgstr "Sessioner"
+
+#: actions/version.php:197
+#, fuzzy
+msgid "Author(s)"
+msgstr "Författare"
+
+#: actions/version.php:198 lib/groupeditform.php:172
+msgid "Description"
+msgstr "Beskrivning"
 
 #: classes/File.php:137
 #, php-format
@@ -4036,7 +4101,7 @@ msgstr "Problem med att spara notis."
 msgid "DB error inserting reply: %s"
 msgstr "Databasfel vid infogning av svar: %s"
 
-#: classes/Notice.php:1361
+#: classes/Notice.php:1359
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4091,128 +4156,128 @@ msgstr "%s - %s"
 msgid "Untitled page"
 msgstr "Namnlös sida"
 
-#: lib/action.php:426
+#: lib/action.php:427
 msgid "Primary site navigation"
 msgstr "Primär webbplatsnavigation"
 
-#: lib/action.php:432
+#: lib/action.php:433
 msgid "Home"
 msgstr "Hem"
 
-#: lib/action.php:432
+#: lib/action.php:433
 msgid "Personal profile and friends timeline"
 msgstr "Personlig profil och vänners tidslinje"
 
-#: lib/action.php:434
+#: lib/action.php:435
 msgid "Account"
 msgstr "Konto"
 
-#: lib/action.php:434
+#: lib/action.php:435
 msgid "Change your email, avatar, password, profile"
 msgstr "Ändra din e-post, avatar, lösenord, profil"
 
-#: lib/action.php:437
+#: lib/action.php:438
 msgid "Connect"
 msgstr "Anslut"
 
-#: lib/action.php:437
+#: lib/action.php:438
 msgid "Connect to services"
 msgstr "Anslut till tjänster"
 
-#: lib/action.php:441
+#: lib/action.php:442
 msgid "Change site configuration"
 msgstr "Ändra webbplatskonfiguration"
 
-#: lib/action.php:445 lib/subgroupnav.php:105
+#: lib/action.php:446 lib/subgroupnav.php:105
 msgid "Invite"
 msgstr "Bjud in"
 
-#: lib/action.php:446 lib/subgroupnav.php:106
+#: lib/action.php:447 lib/subgroupnav.php:106
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Bjud in vänner och kollegor att gå med dig på %s"
 
-#: lib/action.php:451
+#: lib/action.php:452
 msgid "Logout"
 msgstr "Logga ut"
 
-#: lib/action.php:451
+#: lib/action.php:452
 msgid "Logout from the site"
 msgstr "Logga ut från webbplatsen"
 
-#: lib/action.php:456
+#: lib/action.php:457
 msgid "Create an account"
 msgstr "Skapa ett konto"
 
-#: lib/action.php:459
+#: lib/action.php:460
 msgid "Login to the site"
 msgstr "Logga in på webbplatsen"
 
-#: lib/action.php:462 lib/action.php:725
+#: lib/action.php:463 lib/action.php:726
 msgid "Help"
 msgstr "Hjälp"
 
-#: lib/action.php:462
+#: lib/action.php:463
 msgid "Help me!"
 msgstr "Hjälp mig!"
 
-#: lib/action.php:465 lib/searchaction.php:127
+#: lib/action.php:466 lib/searchaction.php:127
 msgid "Search"
 msgstr "Sök"
 
-#: lib/action.php:465
+#: lib/action.php:466
 msgid "Search for people or text"
 msgstr "Sök efter personer eller text"
 
-#: lib/action.php:486
+#: lib/action.php:487
 msgid "Site notice"
 msgstr "Webbplatsnotis"
 
-#: lib/action.php:552
+#: lib/action.php:553
 msgid "Local views"
 msgstr "Lokala vyer"
 
-#: lib/action.php:618
+#: lib/action.php:619
 msgid "Page notice"
 msgstr "Sidnotis"
 
-#: lib/action.php:720
+#: lib/action.php:721
 msgid "Secondary site navigation"
 msgstr "Sekundär webbplatsnavigation"
 
-#: lib/action.php:727
+#: lib/action.php:728
 msgid "About"
 msgstr "Om"
 
-#: lib/action.php:729
+#: lib/action.php:730
 msgid "FAQ"
 msgstr "Frågor & svar"
 
-#: lib/action.php:733
+#: lib/action.php:734
 msgid "TOS"
 msgstr "Användarvillkor"
 
-#: lib/action.php:736
+#: lib/action.php:737
 msgid "Privacy"
 msgstr "Sekretess"
 
-#: lib/action.php:738
+#: lib/action.php:739
 msgid "Source"
 msgstr "Källa"
 
-#: lib/action.php:740
+#: lib/action.php:743
 msgid "Contact"
 msgstr "Kontakt"
 
-#: lib/action.php:742
+#: lib/action.php:745
 msgid "Badge"
 msgstr "Emblem"
 
-#: lib/action.php:770
+#: lib/action.php:773
 msgid "StatusNet software license"
 msgstr "Programvarulicens för StatusNet"
 
-#: lib/action.php:773
+#: lib/action.php:776
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4221,12 +4286,12 @@ msgstr ""
 "**%%site.name%%** är en mikrobloggtjänst tillhandahållen av [%%site.broughtby"
 "%%](%%site.broughtbyurl%%)"
 
-#: lib/action.php:775
+#: lib/action.php:778
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** är en mikrobloggtjänst."
 
-#: lib/action.php:777
+#: lib/action.php:780
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4237,31 +4302,31 @@ msgstr ""
 "version %s, tillgänglig under [GNU Affero General Public License](http://www."
 "fsf.org/licensing/licenses/agpl-3.0.html)."
 
-#: lib/action.php:791
+#: lib/action.php:794
 msgid "Site content license"
 msgstr "Licens för webbplatsinnehåll"
 
-#: lib/action.php:800
+#: lib/action.php:803
 msgid "All "
 msgstr "Alla "
 
-#: lib/action.php:805
+#: lib/action.php:808
 msgid "license."
 msgstr "licens."
 
-#: lib/action.php:1099
+#: lib/action.php:1102
 msgid "Pagination"
 msgstr "Numrering av sidor"
 
-#: lib/action.php:1108
+#: lib/action.php:1111
 msgid "After"
 msgstr "Senare"
 
-#: lib/action.php:1116
+#: lib/action.php:1119
 msgid "Before"
 msgstr "Tidigare"
 
-#: lib/action.php:1164
+#: lib/action.php:1167
 msgid "There was a problem with your session token."
 msgstr "Det var ett problem med din sessions-token."
 
@@ -4269,27 +4334,32 @@ msgstr "Det var ett problem med din sessions-token."
 msgid "You cannot make changes to this site."
 msgstr "Du kan inte göra förändringar av denna webbplats."
 
-#: lib/adminpanelaction.php:195
+#: lib/adminpanelaction.php:107
+#, fuzzy
+msgid "Changes to that panel are not allowed."
+msgstr "Registrering inte tillåten."
+
+#: lib/adminpanelaction.php:206
 msgid "showForm() not implemented."
 msgstr "showForm() är inte implementerat."
 
-#: lib/adminpanelaction.php:224
+#: lib/adminpanelaction.php:235
 msgid "saveSettings() not implemented."
 msgstr "saveSetting() är inte implementerat."
 
-#: lib/adminpanelaction.php:247
+#: lib/adminpanelaction.php:258
 msgid "Unable to delete design setting."
 msgstr "Kunde inte ta bort utseendeinställning."
 
-#: lib/adminpanelaction.php:300
+#: lib/adminpanelaction.php:312
 msgid "Basic site configuration"
 msgstr "Grundläggande webbplatskonfiguration"
 
-#: lib/adminpanelaction.php:303
+#: lib/adminpanelaction.php:317
 msgid "Design configuration"
 msgstr "Konfiguration av utseende"
 
-#: lib/adminpanelaction.php:306 lib/adminpanelaction.php:309
+#: lib/adminpanelaction.php:322 lib/adminpanelaction.php:327
 msgid "Paths configuration"
 msgstr "Konfiguration av sökvägar"
 
@@ -4314,14 +4384,12 @@ msgid "Tags for this attachment"
 msgstr "Taggar för denna billaga"
 
 #: lib/authenticationplugin.php:182 lib/authenticationplugin.php:187
-#, fuzzy
 msgid "Password changing failed"
-msgstr "Byte av lösenord"
+msgstr "Byte av lösenord misslyckades"
 
 #: lib/authenticationplugin.php:197
-#, fuzzy
 msgid "Password changing is not allowed"
-msgstr "Byte av lösenord"
+msgstr "Byte av lösenord är inte tillåtet"
 
 #: lib/channel.php:138 lib/channel.php:158
 msgid "Command results"
@@ -4376,6 +4444,11 @@ msgstr "Användare har ingen sista notis"
 #: lib/command.php:190
 msgid "Notice marked as fave."
 msgstr "Notis markerad som favorit."
+
+#: lib/command.php:284
+#, php-format
+msgid "Could not remove user %s to group %s"
+msgstr "Kunde inte ta bort användare %s från grupp %s"
 
 #: lib/command.php:315
 #, php-format
@@ -4681,10 +4754,6 @@ msgstr "Beskriv gruppen eller ämnet"
 #, php-format
 msgid "Describe the group or topic in %d characters"
 msgstr "Beskriv gruppen eller ämnet med högst %d tecken"
-
-#: lib/groupeditform.php:172
-msgid "Description"
-msgstr "Beskrivning"
 
 #: lib/groupeditform.php:179
 msgid ""
@@ -5006,6 +5075,22 @@ msgstr ""
 msgid "from"
 msgstr "från"
 
+#: lib/mailhandler.php:37
+msgid "Could not parse message."
+msgstr "Kunde inte tolka meddelande."
+
+#: lib/mailhandler.php:42
+msgid "Not a registered user."
+msgstr "Inte en registrerad användare."
+
+#: lib/mailhandler.php:46
+msgid "Sorry, that is not your incoming email address."
+msgstr "Ledsen, det är inte din inkommande e-postadress."
+
+#: lib/mailhandler.php:50
+msgid "Sorry, no incoming email allowed."
+msgstr "Ledsen, ingen inkommande e-post tillåts."
+
 #: lib/mediafile.php:98 lib/mediafile.php:123
 msgid "There was a database error while saving your file. Please try again."
 msgstr ""
@@ -5092,7 +5177,17 @@ msgid "Attach a file"
 msgstr "Bifoga en fil"
 
 #: lib/noticeform.php:212
-msgid "Share your location"
+#, fuzzy
+msgid "Share my location"
+msgstr "Dela din plats"
+
+#: lib/noticeform.php:214
+#, fuzzy
+msgid "Do not share my location."
+msgstr "Dela din plats"
+
+#: lib/noticeform.php:215
+msgid "Hide this info"
 msgstr ""
 
 #: lib/noticelist.php:428
@@ -5209,6 +5304,11 @@ msgstr "Dina skickade meddelanden"
 msgid "Tags in %s's notices"
 msgstr "Taggar i %ss notiser"
 
+#: lib/plugin.php:114
+#, fuzzy
+msgid "Unknown"
+msgstr "Okänd funktion"
+
 #: lib/profileaction.php:109 lib/profileaction.php:192 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "Prenumerationer"
@@ -5266,23 +5366,20 @@ msgid "Popular"
 msgstr "Populärt"
 
 #: lib/repeatform.php:107
-#, fuzzy
 msgid "Repeat this notice?"
-msgstr "Upprepa detta inlägg"
+msgstr "Upprepa denna notis?"
 
 #: lib/repeatform.php:132
 msgid "Repeat this notice"
 msgstr "Upprepa detta inlägg"
 
 #: lib/sandboxform.php:67
-#, fuzzy
 msgid "Sandbox"
-msgstr "Flytta till sandlåda"
+msgstr "Flytta till sandlådan"
 
 #: lib/sandboxform.php:78
-#, fuzzy
 msgid "Sandbox this user"
-msgstr "Flytta denna användare till sandlåda"
+msgstr "Flytta denna användare till sandlådan"
 
 #: lib/searchaction.php:120
 msgid "Search site"
@@ -5394,14 +5491,12 @@ msgid "Top posters"
 msgstr "Toppostare"
 
 #: lib/unsandboxform.php:69
-#, fuzzy
 msgid "Unsandbox"
-msgstr "Flytta från sandlåda"
+msgstr "Flytta från sandlådan"
 
 #: lib/unsandboxform.php:80
-#, fuzzy
 msgid "Unsandbox this user"
-msgstr "Flytta denna användare från sandlåda"
+msgstr "Flytta denna användare från sandlådan"
 
 #: lib/unsilenceform.php:67
 msgid "Unsilence"
@@ -5500,19 +5595,3 @@ msgstr "%s är inte en giltig färg!"
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
 msgstr "%s är inte en giltig färg! Använd 3 eller 6 hexadecimala tecken."
-
-#: scripts/maildaemon.php:48
-msgid "Could not parse message."
-msgstr "Kunde inte tolka meddelande."
-
-#: scripts/maildaemon.php:53
-msgid "Not a registered user."
-msgstr "Inte en registrerad användare."
-
-#: scripts/maildaemon.php:57
-msgid "Sorry, that is not your incoming email address."
-msgstr "Ledsen, det är inte din inkommande e-postadress."
-
-#: scripts/maildaemon.php:61
-msgid "Sorry, no incoming email allowed."
-msgstr "Ledsen, ingen inkommande e-post tillåts."

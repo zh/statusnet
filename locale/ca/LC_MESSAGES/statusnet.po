@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-05 22:10+0000\n"
-"PO-Revision-Date: 2010-01-05 22:10:44+0000\n"
+"POT-Creation-Date: 2010-01-09 23:44+0000\n"
+"PO-Revision-Date: 2010-01-09 23:44:41+0000\n"
 "Language-Team: Catalan\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60693); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r60878); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: out-statusnet\n"
@@ -379,7 +379,7 @@ msgstr "L'àlies «%s» ja està en ús. Proveu-ne un altre."
 #: actions/apigroupcreate.php:286 actions/editgroup.php:234
 #: actions/newgroup.php:178
 msgid "Alias can't be the same as nickname."
-msgstr ""
+msgstr "L'àlies no pot ser el mateix que el sobrenom."
 
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
@@ -405,8 +405,8 @@ msgid "You are not a member of this group."
 msgstr "No sou un membre del grup."
 
 #: actions/apigroupleave.php:124
-#, php-format
-msgid "Could not remove user %s to group %s."
+#, fuzzy, php-format
+msgid "Could not remove user %s from group %s."
 msgstr "No s'ha pogut suprimir l'usuari %s del grup %s."
 
 #: actions/apigrouplist.php:95
@@ -461,7 +461,7 @@ msgid "No status with that ID found."
 msgstr "No s'ha trobat cap estatus amb la ID trobada."
 
 #: actions/apistatusesupdate.php:157 actions/newnotice.php:155
-#: scripts/maildaemon.php:71
+#: lib/mailhandler.php:60
 #, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr "Massa llarg. La longitud màxima és de %d caràcters."
@@ -866,7 +866,7 @@ msgid "Delete this user"
 msgstr "Suprimeix l'usuari"
 
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
-#: lib/adminpanelaction.php:302 lib/groupnav.php:119
+#: lib/adminpanelaction.php:316 lib/groupnav.php:119
 msgid "Design"
 msgstr "Disseny"
 
@@ -1333,11 +1333,11 @@ msgstr "Error en actualitzar el perfil remot"
 msgid "No such group."
 msgstr "No s'ha trobat el grup."
 
-#: actions/getfile.php:75
+#: actions/getfile.php:79
 msgid "No such file."
 msgstr "No existeix el fitxer."
 
-#: actions/getfile.php:79
+#: actions/getfile.php:83
 msgid "Cannot read file."
 msgstr "No es pot llegir el fitxer."
 
@@ -1414,6 +1414,8 @@ msgid ""
 "Customize the way your group looks with a background image and a colour "
 "palette of your choice."
 msgstr ""
+"Personalitzeu l'aspecte del vostre grup amb una imatge de fons i una paleta "
+"de colors de la vostra elecció."
 
 #: actions/groupdesignsettings.php:263 actions/userdesignsettings.php:186
 #: lib/designsettings.php:391 lib/designsettings.php:413
@@ -1428,9 +1430,8 @@ msgid "Unable to save your design settings!"
 msgstr "No s'ha pogut guardar la teva configuració de Twitter!"
 
 #: actions/groupdesignsettings.php:308 actions/userdesignsettings.php:231
-#, fuzzy
 msgid "Design preferences saved."
-msgstr "Preferències de sincronització guardades."
+msgstr "S'han desat les preferències de disseny."
 
 #: actions/grouplogo.php:139 actions/grouplogo.php:192
 msgid "Group logo"
@@ -1443,11 +1444,8 @@ msgid ""
 msgstr "Pots pujar una imatge de logo per al grup."
 
 #: actions/grouplogo.php:362
-#, fuzzy
 msgid "Pick a square area of the image to be the logo."
-msgstr ""
-"Selecciona un quadrat de l'àrea de la imatge que vols que sigui el teu "
-"avatar."
+msgstr "Trieu una àrea quadrada de la imatge perquè en sigui el logotip."
 
 #: actions/grouplogo.php:396
 msgid "Logo updated."
@@ -1471,7 +1469,7 @@ msgstr "%s membre/s en el grup, pàgina %d"
 msgid "A list of the users in this group."
 msgstr "La llista dels usuaris d'aquest grup."
 
-#: actions/groupmembers.php:175 lib/action.php:441 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:442 lib/groupnav.php:107
 msgid "Admin"
 msgstr "Admin"
 
@@ -1750,7 +1748,7 @@ msgstr "Missatge personal"
 msgid "Optionally add a personal message to the invitation."
 msgstr "Opcionalment pots afegir un missatge a la invitació."
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:232
+#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:234
 msgid "Send"
 msgstr "Envia"
 
@@ -1846,9 +1844,9 @@ msgstr "No ets membre d'aquest grup."
 msgid "Could not find membership record."
 msgstr "No s'han trobat registres dels membres."
 
-#: actions/leavegroup.php:127 lib/command.php:284
-#, php-format
-msgid "Could not remove user %s to group %s"
+#: actions/leavegroup.php:127
+#, fuzzy, php-format
+msgid "Could not remove user %s from group %s"
 msgstr "No s'ha pogut eliminar l'usuari %s del grup %s"
 
 #: actions/leavegroup.php:134 lib/command.php:289
@@ -1874,7 +1872,7 @@ msgstr "Nom d'usuari o contrasenya incorrectes."
 msgid "Error setting user. You are probably not authorized."
 msgstr "No autoritzat."
 
-#: actions/login.php:208 actions/login.php:261 lib/action.php:459
+#: actions/login.php:208 actions/login.php:261 lib/action.php:460
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Inici de sessió"
@@ -2198,7 +2196,7 @@ msgstr "No es pot guardar la nova contrasenya."
 msgid "Password saved."
 msgstr "Contrasenya guardada."
 
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:308
+#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:326
 msgid "Paths"
 msgstr "Camins"
 
@@ -2231,7 +2229,7 @@ msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr ""
 
 #: actions/pathsadminpanel.php:217 actions/siteadminpanel.php:58
-#: lib/adminpanelaction.php:299
+#: lib/adminpanelaction.php:311
 msgid "Site"
 msgstr "Lloc"
 
@@ -2490,20 +2488,20 @@ msgstr "Etiqueta no vàlida: \"%s\""
 msgid "Couldn't update user for autosubscribe."
 msgstr "No es pot actualitzar l'usuari per autosubscriure."
 
-#: actions/profilesettings.php:354
+#: actions/profilesettings.php:359
 #, fuzzy
 msgid "Couldn't save location prefs."
 msgstr "No s'han pogut guardar les etiquetes."
 
-#: actions/profilesettings.php:366
+#: actions/profilesettings.php:371
 msgid "Couldn't save profile."
 msgstr "No s'ha pogut guardar el perfil."
 
-#: actions/profilesettings.php:374
+#: actions/profilesettings.php:379
 msgid "Couldn't save tags."
 msgstr "No s'han pogut guardar les etiquetes."
 
-#: actions/profilesettings.php:382 lib/adminpanelaction.php:126
+#: actions/profilesettings.php:387 lib/adminpanelaction.php:137
 msgid "Settings saved."
 msgstr "Configuració guardada."
 
@@ -2637,6 +2635,8 @@ msgid ""
 "If you have forgotten or lost your password, you can get a new one sent to "
 "the email address you have stored in your account."
 msgstr ""
+"Si heu oblidat o perdut la vostra contrasenya, podeu aconseguir-ne una de "
+"nova a partir de l'adreça electrònica que s'ha associat al vostre compte."
 
 #: actions/recoverpassword.php:158
 msgid "You have been identified. Enter a new password below. "
@@ -2740,7 +2740,7 @@ msgstr "El codi d'invitació no és vàlid."
 msgid "Registration successful"
 msgstr "Registre satisfactori"
 
-#: actions/register.php:114 actions/register.php:502 lib/action.php:456
+#: actions/register.php:114 actions/register.php:502 lib/action.php:457
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Registre"
@@ -2873,9 +2873,8 @@ msgid "Remote subscribe"
 msgstr "Subscripció remota"
 
 #: actions/remotesubscribe.php:124
-#, fuzzy
 msgid "Subscribe to a remote user"
-msgstr "Subscriure's a aquest usuari"
+msgstr "Subscriu a un usuari remot"
 
 #: actions/remotesubscribe.php:129
 msgid "User nickname"
@@ -3329,9 +3328,8 @@ msgid "URL used for credits link in footer of each page"
 msgstr ""
 
 #: actions/siteadminpanel.php:271
-#, fuzzy
 msgid "Contact email address for your site"
-msgstr "Nou correu electrònic per publicar a %s"
+msgstr "Adreça electrònica de contacte del vostre lloc"
 
 #: actions/siteadminpanel.php:277
 msgid "Local"
@@ -3766,7 +3764,7 @@ msgstr "No subscrit"
 msgid "Listenee stream license ‘%s’ is not compatible with site license ‘%s’."
 msgstr ""
 
-#: actions/useradminpanel.php:58 lib/adminpanelaction.php:305
+#: actions/useradminpanel.php:58 lib/adminpanelaction.php:321
 #: lib/personalgroupnav.php:115
 msgid "User"
 msgstr "Usuari"
@@ -3868,7 +3866,7 @@ msgstr ""
 "subscriure't als avisos d'aquest usuari. Si no has demanat subscriure't als "
 "avisos de ningú, clica \"Cancel·lar\"."
 
-#: actions/userauthorization.php:188
+#: actions/userauthorization.php:188 actions/version.php:165
 msgid "License"
 msgstr "Llicència"
 
@@ -3997,6 +3995,73 @@ msgstr "%s no és membre de cap grup."
 msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
 msgstr ""
 
+#: actions/version.php:73
+#, fuzzy, php-format
+msgid "StatusNet %s"
+msgstr "Estadístiques"
+
+#: actions/version.php:153
+#, php-format
+msgid ""
+"This site is powered by %s version %s, Copyright 2008-2010 StatusNet, Inc. "
+"and contributors."
+msgstr ""
+
+#: actions/version.php:157
+#, fuzzy
+msgid "StatusNet"
+msgstr "S'ha suprimit l'estat."
+
+#: actions/version.php:161
+msgid "Contributors"
+msgstr ""
+
+#: actions/version.php:168
+msgid ""
+"StatusNet is free software: you can redistribute it and/or modify it under "
+"the terms of the GNU Affero General Public License as published by the Free "
+"Software Foundation, either version 3 of the License, or (at your option) "
+"any later version. "
+msgstr ""
+
+#: actions/version.php:174
+msgid ""
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License "
+"for more details. "
+msgstr ""
+
+#: actions/version.php:180
+#, php-format
+msgid ""
+"You should have received a copy of the GNU Affero General Public License "
+"along with this program.  If not, see %s."
+msgstr ""
+
+#: actions/version.php:189
+msgid "Plugins"
+msgstr ""
+
+#: actions/version.php:195
+#, fuzzy
+msgid "Name"
+msgstr "Sobrenom"
+
+#: actions/version.php:196 lib/action.php:741
+#, fuzzy
+msgid "Version"
+msgstr "Sessions"
+
+#: actions/version.php:197
+#, fuzzy
+msgid "Author(s)"
+msgstr "Autoria"
+
+#: actions/version.php:198 lib/groupeditform.php:172
+msgid "Description"
+msgstr "Descripció"
+
 #: classes/File.php:137
 #, php-format
 msgid ""
@@ -4070,7 +4135,7 @@ msgstr "Problema en guardar l'avís."
 msgid "DB error inserting reply: %s"
 msgstr "Error de BD en inserir resposta: %s"
 
-#: classes/Notice.php:1361
+#: classes/Notice.php:1359
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -4126,129 +4191,129 @@ msgstr "%s - %s"
 msgid "Untitled page"
 msgstr "Pàgina sense titol"
 
-#: lib/action.php:426
+#: lib/action.php:427
 msgid "Primary site navigation"
 msgstr "Navegació primària del lloc"
 
-#: lib/action.php:432
+#: lib/action.php:433
 msgid "Home"
 msgstr "Inici"
 
-#: lib/action.php:432
+#: lib/action.php:433
 msgid "Personal profile and friends timeline"
 msgstr "Perfil personal i línia temporal dels amics"
 
-#: lib/action.php:434
+#: lib/action.php:435
 msgid "Account"
 msgstr "Compte"
 
-#: lib/action.php:434
+#: lib/action.php:435
 msgid "Change your email, avatar, password, profile"
 msgstr "Canviar correu electrònic, avatar, contrasenya, perfil"
 
-#: lib/action.php:437
+#: lib/action.php:438
 msgid "Connect"
 msgstr "Connexió"
 
-#: lib/action.php:437
+#: lib/action.php:438
 #, fuzzy
 msgid "Connect to services"
 msgstr "No s'ha pogut redirigir al servidor: %s"
 
-#: lib/action.php:441
+#: lib/action.php:442
 msgid "Change site configuration"
 msgstr "Canvia la configuració del lloc"
 
-#: lib/action.php:445 lib/subgroupnav.php:105
+#: lib/action.php:446 lib/subgroupnav.php:105
 msgid "Invite"
 msgstr "Convida"
 
-#: lib/action.php:446 lib/subgroupnav.php:106
+#: lib/action.php:447 lib/subgroupnav.php:106
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Convidar amics i companys perquè participin a %s"
 
-#: lib/action.php:451
+#: lib/action.php:452
 msgid "Logout"
 msgstr "Finalitza la sessió"
 
-#: lib/action.php:451
+#: lib/action.php:452
 msgid "Logout from the site"
 msgstr "Finalitza la sessió del lloc"
 
-#: lib/action.php:456
+#: lib/action.php:457
 msgid "Create an account"
 msgstr "Crea un compte"
 
-#: lib/action.php:459
+#: lib/action.php:460
 msgid "Login to the site"
 msgstr "Inicia una sessió al lloc"
 
-#: lib/action.php:462 lib/action.php:725
+#: lib/action.php:463 lib/action.php:726
 msgid "Help"
 msgstr "Ajuda"
 
-#: lib/action.php:462
+#: lib/action.php:463
 msgid "Help me!"
 msgstr "Ajuda'm"
 
-#: lib/action.php:465 lib/searchaction.php:127
+#: lib/action.php:466 lib/searchaction.php:127
 msgid "Search"
 msgstr "Cerca"
 
-#: lib/action.php:465
+#: lib/action.php:466
 msgid "Search for people or text"
 msgstr "Cerca gent o text"
 
-#: lib/action.php:486
+#: lib/action.php:487
 msgid "Site notice"
 msgstr "Avís del lloc"
 
-#: lib/action.php:552
+#: lib/action.php:553
 msgid "Local views"
 msgstr "Vistes locals"
 
-#: lib/action.php:618
+#: lib/action.php:619
 msgid "Page notice"
 msgstr "Notificació pàgina"
 
-#: lib/action.php:720
+#: lib/action.php:721
 msgid "Secondary site navigation"
 msgstr "Navegació del lloc secundària"
 
-#: lib/action.php:727
+#: lib/action.php:728
 msgid "About"
 msgstr "Quant a"
 
-#: lib/action.php:729
+#: lib/action.php:730
 msgid "FAQ"
 msgstr "Preguntes més freqüents"
 
-#: lib/action.php:733
+#: lib/action.php:734
 msgid "TOS"
 msgstr ""
 
-#: lib/action.php:736
+#: lib/action.php:737
 msgid "Privacy"
 msgstr "Privadesa"
 
-#: lib/action.php:738
+#: lib/action.php:739
 msgid "Source"
 msgstr "Font"
 
-#: lib/action.php:740
+#: lib/action.php:743
 msgid "Contact"
 msgstr "Contacte"
 
-#: lib/action.php:742
+#: lib/action.php:745
 msgid "Badge"
 msgstr "Insígnia"
 
-#: lib/action.php:770
+#: lib/action.php:773
 msgid "StatusNet software license"
 msgstr "Llicència del programari StatusNet"
 
-#: lib/action.php:773
+#: lib/action.php:776
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4257,12 +4322,12 @@ msgstr ""
 "**%%site.name%%** és un servei de microblogging de [%%site.broughtby%%**](%%"
 "site.broughtbyurl%%)."
 
-#: lib/action.php:775
+#: lib/action.php:778
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** és un servei de microblogging."
 
-#: lib/action.php:777
+#: lib/action.php:780
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4273,32 +4338,31 @@ msgstr ""
 "%s, disponible sota la [GNU Affero General Public License](http://www.fsf."
 "org/licensing/licenses/agpl-3.0.html)."
 
-#: lib/action.php:791
-#, fuzzy
+#: lib/action.php:794
 msgid "Site content license"
-msgstr "Llicència del programari StatusNet"
+msgstr "Llicència de contingut del lloc"
 
-#: lib/action.php:800
+#: lib/action.php:803
 msgid "All "
 msgstr "Tot "
 
-#: lib/action.php:805
+#: lib/action.php:808
 msgid "license."
 msgstr "llicència."
 
-#: lib/action.php:1099
+#: lib/action.php:1102
 msgid "Pagination"
 msgstr "Paginació"
 
-#: lib/action.php:1108
+#: lib/action.php:1111
 msgid "After"
 msgstr "Posteriors"
 
-#: lib/action.php:1116
+#: lib/action.php:1119
 msgid "Before"
 msgstr "Anteriors"
 
-#: lib/action.php:1164
+#: lib/action.php:1167
 msgid "There was a problem with your session token."
 msgstr "Ha ocorregut algun problema amb la teva sessió."
 
@@ -4306,30 +4370,35 @@ msgstr "Ha ocorregut algun problema amb la teva sessió."
 msgid "You cannot make changes to this site."
 msgstr "No podeu fer canvis al lloc."
 
-#: lib/adminpanelaction.php:195
+#: lib/adminpanelaction.php:107
+#, fuzzy
+msgid "Changes to that panel are not allowed."
+msgstr "Registre no permès."
+
+#: lib/adminpanelaction.php:206
 #, fuzzy
 msgid "showForm() not implemented."
 msgstr "Comanda encara no implementada."
 
-#: lib/adminpanelaction.php:224
+#: lib/adminpanelaction.php:235
 #, fuzzy
 msgid "saveSettings() not implemented."
 msgstr "Comanda encara no implementada."
 
-#: lib/adminpanelaction.php:247
+#: lib/adminpanelaction.php:258
 #, fuzzy
 msgid "Unable to delete design setting."
 msgstr "No s'ha pogut guardar la teva configuració de Twitter!"
 
-#: lib/adminpanelaction.php:300
+#: lib/adminpanelaction.php:312
 msgid "Basic site configuration"
 msgstr "Configuració bàsica del lloc"
 
-#: lib/adminpanelaction.php:303
+#: lib/adminpanelaction.php:317
 msgid "Design configuration"
 msgstr "Configuració del disseny"
 
-#: lib/adminpanelaction.php:306 lib/adminpanelaction.php:309
+#: lib/adminpanelaction.php:322 lib/adminpanelaction.php:327
 msgid "Paths configuration"
 msgstr "Configuració dels camins"
 
@@ -4342,9 +4411,8 @@ msgid "Author"
 msgstr "Autoria"
 
 #: lib/attachmentlist.php:278
-#, fuzzy
 msgid "Provider"
-msgstr "Perfil"
+msgstr "Proveïdor"
 
 #: lib/attachmentnoticesection.php:67
 msgid "Notices where this attachment appears"
@@ -4355,9 +4423,8 @@ msgid "Tags for this attachment"
 msgstr "Etiquetes de l'adjunció"
 
 #: lib/authenticationplugin.php:182 lib/authenticationplugin.php:187
-#, fuzzy
 msgid "Password changing failed"
-msgstr "Contrasenya canviada."
+msgstr "El canvi de contrasenya ha fallat"
 
 #: lib/authenticationplugin.php:197
 #, fuzzy
@@ -4414,6 +4481,11 @@ msgstr "L'usuari no té última nota"
 #: lib/command.php:190
 msgid "Notice marked as fave."
 msgstr "Nota marcada com a favorita."
+
+#: lib/command.php:284
+#, php-format
+msgid "Could not remove user %s to group %s"
+msgstr "No s'ha pogut eliminar l'usuari %s del grup %s"
 
 #: lib/command.php:315
 #, php-format
@@ -4725,10 +4797,6 @@ msgstr "Descriu el grup amb 140 caràcters"
 #, fuzzy, php-format
 msgid "Describe the group or topic in %d characters"
 msgstr "Descriu el grup amb 140 caràcters"
-
-#: lib/groupeditform.php:172
-msgid "Description"
-msgstr "Descripció"
 
 #: lib/groupeditform.php:179
 msgid ""
@@ -5054,6 +5122,22 @@ msgstr ""
 msgid "from"
 msgstr "de"
 
+#: lib/mailhandler.php:37
+msgid "Could not parse message."
+msgstr "No es pot analitzar el missatge."
+
+#: lib/mailhandler.php:42
+msgid "Not a registered user."
+msgstr "Usuari no registrat."
+
+#: lib/mailhandler.php:46
+msgid "Sorry, that is not your incoming email address."
+msgstr "Ho sentim, aquesta no és la vostra adreça electrònica d'entrada."
+
+#: lib/mailhandler.php:50
+msgid "Sorry, no incoming email allowed."
+msgstr "Ho sentim, no s'hi permet correu d'entrada."
+
 #: lib/mediafile.php:98 lib/mediafile.php:123
 msgid "There was a database error while saving your file. Please try again."
 msgstr ""
@@ -5074,7 +5158,7 @@ msgstr ""
 
 #: lib/mediafile.php:159
 msgid "Missing a temporary folder."
-msgstr ""
+msgstr "Manca una carpeta temporal."
 
 #: lib/mediafile.php:162
 msgid "Failed to write file to disk."
@@ -5136,7 +5220,17 @@ msgid "Attach a file"
 msgstr "Adjunta un fitxer"
 
 #: lib/noticeform.php:212
-msgid "Share your location"
+#, fuzzy
+msgid "Share my location"
+msgstr "Comparteix la vostra ubicació"
+
+#: lib/noticeform.php:214
+#, fuzzy
+msgid "Do not share my location."
+msgstr "Comparteix la vostra ubicació"
+
+#: lib/noticeform.php:215
+msgid "Hide this info"
 msgstr ""
 
 #: lib/noticelist.php:428
@@ -5166,14 +5260,12 @@ msgid "at"
 msgstr ""
 
 #: lib/noticelist.php:531
-#, fuzzy
 msgid "in context"
-msgstr "Cap contingut!"
+msgstr "en context"
 
 #: lib/noticelist.php:556
-#, fuzzy
 msgid "Repeated by"
-msgstr "S'ha creat"
+msgstr "Repetit per"
 
 #: lib/noticelist.php:585
 msgid "Reply to this notice"
@@ -5218,9 +5310,8 @@ msgid "Duplicate notice"
 msgstr "Eliminar nota."
 
 #: lib/oauthstore.php:466 lib/subs.php:48
-#, fuzzy
 msgid "You have been banned from subscribing."
-msgstr "Aquest usuari t'ha bloquejat com a subscriptor."
+msgstr "Se us ha banejat la subscripció."
 
 #: lib/oauthstore.php:491
 msgid "Couldn't insert new subscription."
@@ -5259,6 +5350,11 @@ msgstr "Els teus missatges enviats"
 msgid "Tags in %s's notices"
 msgstr "Etiquetes en les notificacions de %s's"
 
+#: lib/plugin.php:114
+#, fuzzy
+msgid "Unknown"
+msgstr "Acció desconeguda"
+
 #: lib/profileaction.php:109 lib/profileaction.php:192 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "Subscripcions"
@@ -5276,9 +5372,8 @@ msgid "All subscribers"
 msgstr "Tots els subscriptors"
 
 #: lib/profileaction.php:178
-#, fuzzy
 msgid "User ID"
-msgstr "Usuari"
+msgstr "ID de l'usuari"
 
 #: lib/profileaction.php:183
 msgid "Member since"
@@ -5294,9 +5389,8 @@ msgid "No return-to arguments."
 msgstr "No argument de la id."
 
 #: lib/profileformaction.php:137
-#, fuzzy
 msgid "Unimplemented method."
-msgstr "mètode no implementat"
+msgstr "Mètode no implementat"
 
 #: lib/publicgroupnav.php:78
 msgid "Public"
@@ -5554,19 +5648,3 @@ msgstr "%s no és un color vàlid!"
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
 msgstr "%s no és un color vàlid! Feu servir 3 o 6 caràcters hexadecimals."
-
-#: scripts/maildaemon.php:48
-msgid "Could not parse message."
-msgstr "No es pot analitzar el missatge."
-
-#: scripts/maildaemon.php:53
-msgid "Not a registered user."
-msgstr "Usuari no registrat."
-
-#: scripts/maildaemon.php:57
-msgid "Sorry, that is not your incoming email address."
-msgstr "Ho sentim, aquesta no és la vostra adreça electrònica d'entrada."
-
-#: scripts/maildaemon.php:61
-msgid "Sorry, no incoming email allowed."
-msgstr "Ho sentim, no s'hi permet correu d'entrada."

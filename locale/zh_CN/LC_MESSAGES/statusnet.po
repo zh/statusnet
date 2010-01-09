@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-05 22:10+0000\n"
-"PO-Revision-Date: 2010-01-05 22:12:55+0000\n"
+"POT-Creation-Date: 2010-01-09 23:44+0000\n"
+"PO-Revision-Date: 2010-01-09 23:46:27+0000\n"
 "Language-Team: Simplified Chinese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60693); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r60878); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: out-statusnet\n"
@@ -407,7 +407,7 @@ msgstr "您未告知此个人信息"
 
 #: actions/apigroupleave.php:124
 #, fuzzy, php-format
-msgid "Could not remove user %s to group %s."
+msgid "Could not remove user %s from group %s."
 msgstr "无法订阅用户：未找到。"
 
 #: actions/apigrouplist.php:95
@@ -463,7 +463,7 @@ msgid "No status with that ID found."
 msgstr "没有找到此ID的信息。"
 
 #: actions/apistatusesupdate.php:157 actions/newnotice.php:155
-#: scripts/maildaemon.php:71
+#: lib/mailhandler.php:60
 #, fuzzy, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr "超出长度限制。不能超过 140 个字符。"
@@ -876,7 +876,7 @@ msgid "Delete this user"
 msgstr "删除通告"
 
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
-#: lib/adminpanelaction.php:302 lib/groupnav.php:119
+#: lib/adminpanelaction.php:316 lib/groupnav.php:119
 msgid "Design"
 msgstr ""
 
@@ -1358,12 +1358,12 @@ msgstr "更新远程的个人信息时出错"
 msgid "No such group."
 msgstr "没有这个组。"
 
-#: actions/getfile.php:75
+#: actions/getfile.php:79
 #, fuzzy
 msgid "No such file."
 msgstr "没有这份通告。"
 
-#: actions/getfile.php:79
+#: actions/getfile.php:83
 #, fuzzy
 msgid "Cannot read file."
 msgstr "没有这份通告。"
@@ -1505,7 +1505,7 @@ msgstr "%s 组成员, 第 %d 页"
 msgid "A list of the users in this group."
 msgstr "该组成员列表。"
 
-#: actions/groupmembers.php:175 lib/action.php:441 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:442 lib/groupnav.php:107
 msgid "Admin"
 msgstr "admin管理员"
 
@@ -1776,7 +1776,7 @@ msgstr "个人消息"
 msgid "Optionally add a personal message to the invitation."
 msgstr "在邀请中加几句话(可选)。"
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:232
+#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:234
 msgid "Send"
 msgstr "发送"
 
@@ -1870,9 +1870,9 @@ msgstr "您未告知此个人信息"
 msgid "Could not find membership record."
 msgstr "无法更新用户记录。"
 
-#: actions/leavegroup.php:127 lib/command.php:284
+#: actions/leavegroup.php:127
 #, fuzzy, php-format
-msgid "Could not remove user %s to group %s"
+msgid "Could not remove user %s from group %s"
 msgstr "无法订阅用户：未找到。"
 
 #: actions/leavegroup.php:134 lib/command.php:289
@@ -1898,7 +1898,7 @@ msgstr "用户名或密码不正确。"
 msgid "Error setting user. You are probably not authorized."
 msgstr "未认证。"
 
-#: actions/login.php:208 actions/login.php:261 lib/action.php:459
+#: actions/login.php:208 actions/login.php:261 lib/action.php:460
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "登录"
@@ -2218,7 +2218,7 @@ msgstr "无法保存新密码。"
 msgid "Password saved."
 msgstr "密码已保存。"
 
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:308
+#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:326
 msgid "Paths"
 msgstr ""
 
@@ -2251,7 +2251,7 @@ msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr ""
 
 #: actions/pathsadminpanel.php:217 actions/siteadminpanel.php:58
-#: lib/adminpanelaction.php:299
+#: lib/adminpanelaction.php:311
 #, fuzzy
 msgid "Site"
 msgstr "邀请"
@@ -2513,21 +2513,21 @@ msgstr "主页'%s'不正确"
 msgid "Couldn't update user for autosubscribe."
 msgstr "无法更新用户的自动订阅选项。"
 
-#: actions/profilesettings.php:354
+#: actions/profilesettings.php:359
 #, fuzzy
 msgid "Couldn't save location prefs."
 msgstr "无法保存个人信息。"
 
-#: actions/profilesettings.php:366
+#: actions/profilesettings.php:371
 msgid "Couldn't save profile."
 msgstr "无法保存个人信息。"
 
-#: actions/profilesettings.php:374
+#: actions/profilesettings.php:379
 #, fuzzy
 msgid "Couldn't save tags."
 msgstr "无法保存个人信息。"
 
-#: actions/profilesettings.php:382 lib/adminpanelaction.php:126
+#: actions/profilesettings.php:387 lib/adminpanelaction.php:137
 msgid "Settings saved."
 msgstr "设置已保存。"
 
@@ -2764,7 +2764,7 @@ msgstr "验证码出错。"
 msgid "Registration successful"
 msgstr "注册成功。"
 
-#: actions/register.php:114 actions/register.php:502 lib/action.php:456
+#: actions/register.php:114 actions/register.php:502 lib/action.php:457
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "注册"
@@ -3800,7 +3800,7 @@ msgstr "退订"
 msgid "Listenee stream license ‘%s’ is not compatible with site license ‘%s’."
 msgstr ""
 
-#: actions/useradminpanel.php:58 lib/adminpanelaction.php:305
+#: actions/useradminpanel.php:58 lib/adminpanelaction.php:321
 #: lib/personalgroupnav.php:115
 msgid "User"
 msgstr "用户"
@@ -3906,7 +3906,7 @@ msgstr ""
 "请检查详细信息，确认希望订阅此用户的通告。如果您刚才没有要求订阅任何人的通"
 "告，请点击\"取消\"。"
 
-#: actions/userauthorization.php:188
+#: actions/userauthorization.php:188 actions/version.php:165
 #, fuzzy
 msgid "License"
 msgstr "注册证"
@@ -4034,6 +4034,73 @@ msgstr "您未告知此个人信息"
 msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
 msgstr ""
 
+#: actions/version.php:73
+#, fuzzy, php-format
+msgid "StatusNet %s"
+msgstr "统计"
+
+#: actions/version.php:153
+#, php-format
+msgid ""
+"This site is powered by %s version %s, Copyright 2008-2010 StatusNet, Inc. "
+"and contributors."
+msgstr ""
+
+#: actions/version.php:157
+#, fuzzy
+msgid "StatusNet"
+msgstr "头像已更新。"
+
+#: actions/version.php:161
+msgid "Contributors"
+msgstr ""
+
+#: actions/version.php:168
+msgid ""
+"StatusNet is free software: you can redistribute it and/or modify it under "
+"the terms of the GNU Affero General Public License as published by the Free "
+"Software Foundation, either version 3 of the License, or (at your option) "
+"any later version. "
+msgstr ""
+
+#: actions/version.php:174
+msgid ""
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License "
+"for more details. "
+msgstr ""
+
+#: actions/version.php:180
+#, php-format
+msgid ""
+"You should have received a copy of the GNU Affero General Public License "
+"along with this program.  If not, see %s."
+msgstr ""
+
+#: actions/version.php:189
+msgid "Plugins"
+msgstr ""
+
+#: actions/version.php:195
+#, fuzzy
+msgid "Name"
+msgstr "昵称"
+
+#: actions/version.php:196 lib/action.php:741
+#, fuzzy
+msgid "Version"
+msgstr "个人"
+
+#: actions/version.php:197
+msgid "Author(s)"
+msgstr ""
+
+#: actions/version.php:198 lib/groupeditform.php:172
+#, fuzzy
+msgid "Description"
+msgstr "描述"
+
 #: classes/File.php:137
 #, php-format
 msgid ""
@@ -4104,7 +4171,7 @@ msgstr "保存通告时出错。"
 msgid "DB error inserting reply: %s"
 msgstr "添加回复时数据库出错：%s"
 
-#: classes/Notice.php:1361
+#: classes/Notice.php:1359
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -4161,137 +4228,137 @@ msgstr "%s (%s)"
 msgid "Untitled page"
 msgstr "无标题页"
 
-#: lib/action.php:426
+#: lib/action.php:427
 msgid "Primary site navigation"
 msgstr "主站导航"
 
-#: lib/action.php:432
+#: lib/action.php:433
 msgid "Home"
 msgstr "主页"
 
-#: lib/action.php:432
+#: lib/action.php:433
 msgid "Personal profile and friends timeline"
 msgstr "个人资料及朋友年表"
 
-#: lib/action.php:434
+#: lib/action.php:435
 msgid "Account"
 msgstr "帐号"
 
-#: lib/action.php:434
+#: lib/action.php:435
 #, fuzzy
 msgid "Change your email, avatar, password, profile"
 msgstr "修改资料"
 
-#: lib/action.php:437
+#: lib/action.php:438
 msgid "Connect"
 msgstr "连接"
 
-#: lib/action.php:437
+#: lib/action.php:438
 #, fuzzy
 msgid "Connect to services"
 msgstr "无法重定向到服务器：%s"
 
-#: lib/action.php:441
+#: lib/action.php:442
 #, fuzzy
 msgid "Change site configuration"
 msgstr "主站导航"
 
-#: lib/action.php:445 lib/subgroupnav.php:105
+#: lib/action.php:446 lib/subgroupnav.php:105
 msgid "Invite"
 msgstr "邀请"
 
-#: lib/action.php:446 lib/subgroupnav.php:106
+#: lib/action.php:447 lib/subgroupnav.php:106
 #, fuzzy, php-format
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "使用这个表单来邀请好友和同事加入。"
 
-#: lib/action.php:451
+#: lib/action.php:452
 msgid "Logout"
 msgstr "登出"
 
-#: lib/action.php:451
+#: lib/action.php:452
 msgid "Logout from the site"
 msgstr "登出本站"
 
-#: lib/action.php:456
+#: lib/action.php:457
 #, fuzzy
 msgid "Create an account"
 msgstr "创建新帐号"
 
-#: lib/action.php:459
+#: lib/action.php:460
 msgid "Login to the site"
 msgstr "登入本站"
 
-#: lib/action.php:462 lib/action.php:725
+#: lib/action.php:463 lib/action.php:726
 msgid "Help"
 msgstr "帮助"
 
-#: lib/action.php:462
+#: lib/action.php:463
 #, fuzzy
 msgid "Help me!"
 msgstr "帮助"
 
-#: lib/action.php:465 lib/searchaction.php:127
+#: lib/action.php:466 lib/searchaction.php:127
 msgid "Search"
 msgstr "搜索"
 
-#: lib/action.php:465
+#: lib/action.php:466
 msgid "Search for people or text"
 msgstr "检索人或文字"
 
-#: lib/action.php:486
+#: lib/action.php:487
 #, fuzzy
 msgid "Site notice"
 msgstr "新通告"
 
-#: lib/action.php:552
+#: lib/action.php:553
 msgid "Local views"
 msgstr "本地显示"
 
-#: lib/action.php:618
+#: lib/action.php:619
 #, fuzzy
 msgid "Page notice"
 msgstr "新通告"
 
-#: lib/action.php:720
+#: lib/action.php:721
 #, fuzzy
 msgid "Secondary site navigation"
 msgstr "次项站导航"
 
-#: lib/action.php:727
+#: lib/action.php:728
 msgid "About"
 msgstr "关于"
 
-#: lib/action.php:729
+#: lib/action.php:730
 msgid "FAQ"
 msgstr "常见问题FAQ"
 
-#: lib/action.php:733
+#: lib/action.php:734
 msgid "TOS"
 msgstr ""
 
-#: lib/action.php:736
+#: lib/action.php:737
 msgid "Privacy"
 msgstr "隐私"
 
-#: lib/action.php:738
+#: lib/action.php:739
 msgid "Source"
 msgstr "来源"
 
-#: lib/action.php:740
+#: lib/action.php:743
 msgid "Contact"
 msgstr "联系人"
 
-#: lib/action.php:742
+#: lib/action.php:745
 #, fuzzy
 msgid "Badge"
 msgstr "呼叫"
 
-#: lib/action.php:770
+#: lib/action.php:773
 msgid "StatusNet software license"
 msgstr "StatusNet软件注册证"
 
-#: lib/action.php:773
+#: lib/action.php:776
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4300,12 +4367,12 @@ msgstr ""
 "**%%site.name%%** 是一个微博客服务，提供者为 [%%site.broughtby%%](%%site."
 "broughtbyurl%%)。"
 
-#: lib/action.php:775
+#: lib/action.php:778
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** 是一个微博客服务。"
 
-#: lib/action.php:777
+#: lib/action.php:780
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4316,34 +4383,34 @@ msgstr ""
 "General Public License](http://www.fsf.org/licensing/licenses/agpl-3.0.html)"
 "授权。"
 
-#: lib/action.php:791
+#: lib/action.php:794
 #, fuzzy
 msgid "Site content license"
 msgstr "StatusNet软件注册证"
 
-#: lib/action.php:800
+#: lib/action.php:803
 msgid "All "
 msgstr "全部"
 
-#: lib/action.php:805
+#: lib/action.php:808
 msgid "license."
 msgstr "注册证"
 
-#: lib/action.php:1099
+#: lib/action.php:1102
 msgid "Pagination"
 msgstr "分页"
 
-#: lib/action.php:1108
+#: lib/action.php:1111
 #, fuzzy
 msgid "After"
 msgstr "« 之后"
 
-#: lib/action.php:1116
+#: lib/action.php:1119
 #, fuzzy
 msgid "Before"
 msgstr "之前 »"
 
-#: lib/action.php:1164
+#: lib/action.php:1167
 #, fuzzy
 msgid "There was a problem with your session token."
 msgstr "会话标识有问题，请重试。"
@@ -4353,32 +4420,37 @@ msgstr "会话标识有问题，请重试。"
 msgid "You cannot make changes to this site."
 msgstr "无法向此用户发送消息。"
 
-#: lib/adminpanelaction.php:195
+#: lib/adminpanelaction.php:107
+#, fuzzy
+msgid "Changes to that panel are not allowed."
+msgstr "不允许注册。"
+
+#: lib/adminpanelaction.php:206
 #, fuzzy
 msgid "showForm() not implemented."
 msgstr "命令尚未实现。"
 
-#: lib/adminpanelaction.php:224
+#: lib/adminpanelaction.php:235
 #, fuzzy
 msgid "saveSettings() not implemented."
 msgstr "命令尚未实现。"
 
-#: lib/adminpanelaction.php:247
+#: lib/adminpanelaction.php:258
 #, fuzzy
 msgid "Unable to delete design setting."
 msgstr "无法保存 Twitter 设置！"
 
-#: lib/adminpanelaction.php:300
+#: lib/adminpanelaction.php:312
 #, fuzzy
 msgid "Basic site configuration"
 msgstr "电子邮件地址确认"
 
-#: lib/adminpanelaction.php:303
+#: lib/adminpanelaction.php:317
 #, fuzzy
 msgid "Design configuration"
 msgstr "SMS短信确认"
 
-#: lib/adminpanelaction.php:306 lib/adminpanelaction.php:309
+#: lib/adminpanelaction.php:322 lib/adminpanelaction.php:327
 #, fuzzy
 msgid "Paths configuration"
 msgstr "SMS短信确认"
@@ -4464,6 +4536,11 @@ msgstr "用户没有通告。"
 #: lib/command.php:190
 msgid "Notice marked as fave."
 msgstr "通告被标记为收藏。"
+
+#: lib/command.php:284
+#, fuzzy, php-format
+msgid "Could not remove user %s to group %s"
+msgstr "无法订阅用户：未找到。"
 
 #: lib/command.php:315
 #, php-format
@@ -4781,11 +4858,6 @@ msgstr "用不超过140个字符描述您自己和您的爱好"
 #, fuzzy, php-format
 msgid "Describe the group or topic in %d characters"
 msgstr "用不超过140个字符描述您自己和您的爱好"
-
-#: lib/groupeditform.php:172
-#, fuzzy
-msgid "Description"
-msgstr "描述"
 
 #: lib/groupeditform.php:179
 #, fuzzy
@@ -5117,6 +5189,22 @@ msgstr ""
 msgid "from"
 msgstr " 从 "
 
+#: lib/mailhandler.php:37
+msgid "Could not parse message."
+msgstr "无法解析消息。"
+
+#: lib/mailhandler.php:42
+msgid "Not a registered user."
+msgstr "不是已注册用户。"
+
+#: lib/mailhandler.php:46
+msgid "Sorry, that is not your incoming email address."
+msgstr "对不起，这个发布用的电子邮件属于其他用户。"
+
+#: lib/mailhandler.php:50
+msgid "Sorry, no incoming email allowed."
+msgstr "对不起，发布用的电子邮件无法使用。"
+
 #: lib/mediafile.php:98 lib/mediafile.php:123
 msgid "There was a database error while saving your file. Please try again."
 msgstr ""
@@ -5202,7 +5290,16 @@ msgid "Attach a file"
 msgstr ""
 
 #: lib/noticeform.php:212
-msgid "Share your location"
+msgid "Share my location"
+msgstr ""
+
+#: lib/noticeform.php:214
+#, fuzzy
+msgid "Do not share my location."
+msgstr "无法保存个人信息。"
+
+#: lib/noticeform.php:215
+msgid "Hide this info"
 msgstr ""
 
 #: lib/noticelist.php:428
@@ -5327,6 +5424,11 @@ msgstr "您发送的消息"
 #, fuzzy, php-format
 msgid "Tags in %s's notices"
 msgstr "%s's 的消息的标签"
+
+#: lib/plugin.php:114
+#, fuzzy
+msgid "Unknown"
+msgstr "未知动作"
 
 #: lib/profileaction.php:109 lib/profileaction.php:192 lib/subgroupnav.php:82
 msgid "Subscriptions"
@@ -5641,19 +5743,3 @@ msgstr "主页的URL不正确。"
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
 msgstr ""
-
-#: scripts/maildaemon.php:48
-msgid "Could not parse message."
-msgstr "无法解析消息。"
-
-#: scripts/maildaemon.php:53
-msgid "Not a registered user."
-msgstr "不是已注册用户。"
-
-#: scripts/maildaemon.php:57
-msgid "Sorry, that is not your incoming email address."
-msgstr "对不起，这个发布用的电子邮件属于其他用户。"
-
-#: scripts/maildaemon.php:61
-msgid "Sorry, no incoming email allowed."
-msgstr "对不起，发布用的电子邮件无法使用。"

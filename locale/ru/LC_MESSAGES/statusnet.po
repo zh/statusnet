@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-05 22:10+0000\n"
-"PO-Revision-Date: 2010-01-05 22:12:28+0000\n"
+"POT-Creation-Date: 2010-01-09 23:44+0000\n"
+"PO-Revision-Date: 2010-01-09 23:46:05+0000\n"
 "Language-Team: Russian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60693); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r60878); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ru\n"
 "X-Message-Group: out-statusnet\n"
@@ -408,8 +408,8 @@ msgid "You are not a member of this group."
 msgstr "Вы не являетесь членом этой группы."
 
 #: actions/apigroupleave.php:124
-#, php-format
-msgid "Could not remove user %s to group %s."
+#, fuzzy, php-format
+msgid "Could not remove user %s from group %s."
 msgstr "Не удаётся удалить пользователя %s из группы %s."
 
 #: actions/apigrouplist.php:95
@@ -462,7 +462,7 @@ msgid "No status with that ID found."
 msgstr "Не найдено статуса с таким ID."
 
 #: actions/apistatusesupdate.php:157 actions/newnotice.php:155
-#: scripts/maildaemon.php:71
+#: lib/mailhandler.php:60
 #, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr "Слишком длинная запись. Максимальная длина — %d знаков."
@@ -860,7 +860,7 @@ msgid "Delete this user"
 msgstr "Удалить этого пользователя"
 
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
-#: lib/adminpanelaction.php:302 lib/groupnav.php:119
+#: lib/adminpanelaction.php:316 lib/groupnav.php:119
 msgid "Design"
 msgstr "Оформление"
 
@@ -1338,11 +1338,11 @@ msgstr "Ошибка обновления удалённого профиля"
 msgid "No such group."
 msgstr "Нет такой группы."
 
-#: actions/getfile.php:75
+#: actions/getfile.php:79
 msgid "No such file."
 msgstr "Нет такого файла."
 
-#: actions/getfile.php:79
+#: actions/getfile.php:83
 msgid "Cannot read file."
 msgstr "Не удалось прочесть файл."
 
@@ -1475,7 +1475,7 @@ msgstr "Участники группы %s, страница %d"
 msgid "A list of the users in this group."
 msgstr "Список пользователей, являющихся членами этой группы."
 
-#: actions/groupmembers.php:175 lib/action.php:441 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:442 lib/groupnav.php:107
 msgid "Admin"
 msgstr "Настройки"
 
@@ -1760,7 +1760,7 @@ msgstr "Личное сообщение"
 msgid "Optionally add a personal message to the invitation."
 msgstr "Можно добавить к приглашению личное сообщение."
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:232
+#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:234
 msgid "Send"
 msgstr "ОК"
 
@@ -1856,9 +1856,9 @@ msgstr "Вы не являетесь членом этой группы."
 msgid "Could not find membership record."
 msgstr "Не удаётся найти учетную запись."
 
-#: actions/leavegroup.php:127 lib/command.php:284
-#, php-format
-msgid "Could not remove user %s to group %s"
+#: actions/leavegroup.php:127
+#, fuzzy, php-format
+msgid "Could not remove user %s from group %s"
 msgstr "Не удаётся удалить пользователя %s из группы %s"
 
 #: actions/leavegroup.php:134 lib/command.php:289
@@ -1882,7 +1882,7 @@ msgstr "Некорректное имя или пароль."
 msgid "Error setting user. You are probably not authorized."
 msgstr "Ошибка установки пользователя. Вы, вероятно, не авторизованы."
 
-#: actions/login.php:208 actions/login.php:261 lib/action.php:459
+#: actions/login.php:208 actions/login.php:261 lib/action.php:460
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Вход"
@@ -2206,7 +2206,7 @@ msgstr "Не удаётся сохранить новый пароль."
 msgid "Password saved."
 msgstr "Пароль сохранён."
 
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:308
+#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:326
 msgid "Paths"
 msgstr "Пути"
 
@@ -2239,7 +2239,7 @@ msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr "Неверный SSL-сервер. Максимальная длина составляет 255 символов."
 
 #: actions/pathsadminpanel.php:217 actions/siteadminpanel.php:58
-#: lib/adminpanelaction.php:299
+#: lib/adminpanelaction.php:311
 msgid "Site"
 msgstr "Сайт"
 
@@ -2435,7 +2435,7 @@ msgstr "Где вы находитесь, например «Город, обл�
 
 #: actions/profilesettings.php:138
 msgid "Share my current location when posting notices"
-msgstr ""
+msgstr "Делиться своим текущим местоположением при отправке записей"
 
 #: actions/profilesettings.php:145 actions/tagother.php:149
 #: actions/tagother.php:209 lib/subscriptionlist.php:106
@@ -2493,20 +2493,19 @@ msgstr "Неверный тег: «%s»"
 msgid "Couldn't update user for autosubscribe."
 msgstr "Не удаётся обновить пользователя для автоподписки."
 
-#: actions/profilesettings.php:354
-#, fuzzy
+#: actions/profilesettings.php:359
 msgid "Couldn't save location prefs."
-msgstr "Не удаётся сохранить теги."
+msgstr "Не удаётся сохранить настройки местоположения."
 
-#: actions/profilesettings.php:366
+#: actions/profilesettings.php:371
 msgid "Couldn't save profile."
 msgstr "Не удаётся сохранить профиль."
 
-#: actions/profilesettings.php:374
+#: actions/profilesettings.php:379
 msgid "Couldn't save tags."
 msgstr "Не удаётся сохранить теги."
 
-#: actions/profilesettings.php:382 lib/adminpanelaction.php:126
+#: actions/profilesettings.php:387 lib/adminpanelaction.php:137
 msgid "Settings saved."
 msgstr "Настройки сохранены."
 
@@ -2751,7 +2750,7 @@ msgstr "Извините, неверный пригласительный код
 msgid "Registration successful"
 msgstr "Регистрация успешна!"
 
-#: actions/register.php:114 actions/register.php:502 lib/action.php:456
+#: actions/register.php:114 actions/register.php:502 lib/action.php:457
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Регистрация"
@@ -3806,7 +3805,7 @@ msgid "Listenee stream license ‘%s’ is not compatible with site license ‘%
 msgstr ""
 "Лицензия просматриваемого потока «%s» несовместима с лицензией сайта «%s»."
 
-#: actions/useradminpanel.php:58 lib/adminpanelaction.php:305
+#: actions/useradminpanel.php:58 lib/adminpanelaction.php:321
 #: lib/personalgroupnav.php:115
 msgid "User"
 msgstr "Пользователь"
@@ -3908,7 +3907,7 @@ msgstr ""
 "подписаться на записи этого пользователя. Если Вы этого не хотите делать, "
 "нажмите «Отказ»."
 
-#: actions/userauthorization.php:188
+#: actions/userauthorization.php:188 actions/version.php:165
 msgid "License"
 msgstr "Лицензия"
 
@@ -4034,6 +4033,73 @@ msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
 msgstr ""
 "Попробуйте [найти группы](%%action.groupsearch%%) и присоединиться к ним."
 
+#: actions/version.php:73
+#, fuzzy, php-format
+msgid "StatusNet %s"
+msgstr "Статистика"
+
+#: actions/version.php:153
+#, php-format
+msgid ""
+"This site is powered by %s version %s, Copyright 2008-2010 StatusNet, Inc. "
+"and contributors."
+msgstr ""
+
+#: actions/version.php:157
+#, fuzzy
+msgid "StatusNet"
+msgstr "Статус удалён."
+
+#: actions/version.php:161
+msgid "Contributors"
+msgstr ""
+
+#: actions/version.php:168
+msgid ""
+"StatusNet is free software: you can redistribute it and/or modify it under "
+"the terms of the GNU Affero General Public License as published by the Free "
+"Software Foundation, either version 3 of the License, or (at your option) "
+"any later version. "
+msgstr ""
+
+#: actions/version.php:174
+msgid ""
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License "
+"for more details. "
+msgstr ""
+
+#: actions/version.php:180
+#, php-format
+msgid ""
+"You should have received a copy of the GNU Affero General Public License "
+"along with this program.  If not, see %s."
+msgstr ""
+
+#: actions/version.php:189
+msgid "Plugins"
+msgstr ""
+
+#: actions/version.php:195
+#, fuzzy
+msgid "Name"
+msgstr "Имя"
+
+#: actions/version.php:196 lib/action.php:741
+#, fuzzy
+msgid "Version"
+msgstr "Сессии"
+
+#: actions/version.php:197
+#, fuzzy
+msgid "Author(s)"
+msgstr "Автор"
+
+#: actions/version.php:198 lib/groupeditform.php:172
+msgid "Description"
+msgstr "Описание"
+
 #: classes/File.php:137
 #, php-format
 msgid ""
@@ -4106,7 +4172,7 @@ msgstr "Проблемы с сохранением записи."
 msgid "DB error inserting reply: %s"
 msgstr "Ошибка баз данных при вставке ответа для %s"
 
-#: classes/Notice.php:1361
+#: classes/Notice.php:1359
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4161,128 +4227,128 @@ msgstr "%s (%s)"
 msgid "Untitled page"
 msgstr "Страница без названия"
 
-#: lib/action.php:426
+#: lib/action.php:427
 msgid "Primary site navigation"
 msgstr "Главная навигация"
 
-#: lib/action.php:432
+#: lib/action.php:433
 msgid "Home"
 msgstr "Моё"
 
-#: lib/action.php:432
+#: lib/action.php:433
 msgid "Personal profile and friends timeline"
 msgstr "Личный профиль и лента друзей"
 
-#: lib/action.php:434
+#: lib/action.php:435
 msgid "Account"
 msgstr "Настройки"
 
-#: lib/action.php:434
+#: lib/action.php:435
 msgid "Change your email, avatar, password, profile"
 msgstr "Изменить ваш email, аватару, пароль, профиль"
 
-#: lib/action.php:437
+#: lib/action.php:438
 msgid "Connect"
 msgstr "Соединить"
 
-#: lib/action.php:437
+#: lib/action.php:438
 msgid "Connect to services"
 msgstr "Соединить с сервисами"
 
-#: lib/action.php:441
+#: lib/action.php:442
 msgid "Change site configuration"
 msgstr "Изменить конфигурацию сайта"
 
-#: lib/action.php:445 lib/subgroupnav.php:105
+#: lib/action.php:446 lib/subgroupnav.php:105
 msgid "Invite"
 msgstr "Пригласить"
 
-#: lib/action.php:446 lib/subgroupnav.php:106
+#: lib/action.php:447 lib/subgroupnav.php:106
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Пригласи друзей и коллег стать такими же как ты участниками %s"
 
-#: lib/action.php:451
+#: lib/action.php:452
 msgid "Logout"
 msgstr "Выход"
 
-#: lib/action.php:451
+#: lib/action.php:452
 msgid "Logout from the site"
 msgstr "Выйти"
 
-#: lib/action.php:456
+#: lib/action.php:457
 msgid "Create an account"
 msgstr "Создать новый аккаунт"
 
-#: lib/action.php:459
+#: lib/action.php:460
 msgid "Login to the site"
 msgstr "Войти"
 
-#: lib/action.php:462 lib/action.php:725
+#: lib/action.php:463 lib/action.php:726
 msgid "Help"
 msgstr "Помощь"
 
-#: lib/action.php:462
+#: lib/action.php:463
 msgid "Help me!"
 msgstr "Помощь"
 
-#: lib/action.php:465 lib/searchaction.php:127
+#: lib/action.php:466 lib/searchaction.php:127
 msgid "Search"
 msgstr "Поиск"
 
-#: lib/action.php:465
+#: lib/action.php:466
 msgid "Search for people or text"
 msgstr "Искать людей или текст"
 
-#: lib/action.php:486
+#: lib/action.php:487
 msgid "Site notice"
 msgstr "Новая запись"
 
-#: lib/action.php:552
+#: lib/action.php:553
 msgid "Local views"
 msgstr "Локальные виды"
 
-#: lib/action.php:618
+#: lib/action.php:619
 msgid "Page notice"
 msgstr "Новая запись"
 
-#: lib/action.php:720
+#: lib/action.php:721
 msgid "Secondary site navigation"
 msgstr "Навигация по подпискам"
 
-#: lib/action.php:727
+#: lib/action.php:728
 msgid "About"
 msgstr "О проекте"
 
-#: lib/action.php:729
+#: lib/action.php:730
 msgid "FAQ"
 msgstr "ЧаВо"
 
-#: lib/action.php:733
+#: lib/action.php:734
 msgid "TOS"
 msgstr "TOS"
 
-#: lib/action.php:736
+#: lib/action.php:737
 msgid "Privacy"
 msgstr "Пользовательское соглашение"
 
-#: lib/action.php:738
+#: lib/action.php:739
 msgid "Source"
 msgstr "Исходный код"
 
-#: lib/action.php:740
+#: lib/action.php:743
 msgid "Contact"
 msgstr "Контактная информация"
 
-#: lib/action.php:742
+#: lib/action.php:745
 msgid "Badge"
 msgstr "Бедж"
 
-#: lib/action.php:770
+#: lib/action.php:773
 msgid "StatusNet software license"
 msgstr "StatusNet лицензия"
 
-#: lib/action.php:773
+#: lib/action.php:776
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4291,12 +4357,12 @@ msgstr ""
 "**%%site.name%%** — это сервис микроблогинга, созданный для вас при помощи [%"
 "%site.broughtby%%](%%site.broughtbyurl%%). "
 
-#: lib/action.php:775
+#: lib/action.php:778
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** — сервис микроблогинга. "
 
-#: lib/action.php:777
+#: lib/action.php:780
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4308,31 +4374,31 @@ msgstr ""
 "лицензией [GNU Affero General Public License](http://www.fsf.org/licensing/"
 "licenses/agpl-3.0.html)."
 
-#: lib/action.php:791
+#: lib/action.php:794
 msgid "Site content license"
 msgstr "Лицензия содержимого сайта"
 
-#: lib/action.php:800
+#: lib/action.php:803
 msgid "All "
 msgstr "All "
 
-#: lib/action.php:805
+#: lib/action.php:808
 msgid "license."
 msgstr "license."
 
-#: lib/action.php:1099
+#: lib/action.php:1102
 msgid "Pagination"
 msgstr "Разбиение на страницы"
 
-#: lib/action.php:1108
+#: lib/action.php:1111
 msgid "After"
 msgstr "Сюда"
 
-#: lib/action.php:1116
+#: lib/action.php:1119
 msgid "Before"
 msgstr "Туда"
 
-#: lib/action.php:1164
+#: lib/action.php:1167
 msgid "There was a problem with your session token."
 msgstr "Проблема с Вашей сессией. Попробуйте ещё раз, пожалуйста."
 
@@ -4340,27 +4406,32 @@ msgstr "Проблема с Вашей сессией. Попробуйте ещ
 msgid "You cannot make changes to this site."
 msgstr "Вы не можете изменять этот сайт."
 
-#: lib/adminpanelaction.php:195
+#: lib/adminpanelaction.php:107
+#, fuzzy
+msgid "Changes to that panel are not allowed."
+msgstr "Регистрация недопустима."
+
+#: lib/adminpanelaction.php:206
 msgid "showForm() not implemented."
 msgstr "showForm() не реализована."
 
-#: lib/adminpanelaction.php:224
+#: lib/adminpanelaction.php:235
 msgid "saveSettings() not implemented."
 msgstr "saveSettings() не реализована."
 
-#: lib/adminpanelaction.php:247
+#: lib/adminpanelaction.php:258
 msgid "Unable to delete design setting."
 msgstr "Не удаётся удалить настройки оформления."
 
-#: lib/adminpanelaction.php:300
+#: lib/adminpanelaction.php:312
 msgid "Basic site configuration"
 msgstr "Основная конфигурация сайта"
 
-#: lib/adminpanelaction.php:303
+#: lib/adminpanelaction.php:317
 msgid "Design configuration"
 msgstr "Конфигурация оформления"
 
-#: lib/adminpanelaction.php:306 lib/adminpanelaction.php:309
+#: lib/adminpanelaction.php:322 lib/adminpanelaction.php:327
 msgid "Paths configuration"
 msgstr "Конфигурация путей"
 
@@ -4385,14 +4456,12 @@ msgid "Tags for this attachment"
 msgstr "Теги для этого вложения"
 
 #: lib/authenticationplugin.php:182 lib/authenticationplugin.php:187
-#, fuzzy
 msgid "Password changing failed"
-msgstr "Пароль сохранён."
+msgstr "Изменение пароля не удалось"
 
 #: lib/authenticationplugin.php:197
-#, fuzzy
 msgid "Password changing is not allowed"
-msgstr "Пароль сохранён."
+msgstr "Смена пароля не разрешена"
 
 #: lib/channel.php:138 lib/channel.php:158
 msgid "Command results"
@@ -4447,6 +4516,11 @@ msgstr "У пользователя нет записей"
 #: lib/command.php:190
 msgid "Notice marked as fave."
 msgstr "Запись помечена как любимая."
+
+#: lib/command.php:284
+#, php-format
+msgid "Could not remove user %s to group %s"
+msgstr "Не удаётся удалить пользователя %s из группы %s"
 
 #: lib/command.php:315
 #, php-format
@@ -4791,10 +4865,6 @@ msgstr "Опишите группу или тему"
 #, php-format
 msgid "Describe the group or topic in %d characters"
 msgstr "Опишите группу или тему при помощи %d символов"
-
-#: lib/groupeditform.php:172
-msgid "Description"
-msgstr "Описание"
 
 #: lib/groupeditform.php:179
 msgid ""
@@ -5193,6 +5263,22 @@ msgstr ""
 msgid "from"
 msgstr "от "
 
+#: lib/mailhandler.php:37
+msgid "Could not parse message."
+msgstr "Сообщение не удаётся разобрать."
+
+#: lib/mailhandler.php:42
+msgid "Not a registered user."
+msgstr "Незарегистрированный пользователь."
+
+#: lib/mailhandler.php:46
+msgid "Sorry, that is not your incoming email address."
+msgstr "Простите, это не Ваш входящий электронный адрес."
+
+#: lib/mailhandler.php:50
+msgid "Sorry, no incoming email allowed."
+msgstr "Простите, входящих писем нет."
+
 #: lib/mediafile.php:98 lib/mediafile.php:123
 msgid "There was a database error while saving your file. Please try again."
 msgstr ""
@@ -5278,7 +5364,17 @@ msgid "Attach a file"
 msgstr "Прикрепить файл"
 
 #: lib/noticeform.php:212
-msgid "Share your location"
+#, fuzzy
+msgid "Share my location"
+msgstr "Поделиться своим местоположением"
+
+#: lib/noticeform.php:214
+#, fuzzy
+msgid "Do not share my location."
+msgstr "Поделиться своим местоположением"
+
+#: lib/noticeform.php:215
+msgid "Hide this info"
 msgstr ""
 
 #: lib/noticelist.php:428
@@ -5394,6 +5490,11 @@ msgstr "Ваши исходящие сообщения"
 #, php-format
 msgid "Tags in %s's notices"
 msgstr "Теги записей пользователя %s"
+
+#: lib/plugin.php:114
+#, fuzzy
+msgid "Unknown"
+msgstr "Неизвестное действие"
 
 #: lib/profileaction.php:109 lib/profileaction.php:192 lib/subgroupnav.php:82
 msgid "Subscriptions"
@@ -5683,19 +5784,3 @@ msgid "%s is not a valid color! Use 3 or 6 hex chars."
 msgstr ""
 "%s не является допустимым цветом! Используйте 3 или 6 шестнадцатеричных "
 "символов."
-
-#: scripts/maildaemon.php:48
-msgid "Could not parse message."
-msgstr "Сообщение не удаётся разобрать."
-
-#: scripts/maildaemon.php:53
-msgid "Not a registered user."
-msgstr "Незарегистрированный пользователь."
-
-#: scripts/maildaemon.php:57
-msgid "Sorry, that is not your incoming email address."
-msgstr "Простите, это не Ваш входящий электронный адрес."
-
-#: scripts/maildaemon.php:61
-msgid "Sorry, no incoming email allowed."
-msgstr "Простите, входящих писем нет."

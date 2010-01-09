@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-05 22:10+0000\n"
-"PO-Revision-Date: 2010-01-05 22:11:31+0000\n"
+"POT-Creation-Date: 2010-01-09 23:44+0000\n"
+"PO-Revision-Date: 2010-01-09 23:45:16+0000\n"
 "Language-Team: Hebrew\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60693); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r60878); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: he\n"
 "X-Message-Group: out-statusnet\n"
@@ -402,7 +402,7 @@ msgstr "לא שלחנו אלינו את הפרופיל הזה"
 
 #: actions/apigroupleave.php:124
 #, fuzzy, php-format
-msgid "Could not remove user %s to group %s."
+msgid "Could not remove user %s from group %s."
 msgstr "נכשלה יצירת OpenID מתוך: %s"
 
 #: actions/apigrouplist.php:95
@@ -458,7 +458,7 @@ msgid "No status with that ID found."
 msgstr ""
 
 #: actions/apistatusesupdate.php:157 actions/newnotice.php:155
-#: scripts/maildaemon.php:71
+#: lib/mailhandler.php:60
 #, fuzzy, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr "זה ארוך מידי. אורך מירבי להודעה הוא 140 אותיות."
@@ -868,7 +868,7 @@ msgid "Delete this user"
 msgstr "אין משתמש כזה."
 
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
-#: lib/adminpanelaction.php:302 lib/groupnav.php:119
+#: lib/adminpanelaction.php:316 lib/groupnav.php:119
 msgid "Design"
 msgstr ""
 
@@ -1346,12 +1346,12 @@ msgstr "שגיאה בעדכון פרופיל מרוחק"
 msgid "No such group."
 msgstr "אין הודעה כזו."
 
-#: actions/getfile.php:75
+#: actions/getfile.php:79
 #, fuzzy
 msgid "No such file."
 msgstr "אין הודעה כזו."
 
-#: actions/getfile.php:79
+#: actions/getfile.php:83
 #, fuzzy
 msgid "Cannot read file."
 msgstr "אין הודעה כזו."
@@ -1488,7 +1488,7 @@ msgstr ""
 msgid "A list of the users in this group."
 msgstr ""
 
-#: actions/groupmembers.php:175 lib/action.php:441 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:442 lib/groupnav.php:107
 msgid "Admin"
 msgstr ""
 
@@ -1760,7 +1760,7 @@ msgstr ""
 msgid "Optionally add a personal message to the invitation."
 msgstr ""
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:232
+#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:234
 msgid "Send"
 msgstr "שלח"
 
@@ -1832,9 +1832,9 @@ msgstr "לא שלחנו אלינו את הפרופיל הזה"
 msgid "Could not find membership record."
 msgstr ""
 
-#: actions/leavegroup.php:127 lib/command.php:284
+#: actions/leavegroup.php:127
 #, fuzzy, php-format
-msgid "Could not remove user %s to group %s"
+msgid "Could not remove user %s from group %s"
 msgstr "נכשלה יצירת OpenID מתוך: %s"
 
 #: actions/leavegroup.php:134 lib/command.php:289
@@ -1860,7 +1860,7 @@ msgstr "שם משתמש או סיסמה לא נכונים."
 msgid "Error setting user. You are probably not authorized."
 msgstr "לא מורשה."
 
-#: actions/login.php:208 actions/login.php:261 lib/action.php:459
+#: actions/login.php:208 actions/login.php:261 lib/action.php:460
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "היכנס"
@@ -2181,7 +2181,7 @@ msgstr "לא ניתן לשמור את הסיסמה"
 msgid "Password saved."
 msgstr "הסיסמה נשמרה."
 
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:308
+#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:326
 msgid "Paths"
 msgstr ""
 
@@ -2214,7 +2214,7 @@ msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr ""
 
 #: actions/pathsadminpanel.php:217 actions/siteadminpanel.php:58
-#: lib/adminpanelaction.php:299
+#: lib/adminpanelaction.php:311
 msgid "Site"
 msgstr ""
 
@@ -2475,21 +2475,21 @@ msgstr "כתובת אתר הבית '%s' אינה חוקית"
 msgid "Couldn't update user for autosubscribe."
 msgstr ""
 
-#: actions/profilesettings.php:354
+#: actions/profilesettings.php:359
 #, fuzzy
 msgid "Couldn't save location prefs."
 msgstr "שמירת הפרופיל נכשלה."
 
-#: actions/profilesettings.php:366
+#: actions/profilesettings.php:371
 msgid "Couldn't save profile."
 msgstr "שמירת הפרופיל נכשלה."
 
-#: actions/profilesettings.php:374
+#: actions/profilesettings.php:379
 #, fuzzy
 msgid "Couldn't save tags."
 msgstr "שמירת הפרופיל נכשלה."
 
-#: actions/profilesettings.php:382 lib/adminpanelaction.php:126
+#: actions/profilesettings.php:387 lib/adminpanelaction.php:137
 msgid "Settings saved."
 msgstr "ההגדרות נשמרו."
 
@@ -2723,7 +2723,7 @@ msgstr "שגיאה באישור הקוד."
 msgid "Registration successful"
 msgstr ""
 
-#: actions/register.php:114 actions/register.php:502 lib/action.php:456
+#: actions/register.php:114 actions/register.php:502 lib/action.php:457
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "הירשם"
@@ -3726,7 +3726,7 @@ msgstr "בטל מנוי"
 msgid "Listenee stream license ‘%s’ is not compatible with site license ‘%s’."
 msgstr ""
 
-#: actions/useradminpanel.php:58 lib/adminpanelaction.php:305
+#: actions/useradminpanel.php:58 lib/adminpanelaction.php:321
 #: lib/personalgroupnav.php:115
 msgid "User"
 msgstr "מתשמש"
@@ -3831,7 +3831,7 @@ msgstr ""
 "בדוק את הפרטים כדי לוודא שברצונך להירשם כמנוי להודעות משתמש זה. אם אינך רוצה "
 "להירשם, לחץ \"בטל\"."
 
-#: actions/userauthorization.php:188
+#: actions/userauthorization.php:188 actions/version.php:165
 msgid "License"
 msgstr ""
 
@@ -3960,6 +3960,73 @@ msgstr "לא שלחנו אלינו את הפרופיל הזה"
 msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
 msgstr ""
 
+#: actions/version.php:73
+#, fuzzy, php-format
+msgid "StatusNet %s"
+msgstr "סטטיסטיקה"
+
+#: actions/version.php:153
+#, php-format
+msgid ""
+"This site is powered by %s version %s, Copyright 2008-2010 StatusNet, Inc. "
+"and contributors."
+msgstr ""
+
+#: actions/version.php:157
+#, fuzzy
+msgid "StatusNet"
+msgstr "התמונה עודכנה."
+
+#: actions/version.php:161
+msgid "Contributors"
+msgstr ""
+
+#: actions/version.php:168
+msgid ""
+"StatusNet is free software: you can redistribute it and/or modify it under "
+"the terms of the GNU Affero General Public License as published by the Free "
+"Software Foundation, either version 3 of the License, or (at your option) "
+"any later version. "
+msgstr ""
+
+#: actions/version.php:174
+msgid ""
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License "
+"for more details. "
+msgstr ""
+
+#: actions/version.php:180
+#, php-format
+msgid ""
+"You should have received a copy of the GNU Affero General Public License "
+"along with this program.  If not, see %s."
+msgstr ""
+
+#: actions/version.php:189
+msgid "Plugins"
+msgstr ""
+
+#: actions/version.php:195
+#, fuzzy
+msgid "Name"
+msgstr "כינוי"
+
+#: actions/version.php:196 lib/action.php:741
+#, fuzzy
+msgid "Version"
+msgstr "אישי"
+
+#: actions/version.php:197
+msgid "Author(s)"
+msgstr ""
+
+#: actions/version.php:198 lib/groupeditform.php:172
+#, fuzzy
+msgid "Description"
+msgstr "הרשמות"
+
 #: classes/File.php:137
 #, php-format
 msgid ""
@@ -4028,7 +4095,7 @@ msgstr "בעיה בשמירת ההודעה."
 msgid "DB error inserting reply: %s"
 msgstr "שגיאת מסד נתונים בהכנסת התגובה: %s"
 
-#: classes/Notice.php:1361
+#: classes/Notice.php:1359
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
@@ -4087,136 +4154,136 @@ msgstr ""
 msgid "Untitled page"
 msgstr ""
 
-#: lib/action.php:426
+#: lib/action.php:427
 msgid "Primary site navigation"
 msgstr ""
 
-#: lib/action.php:432
+#: lib/action.php:433
 msgid "Home"
 msgstr "בית"
 
-#: lib/action.php:432
+#: lib/action.php:433
 msgid "Personal profile and friends timeline"
 msgstr ""
 
-#: lib/action.php:434
+#: lib/action.php:435
 #, fuzzy
 msgid "Account"
 msgstr "אודות"
 
-#: lib/action.php:434
+#: lib/action.php:435
 msgid "Change your email, avatar, password, profile"
 msgstr ""
 
-#: lib/action.php:437
+#: lib/action.php:438
 msgid "Connect"
 msgstr "התחבר"
 
-#: lib/action.php:437
+#: lib/action.php:438
 #, fuzzy
 msgid "Connect to services"
 msgstr "נכשלה ההפניה לשרת: %s"
 
-#: lib/action.php:441
+#: lib/action.php:442
 #, fuzzy
 msgid "Change site configuration"
 msgstr "הרשמות"
 
-#: lib/action.php:445 lib/subgroupnav.php:105
+#: lib/action.php:446 lib/subgroupnav.php:105
 msgid "Invite"
 msgstr ""
 
-#: lib/action.php:446 lib/subgroupnav.php:106
+#: lib/action.php:447 lib/subgroupnav.php:106
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
 msgstr ""
 
-#: lib/action.php:451
+#: lib/action.php:452
 msgid "Logout"
 msgstr "צא"
 
-#: lib/action.php:451
+#: lib/action.php:452
 msgid "Logout from the site"
 msgstr ""
 
-#: lib/action.php:456
+#: lib/action.php:457
 #, fuzzy
 msgid "Create an account"
 msgstr "צור חשבון חדש"
 
-#: lib/action.php:459
+#: lib/action.php:460
 msgid "Login to the site"
 msgstr ""
 
-#: lib/action.php:462 lib/action.php:725
+#: lib/action.php:463 lib/action.php:726
 msgid "Help"
 msgstr "עזרה"
 
-#: lib/action.php:462
+#: lib/action.php:463
 #, fuzzy
 msgid "Help me!"
 msgstr "עזרה"
 
-#: lib/action.php:465 lib/searchaction.php:127
+#: lib/action.php:466 lib/searchaction.php:127
 msgid "Search"
 msgstr "חיפוש"
 
-#: lib/action.php:465
+#: lib/action.php:466
 msgid "Search for people or text"
 msgstr ""
 
-#: lib/action.php:486
+#: lib/action.php:487
 #, fuzzy
 msgid "Site notice"
 msgstr "הודעה חדשה"
 
-#: lib/action.php:552
+#: lib/action.php:553
 msgid "Local views"
 msgstr ""
 
-#: lib/action.php:618
+#: lib/action.php:619
 #, fuzzy
 msgid "Page notice"
 msgstr "הודעה חדשה"
 
-#: lib/action.php:720
+#: lib/action.php:721
 #, fuzzy
 msgid "Secondary site navigation"
 msgstr "הרשמות"
 
-#: lib/action.php:727
+#: lib/action.php:728
 msgid "About"
 msgstr "אודות"
 
-#: lib/action.php:729
+#: lib/action.php:730
 msgid "FAQ"
 msgstr "רשימת שאלות נפוצות"
 
-#: lib/action.php:733
+#: lib/action.php:734
 msgid "TOS"
 msgstr ""
 
-#: lib/action.php:736
+#: lib/action.php:737
 msgid "Privacy"
 msgstr "פרטיות"
 
-#: lib/action.php:738
+#: lib/action.php:739
 msgid "Source"
 msgstr "מקור"
 
-#: lib/action.php:740
+#: lib/action.php:743
 msgid "Contact"
 msgstr "צור קשר"
 
-#: lib/action.php:742
+#: lib/action.php:745
 msgid "Badge"
 msgstr ""
 
-#: lib/action.php:770
+#: lib/action.php:773
 msgid "StatusNet software license"
 msgstr ""
 
-#: lib/action.php:773
+#: lib/action.php:776
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4225,12 +4292,12 @@ msgstr ""
 "**%%site.name%%** הוא שרות ביקרובלוג הניתן על ידי [%%site.broughtby%%](%%"
 "site.broughtbyurl%%)."
 
-#: lib/action.php:775
+#: lib/action.php:778
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** הוא שרות ביקרובלוג."
 
-#: lib/action.php:777
+#: lib/action.php:780
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4241,34 +4308,34 @@ msgstr ""
 "s, המופצת תחת רשיון [GNU Affero General Public License](http://www.fsf.org/"
 "licensing/licenses/agpl-3.0.html)"
 
-#: lib/action.php:791
+#: lib/action.php:794
 #, fuzzy
 msgid "Site content license"
 msgstr "הודעה חדשה"
 
-#: lib/action.php:800
+#: lib/action.php:803
 msgid "All "
 msgstr ""
 
-#: lib/action.php:805
+#: lib/action.php:808
 msgid "license."
 msgstr ""
 
-#: lib/action.php:1099
+#: lib/action.php:1102
 msgid "Pagination"
 msgstr ""
 
-#: lib/action.php:1108
+#: lib/action.php:1111
 #, fuzzy
 msgid "After"
 msgstr "<< אחרי"
 
-#: lib/action.php:1116
+#: lib/action.php:1119
 #, fuzzy
 msgid "Before"
 msgstr "לפני >>"
 
-#: lib/action.php:1164
+#: lib/action.php:1167
 msgid "There was a problem with your session token."
 msgstr ""
 
@@ -4276,28 +4343,32 @@ msgstr ""
 msgid "You cannot make changes to this site."
 msgstr ""
 
-#: lib/adminpanelaction.php:195
+#: lib/adminpanelaction.php:107
+msgid "Changes to that panel are not allowed."
+msgstr ""
+
+#: lib/adminpanelaction.php:206
 msgid "showForm() not implemented."
 msgstr ""
 
-#: lib/adminpanelaction.php:224
+#: lib/adminpanelaction.php:235
 msgid "saveSettings() not implemented."
 msgstr ""
 
-#: lib/adminpanelaction.php:247
+#: lib/adminpanelaction.php:258
 msgid "Unable to delete design setting."
 msgstr ""
 
-#: lib/adminpanelaction.php:300
+#: lib/adminpanelaction.php:312
 #, fuzzy
 msgid "Basic site configuration"
 msgstr "הרשמות"
 
-#: lib/adminpanelaction.php:303
+#: lib/adminpanelaction.php:317
 msgid "Design configuration"
 msgstr ""
 
-#: lib/adminpanelaction.php:306 lib/adminpanelaction.php:309
+#: lib/adminpanelaction.php:322 lib/adminpanelaction.php:327
 #, fuzzy
 msgid "Paths configuration"
 msgstr "הרשמות"
@@ -4383,6 +4454,11 @@ msgstr ""
 #: lib/command.php:190
 msgid "Notice marked as fave."
 msgstr ""
+
+#: lib/command.php:284
+#, fuzzy, php-format
+msgid "Could not remove user %s to group %s"
+msgstr "נכשלה יצירת OpenID מתוך: %s"
 
 #: lib/command.php:315
 #, php-format
@@ -4696,11 +4772,6 @@ msgstr "תאר את עצמך ואת נושאי העניין שלך ב-140 אות
 #, fuzzy, php-format
 msgid "Describe the group or topic in %d characters"
 msgstr "תאר את עצמך ואת נושאי העניין שלך ב-140 אותיות"
-
-#: lib/groupeditform.php:172
-#, fuzzy
-msgid "Description"
-msgstr "הרשמות"
 
 #: lib/groupeditform.php:179
 #, fuzzy
@@ -5022,6 +5093,22 @@ msgstr ""
 msgid "from"
 msgstr ""
 
+#: lib/mailhandler.php:37
+msgid "Could not parse message."
+msgstr ""
+
+#: lib/mailhandler.php:42
+msgid "Not a registered user."
+msgstr ""
+
+#: lib/mailhandler.php:46
+msgid "Sorry, that is not your incoming email address."
+msgstr ""
+
+#: lib/mailhandler.php:50
+msgid "Sorry, no incoming email allowed."
+msgstr ""
+
 #: lib/mediafile.php:98 lib/mediafile.php:123
 msgid "There was a database error while saving your file. Please try again."
 msgstr ""
@@ -5107,7 +5194,16 @@ msgid "Attach a file"
 msgstr ""
 
 #: lib/noticeform.php:212
-msgid "Share your location"
+msgid "Share my location"
+msgstr ""
+
+#: lib/noticeform.php:214
+#, fuzzy
+msgid "Do not share my location."
+msgstr "שמירת הפרופיל נכשלה."
+
+#: lib/noticeform.php:215
+msgid "Hide this info"
 msgstr ""
 
 #: lib/noticelist.php:428
@@ -5228,6 +5324,10 @@ msgstr ""
 #: lib/personaltagcloudsection.php:56
 #, php-format
 msgid "Tags in %s's notices"
+msgstr ""
+
+#: lib/plugin.php:114
+msgid "Unknown"
 msgstr ""
 
 #: lib/profileaction.php:109 lib/profileaction.php:192 lib/subgroupnav.php:82
@@ -5535,20 +5635,4 @@ msgstr "לאתר הבית יש כתובת לא חוקית."
 #: lib/webcolor.php:123
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
-msgstr ""
-
-#: scripts/maildaemon.php:48
-msgid "Could not parse message."
-msgstr ""
-
-#: scripts/maildaemon.php:53
-msgid "Not a registered user."
-msgstr ""
-
-#: scripts/maildaemon.php:57
-msgid "Sorry, that is not your incoming email address."
-msgstr ""
-
-#: scripts/maildaemon.php:61
-msgid "Sorry, no incoming email allowed."
 msgstr ""
