@@ -268,19 +268,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
         }
 
-        if (!Notice_inbox::pkeyGet(array('notice_id' => $notice->id,
-                                         'user_id' => $flink->user_id))) {
-            // Add to inbox
-            $inbox = new Notice_inbox();
-
-            $inbox->user_id   = $flink->user_id;
-            $inbox->notice_id = $notice->id;
-            $inbox->created   = $notice->created;
-            $inbox->source    = NOTICE_INBOX_SOURCE_GATEWAY; // From a private source
-
-            $inbox->insert();
-
-        }
+        Inbox::insertNotice($flink->user_id, $notice->id);
 
         $notice->blowCaches();
 
