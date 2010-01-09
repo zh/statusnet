@@ -50,5 +50,16 @@ class EmailAuthenticationPlugin extends Plugin
             }
         }
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'Email Authentication',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Craig Andrews',
+                            'homepage' => 'http://status.net/wiki/Plugin:EmailAuthentication',
+                            'rawdescription' =>
+                            _m('The Email Authentication plugin allows users to login using their email address.'));
+        return true;
+    }
 }
 

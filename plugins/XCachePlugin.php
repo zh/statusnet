@@ -109,5 +109,16 @@ class XCachePlugin extends Plugin
         Event::handle('EndCacheDelete', array($key));
         return false;
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'XCache',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Craig Andrews',
+                            'homepage' => 'http://status.net/wiki/Plugin:XCache',
+                            'rawdescription' =>
+                            _m('Use the <a href="http://xcache.lighttpd.net/">XCache</a> variable cache to cache query results.'));
+        return true;
+    }
 }
 

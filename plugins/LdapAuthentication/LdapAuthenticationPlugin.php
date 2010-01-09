@@ -346,4 +346,15 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
 
         return $str;
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'LDAP Authentication',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Craig Andrews',
+                            'homepage' => 'http://status.net/wiki/Plugin:LdapAuthentication',
+                            'rawdescription' =>
+                            _m('The LDAP Authentication plugin allows for StatusNet to handle authentication through LDAP.'));
+        return true;
+    }
 }

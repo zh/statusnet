@@ -118,4 +118,16 @@ class PubSubHubBubPlugin extends Plugin
             }
         }
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'PubSubHubBub',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Craig Andrews',
+                            'homepage' => 'http://status.net/wiki/Plugin:PubSubHubBub',
+                            'rawdescription' =>
+                            _m('The PubSubHubBub plugin pushes RSS/Atom updates to a <a href="http://pubsubhubbub.googlecode.com/">PubSubHubBub</a> hub.'));
+
+        return true;
+    }
 }

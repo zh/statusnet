@@ -138,4 +138,15 @@ class CasAuthenticationPlugin extends AuthenticationPlugin
         $casSettings['port']=$this->port;
         $casSettings['path']=$this->path;
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'CAS Authentication',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Craig Andrews',
+                            'homepage' => 'http://status.net/wiki/Plugin:CasAuthentication',
+                            'rawdescription' =>
+                            _m('The CAS Authentication plugin allows for StatusNet to handle authentication through CAS (Central Authentication Service).'));
+        return true;
+    }
 }

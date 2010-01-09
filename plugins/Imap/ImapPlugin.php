@@ -82,4 +82,15 @@ class ImapPlugin extends Plugin
         }
         return true;
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'IMAP',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Craig Andrews',
+                            'homepage' => 'http://status.net/wiki/Plugin:IMAP',
+                            'rawdescription' =>
+                            _m('The IMAP plugin allows for StatusNet to check a POP or IMAP mailbox for incoming mail containing user posts.'));
+        return true;
+    }
 }
