@@ -40,6 +40,8 @@ class Login_token extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
+    const TIMEOUT = 120; // seconds after which to timeout the token
+
     /*
     DB_DataObject calculates the sequence key(s) by taking the first key returned by the keys() function.
     In this case, the keys() function returns user_id as the first key. user_id is not a sequence, but
@@ -51,5 +53,30 @@ class Login_token extends Memcached_DataObject
     function sequenceKey()
     {
         return array(false,false);
+    }
+
+    function makeNew($user)
+    {
+        $login_token = Login_token::staticGet('user_id', $user->id);
+
+        if (!empty($login_token)) {
+            $login_token->delete();
+        }
+
+        $login_token = new Login_token();
+
+        $login_token->user_id = $user->id;
+        $login_token->token   = common_good_rand(16);
+        $login_token->created = common_sql_now();
+
+        $result = $login_token->insert();
+
+        if (!$result) {
+            common_log_db_error($login_token, 'INSERT', __FILE__);
+            throw new Exception(sprintf(_('Could not create login token for %s'),
+                                                 $user->nickname));
+        }
+
+        return $login_token;
     }
 }

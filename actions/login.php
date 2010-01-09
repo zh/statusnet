@@ -76,15 +76,10 @@ class LoginAction extends Action
     {
         parent::handle($args);
 
-        $disabled = common_config('logincommand','disabled');
-        $disabled = isset($disabled) && $disabled;
-
         if (common_is_real_login()) {
             $this->clientError(_('Already logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->checkLogin();
-        } else if (!$disabled && isset($args['user_id']) && isset($args['token'])){
-            $this->checkLogin($args['user_id'],$args['token']);
         } else {
             common_ensure_session();
             $this->showForm();
@@ -103,45 +98,20 @@ class LoginAction extends Action
 
     function checkLogin($user_id=null, $token=null)
     {
-        if(isset($token) && isset($user_id)){
-            //Token based login (from the LoginCommand)
-            $login_token = Login_token::staticGet('user_id',$user_id);
-            if($login_token && $login_token->token == $token){
-                if($login_token->modified > time()+2*60){
-                    //token has expired
-                    //delete the token as it is useless
-                    $login_token->delete();
-                    $this->showForm(_('Invalid or expired token.'));
-                    return;
-                }else{
-                    //delete the token so it cannot be reused
-                    $login_token->delete();
-                    //it's a valid token - let them log in
-                    $user = User::staticGet('id', $user_id);
-                    //$user = User::staticGet('nickname', "candrews");
-                }
-            }else{
-                $this->showForm(_('Invalid or expired token.'));
-                return;
-            }
-        }else{
-            // Regular form submission login
+        // XXX: login throttle
 
-            // XXX: login throttle
-
-            // CSRF protection - token set in NoticeForm
-            $token = $this->trimmed('token');
-            if (!$token || $token != common_session_token()) {
-                $this->clientError(_('There was a problem with your session token. '.
-                                     'Try again, please.'));
-                return;
-            }
-
-            $nickname = $this->trimmed('nickname');
-            $password = $this->arg('password');
-
-            $user = common_check_user($nickname, $password);
+        // CSRF protection - token set in NoticeForm
+        $token = $this->trimmed('token');
+        if (!$token || $token != common_session_token()) {
+            $this->clientError(_('There was a problem with your session token. '.
+                                 'Try again, please.'));
+            return;
         }
+
+        $nickname = $this->trimmed('nickname');
+        $password = $this->arg('password');
+
+        $user = common_check_user($nickname, $password);
 
         if (!$user) {
             $this->showForm(_('Incorrect username or password.'));
@@ -161,6 +131,12 @@ class LoginAction extends Action
         }
 
         $url = common_get_returnto();
+
+        if (common_config('ssl', 'sometimes') && // mixed environment
+            common_config('site', 'server') != common_config('site', 'sslserver')) {
+            $this->redirectFromSSL($user, $url, $this->boolean('rememberme'));
+            return;
+        }
 
         if ($url) {
             // We don't have to return to it again
@@ -240,9 +216,9 @@ class LoginAction extends Action
     function showContent()
     {
         $this->elementStart('form', array('method' => 'post',
-                                           'id' => 'form_login',
-                                           'class' => 'form_settings',
-                                           'action' => common_local_url('login')));
+                                          'id' => 'form_login',
+                                          'class' => 'form_settings',
+                                          'action' => common_local_url('login')));
         $this->elementStart('fieldset');
         $this->element('legend', null, _('Login to site'));
         $this->elementStart('ul', 'form_data');
@@ -255,7 +231,7 @@ class LoginAction extends Action
         $this->elementStart('li');
         $this->checkbox('rememberme', _('Remember me'), false,
                         _('Automatically login in the future; ' .
-                           'not for shared computers!'));
+                          'not for shared computers!'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
         $this->submit('submit', _('Login'));
@@ -305,5 +281,32 @@ class LoginAction extends Action
     {
         $nav = new LoginGroupNav($this);
         $nav->show();
+    }
+
+    function redirectFromSSL($user, $returnto, $rememberme)
+    {
+        try {
+            $login_token = Login_token::makeNew($user);
+        } catch (Exception $e) {
+            $this->serverError($e->getMessage());
+            return;
+        }
+
+        $params = array();
+
+        if (!empty($returnto)) {
+            $params['returnto'] = $returnto;
+        }
+
+        if (!empty($rememberme)) {
+            $params['rememberme'] = $rememberme;
+        }
+
+        $target = common_local_url('otp',
+                                   array('user_id' => $login_token->user_id,
+                                         'token' => $login_token->token),
+                                   $params);
+
+        common_redirect($target, 303);
     }
 }
