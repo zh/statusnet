@@ -599,6 +599,10 @@ function mail_notify_attn($user, $notice)
 
     $sender = $notice->getProfile();
 
+    if ($sender->id == $user->id) {
+        return;
+    }
+
     if (!$sender->hasRight(Right::EMAILONREPLY)) {
         return;
     }

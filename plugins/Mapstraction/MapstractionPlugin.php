@@ -47,6 +47,8 @@ if (!defined('STATUSNET')) {
 
 class MapstractionPlugin extends Plugin
 {
+    const VERSION = STATUSNET_VERSION;
+
     /** provider name, one of:
      'cloudmade', 'google', 'microsoft', 'openlayers', 'yahoo' */
     public $provider = 'openlayers';
@@ -191,5 +193,18 @@ class MapstractionPlugin extends Plugin
                          _m("Full size"));
 
         $action->elementEnd('div');
+    }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'Mapstraction',
+                            'version' => self::VERSION,
+                            'author' => 'Evan Prodromou',
+                            'homepage' => 'http://status.net/wiki/Plugin:Mapstraction',
+                            'rawdescription' =>
+                            _m('Show maps of users\' and friends\' notices '.
+                               'with <a href="http://www.mapstraction.com/">Mapstraction</a> '.
+                               'JavaScript library.'));
+        return true;
     }
 }

@@ -82,7 +82,8 @@ class Facebook {
 
 
     if (isset($this->fb_params['friends'])) {
-      $this->api_client->friends_list = explode(',', $this->fb_params['friends']);
+      $this->api_client->friends_list =
+        array_filter(explode(',', $this->fb_params['friends']));
     }
     if (isset($this->fb_params['added'])) {
       $this->api_client->added = $this->fb_params['added'];
@@ -215,11 +216,15 @@ class Facebook {
   // Invalidate the session currently being used, and clear any state associated
   // with it. Note that the user will still remain logged into Facebook.
   public function expire_session() {
-    if ($this->api_client->auth_expireSession()) {
+    try {
+      if ($this->api_client->auth_expireSession()) {
+        $this->clear_cookie_state();
+        return true;
+      } else {
+        return false;
+      }
+    } catch (Exception $e) {
       $this->clear_cookie_state();
-      return true;
-    } else {
-      return false;
     }
   }
 
@@ -249,10 +254,14 @@ class Facebook {
     if (!$this->in_fb_canvas() && isset($_COOKIE[$this->api_key . '_user'])) {
        $cookies = array('user', 'session_key', 'expires', 'ss');
        foreach ($cookies as $name) {
-         setcookie($this->api_key . '_' . $name, false, time() - 3600);
+         setcookie($this->api_key . '_' . $name,
+                   false,
+                   time() - 3600,
+                   '',
+                   $this->base_domain);
          unset($_COOKIE[$this->api_key . '_' . $name]);
        }
-       setcookie($this->api_key, false, time() - 3600);
+       setcookie($this->api_key, false, time() - 3600, '', $this->base_domain);
        unset($_COOKIE[$this->api_key]);
      }
 

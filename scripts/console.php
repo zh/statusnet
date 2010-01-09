@@ -128,6 +128,8 @@ function console_help()
 if (CONSOLE_INTERACTIVE) {
     print "StatusNet interactive PHP console... type ctrl+D or enter 'exit' to exit.\n";
     $prompt = common_config('site', 'name') . '> ';
+} else {
+    $prompt = '';
 }
 while (!feof(STDIN)) {
     $line = read_input_line($prompt);

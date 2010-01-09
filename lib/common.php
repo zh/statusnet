@@ -210,6 +210,18 @@ if ($_db_name != 'statusnet' && !array_key_exists('ini_'.$_db_name, $config['db'
     $config['db']['ini_'.$_db_name] = INSTALLDIR.'/classes/statusnet.ini';
 }
 
+// Backwards compatibility
+
+if (array_key_exists('memcached', $config)) {
+    if ($config['memcached']['enabled']) {
+        addPlugin('Memcache', array('servers' => $config['memcached']['server']));
+    }
+
+    if (!empty($config['memcached']['base'])) {
+        $config['cache']['base'] = $config['memcached']['base'];
+    }
+}
+
 function __autoload($cls)
 {
     if (file_exists(INSTALLDIR.'/classes/' . $cls . '.php')) {
@@ -223,6 +235,27 @@ function __autoload($cls)
         require_once('OAuth.php');
     } else {
         Event::handle('Autoload', array(&$cls));
+    }
+}
+
+// Load default plugins
+
+foreach ($config['plugins']['default'] as $name => $params) {
+    if (is_null($params)) {
+        addPlugin($name);
+    } else if (is_array($params)) {
+        if (count($params) == 0) {
+            addPlugin($name);
+        } else {
+            $keys = array_keys($params);
+            if (is_string($keys[0])) {
+                addPlugin($name, $params);
+            } else {
+                foreach ($params as $paramset) {
+                    addPlugin($name, $paramset);
+                }
+            }
+        }
     }
 }
 

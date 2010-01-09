@@ -90,6 +90,17 @@ class User_flag_profile extends Memcached_DataObject
     }
 
     /**
+     * return key definitions for DB_DataObject
+     *
+     * @return array key definitions
+     */
+
+    function keyTypes()
+    {
+        return $this->keys();
+    }
+
+    /**
      * Get a single object with multiple keys
      *
      * @param array $kv Map of key-value pairs
@@ -97,7 +108,7 @@ class User_flag_profile extends Memcached_DataObject
      * @return User_flag_profile found object or null
      */
 
-    function &pkeyGet($kv)
+    function pkeyGet($kv)
     {
         return Memcached_DataObject::pkeyGet('User_flag_profile', $kv);
     }

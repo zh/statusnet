@@ -379,7 +379,7 @@ class NoticeListItem extends Widget
 
     function showNoticeLink()
     {
-        if($this->notice->is_local){
+        if($this->notice->is_local == Notice::LOCAL_PUBLIC || $this->notice->is_local == Notice::LOCAL_NONPUBLIC){
             $noticeurl = common_local_url('shownotice',
                                       array('notice' => $this->notice->id));
         }else{

@@ -50,7 +50,11 @@ var SN = { // StatusNet
             NoticeLat: 'notice_data-lat',
             NoticeLon: 'notice_data-lon',
             NoticeLocationId: 'notice_data-location_id',
-            NoticeLocationNs: 'notice_data-location_ns'
+            NoticeLocationNs: 'notice_data-location_ns',
+            NoticeGeoName: 'notice_data-geo_name',
+            NoticeDataGeo: 'notice_data-geo',
+            NoticeDataGeoCookie: 'notice_data-geo_cookie',
+            NoticeDataGeoSelected: 'notice_data-geo_selected'
         }
     },
 
@@ -174,12 +178,13 @@ var SN = { // StatusNet
         },
 
         FormNoticeXHR: function(form) {
+            var NDG, NLat, NLon, NLNS, NLID;
             form_id = form.attr('id');
             form.append('<input type="hidden" name="ajax" value="1"/>');
             form.ajaxForm({
                 dataType: 'xml',
                 timeout: '60000',
-                beforeSend: function(xhr) {
+                beforeSend: function(formData) {
                     if ($('#'+form_id+' #'+SN.C.S.NoticeDataText)[0].value.length === 0) {
                         form.addClass(SN.C.S.Warning);
                         return false;
@@ -187,6 +192,29 @@ var SN = { // StatusNet
                     form.addClass(SN.C.S.Processing);
                     $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).addClass(SN.C.S.Disabled);
                     $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).attr(SN.C.S.Disabled, SN.C.S.Disabled);
+
+                    NLat = $('#'+SN.C.S.NoticeLat).val();
+                    NLon = $('#'+SN.C.S.NoticeLon).val();
+                    NLNS = $('#'+SN.C.S.NoticeLocationNs).val();
+                    NLID = $('#'+SN.C.S.NoticeLocationId).val();
+                    NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked');
+
+                    cookieValue = $.cookie(SN.C.S.NoticeDataGeoCookie);
+
+                    if (cookieValue !== null && cookieValue != 'disabled') {
+                        cookieValue = JSON.parse(cookieValue);
+                        NLat = $('#'+SN.C.S.NoticeLat).val(cookieValue.NLat).val();
+                        NLon = $('#'+SN.C.S.NoticeLon).val(cookieValue.NLon).val();
+                        NLNS = $('#'+SN.C.S.NoticeLocationNs).val(cookieValue.NLNS).val();
+                        NLID = $('#'+SN.C.S.NoticeLocationId).val(cookieValue.NLID).val();
+                    }
+                    if (cookieValue == 'disabled') {
+                        NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked', false).attr('checked');
+                    }
+                    else {
+                        NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked', true).attr('checked');
+                    }
+
                     return true;
                 },
                 error: function (xhr, textStatus, errorThrown) {
@@ -269,6 +297,12 @@ var SN = { // StatusNet
                     form.removeClass(SN.C.S.Processing);
                     $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeAttr(SN.C.S.Disabled);
                     $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeClass(SN.C.S.Disabled);
+
+                    $('#'+SN.C.S.NoticeLat).val(NLat);
+                    $('#'+SN.C.S.NoticeLon).val(NLon);
+                    $('#'+SN.C.S.NoticeLocationNs).val(NLNS);
+                    $('#'+SN.C.S.NoticeLocationId).val(NLID);
+                    $('#'+SN.C.S.NoticeDataGeo).attr('checked', NDG);
                 }
             });
         },
@@ -316,7 +350,42 @@ var SN = { // StatusNet
         },
 
         NoticeRepeat: function() {
-            $('.form_repeat').each(function() { SN.U.FormXHR($(this)); });
+            $('.form_repeat').each(function() {
+                SN.U.FormXHR($(this));
+                SN.U.NoticeRepeatConfirmation($(this));
+            });
+        },
+
+        NoticeRepeatConfirmation: function(form) {
+            function NRC() {
+                form.closest('.notice-options').addClass('opaque');
+                form.addClass('dialogbox');
+
+                form.append('<button class="close">&#215;</button>');
+                form.find('button.close').click(function(){
+                    $(this).remove();
+
+                    form.closest('.notice-options').removeClass('opaque');
+                    form.removeClass('dialogbox');
+                    form.find('.submit_dialogbox').remove();
+                    form.find('.submit').show();
+
+                    return false;
+                });
+            };
+
+            form.find('.submit').bind('click', function(e) {
+                e.preventDefault();
+
+                var submit = form.find('.submit').clone();
+                submit.addClass('submit_dialogbox');
+                submit.removeClass('submit');
+                form.append(submit);
+
+                $(this).hide();
+
+                NRC();
+            });
         },
 
         NoticeAttachments: function() {
@@ -396,15 +465,228 @@ var SN = { // StatusNet
                 $('#'+SN.C.S.NoticeDataAttachSelected+' button').click(function(){
                     $('#'+SN.C.S.NoticeDataAttachSelected).remove();
                     NDA.val('');
+
+                    return false;
                 });
             });
         },
 
         NoticeLocationAttach: function() {
-            if(navigator.geolocation) navigator.geolocation.watchPosition(function(position) {
-                $('#'+SN.C.S.NoticeLat).val(position.coords.latitude);
-                $('#'+SN.C.S.NoticeLon).val(position.coords.longitude);
-            });
+            var NLat = $('#'+SN.C.S.NoticeLat).val();
+            var NLon = $('#'+SN.C.S.NoticeLon).val();
+            var NLNS = $('#'+SN.C.S.NoticeLocationNs).val();
+            var NLID = $('#'+SN.C.S.NoticeLocationId).val();
+            var NLN = $('#'+SN.C.S.NoticeGeoName).text();
+            var NDGe = $('#'+SN.C.S.NoticeDataGeo);
+
+            function removeNoticeDataGeo() {
+                $('label[for='+SN.C.S.NoticeDataGeo+']').removeClass('checked').attr('title', jQuery.trim($('label[for='+SN.C.S.NoticeDataGeo+']').text()));
+                $('#'+SN.C.S.NoticeDataGeoSelected).hide();
+
+                $('#'+SN.C.S.NoticeLat).val('');
+                $('#'+SN.C.S.NoticeLon).val('');
+                $('#'+SN.C.S.NoticeLocationNs).val('');
+                $('#'+SN.C.S.NoticeLocationId).val('');
+                $('#'+SN.C.S.NoticeDataGeo).attr('checked', false);
+
+                $.cookie(SN.C.S.NoticeDataGeoCookie, 'disabled');
+            }
+
+            function getJSONgeocodeURL(geocodeURL, data) {
+                $.getJSON(geocodeURL, data, function(location) {
+                    var lns, lid;
+
+                    if (typeof(location.location_ns) != 'undefined') {
+                        $('#'+SN.C.S.NoticeLocationNs).val(location.location_ns);
+                        lns = location.location_ns;
+                    }
+
+                    if (typeof(location.location_id) != 'undefined') {
+                        $('#'+SN.C.S.NoticeLocationId).val(location.location_id);
+                        lid = location.location_id;
+                    }
+
+                    if (typeof(location.name) == 'undefined') {
+                        NLN_text = position.coords.latitude + ';' + position.coords.longitude;
+                    }
+                    else {
+                        NLN_text = location.name;
+                    }
+
+                    $('#'+SN.C.S.NoticeGeoName)
+                        .replaceWith('<a id="notice_data-geo_name"/>');
+
+                    $('#'+SN.C.S.NoticeGeoName)
+                        .attr('href', location.url)
+                        .text(NLN_text)
+                        .click(function() {
+                            window.open(location.url);
+
+                            return false;
+                        });
+
+                    $('#'+SN.C.S.NoticeLat).val(data.lat);
+                    $('#'+SN.C.S.NoticeLon).val(data.lon);
+                    $('#'+SN.C.S.NoticeLocationNs).val(lns);
+                    $('#'+SN.C.S.NoticeLocationId).val(lid);
+                    $('#'+SN.C.S.NoticeDataGeo).attr('checked', true);
+
+                    var cookieValue = {
+                        'NLat': data.lat,
+                        'NLon': data.lon,
+                        'NLNS': lns,
+                        'NLID': lid,
+                        'NLN': NLN_text,
+                        'NLNU': location.url,
+                        'NDG': true,
+                        'NDGSM': false
+                    };
+                    $.cookie(SN.C.S.NoticeDataGeoCookie, JSON.stringify(cookieValue));
+                });
+            }
+
+            if (NDGe.length > 0) {
+                if ($.cookie(SN.C.S.NoticeDataGeoCookie) == 'disabled') {
+                    NDGe.attr('checked', false);
+                }
+                else {
+                    NDGe.attr('checked', true);
+                }
+
+                var NGW = $('#notice_data-geo_wrap');
+                var geocodeURL = NGW.attr('title');
+                NGW.removeAttr('title');
+
+                $('label[for='+SN.C.S.NoticeDataGeo+']').attr('title', jQuery.trim($('label[for='+SN.C.S.NoticeDataGeo+']').text()));
+
+                NDGe.change(function() {
+                    var NLN = $('#'+SN.C.S.NoticeGeoName);
+                    if (NLN.length > 0) {
+                        NLN.remove();
+                    }
+
+                    if ($('#'+SN.C.S.NoticeDataGeo).attr('checked') === true || $.cookie(SN.C.S.NoticeDataGeoCookie) === null) {
+                        $('label[for='+SN.C.S.NoticeDataGeo+']').addClass('checked').attr('title', NoticeDataGeoShareDisable_text);
+
+                        var S = '<div id="'+SN.C.S.NoticeDataGeoSelected+'" class="'+SN.C.S.Success+'"/>';
+                        var NDGS = $('#'+SN.C.S.NoticeDataGeoSelected);
+
+                        if (NDGS.length > 0) {
+                            NDGS.replaceWith(S);
+                        }
+                        else {
+                            $('#'+SN.C.S.FormNotice).append(S);
+                        }
+
+                        NDGS = $('#'+SN.C.S.NoticeDataGeoSelected);
+                        NDGS.prepend('<span id="'+SN.C.S.NoticeGeoName+'">Geo</span> <button class="minimize" title="'+NoticeDataGeoInfoMinimize_text+'">&#95;</button> <button class="close" title="'+NoticeDataGeoShareDisable_text+'">&#215;</button>');
+
+                        var NLN = $('#'+SN.C.S.NoticeGeoName);
+                        NLN.addClass('processing');
+
+                        $('#'+SN.C.S.NoticeDataGeoSelected+' button.close').click(function(){
+                            removeNoticeDataGeo();
+
+                            $('#'+SN.C.S.NoticeDataGeoSelected).remove();
+
+                            $('#'+SN.C.S.NoticeDataText).focus();
+
+                            return false;
+                        });
+
+                        $('#'+SN.C.S.NoticeDataGeoSelected+' button.minimize').click(function(){
+                            $('#'+SN.C.S.NoticeDataGeoSelected).hide();
+
+                            var cookieValue = {
+                                'NLat': $('#'+SN.C.S.NoticeLat).val(),
+                                'NLon': $('#'+SN.C.S.NoticeLat).val(),
+                                'NLNS': $('#'+SN.C.S.NoticeLocationNs).val(),
+                                'NLID': $('#'+SN.C.S.NoticeLocationId).val(),
+                                'NLN': $('#'+SN.C.S.NoticeGeoName).text(),
+                                'NLNU': $('#'+SN.C.S.NoticeGeoName).attr('href'),
+                                'NDG': true,
+                                'NDGSM': true
+                            };
+                            $.cookie(SN.C.S.NoticeDataGeoCookie, JSON.stringify(cookieValue));
+
+                            $('#'+SN.C.S.NoticeDataText).focus();
+
+                            return false;
+                        });
+
+                        if ($.cookie(SN.C.S.NoticeDataGeoCookie) === null || $.cookie(SN.C.S.NoticeDataGeoCookie) == 'disabled') {
+                            if (navigator.geolocation) {
+                                navigator.geolocation.getCurrentPosition(
+                                    function(position) {
+                                        $('#'+SN.C.S.NoticeLat).val(position.coords.latitude);
+                                        $('#'+SN.C.S.NoticeLon).val(position.coords.longitude);
+
+                                        var data = {
+                                            'lat': position.coords.latitude,
+                                            'lon': position.coords.longitude,
+                                            'token': $('#token').val()
+                                        };
+
+                                        getJSONgeocodeURL(geocodeURL, data);
+                                    },
+
+                                    function(error) {
+                                        if (error.PERMISSION_DENIED == 1) {
+                                            removeNoticeDataGeo();
+                                        }
+                                    }
+                                );
+                            }
+                            else {
+                                if (NLat.length > 0 && NLon.length > 0) {
+                                    var data = {
+                                        'lat': NLat,
+                                        'lon': NLon,
+                                        'token': $('#token').val()
+                                    };
+
+                                    getJSONgeocodeURL(geocodeURL, data);
+                                }
+                                else {
+                                    removeNoticeDataGeo();
+                                    $('#'+SN.C.S.NoticeDataGeo).remove();
+                                    $('label[for='+SN.C.S.NoticeDataGeo+']').remove();
+                                }
+                            }
+                        }
+                        else {
+                            var cookieValue = JSON.parse($.cookie(SN.C.S.NoticeDataGeoCookie));
+
+                            if (cookieValue.NDGSM === true) {
+                                $('#'+SN.C.S.NoticeDataGeoSelected).hide();
+                            }
+
+                            $('#'+SN.C.S.NoticeLat).val(cookieValue.NLat);
+                            $('#'+SN.C.S.NoticeLon).val(cookieValue.NLon);
+                            $('#'+SN.C.S.NoticeLocationNs).val(cookieValue.NLNS);
+                            $('#'+SN.C.S.NoticeLocationId).val(cookieValue.NLID);
+                            $('#'+SN.C.S.NoticeDataGeo).attr('checked', cookieValue.NDG);
+
+                            $('#'+SN.C.S.NoticeGeoName)
+                                .replaceWith('<a id="notice_data-geo_name"/>');
+
+                            $('#'+SN.C.S.NoticeGeoName)
+                                .attr('href', cookieValue.NLNU)
+                                .text(cookieValue.NLN)
+                                .click(function() {
+                                    window.open($(this).attr('href'));
+
+                                    return false;
+                                });
+                        }
+                    }
+                    else {
+                        removeNoticeDataGeo();
+                    }
+
+                    $('#'+SN.C.S.NoticeDataText).focus();
+                }).change();
+            }
         },
 
         NewDirectMessage: function() {
@@ -439,13 +721,14 @@ var SN = { // StatusNet
     Init: {
         NoticeForm: function() {
             if ($('body.user_in').length > 0) {
+                SN.U.NoticeLocationAttach();
+
                 $('.'+SN.C.S.FormNotice).each(function() {
                     SN.U.FormNoticeXHR($(this));
                     SN.U.FormNoticeEnhancements($(this));
                 });
 
                 SN.U.NoticeDataAttach();
-                SN.U.NoticeLocationAttach();
             }
         },
 

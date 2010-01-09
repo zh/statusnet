@@ -88,6 +88,7 @@ color:#FFFFFF;
 border-color:transparent;
 text-shadow:none;
 }
+.dialogbox .submit_dialogbox,
 input.submit,
 .form_notice input.submit {
 background:#AAAAAA url(../../base/images/illustrations/illu_pattern-01.png) 0 0 repeat-x;
@@ -97,15 +98,30 @@ border-color:#AAAAAA;
 border-top-color:#CCCCCC;
 border-left-color:#CCCCCC;
 }
+.dialogbox .submit_dialogbox:hover,
 input.submit:hover {
 background-position:0 -5px;
 }
+.dialogbox .submit_dialogbox:focus,
 input.submit:focus {
 background-position:0 -15px;
 box-shadow:3px 3px 3px rgba(194, 194, 194, 0.1);
 -moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.1);
 -webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.1);
 text-shadow:none;
+}
+
+.form_notice span#notice_data-geo_name {
+background-position:0 47%;
+}
+.form_notice a#notice_data-geo_name {
+background-position:0 -1711px;
+}
+.form_notice label[for=notice_data-geo] {
+background-position:0 -1780px;
+}
+.form_notice label[for=notice_data-geo].checked {
+background-position:0 -1846px;
 }
 
 a,
@@ -118,7 +134,8 @@ color:#002FA7;
 }
 
 .notice,
-.profile {
+.profile,
+#content tbody tr {
 border-top-color:#CEE1E9;
 }
 .mark-top {
@@ -174,7 +191,10 @@ button.close,
 .entity_sandbox input.submit,
 .entity_silence input.submit,
 .entity_delete input.submit,
-.notice-options .repeated {
+.notice-options .repeated,
+.form_notice a#notice_data-geo_name,
+.form_notice label[for=notice_data-geo],
+button.minimize {
 background-image:url(../../base/images/icons/icons-01.gif);
 background-repeat:no-repeat;
 background-color:transparent;
@@ -234,6 +254,9 @@ background-color:#EFF3DC;
 
 button.close {
 background-position:0 -1120px;
+}
+button.minimize {
+background-position:0 -1912px;
 }
 
 #anon_notice {
@@ -350,6 +373,9 @@ opacity:0.4;
 .notices li:hover div.notice-options {
 opacity:1;
 }
+.opaque {
+opacity:1 !important;
+}
 .notice-options a,
 .notice-options input {
 font-family:sans-serif;
@@ -357,7 +383,8 @@ box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 -moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 -webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 }
-#content .notices li:hover {
+#content .notices li:hover,
+#content tbody tr:hover {
 background-color:rgba(240, 240, 240, 0.2);
 }
 #conversation .notices li:hover {

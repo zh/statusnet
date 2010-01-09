@@ -1,0 +1,42 @@
+The CAS Authentication plugin allows for StatusNet to handle authentication
+through CAS (Central Authentication Service).
+
+Installation
+============
+add "addPlugin('casAuthentication',
+    array('setting'=>'value', 'setting2'=>'value2', ...);"
+to the bottom of your config.php
+
+Settings
+========
+provider_name*: a unique name for this authentication provider.
+authoritative (false): Set to true if CAS's responses are authoritative
+    (if authorative and CAS fails, no other password checking will be done).
+autoregistration (false): Set to true if users should be automatically created
+    when they attempt to login.
+email_changeable (true): Are users allowed to change their email address?
+    (true or false)
+password_changeable*: must be set to false. This plugin does not support changing passwords.
+
+server*: CAS server to authentication against
+port (443): Port the CAS server listens on. Almost always 443
+path (): Path on the server to CAS. Usually blank.
+takeOverLogin (false): Take over the main login action. If takeOverLogin is
+    set, anytime the standard username/password login form would be shown,
+    a CAS login will be done instead.
+
+* required
+default values are in (parenthesis)
+
+Example
+=======
+addPlugin('casAuthentication', array(
+    'provider_name'=>'Example',
+    'authoritative'=>true,
+    'autoregistration'=>true,
+    'server'=>'sso-cas.univ-rennes1.fr',
+    'port'=>443,
+    'path'=>'',
+    'takeOverLogin'=>true
+));
+

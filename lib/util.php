@@ -62,7 +62,7 @@ function common_init_language()
     // gettext will still select the right language.
     $language = common_language();
     $locale_set = common_init_locale($language);
-    
+
     setlocale(LC_CTYPE, 'C');
     // So we do not have to make people install the gettext locales
     $path = common_config('site','locale_path');
@@ -1404,41 +1404,17 @@ function common_session_token()
 
 function common_cache_key($extra)
 {
-    $base_key = common_config('memcached', 'base');
-
-    if (empty($base_key)) {
-        $base_key = common_keyize(common_config('site', 'name'));
-    }
-
-    return 'statusnet:' . $base_key . ':' . $extra;
+    return Cache::key($extra);
 }
 
 function common_keyize($str)
 {
-    $str = strtolower($str);
-    $str = preg_replace('/\s/', '_', $str);
-    return $str;
+    return Cache::keyize($str);
 }
 
 function common_memcache()
 {
-    static $cache = null;
-    if (!common_config('memcached', 'enabled')) {
-        return null;
-    } else {
-        if (!$cache) {
-            $cache = new Memcache();
-            $servers = common_config('memcached', 'server');
-            if (is_array($servers)) {
-                foreach($servers as $server) {
-                    $cache->addServer($server);
-                }
-            } else {
-                $cache->addServer($servers);
-            }
-        }
-        return $cache;
-    }
+    return Cache::instance();
 }
 
 function common_license_terms($uri)

@@ -40,7 +40,7 @@ class Group_block extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    function &pkeyGet($kv)
+    function pkeyGet($kv)
     {
         return Memcached_DataObject::pkeyGet('Group_block', $kv);
     }

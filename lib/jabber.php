@@ -440,7 +440,7 @@ function jabber_public_notice($notice)
     // XXX: should we send out non-local messages if public,localonly
     // = false? I think not
 
-    if ($public && $notice->is_local) {
+    if ($public && $notice->is_local == Notice::LOCAL_PUBLIC) {
         $profile = Profile::staticGet($notice->profile_id);
 
         if (!$profile) {
