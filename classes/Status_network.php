@@ -154,10 +154,10 @@ class Status_network extends DB_DataObject
             // Redirect to the right URL
 
             if (!empty($sn->hostname) &&
-                empty($SERVER['HTTPS']) &&
+                empty($_SERVER['HTTPS']) &&
                 0 != strcasecmp($sn->hostname, $servername)) {
                 $sn->redirectTo('http://'.$sn->hostname.$_SERVER['REQUEST_URI']);
-            } else if (!empty($SERVER['HTTPS']) &&
+            } else if (!empty($_SERVER['HTTPS']) &&
                        0 != strcasecmp($sn->sitename.'.'.$wildcard, $servername)) {
                 $sn->redirectTo('https://'.$sn->sitename.'.'.$wildcard.$_SERVER['REQUEST_URI']);
             }
