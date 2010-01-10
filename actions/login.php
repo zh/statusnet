@@ -132,7 +132,7 @@ class LoginAction extends Action
 
         $url = common_get_returnto();
 
-        if (common_config('ssl', 'sometimes') && // mixed environment
+        if (common_config('site', 'ssl') == 'sometimes' && // mixed environment
             0 != strcasecmp(common_config('site', 'server'), common_config('site', 'sslserver'))) {
             $this->redirectFromSSL($user, $url, $this->boolean('rememberme'));
             return;
