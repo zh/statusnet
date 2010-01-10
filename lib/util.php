@@ -62,7 +62,7 @@ function common_init_language()
     // gettext will still select the right language.
     $language = common_language();
     $locale_set = common_init_locale($language);
-    
+
     setlocale(LC_CTYPE, 'C');
     // So we do not have to make people install the gettext locales
     $path = common_config('site','locale_path');
@@ -119,6 +119,11 @@ function common_language()
 
 function common_munge_password($password, $id)
 {
+    if (is_object($id) || is_object($password)) {
+        $e = new Exception();
+        common_log(LOG_ERR, __METHOD__ . ' object in param to common_munge_password ' .
+                   str_replace("\n", " ", $e->getTraceAsString()));
+    }
     return md5($password . $id);
 }
 
