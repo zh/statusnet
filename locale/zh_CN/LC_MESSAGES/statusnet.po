@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-10 00:46+0000\n"
-"PO-Revision-Date: 2010-01-10 00:49:25+0000\n"
+"POT-Creation-Date: 2010-01-10 11:27+0000\n"
+"PO-Revision-Date: 2010-01-10 11:29:22+0000\n"
 "Language-Team: Simplified Chinese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60878); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r60888); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: out-statusnet\n"
@@ -117,6 +117,23 @@ msgstr "来自%2$s 上 %1$s 和好友的更新！"
 #: actions/apiaccountupdateprofile.php:97
 #: actions/apiaccountupdateprofilebackgroundimage.php:94
 #: actions/apiaccountupdateprofilecolors.php:118
+#: actions/apidirectmessage.php:156 actions/apifavoritecreate.php:99
+#: actions/apifavoritedestroy.php:100 actions/apifriendshipscreate.php:100
+#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:129
+#: actions/apigroupcreate.php:136 actions/apigroupismember.php:114
+#: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
+#: actions/apigrouplist.php:132 actions/apigrouplistall.php:120
+#: actions/apigroupmembership.php:106 actions/apigroupshow.php:105
+#: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
+#: actions/apistatusesretweets.php:112 actions/apistatusesshow.php:108
+#: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
+#: actions/apisubscriptions.php:111 actions/apitimelinefavorites.php:146
+#: actions/apitimelinefriends.php:156 actions/apitimelinegroup.php:150
+#: actions/apitimelinehome.php:156 actions/apitimelinementions.php:151
+#: actions/apitimelinepublic.php:131 actions/apitimelineretweetedbyme.php:122
+#: actions/apitimelineretweetedtome.php:121
+#: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
+#: actions/apitimelineuser.php:165 actions/apiusershow.php:101
 #, fuzzy
 msgid "API method not found."
 msgstr "API 方法未实现！"
@@ -175,6 +192,9 @@ msgstr ""
 #: actions/apiaccountupdateprofilebackgroundimage.php:146
 #: actions/apiaccountupdateprofilecolors.php:164
 #: actions/apiaccountupdateprofilecolors.php:174
+#: actions/groupdesignsettings.php:287 actions/groupdesignsettings.php:297
+#: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
+#: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
 #, fuzzy
 msgid "Unable to save your design settings."
 msgstr "无法保存 Twitter 设置！"
@@ -218,26 +238,6 @@ msgstr "发给 %s 的直接消息"
 msgid "All the direct messages sent to %s"
 msgstr "发给 %s 的直接消息"
 
-#: actions/apidirectmessage.php:156 actions/apifavoritecreate.php:99
-#: actions/apifavoritedestroy.php:100 actions/apifriendshipscreate.php:100
-#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:129
-#: actions/apigroupcreate.php:136 actions/apigroupismember.php:114
-#: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
-#: actions/apigrouplist.php:132 actions/apigrouplistall.php:120
-#: actions/apigroupmembership.php:106 actions/apigroupshow.php:105
-#: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
-#: actions/apistatusesretweets.php:112 actions/apistatusesshow.php:108
-#: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
-#: actions/apisubscriptions.php:111 actions/apitimelinefavorites.php:146
-#: actions/apitimelinefriends.php:156 actions/apitimelinegroup.php:150
-#: actions/apitimelinehome.php:156 actions/apitimelinementions.php:151
-#: actions/apitimelinepublic.php:131 actions/apitimelineretweetedbyme.php:122
-#: actions/apitimelineretweetedtome.php:121
-#: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
-#: actions/apitimelineuser.php:165 actions/apiusershow.php:101
-msgid "API method not found!"
-msgstr "API 方法未实现！"
-
 #: actions/apidirectmessagenew.php:126
 msgid "No message text!"
 msgstr "消息没有正文！"
@@ -262,7 +262,7 @@ msgstr "没有找到此ID的信息。"
 
 #: actions/apifavoritecreate.php:119
 #, fuzzy
-msgid "This status is already a favorite!"
+msgid "This status is already a favorite."
 msgstr "已收藏此通告！"
 
 #: actions/apifavoritecreate.php:130 actions/favor.php:84 lib/command.php:176
@@ -271,7 +271,7 @@ msgstr "无法创建收藏。"
 
 #: actions/apifavoritedestroy.php:122
 #, fuzzy
-msgid "That status is not a favorite!"
+msgid "That status is not a favorite."
 msgstr "此通告未被收藏！"
 
 #: actions/apifavoritedestroy.php:134 actions/disfavor.php:87
@@ -293,8 +293,9 @@ msgid "Could not unfollow user: User not found."
 msgstr "无法订阅用户：未找到。"
 
 #: actions/apifriendshipsdestroy.php:120
-msgid "You cannot unfollow yourself!"
-msgstr ""
+#, fuzzy
+msgid "You cannot unfollow yourself."
+msgstr "无法更新用户。"
 
 #: actions/apifriendshipsexists.php:94
 msgid "Two user ids or screen_names must be supplied."
@@ -381,7 +382,7 @@ msgstr ""
 msgid "Group not found!"
 msgstr "API 方法未实现！"
 
-#: actions/apigroupjoin.php:110 lib/command.php:217
+#: actions/apigroupjoin.php:110 actions/joingroup.php:90 lib/command.php:217
 #, fuzzy
 msgid "You are already a member of that group."
 msgstr "您已经是该组成员"
@@ -390,7 +391,7 @@ msgstr "您已经是该组成员"
 msgid "You have been blocked from that group by the admin."
 msgstr ""
 
-#: actions/apigroupjoin.php:138 lib/command.php:234
+#: actions/apigroupjoin.php:138 actions/joingroup.php:128 lib/command.php:234
 #, fuzzy, php-format
 msgid "Could not join user %1$s to group %2$s."
 msgstr "无法把 %s 用户添加到 %s 组"
@@ -549,8 +550,11 @@ msgstr "未找到"
 msgid "No such attachment."
 msgstr "没有这份文档。"
 
-#: actions/avatarbynickname.php:59 actions/grouprss.php:91
-#: actions/leavegroup.php:76
+#: actions/avatarbynickname.php:59 actions/blockedfromgroup.php:73
+#: actions/editgroup.php:84 actions/groupdesignsettings.php:84
+#: actions/grouplogo.php:86 actions/groupmembers.php:76
+#: actions/grouprss.php:91 actions/joingroup.php:76 actions/leavegroup.php:76
+#: actions/showgroup.php:121
 msgid "No nickname."
 msgstr "没有昵称。"
 
@@ -573,8 +577,8 @@ msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr "您可以在这里上传个人头像。"
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
-#: actions/grouplogo.php:178 actions/remotesubscribe.php:191
-#: actions/userauthorization.php:72 actions/userrss.php:103
+#: actions/remotesubscribe.php:191 actions/userauthorization.php:72
+#: actions/userrss.php:103
 msgid "User without matching profile"
 msgstr "找不到匹配的用户。"
 
@@ -607,9 +611,9 @@ msgstr "上传"
 msgid "Crop"
 msgstr "剪裁"
 
-#: actions/avatarsettings.php:268 actions/disfavor.php:74
-#: actions/emailsettings.php:238 actions/favor.php:75 actions/geocode.php:50
-#: actions/groupblock.php:66 actions/grouplogo.php:309
+#: actions/avatarsettings.php:268 actions/deletenotice.php:157
+#: actions/disfavor.php:74 actions/emailsettings.php:238 actions/favor.php:75
+#: actions/geocode.php:50 actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
 #: actions/invite.php:56 actions/login.php:135 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
@@ -693,20 +697,15 @@ msgstr "阻止该用户"
 msgid "Failed to save block information."
 msgstr "保存阻止信息失败。"
 
-#: actions/blockedfromgroup.php:73 actions/editgroup.php:84
-#: actions/groupdesignsettings.php:84 actions/grouplogo.php:86
-#: actions/groupmembers.php:76 actions/joingroup.php:76
-#: actions/showgroup.php:121
-#, fuzzy
-msgid "No nickname"
-msgstr "没有昵称。"
-
 #: actions/blockedfromgroup.php:80 actions/editgroup.php:96
+#: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
 #: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
 #: actions/grouplogo.php:99 actions/groupmembers.php:83
-#: actions/joingroup.php:83 actions/showgroup.php:137
-msgid "No such group"
-msgstr "没有这个组"
+#: actions/grouprss.php:98 actions/groupunblock.php:86
+#: actions/joingroup.php:83 actions/leavegroup.php:83 actions/makeadmin.php:86
+#: actions/showgroup.php:137 lib/command.php:212 lib/command.php:263
+msgid "No such group."
+msgstr "没有这个组。"
 
 #: actions/blockedfromgroup.php:90
 #, fuzzy, php-format
@@ -833,11 +832,6 @@ msgstr "无法删除通告。"
 #, fuzzy
 msgid "Delete this notice"
 msgstr "删除通告"
-
-#: actions/deletenotice.php:157
-#, fuzzy
-msgid "There was a problem with your session token.  Try again, please."
-msgstr "会话标识有问题，请重试。"
 
 #: actions/deleteuser.php:67
 #, fuzzy
@@ -1014,7 +1008,8 @@ msgstr "您必须登录才能创建小组。"
 
 #: actions/editgroup.php:103 actions/editgroup.php:168
 #: actions/groupdesignsettings.php:104 actions/grouplogo.php:106
-msgid "You must be an admin to edit the group"
+#, fuzzy
+msgid "You must be an admin to edit the group."
 msgstr "只有admin才能编辑这个组"
 
 #: actions/editgroup.php:154
@@ -1040,7 +1035,8 @@ msgid "Options saved."
 msgstr "选项已保存。"
 
 #: actions/emailsettings.php:60
-msgid "Email Settings"
+#, fuzzy
+msgid "Email settings"
 msgstr "电子邮件设置"
 
 #: actions/emailsettings.php:71
@@ -1077,7 +1073,8 @@ msgid "Cancel"
 msgstr "取消"
 
 #: actions/emailsettings.php:121
-msgid "Email Address"
+#, fuzzy
+msgid "Email address"
 msgstr "电子邮件地址"
 
 #: actions/emailsettings.php:123
@@ -1152,9 +1149,10 @@ msgstr "没有电子邮件地址。"
 msgid "Cannot normalize that email address"
 msgstr "无法识别此电子邮件"
 
-#: actions/emailsettings.php:331 actions/siteadminpanel.php:157
-msgid "Not a valid email address"
-msgstr "不是有效的电子邮件"
+#: actions/emailsettings.php:331 actions/register.php:201
+#: actions/siteadminpanel.php:157
+msgid "Not a valid email address."
+msgstr "不是有效的电子邮件。"
 
 #: actions/emailsettings.php:334
 msgid "That is already your email address."
@@ -1341,13 +1339,6 @@ msgstr "此OMB协议版本无效。"
 msgid "Error updating remote profile"
 msgstr "更新远程的个人信息时出错"
 
-#: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
-#: actions/grouprss.php:98 actions/groupunblock.php:86
-#: actions/leavegroup.php:83 actions/makeadmin.php:86 lib/command.php:212
-#: lib/command.php:263
-msgid "No such group."
-msgstr "没有这个组。"
-
 #: actions/getfile.php:79
 #, fuzzy
 msgid "No such file."
@@ -1367,7 +1358,7 @@ msgstr "没有收件人。"
 
 #: actions/groupblock.php:76 actions/groupunblock.php:76
 #: actions/makeadmin.php:76 actions/subedit.php:53 actions/tagother.php:46
-#: lib/profileformaction.php:77
+#: actions/unsubscribe.php:84 lib/profileformaction.php:77
 #, fuzzy
 msgid "No profile with that ID."
 msgstr "没有找到此ID的信息。"
@@ -1419,8 +1410,9 @@ msgstr "该组成员列表。"
 msgid "Database error blocking user from group."
 msgstr ""
 
-#: actions/groupbyid.php:74
-msgid "No ID"
+#: actions/groupbyid.php:74 actions/userbyid.php:70
+#, fuzzy
+msgid "No ID."
 msgstr "没有ID"
 
 #: actions/groupdesignsettings.php:68
@@ -1445,13 +1437,6 @@ msgstr ""
 msgid "Couldn't update your design."
 msgstr "无法更新用户。"
 
-#: actions/groupdesignsettings.php:287 actions/groupdesignsettings.php:297
-#: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
-#: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
-#, fuzzy
-msgid "Unable to save your design settings!"
-msgstr "无法保存 Twitter 设置！"
-
 #: actions/groupdesignsettings.php:308 actions/userdesignsettings.php:231
 #, fuzzy
 msgid "Design preferences saved."
@@ -1466,6 +1451,11 @@ msgstr "组logo"
 msgid ""
 "You can upload a logo image for your group. The maximum file size is %s."
 msgstr "你可以给你的组上载一个logo图。"
+
+#: actions/grouplogo.php:178
+#, fuzzy
+msgid "User without matching profile."
+msgstr "找不到匹配的用户。"
 
 #: actions/grouplogo.php:362
 #, fuzzy
@@ -1595,7 +1585,8 @@ msgid "Error removing the block."
 msgstr "保存用户时出错。"
 
 #: actions/imsettings.php:59
-msgid "IM Settings"
+#, fuzzy
+msgid "IM settings"
 msgstr "IM 设置"
 
 #: actions/imsettings.php:70
@@ -1626,7 +1617,8 @@ msgstr ""
 "（你是否已经添加 %s为你的好友？）"
 
 #: actions/imsettings.php:124
-msgid "IM Address"
+#, fuzzy
+msgid "IM address"
 msgstr "IM 帐号"
 
 #: actions/imsettings.php:126
@@ -1826,15 +1818,6 @@ msgstr ""
 msgid "You must be logged in to join a group."
 msgstr "您必须登录才能加入组。"
 
-#: actions/joingroup.php:90
-msgid "You are already a member of that group"
-msgstr "您已经是该组成员"
-
-#: actions/joingroup.php:128
-#, fuzzy, php-format
-msgid "Could not join user %1$s to group %2$s"
-msgstr "无法把 %s 用户添加到 %s 组"
-
 #: actions/joingroup.php:135 lib/command.php:239
 #, fuzzy, php-format
 msgid "%1$s joined group %2$s"
@@ -1935,13 +1918,13 @@ msgid "%1$s is already an admin for group \"%2$s\"."
 msgstr "用户没有个人信息。"
 
 #: actions/makeadmin.php:132
-#, php-format
-msgid "Can't get membership record for %1$s in group %2$s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Can't get membership record for %1$s in group %2$s."
+msgstr "无法订阅用户：未找到。"
 
 #: actions/makeadmin.php:145
 #, fuzzy, php-format
-msgid "Can't make %1$s an admin for group %2$s"
+msgid "Can't make %1$s an admin for group %2$s."
 msgstr "只有admin才能编辑这个组"
 
 #: actions/microsummary.php:69
@@ -1983,9 +1966,9 @@ msgstr "不要向自己发送消息；跟自己悄悄说就得了。"
 msgid "Message sent"
 msgstr "新消息"
 
-#: actions/newmessage.php:185
-#, php-format
-msgid "Direct message to %s sent"
+#: actions/newmessage.php:185 lib/command.php:376
+#, fuzzy, php-format
+msgid "Direct message to %s sent."
 msgstr "已向 %s 发送消息"
 
 #: actions/newmessage.php:210 actions/newnotice.php:245 lib/channel.php:170
@@ -2328,8 +2311,9 @@ msgid "When to use SSL"
 msgstr ""
 
 #: actions/pathsadminpanel.php:308
-msgid "SSL Server"
-msgstr ""
+#, fuzzy
+msgid "SSL server"
+msgstr "恢复"
 
 #: actions/pathsadminpanel.php:309
 msgid "Server to direct SSL requests to"
@@ -2752,10 +2736,6 @@ msgstr "不允许注册。"
 msgid "You can't register if you don't agree to the license."
 msgstr "您必须同意此授权方可注册。"
 
-#: actions/register.php:201
-msgid "Not a valid email address."
-msgstr "不是有效的电子邮件。"
-
 #: actions/register.php:212
 msgid "Email address already exists."
 msgstr "电子邮件地址已存在。"
@@ -3094,7 +3074,7 @@ msgstr "注册于"
 
 #: actions/showgroup.php:386 lib/profileaction.php:117
 #: lib/profileaction.php:148 lib/profileaction.php:236 lib/section.php:95
-#: lib/tagcloudsection.php:71
+#: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "（没有）"
 
@@ -3252,12 +3232,12 @@ msgstr ""
 
 #: actions/siteadminpanel.php:154
 #, fuzzy
-msgid "You must have a valid contact email address"
+msgid "You must have a valid contact email address."
 msgstr "不是有效的电子邮件"
 
 #: actions/siteadminpanel.php:172
 #, php-format
-msgid "Unknown language \"%s\""
+msgid "Unknown language \"%s\"."
 msgstr ""
 
 #: actions/siteadminpanel.php:179
@@ -3448,7 +3428,8 @@ msgid "Save site settings"
 msgstr "头像设置"
 
 #: actions/smssettings.php:58
-msgid "SMS Settings"
+#, fuzzy
+msgid "SMS settings"
 msgstr "SMS短信设置"
 
 #: actions/smssettings.php:69
@@ -3478,7 +3459,8 @@ msgid "Enter the code you received on your phone."
 msgstr "输入手机收到的验证码。"
 
 #: actions/smssettings.php:138
-msgid "SMS Phone number"
+#, fuzzy
+msgid "SMS phone number"
 msgstr "SMS短信电话号码"
 
 #: actions/smssettings.php:140
@@ -3735,11 +3717,6 @@ msgstr "用户没有个人信息。"
 msgid "No profile id in request."
 msgstr "服务器没有返回个人信息URL。"
 
-#: actions/unsubscribe.php:84
-#, fuzzy
-msgid "No profile with that id."
-msgstr "没有找到此ID的信息。"
-
 #: actions/unsubscribe.php:98
 #, fuzzy
 msgid "Unsubscribed"
@@ -3944,11 +3921,6 @@ msgstr "无法访问头像URL '%s'"
 #, fuzzy, php-format
 msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "'%s' 图像格式错误"
-
-#: actions/userbyid.php:70
-#, fuzzy
-msgid "No ID."
-msgstr "没有ID"
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 #, fuzzy
@@ -4486,16 +4458,16 @@ msgid "Could not remove user %1$s to group %2$s."
 msgstr "无法订阅用户：未找到。"
 
 #: lib/command.php:318
-#, php-format
-msgid "Fullname: %s"
+#, fuzzy, php-format
+msgid "Full name: %s"
 msgstr "全名：%s"
 
-#: lib/command.php:321
+#: lib/command.php:321 lib/mail.php:254
 #, php-format
 msgid "Location: %s"
 msgstr "位置：%s"
 
-#: lib/command.php:324
+#: lib/command.php:324 lib/mail.php:256
 #, php-format
 msgid "Homepage: %s"
 msgstr "主页：%s"
@@ -4505,15 +4477,10 @@ msgstr "主页：%s"
 msgid "About: %s"
 msgstr "关于：%s"
 
-#: lib/command.php:358
+#: lib/command.php:358 scripts/xmppdaemon.php:301
 #, fuzzy, php-format
 msgid "Message too long - maximum is %1$d characters, you sent %2$d."
 msgstr "您的消息包含 %d 个字符，超出长度限制 - 不能超过 140 个字符。"
-
-#: lib/command.php:376
-#, fuzzy, php-format
-msgid "Direct message to %s sent."
-msgstr "已向 %s 发送消息"
 
 #: lib/command.php:378
 msgid "Error sending direct message."
@@ -4965,21 +4932,9 @@ msgstr ""
 "\n"
 "为您效力的 %4$s\n"
 
-#: lib/mail.php:254
-#, fuzzy, php-format
-msgid "Location: %s\n"
-msgstr "位置：%s\n"
-
-#: lib/mail.php:256
-#, fuzzy, php-format
-msgid "Homepage: %s\n"
-msgstr "主页：%s\n"
-
 #: lib/mail.php:258
-#, php-format
-msgid ""
-"Bio: %s\n"
-"\n"
+#, fuzzy, php-format
+msgid "Bio: %s"
 msgstr ""
 "自传Bio: %s\n"
 "\n"
@@ -5176,7 +5131,7 @@ msgid "File upload stopped by extension."
 msgstr ""
 
 #: lib/mediafile.php:179 lib/mediafile.php:216
-msgid "File exceeds user's quota!"
+msgid "File exceeds user's quota."
 msgstr ""
 
 #: lib/mediafile.php:196 lib/mediafile.php:233
@@ -5184,7 +5139,8 @@ msgid "File could not be moved to destination directory."
 msgstr ""
 
 #: lib/mediafile.php:201 lib/mediafile.php:237
-msgid "Could not determine file's mime-type!"
+#, fuzzy
+msgid "Could not determine file's MIME type."
 msgstr "无法获取收藏的通告。"
 
 #: lib/mediafile.php:270
@@ -5194,7 +5150,7 @@ msgstr ""
 
 #: lib/mediafile.php:275
 #, php-format
-msgid "%s is not a supported filetype on this server."
+msgid "%s is not a supported file type on this server."
 msgstr ""
 
 #: lib/messageform.php:120
@@ -5557,10 +5513,6 @@ msgstr ""
 msgid "People Tagcloud as tagged"
 msgstr ""
 
-#: lib/subscriptionlist.php:126
-msgid "(none)"
-msgstr "(none 没有)"
-
 #: lib/tagcloudsection.php:56
 #, fuzzy
 msgid "None"
@@ -5684,8 +5636,3 @@ msgstr "主页的URL不正确。"
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
 msgstr ""
-
-#: scripts/xmppdaemon.php:301
-#, fuzzy, php-format
-msgid "Message too long - maximum is %d characters, you sent %d"
-msgstr "您的消息包含 %d 个字符，超出长度限制 - 不能超过 140 个字符。"
