@@ -197,7 +197,7 @@ function _have_config()
 // XXX: Find a way to use htmlwriter for this instead of handcoded markup
 if (!_have_config()) {
   echo '<p>'. _('No configuration file found. ') .'</p>';
-  echo '<p>'. _('I looked for configuration files in the following places: ') .'<br/> '. implode($_config_files, '<br/>');
+  echo '<p>'. _('I looked for configuration files in the following places: ') .'<br /> '. implode($_config_files, '<br />');
   echo '<p>'. _('You may wish to run the installer to fix this.') .'</p>';
   echo '<a href="install.php">'. _('Go to the installer.') .'</a>';
   exit;

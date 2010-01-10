@@ -70,14 +70,14 @@ class BlockedfromgroupAction extends GroupDesignAction
         }
 
         if (!$nickname) {
-            $this->clientError(_('No nickname'), 404);
+            $this->clientError(_('No nickname.'), 404);
             return false;
         }
 
         $this->group = User_group::staticGet('nickname', $nickname);
 
         if (!$this->group) {
-            $this->clientError(_('No such group'), 404);
+            $this->clientError(_('No such group.'), 404);
             return false;
         }
 

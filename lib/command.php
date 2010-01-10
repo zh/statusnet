@@ -315,7 +315,7 @@ class WhoisCommand extends Command
         $whois = sprintf(_("%1\$s (%2\$s)"), $recipient->nickname,
                          $recipient->profileurl);
         if ($recipient->fullname) {
-            $whois .= "\n" . sprintf(_('Fullname: %s'), $recipient->fullname);
+            $whois .= "\n" . sprintf(_('Full name: %s'), $recipient->fullname);
         }
         if ($recipient->location) {
             $whois .= "\n" . sprintf(_('Location: %s'), $recipient->location);

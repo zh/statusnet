@@ -71,7 +71,7 @@ class GroupbyidAction extends Action
         $id = $this->arg('id');
 
         if (!$id) {
-            $this->clientError(_('No ID'));
+            $this->clientError(_('No ID.'));
             return false;
         }
 
@@ -80,7 +80,7 @@ class GroupbyidAction extends Action
         $this->group = User_group::staticGet('id', $id);
 
         if (!$this->group) {
-            $this->clientError(_('No such group'), 404);
+            $this->clientError(_('No such group.'), 404);
             return false;
         }
 

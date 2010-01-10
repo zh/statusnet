@@ -96,7 +96,7 @@ class ApiFavoriteCreateAction extends ApiAuthAction
 
         if (!in_array($this->format, array('xml', 'json'))) {
             $this->clientError(
-                _('API method not found!'),
+                _('API method not found.'),
                 404,
                 $this->format
             );
@@ -116,7 +116,7 @@ class ApiFavoriteCreateAction extends ApiAuthAction
 
         if ($this->user->hasFave($this->notice)) {
             $this->clientError(
-                _('This status is already a favorite!'),
+                _('This status is already a favorite.'),
                 403,
                 $this->format
             );

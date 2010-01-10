@@ -97,7 +97,7 @@ class ApiFriendshipsDestroyAction extends ApiAuthAction
 
         if (!in_array($this->format, array('xml', 'json'))) {
             $this->clientError(
-                _('API method not found!'),
+                _('API method not found.'),
                 404,
                 $this->format
             );
@@ -117,7 +117,7 @@ class ApiFriendshipsDestroyAction extends ApiAuthAction
 
         if ($this->user->id == $this->other->id) {
             $this->clientError(
-                _("You cannot unfollow yourself!"),
+                _("You cannot unfollow yourself."),
                 403,
                 $this->format
             );

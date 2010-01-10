@@ -123,7 +123,7 @@ class SubscriptionListItem extends ProfileListItem
             }
             $this->out->elementEnd('ul');
         } else {
-            $this->out->text(_('(none)'));
+            $this->out->text(_('(None)'));
         }
         $this->out->elementEnd('dd');
         $this->out->elementEnd('dl');

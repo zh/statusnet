@@ -305,7 +305,7 @@ class PathsAdminPanelForm extends AdminForm
         $this->unli();
 
         $this->li();
-        $this->input('sslserver', _('SSL Server'),
+        $this->input('sslserver', _('SSL server'),
                      _('Server to direct SSL requests to'), 'site');
         $this->unli();
         $this->out->elementEnd('ul');
