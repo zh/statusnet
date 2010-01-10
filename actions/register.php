@@ -260,8 +260,9 @@ class RegisterAction extends Action
                 // Re-init language env in case it changed (not yet, but soon)
                 common_init_language();
 
-                if (common_config('ssl', 'sometimes') && // mixed environment
-                    common_config('site', 'server') != common_config('site', 'sslserver')) {
+                if (common_config('site', 'ssl') == 'sometimes' && // mixed environment
+                    0 != strcasecmp(common_config('site', 'server'), common_config('site', 'sslserver'))) {
+
                     $url = common_local_url('all',
                                             array('nickname' =>
                                                   $user->nickname));
