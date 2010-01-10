@@ -102,7 +102,7 @@ class ApiGroupShowAction extends ApiPrivateAuthAction
             $this->showSingleJsonGroup($this->group);
             break;
         default:
-            $this->clientError(_('API method not found!'), 404, $this->format);
+            $this->clientError(_('API method not found.'), 404, $this->format);
             break;
         }
 

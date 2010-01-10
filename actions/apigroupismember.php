@@ -111,7 +111,7 @@ class ApiGroupIsMemberAction extends ApiBareAuthAction
             break;
         default:
             $this->clientError(
-                _('API method not found!'),
+                _('API method not found.'),
                 400,
                 $this->format
             );

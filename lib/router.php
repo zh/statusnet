@@ -442,19 +442,19 @@ class Router
             // Social graph
 
             $m->connect('api/friends/ids/:id.:format',
-                        array('action' => 'apiFriends',
+                        array('action' => 'apiuserfriends',
                               'ids_only' => true));
 
             $m->connect('api/followers/ids/:id.:format',
-                        array('action' => 'apiFollowers',
+                        array('action' => 'apiuserfollowers',
                               'ids_only' => true));
 
             $m->connect('api/friends/ids.:format',
-                        array('action' => 'apiFriends',
+                        array('action' => 'apiuserfriends',
                               'ids_only' => true));
 
             $m->connect('api/followers/ids.:format',
-                        array('action' => 'apiFollowers',
+                        array('action' => 'apiuserfollowers',
                               'ids_only' => true));
 
             // account

@@ -81,7 +81,7 @@ class UnsubscribeAction extends Action
         $other = Profile::staticGet('id', $other_id);
 
         if (!$other) {
-            $this->clientError(_('No profile with that id.'));
+            $this->clientError(_('No profile with that ID.'));
             return;
         }
 

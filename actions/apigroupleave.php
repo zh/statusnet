@@ -121,7 +121,7 @@ class ApiGroupLeaveAction extends ApiAuthAction
             common_log_db_error($member, 'DELETE', __FILE__);
             $this->serverError(
                 sprintf(
-                    _('Could not remove user %s from group %s.'),
+                    _('Could not remove user %1$s from group %2$s.'),
                     $this->user->nickname,
                     $this->group->nickname
                 )
@@ -138,7 +138,7 @@ class ApiGroupLeaveAction extends ApiAuthAction
             break;
         default:
             $this->clientError(
-                _('API method not found!'),
+                _('API method not found.'),
                 404,
                 $this->format
             );

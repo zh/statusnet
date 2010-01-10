@@ -136,7 +136,7 @@ create table notice (
     lon decimal(10,7) /* comment 'longitude'*/ ,
     location_id integer /* comment 'location id if possible'*/ ,
     location_ns integer /* comment 'namespace for location'*/ ,
-    repeat_of integer /* comment 'notice this is a repeat of' */ references notice (id) ,
+    repeat_of integer /* comment 'notice this is a repeat of' */ references notice (id) 
 
 /*    FULLTEXT(content) */
 );

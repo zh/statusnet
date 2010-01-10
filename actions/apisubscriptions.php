@@ -108,7 +108,7 @@ class ApiSubscriptionsAction extends ApiBareAuthAction
         parent::handle($args);
 
         if (!in_array($this->format, array('xml', 'json'))) {
-            $this->clientError(_('API method not found!'), $code = 404);
+            $this->clientError(_('API method not found.'), $code = 404);
             return;
         }
 

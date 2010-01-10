@@ -117,7 +117,7 @@ class IMAPMailHandler extends MailHandler
     {
         $this->log(LOG_INFO, "Error: $from $msg");
         $headers['To'] = $from;
-        $headers['Subject'] = "Error";
+        $headers['Subject'] = _m('Error');
 
         return mail_send(array($from), $headers, $msg);
     }

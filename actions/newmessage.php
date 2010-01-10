@@ -182,7 +182,7 @@ class NewmessageAction extends Action
             $this->elementEnd('head');
             $this->elementStart('body');
             $this->element('p', array('id' => 'command_result'),
-                sprintf(_('Direct message to %s sent'),
+                sprintf(_('Direct message to %s sent.'),
                     $this->other->nickname));
             $this->elementEnd('body');
             $this->elementEnd('html');

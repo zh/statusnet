@@ -163,8 +163,8 @@ class TagotherAction extends Action
         $token = $this->trimmed('token');
 
         if (!$token || $token != common_session_token()) {
-            $this->showForm(_('There was a problem with your session token.'.
-                              ' Try again, please.'));
+            $this->showForm(_('There was a problem with your session token. '.
+                              'Try again, please.'));
             return;
         }
 
