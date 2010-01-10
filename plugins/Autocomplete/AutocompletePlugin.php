@@ -61,5 +61,16 @@ class AutocompletePlugin extends Plugin
         }
     }
 
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'Autocomplete',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Craig Andrews',
+                            'homepage' => 'http://status.net/wiki/Plugin:Autocomplete',
+                            'rawdescription' =>
+                            _m('The autocomplete plugin allows users to autocomplete screen names in @ replies. When an "@" is typed into the notice text area, an autocomplete box is displayed populated with the user\'s friend\' screen names.'));
+        return true;
+    }
+
 }
 ?>

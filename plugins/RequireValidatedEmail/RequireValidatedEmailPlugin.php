@@ -96,5 +96,16 @@ class RequireValidatedEmailPlugin extends Plugin
         }
         return false;
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'Require Validated Email',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Craig Andrews, Evan Prodromou, Brion Vibber',
+                            'homepage' => 'http://status.net/wiki/Plugin:RequireValidatedEmail',
+                            'rawdescription' =>
+                            _m('The Require Validated Email plugin disables posting for accounts that do not have a validated email address.'));
+        return true;
+    }
 }
 

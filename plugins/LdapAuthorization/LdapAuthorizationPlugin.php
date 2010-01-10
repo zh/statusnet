@@ -206,4 +206,15 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
             return false;
         }
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'LDAP Authorization',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Craig Andrews',
+                            'homepage' => 'http://status.net/wiki/Plugin:LdapAuthorization',
+                            'rawdescription' =>
+                            _m('The LDAP Authorization plugin allows for StatusNet to handle authorization through LDAP.'));
+        return true;
+    }
 }

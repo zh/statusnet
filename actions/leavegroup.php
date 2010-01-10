@@ -124,14 +124,14 @@ class LeavegroupAction extends Action
 
         if (!$result) {
             common_log_db_error($member, 'DELETE', __FILE__);
-            $this->serverError(sprintf(_('Could not remove user %s from group %s'),
+            $this->serverError(sprintf(_('Could not remove user %1$s from group %2$s.'),
                                        $cur->nickname, $this->group->nickname));
         }
 
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
-            $this->element('title', null, sprintf(_('%s left group %s'),
+            $this->element('title', null, sprintf(_('%1$s left group %2$s'),
                                                   $cur->nickname,
                                                   $this->group->nickname));
             $this->elementEnd('head');

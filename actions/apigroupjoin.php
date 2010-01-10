@@ -135,7 +135,7 @@ class ApiGroupJoinAction extends ApiAuthAction
             common_log_db_error($member, 'INSERT', __FILE__);
             $this->serverError(
                 sprintf(
-                    _('Could not join user %s to group %s.'),
+                    _('Could not join user %1$s to group %2$s.'),
                     $this->user->nickname,
                     $this->group->nickname
                 )

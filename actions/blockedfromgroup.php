@@ -90,7 +90,7 @@ class BlockedfromgroupAction extends GroupDesignAction
             return sprintf(_('%s blocked profiles'),
                            $this->group->nickname);
         } else {
-            return sprintf(_('%s blocked profiles, page %d'),
+            return sprintf(_('%1$s blocked profiles, page %2$d'),
                            $this->group->nickname,
                            $this->page);
         }

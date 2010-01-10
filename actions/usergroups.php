@@ -61,7 +61,7 @@ class UsergroupsAction extends OwnerDesignAction
         if ($this->page == 1) {
             return sprintf(_("%s groups"), $this->user->nickname);
         } else {
-            return sprintf(_("%s groups, page %d"),
+            return sprintf(_("%1$s groups, page %2$d"),
                            $this->user->nickname,
                            $this->page);
         }

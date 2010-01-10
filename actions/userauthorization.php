@@ -293,7 +293,7 @@ class UserauthorizationAction extends Action
 
         $user = User::staticGet('uri', $listener);
         if (!$user) {
-            throw new Exception(sprintf(_('Listener URI ‘%s’ not found here'),
+            throw new Exception(sprintf(_('Listener URI ‘%s’ not found here.'),
                                         $listener));
         }
 
@@ -327,8 +327,8 @@ class UserauthorizationAction extends Action
         $license      = $_GET['omb_listenee_license'];
         $site_license = common_config('license', 'url');
         if (!common_compatible_license($license, $site_license)) {
-            throw new Exception(sprintf(_('Listenee stream license ‘%s’ is not ' .
-                                          'compatible with site license ‘%s’.'),
+            throw new Exception(sprintf(_('Listenee stream license ‘%1$s’ is not ' .
+                                          'compatible with site license ‘%2$s’.'),
                                         $license, $site_license));
         }
 

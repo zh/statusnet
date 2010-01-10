@@ -125,14 +125,14 @@ class JoingroupAction extends Action
 
         if (!$result) {
             common_log_db_error($member, 'INSERT', __FILE__);
-            $this->serverError(sprintf(_('Could not join user %s to group %s'),
+            $this->serverError(sprintf(_('Could not join user %1$s to group %2$s'),
                                        $cur->nickname, $this->group->nickname));
         }
 
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
-            $this->element('title', null, sprintf(_('%s joined group %s'),
+            $this->element('title', null, sprintf(_('%1$s joined group %2$s'),
                                                   $cur->nickname,
                                                   $this->group->nickname));
             $this->elementEnd('head');
