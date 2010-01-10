@@ -140,12 +140,14 @@ class ApiAction extends Action
 
         // Note: some profiles don't have an associated user
 
+        $defaultDesign = Design::siteDesign();
+
         if (!empty($user)) {
             $design = $user->getDesign();
         }
 
         if (empty($design)) {
-            $design = Design::siteDesign();
+            $design = $defaultDesign;
         }
 
         $color = Design::toWebColor(empty($design->backgroundcolor) ? $defaultDesign->backgroundcolor : $design->backgroundcolor);
