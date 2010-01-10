@@ -119,6 +119,11 @@ function common_language()
 
 function common_munge_password($password, $id)
 {
+    if (is_object($id) || is_object($password)) {
+        $e = new Exception();
+        common_log(LOG_ERR, __METHOD__ . ' object in param to common_munge_password ' .
+                   str_replace("\n", " ", $e->getTraceAsString()));
+    }
     return md5($password . $id);
 }
 

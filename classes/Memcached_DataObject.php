@@ -19,6 +19,8 @@
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
+require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
+
 class Memcached_DataObject extends DB_DataObject
 {
     /**
@@ -66,6 +68,7 @@ class Memcached_DataObject extends DB_DataObject
         // Clear this out so we don't accidentally break global
         // state in *this* process.
         $this->_DB_resultid = null;
+
         // We don't have any local DBO refs, so clear these out.
         $this->_link_loaded = false;
     }
@@ -90,42 +93,30 @@ class Memcached_DataObject extends DB_DataObject
             unset($i);
         }
         $i = Memcached_DataObject::getcached($cls, $k, $v);
-        if ($i === false) { // false == cache miss
-            $i = DB_DataObject::factory($cls);
-            if (empty($i)) {
-                $i = false;
-                return $i;
-            }
-            $result = $i->get($k, $v);
-            if ($result) {
-                // Hit!
-                $i->encache();
-            } else {
-                // save the fact that no such row exists
-                $c = self::memcache();
-                if (!empty($c)) {
-                    $ck = self::cachekey($cls, $k, $v);
-                    $c->set($ck, null);
-                }
-                $i = false;
-            }
-        }
-        return $i;
-    }
-
-    /**
-     * @fixme Should this return false on lookup fail to match staticGet?
-     */
-    function pkeyGet($cls, $kv)
-    {
-        $i = Memcached_DataObject::multicache($cls, $kv);
-        if ($i !== false) { // false == cache miss
+        if ($i) {
             return $i;
         } else {
             $i = DB_DataObject::factory($cls);
             if (empty($i)) {
                 return false;
             }
+            $result = $i->get($k, $v);
+            if ($result) {
+                $i->encache();
+                return $i;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    function &pkeyGet($cls, $kv)
+    {
+        $i = Memcached_DataObject::multicache($cls, $kv);
+        if ($i) {
+            return $i;
+        } else {
+            $i = new $cls();
             foreach ($kv as $k => $v) {
                 $i->$k = $v;
             }
@@ -133,11 +124,6 @@ class Memcached_DataObject extends DB_DataObject
                 $i->encache();
             } else {
                 $i = null;
-                $c = self::memcache();
-                if (!empty($c)) {
-                    $ck = self::multicacheKey($cls, $kv);
-                    $c->set($ck, null);
-                }
             }
             return $i;
         }
@@ -146,9 +132,6 @@ class Memcached_DataObject extends DB_DataObject
     function insert()
     {
         $result = parent::insert();
-        if ($result) {
-            $this->encache(); // in case of cached negative lookups
-        }
         return $result;
     }
 
@@ -188,23 +171,21 @@ class Memcached_DataObject extends DB_DataObject
         if (!$c) {
             return false;
         } else {
-            return $c->get(Memcached_DataObject::cacheKey($cls, $k, $v));
+            $obj = $c->get(Memcached_DataObject::cacheKey($cls, $k, $v));
+            if (0 == strcasecmp($cls, 'User')) {
+                // Special case for User
+                if (is_object($obj->id)) {
+                    common_log(LOG_ERR, "User " . $obj->nickname . " was cached with User as ID; deleting");
+                    $c->delete(Memcached_DataObject::cacheKey($cls, $k, $v));
+                    return false;
+                }
+            }
+            return $obj;
         }
     }
 
     function keyTypes()
     {
-        // ini-based classes return number-indexed arrays. handbuilt
-        // classes return column => keytype. Make this uniform.
-
-        $keys = $this->keys();
-
-        $keyskeys = array_keys($keys);
-
-        if (is_string($keyskeys[0])) {
-            return $keys;
-        }
-
         global $_DB_DATAOBJECT;
         if (!isset($_DB_DATAOBJECT['INI'][$this->_database][$this->__table."__keys"])) {
             $this->databaseStructure();
@@ -216,88 +197,71 @@ class Memcached_DataObject extends DB_DataObject
     function encache()
     {
         $c = $this->memcache();
-
         if (!$c) {
             return false;
-        }
-
-        $keys = $this->_allCacheKeys();
-
-        foreach ($keys as $key) {
-            $c->set($key, $this);
+        } else if ($this->tableName() == 'user' && is_object($this->id)) {
+            // Special case for User bug
+            $e = new Exception();
+            common_log(LOG_ERR, __METHOD__ . ' caching user with User object as ID ' .
+                       str_replace("\n", " ", $e->getTraceAsString()));
+            return false;
+        } else {
+            $pkey = array();
+            $pval = array();
+            $types = $this->keyTypes();
+            ksort($types);
+            foreach ($types as $key => $type) {
+                if ($type == 'K') {
+                    $pkey[] = $key;
+                    $pval[] = $this->$key;
+                } else {
+                    $c->set($this->cacheKey($this->tableName(), $key, $this->$key), $this);
+                }
+            }
+            # XXX: should work for both compound and scalar pkeys
+            $pvals = implode(',', $pval);
+            $pkeys = implode(',', $pkey);
+            $c->set($this->cacheKey($this->tableName(), $pkeys, $pvals), $this);
         }
     }
 
     function decache()
     {
         $c = $this->memcache();
-
         if (!$c) {
             return false;
-        }
-
-        $keys = $this->_allCacheKeys();
-
-        foreach ($keys as $key) {
-            $c->delete($key, $this);
-        }
-    }
-
-    function _allCacheKeys()
-    {
-        $ckeys = array();
-
-        $types = $this->keyTypes();
-        ksort($types);
-
-        $pkey = array();
-        $pval = array();
-
-        foreach ($types as $key => $type) {
-
-            assert(!empty($key));
-
-            if ($type == 'U') {
-                if (empty($this->$key)) {
-                    continue;
+        } else {
+            $pkey = array();
+            $pval = array();
+            $types = $this->keyTypes();
+            ksort($types);
+            foreach ($types as $key => $type) {
+                if ($type == 'K') {
+                    $pkey[] = $key;
+                    $pval[] = $this->$key;
+                } else {
+                    $c->delete($this->cacheKey($this->tableName(), $key, $this->$key));
                 }
-                $ckeys[] = $this->cacheKey($this->tableName(), $key, $this->$key);
-            } else if ($type == 'K' || $type == 'N') {
-                $pkey[] = $key;
-                $pval[] = $this->$key;
-            } else {
-                throw new Exception("Unknown key type $key => $type for " . $this->tableName());
             }
+            # should work for both compound and scalar pkeys
+            # XXX: comma works for now but may not be safe separator for future keys
+            $pvals = implode(',', $pval);
+            $pkeys = implode(',', $pkey);
+            $c->delete($this->cacheKey($this->tableName(), $pkeys, $pvals));
         }
-
-        assert(count($pkey) > 0);
-
-        // XXX: should work for both compound and scalar pkeys
-        $pvals = implode(',', $pval);
-        $pkeys = implode(',', $pkey);
-
-        $ckeys[] = $this->cacheKey($this->tableName(), $pkeys, $pvals);
-
-        return $ckeys;
     }
 
     function multicache($cls, $kv)
     {
         ksort($kv);
-        $c = self::memcache();
+        $c = Memcached_DataObject::memcache();
         if (!$c) {
             return false;
         } else {
-            return $c->get(self::multicacheKey($cls, $kv));
+            $pkeys = implode(',', array_keys($kv));
+            $pvals = implode(',', array_values($kv));
+            return $c->get(Memcached_DataObject::cacheKey($cls, $pkeys, $pvals));
         }
-    }
-
-    static function multicacheKey($cls, $kv)
-    {
-        ksort($kv);
-        $pkeys = implode(',', array_keys($kv));
-        $pvals = implode(',', array_values($kv));
-        return self::cacheKey($cls, $pkeys, $pvals);
     }
 
     function getSearchEngine($table)
@@ -334,8 +298,7 @@ class Memcached_DataObject extends DB_DataObject
         $key_part = common_keyize($cls).':'.md5($qry);
         $ckey = common_cache_key($key_part);
         $stored = $c->get($ckey);
-
-        if ($stored !== false) {
+        if ($stored) {
             return new ArrayWrapper($stored);
         }
 
