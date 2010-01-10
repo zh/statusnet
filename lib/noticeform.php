@@ -209,7 +209,7 @@ class NoticeForm extends Form
 
                 $this->out->elementStart('div', array('id' => 'notice_data-geo_wrap',
                                                       'title' => common_local_url('geocode')));
-                $this->out->checkbox('notice_data-geo', _('Share my location'), true);
+                $this->out->checkbox('notice_data-geo', _('Share my location.'), true);
                 $this->out->elementEnd('div');
                 $this->out->inlineScript(' var NoticeDataGeoShareDisable_text = "'._('Do not share my location.').'";'.
                 ' var NoticeDataGeoInfoMinimize_text = "'._('Hide this info').'";');

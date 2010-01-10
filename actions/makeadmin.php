@@ -92,7 +92,7 @@ class MakeadminAction extends Action
             return false;
         }
         if ($this->profile->isAdmin($this->group)) {
-            $this->clientError(sprintf(_('%s is already an admin for group "%s".'),
+            $this->clientError(sprintf(_('%1$s is already an admin for group "%2$s".'),
                                        $this->profile->getBestName(),
                                        $this->group->getBestName()),
                                401);
@@ -129,7 +129,7 @@ class MakeadminAction extends Action
                                               'profile_id' => $this->profile->id));
 
         if (empty($member)) {
-            $this->serverError(_('Can\'t get membership record for %s in group %s'),
+            $this->serverError(_('Can\'t get membership record for %1$s in group %2$s'),
                                $this->profile->getBestName(),
                                $this->group->getBestName());
         }
@@ -142,7 +142,7 @@ class MakeadminAction extends Action
 
         if (!$result) {
             common_log_db_error($member, 'UPDATE', __FILE__);
-            $this->serverError(_('Can\'t make %s an admin for group %s'),
+            $this->serverError(_('Can\'t make %1$s an admin for group %2$s'),
                                $this->profile->getBestName(),
                                $this->group->getBestName());
         }

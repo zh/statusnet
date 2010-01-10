@@ -76,7 +76,7 @@ class ShowstreamAction extends ProfileAction
         if ($this->page == 1) {
             return $base;
         } else {
-            return sprintf(_("%s, page %d"),
+            return sprintf(_("%1$s, page %2$d"),
                            $base,
                            $this->page);
         }
@@ -119,7 +119,7 @@ class ShowstreamAction extends ProfileAction
                                   common_local_url('userrss',
                                                    array('nickname' => $this->user->nickname,
                                                          'tag' => $this->tag)),
-                                  sprintf(_('Notice feed for %s tagged %s (RSS 1.0)'),
+                                  sprintf(_('Notice feed for %1$s tagged %2$s (RSS 1.0)'),
                                           $this->user->nickname, $this->tag)));
         }
 
@@ -188,14 +188,14 @@ class ShowstreamAction extends ProfileAction
 
     function showEmptyListMessage()
     {
-        $message = sprintf(_('This is the timeline for %s but %s hasn\'t posted anything yet.'), $this->user->nickname, $this->user->nickname) . ' ';
+        $message = sprintf(_('This is the timeline for %1$s but %2$s hasn\'t posted anything yet.'), $this->user->nickname, $this->user->nickname) . ' ';
 
         if (common_logged_in()) {
             $current_user = common_current_user();
             if ($this->user->id === $current_user->id) {
                 $message .= _('Seen anything interesting recently? You haven\'t posted any notices yet, now would be a good time to start :)');
             } else {
-                $message .= sprintf(_('You can try to nudge %s or [post something to his or her attention](%%%%action.newnotice%%%%?status_textarea=%s).'), $this->user->nickname, '@' . $this->user->nickname);
+                $message .= sprintf(_('You can try to nudge %1$s or [post something to his or her attention](%%%%action.newnotice%%%%?status_textarea=%2$s).'), $this->user->nickname, '@' . $this->user->nickname);
             }
         }
         else {

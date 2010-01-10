@@ -87,8 +87,8 @@ class PostnoticeAction extends Action
         $license      = $_POST['omb_notice_license'];
         $site_license = common_config('license', 'url');
         if ($license && !common_compatible_license($license, $site_license)) {
-            throw new Exception(sprintf(_('Notice license ‘%s’ is not ' .
-                                          'compatible with site license ‘%s’.'),
+            throw new Exception(sprintf(_('Notice license ‘%1$s’ is not ' .
+                                          'compatible with site license ‘%2$s’.'),
                                         $license, $site_license));
         }
     }
