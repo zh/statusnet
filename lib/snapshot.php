@@ -173,8 +173,12 @@ class Snapshot
         // XXX: Use OICU2 and OAuth to make authorized requests
 
         $reporturl = common_config('snapshot', 'reporturl');
-        $request = HTTPClient::start();
-        $request->post($reporturl, null, $this->stats);
+        try {
+            $request = HTTPClient::start();
+            $request->post($reporturl, null, $this->stats);
+        } catch (Exception $e) {
+            common_log(LOG_WARNING, "Error in snapshot: " . $e->getMessage());
+        }
     }
 
     /**
