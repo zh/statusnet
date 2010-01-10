@@ -170,7 +170,11 @@ class Status_network extends DB_DataObject
 
             $config['db']['database'] = "mysqli://$dbuser:$dbpass@$dbhost/$dbname";
 
-            $config['site']['name'] = $sn->sitename;
+            $config['site']['name']   = $sn->sitename;
+
+            if (!empty($sn->hostname)) {
+                $config['site']['server'] = $sn->hostname;
+            }
 
             if (!empty($sn->theme)) {
                 $config['site']['theme'] = $sn->theme;
