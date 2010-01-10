@@ -104,5 +104,16 @@ class APCPlugin extends Plugin
         Event::handle('EndCacheDelete', array($key));
         return false;
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'APC',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Evan Prodromou',
+                            'homepage' => 'http://status.net/wiki/Plugin:APC',
+                            'rawdescription' =>
+                            _m('Use the <a href="http://pecl.php.net/package/apc">APC</a> variable cache to cache query results.'));
+        return true;
+    }
 }
 

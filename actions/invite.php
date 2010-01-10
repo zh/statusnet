@@ -128,7 +128,7 @@ class InviteAction extends CurrentUserDesignAction
             $this->element('p', null, _('You are already subscribed to these users:'));
             $this->elementStart('ul');
             foreach ($this->already as $other) {
-                $this->element('li', null, sprintf(_('%s (%s)'), $other->nickname, $other->email));
+                $this->element('li', null, sprintf(_('%1$s (%2$s)'), $other->nickname, $other->email));
             }
             $this->elementEnd('ul');
         }
@@ -136,7 +136,7 @@ class InviteAction extends CurrentUserDesignAction
             $this->element('p', null, _('These people are already users and you were automatically subscribed to them:'));
             $this->elementStart('ul');
             foreach ($this->subbed as $other) {
-                $this->element('li', null, sprintf(_('%s (%s)'), $other->nickname, $other->email));
+                $this->element('li', null, sprintf(_('%1$s (%2$s)'), $other->nickname, $other->email));
             }
             $this->elementEnd('ul');
         }

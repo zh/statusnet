@@ -81,7 +81,7 @@ class ShowgroupAction extends GroupDesignAction
         if ($this->page == 1) {
             return sprintf(_("%s group"), $base);
         } else {
-            return sprintf(_("%s group, page %d"),
+            return sprintf(_("%1$s group, page %2$d"),
                            $base,
                            $this->page);
         }

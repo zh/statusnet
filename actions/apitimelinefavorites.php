@@ -105,7 +105,7 @@ class ApiTimelineFavoritesAction extends ApiBareAuthAction
 
         $sitename   = common_config('site', 'name');
         $title      = sprintf(
-            _('%s / Favorites from %s'),
+            _('%1$s / Favorites from %2$s'),
             $sitename,
             $this->user->nickname
         );
@@ -117,7 +117,7 @@ class ApiTimelineFavoritesAction extends ApiBareAuthAction
             array('nickname' => $this->user->nickname)
         );
         $subtitle   = sprintf(
-            _('%s updates favorited by %s / %s.'),
+            _('%1$s updates favorited by %2$s / %2$s.'),
             $sitename,
             $profile->getBestName(),
             $this->user->nickname

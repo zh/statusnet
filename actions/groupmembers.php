@@ -93,7 +93,7 @@ class GroupmembersAction extends GroupDesignAction
             return sprintf(_('%s group members'),
                            $this->group->nickname);
         } else {
-            return sprintf(_('%s group members, page %d'),
+            return sprintf(_('%1$s group members, page %2$d'),
                            $this->group->nickname,
                            $this->page);
         }

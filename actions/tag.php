@@ -65,7 +65,7 @@ class TagAction extends Action
         if ($this->page == 1) {
             return sprintf(_("Notices tagged with %s"), $this->tag);
         } else {
-            return sprintf(_("Notices tagged with %s, page %d"),
+            return sprintf(_("Notices tagged with %1$s, page %2$d"),
                            $this->tag,
                            $this->page);
         }
