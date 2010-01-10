@@ -158,8 +158,8 @@ class Status_network extends DB_DataObject
                 0 != strcasecmp($sn->hostname, $servername)) {
                 $sn->redirectTo('http://'.$sn->hostname.$_SERVER['REQUEST_URI']);
             } else if (!empty($_SERVER['HTTPS']) &&
-                       0 != strcasecmp($sn->sitename.'.'.$wildcard, $servername)) {
-                $sn->redirectTo('https://'.$sn->sitename.'.'.$wildcard.$_SERVER['REQUEST_URI']);
+                       0 != strcasecmp($sn->nickname.'.'.$wildcard, $servername)) {
+                $sn->redirectTo('https://'.$sn->nickname.'.'.$wildcard.$_SERVER['REQUEST_URI']);
             }
 
             $dbhost = (empty($sn->dbhost)) ? 'localhost' : $sn->dbhost;
