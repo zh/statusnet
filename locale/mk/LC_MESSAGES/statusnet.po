@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-09 23:44+0000\n"
-"PO-Revision-Date: 2010-01-09 23:45:39+0000\n"
+"POT-Creation-Date: 2010-01-10 00:46+0000\n"
+"PO-Revision-Date: 2010-01-10 00:48:29+0000\n"
 "Language-Team: Macedonian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -51,11 +51,6 @@ msgstr "Нема таква страница"
 msgid "No such user."
 msgstr "Нема таков корисник."
 
-#: actions/all.php:84
-#, php-format
-msgid "%s and friends, page %d"
-msgstr "%s и пријателите, страница %d"
-
 #: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
 #: actions/apitimelinefriends.php:115 actions/apitimelinehome.php:115
 #: lib/personalgroupnav.php:100
@@ -95,10 +90,10 @@ msgstr ""
 "groups%%) или објавете нешто самите."
 
 #: actions/all.php:134
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"You can try to [nudge %s](../%s) from his profile or [post something to his "
-"or her attention](%%%%action.newnotice%%%%?status_textarea=%s)."
+"You can try to [nudge %1$s](../%2$s) from his profile or [post something to "
+"his or her attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 "Можете да се обидете да [подбуцнете %s](../%s) од профилот на корисникот или "
 "да [објавите нешто што сакате тој да го прочита](%%%%action.newnotice%%%%?"
@@ -388,7 +383,7 @@ msgstr "Алијасот не може да биде ист како прека�
 msgid "Group not found!"
 msgstr "Групата не е пронајдена!"
 
-#: actions/apigroupjoin.php:110
+#: actions/apigroupjoin.php:110 lib/command.php:217
 msgid "You are already a member of that group."
 msgstr "Веќе членувате во таа група."
 
@@ -396,29 +391,24 @@ msgstr "Веќе членувате во таа група."
 msgid "You have been blocked from that group by the admin."
 msgstr "Блокирани сте од таа група од администраторот."
 
-#: actions/apigroupjoin.php:138
-#, php-format
-msgid "Could not join user %s to group %s."
+#: actions/apigroupjoin.php:138 lib/command.php:234
+#, fuzzy, php-format
+msgid "Could not join user %1$s to group %2$s."
 msgstr "Не може да се придружи корисник %s на група %s."
 
 #: actions/apigroupleave.php:114
 msgid "You are not a member of this group."
 msgstr "Не членувате во оваа група."
 
-#: actions/apigroupleave.php:124
+#: actions/apigroupleave.php:124 actions/leavegroup.php:127
 #, fuzzy, php-format
-msgid "Could not remove user %s from group %s."
+msgid "Could not remove user %1$s from group %2$s."
 msgstr "Не може да се избрише корисник %s од група %s."
 
 #: actions/apigrouplist.php:95
 #, php-format
 msgid "%s's groups"
 msgstr "%s групи"
-
-#: actions/apigrouplist.php:103
-#, php-format
-msgid "Groups %s is a member of on %s."
-msgstr "Групите %s се членови на %s."
 
 #: actions/apigrouplistall.php:90 actions/usergroups.php:62
 #, php-format
@@ -443,11 +433,11 @@ msgstr "Не можете да избришете статус на друг к�
 msgid "No such notice."
 msgstr "Нема таква забелешка."
 
-#: actions/apistatusesretweet.php:83
+#: actions/apistatusesretweet.php:83 lib/command.php:422
 msgid "Cannot repeat your own notice."
 msgstr "Не можете да ја повторувате сопствената забелешка."
 
-#: actions/apistatusesretweet.php:91
+#: actions/apistatusesretweet.php:91 lib/command.php:427
 msgid "Already repeated that notice."
 msgstr "Забелешката е веќе повторена."
 
@@ -481,13 +471,13 @@ msgid "Unsupported format."
 msgstr "Неподдржан формат."
 
 #: actions/apitimelinefavorites.php:108
-#, php-format
-msgid "%s / Favorites from %s"
+#, fuzzy, php-format
+msgid "%1$s / Favorites from %2$s"
 msgstr "%s / Омилени од %s"
 
 #: actions/apitimelinefavorites.php:120
-#, php-format
-msgid "%s updates favorited by %s / %s."
+#, fuzzy, php-format
+msgid "%1$s updates favorited by %2$s / %2$s."
 msgstr "Подновувања на %s омилени на %s / %s."
 
 #: actions/apitimelinegroup.php:109 actions/apitimelineuser.php:118
@@ -719,8 +709,8 @@ msgid "%s blocked profiles"
 msgstr "%s блокирани профили"
 
 #: actions/blockedfromgroup.php:93
-#, php-format
-msgid "%s blocked profiles, page %d"
+#, fuzzy, php-format
+msgid "%1$s blocked profiles, page %2$d"
 msgstr "%s блокирани профили, страница %d"
 
 #: actions/blockedfromgroup.php:108
@@ -1375,11 +1365,11 @@ msgid "Block user from group"
 msgstr "Блокирај корисник од група"
 
 #: actions/groupblock.php:162
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"Are you sure you want to block user \"%s\" from the group \"%s\"? They will "
-"be removed from the group, unable to post, and unable to subscribe to the "
-"group in the future."
+"Are you sure you want to block user \"%1$s\" from the group \"%2$s\"? They "
+"will be removed from the group, unable to post, and unable to subscribe to "
+"the group in the future."
 msgstr ""
 "Дали сте сигурни дека сакате да го блокирате корисникот „%s“ од групата „%"
 "s“? Корисникот ќе биде отстранет од групата, и во иднина нема да може да "
@@ -1464,8 +1454,8 @@ msgid "%s group members"
 msgstr "Членови на групата %s"
 
 #: actions/groupmembers.php:96
-#, php-format
-msgid "%s group members, page %d"
+#, fuzzy, php-format
+msgid "%1$s group members, page %2$d"
 msgstr "Членови на групата %s, стр. %d"
 
 #: actions/groupmembers.php:111
@@ -1669,11 +1659,6 @@ msgstr ""
 msgid "That is not your Jabber ID."
 msgstr "Ова не е Вашиот Jabber ID."
 
-#: actions/inbox.php:59
-#, php-format
-msgid "Inbox for %s - page %d"
-msgstr "Приемно сандаче за %s - стр. %d"
-
 #: actions/inbox.php:62
 #, php-format
 msgid "Inbox for %s"
@@ -1712,10 +1697,10 @@ msgstr "Покани нови корисници"
 msgid "You are already subscribed to these users:"
 msgstr "Веќе сте претплатени на овие корисници:"
 
-#: actions/invite.php:131 actions/invite.php:139
+#: actions/invite.php:131 actions/invite.php:139 lib/command.php:315
 #, php-format
-msgid "%s (%s)"
-msgstr "%s (%s)"
+msgid "%1$s (%2$s)"
+msgstr "%1$s (%2$s)"
 
 #: actions/invite.php:136
 msgid ""
@@ -1828,18 +1813,18 @@ msgstr ""
 msgid "You must be logged in to join a group."
 msgstr "Мора да сте најавени за да можете да се зачлените во група."
 
-#: actions/joingroup.php:90 lib/command.php:217
+#: actions/joingroup.php:90
 msgid "You are already a member of that group"
 msgstr "Веќе членувате во таа група"
 
-#: actions/joingroup.php:128 lib/command.php:234
-#, php-format
-msgid "Could not join user %s to group %s"
+#: actions/joingroup.php:128
+#, fuzzy, php-format
+msgid "Could not join user %1$s to group %2$s"
 msgstr "Не можев да го зачленам корисникот %s во групата %s"
 
 #: actions/joingroup.php:135 lib/command.php:239
-#, php-format
-msgid "%s joined group %s"
+#, fuzzy, php-format
+msgid "%1$s joined group %2$s"
 msgstr "%s се зачлени во групата %s"
 
 #: actions/leavegroup.php:60
@@ -1854,14 +1839,9 @@ msgstr "Не членувате во таа група."
 msgid "Could not find membership record."
 msgstr "Не можам да ја пронајдам членската евиденција."
 
-#: actions/leavegroup.php:127
-#, fuzzy, php-format
-msgid "Could not remove user %s from group %s"
-msgstr "Не можев да го отстранам корисникот %s од групата %s"
-
 #: actions/leavegroup.php:134 lib/command.php:289
-#, php-format
-msgid "%s left group %s"
+#, fuzzy, php-format
+msgid "%1$s left group %2$s"
 msgstr "%s ја напушти групата %s"
 
 #: actions/login.php:83 actions/register.php:137
@@ -1935,18 +1915,18 @@ msgid "Only an admin can make another user an admin."
 msgstr "Само администратор може да направи друг корисник администратор."
 
 #: actions/makeadmin.php:95
-#, php-format
-msgid "%s is already an admin for group \"%s\"."
+#, fuzzy, php-format
+msgid "%1$s is already an admin for group \"%2$s\"."
 msgstr "%s веќе е администратор на групата „%s“."
 
 #: actions/makeadmin.php:132
-#, php-format
-msgid "Can't get membership record for %s in group %s"
+#, fuzzy, php-format
+msgid "Can't get membership record for %1$s in group %2$s"
 msgstr "Не можам да добијам евиденција за членство за %s во групата %s"
 
 #: actions/makeadmin.php:145
-#, php-format
-msgid "Can't make %s an admin for group %s"
+#, fuzzy, php-format
+msgid "Can't make %1$s an admin for group %2$s"
 msgstr "Не можам да го направам корисниокт %s администратор на групата %s"
 
 #: actions/microsummary.php:69
@@ -1989,7 +1969,7 @@ msgstr ""
 msgid "Message sent"
 msgstr "Пораката е испратена"
 
-#: actions/newmessage.php:185 lib/command.php:376
+#: actions/newmessage.php:185
 #, php-format
 msgid "Direct message to %s sent"
 msgstr "Директната порака до %s е испратена"
@@ -2020,8 +2000,8 @@ msgid "Text search"
 msgstr "Текстуално пребарување"
 
 #: actions/noticesearch.php:91
-#, php-format
-msgid "Search results for \"%s\" on %s"
+#, fuzzy, php-format
+msgid "Search results for \"%1$s\" on %2$s"
 msgstr "Резултати од пребарувањето за „%s“ на %s"
 
 #: actions/noticesearch.php:121
@@ -2129,11 +2109,6 @@ msgstr "Прикажи или сокриј профилни изгледи."
 #: actions/othersettings.php:153
 msgid "URL shortening service is too long (max 50 chars)."
 msgstr "Услугата за скратување на URL-адреси е предолга (највеќе до 50 знаци)."
-
-#: actions/outbox.php:58
-#, php-format
-msgid "Outbox for %s - page %d"
-msgstr "Излезно сандаче за %s - стр. %d"
 
 #: actions/outbox.php:61
 #, php-format
@@ -2364,8 +2339,8 @@ msgid "Not a valid people tag: %s"
 msgstr "Не е важечка ознака за луѓе: %s"
 
 #: actions/peopletag.php:144
-#, php-format
-msgid "Users self-tagged with %s - page %d"
+#, fuzzy, php-format
+msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "Користници самоозначени со %s - стр. %d"
 
 #: actions/postnotice.php:84
@@ -2373,8 +2348,8 @@ msgid "Invalid notice content"
 msgstr "Неважечка содржина на забелешката"
 
 #: actions/postnotice.php:90
-#, php-format
-msgid "Notice license ‘%s’ is not compatible with site license ‘%s’."
+#, fuzzy, php-format
+msgid "Notice license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr ""
 "Лиценцата на забелешката „%s“ не е компатибилна со лиценцата на веб-"
 "страницата „%s“."
@@ -2836,12 +2811,12 @@ msgstr ""
 "број."
 
 #: actions/register.php:537
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may "
+"Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
 "want to...\n"
 "\n"
-"* Go to [your profile](%s) and post your first message.\n"
+"* Go to [your profile](%2$s) and post your first message.\n"
 "* Add a [Jabber/GTalk address](%%%%action.imsettings%%%%) so you can send "
 "notices through instant messages.\n"
 "* [Search for people](%%%%action.peoplesearch%%%%) that you may know or that "
@@ -2966,11 +2941,6 @@ msgstr "Повторено!"
 msgid "Replies to %s"
 msgstr "Одговори испратени до %s"
 
-#: actions/replies.php:127
-#, php-format
-msgid "Replies to %s, page %d"
-msgstr "Одговори на %s, стр. %d"
-
 #: actions/replies.php:144
 #, php-format
 msgid "Replies feed for %s (RSS 1.0)"
@@ -2987,10 +2957,10 @@ msgid "Replies feed for %s (Atom)"
 msgstr "Канал со одговори за %s (Atom)"
 
 #: actions/replies.php:198
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"This is the timeline showing replies to %s but %s hasn't received a notice "
-"to his attention yet."
+"This is the timeline showing replies to %1$s but %2$s hasn't received a "
+"notice to his attention yet."
 msgstr ""
 "Ова е историјата на која се прикажани одговорите на %s, но %s сè уште нема "
 "добиено порака од некој што сака да ја прочита."
@@ -3005,10 +2975,10 @@ msgstr ""
 "други луѓе или да [се зачленувате во групи](%%action.groups%%)."
 
 #: actions/replies.php:205
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"You can try to [nudge %s](../%s) or [post something to his or her attention]"
-"(%%%%action.newnotice%%%%?status_textarea=%s)."
+"You can try to [nudge %1$s](../%2$s) or [post something to his or her "
+"attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 "Можете да го [подбуцнете корисникот %s](../%s) или да [објавите нешто што "
 "сакате да го прочита](%%%%action.newnotice%%%%?status_textarea=%s)."
@@ -3025,11 +2995,6 @@ msgstr "Не можете да ставате корисници во песоч
 #: actions/sandbox.php:72
 msgid "User is already sandboxed."
 msgstr "Корисникот е веќе во песочен режим."
-
-#: actions/showfavorites.php:79
-#, php-format
-msgid "%s's favorite notices, page %d"
-msgstr "Омилени забелешки на %s, стр. %d"
 
 #: actions/showfavorites.php:132
 msgid "Could not retrieve favorite notices."
@@ -3087,11 +3052,6 @@ msgstr "Ова е начин да го споделите она што Ви с�
 #, php-format
 msgid "%s group"
 msgstr "Група %s"
-
-#: actions/showgroup.php:84
-#, php-format
-msgid "%s group, page %d"
-msgstr "Група %s, стр. %d"
 
 #: actions/showgroup.php:218
 msgid "Group profile"
@@ -3217,14 +3177,9 @@ msgstr "Избришана забелешка"
 msgid " tagged %s"
 msgstr "  означено со %s"
 
-#: actions/showstream.php:79
-#, php-format
-msgid "%s, page %d"
-msgstr "%s, стр. %d"
-
 #: actions/showstream.php:122
-#, php-format
-msgid "Notice feed for %s tagged %s (RSS 1.0)"
+#, fuzzy, php-format
+msgid "Notice feed for %1$s tagged %2$s (RSS 1.0)"
 msgstr "Канал со забелешки за %s означен со %s (RSS 1.0)"
 
 #: actions/showstream.php:129
@@ -3248,8 +3203,8 @@ msgid "FOAF for %s"
 msgstr "FOAF за %s"
 
 #: actions/showstream.php:191
-#, php-format
-msgid "This is the timeline for %s but %s hasn't posted anything yet."
+#, fuzzy, php-format
+msgid "This is the timeline for %1$s but %2$s hasn't posted anything yet."
 msgstr "Ова е историјата за %s, но %s сè уште нема објавено ништо."
 
 #: actions/showstream.php:196
@@ -3261,10 +3216,10 @@ msgstr ""
 "ниедна забелешка, но сега е добро време за да почнете :)"
 
 #: actions/showstream.php:198
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"You can try to nudge %s or [post something to his or her attention](%%%%"
-"action.newnotice%%%%?status_textarea=%s)."
+"You can try to nudge %1$s or [post something to his or her attention](%%%%"
+"action.newnotice%%%%?status_textarea=%2$s)."
 msgstr ""
 "Можете да пробате да го подбуцнете корисникот %s или [да објавите нешто што "
 "сакате да го прочита](%%%%action.newnotice%%%%?status_textarea=%s)."
@@ -3629,8 +3584,8 @@ msgid "%s subscribers"
 msgstr "Претплатници на %s"
 
 #: actions/subscribers.php:52
-#, php-format
-msgid "%s subscribers, page %d"
+#, fuzzy, php-format
+msgid "%1$s subscribers, page %2$d"
 msgstr "%s претплатници, стр. %d"
 
 #: actions/subscribers.php:63
@@ -3670,8 +3625,8 @@ msgid "%s subscriptions"
 msgstr "Претплати на %s"
 
 #: actions/subscriptions.php:54
-#, php-format
-msgid "%s subscriptions, page %d"
+#, fuzzy, php-format
+msgid "%1$s subscriptions, page %2$d"
 msgstr "Претплати на %s, стр. %d"
 
 #: actions/subscriptions.php:65
@@ -3710,11 +3665,6 @@ msgstr "Jabber"
 #: actions/subscriptions.php:199 lib/connectsettingsaction.php:115
 msgid "SMS"
 msgstr "СМС"
-
-#: actions/tag.php:68
-#, php-format
-msgid "Notices tagged with %s, page %d"
-msgstr "Забелешки означени со %s, стр. %d"
 
 #: actions/tag.php:86
 #, php-format
@@ -3808,8 +3758,9 @@ msgid "Unsubscribed"
 msgstr "Претплатата е откажана"
 
 #: actions/updateprofile.php:62 actions/userauthorization.php:330
-#, php-format
-msgid "Listenee stream license ‘%s’ is not compatible with site license ‘%s’."
+#, fuzzy, php-format
+msgid ""
+"Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr ""
 "Лиценцата на потокот на следачот „%s“ не е компатибилна со лиценцата на веб-"
 "страницата „%s“."
@@ -3969,8 +3920,8 @@ msgstr ""
 "потполност."
 
 #: actions/userauthorization.php:296
-#, php-format
-msgid "Listener URI ‘%s’ not found here"
+#, fuzzy, php-format
+msgid "Listener URI ‘%s’ not found here."
 msgstr "Следечкиот URI на „%s“ не е пронајден тука"
 
 #: actions/userauthorization.php:301
@@ -4023,11 +3974,6 @@ msgstr ""
 msgid "Enjoy your hotdog!"
 msgstr "Добар апетит!"
 
-#: actions/usergroups.php:64
-#, php-format
-msgid "%s groups, page %d"
-msgstr "Групи на %s, стр. %d"
-
 #: actions/usergroups.php:130
 msgid "Search for more groups"
 msgstr "Пребарај уште групи"
@@ -4052,8 +3998,8 @@ msgstr "Статистики"
 #: actions/version.php:153
 #, php-format
 msgid ""
-"This site is powered by %s version %s, Copyright 2008-2010 StatusNet, Inc. "
-"and contributors."
+"This site is powered by %1$s version %2$s, Copyright 2008-2010 StatusNet, "
+"Inc. and contributors."
 msgstr ""
 
 #: actions/version.php:157
@@ -4229,11 +4175,6 @@ msgstr "Друго"
 #: lib/accountsettingsaction.php:128
 msgid "Other options"
 msgstr "Други нагодувања"
-
-#: lib/action.php:144
-#, php-format
-msgid "%s - %s"
-msgstr "%s - %s"
 
 #: lib/action.php:159
 msgid "Untitled page"
@@ -4478,7 +4419,7 @@ msgstr "Менувањето на лозинка не е дозволено"
 msgid "Command results"
 msgstr "Резултати од наредбата"
 
-#: lib/channel.php:210
+#: lib/channel.php:210 lib/mailhandler.php:142
 msgid "Command complete"
 msgstr "Наредбата е завршена"
 
@@ -4491,8 +4432,8 @@ msgid "Sorry, this command is not yet implemented."
 msgstr "Жалиме, оваа наредба сè уште не е имплементирана."
 
 #: lib/command.php:88
-#, php-format
-msgid "Could not find a user with nickname %s"
+#, fuzzy, php-format
+msgid "Could not find a user with nickname %s."
 msgstr "Не можев да пронајдам корисник со прекар %s"
 
 #: lib/command.php:92
@@ -4500,8 +4441,8 @@ msgid "It does not make a lot of sense to nudge yourself!"
 msgstr "Нема баш логика да се подбуцнувате сами себеси."
 
 #: lib/command.php:99
-#, php-format
-msgid "Nudge sent to %s"
+#, fuzzy, php-format
+msgid "Nudge sent to %s."
 msgstr "Испратено подбуцнување на %s"
 
 #: lib/command.php:126
@@ -4516,12 +4457,14 @@ msgstr ""
 "Забелешки: %3$s"
 
 #: lib/command.php:152 lib/command.php:399 lib/command.php:460
-msgid "Notice with that id does not exist"
+#, fuzzy
+msgid "Notice with that id does not exist."
 msgstr "Не постои забелешка со таков id"
 
 #: lib/command.php:168 lib/command.php:415 lib/command.php:476
 #: lib/command.php:532
-msgid "User has no last notice"
+#, fuzzy
+msgid "User has no last notice."
 msgstr "Корисникот нема последна забелешка"
 
 #: lib/command.php:190
@@ -4529,14 +4472,9 @@ msgid "Notice marked as fave."
 msgstr "Забелешката е обележана како омилена."
 
 #: lib/command.php:284
-#, php-format
-msgid "Could not remove user %s to group %s"
+#, fuzzy, php-format
+msgid "Could not remove user %1$s to group %2$s."
 msgstr "Не можев да го отстранам корисникот %s од групата %s"
-
-#: lib/command.php:315
-#, php-format
-msgid "%1$s (%2$s)"
-msgstr "%1$s (%2$s)"
 
 #: lib/command.php:318
 #, php-format
@@ -4558,27 +4496,24 @@ msgstr "Домашна страница: %s"
 msgid "About: %s"
 msgstr "За: %s"
 
-#: lib/command.php:358 scripts/xmppdaemon.php:301
-#, php-format
-msgid "Message too long - maximum is %d characters, you sent %d"
+#: lib/command.php:358
+#, fuzzy, php-format
+msgid "Message too long - maximum is %1$d characters, you sent %2$d."
 msgstr ""
 "Пораката е предолга - дозволени се највеќе %d знаци, а вие испративте %d"
+
+#: lib/command.php:376
+#, fuzzy, php-format
+msgid "Direct message to %s sent."
+msgstr "Директната порака до %s е испратена"
 
 #: lib/command.php:378
 msgid "Error sending direct message."
 msgstr "Грашка при испаќањето на директната порака."
 
-#: lib/command.php:422
-msgid "Cannot repeat your own notice"
-msgstr "Не можете да повторувате сопствени забалешки"
-
-#: lib/command.php:427
-msgid "Already repeated that notice"
-msgstr "Оваа забелешка е веќе повторена"
-
 #: lib/command.php:435
-#, php-format
-msgid "Notice from %s repeated"
+#, fuzzy, php-format
+msgid "Notice from %s repeated."
 msgstr "Забелешката од %s е повторена"
 
 #: lib/command.php:437
@@ -4586,15 +4521,15 @@ msgid "Error repeating notice."
 msgstr "Грешка при повторувањето на белешката."
 
 #: lib/command.php:491
-#, php-format
-msgid "Notice too long - maximum is %d characters, you sent %d"
+#, fuzzy, php-format
+msgid "Notice too long - maximum is %1$d characters, you sent %2$d."
 msgstr ""
 "Забелешката е предолга - треба да нема повеќе од %d знаци, а Вие испративте %"
 "d"
 
 #: lib/command.php:500
-#, php-format
-msgid "Reply to %s sent"
+#, fuzzy, php-format
+msgid "Reply to %s sent."
 msgstr "Одговорот на %s е испратен"
 
 #: lib/command.php:502
@@ -4602,7 +4537,8 @@ msgid "Error saving notice."
 msgstr "Грешка при зачувувањето на белешката."
 
 #: lib/command.php:556
-msgid "Specify the name of the user to subscribe to"
+#, fuzzy
+msgid "Specify the name of the user to subscribe to."
 msgstr "Назначете го името на корисникот на којшто сакате да се претплатите"
 
 #: lib/command.php:563
@@ -4611,7 +4547,8 @@ msgid "Subscribed to %s"
 msgstr "Претплатено на %s"
 
 #: lib/command.php:584
-msgid "Specify the name of the user to unsubscribe from"
+#, fuzzy
+msgid "Specify the name of the user to unsubscribe from."
 msgstr "Назначете го името на корисникот од кого откажувате претплата."
 
 #: lib/command.php:591
@@ -4640,17 +4577,18 @@ msgid "Can't turn on notification."
 msgstr "Не можам да вклучам известување."
 
 #: lib/command.php:650
-msgid "Login command is disabled"
+#, fuzzy
+msgid "Login command is disabled."
 msgstr "Наредбата за најава е оневозможена"
 
 #: lib/command.php:664
-#, php-format
-msgid "Could not create login token for %s"
+#, fuzzy, php-format
+msgid "Could not create login token for %s."
 msgstr "Не можам да создадам најавен жетон за"
 
 #: lib/command.php:669
-#, php-format
-msgid "This link is useable only once, and is good for only 2 minutes: %s"
+#, fuzzy, php-format
+msgid "This link is useable only once, and is good for only 2 minutes: %s."
 msgstr "Оваа врска може да се употреби само еднаш, и трае само 2 минути: %s"
 
 #: lib/command.php:685
@@ -5292,6 +5230,11 @@ msgstr "Жалиме, но тоа не е Вашата приемна е-пош�
 msgid "Sorry, no incoming email allowed."
 msgstr "Жалиме, приемната пошта не е дозволена."
 
+#: lib/mailhandler.php:228
+#, fuzzy, php-format
+msgid "Unsupported message type: %s"
+msgstr "Неподдржан фомрат на слики."
+
 #: lib/mediafile.php:98 lib/mediafile.php:123
 msgid "There was a database error while saving your file. Please try again."
 msgstr ""
@@ -5381,7 +5324,7 @@ msgstr "Прикажи податотека"
 
 #: lib/noticeform.php:212
 #, fuzzy
-msgid "Share my location"
+msgid "Share my location."
 msgstr "Споделете ја Вашата локација"
 
 #: lib/noticeform.php:214
@@ -5799,3 +5742,9 @@ msgstr "%s не е важечка боја!"
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
 msgstr "%s не е важечка боја! Користете 3 или 6 шеснаесетни (hex) знаци."
+
+#: scripts/xmppdaemon.php:301
+#, php-format
+msgid "Message too long - maximum is %d characters, you sent %d"
+msgstr ""
+"Пораката е предолга - дозволени се највеќе %d знаци, а вие испративте %d"

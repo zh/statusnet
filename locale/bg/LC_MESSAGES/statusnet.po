@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-09 23:44+0000\n"
-"PO-Revision-Date: 2010-01-09 23:44:38+0000\n"
+"POT-Creation-Date: 2010-01-10 00:46+0000\n"
+"PO-Revision-Date: 2010-01-10 00:47:11+0000\n"
 "Language-Team: Bulgarian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -51,11 +51,6 @@ msgstr "Няма такака страница."
 msgid "No such user."
 msgstr "Няма такъв потребител"
 
-#: actions/all.php:84
-#, php-format
-msgid "%s and friends, page %d"
-msgstr "%s и приятели, страница %d"
-
 #: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
 #: actions/apitimelinefriends.php:115 actions/apitimelinehome.php:115
 #: lib/personalgroupnav.php:100
@@ -94,8 +89,8 @@ msgstr ""
 #: actions/all.php:134
 #, php-format
 msgid ""
-"You can try to [nudge %s](../%s) from his profile or [post something to his "
-"or her attention](%%%%action.newnotice%%%%?status_textarea=%s)."
+"You can try to [nudge %1$s](../%2$s) from his profile or [post something to "
+"his or her attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 
 #: actions/all.php:137 actions/replies.php:209 actions/showstream.php:202
@@ -379,7 +374,7 @@ msgstr ""
 msgid "Group not found!"
 msgstr "Групата не е открита."
 
-#: actions/apigroupjoin.php:110
+#: actions/apigroupjoin.php:110 lib/command.php:217
 msgid "You are already a member of that group."
 msgstr "Вече членувате в тази група."
 
@@ -387,29 +382,24 @@ msgstr "Вече членувате в тази група."
 msgid "You have been blocked from that group by the admin."
 msgstr ""
 
-#: actions/apigroupjoin.php:138
+#: actions/apigroupjoin.php:138 lib/command.php:234
 #, fuzzy, php-format
-msgid "Could not join user %s to group %s."
+msgid "Could not join user %1$s to group %2$s."
 msgstr "Грешка при проследяване — потребителят не е намерен."
 
 #: actions/apigroupleave.php:114
 msgid "You are not a member of this group."
 msgstr "Не членувате в тази група."
 
-#: actions/apigroupleave.php:124
+#: actions/apigroupleave.php:124 actions/leavegroup.php:127
 #, fuzzy, php-format
-msgid "Could not remove user %s from group %s."
+msgid "Could not remove user %1$s from group %2$s."
 msgstr "Грешка при проследяване — потребителят не е намерен."
 
 #: actions/apigrouplist.php:95
 #, php-format
 msgid "%s's groups"
 msgstr "Групи на %s"
-
-#: actions/apigrouplist.php:103
-#, fuzzy, php-format
-msgid "Groups %s is a member of on %s."
-msgstr "Групи, в които участва %s"
 
 #: actions/apigrouplistall.php:90 actions/usergroups.php:62
 #, php-format
@@ -434,11 +424,11 @@ msgstr "Не може да изтривате бележки на друг по�
 msgid "No such notice."
 msgstr "Няма такава бележка."
 
-#: actions/apistatusesretweet.php:83
+#: actions/apistatusesretweet.php:83 lib/command.php:422
 msgid "Cannot repeat your own notice."
 msgstr "Не можете да повтаряте собствени бележки."
 
-#: actions/apistatusesretweet.php:91
+#: actions/apistatusesretweet.php:91 lib/command.php:427
 msgid "Already repeated that notice."
 msgstr "Вече сте повторили тази бележка."
 
@@ -470,13 +460,13 @@ msgid "Unsupported format."
 msgstr "Неподдържан формат."
 
 #: actions/apitimelinefavorites.php:108
-#, php-format
-msgid "%s / Favorites from %s"
+#, fuzzy, php-format
+msgid "%1$s / Favorites from %2$s"
 msgstr "%s / Отбелязани като любими от %s"
 
 #: actions/apitimelinefavorites.php:120
-#, php-format
-msgid "%s updates favorited by %s / %s."
+#, fuzzy, php-format
+msgid "%1$s updates favorited by %2$s / %2$s."
 msgstr "%s бележки отбелязани като любими от %s / %s."
 
 #: actions/apitimelinegroup.php:109 actions/apitimelineuser.php:118
@@ -704,8 +694,8 @@ msgid "%s blocked profiles"
 msgstr "Блокирани за %s"
 
 #: actions/blockedfromgroup.php:93
-#, php-format
-msgid "%s blocked profiles, page %d"
+#, fuzzy, php-format
+msgid "%1$s blocked profiles, page %2$d"
 msgstr "Блокирани за %s, страница %d"
 
 #: actions/blockedfromgroup.php:108
@@ -1364,9 +1354,9 @@ msgstr "Блокиране на потребителя"
 #: actions/groupblock.php:162
 #, php-format
 msgid ""
-"Are you sure you want to block user \"%s\" from the group \"%s\"? They will "
-"be removed from the group, unable to post, and unable to subscribe to the "
-"group in the future."
+"Are you sure you want to block user \"%1$s\" from the group \"%2$s\"? They "
+"will be removed from the group, unable to post, and unable to subscribe to "
+"the group in the future."
 msgstr ""
 
 #: actions/groupblock.php:178
@@ -1449,8 +1439,8 @@ msgid "%s group members"
 msgstr "Членове на групата %s"
 
 #: actions/groupmembers.php:96
-#, php-format
-msgid "%s group members, page %d"
+#, fuzzy, php-format
+msgid "%1$s group members, page %2$d"
 msgstr "Членове на групата %s, страница %d"
 
 #: actions/groupmembers.php:111
@@ -1646,11 +1636,6 @@ msgstr ""
 msgid "That is not your Jabber ID."
 msgstr "Това не е вашият Jabber ID."
 
-#: actions/inbox.php:59
-#, php-format
-msgid "Inbox for %s - page %d"
-msgstr "Входяща кутия за %s — страница %d"
-
 #: actions/inbox.php:62
 #, php-format
 msgid "Inbox for %s"
@@ -1686,10 +1671,10 @@ msgstr "Покани за нови потребители"
 msgid "You are already subscribed to these users:"
 msgstr "Вече сте абонирани за следните потребители:"
 
-#: actions/invite.php:131 actions/invite.php:139
+#: actions/invite.php:131 actions/invite.php:139 lib/command.php:315
 #, php-format
-msgid "%s (%s)"
-msgstr "%s (%s)"
+msgid "%1$s (%2$s)"
+msgstr "%1$s (%2$s)"
 
 #: actions/invite.php:136
 msgid ""
@@ -1801,18 +1786,18 @@ msgstr ""
 msgid "You must be logged in to join a group."
 msgstr "За да се присъедините към група, трябва да сте влезли."
 
-#: actions/joingroup.php:90 lib/command.php:217
+#: actions/joingroup.php:90
 msgid "You are already a member of that group"
 msgstr "Вече членувате в тази група."
 
-#: actions/joingroup.php:128 lib/command.php:234
+#: actions/joingroup.php:128
 #, fuzzy, php-format
-msgid "Could not join user %s to group %s"
+msgid "Could not join user %1$s to group %2$s"
 msgstr "Грешка при проследяване — потребителят не е намерен."
 
 #: actions/joingroup.php:135 lib/command.php:239
-#, php-format
-msgid "%s joined group %s"
+#, fuzzy, php-format
+msgid "%1$s joined group %2$s"
 msgstr "%s се присъедини към групата %s"
 
 #: actions/leavegroup.php:60
@@ -1828,14 +1813,9 @@ msgstr "Не членувате в тази група."
 msgid "Could not find membership record."
 msgstr "Грешка при обновяване записа на потребител."
 
-#: actions/leavegroup.php:127
-#, fuzzy, php-format
-msgid "Could not remove user %s from group %s"
-msgstr "Грешка при проследяване — потребителят не е намерен."
-
 #: actions/leavegroup.php:134 lib/command.php:289
-#, php-format
-msgid "%s left group %s"
+#, fuzzy, php-format
+msgid "%1$s left group %2$s"
 msgstr "%s напусна групата %s"
 
 #: actions/login.php:83 actions/register.php:137
@@ -1910,19 +1890,19 @@ msgid "Only an admin can make another user an admin."
 msgstr ""
 
 #: actions/makeadmin.php:95
-#, php-format
-msgid "%s is already an admin for group \"%s\"."
-msgstr ""
+#, fuzzy, php-format
+msgid "%1$s is already an admin for group \"%2$s\"."
+msgstr "Потребителят вече е блокиран за групата."
 
 #: actions/makeadmin.php:132
 #, php-format
-msgid "Can't get membership record for %s in group %s"
+msgid "Can't get membership record for %1$s in group %2$s"
 msgstr ""
 
 #: actions/makeadmin.php:145
-#, php-format
-msgid "Can't make %s an admin for group %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Can't make %1$s an admin for group %2$s"
+msgstr "За да редактирате групата, трябва да сте й администратор."
 
 #: actions/microsummary.php:69
 msgid "No current status"
@@ -1964,7 +1944,7 @@ msgstr ""
 msgid "Message sent"
 msgstr "Съобщението е изпратено"
 
-#: actions/newmessage.php:185 lib/command.php:376
+#: actions/newmessage.php:185
 #, php-format
 msgid "Direct message to %s sent"
 msgstr "Прякото съобщение до %s е изпратено."
@@ -1996,7 +1976,7 @@ msgstr "Търсене на текст"
 
 #: actions/noticesearch.php:91
 #, fuzzy, php-format
-msgid "Search results for \"%s\" on %s"
+msgid "Search results for \"%1$s\" on %2$s"
 msgstr " Търсене на \"%s\" в потока"
 
 #: actions/noticesearch.php:121
@@ -2098,11 +2078,6 @@ msgstr ""
 #: actions/othersettings.php:153
 msgid "URL shortening service is too long (max 50 chars)."
 msgstr "Услугата за съкращаване е твърде дълга (може да е до 50 знака)."
-
-#: actions/outbox.php:58
-#, php-format
-msgid "Outbox for %s - page %d"
-msgstr "Изходяща кутия за %s — страница %d"
 
 #: actions/outbox.php:61
 #, php-format
@@ -2331,9 +2306,9 @@ msgid "Not a valid people tag: %s"
 msgstr "Това не е правилен адрес на е-поща."
 
 #: actions/peopletag.php:144
-#, php-format
-msgid "Users self-tagged with %s - page %d"
-msgstr ""
+#, fuzzy, php-format
+msgid "Users self-tagged with %1$s - page %2$d"
+msgstr "Бележки с етикет %s, страница %d"
 
 #: actions/postnotice.php:84
 msgid "Invalid notice content"
@@ -2341,7 +2316,7 @@ msgstr "Невалидно съдържание на бележка"
 
 #: actions/postnotice.php:90
 #, php-format
-msgid "Notice license ‘%s’ is not compatible with site license ‘%s’."
+msgid "Notice license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr ""
 
 #: actions/profilesettings.php:60
@@ -2780,12 +2755,12 @@ msgid ""
 msgstr " освен тези лични данни: парола, е-поща, месинджър, телефон."
 
 #: actions/register.php:537
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may "
+"Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
 "want to...\n"
 "\n"
-"* Go to [your profile](%s) and post your first message.\n"
+"* Go to [your profile](%2$s) and post your first message.\n"
 "* Add a [Jabber/GTalk address](%%%%action.imsettings%%%%) so you can send "
 "notices through instant messages.\n"
 "* [Search for people](%%%%action.peoplesearch%%%%) that you may know or that "
@@ -2909,11 +2884,6 @@ msgstr "Повторено!"
 msgid "Replies to %s"
 msgstr "Отговори на %s"
 
-#: actions/replies.php:127
-#, php-format
-msgid "Replies to %s, page %d"
-msgstr "Отговори на %s, страница %d"
-
 #: actions/replies.php:144
 #, php-format
 msgid "Replies feed for %s (RSS 1.0)"
@@ -2932,8 +2902,8 @@ msgstr "Емисия с отговори на %s (Atom)"
 #: actions/replies.php:198
 #, php-format
 msgid ""
-"This is the timeline showing replies to %s but %s hasn't received a notice "
-"to his attention yet."
+"This is the timeline showing replies to %1$s but %2$s hasn't received a "
+"notice to his attention yet."
 msgstr ""
 
 #: actions/replies.php:203
@@ -2946,8 +2916,8 @@ msgstr ""
 #: actions/replies.php:205
 #, php-format
 msgid ""
-"You can try to [nudge %s](../%s) or [post something to his or her attention]"
-"(%%%%action.newnotice%%%%?status_textarea=%s)."
+"You can try to [nudge %1$s](../%2$s) or [post something to his or her "
+"attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 
 #: actions/repliesrss.php:72
@@ -2964,11 +2934,6 @@ msgstr "Не може да изпращате съобщения до този �
 #, fuzzy
 msgid "User is already sandboxed."
 msgstr "Потребителят ви е блокирал."
-
-#: actions/showfavorites.php:79
-#, php-format
-msgid "%s's favorite notices, page %d"
-msgstr "Любими бележки на %s, страница %d"
 
 #: actions/showfavorites.php:132
 msgid "Could not retrieve favorite notices."
@@ -3018,11 +2983,6 @@ msgstr "Така можете да споделите какво харесва�
 #, php-format
 msgid "%s group"
 msgstr "Група %s"
-
-#: actions/showgroup.php:84
-#, php-format
-msgid "%s group, page %d"
-msgstr "Група %s, страница %d"
 
 #: actions/showgroup.php:218
 msgid "Group profile"
@@ -3138,14 +3098,9 @@ msgstr "Бележката е изтрита."
 msgid " tagged %s"
 msgstr "Бележки с етикет %s"
 
-#: actions/showstream.php:79
-#, php-format
-msgid "%s, page %d"
-msgstr "%s, страница %d"
-
 #: actions/showstream.php:122
 #, fuzzy, php-format
-msgid "Notice feed for %s tagged %s (RSS 1.0)"
+msgid "Notice feed for %1$s tagged %2$s (RSS 1.0)"
 msgstr "Емисия с бележки на %s"
 
 #: actions/showstream.php:129
@@ -3170,7 +3125,7 @@ msgstr "FOAF за %s"
 
 #: actions/showstream.php:191
 #, php-format
-msgid "This is the timeline for %s but %s hasn't posted anything yet."
+msgid "This is the timeline for %1$s but %2$s hasn't posted anything yet."
 msgstr ""
 
 #: actions/showstream.php:196
@@ -3182,8 +3137,8 @@ msgstr ""
 #: actions/showstream.php:198
 #, php-format
 msgid ""
-"You can try to nudge %s or [post something to his or her attention](%%%%"
-"action.newnotice%%%%?status_textarea=%s)."
+"You can try to nudge %1$s or [post something to his or her attention](%%%%"
+"action.newnotice%%%%?status_textarea=%2$s)."
 msgstr ""
 
 #: actions/showstream.php:234
@@ -3535,9 +3490,9 @@ msgid "%s subscribers"
 msgstr "%s абоната"
 
 #: actions/subscribers.php:52
-#, php-format
-msgid "%s subscribers, page %d"
-msgstr ""
+#, fuzzy, php-format
+msgid "%1$s subscribers, page %2$d"
+msgstr "Абонаменти на %s, страница %d"
 
 #: actions/subscribers.php:63
 msgid "These are the people who listen to your notices."
@@ -3572,8 +3527,8 @@ msgid "%s subscriptions"
 msgstr "Абонаменти на %s"
 
 #: actions/subscriptions.php:54
-#, php-format
-msgid "%s subscriptions, page %d"
+#, fuzzy, php-format
+msgid "%1$s subscriptions, page %2$d"
 msgstr "Абонаменти на %s, страница %d"
 
 #: actions/subscriptions.php:65
@@ -3607,11 +3562,6 @@ msgstr "Jabber"
 #: actions/subscriptions.php:199 lib/connectsettingsaction.php:115
 msgid "SMS"
 msgstr "SMS"
-
-#: actions/tag.php:68
-#, php-format
-msgid "Notices tagged with %s, page %d"
-msgstr "Бележки с етикет %s, страница %d"
 
 #: actions/tag.php:86
 #, fuzzy, php-format
@@ -3708,7 +3658,8 @@ msgstr "Отписване"
 
 #: actions/updateprofile.php:62 actions/userauthorization.php:330
 #, php-format
-msgid "Listenee stream license ‘%s’ is not compatible with site license ‘%s’."
+msgid ""
+"Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr ""
 
 #: actions/useradminpanel.php:58 lib/adminpanelaction.php:321
@@ -3872,7 +3823,7 @@ msgstr ""
 
 #: actions/userauthorization.php:296
 #, php-format
-msgid "Listener URI ‘%s’ not found here"
+msgid "Listener URI ‘%s’ not found here."
 msgstr ""
 
 #: actions/userauthorization.php:301
@@ -3924,11 +3875,6 @@ msgstr ""
 msgid "Enjoy your hotdog!"
 msgstr ""
 
-#: actions/usergroups.php:64
-#, php-format
-msgid "%s groups, page %d"
-msgstr "Групи на %s, страница %d"
-
 #: actions/usergroups.php:130
 #, fuzzy
 msgid "Search for more groups"
@@ -3952,8 +3898,8 @@ msgstr "Статистики"
 #: actions/version.php:153
 #, php-format
 msgid ""
-"This site is powered by %s version %s, Copyright 2008-2010 StatusNet, Inc. "
-"and contributors."
+"This site is powered by %1$s version %2$s, Copyright 2008-2010 StatusNet, "
+"Inc. and contributors."
 msgstr ""
 
 #: actions/version.php:157
@@ -4131,11 +4077,6 @@ msgstr "Друго"
 #: lib/accountsettingsaction.php:128
 msgid "Other options"
 msgstr "Други настройки"
-
-#: lib/action.php:144
-#, php-format
-msgid "%s - %s"
-msgstr "%s - %s"
 
 #: lib/action.php:159
 msgid "Untitled page"
@@ -4389,7 +4330,7 @@ msgstr "Паролата е записана."
 msgid "Command results"
 msgstr "Резултат от командата"
 
-#: lib/channel.php:210
+#: lib/channel.php:210 lib/mailhandler.php:142
 msgid "Command complete"
 msgstr "Командата е изпълнена"
 
@@ -4403,7 +4344,7 @@ msgstr "За съжаление тази команда все още не се 
 
 #: lib/command.php:88
 #, fuzzy, php-format
-msgid "Could not find a user with nickname %s"
+msgid "Could not find a user with nickname %s."
 msgstr "Грешка при обновяване на потребител с потвърден email адрес."
 
 #: lib/command.php:92
@@ -4411,8 +4352,8 @@ msgid "It does not make a lot of sense to nudge yourself!"
 msgstr ""
 
 #: lib/command.php:99
-#, php-format
-msgid "Nudge sent to %s"
+#, fuzzy, php-format
+msgid "Nudge sent to %s."
 msgstr "Изпратено е побутване на %s"
 
 #: lib/command.php:126
@@ -4427,12 +4368,14 @@ msgstr ""
 "Бележки: %3$s"
 
 #: lib/command.php:152 lib/command.php:399 lib/command.php:460
-msgid "Notice with that id does not exist"
-msgstr ""
+#, fuzzy
+msgid "Notice with that id does not exist."
+msgstr "Не е открита бележка с такъв идентификатор."
 
 #: lib/command.php:168 lib/command.php:415 lib/command.php:476
 #: lib/command.php:532
-msgid "User has no last notice"
+#, fuzzy
+msgid "User has no last notice."
 msgstr "Потребителят няма последна бележка"
 
 #: lib/command.php:190
@@ -4441,13 +4384,8 @@ msgstr "Бележката е отбелязана като любима."
 
 #: lib/command.php:284
 #, fuzzy, php-format
-msgid "Could not remove user %s to group %s"
+msgid "Could not remove user %1$s to group %2$s."
 msgstr "Грешка при проследяване — потребителят не е намерен."
-
-#: lib/command.php:315
-#, php-format
-msgid "%1$s (%2$s)"
-msgstr "%1$s (%2$s)"
 
 #: lib/command.php:318
 #, php-format
@@ -4469,28 +4407,24 @@ msgstr "Домашна страница: %s"
 msgid "About: %s"
 msgstr "Относно: %s"
 
-#: lib/command.php:358 scripts/xmppdaemon.php:301
+#: lib/command.php:358
 #, fuzzy, php-format
-msgid "Message too long - maximum is %d characters, you sent %d"
+msgid "Message too long - maximum is %1$d characters, you sent %2$d."
 msgstr ""
 "Съобщението е твърде дълго. Най-много може да е 140 знака, а сте въвели %d."
+
+#: lib/command.php:376
+#, fuzzy, php-format
+msgid "Direct message to %s sent."
+msgstr "Прякото съобщение до %s е изпратено."
 
 #: lib/command.php:378
 msgid "Error sending direct message."
 msgstr "Грешка при изпращане на прякото съобщение"
 
-#: lib/command.php:422
-msgid "Cannot repeat your own notice"
-msgstr "Не можете да повтаряте собствена бележка"
-
-#: lib/command.php:427
-#, fuzzy
-msgid "Already repeated that notice"
-msgstr "Изтриване на бележката"
-
 #: lib/command.php:435
-#, php-format
-msgid "Notice from %s repeated"
+#, fuzzy, php-format
+msgid "Notice from %s repeated."
 msgstr "Бележката от %s е повторена"
 
 #: lib/command.php:437
@@ -4499,13 +4433,13 @@ msgstr "Грешка при повтаряне на бележката."
 
 #: lib/command.php:491
 #, fuzzy, php-format
-msgid "Notice too long - maximum is %d characters, you sent %d"
+msgid "Notice too long - maximum is %1$d characters, you sent %2$d."
 msgstr ""
 "Съобщението е твърде дълго. Най-много може да е 140 знака, а сте въвели %d."
 
 #: lib/command.php:500
-#, php-format
-msgid "Reply to %s sent"
+#, fuzzy, php-format
+msgid "Reply to %s sent."
 msgstr "Отговорът до %s е изпратен"
 
 #: lib/command.php:502
@@ -4513,7 +4447,8 @@ msgid "Error saving notice."
 msgstr "Грешка при записване на бележката."
 
 #: lib/command.php:556
-msgid "Specify the name of the user to subscribe to"
+#, fuzzy
+msgid "Specify the name of the user to subscribe to."
 msgstr "Уточнете името на потребителя, за когото се абонирате."
 
 #: lib/command.php:563
@@ -4522,7 +4457,8 @@ msgid "Subscribed to %s"
 msgstr "Абонирани сте за %s."
 
 #: lib/command.php:584
-msgid "Specify the name of the user to unsubscribe from"
+#, fuzzy
+msgid "Specify the name of the user to unsubscribe from."
 msgstr "Уточнете името на потребителя, от когото се отписвате."
 
 #: lib/command.php:591
@@ -4551,17 +4487,17 @@ msgid "Can't turn on notification."
 msgstr "Грешка при включване на уведомлението."
 
 #: lib/command.php:650
-msgid "Login command is disabled"
+msgid "Login command is disabled."
 msgstr ""
 
 #: lib/command.php:664
 #, fuzzy, php-format
-msgid "Could not create login token for %s"
+msgid "Could not create login token for %s."
 msgstr "Грешка при отбелязване като любима."
 
 #: lib/command.php:669
 #, php-format
-msgid "This link is useable only once, and is good for only 2 minutes: %s"
+msgid "This link is useable only once, and is good for only 2 minutes: %s."
 msgstr ""
 
 #: lib/command.php:685
@@ -5090,6 +5026,11 @@ msgstr "Това не е вашият входящ адрес."
 msgid "Sorry, no incoming email allowed."
 msgstr "Входящата поща не е разрешена."
 
+#: lib/mailhandler.php:228
+#, fuzzy, php-format
+msgid "Unsupported message type: %s"
+msgstr "Форматът на файла с изображението не се поддържа."
+
 #: lib/mediafile.php:98 lib/mediafile.php:123
 msgid "There was a database error while saving your file. Please try again."
 msgstr ""
@@ -5172,8 +5113,9 @@ msgid "Attach a file"
 msgstr "Прикрепяне на файл"
 
 #: lib/noticeform.php:212
-msgid "Share my location"
-msgstr ""
+#, fuzzy
+msgid "Share my location."
+msgstr "Грешка при запазване етикетите."
 
 #: lib/noticeform.php:214
 #, fuzzy
@@ -5601,3 +5543,9 @@ msgstr "%s не е допустим цвят!"
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
 msgstr "%s не е допустим цвят! Използвайте 3 или 6 шестнадесетични знака."
+
+#: scripts/xmppdaemon.php:301
+#, fuzzy, php-format
+msgid "Message too long - maximum is %d characters, you sent %d"
+msgstr ""
+"Съобщението е твърде дълго. Най-много може да е 140 знака, а сте въвели %d."
