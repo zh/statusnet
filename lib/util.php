@@ -166,15 +166,27 @@ function common_ensure_session()
         if (common_config('sessions', 'handle')) {
             Session::setSaveHandler();
         }
+	if (array_key_exists(session_name(), $_GET)) {
+	    $id = $_GET[session_name()];
+	    common_log(LOG_INFO, 'Setting session from GET parameter: '.$id);
+	} else if (array_key_exists(session_name(), $_COOKIE)) {
+	    $id = $_COOKIE[session_name()];
+	    common_log(LOG_INFO, 'Setting session from COOKIE: '.$id);
+	}
+	if (isset($id)) {
+	    session_id($id);
+	    setcookie(session_name(), $id);
+	}
         @session_start();
         if (!isset($_SESSION['started'])) {
             $_SESSION['started'] = time();
-            if (!empty($c)) {
+            if (!empty($id)) {
                 common_log(LOG_WARNING, 'Session cookie "' . $_COOKIE[session_name()] . '" ' .
                            ' is set but started value is null');
             }
         }
     }
+    common_debug("Session ID = " . session_id());
 }
 
 // Three kinds of arguments:
@@ -820,8 +832,19 @@ function common_path($relative, $ssl=false)
         }
     }
 
+    $relative = common_inject_session($relative, $serverpart);
+    
+    return $proto.'://'.$serverpart.'/'.$pathpart.$relative;
+}
+
+function common_inject_session($url, $serverpart = null)
+{
     if (common_have_session()) {
 
+	if (empty($serverpart)) {
+	    $serverpart = parse_url($url, PHP_URL_HOST);
+	}
+	
         $currentServer = $_SERVER['HTTP_HOST'];
 
         // Are we pointing to another server (like an SSL server?)
@@ -830,16 +853,16 @@ function common_path($relative, $ssl=false)
             0 != strcasecmp($currentServer, $serverpart)) {
             // Pass the session ID as a GET parameter
             $sesspart = session_name() . '=' . session_id();
-            $i = strpos($relative, '?');
+            $i = strpos($url, '?');
             if ($i === false) { // no GET params, just append
-                $relative .= '?' . $sesspart;
+                $url .= '?' . $sesspart;
             } else {
-                $relative = substr($relative, 0, $i + 1).$sesspart.'&'.substr($relative, $i + 1);
+                $url = substr($url, 0, $i + 1).$sesspart.'&'.substr($url, $i + 1);
             }
         }
     }
-
-    return $proto.'://'.$serverpart.'/'.$pathpart.$relative;
+    
+    return $url;
 }
 
 function common_date_string($dt)
