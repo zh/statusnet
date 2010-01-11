@@ -260,16 +260,6 @@ class RegisterAction extends Action
                 // Re-init language env in case it changed (not yet, but soon)
                 common_init_language();
 
-                if (common_config('site', 'ssl') == 'sometimes' && // mixed environment
-                    0 != strcasecmp(common_config('site', 'server'), common_config('site', 'sslserver'))) {
-
-                    $url = common_local_url('all',
-                                            array('nickname' =>
-                                                  $user->nickname));
-                    $this->redirectFromSSL($user, $url, $this->boolean('rememberme'));
-                    return;
-                }
-
                 $this->showSuccess();
             } else {
                 $this->showForm(_('Invalid username or password.'));
@@ -588,33 +578,6 @@ class RegisterAction extends Action
     {
         $nav = new LoginGroupNav($this);
         $nav->show();
-    }
-
-    function redirectFromSSL($user, $returnto, $rememberme)
-    {
-        try {
-            $login_token = Login_token::makeNew($user);
-        } catch (Exception $e) {
-            $this->serverError($e->getMessage());
-            return;
-        }
-
-        $params = array();
-
-        if (!empty($returnto)) {
-            $params['returnto'] = $returnto;
-        }
-
-        if (!empty($rememberme)) {
-            $params['rememberme'] = $rememberme;
-        }
-
-        $target = common_local_url('otp',
-                                   array('user_id' => $login_token->user_id,
-                                         'token' => $login_token->token),
-                                   $params);
-
-        common_redirect($target, 303);
     }
 }
 
