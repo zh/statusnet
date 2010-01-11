@@ -289,6 +289,7 @@ var SN = { // StatusNet
                             }
                         }
                         $('#'+form_id).resetForm();
+                        $('#'+form_id+' #'+SN.C.S.NoticeInReplyTo).val('');
                         $('#'+form_id+' #'+SN.C.S.NoticeDataAttachSelected).remove();
                         SN.U.FormNoticeEnhancements($('#'+form_id));
                     }
