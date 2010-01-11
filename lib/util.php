@@ -809,14 +809,14 @@ function common_path($relative, $ssl=false)
         } else if (common_config('site', 'server')) {
             $serverpart = common_config('site', 'server');
         } else {
-            common_log(LOG_ERR, 'Site Sever not configured, unable to determine site name.');
+            common_log(LOG_ERR, 'Site server not configured, unable to determine site name.');
         }
     } else {
         $proto = 'http';
         if (common_config('site', 'server')) {
             $serverpart = common_config('site', 'server');
         } else {
-            common_log(LOG_ERR, 'Site Sever not configured, unable to determine site name.');
+            common_log(LOG_ERR, 'Site server not configured, unable to determine site name.');
         }
     }
 
