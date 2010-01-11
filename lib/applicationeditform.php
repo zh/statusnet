@@ -333,7 +333,9 @@ class ApplicationEditForm extends Form
 
     function formActions()
     {
-        $this->out->submit('save', _('Save'));
-        $this->out->submit('cancel', _('Cancel'));
+        $this->out->submit('cancel', _('Cancel'), 'submit form_action-primary',
+            'cancel', _('Cancel'));
+        $this->out->submit('save', _('Save'), 'submit form_action-secondary',
+            'save', _('Save'));
     }
 }
