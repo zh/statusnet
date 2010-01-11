@@ -21,7 +21,7 @@
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 
 $shortoptions = 'i::n::y';
-$longoptions = array('id::nickname::yes');
+$longoptions = array('id=', 'nickname=', 'yes');
 
 $helptext = <<<END_OF_DELETEUSER_HELP
 deleteuser.php [options]
