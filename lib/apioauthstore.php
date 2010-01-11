@@ -39,19 +39,45 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
     function new_access_token($token, $consumer)
     {
         common_debug('new_access_token("'.$token->key.'","'.$consumer->key.'")', __FILE__);
-        $rt = new Token();
+
+	$rt = new Token();
         $rt->consumer_key = $consumer->key;
         $rt->tok = $token->key;
         $rt->type = 0; // request
-        if ($rt->find(true) && $rt->state == 1) { // authorized
+
+        $app = Oauth_application::getByConsumerKey($consumer->key);
+
+	if (empty($app)) {
+	    common_debug("empty app!");
+	}
+
+	if ($rt->find(true) && $rt->state == 1) { // authorized
             common_debug('request token found.', __FILE__);
-            $at = new Token();
+
+	    // find the associated user of the app
+
+	    $appUser = new Oauth_application_user();
+	    $appUser->application_id = $app->id;
+	    $appUser->token = $rt->tok;
+	    $result = $appUser->find(true);
+
+	    if (!empty($result)) {
+		common_debug("Oath app user found.");
+	    } else {
+		common_debug("Oauth app user not found.");
+		return null;
+	    }
+
+	    // go ahead and make the access token
+
+	    $at = new Token();
             $at->consumer_key = $consumer->key;
             $at->tok = common_good_rand(16);
             $at->secret = common_good_rand(16);
             $at->type = 1; // access
             $at->created = DB_DataObject_Cast::dateTime();
-            if (!$at->insert()) {
+
+	    if (!$at->insert()) {
                 $e = $at->_lastError;
                 common_debug('access token "'.$at->tok.'" not inserted: "'.$e->message.'"', __FILE__);
                 return null;
@@ -64,23 +90,23 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
                     return null;
                 }
                 common_debug('request token "'.$rt->tok.'" updated', __FILE__);
-                // Update subscription
-                // XXX: mixing levels here
-                $sub = Subscription::staticGet('token', $rt->tok);
-                if (!$sub) {
-                    return null;
-                }
-                common_debug('subscription for request token found', __FILE__);
-                $orig_sub = clone($sub);
-                $sub->token = $at->tok;
-                $sub->secret = $at->secret;
-                if (!$sub->update($orig_sub)) {
-                    return null;
-                } else {
-                    common_debug('subscription updated to use access token', __FILE__);
-                    return new OAuthToken($at->tok, $at->secret);
-                }
-            }
+
+		// update the token from req to access for the user
+
+	        $orig = clone($appUser);
+		$appUser->token = $at->tok;
+		$result = $appUser->update($orig);
+
+		if (empty($result)) {
+		    common_debug('couldn\'t update OAuth app user.');
+		    return null;
+		}
+
+		// Okay, good
+
+		return new OAuthToken($at->tok, $at->secret);
+	    }
+
         } else {
             return null;
         }
