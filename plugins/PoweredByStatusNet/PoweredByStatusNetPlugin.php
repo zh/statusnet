@@ -57,7 +57,7 @@ class PoweredByStatusNetPlugin extends Plugin
     {
         $versions[] = array('name' => 'PoweredByStatusNet',
                             'version' => STATUSNET_VERSION,
-                            'author' => 'Sarven Capdaisli',
+                            'author' => 'Sarven Capadisli',
                             'homepage' => 'http://status.net/wiki/Plugin:PoweredByStatusNet',
                             'rawdescription' =>
                             _m('Outputs powered by <a href="http://status.net/">StatusNet</a> after site name.'));
