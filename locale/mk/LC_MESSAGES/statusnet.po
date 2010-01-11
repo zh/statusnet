@@ -10,11 +10,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-10 11:27+0000\n"
-"PO-Revision-Date: 2010-01-10 11:28:39+0000\n"
+"PO-Revision-Date: 2010-01-11 00:20:58+0000\n"
 "Language-Team: Macedonian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60888); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r60910); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: out-statusnet\n"
@@ -267,18 +267,16 @@ msgid "No status found with that ID."
 msgstr "Нема пронајдено статус со таков ID."
 
 #: actions/apifavoritecreate.php:119
-#, fuzzy
 msgid "This status is already a favorite."
-msgstr "Овој статус веќе Ви е омилен!"
+msgstr "Овој статус веќе Ви е омилен."
 
 #: actions/apifavoritecreate.php:130 actions/favor.php:84 lib/command.php:176
 msgid "Could not create favorite."
 msgstr "Не можам да создадам омилина забелешка."
 
 #: actions/apifavoritedestroy.php:122
-#, fuzzy
 msgid "That status is not a favorite."
-msgstr "Тој статус не Ви е омилен!"
+msgstr "Тој статус не Ви е омилен."
 
 #: actions/apifavoritedestroy.php:134 actions/disfavor.php:87
 msgid "Could not delete favorite."
@@ -299,9 +297,8 @@ msgstr ""
 "Не можам да престанам да го следам корисникот: Корисникот не е пронајден."
 
 #: actions/apifriendshipsdestroy.php:120
-#, fuzzy
 msgid "You cannot unfollow yourself."
-msgstr "Не можете да престанете да се следите самите себеси!"
+msgstr "Не можете да престанете да се следите самите себеси."
 
 #: actions/apifriendshipsexists.php:94
 msgid "Two user ids or screen_names must be supplied."
@@ -990,9 +987,8 @@ msgstr "Мора да сте најавени за да можете да соз
 
 #: actions/editgroup.php:103 actions/editgroup.php:168
 #: actions/groupdesignsettings.php:104 actions/grouplogo.php:106
-#, fuzzy
 msgid "You must be an admin to edit the group."
-msgstr "Мора да сте администратор за да можете да ја уредите групата"
+msgstr "Мора да сте администратор за да можете да ја уредите групата."
 
 #: actions/editgroup.php:154
 msgid "Use this form to edit the group."
@@ -1016,9 +1012,8 @@ msgid "Options saved."
 msgstr "Нагодувањата се зачувани."
 
 #: actions/emailsettings.php:60
-#, fuzzy
 msgid "Email settings"
-msgstr "Нагодувња за е-пошта"
+msgstr "Нагодувања за е-пошта"
 
 #: actions/emailsettings.php:71
 #, php-format
@@ -1054,9 +1049,8 @@ msgid "Cancel"
 msgstr "Откажи"
 
 #: actions/emailsettings.php:121
-#, fuzzy
 msgid "Email address"
-msgstr "Е-поштенски адреси"
+msgstr "Е-поштенска адреса"
 
 #: actions/emailsettings.php:123
 msgid "Email address, like \"UserName@example.org\""
@@ -1426,9 +1420,8 @@ msgstr ""
 "големина на податотеката е %s."
 
 #: actions/grouplogo.php:178
-#, fuzzy
 msgid "User without matching profile."
-msgstr "Корисник без соодветен профил"
+msgstr "Корисник без соодветен профил."
 
 #: actions/grouplogo.php:362
 msgid "Pick a square area of the image to be the logo."
@@ -1560,7 +1553,6 @@ msgid "Error removing the block."
 msgstr "Грешка при отстранување на блокот."
 
 #: actions/imsettings.php:59
-#, fuzzy
 msgid "IM settings"
 msgstr "Нагодувања за IM"
 
@@ -1592,7 +1584,6 @@ msgstr ""
 "пријатели?)"
 
 #: actions/imsettings.php:124
-#, fuzzy
 msgid "IM address"
 msgstr "IM адреса"
 
@@ -1907,14 +1898,14 @@ msgid "%1$s is already an admin for group \"%2$s\"."
 msgstr "%1$s веќе е администратор на групата „%2$s“."
 
 #: actions/makeadmin.php:132
-#, fuzzy, php-format
+#, php-format
 msgid "Can't get membership record for %1$s in group %2$s."
-msgstr "Не можам да добијам евиденција за членство на %1$s во групата %2$s"
+msgstr "Не можам да добијам евиденција за членство на %1$s во групата %2$s."
 
 #: actions/makeadmin.php:145
-#, fuzzy, php-format
+#, php-format
 msgid "Can't make %1$s an admin for group %2$s."
-msgstr "Не можам да го направам корисникот %1$s администратор на групата %2$s"
+msgstr "Не можам да го направам корисникот %1$s администратор на групата %2$s."
 
 #: actions/microsummary.php:69
 msgid "No current status"
@@ -2295,7 +2286,6 @@ msgid "When to use SSL"
 msgstr "Кога се користи SSL"
 
 #: actions/pathsadminpanel.php:308
-#, fuzzy
 msgid "SSL server"
 msgstr "SSL-сервер"
 
@@ -3255,12 +3245,11 @@ msgid "Site name must have non-zero length."
 msgstr "Должината на името на веб-страницата не може да изнесува нула."
 
 #: actions/siteadminpanel.php:154
-#, fuzzy
 msgid "You must have a valid contact email address."
-msgstr "Мора да имате важечка контактна е-поштенска адреса"
+msgstr "Мора да имате важечка контактна е-поштенска адреса."
 
 #: actions/siteadminpanel.php:172
-#, fuzzy, php-format
+#, php-format
 msgid "Unknown language \"%s\"."
 msgstr "Непознат јазик „%s“"
 
@@ -3449,7 +3438,6 @@ msgid "Save site settings"
 msgstr "Зачувај нагодувања на веб-страницата"
 
 #: actions/smssettings.php:58
-#, fuzzy
 msgid "SMS settings"
 msgstr "Нагодувања за СМС"
 
@@ -3479,7 +3467,6 @@ msgid "Enter the code you received on your phone."
 msgstr "Внесете го кодот што го добивте по телефон."
 
 #: actions/smssettings.php:138
-#, fuzzy
 msgid "SMS phone number"
 msgstr "Телефонски број за СМС"
 
@@ -4461,7 +4448,7 @@ msgid "Could not remove user %1$s to group %2$s."
 msgstr "Не можев да го отстранам корисникот %1$s од групата %2$s."
 
 #: lib/command.php:318
-#, fuzzy, php-format
+#, php-format
 msgid "Full name: %s"
 msgstr "Име и презиме: %s"
 
@@ -4976,11 +4963,9 @@ msgstr ""
 "$s\n"
 
 #: lib/mail.php:258
-#, fuzzy, php-format
+#, php-format
 msgid "Bio: %s"
-msgstr ""
-"Биографија: %s\n"
-"\n"
+msgstr "Биографија: %s"
 
 #: lib/mail.php:286
 #, php-format
@@ -5236,18 +5221,16 @@ msgid "File upload stopped by extension."
 msgstr "Подигањето на податотеката е запрено од проширувањето."
 
 #: lib/mediafile.php:179 lib/mediafile.php:216
-#, fuzzy
 msgid "File exceeds user's quota."
-msgstr "Податотеката ја надминува квотата на корисникот!"
+msgstr "Податотеката ја надминува квотата на корисникот."
 
 #: lib/mediafile.php:196 lib/mediafile.php:233
 msgid "File could not be moved to destination directory."
 msgstr "Податотеката не може да се премести во целниот директориум."
 
 #: lib/mediafile.php:201 lib/mediafile.php:237
-#, fuzzy
 msgid "Could not determine file's MIME type."
-msgstr "Не можев да го утврдам mime-типот на податотеката!"
+msgstr "Не можев да го утврдам mime-типот на податотеката."
 
 #: lib/mediafile.php:270
 #, php-format
@@ -5255,7 +5238,7 @@ msgid " Try using another %s format."
 msgstr "  Обидете се со друг формат на %s."
 
 #: lib/mediafile.php:275
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not a supported file type on this server."
 msgstr "%s не е поддржан тип на податотека на овој сервер."
 
