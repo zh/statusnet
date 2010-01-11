@@ -820,6 +820,25 @@ function common_path($relative, $ssl=false)
         }
     }
 
+    if (common_have_session()) {
+
+        $currentServer = $_SERVER['HTTP_HOST'];
+
+        // Are we pointing to another server (like an SSL server?)
+
+        if (!empty($currentServer) &&
+            0 != strcasecmp($currentServer, $serverpart)) {
+            // Pass the session ID as a GET parameter
+            $sesspart = session_name() . '=' . session_id();
+            $i = strpos($relative, '?');
+            if ($i === false) { // no GET params, just append
+                $relative .= '?' . $sesspart;
+            } else {
+                $relative = substr($relative, 0, $i + 1).$sesspart.'&'.substr($relative, $i + 1);
+            }
+        }
+    }
+
     return $proto.'://'.$serverpart.'/'.$pathpart.$relative;
 }
 
