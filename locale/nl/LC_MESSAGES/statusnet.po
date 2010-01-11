@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-10 11:27+0000\n"
-"PO-Revision-Date: 2010-01-11 00:21:09+0000\n"
+"POT-Creation-Date: 2010-01-11 23:25+0000\n"
+"PO-Revision-Date: 2010-01-11 23:27:46+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60910); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r60950); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: out-statusnet\n"
@@ -40,7 +40,7 @@ msgstr "Deze pagina bestaat niet"
 #: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
 #: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
 #: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
-#: actions/microsummary.php:62 actions/newmessage.php:116
+#: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:76
 #: actions/remotesubscribe.php:145 actions/remotesubscribe.php:154
 #: actions/replies.php:73 actions/repliesrss.php:38
 #: actions/showfavorites.php:105 actions/userbyid.php:74
@@ -389,7 +389,7 @@ msgstr "Een alias kan niet hetzelfde zijn als de gebruikersnaam."
 msgid "Group not found!"
 msgstr "De groep is niet aangetroffen!"
 
-#: actions/apigroupjoin.php:110 actions/joingroup.php:90 lib/command.php:217
+#: actions/apigroupjoin.php:110 actions/joingroup.php:90
 msgid "You are already a member of that group."
 msgstr "U bent al lid van die groep."
 
@@ -397,7 +397,7 @@ msgstr "U bent al lid van die groep."
 msgid "You have been blocked from that group by the admin."
 msgstr "Een beheerder heeft ingesteld dat u geen lid mag worden van die groep."
 
-#: actions/apigroupjoin.php:138 actions/joingroup.php:128 lib/command.php:234
+#: actions/apigroupjoin.php:138 actions/joingroup.php:128
 #, php-format
 msgid "Could not join user %1$s to group %2$s."
 msgstr "Het was niet mogelijk gebruiker %1$s toe te voegen aan de groep %2$s."
@@ -439,11 +439,11 @@ msgstr "U kunt de status van een andere gebruiker niet verwijderen."
 msgid "No such notice."
 msgstr "De mededeling bestaat niet."
 
-#: actions/apistatusesretweet.php:83 lib/command.php:422
+#: actions/apistatusesretweet.php:83
 msgid "Cannot repeat your own notice."
 msgstr "U kunt uw eigen mededeling niet herhalen."
 
-#: actions/apistatusesretweet.php:91 lib/command.php:427
+#: actions/apistatusesretweet.php:91
 msgid "Already repeated that notice."
 msgstr "U hebt die mededeling al herhaald."
 
@@ -616,7 +616,7 @@ msgstr "Uitsnijden"
 #: actions/disfavor.php:74 actions/emailsettings.php:238 actions/favor.php:75
 #: actions/geocode.php:50 actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
-#: actions/invite.php:56 actions/login.php:135 actions/makeadmin.php:66
+#: actions/invite.php:56 actions/login.php:115 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:194 actions/recoverpassword.php:337
@@ -1814,7 +1814,7 @@ msgstr ""
 msgid "You must be logged in to join a group."
 msgstr "U moet aangemeld zijn om lid te worden van een groep."
 
-#: actions/joingroup.php:135 lib/command.php:239
+#: actions/joingroup.php:135
 #, php-format
 msgid "%1$s joined group %2$s"
 msgstr "%1$s is lid geworden van de groep %2$s"
@@ -1831,62 +1831,58 @@ msgstr "U bent geen lid van deze groep"
 msgid "Could not find membership record."
 msgstr "Er is geen groepslidmaatschap aangetroffen."
 
-#: actions/leavegroup.php:134 lib/command.php:289
+#: actions/leavegroup.php:134
 #, php-format
 msgid "%1$s left group %2$s"
 msgstr "%1$s heeft de groep %2$s verlaten"
 
-#: actions/login.php:83 actions/register.php:137
+#: actions/login.php:80 actions/otp.php:62 actions/register.php:137
 msgid "Already logged in."
 msgstr "U bent al aangemeld."
 
-#: actions/login.php:114 actions/login.php:124
-msgid "Invalid or expired token."
-msgstr "Het token is ongeldig of verlopen."
-
-#: actions/login.php:147
+#: actions/login.php:126
 msgid "Incorrect username or password."
 msgstr "De gebruikersnaam of wachtwoord is onjuist."
 
-#: actions/login.php:153
+#: actions/login.php:132 actions/otp.php:120
 msgid "Error setting user. You are probably not authorized."
 msgstr ""
 "Er is een fout opgetreden bij het maken van de instellingen. U hebt "
 "waarschijnlijk niet de juiste rechten."
 
-#: actions/login.php:208 actions/login.php:261 lib/action.php:460
+#: actions/login.php:188 actions/login.php:241 lib/action.php:460
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Aanmelden"
 
-#: actions/login.php:247
+#: actions/login.php:227
 msgid "Login to site"
 msgstr "Aanmelden"
 
-#: actions/login.php:250 actions/profilesettings.php:106
-#: actions/register.php:423 actions/showgroup.php:236 actions/tagother.php:94
+#: actions/login.php:230 actions/profilesettings.php:106
+#: actions/register.php:424 actions/showgroup.php:236 actions/tagother.php:94
 #: lib/groupeditform.php:152 lib/userprofile.php:131
 msgid "Nickname"
 msgstr "Gebruikersnaam"
 
-#: actions/login.php:253 actions/register.php:428
+#: actions/login.php:233 actions/register.php:429
 #: lib/accountsettingsaction.php:116
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: actions/login.php:256 actions/register.php:477
+#: actions/login.php:236 actions/register.php:478
 msgid "Remember me"
 msgstr "Aanmeldgegevens onthouden"
 
-#: actions/login.php:257 actions/register.php:479
+#: actions/login.php:237 actions/register.php:480
 msgid "Automatically login in the future; not for shared computers!"
 msgstr "Voortaan automatisch aanmelden. Niet gebruiken op gedeelde computers!"
 
-#: actions/login.php:267
+#: actions/login.php:247
 msgid "Lost or forgotten password?"
 msgstr "Wachtwoord kwijt of vergeten?"
 
-#: actions/login.php:286
+#: actions/login.php:266
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
@@ -1894,7 +1890,7 @@ msgstr ""
 "Om veiligheidsredenen moet u uw gebruikersnaam en wachtwoord nogmaals "
 "invoeren alvorens u uw instellingen kunt wijzigen."
 
-#: actions/login.php:290
+#: actions/login.php:270
 #, php-format
 msgid ""
 "Login with your username and password. Don't have a username yet? [Register]"
@@ -1960,7 +1956,7 @@ msgstr "Stuur geen berichten naar uzelf. Zeg het gewoon in uw hoofd."
 msgid "Message sent"
 msgstr "Bericht verzonden."
 
-#: actions/newmessage.php:185 lib/command.php:376
+#: actions/newmessage.php:185
 #, php-format
 msgid "Direct message to %s sent."
 msgstr "Het directe bericht aan %s is verzonden."
@@ -2056,8 +2052,8 @@ msgstr "inhoudstype "
 msgid "Only "
 msgstr "Alleen "
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1031
-#: lib/api.php:1059 lib/api.php:1169
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1033
+#: lib/api.php:1061 lib/api.php:1171
 msgid "Not a supported data format."
 msgstr "Geen ondersteund gegevensformaat."
 
@@ -2101,6 +2097,31 @@ msgstr "Profielontwerpen weergeven of verbergen"
 msgid "URL shortening service is too long (max 50 chars)."
 msgstr "De URL voor de verkortingdienst is te lang (maximaal 50 tekens)."
 
+#: actions/otp.php:69
+#, fuzzy
+msgid "No user ID specified."
+msgstr "Er is geen groep aangegeven."
+
+#: actions/otp.php:83
+#, fuzzy
+msgid "No login token specified."
+msgstr "Er is geen mededeling opgegeven."
+
+#: actions/otp.php:90
+#, fuzzy
+msgid "No login token requested."
+msgstr "Het profiel-ID was niet aanwezig in het verzoek."
+
+#: actions/otp.php:95
+#, fuzzy
+msgid "Invalid login token specified."
+msgstr "Het token is ongeldig of verlopen."
+
+#: actions/otp.php:104
+#, fuzzy
+msgid "Login token expired."
+msgstr "Aanmelden"
+
 #: actions/outbox.php:61
 #, php-format
 msgid "Outbox for %s"
@@ -2135,7 +2156,7 @@ msgid "6 or more characters"
 msgstr "Zes of meer tekens"
 
 #: actions/passwordsettings.php:112 actions/recoverpassword.php:239
-#: actions/register.php:432 actions/smssettings.php:134
+#: actions/register.php:433 actions/smssettings.php:134
 msgid "Confirm"
 msgstr "Bevestigen"
 
@@ -2362,42 +2383,42 @@ msgstr "Profielinformatie"
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr "1-64 kleine letters of cijfers, geen leestekens of spaties"
 
-#: actions/profilesettings.php:111 actions/register.php:447
+#: actions/profilesettings.php:111 actions/register.php:448
 #: actions/showgroup.php:247 actions/tagother.php:104
 #: lib/groupeditform.php:157 lib/userprofile.php:149
 msgid "Full name"
 msgstr "Volledige naam"
 
-#: actions/profilesettings.php:115 actions/register.php:452
+#: actions/profilesettings.php:115 actions/register.php:453
 #: lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "Thuispagina"
 
-#: actions/profilesettings.php:117 actions/register.php:454
+#: actions/profilesettings.php:117 actions/register.php:455
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr "De URL van uw thuispagina, blog of profiel bij een andere website"
 
-#: actions/profilesettings.php:122 actions/register.php:460
+#: actions/profilesettings.php:122 actions/register.php:461
 #, php-format
 msgid "Describe yourself and your interests in %d chars"
 msgstr "Geef een beschrijving van uzelf en uw interesses in %d tekens"
 
-#: actions/profilesettings.php:125 actions/register.php:463
+#: actions/profilesettings.php:125 actions/register.php:464
 msgid "Describe yourself and your interests"
 msgstr "Beschrijf uzelf en uw interesses"
 
-#: actions/profilesettings.php:127 actions/register.php:465
+#: actions/profilesettings.php:127 actions/register.php:466
 msgid "Bio"
 msgstr "Beschrijving"
 
-#: actions/profilesettings.php:132 actions/register.php:470
+#: actions/profilesettings.php:132 actions/register.php:471
 #: actions/showgroup.php:256 actions/tagother.php:112
 #: actions/userauthorization.php:158 lib/groupeditform.php:177
 #: lib/userprofile.php:164
 msgid "Location"
 msgstr "Locatie"
 
-#: actions/profilesettings.php:134 actions/register.php:472
+#: actions/profilesettings.php:134 actions/register.php:473
 msgid "Where you are, like \"City, State (or Region), Country\""
 msgstr "Waar u bent, bijvoorbeeld \"woonplaats, land\" of \"postcode, land\""
 
@@ -2717,7 +2738,7 @@ msgstr "Er is een fout opgetreden tijdens het instellen van de gebruiker."
 msgid "New password successfully saved. You are now logged in."
 msgstr "Het nieuwe wachtwoord is opgeslagen. U bent nu aangemeld."
 
-#: actions/register.php:85 actions/register.php:189 actions/register.php:404
+#: actions/register.php:85 actions/register.php:189 actions/register.php:405
 msgid "Sorry, only invited people can register."
 msgstr "U kunt zich alleen registreren als u wordt uitgenodigd."
 
@@ -2729,7 +2750,7 @@ msgstr "Sorry. De uitnodigingscode is ongeldig."
 msgid "Registration successful"
 msgstr "De registratie is voltooid"
 
-#: actions/register.php:114 actions/register.php:502 lib/action.php:457
+#: actions/register.php:114 actions/register.php:503 lib/action.php:457
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Registreren"
@@ -2746,11 +2767,11 @@ msgstr "U kunt zich niet registreren als u niet met de licentie akkoord gaat."
 msgid "Email address already exists."
 msgstr "Het e-mailadres bestaat al."
 
-#: actions/register.php:243 actions/register.php:264
+#: actions/register.php:243 actions/register.php:265
 msgid "Invalid username or password."
 msgstr "Ongeldige gebruikersnaam of wachtwoord."
 
-#: actions/register.php:342
+#: actions/register.php:343
 msgid ""
 "With this form you can create  a new account. You can then post notices and "
 "link up to friends and colleagues. "
@@ -2758,40 +2779,40 @@ msgstr ""
 "Via dit formulier kunt u een nieuwe gebruiker aanmaken. Daarna kunt u "
 "mededelingen uitsturen en contact maken met vrienden en collega's. "
 
-#: actions/register.php:424
+#: actions/register.php:425
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
 msgstr "1-64 kleine letters of cijfers, geen leestekens of spaties. Verplicht."
 
-#: actions/register.php:429
+#: actions/register.php:430
 msgid "6 or more characters. Required."
 msgstr "Zes of meer tekens. Verplicht"
 
-#: actions/register.php:433
+#: actions/register.php:434
 msgid "Same as password above. Required."
 msgstr "Gelijk aan het wachtwoord hierboven. Verplicht"
 
-#: actions/register.php:437 actions/register.php:441
+#: actions/register.php:438 actions/register.php:442
 #: actions/siteadminpanel.php:270 lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr "E-mail"
 
-#: actions/register.php:438 actions/register.php:442
+#: actions/register.php:439 actions/register.php:443
 msgid "Used only for updates, announcements, and password recovery"
 msgstr "Alleen gebruikt voor updates, aankondigingen en wachtwoordherstel"
 
-#: actions/register.php:449
+#: actions/register.php:450
 msgid "Longer name, preferably your \"real\" name"
 msgstr "Een langere naam, mogelijk uw echte naam"
 
-#: actions/register.php:493
+#: actions/register.php:494
 msgid "My text and files are available under "
 msgstr "Mijn teksten en bestanden zijn beschikbaar onder "
 
-#: actions/register.php:495
+#: actions/register.php:496
 msgid "Creative Commons Attribution 3.0"
 msgstr "Creative Commons Naamsvermelding 3.0"
 
-#: actions/register.php:496
+#: actions/register.php:497
 msgid ""
 " except this private data: password, email address, IM address, and phone "
 "number."
@@ -2799,7 +2820,7 @@ msgstr ""
 " behalve de volgende privégegevens: wachtwoord, e-mailadres, IM-adres, "
 "telefoonnummer."
 
-#: actions/register.php:537
+#: actions/register.php:538
 #, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -2833,7 +2854,7 @@ msgstr ""
 "Dank u wel voor het registreren en we hopen dat deze dienst u biedt wat u "
 "ervan verwacht."
 
-#: actions/register.php:561
+#: actions/register.php:562
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
@@ -4051,7 +4072,7 @@ msgstr "Auteur(s)"
 msgid "Description"
 msgstr "Beschrijving"
 
-#: classes/File.php:137
+#: classes/File.php:144
 #, php-format
 msgid ""
 "No file may be larger than %d bytes and the file you sent was %d bytes. Try "
@@ -4060,17 +4081,22 @@ msgstr ""
 "Bestanden mogen niet groter zijn dan %d bytes, en uw bestand was %d bytes. "
 "Probeer een kleinere versie te uploaden."
 
-#: classes/File.php:147
+#: classes/File.php:154
 #, php-format
 msgid "A file this large would exceed your user quota of %d bytes."
 msgstr ""
 "Een bestand van deze grootte overschijdt uw gebruikersquota van %d bytes."
 
-#: classes/File.php:154
+#: classes/File.php:161
 #, php-format
 msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
 "Een bestand van deze grootte overschijdt uw maandelijkse quota van %d bytes."
+
+#: classes/Login_token.php:76
+#, fuzzy, php-format
+msgid "Could not create login token for %s"
+msgstr "Het was niet mogelijk een aanmeldtoken aan te maken voor %s."
 
 #: classes/Message.php:45
 msgid "You are banned from sending direct messages."
@@ -4176,6 +4202,11 @@ msgstr "Overige"
 #: lib/accountsettingsaction.php:128
 msgid "Other options"
 msgstr "Overige instellingen"
+
+#: lib/action.php:144
+#, fuzzy, php-format
+msgid "%1$s - %2$s"
+msgstr "%1$s (%2$s)"
 
 #: lib/action.php:159
 msgid "Untitled page"
@@ -4432,8 +4463,8 @@ msgid "Sorry, this command is not yet implemented."
 msgstr "Dit commando is nog niet geïmplementeerd."
 
 #: lib/command.php:88
-#, php-format
-msgid "Could not find a user with nickname %s."
+#, fuzzy, php-format
+msgid "Could not find a user with nickname %s"
 msgstr "De gebruiker %s is niet aangetroffen."
 
 #: lib/command.php:92
@@ -4441,8 +4472,8 @@ msgid "It does not make a lot of sense to nudge yourself!"
 msgstr "Het heeft niet zoveel zin om uzelf te porren..."
 
 #: lib/command.php:99
-#, php-format
-msgid "Nudge sent to %s."
+#, fuzzy, php-format
+msgid "Nudge sent to %s"
 msgstr "De por naar %s is verzonden."
 
 #: lib/command.php:126
@@ -4457,26 +4488,48 @@ msgstr ""
 "Mededelingen: %3$s"
 
 #: lib/command.php:152 lib/command.php:399 lib/command.php:460
-msgid "Notice with that id does not exist."
+#, fuzzy
+msgid "Notice with that id does not exist"
 msgstr "Er bestaat geen mededeling met dat ID."
 
 #: lib/command.php:168 lib/command.php:415 lib/command.php:476
 #: lib/command.php:532
-msgid "User has no last notice."
+#, fuzzy
+msgid "User has no last notice"
 msgstr "Deze gebruiker heeft geen laatste mededeling."
 
 #: lib/command.php:190
 msgid "Notice marked as fave."
 msgstr "De mededeling is op de favorietenlijst geplaatst."
 
+#: lib/command.php:217
+#, fuzzy
+msgid "You are already a member of that group"
+msgstr "U bent al lid van die groep."
+
+#: lib/command.php:234
+#, fuzzy, php-format
+msgid "Could not join user %s to group %s"
+msgstr "Het was niet mogelijk gebruiker %1$s toe te voegen aan de groep %2$s."
+
+#: lib/command.php:239
+#, fuzzy, php-format
+msgid "%s joined group %s"
+msgstr "%1$s is lid geworden van de groep %2$s"
+
 #: lib/command.php:284
-#, php-format
-msgid "Could not remove user %1$s to group %2$s."
+#, fuzzy, php-format
+msgid "Could not remove user %s to group %s"
 msgstr "De gebruiker %1$s kon niet uit de groep %2$s verwijderd worden."
 
+#: lib/command.php:289
+#, fuzzy, php-format
+msgid "%s left group %s"
+msgstr "%1$s heeft de groep %2$s verlaten"
+
 #: lib/command.php:318
-#, php-format
-msgid "Full name: %s"
+#, fuzzy, php-format
+msgid "Fullname: %s"
 msgstr "Volledige naam: %s"
 
 #: lib/command.php:321 lib/mail.php:254
@@ -4494,20 +4547,35 @@ msgstr "Thuispagina: %s"
 msgid "About: %s"
 msgstr "Over: %s"
 
-#: lib/command.php:358 scripts/xmppdaemon.php:301
-#, php-format
-msgid "Message too long - maximum is %1$d characters, you sent %2$d."
+#: lib/command.php:358
+#, fuzzy, php-format
+msgid "Message too long - maximum is %d characters, you sent %d"
 msgstr ""
 "Het bericht te is lang. De maximale lengte is %1$d tekens. De lengte van uw "
 "bericht was %2$d."
+
+#: lib/command.php:376
+#, fuzzy, php-format
+msgid "Direct message to %s sent"
+msgstr "Het directe bericht aan %s is verzonden."
 
 #: lib/command.php:378
 msgid "Error sending direct message."
 msgstr "Er is een fout opgetreden bij het verzonden van het directe bericht."
 
+#: lib/command.php:422
+#, fuzzy
+msgid "Cannot repeat your own notice"
+msgstr "U kunt uw eigen mededeling niet herhalen."
+
+#: lib/command.php:427
+#, fuzzy
+msgid "Already repeated that notice"
+msgstr "U hebt die mededeling al herhaald."
+
 #: lib/command.php:435
-#, php-format
-msgid "Notice from %s repeated."
+#, fuzzy, php-format
+msgid "Notice from %s repeated"
 msgstr "De mededeling van %s is herhaald."
 
 #: lib/command.php:437
@@ -4515,15 +4583,15 @@ msgid "Error repeating notice."
 msgstr "Er is een fout opgetreden bij het herhalen van de mededeling."
 
 #: lib/command.php:491
-#, php-format
-msgid "Notice too long - maximum is %1$d characters, you sent %2$d."
+#, fuzzy, php-format
+msgid "Notice too long - maximum is %d characters, you sent %d"
 msgstr ""
 "De mededeling is te lang. De maximale lengte is %1$d tekens. Uw mededeling "
 "bevatte %2$d tekens."
 
 #: lib/command.php:500
-#, php-format
-msgid "Reply to %s sent."
+#, fuzzy, php-format
+msgid "Reply to %s sent"
 msgstr "Het antwoord aan %s is verzonden."
 
 #: lib/command.php:502
@@ -4531,7 +4599,8 @@ msgid "Error saving notice."
 msgstr "Er is een fout opgetreden bij het opslaan van de mededeling."
 
 #: lib/command.php:556
-msgid "Specify the name of the user to subscribe to."
+#, fuzzy
+msgid "Specify the name of the user to subscribe to"
 msgstr "Geef de naam op van de gebruiker waarop u wilt abonneren."
 
 #: lib/command.php:563
@@ -4540,7 +4609,8 @@ msgid "Subscribed to %s"
 msgstr "Geabonneerd op %s"
 
 #: lib/command.php:584
-msgid "Specify the name of the user to unsubscribe from."
+#, fuzzy
+msgid "Specify the name of the user to unsubscribe from"
 msgstr ""
 "Geef de naam op van de gebruiker waarvoor u het abonnement wilt opzeggen."
 
@@ -4570,52 +4640,48 @@ msgid "Can't turn on notification."
 msgstr "Het is niet mogelijk de notificatie uit te schakelen."
 
 #: lib/command.php:650
-msgid "Login command is disabled."
+#, fuzzy
+msgid "Login command is disabled"
 msgstr "Het aanmeldcommando is uitgeschakeld."
 
-#: lib/command.php:664
-#, php-format
-msgid "Could not create login token for %s."
-msgstr "Het was niet mogelijk een aanmeldtoken aan te maken voor %s."
-
-#: lib/command.php:669
-#, php-format
-msgid "This link is useable only once, and is good for only 2 minutes: %s."
+#: lib/command.php:661
+#, fuzzy, php-format
+msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 "Deze verwijzing kan slechts één keer gebruikt worden en is twee minuten "
 "geldig: %s."
 
-#: lib/command.php:685
+#: lib/command.php:677
 msgid "You are not subscribed to anyone."
 msgstr "U bent op geen enkele gebruiker geabonneerd."
 
-#: lib/command.php:687
+#: lib/command.php:679
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "U bent geabonneerd op deze gebruiker:"
 msgstr[1] "U bent geabonneerd op deze gebruikers:"
 
-#: lib/command.php:707
+#: lib/command.php:699
 msgid "No one is subscribed to you."
 msgstr "Niemand heeft een abonnenment op u."
 
-#: lib/command.php:709
+#: lib/command.php:701
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Deze gebruiker is op u geabonneerd:"
 msgstr[1] "Deze gebruikers zijn op u geabonneerd:"
 
-#: lib/command.php:729
+#: lib/command.php:721
 msgid "You are not a member of any groups."
 msgstr "U bent lid van geen enkele groep."
 
-#: lib/command.php:731
+#: lib/command.php:723
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "U bent lid van deze groep:"
 msgstr[1] "U bent lid van deze groepen:"
 
-#: lib/command.php:745
+#: lib/command.php:737
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5305,11 +5371,13 @@ msgid "Attach a file"
 msgstr "Bestand toevoegen"
 
 #: lib/noticeform.php:212
-msgid "Share my location."
+#, fuzzy
+msgid "Share my location"
 msgstr "Mijn locatie bekend maken."
 
 #: lib/noticeform.php:214
-msgid "Do not share my location."
+#, fuzzy
+msgid "Do not share my location"
 msgstr "Mijn locatie niet bekend maken."
 
 #: lib/noticeform.php:215
@@ -5664,47 +5732,47 @@ msgstr "Bericht"
 msgid "Moderate"
 msgstr "Modereren"
 
-#: lib/util.php:837
+#: lib/util.php:884
 msgid "a few seconds ago"
 msgstr "een paar seconden geleden"
 
-#: lib/util.php:839
+#: lib/util.php:886
 msgid "about a minute ago"
 msgstr "ongeveer een minuut geleden"
 
-#: lib/util.php:841
+#: lib/util.php:888
 #, php-format
 msgid "about %d minutes ago"
 msgstr "ongeveer %d minuten geleden"
 
-#: lib/util.php:843
+#: lib/util.php:890
 msgid "about an hour ago"
 msgstr "ongeveer een uur geleden"
 
-#: lib/util.php:845
+#: lib/util.php:892
 #, php-format
 msgid "about %d hours ago"
 msgstr "ongeveer %d uur geleden"
 
-#: lib/util.php:847
+#: lib/util.php:894
 msgid "about a day ago"
 msgstr "ongeveer een dag geleden"
 
-#: lib/util.php:849
+#: lib/util.php:896
 #, php-format
 msgid "about %d days ago"
 msgstr "ongeveer %d dagen geleden"
 
-#: lib/util.php:851
+#: lib/util.php:898
 msgid "about a month ago"
 msgstr "ongeveer een maand geleden"
 
-#: lib/util.php:853
+#: lib/util.php:900
 #, php-format
 msgid "about %d months ago"
 msgstr "ongeveer %d maanden geleden"
 
-#: lib/util.php:855
+#: lib/util.php:902
 msgid "about a year ago"
 msgstr "ongeveer een jaar geleden"
 
@@ -5717,3 +5785,10 @@ msgstr "%s is geen geldige kleur."
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
 msgstr "%s is geen geldige kleur. Gebruik drie of zes hexadecimale tekens."
+
+#: scripts/xmppdaemon.php:301
+#, php-format
+msgid "Message too long - maximum is %1$d characters, you sent %2$d."
+msgstr ""
+"Het bericht te is lang. De maximale lengte is %1$d tekens. De lengte van uw "
+"bericht was %2$d."
