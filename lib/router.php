@@ -50,7 +50,8 @@ class Router
     var $m = null;
     static $inst = null;
     static $bare = array('requesttoken', 'accesstoken', 'userauthorization',
-                         'postnotice', 'updateprofile', 'finishremotesubscribe');
+                         'postnotice', 'updateprofile', 'finishremotesubscribe',
+			 'apioauthrequesttoken', 'apioauthaccesstoken');
 
     static function get()
     {
@@ -144,7 +145,7 @@ class Router
                            'email', 'sms', 'userdesign', 'other') as $s) {
                 $m->connect('settings/'.$s, array('action' => $s.'settings'));
             }
-        
+
             // search
 
             foreach (array('group', 'people', 'notice') as $s) {
@@ -640,11 +641,11 @@ class Router
                             array('action' => $a),
                             array('nickname' => '[a-zA-Z0-9]{1,64}'));
             }
-            
-            $m->connect(':nickname/apps', 
+
+            $m->connect(':nickname/apps',
                 array('action' => 'apps'),
                 array('nickname' => '['.NICKNAME_FMT.']{1,64}'));
-            $m->connect(':nickname/apps/show/:id', 
+            $m->connect(':nickname/apps/show/:id',
                 array('action' => 'showapplication'),
                 array('nickname' => '['.NICKNAME_FMT.']{1,64}',
                       'id' => '[0-9]+')
@@ -652,18 +653,14 @@ class Router
             $m->connect(':nickname/apps/new',
                 array('action' => 'newapplication'),
                 array('nickname' => '['.NICKNAME_FMT.']{1,64}'));
-            $m->connect(':nickname/apps/edit/:id', 
+            $m->connect(':nickname/apps/edit/:id',
                 array('action' => 'editapplication'),
                 array('nickname' => '['.NICKNAME_FMT.']{1,64}',
                       'id' => '[0-9]+')
             );
 
-            $m->connect('oauth/request_token',
-                array('action' => 'apioauthrequesttoken'));
-            $m->connect('oauth/access_token',
-                array('action' => 'apioauthaccesstoken'));
             $m->connect('oauth/authorize',
-                array('action' => 'apioauthauthorize'));
+                        array('action' => 'apioauthauthorize'));
 
             foreach (array('subscriptions', 'subscribers') as $a) {
                 $m->connect(':nickname/'.$a.'/:tag',

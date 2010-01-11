@@ -31,7 +31,6 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/api.php';
 require_once INSTALLDIR . '/lib/apioauthstore.php';
 
 /**
@@ -70,6 +69,7 @@ class ApiOauthRequestTokenAction extends Action
         $datastore   = new ApiStatusNetOAuthDataStore();
         $server      = new OAuthServer($datastore);
         $hmac_method = new OAuthSignatureMethod_HMAC_SHA1();
+
         $server->add_signature_method($hmac_method);
 
         try {
@@ -77,8 +77,7 @@ class ApiOauthRequestTokenAction extends Action
             $token = $server->fetch_request_token($req);
             print $token;
         } catch (OAuthException $e) {
-            common_log(LOG_WARN, $e->getMessage());
-            common_debug(var_export($req, true));
+            common_log(LOG_WARN, 'API OAuthException - ' . $e->getMessage());
             header('HTTP/1.1 401 Unauthorized');
             header('Content-Type: text/html; charset=utf-8');
             print $e->getMessage() . "\n";
