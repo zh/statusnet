@@ -174,7 +174,7 @@ class Memcached_DataObject extends DB_DataObject
             $obj = $c->get(Memcached_DataObject::cacheKey($cls, $k, $v));
             if (0 == strcasecmp($cls, 'User')) {
                 // Special case for User
-                if (is_object($obj->id)) {
+                if (is_object($obj) && is_object($obj->id)) {
                     common_log(LOG_ERR, "User " . $obj->nickname . " was cached with User as ID; deleting");
                     $c->delete(Memcached_DataObject::cacheKey($cls, $k, $v));
                     return false;
