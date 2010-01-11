@@ -229,8 +229,11 @@ create table oauth_application_user (
     profile_id integer not null comment 'user of the application' references profile (id),
     application_id integer not null comment 'id of the application' references oauth_application (id),
     access_type tinyint default 0 comment 'access type, bit 1 = read, bit 2 = write, bit 3 = revoked',
+    token varchar(255) comment 'authorization token',
+    secret varchar(255) comment 'token secret',
+    verifier varchar(255) not null comment 'verification code',
     created datetime not null comment 'date this record was created',
-
+    modified timestamp comment 'date this record was modified',
     constraint primary key (profile_id, application_id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
