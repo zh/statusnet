@@ -838,7 +838,7 @@ function common_path($relative, $ssl=false)
     }
 
     $relative = common_inject_session($relative, $serverpart);
-    
+
     return $proto.'://'.$serverpart.'/'.$pathpart.$relative;
 }
 
@@ -849,7 +849,7 @@ function common_inject_session($url, $serverpart = null)
 	if (empty($serverpart)) {
 	    $serverpart = parse_url($url, PHP_URL_HOST);
 	}
-	
+
         $currentServer = $_SERVER['HTTP_HOST'];
 
         // Are we pointing to another server (like an SSL server?)
@@ -866,7 +866,7 @@ function common_inject_session($url, $serverpart = null)
             }
         }
     }
-    
+
     return $url;
 }
 
@@ -1057,7 +1057,12 @@ function common_profile_url($nickname)
 
 function common_root_url($ssl=false)
 {
-    return common_path('', $ssl);
+    $url = common_path('', $ssl);
+    $i = strpos($url, '?');
+    if ($i !== false) {
+        $url = substr($url, 0, $i);
+    }
+    return $url;
 }
 
 // returns $bytes bytes of random data as a hexadecimal string
