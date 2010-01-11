@@ -11,11 +11,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-10 11:27+0000\n"
-"PO-Revision-Date: 2010-01-10 11:28:48+0000\n"
+"PO-Revision-Date: 2010-01-11 00:21:09+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60888); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r60910); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: out-statusnet\n"
@@ -269,18 +269,16 @@ msgid "No status found with that ID."
 msgstr "Er is geen status gevonden met dit ID."
 
 #: actions/apifavoritecreate.php:119
-#, fuzzy
 msgid "This status is already a favorite."
-msgstr "Deze mededeling staat reeds in uw favorietenlijst!"
+msgstr "Deze mededeling staat al in uw favorietenlijst."
 
 #: actions/apifavoritecreate.php:130 actions/favor.php:84 lib/command.php:176
 msgid "Could not create favorite."
 msgstr "Het was niet mogelijk een favoriet aan te maken."
 
 #: actions/apifavoritedestroy.php:122
-#, fuzzy
 msgid "That status is not a favorite."
-msgstr "Deze mededeling staat niet in uw favorietenlijst!"
+msgstr "Deze mededeling staat niet in uw favorietenlijst."
 
 #: actions/apifavoritedestroy.php:134 actions/disfavor.php:87
 msgid "Could not delete favorite."
@@ -303,7 +301,6 @@ msgstr ""
 "niet aangetroffen."
 
 #: actions/apifriendshipsdestroy.php:120
-#, fuzzy
 msgid "You cannot unfollow yourself."
 msgstr "U kunt het abonnement op uzelf niet opzeggen."
 
@@ -998,9 +995,8 @@ msgstr "U moet aangemeld zijn om een groep aan te kunnen maken."
 
 #: actions/editgroup.php:103 actions/editgroup.php:168
 #: actions/groupdesignsettings.php:104 actions/grouplogo.php:106
-#, fuzzy
 msgid "You must be an admin to edit the group."
-msgstr "U moet beheerder zijn om de groep te kunnen bewerken"
+msgstr "U moet beheerder zijn om de groep te kunnen bewerken."
 
 #: actions/editgroup.php:154
 msgid "Use this form to edit the group."
@@ -1024,7 +1020,6 @@ msgid "Options saved."
 msgstr "De instellingen zijn opgeslagen."
 
 #: actions/emailsettings.php:60
-#, fuzzy
 msgid "Email settings"
 msgstr "E-mailvoorkeuren"
 
@@ -1062,7 +1057,6 @@ msgid "Cancel"
 msgstr "Annuleren"
 
 #: actions/emailsettings.php:121
-#, fuzzy
 msgid "Email address"
 msgstr "E-mailadressen"
 
@@ -1438,9 +1432,8 @@ msgstr ""
 "s."
 
 #: actions/grouplogo.php:178
-#, fuzzy
 msgid "User without matching profile."
-msgstr "Gebruiker zonder bijbehorend profiel"
+msgstr "Gebruiker zonder bijbehorend profiel."
 
 #: actions/grouplogo.php:362
 msgid "Pick a square area of the image to be the logo."
@@ -1573,7 +1566,6 @@ msgid "Error removing the block."
 msgstr "Er is een fout opgetreden bij het verwijderen van de blokkade."
 
 #: actions/imsettings.php:59
-#, fuzzy
 msgid "IM settings"
 msgstr "IM-instellingen"
 
@@ -1605,7 +1597,6 @@ msgstr ""
 "contactenlijst toegevoegd?"
 
 #: actions/imsettings.php:124
-#, fuzzy
 msgid "IM address"
 msgstr "IM-adres"
 
@@ -1922,14 +1913,14 @@ msgid "%1$s is already an admin for group \"%2$s\"."
 msgstr "%1$s is al beheerder van de groep \"%2$s\""
 
 #: actions/makeadmin.php:132
-#, fuzzy, php-format
+#, php-format
 msgid "Can't get membership record for %1$s in group %2$s."
-msgstr "Het was niet mogelijk te bevestigen dat %1$s lid is van de groep %2$s"
+msgstr "Het was niet mogelijk te bevestigen dat %1$s lid is van de groep %2$s."
 
 #: actions/makeadmin.php:145
-#, fuzzy, php-format
+#, php-format
 msgid "Can't make %1$s an admin for group %2$s."
-msgstr "Het is niet mogelijk %1$s beheerder te maken van de groep %2$s"
+msgstr "Het is niet mogelijk %1$s beheerder te maken van de groep %2$s."
 
 #: actions/microsummary.php:69
 msgid "No current status"
@@ -2306,7 +2297,6 @@ msgid "When to use SSL"
 msgstr "Wanneer SSL gebruikt moet worden"
 
 #: actions/pathsadminpanel.php:308
-#, fuzzy
 msgid "SSL server"
 msgstr "SSL-server"
 
@@ -3272,15 +3262,14 @@ msgid "Site name must have non-zero length."
 msgstr "De sitenaam moet ingevoerd worden en mag niet leeg zijn."
 
 #: actions/siteadminpanel.php:154
-#, fuzzy
 msgid "You must have a valid contact email address."
 msgstr ""
-"U moet een geldig e-mailadres opgeven waarop contact opgenomen kan worden"
+"U moet een geldig e-mailadres opgeven waarop contact opgenomen kan worden."
 
 #: actions/siteadminpanel.php:172
-#, fuzzy, php-format
+#, php-format
 msgid "Unknown language \"%s\"."
-msgstr "De taal \"%s\" is niet bekend"
+msgstr "De taal \"%s\" is niet bekend."
 
 #: actions/siteadminpanel.php:179
 msgid "Invalid snapshot report URL."
@@ -3466,7 +3455,6 @@ msgid "Save site settings"
 msgstr "Websiteinstellingen opslaan"
 
 #: actions/smssettings.php:58
-#, fuzzy
 msgid "SMS settings"
 msgstr "SMS-instellingen"
 
@@ -3496,7 +3484,6 @@ msgid "Enter the code you received on your phone."
 msgstr "Voer de code in die u via uw telefoon hebt ontvangen."
 
 #: actions/smssettings.php:138
-#, fuzzy
 msgid "SMS phone number"
 msgstr "SMS-nummer"
 
@@ -4488,7 +4475,7 @@ msgid "Could not remove user %1$s to group %2$s."
 msgstr "De gebruiker %1$s kon niet uit de groep %2$s verwijderd worden."
 
 #: lib/command.php:318
-#, fuzzy, php-format
+#, php-format
 msgid "Full name: %s"
 msgstr "Volledige naam: %s"
 
@@ -5009,11 +4996,9 @@ msgstr ""
 "Wijzig uw e-mailadres of instellingen op %8$s\n"
 
 #: lib/mail.php:258
-#, fuzzy, php-format
+#, php-format
 msgid "Bio: %s"
-msgstr ""
-"Beschrijving: %s\n"
-"\n"
+msgstr "Beschrijving: %s"
 
 #: lib/mail.php:286
 #, php-format
@@ -5269,18 +5254,16 @@ msgid "File upload stopped by extension."
 msgstr "Het uploaden van het bestand is tegengehouden door een uitbreiding."
 
 #: lib/mediafile.php:179 lib/mediafile.php:216
-#, fuzzy
 msgid "File exceeds user's quota."
-msgstr "Met dit bestand wordt het quotum van de gebruiker overschreden!"
+msgstr "Met dit bestand wordt het quotum van de gebruiker overschreden."
 
 #: lib/mediafile.php:196 lib/mediafile.php:233
 msgid "File could not be moved to destination directory."
 msgstr "Het bestand kon niet verplaatst worden naar de doelmap."
 
 #: lib/mediafile.php:201 lib/mediafile.php:237
-#, fuzzy
 msgid "Could not determine file's MIME type."
-msgstr "Het was niet mogelijk het MIME-type van het bestand te bepalen!"
+msgstr "Het was niet mogelijk het MIME-type van het bestand te bepalen."
 
 #: lib/mediafile.php:270
 #, php-format
@@ -5288,7 +5271,7 @@ msgid " Try using another %s format."
 msgstr " Probeer een ander %s-formaat te gebruiken."
 
 #: lib/mediafile.php:275
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not a supported file type on this server."
 msgstr "Het bestandstype %s wordt door deze server niet ondersteund."
 

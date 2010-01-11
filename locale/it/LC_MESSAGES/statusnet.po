@@ -10,11 +10,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-10 11:27+0000\n"
-"PO-Revision-Date: 2010-01-10 11:28:28+0000\n"
+"PO-Revision-Date: 2010-01-11 00:20:48+0000\n"
 "Language-Team: Italian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60888); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r60910); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: it\n"
 "X-Message-Group: out-statusnet\n"
@@ -96,8 +96,9 @@ msgid ""
 "You can try to [nudge %1$s](../%2$s) from his profile or [post something to "
 "his or her attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
-"Puoi provare a [richiamare %s](../%s) dal suo profilo o [scrivere qualche "
-"cosa alla sua attenzione](%%%%action.newnotice%%%%?status_textarea=%s)."
+"Puoi provare a [richiamare %1$s](../%2$s) dal suo profilo o [scrivere "
+"qualche cosa alla sua attenzione](%%%%action.newnotice%%%%?status_textarea=%3"
+"$s)."
 
 #: actions/all.php:137 actions/replies.php:209 actions/showstream.php:202
 #, php-format
@@ -267,7 +268,7 @@ msgstr "Nessuno messaggio trovato con quel ID."
 #: actions/apifavoritecreate.php:119
 #, fuzzy
 msgid "This status is already a favorite."
-msgstr "Questo messaggio è già un preferito!"
+msgstr "Questo messaggio è già un preferito."
 
 #: actions/apifavoritecreate.php:130 actions/favor.php:84 lib/command.php:176
 msgid "Could not create favorite."
@@ -276,7 +277,7 @@ msgstr "Impossibile creare un preferito."
 #: actions/apifavoritedestroy.php:122
 #, fuzzy
 msgid "That status is not a favorite."
-msgstr "Questo messaggio non è un preferito!"
+msgstr "Questo messaggio non è un preferito."
 
 #: actions/apifavoritedestroy.php:134 actions/disfavor.php:87
 msgid "Could not delete favorite."
@@ -298,7 +299,7 @@ msgstr "Impossibile non seguire l'utente: utente non trovato."
 #: actions/apifriendshipsdestroy.php:120
 #, fuzzy
 msgid "You cannot unfollow yourself."
-msgstr "Non puoi non seguirti!"
+msgstr "Non puoi non seguirti."
 
 #: actions/apifriendshipsexists.php:94
 msgid "Two user ids or screen_names must be supplied."
@@ -395,7 +396,7 @@ msgstr "L'amministratore ti ha bloccato l'accesso a quel gruppo."
 #: actions/apigroupjoin.php:138 actions/joingroup.php:128 lib/command.php:234
 #, fuzzy, php-format
 msgid "Could not join user %1$s to group %2$s."
-msgstr "Impossibile iscrivere l'utente %s al gruppo %s."
+msgstr "Impossibile iscrivere l'utente %1$s al gruppo %2$s."
 
 #: actions/apigroupleave.php:114
 msgid "You are not a member of this group."
@@ -404,7 +405,7 @@ msgstr "Non fai parte di questo gruppo."
 #: actions/apigroupleave.php:124 actions/leavegroup.php:127
 #, fuzzy, php-format
 msgid "Could not remove user %1$s from group %2$s."
-msgstr "Impossibile rimuovere l'utente %s dal gruppo %s."
+msgstr "Impossibile rimuovere l'utente %1$s dal gruppo %2$s."
 
 #: actions/apigrouplist.php:95
 #, php-format
@@ -473,12 +474,12 @@ msgstr "Formato non supportato."
 #: actions/apitimelinefavorites.php:108
 #, fuzzy, php-format
 msgid "%1$s / Favorites from %2$s"
-msgstr "%s / Preferiti da %s"
+msgstr "%1$s / Preferiti da %2$s"
 
 #: actions/apitimelinefavorites.php:120
 #, fuzzy, php-format
 msgid "%1$s updates favorited by %2$s / %2$s."
-msgstr "%s aggiornamenti preferiti da %s / %s"
+msgstr "%1$s aggiornamenti preferiti da %2$s / %3$s"
 
 #: actions/apitimelinegroup.php:109 actions/apitimelineuser.php:118
 #: actions/grouprss.php:131 actions/userrss.php:90
@@ -709,7 +710,7 @@ msgstr "Profili bloccati di %s"
 #: actions/blockedfromgroup.php:93
 #, fuzzy, php-format
 msgid "%1$s blocked profiles, page %2$d"
-msgstr "Profili bloccati di %s, pagina %d"
+msgstr "Profili bloccati di %1$s, pagina %2$d"
 
 #: actions/blockedfromgroup.php:108
 msgid "A list of the users blocked from joining this group."
@@ -988,7 +989,7 @@ msgstr "Devi eseguire l'accesso per creare un gruppo."
 #: actions/groupdesignsettings.php:104 actions/grouplogo.php:106
 #, fuzzy
 msgid "You must be an admin to edit the group."
-msgstr "Devi essere amministratore per modificare il gruppo"
+msgstr "Devi essere amministratore per modificare il gruppo."
 
 #: actions/editgroup.php:154
 msgid "Use this form to edit the group."
@@ -1230,7 +1231,7 @@ msgid ""
 "next to any notice you like."
 msgstr ""
 "Aggiungi tu un messaggio tra i tuoi preferiti facendo clic sul pulsante a "
-"forma di cuore,."
+"forma di cuore."
 
 #: actions/favorited.php:156
 #, php-format
@@ -1363,8 +1364,9 @@ msgid ""
 "will be removed from the group, unable to post, and unable to subscribe to "
 "the group in the future."
 msgstr ""
-"Vuoi bloccare l'utente \"%s\" dal gruppo \"%s\"? L'utente verrà rimosso dal "
-"gruppo, non potrà più inviare messaggi e non potrà più iscriversi al gruppo."
+"Vuoi bloccare l'utente \"%1$s\" dal gruppo \"%2$s\"? L'utente verrà rimosso "
+"dal gruppo, non potrà più inviare messaggi e non potrà più iscriversi al "
+"gruppo."
 
 #: actions/groupblock.php:178
 msgid "Do not block this user from this group"
@@ -1422,7 +1424,7 @@ msgstr ""
 #: actions/grouplogo.php:178
 #, fuzzy
 msgid "User without matching profile."
-msgstr "Utente senza profilo corrispondente"
+msgstr "Utente senza profilo corrispondente."
 
 #: actions/grouplogo.php:362
 msgid "Pick a square area of the image to be the logo."
@@ -1444,7 +1446,7 @@ msgstr "Membri del gruppo %s"
 #: actions/groupmembers.php:96
 #, fuzzy, php-format
 msgid "%1$s group members, page %2$d"
-msgstr "Membri del gruppo %s, pagina %d"
+msgstr "Membri del gruppo %1$s, pagina %2$d"
 
 #: actions/groupmembers.php:111
 msgid "A list of the users in this group."
@@ -1804,7 +1806,7 @@ msgstr "Devi eseguire l'accesso per iscriverti a un gruppo."
 #: actions/joingroup.php:135 lib/command.php:239
 #, fuzzy, php-format
 msgid "%1$s joined group %2$s"
-msgstr "%s fa ora parte del gruppo %s"
+msgstr "%1$s fa ora parte del gruppo %2$s"
 
 #: actions/leavegroup.php:60
 msgid "You must be logged in to leave a group."
@@ -1821,7 +1823,7 @@ msgstr "Impossibile trovare il record della membership."
 #: actions/leavegroup.php:134 lib/command.php:289
 #, fuzzy, php-format
 msgid "%1$s left group %2$s"
-msgstr "%s ha lasciato il gruppo %s"
+msgstr "%1$s ha lasciato il gruppo %2$s"
 
 #: actions/login.php:83 actions/register.php:137
 msgid "Already logged in."
@@ -1896,17 +1898,17 @@ msgstr ""
 #: actions/makeadmin.php:95
 #, fuzzy, php-format
 msgid "%1$s is already an admin for group \"%2$s\"."
-msgstr "%s è già amministratore per il gruppo \"%s\"."
+msgstr "%1$s è già amministratore del gruppo \"%2$s\"."
 
 #: actions/makeadmin.php:132
 #, fuzzy, php-format
 msgid "Can't get membership record for %1$s in group %2$s."
-msgstr "Impossibile recuperare la membership per %s nel gruppo %s"
+msgstr "Impossibile recuperare la membership per %1$s nel gruppo %2$s"
 
 #: actions/makeadmin.php:145
 #, fuzzy, php-format
 msgid "Can't make %1$s an admin for group %2$s."
-msgstr "Impossibile rendere %s un amministratore per il gruppo %s"
+msgstr "Impossibile rendere %1$s un amministratore del gruppo %2$s"
 
 #: actions/microsummary.php:69
 msgid "No current status"
@@ -1949,7 +1951,7 @@ msgstr "Messaggio inviato"
 #: actions/newmessage.php:185 lib/command.php:376
 #, fuzzy, php-format
 msgid "Direct message to %s sent."
-msgstr "Messaggio diretto a %s inviato"
+msgstr "Messaggio diretto a %s inviato."
 
 #: actions/newmessage.php:210 actions/newnotice.php:245 lib/channel.php:170
 msgid "Ajax Error"
@@ -1979,7 +1981,7 @@ msgstr "Cerca testo"
 #: actions/noticesearch.php:91
 #, fuzzy, php-format
 msgid "Search results for \"%1$s\" on %2$s"
-msgstr "Risultati della ricerca per \"%s\" su %s"
+msgstr "Risultati della ricerca per \"%1$s\" su %2$s"
 
 #: actions/noticesearch.php:121
 #, php-format
@@ -2317,7 +2319,7 @@ msgstr "Non è un'etichetta valida di persona: %s"
 #: actions/peopletag.php:144
 #, fuzzy, php-format
 msgid "Users self-tagged with %1$s - page %2$d"
-msgstr "Utenti auto-etichettati con %s - pagina %d"
+msgstr "Utenti auto-etichettati con %1$s - pagina %2$d"
 
 #: actions/postnotice.php:84
 msgid "Invalid notice content"
@@ -2327,8 +2329,8 @@ msgstr "Contenuto del messaggio non valido"
 #, fuzzy, php-format
 msgid "Notice license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr ""
-"La licenza \"%s\" del messaggio non è compatibile con la licenza del sito \"%"
-"s\"."
+"La licenza \"%1$s\" del messaggio non è compatibile con la licenza del sito "
+"\"%2$s\"."
 
 #: actions/profilesettings.php:60
 msgid "Profile settings"
@@ -2391,7 +2393,7 @@ msgstr "Dove ti trovi, tipo \"città, regione, stato\""
 
 #: actions/profilesettings.php:138
 msgid "Share my current location when posting notices"
-msgstr ""
+msgstr "Condividi la mia posizione attuale quando invio messaggi"
 
 #: actions/profilesettings.php:145 actions/tagother.php:149
 #: actions/tagother.php:209 lib/subscriptionlist.php:106
@@ -2453,7 +2455,7 @@ msgstr "Impossibile aggiornare l'utente per auto-abbonarsi."
 #: actions/profilesettings.php:359
 #, fuzzy
 msgid "Couldn't save location prefs."
-msgstr "Impossibile salvare le etichette."
+msgstr "Impossibile salvare le preferenze della posizione."
 
 #: actions/profilesettings.php:371
 msgid "Couldn't save profile."
@@ -2797,9 +2799,10 @@ msgid ""
 "\n"
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
-"Congratulazioni %s! Benvenuti in %%%%site.name%%%%. Da qui ora puoi...\n"
+"Congratulazioni %1$s! Ti diamo il benvenuto in %%%%site.name%%%%. Da qui ora "
+"puoi...\n"
 "\n"
-"* Visitare il [tuo profilo](%s) e inviare il tuo primo messaggio.\n"
+"* Visitare il [tuo profilo](%2$s) e inviare il tuo primo messaggio.\n"
 "*Aggiungere un [indirizzo Jabber/GTalk](%%%%action.imsettings%%%%) per usare "
 "quel servizio per inviare messaggi.\n"
 "*[Cercare persone](%%%%action.peoplesearch%%%%) che potresti conoscere o che "
@@ -4368,12 +4371,12 @@ msgstr "Etichette per questo allegato"
 #: lib/authenticationplugin.php:182 lib/authenticationplugin.php:187
 #, fuzzy
 msgid "Password changing failed"
-msgstr "Modifica password"
+msgstr "Modifica della password non riuscita"
 
 #: lib/authenticationplugin.php:197
 #, fuzzy
 msgid "Password changing is not allowed"
-msgstr "Modifica password"
+msgstr "La modifica della password non è permessa"
 
 #: lib/channel.php:138 lib/channel.php:158
 msgid "Command results"
@@ -5456,7 +5459,7 @@ msgstr "Famosi"
 #: lib/repeatform.php:107
 #, fuzzy
 msgid "Repeat this notice?"
-msgstr "Ripeti questo messaggio"
+msgstr "Ripetere questo messaggio?"
 
 #: lib/repeatform.php:132
 msgid "Repeat this notice"
