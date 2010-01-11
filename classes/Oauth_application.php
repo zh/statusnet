@@ -88,4 +88,18 @@ class Oauth_application extends Memcached_DataObject
         return $this->update($orig);
     }
 
+    static function getByConsumerKey($key)
+    {
+	if (empty($key)) {
+	    return null;
+	}
+
+	$app = new Oauth_application();
+	$app->consumer_key = $key;
+	$app->limit(1);
+	$result = $app->find(true);
+
+	return empty($result) ? null : $app;
+    }
+
 }

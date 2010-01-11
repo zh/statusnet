@@ -31,7 +31,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/api.php';
+require_once INSTALLDIR . '/lib/apioauthstore.php';
 
 /**
  * Exchange an authorized OAuth request token for an access token
@@ -43,7 +43,63 @@ require_once INSTALLDIR . '/lib/api.php';
  * @link     http://status.net/
  */
 
-class ApiOauthAccessTokenAction extends ApiAction
+class ApiOauthAccessTokenAction extends Action
 {
 
+    /**
+     * Is read only?
+     *
+     * @return boolean false
+     */
+    function isReadOnly()
+    {
+        return false;
+    }
+
+    /**
+     * Class handler.
+     *
+     * @param array $args array of arguments
+     *
+     * @return void
+     */
+    function handle($args)
+    {
+        parent::handle($args);
+
+        $datastore   = new ApiStatusNetOAuthDataStore();
+        $server      = new OAuthServer($datastore);
+        $hmac_method = new OAuthSignatureMethod_HMAC_SHA1();
+
+        $server->add_signature_method($hmac_method);
+
+	$atok = null;
+
+        try {
+            $req  = OAuthRequest::from_request();
+            $atok = $server->fetch_access_token($req);
+
+        } catch (OAuthException $e) {
+            common_log(LOG_WARN, 'API OAuthException - ' . $e->getMessage());
+	    common_debug(var_export($req, true));
+	    $this->outputError($e->getMessage());
+	    return;
+        }
+
+	if (empty($atok)) {
+	    common_debug('couldn\'t get access token.');
+	    $this->outputError("Badness.");
+	    return;
+	}
+
+	print $atok;
+    }
+
+    function outputError($msg)
+    {
+	header('HTTP/1.1 401 Unauthorized');
+	header('Content-Type: text/html; charset=utf-8');
+	print $msg . "\n";
+    }
 }
+
