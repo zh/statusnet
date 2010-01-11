@@ -259,6 +259,7 @@ class RegisterAction extends Action
 
                 // Re-init language env in case it changed (not yet, but soon)
                 common_init_language();
+
                 $this->showSuccess();
             } else {
                 $this->showForm(_('Invalid username or password.'));
