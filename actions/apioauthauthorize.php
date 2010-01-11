@@ -125,19 +125,12 @@ class ApiOauthAuthorizeAction extends Action
         parent::handle($args);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            /* Use a session token for CSRF protection. */
-            $token = $this->trimmed('token');
-            if (!$token || $token != common_session_token()) {
-                $this->showForm(_('There was a problem with your session token. '.
-                                  'Try again, please.'));
-                return;
-            }
 
             $this->handlePost();
 
         } else {
 
-            common_debug('ApiOauthAuthorize::handle()');
+	    // XXX: make better error messages
 
             if (empty($this->oauth_token)) {
 
@@ -160,7 +153,7 @@ class ApiOauthAuthorizeAction extends Action
 
     function handlePost()
     {
-        /* Use a session token for CSRF protection. */
+        // check session token for CSRF protection.
 
         $token = $this->trimmed('token');
 
@@ -175,9 +168,9 @@ class ApiOauthAuthorizeAction extends Action
             return;
         }
 
-        // is the user already logged in?
-
         // check creds
+
+	$user = null;
 
         if (!common_logged_in()) {
             $user = common_check_user($this->nickname, $this->password);
@@ -185,15 +178,56 @@ class ApiOauthAuthorizeAction extends Action
                 $this->showForm(_("Invalid nickname / password!"));
                 return;
             }
-        }
+        } else {
+	    $user = common_current_user();
+	}
 
         if ($this->arg('allow')) {
 
+	    // mark the req token as authorized
+
             $this->store->authorize_token($this->oauth_token);
+
+	    // Check to see if there was a previous token associated
+	    // with this user/app and kill it. If you're doing this you
+	    // probably don't want any old tokens anyway.
+
+	    $appUser = Oauth_application_user::getByKeys($user, $this->app);
+
+	    if (!empty($appUser)) {
+		$result = $appUser->delete();
+
+		if (!$result) {
+		    common_log_db_error($appUser, 'DELETE', __FILE__);
+		    throw new ServerException(_('DB error deleting OAuth app user.'));
+		    return;
+		}
+	    }
+
+	    // associated the new req token with the user and the app
+
+	    $appUser = new Oauth_application_user();
+
+	    $appUser->profile_id     = $user->id;
+	    $appUser->application_id = $this->app->id;
+	    $appUser->access_type    = $this->app->access_type;
+	    $appUser->token          = $this->oauth_token;
+	    $appUser->created        = common_sql_now();
+
+	    $result = $appUser->insert();
+
+	    if (!$result) {
+		common_log_db_error($appUser, 'INSERT', __FILE__);
+		throw new ServerException(_('DB error inserting OAuth app user.'));
+		return;
+	    }
 
             // if we have a callback redirect and provide the token
 
             if (!empty($this->callback)) {
+
+		// XXX: Need better way to build this redirect url.
+
                 $target_url = $this->callback . '?oauth_token=' . $this->oauth_token;
                 common_redirect($target_url, 303);
             }
@@ -202,7 +236,7 @@ class ApiOauthAuthorizeAction extends Action
 
             $this->elementStart('p');
 
-            // XXX: Do verifier code?
+            // XXX: Do OAuth 1.0a verifier code?
 
             $this->raw(sprintf(_("The request token %s has been authorized. " .
                                  'Please exchange it for an access token.'),
@@ -233,7 +267,9 @@ class ApiOauthAuthorizeAction extends Action
     function showScripts()
     {
         parent::showScripts();
-      //  $this->autofocus('nickname');
+	if (!common_logged_in()) {
+	    $this->autofocus('nickname');
+	}
     }
 
     /**
