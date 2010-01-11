@@ -132,12 +132,6 @@ class LoginAction extends Action
 
         $url = common_get_returnto();
 
-        if (common_config('site', 'ssl') == 'sometimes' && // mixed environment
-            0 != strcasecmp(common_config('site', 'server'), common_config('site', 'sslserver'))) {
-            $this->redirectFromSSL($user, $url, $this->boolean('rememberme'));
-            return;
-        }
-
         if ($url) {
             // We don't have to return to it again
             common_set_returnto(null);
@@ -281,32 +275,5 @@ class LoginAction extends Action
     {
         $nav = new LoginGroupNav($this);
         $nav->show();
-    }
-
-    function redirectFromSSL($user, $returnto, $rememberme)
-    {
-        try {
-            $login_token = Login_token::makeNew($user);
-        } catch (Exception $e) {
-            $this->serverError($e->getMessage());
-            return;
-        }
-
-        $params = array();
-
-        if (!empty($returnto)) {
-            $params['returnto'] = $returnto;
-        }
-
-        if (!empty($rememberme)) {
-            $params['rememberme'] = $rememberme;
-        }
-
-        $target = common_local_url('otp',
-                                   array('user_id' => $login_token->user_id,
-                                         'token' => $login_token->token),
-                                   $params);
-
-        common_redirect($target, 303);
     }
 }
