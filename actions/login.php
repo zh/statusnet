@@ -103,6 +103,15 @@ class LoginAction extends Action
         // CSRF protection - token set in NoticeForm
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
+	    $st = common_session_token();
+	    if (empty($token)) {
+		common_log(LOG_WARNING, 'No token provided by client.');
+	    } else if (empty($st)) {
+		common_log(LOG_WARNING, 'No session token stored.');
+	    } else {
+		common_log(LOG_WARNING, 'Token = ' . $token . ' and session token = ' . $st);
+	    }
+
             $this->clientError(_('There was a problem with your session token. '.
                                  'Try again, please.'));
             return;
@@ -135,6 +144,7 @@ class LoginAction extends Action
         if ($url) {
             // We don't have to return to it again
             common_set_returnto(null);
+	    $url = common_inject_session($url);
         } else {
             $url = common_local_url('all',
                                     array('nickname' =>
