@@ -88,11 +88,10 @@ class ApiOauthAccessTokenAction extends Action
 
 	if (empty($atok)) {
 	    common_debug('couldn\'t get access token.');
-	    $this->outputError("Badness.");
-	    return;
+	    print "Token exchange failed. Has the request token been authorized?\n";
+	} else {
+	    print $atok;
 	}
-
-	print $atok;
     }
 
     function outputError($msg)
