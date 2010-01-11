@@ -249,16 +249,16 @@ class ShowApplicationAction extends OwnerDesignAction
 
         $this->elementEnd('div');
 
-        $this->elementStart('div', 'entity-list-apps');
+        $this->elementStart('p', array('id' => 'application_action'));
         $this->element('a',
             array(
                 'href' => common_local_url(
                     'apps',
-                    array('nickname' => $this->owner->nickname)
-                )
+                    array('nickname' => $this->owner->nickname)),
+                'class' => 'more'
             ),
             'View your applications');
-        $this->elementEnd('div');
+        $this->elementEnd('p');
     }
 
     function resetKey()

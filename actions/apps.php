@@ -114,13 +114,16 @@ class AppsAction extends SettingsAction
             }
         }
 
+        $this->elementStart('p', array('id' => 'application_register'));
         $this->element('a',
             array('href' => common_local_url(
                 'newapplication',
                 array('nickname' => $user->nickname)
-                )
+                ),
+                  'class' => 'more'
             ),
-            'Register a new application »');
+            'Register a new application');
+        $this->elementEnd('p');
 
         $this->pagination(
             $this->page > 1,
