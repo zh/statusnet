@@ -152,7 +152,8 @@ class ShowApplicationAction extends OwnerDesignAction
         $cur = common_current_user();
 
         $this->elementStart('div', 'entity_actions');
-
+        $this->elementStart('ul');
+        $this->elementStart('li');
         $this->element('a',
             array('href' =>
                 common_local_url(
@@ -163,7 +164,9 @@ class ShowApplicationAction extends OwnerDesignAction
                     )
                 )
             ), 'Edit application');
+        $this->elementEnd('li');
 
+        $this->elementStart('li');
         $this->elementStart('form', array(
             'id' => 'forma_reset_key',
             'class' => 'form_reset_key',
@@ -177,32 +180,39 @@ class ShowApplicationAction extends OwnerDesignAction
         $this->submit('reset', _('Reset Consumer key/secret'));
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
-
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
         $this->elementEnd('div');
 
         $consumer = $this->application->getConsumer();
 
-        $this->elementStart('div', 'entity-application');
+        $this->elementStart('div', 'entity_application');
+        $this->element('h2', null, _('Application profile'));
+        $this->elementStart('dl', 'entity_depiction');
+        $this->element('dt', null, _('Icon'));
+        $this->elementStart('dd');
+        if (!empty($this->application->icon)) {
+            $this->element('img', array('src' => $this->application->icon));
+        }
+        $this->elementEnd('dd');
+        $this->elementEnd('dl');
 
-        $this->elementStart('ul', 'entity_application_details');
-
-	$this->elementStart('li', 'entity_application-icon');
-
-	if (!empty($this->application->icon)) {
-	    $this->element('img', array('src' => $this->application->icon));
-	}
-
-	$this->elementEnd('li');
-
-        $this->elementStart('li', 'entity_application_name');
-        $this->element('span', array('class' => 'big'), $this->application->name);
+        $this->elementStart('dl', 'entity_fn');
+        $this->element('dt', null, _('Name'));
+        $this->elementStart('dd');
+        $this->element('span', null, $this->application->name);
         $this->raw(sprintf(_(' by %1$s'), $this->application->organization));
-        $this->elementEnd('li');
+        $this->elementEnd('dd');
+        $this->elementEnd('dl');
 
-        $this->element('li', 'entity_application_description', $this->application->description);
+        $this->elementStart('dl', 'entity_note');
+        $this->element('dt', null, _('Description'));
+        $this->element('dd', null, $this->application->description);
+        $this->elementEnd('dl');
 
-        $this->elementStart('li', 'entity_application_statistics');
-
+        $this->elementStart('dl', 'entity_statistics');
+        $this->element('dt', null, _('Statistics'));
+        $this->elementStart('dd');
         $defaultAccess = ($this->application->access_type & Oauth_application::$writeAccess)
             ? 'read-write' : 'read-only';
         $profile = Profile::staticGet($this->application->owner);
@@ -214,39 +224,39 @@ class ShowApplicationAction extends OwnerDesignAction
               $defaultAccess,
               $userCnt
             ));
+        $this->elementEnd('dd');
+        $this->elementEnd('dl');
+        $this->elementEnd('div');
 
-        $this->elementEnd('li');
-
-        $this->elementEnd('ul');
-
+        $this->elementStart('div', array('id' => 'entity_data'));
+        $this->element('h2', null, _('Application info'));
         $this->elementStart('dl', 'entity_consumer_key');
         $this->element('dt', null, _('Consumer key'));
-        $this->element('dd', 'label', $consumer->consumer_key);
+        $this->element('dd', null, $consumer->consumer_key);
         $this->elementEnd('dl');
 
         $this->elementStart('dl', 'entity_consumer_secret');
         $this->element('dt', null, _('Consumer secret'));
-        $this->element('dd', 'label', $consumer->consumer_secret);
+        $this->element('dd', null, $consumer->consumer_secret);
         $this->elementEnd('dl');
 
         $this->elementStart('dl', 'entity_request_token_url');
         $this->element('dt', null, _('Request token URL'));
-        $this->element('dd', 'label', common_local_url('apioauthrequesttoken'));
+        $this->element('dd', null, common_local_url('apioauthrequesttoken'));
         $this->elementEnd('dl');
 
         $this->elementStart('dl', 'entity_access_token_url');
         $this->element('dt', null, _('Access token URL'));
-        $this->element('dd', 'label', common_local_url('apioauthaccesstoken'));
+        $this->element('dd', null, common_local_url('apioauthaccesstoken'));
         $this->elementEnd('dl');
 
         $this->elementStart('dl', 'entity_authorize_url');
         $this->element('dt', null, _('Authorize URL'));
-        $this->element('dd', 'label', common_local_url('apioauthauthorize'));
+        $this->element('dd', null, common_local_url('apioauthauthorize'));
         $this->elementEnd('dl');
 
         $this->element('p', 'oauth-signature-note',
-            '*We support hmac-sha1 signatures. We do not support the plaintext signature method.');
-
+            '* We support hmac-sha1 signatures. We do not support the plaintext signature method.');
         $this->elementEnd('div');
 
         $this->elementStart('p', array('id' => 'application_action'));
