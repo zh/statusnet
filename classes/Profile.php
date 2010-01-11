@@ -355,10 +355,11 @@ class Profile extends Memcached_DataObject
     function getApplications($offset = 0, $limit = null)
     {
         $qry =
-          'SELECT oauth_application_user.* ' .
-          'FROM oauth_application_user ' .
-          'WHERE profile_id = %d ' .
-          'ORDER BY created DESC ';
+          'SELECT a.* ' .
+          'FROM oauth_application_user u, oauth_application a ' .
+          'WHERE u.profile_id = %d ' .
+	  'AND a.id = u.application_id ' .
+          'ORDER BY u.created DESC ';
 
         if ($offset > 0) {
             if (common_config('db','type') == 'pgsql') {

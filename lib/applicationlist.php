@@ -57,13 +57,14 @@ class ApplicationList extends Widget
     /** Action object using us. */
     var $action = null;
 
-    function __construct($application, $owner=null, $action=null)
+    function __construct($application, $owner=null, $action=null, $connections = false)
     {
         parent::__construct($action);
 
         $this->application = $application;
         $this->owner       = $owner;
         $this->action      = $action;
+	$this->connections = $connections;
     }
 
     function show()
@@ -97,36 +98,65 @@ class ApplicationList extends Widget
 	    $this->out->element('img', array('src' => $this->application->icon));
 	}
 
-        $this->out->elementStart('a',
-            array('href' => common_local_url(
-                    'showapplication',
-                    array(
-                        'nickname' => $user->nickname,
-                        'id' => $this->application->id
-                        )
-                    ),
-                'class' => 'url')
-            );
+	if (!$this->connections) {
+
+	    $this->out->elementStart('a',
+				     array('href' =>
+					   common_local_url('showapplication',
+							    array('nickname' => $user->nickname,
+								  'id' => $this->application->id)),
+					   'class' => 'url')
+				     );
 
 	    $this->out->raw($this->application->name);
 	    $this->out->elementEnd('a');
-
-	    $this->out->raw(' by ');
-
+	} else {
 	    $this->out->elementStart('a',
-            array(
-                'href' => $this->application->homepage,
-                'class' => 'url'
-                )
-            );
-	    $this->out->raw($this->application->organization);
-	    $this->out->elementEnd('a');
+				     array('href' =>  $this->application->source_url,
+					   'class' => 'url'));
 
-	    $this->out->elementStart('p', 'note');
+	    $this->out->raw($this->application->name);
+	    $this->out->elementEnd('a');
+	}
+
+	$this->out->raw(' by ');
+
+	$this->out->elementStart('a',
+            array(
+		  'href' => $this->application->homepage,
+		  'class' => 'url'
+                )
+				 );
+	$this->out->raw($this->application->organization);
+	$this->out->elementEnd('a');
+
+	$this->out->elementStart('p', 'note');
         $this->out->raw($this->application->description);
         $this->out->elementEnd('p');
 
+	$this->out->elementEnd('li');
+
+	if ($this->connections) {
+
+	    $appUser = Oauth_application_user::getByKeys($this->owner, $this->application);
+
+	    if (empty($appUser)) {
+		common_debug("empty appUser!");
+	    }
+
+	    $this->out->elementStart('li');
+
+	    $access = ($this->application->access_type & Oauth_application::$writeAccess)
+	      ? 'read-write' : 'read-only';
+
+	    $txt = 'Approved ' . common_exact_date($appUser->modified) .
+	      " $access for access.";
+
+	    $this->out->raw($txt);
 	    $this->out->elementEnd('li');
+
+	    // XXX: Add revoke access button
+	}
     }
 
     /* Override this in subclasses. */

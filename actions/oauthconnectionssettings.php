@@ -48,6 +48,16 @@ require_once INSTALLDIR . '/lib/applicationlist.php';
 
 class OauthconnectionssettingsAction extends ConnectSettingsAction
 {
+
+    var $page = null;
+
+    function prepare($args)
+    {
+        parent::prepare($args);
+        $this->page = ($this->arg('page')) ? ($this->arg('page') + 0) : 1;
+        return true;
+    }
+
     /**
      * Title of the page
      *
@@ -57,6 +67,11 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
     function title()
     {
         return _('Connected Applications');
+    }
+
+    function isReadOnly($args)
+    {
+        return true;
     }
 
     /**
@@ -86,13 +101,16 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
 
         $application = $profile->getApplications($offset, $limit);
 
-        if ($application) {
-            $al = new ApplicationList($application, $this->user, $this);
-            $cnt = $al->show();
-            if (0 == $cnt) {
-                $this->showEmptyListMessage();
-            }
-        }
+	$cnt == 0;
+
+	if (!empty($application)) {
+	    $al = new ApplicationList($application, $user, $this, true);
+	    $cnt = $al->show();
+	}
+
+	if ($cnt == 0) {
+	    $this->showEmptyListMessage();
+	}
 
         $this->pagination($this->page > 1, $cnt > APPS_PER_PAGE,
                           $this->page, 'connectionssettings',
