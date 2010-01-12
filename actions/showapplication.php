@@ -167,12 +167,20 @@ class ShowApplicationAction extends OwnerDesignAction
 
         $this->elementStart('dl', 'entity_fn');
         $this->element('dt', null, _('Name'));
-        $this->element('dd', 'fn', $this->application->name);
+        $this->elementStart('dd');
+        $this->element('a', array('href' =>  $this->application->source_url,
+                                  'class' => 'url fn'),
+                            $this->application->name);
+        $this->elementEnd('dd');
         $this->elementEnd('dl');
 
         $this->elementStart('dl', 'entity_org');
         $this->element('dt', null, _('Organization'));
-        $this->element('dd', 'org', $this->application->organization);
+        $this->elementStart('dd');
+        $this->element('a', array('href' =>  $this->application->homepage,
+                                  'class' => 'url'),
+                            $this->application->organization);
+        $this->elementEnd('dd');
         $this->elementEnd('dl');
 
         $this->elementStart('dl', 'entity_note');
