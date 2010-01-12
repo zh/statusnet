@@ -68,9 +68,12 @@ class DiskCachePlugin extends Plugin
     function onStartCacheGet(&$key, &$value)
     {
         $filename = $this->keyToFilename($key);
+
         if (file_exists($filename)) {
             $data = file_get_contents($filename);
-            $value = unserialize($data);
+            if ($data !== false) {
+                $value = unserialize($data);
+            }
         }
 
         Event::handle('EndCacheGet', array($key, &$value));
@@ -116,7 +119,24 @@ class DiskCachePlugin extends Plugin
             return false;
         }
 
-        file_put_contents($filename, serialize($value));
+        // Write to a temp file and move to destination
+
+        $tempname = tempnam(null, 'statusnetdiskcache');
+
+        $result = file_put_contents($tempname, serialize($value));
+
+        if ($result === false) {
+            $this->log(LOG_ERR, "Couldn't write '$key' to temp file '$tempname'");
+            return false;
+        }
+
+        $result = rename($tempname, $filename);
+
+        if (!$result) {
+            $this->log(LOG_ERR, "Couldn't move temp file '$tempname' to path '$filename' for key '$key'");
+            @unlink($tempname);
+            return false;
+        }
 
         Event::handle('EndCacheSet', array($key, $value, $flag,
                                            $expiry));
