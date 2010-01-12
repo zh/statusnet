@@ -29,7 +29,7 @@
  * @author   Robin Millette <millette@controlyourself.ca>
  * @author   Sarven Capadisli <csarven@controlyourself.ca>
  * @author   Tom Adams <tom@holizz.com>
- * 
+ *
  * @license  GNU Affero General Public License http://www.gnu.org/licenses/
  */
 
@@ -150,7 +150,7 @@ function checkMirror($action_obj, $args)
 {
     global $config;
 
-    static $alwaysRW = array('session', 'remember_me');
+    static $alwaysRW = array('session', 'remember_me', 'inbox');
 
     if (common_config('db', 'mirror') && $action_obj->isReadOnly($args)) {
         if (is_array(common_config('db', 'mirror'))) {
