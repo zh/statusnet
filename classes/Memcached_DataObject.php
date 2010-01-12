@@ -68,7 +68,7 @@ class Memcached_DataObject extends DB_DataObject
         // Clear this out so we don't accidentally break global
         // state in *this* process.
         $this->_DB_resultid = null;
-        
+
         // We don't have any local DBO refs, so clear these out.
         $this->_link_loaded = false;
     }
@@ -171,7 +171,16 @@ class Memcached_DataObject extends DB_DataObject
         if (!$c) {
             return false;
         } else {
-            return $c->get(Memcached_DataObject::cacheKey($cls, $k, $v));
+            $obj = $c->get(Memcached_DataObject::cacheKey($cls, $k, $v));
+            if (0 == strcasecmp($cls, 'User')) {
+                // Special case for User
+                if (is_object($obj->id)) {
+                    common_log(LOG_ERR, "User " . $obj->nickname . " was cached with User as ID; deleting");
+                    $c->delete(Memcached_DataObject::cacheKey($cls, $k, $v));
+                    return false;
+                }
+            }
+            return $obj;
         }
     }
 
@@ -189,6 +198,12 @@ class Memcached_DataObject extends DB_DataObject
     {
         $c = $this->memcache();
         if (!$c) {
+            return false;
+        } else if ($this->tableName() == 'user' && is_object($this->id)) {
+            // Special case for User bug
+            $e = new Exception();
+            common_log(LOG_ERR, __METHOD__ . ' caching user with User object as ID ' .
+                       str_replace("\n", " ", $e->getTraceAsString()));
             return false;
         } else {
             $pkey = array();
