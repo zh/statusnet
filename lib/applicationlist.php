@@ -69,7 +69,7 @@ class ApplicationList extends Widget
 
     function show()
     {
-        $this->out->elementStart('ul', array('id' => 'applications'));
+        $this->out->elementStart('ul', 'applications');
 
         $cnt = 0;
 
@@ -94,69 +94,58 @@ class ApplicationList extends Widget
         $this->out->elementStart('li', array('class' => 'application',
                                              'id' => 'oauthclient-' . $this->application->id));
 
-	if (!empty($this->application->icon)) {
-	    $this->out->element('img', array('src' => $this->application->icon));
-	}
+        if (!empty($this->application->icon)) {
+            $this->out->element('img', array('src' => $this->application->icon));
+        }
 
-	if (!$this->connections) {
+        if (!$this->connections) {
+            $this->out->elementStart('a',
+                            array('href' => common_local_url('showapplication',
+                                                array('nickname' => $user->nickname,
+                                                      'id' => $this->application->id)),
+                                  'class' => 'url'));
 
-	    $this->out->elementStart('a',
-				     array('href' =>
-					   common_local_url('showapplication',
-							    array('nickname' => $user->nickname,
-								  'id' => $this->application->id)),
-					   'class' => 'url')
-				     );
+            $this->out->raw($this->application->name);
+            $this->out->elementEnd('a');
+        } else {
+            $this->out->elementStart('a', array('href' =>  $this->application->source_url,
+                                                'class' => 'url'));
 
-	    $this->out->raw($this->application->name);
-	    $this->out->elementEnd('a');
-	} else {
-	    $this->out->elementStart('a',
-				     array('href' =>  $this->application->source_url,
-					   'class' => 'url'));
+            $this->out->raw($this->application->name);
+            $this->out->elementEnd('a');
+        }
 
-	    $this->out->raw($this->application->name);
-	    $this->out->elementEnd('a');
-	}
+        $this->out->raw(' by ');
 
-	$this->out->raw(' by ');
+        $this->out->elementStart('a', array('href' => $this->application->homepage,
+                                            'class' => 'url'));
+        $this->out->raw($this->application->organization);
+        $this->out->elementEnd('a');
 
-	$this->out->elementStart('a',
-            array(
-		  'href' => $this->application->homepage,
-		  'class' => 'url'
-                )
-				 );
-	$this->out->raw($this->application->organization);
-	$this->out->elementEnd('a');
-
-	$this->out->elementStart('p', 'note');
+        $this->out->elementStart('p', 'note');
         $this->out->raw($this->application->description);
         $this->out->elementEnd('p');
 
-	$this->out->elementEnd('li');
+        if ($this->connections) {
+            $appUser = Oauth_application_user::getByKeys($this->owner, $this->application);
 
-	if ($this->connections) {
+            if (empty($appUser)) {
+                common_debug("empty appUser!");
+            }
 
-	    $appUser = Oauth_application_user::getByKeys($this->owner, $this->application);
+            $this->out->elementStart('li');
 
-	    if (empty($appUser)) {
-		common_debug("empty appUser!");
-	    }
+            $access = ($this->application->access_type & Oauth_application::$writeAccess)
+              ? 'read-write' : 'read-only';
 
-	    $this->out->elementStart('li');
+            $txt = 'Approved ' . common_exact_date($appUser->modified) .
+              " $access for access.";
 
-	    $access = ($this->application->access_type & Oauth_application::$writeAccess)
-	      ? 'read-write' : 'read-only';
+            $this->out->raw($txt);
+            $this->out->elementEnd('li');
 
-	    $txt = 'Approved ' . common_exact_date($appUser->modified) .
-	      " $access for access.";
-
-	    $this->out->raw($txt);
-	    $this->out->elementEnd('li');
-
-	    // XXX: Add revoke access button
-	}
+            // XXX: Add revoke access button
+        }
     }
 
     /* Override this in subclasses. */
