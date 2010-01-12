@@ -141,7 +141,7 @@ class Action extends HTMLOutputter // lawsuit
     function showTitle()
     {
         $this->element('title', null,
-                       sprintf(_("%1$s - %2$s"),
+                       sprintf(_("%1\$s - %2\$s"),
                                $this->title(),
                                common_config('site', 'name')));
     }

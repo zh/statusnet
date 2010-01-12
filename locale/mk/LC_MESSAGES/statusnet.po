@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-10 11:27+0000\n"
-"PO-Revision-Date: 2010-01-11 00:20:58+0000\n"
+"POT-Creation-Date: 2010-01-11 23:25+0000\n"
+"PO-Revision-Date: 2010-01-11 23:27:31+0000\n"
 "Language-Team: Macedonian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60910); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r60950); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: out-statusnet\n"
@@ -39,7 +39,7 @@ msgstr "Нема таква страница"
 #: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
 #: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
 #: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
-#: actions/microsummary.php:62 actions/newmessage.php:116
+#: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:76
 #: actions/remotesubscribe.php:145 actions/remotesubscribe.php:154
 #: actions/replies.php:73 actions/repliesrss.php:38
 #: actions/showfavorites.php:105 actions/userbyid.php:74
@@ -383,7 +383,7 @@ msgstr "Алијасот не може да биде ист како прека�
 msgid "Group not found!"
 msgstr "Групата не е пронајдена!"
 
-#: actions/apigroupjoin.php:110 actions/joingroup.php:90 lib/command.php:217
+#: actions/apigroupjoin.php:110 actions/joingroup.php:90
 msgid "You are already a member of that group."
 msgstr "Веќе членувате во таа група."
 
@@ -391,7 +391,7 @@ msgstr "Веќе членувате во таа група."
 msgid "You have been blocked from that group by the admin."
 msgstr "Блокирани сте од таа група од администраторот."
 
-#: actions/apigroupjoin.php:138 actions/joingroup.php:128 lib/command.php:234
+#: actions/apigroupjoin.php:138 actions/joingroup.php:128
 #, php-format
 msgid "Could not join user %1$s to group %2$s."
 msgstr "Не можам да го зачленам корисникот %1$s во групата 2$s."
@@ -433,11 +433,11 @@ msgstr "Не можете да избришете статус на друг к�
 msgid "No such notice."
 msgstr "Нема таква забелешка."
 
-#: actions/apistatusesretweet.php:83 lib/command.php:422
+#: actions/apistatusesretweet.php:83
 msgid "Cannot repeat your own notice."
 msgstr "Не можете да ја повторувате сопствената забелешка."
 
-#: actions/apistatusesretweet.php:91 lib/command.php:427
+#: actions/apistatusesretweet.php:91
 msgid "Already repeated that notice."
 msgstr "Забелешката е веќе повторена."
 
@@ -611,7 +611,7 @@ msgstr "Отсечи"
 #: actions/disfavor.php:74 actions/emailsettings.php:238 actions/favor.php:75
 #: actions/geocode.php:50 actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
-#: actions/invite.php:56 actions/login.php:135 actions/makeadmin.php:66
+#: actions/invite.php:56 actions/login.php:115 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:194 actions/recoverpassword.php:337
@@ -1800,7 +1800,7 @@ msgstr ""
 msgid "You must be logged in to join a group."
 msgstr "Мора да сте најавени за да можете да се зачлените во група."
 
-#: actions/joingroup.php:135 lib/command.php:239
+#: actions/joingroup.php:135
 #, php-format
 msgid "%1$s joined group %2$s"
 msgstr "%1$s се зачлени во групата %2$s"
@@ -1817,61 +1817,57 @@ msgstr "Не членувате во таа група."
 msgid "Could not find membership record."
 msgstr "Не можам да ја пронајдам членската евиденција."
 
-#: actions/leavegroup.php:134 lib/command.php:289
+#: actions/leavegroup.php:134
 #, php-format
 msgid "%1$s left group %2$s"
 msgstr "%1$s ја напушти групата %2$s"
 
-#: actions/login.php:83 actions/register.php:137
+#: actions/login.php:80 actions/otp.php:62 actions/register.php:137
 msgid "Already logged in."
 msgstr "Веќе сте најавени."
 
-#: actions/login.php:114 actions/login.php:124
-msgid "Invalid or expired token."
-msgstr "Неважечки или истечен жетон."
-
-#: actions/login.php:147
+#: actions/login.php:126
 msgid "Incorrect username or password."
 msgstr "Неточно корисничко име или лозинка"
 
-#: actions/login.php:153
+#: actions/login.php:132 actions/otp.php:120
 msgid "Error setting user. You are probably not authorized."
 msgstr "Грешка при поставувањето на корисникот. Веројатно не се заверени."
 
-#: actions/login.php:208 actions/login.php:261 lib/action.php:460
+#: actions/login.php:188 actions/login.php:241 lib/action.php:460
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Најава"
 
-#: actions/login.php:247
+#: actions/login.php:227
 msgid "Login to site"
 msgstr "Најавете се"
 
-#: actions/login.php:250 actions/profilesettings.php:106
-#: actions/register.php:423 actions/showgroup.php:236 actions/tagother.php:94
+#: actions/login.php:230 actions/profilesettings.php:106
+#: actions/register.php:424 actions/showgroup.php:236 actions/tagother.php:94
 #: lib/groupeditform.php:152 lib/userprofile.php:131
 msgid "Nickname"
 msgstr "Прекар"
 
-#: actions/login.php:253 actions/register.php:428
+#: actions/login.php:233 actions/register.php:429
 #: lib/accountsettingsaction.php:116
 msgid "Password"
 msgstr "Лозинка"
 
-#: actions/login.php:256 actions/register.php:477
+#: actions/login.php:236 actions/register.php:478
 msgid "Remember me"
 msgstr "Запамети ме"
 
-#: actions/login.php:257 actions/register.php:479
+#: actions/login.php:237 actions/register.php:480
 msgid "Automatically login in the future; not for shared computers!"
 msgstr ""
 "Следниот пат најавете се автоматски; не за компјутери кои ги делите со други!"
 
-#: actions/login.php:267
+#: actions/login.php:247
 msgid "Lost or forgotten password?"
 msgstr "Ја загубивте или заборавивте лозинката?"
 
-#: actions/login.php:286
+#: actions/login.php:266
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
@@ -1879,7 +1875,7 @@ msgstr ""
 "Поради безбедносни причини треба повторно да го внесете Вашето корисничко "
 "име и лозинка пред да ги смените Вашите нагодувања."
 
-#: actions/login.php:290
+#: actions/login.php:270
 #, php-format
 msgid ""
 "Login with your username and password. Don't have a username yet? [Register]"
@@ -1947,7 +1943,7 @@ msgstr ""
 msgid "Message sent"
 msgstr "Пораката е испратена"
 
-#: actions/newmessage.php:185 lib/command.php:376
+#: actions/newmessage.php:185
 #, php-format
 msgid "Direct message to %s sent."
 msgstr "Директната порака до %s е испратена."
@@ -2043,8 +2039,8 @@ msgstr "тип на содржини "
 msgid "Only "
 msgstr "Само "
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1031
-#: lib/api.php:1059 lib/api.php:1169
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1033
+#: lib/api.php:1061 lib/api.php:1171
 msgid "Not a supported data format."
 msgstr "Ова не е поддржан формат на податотека."
 
@@ -2088,6 +2084,31 @@ msgstr "Прикажи или сокриј профилни изгледи."
 msgid "URL shortening service is too long (max 50 chars)."
 msgstr "Услугата за скратување на URL-адреси е предолга (највеќе до 50 знаци)."
 
+#: actions/otp.php:69
+#, fuzzy
+msgid "No user ID specified."
+msgstr "Нема назначено група."
+
+#: actions/otp.php:83
+#, fuzzy
+msgid "No login token specified."
+msgstr "Нема назначено забелешка."
+
+#: actions/otp.php:90
+#, fuzzy
+msgid "No login token requested."
+msgstr "Во барањето нема id на профилот."
+
+#: actions/otp.php:95
+#, fuzzy
+msgid "Invalid login token specified."
+msgstr "Неважечки или истечен жетон."
+
+#: actions/otp.php:104
+#, fuzzy
+msgid "Login token expired."
+msgstr "Најавете се"
+
 #: actions/outbox.php:61
 #, php-format
 msgid "Outbox for %s"
@@ -2124,7 +2145,7 @@ msgid "6 or more characters"
 msgstr "6 или повеќе знаци"
 
 #: actions/passwordsettings.php:112 actions/recoverpassword.php:239
-#: actions/register.php:432 actions/smssettings.php:134
+#: actions/register.php:433 actions/smssettings.php:134
 msgid "Confirm"
 msgstr "Потврди"
 
@@ -2351,42 +2372,42 @@ msgstr "Информации за профил"
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr "1-64 мали букви или бројки. Без интерпукциски знаци и празни места."
 
-#: actions/profilesettings.php:111 actions/register.php:447
+#: actions/profilesettings.php:111 actions/register.php:448
 #: actions/showgroup.php:247 actions/tagother.php:104
 #: lib/groupeditform.php:157 lib/userprofile.php:149
 msgid "Full name"
 msgstr "Цело име"
 
-#: actions/profilesettings.php:115 actions/register.php:452
+#: actions/profilesettings.php:115 actions/register.php:453
 #: lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "Домашна страница"
 
-#: actions/profilesettings.php:117 actions/register.php:454
+#: actions/profilesettings.php:117 actions/register.php:455
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr "URL на Вашата домашна страница, блог или профил на друга веб-страница."
 
-#: actions/profilesettings.php:122 actions/register.php:460
+#: actions/profilesettings.php:122 actions/register.php:461
 #, php-format
 msgid "Describe yourself and your interests in %d chars"
 msgstr "Опишете се себеси и своите интереси во %d знаци."
 
-#: actions/profilesettings.php:125 actions/register.php:463
+#: actions/profilesettings.php:125 actions/register.php:464
 msgid "Describe yourself and your interests"
 msgstr "Опишете се себеси и Вашите интереси"
 
-#: actions/profilesettings.php:127 actions/register.php:465
+#: actions/profilesettings.php:127 actions/register.php:466
 msgid "Bio"
 msgstr "Биографија"
 
-#: actions/profilesettings.php:132 actions/register.php:470
+#: actions/profilesettings.php:132 actions/register.php:471
 #: actions/showgroup.php:256 actions/tagother.php:112
 #: actions/userauthorization.php:158 lib/groupeditform.php:177
 #: lib/userprofile.php:164
 msgid "Location"
 msgstr "Локација"
 
-#: actions/profilesettings.php:134 actions/register.php:472
+#: actions/profilesettings.php:134 actions/register.php:473
 msgid "Where you are, like \"City, State (or Region), Country\""
 msgstr "Каде се наоѓате, на пр. „Град, Област, Земја“."
 
@@ -2700,7 +2721,7 @@ msgstr "Грешка во поставувањето на корисникот."
 msgid "New password successfully saved. You are now logged in."
 msgstr "Новата лозинка е успешно зачувана. Сега сте најавени."
 
-#: actions/register.php:85 actions/register.php:189 actions/register.php:404
+#: actions/register.php:85 actions/register.php:189 actions/register.php:405
 msgid "Sorry, only invited people can register."
 msgstr "Жалиме, регистрацијата е само со покана."
 
@@ -2712,7 +2733,7 @@ msgstr "Жалиме, неважечки код за поканата."
 msgid "Registration successful"
 msgstr "Регистрацијата е успешна"
 
-#: actions/register.php:114 actions/register.php:502 lib/action.php:457
+#: actions/register.php:114 actions/register.php:503 lib/action.php:457
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Регистрирај се"
@@ -2729,11 +2750,11 @@ msgstr "Не може да се регистрирате ако не ја при
 msgid "Email address already exists."
 msgstr "Адресата веќе постои."
 
-#: actions/register.php:243 actions/register.php:264
+#: actions/register.php:243 actions/register.php:265
 msgid "Invalid username or password."
 msgstr "Погрешно име или лозинка."
 
-#: actions/register.php:342
+#: actions/register.php:343
 msgid ""
 "With this form you can create  a new account. You can then post notices and "
 "link up to friends and colleagues. "
@@ -2741,42 +2762,42 @@ msgstr ""
 "Со овој образец можете да создадете нова сметка. Потоа ќе можете да "
 "објавувате забелешки и да се поврзувате со пријатели и колеги. "
 
-#: actions/register.php:424
+#: actions/register.php:425
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
 msgstr ""
 "1-64 мали букви или бројки, без интерпункциски знаци и празни места. "
 "Задолжително поле."
 
-#: actions/register.php:429
+#: actions/register.php:430
 msgid "6 or more characters. Required."
 msgstr "Барем 6 знаци. Задолжително поле."
 
-#: actions/register.php:433
+#: actions/register.php:434
 msgid "Same as password above. Required."
 msgstr "Исто што и лозинката погоре. Задолжително поле."
 
-#: actions/register.php:437 actions/register.php:441
+#: actions/register.php:438 actions/register.php:442
 #: actions/siteadminpanel.php:270 lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr "Е-пошта"
 
-#: actions/register.php:438 actions/register.php:442
+#: actions/register.php:439 actions/register.php:443
 msgid "Used only for updates, announcements, and password recovery"
 msgstr "Се користи само за подновувања, објави и повраќање на лозинка."
 
-#: actions/register.php:449
+#: actions/register.php:450
 msgid "Longer name, preferably your \"real\" name"
 msgstr "Подолго име, по можност Вашето вистинско име и презиме"
 
-#: actions/register.php:493
+#: actions/register.php:494
 msgid "My text and files are available under "
 msgstr "Мојот текст и податотеки се достапни под "
 
-#: actions/register.php:495
+#: actions/register.php:496
 msgid "Creative Commons Attribution 3.0"
 msgstr "Creative Commons Наведи извор 3.0"
 
-#: actions/register.php:496
+#: actions/register.php:497
 msgid ""
 " except this private data: password, email address, IM address, and phone "
 "number."
@@ -2784,7 +2805,7 @@ msgstr ""
 "  освен овие приватни податоци: лозинка, е-пошта, IM-адреса и телефонски "
 "број."
 
-#: actions/register.php:537
+#: actions/register.php:538
 #, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -2818,7 +2839,7 @@ msgstr ""
 "Ви благодариме што се зачленивте и Ви пожелуваме пријатни мигови со оваа "
 "служба."
 
-#: actions/register.php:561
+#: actions/register.php:562
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
@@ -4031,7 +4052,7 @@ msgstr "Автор(и)"
 msgid "Description"
 msgstr "Опис"
 
-#: classes/File.php:137
+#: classes/File.php:144
 #, php-format
 msgid ""
 "No file may be larger than %d bytes and the file you sent was %d bytes. Try "
@@ -4040,16 +4061,21 @@ msgstr ""
 "Ниедна податотека не смее да биде поголема од %d бајти, а подаотеката што ја "
 "испративте содржи %d бајти. Подигнете помала верзија."
 
-#: classes/File.php:147
+#: classes/File.php:154
 #, php-format
 msgid "A file this large would exceed your user quota of %d bytes."
 msgstr ""
 "Волку голема податотека ќе ја надмине Вашата корисничка квота од %d бајти."
 
-#: classes/File.php:154
+#: classes/File.php:161
 #, php-format
 msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr "ВОлку голема податотека ќе ја надмине Вашата месечна квота од %d бајти"
+
+#: classes/Login_token.php:76
+#, fuzzy, php-format
+msgid "Could not create login token for %s"
+msgstr "Не можам да создадам најавен жетон за %s."
 
 #: classes/Message.php:45
 msgid "You are banned from sending direct messages."
@@ -4149,6 +4175,11 @@ msgstr "Друго"
 #: lib/accountsettingsaction.php:128
 msgid "Other options"
 msgstr "Други нагодувања"
+
+#: lib/action.php:144
+#, fuzzy, php-format
+msgid "%1$s - %2$s"
+msgstr "%1$s (%2$s)"
 
 #: lib/action.php:159
 msgid "Untitled page"
@@ -4405,8 +4436,8 @@ msgid "Sorry, this command is not yet implemented."
 msgstr "Жалиме, оваа наредба сè уште не е имплементирана."
 
 #: lib/command.php:88
-#, php-format
-msgid "Could not find a user with nickname %s."
+#, fuzzy, php-format
+msgid "Could not find a user with nickname %s"
 msgstr "Не можев да пронајдам корисник со прекар %s."
 
 #: lib/command.php:92
@@ -4414,8 +4445,8 @@ msgid "It does not make a lot of sense to nudge yourself!"
 msgstr "Нема баш логика да се подбуцнувате сами себеси."
 
 #: lib/command.php:99
-#, php-format
-msgid "Nudge sent to %s."
+#, fuzzy, php-format
+msgid "Nudge sent to %s"
 msgstr "Испратено подбуцнување на %s."
 
 #: lib/command.php:126
@@ -4430,26 +4461,48 @@ msgstr ""
 "Забелешки: %3$s"
 
 #: lib/command.php:152 lib/command.php:399 lib/command.php:460
-msgid "Notice with that id does not exist."
+#, fuzzy
+msgid "Notice with that id does not exist"
 msgstr "Не постои забелешка со таков id."
 
 #: lib/command.php:168 lib/command.php:415 lib/command.php:476
 #: lib/command.php:532
-msgid "User has no last notice."
+#, fuzzy
+msgid "User has no last notice"
 msgstr "Корисникот нема последна забелешка"
 
 #: lib/command.php:190
 msgid "Notice marked as fave."
 msgstr "Забелешката е обележана како омилена."
 
+#: lib/command.php:217
+#, fuzzy
+msgid "You are already a member of that group"
+msgstr "Веќе членувате во таа група."
+
+#: lib/command.php:234
+#, fuzzy, php-format
+msgid "Could not join user %s to group %s"
+msgstr "Не можам да го зачленам корисникот %1$s во групата 2$s."
+
+#: lib/command.php:239
+#, fuzzy, php-format
+msgid "%s joined group %s"
+msgstr "%1$s се зачлени во групата %2$s"
+
 #: lib/command.php:284
-#, php-format
-msgid "Could not remove user %1$s to group %2$s."
+#, fuzzy, php-format
+msgid "Could not remove user %s to group %s"
 msgstr "Не можев да го отстранам корисникот %1$s од групата %2$s."
 
+#: lib/command.php:289
+#, fuzzy, php-format
+msgid "%s left group %s"
+msgstr "%1$s ја напушти групата %2$s"
+
 #: lib/command.php:318
-#, php-format
-msgid "Full name: %s"
+#, fuzzy, php-format
+msgid "Fullname: %s"
 msgstr "Име и презиме: %s"
 
 #: lib/command.php:321 lib/mail.php:254
@@ -4467,19 +4520,34 @@ msgstr "Домашна страница: %s"
 msgid "About: %s"
 msgstr "За: %s"
 
-#: lib/command.php:358 scripts/xmppdaemon.php:301
-#, php-format
-msgid "Message too long - maximum is %1$d characters, you sent %2$d."
+#: lib/command.php:358
+#, fuzzy, php-format
+msgid "Message too long - maximum is %d characters, you sent %d"
 msgstr ""
 "Пораката е предолга - дозволени се највеќе %1$d знаци, а вие испративте %2$d."
+
+#: lib/command.php:376
+#, fuzzy, php-format
+msgid "Direct message to %s sent"
+msgstr "Директната порака до %s е испратена."
 
 #: lib/command.php:378
 msgid "Error sending direct message."
 msgstr "Грашка при испаќањето на директната порака."
 
+#: lib/command.php:422
+#, fuzzy
+msgid "Cannot repeat your own notice"
+msgstr "Не можете да ја повторувате сопствената забелешка."
+
+#: lib/command.php:427
+#, fuzzy
+msgid "Already repeated that notice"
+msgstr "Забелешката е веќе повторена."
+
 #: lib/command.php:435
-#, php-format
-msgid "Notice from %s repeated."
+#, fuzzy, php-format
+msgid "Notice from %s repeated"
 msgstr "Забелешката од %s е повторена."
 
 #: lib/command.php:437
@@ -4487,15 +4555,15 @@ msgid "Error repeating notice."
 msgstr "Грешка при повторувањето на белешката."
 
 #: lib/command.php:491
-#, php-format
-msgid "Notice too long - maximum is %1$d characters, you sent %2$d."
+#, fuzzy, php-format
+msgid "Notice too long - maximum is %d characters, you sent %d"
 msgstr ""
 "Забелешката е предолга - треба да нема повеќе од %1$d знаци, а Вие "
 "испративте %2$d."
 
 #: lib/command.php:500
-#, php-format
-msgid "Reply to %s sent."
+#, fuzzy, php-format
+msgid "Reply to %s sent"
 msgstr "Одговорот на %s е испратен."
 
 #: lib/command.php:502
@@ -4503,7 +4571,8 @@ msgid "Error saving notice."
 msgstr "Грешка при зачувувањето на белешката."
 
 #: lib/command.php:556
-msgid "Specify the name of the user to subscribe to."
+#, fuzzy
+msgid "Specify the name of the user to subscribe to"
 msgstr "Назначете го името на корисникот на којшто сакате да се претплатите."
 
 #: lib/command.php:563
@@ -4512,7 +4581,8 @@ msgid "Subscribed to %s"
 msgstr "Претплатено на %s"
 
 #: lib/command.php:584
-msgid "Specify the name of the user to unsubscribe from."
+#, fuzzy
+msgid "Specify the name of the user to unsubscribe from"
 msgstr "Назначете го името на корисникот од кого откажувате претплата."
 
 #: lib/command.php:591
@@ -4541,50 +4611,46 @@ msgid "Can't turn on notification."
 msgstr "Не можам да вклучам известување."
 
 #: lib/command.php:650
-msgid "Login command is disabled."
+#, fuzzy
+msgid "Login command is disabled"
 msgstr "Наредбата за најава е оневозможена."
 
-#: lib/command.php:664
-#, php-format
-msgid "Could not create login token for %s."
-msgstr "Не можам да создадам најавен жетон за %s."
-
-#: lib/command.php:669
-#, php-format
-msgid "This link is useable only once, and is good for only 2 minutes: %s."
+#: lib/command.php:661
+#, fuzzy, php-format
+msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr "Оваа врска може да се употреби само еднаш, и трае само 2 минути: %s."
 
-#: lib/command.php:685
+#: lib/command.php:677
 msgid "You are not subscribed to anyone."
 msgstr "Не сте претплатени никому."
 
-#: lib/command.php:687
+#: lib/command.php:679
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Не ни го испративте тој профил."
 msgstr[1] "Не ни го испративте тој профил."
 
-#: lib/command.php:707
+#: lib/command.php:699
 msgid "No one is subscribed to you."
 msgstr "Никој не е претплатен на Вас."
 
-#: lib/command.php:709
+#: lib/command.php:701
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Оддалечена претплата"
 msgstr[1] "Оддалечена претплата"
 
-#: lib/command.php:729
+#: lib/command.php:721
 msgid "You are not a member of any groups."
 msgstr "Не членувате во ниедна група."
 
-#: lib/command.php:731
+#: lib/command.php:723
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Не ни го испративте тој профил."
 msgstr[1] "Не ни го испративте тој профил."
 
-#: lib/command.php:745
+#: lib/command.php:737
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5272,11 +5338,13 @@ msgid "Attach a file"
 msgstr "Прикажи податотека"
 
 #: lib/noticeform.php:212
-msgid "Share my location."
+#, fuzzy
+msgid "Share my location"
 msgstr "Споделете ја мојата локација."
 
 #: lib/noticeform.php:214
-msgid "Do not share my location."
+#, fuzzy
+msgid "Do not share my location"
 msgstr "Не ја споделувај мојата локација."
 
 #: lib/noticeform.php:215
@@ -5631,47 +5699,47 @@ msgstr "Порака"
 msgid "Moderate"
 msgstr "Модерирај"
 
-#: lib/util.php:837
+#: lib/util.php:884
 msgid "a few seconds ago"
 msgstr "пред неколку секунди"
 
-#: lib/util.php:839
+#: lib/util.php:886
 msgid "about a minute ago"
 msgstr "пред една минута"
 
-#: lib/util.php:841
+#: lib/util.php:888
 #, php-format
 msgid "about %d minutes ago"
 msgstr "пред %d минути"
 
-#: lib/util.php:843
+#: lib/util.php:890
 msgid "about an hour ago"
 msgstr "пред еден час"
 
-#: lib/util.php:845
+#: lib/util.php:892
 #, php-format
 msgid "about %d hours ago"
 msgstr "пред %d часа"
 
-#: lib/util.php:847
+#: lib/util.php:894
 msgid "about a day ago"
 msgstr "пред еден ден"
 
-#: lib/util.php:849
+#: lib/util.php:896
 #, php-format
 msgid "about %d days ago"
 msgstr "пред %d денови"
 
-#: lib/util.php:851
+#: lib/util.php:898
 msgid "about a month ago"
 msgstr "пред еден месец"
 
-#: lib/util.php:853
+#: lib/util.php:900
 #, php-format
 msgid "about %d months ago"
 msgstr "пред %d месеца"
 
-#: lib/util.php:855
+#: lib/util.php:902
 msgid "about a year ago"
 msgstr "пред една година"
 
@@ -5684,3 +5752,9 @@ msgstr "%s не е важечка боја!"
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
 msgstr "%s не е важечка боја! Користете 3 или 6 шеснаесетни (hex) знаци."
+
+#: scripts/xmppdaemon.php:301
+#, php-format
+msgid "Message too long - maximum is %1$d characters, you sent %2$d."
+msgstr ""
+"Пораката е предолга - дозволени се највеќе %1$d знаци, а вие испративте %2$d."

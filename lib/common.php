@@ -45,11 +45,20 @@ define('FOREIGN_FRIEND_RECV', 2);
 
 set_include_path(get_include_path() . PATH_SEPARATOR . INSTALLDIR . '/extlib/');
 
-# To protect against upstream libraries which haven't updated
-# for PHP 5.3 where dl() function may not be present...
+// To protect against upstream libraries which haven't updated
+// for PHP 5.3 where dl() function may not be present...
 if (!function_exists('dl')) {
-    function dl($library) {
-        return false;
+    // function_exists() returns false for things in disable_functions,
+    // but they still exist and we'll die if we try to redefine them.
+    //
+    // Fortunately trying to call the disabled one will only trigger
+    // a warning, not a fatal, so it's safe to leave it for our case.
+    // Callers will be suppressing warnings anyway.
+    $disabled = array_filter(array_map('trim', explode(',', ini_get('disable_functions'))));
+    if (!in_array('dl', $disabled)) {
+        function dl($library) {
+            return false;
+        }
     }
 }
 

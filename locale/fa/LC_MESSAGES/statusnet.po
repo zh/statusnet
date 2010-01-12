@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-10 11:27+0000\n"
-"PO-Revision-Date: 2010-01-10 11:28:06+0000\n"
+"POT-Creation-Date: 2010-01-11 23:25+0000\n"
+"PO-Revision-Date: 2010-01-11 23:26:49+0000\n"
 "Last-Translator: Ahmad Sufi Mahmudi\n"
 "Language-Team: Persian\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Language-Code: fa\n"
 "X-Message-Group: out-statusnet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: MediaWiki 1.16alpha (r60888); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r60950); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
@@ -42,7 +42,7 @@ msgstr "چنین صفحه‌ای وجود ندارد"
 #: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
 #: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
 #: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
-#: actions/microsummary.php:62 actions/newmessage.php:116
+#: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:76
 #: actions/remotesubscribe.php:145 actions/remotesubscribe.php:154
 #: actions/replies.php:73 actions/repliesrss.php:38
 #: actions/showfavorites.php:105 actions/userbyid.php:74
@@ -380,7 +380,7 @@ msgstr "نام و نام مستعار شما نمی تواند یکی باشد .
 msgid "Group not found!"
 msgstr "گروه یافت نشد!"
 
-#: actions/apigroupjoin.php:110 actions/joingroup.php:90 lib/command.php:217
+#: actions/apigroupjoin.php:110 actions/joingroup.php:90
 msgid "You are already a member of that group."
 msgstr "شما از پیش یک عضو این گروه هستید."
 
@@ -388,7 +388,7 @@ msgstr "شما از پیش یک عضو این گروه هستید."
 msgid "You have been blocked from that group by the admin."
 msgstr "دسترسی شما به گروه توسط مدیر آن محدود شده است."
 
-#: actions/apigroupjoin.php:138 actions/joingroup.php:128 lib/command.php:234
+#: actions/apigroupjoin.php:138 actions/joingroup.php:128
 #, fuzzy, php-format
 msgid "Could not join user %1$s to group %2$s."
 msgstr "عضویت %s در گروه %s نا موفق بود."
@@ -430,11 +430,11 @@ msgstr "شما توانایی حذف وضعیت کاربر دیگری را ند�
 msgid "No such notice."
 msgstr "چنین پیامی وجود ندارد."
 
-#: actions/apistatusesretweet.php:83 lib/command.php:422
+#: actions/apistatusesretweet.php:83
 msgid "Cannot repeat your own notice."
 msgstr "نمی توانید خبر خود را تکرار کنید."
 
-#: actions/apistatusesretweet.php:91 lib/command.php:427
+#: actions/apistatusesretweet.php:91
 msgid "Already repeated that notice."
 msgstr "ابن خبر قبلا فرستاده شده"
 
@@ -605,7 +605,7 @@ msgstr "برش"
 #: actions/disfavor.php:74 actions/emailsettings.php:238 actions/favor.php:75
 #: actions/geocode.php:50 actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
-#: actions/invite.php:56 actions/login.php:135 actions/makeadmin.php:66
+#: actions/invite.php:56 actions/login.php:115 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:194 actions/recoverpassword.php:337
@@ -1749,7 +1749,7 @@ msgstr ""
 msgid "You must be logged in to join a group."
 msgstr "برای پیوستن به یک گروه، باید وارد شده باشید."
 
-#: actions/joingroup.php:135 lib/command.php:239
+#: actions/joingroup.php:135
 #, fuzzy, php-format
 msgid "%1$s joined group %2$s"
 msgstr "ملحق شدن به گروه"
@@ -1766,60 +1766,56 @@ msgstr "شما یک کاربر این گروه نیستید."
 msgid "Could not find membership record."
 msgstr "عضویت ثبت شده پیدا نشد."
 
-#: actions/leavegroup.php:134 lib/command.php:289
+#: actions/leavegroup.php:134
 #, fuzzy, php-format
 msgid "%1$s left group %2$s"
 msgstr "%s گروه %s را ترک کرد."
 
-#: actions/login.php:83 actions/register.php:137
+#: actions/login.php:80 actions/otp.php:62 actions/register.php:137
 msgid "Already logged in."
 msgstr "قبلا وارد شده"
 
-#: actions/login.php:114 actions/login.php:124
-msgid "Invalid or expired token."
-msgstr "علامت بی اعتبار یا منقضی."
-
-#: actions/login.php:147
+#: actions/login.php:126
 msgid "Incorrect username or password."
 msgstr "نام کاربری یا رمز عبور نادرست."
 
-#: actions/login.php:153
+#: actions/login.php:132 actions/otp.php:120
 msgid "Error setting user. You are probably not authorized."
 msgstr "خطا در تنظیم کاربر. شما احتمالا اجازه ی این کار را ندارید."
 
-#: actions/login.php:208 actions/login.php:261 lib/action.php:460
+#: actions/login.php:188 actions/login.php:241 lib/action.php:460
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "ورود"
 
-#: actions/login.php:247
+#: actions/login.php:227
 msgid "Login to site"
 msgstr "ورود به وب‌گاه"
 
-#: actions/login.php:250 actions/profilesettings.php:106
-#: actions/register.php:423 actions/showgroup.php:236 actions/tagother.php:94
+#: actions/login.php:230 actions/profilesettings.php:106
+#: actions/register.php:424 actions/showgroup.php:236 actions/tagother.php:94
 #: lib/groupeditform.php:152 lib/userprofile.php:131
 msgid "Nickname"
 msgstr "نام کاربری"
 
-#: actions/login.php:253 actions/register.php:428
+#: actions/login.php:233 actions/register.php:429
 #: lib/accountsettingsaction.php:116
 msgid "Password"
 msgstr "گذرواژه"
 
-#: actions/login.php:256 actions/register.php:477
+#: actions/login.php:236 actions/register.php:478
 msgid "Remember me"
 msgstr "مرا به یاد بسپار"
 
-#: actions/login.php:257 actions/register.php:479
+#: actions/login.php:237 actions/register.php:480
 msgid "Automatically login in the future; not for shared computers!"
 msgstr "وارد شدن خودکار. نه برای کامپیوترهای مشترک!"
 
-#: actions/login.php:267
+#: actions/login.php:247
 msgid "Lost or forgotten password?"
 msgstr "رمز عبور خود را گم یا فراموش کرده اید؟"
 
-#: actions/login.php:286
+#: actions/login.php:266
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
@@ -1827,7 +1823,7 @@ msgstr ""
 "به دلایل امنیتی، لطفا نام کاربری و رمز عبور خود را قبل از تغییر تنظیمات "
 "دوباره وارد نمایید."
 
-#: actions/login.php:290
+#: actions/login.php:270
 #, php-format
 msgid ""
 "Login with your username and password. Don't have a username yet? [Register]"
@@ -1893,7 +1889,7 @@ msgstr "یک پیام را به خودتان نفرستید؛ در عوض آن �
 msgid "Message sent"
 msgstr "پیام فرستاده‌شد"
 
-#: actions/newmessage.php:185 lib/command.php:376
+#: actions/newmessage.php:185
 #, fuzzy, php-format
 msgid "Direct message to %s sent."
 msgstr "پیام مستقیم به %s فرستاده شد."
@@ -1988,8 +1984,8 @@ msgstr "نوع محتوا "
 msgid "Only "
 msgstr " فقط"
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1031
-#: lib/api.php:1059 lib/api.php:1169
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1033
+#: lib/api.php:1061 lib/api.php:1171
 msgid "Not a supported data format."
 msgstr "یک قالب دادهٔ پشتیبانی‌شده نیست."
 
@@ -2033,6 +2029,30 @@ msgstr "نمایش یا عدم‌نمایش طراحی‌های کاربران."
 msgid "URL shortening service is too long (max 50 chars)."
 msgstr "کوتاه کننده‌ی نشانی بسیار طولانی است (بیش‌تر از ۵۰ حرف)."
 
+#: actions/otp.php:69
+#, fuzzy
+msgid "No user ID specified."
+msgstr "گروهی مشخص نشده است."
+
+#: actions/otp.php:83
+#, fuzzy
+msgid "No login token specified."
+msgstr "خبری مشخص نشده."
+
+#: actions/otp.php:90
+msgid "No login token requested."
+msgstr ""
+
+#: actions/otp.php:95
+#, fuzzy
+msgid "Invalid login token specified."
+msgstr "علامت بی اعتبار یا منقضی."
+
+#: actions/otp.php:104
+#, fuzzy
+msgid "Login token expired."
+msgstr "ورود به وب‌گاه"
+
 #: actions/outbox.php:61
 #, php-format
 msgid "Outbox for %s"
@@ -2069,7 +2089,7 @@ msgid "6 or more characters"
 msgstr "۶ نویسه یا بیش‌تر"
 
 #: actions/passwordsettings.php:112 actions/recoverpassword.php:239
-#: actions/register.php:432 actions/smssettings.php:134
+#: actions/register.php:433 actions/smssettings.php:134
 msgid "Confirm"
 msgstr "تایید"
 
@@ -2294,42 +2314,42 @@ msgstr "اطلاعات شناس‌نامه"
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr "۱-۶۴ کاراکتر کوچک یا اعداد، بدون نقطه گذاری یا فاصله"
 
-#: actions/profilesettings.php:111 actions/register.php:447
+#: actions/profilesettings.php:111 actions/register.php:448
 #: actions/showgroup.php:247 actions/tagother.php:104
 #: lib/groupeditform.php:157 lib/userprofile.php:149
 msgid "Full name"
 msgstr "نام‌کامل"
 
-#: actions/profilesettings.php:115 actions/register.php:452
+#: actions/profilesettings.php:115 actions/register.php:453
 #: lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "صفحهٔ خانگی"
 
-#: actions/profilesettings.php:117 actions/register.php:454
+#: actions/profilesettings.php:117 actions/register.php:455
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr "نشانی اینترنتی صفحهٔ خانگی، وبلاگ یا مشخصات کاربری‌تان در یک وب‌گاه دیگر"
 
-#: actions/profilesettings.php:122 actions/register.php:460
+#: actions/profilesettings.php:122 actions/register.php:461
 #, php-format
 msgid "Describe yourself and your interests in %d chars"
 msgstr ""
 
-#: actions/profilesettings.php:125 actions/register.php:463
+#: actions/profilesettings.php:125 actions/register.php:464
 msgid "Describe yourself and your interests"
 msgstr "خودتان و علایقتان را توصیف کنید."
 
-#: actions/profilesettings.php:127 actions/register.php:465
+#: actions/profilesettings.php:127 actions/register.php:466
 msgid "Bio"
 msgstr "شرح‌حال"
 
-#: actions/profilesettings.php:132 actions/register.php:470
+#: actions/profilesettings.php:132 actions/register.php:471
 #: actions/showgroup.php:256 actions/tagother.php:112
 #: actions/userauthorization.php:158 lib/groupeditform.php:177
 #: lib/userprofile.php:164
 msgid "Location"
 msgstr "موقعیت"
 
-#: actions/profilesettings.php:134 actions/register.php:472
+#: actions/profilesettings.php:134 actions/register.php:473
 msgid "Where you are, like \"City, State (or Region), Country\""
 msgstr ""
 
@@ -2624,7 +2644,7 @@ msgstr ""
 msgid "New password successfully saved. You are now logged in."
 msgstr "کلمه ی عبور جدید با موفقیت ذخیره شد. شما الان وارد شده اید."
 
-#: actions/register.php:85 actions/register.php:189 actions/register.php:404
+#: actions/register.php:85 actions/register.php:189 actions/register.php:405
 msgid "Sorry, only invited people can register."
 msgstr "با عرض معذرت، تنها افراد دعوت شده می توانند ثبت نام کنند."
 
@@ -2636,7 +2656,7 @@ msgstr "با عرض تاسف، کد دعوت نا معتبر است."
 msgid "Registration successful"
 msgstr "ثبت نام با موفقیت انجام شد."
 
-#: actions/register.php:114 actions/register.php:502 lib/action.php:457
+#: actions/register.php:114 actions/register.php:503 lib/action.php:457
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "ثبت نام"
@@ -2653,50 +2673,50 @@ msgstr "شما نمی توانید ثبت نام کنید اگر با لیسان
 msgid "Email address already exists."
 msgstr "آدرس ایمیل از قبل وجود دارد."
 
-#: actions/register.php:243 actions/register.php:264
+#: actions/register.php:243 actions/register.php:265
 msgid "Invalid username or password."
 msgstr "نام کاربری یا کلمه ی عبور نا معتبر."
 
-#: actions/register.php:342
+#: actions/register.php:343
 msgid ""
 "With this form you can create  a new account. You can then post notices and "
 "link up to friends and colleagues. "
 msgstr ""
 
-#: actions/register.php:424
+#: actions/register.php:425
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
 msgstr "۱-۶۴ حرف کوچک یا اعداد، بدون نشانه گذاری یا فاصله نیاز است."
 
-#: actions/register.php:429
+#: actions/register.php:430
 msgid "6 or more characters. Required."
 msgstr "۶ کاراکتر یا بیشتر نیاز است."
 
-#: actions/register.php:433
+#: actions/register.php:434
 msgid "Same as password above. Required."
 msgstr ""
 
-#: actions/register.php:437 actions/register.php:441
+#: actions/register.php:438 actions/register.php:442
 #: actions/siteadminpanel.php:270 lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr "پست الکترونیکی"
 
-#: actions/register.php:438 actions/register.php:442
+#: actions/register.php:439 actions/register.php:443
 msgid "Used only for updates, announcements, and password recovery"
 msgstr ""
 
-#: actions/register.php:449
+#: actions/register.php:450
 msgid "Longer name, preferably your \"real\" name"
 msgstr "نام بلند تر، به طور بهتر نام واقعیتان"
 
-#: actions/register.php:493
+#: actions/register.php:494
 msgid "My text and files are available under "
 msgstr ""
 
-#: actions/register.php:495
+#: actions/register.php:496
 msgid "Creative Commons Attribution 3.0"
 msgstr ""
 
-#: actions/register.php:496
+#: actions/register.php:497
 msgid ""
 " except this private data: password, email address, IM address, and phone "
 "number."
@@ -2704,7 +2724,7 @@ msgstr ""
 "به استثنای این داده ی محرمانه : کلمه ی عبور، آدرس ایمیل، آدرس IM، و شماره "
 "تلفن."
 
-#: actions/register.php:537
+#: actions/register.php:538
 #, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -2723,7 +2743,7 @@ msgid ""
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
 
-#: actions/register.php:561
+#: actions/register.php:562
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
@@ -3856,22 +3876,27 @@ msgstr "مؤلف"
 msgid "Description"
 msgstr ""
 
-#: classes/File.php:137
+#: classes/File.php:144
 #, php-format
 msgid ""
 "No file may be larger than %d bytes and the file you sent was %d bytes. Try "
 "to upload a smaller version."
 msgstr ""
 
-#: classes/File.php:147
+#: classes/File.php:154
 #, php-format
 msgid "A file this large would exceed your user quota of %d bytes."
 msgstr ""
 
-#: classes/File.php:154
+#: classes/File.php:161
 #, php-format
 msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
+
+#: classes/Login_token.php:76
+#, fuzzy, php-format
+msgid "Could not create login token for %s"
+msgstr "نمی‌توان نام‌های مستعار را ساخت."
 
 #: classes/Message.php:45
 msgid "You are banned from sending direct messages."
@@ -3971,6 +3996,11 @@ msgstr "دیگر"
 #: lib/accountsettingsaction.php:128
 msgid "Other options"
 msgstr "انتخابات دیگر"
+
+#: lib/action.php:144
+#, fuzzy, php-format
+msgid "%1$s - %2$s"
+msgstr "%s گروه %s را ترک کرد."
 
 #: lib/action.php:159
 msgid "Untitled page"
@@ -4226,7 +4256,7 @@ msgstr "متاسفانه این دستور هنوز اجرا نشده."
 
 #: lib/command.php:88
 #, fuzzy, php-format
-msgid "Could not find a user with nickname %s."
+msgid "Could not find a user with nickname %s"
 msgstr "پیدا نشد %s کاریری یا نام مستعار"
 
 #: lib/command.php:92
@@ -4235,7 +4265,7 @@ msgstr ""
 
 #: lib/command.php:99
 #, fuzzy, php-format
-msgid "Nudge sent to %s."
+msgid "Nudge sent to %s"
 msgstr "فرتادن اژیر"
 
 #: lib/command.php:126
@@ -4251,27 +4281,47 @@ msgstr ""
 
 #: lib/command.php:152 lib/command.php:399 lib/command.php:460
 #, fuzzy
-msgid "Notice with that id does not exist."
+msgid "Notice with that id does not exist"
 msgstr "خبری با این مشخصه ایجاد نشد"
 
 #: lib/command.php:168 lib/command.php:415 lib/command.php:476
 #: lib/command.php:532
 #, fuzzy
-msgid "User has no last notice."
+msgid "User has no last notice"
 msgstr "کاربر آگهی آخر ندارد"
 
 #: lib/command.php:190
 msgid "Notice marked as fave."
 msgstr ""
 
+#: lib/command.php:217
+#, fuzzy
+msgid "You are already a member of that group"
+msgstr "شما از پیش یک عضو این گروه هستید."
+
+#: lib/command.php:234
+#, fuzzy, php-format
+msgid "Could not join user %s to group %s"
+msgstr "عضویت %s در گروه %s نا موفق بود."
+
+#: lib/command.php:239
+#, fuzzy, php-format
+msgid "%s joined group %s"
+msgstr "ملحق شدن به گروه"
+
 #: lib/command.php:284
 #, fuzzy, php-format
-msgid "Could not remove user %1$s to group %2$s."
+msgid "Could not remove user %s to group %s"
 msgstr "خارج شدن %s از گروه %s نا موفق بود"
+
+#: lib/command.php:289
+#, fuzzy, php-format
+msgid "%s left group %s"
+msgstr "%s گروه %s را ترک کرد."
 
 #: lib/command.php:318
 #, fuzzy, php-format
-msgid "Full name: %s"
+msgid "Fullname: %s"
 msgstr "نام کامل : %s"
 
 #: lib/command.php:321 lib/mail.php:254
@@ -4289,20 +4339,35 @@ msgstr "صفحه خانگی : %s"
 msgid "About: %s"
 msgstr "درباره ی : %s"
 
-#: lib/command.php:358 scripts/xmppdaemon.php:301
+#: lib/command.php:358
 #, fuzzy, php-format
-msgid "Message too long - maximum is %1$d characters, you sent %2$d."
+msgid "Message too long - maximum is %d characters, you sent %d"
 msgstr ""
 "پیغام بسیار طولانی است - بیشترین اندازه امکان پذیر %d کاراکتر است , شما %d "
 "تا فرستادید"
+
+#: lib/command.php:376
+#, fuzzy, php-format
+msgid "Direct message to %s sent"
+msgstr "پیام مستقیم به %s فرستاده شد."
 
 #: lib/command.php:378
 msgid "Error sending direct message."
 msgstr "خطا در فرستادن پیام مستقیم."
 
+#: lib/command.php:422
+#, fuzzy
+msgid "Cannot repeat your own notice"
+msgstr "نمی توانید خبر خود را تکرار کنید."
+
+#: lib/command.php:427
+#, fuzzy
+msgid "Already repeated that notice"
+msgstr "ابن خبر قبلا فرستاده شده"
+
 #: lib/command.php:435
 #, fuzzy, php-format
-msgid "Notice from %s repeated."
+msgid "Notice from %s repeated"
 msgstr "آگهی تکرار شد"
 
 #: lib/command.php:437
@@ -4311,14 +4376,14 @@ msgstr "خطا هنگام تکرار آگهی."
 
 #: lib/command.php:491
 #, fuzzy, php-format
-msgid "Notice too long - maximum is %1$d characters, you sent %2$d."
+msgid "Notice too long - maximum is %d characters, you sent %d"
 msgstr ""
 "پیغام بسیار طولانی است - بیشترین اندازه امکان پذیر %d کاراکتر است , شما %d "
 "تا فرستادید"
 
 #: lib/command.php:500
 #, fuzzy, php-format
-msgid "Reply to %s sent."
+msgid "Reply to %s sent"
 msgstr "به این آگهی جواب دهید"
 
 #: lib/command.php:502
@@ -4326,7 +4391,7 @@ msgid "Error saving notice."
 msgstr "خطا هنگام ذخیره ی آگهی"
 
 #: lib/command.php:556
-msgid "Specify the name of the user to subscribe to."
+msgid "Specify the name of the user to subscribe to"
 msgstr ""
 
 #: lib/command.php:563
@@ -4335,7 +4400,7 @@ msgid "Subscribed to %s"
 msgstr ""
 
 #: lib/command.php:584
-msgid "Specify the name of the user to unsubscribe from."
+msgid "Specify the name of the user to unsubscribe from"
 msgstr ""
 
 #: lib/command.php:591
@@ -4365,47 +4430,42 @@ msgstr "ناتوان در روشن کردن آگاه سازی."
 
 #: lib/command.php:650
 #, fuzzy
-msgid "Login command is disabled."
+msgid "Login command is disabled"
 msgstr "فرمان ورود از کار افتاده است"
 
-#: lib/command.php:664
-#, fuzzy, php-format
-msgid "Could not create login token for %s."
-msgstr "نمی‌توان نام‌های مستعار را ساخت."
-
-#: lib/command.php:669
+#: lib/command.php:661
 #, php-format
-msgid "This link is useable only once, and is good for only 2 minutes: %s."
+msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
-#: lib/command.php:685
+#: lib/command.php:677
 msgid "You are not subscribed to anyone."
 msgstr "شما توسط هیچ کس تصویب نشده اید ."
 
-#: lib/command.php:687
+#: lib/command.php:679
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "هم اکنون شما این کاربران را دنبال می‌کنید: "
 
-#: lib/command.php:707
+#: lib/command.php:699
 msgid "No one is subscribed to you."
 msgstr "هیچکس شما را تایید نکرده ."
 
-#: lib/command.php:709
+#: lib/command.php:701
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "هیچکس شما را تایید نکرده ."
 
-#: lib/command.php:729
+#: lib/command.php:721
 msgid "You are not a member of any groups."
 msgstr "شما در هیچ گروهی عضو نیستید ."
 
-#: lib/command.php:731
+#: lib/command.php:723
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "شما یک عضو این گروه نیستید."
 
-#: lib/command.php:745
+#: lib/command.php:737
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4968,12 +5028,12 @@ msgstr "یک فایل ضمیمه کنید"
 
 #: lib/noticeform.php:212
 #, fuzzy
-msgid "Share my location."
+msgid "Share my location"
 msgstr "نمی‌توان تنظیمات مکانی را تنظیم کرد."
 
 #: lib/noticeform.php:214
 #, fuzzy
-msgid "Do not share my location."
+msgid "Do not share my location"
 msgstr "نمی‌توان تنظیمات مکانی را تنظیم کرد."
 
 #: lib/noticeform.php:215
@@ -5328,47 +5388,47 @@ msgstr "پیام"
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:837
+#: lib/util.php:884
 msgid "a few seconds ago"
 msgstr "چند ثانیه پیش"
 
-#: lib/util.php:839
+#: lib/util.php:886
 msgid "about a minute ago"
 msgstr "حدود یک دقیقه پیش"
 
-#: lib/util.php:841
+#: lib/util.php:888
 #, php-format
 msgid "about %d minutes ago"
 msgstr "حدود %d دقیقه پیش"
 
-#: lib/util.php:843
+#: lib/util.php:890
 msgid "about an hour ago"
 msgstr "حدود یک ساعت پیش"
 
-#: lib/util.php:845
+#: lib/util.php:892
 #, php-format
 msgid "about %d hours ago"
 msgstr "حدود %d ساعت پیش"
 
-#: lib/util.php:847
+#: lib/util.php:894
 msgid "about a day ago"
 msgstr "حدود یک روز پیش"
 
-#: lib/util.php:849
+#: lib/util.php:896
 #, php-format
 msgid "about %d days ago"
 msgstr "حدود %d روز پیش"
 
-#: lib/util.php:851
+#: lib/util.php:898
 msgid "about a month ago"
 msgstr "حدود یک ماه پیش"
 
-#: lib/util.php:853
+#: lib/util.php:900
 #, php-format
 msgid "about %d months ago"
 msgstr "حدود %d ماه پیش"
 
-#: lib/util.php:855
+#: lib/util.php:902
 msgid "about a year ago"
 msgstr "حدود یک سال پیش"
 
@@ -5381,3 +5441,10 @@ msgstr "%s یک رنگ صحیح نیست!"
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
 msgstr "%s یک رنگ صحیح نیست! از ۳ یا ۶ حرف مبنای شانزده استفاده کنید"
+
+#: scripts/xmppdaemon.php:301
+#, fuzzy, php-format
+msgid "Message too long - maximum is %1$d characters, you sent %2$d."
+msgstr ""
+"پیغام بسیار طولانی است - بیشترین اندازه امکان پذیر %d کاراکتر است , شما %d "
+"تا فرستادید"
