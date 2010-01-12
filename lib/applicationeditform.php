@@ -175,7 +175,7 @@ class ApplicationEditForm extends Form
 
         $this->out->elementStart('ul', 'form_data');
 
-	$this->out->elementStart('li');
+	$this->out->elementStart('li', array('id' => 'application_icon'));
 
 	if (!empty($icon)) {
 	    $this->out->element('img', array('src' => $icon));
@@ -193,7 +193,7 @@ class ApplicationEditForm extends Form
                                       'value' => ImageFile::maxFileSizeInt()));
         $this->out->elementEnd('li');
 
-	$this->out->elementStart('li');
+        $this->out->elementStart('li');
 
         $this->out->hidden('application_id', $id);
 
@@ -241,7 +241,7 @@ class ApplicationEditForm extends Form
                           _('URL to redirect to after authentication'));
         $this->out->elementEnd('li');
 
-        $this->out->elementStart('li');
+        $this->out->elementStart('li', array('id' => 'application_types'));
 
         $attrs = array('name' => 'app_type',
                        'type' => 'radio',
@@ -280,7 +280,7 @@ class ApplicationEditForm extends Form
         $this->out->element('p', 'form_guide', _('Type of application, browser or desktop'));
         $this->out->elementEnd('li');
 
-        $this->out->elementStart('li');
+        $this->out->elementStart('li', array('id' => 'default_access_types'));
 
         $attrs = array('name' => 'default_access_type',
                        'type' => 'radio',
