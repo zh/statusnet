@@ -151,63 +151,33 @@ class ShowApplicationAction extends OwnerDesignAction
 
         $cur = common_current_user();
 
-        $this->elementStart('div', 'entity_actions');
-        $this->elementStart('ul');
-        $this->elementStart('li');
-        $this->element('a',
-            array('href' =>
-                common_local_url(
-                    'editapplication',
-                    array(
-                        'nickname' => $this->owner->nickname,
-                        'id' => $this->application->id
-                    )
-                )
-            ), 'Edit application');
-        $this->elementEnd('li');
-
-        $this->elementStart('li');
-        $this->elementStart('form', array(
-            'id' => 'forma_reset_key',
-            'class' => 'form_reset_key',
-            'method' => 'POST',
-            'action' => common_local_url('showapplication',
-                array('nickname' => $cur->nickname,
-                      'id' => $this->application->id))));
-
-        $this->elementStart('fieldset');
-        $this->hidden('token', common_session_token());
-        $this->submit('reset', _('Reset Consumer key/secret'));
-        $this->elementEnd('fieldset');
-        $this->elementEnd('form');
-        $this->elementEnd('li');
-        $this->elementEnd('ul');
-        $this->elementEnd('div');
-
         $consumer = $this->application->getConsumer();
 
-        $this->elementStart('div', 'entity_application');
+        $this->elementStart('div', 'entity_profile vcard');
         $this->element('h2', null, _('Application profile'));
         $this->elementStart('dl', 'entity_depiction');
         $this->element('dt', null, _('Icon'));
         $this->elementStart('dd');
         if (!empty($this->application->icon)) {
-            $this->element('img', array('src' => $this->application->icon));
+            $this->element('img', array('src' => $this->application->icon,
+                                        'class' => 'photo logo'));
         }
         $this->elementEnd('dd');
         $this->elementEnd('dl');
 
         $this->elementStart('dl', 'entity_fn');
         $this->element('dt', null, _('Name'));
-        $this->elementStart('dd');
-        $this->element('span', null, $this->application->name);
-        $this->raw(sprintf(_(' by %1$s'), $this->application->organization));
-        $this->elementEnd('dd');
+        $this->element('dd', 'fn', $this->application->name);
+        $this->elementEnd('dl');
+
+        $this->elementStart('dl', 'entity_org');
+        $this->element('dt', null, _('Organization'));
+        $this->element('dd', 'org', $this->application->organization);
         $this->elementEnd('dl');
 
         $this->elementStart('dl', 'entity_note');
         $this->element('dt', null, _('Description'));
-        $this->element('dd', null, $this->application->description);
+        $this->element('dd', 'note', $this->application->description);
         $this->elementEnd('dl');
 
         $this->elementStart('dl', 'entity_statistics');
@@ -228,7 +198,41 @@ class ShowApplicationAction extends OwnerDesignAction
         $this->elementEnd('dl');
         $this->elementEnd('div');
 
-        $this->elementStart('div', array('id' => 'entity_data'));
+        $this->elementStart('div', 'entity_actions');
+        $this->element('h2', null, _('Application actions'));
+        $this->elementStart('ul');
+        $this->elementStart('li', 'entity_edit');
+        $this->element('a',
+            array('href' =>
+                common_local_url(
+                    'editapplication',
+                    array(
+                        'nickname' => $this->owner->nickname,
+                        'id' => $this->application->id
+                    )
+                )
+            ), 'Edit');
+        $this->elementEnd('li');
+
+        $this->elementStart('li', 'entity_reset_keysecret');
+        $this->elementStart('form', array(
+            'id' => 'forma_reset_key',
+            'class' => 'form_reset_key',
+            'method' => 'POST',
+            'action' => common_local_url('showapplication',
+                array('nickname' => $cur->nickname,
+                      'id' => $this->application->id))));
+
+        $this->elementStart('fieldset');
+        $this->hidden('token', common_session_token());
+        $this->submit('reset', _('Reset key & secret'));
+        $this->elementEnd('fieldset');
+        $this->elementEnd('form');
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
+        $this->elementEnd('div');
+
+        $this->elementStart('div', 'entity_data');
         $this->element('h2', null, _('Application info'));
         $this->elementStart('dl', 'entity_consumer_key');
         $this->element('dt', null, _('Consumer key'));
@@ -255,8 +259,8 @@ class ShowApplicationAction extends OwnerDesignAction
         $this->element('dd', null, common_local_url('apioauthauthorize'));
         $this->elementEnd('dl');
 
-        $this->element('p', 'oauth-signature-note',
-            '* We support hmac-sha1 signatures. We do not support the plaintext signature method.');
+        $this->element('p', 'note',
+            _('Note: We support hmac-sha1 signatures. We do not support the plaintext signature method.'));
         $this->elementEnd('div');
 
         $this->elementStart('p', array('id' => 'application_action'));
