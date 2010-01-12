@@ -69,7 +69,7 @@ class ApplicationList extends Widget
 
     function show()
     {
-        $this->out->elementStart('ul', 'applications xoxo');
+        $this->out->elementStart('ul', array('id' => 'applications'));
 
         $cnt = 0;
 
