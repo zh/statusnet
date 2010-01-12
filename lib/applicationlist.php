@@ -109,23 +109,20 @@ class ApplicationList extends Widget
 
         if (!empty($this->application->icon)) {
             $this->out->element('img', array('src' => $this->application->icon,
-                                             'class' => 'photo'));
+                                             'class' => 'photo avatar'));
         }
 
-        $this->out->raw($this->application->name);
+        $this->out->element('span', 'fn', $this->application->name);
         $this->out->elementEnd('a');
         $this->out->elementEnd('span');
 
         $this->out->raw(' by ');
 
-        $this->out->elementStart('a', array('href' => $this->application->homepage,
-                                            'class' => 'url'));
-        $this->out->raw($this->application->organization);
-        $this->out->elementEnd('a');
+        $this->out->element('a', array('href' => $this->application->homepage,
+                                       'class' => 'url'),
+                                 $this->application->organization);
 
-        $this->out->elementStart('p', 'note');
-        $this->out->raw($this->application->description);
-        $this->out->elementEnd('p');
+        $this->out->element('p', 'note', $this->application->description);
         $this->out->elementEnd('li');
 
         if ($this->connections) {
