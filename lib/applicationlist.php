@@ -94,6 +94,7 @@ class ApplicationList extends Widget
         $this->out->elementStart('li', array('class' => 'application',
                                              'id' => 'oauthclient-' . $this->application->id));
 
+        $this->out->elementStart('span', 'vcard author');
         if (!$this->connections) {
             $this->out->elementStart('a',
                             array('href' => common_local_url('showapplication',
@@ -107,11 +108,13 @@ class ApplicationList extends Widget
         }
 
         if (!empty($this->application->icon)) {
-            $this->out->element('img', array('src' => $this->application->icon));
+            $this->out->element('img', array('src' => $this->application->icon,
+                                             'class' => 'photo'));
         }
 
         $this->out->raw($this->application->name);
         $this->out->elementEnd('a');
+        $this->out->elementEnd('span');
 
         $this->out->raw(' by ');
 
