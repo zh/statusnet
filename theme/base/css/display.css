@@ -894,6 +894,39 @@ font-weight:normal;
 margin-right:11px;
 }
 
+#showapplication .entity_profile {
+width:68%;
+}
+#showapplication .entity_profile img {
+max-width:96px;
+max-height:96px;
+}
+#showapplication .entity_profile .entity_fn {
+margin-left:0;
+}
+#showapplication .entity_profile .entity_fn .fn:before,
+#showapplication .entity_profile .entity_fn .fn:after {
+content:'';
+}
+#showapplication .entity_data {
+clear:both;
+margin-bottom:18px;
+}
+#showapplication .entity_data h2 {
+display:none;
+}
+#showapplication .entity_data dl {
+margin-bottom:18px;
+}
+#showapplication .entity_data dt {
+font-weight:bold;
+}
+#showapplication .entity_data dd {
+margin-left:1.795%;
+font-family:monospace;
+font-size:1.3em;
+}
+
 /* NOTICE */
 .notice,
 .profile {
