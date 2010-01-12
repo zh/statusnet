@@ -110,7 +110,6 @@ class ApplicationList extends Widget
         } else {
             $this->out->elementStart('a', array('href' =>  $this->application->source_url,
                                                 'class' => 'url'));
-
             $this->out->raw($this->application->name);
             $this->out->elementEnd('a');
         }
@@ -125,6 +124,7 @@ class ApplicationList extends Widget
         $this->out->elementStart('p', 'note');
         $this->out->raw($this->application->description);
         $this->out->elementEnd('p');
+        $this->out->elementEnd('li');
 
         if ($this->connections) {
             $appUser = Oauth_application_user::getByKeys($this->owner, $this->application);
