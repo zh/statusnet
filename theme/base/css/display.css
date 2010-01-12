@@ -894,6 +894,19 @@ font-weight:normal;
 margin-right:11px;
 }
 
+/*applications*/
+.applications {
+margin-bottom:18px;
+float:left;
+width:100%;
+}
+.applications li {
+list-style-type:none;
+}
+.application img {
+max-width:96px;
+max-height:96px;
+}
 #showapplication .entity_profile {
 width:68%;
 }
@@ -929,7 +942,8 @@ font-size:1.3em;
 
 /* NOTICE */
 .notice,
-.profile {
+.profile,
+.application {
 position:relative;
 padding-top:11px;
 padding-bottom:11px;
