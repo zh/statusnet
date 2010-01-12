@@ -98,14 +98,16 @@ class Memcached_DataObject extends DB_DataObject
         } else {
             $i = DB_DataObject::factory($cls);
             if (empty($i)) {
-                return false;
+                $i = false;
+                return $i;
             }
             $result = $i->get($k, $v);
             if ($result) {
                 $i->encache();
                 return $i;
             } else {
-                return false;
+                $i = false;
+                return $i;
             }
         }
     }
