@@ -88,7 +88,10 @@ class Router
 
             $m->connect('doc/:title', array('action' => 'doc'));
 
-            $m->connect('main/login?user_id=:user_id&token=:token', array('action'=>'login'), array('user_id'=> '[0-9]+', 'token'=>'.+'));
+            $m->connect('main/otp/:user_id/:token',
+                        array('action' => 'otp'),
+                        array('user_id' => '[0-9]+',
+                              'token' => '.+'));
 
             // main stuff is repetitive
 
@@ -442,19 +445,19 @@ class Router
             // Social graph
 
             $m->connect('api/friends/ids/:id.:format',
-                        array('action' => 'apiFriends',
+                        array('action' => 'apiuserfriends',
                               'ids_only' => true));
 
             $m->connect('api/followers/ids/:id.:format',
-                        array('action' => 'apiFollowers',
+                        array('action' => 'apiuserfollowers',
                               'ids_only' => true));
 
             $m->connect('api/friends/ids.:format',
-                        array('action' => 'apiFriends',
+                        array('action' => 'apiuserfriends',
                               'ids_only' => true));
 
             $m->connect('api/followers/ids.:format',
-                        array('action' => 'apiFollowers',
+                        array('action' => 'apiuserfollowers',
                               'ids_only' => true));
 
             // account

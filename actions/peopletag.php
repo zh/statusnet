@@ -141,7 +141,7 @@ class PeopletagAction extends Action
      */
     function title()
     {
-        return sprintf(_('Users self-tagged with %s - page %d'),
+        return sprintf(_('Users self-tagged with %1$s - page %2$d'),
             $this->tag, $this->page);
     }
 

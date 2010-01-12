@@ -55,7 +55,7 @@ class OutboxAction extends MailboxAction
     function title()
     {
         if ($this->page > 1) {
-            return sprintf(_("Outbox for %s - page %d"),
+            return sprintf(_("Outbox for %1$s - page %2$d"),
                 $this->user->nickname, $page);
         } else {
             return sprintf(_("Outbox for %s"), $this->user->nickname);

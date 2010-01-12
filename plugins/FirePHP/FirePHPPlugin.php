@@ -55,5 +55,16 @@ class FirePHPPlugin extends Plugin
         $priority = $firephp_priorities[$priority];
         $this->firephp->fb($msg, $priority);
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'FirePHP',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Craig Andrews',
+                            'homepage' => 'http://status.net/wiki/Plugin:FirePHP',
+                            'rawdescription' =>
+                            _m('The FirePHP plugin writes StatusNet\'s log output to FirePHP.'));
+        return true;
+    }
 }
 

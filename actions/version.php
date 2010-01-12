@@ -150,7 +150,7 @@ class VersionAction extends Action
     {
         $this->elementStart('p');
 
-        $this->raw(sprintf(_('This site is powered by %s version %s, '.
+        $this->raw(sprintf(_('This site is powered by %1$s version %2$s, '.
                              'Copyright 2008-2010 StatusNet, Inc. '.
                              'and contributors.'),
                            XMLStringer::estring('a', array('href' => 'http://status.net/'),

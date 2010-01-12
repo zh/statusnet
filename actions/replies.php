@@ -124,7 +124,7 @@ class RepliesAction extends OwnerDesignAction
         if ($this->page == 1) {
             return sprintf(_("Replies to %s"), $this->user->nickname);
         } else {
-            return sprintf(_("Replies to %s, page %d"),
+            return sprintf(_("Replies to %1$s, page %2$d"),
                            $this->user->nickname,
                            $this->page);
         }
@@ -195,14 +195,14 @@ class RepliesAction extends OwnerDesignAction
 
     function showEmptyListMessage()
     {
-        $message = sprintf(_('This is the timeline showing replies to %s but %s hasn\'t received a notice to his attention yet.'), $this->user->nickname, $this->user->nickname) . ' ';
+        $message = sprintf(_('This is the timeline showing replies to %1$s but %2$s hasn\'t received a notice to his attention yet.'), $this->user->nickname, $this->user->nickname) . ' ';
 
         if (common_logged_in()) {
             $current_user = common_current_user();
             if ($this->user->id === $current_user->id) {
                 $message .= _('You can engage other users in a conversation, subscribe to more people or [join groups](%%action.groups%%).');
             } else {
-                $message .= sprintf(_('You can try to [nudge %s](../%s) or [post something to his or her attention](%%%%action.newnotice%%%%?status_textarea=%s).'), $this->user->nickname, $this->user->nickname, '@' . $this->user->nickname);
+                $message .= sprintf(_('You can try to [nudge %1$s](../%2$s) or [post something to his or her attention](%%%%action.newnotice%%%%?status_textarea=%3$s).'), $this->user->nickname, $this->user->nickname, '@' . $this->user->nickname);
             }
         }
         else {

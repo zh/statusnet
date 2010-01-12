@@ -59,8 +59,8 @@ class UpdateprofileAction extends Action
         $license      = $_POST['omb_listenee_license'];
         $site_license = common_config('license', 'url');
         if (!common_compatible_license($license, $site_license)) {
-            $this->clientError(sprintf(_('Listenee stream license ‘%s’ is not '.
-                                         'compatible with site license ‘%s’.'),
+            $this->clientError(sprintf(_('Listenee stream license ‘%1$s’ is not '.
+                                         'compatible with site license ‘%2$s’.'),
                                        $license, $site_license));
             return false;
         }

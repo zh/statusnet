@@ -81,7 +81,7 @@ class ShowgroupAction extends GroupDesignAction
         if ($this->page == 1) {
             return sprintf(_("%s group"), $base);
         } else {
-            return sprintf(_("%s group, page %d"),
+            return sprintf(_("%1$s group, page %2$d"),
                            $base,
                            $this->page);
         }
@@ -118,7 +118,7 @@ class ShowgroupAction extends GroupDesignAction
         }
 
         if (!$nickname) {
-            $this->clientError(_('No nickname'), 404);
+            $this->clientError(_('No nickname.'), 404);
             return false;
         }
 
@@ -134,7 +134,7 @@ class ShowgroupAction extends GroupDesignAction
                 common_redirect(common_local_url('groupbyid', $args), 301);
                 return false;
             } else {
-                $this->clientError(_('No such group'), 404);
+                $this->clientError(_('No such group.'), 404);
                 return false;
             }
         }

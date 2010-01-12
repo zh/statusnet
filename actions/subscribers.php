@@ -49,7 +49,7 @@ class SubscribersAction extends GalleryAction
         if ($this->page == 1) {
             return sprintf(_('%s subscribers'), $this->user->nickname);
         } else {
-            return sprintf(_('%s subscribers, page %d'),
+            return sprintf(_('%1$s subscribers, page %2$d'),
                            $this->user->nickname,
                            $this->page);
         }

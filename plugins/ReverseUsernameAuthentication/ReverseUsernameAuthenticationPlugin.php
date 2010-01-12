@@ -53,4 +53,15 @@ class ReverseUsernameAuthenticationPlugin extends AuthenticationPlugin
         $registration_data['nickname'] = $username ;
         return User::register($registration_data);
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'Reverse Username Authentication',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Craig Andrews',
+                            'homepage' => 'http://status.net/wiki/Plugin:ReverseUsernameAuthentication',
+                            'rawdescription' =>
+                            _m('The Reverse Username Authentication plugin allows for StatusNet to handle authentication by checking if the provided password is the same as the reverse of the username.'));
+        return true;
+    }
 }

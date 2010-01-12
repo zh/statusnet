@@ -81,7 +81,7 @@ class GroupDesignSettingsAction extends DesignSettingsAction
         }
 
         if (!$nickname) {
-            $this->clientError(_('No nickname'), 404);
+            $this->clientError(_('No nickname.'), 404);
             return false;
         }
 
@@ -94,14 +94,14 @@ class GroupDesignSettingsAction extends DesignSettingsAction
         }
 
         if (!$this->group) {
-            $this->clientError(_('No such group'), 404);
+            $this->clientError(_('No such group.'), 404);
             return false;
         }
 
         $cur = common_current_user();
 
         if (!$cur->isAdmin($this->group)) {
-            $this->clientError(_('You must be an admin to edit the group'), 403);
+            $this->clientError(_('You must be an admin to edit the group.'), 403);
             return false;
         }
 
@@ -284,7 +284,7 @@ class GroupDesignSettingsAction extends DesignSettingsAction
 
             if (empty($id)) {
                 common_log_db_error($id, 'INSERT', __FILE__);
-                $this->showForm(_('Unable to save your design settings!'));
+                $this->showForm(_('Unable to save your design settings.'));
                 return;
             }
 
@@ -294,7 +294,7 @@ class GroupDesignSettingsAction extends DesignSettingsAction
 
             if (empty($result)) {
                 common_log_db_error($original, 'UPDATE', __FILE__);
-                $this->showForm(_('Unable to save your design settings!'));
+                $this->showForm(_('Unable to save your design settings.'));
                 $this->group->query('ROLLBACK');
                 return;
             }

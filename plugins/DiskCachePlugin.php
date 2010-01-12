@@ -3,7 +3,7 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2009, StatusNet, Inc.
  *
- * Plugin to implement cache interface for XCache variable cache
+ * Plugin to implement cache interface with disk files
  *
  * PHP version 5
  *
@@ -35,10 +35,7 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * A plugin to use XCache's variable cache for the cache interface
- *
- * New plugin interface lets us use alternative cache systems
- * for caching. This one uses XCache's variable cache.
+ * A plugin to cache data on local disk
  *
  * @category  Cache
  * @package   StatusNet
@@ -48,8 +45,15 @@ if (!defined('STATUSNET')) {
  * @link      http://status.net/
  */
 
-class XCachePlugin extends Plugin
+class DiskCachePlugin extends Plugin
 {
+    var $root = '/tmp';
+
+    function keyToFilename($key)
+    {
+        return $this->root . '/' . str_replace(':', '/', $key);
+    }
+
     /**
      * Get a value associated with a key
      *
@@ -63,12 +67,15 @@ class XCachePlugin extends Plugin
 
     function onStartCacheGet(&$key, &$value)
     {
-        if (!xcache_isset($key)) {
-            $value = false;
-        } else {
-            $value = xcache_get($key);
-            $value = unserialize($value);
+        $filename = $this->keyToFilename($key);
+
+        if (file_exists($filename)) {
+            $data = file_get_contents($filename);
+            if ($data !== false) {
+                $value = unserialize($data);
+            }
         }
+
         Event::handle('EndCacheGet', array($key, &$value));
         return false;
     }
@@ -87,10 +94,53 @@ class XCachePlugin extends Plugin
 
     function onStartCacheSet(&$key, &$value, &$flag, &$expiry, &$success)
     {
-        $success = xcache_set($key, serialize($value));
+        $filename = $this->keyToFilename($key);
+        $parent = dirname($filename);
+
+        $sofar = '';
+
+        foreach (explode('/', $parent) as $part) {
+            if (empty($part)) {
+                continue;
+            }
+            $sofar .= '/' . $part;
+            if (!is_dir($sofar)) {
+                $this->debug("Creating new directory '$sofar'");
+                $success = mkdir($sofar, 0750);
+                if (!$success) {
+                    $this->log(LOG_ERR, "Can't create directory '$sofar'");
+                    return false;
+                }
+            }
+        }
+
+        if (is_dir($filename)) {
+            $success = false;
+            return false;
+        }
+
+        // Write to a temp file and move to destination
+
+        $tempname = tempnam(null, 'statusnetdiskcache');
+
+        $result = file_put_contents($tempname, serialize($value));
+
+        if ($result === false) {
+            $this->log(LOG_ERR, "Couldn't write '$key' to temp file '$tempname'");
+            return false;
+        }
+
+        $result = rename($tempname, $filename);
+
+        if (!$result) {
+            $this->log(LOG_ERR, "Couldn't move temp file '$tempname' to path '$filename' for key '$key'");
+            @unlink($tempname);
+            return false;
+        }
 
         Event::handle('EndCacheSet', array($key, $value, $flag,
                                            $expiry));
+
         return false;
     }
 
@@ -105,20 +155,14 @@ class XCachePlugin extends Plugin
 
     function onStartCacheDelete(&$key, &$success)
     {
-        $success = xcache_unset($key);
+        $filename = $this->keyToFilename($key);
+
+        if (file_exists($filename) && !is_dir($filename)) {
+            unlink($filename);
+        }
+
         Event::handle('EndCacheDelete', array($key));
         return false;
-    }
-
-    function onPluginVersion(&$versions)
-    {
-        $versions[] = array('name' => 'XCache',
-                            'version' => STATUSNET_VERSION,
-                            'author' => 'Craig Andrews',
-                            'homepage' => 'http://status.net/wiki/Plugin:XCache',
-                            'rawdescription' =>
-                            _m('Use the <a href="http://xcache.lighttpd.net/">XCache</a> variable cache to cache query results.'));
-        return true;
     }
 }
 

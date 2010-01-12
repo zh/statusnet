@@ -57,7 +57,7 @@ class EmailsettingsAction extends AccountSettingsAction
 
     function title()
     {
-        return _('Email Settings');
+        return _('Email settings');
     }
 
     /**
@@ -118,7 +118,7 @@ class EmailsettingsAction extends AccountSettingsAction
             } else {
                 $this->elementStart('ul', 'form_data');
                 $this->elementStart('li');
-                $this->input('email', _('Email Address'),
+                $this->input('email', _('Email address'),
                              ($this->arg('email')) ? $this->arg('email') : null,
                              _('Email address, like "UserName@example.org"'));
                 $this->elementEnd('li');
@@ -328,7 +328,7 @@ class EmailsettingsAction extends AccountSettingsAction
             return;
         }
         if (!Validate::email($email, common_config('email', 'check_domain'))) {
-            $this->showForm(_('Not a valid email address'));
+            $this->showForm(_('Not a valid email address.'));
             return;
         } else if ($user->email == $email) {
             $this->showForm(_('That is already your email address.'));

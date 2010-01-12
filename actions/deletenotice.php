@@ -155,7 +155,7 @@ class DeletenoticeAction extends Action
 
         if (!$token || $token != common_session_token()) {
             $this->showForm(_('There was a problem with your session token. ' .
-                              ' Try again, please.'));
+                              'Try again, please.'));
             return;
         }
 

@@ -140,12 +140,14 @@ class ApiAction extends Action
 
         // Note: some profiles don't have an associated user
 
+        $defaultDesign = Design::siteDesign();
+
         if (!empty($user)) {
             $design = $user->getDesign();
         }
 
         if (empty($design)) {
-            $design = Design::siteDesign();
+            $design = $defaultDesign;
         }
 
         $color = Design::toWebColor(empty($design->backgroundcolor) ? $defaultDesign->backgroundcolor : $design->backgroundcolor);
@@ -787,7 +789,7 @@ class ApiAction extends Action
 
         $from = $message->getFrom();
 
-        $entry['title'] = sprintf('Message from %s to %s',
+        $entry['title'] = sprintf('Message from %1$s to %2$s',
             $from->nickname, $message->getTo()->nickname);
 
         $entry['content'] = common_xml_safe_str($message->rendered);

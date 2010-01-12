@@ -139,7 +139,7 @@ class MailHandler
 
         $headers['From'] = $to;
         $headers['To'] = $from;
-        $headers['Subject'] = "Command complete";
+        $headers['Subject'] = _('Command complete');
 
         return mail_send(array($from), $headers, $response);
     }
@@ -225,7 +225,7 @@ class MailHandler
 
     function unsupported_type($type)
     {
-        $this->error(null, "Unsupported message type: " . $type);
+        $this->error(null, sprintf(_('Unsupported message type: %s'), $type));
     }
 
     function cleanup_msg($msg)

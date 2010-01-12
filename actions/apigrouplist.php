@@ -100,7 +100,7 @@ class ApiGroupListAction extends ApiBareAuthAction
             array('nickname' => $this->user->nickname)
         );
         $subtitle   = sprintf(
-            _("Groups %s is a member of on %s."),
+            _("Groups %1$s is a member of on %2$s."),
             $this->user->nickname,
             $sitename
         );
@@ -129,7 +129,7 @@ class ApiGroupListAction extends ApiBareAuthAction
             break;
         default:
             $this->clientError(
-                _('API method not found!'),
+                _('API method not found.'),
                 404,
                 $this->format
             );
