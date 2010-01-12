@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-10 11:27+0000\n"
-"PO-Revision-Date: 2010-01-10 11:29:22+0000\n"
+"POT-Creation-Date: 2010-01-11 23:25+0000\n"
+"PO-Revision-Date: 2010-01-11 23:28:35+0000\n"
 "Language-Team: Simplified Chinese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60888); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r60950); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: out-statusnet\n"
@@ -40,7 +40,7 @@ msgstr "没有该页面"
 #: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
 #: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
 #: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
-#: actions/microsummary.php:62 actions/newmessage.php:116
+#: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:76
 #: actions/remotesubscribe.php:145 actions/remotesubscribe.php:154
 #: actions/replies.php:73 actions/repliesrss.php:38
 #: actions/showfavorites.php:105 actions/userbyid.php:74
@@ -382,7 +382,7 @@ msgstr ""
 msgid "Group not found!"
 msgstr "API 方法未实现！"
 
-#: actions/apigroupjoin.php:110 actions/joingroup.php:90 lib/command.php:217
+#: actions/apigroupjoin.php:110 actions/joingroup.php:90
 #, fuzzy
 msgid "You are already a member of that group."
 msgstr "您已经是该组成员"
@@ -391,7 +391,7 @@ msgstr "您已经是该组成员"
 msgid "You have been blocked from that group by the admin."
 msgstr ""
 
-#: actions/apigroupjoin.php:138 actions/joingroup.php:128 lib/command.php:234
+#: actions/apigroupjoin.php:138 actions/joingroup.php:128
 #, fuzzy, php-format
 msgid "Could not join user %1$s to group %2$s."
 msgstr "无法把 %s 用户添加到 %s 组"
@@ -434,12 +434,12 @@ msgstr "您不能删除其他用户的状态。"
 msgid "No such notice."
 msgstr "没有这份通告。"
 
-#: actions/apistatusesretweet.php:83 lib/command.php:422
+#: actions/apistatusesretweet.php:83
 #, fuzzy
 msgid "Cannot repeat your own notice."
 msgstr "无法开启通告。"
 
-#: actions/apistatusesretweet.php:91 lib/command.php:427
+#: actions/apistatusesretweet.php:91
 #, fuzzy
 msgid "Already repeated that notice."
 msgstr "删除通告"
@@ -615,7 +615,7 @@ msgstr "剪裁"
 #: actions/disfavor.php:74 actions/emailsettings.php:238 actions/favor.php:75
 #: actions/geocode.php:50 actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
-#: actions/invite.php:56 actions/login.php:135 actions/makeadmin.php:66
+#: actions/invite.php:56 actions/login.php:115 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:194 actions/recoverpassword.php:337
@@ -1818,7 +1818,7 @@ msgstr ""
 msgid "You must be logged in to join a group."
 msgstr "您必须登录才能加入组。"
 
-#: actions/joingroup.php:135 lib/command.php:239
+#: actions/joingroup.php:135
 #, fuzzy, php-format
 msgid "%1$s joined group %2$s"
 msgstr "%s 加入 %s 组"
@@ -1838,68 +1838,63 @@ msgstr "您未告知此个人信息"
 msgid "Could not find membership record."
 msgstr "无法更新用户记录。"
 
-#: actions/leavegroup.php:134 lib/command.php:289
+#: actions/leavegroup.php:134
 #, fuzzy, php-format
 msgid "%1$s left group %2$s"
 msgstr "%s 离开群 %s"
 
-#: actions/login.php:83 actions/register.php:137
+#: actions/login.php:80 actions/otp.php:62 actions/register.php:137
 msgid "Already logged in."
 msgstr "已登录。"
 
-#: actions/login.php:114 actions/login.php:124
-#, fuzzy
-msgid "Invalid or expired token."
-msgstr "通告内容不正确"
-
-#: actions/login.php:147
+#: actions/login.php:126
 msgid "Incorrect username or password."
 msgstr "用户名或密码不正确。"
 
-#: actions/login.php:153
+#: actions/login.php:132 actions/otp.php:120
 #, fuzzy
 msgid "Error setting user. You are probably not authorized."
 msgstr "未认证。"
 
-#: actions/login.php:208 actions/login.php:261 lib/action.php:460
+#: actions/login.php:188 actions/login.php:241 lib/action.php:460
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "登录"
 
-#: actions/login.php:247
+#: actions/login.php:227
 msgid "Login to site"
 msgstr "登录"
 
-#: actions/login.php:250 actions/profilesettings.php:106
-#: actions/register.php:423 actions/showgroup.php:236 actions/tagother.php:94
+#: actions/login.php:230 actions/profilesettings.php:106
+#: actions/register.php:424 actions/showgroup.php:236 actions/tagother.php:94
 #: lib/groupeditform.php:152 lib/userprofile.php:131
 msgid "Nickname"
 msgstr "昵称"
 
-#: actions/login.php:253 actions/register.php:428
+#: actions/login.php:233 actions/register.php:429
 #: lib/accountsettingsaction.php:116
 msgid "Password"
 msgstr "密码"
 
-#: actions/login.php:256 actions/register.php:477
+#: actions/login.php:236 actions/register.php:478
 msgid "Remember me"
 msgstr "记住登录状态"
 
-#: actions/login.php:257 actions/register.php:479
+#: actions/login.php:237 actions/register.php:480
 msgid "Automatically login in the future; not for shared computers!"
 msgstr "保持这台机器上的登录状态。不要在共用的机器上保持登录！"
 
-#: actions/login.php:267
+#: actions/login.php:247
 msgid "Lost or forgotten password?"
 msgstr "忘记了密码？"
 
-#: actions/login.php:286
+#: actions/login.php:266
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
 msgstr "由于安全原因，修改设置前需要输入用户名和密码。"
 
-#: actions/login.php:290
+#: actions/login.php:270
 #, fuzzy, php-format
 msgid ""
 "Login with your username and password. Don't have a username yet? [Register]"
@@ -1966,7 +1961,7 @@ msgstr "不要向自己发送消息；跟自己悄悄说就得了。"
 msgid "Message sent"
 msgstr "新消息"
 
-#: actions/newmessage.php:185 lib/command.php:376
+#: actions/newmessage.php:185
 #, fuzzy, php-format
 msgid "Direct message to %s sent."
 msgstr "已向 %s 发送消息"
@@ -2056,8 +2051,8 @@ msgstr "连接"
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1031
-#: lib/api.php:1059 lib/api.php:1169
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1033
+#: lib/api.php:1061 lib/api.php:1171
 msgid "Not a supported data format."
 msgstr "不支持的数据格式。"
 
@@ -2104,6 +2099,31 @@ msgstr ""
 msgid "URL shortening service is too long (max 50 chars)."
 msgstr "URL缩短服务超长(最多50个字符)。"
 
+#: actions/otp.php:69
+#, fuzzy
+msgid "No user ID specified."
+msgstr "没有收件人。"
+
+#: actions/otp.php:83
+#, fuzzy
+msgid "No login token specified."
+msgstr "没有收件人。"
+
+#: actions/otp.php:90
+#, fuzzy
+msgid "No login token requested."
+msgstr "服务器没有返回个人信息URL。"
+
+#: actions/otp.php:95
+#, fuzzy
+msgid "Invalid login token specified."
+msgstr "通告内容不正确"
+
+#: actions/otp.php:104
+#, fuzzy
+msgid "Login token expired."
+msgstr "登录"
+
 #: actions/outbox.php:61
 #, php-format
 msgid "Outbox for %s"
@@ -2140,7 +2160,7 @@ msgid "6 or more characters"
 msgstr "6 个或更多字符"
 
 #: actions/passwordsettings.php:112 actions/recoverpassword.php:239
-#: actions/register.php:432 actions/smssettings.php:134
+#: actions/register.php:433 actions/smssettings.php:134
 msgid "Confirm"
 msgstr "确认"
 
@@ -2374,43 +2394,43 @@ msgstr "未知的帐号"
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr "1 到 64 个小写字母或数字，不包含标点及空白"
 
-#: actions/profilesettings.php:111 actions/register.php:447
+#: actions/profilesettings.php:111 actions/register.php:448
 #: actions/showgroup.php:247 actions/tagother.php:104
 #: lib/groupeditform.php:157 lib/userprofile.php:149
 msgid "Full name"
 msgstr "全名"
 
-#: actions/profilesettings.php:115 actions/register.php:452
+#: actions/profilesettings.php:115 actions/register.php:453
 #: lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "主页"
 
-#: actions/profilesettings.php:117 actions/register.php:454
+#: actions/profilesettings.php:117 actions/register.php:455
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr "您的主页、博客或在其他站点的URL"
 
-#: actions/profilesettings.php:122 actions/register.php:460
+#: actions/profilesettings.php:122 actions/register.php:461
 #, fuzzy, php-format
 msgid "Describe yourself and your interests in %d chars"
 msgstr "用不超过140个字符描述您自己和您的爱好"
 
-#: actions/profilesettings.php:125 actions/register.php:463
+#: actions/profilesettings.php:125 actions/register.php:464
 #, fuzzy
 msgid "Describe yourself and your interests"
 msgstr "用不超过140个字符描述您自己和您的爱好"
 
-#: actions/profilesettings.php:127 actions/register.php:465
+#: actions/profilesettings.php:127 actions/register.php:466
 msgid "Bio"
 msgstr "自述"
 
-#: actions/profilesettings.php:132 actions/register.php:470
+#: actions/profilesettings.php:132 actions/register.php:471
 #: actions/showgroup.php:256 actions/tagother.php:112
 #: actions/userauthorization.php:158 lib/groupeditform.php:177
 #: lib/userprofile.php:164
 msgid "Location"
 msgstr "位置"
 
-#: actions/profilesettings.php:134 actions/register.php:472
+#: actions/profilesettings.php:134 actions/register.php:473
 msgid "Where you are, like \"City, State (or Region), Country\""
 msgstr "你的位置，格式类似\"城市，省份，国家\""
 
@@ -2710,7 +2730,7 @@ msgstr "保存用户设置时出错。"
 msgid "New password successfully saved. You are now logged in."
 msgstr "新密码已保存，您现在已登录。"
 
-#: actions/register.php:85 actions/register.php:189 actions/register.php:404
+#: actions/register.php:85 actions/register.php:189 actions/register.php:405
 msgid "Sorry, only invited people can register."
 msgstr "对不起，请邀请那些能注册的人。"
 
@@ -2723,7 +2743,7 @@ msgstr "验证码出错。"
 msgid "Registration successful"
 msgstr "注册成功。"
 
-#: actions/register.php:114 actions/register.php:502 lib/action.php:457
+#: actions/register.php:114 actions/register.php:503 lib/action.php:457
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "注册"
@@ -2740,57 +2760,57 @@ msgstr "您必须同意此授权方可注册。"
 msgid "Email address already exists."
 msgstr "电子邮件地址已存在。"
 
-#: actions/register.php:243 actions/register.php:264
+#: actions/register.php:243 actions/register.php:265
 msgid "Invalid username or password."
 msgstr "用户名或密码不正确。"
 
-#: actions/register.php:342
+#: actions/register.php:343
 msgid ""
 "With this form you can create  a new account. You can then post notices and "
 "link up to friends and colleagues. "
 msgstr ""
 
-#: actions/register.php:424
+#: actions/register.php:425
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
 msgstr "1 到 64 个小写字母或数字，不包含标点及空白。此项必填。"
 
-#: actions/register.php:429
+#: actions/register.php:430
 msgid "6 or more characters. Required."
 msgstr "6 个或更多字符。此项必填。"
 
-#: actions/register.php:433
+#: actions/register.php:434
 msgid "Same as password above. Required."
 msgstr "相同的密码。此项必填。"
 
-#: actions/register.php:437 actions/register.php:441
+#: actions/register.php:438 actions/register.php:442
 #: actions/siteadminpanel.php:270 lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr "电子邮件"
 
-#: actions/register.php:438 actions/register.php:442
+#: actions/register.php:439 actions/register.php:443
 msgid "Used only for updates, announcements, and password recovery"
 msgstr "只用于更新、通告或密码恢复"
 
-#: actions/register.php:449
+#: actions/register.php:450
 msgid "Longer name, preferably your \"real\" name"
 msgstr "长名字，最好是“实名”"
 
-#: actions/register.php:493
+#: actions/register.php:494
 msgid "My text and files are available under "
 msgstr "我的文字和文件采用的授权方式为"
 
-#: actions/register.php:495
+#: actions/register.php:496
 msgid "Creative Commons Attribution 3.0"
 msgstr ""
 
-#: actions/register.php:496
+#: actions/register.php:497
 #, fuzzy
 msgid ""
 " except this private data: password, email address, IM address, and phone "
 "number."
 msgstr "除了隐私内容：密码，电子邮件，即时通讯帐号，电话号码。"
 
-#: actions/register.php:537
+#: actions/register.php:538
 #, fuzzy, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -2821,7 +2841,7 @@ msgstr ""
 "\n"
 "感谢您的注册，希望您喜欢这个服务。"
 
-#: actions/register.php:561
+#: actions/register.php:562
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
@@ -4019,22 +4039,27 @@ msgstr ""
 msgid "Description"
 msgstr "描述"
 
-#: classes/File.php:137
+#: classes/File.php:144
 #, php-format
 msgid ""
 "No file may be larger than %d bytes and the file you sent was %d bytes. Try "
 "to upload a smaller version."
 msgstr ""
 
-#: classes/File.php:147
+#: classes/File.php:154
 #, php-format
 msgid "A file this large would exceed your user quota of %d bytes."
 msgstr ""
 
-#: classes/File.php:154
+#: classes/File.php:161
 #, php-format
 msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
+
+#: classes/Login_token.php:76
+#, fuzzy, php-format
+msgid "Could not create login token for %s"
+msgstr "无法创建收藏。"
 
 #: classes/Message.php:45
 #, fuzzy
@@ -4136,6 +4161,11 @@ msgstr "其他"
 #: lib/accountsettingsaction.php:128
 msgid "Other options"
 msgstr "其他选项"
+
+#: lib/action.php:144
+#, fuzzy, php-format
+msgid "%1$s - %2$s"
+msgstr "%1$s (%2$s)"
 
 #: lib/action.php:159
 msgid "Untitled page"
@@ -4417,7 +4447,7 @@ msgstr "对不起，这个命令还没有实现。"
 
 #: lib/command.php:88
 #, fuzzy, php-format
-msgid "Could not find a user with nickname %s."
+msgid "Could not find a user with nickname %s"
 msgstr "无法更新已确认的电子邮件。"
 
 #: lib/command.php:92
@@ -4426,7 +4456,7 @@ msgstr ""
 
 #: lib/command.php:99
 #, fuzzy, php-format
-msgid "Nudge sent to %s."
+msgid "Nudge sent to %s"
 msgstr "振铃呼叫发出。"
 
 #: lib/command.php:126
@@ -4439,27 +4469,47 @@ msgstr ""
 
 #: lib/command.php:152 lib/command.php:399 lib/command.php:460
 #, fuzzy
-msgid "Notice with that id does not exist."
+msgid "Notice with that id does not exist"
 msgstr "没有找到此ID的信息。"
 
 #: lib/command.php:168 lib/command.php:415 lib/command.php:476
 #: lib/command.php:532
 #, fuzzy
-msgid "User has no last notice."
+msgid "User has no last notice"
 msgstr "用户没有通告。"
 
 #: lib/command.php:190
 msgid "Notice marked as fave."
 msgstr "通告被标记为收藏。"
 
+#: lib/command.php:217
+#, fuzzy
+msgid "You are already a member of that group"
+msgstr "您已经是该组成员"
+
+#: lib/command.php:234
+#, fuzzy, php-format
+msgid "Could not join user %s to group %s"
+msgstr "无法把 %s 用户添加到 %s 组"
+
+#: lib/command.php:239
+#, fuzzy, php-format
+msgid "%s joined group %s"
+msgstr "%s 加入 %s 组"
+
 #: lib/command.php:284
 #, fuzzy, php-format
-msgid "Could not remove user %1$s to group %2$s."
+msgid "Could not remove user %s to group %s"
 msgstr "无法订阅用户：未找到。"
+
+#: lib/command.php:289
+#, fuzzy, php-format
+msgid "%s left group %s"
+msgstr "%s 离开群 %s"
 
 #: lib/command.php:318
 #, fuzzy, php-format
-msgid "Full name: %s"
+msgid "Fullname: %s"
 msgstr "全名：%s"
 
 #: lib/command.php:321 lib/mail.php:254
@@ -4477,18 +4527,33 @@ msgstr "主页：%s"
 msgid "About: %s"
 msgstr "关于：%s"
 
-#: lib/command.php:358 scripts/xmppdaemon.php:301
+#: lib/command.php:358
 #, fuzzy, php-format
-msgid "Message too long - maximum is %1$d characters, you sent %2$d."
+msgid "Message too long - maximum is %d characters, you sent %d"
 msgstr "您的消息包含 %d 个字符，超出长度限制 - 不能超过 140 个字符。"
+
+#: lib/command.php:376
+#, fuzzy, php-format
+msgid "Direct message to %s sent"
+msgstr "已向 %s 发送消息"
 
 #: lib/command.php:378
 msgid "Error sending direct message."
 msgstr "发送消息出错。"
 
+#: lib/command.php:422
+#, fuzzy
+msgid "Cannot repeat your own notice"
+msgstr "无法开启通告。"
+
+#: lib/command.php:427
+#, fuzzy
+msgid "Already repeated that notice"
+msgstr "删除通告"
+
 #: lib/command.php:435
 #, fuzzy, php-format
-msgid "Notice from %s repeated."
+msgid "Notice from %s repeated"
 msgstr "消息已发布。"
 
 #: lib/command.php:437
@@ -4498,12 +4563,12 @@ msgstr "保存通告时出错。"
 
 #: lib/command.php:491
 #, fuzzy, php-format
-msgid "Notice too long - maximum is %1$d characters, you sent %2$d."
+msgid "Notice too long - maximum is %d characters, you sent %d"
 msgstr "您的消息包含 %d 个字符，超出长度限制 - 不能超过 140 个字符。"
 
 #: lib/command.php:500
 #, fuzzy, php-format
-msgid "Reply to %s sent."
+msgid "Reply to %s sent"
 msgstr "无法删除通告。"
 
 #: lib/command.php:502
@@ -4513,7 +4578,7 @@ msgstr "保存通告时出错。"
 
 #: lib/command.php:556
 #, fuzzy
-msgid "Specify the name of the user to subscribe to."
+msgid "Specify the name of the user to subscribe to"
 msgstr "指定要订阅的用户名"
 
 #: lib/command.php:563
@@ -4523,7 +4588,7 @@ msgstr "订阅 %s"
 
 #: lib/command.php:584
 #, fuzzy
-msgid "Specify the name of the user to unsubscribe from."
+msgid "Specify the name of the user to unsubscribe from"
 msgstr "指定要取消订阅的用户名"
 
 #: lib/command.php:591
@@ -4552,50 +4617,45 @@ msgid "Can't turn on notification."
 msgstr "无法开启通告。"
 
 #: lib/command.php:650
-msgid "Login command is disabled."
+msgid "Login command is disabled"
 msgstr ""
 
-#: lib/command.php:664
-#, fuzzy, php-format
-msgid "Could not create login token for %s."
-msgstr "无法创建收藏。"
-
-#: lib/command.php:669
+#: lib/command.php:661
 #, php-format
-msgid "This link is useable only once, and is good for only 2 minutes: %s."
+msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
-#: lib/command.php:685
+#: lib/command.php:677
 #, fuzzy
 msgid "You are not subscribed to anyone."
 msgstr "您未告知此个人信息"
 
-#: lib/command.php:687
+#: lib/command.php:679
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "您已订阅这些用户："
 
-#: lib/command.php:707
+#: lib/command.php:699
 #, fuzzy
 msgid "No one is subscribed to you."
 msgstr "无法订阅他人更新。"
 
-#: lib/command.php:709
+#: lib/command.php:701
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "无法订阅他人更新。"
 
-#: lib/command.php:729
+#: lib/command.php:721
 #, fuzzy
 msgid "You are not a member of any groups."
 msgstr "您未告知此个人信息"
 
-#: lib/command.php:731
+#: lib/command.php:723
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "您未告知此个人信息"
 
-#: lib/command.php:745
+#: lib/command.php:737
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5187,12 +5247,12 @@ msgstr ""
 
 #: lib/noticeform.php:212
 #, fuzzy
-msgid "Share my location."
+msgid "Share my location"
 msgstr "无法保存个人信息。"
 
 #: lib/noticeform.php:214
 #, fuzzy
-msgid "Do not share my location."
+msgid "Do not share my location"
 msgstr "无法保存个人信息。"
 
 #: lib/noticeform.php:215
@@ -5583,47 +5643,47 @@ msgstr "新消息"
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:837
+#: lib/util.php:884
 msgid "a few seconds ago"
 msgstr "几秒前"
 
-#: lib/util.php:839
+#: lib/util.php:886
 msgid "about a minute ago"
 msgstr "一分钟前"
 
-#: lib/util.php:841
+#: lib/util.php:888
 #, php-format
 msgid "about %d minutes ago"
 msgstr "%d 分钟前"
 
-#: lib/util.php:843
+#: lib/util.php:890
 msgid "about an hour ago"
 msgstr "一小时前"
 
-#: lib/util.php:845
+#: lib/util.php:892
 #, php-format
 msgid "about %d hours ago"
 msgstr "%d 小时前"
 
-#: lib/util.php:847
+#: lib/util.php:894
 msgid "about a day ago"
 msgstr "一天前"
 
-#: lib/util.php:849
+#: lib/util.php:896
 #, php-format
 msgid "about %d days ago"
 msgstr "%d 天前"
 
-#: lib/util.php:851
+#: lib/util.php:898
 msgid "about a month ago"
 msgstr "一个月前"
 
-#: lib/util.php:853
+#: lib/util.php:900
 #, php-format
 msgid "about %d months ago"
 msgstr "%d 个月前"
 
-#: lib/util.php:855
+#: lib/util.php:902
 msgid "about a year ago"
 msgstr "一年前"
 
@@ -5636,3 +5696,8 @@ msgstr "主页的URL不正确。"
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
 msgstr ""
+
+#: scripts/xmppdaemon.php:301
+#, fuzzy, php-format
+msgid "Message too long - maximum is %1$d characters, you sent %2$d."
+msgstr "您的消息包含 %d 个字符，超出长度限制 - 不能超过 140 个字符。"
