@@ -94,10 +94,6 @@ class ApplicationList extends Widget
         $this->out->elementStart('li', array('class' => 'application',
                                              'id' => 'oauthclient-' . $this->application->id));
 
-        if (!empty($this->application->icon)) {
-            $this->out->element('img', array('src' => $this->application->icon));
-        }
-
         if (!$this->connections) {
             $this->out->elementStart('a',
                             array('href' => common_local_url('showapplication',
@@ -105,14 +101,17 @@ class ApplicationList extends Widget
                                                       'id' => $this->application->id)),
                                   'class' => 'url'));
 
-            $this->out->raw($this->application->name);
-            $this->out->elementEnd('a');
         } else {
             $this->out->elementStart('a', array('href' =>  $this->application->source_url,
                                                 'class' => 'url'));
-            $this->out->raw($this->application->name);
-            $this->out->elementEnd('a');
         }
+
+        if (!empty($this->application->icon)) {
+            $this->out->element('img', array('src' => $this->application->icon));
+        }
+
+        $this->out->raw($this->application->name);
+        $this->out->elementEnd('a');
 
         $this->out->raw(' by ');
 
