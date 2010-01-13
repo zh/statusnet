@@ -317,7 +317,7 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
         if (!common_logged_in()) {
 
             $this->elementStart('fieldset');
-            $this->element('legend', null, _('Login'));
+            $this->element('legend', null, _('Account'));
             $this->elementStart('ul', 'form_data');
             $this->elementStart('li');
             $this->input('nickname', _('Nickname'));
