@@ -359,7 +359,7 @@ function jabber_broadcast_notice($notice)
     $ni = $notice->whoGets();
 
     foreach ($ni as $user_id => $reason) {
-        $user = User::staticGet('user_id', $user_id);
+        $user = User::staticGet($user_id);
         if (empty($user) ||
             empty($user->jabber) ||
             !$user->jabbernotify) {
@@ -369,20 +369,20 @@ function jabber_broadcast_notice($notice)
         switch ($reason) {
         case NOTICE_INBOX_SOURCE_REPLY:
             if (!$user->jabberreplies) {
-                continue;
+                continue 2;
             }
             break;
         case NOTICE_INBOX_SOURCE_SUB:
             $sub = Subscription::pkeyGet(array('subscriber' => $user->id,
                                                'subscribed' => $notice->profile_id));
             if (empty($sub) || !$sub->jabber) {
-                continue;
+                continue 2;
             }
             break;
         case NOTICE_INBOX_SOURCE_GROUP:
             break;
         default:
-            throw new Exception(_("Unknown inbox source."));
+            throw new Exception(sprintf(_("Unknown inbox source %d."), $reason));
         }
 
         common_log(LOG_INFO,

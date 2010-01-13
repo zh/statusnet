@@ -41,6 +41,12 @@ define('FOREIGN_NOTICE_SEND_REPLY', 4);
 define('FOREIGN_FRIEND_SEND', 1);
 define('FOREIGN_FRIEND_RECV', 2);
 
+define('NOTICE_INBOX_SOURCE_SUB', 1);
+define('NOTICE_INBOX_SOURCE_GROUP', 2);
+define('NOTICE_INBOX_SOURCE_REPLY', 3);
+define('NOTICE_INBOX_SOURCE_FORWARD', 4);
+define('NOTICE_INBOX_SOURCE_GATEWAY', -1);
+
 # append our extlib dir as the last-resort place to find libs
 
 set_include_path(get_include_path() . PATH_SEPARATOR . INSTALLDIR . '/extlib/');
