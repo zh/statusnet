@@ -112,7 +112,9 @@ class TwitterBridgePlugin extends Plugin
               strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
         case 'TwitterOAuthClient':
-            include_once INSTALLDIR . '/plugins/TwitterBridge/twitteroauthclient.php';
+        case 'TwitterQueueHandler':
+            include_once INSTALLDIR . '/plugins/TwitterBridge/' .
+              strtolower($cls) . '.php';
             return false;
         default:
             return true;
@@ -139,47 +141,14 @@ class TwitterBridgePlugin extends Plugin
     }
 
     /**
-     * broadcast the message when not using queuehandler
-     *
-     * @param Notice &$notice the notice
-     * @param array  $queue   destination queue
-     *
-     * @return boolean hook return
-     */
-    function onUnqueueHandleNotice(&$notice, $queue)
-    {
-        if (($queue == 'twitter') && ($this->_isLocal($notice))) {
-            broadcast_twitter($notice);
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Determine whether the notice was locally created
-     *
-     * @param Notice $notice
-     *
-     * @return boolean locality
-     */
-    function _isLocal($notice)
-    {
-        return ($notice->is_local == Notice::LOCAL_PUBLIC ||
-                $notice->is_local == Notice::LOCAL_NONPUBLIC);
-    }
-
-    /**
      * Add Twitter bridge daemons to the list of daemons to start
      *
      * @param array $daemons the list fo daemons to run
      *
      * @return boolean hook return
-     *
      */
     function onGetValidDaemons($daemons)
     {
-        array_push($daemons, INSTALLDIR .
-                   '/plugins/TwitterBridge/daemons/twitterqueuehandler.php');
         array_push($daemons, INSTALLDIR .
                    '/plugins/TwitterBridge/daemons/synctwitterfriends.php');
 
@@ -188,6 +157,19 @@ class TwitterBridgePlugin extends Plugin
                 . '/plugins/TwitterBridge/daemons/twitterstatusfetcher.php');
         }
 
+        return true;
+    }
+
+    /**
+     * Register Twitter notice queue handler
+     *
+     * @param QueueManager $manager
+     *
+     * @return boolean hook return
+     */
+    function onEndInitializeQueueManager($manager)
+    {
+        $manager->connect('twitter', 'TwitterQueueHandler');
         return true;
     }
 

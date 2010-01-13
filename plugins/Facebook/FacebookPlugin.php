@@ -114,6 +114,9 @@ class FacebookPlugin extends Plugin
         case 'FBCSettingsNav':
             include_once INSTALLDIR . '/plugins/Facebook/FBCSettingsNav.php';
             return false;
+        case 'FacebookQueueHandler':
+            include_once INSTALLDIR . '/plugins/Facebook/facebookqueuehandler.php';
+            return false;
         default:
             return true;
         }
@@ -508,50 +511,15 @@ class FacebookPlugin extends Plugin
     }
 
     /**
-     * broadcast the message when not using queuehandler
+     * Register Facebook notice queue handler
      *
-     * @param Notice &$notice the notice
-     * @param array  $queue   destination queue
-     *
-     * @return boolean hook return
-     */
-
-    function onUnqueueHandleNotice(&$notice, $queue)
-    {
-        if (($queue == 'facebook') && ($this->_isLocal($notice))) {
-            facebookBroadcastNotice($notice);
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Determine whether the notice was locally created
-     *
-     * @param Notice $notice the notice
-     *
-     * @return boolean locality
-     */
-
-    function _isLocal($notice)
-    {
-        return ($notice->is_local == Notice::LOCAL_PUBLIC ||
-                $notice->is_local == Notice::LOCAL_NONPUBLIC);
-    }
-
-    /**
-     * Add Facebook queuehandler to the list of daemons to start
-     *
-     * @param array $daemons the list fo daemons to run
+     * @param QueueManager $manager
      *
      * @return boolean hook return
-     *
      */
-
-    function onGetValidDaemons($daemons)
+    function onEndInitializeQueueManager($manager)
     {
-        array_push($daemons, INSTALLDIR .
-                   '/plugins/Facebook/facebookqueuehandler.php');
+        $manager->connect('facebook', 'FacebookQueueHandler');
         return true;
     }
 

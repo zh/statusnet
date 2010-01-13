@@ -179,4 +179,23 @@ class Cache
 
         return $success;
     }
+
+    /**
+     * Close or reconnect any remote connections, such as to give
+     * daemon processes a chance to reconnect on a fresh socket.
+     *
+     * @return boolean success flag
+     */
+
+    function reconnect()
+    {
+        $success = false;
+
+        if (Event::handle('StartCacheReconnect', array(&$success))) {
+            $success = true;
+            Event::handle('EndCacheReconnect', array());
+        }
+
+        return $success;
+    }
 }

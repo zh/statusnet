@@ -20,50 +20,37 @@
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 
-$shortoptions = 'i::';
-$longoptions = array('id::');
+$helptext = <<<END_OF_QUEUE_HELP
+USAGE: handlequeued.php <queue> <notice id>
+Run a single queued notice through background processing
+as if it were being run through the queue.
 
-$helptext = <<<END_OF_PING_HELP
-Daemon script for pushing new notices to ping servers.
 
-    -i --id           Identity (default none)
-
-END_OF_PING_HELP;
+END_OF_QUEUE_HELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
-require_once INSTALLDIR . '/lib/ping.php';
-require_once INSTALLDIR . '/lib/queuehandler.php';
-
-class PingQueueHandler extends QueueHandler {
-
-	function transport() {
-		return 'ping';
-	}
-
-	function start() {
-		$this->log(LOG_INFO, "INITIALIZE");
-		return true;
-	}
-
-	function handle_notice($notice) {
-		return ping_broadcast_notice($notice);
-	}
-
-	function finish() {
-	}
+if (count($args) != 2) {
+    show_help();
 }
 
-if (have_option('i')) {
-    $id = get_option_value('i');
-} else if (have_option('--id')) {
-    $id = get_option_value('--id');
-} else if (count($args) > 0) {
-    $id = $args[0];
-} else {
-    $id = null;
+$queue = trim($args[0]);
+$noticeId = intval($args[1]);
+
+$qm = QueueManager::get();
+$handler = $qm->getHandler($queue);
+if (!$handler) {
+    print "No handler for queue '$queue'.\n";
+    exit(1);
 }
 
-$handler = new PingQueueHandler($id);
+$notice = Notice::staticGet('id', $noticeId);
+if (empty($notice)) {
+    print "Invalid notice id $noticeId\n";
+    exit(1);
+}
 
-$handler->runOnce();
+if (!$handler->handle_notice($notice)) {
+    print "Failed to handle notice id $noticeId on queue '$queue'.\n";
+    exit(1);
+}

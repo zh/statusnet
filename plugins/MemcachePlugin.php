@@ -133,6 +133,23 @@ class MemcachePlugin extends Plugin
         return false;
     }
 
+    function onStartCacheReconnect(&$success)
+    {
+        if (empty($this->_conn)) {
+            // nothing to do
+            return true;
+        }
+        if ($this->persistent) {
+            common_log(LOG_ERR, "Cannot close persistent memcached connection");
+            $success = false;
+        } else {
+            common_log(LOG_INFO, "Closing memcached connection");
+            $success = $this->_conn->close();
+            $this->_conn = null;
+        }
+        return false;
+    }
+
     /**
      * Ensure that a connection exists
      *

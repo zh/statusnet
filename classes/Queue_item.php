@@ -25,10 +25,12 @@ class Queue_item extends Memcached_DataObject
     function sequenceKey()
     { return array(false, false); }
 
-    static function top($transport) {
+    static function top($transport=null) {
 
         $qi = new Queue_item();
-        $qi->transport = $transport;
+        if ($transport) {
+            $qi->transport = $transport;
+        }
         $qi->orderBy('created');
         $qi->whereAdd('claimed is null');
 
@@ -40,7 +42,8 @@ class Queue_item extends Memcached_DataObject
             # XXX: potential race condition
             # can we force it to only update if claimed is still null
             # (or old)?
-            common_log(LOG_INFO, 'claiming queue item = ' . $qi->notice_id . ' for transport ' . $transport);
+            common_log(LOG_INFO, 'claiming queue item = ' . $qi->notice_id .
+                ' for transport ' . $qi->transport);
             $orig = clone($qi);
             $qi->claimed = common_sql_now();
             $result = $qi->update($orig);

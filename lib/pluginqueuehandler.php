@@ -1,4 +1,3 @@
-#!/usr/bin/env php
 <?php
 /*
  * StatusNet - the distributed open-source microblogging tool
@@ -18,33 +17,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
+if (!defined('STATUSNET') && !defined('LACONICA')) {
+    exit(1);
+}
 
-$shortoptions = 'i::';
-$longoptions = array('id::');
-
-$helptext = <<<END_OF_OMB_HELP
-Daemon script for letting plugins handle stuff at queue time
-
-    -i --id           Identity (default none)
-
-END_OF_OMB_HELP;
-
-require_once INSTALLDIR.'/scripts/commandline.inc';
-require_once INSTALLDIR . '/lib/queuehandler.php';
-
+/**
+ * Queue handler for letting plugins handle stuff.
+ *
+ * The plugin queue handler accepts notices over the "plugin" queue
+ * and simply passes them through the "HandleQueuedNotice" event.
+ *
+ * This gives plugins a chance to do background processing without
+ * actually registering their own queue and ensuring that things
+ * are queued into it.
+ *
+ * Fancier plugins may wish to instead hook the 'GetQueueHandlerClass'
+ * event with their own class, in which case they must ensure that
+ * their notices get enqueued when they need them.
+ */
 class PluginQueueHandler extends QueueHandler
 {
-
     function transport()
     {
         return 'plugin';
-    }
-
-    function start()
-    {
-        $this->log(LOG_INFO, "INITIALIZE");
-        return true;
     }
 
     function handle_notice($notice)
@@ -53,12 +48,3 @@ class PluginQueueHandler extends QueueHandler
         return true;
     }
 }
-
-if (have_option('i', 'id')) {
-    $id = get_option_value('i', 'id');
-} else {
-    $id = null;
-}
-
-$handler = new PluginQueueHandler($id);
-$handler->runOnce();
