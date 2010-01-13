@@ -194,10 +194,13 @@ class ShowApplicationAction extends OwnerDesignAction
         $defaultAccess = ($this->application->access_type & Oauth_application::$writeAccess)
             ? 'read-write' : 'read-only';
         $profile = Profile::staticGet($this->application->owner);
-        $userCnt = 0; // XXX: count how many users use the app
+
+        $appUsers = new Oauth_application_user();
+        $appUsers->application_id = $this->application->id;
+        $userCnt = $appUsers->count();
 
         $this->raw(sprintf(
-            _('Created by %1$s - %2$s access by default - %3$d users.'),
+            _('created by %1$s - %2$s access by default - %3$d users'),
               $profile->getBestName(),
               $defaultAccess,
               $userCnt
@@ -222,7 +225,7 @@ class ShowApplicationAction extends OwnerDesignAction
             'class' => 'form_reset_key',
             'method' => 'POST',
             'action' => common_local_url('showapplication',
-                array('id' => $this->application->id))));
+                                         array('id' => $this->application->id))));
 
         $this->elementStart('fieldset');
         $this->hidden('token', common_session_token());
