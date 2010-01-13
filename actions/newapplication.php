@@ -83,7 +83,7 @@ class NewApplicationAction extends OwnerDesignAction
         parent::handle($args);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	    $this->handlePost($args);
+        $this->handlePost($args);
         } else {
             $this->showForm();
         }
@@ -91,36 +91,36 @@ class NewApplicationAction extends OwnerDesignAction
 
     function handlePost($args)
     {
-	// Workaround for PHP returning empty $_POST and $_FILES when POST
+    // Workaround for PHP returning empty $_POST and $_FILES when POST
         // length > post_max_size in php.ini
 
         if (empty($_FILES)
             && empty($_POST)
             && ($_SERVER['CONTENT_LENGTH'] > 0)
-	    ) {
+        ) {
             $msg = _('The server was unable to handle that much POST ' .
-		     'data (%s bytes) due to its current configuration.');
+             'data (%s bytes) due to its current configuration.');
             $this->clientException(sprintf($msg, $_SERVER['CONTENT_LENGTH']));
             return;
         }
 
-	// CSRF protection
-	$token = $this->trimmed('token');
-	if (!$token || $token != common_session_token()) {
-	    $this->clientError(_('There was a problem with your session token.'));
-	    return;
-	}
+    // CSRF protection
+    $token = $this->trimmed('token');
+    if (!$token || $token != common_session_token()) {
+        $this->clientError(_('There was a problem with your session token.'));
+        return;
+    }
 
-	$cur = common_current_user();
+    $cur = common_current_user();
 
-	if ($this->arg('cancel')) {
-	    common_redirect(common_local_url('apps',
-					     array('nickname' => $cur->nickname)), 303);
-	} elseif ($this->arg('save')) {
-	    $this->trySave();
-	} else {
-	    $this->clientError(_('Unexpected form submission.'));
-	}
+    if ($this->arg('cancel')) {
+        common_redirect(common_local_url('apps',
+                         array('nickname' => $cur->nickname)), 303);
+    } elseif ($this->arg('save')) {
+        $this->trySave();
+    } else {
+        $this->clientError(_('Unexpected form submission.'));
+    }
     }
 
     function showForm($msg=null)
@@ -147,7 +147,7 @@ class NewApplicationAction extends OwnerDesignAction
 
     function trySave()
     {
-	$name         = $this->trimmed('name');
+    $name         = $this->trimmed('name');
         $description  = $this->trimmed('description');
         $source_url   = $this->trimmed('source_url');
         $organization = $this->trimmed('organization');
@@ -200,8 +200,8 @@ class NewApplicationAction extends OwnerDesignAction
         {
             $this->showForm(_('Homepage is not a valid URL.'));
             return;
-        } elseif (empty($callback_url)) {
-            $this->showForm(_('Callback is required.'));
+        } elseif (mb_strlen($callback_url) > 255) {
+            $this->showForm(_('Callback is too long.'));
             return;
         } elseif (strlen($callback_url) > 0
             && !Validate::uri(
@@ -266,48 +266,13 @@ class NewApplicationAction extends OwnerDesignAction
             $app->query('ROLLBACK');
         }
 
-	$this->uploadLogo($app);
+        $this->app->uploadLogo();
 
         $app->query('COMMIT');
 
         common_redirect(common_local_url('apps',
             array('nickname' => $cur->nickname)), 303);
 
-    }
-
-    /**
-     * Handle an image upload
-     *
-     * Does all the magic for handling an image upload, and crops the
-     * image by default.
-     *
-     * @return void
-     */
-
-    function uploadLogo($app)
-    {
-        if ($_FILES['app_icon']['error'] ==
-            UPLOAD_ERR_OK) {
-
-	    try {
-		$imagefile = ImageFile::fromUpload('app_icon');
-	    } catch (Exception $e) {
-		common_debug("damn that sucks");
-		$this->showForm($e->getMessage());
-		return;
-	    }
-
-	    $filename = Avatar::filename($app->id,
-					 image_type_to_extension($imagefile->type),
-					 null,
-					 'oauth-app-icon-'.common_timestamp());
-
-	    $filepath = Avatar::path($filename);
-
-	    move_uploaded_file($imagefile->filepath, $filepath);
-
-	    $app->setOriginal($filename);
-	}
     }
 
 }

@@ -93,47 +93,47 @@ class EditApplicationAction extends OwnerDesignAction
         parent::handle($args);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	    $this->handlePost($args);
-	} else {
-	    $this->showForm();
-	}
+            $this->handlePost($args);
+        } else {
+            $this->showForm();
+        }
     }
 
     function handlePost($args)
     {
-	// Workaround for PHP returning empty $_POST and $_FILES when POST
+        // Workaround for PHP returning empty $_POST and $_FILES when POST
         // length > post_max_size in php.ini
 
         if (empty($_FILES)
             && empty($_POST)
             && ($_SERVER['CONTENT_LENGTH'] > 0)
-	    ) {
+            ) {
             $msg = _('The server was unable to handle that much POST ' .
-		     'data (%s bytes) due to its current configuration.');
+                     'data (%s bytes) due to its current configuration.');
             $this->clientException(sprintf($msg, $_SERVER['CONTENT_LENGTH']));
             return;
         }
 
-	// CSRF protection
-	$token = $this->trimmed('token');
-	if (!$token || $token != common_session_token()) {
-	    $this->clientError(_('There was a problem with your session token.'));
-	    return;
-	}
+        // CSRF protection
+        $token = $this->trimmed('token');
+        if (!$token || $token != common_session_token()) {
+            $this->clientError(_('There was a problem with your session token.'));
+            return;
+        }
 
-	$cur = common_current_user();
+        $cur = common_current_user();
 
-	if ($this->arg('cancel')) {
-	    common_redirect(common_local_url('showapplication',
-					     array(
-						   'nickname' => $cur->nickname,
-						   'id' => $this->app->id)
-					     ), 303);
-	} elseif ($this->arg('save')) {
-	    $this->trySave();
-	} else {
-                $this->clientError(_('Unexpected form submission.'));
-	}
+        if ($this->arg('cancel')) {
+            common_redirect(common_local_url('showapplication',
+                                             array(
+                                                   'nickname' => $cur->nickname,
+                                                   'id' => $this->app->id)
+                                             ), 303);
+        } elseif ($this->arg('save')) {
+            $this->trySave();
+        } else {
+            $this->clientError(_('Unexpected form submission.'));
+        }
     }
 
     function showForm($msg=null)
@@ -170,8 +170,8 @@ class EditApplicationAction extends OwnerDesignAction
         $access_type  = $this->arg('default_access_type');
 
         if (empty($name)) {
-             $this->showForm(_('Name is required.'));
-             return;
+            $this->showForm(_('Name is required.'));
+            return;
         } elseif (mb_strlen($name) > 255) {
             $this->showForm(_('Name is too long (max 255 chars).'));
             return;
@@ -181,20 +181,17 @@ class EditApplicationAction extends OwnerDesignAction
         } elseif (Oauth_application::descriptionTooLong($description)) {
             $this->showForm(sprintf(
                 _('Description is too long (max %d chars).'),
-                Oauth_application::maxDescription()));
+                                    Oauth_application::maxDescription()));
             return;
-        } elseif (empty($source_url)) {
-            $this->showForm(_('Source URL is required.'));
+        } elseif (mb_strlen($source_url) > 255) {
+            $this->showForm(_('Source URL is too long.'));
             return;
-        } elseif ((strlen($source_url) > 0)
-            && !Validate::uri(
-                $source_url,
-                array('allowed_schemes' => array('http', 'https'))
-                )
-            )
-        {
-            $this->showForm(_('Source URL is not valid.'));
-            return;
+        } elseif ((mb_strlen($source_url) > 0)
+                  && !Validate::uri($source_url,
+                                    array('allowed_schemes' => array('http', 'https'))))
+            {
+                $this->showForm(_('Source URL is not valid.'));
+                return;
         } elseif (empty($organization)) {
             $this->showForm(_('Organization is required.'));
             return;
@@ -204,35 +201,30 @@ class EditApplicationAction extends OwnerDesignAction
         } elseif (empty($homepage)) {
             $this->showForm(_('Organization homepage is required.'));
             return;
-        } elseif ((strlen($homepage) > 0)
-            && !Validate::uri(
-                $homepage,
-                array('allowed_schemes' => array('http', 'https'))
-                )
-            )
-        {
-            $this->showForm(_('Homepage is not a valid URL.'));
-            return;
-        } elseif (empty($callback_url)) {
-            $this->showForm(_('Callback is required.'));
-            return;
-        } elseif (strlen($callback_url) > 0
-            && !Validate::uri(
-                $source_url,
-                array('allowed_schemes' => array('http', 'https'))
-                )
-            )
-        {
-            $this->showForm(_('Callback URL is not valid.'));
-            return;
-        }
+        } elseif ((mb_strlen($homepage) > 0)
+                  && !Validate::uri($homepage,
+                                    array('allowed_schemes' => array('http', 'https'))))
+            {
+                $this->showForm(_('Homepage is not a valid URL.'));
+                return;
+            } elseif (mb_strlen($callback_url) > 255) {
+                $this->showForm(_('Callback is too long.'));
+                return;
+            } elseif (mb_strlen($callback_url) > 0
+                      && !Validate::uri($source_url,
+                                        array('allowed_schemes' => array('http', 'https'))
+                                        ))
+                {
+                    $this->showForm(_('Callback URL is not valid.'));
+                    return;
+                }
 
         $cur = common_current_user();
 
         // Checked in prepare() above
 
         assert(!is_null($cur));
-	assert(!is_null($this->app));
+        assert(!is_null($this->app));
 
         $orig = clone($this->app);
 
@@ -244,9 +236,7 @@ class EditApplicationAction extends OwnerDesignAction
         $this->app->callback_url = $callback_url;
         $this->app->type         = $type;
 
-        $result = $this->app->update($orig);
-
-	common_debug("access_type = $access_type");
+        common_debug("access_type = $access_type");
 
         if ($access_type == 'r') {
             $this->app->access_type = 1;
@@ -254,10 +244,14 @@ class EditApplicationAction extends OwnerDesignAction
             $this->app->access_type = 3;
         }
 
+        $result = $this->app->update($orig);
+
         if (!$result) {
             common_log_db_error($this->app, 'UPDATE', __FILE__);
             $this->serverError(_('Could not update application.'));
         }
+
+        $this->app->uploadLogo();
 
         common_redirect(common_local_url('apps',
             array('nickname' => $cur->nickname)), 303);
