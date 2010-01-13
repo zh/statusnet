@@ -299,8 +299,6 @@ class Notice extends Memcached_DataObject
 
             // XXX: some of these functions write to the DB
 
-            $notice->query('BEGIN');
-
             $id = $notice->insert();
 
             if (!$id) {
@@ -341,8 +339,6 @@ class Notice extends Memcached_DataObject
             $notice->addToInboxes();
 
             $notice->saveUrls();
-
-            $notice->query('COMMIT');
 
             Event::handle('EndNoticeSave', array($notice));
         }
