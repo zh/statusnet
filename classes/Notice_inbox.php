@@ -1,7 +1,7 @@
 <?php
 /*
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, StatusNet, Inc.
+ * Copyright (C) 2008-2010, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET')) {
+    exit(1);
+}
 
 require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
@@ -55,139 +57,31 @@ class Notice_inbox extends Memcached_DataObject
 
     function stream($user_id, $offset, $limit, $since_id, $max_id, $since, $own=false)
     {
-        return Notice::stream(array('Notice_inbox', '_streamDirect'),
-                              array($user_id, $own),
-                              ($own) ? 'notice_inbox:by_user:'.$user_id :
-                              'notice_inbox:by_user_own:'.$user_id,
-                              $offset, $limit, $since_id, $max_id, $since);
+        throw new Exception('Notice_inbox no longer used; use Inbox');
     }
 
     function _streamDirect($user_id, $own, $offset, $limit, $since_id, $max_id, $since)
     {
-        $inbox = new Notice_inbox();
-
-        $inbox->user_id = $user_id;
-
-        if (!$own) {
-            $inbox->whereAdd('source != ' . NOTICE_INBOX_SOURCE_GATEWAY);
-        }
-
-        if ($since_id != 0) {
-            $inbox->whereAdd('notice_id > ' . $since_id);
-        }
-
-        if ($max_id != 0) {
-            $inbox->whereAdd('notice_id <= ' . $max_id);
-        }
-
-        if (!is_null($since)) {
-            $inbox->whereAdd('created > \'' . date('Y-m-d H:i:s', $since) . '\'');
-        }
-
-        $inbox->orderBy('created DESC');
-
-        if (!is_null($offset)) {
-            $inbox->limit($offset, $limit);
-        }
-
-        $ids = array();
-
-        if ($inbox->find()) {
-            while ($inbox->fetch()) {
-                $ids[] = $inbox->notice_id;
-            }
-        }
-
-        return $ids;
+        throw new Exception('Notice_inbox no longer used; use Inbox');
     }
 
-    function pkeyGet($kv)
+    function &pkeyGet($kv)
     {
         return Memcached_DataObject::pkeyGet('Notice_inbox', $kv);
     }
 
-    /**
-     * Trim inbox for a given user to latest NOTICE_INBOX_LIMIT items
-     * (up to NOTICE_INBOX_GC_MAX will be deleted).
-     *
-     * @param int $user_id
-     * @return int count of notices dropped from the inbox, if any
-     */
     static function gc($user_id)
     {
-        $entry = new Notice_inbox();
-        $entry->user_id = $user_id;
-        $entry->orderBy('created DESC');
-        $entry->limit(NOTICE_INBOX_LIMIT - 1, NOTICE_INBOX_GC_MAX);
-
-        $total = $entry->find();
-
-        if ($total > 0) {
-            $notices = array();
-            $cnt = 0;
-            while ($entry->fetch()) {
-                $notices[] = $entry->notice_id;
-                $cnt++;
-                if ($cnt >= NOTICE_INBOX_GC_BOXCAR) {
-                    self::deleteMatching($user_id, $notices);
-                    $notices = array();
-                    $cnt = 0;
-                }
-            }
-
-            if ($cnt > 0) {
-                self::deleteMatching($user_id, $notices);
-                $notices = array();
-            }
-        }
-
-        return $total;
+        throw new Exception('Notice_inbox no longer used; use Inbox');
     }
 
     static function deleteMatching($user_id, $notices)
     {
-        $entry = new Notice_inbox();
-        return $entry->query('DELETE FROM notice_inbox '.
-                             'WHERE user_id = ' . $user_id . ' ' .
-                             'AND notice_id in ('.implode(',', $notices).')');
+        throw new Exception('Notice_inbox no longer used; use Inbox');
     }
 
     static function bulkInsert($notice_id, $created, $ni)
     {
-        $cnt = 0;
-
-        $qryhdr = 'INSERT INTO notice_inbox (user_id, notice_id, source, created) VALUES ';
-        $qry = $qryhdr;
-
-        foreach ($ni as $id => $source) {
-            if ($cnt > 0) {
-                $qry .= ', ';
-            }
-            $qry .= '('.$id.', '.$notice_id.', '.$source.", '".$created. "') ";
-            $cnt++;
-            if (rand() % NOTICE_INBOX_SOFT_LIMIT == 0) {
-                // FIXME: Causes lag in replicated servers
-                // Notice_inbox::gc($id);
-            }
-            if ($cnt >= MAX_BOXCARS) {
-                $inbox = new Notice_inbox();
-                $result = $inbox->query($qry);
-                if (PEAR::isError($result)) {
-                    common_log_db_error($inbox, $qry);
-                }
-                $qry = $qryhdr;
-                $cnt = 0;
-            }
-        }
-
-        if ($cnt > 0) {
-            $inbox = new Notice_inbox();
-            $result = $inbox->query($qry);
-            if (PEAR::isError($result)) {
-                common_log_db_error($inbox, $qry);
-            }
-        }
-
-        return;
+        throw new Exception('Notice_inbox no longer used; use Inbox');
     }
 }

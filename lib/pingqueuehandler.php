@@ -17,35 +17,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) {
+    exit(1);
+}
 
-require_once INSTALLDIR . '/plugins/Facebook/facebookutil.php';
+/**
+ * Queue handler for pushing new notices to ping servers.
+ */
+class PingQueueHandler extends QueueHandler {
 
-class FacebookQueueHandler extends QueueHandler
-{
-    function transport()
-    {
-        return 'facebook';
+    function transport() {
+        return 'ping';
     }
 
-    function handle_notice($notice)
-    {
-        if ($this->_isLocal($notice)) {
-            return facebookBroadcastNotice($notice);
-        }
-        return true;
-    }
-
-    /**
-     * Determine whether the notice was locally created
-     *
-     * @param Notice $notice the notice
-     *
-     * @return boolean locality
-     */
-    function _isLocal($notice)
-    {
-        return ($notice->is_local == Notice::LOCAL_PUBLIC ||
-                $notice->is_local == Notice::LOCAL_NONPUBLIC);
+    function handle_notice($notice) {
+        require_once INSTALLDIR . '/lib/ping.php';
+        return ping_broadcast_notice($notice);
     }
 }

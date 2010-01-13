@@ -49,6 +49,13 @@ class Status_network extends DB_DataObject
     static $cache = null;
     static $base = null;
 
+    /**
+     * @param string $dbhost
+     * @param string $dbuser
+     * @param string $dbpass
+     * @param string $dbname
+     * @param array $servers memcached servers to use for caching config info
+     */
     static function setupDB($dbhost, $dbuser, $dbpass, $dbname, $servers)
     {
         global $config;
@@ -60,12 +67,17 @@ class Status_network extends DB_DataObject
         if (class_exists('Memcache')) {
             self::$cache = new Memcache();
 
+            // Can't close persistent connections, making forking painful.
+            //
+            // @fixme only do this in *parent* CLI processes.
+            // single-process and child-processes *should* use persistent.
+            $persist = php_sapi_name() != 'cli';
             if (is_array($servers)) {
                 foreach($servers as $server) {
-                    self::$cache->addServer($server);
+                    self::$cache->addServer($server, 11211, $persist);
                 }
             } else {
-                self::$cache->addServer($servers);
+                self::$cache->addServer($servers, 11211, $persist);
             }
         }
 
@@ -89,7 +101,7 @@ class Status_network extends DB_DataObject
         if (empty($sn)) {
             $sn = self::staticGet($k, $v);
             if (!empty($sn)) {
-                self::$cache->set($ck, $sn);
+                self::$cache->set($ck, clone($sn));
             }
         }
 
@@ -121,6 +133,11 @@ class Status_network extends DB_DataObject
         return parent::delete();
     }
 
+    /**
+     * @param string $servername hostname
+     * @param string $pathname URL base path
+     * @param string $wildcard hostname suffix to match wildcard config
+     */
     static function setupSite($servername, $pathname, $wildcard)
     {
         global $config;

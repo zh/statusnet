@@ -86,7 +86,11 @@ class Sharing_XMPP extends XMPPHP_XMPP
 }
 
 /**
- * connect the configured Jabber account to the configured server
+ * Lazy-connect the configured Jabber account to the configured server;
+ * if already opened, the same connection will be returned.
+ *
+ * In a multi-site background process, each site configuration
+ * will get its own connection.
  *
  * @param string $resource Resource to connect (defaults to configured resource)
  *
@@ -95,16 +99,19 @@ class Sharing_XMPP extends XMPPHP_XMPP
 
 function jabber_connect($resource=null)
 {
-    static $conn = null;
-    if (!$conn) {
+    static $connections = array();
+    $site = common_config('site', 'server');
+    if (empty($connections[$site])) {
+        if (empty($resource)) {
+            $resource = common_config('xmpp', 'resource');
+        }
         $conn = new Sharing_XMPP(common_config('xmpp', 'host') ?
                                 common_config('xmpp', 'host') :
                                 common_config('xmpp', 'server'),
                                 common_config('xmpp', 'port'),
                                 common_config('xmpp', 'user'),
                                 common_config('xmpp', 'password'),
-                                ($resource) ? $resource :
-                                common_config('xmpp', 'resource'),
+                                $resource,
                                 common_config('xmpp', 'server'),
                                 common_config('xmpp', 'debug') ?
                                 true : false,
@@ -115,12 +122,16 @@ function jabber_connect($resource=null)
         if (!$conn) {
             return false;
         }
+        $connections[$site] = $conn;
 
         $conn->autoSubscribe();
         $conn->useEncryption(common_config('xmpp', 'encryption'));
 
         try {
-            $conn->connect(true); // true = persistent connection
+            common_log(LOG_INFO, __METHOD__ . ": connecting " .
+                common_config('xmpp', 'user') . '/' . $resource);
+            //$conn->connect(true); // true = persistent connection
+            $conn->connect(); // persistent connections break multisite
         } catch (XMPPHP_Exception $e) {
             common_log(LOG_ERR, $e->getMessage());
             return false;
@@ -128,7 +139,7 @@ function jabber_connect($resource=null)
 
         $conn->processUntil('session_start');
     }
-    return $conn;
+    return $connections[$site];
 }
 
 /**
@@ -345,76 +356,41 @@ function jabber_broadcast_notice($notice)
 
     $conn = jabber_connect();
 
-    // First, get users to whom this is a direct reply
-    $user = new User();
-    $UT = common_config('db','type')=='pgsql'?'"user"':'user';
-    $user->query("SELECT $UT.id, $UT.jabber " .
-                 "FROM $UT JOIN reply ON $UT.id = reply.profile_id " .
-                 'WHERE reply.notice_id = ' . $notice->id . ' ' .
-                 "AND $UT.jabber is not null " .
-                 "AND $UT.jabbernotify = 1 " .
-                 "AND $UT.jabberreplies = 1 ");
+    $ni = $notice->whoGets();
 
-    while ($user->fetch()) {
+    foreach ($ni as $user_id => $reason) {
+        $user = User::staticGet('user_id', $user_id);
+        if (empty($user) ||
+            empty($user->jabber) ||
+            !$user->jabbernotify) {
+            // either not a local user, or just not found
+            continue;
+        }
+        switch ($reason) {
+        case NOTICE_INBOX_SOURCE_REPLY:
+            if (!$user->jabberreplies) {
+                continue;
+            }
+            break;
+        case NOTICE_INBOX_SOURCE_SUB:
+            $sub = Subscription::pkeyGet(array('subscriber' => $user->id,
+                                               'subscribed' => $notice->profile_id));
+            if (empty($sub) || !$sub->jabber) {
+                continue;
+            }
+            break;
+        case NOTICE_INBOX_SOURCE_GROUP:
+            break;
+        default:
+            throw new Exception(_("Unknown inbox source."));
+        }
+
         common_log(LOG_INFO,
-                   'Sending reply notice ' . $notice->id . ' to ' . $user->jabber,
+                   'Sending notice ' . $notice->id . ' to ' . $user->jabber,
                    __FILE__);
         $conn->message($user->jabber, $msg, 'chat', null, $entry);
         $conn->processTime(0);
-        $sent_to[$user->id] = 1;
     }
-
-    $user->free();
-
-    // Now, get users subscribed to this profile
-
-    $user = new User();
-    $user->query("SELECT $UT.id, $UT.jabber " .
-                 "FROM $UT JOIN subscription " .
-                 "ON $UT.id = subscription.subscriber " .
-                 'WHERE subscription.subscribed = ' . $notice->profile_id . ' ' .
-                 "AND $UT.jabber is not null " .
-                 "AND $UT.jabbernotify = 1 " .
-                 'AND subscription.jabber = 1 ');
-
-    while ($user->fetch()) {
-        if (!array_key_exists($user->id, $sent_to)) {
-            common_log(LOG_INFO,
-                       'Sending notice ' . $notice->id . ' to ' . $user->jabber,
-                       __FILE__);
-            $conn->message($user->jabber, $msg, 'chat', null, $entry);
-            // To keep the incoming queue from filling up,
-            // we service it after each send.
-            $conn->processTime(0);
-            $sent_to[$user->id] = 1;
-        }
-    }
-
-    // Now, get users who have it in their inbox because of groups
-
-    $user = new User();
-    $user->query("SELECT $UT.id, $UT.jabber " .
-                 "FROM $UT JOIN notice_inbox " .
-                 "ON $UT.id = notice_inbox.user_id " .
-                 'WHERE notice_inbox.notice_id = ' . $notice->id . ' ' .
-                 'AND notice_inbox.source = 2 ' .
-                 "AND $UT.jabber is not null " .
-                 "AND $UT.jabbernotify = 1 ");
-
-    while ($user->fetch()) {
-        if (!array_key_exists($user->id, $sent_to)) {
-            common_log(LOG_INFO,
-                       'Sending notice ' . $notice->id . ' to ' . $user->jabber,
-                       __FILE__);
-            $conn->message($user->jabber, $msg, 'chat', null, $entry);
-            // To keep the incoming queue from filling up,
-            // we service it after each send.
-            $conn->processTime(0);
-            $sent_to[$user->id] = 1;
-        }
-    }
-
-    $user->free();
 
     return true;
 }

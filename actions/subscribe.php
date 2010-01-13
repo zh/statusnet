@@ -58,7 +58,7 @@ class SubscribeAction extends Action
 
         $result = subs_subscribe_to($user, $other);
 
-        if($result != true) {
+        if (is_string($result)) {
             $this->clientError($result);
             return;
         }

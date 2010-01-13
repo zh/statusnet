@@ -19,14 +19,6 @@
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
-require_once(INSTALLDIR.'/lib/daemon.php');
-require_once(INSTALLDIR.'/classes/Queue_item.php');
-require_once(INSTALLDIR.'/classes/Notice.php');
-
-define('CLAIM_TIMEOUT', 1200);
-define('QUEUE_HANDLER_MISS_IDLE', 10);
-define('QUEUE_HANDLER_HIT_IDLE', 0);
-
 /**
  * Base class for queue handlers.
  *
@@ -36,24 +28,20 @@ define('QUEUE_HANDLER_HIT_IDLE', 0);
  *
  * Subclasses must override at least the following methods:
  * - transport
- * - start
- * - finish
  * - handle_notice
- *
- * Some subclasses will also want to override the idle handler:
- * - idle
  */
-class QueueHandler extends Daemon
+#class QueueHandler extends Daemon
+class QueueHandler
 {
 
-    function __construct($id=null, $daemonize=true)
-    {
-        parent::__construct($daemonize);
-
-        if ($id) {
-            $this->set_id($id);
-        }
-    }
+#    function __construct($id=null, $daemonize=true)
+#    {
+#        parent::__construct($daemonize);
+#
+#        if ($id) {
+#            $this->set_id($id);
+#        }
+#    }
 
     /**
      * How many seconds a polling-based queue manager should wait between
@@ -61,22 +49,23 @@ class QueueHandler extends Daemon
      *
      * Defaults to 60 seconds; override to speed up or slow down.
      *
+     * @fixme not really compatible with global queue manager
      * @return int timeout in seconds
      */
-    function timeout()
-    {
-        return 60;
-    }
+#    function timeout()
+#    {
+#        return 60;
+#    }
 
-    function class_name()
-    {
-        return ucfirst($this->transport()) . 'Handler';
-    }
+#    function class_name()
+#    {
+#        return ucfirst($this->transport()) . 'Handler';
+#    }
 
-    function name()
-    {
-        return strtolower($this->class_name().'.'.$this->get_id());
-    }
+#    function name()
+#    {
+#        return strtolower($this->class_name().'.'.$this->get_id());
+#    }
 
     /**
      * Return transport keyword which identifies items this queue handler
@@ -90,30 +79,6 @@ class QueueHandler extends Daemon
     function transport()
     {
         return null;
-    }
-
-    /**
-     * Initialization, run when the queue handler starts.
-     * If this function indicates failure, the handler run will be aborted.
-     *
-     * @fixme run() will abort if this doesn't return true,
-     *        but some subclasses don't bother.
-     * @return boolean true on success, false on failure
-     */
-    function start()
-    {
-    }
-
-    /**
-     * Cleanup, run when the queue handler ends.
-     * If this function indicates failure, a warning will be logged.
-     *
-     * @fixme run() will throw warnings if this doesn't return true,
-     *        but many subclasses don't bother.
-     * @return boolean true on success, false on failure
-     */
-    function finish()
-    {
     }
 
     /**
@@ -169,29 +134,10 @@ class QueueHandler extends Daemon
         return true;
     }
 
-    /**
-     * Called by QueueHandler after each handled item or empty polling cycle.
-     * This is a good time to e.g. service your XMPP connection.
-     *
-     * Doesn't need to be overridden if there's no maintenance to do.
-     *
-     * @param int $timeout seconds to sleep if there's nothing to do
-     */
-    function idle($timeout=0)
-    {
-        if ($timeout > 0) {
-            sleep($timeout);
-        }
-    }
 
     function log($level, $msg)
     {
         common_log($level, $this->class_name() . ' ('. $this->get_id() .'): '.$msg);
-    }
-
-    function getSockets()
-    {
-        return array();
     }
 }
 
