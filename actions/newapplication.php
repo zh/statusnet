@@ -114,8 +114,7 @@ class NewApplicationAction extends OwnerDesignAction
     $cur = common_current_user();
 
     if ($this->arg('cancel')) {
-        common_redirect(common_local_url('apps',
-                         array('nickname' => $cur->nickname)), 303);
+        common_redirect(common_local_url('oauthappssettings'), 303);
     } elseif ($this->arg('save')) {
         $this->trySave();
     } else {
@@ -147,7 +146,7 @@ class NewApplicationAction extends OwnerDesignAction
 
     function trySave()
     {
-    $name         = $this->trimmed('name');
+        $name         = $this->trimmed('name');
         $description  = $this->trimmed('description');
         $source_url   = $this->trimmed('source_url');
         $organization = $this->trimmed('organization');
@@ -270,8 +269,7 @@ class NewApplicationAction extends OwnerDesignAction
 
         $app->query('COMMIT');
 
-        common_redirect(common_local_url('apps',
-            array('nickname' => $cur->nickname)), 303);
+        common_redirect(common_local_url('oauthappssettings'), 303);
 
     }
 
