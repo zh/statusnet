@@ -919,6 +919,12 @@ class Notice extends Memcached_DataObject
 
     function saveGroups()
     {
+        // Don't save groups for repeats
+
+        if (!empty($this->repeat_of)) {
+            return array();
+        }
+
         $groups = array();
 
         /* extract all !group */
