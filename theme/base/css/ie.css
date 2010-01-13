@@ -19,10 +19,12 @@ display:block;
 width:17%;
 max-width:17%;
 }
-.form_notice #notice_data-attach_selected {
-width:78.5%;
+.form_notice #notice_data-attach_selected,
+.form_notice #notice_data-geo_selected {
+width:78.75%;
 }
-.form_notice #notice_data-attach_selected button {
+.form_notice #notice_data-attach_selected button,
+.form_notice #notice_data-geo_selected button {
 padding:0 4px;
 }
 .notice-options input.submit {

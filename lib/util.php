@@ -191,7 +191,6 @@ function common_ensure_session()
             }
         }
     }
-    common_debug("Session ID = " . session_id());
 }
 
 // Three kinds of arguments:
@@ -258,7 +257,6 @@ function common_rememberme($user=null)
     if (!$user) {
         $user = common_current_user();
         if (!$user) {
-            common_debug('No current user to remember', __FILE__);
             return false;
         }
     }
@@ -276,13 +274,10 @@ function common_rememberme($user=null)
 
     if (!$result) {
         common_log_db_error($rm, 'INSERT', __FILE__);
-        common_debug('Error adding rememberme record for ' . $user->nickname, __FILE__);
         return false;
     }
 
     $rm->query('COMMIT');
-
-    common_debug('Inserted rememberme record (' . $rm->code . ', ' . $rm->user_id . '); result = ' . $result . '.', __FILE__);
 
     $cookieval = $rm->user_id . ':' . $rm->code;
 
@@ -391,8 +386,6 @@ function common_current_user()
         $_cur = common_remembered_user();
 
         if ($_cur) {
-            common_debug("Got User " . $_cur->nickname);
-            common_debug("Faking session on remembered user");
             // XXX: Is this necessary?
             $_SESSION['userid'] = $_cur->id;
         }
@@ -838,7 +831,7 @@ function common_path($relative, $ssl=false)
     }
 
     $relative = common_inject_session($relative, $serverpart);
-    
+
     return $proto.'://'.$serverpart.'/'.$pathpart.$relative;
 }
 
@@ -849,7 +842,7 @@ function common_inject_session($url, $serverpart = null)
 	if (empty($serverpart)) {
 	    $serverpart = parse_url($url, PHP_URL_HOST);
 	}
-	
+
         $currentServer = $_SERVER['HTTP_HOST'];
 
         // Are we pointing to another server (like an SSL server?)
@@ -866,7 +859,7 @@ function common_inject_session($url, $serverpart = null)
             }
         }
     }
-    
+
     return $url;
 }
 
@@ -1057,7 +1050,12 @@ function common_profile_url($nickname)
 
 function common_root_url($ssl=false)
 {
-    return common_path('', $ssl);
+    $url = common_path('', $ssl);
+    $i = strpos($url, '?');
+    if ($i !== false) {
+        $url = substr($url, 0, $i);
+    }
+    return $url;
 }
 
 // returns $bytes bytes of random data as a hexadecimal string
@@ -1132,8 +1130,9 @@ function common_log_line($priority, $msg)
 function common_request_id()
 {
     $pid = getmypid();
+    $server = common_config('site', 'server');
     if (php_sapi_name() == 'cli') {
-        return $pid;
+        return "$server:$pid";
     } else {
         static $req_id = null;
         if (!isset($req_id)) {
@@ -1143,7 +1142,7 @@ function common_request_id()
             $url = $_SERVER['REQUEST_URI'];
         }
         $method = $_SERVER['REQUEST_METHOD'];
-        return "$pid.$req_id $method $url";
+        return "$server:$pid.$req_id $method $url";
     }
 }
 

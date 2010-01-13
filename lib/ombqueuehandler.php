@@ -1,4 +1,3 @@
-#!/usr/bin/env php
 <?php
 /*
  * StatusNet - the distributed open-source microblogging tool
@@ -18,25 +17,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
+if (!defined('STATUSNET') && !defined('LACONICA')) {
+    exit(1);
+}
 
-$shortoptions = 'i::';
-$longoptions = array('id::');
-
-$helptext = <<<END_OF_OMB_HELP
-Daemon script for pushing new notices to OpenMicroBlogging subscribers.
-
-    -i --id           Identity (default none)
-
-END_OF_OMB_HELP;
-
-require_once INSTALLDIR.'/scripts/commandline.inc';
-
-require_once INSTALLDIR . '/lib/omb.php';
-require_once INSTALLDIR . '/lib/queuehandler.php';
-
-set_error_handler('common_error_handler');
-
+/**
+ * Queue handler for pushing new notices to OpenMicroBlogging subscribers.
+ */
 class OmbQueueHandler extends QueueHandler
 {
 
@@ -45,24 +32,20 @@ class OmbQueueHandler extends QueueHandler
         return 'omb';
     }
 
-    function start()
-    {
-        $this->log(LOG_INFO, "INITIALIZE");
-        return true;
-    }
-
+    /**
+     * @fixme doesn't currently report failure back to the queue manager
+     * because omb_broadcast_notice() doesn't report it to us
+     */
     function handle_notice($notice)
     {
         if ($this->is_remote($notice)) {
             $this->log(LOG_DEBUG, 'Ignoring remote notice ' . $notice->id);
             return true;
         } else {
-            return omb_broadcast_notice($notice);
+            require_once(INSTALLDIR.'/lib/omb.php');
+            omb_broadcast_notice($notice);
+            return true;
         }
-    }
-
-    function finish()
-    {
     }
 
     function is_remote($notice)
@@ -71,17 +54,3 @@ class OmbQueueHandler extends QueueHandler
         return is_null($user);
     }
 }
-
-if (have_option('i')) {
-    $id = get_option_value('i');
-} else if (have_option('--id')) {
-    $id = get_option_value('--id');
-} else if (count($args) > 0) {
-    $id = $args[0];
-} else {
-    $id = null;
-}
-
-$handler = new OmbQueueHandler($id);
-
-$handler->runOnce();

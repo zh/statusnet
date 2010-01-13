@@ -1,4 +1,3 @@
-#!/usr/bin/env php
 <?php
 /*
  * StatusNet - the distributed open-source microblogging tool
@@ -18,25 +17,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
+if (!defined('STATUSNET') && !defined('LACONICA')) {
+    exit(1);
+}
 
-$shortoptions = 'i::';
-$longoptions = array('id::');
-
-$helptext = <<<END_OF_JABBER_HELP
-Daemon script for pushing new notices to Jabber users.
-
-    -i --id           Identity (default none)
-
-END_OF_JABBER_HELP;
-
-require_once INSTALLDIR.'/scripts/commandline.inc';
-
-require_once INSTALLDIR . '/lib/common.php';
-require_once INSTALLDIR . '/lib/jabber.php';
-require_once INSTALLDIR . '/lib/xmppqueuehandler.php';
-
-class JabberQueueHandler extends XmppQueueHandler
+/**
+ * Queue handler for pushing new notices to Jabber users.
+ * @fixme this exception handling doesn't look very good.
+ */
+class JabberQueueHandler extends QueueHandler
 {
     var $conn = null;
 
@@ -47,6 +36,7 @@ class JabberQueueHandler extends XmppQueueHandler
 
     function handle_notice($notice)
     {
+        require_once(INSTALLDIR.'/lib/jabber.php');
         try {
             return jabber_broadcast_notice($notice);
         } catch (XMPPHP_Exception $e) {
@@ -55,24 +45,3 @@ class JabberQueueHandler extends XmppQueueHandler
         }
     }
 }
-
-// Abort immediately if xmpp is not enabled, otherwise the daemon chews up
-// lots of CPU trying to connect to unconfigured servers
-if (common_config('xmpp','enabled')==false) {
-    print "Aborting daemon - xmpp is disabled\n";
-    exit();
-}
-
-if (have_option('i')) {
-    $id = get_option_value('i');
-} else if (have_option('--id')) {
-    $id = get_option_value('--id');
-} else if (count($args) > 0) {
-    $id = $args[0];
-} else {
-    $id = null;
-}
-
-$handler = new JabberQueueHandler($id);
-
-$handler->runOnce();

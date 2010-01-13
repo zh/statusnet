@@ -19,33 +19,14 @@
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
-require_once INSTALLDIR . '/plugins/Facebook/facebookutil.php';
-
-class FacebookQueueHandler extends QueueHandler
+class IMAPMailHandler extends MailHandler
 {
-    function transport()
+    function error($from, $msg)
     {
-        return 'facebook';
-    }
+        $this->log(LOG_INFO, "Error: $from $msg");
+        $headers['To'] = $from;
+        $headers['Subject'] = _m('Error');
 
-    function handle_notice($notice)
-    {
-        if ($this->_isLocal($notice)) {
-            return facebookBroadcastNotice($notice);
-        }
-        return true;
-    }
-
-    /**
-     * Determine whether the notice was locally created
-     *
-     * @param Notice $notice the notice
-     *
-     * @return boolean locality
-     */
-    function _isLocal($notice)
-    {
-        return ($notice->is_local == Notice::LOCAL_PUBLIC ||
-                $notice->is_local == Notice::LOCAL_NONPUBLIC);
+        return mail_send(array($from), $headers, $msg);
     }
 }

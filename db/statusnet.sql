@@ -596,3 +596,11 @@ create table user_location_prefs (
     constraint primary key (user_id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
+create table inbox (
+
+    user_id integer not null comment 'user receiving the notice' references user (id),
+    notice_ids blob comment 'packed list of notice ids',
+
+    constraint primary key (user_id)
+
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;

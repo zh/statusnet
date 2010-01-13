@@ -126,6 +126,7 @@ class LinkbackPlugin extends Plugin
         if (!extension_loaded('xmlrpc')) {
             if (!dl('xmlrpc.so')) {
                 common_log(LOG_ERR, "Can't pingback; xmlrpc extension not available.");
+                return;
             }
         }
 
