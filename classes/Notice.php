@@ -275,7 +275,6 @@ class Notice extends Memcached_DataObject
 
         if (isset($repeat_of)) {
             $notice->repeat_of = $repeat_of;
-            $notice->reply_to = $repeat_of;
         } else {
             $notice->reply_to = self::getReplyTo($reply_to, $profile_id, $source, $final);
         }
@@ -995,6 +994,12 @@ class Notice extends Memcached_DataObject
      */
     function saveReplies()
     {
+        // Don't save reply data for repeats
+
+        if (!empty($this->repeat_of)) {
+            return array();
+        }
+
         // Alternative reply format
         $tname = false;
         if (preg_match('/^T ([A-Z0-9]{1,64}) /', $this->content, $match)) {
