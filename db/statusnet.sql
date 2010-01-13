@@ -189,6 +189,8 @@ create table token (
     secret char(32) not null comment 'secret value',
     type tinyint not null default 0 comment 'request or access',
     state tinyint default 0 comment 'for requests, 0 = initial, 1 = authorized, 2 = used',
+    verifier varchar(255) comment 'verifier string for OAuth 1.0a',
+    verified_callback varchar(255) comment 'verified callback URL for OAuth 1.0a',
 
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
