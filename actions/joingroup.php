@@ -115,16 +115,12 @@ class JoingroupAction extends Action
 
         $cur = common_current_user();
 
-        $member = new Group_member();
-
-        $member->group_id   = $this->group->id;
-        $member->profile_id = $cur->id;
-        $member->created    = common_sql_now();
-
-        $result = $member->insert();
-
-        if (!$result) {
-            common_log_db_error($member, 'INSERT', __FILE__);
+        try {
+            if (Event::handle('StartJoinGroup', array($this->group, $cur))) {
+                Group_member::join($this->group->id, $cur->id);
+                Event::handle('EndJoinGroup', array($this->group, $cur));
+            }
+        } catch (Exception $e) {
             $this->serverError(sprintf(_('Could not join user %1$s to group %2$s.'),
                                        $cur->nickname, $this->group->nickname));
         }

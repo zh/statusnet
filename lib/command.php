@@ -222,18 +222,15 @@ class JoinCommand extends Command
             return;
         }
 
-        $member = new Group_member();
-
-        $member->group_id   = $group->id;
-        $member->profile_id = $cur->id;
-        $member->created    = common_sql_now();
-
-        $result = $member->insert();
-        if (!$result) {
-          common_log_db_error($member, 'INSERT', __FILE__);
-          $channel->error($cur, sprintf(_('Could not join user %s to group %s'),
-                                       $cur->nickname, $group->nickname));
-          return;
+        try {
+            if (Event::handle('StartJoinGroup', array($group, $cur))) {
+                Group_member::join($group->id, $cur->id);
+                Event::handle('EndJoinGroup', array($group, $cur));
+            }
+        } catch (Exception $e) {
+            $channel->error($cur, sprintf(_('Could not join user %s to group %s'),
+                                          $cur->nickname, $group->nickname));
+            return;
         }
 
         $channel->output($cur, sprintf(_('%s joined group %s'),
@@ -269,21 +266,15 @@ class DropCommand extends Command
             return;
         }
 
-        $member = new Group_member();
-
-        $member->group_id   = $group->id;
-        $member->profile_id = $cur->id;
-
-        if (!$member->find(true)) {
-          $channel->error($cur,_('Could not find membership record.'));
-          return;
-        }
-        $result = $member->delete();
-        if (!$result) {
-          common_log_db_error($member, 'INSERT', __FILE__);
-          $channel->error($cur, sprintf(_('Could not remove user %s to group %s'),
-                                       $cur->nickname, $group->nickname));
-          return;
+        try {
+            if (Event::handle('StartLeaveGroup', array($group, $cur))) {
+                Group_member::leave($group->id, $cur->id);
+                Event::handle('EndLeaveGroup', array($group, $cur));
+            }
+        } catch (Exception $e) {
+            $channel->error($cur, sprintf(_('Could not remove user %s to group %s'),
+                                          $cur->nickname, $group->nickname));
+            return;
         }
 
         $channel->output($cur, sprintf(_('%s left group %s'),
