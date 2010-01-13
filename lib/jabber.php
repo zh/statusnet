@@ -86,7 +86,11 @@ class Sharing_XMPP extends XMPPHP_XMPP
 }
 
 /**
- * connect the configured Jabber account to the configured server
+ * Lazy-connect the configured Jabber account to the configured server;
+ * if already opened, the same connection will be returned.
+ *
+ * In a multi-site background process, each site configuration
+ * will get its own connection.
  *
  * @param string $resource Resource to connect (defaults to configured resource)
  *
@@ -95,16 +99,19 @@ class Sharing_XMPP extends XMPPHP_XMPP
 
 function jabber_connect($resource=null)
 {
-    static $conn = null;
-    if (!$conn) {
+    static $connections = array();
+    $site = common_config('site', 'server');
+    if (empty($connections[$site])) {
+        if (empty($resource)) {
+            $resource = common_config('xmpp', 'resource');
+        }
         $conn = new Sharing_XMPP(common_config('xmpp', 'host') ?
                                 common_config('xmpp', 'host') :
                                 common_config('xmpp', 'server'),
                                 common_config('xmpp', 'port'),
                                 common_config('xmpp', 'user'),
                                 common_config('xmpp', 'password'),
-                                ($resource) ? $resource :
-                                common_config('xmpp', 'resource'),
+                                $resource,
                                 common_config('xmpp', 'server'),
                                 common_config('xmpp', 'debug') ?
                                 true : false,
@@ -115,12 +122,16 @@ function jabber_connect($resource=null)
         if (!$conn) {
             return false;
         }
+        $connections[$site] = $conn;
 
         $conn->autoSubscribe();
         $conn->useEncryption(common_config('xmpp', 'encryption'));
 
         try {
-            $conn->connect(true); // true = persistent connection
+            common_log(LOG_INFO, __METHOD__ . ": connecting " .
+                common_config('xmpp', 'user') . '/' . $resource);
+            //$conn->connect(true); // true = persistent connection
+            $conn->connect(); // persistent connections break multisite
         } catch (XMPPHP_Exception $e) {
             common_log(LOG_ERR, $e->getMessage());
             return false;
@@ -128,7 +139,7 @@ function jabber_connect($resource=null)
 
         $conn->processUntil('session_start');
     }
-    return $conn;
+    return $connections[$site];
 }
 
 /**

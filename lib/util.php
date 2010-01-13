@@ -1132,8 +1132,9 @@ function common_log_line($priority, $msg)
 function common_request_id()
 {
     $pid = getmypid();
+    $server = common_config('site', 'server');
     if (php_sapi_name() == 'cli') {
-        return $pid;
+        return "$server:$pid";
     } else {
         static $req_id = null;
         if (!isset($req_id)) {
@@ -1143,7 +1144,7 @@ function common_request_id()
             $url = $_SERVER['REQUEST_URI'];
         }
         $method = $_SERVER['REQUEST_METHOD'];
-        return "$pid.$req_id $method $url";
+        return "$server:$pid.$req_id $method $url";
     }
 }
 
