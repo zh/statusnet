@@ -46,7 +46,7 @@ require_once INSTALLDIR . '/lib/applicationlist.php';
  * @see      SettingsAction
  */
 
-class AppsAction extends SettingsAction
+class OauthappssettingsAction extends SettingsAction
 {
     var $page = 0;
 
@@ -116,10 +116,7 @@ class AppsAction extends SettingsAction
 
         $this->elementStart('p', array('id' => 'application_register'));
         $this->element('a',
-            array('href' => common_local_url(
-                'newapplication',
-                array('nickname' => $user->nickname)
-                ),
+            array('href' => common_local_url('newapplication'),
                   'class' => 'more'
             ),
             'Register a new application');
@@ -129,8 +126,7 @@ class AppsAction extends SettingsAction
             $this->page > 1,
             $cnt > APPS_PER_PAGE,
             $this->page,
-            'apps',
-            array('nickname' => $user->nickname)
+            'oauthappssettings'
         );
     }
 

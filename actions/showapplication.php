@@ -211,15 +211,9 @@ class ShowApplicationAction extends OwnerDesignAction
         $this->elementStart('ul');
         $this->elementStart('li', 'entity_edit');
         $this->element('a',
-            array('href' =>
-                common_local_url(
-                    'editapplication',
-                    array(
-                        'nickname' => $this->owner->nickname,
-                        'id' => $this->application->id
-                    )
-                )
-            ), 'Edit');
+                       array('href' => common_local_url('editapplication',
+                                                        array('id' => $this->application->id))),
+                       'Edit');
         $this->elementEnd('li');
 
         $this->elementStart('li', 'entity_reset_keysecret');
@@ -228,8 +222,7 @@ class ShowApplicationAction extends OwnerDesignAction
             'class' => 'form_reset_key',
             'method' => 'POST',
             'action' => common_local_url('showapplication',
-                array('nickname' => $cur->nickname,
-                      'id' => $this->application->id))));
+                array('id' => $this->application->id))));
 
         $this->elementStart('fieldset');
         $this->hidden('token', common_session_token());
@@ -273,13 +266,9 @@ class ShowApplicationAction extends OwnerDesignAction
 
         $this->elementStart('p', array('id' => 'application_action'));
         $this->element('a',
-            array(
-                'href' => common_local_url(
-                    'apps',
-                    array('nickname' => $this->owner->nickname)),
-                'class' => 'more'
-            ),
-            'View your applications');
+            array('href' => common_local_url('oauthappssettings'),
+                  'class' => 'more'),
+                  'View your applications');
         $this->elementEnd('p');
     }
 

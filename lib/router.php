@@ -141,7 +141,7 @@ class Router
             // settings
 
             foreach (array('profile', 'avatar', 'password', 'im', 'oauthconnections',
-                           'email', 'sms', 'userdesign', 'other') as $s) {
+                           'oauthapps', 'email', 'sms', 'userdesign', 'other') as $s) {
                 $m->connect('settings/'.$s, array('action' => $s.'settings'));
             }
 
@@ -634,28 +634,23 @@ class Router
             // user stuff
 
             foreach (array('subscriptions', 'subscribers',
-                           'nudge', 'all', 'foaf', 'xrds', 'apps',
+                           'nudge', 'all', 'foaf', 'xrds',
                            'replies', 'inbox', 'outbox', 'microsummary') as $a) {
                 $m->connect(':nickname/'.$a,
                             array('action' => $a),
                             array('nickname' => '[a-zA-Z0-9]{1,64}'));
             }
 
-            $m->connect(':nickname/apps',
-                array('action' => 'apps'),
-                array('nickname' => '['.NICKNAME_FMT.']{1,64}'));
-            $m->connect(':nickname/apps/show/:id',
+            $m->connect('settings/oauthapps/show/:id',
                 array('action' => 'showapplication'),
-                array('nickname' => '['.NICKNAME_FMT.']{1,64}',
-                      'id' => '[0-9]+')
+                array('id' => '[0-9]+')
             );
-            $m->connect(':nickname/apps/new',
-                array('action' => 'newapplication'),
-                array('nickname' => '['.NICKNAME_FMT.']{1,64}'));
-            $m->connect(':nickname/apps/edit/:id',
+            $m->connect('settings/oauthapps/new',
+                array('action' => 'newapplication')
+            );
+            $m->connect('settings/oauthapps/edit/:id',
                 array('action' => 'editapplication'),
-                array('nickname' => '['.NICKNAME_FMT.']{1,64}',
-                      'id' => '[0-9]+')
+                array('id' => '[0-9]+')
             );
 
             $m->connect('api/oauth/request_token',

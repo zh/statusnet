@@ -125,10 +125,7 @@ class EditApplicationAction extends OwnerDesignAction
 
         if ($this->arg('cancel')) {
             common_redirect(common_local_url('showapplication',
-                                             array(
-                                                   'nickname' => $cur->nickname,
-                                                   'id' => $this->app->id)
-                                             ), 303);
+                                             array('id' => $this->app->id)), 303);
         } elseif ($this->arg('save')) {
             $this->trySave();
         } else {
@@ -253,8 +250,7 @@ class EditApplicationAction extends OwnerDesignAction
 
         $this->app->uploadLogo();
 
-        common_redirect(common_local_url('apps',
-            array('nickname' => $cur->nickname)), 303);
+        common_redirect(common_local_url('oauthappssettings'), 303);
     }
 
 }

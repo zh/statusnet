@@ -64,7 +64,7 @@ class ApplicationList extends Widget
         $this->application = $application;
         $this->owner       = $owner;
         $this->action      = $action;
-	$this->connections = $connections;
+        $this->connections = $connections;
     }
 
     function show()
@@ -97,10 +97,9 @@ class ApplicationList extends Widget
         $this->out->elementStart('span', 'vcard author');
         if (!$this->connections) {
             $this->out->elementStart('a',
-                            array('href' => common_local_url('showapplication',
-                                                array('nickname' => $user->nickname,
-                                                      'id' => $this->application->id)),
-                                  'class' => 'url'));
+                                     array('href' => common_local_url('showapplication',
+                                                                      array('id' => $this->application->id)),
+                                                                      'class' => 'url'));
 
         } else {
             $this->out->elementStart('a', array('href' =>  $this->application->source_url,
@@ -154,8 +153,4 @@ class ApplicationList extends Widget
         return;
     }
 
-    function highlight($text)
-    {
-        return htmlspecialchars($text);
-    }
 }
