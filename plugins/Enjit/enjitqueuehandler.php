@@ -1,4 +1,3 @@
-#!/usr/bin/env php
 <?php
 /*
  * StatusNet - the distributed open-source microblogging tool
@@ -18,25 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
+if (!defined('STATUSNET') && !defined('LACONICA')) {
+    exit(1);
+}
 
-$shortoptions = 'i::';
-$longoptions = array('id::');
-
-$helptext = <<<END_OF_ENJIT_HELP
-Daemon script for watching new notices and posting to enjit.
-
-    -i --id           Identity (default none)
-
-END_OF_ENJIT_HELP;
-
-require_once INSTALLDIR.'/scripts/commandline.inc';
-
-require_once INSTALLDIR . '/lib/mail.php';
-require_once INSTALLDIR . '/lib/queuehandler.php';
-
-set_error_handler('common_error_handler');
-
+/**
+ * Queue handler for watching new notices and posting to enjit.
+ * @fixme is this actually being used/functional atm?
+ */
 class EnjitQueueHandler extends QueueHandler
 {
     function transport()
@@ -101,21 +89,3 @@ class EnjitQueueHandler extends QueueHandler
     }
 
 }
-
-if (have_option('-i')) {
-    $id = get_option_value('-i');
-} else if (have_option('--id')) {
-    $id = get_option_value('--id');
-} else if (count($args) > 0) {
-    $id = $args[0];
-} else {
-    $id = null;
-}
-
-$handler = new EnjitQueueHandler($id);
-
-if ($handler->start()) {
-    $handler->handle_queue();
-}
-
-$handler->finish();

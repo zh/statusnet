@@ -168,7 +168,7 @@ class ApiAction extends Action
 
         $timezone = 'UTC';
 
-        if ($user->timezone) {
+        if (!empty($user) && $user->timezone) {
             $timezone = $user->timezone;
         }
 

@@ -98,14 +98,16 @@ class Memcached_DataObject extends DB_DataObject
         } else {
             $i = DB_DataObject::factory($cls);
             if (empty($i)) {
-                return false;
+                $i = false;
+                return $i;
             }
             $result = $i->get($k, $v);
             if ($result) {
                 $i->encache();
                 return $i;
             } else {
-                return false;
+                $i = false;
+                return $i;
             }
         }
     }
@@ -329,6 +331,29 @@ class Memcached_DataObject extends DB_DataObject
             $exists = false;
        }
 
+        // @fixme horrible evil hack!
+        //
+        // In multisite configuration we don't want to keep around a separate
+        // connection for every database; we could end up with thousands of
+        // connections open per thread. In an ideal world we might keep
+        // a connection per server and select different databases, but that'd
+        // be reliant on having the same db username/pass as well.
+        //
+        // MySQL connections are cheap enough we're going to try just
+        // closing out the old connection and reopening when we encounter
+        // a new DSN.
+        //
+        // WARNING WARNING if we end up actually using multiple DBs at a time
+        // we'll need some fancier logic here.
+        if (!$exists && !empty($_DB_DATAOBJECT['CONNECTIONS'])) {
+            foreach ($_DB_DATAOBJECT['CONNECTIONS'] as $index => $conn) {
+                if (!empty($conn)) {
+                    $conn->disconnect();
+                }
+                unset($_DB_DATAOBJECT['CONNECTIONS'][$index]);
+            }
+        }
+        
         $result = parent::_connect();
 
         if ($result && !$exists) {
