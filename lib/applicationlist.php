@@ -136,8 +136,8 @@ class ApplicationList extends Widget
             $access = ($this->application->access_type & Oauth_application::$writeAccess)
               ? 'read-write' : 'read-only';
 
-            $txt = 'Approved ' . common_exact_date($appUser->modified) .
-              " $access for access.";
+            $txt = 'Approved ' . common_date_string($appUser->modified) .
+              " - $access access.";
 
             $this->out->raw($txt);
             $this->out->elementEnd('li');
