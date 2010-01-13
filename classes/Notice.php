@@ -498,9 +498,6 @@ class Notice extends Memcached_DataObject
                     $original->free();
                     unset($original);
                 }
-
-                $ni->free();
-                unset($ni);
             }
         }
     }
