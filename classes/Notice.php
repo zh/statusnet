@@ -828,6 +828,15 @@ class Notice extends Memcached_DataObject
 
     function whoGets()
     {
+        $c = self::memcache();
+
+        if (!empty($c)) {
+            $ni = $c->get(common_cache_key('notice:who_gets:'.$this->id));
+            if ($ni !== false) {
+                return $ni;
+            }
+        }
+
         $users = $this->getSubscribedUsers();
 
         // FIXME: kind of ignoring 'transitional'...
@@ -865,6 +874,11 @@ class Notice extends Memcached_DataObject
                     $ni[$recipient] = NOTICE_INBOX_SOURCE_REPLY;
                 }
             }
+        }
+
+        if (!empty($c)) {
+            // XXX: pack this data better
+            $c->set(common_cache_key('notice:who_gets:'.$this->id), $ni);
         }
 
         return $ni;
