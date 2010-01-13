@@ -125,8 +125,7 @@ class Notice extends Memcached_DataObject
                          'Fave',
                          'Notice_tag',
                          'Group_inbox',
-                         'Queue_item',
-                         'Notice_inbox');
+                         'Queue_item');
 
         foreach ($related as $cls) {
             $inst = new $cls();
@@ -276,7 +275,6 @@ class Notice extends Memcached_DataObject
 
         if (isset($repeat_of)) {
             $notice->repeat_of = $repeat_of;
-            $notice->reply_to = $repeat_of;
         } else {
             $notice->reply_to = self::getReplyTo($reply_to, $profile_id, $source, $final);
         }
@@ -299,8 +297,6 @@ class Notice extends Memcached_DataObject
         if (Event::handle('StartNoticeSave', array(&$notice))) {
 
             // XXX: some of these functions write to the DB
-
-            $notice->query('BEGIN');
 
             $id = $notice->insert();
 
@@ -342,8 +338,6 @@ class Notice extends Memcached_DataObject
             $notice->addToInboxes();
 
             $notice->saveUrls();
-
-            $notice->query('COMMIT');
 
             Event::handle('EndNoticeSave', array($notice));
         }
@@ -503,20 +497,6 @@ class Notice extends Memcached_DataObject
                     $original->free();
                     unset($original);
                 }
-
-                $ni = new Notice_inbox();
-
-                $ni->notice_id = $this->id;
-
-                if ($ni->find()) {
-                    while ($ni->fetch()) {
-                        $tmk = common_cache_key('user:repeated_to_me:'.$ni->user_id);
-                        $cache->delete($tmk);
-                    }
-                }
-
-                $ni->free();
-                unset($ni);
             }
         }
     }
@@ -842,11 +822,16 @@ class Notice extends Memcached_DataObject
         return $ids;
     }
 
-    function addToInboxes()
+    function whoGets()
     {
-        // XXX: loads constants
+        $c = self::memcache();
 
-        $inbox = new Notice_inbox();
+        if (!empty($c)) {
+            $ni = $c->get(common_cache_key('notice:who_gets:'.$this->id));
+            if ($ni !== false) {
+                return $ni;
+            }
+        }
 
         $users = $this->getSubscribedUsers();
 
@@ -887,7 +872,19 @@ class Notice extends Memcached_DataObject
             }
         }
 
-        Notice_inbox::bulkInsert($this->id, $this->created, $ni);
+        if (!empty($c)) {
+            // XXX: pack this data better
+            $c->set(common_cache_key('notice:who_gets:'.$this->id), $ni);
+        }
+
+        return $ni;
+    }
+
+    function addToInboxes()
+    {
+        $ni = $this->whoGets();
+
+        Inbox::bulkInsert($this->id, array_keys($ni));
 
         return;
     }
@@ -921,6 +918,12 @@ class Notice extends Memcached_DataObject
 
     function saveGroups()
     {
+        // Don't save groups for repeats
+
+        if (!empty($this->repeat_of)) {
+            return array();
+        }
+
         $groups = array();
 
         /* extract all !group */
@@ -991,6 +994,12 @@ class Notice extends Memcached_DataObject
      */
     function saveReplies()
     {
+        // Don't save reply data for repeats
+
+        if (!empty($this->repeat_of)) {
+            return array();
+        }
+
         // Alternative reply format
         $tname = false;
         if (preg_match('/^T ([A-Z0-9]{1,64}) /', $this->content, $match)) {

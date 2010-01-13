@@ -154,14 +154,11 @@ class RealtimePlugin extends Plugin
         // Add to inbox timelines
         // XXX: do a join
 
-        $inbox = new Notice_inbox();
-        $inbox->notice_id = $notice->id;
+        $ni = $notice->whoGets();
 
-        if ($inbox->find()) {
-            while ($inbox->fetch()) {
-                $user = User::staticGet('id', $inbox->user_id);
-                $paths[] = array('all', $user->nickname);
-            }
+        foreach (array_keys($ni) as $user_id) {
+            $user = User::staticGet('id', $user_id);
+            $paths[] = array('all', $user->nickname);
         }
 
         // Add to the replies timeline
