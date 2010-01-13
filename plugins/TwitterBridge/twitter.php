@@ -269,19 +269,23 @@ function process_error($e, $flink, $notice)
 
     common_log(LOG_WARNING, $logmsg);
 
-    if ($code == 401) {
-
+    switch($code) {
+     case 401:
         // Probably a revoked or otherwise bad access token - nuke!
-
         remove_twitter_link($flink);
         return true;
-
-    } else {
+        break;
+     case 403:
+        // User has exceeder her rate limit -- toss the notice
+        return true;
+        break;
+     default:
 
         // For every other case, it's probably some flakiness so try
         // sending the notice again later (requeue).
 
         return false;
+        break;
     }
 }
 
