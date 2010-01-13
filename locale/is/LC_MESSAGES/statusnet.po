@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-11 23:25+0000\n"
-"PO-Revision-Date: 2010-01-11 23:27:15+0000\n"
+"POT-Creation-Date: 2010-01-13 22:04+0000\n"
+"PO-Revision-Date: 2010-01-13 22:05:31+0000\n"
 "Language-Team: Icelandic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60950); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r61027); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: is\n"
 "X-Message-Group: out-statusnet\n"
@@ -46,10 +46,10 @@ msgstr "Ekkert þannig merki."
 #: actions/replies.php:73 actions/repliesrss.php:38
 #: actions/showfavorites.php:105 actions/userbyid.php:74
 #: actions/usergroups.php:91 actions/userrss.php:38 actions/xrds.php:71
-#: lib/command.php:163 lib/command.php:311 lib/command.php:364
-#: lib/command.php:410 lib/command.php:471 lib/command.php:527
+#: lib/command.php:163 lib/command.php:302 lib/command.php:355
+#: lib/command.php:401 lib/command.php:462 lib/command.php:518
 #: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
-#: lib/subs.php:34 lib/subs.php:116
+#: lib/subs.php:34 lib/subs.php:125
 msgid "No such user."
 msgstr "Enginn svoleiðis notandi."
 
@@ -389,7 +389,7 @@ msgstr "Þú ert nú þegar meðlimur í þessum hópi"
 msgid "You have been blocked from that group by the admin."
 msgstr ""
 
-#: actions/apigroupjoin.php:138 actions/joingroup.php:128
+#: actions/apigroupjoin.php:138 actions/joingroup.php:124
 #, fuzzy, php-format
 msgid "Could not join user %1$s to group %2$s."
 msgstr "Gat ekki bætt notandanum %s í hópinn %s"
@@ -399,7 +399,7 @@ msgstr "Gat ekki bætt notandanum %s í hópinn %s"
 msgid "You are not a member of this group."
 msgstr "Þú ert ekki meðlimur í þessum hópi."
 
-#: actions/apigroupleave.php:124 actions/leavegroup.php:127
+#: actions/apigroupleave.php:124 actions/leavegroup.php:119
 #, fuzzy, php-format
 msgid "Could not remove user %1$s from group %2$s."
 msgstr "Gat ekki fjarlægt notandann %s úr hópnum %s"
@@ -695,7 +695,7 @@ msgstr "Mistókst að vista upplýsingar um notendalokun"
 #: actions/grouplogo.php:99 actions/groupmembers.php:83
 #: actions/grouprss.php:98 actions/groupunblock.php:86
 #: actions/joingroup.php:83 actions/leavegroup.php:83 actions/makeadmin.php:86
-#: actions/showgroup.php:137 lib/command.php:212 lib/command.php:263
+#: actions/showgroup.php:137 lib/command.php:212 lib/command.php:260
 msgid "No such group."
 msgstr "Enginn þannig hópur."
 
@@ -1674,7 +1674,7 @@ msgstr "Bjóða nýjum notendum að vera með"
 msgid "You are already subscribed to these users:"
 msgstr "Þú ert nú þegar í áskrift að þessum notendum:"
 
-#: actions/invite.php:131 actions/invite.php:139 lib/command.php:315
+#: actions/invite.php:131 actions/invite.php:139 lib/command.php:306
 #, php-format
 msgid "%1$s (%2$s)"
 msgstr "%1$s (%2$s)"
@@ -1720,7 +1720,7 @@ msgstr "Persónuleg skilaboð"
 msgid "Optionally add a personal message to the invitation."
 msgstr "Bættu persónulegum skilaboðum við boðskortið ef þú vilt."
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:234
+#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:237
 msgid "Send"
 msgstr "Senda"
 
@@ -1790,7 +1790,7 @@ msgstr ""
 msgid "You must be logged in to join a group."
 msgstr "Þú verður að hafa skráð þig inn til að bæta þér í hóp."
 
-#: actions/joingroup.php:135
+#: actions/joingroup.php:131
 #, fuzzy, php-format
 msgid "%1$s joined group %2$s"
 msgstr "%s bætti sér í hópinn %s"
@@ -1799,15 +1799,11 @@ msgstr "%s bætti sér í hópinn %s"
 msgid "You must be logged in to leave a group."
 msgstr "Þú verður aða hafa skráð þig inn til að ganga úr hóp."
 
-#: actions/leavegroup.php:90 lib/command.php:268
+#: actions/leavegroup.php:90 lib/command.php:265
 msgid "You are not a member of that group."
 msgstr "Þú ert ekki meðlimur í þessum hópi."
 
-#: actions/leavegroup.php:119 lib/command.php:278
-msgid "Could not find membership record."
-msgstr "Gat ekki fundið meðlimaskrá."
-
-#: actions/leavegroup.php:134
+#: actions/leavegroup.php:127
 #, fuzzy, php-format
 msgid "%1$s left group %2$s"
 msgstr "%s gekk úr hópnum %s"
@@ -1912,12 +1908,12 @@ msgstr "Notaðu þetta eyðublað til að búa til nýjan hóp."
 msgid "New message"
 msgstr "Ný skilaboð"
 
-#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:367
+#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:358
 msgid "You can't send a message to this user."
 msgstr "Þú getur ekki sent þessum notanda skilaboð."
 
-#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:351
-#: lib/command.php:484
+#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:342
+#: lib/command.php:475
 msgid "No content!"
 msgstr "Ekkert innihald!"
 
@@ -1925,7 +1921,7 @@ msgstr "Ekkert innihald!"
 msgid "No recipient specified."
 msgstr "Enginn móttökuaðili tilgreindur."
 
-#: actions/newmessage.php:164 lib/command.php:370
+#: actions/newmessage.php:164 lib/command.php:361
 msgid ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr ""
@@ -4018,6 +4014,21 @@ msgstr ""
 msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
 
+#: classes/Group_member.php:41
+#, fuzzy
+msgid "Group join failed."
+msgstr "Hópssíðan"
+
+#: classes/Group_member.php:53
+#, fuzzy
+msgid "Not part of group."
+msgstr "Gat ekki uppfært hóp."
+
+#: classes/Group_member.php:60
+#, fuzzy
+msgid "Group leave failed."
+msgstr "Hópssíðan"
+
 #: classes/Login_token.php:76
 #, fuzzy, php-format
 msgid "Could not create login token for %s"
@@ -4036,51 +4047,51 @@ msgstr "Gat ekki skeytt skilaboðum inn í."
 msgid "Could not update message with new URI."
 msgstr "Gat ekki uppfært skilaboð með nýju veffangi."
 
-#: classes/Notice.php:172
+#: classes/Notice.php:171
 #, php-format
 msgid "DB error inserting hashtag: %s"
 msgstr "Gagnagrunnsvilla við innsetningu myllumerkis: %s"
 
-#: classes/Notice.php:226
+#: classes/Notice.php:225
 msgid "Problem saving notice. Too long."
 msgstr ""
 
-#: classes/Notice.php:230
+#: classes/Notice.php:229
 msgid "Problem saving notice. Unknown user."
 msgstr "Gat ekki vistað babl. Óþekktur notandi."
 
-#: classes/Notice.php:235
+#: classes/Notice.php:234
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "Of mikið babl í einu; slakaðu aðeins á og haltu svo áfram eftir nokkrar "
 "mínútur."
 
-#: classes/Notice.php:241
+#: classes/Notice.php:240
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
 
-#: classes/Notice.php:247
+#: classes/Notice.php:246
 msgid "You are banned from posting notices on this site."
 msgstr "Það hefur verið lagt bann við babli frá þér á þessari síðu."
 
-#: classes/Notice.php:309 classes/Notice.php:334
+#: classes/Notice.php:305 classes/Notice.php:330
 msgid "Problem saving notice."
 msgstr "Vandamál komu upp við að vista babl."
 
-#: classes/Notice.php:1034
+#: classes/Notice.php:1052
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Gagnagrunnsvilla við innsetningu svars: %s"
 
-#: classes/Notice.php:1359
+#: classes/Notice.php:1423
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
 
-#: classes/User.php:368
+#: classes/User.php:382
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
@@ -4416,14 +4427,13 @@ msgid ""
 "Notices: %3$s"
 msgstr ""
 
-#: lib/command.php:152 lib/command.php:399 lib/command.php:460
+#: lib/command.php:152 lib/command.php:390 lib/command.php:451
 #, fuzzy
 msgid "Notice with that id does not exist"
 msgstr "Enginn persónuleg síða með þessu einkenni."
 
-#: lib/command.php:168 lib/command.php:415 lib/command.php:476
-#: lib/command.php:532
-#, fuzzy
+#: lib/command.php:168 lib/command.php:406 lib/command.php:467
+#: lib/command.php:523
 msgid "User has no last notice"
 msgstr "Notandi hefur ekkert nýtt babl"
 
@@ -4432,182 +4442,179 @@ msgid "Notice marked as fave."
 msgstr "Babl gert að uppáhaldi."
 
 #: lib/command.php:217
-#, fuzzy
 msgid "You are already a member of that group"
 msgstr "Þú ert nú þegar meðlimur í þessum hópi"
 
-#: lib/command.php:234
-#, fuzzy, php-format
+#: lib/command.php:231
+#, php-format
 msgid "Could not join user %s to group %s"
 msgstr "Gat ekki bætt notandanum %s í hópinn %s"
 
-#: lib/command.php:239
-#, fuzzy, php-format
+#: lib/command.php:236
+#, php-format
 msgid "%s joined group %s"
 msgstr "%s bætti sér í hópinn %s"
 
-#: lib/command.php:284
-#, fuzzy, php-format
+#: lib/command.php:275
+#, php-format
 msgid "Could not remove user %s to group %s"
 msgstr "Gat ekki fjarlægt notandann %s úr hópnum %s"
 
-#: lib/command.php:289
-#, fuzzy, php-format
+#: lib/command.php:280
+#, php-format
 msgid "%s left group %s"
 msgstr "%s gekk úr hópnum %s"
 
-#: lib/command.php:318
-#, fuzzy, php-format
+#: lib/command.php:309
+#, php-format
 msgid "Fullname: %s"
 msgstr "Fullt nafn: %s"
 
-#: lib/command.php:321 lib/mail.php:254
+#: lib/command.php:312 lib/mail.php:254
 #, php-format
 msgid "Location: %s"
 msgstr "Staðsetning: %s"
 
-#: lib/command.php:324 lib/mail.php:256
+#: lib/command.php:315 lib/mail.php:256
 #, php-format
 msgid "Homepage: %s"
 msgstr "Heimasíða: %s"
 
-#: lib/command.php:327
+#: lib/command.php:318
 #, php-format
 msgid "About: %s"
 msgstr "Um: %s"
 
-#: lib/command.php:358
+#: lib/command.php:349
 #, fuzzy, php-format
 msgid "Message too long - maximum is %d characters, you sent %d"
 msgstr "Skilaboð eru of löng - 140 tákn eru í mesta lagi leyfð en þú sendir %d"
 
-#: lib/command.php:376
-#, fuzzy, php-format
+#: lib/command.php:367
+#, php-format
 msgid "Direct message to %s sent"
 msgstr "Bein skilaboð send til %s"
 
-#: lib/command.php:378
+#: lib/command.php:369
 msgid "Error sending direct message."
 msgstr "Villa kom upp við að senda bein skilaboð"
 
-#: lib/command.php:422
+#: lib/command.php:413
 #, fuzzy
 msgid "Cannot repeat your own notice"
 msgstr "Get ekki kveikt á tilkynningum."
 
-#: lib/command.php:427
+#: lib/command.php:418
 #, fuzzy
 msgid "Already repeated that notice"
 msgstr "Eyða þessu babli"
 
-#: lib/command.php:435
+#: lib/command.php:426
 #, fuzzy, php-format
 msgid "Notice from %s repeated"
 msgstr "Babl sent inn"
 
-#: lib/command.php:437
+#: lib/command.php:428
 #, fuzzy
 msgid "Error repeating notice."
 msgstr "Vandamál komu upp við að vista babl."
 
-#: lib/command.php:491
+#: lib/command.php:482
 #, fuzzy, php-format
 msgid "Notice too long - maximum is %d characters, you sent %d"
 msgstr "Skilaboð eru of löng - 140 tákn eru í mesta lagi leyfð en þú sendir %d"
 
-#: lib/command.php:500
+#: lib/command.php:491
 #, fuzzy, php-format
 msgid "Reply to %s sent"
 msgstr "Svara þessu babli"
 
-#: lib/command.php:502
+#: lib/command.php:493
 #, fuzzy
 msgid "Error saving notice."
 msgstr "Vandamál komu upp við að vista babl."
 
-#: lib/command.php:556
-#, fuzzy
+#: lib/command.php:547
 msgid "Specify the name of the user to subscribe to"
 msgstr "Tilgreindu nafn notandans sem þú vilt gerast áskrifandi að"
 
-#: lib/command.php:563
+#: lib/command.php:554
 #, php-format
 msgid "Subscribed to %s"
 msgstr "Nú ert þú áskrifandi að %s"
 
-#: lib/command.php:584
-#, fuzzy
+#: lib/command.php:575
 msgid "Specify the name of the user to unsubscribe from"
 msgstr "Tilgreindu nafn notandans sem þú vilt hætta sem áskrifandi að"
 
-#: lib/command.php:591
+#: lib/command.php:582
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr "Nú ert þú ekki lengur áskrifandi að %s"
 
-#: lib/command.php:609 lib/command.php:632
+#: lib/command.php:600 lib/command.php:623
 msgid "Command not yet implemented."
 msgstr "Skipun hefur ekki verið fullbúin"
 
-#: lib/command.php:612
+#: lib/command.php:603
 msgid "Notification off."
 msgstr "Tilkynningar af."
 
-#: lib/command.php:614
+#: lib/command.php:605
 msgid "Can't turn off notification."
 msgstr "Get ekki slökkt á tilkynningum."
 
-#: lib/command.php:635
+#: lib/command.php:626
 msgid "Notification on."
 msgstr "Tilkynningar á."
 
-#: lib/command.php:637
+#: lib/command.php:628
 msgid "Can't turn on notification."
 msgstr "Get ekki kveikt á tilkynningum."
 
-#: lib/command.php:650
+#: lib/command.php:641
 msgid "Login command is disabled"
 msgstr ""
 
-#: lib/command.php:661
+#: lib/command.php:652
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
-#: lib/command.php:677
+#: lib/command.php:668
 #, fuzzy
 msgid "You are not subscribed to anyone."
 msgstr "Þú ert ekki áskrifandi."
 
-#: lib/command.php:679
+#: lib/command.php:670
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Þú ert nú þegar í áskrift að þessum notendum:"
 msgstr[1] "Þú ert nú þegar í áskrift að þessum notendum:"
 
-#: lib/command.php:699
+#: lib/command.php:690
 #, fuzzy
 msgid "No one is subscribed to you."
 msgstr "Gat ekki leyft öðrum að gerast áskrifandi að þér."
 
-#: lib/command.php:701
+#: lib/command.php:692
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Gat ekki leyft öðrum að gerast áskrifandi að þér."
 msgstr[1] "Gat ekki leyft öðrum að gerast áskrifandi að þér."
 
-#: lib/command.php:721
+#: lib/command.php:712
 #, fuzzy
 msgid "You are not a member of any groups."
 msgstr "Þú ert ekki meðlimur í þessum hópi."
 
-#: lib/command.php:723
+#: lib/command.php:714
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Þú ert ekki meðlimur í þessum hópi."
 msgstr[1] "Þú ert ekki meðlimur í þessum hópi."
 
-#: lib/command.php:737
+#: lib/command.php:728
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4648,20 +4655,20 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:199
+#: lib/common.php:131
 #, fuzzy
 msgid "No configuration file found. "
 msgstr "Enginn staðfestingarlykill."
 
-#: lib/common.php:200
+#: lib/common.php:132
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:201
+#: lib/common.php:134
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:202
+#: lib/common.php:135
 #, fuzzy
 msgid "Go to the installer."
 msgstr "Skrá þig inn á síðuna"
@@ -4864,9 +4871,14 @@ msgstr ""
 msgid "kB"
 msgstr ""
 
-#: lib/jabber.php:191
+#: lib/jabber.php:202
 #, php-format
 msgid "[%s]"
+msgstr ""
+
+#: lib/jabber.php:385
+#, php-format
+msgid "Unknown inbox source %d."
 msgstr ""
 
 #: lib/joinform.php:114
@@ -5182,13 +5194,19 @@ msgstr ""
 msgid "Share my location"
 msgstr "Gat ekki vistað merki."
 
-#: lib/noticeform.php:214
+#: lib/noticeform.php:215
 #, fuzzy
 msgid "Do not share my location"
 msgstr "Gat ekki vistað merki."
 
-#: lib/noticeform.php:215
+#: lib/noticeform.php:216
 msgid "Hide this info"
+msgstr ""
+
+#: lib/noticeform.php:217
+msgid ""
+"Sorry, retrieving your geo location is taking longer than expected, please "
+"try again later"
 msgstr ""
 
 #: lib/noticelist.php:428
@@ -5461,25 +5479,25 @@ msgstr ""
 msgid "User has blocked you."
 msgstr "Notandinn hefur lokað á þig."
 
-#: lib/subs.php:60
+#: lib/subs.php:63
 msgid "Could not subscribe."
 msgstr "Gat ekki farið í áskrift."
 
-#: lib/subs.php:79
+#: lib/subs.php:82
 msgid "Could not subscribe other to you."
 msgstr "Gat ekki leyft öðrum að gerast áskrifandi að þér."
 
-#: lib/subs.php:128
+#: lib/subs.php:137
 #, fuzzy
 msgid "Not subscribed!"
 msgstr "Ekki í áskrift!"
 
-#: lib/subs.php:133
+#: lib/subs.php:142
 #, fuzzy
 msgid "Couldn't delete self-subscription."
 msgstr "Gat ekki eytt áskrift."
 
-#: lib/subs.php:146
+#: lib/subs.php:158
 msgid "Couldn't delete subscription."
 msgstr "Gat ekki eytt áskrift."
 
@@ -5555,47 +5573,47 @@ msgstr "Skilaboð"
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:884
+#: lib/util.php:877
 msgid "a few seconds ago"
 msgstr "fyrir nokkrum sekúndum"
 
-#: lib/util.php:886
+#: lib/util.php:879
 msgid "about a minute ago"
 msgstr "fyrir um einni mínútu síðan"
 
-#: lib/util.php:888
+#: lib/util.php:881
 #, php-format
 msgid "about %d minutes ago"
 msgstr "fyrir um %d mínútum síðan"
 
-#: lib/util.php:890
+#: lib/util.php:883
 msgid "about an hour ago"
 msgstr "fyrir um einum klukkutíma síðan"
 
-#: lib/util.php:892
+#: lib/util.php:885
 #, php-format
 msgid "about %d hours ago"
 msgstr "fyrir um %d klukkutímum síðan"
 
-#: lib/util.php:894
+#: lib/util.php:887
 msgid "about a day ago"
 msgstr "fyrir um einum degi síðan"
 
-#: lib/util.php:896
+#: lib/util.php:889
 #, php-format
 msgid "about %d days ago"
 msgstr "fyrir um %d dögum síðan"
 
-#: lib/util.php:898
+#: lib/util.php:891
 msgid "about a month ago"
 msgstr "fyrir um einum mánuði síðan"
 
-#: lib/util.php:900
+#: lib/util.php:893
 #, php-format
 msgid "about %d months ago"
 msgstr "fyrir um %d mánuðum síðan"
 
-#: lib/util.php:902
+#: lib/util.php:895
 msgid "about a year ago"
 msgstr "fyrir um einu ári síðan"
 

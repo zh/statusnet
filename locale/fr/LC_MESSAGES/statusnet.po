@@ -12,12 +12,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-11 23:25+0000\n"
-"PO-Revision-Date: 2010-01-11 23:26:54+0000\n"
+"POT-Creation-Date: 2010-01-13 22:04+0000\n"
+"PO-Revision-Date: 2010-01-13 22:05:16+0000\n"
 "Language-Team: French\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60950); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r61027); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: out-statusnet\n"
@@ -47,10 +47,10 @@ msgstr "Page non trouvée"
 #: actions/replies.php:73 actions/repliesrss.php:38
 #: actions/showfavorites.php:105 actions/userbyid.php:74
 #: actions/usergroups.php:91 actions/userrss.php:38 actions/xrds.php:71
-#: lib/command.php:163 lib/command.php:311 lib/command.php:364
-#: lib/command.php:410 lib/command.php:471 lib/command.php:527
+#: lib/command.php:163 lib/command.php:302 lib/command.php:355
+#: lib/command.php:401 lib/command.php:462 lib/command.php:518
 #: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
-#: lib/subs.php:34 lib/subs.php:116
+#: lib/subs.php:34 lib/subs.php:125
 msgid "No such user."
 msgstr "Utilisateur non trouvé."
 
@@ -395,7 +395,7 @@ msgstr "Vous êtes déjà membre de ce groupe."
 msgid "You have been blocked from that group by the admin."
 msgstr "Vous avez été bloqué de ce groupe par l’administrateur."
 
-#: actions/apigroupjoin.php:138 actions/joingroup.php:128
+#: actions/apigroupjoin.php:138 actions/joingroup.php:124
 #, php-format
 msgid "Could not join user %1$s to group %2$s."
 msgstr "Impossible de joindre l’utilisateur %1$s au groupe %2$s."
@@ -404,7 +404,7 @@ msgstr "Impossible de joindre l’utilisateur %1$s au groupe %2$s."
 msgid "You are not a member of this group."
 msgstr "Vous n'êtes pas membre de ce groupe."
 
-#: actions/apigroupleave.php:124 actions/leavegroup.php:127
+#: actions/apigroupleave.php:124 actions/leavegroup.php:119
 #, php-format
 msgid "Could not remove user %1$s from group %2$s."
 msgstr "Impossible de retirer l’utilisateur %1$s du groupe %2$s."
@@ -703,7 +703,7 @@ msgstr "Impossible d’enregistrer les informations de blocage."
 #: actions/grouplogo.php:99 actions/groupmembers.php:83
 #: actions/grouprss.php:98 actions/groupunblock.php:86
 #: actions/joingroup.php:83 actions/leavegroup.php:83 actions/makeadmin.php:86
-#: actions/showgroup.php:137 lib/command.php:212 lib/command.php:263
+#: actions/showgroup.php:137 lib/command.php:212 lib/command.php:260
 msgid "No such group."
 msgstr "Aucun groupe trouvé."
 
@@ -1691,7 +1691,7 @@ msgstr "Inviter de nouveaux utilisateurs"
 msgid "You are already subscribed to these users:"
 msgstr "Vous êtes déjà abonné à ces utilisateurs :"
 
-#: actions/invite.php:131 actions/invite.php:139 lib/command.php:315
+#: actions/invite.php:131 actions/invite.php:139 lib/command.php:306
 #, php-format
 msgid "%1$s (%2$s)"
 msgstr "%1$s (%2$s)"
@@ -1737,7 +1737,7 @@ msgstr "Message personnel"
 msgid "Optionally add a personal message to the invitation."
 msgstr "Ajouter un message personnel à l’invitation (optionnel)."
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:234
+#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:237
 msgid "Send"
 msgstr "Envoyer"
 
@@ -1809,7 +1809,7 @@ msgstr ""
 msgid "You must be logged in to join a group."
 msgstr "Vous devez ouvrir une session pour rejoindre un groupe."
 
-#: actions/joingroup.php:135
+#: actions/joingroup.php:131
 #, php-format
 msgid "%1$s joined group %2$s"
 msgstr "%1$s a rejoint le groupe %2$s"
@@ -1818,15 +1818,11 @@ msgstr "%1$s a rejoint le groupe %2$s"
 msgid "You must be logged in to leave a group."
 msgstr "Vous devez ouvrir une session pour quitter un groupe."
 
-#: actions/leavegroup.php:90 lib/command.php:268
+#: actions/leavegroup.php:90 lib/command.php:265
 msgid "You are not a member of that group."
 msgstr "Vous n'êtes pas membre de ce groupe."
 
-#: actions/leavegroup.php:119 lib/command.php:278
-msgid "Could not find membership record."
-msgstr "Aucun enregistrement à ce groupe n’a été trouvé."
-
-#: actions/leavegroup.php:134
+#: actions/leavegroup.php:127
 #, php-format
 msgid "%1$s left group %2$s"
 msgstr "%1$s a quitté le groupe %2$s"
@@ -1935,12 +1931,12 @@ msgstr "Remplissez les champs ci-dessous pour créer un nouveau groupe :"
 msgid "New message"
 msgstr "Nouveau message"
 
-#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:367
+#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:358
 msgid "You can't send a message to this user."
 msgstr "Vous ne pouvez pas envoyer de messages à cet utilisateur."
 
-#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:351
-#: lib/command.php:484
+#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:342
+#: lib/command.php:475
 msgid "No content!"
 msgstr "Aucun contenu !"
 
@@ -1948,7 +1944,7 @@ msgstr "Aucun contenu !"
 msgid "No recipient specified."
 msgstr "Aucun destinataire n’a été spécifié."
 
-#: actions/newmessage.php:164 lib/command.php:370
+#: actions/newmessage.php:164 lib/command.php:361
 msgid ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr ""
@@ -2100,29 +2096,24 @@ msgid "URL shortening service is too long (max 50 chars)."
 msgstr "Le service de réduction d’URL est trop long (50 caractères maximum)."
 
 #: actions/otp.php:69
-#, fuzzy
 msgid "No user ID specified."
-msgstr "Aucun groupe n’a été spécifié."
+msgstr "Aucun identifiant d'utilisateur n’a été spécifié."
 
 #: actions/otp.php:83
-#, fuzzy
 msgid "No login token specified."
-msgstr "Aucun avis n’a été spécifié."
+msgstr "Aucun jeton d'identification n’a été spécifié."
 
 #: actions/otp.php:90
-#, fuzzy
 msgid "No login token requested."
-msgstr "Aucune identité de profil dans la requête."
+msgstr "Aucune jeton d'identification requis."
 
 #: actions/otp.php:95
-#, fuzzy
 msgid "Invalid login token specified."
-msgstr "Jeton invalide ou expiré."
+msgstr "Jeton d'identification invalide."
 
 #: actions/otp.php:104
-#, fuzzy
 msgid "Login token expired."
-msgstr "Ouverture de session"
+msgstr "Jeton d'identification périmé."
 
 #: actions/outbox.php:61
 #, php-format
@@ -4097,10 +4088,25 @@ msgstr "Un fichier aussi gros dépasserai votre quota utilisateur de %d octets."
 msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr "Un fichier aussi gros dépasserai votre quota mensuel de %d octets."
 
+#: classes/Group_member.php:41
+#, fuzzy
+msgid "Group join failed."
+msgstr "Profil du groupe"
+
+#: classes/Group_member.php:53
+#, fuzzy
+msgid "Not part of group."
+msgstr "Impossible de mettre à jour le groupe."
+
+#: classes/Group_member.php:60
+#, fuzzy
+msgid "Group leave failed."
+msgstr "Profil du groupe"
+
 #: classes/Login_token.php:76
-#, fuzzy, php-format
+#, php-format
 msgid "Could not create login token for %s"
-msgstr "Impossible de créer le jeton d’ouverture de session pour %s."
+msgstr "Impossible de créer le jeton d'ouverture de session pour %s"
 
 #: classes/Message.php:45
 msgid "You are banned from sending direct messages."
@@ -4114,27 +4120,27 @@ msgstr "Impossible d’insérer le message."
 msgid "Could not update message with new URI."
 msgstr "Impossible de mettre à jour le message avec un nouvel URI."
 
-#: classes/Notice.php:172
+#: classes/Notice.php:171
 #, php-format
 msgid "DB error inserting hashtag: %s"
 msgstr "Erreur de base de donnée en insérant la marque (hashtag) : %s"
 
-#: classes/Notice.php:226
+#: classes/Notice.php:225
 msgid "Problem saving notice. Too long."
 msgstr "Problème lors de l’enregistrement de l’avis ; trop long."
 
-#: classes/Notice.php:230
+#: classes/Notice.php:229
 msgid "Problem saving notice. Unknown user."
 msgstr "Erreur lors de l’enregistrement de l’avis. Utilisateur inconnu."
 
-#: classes/Notice.php:235
+#: classes/Notice.php:234
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "Trop d’avis, trop vite ! Faites une pause et publiez à nouveau dans quelques "
 "minutes."
 
-#: classes/Notice.php:241
+#: classes/Notice.php:240
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -4142,25 +4148,25 @@ msgstr ""
 "Trop de messages en double trop vite ! Prenez une pause et publiez à nouveau "
 "dans quelques minutes."
 
-#: classes/Notice.php:247
+#: classes/Notice.php:246
 msgid "You are banned from posting notices on this site."
 msgstr "Il vous est interdit de poster des avis sur ce site."
 
-#: classes/Notice.php:309 classes/Notice.php:334
+#: classes/Notice.php:305 classes/Notice.php:330
 msgid "Problem saving notice."
 msgstr "Problème lors de l’enregistrement de l’avis."
 
-#: classes/Notice.php:1034
+#: classes/Notice.php:1052
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Erreur de base de donnée en insérant la réponse :%s"
 
-#: classes/Notice.php:1359
+#: classes/Notice.php:1423
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
 
-#: classes/User.php:368
+#: classes/User.php:382
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Bienvenue à %1$s, @%2$s !"
@@ -4202,9 +4208,9 @@ msgid "Other options"
 msgstr "Autres options "
 
 #: lib/action.php:144
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s - %2$s"
-msgstr "%1$s (%2$s)"
+msgstr "%1$s - %2$s"
 
 #: lib/action.php:159
 msgid "Untitled page"
@@ -4461,18 +4467,18 @@ msgid "Sorry, this command is not yet implemented."
 msgstr "Désolé, cette commande n’a pas encore été implémentée."
 
 #: lib/command.php:88
-#, fuzzy, php-format
+#, php-format
 msgid "Could not find a user with nickname %s"
-msgstr "Impossible de trouver un utilisateur avec le pseudo %s."
+msgstr "Impossible de trouver un utilisateur avec le pseudo %s"
 
 #: lib/command.php:92
 msgid "It does not make a lot of sense to nudge yourself!"
 msgstr "Ça n’a pas de sens de se faire un clin d’œil à soi-même !"
 
 #: lib/command.php:99
-#, fuzzy, php-format
+#, php-format
 msgid "Nudge sent to %s"
-msgstr "Clin d’œil envoyé à %s."
+msgstr "Coup de code envoyé à %s"
 
 #: lib/command.php:126
 #, php-format
@@ -4485,201 +4491,192 @@ msgstr ""
 "Abonnés : %2$s\n"
 "Messages : %3$s"
 
-#: lib/command.php:152 lib/command.php:399 lib/command.php:460
-#, fuzzy
+#: lib/command.php:152 lib/command.php:390 lib/command.php:451
 msgid "Notice with that id does not exist"
-msgstr "Aucun avis avec cet identifiant n’existe."
+msgstr "Aucun avis avec cet identifiant n’existe"
 
-#: lib/command.php:168 lib/command.php:415 lib/command.php:476
-#: lib/command.php:532
-#, fuzzy
+#: lib/command.php:168 lib/command.php:406 lib/command.php:467
+#: lib/command.php:523
 msgid "User has no last notice"
-msgstr "Aucun avis récent pour cet utilisateur."
+msgstr "Aucun avis récent pour cet utilisateur"
 
 #: lib/command.php:190
 msgid "Notice marked as fave."
 msgstr "Avis ajouté aux favoris."
 
 #: lib/command.php:217
-#, fuzzy
 msgid "You are already a member of that group"
-msgstr "Vous êtes déjà membre de ce groupe."
+msgstr "Vous êtes déjà membre de ce groupe"
 
-#: lib/command.php:234
-#, fuzzy, php-format
+#: lib/command.php:231
+#, php-format
 msgid "Could not join user %s to group %s"
-msgstr "Impossible de joindre l’utilisateur %1$s au groupe %2$s."
+msgstr "Impossible d’inscrire l’utilisateur %s au groupe %s"
 
-#: lib/command.php:239
-#, fuzzy, php-format
+#: lib/command.php:236
+#, php-format
 msgid "%s joined group %s"
 msgstr "%1$s a rejoint le groupe %2$s"
 
-#: lib/command.php:284
-#, fuzzy, php-format
+#: lib/command.php:275
+#, php-format
 msgid "Could not remove user %s to group %s"
-msgstr "Impossible de retirer l’utilisateur %1$s du groupe %2$s."
+msgstr "Impossible de retirer l’utilisateur %s du groupe %s"
 
-#: lib/command.php:289
-#, fuzzy, php-format
+#: lib/command.php:280
+#, php-format
 msgid "%s left group %s"
 msgstr "%1$s a quitté le groupe %2$s"
 
-#: lib/command.php:318
-#, fuzzy, php-format
+#: lib/command.php:309
+#, php-format
 msgid "Fullname: %s"
 msgstr "Nom complet : %s"
 
-#: lib/command.php:321 lib/mail.php:254
+#: lib/command.php:312 lib/mail.php:254
 #, php-format
 msgid "Location: %s"
 msgstr "Emplacement : %s"
 
-#: lib/command.php:324 lib/mail.php:256
+#: lib/command.php:315 lib/mail.php:256
 #, php-format
 msgid "Homepage: %s"
 msgstr "Site Web : %s"
 
-#: lib/command.php:327
+#: lib/command.php:318
 #, php-format
 msgid "About: %s"
 msgstr "À propos : %s"
 
-#: lib/command.php:358
-#, fuzzy, php-format
+#: lib/command.php:349
+#, php-format
 msgid "Message too long - maximum is %d characters, you sent %d"
 msgstr ""
-"Message trop long ! La taille maximale est de %1$d caractères ; vous en avez "
-"entré %2$d."
+"Message trop long ! La taille maximale est de %d caractères ; vous en avez "
+"entré %d."
 
-#: lib/command.php:376
-#, fuzzy, php-format
+#: lib/command.php:367
+#, php-format
 msgid "Direct message to %s sent"
 msgstr "Message direct envoyé à %s."
 
-#: lib/command.php:378
+#: lib/command.php:369
 msgid "Error sending direct message."
 msgstr "Une erreur est survenue pendant l’envoi de votre message."
 
-#: lib/command.php:422
-#, fuzzy
+#: lib/command.php:413
 msgid "Cannot repeat your own notice"
-msgstr "Vous ne pouvez pas reprendre votre propre avis."
+msgstr "Impossible de reprendre votre propre avis"
 
-#: lib/command.php:427
-#, fuzzy
+#: lib/command.php:418
 msgid "Already repeated that notice"
-msgstr "Vous avez déjà repris cet avis."
+msgstr "Avis déjà repris"
 
-#: lib/command.php:435
-#, fuzzy, php-format
+#: lib/command.php:426
+#, php-format
 msgid "Notice from %s repeated"
-msgstr "Avis de %s repris."
+msgstr "Avis de %s repris"
 
-#: lib/command.php:437
+#: lib/command.php:428
 msgid "Error repeating notice."
 msgstr "Erreur lors de la reprise de l’avis."
 
-#: lib/command.php:491
-#, fuzzy, php-format
+#: lib/command.php:482
+#, php-format
 msgid "Notice too long - maximum is %d characters, you sent %d"
 msgstr ""
-"Avis trop long ! La taille maximale est de %1$d caractères ; vous en avez "
-"entré %2$d."
+"Avis trop long ! La taille maximale est de %d caractères ; vous en avez "
+"entré %d."
 
-#: lib/command.php:500
-#, fuzzy, php-format
+#: lib/command.php:491
+#, php-format
 msgid "Reply to %s sent"
-msgstr "Réponse à %s envoyée."
+msgstr "Réponse à %s envoyée"
 
-#: lib/command.php:502
+#: lib/command.php:493
 msgid "Error saving notice."
 msgstr "Problème lors de l’enregistrement de l’avis."
 
-#: lib/command.php:556
-#, fuzzy
+#: lib/command.php:547
 msgid "Specify the name of the user to subscribe to"
-msgstr "Indiquez le nom de l’utilisateur auquel vous souhaitez vous abonner."
+msgstr "Indiquez le nom de l’utilisateur auquel vous souhaitez vous abonner"
 
-#: lib/command.php:563
+#: lib/command.php:554
 #, php-format
 msgid "Subscribed to %s"
 msgstr "Abonné à %s"
 
-#: lib/command.php:584
-#, fuzzy
+#: lib/command.php:575
 msgid "Specify the name of the user to unsubscribe from"
-msgstr ""
-"Indiquez le nom de l’utilisateur duquel vous souhaitez vous désabonner."
+msgstr "Indiquez le nom de l’utilisateur duquel vous souhaitez vous désabonner"
 
-#: lib/command.php:591
+#: lib/command.php:582
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr "Désabonné de %s"
 
-#: lib/command.php:609 lib/command.php:632
+#: lib/command.php:600 lib/command.php:623
 msgid "Command not yet implemented."
 msgstr "Cette commande n’a pas encore été implémentée."
 
-#: lib/command.php:612
+#: lib/command.php:603
 msgid "Notification off."
 msgstr "Avertissements désactivés."
 
-#: lib/command.php:614
+#: lib/command.php:605
 msgid "Can't turn off notification."
 msgstr "Impossible de désactiver les avertissements."
 
-#: lib/command.php:635
+#: lib/command.php:626
 msgid "Notification on."
 msgstr "Avertissements activés."
 
-#: lib/command.php:637
+#: lib/command.php:628
 msgid "Can't turn on notification."
 msgstr "Impossible d’activer les avertissements."
 
-#: lib/command.php:650
-#, fuzzy
+#: lib/command.php:641
 msgid "Login command is disabled"
-msgstr "La commande d’ouverture de session est désactivée."
+msgstr "La commande d'ouverture de session est désactivée"
 
-#: lib/command.php:661
-#, fuzzy, php-format
+#: lib/command.php:652
+#, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 "Ce lien n’est utilisable qu’une seule fois, et est valable uniquement "
-"pendant 2 minutes : %s."
+"pendant 2 minutes : %s"
 
-#: lib/command.php:677
+#: lib/command.php:668
 msgid "You are not subscribed to anyone."
 msgstr "Vous n'êtes pas abonné(e) à personne."
 
-#: lib/command.php:679
+#: lib/command.php:670
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Vous êtes abonné à cette personne :"
 msgstr[1] "Vous êtes abonné à ces personnes :"
 
-#: lib/command.php:699
+#: lib/command.php:690
 msgid "No one is subscribed to you."
 msgstr "Personne ne s’est abonné à vous."
 
-#: lib/command.php:701
+#: lib/command.php:692
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Cette personne est abonnée à vous :"
 msgstr[1] "Ces personnes sont abonnées à vous :"
 
-#: lib/command.php:721
+#: lib/command.php:712
 msgid "You are not a member of any groups."
 msgstr "Vous n’êtes membre d’aucun groupe."
 
-#: lib/command.php:723
+#: lib/command.php:714
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Vous êtes membre de ce groupe :"
 msgstr[1] "Vous êtes membre de ces groupes :"
 
-#: lib/command.php:737
+#: lib/command.php:728
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4758,20 +4755,20 @@ msgstr ""
 "tracks - pas encore implémenté.\n"
 "tracking - pas encore implémenté.\n"
 
-#: lib/common.php:199
+#: lib/common.php:131
 msgid "No configuration file found. "
 msgstr "Aucun fichier de configuration n’a été trouvé. "
 
-#: lib/common.php:200
+#: lib/common.php:132
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 "J’ai cherché des fichiers de configuration dans les emplacements suivants : "
 
-#: lib/common.php:201
+#: lib/common.php:134
 msgid "You may wish to run the installer to fix this."
 msgstr "Vous pouvez essayer de lancer l’installeur pour régler ce problème."
 
-#: lib/common.php:202
+#: lib/common.php:135
 msgid "Go to the installer."
 msgstr "Aller au programme d’installation"
 
@@ -4976,10 +4973,15 @@ msgstr "Mo"
 msgid "kB"
 msgstr "Ko"
 
-#: lib/jabber.php:191
+#: lib/jabber.php:202
 #, php-format
 msgid "[%s]"
 msgstr "[%s]"
+
+#: lib/jabber.php:385
+#, fuzzy, php-format
+msgid "Unknown inbox source %d."
+msgstr "Langue « %s » inconnue."
 
 #: lib/joinform.php:114
 msgid "Join"
@@ -5368,18 +5370,22 @@ msgid "Attach a file"
 msgstr "Attacher un fichier"
 
 #: lib/noticeform.php:212
-#, fuzzy
 msgid "Share my location"
 msgstr "Partager ma localisation."
 
-#: lib/noticeform.php:214
-#, fuzzy
-msgid "Do not share my location"
-msgstr "Ne pas partager ma localisation."
-
 #: lib/noticeform.php:215
+msgid "Do not share my location"
+msgstr "Ne pas partager ma localisation"
+
+#: lib/noticeform.php:216
 msgid "Hide this info"
 msgstr "Masquer cette info"
+
+#: lib/noticeform.php:217
+msgid ""
+"Sorry, retrieving your geo location is taking longer than expected, please "
+"try again later"
+msgstr ""
 
 #: lib/noticelist.php:428
 #, php-format
@@ -5638,23 +5644,23 @@ msgstr "Déjà abonné !"
 msgid "User has blocked you."
 msgstr "Cet utilisateur vous a bloqué."
 
-#: lib/subs.php:60
+#: lib/subs.php:63
 msgid "Could not subscribe."
 msgstr "Impossible de s’abonner."
 
-#: lib/subs.php:79
+#: lib/subs.php:82
 msgid "Could not subscribe other to you."
 msgstr "Impossible d’abonner une autre personne à votre profil."
 
-#: lib/subs.php:128
+#: lib/subs.php:137
 msgid "Not subscribed!"
 msgstr "Pas abonné !"
 
-#: lib/subs.php:133
+#: lib/subs.php:142
 msgid "Couldn't delete self-subscription."
 msgstr "Impossible de supprimer l’abonnement à soi-même."
 
-#: lib/subs.php:146
+#: lib/subs.php:158
 msgid "Couldn't delete subscription."
 msgstr "Impossible de cesser l’abonnement"
 
@@ -5728,47 +5734,47 @@ msgstr "Message"
 msgid "Moderate"
 msgstr "Modérer"
 
-#: lib/util.php:884
+#: lib/util.php:877
 msgid "a few seconds ago"
 msgstr "il y a quelques secondes"
 
-#: lib/util.php:886
+#: lib/util.php:879
 msgid "about a minute ago"
 msgstr "il y a 1 minute"
 
-#: lib/util.php:888
+#: lib/util.php:881
 #, php-format
 msgid "about %d minutes ago"
 msgstr "il y a %d minutes"
 
-#: lib/util.php:890
+#: lib/util.php:883
 msgid "about an hour ago"
 msgstr "il y a 1 heure"
 
-#: lib/util.php:892
+#: lib/util.php:885
 #, php-format
 msgid "about %d hours ago"
 msgstr "il y a %d heures"
 
-#: lib/util.php:894
+#: lib/util.php:887
 msgid "about a day ago"
 msgstr "il y a 1 jour"
 
-#: lib/util.php:896
+#: lib/util.php:889
 #, php-format
 msgid "about %d days ago"
 msgstr "il y a %d jours"
 
-#: lib/util.php:898
+#: lib/util.php:891
 msgid "about a month ago"
 msgstr "il y a 1 mois"
 
-#: lib/util.php:900
+#: lib/util.php:893
 #, php-format
 msgid "about %d months ago"
 msgstr "il y a %d mois"
 
-#: lib/util.php:902
+#: lib/util.php:895
 msgid "about a year ago"
 msgstr "il y a environ 1 an"
 
