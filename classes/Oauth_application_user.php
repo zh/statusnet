@@ -34,7 +34,7 @@ class Oauth_application_user extends Memcached_DataObject
         $oau = new Oauth_application_user();
 
         $oau->profile_id     = $user->id;
-	$oau->application_id = $app->id;
+        $oau->application_id = $app->id;
         $oau->limit(1);
 
         $result = $oau->find(true);
