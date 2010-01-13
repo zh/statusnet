@@ -45,9 +45,9 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 
 class EditApplicationAction extends OwnerDesignAction
 {
-    var $msg = null;
-
-    var $app = null;
+    var $msg   = null;
+    var $owner = null;
+    var $app   = null;
 
     function title()
     {
@@ -68,7 +68,14 @@ class EditApplicationAction extends OwnerDesignAction
         }
 
         $id = (int)$this->arg('id');
-        $this->app = Oauth_application::staticGet($id);
+
+        $this->app   = Oauth_application::staticGet($id);
+        $this->owner = User::staticGet($this->app->owner);
+        $cur         = common_current_user();
+
+        if ($cur->id != $this->owner->id) {
+            $this->clientError(_('You are not the owner of this application.'), 401);
+        }
 
         if (!$this->app) {
             $this->clientError(_('No such application.'));
