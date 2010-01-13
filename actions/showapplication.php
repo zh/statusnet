@@ -92,6 +92,7 @@ class ShowApplicationAction extends OwnerDesignAction
 
         if ($cur->id != $this->owner->id) {
             $this->clientError(_('You are not the owner of this application.'), 401);
+            return false;
         }
 
         return true;

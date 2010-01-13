@@ -142,7 +142,19 @@ class ApplicationList extends Widget
             $this->out->raw($txt);
             $this->out->elementEnd('li');
 
-            // XXX: Add revoke access button
+            $this->out->elementStart('li', 'entity_revoke');
+            $this->out->elementStart('form', array('id' => 'form_revoke_app',
+                                                   'class' => 'form_revoke_app',
+                                                   'method' => 'POST',
+                                                   'action' =>
+                                                   common_local_url('oauthconnectionssettings')));
+            $this->out->elementStart('fieldset');
+            $this->out->hidden('id', $this->application->id);
+            $this->out->hidden('token', common_session_token());
+            $this->out->submit('revoke', _('Revoke'));
+            $this->out->elementEnd('fieldset');
+            $this->out->elementEnd('form');
+            $this->out->elementEnd('li');
         }
     }
 

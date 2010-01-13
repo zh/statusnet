@@ -358,7 +358,8 @@ class Profile extends Memcached_DataObject
           'SELECT a.* ' .
           'FROM oauth_application_user u, oauth_application a ' .
           'WHERE u.profile_id = %d ' .
-	  'AND a.id = u.application_id ' .
+          'AND a.id = u.application_id ' .
+          'AND u.access_type > 0 ' .
           'ORDER BY u.created DESC ';
 
         if ($offset > 0) {

@@ -50,10 +50,12 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
 {
 
     var $page = null;
+    var $id   = null;
 
     function prepare($args)
     {
         parent::prepare($args);
+        $this->id = (int)$this->arg('id');
         $this->page = ($this->arg('page')) ? ($this->arg('page') + 0) : 1;
         return true;
     }
@@ -101,16 +103,16 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
 
         $application = $profile->getApplications($offset, $limit);
 
-	$cnt == 0;
+        $cnt == 0;
 
-	if (!empty($application)) {
-	    $al = new ApplicationList($application, $user, $this, true);
-	    $cnt = $al->show();
-	}
+        if (!empty($application)) {
+            $al = new ApplicationList($application, $user, $this, true);
+            $cnt = $al->show();
+        }
 
-	if ($cnt == 0) {
-	    $this->showEmptyListMessage();
-	}
+        if ($cnt == 0) {
+            $this->showEmptyListMessage();
+        }
 
         $this->pagination($this->page > 1, $cnt > APPS_PER_PAGE,
                           $this->page, 'connectionssettings',
@@ -138,6 +140,50 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
                               'Try again, please.'));
             return;
         }
+
+        if ($this->arg('revoke')) {
+            $this->revokeAccess($this->id);
+
+            // XXX: Show some indicator to the user of what's been done.
+
+            $this->showPage();
+        } else {
+            $this->clientError(_('Unexpected form submission.'), 401);
+            return false;
+        }
+    }
+
+    function revokeAccess($appId)
+    {
+        $cur = common_current_user();
+
+        $app = Oauth_application::staticGet('id', $appId);
+
+        if (empty($app)) {
+            $this->clientError(_('No such application.'), 404);
+            return false;
+        }
+
+        $appUser = Oauth_application_user::getByKeys($cur, $app);
+
+        if (empty($appUser)) {
+            $this->clientError(_('You are not a user of that application.'), 401);
+            return false;
+        }
+
+        $orig = clone($appUser);
+        $appUser->access_type = 0;  // No access
+        $result = $appUser->update();
+
+        if (!$result) {
+            common_log_db_error($orig, 'UPDATE', __FILE__);
+            $this->clientError(_('Unable to revoke access for app: ' . $app->id));
+            return false;
+        }
+
+        $msg = 'User %s (id: %d) revoked access to app %s (id: %d)';
+        common_log(LOG_INFO, sprintf($msg, $cur->nickname,
+                                     $cur->id, $app->name, $app->id));
 
     }
 
