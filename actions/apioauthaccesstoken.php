@@ -31,7 +31,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/apioauthstore.php';
+require_once INSTALLDIR . '/lib/apioauth.php';
 
 /**
  * Exchange an authorized OAuth request token for an access token
@@ -43,18 +43,8 @@ require_once INSTALLDIR . '/lib/apioauthstore.php';
  * @link     http://status.net/
  */
 
-class ApiOauthAccessTokenAction extends Action
+class ApiOauthAccessTokenAction extends ApiOauthAction
 {
-
-    /**
-     * Is read only?
-     *
-     * @return boolean false
-     */
-    function isReadOnly()
-    {
-        return false;
-    }
 
     /**
      * Class handler.
@@ -73,7 +63,7 @@ class ApiOauthAccessTokenAction extends Action
 
         $server->add_signature_method($hmac_method);
 
-	$atok = null;
+        $atok = null;
 
         try {
             $req  = OAuthRequest::from_request();
@@ -81,24 +71,24 @@ class ApiOauthAccessTokenAction extends Action
 
         } catch (OAuthException $e) {
             common_log(LOG_WARN, 'API OAuthException - ' . $e->getMessage());
-	    common_debug(var_export($req, true));
-	    $this->outputError($e->getMessage());
-	    return;
+            common_debug(var_export($req, true));
+            $this->outputError($e->getMessage());
+            return;
         }
 
-	if (empty($atok)) {
-	    common_debug('couldn\'t get access token.');
-	    print "Token exchange failed. Has the request token been authorized?\n";
-	} else {
-	    print $atok;
-	}
+        if (empty($atok)) {
+            common_debug('couldn\'t get access token.');
+            print "Token exchange failed. Has the request token been authorized?\n";
+        } else {
+            print $atok;
+        }
     }
 
     function outputError($msg)
     {
-	header('HTTP/1.1 401 Unauthorized');
-	header('Content-Type: text/html; charset=utf-8');
-	print $msg . "\n";
+        header('HTTP/1.1 401 Unauthorized');
+        header('Content-Type: text/html; charset=utf-8');
+        print $msg . "\n";
     }
 }
 

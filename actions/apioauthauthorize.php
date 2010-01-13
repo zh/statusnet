@@ -31,7 +31,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/apioauthstore.php';
+require_once INSTALLDIR . '/lib/apioauth.php';
 
 /**
  * Authorize an OAuth request token
@@ -43,7 +43,7 @@ require_once INSTALLDIR . '/lib/apioauthstore.php';
  * @link     http://status.net/
  */
 
-class ApiOauthAuthorizeAction extends Action
+class ApiOauthAuthorizeAction extends ApiOauthAction
 {
     var $oauth_token;
     var $callback;
@@ -67,7 +67,7 @@ class ApiOauthAuthorizeAction extends Action
     {
         parent::prepare($args);
 
-        common_debug(var_export($_REQUEST, true));
+        common_debug("apioauthauthorize");
 
         $this->nickname    = $this->trimmed('nickname');
         $this->password    = $this->arg('password');
@@ -130,7 +130,7 @@ class ApiOauthAuthorizeAction extends Action
 
         } else {
 
-	    // XXX: make better error messages
+            // XXX: make better error messages
 
             if (empty($this->oauth_token)) {
 
@@ -145,7 +145,8 @@ class ApiOauthAuthorizeAction extends Action
                 return;
             }
 
-            common_debug("Requesting auth for app: $app->name.");
+            $name = $this->app->name;
+            common_debug("Requesting auth for app: " . $name);
 
             $this->showForm();
         }
@@ -153,6 +154,8 @@ class ApiOauthAuthorizeAction extends Action
 
     function handlePost()
     {
+        common_debug("handlePost()");
+
         // check session token for CSRF protection.
 
         $token = $this->trimmed('token');
@@ -170,7 +173,7 @@ class ApiOauthAuthorizeAction extends Action
 
         // check creds
 
-	$user = null;
+        $user = null;
 
         if (!common_logged_in()) {
             $user = common_check_user($this->nickname, $this->password);
@@ -179,64 +182,86 @@ class ApiOauthAuthorizeAction extends Action
                 return;
             }
         } else {
-	    $user = common_current_user();
-	}
+            $user = common_current_user();
+        }
 
         if ($this->arg('allow')) {
 
-	    // mark the req token as authorized
+            // mark the req token as authorized
 
             $this->store->authorize_token($this->oauth_token);
 
-	    // Check to see if there was a previous token associated
-	    // with this user/app and kill it. If you're doing this you
-	    // probably don't want any old tokens anyway.
+            // Check to see if there was a previous token associated
+            // with this user/app and kill it. If the user is doing this she
+            // probably doesn't want any old tokens anyway.
 
-	    $appUser = Oauth_application_user::getByKeys($user, $this->app);
+            $appUser = Oauth_application_user::getByKeys($user, $this->app);
 
-	    if (!empty($appUser)) {
-		$result = $appUser->delete();
+            if (!empty($appUser)) {
+                $result = $appUser->delete();
 
-		if (!$result) {
-		    common_log_db_error($appUser, 'DELETE', __FILE__);
-		    throw new ServerException(_('DB error deleting OAuth app user.'));
-		    return;
-		}
-	    }
+                if (!$result) {
+                    common_log_db_error($appUser, 'DELETE', __FILE__);
+                    throw new ServerException(_('DB error deleting OAuth app user.'));
+                    return;
+                }
+            }
 
-	    // associated the new req token with the user and the app
+            // associated the authorized req token with the user and the app
 
-	    $appUser = new Oauth_application_user();
+            $appUser = new Oauth_application_user();
 
-	    $appUser->profile_id     = $user->id;
-	    $appUser->application_id = $this->app->id;
-	    $appUser->access_type    = $this->app->access_type;
-	    $appUser->token          = $this->oauth_token;
-	    $appUser->created        = common_sql_now();
+            $appUser->profile_id     = $user->id;
+            $appUser->application_id = $this->app->id;
 
-	    $result = $appUser->insert();
+            // Note: do not copy the access type from the application.
+            // The access type should always be 0 when the OAuth app
+            // user record has a request token associated with it.
+            // Access type gets assigned once an access token has been
+            // granted.  The OAuth app user record then gets updated
+            // with the new access token and access type.
 
-	    if (!$result) {
-		common_log_db_error($appUser, 'INSERT', __FILE__);
-		throw new ServerException(_('DB error inserting OAuth app user.'));
-		return;
-	    }
+            $appUser->token          = $this->oauth_token;
+            $appUser->created        = common_sql_now();
+
+            $result = $appUser->insert();
+
+            if (!$result) {
+                common_log_db_error($appUser, 'INSERT', __FILE__);
+                throw new ServerException(_('DB error inserting OAuth app user.'));
+                return;
+            }
 
             // if we have a callback redirect and provide the token
 
+            // A callback specified in the app setup overrides whatever
+            // is passed in with the request.
+
+            common_debug("Req token is authorized - doing callback");
+
+            if (!empty($this->app->callback_url)) {
+                $this->callback = $this->app->callback_url;
+            }
+
             if (!empty($this->callback)) {
 
-		// XXX: Need better way to build this redirect url.
+                // XXX: Need better way to build this redirect url.
 
-                $target_url = $this->callback . '?oauth_token=' . $this->oauth_token;
+                $target_url = $this->getCallback($this->callback,
+                                                 array('oauth_token' => $this->oauth_token));
+
+                common_debug("Doing callback to $target_url");
+
                 common_redirect($target_url, 303);
+            } else {
+                common_debug("callback was empty!");
             }
 
             // otherwise inform the user that the rt was authorized
 
             $this->elementStart('p');
 
-            // XXX: Do OAuth 1.0a verifier code?
+            // XXX: Do OAuth 1.0a verifier code
 
             $this->raw(sprintf(_("The request token %s has been authorized. " .
                                  'Please exchange it for an access token.'),
@@ -267,9 +292,9 @@ class ApiOauthAuthorizeAction extends Action
     function showScripts()
     {
         parent::showScripts();
-	if (!common_logged_in()) {
-	    $this->autofocus('nickname');
-	}
+        if (!common_logged_in()) {
+            $this->autofocus('nickname');
+        }
     }
 
     /**
@@ -313,9 +338,9 @@ class ApiOauthAuthorizeAction extends Action
     function showContent()
     {
         $this->elementStart('form', array('method' => 'post',
-                                           'id' => 'form_login',
-                                           'class' => 'form_settings',
-                                           'action' => common_local_url('apioauthauthorize')));
+                                          'id' => 'form_login',
+                                          'class' => 'form_settings',
+                                          'action' => common_local_url('apioauthauthorize')));
 
         $this->hidden('token', common_session_token());
         $this->hidden('oauth_token', $this->oauth_token);

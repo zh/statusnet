@@ -50,8 +50,7 @@ class Router
     var $m = null;
     static $inst = null;
     static $bare = array('requesttoken', 'accesstoken', 'userauthorization',
-                         'postnotice', 'updateprofile', 'finishremotesubscribe',
-			 'apioauthrequesttoken', 'apioauthaccesstoken');
+                         'postnotice', 'updateprofile', 'finishremotesubscribe');
 
     static function get()
     {
@@ -659,7 +658,13 @@ class Router
                       'id' => '[0-9]+')
             );
 
-            $m->connect('oauth/authorize',
+            $m->connect('api/oauth/request_token',
+                        array('action' => 'apioauthrequesttoken'));
+
+            $m->connect('api/oauth/access_token',
+                        array('action' => 'apioauthaccesstoken'));
+
+            $m->connect('api/oauth/authorize',
                         array('action' => 'apioauthauthorize'));
 
             foreach (array('subscriptions', 'subscribers') as $a) {
