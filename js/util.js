@@ -638,13 +638,12 @@ var SN = { // StatusNet
                                                 break;
                                             case error.TIMEOUT:
                                                 $('#'+SN.C.S.NoticeGeoName).text(NoticeDataGeo_text.ErrorTimeout).removeClass('processing');
-                                                $('#'+SN.C.S.NoticeDataGeo).attr('checked', false);
                                                 break;
                                         }
                                     },
 
                                     {
-                                        timeout: 10
+                                        timeout: 10000
                                     }
                                 );
                             }
