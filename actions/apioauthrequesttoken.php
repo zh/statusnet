@@ -31,7 +31,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/apioauthstore.php';
+require_once INSTALLDIR . '/lib/apioauth.php';
 
 /**
  * Get an OAuth request token
@@ -43,16 +43,28 @@ require_once INSTALLDIR . '/lib/apioauthstore.php';
  * @link     http://status.net/
  */
 
-class ApiOauthRequestTokenAction extends Action
+class ApiOauthRequestTokenAction extends ApiOauthAction
 {
     /**
-     * Is read only?
+     * Take arguments for running
      *
-     * @return boolean false
+     * @param array $args $_REQUEST args
+     *
+     * @return boolean success flag
+     *
      */
-    function isReadOnly()
+
+    function prepare($args)
     {
-        return false;
+        parent::prepare($args);
+
+        $this->callback  = $this->arg('oauth_callback');
+
+        if (!empty($this->callback)) {
+            common_debug("callback: $this->callback");
+        }
+
+        return true;
     }
 
     /**
