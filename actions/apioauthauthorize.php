@@ -274,27 +274,6 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
     }
 
     /**
-     * Show page notice
-     *
-     * Display a notice for how to use the page, or the
-     * error if it exists.
-     *
-     * @return void
-     */
-
-    function showPageNotice()
-    {
-        if ($this->error) {
-            $this->element('p', 'error', $this->error);
-        } else {
-            $instr  = $this->getInstructions();
-            $output = common_markup_to_html($instr);
-
-            $this->raw($output);
-        }
-    }
-
-    /**
      * Shows the authorization form.
      *
      * @return void
@@ -303,39 +282,37 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
     function showContent()
     {
         $this->elementStart('form', array('method' => 'post',
-                                          'id' => 'form_login',
+                                          'id' => 'form_apioauthauthorize',
                                           'class' => 'form_settings',
                                           'action' => common_local_url('apioauthauthorize')));
+        $this->elementStart('fieldset');
+        $this->element('legend', array('id' => 'apioauthauthorize_allowdeny'),
+                                 _('Allow or deny access'));
 
         $this->hidden('token', common_session_token());
         $this->hidden('oauth_token', $this->oauth_token);
         $this->hidden('oauth_callback', $this->callback);
 
-        $this->elementStart('fieldset');
-
-        $this->elementStart('ul');
+        $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
+        $this->elementStart('p');
         if (!empty($this->app->icon)) {
             $this->element('img', array('src' => $this->app->icon));
         }
-        $this->elementEnd('li');
-        $this->elementStart('li');
 
         $access = ($this->app->access_type & Oauth_application::$writeAccess) ?
           'access and update' : 'access';
 
-        $msg = _("The application <b>%s</b> by <b>%s</b> would like " .
-                 "the ability to <b>%s</b> your account data.");
+        $msg = _("The application <strong>%s</strong> by <strong>%s</strong> would like " .
+                 "the ability to <strong>%s</strong> your account data.");
 
         $this->raw(sprintf($msg,
                            $this->app->name,
                            $this->app->organization,
                            $access));
-
+        $this->elementEnd('p');
         $this->elementEnd('li');
         $this->elementEnd('ul');
-
-        $this->elementEnd('fieldset');
 
         if (!common_logged_in()) {
 
@@ -355,17 +332,18 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
         }
 
         $this->element('input', array('id' => 'deny_submit',
-                                      'class' => 'submit',
+                                      'class' => 'submit submit form_action-primary',
                                       'name' => 'deny',
                                       'type' => 'submit',
                                       'value' => _('Deny')));
 
         $this->element('input', array('id' => 'allow_submit',
-                                      'class' => 'submit',
+                                      'class' => 'submit submit form_action-secondary',
                                       'name' => 'allow',
                                       'type' => 'submit',
                                       'value' => _('Allow')));
 
+        $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
 
