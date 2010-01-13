@@ -74,40 +74,9 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
         $this->oauth_token = $this->arg('oauth_token');
         $this->callback    = $this->arg('oauth_callback');
         $this->store       = new ApiStatusNetOAuthDataStore();
+        $this->app         = $this->store->getAppByRequestToken($this->oauth_token);
 
         return true;
-    }
-
-    function getApp()
-    {
-        // Look up the full req token
-
-        $req_token = $this->store->lookup_token(null,
-                                                'request',
-                                                $this->oauth_token);
-
-        if (empty($req_token)) {
-
-            common_debug("Couldn't find request token!");
-
-            $this->clientError(_('Bad request.'));
-            return;
-        }
-
-        // Look up the app
-
-        $app = new Oauth_application();
-        $app->consumer_key = $req_token->consumer_key;
-        $result = $app->find(true);
-
-        if (!empty($result)) {
-            $this->app = $app;
-            return true;
-
-        } else {
-            common_debug("couldn't find the app!");
-            return false;
-        }
     }
 
     /**
@@ -140,7 +109,8 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
                 return;
             }
 
-            if (!$this->getApp()) {
+            if (empty($this->app)) {
+                common_debug('No app for that token.');
                 $this->clientError(_('Bad request.'));
                 return;
             }
@@ -163,11 +133,6 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
         if (!$token || $token != common_session_token()) {
             $this->showForm(_('There was a problem with your session token. '.
                               'Try again, please.'));
-            return;
-        }
-
-        if (!$this->getApp()) {
-            $this->clientError(_('Bad request.'));
             return;
         }
 
@@ -416,7 +381,6 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
     function getInstructions()
     {
         return _('Allow or deny access to your account information.');
-
     }
 
     /**

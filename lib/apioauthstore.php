@@ -36,6 +36,44 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
                                  $con->consumer_secret);
     }
 
+    function getAppByRequestToken($token_key)
+    {
+        // Look up the full req tokenx
+
+        $req_token = $this->lookup_token(null,
+                                         'request',
+                                         $token_key);
+
+        if (empty($req_token)) {
+            common_debug("couldn't get request token from oauth datastore");
+            return null;
+        }
+
+        // Look up the full Token
+
+        $token = new Token();
+        $token->tok = $req_token->key;
+        $result = $token->find(true);
+
+        if (empty($result)) {
+            common_debug('Couldn\'t find req token in the token table.');
+            return null;
+        }
+
+        // Look up the app
+
+        $app = new Oauth_application();
+        $app->consumer_key = $token->consumer_key;
+        $result = $app->find(true);
+
+        if (!empty($result)) {
+            return $app;
+        } else {
+            common_debug("Couldn't find the app!");
+            return null;
+        }
+    }
+
     function new_access_token($token, $consumer)
     {
         common_debug('new_access_token("'.$token->key.'","'.$consumer->key.'")', __FILE__);
@@ -64,7 +102,7 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
             if (!empty($result)) {
                 common_debug("Oath app user found.");
             } else {
-                common_debug("Oauth app user not found.");
+                common_debug("Oauth app user not found. app id $app->id token $rt->tok");
                 return null;
             }
 
