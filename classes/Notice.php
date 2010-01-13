@@ -335,7 +335,11 @@ class Notice extends Memcached_DataObject
 
             $notice->saveTags();
 
-            $notice->addToInboxes();
+            $groups = $notice->saveGroups();
+
+            $recipients = $notice->saveReplies();
+
+            $notice->addToInboxes($groups, $recipients);
 
             $notice->saveUrls();
 
@@ -822,7 +826,7 @@ class Notice extends Memcached_DataObject
         return $ids;
     }
 
-    function whoGets()
+    function whoGets($groups=null, $recipients=null)
     {
         $c = self::memcache();
 
@@ -831,6 +835,14 @@ class Notice extends Memcached_DataObject
             if ($ni !== false) {
                 return $ni;
             }
+        }
+
+        if (is_null($groups)) {
+            $groups = $this->getGroups();
+        }
+
+        if (is_null($recipients)) {
+            $recipients = $this->getReplies();
         }
 
         $users = $this->getSubscribedUsers();
@@ -845,7 +857,6 @@ class Notice extends Memcached_DataObject
             $ni[$id] = NOTICE_INBOX_SOURCE_SUB;
         }
 
-        $groups = $this->saveGroups();
         $profile = $this->getProfile();
 
         foreach ($groups as $group) {
@@ -859,8 +870,6 @@ class Notice extends Memcached_DataObject
                 }
             }
         }
-
-        $recipients = $this->saveReplies();
 
         foreach ($recipients as $recipient) {
 
@@ -880,9 +889,9 @@ class Notice extends Memcached_DataObject
         return $ni;
     }
 
-    function addToInboxes()
+    function addToInboxes($groups, $recipients)
     {
-        $ni = $this->whoGets();
+        $ni = $this->whoGets($groups, $recipients);
 
         Inbox::bulkInsert($this->id, array_keys($ni));
 
@@ -1084,6 +1093,52 @@ class Notice extends Memcached_DataObject
         }
 
         return $recipientIds;
+    }
+
+    function getReplies()
+    {
+        // XXX: cache me
+
+        $ids = array();
+
+        $reply = new Reply();
+        $reply->selectAdd();
+        $reply->selectAdd('profile_id');
+        $reply->notice_id = $this->id;
+
+        if ($reply->find()) {
+            while($reply->fetch()) {
+                $ids[] = $reply->profile_id;
+            }
+        }
+
+        $reply->free();
+
+        return $ids;
+    }
+
+    function getGroups()
+    {
+        // XXX: cache me
+
+        $ids = array();
+
+        $gi = new Group_inbox();
+
+        $gi->selectAdd();
+        $gi->selectAdd('group_id');
+
+        $gi->notice_id = $this->id;
+
+        if ($gi->find()) {
+            while ($gi->fetch()) {
+                $ids[] = $gi->group_id;
+            }
+        }
+
+        $gi->free();
+
+        return $ids;
     }
 
     function asAtomEntry($namespace=false, $source=false)
