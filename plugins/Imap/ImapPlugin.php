@@ -46,8 +46,6 @@ class ImapPlugin extends Plugin
     public $user;
     public $password;
     public $poll_frequency = 60;
-    public static $instances = array();
-    public static $daemon_added = array();
 
     function initialize(){
         if(!isset($this->mailbox)){
@@ -63,24 +61,34 @@ class ImapPlugin extends Plugin
             throw new Exception("must specify a poll_frequency");
         }
 
-        self::$instances[] = $this;
         return true;
     }
 
-    function cleanup(){
-        $index = array_search($this, self::$instances);
-        unset(self::$instances[$index]);
-        return true;
-    }
-
-    function onGetValidDaemons($daemons)
+    /**
+     * Load related modules when needed
+     *
+     * @param string $cls Name of the class to be loaded
+     *
+     * @return boolean hook value; true means continue processing, false means stop.
+     */
+    function onAutoload($cls)
     {
-        if(! self::$daemon_added){
-            array_push($daemons, INSTALLDIR .
-                       '/plugins/Imap/imapdaemon.php');
-            self::$daemon_added = true;
+        $dir = dirname(__FILE__);
+
+        switch ($cls)
+        {
+        case 'ImapManager':
+        case 'IMAPMailHandler':
+            include_once $dir . '/'.strtolower($cls).'.php';
+            return false;
+        default:
+            return true;
         }
-        return true;
+    }
+
+    function onStartIoManagerClasses(&$classes)
+    {
+        $classes[] = new ImapManager($this);
     }
 
     function onPluginVersion(&$versions)
