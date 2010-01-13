@@ -27,7 +27,7 @@ class Oauth_application extends Memcached_DataObject
 
     /* Static get */
     function staticGet($k,$v=NULL) {
-	return Memcached_DataObject::staticGet('Oauth_application',$k,$v);
+    return Memcached_DataObject::staticGet('Oauth_application',$k,$v);
     }
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
@@ -90,16 +90,51 @@ class Oauth_application extends Memcached_DataObject
 
     static function getByConsumerKey($key)
     {
-	if (empty($key)) {
-	    return null;
-	}
+        if (empty($key)) {
+            return null;
+        }
 
-	$app = new Oauth_application();
-	$app->consumer_key = $key;
-	$app->limit(1);
-	$result = $app->find(true);
+        $app = new Oauth_application();
+        $app->consumer_key = $key;
+        $app->limit(1);
+        $result = $app->find(true);
 
-	return empty($result) ? null : $app;
+        return empty($result) ? null : $app;
+    }
+
+    /**
+     * Handle an image upload
+     *
+     * Does all the magic for handling an image upload, and crops the
+     * image by default.
+     *
+     * @return void
+     */
+
+    function uploadLogo()
+    {
+        if ($_FILES['app_icon']['error'] ==
+            UPLOAD_ERR_OK) {
+
+            try {
+                $imagefile = ImageFile::fromUpload('app_icon');
+            } catch (Exception $e) {
+                common_debug("damn that sucks");
+                $this->showForm($e->getMessage());
+                return;
+            }
+
+            $filename = Avatar::filename($this->id,
+                                         image_type_to_extension($imagefile->type),
+                                         null,
+                                         'oauth-app-icon-'.common_timestamp());
+
+            $filepath = Avatar::path($filename);
+
+            move_uploaded_file($imagefile->filepath, $filepath);
+
+            $this->setOriginal($filename);
+        }
     }
 
 }
