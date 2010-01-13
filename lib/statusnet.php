@@ -1,7 +1,7 @@
 <?php
-/*
+/**
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2009, StatusNet, Inc.
+ * Copyright (C) 2009-2010 StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -15,9 +15,12 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET') && !defined('LACONICA')) {
+    exit(1);
+}
 
 global $config, $_server, $_path;
 
@@ -227,19 +230,19 @@ class StatusNet
     protected function loadConfigFile($conffile=null)
     {
         global $_server, $_path, $config;
-        
+
         // From most general to most specific:
         // server-wide, then vhost-wide, then for a path,
         // finally for a dir (usually only need one of the last two).
-        
+
         if (isset($conffile)) {
             $config_files = array($conffile);
         } else {
             $config_files = array('/etc/statusnet/statusnet.php',
-                                        '/etc/statusnet/laconica.php',
-                                        '/etc/laconica/laconica.php',
-                                        '/etc/statusnet/'.$_server.'.php',
-                                        '/etc/laconica/'.$_server.'.php');
+                                  '/etc/statusnet/laconica.php',
+                                  '/etc/laconica/laconica.php',
+                                  '/etc/statusnet/'.$_server.'.php',
+                                  '/etc/laconica/'.$_server.'.php');
 
             if (strlen($_path) > 0) {
                 $config_files[] = '/etc/statusnet/'.$_server.'_'.$_path.'.php';
@@ -260,7 +263,7 @@ class StatusNet
 
         if (!self::$have_config) {
             throw new NoConfigException("No configuration file found.",
-                $config_files);
+                                        $config_files);
         }
 
         // Fixup for statusnet.ini
