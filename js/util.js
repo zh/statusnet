@@ -632,9 +632,18 @@ var SN = { // StatusNet
                                     },
 
                                     function(error) {
-                                        if (error.PERMISSION_DENIED == 1) {
-                                            removeNoticeDataGeo();
+                                        switch(error.code) {
+                                            case error.PERMISSION_DENIED:
+                                                removeNoticeDataGeo();
+                                                break;
+                                            case error.TIMEOUT:
+                                                $('#'+SN.C.S.NoticeGeoName).text(NoticeDataGeo_text.ErrorTimeout).removeClass('processing');
+                                                break;
                                         }
+                                    },
+
+                                    {
+                                        timeout: 10000
                                     }
                                 );
                             }
