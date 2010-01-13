@@ -266,7 +266,7 @@ class NewApplicationAction extends OwnerDesignAction
             $app->query('ROLLBACK');
         }
 
-        $this->app->uploadLogo();
+        $app->uploadLogo();
 
         $app->query('COMMIT');
 
