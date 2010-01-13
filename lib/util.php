@@ -191,7 +191,6 @@ function common_ensure_session()
             }
         }
     }
-    common_debug("Session ID = " . session_id());
 }
 
 // Three kinds of arguments:
@@ -258,7 +257,6 @@ function common_rememberme($user=null)
     if (!$user) {
         $user = common_current_user();
         if (!$user) {
-            common_debug('No current user to remember', __FILE__);
             return false;
         }
     }
@@ -276,13 +274,10 @@ function common_rememberme($user=null)
 
     if (!$result) {
         common_log_db_error($rm, 'INSERT', __FILE__);
-        common_debug('Error adding rememberme record for ' . $user->nickname, __FILE__);
         return false;
     }
 
     $rm->query('COMMIT');
-
-    common_debug('Inserted rememberme record (' . $rm->code . ', ' . $rm->user_id . '); result = ' . $result . '.', __FILE__);
 
     $cookieval = $rm->user_id . ':' . $rm->code;
 
@@ -391,8 +386,6 @@ function common_current_user()
         $_cur = common_remembered_user();
 
         if ($_cur) {
-            common_debug("Got User " . $_cur->nickname);
-            common_debug("Faking session on remembered user");
             // XXX: Is this necessary?
             $_SESSION['userid'] = $_cur->id;
         }
