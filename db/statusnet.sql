@@ -218,7 +218,7 @@ create table oauth_application (
     source_url varchar(255) comment 'application homepage - used for source link',
     organization varchar(255) comment 'name of the organization running the application',
     homepage varchar(255) comment 'homepage for the organization',
-    callback_url varchar(255) not null comment 'url to redirect to after authentication',
+    callback_url varchar(255) comment 'url to redirect to after authentication',
     type tinyint default 0 comment 'type of app, 1 = browser, 2 = desktop',
     access_type tinyint default 0 comment 'default access type, bit 1 = read, bit 2 = write',
     created datetime not null comment 'date this record was created',
