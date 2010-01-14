@@ -20,17 +20,18 @@
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 
-$shortoptions = 'i:n:af';
-$longoptions = array('id=', 'nickname=', 'all', 'force');
+$shortoptions = 'i:n:af:';
+$longoptions = array('id=', 'nickname=', 'all', 'file=');
 
 $helptext = <<<END_OF_INITIALIZEINBOX_HELP
 initializeinbox.php [options]
 initialize the inbox for a user
 
-  -i --id       ID of user to update
-  -n --nickname nickname of the user to update
-  -f --force    force update even if user already has a location
-  -a --all      update all
+  -i --id         ID of user to update
+  -n --nickname   nickname of the user to update
+  -f FILENAME     read list of IDs from FILENAME (1 per line)
+  --file=FILENAME ditto
+  -a --all        update all
 
 END_OF_INITIALIZEINBOX_HELP;
 
@@ -59,6 +60,21 @@ try {
             while ($user->fetch()) {
                 initializeInbox($user);
             }
+        }
+    } else if (have_option('f', 'file')) {
+        $filename = get_option_value('f', 'file');
+        if (!file_exists($filename)) {
+            throw new Exception("No such file '$filename'.");
+        } else if (!is_readable($filename)) {
+            throw new Exception("Can't read '$filename'.");
+        }
+        $ids = file($filename);
+        foreach ($ids as $id) {
+            $user = User::staticGet('id', $id);
+            if (empty($user)) {
+                throw new Exception("Can't find user with id '$id'.");
+            }
+            initializeInbox($user);
         }
     } else {
         show_help();
