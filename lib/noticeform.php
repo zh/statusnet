@@ -213,7 +213,6 @@ class NoticeForm extends Form
                 $this->out->elementEnd('div');
                 $this->out->inlineScript(' var NoticeDataGeo_text = {'.
                     'ShareDisable: "'._('Do not share my location').'",'.
-                    'InfoMinimize: "'._('Hide this info').'",'.
                     'ErrorTimeout: "'._('Sorry, retrieving your geo location is taking longer than expected, please try again later').'"'.
                     '}');
             }
