@@ -72,7 +72,6 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
     function prepare($args)
     {
         parent::prepare($args);
-        common_debug("api friends_timeline");
         $this->user = $this->getTargetUser($this->arg('id'));
 
         if (empty($this->user)) {
