@@ -72,7 +72,7 @@ try {
         foreach ($ids as $id) {
             $user = User::staticGet('id', $id);
             if (empty($user)) {
-                throw new Exception("Can't find user with id '$id'.");
+                print "Can't find user with id '$id'.\n";
             }
             initializeInbox($user);
         }
@@ -91,14 +91,20 @@ function initializeInbox($user)
         print "Initializing inbox for $user->nickname...";
     }
 
-    $inbox = Inbox::staticGet('user_id', $user_id);
+    $inbox = Inbox::staticGet('user_id', $user->id);
 
+    if ($inbox && !empty($inbox->fake)) {
+        if (!have_option('q', 'quiet')) {
+            echo "(replacing faux cached inbox)";
+        }
+        $inbox = false;
+    }
     if (!empty($inbox)) {
         if (!have_option('q', 'quiet')) {
             print "SKIP\n";
         }
     } else {
-        $inbox = Inbox::initialize($user_id);
+        $inbox = Inbox::initialize($user->id);
         if (!have_option('q', 'quiet')) {
             if (empty($inbox)) {
                 print "ERR\n";
