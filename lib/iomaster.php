@@ -231,7 +231,7 @@ class IoMaster
                 return -1;
             }
         } else {
-            return $this->parseMemoryLimit($limit);
+            return $this->parseMemoryLimit($softLimit);
         }
         return $softLimit;
     }
