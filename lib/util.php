@@ -173,10 +173,8 @@ function common_ensure_session()
         }
 	if (array_key_exists(session_name(), $_GET)) {
 	    $id = $_GET[session_name()];
-	    common_log(LOG_INFO, 'Setting session from GET parameter: '.$id);
 	} else if (array_key_exists(session_name(), $_COOKIE)) {
 	    $id = $_COOKIE[session_name()];
-	    common_log(LOG_INFO, 'Setting session from COOKIE: '.$id);
 	}
 	if (isset($id)) {
 	    session_id($id);

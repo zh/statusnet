@@ -57,6 +57,22 @@ class Inbox extends Memcached_DataObject
 
     static function initialize($user_id)
     {
+        $inbox = Inbox::fromNoticeInbox($user_id);
+
+        unset($inbox->fake);
+
+        $result = $inbox->insert();
+
+        if (!$result) {
+            common_log_db_error($inbox, 'INSERT', __FILE__);
+            return null;
+        }
+
+        return $inbox;
+    }
+
+    static function fromNoticeInbox($user_id)
+    {
         $ids = array();
 
         $ni = new Notice_inbox();
@@ -80,13 +96,7 @@ class Inbox extends Memcached_DataObject
 
         $inbox->user_id = $user_id;
         $inbox->notice_ids = call_user_func_array('pack', array_merge(array('N*'), $ids));
-
-        $result = $inbox->insert();
-
-        if (!$result) {
-            common_log_db_error($inbox, 'INSERT', __FILE__);
-            return null;
-        }
+        $inbox->fake = true;
 
         return $inbox;
     }
@@ -95,7 +105,7 @@ class Inbox extends Memcached_DataObject
     {
         $inbox = Inbox::staticGet('user_id', $user_id);
 
-        if (empty($inbox)) {
+        if (empty($inbox) || $inbox->fake) {
             $inbox = Inbox::initialize($user_id);
         }
 
@@ -133,9 +143,11 @@ class Inbox extends Memcached_DataObject
         $inbox = Inbox::staticGet('user_id', $user_id);
 
         if (empty($inbox)) {
-            $inbox = Inbox::initialize($user_id);
+            $inbox = Inbox::fromNoticeInbox($user_id);
             if (empty($inbox)) {
                 return array();
+            } else {
+                $inbox->encache();
             }
         }
 

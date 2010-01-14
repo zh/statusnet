@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-11 23:25+0000\n"
-"PO-Revision-Date: 2010-01-11 23:26:21+0000\n"
+"POT-Creation-Date: 2010-01-13 22:04+0000\n"
+"PO-Revision-Date: 2010-01-13 22:04:54+0000\n"
 "Language-Team: Czech\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60950); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r61027); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: cs\n"
 "X-Message-Group: out-statusnet\n"
@@ -45,10 +45,10 @@ msgstr "Žádné takové oznámení."
 #: actions/replies.php:73 actions/repliesrss.php:38
 #: actions/showfavorites.php:105 actions/userbyid.php:74
 #: actions/usergroups.php:91 actions/userrss.php:38 actions/xrds.php:71
-#: lib/command.php:163 lib/command.php:311 lib/command.php:364
-#: lib/command.php:410 lib/command.php:471 lib/command.php:527
+#: lib/command.php:163 lib/command.php:302 lib/command.php:355
+#: lib/command.php:401 lib/command.php:462 lib/command.php:518
 #: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
-#: lib/subs.php:34 lib/subs.php:116
+#: lib/subs.php:34 lib/subs.php:125
 msgid "No such user."
 msgstr "Žádný takový uživatel."
 
@@ -389,7 +389,7 @@ msgstr "Již jste přihlášen"
 msgid "You have been blocked from that group by the admin."
 msgstr ""
 
-#: actions/apigroupjoin.php:138 actions/joingroup.php:128
+#: actions/apigroupjoin.php:138 actions/joingroup.php:124
 #, fuzzy, php-format
 msgid "Could not join user %1$s to group %2$s."
 msgstr "Nelze přesměrovat na server: %s"
@@ -399,7 +399,7 @@ msgstr "Nelze přesměrovat na server: %s"
 msgid "You are not a member of this group."
 msgstr "Neodeslal jste nám profil"
 
-#: actions/apigroupleave.php:124 actions/leavegroup.php:127
+#: actions/apigroupleave.php:124 actions/leavegroup.php:119
 #, fuzzy, php-format
 msgid "Could not remove user %1$s from group %2$s."
 msgstr "Nelze vytvořit OpenID z: %s"
@@ -699,7 +699,7 @@ msgstr ""
 #: actions/grouplogo.php:99 actions/groupmembers.php:83
 #: actions/grouprss.php:98 actions/groupunblock.php:86
 #: actions/joingroup.php:83 actions/leavegroup.php:83 actions/makeadmin.php:86
-#: actions/showgroup.php:137 lib/command.php:212 lib/command.php:263
+#: actions/showgroup.php:137 lib/command.php:212 lib/command.php:260
 #, fuzzy
 msgid "No such group."
 msgstr "Žádné takové oznámení."
@@ -1688,7 +1688,7 @@ msgstr ""
 msgid "You are already subscribed to these users:"
 msgstr ""
 
-#: actions/invite.php:131 actions/invite.php:139 lib/command.php:315
+#: actions/invite.php:131 actions/invite.php:139 lib/command.php:306
 #, php-format
 msgid "%1$s (%2$s)"
 msgstr ""
@@ -1729,7 +1729,7 @@ msgstr ""
 msgid "Optionally add a personal message to the invitation."
 msgstr ""
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:234
+#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:237
 msgid "Send"
 msgstr "Odeslat"
 
@@ -1773,7 +1773,7 @@ msgstr ""
 msgid "You must be logged in to join a group."
 msgstr ""
 
-#: actions/joingroup.php:135
+#: actions/joingroup.php:131
 #, php-format
 msgid "%1$s joined group %2$s"
 msgstr ""
@@ -1782,16 +1782,12 @@ msgstr ""
 msgid "You must be logged in to leave a group."
 msgstr ""
 
-#: actions/leavegroup.php:90 lib/command.php:268
+#: actions/leavegroup.php:90 lib/command.php:265
 #, fuzzy
 msgid "You are not a member of that group."
 msgstr "Neodeslal jste nám profil"
 
-#: actions/leavegroup.php:119 lib/command.php:278
-msgid "Could not find membership record."
-msgstr ""
-
-#: actions/leavegroup.php:134
+#: actions/leavegroup.php:127
 #, fuzzy, php-format
 msgid "%1$s left group %2$s"
 msgstr "%1 statusů na %2"
@@ -1892,12 +1888,12 @@ msgstr ""
 msgid "New message"
 msgstr ""
 
-#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:367
+#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:358
 msgid "You can't send a message to this user."
 msgstr ""
 
-#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:351
-#: lib/command.php:484
+#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:342
+#: lib/command.php:475
 msgid "No content!"
 msgstr "Žádný obsah!"
 
@@ -1905,7 +1901,7 @@ msgstr "Žádný obsah!"
 msgid "No recipient specified."
 msgstr ""
 
-#: actions/newmessage.php:164 lib/command.php:370
+#: actions/newmessage.php:164 lib/command.php:361
 msgid ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr ""
@@ -3979,6 +3975,21 @@ msgstr ""
 msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
 
+#: classes/Group_member.php:41
+#, fuzzy
+msgid "Group join failed."
+msgstr "Žádné takové oznámení."
+
+#: classes/Group_member.php:53
+#, fuzzy
+msgid "Not part of group."
+msgstr "Nelze aktualizovat uživatele"
+
+#: classes/Group_member.php:60
+#, fuzzy
+msgid "Group leave failed."
+msgstr "Žádné takové oznámení."
+
 #: classes/Login_token.php:76
 #, fuzzy, php-format
 msgid "Could not create login token for %s"
@@ -3996,51 +4007,51 @@ msgstr ""
 msgid "Could not update message with new URI."
 msgstr ""
 
-#: classes/Notice.php:172
+#: classes/Notice.php:171
 #, php-format
 msgid "DB error inserting hashtag: %s"
 msgstr ""
 
-#: classes/Notice.php:226
+#: classes/Notice.php:225
 #, fuzzy
 msgid "Problem saving notice. Too long."
 msgstr "Problém při ukládání sdělení"
 
-#: classes/Notice.php:230
+#: classes/Notice.php:229
 #, fuzzy
 msgid "Problem saving notice. Unknown user."
 msgstr "Problém při ukládání sdělení"
 
-#: classes/Notice.php:235
+#: classes/Notice.php:234
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 
-#: classes/Notice.php:241
+#: classes/Notice.php:240
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
 
-#: classes/Notice.php:247
+#: classes/Notice.php:246
 msgid "You are banned from posting notices on this site."
 msgstr ""
 
-#: classes/Notice.php:309 classes/Notice.php:334
+#: classes/Notice.php:305 classes/Notice.php:330
 msgid "Problem saving notice."
 msgstr "Problém při ukládání sdělení"
 
-#: classes/Notice.php:1034
+#: classes/Notice.php:1052
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Chyba v DB při vkládání odpovědi: %s"
 
-#: classes/Notice.php:1359
+#: classes/Notice.php:1423
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
 
-#: classes/User.php:368
+#: classes/User.php:382
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
@@ -4360,7 +4371,7 @@ msgid "Sorry, this command is not yet implemented."
 msgstr ""
 
 #: lib/command.php:88
-#, fuzzy, php-format
+#, php-format
 msgid "Could not find a user with nickname %s"
 msgstr "Nelze aktualizovat uživatele"
 
@@ -4381,13 +4392,13 @@ msgid ""
 "Notices: %3$s"
 msgstr ""
 
-#: lib/command.php:152 lib/command.php:399 lib/command.php:460
+#: lib/command.php:152 lib/command.php:390 lib/command.php:451
 #, fuzzy
 msgid "Notice with that id does not exist"
 msgstr "Vzdálený profil s nesouhlasícím profilem"
 
-#: lib/command.php:168 lib/command.php:415 lib/command.php:476
-#: lib/command.php:532
+#: lib/command.php:168 lib/command.php:406 lib/command.php:467
+#: lib/command.php:523
 #, fuzzy
 msgid "User has no last notice"
 msgstr "Uživatel nemá profil."
@@ -4401,179 +4412,179 @@ msgstr ""
 msgid "You are already a member of that group"
 msgstr "Již jste přihlášen"
 
-#: lib/command.php:234
+#: lib/command.php:231
 #, fuzzy, php-format
 msgid "Could not join user %s to group %s"
 msgstr "Nelze přesměrovat na server: %s"
 
-#: lib/command.php:239
+#: lib/command.php:236
 #, fuzzy, php-format
 msgid "%s joined group %s"
 msgstr "%1 statusů na %2"
 
-#: lib/command.php:284
+#: lib/command.php:275
 #, fuzzy, php-format
 msgid "Could not remove user %s to group %s"
 msgstr "Nelze vytvořit OpenID z: %s"
 
-#: lib/command.php:289
+#: lib/command.php:280
 #, fuzzy, php-format
 msgid "%s left group %s"
 msgstr "%1 statusů na %2"
 
-#: lib/command.php:318
+#: lib/command.php:309
 #, fuzzy, php-format
 msgid "Fullname: %s"
 msgstr "Celé jméno"
 
-#: lib/command.php:321 lib/mail.php:254
+#: lib/command.php:312 lib/mail.php:254
 #, php-format
 msgid "Location: %s"
 msgstr ""
 
-#: lib/command.php:324 lib/mail.php:256
+#: lib/command.php:315 lib/mail.php:256
 #, php-format
 msgid "Homepage: %s"
 msgstr ""
 
-#: lib/command.php:327
+#: lib/command.php:318
 #, php-format
 msgid "About: %s"
 msgstr ""
 
-#: lib/command.php:358
+#: lib/command.php:349
 #, php-format
 msgid "Message too long - maximum is %d characters, you sent %d"
 msgstr ""
 
-#: lib/command.php:376
+#: lib/command.php:367
 #, php-format
 msgid "Direct message to %s sent"
 msgstr ""
 
-#: lib/command.php:378
+#: lib/command.php:369
 msgid "Error sending direct message."
 msgstr ""
 
-#: lib/command.php:422
+#: lib/command.php:413
 #, fuzzy
 msgid "Cannot repeat your own notice"
 msgstr "Nemůžete se registrovat, pokud nesouhlasíte s licencí."
 
-#: lib/command.php:427
+#: lib/command.php:418
 #, fuzzy
 msgid "Already repeated that notice"
 msgstr "Odstranit toto oznámení"
 
-#: lib/command.php:435
+#: lib/command.php:426
 #, fuzzy, php-format
 msgid "Notice from %s repeated"
 msgstr "Sdělení"
 
-#: lib/command.php:437
+#: lib/command.php:428
 #, fuzzy
 msgid "Error repeating notice."
 msgstr "Problém při ukládání sdělení"
 
-#: lib/command.php:491
+#: lib/command.php:482
 #, php-format
 msgid "Notice too long - maximum is %d characters, you sent %d"
 msgstr ""
 
-#: lib/command.php:500
+#: lib/command.php:491
 #, fuzzy, php-format
 msgid "Reply to %s sent"
 msgstr "Odpovědi na %s"
 
-#: lib/command.php:502
+#: lib/command.php:493
 #, fuzzy
 msgid "Error saving notice."
 msgstr "Problém při ukládání sdělení"
 
-#: lib/command.php:556
+#: lib/command.php:547
 msgid "Specify the name of the user to subscribe to"
 msgstr ""
 
-#: lib/command.php:563
+#: lib/command.php:554
 #, php-format
 msgid "Subscribed to %s"
 msgstr ""
 
-#: lib/command.php:584
+#: lib/command.php:575
 msgid "Specify the name of the user to unsubscribe from"
 msgstr ""
 
-#: lib/command.php:591
+#: lib/command.php:582
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr ""
 
-#: lib/command.php:609 lib/command.php:632
+#: lib/command.php:600 lib/command.php:623
 msgid "Command not yet implemented."
 msgstr ""
 
-#: lib/command.php:612
+#: lib/command.php:603
 msgid "Notification off."
 msgstr ""
 
-#: lib/command.php:614
+#: lib/command.php:605
 msgid "Can't turn off notification."
 msgstr ""
 
-#: lib/command.php:635
+#: lib/command.php:626
 msgid "Notification on."
 msgstr ""
 
-#: lib/command.php:637
+#: lib/command.php:628
 msgid "Can't turn on notification."
 msgstr ""
 
-#: lib/command.php:650
+#: lib/command.php:641
 msgid "Login command is disabled"
 msgstr ""
 
-#: lib/command.php:661
+#: lib/command.php:652
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
-#: lib/command.php:677
+#: lib/command.php:668
 #, fuzzy
 msgid "You are not subscribed to anyone."
 msgstr "Neodeslal jste nám profil"
 
-#: lib/command.php:679
+#: lib/command.php:670
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Neodeslal jste nám profil"
 msgstr[1] "Neodeslal jste nám profil"
 msgstr[2] ""
 
-#: lib/command.php:699
+#: lib/command.php:690
 #, fuzzy
 msgid "No one is subscribed to you."
 msgstr "Vzdálený odběr"
 
-#: lib/command.php:701
+#: lib/command.php:692
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Vzdálený odběr"
 msgstr[1] "Vzdálený odběr"
 msgstr[2] ""
 
-#: lib/command.php:721
+#: lib/command.php:712
 #, fuzzy
 msgid "You are not a member of any groups."
 msgstr "Neodeslal jste nám profil"
 
-#: lib/command.php:723
+#: lib/command.php:714
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Neodeslal jste nám profil"
 msgstr[1] "Neodeslal jste nám profil"
 msgstr[2] ""
 
-#: lib/command.php:737
+#: lib/command.php:728
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4614,20 +4625,20 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:199
+#: lib/common.php:131
 #, fuzzy
 msgid "No configuration file found. "
 msgstr "Žádný potvrzující kód."
 
-#: lib/common.php:200
+#: lib/common.php:132
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:201
+#: lib/common.php:134
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:202
+#: lib/common.php:135
 msgid "Go to the installer."
 msgstr ""
 
@@ -4833,9 +4844,14 @@ msgstr ""
 msgid "kB"
 msgstr ""
 
-#: lib/jabber.php:191
+#: lib/jabber.php:202
 #, php-format
 msgid "[%s]"
+msgstr ""
+
+#: lib/jabber.php:385
+#, php-format
+msgid "Unknown inbox source %d."
 msgstr ""
 
 #: lib/joinform.php:114
@@ -5152,13 +5168,19 @@ msgstr ""
 msgid "Share my location"
 msgstr "Nelze uložit profil"
 
-#: lib/noticeform.php:214
+#: lib/noticeform.php:215
 #, fuzzy
 msgid "Do not share my location"
 msgstr "Nelze uložit profil"
 
-#: lib/noticeform.php:215
+#: lib/noticeform.php:216
 msgid "Hide this info"
+msgstr ""
+
+#: lib/noticeform.php:217
+msgid ""
+"Sorry, retrieving your geo location is taking longer than expected, please "
+"try again later"
 msgstr ""
 
 #: lib/noticelist.php:428
@@ -5433,25 +5455,25 @@ msgstr ""
 msgid "User has blocked you."
 msgstr "Uživatel nemá profil."
 
-#: lib/subs.php:60
+#: lib/subs.php:63
 msgid "Could not subscribe."
 msgstr ""
 
-#: lib/subs.php:79
+#: lib/subs.php:82
 msgid "Could not subscribe other to you."
 msgstr ""
 
-#: lib/subs.php:128
+#: lib/subs.php:137
 #, fuzzy
 msgid "Not subscribed!"
 msgstr "Nepřihlášen!"
 
-#: lib/subs.php:133
+#: lib/subs.php:142
 #, fuzzy
 msgid "Couldn't delete self-subscription."
 msgstr "Nelze smazat odebírání"
 
-#: lib/subs.php:146
+#: lib/subs.php:158
 msgid "Couldn't delete subscription."
 msgstr "Nelze smazat odebírání"
 
@@ -5528,47 +5550,47 @@ msgstr "Zpráva"
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:884
+#: lib/util.php:877
 msgid "a few seconds ago"
 msgstr "před pár sekundami"
 
-#: lib/util.php:886
+#: lib/util.php:879
 msgid "about a minute ago"
 msgstr "asi před minutou"
 
-#: lib/util.php:888
+#: lib/util.php:881
 #, php-format
 msgid "about %d minutes ago"
 msgstr "asi před %d minutami"
 
-#: lib/util.php:890
+#: lib/util.php:883
 msgid "about an hour ago"
 msgstr "asi před hodinou"
 
-#: lib/util.php:892
+#: lib/util.php:885
 #, php-format
 msgid "about %d hours ago"
 msgstr "asi před %d hodinami"
 
-#: lib/util.php:894
+#: lib/util.php:887
 msgid "about a day ago"
 msgstr "asi přede dnem"
 
-#: lib/util.php:896
+#: lib/util.php:889
 #, php-format
 msgid "about %d days ago"
 msgstr "před %d dny"
 
-#: lib/util.php:898
+#: lib/util.php:891
 msgid "about a month ago"
 msgstr "asi před měsícem"
 
-#: lib/util.php:900
+#: lib/util.php:893
 #, php-format
 msgid "about %d months ago"
 msgstr "asi před %d mesíci"
 
-#: lib/util.php:902
+#: lib/util.php:895
 msgid "about a year ago"
 msgstr "asi před rokem"
 

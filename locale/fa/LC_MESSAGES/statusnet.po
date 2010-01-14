@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-11 23:25+0000\n"
-"PO-Revision-Date: 2010-01-11 23:26:49+0000\n"
+"POT-Creation-Date: 2010-01-13 22:04+0000\n"
+"PO-Revision-Date: 2010-01-13 22:05:13+0000\n"
 "Last-Translator: Ahmad Sufi Mahmudi\n"
 "Language-Team: Persian\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Language-Code: fa\n"
 "X-Message-Group: out-statusnet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: MediaWiki 1.16alpha (r60950); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r61027); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
@@ -47,10 +47,10 @@ msgstr "چنین صفحه‌ای وجود ندارد"
 #: actions/replies.php:73 actions/repliesrss.php:38
 #: actions/showfavorites.php:105 actions/userbyid.php:74
 #: actions/usergroups.php:91 actions/userrss.php:38 actions/xrds.php:71
-#: lib/command.php:163 lib/command.php:311 lib/command.php:364
-#: lib/command.php:410 lib/command.php:471 lib/command.php:527
+#: lib/command.php:163 lib/command.php:302 lib/command.php:355
+#: lib/command.php:401 lib/command.php:462 lib/command.php:518
 #: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
-#: lib/subs.php:34 lib/subs.php:116
+#: lib/subs.php:34 lib/subs.php:125
 msgid "No such user."
 msgstr "چنین کاربری وجود ندارد."
 
@@ -388,7 +388,7 @@ msgstr "شما از پیش یک عضو این گروه هستید."
 msgid "You have been blocked from that group by the admin."
 msgstr "دسترسی شما به گروه توسط مدیر آن محدود شده است."
 
-#: actions/apigroupjoin.php:138 actions/joingroup.php:128
+#: actions/apigroupjoin.php:138 actions/joingroup.php:124
 #, fuzzy, php-format
 msgid "Could not join user %1$s to group %2$s."
 msgstr "عضویت %s در گروه %s نا موفق بود."
@@ -397,7 +397,7 @@ msgstr "عضویت %s در گروه %s نا موفق بود."
 msgid "You are not a member of this group."
 msgstr "شما یک عضو این گروه نیستید."
 
-#: actions/apigroupleave.php:124 actions/leavegroup.php:127
+#: actions/apigroupleave.php:124 actions/leavegroup.php:119
 #, fuzzy, php-format
 msgid "Could not remove user %1$s from group %2$s."
 msgstr "خارج شدن %s از گروه %s نا موفق بود"
@@ -692,7 +692,7 @@ msgstr ""
 #: actions/grouplogo.php:99 actions/groupmembers.php:83
 #: actions/grouprss.php:98 actions/groupunblock.php:86
 #: actions/joingroup.php:83 actions/leavegroup.php:83 actions/makeadmin.php:86
-#: actions/showgroup.php:137 lib/command.php:212 lib/command.php:263
+#: actions/showgroup.php:137 lib/command.php:212 lib/command.php:260
 msgid "No such group."
 msgstr "چنین گروهی وجود ندارد."
 
@@ -1661,7 +1661,7 @@ msgstr "دعوت کردن کاربران تازه"
 msgid "You are already subscribed to these users:"
 msgstr "هم اکنون شما این کاربران را دنبال می‌کنید: "
 
-#: actions/invite.php:131 actions/invite.php:139 lib/command.php:315
+#: actions/invite.php:131 actions/invite.php:139 lib/command.php:306
 #, php-format
 msgid "%1$s (%2$s)"
 msgstr ""
@@ -1705,7 +1705,7 @@ msgstr "پیام خصوصی"
 msgid "Optionally add a personal message to the invitation."
 msgstr "اگر دوست دارید می‌توانید یک پیام به همراه دعوت نامه ارسال کنید."
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:234
+#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:237
 msgid "Send"
 msgstr "فرستادن"
 
@@ -1749,7 +1749,7 @@ msgstr ""
 msgid "You must be logged in to join a group."
 msgstr "برای پیوستن به یک گروه، باید وارد شده باشید."
 
-#: actions/joingroup.php:135
+#: actions/joingroup.php:131
 #, fuzzy, php-format
 msgid "%1$s joined group %2$s"
 msgstr "ملحق شدن به گروه"
@@ -1758,15 +1758,11 @@ msgstr "ملحق شدن به گروه"
 msgid "You must be logged in to leave a group."
 msgstr "برای ترک یک گروه، شما باید وارد شده باشید."
 
-#: actions/leavegroup.php:90 lib/command.php:268
+#: actions/leavegroup.php:90 lib/command.php:265
 msgid "You are not a member of that group."
 msgstr "شما یک کاربر این گروه نیستید."
 
-#: actions/leavegroup.php:119 lib/command.php:278
-msgid "Could not find membership record."
-msgstr "عضویت ثبت شده پیدا نشد."
-
-#: actions/leavegroup.php:134
+#: actions/leavegroup.php:127
 #, fuzzy, php-format
 msgid "%1$s left group %2$s"
 msgstr "%s گروه %s را ترک کرد."
@@ -1867,12 +1863,12 @@ msgstr "از این فرم برای ساختن یک گروه جدید استفا
 msgid "New message"
 msgstr "پیام جدید"
 
-#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:367
+#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:358
 msgid "You can't send a message to this user."
 msgstr "شما نمی توانید به این کاربر پیام بفرستید."
 
-#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:351
-#: lib/command.php:484
+#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:342
+#: lib/command.php:475
 msgid "No content!"
 msgstr "بدون محتوا!"
 
@@ -1880,7 +1876,7 @@ msgstr "بدون محتوا!"
 msgid "No recipient specified."
 msgstr "هیچ گیرنده ای مشخص نشده"
 
-#: actions/newmessage.php:164 lib/command.php:370
+#: actions/newmessage.php:164 lib/command.php:361
 msgid ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr "یک پیام را به خودتان نفرستید؛ در عوض آن را آهسته برای خود بگویید."
@@ -3893,6 +3889,19 @@ msgstr ""
 msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
 
+#: classes/Group_member.php:41
+msgid "Group join failed."
+msgstr ""
+
+#: classes/Group_member.php:53
+#, fuzzy
+msgid "Not part of group."
+msgstr "نمی‌توان گروه را به‌هنگام‌سازی کرد."
+
+#: classes/Group_member.php:60
+msgid "Group leave failed."
+msgstr ""
+
 #: classes/Login_token.php:76
 #, fuzzy, php-format
 msgid "Could not create login token for %s"
@@ -3910,27 +3919,27 @@ msgstr "پیغام نمی تواند درج گردد"
 msgid "Could not update message with new URI."
 msgstr ""
 
-#: classes/Notice.php:172
+#: classes/Notice.php:171
 #, php-format
 msgid "DB error inserting hashtag: %s"
 msgstr ""
 
-#: classes/Notice.php:226
+#: classes/Notice.php:225
 msgid "Problem saving notice. Too long."
 msgstr "مشکل در ذخیره کردن پیام. بسیار طولانی."
 
-#: classes/Notice.php:230
+#: classes/Notice.php:229
 msgid "Problem saving notice. Unknown user."
 msgstr "مشکل در ذخیره کردن پیام. کاربر نا شناخته."
 
-#: classes/Notice.php:235
+#: classes/Notice.php:234
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "تعداد خیلی زیاد آگهی و بسیار سریع؛ استراحت کنید و مجددا دقایقی دیگر ارسال "
 "کنید."
 
-#: classes/Notice.php:241
+#: classes/Notice.php:240
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -3938,25 +3947,25 @@ msgstr ""
 "تعداد زیاد پیام های دو نسخه ای و بسرعت؛ استراحت کنید و دقایقی دیگر مجددا "
 "ارسال کنید."
 
-#: classes/Notice.php:247
+#: classes/Notice.php:246
 msgid "You are banned from posting notices on this site."
 msgstr "شما از فرستادن پست در این سایت مردود شدید ."
 
-#: classes/Notice.php:309 classes/Notice.php:334
+#: classes/Notice.php:305 classes/Notice.php:330
 msgid "Problem saving notice."
 msgstr "مشکل در ذخیره کردن آگهی."
 
-#: classes/Notice.php:1034
+#: classes/Notice.php:1052
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr ""
 
-#: classes/Notice.php:1359
+#: classes/Notice.php:1423
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
 
-#: classes/User.php:368
+#: classes/User.php:382
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "خوش امدید به %1$s , @%2$s!"
@@ -4255,7 +4264,7 @@ msgid "Sorry, this command is not yet implemented."
 msgstr "متاسفانه این دستور هنوز اجرا نشده."
 
 #: lib/command.php:88
-#, fuzzy, php-format
+#, php-format
 msgid "Could not find a user with nickname %s"
 msgstr "پیدا نشد %s کاریری یا نام مستعار"
 
@@ -4279,14 +4288,12 @@ msgstr ""
 "مشترک : %2$s\n"
 "خبر : %3$s"
 
-#: lib/command.php:152 lib/command.php:399 lib/command.php:460
-#, fuzzy
+#: lib/command.php:152 lib/command.php:390 lib/command.php:451
 msgid "Notice with that id does not exist"
 msgstr "خبری با این مشخصه ایجاد نشد"
 
-#: lib/command.php:168 lib/command.php:415 lib/command.php:476
-#: lib/command.php:532
-#, fuzzy
+#: lib/command.php:168 lib/command.php:406 lib/command.php:467
+#: lib/command.php:523
 msgid "User has no last notice"
 msgstr "کاربر آگهی آخر ندارد"
 
@@ -4295,177 +4302,173 @@ msgid "Notice marked as fave."
 msgstr ""
 
 #: lib/command.php:217
-#, fuzzy
 msgid "You are already a member of that group"
 msgstr "شما از پیش یک عضو این گروه هستید."
 
-#: lib/command.php:234
-#, fuzzy, php-format
+#: lib/command.php:231
+#, php-format
 msgid "Could not join user %s to group %s"
 msgstr "عضویت %s در گروه %s نا موفق بود."
 
-#: lib/command.php:239
-#, fuzzy, php-format
+#: lib/command.php:236
+#, php-format
 msgid "%s joined group %s"
 msgstr "ملحق شدن به گروه"
 
-#: lib/command.php:284
+#: lib/command.php:275
 #, fuzzy, php-format
 msgid "Could not remove user %s to group %s"
 msgstr "خارج شدن %s از گروه %s نا موفق بود"
 
-#: lib/command.php:289
-#, fuzzy, php-format
+#: lib/command.php:280
+#, php-format
 msgid "%s left group %s"
 msgstr "%s گروه %s را ترک کرد."
 
-#: lib/command.php:318
-#, fuzzy, php-format
+#: lib/command.php:309
+#, php-format
 msgid "Fullname: %s"
 msgstr "نام کامل : %s"
 
-#: lib/command.php:321 lib/mail.php:254
+#: lib/command.php:312 lib/mail.php:254
 #, php-format
 msgid "Location: %s"
 msgstr "موقعیت : %s"
 
-#: lib/command.php:324 lib/mail.php:256
+#: lib/command.php:315 lib/mail.php:256
 #, php-format
 msgid "Homepage: %s"
 msgstr "صفحه خانگی : %s"
 
-#: lib/command.php:327
+#: lib/command.php:318
 #, php-format
 msgid "About: %s"
 msgstr "درباره ی : %s"
 
-#: lib/command.php:358
-#, fuzzy, php-format
+#: lib/command.php:349
+#, php-format
 msgid "Message too long - maximum is %d characters, you sent %d"
 msgstr ""
 "پیغام بسیار طولانی است - بیشترین اندازه امکان پذیر %d کاراکتر است , شما %d "
 "تا فرستادید"
 
-#: lib/command.php:376
-#, fuzzy, php-format
+#: lib/command.php:367
+#, php-format
 msgid "Direct message to %s sent"
 msgstr "پیام مستقیم به %s فرستاده شد."
 
-#: lib/command.php:378
+#: lib/command.php:369
 msgid "Error sending direct message."
 msgstr "خطا در فرستادن پیام مستقیم."
 
-#: lib/command.php:422
-#, fuzzy
+#: lib/command.php:413
 msgid "Cannot repeat your own notice"
-msgstr "نمی توانید خبر خود را تکرار کنید."
+msgstr "نمی توان آگهی خودتان را تکرار کرد"
 
-#: lib/command.php:427
-#, fuzzy
+#: lib/command.php:418
 msgid "Already repeated that notice"
-msgstr "ابن خبر قبلا فرستاده شده"
+msgstr "آن آگهی قبلا تکرار شده است."
 
-#: lib/command.php:435
+#: lib/command.php:426
 #, fuzzy, php-format
 msgid "Notice from %s repeated"
 msgstr "آگهی تکرار شد"
 
-#: lib/command.php:437
+#: lib/command.php:428
 msgid "Error repeating notice."
 msgstr "خطا هنگام تکرار آگهی."
 
-#: lib/command.php:491
+#: lib/command.php:482
 #, fuzzy, php-format
 msgid "Notice too long - maximum is %d characters, you sent %d"
 msgstr ""
 "پیغام بسیار طولانی است - بیشترین اندازه امکان پذیر %d کاراکتر است , شما %d "
 "تا فرستادید"
 
-#: lib/command.php:500
+#: lib/command.php:491
 #, fuzzy, php-format
 msgid "Reply to %s sent"
 msgstr "به این آگهی جواب دهید"
 
-#: lib/command.php:502
+#: lib/command.php:493
 msgid "Error saving notice."
 msgstr "خطا هنگام ذخیره ی آگهی"
 
-#: lib/command.php:556
+#: lib/command.php:547
 msgid "Specify the name of the user to subscribe to"
 msgstr ""
 
-#: lib/command.php:563
+#: lib/command.php:554
 #, php-format
 msgid "Subscribed to %s"
 msgstr ""
 
-#: lib/command.php:584
+#: lib/command.php:575
 msgid "Specify the name of the user to unsubscribe from"
 msgstr ""
 
-#: lib/command.php:591
+#: lib/command.php:582
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr ""
 
-#: lib/command.php:609 lib/command.php:632
+#: lib/command.php:600 lib/command.php:623
 msgid "Command not yet implemented."
 msgstr "دستور هنوز اجرا نشده"
 
-#: lib/command.php:612
+#: lib/command.php:603
 msgid "Notification off."
 msgstr ""
 
-#: lib/command.php:614
+#: lib/command.php:605
 msgid "Can't turn off notification."
 msgstr "ناتوان در خاموش کردن آگاه سازی."
 
-#: lib/command.php:635
+#: lib/command.php:626
 msgid "Notification on."
 msgstr "آگاه سازی فعال است."
 
-#: lib/command.php:637
+#: lib/command.php:628
 msgid "Can't turn on notification."
 msgstr "ناتوان در روشن کردن آگاه سازی."
 
-#: lib/command.php:650
-#, fuzzy
+#: lib/command.php:641
 msgid "Login command is disabled"
 msgstr "فرمان ورود از کار افتاده است"
 
-#: lib/command.php:661
+#: lib/command.php:652
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
-#: lib/command.php:677
+#: lib/command.php:668
 msgid "You are not subscribed to anyone."
 msgstr "شما توسط هیچ کس تصویب نشده اید ."
 
-#: lib/command.php:679
+#: lib/command.php:670
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "هم اکنون شما این کاربران را دنبال می‌کنید: "
 
-#: lib/command.php:699
+#: lib/command.php:690
 msgid "No one is subscribed to you."
 msgstr "هیچکس شما را تایید نکرده ."
 
-#: lib/command.php:701
+#: lib/command.php:692
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "هیچکس شما را تایید نکرده ."
 
-#: lib/command.php:721
+#: lib/command.php:712
 msgid "You are not a member of any groups."
 msgstr "شما در هیچ گروهی عضو نیستید ."
 
-#: lib/command.php:723
+#: lib/command.php:714
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "شما یک عضو این گروه نیستید."
 
-#: lib/command.php:737
+#: lib/command.php:728
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4506,19 +4509,19 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:199
+#: lib/common.php:131
 msgid "No configuration file found. "
 msgstr ""
 
-#: lib/common.php:200
+#: lib/common.php:132
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:201
+#: lib/common.php:134
 msgid "You may wish to run the installer to fix this."
 msgstr "شما ممکن است بخواهید نصاب را اجرا کنید تا این را تعمیر کند."
 
-#: lib/common.php:202
+#: lib/common.php:135
 msgid "Go to the installer."
 msgstr "برو به نصاب."
 
@@ -4717,9 +4720,14 @@ msgstr "مگابایت"
 msgid "kB"
 msgstr "کیلوبایت"
 
-#: lib/jabber.php:191
+#: lib/jabber.php:202
 #, php-format
 msgid "[%s]"
+msgstr ""
+
+#: lib/jabber.php:385
+#, php-format
+msgid "Unknown inbox source %d."
 msgstr ""
 
 #: lib/joinform.php:114
@@ -5031,13 +5039,19 @@ msgstr "یک فایل ضمیمه کنید"
 msgid "Share my location"
 msgstr "نمی‌توان تنظیمات مکانی را تنظیم کرد."
 
-#: lib/noticeform.php:214
+#: lib/noticeform.php:215
 #, fuzzy
 msgid "Do not share my location"
 msgstr "نمی‌توان تنظیمات مکانی را تنظیم کرد."
 
-#: lib/noticeform.php:215
+#: lib/noticeform.php:216
 msgid "Hide this info"
+msgstr ""
+
+#: lib/noticeform.php:217
+msgid ""
+"Sorry, retrieving your geo location is taking longer than expected, please "
+"try again later"
 msgstr ""
 
 #: lib/noticelist.php:428
@@ -5298,23 +5312,23 @@ msgstr "قبلا تایید شده !"
 msgid "User has blocked you."
 msgstr ""
 
-#: lib/subs.php:60
+#: lib/subs.php:63
 msgid "Could not subscribe."
 msgstr ""
 
-#: lib/subs.php:79
+#: lib/subs.php:82
 msgid "Could not subscribe other to you."
 msgstr ""
 
-#: lib/subs.php:128
+#: lib/subs.php:137
 msgid "Not subscribed!"
 msgstr "تایید نشده!"
 
-#: lib/subs.php:133
+#: lib/subs.php:142
 msgid "Couldn't delete self-subscription."
 msgstr ""
 
-#: lib/subs.php:146
+#: lib/subs.php:158
 msgid "Couldn't delete subscription."
 msgstr ""
 
@@ -5388,47 +5402,47 @@ msgstr "پیام"
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:884
+#: lib/util.php:877
 msgid "a few seconds ago"
 msgstr "چند ثانیه پیش"
 
-#: lib/util.php:886
+#: lib/util.php:879
 msgid "about a minute ago"
 msgstr "حدود یک دقیقه پیش"
 
-#: lib/util.php:888
+#: lib/util.php:881
 #, php-format
 msgid "about %d minutes ago"
 msgstr "حدود %d دقیقه پیش"
 
-#: lib/util.php:890
+#: lib/util.php:883
 msgid "about an hour ago"
 msgstr "حدود یک ساعت پیش"
 
-#: lib/util.php:892
+#: lib/util.php:885
 #, php-format
 msgid "about %d hours ago"
 msgstr "حدود %d ساعت پیش"
 
-#: lib/util.php:894
+#: lib/util.php:887
 msgid "about a day ago"
 msgstr "حدود یک روز پیش"
 
-#: lib/util.php:896
+#: lib/util.php:889
 #, php-format
 msgid "about %d days ago"
 msgstr "حدود %d روز پیش"
 
-#: lib/util.php:898
+#: lib/util.php:891
 msgid "about a month ago"
 msgstr "حدود یک ماه پیش"
 
-#: lib/util.php:900
+#: lib/util.php:893
 #, php-format
 msgid "about %d months ago"
 msgstr "حدود %d ماه پیش"
 
-#: lib/util.php:902
+#: lib/util.php:895
 msgid "about a year ago"
 msgstr "حدود یک سال پیش"
 
