@@ -150,7 +150,7 @@ function checkMirror($action_obj, $args)
 {
     global $config;
 
-    static $alwaysRW = array('session', 'remember_me', 'inbox');
+    static $alwaysRW = array('session', 'remember_me');
 
     if (common_config('db', 'mirror') && $action_obj->isReadOnly($args)) {
         if (is_array(common_config('db', 'mirror'))) {
