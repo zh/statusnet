@@ -81,7 +81,7 @@ class XmppManager extends IoManager
         parent::start($master);
         $this->switchSite();
 
-        require_once "lib/jabber.php";
+        require_once INSTALLDIR . "/lib/jabber.php";
 
         # Low priority; we don't want to receive messages
 

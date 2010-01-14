@@ -103,9 +103,9 @@ class Inbox extends Memcached_DataObject
 
     static function insertNotice($user_id, $notice_id)
     {
-        $inbox = Inbox::staticGet('user_id', $user_id);
+        $inbox = DB_DataObject::staticGet('inbox', 'user_id', $user_id);
 
-        if (empty($inbox) || $inbox->fake) {
+        if (empty($inbox)) {
             $inbox = Inbox::initialize($user_id);
         }
 
@@ -153,8 +153,19 @@ class Inbox extends Memcached_DataObject
 
         $ids = unpack('N*', $inbox->notice_ids);
 
-        // XXX: handle since_id
-        // XXX: handle max_id
+        if (!empty($since_id)) {
+            $i = array_search($since_id, $ids);
+            if ($i !== false) {
+                $ids = array_slice($ids, 0, $i - 1);
+            }
+        }
+
+        if (!empty($max_id)) {
+            $i = array_search($max_id, $ids);
+            if ($i !== false) {
+                $ids = array_slice($ids, $i - 1);
+            }
+        }
 
         $ids = array_slice($ids, $offset, $limit);
 
