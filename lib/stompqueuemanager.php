@@ -66,10 +66,57 @@ class StompQueueManager extends QueueManager
      *
      * @fixme possibly actually do subscription here to save another
      *        loop over all sites later?
+     * @fixme possibly don't assume it's the current site
      */
     public function addSite($server)
     {
         $this->sites[] = $server;
+        $this->initialize();
+    }
+
+
+    /**
+     * Instantiate the appropriate QueueHandler class for the given queue.
+     *
+     * @param string $queue
+     * @return mixed QueueHandler or null
+     */
+    function getHandler($queue)
+    {
+        $handlers = $this->handlers[common_config('site', 'server')];
+        if (isset($handlers[$queue])) {
+            $class = $handlers[$queue];
+            if (class_exists($class)) {
+                return new $class();
+            } else {
+                common_log(LOG_ERR, "Nonexistent handler class '$class' for queue '$queue'");
+            }
+        } else {
+            common_log(LOG_ERR, "Requested handler for unkown queue '$queue'");
+        }
+        return null;
+    }
+
+    /**
+     * Get a list of all registered queue transport names.
+     *
+     * @return array of strings
+     */
+    function getQueues()
+    {
+        return array_keys($this->handlers[common_config('site', 'server')]);
+    }
+
+    /**
+     * Register a queue transport name and handler class for your plugin.
+     * Only registered transports will be reliably picked up!
+     *
+     * @param string $transport
+     * @param string $class
+     */
+    public function connect($transport, $class)
+    {
+        $this->handlers[common_config('site', 'server')][$transport] = $class;
     }
 
     /**
