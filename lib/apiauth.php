@@ -78,10 +78,25 @@ class ApiAuthAction extends ApiAction
                 $this->checkOAuthRequest();
             } else {
                 $this->checkBasicAuthUser();
+                // By default, all basic auth users have read and write access
+
+                $this->access = self::READ_WRITE;
             }
         }
 
         return true;
+    }
+
+    function handle($args)
+    {
+        parent::handle($args);
+
+        if ($this->isReadOnly($args) == false) {
+            if ($this->access == self::READ_ONLY) {
+                $this->clientError(_('API method requires write access.'), 401);
+                exit();
+            }
+        }
     }
 
     function checkOAuthRequest()
@@ -129,6 +144,10 @@ class ApiAuthAction extends ApiAction
                 // or a bad / revoked access token
 
                 if ($this->oauth_access_type != 0) {
+
+                    // Set the read or read-write access for the api call
+                    $this->access = ($appUser->access_type & Oauth_application::$writeAccess)
+                      ? self::READ_WRITE : self::READ_ONLY;
 
                     $this->auth_user = User::staticGet('id', $appUser->profile_id);
 
@@ -220,6 +239,7 @@ class ApiAuthAction extends ApiAction
                 exit;
             }
         }
+
         return true;
     }
 
