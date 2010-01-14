@@ -103,9 +103,9 @@ class Inbox extends Memcached_DataObject
 
     static function insertNotice($user_id, $notice_id)
     {
-        $inbox = Inbox::staticGet('user_id', $user_id);
+        $inbox = DB_DataObject::staticGet('inbox', 'user_id', $user_id);
 
-        if (empty($inbox) || $inbox->fake) {
+        if (empty($inbox)) {
             $inbox = Inbox::initialize($user_id);
         }
 
