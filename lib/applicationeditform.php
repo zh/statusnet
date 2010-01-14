@@ -203,7 +203,7 @@ class ApplicationEditForm extends Form
 
         $maxDesc = Oauth_application::maxDesc();
         if ($maxDesc > 0) {
-            $descInstr = sprintf(_('Describe your application in %d chars'),
+            $descInstr = sprintf(_('Describe your application in %d characters'),
                                  $maxDesc);
         } else {
             $descInstr = _('Describe your application');
