@@ -72,7 +72,7 @@ try {
         foreach ($ids as $id) {
             $user = User::staticGet('id', $id);
             if (empty($user)) {
-                throw new Exception("Can't find user with id '$id'.");
+                print "Can't find user with id '$id'.\n";
             }
             initializeInbox($user);
         }
