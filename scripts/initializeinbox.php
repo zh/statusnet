@@ -93,6 +93,12 @@ function initializeInbox($user)
 
     $inbox = Inbox::staticGet('user_id', $user_id);
 
+    if ($inbox && !empty($inbox->fake)) {
+        if (!have_option('q', 'quiet')) {
+            echo "(replacing faux cached inbox)";
+        }
+        $inbox = false;
+    }
     if (!empty($inbox)) {
         if (!have_option('q', 'quiet')) {
             print "SKIP\n";
