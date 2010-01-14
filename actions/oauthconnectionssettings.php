@@ -68,7 +68,7 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
 
     function title()
     {
-        return _('Connected Applications');
+        return _('Connected applications');
     }
 
     function isReadOnly($args)
