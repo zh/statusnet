@@ -53,6 +53,9 @@ if (!defined('STATUSNET')) {
 
 class ApiAction extends Action
 {
+    const READ_ONLY  = 1;
+    const READ_WRITE = 2;
+
     var $format    = null;
     var $user      = null;
     var $auth_user = null;
@@ -61,6 +64,8 @@ class ApiAction extends Action
     var $max_id    = null;
     var $since_id  = null;
     var $since     = null;
+
+    var $access    = self::READ_ONLY;  // read (default) or read-write
 
     /**
      * Initialization.
