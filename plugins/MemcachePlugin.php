@@ -166,7 +166,7 @@ class MemcachePlugin extends Plugin
 
             if (is_array($this->servers)) {
                 foreach ($this->servers as $server) {
-                    list($host, $port) = explode(';', $server);
+                    list($host, $port) = @explode(';', $server);
                     if (empty($port)) {
                         $port = 11211;
                     }
