@@ -99,8 +99,8 @@ class DBQueueManager extends QueueManager
                 $this->_fail($notice, $queue);
             }
         } else {
-            $this->_log(LOG_INFO, "[$queue:notice $notice->id] No handler for queue $queue");
-            $this->_fail($notice, $queue);
+            $this->_log(LOG_INFO, "[$queue:notice $notice->id] No handler for queue $queue; discarding.");
+            $this->_done($notice, $queue);
         }
         return true;
     }
