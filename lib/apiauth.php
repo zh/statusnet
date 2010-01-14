@@ -55,6 +55,7 @@ class ApiAuthAction extends ApiAction
 {
     var $access_token;
     var $oauth_access_type;
+    var $oauth_source;
 
     /**
      * Take arguments for running, and output basic auth header if needed
@@ -90,13 +91,6 @@ class ApiAuthAction extends ApiAction
     function handle($args)
     {
         parent::handle($args);
-
-        if ($this->isReadOnly($args) == false) {
-            if ($this->access == self::READ_ONLY) {
-                $this->clientError(_('API method requires write access.'), 401);
-                exit();
-            }
-        }
     }
 
     function checkOAuthRequest()
@@ -116,8 +110,6 @@ class ApiAuthAction extends ApiAction
             $req  = OAuthRequest::from_request();
             $server->verify_request($req);
 
-            common_debug("Good OAuth request!");
-
             $app = Oauth_application::getByConsumerKey($this->consumer_key);
 
             if (empty($app)) {
@@ -128,6 +120,10 @@ class ApiAuthAction extends ApiAction
 
                 throw new OAuthException('No application for that consumer key.');
             }
+
+            // set the source attr
+
+            $this->oauth_source = $app->name;
 
             $appUser = Oauth_application_user::staticGet('token',
                                                          $this->access_token);

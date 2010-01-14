@@ -85,6 +85,11 @@ class ApiStatusesUpdateAction extends ApiAuthAction
         $this->lat    = $this->trimmed('lat');
         $this->lon    = $this->trimmed('long');
 
+        // try to set the source attr from OAuth app
+        if (empty($this->source)) {
+            $this->source = $this->oauth_source;
+        }
+
         if (empty($this->source) || in_array($this->source, self::$reserved_sources)) {
             $this->source = 'api';
         }
