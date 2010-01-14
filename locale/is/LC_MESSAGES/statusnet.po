@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-13 22:04+0000\n"
-"PO-Revision-Date: 2010-01-13 22:05:31+0000\n"
+"POT-Creation-Date: 2010-01-14 22:40+0000\n"
+"PO-Revision-Date: 2010-01-14 22:41:51+0000\n"
 "Language-Team: Icelandic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61027); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r61064); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: is\n"
 "X-Message-Group: out-statusnet\n"
@@ -36,7 +36,7 @@ msgstr "Ekkert þannig merki."
 #: actions/apidirectmessagenew.php:75 actions/apigroupcreate.php:112
 #: actions/apigroupismember.php:90 actions/apigroupjoin.php:99
 #: actions/apigroupleave.php:99 actions/apigrouplist.php:90
-#: actions/apistatusesupdate.php:144 actions/apisubscriptions.php:87
+#: actions/apistatusesupdate.php:149 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:79
 #: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
 #: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
@@ -148,7 +148,7 @@ msgstr "Aðferð í forritsskilum fannst ekki!"
 #: actions/apifriendshipscreate.php:91 actions/apifriendshipsdestroy.php:91
 #: actions/apigroupcreate.php:104 actions/apigroupjoin.php:91
 #: actions/apigroupleave.php:91 actions/apistatusesretweet.php:65
-#: actions/apistatusesupdate.php:114
+#: actions/apistatusesupdate.php:119
 msgid "This method requires a POST."
 msgstr "Þessi aðferð krefst POST."
 
@@ -179,8 +179,9 @@ msgstr "Gat ekki vistað persónulega síðu."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97
-#: actions/apistatusesupdate.php:127 actions/avatarsettings.php:257
-#: actions/designadminpanel.php:122 actions/newnotice.php:94
+#: actions/apistatusesupdate.php:132 actions/avatarsettings.php:257
+#: actions/designadminpanel.php:122 actions/editapplication.php:118
+#: actions/newapplication.php:101 actions/newnotice.php:94
 #: lib/designsettings.php:283
 #, php-format
 msgid ""
@@ -327,7 +328,8 @@ msgstr "Stuttnefni nú þegar í notkun. Prófaðu eitthvað annað."
 msgid "Not a valid nickname."
 msgstr "Ekki tækt stuttnefni."
 
-#: actions/apigroupcreate.php:196 actions/editgroup.php:195
+#: actions/apigroupcreate.php:196 actions/editapplication.php:212
+#: actions/editgroup.php:195 actions/newapplication.php:200
 #: actions/newgroup.php:139 actions/profilesettings.php:222
 #: actions/register.php:217
 msgid "Homepage is not a valid URL."
@@ -339,7 +341,8 @@ msgstr "Heimasíða er ekki gild vefslóð."
 msgid "Full name is too long (max 255 chars)."
 msgstr "Fullt nafn er of langt (í mesta lagi 255 stafir)."
 
-#: actions/apigroupcreate.php:213
+#: actions/apigroupcreate.php:213 actions/editapplication.php:187
+#: actions/newapplication.php:169
 #, fuzzy, php-format
 msgid "Description is too long (max %d chars)."
 msgstr "Lýsing er of löng (í mesta lagi 140 tákn)."
@@ -419,6 +422,101 @@ msgstr "Hópar %s"
 msgid "groups on %s"
 msgstr "Hópsaðgerðir"
 
+#: actions/apioauthauthorize.php:108 actions/apioauthauthorize.php:114
+msgid "Bad request."
+msgstr ""
+
+#: actions/apioauthauthorize.php:134 actions/avatarsettings.php:268
+#: actions/deletenotice.php:157 actions/disfavor.php:74
+#: actions/emailsettings.php:238 actions/favor.php:75 actions/geocode.php:50
+#: actions/groupblock.php:66 actions/grouplogo.php:309
+#: actions/groupunblock.php:66 actions/imsettings.php:206
+#: actions/invite.php:56 actions/login.php:115 actions/makeadmin.php:66
+#: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
+#: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:139
+#: actions/othersettings.php:145 actions/passwordsettings.php:138
+#: actions/profilesettings.php:194 actions/recoverpassword.php:337
+#: actions/register.php:165 actions/remotesubscribe.php:77
+#: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
+#: actions/subscribe.php:46 actions/tagother.php:166
+#: actions/unsubscribe.php:69 actions/userauthorization.php:52
+#: lib/designsettings.php:294
+msgid "There was a problem with your session token. Try again, please."
+msgstr "Það kom upp vandamál með setutókann þinn. Vinsamlegast reyndu aftur."
+
+#: actions/apioauthauthorize.php:146
+#, fuzzy
+msgid "Invalid nickname / password!"
+msgstr "Ótækt notendanafn eða lykilorð."
+
+#: actions/apioauthauthorize.php:170
+#, fuzzy
+msgid "DB error deleting OAuth app user."
+msgstr "Villa kom upp í stillingu notanda."
+
+#: actions/apioauthauthorize.php:196
+#, fuzzy
+msgid "DB error inserting OAuth app user."
+msgstr "Gagnagrunnsvilla við innsetningu myllumerkis: %s"
+
+#: actions/apioauthauthorize.php:231
+#, php-format
+msgid ""
+"The request token %s has been authorized. Please exchange it for an access "
+"token."
+msgstr ""
+
+#: actions/apioauthauthorize.php:241
+#, php-format
+msgid "The request token %s has been denied."
+msgstr ""
+
+#: actions/apioauthauthorize.php:246 actions/avatarsettings.php:281
+#: actions/designadminpanel.php:103 actions/editapplication.php:139
+#: actions/emailsettings.php:256 actions/grouplogo.php:319
+#: actions/imsettings.php:220 actions/newapplication.php:121
+#: actions/oauthconnectionssettings.php:151 actions/recoverpassword.php:44
+#: actions/smssettings.php:248 lib/designsettings.php:304
+msgid "Unexpected form submission."
+msgstr "Bjóst ekki við innsendingu eyðublaðs."
+
+#: actions/apioauthauthorize.php:273
+msgid "An application would like to connect to your account"
+msgstr ""
+
+#: actions/apioauthauthorize.php:290
+msgid "Allow or deny access"
+msgstr ""
+
+#: actions/apioauthauthorize.php:320 lib/action.php:435
+msgid "Account"
+msgstr "Aðgangur"
+
+#: actions/apioauthauthorize.php:323 actions/login.php:230
+#: actions/profilesettings.php:106 actions/register.php:424
+#: actions/showgroup.php:236 actions/tagother.php:94 lib/groupeditform.php:152
+#: lib/userprofile.php:131
+msgid "Nickname"
+msgstr "Stuttnefni"
+
+#: actions/apioauthauthorize.php:326 actions/login.php:233
+#: actions/register.php:429 lib/accountsettingsaction.php:116
+msgid "Password"
+msgstr "Lykilorð"
+
+#: actions/apioauthauthorize.php:338
+msgid "Deny"
+msgstr ""
+
+#: actions/apioauthauthorize.php:344
+#, fuzzy
+msgid "Allow"
+msgstr "Allt"
+
+#: actions/apioauthauthorize.php:361
+msgid "Allow or deny access to your account information."
+msgstr ""
+
 #: actions/apistatusesdestroy.php:107
 msgid "This method requires a POST or DELETE."
 msgstr "Þessi aðferð krefst POST eða DELETE."
@@ -450,17 +548,17 @@ msgstr ""
 msgid "No status with that ID found."
 msgstr "Engin staða með þessu kenni fannst."
 
-#: actions/apistatusesupdate.php:157 actions/newnotice.php:155
+#: actions/apistatusesupdate.php:162 actions/newnotice.php:155
 #: lib/mailhandler.php:60
 #, fuzzy, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr "Þetta er of langt. Hámarkslengd babls er 140 tákn."
 
-#: actions/apistatusesupdate.php:198
+#: actions/apistatusesupdate.php:203
 msgid "Not found"
 msgstr "Fannst ekki"
 
-#: actions/apistatusesupdate.php:221 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:226 actions/newnotice.php:178
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -605,29 +703,6 @@ msgstr "Hlaða upp"
 msgid "Crop"
 msgstr "Skera af"
 
-#: actions/avatarsettings.php:268 actions/deletenotice.php:157
-#: actions/disfavor.php:74 actions/emailsettings.php:238 actions/favor.php:75
-#: actions/geocode.php:50 actions/groupblock.php:66 actions/grouplogo.php:309
-#: actions/groupunblock.php:66 actions/imsettings.php:206
-#: actions/invite.php:56 actions/login.php:115 actions/makeadmin.php:66
-#: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
-#: actions/othersettings.php:145 actions/passwordsettings.php:138
-#: actions/profilesettings.php:194 actions/recoverpassword.php:337
-#: actions/register.php:165 actions/remotesubscribe.php:77
-#: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
-#: actions/subscribe.php:46 actions/tagother.php:166
-#: actions/unsubscribe.php:69 actions/userauthorization.php:52
-#: lib/designsettings.php:294
-msgid "There was a problem with your session token. Try again, please."
-msgstr "Það kom upp vandamál með setutókann þinn. Vinsamlegast reyndu aftur."
-
-#: actions/avatarsettings.php:281 actions/designadminpanel.php:103
-#: actions/emailsettings.php:256 actions/grouplogo.php:319
-#: actions/imsettings.php:220 actions/recoverpassword.php:44
-#: actions/smssettings.php:248 lib/designsettings.php:304
-msgid "Unexpected form submission."
-msgstr "Bjóst ekki við innsendingu eyðublaðs."
-
 #: actions/avatarsettings.php:328
 msgid "Pick a square area of the image to be your avatar"
 msgstr ""
@@ -765,7 +840,8 @@ msgid "Couldn't delete email confirmation."
 msgstr "Gat ekki eytt tölvupóstsstaðfestingu."
 
 #: actions/confirmaddress.php:144
-msgid "Confirm Address"
+#, fuzzy
+msgid "Confirm address"
 msgstr "Staðfesta tölvupóstfang"
 
 #: actions/confirmaddress.php:159
@@ -958,7 +1034,8 @@ msgstr ""
 #: actions/pathsadminpanel.php:324 actions/profilesettings.php:174
 #: actions/siteadminpanel.php:388 actions/smssettings.php:181
 #: actions/subscriptions.php:203 actions/tagother.php:154
-#: actions/useradminpanel.php:313 lib/designsettings.php:256
+#: actions/useradminpanel.php:313 lib/applicationeditform.php:335
+#: lib/applicationeditform.php:336 lib/designsettings.php:256
 #: lib/groupeditform.php:202
 msgid "Save"
 msgstr "Vista"
@@ -978,6 +1055,86 @@ msgstr "Bæta við sem uppáhaldsbabli"
 #: actions/doc.php:69
 msgid "No such document."
 msgstr "Ekkert svoleiðis skjal."
+
+#: actions/editapplication.php:54 lib/applicationeditform.php:136
+msgid "Edit application"
+msgstr ""
+
+#: actions/editapplication.php:66
+#, fuzzy
+msgid "You must be logged in to edit an application."
+msgstr "Þú verður að hafa skráð þig inn til að búa til hóp."
+
+#: actions/editapplication.php:77 actions/showapplication.php:94
+#, fuzzy
+msgid "You are not the owner of this application."
+msgstr "Þú ert ekki meðlimur í þessum hópi."
+
+#: actions/editapplication.php:81 actions/oauthconnectionssettings.php:163
+#: actions/showapplication.php:87
+#, fuzzy
+msgid "No such application."
+msgstr "Ekkert svoleiðis babl."
+
+#: actions/editapplication.php:127 actions/newapplication.php:110
+#: actions/showapplication.php:118 lib/action.php:1167
+msgid "There was a problem with your session token."
+msgstr "Það komu upp vandamál varðandi setutókann þinn."
+
+#: actions/editapplication.php:161
+#, fuzzy
+msgid "Use this form to edit your application."
+msgstr "Notaðu þetta eyðublað til að breyta hópnum."
+
+#: actions/editapplication.php:177 actions/newapplication.php:159
+#, fuzzy
+msgid "Name is required."
+msgstr "Sama og lykilorðið hér fyrir ofan. Nauðsynlegt."
+
+#: actions/editapplication.php:180 actions/newapplication.php:162
+#, fuzzy
+msgid "Name is too long (max 255 chars)."
+msgstr "Fullt nafn er of langt (í mesta lagi 255 stafir)."
+
+#: actions/editapplication.php:183 actions/newapplication.php:165
+#, fuzzy
+msgid "Description is required."
+msgstr "Lýsing"
+
+#: actions/editapplication.php:191
+msgid "Source URL is too long."
+msgstr ""
+
+#: actions/editapplication.php:197 actions/newapplication.php:182
+#, fuzzy
+msgid "Source URL is not valid."
+msgstr "Heimasíða er ekki gild vefslóð."
+
+#: actions/editapplication.php:200 actions/newapplication.php:185
+msgid "Organization is required."
+msgstr ""
+
+#: actions/editapplication.php:203 actions/newapplication.php:188
+#, fuzzy
+msgid "Organization is too long (max 255 chars)."
+msgstr "Staðsetning er of löng (í mesta lagi 255 stafir)."
+
+#: actions/editapplication.php:206 actions/newapplication.php:191
+msgid "Organization homepage is required."
+msgstr ""
+
+#: actions/editapplication.php:215 actions/newapplication.php:203
+msgid "Callback is too long."
+msgstr ""
+
+#: actions/editapplication.php:222 actions/newapplication.php:212
+msgid "Callback URL is not valid."
+msgstr ""
+
+#: actions/editapplication.php:255
+#, fuzzy
+msgid "Could not update application."
+msgstr "Gat ekki uppfært hóp."
 
 #: actions/editgroup.php:56
 #, php-format
@@ -1049,7 +1206,8 @@ msgstr ""
 "ruslpóstinn þinn!). Þar ættu að vera skilaboð með ítarlegri leiðbeiningum."
 
 #: actions/emailsettings.php:117 actions/imsettings.php:120
-#: actions/smssettings.php:126
+#: actions/smssettings.php:126 lib/applicationeditform.php:333
+#: lib/applicationeditform.php:334
 msgid "Cancel"
 msgstr "Hætta við"
 
@@ -1720,7 +1878,7 @@ msgstr "Persónuleg skilaboð"
 msgid "Optionally add a personal message to the invitation."
 msgstr "Bættu persónulegum skilaboðum við boðskortið ef þú vilt."
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:237
+#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:236
 msgid "Send"
 msgstr "Senda"
 
@@ -1830,17 +1988,6 @@ msgstr "Innskráning"
 msgid "Login to site"
 msgstr "Skrá þig inn á síðuna"
 
-#: actions/login.php:230 actions/profilesettings.php:106
-#: actions/register.php:424 actions/showgroup.php:236 actions/tagother.php:94
-#: lib/groupeditform.php:152 lib/userprofile.php:131
-msgid "Nickname"
-msgstr "Stuttnefni"
-
-#: actions/login.php:233 actions/register.php:429
-#: lib/accountsettingsaction.php:116
-msgid "Password"
-msgstr "Lykilorð"
-
 #: actions/login.php:236 actions/register.php:478
 msgid "Remember me"
 msgstr "Muna eftir mér"
@@ -1895,6 +2042,29 @@ msgstr "Gat ekki fjarlægt notandann %s úr hópnum %s"
 #: actions/microsummary.php:69
 msgid "No current status"
 msgstr "Engin núverandi staða"
+
+#: actions/newapplication.php:52
+msgid "New application"
+msgstr ""
+
+#: actions/newapplication.php:64
+#, fuzzy
+msgid "You must be logged in to register an application."
+msgstr "Þú verður að hafa skráð þig inn til að búa til hóp."
+
+#: actions/newapplication.php:143
+#, fuzzy
+msgid "Use this form to register a new application."
+msgstr "Notaðu þetta eyðublað til að búa til nýjan hóp."
+
+#: actions/newapplication.php:173
+msgid "Source URL is required."
+msgstr ""
+
+#: actions/newapplication.php:255 actions/newapplication.php:264
+#, fuzzy
+msgid "Could not create application."
+msgstr "Gat ekki búið til uppáhald."
 
 #: actions/newgroup.php:53
 msgid "New group"
@@ -2006,6 +2176,51 @@ msgstr "Ýtt við notanda"
 msgid "Nudge sent!"
 msgstr "Ýtt við notanda!"
 
+#: actions/oauthappssettings.php:59
+#, fuzzy
+msgid "You must be logged in to list your applications."
+msgstr "Þú verður að hafa skráð þig inn til að bæta þér í hóp."
+
+#: actions/oauthappssettings.php:74
+#, fuzzy
+msgid "OAuth applications"
+msgstr "Aðrir valkostir"
+
+#: actions/oauthappssettings.php:85
+msgid "Applications you have registered"
+msgstr ""
+
+#: actions/oauthappssettings.php:135
+#, php-format
+msgid "You have not registered any applications yet."
+msgstr ""
+
+#: actions/oauthconnectionssettings.php:71
+msgid "Connected applications"
+msgstr ""
+
+#: actions/oauthconnectionssettings.php:87
+msgid "You have allowed the following applications to access you account."
+msgstr ""
+
+#: actions/oauthconnectionssettings.php:170
+#, fuzzy
+msgid "You are not a user of that application."
+msgstr "Þú ert ekki meðlimur í þessum hópi."
+
+#: actions/oauthconnectionssettings.php:180
+msgid "Unable to revoke access for app: "
+msgstr ""
+
+#: actions/oauthconnectionssettings.php:192
+#, php-format
+msgid "You have not authorized any applications to use your account."
+msgstr ""
+
+#: actions/oauthconnectionssettings.php:205
+msgid "Developers can edit the registration settings for their applications "
+msgstr ""
+
 #: actions/oembed.php:79 actions/shownotice.php:100
 msgid "Notice has no profile"
 msgstr "Babl hefur enga persónulega síðu"
@@ -2023,8 +2238,8 @@ msgstr ""
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1033
-#: lib/api.php:1061 lib/api.php:1171
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1038
+#: lib/api.php:1066 lib/api.php:1176
 msgid "Not a supported data format."
 msgstr "Enginn stuðningur við gagnasnið."
 
@@ -2037,7 +2252,8 @@ msgid "Notice Search"
 msgstr "Leit í babli"
 
 #: actions/othersettings.php:60
-msgid "Other Settings"
+#, fuzzy
+msgid "Other settings"
 msgstr "Aðrar stillingar"
 
 #: actions/othersettings.php:71
@@ -2370,7 +2586,7 @@ msgid "Full name"
 msgstr "Fullt nafn"
 
 #: actions/profilesettings.php:115 actions/register.php:453
-#: lib/groupeditform.php:161
+#: lib/applicationeditform.php:230 lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "Heimasíða"
 
@@ -2969,6 +3185,84 @@ msgstr "Þú getur ekki sent þessum notanda skilaboð."
 msgid "User is already sandboxed."
 msgstr ""
 
+#: actions/showapplication.php:82
+#, fuzzy
+msgid "You must be logged in to view an application."
+msgstr "Þú verður aða hafa skráð þig inn til að ganga úr hóp."
+
+#: actions/showapplication.php:158
+#, fuzzy
+msgid "Application profile"
+msgstr "Babl hefur enga persónulega síðu"
+
+#: actions/showapplication.php:160 lib/applicationeditform.php:182
+msgid "Icon"
+msgstr ""
+
+#: actions/showapplication.php:170 actions/version.php:195
+#: lib/applicationeditform.php:197
+#, fuzzy
+msgid "Name"
+msgstr "Stuttnefni"
+
+#: actions/showapplication.php:179 lib/applicationeditform.php:224
+#, fuzzy
+msgid "Organization"
+msgstr "Uppröðun"
+
+#: actions/showapplication.php:188 actions/version.php:198
+#: lib/applicationeditform.php:211 lib/groupeditform.php:172
+msgid "Description"
+msgstr "Lýsing"
+
+#: actions/showapplication.php:193 actions/showgroup.php:429
+#: lib/profileaction.php:174
+msgid "Statistics"
+msgstr "Tölfræði"
+
+#: actions/showapplication.php:204
+#, php-format
+msgid "created by %1$s - %2$s access by default - %3$d users"
+msgstr ""
+
+#: actions/showapplication.php:214
+msgid "Application actions"
+msgstr ""
+
+#: actions/showapplication.php:233
+msgid "Reset key & secret"
+msgstr ""
+
+#: actions/showapplication.php:241
+msgid "Application info"
+msgstr ""
+
+#: actions/showapplication.php:243
+msgid "Consumer key"
+msgstr ""
+
+#: actions/showapplication.php:248
+msgid "Consumer secret"
+msgstr ""
+
+#: actions/showapplication.php:253
+msgid "Request token URL"
+msgstr ""
+
+#: actions/showapplication.php:258
+msgid "Access token URL"
+msgstr ""
+
+#: actions/showapplication.php:263
+msgid "Authorize URL"
+msgstr ""
+
+#: actions/showapplication.php:268
+msgid ""
+"Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
+"signature method."
+msgstr ""
+
 #: actions/showfavorites.php:132
 msgid "Could not retrieve favorite notices."
 msgstr "Gat ekki sótt uppáhaldsbabl."
@@ -3073,10 +3367,6 @@ msgstr "(Ekkert)"
 #: actions/showgroup.php:392
 msgid "All members"
 msgstr "Allir meðlimir"
-
-#: actions/showgroup.php:429 lib/profileaction.php:174
-msgid "Statistics"
-msgstr "Tölfræði"
 
 #: actions/showgroup.php:432
 msgid "Created"
@@ -3979,11 +4269,6 @@ msgstr ""
 msgid "Plugins"
 msgstr ""
 
-#: actions/version.php:195
-#, fuzzy
-msgid "Name"
-msgstr "Stuttnefni"
-
 #: actions/version.php:196 lib/action.php:741
 #, fuzzy
 msgid "Version"
@@ -3992,10 +4277,6 @@ msgstr "Persónulegt"
 #: actions/version.php:197
 msgid "Author(s)"
 msgstr ""
-
-#: actions/version.php:198 lib/groupeditform.php:172
-msgid "Description"
-msgstr "Lýsing"
 
 #: classes/File.php:144
 #, php-format
@@ -4152,10 +4433,6 @@ msgstr "Heim"
 #: lib/action.php:433
 msgid "Personal profile and friends timeline"
 msgstr "Persónuleg síða og vinarás"
-
-#: lib/action.php:435
-msgid "Account"
-msgstr "Aðgangur"
 
 #: lib/action.php:435
 msgid "Change your email, avatar, password, profile"
@@ -4316,10 +4593,6 @@ msgstr "Eftir"
 msgid "Before"
 msgstr "Áður"
 
-#: lib/action.php:1167
-msgid "There was a problem with your session token."
-msgstr "Það komu upp vandamál varðandi setutókann þinn."
-
 #: lib/adminpanelaction.php:96
 #, fuzzy
 msgid "You cannot make changes to this site."
@@ -4358,6 +4631,72 @@ msgstr "SMS staðfesting"
 #, fuzzy
 msgid "Paths configuration"
 msgstr "SMS staðfesting"
+
+#: lib/applicationeditform.php:186
+msgid "Icon for this application"
+msgstr ""
+
+#: lib/applicationeditform.php:206
+#, fuzzy, php-format
+msgid "Describe your application in %d characters"
+msgstr "Lýstu hópnum eða umfjöllunarefninu með 140 táknum"
+
+#: lib/applicationeditform.php:209
+#, fuzzy
+msgid "Describe your application"
+msgstr "Lýstu hópnum eða umfjöllunarefninu með 140 táknum"
+
+#: lib/applicationeditform.php:218
+#, fuzzy
+msgid "Source URL"
+msgstr "Frumþula"
+
+#: lib/applicationeditform.php:220
+#, fuzzy
+msgid "URL of the homepage of this application"
+msgstr "Vefslóð vefsíðu hópsins eða umfjöllunarefnisins"
+
+#: lib/applicationeditform.php:226
+msgid "Organization responsible for this application"
+msgstr ""
+
+#: lib/applicationeditform.php:232
+#, fuzzy
+msgid "URL for the homepage of the organization"
+msgstr "Vefslóð vefsíðu hópsins eða umfjöllunarefnisins"
+
+#: lib/applicationeditform.php:238
+msgid "URL to redirect to after authentication"
+msgstr ""
+
+#: lib/applicationeditform.php:260
+msgid "Browser"
+msgstr ""
+
+#: lib/applicationeditform.php:276
+msgid "Desktop"
+msgstr ""
+
+#: lib/applicationeditform.php:277
+msgid "Type of application, browser or desktop"
+msgstr ""
+
+#: lib/applicationeditform.php:299
+msgid "Read-only"
+msgstr ""
+
+#: lib/applicationeditform.php:317
+msgid "Read-write"
+msgstr ""
+
+#: lib/applicationeditform.php:318
+msgid "Default access for this application: read-only, or read-write"
+msgstr ""
+
+#: lib/applicationlist.php:154
+#, fuzzy
+msgid "Revoke"
+msgstr "Fjarlægja"
 
 #: lib/attachmentlist.php:87
 msgid "Attachments"
@@ -4684,6 +5023,15 @@ msgstr "Færslur sendar með snarskilaboðaþjónustu (instant messaging)"
 #: lib/connectsettingsaction.php:116
 msgid "Updates by SMS"
 msgstr "Færslur sendar með SMS"
+
+#: lib/connectsettingsaction.php:120
+#, fuzzy
+msgid "Connections"
+msgstr "Tengjast"
+
+#: lib/connectsettingsaction.php:121
+msgid "Authorized connected applications"
+msgstr ""
 
 #: lib/dberroraction.php:60
 msgid "Database error"
@@ -5200,10 +5548,6 @@ msgid "Do not share my location"
 msgstr "Gat ekki vistað merki."
 
 #: lib/noticeform.php:216
-msgid "Hide this info"
-msgstr ""
-
-#: lib/noticeform.php:217
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
@@ -5573,47 +5917,47 @@ msgstr "Skilaboð"
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:877
+#: lib/util.php:875
 msgid "a few seconds ago"
 msgstr "fyrir nokkrum sekúndum"
 
-#: lib/util.php:879
+#: lib/util.php:877
 msgid "about a minute ago"
 msgstr "fyrir um einni mínútu síðan"
 
-#: lib/util.php:881
+#: lib/util.php:879
 #, php-format
 msgid "about %d minutes ago"
 msgstr "fyrir um %d mínútum síðan"
 
-#: lib/util.php:883
+#: lib/util.php:881
 msgid "about an hour ago"
 msgstr "fyrir um einum klukkutíma síðan"
 
-#: lib/util.php:885
+#: lib/util.php:883
 #, php-format
 msgid "about %d hours ago"
 msgstr "fyrir um %d klukkutímum síðan"
 
-#: lib/util.php:887
+#: lib/util.php:885
 msgid "about a day ago"
 msgstr "fyrir um einum degi síðan"
 
-#: lib/util.php:889
+#: lib/util.php:887
 #, php-format
 msgid "about %d days ago"
 msgstr "fyrir um %d dögum síðan"
 
-#: lib/util.php:891
+#: lib/util.php:889
 msgid "about a month ago"
 msgstr "fyrir um einum mánuði síðan"
 
-#: lib/util.php:893
+#: lib/util.php:891
 #, php-format
 msgid "about %d months ago"
 msgstr "fyrir um %d mánuðum síðan"
 
-#: lib/util.php:895
+#: lib/util.php:893
 msgid "about a year ago"
 msgstr "fyrir um einu ári síðan"
 
