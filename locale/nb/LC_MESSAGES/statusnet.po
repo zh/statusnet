@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-14 22:40+0000\n"
-"PO-Revision-Date: 2010-01-14 22:42:09+0000\n"
+"POT-Creation-Date: 2010-01-15 19:15+0000\n"
+"PO-Revision-Date: 2010-01-15 19:17:35+0000\n"
 "Language-Team: Norwegian (bokmål)‬\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61064); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r61101); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: no\n"
 "X-Message-Group: out-statusnet\n"
@@ -34,7 +34,7 @@ msgstr "Ingen slik side"
 #: actions/apigroupismember.php:90 actions/apigroupjoin.php:99
 #: actions/apigroupleave.php:99 actions/apigrouplist.php:90
 #: actions/apistatusesupdate.php:149 actions/apisubscriptions.php:87
-#: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:79
+#: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:78
 #: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
 #: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
 #: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
@@ -50,8 +50,13 @@ msgstr "Ingen slik side"
 msgid "No such user."
 msgstr "Ingen slik bruker"
 
+#: actions/all.php:84
+#, fuzzy, php-format
+msgid "%1$s and friends, page %2$d"
+msgstr "%s og venner"
+
 #: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
-#: actions/apitimelinefriends.php:115 actions/apitimelinehome.php:115
+#: actions/apitimelinefriends.php:114 actions/apitimelinehome.php:115
 #: lib/personalgroupnav.php:100
 #, php-format
 msgid "%s and friends"
@@ -110,7 +115,7 @@ msgstr ""
 msgid "You and friends"
 msgstr "Du og venner"
 
-#: actions/allrss.php:119 actions/apitimelinefriends.php:122
+#: actions/allrss.php:119 actions/apitimelinefriends.php:121
 #: actions/apitimelinehome.php:122
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
@@ -132,7 +137,7 @@ msgstr "Oppdateringer fra %1$s og venner på %2$s!"
 #: actions/apistatusesretweets.php:112 actions/apistatusesshow.php:108
 #: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
 #: actions/apisubscriptions.php:111 actions/apitimelinefavorites.php:146
-#: actions/apitimelinefriends.php:156 actions/apitimelinegroup.php:150
+#: actions/apitimelinefriends.php:155 actions/apitimelinegroup.php:150
 #: actions/apitimelinehome.php:156 actions/apitimelinementions.php:151
 #: actions/apitimelinepublic.php:131 actions/apitimelineretweetedbyme.php:122
 #: actions/apitimelineretweetedtome.php:121
@@ -4638,12 +4643,12 @@ msgstr ""
 msgid "Tags for this attachment"
 msgstr ""
 
-#: lib/authenticationplugin.php:182 lib/authenticationplugin.php:187
+#: lib/authenticationplugin.php:214 lib/authenticationplugin.php:219
 #, fuzzy
 msgid "Password changing failed"
 msgstr "Passordet ble lagret"
 
-#: lib/authenticationplugin.php:197
+#: lib/authenticationplugin.php:229
 #, fuzzy
 msgid "Password changing is not allowed"
 msgstr "Passordet ble lagret"

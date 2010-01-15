@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-14 22:40+0000\n"
-"PO-Revision-Date: 2010-01-14 22:42:16+0000\n"
+"POT-Creation-Date: 2010-01-15 19:15+0000\n"
+"PO-Revision-Date: 2010-01-15 19:17:42+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61064); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r61101); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: out-statusnet\n"
@@ -36,7 +36,7 @@ msgstr "Deze pagina bestaat niet"
 #: actions/apigroupismember.php:90 actions/apigroupjoin.php:99
 #: actions/apigroupleave.php:99 actions/apigrouplist.php:90
 #: actions/apistatusesupdate.php:149 actions/apisubscriptions.php:87
-#: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:79
+#: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:78
 #: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
 #: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
 #: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
@@ -52,8 +52,13 @@ msgstr "Deze pagina bestaat niet"
 msgid "No such user."
 msgstr "Onbekende gebruiker."
 
+#: actions/all.php:84
+#, fuzzy, php-format
+msgid "%1$s and friends, page %2$d"
+msgstr "%1$s geblokkeerde profielen, pagina %2$d"
+
 #: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
-#: actions/apitimelinefriends.php:115 actions/apitimelinehome.php:115
+#: actions/apitimelinefriends.php:114 actions/apitimelinehome.php:115
 #: lib/personalgroupnav.php:100
 #, php-format
 msgid "%s and friends"
@@ -114,7 +119,7 @@ msgstr ""
 msgid "You and friends"
 msgstr "U en vrienden"
 
-#: actions/allrss.php:119 actions/apitimelinefriends.php:122
+#: actions/allrss.php:119 actions/apitimelinefriends.php:121
 #: actions/apitimelinehome.php:122
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
@@ -136,7 +141,7 @@ msgstr "Updates van %1$s en vrienden op %2$s."
 #: actions/apistatusesretweets.php:112 actions/apistatusesshow.php:108
 #: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
 #: actions/apisubscriptions.php:111 actions/apitimelinefavorites.php:146
-#: actions/apitimelinefriends.php:156 actions/apitimelinegroup.php:150
+#: actions/apitimelinefriends.php:155 actions/apitimelinegroup.php:150
 #: actions/apitimelinehome.php:156 actions/apitimelinementions.php:151
 #: actions/apitimelinepublic.php:131 actions/apitimelineretweetedbyme.php:122
 #: actions/apitimelineretweetedtome.php:121
@@ -431,7 +436,7 @@ msgstr "groepen op %s"
 
 #: actions/apioauthauthorize.php:108 actions/apioauthauthorize.php:114
 msgid "Bad request."
-msgstr ""
+msgstr "Ongeldig verzoek."
 
 #: actions/apioauthauthorize.php:134 actions/avatarsettings.php:268
 #: actions/deletenotice.php:157 actions/disfavor.php:74
@@ -454,19 +459,20 @@ msgstr ""
 "alstublieft."
 
 #: actions/apioauthauthorize.php:146
-#, fuzzy
 msgid "Invalid nickname / password!"
 msgstr "Ongeldige gebruikersnaam of wachtwoord."
 
 #: actions/apioauthauthorize.php:170
-#, fuzzy
 msgid "DB error deleting OAuth app user."
-msgstr "Er is een fout opgetreden tijdens het instellen van de gebruiker."
+msgstr ""
+"Er is een databasefout opgetreden tijdens het verwijderen van de OAuth "
+"applicatiegebruiker."
 
 #: actions/apioauthauthorize.php:196
-#, fuzzy
 msgid "DB error inserting OAuth app user."
-msgstr "Er is een databasefout opgetreden bij de invoer van de hashtag: %s"
+msgstr ""
+"Er is een databasefout opgetreden tijdens het toevoegen van de OAuth "
+"applicatiegebruiker."
 
 #: actions/apioauthauthorize.php:231
 #, php-format
@@ -474,11 +480,13 @@ msgid ""
 "The request token %s has been authorized. Please exchange it for an access "
 "token."
 msgstr ""
+"Het verzoektoken %s is geautoriseerd. Wissel het alstublieft uit voor een "
+"toegangstoken."
 
 #: actions/apioauthauthorize.php:241
 #, php-format
 msgid "The request token %s has been denied."
-msgstr ""
+msgstr "Het verzoektoken %s is geweigerd."
 
 #: actions/apioauthauthorize.php:246 actions/avatarsettings.php:281
 #: actions/designadminpanel.php:103 actions/editapplication.php:139
@@ -491,11 +499,11 @@ msgstr "Het formulier is onverwacht ingezonden."
 
 #: actions/apioauthauthorize.php:273
 msgid "An application would like to connect to your account"
-msgstr ""
+msgstr "Een applicatie vraagt toegang tot uw gebruikersgegevens"
 
 #: actions/apioauthauthorize.php:290
 msgid "Allow or deny access"
-msgstr ""
+msgstr "Toegang toestaan of ontzeggen"
 
 #: actions/apioauthauthorize.php:320 lib/action.php:435
 msgid "Account"
@@ -514,18 +522,16 @@ msgid "Password"
 msgstr "Wachtwoord"
 
 #: actions/apioauthauthorize.php:338
-#, fuzzy
 msgid "Deny"
-msgstr "Uiterlijk"
+msgstr "Ontzeggen"
 
 #: actions/apioauthauthorize.php:344
-#, fuzzy
 msgid "Allow"
-msgstr "Alle"
+msgstr "Toestaan"
 
 #: actions/apioauthauthorize.php:361
 msgid "Allow or deny access to your account information."
-msgstr ""
+msgstr "Toegang tot uw gebruikersgegevens toestaan of ontzeggen."
 
 #: actions/apistatusesdestroy.php:107
 msgid "This method requires a POST or DELETE."
@@ -850,7 +856,6 @@ msgid "Couldn't delete email confirmation."
 msgstr "De e-mailbevestiging kon niet verwijderd worden."
 
 #: actions/confirmaddress.php:144
-#, fuzzy
 msgid "Confirm address"
 msgstr "Adres bevestigen"
 
@@ -1064,23 +1069,20 @@ msgstr "Onbekend document."
 
 #: actions/editapplication.php:54 lib/applicationeditform.php:136
 msgid "Edit application"
-msgstr ""
+msgstr "Applicatie bewerken"
 
 #: actions/editapplication.php:66
-#, fuzzy
 msgid "You must be logged in to edit an application."
-msgstr "U moet aangemeld zijn om een groep te kunnen bewerken."
+msgstr "U moet aangemeld zijn om een applicatie te kunnen bewerken."
 
 #: actions/editapplication.php:77 actions/showapplication.php:94
-#, fuzzy
 msgid "You are not the owner of this application."
-msgstr "U bent geen lid van deze groep."
+msgstr "U bent niet de eigenaar van deze applicatie."
 
 #: actions/editapplication.php:81 actions/oauthconnectionssettings.php:163
 #: actions/showapplication.php:87
-#, fuzzy
 msgid "No such application."
-msgstr "De mededeling bestaat niet."
+msgstr "De applicatie bestaat niet."
 
 #: actions/editapplication.php:127 actions/newapplication.php:110
 #: actions/showapplication.php:118 lib/action.php:1167
@@ -1088,60 +1090,52 @@ msgid "There was a problem with your session token."
 msgstr "Er is een probleem met uw sessietoken."
 
 #: actions/editapplication.php:161
-#, fuzzy
 msgid "Use this form to edit your application."
-msgstr "Gebruik dit formulier om de groep te bewerken."
+msgstr "Gebruik dit formulier om uw applicatiegegevens te bewerken."
 
 #: actions/editapplication.php:177 actions/newapplication.php:159
-#, fuzzy
 msgid "Name is required."
-msgstr "Gelijk aan het wachtwoord hierboven. Verplicht"
+msgstr "Een naam is verplicht."
 
 #: actions/editapplication.php:180 actions/newapplication.php:162
-#, fuzzy
 msgid "Name is too long (max 255 chars)."
-msgstr "De volledige naam is te lang (maximaal 255 tekens)."
+msgstr "De naam is te lang (maximaal 255 tekens)."
 
 #: actions/editapplication.php:183 actions/newapplication.php:165
-#, fuzzy
 msgid "Description is required."
-msgstr "Beschrijving"
+msgstr "Een beschrijving is verplicht"
 
 #: actions/editapplication.php:191
 msgid "Source URL is too long."
-msgstr ""
+msgstr "De bron-URL is te lang."
 
 #: actions/editapplication.php:197 actions/newapplication.php:182
-#, fuzzy
 msgid "Source URL is not valid."
-msgstr "De avatar-URL \"%s\" is niet geldig."
+msgstr "De bron-URL is niet geldig."
 
 #: actions/editapplication.php:200 actions/newapplication.php:185
 msgid "Organization is required."
-msgstr ""
+msgstr "Organisatie is verplicht."
 
 #: actions/editapplication.php:203 actions/newapplication.php:188
-#, fuzzy
 msgid "Organization is too long (max 255 chars)."
-msgstr "Locatie is te lang (maximaal 255 tekens)."
+msgstr "De organisatienaam is te lang (maximaal 255 tekens)."
 
 #: actions/editapplication.php:206 actions/newapplication.php:191
 msgid "Organization homepage is required."
-msgstr ""
+msgstr "De homepage voor een organisatie is verplicht."
 
 #: actions/editapplication.php:215 actions/newapplication.php:203
 msgid "Callback is too long."
-msgstr ""
+msgstr "De callback is te lang."
 
 #: actions/editapplication.php:222 actions/newapplication.php:212
-#, fuzzy
 msgid "Callback URL is not valid."
-msgstr "De avatar-URL \"%s\" is niet geldig."
+msgstr "De callback-URL is niet geldig."
 
 #: actions/editapplication.php:255
-#, fuzzy
 msgid "Could not update application."
-msgstr "Het was niet mogelijk de groep bij te werken."
+msgstr "Het was niet mogelijk de applicatie bij te werken."
 
 #: actions/editgroup.php:56
 #, php-format
@@ -2069,26 +2063,23 @@ msgstr "Geen huidige status"
 
 #: actions/newapplication.php:52
 msgid "New application"
-msgstr ""
+msgstr "Nieuwe applicatie"
 
 #: actions/newapplication.php:64
-#, fuzzy
 msgid "You must be logged in to register an application."
-msgstr "U moet aangemeld zijn om een groep aan te kunnen maken."
+msgstr "U moet aangemeld zijn om een applicatie te kunnen registreren."
 
 #: actions/newapplication.php:143
-#, fuzzy
 msgid "Use this form to register a new application."
-msgstr "Gebruik dit formulier om een nieuwe groep aan te maken."
+msgstr "Gebruik dit formulier om een nieuwe applicatie te registreren."
 
 #: actions/newapplication.php:173
 msgid "Source URL is required."
-msgstr ""
+msgstr "Een bron-URL is verplicht."
 
 #: actions/newapplication.php:255 actions/newapplication.php:264
-#, fuzzy
 msgid "Could not create application."
-msgstr "Het was niet mogelijk de aliassen aan te maken."
+msgstr "Het was niet mogelijk de applicatie aan te maken."
 
 #: actions/newgroup.php:53
 msgid "New group"
@@ -2204,49 +2195,52 @@ msgid "Nudge sent!"
 msgstr "De por is verzonden!"
 
 #: actions/oauthappssettings.php:59
-#, fuzzy
 msgid "You must be logged in to list your applications."
-msgstr "U moet aangemeld zijn om een groep te kunnen bewerken."
+msgstr ""
+"U moet aangemeld zijn om een lijst met uw applicaties te kunnen bekijken."
 
 #: actions/oauthappssettings.php:74
-#, fuzzy
 msgid "OAuth applications"
 msgstr "Overige instellingen"
 
 #: actions/oauthappssettings.php:85
 msgid "Applications you have registered"
-msgstr ""
+msgstr "Door u geregistreerde applicaties"
 
 #: actions/oauthappssettings.php:135
 #, php-format
 msgid "You have not registered any applications yet."
-msgstr ""
+msgstr "U hebt nog geen applicaties geregistreerd."
 
 #: actions/oauthconnectionssettings.php:71
 msgid "Connected applications"
-msgstr ""
+msgstr "Verbonden applicaties"
 
 #: actions/oauthconnectionssettings.php:87
 msgid "You have allowed the following applications to access you account."
 msgstr ""
+"U hebt de volgende applicaties toegang gegeven tot uw gebruikersgegevens."
 
 #: actions/oauthconnectionssettings.php:170
-#, fuzzy
 msgid "You are not a user of that application."
-msgstr "U bent geen lid van deze groep"
+msgstr "U bent geen gebruiker van die applicatie."
 
 #: actions/oauthconnectionssettings.php:180
 msgid "Unable to revoke access for app: "
 msgstr ""
+"Het was niet mogelijk de toegang te ontzeggen voor de volgende applicatie: "
 
 #: actions/oauthconnectionssettings.php:192
 #, php-format
 msgid "You have not authorized any applications to use your account."
 msgstr ""
+"U hebt geen enkele applicatie geautoriseerd voor toegang tot uw "
+"gebruikersgegevens."
 
 #: actions/oauthconnectionssettings.php:205
 msgid "Developers can edit the registration settings for their applications "
 msgstr ""
+"Ontwikkelaars kunnen de registratiegegevens voor hun applicaties bewerken "
 
 #: actions/oembed.php:79 actions/shownotice.php:100
 msgid "Notice has no profile"
@@ -2279,7 +2273,6 @@ msgid "Notice Search"
 msgstr "Mededeling zoeken"
 
 #: actions/othersettings.php:60
-#, fuzzy
 msgid "Other settings"
 msgstr "Overige instellingen"
 
@@ -3216,18 +3209,16 @@ msgid "User is already sandboxed."
 msgstr "Deze gebruiker is al in de zandbak geplaatst."
 
 #: actions/showapplication.php:82
-#, fuzzy
 msgid "You must be logged in to view an application."
-msgstr "U moet aangemeld zijn om een groep te kunnen verlaten."
+msgstr "U moet aangemeld zijn om een applicatie te kunnen bekijken."
 
 #: actions/showapplication.php:158
-#, fuzzy
 msgid "Application profile"
-msgstr "Mededeling heeft geen profiel"
+msgstr "Applicatieprofiel"
 
 #: actions/showapplication.php:160 lib/applicationeditform.php:182
 msgid "Icon"
-msgstr ""
+msgstr "Icoon"
 
 #: actions/showapplication.php:170 actions/version.php:195
 #: lib/applicationeditform.php:197
@@ -3235,9 +3226,8 @@ msgid "Name"
 msgstr "Naam"
 
 #: actions/showapplication.php:179 lib/applicationeditform.php:224
-#, fuzzy
 msgid "Organization"
-msgstr "Paginering"
+msgstr "Organisatie"
 
 #: actions/showapplication.php:188 actions/version.php:198
 #: lib/applicationeditform.php:211 lib/groupeditform.php:172
@@ -3252,46 +3242,47 @@ msgstr "Statistieken"
 #: actions/showapplication.php:204
 #, php-format
 msgid "created by %1$s - %2$s access by default - %3$d users"
-msgstr ""
+msgstr "aangemaakt door %1$s - standaardtoegang \"%2$s\" - %3$d gebruikers"
 
 #: actions/showapplication.php:214
 msgid "Application actions"
-msgstr ""
+msgstr "Applicatiehandelingen"
 
 #: actions/showapplication.php:233
 msgid "Reset key & secret"
-msgstr ""
+msgstr "Sleutel en wachtwoord op nieuw instellen"
 
 #: actions/showapplication.php:241
 msgid "Application info"
-msgstr ""
+msgstr "Applicatieinformatie"
 
 #: actions/showapplication.php:243
 msgid "Consumer key"
-msgstr ""
+msgstr "Gebruikerssleutel"
 
 #: actions/showapplication.php:248
 msgid "Consumer secret"
-msgstr ""
+msgstr "Gebruikerswachtwoord"
 
 #: actions/showapplication.php:253
 msgid "Request token URL"
-msgstr ""
+msgstr "URL voor verzoektoken"
 
 #: actions/showapplication.php:258
 msgid "Access token URL"
-msgstr ""
+msgstr "URL voor toegangstoken"
 
 #: actions/showapplication.php:263
-#, fuzzy
 msgid "Authorize URL"
-msgstr "Auteur"
+msgstr "Autorisatie-URL"
 
 #: actions/showapplication.php:268
 msgid ""
 "Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
 "signature method."
 msgstr ""
+"Opmerking: HMAC-SHA1 ondertekening wordt ondersteund. Ondertekening in "
+"platte tekst is niet mogelijk."
 
 #: actions/showfavorites.php:132
 msgid "Could not retrieve favorite notices."
@@ -4699,69 +4690,65 @@ msgstr "Padinstellingen"
 
 #: lib/applicationeditform.php:186
 msgid "Icon for this application"
-msgstr ""
+msgstr "Icoon voor deze applicatie"
 
 #: lib/applicationeditform.php:206
-#, fuzzy, php-format
+#, php-format
 msgid "Describe your application in %d characters"
-msgstr "Beschrijf de groep of het onderwerp in %d tekens"
+msgstr "Beschrijf uw applicatie in %d tekens"
 
 #: lib/applicationeditform.php:209
-#, fuzzy
 msgid "Describe your application"
-msgstr "Beschrijf de groep of het onderwerp"
+msgstr "Beschrijf uw applicatie"
 
 #: lib/applicationeditform.php:218
-#, fuzzy
 msgid "Source URL"
-msgstr "Broncode"
+msgstr "Bron-URL"
 
 #: lib/applicationeditform.php:220
-#, fuzzy
 msgid "URL of the homepage of this application"
-msgstr "De URL van de thuispagina of de blog van de groep of het onderwerp"
+msgstr "De URL van de homepage van deze applicatie"
 
 #: lib/applicationeditform.php:226
 msgid "Organization responsible for this application"
-msgstr ""
+msgstr "Organisatie verantwoordelijk voor deze applicatie"
 
 #: lib/applicationeditform.php:232
-#, fuzzy
 msgid "URL for the homepage of the organization"
-msgstr "De URL van de thuispagina of de blog van de groep of het onderwerp"
+msgstr "De URL van de homepage van de organisatie"
 
 #: lib/applicationeditform.php:238
 msgid "URL to redirect to after authentication"
-msgstr ""
+msgstr "URL om naar door te verwijzen na authenticatie"
 
 #: lib/applicationeditform.php:260
 msgid "Browser"
-msgstr ""
+msgstr "Browser"
 
 #: lib/applicationeditform.php:276
 msgid "Desktop"
-msgstr ""
+msgstr "Desktop"
 
 #: lib/applicationeditform.php:277
 msgid "Type of application, browser or desktop"
-msgstr ""
+msgstr "Type applicatie; browser of desktop"
 
 #: lib/applicationeditform.php:299
 msgid "Read-only"
-msgstr ""
+msgstr "Alleen-lezen"
 
 #: lib/applicationeditform.php:317
 msgid "Read-write"
-msgstr ""
+msgstr "Lezen en schrijven"
 
 #: lib/applicationeditform.php:318
 msgid "Default access for this application: read-only, or read-write"
 msgstr ""
+"Standaardtoegang voor deze applicatie: alleen-lezen of lezen en schrijven"
 
 #: lib/applicationlist.php:154
-#, fuzzy
 msgid "Revoke"
-msgstr "Verwijderen"
+msgstr "Intrekken"
 
 #: lib/attachmentlist.php:87
 msgid "Attachments"
@@ -4783,11 +4770,11 @@ msgstr "Mededelingen die deze bijlage bevatten"
 msgid "Tags for this attachment"
 msgstr "Labels voor deze bijlage"
 
-#: lib/authenticationplugin.php:182 lib/authenticationplugin.php:187
+#: lib/authenticationplugin.php:214 lib/authenticationplugin.php:219
 msgid "Password changing failed"
 msgstr "Wachtwoord wijzigen is mislukt"
 
-#: lib/authenticationplugin.php:197
+#: lib/authenticationplugin.php:229
 msgid "Password changing is not allowed"
 msgstr "Wachtwoord wijzigen is niet toegestaan"
 
@@ -5128,13 +5115,12 @@ msgid "Updates by SMS"
 msgstr "Updates via SMS"
 
 #: lib/connectsettingsaction.php:120
-#, fuzzy
 msgid "Connections"
-msgstr "Koppelen"
+msgstr "Verbindingen"
 
 #: lib/connectsettingsaction.php:121
 msgid "Authorized connected applications"
-msgstr ""
+msgstr "Geautoriseerde verbonden applicaties"
 
 #: lib/dberroraction.php:60
 msgid "Database error"
