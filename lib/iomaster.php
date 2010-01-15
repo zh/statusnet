@@ -70,7 +70,7 @@ class IoMaster
             $classes = array();
             if (Event::handle('StartIoManagerClasses', array(&$classes))) {
                 $classes[] = 'QueueManager';
-                if (common_config('xmpp', 'enabled')) {
+                if (common_config('xmpp', 'enabled') && !defined('XMPP_EMERGENCY_FLAG')) {
                     $classes[] = 'XmppManager'; // handles pings/reconnects
                     $classes[] = 'XmppConfirmManager'; // polls for outgoing confirmations
                 }

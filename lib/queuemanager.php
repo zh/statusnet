@@ -157,7 +157,7 @@ abstract class QueueManager extends IoManager
             }
 
             // XMPP output handlers...
-            if (common_config('xmpp', 'enabled')) {
+            if (common_config('xmpp', 'enabled') && !defined('XMPP_EMERGENCY_FLAG')) {
                 $this->connect('jabber', 'JabberQueueHandler');
                 $this->connect('public', 'PublicQueueHandler');
                 
