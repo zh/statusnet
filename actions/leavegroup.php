@@ -110,28 +110,21 @@ class LeavegroupAction extends Action
 
         $cur = common_current_user();
 
-        $member = new Group_member();
-
-        $member->group_id   = $this->group->id;
-        $member->profile_id = $cur->id;
-
-        if (!$member->find(true)) {
-            $this->serverError(_('Could not find membership record.'));
-            return;
-        }
-
-        $result = $member->delete();
-
-        if (!$result) {
-            common_log_db_error($member, 'INSERT', __FILE__);
-            $this->serverError(sprintf(_('Could not remove user %s to group %s'),
+        try {
+            if (Event::handle('StartLeaveGroup', array($this->group, $cur))) {
+                Group_member::leave($this->group->id, $cur->id);
+                Event::handle('EndLeaveGroup', array($this->group, $cur));
+            }
+        } catch (Exception $e) {
+            $this->serverError(sprintf(_('Could not remove user %1$s from group %2$s.'),
                                        $cur->nickname, $this->group->nickname));
+            return;
         }
 
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
-            $this->element('title', null, sprintf(_('%s left group %s'),
+            $this->element('title', null, sprintf(_('%1$s left group %2$s'),
                                                   $cur->nickname,
                                                   $this->group->nickname));
             $this->elementEnd('head');

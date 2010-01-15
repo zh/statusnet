@@ -710,15 +710,21 @@ private site, but users of the private site may be able to subscribe
 to users on a remote site. (Or not... it's not well tested.) The
 "proper behaviour" hasn't been defined here, so handle with care.
 
-If fancy URLs is enabled, access to file attachments can also be
-restricted to logged-in users only. Uncomment the appropriate rewrite
-<<<<<<< HEAD:README
-rule in .htaccess or your server's httpd.conf. (This most likely will
-not work if you are using a virtual server for attachments, so consider
-the performance/security tradeoff.)
-=======
-rule in .htaccess or your server's httpd.conf.
->>>>>>> 446de62... Revert "Added some explanatory text to README":README
+Access to file attachments can also be restricted to logged-in users only.
+1. Add a directory outside the web root where your file uploads will be
+   stored. Usually a command like this will work:
+
+           mkdir /var/www/mublog-files
+
+2. Make the file uploads directory writeable by the web server. An
+   insecure way to do this is:
+
+           chmod a+x /var/www/mublog-files
+
+3. Tell StatusNet to use this directory for file uploads. Add a line
+   like this to your config.php:
+
+           $config['attachments']['dir'] = '/var/www/mublog-files';
 
 Upgrading
 =========
@@ -1616,6 +1622,7 @@ if anyone's been overlooked in error.
 * Craig Andrews
 * mEDI
 * Brett Taylor
+* Brigitte Schuster
 
 Thanks also to the developers of our upstream library code and to the
 thousands of people who have tried out Identi.ca, installed StatusNet,

@@ -141,7 +141,7 @@ class Action extends HTMLOutputter // lawsuit
     function showTitle()
     {
         $this->element('title', null,
-                       sprintf(_("%s - %s"),
+                       sprintf(_("%1\$s - %2\$s"),
                                $this->title(),
                                common_config('site', 'name')));
     }
@@ -252,6 +252,8 @@ class Action extends HTMLOutputter // lawsuit
             if (Event::handle('StartShowJQueryScripts', array($this))) {
                 $this->script('js/jquery.min.js');
                 $this->script('js/jquery.form.js');
+                $this->script('js/jquery.cookie.js');
+                $this->script('js/json2.js');
                 $this->script('js/jquery.joverlay.min.js');
                 Event::handle('EndShowJQueryScripts', array($this));
             }
@@ -735,6 +737,8 @@ class Action extends HTMLOutputter // lawsuit
                             _('Privacy'));
             $this->menuItem(common_local_url('doc', array('title' => 'source')),
                             _('Source'));
+            $this->menuItem(common_local_url('version'),
+                            _('Version'));
             $this->menuItem(common_local_url('doc', array('title' => 'contact')),
                             _('Contact'));
             $this->menuItem(common_local_url('doc', array('title' => 'badge')),

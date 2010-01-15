@@ -43,6 +43,8 @@ if (!defined('STATUSNET')) {
 
 class BlacklistPlugin extends Plugin
 {
+    const VERSION = STATUSNET_VERSION;
+
     public $nicknames = array();
     public $urls      = array();
 
@@ -198,6 +200,17 @@ class BlacklistPlugin extends Plugin
             }
         }
 
+        return true;
+    }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'Blacklist',
+                            'version' => self::VERSION,
+                            'author' => 'Evan Prodromou',
+                            'homepage' => 'http://status.net/wiki/Plugin:Blacklist',
+                            'description' =>
+                            _m('Keep a blacklist of forbidden nickname and URL patterns.'));
         return true;
     }
 }

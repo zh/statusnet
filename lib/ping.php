@@ -21,7 +21,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 function ping_broadcast_notice($notice) {
 
-	if (!$notice->is_local) {
+	if ($notice->is_local != Notice::LOCAL_PUBLIC && $notice->is_local != Notice::LOCAL_NONPUBLIC) {
 		return true;
 	}
 

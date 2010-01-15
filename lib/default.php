@@ -54,6 +54,7 @@ $default =
               'dupelimit' => 60, # default for same person saying the same thing
               'textlimit' => 140,
               'indent' => true,
+              'use_x_sendfile' => false,
               ),
         'db' =>
         array('database' => 'YOU HAVE TO SET THIS IN config.php',
@@ -78,6 +79,8 @@ $default =
               'queue_basename' => '/queue/statusnet/',
               'stomp_username' => null,
               'stomp_password' => null,
+              'monitor' => null, // URL to monitor ping endpoint (work in progress)
+              'softlimit' => '90%', // total size or % of memory_limit at which to restart queue threads gracefully
               ),
         'license' =>
         array('url' => 'http://creativecommons.org/licenses/by/3.0/',
@@ -147,11 +150,8 @@ $default =
         array('enabled'       => true,
               'consumer_key'    => null,
               'consumer_secret' => null),
-        'memcached' =>
-        array('enabled' => false,
-              'server' => 'localhost',
-              'base' => null,
-              'port' => 11211),
+        'cache' =>
+        array('base' => null),
         'ping' =>
         array('notify' => array()),
         'inboxes' =>
@@ -226,9 +226,29 @@ $default =
         'message' =>
         array('contentlimit' => null),
         'location' =>
-        array('namespace' => 1), // 1 = geonames, 2 = Yahoo Where on Earth
+        array('share' => 'user', // whether to share location; 'always', 'user', 'never'
+              'sharedefault' => true),
         'omb' =>
         array('timeout' => 5), // HTTP request timeout in seconds when contacting remote hosts for OMB updates
         'logincommand' =>
         array('disabled' => true),
+        'plugins' =>
+        array('default' => array('LilUrl' => array('shortenerName'=>'ur1.ca',
+                                                   'freeService' => true,
+                                                   'serviceUrl'=>'http://ur1.ca/'),
+                                 'PtitUrl' => array('shortenerName' => 'ptiturl.com',
+                                                    'serviceUrl' => 'http://ptiturl.com/?creer=oui&action=Reduire&url=%1$s'),
+                                 'SimpleUrl' => array(array('shortenerName' => 'is.gd', 'serviceUrl' => 'http://is.gd/api.php?longurl=%1$s'),
+                                                      array('shortenerName' => 'snipr.com', 'serviceUrl' => 'http://snipr.com/site/snip?r=simple&link=%1$s'),
+                                                      array('shortenerName' => 'metamark.net', 'serviceUrl' => 'http://metamark.net/api/rest/simple?long_url=%1$s'),
+                                                      array('shortenerName' => 'tinyurl.com', 'serviceUrl' => 'http://tinyurl.com/api-create.php?url=%1$s')),
+                                 'TightUrl' => array('shortenerName' => '2tu.us', 'freeService' => true,'serviceUrl'=>'http://2tu.us/?save=y&url=%1$s'),
+                                 'Geonames' => null,
+                                 'Mapstraction' => null,
+                                 'Linkback' => null,
+                                 'WikiHashtags' => null,
+                                 'OpenID' => null),
+              ),
+        'admin' =>
+        array('panels' => array('design', 'site', 'user', 'paths')),
         );

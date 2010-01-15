@@ -97,4 +97,16 @@ ENDOFPIWIK;
         $action->inlineScript($piwikCode2);
         return true;
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'PiwikAnalytics',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Tobias Diekershoff, Evan Prodromou',
+                            'homepage' => 'http://status.net/wiki/Plugin:Piwik',
+                            'rawdescription' =>
+                            _m('Use <a href="http://piwik.org/">Piwik</a> Open Source Web analytics software.'));
+        return true;
+    }
+
 }

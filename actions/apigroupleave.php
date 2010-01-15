@@ -108,7 +108,7 @@ class ApiGroupLeaveAction extends ApiAuthAction
         $member = new Group_member();
 
         $member->group_id   = $this->group->id;
-        $member->profile_id = $this->auth->id;
+        $member->profile_id = $this->auth_user->id;
 
         if (!$member->find(true)) {
             $this->serverError(_('You are not a member of this group.'));
@@ -118,12 +118,12 @@ class ApiGroupLeaveAction extends ApiAuthAction
         $result = $member->delete();
 
         if (!$result) {
-            common_log_db_error($member, 'INSERT', __FILE__);
+            common_log_db_error($member, 'DELETE', __FILE__);
             $this->serverError(
                 sprintf(
-                    _('Could not remove user %s to group %s.'),
+                    _('Could not remove user %1$s from group %2$s.'),
                     $this->user->nickname,
-                    $this->$group->nickname
+                    $this->group->nickname
                 )
             );
             return;
@@ -138,7 +138,7 @@ class ApiGroupLeaveAction extends ApiAuthAction
             break;
         default:
             $this->clientError(
-                _('API method not found!'),
+                _('API method not found.'),
                 404,
                 $this->format
             );

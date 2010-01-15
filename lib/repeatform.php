@@ -104,7 +104,7 @@ class RepeatForm extends Form
      */
     function formLegend()
     {
-        $this->out->element('legend', null, _('Repeat this notice'));
+        $this->out->element('legend', null, _('Repeat this notice?'));
     }
 
     /**
@@ -129,7 +129,7 @@ class RepeatForm extends Form
     function formActions()
     {
         $this->out->submit('repeat-submit-' . $this->notice->id,
-                           _('Repeat'), 'submit', null, _('Repeat this notice'));
+                           _('Yes'), 'submit', null, _('Repeat this notice'));
     }
 
     /**

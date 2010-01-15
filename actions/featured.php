@@ -96,7 +96,7 @@ class FeaturedAction extends Action
 
     function getInstructions()
     {
-        return sprintf(_('A selection of some of the great users on %s'),
+        return sprintf(_('A selection of some great users on %s'),
                        common_config('site', 'name'));
     }
 

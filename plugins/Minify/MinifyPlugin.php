@@ -84,7 +84,7 @@ class MinifyPlugin extends Plugin
 
     function onStartScriptElement($action,&$src,&$type) {
         $url = parse_url($src);
-        if( empty($url->scheme) && empty($url->host) && empty($url->query) && empty($url->fragment))
+        if( empty($url['scheme']) && empty($url['host']) && empty($url['query']) && empty($url['fragment']))
         {
             $src = $this->minifyUrl($src);
         }
@@ -163,6 +163,17 @@ class MinifyPlugin extends Plugin
     static function minifyCss($code, $options = array()) {
         require_once('Minify/CSS.php');
         return Minify_CSS::minify($code,$options);
+    }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'Minify',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Craig Andrews',
+                            'homepage' => 'http://status.net/wiki/Plugin:Minify',
+                            'rawdescription' =>
+                            _m('The Minify plugin minifies your CSS and Javascript, removing whitespace and comments.'));
+        return true;
     }
 }
 

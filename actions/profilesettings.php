@@ -69,7 +69,7 @@ class ProfilesettingsAction extends AccountSettingsAction
     function getInstructions()
     {
         return _('You can update your personal profile info here '.
-                  'so people know more about you.');
+                 'so people know more about you.');
     }
 
     function showScripts()
@@ -92,9 +92,9 @@ class ProfilesettingsAction extends AccountSettingsAction
         $profile = $user->getProfile();
 
         $this->elementStart('form', array('method' => 'post',
-                                           'id' => 'form_settings_profile',
-                                           'class' => 'form_settings',
-                                           'action' => common_local_url('profilesettings')));
+                                          'id' => 'form_settings_profile',
+                                          'class' => 'form_settings',
+                                          'action' => common_local_url('profilesettings')));
         $this->elementStart('fieldset');
         $this->element('legend', null, _('Profile information'));
         $this->hidden('token', common_session_token());
@@ -133,6 +133,13 @@ class ProfilesettingsAction extends AccountSettingsAction
                          ($this->arg('location')) ? $this->arg('location') : $profile->location,
                          _('Where you are, like "City, State (or Region), Country"'));
             $this->elementEnd('li');
+            if (common_config('location', 'share') == 'user') {
+                $this->elementStart('li');
+                $this->checkbox('sharelocation', _('Share my current location when posting notices'),
+                                ($this->arg('sharelocation')) ?
+                                $this->arg('sharelocation') : $user->shareLocation());
+                $this->elementEnd('li');
+            }
             Event::handle('EndProfileFormData', array($this));
             $this->elementStart('li');
             $this->input('tags', _('Tags'),
@@ -185,7 +192,7 @@ class ProfilesettingsAction extends AccountSettingsAction
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
             $this->showForm(_('There was a problem with your session token. '.
-                        'Try again, please.'));
+                              'Try again, please.'));
             return;
         }
 
@@ -203,15 +210,15 @@ class ProfilesettingsAction extends AccountSettingsAction
 
             // Some validation
             if (!Validate::string($nickname, array('min_length' => 1,
-                            'max_length' => 64,
-                            'format' => NICKNAME_FMT))) {
+                                                   'max_length' => 64,
+                                                   'format' => NICKNAME_FMT))) {
                 $this->showForm(_('Nickname must have only lowercase letters and numbers and no spaces.'));
                 return;
             } else if (!User::allowed_nickname($nickname)) {
                 $this->showForm(_('Not a valid nickname.'));
                 return;
             } else if (!is_null($homepage) && (strlen($homepage) > 0) &&
-                    !Validate::uri($homepage, array('allowed_schemes' => array('http', 'https')))) {
+                       !Validate::uri($homepage, array('allowed_schemes' => array('http', 'https')))) {
                 $this->showForm(_('Homepage is not a valid URL.'));
                 return;
             } else if (!is_null($fullname) && mb_strlen($fullname) > 255) {
@@ -253,15 +260,15 @@ class ProfilesettingsAction extends AccountSettingsAction
             $user->query('BEGIN');
 
             if ($user->nickname != $nickname ||
-                    $user->language != $language ||
-                    $user->timezone != $timezone) {
+                $user->language != $language ||
+                $user->timezone != $timezone) {
 
                 common_debug('Updating user nickname from ' . $user->nickname . ' to ' . $nickname,
-                        __FILE__);
+                             __FILE__);
                 common_debug('Updating user language from ' . $user->language . ' to ' . $language,
-                        __FILE__);
+                             __FILE__);
                 common_debug('Updating user timezone from ' . $user->timezone . ' to ' . $timezone,
-                        __FILE__);
+                             __FILE__);
 
                 $original = clone($user);
 
@@ -281,7 +288,7 @@ class ProfilesettingsAction extends AccountSettingsAction
                 }
             }
 
-// XXX: XOR
+            // XXX: XOR
             if ($user->autosubscribe ^ $autosubscribe) {
 
                 $original = clone($user);
@@ -309,7 +316,12 @@ class ProfilesettingsAction extends AccountSettingsAction
 
             $loc = Location::fromName($location);
 
-            if (!empty($loc)) {
+            if (empty($loc)) {
+                $profile->lat         = null;
+                $profile->lon         = null;
+                $profile->location_id = null;
+                $profile->location_ns = null;
+            } else {
                 $profile->lat         = $loc->lat;
                 $profile->lon         = $loc->lon;
                 $profile->location_id = $loc->location_id;
@@ -317,6 +329,37 @@ class ProfilesettingsAction extends AccountSettingsAction
             }
 
             $profile->profileurl = common_profile_url($nickname);
+
+            if (common_config('location', 'share') == 'user') {
+
+                $exists = false;
+
+                $prefs = User_location_prefs::staticGet('user_id', $user->id);
+
+                if (empty($prefs)) {
+                    $prefs = new User_location_prefs();
+
+                    $prefs->user_id = $user->id;
+                    $prefs->created = common_sql_now();
+                } else {
+                    $exists = true;
+                    $orig = clone($prefs);
+                }
+
+                $prefs->share_location = $this->boolean('sharelocation');
+
+                if ($exists) {
+                    $result = $prefs->update($orig);
+                } else {
+                    $result = $prefs->insert();
+                }
+
+                if ($result === false) {
+                    common_log_db_error($prefs, ($exists) ? 'UPDATE' : 'INSERT', __FILE__);
+                    $this->serverError(_('Couldn\'t save location prefs.'));
+                    return;
+                }
+            }
 
             common_debug('Old profile: ' . common_log_objstring($orig_profile), __FILE__);
             common_debug('New profile: ' . common_log_objstring($profile), __FILE__);
@@ -351,7 +394,7 @@ class ProfilesettingsAction extends AccountSettingsAction
         $user = common_current_user();
         $other = User::staticGet('nickname', $nickname);
         if (!$other) {
-           return false;
+            return false;
         } else {
             return $other->id != $user->id;
         }

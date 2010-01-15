@@ -251,11 +251,11 @@ function mail_subscribe_notify_profile($listenee, $other)
                         common_config('site', 'name'),
                         $other->profileurl,
                         ($other->location) ?
-                        sprintf(_("Location: %s\n"), $other->location) : '',
+                        sprintf(_("Location: %s"), $other->location) . "\n" : '',
                         ($other->homepage) ?
-                        sprintf(_("Homepage: %s\n"), $other->homepage) : '',
+                        sprintf(_("Homepage: %s"), $other->homepage) . "\n" : '',
                         ($other->bio) ?
-                        sprintf(_("Bio: %s\n\n"), $other->bio) : '',
+                        sprintf(_("Bio: %s"), $other->bio) . "\n\n" : '',
                         common_config('site', 'name'),
                         common_local_url('emailsettings'));
 
@@ -599,6 +599,10 @@ function mail_notify_attn($user, $notice)
 
     $sender = $notice->getProfile();
 
+    if ($sender->id == $user->id) {
+        return;
+    }
+
     if (!$sender->hasRight(Right::EMAILONREPLY)) {
         return;
     }
@@ -648,4 +652,3 @@ function mail_notify_attn($user, $notice)
     common_init_locale();
     mail_to_user($user, $subject, $body);
 }
-

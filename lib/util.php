@@ -171,10 +171,19 @@ function common_ensure_session()
         if (common_config('sessions', 'handle')) {
             Session::setSaveHandler();
         }
+	if (array_key_exists(session_name(), $_GET)) {
+	    $id = $_GET[session_name()];
+	} else if (array_key_exists(session_name(), $_COOKIE)) {
+	    $id = $_COOKIE[session_name()];
+	}
+	if (isset($id)) {
+	    session_id($id);
+	    setcookie(session_name(), $id);
+	}
         @session_start();
         if (!isset($_SESSION['started'])) {
             $_SESSION['started'] = time();
-            if (!empty($c)) {
+            if (!empty($id)) {
                 common_log(LOG_WARNING, 'Session cookie "' . $_COOKIE[session_name()] . '" ' .
                            ' is set but started value is null');
             }
@@ -246,7 +255,6 @@ function common_rememberme($user=null)
     if (!$user) {
         $user = common_current_user();
         if (!$user) {
-            common_debug('No current user to remember', __FILE__);
             return false;
         }
     }
@@ -264,13 +272,10 @@ function common_rememberme($user=null)
 
     if (!$result) {
         common_log_db_error($rm, 'INSERT', __FILE__);
-        common_debug('Error adding rememberme record for ' . $user->nickname, __FILE__);
         return false;
     }
 
     $rm->query('COMMIT');
-
-    common_debug('Inserted rememberme record (' . $rm->code . ', ' . $rm->user_id . '); result = ' . $result . '.', __FILE__);
 
     $cookieval = $rm->user_id . ':' . $rm->code;
 
@@ -379,8 +384,6 @@ function common_current_user()
         $_cur = common_remembered_user();
 
         if ($_cur) {
-            common_debug("Got User " . $_cur->nickname);
-            common_debug("Faking session on remembered user");
             // XXX: Is this necessary?
             $_SESSION['userid'] = $_cur->id;
         }
@@ -814,18 +817,48 @@ function common_path($relative, $ssl=false)
         } else if (common_config('site', 'server')) {
             $serverpart = common_config('site', 'server');
         } else {
-            common_log(LOG_ERR, 'Site Sever not configured, unable to determine site name.');
+            common_log(LOG_ERR, 'Site server not configured, unable to determine site name.');
         }
     } else {
         $proto = 'http';
         if (common_config('site', 'server')) {
             $serverpart = common_config('site', 'server');
         } else {
-            common_log(LOG_ERR, 'Site Sever not configured, unable to determine site name.');
+            common_log(LOG_ERR, 'Site server not configured, unable to determine site name.');
         }
     }
 
+    $relative = common_inject_session($relative, $serverpart);
+
     return $proto.'://'.$serverpart.'/'.$pathpart.$relative;
+}
+
+function common_inject_session($url, $serverpart = null)
+{
+    if (common_have_session()) {
+
+	if (empty($serverpart)) {
+	    $serverpart = parse_url($url, PHP_URL_HOST);
+	}
+
+        $currentServer = $_SERVER['HTTP_HOST'];
+
+        // Are we pointing to another server (like an SSL server?)
+
+        if (!empty($currentServer) &&
+            0 != strcasecmp($currentServer, $serverpart)) {
+            // Pass the session ID as a GET parameter
+            $sesspart = session_name() . '=' . session_id();
+            $i = strpos($url, '?');
+            if ($i === false) { // no GET params, just append
+                $url .= '?' . $sesspart;
+            } else {
+                $url = substr($url, 0, $i + 1).$sesspart.'&'.substr($url, $i + 1);
+            }
+        }
+    }
+
+    return $url;
 }
 
 function common_date_string($dt)
@@ -1015,7 +1048,12 @@ function common_profile_url($nickname)
 
 function common_root_url($ssl=false)
 {
-    return common_path('', $ssl);
+    $url = common_path('', $ssl);
+    $i = strpos($url, '?');
+    if ($i !== false) {
+        $url = substr($url, 0, $i);
+    }
+    return $url;
 }
 
 // returns $bytes bytes of random data as a hexadecimal string
@@ -1090,8 +1128,9 @@ function common_log_line($priority, $msg)
 function common_request_id()
 {
     $pid = getmypid();
+    $server = common_config('site', 'server');
     if (php_sapi_name() == 'cli') {
-        return $pid;
+        return "$server:$pid";
     } else {
         static $req_id = null;
         if (!isset($req_id)) {
@@ -1101,7 +1140,7 @@ function common_request_id()
             $url = $_SERVER['REQUEST_URI'];
         }
         $method = $_SERVER['REQUEST_METHOD'];
-        return "$pid.$req_id $method $url";
+        return "$server:$pid.$req_id $method $url";
     }
 }
 
@@ -1409,41 +1448,17 @@ function common_session_token()
 
 function common_cache_key($extra)
 {
-    $base_key = common_config('memcached', 'base');
-
-    if (empty($base_key)) {
-        $base_key = common_keyize(common_config('site', 'name'));
-    }
-
-    return 'statusnet:' . $base_key . ':' . $extra;
+    return Cache::key($extra);
 }
 
 function common_keyize($str)
 {
-    $str = strtolower($str);
-    $str = preg_replace('/\s/', '_', $str);
-    return $str;
+    return Cache::keyize($str);
 }
 
 function common_memcache()
 {
-    static $cache = null;
-    if (!common_config('memcached', 'enabled')) {
-        return null;
-    } else {
-        if (!$cache) {
-            $cache = new Memcache();
-            $servers = common_config('memcached', 'server');
-            if (is_array($servers)) {
-                foreach($servers as $server) {
-                    $cache->addServer($server);
-                }
-            } else {
-                $cache->addServer($servers);
-            }
-        }
-        return $cache;
-    }
+    return Cache::instance();
 }
 
 function common_license_terms($uri)

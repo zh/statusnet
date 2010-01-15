@@ -222,18 +222,15 @@ class JoinCommand extends Command
             return;
         }
 
-        $member = new Group_member();
-
-        $member->group_id   = $group->id;
-        $member->profile_id = $cur->id;
-        $member->created    = common_sql_now();
-
-        $result = $member->insert();
-        if (!$result) {
-          common_log_db_error($member, 'INSERT', __FILE__);
-          $channel->error($cur, sprintf(_('Could not join user %s to group %s'),
-                                       $cur->nickname, $group->nickname));
-          return;
+        try {
+            if (Event::handle('StartJoinGroup', array($group, $cur))) {
+                Group_member::join($group->id, $cur->id);
+                Event::handle('EndJoinGroup', array($group, $cur));
+            }
+        } catch (Exception $e) {
+            $channel->error($cur, sprintf(_('Could not join user %s to group %s'),
+                                          $cur->nickname, $group->nickname));
+            return;
         }
 
         $channel->output($cur, sprintf(_('%s joined group %s'),
@@ -269,21 +266,15 @@ class DropCommand extends Command
             return;
         }
 
-        $member = new Group_member();
-
-        $member->group_id   = $group->id;
-        $member->profile_id = $cur->id;
-
-        if (!$member->find(true)) {
-          $channel->error($cur,_('Could not find membership record.'));
-          return;
-        }
-        $result = $member->delete();
-        if (!$result) {
-          common_log_db_error($member, 'INSERT', __FILE__);
-          $channel->error($cur, sprintf(_('Could not remove user %s to group %s'),
-                                       $cur->nickname, $group->nickname));
-          return;
+        try {
+            if (Event::handle('StartLeaveGroup', array($group, $cur))) {
+                Group_member::leave($group->id, $cur->id);
+                Event::handle('EndLeaveGroup', array($group, $cur));
+            }
+        } catch (Exception $e) {
+            $channel->error($cur, sprintf(_('Could not remove user %s to group %s'),
+                                          $cur->nickname, $group->nickname));
+            return;
         }
 
         $channel->output($cur, sprintf(_('%s left group %s'),
@@ -650,25 +641,17 @@ class LoginCommand extends Command
             $channel->error($this->user, _('Login command is disabled'));
             return;
         }
-        $login_token = Login_token::staticGet('user_id',$this->user->id);
-        if($login_token){
-            $login_token->delete();
+
+        try {
+            $login_token = Login_token::makeNew($this->user);
+        } catch (Exception $e) {
+            $channel->error($this->user, $e->getMessage());
         }
-        $login_token = new Login_token();
-        $login_token->user_id = $this->user->id;
-        $login_token->token = common_good_rand(16);
-        $login_token->created = common_sql_now();
-        $result = $login_token->insert();
-        if (!$result) {
-          common_log_db_error($login_token, 'INSERT', __FILE__);
-          $channel->error($this->user, sprintf(_('Could not create login token for %s'),
-                                       $this->user->nickname));
-          return;
-        }
+
         $channel->output($this->user,
             sprintf(_('This link is useable only once, and is good for only 2 minutes: %s'),
-                    common_local_url('login',
-                        array('user_id'=>$login_token->user_id, 'token'=>$login_token->token))));
+                    common_local_url('otp',
+                        array('user_id' => $login_token->user_id, 'token' => $login_token->token))));
     }
 }
 

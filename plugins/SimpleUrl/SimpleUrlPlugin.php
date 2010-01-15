@@ -47,5 +47,18 @@ class SimpleUrlPlugin extends UrlShortenerPlugin
     protected function shorten($url) {
         return $this->http_get(sprintf($this->serviceUrl,urlencode($url)));
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => sprintf('SimpleUrl (%s)', $this->shortenerName),
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Craig Andrews',
+                            'homepage' => 'http://status.net/wiki/Plugin:SimpleUrl',
+                            'rawdescription' =>
+                            sprintf(_m('Uses <a href="http://%1$s/">%1$s</a> URL-shortener service.'),
+                                    $this->shortenerName));
+
+        return true;
+    }
 }
 

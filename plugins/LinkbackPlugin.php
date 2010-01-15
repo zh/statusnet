@@ -126,6 +126,7 @@ class LinkbackPlugin extends Plugin
         if (!extension_loaded('xmlrpc')) {
             if (!dl('xmlrpc.so')) {
                 common_log(LOG_ERR, "Can't pingback; xmlrpc extension not available.");
+                return;
             }
         }
 
@@ -230,5 +231,19 @@ class LinkbackPlugin extends Plugin
     {
         return 'LinkbackPlugin/'.LINKBACKPLUGIN_VERSION .
           ' StatusNet/' . STATUSNET_VERSION;
+    }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'Linkback',
+                            'version' => LINKBACKPLUGIN_VERSION,
+                            'author' => 'Evan Prodromou',
+                            'homepage' => 'http://status.net/wiki/Plugin:Linkback',
+                            'rawdescription' =>
+                            _m('Notify blog authors when their posts have been linked in '.
+                               'microblog notices using '.
+                               '<a href="http://www.hixie.ch/specs/pingback/pingback">Pingback</a> '.
+                               'or <a href="http://www.movabletype.org/docs/mttrackback.html">Trackback</a> protocols.'));
+        return true;
     }
 }

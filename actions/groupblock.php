@@ -159,7 +159,7 @@ class GroupblockAction extends Action
         $this->hidden('token', common_session_token());
         $this->element('legend', _('Block user'));
         $this->element('p', null,
-                       sprintf(_('Are you sure you want to block user "%s" from the group "%s"? '.
+                       sprintf(_('Are you sure you want to block user "%1$s" from the group "%2$s"? '.
                                  'They will be removed from the group, unable to post, and '.
                                  'unable to subscribe to the group in the future.'),
                                $this->profile->getBestName(),

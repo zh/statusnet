@@ -81,7 +81,7 @@ class AllAction extends ProfileAction
     function title()
     {
         if ($this->page > 1) {
-            return sprintf(_("%s and friends, page %d"), $this->user->nickname, $this->page);
+            return sprintf(_('%1$s and friends, page %2$d'), $this->user->nickname, $this->page);
         } else {
             return sprintf(_("%s and friends"), $this->user->nickname);
         }
@@ -131,7 +131,7 @@ class AllAction extends ProfileAction
             if ($this->user->id === $current_user->id) {
                 $message .= _('Try subscribing to more people, [join a group](%%action.groups%%) or post something yourself.');
             } else {
-                $message .= sprintf(_('You can try to [nudge %s](../%s) from his profile or [post something to his or her attention](%%%%action.newnotice%%%%?status_textarea=%s).'), $this->user->nickname, $this->user->nickname, '@' . $this->user->nickname);
+                $message .= sprintf(_('You can try to [nudge %1$s](../%2$s) from his profile or [post something to his or her attention](%%%%action.newnotice%%%%?status_textarea=%3$s).'), $this->user->nickname, $this->user->nickname, '@' . $this->user->nickname);
             }
         } else {
             $message .= sprintf(_('Why not [register an account](%%%%action.register%%%%) and then nudge %s or post a notice to his or her attention.'), $this->user->nickname);

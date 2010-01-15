@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-16 22:51+0000\n"
-"PO-Revision-Date: 2009-12-16 22:52:20+0000\n"
+"POT-Creation-Date: 2010-01-13 22:04+0000\n"
+"PO-Revision-Date: 2010-01-13 22:05:22+0000\n"
 "Language-Team: Hebrew\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r60142); Translate extension (2009-12-06)\n"
+"X-Generator: MediaWiki 1.16alpha (r61027); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: he\n"
 "X-Message-Group: out-statusnet\n"
@@ -38,22 +38,17 @@ msgstr "אין הודעה כזו."
 #: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
 #: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
 #: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
-#: actions/microsummary.php:62 actions/newmessage.php:116
+#: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:76
 #: actions/remotesubscribe.php:145 actions/remotesubscribe.php:154
 #: actions/replies.php:73 actions/repliesrss.php:38
 #: actions/showfavorites.php:105 actions/userbyid.php:74
 #: actions/usergroups.php:91 actions/userrss.php:38 actions/xrds.php:71
-#: lib/command.php:163 lib/command.php:311 lib/command.php:364
-#: lib/command.php:410 lib/command.php:471 lib/command.php:527
+#: lib/command.php:163 lib/command.php:302 lib/command.php:355
+#: lib/command.php:401 lib/command.php:462 lib/command.php:518
 #: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
-#: lib/subs.php:34 lib/subs.php:116
+#: lib/subs.php:34 lib/subs.php:125
 msgid "No such user."
 msgstr "אין משתמש כזה."
-
-#: actions/all.php:84
-#, fuzzy, php-format
-msgid "%s and friends, page %d"
-msgstr "%s וחברים"
 
 #: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
 #: actions/apitimelinefriends.php:115 actions/apitimelinehome.php:115
@@ -93,8 +88,8 @@ msgstr ""
 #: actions/all.php:134
 #, php-format
 msgid ""
-"You can try to [nudge %s](../%s) from his profile or [post something to his "
-"or her attention](%%%%action.newnotice%%%%?status_textarea=%s)."
+"You can try to [nudge %1$s](../%2$s) from his profile or [post something to "
+"his or her attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 
 #: actions/all.php:137 actions/replies.php:209 actions/showstream.php:202
@@ -120,6 +115,23 @@ msgstr ""
 #: actions/apiaccountupdateprofile.php:97
 #: actions/apiaccountupdateprofilebackgroundimage.php:94
 #: actions/apiaccountupdateprofilecolors.php:118
+#: actions/apidirectmessage.php:156 actions/apifavoritecreate.php:99
+#: actions/apifavoritedestroy.php:100 actions/apifriendshipscreate.php:100
+#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:129
+#: actions/apigroupcreate.php:136 actions/apigroupismember.php:114
+#: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
+#: actions/apigrouplist.php:132 actions/apigrouplistall.php:120
+#: actions/apigroupmembership.php:106 actions/apigroupshow.php:105
+#: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
+#: actions/apistatusesretweets.php:112 actions/apistatusesshow.php:108
+#: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
+#: actions/apisubscriptions.php:111 actions/apitimelinefavorites.php:146
+#: actions/apitimelinefriends.php:156 actions/apitimelinegroup.php:150
+#: actions/apitimelinehome.php:156 actions/apitimelinementions.php:151
+#: actions/apitimelinepublic.php:131 actions/apitimelineretweetedbyme.php:122
+#: actions/apitimelineretweetedtome.php:121
+#: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
+#: actions/apitimelineuser.php:165 actions/apiusershow.php:101
 #, fuzzy
 msgid "API method not found."
 msgstr "קוד האישור לא נמצא."
@@ -178,6 +190,9 @@ msgstr ""
 #: actions/apiaccountupdateprofilebackgroundimage.php:146
 #: actions/apiaccountupdateprofilecolors.php:164
 #: actions/apiaccountupdateprofilecolors.php:174
+#: actions/groupdesignsettings.php:287 actions/groupdesignsettings.php:297
+#: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
+#: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
 msgid "Unable to save your design settings."
 msgstr ""
 
@@ -192,11 +207,11 @@ msgstr "עידכון המשתמש נכשל."
 msgid "You cannot block yourself!"
 msgstr "עידכון המשתמש נכשל."
 
-#: actions/apiblockcreate.php:119
+#: actions/apiblockcreate.php:126
 msgid "Block user failed."
 msgstr ""
 
-#: actions/apiblockdestroy.php:107
+#: actions/apiblockdestroy.php:114
 msgid "Unblock user failed."
 msgstr ""
 
@@ -218,26 +233,6 @@ msgstr ""
 #: actions/apidirectmessage.php:105
 #, php-format
 msgid "All the direct messages sent to %s"
-msgstr ""
-
-#: actions/apidirectmessage.php:156 actions/apifavoritecreate.php:99
-#: actions/apifavoritedestroy.php:100 actions/apifriendshipscreate.php:100
-#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:129
-#: actions/apigroupcreate.php:136 actions/apigroupismember.php:114
-#: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
-#: actions/apigrouplist.php:132 actions/apigrouplistall.php:120
-#: actions/apigroupmembership.php:106 actions/apigroupshow.php:105
-#: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
-#: actions/apistatusesretweets.php:112 actions/apistatusesshow.php:108
-#: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
-#: actions/apisubscriptions.php:111 actions/apitimelinefavorites.php:146
-#: actions/apitimelinefriends.php:156 actions/apitimelinegroup.php:150
-#: actions/apitimelinehome.php:156 actions/apitimelinementions.php:151
-#: actions/apitimelinepublic.php:131 actions/apitimelineretweetedbyme.php:122
-#: actions/apitimelineretweetedtome.php:121
-#: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
-#: actions/apitimelineuser.php:165 actions/apiusershow.php:101
-msgid "API method not found!"
 msgstr ""
 
 #: actions/apidirectmessagenew.php:126
@@ -263,15 +258,16 @@ msgid "No status found with that ID."
 msgstr ""
 
 #: actions/apifavoritecreate.php:119
-msgid "This status is already a favorite!"
-msgstr ""
+#, fuzzy
+msgid "This status is already a favorite."
+msgstr "זהו כבר זיהוי ה-Jabber שלך."
 
 #: actions/apifavoritecreate.php:130 actions/favor.php:84 lib/command.php:176
 msgid "Could not create favorite."
 msgstr ""
 
 #: actions/apifavoritedestroy.php:122
-msgid "That status is not a favorite!"
+msgid "That status is not a favorite."
 msgstr ""
 
 #: actions/apifavoritedestroy.php:134 actions/disfavor.php:87
@@ -293,8 +289,9 @@ msgid "Could not unfollow user: User not found."
 msgstr "נכשלה ההפניה לשרת: %s"
 
 #: actions/apifriendshipsdestroy.php:120
-msgid "You cannot unfollow yourself!"
-msgstr ""
+#, fuzzy
+msgid "You cannot unfollow yourself."
+msgstr "עידכון המשתמש נכשל."
 
 #: actions/apifriendshipsexists.php:94
 msgid "Two user ids or screen_names must be supplied."
@@ -311,31 +308,31 @@ msgid "Could not find target user."
 msgstr "עידכון המשתמש נכשל."
 
 #: actions/apigroupcreate.php:164 actions/editgroup.php:182
-#: actions/newgroup.php:126 actions/profilesettings.php:208
+#: actions/newgroup.php:126 actions/profilesettings.php:215
 #: actions/register.php:205
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr "כינוי יכול להכיל רק אותיות אנגליות קטנות ומספרים, וללא רווחים."
 
 #: actions/apigroupcreate.php:173 actions/editgroup.php:186
-#: actions/newgroup.php:130 actions/profilesettings.php:231
+#: actions/newgroup.php:130 actions/profilesettings.php:238
 #: actions/register.php:208
 msgid "Nickname already in use. Try another one."
 msgstr "כינוי זה כבר תפוס. נסה כינוי אחר."
 
 #: actions/apigroupcreate.php:180 actions/editgroup.php:189
-#: actions/newgroup.php:133 actions/profilesettings.php:211
+#: actions/newgroup.php:133 actions/profilesettings.php:218
 #: actions/register.php:210
 msgid "Not a valid nickname."
 msgstr "שם משתמש לא חוקי."
 
 #: actions/apigroupcreate.php:196 actions/editgroup.php:195
-#: actions/newgroup.php:139 actions/profilesettings.php:215
+#: actions/newgroup.php:139 actions/profilesettings.php:222
 #: actions/register.php:217
 msgid "Homepage is not a valid URL."
 msgstr "לאתר הבית יש כתובת לא חוקית."
 
 #: actions/apigroupcreate.php:205 actions/editgroup.php:198
-#: actions/newgroup.php:142 actions/profilesettings.php:218
+#: actions/newgroup.php:142 actions/profilesettings.php:225
 #: actions/register.php:220
 msgid "Full name is too long (max 255 chars)."
 msgstr "השם המלא ארוך מידי (מותרות 255 אותיות בלבד)"
@@ -346,7 +343,7 @@ msgid "Description is too long (max %d chars)."
 msgstr "הביוגרפיה ארוכה מידי (לכל היותר 140 אותיות)"
 
 #: actions/apigroupcreate.php:224 actions/editgroup.php:204
-#: actions/newgroup.php:148 actions/profilesettings.php:225
+#: actions/newgroup.php:148 actions/profilesettings.php:232
 #: actions/register.php:227
 msgid "Location is too long (max 255 chars)."
 msgstr "שם המיקום ארוך מידי (מותר עד 255 אותיות)."
@@ -381,7 +378,7 @@ msgstr ""
 msgid "Group not found!"
 msgstr "לא נמצא"
 
-#: actions/apigroupjoin.php:110
+#: actions/apigroupjoin.php:110 actions/joingroup.php:90
 #, fuzzy
 msgid "You are already a member of that group."
 msgstr "כבר נכנסת למערכת!"
@@ -390,9 +387,9 @@ msgstr "כבר נכנסת למערכת!"
 msgid "You have been blocked from that group by the admin."
 msgstr ""
 
-#: actions/apigroupjoin.php:138
+#: actions/apigroupjoin.php:138 actions/joingroup.php:124
 #, fuzzy, php-format
-msgid "Could not join user %s to group %s."
+msgid "Could not join user %1$s to group %2$s."
 msgstr "נכשלה ההפניה לשרת: %s"
 
 #: actions/apigroupleave.php:114
@@ -400,20 +397,15 @@ msgstr "נכשלה ההפניה לשרת: %s"
 msgid "You are not a member of this group."
 msgstr "לא שלחנו אלינו את הפרופיל הזה"
 
-#: actions/apigroupleave.php:124
+#: actions/apigroupleave.php:124 actions/leavegroup.php:119
 #, fuzzy, php-format
-msgid "Could not remove user %s to group %s."
+msgid "Could not remove user %1$s from group %2$s."
 msgstr "נכשלה יצירת OpenID מתוך: %s"
 
 #: actions/apigrouplist.php:95
 #, fuzzy, php-format
 msgid "%s's groups"
 msgstr "פרופיל"
-
-#: actions/apigrouplist.php:103
-#, fuzzy, php-format
-msgid "Groups %s is a member of on %s."
-msgstr "לא שלחנו אלינו את הפרופיל הזה"
 
 #: actions/apigrouplistall.php:90 actions/usergroups.php:62
 #, php-format
@@ -458,7 +450,7 @@ msgid "No status with that ID found."
 msgstr ""
 
 #: actions/apistatusesupdate.php:157 actions/newnotice.php:155
-#: scripts/maildaemon.php:71
+#: lib/mailhandler.php:60
 #, fuzzy, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr "זה ארוך מידי. אורך מירבי להודעה הוא 140 אותיות."
@@ -467,7 +459,7 @@ msgstr "זה ארוך מידי. אורך מירבי להודעה הוא 140 או
 msgid "Not found"
 msgstr "לא נמצא"
 
-#: actions/apistatusesupdate.php:227 actions/newnotice.php:183
+#: actions/apistatusesupdate.php:221 actions/newnotice.php:178
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -478,14 +470,14 @@ msgid "Unsupported format."
 msgstr "פורמט התמונה אינו נתמך."
 
 #: actions/apitimelinefavorites.php:108
-#, php-format
-msgid "%s / Favorites from %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "%1$s / Favorites from %2$s"
+msgstr "הסטטוס של %1$s ב-%2$s "
 
 #: actions/apitimelinefavorites.php:120
-#, php-format
-msgid "%s updates favorited by %s / %s."
-msgstr ""
+#, fuzzy, php-format
+msgid "%1$s updates favorited by %2$s / %2$s."
+msgstr "מיקרובלוג מאת %s"
 
 #: actions/apitimelinegroup.php:109 actions/apitimelineuser.php:118
 #: actions/grouprss.php:131 actions/userrss.php:90
@@ -554,8 +546,11 @@ msgstr "לא נמצא"
 msgid "No such attachment."
 msgstr "אין מסמך כזה."
 
-#: actions/avatarbynickname.php:59 actions/grouprss.php:91
-#: actions/leavegroup.php:76
+#: actions/avatarbynickname.php:59 actions/blockedfromgroup.php:73
+#: actions/editgroup.php:84 actions/groupdesignsettings.php:84
+#: actions/grouplogo.php:86 actions/groupmembers.php:76
+#: actions/grouprss.php:91 actions/joingroup.php:76 actions/leavegroup.php:76
+#: actions/showgroup.php:121
 msgid "No nickname."
 msgstr "אין כינוי"
 
@@ -578,8 +573,8 @@ msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr ""
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
-#: actions/grouplogo.php:178 actions/remotesubscribe.php:191
-#: actions/userauthorization.php:72 actions/userrss.php:103
+#: actions/remotesubscribe.php:191 actions/userauthorization.php:72
+#: actions/userrss.php:103
 msgid "User without matching profile"
 msgstr ""
 
@@ -600,7 +595,7 @@ msgid "Preview"
 msgstr ""
 
 #: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:603
+#: lib/noticelist.php:611
 #, fuzzy
 msgid "Delete"
 msgstr "מחק"
@@ -613,14 +608,14 @@ msgstr "ההעלה"
 msgid "Crop"
 msgstr ""
 
-#: actions/avatarsettings.php:268 actions/disfavor.php:74
-#: actions/emailsettings.php:238 actions/favor.php:75
-#: actions/groupblock.php:66 actions/grouplogo.php:309
+#: actions/avatarsettings.php:268 actions/deletenotice.php:157
+#: actions/disfavor.php:74 actions/emailsettings.php:238 actions/favor.php:75
+#: actions/geocode.php:50 actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
-#: actions/invite.php:56 actions/login.php:135 actions/makeadmin.php:66
+#: actions/invite.php:56 actions/login.php:115 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
-#: actions/profilesettings.php:187 actions/recoverpassword.php:337
+#: actions/profilesettings.php:194 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
 #: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
 #: actions/subscribe.php:46 actions/tagother.php:166
@@ -686,6 +681,7 @@ msgstr "אין משתמש כזה."
 
 #: actions/block.php:144 actions/deletenotice.php:146
 #: actions/deleteuser.php:148 actions/groupblock.php:179
+#: lib/repeatform.php:132
 msgid "Yes"
 msgstr "כן"
 
@@ -694,24 +690,19 @@ msgstr "כן"
 msgid "Block this user"
 msgstr "אין משתמש כזה."
 
-#: actions/block.php:162
+#: actions/block.php:167
 msgid "Failed to save block information."
 msgstr ""
 
-#: actions/blockedfromgroup.php:73 actions/editgroup.php:84
-#: actions/groupdesignsettings.php:84 actions/grouplogo.php:86
-#: actions/groupmembers.php:76 actions/joingroup.php:76
-#: actions/showgroup.php:121
-#, fuzzy
-msgid "No nickname"
-msgstr "אין כינוי"
-
 #: actions/blockedfromgroup.php:80 actions/editgroup.php:96
+#: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
 #: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
 #: actions/grouplogo.php:99 actions/groupmembers.php:83
-#: actions/joingroup.php:83 actions/showgroup.php:137
+#: actions/grouprss.php:98 actions/groupunblock.php:86
+#: actions/joingroup.php:83 actions/leavegroup.php:83 actions/makeadmin.php:86
+#: actions/showgroup.php:137 lib/command.php:212 lib/command.php:260
 #, fuzzy
-msgid "No such group"
+msgid "No such group."
 msgstr "אין הודעה כזו."
 
 #: actions/blockedfromgroup.php:90
@@ -721,7 +712,7 @@ msgstr "למשתמש אין פרופיל."
 
 #: actions/blockedfromgroup.php:93
 #, fuzzy, php-format
-msgid "%s blocked profiles, page %d"
+msgid "%1$s blocked profiles, page %2$d"
 msgstr "%s וחברים"
 
 #: actions/blockedfromgroup.php:108
@@ -770,7 +761,7 @@ msgstr "כתובת זו כבר אושרה."
 #: actions/confirmaddress.php:114 actions/emailsettings.php:296
 #: actions/emailsettings.php:427 actions/imsettings.php:258
 #: actions/imsettings.php:401 actions/othersettings.php:174
-#: actions/profilesettings.php:276 actions/smssettings.php:278
+#: actions/profilesettings.php:283 actions/smssettings.php:278
 #: actions/smssettings.php:420
 msgid "Couldn't update user."
 msgstr "עידכון המשתמש נכשל."
@@ -832,12 +823,8 @@ msgstr ""
 msgid "Do not delete this notice"
 msgstr "אין הודעה כזו."
 
-#: actions/deletenotice.php:146 lib/noticelist.php:603
+#: actions/deletenotice.php:146 lib/noticelist.php:611
 msgid "Delete this notice"
-msgstr ""
-
-#: actions/deletenotice.php:157
-msgid "There was a problem with your session token.  Try again, please."
 msgstr ""
 
 #: actions/deleteuser.php:67
@@ -867,7 +854,7 @@ msgid "Delete this user"
 msgstr "אין משתמש כזה."
 
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
-#: lib/adminpanelaction.php:302 lib/groupnav.php:119
+#: lib/adminpanelaction.php:316 lib/groupnav.php:119
 msgid "Design"
 msgstr ""
 
@@ -979,8 +966,8 @@ msgstr ""
 
 #: actions/designadminpanel.php:586 actions/emailsettings.php:195
 #: actions/imsettings.php:163 actions/othersettings.php:126
-#: actions/pathsadminpanel.php:296 actions/profilesettings.php:167
-#: actions/siteadminpanel.php:421 actions/smssettings.php:181
+#: actions/pathsadminpanel.php:324 actions/profilesettings.php:174
+#: actions/siteadminpanel.php:388 actions/smssettings.php:181
 #: actions/subscriptions.php:203 actions/tagother.php:154
 #: actions/useradminpanel.php:313 lib/designsettings.php:256
 #: lib/groupeditform.php:202
@@ -1015,7 +1002,7 @@ msgstr ""
 
 #: actions/editgroup.php:103 actions/editgroup.php:168
 #: actions/groupdesignsettings.php:104 actions/grouplogo.php:106
-msgid "You must be an admin to edit the group"
+msgid "You must be an admin to edit the group."
 msgstr ""
 
 #: actions/editgroup.php:154
@@ -1043,8 +1030,9 @@ msgid "Options saved."
 msgstr "ההגדרות נשמרו."
 
 #: actions/emailsettings.php:60
-msgid "Email Settings"
-msgstr ""
+#, fuzzy
+msgid "Email settings"
+msgstr "הגדרות הפרופיל"
 
 #: actions/emailsettings.php:71
 #, php-format
@@ -1078,8 +1066,9 @@ msgid "Cancel"
 msgstr "בטל"
 
 #: actions/emailsettings.php:121
-msgid "Email Address"
-msgstr ""
+#, fuzzy
+msgid "Email address"
+msgstr "כתובת מסרים מידיים"
 
 #: actions/emailsettings.php:123
 msgid "Email address, like \"UserName@example.org\""
@@ -1152,8 +1141,9 @@ msgstr ""
 msgid "Cannot normalize that email address"
 msgstr ""
 
-#: actions/emailsettings.php:331 actions/siteadminpanel.php:158
-msgid "Not a valid email address"
+#: actions/emailsettings.php:331 actions/register.php:201
+#: actions/siteadminpanel.php:157
+msgid "Not a valid email address."
 msgstr ""
 
 #: actions/emailsettings.php:334
@@ -1278,7 +1268,7 @@ msgstr ""
 
 #: actions/featured.php:99
 #, php-format
-msgid "A selection of some of the great users on %s"
+msgid "A selection of some great users on %s"
 msgstr ""
 
 #: actions/file.php:34
@@ -1337,20 +1327,12 @@ msgstr "גירסה לא מוכרת של פרוטוקול OMB"
 msgid "Error updating remote profile"
 msgstr "שגיאה בעדכון פרופיל מרוחק"
 
-#: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
-#: actions/grouprss.php:98 actions/groupunblock.php:86
-#: actions/leavegroup.php:83 actions/makeadmin.php:86 lib/command.php:212
-#: lib/command.php:263
-#, fuzzy
-msgid "No such group."
-msgstr "אין הודעה כזו."
-
-#: actions/getfile.php:75
+#: actions/getfile.php:79
 #, fuzzy
 msgid "No such file."
 msgstr "אין הודעה כזו."
 
-#: actions/getfile.php:79
+#: actions/getfile.php:83
 #, fuzzy
 msgid "Cannot read file."
 msgstr "אין הודעה כזו."
@@ -1363,7 +1345,7 @@ msgstr ""
 
 #: actions/groupblock.php:76 actions/groupunblock.php:76
 #: actions/makeadmin.php:76 actions/subedit.php:53 actions/tagother.php:46
-#: lib/profileformaction.php:77
+#: actions/unsubscribe.php:84 lib/profileformaction.php:77
 msgid "No profile with that ID."
 msgstr ""
 
@@ -1394,9 +1376,9 @@ msgstr "אין משתמש כזה."
 #: actions/groupblock.php:162
 #, php-format
 msgid ""
-"Are you sure you want to block user \"%s\" from the group \"%s\"? They will "
-"be removed from the group, unable to post, and unable to subscribe to the "
-"group in the future."
+"Are you sure you want to block user \"%1$s\" from the group \"%2$s\"? They "
+"will be removed from the group, unable to post, and unable to subscribe to "
+"the group in the future."
 msgstr ""
 
 #: actions/groupblock.php:178
@@ -1413,9 +1395,10 @@ msgstr "אין משתמש כזה."
 msgid "Database error blocking user from group."
 msgstr ""
 
-#: actions/groupbyid.php:74
-msgid "No ID"
-msgstr ""
+#: actions/groupbyid.php:74 actions/userbyid.php:70
+#, fuzzy
+msgid "No ID."
+msgstr "אין זיהוי."
 
 #: actions/groupdesignsettings.php:68
 msgid "You must be logged in to edit a group."
@@ -1438,12 +1421,6 @@ msgstr ""
 msgid "Couldn't update your design."
 msgstr "עידכון המשתמש נכשל."
 
-#: actions/groupdesignsettings.php:287 actions/groupdesignsettings.php:297
-#: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
-#: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
-msgid "Unable to save your design settings!"
-msgstr ""
-
 #: actions/groupdesignsettings.php:308 actions/userdesignsettings.php:231
 #, fuzzy
 msgid "Design preferences saved."
@@ -1458,6 +1435,11 @@ msgstr ""
 msgid ""
 "You can upload a logo image for your group. The maximum file size is %s."
 msgstr ""
+
+#: actions/grouplogo.php:178
+#, fuzzy
+msgid "User without matching profile."
+msgstr "למשתמש אין פרופיל."
 
 #: actions/grouplogo.php:362
 msgid "Pick a square area of the image to be the logo."
@@ -1480,14 +1462,14 @@ msgstr ""
 
 #: actions/groupmembers.php:96
 #, php-format
-msgid "%s group members, page %d"
+msgid "%1$s group members, page %2$d"
 msgstr ""
 
 #: actions/groupmembers.php:111
 msgid "A list of the users in this group."
 msgstr ""
 
-#: actions/groupmembers.php:175 lib/action.php:440 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:442 lib/groupnav.php:107
 msgid "Admin"
 msgstr ""
 
@@ -1580,13 +1562,14 @@ msgstr ""
 msgid "User is not blocked from group."
 msgstr "למשתמש אין פרופיל."
 
-#: actions/groupunblock.php:128 actions/unblock.php:77
+#: actions/groupunblock.php:128 actions/unblock.php:86
 #, fuzzy
 msgid "Error removing the block."
 msgstr "שגיאה בשמירת המשתמש."
 
 #: actions/imsettings.php:59
-msgid "IM Settings"
+#, fuzzy
+msgid "IM settings"
 msgstr "הגדרות מסרים מידיים"
 
 #: actions/imsettings.php:70
@@ -1617,7 +1600,8 @@ msgstr ""
 "נוספותץ (האם הוספת את %s לרשימת החברים שלך?)"
 
 #: actions/imsettings.php:124
-msgid "IM Address"
+#, fuzzy
+msgid "IM address"
 msgstr "כתובת מסרים מידיים"
 
 #: actions/imsettings.php:126
@@ -1678,11 +1662,6 @@ msgstr ""
 msgid "That is not your Jabber ID."
 msgstr "זהו לא זיהוי ה-Jabber שלך."
 
-#: actions/inbox.php:59
-#, php-format
-msgid "Inbox for %s - page %d"
-msgstr ""
-
 #: actions/inbox.php:62
 #, php-format
 msgid "Inbox for %s"
@@ -1718,9 +1697,9 @@ msgstr ""
 msgid "You are already subscribed to these users:"
 msgstr ""
 
-#: actions/invite.php:131 actions/invite.php:139
+#: actions/invite.php:131 actions/invite.php:139 lib/command.php:306
 #, php-format
-msgid "%s (%s)"
+msgid "%1$s (%2$s)"
 msgstr ""
 
 #: actions/invite.php:136
@@ -1759,7 +1738,7 @@ msgstr ""
 msgid "Optionally add a personal message to the invitation."
 msgstr ""
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:222
+#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:237
 msgid "Send"
 msgstr "שלח"
 
@@ -1803,101 +1782,77 @@ msgstr ""
 msgid "You must be logged in to join a group."
 msgstr ""
 
-#: actions/joingroup.php:90 lib/command.php:217
-#, fuzzy
-msgid "You are already a member of that group"
-msgstr "כבר נכנסת למערכת!"
-
-#: actions/joingroup.php:128 lib/command.php:234
-#, fuzzy, php-format
-msgid "Could not join user %s to group %s"
-msgstr "נכשלה ההפניה לשרת: %s"
-
-#: actions/joingroup.php:135 lib/command.php:239
+#: actions/joingroup.php:131
 #, php-format
-msgid "%s joined group %s"
+msgid "%1$s joined group %2$s"
 msgstr ""
 
 #: actions/leavegroup.php:60
 msgid "You must be logged in to leave a group."
 msgstr ""
 
-#: actions/leavegroup.php:90 lib/command.php:268
+#: actions/leavegroup.php:90 lib/command.php:265
 #, fuzzy
 msgid "You are not a member of that group."
 msgstr "לא שלחנו אלינו את הפרופיל הזה"
 
-#: actions/leavegroup.php:119 lib/command.php:278
-msgid "Could not find membership record."
-msgstr ""
-
-#: actions/leavegroup.php:127 lib/command.php:284
+#: actions/leavegroup.php:127
 #, fuzzy, php-format
-msgid "Could not remove user %s to group %s"
-msgstr "נכשלה יצירת OpenID מתוך: %s"
+msgid "%1$s left group %2$s"
+msgstr "הסטטוס של %1$s ב-%2$s "
 
-#: actions/leavegroup.php:134 lib/command.php:289
-#, php-format
-msgid "%s left group %s"
-msgstr ""
-
-#: actions/login.php:83 actions/register.php:137
+#: actions/login.php:80 actions/otp.php:62 actions/register.php:137
 msgid "Already logged in."
 msgstr "כבר מחובר."
 
-#: actions/login.php:114 actions/login.php:124
-#, fuzzy
-msgid "Invalid or expired token."
-msgstr "תוכן ההודעה לא חוקי"
-
-#: actions/login.php:147
+#: actions/login.php:126
 msgid "Incorrect username or password."
 msgstr "שם משתמש או סיסמה לא נכונים."
 
-#: actions/login.php:153
+#: actions/login.php:132 actions/otp.php:120
 #, fuzzy
 msgid "Error setting user. You are probably not authorized."
 msgstr "לא מורשה."
 
-#: actions/login.php:208 actions/login.php:261 lib/action.php:458
+#: actions/login.php:188 actions/login.php:241 lib/action.php:460
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "היכנס"
 
-#: actions/login.php:247
+#: actions/login.php:227
 msgid "Login to site"
 msgstr ""
 
-#: actions/login.php:250 actions/profilesettings.php:106
-#: actions/register.php:423 actions/showgroup.php:236 actions/tagother.php:94
+#: actions/login.php:230 actions/profilesettings.php:106
+#: actions/register.php:424 actions/showgroup.php:236 actions/tagother.php:94
 #: lib/groupeditform.php:152 lib/userprofile.php:131
 msgid "Nickname"
 msgstr "כינוי"
 
-#: actions/login.php:253 actions/register.php:428
+#: actions/login.php:233 actions/register.php:429
 #: lib/accountsettingsaction.php:116
 msgid "Password"
 msgstr "סיסמה"
 
-#: actions/login.php:256 actions/register.php:477
+#: actions/login.php:236 actions/register.php:478
 msgid "Remember me"
 msgstr "זכור אותי"
 
-#: actions/login.php:257 actions/register.php:479
+#: actions/login.php:237 actions/register.php:480
 msgid "Automatically login in the future; not for shared computers!"
 msgstr "בעתיד התחבר אוטומטית; לא לשימוש במחשבים ציבוריים!"
 
-#: actions/login.php:267
+#: actions/login.php:247
 msgid "Lost or forgotten password?"
 msgstr "שכחת או איבדת את הסיסמה?"
 
-#: actions/login.php:286
+#: actions/login.php:266
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
 msgstr "לצרכי אבטחה, הכנס מחדש את שם המשתמש והסיסמה לפני שתשנה את ההגדרות."
 
-#: actions/login.php:290
+#: actions/login.php:270
 #, fuzzy, php-format
 msgid ""
 "Login with your username and password. Don't have a username yet? [Register]"
@@ -1911,19 +1866,19 @@ msgid "Only an admin can make another user an admin."
 msgstr ""
 
 #: actions/makeadmin.php:95
-#, php-format
-msgid "%s is already an admin for group \"%s\"."
-msgstr ""
+#, fuzzy, php-format
+msgid "%1$s is already an admin for group \"%2$s\"."
+msgstr "למשתמש אין פרופיל."
 
 #: actions/makeadmin.php:132
-#, php-format
-msgid "Can't get membership record for %s in group %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Can't get membership record for %1$s in group %2$s."
+msgstr "נכשלה יצירת OpenID מתוך: %s"
 
 #: actions/makeadmin.php:145
-#, php-format
-msgid "Can't make %s an admin for group %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Can't make %1$s an admin for group %2$s."
+msgstr "למשתמש אין פרופיל."
 
 #: actions/microsummary.php:69
 msgid "No current status"
@@ -1941,12 +1896,12 @@ msgstr ""
 msgid "New message"
 msgstr "הודעה חדשה"
 
-#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:367
+#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:358
 msgid "You can't send a message to this user."
 msgstr ""
 
-#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:351
-#: lib/command.php:484
+#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:342
+#: lib/command.php:475
 msgid "No content!"
 msgstr "אין תוכן!"
 
@@ -1954,7 +1909,7 @@ msgstr "אין תוכן!"
 msgid "No recipient specified."
 msgstr ""
 
-#: actions/newmessage.php:164 lib/command.php:370
+#: actions/newmessage.php:164 lib/command.php:361
 msgid ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr ""
@@ -1964,12 +1919,12 @@ msgstr ""
 msgid "Message sent"
 msgstr "הודעה חדשה"
 
-#: actions/newmessage.php:185 lib/command.php:376
+#: actions/newmessage.php:185
 #, php-format
-msgid "Direct message to %s sent"
+msgid "Direct message to %s sent."
 msgstr ""
 
-#: actions/newmessage.php:210 actions/newnotice.php:242 lib/channel.php:170
+#: actions/newmessage.php:210 actions/newnotice.php:245 lib/channel.php:170
 msgid "Ajax Error"
 msgstr ""
 
@@ -1977,7 +1932,7 @@ msgstr ""
 msgid "New notice"
 msgstr "הודעה חדשה"
 
-#: actions/newnotice.php:208
+#: actions/newnotice.php:211
 #, fuzzy
 msgid "Notice posted"
 msgstr "הודעות"
@@ -1997,7 +1952,7 @@ msgstr "חיפוש טקסט"
 
 #: actions/noticesearch.php:91
 #, fuzzy, php-format
-msgid "Search results for \"%s\" on %s"
+msgid "Search results for \"%1$s\" on %2$s"
 msgstr "חיפוש ברצף אחרי \"%s\""
 
 #: actions/noticesearch.php:121
@@ -2055,8 +2010,8 @@ msgstr "התחבר"
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1031
-#: lib/api.php:1059 lib/api.php:1169
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1033
+#: lib/api.php:1061 lib/api.php:1171
 msgid "Not a supported data format."
 msgstr ""
 
@@ -2103,9 +2058,28 @@ msgstr ""
 msgid "URL shortening service is too long (max 50 chars)."
 msgstr "שם המיקום ארוך מידי (מותר עד 255 אותיות)."
 
-#: actions/outbox.php:58
-#, php-format
-msgid "Outbox for %s - page %d"
+#: actions/otp.php:69
+#, fuzzy
+msgid "No user ID specified."
+msgstr "הודעה חדשה"
+
+#: actions/otp.php:83
+#, fuzzy
+msgid "No login token specified."
+msgstr "הודעה חדשה"
+
+#: actions/otp.php:90
+#, fuzzy
+msgid "No login token requested."
+msgstr "השרת לא החזיר כתובת פרופיל"
+
+#: actions/otp.php:95
+#, fuzzy
+msgid "Invalid login token specified."
+msgstr "תוכן ההודעה לא חוקי"
+
+#: actions/otp.php:104
+msgid "Login token expired."
 msgstr ""
 
 #: actions/outbox.php:61
@@ -2144,7 +2118,7 @@ msgid "6 or more characters"
 msgstr "לפחות 6 אותיות"
 
 #: actions/passwordsettings.php:112 actions/recoverpassword.php:239
-#: actions/register.php:432 actions/smssettings.php:134
+#: actions/register.php:433 actions/smssettings.php:134
 msgid "Confirm"
 msgstr "אשר"
 
@@ -2180,7 +2154,7 @@ msgstr "לא ניתן לשמור את הסיסמה"
 msgid "Password saved."
 msgstr "הסיסמה נשמרה."
 
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:308
+#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:326
 msgid "Paths"
 msgstr ""
 
@@ -2208,81 +2182,121 @@ msgstr ""
 msgid "Locales directory not readable: %s"
 msgstr ""
 
-#: actions/pathsadminpanel.php:212 actions/siteadminpanel.php:58
-#: lib/adminpanelaction.php:299
+#: actions/pathsadminpanel.php:166
+msgid "Invalid SSL server. The maximum length is 255 characters."
+msgstr ""
+
+#: actions/pathsadminpanel.php:217 actions/siteadminpanel.php:58
+#: lib/adminpanelaction.php:311
 msgid "Site"
 msgstr ""
 
-#: actions/pathsadminpanel.php:216
+#: actions/pathsadminpanel.php:221
 msgid "Path"
 msgstr ""
 
-#: actions/pathsadminpanel.php:216
+#: actions/pathsadminpanel.php:221
 #, fuzzy
 msgid "Site path"
 msgstr "הודעה חדשה"
 
-#: actions/pathsadminpanel.php:220
+#: actions/pathsadminpanel.php:225
 msgid "Path to locales"
 msgstr ""
 
-#: actions/pathsadminpanel.php:220
+#: actions/pathsadminpanel.php:225
 msgid "Directory path to locales"
 msgstr ""
 
-#: actions/pathsadminpanel.php:227
+#: actions/pathsadminpanel.php:232
 msgid "Theme"
 msgstr ""
 
-#: actions/pathsadminpanel.php:232
+#: actions/pathsadminpanel.php:237
 msgid "Theme server"
 msgstr ""
 
-#: actions/pathsadminpanel.php:236
+#: actions/pathsadminpanel.php:241
 msgid "Theme path"
 msgstr ""
 
-#: actions/pathsadminpanel.php:240
+#: actions/pathsadminpanel.php:245
 msgid "Theme directory"
 msgstr ""
 
-#: actions/pathsadminpanel.php:247
+#: actions/pathsadminpanel.php:252
 #, fuzzy
 msgid "Avatars"
 msgstr "תמונה"
 
-#: actions/pathsadminpanel.php:252
+#: actions/pathsadminpanel.php:257
 #, fuzzy
 msgid "Avatar server"
 msgstr "הגדרות"
 
-#: actions/pathsadminpanel.php:256
+#: actions/pathsadminpanel.php:261
 #, fuzzy
 msgid "Avatar path"
 msgstr "התמונה עודכנה."
 
-#: actions/pathsadminpanel.php:260
+#: actions/pathsadminpanel.php:265
 #, fuzzy
 msgid "Avatar directory"
 msgstr "התמונה עודכנה."
 
-#: actions/pathsadminpanel.php:269
+#: actions/pathsadminpanel.php:274
 msgid "Backgrounds"
 msgstr ""
 
-#: actions/pathsadminpanel.php:273
+#: actions/pathsadminpanel.php:278
 msgid "Background server"
 msgstr ""
 
-#: actions/pathsadminpanel.php:277
+#: actions/pathsadminpanel.php:282
 msgid "Background path"
 msgstr ""
 
-#: actions/pathsadminpanel.php:281
+#: actions/pathsadminpanel.php:286
 msgid "Background directory"
 msgstr ""
 
+#: actions/pathsadminpanel.php:293
+#, fuzzy
+msgid "SSL"
+msgstr "סמס"
+
+#: actions/pathsadminpanel.php:296 actions/siteadminpanel.php:346
+#, fuzzy
+msgid "Never"
+msgstr "שיחזור"
+
 #: actions/pathsadminpanel.php:297
+#, fuzzy
+msgid "Sometimes"
+msgstr "הודעות"
+
+#: actions/pathsadminpanel.php:298
+msgid "Always"
+msgstr ""
+
+#: actions/pathsadminpanel.php:302
+msgid "Use SSL"
+msgstr ""
+
+#: actions/pathsadminpanel.php:303
+msgid "When to use SSL"
+msgstr ""
+
+#: actions/pathsadminpanel.php:308
+#, fuzzy
+msgid "SSL server"
+msgstr "שיחזור"
+
+#: actions/pathsadminpanel.php:309
+msgid "Server to direct SSL requests to"
+msgstr ""
+
+#: actions/pathsadminpanel.php:325
 #, fuzzy
 msgid "Save paths"
 msgstr "הודעה חדשה"
@@ -2306,9 +2320,9 @@ msgid "Not a valid people tag: %s"
 msgstr "לא עומד בכללים ל-OpenID."
 
 #: actions/peopletag.php:144
-#, php-format
-msgid "Users self-tagged with %s - page %d"
-msgstr ""
+#, fuzzy, php-format
+msgid "Users self-tagged with %1$s - page %2$d"
+msgstr "מיקרובלוג מאת %s"
 
 #: actions/postnotice.php:84
 msgid "Invalid notice content"
@@ -2316,7 +2330,7 @@ msgstr "תוכן ההודעה לא חוקי"
 
 #: actions/postnotice.php:90
 #, php-format
-msgid "Notice license ‘%s’ is not compatible with site license ‘%s’."
+msgid "Notice license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr ""
 
 #: actions/profilesettings.php:60
@@ -2337,110 +2351,119 @@ msgstr "פרופיל לא מוכר"
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr "1 עד 64 אותיות אנגליות קטנות או מספרים, ללא סימני פיסוק או רווחים."
 
-#: actions/profilesettings.php:111 actions/register.php:447
+#: actions/profilesettings.php:111 actions/register.php:448
 #: actions/showgroup.php:247 actions/tagother.php:104
 #: lib/groupeditform.php:157 lib/userprofile.php:149
 msgid "Full name"
 msgstr "שם מלא"
 
-#: actions/profilesettings.php:115 actions/register.php:452
+#: actions/profilesettings.php:115 actions/register.php:453
 #: lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "אתר בית"
 
-#: actions/profilesettings.php:117 actions/register.php:454
+#: actions/profilesettings.php:117 actions/register.php:455
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr "הכתובת של אתר הבית שלך, בלוג, או פרופיל באתר אחר "
 
-#: actions/profilesettings.php:122 actions/register.php:460
+#: actions/profilesettings.php:122 actions/register.php:461
 #, fuzzy, php-format
 msgid "Describe yourself and your interests in %d chars"
 msgstr "תאר את עצמך ואת נושאי העניין שלך ב-140 אותיות"
 
-#: actions/profilesettings.php:125 actions/register.php:463
+#: actions/profilesettings.php:125 actions/register.php:464
 #, fuzzy
 msgid "Describe yourself and your interests"
 msgstr "תאר את עצמך ואת נושאי העניין שלך ב-140 אותיות"
 
-#: actions/profilesettings.php:127 actions/register.php:465
+#: actions/profilesettings.php:127 actions/register.php:466
 msgid "Bio"
 msgstr "ביוגרפיה"
 
-#: actions/profilesettings.php:132 actions/register.php:470
+#: actions/profilesettings.php:132 actions/register.php:471
 #: actions/showgroup.php:256 actions/tagother.php:112
 #: actions/userauthorization.php:158 lib/groupeditform.php:177
 #: lib/userprofile.php:164
 msgid "Location"
 msgstr "מיקום"
 
-#: actions/profilesettings.php:134 actions/register.php:472
+#: actions/profilesettings.php:134 actions/register.php:473
 msgid "Where you are, like \"City, State (or Region), Country\""
 msgstr "מיקומך, למשל \"עיר, מדינה או מחוז, ארץ\""
 
-#: actions/profilesettings.php:138 actions/tagother.php:149
+#: actions/profilesettings.php:138
+msgid "Share my current location when posting notices"
+msgstr ""
+
+#: actions/profilesettings.php:145 actions/tagother.php:149
 #: actions/tagother.php:209 lib/subscriptionlist.php:106
 #: lib/subscriptionlist.php:108 lib/userprofile.php:209
 msgid "Tags"
 msgstr ""
 
-#: actions/profilesettings.php:140
+#: actions/profilesettings.php:147
 msgid ""
 "Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
 msgstr ""
 
-#: actions/profilesettings.php:144 actions/siteadminpanel.php:307
+#: actions/profilesettings.php:151 actions/siteadminpanel.php:294
 msgid "Language"
 msgstr "שפה"
 
-#: actions/profilesettings.php:145
+#: actions/profilesettings.php:152
 msgid "Preferred language"
 msgstr ""
 
-#: actions/profilesettings.php:154
+#: actions/profilesettings.php:161
 msgid "Timezone"
 msgstr ""
 
-#: actions/profilesettings.php:155
+#: actions/profilesettings.php:162
 msgid "What timezone are you normally in?"
 msgstr ""
 
-#: actions/profilesettings.php:160
+#: actions/profilesettings.php:167
 msgid ""
 "Automatically subscribe to whoever subscribes to me (best for non-humans)"
 msgstr ""
 
-#: actions/profilesettings.php:221 actions/register.php:223
+#: actions/profilesettings.php:228 actions/register.php:223
 #, fuzzy, php-format
 msgid "Bio is too long (max %d chars)."
 msgstr "הביוגרפיה ארוכה מידי (לכל היותר 140 אותיות)"
 
-#: actions/profilesettings.php:228 actions/siteadminpanel.php:165
+#: actions/profilesettings.php:235 actions/siteadminpanel.php:164
 msgid "Timezone not selected."
 msgstr ""
 
-#: actions/profilesettings.php:234
+#: actions/profilesettings.php:241
 msgid "Language is too long (max 50 chars)."
 msgstr ""
 
-#: actions/profilesettings.php:246 actions/tagother.php:178
+#: actions/profilesettings.php:253 actions/tagother.php:178
 #, fuzzy, php-format
 msgid "Invalid tag: \"%s\""
 msgstr "כתובת אתר הבית '%s' אינה חוקית"
 
-#: actions/profilesettings.php:295
+#: actions/profilesettings.php:302
 msgid "Couldn't update user for autosubscribe."
 msgstr ""
 
-#: actions/profilesettings.php:328
+#: actions/profilesettings.php:359
+#, fuzzy
+msgid "Couldn't save location prefs."
+msgstr "שמירת הפרופיל נכשלה."
+
+#: actions/profilesettings.php:371
 msgid "Couldn't save profile."
 msgstr "שמירת הפרופיל נכשלה."
 
-#: actions/profilesettings.php:336
+#: actions/profilesettings.php:379
 #, fuzzy
 msgid "Couldn't save tags."
 msgstr "שמירת הפרופיל נכשלה."
 
-#: actions/profilesettings.php:344 lib/adminpanelaction.php:126
+#: actions/profilesettings.php:387 lib/adminpanelaction.php:137
 msgid "Settings saved."
 msgstr "ההגדרות נשמרו."
 
@@ -2537,7 +2560,7 @@ msgid ""
 "one!"
 msgstr ""
 
-#: actions/publictagcloud.php:135
+#: actions/publictagcloud.php:131
 msgid "Tag cloud"
 msgstr ""
 
@@ -2661,7 +2684,7 @@ msgstr "שגיאה ביצירת שם המשתמש."
 msgid "New password successfully saved. You are now logged in."
 msgstr "הסיסמה החדשה נשמרה בהצלחה. אתה מחובר למערכת."
 
-#: actions/register.php:85 actions/register.php:189 actions/register.php:404
+#: actions/register.php:85 actions/register.php:189 actions/register.php:405
 msgid "Sorry, only invited people can register."
 msgstr ""
 
@@ -2674,7 +2697,7 @@ msgstr "שגיאה באישור הקוד."
 msgid "Registration successful"
 msgstr ""
 
-#: actions/register.php:114 actions/register.php:502 lib/action.php:455
+#: actions/register.php:114 actions/register.php:503 lib/action.php:457
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "הירשם"
@@ -2687,70 +2710,66 @@ msgstr ""
 msgid "You can't register if you don't agree to the license."
 msgstr "לא ניתן להירשם ללא הסכמה לרשיון"
 
-#: actions/register.php:201
-msgid "Not a valid email address."
-msgstr ""
-
 #: actions/register.php:212
 msgid "Email address already exists."
 msgstr ""
 
-#: actions/register.php:243 actions/register.php:264
+#: actions/register.php:243 actions/register.php:265
 msgid "Invalid username or password."
 msgstr "שם המשתמש או הסיסמה לא חוקיים"
 
-#: actions/register.php:342
+#: actions/register.php:343
 msgid ""
 "With this form you can create  a new account. You can then post notices and "
 "link up to friends and colleagues. "
 msgstr ""
 
-#: actions/register.php:424
+#: actions/register.php:425
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
 msgstr ""
 
-#: actions/register.php:429
+#: actions/register.php:430
 msgid "6 or more characters. Required."
 msgstr " לפחות 6 אותיות. שדה חובה."
 
-#: actions/register.php:433
+#: actions/register.php:434
 msgid "Same as password above. Required."
 msgstr ""
 
-#: actions/register.php:437 actions/register.php:441
-#: actions/siteadminpanel.php:283 lib/accountsettingsaction.php:120
+#: actions/register.php:438 actions/register.php:442
+#: actions/siteadminpanel.php:270 lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr ""
 
-#: actions/register.php:438 actions/register.php:442
+#: actions/register.php:439 actions/register.php:443
 msgid "Used only for updates, announcements, and password recovery"
 msgstr "לשימוש רק במקרים של עידכונים, הודעות מערכת, ושיחזורי סיסמאות"
 
-#: actions/register.php:449
+#: actions/register.php:450
 msgid "Longer name, preferably your \"real\" name"
 msgstr ""
 
-#: actions/register.php:493
+#: actions/register.php:494
 msgid "My text and files are available under "
 msgstr "הטקסטים והקבצים שלי מופצים תחת רשיון"
 
-#: actions/register.php:495
+#: actions/register.php:496
 msgid "Creative Commons Attribution 3.0"
 msgstr ""
 
-#: actions/register.php:496
+#: actions/register.php:497
 msgid ""
 " except this private data: password, email address, IM address, and phone "
 "number."
 msgstr ""
 
-#: actions/register.php:537
+#: actions/register.php:538
 #, php-format
 msgid ""
-"Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may "
+"Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
 "want to...\n"
 "\n"
-"* Go to [your profile](%s) and post your first message.\n"
+"* Go to [your profile](%2$s) and post your first message.\n"
 "* Add a [Jabber/GTalk address](%%%%action.imsettings%%%%) so you can send "
 "notices through instant messages.\n"
 "* [Search for people](%%%%action.peoplesearch%%%%) that you may know or that "
@@ -2763,7 +2782,7 @@ msgid ""
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
 
-#: actions/register.php:561
+#: actions/register.php:562
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
@@ -2847,7 +2866,7 @@ msgstr "לא ניתן להירשם ללא הסכמה לרשיון"
 msgid "You already repeated that notice."
 msgstr "כבר נכנסת למערכת!"
 
-#: actions/repeat.php:114 lib/noticelist.php:621
+#: actions/repeat.php:114 lib/noticelist.php:629
 #, fuzzy
 msgid "Repeated"
 msgstr "צור"
@@ -2861,11 +2880,6 @@ msgstr "צור"
 #: lib/personalgroupnav.php:105
 #, php-format
 msgid "Replies to %s"
-msgstr "תגובת עבור %s"
-
-#: actions/replies.php:127
-#, fuzzy, php-format
-msgid "Replies to %s, page %d"
 msgstr "תגובת עבור %s"
 
 #: actions/replies.php:144
@@ -2886,8 +2900,8 @@ msgstr "הזנת הודעות של %s"
 #: actions/replies.php:198
 #, php-format
 msgid ""
-"This is the timeline showing replies to %s but %s hasn't received a notice "
-"to his attention yet."
+"This is the timeline showing replies to %1$s but %2$s hasn't received a "
+"notice to his attention yet."
 msgstr ""
 
 #: actions/replies.php:203
@@ -2900,8 +2914,8 @@ msgstr ""
 #: actions/replies.php:205
 #, php-format
 msgid ""
-"You can try to [nudge %s](../%s) or [post something to his or her attention]"
-"(%%%%action.newnotice%%%%?status_textarea=%s)."
+"You can try to [nudge %1$s](../%2$s) or [post something to his or her "
+"attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 
 #: actions/repliesrss.php:72
@@ -2918,11 +2932,6 @@ msgstr "לא שלחנו אלינו את הפרופיל הזה"
 #, fuzzy
 msgid "User is already sandboxed."
 msgstr "למשתמש אין פרופיל."
-
-#: actions/showfavorites.php:79
-#, fuzzy, php-format
-msgid "%s's favorite notices, page %d"
-msgstr "אין הודעה כזו."
 
 #: actions/showfavorites.php:132
 msgid "Could not retrieve favorite notices."
@@ -2971,11 +2980,6 @@ msgstr ""
 #: actions/showgroup.php:82 lib/groupnav.php:86
 #, php-format
 msgid "%s group"
-msgstr ""
-
-#: actions/showgroup.php:84
-#, php-format
-msgid "%s group, page %d"
 msgstr ""
 
 #: actions/showgroup.php:218
@@ -3029,7 +3033,7 @@ msgstr "חבר מאז"
 
 #: actions/showgroup.php:386 lib/profileaction.php:117
 #: lib/profileaction.php:148 lib/profileaction.php:236 lib/section.php:95
-#: lib/tagcloudsection.php:71
+#: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr ""
 
@@ -3097,14 +3101,9 @@ msgstr "הודעות"
 msgid " tagged %s"
 msgstr ""
 
-#: actions/showstream.php:79
-#, php-format
-msgid "%s, page %d"
-msgstr ""
-
 #: actions/showstream.php:122
 #, fuzzy, php-format
-msgid "Notice feed for %s tagged %s (RSS 1.0)"
+msgid "Notice feed for %1$s tagged %2$s (RSS 1.0)"
 msgstr "הזנת הודעות של %s"
 
 #: actions/showstream.php:129
@@ -3129,7 +3128,7 @@ msgstr ""
 
 #: actions/showstream.php:191
 #, php-format
-msgid "This is the timeline for %s but %s hasn't posted anything yet."
+msgid "This is the timeline for %1$s but %2$s hasn't posted anything yet."
 msgstr ""
 
 #: actions/showstream.php:196
@@ -3141,8 +3140,8 @@ msgstr ""
 #: actions/showstream.php:198
 #, php-format
 msgid ""
-"You can try to nudge %s or [post something to his or her attention](%%%%"
-"action.newnotice%%%%?status_textarea=%s)."
+"You can try to nudge %1$s or [post something to his or her attention](%%%%"
+"action.newnotice%%%%?status_textarea=%2$s)."
 msgstr ""
 
 #: actions/showstream.php:234
@@ -3180,248 +3179,206 @@ msgstr "למשתמש אין פרופיל."
 msgid "Basic settings for this StatusNet site."
 msgstr ""
 
-#: actions/siteadminpanel.php:147
+#: actions/siteadminpanel.php:146
 msgid "Site name must have non-zero length."
 msgstr ""
 
-#: actions/siteadminpanel.php:155
-msgid "You must have a valid contact email address"
+#: actions/siteadminpanel.php:154
+msgid "You must have a valid contact email address."
 msgstr ""
 
-#: actions/siteadminpanel.php:173
+#: actions/siteadminpanel.php:172
 #, php-format
-msgid "Unknown language \"%s\""
+msgid "Unknown language \"%s\"."
 msgstr ""
 
-#: actions/siteadminpanel.php:180
+#: actions/siteadminpanel.php:179
 msgid "Invalid snapshot report URL."
 msgstr ""
 
-#: actions/siteadminpanel.php:186
+#: actions/siteadminpanel.php:185
 msgid "Invalid snapshot run value."
 msgstr ""
 
-#: actions/siteadminpanel.php:192
+#: actions/siteadminpanel.php:191
 msgid "Snapshot frequency must be a number."
 msgstr ""
 
-#: actions/siteadminpanel.php:199
-msgid "You must set an SSL server when enabling SSL."
-msgstr ""
-
-#: actions/siteadminpanel.php:204
-msgid "Invalid SSL server. The maximum length is 255 characters."
-msgstr ""
-
-#: actions/siteadminpanel.php:210
+#: actions/siteadminpanel.php:197
 msgid "Minimum text limit is 140 characters."
 msgstr ""
 
-#: actions/siteadminpanel.php:216
+#: actions/siteadminpanel.php:203
 msgid "Dupe limit must 1 or more seconds."
 msgstr ""
 
-#: actions/siteadminpanel.php:266
+#: actions/siteadminpanel.php:253
 msgid "General"
 msgstr ""
 
-#: actions/siteadminpanel.php:269
+#: actions/siteadminpanel.php:256
 #, fuzzy
 msgid "Site name"
 msgstr "הודעה חדשה"
 
-#: actions/siteadminpanel.php:270
+#: actions/siteadminpanel.php:257
 msgid "The name of your site, like \"Yourcompany Microblog\""
 msgstr ""
 
-#: actions/siteadminpanel.php:274
+#: actions/siteadminpanel.php:261
 msgid "Brought by"
 msgstr ""
 
-#: actions/siteadminpanel.php:275
+#: actions/siteadminpanel.php:262
 msgid "Text used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:279
+#: actions/siteadminpanel.php:266
 msgid "Brought by URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:280
+#: actions/siteadminpanel.php:267
 msgid "URL used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:284
+#: actions/siteadminpanel.php:271
 msgid "Contact email address for your site"
 msgstr ""
 
-#: actions/siteadminpanel.php:290
+#: actions/siteadminpanel.php:277
 #, fuzzy
 msgid "Local"
 msgstr "מיקום"
 
-#: actions/siteadminpanel.php:301
+#: actions/siteadminpanel.php:288
 msgid "Default timezone"
 msgstr ""
 
-#: actions/siteadminpanel.php:302
+#: actions/siteadminpanel.php:289
 msgid "Default timezone for the site; usually UTC."
 msgstr ""
 
-#: actions/siteadminpanel.php:308
+#: actions/siteadminpanel.php:295
 msgid "Default site language"
 msgstr ""
 
-#: actions/siteadminpanel.php:316
+#: actions/siteadminpanel.php:303
 msgid "URLs"
 msgstr ""
 
-#: actions/siteadminpanel.php:319
+#: actions/siteadminpanel.php:306
 #, fuzzy
 msgid "Server"
 msgstr "שיחזור"
 
-#: actions/siteadminpanel.php:319
+#: actions/siteadminpanel.php:306
 msgid "Site's server hostname."
 msgstr ""
 
-#: actions/siteadminpanel.php:323
+#: actions/siteadminpanel.php:310
 msgid "Fancy URLs"
 msgstr ""
 
-#: actions/siteadminpanel.php:325
+#: actions/siteadminpanel.php:312
 msgid "Use fancy (more readable and memorable) URLs?"
 msgstr ""
 
-#: actions/siteadminpanel.php:331
+#: actions/siteadminpanel.php:318
 #, fuzzy
 msgid "Access"
 msgstr "קבל"
 
-#: actions/siteadminpanel.php:334
+#: actions/siteadminpanel.php:321
 #, fuzzy
 msgid "Private"
 msgstr "פרטיות"
 
-#: actions/siteadminpanel.php:336
+#: actions/siteadminpanel.php:323
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr ""
 
-#: actions/siteadminpanel.php:340
+#: actions/siteadminpanel.php:327
 msgid "Invite only"
 msgstr ""
 
-#: actions/siteadminpanel.php:342
+#: actions/siteadminpanel.php:329
 msgid "Make registration invitation only."
 msgstr ""
 
-#: actions/siteadminpanel.php:346
+#: actions/siteadminpanel.php:333
 #, fuzzy
 msgid "Closed"
 msgstr "אין משתמש כזה."
 
-#: actions/siteadminpanel.php:348
+#: actions/siteadminpanel.php:335
 msgid "Disable new registrations."
 msgstr ""
 
-#: actions/siteadminpanel.php:354
+#: actions/siteadminpanel.php:341
 msgid "Snapshots"
 msgstr ""
 
-#: actions/siteadminpanel.php:357
+#: actions/siteadminpanel.php:344
 msgid "Randomly during Web hit"
 msgstr ""
 
-#: actions/siteadminpanel.php:358
+#: actions/siteadminpanel.php:345
 msgid "In a scheduled job"
 msgstr ""
 
-#: actions/siteadminpanel.php:359 actions/siteadminpanel.php:383
-#, fuzzy
-msgid "Never"
-msgstr "שיחזור"
-
-#: actions/siteadminpanel.php:360
+#: actions/siteadminpanel.php:347
 msgid "Data snapshots"
 msgstr ""
 
-#: actions/siteadminpanel.php:361
+#: actions/siteadminpanel.php:348
 msgid "When to send statistical data to status.net servers"
 msgstr ""
 
-#: actions/siteadminpanel.php:366
+#: actions/siteadminpanel.php:353
 msgid "Frequency"
 msgstr ""
 
-#: actions/siteadminpanel.php:367
+#: actions/siteadminpanel.php:354
 msgid "Snapshots will be sent once every N web hits"
 msgstr ""
 
-#: actions/siteadminpanel.php:372
+#: actions/siteadminpanel.php:359
 msgid "Report URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:373
+#: actions/siteadminpanel.php:360
 msgid "Snapshots will be sent to this URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:380
-#, fuzzy
-msgid "SSL"
-msgstr "סמס"
-
-#: actions/siteadminpanel.php:384
-#, fuzzy
-msgid "Sometimes"
-msgstr "הודעות"
-
-#: actions/siteadminpanel.php:385
-msgid "Always"
-msgstr ""
-
-#: actions/siteadminpanel.php:387
-msgid "Use SSL"
-msgstr ""
-
-#: actions/siteadminpanel.php:388
-msgid "When to use SSL"
-msgstr ""
-
-#: actions/siteadminpanel.php:393
-msgid "SSL Server"
-msgstr ""
-
-#: actions/siteadminpanel.php:394
-msgid "Server to direct SSL requests to"
-msgstr ""
-
-#: actions/siteadminpanel.php:400
+#: actions/siteadminpanel.php:367
 msgid "Limits"
 msgstr ""
 
-#: actions/siteadminpanel.php:403
+#: actions/siteadminpanel.php:370
 msgid "Text limit"
 msgstr ""
 
-#: actions/siteadminpanel.php:403
+#: actions/siteadminpanel.php:370
 msgid "Maximum number of characters for notices."
 msgstr ""
 
-#: actions/siteadminpanel.php:407
+#: actions/siteadminpanel.php:374
 msgid "Dupe limit"
 msgstr ""
 
-#: actions/siteadminpanel.php:407
+#: actions/siteadminpanel.php:374
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 
-#: actions/siteadminpanel.php:421 actions/useradminpanel.php:313
+#: actions/siteadminpanel.php:388 actions/useradminpanel.php:313
 #, fuzzy
 msgid "Save site settings"
 msgstr "הגדרות"
 
 #: actions/smssettings.php:58
-msgid "SMS Settings"
-msgstr ""
+#, fuzzy
+msgid "SMS settings"
+msgstr "הגדרות מסרים מידיים"
 
 #: actions/smssettings.php:69
 #, php-format
@@ -3450,7 +3407,7 @@ msgid "Enter the code you received on your phone."
 msgstr ""
 
 #: actions/smssettings.php:138
-msgid "SMS Phone number"
+msgid "SMS phone number"
 msgstr ""
 
 #: actions/smssettings.php:140
@@ -3539,9 +3496,9 @@ msgid "%s subscribers"
 msgstr "מנויים"
 
 #: actions/subscribers.php:52
-#, php-format
-msgid "%s subscribers, page %d"
-msgstr ""
+#, fuzzy, php-format
+msgid "%1$s subscribers, page %2$d"
+msgstr "כל המנויים"
 
 #: actions/subscribers.php:63
 msgid "These are the people who listen to your notices."
@@ -3577,7 +3534,7 @@ msgstr "כל המנויים"
 
 #: actions/subscriptions.php:54
 #, fuzzy, php-format
-msgid "%s subscriptions, page %d"
+msgid "%1$s subscriptions, page %2$d"
 msgstr "כל המנויים"
 
 #: actions/subscriptions.php:65
@@ -3612,11 +3569,6 @@ msgstr "אין זיהוי Jabber כזה."
 #: actions/subscriptions.php:199 lib/connectsettingsaction.php:115
 msgid "SMS"
 msgstr "סמס"
-
-#: actions/tag.php:68
-#, fuzzy, php-format
-msgid "Notices tagged with %s, page %d"
-msgstr "מיקרובלוג מאת %s"
 
 #: actions/tag.php:86
 #, fuzzy, php-format
@@ -3705,11 +3657,6 @@ msgstr "למשתמש אין פרופיל."
 msgid "No profile id in request."
 msgstr "השרת לא החזיר כתובת פרופיל"
 
-#: actions/unsubscribe.php:84
-#, fuzzy
-msgid "No profile with that id."
-msgstr "אין פרופיל תואם לפרופיל המרוחק "
-
 #: actions/unsubscribe.php:98
 #, fuzzy
 msgid "Unsubscribed"
@@ -3717,10 +3664,11 @@ msgstr "בטל מנוי"
 
 #: actions/updateprofile.php:62 actions/userauthorization.php:330
 #, php-format
-msgid "Listenee stream license ‘%s’ is not compatible with site license ‘%s’."
+msgid ""
+"Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr ""
 
-#: actions/useradminpanel.php:58 lib/adminpanelaction.php:305
+#: actions/useradminpanel.php:58 lib/adminpanelaction.php:321
 #: lib/personalgroupnav.php:115
 msgid "User"
 msgstr "מתשמש"
@@ -3825,7 +3773,7 @@ msgstr ""
 "בדוק את הפרטים כדי לוודא שברצונך להירשם כמנוי להודעות משתמש זה. אם אינך רוצה "
 "להירשם, לחץ \"בטל\"."
 
-#: actions/userauthorization.php:188
+#: actions/userauthorization.php:188 actions/version.php:165
 msgid "License"
 msgstr ""
 
@@ -3882,7 +3830,7 @@ msgstr ""
 
 #: actions/userauthorization.php:296
 #, php-format
-msgid "Listener URI ‘%s’ not found here"
+msgid "Listener URI ‘%s’ not found here."
 msgstr ""
 
 #: actions/userauthorization.php:301
@@ -3915,11 +3863,6 @@ msgstr "לא ניתן לקרוא את ה-URL '%s' של התמונה"
 msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "סוג התמונה של '%s' אינו מתאים"
 
-#: actions/userbyid.php:70
-#, fuzzy
-msgid "No ID."
-msgstr "אין זיהוי."
-
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 #, fuzzy
 msgid "Profile design"
@@ -3933,11 +3876,6 @@ msgstr ""
 
 #: actions/userdesignsettings.php:282
 msgid "Enjoy your hotdog!"
-msgstr ""
-
-#: actions/usergroups.php:64
-#, php-format
-msgid "%s groups, page %d"
 msgstr ""
 
 #: actions/usergroups.php:130
@@ -3954,22 +3892,109 @@ msgstr "לא שלחנו אלינו את הפרופיל הזה"
 msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
 msgstr ""
 
-#: classes/File.php:137
+#: actions/version.php:73
+#, fuzzy, php-format
+msgid "StatusNet %s"
+msgstr "סטטיסטיקה"
+
+#: actions/version.php:153
+#, php-format
+msgid ""
+"This site is powered by %1$s version %2$s, Copyright 2008-2010 StatusNet, "
+"Inc. and contributors."
+msgstr ""
+
+#: actions/version.php:157
+#, fuzzy
+msgid "StatusNet"
+msgstr "התמונה עודכנה."
+
+#: actions/version.php:161
+msgid "Contributors"
+msgstr ""
+
+#: actions/version.php:168
+msgid ""
+"StatusNet is free software: you can redistribute it and/or modify it under "
+"the terms of the GNU Affero General Public License as published by the Free "
+"Software Foundation, either version 3 of the License, or (at your option) "
+"any later version. "
+msgstr ""
+
+#: actions/version.php:174
+msgid ""
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License "
+"for more details. "
+msgstr ""
+
+#: actions/version.php:180
+#, php-format
+msgid ""
+"You should have received a copy of the GNU Affero General Public License "
+"along with this program.  If not, see %s."
+msgstr ""
+
+#: actions/version.php:189
+msgid "Plugins"
+msgstr ""
+
+#: actions/version.php:195
+#, fuzzy
+msgid "Name"
+msgstr "כינוי"
+
+#: actions/version.php:196 lib/action.php:741
+#, fuzzy
+msgid "Version"
+msgstr "אישי"
+
+#: actions/version.php:197
+msgid "Author(s)"
+msgstr ""
+
+#: actions/version.php:198 lib/groupeditform.php:172
+#, fuzzy
+msgid "Description"
+msgstr "הרשמות"
+
+#: classes/File.php:144
 #, php-format
 msgid ""
 "No file may be larger than %d bytes and the file you sent was %d bytes. Try "
 "to upload a smaller version."
 msgstr ""
 
-#: classes/File.php:147
+#: classes/File.php:154
 #, php-format
 msgid "A file this large would exceed your user quota of %d bytes."
 msgstr ""
 
-#: classes/File.php:154
+#: classes/File.php:161
 #, php-format
 msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
+
+#: classes/Group_member.php:41
+#, fuzzy
+msgid "Group join failed."
+msgstr "אין הודעה כזו."
+
+#: classes/Group_member.php:53
+#, fuzzy
+msgid "Not part of group."
+msgstr "עידכון המשתמש נכשל."
+
+#: classes/Group_member.php:60
+#, fuzzy
+msgid "Group leave failed."
+msgstr "אין הודעה כזו."
+
+#: classes/Login_token.php:76
+#, fuzzy, php-format
+msgid "Could not create login token for %s"
+msgstr "שמירת מידע התמונה נכשל"
 
 #: classes/Message.php:45
 msgid "You are banned from sending direct messages."
@@ -3983,51 +4008,51 @@ msgstr ""
 msgid "Could not update message with new URI."
 msgstr ""
 
-#: classes/Notice.php:172
+#: classes/Notice.php:171
 #, php-format
 msgid "DB error inserting hashtag: %s"
 msgstr ""
 
-#: classes/Notice.php:226
+#: classes/Notice.php:225
 #, fuzzy
 msgid "Problem saving notice. Too long."
 msgstr "בעיה בשמירת ההודעה."
 
-#: classes/Notice.php:230
+#: classes/Notice.php:229
 #, fuzzy
 msgid "Problem saving notice. Unknown user."
 msgstr "בעיה בשמירת ההודעה."
 
-#: classes/Notice.php:235
+#: classes/Notice.php:234
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 
-#: classes/Notice.php:241
+#: classes/Notice.php:240
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
 
-#: classes/Notice.php:247
+#: classes/Notice.php:246
 msgid "You are banned from posting notices on this site."
 msgstr ""
 
-#: classes/Notice.php:319 classes/Notice.php:344
+#: classes/Notice.php:305 classes/Notice.php:330
 msgid "Problem saving notice."
 msgstr "בעיה בשמירת ההודעה."
 
-#: classes/Notice.php:1044
+#: classes/Notice.php:1052
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "שגיאת מסד נתונים בהכנסת התגובה: %s"
 
-#: classes/Notice.php:1371
+#: classes/Notice.php:1423
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
 
-#: classes/User.php:368
+#: classes/User.php:382
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
@@ -4073,144 +4098,144 @@ msgid "Other options"
 msgstr ""
 
 #: lib/action.php:144
-#, php-format
-msgid "%s - %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "%1$s - %2$s"
+msgstr "הסטטוס של %1$s ב-%2$s "
 
 #: lib/action.php:159
 msgid "Untitled page"
 msgstr ""
 
-#: lib/action.php:425
+#: lib/action.php:427
 msgid "Primary site navigation"
 msgstr ""
 
-#: lib/action.php:431
+#: lib/action.php:433
 msgid "Home"
 msgstr "בית"
 
-#: lib/action.php:431
+#: lib/action.php:433
 msgid "Personal profile and friends timeline"
 msgstr ""
 
-#: lib/action.php:433
+#: lib/action.php:435
 #, fuzzy
 msgid "Account"
 msgstr "אודות"
 
-#: lib/action.php:433
+#: lib/action.php:435
 msgid "Change your email, avatar, password, profile"
 msgstr ""
 
-#: lib/action.php:436
+#: lib/action.php:438
 msgid "Connect"
 msgstr "התחבר"
 
-#: lib/action.php:436
+#: lib/action.php:438
 #, fuzzy
 msgid "Connect to services"
 msgstr "נכשלה ההפניה לשרת: %s"
 
-#: lib/action.php:440
+#: lib/action.php:442
 #, fuzzy
 msgid "Change site configuration"
 msgstr "הרשמות"
 
-#: lib/action.php:444 lib/subgroupnav.php:105
+#: lib/action.php:446 lib/subgroupnav.php:105
 msgid "Invite"
 msgstr ""
 
-#: lib/action.php:445 lib/subgroupnav.php:106
+#: lib/action.php:447 lib/subgroupnav.php:106
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
 msgstr ""
 
-#: lib/action.php:450
+#: lib/action.php:452
 msgid "Logout"
 msgstr "צא"
 
-#: lib/action.php:450
+#: lib/action.php:452
 msgid "Logout from the site"
 msgstr ""
 
-#: lib/action.php:455
+#: lib/action.php:457
 #, fuzzy
 msgid "Create an account"
 msgstr "צור חשבון חדש"
 
-#: lib/action.php:458
+#: lib/action.php:460
 msgid "Login to the site"
 msgstr ""
 
-#: lib/action.php:461 lib/action.php:724
+#: lib/action.php:463 lib/action.php:726
 msgid "Help"
 msgstr "עזרה"
 
-#: lib/action.php:461
+#: lib/action.php:463
 #, fuzzy
 msgid "Help me!"
 msgstr "עזרה"
 
-#: lib/action.php:464 lib/searchaction.php:127
+#: lib/action.php:466 lib/searchaction.php:127
 msgid "Search"
 msgstr "חיפוש"
 
-#: lib/action.php:464
+#: lib/action.php:466
 msgid "Search for people or text"
 msgstr ""
 
-#: lib/action.php:485
+#: lib/action.php:487
 #, fuzzy
 msgid "Site notice"
 msgstr "הודעה חדשה"
 
-#: lib/action.php:551
+#: lib/action.php:553
 msgid "Local views"
 msgstr ""
 
-#: lib/action.php:617
+#: lib/action.php:619
 #, fuzzy
 msgid "Page notice"
 msgstr "הודעה חדשה"
 
-#: lib/action.php:719
+#: lib/action.php:721
 #, fuzzy
 msgid "Secondary site navigation"
 msgstr "הרשמות"
 
-#: lib/action.php:726
+#: lib/action.php:728
 msgid "About"
 msgstr "אודות"
 
-#: lib/action.php:728
+#: lib/action.php:730
 msgid "FAQ"
 msgstr "רשימת שאלות נפוצות"
 
-#: lib/action.php:732
+#: lib/action.php:734
 msgid "TOS"
 msgstr ""
 
-#: lib/action.php:735
+#: lib/action.php:737
 msgid "Privacy"
 msgstr "פרטיות"
 
-#: lib/action.php:737
+#: lib/action.php:739
 msgid "Source"
 msgstr "מקור"
 
-#: lib/action.php:739
+#: lib/action.php:743
 msgid "Contact"
 msgstr "צור קשר"
 
-#: lib/action.php:741
+#: lib/action.php:745
 msgid "Badge"
 msgstr ""
 
-#: lib/action.php:769
+#: lib/action.php:773
 msgid "StatusNet software license"
 msgstr ""
 
-#: lib/action.php:772
+#: lib/action.php:776
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4219,12 +4244,12 @@ msgstr ""
 "**%%site.name%%** הוא שרות ביקרובלוג הניתן על ידי [%%site.broughtby%%](%%"
 "site.broughtbyurl%%)."
 
-#: lib/action.php:774
+#: lib/action.php:778
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** הוא שרות ביקרובלוג."
 
-#: lib/action.php:776
+#: lib/action.php:780
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4235,34 +4260,34 @@ msgstr ""
 "s, המופצת תחת רשיון [GNU Affero General Public License](http://www.fsf.org/"
 "licensing/licenses/agpl-3.0.html)"
 
-#: lib/action.php:790
+#: lib/action.php:794
 #, fuzzy
 msgid "Site content license"
 msgstr "הודעה חדשה"
 
-#: lib/action.php:799
+#: lib/action.php:803
 msgid "All "
 msgstr ""
 
-#: lib/action.php:804
+#: lib/action.php:808
 msgid "license."
 msgstr ""
 
-#: lib/action.php:1098
+#: lib/action.php:1102
 msgid "Pagination"
 msgstr ""
 
-#: lib/action.php:1107
+#: lib/action.php:1111
 #, fuzzy
 msgid "After"
 msgstr "<< אחרי"
 
-#: lib/action.php:1115
+#: lib/action.php:1119
 #, fuzzy
 msgid "Before"
 msgstr "לפני >>"
 
-#: lib/action.php:1163
+#: lib/action.php:1167
 msgid "There was a problem with your session token."
 msgstr ""
 
@@ -4270,28 +4295,32 @@ msgstr ""
 msgid "You cannot make changes to this site."
 msgstr ""
 
-#: lib/adminpanelaction.php:195
+#: lib/adminpanelaction.php:107
+msgid "Changes to that panel are not allowed."
+msgstr ""
+
+#: lib/adminpanelaction.php:206
 msgid "showForm() not implemented."
 msgstr ""
 
-#: lib/adminpanelaction.php:224
+#: lib/adminpanelaction.php:235
 msgid "saveSettings() not implemented."
 msgstr ""
 
-#: lib/adminpanelaction.php:247
+#: lib/adminpanelaction.php:258
 msgid "Unable to delete design setting."
 msgstr ""
 
-#: lib/adminpanelaction.php:300
+#: lib/adminpanelaction.php:312
 #, fuzzy
 msgid "Basic site configuration"
 msgstr "הרשמות"
 
-#: lib/adminpanelaction.php:303
+#: lib/adminpanelaction.php:317
 msgid "Design configuration"
 msgstr ""
 
-#: lib/adminpanelaction.php:306 lib/adminpanelaction.php:309
+#: lib/adminpanelaction.php:322 lib/adminpanelaction.php:327
 #, fuzzy
 msgid "Paths configuration"
 msgstr "הרשמות"
@@ -4317,11 +4346,21 @@ msgstr ""
 msgid "Tags for this attachment"
 msgstr ""
 
+#: lib/authenticationplugin.php:182 lib/authenticationplugin.php:187
+#, fuzzy
+msgid "Password changing failed"
+msgstr "הסיסמה נשמרה."
+
+#: lib/authenticationplugin.php:197
+#, fuzzy
+msgid "Password changing is not allowed"
+msgstr "הסיסמה נשמרה."
+
 #: lib/channel.php:138 lib/channel.php:158
 msgid "Command results"
 msgstr ""
 
-#: lib/channel.php:210
+#: lib/channel.php:210 lib/mailhandler.php:142
 msgid "Command complete"
 msgstr ""
 
@@ -4343,9 +4382,9 @@ msgid "It does not make a lot of sense to nudge yourself!"
 msgstr ""
 
 #: lib/command.php:99
-#, php-format
+#, fuzzy, php-format
 msgid "Nudge sent to %s"
-msgstr ""
+msgstr "תגובת עבור %s"
 
 #: lib/command.php:126
 #, php-format
@@ -4355,172 +4394,196 @@ msgid ""
 "Notices: %3$s"
 msgstr ""
 
-#: lib/command.php:152 lib/command.php:399 lib/command.php:460
+#: lib/command.php:152 lib/command.php:390 lib/command.php:451
+#, fuzzy
 msgid "Notice with that id does not exist"
-msgstr ""
+msgstr "אין פרופיל תואם לפרופיל המרוחק "
 
-#: lib/command.php:168 lib/command.php:415 lib/command.php:476
-#: lib/command.php:532
+#: lib/command.php:168 lib/command.php:406 lib/command.php:467
+#: lib/command.php:523
+#, fuzzy
 msgid "User has no last notice"
-msgstr ""
+msgstr "למשתמש אין פרופיל."
 
 #: lib/command.php:190
 msgid "Notice marked as fave."
 msgstr ""
 
-#: lib/command.php:315
-#, php-format
-msgid "%1$s (%2$s)"
-msgstr ""
+#: lib/command.php:217
+#, fuzzy
+msgid "You are already a member of that group"
+msgstr "כבר נכנסת למערכת!"
 
-#: lib/command.php:318
-#, php-format
+#: lib/command.php:231
+#, fuzzy, php-format
+msgid "Could not join user %s to group %s"
+msgstr "נכשלה ההפניה לשרת: %s"
+
+#: lib/command.php:236
+#, fuzzy, php-format
+msgid "%s joined group %s"
+msgstr "הסטטוס של %1$s ב-%2$s "
+
+#: lib/command.php:275
+#, fuzzy, php-format
+msgid "Could not remove user %s to group %s"
+msgstr "נכשלה יצירת OpenID מתוך: %s"
+
+#: lib/command.php:280
+#, fuzzy, php-format
+msgid "%s left group %s"
+msgstr "הסטטוס של %1$s ב-%2$s "
+
+#: lib/command.php:309
+#, fuzzy, php-format
 msgid "Fullname: %s"
-msgstr ""
+msgstr "שם מלא"
 
-#: lib/command.php:321
+#: lib/command.php:312 lib/mail.php:254
 #, php-format
 msgid "Location: %s"
 msgstr ""
 
-#: lib/command.php:324
+#: lib/command.php:315 lib/mail.php:256
 #, php-format
 msgid "Homepage: %s"
 msgstr ""
 
-#: lib/command.php:327
+#: lib/command.php:318
 #, php-format
 msgid "About: %s"
 msgstr "אודות: %s"
 
-#: lib/command.php:358 scripts/xmppdaemon.php:301
+#: lib/command.php:349
 #, php-format
 msgid "Message too long - maximum is %d characters, you sent %d"
 msgstr ""
 
-#: lib/command.php:378
+#: lib/command.php:367
+#, php-format
+msgid "Direct message to %s sent"
+msgstr ""
+
+#: lib/command.php:369
 msgid "Error sending direct message."
 msgstr ""
 
-#: lib/command.php:422
+#: lib/command.php:413
+#, fuzzy
 msgid "Cannot repeat your own notice"
-msgstr ""
+msgstr "לא ניתן להירשם ללא הסכמה לרשיון"
 
-#: lib/command.php:427
+#: lib/command.php:418
+#, fuzzy
 msgid "Already repeated that notice"
-msgstr ""
+msgstr "כבר נכנסת למערכת!"
 
-#: lib/command.php:435
+#: lib/command.php:426
 #, fuzzy, php-format
 msgid "Notice from %s repeated"
 msgstr "הודעות"
 
-#: lib/command.php:437
+#: lib/command.php:428
 #, fuzzy
 msgid "Error repeating notice."
 msgstr "בעיה בשמירת ההודעה."
 
-#: lib/command.php:491
+#: lib/command.php:482
 #, php-format
 msgid "Notice too long - maximum is %d characters, you sent %d"
 msgstr ""
 
-#: lib/command.php:500
+#: lib/command.php:491
 #, fuzzy, php-format
 msgid "Reply to %s sent"
 msgstr "תגובת עבור %s"
 
-#: lib/command.php:502
+#: lib/command.php:493
 #, fuzzy
 msgid "Error saving notice."
 msgstr "בעיה בשמירת ההודעה."
 
-#: lib/command.php:556
+#: lib/command.php:547
 msgid "Specify the name of the user to subscribe to"
 msgstr ""
 
-#: lib/command.php:563
+#: lib/command.php:554
 #, php-format
 msgid "Subscribed to %s"
 msgstr ""
 
-#: lib/command.php:584
+#: lib/command.php:575
 msgid "Specify the name of the user to unsubscribe from"
 msgstr ""
 
-#: lib/command.php:591
+#: lib/command.php:582
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr ""
 
-#: lib/command.php:609 lib/command.php:632
+#: lib/command.php:600 lib/command.php:623
 msgid "Command not yet implemented."
 msgstr ""
 
-#: lib/command.php:612
+#: lib/command.php:603
 msgid "Notification off."
 msgstr ""
 
-#: lib/command.php:614
+#: lib/command.php:605
 msgid "Can't turn off notification."
 msgstr ""
 
-#: lib/command.php:635
+#: lib/command.php:626
 msgid "Notification on."
 msgstr ""
 
-#: lib/command.php:637
+#: lib/command.php:628
 msgid "Can't turn on notification."
 msgstr ""
 
-#: lib/command.php:650
+#: lib/command.php:641
 msgid "Login command is disabled"
 msgstr ""
 
-#: lib/command.php:664
-#, fuzzy, php-format
-msgid "Could not create login token for %s"
-msgstr "שמירת מידע התמונה נכשל"
-
-#: lib/command.php:669
+#: lib/command.php:652
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
-#: lib/command.php:685
+#: lib/command.php:668
 #, fuzzy
 msgid "You are not subscribed to anyone."
 msgstr "לא שלחנו אלינו את הפרופיל הזה"
 
-#: lib/command.php:687
+#: lib/command.php:670
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "לא שלחנו אלינו את הפרופיל הזה"
 msgstr[1] "לא שלחנו אלינו את הפרופיל הזה"
 
-#: lib/command.php:707
+#: lib/command.php:690
 #, fuzzy
 msgid "No one is subscribed to you."
 msgstr "הרשמה מרוחקת"
 
-#: lib/command.php:709
+#: lib/command.php:692
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "הרשמה מרוחקת"
 msgstr[1] "הרשמה מרוחקת"
 
-#: lib/command.php:729
+#: lib/command.php:712
 #, fuzzy
 msgid "You are not a member of any groups."
 msgstr "לא שלחנו אלינו את הפרופיל הזה"
 
-#: lib/command.php:731
+#: lib/command.php:714
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "לא שלחנו אלינו את הפרופיל הזה"
 msgstr[1] "לא שלחנו אלינו את הפרופיל הזה"
 
-#: lib/command.php:745
+#: lib/command.php:728
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4561,20 +4624,20 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:199
+#: lib/common.php:131
 #, fuzzy
 msgid "No configuration file found. "
 msgstr "אין קוד אישור."
 
-#: lib/common.php:200
+#: lib/common.php:132
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:201
+#: lib/common.php:134
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:202
+#: lib/common.php:135
 msgid "Go to the installer."
 msgstr ""
 
@@ -4681,11 +4744,6 @@ msgstr "תאר את עצמך ואת נושאי העניין שלך ב-140 אות
 msgid "Describe the group or topic in %d characters"
 msgstr "תאר את עצמך ואת נושאי העניין שלך ב-140 אותיות"
 
-#: lib/groupeditform.php:172
-#, fuzzy
-msgid "Description"
-msgstr "הרשמות"
-
 #: lib/groupeditform.php:179
 #, fuzzy
 msgid ""
@@ -4786,9 +4844,14 @@ msgstr ""
 msgid "kB"
 msgstr ""
 
-#: lib/jabber.php:191
+#: lib/jabber.php:202
 #, php-format
 msgid "[%s]"
+msgstr ""
+
+#: lib/jabber.php:385
+#, php-format
+msgid "Unknown inbox source %d."
 msgstr ""
 
 #: lib/joinform.php:114
@@ -4857,22 +4920,10 @@ msgstr ""
 " שלך,\n"
 " %4$s.\n"
 
-#: lib/mail.php:254
-#, php-format
-msgid "Location: %s\n"
-msgstr ""
-
-#: lib/mail.php:256
-#, php-format
-msgid "Homepage: %s\n"
-msgstr ""
-
 #: lib/mail.php:258
-#, php-format
-msgid ""
-"Bio: %s\n"
-"\n"
-msgstr ""
+#, fuzzy, php-format
+msgid "Bio: %s"
+msgstr "אודות: %s"
 
 #: lib/mail.php:286
 #, php-format
@@ -4972,12 +5023,12 @@ msgid ""
 "%6$s\n"
 msgstr ""
 
-#: lib/mail.php:620
+#: lib/mail.php:624
 #, php-format
 msgid "%s (@%s) sent a notice to your attention"
 msgstr ""
 
-#: lib/mail.php:622
+#: lib/mail.php:626
 #, php-format
 msgid ""
 "%1$s (@%9$s) just sent a notice to your attention (an '@-reply') on %2$s.\n"
@@ -5002,9 +5053,30 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:469
+#: lib/mailbox.php:227 lib/noticelist.php:477
 msgid "from"
 msgstr ""
+
+#: lib/mailhandler.php:37
+msgid "Could not parse message."
+msgstr ""
+
+#: lib/mailhandler.php:42
+msgid "Not a registered user."
+msgstr ""
+
+#: lib/mailhandler.php:46
+msgid "Sorry, that is not your incoming email address."
+msgstr ""
+
+#: lib/mailhandler.php:50
+msgid "Sorry, no incoming email allowed."
+msgstr ""
+
+#: lib/mailhandler.php:228
+#, fuzzy, php-format
+msgid "Unsupported message type: %s"
+msgstr "פורמט התמונה אינו נתמך."
 
 #: lib/mediafile.php:98 lib/mediafile.php:123
 msgid "There was a database error while saving your file. Please try again."
@@ -5037,7 +5109,7 @@ msgid "File upload stopped by extension."
 msgstr ""
 
 #: lib/mediafile.php:179 lib/mediafile.php:216
-msgid "File exceeds user's quota!"
+msgid "File exceeds user's quota."
 msgstr ""
 
 #: lib/mediafile.php:196 lib/mediafile.php:233
@@ -5046,7 +5118,7 @@ msgstr ""
 
 #: lib/mediafile.php:201 lib/mediafile.php:237
 #, fuzzy
-msgid "Could not determine file's mime-type!"
+msgid "Could not determine file's MIME type."
 msgstr "עידכון המשתמש נכשל."
 
 #: lib/mediafile.php:270
@@ -5056,7 +5128,7 @@ msgstr ""
 
 #: lib/mediafile.php:275
 #, php-format
-msgid "%s is not a supported filetype on this server."
+msgid "%s is not a supported file type on this server."
 msgstr ""
 
 #: lib/messageform.php:120
@@ -5067,75 +5139,95 @@ msgstr ""
 msgid "To"
 msgstr "אל"
 
-#: lib/messageform.php:159 lib/noticeform.php:183
+#: lib/messageform.php:159 lib/noticeform.php:185
 #, fuzzy
 msgid "Available characters"
 msgstr "לפחות 6 אותיות"
 
-#: lib/noticeform.php:158
+#: lib/noticeform.php:160
 #, fuzzy
 msgid "Send a notice"
 msgstr "הודעה חדשה"
 
-#: lib/noticeform.php:171
+#: lib/noticeform.php:173
 #, php-format
 msgid "What's up, %s?"
 msgstr "מה המצב %s?"
 
-#: lib/noticeform.php:190
+#: lib/noticeform.php:192
 msgid "Attach"
 msgstr ""
 
-#: lib/noticeform.php:194
+#: lib/noticeform.php:196
 msgid "Attach a file"
 msgstr ""
 
-#: lib/noticelist.php:420
+#: lib/noticeform.php:212
+#, fuzzy
+msgid "Share my location"
+msgstr "שמירת הפרופיל נכשלה."
+
+#: lib/noticeform.php:215
+#, fuzzy
+msgid "Do not share my location"
+msgstr "שמירת הפרופיל נכשלה."
+
+#: lib/noticeform.php:216
+msgid "Hide this info"
+msgstr ""
+
+#: lib/noticeform.php:217
+msgid ""
+"Sorry, retrieving your geo location is taking longer than expected, please "
+"try again later"
+msgstr ""
+
+#: lib/noticelist.php:428
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr ""
 
-#: lib/noticelist.php:421
+#: lib/noticelist.php:429
 #, fuzzy
 msgid "N"
 msgstr "לא"
 
-#: lib/noticelist.php:421
+#: lib/noticelist.php:429
 msgid "S"
 msgstr ""
 
-#: lib/noticelist.php:422
+#: lib/noticelist.php:430
 msgid "E"
 msgstr ""
 
-#: lib/noticelist.php:422
+#: lib/noticelist.php:430
 msgid "W"
 msgstr ""
 
-#: lib/noticelist.php:428
+#: lib/noticelist.php:436
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:523
+#: lib/noticelist.php:531
 #, fuzzy
 msgid "in context"
 msgstr "אין תוכן!"
 
-#: lib/noticelist.php:548
+#: lib/noticelist.php:556
 #, fuzzy
 msgid "Repeated by"
 msgstr "צור"
 
-#: lib/noticelist.php:577
+#: lib/noticelist.php:585
 msgid "Reply to this notice"
 msgstr ""
 
-#: lib/noticelist.php:578
+#: lib/noticelist.php:586
 #, fuzzy
 msgid "Reply"
 msgstr "הגב"
 
-#: lib/noticelist.php:620
+#: lib/noticelist.php:628
 #, fuzzy
 msgid "Notice repeated"
 msgstr "הודעות"
@@ -5210,6 +5302,10 @@ msgstr ""
 msgid "Tags in %s's notices"
 msgstr ""
 
+#: lib/plugin.php:114
+msgid "Unknown"
+msgstr ""
+
 #: lib/profileaction.php:109 lib/profileaction.php:192 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "הרשמות"
@@ -5270,15 +5366,15 @@ msgstr ""
 msgid "Popular"
 msgstr "אנשים"
 
-#: lib/repeatform.php:107 lib/repeatform.php:132
+#: lib/repeatform.php:107
 #, fuzzy
-msgid "Repeat this notice"
+msgid "Repeat this notice?"
 msgstr "אין הודעה כזו."
 
 #: lib/repeatform.php:132
 #, fuzzy
-msgid "Repeat"
-msgstr "איפוס"
+msgid "Repeat this notice"
+msgstr "אין הודעה כזו."
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"
@@ -5361,25 +5457,25 @@ msgstr ""
 msgid "User has blocked you."
 msgstr "למשתמש אין פרופיל."
 
-#: lib/subs.php:60
+#: lib/subs.php:63
 msgid "Could not subscribe."
 msgstr ""
 
-#: lib/subs.php:79
+#: lib/subs.php:82
 msgid "Could not subscribe other to you."
 msgstr ""
 
-#: lib/subs.php:128
+#: lib/subs.php:137
 #, fuzzy
 msgid "Not subscribed!"
 msgstr "לא מנוי!"
 
-#: lib/subs.php:133
+#: lib/subs.php:142
 #, fuzzy
 msgid "Couldn't delete self-subscription."
 msgstr "מחיקת המנוי לא הצליחה."
 
-#: lib/subs.php:146
+#: lib/subs.php:158
 msgid "Couldn't delete subscription."
 msgstr "מחיקת המנוי לא הצליחה."
 
@@ -5391,10 +5487,6 @@ msgstr ""
 #: lib/subscriberspeopletagcloudsection.php:48
 #: lib/subscriptionspeopletagcloudsection.php:48
 msgid "People Tagcloud as tagged"
-msgstr ""
-
-#: lib/subscriptionlist.php:126
-msgid "(none)"
 msgstr ""
 
 #: lib/tagcloudsection.php:56
@@ -5463,47 +5555,47 @@ msgstr "הודעה חדשה"
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:829
+#: lib/util.php:877
 msgid "a few seconds ago"
 msgstr "לפני מספר שניות"
 
-#: lib/util.php:831
+#: lib/util.php:879
 msgid "about a minute ago"
 msgstr "לפני כדקה"
 
-#: lib/util.php:833
+#: lib/util.php:881
 #, php-format
 msgid "about %d minutes ago"
 msgstr "לפני כ-%d דקות"
 
-#: lib/util.php:835
+#: lib/util.php:883
 msgid "about an hour ago"
 msgstr "לפני כשעה"
 
-#: lib/util.php:837
+#: lib/util.php:885
 #, php-format
 msgid "about %d hours ago"
 msgstr "לפני כ-%d שעות"
 
-#: lib/util.php:839
+#: lib/util.php:887
 msgid "about a day ago"
 msgstr "לפני כיום"
 
-#: lib/util.php:841
+#: lib/util.php:889
 #, php-format
 msgid "about %d days ago"
 msgstr "לפני כ-%d ימים"
 
-#: lib/util.php:843
+#: lib/util.php:891
 msgid "about a month ago"
 msgstr "לפני כחודש"
 
-#: lib/util.php:845
+#: lib/util.php:893
 #, php-format
 msgid "about %d months ago"
 msgstr "לפני כ-%d חודשים"
 
-#: lib/util.php:847
+#: lib/util.php:895
 msgid "about a year ago"
 msgstr "לפני כשנה"
 
@@ -5517,18 +5609,7 @@ msgstr "לאתר הבית יש כתובת לא חוקית."
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
 msgstr ""
 
-#: scripts/maildaemon.php:48
-msgid "Could not parse message."
-msgstr ""
-
-#: scripts/maildaemon.php:53
-msgid "Not a registered user."
-msgstr ""
-
-#: scripts/maildaemon.php:57
-msgid "Sorry, that is not your incoming email address."
-msgstr ""
-
-#: scripts/maildaemon.php:61
-msgid "Sorry, no incoming email allowed."
+#: scripts/xmppdaemon.php:301
+#, php-format
+msgid "Message too long - maximum is %1$d characters, you sent %2$d."
 msgstr ""

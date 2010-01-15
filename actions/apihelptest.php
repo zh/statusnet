@@ -85,7 +85,7 @@ class ApiHelpTestAction extends ApiPrivateAuthAction
             $this->endDocument('json');
         } else {
             $this->clientError(
-                _('API method not found!'),
+                _('API method not found.'),
                 404,
                 $this->format
             );

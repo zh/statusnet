@@ -46,9 +46,9 @@ class LilUrlPlugin extends UrlShortenerPlugin
 
     protected function shorten($url) {
         $data = array('longurl' => $url);
-        
+
         $responseBody = $this->http_post($this->serviceUrl,$data);
-        
+
         if (!$responseBody) return;
         $y = @simplexml_load_string($responseBody);
         if (!isset($y->body)) return;
@@ -56,6 +56,19 @@ class LilUrlPlugin extends UrlShortenerPlugin
         if (isset($x['href'])) {
             return strval($x['href']);
         }
+    }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => sprintf('LilUrl (%s)', $this->shortenerName),
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Craig Andrews',
+                            'homepage' => 'http://status.net/wiki/Plugin:LilUrl',
+                            'rawdescription' =>
+                            sprintf(_m('Uses <a href="http://%1$s/">%1$s</a> URL-shortener service.'),
+                                    $this->shortenerName));
+
+        return true;
     }
 }
 

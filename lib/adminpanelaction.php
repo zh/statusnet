@@ -70,7 +70,7 @@ class AdminPanelAction extends Action
 
         if (!common_logged_in()) {
             $this->clientError(_('Not logged in.'));
-            return;
+            return false;
         }
 
         $user = common_current_user();
@@ -94,7 +94,18 @@ class AdminPanelAction extends Action
 
         if (!$user->hasRight(Right::CONFIGURESITE)) {
             $this->clientError(_('You cannot make changes to this site.'));
-            return;
+            return false;
+        }
+
+        // This panel must be enabled
+
+        $name = $this->trimmed('action');
+
+        $name = mb_substr($name, 0, -10);
+
+        if (!in_array($name, common_config('admin', 'panels'))) {
+            $this->clientError(_('Changes to that panel are not allowed.'), 403);
+            return false;
         }
 
         return true;
@@ -224,7 +235,7 @@ class AdminPanelAction extends Action
         $this->clientError(_('saveSettings() not implemented.'));
         return;
     }
-    
+
     /**
      * Delete a design setting
      *
@@ -296,20 +307,33 @@ class AdminPanelNav extends Widget
 
         if (Event::handle('StartAdminPanelNav', array($this))) {
 
-            $this->out->menuItem(common_local_url('siteadminpanel'), _('Site'),
-                _('Basic site configuration'), $action_name == 'siteadminpanel', 'nav_site_admin_panel');
+            if ($this->canAdmin('site')) {
+                $this->out->menuItem(common_local_url('siteadminpanel'), _('Site'),
+                                     _('Basic site configuration'), $action_name == 'siteadminpanel', 'nav_site_admin_panel');
+            }
 
-            $this->out->menuItem(common_local_url('designadminpanel'), _('Design'),
-                _('Design configuration'), $action_name == 'designadminpanel', 'nav_design_admin_panel');
+            if ($this->canAdmin('design')) {
+                $this->out->menuItem(common_local_url('designadminpanel'), _('Design'),
+                                     _('Design configuration'), $action_name == 'designadminpanel', 'nav_design_admin_panel');
+            }
 
-            $this->out->menuItem(common_local_url('useradminpanel'), _('User'),
-                _('Paths configuration'), $action_name == 'useradminpanel', 'nav_design_admin_panel');
+            if ($this->canAdmin('user')) {
+                $this->out->menuItem(common_local_url('useradminpanel'), _('User'),
+                                     _('Paths configuration'), $action_name == 'useradminpanel', 'nav_design_admin_panel');
+            }
 
-            $this->out->menuItem(common_local_url('pathsadminpanel'), _('Paths'),
-                _('Paths configuration'), $action_name == 'pathsadminpanel', 'nav_design_admin_panel');
+            if ($this->canAdmin('paths')) {
+                $this->out->menuItem(common_local_url('pathsadminpanel'), _('Paths'),
+                                     _('Paths configuration'), $action_name == 'pathsadminpanel', 'nav_design_admin_panel');
+            }
 
             Event::handle('EndAdminPanelNav', array($this));
         }
         $this->action->elementEnd('ul');
+    }
+
+    function canAdmin($name)
+    {
+        return in_array($name, common_config('admin', 'panels'));
     }
 }

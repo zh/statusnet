@@ -176,7 +176,7 @@ class MediaFile
             // Should never actually get here
 
             @unlink($_FILES[$param]['tmp_name']);
-            throw new ClientException(_('File exceeds user\'s quota!'));
+            throw new ClientException(_('File exceeds user\'s quota.'));
             return;
         }
 
@@ -198,7 +198,7 @@ class MediaFile
             }
 
         } else {
-            throw new ClientException(_('Could not determine file\'s mime-type!'));
+            throw new ClientException(_('Could not determine file\'s MIME type.'));
             return;
         }
 
@@ -213,7 +213,7 @@ class MediaFile
 
             // Should never actually get here
 
-            throw new ClientException(_('File exceeds user\'s quota!'));
+            throw new ClientException(_('File exceeds user\'s quota.'));
             return;
         }
 
@@ -234,7 +234,7 @@ class MediaFile
                     $stream['uri'] . ' ' . $filepath));
             }
         } else {
-            throw new ClientException(_('Could not determine file\'s mime-type!'));
+            throw new ClientException(_('Could not determine file\'s MIME type.'));
             return;
         }
 
@@ -272,7 +272,7 @@ class MediaFile
             $hint = '';
         }
         throw new ClientException(sprintf(
-            _('%s is not a supported filetype on this server.'), $filetype) . $hint);
+            _('%s is not a supported file type on this server.'), $filetype) . $hint);
     }
 
     static function respectsQuota($user, $filesize)

@@ -32,6 +32,7 @@ if (!defined('STATUSNET')) {
 }
 
 define("FACEBOOK_CONNECT_SERVICE", 3);
+define('FACEBOOKPLUGIN_VERSION', '0.9');
 
 require_once INSTALLDIR . '/plugins/Facebook/facebookutil.php';
 
@@ -112,6 +113,9 @@ class FacebookPlugin extends Plugin
             return false;
         case 'FBCSettingsNav':
             include_once INSTALLDIR . '/plugins/Facebook/FBCSettingsNav.php';
+            return false;
+        case 'FacebookQueueHandler':
+            include_once INSTALLDIR . '/plugins/Facebook/facebookqueuehandler.php';
             return false;
         default:
             return true;
@@ -507,50 +511,29 @@ class FacebookPlugin extends Plugin
     }
 
     /**
-     * broadcast the message when not using queuehandler
+     * Register Facebook notice queue handler
      *
-     * @param Notice &$notice the notice
-     * @param array  $queue   destination queue
+     * @param QueueManager $manager
      *
      * @return boolean hook return
      */
-
-    function onUnqueueHandleNotice(&$notice, $queue)
+    function onEndInitializeQueueManager($manager)
     {
-        if (($queue == 'facebook') && ($this->_isLocal($notice))) {
-            facebookBroadcastNotice($notice);
-            return false;
-        }
+        $manager->connect('facebook', 'FacebookQueueHandler');
         return true;
     }
 
-    /**
-     * Determine whether the notice was locally created
-     *
-     * @param Notice $notice the notice
-     *
-     * @return boolean locality
-     */
-
-    function _isLocal($notice)
+    function onPluginVersion(&$versions)
     {
-        return ($notice->is_local == Notice::LOCAL_PUBLIC ||
-                $notice->is_local == Notice::LOCAL_NONPUBLIC);
-    }
-
-    /**
-     * Add Facebook queuehandler to the list of daemons to start
-     *
-     * @param array $daemons the list fo daemons to run
-     *
-     * @return boolean hook return
-     *
-     */
-
-    function onGetValidDaemons($daemons)
-    {
-        array_push($daemons, INSTALLDIR .
-                   '/plugins/Facebook/facebookqueuehandler.php');
+        $versions[] = array('name' => 'Facebook',
+                            'version' => FACEBOOKPLUGIN_VERSION,
+                            'author' => 'Zach Copley',
+                            'homepage' => 'http://status.net/wiki/Plugin:Facebook',
+                            'rawdescription' =>
+                            _m('The Facebook plugin allows you to integrate ' .
+                               'your StatusNet instance with ' .
+                               '<a href="http://facebook.com/">Facebook</a> ' .
+                               'and Facebook Connect.'));
         return true;
     }
 

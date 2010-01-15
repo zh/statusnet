@@ -363,6 +363,7 @@ class FinishopenidloginAction extends Action
         if ($url) {
             # We don't have to return to it again
             common_set_returnto(null);
+	    $url = common_inject_session($url);
         } else {
             $url = common_local_url('all',
                                     array('nickname' =>

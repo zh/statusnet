@@ -259,6 +259,7 @@ class RegisterAction extends Action
 
                 // Re-init language env in case it changed (not yet, but soon)
                 common_init_language();
+
                 $this->showSuccess();
             } else {
                 $this->showForm(_('Invalid username or password.'));
@@ -534,9 +535,9 @@ class RegisterAction extends Action
                                        array('nickname' => $nickname));
 
         $this->elementStart('div', 'success');
-        $instr = sprintf(_('Congratulations, %s! And welcome to %%%%site.name%%%%. '.
+        $instr = sprintf(_('Congratulations, %1$s! And welcome to %%%%site.name%%%%. '.
                            'From here, you may want to...'. "\n\n" .
-                           '* Go to [your profile](%s) '.
+                           '* Go to [your profile](%2$s) '.
                            'and post your first message.' .  "\n" .
                            '* Add a [Jabber/GTalk address]'.
                            '(%%%%action.imsettings%%%%) '.

@@ -185,4 +185,16 @@ class GravatarPlugin extends Plugin
                 "&size=".$size;
             return $url;
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'Gravatar',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Eric Helgeson',
+                            'homepage' => 'http://status.net/wiki/Plugin:Gravatar',
+                            'rawdescription' =>
+                            _m('The Gravatar plugin allows users to use their <a href="http://www.gravatar.com/">Gravatar</a> with StatusNet.'));
+
+        return true;
+    }
 }

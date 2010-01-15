@@ -88,7 +88,7 @@ class NoticesearchAction extends SearchAction
 
         return array(new Feed(Feed::RSS1, common_local_url('noticesearchrss',
                                                            array('q' => $q)),
-                              sprintf(_('Search results for "%s" on %s'),
+                              sprintf(_('Search results for "%1$s" on %2$s'),
                                       $q, common_config('site', 'name'))));
     }
 

@@ -138,4 +138,12 @@ class Event {
         }
         return false;
     }
+
+    /**
+     * Disables any and all handlers that have been set up so far;
+     * use only if you know it's safe to reinitialize all plugins.
+     */
+    public static function clearHandlers() {
+        Event::$_handlers = array();
+    }
 }

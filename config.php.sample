@@ -41,6 +41,20 @@ $config['site']['path'] = 'statusnet';
 // Make the site invisible to  non-logged-in users
 // $config['site']['private'] = true;
 
+// If your web server supports X-Sendfile (Apache with mod_xsendfile,
+// lighttpd, nginx), you can enable X-Sendfile support for better
+// performance. Presently, only attachment serving when the site is
+// in private mode will use X-Sendfile.
+// $config['site']['X-Sendfile'] = false;
+// You may also need to enable X-Sendfile support for your web server and
+// allow it to access files outside of the web root. For Apache with
+// mod_xsendfile, you can add these to your .htaccess or server config:
+//
+//       XSendFile on
+//       XSendFileAllowAbove on
+//
+// See http://tn123.ath.cx/mod_xsendfile/ for mod_xsendfile.
+
 // If you want logging sent to a file instead of syslog
 // $config['site']['logfile'] = '/tmp/statusnet.log';
 
@@ -265,6 +279,7 @@ $config['sphinx']['port'] = 3312;
 // $config['attachments']['user_quota'] = 50000000;
 // $config['attachments']['monthly_quota'] = 15000000;
 // $config['attachments']['uploads'] = true;
-// $config['attachments']['path'] = "/file/";
+// $config['attachments']['path'] = "/file/"; //ignored if site is private
+// $config['attachments']['dir'] = INSTALLDIR . '/file/';
 
 // $config['oohembed']['endpoint'] = 'http://oohembed.com/oohembed/';

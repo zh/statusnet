@@ -207,7 +207,7 @@ class UserDesignSettingsAction extends DesignSettingsAction
 
             if (empty($id)) {
                 common_log_db_error($id, 'INSERT', __FILE__);
-                $this->showForm(_('Unable to save your design settings!'));
+                $this->showForm(_('Unable to save your design settings.'));
                 return;
             }
 
@@ -217,7 +217,7 @@ class UserDesignSettingsAction extends DesignSettingsAction
 
             if (empty($result)) {
                 common_log_db_error($original, 'UPDATE', __FILE__);
-                $this->showForm(_('Unable to save your design settings!'));
+                $this->showForm(_('Unable to save your design settings.'));
                 $user->query('ROLLBACK');
                 return;
             }
@@ -260,7 +260,7 @@ class UserDesignSettingsAction extends DesignSettingsAction
 
         if (empty($id)) {
             common_log_db_error($id, 'INSERT', __FILE__);
-            $this->showForm(_('Unable to save your design settings!'));
+            $this->showForm(_('Unable to save your design settings.'));
             return;
         }
 
@@ -270,7 +270,7 @@ class UserDesignSettingsAction extends DesignSettingsAction
 
         if (empty($result)) {
             common_log_db_error($original, 'UPDATE', __FILE__);
-            $this->showForm(_('Unable to save your design settings!'));
+            $this->showForm(_('Unable to save your design settings.'));
             $user->query('ROLLBACK');
             return;
         }

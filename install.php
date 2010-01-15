@@ -454,7 +454,6 @@ function showForm()
     <dd>
         <div class="instructions">
             <p>Enter your database connection information below to initialize the database.</p>
-            <p>StatusNet bundles a number of libraries for ease of installation. <a href="?checklibs=true">You can see what bundled libraries you are using, versus what libraries are installed on your server.</a>
         </div>
     </dd>
 </dl>

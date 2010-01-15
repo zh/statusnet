@@ -294,63 +294,7 @@ class FacebookAction extends Action
         $app_props = $this->facebook->api_client->Admin_getAppProperties(array('icon_url'));
         $icon_url = $app_props['icon_url'];
 
-        $style = '<style>
-     .entry-title *,
-     .entry-content * {
-     font-size:14px;
-     font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
-     }
-     .entry-title a,
-     .entry-content a {
-     color:#002E6E;
-     }
-
-         .entry-title .vcard .photo {
-         float:left;
-         display:inline;
-     margin-right:11px;
-     margin-bottom:11px
-         }
-     .entry-title {
-     margin-bottom:11px;
-     }
-         .entry-title p.entry-content {
-         display:inline;
-     margin-left:5px;
-         }
-
-     div.entry-content {
-     clear:both;
-     }
-         div.entry-content dl,
-         div.entry-content dt,
-         div.entry-content dd {
-         display:inline;
-     text-transform:lowercase;
-         }
-
-         div.entry-content dd,
-     div.entry-content .device dt {
-     margin-left:0;
-     margin-right:5px;
-         }
-         div.entry-content dl.timestamp dt,
-     div.entry-content dl.response dt {
-         display:none;
-         }
-         div.entry-content dd a {
-         display:inline-block;
-         }
-
-     #facebook_statusnet_app {
-     text-indent:-9999px;
-     height:16px;
-     width:16px;
-     display:block;
-     background:url('.$icon_url.') no-repeat 0 0;
-     float:right;
-     }
-         </style>';
+        $style = '<style> .entry-title *, .entry-content * { font-size:14px; font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif; } .entry-title a, .entry-content a { color:#002E6E; } .entry-title .vcard .photo { float:left; display:inline; margin-right:11px; margin-bottom:11px } .entry-title { margin-bottom:11px; } .entry-title p.entry-content { display:inline; margin-left:5px; } div.entry-content { clear:both; } div.entry-content dl, div.entry-content dt, div.entry-content dd { display:inline; text-transform:lowercase; } div.entry-content dd, div.entry-content .device dt { margin-left:0; margin-right:5px; } div.entry-content dl.timestamp dt, div.entry-content dl.response dt { display:none; } div.entry-content dd a { display:inline-block; } #facebook_statusnet_app { text-indent:-9999px; height:16px; width:16px; display:block; background:url('.$icon_url.') no-repeat 0 0; float:right; } </style>';
 
         $this->xw->openMemory();
 

@@ -153,7 +153,7 @@ class ApiDirectMessageAction extends ApiAuthAction
             $this->showJsonDirectMessages();
             break;
         default:
-            $this->clientError(_('API method not found!'), $code = 404);
+            $this->clientError(_('API method not found.'), $code = 404);
             break;
         }
     }

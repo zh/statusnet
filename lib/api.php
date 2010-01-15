@@ -168,7 +168,7 @@ class ApiAction extends Action
 
         $timezone = 'UTC';
 
-        if ($user->timezone) {
+        if (!empty($user) && $user->timezone) {
             $timezone = $user->timezone;
         }
 
@@ -789,7 +789,7 @@ class ApiAction extends Action
 
         $from = $message->getFrom();
 
-        $entry['title'] = sprintf('Message from %s to %s',
+        $entry['title'] = sprintf('Message from %1$s to %2$s',
             $from->nickname, $message->getTo()->nickname);
 
         $entry['content'] = common_xml_safe_str($message->rendered);

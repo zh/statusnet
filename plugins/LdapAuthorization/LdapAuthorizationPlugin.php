@@ -31,7 +31,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/plugins/Authorization/AuthorizationPlugin.php';
 require_once 'Net/LDAP2.php';
 
 class LdapAuthorizationPlugin extends AuthorizationPlugin
@@ -53,7 +52,6 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
     public $attributes = array();
 
     function onInitializePlugin(){
-        parent::onInitializePlugin();
         if(!isset($this->host)){
             throw new Exception("must specify a host");
         }
@@ -207,5 +205,16 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
             common_log(LOG_WARNING, 'Found ' . $search->count() . ' ldap user with the username: ' . $username);
             return false;
         }
+    }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'LDAP Authorization',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Craig Andrews',
+                            'homepage' => 'http://status.net/wiki/Plugin:LdapAuthorization',
+                            'rawdescription' =>
+                            _m('The LDAP Authorization plugin allows for StatusNet to handle authorization through LDAP.'));
+        return true;
     }
 }

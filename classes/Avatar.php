@@ -37,7 +37,7 @@ class Avatar extends Memcached_DataObject
         }
     }
 
-    function &pkeyGet($kv)
+    function pkeyGet($kv)
     {
         return Memcached_DataObject::pkeyGet('Avatar', $kv);
     }

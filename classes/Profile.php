@@ -504,6 +504,7 @@ class Profile extends Memcached_DataObject
                          'Reply',
                          'Group_member',
                          );
+        Event::handle('ProfileDeleteRelated', array($this, &$related));
 
         foreach ($related as $cls) {
             $inst = new $cls();

@@ -1,0 +1,5464 @@
+# Translation of StatusNet to Persian
+#
+# Author@translatewiki.net: ArianHT
+# Author@translatewiki.net: Everplays
+# Author@translatewiki.net: Narcissus
+# --
+# This file is distributed under the same license as the StatusNet package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: StatusNet\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-13 22:04+0000\n"
+"PO-Revision-Date: 2010-01-13 22:05:13+0000\n"
+"Last-Translator: Ahmad Sufi Mahmudi\n"
+"Language-Team: Persian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Language-Code: fa\n"
+"X-Message-Group: out-statusnet\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: MediaWiki 1.16alpha (r61027); Translate extension (2010-01-04)\n"
+"X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
+
+#: actions/all.php:63 actions/public.php:97 actions/replies.php:92
+#: actions/showfavorites.php:137 actions/tag.php:51
+msgid "No such page"
+msgstr "چنین صفحه‌ای وجود ندارد"
+
+#: actions/all.php:74 actions/allrss.php:68
+#: actions/apiaccountupdatedeliverydevice.php:113
+#: actions/apiaccountupdateprofile.php:105
+#: actions/apiaccountupdateprofilebackgroundimage.php:116
+#: actions/apiaccountupdateprofileimage.php:105 actions/apiblockcreate.php:97
+#: actions/apiblockdestroy.php:96 actions/apidirectmessage.php:77
+#: actions/apidirectmessagenew.php:75 actions/apigroupcreate.php:112
+#: actions/apigroupismember.php:90 actions/apigroupjoin.php:99
+#: actions/apigroupleave.php:99 actions/apigrouplist.php:90
+#: actions/apistatusesupdate.php:144 actions/apisubscriptions.php:87
+#: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:79
+#: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
+#: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
+#: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
+#: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:76
+#: actions/remotesubscribe.php:145 actions/remotesubscribe.php:154
+#: actions/replies.php:73 actions/repliesrss.php:38
+#: actions/showfavorites.php:105 actions/userbyid.php:74
+#: actions/usergroups.php:91 actions/userrss.php:38 actions/xrds.php:71
+#: lib/command.php:163 lib/command.php:302 lib/command.php:355
+#: lib/command.php:401 lib/command.php:462 lib/command.php:518
+#: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
+#: lib/subs.php:34 lib/subs.php:125
+msgid "No such user."
+msgstr "چنین کاربری وجود ندارد."
+
+#: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
+#: actions/apitimelinefriends.php:115 actions/apitimelinehome.php:115
+#: lib/personalgroupnav.php:100
+#, php-format
+msgid "%s and friends"
+msgstr "%s و دوستان"
+
+#: actions/all.php:99
+#, php-format
+msgid "Feed for friends of %s (RSS 1.0)"
+msgstr "خوراک دوستان %s (RSS 1.0)"
+
+#: actions/all.php:107
+#, php-format
+msgid "Feed for friends of %s (RSS 2.0)"
+msgstr "خوراک دوستان %s (RSS 2.0)"
+
+#: actions/all.php:115
+#, php-format
+msgid "Feed for friends of %s (Atom)"
+msgstr "خوراک دوستان %s (Atom)"
+
+#: actions/all.php:127
+#, php-format
+msgid ""
+"This is the timeline for %s and friends but no one has posted anything yet."
+msgstr "این خط‌زمانی %s و دوستانش است، اما هیچ‌یک تاکنون چیزی پست نکرده‌اند."
+
+#: actions/all.php:132
+#, php-format
+msgid ""
+"Try subscribing to more people, [join a group](%%action.groups%%) or post "
+"something yourself."
+msgstr ""
+"پیگیری افراد بیش‌تری بشوید [به یک گروه بپیوندید](%%action.groups%%) یا خودتان "
+"چیزی را ارسال کنید."
+
+#: actions/all.php:134
+#, fuzzy, php-format
+msgid ""
+"You can try to [nudge %1$s](../%2$s) from his profile or [post something to "
+"his or her attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
+msgstr ""
+"اولین کسی باشید که در [این موضوع](%%%%action.newnotice%%%%?status_textarea=%"
+"s) پیام می‌فرستد."
+
+#: actions/all.php:137 actions/replies.php:209 actions/showstream.php:202
+#, php-format
+msgid ""
+"Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
+"post a notice to his or her attention."
+msgstr ""
+"چرا [ثبت نام](%%%%action.register%%%%) نمی‌کنید و سپس با فرستادن پیام توجه %s "
+"را جلب کنید."
+
+#: actions/all.php:165
+msgid "You and friends"
+msgstr "شما و دوستان"
+
+#: actions/allrss.php:119 actions/apitimelinefriends.php:122
+#: actions/apitimelinehome.php:122
+#, php-format
+msgid "Updates from %1$s and friends on %2$s!"
+msgstr "به روز رسانی از %1$ و دوستان در %2$"
+
+#: actions/apiaccountratelimitstatus.php:70
+#: actions/apiaccountupdatedeliverydevice.php:93
+#: actions/apiaccountupdateprofile.php:97
+#: actions/apiaccountupdateprofilebackgroundimage.php:94
+#: actions/apiaccountupdateprofilecolors.php:118
+#: actions/apidirectmessage.php:156 actions/apifavoritecreate.php:99
+#: actions/apifavoritedestroy.php:100 actions/apifriendshipscreate.php:100
+#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:129
+#: actions/apigroupcreate.php:136 actions/apigroupismember.php:114
+#: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
+#: actions/apigrouplist.php:132 actions/apigrouplistall.php:120
+#: actions/apigroupmembership.php:106 actions/apigroupshow.php:105
+#: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
+#: actions/apistatusesretweets.php:112 actions/apistatusesshow.php:108
+#: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
+#: actions/apisubscriptions.php:111 actions/apitimelinefavorites.php:146
+#: actions/apitimelinefriends.php:156 actions/apitimelinegroup.php:150
+#: actions/apitimelinehome.php:156 actions/apitimelinementions.php:151
+#: actions/apitimelinepublic.php:131 actions/apitimelineretweetedbyme.php:122
+#: actions/apitimelineretweetedtome.php:121
+#: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
+#: actions/apitimelineuser.php:165 actions/apiusershow.php:101
+msgid "API method not found."
+msgstr "رابط مورد نظر پیدا نشد."
+
+#: actions/apiaccountupdatedeliverydevice.php:85
+#: actions/apiaccountupdateprofile.php:89
+#: actions/apiaccountupdateprofilebackgroundimage.php:86
+#: actions/apiaccountupdateprofilecolors.php:110
+#: actions/apiaccountupdateprofileimage.php:84 actions/apiblockcreate.php:89
+#: actions/apiblockdestroy.php:88 actions/apidirectmessagenew.php:117
+#: actions/apifavoritecreate.php:90 actions/apifavoritedestroy.php:91
+#: actions/apifriendshipscreate.php:91 actions/apifriendshipsdestroy.php:91
+#: actions/apigroupcreate.php:104 actions/apigroupjoin.php:91
+#: actions/apigroupleave.php:91 actions/apistatusesretweet.php:65
+#: actions/apistatusesupdate.php:114
+msgid "This method requires a POST."
+msgstr "برای استفاده از این روش باید اطلاعات را به صورت پست بفرستید"
+
+#: actions/apiaccountupdatedeliverydevice.php:105
+msgid ""
+"You must specify a parameter named 'device' with a value of one of: sms, im, "
+"none"
+msgstr "شما باید یک پارامتر با نام device و مقدار sms، im یا none مشخص کنید."
+
+#: actions/apiaccountupdatedeliverydevice.php:132
+msgid "Could not update user."
+msgstr "نمی‌توان کاربر را به‌هنگام‌سازی کرد."
+
+#: actions/apiaccountupdateprofile.php:112
+#: actions/apiaccountupdateprofilebackgroundimage.php:194
+#: actions/apiaccountupdateprofilecolors.php:185
+#: actions/apiaccountupdateprofileimage.php:130 actions/apiusershow.php:108
+#: actions/avatarbynickname.php:80 actions/foaf.php:65 actions/replies.php:80
+#: actions/usergroups.php:98 lib/galleryaction.php:66 lib/profileaction.php:84
+msgid "User has no profile."
+msgstr "کاربر هیچ شناس‌نامه‌ای ندارد."
+
+#: actions/apiaccountupdateprofile.php:147
+msgid "Could not save profile."
+msgstr "نمی‌توان شناس‌نامه را ذخیره کرد."
+
+#: actions/apiaccountupdateprofilebackgroundimage.php:108
+#: actions/apiaccountupdateprofileimage.php:97
+#: actions/apistatusesupdate.php:127 actions/avatarsettings.php:257
+#: actions/designadminpanel.php:122 actions/newnotice.php:94
+#: lib/designsettings.php:283
+#, php-format
+msgid ""
+"The server was unable to handle that much POST data (%s bytes) due to its "
+"current configuration."
+msgstr ""
+"به دلیل تنظبمات، سرور نمی‌تواند این مقدار اطلاعات (%s بایت( را دریافت کند."
+
+#: actions/apiaccountupdateprofilebackgroundimage.php:136
+#: actions/apiaccountupdateprofilebackgroundimage.php:146
+#: actions/apiaccountupdateprofilecolors.php:164
+#: actions/apiaccountupdateprofilecolors.php:174
+#: actions/groupdesignsettings.php:287 actions/groupdesignsettings.php:297
+#: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
+#: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
+msgid "Unable to save your design settings."
+msgstr "نمی‌توان تنظیمات طرح‌تان را ذخیره کرد."
+
+#: actions/apiaccountupdateprofilebackgroundimage.php:187
+#: actions/apiaccountupdateprofilecolors.php:142
+msgid "Could not update your design."
+msgstr "نمی‌توان طرح‌تان به‌هنگام‌سازی کرد."
+
+#: actions/apiblockcreate.php:105
+msgid "You cannot block yourself!"
+msgstr "شما نمی‌توانید خودتان رو مسدود کنید!"
+
+#: actions/apiblockcreate.php:126
+msgid "Block user failed."
+msgstr "مسدود کردن کاربر شکست خورد."
+
+#: actions/apiblockdestroy.php:114
+msgid "Unblock user failed."
+msgstr "باز کردن کاربر ناموفق بود."
+
+#: actions/apidirectmessage.php:89
+#, php-format
+msgid "Direct messages from %s"
+msgstr "پیام‌های مستقیم از %s"
+
+#: actions/apidirectmessage.php:93
+#, php-format
+msgid "All the direct messages sent from %s"
+msgstr "تمام پیام‌های مستقیم فرستاده‌شده از %s"
+
+#: actions/apidirectmessage.php:101
+#, php-format
+msgid "Direct messages to %s"
+msgstr "پیام‌های مستقیم به %s"
+
+#: actions/apidirectmessage.php:105
+#, php-format
+msgid "All the direct messages sent to %s"
+msgstr "تمام پیام‌های مستقیم فرستاده‌شده به %s"
+
+#: actions/apidirectmessagenew.php:126
+msgid "No message text!"
+msgstr "هیچ پیام متنی وجود ندارد!"
+
+#: actions/apidirectmessagenew.php:135 actions/newmessage.php:150
+#, php-format
+msgid "That's too long. Max message size is %d chars."
+msgstr "این بسیار طولانی است. بیشینهٔ اندازهٔ پیام %d حرف است."
+
+#: actions/apidirectmessagenew.php:146
+msgid "Recipient user not found."
+msgstr "کاربر گیرنده یافت نشد."
+
+#: actions/apidirectmessagenew.php:150
+msgid "Can't send direct messages to users who aren't your friend."
+msgstr "نمی‌توان پیام مستقیم را به کاربرانی که دوست شما نیستند، فرستاد."
+
+#: actions/apifavoritecreate.php:108 actions/apifavoritedestroy.php:109
+#: actions/apistatusesdestroy.php:113
+msgid "No status found with that ID."
+msgstr "هیچ وضعیتی با آن شناسه پیدا نشد."
+
+#: actions/apifavoritecreate.php:119
+#, fuzzy
+msgid "This status is already a favorite."
+msgstr "این وضعیت درحال حاضر یک وضعیت مورد علاقه است!"
+
+#: actions/apifavoritecreate.php:130 actions/favor.php:84 lib/command.php:176
+msgid "Could not create favorite."
+msgstr "نمی‌توان وضعیت را موردعلاقه کرد."
+
+#: actions/apifavoritedestroy.php:122
+#, fuzzy
+msgid "That status is not a favorite."
+msgstr "این وضعیت یک وضعیت موردعلاقه نیست!"
+
+#: actions/apifavoritedestroy.php:134 actions/disfavor.php:87
+msgid "Could not delete favorite."
+msgstr "نمی‌توان وضعیت موردعلاقه را حذف کرد."
+
+#: actions/apifriendshipscreate.php:109
+msgid "Could not follow user: User not found."
+msgstr "نمی‌توان کاربر را دنبال کرد: کاربر یافت نشد."
+
+#: actions/apifriendshipscreate.php:118
+#, php-format
+msgid "Could not follow user: %s is already on your list."
+msgstr "نمی‌توان کاربر را دنبال کرد: %s  هم‌اکنون در لیست شما است."
+
+#: actions/apifriendshipsdestroy.php:109
+msgid "Could not unfollow user: User not found."
+msgstr "نمی‌توان کاربر را دنبال نکرد: کاربر یافت نشد."
+
+#: actions/apifriendshipsdestroy.php:120
+#, fuzzy
+msgid "You cannot unfollow yourself."
+msgstr "نمی‌توانید خودتان را دنبال نکنید!"
+
+#: actions/apifriendshipsexists.php:94
+msgid "Two user ids or screen_names must be supplied."
+msgstr "باید ۲ شناسه‌ی کاربر یا نام ظاهری وارد کنید."
+
+#: actions/apifriendshipsshow.php:135
+msgid "Could not determine source user."
+msgstr "نمی‌توان کاربر منبع را تعیین کرد."
+
+#: actions/apifriendshipsshow.php:143
+msgid "Could not find target user."
+msgstr "نمی‌توان کاربر هدف را پیدا کرد."
+
+#: actions/apigroupcreate.php:164 actions/editgroup.php:182
+#: actions/newgroup.php:126 actions/profilesettings.php:215
+#: actions/register.php:205
+msgid "Nickname must have only lowercase letters and numbers and no spaces."
+msgstr "لقب باید شامل حروف کوچک و اعداد و بدون فاصله باشد."
+
+#: actions/apigroupcreate.php:173 actions/editgroup.php:186
+#: actions/newgroup.php:130 actions/profilesettings.php:238
+#: actions/register.php:208
+msgid "Nickname already in use. Try another one."
+msgstr "این لقب در حال حاضر ثبت شده است. لطفا یکی دیگر انتخاب کنید."
+
+#: actions/apigroupcreate.php:180 actions/editgroup.php:189
+#: actions/newgroup.php:133 actions/profilesettings.php:218
+#: actions/register.php:210
+msgid "Not a valid nickname."
+msgstr "لقب نا معتبر."
+
+#: actions/apigroupcreate.php:196 actions/editgroup.php:195
+#: actions/newgroup.php:139 actions/profilesettings.php:222
+#: actions/register.php:217
+msgid "Homepage is not a valid URL."
+msgstr "برگهٔ آغازین یک نشانی معتبر نیست."
+
+#: actions/apigroupcreate.php:205 actions/editgroup.php:198
+#: actions/newgroup.php:142 actions/profilesettings.php:225
+#: actions/register.php:220
+msgid "Full name is too long (max 255 chars)."
+msgstr "نام کامل طولانی است (۲۵۵ حرف در حالت بیشینه(."
+
+#: actions/apigroupcreate.php:213
+#, php-format
+msgid "Description is too long (max %d chars)."
+msgstr "توصیف بسیار زیاد است (حداکثر %d حرف)."
+
+#: actions/apigroupcreate.php:224 actions/editgroup.php:204
+#: actions/newgroup.php:148 actions/profilesettings.php:232
+#: actions/register.php:227
+msgid "Location is too long (max 255 chars)."
+msgstr "مکان طولانی است (حداکثر ۲۵۵ حرف)"
+
+#: actions/apigroupcreate.php:243 actions/editgroup.php:215
+#: actions/newgroup.php:159
+#, php-format
+msgid "Too many aliases! Maximum %d."
+msgstr "نام‌های مستعار بسیار زیاد هستند! حداکثر %d."
+
+#: actions/apigroupcreate.php:264 actions/editgroup.php:224
+#: actions/newgroup.php:168
+#, php-format
+msgid "Invalid alias: \"%s\""
+msgstr "نام‌مستعار غیر مجاز: «%s»"
+
+#: actions/apigroupcreate.php:273 actions/editgroup.php:228
+#: actions/newgroup.php:172
+#, php-format
+msgid "Alias \"%s\" already in use. Try another one."
+msgstr "نام‌مستعار «%s» ازپیش گرفته‌شده‌است. یکی دیگر را امتحان کنید."
+
+#: actions/apigroupcreate.php:286 actions/editgroup.php:234
+#: actions/newgroup.php:178
+msgid "Alias can't be the same as nickname."
+msgstr "نام و نام مستعار شما نمی تواند یکی باشد ."
+
+#: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
+#: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
+#: actions/apigroupshow.php:90 actions/apitimelinegroup.php:91
+msgid "Group not found!"
+msgstr "گروه یافت نشد!"
+
+#: actions/apigroupjoin.php:110 actions/joingroup.php:90
+msgid "You are already a member of that group."
+msgstr "شما از پیش یک عضو این گروه هستید."
+
+#: actions/apigroupjoin.php:119 actions/joingroup.php:95 lib/command.php:221
+msgid "You have been blocked from that group by the admin."
+msgstr "دسترسی شما به گروه توسط مدیر آن محدود شده است."
+
+#: actions/apigroupjoin.php:138 actions/joingroup.php:124
+#, fuzzy, php-format
+msgid "Could not join user %1$s to group %2$s."
+msgstr "عضویت %s در گروه %s نا موفق بود."
+
+#: actions/apigroupleave.php:114
+msgid "You are not a member of this group."
+msgstr "شما یک عضو این گروه نیستید."
+
+#: actions/apigroupleave.php:124 actions/leavegroup.php:119
+#, fuzzy, php-format
+msgid "Could not remove user %1$s from group %2$s."
+msgstr "خارج شدن %s از گروه %s نا موفق بود"
+
+#: actions/apigrouplist.php:95
+#, php-format
+msgid "%s's groups"
+msgstr "گروه‌های %s"
+
+#: actions/apigrouplistall.php:90 actions/usergroups.php:62
+#, php-format
+msgid "%s groups"
+msgstr "%s گروه"
+
+#: actions/apigrouplistall.php:94
+#, php-format
+msgid "groups on %s"
+msgstr "گروه‌ها در %s"
+
+#: actions/apistatusesdestroy.php:107
+msgid "This method requires a POST or DELETE."
+msgstr "این روش نیازمند POST یا DELETE است."
+
+#: actions/apistatusesdestroy.php:130
+msgid "You may not delete another user's status."
+msgstr "شما توانایی حذف وضعیت کاربر دیگری را ندارید."
+
+#: actions/apistatusesretweet.php:75 actions/apistatusesretweets.php:72
+#: actions/deletenotice.php:52 actions/shownotice.php:92
+msgid "No such notice."
+msgstr "چنین پیامی وجود ندارد."
+
+#: actions/apistatusesretweet.php:83
+msgid "Cannot repeat your own notice."
+msgstr "نمی توانید خبر خود را تکرار کنید."
+
+#: actions/apistatusesretweet.php:91
+msgid "Already repeated that notice."
+msgstr "ابن خبر قبلا فرستاده شده"
+
+#: actions/apistatusesshow.php:138
+msgid "Status deleted."
+msgstr "وضعیت حذف شد."
+
+#: actions/apistatusesshow.php:144
+msgid "No status with that ID found."
+msgstr "هیچ وضعیتی با آن شناسه یافت نشد."
+
+#: actions/apistatusesupdate.php:157 actions/newnotice.php:155
+#: lib/mailhandler.php:60
+#, php-format
+msgid "That's too long. Max notice size is %d chars."
+msgstr "خیلی طولانی است. حداکثر طول مجاز پیام %d حرف است."
+
+#: actions/apistatusesupdate.php:198
+msgid "Not found"
+msgstr "یافت نشد"
+
+#: actions/apistatusesupdate.php:221 actions/newnotice.php:178
+#, php-format
+msgid "Max notice size is %d chars, including attachment URL."
+msgstr "حداکثر طول پیام %d حرف است که شامل ضمیمه نیز می‌باشد"
+
+#: actions/apisubscriptions.php:231 actions/apisubscriptions.php:261
+msgid "Unsupported format."
+msgstr "قالب پشتیبانی نشده."
+
+#: actions/apitimelinefavorites.php:108
+#, fuzzy, php-format
+msgid "%1$s / Favorites from %2$s"
+msgstr "%s / دوست داشتنی از %s"
+
+#: actions/apitimelinefavorites.php:120
+#, fuzzy, php-format
+msgid "%1$s updates favorited by %2$s / %2$s."
+msgstr "%s به روز رسانی های دوست داشتنی %s / %s"
+
+#: actions/apitimelinegroup.php:109 actions/apitimelineuser.php:118
+#: actions/grouprss.php:131 actions/userrss.php:90
+#, php-format
+msgid "%s timeline"
+msgstr "خط زمانی %s"
+
+#: actions/apitimelinegroup.php:117 actions/apitimelineuser.php:126
+#: actions/userrss.php:92
+#, php-format
+msgid "Updates from %1$s on %2$s!"
+msgstr "به روز رسانی‌های %1$s در %2$s"
+
+#: actions/apitimelinementions.php:117
+#, php-format
+msgid "%1$s / Updates mentioning %2$s"
+msgstr "%$1s / به روز رسانی های شامل %2$s"
+
+#: actions/apitimelinementions.php:127
+#, php-format
+msgid "%1$s updates that reply to updates from %2$s / %3$s."
+msgstr "%1$s به روز رسانی هایی که در پاسخ به $2$s / %3$s"
+
+#: actions/apitimelinepublic.php:107 actions/publicrss.php:103
+#, php-format
+msgid "%s public timeline"
+msgstr "%s خط‌زمانی عمومی"
+
+#: actions/apitimelinepublic.php:111 actions/publicrss.php:105
+#, php-format
+msgid "%s updates from everyone!"
+msgstr "%s به روز رسانی های عموم"
+
+#: actions/apitimelineretweetedbyme.php:112
+#, php-format
+msgid "Repeated by %s"
+msgstr "%s تکرار کرد"
+
+#: actions/apitimelineretweetedtome.php:111
+#, php-format
+msgid "Repeated to %s"
+msgstr ""
+
+#: actions/apitimelineretweetsofme.php:112
+#, php-format
+msgid "Repeats of %s"
+msgstr "تکرار %s"
+
+#: actions/apitimelinetag.php:102 actions/tag.php:66
+#, php-format
+msgid "Notices tagged with %s"
+msgstr "پیام‌هایی که با %s نشانه گزاری شده اند."
+
+#: actions/apitimelinetag.php:108 actions/tagrss.php:64
+#, php-format
+msgid "Updates tagged with %1$s on %2$s!"
+msgstr "پیام‌های نشانه گزاری شده با %1$s در %2$s"
+
+#: actions/apiusershow.php:96
+msgid "Not found."
+msgstr "یافت نشد."
+
+#: actions/attachment.php:73
+msgid "No such attachment."
+msgstr "چنین پیوستی وجود ندارد."
+
+#: actions/avatarbynickname.php:59 actions/blockedfromgroup.php:73
+#: actions/editgroup.php:84 actions/groupdesignsettings.php:84
+#: actions/grouplogo.php:86 actions/groupmembers.php:76
+#: actions/grouprss.php:91 actions/joingroup.php:76 actions/leavegroup.php:76
+#: actions/showgroup.php:121
+msgid "No nickname."
+msgstr "بدون لقب."
+
+#: actions/avatarbynickname.php:64
+msgid "No size."
+msgstr "بدون اندازه."
+
+#: actions/avatarbynickname.php:69
+msgid "Invalid size."
+msgstr "اندازه‌ی نادرست"
+
+#: actions/avatarsettings.php:67 actions/showgroup.php:221
+#: lib/accountsettingsaction.php:112
+msgid "Avatar"
+msgstr "چهره"
+
+#: actions/avatarsettings.php:78
+#, php-format
+msgid "You can upload your personal avatar. The maximum file size is %s."
+msgstr ""
+"شما می‌توانید چهرهٔ شخصی خود را بارگذاری کنید. حداکثر اندازه پرونده %s است."
+
+#: actions/avatarsettings.php:106 actions/avatarsettings.php:185
+#: actions/remotesubscribe.php:191 actions/userauthorization.php:72
+#: actions/userrss.php:103
+msgid "User without matching profile"
+msgstr "کاربر بدون مشخصات"
+
+#: actions/avatarsettings.php:119 actions/avatarsettings.php:197
+#: actions/grouplogo.php:251
+msgid "Avatar settings"
+msgstr "تنظیمات چهره"
+
+#: actions/avatarsettings.php:127 actions/avatarsettings.php:205
+#: actions/grouplogo.php:199 actions/grouplogo.php:259
+msgid "Original"
+msgstr "اصلی"
+
+#: actions/avatarsettings.php:142 actions/avatarsettings.php:217
+#: actions/grouplogo.php:210 actions/grouplogo.php:271
+msgid "Preview"
+msgstr "پیش‌نمایش"
+
+#: actions/avatarsettings.php:149 lib/deleteuserform.php:66
+#: lib/noticelist.php:611
+msgid "Delete"
+msgstr "حذف"
+
+#: actions/avatarsettings.php:166 actions/grouplogo.php:233
+msgid "Upload"
+msgstr "پایین‌گذاری"
+
+#: actions/avatarsettings.php:231 actions/grouplogo.php:286
+msgid "Crop"
+msgstr "برش"
+
+#: actions/avatarsettings.php:268 actions/deletenotice.php:157
+#: actions/disfavor.php:74 actions/emailsettings.php:238 actions/favor.php:75
+#: actions/geocode.php:50 actions/groupblock.php:66 actions/grouplogo.php:309
+#: actions/groupunblock.php:66 actions/imsettings.php:206
+#: actions/invite.php:56 actions/login.php:115 actions/makeadmin.php:66
+#: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
+#: actions/othersettings.php:145 actions/passwordsettings.php:138
+#: actions/profilesettings.php:194 actions/recoverpassword.php:337
+#: actions/register.php:165 actions/remotesubscribe.php:77
+#: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
+#: actions/subscribe.php:46 actions/tagother.php:166
+#: actions/unsubscribe.php:69 actions/userauthorization.php:52
+#: lib/designsettings.php:294
+msgid "There was a problem with your session token. Try again, please."
+msgstr "مشکلی در دریافت جلسه‌ی شما وجود دارد. لطفا بعدا سعی کنید."
+
+#: actions/avatarsettings.php:281 actions/designadminpanel.php:103
+#: actions/emailsettings.php:256 actions/grouplogo.php:319
+#: actions/imsettings.php:220 actions/recoverpassword.php:44
+#: actions/smssettings.php:248 lib/designsettings.php:304
+msgid "Unexpected form submission."
+msgstr "ارسال غیر قابل انتظار فرم."
+
+#: actions/avatarsettings.php:328
+msgid "Pick a square area of the image to be your avatar"
+msgstr "یک مربع از عکس خود را انتخاب کنید تا چهره‌ی شما باشد."
+
+#: actions/avatarsettings.php:343 actions/grouplogo.php:377
+msgid "Lost our file data."
+msgstr "فایل اطلاعات خود را گم کرده ایم."
+
+#: actions/avatarsettings.php:366
+msgid "Avatar updated."
+msgstr "چهره به روز رسانی شد."
+
+#: actions/avatarsettings.php:369
+msgid "Failed updating avatar."
+msgstr "به روز رسانی چهره موفقیت آمیر نبود."
+
+#: actions/avatarsettings.php:393
+msgid "Avatar deleted."
+msgstr "چهره پاک شد."
+
+#: actions/block.php:69
+msgid "You already blocked that user."
+msgstr "شما هم اکنون آن کاربر را مسدود کرده اید."
+
+#: actions/block.php:105 actions/block.php:128 actions/groupblock.php:160
+msgid "Block user"
+msgstr "مسدود کردن کاربر"
+
+#: actions/block.php:130
+msgid ""
+"Are you sure you want to block this user? Afterwards, they will be "
+"unsubscribed from you, unable to subscribe to you in the future, and you "
+"will not be notified of any @-replies from them."
+msgstr ""
+"آیا شما اطمینان دارید که می‌خواهید این کاربر را مسدود کنید؟ پس از آن دیگر "
+"پیام‌های شما را مشاهده نخواهد کرد و نمی‌تواند درخواست کند که پیام‌های شما را "
+"دنبال کند. همچنین دیگر شما از پیام‌هایی که در آن از شما یاد می‌کند با خبر "
+"نخواهید شد"
+
+#: actions/block.php:143 actions/deletenotice.php:145
+#: actions/deleteuser.php:147 actions/groupblock.php:178
+msgid "No"
+msgstr "خیر"
+
+#: actions/block.php:143 actions/deleteuser.php:147
+msgid "Do not block this user"
+msgstr "کاربر را مسدود نکن"
+
+#: actions/block.php:144 actions/deletenotice.php:146
+#: actions/deleteuser.php:148 actions/groupblock.php:179
+#: lib/repeatform.php:132
+msgid "Yes"
+msgstr "بله"
+
+#: actions/block.php:144 actions/groupmembers.php:346 lib/blockform.php:80
+msgid "Block this user"
+msgstr "کاربر را مسدود کن"
+
+#: actions/block.php:167
+msgid "Failed to save block information."
+msgstr ""
+
+#: actions/blockedfromgroup.php:80 actions/editgroup.php:96
+#: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
+#: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
+#: actions/grouplogo.php:99 actions/groupmembers.php:83
+#: actions/grouprss.php:98 actions/groupunblock.php:86
+#: actions/joingroup.php:83 actions/leavegroup.php:83 actions/makeadmin.php:86
+#: actions/showgroup.php:137 lib/command.php:212 lib/command.php:260
+msgid "No such group."
+msgstr "چنین گروهی وجود ندارد."
+
+#: actions/blockedfromgroup.php:90
+#, php-format
+msgid "%s blocked profiles"
+msgstr "%s کاربران مسدود شده"
+
+#: actions/blockedfromgroup.php:93
+#, fuzzy, php-format
+msgid "%1$s blocked profiles, page %2$d"
+msgstr "%s کاربران مسدود شده، صفحه‌ی %d"
+
+#: actions/blockedfromgroup.php:108
+msgid "A list of the users blocked from joining this group."
+msgstr "فهرستی از افراد مسدود شده در پیوستن به این گروه."
+
+#: actions/blockedfromgroup.php:281
+msgid "Unblock user from group"
+msgstr "آزاد کردن کاربر در پیوستن به گروه"
+
+#: actions/blockedfromgroup.php:313 lib/unblockform.php:69
+msgid "Unblock"
+msgstr "آزاد سازی"
+
+#: actions/blockedfromgroup.php:313 lib/unblockform.php:80
+msgid "Unblock this user"
+msgstr "آزاد سازی کاربر"
+
+#: actions/bookmarklet.php:50
+msgid "Post to "
+msgstr "ارسال به "
+
+#: actions/confirmaddress.php:75
+msgid "No confirmation code."
+msgstr "بدون کد تصدیق."
+
+#: actions/confirmaddress.php:80
+msgid "Confirmation code not found."
+msgstr "کد تصدیق پیدا نشد."
+
+#: actions/confirmaddress.php:85
+msgid "That confirmation code is not for you!"
+msgstr "آن کد تصدیق برای شما نیست!"
+
+#: actions/confirmaddress.php:90
+#, php-format
+msgid "Unrecognized address type %s"
+msgstr "نوع نشانی نامشخص است %s"
+
+#: actions/confirmaddress.php:94
+msgid "That address has already been confirmed."
+msgstr "آن نشانی در حال حاضر تصدیق شده است."
+
+#: actions/confirmaddress.php:114 actions/emailsettings.php:296
+#: actions/emailsettings.php:427 actions/imsettings.php:258
+#: actions/imsettings.php:401 actions/othersettings.php:174
+#: actions/profilesettings.php:283 actions/smssettings.php:278
+#: actions/smssettings.php:420
+msgid "Couldn't update user."
+msgstr "نمی‌توان کاربر را به روز کرد."
+
+#: actions/confirmaddress.php:126 actions/emailsettings.php:391
+#: actions/imsettings.php:363 actions/smssettings.php:382
+msgid "Couldn't delete email confirmation."
+msgstr "نمی‌توان تصدیق پست الکترونیک را پاک کرد."
+
+#: actions/confirmaddress.php:144
+msgid "Confirm Address"
+msgstr "تایید نشانی"
+
+#: actions/confirmaddress.php:159
+#, php-format
+msgid "The address \"%s\" has been confirmed for your account."
+msgstr "نشانی «%s« برای شما تصدیق شد."
+
+#: actions/conversation.php:99
+msgid "Conversation"
+msgstr "مکالمه"
+
+#: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
+#: lib/profileaction.php:216 lib/searchgroupnav.php:82
+msgid "Notices"
+msgstr "پیام‌ها"
+
+#: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
+#: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
+#: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
+#: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
+#: actions/tagother.php:33 actions/unsubscribe.php:52
+#: lib/adminpanelaction.php:72 lib/profileformaction.php:63
+#: lib/settingsaction.php:72
+msgid "Not logged in."
+msgstr "شما به سیستم وارد نشده اید."
+
+#: actions/deletenotice.php:71
+msgid "Can't delete this notice."
+msgstr "نمی‌توان این پیام را پاک کرد."
+
+#: actions/deletenotice.php:103
+msgid ""
+"You are about to permanently delete a notice. Once this is done, it cannot "
+"be undone."
+msgstr ""
+"شما می‌خواهید یک پیام را به طور کامل پاک کنید. پس از انجام این کار نمی‌توان "
+"پیام را بازگرداند."
+
+#: actions/deletenotice.php:109 actions/deletenotice.php:141
+msgid "Delete notice"
+msgstr "پیام را پاک کن"
+
+#: actions/deletenotice.php:144
+msgid "Are you sure you want to delete this notice?"
+msgstr "آیا اطمینان دارید که می‌خواهید این پیام را پاک کنید؟"
+
+#: actions/deletenotice.php:145
+msgid "Do not delete this notice"
+msgstr "این پیام را پاک نکن"
+
+#: actions/deletenotice.php:146 lib/noticelist.php:611
+msgid "Delete this notice"
+msgstr "این پیام را پاک کن"
+
+#: actions/deleteuser.php:67
+msgid "You cannot delete users."
+msgstr "شما نمی‌توانید کاربران را پاک کنید."
+
+#: actions/deleteuser.php:74
+msgid "You can only delete local users."
+msgstr "شما فقط می‌توانید کاربران محلی را پاک کنید."
+
+#: actions/deleteuser.php:110 actions/deleteuser.php:133
+msgid "Delete user"
+msgstr "حذف کاربر"
+
+#: actions/deleteuser.php:135
+msgid ""
+"Are you sure you want to delete this user? This will clear all data about "
+"the user from the database, without a backup."
+msgstr ""
+"آیا مطمئن هستید که می‌خواهید این کاربر را پاک کنید؟ با این کار تمام اطلاعات "
+"پاک و بدون برگشت خواهند بود."
+
+#: actions/deleteuser.php:148 lib/deleteuserform.php:77
+msgid "Delete this user"
+msgstr "حذف این کاربر"
+
+#: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
+#: lib/adminpanelaction.php:316 lib/groupnav.php:119
+msgid "Design"
+msgstr "طرح"
+
+#: actions/designadminpanel.php:73
+msgid "Design settings for this StatusNet site."
+msgstr "تنظیمات ظاهری برای این سایت."
+
+#: actions/designadminpanel.php:275
+msgid "Invalid logo URL."
+msgstr "نشانی اینترنتی نشان نامعتبر است."
+
+#: actions/designadminpanel.php:279
+#, php-format
+msgid "Theme not available: %s"
+msgstr "پوسته در دسترس نمی‌باشد: %s"
+
+#: actions/designadminpanel.php:375
+msgid "Change logo"
+msgstr "تغییر نشان"
+
+#: actions/designadminpanel.php:380
+msgid "Site logo"
+msgstr "نشان وب‌گاه"
+
+#: actions/designadminpanel.php:387
+msgid "Change theme"
+msgstr "تغییر پوسته"
+
+#: actions/designadminpanel.php:404
+msgid "Site theme"
+msgstr "پوستهٔ وب‌گاه"
+
+#: actions/designadminpanel.php:405
+msgid "Theme for the site."
+msgstr "پوسته برای وب‌گاه"
+
+#: actions/designadminpanel.php:417 lib/designsettings.php:101
+msgid "Change background image"
+msgstr "تغییر تصویر پیش‌زمینه"
+
+#: actions/designadminpanel.php:422 actions/designadminpanel.php:497
+#: lib/designsettings.php:178
+msgid "Background"
+msgstr "پیش‌زمینه"
+
+#: actions/designadminpanel.php:427
+#, php-format
+msgid ""
+"You can upload a background image for the site. The maximum file size is %1"
+"$s."
+msgstr ""
+"شما می‌توانید یک تصویر پیش‌زمینه را برای وب‌گاه بارگذاری کنید. بیشینهٔ اندازهٔ "
+"پرونده %1 $s است."
+
+#: actions/designadminpanel.php:457 lib/designsettings.php:139
+msgid "On"
+msgstr "روشن"
+
+#: actions/designadminpanel.php:473 lib/designsettings.php:155
+msgid "Off"
+msgstr "خاموش"
+
+#: actions/designadminpanel.php:474 lib/designsettings.php:156
+msgid "Turn background image on or off."
+msgstr "تصویر پیش‌زمینه را فعال یا غیرفعال کنید."
+
+#: actions/designadminpanel.php:479 lib/designsettings.php:161
+msgid "Tile background image"
+msgstr "تصویر پیش‌زمینهٔ موزاییکی"
+
+#: actions/designadminpanel.php:488 lib/designsettings.php:170
+msgid "Change colours"
+msgstr "عوض‌کردن رنگ‌ها"
+
+#: actions/designadminpanel.php:510 lib/designsettings.php:191
+msgid "Content"
+msgstr "محتوا"
+
+#: actions/designadminpanel.php:523 lib/designsettings.php:204
+msgid "Sidebar"
+msgstr "ستون کناری"
+
+#: actions/designadminpanel.php:536 lib/designsettings.php:217
+msgid "Text"
+msgstr "متن"
+
+#: actions/designadminpanel.php:549 lib/designsettings.php:230
+msgid "Links"
+msgstr "پیوندها"
+
+#: actions/designadminpanel.php:577 lib/designsettings.php:247
+msgid "Use defaults"
+msgstr "استفاده‌کردن از پیش‌فرض‌ها"
+
+#: actions/designadminpanel.php:578 lib/designsettings.php:248
+msgid "Restore default designs"
+msgstr "بازگرداندن طرح‌های پیش‌فرض"
+
+#: actions/designadminpanel.php:584 lib/designsettings.php:254
+msgid "Reset back to default"
+msgstr "برگشت به حالت پیش گزیده"
+
+#: actions/designadminpanel.php:586 actions/emailsettings.php:195
+#: actions/imsettings.php:163 actions/othersettings.php:126
+#: actions/pathsadminpanel.php:324 actions/profilesettings.php:174
+#: actions/siteadminpanel.php:388 actions/smssettings.php:181
+#: actions/subscriptions.php:203 actions/tagother.php:154
+#: actions/useradminpanel.php:313 lib/designsettings.php:256
+#: lib/groupeditform.php:202
+msgid "Save"
+msgstr "ذخیره‌کردن"
+
+#: actions/designadminpanel.php:587 lib/designsettings.php:257
+msgid "Save design"
+msgstr "ذخیره‌کردن طرح"
+
+#: actions/disfavor.php:81
+msgid "This notice is not a favorite!"
+msgstr "این آگهی یک آگهی برگزیده نیست!"
+
+#: actions/disfavor.php:94
+msgid "Add to favorites"
+msgstr "افزودن به علاقه‌مندی‌ها"
+
+#: actions/doc.php:69
+msgid "No such document."
+msgstr "چنین سندی وجود ندارد."
+
+#: actions/editgroup.php:56
+#, php-format
+msgid "Edit %s group"
+msgstr "ویرایش گروه %s"
+
+#: actions/editgroup.php:68 actions/grouplogo.php:70 actions/newgroup.php:65
+msgid "You must be logged in to create a group."
+msgstr "برای ساخت یک گروه، باید وارد شده باشید."
+
+#: actions/editgroup.php:103 actions/editgroup.php:168
+#: actions/groupdesignsettings.php:104 actions/grouplogo.php:106
+#, fuzzy
+msgid "You must be an admin to edit the group."
+msgstr "برای ویرایش گروه، باید یک مدیر باشید."
+
+#: actions/editgroup.php:154
+msgid "Use this form to edit the group."
+msgstr "از این روش برای ویرایش گروه استفاده کنید."
+
+#: actions/editgroup.php:201 actions/newgroup.php:145
+#, php-format
+msgid "description is too long (max %d chars)."
+msgstr "توصیف بسیار زیاد است (حداکثر %d حرف)."
+
+#: actions/editgroup.php:253
+msgid "Could not update group."
+msgstr "نمی‌توان گروه را به‌هنگام‌سازی کرد."
+
+#: actions/editgroup.php:259 classes/User_group.php:390
+msgid "Could not create aliases."
+msgstr "نمی‌توان نام‌های مستعار را ساخت."
+
+#: actions/editgroup.php:269
+msgid "Options saved."
+msgstr "گزینه‌ها ذخیره شدند."
+
+#: actions/emailsettings.php:60
+#, fuzzy
+msgid "Email settings"
+msgstr "تنظیمات پست الکترونیک"
+
+#: actions/emailsettings.php:71
+#, php-format
+msgid "Manage how you get email from %%site.name%%."
+msgstr "چگونگی دریافت نامه از %%site.name%% را اداره کنید."
+
+#: actions/emailsettings.php:100 actions/imsettings.php:100
+#: actions/smssettings.php:104
+msgid "Address"
+msgstr "نشانی"
+
+#: actions/emailsettings.php:105
+msgid "Current confirmed email address."
+msgstr "نشانی پست الکترونیکی تایید شدهٔ کنونی"
+
+#: actions/emailsettings.php:107 actions/emailsettings.php:140
+#: actions/imsettings.php:108 actions/smssettings.php:115
+#: actions/smssettings.php:158
+msgid "Remove"
+msgstr "حذف"
+
+#: actions/emailsettings.php:113
+msgid ""
+"Awaiting confirmation on this address. Check your inbox (and spam box!) for "
+"a message with further instructions."
+msgstr ""
+
+#: actions/emailsettings.php:117 actions/imsettings.php:120
+#: actions/smssettings.php:126
+msgid "Cancel"
+msgstr "انصراف"
+
+#: actions/emailsettings.php:121
+#, fuzzy
+msgid "Email address"
+msgstr "نشانی‌های پست الکترونیکی"
+
+#: actions/emailsettings.php:123
+msgid "Email address, like \"UserName@example.org\""
+msgstr "نشانی پست الکترونیکی، مانند «UserName@example.org»"
+
+#: actions/emailsettings.php:126 actions/imsettings.php:133
+#: actions/smssettings.php:145
+msgid "Add"
+msgstr "افزودن"
+
+#: actions/emailsettings.php:133 actions/smssettings.php:152
+msgid "Incoming email"
+msgstr "پست الکترونیک ورودی"
+
+#: actions/emailsettings.php:138 actions/smssettings.php:157
+msgid "Send email to this address to post new notices."
+msgstr "برای ارسال پیام با استفاده از پست الکترونیک به این نشانی نامه بفرستید."
+
+#: actions/emailsettings.php:145 actions/smssettings.php:162
+msgid "Make a new email address for posting to; cancels the old one."
+msgstr "نشانی جدید برای ارسال پیام ایجاد کن؛ نشانی قبلی فسخ می‌شود."
+
+#: actions/emailsettings.php:148 actions/smssettings.php:164
+msgid "New"
+msgstr "جدید"
+
+#: actions/emailsettings.php:153 actions/imsettings.php:139
+#: actions/smssettings.php:169
+msgid "Preferences"
+msgstr "ترجیحات"
+
+#: actions/emailsettings.php:158
+msgid "Send me notices of new subscriptions through email."
+msgstr "پیام‌های کسانی را که به تازگی دنبال می‌کنم با پست الکترونیک برایم بفرست."
+
+#: actions/emailsettings.php:163
+msgid "Send me email when someone adds my notice as a favorite."
+msgstr ""
+"هر وقت کسی پیام های مرا دوست داشتنی کرد، مرا با پست اکترونیک با خبر کن."
+
+#: actions/emailsettings.php:169
+msgid "Send me email when someone sends me a private message."
+msgstr "هر وقت کسی برای من پیام خصوصی فرستاد، مرا با پست الکترونیک با خبر کن."
+
+#: actions/emailsettings.php:174
+msgid "Send me email when someone sends me an \"@-reply\"."
+msgstr "هر وقت کسی از من در پیام خود یاد کرد، مرا با پست الکترونیک با خبر کن."
+
+#: actions/emailsettings.php:179
+msgid "Allow friends to nudge me and send me an email."
+msgstr "اجازه بده دوستان توجه مرا جذب کنند و به من نامه بفرستند."
+
+#: actions/emailsettings.php:185
+msgid "I want to post notices by email."
+msgstr "می‌خواهم با نامه پیام ارسال کنم."
+
+#: actions/emailsettings.php:191
+msgid "Publish a MicroID for my email address."
+msgstr "یک شناسه برای پست الکترونیک  من منتشر کن."
+
+#: actions/emailsettings.php:302 actions/imsettings.php:264
+#: actions/othersettings.php:180 actions/smssettings.php:284
+msgid "Preferences saved."
+msgstr "تنظیمات ذخیره شد."
+
+#: actions/emailsettings.php:320
+msgid "No email address."
+msgstr "پست الکترونیک وجود ندارد."
+
+#: actions/emailsettings.php:327
+msgid "Cannot normalize that email address"
+msgstr "نمی‌توان نشانی را قانونی کرد"
+
+#: actions/emailsettings.php:331 actions/register.php:201
+#: actions/siteadminpanel.php:157
+msgid "Not a valid email address."
+msgstr "یک آدرس ایمیل معتبر نیست."
+
+#: actions/emailsettings.php:334
+msgid "That is already your email address."
+msgstr "هم اکنون نشانی شما همین است."
+
+#: actions/emailsettings.php:337
+msgid "That email address already belongs to another user."
+msgstr "این نشانی در حال حاضر متعلق به فرد دیگری است."
+
+#: actions/emailsettings.php:353 actions/imsettings.php:317
+#: actions/smssettings.php:337
+msgid "Couldn't insert confirmation code."
+msgstr "نمی‌توان کد تایید را اضافه کرد."
+
+#: actions/emailsettings.php:359
+msgid ""
+"A confirmation code was sent to the email address you added. Check your "
+"inbox (and spam box!) for the code and instructions on how to use it."
+msgstr ""
+"کد تایید به نشانی شما ارسال شد. نامه های خود را بررسی کنید برای کد تایید و "
+"راه استفاده."
+
+#: actions/emailsettings.php:379 actions/imsettings.php:351
+#: actions/smssettings.php:370
+msgid "No pending confirmation to cancel."
+msgstr "هیچ تاییدی برای فسخ کردن وجود ندارد."
+
+#: actions/emailsettings.php:383 actions/imsettings.php:355
+msgid "That is the wrong IM address."
+msgstr "نشانی پیام رسان اشتباه است."
+
+#: actions/emailsettings.php:395 actions/imsettings.php:367
+#: actions/smssettings.php:386
+msgid "Confirmation cancelled."
+msgstr "تایید فسخ شد."
+
+#: actions/emailsettings.php:413
+msgid "That is not your email address."
+msgstr "آن نشانی شما نیست."
+
+#: actions/emailsettings.php:432 actions/imsettings.php:408
+#: actions/smssettings.php:425
+msgid "The address was removed."
+msgstr "نشانی پاک شده است."
+
+#: actions/emailsettings.php:446 actions/smssettings.php:518
+msgid "No incoming email address."
+msgstr "هیچ نشانی ورودی وجود ندارد."
+
+#: actions/emailsettings.php:456 actions/emailsettings.php:478
+#: actions/smssettings.php:528 actions/smssettings.php:552
+msgid "Couldn't update user record."
+msgstr "نمی‌توان اطلاعات کاربر را به روز کرد."
+
+#: actions/emailsettings.php:459 actions/smssettings.php:531
+msgid "Incoming email address removed."
+msgstr "نشانی ورودی پاک شد."
+
+#: actions/emailsettings.php:481 actions/smssettings.php:555
+msgid "New incoming email address added."
+msgstr "نشانی ورودی جدید اضافه شد."
+
+#: actions/favor.php:79
+msgid "This notice is already a favorite!"
+msgstr "این پیام هم اکنون دوست داشتنی شده است."
+
+#: actions/favor.php:92 lib/disfavorform.php:140
+msgid "Disfavor favorite"
+msgstr "دوست ندارم"
+
+#: actions/favorited.php:65 lib/popularnoticesection.php:88
+#: lib/publicgroupnav.php:93
+msgid "Popular notices"
+msgstr "آگهی‌های محبوب"
+
+#: actions/favorited.php:67
+#, php-format
+msgid "Popular notices, page %d"
+msgstr "آگهی‌های محبوب، صفحهٔ %d"
+
+#: actions/favorited.php:79
+msgid "The most popular notices on the site right now."
+msgstr "دوست داشتنی ترین پیام های سایت در حال حاضر."
+
+#: actions/favorited.php:150
+msgid "Favorite notices appear on this page but no one has favorited one yet."
+msgstr ""
+"پیام‌های دوست داشتنی در این صفحه نمایش داده می‌شوند اما هیچ کس پیامی را دوست "
+"داشتنی نکرده است."
+
+#: actions/favorited.php:153
+msgid ""
+"Be the first to add a notice to your favorites by clicking the fave button "
+"next to any notice you like."
+msgstr ""
+"یک پیام را دوست داشتنی کنید با کلیک کردن روی دکمه‌ی دوست داشتنی نزدیک هر پیام."
+
+#: actions/favorited.php:156
+#, php-format
+msgid ""
+"Why not [register an account](%%action.register%%) and be the first to add a "
+"notice to your favorites!"
+msgstr ""
+"چرا [ثبت نام](%%action.register%%) نمی‌کنید و یک پیام را دوست داشتنی کنید؟"
+
+#: actions/favoritesrss.php:111 actions/showfavorites.php:77
+#: lib/personalgroupnav.php:115
+#, php-format
+msgid "%s's favorite notices"
+msgstr "دوست داشتنی های %s"
+
+#: actions/favoritesrss.php:115
+#, php-format
+msgid "Updates favored by %1$s on %2$s!"
+msgstr "پیام‌های دوست داشتنی %s در %s"
+
+#: actions/featured.php:69 lib/featureduserssection.php:87
+#: lib/publicgroupnav.php:89
+msgid "Featured users"
+msgstr "کاربران ویژه"
+
+#: actions/featured.php:71
+#, php-format
+msgid "Featured users, page %d"
+msgstr "کاربران ویژه، صفحه‌ی %d"
+
+#: actions/featured.php:99
+#, php-format
+msgid "A selection of some great users on %s"
+msgstr ""
+
+#: actions/file.php:34
+msgid "No notice ID."
+msgstr ""
+
+#: actions/file.php:38
+msgid "No notice."
+msgstr "بدون آگهی."
+
+#: actions/file.php:42
+msgid "No attachments."
+msgstr "بدون ضمیمه."
+
+#: actions/file.php:51
+msgid "No uploaded attachments."
+msgstr "بدون ضمیمه های ارسال شده."
+
+#: actions/finishremotesubscribe.php:69
+msgid "Not expecting this response!"
+msgstr "انتظار چنین جوابی وجود نداشت!"
+
+#: actions/finishremotesubscribe.php:80
+msgid "User being listened to does not exist."
+msgstr "کاربری که دنبالش هستید وجود ندارد."
+
+#: actions/finishremotesubscribe.php:87 actions/remotesubscribe.php:59
+msgid "You can use the local subscription!"
+msgstr "شما می‌توانید از دنبال کردن محلی استفاده کنید!"
+
+#: actions/finishremotesubscribe.php:99
+msgid "That user has blocked you from subscribing."
+msgstr "این کاربر شما را از دنبال کردن خودش منع کرده است."
+
+#: actions/finishremotesubscribe.php:110
+msgid "You are not authorized."
+msgstr "شما شناسایی نشده اید."
+
+#: actions/finishremotesubscribe.php:113
+msgid "Could not convert request token to access token."
+msgstr "نمی‌توان نشانه‌ی درخواست شما را به نشانه‌ی دسترسی تبدیل کرد."
+
+#: actions/finishremotesubscribe.php:118
+msgid "Remote service uses unknown version of OMB protocol."
+msgstr "خدمات مورد نظر از نسخه‌ی نا مفهومی از قرارداد OMB استفاده می‌کند."
+
+#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
+msgid "Error updating remote profile"
+msgstr "اشکال در به روز کردن کاربر دوردست."
+
+#: actions/getfile.php:79
+msgid "No such file."
+msgstr "چنین پرونده‌ای وجود ندارد."
+
+#: actions/getfile.php:83
+msgid "Cannot read file."
+msgstr "نمی‌توان پرونده را خواند."
+
+#: actions/groupblock.php:71 actions/groupunblock.php:71
+#: actions/makeadmin.php:71 actions/subedit.php:46
+#: lib/profileformaction.php:70
+msgid "No profile specified."
+msgstr "کاربری مشخص نشده است."
+
+#: actions/groupblock.php:76 actions/groupunblock.php:76
+#: actions/makeadmin.php:76 actions/subedit.php:53 actions/tagother.php:46
+#: actions/unsubscribe.php:84 lib/profileformaction.php:77
+msgid "No profile with that ID."
+msgstr "کاربری با چنین شناسه‌ای وجود ندارد."
+
+#: actions/groupblock.php:81 actions/groupunblock.php:81
+#: actions/makeadmin.php:81
+msgid "No group specified."
+msgstr "گروهی مشخص نشده است."
+
+#: actions/groupblock.php:91
+msgid "Only an admin can block group members."
+msgstr "فقط یک مدیر می‌تواند اعضای یک گروه را مسدود کند."
+
+#: actions/groupblock.php:95
+msgid "User is already blocked from group."
+msgstr "هم اکنون دسترسی کاربر به گروه مسدود شده است."
+
+#: actions/groupblock.php:100
+msgid "User is not a member of group."
+msgstr "کاربر عضو گروه نیست."
+
+#: actions/groupblock.php:136 actions/groupmembers.php:314
+msgid "Block user from group"
+msgstr "دسترسی کاربر به گروه را مسدود کن"
+
+#: actions/groupblock.php:162
+#, fuzzy, php-format
+msgid ""
+"Are you sure you want to block user \"%1$s\" from the group \"%2$s\"? They "
+"will be removed from the group, unable to post, and unable to subscribe to "
+"the group in the future."
+msgstr "آیا مطمئن هستید می‌خواهید دسترسی »%s« را به گروه »%s« مسدود کنید؟"
+
+#: actions/groupblock.php:178
+msgid "Do not block this user from this group"
+msgstr "دسترسی کاربر به گروه را مسدود نکن"
+
+#: actions/groupblock.php:179
+msgid "Block this user from this group"
+msgstr "دسترسی کاربر را به گروه مسدود کن"
+
+#: actions/groupblock.php:196
+msgid "Database error blocking user from group."
+msgstr "اشکال پایگاه داده در مسدود کردن کاربر"
+
+#: actions/groupbyid.php:74 actions/userbyid.php:70
+msgid "No ID."
+msgstr ""
+
+#: actions/groupdesignsettings.php:68
+msgid "You must be logged in to edit a group."
+msgstr "برای ویرایش گروه باید وارد شوید."
+
+#: actions/groupdesignsettings.php:141
+msgid "Group design"
+msgstr "ظاهر گروه"
+
+#: actions/groupdesignsettings.php:152
+msgid ""
+"Customize the way your group looks with a background image and a colour "
+"palette of your choice."
+msgstr "ظاهر گروه را تغییر دهید تا شما را راضی کند."
+
+#: actions/groupdesignsettings.php:263 actions/userdesignsettings.php:186
+#: lib/designsettings.php:391 lib/designsettings.php:413
+msgid "Couldn't update your design."
+msgstr "نمی‌توان ظاهر را به روز کرد."
+
+#: actions/groupdesignsettings.php:308 actions/userdesignsettings.php:231
+msgid "Design preferences saved."
+msgstr "ترجیحات طرح ذخیره شد."
+
+#: actions/grouplogo.php:139 actions/grouplogo.php:192
+msgid "Group logo"
+msgstr "نشان گروه"
+
+#: actions/grouplogo.php:150
+#, php-format
+msgid ""
+"You can upload a logo image for your group. The maximum file size is %s."
+msgstr "شما می‌توانید یک نشان برای گروه خود با بیشینه حجم %s بفرستید."
+
+#: actions/grouplogo.php:178
+#, fuzzy
+msgid "User without matching profile."
+msgstr "کاربر بدون مشخصات"
+
+#: actions/grouplogo.php:362
+msgid "Pick a square area of the image to be the logo."
+msgstr "یک ناحیه‌ی مربع از تصویر را انتخاب کنید تا به عنوان نشان باشد."
+
+#: actions/grouplogo.php:396
+msgid "Logo updated."
+msgstr "نشان به‌هنگام‌سازی شد."
+
+#: actions/grouplogo.php:398
+msgid "Failed updating logo."
+msgstr "اشکال در ارسال نشان."
+
+#: actions/groupmembers.php:93 lib/groupnav.php:92
+#, php-format
+msgid "%s group members"
+msgstr "اعضای گروه %s"
+
+#: actions/groupmembers.php:96
+#, fuzzy, php-format
+msgid "%1$s group members, page %2$d"
+msgstr "اعضای گروه %s، صفحهٔ %d"
+
+#: actions/groupmembers.php:111
+msgid "A list of the users in this group."
+msgstr "یک فهرست از کاربران در این گروه"
+
+#: actions/groupmembers.php:175 lib/action.php:442 lib/groupnav.php:107
+msgid "Admin"
+msgstr "مدیر"
+
+#: actions/groupmembers.php:346 lib/blockform.php:69
+msgid "Block"
+msgstr "بازداشتن"
+
+#: actions/groupmembers.php:441
+msgid "Make user an admin of the group"
+msgstr "کاربر یک مدیر گروه شود"
+
+#: actions/groupmembers.php:473
+msgid "Make Admin"
+msgstr "مدیر شود"
+
+#: actions/groupmembers.php:473
+msgid "Make this user an admin"
+msgstr "این کاربر یک مدیر شود"
+
+#: actions/grouprss.php:133
+#, php-format
+msgid "Updates from members of %1$s on %2$s!"
+msgstr "به روز رسانی کابران %1$s در %2$s"
+
+#: actions/groups.php:62 lib/profileaction.php:210 lib/profileaction.php:230
+#: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
+msgid "Groups"
+msgstr "گروه‌ها"
+
+#: actions/groups.php:64
+#, php-format
+msgid "Groups, page %d"
+msgstr "گروه‌ها، صفحهٔ %d"
+
+#: actions/groups.php:90
+#, php-format
+msgid ""
+"%%%%site.name%%%% groups let you find and talk with people of similar "
+"interests. After you join a group you can send messages to all other members "
+"using the syntax \"!groupname\". Don't see a group you like? Try [searching "
+"for one](%%%%action.groupsearch%%%%) or [start your own!](%%%%action.newgroup"
+"%%%%)"
+msgstr ""
+"گروه های %%%site.name%%% به شما اجازه می‌دهد با کسانی که همانند شما علاقه‌مندی "
+"های خاصی دارد صحبت کنید. بعد از پیوستن به یک گروه می‌توانید به شکل !groupname "
+"به اعضای آن گروه پیام ارسال کنید .گروهی که دوست دارید را نمی‌بینید؟ می‌توانید "
+"برای یافتن آن [بگردید](%%%action.groupsearch%%%) یا آن را خودتان [ایجاد](%%%"
+"action.newgroup%%%) کنید."
+
+#: actions/groups.php:107 actions/usergroups.php:124 lib/groupeditform.php:122
+msgid "Create a new group"
+msgstr "یک گروه جدید بساز"
+
+#: actions/groupsearch.php:52
+#, php-format
+msgid ""
+"Search for groups on %%site.name%% by their name, location, or description. "
+"Separate the terms by spaces; they must be 3 characters or more."
+msgstr "با وارد کردن ۳ حرف و بیش‌تر در گروه‌های %%site.name%% جست‌و‌جو کنید."
+
+#: actions/groupsearch.php:58
+msgid "Group search"
+msgstr "جست‌وجوی گروه"
+
+#: actions/groupsearch.php:79 actions/noticesearch.php:117
+#: actions/peoplesearch.php:83
+msgid "No results."
+msgstr "بدون نتیجه."
+
+#: actions/groupsearch.php:82
+#, php-format
+msgid ""
+"If you can't find the group you're looking for, you can [create it](%%action."
+"newgroup%%) yourself."
+msgstr ""
+"اگر نمی‌توانید گروه مورد نظر را پیدا کنید خودتان می‌توانید آن را [ایجاد](%%"
+"action.newgroup%%) کنید."
+
+#: actions/groupsearch.php:85
+#, php-format
+msgid ""
+"Why not [register an account](%%action.register%%) and [create the group](%%"
+"action.newgroup%%) yourself!"
+msgstr ""
+"چرا [ثبت نام](%%action.register%%) نمی‌کنید و گروه را خود [ایجاد](%%action."
+"newgroup%%) نمی‌کنید!"
+
+#: actions/groupunblock.php:91
+msgid "Only an admin can unblock group members."
+msgstr "تنها یک مدیر توانایی برداشتن منع کاربران گروه را دارد."
+
+#: actions/groupunblock.php:95
+msgid "User is not blocked from group."
+msgstr "کاربر از گروه منع نشده است."
+
+#: actions/groupunblock.php:128 actions/unblock.php:86
+msgid "Error removing the block."
+msgstr "اشکال در پاکسازی"
+
+#: actions/imsettings.php:59
+#, fuzzy
+msgid "IM settings"
+msgstr "تنظیمات پیام‌رسان فوری"
+
+#: actions/imsettings.php:70
+#, php-format
+msgid ""
+"You can send and receive notices through Jabber/GTalk [instant messages](%%"
+"doc.im%%). Configure your address and settings below."
+msgstr ""
+"شما می‌توانید پیام‌های خود را با استفاده از [پیام‌رسان‌های](%%doc.im%%) Jabber "
+"یا Gtalk ارسال/دریافت کنید. نشانی خود را در این قسمت تنظیم کنید"
+
+#: actions/imsettings.php:89
+msgid "IM is not available."
+msgstr "پیام‌رسان فوری در دسترس نیست."
+
+#: actions/imsettings.php:106
+msgid "Current confirmed Jabber/GTalk address."
+msgstr "نشانی Jabber/GTalk تایید شده کنونی"
+
+#: actions/imsettings.php:114
+#, php-format
+msgid ""
+"Awaiting confirmation on this address. Check your Jabber/GTalk account for a "
+"message with further instructions. (Did you add %s to your buddy list?)"
+msgstr ""
+"منتظر تایید این نشانی هستیم. لطفا Jabber/Gtalk خود را برای دریافت توضیحات "
+"بیش‌تر بررسی کنید. (آیا %s را به فهرست خود اضافه کرده اید؟) "
+
+#: actions/imsettings.php:124
+#, fuzzy
+msgid "IM address"
+msgstr "نشانی پیام‌رسان فوری"
+
+#: actions/imsettings.php:126
+#, php-format
+msgid ""
+"Jabber or GTalk address, like \"UserName@example.org\". First, make sure to "
+"add %s to your buddy list in your IM client or on GTalk."
+msgstr ""
+"نشانی Jabber یا GTalk، مانند «UserName@example.org». ابتدا از اضافه کردن %s "
+"به فهرست دوستان خود در کارگیر پیام‌رسان فوری‌تان یا در GTalk مطمئن شوید."
+
+#: actions/imsettings.php:143
+msgid "Send me notices through Jabber/GTalk."
+msgstr "آگهی‌ها را از راه Jabber/GTalk برای من بفرست."
+
+#: actions/imsettings.php:148
+msgid "Post a notice when my Jabber/GTalk status changes."
+msgstr "هر وقت که وضعیت Jabber/Gtalk من فرق کرد، یک پیام ارسال کن."
+
+#: actions/imsettings.php:153
+msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
+msgstr ""
+"جواب کسانی که من آن ها را دنبال نمی‌کنم را با Jabber/Gtalk برایم ارسال کن."
+
+#: actions/imsettings.php:159
+msgid "Publish a MicroID for my Jabber/GTalk address."
+msgstr "یک شناسه‌ی کوچک برای Jabber/Gtalk من منتشر کن."
+
+#: actions/imsettings.php:285
+msgid "No Jabber ID."
+msgstr "هیچ شناسهٔ Jabber ای وجود ندارد."
+
+#: actions/imsettings.php:292
+msgid "Cannot normalize that Jabber ID"
+msgstr "نمی‌توان شناسه‌ی Jabber را تایید کرد"
+
+#: actions/imsettings.php:296
+msgid "Not a valid Jabber ID"
+msgstr "شناسه‌ی Jabber درست نیست"
+
+#: actions/imsettings.php:299
+msgid "That is already your Jabber ID."
+msgstr "این شناسه Jabber کنونی شماست."
+
+#: actions/imsettings.php:302
+msgid "Jabber ID already belongs to another user."
+msgstr "شناسه Jabber به یک کاربر دیگر مربوط است."
+
+#: actions/imsettings.php:327
+#, php-format
+msgid ""
+"A confirmation code was sent to the IM address you added. You must approve %"
+"s for sending messages to you."
+msgstr ""
+"کد تایید به پیام‌رسان شما ارسال شد. شما باید %s را تایید کنید تا پیام‌ها به "
+"شما ارسال شود."
+
+#: actions/imsettings.php:387
+msgid "That is not your Jabber ID."
+msgstr "این شناسه‌ی Jabber شما نیست."
+
+#: actions/inbox.php:62
+#, php-format
+msgid "Inbox for %s"
+msgstr "صندوق ورودی %s"
+
+#: actions/inbox.php:115
+msgid "This is your inbox, which lists your incoming private messages."
+msgstr "این صندوق ورودی‌های شماست که پیام‌های خصوصی شما در آن خواهد بود."
+
+#: actions/invite.php:39
+msgid "Invites have been disabled."
+msgstr "دعوت‌کردن از کار انداخته شده‌است."
+
+#: actions/invite.php:41
+#, php-format
+msgid "You must be logged in to invite other users to use %s"
+msgstr "شما برای دعوت دیگران برای استفاده از %s باید وارد شودید."
+
+#: actions/invite.php:72
+#, php-format
+msgid "Invalid email address: %s"
+msgstr "پست‌الکترونیک صحیح نیست: %s"
+
+#: actions/invite.php:110
+msgid "Invitation(s) sent"
+msgstr "دعوت‌نامه(ها) فرستاده‌شد"
+
+#: actions/invite.php:112
+msgid "Invite new users"
+msgstr "دعوت کردن کاربران تازه"
+
+#: actions/invite.php:128
+msgid "You are already subscribed to these users:"
+msgstr "هم اکنون شما این کاربران را دنبال می‌کنید: "
+
+#: actions/invite.php:131 actions/invite.php:139 lib/command.php:306
+#, php-format
+msgid "%1$s (%2$s)"
+msgstr ""
+
+#: actions/invite.php:136
+msgid ""
+"These people are already users and you were automatically subscribed to them:"
+msgstr "این کاربرانی هستند که شما به صورت خودکار آن‌ها را دنبال می‌کنید: "
+
+#: actions/invite.php:144
+msgid "Invitation(s) sent to the following people:"
+msgstr "دعوت‌نامه(ها) برای افراد زیر فرستاده شد:"
+
+#: actions/invite.php:150
+msgid ""
+"You will be notified when your invitees accept the invitation and register "
+"on the site. Thanks for growing the community!"
+msgstr ""
+"هر زمان که دعوت شدگان شما دعوتتان را بپذیرند شما با خبر خواهید شد. با تشکر "
+"از شما برای بزرگ کردن اجتماع کابران."
+
+#: actions/invite.php:162
+msgid ""
+"Use this form to invite your friends and colleagues to use this service."
+msgstr ""
+"برای دعوت دوستان و تشویق آن‌ها به استفاده از خدمات از فرم زیر استفاده کنید."
+
+#: actions/invite.php:187
+msgid "Email addresses"
+msgstr "نشانی‌های پست الکترونیکی"
+
+#: actions/invite.php:189
+msgid "Addresses of friends to invite (one per line)"
+msgstr "نشانی دوستان (یک نشانی در هر خط("
+
+#: actions/invite.php:192
+msgid "Personal message"
+msgstr "پیام خصوصی"
+
+#: actions/invite.php:194
+msgid "Optionally add a personal message to the invitation."
+msgstr "اگر دوست دارید می‌توانید یک پیام به همراه دعوت نامه ارسال کنید."
+
+#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:237
+msgid "Send"
+msgstr "فرستادن"
+
+#: actions/invite.php:226
+#, php-format
+msgid "%1$s has invited you to join them on %2$s"
+msgstr "%1$s شما را دعوت کرده است که در %2$s به آن‌ها بپیوندید."
+
+#: actions/invite.php:228
+#, php-format
+msgid ""
+"%1$s has invited you to join them on %2$s (%3$s).\n"
+"\n"
+"%2$s is a micro-blogging service that lets you keep up-to-date with people "
+"you know and people who interest you.\n"
+"\n"
+"You can also share news about yourself, your thoughts, or your life online "
+"with people who know about you. It's also great for meeting new people who "
+"share your interests.\n"
+"\n"
+"%1$s said:\n"
+"\n"
+"%4$s\n"
+"\n"
+"You can see %1$s's profile page on %2$s here:\n"
+"\n"
+"%5$s\n"
+"\n"
+"If you'd like to try the service, click on the link below to accept the "
+"invitation.\n"
+"\n"
+"%6$s\n"
+"\n"
+"If not, you can ignore this message. Thanks for your patience and your "
+"time.\n"
+"\n"
+"Sincerely, %2$s\n"
+msgstr ""
+
+#: actions/joingroup.php:60
+msgid "You must be logged in to join a group."
+msgstr "برای پیوستن به یک گروه، باید وارد شده باشید."
+
+#: actions/joingroup.php:131
+#, fuzzy, php-format
+msgid "%1$s joined group %2$s"
+msgstr "ملحق شدن به گروه"
+
+#: actions/leavegroup.php:60
+msgid "You must be logged in to leave a group."
+msgstr "برای ترک یک گروه، شما باید وارد شده باشید."
+
+#: actions/leavegroup.php:90 lib/command.php:265
+msgid "You are not a member of that group."
+msgstr "شما یک کاربر این گروه نیستید."
+
+#: actions/leavegroup.php:127
+#, fuzzy, php-format
+msgid "%1$s left group %2$s"
+msgstr "%s گروه %s را ترک کرد."
+
+#: actions/login.php:80 actions/otp.php:62 actions/register.php:137
+msgid "Already logged in."
+msgstr "قبلا وارد شده"
+
+#: actions/login.php:126
+msgid "Incorrect username or password."
+msgstr "نام کاربری یا رمز عبور نادرست."
+
+#: actions/login.php:132 actions/otp.php:120
+msgid "Error setting user. You are probably not authorized."
+msgstr "خطا در تنظیم کاربر. شما احتمالا اجازه ی این کار را ندارید."
+
+#: actions/login.php:188 actions/login.php:241 lib/action.php:460
+#: lib/logingroupnav.php:79
+msgid "Login"
+msgstr "ورود"
+
+#: actions/login.php:227
+msgid "Login to site"
+msgstr "ورود به وب‌گاه"
+
+#: actions/login.php:230 actions/profilesettings.php:106
+#: actions/register.php:424 actions/showgroup.php:236 actions/tagother.php:94
+#: lib/groupeditform.php:152 lib/userprofile.php:131
+msgid "Nickname"
+msgstr "نام کاربری"
+
+#: actions/login.php:233 actions/register.php:429
+#: lib/accountsettingsaction.php:116
+msgid "Password"
+msgstr "گذرواژه"
+
+#: actions/login.php:236 actions/register.php:478
+msgid "Remember me"
+msgstr "مرا به یاد بسپار"
+
+#: actions/login.php:237 actions/register.php:480
+msgid "Automatically login in the future; not for shared computers!"
+msgstr "وارد شدن خودکار. نه برای کامپیوترهای مشترک!"
+
+#: actions/login.php:247
+msgid "Lost or forgotten password?"
+msgstr "رمز عبور خود را گم یا فراموش کرده اید؟"
+
+#: actions/login.php:266
+msgid ""
+"For security reasons, please re-enter your user name and password before "
+"changing your settings."
+msgstr ""
+"به دلایل امنیتی، لطفا نام کاربری و رمز عبور خود را قبل از تغییر تنظیمات "
+"دوباره وارد نمایید."
+
+#: actions/login.php:270
+#, php-format
+msgid ""
+"Login with your username and password. Don't have a username yet? [Register]"
+"(%%action.register%%) a new account."
+msgstr ""
+"با نام‌کاربری و گذزواژه‌ی خود وارد شوید. نام‌کاربری ندارید؟ یک نام‌کاربری [ثبت ]"
+"(%%action.register%%) کنید."
+
+#: actions/makeadmin.php:91
+msgid "Only an admin can make another user an admin."
+msgstr "فقط یک مدیر می‌تواند کاربر دیگری را مدیر کند."
+
+#: actions/makeadmin.php:95
+#, fuzzy, php-format
+msgid "%1$s is already an admin for group \"%2$s\"."
+msgstr "%s از قبل مدیر گروه %s بود."
+
+#: actions/makeadmin.php:132
+#, fuzzy, php-format
+msgid "Can't get membership record for %1$s in group %2$s."
+msgstr "نمی‌توان اطلاعات عضویت %s را در گروه %s به دست آورد."
+
+#: actions/makeadmin.php:145
+#, fuzzy, php-format
+msgid "Can't make %1$s an admin for group %2$s."
+msgstr "نمی‌توان %s را مدیر گروه %s کرد."
+
+#: actions/microsummary.php:69
+msgid "No current status"
+msgstr "بدون وضعیت فعلی"
+
+#: actions/newgroup.php:53
+msgid "New group"
+msgstr "گروه جدید"
+
+#: actions/newgroup.php:110
+msgid "Use this form to create a new group."
+msgstr "از این فرم برای ساختن یک گروه جدید استفاده کنید"
+
+#: actions/newmessage.php:71 actions/newmessage.php:231
+msgid "New message"
+msgstr "پیام جدید"
+
+#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:358
+msgid "You can't send a message to this user."
+msgstr "شما نمی توانید به این کاربر پیام بفرستید."
+
+#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:342
+#: lib/command.php:475
+msgid "No content!"
+msgstr "بدون محتوا!"
+
+#: actions/newmessage.php:158
+msgid "No recipient specified."
+msgstr "هیچ گیرنده ای مشخص نشده"
+
+#: actions/newmessage.php:164 lib/command.php:361
+msgid ""
+"Don't send a message to yourself; just say it to yourself quietly instead."
+msgstr "یک پیام را به خودتان نفرستید؛ در عوض آن را آهسته برای خود بگویید."
+
+#: actions/newmessage.php:181
+msgid "Message sent"
+msgstr "پیام فرستاده‌شد"
+
+#: actions/newmessage.php:185
+#, fuzzy, php-format
+msgid "Direct message to %s sent."
+msgstr "پیام مستقیم به %s فرستاده شد."
+
+#: actions/newmessage.php:210 actions/newnotice.php:245 lib/channel.php:170
+msgid "Ajax Error"
+msgstr "اشکال آژاکسی"
+
+#: actions/newnotice.php:69
+msgid "New notice"
+msgstr "آگهی جدید"
+
+#: actions/newnotice.php:211
+msgid "Notice posted"
+msgstr "آگهی فرستاده‌شد."
+
+#: actions/noticesearch.php:68
+#, php-format
+msgid ""
+"Search for notices on %%site.name%% by their contents. Separate search terms "
+"by spaces; they must be 3 characters or more."
+msgstr ""
+"جست‌و‌جوی متن پیام‌ها در %%site.name%%. هر شرط را با فاصله جدا کنید و کمینه‌ی "
+"جست‌و‌جو باید ۳ حرف باشد."
+
+#: actions/noticesearch.php:78
+msgid "Text search"
+msgstr "جست‌وجوی متن"
+
+#: actions/noticesearch.php:91
+#, fuzzy, php-format
+msgid "Search results for \"%1$s\" on %2$s"
+msgstr "نتایج جست‌و‌جو برای %s در %s"
+
+#: actions/noticesearch.php:121
+#, php-format
+msgid ""
+"Be the first to [post on this topic](%%%%action.newnotice%%%%?"
+"status_textarea=%s)!"
+msgstr ""
+"اولین کسی باشید که در [این موضوع](%%%%action.newnotice%%%%?status_textarea=%"
+"s) پیام می‌فرستد."
+
+#: actions/noticesearch.php:124
+#, php-format
+msgid ""
+"Why not [register an account](%%%%action.register%%%%) and be the first to "
+"[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
+msgstr ""
+"چرا [ثبت نام](%%%%action.register%%%%) نمی‌کنید و اولین پیام را در [این موضوع]"
+"(%%%%action.newnotice%%%%?status_textarea=%s) نمی‌فرستید!"
+
+#: actions/noticesearchrss.php:96
+#, php-format
+msgid "Updates with \"%s\""
+msgstr "پیام‌های با %s"
+
+#: actions/noticesearchrss.php:98
+#, php-format
+msgid "Updates matching search term \"%1$s\" on %2$s!"
+msgstr "پیام‌هایی که با جست‌و‌جوی عبارت »%1$s« در %s یافت شدند."
+
+#: actions/nudge.php:85
+msgid ""
+"This user doesn't allow nudges or hasn't confirmed or set his email yet."
+msgstr ""
+"این کاربر اجازه‌ی سقلمه زدن را نداده است یا پست‌الکترونیک خود را تایید نکرده "
+"است."
+
+#: actions/nudge.php:94
+msgid "Nudge sent"
+msgstr "فرتادن اژیر"
+
+#: actions/nudge.php:97
+msgid "Nudge sent!"
+msgstr "سقلمه فرستاده شد!"
+
+#: actions/oembed.php:79 actions/shownotice.php:100
+msgid "Notice has no profile"
+msgstr "ابن خبر ذخیره ای ندارد ."
+
+#: actions/oembed.php:86 actions/shownotice.php:180
+#, php-format
+msgid "%1$s's status on %2$s"
+msgstr "وضعیت %1$s در %2$s"
+
+#: actions/oembed.php:157
+msgid "content type "
+msgstr "نوع محتوا "
+
+#: actions/oembed.php:160
+msgid "Only "
+msgstr " فقط"
+
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1033
+#: lib/api.php:1061 lib/api.php:1171
+msgid "Not a supported data format."
+msgstr "یک قالب دادهٔ پشتیبانی‌شده نیست."
+
+#: actions/opensearch.php:64
+msgid "People Search"
+msgstr "جست‌وجوی کاربران"
+
+#: actions/opensearch.php:67
+msgid "Notice Search"
+msgstr "جست‌وجوی آگهی‌ها"
+
+#: actions/othersettings.php:60
+msgid "Other Settings"
+msgstr "تنظیمات دیگر"
+
+#: actions/othersettings.php:71
+msgid "Manage various other options."
+msgstr "مدیریت انتخاب های مختلف دیگر."
+
+#: actions/othersettings.php:108
+msgid " (free service)"
+msgstr " (سرویس‌ آزاد)"
+
+#: actions/othersettings.php:116
+msgid "Shorten URLs with"
+msgstr "کوتاه‌کردن نشانی‌های اینترنتی با"
+
+#: actions/othersettings.php:117
+msgid "Automatic shortening service to use."
+msgstr "کوتاه‌کننده‌ی نشانی مورد استفاده."
+
+#: actions/othersettings.php:122
+msgid "View profile designs"
+msgstr "نمایش طراحی های پروفایل"
+
+#: actions/othersettings.php:123
+msgid "Show or hide profile designs."
+msgstr "نمایش یا عدم‌نمایش طراحی‌های کاربران."
+
+#: actions/othersettings.php:153
+msgid "URL shortening service is too long (max 50 chars)."
+msgstr "کوتاه کننده‌ی نشانی بسیار طولانی است (بیش‌تر از ۵۰ حرف)."
+
+#: actions/otp.php:69
+#, fuzzy
+msgid "No user ID specified."
+msgstr "گروهی مشخص نشده است."
+
+#: actions/otp.php:83
+#, fuzzy
+msgid "No login token specified."
+msgstr "خبری مشخص نشده."
+
+#: actions/otp.php:90
+msgid "No login token requested."
+msgstr ""
+
+#: actions/otp.php:95
+#, fuzzy
+msgid "Invalid login token specified."
+msgstr "علامت بی اعتبار یا منقضی."
+
+#: actions/otp.php:104
+#, fuzzy
+msgid "Login token expired."
+msgstr "ورود به وب‌گاه"
+
+#: actions/outbox.php:61
+#, php-format
+msgid "Outbox for %s"
+msgstr "فرستاده‌های %s"
+
+#: actions/outbox.php:116
+msgid "This is your outbox, which lists private messages you have sent."
+msgstr ""
+"این صندوق خروجی شماست، که پیام های خصوصی فرستاده شده به وسیله ی شما را لیست "
+"می کند."
+
+#: actions/passwordsettings.php:58
+msgid "Change password"
+msgstr "تغییر گذرواژه"
+
+#: actions/passwordsettings.php:69
+msgid "Change your password."
+msgstr "تغییر گذرواژه‌تان"
+
+#: actions/passwordsettings.php:96 actions/recoverpassword.php:231
+msgid "Password change"
+msgstr "تغییر گذرواژه"
+
+#: actions/passwordsettings.php:104
+msgid "Old password"
+msgstr "گذرواژهٔ قدیمی"
+
+#: actions/passwordsettings.php:108 actions/recoverpassword.php:235
+msgid "New password"
+msgstr "گذرواژهٔ جدید"
+
+#: actions/passwordsettings.php:109
+msgid "6 or more characters"
+msgstr "۶ نویسه یا بیش‌تر"
+
+#: actions/passwordsettings.php:112 actions/recoverpassword.php:239
+#: actions/register.php:433 actions/smssettings.php:134
+msgid "Confirm"
+msgstr "تایید"
+
+#: actions/passwordsettings.php:113 actions/recoverpassword.php:240
+msgid "Same as password above"
+msgstr "مثل رمز عبور بالا"
+
+#: actions/passwordsettings.php:117
+msgid "Change"
+msgstr "تغییر"
+
+#: actions/passwordsettings.php:154 actions/register.php:230
+msgid "Password must be 6 or more characters."
+msgstr "گذرواژه باید ۶ نویسه یا بیش‌تر باشد."
+
+#: actions/passwordsettings.php:157 actions/register.php:233
+msgid "Passwords don't match."
+msgstr "گذرواژه‌ها مطابقت ندارند."
+
+#: actions/passwordsettings.php:165
+msgid "Incorrect old password"
+msgstr "گذرواژه قدیمی اشتباه است"
+
+#: actions/passwordsettings.php:181
+msgid "Error saving user; invalid."
+msgstr "خطا هنگام ذخیره ی کاربر؛ نا معتبر."
+
+#: actions/passwordsettings.php:186 actions/recoverpassword.php:368
+msgid "Can't save new password."
+msgstr "نمی‌توان گذرواژه جدید را ذخیره کرد."
+
+#: actions/passwordsettings.php:192 actions/recoverpassword.php:211
+msgid "Password saved."
+msgstr "گذرواژه ذخیره شد."
+
+#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:326
+msgid "Paths"
+msgstr "مسیر ها"
+
+#: actions/pathsadminpanel.php:70
+msgid "Path and server settings for this StatusNet site."
+msgstr "تنظیمات و نشانی محلی این سایت استاتوس‌نتی"
+
+#: actions/pathsadminpanel.php:140
+#, php-format
+msgid "Theme directory not readable: %s"
+msgstr "شاخه‌ی پوسته‌ها خواندنی نیست: %s"
+
+#: actions/pathsadminpanel.php:146
+#, php-format
+msgid "Avatar directory not writable: %s"
+msgstr "شاخه‌ی چهره‌ها نوشتنی نیست: %s"
+
+#: actions/pathsadminpanel.php:152
+#, php-format
+msgid "Background directory not writable: %s"
+msgstr "شاخه‌ی پس زمینه‌ها نوشتنی نیست: %s"
+
+#: actions/pathsadminpanel.php:160
+#, php-format
+msgid "Locales directory not readable: %s"
+msgstr "پوشه‌ی تنظیمات محلی خواندنی نیست: %s"
+
+#: actions/pathsadminpanel.php:166
+msgid "Invalid SSL server. The maximum length is 255 characters."
+msgstr ""
+
+#: actions/pathsadminpanel.php:217 actions/siteadminpanel.php:58
+#: lib/adminpanelaction.php:311
+msgid "Site"
+msgstr "سایت"
+
+#: actions/pathsadminpanel.php:221
+msgid "Path"
+msgstr "مسیر"
+
+#: actions/pathsadminpanel.php:221
+msgid "Site path"
+msgstr "مسیر وب‌گاه"
+
+#: actions/pathsadminpanel.php:225
+msgid "Path to locales"
+msgstr "نشانی تنظیمات محلی"
+
+#: actions/pathsadminpanel.php:225
+msgid "Directory path to locales"
+msgstr ""
+
+#: actions/pathsadminpanel.php:232
+msgid "Theme"
+msgstr "پوسته"
+
+#: actions/pathsadminpanel.php:237
+msgid "Theme server"
+msgstr "کارگزار پوسته"
+
+#: actions/pathsadminpanel.php:241
+msgid "Theme path"
+msgstr "مسیر پوسته"
+
+#: actions/pathsadminpanel.php:245
+msgid "Theme directory"
+msgstr "شاخهٔ پوسته"
+
+#: actions/pathsadminpanel.php:252
+msgid "Avatars"
+msgstr "چهره‌ها"
+
+#: actions/pathsadminpanel.php:257
+msgid "Avatar server"
+msgstr "کارگزار نیم‌رخ"
+
+#: actions/pathsadminpanel.php:261
+msgid "Avatar path"
+msgstr "مسیر نیم‌رخ"
+
+#: actions/pathsadminpanel.php:265
+msgid "Avatar directory"
+msgstr "شاخهٔ نیم‌رخ"
+
+#: actions/pathsadminpanel.php:274
+msgid "Backgrounds"
+msgstr "پس زمینه‌ها"
+
+#: actions/pathsadminpanel.php:278
+msgid "Background server"
+msgstr "کارگذار تصاویر پیش‌زمینه"
+
+#: actions/pathsadminpanel.php:282
+msgid "Background path"
+msgstr "مسیر تصاویر پیش‌زمینه"
+
+#: actions/pathsadminpanel.php:286
+msgid "Background directory"
+msgstr "شاخهٔ تصاویر پیش‌زمینه"
+
+#: actions/pathsadminpanel.php:293
+msgid "SSL"
+msgstr ""
+
+#: actions/pathsadminpanel.php:296 actions/siteadminpanel.php:346
+msgid "Never"
+msgstr "هیچ وقت"
+
+#: actions/pathsadminpanel.php:297
+msgid "Sometimes"
+msgstr "گاهی اوقات"
+
+#: actions/pathsadminpanel.php:298
+msgid "Always"
+msgstr "برای همیشه"
+
+#: actions/pathsadminpanel.php:302
+msgid "Use SSL"
+msgstr "استفاده از SSL"
+
+#: actions/pathsadminpanel.php:303
+msgid "When to use SSL"
+msgstr ""
+
+#: actions/pathsadminpanel.php:308
+#, fuzzy
+msgid "SSL server"
+msgstr "کارگزار"
+
+#: actions/pathsadminpanel.php:309
+msgid "Server to direct SSL requests to"
+msgstr ""
+
+#: actions/pathsadminpanel.php:325
+msgid "Save paths"
+msgstr "نشانی ذخیره سازی"
+
+#: actions/peoplesearch.php:52
+#, php-format
+msgid ""
+"Search for people on %%site.name%% by their name, location, or interests. "
+"Separate the terms by spaces; they must be 3 characters or more."
+msgstr ""
+"جست‌و‌جو افراد در %%site.name%% با نام، محل زندگی یا چیز‌هایی که دوست دارند. "
+"عبارت‌ها را با فاصله از هم جدا کنید و حداقل ۳ حرف وارد کنید."
+
+#: actions/peoplesearch.php:58
+msgid "People search"
+msgstr "جست‌وجوی کاربران"
+
+#: actions/peopletag.php:70
+#, php-format
+msgid "Not a valid people tag: %s"
+msgstr "یک برچسب کاربری معتبر نیست: %s"
+
+#: actions/peopletag.php:144
+#, fuzzy, php-format
+msgid "Users self-tagged with %1$s - page %2$d"
+msgstr "کاربران خود برچسب‌گذاری شده با %s - صفحهٔ %d"
+
+#: actions/postnotice.php:84
+msgid "Invalid notice content"
+msgstr "محتوای آگهی نامعتبر"
+
+#: actions/postnotice.php:90
+#, php-format
+msgid "Notice license ‘%1$s’ is not compatible with site license ‘%2$s’."
+msgstr ""
+
+#: actions/profilesettings.php:60
+msgid "Profile settings"
+msgstr "تنظیمات شناس‌نامه"
+
+#: actions/profilesettings.php:71
+msgid ""
+"You can update your personal profile info here so people know more about you."
+msgstr ""
+"شما می‌توان اطلاعات شخصی خود را در این قسمت به روز کنید تا دیگران بیش‌تر در "
+"مورد شما بدانند."
+
+#: actions/profilesettings.php:99
+msgid "Profile information"
+msgstr "اطلاعات شناس‌نامه"
+
+#: actions/profilesettings.php:108 lib/groupeditform.php:154
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+msgstr "۱-۶۴ کاراکتر کوچک یا اعداد، بدون نقطه گذاری یا فاصله"
+
+#: actions/profilesettings.php:111 actions/register.php:448
+#: actions/showgroup.php:247 actions/tagother.php:104
+#: lib/groupeditform.php:157 lib/userprofile.php:149
+msgid "Full name"
+msgstr "نام‌کامل"
+
+#: actions/profilesettings.php:115 actions/register.php:453
+#: lib/groupeditform.php:161
+msgid "Homepage"
+msgstr "صفحهٔ خانگی"
+
+#: actions/profilesettings.php:117 actions/register.php:455
+msgid "URL of your homepage, blog, or profile on another site"
+msgstr "نشانی اینترنتی صفحهٔ خانگی، وبلاگ یا مشخصات کاربری‌تان در یک وب‌گاه دیگر"
+
+#: actions/profilesettings.php:122 actions/register.php:461
+#, php-format
+msgid "Describe yourself and your interests in %d chars"
+msgstr ""
+
+#: actions/profilesettings.php:125 actions/register.php:464
+msgid "Describe yourself and your interests"
+msgstr "خودتان و علایقتان را توصیف کنید."
+
+#: actions/profilesettings.php:127 actions/register.php:466
+msgid "Bio"
+msgstr "شرح‌حال"
+
+#: actions/profilesettings.php:132 actions/register.php:471
+#: actions/showgroup.php:256 actions/tagother.php:112
+#: actions/userauthorization.php:158 lib/groupeditform.php:177
+#: lib/userprofile.php:164
+msgid "Location"
+msgstr "موقعیت"
+
+#: actions/profilesettings.php:134 actions/register.php:473
+msgid "Where you are, like \"City, State (or Region), Country\""
+msgstr ""
+
+#: actions/profilesettings.php:138
+msgid "Share my current location when posting notices"
+msgstr ""
+
+#: actions/profilesettings.php:145 actions/tagother.php:149
+#: actions/tagother.php:209 lib/subscriptionlist.php:106
+#: lib/subscriptionlist.php:108 lib/userprofile.php:209
+msgid "Tags"
+msgstr "برچسب‌ها"
+
+#: actions/profilesettings.php:147
+msgid ""
+"Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
+msgstr ""
+
+#: actions/profilesettings.php:151 actions/siteadminpanel.php:294
+msgid "Language"
+msgstr "زبان"
+
+#: actions/profilesettings.php:152
+msgid "Preferred language"
+msgstr "زبان برگزیده"
+
+#: actions/profilesettings.php:161
+msgid "Timezone"
+msgstr "منطقهٔ‌زمانی"
+
+#: actions/profilesettings.php:162
+msgid "What timezone are you normally in?"
+msgstr "شما معمولا در کدام منطقه ی زمانی هستید؟"
+
+#: actions/profilesettings.php:167
+msgid ""
+"Automatically subscribe to whoever subscribes to me (best for non-humans)"
+msgstr ""
+
+#: actions/profilesettings.php:228 actions/register.php:223
+#, php-format
+msgid "Bio is too long (max %d chars)."
+msgstr ""
+
+#: actions/profilesettings.php:235 actions/siteadminpanel.php:164
+msgid "Timezone not selected."
+msgstr "منطقه‌ی زمانی انتخاب نشده است."
+
+#: actions/profilesettings.php:241
+msgid "Language is too long (max 50 chars)."
+msgstr "کلام بسیار طولانی است( حداکثر ۵۰ کاراکتر)"
+
+#: actions/profilesettings.php:253 actions/tagother.php:178
+#, php-format
+msgid "Invalid tag: \"%s\""
+msgstr "نشان نادرست »%s«"
+
+#: actions/profilesettings.php:302
+msgid "Couldn't update user for autosubscribe."
+msgstr ""
+
+#: actions/profilesettings.php:359
+msgid "Couldn't save location prefs."
+msgstr "نمی‌توان تنظیمات مکانی را تنظیم کرد."
+
+#: actions/profilesettings.php:371
+msgid "Couldn't save profile."
+msgstr "نمی‌توان شناسه را ذخیره کرد."
+
+#: actions/profilesettings.php:379
+msgid "Couldn't save tags."
+msgstr "نمی‌توان نشان را ذخیره کرد."
+
+#: actions/profilesettings.php:387 lib/adminpanelaction.php:137
+msgid "Settings saved."
+msgstr "تنظیمات ذخیره شد."
+
+#: actions/public.php:83
+#, php-format
+msgid "Beyond the page limit (%s)"
+msgstr ""
+
+#: actions/public.php:92
+msgid "Could not retrieve public stream."
+msgstr ""
+
+#: actions/public.php:129
+#, php-format
+msgid "Public timeline, page %d"
+msgstr "خط زمانی عمومی، صفحه‌ی %d"
+
+#: actions/public.php:131 lib/publicgroupnav.php:79
+msgid "Public timeline"
+msgstr "خط زمانی عمومی"
+
+#: actions/public.php:151
+msgid "Public Stream Feed (RSS 1.0)"
+msgstr ""
+
+#: actions/public.php:155
+msgid "Public Stream Feed (RSS 2.0)"
+msgstr ""
+
+#: actions/public.php:159
+msgid "Public Stream Feed (Atom)"
+msgstr ""
+
+#: actions/public.php:179
+#, php-format
+msgid ""
+"This is the public timeline for %%site.name%% but no one has posted anything "
+"yet."
+msgstr ""
+
+#: actions/public.php:182
+msgid "Be the first to post!"
+msgstr "اولین کسی باشید که پیام می‌فرستد!"
+
+#: actions/public.php:186
+#, php-format
+msgid ""
+"Why not [register an account](%%action.register%%) and be the first to post!"
+msgstr "چرا [ثبت نام](%%action.register%%) نمی‌کنید و اولین پیام را نمی‌فرستید؟"
+
+#: actions/public.php:233
+#, php-format
+msgid ""
+"This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
+"blogging) service based on the Free Software [StatusNet](http://status.net/) "
+"tool. [Join now](%%action.register%%) to share notices about yourself with "
+"friends, family, and colleagues! ([Read more](%%doc.help%%))"
+msgstr ""
+
+#: actions/public.php:238
+#, php-format
+msgid ""
+"This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
+"blogging) service based on the Free Software [StatusNet](http://status.net/) "
+"tool."
+msgstr ""
+
+#: actions/publictagcloud.php:57
+msgid "Public tag cloud"
+msgstr ""
+
+#: actions/publictagcloud.php:63
+#, php-format
+msgid "These are most popular recent tags on %s "
+msgstr ""
+
+#: actions/publictagcloud.php:69
+#, php-format
+msgid "No one has posted a notice with a [hashtag](%%doc.tags%%) yet."
+msgstr ""
+
+#: actions/publictagcloud.php:72
+msgid "Be the first to post one!"
+msgstr ""
+
+#: actions/publictagcloud.php:75
+#, php-format
+msgid ""
+"Why not [register an account](%%action.register%%) and be the first to post "
+"one!"
+msgstr ""
+
+#: actions/publictagcloud.php:131
+msgid "Tag cloud"
+msgstr ""
+
+#: actions/recoverpassword.php:36
+msgid "You are already logged in!"
+msgstr "شما قبلا وارد شدید"
+
+#: actions/recoverpassword.php:62
+msgid "No such recovery code."
+msgstr "چنین کد بازیابی شده ای نیست"
+
+#: actions/recoverpassword.php:66
+msgid "Not a recovery code."
+msgstr "کد بازیابی شده ای نیست."
+
+#: actions/recoverpassword.php:73
+msgid "Recovery code for unknown user."
+msgstr "بازیابی کد برای کاربر ناشناخته"
+
+#: actions/recoverpassword.php:86
+msgid "Error with confirmation code."
+msgstr "خطا در تایید کد"
+
+#: actions/recoverpassword.php:97
+msgid "This confirmation code is too old. Please start again."
+msgstr "این کد تایید شده بسیار قدیمی است . لطفا دباره شروع کنید ."
+
+#: actions/recoverpassword.php:111
+msgid "Could not update user with confirmed email address."
+msgstr "را به روز کرد  user نمیتوان با ایمیلی که تایید شده"
+
+#: actions/recoverpassword.php:152
+msgid ""
+"If you have forgotten or lost your password, you can get a new one sent to "
+"the email address you have stored in your account."
+msgstr ""
+"اگر شما کلمه ی عبورتان را فراموش کرده اید یا گم کرده اید، می توانید یک کلمه "
+"ی عبور جدید از آدرس ایمیل ذخیره شده در حسابتان بگیرید."
+
+#: actions/recoverpassword.php:158
+msgid "You have been identified. Enter a new password below. "
+msgstr ""
+
+#: actions/recoverpassword.php:188
+msgid "Password recovery"
+msgstr "بازیابی کلمه ی عبور"
+
+#: actions/recoverpassword.php:191
+msgid "Nickname or email address"
+msgstr "نام کاربری یا آدرس ایمیل"
+
+#: actions/recoverpassword.php:193
+msgid "Your nickname on this server, or your registered email address."
+msgstr "نام کاربری شما بر روی این سرور، یا آدرس ایمیل ثبت شده ی شما."
+
+#: actions/recoverpassword.php:199 actions/recoverpassword.php:200
+msgid "Recover"
+msgstr "بازیابی"
+
+#: actions/recoverpassword.php:208
+msgid "Reset password"
+msgstr "ریست کردن کلمه ی عبور"
+
+#: actions/recoverpassword.php:209
+msgid "Recover password"
+msgstr "بازیابی کلمه ی عبور"
+
+#: actions/recoverpassword.php:210 actions/recoverpassword.php:322
+msgid "Password recovery requested"
+msgstr "بازیابی کلمه ی عبور درخواست شد"
+
+#: actions/recoverpassword.php:213
+msgid "Unknown action"
+msgstr ""
+
+#: actions/recoverpassword.php:236
+msgid "6 or more characters, and don't forget it!"
+msgstr "۶ کاراکتر یا بیشتر، این را فراموش نکنید!"
+
+#: actions/recoverpassword.php:243
+msgid "Reset"
+msgstr "ریست( راه انداری مجدد )"
+
+#: actions/recoverpassword.php:252
+msgid "Enter a nickname or email address."
+msgstr "یک نام کاربری یا آدرس ایمیل وارد کنید."
+
+#: actions/recoverpassword.php:272
+msgid "No user with that email address or username."
+msgstr "هیچ کاربری با آن آدرس ایمیل یا نام کاربری وجود ندارد."
+
+#: actions/recoverpassword.php:287
+msgid "No registered email address for that user."
+msgstr "برای آن کاربر آدرس ایمیل ثبت شده وجود ندارد."
+
+#: actions/recoverpassword.php:301
+msgid "Error saving address confirmation."
+msgstr "خطا هنگام ذخیره ی تاییدیه ی آدرس."
+
+#: actions/recoverpassword.php:325
+msgid ""
+"Instructions for recovering your password have been sent to the email "
+"address registered to your account."
+msgstr ""
+"دستورالعمل چگونگی بازیابی کلمه ی عبور به آدرس ایمیل ثبت شده در حساب شما "
+"ارسال شده است."
+
+#: actions/recoverpassword.php:344
+msgid "Unexpected password reset."
+msgstr "کلمه ی عبور به طور غیر منتظره ریست شد."
+
+#: actions/recoverpassword.php:352
+msgid "Password must be 6 chars or more."
+msgstr "کلمه ی عبور باید ۶ کاراکتر یا بیشتر باشد."
+
+#: actions/recoverpassword.php:356
+msgid "Password and confirmation do not match."
+msgstr "کلمه ی عبور و تاییدیه ی آن با هم تطابق ندارند."
+
+#: actions/recoverpassword.php:375 actions/register.php:248
+msgid "Error setting user."
+msgstr ""
+
+#: actions/recoverpassword.php:382
+msgid "New password successfully saved. You are now logged in."
+msgstr "کلمه ی عبور جدید با موفقیت ذخیره شد. شما الان وارد شده اید."
+
+#: actions/register.php:85 actions/register.php:189 actions/register.php:405
+msgid "Sorry, only invited people can register."
+msgstr "با عرض معذرت، تنها افراد دعوت شده می توانند ثبت نام کنند."
+
+#: actions/register.php:92
+msgid "Sorry, invalid invitation code."
+msgstr "با عرض تاسف، کد دعوت نا معتبر است."
+
+#: actions/register.php:112
+msgid "Registration successful"
+msgstr "ثبت نام با موفقیت انجام شد."
+
+#: actions/register.php:114 actions/register.php:503 lib/action.php:457
+#: lib/logingroupnav.php:85
+msgid "Register"
+msgstr "ثبت نام"
+
+#: actions/register.php:135
+msgid "Registration not allowed."
+msgstr "اجازه‌ی ثبت نام داده نشده است."
+
+#: actions/register.php:198
+msgid "You can't register if you don't agree to the license."
+msgstr "شما نمی توانید ثبت نام کنید اگر با لیسانس( جواز ) موافقت نکنید."
+
+#: actions/register.php:212
+msgid "Email address already exists."
+msgstr "آدرس ایمیل از قبل وجود دارد."
+
+#: actions/register.php:243 actions/register.php:265
+msgid "Invalid username or password."
+msgstr "نام کاربری یا کلمه ی عبور نا معتبر."
+
+#: actions/register.php:343
+msgid ""
+"With this form you can create  a new account. You can then post notices and "
+"link up to friends and colleagues. "
+msgstr ""
+
+#: actions/register.php:425
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
+msgstr "۱-۶۴ حرف کوچک یا اعداد، بدون نشانه گذاری یا فاصله نیاز است."
+
+#: actions/register.php:430
+msgid "6 or more characters. Required."
+msgstr "۶ کاراکتر یا بیشتر نیاز است."
+
+#: actions/register.php:434
+msgid "Same as password above. Required."
+msgstr ""
+
+#: actions/register.php:438 actions/register.php:442
+#: actions/siteadminpanel.php:270 lib/accountsettingsaction.php:120
+msgid "Email"
+msgstr "پست الکترونیکی"
+
+#: actions/register.php:439 actions/register.php:443
+msgid "Used only for updates, announcements, and password recovery"
+msgstr ""
+
+#: actions/register.php:450
+msgid "Longer name, preferably your \"real\" name"
+msgstr "نام بلند تر، به طور بهتر نام واقعیتان"
+
+#: actions/register.php:494
+msgid "My text and files are available under "
+msgstr ""
+
+#: actions/register.php:496
+msgid "Creative Commons Attribution 3.0"
+msgstr ""
+
+#: actions/register.php:497
+msgid ""
+" except this private data: password, email address, IM address, and phone "
+"number."
+msgstr ""
+"به استثنای این داده ی محرمانه : کلمه ی عبور، آدرس ایمیل، آدرس IM، و شماره "
+"تلفن."
+
+#: actions/register.php:538
+#, php-format
+msgid ""
+"Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
+"want to...\n"
+"\n"
+"* Go to [your profile](%2$s) and post your first message.\n"
+"* Add a [Jabber/GTalk address](%%%%action.imsettings%%%%) so you can send "
+"notices through instant messages.\n"
+"* [Search for people](%%%%action.peoplesearch%%%%) that you may know or that "
+"share your interests. \n"
+"* Update your [profile settings](%%%%action.profilesettings%%%%) to tell "
+"others more about you. \n"
+"* Read over the [online docs](%%%%doc.help%%%%) for features you may have "
+"missed. \n"
+"\n"
+"Thanks for signing up and we hope you enjoy using this service."
+msgstr ""
+
+#: actions/register.php:562
+msgid ""
+"(You should receive a message by email momentarily, with instructions on how "
+"to confirm your email address.)"
+msgstr ""
+"(شما باید آنی یک ایمیل دریافت کنید، با دستورالعمل چگونگی تایید آدرس ایمیلتان."
+"("
+
+#: actions/remotesubscribe.php:98
+#, php-format
+msgid ""
+"To subscribe, you can [login](%%action.login%%), or [register](%%action."
+"register%%) a new  account. If you already have an account  on a [compatible "
+"microblogging site](%%doc.openmublog%%),  enter your profile URL below."
+msgstr ""
+
+#: actions/remotesubscribe.php:112
+msgid "Remote subscribe"
+msgstr ""
+
+#: actions/remotesubscribe.php:124
+msgid "Subscribe to a remote user"
+msgstr ""
+
+#: actions/remotesubscribe.php:129
+msgid "User nickname"
+msgstr "نام کاربری کاربر"
+
+#: actions/remotesubscribe.php:130
+msgid "Nickname of the user you want to follow"
+msgstr "نام کاربری، کاربری که می خواهید او را دنبال کنید"
+
+#: actions/remotesubscribe.php:133
+msgid "Profile URL"
+msgstr ""
+
+#: actions/remotesubscribe.php:134
+msgid "URL of your profile on another compatible microblogging service"
+msgstr ""
+
+#: actions/remotesubscribe.php:137 lib/subscribeform.php:139
+#: lib/userprofile.php:365
+msgid "Subscribe"
+msgstr ""
+
+#: actions/remotesubscribe.php:159
+msgid "Invalid profile URL (bad format)"
+msgstr ""
+
+#: actions/remotesubscribe.php:168
+msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
+msgstr ""
+
+#: actions/remotesubscribe.php:176
+msgid "That’s a local profile! Login to subscribe."
+msgstr ""
+
+#: actions/remotesubscribe.php:183
+msgid "Couldn’t get a request token."
+msgstr ""
+
+#: actions/repeat.php:57
+msgid "Only logged-in users can repeat notices."
+msgstr "تنها کاربران وارد شده می توانند آگهی ها را تکرار کنند."
+
+#: actions/repeat.php:64 actions/repeat.php:71
+msgid "No notice specified."
+msgstr "خبری مشخص نشده."
+
+#: actions/repeat.php:76
+msgid "You can't repeat your own notice."
+msgstr "شما نمی توانید آگهی خودتان را تکرار کنید."
+
+#: actions/repeat.php:90
+msgid "You already repeated that notice."
+msgstr "شما قبلا آن آگهی را تکرار کردید."
+
+#: actions/repeat.php:114 lib/noticelist.php:629
+msgid "Repeated"
+msgstr ""
+
+#: actions/repeat.php:119
+msgid "Repeated!"
+msgstr ""
+
+#: actions/replies.php:125 actions/repliesrss.php:68
+#: lib/personalgroupnav.php:105
+#, php-format
+msgid "Replies to %s"
+msgstr "پاسخ‌های به %s"
+
+#: actions/replies.php:144
+#, php-format
+msgid "Replies feed for %s (RSS 1.0)"
+msgstr "خوراک پاسخ‌ها برای %s (RSS 1.0)"
+
+#: actions/replies.php:151
+#, php-format
+msgid "Replies feed for %s (RSS 2.0)"
+msgstr "خوراک پاسخ‌ها برای %s (RSS 2.0)"
+
+#: actions/replies.php:158
+#, php-format
+msgid "Replies feed for %s (Atom)"
+msgstr "خوراک پاسخ‌ها برای %s (Atom)"
+
+#: actions/replies.php:198
+#, fuzzy, php-format
+msgid ""
+"This is the timeline showing replies to %1$s but %2$s hasn't received a "
+"notice to his attention yet."
+msgstr "این خط‌زمانی %s و دوستانش است، اما هیچ‌یک تاکنون چیزی پست نکرده‌اند."
+
+#: actions/replies.php:203
+#, php-format
+msgid ""
+"You can engage other users in a conversation, subscribe to more people or "
+"[join groups](%%action.groups%%)."
+msgstr ""
+
+#: actions/replies.php:205
+#, fuzzy, php-format
+msgid ""
+"You can try to [nudge %1$s](../%2$s) or [post something to his or her "
+"attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
+msgstr ""
+"اولین کسی باشید که در [این موضوع](%%%%action.newnotice%%%%?status_textarea=%"
+"s) پیام می‌فرستد."
+
+#: actions/repliesrss.php:72
+#, php-format
+msgid "Replies to %1$s on %2$s!"
+msgstr ""
+
+#: actions/sandbox.php:65 actions/unsandbox.php:65
+msgid "You cannot sandbox users on this site."
+msgstr ""
+
+#: actions/sandbox.php:72
+msgid "User is already sandboxed."
+msgstr ""
+
+#: actions/showfavorites.php:132
+msgid "Could not retrieve favorite notices."
+msgstr "ناتوان در بازیابی آگهی های محبوب."
+
+#: actions/showfavorites.php:170
+#, php-format
+msgid "Feed for favorites of %s (RSS 1.0)"
+msgstr ""
+
+#: actions/showfavorites.php:177
+#, php-format
+msgid "Feed for favorites of %s (RSS 2.0)"
+msgstr ""
+
+#: actions/showfavorites.php:184
+#, php-format
+msgid "Feed for favorites of %s (Atom)"
+msgstr ""
+
+#: actions/showfavorites.php:205
+msgid ""
+"You haven't chosen any favorite notices yet. Click the fave button on "
+"notices you like to bookmark them for later or shed a spotlight on them."
+msgstr ""
+
+#: actions/showfavorites.php:207
+#, php-format
+msgid ""
+"%s hasn't added any notices to his favorites yet. Post something interesting "
+"they would add to their favorites :)"
+msgstr ""
+
+#: actions/showfavorites.php:211
+#, php-format
+msgid ""
+"%s hasn't added any notices to his favorites yet. Why not [register an "
+"account](%%%%action.register%%%%) and then post something interesting they "
+"would add to their favorites :)"
+msgstr ""
+
+#: actions/showfavorites.php:242
+msgid "This is a way to share what you like."
+msgstr "این یک راه است برای به اشتراک گذاشتن آنچه که دوست دارید."
+
+#: actions/showgroup.php:82 lib/groupnav.php:86
+#, php-format
+msgid "%s group"
+msgstr ""
+
+#: actions/showgroup.php:218
+msgid "Group profile"
+msgstr ""
+
+#: actions/showgroup.php:263 actions/tagother.php:118
+#: actions/userauthorization.php:167 lib/userprofile.php:177
+msgid "URL"
+msgstr ""
+
+#: actions/showgroup.php:274 actions/tagother.php:128
+#: actions/userauthorization.php:179 lib/userprofile.php:194
+msgid "Note"
+msgstr ""
+
+#: actions/showgroup.php:284 lib/groupeditform.php:184
+msgid "Aliases"
+msgstr "نام های مستعار"
+
+#: actions/showgroup.php:293
+msgid "Group actions"
+msgstr ""
+
+#: actions/showgroup.php:328
+#, php-format
+msgid "Notice feed for %s group (RSS 1.0)"
+msgstr ""
+
+#: actions/showgroup.php:334
+#, php-format
+msgid "Notice feed for %s group (RSS 2.0)"
+msgstr ""
+
+#: actions/showgroup.php:340
+#, php-format
+msgid "Notice feed for %s group (Atom)"
+msgstr ""
+
+#: actions/showgroup.php:345
+#, php-format
+msgid "FOAF for %s group"
+msgstr ""
+
+#: actions/showgroup.php:381 actions/showgroup.php:438 lib/groupnav.php:91
+msgid "Members"
+msgstr "اعضا"
+
+#: actions/showgroup.php:386 lib/profileaction.php:117
+#: lib/profileaction.php:148 lib/profileaction.php:236 lib/section.php:95
+#: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
+msgid "(None)"
+msgstr "هیچ"
+
+#: actions/showgroup.php:392
+msgid "All members"
+msgstr "همه ی اعضا"
+
+#: actions/showgroup.php:429 lib/profileaction.php:174
+msgid "Statistics"
+msgstr "آمار"
+
+#: actions/showgroup.php:432
+msgid "Created"
+msgstr "ساخته شد"
+
+#: actions/showgroup.php:448
+#, php-format
+msgid ""
+"**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
+"wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
+"[StatusNet](http://status.net/) tool. Its members share short messages about "
+"their life and interests. [Join now](%%%%action.register%%%%) to become part "
+"of this group and many more! ([Read more](%%%%doc.help%%%%))"
+msgstr ""
+
+#: actions/showgroup.php:454
+#, php-format
+msgid ""
+"**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
+"wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
+"[StatusNet](http://status.net/) tool. Its members share short messages about "
+"their life and interests. "
+msgstr ""
+
+#: actions/showgroup.php:482
+msgid "Admins"
+msgstr ""
+
+#: actions/showmessage.php:81
+msgid "No such message."
+msgstr "چنین پیغامی وجود ندارد."
+
+#: actions/showmessage.php:98
+msgid "Only the sender and recipient may read this message."
+msgstr ""
+
+#: actions/showmessage.php:108
+#, php-format
+msgid "Message to %1$s on %2$s"
+msgstr ""
+
+#: actions/showmessage.php:113
+#, php-format
+msgid "Message from %1$s on %2$s"
+msgstr ""
+
+#: actions/shownotice.php:90
+msgid "Notice deleted."
+msgstr ""
+
+#: actions/showstream.php:73
+#, php-format
+msgid " tagged %s"
+msgstr ""
+
+#: actions/showstream.php:122
+#, fuzzy, php-format
+msgid "Notice feed for %1$s tagged %2$s (RSS 1.0)"
+msgstr "خوراک پاسخ‌ها برای %s (RSS 1.0)"
+
+#: actions/showstream.php:129
+#, php-format
+msgid "Notice feed for %s (RSS 1.0)"
+msgstr ""
+
+#: actions/showstream.php:136
+#, php-format
+msgid "Notice feed for %s (RSS 2.0)"
+msgstr ""
+
+#: actions/showstream.php:143
+#, php-format
+msgid "Notice feed for %s (Atom)"
+msgstr ""
+
+#: actions/showstream.php:148
+#, php-format
+msgid "FOAF for %s"
+msgstr ""
+
+#: actions/showstream.php:191
+#, fuzzy, php-format
+msgid "This is the timeline for %1$s but %2$s hasn't posted anything yet."
+msgstr "این خط‌زمانی %s و دوستانش است، اما هیچ‌یک تاکنون چیزی پست نکرده‌اند."
+
+#: actions/showstream.php:196
+msgid ""
+"Seen anything interesting recently? You haven't posted any notices yet, now "
+"would be a good time to start :)"
+msgstr ""
+"اخیرا چیز جالب توجه ای دیده اید؟ شما تا کنون آگهی ارسال نکرده اید، الان می "
+"تواند زمان خوبی برای شروع باشد :)"
+
+#: actions/showstream.php:198
+#, fuzzy, php-format
+msgid ""
+"You can try to nudge %1$s or [post something to his or her attention](%%%%"
+"action.newnotice%%%%?status_textarea=%2$s)."
+msgstr ""
+"اولین کسی باشید که در [این موضوع](%%%%action.newnotice%%%%?status_textarea=%"
+"s) پیام می‌فرستد."
+
+#: actions/showstream.php:234
+#, php-format
+msgid ""
+"**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
+"wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
+"[StatusNet](http://status.net/) tool. [Join now](%%%%action.register%%%%) to "
+"follow **%s**'s notices and many more! ([Read more](%%%%doc.help%%%%))"
+msgstr ""
+
+#: actions/showstream.php:239
+#, php-format
+msgid ""
+"**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
+"wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
+"[StatusNet](http://status.net/) tool. "
+msgstr ""
+
+#: actions/showstream.php:313
+#, php-format
+msgid "Repeat of %s"
+msgstr ""
+
+#: actions/silence.php:65 actions/unsilence.php:65
+msgid "You cannot silence users on this site."
+msgstr "شما نمی توانید کاربری را در این سایت ساکت کنید."
+
+#: actions/silence.php:72
+msgid "User is already silenced."
+msgstr "کاربر قبلا ساکت شده است."
+
+#: actions/siteadminpanel.php:69
+msgid "Basic settings for this StatusNet site."
+msgstr "تنظیمات پایه ای برای این سایت StatusNet."
+
+#: actions/siteadminpanel.php:146
+msgid "Site name must have non-zero length."
+msgstr "نام سایت باید طولی غیر صفر داشته باشد."
+
+#: actions/siteadminpanel.php:154
+#, fuzzy
+msgid "You must have a valid contact email address."
+msgstr "شما باید یک آدرس ایمیل قابل قبول برای ارتباط داشته باشید"
+
+#: actions/siteadminpanel.php:172
+#, php-format
+msgid "Unknown language \"%s\"."
+msgstr ""
+
+#: actions/siteadminpanel.php:179
+msgid "Invalid snapshot report URL."
+msgstr ""
+
+#: actions/siteadminpanel.php:185
+msgid "Invalid snapshot run value."
+msgstr ""
+
+#: actions/siteadminpanel.php:191
+msgid "Snapshot frequency must be a number."
+msgstr ""
+
+#: actions/siteadminpanel.php:197
+msgid "Minimum text limit is 140 characters."
+msgstr ""
+
+#: actions/siteadminpanel.php:203
+msgid "Dupe limit must 1 or more seconds."
+msgstr ""
+
+#: actions/siteadminpanel.php:253
+msgid "General"
+msgstr ""
+
+#: actions/siteadminpanel.php:256
+msgid "Site name"
+msgstr "نام وب‌گاه"
+
+#: actions/siteadminpanel.php:257
+msgid "The name of your site, like \"Yourcompany Microblog\""
+msgstr "نام وب‌گاه شما، مانند «میکروبلاگ شرکت شما»"
+
+#: actions/siteadminpanel.php:261
+msgid "Brought by"
+msgstr "أورده شده به وسیله ی"
+
+#: actions/siteadminpanel.php:262
+msgid "Text used for credits link in footer of each page"
+msgstr ""
+
+#: actions/siteadminpanel.php:266
+msgid "Brought by URL"
+msgstr ""
+
+#: actions/siteadminpanel.php:267
+msgid "URL used for credits link in footer of each page"
+msgstr ""
+
+#: actions/siteadminpanel.php:271
+msgid "Contact email address for your site"
+msgstr ""
+
+#: actions/siteadminpanel.php:277
+msgid "Local"
+msgstr "محلی"
+
+#: actions/siteadminpanel.php:288
+msgid "Default timezone"
+msgstr "منطقه ی زمانی پیش فرض"
+
+#: actions/siteadminpanel.php:289
+msgid "Default timezone for the site; usually UTC."
+msgstr "منظقه ی زمانی پیش فرض برای سایت؛ معمولا UTC."
+
+#: actions/siteadminpanel.php:295
+msgid "Default site language"
+msgstr "زبان پیش فرض سایت"
+
+#: actions/siteadminpanel.php:303
+msgid "URLs"
+msgstr ""
+
+#: actions/siteadminpanel.php:306
+msgid "Server"
+msgstr "کارگزار"
+
+#: actions/siteadminpanel.php:306
+msgid "Site's server hostname."
+msgstr ""
+
+#: actions/siteadminpanel.php:310
+msgid "Fancy URLs"
+msgstr ""
+
+#: actions/siteadminpanel.php:312
+msgid "Use fancy (more readable and memorable) URLs?"
+msgstr ""
+
+#: actions/siteadminpanel.php:318
+msgid "Access"
+msgstr "دسترسی"
+
+#: actions/siteadminpanel.php:321
+msgid "Private"
+msgstr "خصوصی"
+
+#: actions/siteadminpanel.php:323
+msgid "Prohibit anonymous users (not logged in) from viewing site?"
+msgstr ""
+
+#: actions/siteadminpanel.php:327
+msgid "Invite only"
+msgstr "فقط دعوت کردن"
+
+#: actions/siteadminpanel.php:329
+msgid "Make registration invitation only."
+msgstr "تنها آماده کردن دعوت نامه های ثبت نام."
+
+#: actions/siteadminpanel.php:333
+msgid "Closed"
+msgstr "مسدود"
+
+#: actions/siteadminpanel.php:335
+msgid "Disable new registrations."
+msgstr "غیر فعال کردن نام نوبسی جدید"
+
+#: actions/siteadminpanel.php:341
+msgid "Snapshots"
+msgstr ""
+
+#: actions/siteadminpanel.php:344
+msgid "Randomly during Web hit"
+msgstr ""
+
+#: actions/siteadminpanel.php:345
+msgid "In a scheduled job"
+msgstr ""
+
+#: actions/siteadminpanel.php:347
+msgid "Data snapshots"
+msgstr ""
+
+#: actions/siteadminpanel.php:348
+msgid "When to send statistical data to status.net servers"
+msgstr ""
+
+#: actions/siteadminpanel.php:353
+msgid "Frequency"
+msgstr ""
+
+#: actions/siteadminpanel.php:354
+msgid "Snapshots will be sent once every N web hits"
+msgstr ""
+
+#: actions/siteadminpanel.php:359
+msgid "Report URL"
+msgstr ""
+
+#: actions/siteadminpanel.php:360
+msgid "Snapshots will be sent to this URL"
+msgstr ""
+
+#: actions/siteadminpanel.php:367
+msgid "Limits"
+msgstr "محدودیت ها"
+
+#: actions/siteadminpanel.php:370
+msgid "Text limit"
+msgstr "محدودیت متن"
+
+#: actions/siteadminpanel.php:370
+msgid "Maximum number of characters for notices."
+msgstr "بیشینهٔ تعداد حروف برای آگهی‌ها"
+
+#: actions/siteadminpanel.php:374
+msgid "Dupe limit"
+msgstr ""
+
+#: actions/siteadminpanel.php:374
+msgid "How long users must wait (in seconds) to post the same thing again."
+msgstr ""
+"چه مدت کاربران باید منتظر بمانند ( به ثانیه ) تا همان چیز را مجددا ارسال "
+"کنند."
+
+#: actions/siteadminpanel.php:388 actions/useradminpanel.php:313
+msgid "Save site settings"
+msgstr ""
+
+#: actions/smssettings.php:58
+#, fuzzy
+msgid "SMS settings"
+msgstr "تنظیمات پیام‌رسان فوری"
+
+#: actions/smssettings.php:69
+#, php-format
+msgid "You can receive SMS messages through email from %%site.name%%."
+msgstr ""
+
+#: actions/smssettings.php:91
+msgid "SMS is not available."
+msgstr ""
+
+#: actions/smssettings.php:112
+msgid "Current confirmed SMS-enabled phone number."
+msgstr ""
+
+#: actions/smssettings.php:123
+msgid "Awaiting confirmation on this phone number."
+msgstr "منتظر تاییدیه برای این شماره تلفن."
+
+#: actions/smssettings.php:130
+msgid "Confirmation code"
+msgstr "کد تاییدیه"
+
+#: actions/smssettings.php:131
+msgid "Enter the code you received on your phone."
+msgstr "کدی را که در گوشیتان گرفتید وارد کنید."
+
+#: actions/smssettings.php:138
+#, fuzzy
+msgid "SMS phone number"
+msgstr "شماره تماس پیامک"
+
+#: actions/smssettings.php:140
+msgid "Phone number, no punctuation or spaces, with area code"
+msgstr "شماره تلفن، بدون نشانه گذاری یا فاصله، با کد منطقه"
+
+#: actions/smssettings.php:174
+msgid ""
+"Send me notices through SMS; I understand I may incur exorbitant charges "
+"from my carrier."
+msgstr ""
+
+#: actions/smssettings.php:306
+msgid "No phone number."
+msgstr "بدون شماره تلفن."
+
+#: actions/smssettings.php:311
+msgid "No carrier selected."
+msgstr ""
+
+#: actions/smssettings.php:318
+msgid "That is already your phone number."
+msgstr "آن قبلا شماره تلفن شما بوده است."
+
+#: actions/smssettings.php:321
+msgid "That phone number already belongs to another user."
+msgstr "أن شماره تلفن پیش از این به کاربر دیگری تعلق داشته است."
+
+#: actions/smssettings.php:347
+msgid ""
+"A confirmation code was sent to the phone number you added. Check your phone "
+"for the code and instructions on how to use it."
+msgstr ""
+"یک کد تاییدیه به شماره تلفنی که شما وارد کردید ارسال شد. گوشیتان را بررسی "
+"کنید برای کد و دستورالعمل چگونگی استفاده از آن."
+
+#: actions/smssettings.php:374
+msgid "That is the wrong confirmation number."
+msgstr "آن کد تاییدیه ی نادرست است."
+
+#: actions/smssettings.php:405
+msgid "That is not your phone number."
+msgstr "آن شماره تلفن شما نیست."
+
+#: actions/smssettings.php:465
+msgid "Mobile carrier"
+msgstr "امواج موبایل"
+
+#: actions/smssettings.php:469
+msgid "Select a carrier"
+msgstr ""
+
+#: actions/smssettings.php:476
+#, php-format
+msgid ""
+"Mobile carrier for your phone. If you know a carrier that accepts SMS over "
+"email but isn't listed here, send email to let us know at %s."
+msgstr ""
+
+#: actions/smssettings.php:498
+msgid "No code entered"
+msgstr "کدی وارد نشد"
+
+#: actions/subedit.php:70
+msgid "You are not subscribed to that profile."
+msgstr "شما به این پروفيل متعهد نشدید"
+
+#: actions/subedit.php:83
+msgid "Could not save subscription."
+msgstr ""
+
+#: actions/subscribe.php:55
+msgid "Not a local user."
+msgstr ""
+
+#: actions/subscribe.php:69
+msgid "Subscribed"
+msgstr ""
+
+#: actions/subscribers.php:50
+#, php-format
+msgid "%s subscribers"
+msgstr ""
+
+#: actions/subscribers.php:52
+#, fuzzy, php-format
+msgid "%1$s subscribers, page %2$d"
+msgstr "%s کاربران مسدود شده، صفحه‌ی %d"
+
+#: actions/subscribers.php:63
+msgid "These are the people who listen to your notices."
+msgstr "این ها کسانی هستند که به آگهی های شما گوش می دهند."
+
+#: actions/subscribers.php:67
+#, php-format
+msgid "These are the people who listen to %s's notices."
+msgstr ""
+
+#: actions/subscribers.php:108
+msgid ""
+"You have no subscribers. Try subscribing to people you know and they might "
+"return the favor"
+msgstr ""
+
+#: actions/subscribers.php:110
+#, php-format
+msgid "%s has no subscribers. Want to be the first?"
+msgstr ""
+
+#: actions/subscribers.php:114
+#, php-format
+msgid ""
+"%s has no subscribers. Why not [register an account](%%%%action.register%%%"
+"%) and be the first?"
+msgstr ""
+
+#: actions/subscriptions.php:52
+#, php-format
+msgid "%s subscriptions"
+msgstr ""
+
+#: actions/subscriptions.php:54
+#, fuzzy, php-format
+msgid "%1$s subscriptions, page %2$d"
+msgstr "%d گروه , صفحه %S"
+
+#: actions/subscriptions.php:65
+msgid "These are the people whose notices you listen to."
+msgstr ""
+
+#: actions/subscriptions.php:69
+#, php-format
+msgid "These are the people whose notices %s listens to."
+msgstr ""
+
+#: actions/subscriptions.php:121
+#, php-format
+msgid ""
+"You're not listening to anyone's notices right now, try subscribing to "
+"people you know. Try [people search](%%action.peoplesearch%%), look for "
+"members in groups you're interested in and in our [featured users](%%action."
+"featured%%). If you're a [Twitter user](%%action.twittersettings%%), you can "
+"automatically subscribe to people you already follow there."
+msgstr ""
+
+#: actions/subscriptions.php:123 actions/subscriptions.php:127
+#, php-format
+msgid "%s is not listening to anyone."
+msgstr ""
+
+#: actions/subscriptions.php:194
+msgid "Jabber"
+msgstr ""
+
+#: actions/subscriptions.php:199 lib/connectsettingsaction.php:115
+msgid "SMS"
+msgstr ""
+
+#: actions/tag.php:86
+#, php-format
+msgid "Notice feed for tag %s (RSS 1.0)"
+msgstr ""
+
+#: actions/tag.php:92
+#, php-format
+msgid "Notice feed for tag %s (RSS 2.0)"
+msgstr ""
+
+#: actions/tag.php:98
+#, php-format
+msgid "Notice feed for tag %s (Atom)"
+msgstr ""
+
+#: actions/tagother.php:39
+msgid "No ID argument."
+msgstr ""
+
+#: actions/tagother.php:65
+#, php-format
+msgid "Tag %s"
+msgstr ""
+
+#: actions/tagother.php:77 lib/userprofile.php:75
+msgid "User profile"
+msgstr "پروفایل کاربر"
+
+#: actions/tagother.php:81 lib/userprofile.php:102
+msgid "Photo"
+msgstr ""
+
+#: actions/tagother.php:141
+msgid "Tag user"
+msgstr ""
+
+#: actions/tagother.php:151
+msgid ""
+"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
+"separated"
+msgstr ""
+
+#: actions/tagother.php:193
+msgid ""
+"You can only tag people you are subscribed to or who are subscribed to you."
+msgstr ""
+
+#: actions/tagother.php:200
+msgid "Could not save tags."
+msgstr ""
+
+#: actions/tagother.php:236
+msgid "Use this form to add tags to your subscribers or subscriptions."
+msgstr ""
+
+#: actions/tagrss.php:35
+msgid "No such tag."
+msgstr ""
+
+#: actions/twitapitrends.php:87
+msgid "API method under construction."
+msgstr "روش API در دست ساخت."
+
+#: actions/unblock.php:59
+msgid "You haven't blocked that user."
+msgstr "شما آن کاربر را مسدود نکرده اید."
+
+#: actions/unsandbox.php:72
+msgid "User is not sandboxed."
+msgstr ""
+
+#: actions/unsilence.php:72
+msgid "User is not silenced."
+msgstr "کاربر ساکت نشده است."
+
+#: actions/unsubscribe.php:77
+msgid "No profile id in request."
+msgstr ""
+
+#: actions/unsubscribe.php:98
+msgid "Unsubscribed"
+msgstr ""
+
+#: actions/updateprofile.php:62 actions/userauthorization.php:330
+#, php-format
+msgid ""
+"Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
+msgstr ""
+
+#: actions/useradminpanel.php:58 lib/adminpanelaction.php:321
+#: lib/personalgroupnav.php:115
+msgid "User"
+msgstr "کاربر"
+
+#: actions/useradminpanel.php:69
+msgid "User settings for this StatusNet site."
+msgstr ""
+
+#: actions/useradminpanel.php:149
+msgid "Invalid bio limit. Must be numeric."
+msgstr ""
+
+#: actions/useradminpanel.php:155
+msgid "Invalid welcome text. Max length is 255 characters."
+msgstr ""
+
+#: actions/useradminpanel.php:165
+#, php-format
+msgid "Invalid default subscripton: '%1$s' is not user."
+msgstr ""
+
+#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:108
+#: lib/personalgroupnav.php:109
+msgid "Profile"
+msgstr ""
+
+#: actions/useradminpanel.php:222
+msgid "Bio Limit"
+msgstr ""
+
+#: actions/useradminpanel.php:223
+msgid "Maximum length of a profile bio in characters."
+msgstr "حداکثر طول یک زندگی نامه(در پروفایل) بر حسب کاراکتر."
+
+#: actions/useradminpanel.php:231
+msgid "New users"
+msgstr ""
+
+#: actions/useradminpanel.php:235
+msgid "New user welcome"
+msgstr "خوشامدگویی کاربر جدید"
+
+#: actions/useradminpanel.php:236
+msgid "Welcome text for new users (Max 255 chars)."
+msgstr "پیام خوشامدگویی برای کاربران جدید( حداکثر 255 کاراکتر)"
+
+#: actions/useradminpanel.php:241
+msgid "Default subscription"
+msgstr ""
+
+#: actions/useradminpanel.php:242
+msgid "Automatically subscribe new users to this user."
+msgstr ""
+
+#: actions/useradminpanel.php:251
+msgid "Invitations"
+msgstr "دعوت نامه ها"
+
+#: actions/useradminpanel.php:256
+msgid "Invitations enabled"
+msgstr "دعوت نامه ها فعال شدند"
+
+#: actions/useradminpanel.php:258
+msgid "Whether to allow users to invite new users."
+msgstr "خواه به کاربران اجازه ی دعوت کردن کاربران جدید داده شود."
+
+#: actions/useradminpanel.php:265
+msgid "Sessions"
+msgstr ""
+
+#: actions/useradminpanel.php:270
+msgid "Handle sessions"
+msgstr ""
+
+#: actions/useradminpanel.php:272
+msgid "Whether to handle sessions ourselves."
+msgstr ""
+
+#: actions/useradminpanel.php:276
+msgid "Session debugging"
+msgstr ""
+
+#: actions/useradminpanel.php:278
+msgid "Turn on debugging output for sessions."
+msgstr ""
+
+#: actions/userauthorization.php:105
+msgid "Authorize subscription"
+msgstr ""
+
+#: actions/userauthorization.php:110
+msgid ""
+"Please check these details to make sure that you want to subscribe to this "
+"user’s notices. If you didn’t just ask to subscribe to someone’s notices, "
+"click “Reject”."
+msgstr ""
+
+#: actions/userauthorization.php:188 actions/version.php:165
+msgid "License"
+msgstr "لیسانس"
+
+#: actions/userauthorization.php:209
+msgid "Accept"
+msgstr "پذیرفتن"
+
+#: actions/userauthorization.php:210 lib/subscribeform.php:115
+#: lib/subscribeform.php:139
+msgid "Subscribe to this user"
+msgstr "تصویب این کاریر"
+
+#: actions/userauthorization.php:211
+msgid "Reject"
+msgstr "رد کردن"
+
+#: actions/userauthorization.php:212
+msgid "Reject this subscription"
+msgstr ""
+
+#: actions/userauthorization.php:225
+msgid "No authorization request!"
+msgstr ""
+
+#: actions/userauthorization.php:247
+msgid "Subscription authorized"
+msgstr ""
+
+#: actions/userauthorization.php:249
+msgid ""
+"The subscription has been authorized, but no callback URL was passed. Check "
+"with the site’s instructions for details on how to authorize the "
+"subscription. Your subscription token is:"
+msgstr ""
+
+#: actions/userauthorization.php:259
+msgid "Subscription rejected"
+msgstr ""
+
+#: actions/userauthorization.php:261
+msgid ""
+"The subscription has been rejected, but no callback URL was passed. Check "
+"with the site’s instructions for details on how to fully reject the "
+"subscription."
+msgstr ""
+
+#: actions/userauthorization.php:296
+#, php-format
+msgid "Listener URI ‘%s’ not found here."
+msgstr ""
+
+#: actions/userauthorization.php:301
+#, php-format
+msgid "Listenee URI ‘%s’ is too long."
+msgstr ""
+
+#: actions/userauthorization.php:307
+#, php-format
+msgid "Listenee URI ‘%s’ is a local user."
+msgstr ""
+
+#: actions/userauthorization.php:322
+#, php-format
+msgid "Profile URL ‘%s’ is for a local user."
+msgstr ""
+
+#: actions/userauthorization.php:338
+#, php-format
+msgid "Avatar URL ‘%s’ is not valid."
+msgstr ""
+
+#: actions/userauthorization.php:343
+#, php-format
+msgid "Can’t read avatar URL ‘%s’."
+msgstr ""
+
+#: actions/userauthorization.php:348
+#, php-format
+msgid "Wrong image type for avatar URL ‘%s’."
+msgstr ""
+
+#: actions/userdesignsettings.php:76 lib/designsettings.php:65
+msgid "Profile design"
+msgstr "طراحی پروفیل"
+
+#: actions/userdesignsettings.php:87 lib/designsettings.php:76
+msgid ""
+"Customize the way your profile looks with a background image and a colour "
+"palette of your choice."
+msgstr ""
+
+#: actions/userdesignsettings.php:282
+msgid "Enjoy your hotdog!"
+msgstr "از هات داگ خود لذت ببرید!"
+
+#: actions/usergroups.php:130
+msgid "Search for more groups"
+msgstr "جستجو برای گروه های بیشتر"
+
+#: actions/usergroups.php:153
+#, php-format
+msgid "%s is not a member of any group."
+msgstr ""
+
+#: actions/usergroups.php:158
+#, php-format
+msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
+msgstr ""
+
+#: actions/version.php:73
+#, fuzzy, php-format
+msgid "StatusNet %s"
+msgstr "آمار"
+
+#: actions/version.php:153
+#, php-format
+msgid ""
+"This site is powered by %1$s version %2$s, Copyright 2008-2010 StatusNet, "
+"Inc. and contributors."
+msgstr ""
+
+#: actions/version.php:157
+#, fuzzy
+msgid "StatusNet"
+msgstr "وضعیت حذف شد."
+
+#: actions/version.php:161
+msgid "Contributors"
+msgstr ""
+
+#: actions/version.php:168
+msgid ""
+"StatusNet is free software: you can redistribute it and/or modify it under "
+"the terms of the GNU Affero General Public License as published by the Free "
+"Software Foundation, either version 3 of the License, or (at your option) "
+"any later version. "
+msgstr ""
+
+#: actions/version.php:174
+msgid ""
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License "
+"for more details. "
+msgstr ""
+
+#: actions/version.php:180
+#, php-format
+msgid ""
+"You should have received a copy of the GNU Affero General Public License "
+"along with this program.  If not, see %s."
+msgstr ""
+
+#: actions/version.php:189
+msgid "Plugins"
+msgstr ""
+
+#: actions/version.php:195
+#, fuzzy
+msgid "Name"
+msgstr "نام کاربری"
+
+#: actions/version.php:196 lib/action.php:741
+#, fuzzy
+msgid "Version"
+msgstr "شخصی"
+
+#: actions/version.php:197
+#, fuzzy
+msgid "Author(s)"
+msgstr "مؤلف"
+
+#: actions/version.php:198 lib/groupeditform.php:172
+msgid "Description"
+msgstr ""
+
+#: classes/File.php:144
+#, php-format
+msgid ""
+"No file may be larger than %d bytes and the file you sent was %d bytes. Try "
+"to upload a smaller version."
+msgstr ""
+
+#: classes/File.php:154
+#, php-format
+msgid "A file this large would exceed your user quota of %d bytes."
+msgstr ""
+
+#: classes/File.php:161
+#, php-format
+msgid "A file this large would exceed your monthly quota of %d bytes."
+msgstr ""
+
+#: classes/Group_member.php:41
+msgid "Group join failed."
+msgstr ""
+
+#: classes/Group_member.php:53
+#, fuzzy
+msgid "Not part of group."
+msgstr "نمی‌توان گروه را به‌هنگام‌سازی کرد."
+
+#: classes/Group_member.php:60
+msgid "Group leave failed."
+msgstr ""
+
+#: classes/Login_token.php:76
+#, fuzzy, php-format
+msgid "Could not create login token for %s"
+msgstr "نمی‌توان نام‌های مستعار را ساخت."
+
+#: classes/Message.php:45
+msgid "You are banned from sending direct messages."
+msgstr "شما از فرستادن پیام مستقیم مردود شده اید."
+
+#: classes/Message.php:61
+msgid "Could not insert message."
+msgstr "پیغام نمی تواند درج گردد"
+
+#: classes/Message.php:71
+msgid "Could not update message with new URI."
+msgstr ""
+
+#: classes/Notice.php:171
+#, php-format
+msgid "DB error inserting hashtag: %s"
+msgstr ""
+
+#: classes/Notice.php:225
+msgid "Problem saving notice. Too long."
+msgstr "مشکل در ذخیره کردن پیام. بسیار طولانی."
+
+#: classes/Notice.php:229
+msgid "Problem saving notice. Unknown user."
+msgstr "مشکل در ذخیره کردن پیام. کاربر نا شناخته."
+
+#: classes/Notice.php:234
+msgid ""
+"Too many notices too fast; take a breather and post again in a few minutes."
+msgstr ""
+"تعداد خیلی زیاد آگهی و بسیار سریع؛ استراحت کنید و مجددا دقایقی دیگر ارسال "
+"کنید."
+
+#: classes/Notice.php:240
+msgid ""
+"Too many duplicate messages too quickly; take a breather and post again in a "
+"few minutes."
+msgstr ""
+"تعداد زیاد پیام های دو نسخه ای و بسرعت؛ استراحت کنید و دقایقی دیگر مجددا "
+"ارسال کنید."
+
+#: classes/Notice.php:246
+msgid "You are banned from posting notices on this site."
+msgstr "شما از فرستادن پست در این سایت مردود شدید ."
+
+#: classes/Notice.php:305 classes/Notice.php:330
+msgid "Problem saving notice."
+msgstr "مشکل در ذخیره کردن آگهی."
+
+#: classes/Notice.php:1052
+#, php-format
+msgid "DB error inserting reply: %s"
+msgstr ""
+
+#: classes/Notice.php:1423
+#, php-format
+msgid "RT @%1$s %2$s"
+msgstr ""
+
+#: classes/User.php:382
+#, php-format
+msgid "Welcome to %1$s, @%2$s!"
+msgstr "خوش امدید به %1$s , @%2$s!"
+
+#: classes/User_group.php:380
+msgid "Could not create group."
+msgstr "نمیتوان گروه را تشکیل داد"
+
+#: classes/User_group.php:409
+msgid "Could not set group membership."
+msgstr ""
+
+#: lib/accountsettingsaction.php:108
+msgid "Change your profile settings"
+msgstr "تنضبمات پروفيلتان را تغیر دهید"
+
+#: lib/accountsettingsaction.php:112
+msgid "Upload an avatar"
+msgstr "یک آواتار ارسال کنید"
+
+#: lib/accountsettingsaction.php:116
+msgid "Change your password"
+msgstr "کلمه ی عبور خود را تغییر دهید"
+
+#: lib/accountsettingsaction.php:120
+msgid "Change email handling"
+msgstr "تغیر تنظیمات ایمل ."
+
+#: lib/accountsettingsaction.php:124
+msgid "Design your profile"
+msgstr "پروفایل خود را طراحی کنید"
+
+#: lib/accountsettingsaction.php:128
+msgid "Other"
+msgstr "دیگر"
+
+#: lib/accountsettingsaction.php:128
+msgid "Other options"
+msgstr "انتخابات دیگر"
+
+#: lib/action.php:144
+#, fuzzy, php-format
+msgid "%1$s - %2$s"
+msgstr "%s گروه %s را ترک کرد."
+
+#: lib/action.php:159
+msgid "Untitled page"
+msgstr "صفحه ی بدون عنوان"
+
+#: lib/action.php:427
+msgid "Primary site navigation"
+msgstr ""
+
+#: lib/action.php:433
+msgid "Home"
+msgstr "خانه"
+
+#: lib/action.php:433
+msgid "Personal profile and friends timeline"
+msgstr ""
+
+#: lib/action.php:435
+msgid "Account"
+msgstr "حساب کاربری"
+
+#: lib/action.php:435
+msgid "Change your email, avatar, password, profile"
+msgstr "آدرس ایمیل، آواتار، کلمه ی عبور، پروفایل خود را تغییر دهید"
+
+#: lib/action.php:438
+msgid "Connect"
+msgstr "وصل‌شدن"
+
+#: lib/action.php:438
+msgid "Connect to services"
+msgstr "متصل شدن به خدمات"
+
+#: lib/action.php:442
+msgid "Change site configuration"
+msgstr "تغییر پیکربندی سایت"
+
+#: lib/action.php:446 lib/subgroupnav.php:105
+msgid "Invite"
+msgstr "دعوت‌کردن"
+
+#: lib/action.php:447 lib/subgroupnav.php:106
+#, php-format
+msgid "Invite friends and colleagues to join you on %s"
+msgstr " به شما ملحق شوند  %s دوستان و همکاران را دعوت کنید تا در"
+
+#: lib/action.php:452
+msgid "Logout"
+msgstr "خروج"
+
+#: lib/action.php:452
+msgid "Logout from the site"
+msgstr "خارج شدن از سایت ."
+
+#: lib/action.php:457
+msgid "Create an account"
+msgstr "یک حساب کاربری بسازید"
+
+#: lib/action.php:460
+msgid "Login to the site"
+msgstr "ورود به وب‌گاه"
+
+#: lib/action.php:463 lib/action.php:726
+msgid "Help"
+msgstr "کمک"
+
+#: lib/action.php:463
+msgid "Help me!"
+msgstr "به من کمک کنید!"
+
+#: lib/action.php:466 lib/searchaction.php:127
+msgid "Search"
+msgstr "جست‌وجو"
+
+#: lib/action.php:466
+msgid "Search for people or text"
+msgstr "جستجو برای شخص با متن"
+
+#: lib/action.php:487
+msgid "Site notice"
+msgstr "خبر سایت"
+
+#: lib/action.php:553
+msgid "Local views"
+msgstr "دید محلی"
+
+#: lib/action.php:619
+msgid "Page notice"
+msgstr "خبر صفحه"
+
+#: lib/action.php:721
+msgid "Secondary site navigation"
+msgstr ""
+
+#: lib/action.php:728
+msgid "About"
+msgstr "دربارهٔ"
+
+#: lib/action.php:730
+msgid "FAQ"
+msgstr "سوال‌های رایج"
+
+#: lib/action.php:734
+msgid "TOS"
+msgstr ""
+
+#: lib/action.php:737
+msgid "Privacy"
+msgstr "خصوصی"
+
+#: lib/action.php:739
+msgid "Source"
+msgstr "منبع"
+
+#: lib/action.php:743
+msgid "Contact"
+msgstr "تماس"
+
+#: lib/action.php:745
+msgid "Badge"
+msgstr ""
+
+#: lib/action.php:773
+msgid "StatusNet software license"
+msgstr "StatusNet مجوز نرم افزار"
+
+#: lib/action.php:776
+#, php-format
+msgid ""
+"**%%site.name%%** is a microblogging service brought to you by [%%site."
+"broughtby%%](%%site.broughtbyurl%%). "
+msgstr ""
+
+#: lib/action.php:778
+#, php-format
+msgid "**%%site.name%%** is a microblogging service. "
+msgstr ""
+
+#: lib/action.php:780
+#, php-format
+msgid ""
+"It runs the [StatusNet](http://status.net/) microblogging software, version %"
+"s, available under the [GNU Affero General Public License](http://www.fsf."
+"org/licensing/licenses/agpl-3.0.html)."
+msgstr ""
+
+#: lib/action.php:794
+msgid "Site content license"
+msgstr "مجوز محتویات سایت"
+
+#: lib/action.php:803
+msgid "All "
+msgstr "همه "
+
+#: lib/action.php:808
+msgid "license."
+msgstr "مجوز."
+
+#: lib/action.php:1102
+msgid "Pagination"
+msgstr "صفحه بندى"
+
+#: lib/action.php:1111
+msgid "After"
+msgstr "بعد از"
+
+#: lib/action.php:1119
+msgid "Before"
+msgstr "قبل از"
+
+#: lib/action.php:1167
+msgid "There was a problem with your session token."
+msgstr ""
+
+#: lib/adminpanelaction.php:96
+msgid "You cannot make changes to this site."
+msgstr "شما نمی توانید در این سایت تغیری ایجاد کنید"
+
+#: lib/adminpanelaction.php:107
+#, fuzzy
+msgid "Changes to that panel are not allowed."
+msgstr "اجازه‌ی ثبت نام داده نشده است."
+
+#: lib/adminpanelaction.php:206
+msgid "showForm() not implemented."
+msgstr ""
+
+#: lib/adminpanelaction.php:235
+msgid "saveSettings() not implemented."
+msgstr ""
+
+#: lib/adminpanelaction.php:258
+msgid "Unable to delete design setting."
+msgstr "نمی توان تنظیمات طراحی شده را پاک کرد ."
+
+#: lib/adminpanelaction.php:312
+msgid "Basic site configuration"
+msgstr "پیکره بندی اصلی سایت"
+
+#: lib/adminpanelaction.php:317
+msgid "Design configuration"
+msgstr ""
+
+#: lib/adminpanelaction.php:322 lib/adminpanelaction.php:327
+msgid "Paths configuration"
+msgstr ""
+
+#: lib/attachmentlist.php:87
+msgid "Attachments"
+msgstr "ضمائم"
+
+#: lib/attachmentlist.php:265
+msgid "Author"
+msgstr "مؤلف"
+
+#: lib/attachmentlist.php:278
+msgid "Provider"
+msgstr "مهیا کننده"
+
+#: lib/attachmentnoticesection.php:67
+msgid "Notices where this attachment appears"
+msgstr ""
+
+#: lib/attachmenttagcloudsection.php:48
+msgid "Tags for this attachment"
+msgstr ""
+
+#: lib/authenticationplugin.php:182 lib/authenticationplugin.php:187
+#, fuzzy
+msgid "Password changing failed"
+msgstr "تغییر گذرواژه"
+
+#: lib/authenticationplugin.php:197
+#, fuzzy
+msgid "Password changing is not allowed"
+msgstr "تغییر گذرواژه"
+
+#: lib/channel.php:138 lib/channel.php:158
+msgid "Command results"
+msgstr "نتیجه دستور"
+
+#: lib/channel.php:210 lib/mailhandler.php:142
+msgid "Command complete"
+msgstr "دستور انجام شد"
+
+#: lib/channel.php:221
+msgid "Command failed"
+msgstr "فرمان شکست خورد"
+
+#: lib/command.php:44
+msgid "Sorry, this command is not yet implemented."
+msgstr "متاسفانه این دستور هنوز اجرا نشده."
+
+#: lib/command.php:88
+#, php-format
+msgid "Could not find a user with nickname %s"
+msgstr "پیدا نشد %s کاریری یا نام مستعار"
+
+#: lib/command.php:92
+msgid "It does not make a lot of sense to nudge yourself!"
+msgstr ""
+
+#: lib/command.php:99
+#, fuzzy, php-format
+msgid "Nudge sent to %s"
+msgstr "فرتادن اژیر"
+
+#: lib/command.php:126
+#, php-format
+msgid ""
+"Subscriptions: %1$s\n"
+"Subscribers: %2$s\n"
+"Notices: %3$s"
+msgstr ""
+"اشتراک : %1$s\n"
+"مشترک : %2$s\n"
+"خبر : %3$s"
+
+#: lib/command.php:152 lib/command.php:390 lib/command.php:451
+msgid "Notice with that id does not exist"
+msgstr "خبری با این مشخصه ایجاد نشد"
+
+#: lib/command.php:168 lib/command.php:406 lib/command.php:467
+#: lib/command.php:523
+msgid "User has no last notice"
+msgstr "کاربر آگهی آخر ندارد"
+
+#: lib/command.php:190
+msgid "Notice marked as fave."
+msgstr ""
+
+#: lib/command.php:217
+msgid "You are already a member of that group"
+msgstr "شما از پیش یک عضو این گروه هستید."
+
+#: lib/command.php:231
+#, php-format
+msgid "Could not join user %s to group %s"
+msgstr "عضویت %s در گروه %s نا موفق بود."
+
+#: lib/command.php:236
+#, php-format
+msgid "%s joined group %s"
+msgstr "ملحق شدن به گروه"
+
+#: lib/command.php:275
+#, fuzzy, php-format
+msgid "Could not remove user %s to group %s"
+msgstr "خارج شدن %s از گروه %s نا موفق بود"
+
+#: lib/command.php:280
+#, php-format
+msgid "%s left group %s"
+msgstr "%s گروه %s را ترک کرد."
+
+#: lib/command.php:309
+#, php-format
+msgid "Fullname: %s"
+msgstr "نام کامل : %s"
+
+#: lib/command.php:312 lib/mail.php:254
+#, php-format
+msgid "Location: %s"
+msgstr "موقعیت : %s"
+
+#: lib/command.php:315 lib/mail.php:256
+#, php-format
+msgid "Homepage: %s"
+msgstr "صفحه خانگی : %s"
+
+#: lib/command.php:318
+#, php-format
+msgid "About: %s"
+msgstr "درباره ی : %s"
+
+#: lib/command.php:349
+#, php-format
+msgid "Message too long - maximum is %d characters, you sent %d"
+msgstr ""
+"پیغام بسیار طولانی است - بیشترین اندازه امکان پذیر %d کاراکتر است , شما %d "
+"تا فرستادید"
+
+#: lib/command.php:367
+#, php-format
+msgid "Direct message to %s sent"
+msgstr "پیام مستقیم به %s فرستاده شد."
+
+#: lib/command.php:369
+msgid "Error sending direct message."
+msgstr "خطا در فرستادن پیام مستقیم."
+
+#: lib/command.php:413
+msgid "Cannot repeat your own notice"
+msgstr "نمی توان آگهی خودتان را تکرار کرد"
+
+#: lib/command.php:418
+msgid "Already repeated that notice"
+msgstr "آن آگهی قبلا تکرار شده است."
+
+#: lib/command.php:426
+#, fuzzy, php-format
+msgid "Notice from %s repeated"
+msgstr "آگهی تکرار شد"
+
+#: lib/command.php:428
+msgid "Error repeating notice."
+msgstr "خطا هنگام تکرار آگهی."
+
+#: lib/command.php:482
+#, fuzzy, php-format
+msgid "Notice too long - maximum is %d characters, you sent %d"
+msgstr ""
+"پیغام بسیار طولانی است - بیشترین اندازه امکان پذیر %d کاراکتر است , شما %d "
+"تا فرستادید"
+
+#: lib/command.php:491
+#, fuzzy, php-format
+msgid "Reply to %s sent"
+msgstr "به این آگهی جواب دهید"
+
+#: lib/command.php:493
+msgid "Error saving notice."
+msgstr "خطا هنگام ذخیره ی آگهی"
+
+#: lib/command.php:547
+msgid "Specify the name of the user to subscribe to"
+msgstr ""
+
+#: lib/command.php:554
+#, php-format
+msgid "Subscribed to %s"
+msgstr ""
+
+#: lib/command.php:575
+msgid "Specify the name of the user to unsubscribe from"
+msgstr ""
+
+#: lib/command.php:582
+#, php-format
+msgid "Unsubscribed from %s"
+msgstr ""
+
+#: lib/command.php:600 lib/command.php:623
+msgid "Command not yet implemented."
+msgstr "دستور هنوز اجرا نشده"
+
+#: lib/command.php:603
+msgid "Notification off."
+msgstr ""
+
+#: lib/command.php:605
+msgid "Can't turn off notification."
+msgstr "ناتوان در خاموش کردن آگاه سازی."
+
+#: lib/command.php:626
+msgid "Notification on."
+msgstr "آگاه سازی فعال است."
+
+#: lib/command.php:628
+msgid "Can't turn on notification."
+msgstr "ناتوان در روشن کردن آگاه سازی."
+
+#: lib/command.php:641
+msgid "Login command is disabled"
+msgstr "فرمان ورود از کار افتاده است"
+
+#: lib/command.php:652
+#, php-format
+msgid "This link is useable only once, and is good for only 2 minutes: %s"
+msgstr ""
+
+#: lib/command.php:668
+msgid "You are not subscribed to anyone."
+msgstr "شما توسط هیچ کس تصویب نشده اید ."
+
+#: lib/command.php:670
+msgid "You are subscribed to this person:"
+msgid_plural "You are subscribed to these people:"
+msgstr[0] "هم اکنون شما این کاربران را دنبال می‌کنید: "
+
+#: lib/command.php:690
+msgid "No one is subscribed to you."
+msgstr "هیچکس شما را تایید نکرده ."
+
+#: lib/command.php:692
+msgid "This person is subscribed to you:"
+msgid_plural "These people are subscribed to you:"
+msgstr[0] "هیچکس شما را تایید نکرده ."
+
+#: lib/command.php:712
+msgid "You are not a member of any groups."
+msgstr "شما در هیچ گروهی عضو نیستید ."
+
+#: lib/command.php:714
+msgid "You are a member of this group:"
+msgid_plural "You are a member of these groups:"
+msgstr[0] "شما یک عضو این گروه نیستید."
+
+#: lib/command.php:728
+msgid ""
+"Commands:\n"
+"on - turn on notifications\n"
+"off - turn off notifications\n"
+"help - show this help\n"
+"follow <nickname> - subscribe to user\n"
+"groups - lists the groups you have joined\n"
+"subscriptions - list the people you follow\n"
+"subscribers - list the people that follow you\n"
+"leave <nickname> - unsubscribe from user\n"
+"d <nickname> <text> - direct message to user\n"
+"get <nickname> - get last notice from user\n"
+"whois <nickname> - get profile info on user\n"
+"fav <nickname> - add user's last notice as a 'fave'\n"
+"fav #<notice_id> - add notice with the given id as a 'fave'\n"
+"repeat #<notice_id> - repeat a notice with a given id\n"
+"repeat <nickname> - repeat the last notice from user\n"
+"reply #<notice_id> - reply to notice with a given id\n"
+"reply <nickname> - reply to the last notice from user\n"
+"join <group> - join group\n"
+"login - Get a link to login to the web interface\n"
+"drop <group> - leave group\n"
+"stats - get your stats\n"
+"stop - same as 'off'\n"
+"quit - same as 'off'\n"
+"sub <nickname> - same as 'follow'\n"
+"unsub <nickname> - same as 'leave'\n"
+"last <nickname> - same as 'get'\n"
+"on <nickname> - not yet implemented.\n"
+"off <nickname> - not yet implemented.\n"
+"nudge <nickname> - remind a user to update.\n"
+"invite <phone number> - not yet implemented.\n"
+"track <word> - not yet implemented.\n"
+"untrack <word> - not yet implemented.\n"
+"track off - not yet implemented.\n"
+"untrack all - not yet implemented.\n"
+"tracks - not yet implemented.\n"
+"tracking - not yet implemented.\n"
+msgstr ""
+
+#: lib/common.php:131
+msgid "No configuration file found. "
+msgstr ""
+
+#: lib/common.php:132
+msgid "I looked for configuration files in the following places: "
+msgstr ""
+
+#: lib/common.php:134
+msgid "You may wish to run the installer to fix this."
+msgstr "شما ممکن است بخواهید نصاب را اجرا کنید تا این را تعمیر کند."
+
+#: lib/common.php:135
+msgid "Go to the installer."
+msgstr "برو به نصاب."
+
+#: lib/connectsettingsaction.php:110
+msgid "IM"
+msgstr "پیام‌رسان فوری"
+
+#: lib/connectsettingsaction.php:111
+msgid "Updates by instant messenger (IM)"
+msgstr ""
+
+#: lib/connectsettingsaction.php:116
+msgid "Updates by SMS"
+msgstr "به روز رسانی با پیامک"
+
+#: lib/dberroraction.php:60
+msgid "Database error"
+msgstr "خطای پایگاه داده"
+
+#: lib/designsettings.php:105
+msgid "Upload file"
+msgstr "ارسال فایل"
+
+#: lib/designsettings.php:109
+msgid ""
+"You can upload your personal background image. The maximum file size is 2MB."
+msgstr ""
+
+#: lib/designsettings.php:418
+msgid "Design defaults restored."
+msgstr ""
+
+#: lib/disfavorform.php:114 lib/disfavorform.php:140
+msgid "Disfavor this notice"
+msgstr ""
+
+#: lib/favorform.php:114 lib/favorform.php:140
+msgid "Favor this notice"
+msgstr "طرفدار این خبر"
+
+#: lib/favorform.php:140
+msgid "Favor"
+msgstr "توجه کردن"
+
+#: lib/feed.php:85
+msgid "RSS 1.0"
+msgstr ""
+
+#: lib/feed.php:87
+msgid "RSS 2.0"
+msgstr ""
+
+#: lib/feed.php:89
+msgid "Atom"
+msgstr ""
+
+#: lib/feed.php:91
+msgid "FOAF"
+msgstr ""
+
+#: lib/feedlist.php:64
+msgid "Export data"
+msgstr "صادر کردن داده"
+
+#: lib/galleryaction.php:121
+msgid "Filter tags"
+msgstr ""
+
+#: lib/galleryaction.php:131
+msgid "All"
+msgstr "همه"
+
+#: lib/galleryaction.php:139
+msgid "Select tag to filter"
+msgstr ""
+
+#: lib/galleryaction.php:140
+msgid "Tag"
+msgstr ""
+
+#: lib/galleryaction.php:141
+msgid "Choose a tag to narrow list"
+msgstr ""
+
+#: lib/galleryaction.php:143
+msgid "Go"
+msgstr "برو"
+
+#: lib/groupeditform.php:163
+msgid "URL of the homepage or blog of the group or topic"
+msgstr ""
+
+#: lib/groupeditform.php:168
+msgid "Describe the group or topic"
+msgstr ""
+
+#: lib/groupeditform.php:170
+#, php-format
+msgid "Describe the group or topic in %d characters"
+msgstr ""
+
+#: lib/groupeditform.php:179
+msgid ""
+"Location for the group, if any, like \"City, State (or Region), Country\""
+msgstr ""
+
+#: lib/groupeditform.php:187
+#, php-format
+msgid "Extra nicknames for the group, comma- or space- separated, max %d"
+msgstr ""
+
+#: lib/groupnav.php:85
+msgid "Group"
+msgstr "گروه"
+
+#: lib/groupnav.php:101
+msgid "Blocked"
+msgstr "مسدود شده"
+
+#: lib/groupnav.php:102
+#, php-format
+msgid "%s blocked users"
+msgstr ""
+
+#: lib/groupnav.php:108
+#, php-format
+msgid "Edit %s group properties"
+msgstr "خصوصیلت گروه %s ویرایش"
+
+#: lib/groupnav.php:113
+msgid "Logo"
+msgstr "نشان"
+
+#: lib/groupnav.php:114
+#, php-format
+msgid "Add or edit %s logo"
+msgstr ""
+
+#: lib/groupnav.php:120
+#, php-format
+msgid "Add or edit %s design"
+msgstr ""
+
+#: lib/groupsbymemberssection.php:71
+msgid "Groups with most members"
+msgstr "گروه های با اعضاء بیشتر"
+
+#: lib/groupsbypostssection.php:71
+msgid "Groups with most posts"
+msgstr "گروه های با پست های بیشتر"
+
+#: lib/grouptagcloudsection.php:56
+#, php-format
+msgid "Tags in %s group's notices"
+msgstr ""
+
+#: lib/htmloutputter.php:103
+msgid "This page is not available in a media type you accept"
+msgstr ""
+
+#: lib/imagefile.php:75
+#, php-format
+msgid "That file is too big. The maximum file size is %s."
+msgstr ""
+"است . این فایل بسیار یزرگ است  %s بیشترین مقدار قابل قبول برای اندازه ی فایل."
+
+#: lib/imagefile.php:80
+msgid "Partial upload."
+msgstr ""
+
+#: lib/imagefile.php:88 lib/mediafile.php:170
+msgid "System error uploading file."
+msgstr "خطای سیستم ارسال فایل."
+
+#: lib/imagefile.php:96
+msgid "Not an image or corrupt file."
+msgstr "تصویر یا فایل خرابی نیست"
+
+#: lib/imagefile.php:105
+msgid "Unsupported image file format."
+msgstr "فرمت(فایل) عکس پشتیبانی نشده."
+
+#: lib/imagefile.php:118
+msgid "Lost our file."
+msgstr "فایلمان گم شده"
+
+#: lib/imagefile.php:150 lib/imagefile.php:197
+msgid "Unknown file type"
+msgstr "نوع فایل پشتیبانی نشده"
+
+#: lib/imagefile.php:217
+msgid "MB"
+msgstr "مگابایت"
+
+#: lib/imagefile.php:219
+msgid "kB"
+msgstr "کیلوبایت"
+
+#: lib/jabber.php:202
+#, php-format
+msgid "[%s]"
+msgstr ""
+
+#: lib/jabber.php:385
+#, php-format
+msgid "Unknown inbox source %d."
+msgstr ""
+
+#: lib/joinform.php:114
+msgid "Join"
+msgstr "مشارکت کردن"
+
+#: lib/leaveform.php:114
+msgid "Leave"
+msgstr "ترک کردن"
+
+#: lib/logingroupnav.php:80
+msgid "Login with a username and password"
+msgstr "وارد شدن با یک نام کاربری و کلمه ی عبور"
+
+#: lib/logingroupnav.php:86
+msgid "Sign up for a new account"
+msgstr "عضویت برای حساب کاربری جدید"
+
+#: lib/mail.php:172
+msgid "Email address confirmation"
+msgstr "تاییدیه ی آدرس ایمیل"
+
+#: lib/mail.php:174
+#, php-format
+msgid ""
+"Hey, %s.\n"
+"\n"
+"Someone just entered this email address on %s.\n"
+"\n"
+"If it was you, and you want to confirm your entry, use the URL below:\n"
+"\n"
+"\t%s\n"
+"\n"
+"If not, just ignore this message.\n"
+"\n"
+"Thanks for your time, \n"
+"%s\n"
+msgstr ""
+
+#: lib/mail.php:236
+#, php-format
+msgid "%1$s is now listening to your notices on %2$s."
+msgstr "%2$s از حالا به خبر های شما گوش میده  %1$s"
+
+#: lib/mail.php:241
+#, php-format
+msgid ""
+"%1$s is now listening to your notices on %2$s.\n"
+"\n"
+"\t%3$s\n"
+"\n"
+"%4$s%5$s%6$s\n"
+"Faithfully yours,\n"
+"%7$s.\n"
+"\n"
+"----\n"
+"Change your email address or notification options at %8$s\n"
+msgstr ""
+
+#: lib/mail.php:258
+#, fuzzy, php-format
+msgid "Bio: %s"
+msgstr "موقعیت : %s"
+
+#: lib/mail.php:286
+#, php-format
+msgid "New email address for posting to %s"
+msgstr "%s ادرس ایمیل جدید برای"
+
+#: lib/mail.php:289
+#, php-format
+msgid ""
+"You have a new posting address on %1$s.\n"
+"\n"
+"Send email to %2$s to post new messages.\n"
+"\n"
+"More email instructions at %3$s.\n"
+"\n"
+"Faithfully yours,\n"
+"%4$s"
+msgstr ""
+" %1$s شما یک ادرس پست جدید دارید در .\n"
+"ایمیل بزنید %s برای پست یک پیغام جدید به .\n"
+" %3$s راهنمای ایمیل بیشتر در .\n"
+"\n"
+", ازروی وفاداری خود شما \n"
+"%4$s"
+
+#: lib/mail.php:413
+#, php-format
+msgid "%s status"
+msgstr "وضعیت %s"
+
+#: lib/mail.php:439
+msgid "SMS confirmation"
+msgstr "تایید پیامک"
+
+#: lib/mail.php:463
+#, php-format
+msgid "You've been nudged by %s"
+msgstr ""
+
+#: lib/mail.php:467
+#, php-format
+msgid ""
+"%1$s (%2$s) is wondering what you are up to these days and is inviting you "
+"to post some news.\n"
+"\n"
+"So let's hear from you :)\n"
+"\n"
+"%3$s\n"
+"\n"
+"Don't reply to this email; it won't get to them.\n"
+"\n"
+"With kind regards,\n"
+"%4$s\n"
+msgstr ""
+
+#: lib/mail.php:510
+#, php-format
+msgid "New private message from %s"
+msgstr ""
+
+#: lib/mail.php:514
+#, php-format
+msgid ""
+"%1$s (%2$s) sent you a private message:\n"
+"\n"
+"------------------------------------------------------\n"
+"%3$s\n"
+"------------------------------------------------------\n"
+"\n"
+"You can reply to their message here:\n"
+"\n"
+"%4$s\n"
+"\n"
+"Don't reply to this email; it won't get to them.\n"
+"\n"
+"With kind regards,\n"
+"%5$s\n"
+msgstr ""
+
+#: lib/mail.php:559
+#, php-format
+msgid "%s (@%s) added your notice as a favorite"
+msgstr " خبر شما را به علایق خود اضافه کرد %s (@%s)"
+
+#: lib/mail.php:561
+#, php-format
+msgid ""
+"%1$s (@%7$s) just added your notice from %2$s as one of their favorites.\n"
+"\n"
+"The URL of your notice is:\n"
+"\n"
+"%3$s\n"
+"\n"
+"The text of your notice is:\n"
+"\n"
+"%4$s\n"
+"\n"
+"You can see the list of %1$s's favorites here:\n"
+"\n"
+"%5$s\n"
+"\n"
+"Faithfully yours,\n"
+"%6$s\n"
+msgstr ""
+
+#: lib/mail.php:624
+#, php-format
+msgid "%s (@%s) sent a notice to your attention"
+msgstr "به توجه شما یک خبر فرستاده شده %s (@%s)"
+
+#: lib/mail.php:626
+#, php-format
+msgid ""
+"%1$s (@%9$s) just sent a notice to your attention (an '@-reply') on %2$s.\n"
+"\n"
+"The notice is here:\n"
+"\n"
+"\t%3$s\n"
+"\n"
+"It reads:\n"
+"\n"
+"\t%4$s\n"
+"\n"
+msgstr ""
+
+#: lib/mailbox.php:89
+msgid "Only the user can read their own mailboxes."
+msgstr "تنها کاربران می تواند صندوق نامه ی خودشان را بخوانند."
+
+#: lib/mailbox.php:139
+msgid ""
+"You have no private messages. You can send private message to engage other "
+"users in conversation. People can send you messages for your eyes only."
+msgstr ""
+
+#: lib/mailbox.php:227 lib/noticelist.php:477
+msgid "from"
+msgstr "از"
+
+#: lib/mailhandler.php:37
+msgid "Could not parse message."
+msgstr "نمی‌توان پیام را تجزیه کرد."
+
+#: lib/mailhandler.php:42
+msgid "Not a registered user."
+msgstr "یک کاربر ثبت نام شده نیستید"
+
+#: lib/mailhandler.php:46
+msgid "Sorry, that is not your incoming email address."
+msgstr "با عرض پوزش، این پست الکترونیک شما نیست."
+
+#: lib/mailhandler.php:50
+msgid "Sorry, no incoming email allowed."
+msgstr "با عرض پوزش، اجازه‌ی ورودی پست الکترونیک وجود ندارد"
+
+#: lib/mailhandler.php:228
+#, fuzzy, php-format
+msgid "Unsupported message type: %s"
+msgstr "فرمت(فایل) عکس پشتیبانی نشده."
+
+#: lib/mediafile.php:98 lib/mediafile.php:123
+msgid "There was a database error while saving your file. Please try again."
+msgstr ""
+"یک خطای پایگاه داده هنگام ذخیره کردن فایل شما رخ داد. لطفا بعدا سعی کنید."
+
+#: lib/mediafile.php:142
+msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
+msgstr ""
+
+#: lib/mediafile.php:147
+msgid ""
+"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
+"the HTML form."
+msgstr ""
+
+#: lib/mediafile.php:152
+msgid "The uploaded file was only partially uploaded."
+msgstr "فایل ارسال شده نتها اندکی ارسال شد."
+
+#: lib/mediafile.php:159
+msgid "Missing a temporary folder."
+msgstr "گم شدن یک پوشه ی موقتی."
+
+#: lib/mediafile.php:162
+msgid "Failed to write file to disk."
+msgstr "شکست خوردن در نوشتن فایل روی دیسک."
+
+#: lib/mediafile.php:165
+msgid "File upload stopped by extension."
+msgstr ""
+
+#: lib/mediafile.php:179 lib/mediafile.php:216
+msgid "File exceeds user's quota."
+msgstr ""
+
+#: lib/mediafile.php:196 lib/mediafile.php:233
+msgid "File could not be moved to destination directory."
+msgstr "فایل نتوانست به دایرکتوری مقصد منتقل شود."
+
+#: lib/mediafile.php:201 lib/mediafile.php:237
+#, fuzzy
+msgid "Could not determine file's MIME type."
+msgstr "نمی‌توان کاربر منبع را تعیین کرد."
+
+#: lib/mediafile.php:270
+#, php-format
+msgid " Try using another %s format."
+msgstr "تلاش برای امتحان نوع دیگر %s"
+
+#: lib/mediafile.php:275
+#, php-format
+msgid "%s is not a supported file type on this server."
+msgstr ""
+
+#: lib/messageform.php:120
+msgid "Send a direct notice"
+msgstr "یک آگهی مستقیم بفرستید."
+
+#: lib/messageform.php:146
+msgid "To"
+msgstr "به"
+
+#: lib/messageform.php:159 lib/noticeform.php:185
+msgid "Available characters"
+msgstr "کاراکترهای موجود"
+
+#: lib/noticeform.php:160
+msgid "Send a notice"
+msgstr "یک آگهی بفرستید"
+
+#: lib/noticeform.php:173
+#, php-format
+msgid "What's up, %s?"
+msgstr "چه شده %s ?"
+
+#: lib/noticeform.php:192
+msgid "Attach"
+msgstr "ضمیمه کردن"
+
+#: lib/noticeform.php:196
+msgid "Attach a file"
+msgstr "یک فایل ضمیمه کنید"
+
+#: lib/noticeform.php:212
+#, fuzzy
+msgid "Share my location"
+msgstr "نمی‌توان تنظیمات مکانی را تنظیم کرد."
+
+#: lib/noticeform.php:215
+#, fuzzy
+msgid "Do not share my location"
+msgstr "نمی‌توان تنظیمات مکانی را تنظیم کرد."
+
+#: lib/noticeform.php:216
+msgid "Hide this info"
+msgstr ""
+
+#: lib/noticeform.php:217
+msgid ""
+"Sorry, retrieving your geo location is taking longer than expected, please "
+"try again later"
+msgstr ""
+
+#: lib/noticelist.php:428
+#, php-format
+msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
+msgstr ""
+
+#: lib/noticelist.php:429
+msgid "N"
+msgstr ""
+
+#: lib/noticelist.php:429
+msgid "S"
+msgstr ""
+
+#: lib/noticelist.php:430
+msgid "E"
+msgstr ""
+
+#: lib/noticelist.php:430
+msgid "W"
+msgstr ""
+
+#: lib/noticelist.php:436
+msgid "at"
+msgstr "در"
+
+#: lib/noticelist.php:531
+msgid "in context"
+msgstr "در زمینه"
+
+#: lib/noticelist.php:556
+msgid "Repeated by"
+msgstr "تکرار از"
+
+#: lib/noticelist.php:585
+msgid "Reply to this notice"
+msgstr "به این آگهی جواب دهید"
+
+#: lib/noticelist.php:586
+msgid "Reply"
+msgstr "جواب دادن"
+
+#: lib/noticelist.php:628
+msgid "Notice repeated"
+msgstr "آگهی تکرار شد"
+
+#: lib/nudgeform.php:116
+msgid "Nudge this user"
+msgstr ""
+
+#: lib/nudgeform.php:128
+msgid "Nudge"
+msgstr ""
+
+#: lib/nudgeform.php:128
+msgid "Send a nudge to this user"
+msgstr "برای این کاربر اژير بفرست"
+
+#: lib/oauthstore.php:283
+msgid "Error inserting new profile"
+msgstr "خطا در درج مشخصات جدید"
+
+#: lib/oauthstore.php:291
+msgid "Error inserting avatar"
+msgstr ""
+
+#: lib/oauthstore.php:311
+msgid "Error inserting remote profile"
+msgstr ""
+
+#: lib/oauthstore.php:345
+msgid "Duplicate notice"
+msgstr ""
+
+#: lib/oauthstore.php:466 lib/subs.php:48
+msgid "You have been banned from subscribing."
+msgstr ""
+
+#: lib/oauthstore.php:491
+msgid "Couldn't insert new subscription."
+msgstr ""
+
+#: lib/personalgroupnav.php:99
+msgid "Personal"
+msgstr "شخصی"
+
+#: lib/personalgroupnav.php:104
+msgid "Replies"
+msgstr "پاسخ ها"
+
+#: lib/personalgroupnav.php:114
+msgid "Favorites"
+msgstr "چیزهای مورد علاقه"
+
+#: lib/personalgroupnav.php:124
+msgid "Inbox"
+msgstr "صندوق دریافتی"
+
+#: lib/personalgroupnav.php:125
+msgid "Your incoming messages"
+msgstr "پیام های وارد شونده ی شما"
+
+#: lib/personalgroupnav.php:129
+msgid "Outbox"
+msgstr "صندوق خروجی"
+
+#: lib/personalgroupnav.php:130
+msgid "Your sent messages"
+msgstr "پیام های فرستاده شده به وسیله ی شما"
+
+#: lib/personaltagcloudsection.php:56
+#, php-format
+msgid "Tags in %s's notices"
+msgstr ""
+
+#: lib/plugin.php:114
+msgid "Unknown"
+msgstr ""
+
+#: lib/profileaction.php:109 lib/profileaction.php:192 lib/subgroupnav.php:82
+msgid "Subscriptions"
+msgstr "اشتراک‌ها"
+
+#: lib/profileaction.php:126
+msgid "All subscriptions"
+msgstr "تمام اشتراک‌ها"
+
+#: lib/profileaction.php:140 lib/profileaction.php:201 lib/subgroupnav.php:90
+msgid "Subscribers"
+msgstr "مشترک‌ها"
+
+#: lib/profileaction.php:157
+msgid "All subscribers"
+msgstr "تمام مشترک‌ها"
+
+#: lib/profileaction.php:178
+msgid "User ID"
+msgstr "شناسه کاربر"
+
+#: lib/profileaction.php:183
+msgid "Member since"
+msgstr "عضو شده از"
+
+#: lib/profileaction.php:245
+msgid "All groups"
+msgstr "تمام گروه‌ها"
+
+#: lib/profileformaction.php:123
+msgid "No return-to arguments."
+msgstr ""
+
+#: lib/profileformaction.php:137
+msgid "Unimplemented method."
+msgstr ""
+
+#: lib/publicgroupnav.php:78
+msgid "Public"
+msgstr "عمومی"
+
+#: lib/publicgroupnav.php:82
+msgid "User groups"
+msgstr "گروه‌های کاربر"
+
+#: lib/publicgroupnav.php:84 lib/publicgroupnav.php:85
+msgid "Recent tags"
+msgstr "برچسب‌های اخیر"
+
+#: lib/publicgroupnav.php:88
+msgid "Featured"
+msgstr "خصوصیت"
+
+#: lib/publicgroupnav.php:92
+msgid "Popular"
+msgstr "محبوب"
+
+#: lib/repeatform.php:107
+#, fuzzy
+msgid "Repeat this notice?"
+msgstr "به این آگهی جواب دهید"
+
+#: lib/repeatform.php:132
+msgid "Repeat this notice"
+msgstr ""
+
+#: lib/sandboxform.php:67
+msgid "Sandbox"
+msgstr ""
+
+#: lib/sandboxform.php:78
+msgid "Sandbox this user"
+msgstr ""
+
+#: lib/searchaction.php:120
+msgid "Search site"
+msgstr "جست‌وجوی وب‌گاه"
+
+#: lib/searchaction.php:126
+msgid "Keyword(s)"
+msgstr "کلمه(های) کلیدی"
+
+#: lib/searchaction.php:162
+msgid "Search help"
+msgstr "راهنمای جستجو"
+
+#: lib/searchgroupnav.php:80
+msgid "People"
+msgstr "شخص"
+
+#: lib/searchgroupnav.php:81
+msgid "Find people on this site"
+msgstr "پیدا کردن شخص در این سایت"
+
+#: lib/searchgroupnav.php:83
+msgid "Find content of notices"
+msgstr ""
+
+#: lib/searchgroupnav.php:85
+msgid "Find groups on this site"
+msgstr "پیداا کردن گروه ها در این سایت"
+
+#: lib/section.php:89
+msgid "Untitled section"
+msgstr ""
+
+#: lib/section.php:106
+msgid "More..."
+msgstr "بیش‌تر..."
+
+#: lib/silenceform.php:67
+msgid "Silence"
+msgstr "آرامش"
+
+#: lib/silenceform.php:78
+msgid "Silence this user"
+msgstr "آرامش این کاربر"
+
+#: lib/subgroupnav.php:83
+#, php-format
+msgid "People %s subscribes to"
+msgstr ""
+
+#: lib/subgroupnav.php:91
+#, php-format
+msgid "People subscribed to %s"
+msgstr ""
+
+#: lib/subgroupnav.php:99
+#, php-format
+msgid "Groups %s is a member of"
+msgstr "هست عضو %s گروه"
+
+#: lib/subs.php:52
+msgid "Already subscribed!"
+msgstr "قبلا تایید شده !"
+
+#: lib/subs.php:56
+msgid "User has blocked you."
+msgstr ""
+
+#: lib/subs.php:63
+msgid "Could not subscribe."
+msgstr ""
+
+#: lib/subs.php:82
+msgid "Could not subscribe other to you."
+msgstr ""
+
+#: lib/subs.php:137
+msgid "Not subscribed!"
+msgstr "تایید نشده!"
+
+#: lib/subs.php:142
+msgid "Couldn't delete self-subscription."
+msgstr ""
+
+#: lib/subs.php:158
+msgid "Couldn't delete subscription."
+msgstr ""
+
+#: lib/subscriberspeopleselftagcloudsection.php:48
+#: lib/subscriptionspeopleselftagcloudsection.php:48
+msgid "People Tagcloud as self-tagged"
+msgstr ""
+
+#: lib/subscriberspeopletagcloudsection.php:48
+#: lib/subscriptionspeopletagcloudsection.php:48
+msgid "People Tagcloud as tagged"
+msgstr ""
+
+#: lib/tagcloudsection.php:56
+msgid "None"
+msgstr "هیچ"
+
+#: lib/topposterssection.php:74
+msgid "Top posters"
+msgstr "اعلان های بالا"
+
+#: lib/unsandboxform.php:69
+msgid "Unsandbox"
+msgstr ""
+
+#: lib/unsandboxform.php:80
+msgid "Unsandbox this user"
+msgstr ""
+
+#: lib/unsilenceform.php:67
+msgid "Unsilence"
+msgstr ""
+
+#: lib/unsilenceform.php:78
+msgid "Unsilence this user"
+msgstr ""
+
+#: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
+msgid "Unsubscribe from this user"
+msgstr ""
+
+#: lib/unsubscribeform.php:137
+msgid "Unsubscribe"
+msgstr ""
+
+#: lib/userprofile.php:116
+msgid "Edit Avatar"
+msgstr "ویرایش اواتور"
+
+#: lib/userprofile.php:236
+msgid "User actions"
+msgstr ""
+
+#: lib/userprofile.php:248
+msgid "Edit profile settings"
+msgstr "ویرایش تنظیمات پروفيل"
+
+#: lib/userprofile.php:249
+msgid "Edit"
+msgstr "ویرایش"
+
+#: lib/userprofile.php:272
+msgid "Send a direct message to this user"
+msgstr "پیام مستقیم به این کاربر بفرستید"
+
+#: lib/userprofile.php:273
+msgid "Message"
+msgstr "پیام"
+
+#: lib/userprofile.php:311
+msgid "Moderate"
+msgstr ""
+
+#: lib/util.php:877
+msgid "a few seconds ago"
+msgstr "چند ثانیه پیش"
+
+#: lib/util.php:879
+msgid "about a minute ago"
+msgstr "حدود یک دقیقه پیش"
+
+#: lib/util.php:881
+#, php-format
+msgid "about %d minutes ago"
+msgstr "حدود %d دقیقه پیش"
+
+#: lib/util.php:883
+msgid "about an hour ago"
+msgstr "حدود یک ساعت پیش"
+
+#: lib/util.php:885
+#, php-format
+msgid "about %d hours ago"
+msgstr "حدود %d ساعت پیش"
+
+#: lib/util.php:887
+msgid "about a day ago"
+msgstr "حدود یک روز پیش"
+
+#: lib/util.php:889
+#, php-format
+msgid "about %d days ago"
+msgstr "حدود %d روز پیش"
+
+#: lib/util.php:891
+msgid "about a month ago"
+msgstr "حدود یک ماه پیش"
+
+#: lib/util.php:893
+#, php-format
+msgid "about %d months ago"
+msgstr "حدود %d ماه پیش"
+
+#: lib/util.php:895
+msgid "about a year ago"
+msgstr "حدود یک سال پیش"
+
+#: lib/webcolor.php:82
+#, php-format
+msgid "%s is not a valid color!"
+msgstr "%s یک رنگ صحیح نیست!"
+
+#: lib/webcolor.php:123
+#, php-format
+msgid "%s is not a valid color! Use 3 or 6 hex chars."
+msgstr "%s یک رنگ صحیح نیست! از ۳ یا ۶ حرف مبنای شانزده استفاده کنید"
+
+#: scripts/xmppdaemon.php:301
+#, fuzzy, php-format
+msgid "Message too long - maximum is %1$d characters, you sent %2$d."
+msgstr ""
+"پیغام بسیار طولانی است - بیشترین اندازه امکان پذیر %d کاراکتر است , شما %d "
+"تا فرستادید"

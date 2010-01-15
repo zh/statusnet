@@ -95,14 +95,16 @@ class PubSubHubBubPlugin extends Plugin
         }
 
         //feed of each user that subscribes to the notice's author
-        $notice_inbox = new Notice_inbox();
-        $notice_inbox->notice_id = $notice->id;
-        if ($notice_inbox->find()) {
-            while ($notice_inbox->fetch()) {
-                $user = User::staticGet('id',$notice_inbox->user_id);
-                $feeds[]=common_local_url('ApiTimelineUser',array('id' => $user->nickname, 'format'=>'rss'));
-                $feeds[]=common_local_url('ApiTimelineUser',array('id' => $user->nickname, 'format'=>'atom'));
+
+        $ni = $notice->whoGets();
+
+        foreach (array_keys($ni) as $user_id) {
+            $user = User::staticGet('id', $user_id);
+            if (empty($user)) {
+                continue;
             }
+            $feeds[]=common_local_url('ApiTimelineUser',array('id' => $user->nickname, 'format'=>'rss'));
+            $feeds[]=common_local_url('ApiTimelineUser',array('id' => $user->nickname, 'format'=>'atom'));
         }
 
         //feed of user replied to
@@ -117,5 +119,17 @@ class PubSubHubBubPlugin extends Plugin
                 common_log_line(LOG_WARNING,$feed.' was not published to hub at '.$this->hub.':'.$publisher->last_response());
             }
         }
+    }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'PubSubHubBub',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Craig Andrews',
+                            'homepage' => 'http://status.net/wiki/Plugin:PubSubHubBub',
+                            'rawdescription' =>
+                            _m('The PubSubHubBub plugin pushes RSS/Atom updates to a <a href="http://pubsubhubbub.googlecode.com/">PubSubHubBub</a> hub.'));
+
+        return true;
     }
 }

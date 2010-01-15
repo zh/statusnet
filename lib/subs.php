@@ -56,35 +56,44 @@ function subs_subscribe_to($user, $other)
         return _('User has blocked you.');
     }
 
-    if (!$user->subscribeTo($other)) {
-        return _('Could not subscribe.');
-        return;
-    }
+    try {
+        if (Event::handle('StartSubscribe', array($user, $other))) {
 
-    subs_notify($other, $user);
+            if (!$user->subscribeTo($other)) {
+                return _('Could not subscribe.');
+                return;
+            }
 
-    $cache = common_memcache();
+            subs_notify($other, $user);
 
-    if ($cache) {
-        $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
-	}
+            $cache = common_memcache();
 
-    $profile = $user->getProfile();
+            if ($cache) {
+                $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
+            }
 
-    $profile->blowSubscriptionsCount();
-    $other->blowSubscribersCount();
+            $profile = $user->getProfile();
 
-    if ($other->autosubscribe && !$other->isSubscribed($user) && !$user->hasBlocked($other)) {
-        if (!$other->subscribeTo($user)) {
-            return _('Could not subscribe other to you.');
+            $profile->blowSubscriptionsCount();
+            $other->blowSubscribersCount();
+
+            if ($other->autosubscribe && !$other->isSubscribed($user) && !$user->hasBlocked($other)) {
+                if (!$other->subscribeTo($user)) {
+                    return _('Could not subscribe other to you.');
+                }
+                $cache = common_memcache();
+
+                if ($cache) {
+                    $cache->delete(common_cache_key('user:notices_with_friends:' . $other->id));
+                }
+
+                subs_notify($user, $other);
+            }
+
+            Event::handle('EndSubscribe', array($user, $other));
         }
-        $cache = common_memcache();
-
-        if ($cache) {
-            $cache->delete(common_cache_key('user:notices_with_friends:' . $other->id));
-		}
-
-        subs_notify($user, $other);
+    } catch (Exception $e) {
+        return $e->getMessage();
     }
 
     return true;
@@ -133,28 +142,37 @@ function subs_unsubscribe_to($user, $other)
         return _('Couldn\'t delete self-subscription.');
     }
 
-    $sub = DB_DataObject::factory('subscription');
+    try {
+        if (Event::handle('StartUnsubscribe', array($user, $other))) {
 
-    $sub->subscriber = $user->id;
-    $sub->subscribed = $other->id;
+            $sub = DB_DataObject::factory('subscription');
 
-    $sub->find(true);
+            $sub->subscriber = $user->id;
+            $sub->subscribed = $other->id;
 
-    // note we checked for existence above
+            $sub->find(true);
 
-    if (!$sub->delete())
-        return _('Couldn\'t delete subscription.');
+            // note we checked for existence above
 
-    $cache = common_memcache();
+            if (!$sub->delete())
+              return _('Couldn\'t delete subscription.');
 
-    if ($cache) {
-        $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
-	}
+            $cache = common_memcache();
 
-    $profile = $user->getProfile();
+            if ($cache) {
+                $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
+            }
 
-    $profile->blowSubscriptionsCount();
-    $other->blowSubscribersCount();
+            $profile = $user->getProfile();
+
+            $profile->blowSubscriptionsCount();
+            $other->blowSubscribersCount();
+
+            Event::handle('EndUnsubscribe', array($user, $other));
+        }
+    } catch (Exception $e) {
+        return $e->getMessage();
+    }
 
     return true;
 }
