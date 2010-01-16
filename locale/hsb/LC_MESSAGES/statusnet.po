@@ -10,11 +10,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-15 19:15+0000\n"
-"PO-Revision-Date: 2010-01-15 19:17:07+0000\n"
+"PO-Revision-Date: 2010-01-16 17:52:17+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61101); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r61138); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: hsb\n"
 "X-Message-Group: out-statusnet\n"
@@ -53,9 +53,9 @@ msgid "No such user."
 msgstr "Wužiwar njeeksistuje"
 
 #: actions/all.php:84
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s and friends, page %2$d"
-msgstr "%1$s zablokowa profile, stronu %2$d"
+msgstr "%1$s a přećeljo, strona %2$d"
 
 #: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
 #: actions/apitimelinefriends.php:114 actions/apitimelinehome.php:115
@@ -436,18 +436,16 @@ msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 
 #: actions/apioauthauthorize.php:146
-#, fuzzy
 msgid "Invalid nickname / password!"
-msgstr "Njepłaćiwe wužiwarske mjeno abo hesło."
+msgstr "Njepłaćiwe přimjeno abo hesło!"
 
 #: actions/apioauthauthorize.php:170
 msgid "DB error deleting OAuth app user."
 msgstr ""
 
 #: actions/apioauthauthorize.php:196
-#, fuzzy
 msgid "DB error inserting OAuth app user."
-msgstr "Zmylk při zasunjenju awatara"
+msgstr "Zmylk datoweje banki při zasunjenju wužiwarja OAuth-aplikacije."
 
 #: actions/apioauthauthorize.php:231
 #, php-format
@@ -495,14 +493,12 @@ msgid "Password"
 msgstr "Hesło"
 
 #: actions/apioauthauthorize.php:338
-#, fuzzy
 msgid "Deny"
-msgstr "Design"
+msgstr "Wotpokazać"
 
 #: actions/apioauthauthorize.php:344
-#, fuzzy
 msgid "Allow"
-msgstr "Wšě"
+msgstr "Dowolić"
 
 #: actions/apioauthauthorize.php:361
 msgid "Allow or deny access to your account information."
@@ -825,7 +821,6 @@ msgid "Couldn't delete email confirmation."
 msgstr ""
 
 #: actions/confirmaddress.php:144
-#, fuzzy
 msgid "Confirm address"
 msgstr "Adresu wobkrućić"
 
@@ -1036,20 +1031,17 @@ msgid "Edit application"
 msgstr ""
 
 #: actions/editapplication.php:66
-#, fuzzy
 msgid "You must be logged in to edit an application."
 msgstr "Dyrbiš přizjewjeny być, zo by skupinu wobdźěłał."
 
 #: actions/editapplication.php:77 actions/showapplication.php:94
-#, fuzzy
 msgid "You are not the owner of this application."
-msgstr "Njejsy čłon tuteje skupiny."
+msgstr "Njejsy wobsedźer tuteje aplikacije."
 
 #: actions/editapplication.php:81 actions/oauthconnectionssettings.php:163
 #: actions/showapplication.php:87
-#, fuzzy
 msgid "No such application."
-msgstr "Zdźělenka njeeksistuje."
+msgstr "Aplikacija njeeksistuje."
 
 #: actions/editapplication.php:127 actions/newapplication.php:110
 #: actions/showapplication.php:118 lib/action.php:1167
@@ -1057,42 +1049,36 @@ msgid "There was a problem with your session token."
 msgstr ""
 
 #: actions/editapplication.php:161
-#, fuzzy
 msgid "Use this form to edit your application."
-msgstr "Wuž tutón formular, zo by skupinu wobdźěłał."
+msgstr "Wužij tutón formular, zo by aplikaciju wobdźěłał."
 
 #: actions/editapplication.php:177 actions/newapplication.php:159
-#, fuzzy
 msgid "Name is required."
-msgstr "Jenake kaž hesło horjeka. Trěbne."
+msgstr "Mjeno je trěbne."
 
 #: actions/editapplication.php:180 actions/newapplication.php:162
-#, fuzzy
 msgid "Name is too long (max 255 chars)."
-msgstr "Dospołne mjeno je předołho (maks. 255 znamješkow)."
+msgstr "Mjeno je předołho (maks. 255 znamješkow)."
 
 #: actions/editapplication.php:183 actions/newapplication.php:165
-#, fuzzy
 msgid "Description is required."
-msgstr "Wopisanje"
+msgstr "Wopisanje je trěbne."
 
 #: actions/editapplication.php:191
 msgid "Source URL is too long."
 msgstr ""
 
 #: actions/editapplication.php:197 actions/newapplication.php:182
-#, fuzzy
 msgid "Source URL is not valid."
-msgstr "Startowa strona njeje płaćiwy URL."
+msgstr "URL žórła płaćiwy njeje."
 
 #: actions/editapplication.php:200 actions/newapplication.php:185
 msgid "Organization is required."
 msgstr ""
 
 #: actions/editapplication.php:203 actions/newapplication.php:188
-#, fuzzy
 msgid "Organization is too long (max 255 chars)."
-msgstr "Městno je předołho (maks. 255 znamješkow)."
+msgstr "Mjeno organizacije je předołho (maks. 255 znamješkow)."
 
 #: actions/editapplication.php:206 actions/newapplication.php:191
 msgid "Organization homepage is required."
@@ -1107,9 +1093,8 @@ msgid "Callback URL is not valid."
 msgstr ""
 
 #: actions/editapplication.php:255
-#, fuzzy
 msgid "Could not update application."
-msgstr "Skupina njeje so dała aktualizować."
+msgstr "Aplikacija njeda so aktualizować."
 
 #: actions/editgroup.php:56
 #, php-format
@@ -1953,23 +1938,20 @@ msgid "New application"
 msgstr ""
 
 #: actions/newapplication.php:64
-#, fuzzy
 msgid "You must be logged in to register an application."
-msgstr "Dyrbiš přizjewjeny być, zo by skupinu wutworił."
+msgstr "Dyrbiš přizjewjeny być, zo by aplikaciju registrował."
 
 #: actions/newapplication.php:143
-#, fuzzy
 msgid "Use this form to register a new application."
-msgstr "Wužij tutón formular, zo by nowu skupinu wutworił."
+msgstr "Wužij tutón formular, zo by nowu aplikaciju registrował."
 
 #: actions/newapplication.php:173
 msgid "Source URL is required."
 msgstr ""
 
 #: actions/newapplication.php:255 actions/newapplication.php:264
-#, fuzzy
 msgid "Could not create application."
-msgstr "Aliasy njejsu so dali wutworić."
+msgstr "Aplikacija njeda so wutworić."
 
 #: actions/newgroup.php:53
 msgid "New group"
@@ -2076,14 +2058,12 @@ msgid "Nudge sent!"
 msgstr ""
 
 #: actions/oauthappssettings.php:59
-#, fuzzy
 msgid "You must be logged in to list your applications."
-msgstr "Dyrbiš přizjewjeny być, zo by skupinu wobdźěłał."
+msgstr "Dyrbiš přizjewjeny być, zo by swoje aplikacije nalistował."
 
 #: actions/oauthappssettings.php:74
-#, fuzzy
 msgid "OAuth applications"
-msgstr "Druhe opcije"
+msgstr "Aplikacije OAuth"
 
 #: actions/oauthappssettings.php:85
 msgid "Applications you have registered"
@@ -2103,9 +2083,8 @@ msgid "You have allowed the following applications to access you account."
 msgstr ""
 
 #: actions/oauthconnectionssettings.php:170
-#, fuzzy
 msgid "You are not a user of that application."
-msgstr "Njejsy čłon teje skupiny."
+msgstr "Njejsy wužiwar tuteje aplikacije."
 
 #: actions/oauthconnectionssettings.php:180
 msgid "Unable to revoke access for app: "
@@ -2151,7 +2130,6 @@ msgid "Notice Search"
 msgstr "Zdźělenku pytać"
 
 #: actions/othersettings.php:60
-#, fuzzy
 msgid "Other settings"
 msgstr "Druhe nastajenja"
 
@@ -2184,28 +2162,24 @@ msgid "URL shortening service is too long (max 50 chars)."
 msgstr ""
 
 #: actions/otp.php:69
-#, fuzzy
 msgid "No user ID specified."
-msgstr "Žana skupina podata."
+msgstr "Žadyn wužiwarski ID podaty."
 
 #: actions/otp.php:83
-#, fuzzy
 msgid "No login token specified."
-msgstr "Žana zdźělenka podata."
+msgstr "Žane přizjewjenske znamješko podate."
 
 #: actions/otp.php:90
 msgid "No login token requested."
 msgstr ""
 
 #: actions/otp.php:95
-#, fuzzy
 msgid "Invalid login token specified."
-msgstr "Žana zdźělenka podata."
+msgstr "Njepłaćiwe přizjewjenske znamješko podate."
 
 #: actions/otp.php:104
-#, fuzzy
 msgid "Login token expired."
-msgstr "Při sydle přizjewić"
+msgstr "Přizjewjenske znamješko spadnjene."
 
 #: actions/outbox.php:61
 #, php-format
@@ -3024,14 +2998,12 @@ msgid "User is already sandboxed."
 msgstr ""
 
 #: actions/showapplication.php:82
-#, fuzzy
 msgid "You must be logged in to view an application."
-msgstr "Dyrbiš přizjewjeny być, zo by skupinu wopušćił."
+msgstr "Dyrbiš přizjewjeny być, zo by sej aplikaciju wobhladał."
 
 #: actions/showapplication.php:158
-#, fuzzy
 msgid "Application profile"
-msgstr "Zdźělenka nima profil"
+msgstr "Aplikaciski profil"
 
 #: actions/showapplication.php:160 lib/applicationeditform.php:182
 msgid "Icon"
@@ -3043,9 +3015,8 @@ msgid "Name"
 msgstr "Mjeno"
 
 #: actions/showapplication.php:179 lib/applicationeditform.php:224
-#, fuzzy
 msgid "Organization"
-msgstr "Přeprošenja"
+msgstr "Organizacija"
 
 #: actions/showapplication.php:188 actions/version.php:198
 #: lib/applicationeditform.php:211 lib/groupeditform.php:172
@@ -3091,9 +3062,8 @@ msgid "Access token URL"
 msgstr ""
 
 #: actions/showapplication.php:263
-#, fuzzy
 msgid "Authorize URL"
-msgstr "Awtor"
+msgstr "URL awtorizować"
 
 #: actions/showapplication.php:268
 msgid ""
@@ -4083,19 +4053,16 @@ msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
 
 #: classes/Group_member.php:41
-#, fuzzy
 msgid "Group join failed."
-msgstr "Skupinski profil"
+msgstr "Přizamknjenje k skupinje je so njeporadźiło."
 
 #: classes/Group_member.php:53
-#, fuzzy
 msgid "Not part of group."
-msgstr "Skupina njeje so dała aktualizować."
+msgstr "Njeje dźěl skupiny."
 
 #: classes/Group_member.php:60
-#, fuzzy
 msgid "Group leave failed."
-msgstr "Skupinski profil"
+msgstr "Wopušćenje skupiny je so njeporadźiło."
 
 #: classes/Login_token.php:76
 #, php-format
@@ -4198,9 +4165,9 @@ msgid "Other options"
 msgstr "Druhe opcije"
 
 #: lib/action.php:144
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s - %2$s"
-msgstr "%1$s (%2$s)"
+msgstr "%1$s - %2$s"
 
 #: lib/action.php:159
 msgid "Untitled page"
@@ -4404,19 +4371,17 @@ msgid "Icon for this application"
 msgstr ""
 
 #: lib/applicationeditform.php:206
-#, fuzzy, php-format
+#, php-format
 msgid "Describe your application in %d characters"
-msgstr "Skupinu abo temu w %d znamješkach wopisać"
+msgstr "Wopisaj swoju aplikaciju z %d znamješkami"
 
 #: lib/applicationeditform.php:209
-#, fuzzy
 msgid "Describe your application"
-msgstr "Skupinu abo temu wopisać"
+msgstr "Wopisaj swoju aplikaciju"
 
 #: lib/applicationeditform.php:218
-#, fuzzy
 msgid "Source URL"
-msgstr "Žórło"
+msgstr "URL žórła"
 
 #: lib/applicationeditform.php:220
 msgid "URL of the homepage of this application"
@@ -4459,9 +4424,8 @@ msgid "Default access for this application: read-only, or read-write"
 msgstr ""
 
 #: lib/applicationlist.php:154
-#, fuzzy
 msgid "Revoke"
-msgstr "Wotstronić"
+msgstr "Wotwołać"
 
 #: lib/attachmentlist.php:87
 msgid "Attachments"
@@ -4530,44 +4494,41 @@ msgid ""
 msgstr ""
 
 #: lib/command.php:152 lib/command.php:390 lib/command.php:451
-#, fuzzy
 msgid "Notice with that id does not exist"
-msgstr "Zdźělenka z tym ID njeeksistuje."
+msgstr "Zdźělenka z tym ID njeeksistuje"
 
 #: lib/command.php:168 lib/command.php:406 lib/command.php:467
 #: lib/command.php:523
-#, fuzzy
 msgid "User has no last notice"
-msgstr "Wužiwar nima poslednju powěsć."
+msgstr "Wužiwar nima poslednju powěsć"
 
 #: lib/command.php:190
 msgid "Notice marked as fave."
 msgstr ""
 
 #: lib/command.php:217
-#, fuzzy
 msgid "You are already a member of that group"
-msgstr "Sy hižo čłon teje skupiny."
+msgstr "Sy hižo čłon teje skupiny"
 
 #: lib/command.php:231
-#, fuzzy, php-format
+#, php-format
 msgid "Could not join user %s to group %s"
-msgstr "Njebě móžno wužiwarja %1$s skupinje %2%s přidać."
+msgstr "Njebě móžno wužiwarja %s skupinje %s přidać"
 
 #: lib/command.php:236
-#, fuzzy, php-format
+#, php-format
 msgid "%s joined group %s"
-msgstr "Wužiwarske skupiny"
+msgstr "%s je so k skupinje %s přizamknył"
 
 #: lib/command.php:275
-#, fuzzy, php-format
+#, php-format
 msgid "Could not remove user %s to group %s"
-msgstr "Njebě móžno wužiwarja %1$s do skupiny $2$s přesunyć."
+msgstr "Njebě móžno wužiwarja %s do skupiny %s přesunyć"
 
 #: lib/command.php:280
-#, fuzzy, php-format
+#, php-format
 msgid "%s left group %s"
-msgstr "Wužiwarske skupiny"
+msgstr "%s je skupinu %s wopušćił"
 
 #: lib/command.php:309
 #, php-format
@@ -4595,18 +4556,17 @@ msgid "Message too long - maximum is %d characters, you sent %d"
 msgstr ""
 
 #: lib/command.php:367
-#, fuzzy, php-format
+#, php-format
 msgid "Direct message to %s sent"
-msgstr "Direktna powěsć do %s pósłana."
+msgstr "Direktna powěsć do %s pósłana"
 
 #: lib/command.php:369
 msgid "Error sending direct message."
 msgstr ""
 
 #: lib/command.php:413
-#, fuzzy
 msgid "Cannot repeat your own notice"
-msgstr "Njemóžno twoju zdźělenku wospjetować."
+msgstr "Njemóžeš swójsku powěsć wospjetować"
 
 #: lib/command.php:418
 msgid "Already repeated that notice"
@@ -4627,9 +4587,9 @@ msgid "Notice too long - maximum is %d characters, you sent %d"
 msgstr ""
 
 #: lib/command.php:491
-#, fuzzy, php-format
+#, php-format
 msgid "Reply to %s sent"
-msgstr "Wotmołwa na %s pósłana."
+msgstr "Wotmołwa na %s pósłana"
 
 #: lib/command.php:493
 msgid "Error saving notice."
@@ -4788,9 +4748,8 @@ msgid "Updates by SMS"
 msgstr ""
 
 #: lib/connectsettingsaction.php:120
-#, fuzzy
 msgid "Connections"
-msgstr "Zwjazać"
+msgstr "Zwiski"
 
 #: lib/connectsettingsaction.php:121
 msgid "Authorized connected applications"
@@ -4984,9 +4943,9 @@ msgid "[%s]"
 msgstr "[%s]"
 
 #: lib/jabber.php:385
-#, fuzzy, php-format
+#, php-format
 msgid "Unknown inbox source %d."
-msgstr "Njeznata rěč \"%s\"."
+msgstr "Njeznate žórło postoweho kašćika %d."
 
 #: lib/joinform.php:114
 msgid "Join"
@@ -5285,14 +5244,12 @@ msgid "Attach a file"
 msgstr "Dataju připowěsnyć"
 
 #: lib/noticeform.php:212
-#, fuzzy
 msgid "Share my location"
-msgstr "Městno dźělić."
+msgstr "Městno dźělić"
 
 #: lib/noticeform.php:215
-#, fuzzy
 msgid "Do not share my location"
-msgstr "Městno njedźělić."
+msgstr "Njedźěl moje městno"
 
 #: lib/noticeform.php:216
 msgid ""

@@ -1,5 +1,6 @@
 # Translation of StatusNet to Egyptian Spoken Arabic
 #
+# Author@translatewiki.net: Ghaly
 # Author@translatewiki.net: Meno25
 # --
 # This file is distributed under the same license as the StatusNet package.
@@ -9,11 +10,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-15 19:15+0000\n"
-"PO-Revision-Date: 2010-01-15 19:15:56+0000\n"
+"PO-Revision-Date: 2010-01-16 17:51:30+0000\n"
 "Language-Team: Egyptian Spoken Arabic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61101); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r61138); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: arz\n"
 "X-Message-Group: out-statusnet\n"
@@ -52,9 +53,9 @@ msgid "No such user."
 msgstr "لا مستخدم كهذا."
 
 #: actions/all.php:84
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s and friends, page %2$d"
-msgstr "%1$s ملفات ممنوعة, الصفحه %2$d"
+msgstr "%1$s والأصدقاء, الصفحه %2$d"
 
 #: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
 #: actions/apitimelinefriends.php:114 actions/apitimelinehome.php:115
@@ -435,19 +436,16 @@ msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 
 #: actions/apioauthauthorize.php:146
-#, fuzzy
 msgid "Invalid nickname / password!"
-msgstr "اسم مستخدم أو كلمه سر غير صالحه."
+msgstr "اسم/كلمه سر غير صحيحة!"
 
 #: actions/apioauthauthorize.php:170
-#, fuzzy
 msgid "DB error deleting OAuth app user."
-msgstr "خطأ أثناء ضبط المستخدم."
+msgstr "خطأ قاعده البيانات أثناء حذف المستخدم OAuth app"
 
 #: actions/apioauthauthorize.php:196
-#, fuzzy
 msgid "DB error inserting OAuth app user."
-msgstr "خطأ فى إدراج الأفتار"
+msgstr "خطأ قاعده البيانات أثناء إدخال المستخدم OAuth app"
 
 #: actions/apioauthauthorize.php:231
 #, php-format
@@ -495,14 +493,12 @@ msgid "Password"
 msgstr "كلمه السر"
 
 #: actions/apioauthauthorize.php:338
-#, fuzzy
 msgid "Deny"
-msgstr "التصميم"
+msgstr "ارفض"
 
 #: actions/apioauthauthorize.php:344
-#, fuzzy
 msgid "Allow"
-msgstr "الكل"
+msgstr "اسمح"
 
 #: actions/apioauthauthorize.php:361
 msgid "Allow or deny access to your account information."
@@ -824,9 +820,8 @@ msgid "Couldn't delete email confirmation."
 msgstr "تعذّر حذف تأكيد البريد الإلكترونى."
 
 #: actions/confirmaddress.php:144
-#, fuzzy
 msgid "Confirm address"
-msgstr "عنوان التأكيد"
+msgstr "أكد العنوان"
 
 #: actions/confirmaddress.php:159
 #, php-format
@@ -1034,20 +1029,17 @@ msgid "Edit application"
 msgstr ""
 
 #: actions/editapplication.php:66
-#, fuzzy
 msgid "You must be logged in to edit an application."
-msgstr "يجب أن تلج لتُعدّل المجموعات."
+msgstr "يجب أن تكون مسجل الدخول لتعدل تطبيقا."
 
 #: actions/editapplication.php:77 actions/showapplication.php:94
-#, fuzzy
 msgid "You are not the owner of this application."
-msgstr "لست عضوا فى تلك المجموعه."
+msgstr "أنت لست مالك هذا التطبيق."
 
 #: actions/editapplication.php:81 actions/oauthconnectionssettings.php:163
 #: actions/showapplication.php:87
-#, fuzzy
 msgid "No such application."
-msgstr "لا إشعار كهذا."
+msgstr "لا تطبيق كهذا."
 
 #: actions/editapplication.php:127 actions/newapplication.php:110
 #: actions/showapplication.php:118 lib/action.php:1167
@@ -1055,42 +1047,36 @@ msgid "There was a problem with your session token."
 msgstr ""
 
 #: actions/editapplication.php:161
-#, fuzzy
 msgid "Use this form to edit your application."
-msgstr "استخدم هذا النموذج لتعديل المجموعه."
+msgstr "استخدم النموذج ده علشان تعدل تطبيقك."
 
 #: actions/editapplication.php:177 actions/newapplication.php:159
-#, fuzzy
 msgid "Name is required."
-msgstr "نفس كلمه السر أعلاه. مطلوب."
+msgstr "الاسم مطلوب."
 
 #: actions/editapplication.php:180 actions/newapplication.php:162
-#, fuzzy
 msgid "Name is too long (max 255 chars)."
-msgstr "الاسم الكامل طويل جدا (الأقصى 255 حرفًا)"
+msgstr "الاسم طويل جدا (الأقصى 255 حرفا)."
 
 #: actions/editapplication.php:183 actions/newapplication.php:165
-#, fuzzy
 msgid "Description is required."
-msgstr "الوصف"
+msgstr "الوصف مطلوب."
 
 #: actions/editapplication.php:191
 msgid "Source URL is too long."
 msgstr ""
 
 #: actions/editapplication.php:197 actions/newapplication.php:182
-#, fuzzy
 msgid "Source URL is not valid."
-msgstr "الصفحه الرئيسيه ليست عنونًا صالحًا."
+msgstr "مسار المصدر ليس صحيحا."
 
 #: actions/editapplication.php:200 actions/newapplication.php:185
 msgid "Organization is required."
 msgstr ""
 
 #: actions/editapplication.php:203 actions/newapplication.php:188
-#, fuzzy
 msgid "Organization is too long (max 255 chars)."
-msgstr "الاسم الكامل طويل جدا (الأقصى 255 حرفًا)"
+msgstr "المنظمه طويله جدا (الأقصى 255 حرفا)."
 
 #: actions/editapplication.php:206 actions/newapplication.php:191
 msgid "Organization homepage is required."
@@ -1105,9 +1091,8 @@ msgid "Callback URL is not valid."
 msgstr ""
 
 #: actions/editapplication.php:255
-#, fuzzy
 msgid "Could not update application."
-msgstr "تعذر تحديث المجموعه."
+msgstr "لم يمكن تحديث التطبيق."
 
 #: actions/editgroup.php:56
 #, php-format
@@ -1947,23 +1932,20 @@ msgid "New application"
 msgstr ""
 
 #: actions/newapplication.php:64
-#, fuzzy
 msgid "You must be logged in to register an application."
-msgstr "يجب أن تكون والجًا لتنشئ مجموعه."
+msgstr "يجب أن تكون مسجل الدخول لتسجل تطبيقا."
 
 #: actions/newapplication.php:143
-#, fuzzy
 msgid "Use this form to register a new application."
-msgstr "استخدم هذا النموذج لإنشاء مجموعه جديده."
+msgstr "استخدم هذا النموذج لتسجل تطبيقا جديدا."
 
 #: actions/newapplication.php:173
 msgid "Source URL is required."
 msgstr ""
 
 #: actions/newapplication.php:255 actions/newapplication.php:264
-#, fuzzy
 msgid "Could not create application."
-msgstr "تعذّر إنشاء الكنى."
+msgstr "مش ممكن إنشاء التطبيق."
 
 #: actions/newgroup.php:53
 msgid "New group"
@@ -2070,14 +2052,12 @@ msgid "Nudge sent!"
 msgstr "أُرسل التنبيه!"
 
 #: actions/oauthappssettings.php:59
-#, fuzzy
 msgid "You must be logged in to list your applications."
-msgstr "يجب أن تلج لتُعدّل المجموعات."
+msgstr "يجب أن تكون مسجل الدخول لعرض تطبيقاتك."
 
 #: actions/oauthappssettings.php:74
-#, fuzzy
 msgid "OAuth applications"
-msgstr "خيارات أخرى"
+msgstr "تطبيقات OAuth"
 
 #: actions/oauthappssettings.php:85
 msgid "Applications you have registered"
@@ -2097,9 +2077,8 @@ msgid "You have allowed the following applications to access you account."
 msgstr ""
 
 #: actions/oauthconnectionssettings.php:170
-#, fuzzy
 msgid "You are not a user of that application."
-msgstr "لست عضوا فى تلك المجموعه."
+msgstr "أنت لست مستخدما لهذا التطبيق."
 
 #: actions/oauthconnectionssettings.php:180
 msgid "Unable to revoke access for app: "
@@ -2134,20 +2113,19 @@ msgstr ""
 #: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1038
 #: lib/api.php:1066 lib/api.php:1176
 msgid "Not a supported data format."
-msgstr "ليس نسق بيانات مدعوم."
+msgstr " مش نظام بيانات مدعوم."
 
 #: actions/opensearch.php:64
 msgid "People Search"
-msgstr "بحث فى الأشخاص"
+msgstr "تدوير فى الأشخاص"
 
 #: actions/opensearch.php:67
 msgid "Notice Search"
 msgstr "بحث الإشعارات"
 
 #: actions/othersettings.php:60
-#, fuzzy
 msgid "Other settings"
-msgstr "إعدادات أخرى"
+msgstr "إعدادات تانيه"
 
 #: actions/othersettings.php:71
 msgid "Manage various other options."
@@ -3019,9 +2997,8 @@ msgid "User is already sandboxed."
 msgstr ""
 
 #: actions/showapplication.php:82
-#, fuzzy
 msgid "You must be logged in to view an application."
-msgstr "يجب أن تلج لتُعدّل المجموعات."
+msgstr "يجب أن تكون مسجل الدخول لرؤيه تطبيق."
 
 #: actions/showapplication.php:158
 msgid "Application profile"
@@ -3037,9 +3014,8 @@ msgid "Name"
 msgstr "الاسم"
 
 #: actions/showapplication.php:179 lib/applicationeditform.php:224
-#, fuzzy
 msgid "Organization"
-msgstr "الدعوات"
+msgstr "المنظمة"
 
 #: actions/showapplication.php:188 actions/version.php:198
 #: lib/applicationeditform.php:211 lib/groupeditform.php:172
@@ -3085,9 +3061,8 @@ msgid "Access token URL"
 msgstr ""
 
 #: actions/showapplication.php:263
-#, fuzzy
 msgid "Authorize URL"
-msgstr "المؤلف"
+msgstr "اسمح بالمسار"
 
 #: actions/showapplication.php:268
 msgid ""
@@ -4411,12 +4386,11 @@ msgstr ""
 #: lib/applicationeditform.php:209
 #, fuzzy
 msgid "Describe your application"
-msgstr "الوصف"
+msgstr "صف تطبيقك"
 
 #: lib/applicationeditform.php:218
-#, fuzzy
 msgid "Source URL"
-msgstr "المصدر"
+msgstr "مسار المصدر"
 
 #: lib/applicationeditform.php:220
 msgid "URL of the homepage of this application"
@@ -4459,9 +4433,8 @@ msgid "Default access for this application: read-only, or read-write"
 msgstr ""
 
 #: lib/applicationlist.php:154
-#, fuzzy
 msgid "Revoke"
-msgstr "أزل"
+msgstr "اسحب"
 
 #: lib/attachmentlist.php:87
 msgid "Attachments"
@@ -4793,9 +4766,8 @@ msgid "Updates by SMS"
 msgstr ""
 
 #: lib/connectsettingsaction.php:120
-#, fuzzy
 msgid "Connections"
-msgstr "اتصل"
+msgstr "اتصالات"
 
 #: lib/connectsettingsaction.php:121
 msgid "Authorized connected applications"
@@ -5291,7 +5263,7 @@ msgstr "أرفق ملفًا"
 
 #: lib/noticeform.php:212
 msgid "Share my location"
-msgstr "شارك موقعي"
+msgstr "شارك موقعى"
 
 #: lib/noticeform.php:215
 msgid "Do not share my location"
