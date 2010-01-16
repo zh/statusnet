@@ -73,7 +73,7 @@ input.checkbox,
 input.radio {
 position:relative;
 top:2px;
-left:0;
+left:auto;
 border:0;
 }
 
@@ -567,7 +567,8 @@ float:right;
 font-size:0.8em;
 }
 
-.form_notice #notice_data-geo_wrap label {
+.form_notice #notice_data-geo_wrap label,
+.form_notice #notice_data-geo_wrap input {
 position:absolute;
 top:25px;
 right:4px;
@@ -578,7 +579,7 @@ height:16px;
 display:block;
 }
 .form_notice #notice_data-geo_wrap input {
-display:none;
+visibility:hidden;
 }
 .form_notice #notice_data-geo_wrap label {
 font-weight:normal;
