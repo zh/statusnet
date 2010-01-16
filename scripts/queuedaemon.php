@@ -21,7 +21,7 @@
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 
 $shortoptions = 'fi:at:';
-$longoptions = array('id=', 'foreground', 'all', 'threads=', 'skip-xmpp');
+$longoptions = array('id=', 'foreground', 'all', 'threads=', 'skip-xmpp', 'xmpp-only');
 
 /**
  * Attempts to get a count of the processors available on the current system
@@ -262,6 +262,9 @@ $all = have_option('a') || have_option('--all');
 
 if (have_option('--skip-xmpp')) {
     define('XMPP_EMERGENCY_FLAG', true);
+}
+if (have_option('--xmpp-only')) {
+    define('XMPP_ONLY_FLAG', true);
 }
 
 $daemon = new QueueDaemon($id, $daemonize, $threads, $all);
