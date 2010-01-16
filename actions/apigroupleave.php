@@ -131,7 +131,7 @@ class ApiGroupLeaveAction extends ApiAuthAction
 
         switch($this->format) {
         case 'xml':
-            $this->show_single_xml_group($this->group);
+            $this->showSingleXmlGroup($this->group);
             break;
         case 'json':
             $this->showSingleJsonGroup($this->group);
