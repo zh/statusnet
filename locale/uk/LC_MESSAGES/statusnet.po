@@ -11,11 +11,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-15 19:15+0000\n"
-"PO-Revision-Date: 2010-01-15 19:18:11+0000\n"
+"PO-Revision-Date: 2010-01-16 17:53:16+0000\n"
 "Language-Team: Ukrainian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61101); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r61138); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: out-statusnet\n"
@@ -54,9 +54,9 @@ msgid "No such user."
 msgstr "Такого користувача немає."
 
 #: actions/all.php:84
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s and friends, page %2$d"
-msgstr "Заблоковані профілі %1$s, сторінка %2$d"
+msgstr "%1$s та друзі, сторінка %2$d"
 
 #: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
 #: actions/apitimelinefriends.php:114 actions/apitimelinehome.php:115
@@ -428,7 +428,7 @@ msgstr "групи на %s"
 
 #: actions/apioauthauthorize.php:108 actions/apioauthauthorize.php:114
 msgid "Bad request."
-msgstr ""
+msgstr "Невірний запит."
 
 #: actions/apioauthauthorize.php:134 actions/avatarsettings.php:268
 #: actions/deletenotice.php:157 actions/disfavor.php:74
@@ -450,19 +450,16 @@ msgstr ""
 "Виникли певні проблеми з токеном поточної сесії. Спробуйте знов, будь ласка."
 
 #: actions/apioauthauthorize.php:146
-#, fuzzy
 msgid "Invalid nickname / password!"
-msgstr "Недійсне ім’я або пароль."
+msgstr "Недійсне ім’я / пароль!"
 
 #: actions/apioauthauthorize.php:170
-#, fuzzy
 msgid "DB error deleting OAuth app user."
-msgstr "Помилка в налаштуваннях користувача."
+msgstr "Помилка бази даних при видаленні OAuth користувача."
 
 #: actions/apioauthauthorize.php:196
-#, fuzzy
 msgid "DB error inserting OAuth app user."
-msgstr "Помилка бази даних при додаванні теґу: %s"
+msgstr "Помилка бази даних при додаванні OAuth користувача."
 
 #: actions/apioauthauthorize.php:231
 #, php-format
@@ -470,11 +467,13 @@ msgid ""
 "The request token %s has been authorized. Please exchange it for an access "
 "token."
 msgstr ""
+"Токен запиту %s було авторизовано. Будь ласка, обміняйте його на токен "
+"доступу."
 
 #: actions/apioauthauthorize.php:241
 #, php-format
 msgid "The request token %s has been denied."
-msgstr ""
+msgstr "Токен запиту %s було відхилено."
 
 #: actions/apioauthauthorize.php:246 actions/avatarsettings.php:281
 #: actions/designadminpanel.php:103 actions/editapplication.php:139
@@ -487,11 +486,11 @@ msgstr "Несподіване представлення форми."
 
 #: actions/apioauthauthorize.php:273
 msgid "An application would like to connect to your account"
-msgstr ""
+msgstr "Запит на дозвіл під’єднатися до Вашого облікового запису"
 
 #: actions/apioauthauthorize.php:290
 msgid "Allow or deny access"
-msgstr ""
+msgstr "Дозволити або заборонити доступ"
 
 #: actions/apioauthauthorize.php:320 lib/action.php:435
 msgid "Account"
@@ -510,18 +509,16 @@ msgid "Password"
 msgstr "Пароль"
 
 #: actions/apioauthauthorize.php:338
-#, fuzzy
 msgid "Deny"
-msgstr "Дизайн"
+msgstr "Відхилити"
 
 #: actions/apioauthauthorize.php:344
-#, fuzzy
 msgid "Allow"
-msgstr "Всі"
+msgstr "Дозволити"
 
 #: actions/apioauthauthorize.php:361
 msgid "Allow or deny access to your account information."
-msgstr ""
+msgstr "Дозволити або заборонити доступ до Вашого облікового запису."
 
 #: actions/apistatusesdestroy.php:107
 msgid "This method requires a POST or DELETE."
@@ -844,7 +841,6 @@ msgid "Couldn't delete email confirmation."
 msgstr "Не вдалося видалити підтвердження поштової адреси."
 
 #: actions/confirmaddress.php:144
-#, fuzzy
 msgid "Confirm address"
 msgstr "Підтвердити адресу"
 
@@ -1055,23 +1051,20 @@ msgstr "Такого документа немає."
 
 #: actions/editapplication.php:54 lib/applicationeditform.php:136
 msgid "Edit application"
-msgstr ""
+msgstr "Керувати додатками"
 
 #: actions/editapplication.php:66
-#, fuzzy
 msgid "You must be logged in to edit an application."
-msgstr "Ви маєте спочатку увійти, аби мати змогу редагувати групу."
+msgstr "Ви маєте спочатку увійти, аби мати змогу керувати додатком."
 
 #: actions/editapplication.php:77 actions/showapplication.php:94
-#, fuzzy
 msgid "You are not the owner of this application."
-msgstr "Ви не є учасником цієї групи."
+msgstr "Ви не є власником цього додатку."
 
 #: actions/editapplication.php:81 actions/oauthconnectionssettings.php:163
 #: actions/showapplication.php:87
-#, fuzzy
 msgid "No such application."
-msgstr "Такого допису немає."
+msgstr "Такого додатку немає."
 
 #: actions/editapplication.php:127 actions/newapplication.php:110
 #: actions/showapplication.php:118 lib/action.php:1167
@@ -1079,60 +1072,52 @@ msgid "There was a problem with your session token."
 msgstr "Виникли певні проблеми з токеном поточної сесії."
 
 #: actions/editapplication.php:161
-#, fuzzy
 msgid "Use this form to edit your application."
-msgstr "Скористайтесь цією формою, щоб відредагувати групу."
+msgstr "Скористайтесь цією формою, щоб відредагувати додаток."
 
 #: actions/editapplication.php:177 actions/newapplication.php:159
-#, fuzzy
 msgid "Name is required."
-msgstr "Такий само, як і пароль вище. Неодмінно."
+msgstr "Потрібне ім’я."
 
 #: actions/editapplication.php:180 actions/newapplication.php:162
-#, fuzzy
 msgid "Name is too long (max 255 chars)."
-msgstr "Повне ім’я задовге (255 знаків максимум)"
+msgstr "Ім’я задовге (255 знаків максимум)."
 
 #: actions/editapplication.php:183 actions/newapplication.php:165
-#, fuzzy
 msgid "Description is required."
-msgstr "Опис"
+msgstr "Потрібен опис."
 
 #: actions/editapplication.php:191
 msgid "Source URL is too long."
-msgstr ""
+msgstr "URL-адреса надто довга."
 
 #: actions/editapplication.php:197 actions/newapplication.php:182
-#, fuzzy
 msgid "Source URL is not valid."
-msgstr "URL-адреса автари ‘%s’ помилкова."
+msgstr "URL-адреса не є дійсною."
 
 #: actions/editapplication.php:200 actions/newapplication.php:185
 msgid "Organization is required."
-msgstr ""
+msgstr "Потрібна організація."
 
 #: actions/editapplication.php:203 actions/newapplication.php:188
-#, fuzzy
 msgid "Organization is too long (max 255 chars)."
-msgstr "Локація надто довга (255 знаків максимум)."
+msgstr "Назва організації надто довга (255 знаків максимум)."
 
 #: actions/editapplication.php:206 actions/newapplication.php:191
 msgid "Organization homepage is required."
-msgstr ""
+msgstr "Потрібна домашня сторінка організації."
 
 #: actions/editapplication.php:215 actions/newapplication.php:203
 msgid "Callback is too long."
-msgstr ""
+msgstr "Форма зворотнього дзвінка надто довга."
 
 #: actions/editapplication.php:222 actions/newapplication.php:212
-#, fuzzy
 msgid "Callback URL is not valid."
-msgstr "URL-адреса автари ‘%s’ помилкова."
+msgstr "URL-адреса для зворотнього дзвінка не є дійсною."
 
 #: actions/editapplication.php:255
-#, fuzzy
 msgid "Could not update application."
-msgstr "Не вдалося оновити групу."
+msgstr "Не вдалося оновити додаток."
 
 #: actions/editgroup.php:56
 #, php-format
@@ -2049,26 +2034,23 @@ msgstr "Ніякого поточного статусу"
 
 #: actions/newapplication.php:52
 msgid "New application"
-msgstr ""
+msgstr "Новий додаток"
 
 #: actions/newapplication.php:64
-#, fuzzy
 msgid "You must be logged in to register an application."
-msgstr "Ви маєте спочатку увійти, аби мати змогу створити групу."
+msgstr "Ви маєте спочатку увійти, аби мати змогу зареєструвати додаток."
 
 #: actions/newapplication.php:143
-#, fuzzy
 msgid "Use this form to register a new application."
-msgstr "Скористайтесь цією формою для створення нової групи."
+msgstr "Скористайтесь цією формою, щоб зареєструвати новий додаток."
 
 #: actions/newapplication.php:173
 msgid "Source URL is required."
-msgstr ""
+msgstr "Потрібна URL-адреса."
 
 #: actions/newapplication.php:255 actions/newapplication.php:264
-#, fuzzy
 msgid "Could not create application."
-msgstr "Неможна призначити додаткові імена."
+msgstr "Не вдалося створити додаток."
 
 #: actions/newgroup.php:53
 msgid "New group"
@@ -2184,49 +2166,47 @@ msgid "Nudge sent!"
 msgstr "Спробу «розштовхати» зараховано!"
 
 #: actions/oauthappssettings.php:59
-#, fuzzy
 msgid "You must be logged in to list your applications."
-msgstr "Ви маєте спочатку увійти, аби мати змогу редагувати групу."
+msgstr "Ви повинні увійти, аби переглянути список Ваших додатків."
 
 #: actions/oauthappssettings.php:74
-#, fuzzy
 msgid "OAuth applications"
-msgstr "Інші опції"
+msgstr "Додатки OAuth"
 
 #: actions/oauthappssettings.php:85
 msgid "Applications you have registered"
-msgstr ""
+msgstr "Додатки, які Ви зареєстрували"
 
 #: actions/oauthappssettings.php:135
 #, php-format
 msgid "You have not registered any applications yet."
-msgstr ""
+msgstr "Поки що Ви не зареєстрували жодних додатків."
 
 #: actions/oauthconnectionssettings.php:71
 msgid "Connected applications"
-msgstr ""
+msgstr "Під’єднані додатки"
 
 #: actions/oauthconnectionssettings.php:87
 msgid "You have allowed the following applications to access you account."
 msgstr ""
+"Ви маєте дозволити наступним додаткам доступ до Вашого облікового запису."
 
 #: actions/oauthconnectionssettings.php:170
-#, fuzzy
 msgid "You are not a user of that application."
-msgstr "Ви не є учасником цієї групи."
+msgstr "Ви не є користувачем даного додатку."
 
 #: actions/oauthconnectionssettings.php:180
 msgid "Unable to revoke access for app: "
-msgstr ""
+msgstr "Не вдалося скасувати доступ для додатку: "
 
 #: actions/oauthconnectionssettings.php:192
 #, php-format
 msgid "You have not authorized any applications to use your account."
-msgstr ""
+msgstr "Ви не дозволили жодним додаткам використовувати Ваш акаунт."
 
 #: actions/oauthconnectionssettings.php:205
 msgid "Developers can edit the registration settings for their applications "
-msgstr ""
+msgstr "Розробники можуть змінити налаштування реєстрації для їхніх додатків "
 
 #: actions/oembed.php:79 actions/shownotice.php:100
 msgid "Notice has no profile"
@@ -2259,7 +2239,6 @@ msgid "Notice Search"
 msgstr "Пошук дописів"
 
 #: actions/othersettings.php:60
-#, fuzzy
 msgid "Other settings"
 msgstr "Інші опції"
 
@@ -3188,18 +3167,16 @@ msgid "User is already sandboxed."
 msgstr "Користувача ізольовано доки набереться уму-розуму."
 
 #: actions/showapplication.php:82
-#, fuzzy
 msgid "You must be logged in to view an application."
-msgstr "Ви повинні спочатку увійти на сайт, аби залишити групу."
+msgstr "Ви повинні спочатку увійти, аби переглянути додаток."
 
 #: actions/showapplication.php:158
-#, fuzzy
 msgid "Application profile"
-msgstr "Допис не має профілю"
+msgstr "Профіль додатку"
 
 #: actions/showapplication.php:160 lib/applicationeditform.php:182
 msgid "Icon"
-msgstr ""
+msgstr "Іконка"
 
 #: actions/showapplication.php:170 actions/version.php:195
 #: lib/applicationeditform.php:197
@@ -3207,9 +3184,8 @@ msgid "Name"
 msgstr "Ім’я"
 
 #: actions/showapplication.php:179 lib/applicationeditform.php:224
-#, fuzzy
 msgid "Organization"
-msgstr "Нумерація сторінок"
+msgstr "Організація"
 
 #: actions/showapplication.php:188 actions/version.php:198
 #: lib/applicationeditform.php:211 lib/groupeditform.php:172
@@ -3224,46 +3200,47 @@ msgstr "Статистика"
 #: actions/showapplication.php:204
 #, php-format
 msgid "created by %1$s - %2$s access by default - %3$d users"
-msgstr ""
+msgstr "створено %1$s — %2$s доступ за замовч. — %3$d користувачів"
 
 #: actions/showapplication.php:214
 msgid "Application actions"
-msgstr ""
+msgstr "Можливості додатку"
 
 #: actions/showapplication.php:233
 msgid "Reset key & secret"
-msgstr ""
+msgstr "Призначити новий ключ і таємне слово"
 
 #: actions/showapplication.php:241
 msgid "Application info"
-msgstr ""
+msgstr "Інфо додатку"
 
 #: actions/showapplication.php:243
 msgid "Consumer key"
-msgstr ""
+msgstr "Ключ споживача"
 
 #: actions/showapplication.php:248
 msgid "Consumer secret"
-msgstr ""
+msgstr "Таємно слово споживача"
 
 #: actions/showapplication.php:253
 msgid "Request token URL"
-msgstr ""
+msgstr "URL-адреса токена запиту"
 
 #: actions/showapplication.php:258
 msgid "Access token URL"
-msgstr ""
+msgstr "URL-адреса токена дозволу"
 
 #: actions/showapplication.php:263
-#, fuzzy
 msgid "Authorize URL"
-msgstr "Автор"
+msgstr "Авторизувати URL-адресу"
 
 #: actions/showapplication.php:268
 msgid ""
 "Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
 "signature method."
 msgstr ""
+"До уваги: Всі підписи шифруються за методом HMAC-SHA1. Ми не підтримуємо "
+"шифрування підписів відкритим текстом."
 
 #: actions/showfavorites.php:132
 msgid "Could not retrieve favorite notices."
@@ -4654,69 +4631,65 @@ msgstr "Конфігурація шляху"
 
 #: lib/applicationeditform.php:186
 msgid "Icon for this application"
-msgstr ""
+msgstr "Іконка для цього додатку"
 
 #: lib/applicationeditform.php:206
-#, fuzzy, php-format
+#, php-format
 msgid "Describe your application in %d characters"
-msgstr "Опишіть групу або тему, вкладаючись у %d знаків"
+msgstr "Опишіть додаток, вкладаючись у %d знаків"
 
 #: lib/applicationeditform.php:209
-#, fuzzy
 msgid "Describe your application"
-msgstr "Опишіть групу або тему"
+msgstr "Опишіть Ваш додаток"
 
 #: lib/applicationeditform.php:218
-#, fuzzy
 msgid "Source URL"
-msgstr "Джерело"
+msgstr "URL-адреса"
 
 #: lib/applicationeditform.php:220
-#, fuzzy
 msgid "URL of the homepage of this application"
-msgstr "URL-адреса веб-сторінки, блоґу групи, або тематичного блоґу"
+msgstr "URL-адреса веб-сторінки цього додатку"
 
 #: lib/applicationeditform.php:226
 msgid "Organization responsible for this application"
-msgstr ""
+msgstr "Організація, відповідальна за цей додаток"
 
 #: lib/applicationeditform.php:232
-#, fuzzy
 msgid "URL for the homepage of the organization"
-msgstr "URL-адреса веб-сторінки, блоґу групи, або тематичного блоґу"
+msgstr "URL-адреса веб-сторінки організації"
 
 #: lib/applicationeditform.php:238
 msgid "URL to redirect to after authentication"
-msgstr ""
+msgstr "URL-адреса, на яку перенаправляти після автентифікації"
 
 #: lib/applicationeditform.php:260
 msgid "Browser"
-msgstr ""
+msgstr "Браузер"
 
 #: lib/applicationeditform.php:276
 msgid "Desktop"
-msgstr ""
+msgstr "Десктоп"
 
 #: lib/applicationeditform.php:277
 msgid "Type of application, browser or desktop"
-msgstr ""
+msgstr "Тип додатку, браузер або десктоп"
 
 #: lib/applicationeditform.php:299
 msgid "Read-only"
-msgstr ""
+msgstr "Лише читання"
 
 #: lib/applicationeditform.php:317
 msgid "Read-write"
-msgstr ""
+msgstr "Читати-писати"
 
 #: lib/applicationeditform.php:318
 msgid "Default access for this application: read-only, or read-write"
 msgstr ""
+"Дозвіл за замовчуванням для цього додатку: лише читання або читати-писати"
 
 #: lib/applicationlist.php:154
-#, fuzzy
 msgid "Revoke"
-msgstr "Видалити"
+msgstr "Відкликати"
 
 #: lib/attachmentlist.php:87
 msgid "Attachments"
@@ -5075,13 +5048,12 @@ msgid "Updates by SMS"
 msgstr "Оновлення через СМС"
 
 #: lib/connectsettingsaction.php:120
-#, fuzzy
 msgid "Connections"
 msgstr "З’єднання"
 
 #: lib/connectsettingsaction.php:121
 msgid "Authorized connected applications"
-msgstr ""
+msgstr "Авторизовані під’єднані додатки"
 
 #: lib/dberroraction.php:60
 msgid "Database error"
