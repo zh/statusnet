@@ -81,7 +81,7 @@ class AllAction extends ProfileAction
     function title()
     {
         if ($this->page > 1) {
-            return sprintf(_("%1$s and friends, page %2$d"), $this->user->nickname, $this->page);
+            return sprintf(_('%1$s and friends, page %2$d'), $this->user->nickname, $this->page);
         } else {
             return sprintf(_("%s and friends"), $this->user->nickname);
         }

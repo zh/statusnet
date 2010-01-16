@@ -51,7 +51,7 @@ class EditApplicationAction extends OwnerDesignAction
 
     function title()
     {
-        return _('Edit Application');
+        return _('Edit application');
     }
 
     /**

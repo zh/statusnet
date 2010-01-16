@@ -49,7 +49,7 @@ class NewApplicationAction extends OwnerDesignAction
 
     function title()
     {
-        return _('New Application');
+        return _('New application');
     }
 
     /**

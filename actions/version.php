@@ -266,5 +266,6 @@ class VersionAction extends Action
                               'Craig Andrews',
                               'mEDI',
                               'Brett Taylor',
-                              'Brigitte Schuster');
+                              'Brigitte Schuster',
+                              'Brion Vibber');
 }

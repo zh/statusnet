@@ -118,7 +118,11 @@ class XmppManager extends IoManager
      */
     public function getSockets()
     {
-        return array($this->conn->getSocket());
+        if ($this->conn) {
+            return array($this->conn->getSocket());
+        } else {
+            return array();
+        }
     }
 
     /**

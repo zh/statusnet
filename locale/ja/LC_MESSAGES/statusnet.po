@@ -11,12 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-13 22:04+0000\n"
-"PO-Revision-Date: 2010-01-13 22:05:37+0000\n"
+"POT-Creation-Date: 2010-01-15 19:15+0000\n"
+"PO-Revision-Date: 2010-01-15 19:17:22+0000\n"
 "Language-Team: Japanese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61027); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r61101); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ja\n"
 "X-Message-Group: out-statusnet\n"
@@ -36,8 +36,8 @@ msgstr "そのようなページはありません。"
 #: actions/apidirectmessagenew.php:75 actions/apigroupcreate.php:112
 #: actions/apigroupismember.php:90 actions/apigroupjoin.php:99
 #: actions/apigroupleave.php:99 actions/apigrouplist.php:90
-#: actions/apistatusesupdate.php:144 actions/apisubscriptions.php:87
-#: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:79
+#: actions/apistatusesupdate.php:149 actions/apisubscriptions.php:87
+#: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:78
 #: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
 #: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
 #: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
@@ -53,8 +53,13 @@ msgstr "そのようなページはありません。"
 msgid "No such user."
 msgstr "そのような利用者はいません。"
 
+#: actions/all.php:84
+#, fuzzy, php-format
+msgid "%1$s and friends, page %2$d"
+msgstr "%1$s ブロックされたプロファイル、ページ %2$d"
+
 #: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
-#: actions/apitimelinefriends.php:115 actions/apitimelinehome.php:115
+#: actions/apitimelinefriends.php:114 actions/apitimelinehome.php:115
 #: lib/personalgroupnav.php:100
 #, php-format
 msgid "%s and friends"
@@ -112,7 +117,7 @@ msgstr ""
 msgid "You and friends"
 msgstr "あなたと友人"
 
-#: actions/allrss.php:119 actions/apitimelinefriends.php:122
+#: actions/allrss.php:119 actions/apitimelinefriends.php:121
 #: actions/apitimelinehome.php:122
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
@@ -134,7 +139,7 @@ msgstr "%2$s に %1$s と友人からの更新があります！"
 #: actions/apistatusesretweets.php:112 actions/apistatusesshow.php:108
 #: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
 #: actions/apisubscriptions.php:111 actions/apitimelinefavorites.php:146
-#: actions/apitimelinefriends.php:156 actions/apitimelinegroup.php:150
+#: actions/apitimelinefriends.php:155 actions/apitimelinegroup.php:150
 #: actions/apitimelinehome.php:156 actions/apitimelinementions.php:151
 #: actions/apitimelinepublic.php:131 actions/apitimelineretweetedbyme.php:122
 #: actions/apitimelineretweetedtome.php:121
@@ -153,7 +158,7 @@ msgstr "API メソッドが見つかりません。"
 #: actions/apifriendshipscreate.php:91 actions/apifriendshipsdestroy.php:91
 #: actions/apigroupcreate.php:104 actions/apigroupjoin.php:91
 #: actions/apigroupleave.php:91 actions/apistatusesretweet.php:65
-#: actions/apistatusesupdate.php:114
+#: actions/apistatusesupdate.php:119
 msgid "This method requires a POST."
 msgstr "このメソッドには POST が必要です。"
 
@@ -184,8 +189,9 @@ msgstr "プロフィールを保存できませんでした。"
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97
-#: actions/apistatusesupdate.php:127 actions/avatarsettings.php:257
-#: actions/designadminpanel.php:122 actions/newnotice.php:94
+#: actions/apistatusesupdate.php:132 actions/avatarsettings.php:257
+#: actions/designadminpanel.php:122 actions/editapplication.php:118
+#: actions/newapplication.php:101 actions/newnotice.php:94
 #: lib/designsettings.php:283
 #, php-format
 msgid ""
@@ -330,7 +336,8 @@ msgstr "そのニックネームは既に使用されています。他のもの
 msgid "Not a valid nickname."
 msgstr "有効なニックネームではありません。"
 
-#: actions/apigroupcreate.php:196 actions/editgroup.php:195
+#: actions/apigroupcreate.php:196 actions/editapplication.php:212
+#: actions/editgroup.php:195 actions/newapplication.php:200
 #: actions/newgroup.php:139 actions/profilesettings.php:222
 #: actions/register.php:217
 msgid "Homepage is not a valid URL."
@@ -342,7 +349,8 @@ msgstr "ホームページのURLが不適切です。"
 msgid "Full name is too long (max 255 chars)."
 msgstr "フルネームが長すぎます。（255字まで）"
 
-#: actions/apigroupcreate.php:213
+#: actions/apigroupcreate.php:213 actions/editapplication.php:187
+#: actions/newapplication.php:169
 #, php-format
 msgid "Description is too long (max %d chars)."
 msgstr "記述が長すぎます。（最長140字）"
@@ -419,6 +427,99 @@ msgstr "%s グループ"
 msgid "groups on %s"
 msgstr "%s 上のグループ"
 
+#: actions/apioauthauthorize.php:108 actions/apioauthauthorize.php:114
+msgid "Bad request."
+msgstr "悪い要求。"
+
+#: actions/apioauthauthorize.php:134 actions/avatarsettings.php:268
+#: actions/deletenotice.php:157 actions/disfavor.php:74
+#: actions/emailsettings.php:238 actions/favor.php:75 actions/geocode.php:50
+#: actions/groupblock.php:66 actions/grouplogo.php:309
+#: actions/groupunblock.php:66 actions/imsettings.php:206
+#: actions/invite.php:56 actions/login.php:115 actions/makeadmin.php:66
+#: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
+#: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:139
+#: actions/othersettings.php:145 actions/passwordsettings.php:138
+#: actions/profilesettings.php:194 actions/recoverpassword.php:337
+#: actions/register.php:165 actions/remotesubscribe.php:77
+#: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
+#: actions/subscribe.php:46 actions/tagother.php:166
+#: actions/unsubscribe.php:69 actions/userauthorization.php:52
+#: lib/designsettings.php:294
+msgid "There was a problem with your session token. Try again, please."
+msgstr "あなたのセッショントークンに問題がありました。再度お試しください。"
+
+#: actions/apioauthauthorize.php:146
+msgid "Invalid nickname / password!"
+msgstr "不正なユーザ名またはパスワード。"
+
+#: actions/apioauthauthorize.php:170
+msgid "DB error deleting OAuth app user."
+msgstr "OAuth アプリユーザの削除時ＤＢエラー。"
+
+#: actions/apioauthauthorize.php:196
+msgid "DB error inserting OAuth app user."
+msgstr "OAuth アプリユーザの追加時ＤＢエラー。"
+
+#: actions/apioauthauthorize.php:231
+#, php-format
+msgid ""
+"The request token %s has been authorized. Please exchange it for an access "
+"token."
+msgstr ""
+"リクエストトークン %s は承認されました。 アクセストークンとそれを交換してくだ"
+"さい。"
+
+#: actions/apioauthauthorize.php:241
+#, php-format
+msgid "The request token %s has been denied."
+msgstr "リクエストトークン%sは否定されました。"
+
+#: actions/apioauthauthorize.php:246 actions/avatarsettings.php:281
+#: actions/designadminpanel.php:103 actions/editapplication.php:139
+#: actions/emailsettings.php:256 actions/grouplogo.php:319
+#: actions/imsettings.php:220 actions/newapplication.php:121
+#: actions/oauthconnectionssettings.php:151 actions/recoverpassword.php:44
+#: actions/smssettings.php:248 lib/designsettings.php:304
+msgid "Unexpected form submission."
+msgstr "予期せぬフォーム送信です。"
+
+#: actions/apioauthauthorize.php:273
+msgid "An application would like to connect to your account"
+msgstr "アプリケーションはあなたのアカウントに接続したいです"
+
+#: actions/apioauthauthorize.php:290
+msgid "Allow or deny access"
+msgstr "アクセスを許可または拒絶"
+
+#: actions/apioauthauthorize.php:320 lib/action.php:435
+msgid "Account"
+msgstr "アカウント"
+
+#: actions/apioauthauthorize.php:323 actions/login.php:230
+#: actions/profilesettings.php:106 actions/register.php:424
+#: actions/showgroup.php:236 actions/tagother.php:94 lib/groupeditform.php:152
+#: lib/userprofile.php:131
+msgid "Nickname"
+msgstr "ニックネーム"
+
+#: actions/apioauthauthorize.php:326 actions/login.php:233
+#: actions/register.php:429 lib/accountsettingsaction.php:116
+msgid "Password"
+msgstr "パスワード"
+
+#: actions/apioauthauthorize.php:338
+msgid "Deny"
+msgstr "拒絶"
+
+#: actions/apioauthauthorize.php:344
+msgid "Allow"
+msgstr "許可"
+
+#: actions/apioauthauthorize.php:361
+msgid "Allow or deny access to your account information."
+msgstr "アカウント情報へのアクセスを許可するか、または拒絶してください。"
+
 #: actions/apistatusesdestroy.php:107
 msgid "This method requires a POST or DELETE."
 msgstr "このメソッドには POST か DELETE が必要です。"
@@ -448,17 +549,17 @@ msgstr "ステータスを削除しました。"
 msgid "No status with that ID found."
 msgstr "そのＩＤでのステータスはありません。"
 
-#: actions/apistatusesupdate.php:157 actions/newnotice.php:155
+#: actions/apistatusesupdate.php:162 actions/newnotice.php:155
 #: lib/mailhandler.php:60
 #, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr "長すぎます。つぶやきは最大 140 字までです。"
 
-#: actions/apistatusesupdate.php:198
+#: actions/apistatusesupdate.php:203
 msgid "Not found"
 msgstr "みつかりません"
 
-#: actions/apistatusesupdate.php:221 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:226 actions/newnotice.php:178
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr "つぶやきは URL を含めて最大 %d 字までです。"
@@ -602,29 +703,6 @@ msgstr "アップロード"
 msgid "Crop"
 msgstr "切り取り"
 
-#: actions/avatarsettings.php:268 actions/deletenotice.php:157
-#: actions/disfavor.php:74 actions/emailsettings.php:238 actions/favor.php:75
-#: actions/geocode.php:50 actions/groupblock.php:66 actions/grouplogo.php:309
-#: actions/groupunblock.php:66 actions/imsettings.php:206
-#: actions/invite.php:56 actions/login.php:115 actions/makeadmin.php:66
-#: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
-#: actions/othersettings.php:145 actions/passwordsettings.php:138
-#: actions/profilesettings.php:194 actions/recoverpassword.php:337
-#: actions/register.php:165 actions/remotesubscribe.php:77
-#: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
-#: actions/subscribe.php:46 actions/tagother.php:166
-#: actions/unsubscribe.php:69 actions/userauthorization.php:52
-#: lib/designsettings.php:294
-msgid "There was a problem with your session token. Try again, please."
-msgstr "あなたのセッショントークンに問題がありました。再度お試しください。"
-
-#: actions/avatarsettings.php:281 actions/designadminpanel.php:103
-#: actions/emailsettings.php:256 actions/grouplogo.php:319
-#: actions/imsettings.php:220 actions/recoverpassword.php:44
-#: actions/smssettings.php:248 lib/designsettings.php:304
-msgid "Unexpected form submission."
-msgstr "予期せぬフォーム送信です。"
-
 #: actions/avatarsettings.php:328
 msgid "Pick a square area of the image to be your avatar"
 msgstr "あなたのアバターとなるイメージを正方形で指定"
@@ -762,7 +840,7 @@ msgid "Couldn't delete email confirmation."
 msgstr "メール承認を削除できません"
 
 #: actions/confirmaddress.php:144
-msgid "Confirm Address"
+msgid "Confirm address"
 msgstr "アドレスの確認"
 
 #: actions/confirmaddress.php:159
@@ -950,7 +1028,8 @@ msgstr "デフォルトへリセットする"
 #: actions/pathsadminpanel.php:324 actions/profilesettings.php:174
 #: actions/siteadminpanel.php:388 actions/smssettings.php:181
 #: actions/subscriptions.php:203 actions/tagother.php:154
-#: actions/useradminpanel.php:313 lib/designsettings.php:256
+#: actions/useradminpanel.php:313 lib/applicationeditform.php:335
+#: lib/applicationeditform.php:336 lib/designsettings.php:256
 #: lib/groupeditform.php:202
 msgid "Save"
 msgstr "保存"
@@ -970,6 +1049,76 @@ msgstr "お気に入りに加える"
 #: actions/doc.php:69
 msgid "No such document."
 msgstr "そのようなドキュメントはありません。"
+
+#: actions/editapplication.php:54 lib/applicationeditform.php:136
+msgid "Edit application"
+msgstr "アプリケーション編集"
+
+#: actions/editapplication.php:66
+msgid "You must be logged in to edit an application."
+msgstr "アプリケーションを編集するにはログインしていなければなりません。"
+
+#: actions/editapplication.php:77 actions/showapplication.php:94
+msgid "You are not the owner of this application."
+msgstr "このアプリケーションのオーナーではありません。"
+
+#: actions/editapplication.php:81 actions/oauthconnectionssettings.php:163
+#: actions/showapplication.php:87
+msgid "No such application."
+msgstr "そのようなアプリケーションはありません。"
+
+#: actions/editapplication.php:127 actions/newapplication.php:110
+#: actions/showapplication.php:118 lib/action.php:1167
+msgid "There was a problem with your session token."
+msgstr "あなたのセッショントークンに関する問題がありました。"
+
+#: actions/editapplication.php:161
+msgid "Use this form to edit your application."
+msgstr "このフォームを使ってアプリケーションを編集します。"
+
+#: actions/editapplication.php:177 actions/newapplication.php:159
+msgid "Name is required."
+msgstr "名前は必須です。"
+
+#: actions/editapplication.php:180 actions/newapplication.php:162
+msgid "Name is too long (max 255 chars)."
+msgstr "名前が長すぎます。（最大255字まで）"
+
+#: actions/editapplication.php:183 actions/newapplication.php:165
+msgid "Description is required."
+msgstr "概要が必要です。"
+
+#: actions/editapplication.php:191
+msgid "Source URL is too long."
+msgstr "ソースＵＲＬが長すぎます。"
+
+#: actions/editapplication.php:197 actions/newapplication.php:182
+msgid "Source URL is not valid."
+msgstr "ソースＵＲＬが不正です。"
+
+#: actions/editapplication.php:200 actions/newapplication.php:185
+msgid "Organization is required."
+msgstr "組織が必要です。"
+
+#: actions/editapplication.php:203 actions/newapplication.php:188
+msgid "Organization is too long (max 255 chars)."
+msgstr "組織が長すぎます。（最大255字）"
+
+#: actions/editapplication.php:206 actions/newapplication.php:191
+msgid "Organization homepage is required."
+msgstr "組織のホームページが必要です。"
+
+#: actions/editapplication.php:215 actions/newapplication.php:203
+msgid "Callback is too long."
+msgstr "コールバックが長すぎます。"
+
+#: actions/editapplication.php:222 actions/newapplication.php:212
+msgid "Callback URL is not valid."
+msgstr "コールバックURLが不正です。"
+
+#: actions/editapplication.php:255
+msgid "Could not update application."
+msgstr "アプリケーションを更新できません。"
 
 #: actions/editgroup.php:56
 #, php-format
@@ -1039,7 +1188,8 @@ msgstr ""
 "かれたメッセージが届いていないか確認してください。"
 
 #: actions/emailsettings.php:117 actions/imsettings.php:120
-#: actions/smssettings.php:126
+#: actions/smssettings.php:126 lib/applicationeditform.php:333
+#: lib/applicationeditform.php:334
 msgid "Cancel"
 msgstr "中止"
 
@@ -1720,7 +1870,7 @@ msgstr "パーソナルメッセージ"
 msgid "Optionally add a personal message to the invitation."
 msgstr "任意に招待にパーソナルメッセージを加えてください。"
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:237
+#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:236
 msgid "Send"
 msgstr "送る"
 
@@ -1829,17 +1979,6 @@ msgstr "ログイン"
 msgid "Login to site"
 msgstr "サイトへログイン"
 
-#: actions/login.php:230 actions/profilesettings.php:106
-#: actions/register.php:424 actions/showgroup.php:236 actions/tagother.php:94
-#: lib/groupeditform.php:152 lib/userprofile.php:131
-msgid "Nickname"
-msgstr "ニックネーム"
-
-#: actions/login.php:233 actions/register.php:429
-#: lib/accountsettingsaction.php:116
-msgid "Password"
-msgstr "パスワード"
-
 #: actions/login.php:236 actions/register.php:478
 msgid "Remember me"
 msgstr "ログイン状態を保持"
@@ -1891,6 +2030,26 @@ msgstr "%1$s をグループ %2$s の管理者にすることはできません"
 #: actions/microsummary.php:69
 msgid "No current status"
 msgstr "現在のステータスはありません"
+
+#: actions/newapplication.php:52
+msgid "New application"
+msgstr "新しいアプリケーション"
+
+#: actions/newapplication.php:64
+msgid "You must be logged in to register an application."
+msgstr "アプリケーションを登録するにはログインしていなければなりません。"
+
+#: actions/newapplication.php:143
+msgid "Use this form to register a new application."
+msgstr "このフォームを使って新しいアプリケーションを登録します。"
+
+#: actions/newapplication.php:173
+msgid "Source URL is required."
+msgstr "ソースURLが必要です。"
+
+#: actions/newapplication.php:255 actions/newapplication.php:264
+msgid "Could not create application."
+msgstr "アプリケーションを作成できません。"
 
 #: actions/newgroup.php:53
 msgid "New group"
@@ -2004,6 +2163,50 @@ msgstr "合図を送った"
 msgid "Nudge sent!"
 msgstr "合図を送った!"
 
+#: actions/oauthappssettings.php:59
+msgid "You must be logged in to list your applications."
+msgstr "アプリケーションをリストするにはログインしていなければなりません。"
+
+#: actions/oauthappssettings.php:74
+msgid "OAuth applications"
+msgstr "OAuth アプリケーション"
+
+#: actions/oauthappssettings.php:85
+msgid "Applications you have registered"
+msgstr "あなたが登録したアプリケーション"
+
+#: actions/oauthappssettings.php:135
+#, php-format
+msgid "You have not registered any applications yet."
+msgstr "あなたはまだなんのアプリケーションも登録していません。"
+
+#: actions/oauthconnectionssettings.php:71
+msgid "Connected applications"
+msgstr "接続されたアプリケーション"
+
+#: actions/oauthconnectionssettings.php:87
+msgid "You have allowed the following applications to access you account."
+msgstr "あなたのアカウントにアクセスする以下のアプリケーションを許可しました。"
+
+#: actions/oauthconnectionssettings.php:170
+msgid "You are not a user of that application."
+msgstr "あなたはそのアプリケーションの利用者ではありません。"
+
+#: actions/oauthconnectionssettings.php:180
+msgid "Unable to revoke access for app: "
+msgstr "アプリケーションのための取消しアクセスができません: "
+
+#: actions/oauthconnectionssettings.php:192
+#, php-format
+msgid "You have not authorized any applications to use your account."
+msgstr ""
+"あなたは、どんなアプリケーションもあなたのアカウントを使用するのを認可してい"
+"ません。"
+
+#: actions/oauthconnectionssettings.php:205
+msgid "Developers can edit the registration settings for their applications "
+msgstr "開発者は彼らのアプリケーションのために登録設定を編集できます "
+
 #: actions/oembed.php:79 actions/shownotice.php:100
 msgid "Notice has no profile"
 msgstr "つぶやきにはプロファイルはありません。"
@@ -2021,8 +2224,8 @@ msgstr "内容種別 "
 msgid "Only "
 msgstr "だけ "
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1033
-#: lib/api.php:1061 lib/api.php:1171
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1038
+#: lib/api.php:1066 lib/api.php:1176
 msgid "Not a supported data format."
 msgstr "サポートされていないデータ形式。"
 
@@ -2035,7 +2238,7 @@ msgid "Notice Search"
 msgstr "つぶやき検索"
 
 #: actions/othersettings.php:60
-msgid "Other Settings"
+msgid "Other settings"
 msgstr "その他の設定"
 
 #: actions/othersettings.php:71
@@ -2354,7 +2557,7 @@ msgid "Full name"
 msgstr "フルネーム"
 
 #: actions/profilesettings.php:115 actions/register.php:453
-#: lib/groupeditform.php:161
+#: lib/applicationeditform.php:230 lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "ホームページ"
 
@@ -2959,6 +3162,82 @@ msgstr "あなたはこのサイトのサンドボックスユーザができま
 msgid "User is already sandboxed."
 msgstr "利用者はすでにサンドボックスです。"
 
+#: actions/showapplication.php:82
+msgid "You must be logged in to view an application."
+msgstr "!!アプリケーションを見るためにはログインしていなければなりません。"
+
+#: actions/showapplication.php:158
+msgid "Application profile"
+msgstr "アプリケーションプロファイル"
+
+#: actions/showapplication.php:160 lib/applicationeditform.php:182
+msgid "Icon"
+msgstr "アイコン"
+
+#: actions/showapplication.php:170 actions/version.php:195
+#: lib/applicationeditform.php:197
+msgid "Name"
+msgstr "名前"
+
+#: actions/showapplication.php:179 lib/applicationeditform.php:224
+msgid "Organization"
+msgstr "組織"
+
+#: actions/showapplication.php:188 actions/version.php:198
+#: lib/applicationeditform.php:211 lib/groupeditform.php:172
+msgid "Description"
+msgstr "概要"
+
+#: actions/showapplication.php:193 actions/showgroup.php:429
+#: lib/profileaction.php:174
+msgid "Statistics"
+msgstr "統計データ"
+
+#: actions/showapplication.php:204
+#, php-format
+msgid "created by %1$s - %2$s access by default - %3$d users"
+msgstr ""
+
+#: actions/showapplication.php:214
+msgid "Application actions"
+msgstr "アプリケーションアクション"
+
+#: actions/showapplication.php:233
+msgid "Reset key & secret"
+msgstr "key と secret のリセット"
+
+#: actions/showapplication.php:241
+msgid "Application info"
+msgstr "アプリケーション情報"
+
+#: actions/showapplication.php:243
+msgid "Consumer key"
+msgstr ""
+
+#: actions/showapplication.php:248
+msgid "Consumer secret"
+msgstr ""
+
+#: actions/showapplication.php:253
+msgid "Request token URL"
+msgstr "リクエストトークンURL"
+
+#: actions/showapplication.php:258
+msgid "Access token URL"
+msgstr "アクセストークンURL"
+
+#: actions/showapplication.php:263
+msgid "Authorize URL"
+msgstr "承認URL"
+
+#: actions/showapplication.php:268
+msgid ""
+"Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
+"signature method."
+msgstr ""
+"注意: 私たちはHMAC-SHA1署名をサポートします。 私たちは平文署名メソッドをサ"
+"ポートしません。"
+
 #: actions/showfavorites.php:132
 msgid "Could not retrieve favorite notices."
 msgstr "お気に入りのつぶやきを検索できません。"
@@ -3071,10 +3350,6 @@ msgstr "(なし)"
 #: actions/showgroup.php:392
 msgid "All members"
 msgstr "全てのメンバー"
-
-#: actions/showgroup.php:429 lib/profileaction.php:174
-msgid "Statistics"
-msgstr "統計データ"
 
 #: actions/showgroup.php:432
 msgid "Created"
@@ -3989,10 +4264,6 @@ msgstr ""
 msgid "Plugins"
 msgstr "プラグイン"
 
-#: actions/version.php:195
-msgid "Name"
-msgstr "名前"
-
 #: actions/version.php:196 lib/action.php:741
 msgid "Version"
 msgstr "バージョン"
@@ -4000,10 +4271,6 @@ msgstr "バージョン"
 #: actions/version.php:197
 msgid "Author(s)"
 msgstr "作者"
-
-#: actions/version.php:198 lib/groupeditform.php:172
-msgid "Description"
-msgstr "概要"
 
 #: classes/File.php:144
 #, php-format
@@ -4028,19 +4295,16 @@ msgstr ""
 "これほど大きいファイルはあなたの%dバイトの毎月の割当てを超えているでしょう。"
 
 #: classes/Group_member.php:41
-#, fuzzy
 msgid "Group join failed."
-msgstr "グループプロファイル"
+msgstr "グループ参加に失敗しました。"
 
 #: classes/Group_member.php:53
-#, fuzzy
 msgid "Not part of group."
-msgstr "グループを更新できません。"
+msgstr "グループの一部ではありません。"
 
 #: classes/Group_member.php:60
-#, fuzzy
 msgid "Group leave failed."
-msgstr "グループプロファイル"
+msgstr "グループ脱退に失敗しました。"
 
 #: classes/Login_token.php:76
 #, php-format
@@ -4165,10 +4429,6 @@ msgstr "ホーム"
 #: lib/action.php:433
 msgid "Personal profile and friends timeline"
 msgstr "パーソナルプロファイルと友人のタイムライン"
-
-#: lib/action.php:435
-msgid "Account"
-msgstr "アカウント"
 
 #: lib/action.php:435
 msgid "Change your email, avatar, password, profile"
@@ -4324,10 +4584,6 @@ msgstr "<<後"
 msgid "Before"
 msgstr "前>>"
 
-#: lib/action.php:1167
-msgid "There was a problem with your session token."
-msgstr "あなたのセッショントークンに関する問題がありました。"
-
 #: lib/adminpanelaction.php:96
 msgid "You cannot make changes to this site."
 msgstr "あなたはこのサイトへの変更を行うことができません。"
@@ -4360,6 +4616,72 @@ msgstr "デザイン設定"
 msgid "Paths configuration"
 msgstr "パス設定"
 
+#: lib/applicationeditform.php:186
+msgid "Icon for this application"
+msgstr "このアプリケーションのアイコン"
+
+#: lib/applicationeditform.php:206
+#, fuzzy, php-format
+msgid "Describe your application in %d characters"
+msgstr "グループやトピックを %d 字以内記述"
+
+#: lib/applicationeditform.php:209
+#, fuzzy
+msgid "Describe your application"
+msgstr "グループやトピックを記述"
+
+#: lib/applicationeditform.php:218
+#, fuzzy
+msgid "Source URL"
+msgstr "ソース"
+
+#: lib/applicationeditform.php:220
+#, fuzzy
+msgid "URL of the homepage of this application"
+msgstr "グループやトピックのホームページやブログの URL"
+
+#: lib/applicationeditform.php:226
+msgid "Organization responsible for this application"
+msgstr "このアプリケーションに責任がある組織"
+
+#: lib/applicationeditform.php:232
+msgid "URL for the homepage of the organization"
+msgstr "組織のホームページのURL"
+
+#: lib/applicationeditform.php:238
+msgid "URL to redirect to after authentication"
+msgstr "認証の後にリダイレクトするURL"
+
+#: lib/applicationeditform.php:260
+msgid "Browser"
+msgstr "ブラウザ"
+
+#: lib/applicationeditform.php:276
+msgid "Desktop"
+msgstr "デスクトップ"
+
+#: lib/applicationeditform.php:277
+msgid "Type of application, browser or desktop"
+msgstr "アプリケーション、ブラウザ、またはデスクトップのタイプ"
+
+#: lib/applicationeditform.php:299
+msgid "Read-only"
+msgstr "リードオンリー"
+
+#: lib/applicationeditform.php:317
+msgid "Read-write"
+msgstr "リードライト"
+
+#: lib/applicationeditform.php:318
+msgid "Default access for this application: read-only, or read-write"
+msgstr ""
+"このアプリケーションのためのデフォルトアクセス: リードオンリー、またはリード"
+"ライト"
+
+#: lib/applicationlist.php:154
+msgid "Revoke"
+msgstr "取消し"
+
 #: lib/attachmentlist.php:87
 msgid "Attachments"
 msgstr "添付"
@@ -4380,11 +4702,11 @@ msgstr "この添付が現れるつぶやき"
 msgid "Tags for this attachment"
 msgstr "この添付のタグ"
 
-#: lib/authenticationplugin.php:182 lib/authenticationplugin.php:187
+#: lib/authenticationplugin.php:214 lib/authenticationplugin.php:219
 msgid "Password changing failed"
 msgstr "パスワード変更に失敗しました"
 
-#: lib/authenticationplugin.php:197
+#: lib/authenticationplugin.php:229
 msgid "Password changing is not allowed"
 msgstr "パスワード変更は許可されていません"
 
@@ -4676,6 +4998,14 @@ msgstr "インスタントメッセンジャー(IM)での更新"
 msgid "Updates by SMS"
 msgstr "SMSでの更新"
 
+#: lib/connectsettingsaction.php:120
+msgid "Connections"
+msgstr "接続"
+
+#: lib/connectsettingsaction.php:121
+msgid "Authorized connected applications"
+msgstr "承認された接続アプリケーション"
+
 #: lib/dberroraction.php:60
 msgid "Database error"
 msgstr "データベースエラー"
@@ -4866,9 +5196,9 @@ msgid "[%s]"
 msgstr ""
 
 #: lib/jabber.php:385
-#, fuzzy, php-format
+#, php-format
 msgid "Unknown inbox source %d."
-msgstr "不明な言語 \"%s\""
+msgstr "不明な受信箱のソース %d。"
 
 #: lib/joinform.php:114
 msgid "Join"
@@ -5266,10 +5596,6 @@ msgid "Do not share my location"
 msgstr "あなたの場所を共有しない"
 
 #: lib/noticeform.php:216
-msgid "Hide this info"
-msgstr "この情報を隠す"
-
-#: lib/noticeform.php:217
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
@@ -5627,47 +5953,47 @@ msgstr "メッセージ"
 msgid "Moderate"
 msgstr "司会"
 
-#: lib/util.php:877
+#: lib/util.php:875
 msgid "a few seconds ago"
 msgstr "数秒前"
 
-#: lib/util.php:879
+#: lib/util.php:877
 msgid "about a minute ago"
 msgstr "約 1 分前"
 
-#: lib/util.php:881
+#: lib/util.php:879
 #, php-format
 msgid "about %d minutes ago"
 msgstr "約 %d 分前"
 
-#: lib/util.php:883
+#: lib/util.php:881
 msgid "about an hour ago"
 msgstr "約 1 時間前"
 
-#: lib/util.php:885
+#: lib/util.php:883
 #, php-format
 msgid "about %d hours ago"
 msgstr "約 %d 時間前"
 
-#: lib/util.php:887
+#: lib/util.php:885
 msgid "about a day ago"
 msgstr "約 1 日前"
 
-#: lib/util.php:889
+#: lib/util.php:887
 #, php-format
 msgid "about %d days ago"
 msgstr "約 %d 日前"
 
-#: lib/util.php:891
+#: lib/util.php:889
 msgid "about a month ago"
 msgstr "約 1 ヵ月前"
 
-#: lib/util.php:893
+#: lib/util.php:891
 #, php-format
 msgid "about %d months ago"
 msgstr "約 %d ヵ月前"
 
-#: lib/util.php:895
+#: lib/util.php:893
 msgid "about a year ago"
 msgstr "約 1 年前"
 

@@ -265,7 +265,7 @@ class ShowApplicationAction extends OwnerDesignAction
         $this->elementEnd('dl');
 
         $this->element('p', 'note',
-            _('Note: We support hmac-sha1 signatures. We do not support the plaintext signature method.'));
+            _('Note: We support HMAC-SHA1 signatures. We do not support the plaintext signature method.'));
         $this->elementEnd('div');
 
         $this->elementStart('p', array('id' => 'application_action'));
@@ -325,4 +325,3 @@ class ShowApplicationAction extends OwnerDesignAction
     }
 
 }
-

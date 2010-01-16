@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-13 22:04+0000\n"
-"PO-Revision-Date: 2010-01-13 22:05:40+0000\n"
+"POT-Creation-Date: 2010-01-15 19:15+0000\n"
+"PO-Revision-Date: 2010-01-15 19:17:27+0000\n"
 "Language-Team: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61027); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r61101); Translate extension (2010-01-04)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: out-statusnet\n"
@@ -33,8 +33,8 @@ msgstr "그러한 태그가 없습니다."
 #: actions/apidirectmessagenew.php:75 actions/apigroupcreate.php:112
 #: actions/apigroupismember.php:90 actions/apigroupjoin.php:99
 #: actions/apigroupleave.php:99 actions/apigrouplist.php:90
-#: actions/apistatusesupdate.php:144 actions/apisubscriptions.php:87
-#: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:79
+#: actions/apistatusesupdate.php:149 actions/apisubscriptions.php:87
+#: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:78
 #: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
 #: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
 #: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
@@ -50,8 +50,13 @@ msgstr "그러한 태그가 없습니다."
 msgid "No such user."
 msgstr "그러한 사용자는 없습니다."
 
+#: actions/all.php:84
+#, fuzzy, php-format
+msgid "%1$s and friends, page %2$d"
+msgstr "%s 와 친구들, %d 페이지"
+
 #: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
-#: actions/apitimelinefriends.php:115 actions/apitimelinehome.php:115
+#: actions/apitimelinefriends.php:114 actions/apitimelinehome.php:115
 #: lib/personalgroupnav.php:100
 #, php-format
 msgid "%s and friends"
@@ -104,7 +109,7 @@ msgstr ""
 msgid "You and friends"
 msgstr "%s 및 친구들"
 
-#: actions/allrss.php:119 actions/apitimelinefriends.php:122
+#: actions/allrss.php:119 actions/apitimelinefriends.php:121
 #: actions/apitimelinehome.php:122
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
@@ -126,7 +131,7 @@ msgstr "%1$s 및 %2$s에 있는 친구들의 업데이트!"
 #: actions/apistatusesretweets.php:112 actions/apistatusesshow.php:108
 #: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
 #: actions/apisubscriptions.php:111 actions/apitimelinefavorites.php:146
-#: actions/apitimelinefriends.php:156 actions/apitimelinegroup.php:150
+#: actions/apitimelinefriends.php:155 actions/apitimelinegroup.php:150
 #: actions/apitimelinehome.php:156 actions/apitimelinementions.php:151
 #: actions/apitimelinepublic.php:131 actions/apitimelineretweetedbyme.php:122
 #: actions/apitimelineretweetedtome.php:121
@@ -146,7 +151,7 @@ msgstr "API 메서드를 찾을 수 없습니다."
 #: actions/apifriendshipscreate.php:91 actions/apifriendshipsdestroy.php:91
 #: actions/apigroupcreate.php:104 actions/apigroupjoin.php:91
 #: actions/apigroupleave.php:91 actions/apistatusesretweet.php:65
-#: actions/apistatusesupdate.php:114
+#: actions/apistatusesupdate.php:119
 msgid "This method requires a POST."
 msgstr "이 메서드는 등록을 요구합니다."
 
@@ -177,8 +182,9 @@ msgstr "프로필을 저장 할 수 없습니다."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97
-#: actions/apistatusesupdate.php:127 actions/avatarsettings.php:257
-#: actions/designadminpanel.php:122 actions/newnotice.php:94
+#: actions/apistatusesupdate.php:132 actions/avatarsettings.php:257
+#: actions/designadminpanel.php:122 actions/editapplication.php:118
+#: actions/newapplication.php:101 actions/newnotice.php:94
 #: lib/designsettings.php:283
 #, php-format
 msgid ""
@@ -329,7 +335,8 @@ msgstr "별명이 이미 사용중 입니다. 다른 별명을 시도해 보십�
 msgid "Not a valid nickname."
 msgstr "유효한 별명이 아닙니다"
 
-#: actions/apigroupcreate.php:196 actions/editgroup.php:195
+#: actions/apigroupcreate.php:196 actions/editapplication.php:212
+#: actions/editgroup.php:195 actions/newapplication.php:200
 #: actions/newgroup.php:139 actions/profilesettings.php:222
 #: actions/register.php:217
 msgid "Homepage is not a valid URL."
@@ -341,7 +348,8 @@ msgstr "홈페이지 주소형식이 올바르지 않습니다."
 msgid "Full name is too long (max 255 chars)."
 msgstr "실명이 너무 깁니다. (최대 255글자)"
 
-#: actions/apigroupcreate.php:213
+#: actions/apigroupcreate.php:213 actions/editapplication.php:187
+#: actions/newapplication.php:169
 #, fuzzy, php-format
 msgid "Description is too long (max %d chars)."
 msgstr "설명이 너무 길어요. (최대 140글자)"
@@ -421,6 +429,101 @@ msgstr "%s 그룹"
 msgid "groups on %s"
 msgstr "그룹 행동"
 
+#: actions/apioauthauthorize.php:108 actions/apioauthauthorize.php:114
+msgid "Bad request."
+msgstr ""
+
+#: actions/apioauthauthorize.php:134 actions/avatarsettings.php:268
+#: actions/deletenotice.php:157 actions/disfavor.php:74
+#: actions/emailsettings.php:238 actions/favor.php:75 actions/geocode.php:50
+#: actions/groupblock.php:66 actions/grouplogo.php:309
+#: actions/groupunblock.php:66 actions/imsettings.php:206
+#: actions/invite.php:56 actions/login.php:115 actions/makeadmin.php:66
+#: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
+#: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:139
+#: actions/othersettings.php:145 actions/passwordsettings.php:138
+#: actions/profilesettings.php:194 actions/recoverpassword.php:337
+#: actions/register.php:165 actions/remotesubscribe.php:77
+#: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
+#: actions/subscribe.php:46 actions/tagother.php:166
+#: actions/unsubscribe.php:69 actions/userauthorization.php:52
+#: lib/designsettings.php:294
+msgid "There was a problem with your session token. Try again, please."
+msgstr "세션토큰에 문제가 있습니다. 다시 시도해주세요."
+
+#: actions/apioauthauthorize.php:146
+#, fuzzy
+msgid "Invalid nickname / password!"
+msgstr "사용자 이름이나 비밀 번호가 틀렸습니다."
+
+#: actions/apioauthauthorize.php:170
+#, fuzzy
+msgid "DB error deleting OAuth app user."
+msgstr "사용자 세팅 오류"
+
+#: actions/apioauthauthorize.php:196
+#, fuzzy
+msgid "DB error inserting OAuth app user."
+msgstr "해쉬테그를 추가 할 때에 데이타베이스 에러 : %s"
+
+#: actions/apioauthauthorize.php:231
+#, php-format
+msgid ""
+"The request token %s has been authorized. Please exchange it for an access "
+"token."
+msgstr ""
+
+#: actions/apioauthauthorize.php:241
+#, php-format
+msgid "The request token %s has been denied."
+msgstr ""
+
+#: actions/apioauthauthorize.php:246 actions/avatarsettings.php:281
+#: actions/designadminpanel.php:103 actions/editapplication.php:139
+#: actions/emailsettings.php:256 actions/grouplogo.php:319
+#: actions/imsettings.php:220 actions/newapplication.php:121
+#: actions/oauthconnectionssettings.php:151 actions/recoverpassword.php:44
+#: actions/smssettings.php:248 lib/designsettings.php:304
+msgid "Unexpected form submission."
+msgstr "잘못된 폼 제출"
+
+#: actions/apioauthauthorize.php:273
+msgid "An application would like to connect to your account"
+msgstr ""
+
+#: actions/apioauthauthorize.php:290
+msgid "Allow or deny access"
+msgstr ""
+
+#: actions/apioauthauthorize.php:320 lib/action.php:435
+msgid "Account"
+msgstr "계정"
+
+#: actions/apioauthauthorize.php:323 actions/login.php:230
+#: actions/profilesettings.php:106 actions/register.php:424
+#: actions/showgroup.php:236 actions/tagother.php:94 lib/groupeditform.php:152
+#: lib/userprofile.php:131
+msgid "Nickname"
+msgstr "별명"
+
+#: actions/apioauthauthorize.php:326 actions/login.php:233
+#: actions/register.php:429 lib/accountsettingsaction.php:116
+msgid "Password"
+msgstr "비밀 번호"
+
+#: actions/apioauthauthorize.php:338
+msgid "Deny"
+msgstr ""
+
+#: actions/apioauthauthorize.php:344
+#, fuzzy
+msgid "Allow"
+msgstr "모든 것"
+
+#: actions/apioauthauthorize.php:361
+msgid "Allow or deny access to your account information."
+msgstr ""
+
 #: actions/apistatusesdestroy.php:107
 msgid "This method requires a POST or DELETE."
 msgstr "이 메서드는 등록 또는 삭제를 요구합니다."
@@ -453,17 +556,17 @@ msgstr "아바타가 업데이트 되었습니다."
 msgid "No status with that ID found."
 msgstr "발견된 ID의 상태가 없습니다."
 
-#: actions/apistatusesupdate.php:157 actions/newnotice.php:155
+#: actions/apistatusesupdate.php:162 actions/newnotice.php:155
 #: lib/mailhandler.php:60
 #, fuzzy, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr "너무 깁니다. 통지의 최대 길이는 140글자 입니다."
 
-#: actions/apistatusesupdate.php:198
+#: actions/apistatusesupdate.php:203
 msgid "Not found"
 msgstr "찾지 못함"
 
-#: actions/apistatusesupdate.php:221 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:226 actions/newnotice.php:178
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -609,29 +712,6 @@ msgstr "올리기"
 msgid "Crop"
 msgstr "자르기"
 
-#: actions/avatarsettings.php:268 actions/deletenotice.php:157
-#: actions/disfavor.php:74 actions/emailsettings.php:238 actions/favor.php:75
-#: actions/geocode.php:50 actions/groupblock.php:66 actions/grouplogo.php:309
-#: actions/groupunblock.php:66 actions/imsettings.php:206
-#: actions/invite.php:56 actions/login.php:115 actions/makeadmin.php:66
-#: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
-#: actions/othersettings.php:145 actions/passwordsettings.php:138
-#: actions/profilesettings.php:194 actions/recoverpassword.php:337
-#: actions/register.php:165 actions/remotesubscribe.php:77
-#: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
-#: actions/subscribe.php:46 actions/tagother.php:166
-#: actions/unsubscribe.php:69 actions/userauthorization.php:52
-#: lib/designsettings.php:294
-msgid "There was a problem with your session token. Try again, please."
-msgstr "세션토큰에 문제가 있습니다. 다시 시도해주세요."
-
-#: actions/avatarsettings.php:281 actions/designadminpanel.php:103
-#: actions/emailsettings.php:256 actions/grouplogo.php:319
-#: actions/imsettings.php:220 actions/recoverpassword.php:44
-#: actions/smssettings.php:248 lib/designsettings.php:304
-msgid "Unexpected form submission."
-msgstr "잘못된 폼 제출"
-
 #: actions/avatarsettings.php:328
 msgid "Pick a square area of the image to be your avatar"
 msgstr "당신의 아바타가 될 이미지영역을 지정하세요."
@@ -771,7 +851,8 @@ msgid "Couldn't delete email confirmation."
 msgstr "이메일 승인을 삭제 할 수 없습니다."
 
 #: actions/confirmaddress.php:144
-msgid "Confirm Address"
+#, fuzzy
+msgid "Confirm address"
 msgstr "주소 인증"
 
 #: actions/confirmaddress.php:159
@@ -971,7 +1052,8 @@ msgstr ""
 #: actions/pathsadminpanel.php:324 actions/profilesettings.php:174
 #: actions/siteadminpanel.php:388 actions/smssettings.php:181
 #: actions/subscriptions.php:203 actions/tagother.php:154
-#: actions/useradminpanel.php:313 lib/designsettings.php:256
+#: actions/useradminpanel.php:313 lib/applicationeditform.php:335
+#: lib/applicationeditform.php:336 lib/designsettings.php:256
 #: lib/groupeditform.php:202
 msgid "Save"
 msgstr "저장"
@@ -991,6 +1073,86 @@ msgstr "좋아하는 게시글로 추가하기"
 #: actions/doc.php:69
 msgid "No such document."
 msgstr "그러한 문서는 없습니다."
+
+#: actions/editapplication.php:54 lib/applicationeditform.php:136
+msgid "Edit application"
+msgstr ""
+
+#: actions/editapplication.php:66
+#, fuzzy
+msgid "You must be logged in to edit an application."
+msgstr "그룹을 만들기 위해서는 로그인해야 합니다."
+
+#: actions/editapplication.php:77 actions/showapplication.php:94
+#, fuzzy
+msgid "You are not the owner of this application."
+msgstr "당신은 해당 그룹의 멤버가 아닙니다."
+
+#: actions/editapplication.php:81 actions/oauthconnectionssettings.php:163
+#: actions/showapplication.php:87
+#, fuzzy
+msgid "No such application."
+msgstr "그러한 통지는 없습니다."
+
+#: actions/editapplication.php:127 actions/newapplication.php:110
+#: actions/showapplication.php:118 lib/action.php:1167
+msgid "There was a problem with your session token."
+msgstr "당신의 세션토큰관련 문제가 있습니다."
+
+#: actions/editapplication.php:161
+#, fuzzy
+msgid "Use this form to edit your application."
+msgstr "다음 양식을 이용해 그룹을 편집하십시오."
+
+#: actions/editapplication.php:177 actions/newapplication.php:159
+#, fuzzy
+msgid "Name is required."
+msgstr "위와 같은 비밀 번호. 필수 사항."
+
+#: actions/editapplication.php:180 actions/newapplication.php:162
+#, fuzzy
+msgid "Name is too long (max 255 chars)."
+msgstr "실명이 너무 깁니다. (최대 255글자)"
+
+#: actions/editapplication.php:183 actions/newapplication.php:165
+#, fuzzy
+msgid "Description is required."
+msgstr "설명"
+
+#: actions/editapplication.php:191
+msgid "Source URL is too long."
+msgstr ""
+
+#: actions/editapplication.php:197 actions/newapplication.php:182
+#, fuzzy
+msgid "Source URL is not valid."
+msgstr "홈페이지 주소형식이 올바르지 않습니다."
+
+#: actions/editapplication.php:200 actions/newapplication.php:185
+msgid "Organization is required."
+msgstr ""
+
+#: actions/editapplication.php:203 actions/newapplication.php:188
+#, fuzzy
+msgid "Organization is too long (max 255 chars)."
+msgstr "위치가 너무 깁니다. (최대 255글자)"
+
+#: actions/editapplication.php:206 actions/newapplication.php:191
+msgid "Organization homepage is required."
+msgstr ""
+
+#: actions/editapplication.php:215 actions/newapplication.php:203
+msgid "Callback is too long."
+msgstr ""
+
+#: actions/editapplication.php:222 actions/newapplication.php:212
+msgid "Callback URL is not valid."
+msgstr ""
+
+#: actions/editapplication.php:255
+#, fuzzy
+msgid "Could not update application."
+msgstr "그룹을 업데이트 할 수 없습니다."
 
 #: actions/editgroup.php:56
 #, php-format
@@ -1063,7 +1225,8 @@ msgstr ""
 "주시기 바랍니다."
 
 #: actions/emailsettings.php:117 actions/imsettings.php:120
-#: actions/smssettings.php:126
+#: actions/smssettings.php:126 lib/applicationeditform.php:333
+#: lib/applicationeditform.php:334
 msgid "Cancel"
 msgstr "취소"
 
@@ -1745,7 +1908,7 @@ msgstr "개인적인 메시지"
 msgid "Optionally add a personal message to the invitation."
 msgstr "초대장에 메시지 첨부하기."
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:237
+#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:236
 msgid "Send"
 msgstr "보내기"
 
@@ -1850,17 +2013,6 @@ msgstr "로그인"
 msgid "Login to site"
 msgstr "사이트에 로그인하세요."
 
-#: actions/login.php:230 actions/profilesettings.php:106
-#: actions/register.php:424 actions/showgroup.php:236 actions/tagother.php:94
-#: lib/groupeditform.php:152 lib/userprofile.php:131
-msgid "Nickname"
-msgstr "별명"
-
-#: actions/login.php:233 actions/register.php:429
-#: lib/accountsettingsaction.php:116
-msgid "Password"
-msgstr "비밀 번호"
-
 #: actions/login.php:236 actions/register.php:478
 msgid "Remember me"
 msgstr "자동 로그인"
@@ -1912,6 +2064,29 @@ msgstr "관리자만 그룹을 편집할 수 있습니다."
 #: actions/microsummary.php:69
 msgid "No current status"
 msgstr "현재 상태가 없습니다."
+
+#: actions/newapplication.php:52
+msgid "New application"
+msgstr ""
+
+#: actions/newapplication.php:64
+#, fuzzy
+msgid "You must be logged in to register an application."
+msgstr "그룹을 만들기 위해서는 로그인해야 합니다."
+
+#: actions/newapplication.php:143
+#, fuzzy
+msgid "Use this form to register a new application."
+msgstr "새 그룹을 만들기 위해 이 양식을 사용하세요."
+
+#: actions/newapplication.php:173
+msgid "Source URL is required."
+msgstr ""
+
+#: actions/newapplication.php:255 actions/newapplication.php:264
+#, fuzzy
+msgid "Could not create application."
+msgstr "좋아하는 게시글을 생성할 수 없습니다."
 
 #: actions/newgroup.php:53
 msgid "New group"
@@ -2022,6 +2197,51 @@ msgstr "찔러 보기를 보냈습니다."
 msgid "Nudge sent!"
 msgstr "찔러 보기를 보냈습니다!"
 
+#: actions/oauthappssettings.php:59
+#, fuzzy
+msgid "You must be logged in to list your applications."
+msgstr "그룹을 만들기 위해서는 로그인해야 합니다."
+
+#: actions/oauthappssettings.php:74
+#, fuzzy
+msgid "OAuth applications"
+msgstr "다른 옵션들"
+
+#: actions/oauthappssettings.php:85
+msgid "Applications you have registered"
+msgstr ""
+
+#: actions/oauthappssettings.php:135
+#, php-format
+msgid "You have not registered any applications yet."
+msgstr ""
+
+#: actions/oauthconnectionssettings.php:71
+msgid "Connected applications"
+msgstr ""
+
+#: actions/oauthconnectionssettings.php:87
+msgid "You have allowed the following applications to access you account."
+msgstr ""
+
+#: actions/oauthconnectionssettings.php:170
+#, fuzzy
+msgid "You are not a user of that application."
+msgstr "당신은 해당 그룹의 멤버가 아닙니다."
+
+#: actions/oauthconnectionssettings.php:180
+msgid "Unable to revoke access for app: "
+msgstr ""
+
+#: actions/oauthconnectionssettings.php:192
+#, php-format
+msgid "You have not authorized any applications to use your account."
+msgstr ""
+
+#: actions/oauthconnectionssettings.php:205
+msgid "Developers can edit the registration settings for their applications "
+msgstr ""
+
 #: actions/oembed.php:79 actions/shownotice.php:100
 msgid "Notice has no profile"
 msgstr "통지에 프로필이 없습니다."
@@ -2040,8 +2260,8 @@ msgstr "연결"
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1033
-#: lib/api.php:1061 lib/api.php:1171
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1038
+#: lib/api.php:1066 lib/api.php:1176
 msgid "Not a supported data format."
 msgstr "지원하는 형식의 데이터가 아닙니다."
 
@@ -2054,7 +2274,8 @@ msgid "Notice Search"
 msgstr "통지 검색"
 
 #: actions/othersettings.php:60
-msgid "Other Settings"
+#, fuzzy
+msgid "Other settings"
 msgstr "기타 설정"
 
 #: actions/othersettings.php:71
@@ -2387,7 +2608,7 @@ msgid "Full name"
 msgstr "실명"
 
 #: actions/profilesettings.php:115 actions/register.php:453
-#: lib/groupeditform.php:161
+#: lib/applicationeditform.php:230 lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "홈페이지"
 
@@ -2984,6 +3205,84 @@ msgstr "당신은 이 사용자에게 메시지를 보낼 수 없습니다."
 msgid "User is already sandboxed."
 msgstr "회원이 당신을 차단해왔습니다."
 
+#: actions/showapplication.php:82
+#, fuzzy
+msgid "You must be logged in to view an application."
+msgstr "그룹을 떠나기 위해서는 로그인해야 합니다."
+
+#: actions/showapplication.php:158
+#, fuzzy
+msgid "Application profile"
+msgstr "통지에 프로필이 없습니다."
+
+#: actions/showapplication.php:160 lib/applicationeditform.php:182
+msgid "Icon"
+msgstr ""
+
+#: actions/showapplication.php:170 actions/version.php:195
+#: lib/applicationeditform.php:197
+#, fuzzy
+msgid "Name"
+msgstr "별명"
+
+#: actions/showapplication.php:179 lib/applicationeditform.php:224
+#, fuzzy
+msgid "Organization"
+msgstr "페이지수"
+
+#: actions/showapplication.php:188 actions/version.php:198
+#: lib/applicationeditform.php:211 lib/groupeditform.php:172
+msgid "Description"
+msgstr "설명"
+
+#: actions/showapplication.php:193 actions/showgroup.php:429
+#: lib/profileaction.php:174
+msgid "Statistics"
+msgstr "통계"
+
+#: actions/showapplication.php:204
+#, php-format
+msgid "created by %1$s - %2$s access by default - %3$d users"
+msgstr ""
+
+#: actions/showapplication.php:214
+msgid "Application actions"
+msgstr ""
+
+#: actions/showapplication.php:233
+msgid "Reset key & secret"
+msgstr ""
+
+#: actions/showapplication.php:241
+msgid "Application info"
+msgstr ""
+
+#: actions/showapplication.php:243
+msgid "Consumer key"
+msgstr ""
+
+#: actions/showapplication.php:248
+msgid "Consumer secret"
+msgstr ""
+
+#: actions/showapplication.php:253
+msgid "Request token URL"
+msgstr ""
+
+#: actions/showapplication.php:258
+msgid "Access token URL"
+msgstr ""
+
+#: actions/showapplication.php:263
+msgid "Authorize URL"
+msgstr ""
+
+#: actions/showapplication.php:268
+msgid ""
+"Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
+"signature method."
+msgstr ""
+
 #: actions/showfavorites.php:132
 msgid "Could not retrieve favorite notices."
 msgstr "좋아하는 게시글을 복구할 수 없습니다."
@@ -3088,10 +3387,6 @@ msgstr "(없습니다.)"
 #: actions/showgroup.php:392
 msgid "All members"
 msgstr "모든 회원"
-
-#: actions/showgroup.php:429 lib/profileaction.php:174
-msgid "Statistics"
-msgstr "통계"
 
 #: actions/showgroup.php:432
 #, fuzzy
@@ -4000,11 +4295,6 @@ msgstr ""
 msgid "Plugins"
 msgstr ""
 
-#: actions/version.php:195
-#, fuzzy
-msgid "Name"
-msgstr "별명"
-
 #: actions/version.php:196 lib/action.php:741
 #, fuzzy
 msgid "Version"
@@ -4013,10 +4303,6 @@ msgstr "개인적인"
 #: actions/version.php:197
 msgid "Author(s)"
 msgstr ""
-
-#: actions/version.php:198 lib/groupeditform.php:172
-msgid "Description"
-msgstr "설명"
 
 #: classes/File.php:144
 #, php-format
@@ -4180,10 +4466,6 @@ msgid "Personal profile and friends timeline"
 msgstr "개인 프로필과 친구 타임라인"
 
 #: lib/action.php:435
-msgid "Account"
-msgstr "계정"
-
-#: lib/action.php:435
 msgid "Change your email, avatar, password, profile"
 msgstr "당신의 이메일, 아바타, 비밀 번호, 프로필을 변경하세요."
 
@@ -4341,10 +4623,6 @@ msgstr "뒷 페이지"
 msgid "Before"
 msgstr "앞 페이지"
 
-#: lib/action.php:1167
-msgid "There was a problem with your session token."
-msgstr "당신의 세션토큰관련 문제가 있습니다."
-
 #: lib/adminpanelaction.php:96
 #, fuzzy
 msgid "You cannot make changes to this site."
@@ -4385,6 +4663,72 @@ msgstr "SMS 인증"
 msgid "Paths configuration"
 msgstr "SMS 인증"
 
+#: lib/applicationeditform.php:186
+msgid "Icon for this application"
+msgstr ""
+
+#: lib/applicationeditform.php:206
+#, fuzzy, php-format
+msgid "Describe your application in %d characters"
+msgstr "140글자로 그룹이나 토픽 설명하기"
+
+#: lib/applicationeditform.php:209
+#, fuzzy
+msgid "Describe your application"
+msgstr "140글자로 그룹이나 토픽 설명하기"
+
+#: lib/applicationeditform.php:218
+#, fuzzy
+msgid "Source URL"
+msgstr "소스 코드"
+
+#: lib/applicationeditform.php:220
+#, fuzzy
+msgid "URL of the homepage of this application"
+msgstr "그룹 혹은 토픽의 홈페이지나 블로그 URL"
+
+#: lib/applicationeditform.php:226
+msgid "Organization responsible for this application"
+msgstr ""
+
+#: lib/applicationeditform.php:232
+#, fuzzy
+msgid "URL for the homepage of the organization"
+msgstr "그룹 혹은 토픽의 홈페이지나 블로그 URL"
+
+#: lib/applicationeditform.php:238
+msgid "URL to redirect to after authentication"
+msgstr ""
+
+#: lib/applicationeditform.php:260
+msgid "Browser"
+msgstr ""
+
+#: lib/applicationeditform.php:276
+msgid "Desktop"
+msgstr ""
+
+#: lib/applicationeditform.php:277
+msgid "Type of application, browser or desktop"
+msgstr ""
+
+#: lib/applicationeditform.php:299
+msgid "Read-only"
+msgstr ""
+
+#: lib/applicationeditform.php:317
+msgid "Read-write"
+msgstr ""
+
+#: lib/applicationeditform.php:318
+msgid "Default access for this application: read-only, or read-write"
+msgstr ""
+
+#: lib/applicationlist.php:154
+#, fuzzy
+msgid "Revoke"
+msgstr "삭제"
+
 #: lib/attachmentlist.php:87
 msgid "Attachments"
 msgstr ""
@@ -4406,12 +4750,12 @@ msgstr ""
 msgid "Tags for this attachment"
 msgstr ""
 
-#: lib/authenticationplugin.php:182 lib/authenticationplugin.php:187
+#: lib/authenticationplugin.php:214 lib/authenticationplugin.php:219
 #, fuzzy
 msgid "Password changing failed"
 msgstr "비밀번호 변경"
 
-#: lib/authenticationplugin.php:197
+#: lib/authenticationplugin.php:229
 #, fuzzy
 msgid "Password changing is not allowed"
 msgstr "비밀번호 변경"
@@ -4708,6 +5052,15 @@ msgstr "인스턴트 메신저에 의한 업데이트"
 #: lib/connectsettingsaction.php:116
 msgid "Updates by SMS"
 msgstr "SMS에 의한 업데이트"
+
+#: lib/connectsettingsaction.php:120
+#, fuzzy
+msgid "Connections"
+msgstr "연결"
+
+#: lib/connectsettingsaction.php:121
+msgid "Authorized connected applications"
+msgstr ""
 
 #: lib/dberroraction.php:60
 msgid "Database error"
@@ -5223,10 +5576,6 @@ msgid "Do not share my location"
 msgstr "태그를 저장할 수 없습니다."
 
 #: lib/noticeform.php:216
-msgid "Hide this info"
-msgstr ""
-
-#: lib/noticeform.php:217
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
@@ -5602,47 +5951,47 @@ msgstr "메시지"
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:877
+#: lib/util.php:875
 msgid "a few seconds ago"
 msgstr "몇 초 전"
 
-#: lib/util.php:879
+#: lib/util.php:877
 msgid "about a minute ago"
 msgstr "1분 전"
 
-#: lib/util.php:881
+#: lib/util.php:879
 #, php-format
 msgid "about %d minutes ago"
 msgstr "%d분 전"
 
-#: lib/util.php:883
+#: lib/util.php:881
 msgid "about an hour ago"
 msgstr "1시간 전"
 
-#: lib/util.php:885
+#: lib/util.php:883
 #, php-format
 msgid "about %d hours ago"
 msgstr "%d시간 전"
 
-#: lib/util.php:887
+#: lib/util.php:885
 msgid "about a day ago"
 msgstr "하루 전"
 
-#: lib/util.php:889
+#: lib/util.php:887
 #, php-format
 msgid "about %d days ago"
 msgstr "%d일 전"
 
-#: lib/util.php:891
+#: lib/util.php:889
 msgid "about a month ago"
 msgstr "1달 전"
 
-#: lib/util.php:893
+#: lib/util.php:891
 #, php-format
 msgid "about %d months ago"
 msgstr "%d달 전"
 
-#: lib/util.php:895
+#: lib/util.php:893
 msgid "about a year ago"
 msgstr "1년 전"
 
