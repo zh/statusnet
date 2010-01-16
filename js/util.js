@@ -498,7 +498,7 @@ var SN = { // StatusNet
                 $.cookie(SN.C.S.NoticeDataGeoCookie, 'disabled');
             }
 
-            function getJSONgeocodeURL(geocodeURL, data) {
+            function getJSONgeocodeURL(geocodeURL, data, position) {
                 $.getJSON(geocodeURL, data, function(location) {
                     var lns, lid;
 
@@ -575,7 +575,7 @@ var SN = { // StatusNet
                                             token: $('#token').val()
                                         };
 
-                                        getJSONgeocodeURL(geocodeURL, data);
+                                        getJSONgeocodeURL(geocodeURL, data, position);
                                     },
 
                                     function(error) {
@@ -602,7 +602,7 @@ var SN = { // StatusNet
                                         'token': $('#token').val()
                                     };
 
-                                    getJSONgeocodeURL(geocodeURL, data);
+                                    getJSONgeocodeURL(geocodeURL, data, position);
                                 }
                                 else {
                                     removeNoticeDataGeo();
