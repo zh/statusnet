@@ -529,13 +529,13 @@ var SN = { // StatusNet
                     $('#'+SN.C.S.NoticeDataGeo).attr('checked', true);
 
                     var cookieValue = {
-                        'NLat': data.lat,
-                        'NLon': data.lon,
-                        'NLNS': lns,
-                        'NLID': lid,
-                        'NLN': NLN_text,
-                        'NLNU': location.url,
-                        'NDG': true
+                        NLat: data.lat,
+                        NLon: data.lon,
+                        NLNS: lns,
+                        NLID: lid,
+                        NLN: NLN_text,
+                        NLNU: location.url,
+                        NDG: true
                     };
                     $.cookie(SN.C.S.NoticeDataGeoCookie, JSON.stringify(cookieValue));
                 });
@@ -570,9 +570,9 @@ var SN = { // StatusNet
                                         $('#'+SN.C.S.NoticeLon).val(position.coords.longitude);
 
                                         var data = {
-                                            'lat': position.coords.latitude,
-                                            'lon': position.coords.longitude,
-                                            'token': $('#token').val()
+                                            lat: position.coords.latitude,
+                                            lon: position.coords.longitude,
+                                            token: $('#token').val()
                                         };
 
                                         getJSONgeocodeURL(geocodeURL, data);
