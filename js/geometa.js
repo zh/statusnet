@@ -168,7 +168,7 @@ var AjaxGeoLocation = (function() {
                         accuracy: 43000, // same as Gears accuracy over wifi?
                         altitudeAccuracy: null,
                         heading: null,
-                        speed: null,
+                        speed: null
                     },
                     // extra info that is outside of the bounds of the core API
                     address: {
