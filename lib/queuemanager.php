@@ -149,15 +149,17 @@ abstract class QueueManager extends IoManager
     function initialize()
     {
         if (Event::handle('StartInitializeQueueManager', array($this))) {
-            $this->connect('plugin', 'PluginQueueHandler');
-            $this->connect('omb', 'OmbQueueHandler');
-            $this->connect('ping', 'PingQueueHandler');
-            if (common_config('sms', 'enabled')) {
-                $this->connect('sms', 'SmsQueueHandler');
+            if (!defined('XMPP_ONLY_FLAG')) { // hack!
+                $this->connect('plugin', 'PluginQueueHandler');
+                $this->connect('omb', 'OmbQueueHandler');
+                $this->connect('ping', 'PingQueueHandler');
+                if (common_config('sms', 'enabled')) {
+                    $this->connect('sms', 'SmsQueueHandler');
+                }
             }
 
             // XMPP output handlers...
-            if (common_config('xmpp', 'enabled')) {
+            if (common_config('xmpp', 'enabled') && !defined('XMPP_EMERGENCY_FLAG')) {
                 $this->connect('jabber', 'JabberQueueHandler');
                 $this->connect('public', 'PublicQueueHandler');
                 
@@ -165,10 +167,14 @@ abstract class QueueManager extends IoManager
                 $this->connect('confirm', 'XmppConfirmHandler');
             }
 
-            // For compat with old plugins not registering their own handlers.
-            $this->connect('plugin', 'PluginQueueHandler');
+            if (!defined('XMPP_ONLY_FLAG')) { // hack!
+                // For compat with old plugins not registering their own handlers.
+                $this->connect('plugin', 'PluginQueueHandler');
+            }
         }
-        Event::handle('EndInitializeQueueManager', array($this));
+        if (!defined('XMPP_ONLY_FLAG')) { // hack!
+            Event::handle('EndInitializeQueueManager', array($this));
+        }
     }
 
     /**

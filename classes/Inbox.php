@@ -154,17 +154,23 @@ class Inbox extends Memcached_DataObject
         $ids = unpack('N*', $inbox->notice_ids);
 
         if (!empty($since_id)) {
-            $i = array_search($since_id, $ids);
-            if ($i !== false) {
-                $ids = array_slice($ids, 0, $i - 1);
+            $newids = array();
+            foreach ($ids as $id) {
+                if ($id > $since_id) {
+                    $newids[] = $id;
+                }
             }
+            $ids = $newids;
         }
 
         if (!empty($max_id)) {
-            $i = array_search($max_id, $ids);
-            if ($i !== false) {
-                $ids = array_slice($ids, $i - 1);
+            $newids = array();
+            foreach ($ids as $id) {
+                if ($id <= $max_id) {
+                    $newids[] = $id;
+                }
             }
+            $ids = $newids;
         }
 
         $ids = array_slice($ids, $offset, $limit);
