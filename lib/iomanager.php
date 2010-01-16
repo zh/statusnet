@@ -31,6 +31,7 @@
 
 abstract class IoManager
 {
+    const GLOBAL_SINGLE_ONLY = -1;
     const SINGLE_ONLY = 0;
     const INSTANCE_PER_SITE = 1;
     const INSTANCE_PER_PROCESS = 2;
