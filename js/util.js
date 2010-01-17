@@ -624,8 +624,6 @@ var SN = { // StatusNet
                     else {
                         removeNoticeDataGeo();
                     }
-
-                    $('#'+SN.C.S.NoticeDataText).focus();
                 }).change();
             }
         },
