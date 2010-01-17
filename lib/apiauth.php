@@ -79,10 +79,13 @@ class ApiAuthAction extends ApiAction
                 $this->checkOAuthRequest();
             } else {
                 $this->checkBasicAuthUser();
-                // By default, all basic auth users have read and write access
-
-                $this->access = self::READ_WRITE;
             }
+        } else {
+
+            // Check to see if a basic auth user is there even
+            // if one's not required
+
+            $this->checkBasicAuthUser(false);
         }
 
         return true;
@@ -198,13 +201,13 @@ class ApiAuthAction extends ApiAction
      * @return boolean true or false
      */
 
-    function checkBasicAuthUser()
+    function checkBasicAuthUser($required = true)
     {
         $this->basicAuthProcessHeader();
 
         $realm = common_config('site', 'name') . ' API';
 
-        if (!isset($this->auth_user)) {
+        if (!isset($this->auth_user) && $required) {
             header('WWW-Authenticate: Basic realm="' . $realm . '"');
 
             // show error if the user clicks 'cancel'
@@ -212,12 +215,16 @@ class ApiAuthAction extends ApiAction
             $this->showBasicAuthError();
             exit;
 
-        } else {
+        } else if (isset($this->auth_user)) {
             $nickname = $this->auth_user;
             $password = $this->auth_pw;
             $user = common_check_user($nickname, $password);
             if (Event::handle('StartSetApiUser', array(&$user))) {
                 $this->auth_user = $user;
+
+                // By default, all basic auth users have read and write access
+                $this->access = self::READ_WRITE;
+
                 Event::handle('EndSetApiUser', array($user));
             }
 
