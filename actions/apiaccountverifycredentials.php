@@ -82,4 +82,18 @@ class ApiAccountVerifyCredentialsAction extends ApiAuthAction
 
     }
 
+    /**
+     * Is this action read only?
+     *
+     * @param array $args other arguments
+     * 
+     * @return boolean true
+     *
+     **/
+    
+    function isReadOnly($args)
+    {
+        return true;
+    }
+    
 }

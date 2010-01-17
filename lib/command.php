@@ -85,7 +85,7 @@ class NudgeCommand extends Command
     {
         $recipient = User::staticGet('nickname', $this->other);
         if(! $recipient){
-            $channel->error($this->user, sprintf(_('Could not find a user with nickname %s.'),
+            $channel->error($this->user, sprintf(_('Could not find a user with nickname %s'),
                                $this->other));
         }else{
             if ($recipient->id == $this->user->id) {
@@ -96,7 +96,7 @@ class NudgeCommand extends Command
                 }
                 // XXX: notify by IM
                 // XXX: notify by SMS
-                $channel->output($this->user, sprintf(_('Nudge sent to %s.'),
+                $channel->output($this->user, sprintf(_('Nudge sent to %s'),
                                $recipient->nickname));
             }
         }
@@ -149,7 +149,7 @@ class FavCommand extends Command
 
             $notice = Notice::staticGet(substr($this->other,1));
             if (!$notice) {
-                $channel->error($this->user, _('Notice with that id does not exist.'));
+                $channel->error($this->user, _('Notice with that id does not exist'));
                 return;
             }
             $recipient = $notice->getProfile();
@@ -165,7 +165,7 @@ class FavCommand extends Command
             }
             $notice = $recipient->getCurrentNotice();
             if (!$notice) {
-                $channel->error($this->user, _('User has no last notice.'));
+                $channel->error($this->user, _('User has no last notice'));
                 return;
             }
         }
@@ -214,7 +214,7 @@ class JoinCommand extends Command
         }
 
         if ($cur->isMember($group)) {
-            $channel->error($cur, _('You are already a member of that group.'));
+            $channel->error($cur, _('You are already a member of that group'));
             return;
         }
         if (Group_block::isBlocked($group, $cur->getProfile())) {
@@ -222,21 +222,18 @@ class JoinCommand extends Command
             return;
         }
 
-        $member = new Group_member();
-
-        $member->group_id   = $group->id;
-        $member->profile_id = $cur->id;
-        $member->created    = common_sql_now();
-
-        $result = $member->insert();
-        if (!$result) {
-          common_log_db_error($member, 'INSERT', __FILE__);
-          $channel->error($cur, sprintf(_('Could not join user %1$s to group %2$s.'),
-                                       $cur->nickname, $group->nickname));
-          return;
+        try {
+            if (Event::handle('StartJoinGroup', array($group, $cur))) {
+                Group_member::join($group->id, $cur->id);
+                Event::handle('EndJoinGroup', array($group, $cur));
+            }
+        } catch (Exception $e) {
+            $channel->error($cur, sprintf(_('Could not join user %s to group %s'),
+                                          $cur->nickname, $group->nickname));
+            return;
         }
 
-        $channel->output($cur, sprintf(_('%1$s joined group %2$s'),
+        $channel->output($cur, sprintf(_('%s joined group %s'),
                                               $cur->nickname,
                                               $group->nickname));
     }
@@ -269,24 +266,18 @@ class DropCommand extends Command
             return;
         }
 
-        $member = new Group_member();
-
-        $member->group_id   = $group->id;
-        $member->profile_id = $cur->id;
-
-        if (!$member->find(true)) {
-          $channel->error($cur,_('Could not find membership record.'));
-          return;
-        }
-        $result = $member->delete();
-        if (!$result) {
-          common_log_db_error($member, 'INSERT', __FILE__);
-          $channel->error($cur, sprintf(_('Could not remove user %1$s to group %2$s.'),
-                                       $cur->nickname, $group->nickname));
-          return;
+        try {
+            if (Event::handle('StartLeaveGroup', array($group, $cur))) {
+                Group_member::leave($group->id, $cur->id);
+                Event::handle('EndLeaveGroup', array($group, $cur));
+            }
+        } catch (Exception $e) {
+            $channel->error($cur, sprintf(_('Could not remove user %s to group %s'),
+                                          $cur->nickname, $group->nickname));
+            return;
         }
 
-        $channel->output($cur, sprintf(_('%1$s left group %2$s'),
+        $channel->output($cur, sprintf(_('%s left group %s'),
                                               $cur->nickname,
                                               $group->nickname));
     }
@@ -355,7 +346,7 @@ class MessageCommand extends Command
         $this->text = common_shorten_links($this->text);
 
         if (Message::contentTooLong($this->text)) {
-            $channel->error($this->user, sprintf(_('Message too long - maximum is %1$d characters, you sent %2$d.'),
+            $channel->error($this->user, sprintf(_('Message too long - maximum is %d characters, you sent %d'),
                                                  Message::maxContent(), mb_strlen($this->text)));
             return;
         }
@@ -373,7 +364,7 @@ class MessageCommand extends Command
         $message = Message::saveNew($this->user->id, $other->id, $this->text, $channel->source());
         if ($message) {
             $message->notify();
-            $channel->output($this->user, sprintf(_('Direct message to %s sent.'), $this->other));
+            $channel->output($this->user, sprintf(_('Direct message to %s sent'), $this->other));
         } else {
             $channel->error($this->user, _('Error sending direct message.'));
         }
@@ -396,7 +387,7 @@ class RepeatCommand extends Command
 
             $notice = Notice::staticGet(substr($this->other,1));
             if (!$notice) {
-                $channel->error($this->user, _('Notice with that id does not exist.'));
+                $channel->error($this->user, _('Notice with that id does not exist'));
                 return;
             }
             $recipient = $notice->getProfile();
@@ -412,19 +403,19 @@ class RepeatCommand extends Command
             }
             $notice = $recipient->getCurrentNotice();
             if (!$notice) {
-                $channel->error($this->user, _('User has no last notice.'));
+                $channel->error($this->user, _('User has no last notice'));
                 return;
             }
         }
 
         if($this->user->id == $notice->profile_id)
         {
-            $channel->error($this->user, _('Cannot repeat your own notice.'));
+            $channel->error($this->user, _('Cannot repeat your own notice'));
             return;
         }
 
         if ($recipient->hasRepeated($notice->id)) {
-            $channel->error($this->user, _('Already repeated that notice.'));
+            $channel->error($this->user, _('Already repeated that notice'));
             return;
         }
 
@@ -432,7 +423,7 @@ class RepeatCommand extends Command
 
         if ($repeat) {
             common_broadcast_notice($repeat);
-            $channel->output($this->user, sprintf(_('Notice from %s repeated.'), $recipient->nickname));
+            $channel->output($this->user, sprintf(_('Notice from %s repeated'), $recipient->nickname));
         } else {
             $channel->error($this->user, _('Error repeating notice.'));
         }
@@ -457,7 +448,7 @@ class ReplyCommand extends Command
 
             $notice = Notice::staticGet(substr($this->other,1));
             if (!$notice) {
-                $channel->error($this->user, _('Notice with that id does not exist.'));
+                $channel->error($this->user, _('Notice with that id does not exist'));
                 return;
             }
             $recipient = $notice->getProfile();
@@ -473,7 +464,7 @@ class ReplyCommand extends Command
             }
             $notice = $recipient->getCurrentNotice();
             if (!$notice) {
-                $channel->error($this->user, _('User has no last notice.'));
+                $channel->error($this->user, _('User has no last notice'));
                 return;
             }
         }
@@ -488,7 +479,7 @@ class ReplyCommand extends Command
         $this->text = common_shorten_links($this->text);
 
         if (Notice::contentTooLong($this->text)) {
-            $channel->error($this->user, sprintf(_('Notice too long - maximum is %1$d characters, you sent %2$d.'),
+            $channel->error($this->user, sprintf(_('Notice too long - maximum is %d characters, you sent %d'),
                                                  Notice::maxContent(), mb_strlen($this->text)));
             return;
         }
@@ -497,7 +488,7 @@ class ReplyCommand extends Command
                                   array('reply_to' => $notice->id));
 
         if ($notice) {
-            $channel->output($this->user, sprintf(_('Reply to %s sent.'), $recipient->nickname));
+            $channel->output($this->user, sprintf(_('Reply to %s sent'), $recipient->nickname));
         } else {
             $channel->error($this->user, _('Error saving notice.'));
         }
@@ -529,7 +520,7 @@ class GetCommand extends Command
         }
         $notice = $target->getCurrentNotice();
         if (!$notice) {
-            $channel->error($this->user, _('User has no last notice.'));
+            $channel->error($this->user, _('User has no last notice'));
             return;
         }
         $notice_content = $notice->content;
@@ -553,7 +544,7 @@ class SubCommand extends Command
     {
 
         if (!$this->other) {
-            $channel->error($this->user, _('Specify the name of the user to subscribe to.'));
+            $channel->error($this->user, _('Specify the name of the user to subscribe to'));
             return;
         }
 
@@ -581,7 +572,7 @@ class UnsubCommand extends Command
     function execute($channel)
     {
         if(!$this->other) {
-            $channel->error($this->user, _('Specify the name of the user to unsubscribe from.'));
+            $channel->error($this->user, _('Specify the name of the user to unsubscribe from'));
             return;
         }
 
@@ -647,28 +638,20 @@ class LoginCommand extends Command
         $disabled = common_config('logincommand','disabled');
         $disabled = isset($disabled) && $disabled;
         if($disabled) {
-            $channel->error($this->user, _('Login command is disabled.'));
+            $channel->error($this->user, _('Login command is disabled'));
             return;
         }
-        $login_token = Login_token::staticGet('user_id',$this->user->id);
-        if($login_token){
-            $login_token->delete();
+
+        try {
+            $login_token = Login_token::makeNew($this->user);
+        } catch (Exception $e) {
+            $channel->error($this->user, $e->getMessage());
         }
-        $login_token = new Login_token();
-        $login_token->user_id = $this->user->id;
-        $login_token->token = common_good_rand(16);
-        $login_token->created = common_sql_now();
-        $result = $login_token->insert();
-        if (!$result) {
-          common_log_db_error($login_token, 'INSERT', __FILE__);
-          $channel->error($this->user, sprintf(_('Could not create login token for %s.'),
-                                       $this->user->nickname));
-          return;
-        }
+
         $channel->output($this->user,
-            sprintf(_('This link is useable only once, and is good for only 2 minutes: %s.'),
-                    common_local_url('login',
-                        array('user_id'=>$login_token->user_id, 'token'=>$login_token->token))));
+            sprintf(_('This link is useable only once, and is good for only 2 minutes: %s'),
+                    common_local_url('otp',
+                        array('user_id' => $login_token->user_id, 'token' => $login_token->token))));
     }
 }
 

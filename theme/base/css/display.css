@@ -73,7 +73,7 @@ input.checkbox,
 input.radio {
 position:relative;
 top:2px;
-left:0;
+left:auto;
 border:0;
 }
 
@@ -177,7 +177,8 @@ font-weight:bold;
 #form_password_recover legend,
 #form_password_change legend,
 .form_entity_block legend,
-#form_filter_bytag legend {
+#form_filter_bytag legend,
+#apioauthauthorize_allowdeny {
 display:none;
 }
 
@@ -554,28 +555,21 @@ width:81.5%;
 margin-bottom:0;
 line-height:1.618;
 }
-.form_notice #notice_data-attach_selected code,
-.form_notice #notice_data-geo_name {
+.form_notice #notice_data-attach_selected code {
 float:left;
 width:80%;
 display:block;
 overflow:auto;
 margin-right:2.5%;
-}
-.form_notice #notice_data-attach_selected code {
 font-size:1.1em;
 }
-.form_notice #notice_data-attach_selected button.close,
-.form_notice #notice_data-geo_selected button.close {
+.form_notice #notice_data-attach_selected button.close {
 float:right;
 font-size:0.8em;
 }
 
-.form_notice #notice_data-geo_selected button.minimize {
-float:left;
-}
-
-.form_notice #notice_data-geo_wrap label {
+.form_notice #notice_data-geo_wrap label,
+.form_notice #notice_data-geo_wrap input {
 position:absolute;
 top:25px;
 right:4px;
@@ -586,17 +580,13 @@ height:16px;
 display:block;
 }
 .form_notice #notice_data-geo_wrap input {
-display:none;
+visibility:hidden;
 }
 .form_notice #notice_data-geo_wrap label {
 font-weight:normal;
 font-size:1em;
 margin-bottom:0;
 text-indent:-9999px;
-}
-.form_notice #notice_data-geo_name {
-display:block;
-padding-left:21px;
 }
 
 button.close,
@@ -906,9 +896,63 @@ font-weight:normal;
 margin-right:11px;
 }
 
+/*applications*/
+.applications {
+margin-bottom:18px;
+float:left;
+width:100%;
+}
+.applications li {
+list-style-type:none;
+}
+.application img,
+#showapplication .entity_profile img,
+.form_data #application_icon img,
+#apioauthauthorize .form_data img {
+max-width:96px;
+max-height:96px;
+}
+#apioauthauthorize .form_data img {
+margin-right:18px;
+float:left;
+}
+#showapplication .entity_profile {
+width:68%;
+}
+#showapplication .entity_profile .entity_fn {
+margin-left:0;
+}
+#showapplication .entity_profile .entity_fn .fn:before,
+#showapplication .entity_profile .entity_fn .fn:after {
+content:'';
+}
+#showapplication .entity_data {
+clear:both;
+margin-bottom:18px;
+}
+#showapplication .entity_data h2 {
+display:none;
+}
+#showapplication .entity_data dl {
+margin-bottom:18px;
+}
+#showapplication .entity_data dt {
+font-weight:bold;
+}
+#showapplication .entity_data dd {
+margin-left:1.795%;
+font-family:monospace;
+font-size:1.3em;
+}
+.form_data #application_types label.radio,
+.form_data #default_access_types label.radio {
+width:14.5%;
+}
+
 /* NOTICE */
 .notice,
-.profile {
+.profile,
+.application {
 position:relative;
 padding-top:11px;
 padding-bottom:11px;
@@ -1502,7 +1546,7 @@ width:auto;
 
 .system_notice ul,
 .instructions ul {
-list-style-position:inside;
+margin-left:1em;
 }
 .instructions p,
 .instructions ul {

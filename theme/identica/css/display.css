@@ -111,12 +111,6 @@ box-shadow:3px 3px 3px rgba(194, 194, 194, 0.1);
 text-shadow:none;
 }
 
-.form_notice span#notice_data-geo_name {
-background-position:0 47%;
-}
-.form_notice a#notice_data-geo_name {
-background-position:0 -1711px;
-}
 .form_notice label[for=notice_data-geo] {
 background-position:0 -1780px;
 }
@@ -135,6 +129,7 @@ color:#002FA7;
 
 .notice,
 .profile,
+.application,
 #content tbody tr {
 border-top-color:#CEE1E9;
 }
@@ -192,9 +187,9 @@ button.close,
 .entity_silence input.submit,
 .entity_delete input.submit,
 .notice-options .repeated,
-.form_notice a#notice_data-geo_name,
 .form_notice label[for=notice_data-geo],
-button.minimize {
+button.minimize,
+.form_reset_key input.submit {
 background-image:url(../../base/images/icons/icons-01.gif);
 background-repeat:no-repeat;
 background-color:transparent;
@@ -338,6 +333,9 @@ background-position: 5px -1445px;
 .entity_delete input.submit {
 background-position: 5px -1511px;
 }
+.form_reset_key input.submit {
+background-position: 5px -1973px;
+}
 
 /* NOTICES */
 .notice .attachment {
@@ -384,6 +382,7 @@ box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 -webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 }
 #content .notices li:hover,
+#content .applications li:hover,
 #content tbody tr:hover {
 background-color:rgba(240, 240, 240, 0.2);
 }

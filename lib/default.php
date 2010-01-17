@@ -79,6 +79,8 @@ $default =
               'queue_basename' => '/queue/statusnet/',
               'stomp_username' => null,
               'stomp_password' => null,
+              'monitor' => null, // URL to monitor ping endpoint (work in progress)
+              'softlimit' => '90%', // total size or % of memory_limit at which to restart queue threads gracefully
               ),
         'license' =>
         array('url' => 'http://creativecommons.org/licenses/by/3.0/',
@@ -202,6 +204,8 @@ $default =
               'uploads' => true,
               'filecommand' => '/usr/bin/file',
               ),
+        'application' =>
+        array('desclimit' => null),
         'group' =>
         array('maxaliases' => 3,
               'desclimit' => null),

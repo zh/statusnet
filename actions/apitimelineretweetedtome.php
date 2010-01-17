@@ -118,7 +118,7 @@ class ApiTimelineRetweetedToMeAction extends ApiAuthAction
             break;
 
         default:
-            $this->clientError(_('API method not found!'), $code = 404);
+            $this->clientError(_('API method not found.'), $code = 404);
             break;
         }
     }

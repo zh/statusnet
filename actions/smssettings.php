@@ -55,7 +55,7 @@ class SmssettingsAction extends ConnectSettingsAction
 
     function title()
     {
-        return _('SMS Settings');
+        return _('SMS settings');
     }
 
     /**
@@ -135,7 +135,7 @@ class SmssettingsAction extends ConnectSettingsAction
             } else {
                 $this->elementStart('ul', 'form_data');
                 $this->elementStart('li');
-                $this->input('sms', _('SMS Phone number'),
+                $this->input('sms', _('SMS phone number'),
                              ($this->arg('sms')) ? $this->arg('sms') : null,
                              _('Phone number, no punctuation or spaces, '.
                                'with area code'));

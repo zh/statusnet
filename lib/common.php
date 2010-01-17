@@ -22,7 +22,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 //exit with 200 response, if this is checking fancy from the installer
 if (isset($_REQUEST['p']) && $_REQUEST['p'] == 'check-fancy') {  exit; }
 
-define('STATUSNET_VERSION', '0.9.0rc2');
+define('STATUSNET_VERSION', '0.9.0beta3');
 define('LACONICA_VERSION', STATUSNET_VERSION); // compatibility
 
 define('STATUSNET_CODENAME', 'Stand');
@@ -41,15 +41,30 @@ define('FOREIGN_NOTICE_SEND_REPLY', 4);
 define('FOREIGN_FRIEND_SEND', 1);
 define('FOREIGN_FRIEND_RECV', 2);
 
+define('NOTICE_INBOX_SOURCE_SUB', 1);
+define('NOTICE_INBOX_SOURCE_GROUP', 2);
+define('NOTICE_INBOX_SOURCE_REPLY', 3);
+define('NOTICE_INBOX_SOURCE_FORWARD', 4);
+define('NOTICE_INBOX_SOURCE_GATEWAY', -1);
+
 # append our extlib dir as the last-resort place to find libs
 
 set_include_path(get_include_path() . PATH_SEPARATOR . INSTALLDIR . '/extlib/');
 
-# To protect against upstream libraries which haven't updated
-# for PHP 5.3 where dl() function may not be present...
+// To protect against upstream libraries which haven't updated
+// for PHP 5.3 where dl() function may not be present...
 if (!function_exists('dl')) {
-    function dl($library) {
-        return false;
+    // function_exists() returns false for things in disable_functions,
+    // but they still exist and we'll die if we try to redefine them.
+    //
+    // Fortunately trying to call the disabled one will only trigger
+    // a warning, not a fatal, so it's safe to leave it for our case.
+    // Callers will be suppressing warnings anyway.
+    $disabled = array_filter(array_map('trim', explode(',', ini_get('disable_functions'))));
+    if (!in_array('dl', $disabled)) {
+        function dl($library) {
+            return false;
+        }
     }
 }
 
@@ -67,159 +82,14 @@ require_once(INSTALLDIR.'/lib/language.php');
 require_once(INSTALLDIR.'/lib/event.php');
 require_once(INSTALLDIR.'/lib/plugin.php');
 
-function _sn_to_path($sn)
-{
-    $past_root = substr($sn, 1);
-    $last_slash = strrpos($past_root, '/');
-    if ($last_slash > 0) {
-        $p = substr($past_root, 0, $last_slash);
-    } else {
-        $p = '';
-    }
-    return $p;
-}
-
-// Save our sanity when code gets loaded through subroutines such as PHPUnit tests
-global $default, $config, $_server, $_path;
-
-// try to figure out where we are. $server and $path
-// can be set by including module, else we guess based
-// on HTTP info.
-
-if (isset($server)) {
-    $_server = $server;
-} else {
-    $_server = array_key_exists('SERVER_NAME', $_SERVER) ?
-      strtolower($_SERVER['SERVER_NAME']) :
-    null;
-}
-
-if (isset($path)) {
-    $_path = $path;
-} else {
-    $_path = (array_key_exists('SERVER_NAME', $_SERVER) && array_key_exists('SCRIPT_NAME', $_SERVER)) ?
-      _sn_to_path($_SERVER['SCRIPT_NAME']) :
-    null;
-}
-
-require_once(INSTALLDIR.'/lib/default.php');
-
-// Set config values initially to default values
-
-$config = $default;
-
-// default configuration, overwritten in config.php
-
-$config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
-
-$config['db'] = $default['db'];
-
-// Backward compatibility
-
-$config['site']['design'] =& $config['design'];
-
-if (function_exists('date_default_timezone_set')) {
-    /* Work internally in UTC */
-    date_default_timezone_set('UTC');
-}
-
 function addPlugin($name, $attrs = null)
 {
-    $name = ucfirst($name);
-    $pluginclass = "{$name}Plugin";
-
-    if (!class_exists($pluginclass)) {
-
-        $files = array("local/plugins/{$pluginclass}.php",
-                       "local/plugins/{$name}/{$pluginclass}.php",
-                       "local/{$pluginclass}.php",
-                       "local/{$name}/{$pluginclass}.php",
-                       "plugins/{$pluginclass}.php",
-                       "plugins/{$name}/{$pluginclass}.php");
-
-        foreach ($files as $file) {
-            $fullpath = INSTALLDIR.'/'.$file;
-            if (@file_exists($fullpath)) {
-                include_once($fullpath);
-                break;
-            }
-        }
-    }
-
-    $inst = new $pluginclass();
-
-    if (!empty($attrs)) {
-        foreach ($attrs as $aname => $avalue) {
-            $inst->$aname = $avalue;
-        }
-    }
-    return $inst;
-}
-
-// From most general to most specific:
-// server-wide, then vhost-wide, then for a path,
-// finally for a dir (usually only need one of the last two).
-
-if (isset($conffile)) {
-    $_config_files = array($conffile);
-} else {
-    $_config_files = array('/etc/statusnet/statusnet.php',
-                           '/etc/statusnet/laconica.php',
-                           '/etc/laconica/laconica.php',
-                           '/etc/statusnet/'.$_server.'.php',
-                           '/etc/laconica/'.$_server.'.php');
-
-    if (strlen($_path) > 0) {
-        $_config_files[] = '/etc/statusnet/'.$_server.'_'.$_path.'.php';
-        $_config_files[] = '/etc/laconica/'.$_server.'_'.$_path.'.php';
-    }
-
-    $_config_files[] = INSTALLDIR.'/config.php';
-}
-
-global $_have_a_config;
-$_have_a_config = false;
-
-foreach ($_config_files as $_config_file) {
-    if (@file_exists($_config_file)) {
-        include_once($_config_file);
-        $_have_a_config = true;
-    }
+    return StatusNet::addPlugin($name, $attrs);
 }
 
 function _have_config()
 {
-    global $_have_a_config;
-    return $_have_a_config;
-}
-
-// XXX: Throw a conniption if database not installed
-// XXX: Find a way to use htmlwriter for this instead of handcoded markup
-if (!_have_config()) {
-  echo '<p>'. _('No configuration file found. ') .'</p>';
-  echo '<p>'. _('I looked for configuration files in the following places: ') .'<br/> '. implode($_config_files, '<br/>');
-  echo '<p>'. _('You may wish to run the installer to fix this.') .'</p>';
-  echo '<a href="install.php">'. _('Go to the installer.') .'</a>';
-  exit;
-}
-// Fixup for statusnet.ini
-
-$_db_name = substr($config['db']['database'], strrpos($config['db']['database'], '/') + 1);
-
-if ($_db_name != 'statusnet' && !array_key_exists('ini_'.$_db_name, $config['db'])) {
-    $config['db']['ini_'.$_db_name] = INSTALLDIR.'/classes/statusnet.ini';
-}
-
-// Backwards compatibility
-
-if (array_key_exists('memcached', $config)) {
-    if ($config['memcached']['enabled']) {
-        addPlugin('Memcache', array('servers' => $config['memcached']['server']));
-    }
-
-    if (!empty($config['memcached']['base'])) {
-        $config['cache']['base'] = $config['memcached']['base'];
-    }
+    return StatusNet::haveConfig();
 }
 
 function __autoload($cls)
@@ -238,27 +108,6 @@ function __autoload($cls)
     }
 }
 
-// Load default plugins
-
-foreach ($config['plugins']['default'] as $name => $params) {
-    if (is_null($params)) {
-        addPlugin($name);
-    } else if (is_array($params)) {
-        if (count($params) == 0) {
-            addPlugin($name);
-        } else {
-            $keys = array_keys($params);
-            if (is_string($keys[0])) {
-                addPlugin($name, $params);
-            } else {
-                foreach ($params as $paramset) {
-                    addPlugin($name, $paramset);
-                }
-            }
-        }
-    }
-}
-
 // XXX: how many of these could be auto-loaded on use?
 // XXX: note that these files should not use config options
 // at compile time since DB config options are not yet loaded.
@@ -274,20 +123,19 @@ require_once INSTALLDIR.'/lib/subs.php';
 require_once INSTALLDIR.'/lib/clientexception.php';
 require_once INSTALLDIR.'/lib/serverexception.php';
 
-// Load settings from database; note we need autoload for this
-
-Config::loadSettings();
-
-// XXX: if plugins should check the schema at runtime, do that here.
-
-if ($config['db']['schemacheck'] == 'runtime') {
-    Event::handle('CheckSchema');
+try {
+    StatusNet::init(@$server, @$path, @$conffile);
+} catch (NoConfigException $e) {
+    // XXX: Throw a conniption if database not installed
+    // XXX: Find a way to use htmlwriter for this instead of handcoded markup
+    echo '<p>'. _('No configuration file found. ') .'</p>';
+    echo '<p>'. _('I looked for configuration files in the following places: ') .'<br/> ';
+    echo implode($e->configFiles, '<br/>');
+    echo '<p>'. _('You may wish to run the installer to fix this.') .'</p>';
+    echo '<a href="install.php">'. _('Go to the installer.') .'</a>';
+    exit;
 }
 
 // XXX: other formats here
 
 define('NICKNAME_FMT', VALIDATE_NUM.VALIDATE_ALPHA_LOWER);
-
-// Give plugins a chance to initialize in a fully-prepared environment
-
-Event::handle('InitializePlugin');

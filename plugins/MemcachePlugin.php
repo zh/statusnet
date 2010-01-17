@@ -133,6 +133,23 @@ class MemcachePlugin extends Plugin
         return false;
     }
 
+    function onStartCacheReconnect(&$success)
+    {
+        if (empty($this->_conn)) {
+            // nothing to do
+            return true;
+        }
+        if ($this->persistent) {
+            common_log(LOG_ERR, "Cannot close persistent memcached connection");
+            $success = false;
+        } else {
+            common_log(LOG_INFO, "Closing memcached connection");
+            $success = $this->_conn->close();
+            $this->_conn = null;
+        }
+        return false;
+    }
+
     /**
      * Ensure that a connection exists
      *
@@ -148,20 +165,18 @@ class MemcachePlugin extends Plugin
             $this->_conn = new Memcache();
 
             if (is_array($this->servers)) {
-                foreach ($this->servers as $server) {
-                    list($host, $port) = explode(';', $server);
-                    if (empty($port)) {
-                        $port = 11211;
-                    }
-
-                    $this->_conn->addServer($host, $port, $this->persistent);
-                }
+                $servers = $this->servers;
             } else {
-                $this->_conn->addServer($this->servers, $this->persistent);
-                list($host, $port) = explode(';', $this->servers);
-                if (empty($port)) {
+                $servers = array($this->servers);
+            }
+            foreach ($servers as $server) {
+                if (strpos($server, ';') !== false) {
+                    list($host, $port) = explode(';', $server);
+                } else {
+                    $host = $server;
                     $port = 11211;
                 }
+
                 $this->_conn->addServer($host, $port, $this->persistent);
             }
 

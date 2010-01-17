@@ -145,14 +145,14 @@ class ApiGroupJoinAction extends ApiAuthAction
 
         switch($this->format) {
         case 'xml':
-            $this->show_single_xml_group($this->group);
+            $this->showSingleXmlGroup($this->group);
             break;
         case 'json':
             $this->showSingleJsonGroup($this->group);
             break;
         default:
             $this->clientError(
-                _('API method not found!'),
+                _('API method not found.'),
                 404,
                 $this->format
             );

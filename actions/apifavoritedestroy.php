@@ -97,7 +97,7 @@ class ApiFavoriteDestroyAction extends ApiAuthAction
 
         if (!in_array($this->format, array('xml', 'json'))) {
             $this->clientError(
-                _('API method not found!'),
+                _('API method not found.'),
                 404,
                 $this->format
             );
@@ -119,7 +119,7 @@ class ApiFavoriteDestroyAction extends ApiAuthAction
 
         if (!$fave->find(true)) {
             $this->clientError(
-                _('That status is not a favorite!'),
+                _('That status is not a favorite.'),
                 403,
                 $this->favorite
             );

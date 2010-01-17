@@ -29,7 +29,7 @@
  * @author   Robin Millette <millette@controlyourself.ca>
  * @author   Sarven Capadisli <csarven@controlyourself.ca>
  * @author   Tom Adams <tom@holizz.com>
- * 
+ *
  * @license  GNU Affero General Public License http://www.gnu.org/licenses/
  */
 

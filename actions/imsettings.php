@@ -56,7 +56,7 @@ class ImsettingsAction extends ConnectSettingsAction
 
     function title()
     {
-        return _('IM Settings');
+        return _('IM settings');
     }
 
     /**
@@ -121,7 +121,7 @@ class ImsettingsAction extends ConnectSettingsAction
             } else {
                 $this->elementStart('ul', 'form_data');
                 $this->elementStart('li');
-                $this->input('jabber', _('IM Address'),
+                $this->input('jabber', _('IM address'),
                              ($this->arg('jabber')) ? $this->arg('jabber') : null,
                              sprintf(_('Jabber or GTalk address, '.
                                        'like "UserName@example.org". '.

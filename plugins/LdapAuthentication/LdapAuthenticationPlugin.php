@@ -153,6 +153,22 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
 
         return false;
     }
+
+    function suggestNicknameForUsername($username)
+    {
+        $entry = $this->ldap_get_user($username, $this->attributes);
+        if(!$entry){
+            //this really shouldn't happen
+            return $username;
+        }else{
+            $nickname = $entry->getValue($this->attributes['nickname'],'single');
+            if($nickname){
+                return $nickname;
+            }else{
+                return $username;
+            }
+        }
+    }
     
     //---utility functions---//
     function ldap_get_config(){

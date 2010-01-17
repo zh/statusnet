@@ -80,7 +80,14 @@ class File extends Memcached_DataObject
         if (isset($redir_data['type'])
             && (('text/html' === substr($redir_data['type'], 0, 9) || 'application/xhtml+xml' === substr($redir_data['type'], 0, 21)))
             && ($oembed_data = File_oembed::_getOembed($given_url))) {
+
+            $fo = File_oembed::staticGet('file_id', $file_id);
+
+            if (empty($fo)) {
                 File_oembed::saveNew($oembed_data, $file_id);
+            } else {
+                common_log(LOG_WARNING, "Strangely, a File_oembed object exists for new file $file_id", __FILE__);
+            }
         }
         return $x;
     }

@@ -151,10 +151,10 @@ class SiteadminpanelAction extends AdminPanelAction
         $values['site']['email'] = common_canonical_email($values['site']['email']);
 
         if (empty($values['site']['email'])) {
-            $this->clientError(_('You must have a valid contact email address'));
+            $this->clientError(_('You must have a valid contact email address.'));
         }
         if (!Validate::email($values['site']['email'], common_config('email', 'check_domain'))) {
-            $this->clientError(_('Not a valid email address'));
+            $this->clientError(_('Not a valid email address.'));
         }
 
         // Validate timezone
@@ -169,7 +169,7 @@ class SiteadminpanelAction extends AdminPanelAction
 
         if (!is_null($values['site']['language']) &&
             !in_array($values['site']['language'], array_keys(get_nice_language_list()))) {
-            $this->clientError(sprintf(_('Unknown language "%s"'), $values['site']['language']));
+            $this->clientError(sprintf(_('Unknown language "%s".'), $values['site']['language']));
         }
 
         // Validate report URL

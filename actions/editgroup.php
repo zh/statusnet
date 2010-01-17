@@ -81,7 +81,7 @@ class EditgroupAction extends GroupDesignAction
         }
 
         if (!$nickname) {
-            $this->clientError(_('No nickname'), 404);
+            $this->clientError(_('No nickname.'), 404);
             return false;
         }
 
@@ -93,14 +93,14 @@ class EditgroupAction extends GroupDesignAction
         }
 
         if (!$this->group) {
-            $this->clientError(_('No such group'), 404);
+            $this->clientError(_('No such group.'), 404);
             return false;
         }
 
         $cur = common_current_user();
 
         if (!$cur->isAdmin($this->group)) {
-            $this->clientError(_('You must be an admin to edit the group'), 403);
+            $this->clientError(_('You must be an admin to edit the group.'), 403);
             return false;
         }
 
@@ -165,7 +165,7 @@ class EditgroupAction extends GroupDesignAction
     {
         $cur = common_current_user();
         if (!$cur->isAdmin($this->group)) {
-            $this->clientError(_('You must be an admin to edit the group'), 403);
+            $this->clientError(_('You must be an admin to edit the group.'), 403);
             return;
         }
 

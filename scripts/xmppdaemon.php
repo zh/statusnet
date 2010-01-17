@@ -298,7 +298,7 @@ class XMPPDaemon extends Daemon
         $content_shortened = common_shorten_links($body);
         if (Notice::contentTooLong($content_shortened)) {
           $from = jabber_normalize_jid($pl['from']);
-          $this->from_site($from, sprintf(_("Message too long - maximum is %d characters, you sent %d"),
+          $this->from_site($from, sprintf(_('Message too long - maximum is %1$d characters, you sent %2$d.'),
                                           Notice::maxContent(),
                                           mb_strlen($content_shortened)));
           return;

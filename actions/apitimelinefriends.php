@@ -72,7 +72,6 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
     function prepare($args)
     {
         parent::prepare($args);
-        common_debug("api friends_timeline");
         $this->user = $this->getTargetUser($this->arg('id'));
 
         if (empty($this->user)) {
@@ -153,7 +152,7 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
             $this->showJsonTimeline($this->notices);
             break;
         default:
-            $this->clientError(_('API method not found!'), $code = 404);
+            $this->clientError(_('API method not found.'), $code = 404);
             break;
         }
     }

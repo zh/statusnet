@@ -1,4 +1,3 @@
-#!/usr/bin/env php
 <?php
 /*
  * StatusNet - the distributed open-source microblogging tool
@@ -18,21 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('INSTALLDIR', realpath(dirname(__FILE__) . '/../..'));
+if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
-$shortoptions = 'i::';
-$longoptions = array('id::');
-
-$helptext = <<<END_OF_FACEBOOK_HELP
-Daemon script for pushing new notices to Facebook.
-
-    -i --id           Identity (default none)
-
-END_OF_FACEBOOK_HELP;
-
-require_once INSTALLDIR . '/scripts/commandline.inc';
 require_once INSTALLDIR . '/plugins/Facebook/facebookutil.php';
-require_once INSTALLDIR . '/lib/queuehandler.php';
 
 class FacebookQueueHandler extends QueueHandler
 {
@@ -41,33 +28,24 @@ class FacebookQueueHandler extends QueueHandler
         return 'facebook';
     }
 
-    function start()
+    function handle_notice($notice)
     {
-        $this->log(LOG_INFO, "INITIALIZE");
+        if ($this->_isLocal($notice)) {
+            return facebookBroadcastNotice($notice);
+        }
         return true;
     }
 
-    function handle_notice($notice)
+    /**
+     * Determine whether the notice was locally created
+     *
+     * @param Notice $notice the notice
+     *
+     * @return boolean locality
+     */
+    function _isLocal($notice)
     {
-        return facebookBroadcastNotice($notice);
+        return ($notice->is_local == Notice::LOCAL_PUBLIC ||
+                $notice->is_local == Notice::LOCAL_NONPUBLIC);
     }
-
-    function finish()
-    {
-    }
-
 }
-
-if (have_option('i')) {
-    $id = get_option_value('i');
-} else if (have_option('--id')) {
-    $id = get_option_value('--id');
-} else if (count($args) > 0) {
-    $id = $args[0];
-} else {
-    $id = null;
-}
-
-$handler = new FacebookQueueHandler($id);
-
-$handler->runOnce();

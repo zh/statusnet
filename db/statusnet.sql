@@ -176,6 +176,7 @@ create table fave (
 
 create table consumer (
     consumer_key varchar(255) primary key comment 'unique identifier, root URL',
+    consumer_secret varchar(255) not null comment 'secret value',
     seed char(32) not null comment 'seed for new tokens by this consumer',
 
     created datetime not null comment 'date this record was created',
@@ -188,6 +189,8 @@ create table token (
     secret char(32) not null comment 'secret value',
     type tinyint not null default 0 comment 'request or access',
     state tinyint default 0 comment 'for requests, 0 = initial, 1 = authorized, 2 = used',
+    verifier varchar(255) comment 'verifier string for OAuth 1.0a',
+    verified_callback varchar(255) comment 'verified callback URL for OAuth 1.0a',
 
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
@@ -205,6 +208,33 @@ create table nonce (
     modified timestamp comment 'date this record was modified',
 
     constraint primary key (consumer_key, ts, nonce)
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table oauth_application (
+    id integer auto_increment primary key comment 'unique identifier',
+    owner integer not null comment 'owner of the application' references profile (id),
+    consumer_key varchar(255) not null comment 'application consumer key' references consumer (consumer_key),
+    name varchar(255) not null comment 'name of the application',
+    description varchar(255) comment 'description of the application',
+    icon varchar(255) not null comment 'application icon',
+    source_url varchar(255) comment 'application homepage - used for source link',
+    organization varchar(255) comment 'name of the organization running the application',
+    homepage varchar(255) comment 'homepage for the organization',
+    callback_url varchar(255) comment 'url to redirect to after authentication',
+    type tinyint default 0 comment 'type of app, 1 = browser, 2 = desktop',
+    access_type tinyint default 0 comment 'default access type, bit 1 = read, bit 2 = write',
+    created datetime not null comment 'date this record was created',
+    modified timestamp comment 'date this record was modified'
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table oauth_application_user (
+    profile_id integer not null comment 'user of the application' references profile (id),
+    application_id integer not null comment 'id of the application' references oauth_application (id),
+    access_type tinyint default 0 comment 'access type, bit 1 = read, bit 2 = write, bit 3 = revoked',
+    token varchar(255) comment 'request or access token',
+    created datetime not null comment 'date this record was created',
+    modified timestamp comment 'date this record was modified',
+    constraint primary key (profile_id, application_id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 /* These are used by JanRain OpenID library */
@@ -596,3 +626,11 @@ create table user_location_prefs (
     constraint primary key (user_id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
+create table inbox (
+
+    user_id integer not null comment 'user receiving the notice' references user (id),
+    notice_ids blob comment 'packed list of notice ids',
+
+    constraint primary key (user_id)
+
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;

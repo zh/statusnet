@@ -80,20 +80,21 @@ function do_translatewiki_plugin($basedir, $plugin)
         mkdir($yamldir);
     }
     $outfile = "$yamldir/StatusNet-{$plugin}.yml";
+    $pluginlc = strtolower( $plugin );
     $data = <<<END
 ---
 BASIC:
-  id: out-statusnet-{$plugin}
+  id: out-statusnet-{$pluginlc}
   label: StatusNet - {$plugin}
-  description: "{{int:bw-desc-statusnet-plugin-{$plugin}}}"
+  description: "{{int:bw-desc-statusnet-plugin-{$pluginlc}}}"
   namespace: NS_STATUSNET
-  display: out/statusnet/{$plugin}
+  display: out/statusnet/{$pluginlc}
   class: GettextMessageGroup
 
 FILES:
   class: GettextFFS
   sourcePattern: %GROUPROOT%/plugins/{$plugin}/locale/%CODE%/LC_MESSAGES/{$plugin}.po
-  targetPattern: {$plugin}.po
+  targetPattern: plugins/{$plugin}/locale/%CODE%/LC_MESSAGES/{$plugin}.po
   codeMap:
     en-gb: en_GB
     no: nb
@@ -103,7 +104,7 @@ FILES:
 
 MANGLER
   class: StringMatcher
-  prefix: {$plugin}-
+  prefix: {$pluginlc}-
   patterns:
     - "*"
 
@@ -208,4 +209,3 @@ if ($plugins) {
         }
     }
 }
-

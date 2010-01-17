@@ -73,21 +73,21 @@ class JoingroupAction extends Action
         }
 
         if (!$nickname) {
-            $this->clientError(_('No nickname'), 404);
+            $this->clientError(_('No nickname.'), 404);
             return false;
         }
 
         $this->group = User_group::staticGet('nickname', $nickname);
 
         if (!$this->group) {
-            $this->clientError(_('No such group'), 404);
+            $this->clientError(_('No such group.'), 404);
             return false;
         }
 
         $cur = common_current_user();
 
         if ($cur->isMember($this->group)) {
-            $this->clientError(_('You are already a member of that group'), 403);
+            $this->clientError(_('You are already a member of that group.'), 403);
             return false;
         }
 
@@ -115,17 +115,13 @@ class JoingroupAction extends Action
 
         $cur = common_current_user();
 
-        $member = new Group_member();
-
-        $member->group_id   = $this->group->id;
-        $member->profile_id = $cur->id;
-        $member->created    = common_sql_now();
-
-        $result = $member->insert();
-
-        if (!$result) {
-            common_log_db_error($member, 'INSERT', __FILE__);
-            $this->serverError(sprintf(_('Could not join user %1$s to group %2$s'),
+        try {
+            if (Event::handle('StartJoinGroup', array($this->group, $cur))) {
+                Group_member::join($this->group->id, $cur->id);
+                Event::handle('EndJoinGroup', array($this->group, $cur));
+            }
+        } catch (Exception $e) {
+            $this->serverError(sprintf(_('Could not join user %1$s to group %2$s.'),
                                        $cur->nickname, $this->group->nickname));
         }
 
