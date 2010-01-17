@@ -52,7 +52,7 @@ class ApiStatusnetConfigAction extends ApiAction
     var $keys = array(
         'site' => array('name', 'server', 'theme', 'path', 'fancy', 'language',
                         'email', 'broughtby', 'broughtbyurl', 'closed',
-                        'inviteonly', 'private'),
+                        'inviteonly', 'private','textlimit'),
         'license' => array('url', 'title', 'image'),
         'nickname' => array('featured'),
         'throttle' => array('enabled', 'count', 'timespan'),
