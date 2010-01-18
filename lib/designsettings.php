@@ -314,7 +314,7 @@ class DesignSettingsAction extends AccountSettingsAction
     function showStylesheets()
     {
         parent::showStylesheets();
-        $this->cssLink('css/farbtastic.css','base','screen, projection, tv');
+        $this->cssLink('js/farbtastic/farbtastic.css',null,'screen, projection, tv');
     }
 
     /**
