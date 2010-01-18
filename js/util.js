@@ -494,7 +494,7 @@ var SN = { // StatusNet
                 $.cookie(SN.C.S.NoticeDataGeoCookie, 'disabled');
             }
 
-            function getJSONgeocodeURL(geocodeURL, data, position) {
+            function getJSONgeocodeURL(geocodeURL, data) {
                 $.getJSON(geocodeURL, data, function(location) {
                     var lns, lid;
 
@@ -509,7 +509,7 @@ var SN = { // StatusNet
                     }
 
                     if (typeof(location.name) == 'undefined') {
-                        NLN_text = position.coords.latitude + ';' + position.coords.longitude;
+                        NLN_text = data.lat + ';' + data.lon;
                     }
                     else {
                         NLN_text = location.name;
@@ -571,7 +571,7 @@ var SN = { // StatusNet
                                             token: $('#token').val()
                                         };
 
-                                        getJSONgeocodeURL(geocodeURL, data, position);
+                                        getJSONgeocodeURL(geocodeURL, data);
                                     },
 
                                     function(error) {
@@ -593,12 +593,12 @@ var SN = { // StatusNet
                             else {
                                 if (NLat.length > 0 && NLon.length > 0) {
                                     var data = {
-                                        'lat': NLat,
-                                        'lon': NLon,
-                                        'token': $('#token').val()
+                                        lat: NLat,
+                                        lon: NLon,
+                                        token: $('#token').val()
                                     };
 
-                                    getJSONgeocodeURL(geocodeURL, data, position);
+                                    getJSONgeocodeURL(geocodeURL, data);
                                 }
                                 else {
                                     removeNoticeDataGeo();
