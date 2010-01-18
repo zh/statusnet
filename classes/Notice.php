@@ -826,6 +826,10 @@ class Notice extends Memcached_DataObject
         return $ids;
     }
 
+    /**
+     * @param $groups array of Group *objects*
+     * @param $recipients array of profile *ids*
+     */
     function whoGets($groups=null, $recipients=null)
     {
         $c = self::memcache();
@@ -925,6 +929,9 @@ class Notice extends Memcached_DataObject
         return $ids;
     }
 
+    /**
+     * @return array of Group objects
+     */
     function saveGroups()
     {
         // Don't save groups for repeats
@@ -1117,11 +1124,22 @@ class Notice extends Memcached_DataObject
         return $ids;
     }
 
+    /**
+     * Same calculation as saveGroups but without the saving
+     * @fixme merge the functions
+     * @return array of Group objects
+     */
     function getGroups()
     {
+        // Don't save groups for repeats
+
+        if (!empty($this->repeat_of)) {
+            return array();
+        }
+
         // XXX: cache me
 
-        $ids = array();
+        $groups = array();
 
         $gi = new Group_inbox();
 
@@ -1132,13 +1150,13 @@ class Notice extends Memcached_DataObject
 
         if ($gi->find()) {
             while ($gi->fetch()) {
-                $ids[] = $gi->group_id;
+                $groups[] = clone($gi);
             }
         }
 
         $gi->free();
 
-        return $ids;
+        return $groups;
     }
 
     function asAtomEntry($namespace=false, $source=false)

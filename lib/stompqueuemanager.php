@@ -104,7 +104,12 @@ class StompQueueManager extends QueueManager
      */
     function getQueues()
     {
-        return array_keys($this->handlers[common_config('site', 'server')]);
+        $site = common_config('site', 'server');
+        if (empty($this->handlers[$site])) {
+            return array();
+        } else {
+            return array_keys($this->handlers[$site]);
+        }
     }
 
     /**

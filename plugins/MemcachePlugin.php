@@ -170,8 +170,8 @@ class MemcachePlugin extends Plugin
                 $servers = array($this->servers);
             }
             foreach ($servers as $server) {
-                if (strpos($server, ':') !== false) {
-                    list($host, $port) = explode(':', $server);
+                if (strpos($server, ';') !== false) {
+                    list($host, $port) = explode(';', $server);
                 } else {
                     $host = $server;
                     $port = 11211;
