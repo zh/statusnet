@@ -130,7 +130,7 @@ class EmailsettingsAction extends AccountSettingsAction
 
        if (common_config('emailpost', 'enabled') && $user->email) {
             $this->elementStart('fieldset', array('id' => 'settings_email_incoming'));
-            $this->element('legend',_('Incoming email'));
+            $this->element('legend', null, _('Incoming email'));
             if ($user->incomingemail) {
                 $this->elementStart('p');
                 $this->element('span', 'address', $user->incomingemail);
