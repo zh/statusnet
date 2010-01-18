@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-15 19:15+0000\n"
-"PO-Revision-Date: 2010-01-16 17:51:26+0000\n"
+"POT-Creation-Date: 2010-01-18 23:16+0000\n"
+"PO-Revision-Date: 2010-01-18 23:17:05+0000\n"
 "Language-Team: Arabic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61138); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r61218); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ar\n"
 "X-Message-Group: out-statusnet\n"
@@ -415,7 +415,7 @@ msgstr "مجموعات %s"
 
 #: actions/apioauthauthorize.php:108 actions/apioauthauthorize.php:114
 msgid "Bad request."
-msgstr ""
+msgstr "طلب سيء."
 
 #: actions/apioauthauthorize.php:134 actions/avatarsettings.php:268
 #: actions/deletenotice.php:157 actions/disfavor.php:74
@@ -531,7 +531,7 @@ msgstr "حُذِفت الحالة."
 
 #: actions/apistatusesshow.php:144
 msgid "No status with that ID found."
-msgstr ""
+msgstr "لا حالة وُجدت بهذه الهوية."
 
 #: actions/apistatusesupdate.php:162 actions/newnotice.php:155
 #: lib/mailhandler.php:60
@@ -1026,7 +1026,7 @@ msgstr "لا مستند كهذا."
 
 #: actions/editapplication.php:54 lib/applicationeditform.php:136
 msgid "Edit application"
-msgstr ""
+msgstr "عدّل التطبيق"
 
 #: actions/editapplication.php:66
 msgid "You must be logged in to edit an application."
@@ -1072,7 +1072,7 @@ msgstr "مسار المصدر ليس صحيحا."
 
 #: actions/editapplication.php:200 actions/newapplication.php:185
 msgid "Organization is required."
-msgstr ""
+msgstr "المنظمة مطلوبة."
 
 #: actions/editapplication.php:203 actions/newapplication.php:188
 msgid "Organization is too long (max 255 chars)."
@@ -1080,7 +1080,7 @@ msgstr "المنظمة طويلة جدا (الأقصى 255 حرفا)."
 
 #: actions/editapplication.php:206 actions/newapplication.php:191
 msgid "Organization homepage is required."
-msgstr ""
+msgstr "صفحة المنظمة الرئيسية مطلوبة."
 
 #: actions/editapplication.php:215 actions/newapplication.php:203
 msgid "Callback is too long."
@@ -1289,7 +1289,7 @@ msgstr "أزيل هذا العنوان."
 
 #: actions/emailsettings.php:446 actions/smssettings.php:518
 msgid "No incoming email address."
-msgstr ""
+msgstr "لا عنوان بريد إلكتروني وارد."
 
 #: actions/emailsettings.php:456 actions/emailsettings.php:478
 #: actions/smssettings.php:528 actions/smssettings.php:552
@@ -1395,7 +1395,7 @@ msgstr "المستخدم الذي تستمع إليه غير موجود."
 
 #: actions/finishremotesubscribe.php:87 actions/remotesubscribe.php:59
 msgid "You can use the local subscription!"
-msgstr ""
+msgstr "تستطيع استخدام الاشتراك المحلي!"
 
 #: actions/finishremotesubscribe.php:99
 msgid "That user has blocked you from subscribing."
@@ -2078,7 +2078,7 @@ msgstr ""
 
 #: actions/oauthconnectionssettings.php:170
 msgid "You are not a user of that application."
-msgstr "أنت لست مستخدما لهذا التطبيق."
+msgstr "لست مستخدما لهذا التطبيق."
 
 #: actions/oauthconnectionssettings.php:180
 msgid "Unable to revoke access for app: "
@@ -4028,7 +4028,7 @@ msgstr ""
 
 #: actions/version.php:189
 msgid "Plugins"
-msgstr ""
+msgstr "ملحقات"
 
 #: actions/version.php:196 lib/action.php:741
 msgid "Version"
@@ -4116,12 +4116,12 @@ msgstr ""
 msgid "Problem saving notice."
 msgstr "مشكلة أثناء حفظ الإشعار."
 
-#: classes/Notice.php:1052
+#: classes/Notice.php:1059
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr ""
 
-#: classes/Notice.php:1423
+#: classes/Notice.php:1441
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "آر تي @%1$s %2$s"
@@ -4291,7 +4291,7 @@ msgstr ""
 
 #: lib/action.php:773
 msgid "StatusNet software license"
-msgstr ""
+msgstr "رخصة برنامج StatusNet"
 
 #: lib/action.php:776
 #, php-format
