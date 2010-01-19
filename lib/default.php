@@ -83,7 +83,9 @@ $default =
               'softlimit' => '90%', // total size or % of memory_limit at which to restart queue threads gracefully
               ),
         'license' =>
-        array('url' => 'http://creativecommons.org/licenses/by/3.0/',
+        array('type' => 'cc', # can be 'cc', 'allrightsreserved', 'private'
+              'owner' => null, # can be name of content owner e.g. for enterprise
+              'url' => 'http://creativecommons.org/licenses/by/3.0/',
               'title' => 'Creative Commons Attribution 3.0',
               'image' => 'http://i.creativecommons.org/l/by/3.0/80x15.png'),
         'mail' =>

@@ -1035,6 +1035,12 @@ Creative Commons Attribution 3.0 license, which is probably the right
 choice for any public site. Note that some other servers will not
 accept notices if you apply a stricter license than this.
 
+type: one of 'cc' (for Creative Commons licenses), 'allrightsreserved'
+      (default copyright), or 'private' (for private and confidential
+      information).
+owner: for 'allrightsreserved' or 'private', an assigned copyright
+       holder (for example, an employer for a private site). If
+       not specified, will be attributed to 'contributors'.
 url: URL of the license, used for links.
 title: Title for the license, like 'Creative Commons Attribution 3.0'.
 image: A button shown on each page for the license.
