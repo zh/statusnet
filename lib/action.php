@@ -791,23 +791,26 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showContentLicense()
     {
-        $this->element('dt', array('id' => 'site_content_license'), _('Site content license'));
-        $this->elementStart('dd', array('id' => 'site_content_license_cc'));
-        $this->elementStart('p');
-        $this->element('img', array('id' => 'license_cc',
-                                    'src' => common_config('license', 'image'),
-                                    'alt' => common_config('license', 'title'),
-                                    'width' => '80',
-                                    'height' => '15'));
-        //TODO: This is dirty: i18n
-        $this->text(_('All '.common_config('site', 'name').' content and data are available under the '));
-        $this->element('a', array('class' => 'license',
-                                  'rel' => 'external license',
-                                  'href' => common_config('license', 'url')),
-                       common_config('license', 'title'));
-        $this->text(_('license.'));
-        $this->elementEnd('p');
-        $this->elementEnd('dd');
+        if (Event::handle('StartShowContentLicense', array($this))) {
+            $this->element('dt', array('id' => 'site_content_license'), _('Site content license'));
+            $this->elementStart('dd', array('id' => 'site_content_license_cc'));
+            $this->elementStart('p');
+            $this->element('img', array('id' => 'license_cc',
+                                        'src' => common_config('license', 'image'),
+                                        'alt' => common_config('license', 'title'),
+                                        'width' => '80',
+                                        'height' => '15'));
+            //TODO: This is dirty: i18n
+            $this->text(_('All '.common_config('site', 'name').' content and data are available under the '));
+            $this->element('a', array('class' => 'license',
+                                      'rel' => 'external license',
+                                      'href' => common_config('license', 'url')),
+                           common_config('license', 'title'));
+            $this->text(_('license.'));
+            $this->elementEnd('p');
+            $this->elementEnd('dd');
+            Event::handle('EndShowContentLicense', array($this));
+        }
     }
 
     /**
