@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-15 19:15+0000\n"
-"PO-Revision-Date: 2010-01-15 19:15:48+0000\n"
+"POT-Creation-Date: 2010-01-18 23:16+0000\n"
+"PO-Revision-Date: 2010-01-18 23:17:05+0000\n"
 "Language-Team: Arabic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61101); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r61218); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ar\n"
 "X-Message-Group: out-statusnet\n"
@@ -53,9 +53,9 @@ msgid "No such user."
 msgstr "لا مستخدم كهذا."
 
 #: actions/all.php:84
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s and friends, page %2$d"
-msgstr "%1$s ملفات ممنوعة, الصفحة %2$d"
+msgstr "%1$s والأصدقاء, الصفحة %2$d"
 
 #: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
 #: actions/apitimelinefriends.php:114 actions/apitimelinehome.php:115
@@ -415,7 +415,7 @@ msgstr "مجموعات %s"
 
 #: actions/apioauthauthorize.php:108 actions/apioauthauthorize.php:114
 msgid "Bad request."
-msgstr ""
+msgstr "طلب سيء."
 
 #: actions/apioauthauthorize.php:134 actions/avatarsettings.php:268
 #: actions/deletenotice.php:157 actions/disfavor.php:74
@@ -436,19 +436,16 @@ msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 
 #: actions/apioauthauthorize.php:146
-#, fuzzy
 msgid "Invalid nickname / password!"
-msgstr "اسم مستخدم أو كلمة سر غير صالحة."
+msgstr "اسم/كلمة سر غير صحيحة!"
 
 #: actions/apioauthauthorize.php:170
-#, fuzzy
 msgid "DB error deleting OAuth app user."
-msgstr "خطأ أثناء ضبط المستخدم."
+msgstr "خطأ قاعدة البيانات أثناء حذف المستخدم OAuth app"
 
 #: actions/apioauthauthorize.php:196
-#, fuzzy
 msgid "DB error inserting OAuth app user."
-msgstr "خطأ في إدراج الأفتار"
+msgstr "خطأ قاعدة البيانات أثناء إدخال المستخدم OAuth app"
 
 #: actions/apioauthauthorize.php:231
 #, php-format
@@ -496,14 +493,12 @@ msgid "Password"
 msgstr "كلمة السر"
 
 #: actions/apioauthauthorize.php:338
-#, fuzzy
 msgid "Deny"
-msgstr "التصميم"
+msgstr "ارفض"
 
 #: actions/apioauthauthorize.php:344
-#, fuzzy
 msgid "Allow"
-msgstr "الكل"
+msgstr "اسمح"
 
 #: actions/apioauthauthorize.php:361
 msgid "Allow or deny access to your account information."
@@ -536,7 +531,7 @@ msgstr "حُذِفت الحالة."
 
 #: actions/apistatusesshow.php:144
 msgid "No status with that ID found."
-msgstr ""
+msgstr "لا حالة وُجدت بهذه الهوية."
 
 #: actions/apistatusesupdate.php:162 actions/newnotice.php:155
 #: lib/mailhandler.php:60
@@ -825,9 +820,8 @@ msgid "Couldn't delete email confirmation."
 msgstr "تعذّر حذف تأكيد البريد الإلكتروني."
 
 #: actions/confirmaddress.php:144
-#, fuzzy
 msgid "Confirm address"
-msgstr "عنوان التأكيد"
+msgstr "أكد العنوان"
 
 #: actions/confirmaddress.php:159
 #, php-format
@@ -1032,23 +1026,20 @@ msgstr "لا مستند كهذا."
 
 #: actions/editapplication.php:54 lib/applicationeditform.php:136
 msgid "Edit application"
-msgstr ""
+msgstr "عدّل التطبيق"
 
 #: actions/editapplication.php:66
-#, fuzzy
 msgid "You must be logged in to edit an application."
-msgstr "يجب أن تلج لتُعدّل المجموعات."
+msgstr "يجب أن تكون مسجل الدخول لتعدل تطبيقا."
 
 #: actions/editapplication.php:77 actions/showapplication.php:94
-#, fuzzy
 msgid "You are not the owner of this application."
-msgstr "لست عضوا في تلك المجموعة."
+msgstr "أنت لست مالك هذا التطبيق."
 
 #: actions/editapplication.php:81 actions/oauthconnectionssettings.php:163
 #: actions/showapplication.php:87
-#, fuzzy
 msgid "No such application."
-msgstr "لا إشعار كهذا."
+msgstr "لا تطبيق كهذا."
 
 #: actions/editapplication.php:127 actions/newapplication.php:110
 #: actions/showapplication.php:118 lib/action.php:1167
@@ -1056,46 +1047,40 @@ msgid "There was a problem with your session token."
 msgstr ""
 
 #: actions/editapplication.php:161
-#, fuzzy
 msgid "Use this form to edit your application."
-msgstr "استخدم هذا النموذج لتعديل المجموعة."
+msgstr "استخدم هذا النموذج لتعدل تطبيقك."
 
 #: actions/editapplication.php:177 actions/newapplication.php:159
-#, fuzzy
 msgid "Name is required."
-msgstr "نفس كلمة السر أعلاه. مطلوب."
+msgstr "الاسم مطلوب."
 
 #: actions/editapplication.php:180 actions/newapplication.php:162
-#, fuzzy
 msgid "Name is too long (max 255 chars)."
-msgstr "الاسم الكامل طويل جدا (الأقصى 255 حرفًا)"
+msgstr "الاسم طويل جدا (الأقصى 255 حرفا)."
 
 #: actions/editapplication.php:183 actions/newapplication.php:165
-#, fuzzy
 msgid "Description is required."
-msgstr "الوصف"
+msgstr "الوصف مطلوب."
 
 #: actions/editapplication.php:191
 msgid "Source URL is too long."
 msgstr ""
 
 #: actions/editapplication.php:197 actions/newapplication.php:182
-#, fuzzy
 msgid "Source URL is not valid."
-msgstr "الصفحة الرئيسية ليست عنونًا صالحًا."
+msgstr "مسار المصدر ليس صحيحا."
 
 #: actions/editapplication.php:200 actions/newapplication.php:185
 msgid "Organization is required."
-msgstr ""
+msgstr "المنظمة مطلوبة."
 
 #: actions/editapplication.php:203 actions/newapplication.php:188
-#, fuzzy
 msgid "Organization is too long (max 255 chars)."
-msgstr "الاسم الكامل طويل جدا (الأقصى 255 حرفًا)"
+msgstr "المنظمة طويلة جدا (الأقصى 255 حرفا)."
 
 #: actions/editapplication.php:206 actions/newapplication.php:191
 msgid "Organization homepage is required."
-msgstr ""
+msgstr "صفحة المنظمة الرئيسية مطلوبة."
 
 #: actions/editapplication.php:215 actions/newapplication.php:203
 msgid "Callback is too long."
@@ -1106,9 +1091,8 @@ msgid "Callback URL is not valid."
 msgstr ""
 
 #: actions/editapplication.php:255
-#, fuzzy
 msgid "Could not update application."
-msgstr "تعذر تحديث المجموعة."
+msgstr "لم يمكن تحديث التطبيق."
 
 #: actions/editgroup.php:56
 #, php-format
@@ -1305,7 +1289,7 @@ msgstr "أزيل هذا العنوان."
 
 #: actions/emailsettings.php:446 actions/smssettings.php:518
 msgid "No incoming email address."
-msgstr ""
+msgstr "لا عنوان بريد إلكتروني وارد."
 
 #: actions/emailsettings.php:456 actions/emailsettings.php:478
 #: actions/smssettings.php:528 actions/smssettings.php:552
@@ -1411,7 +1395,7 @@ msgstr "المستخدم الذي تستمع إليه غير موجود."
 
 #: actions/finishremotesubscribe.php:87 actions/remotesubscribe.php:59
 msgid "You can use the local subscription!"
-msgstr ""
+msgstr "تستطيع استخدام الاشتراك المحلي!"
 
 #: actions/finishremotesubscribe.php:99
 msgid "That user has blocked you from subscribing."
@@ -1948,23 +1932,20 @@ msgid "New application"
 msgstr ""
 
 #: actions/newapplication.php:64
-#, fuzzy
 msgid "You must be logged in to register an application."
-msgstr "يجب أن تكون والجًا لتنشئ مجموعة."
+msgstr "يجب أن تكون مسجل الدخول لتسجل تطبيقا."
 
 #: actions/newapplication.php:143
-#, fuzzy
 msgid "Use this form to register a new application."
-msgstr "استخدم هذا النموذج لإنشاء مجموعة جديدة."
+msgstr "استخدم هذا النموذج لتسجل تطبيقا جديدا."
 
 #: actions/newapplication.php:173
 msgid "Source URL is required."
 msgstr ""
 
 #: actions/newapplication.php:255 actions/newapplication.php:264
-#, fuzzy
 msgid "Could not create application."
-msgstr "تعذّر إنشاء الكنى."
+msgstr "لم يمكن إنشاء التطبيق."
 
 #: actions/newgroup.php:53
 msgid "New group"
@@ -2071,14 +2052,12 @@ msgid "Nudge sent!"
 msgstr "أُرسل التنبيه!"
 
 #: actions/oauthappssettings.php:59
-#, fuzzy
 msgid "You must be logged in to list your applications."
-msgstr "يجب أن تلج لتُعدّل المجموعات."
+msgstr "يجب أن تكون مسجل الدخول لعرض تطبيقاتك."
 
 #: actions/oauthappssettings.php:74
-#, fuzzy
 msgid "OAuth applications"
-msgstr "خيارات أخرى"
+msgstr "تطبيقات OAuth"
 
 #: actions/oauthappssettings.php:85
 msgid "Applications you have registered"
@@ -2098,9 +2077,8 @@ msgid "You have allowed the following applications to access you account."
 msgstr ""
 
 #: actions/oauthconnectionssettings.php:170
-#, fuzzy
 msgid "You are not a user of that application."
-msgstr "لست عضوا في تلك المجموعة."
+msgstr "لست مستخدما لهذا التطبيق."
 
 #: actions/oauthconnectionssettings.php:180
 msgid "Unable to revoke access for app: "
@@ -2146,7 +2124,6 @@ msgid "Notice Search"
 msgstr "بحث الإشعارات"
 
 #: actions/othersettings.php:60
-#, fuzzy
 msgid "Other settings"
 msgstr "إعدادات أخرى"
 
@@ -3020,9 +2997,8 @@ msgid "User is already sandboxed."
 msgstr ""
 
 #: actions/showapplication.php:82
-#, fuzzy
 msgid "You must be logged in to view an application."
-msgstr "يجب أن تلج لتُعدّل المجموعات."
+msgstr "يجب أن تكون مسجل الدخول لرؤية تطبيق."
 
 #: actions/showapplication.php:158
 msgid "Application profile"
@@ -3038,9 +3014,8 @@ msgid "Name"
 msgstr "الاسم"
 
 #: actions/showapplication.php:179 lib/applicationeditform.php:224
-#, fuzzy
 msgid "Organization"
-msgstr "الدعوات"
+msgstr "المنظمة"
 
 #: actions/showapplication.php:188 actions/version.php:198
 #: lib/applicationeditform.php:211 lib/groupeditform.php:172
@@ -3086,9 +3061,8 @@ msgid "Access token URL"
 msgstr ""
 
 #: actions/showapplication.php:263
-#, fuzzy
 msgid "Authorize URL"
-msgstr "المؤلف"
+msgstr "اسمح بالمسار"
 
 #: actions/showapplication.php:268
 msgid ""
@@ -4054,7 +4028,7 @@ msgstr ""
 
 #: actions/version.php:189
 msgid "Plugins"
-msgstr ""
+msgstr "ملحقات"
 
 #: actions/version.php:196 lib/action.php:741
 msgid "Version"
@@ -4142,12 +4116,12 @@ msgstr ""
 msgid "Problem saving notice."
 msgstr "مشكلة أثناء حفظ الإشعار."
 
-#: classes/Notice.php:1052
+#: classes/Notice.php:1059
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr ""
 
-#: classes/Notice.php:1423
+#: classes/Notice.php:1441
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "آر تي @%1$s %2$s"
@@ -4317,7 +4291,7 @@ msgstr ""
 
 #: lib/action.php:773
 msgid "StatusNet software license"
-msgstr ""
+msgstr "رخصة برنامج StatusNet"
 
 #: lib/action.php:776
 #, php-format
@@ -4410,14 +4384,12 @@ msgid "Describe your application in %d characters"
 msgstr ""
 
 #: lib/applicationeditform.php:209
-#, fuzzy
 msgid "Describe your application"
-msgstr "الوصف"
+msgstr "صف تطبيقك"
 
 #: lib/applicationeditform.php:218
-#, fuzzy
 msgid "Source URL"
-msgstr "المصدر"
+msgstr "مسار المصدر"
 
 #: lib/applicationeditform.php:220
 msgid "URL of the homepage of this application"
@@ -4460,9 +4432,8 @@ msgid "Default access for this application: read-only, or read-write"
 msgstr ""
 
 #: lib/applicationlist.php:154
-#, fuzzy
 msgid "Revoke"
-msgstr "أزل"
+msgstr "اسحب"
 
 #: lib/attachmentlist.php:87
 msgid "Attachments"
@@ -4794,9 +4765,8 @@ msgid "Updates by SMS"
 msgstr ""
 
 #: lib/connectsettingsaction.php:120
-#, fuzzy
 msgid "Connections"
-msgstr "اتصل"
+msgstr "اتصالات"
 
 #: lib/connectsettingsaction.php:121
 msgid "Authorized connected applications"

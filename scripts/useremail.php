@@ -53,7 +53,17 @@ if (have_option('i', 'id')) {
 
 if (!empty($user)) {
     if (empty($user->email)) {
-        print "No email registered for user '$user->nickname'\n";
+        # Check for unconfirmed emails
+        $unconfirmed_email = new Confirm_address();
+        $unconfirmed_email->user_id = $user->id;
+        $unconfirmed_email->address_type = 'email';
+        $unconfirmed_email->find(true);
+
+        if (empty($unconfirmed_email->address)) {
+            print "No email registered for user '$user->nickname'\n";
+        } else {
+            print "Unconfirmed Adress: $unconfirmed_email->address\n";
+        }
     } else {
         print "$user->email\n";
     }
@@ -65,7 +75,18 @@ if (have_option('e', 'email')) {
     $user->email = get_option_value('e', 'email');
     $user->find(false);
     if (!$user->fetch()) {
-        print "No users with email $user->email\n";
+        # Check unconfirmed emails
+        $unconfirmed_email = new Confirm_address();
+        $unconfirmed_email->address = $user->email;
+        $unconfirmed_email->address_type = 'email';
+        $unconfirmed_email->find(true);
+
+        if (empty($unconfirmed_email->user_id)) {
+            print "No users with email $user->email\n";
+        } else {
+            $user=User::staticGet('id', $unconfirmed_email->user_id);
+            print "Unconfirmed Address: $user->id $user->nickname\n";
+        }
         exit(0);
     }
     do {

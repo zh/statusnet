@@ -509,7 +509,7 @@ var SN = { // StatusNet
                     }
 
                     if (typeof(location.name) == 'undefined') {
-                        NLN_text = position.coords.latitude + ';' + position.coords.longitude;
+                        NLN_text = data.lat + ';' + data.lon;
                     }
                     else {
                         NLN_text = location.name;
@@ -525,13 +525,13 @@ var SN = { // StatusNet
                     $('#'+SN.C.S.NoticeDataGeo).attr('checked', true);
 
                     var cookieValue = {
-                        'NLat': data.lat,
-                        'NLon': data.lon,
-                        'NLNS': lns,
-                        'NLID': lid,
-                        'NLN': NLN_text,
-                        'NLNU': location.url,
-                        'NDG': true
+                        NLat: data.lat,
+                        NLon: data.lon,
+                        NLNS: lns,
+                        NLID: lid,
+                        NLN: NLN_text,
+                        NLNU: location.url,
+                        NDG: true
                     };
                     $.cookie(SN.C.S.NoticeDataGeoCookie, JSON.stringify(cookieValue));
                 });
@@ -566,9 +566,9 @@ var SN = { // StatusNet
                                         $('#'+SN.C.S.NoticeLon).val(position.coords.longitude);
 
                                         var data = {
-                                            'lat': position.coords.latitude,
-                                            'lon': position.coords.longitude,
-                                            'token': $('#token').val()
+                                            lat: position.coords.latitude,
+                                            lon: position.coords.longitude,
+                                            token: $('#token').val()
                                         };
 
                                         getJSONgeocodeURL(geocodeURL, data);
@@ -593,9 +593,9 @@ var SN = { // StatusNet
                             else {
                                 if (NLat.length > 0 && NLon.length > 0) {
                                     var data = {
-                                        'lat': NLat,
-                                        'lon': NLon,
-                                        'token': $('#token').val()
+                                        lat: NLat,
+                                        lon: NLon,
+                                        token: $('#token').val()
                                     };
 
                                     getJSONgeocodeURL(geocodeURL, data);
@@ -624,8 +624,6 @@ var SN = { // StatusNet
                     else {
                         removeNoticeDataGeo();
                     }
-
-                    $('#'+SN.C.S.NoticeDataText).focus();
                 }).change();
             }
         },
