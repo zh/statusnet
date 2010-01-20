@@ -417,12 +417,7 @@ class XMPPHP_XMLStream {
 					}
 				}
 				$this->log->log("RECV: $buff",  XMPPHP_Log::LEVEL_VERBOSE);
-				$ok = xml_parse($this->parser, $buff, false);
-                if (!$ok) {
-                    $errcode = xml_get_error_code($this->parser);
-                    $errstr = xml_error_string($errcode);
-                    $this->log->log("XML ERROR: $errstr", XMPPHP_Log::LEVEL_VERBOSE);
-                }
+				xml_parse($this->parser, $buff, false);
 			} else {
 				# $updated == 0 means no changes during timeout.
 			}
@@ -676,12 +671,7 @@ class XMPPHP_XMLStream {
 			}
 		}
 		$this->log->log("RECV: $buff",  XMPPHP_Log::LEVEL_VERBOSE);
-		$ok = xml_parse($this->parser, $buff, false);
-		if (!$ok) {
-		    $errcode = xml_get_error_code($this->parser);
-		    $errstr = xml_error_string($errcode);
-		    $this->log->log("XML ERROR: $errstr", XMPPHP_Log::LEVEL_VERBOSE);
-		}
+		xml_parse($this->parser, $buff, false);
 	}
 
 	/**
