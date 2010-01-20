@@ -113,4 +113,19 @@ class ApiStatusesRetweetsAction extends ApiAuthAction
             break;
         }
     }
+
+    /**
+     * Return true if read only.
+     *
+     * MAY override
+     *
+     * @param array $args other arguments
+     *
+     * @return boolean is read only action?
+     */
+
+    function isReadOnly($args)
+    {
+        return false;
+    }
 }
