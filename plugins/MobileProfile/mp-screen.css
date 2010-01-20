@@ -176,15 +176,25 @@ margin-bottom:0;
 .profile {
 padding-top:4px;
 padding-bottom:4px;
+min-height:65px;
 }
-.notice div.entry-content {
+#content .notice .entry-title {
+float:left;
+width:100%;
+margin-left:0;
+}
+#content .notice .author .photo {
+position:static;
+float:left;
+}
+#content .notice div.entry-content {
 margin-left:0;
 width:75%;
 max-width:100%;
 min-width:0;
 }
 .notice-options {
-width:50px;
+width:43px;
 margin-right:1%;
 }
 
@@ -192,6 +202,13 @@ margin-right:1%;
 width:16px;
 height:16px;
 }
+.notice-options form.processing {
+background-image:none;
+}
+#wrap .notice-options form.processing input.submit {
+background-position:0 47%;
+}
+
 .notice .notice-options a,
 .notice .notice-options input {
 box-shadow:none;
@@ -202,15 +219,15 @@ box-shadow:none;
 .notice .notice-options form {
 margin:-4px 0 0 0;
 }
-.notice .notice-options .notice_repeat,
+.notice .notice-options .form_repeat,
 .notice .notice-options .notice_delete {
-margin-top:18px;
+margin-top:11px;
 }
-.notice .notice-options .notice_reply,
-.notice .notice-options .notice_repeat {
-margin-left:18px;
+.notice .notice-options .form_favor,
+.notice .notice-options .form_disfavor,
+.notice .notice-options .form_repeat {
+margin-right:11px;
 }
-
 
 .notice .notice-options .notice_delete {
 float:left;
