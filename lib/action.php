@@ -794,20 +794,39 @@ class Action extends HTMLOutputter // lawsuit
         if (Event::handle('StartShowContentLicense', array($this))) {
             $this->element('dt', array('id' => 'site_content_license'), _('Site content license'));
             $this->elementStart('dd', array('id' => 'site_content_license_cc'));
-            $this->elementStart('p');
-            $this->element('img', array('id' => 'license_cc',
-                                        'src' => common_config('license', 'image'),
-                                        'alt' => common_config('license', 'title'),
-                                        'width' => '80',
-                                        'height' => '15'));
-            //TODO: This is dirty: i18n
-            $this->text(_('All '.common_config('site', 'name').' content and data are available under the '));
-            $this->element('a', array('class' => 'license',
-                                      'rel' => 'external license',
-                                      'href' => common_config('license', 'url')),
-                           common_config('license', 'title'));
-            $this->text(_('license.'));
-            $this->elementEnd('p');
+
+            switch (common_config('license', 'type')) {
+            case 'private':
+                $this->element('p', null, sprintf(_('Content and data of %1$s are private and confidential.'),
+                                                  common_config('site', 'name')));
+                // fall through
+            case 'allrightsreserved':
+                if (common_config('license', 'owner')) {
+                    $this->element('p', null, sprintf(_('Content and data copyright by %1$s. All rights reserved.'),
+                                                      common_config('license', 'owner')));
+                } else {
+                    $this->element('p', null, _('Content and data copyright by contributors. All rights reserved.'));
+                }
+                break;
+            case 'cc': // fall through
+            default:
+                $this->elementStart('p');
+                $this->element('img', array('id' => 'license_cc',
+                                            'src' => common_config('license', 'image'),
+                                            'alt' => common_config('license', 'title'),
+                                            'width' => '80',
+                                            'height' => '15'));
+                //TODO: This is dirty: i18n
+                $this->text(_('All '.common_config('site', 'name').' content and data are available under the '));
+                $this->element('a', array('class' => 'license',
+                                          'rel' => 'external license',
+                                          'href' => common_config('license', 'url')),
+                               common_config('license', 'title'));
+                $this->text(_('license.'));
+                $this->elementEnd('p');
+                break;
+            }
+
             $this->elementEnd('dd');
             Event::handle('EndShowContentLicense', array($this));
         }
