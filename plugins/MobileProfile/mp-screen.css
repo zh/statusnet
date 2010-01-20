@@ -176,8 +176,18 @@ margin-bottom:0;
 .profile {
 padding-top:4px;
 padding-bottom:4px;
+min-height:65px;
 }
-.notice div.entry-content {
+#content .notice .entry-title {
+float:left;
+width:100%;
+margin-left:0;
+}
+#content .notice .author .photo {
+position:static;
+float:left;
+}
+#content .notice div.entry-content {
 margin-left:0;
 width:75%;
 max-width:100%;
