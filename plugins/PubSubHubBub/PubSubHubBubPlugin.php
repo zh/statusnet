@@ -37,18 +37,11 @@ require_once(INSTALLDIR.'/plugins/PubSubHubBub/publisher.php');
 
 class PubSubHubBubPlugin extends Plugin
 {
-    private $hub;
+    public $hub = DEFAULT_HUB;
 
     function __construct()
     {
         parent::__construct();
-    }
-
-    function onInitializePlugin(){
-        $this->hub = common_config('PubSubHubBub', 'hub');
-        if(empty($this->hub)){
-            $this->hub = DEFAULT_HUB;
-        }
     }
 
     function onStartApiAtom($action){
