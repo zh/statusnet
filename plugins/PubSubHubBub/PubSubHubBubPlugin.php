@@ -31,9 +31,9 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-define('DEFAULT_HUB','http://pubsubhubbub.appspot.com');
+define('DEFAULT_HUB', 'http://pubsubhubbub.appspot.com');
 
-require_once(INSTALLDIR.'/plugins/PubSubHubBub/publisher.php');
+require_once INSTALLDIR.'/plugins/PubSubHubBub/publisher.php';
 
 class PubSubHubBubPlugin extends Plugin
 {
@@ -44,46 +44,67 @@ class PubSubHubBubPlugin extends Plugin
         parent::__construct();
     }
 
-    function onStartApiAtom($action){
-        $action->element('link',array('rel'=>'hub','href'=>$this->hub),null);
+    function onStartApiAtom($action)
+    {
+        $action->element('link', array('rel' => 'hub', 'href' => $this->hub), null);
     }
 
-    function onStartApiRss($action){
-        $action->element('atom:link',array('rel'=>'hub','href'=>$this->hub),null);
+    function onStartApiRss($action)
+    {
+        $action->element('atom:link', array('rel' => 'hub',
+                                            'href' => $this->hub),
+                         null);
     }
 
-    function onHandleQueuedNotice($notice){
+    function onHandleQueuedNotice($notice)
+    {
         $publisher = new Publisher($this->hub);
 
         $feeds = array();
 
         //public timeline feeds
-        $feeds[]=common_local_url('ApiTimelinePublic',array('format' => 'rss'));
-        $feeds[]=common_local_url('ApiTimelinePublic',array('format' => 'atom'));
+        $feeds[] = common_local_url('ApiTimelinePublic', array('format' => 'rss'));
+        $feeds[] = common_local_url('ApiTimelinePublic', array('format' => 'atom'));
 
         //author's own feeds
-        $user = User::staticGet('id',$notice->profile_id);
-        $feeds[]=common_local_url('ApiTimelineUser',array('id' => $user->nickname, 'format'=>'rss'));
-        $feeds[]=common_local_url('ApiTimelineUser',array('id' => $user->nickname, 'format'=>'atom'));
+        $user = User::staticGet('id', $notice->profile_id);
+
+        $feeds[] = common_local_url('ApiTimelineUser',
+                                    array('id' => $user->nickname,
+                                          'format' => 'rss'));
+        $feeds[] = common_local_url('ApiTimelineUser',
+                                    array('id' => $user->nickname,
+                                          'format' => 'atom'));
 
         //tag feeds
         $tag = new Notice_tag();
+
         $tag->notice_id = $notice->id;
         if ($tag->find()) {
             while ($tag->fetch()) {
-                $feeds[]=common_local_url('ApiTimelineTag',array('tag'=>$tag->tag, 'format'=>'rss'));
-                $feeds[]=common_local_url('ApiTimelineTag',array('tag'=>$tag->tag, 'format'=>'atom'));
+                $feeds[] = common_local_url('ApiTimelineTag',
+                                            array('tag' => $tag->tag,
+                                                  'format' => 'rss'));
+                $feeds[] = common_local_url('ApiTimelineTag',
+                                            array('tag' => $tag->tag,
+                                                  'format' => 'atom'));
             }
         }
 
         //group feeds
         $group_inbox = new Group_inbox();
+
         $group_inbox->notice_id = $notice->id;
         if ($group_inbox->find()) {
             while ($group_inbox->fetch()) {
-                $group = User_group::staticGet('id',$group_inbox->group_id);
-                $feeds[]=common_local_url('ApiTimelineGroup',array('id' => $group->nickname,'format'=>'rss'));
-                $feeds[]=common_local_url('ApiTimelineGroup',array('id' => $group->nickname,'format'=>'atom'));
+                $group = User_group::staticGet('id', $group_inbox->group_id);
+
+                $feeds[] = common_local_url('ApiTimelineGroup',
+                                            array('id' => $group->nickname,
+                                                  'format' => 'rss'));
+                $feeds[] = common_local_url('ApiTimelineGroup',
+                                            array('id' => $group->nickname,
+                                                  'format' => 'atom'));
             }
         }
 
@@ -96,24 +117,34 @@ class PubSubHubBubPlugin extends Plugin
             if (empty($user)) {
                 continue;
             }
-            $feeds[]=common_local_url('ApiTimelineFriends', array('id' => $user->nickname, 'format'=>'rss'));
-            $feeds[]=common_local_url('ApiTimelineFriends', array('id' => $user->nickname, 'format'=>'atom'));
+            $feeds[] = common_local_url('ApiTimelineFriends',
+                                        array('id' => $user->nickname,
+                                              'format' => 'rss'));
+            $feeds[] = common_local_url('ApiTimelineFriends',
+                                        array('id' => $user->nickname,
+                                              'format' => 'atom'));
         }
 
         $replies = $notice->getReplies();
 
         //feed of user replied to
         foreach ($replies as $recipient) {
-                $user = User::staticGet('id',$recipient);
+                $user = User::staticGet('id', $recipient);
             if (!empty($user)) {
-                $feeds[]=common_local_url('ApiTimelineMentions',array('id' => $user->nickname,'format'=>'rss'));
-                $feeds[]=common_local_url('ApiTimelineMentions',array('id' => $user->nickname,'format'=>'atom'));
+                $feeds[] = common_local_url('ApiTimelineMentions',
+                                            array('id' => $user->nickname,
+                                                  'format' => 'rss'));
+                $feeds[] = common_local_url('ApiTimelineMentions',
+                                            array('id' => $user->nickname,
+                                                  'format' => 'atom'));
             }
         }
 
-        foreach(array_unique($feeds) as $feed){
-            if(! $publisher->publish_update($feed)){
-                common_log_line(LOG_WARNING,$feed.' was not published to hub at '.$this->hub.':'.$publisher->last_response());
+        foreach (array_unique($feeds) as $feed) {
+            if (!$publisher->publish_update($feed)) {
+                common_log_line(LOG_WARNING,
+                                $feed.' was not published to hub at '.
+                                $this->hub.':'.$publisher->last_response());
             }
         }
     }
@@ -123,9 +154,13 @@ class PubSubHubBubPlugin extends Plugin
         $versions[] = array('name' => 'PubSubHubBub',
                             'version' => STATUSNET_VERSION,
                             'author' => 'Craig Andrews',
-                            'homepage' => 'http://status.net/wiki/Plugin:PubSubHubBub',
+                            'homepage' =>
+                            'http://status.net/wiki/Plugin:PubSubHubBub',
                             'rawdescription' =>
-                            _m('The PubSubHubBub plugin pushes RSS/Atom updates to a <a href="http://pubsubhubbub.googlecode.com/">PubSubHubBub</a> hub.'));
+                            _m('The PubSubHubBub plugin pushes RSS/Atom updates '.
+                               'to a <a href = "'.
+                               'http://pubsubhubbub.googlecode.com/'.
+                               '">PubSubHubBub</a> hub.'));
 
         return true;
     }
