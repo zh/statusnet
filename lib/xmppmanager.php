@@ -176,6 +176,30 @@ class XmppManager extends IoManager
     }
 
     /**
+     * For queue handlers to pass us a message to push out,
+     * if we're active.
+     *
+     * @fixme should this be blocking etc?
+     *
+     * @param string $msg XML stanza to send
+     * @return boolean success
+     */
+    public function send($msg)
+    {
+        if ($this->conn && !$this->conn->isDisconnected()) {
+            $bytes = $this->conn->send($msg);
+            if ($bytes > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            // Can't send right now...
+            return false;
+        }
+    }
+
+    /**
      * Send a keepalive ping to the XMPP server.
      */
     protected function sendPing()
