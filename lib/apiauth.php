@@ -28,7 +28,7 @@
  * @author    Evan Prodromou <evan@status.net>
  * @author    mEDI <medi@milaro.net>
  * @author    Sarven Capadisli <csarven@status.net>
- * @author    Zach Copley <zach@status.net> 
+ * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
@@ -39,6 +39,7 @@ if (!defined('STATUSNET')) {
 }
 
 require_once INSTALLDIR . '/lib/api.php';
+require_once INSTALLDIR . '/lib/apioauth.php';
 
 /**
  * Actions extending this class will require auth
@@ -52,6 +53,9 @@ require_once INSTALLDIR . '/lib/api.php';
 
 class ApiAuthAction extends ApiAction
 {
+    var $access_token;
+    var $oauth_access_type;
+    var $oauth_source;
 
     /**
      * Take arguments for running, and output basic auth header if needed
@@ -67,10 +71,113 @@ class ApiAuthAction extends ApiAction
         parent::prepare($args);
 
         if ($this->requiresAuth()) {
-            $this->checkBasicAuthUser();
+
+            $this->consumer_key = $this->arg('oauth_consumer_key');
+            $this->access_token = $this->arg('oauth_token');
+
+            if (!empty($this->access_token)) {
+                $this->checkOAuthRequest();
+            } else {
+                $this->checkBasicAuthUser();
+                // By default, all basic auth users have read and write access
+
+                $this->access = self::READ_WRITE;
+            }
         }
 
         return true;
+    }
+
+    function handle($args)
+    {
+        parent::handle($args);
+    }
+
+    function checkOAuthRequest()
+    {
+        common_debug("We have an OAuth request.");
+
+        $datastore   = new ApiStatusNetOAuthDataStore();
+        $server      = new OAuthServer($datastore);
+        $hmac_method = new OAuthSignatureMethod_HMAC_SHA1();
+
+        $server->add_signature_method($hmac_method);
+
+        ApiOauthAction::cleanRequest();
+
+        try {
+
+            $req  = OAuthRequest::from_request();
+            $server->verify_request($req);
+
+            $app = Oauth_application::getByConsumerKey($this->consumer_key);
+
+            if (empty($app)) {
+
+                // this should really not happen
+                common_log(LOG_WARN,
+                           "Couldn't find the OAuth app for consumer key: $this->consumer_key");
+
+                throw new OAuthException('No application for that consumer key.');
+            }
+
+            // set the source attr
+
+            $this->oauth_source = $app->name;
+
+            $appUser = Oauth_application_user::staticGet('token',
+                                                         $this->access_token);
+
+            // XXX: check that app->id and appUser->application_id and consumer all
+            // match?
+
+            if (!empty($appUser)) {
+
+                // read or read-write
+                $this->oauth_access_type = $appUser->access_type;
+
+                // If access_type == 0 we have either a request token
+                // or a bad / revoked access token
+
+                if ($this->oauth_access_type != 0) {
+
+                    // Set the read or read-write access for the api call
+                    $this->access = ($appUser->access_type & Oauth_application::$writeAccess)
+                      ? self::READ_WRITE : self::READ_ONLY;
+
+                    $this->auth_user = User::staticGet('id', $appUser->profile_id);
+
+                    $msg = "API OAuth authentication for user '%s' (id: %d) on behalf of " .
+                      "application '%s' (id: %d).";
+
+                    common_log(LOG_INFO, sprintf($msg,
+                                                 $this->auth_user->nickname,
+                                                 $this->auth_user->id,
+                                                 $app->name,
+                                                 $app->id));
+                    return true;
+                } else {
+                    throw new OAuthException('Bad access token.');
+                }
+            } else {
+
+                // also should not happen
+                throw new OAuthException('No user for that token.');
+        }
+
+        } catch (OAuthException $e) {
+            common_log(LOG_WARN, 'API OAuthException - ' . $e->getMessage());
+            common_debug(var_export($req, true));
+            $this->showOAuthError($e->getMessage());
+            exit();
+        }
+    }
+
+    function showOAuthError($msg)
+    {
+        header('HTTP/1.1 401 Unauthorized');
+        header('Content-Type: text/html; charset=utf-8');
+        print $msg . "\n";
     }
 
     /**
@@ -128,6 +235,7 @@ class ApiAuthAction extends ApiAction
                 exit;
             }
         }
+
         return true;
     }
 

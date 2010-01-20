@@ -57,7 +57,7 @@ class OthersettingsAction extends AccountSettingsAction
 
     function title()
     {
-        return _('Other Settings');
+        return _('Other settings');
     }
 
     /**

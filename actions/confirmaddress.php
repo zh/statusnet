@@ -141,7 +141,7 @@ class ConfirmaddressAction extends Action
 
     function title()
     {
-        return _('Confirm Address');
+        return _('Confirm address');
     }
 
     /**
