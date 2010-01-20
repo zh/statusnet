@@ -103,8 +103,8 @@ class PubSubHubBubPlugin extends Plugin
             if (empty($user)) {
                 continue;
             }
-            $feeds[]=common_local_url('ApiTimelineUser',array('id' => $user->nickname, 'format'=>'rss'));
-            $feeds[]=common_local_url('ApiTimelineUser',array('id' => $user->nickname, 'format'=>'atom'));
+            $feeds[]=common_local_url('ApiTimelineFriends', array('id' => $user->nickname, 'format'=>'rss'));
+            $feeds[]=common_local_url('ApiTimelineFriends', array('id' => $user->nickname, 'format'=>'atom'));
         }
 
         //feed of user replied to
