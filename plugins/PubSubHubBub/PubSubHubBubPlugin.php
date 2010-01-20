@@ -100,11 +100,15 @@ class PubSubHubBubPlugin extends Plugin
             $feeds[]=common_local_url('ApiTimelineFriends', array('id' => $user->nickname, 'format'=>'atom'));
         }
 
+        $replies = $notice->getReplies();
+
         //feed of user replied to
-        if($notice->reply_to){
-                $user = User::staticGet('id',$notice->reply_to);
+        foreach ($replies as $recipient) {
+                $user = User::staticGet('id',$recipient);
+            if (!empty($user)) {
                 $feeds[]=common_local_url('ApiTimelineMentions',array('id' => $user->nickname,'format'=>'rss'));
                 $feeds[]=common_local_url('ApiTimelineMentions',array('id' => $user->nickname,'format'=>'atom'));
+            }
         }
 
         foreach(array_unique($feeds) as $feed){
