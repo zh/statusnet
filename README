@@ -2,8 +2,8 @@
 README
 ------
 
-StatusNet 0.9.0 ("Stand") Release Candidate 2
-22 Dec 2009
+StatusNet 0.9.0 ("Stand") Beta 3
+20 Jan 2010
 
 This is the README file for StatusNet (formerly Laconica), the Open
 Source microblogging platform. It includes installation instructions,
@@ -167,6 +167,37 @@ Notable changes this version:
 - Add support for "repeats" (similar to Twitter's "retweets").
 - Support for repeats in Twitter API.
 - Better notification of direct messages.
+- New plugin to add "powered by StatusNet" to logo.
+- Returnto works for private sites.
+- Localisation updates, including new Persian translation.
+- CAS authentication plugin
+- Get rid of DB_DataObject native cache (big memory leaker)
+- setconfig.php script to set configuration variables
+- Blacklist plugin, to blacklist URLs and nicknames
+- Users can set flag whether they want to share location
+  both in notice form (for one notice) and profile settings
+  (any notice)
+- notice inboxes moved from normalized notice_inbox table to
+  denormalized inbox table
+- Automatic compression of Memcache
+- Memory caching pluginized
+- Memcache, XCache, APC and Diskcache plugins
+- A script to update user locations
+- cache empty query results
+- A sample plugin to show best plugin practices
+- CacheLog plugin to debug cache accesses
+- Require users to login to view attachments on private sites
+- Plugin to use Mollom spam detection service
+- Plugin for RSSCloud
+- Add an array of default plugins
+- A version action to give credit to contributors and plugin
+  developers
+- Daemon to read IMAP mailbox instead of using a mailbox script
+- Pass session information between SSL and non-SSL server
+  when SSL set to 'sometimes'
+- Major refactoring of queue handlers to manage very
+  large hosting site (like status.net)
+- SubscriptionThrottle plugin to prevent subscription spamming
 
 Prerequisites
 =============
