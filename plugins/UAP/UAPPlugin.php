@@ -72,16 +72,16 @@ class UAPPlugin extends Plugin
     {
         foreach($this->uap as $key => $value) {
             switch(strtolower($key)) {
-                case 'MediumRectangle': default:
+                case 'mediumrectangle': default:
                     $this->MediumRectangle = $value;
                     break;
-                case 'Rectangle':
+                case 'rectangle':
                     $this->Rectangle = $value;
                     break;
-                case 'Leaderboard':
+                case 'leaderboard':
                     $this->Leaderboard = $value;
                     break;
-                case 'WideSkyscraper':
+                case 'wideskyscraper':
                     $this->WideSkyscraper = $value;
                     break;
             }
