@@ -149,7 +149,10 @@ class ApiAuthAction extends ApiAction
                     $this->access = ($appUser->access_type & Oauth_application::$writeAccess)
                       ? self::READ_WRITE : self::READ_ONLY;
 
-                    $this->auth_user = User::staticGet('id', $appUser->profile_id);
+                    if (Event::handle('StartSetApiUser', array(&$user))) {
+                        $this->auth_user = User::staticGet('id', $appUser->profile_id);
+                        Event::handle('EndSetApiUser', array($user));
+                    }
 
                     $msg = "API OAuth authentication for user '%s' (id: %d) on behalf of " .
                       "application '%s' (id: %d).";
