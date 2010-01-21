@@ -13,12 +13,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-15 19:15+0000\n"
-"PO-Revision-Date: 2010-01-16 17:52:07+0000\n"
+"POT-Creation-Date: 2010-01-21 22:36+0000\n"
+"PO-Revision-Date: 2010-01-21 22:37:36+0000\n"
 "Language-Team: French\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61138); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r61339); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: out-statusnet\n"
@@ -139,7 +139,7 @@ msgstr "Statuts de %1$s et ses amis dans %2$s!"
 #: actions/apigroupcreate.php:136 actions/apigroupismember.php:114
 #: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
 #: actions/apigrouplist.php:132 actions/apigrouplistall.php:120
-#: actions/apigroupmembership.php:106 actions/apigroupshow.php:105
+#: actions/apigroupmembership.php:106 actions/apigroupshow.php:115
 #: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
 #: actions/apistatusesretweets.php:112 actions/apistatusesshow.php:108
 #: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
@@ -392,7 +392,7 @@ msgstr "L’alias ne peut pas être le même que le pseudo."
 
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
-#: actions/apigroupshow.php:90 actions/apitimelinegroup.php:91
+#: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
 msgid "Group not found!"
 msgstr "Groupe non trouvé !"
 
@@ -1084,7 +1084,7 @@ msgid "No such application."
 msgstr "Avis non trouvé."
 
 #: actions/editapplication.php:127 actions/newapplication.php:110
-#: actions/showapplication.php:118 lib/action.php:1167
+#: actions/showapplication.php:118 lib/action.php:1189
 msgid "There was a problem with your session token."
 msgstr "Un problème est survenu avec votre jeton de session."
 
@@ -4441,12 +4441,12 @@ msgstr "Il vous est interdit de poster des avis sur ce site."
 msgid "Problem saving notice."
 msgstr "Problème lors de l’enregistrement de l’avis."
 
-#: classes/Notice.php:1052
+#: classes/Notice.php:1059
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Erreur de base de donnée en insérant la réponse :%s"
 
-#: classes/Notice.php:1423
+#: classes/Notice.php:1441
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4643,27 +4643,41 @@ msgstr ""
 "version %s, disponible sous la licence [GNU Affero General Public License] "
 "(http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
 
-#: lib/action.php:794
+#: lib/action.php:795
 msgid "Site content license"
 msgstr "Licence du contenu du site"
 
-#: lib/action.php:803
+#: lib/action.php:800
+#, php-format
+msgid "Content and data of %1$s are private and confidential."
+msgstr ""
+
+#: lib/action.php:805
+#, php-format
+msgid "Content and data copyright by %1$s. All rights reserved."
+msgstr ""
+
+#: lib/action.php:808
+msgid "Content and data copyright by contributors. All rights reserved."
+msgstr ""
+
+#: lib/action.php:820
 msgid "All "
 msgstr "Tous "
 
-#: lib/action.php:808
+#: lib/action.php:825
 msgid "license."
 msgstr "licence."
 
-#: lib/action.php:1102
+#: lib/action.php:1124
 msgid "Pagination"
 msgstr "Pagination"
 
-#: lib/action.php:1111
+#: lib/action.php:1133
 msgid "After"
 msgstr "Après"
 
-#: lib/action.php:1119
+#: lib/action.php:1141
 msgid "Before"
 msgstr "Avant"
 

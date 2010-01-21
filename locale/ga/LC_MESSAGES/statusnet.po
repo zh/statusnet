@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-15 19:15+0000\n"
-"PO-Revision-Date: 2010-01-15 19:16:59+0000\n"
+"POT-Creation-Date: 2010-01-21 22:36+0000\n"
+"PO-Revision-Date: 2010-01-21 22:37:39+0000\n"
 "Language-Team: Irish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61101); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r61339); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ga\n"
 "X-Message-Group: out-statusnet\n"
@@ -128,7 +128,7 @@ msgstr "Actualizacións dende %1$s e amigos en %2$s!"
 #: actions/apigroupcreate.php:136 actions/apigroupismember.php:114
 #: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
 #: actions/apigrouplist.php:132 actions/apigrouplistall.php:120
-#: actions/apigroupmembership.php:106 actions/apigroupshow.php:105
+#: actions/apigroupmembership.php:106 actions/apigroupshow.php:115
 #: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
 #: actions/apistatusesretweets.php:112 actions/apistatusesshow.php:108
 #: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
@@ -389,7 +389,7 @@ msgstr ""
 
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
-#: actions/apigroupshow.php:90 actions/apitimelinegroup.php:91
+#: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
 #, fuzzy
 msgid "Group not found!"
 msgstr "Método da API non atopado"
@@ -1107,7 +1107,7 @@ msgid "No such application."
 msgstr "Ningún chío."
 
 #: actions/editapplication.php:127 actions/newapplication.php:110
-#: actions/showapplication.php:118 lib/action.php:1167
+#: actions/showapplication.php:118 lib/action.php:1189
 #, fuzzy
 msgid "There was a problem with your session token."
 msgstr "Houbo un problema co teu token de sesión. Tentao de novo, anda..."
@@ -4473,12 +4473,12 @@ msgstr "Tes restrinxido o envio de chíos neste sitio."
 msgid "Problem saving notice."
 msgstr "Aconteceu un erro ó gardar o chío."
 
-#: classes/Notice.php:1052
+#: classes/Notice.php:1059
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Erro ó inserir a contestación na BD: %s"
 
-#: classes/Notice.php:1423
+#: classes/Notice.php:1441
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -4689,30 +4689,44 @@ msgstr ""
 "%s, dispoñible baixo licenza [GNU Affero General Public License](http://www."
 "fsf.org/licensing/licenses/agpl-3.0.html)."
 
-#: lib/action.php:794
+#: lib/action.php:795
 #, fuzzy
 msgid "Site content license"
 msgstr "Atopar no contido dos chíos"
 
-#: lib/action.php:803
+#: lib/action.php:800
+#, php-format
+msgid "Content and data of %1$s are private and confidential."
+msgstr ""
+
+#: lib/action.php:805
+#, php-format
+msgid "Content and data copyright by %1$s. All rights reserved."
+msgstr ""
+
+#: lib/action.php:808
+msgid "Content and data copyright by contributors. All rights reserved."
+msgstr ""
+
+#: lib/action.php:820
 #, fuzzy
 msgid "All "
 msgstr "Todos"
 
-#: lib/action.php:808
+#: lib/action.php:825
 msgid "license."
 msgstr ""
 
-#: lib/action.php:1102
+#: lib/action.php:1124
 msgid "Pagination"
 msgstr ""
 
-#: lib/action.php:1111
+#: lib/action.php:1133
 #, fuzzy
 msgid "After"
 msgstr "« Despois"
 
-#: lib/action.php:1119
+#: lib/action.php:1141
 #, fuzzy
 msgid "Before"
 msgstr "Antes »"
