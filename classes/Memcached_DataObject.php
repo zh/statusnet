@@ -315,6 +315,39 @@ class Memcached_DataObject extends DB_DataObject
         return new ArrayWrapper($cached);
     }
 
+    /**
+     * sends query to database - this is the private one that must work 
+     *   - internal functions use this rather than $this->query()
+     *
+     * Overridden to do logging.
+     *
+     * @param  string  $string
+     * @access private
+     * @return mixed none or PEAR_Error
+     */
+    function _query($string)
+    {
+        $start = microtime(true);
+        $result = parent::_query($string);
+        $delta = microtime(true) - $start;
+
+        $limit = common_config('db', 'log_slow_queries');
+        if (($limit > 0 && $delta >= $limit) || common_config('db', 'log_queries')) {
+            $clean = $this->sanitizeQuery($string);
+            common_log(LOG_DEBUG, sprintf("DB query (%0.3fs): %s", $delta, $clean));
+        }
+        return $result;
+    }
+
+    // Sanitize a query for logging
+    // @fixme don't trim spaces in string literals
+    function sanitizeQuery($string)
+    {
+        $string = preg_replace('/\s+/', ' ', $string);
+        $string = trim($string);
+        return $string;
+    }
+
     // We overload so that 'SET NAMES "utf8"' is called for
     // each connection
 
