@@ -373,7 +373,11 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('div', array('id' => 'header'));
         $this->showLogo();
         $this->showPrimaryNav();
-        $this->showSiteNotice();
+        if (Event::handle('StartShowSiteNotice', array($this))) {
+            $this->showSiteNotice();
+
+            Event::handle('EndShowSiteNotice', array($this));
+        }
         if (common_logged_in()) {
             $this->showNoticeForm();
         } else {
