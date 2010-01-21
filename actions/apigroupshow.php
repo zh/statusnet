@@ -85,12 +85,18 @@ class ApiGroupShowAction extends ApiPrivateAuthAction
     {
         parent::handle($args);
 
-        if (empty($this->group)) {
-            $this->clientError(
-                _('Group not found!'),
-                404,
-                $this->format
-            );
+        if (!$this->group) {
+            $alias = Group_alias::staticGet('alias', common_canonical_nickname($this->arg('id')));
+            if ($alias) {
+                $args = array('id' => $alias->group_id, 'format'=>$this->format);
+                common_redirect(common_local_url('ApiGroupShow', $args), 301);
+	    } else {
+                $this->clientError(
+                  _('Group not found!'),
+                  404,
+                  $this->format
+                );
+            }
             return;
         }
 
