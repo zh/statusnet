@@ -199,10 +199,6 @@ class Action extends HTMLOutputter // lawsuit
             if (Event::handle('StartShowStatusNetStyles', array($this)) &&
                 Event::handle('StartShowLaconicaStyles', array($this))) {
                 $this->cssLink('css/display.css',null,'screen, projection, tv');
-                if (common_config('site', 'mobile')) {
-                    // TODO: "handheld" CSS for other mobile devices
-                    $this->cssLink('css/mobile.css','base','only screen and (max-device-width: 480px)'); // Mobile WebKit
-                }
                 $this->cssLink('css/print.css','base','print');
                 Event::handle('EndShowStatusNetStyles', array($this));
                 Event::handle('EndShowLaconicaStyles', array($this));
