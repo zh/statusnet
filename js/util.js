@@ -205,8 +205,10 @@ var SN = { // StatusNet
                         cookieValue = JSON.parse(cookieValue);
                         NLat = $('#'+SN.C.S.NoticeLat).val(cookieValue.NLat).val();
                         NLon = $('#'+SN.C.S.NoticeLon).val(cookieValue.NLon).val();
-                        NLNS = $('#'+SN.C.S.NoticeLocationNs).val(cookieValue.NLNS).val();
-                        NLID = $('#'+SN.C.S.NoticeLocationId).val(cookieValue.NLID).val();
+                        if ($('#'+SN.C.S.NoticeLocationNs).val(cookieValue.NLNS)) {
+                            NLNS = $('#'+SN.C.S.NoticeLocationNs).val(cookieValue.NLNS).val();
+                            NLID = $('#'+SN.C.S.NoticeLocationId).val(cookieValue.NLID).val();
+                        }
                     }
                     if (cookieValue == 'disabled') {
                         NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked', false).attr('checked');
@@ -301,8 +303,10 @@ var SN = { // StatusNet
 
                     $('#'+SN.C.S.NoticeLat).val(NLat);
                     $('#'+SN.C.S.NoticeLon).val(NLon);
-                    $('#'+SN.C.S.NoticeLocationNs).val(NLNS);
-                    $('#'+SN.C.S.NoticeLocationId).val(NLID);
+                    if ($('#'+SN.C.S.NoticeLocationNs)) {
+                        $('#'+SN.C.S.NoticeLocationNs).val(NLNS);
+                        $('#'+SN.C.S.NoticeLocationId).val(NLID);
+                    }
                     $('#'+SN.C.S.NoticeDataGeo).attr('checked', NDG);
                 }
             });

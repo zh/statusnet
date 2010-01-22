@@ -34,14 +34,14 @@ class JabberQueueHandler extends QueueHandler
         return 'jabber';
     }
 
-    function handle_notice($notice)
+    function handle($notice)
     {
         require_once(INSTALLDIR.'/lib/jabber.php');
         try {
             return jabber_broadcast_notice($notice);
         } catch (XMPPHP_Exception $e) {
             $this->log(LOG_ERR, "Got an XMPPHP_Exception: " . $e->getMessage());
-            exit(1);
+            return false;
         }
     }
 }

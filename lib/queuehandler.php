@@ -22,50 +22,19 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 /**
  * Base class for queue handlers.
  *
- * As extensions of the Daemon class, each queue handler has the ability
- * to launch itself in the background, at which point it'll pass control
- * to the configured QueueManager class to poll for updates.
+ * As of 0.9, queue handlers are short-lived for items as they are
+ * dequeued by a QueueManager running in an IoMaster in a daemon
+ * such as queuedaemon.php.
+ *
+ * Extensions requiring long-running maintenance or polling should
+ * register an IoManager.
  *
  * Subclasses must override at least the following methods:
  * - transport
- * - handle_notice
+ * - handle
  */
-#class QueueHandler extends Daemon
 class QueueHandler
 {
-
-#    function __construct($id=null, $daemonize=true)
-#    {
-#        parent::__construct($daemonize);
-#
-#        if ($id) {
-#            $this->set_id($id);
-#        }
-#    }
-
-    /**
-     * How many seconds a polling-based queue manager should wait between
-     * checks for new items to handle.
-     *
-     * Defaults to 60 seconds; override to speed up or slow down.
-     *
-     * @fixme not really compatible with global queue manager
-     * @return int timeout in seconds
-     */
-#    function timeout()
-#    {
-#        return 60;
-#    }
-
-#    function class_name()
-#    {
-#        return ucfirst($this->transport()) . 'Handler';
-#    }
-
-#    function name()
-#    {
-#        return strtolower($this->class_name().'.'.$this->get_id());
-#    }
 
     /**
      * Return transport keyword which identifies items this queue handler
@@ -83,61 +52,17 @@ class QueueHandler
 
     /**
      * Here's the meat of your queue handler -- you're handed a Notice
-     * object, which you may do as you will with.
+     * or other object, which you may do as you will with.
      *
      * If this function indicates failure, a warning will be logged
      * and the item is placed back in the queue to be re-run.
      *
-     * @param Notice $notice
+     * @param mixed $object
      * @return boolean true on success, false on failure
      */
-    function handle_notice($notice)
+    function handle($object)
     {
         return true;
-    }
-
-    /**
-     * Setup and start of run loop for this queue handler as a daemon.
-     * Most of the heavy lifting is passed on to the QueueManager's service()
-     * method, which passes control back to our handle_notice() method for
-     * each notice that comes in on the queue.
-     *
-     * Most of the time this won't need to be overridden in a subclass.
-     *
-     * @return boolean true on success, false on failure
-     */
-    function run()
-    {
-        if (!$this->start()) {
-            $this->log(LOG_WARNING, 'failed to start');
-            return false;
-        }
-
-        $this->log(LOG_INFO, 'checking for queued notices');
-
-        $queue   = $this->transport();
-        $timeout = $this->timeout();
-
-        $qm = QueueManager::get();
-
-        $qm->service($queue, $this);
-
-        $this->log(LOG_INFO, 'finished servicing the queue');
-
-        if (!$this->finish()) {
-            $this->log(LOG_WARNING, 'failed to clean up');
-            return false;
-        }
-
-        $this->log(LOG_INFO, 'terminating normally');
-
-        return true;
-    }
-
-
-    function log($level, $msg)
-    {
-        common_log($level, $this->class_name() . ' ('. $this->get_id() .'): '.$msg);
     }
 }
 

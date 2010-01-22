@@ -50,7 +50,7 @@ if (empty($notice)) {
     exit(1);
 }
 
-if (!$handler->handle_notice($notice)) {
+if (!$handler->handle($notice)) {
     print "Failed to handle notice id $noticeId on queue '$queue'.\n";
     exit(1);
 }
