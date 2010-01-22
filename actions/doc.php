@@ -51,6 +51,8 @@ class DocAction extends Action
 
     function prepare($args)
     {
+        parent::prepare($args);
+
         $this->title  = $this->trimmed('title');
         $this->output = null;
 
@@ -163,25 +165,41 @@ class DocAction extends Action
 
     function getFilename()
     {
-        $local = array_merge(glob(INSTALLDIR.'/local/doc-src/'.$this->title),
-                             glob(INSTALLDIR.'/local/doc-src/'.$this->title.'.*'));
-
-        if (count($local)) {
-            return $this->negotiateLanguage($local);
+        if (file_exists(INSTALLDIR.'/local/doc-src/'.$this->title)) {
+            $localDef = INSTALLDIR.'/local/doc-src/'.$this->title;
         }
 
-        $dist = array_merge(glob(INSTALLDIR.'/doc-src/'.$this->title),
-                            glob(INSTALLDIR.'/doc-src/'.$this->title.'.*'));
+        $local = glob(INSTALLDIR.'/local/doc-src/'.$this->title.'.*');
 
-        if (count($dist)) {
-            return $this->negotiateLanguage($dist);
+        if (count($local) || isset($localDef)) {
+            return $this->negotiateLanguage($local, $localDef);
+        }
+
+        if (file_exists(INSTALLDIR.'/doc-src/'.$this->title)) {
+            $distDef = INSTALLDIR.'/doc-src/'.$this->title;
+        }
+
+        $dist = glob(INSTALLDIR.'/doc-src/'.$this->title.'.*');
+
+        if (count($dist) || isset($distDef)) {
+            return $this->negotiateLanguage($dist, $distDef);
         }
 
         return null;
     }
 
-    function negotiateLanguage($files)
+    function negotiateLanguage($filenames, $defaultFilename=null)
     {
-        // FIXME: write this
+        // XXX: do this better
+
+        $langcode = common_language();
+
+        foreach ($filenames as $filename) {
+            if (preg_match('/\.'.$langcode.'$/', $filename)) {
+                return $filename;
+            }
+        }
+
+        return $defaultFilename;
     }
 }
