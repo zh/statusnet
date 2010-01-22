@@ -30,7 +30,7 @@ class PingQueueHandler extends QueueHandler {
         return 'ping';
     }
 
-    function handle_notice($notice) {
+    function handle($notice) {
         require_once INSTALLDIR . '/lib/ping.php';
         return ping_broadcast_notice($notice);
     }

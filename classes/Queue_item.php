@@ -10,8 +10,8 @@ class Queue_item extends Memcached_DataObject
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'queue_item';                      // table name
-    public $notice_id;                       // int(4)  primary_key not_null
-    public $transport;                       // varchar(8)  primary_key not_null
+    public $id;                              // int(4)  primary_key not_null
+    public $frame;                           // blob not_null
     public $created;                         // datetime()   not_null
     public $claimed;                         // datetime()
 
@@ -22,14 +22,21 @@ class Queue_item extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    function sequenceKey()
-    { return array(false, false); }
-
-    static function top($transport=null) {
+    /**
+     * @param mixed $transports name of a single queue or array of queues to pull from
+     *                          If not specified, checks all queues in the system.
+     */
+    static function top($transports=null) {
 
         $qi = new Queue_item();
-        if ($transport) {
-            $qi->transport = $transport;
+        if ($transports) {
+            if (is_array($transports)) {
+                // @fixme use safer escaping
+                $list = implode("','", array_map('addslashes', $transports));
+                $qi->whereAdd("transport in ('$list')");
+            } else {
+                $qi->transport = $transports;
+            }
         }
         $qi->orderBy('created');
         $qi->whereAdd('claimed is null');
@@ -42,7 +49,7 @@ class Queue_item extends Memcached_DataObject
             # XXX: potential race condition
             # can we force it to only update if claimed is still null
             # (or old)?
-            common_log(LOG_INFO, 'claiming queue item = ' . $qi->notice_id .
+            common_log(LOG_INFO, 'claiming queue item id = ' . $qi->id .
                 ' for transport ' . $qi->transport);
             $orig = clone($qi);
             $qi->claimed = common_sql_now();
@@ -56,10 +63,5 @@ class Queue_item extends Memcached_DataObject
         }
         $qi = null;
         return null;
-    }
-
-    function pkeyGet($kv)
-    {
-        return Memcached_DataObject::pkeyGet('Queue_item', $kv);
     }
 }
