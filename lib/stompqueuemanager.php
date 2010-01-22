@@ -294,26 +294,7 @@ class StompQueueManager extends QueueManager
             StatusNet::init($site);
         }
 
-        if (is_numeric($frame->body)) {
-            $id = intval($frame->body);
-            $info = "notice $id posted at {$frame->headers['created']} in queue $queue";
-
-            $notice = Notice::staticGet('id', $id);
-            if (empty($notice)) {
-                $this->_log(LOG_WARNING, "Skipping missing $info");
-                $this->ack($frame);
-                $this->commit();
-                $this->begin();
-                $this->stats('badnotice', $queue);
-                return false;
-            }
-
-            $item = $notice;
-        } else {
-            // @fixme should we serialize, or json, or what here?
-            $info = "string posted at {$frame->headers['created']} in queue $queue";
-            $item = $frame->body;
-        }
+        $item = $this->decode($frame->body);
 
         $handler = $this->getHandler($queue);
         if (!$handler) {
