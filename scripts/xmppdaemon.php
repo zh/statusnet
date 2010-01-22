@@ -148,7 +148,6 @@ class XMPPDaemon extends Daemon
 
     function handle_message(&$pl)
     {
-        $this->log(LOG_DEBUG, "Received message: " . str_replace("\n", " ", var_export($pl, true)));
         $from = jabber_normalize_jid($pl['from']);
 
         if ($pl['type'] != 'chat') {
