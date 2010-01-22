@@ -139,20 +139,13 @@ abstract class QueueManager extends IoManager
 
     /**
      * Encode an object for queued storage.
-     * Next gen may use serialization.
      *
      * @param mixed $object
      * @return string
      */
     protected function encode($object)
     {
-        if ($object instanceof Notice) {
-            return $object->id;
-        } else if (is_string($object)) {
-            return $object;
-        } else {
-            throw new ServerException("Can't queue this type", 500);
-        }
+        return serialize($object);
     }
 
     /**
@@ -164,11 +157,7 @@ abstract class QueueManager extends IoManager
      */
     protected function decode($frame)
     {
-        if (is_numeric($frame)) {
-            return Notice::staticGet(intval($frame));
-        } else {
-            return $frame;
-        }
+        return unserialize($frame);
     }
 
     /**
