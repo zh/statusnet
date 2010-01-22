@@ -42,7 +42,7 @@ class PluginQueueHandler extends QueueHandler
         return 'plugin';
     }
 
-    function handle_notice($notice)
+    function handle($notice)
     {
         Event::handle('HandleQueuedNotice', array(&$notice));
         return true;
