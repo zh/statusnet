@@ -211,13 +211,20 @@ class PubSubHubBubPlugin extends Plugin
                                                   'format' => 'atom'));
             }
         }
+        $feeds = array_unique($feeds);
 
-        foreach (array_unique($feeds) as $feed) {
-            if (!$publisher->publish_update($feed)) {
-                common_log_line(LOG_WARNING,
-                                $feed.' was not published to hub at '.
-                                $this->hub.':'.$publisher->last_response());
-            }
+        ob_start();
+        $ok = $publisher->publish_update($feeds);
+        $push_last_response = ob_get_clean();
+
+        if (!$ok) {
+            common_log(LOG_WARNING,
+                       'Failure publishing ' . count($feeds) . ' feeds to hub at '.
+                       $this->hub.': '.$push_last_response);
+        } else {
+            common_log(LOG_INFO,
+                       'Published ' . count($feeds) . ' feeds to hub at '.
+                       $this->hub.': '.$push_last_response);
         }
 
         return true;
