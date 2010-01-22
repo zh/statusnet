@@ -69,65 +69,13 @@ class ApiTimelineRetweetedByMeAction extends ApiAuthAction
     {
         parent::prepare($args);
 
-        $cnt = $this->int('count', self::DEFAULTCOUNT, self::MAXCOUNT, 1);
+        $this->serverError('Unimplemented', 503);
 
-        $page = $this->int('page', 1, (self::MAXNOTICES/$this->cnt));
-
-        $since_id = $this->int('since_id');
-
-        $max_id = $this->int('max_id');
-
-        return true;
-    }
-
-    /**
-     * Handle the request
-     *
-     * show a timeline of the user's repeated notices
-     *
-     * @param array $args $_REQUEST data (unused)
-     *
-     * @return void
-     */
-
-    function handle($args)
-    {
-        parent::handle($args);
-
-        $offset = ($this->page-1) * $this->cnt;
-        $limit  = $this->cnt;
-
-        $strm = $this->auth_user->repeatedByMe($offset, $limit, $this->since_id, $this->max_id);
-
-        switch ($this->format) {
-        case 'xml':
-            $this->showXmlTimeline($strm);
-            break;
-        case 'json':
-            $this->showJsonTimeline($strm);
-            break;
-        case 'atom':
-            $profile    = $this->auth_user->getProfile();
-
-            $title      = sprintf(_("Repeated by %s"), $this->auth_user->nickname);
-            $taguribase = common_config('integration', 'taguri');
-            $id         = "tag:$taguribase:RepeatedByMe:" . $this->auth_user->id;
-            $link       = common_local_url('showstream',
-                                           array('nickname' => $this->auth_user->nickname));
-
-            $this->showAtomTimeline($strm, $title, $id, $link);
-            break;
-
-        default:
-            $this->clientError(_('API method not found.'), $code = 404);
-            break;
-        }
+        return false;
     }
 
     /**
      * Return true if read only.
-     *
-     * MAY override
      *
      * @param array $args other arguments
      *
@@ -136,6 +84,6 @@ class ApiTimelineRetweetedByMeAction extends ApiAuthAction
 
     function isReadOnly($args)
     {
-        return false;
+        return true;
     }
 }
