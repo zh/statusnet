@@ -138,9 +138,6 @@ class RSSCloudPlugin extends Plugin
         case 'RSSCloudNotifier':
             include_once INSTALLDIR . '/plugins/RSSCloud/RSSCloudNotifier.php';
             return false;
-        case 'RSSCloudQueueHandler':
-            include_once INSTALLDIR . '/plugins/RSSCloud/RSSCloudQueueHandler.php';
-            return false;
         case 'RSSCloudRequestNotifyAction':
         case 'LoggingAggregatorAction':
             include_once INSTALLDIR . '/plugins/RSSCloud/' .
@@ -197,6 +194,32 @@ class RSSCloudPlugin extends Plugin
     }
 
     /**
+     * broadcast the message when not using queuehandler
+     *
+     * @param Notice &$notice the notice
+     * @param array  $queue   destination queue
+     *
+     * @return boolean hook return
+     */
+
+    function onUnqueueHandleNotice(&$notice, $queue)
+    {
+        if (($queue == 'rsscloud') && ($this->_isLocal($notice))) {
+
+            common_debug('broadcasting rssCloud bound notice ' . $notice->id);
+
+            $profile = $notice->getProfile();
+
+            $notifier = new RSSCloudNotifier();
+            $notifier->notify($profile);
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Determine whether the notice was locally created
      *
      * @param Notice $notice the notice in question
@@ -238,15 +261,19 @@ class RSSCloudPlugin extends Plugin
     }
 
     /**
-     * Register RSSCloud notice queue handler
+     * Add RSSCloudQueueHandler to the list of valid daemons to
+     * start
      *
-     * @param QueueManager $manager
+     * @param array $daemons the list of daemons to run
      *
      * @return boolean hook return
+     *
      */
-    function onEndInitializeQueueManager($manager)
+
+    function onGetValidDaemons($daemons)
     {
-        $manager->connect('rsscloud', 'RSSCloudQueueHandler');
+        array_push($daemons, INSTALLDIR .
+                   '/plugins/RSSCloud/RSSCloudQueueHandler.php');
         return true;
     }
 

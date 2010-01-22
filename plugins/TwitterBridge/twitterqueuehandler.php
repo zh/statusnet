@@ -28,7 +28,7 @@ class TwitterQueueHandler extends QueueHandler
         return 'twitter';
     }
 
-    function handle($notice)
+    function handle_notice($notice)
     {
         return broadcast_twitter($notice);
     }

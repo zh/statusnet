@@ -32,7 +32,14 @@ class EnjitQueueHandler extends QueueHandler
         return 'enjit';
     }
 
-    function handle($notice)
+    function start()
+    {
+        $this->log(LOG_INFO, "Starting EnjitQueueHandler");
+        $this->log(LOG_INFO, "Broadcasting to ".common_config('enjit', 'apiurl'));
+        return true;
+    }
+
+    function handle_notice($notice)
     {
 
         $profile = Profile::staticGet($notice->profile_id);

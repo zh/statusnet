@@ -28,7 +28,7 @@ class FacebookQueueHandler extends QueueHandler
         return 'facebook';
     }
 
-    function handle($notice)
+    function handle_notice($notice)
     {
         if ($this->_isLocal($notice)) {
             return facebookBroadcastNotice($notice);

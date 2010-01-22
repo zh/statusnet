@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 /*
  * StatusNet - the distributed open-source microblogging tool
@@ -17,20 +18,61 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
+define('INSTALLDIR', realpath(dirname(__FILE__) . '/../..'));
+
+$shortoptions = 'i::';
+$longoptions = array('id::');
+
+$helptext = <<<END_OF_ENJIT_HELP
+Daemon script for pushing new notices to RSSCloud subscribers.
+
+    -i --id           Identity (default none)
+
+END_OF_ENJIT_HELP;
+
+require_once INSTALLDIR . '/scripts/commandline.inc';
+require_once INSTALLDIR . '/lib/queuehandler.php';
+require_once INSTALLDIR . '/plugins/RSSCloud/RSSCloudNotifier.php';
+require_once INSTALLDIR . '/plugins/RSSCloud/RSSCloudSubscription.php';
 
 class RSSCloudQueueHandler extends QueueHandler
 {
+    var $notifier = null;
+
     function transport()
     {
         return 'rsscloud';
     }
 
-    function handle($notice)
+    function start()
+    {
+        $this->log(LOG_INFO, "INITIALIZE");
+        $this->notifier = new RSSCloudNotifier();
+        return true;
+    }
+
+    function handle_notice($notice)
     {
         $profile = $notice->getProfile();
-        $notifier = new RSSCloudNotifier();
-        return $notifier->notify($profile);
+        return $this->notifier->notify($profile);
     }
+
+    function finish()
+    {
+    }
+
 }
 
+if (have_option('i')) {
+    $id = get_option_value('i');
+} else if (have_option('--id')) {
+    $id = get_option_value('--id');
+} else if (count($args) > 0) {
+    $id = $args[0];
+} else {
+    $id = null;
+}
+
+$handler = new RSSCloudQueueHandler($id);
+
+$handler->runOnce();
