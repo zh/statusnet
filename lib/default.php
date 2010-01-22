@@ -67,7 +67,9 @@ $default =
               'db_driver' => 'DB', # XXX: JanRain libs only work with DB
               'quote_identifiers' => false,
               'type' => 'mysql',
-              'schemacheck' => 'runtime'), // 'runtime' or 'script'
+              'schemacheck' => 'runtime', // 'runtime' or 'script'
+              'log_queries' => false, // true to log all DB queries
+              'log_slow_queries' => 0), // if set, log queries taking over N seconds
         'syslog' =>
         array('appname' => 'statusnet', # for syslog
               'priority' => 'debug', # XXX: currently ignored
@@ -81,6 +83,7 @@ $default =
               'stomp_password' => null,
               'monitor' => null, // URL to monitor ping endpoint (work in progress)
               'softlimit' => '90%', // total size or % of memory_limit at which to restart queue threads gracefully
+              'debug_memory' => false, // true to spit memory usage to log
               ),
         'license' =>
         array('type' => 'cc', # can be 'cc', 'allrightsreserved', 'private'
@@ -251,6 +254,8 @@ $default =
                                  'Mapstraction' => null,
                                  'Linkback' => null,
                                  'WikiHashtags' => null,
+                                 'PubSubHubBub' => null,
+                                 'RSSCloud' => null,
                                  'OpenID' => null),
               ),
         'admin' =>

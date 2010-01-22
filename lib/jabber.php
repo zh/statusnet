@@ -86,6 +86,27 @@ class Sharing_XMPP extends XMPPHP_XMPP
 }
 
 /**
+ * Build an XMPP proxy connection that'll save outgoing messages
+ * to the 'xmppout' queue to be picked up by xmppdaemon later.
+ */
+function jabber_proxy()
+{
+	$proxy = new Queued_XMPP(common_config('xmpp', 'host') ?
+                             common_config('xmpp', 'host') :
+                             common_config('xmpp', 'server'),
+                             common_config('xmpp', 'port'),
+                             common_config('xmpp', 'user'),
+                             common_config('xmpp', 'password'),
+                             common_config('xmpp', 'resource') . 'daemon',
+                             common_config('xmpp', 'server'),
+                             common_config('xmpp', 'debug') ?
+                             true : false,
+                             common_config('xmpp', 'debug') ?
+                             XMPPHP_Log::LEVEL_VERBOSE :  null);
+    return $proxy;
+}
+
+/**
  * Lazy-connect the configured Jabber account to the configured server;
  * if already opened, the same connection will be returned.
  *
@@ -143,7 +164,7 @@ function jabber_connect($resource=null)
 }
 
 /**
- * send a single notice to a given Jabber address
+ * Queue send for a single notice to a given Jabber address
  *
  * @param string $to     JID to send the notice to
  * @param Notice $notice notice to send
@@ -153,10 +174,7 @@ function jabber_connect($resource=null)
 
 function jabber_send_notice($to, $notice)
 {
-    $conn = jabber_connect();
-    if (!$conn) {
-        return false;
-    }
+    $conn = jabber_proxy();
     $profile = Profile::staticGet($notice->profile_id);
     if (!$profile) {
         common_log(LOG_WARNING, 'Refusing to send notice with ' .
@@ -221,10 +239,7 @@ function jabber_format_entry($profile, $notice)
 
 function jabber_send_message($to, $body, $type='chat', $subject=null)
 {
-    $conn = jabber_connect();
-    if (!$conn) {
-        return false;
-    }
+    $conn = jabber_proxy();
     $conn->message($to, $body, $type, $subject);
     return true;
 }
@@ -319,7 +334,7 @@ function jabber_special_presence($type, $to=null, $show=null, $status=null)
 }
 
 /**
- * broadcast a notice to all subscribers and reply recipients
+ * Queue broadcast of a notice to all subscribers and reply recipients
  *
  * This function will send a notice to all subscribers on the local server
  * who have Jabber addresses, and have Jabber notification enabled, and
@@ -354,7 +369,7 @@ function jabber_broadcast_notice($notice)
 
     $sent_to = array();
 
-    $conn = jabber_connect();
+    $conn = jabber_proxy();
 
     $ni = $notice->whoGets();
 
@@ -389,14 +404,13 @@ function jabber_broadcast_notice($notice)
                    'Sending notice ' . $notice->id . ' to ' . $user->jabber,
                    __FILE__);
         $conn->message($user->jabber, $msg, 'chat', null, $entry);
-        $conn->processTime(0);
     }
 
     return true;
 }
 
 /**
- * send a notice to all public listeners
+ * Queue send of a notice to all public listeners
  *
  * For notices that are generated on the local system (by users), we can optionally
  * forward them to remote listeners by XMPP.
@@ -429,7 +443,7 @@ function jabber_public_notice($notice)
         $msg   = jabber_format_notice($profile, $notice);
         $entry = jabber_format_entry($profile, $notice);
 
-        $conn = jabber_connect();
+        $conn = jabber_proxy();
 
         foreach ($public as $address) {
             common_log(LOG_INFO,
@@ -437,7 +451,6 @@ function jabber_public_notice($notice)
                        ' to public listener ' . $address,
                        __FILE__);
             $conn->message($address, $msg, 'chat', null, $entry);
-            $conn->processTime(0);
         }
         $profile->free();
     }

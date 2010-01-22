@@ -223,7 +223,7 @@ function markupPost(raw, server) {
          },
          changeUserTo : function(el) {
             $.a.user = el.rel;
-            $.s.h.a.innerHTML = el.rev + $.a.headerText;
+            $.s.h.a.appendChild(document.createTextNode(el.rev + $.a.headerText));
             $.s.h.a.href = 'http://' + $.a.server + '/' + el.id;
             $.f.runSearch(); 
          },

@@ -135,6 +135,6 @@ class ApiTimelineRetweetedToMeAction extends ApiAuthAction
 
     function isReadOnly($args)
     {
-        return false;
+        return true;
     }
 }

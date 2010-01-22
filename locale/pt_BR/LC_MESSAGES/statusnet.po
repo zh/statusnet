@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-18 23:16+0000\n"
-"PO-Revision-Date: 2010-01-18 23:19:44+0000\n"
+"POT-Creation-Date: 2010-01-21 22:36+0000\n"
+"PO-Revision-Date: 2010-01-21 22:38:21+0000\n"
 "Language-Team: Brazilian Portuguese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61218); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61339); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pt-br\n"
 "X-Message-Group: out-statusnet\n"
@@ -136,7 +136,7 @@ msgstr "Atualizações de %1$s e amigos no %2$s!"
 #: actions/apigroupcreate.php:136 actions/apigroupismember.php:114
 #: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
 #: actions/apigrouplist.php:132 actions/apigrouplistall.php:120
-#: actions/apigroupmembership.php:106 actions/apigroupshow.php:105
+#: actions/apigroupmembership.php:106 actions/apigroupshow.php:115
 #: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
 #: actions/apistatusesretweets.php:112 actions/apistatusesshow.php:108
 #: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
@@ -389,7 +389,7 @@ msgstr "O apelido não pode ser igual à identificação."
 
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
-#: actions/apigroupshow.php:90 actions/apitimelinegroup.php:91
+#: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
 msgid "Group not found!"
 msgstr "O grupo não foi encontrado!"
 
@@ -1075,7 +1075,7 @@ msgid "No such application."
 msgstr "Essa aplicação não existe."
 
 #: actions/editapplication.php:127 actions/newapplication.php:110
-#: actions/showapplication.php:118 lib/action.php:1167
+#: actions/showapplication.php:118 lib/action.php:1189
 msgid "There was a problem with your session token."
 msgstr "Ocorreu um problema com o seu token de sessão."
 
@@ -4599,27 +4599,41 @@ msgstr ""
 "versão %s, disponível sob a [GNU Affero General Public License] (http://www."
 "fsf.org/licensing/licenses/agpl-3.0.html)."
 
-#: lib/action.php:794
+#: lib/action.php:795
 msgid "Site content license"
 msgstr "Licença do conteúdo do site"
 
-#: lib/action.php:803
+#: lib/action.php:800
+#, php-format
+msgid "Content and data of %1$s are private and confidential."
+msgstr ""
+
+#: lib/action.php:805
+#, php-format
+msgid "Content and data copyright by %1$s. All rights reserved."
+msgstr ""
+
+#: lib/action.php:808
+msgid "Content and data copyright by contributors. All rights reserved."
+msgstr ""
+
+#: lib/action.php:820
 msgid "All "
 msgstr "Todas "
 
-#: lib/action.php:808
+#: lib/action.php:825
 msgid "license."
 msgstr "licença."
 
-#: lib/action.php:1102
+#: lib/action.php:1124
 msgid "Pagination"
 msgstr "Paginação"
 
-#: lib/action.php:1111
+#: lib/action.php:1133
 msgid "After"
 msgstr "Próximo"
 
-#: lib/action.php:1119
+#: lib/action.php:1141
 msgid "Before"
 msgstr "Anterior"
 

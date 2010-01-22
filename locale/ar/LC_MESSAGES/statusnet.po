@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-18 23:16+0000\n"
-"PO-Revision-Date: 2010-01-19 23:52:48+0000\n"
+"POT-Creation-Date: 2010-01-21 22:36+0000\n"
+"PO-Revision-Date: 2010-01-21 22:37:00+0000\n"
 "Language-Team: Arabic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61275); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61339); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ar\n"
 "X-Message-Group: out-statusnet\n"
@@ -127,7 +127,7 @@ msgstr ""
 #: actions/apigroupcreate.php:136 actions/apigroupismember.php:114
 #: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
 #: actions/apigrouplist.php:132 actions/apigrouplistall.php:120
-#: actions/apigroupmembership.php:106 actions/apigroupshow.php:105
+#: actions/apigroupmembership.php:106 actions/apigroupshow.php:115
 #: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
 #: actions/apistatusesretweets.php:112 actions/apistatusesshow.php:108
 #: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
@@ -372,7 +372,7 @@ msgstr ""
 
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
-#: actions/apigroupshow.php:90 actions/apitimelinegroup.php:91
+#: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
 msgid "Group not found!"
 msgstr "لم توجد المجموعة!"
 
@@ -597,7 +597,7 @@ msgstr ""
 #: actions/apitimelineretweetedbyme.php:112
 #, php-format
 msgid "Repeated by %s"
-msgstr ""
+msgstr "كرّره %s"
 
 #: actions/apitimelineretweetedtome.php:111
 #, php-format
@@ -1042,7 +1042,7 @@ msgid "No such application."
 msgstr "لا تطبيق كهذا."
 
 #: actions/editapplication.php:127 actions/newapplication.php:110
-#: actions/showapplication.php:118 lib/action.php:1167
+#: actions/showapplication.php:118 lib/action.php:1189
 msgid "There was a problem with your session token."
 msgstr ""
 
@@ -1838,7 +1838,7 @@ msgstr ""
 
 #: actions/joingroup.php:60
 msgid "You must be logged in to join a group."
-msgstr ""
+msgstr "يجب أن تلج لتنضم إلى مجموعة."
 
 #: actions/joingroup.php:131
 #, php-format
@@ -1847,7 +1847,7 @@ msgstr "%1$s انضم للمجموعة %2$s"
 
 #: actions/leavegroup.php:60
 msgid "You must be logged in to leave a group."
-msgstr ""
+msgstr "يجب أن تلج لتغادر مجموعة."
 
 #: actions/leavegroup.php:90 lib/command.php:265
 msgid "You are not a member of that group."
@@ -1929,7 +1929,7 @@ msgstr "لا حالة حالية"
 
 #: actions/newapplication.php:52
 msgid "New application"
-msgstr ""
+msgstr "تطبيق جديد"
 
 #: actions/newapplication.php:64
 msgid "You must be logged in to register an application."
@@ -1961,7 +1961,7 @@ msgstr "رسالة جديدة"
 
 #: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:358
 msgid "You can't send a message to this user."
-msgstr ""
+msgstr "لا يمكنك إرسال رسائل إلى هذا المستخدم."
 
 #: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:342
 #: lib/command.php:475
@@ -2004,6 +2004,8 @@ msgid ""
 "Search for notices on %%site.name%% by their contents. Separate search terms "
 "by spaces; they must be 3 characters or more."
 msgstr ""
+"ابحث عن إشعارات على %%site.name%% عبر محتوياتها. افصل عبارات البحث بمسافات؛ "
+"ويجب أن تتكون هذه العبارات من 3 أحرف أو أكثر."
 
 #: actions/noticesearch.php:78
 msgid "Text search"
@@ -2470,7 +2472,7 @@ msgstr ""
 
 #: actions/profilesettings.php:138
 msgid "Share my current location when posting notices"
-msgstr ""
+msgstr "شارك مكاني الحالي عند إرسال إشعارات"
 
 #: actions/profilesettings.php:145 actions/tagother.php:149
 #: actions/tagother.php:209 lib/subscriptionlist.php:106
@@ -3006,7 +3008,7 @@ msgstr ""
 
 #: actions/showapplication.php:160 lib/applicationeditform.php:182
 msgid "Icon"
-msgstr ""
+msgstr "أيقونة"
 
 #: actions/showapplication.php:170 actions/version.php:195
 #: lib/applicationeditform.php:197
@@ -3296,7 +3298,7 @@ msgstr ""
 #: actions/showstream.php:313
 #, php-format
 msgid "Repeat of %s"
-msgstr "تكرارات %s"
+msgstr "تكرار ل%s"
 
 #: actions/silence.php:65 actions/unsilence.php:65
 msgid "You cannot silence users on this site."
@@ -3971,7 +3973,7 @@ msgstr "استمتع بالنقانق!"
 
 #: actions/usergroups.php:130
 msgid "Search for more groups"
-msgstr ""
+msgstr "ابحث عن المزيد من المجموعات"
 
 #: actions/usergroups.php:153
 #, php-format
@@ -4318,27 +4320,41 @@ msgstr ""
 "المتوفر تحت [رخصة غنو أفيرو العمومية](http://www.fsf.org/licensing/licenses/"
 "agpl-3.0.html)."
 
-#: lib/action.php:794
+#: lib/action.php:795
 msgid "Site content license"
 msgstr "رخصة محتوى الموقع"
 
-#: lib/action.php:803
-msgid "All "
+#: lib/action.php:800
+#, php-format
+msgid "Content and data of %1$s are private and confidential."
+msgstr ""
+
+#: lib/action.php:805
+#, php-format
+msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
 #: lib/action.php:808
+msgid "Content and data copyright by contributors. All rights reserved."
+msgstr ""
+
+#: lib/action.php:820
+msgid "All "
+msgstr ""
+
+#: lib/action.php:825
 msgid "license."
 msgstr "الرخصة."
 
-#: lib/action.php:1102
+#: lib/action.php:1124
 msgid "Pagination"
 msgstr ""
 
-#: lib/action.php:1111
+#: lib/action.php:1133
 msgid "After"
 msgstr "بعد"
 
-#: lib/action.php:1119
+#: lib/action.php:1141
 msgid "Before"
 msgstr "قبل"
 
@@ -4898,7 +4914,7 @@ msgstr "أضف أو عدّل شعار %s"
 #: lib/groupnav.php:120
 #, php-format
 msgid "Add or edit %s design"
-msgstr ""
+msgstr "أضف أو عدل تصميم %s"
 
 #: lib/groupsbymemberssection.php:71
 msgid "Groups with most members"
@@ -4911,7 +4927,7 @@ msgstr "المجموعات الأكثر مرسلات"
 #: lib/grouptagcloudsection.php:56
 #, php-format
 msgid "Tags in %s group's notices"
-msgstr ""
+msgstr "وسوم في إشعارات المجموعة %s"
 
 #: lib/htmloutputter.php:103
 msgid "This page is not available in a media type you accept"
@@ -5004,7 +5020,7 @@ msgstr ""
 #: lib/mail.php:236
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
-msgstr ""
+msgstr "%1$s يستمع الآن إلى إشعاراتك على %2$s."
 
 #: lib/mail.php:241
 #, php-format
@@ -5020,6 +5036,16 @@ msgid ""
 "----\n"
 "Change your email address or notification options at %8$s\n"
 msgstr ""
+"%1$s يستمع الآن إلى إشعاراتك على %2$s.\n"
+"\n"
+"%3$s\n"
+"\n"
+"%4$s%5$s%6$s\n"
+"بوفاء،\n"
+"%7$s.\n"
+"\n"
+"----\n"
+"غيّر خيارات البريد الإلكتروني والإشعار في %8$s\n"
 
 #: lib/mail.php:258
 #, php-format
@@ -5386,7 +5412,7 @@ msgstr "رسائلك المُرسلة"
 #: lib/personaltagcloudsection.php:56
 #, php-format
 msgid "Tags in %s's notices"
-msgstr ""
+msgstr "وسوم في إشعارات %s"
 
 #: lib/plugin.php:114
 msgid "Unknown"
@@ -5450,11 +5476,11 @@ msgstr "مشهورة"
 
 #: lib/repeatform.php:107
 msgid "Repeat this notice?"
-msgstr "كرر هذا الإشعار؟"
+msgstr "أأكرّر هذا الإشعار؟ّ"
 
 #: lib/repeatform.php:132
 msgid "Repeat this notice"
-msgstr "كرر هذا الإشعار"
+msgstr "كرّر هذا الإشعار"
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"
