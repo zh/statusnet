@@ -289,7 +289,7 @@ class ApiAction extends Action
 
             foreach ($attachments as $attachment) {
                 $enclosure_o=$attachment->getEnclosure();
-                if ($attachment_enclosure) {
+                if ($enclosure_o) {
                     $enclosure = array();
                     $enclosure['url'] = $enclosure_o->url;
                     $enclosure['mimetype'] = $enclosure_o->mimetype;
