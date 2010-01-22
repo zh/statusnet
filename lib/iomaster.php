@@ -32,7 +32,6 @@ class IoMaster
     public $id;
 
     protected $multiSite = false;
-    protected $includeGlobalSingletons = true;
     protected $managers = array();
     protected $singletons = array();
 
@@ -48,9 +47,8 @@ class IoMaster
         $this->monitor = new QueueMonitor();
     }
 
-    public function init($multiSite=null, $includeGlobalSingletons = true)
+    public function init($multiSite=null)
     {
-        $this->includeGlobalSingletons = $includeGlobalSingletons;
         if ($multiSite !== null) {
             $this->multiSite = $multiSite;
         }
@@ -109,7 +107,7 @@ class IoMaster
      */
     protected function instantiate($class)
     {
-        if (is_string($class) && isset($this->singletons[$class])) {
+        if (isset($this->singletons[$class])) {
             // Already instantiated a multi-site-capable handler.
             // Just let it know it should listen to this site too!
             $this->singletons[$class]->addSite(common_config('site', 'server'));
@@ -118,34 +116,25 @@ class IoMaster
 
         $manager = $this->getManager($class);
 
-        $caps = $manager->multiSite();
         if ($this->multiSite) {
+            $caps = $manager->multiSite();
             if ($caps == IoManager::SINGLE_ONLY) {
                 throw new Exception("$class can't run with --all; aborting.");
             }
-            if ($caps == IoManager::INSTANCE_PER_PROCESS ||
-               ( $this->includeGlobalSingletons && $caps == IoManager::GLOBAL_SINGLE_ONLY )) {
+            if ($caps == IoManager::INSTANCE_PER_PROCESS) {
                 // Save this guy for later!
                 // We'll only need the one to cover multiple sites.
-                if (is_string($class)){
-                    $this->singletons[$class] = $manager;
-                }
+                $this->singletons[$class] = $manager;
                 $manager->addSite(common_config('site', 'server'));
             }
         }
 
-        if( $this->includeGlobalSingletons || $caps != IoManager::GLOBAL_SINGLE_ONLY ) {
-            $this->managers[] = $manager;
-        }
+        $this->managers[] = $manager;
     }
     
     protected function getManager($class)
     {
-        if(is_object($class)){
-            return $class;
-        }else{
-            return call_user_func(array($class, 'get'));
-        }
+        return call_user_func(array($class, 'get'));
     }
 
     /**

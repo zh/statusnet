@@ -122,7 +122,7 @@ class QueueDaemon extends Daemon
         if ($this->threads > 1) {
             return $this->runThreads();
         } else {
-            return $this->runLoop(true);
+            return $this->runLoop();
         }
     }
     
@@ -176,8 +176,7 @@ class QueueDaemon extends Daemon
     {
         $this->set_id($this->get_id() . "." . $thread);
         $this->resetDb();
-        //only include global singletons on the first thread
-        $this->runLoop($thread == 1);
+        $this->runLoop();
     }
 
     /**
@@ -214,18 +213,14 @@ class QueueDaemon extends Daemon
      *
      * Most of the time this won't need to be overridden in a subclass.
      *
-     * @param boolean $includeGlobalSingletons Include IoManagers that are
-     * global singletons (should only be one instance - regardless of how
-     * many processes or sites there are)
-     *
      * @return boolean true on success, false on failure
      */
-    function runLoop($includeGlobalSingletons)
+    function runLoop()
     {
         $this->log(LOG_INFO, 'checking for queued notices');
 
         $master = new IoMaster($this->get_id());
-        $master->init($this->all, $includeGlobalSingletons);
+        $master->init($this->all);
         $master->service();
 
         $this->log(LOG_INFO, 'finished servicing the queue');
