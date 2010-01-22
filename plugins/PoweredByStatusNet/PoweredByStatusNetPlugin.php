@@ -46,8 +46,9 @@ class PoweredByStatusNetPlugin extends Plugin
     function onEndAddressData($action)
     {
         $action->elementStart('span', 'poweredby');
-        $action->text(_('powered by'));
-        $action->element('a', array('href' => 'http://status.net/'), 'StatusNet');
+        $action->raw(sprintf(_m('powered by %s'),
+                     sprintf('<a href="http://status.net/">%s</a>',
+                             _m('StatusNet'))));
         $action->elementEnd('span');
 
         return true;
