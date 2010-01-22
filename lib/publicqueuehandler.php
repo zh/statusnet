@@ -23,7 +23,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 
 /**
  * Queue handler for pushing new notices to public XMPP subscribers.
- * @fixme correct this exception handling
  */
 class PublicQueueHandler extends QueueHandler
 {
@@ -33,15 +32,14 @@ class PublicQueueHandler extends QueueHandler
         return 'public';
     }
 
-    function handle_notice($notice)
+    function handle($notice)
     {
         require_once(INSTALLDIR.'/lib/jabber.php');
         try {
             return jabber_public_notice($notice);
         } catch (XMPPHP_Exception $e) {
             $this->log(LOG_ERR, "Got an XMPPHP_Exception: " . $e->getMessage());
-            die($e->getMessage());
+            return false;
         }
-        return true;
     }
 }

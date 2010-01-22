@@ -1130,7 +1130,8 @@ function common_request_id()
     $pid = getmypid();
     $server = common_config('site', 'server');
     if (php_sapi_name() == 'cli') {
-        return "$server:$pid";
+        $script = basename($_SERVER['PHP_SELF']);
+        return "$server:$script:$pid";
     } else {
         static $req_id = null;
         if (!isset($req_id)) {

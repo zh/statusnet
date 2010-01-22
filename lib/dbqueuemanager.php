@@ -31,19 +31,17 @@
 class DBQueueManager extends QueueManager
 {
     /**
-     * Saves a notice object reference into the queue item table.
+     * Saves an object reference into the queue item table.
      * @return boolean true on success
      * @throws ServerException on failure
      */
     public function enqueue($object, $queue)
     {
-        $notice = $object;
-
         $qi = new Queue_item();
 
-        $qi->notice_id = $notice->id;
+        $qi->frame     = $this->encode($object);
         $qi->transport = $queue;
-        $qi->created   = $notice->created;
+        $qi->created   = common_sql_now();
         $result        = $qi->insert();
 
         if (!$result) {
@@ -57,146 +55,92 @@ class DBQueueManager extends QueueManager
     }
 
     /**
-     * Poll every minute for new events during idle periods.
+     * Poll every 10 seconds for new events during idle periods.
      * We'll look in more often when there's data available.
      *
      * @return int seconds
      */
     public function pollInterval()
     {
-        return 60;
+        return 10;
     }
 
     /**
      * Run a polling cycle during idle processing in the input loop.
-     * @return boolean true if we had a hit
+     * @return boolean true if we should poll again for more data immediately
      */
     public function poll()
     {
         $this->_log(LOG_DEBUG, 'Checking for notices...');
-        $item = $this->_nextItem();
-        if ($item === false) {
+        $qi = Queue_item::top($this->getQueues());
+        if (empty($qi)) {
             $this->_log(LOG_DEBUG, 'No notices waiting; idling.');
             return false;
         }
-        if ($item === true) {
-            // We dequeued an entry for a deleted or invalid notice.
-            // Consider it a hit for poll rate purposes.
-            return true;
-        }
 
-        list($queue, $notice) = $item;
-        $this->_log(LOG_INFO, 'Got notice '. $notice->id . ' for transport ' . $queue);
+        $queue = $qi->transport;
+        $item = $this->decode($qi->frame);
 
-        // Yay! Got one!
-        $handler = $this->getHandler($queue);
-        if ($handler) {
-            if ($handler->handle_notice($notice)) {
-                $this->_log(LOG_INFO, "[$queue:notice $notice->id] Successfully handled notice");
-                $this->_done($notice, $queue);
+        if ($item) {
+            $rep = $this->logrep($item);
+            $this->_log(LOG_INFO, "Got $rep for transport $queue");
+            
+            $handler = $this->getHandler($queue);
+            if ($handler) {
+                if ($handler->handle($item)) {
+                    $this->_log(LOG_INFO, "[$queue:$rep] Successfully handled item");
+                    $this->_done($qi);
+                } else {
+                    $this->_log(LOG_INFO, "[$queue:$rep] Failed to handle item");
+                    $this->_fail($qi);
+                }
             } else {
-                $this->_log(LOG_INFO, "[$queue:notice $notice->id] Failed to handle notice");
-                $this->_fail($notice, $queue);
+                $this->_log(LOG_INFO, "[$queue:$rep] No handler for queue $queue; discarding.");
+                $this->_done($qi);
             }
         } else {
-            $this->_log(LOG_INFO, "[$queue:notice $notice->id] No handler for queue $queue; discarding.");
-            $this->_done($notice, $queue);
+            $this->_log(LOG_INFO, "[$queue] Got empty/deleted item, discarding");
+            $this->_fail($qi);
         }
         return true;
     }
 
     /**
-     * Pop the oldest unclaimed item off the queue set and claim it.
-     *
-     * @return mixed false if no items; true if bogus hit; otherwise array(string, Notice)
-     *               giving the queue transport name.
-     */
-    protected function _nextItem()
-    {
-        $start = time();
-        $result = null;
-
-        $qi = Queue_item::top();
-        if (empty($qi)) {
-            return false;
-        }
-
-        $queue = $qi->transport;
-        $notice = Notice::staticGet('id', $qi->notice_id);
-        if (empty($notice)) {
-            $this->_log(LOG_INFO, "[$queue:notice $notice->id] dequeued non-existent notice");
-            $qi->delete();
-            return true;
-        }
-
-        $result = $notice;
-        return array($queue, $notice);
-    }
-
-    /**
      * Delete our claimed item from the queue after successful processing.
      *
-     * @param Notice $object
-     * @param string $queue
+     * @param QueueItem $qi
      */
-    protected function _done($object, $queue)
+    protected function _done($qi)
     {
-        // XXX: right now, we only handle notices
+        $queue = $qi->transport;
 
-        $notice = $object;
-
-        $qi = Queue_item::pkeyGet(array('notice_id' => $notice->id,
-                                        'transport' => $queue));
-
-        if (empty($qi)) {
-            $this->_log(LOG_INFO, "[$queue:notice $notice->id] Cannot find queue item");
-        } else {
-            if (empty($qi->claimed)) {
-                $this->_log(LOG_WARNING, "[$queue:notice $notice->id] Reluctantly releasing unclaimed queue item");
-            }
-            $qi->delete();
-            $qi->free();
+        if (empty($qi->claimed)) {
+            $this->_log(LOG_WARNING, "Reluctantly releasing unclaimed queue item $qi->id from $qi->queue");
         }
+        $qi->delete();
 
-        $this->_log(LOG_INFO, "[$queue:notice $notice->id] done with item");
         $this->stats('handled', $queue);
-
-        $notice->free();
     }
 
     /**
      * Free our claimed queue item for later reprocessing in case of
      * temporary failure.
      *
-     * @param Notice $object
-     * @param string $queue
+     * @param QueueItem $qi
      */
-    protected function _fail($object, $queue)
+    protected function _fail($qi)
     {
-        // XXX: right now, we only handle notices
+        $queue = $qi->transport;
 
-        $notice = $object;
-
-        $qi = Queue_item::pkeyGet(array('notice_id' => $notice->id,
-                                        'transport' => $queue));
-
-        if (empty($qi)) {
-            $this->_log(LOG_INFO, "[$queue:notice $notice->id] Cannot find queue item");
+        if (empty($qi->claimed)) {
+            $this->_log(LOG_WARNING, "[$queue:item $qi->id] Ignoring failure for unclaimed queue item");
         } else {
-            if (empty($qi->claimed)) {
-                $this->_log(LOG_WARNING, "[$queue:notice $notice->id] Ignoring failure for unclaimed queue item");
-            } else {
-                $orig = clone($qi);
-                $qi->claimed = null;
-                $qi->update($orig);
-                $qi = null;
-            }
+            $orig = clone($qi);
+            $qi->claimed = null;
+            $qi->update($orig);
         }
 
-        $this->_log(LOG_INFO, "[$queue:notice $notice->id] done with queue item");
         $this->stats('error', $queue);
-
-        $notice->free();
     }
 
     protected function _log($level, $msg)

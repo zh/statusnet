@@ -39,7 +39,6 @@ class StompQueueManager extends QueueManager
     var $base = null;
     var $con = null;
     
-    protected $master = null;
     protected $sites = array();
 
     function __construct()
@@ -104,11 +103,12 @@ class StompQueueManager extends QueueManager
      */
     function getQueues()
     {
+        $group = $this->activeGroup();
         $site = common_config('site', 'server');
-        if (empty($this->handlers[$site])) {
+        if (empty($this->groups[$site][$group])) {
             return array();
         } else {
-            return array_keys($this->handlers[$site]);
+            return array_keys($this->groups[$site][$group]);
         }
     }
 
@@ -118,10 +118,12 @@ class StompQueueManager extends QueueManager
      *
      * @param string $transport
      * @param string $class
+     * @param string $group
      */
-    public function connect($transport, $class)
+    public function connect($transport, $class, $group='queuedaemon')
     {
         $this->handlers[common_config('site', 'server')][$transport] = $class;
+        $this->groups[common_config('site', 'server')][$group][$transport] = $class;
     }
 
     /**
@@ -130,23 +132,23 @@ class StompQueueManager extends QueueManager
      */
     public function enqueue($object, $queue)
     {
-        $notice = $object;
+        $msg = $this->encode($object);
+        $rep = $this->logrep($object);
 
         $this->_connect();
 
         // XXX: serialize and send entire notice
 
         $result = $this->con->send($this->queueName($queue),
-                                   $notice->id, 		// BODY of the message
-                                   array ('created' => $notice->created));
+                                   $msg, 		// BODY of the message
+                                   array ('created' => common_sql_now()));
 
         if (!$result) {
-            common_log(LOG_ERR, 'Error sending to '.$queue.' queue');
+            common_log(LOG_ERR, "Error sending $rep to $queue queue");
             return false;
         }
 
-        common_log(LOG_DEBUG, 'complete remote queueing notice ID = '
-                   . $notice->id . ' for ' . $queue);
+        common_log(LOG_DEBUG, "complete remote queueing $rep for $queue");
         $this->stats('enqueued', $queue);
     }
 
@@ -174,7 +176,7 @@ class StompQueueManager extends QueueManager
         $ok = true;
         $frames = $this->con->readFrames();
         foreach ($frames as $frame) {
-            $ok = $ok && $this->_handleNotice($frame);
+            $ok = $ok && $this->_handleItem($frame);
         }
         return $ok;
     }
@@ -265,7 +267,7 @@ class StompQueueManager extends QueueManager
     }
 
     /**
-     * Handle and acknowledge a notice event that's come in through a queue.
+     * Handle and acknowledge an event that's come in through a queue.
      *
      * If the queue handler reports failure, the message is requeued for later.
      * Missing notices or handler classes will drop the message.
@@ -276,7 +278,7 @@ class StompQueueManager extends QueueManager
      * @param StompFrame $frame
      * @return bool
      */
-    protected function _handleNotice($frame)
+    protected function _handleItem($frame)
     {
         list($site, $queue) = $this->parseDestination($frame->headers['destination']);
         if ($site != common_config('site', 'server')) {
@@ -284,15 +286,23 @@ class StompQueueManager extends QueueManager
             StatusNet::init($site);
         }
 
-        $id = intval($frame->body);
-        $info = "notice $id posted at {$frame->headers['created']} in queue $queue";
+        if (is_numeric($frame->body)) {
+            $id = intval($frame->body);
+            $info = "notice $id posted at {$frame->headers['created']} in queue $queue";
 
-        $notice = Notice::staticGet('id', $id);
-        if (empty($notice)) {
-            $this->_log(LOG_WARNING, "Skipping missing $info");
-            $this->con->ack($frame);
-            $this->stats('badnotice', $queue);
-            return false;
+            $notice = Notice::staticGet('id', $id);
+            if (empty($notice)) {
+                $this->_log(LOG_WARNING, "Skipping missing $info");
+                $this->con->ack($frame);
+                $this->stats('badnotice', $queue);
+                return false;
+            }
+
+            $item = $notice;
+        } else {
+            // @fixme should we serialize, or json, or what here?
+            $info = "string posted at {$frame->headers['created']} in queue $queue";
+            $item = $frame->body;
         }
 
         $handler = $this->getHandler($queue);
@@ -303,7 +313,7 @@ class StompQueueManager extends QueueManager
             return false;
         }
 
-        $ok = $handler->handle_notice($notice);
+        $ok = $handler->handle($item);
 
         if (!$ok) {
             $this->_log(LOG_WARNING, "Failed handling $info");
@@ -311,7 +321,7 @@ class StompQueueManager extends QueueManager
             // this kind of queue management ourselves;
             // if we don't ack, it should resend...
             $this->con->ack($frame);
-            $this->enqueue($notice, $queue);
+            $this->enqueue($item, $queue);
             $this->stats('requeued', $queue);
             return false;
         }
