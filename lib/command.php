@@ -596,7 +596,7 @@ class OffCommand extends Command
     }
     function execute($channel)
     {
-        if ($other) {
+        if ($this->other) {
             $channel->error($this->user, _("Command not yet implemented."));
         } else {
             if ($channel->off($this->user)) {
@@ -619,7 +619,7 @@ class OnCommand extends Command
 
     function execute($channel)
     {
-        if ($other) {
+        if ($this->other) {
             $channel->error($this->user, _("Command not yet implemented."));
         } else {
             if ($channel->on($this->user)) {

@@ -213,18 +213,8 @@ abstract class QueueManager extends IoManager
                 $this->connect('sms', 'SmsQueueHandler');
             }
 
-            // XMPP output handlers...
-            $this->connect('jabber', 'JabberQueueHandler');
-            $this->connect('public', 'PublicQueueHandler');
-
-            // @fixme this should get an actual queue
-            //$this->connect('confirm', 'XmppConfirmHandler');
-
             // For compat with old plugins not registering their own handlers.
             $this->connect('plugin', 'PluginQueueHandler');
-
-            $this->connect('xmppout', 'XmppOutQueueHandler', 'xmppdaemon');
-
         }
         Event::handle('EndInitializeQueueManager', array($this));
     }
@@ -251,8 +241,8 @@ abstract class QueueManager extends IoManager
         $group = 'queuedaemon';
         if ($this->master) {
             // hack hack
-            if ($this->master instanceof XmppMaster) {
-                return 'xmppdaemon';
+            if ($this->master instanceof ImMaster) {
+                return 'imdaemon';
             }
         }
         return $group;

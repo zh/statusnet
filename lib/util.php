@@ -994,18 +994,9 @@ function common_enqueue_notice($notice)
 
     $transports = $allTransports;
 
-    $xmpp = common_config('xmpp', 'enabled');
-
-    if ($xmpp) {
-        $transports[] = 'jabber';
-    }
-
     if ($notice->is_local == Notice::LOCAL_PUBLIC ||
         $notice->is_local == Notice::LOCAL_NONPUBLIC) {
         $transports = array_merge($transports, $localTransports);
-        if ($xmpp) {
-            $transports[] = 'public';
-        }
     }
 
     if (Event::handle('StartEnqueueNotice', array($notice, &$transports))) {

@@ -17,29 +17,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) {
-    exit(1);
-}
+if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 /**
- * Queue handler for pushing new notices to public XMPP subscribers.
+ * Common superclass for all IM sending queue handlers.
  */
-class PublicQueueHandler extends QueueHandler
-{
 
-    function transport()
+class ImSenderQueueHandler extends QueueHandler
+{
+    function __construct($plugin, $immanager)
     {
-        return 'public';
+        $this->plugin = $plugin;
+        $this->immanager = $immanager;
     }
 
-    function handle($notice)
+    /**
+     * Handle outgoing IM data to be sent from the bot to a user
+     * @param object $data
+     * @return boolean success
+     */
+    function handle($data)
     {
-        require_once(INSTALLDIR.'/lib/jabber.php');
-        try {
-            return jabber_public_notice($notice);
-        } catch (XMPPHP_Exception $e) {
-            $this->log(LOG_ERR, "Got an XMPPHP_Exception: " . $e->getMessage());
-            return false;
-        }
+        return $this->immanager->send_raw_message($data);
     }
 }
+

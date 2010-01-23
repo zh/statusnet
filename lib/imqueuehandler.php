@@ -20,35 +20,29 @@
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 /**
- * Base class for queue handlers.
- *
- * As of 0.9, queue handlers are short-lived for items as they are
- * dequeued by a QueueManager running in an IoMaster in a daemon
- * such as queuedaemon.php.
- *
- * Extensions requiring long-running maintenance or polling should
- * register an IoManager.
- *
- * Subclasses must override at least the following methods:
- * - transport
- * - handle
+ * Common superclass for all IM sending queue handlers.
  */
-class QueueHandler
+
+class ImQueueHandler extends QueueHandler
 {
+    function __construct($plugin)
+    {
+        $this->plugin = $plugin;
+    }
 
     /**
-     * Here's the meat of your queue handler -- you're handed a Notice
-     * or other object, which you may do as you will with.
-     *
-     * If this function indicates failure, a warning will be logged
-     * and the item is placed back in the queue to be re-run.
-     *
-     * @param mixed $object
-     * @return boolean true on success, false on failure
+     * Handle a notice
+     * @param Notice $notice
+     * @return boolean success
      */
-    function handle($object)
+    function handle($notice)
     {
+        $this->plugin->broadcast_notice($notice);
+        if ($notice->is_local == Notice::LOCAL_PUBLIC ||
+            $notice->is_local == Notice::LOCAL_NONPUBLIC) {
+            $this->plugin->public_notice($notice);
+        }
         return true;
     }
-}
 
+}

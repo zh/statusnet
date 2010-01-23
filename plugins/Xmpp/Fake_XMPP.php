@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Queue-mediated proxy class for outgoing XMPP messages.
+ * Instead of sending XMPP messages, retrieve the raw XML that would be sent
  *
  * PHP version 5
  *
@@ -31,10 +31,10 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/jabber.php';
-
-class Queued_XMPP extends XMPPHP_XMPP
+class Fake_XMPP extends XMPPHP_XMPP
 {
+    public $would_be_sent = null;
+
 	/**
 	 * Constructor
 	 *
@@ -63,54 +63,41 @@ class Queued_XMPP extends XMPPHP_XMPP
      */
     public function send($msg, $timeout=NULL)
     {
-        $qm = QueueManager::get();
-        $qm->enqueue(strval($msg), 'xmppout');
-    }
-
-    /**
-     * Since we'll be getting input through a queue system's run loop,
-     * we'll process one standalone message at a time rather than our
-     * own XMPP message pump.
-     *
-     * @param string $message
-     */
-    public function processMessage($message) {
-       $frame = array_shift($this->frames);
-       xml_parse($this->parser, $frame->body, false);
+        $this->would_be_sent = $msg;
     }
 
     //@{
     /**
-     * Stream i/o functions disabled; push input through processMessage()
+     * Stream i/o functions disabled; only do output
      */
     public function connect($timeout = 30, $persistent = false, $sendinit = true)
     {
-        throw new Exception("Can't connect to server from XMPP queue proxy.");
+        throw new Exception("Can't connect to server from fake XMPP.");
     }
 
     public function disconnect()
     {
-        throw new Exception("Can't connect to server from XMPP queue proxy.");
+        throw new Exception("Can't connect to server from fake XMPP.");
     }
 
     public function process()
     {
-        throw new Exception("Can't read stream from XMPP queue proxy.");
+        throw new Exception("Can't read stream from fake XMPP.");
     }
 
     public function processUntil($event, $timeout=-1)
     {
-        throw new Exception("Can't read stream from XMPP queue proxy.");
+        throw new Exception("Can't read stream from fake XMPP.");
     }
 
     public function read()
     {
-        throw new Exception("Can't read stream from XMPP queue proxy.");
+        throw new Exception("Can't read stream from fake XMPP.");
     }
 
     public function readyToProcess()
     {
-        throw new Exception("Can't read stream from XMPP queue proxy.");
+        throw new Exception("Can't read stream from fake XMPP.");
     }
     //@}
 }

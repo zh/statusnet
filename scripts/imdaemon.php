@@ -23,34 +23,32 @@ define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 $shortoptions = 'fi::';
 $longoptions = array('id::', 'foreground');
 
-$helptext = <<<END_OF_XMPP_HELP
-Daemon script for receiving new notices from Jabber users.
+$helptext = <<<END_OF_IM_HELP
+Daemon script for receiving new notices from IM users.
 
     -i --id           Identity (default none)
     -f --foreground   Stay in the foreground (default background)
 
-END_OF_XMPP_HELP;
+END_OF_IM_HELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
-require_once INSTALLDIR . '/lib/jabber.php';
-
-class XMPPDaemon extends SpawningDaemon
+class ImDaemon extends SpawningDaemon
 {
     function __construct($id=null, $daemonize=true, $threads=1)
     {
         if ($threads != 1) {
             // This should never happen. :)
-            throw new Exception("XMPPDaemon can must run single-threaded");
+            throw new Exception("IMDaemon can must run single-threaded");
         }
         parent::__construct($id, $daemonize, $threads);
     }
 
     function runThread()
     {
-        common_log(LOG_INFO, 'Waiting to listen to XMPP and queues');
+        common_log(LOG_INFO, 'Waiting to listen to IM connections and queues');
 
-        $master = new XmppMaster($this->get_id());
+        $master = new ImMaster($this->get_id());
         $master->init();
         $master->service();
 
@@ -61,7 +59,7 @@ class XMPPDaemon extends SpawningDaemon
 
 }
 
-class XmppMaster extends IoMaster
+class ImMaster extends IoMaster
 {
     /**
      * Initialize IoManagers for the currently configured site
@@ -69,18 +67,15 @@ class XmppMaster extends IoMaster
      */
     function initManagers()
     {
-        // @fixme right now there's a hack in QueueManager to determine
-        // which queues to subscribe to based on the master class.
-        $this->instantiate('QueueManager');
-        $this->instantiate('XmppManager');
+        $classes = array();
+        if (Event::handle('StartImDaemonIoManagers', array(&$classes))) {
+            $classes[] = 'QueueManager';
+        }
+        Event::handle('EndImDaemonIoManagers', array(&$classes));
+        foreach ($classes as $class) {
+            $this->instantiate($class);
+        }
     }
-}
-
-// Abort immediately if xmpp is not enabled, otherwise the daemon chews up
-// lots of CPU trying to connect to unconfigured servers
-if (common_config('xmpp','enabled')==false) {
-    print "Aborting daemon - xmpp is disabled\n";
-    exit();
 }
 
 if (have_option('i', 'id')) {
@@ -93,6 +88,6 @@ if (have_option('i', 'id')) {
 
 $foreground = have_option('f', 'foreground');
 
-$daemon = new XMPPDaemon($id, !$foreground);
+$daemon = new ImDaemon($id, !$foreground);
 
 $daemon->runOnce();

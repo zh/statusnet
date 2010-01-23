@@ -699,3 +699,21 @@ StartShowContentLicense: Showing the default license for content
 
 EndShowContentLicense: Showing the default license for content
 - $action: the current action
+
+GetImTransports: Get IM transports that are available
+- &$transports: append your transport to this array like so: $transports[transportName]=array('display'=>display)
+
+NormalizeImScreenname: Normalize an IM screenname
+- $transport: transport the screenname is on
+- &$screenname: screenname to be normalized
+
+ValidateImScreenname: Validate an IM screenname
+- $transport: transport the screenname is on
+- $screenname: screenname to be validated
+- $valid: is the screenname valid?
+
+SendImConfirmationCode: Send a confirmation code to confirm a user owns an IM screenname
+- $transport: transport the screenname exists on
+- $screenname: screenname being confirmed
+- $code: confirmation code for confirmation URL
+- $user: user requesting the confirmation

@@ -166,12 +166,6 @@ class ShowstreamAction extends ProfileAction
             $this->element('meta', array('name' => 'microid',
                                          'content' => $id->toString()));
         }
-        if ($this->user->jabbermicroid && $this->user->jabber && $this->profile->profileurl) {
-            $id = new Microid('xmpp:'.$this->user->jabber,
-                              $this->selfUrl());
-            $this->element('meta', array('name' => 'microid',
-                                         'content' => $id->toString()));
-        }
 
         // See https://wiki.mozilla.org/Microsummaries
 
