@@ -30,6 +30,8 @@
 $default =
   array('site' =>
         array('name' => 'Just another StatusNet microblog',
+              'nickname' => 'statusnet',
+              'wildcard' => null,
               'server' => $_server,
               'theme' => 'default',
               'path' => $_path,
