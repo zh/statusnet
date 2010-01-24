@@ -274,13 +274,12 @@ create table remember_me (
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table queue_item (
-
-    notice_id integer not null comment 'notice queued' references notice (id),
+    id integer auto_increment primary key comment 'unique identifier',
+    frame blob not null comment 'data: object reference or opaque string',
     transport varchar(8) not null comment 'queue for what? "email", "jabber", "sms", "irc", ...',
     created datetime not null comment 'date this record was created',
     claimed datetime comment 'date this item was claimed',
 
-    constraint primary key (notice_id, transport),
     index queue_item_created_idx (created)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;

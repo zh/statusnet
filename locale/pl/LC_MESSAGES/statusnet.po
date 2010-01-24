@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-15 19:15+0000\n"
-"PO-Revision-Date: 2010-01-16 17:52:53+0000\n"
+"POT-Creation-Date: 2010-01-21 22:36+0000\n"
+"PO-Revision-Date: 2010-01-21 22:38:15+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: MediaWiki 1.16alpha (r61138); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r61339); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pl\n"
 "X-Message-Group: out-statusnet\n"
@@ -139,7 +139,7 @@ msgstr "Aktualizacje z %1$s i przyjaciół na %2$s."
 #: actions/apigroupcreate.php:136 actions/apigroupismember.php:114
 #: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
 #: actions/apigrouplist.php:132 actions/apigrouplistall.php:120
-#: actions/apigroupmembership.php:106 actions/apigroupshow.php:105
+#: actions/apigroupmembership.php:106 actions/apigroupshow.php:115
 #: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
 #: actions/apistatusesretweets.php:112 actions/apistatusesshow.php:108
 #: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
@@ -390,7 +390,7 @@ msgstr "Alias nie może być taki sam jak pseudonim."
 
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
-#: actions/apigroupshow.php:90 actions/apitimelinegroup.php:91
+#: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
 msgid "Group not found!"
 msgstr "Nie odnaleziono grupy."
 
@@ -1068,7 +1068,7 @@ msgid "No such application."
 msgstr "Nie ma takiej aplikacji."
 
 #: actions/editapplication.php:127 actions/newapplication.php:110
-#: actions/showapplication.php:118 lib/action.php:1167
+#: actions/showapplication.php:118 lib/action.php:1189
 msgid "There was a problem with your session token."
 msgstr "Wystąpił problem z tokenem sesji."
 
@@ -4367,12 +4367,12 @@ msgstr "Zabroniono ci wysyłania wpisów na tej stronie."
 msgid "Problem saving notice."
 msgstr "Problem podczas zapisywania wpisu."
 
-#: classes/Notice.php:1052
+#: classes/Notice.php:1059
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Błąd bazy danych podczas wprowadzania odpowiedzi: %s"
 
-#: classes/Notice.php:1423
+#: classes/Notice.php:1441
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4569,27 +4569,41 @@ msgstr ""
 "status.net/) w wersji %s, dostępnego na [Powszechnej Licencji Publicznej GNU "
 "Affero](http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
 
-#: lib/action.php:794
+#: lib/action.php:795
 msgid "Site content license"
 msgstr "Licencja zawartości strony"
 
-#: lib/action.php:803
+#: lib/action.php:800
+#, php-format
+msgid "Content and data of %1$s are private and confidential."
+msgstr ""
+
+#: lib/action.php:805
+#, php-format
+msgid "Content and data copyright by %1$s. All rights reserved."
+msgstr ""
+
+#: lib/action.php:808
+msgid "Content and data copyright by contributors. All rights reserved."
+msgstr ""
+
+#: lib/action.php:820
 msgid "All "
 msgstr "Wszystko "
 
-#: lib/action.php:808
+#: lib/action.php:825
 msgid "license."
 msgstr "licencja."
 
-#: lib/action.php:1102
+#: lib/action.php:1124
 msgid "Pagination"
 msgstr "Paginacja"
 
-#: lib/action.php:1111
+#: lib/action.php:1133
 msgid "After"
 msgstr "Później"
 
-#: lib/action.php:1119
+#: lib/action.php:1141
 msgid "Before"
 msgstr "Wcześniej"
 

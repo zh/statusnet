@@ -27,7 +27,7 @@
  * @link      http://status.net/
  */
 
-class IoMaster
+abstract class IoMaster
 {
     public $id;
 
@@ -66,22 +66,17 @@ class IoMaster
             if ($site != common_config('site', 'server')) {
                 StatusNet::init($site);
             }
-
-            $classes = array();
-            if (Event::handle('StartIoManagerClasses', array(&$classes))) {
-                $classes[] = 'QueueManager';
-                if (common_config('xmpp', 'enabled') && !defined('XMPP_EMERGENCY_FLAG')) {
-                    $classes[] = 'XmppManager'; // handles pings/reconnects
-                    $classes[] = 'XmppConfirmManager'; // polls for outgoing confirmations
-                }
-            }
-            Event::handle('EndIoManagerClasses', array(&$classes));
-
-            foreach ($classes as $class) {
-                $this->instantiate($class);
-            }
+            $this->initManagers();
         }
     }
+
+    /**
+     * Initialize IoManagers for the currently configured site
+     * which are appropriate to this instance.
+     *
+     * Pass class names into $this->instantiate()
+     */
+    abstract function initManagers();
 
     /**
      * Pull all local sites from status_network table.
@@ -107,7 +102,7 @@ class IoMaster
      */
     protected function instantiate($class)
     {
-        if (isset($this->singletons[$class])) {
+        if (is_string($class) && isset($this->singletons[$class])) {
             // Already instantiated a multi-site-capable handler.
             // Just let it know it should listen to this site too!
             $this->singletons[$class]->addSite(common_config('site', 'server'));
@@ -134,7 +129,11 @@ class IoMaster
     
     protected function getManager($class)
     {
-        return call_user_func(array($class, 'get'));
+        if(is_object($class)){
+            return $class;
+        } else {
+            return call_user_func(array($class, 'get'));
+        }
     }
 
     /**
@@ -170,7 +169,7 @@ class IoMaster
                 $write = array();
                 $except = array();
                 $this->logState('listening');
-                common_log(LOG_INFO, "Waiting up to $timeout seconds for socket data...");
+                common_log(LOG_DEBUG, "Waiting up to $timeout seconds for socket data...");
                 $ready = stream_select($read, $write, $except, $timeout, 0);
 
                 if ($ready === false) {
@@ -190,7 +189,7 @@ class IoMaster
 
             if ($timeout > 0 && empty($sockets)) {
                 // If we had no listeners, sleep until the pollers' next requested wakeup.
-                common_log(LOG_INFO, "Sleeping $timeout seconds until next poll cycle...");
+                common_log(LOG_DEBUG, "Sleeping $timeout seconds until next poll cycle...");
                 $this->logState('sleep');
                 sleep($timeout);
             }
@@ -207,6 +206,8 @@ class IoMaster
                 if ($usage > $memoryLimit) {
                     common_log(LOG_INFO, "Queue thread hit soft memory limit ($usage > $memoryLimit); gracefully restarting.");
                     break;
+                } else if (common_config('queue', 'debug_memory')) {
+                    common_log(LOG_DEBUG, "Memory usage $usage");
                 }
             }
         }
@@ -223,8 +224,7 @@ class IoMaster
     {
         $softLimit = trim(common_config('queue', 'softlimit'));
         if (substr($softLimit, -1) == '%') {
-            $limit = trim(ini_get('memory_limit'));
-            $limit = $this->parseMemoryLimit($limit);
+            $limit = $this->parseMemoryLimit(ini_get('memory_limit'));
             if ($limit > 0) {
                 return intval(substr($softLimit, 0, -1) * $limit / 100);
             } else {
@@ -242,9 +242,10 @@ class IoMaster
      * @param string $mem
      * @return int
      */
-    protected function parseMemoryLimit($mem)
+    public function parseMemoryLimit($mem)
     {
         // http://www.php.net/manual/en/faq.using.php#faq.using.shorthandbytes
+        $mem = strtolower(trim($mem));
         $size = array('k' => 1024,
                       'm' => 1024*1024,
                       'g' => 1024*1024*1024);
@@ -253,7 +254,7 @@ class IoMaster
         } else if (is_numeric($mem)) {
             return intval($mem);
         } else {
-            $mult = strtolower(substr($mem, -1));
+            $mult = substr($mem, -1);
             if (isset($size[$mult])) {
                 return substr($mem, 0, -1) * $size[$mult];
             } else {
@@ -350,7 +351,7 @@ class IoMaster
      * for per-queue and per-site records.
      *
      * @param string $key counter name
-     * @param array $owners list of owner keys like 'queue:jabber' or 'site:stat01'
+     * @param array $owners list of owner keys like 'queue:xmpp' or 'site:stat01'
      */
     public function stats($key, $owners=array())
     {

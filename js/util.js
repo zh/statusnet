@@ -205,8 +205,10 @@ var SN = { // StatusNet
                         cookieValue = JSON.parse(cookieValue);
                         NLat = $('#'+SN.C.S.NoticeLat).val(cookieValue.NLat).val();
                         NLon = $('#'+SN.C.S.NoticeLon).val(cookieValue.NLon).val();
-                        NLNS = $('#'+SN.C.S.NoticeLocationNs).val(cookieValue.NLNS).val();
-                        NLID = $('#'+SN.C.S.NoticeLocationId).val(cookieValue.NLID).val();
+                        if ($('#'+SN.C.S.NoticeLocationNs).val(cookieValue.NLNS)) {
+                            NLNS = $('#'+SN.C.S.NoticeLocationNs).val(cookieValue.NLNS).val();
+                            NLID = $('#'+SN.C.S.NoticeLocationId).val(cookieValue.NLID).val();
+                        }
                     }
                     if (cookieValue == 'disabled') {
                         NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked', false).attr('checked');
@@ -301,8 +303,10 @@ var SN = { // StatusNet
 
                     $('#'+SN.C.S.NoticeLat).val(NLat);
                     $('#'+SN.C.S.NoticeLon).val(NLon);
-                    $('#'+SN.C.S.NoticeLocationNs).val(NLNS);
-                    $('#'+SN.C.S.NoticeLocationId).val(NLID);
+                    if ($('#'+SN.C.S.NoticeLocationNs)) {
+                        $('#'+SN.C.S.NoticeLocationNs).val(NLNS);
+                        $('#'+SN.C.S.NoticeLocationId).val(NLID);
+                    }
                     $('#'+SN.C.S.NoticeDataGeo).attr('checked', NDG);
                 }
             });
@@ -494,7 +498,7 @@ var SN = { // StatusNet
                 $.cookie(SN.C.S.NoticeDataGeoCookie, 'disabled');
             }
 
-            function getJSONgeocodeURL(geocodeURL, data, position) {
+            function getJSONgeocodeURL(geocodeURL, data) {
                 $.getJSON(geocodeURL, data, function(location) {
                     var lns, lid;
 
@@ -509,7 +513,7 @@ var SN = { // StatusNet
                     }
 
                     if (typeof(location.name) == 'undefined') {
-                        NLN_text = position.coords.latitude + ';' + position.coords.longitude;
+                        NLN_text = data.lat + ';' + data.lon;
                     }
                     else {
                         NLN_text = location.name;
@@ -571,7 +575,7 @@ var SN = { // StatusNet
                                             token: $('#token').val()
                                         };
 
-                                        getJSONgeocodeURL(geocodeURL, data, position);
+                                        getJSONgeocodeURL(geocodeURL, data);
                                     },
 
                                     function(error) {
@@ -593,12 +597,12 @@ var SN = { // StatusNet
                             else {
                                 if (NLat.length > 0 && NLon.length > 0) {
                                     var data = {
-                                        'lat': NLat,
-                                        'lon': NLon,
-                                        'token': $('#token').val()
+                                        lat: NLat,
+                                        lon: NLon,
+                                        token: $('#token').val()
                                     };
 
-                                    getJSONgeocodeURL(geocodeURL, data, position);
+                                    getJSONgeocodeURL(geocodeURL, data);
                                 }
                                 else {
                                     removeNoticeDataGeo();

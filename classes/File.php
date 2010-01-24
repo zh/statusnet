@@ -251,6 +251,8 @@ class File extends Memcached_DataObject
                         if($oembed->modified) $enclosure->modified=$oembed->modified;
                         unset($oembed->size);
                     }
+                } else {
+                    return false;
                 }
             }
         }

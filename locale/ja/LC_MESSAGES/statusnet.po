@@ -11,12 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-15 19:15+0000\n"
-"PO-Revision-Date: 2010-01-15 19:17:22+0000\n"
+"POT-Creation-Date: 2010-01-21 22:36+0000\n"
+"PO-Revision-Date: 2010-01-21 22:37:57+0000\n"
 "Language-Team: Japanese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61101); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.16alpha (r61339); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ja\n"
 "X-Message-Group: out-statusnet\n"
@@ -54,9 +54,9 @@ msgid "No such user."
 msgstr "そのような利用者はいません。"
 
 #: actions/all.php:84
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s and friends, page %2$d"
-msgstr "%1$s ブロックされたプロファイル、ページ %2$d"
+msgstr "%1$s と友人、ページ %2$d"
 
 #: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
 #: actions/apitimelinefriends.php:114 actions/apitimelinehome.php:115
@@ -134,7 +134,7 @@ msgstr "%2$s に %1$s と友人からの更新があります！"
 #: actions/apigroupcreate.php:136 actions/apigroupismember.php:114
 #: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
 #: actions/apigrouplist.php:132 actions/apigrouplistall.php:120
-#: actions/apigroupmembership.php:106 actions/apigroupshow.php:105
+#: actions/apigroupmembership.php:106 actions/apigroupshow.php:115
 #: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
 #: actions/apistatusesretweets.php:112 actions/apistatusesshow.php:108
 #: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
@@ -386,7 +386,7 @@ msgstr "別名はニックネームと同じではいけません。"
 
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
-#: actions/apigroupshow.php:90 actions/apitimelinegroup.php:91
+#: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
 msgid "Group not found!"
 msgstr "グループが見つかりません!"
 
@@ -876,7 +876,7 @@ msgid ""
 "You are about to permanently delete a notice. Once this is done, it cannot "
 "be undone."
 msgstr ""
-"あなたは永久につぶやきを削除しようとしています。 これが完了するとそれを元に戻"
+"あなたはつぶやきを永久に削除しようとしています。 これが完了するとそれを元に戻"
 "すことはできません。"
 
 #: actions/deletenotice.php:109 actions/deletenotice.php:141
@@ -1068,7 +1068,7 @@ msgid "No such application."
 msgstr "そのようなアプリケーションはありません。"
 
 #: actions/editapplication.php:127 actions/newapplication.php:110
-#: actions/showapplication.php:118 lib/action.php:1167
+#: actions/showapplication.php:118 lib/action.php:1189
 msgid "There was a problem with your session token."
 msgstr "あなたのセッショントークンに関する問題がありました。"
 
@@ -1184,7 +1184,7 @@ msgid ""
 "Awaiting confirmation on this address. Check your inbox (and spam box!) for "
 "a message with further instructions."
 msgstr ""
-"このアドレスは確認待ちです。受信ボックス（とスパムボックス）に追加の指示が書"
+"このアドレスは承認待ちです。受信ボックス（とスパムボックス）に追加の指示が書"
 "かれたメッセージが届いていないか確認してください。"
 
 #: actions/emailsettings.php:117 actions/imsettings.php:120
@@ -1234,17 +1234,17 @@ msgstr "メールで新規フォローの通知を私に送ってください。
 #: actions/emailsettings.php:163
 msgid "Send me email when someone adds my notice as a favorite."
 msgstr ""
-"だれかがお気に入りとして私のつぶやきを加えたらメールを私に送ってください。"
+"だれかがお気に入りとして私のつぶやきを加えたら、メールを私に送ってください。"
 
 #: actions/emailsettings.php:169
 msgid "Send me email when someone sends me a private message."
 msgstr ""
-"だれかがプライベート・メッセージを私に送るときにはメールを私に送ってくださ"
+"だれかがプライベート・メッセージを私に送るときには、メールを私に送ってくださ"
 "い。"
 
 #: actions/emailsettings.php:174
 msgid "Send me email when someone sends me an \"@-reply\"."
-msgstr "だれかが\"@-返信\"を私を送るときにはメールを私に送ってください、"
+msgstr "だれかが\"@-返信\"を私を送るときには、メールを私に送ってください、"
 
 #: actions/emailsettings.php:179
 msgid "Allow friends to nudge me and send me an email."
@@ -1287,21 +1287,21 @@ msgstr "このメールアドレスは既に他の人が使っています。"
 #: actions/emailsettings.php:353 actions/imsettings.php:317
 #: actions/smssettings.php:337
 msgid "Couldn't insert confirmation code."
-msgstr "確認コードを追加できません"
+msgstr "承認コードを追加できません"
 
 #: actions/emailsettings.php:359
 msgid ""
 "A confirmation code was sent to the email address you added. Check your "
 "inbox (and spam box!) for the code and instructions on how to use it."
 msgstr ""
-"確認用コードを入力された電子メールアドレスに送信しました。受信ボックス（とス"
-"パムボックス）にコードとそれをどう使うのかという指示が届いていないか確認して"
-"ください。"
+"承認コードを入力された電子メールアドレスに送信しました。受信ボックス（とスパ"
+"ムボックス）にコードとそれをどう使うのかという指示が届いていないか確認してく"
+"ださい。"
 
 #: actions/emailsettings.php:379 actions/imsettings.php:351
 #: actions/smssettings.php:370
 msgid "No pending confirmation to cancel."
-msgstr "認証待ちのものはありません。"
+msgstr "承認待ちのものはありません。"
 
 #: actions/emailsettings.php:383 actions/imsettings.php:355
 msgid "That is the wrong IM address."
@@ -1310,7 +1310,7 @@ msgstr "その IM アドレスは不正です。"
 #: actions/emailsettings.php:395 actions/imsettings.php:367
 #: actions/smssettings.php:386
 msgid "Confirmation cancelled."
-msgstr "確認作業が中止されました。"
+msgstr "承認作業が中止されました。"
 
 #: actions/emailsettings.php:413
 msgid "That is not your email address."
@@ -1721,7 +1721,7 @@ msgid ""
 "Awaiting confirmation on this address. Check your Jabber/GTalk account for a "
 "message with further instructions. (Did you add %s to your buddy list?)"
 msgstr ""
-"このアドレスは確認待ちです。Jabber か Gtalk のアカウントで追加の指示が書かれ"
+"このアドレスは承認待ちです。Jabber か Gtalk のアカウントで追加の指示が書かれ"
 "たメッセージを確認してください。(%s を友人リストに追加しましたか？)"
 
 #: actions/imsettings.php:124
@@ -1781,8 +1781,8 @@ msgid ""
 "A confirmation code was sent to the IM address you added. You must approve %"
 "s for sending messages to you."
 msgstr ""
-"確認用コードを入力された IM アドレスに送信しました。あなたにメッセージを送れ"
-"るようにするには%sを承認してください。"
+"承認コードを入力された IM アドレスに送信しました。あなたにメッセージを送れる"
+"ようにするには%sを承認してください。"
 
 #: actions/imsettings.php:387
 msgid "That is not your Jabber ID."
@@ -3014,7 +3014,7 @@ msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
 msgstr ""
-"(メールアドレスを確認する方法を読んで、すぐにメールによるメッセージを受け取る"
+"(メールアドレスを承認する方法を読んで、すぐにメールによるメッセージを受け取る"
 "ようにしてください)"
 
 #: actions/remotesubscribe.php:98
@@ -4358,12 +4358,12 @@ msgstr "あなたはこのサイトでつぶやきを投稿するのが禁止さ
 msgid "Problem saving notice."
 msgstr "つぶやきを保存する際に問題が発生しました。"
 
-#: classes/Notice.php:1052
+#: classes/Notice.php:1059
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "返信を追加する際にデータベースエラー : %s"
 
-#: classes/Notice.php:1423
+#: classes/Notice.php:1441
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
@@ -4560,27 +4560,41 @@ msgstr ""
 "いています。 ライセンス [GNU Affero General Public License](http://www.fsf."
 "org/licensing/licenses/agpl-3.0.html)。"
 
-#: lib/action.php:794
+#: lib/action.php:795
 msgid "Site content license"
 msgstr "サイト内容ライセンス"
 
-#: lib/action.php:803
+#: lib/action.php:800
+#, php-format
+msgid "Content and data of %1$s are private and confidential."
+msgstr ""
+
+#: lib/action.php:805
+#, php-format
+msgid "Content and data copyright by %1$s. All rights reserved."
+msgstr ""
+
+#: lib/action.php:808
+msgid "Content and data copyright by contributors. All rights reserved."
+msgstr ""
+
+#: lib/action.php:820
 msgid "All "
 msgstr "全て "
 
-#: lib/action.php:808
+#: lib/action.php:825
 msgid "license."
 msgstr "ライセンス。"
 
-#: lib/action.php:1102
+#: lib/action.php:1124
 msgid "Pagination"
 msgstr "ページ化"
 
-#: lib/action.php:1111
+#: lib/action.php:1133
 msgid "After"
 msgstr "<<後"
 
-#: lib/action.php:1119
+#: lib/action.php:1141
 msgid "Before"
 msgstr "前>>"
 
@@ -5240,7 +5254,7 @@ msgstr ""
 "\n"
 "だれかがこのメールアドレスを %s に入力しました。\n"
 "\n"
-"もしエントリーを確認したいなら、以下のURLを使用してください:\n"
+"もし登録を承認したいなら、以下のURLを使用してください:\n"
 "\n"
 "%s\n"
 "\n"

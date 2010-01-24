@@ -150,6 +150,12 @@ StartAddressData: Allows the site owner to provide additional information about 
 EndAddressData: At the end of <address>
 - $action: the current action
 
+StartShowSiteNotice: Before showing site notice
+- $action: the current action
+
+EndShowSiteNotice: After showing site notice
+- $action: the current action
+
 StartLoginGroupNav: Before showing the login and register navigation menu
 - $action: the current action
 
@@ -687,3 +693,9 @@ StartLeaveGroup: when a user is leaving a group
 EndLeaveGroup: when a user has left a group
 - $group: the group being left
 - $user: the user leaving
+
+StartShowContentLicense: Showing the default license for content
+- $action: the current action
+
+EndShowContentLicense: Showing the default license for content
+- $action: the current action

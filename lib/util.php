@@ -596,20 +596,13 @@ function common_linkify($url) {
     }
 
     if (!empty($f)) {
-        if ($f->isEnclosure()) {
+        if ($f->getEnclosure()) {
             $is_attachment = true;
             $attachment_id = $f->id;
-        } else {
-            $foe = File_oembed::staticGet('file_id', $f->id);
-            if (!empty($foe)) {
-                // if it has OEmbed info, it's an attachment, too
-                $is_attachment = true;
-                $attachment_id = $f->id;
 
-                $thumb = File_thumbnail::staticGet('file_id', $f->id);
-                if (!empty($thumb)) {
-                    $has_thumb = true;
-                }
+            $thumb = File_thumbnail::staticGet('file_id', $f->id);
+            if (!empty($thumb)) {
+                $has_thumb = true;
             }
         }
     }
@@ -1130,7 +1123,8 @@ function common_request_id()
     $pid = getmypid();
     $server = common_config('site', 'server');
     if (php_sapi_name() == 'cli') {
-        return "$server:$pid";
+        $script = basename($_SERVER['PHP_SELF']);
+        return "$server:$script:$pid";
     } else {
         static $req_id = null;
         if (!isset($req_id)) {

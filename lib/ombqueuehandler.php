@@ -36,7 +36,7 @@ class OmbQueueHandler extends QueueHandler
      * @fixme doesn't currently report failure back to the queue manager
      * because omb_broadcast_notice() doesn't report it to us
      */
-    function handle_notice($notice)
+    function handle($notice)
     {
         if ($this->is_remote($notice)) {
             $this->log(LOG_DEBUG, 'Ignoring remote notice ' . $notice->id);

@@ -47,7 +47,7 @@ class UnQueueManager extends QueueManager
         
         $handler = $this->getHandler($queue);
         if ($handler) {
-            $handler->handle_notice($notice);
+            $handler->handle($notice);
         } else {
             if (Event::handle('UnqueueHandleNotice', array(&$notice, $queue))) {
                 throw new ServerException("UnQueueManager: Unknown queue: $queue");

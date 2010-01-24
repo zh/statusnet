@@ -31,66 +31,152 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-define('DEFAULT_HUB','http://pubsubhubbub.appspot.com');
+define('DEFAULT_HUB', 'http://pubsubhubbub.appspot.com');
 
-require_once(INSTALLDIR.'/plugins/PubSubHubBub/publisher.php');
+require_once INSTALLDIR.'/plugins/PubSubHubBub/publisher.php';
+
+/**
+ * Plugin to provide publisher side of PubSubHubBub (PuSH)
+ * relationship.
+ *
+ * PuSH is a real-time or near-real-time protocol for Atom
+ * and RSS feeds. More information here:
+ *
+ * http://code.google.com/p/pubsubhubbub/
+ *
+ * To enable, add the following line to your config.php:
+ *
+ * addPlugin('PubSubHubBub');
+ *
+ * This will use the Google default hub. If you'd like to use
+ * another, try:
+ *
+ * addPlugin('PubSubHubBub',
+ *           array('hub' => 'http://yourhub.example.net/'));
+ *
+ * @category  Plugin
+ * @package   StatusNet
+ * @author    Craig Andrews <candrews@integralblue.com>
+ * @copyright 2009 Craig Andrews http://candrews.integralblue.com
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPLv3
+ * @link      http://status.net/
+ */
 
 class PubSubHubBubPlugin extends Plugin
 {
-    private $hub;
+    /**
+     * URL of the hub to advertise and publish to.
+     */
+
+    public $hub = DEFAULT_HUB;
+
+    /**
+     * Default constructor.
+     */
 
     function __construct()
     {
         parent::__construct();
     }
 
-    function onInitializePlugin(){
-        $this->hub = common_config('PubSubHubBub', 'hub');
-        if(empty($this->hub)){
-            $this->hub = DEFAULT_HUB;
-        }
+    /**
+     * Hooks the StartApiAtom event
+     *
+     * Adds the necessary bits to advertise PubSubHubBub
+     * for the Atom feed.
+     *
+     * @param Action $action The API action being shown.
+     *
+     * @return boolean hook value
+     */
+
+    function onStartApiAtom($action)
+    {
+        $action->element('link', array('rel' => 'hub', 'href' => $this->hub), null);
+
+        return true;
     }
 
-    function onStartApiAtom($action){
-        $action->element('link',array('rel'=>'hub','href'=>$this->hub),null);
+    /**
+     * Hooks the StartApiRss event
+     *
+     * Adds the necessary bits to advertise PubSubHubBub
+     * for the RSS 2.0 feeds.
+     *
+     * @param Action $action The API action being shown.
+     *
+     * @return boolean hook value
+     */
+
+    function onStartApiRss($action)
+    {
+        $action->element('atom:link', array('rel' => 'hub',
+                                            'href' => $this->hub),
+                         null);
+        return true;
     }
 
-    function onStartApiRss($action){
-        $action->element('atom:link',array('rel'=>'hub','href'=>$this->hub),null);
-    }
+    /**
+     * Hook for a queued notice.
+     *
+     * When a notice has been queued, will ping the
+     * PuSH hub for each Atom and RSS feed in which
+     * the notice appears.
+     *
+     * @param Notice $notice The notice that's been queued
+     *
+     * @return boolean hook value
+     */
 
-    function onHandleQueuedNotice($notice){
+    function onHandleQueuedNotice($notice)
+    {
         $publisher = new Publisher($this->hub);
 
         $feeds = array();
 
         //public timeline feeds
-        $feeds[]=common_local_url('ApiTimelinePublic',array('format' => 'rss'));
-        $feeds[]=common_local_url('ApiTimelinePublic',array('format' => 'atom'));
+        $feeds[] = common_local_url('ApiTimelinePublic', array('format' => 'rss'));
+        $feeds[] = common_local_url('ApiTimelinePublic', array('format' => 'atom'));
 
         //author's own feeds
-        $user = User::staticGet('id',$notice->profile_id);
-        $feeds[]=common_local_url('ApiTimelineUser',array('id' => $user->nickname, 'format'=>'rss'));
-        $feeds[]=common_local_url('ApiTimelineUser',array('id' => $user->nickname, 'format'=>'atom'));
+        $user = User::staticGet('id', $notice->profile_id);
+
+        $feeds[] = common_local_url('ApiTimelineUser',
+                                    array('id' => $user->nickname,
+                                          'format' => 'rss'));
+        $feeds[] = common_local_url('ApiTimelineUser',
+                                    array('id' => $user->nickname,
+                                          'format' => 'atom'));
 
         //tag feeds
         $tag = new Notice_tag();
+
         $tag->notice_id = $notice->id;
         if ($tag->find()) {
             while ($tag->fetch()) {
-                $feeds[]=common_local_url('ApiTimelineTag',array('tag'=>$tag->tag, 'format'=>'rss'));
-                $feeds[]=common_local_url('ApiTimelineTag',array('tag'=>$tag->tag, 'format'=>'atom'));
+                $feeds[] = common_local_url('ApiTimelineTag',
+                                            array('tag' => $tag->tag,
+                                                  'format' => 'rss'));
+                $feeds[] = common_local_url('ApiTimelineTag',
+                                            array('tag' => $tag->tag,
+                                                  'format' => 'atom'));
             }
         }
 
         //group feeds
         $group_inbox = new Group_inbox();
+
         $group_inbox->notice_id = $notice->id;
         if ($group_inbox->find()) {
             while ($group_inbox->fetch()) {
-                $group = User_group::staticGet('id',$group_inbox->group_id);
-                $feeds[]=common_local_url('ApiTimelineGroup',array('id' => $group->nickname,'format'=>'rss'));
-                $feeds[]=common_local_url('ApiTimelineGroup',array('id' => $group->nickname,'format'=>'atom'));
+                $group = User_group::staticGet('id', $group_inbox->group_id);
+
+                $feeds[] = common_local_url('ApiTimelineGroup',
+                                            array('id' => $group->nickname,
+                                                  'format' => 'rss'));
+                $feeds[] = common_local_url('ApiTimelineGroup',
+                                            array('id' => $group->nickname,
+                                                  'format' => 'atom'));
             }
         }
 
@@ -103,32 +189,70 @@ class PubSubHubBubPlugin extends Plugin
             if (empty($user)) {
                 continue;
             }
-            $feeds[]=common_local_url('ApiTimelineUser',array('id' => $user->nickname, 'format'=>'rss'));
-            $feeds[]=common_local_url('ApiTimelineUser',array('id' => $user->nickname, 'format'=>'atom'));
+            $feeds[] = common_local_url('ApiTimelineFriends',
+                                        array('id' => $user->nickname,
+                                              'format' => 'rss'));
+            $feeds[] = common_local_url('ApiTimelineFriends',
+                                        array('id' => $user->nickname,
+                                              'format' => 'atom'));
         }
+
+        $replies = $notice->getReplies();
 
         //feed of user replied to
-        if($notice->reply_to){
-                $user = User::staticGet('id',$notice->reply_to);
-                $feeds[]=common_local_url('ApiTimelineMentions',array('id' => $user->nickname,'format'=>'rss'));
-                $feeds[]=common_local_url('ApiTimelineMentions',array('id' => $user->nickname,'format'=>'atom'));
-        }
-
-        foreach(array_unique($feeds) as $feed){
-            if(! $publisher->publish_update($feed)){
-                common_log_line(LOG_WARNING,$feed.' was not published to hub at '.$this->hub.':'.$publisher->last_response());
+        foreach ($replies as $recipient) {
+                $user = User::staticGet('id', $recipient);
+            if (!empty($user)) {
+                $feeds[] = common_local_url('ApiTimelineMentions',
+                                            array('id' => $user->nickname,
+                                                  'format' => 'rss'));
+                $feeds[] = common_local_url('ApiTimelineMentions',
+                                            array('id' => $user->nickname,
+                                                  'format' => 'atom'));
             }
         }
+        $feeds = array_unique($feeds);
+
+        ob_start();
+        $ok = $publisher->publish_update($feeds);
+        $push_last_response = ob_get_clean();
+
+        if (!$ok) {
+            common_log(LOG_WARNING,
+                       'Failure publishing ' . count($feeds) . ' feeds to hub at '.
+                       $this->hub.': '.$push_last_response);
+        } else {
+            common_log(LOG_INFO,
+                       'Published ' . count($feeds) . ' feeds to hub at '.
+                       $this->hub.': '.$push_last_response);
+        }
+
+        return true;
     }
+
+    /**
+     * Provide version information
+     *
+     * Adds this plugin's version data to the global
+     * version array, for e.g. displaying on the version page.
+     *
+     * @param array &$versions array of array of versions
+     *
+     * @return boolean hook value
+     */
 
     function onPluginVersion(&$versions)
     {
         $versions[] = array('name' => 'PubSubHubBub',
                             'version' => STATUSNET_VERSION,
                             'author' => 'Craig Andrews',
-                            'homepage' => 'http://status.net/wiki/Plugin:PubSubHubBub',
+                            'homepage' =>
+                            'http://status.net/wiki/Plugin:PubSubHubBub',
                             'rawdescription' =>
-                            _m('The PubSubHubBub plugin pushes RSS/Atom updates to a <a href="http://pubsubhubbub.googlecode.com/">PubSubHubBub</a> hub.'));
+                            _m('The PubSubHubBub plugin pushes RSS/Atom updates '.
+                               'to a <a href = "'.
+                               'http://pubsubhubbub.googlecode.com/'.
+                               '">PubSubHubBub</a> hub.'));
 
         return true;
     }
