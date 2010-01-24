@@ -86,7 +86,7 @@ class User_flag_profile extends Memcached_DataObject
 
     function keys()
     {
-        return array('profile_id' => 'N', 'user_id' => 'N');
+        return array('profile_id' => 'K', 'user_id' => 'K');
     }
 
     /**
