@@ -414,7 +414,15 @@ class MobileProfilePlugin extends WAP20Plugin
 
         return $proto.'://'.$serverpart.'/'.$pathpart.$relative;
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'MobileProfile',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Sarven Capadisli',
+                            'homepage' => 'http://status.net/wiki/Plugin:MobileProfile',
+                            'rawdescription' =>
+                            _m('XHTML MobileProfile output for supporting user agents.'));
+        return true;
+    }
 }
-
-
-?>
