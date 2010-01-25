@@ -2,37 +2,46 @@
  *
  * @package   StatusNet
  * @author    Sarven Capadisli <csarven@status.net>
- * @copyright 2009 StatusNet, Inc.
+ * @copyright 2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
 
-Location of key paths and files under theme/:
+== Location of key paths and files ==
+<pre><nowiki>
+base/css/
+base/css/display.css                #layout, typography rules
+base/images/                        #common icons, illustrations
+base/images/icons/icons-01.png      #main icons file (combined into a single file)
 
-./base/css/
-./base/css/display.css
-./base/images/
+default/css/
+default/css/display.css             #imports the base stylesheet for layout and adds background images and colour rules
+default/logo.png                    #default site logo for this theme
+default/mobilelogo.png              #default logo for the mobile output
+default/default-avatar-mini.png     #24x24 default avatar for minilists
+default/default-avatar-stream.png   #48x48 default avatar for notice timelines
+default/default-avatar-profile.png  #96x96 default avatar for the profile page
+</nowiki></pre>
 
-./default/css/
-./default/css/display.css
-./default/images/
 
-./base/display.css contains layout, typography rules:
-Only alter this file if you want to change the layout of the site. Please note that, any updates to this in future statusnet releases may not be compatible with your version.
+== How to create your own theme ==
 
-./default/css/display.css contains only the background images and colour rules:
-This file is a good basis for creating your own theme.
 
-Let's create a theme:
+You probably want to do one of the following:
 
-1. To start off, copy over the default theme:
-cp -r default mytheme
 
-2. Edit your mytheme stylesheet:
-nano mytheme/css/display.css
+* If you just want to change the text, link, background, content, sidebar colours, background image:
+** Do this from the Admin->Design settings (recommended!). You could also create a directory and a file structure like the default theme, search and replace with your own values. This is more work, but, you can do this if you plan to make additional *minimal* changes.
 
-a) Search and replace your colours and background images, or
-b) Create your own layout either importing a separate stylesheet (e.g., change to @import url(base.css);) or simply place it before the rest of the rules.
 
-4. Set /config.php to load 'mytheme':
-$config['site']['theme'] = 'mytheme';
+* If you want to change the background images and colours:
+# Create a directory and a file structure like the default theme.
+# Have your stylesheet import base/css/display.css and add your own styles below. It is okay to add *minimal* changes here.
+
+
+* If you want to create a different layout, typography, background images and colours:
+** Create your own theme directory (base or default) with stylesheets and images like.
+
+
+Finally, enable your theme by selecting it from the Admin->Design interface. You can set site's logo from here as well.
+
