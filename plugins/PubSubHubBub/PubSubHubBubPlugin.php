@@ -80,6 +80,21 @@ class PubSubHubBubPlugin extends Plugin
     }
 
     /**
+     * Check if plugin should be active; may be mass-enabled.
+     * @return boolean
+     */
+
+    function enabled()
+    {
+        if (common_config('site', 'private')) {
+            // PuSH relies on public feeds
+            return false;
+        }
+        // @fixme check for being on a private network?
+        return true;
+    }
+
+    /**
      * Hooks the StartApiAtom event
      *
      * Adds the necessary bits to advertise PubSubHubBub
@@ -92,8 +107,9 @@ class PubSubHubBubPlugin extends Plugin
 
     function onStartApiAtom($action)
     {
-        $action->element('link', array('rel' => 'hub', 'href' => $this->hub), null);
-
+        if ($this->enabled()) {
+            $action->element('link', array('rel' => 'hub', 'href' => $this->hub), null);
+        }
         return true;
     }
 
@@ -110,9 +126,11 @@ class PubSubHubBubPlugin extends Plugin
 
     function onStartApiRss($action)
     {
-        $action->element('atom:link', array('rel' => 'hub',
-                                            'href' => $this->hub),
-                         null);
+        if ($this->enabled()) {
+            $action->element('atom:link', array('rel' => 'hub',
+                                                'href' => $this->hub),
+                             null);
+        }
         return true;
     }
 
@@ -130,6 +148,9 @@ class PubSubHubBubPlugin extends Plugin
 
     function onHandleQueuedNotice($notice)
     {
+        if (!$this->enabled()) {
+            return false;
+        }
         $publisher = new Publisher($this->hub);
 
         $feeds = array();
@@ -243,16 +264,21 @@ class PubSubHubBubPlugin extends Plugin
 
     function onPluginVersion(&$versions)
     {
+        $about = _m('The PubSubHubBub plugin pushes RSS/Atom updates '.
+                    'to a <a href = "'.
+                    'http://pubsubhubbub.googlecode.com/'.
+                    '">PubSubHubBub</a> hub.');
+        if (!$this->enabled()) {
+            $about = '<span class="disabled" style="color:gray">' . $about . '</span> ' .
+                     _m('(inactive on private site)');
+        }
         $versions[] = array('name' => 'PubSubHubBub',
                             'version' => STATUSNET_VERSION,
                             'author' => 'Craig Andrews',
                             'homepage' =>
                             'http://status.net/wiki/Plugin:PubSubHubBub',
                             'rawdescription' =>
-                            _m('The PubSubHubBub plugin pushes RSS/Atom updates '.
-                               'to a <a href = "'.
-                               'http://pubsubhubbub.googlecode.com/'.
-                               '">PubSubHubBub</a> hub.'));
+                            $about);
 
         return true;
     }
