@@ -88,7 +88,7 @@ abstract class IoMaster
         $sn = new Status_network();
         $sn->find();
         while ($sn->fetch()) {
-            $hosts[] = $sn->hostname;
+            $hosts[] = $sn->getServerName();
         }
         return $hosts;
     }

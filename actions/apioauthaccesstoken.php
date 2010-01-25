@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Test if supplied user credentials are valid.
+ * Exchange an authorized OAuth request token for an access token
  *
  * PHP version 5
  *
@@ -21,10 +21,8 @@
  *
  * @category  API
  * @package   StatusNet
- * @author    Evan Prodromou <evan@status.net>
- * @author    Robin Millette <robin@millette.info>
  * @author    Zach Copley <zach@status.net>
- * @copyright 2009 StatusNet, Inc.
+ * @copyright 2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -33,67 +31,64 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/apiauth.php';
+require_once INSTALLDIR . '/lib/apioauth.php';
 
 /**
- * Check a user's credentials. Returns an HTTP 200 OK response code and a
- * representation of the requesting user if authentication was successful;
- * returns a 401 status code and an error message if not.
+ * Exchange an authorized OAuth request token for an access token
  *
  * @category API
  * @package  StatusNet
- * @author   Evan Prodromou <evan@status.net>
- * @author   Robin Millette <robin@millette.info>
  * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
 
-class ApiAccountVerifyCredentialsAction extends ApiAuthAction
+class ApiOauthAccessTokenAction extends ApiOauthAction
 {
 
     /**
-     * Handle the request
+     * Class handler.
      *
-     * Check whether the credentials are valid and output the result
-     *
-     * @param array $args $_REQUEST data (unused)
+     * @param array $args array of arguments
      *
      * @return void
      */
-
     function handle($args)
     {
         parent::handle($args);
 
-        switch ($this->format) {
-        case 'xml':
-        case 'json':
-            $args['id'] = $this->auth_user->id;
-            $action_obj = new ApiUserShowAction();
-            if ($action_obj->prepare($args)) {
-                $action_obj->handle($args);
-            }
-            break;
-        default:
-            header('Content-Type: text/html; charset=utf-8');
-            print 'Authorized';
+        $datastore   = new ApiStatusNetOAuthDataStore();
+        $server      = new OAuthServer($datastore);
+        $hmac_method = new OAuthSignatureMethod_HMAC_SHA1();
+
+        $server->add_signature_method($hmac_method);
+
+        $atok = null;
+
+        try {
+            $req  = OAuthRequest::from_request();
+            $atok = $server->fetch_access_token($req);
+
+        } catch (OAuthException $e) {
+            common_log(LOG_WARN, 'API OAuthException - ' . $e->getMessage());
+            common_debug(var_export($req, true));
+            $this->outputError($e->getMessage());
+            return;
         }
 
+        if (empty($atok)) {
+            common_debug('couldn\'t get access token.');
+            print "Token exchange failed. Has the request token been authorized?\n";
+        } else {
+            print $atok;
+        }
     }
 
-    /**
-     * Is this action read only?
-     *
-     * @param array $args other arguments
-     * 
-     * @return boolean true
-     *
-     **/
-    
-    function isReadOnly($args)
+    function outputError($msg)
     {
-        return true;
+        header('HTTP/1.1 401 Unauthorized');
+        header('Content-Type: text/html; charset=utf-8');
+        print $msg . "\n";
     }
-    
 }
+

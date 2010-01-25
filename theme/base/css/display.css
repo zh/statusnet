@@ -177,7 +177,8 @@ font-weight:bold;
 #form_password_recover legend,
 #form_password_change legend,
 .form_entity_block legend,
-#form_filter_bytag legend {
+#form_filter_bytag legend,
+#apioauthauthorize_allowdeny {
 display:none;
 }
 
@@ -906,9 +907,14 @@ list-style-type:none;
 }
 .application img,
 #showapplication .entity_profile img,
-#editapplication .form_data #application_icon img {
+.form_data #application_icon img,
+#apioauthauthorize .form_data img {
 max-width:96px;
 max-height:96px;
+}
+#apioauthauthorize .form_data img {
+margin-right:18px;
+float:left;
 }
 #showapplication .entity_profile {
 width:68%;
@@ -938,9 +944,9 @@ margin-left:1.795%;
 font-family:monospace;
 font-size:1.3em;
 }
-#editapplication .form_data #application_types label.radio,
-#editapplication .form_data #default_access_types label.radio {
-width:15%;
+.form_data #application_types label.radio,
+.form_data #default_access_types label.radio {
+width:14.5%;
 }
 
 /* NOTICE */

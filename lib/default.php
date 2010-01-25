@@ -211,6 +211,8 @@ $default =
               'uploads' => true,
               'filecommand' => '/usr/bin/file',
               ),
+        'application' =>
+        array('desclimit' => null),
         'group' =>
         array('maxaliases' => 3,
               'desclimit' => null),

@@ -140,8 +140,8 @@ class Router
 
             // settings
 
-            foreach (array('profile', 'avatar', 'password', 'im',
-                           'email', 'sms', 'userdesign', 'other') as $s) {
+            foreach (array('profile', 'avatar', 'password', 'im', 'oauthconnections',
+                           'oauthapps', 'email', 'sms', 'userdesign', 'other') as $s) {
                 $m->connect('settings/'.$s, array('action' => $s.'settings'));
             }
 
@@ -640,6 +640,27 @@ class Router
                             array('action' => $a),
                             array('nickname' => '[a-zA-Z0-9]{1,64}'));
             }
+
+            $m->connect('settings/oauthapps/show/:id',
+                array('action' => 'showapplication'),
+                array('id' => '[0-9]+')
+            );
+            $m->connect('settings/oauthapps/new',
+                array('action' => 'newapplication')
+            );
+            $m->connect('settings/oauthapps/edit/:id',
+                array('action' => 'editapplication'),
+                array('id' => '[0-9]+')
+            );
+
+            $m->connect('api/oauth/request_token',
+                        array('action' => 'apioauthrequesttoken'));
+
+            $m->connect('api/oauth/access_token',
+                        array('action' => 'apioauthaccesstoken'));
+
+            $m->connect('api/oauth/authorize',
+                        array('action' => 'apioauthauthorize'));
 
             foreach (array('subscriptions', 'subscribers') as $a) {
                 $m->connect(':nickname/'.$a.'/:tag',
