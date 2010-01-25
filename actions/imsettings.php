@@ -309,6 +309,8 @@ class ImsettingsAction extends ConnectSettingsAction
         $confirm->address_type = 'jabber';
         $confirm->user_id      = $user->id;
         $confirm->code         = common_confirmation_code(64);
+        $confirm->sent         = common_sql_now();
+        $confirm->claimed      = common_sql_now();
 
         $result = $confirm->insert();
 
@@ -318,11 +320,9 @@ class ImsettingsAction extends ConnectSettingsAction
             return;
         }
 
-        if (!common_config('queue', 'enabled')) {
-            jabber_confirm_address($confirm->code,
-                                   $user->nickname,
-                                   $jabber);
-        }
+        jabber_confirm_address($confirm->code,
+                               $user->nickname,
+                               $jabber);
 
         $msg = sprintf(_('A confirmation code was sent '.
                          'to the IM address you added. '.

@@ -48,6 +48,7 @@ class Status_network extends DB_DataObject
 
     static $cache = null;
     static $base = null;
+    static $wildcard = null;
 
     /**
      * @param string $dbhost
@@ -187,7 +188,12 @@ class Status_network extends DB_DataObject
 
             $config['db']['database'] = "mysqli://$dbuser:$dbpass@$dbhost/$dbname";
 
-            $config['site']['name']   = $sn->sitename;
+            $config['site']['name'] = $sn->sitename;
+            $config['site']['nickname'] = $sn->nickname;
+
+            self::$wildcard = $wildcard;
+
+            $config['site']['wildcard'] =& self::$wildcard;
 
             if (!empty($sn->hostname)) {
                 $config['site']['server'] = $sn->hostname;
@@ -229,5 +235,14 @@ class Status_network extends DB_DataObject
         print "<a href='$destination'>$destination</a>\n";
 
         exit;
+    }
+
+    function getServerName()
+    {
+        if (!empty($this->hostname)) {
+            return $this->hostname;
+        } else {
+            return $this->nickname . '.' . self::$wildcard;
+        }
     }
 }

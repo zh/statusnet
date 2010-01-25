@@ -31,7 +31,7 @@ class SmsQueueHandler extends QueueHandler
         return 'sms';
     }
 
-    function handle_notice($notice)
+    function handle($notice)
     {
     	require_once(INSTALLDIR.'/lib/mail.php');
         return mail_broadcast_notice_sms($notice);

@@ -30,6 +30,8 @@
 $default =
   array('site' =>
         array('name' => 'Just another StatusNet microblog',
+              'nickname' => 'statusnet',
+              'wildcard' => null,
               'server' => $_server,
               'theme' => 'default',
               'path' => $_path,
@@ -81,6 +83,7 @@ $default =
               'stomp_password' => null,
               'monitor' => null, // URL to monitor ping endpoint (work in progress)
               'softlimit' => '90%', // total size or % of memory_limit at which to restart queue threads gracefully
+              'debug_memory' => false, // true to spit memory usage to log
               ),
         'license' =>
         array('type' => 'cc', # can be 'cc', 'allrightsreserved', 'private'

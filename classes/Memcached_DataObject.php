@@ -19,8 +19,6 @@
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
-require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
-
 class Memcached_DataObject extends DB_DataObject
 {
     /**
@@ -353,7 +351,7 @@ class Memcached_DataObject extends DB_DataObject
                 unset($_DB_DATAOBJECT['CONNECTIONS'][$index]);
             }
         }
-        
+
         $result = parent::_connect();
 
         if ($result && !$exists) {
