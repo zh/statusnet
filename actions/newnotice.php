@@ -201,7 +201,7 @@ class NewnoticeAction extends Action
             $upload->attachToNotice($notice);
         }
 
-        common_broadcast_notice($notice);
+
 
         if ($this->boolean('ajax')) {
             header('Content-Type: text/xml;charset=utf-8');

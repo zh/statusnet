@@ -422,7 +422,7 @@ class RepeatCommand extends Command
         $repeat = $notice->repeat($this->user->id, $channel->source);
 
         if ($repeat) {
-            common_broadcast_notice($repeat);
+
             $channel->output($this->user, sprintf(_('Notice from %s repeated'), $recipient->nickname));
         } else {
             $channel->error($this->user, _('Error repeating notice.'));
@@ -492,7 +492,7 @@ class ReplyCommand extends Command
         } else {
             $channel->error($this->user, _('Error saving notice.'));
         }
-        common_broadcast_notice($notice);
+
     }
 }
 

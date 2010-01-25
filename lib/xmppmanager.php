@@ -101,7 +101,7 @@ class XmppManager extends IoManager
         $this->conn->addEventHandler('reconnect', 'handle_reconnect', $this);
 
         $this->conn->setReconnectTimeout(600);
-        jabber_send_presence("Send me a message to post a notice", 'available', null, 'available', -1);
+        jabber_send_presence("Send me a message to post a notice", 'available', null, 'available', 100);
 
         return !is_null($this->conn);
     }
@@ -233,7 +233,7 @@ class XmppManager extends IoManager
         common_log(LOG_NOTICE, 'XMPP reconnected');
 
         $this->conn->processUntil('session_start');
-        $this->conn->presence(null, 'available', null, 'available', -1);
+        $this->conn->presence(null, 'available', null, 'available', 100);
     }
 
 
