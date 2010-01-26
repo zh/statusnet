@@ -19,10 +19,11 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  TwitterauthorizationAction
+ * @category  Plugin
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
- * @copyright 2009 StatusNet, Inc.
+ * @author    Julien C <chaumond@gmail.com>
+ * @copyright 2009-2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -41,9 +42,10 @@ require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
  * (Foreign_link) between the StatusNet user and Twitter user and stores the
  * access token and secret in the link.
  *
- * @category Twitter
+ * @category Plugin
  * @package  StatusNet
  * @author   Zach Copley <zach@status.net>
+ * @author   Julien C <chaumond@gmail.com>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://laconi.ca/
  *
