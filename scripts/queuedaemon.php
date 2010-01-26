@@ -115,7 +115,7 @@ class QueueDaemon extends SpawningDaemon
 
         $this->log(LOG_INFO, 'terminating normally');
 
-        return true;
+        return $master->respawn ? self::EXIT_RESTART : self::EXIT_SHUTDOWN;
     }
 }
 

@@ -81,6 +81,7 @@ $default =
               'subsystem' => 'db', # default to database, or 'stomp'
               'stomp_server' => null,
               'queue_basename' => '/queue/statusnet/',
+              'control_channel' => '/topic/statusnet-control', // broadcasts to all queue daemons
               'stomp_username' => null,
               'stomp_password' => null,
               'monitor' => null, // URL to monitor ping endpoint (work in progress)
