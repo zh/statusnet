@@ -217,6 +217,7 @@ abstract class QueueManager extends IoManager
             $this->connect('plugin', 'PluginQueueHandler');
             $this->connect('omb', 'OmbQueueHandler');
             $this->connect('ping', 'PingQueueHandler');
+            $this->connect('distrib', 'DistribQueueHandler');
             if (common_config('sms', 'enabled')) {
                 $this->connect('sms', 'SmsQueueHandler');
             }
@@ -224,7 +225,7 @@ abstract class QueueManager extends IoManager
             // XMPP output handlers...
             $this->connect('jabber', 'JabberQueueHandler');
             $this->connect('public', 'PublicQueueHandler');
-            
+
             // @fixme this should get an actual queue
             //$this->connect('confirm', 'XmppConfirmHandler');
 

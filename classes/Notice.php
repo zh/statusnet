@@ -94,10 +94,6 @@ class Notice extends Memcached_DataObject
 
     function delete()
     {
-        $this->blowCaches(true);
-        $this->blowFavesCache(true);
-        $this->blowSubsCache(true);
-
         // For auditing purposes, save a record that the notice
         // was deleted.
 
@@ -109,31 +105,20 @@ class Notice extends Memcached_DataObject
         $deleted->created    = $this->created;
         $deleted->deleted    = common_sql_now();
 
-        $this->query('BEGIN');
-
         $deleted->insert();
 
-        //Null any notices that are replies to this notice
-        $this->query(sprintf("UPDATE notice set reply_to = null WHERE reply_to = %d", $this->id));
+        // Clear related records
 
-        //Null any notices that are repeats of this notice
-        //XXX: probably need to uncache these, too
+        $this->clearReplies();
+        $this->clearRepeats();
+        $this->clearFaves();
+        $this->clearTags();
+        $this->clearGroupInboxes();
 
-        $this->query(sprintf("UPDATE notice set repeat_of = null WHERE repeat_of = %d", $this->id));
+        // NOTE: we don't clear inboxes
+        // NOTE: we don't clear queue items
 
-        $related = array('Reply',
-                         'Fave',
-                         'Notice_tag',
-                         'Group_inbox',
-                         'Queue_item');
-
-        foreach ($related as $cls) {
-            $inst = new $cls();
-            $inst->notice_id = $this->id;
-            $inst->delete();
-        }
         $result = parent::delete();
-        $this->query('COMMIT');
     }
 
     function saveTags()
@@ -155,6 +140,7 @@ class Notice extends Memcached_DataObject
         foreach(array_unique($hashtags) as $hashtag) {
             /* elide characters we don't want in the tag */
             $this->saveTag($hashtag);
+            self::blow('profile:notice_ids_tagged:%d:%s', $this->profile_id, $tag->tag);
         }
         return true;
     }
@@ -172,6 +158,9 @@ class Notice extends Memcached_DataObject
                                               $last_error->message));
             return;
         }
+
+        // if it's saved, blow its cache
+        $tag->blowCache(false);
     }
 
     /**
@@ -331,27 +320,43 @@ class Notice extends Memcached_DataObject
                 }
             }
 
-            // XXX: do we need to change this for remote users?
-
-            $notice->saveTags();
-
-            $groups = $notice->saveGroups();
-
-            $recipients = $notice->saveReplies();
-
-            $notice->addToInboxes($groups, $recipients);
-
-            $notice->saveUrls();
-
-            Event::handle('EndNoticeSave', array($notice));
         }
 
         # Clear the cache for subscribed users, so they'll update at next request
         # XXX: someone clever could prepend instead of clearing the cache
+        $notice->blowOnInsert();
 
-        $notice->blowCaches();
+        $qm = QueueManager::get();
+
+        $qm->enqueue($notice, 'distrib');
 
         return $notice;
+    }
+
+    function blowOnInsert()
+    {
+        self::blow('profile:notice_ids:%d', $this->profile_id);
+        self::blow('public');
+
+        if ($this->conversation != $this->id) {
+            self::blow('notice:conversation_ids:%d', $this->conversation);
+        }
+
+        if (!empty($this->repeat_of)) {
+            self::blow('notice:repeats:%d', $this->repeat_of);
+        }
+
+        $original = Notice::staticGet('id', $this->repeat_of);
+
+        if (!empty($original)) {
+            $originalUser = User::staticGet('id', $original->profile_id);
+            if (!empty($originalUser)) {
+                self::blow('user:repeats_of_me:%d', $originalUser->id);
+            }
+        }
+
+        $profile = Profile::staticGet($this->profile_id);
+        $profile->blowNoticeCount();
     }
 
     /** save all urls in the notice to the db
@@ -454,227 +459,6 @@ class Notice extends Memcached_DataObject
             }
         }
         return $att;
-    }
-
-    function blowCaches($blowLast=false)
-    {
-        $this->blowSubsCache($blowLast);
-        $this->blowNoticeCache($blowLast);
-        $this->blowRepliesCache($blowLast);
-        $this->blowPublicCache($blowLast);
-        $this->blowTagCache($blowLast);
-        $this->blowGroupCache($blowLast);
-        $this->blowConversationCache($blowLast);
-        $this->blowRepeatCache();
-        $profile = Profile::staticGet($this->profile_id);
-        $profile->blowNoticeCount();
-    }
-
-    function blowRepeatCache()
-    {
-        if (!empty($this->repeat_of)) {
-            $cache = common_memcache();
-            if (!empty($cache)) {
-                // XXX: only blow if <100 in cache
-                $ck = common_cache_key('notice:repeats:'.$this->repeat_of);
-                $result = $cache->delete($ck);
-
-                $user = User::staticGet('id', $this->profile_id);
-
-                if (!empty($user)) {
-                    $uk = common_cache_key('user:repeated_by_me:'.$user->id);
-                    $cache->delete($uk);
-                    $user->free();
-                    unset($user);
-                }
-
-                $original = Notice::staticGet('id', $this->repeat_of);
-
-                if (!empty($original)) {
-                    $originalUser = User::staticGet('id', $original->profile_id);
-                    if (!empty($originalUser)) {
-                        $ouk = common_cache_key('user:repeats_of_me:'.$originalUser->id);
-                        $cache->delete($ouk);
-                        $originalUser->free();
-                        unset($originalUser);
-                    }
-                    $original->free();
-                    unset($original);
-                }
-            }
-        }
-    }
-
-    function blowConversationCache($blowLast=false)
-    {
-        $cache = common_memcache();
-        if ($cache) {
-            $ck = common_cache_key('notice:conversation_ids:'.$this->conversation);
-            $cache->delete($ck);
-            if ($blowLast) {
-                $cache->delete($ck.';last');
-            }
-        }
-    }
-
-    function blowGroupCache($blowLast=false)
-    {
-        $cache = common_memcache();
-        if ($cache) {
-            $group_inbox = new Group_inbox();
-            $group_inbox->notice_id = $this->id;
-            if ($group_inbox->find()) {
-                while ($group_inbox->fetch()) {
-                    $cache->delete(common_cache_key('user_group:notice_ids:' . $group_inbox->group_id));
-                    if ($blowLast) {
-                        $cache->delete(common_cache_key('user_group:notice_ids:' . $group_inbox->group_id.';last'));
-                    }
-                    $member = new Group_member();
-                    $member->group_id = $group_inbox->group_id;
-                    if ($member->find()) {
-                        while ($member->fetch()) {
-                            $cache->delete(common_cache_key('notice_inbox:by_user:' . $member->profile_id));
-                            $cache->delete(common_cache_key('notice_inbox:by_user_own:' . $member->profile_id));
-                            if (empty($this->repeat_of)) {
-                                $cache->delete(common_cache_key('user:friends_timeline:' . $member->profile_id));
-                                $cache->delete(common_cache_key('user:friends_timeline_own:' . $member->profile_id));
-                            }
-                            if ($blowLast) {
-                                $cache->delete(common_cache_key('notice_inbox:by_user:' . $member->profile_id . ';last'));
-                                $cache->delete(common_cache_key('notice_inbox:by_user_own:' . $member->profile_id . ';last'));
-                                if (empty($this->repeat_of)) {
-                                    $cache->delete(common_cache_key('user:friends_timeline:' . $member->profile_id . ';last'));
-                                    $cache->delete(common_cache_key('user:friends_timeline_own:' . $member->profile_id . ';last'));
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            $group_inbox->free();
-            unset($group_inbox);
-        }
-    }
-
-    function blowTagCache($blowLast=false)
-    {
-        $cache = common_memcache();
-        if ($cache) {
-            $tag = new Notice_tag();
-            $tag->notice_id = $this->id;
-            if ($tag->find()) {
-                while ($tag->fetch()) {
-                    $tag->blowCache($blowLast);
-                    $ck = 'profile:notice_ids_tagged:' . $this->profile_id . ':' . $tag->tag;
-
-                    $cache->delete($ck);
-                    if ($blowLast) {
-                        $cache->delete($ck . ';last');
-                    }
-                }
-            }
-            $tag->free();
-            unset($tag);
-        }
-    }
-
-    function blowSubsCache($blowLast=false)
-    {
-        $cache = common_memcache();
-        if ($cache) {
-            $user = new User();
-
-            $UT = common_config('db','type')=='pgsql'?'"user"':'user';
-            $user->query('SELECT id ' .
-
-                         "FROM $UT JOIN subscription ON $UT.id = subscription.subscriber " .
-                         'WHERE subscription.subscribed = ' . $this->profile_id);
-
-            while ($user->fetch()) {
-                $cache->delete(common_cache_key('notice_inbox:by_user:'.$user->id));
-                $cache->delete(common_cache_key('notice_inbox:by_user_own:'.$user->id));
-                if (empty($this->repeat_of)) {
-                    $cache->delete(common_cache_key('user:friends_timeline:'.$user->id));
-                    $cache->delete(common_cache_key('user:friends_timeline_own:'.$user->id));
-                }
-                if ($blowLast) {
-                    $cache->delete(common_cache_key('notice_inbox:by_user:'.$user->id.';last'));
-                    $cache->delete(common_cache_key('notice_inbox:by_user_own:'.$user->id.';last'));
-                    if (empty($this->repeat_of)) {
-                        $cache->delete(common_cache_key('user:friends_timeline:'.$user->id.';last'));
-                        $cache->delete(common_cache_key('user:friends_timeline_own:'.$user->id.';last'));
-                    }
-                }
-            }
-            $user->free();
-            unset($user);
-        }
-    }
-
-    function blowNoticeCache($blowLast=false)
-    {
-        if ($this->is_local) {
-            $cache = common_memcache();
-            if (!empty($cache)) {
-                $cache->delete(common_cache_key('profile:notice_ids:'.$this->profile_id));
-                if ($blowLast) {
-                    $cache->delete(common_cache_key('profile:notice_ids:'.$this->profile_id.';last'));
-                }
-            }
-        }
-    }
-
-    function blowRepliesCache($blowLast=false)
-    {
-        $cache = common_memcache();
-        if ($cache) {
-            $reply = new Reply();
-            $reply->notice_id = $this->id;
-            if ($reply->find()) {
-                while ($reply->fetch()) {
-                    $cache->delete(common_cache_key('reply:stream:'.$reply->profile_id));
-                    if ($blowLast) {
-                        $cache->delete(common_cache_key('reply:stream:'.$reply->profile_id.';last'));
-                    }
-                }
-            }
-            $reply->free();
-            unset($reply);
-        }
-    }
-
-    function blowPublicCache($blowLast=false)
-    {
-        if ($this->is_local == Notice::LOCAL_PUBLIC) {
-            $cache = common_memcache();
-            if ($cache) {
-                $cache->delete(common_cache_key('public'));
-                if ($blowLast) {
-                    $cache->delete(common_cache_key('public').';last');
-                }
-            }
-        }
-    }
-
-    function blowFavesCache($blowLast=false)
-    {
-        $cache = common_memcache();
-        if ($cache) {
-            $fave = new Fave();
-            $fave->notice_id = $this->id;
-            if ($fave->find()) {
-                while ($fave->fetch()) {
-                    $cache->delete(common_cache_key('fave:ids_by_user:'.$fave->user_id));
-                    $cache->delete(common_cache_key('fave:by_user_own:'.$fave->user_id));
-                    if ($blowLast) {
-                        $cache->delete(common_cache_key('fave:ids_by_user:'.$fave->user_id.';last'));
-                        $cache->delete(common_cache_key('fave:by_user_own:'.$fave->user_id.';last'));
-                    }
-                }
-            }
-            $fave->free();
-            unset($fave);
-        }
     }
 
     function getStreamByIds($ids)
@@ -999,7 +783,14 @@ class Notice extends Memcached_DataObject
             $gi->notice_id = $this->id;
             $gi->created   = $this->created;
 
-            return $gi->insert();
+            $result = $gi->insert();
+
+            if (!result) {
+                common_log_db_error($gi, 'INSERT', __FILE__);
+                throw new ServerException(_('Problem saving group inbox.'));
+            }
+
+            self::blow('user_group:notice_ids:%d', $gi->group_id);
         }
 
         return true;
@@ -1094,7 +885,8 @@ class Notice extends Memcached_DataObject
 
         foreach ($recipientIds as $recipientId) {
             $user = User::staticGet('id', $recipientId);
-            if ($user) {
+            if (!empty($user)) {
+                self::blow('reply:stream:%d', $reply->profile_id);
                 mail_notify_attn($user, $this);
             }
         }
@@ -1552,5 +1344,105 @@ class Notice extends Memcached_DataObject
         }
 
         return $options;
+    }
+
+    function clearReplies()
+    {
+        $replyNotice = new Notice();
+        $replyNotice->reply_to = $this->id;
+
+        //Null any notices that are replies to this notice
+
+        if ($replyNotice->find()) {
+            while ($replyNotice->fetch()) {
+                $orig = clone($replyNotice);
+                $replyNotice->reply_to = null;
+                $replyNotice->update($orig);
+            }
+        }
+
+        // Reply records
+
+        $reply = new Reply();
+        $reply->notice_id = $this->id;
+
+        if ($reply->find()) {
+            while($reply->fetch()) {
+                self::blow('reply:stream:%d', $reply->profile_id);
+                $reply->delete();
+            }
+        }
+
+        $reply->free();
+
+        return $ids;
+    }
+
+    function clearRepeats()
+    {
+        $repeatNotice = new Notice();
+        $repeatNotice->repeat_of = $this->id;
+
+        //Null any notices that are repeats of this notice
+
+        if ($repeatNotice->find()) {
+            while ($repeatNotice->fetch()) {
+                $orig = clone($repeatNotice);
+                $repeatNotice->repeat_of = null;
+                $repeatNotice->update($orig);
+            }
+        }
+    }
+
+    function clearFaves()
+    {
+        $fave = new Fave();
+        $fave->notice_id = $this->id;
+
+        if ($fave->find()) {
+            while ($fave->fetch()) {
+                self::blow('fave:ids_by_user_own:%d', $fave->user_id);
+                self::blow('fave:ids_by_user_own:%d;last', $fave->user_id);
+                self::blow('fave:ids_by_user:%d', $fave->user_id);
+                self::blow('fave:ids_by_user:%d;last', $fave->user_id);
+                $fave->delete();
+            }
+        }
+
+        $fave->free();
+    }
+
+    function clearTags()
+    {
+        $tag = new Notice_tag();
+        $tag->notice_id = $this->id;
+
+        if ($tag->find()) {
+            while ($tag->fetch()) {
+                self::blow('profile:notice_ids_tagged:%d:%s', $this->profile_id, common_keyize($tag->tag));
+                self::blow('profile:notice_ids_tagged:%d:%s;last', $this->profile_id, common_keyize($tag->tag));
+                self::blow('notice_tag:notice_ids:%s', common_keyize($tag->tag));
+                self::blow('notice_tag:notice_ids:%s;last', common_keyize($tag->tag));
+                $tag->delete();
+            }
+        }
+
+        $tag->free();
+    }
+
+    function clearGroupInboxes()
+    {
+        $gi = new Group_inbox();
+
+        $gi->notice_id = $this->id;
+
+        if ($gi->find()) {
+            while ($gi->fetch()) {
+                self::blow('user_group:notice_ids:%d', $gi->group_id);
+                $gi->delete();
+            }
+        }
+
+        $gi->free();
     }
 }
