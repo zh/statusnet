@@ -112,7 +112,7 @@ class ApiStatusesRetweetAction extends ApiAuthAction
 
         $repeat = $this->original->repeat($this->user->id, $this->source);
 
-        common_broadcast_notice($repeat);
+
 
         $this->showNotice($repeat);
     }

@@ -987,7 +987,7 @@ function common_redirect($url, $code=307)
 
 function common_broadcast_notice($notice, $remote=false)
 {
-    return common_enqueue_notice($notice);
+    // DO NOTHING!
 }
 
 // Stick the notice on the queue
