@@ -392,8 +392,14 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('address', array('id' => 'site_contact',
                                              'class' => 'vcard'));
         if (Event::handle('StartAddressData', array($this))) {
+            if (common_config('singleuser', 'enabled')) {
+                $url = common_local_url('showstream',
+                                        array('nickname' => common_config('singleuser', 'nickname')));
+            } else {
+                $url = common_local_url('public');
+            }
             $this->elementStart('a', array('class' => 'url home bookmark',
-                                           'href' => common_local_url('public')));
+                                           'href' => $url));
             if (common_config('site', 'logo') || file_exists(Theme::file('logo.png'))) {
                 $this->element('img', array('class' => 'logo photo',
                                             'src' => (common_config('site', 'logo')) ? common_config('site', 'logo') : Theme::path('logo.png'),

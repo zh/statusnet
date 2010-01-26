@@ -56,7 +56,7 @@ $default =
               'dupelimit' => 60, # default for same person saying the same thing
               'textlimit' => 140,
               'indent' => true,
-              'use_x_sendfile' => false,
+              'use_x_sendfile' => false
               ),
         'db' =>
         array('database' => 'YOU HAVE TO SET THIS IN config.php',
@@ -260,4 +260,7 @@ $default =
               ),
         'admin' =>
         array('panels' => array('design', 'site', 'user', 'paths')),
+        'singleuser' =>
+        array('enabled' => false,
+              'nickname' => null),
         );
