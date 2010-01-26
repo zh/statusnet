@@ -458,4 +458,23 @@ class Memcached_DataObject extends DB_DataObject
 
         return $dsn;
     }
+
+    static function blow()
+    {
+        $c = self::memcache();
+
+        if (empty($c)) {
+            return false;
+        }
+
+        $args = func_get_args();
+
+        $format = array_shift($args);
+
+        $keyPart = vsprintf($format, $args);
+
+        $cacheKey = common_cache_key($keyPart);
+
+        return $c->delete($cacheKey);
+    }
 }

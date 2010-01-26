@@ -255,7 +255,7 @@ class ApiStatusesUpdateAction extends ApiAuthAction
                 $upload->attachToNotice($this->notice);
             }
 
-            common_broadcast_notice($this->notice);
+
         }
 
         $this->showNotice();

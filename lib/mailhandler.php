@@ -160,7 +160,7 @@ class MailHandler
         foreach($mediafiles as $mf){
             $mf->attachToNotice($notice);
         }
-        common_broadcast_notice($notice);
+
         $this->log(LOG_INFO,
                    'Added notice ' . $notice->id . ' from user ' . $user->nickname);
         return true;
