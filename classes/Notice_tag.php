@@ -86,13 +86,9 @@ class Notice_tag extends Memcached_DataObject
 
     function blowCache($blowLast=false)
     {
-        $cache = common_memcache();
-        if ($cache) {
-            $idkey = common_cache_key('notice_tag:notice_ids:' . common_keyize($this->tag));
-            $cache->delete($idkey);
-            if ($blowLast) {
-                $cache->delete($idkey.';last');
-            }
+        self::blow('notice_tag:notice_ids:%s', common_keyize($this->tag));
+        if ($blowLast) {
+            self::blow('notice_tag:notice_ids:%s;last', common_keyize($this->tag));
         }
     }
 

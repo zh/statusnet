@@ -362,7 +362,7 @@ class StatusNetOAuthDataStore extends OAuthDataStore
                                   array('is_local' => Notice::REMOTE_OMB,
                                         'uri' => $omb_notice->getIdentifierURI()));
 
-        common_broadcast_notice($notice, true);
+
     }
 
     /**

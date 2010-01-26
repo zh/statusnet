@@ -120,11 +120,7 @@ class Inbox extends Memcached_DataObject
                                         $notice_id, $user_id));
 
         if ($result) {
-            $c = self::memcache();
-
-            if (!empty($c)) {
-                $c->delete(self::cacheKey('inbox', 'user_id', $user_id));
-            }
+            self::blow('inbox:user_id:%d', $user_id);
         }
 
         return $result;

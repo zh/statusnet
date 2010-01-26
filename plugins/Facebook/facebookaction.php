@@ -397,7 +397,7 @@ class FacebookAction extends Action
             return;
         }
 
-        common_broadcast_notice($notice);
+
 
     }
 
