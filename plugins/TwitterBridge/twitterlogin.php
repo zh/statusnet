@@ -46,7 +46,6 @@ require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
  * @see      SettingsAction
  */
 
-
 class TwitterloginAction extends Action
 {
     function handle($args)
@@ -67,7 +66,7 @@ class TwitterloginAction extends Action
 
     function getInstructions()
     {
-        return _('Login with your Twitter Account');
+        return _('Login with your Twitter account');
     }
 
     function showPageNotice()
@@ -81,9 +80,11 @@ class TwitterloginAction extends Action
 
     function showContent()
     {
-        $this->elementStart('a', array('href' => common_local_url('twitterauthorization')));
-        $this->element('img', array('src' => common_path('plugins/TwitterBridge/twitter_connect.gif'),
-                                    'alt' => 'Connect my Twitter account'));
+        $this->elementStart('a', array('href' => common_local_url('twitterauthorization',
+                                                                  null,
+                                                                  array('signin' => true))));
+        $this->element('img', array('src' => common_path('plugins/TwitterBridge/Sign-in-with-Twitter-lighter.png'),
+                                    'alt' => 'Sign in with Twitter'));
         $this->elementEnd('a');
     }
 
