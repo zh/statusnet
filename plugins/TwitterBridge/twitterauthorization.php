@@ -50,9 +50,10 @@ require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
  */
 class TwitterauthorizationAction extends Action
 {
-    var $twuid = null;
-    var $tw_fields  = null;
+    var $twuid        = null;
+    var $tw_fields    = null;
     var $access_token = null;
+    var $signin       = null;
 
     /**
      * Initialize class members. Looks for 'oauth_token' parameter.
@@ -65,6 +66,7 @@ class TwitterauthorizationAction extends Action
     {
         parent::prepare($args);
 
+        $this->signin      = $this->boolean('signin');
         $this->oauth_token = $this->arg('oauth_token');
 
         return true;
@@ -160,7 +162,7 @@ class TwitterauthorizationAction extends Action
             $_SESSION['twitter_request_token']        = $req_tok->key;
             $_SESSION['twitter_request_token_secret'] = $req_tok->secret;
 
-            $auth_link = $client->getAuthorizeLink($req_tok);
+            $auth_link = $client->getAuthorizeLink($req_tok, $this->signin);
 
         } catch (OAuthClientException $e) {
             $msg = sprintf('OAuth client cURL error - code: %1s, msg: %2s',
