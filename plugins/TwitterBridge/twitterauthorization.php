@@ -101,7 +101,7 @@ class TwitterauthorizationAction extends Action
 
             $this->twuid = $this->trimmed('twuid');
 
-            $this->tw_fields = array('name' => $this->trimmed('tw_fields_name'),
+            $this->tw_fields = array('screen_name' => $this->trimmed('tw_fields_screen_name'),
                                      'fullname' => $this->trimmed('tw_fields_fullname'));
 
             $this->access_token = new OAuthToken($this->trimmed('access_token_key'), $this->trimmed('access_token_secret'));
@@ -215,12 +215,15 @@ class TwitterauthorizationAction extends Action
 
             // Save the access token and Twitter user info
 
-            $this->saveForeignLink($atok, $twitter_user);
+            $user = common_current_user();
+            $this->saveForeignLink($user->id, $twitter_user->id, $atok);
+            save_twitter_user($twitter_user->id, $twitter_user->name);
 
         } else {
 
             $this->twuid = $twitter_user->id;
-            $this->tw_fields = array("name" => $twitter_user->screen_name, "fullname" => $twitter_user->name);
+            $this->tw_fields = array("screen_name" => $twitter_user->screen_name,
+                                     "name" => $twitter_user->name);
             $this->access_token = $atok;
             $this->tryLogin();
         }
@@ -239,19 +242,18 @@ class TwitterauthorizationAction extends Action
      * Saves a Foreign_link between Twitter user and local user,
      * which includes the access token and secret.
      *
-     * @param OAuthToken $access_token the access token to save
-     * @param mixed      $twitter_user twitter API user object
+     * @param int        $user_id StatusNet user ID
+     * @param int        $twuid   Twitter user ID
+     * @param OAuthToken $token   the access token to save
      *
      * @return nothing
      */
-    function saveForeignLink($access_token, $twitter_user)
+    function saveForeignLink($user_id, $twuid, $access_token)
     {
-        $user = common_current_user();
-
         $flink = new Foreign_link();
 
-        $flink->user_id     = $user->id;
-        $flink->foreign_id  = $twitter_user->id;
+        $flink->user_id     = $user_id;
+        $flink->foreign_id  = $twuid;
         $flink->service     = TWITTER_SERVICE;
 
         $creds = TwitterOAuthClient::packToken($access_token);
@@ -267,37 +269,8 @@ class TwitterauthorizationAction extends Action
 
         if (empty($flink_id)) {
             common_log_db_error($flink, 'INSERT', __FILE__);
-                $this->serverError(_m('Couldn\'t link your Twitter account.'));
-        }
-
-        save_twitter_user($twitter_user->id, $twitter_user->screen_name);
-    }
-
-    function flinkUser($user_id, $twuid)
-    {
-        $flink = new Foreign_link();
-
-        $flink->user_id     = $user_id;
-        $flink->foreign_id  = $twuid;
-        $flink->service     = TWITTER_SERVICE;
-
-        $creds = TwitterOAuthClient::packToken($this->access_token);
-
-        $flink->credentials = $creds;
-        $flink->created     = common_sql_now();
-
-        // Defaults: noticesync on, everything else off
-
-        $flink->set_flags(true, false, false, false);
-
-        $flink_id = $flink->insert();
-
-        if (empty($flink_id)) {
-            common_log_db_error($flink, 'INSERT', __FILE__);
                 $this->serverError(_('Couldn\'t link your Twitter account.'));
         }
-
-        save_twitter_user($twuid, $this->tw_fields['name']);
 
         return $flink_id;
     }
@@ -361,8 +334,8 @@ class TwitterauthorizationAction extends Action
         $this->hidden('access_token_key', $this->access_token->key);
         $this->hidden('access_token_secret', $this->access_token->secret);
         $this->hidden('twuid', $this->twuid);
+        $this->hidden('tw_fields_screen_name', $this->tw_fields['screen_name']);
         $this->hidden('tw_fields_name', $this->tw_fields['name']);
-        $this->hidden('tw_fields_fullname', $this->tw_fields['fullname']);
 
         $this->elementStart('fieldset');
         $this->hidden('token', common_session_token());
@@ -449,7 +422,7 @@ class TwitterauthorizationAction extends Action
             return;
         }
 
-        $fullname = trim($this->tw_fields['fullname']);
+        $fullname = trim($this->tw_fields['name']);
 
         $args = array('nickname' => $nickname, 'fullname' => $fullname);
 
@@ -459,7 +432,11 @@ class TwitterauthorizationAction extends Action
 
         $user = User::register($args);
 
-        $result = $this->flinkUser($user->id, $this->twuid);
+        $result = $this->saveForeignLink($user->id,
+                                         $this->twuid,
+                                         $this->access_token);
+
+        save_twitter_user($this->twuid, $this->tw_fields['screen_name']);
 
         if (!$result) {
             $this->serverError(_('Error connecting user to Twitter.'));
@@ -470,7 +447,7 @@ class TwitterauthorizationAction extends Action
         common_real_login(true);
 
         common_debug('TwitterBridge Plugin - ' .
-                     "Registered new user $user->id from Twitter user $this->fbuid");
+                     "Registered new user $user->id from Twitter user $this->twuid");
 
         common_redirect(common_local_url('showstream', array('nickname' => $user->nickname)),
                         303);
@@ -493,7 +470,11 @@ class TwitterauthorizationAction extends Action
                          "Legit user to connect to Twitter: $nickname");
         }
 
-        $result = $this->flinkUser($user->id, $this->twuid);
+        $result = $this->saveForeignLink($user->id,
+                                         $this->twuid,
+                                         $this->access_token);
+
+        save_twitter_user($this->twuid, $this->tw_fields['screen_name']);
 
         if (!$result) {
             $this->serverError(_('Error connecting user to Twitter.'));
@@ -501,7 +482,7 @@ class TwitterauthorizationAction extends Action
         }
 
         common_debug('TwitterBridge Plugin - ' .
-                     "Connected Twitter user $this->fbuid to local user $user->id");
+                     "Connected Twitter user $this->twuid to local user $user->id");
 
         common_set_user($user);
         common_real_login(true);
@@ -521,7 +502,7 @@ class TwitterauthorizationAction extends Action
         }
 
         common_debug('TwitterBridge Plugin - ' .
-                     "Connected Twitter user $this->fbuid to local user $user->id");
+                     "Connected Twitter user $this->twuid to local user $user->id");
 
         // Return to Twitter connection settings tab
         common_redirect(common_local_url('twittersettings'), 303);
@@ -532,7 +513,8 @@ class TwitterauthorizationAction extends Action
         common_debug('TwitterBridge Plugin - ' .
                      "Trying login for Twitter user $this->twuid.");
 
-        $flink = Foreign_link::getByForeignID($this->twuid, TWITTER_SERVICE);
+        $flink = Foreign_link::getByForeignID($this->twuid,
+                                              TWITTER_SERVICE);
 
         if (!empty($flink)) {
             $user = $flink->getUser();
