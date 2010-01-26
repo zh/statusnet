@@ -95,19 +95,11 @@ class SiteadminpanelAction extends AdminPanelAction
                                                  'site', 'textlimit', 'dupelimit'),
                                  'snapshot' => array('run', 'reporturl', 'frequency'));
 
-        static $booleans = array('site' => array('private', 'inviteonly', 'closed'));
-
         $values = array();
 
         foreach ($settings as $section => $parts) {
             foreach ($parts as $setting) {
                 $values[$section][$setting] = $this->trimmed($setting);
-            }
-        }
-
-        foreach ($booleans as $section => $parts) {
-            foreach ($parts as $setting) {
-                $values[$section][$setting] = ($this->boolean($setting)) ? 1 : 0;
             }
         }
 
@@ -122,12 +114,6 @@ class SiteadminpanelAction extends AdminPanelAction
         $config->query('BEGIN');
 
         foreach ($settings as $section => $parts) {
-            foreach ($parts as $setting) {
-                Config::save($section, $setting, $values[$section][$setting]);
-            }
-        }
-
-        foreach ($booleans as $section => $parts) {
             foreach ($parts as $setting) {
                 Config::save($section, $setting, $values[$section][$setting]);
             }
@@ -296,29 +282,6 @@ class SiteAdminPanelForm extends AdminForm
                              false, $this->value('language'));
         $this->unli();
 
-        $this->out->elementEnd('ul');
-        $this->out->elementEnd('fieldset');
-
-	$this->out->elementStart('fieldset', array('id' => 'settings_admin_access'));
-        $this->out->element('legend', null, _('Access'));
-        $this->out->elementStart('ul', 'form_data');
-        $this->li();
-        $this->out->checkbox('private', _('Private'),
-                             (bool) $this->value('private'),
-                             _('Prohibit anonymous users (not logged in) from viewing site?'));
-        $this->unli();
-
-        $this->li();
-        $this->out->checkbox('inviteonly', _('Invite only'),
-                             (bool) $this->value('inviteonly'),
-                             _('Make registration invitation only.'));
-        $this->unli();
-
-        $this->li();
-        $this->out->checkbox('closed', _('Closed'),
-                             (bool) $this->value('closed'),
-                             _('Disable new registrations.'));
-        $this->unli();
         $this->out->elementEnd('ul');
         $this->out->elementEnd('fieldset');
 

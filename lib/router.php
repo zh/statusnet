@@ -637,6 +637,7 @@ class Router
             $m->connect('admin/site', array('action' => 'siteadminpanel'));
             $m->connect('admin/design', array('action' => 'designadminpanel'));
             $m->connect('admin/user', array('action' => 'useradminpanel'));
+	    $m->connect('admin/access', array('action' => 'accessadminpanel'));
             $m->connect('admin/paths', array('action' => 'pathsadminpanel'));
 
             $m->connect('getfile/:filename',
