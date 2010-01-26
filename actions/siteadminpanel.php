@@ -24,7 +24,7 @@
  * @author    Evan Prodromou <evan@status.net>
  * @author    Zach Copley <zach@status.net>
  * @author    Sarven Capadisli <csarven@status.net>
- * @copyright 2008-2009 StatusNet, Inc.
+ * @copyright 2008-2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -95,7 +95,7 @@ class SiteadminpanelAction extends AdminPanelAction
                                                  'site', 'textlimit', 'dupelimit'),
                                  'snapshot' => array('run', 'reporturl', 'frequency'));
 
-        static $booleans = array('site' => array('private', 'inviteonly', 'closed', 'fancy'));
+        static $booleans = array('site' => array('private', 'inviteonly', 'closed'));
 
         $values = array();
 
@@ -299,22 +299,7 @@ class SiteAdminPanelForm extends AdminForm
         $this->out->elementEnd('ul');
         $this->out->elementEnd('fieldset');
 
-        $this->out->elementStart('fieldset', array('id' => 'settings_admin_urls'));
-        $this->out->element('legend', null, _('URLs'));
-        $this->out->elementStart('ul', 'form_data');
-        $this->li();
-        $this->input('server', _('Server'), _('Site\'s server hostname.'));
-        $this->unli();
-
-        $this->li();
-        $this->out->checkbox('fancy', _('Fancy URLs'),
-                             (bool) $this->value('fancy'),
-                             _('Use fancy (more readable and memorable) URLs?'));
-        $this->unli();
-        $this->out->elementEnd('ul');
-        $this->out->elementEnd('fieldset');
-
-        $this->out->elementStart('fieldset', array('id' => 'settings_admin_access'));
+	$this->out->elementStart('fieldset', array('id' => 'settings_admin_access'));
         $this->out->element('legend', null, _('Access'));
         $this->out->elementStart('ul', 'form_data');
         $this->li();
