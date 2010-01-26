@@ -20,7 +20,8 @@
  * @category  Plugin
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
- * @copyright 2009 Control Yourself, Inc.
+ * @author    Julien C <chaumond@gmail.com>
+ * @copyright 2009-2010 Control Yourself, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
  */
@@ -41,6 +42,7 @@ define('TWITTERBRIDGEPLUGIN_VERSION', '0.9');
  * @category Plugin
  * @package  StatusNet
  * @author   Zach Copley <zach@status.net>
+ * @author   Julien C <chaumond@gmail.com>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://laconi.ca/
  * @link     http://twitter.com/
@@ -72,16 +74,13 @@ class TwitterBridgePlugin extends Plugin
         $m->connect('twitter/authorization',
                     array('action' => 'twitterauthorization'));
         $m->connect('settings/twitter', array('action' => 'twittersettings'));
-        
         $m->connect('main/twitterlogin', array('action' => 'twitterlogin'));
 
         return true;
     }
-    
-    
-    
+
     /*
-     * Add a login tab for Twitter Connect
+     * Add a login tab for 'Sign in with Twitter'
      *
      * @param Action &action the current action
      *
@@ -99,7 +98,6 @@ class TwitterBridgePlugin extends Plugin
 
         return true;
     }
-    
 
     /**
      * Add the Twitter Settings page to the Connect Settings menu
