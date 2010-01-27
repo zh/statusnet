@@ -76,7 +76,7 @@ class ShowstreamAction extends ProfileAction
         if ($this->page == 1) {
             return $base;
         } else {
-            return sprintf(_("%1$s, page %2$d"),
+            return sprintf(_('%1$s, page %2$d'),
                            $base,
                            $this->page);
         }

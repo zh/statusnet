@@ -56,7 +56,7 @@ $default =
               'dupelimit' => 60, # default for same person saying the same thing
               'textlimit' => 140,
               'indent' => true,
-              'use_x_sendfile' => false,
+              'use_x_sendfile' => false
               ),
         'db' =>
         array('database' => 'YOU HAVE TO SET THIS IN config.php',
@@ -81,6 +81,7 @@ $default =
               'subsystem' => 'db', # default to database, or 'stomp'
               'stomp_server' => null,
               'queue_basename' => '/queue/statusnet/',
+              'control_channel' => '/topic/statusnet-control', // broadcasts to all queue daemons
               'stomp_username' => null,
               'stomp_password' => null,
               'monitor' => null, // URL to monitor ping endpoint (work in progress)
@@ -118,6 +119,9 @@ $default =
         'theme' =>
         array('server' => null,
               'dir' => null,
+              'path'=> null),
+        'javascript' =>
+        array('server' => null,
               'path'=> null),
         'throttle' =>
         array('enabled' => false, // whether to throttle edits; false by default
@@ -261,5 +265,8 @@ $default =
                                  'OpenID' => null),
               ),
         'admin' =>
-        array('panels' => array('design', 'site', 'user', 'paths')),
+        array('panels' => array('design', 'site', 'user', 'paths', 'access')),
+        'singleuser' =>
+        array('enabled' => false,
+              'nickname' => null),
         );

@@ -437,8 +437,8 @@ class GrouplogoAction extends GroupDesignAction
         parent::showScripts();
 
         if ($this->mode == 'crop') {
-            $this->script('js/jcrop/jquery.Jcrop.min.js');
-            $this->script('js/jcrop/jquery.Jcrop.go.js');
+            $this->script('jcrop/jquery.Jcrop.min.js');
+            $this->script('jcrop/jquery.Jcrop.go.js');
         }
 
         $this->autofocus('avatarfile');

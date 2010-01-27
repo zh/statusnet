@@ -45,10 +45,12 @@ function read_input_line($prompt)
     if (CONSOLE_INTERACTIVE) {
         if (CONSOLE_READLINE) {
             $line = readline($prompt);
-            readline_add_history($line);
-            if (defined('CONSOLE_HISTORY')) {
-                // Save often; it's easy to hit fatal errors.
-                readline_write_history(CONSOLE_HISTORY);
+            if (trim($line) != '') {
+                readline_add_history($line);
+                if (defined('CONSOLE_HISTORY')) {
+                    // Save often; it's easy to hit fatal errors.
+                    readline_write_history(CONSOLE_HISTORY);
+                }
             }
             return $line;
         } else {

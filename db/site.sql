@@ -14,6 +14,8 @@ create table status_network (
     sitename varchar(255) comment 'display name',
     theme varchar(255) comment 'theme name',
     logo varchar(255) comment 'site logo',
+    
+    tags text comment 'site meta-info tags (pipe-separated)',
 
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified'
