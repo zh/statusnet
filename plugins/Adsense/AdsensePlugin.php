@@ -150,8 +150,8 @@ class AdsensePlugin extends UAPPlugin
     {
         $code  = 'google_ad_client = "'.$this->client.'"; ';
         $code .= 'google_ad_slot = "'.$slot.'"; ';
-        $code .= 'google_ad_width = "'.$width.'"; ';
-        $code .= 'google_ad_height = "'.$height.'"; ';
+        $code .= 'google_ad_width = '.$width.'; ';
+        $code .= 'google_ad_height = '.$height.'; ';
 
         $action->inlineScript($code);
 
