@@ -87,7 +87,7 @@ class RealtimePlugin extends Plugin
         $scripts = $this->_getScripts();
 
         foreach ($scripts as $script) {
-            $action->script($script);
+            $action->script(common_path($script));
         }
 
         $user = common_current_user();
