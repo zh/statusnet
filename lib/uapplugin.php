@@ -106,7 +106,7 @@ abstract class UAPPlugin extends Plugin
      * @return boolean hook flag
      */
 
-    function onStartShowHeader($action)
+    function onEndShowHeader($action)
     {
         if (!is_null($this->leaderboard)) {
             $action->elementStart('div',
