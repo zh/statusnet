@@ -99,7 +99,7 @@ abstract class UAPPlugin extends Plugin
     }
 
     /**
-     * Add a leaderboard and/or rectangle in the header
+     * Add a leaderboard in the header
      *
      * @param Action $action Action being shown
      *
@@ -116,6 +116,19 @@ abstract class UAPPlugin extends Plugin
             $action->elementEnd('div');
         }
 
+        return true;
+    }
+
+    /**
+     * Add a rectangle before aside sections
+     *
+     * @param Action $action Action being shown
+     *
+     * @return boolean hook flag
+     */
+
+    function onStartShowSections($action)
+    {
         if (!is_null($this->rectangle)) {
             $action->elementStart('div',
                                   array('id' => 'ad_rectangle',
