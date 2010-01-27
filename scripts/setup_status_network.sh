@@ -72,3 +72,9 @@ then
 else
     echo "No mail template, not sending email."
 fi
+
+if [ -f "$POSTINSTALL" ]
+then
+    echo "Running $POSTINSTALL ..."
+    source "$POSTINSTALL"
+fi
