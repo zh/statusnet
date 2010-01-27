@@ -83,7 +83,7 @@ class BlankAdPlugin extends UAPPlugin
     {
         $action->element('img',
                          array('width' => 180,
-                               'height' => 50,
+                               'height' => 150,
                                'src' => common_path('plugins/BlankAd/redpixel.png')),
                          '');
     }
