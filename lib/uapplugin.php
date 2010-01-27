@@ -54,10 +54,10 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 
 abstract class UAPPlugin extends Plugin
 {
-    public $MediumRectangle = null;
-    public $Rectangle       = null;
-    public $Leaderboard     = null;
-    public $WideSkyscraper  = null;
+    public $mediumRectangle = null;
+    public $rectangle       = null;
+    public $leaderboard     = null;
+    public $wideSkyscraper  = null;
 
     /**
      * Output our dedicated stylesheet
