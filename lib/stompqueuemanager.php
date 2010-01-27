@@ -178,7 +178,8 @@ class StompQueueManager extends QueueManager
 
         $result = $this->con->send($this->queueName($queue),
                                    $msg, 		// BODY of the message
-                                   array ('created' => common_sql_now()));
+                                   array ('created' => common_sql_now(),
+                                          'persistent' => 'true'));
 
         if (!$result) {
             common_log(LOG_ERR, "Error sending $rep to $queue queue");
