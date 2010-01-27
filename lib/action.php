@@ -246,18 +246,18 @@ class Action extends HTMLOutputter // lawsuit
     {
         if (Event::handle('StartShowScripts', array($this))) {
             if (Event::handle('StartShowJQueryScripts', array($this))) {
-                $this->script('js/jquery.min.js');
-                $this->script('js/jquery.form.js');
-                $this->script('js/jquery.cookie.js');
-                $this->script('js/json2.js');
-                $this->script('js/jquery.joverlay.min.js');
+                $this->script('jquery.min.js');
+                $this->script('jquery.form.js');
+                $this->script('jquery.cookie.js');
+                $this->script('json2.js');
+                $this->script('jquery.joverlay.min.js');
                 Event::handle('EndShowJQueryScripts', array($this));
             }
             if (Event::handle('StartShowStatusNetScripts', array($this)) &&
                 Event::handle('StartShowLaconicaScripts', array($this))) {
-                $this->script('js/xbImportNode.js');
-                $this->script('js/util.js');
-                $this->script('js/geometa.js');
+                $this->script('xbImportNode.js');
+                $this->script('util.js');
+                $this->script('geometa.js');
                 // Frame-busting code to avoid clickjacking attacks.
                 $this->element('script', array('type' => 'text/javascript'),
                                'if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
