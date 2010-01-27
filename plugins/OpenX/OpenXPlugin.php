@@ -151,16 +151,17 @@ class OpenXPlugin extends UAPPlugin
     /**
      * Show an ad using OpenX
      *
-     * @param integer $zone Zone to show
+     * @param Action  $action Action being shown
+     * @param integer $zone   Zone to show
      *
      * @return void
      */
 
-    protected function showAd($zone)
+    protected function showAd($action, $zone)
     {
         global $_OpenXPlugin_Script;
 
-        $this->inlineScript(sprintf($_OpenXPlugin_Script, $this->adScript, $zone));
+        $action->inlineScript(sprintf($_OpenXPlugin_Script, $this->adScript, $zone));
         return true;
     }
 }
