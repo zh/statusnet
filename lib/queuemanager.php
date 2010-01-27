@@ -170,7 +170,9 @@ abstract class QueueManager extends IoManager
     {
         if (isset($this->handlers[$queue])) {
             $class = $this->handlers[$queue];
-            if (class_exists($class)) {
+            if(is_object($class)) {
+                return $class;
+            } else if (class_exists($class)) {
                 return new $class();
             } else {
                 common_log(LOG_ERR, "Nonexistent handler class '$class' for queue '$queue'");
@@ -206,6 +208,7 @@ abstract class QueueManager extends IoManager
             $this->connect('plugin', 'PluginQueueHandler');
             $this->connect('omb', 'OmbQueueHandler');
             $this->connect('ping', 'PingQueueHandler');
+            $this->connect('distrib', 'DistribQueueHandler');
             if (common_config('sms', 'enabled')) {
                 $this->connect('sms', 'SmsQueueHandler');
             }
@@ -213,7 +216,7 @@ abstract class QueueManager extends IoManager
             // XMPP output handlers...
             $this->connect('jabber', 'JabberQueueHandler');
             $this->connect('public', 'PublicQueueHandler');
-            
+
             // @fixme this should get an actual queue
             //$this->connect('confirm', 'XmppConfirmHandler');
 
@@ -231,7 +234,7 @@ abstract class QueueManager extends IoManager
      * Only registered transports will be reliably picked up!
      *
      * @param string $transport
-     * @param string $class
+     * @param string $class class name or object instance
      * @param string $group
      */
     public function connect($transport, $class, $group='queuedaemon')

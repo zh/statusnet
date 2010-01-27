@@ -495,7 +495,7 @@ var SN = { // StatusNet
                 $('#'+SN.C.S.NoticeLocationId).val('');
                 $('#'+SN.C.S.NoticeDataGeo).attr('checked', false);
 
-                $.cookie(SN.C.S.NoticeDataGeoCookie, 'disabled');
+                $.cookie(SN.C.S.NoticeDataGeoCookie, 'disabled', { path: '/', expires: SN.U.GetFullYear(2029, 0, 1) });
             }
 
             function getJSONgeocodeURL(geocodeURL, data) {
@@ -537,7 +537,8 @@ var SN = { // StatusNet
                         NLNU: location.url,
                         NDG: true
                     };
-                    $.cookie(SN.C.S.NoticeDataGeoCookie, JSON.stringify(cookieValue));
+
+                    $.cookie(SN.C.S.NoticeDataGeoCookie, JSON.stringify(cookieValue), { path: '/', expires: SN.U.GetFullYear(2029, 0, 1) });
                 });
             }
 
@@ -658,6 +659,13 @@ var SN = { // StatusNet
                 }
                 return false;
             });
+        },
+
+        GetFullYear: function(year, month, day) {
+            var date = new Date();
+            date.setFullYear(year, month, day);
+
+            return date;
         }
     },
 

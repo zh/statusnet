@@ -45,6 +45,7 @@ class TwitterOAuthClient extends OAuthClient
 {
     public static $requestTokenURL = 'https://twitter.com/oauth/request_token';
     public static $authorizeURL    = 'https://twitter.com/oauth/authorize';
+    public static $signinUrl       = 'https://twitter.com/oauth/authenticate';
     public static $accessTokenURL  = 'https://twitter.com/oauth/access_token';
 
     /**
@@ -97,9 +98,11 @@ class TwitterOAuthClient extends OAuthClient
      *
      * @return the link
      */
-    function getAuthorizeLink($request_token)
+    function getAuthorizeLink($request_token, $signin = false)
     {
-        return parent::getAuthorizeLink(self::$authorizeURL,
+        $url = ($signin) ? self::$signinUrl : self::$authorizeURL;
+
+        return parent::getAuthorizeLink($url,
                                         $request_token,
                                         common_local_url('twitterauthorization'));
     }

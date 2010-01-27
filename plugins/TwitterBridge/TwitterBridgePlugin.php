@@ -20,7 +20,8 @@
  * @category  Plugin
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
- * @copyright 2009 Control Yourself, Inc.
+ * @author    Julien C <chaumond@gmail.com>
+ * @copyright 2009-2010 Control Yourself, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
  */
@@ -41,6 +42,7 @@ define('TWITTERBRIDGEPLUGIN_VERSION', '0.9');
  * @category Plugin
  * @package  StatusNet
  * @author   Zach Copley <zach@status.net>
+ * @author   Julien C <chaumond@gmail.com>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://laconi.ca/
  * @link     http://twitter.com/
@@ -72,6 +74,27 @@ class TwitterBridgePlugin extends Plugin
         $m->connect('twitter/authorization',
                     array('action' => 'twitterauthorization'));
         $m->connect('settings/twitter', array('action' => 'twittersettings'));
+        $m->connect('main/twitterlogin', array('action' => 'twitterlogin'));
+
+        return true;
+    }
+
+    /*
+     * Add a login tab for 'Sign in with Twitter'
+     *
+     * @param Action &action the current action
+     *
+     * @return void
+     */
+    function onEndLoginGroupNav(&$action)
+    {
+
+        $action_name = $action->trimmed('action');
+
+        $action->menuItem(common_local_url('twitterlogin'),
+                                           _('Twitter'),
+                                           _('Login or register using Twitter'),
+                                             'twitterlogin' === $action_name);
 
         return true;
     }
@@ -108,6 +131,7 @@ class TwitterBridgePlugin extends Plugin
         switch ($cls) {
         case 'TwittersettingsAction':
         case 'TwitterauthorizationAction':
+        case 'TwitterloginAction':
             include_once INSTALLDIR . '/plugins/TwitterBridge/' .
               strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;

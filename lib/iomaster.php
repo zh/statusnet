@@ -88,7 +88,7 @@ abstract class IoMaster
         $sn = new Status_network();
         $sn->find();
         while ($sn->fetch()) {
-            $hosts[] = $sn->hostname;
+            $hosts[] = $sn->getServerName();
         }
         return $hosts;
     }
@@ -102,7 +102,7 @@ abstract class IoMaster
      */
     protected function instantiate($class)
     {
-        if (isset($this->singletons[$class])) {
+        if (is_string($class) && isset($this->singletons[$class])) {
             // Already instantiated a multi-site-capable handler.
             // Just let it know it should listen to this site too!
             $this->singletons[$class]->addSite(common_config('site', 'server'));
@@ -129,7 +129,11 @@ abstract class IoMaster
     
     protected function getManager($class)
     {
-        return call_user_func(array($class, 'get'));
+        if(is_object($class)){
+            return $class;
+        } else {
+            return call_user_func(array($class, 'get'));
+        }
     }
 
     /**
@@ -347,7 +351,7 @@ abstract class IoMaster
      * for per-queue and per-site records.
      *
      * @param string $key counter name
-     * @param array $owners list of owner keys like 'queue:jabber' or 'site:stat01'
+     * @param array $owners list of owner keys like 'queue:xmpp' or 'site:stat01'
      */
     public function stats($key, $owners=array())
     {

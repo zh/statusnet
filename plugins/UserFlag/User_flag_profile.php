@@ -86,7 +86,7 @@ class User_flag_profile extends Memcached_DataObject
 
     function keys()
     {
-        return array('profile_id' => 'N', 'user_id' => 'N');
+        return array('profile_id' => 'K', 'user_id' => 'K');
     }
 
     /**
@@ -129,6 +129,15 @@ class User_flag_profile extends Memcached_DataObject
 
         return !empty($ufp);
     }
+
+    /**
+     * Create a new flag
+     *
+     * @param integer $user_id    ID of user who's flagging
+     * @param integer $profile_id ID of profile being flagged
+     *
+     * @return boolean success flag
+     */
 
     static function create($user_id, $profile_id)
     {
