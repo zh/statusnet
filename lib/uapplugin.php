@@ -22,6 +22,7 @@
  * @category  Action
  * @package   StatusNet
  * @author    Sarven Capadisli <csarven@status.net>
+ * @author    Evan Prodromou <evan@status.net>
  * @copyright 2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
@@ -32,145 +33,155 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 }
 
 /**
+ * Abstract superclass for advertising plugins
+ *
+ * Plugins for showing ads should derive from this plugin.
+ *
  * Outputs the following ad types (based on UAP):
+ *
  * Medium Rectangle 300x250
  * Rectangle        180x150
  * Leaderboard      728x90
  * Wide Skyscraper  160x600
  *
- * Any number of ad types can be used. Enable all using example:
- * addPlugin('UAP', array(
- *  'MediumRectangle' => '<script type="text/javascript">var foo = 1;</script>',
- *  'Rectangle' => '<script type="text/javascript">var bar = 2;</script>',
- *  'Leaderboard' => '<script type="text/javascript">var baz = 2;</script>',
- *  'WideSkyscraper' => '<script type="text/javascript">var bbq = 4;</script>'
- *  )
- * );
- *
  * @category Plugin
  * @package  StatusNet
  * @author   Sarven Capadisli <csarven@status.net>
+ * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
 
-class UAPPlugin extends Plugin
+abstract class UAPPlugin extends Plugin
 {
     public $MediumRectangle = null;
-    public $Rectangle = null;
-    public $Leaderboard = null;
-    public $WideSkyscraper = null;
+    public $Rectangle       = null;
+    public $Leaderboard     = null;
+    public $WideSkyscraper  = null;
 
-    function __construct($uap = array())
-    {
-        $this->uap = $uap;
-
-        parent::__construct();
-    }
-
-    function onInitializePlugin()
-    {
-        foreach($this->uap as $key => $value) {
-            switch(strtolower($key)) {
-                case 'mediumrectangle': default:
-                    $this->MediumRectangle = $value;
-                    break;
-                case 'rectangle':
-                    $this->Rectangle = $value;
-                    break;
-                case 'leaderboard':
-                    $this->Leaderboard = $value;
-                    break;
-                case 'wideskyscraper':
-                    $this->WideSkyscraper = $value;
-                    break;
-            }
-        }
-    }
+    /**
+     * Output our dedicated stylesheet
+     *
+     * @param Action $action Action being shown
+     *
+     * @return boolean hook flag
+     */
 
     function onEndShowStatusNetStyles($action)
     {
-        $action->cssLink(common_path('plugins/UAP/uap.css'),
-                         null, 'screen, projection, tv');
+        // XXX: allow override by theme
+        $action->cssLink('css/uap.css', 'base', 'screen, projection, tv');
         return true;
     }
 
-    //MediumRectangle ad
+    /**
+     * Add a medium rectangle ad at the beginning of sidebar
+     *
+     * @param Action $action Action being shown
+     *
+     * @return boolean hook flag
+     */
+
     function onStartShowAside($action)
     {
-        if (!$this->MediumRectangle) {
-            return true;
-        }
+        if (!is_null($this->mediumRectangle)) {
 
-        $this->showAd($action, array('id' => 'ad_medium-rectangle'), 
-                               $this->MediumRectangle);
+            $action->elementStart('div',
+                                  array('class' => 'ad_medium-rectangle ad'));
+
+            $this->showMediumRectangle($action);
+
+            $action->elementEnd('div');
+        }
 
         return true;
     }
 
-/*
-    //Rectangle ad
-    function onEndShowSiteNotice($action)
-    {
-        if (!$this->Rectangle) {
-            return true;
-        }
+    /**
+     * Add a leaderboard and/or rectangle in the header
+     *
+     * @param Action $action Action being shown
+     *
+     * @return boolean hook flag
+     */
 
-        $this->showAd($action, array('id' => 'ad_rectangle'), 
-                               $this->Rectangle);
-
-        return true;
-    }
-*/
-
-    //Leaderboard and Rectangle ad
     function onStartShowHeader($action)
     {
-        if ($this->Leaderboard) {
-            $this->showAd($action, array('id' => 'ad_leaderboard'), 
-                                   $this->Leaderboard);
+        if (!is_null($this->leaderboard)) {
+            $action->elementStart('div',
+                                  array('class' => 'ad_leaderboard ad'));
+            $this->showLeaderboard($action);
+            $action->elementEnd('div');
         }
 
-        if ($this->Rectangle) {
-            $this->showAd($action, array('id' => 'ad_rectangle'), 
-                                   $this->Rectangle);
+        if (!is_null($this->rectangle)) {
+            $action->elementStart('div',
+                                  array('class' => 'ad_rectangle ad'));
+            $this->showRectangle($action);
+            $action->elementEnd('div');
         }
 
         return true;
     }
 
-    //WideSkyscraper ad
+    /**
+     * Add a wide skyscraper after the aside
+     *
+     * @param Action $action Action being shown
+     *
+     * @return boolean hook flag
+     */
+
     function onEndShowAside($action)
     {
-        if (!$this->WideSkyscraper) {
-            return true;
+        if (!is_null($this->wideSkyscraper)) {
+            $action->elementStart('div',
+                                  array('class' => 'ad_wide-skyscraper ad'));
+
+            $this->showWideSkyscraper($action);
+
+            $action->elementEnd('div');
         }
-
-        $this->showAd($action, array('id' => 'ad_wide-skyscraper'), 
-                               $this->WideSkyscraper);
-
         return true;
     }
 
-    //Output ad container
-    function showAd($action, $attr=array(), $value)
-    {
-        $classes = ($attr['class']) ? $attr['class'].' ' : '';
+    /**
+     * Show a medium rectangle ad
+     *
+     * @param Action $action Action being shown
+     *
+     * @return void
+     */
 
-        $action->elementStart('div', array('id' => $attr['id'],
-                                           'class' => $classes.'ad'));
-        $action->raw($value);
-        $action->elementEnd('div');
-    }
+    abstract protected function showMediumRectangle($action);
 
-    function onPluginVersion(&$versions)
-    {
-        $versions[] = array('name' => 'UAP',
-                            'version' => STATUSNET_VERSION,
-                            'author' => 'Sarven Capadisli',
-                            'homepage' => 'http://status.net/wiki/Plugin:UAP',
-                            'rawdescription' =>
-                            _m('Outputs ad placements based on Universal Ad Package'));
-        return true;
-    }
+    /**
+     * Show a rectangle ad
+     *
+     * @param Action $action Action being shown
+     *
+     * @return void
+     */
+
+    abstract protected function showRectangle($action);
+
+    /**
+     * Show a wide skyscraper ad
+     *
+     * @param Action $action Action being shown
+     *
+     * @return void
+     */
+
+    abstract protected function showWideSkyscraper($action);
+
+    /**
+     * Show a leaderboard ad
+     *
+     * @param Action $action Action being shown
+     *
+     * @return void
+     */
+
+    abstract protected function showLeaderboard($action);
 }
