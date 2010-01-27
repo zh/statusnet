@@ -87,7 +87,8 @@ abstract class UAPPlugin extends Plugin
         if (!is_null($this->mediumRectangle)) {
 
             $action->elementStart('div',
-                                  array('class' => 'ad_medium-rectangle ad'));
+                                  array('id' => 'ad_medium-rectangle',
+                                        'class' => 'ad'));
 
             $this->showMediumRectangle($action);
 
@@ -109,14 +110,16 @@ abstract class UAPPlugin extends Plugin
     {
         if (!is_null($this->leaderboard)) {
             $action->elementStart('div',
-                                  array('class' => 'ad_leaderboard ad'));
+                                  array('id' => 'ad_leaderboard',
+                                        'class' => 'ad'));
             $this->showLeaderboard($action);
             $action->elementEnd('div');
         }
 
         if (!is_null($this->rectangle)) {
             $action->elementStart('div',
-                                  array('class' => 'ad_rectangle ad'));
+                                  array('id' => 'ad_rectangle',
+                                        'class' => 'ad'));
             $this->showRectangle($action);
             $action->elementEnd('div');
         }
@@ -136,7 +139,8 @@ abstract class UAPPlugin extends Plugin
     {
         if (!is_null($this->wideSkyscraper)) {
             $action->elementStart('div',
-                                  array('class' => 'ad_wide-skyscraper ad'));
+                                  array('id' => 'ad_wide-skyscraper',
+                                        'class' => 'ad'));
 
             $this->showWideSkyscraper($action);
 
