@@ -35,14 +35,13 @@ if (!defined('STATUSNET')) {
  * Plugin for testing ad layout
  *
  * This plugin uses the UAPPlugin framework to output ad content. However,
- * its ad content is just paragraphs with defined background colors. It's
- * mostly useful for debugging theme layout.
+ * its ad content is just images with one red pixel stretched to the
+ * right size. It's mostly useful for debugging theme layout.
  *
  * To use this plugin, set the parameter for the ad size you want to use
- * to the background you want to use. For example, to make a leaderboard
- * that's red:
+ * to true (or anything non-null). For example, to make a leaderboard:
  *
- *     addPlugin('BlankAd', array('leaderboard' => 'red'));
+ *     addPlugin('BlankAd', array('leaderboard' => true));
  *
  * @category Plugin
  * @package  StatusNet
@@ -65,10 +64,11 @@ class BlankAdPlugin extends UAPPlugin
 
     protected function showMediumRectangle($action)
     {
-        $style = 'width: 300px; height: 250px; background-color: ' .
-          $this->mediumRectangle;
-
-        $action->element('p', array('style' => $style), '');
+        $action->element('img',
+                         array('width' => 300,
+                               'height' => 250,
+                               'src' => common_path('plugins/BlankAd/redpixel.png')),
+                         '');
     }
 
     /**
@@ -81,10 +81,11 @@ class BlankAdPlugin extends UAPPlugin
 
     protected function showRectangle($action)
     {
-        $style = 'width: 180px; height: 150px; background-color: ' .
-          $this->rectangle;
-
-        $action->element('p', array('style' => $style), '');
+        $action->element('img',
+                         array('width' => 180,
+                               'height' => 50,
+                               'src' => common_path('plugins/BlankAd/redpixel.png')),
+                         '');
     }
 
     /**
@@ -97,10 +98,11 @@ class BlankAdPlugin extends UAPPlugin
 
     protected function showWideSkyscraper($action)
     {
-        $style = 'width: 160px; height: 600px; background-color: ' .
-          $this->wideSkyscraper;
-
-        $action->element('p', array('style' => $style), '');
+        $action->element('img',
+                         array('width' => 160,
+                               'height' => 600,
+                               'src' => common_path('plugins/BlankAd/redpixel.png')),
+                         '');
     }
 
     /**
@@ -113,9 +115,10 @@ class BlankAdPlugin extends UAPPlugin
 
     protected function showLeaderboard($action)
     {
-        $style = 'width: 728px; height: 90px; background-color: ' .
-          $this->leaderboard;
-
-        $action->element('p', array('style' => $style), '');
+        $action->element('img',
+                         array('width' => 728,
+                               'height' => 90,
+                               'src' => common_path('plugins/BlankAd/redpixel.png')),
+                         '');
     }
 }
