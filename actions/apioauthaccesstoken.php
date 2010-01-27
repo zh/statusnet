@@ -70,7 +70,7 @@ class ApiOauthAccessTokenAction extends ApiOauthAction
             $atok = $server->fetch_access_token($req);
 
         } catch (OAuthException $e) {
-            common_log(LOG_WARN, 'API OAuthException - ' . $e->getMessage());
+            common_log(LOG_WARNING, 'API OAuthException - ' . $e->getMessage());
             common_debug(var_export($req, true));
             $this->outputError($e->getMessage());
             return;
