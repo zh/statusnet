@@ -31,22 +31,6 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-$_OpenXPlugin_Script = <<<ENDOFSCRIPT
-var m3_u = '%s';
-var m3_r = Math.floor(Math.random()*99999999999);
-if (!document.MAX_used) document.MAX_used = ',';
-document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
-document.write ("?zoneid=%s");
-document.write ('&amp;cb=' + m3_r);
-if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
-document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
-document.write ("&amp;loc=" + escape(window.location));
-if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
-if (document.context) document.write ("&context=" + escape(document.context));
-if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
-document.write ("'><\/scr"+"ipt>");
-ENDOFSCRIPT;
-
 /**
  * Plugin for OpenX Ad Server
  *
@@ -159,9 +143,23 @@ class OpenXPlugin extends UAPPlugin
 
     protected function showAd($action, $zone)
     {
-        global $_OpenXPlugin_Script;
+$scr = <<<ENDOFSCRIPT
+var m3_u = '%s';
+var m3_r = Math.floor(Math.random()*99999999999);
+if (!document.MAX_used) document.MAX_used = ',';
+document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+document.write ("?zoneid=%d");
+document.write ('&amp;cb=' + m3_r);
+if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+document.write ("&amp;loc=" + escape(window.location));
+if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+if (document.context) document.write ("&context=" + escape(document.context));
+if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+document.write ("'><\/scr"+"ipt>");
+ENDOFSCRIPT;
 
-        $action->inlineScript(sprintf($_OpenXPlugin_Script, $this->adScript, $zone));
+        $action->inlineScript(sprintf($scr, $this->adScript, $zone));
         return true;
     }
 }
