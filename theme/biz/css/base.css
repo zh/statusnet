@@ -605,8 +605,9 @@ display:none;
 /*entity_actions*/
 .entity_actions {
 float:right;
-margin-left:4.35%;
-max-width:25%;
+margin-left:2%;
+margin-bottom:18px;
+min-width:21%;
 }
 .entity_actions h2 {
 display:none;
@@ -615,7 +616,7 @@ display:none;
 list-style-type:none;
 }
 .entity_actions li {
-margin-bottom:4px;
+margin-bottom:7px;
 }
 .entity_actions li:first-child {
 border-top:0;
@@ -633,40 +634,95 @@ display:block;
 text-align:left;
 width:100%;
 }
-.entity_actions a,
-.entity_nudge p,
-.entity_remote_subscribe {
+.entity_actions a {
 text-decoration:none;
 font-weight:bold;
 display:block;
 }
-
-.form_user_block input.submit,
-.form_user_unblock input.submit,
-.entity_send-a-message a,
-.entity_edit a,
-.form_user_nudge input.submit,
-.entity_nudge p {
-border:0;
-padding-left:20px;
-}
-
-.entity_edit a,
-.entity_send-a-message a,
-.entity_nudge p {
-padding:4px 4px 4px 23px;
-}
-
-.entity_remote_subscribe {
-padding:4px;
-border-width:2px;
-border-style:solid;
+.entity_actions a,
+.entity_actions input {
 border-radius:4px;
 -moz-border-radius:4px;
 -webkit-border-radius:4px;
 }
+
+.entity_actions a,
+.entity_actions input,
+.entity_actions p {
+border-width:2px;
+border-style:solid;
+padding-left:23px;
+}
+
+.entity_actions a,
+.entity_actions p {
+padding:2px 4px 1px 26px;
+}
+
 .entity_actions .accept {
 margin-bottom:18px;
+}
+
+.entity_send-a-message button {
+position:absolute;
+top:3px;
+right:3px;
+}
+
+.entity_send-a-message .form_notice {
+position:absolute;
+top:34px;
+right:-1px;
+padding:1.795%;
+width:65%;
+z-index:2;
+ border-radius:7px;
+-moz-border-radius:7px;
+-webkit-border-radius:7px;
+border-width:1px;
+border-style:solid;
+}
+.entity_send-a-message .form_notice legend {
+display:block;
+margin-bottom:11px;
+}
+
+.entity_send-a-message .form_notice label,
+.entity_send-a-message .form_notice select {
+display:none;
+}
+.entity_send-a-message .form_notice input.submit {
+text-align:center;
+}
+
+.entity_moderation {
+position:relative;
+}
+.entity_moderation p {
+border-radius:4px;
+-moz-border-radius:4px;
+-webkit-border-radius:4px;
+font-weight:bold;
+padding-bottom:2px;
+margin-bottom:7px;
+}
+.entity_moderation ul {
+display:none;
+}
+.entity_moderation:hover ul {
+display:block;
+min-width:21%;
+width:100%;
+padding:11px;
+position:absolute;
+top:-1px;
+right:-1px;
+z-index:1;
+border-width:1px;
+border-style:solid;
+border-radius:7px;
+-moz-border-radius:7px;
+-webkit-border-radius:7px;
 }
 
 .entity_tags ul {
