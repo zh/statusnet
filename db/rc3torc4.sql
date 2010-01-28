@@ -15,7 +15,9 @@ alter table queue_item rename to queue_item_old;
 alter table queue_item_new rename to queue_item;
 
 alter table consumer
-    add consumer_secret varchar(255) not null comment 'secret value',
+    add consumer_secret varchar(255) not null comment 'secret value';
+
+alter table token
     add verifier varchar(255) comment 'verifier string for OAuth 1.0a',
     add verified_callback varchar(255) comment 'verified callback URL for OAuth 1.0a';
 
