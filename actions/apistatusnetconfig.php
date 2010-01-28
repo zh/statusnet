@@ -138,5 +138,20 @@ class ApiStatusnetConfigAction extends ApiAction
         }
     }
 
+    /**
+     * Return true if read only.
+     *
+     * MAY override
+     *
+     * @param array $args other arguments
+     *
+     * @return boolean is read only action?
+     */
+
+    function isReadOnly($args)
+    {
+        return true;
+    }
+
 }
 

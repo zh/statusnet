@@ -105,7 +105,22 @@ class ApiAccountRateLimitStatusAction extends ApiBareAuthAction
              print json_encode($out);
          }
 
-         $this->endDocument($this->format);
+        $this->endDocument($this->format);
+    }
+
+    /**
+     * Return true if read only.
+     *
+     * MAY override
+     *
+     * @param array $args other arguments
+     *
+     * @return boolean is read only action?
+     */
+
+    function isReadOnly($args)
+    {
+        return true;
     }
 
 }
