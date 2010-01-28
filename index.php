@@ -146,7 +146,7 @@ function formatBacktraceLine($n, $line)
     return $out;
 }
 
-function setupRW()
+function checkMirror($action_obj, $args)
 {
     global $config;
 
@@ -161,10 +161,7 @@ function setupRW()
     foreach ($alwaysRW as $table) {
         $config['db']['table_'.$table] = 'rw';
     }
-}
 
-function checkMirror($action_obj, $args)
-{
     if (common_config('db', 'mirror') && $action_obj->isReadOnly($args)) {
         if (is_array(common_config('db', 'mirror'))) {
             // "load balancing", ha ha
@@ -240,13 +237,9 @@ function main()
 
     PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 'handleError');
 
-    // Make sure RW database is setup
-
-    setupRW();
-
     // XXX: we need a little more structure in this script
 
-    // get and cache current user (may hit RW!)
+    // get and cache current user
 
     $user = common_current_user();
 
