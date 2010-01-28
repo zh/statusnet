@@ -167,7 +167,7 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
 
                 if (!$result) {
                     common_log_db_error($appUser, 'DELETE', __FILE__);
-                    throw new ServerException(_('DB error deleting OAuth app user.'));
+                    throw new ServerException(_('Database error deleting OAuth application user.'));
                     return;
                 }
             }
@@ -193,7 +193,7 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
 
             if (!$result) {
                 common_log_db_error($appUser, 'INSERT', __FILE__);
-                throw new ServerException(_('DB error inserting OAuth app user.'));
+                throw new ServerException(_('Database error inserting OAuth application user.'));
                 return;
             }
 
@@ -303,8 +303,8 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
         $access = ($this->app->access_type & Oauth_application::$writeAccess) ?
           'access and update' : 'access';
 
-        $msg = _("The application <strong>%s</strong> by <strong>%s</strong> would like " .
-                 "the ability to <strong>%s</strong> your account data.");
+        $msg = _("The application <strong>%1$s</strong> by <strong>%2$s</strong> would like " .
+                 "the ability to <strong>%3$s</strong> your account data.");
 
         $this->raw(sprintf($msg,
                            $this->app->name,
