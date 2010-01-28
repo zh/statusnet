@@ -25,19 +25,66 @@ address {
 margin-right:7.18%;
 }
 
+input, textarea, select {
+border-width:2px;
+border-style: solid;
+border-radius:4px;
+-moz-border-radius:4px;
+-webkit-border-radius:4px;
+}
 input, textarea, select, option {
 font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
-input, textarea, select,
-.entity_remote_subscribe {
+input, textarea, select {
 border-color:#AAAAAA;
 }
-#filter_tags ul li {
+
+.form_settings fieldset fieldset {
+background:rgba(240, 240, 240, 0.2);
+box-shadow:3px 3px 7px rgba(194, 194, 194, 0.3);
+-moz-box-shadow:3px 3px 7px rgba(194, 194, 194, 0.3);
+-webkit-box-shadow:3px 3px 7px rgba(194, 194, 194, 0.3);
+}
+
+#filter_tags ul li,
+.entity_send-a-message .form_notice,
+.pagination .nav_prev a,
+.pagination .nav_next a,
+.form_settings fieldset fieldset,
+.entity_moderation:hover ul {
 border-color:#DDDDDD;
 }
 
 .form_settings input.form_action-primary {
 background:none;
+}
+
+.form_notice.warning #notice_text-count,
+.form_settings .form_note {
+background-color:#9BB43E;
+}
+input.submit,
+.form_notice.warning #notice_text-count,
+.form_settings .form_note,
+.entity_actions a,
+.entity_actions input,
+.entity_moderation p,
+button {
+box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
+-moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
+-webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
+}
+.entity_actions a,
+.entity_actions input,
+.entity_actions p {
+border-color:transparent;
+background-color:transparent;
+}
+input:focus, textarea:focus, select:focus,
+.form_notice.warning #notice_data-text,
+.form_notice.warning #notice_text-count,
+.form_settings .form_note {
+border-color:#9BB43E;
 }
 
 input.submit {
@@ -78,18 +125,12 @@ background-position:0 -1846px;
 }
 
 a,
-#site_nav_local_views .current a,
-div.notice-options input,
-.form_user_block input.submit,
-.form_user_unblock input.submit,
-.form_group_block input.submit,
-.form_group_unblock input.submit,
-.entity_send-a-message a,
-.form_user_nudge input.submit,
-.entity_nudge p,
 .form_settings input.form_action-primary,
-.form_make_admin input.submit {
-color:#002E6E;
+.notice-options input,
+.entity_actions a,
+.entity_actions input,
+.entity_moderation p {
+color:#002FA7;
 }
 
 #header a,
