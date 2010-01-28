@@ -28,7 +28,7 @@
  * @author    Mike Cochrane <mikec@mikenz.geek.nz>
  * @author    Robin Millette <robin@millette.info>
  * @author    Zach Copley <zach@status.net>
- * @copyright 2009 StatusNet, Inc.
+ * @copyright 2009-2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -79,11 +79,15 @@ class ApiStatusesUpdateAction extends ApiAuthAction
     {
         parent::prepare($args);
 
-        $this->user   = $this->auth_user;
         $this->status = $this->trimmed('status');
         $this->source = $this->trimmed('source');
         $this->lat    = $this->trimmed('lat');
         $this->lon    = $this->trimmed('long');
+
+        // try to set the source attr from OAuth app
+        if (empty($this->source)) {
+            $this->source = $this->oauth_source;
+        }
 
         if (empty($this->source) || in_array($this->source, self::$reserved_sources)) {
             $this->source = 'api';
@@ -140,7 +144,7 @@ class ApiStatusesUpdateAction extends ApiAuthAction
             return;
         }
 
-        if (empty($this->user)) {
+        if (empty($this->auth_user)) {
             $this->clientError(_('No such user.'), 404, $this->format);
             return;
         }
@@ -167,7 +171,7 @@ class ApiStatusesUpdateAction extends ApiAuthAction
         // Check for commands
 
         $inter = new CommandInterpreter();
-        $cmd = $inter->handle_command($this->user, $status_shortened);
+        $cmd = $inter->handle_command($this->auth_user, $status_shortened);
 
         if ($cmd) {
 
@@ -179,7 +183,7 @@ class ApiStatusesUpdateAction extends ApiAuthAction
             // And, it returns your last status whether the cmd was successful
             // or not!
 
-            $this->notice = $this->user->getCurrentNotice();
+            $this->notice = $this->auth_user->getCurrentNotice();
 
         } else {
 
@@ -206,7 +210,7 @@ class ApiStatusesUpdateAction extends ApiAuthAction
             $upload = null;
 
             try {
-                $upload = MediaFile::fromUpload('media', $this->user);
+                $upload = MediaFile::fromUpload('media', $this->auth_user);
             } catch (ClientException $ce) {
                 $this->clientError($ce->getMessage());
                 return;
@@ -229,19 +233,19 @@ class ApiStatusesUpdateAction extends ApiAuthAction
 
             $options = array('reply_to' => $reply_to);
 
-            if ($this->user->shareLocation()) {
+            if ($this->auth_user->shareLocation()) {
 
                 $locOptions = Notice::locationOptions($this->lat,
                                                       $this->lon,
                                                       null,
                                                       null,
-                                                      $this->user->getProfile());
+                                                      $this->auth_user->getProfile());
 
                 $options = array_merge($options, $locOptions);
             }
 
             $this->notice =
-              Notice::saveNew($this->user->id,
+              Notice::saveNew($this->auth_user->id,
                               $content,
                               $this->source,
                               $options);
@@ -249,7 +253,6 @@ class ApiStatusesUpdateAction extends ApiAuthAction
             if (isset($upload)) {
                 $upload->attachToNotice($this->notice);
             }
-
 
         }
 

@@ -63,9 +63,9 @@ class TagAction extends Action
     function title()
     {
         if ($this->page == 1) {
-            return sprintf(_("Notices tagged with %s"), $this->tag);
+            return sprintf(_('Notices tagged with %s'), $this->tag);
         } else {
-            return sprintf(_("Notices tagged with %1$s, page %2$d"),
+            return sprintf(_('Notices tagged with %1$s, page %2$d'),
                            $this->tag,
                            $this->page);
         }
@@ -85,7 +85,7 @@ class TagAction extends Action
                                                array('tag' => $this->tag)),
                               sprintf(_('Notice feed for tag %s (RSS 1.0)'),
                                       $this->tag)),
-                     new Feed(Feed::RSS2,   
+                     new Feed(Feed::RSS2,
                               common_local_url('ApiTimelineTag',
                                                array('format' => 'rss',
                                                      'tag' => $this->tag)),

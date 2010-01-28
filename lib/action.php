@@ -246,18 +246,18 @@ class Action extends HTMLOutputter // lawsuit
     {
         if (Event::handle('StartShowScripts', array($this))) {
             if (Event::handle('StartShowJQueryScripts', array($this))) {
-                $this->script('js/jquery.min.js');
-                $this->script('js/jquery.form.js');
-                $this->script('js/jquery.cookie.js');
-                $this->script('js/json2.js');
-                $this->script('js/jquery.joverlay.min.js');
+                $this->script('jquery.min.js');
+                $this->script('jquery.form.js');
+                $this->script('jquery.cookie.js');
+                $this->script('json2.js');
+                $this->script('jquery.joverlay.min.js');
                 Event::handle('EndShowJQueryScripts', array($this));
             }
             if (Event::handle('StartShowStatusNetScripts', array($this)) &&
                 Event::handle('StartShowLaconicaScripts', array($this))) {
-                $this->script('js/xbImportNode.js');
-                $this->script('js/util.js');
-                $this->script('js/geometa.js');
+                $this->script('xbImportNode.js');
+                $this->script('util.js');
+                $this->script('geometa.js');
                 // Frame-busting code to avoid clickjacking attacks.
                 $this->element('script', array('type' => 'text/javascript'),
                                'if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
@@ -369,7 +369,11 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('div', array('id' => 'header'));
         $this->showLogo();
         $this->showPrimaryNav();
-        $this->showSiteNotice();
+        if (Event::handle('StartShowSiteNotice', array($this))) {
+            $this->showSiteNotice();
+
+            Event::handle('EndShowSiteNotice', array($this));
+        }
         if (common_logged_in()) {
             $this->showNoticeForm();
         } else {
@@ -388,8 +392,14 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('address', array('id' => 'site_contact',
                                              'class' => 'vcard'));
         if (Event::handle('StartAddressData', array($this))) {
+            if (common_config('singleuser', 'enabled')) {
+                $url = common_local_url('showstream',
+                                        array('nickname' => common_config('singleuser', 'nickname')));
+            } else {
+                $url = common_local_url('public');
+            }
             $this->elementStart('a', array('class' => 'url home bookmark',
-                                           'href' => common_local_url('public')));
+                                           'href' => $url));
             if (common_config('site', 'logo') || file_exists(Theme::file('logo.png'))) {
                 $this->element('img', array('class' => 'logo photo',
                                             'src' => (common_config('site', 'logo')) ? common_config('site', 'logo') : Theme::path('logo.png'),
