@@ -60,6 +60,13 @@ input.submit,
 color:#FFFFFF;
 }
 
+.form_notice label[for=notice_data-geo] {
+background-position:0 -1780px;
+}
+.form_notice label[for=notice_data-geo].checked {
+background-position:0 -1846px;
+}
+
 a,
 #site_nav_local_views .current a,
 div.notice-options input,
@@ -115,6 +122,12 @@ text-indent:-9999px;
 outline:none;
 }
 
+.form_notice label[for=notice_data-geo] {
+background-image:url(../../base/images/icons/icons-01.gif);
+background-repeat:no-repeat;
+background-color:transparent;
+}
+
 #content {
 box-shadow:5px 7px 7px rgba(194, 194, 194, 0.3);
 -moz-box-shadow:5px 7px 7px rgba(194, 194, 194, 0.3);
@@ -130,7 +143,7 @@ border-color:#FFFFFF;
 background-color:#FFFFFF;
 }
 
-#site_nav_local_views li {
+#site_nav_local_views li.current {
 box-shadow:3px 7px 5px rgba(194, 194, 194, 0.5);
 -moz-box-shadow:3px 7px 5px rgba(194, 194, 194, 0.5);
 -webkit-box-shadow:3px 7px 5px rgba(194, 194, 194, 0.5);
