@@ -1378,8 +1378,6 @@ class Notice extends Memcached_DataObject
         }
 
         $reply->free();
-
-        return $ids;
     }
 
     function clearRepeats()

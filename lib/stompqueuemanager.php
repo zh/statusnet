@@ -242,6 +242,7 @@ class StompQueueManager extends QueueManager
         parent::start($master);
         $this->_connect();
 
+        common_log(LOG_INFO, "Subscribing to $this->control");
         $this->con->subscribe($this->control);
         if ($this->sites) {
             foreach ($this->sites as $server) {
