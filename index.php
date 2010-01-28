@@ -165,6 +165,8 @@ function setupRW()
 
 function checkMirror($action_obj, $args)
 {
+    global $config;
+
     if (common_config('db', 'mirror') && $action_obj->isReadOnly($args)) {
         if (is_array(common_config('db', 'mirror'))) {
             // "load balancing", ha ha
