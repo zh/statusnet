@@ -518,6 +518,11 @@ margin-bottom:0;
 line-height:1.618;
 }
 
+.form_notice #notice_data-attach_selected button.close {
+float:right;
+font-size:0.8em;
+}
+
 .form_notice #notice_data-geo_wrap label,
 .form_notice #notice_data-geo_wrap input {
 position:absolute;
@@ -537,6 +542,18 @@ font-weight:normal;
 font-size:1em;
 margin-bottom:0;
 text-indent:-9999px;
+}
+
+button.close,
+button.minimize {
+width:16px;
+height:16px;
+text-indent:-9999px;
+padding:0;
+border:0;
+text-align:center;
+font-weight:bold;
+cursor:pointer;
 }
 
 /* entity_profile */
