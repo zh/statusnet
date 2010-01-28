@@ -2,12 +2,13 @@
 
 source /etc/statusnet/setup.cfg
 
-# setup_status_net.sh mysite 'My Site' 'owner@example.com' '1user'
+# setup_status_net.sh mysite 'My Site' '1user' 'owner@example.com' 'Firsty McLastname'
 
 export nickname="$1"
 export sitename="$2"
-export email="$3"
-export tags="$4"
+export tags="$3"
+export email="$4"
+export fullname="$5"
 
 # Fixme: if this is changed later we need to update profile URLs
 # for the created user.
@@ -47,6 +48,7 @@ done
 php $PHPBASE/scripts/registeruser.php \
   -s"$server" \
   -n"$nickname" \
+  -f"$fullname" \
   -w"$userpass" \
   -e"$email"
 
