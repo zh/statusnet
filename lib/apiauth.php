@@ -57,7 +57,6 @@ class ApiAuthAction extends ApiAction
     var $auth_user_password = null;
     var $access_token       = null;
     var $oauth_source       = null;
-    var $auth_user          = null;
 
     /**
      * Take arguments for running, and output basic auth header if needed
@@ -82,18 +81,26 @@ class ApiAuthAction extends ApiAction
             if (!empty($this->access_token)) {
                 $this->checkOAuthRequest();
             } else {
-                $this->checkBasicAuthUser();
+                $this->checkBasicAuthUser(true);
             }
+        } else {
 
-            // Reject API calls with the wrong access level
+            // Check to see if a basic auth user is there even
+            // if one's not required
 
-            if ($this->isReadOnly($args) == false) {
-                if ($this->access != self::READ_WRITE) {
-                    $msg = 'API resource requires read-write access, ' .
-                      'but you only have read access.';
-                    $this->clientError($msg, 401, $this->format);
-                    exit();
-                }
+            if (empty($this->access_token)) {
+                $this->checkBasicAuthUser(false);
+            }
+        }
+
+        // Reject API calls with the wrong access level
+
+        if ($this->isReadOnly($args) == false) {
+            if ($this->access != self::READ_WRITE) {
+                $msg = _('API resource requires read-write access, ' .
+                         'but you only have read access.');
+                $this->clientError($msg, 401, $this->format);
+                exit;
             }
         }
 
@@ -170,7 +177,7 @@ class ApiAuthAction extends ApiAction
                                                  ($this->access = self::READ_WRITE) ?
                                                  'read-write' : 'read-only'
                                                  ));
-                    return true;
+                    return;
                 } else {
                     throw new OAuthException('Bad access token.');
                 }
@@ -206,13 +213,13 @@ class ApiAuthAction extends ApiAction
      * @return boolean true or false
      */
 
-    function checkBasicAuthUser()
+    function checkBasicAuthUser($required = true)
     {
         $this->basicAuthProcessHeader();
 
         $realm = common_config('site', 'name') . ' API';
 
-        if (!isset($this->auth_user_nickname)) {
+        if (!isset($this->auth_user_nickname) && $required) {
             header('WWW-Authenticate: Basic realm="' . $realm . '"');
 
             // show error if the user clicks 'cancel'
@@ -226,7 +233,11 @@ class ApiAuthAction extends ApiAction
                                       $this->auth_user_password);
 
             if (Event::handle('StartSetApiUser', array(&$user))) {
-                $this->auth_user = $user;
+
+                if (!empty($user)) {
+                    $this->auth_user = $user;
+                }
+
                 Event::handle('EndSetApiUser', array($user));
             }
 
@@ -234,18 +245,18 @@ class ApiAuthAction extends ApiAction
 
             $this->access = self::READ_WRITE;
 
-            if (empty($this->auth_user)) {
+            if (empty($this->auth_user) && $required) {
 
                 // basic authentication failed
 
                 list($proxy, $ip) = common_client_ip();
 
-                common_log(
-                    LOG_WARNING,
-                    'Failed API auth attempt, nickname = ' .
-                    "$nickname, proxy = $proxy, ip = $ip."
-                );
-
+                $msg = sprintf(_('Failed API auth attempt, nickname = %1$s, ' .
+                         'proxy = %2$s, ip = %3$s'),
+                               $this->auth_user_nickname,
+                               $proxy,
+                               $ip);
+                common_log(LOG_WARNING, $msg);
                 $this->showAuthError();
                 exit;
             }
