@@ -428,7 +428,7 @@ class Memcached_DataObject extends DB_DataObject
         //
         // WARNING WARNING if we end up actually using multiple DBs at a time
         // we'll need some fancier logic here.
-        if (!$exists && !empty($_DB_DATAOBJECT['CONNECTIONS'])) {
+        if (!$exists && !empty($_DB_DATAOBJECT['CONNECTIONS']) && php_sapi_name() == 'cli') {
             foreach ($_DB_DATAOBJECT['CONNECTIONS'] as $index => $conn) {
                 if (!empty($conn)) {
                     $conn->disconnect();
