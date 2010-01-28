@@ -78,9 +78,9 @@ class PersonalGroupNav extends Widget
     function show()
     {
         $user = null;
-	
+
 	// FIXME: we should probably pass this in
-	
+
         $action = $this->action->trimmed('action');
         $nickname = $this->action->trimmed('nickname');
 
@@ -117,7 +117,8 @@ class PersonalGroupNav extends Widget
 
             $cur = common_current_user();
 
-            if ($cur && $cur->id == $user->id) {
+            if ($cur && $cur->id == $user->id &&
+                !common_config('singleuser', 'enabled')) {
 
                 $this->out->menuItem(common_local_url('inbox', array('nickname' =>
                                                                          $nickname)),

@@ -121,8 +121,35 @@ class TwittersettingsAction extends ConnectSettingsAction
             $this->elementEnd('p');
             $this->element('p', 'form_note',
                            _m('Connected Twitter account'));
+            $this->elementEnd('fieldset');
 
-            $this->submit('remove', _m('Remove'));
+            $this->elementStart('fieldset');
+
+            $this->element('legend', null, _m('Disconnect my account from Twitter'));
+
+            if (!$user->password) {
+
+                $this->elementStart('p', array('class' => 'form_guide'));
+                $this->text(_m('Disconnecting your Twitter ' .
+                               'could make it impossible to log in! Please '));
+                $this->element('a',
+                    array('href' => common_local_url('passwordsettings')),
+                        _m('set a password'));
+
+                $this->text(_m(' first.'));
+                $this->elementEnd('p');
+            } else {
+
+                $note = _m('Keep your %1$s account but disconnect from Twitter. ' .
+                    'You can use your %1$s password to log in.');
+
+                $site = common_config('site', 'name');
+
+                $this->element('p', 'instructions',
+                    sprintf($note, $site));
+
+                $this->submit('disconnect', _m('Disconnect'));
+            }
 
             $this->elementEnd('fieldset');
 
@@ -205,7 +232,7 @@ class TwittersettingsAction extends ConnectSettingsAction
 
         if ($this->arg('save')) {
             $this->savePreferences();
-        } else if ($this->arg('remove')) {
+        } else if ($this->arg('disconnect')) {
             $this->removeTwitterAccount();
         } else {
             $this->showForm(_m('Unexpected form submission.'));
@@ -231,7 +258,7 @@ class TwittersettingsAction extends ConnectSettingsAction
             return;
         }
 
-        $this->showForm(_m('Twitter account removed.'), true);
+        $this->showForm(_m('Twitter account disconnected.'), true);
     }
 
     /**

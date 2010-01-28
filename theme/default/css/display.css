@@ -129,6 +129,7 @@ color:#002FA7;
 
 .notice,
 .profile,
+.application,
 #content tbody tr {
 border-top-color:#C8D1D5;
 }
@@ -187,7 +188,8 @@ button.close,
 .entity_delete input.submit,
 .notice-options .repeated,
 .form_notice label[for=notice_data-geo],
-button.minimize {
+button.minimize,
+.form_reset_key input.submit {
 background-image:url(../../base/images/icons/icons-01.gif);
 background-repeat:no-repeat;
 background-color:transparent;
@@ -332,6 +334,9 @@ background-position: 5px -1445px;
 .entity_delete input.submit {
 background-position: 5px -1511px;
 }
+.form_reset_key input.submit {
+background-position: 5px -1973px;
+}
 
 /* NOTICES */
 .notice .attachment {
@@ -378,6 +383,7 @@ box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 -webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 }
 #content .notices li:hover,
+#content .applications li:hover,
 #content tbody tr:hover {
 background-color:rgba(240, 240, 240, 0.2);
 }

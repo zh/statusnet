@@ -39,9 +39,19 @@ class Status_network extends DB_DataObject
     public $logo;                            // varchar(255)
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
+    public $tags;                            // text
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('Status_network',$k,$v); }
+    function staticGet($k,$v=NULL) {
+        $i = DB_DataObject::staticGet('Status_network',$k,$v);
+
+        // Don't use local process cache; if we're fetching multiple
+        // times it's because we're reloading it in a long-running
+        // process; we need a fresh copy!
+        global $_DB_DATAOBJECT;
+        unset($_DB_DATAOBJECT['CACHE']['status_network']);
+        return $i;
+    }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
@@ -244,5 +254,24 @@ class Status_network extends DB_DataObject
         } else {
             return $this->nickname . '.' . self::$wildcard;
         }
+    }
+
+    /**
+     * Return site meta-info tags as an array
+     * @return array of strings
+     */
+    function getTags()
+    {
+        return array_filter(explode("|", strval($this->tags)));
+    }
+
+    /**
+     * Check if this site record has a particular meta-info tag attached.
+     * @param string $tag
+     * @return bool
+     */
+    function hasTag($tag)
+    {
+        return in_array($tag, $this->getTags());
     }
 }

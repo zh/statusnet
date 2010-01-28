@@ -73,12 +73,6 @@ class Router
 
         if (Event::handle('StartInitializeRouter', array(&$m))) {
 
-            // In the "root"
-
-            $m->connect('', array('action' => 'public'));
-            $m->connect('rss', array('action' => 'publicrss'));
-            $m->connect('featuredrss', array('action' => 'featuredrss'));
-            $m->connect('favoritedrss', array('action' => 'favoritedrss'));
             $m->connect('opensearch/people', array('action' => 'opensearch',
                                                    'type' => 'people'));
             $m->connect('opensearch/notice', array('action' => 'opensearch',
@@ -140,10 +134,22 @@ class Router
 
             // settings
 
-            foreach (array('profile', 'avatar', 'password', 'im',
-                           'email', 'sms', 'userdesign', 'other') as $s) {
+            foreach (array('profile', 'avatar', 'password', 'im', 'oauthconnections',
+                           'oauthapps', 'email', 'sms', 'userdesign', 'other') as $s) {
                 $m->connect('settings/'.$s, array('action' => $s.'settings'));
             }
+
+            $m->connect('settings/oauthapps/show/:id',
+                array('action' => 'showapplication'),
+                array('id' => '[0-9]+')
+            );
+            $m->connect('settings/oauthapps/new',
+                array('action' => 'newapplication')
+            );
+            $m->connect('settings/oauthapps/edit/:id',
+                array('action' => 'editapplication'),
+                array('id' => '[0-9]+')
+            );
 
             // search
 
@@ -226,11 +232,6 @@ class Router
             $m->connect('peopletag/:tag',
                         array('action' => 'peopletag'),
                         array('tag' => '[a-zA-Z0-9]+'));
-
-            $m->connect('featured/', array('action' => 'featured'));
-            $m->connect('featured', array('action' => 'featured'));
-            $m->connect('favorited/', array('action' => 'favorited'));
-            $m->connect('favorited', array('action' => 'favorited'));
 
             // groups
 
@@ -622,66 +623,146 @@ class Router
             $m->connect('api/search.json', array('action' => 'twitapisearchjson'));
             $m->connect('api/trends.json', array('action' => 'twitapitrends'));
 
+            $m->connect('api/oauth/request_token',
+                        array('action' => 'apioauthrequesttoken'));
+
+            $m->connect('api/oauth/access_token',
+                        array('action' => 'apioauthaccesstoken'));
+
+            $m->connect('api/oauth/authorize',
+                        array('action' => 'apioauthauthorize'));
+
+            // Admin
+
             $m->connect('admin/site', array('action' => 'siteadminpanel'));
             $m->connect('admin/design', array('action' => 'designadminpanel'));
             $m->connect('admin/user', array('action' => 'useradminpanel'));
+	    $m->connect('admin/access', array('action' => 'accessadminpanel'));
             $m->connect('admin/paths', array('action' => 'pathsadminpanel'));
 
             $m->connect('getfile/:filename',
                         array('action' => 'getfile'),
                         array('filename' => '[A-Za-z0-9._-]+'));
 
-            // user stuff
+            // In the "root"
 
-            foreach (array('subscriptions', 'subscribers',
-                           'nudge', 'all', 'foaf', 'xrds',
-                           'replies', 'inbox', 'outbox', 'microsummary') as $a) {
-                $m->connect(':nickname/'.$a,
-                            array('action' => $a),
+            if (common_config('singleuser', 'enabled')) {
+
+                $nickname = common_config('singleuser', 'nickname');
+
+                foreach (array('subscriptions', 'subscribers',
+                               'all', 'foaf', 'xrds',
+                               'replies', 'microsummary') as $a) {
+                    $m->connect($a,
+                                array('action' => $a,
+                                      'nickname' => $nickname));
+                }
+
+                foreach (array('subscriptions', 'subscribers') as $a) {
+                    $m->connect($a.'/:tag',
+                                array('action' => $a,
+                                      'nickname' => $nickname),
+                                array('tag' => '[a-zA-Z0-9]+'));
+                }
+
+                foreach (array('rss', 'groups') as $a) {
+                    $m->connect($a,
+                                array('action' => 'user'.$a,
+                                      'nickname' => $nickname));
+                }
+
+                foreach (array('all', 'replies', 'favorites') as $a) {
+                    $m->connect($a.'/rss',
+                                array('action' => $a.'rss',
+                                      'nickname' => $nickname));
+                }
+
+                $m->connect('favorites',
+                            array('action' => 'showfavorites',
+                                  'nickname' => $nickname));
+
+                $m->connect('avatar/:size',
+                            array('action' => 'avatarbynickname',
+                                  'nickname' => $nickname),
+                            array('size' => '(original|96|48|24)'));
+
+                $m->connect('tag/:tag/rss',
+                            array('action' => 'userrss',
+                                  'nickname' => $nickname),
+                            array('tag' => '[a-zA-Z0-9]+'));
+
+                $m->connect('tag/:tag',
+                            array('action' => 'showstream',
+                                  'nickname' => $nickname),
+                            array('tag' => '[a-zA-Z0-9]+'));
+
+                $m->connect('',
+                            array('action' => 'showstream',
+                                  'nickname' => $nickname));
+
+            } else {
+
+                $m->connect('', array('action' => 'public'));
+                $m->connect('rss', array('action' => 'publicrss'));
+                $m->connect('featuredrss', array('action' => 'featuredrss'));
+                $m->connect('favoritedrss', array('action' => 'favoritedrss'));
+                $m->connect('featured/', array('action' => 'featured'));
+                $m->connect('featured', array('action' => 'featured'));
+                $m->connect('favorited/', array('action' => 'favorited'));
+                $m->connect('favorited', array('action' => 'favorited'));
+
+                foreach (array('subscriptions', 'subscribers',
+                               'nudge', 'all', 'foaf', 'xrds',
+                               'replies', 'inbox', 'outbox', 'microsummary') as $a) {
+                    $m->connect(':nickname/'.$a,
+                                array('action' => $a),
+                                array('nickname' => '[a-zA-Z0-9]{1,64}'));
+                }
+
+                foreach (array('subscriptions', 'subscribers') as $a) {
+                    $m->connect(':nickname/'.$a.'/:tag',
+                                array('action' => $a),
+                                array('tag' => '[a-zA-Z0-9]+',
+                                      'nickname' => '[a-zA-Z0-9]{1,64}'));
+                }
+
+                foreach (array('rss', 'groups') as $a) {
+                    $m->connect(':nickname/'.$a,
+                                array('action' => 'user'.$a),
+                                array('nickname' => '[a-zA-Z0-9]{1,64}'));
+                }
+
+                foreach (array('all', 'replies', 'favorites') as $a) {
+                    $m->connect(':nickname/'.$a.'/rss',
+                                array('action' => $a.'rss'),
+                                array('nickname' => '[a-zA-Z0-9]{1,64}'));
+                }
+
+                $m->connect(':nickname/favorites',
+                            array('action' => 'showfavorites'),
                             array('nickname' => '[a-zA-Z0-9]{1,64}'));
-            }
 
-            foreach (array('subscriptions', 'subscribers') as $a) {
-                $m->connect(':nickname/'.$a.'/:tag',
-                            array('action' => $a),
-                            array('tag' => '[a-zA-Z0-9]+',
+                $m->connect(':nickname/avatar/:size',
+                            array('action' => 'avatarbynickname'),
+                            array('size' => '(original|96|48|24)',
                                   'nickname' => '[a-zA-Z0-9]{1,64}'));
-            }
 
-            foreach (array('rss', 'groups') as $a) {
-                $m->connect(':nickname/'.$a,
-                            array('action' => 'user'.$a),
+                $m->connect(':nickname/tag/:tag/rss',
+                            array('action' => 'userrss'),
+                            array('nickname' => '[a-zA-Z0-9]{1,64}'),
+                            array('tag' => '[a-zA-Z0-9]+'));
+
+                $m->connect(':nickname/tag/:tag',
+                            array('action' => 'showstream'),
+                            array('nickname' => '[a-zA-Z0-9]{1,64}'),
+                            array('tag' => '[a-zA-Z0-9]+'));
+
+                $m->connect(':nickname',
+                            array('action' => 'showstream'),
                             array('nickname' => '[a-zA-Z0-9]{1,64}'));
             }
 
-            foreach (array('all', 'replies', 'favorites') as $a) {
-                $m->connect(':nickname/'.$a.'/rss',
-                            array('action' => $a.'rss'),
-                            array('nickname' => '[a-zA-Z0-9]{1,64}'));
-            }
-
-            $m->connect(':nickname/favorites',
-                        array('action' => 'showfavorites'),
-                        array('nickname' => '[a-zA-Z0-9]{1,64}'));
-
-            $m->connect(':nickname/avatar/:size',
-                        array('action' => 'avatarbynickname'),
-                        array('size' => '(original|96|48|24)',
-                              'nickname' => '[a-zA-Z0-9]{1,64}'));
-
-            $m->connect(':nickname/tag/:tag/rss',
-                        array('action' => 'userrss'),
-                        array('nickname' => '[a-zA-Z0-9]{1,64}'),
-                        array('tag' => '[a-zA-Z0-9]+'));
-
-            $m->connect(':nickname/tag/:tag',
-                        array('action' => 'showstream'),
-                        array('nickname' => '[a-zA-Z0-9]{1,64}'),
-                        array('tag' => '[a-zA-Z0-9]+'));
-
-            $m->connect(':nickname',
-                        array('action' => 'showstream'),
-                        array('nickname' => '[a-zA-Z0-9]{1,64}'));
+            // user stuff
 
             Event::handle('RouterInitialized', array($m));
         }

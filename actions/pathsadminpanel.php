@@ -24,7 +24,7 @@
  * @author    Evan Prodromou <evan@status.net>
  * @author    Zach Copley <zach@status.net>
  * @author    Sarven Capadisli <csarven@status.net>
- * @copyright 2008-2009 StatusNet, Inc.
+ * @copyright 2008-2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -98,11 +98,22 @@ class PathsadminpanelAction extends AdminPanelAction
             'background' => array('server', 'dir', 'path')
         );
 
+	// XXX: If we're only going to have one boolean on thi page we
+	// can remove some of the boolean processing code --Z
+
+	static $booleans = array('site' => array('fancy'));
+
         $values = array();
 
         foreach ($settings as $section => $parts) {
             foreach ($parts as $setting) {
                 $values[$section][$setting] = $this->trimmed("$section-$setting");
+            }
+        }
+
+        foreach ($booleans as $section => $parts) {
+            foreach ($parts as $setting) {
+                $values[$section][$setting] = ($this->boolean($setting)) ? 1 : 0;
             }
         }
 
@@ -120,7 +131,13 @@ class PathsadminpanelAction extends AdminPanelAction
             }
         }
 
-        $config->query('COMMIT');
+	foreach ($booleans as $section => $parts) {
+	    foreach ($parts as $setting) {
+                Config::save($section, $setting, $values[$section][$setting]);
+            }
+	}
+
+	$config->query('COMMIT');
 
         return;
     }
@@ -213,9 +230,13 @@ class PathsAdminPanelForm extends AdminForm
 
     function formData()
     {
-        $this->out->elementStart('fieldset', array('id' => 'settings_paths_locale'));
+	$this->out->elementStart('fieldset', array('id' => 'settings_paths_locale'));
         $this->out->element('legend', null, _('Site'), 'site');
         $this->out->elementStart('ul', 'form_data');
+
+	$this->li();
+        $this->input('server', _('Server'), _('Site\'s server hostname.'));
+        $this->unli();
 
         $this->li();
         $this->input('path', _('Path'), _('Site path'));
@@ -224,6 +245,12 @@ class PathsAdminPanelForm extends AdminForm
         $this->li();
         $this->input('locale_path', _('Path to locales'), _('Directory path to locales'), 'site');
         $this->unli();
+
+	$this->li();
+        $this->out->checkbox('fancy', _('Fancy URLs'),
+                             (bool) $this->value('fancy'),
+                             _('Use fancy (more readable and memorable) URLs?'));
+	$this->unli();
 
         $this->out->elementEnd('ul');
         $this->out->elementEnd('fieldset');
