@@ -326,13 +326,7 @@ class Notice extends Memcached_DataObject
         # XXX: someone clever could prepend instead of clearing the cache
         $notice->blowOnInsert();
 
-        if (common_config('queue', 'inboxes')) {
-            $qm = QueueManager::get();
-            $qm->enqueue($notice, 'distrib');
-        } else {
-            $handler = new DistribQueueHandler();
-            $handler->handle($notice);
-        }
+        $notice->distribute();
 
         return $notice;
     }
@@ -1446,5 +1440,32 @@ class Notice extends Memcached_DataObject
         }
 
         $gi->free();
+    }
+
+    function distribute()
+    {
+        if (common_config('queue', 'inboxes')) {
+            // If there's a failure, we want to _force_
+            // distribution at this point.
+            try {
+                $qm = QueueManager::get();
+                $qm->enqueue($this, 'distrib');
+            } catch (Exception $e) {
+                // If the exception isn't transient, this
+                // may throw more exceptions as DQH does
+                // its own enqueueing. So, we ignore them!
+                try {
+                    $handler = new DistribQueueHandler();
+                    $handler->handle($this);
+                } catch (Exception $e) {
+                    common_log(LOG_ERR, "emergency redistribution resulted in " . $e->getMessage());
+                }
+                // Re-throw so somebody smarter can handle it.
+                throw $e;
+            }
+        } else {
+            $handler = new DistribQueueHandler();
+            $handler->handle($this);
+        }
     }
 }
