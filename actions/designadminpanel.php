@@ -302,8 +302,8 @@ class DesignadminpanelAction extends AdminPanelAction
     {
         parent::showScripts();
 
-        $this->script('js/farbtastic/farbtastic.js');
-        $this->script('js/userdesign.go.js');
+        $this->script('farbtastic/farbtastic.js');
+        $this->script('userdesign.go.js');
 
         $this->autofocus('design_background-image_file');
     }

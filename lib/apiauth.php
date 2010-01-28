@@ -29,7 +29,7 @@
  * @author    mEDI <medi@milaro.net>
  * @author    Sarven Capadisli <csarven@status.net>
  * @author    Zach Copley <zach@status.net>
- * @copyright 2009 StatusNet, Inc.
+ * @copyright 2009-2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -53,9 +53,10 @@ require_once INSTALLDIR . '/lib/apioauth.php';
 
 class ApiAuthAction extends ApiAction
 {
-    var $access_token;
-    var $oauth_access_type;
-    var $oauth_source;
+    var $auth_user_nickname = null;
+    var $auth_user_password = null;
+    var $access_token       = null;
+    var $oauth_source       = null;
 
     /**
      * Take arguments for running, and output basic auth header if needed
@@ -70,22 +71,40 @@ class ApiAuthAction extends ApiAction
     {
         parent::prepare($args);
 
+        $this->consumer_key = $this->arg('oauth_consumer_key');
+        $this->access_token = $this->arg('oauth_token');
+
+        // NOTE: $this->auth_user has to get set in prepare(), not handle(),
+        // because subclasses do stuff with it in their prepares.
+
         if ($this->requiresAuth()) {
-
-            $this->consumer_key = $this->arg('oauth_consumer_key');
-            $this->access_token = $this->arg('oauth_token');
-
             if (!empty($this->access_token)) {
                 $this->checkOAuthRequest();
             } else {
-                $this->checkBasicAuthUser();
+                $this->checkBasicAuthUser(true);
             }
         } else {
 
             // Check to see if a basic auth user is there even
             // if one's not required
 
-            $this->checkBasicAuthUser(false);
+            if (empty($this->access_token)) {
+                $this->checkBasicAuthUser(false);
+            }
+        }
+
+        // Reject API calls with the wrong access level
+
+        if ($this->isReadOnly($args) == false) {
+
+            common_debug(get_class($this) . ' is not read-only!');
+
+            if ($this->access != self::READ_WRITE) {
+                $msg = _('API resource requires read-write access, ' .
+                         'but you only have read access.');
+                $this->clientError($msg, 401, $this->format);
+                exit;
+            }
         }
 
         return true;
@@ -98,8 +117,6 @@ class ApiAuthAction extends ApiAction
 
     function checkOAuthRequest()
     {
-        common_debug("We have an OAuth request.");
-
         $datastore   = new ApiStatusNetOAuthDataStore();
         $server      = new OAuthServer($datastore);
         $hmac_method = new OAuthSignatureMethod_HMAC_SHA1();
@@ -117,9 +134,10 @@ class ApiAuthAction extends ApiAction
 
             if (empty($app)) {
 
-                // this should really not happen
-                common_log(LOG_WARN,
-                           "Couldn't find the OAuth app for consumer key: $this->consumer_key");
+                // this should probably not happen
+                common_log(LOG_WARNING,
+                           'Couldn\'t find the OAuth app for consumer key: ' .
+                           $this->consumer_key);
 
                 throw new OAuthException('No application for that consumer key.');
             }
@@ -131,20 +149,18 @@ class ApiAuthAction extends ApiAction
             $appUser = Oauth_application_user::staticGet('token',
                                                          $this->access_token);
 
-            // XXX: check that app->id and appUser->application_id and consumer all
+            // XXX: Check that app->id and appUser->application_id and consumer all
             // match?
 
             if (!empty($appUser)) {
 
-                // read or read-write
-                $this->oauth_access_type = $appUser->access_type;
-
                 // If access_type == 0 we have either a request token
                 // or a bad / revoked access token
 
-                if ($this->oauth_access_type != 0) {
+                if ($appUser->access_type != 0) {
 
-                    // Set the read or read-write access for the api call
+                    // Set the access level for the api call
+
                     $this->access = ($appUser->access_type & Oauth_application::$writeAccess)
                       ? self::READ_WRITE : self::READ_ONLY;
 
@@ -154,36 +170,32 @@ class ApiAuthAction extends ApiAction
                     }
 
                     $msg = "API OAuth authentication for user '%s' (id: %d) on behalf of " .
-                      "application '%s' (id: %d).";
+                      "application '%s' (id: %d) with %s access.";
 
                     common_log(LOG_INFO, sprintf($msg,
                                                  $this->auth_user->nickname,
                                                  $this->auth_user->id,
                                                  $app->name,
-                                                 $app->id));
-                    return true;
+                                                 $app->id,
+                                                 ($this->access = self::READ_WRITE) ?
+                                                 'read-write' : 'read-only'
+                                                 ));
+                    return;
                 } else {
                     throw new OAuthException('Bad access token.');
                 }
             } else {
 
-                // also should not happen
+                // Also should not happen
+
                 throw new OAuthException('No user for that token.');
-        }
+            }
 
         } catch (OAuthException $e) {
-            common_log(LOG_WARN, 'API OAuthException - ' . $e->getMessage());
-            common_debug(var_export($req, true));
-            $this->showOAuthError($e->getMessage());
-            exit();
+            common_log(LOG_WARNING, 'API OAuthException - ' . $e->getMessage());
+            $this->showAuthError();
+            exit;
         }
-    }
-
-    function showOAuthError($msg)
-    {
-        header('HTTP/1.1 401 Unauthorized');
-        header('Content-Type: text/html; charset=utf-8');
-        print $msg . "\n";
     }
 
     /**
@@ -210,43 +222,48 @@ class ApiAuthAction extends ApiAction
 
         $realm = common_config('site', 'name') . ' API';
 
-        if (!isset($this->auth_user) && $required) {
+        if (!isset($this->auth_user_nickname) && $required) {
             header('WWW-Authenticate: Basic realm="' . $realm . '"');
 
             // show error if the user clicks 'cancel'
 
-            $this->showBasicAuthError();
+            $this->showAuthError();
             exit;
 
-        } else if (isset($this->auth_user)) {
-            $nickname = $this->auth_user;
-            $password = $this->auth_pw;
-            $user = common_check_user($nickname, $password);
-            if (Event::handle('StartSetApiUser', array(&$user))) {
-                $this->auth_user = $user;
+        } else {
 
-                // By default, all basic auth users have read and write access
-                $this->access = self::READ_WRITE;
+            $user = common_check_user($this->auth_user_nickname,
+                                      $this->auth_user_password);
+
+            if (Event::handle('StartSetApiUser', array(&$user))) {
+
+                if (!empty($user)) {
+                    $this->auth_user = $user;
+                }
 
                 Event::handle('EndSetApiUser', array($user));
             }
 
-            if (empty($this->auth_user)) {
+            // By default, basic auth users have rw access
+
+            $this->access = self::READ_WRITE;
+
+            if (empty($this->auth_user) && $required) {
 
                 // basic authentication failed
 
                 list($proxy, $ip) = common_client_ip();
-                common_log(
-                    LOG_WARNING,
-                    'Failed API auth attempt, nickname = ' .
-                    "$nickname, proxy = $proxy, ip = $ip."
-                );
-                $this->showBasicAuthError();
+
+                $msg = sprintf(_('Failed API auth attempt, nickname = %1$s, ' .
+                         'proxy = %2$s, ip = %3$s'),
+                               $this->auth_user_nickname,
+                               $proxy,
+                               $ip);
+                common_log(LOG_WARNING, $msg);
+                $this->showAuthError();
                 exit;
             }
         }
-
-        return true;
     }
 
     /**
@@ -260,32 +277,30 @@ class ApiAuthAction extends ApiAction
     {
         if (isset($_SERVER['AUTHORIZATION'])
             || isset($_SERVER['HTTP_AUTHORIZATION'])
-        ) {
-                $authorization_header = isset($_SERVER['HTTP_AUTHORIZATION'])
-                ? $_SERVER['HTTP_AUTHORIZATION'] : $_SERVER['AUTHORIZATION'];
+            ) {
+            $authorization_header = isset($_SERVER['HTTP_AUTHORIZATION'])
+              ? $_SERVER['HTTP_AUTHORIZATION'] : $_SERVER['AUTHORIZATION'];
         }
 
         if (isset($_SERVER['PHP_AUTH_USER'])) {
-            $this->auth_user = $_SERVER['PHP_AUTH_USER'];
-            $this->auth_pw = $_SERVER['PHP_AUTH_PW'];
+            $this->auth_user_nickname = $_SERVER['PHP_AUTH_USER'];
+            $this->auth_user_password = $_SERVER['PHP_AUTH_PW'];
         } elseif (isset($authorization_header)
             && strstr(substr($authorization_header, 0, 5), 'Basic')) {
 
-            // decode the HTTP_AUTHORIZATION header on php-cgi server self
+            // Decode the HTTP_AUTHORIZATION header on php-cgi server self
             // on fcgid server the header name is AUTHORIZATION
 
             $auth_hash = base64_decode(substr($authorization_header, 6));
-            list($this->auth_user, $this->auth_pw) = explode(':', $auth_hash);
+            list($this->auth_user_nickname,
+                 $this->auth_user_password) = explode(':', $auth_hash);
 
-            // set all to null on a empty basic auth request
+            // Set all to null on a empty basic auth request
 
-            if ($this->auth_user == "") {
-                $this->auth_user = null;
-                $this->auth_pw = null;
+            if (empty($this->auth_user_nickname)) {
+                $this->auth_user_nickname = null;
+                $this->auth_password = null;
             }
-        } else {
-            $this->auth_user = null;
-            $this->auth_pw = null;
         }
     }
 
@@ -296,7 +311,7 @@ class ApiAuthAction extends ApiAction
      * @return void
      */
 
-    function showBasicAuthError()
+    function showAuthError()
     {
         header('HTTP/1.1 401 Unauthorized');
         $msg = 'Could not authenticate you.';

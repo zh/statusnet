@@ -74,9 +74,9 @@ class ShowfavoritesAction extends OwnerDesignAction
     function title()
     {
         if ($this->page == 1) {
-            return sprintf(_("%s's favorite notices"), $this->user->nickname);
+            return sprintf(_('%s\'s favorite notices'), $this->user->nickname);
         } else {
-            return sprintf(_("%1$s's favorite notices, page %2$d"),
+            return sprintf(_('%1$s\'s favorite notices, page %2$d'),
                            $this->user->nickname,
                            $this->page);
         }

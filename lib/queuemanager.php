@@ -101,6 +101,23 @@ abstract class QueueManager extends IoManager
     }
 
     /**
+     * Optional; ping any running queue handler daemons with a notification
+     * such as announcing a new site to handle or requesting clean shutdown.
+     * This avoids having to restart all the daemons manually to update configs
+     * and such.
+     *
+     * Called from scripts/queuectl.php controller utility.
+     *
+     * @param string $event event key
+     * @param string $param optional parameter to append to key
+     * @return boolean success
+     */
+    public function sendControlSignal($event, $param='')
+    {
+        throw new Exception(get_class($this) . " does not support control signals.");
+    }
+
+    /**
      * Store an object (usually/always a Notice) into the given queue
      * for later processing. No guarantee is made on when it will be
      * processed; it could be immediately or at some unspecified point

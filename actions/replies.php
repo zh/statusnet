@@ -124,7 +124,7 @@ class RepliesAction extends OwnerDesignAction
         if ($this->page == 1) {
             return sprintf(_("Replies to %s"), $this->user->nickname);
         } else {
-            return sprintf(_("Replies to %1$s, page %2$d"),
+            return sprintf(_('Replies to %1$s, page %2$d'),
                            $this->user->nickname,
                            $this->page);
         }

@@ -54,7 +54,7 @@ class ImDaemon extends SpawningDaemon
 
         common_log(LOG_INFO, 'terminating normally');
 
-        return true;
+        return $master->respawn ? self::EXIT_RESTART : self::EXIT_SHUTDOWN;
     }
 
 }

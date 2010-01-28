@@ -89,7 +89,7 @@ class ApiOauthRequestTokenAction extends ApiOauthAction
             $token = $server->fetch_request_token($req);
             print $token;
         } catch (OAuthException $e) {
-            common_log(LOG_WARN, 'API OAuthException - ' . $e->getMessage());
+            common_log(LOG_WARNING, 'API OAuthException - ' . $e->getMessage());
             header('HTTP/1.1 401 Unauthorized');
             header('Content-Type: text/html; charset=utf-8');
             print $e->getMessage() . "\n";

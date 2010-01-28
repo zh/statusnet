@@ -36,6 +36,11 @@ abstract class SpawningDaemon extends Daemon
 {
     protected $threads=1;
 
+    const EXIT_OK = 0;
+    const EXIT_ERR = 1;
+    const EXIT_SHUTDOWN = 100;
+    const EXIT_RESTART = 101;
+
     function __construct($id=null, $daemonize=true, $threads=1)
     {
         parent::__construct($daemonize);
@@ -49,7 +54,7 @@ abstract class SpawningDaemon extends Daemon
     /**
      * Perform some actual work!
      *
-     * @return boolean true on success, false on failure
+     * @return int exit code; use self::EXIT_SHUTDOWN to request not to respawn.
      */
     public abstract function runThread();
 
@@ -84,28 +89,53 @@ abstract class SpawningDaemon extends Daemon
         while (count($children) > 0) {
             $status = null;
             $pid = pcntl_wait($status);
-            if ($pid > 0) {
+            if ($pid > 0 && pcntl_wifexited($status)) {
+                $exitCode = pcntl_wexitstatus($status);
+
                 $i = array_search($pid, $children);
                 if ($i === false) {
-                    $this->log(LOG_ERR, "Unrecognized child pid $pid exited!");
+                    $this->log(LOG_ERR, "Unrecognized child pid $pid exited with status $exitCode");
                     continue;
                 }
                 unset($children[$i]);
-                $this->log(LOG_INFO, "Thread $i pid $pid exited.");
-                
-                $pid = pcntl_fork();
-                if ($pid < 0) {
-                    $this->log(LOG_ERROR, "Couldn't fork to respawn thread $i; aborting thread.\n");
-                } else if ($pid == 0) {
-                    $this->initAndRunChild($i);
+
+                if ($this->shouldRespawn($exitCode)) {
+                    $this->log(LOG_INFO, "Thread $i pid $pid exited with status $exitCode; respawing.");
+
+                    $pid = pcntl_fork();
+                    if ($pid < 0) {
+                        $this->log(LOG_ERROR, "Couldn't fork to respawn thread $i; aborting thread.\n");
+                    } else if ($pid == 0) {
+                        $this->initAndRunChild($i);
+                    } else {
+                        $this->log(LOG_INFO, "Respawned thread $i as pid $pid");
+                        $children[$i] = $pid;
+                    }
                 } else {
-                    $this->log(LOG_INFO, "Respawned thread $i as pid $pid");
-                    $children[$i] = $pid;
+                    $this->log(LOG_INFO, "Thread $i pid $pid exited with status $exitCode; closing out thread.");
                 }
             }
         }
         $this->log(LOG_INFO, "All child processes complete.");
         return true;
+    }
+
+    /**
+     * Determine whether to respawn an exited subprocess based on its exit code.
+     * Otherwise we'll respawn all exits by default.
+     *
+     * @param int $exitCode
+     * @return boolean true to respawn
+     */
+    protected function shouldRespawn($exitCode)
+    {
+        if ($exitCode == self::EXIT_SHUTDOWN) {
+            // Thread requested a clean shutdown.
+            return false;
+        } else {
+            // Otherwise we should always respawn!
+            return true;
+        }
     }
 
     /**
@@ -116,8 +146,8 @@ abstract class SpawningDaemon extends Daemon
     {
         $this->set_id($this->get_id() . "." . $thread);
         $this->resetDb();
-        $ok = $this->runThread();
-        exit($ok ? 0 : 1);
+        $exitCode = $this->runThread();
+        exit($exitCode);
     }
 
     /**

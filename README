@@ -1492,6 +1492,15 @@ disabled: whether to enable this command. If enabled, users who send
 	  should enable it only after you've convinced yourself that
 	  it is safe. Default is 'false'.
 
+singleuser
+----------
+
+If an installation has only one user, this can simplify a lot of the
+interface. It also makes the user's profile the root URL.
+
+enabled: Whether to run in "single user mode". Default false.
+nickname: nickname of the single user.
+
 Plugins
 =======
 
