@@ -115,6 +115,10 @@ function __autoload($cls)
 require_once 'Validate.php';
 require_once 'markdown.php';
 
+// XXX: other formats here
+
+define('NICKNAME_FMT', VALIDATE_NUM.VALIDATE_ALPHA_LOWER);
+
 require_once INSTALLDIR.'/lib/util.php';
 require_once INSTALLDIR.'/lib/action.php';
 require_once INSTALLDIR.'/lib/mail.php';
@@ -136,6 +140,3 @@ try {
     exit;
 }
 
-// XXX: other formats here
-
-define('NICKNAME_FMT', VALIDATE_NUM.VALIDATE_ALPHA_LOWER);

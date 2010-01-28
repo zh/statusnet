@@ -196,11 +196,12 @@ background-color:transparent;
 }
 
 #wrap form.processing input.submit,
-.entity_actions a.processing {
+.entity_actions a.processing,
+.dialogbox.processing .submit_dialogbox {
 background:#FFFFFF url(../../base/images/icons/icon_processing.gif) no-repeat 47% 47%;
-cursor:wait;
-text-indent:-9999px;
-outline:none;
+}
+.notice-options .form_repeat.processing {
+background-image:none;
 }
 
 #content {
