@@ -555,11 +555,8 @@ class NoticeListItem extends Widget
 
             $this->out->raw(_('Repeated by'));
 
-            $avatar = $repeater->getAvatar(AVATAR_MINI_SIZE);
-
             $this->out->elementStart('a', $attrs);
-
-            $this->out->element('span', 'nickname', $repeater->nickname);
+            $this->out->element('span', 'fn nickname', $repeater->nickname);
             $this->out->elementEnd('a');
 
             $this->out->elementEnd('span');
