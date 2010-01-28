@@ -96,9 +96,6 @@ class ApiAuthAction extends ApiAction
         // Reject API calls with the wrong access level
 
         if ($this->isReadOnly($args) == false) {
-
-            common_debug(get_class($this) . ' is not read-only!');
-
             if ($this->access != self::READ_WRITE) {
                 $msg = _('API resource requires read-write access, ' .
                          'but you only have read access.');
