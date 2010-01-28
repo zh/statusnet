@@ -911,25 +911,21 @@ margin-right:11px;
 .notice-options a {
 float:left;
 }
-.notice-options .notice_delete,
 .notice-options .notice_reply,
+.notice-options .form_repeat,
+.notice-options .form_favor,
+.notice-options .form_disfavor,
+.notice-options .repeated {
+float:left;
+margin-left:14.2%;
+}
 .notice-options .form_favor,
 .notice-options .form_disfavor {
-position:absolute;
-top:0;
-}
-.notice-options .form_favor,
-.notice-options .form_disfavor {
-left:0;
-}
-.notice-options .notice_reply {
-left:29px;
-}
-.notice-options .notice_delete {
-right:0;
+margin-left:0;
 }
 .notice-options input,
-.notice-options a {
+.notice-options a,
+.notice-options .repeated {
 text-indent:-9999px;
 outline:none;
 }
