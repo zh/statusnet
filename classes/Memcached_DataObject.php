@@ -147,6 +147,7 @@ class Memcached_DataObject extends DB_DataObject
     {
         $result = parent::insert();
         if ($result) {
+            $this->fixupTimestamps();
             $this->encache(); // in case of cached negative lookups
         }
         return $result;
@@ -159,6 +160,7 @@ class Memcached_DataObject extends DB_DataObject
         }
         $result = parent::update($orig);
         if ($result) {
+            $this->fixupTimestamps();
             $this->encache();
         }
         return $result;
@@ -366,7 +368,7 @@ class Memcached_DataObject extends DB_DataObject
     }
 
     /**
-     * sends query to database - this is the private one that must work 
+     * sends query to database - this is the private one that must work
      *   - internal functions use this rather than $this->query()
      *
      * Overridden to do logging.
@@ -428,7 +430,7 @@ class Memcached_DataObject extends DB_DataObject
         //
         // WARNING WARNING if we end up actually using multiple DBs at a time
         // we'll need some fancier logic here.
-        if (!$exists && !empty($_DB_DATAOBJECT['CONNECTIONS'])) {
+        if (!$exists && !empty($_DB_DATAOBJECT['CONNECTIONS']) && php_sapi_name() == 'cli') {
             foreach ($_DB_DATAOBJECT['CONNECTIONS'] as $index => $conn) {
                 if (!empty($conn)) {
                     $conn->disconnect();
@@ -528,5 +530,26 @@ class Memcached_DataObject extends DB_DataObject
         $cacheKey = common_cache_key($keyPart);
 
         return $c->delete($cacheKey);
+    }
+
+    function fixupTimestamps()
+    {
+        // Fake up timestamp columns
+        $columns = $this->table();
+        foreach ($columns as $name => $type) {
+            if ($type & DB_DATAOBJECT_MYSQLTIMESTAMP) {
+                $this->$name = common_sql_now();
+            }
+        }
+    }
+
+    function debugDump()
+    {
+        common_debug("debugDump: " . common_log_objstring($this));
+    }
+
+    function raiseError($message, $type = null, $behaviour = null)
+    {
+        throw new ServerException("DB_DataObject error [$type]: $message");
     }
 }

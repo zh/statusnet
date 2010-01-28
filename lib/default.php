@@ -84,6 +84,7 @@ $default =
               'control_channel' => '/topic/statusnet-control', // broadcasts to all queue daemons
               'stomp_username' => null,
               'stomp_password' => null,
+              'stomp_persistent' => true, // keep items across queue server restart, if persistence is enabled
               'monitor' => null, // URL to monitor ping endpoint (work in progress)
               'softlimit' => '90%', // total size or % of memory_limit at which to restart queue threads gracefully
               'debug_memory' => false, // true to spit memory usage to log

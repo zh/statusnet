@@ -174,12 +174,13 @@ class StompQueueManager extends QueueManager
 
         $this->_connect();
 
-        // XXX: serialize and send entire notice
-
+        $props = array('created' => common_sql_now());
+        if (common_config('queue', 'stomp_persistent')) {
+            $props['persistent'] = 'true';
+        }
         $result = $this->con->send($this->queueName($queue),
                                    $msg, 		// BODY of the message
-                                   array ('created' => common_sql_now(),
-                                          'persistent' => 'true'));
+                                   $props);
 
         if (!$result) {
             common_log(LOG_ERR, "Error sending $rep to $queue queue");
@@ -242,6 +243,7 @@ class StompQueueManager extends QueueManager
         parent::start($master);
         $this->_connect();
 
+        common_log(LOG_INFO, "Subscribing to $this->control");
         $this->con->subscribe($this->control);
         if ($this->sites) {
             foreach ($this->sites as $server) {
