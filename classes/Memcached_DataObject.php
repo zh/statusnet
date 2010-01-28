@@ -547,4 +547,9 @@ class Memcached_DataObject extends DB_DataObject
     {
         common_debug("debugDump: " . common_log_objstring($this));
     }
+
+    function raiseError($message, $type = null, $behaviour = null)
+    {
+        throw new ServerException("DB_DataObject error [$type]: $message");
+    }
 }
