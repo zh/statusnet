@@ -186,7 +186,9 @@ box-shadow:5px 7px 7px rgba(194, 194, 194, 0.3);
 border-color:#FFFFFF;
 }
 #content,
-#site_nav_local_views .current a {
+#site_nav_local_views .current a,
+.entity_send-a-message .form_notice,
+.entity_moderation:hover ul {
 background-color:#FFFFFF;
 }
 
@@ -231,30 +233,22 @@ background-position:0 -64px;
 background-position:0 1px;
 }
 
-.entity_edit a,
-.entity_send-a-message a,
-.form_user_nudge input.submit,
-.form_user_block input.submit,
-.form_user_unblock input.submit,
-.form_group_block input.submit,
-.form_group_unblock input.submit,
-.entity_nudge p,
-.form_make_admin input.submit {
-background-position: 0 40%;
-background-repeat: no-repeat;
-background-color:transparent;
-}
 .form_group_join input.submit,
-.form_group_leave input.submit
+.form_group_leave input.submit,
 .form_user_subscribe input.submit,
-.form_user_unsubscribe input.submit {
-background-color:#9BB43E;
+.form_user_unsubscribe input.submit,
+.entity_subscribe a {
+background-color:#AAAAAA;
 color:#FFFFFF;
 }
-.form_user_unsubscribe input.submit,
 .form_group_leave input.submit,
-.form_user_authorization input.reject {
-background-color:#87B4C8;
+.form_user_unsubscribe input.submit {
+background-position:5px -1246px;
+}
+.form_group_join input.submit,
+.form_user_subscribe input.submit,
+.entity_subscribe a {
+background-position:5px -1181px;
 }
 
 .entity_edit a {
@@ -262,6 +256,12 @@ background-position: 5px -718px;
 }
 .entity_send-a-message a {
 background-position: 5px -852px;
+}
+.entity_send-a-message .form_notice,
+.entity_moderation:hover ul {
+box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
+-moz-box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
+-webkit-box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
 }
 
 .entity_nudge p,
@@ -292,6 +292,7 @@ background-position: 5px -1511px;
 .form_reset_key input.submit {
 background-position: 5px -1973px;
 }
+
 
 /* NOTICES */
 .notice .attachment {
