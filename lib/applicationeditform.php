@@ -168,8 +168,6 @@ class ApplicationEditForm extends Form
             $this->access_type = '';
         }
 
-        $this->out->hidden('token', common_session_token());
-
         $this->out->elementStart('ul', 'form_data');
 
         $this->out->elementStart('li', array('id' => 'application_icon'));
