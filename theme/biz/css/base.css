@@ -903,9 +903,10 @@ text-transform:lowercase;
 .notice-options {
 position:relative;
 font-size:0.95em;
-width:90px;
+width:113px;
 float:right;
-margin-right:11px;
+margin-top:3px;
+margin-right:4px;
 }
 
 .notice-options a {
@@ -936,11 +937,17 @@ border:0;
 .notice-options .notice_reply,
 .notice-options .notice_delete {
 text-decoration:none;
-padding-left:16px;
+}
+.notice .notice-options .notice_delete {
+float:right;
 }
 .notice-options form input.submit {
 width:16px;
-padding:2px 0;
+height:16px;
+padding:0;
+border-radius:0;
+-moz-border-radius:0;
+-webkit-border-radius:0;
 }
 .notice-options .form_repeat legend,
 .notice-options .form_favor legend,
@@ -952,6 +959,11 @@ display:none;
 .notice-options .form_disfavor fieldset {
 border:0;
 padding:0;
+}
+.notice-options a,
+.notice-options .repeated {
+width:16px;
+height:16px;
 }
 
 #usergroups #new_group {
