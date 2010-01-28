@@ -900,6 +900,49 @@ display:inline-block;
 text-transform:lowercase;
 }
 
+.dialogbox {
+position:absolute;
+top:-4px;
+right:29px;
+z-index:9;
+min-width:199px;
+float:none;
+background-color:#FFF;
+padding:11px;
+border-radius:7px;
+-moz-border-radius:7px;
+-webkit-border-radius:7px;
+border-style:solid;
+border-width:1px;
+border-color:#DDDDDD;
+-moz-box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
+}
+
+.dialogbox legend {
+display:block !important;
+margin-right:18px;
+}
+
+.dialogbox button.close {
+position:absolute;
+right:3px;
+top:3px;
+}
+
+.dialogbox .submit_dialogbox {
+font-weight:bold;
+text-indent:0;
+min-width:46px;
+}
+
+#wrap form.processing input.submit,
+.entity_actions a.processing,
+.dialogbox.processing .submit_dialogbox {
+cursor:wait;
+outline:none;
+text-indent:-9999px;
+}
+
 .notice-options {
 position:relative;
 font-size:0.95em;
