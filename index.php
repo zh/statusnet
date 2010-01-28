@@ -152,6 +152,16 @@ function checkMirror($action_obj, $args)
 
     static $alwaysRW = array('session', 'remember_me');
 
+    // We ensure that these tables always are used
+    // on the master DB
+
+    $config['db']['database_rw'] = $config['db']['database'];
+    $config['db']['ini_rw'] = INSTALLDIR.'/classes/statusnet.ini';
+
+    foreach ($alwaysRW as $table) {
+        $config['db']['table_'.$table] = 'rw';
+    }
+
     if (common_config('db', 'mirror') && $action_obj->isReadOnly($args)) {
         if (is_array(common_config('db', 'mirror'))) {
             // "load balancing", ha ha
@@ -160,16 +170,6 @@ function checkMirror($action_obj, $args)
             $mirror = $arr[$k];
         } else {
             $mirror = common_config('db', 'mirror');
-        }
-
-        // We ensure that these tables always are used
-        // on the master DB
-
-        $config['db']['database_rw'] = $config['db']['database'];
-        $config['db']['ini_rw'] = INSTALLDIR.'/classes/statusnet.ini';
-
-        foreach ($alwaysRW as $table) {
-            $config['db']['table_'.$table] = 'rw';
         }
 
         // everyone else uses the mirror
