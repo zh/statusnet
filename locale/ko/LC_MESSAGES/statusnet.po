@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-27 23:58+0000\n"
-"PO-Revision-Date: 2010-01-27 23:59:18+0000\n"
+"POT-Creation-Date: 2010-01-28 23:04+0000\n"
+"PO-Revision-Date: 2010-01-28 23:05:00+0000\n"
 "Language-Team: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61595); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61646); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: out-statusnet\n"
@@ -66,7 +66,7 @@ msgstr ""
 #: actions/profilesettings.php:174 actions/siteadminpanel.php:336
 #: actions/smssettings.php:181 actions/subscriptions.php:203
 #: actions/tagother.php:154 actions/useradminpanel.php:313
-#: lib/applicationeditform.php:335 lib/applicationeditform.php:336
+#: lib/applicationeditform.php:333 lib/applicationeditform.php:334
 #: lib/designsettings.php:256 lib/groupeditform.php:202
 msgid "Save"
 msgstr "저장"
@@ -180,7 +180,7 @@ msgstr "%1$s 및 %2$s에 있는 친구들의 업데이트!"
 #: actions/apiaccountupdateprofilecolors.php:118
 #: actions/apidirectmessage.php:156 actions/apifavoritecreate.php:99
 #: actions/apifavoritedestroy.php:100 actions/apifriendshipscreate.php:100
-#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:129
+#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:128
 #: actions/apigroupcreate.php:136 actions/apigroupismember.php:114
 #: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
 #: actions/apigrouplist.php:132 actions/apigrouplistall.php:120
@@ -362,12 +362,12 @@ msgstr "사용자를 업데이트 할 수 없습니다."
 msgid "Two user ids or screen_names must be supplied."
 msgstr "두 개의 사용자 ID나 대화명을 입력해야 합니다."
 
-#: actions/apifriendshipsshow.php:135
+#: actions/apifriendshipsshow.php:134
 #, fuzzy
 msgid "Could not determine source user."
 msgstr "공개 stream을 불러올 수 없습니다."
 
-#: actions/apifriendshipsshow.php:143
+#: actions/apifriendshipsshow.php:142
 #, fuzzy
 msgid "Could not find target user."
 msgstr "어떠한 상태도 찾을 수 없습니다."
@@ -515,12 +515,12 @@ msgstr "사용자 이름이나 비밀 번호가 틀렸습니다."
 
 #: actions/apioauthauthorize.php:170
 #, fuzzy
-msgid "DB error deleting OAuth app user."
+msgid "Database error deleting OAuth application user."
 msgstr "사용자 세팅 오류"
 
 #: actions/apioauthauthorize.php:196
 #, fuzzy
-msgid "DB error inserting OAuth app user."
+msgid "Database error inserting OAuth application user."
 msgstr "해쉬테그를 추가 할 때에 데이타베이스 에러 : %s"
 
 #: actions/apioauthauthorize.php:231
@@ -550,13 +550,6 @@ msgstr ""
 
 #: actions/apioauthauthorize.php:290
 msgid "Allow or deny access"
-msgstr ""
-
-#: actions/apioauthauthorize.php:306
-#, php-format
-msgid ""
-"The application <strong>%s</strong> by <strong>%s</strong> would like the "
-"ability to <strong>%s</strong> your account data."
 msgstr ""
 
 #: actions/apioauthauthorize.php:320 lib/action.php:441
@@ -759,7 +752,7 @@ msgid "Preview"
 msgstr "미리보기"
 
 #: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:611
+#: lib/noticelist.php:608
 msgid "Delete"
 msgstr "삭제"
 
@@ -964,7 +957,7 @@ msgstr "정말로 통지를 삭제하시겠습니까?"
 msgid "Do not delete this notice"
 msgstr "이 통지를 지울 수 없습니다."
 
-#: actions/deletenotice.php:146 lib/noticelist.php:611
+#: actions/deletenotice.php:146 lib/noticelist.php:608
 msgid "Delete this notice"
 msgstr "이 게시글 삭제하기"
 
@@ -1275,8 +1268,8 @@ msgstr ""
 "주시기 바랍니다."
 
 #: actions/emailsettings.php:117 actions/imsettings.php:120
-#: actions/smssettings.php:126 lib/applicationeditform.php:333
-#: lib/applicationeditform.php:334
+#: actions/smssettings.php:126 lib/applicationeditform.php:331
+#: lib/applicationeditform.php:332
 msgid "Cancel"
 msgstr "취소"
 
@@ -2686,7 +2679,7 @@ msgid "Full name"
 msgstr "실명"
 
 #: actions/profilesettings.php:115 actions/register.php:453
-#: lib/applicationeditform.php:230 lib/groupeditform.php:161
+#: lib/applicationeditform.php:228 lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "홈페이지"
 
@@ -3216,7 +3209,7 @@ msgstr "라이선스에 동의하지 않는다면 등록할 수 없습니다."
 msgid "You already repeated that notice."
 msgstr "당신은 이미 이 사용자를 차단하고 있습니다."
 
-#: actions/repeat.php:114 lib/noticelist.php:629
+#: actions/repeat.php:114 lib/noticelist.php:626
 #, fuzzy
 msgid "Repeated"
 msgstr "생성"
@@ -3298,23 +3291,23 @@ msgstr "그룹을 떠나기 위해서는 로그인해야 합니다."
 msgid "Application profile"
 msgstr "통지에 프로필이 없습니다."
 
-#: actions/showapplication.php:160 lib/applicationeditform.php:182
+#: actions/showapplication.php:160 lib/applicationeditform.php:180
 msgid "Icon"
 msgstr ""
 
 #: actions/showapplication.php:170 actions/version.php:195
-#: lib/applicationeditform.php:197
+#: lib/applicationeditform.php:195
 #, fuzzy
 msgid "Name"
 msgstr "별명"
 
-#: actions/showapplication.php:179 lib/applicationeditform.php:224
+#: actions/showapplication.php:179 lib/applicationeditform.php:222
 #, fuzzy
 msgid "Organization"
 msgstr "페이지수"
 
 #: actions/showapplication.php:188 actions/version.php:198
-#: lib/applicationeditform.php:211 lib/groupeditform.php:172
+#: lib/applicationeditform.php:209 lib/groupeditform.php:172
 msgid "Description"
 msgstr "설명"
 
@@ -3607,7 +3600,7 @@ msgstr ""
 "**%s**는 %%%%site.name%%%% [마이크로블로깅](http://en.wikipedia.org/wiki/"
 "Micro-blogging) 서비스에 계정을 갖고 있습니다."
 
-#: actions/showstream.php:313
+#: actions/showstream.php:296
 #, fuzzy, php-format
 msgid "Repeat of %s"
 msgstr "%s에 답신"
@@ -4746,68 +4739,77 @@ msgstr "SMS 인증"
 msgid "Paths configuration"
 msgstr "SMS 인증"
 
+#: lib/apiauth.php:103
+msgid "API resource requires read-write access, but you only have read access."
+msgstr ""
+
+#: lib/apiauth.php:257
+#, php-format
+msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
+msgstr ""
+
 #: lib/applicationeditform.php:136
 msgid "Edit application"
 msgstr ""
 
-#: lib/applicationeditform.php:186
+#: lib/applicationeditform.php:184
 msgid "Icon for this application"
 msgstr ""
 
-#: lib/applicationeditform.php:206
+#: lib/applicationeditform.php:204
 #, fuzzy, php-format
 msgid "Describe your application in %d characters"
 msgstr "140글자로 그룹이나 토픽 설명하기"
 
-#: lib/applicationeditform.php:209
+#: lib/applicationeditform.php:207
 #, fuzzy
 msgid "Describe your application"
 msgstr "140글자로 그룹이나 토픽 설명하기"
 
-#: lib/applicationeditform.php:218
+#: lib/applicationeditform.php:216
 #, fuzzy
 msgid "Source URL"
 msgstr "소스 코드"
 
-#: lib/applicationeditform.php:220
+#: lib/applicationeditform.php:218
 #, fuzzy
 msgid "URL of the homepage of this application"
 msgstr "그룹 혹은 토픽의 홈페이지나 블로그 URL"
 
-#: lib/applicationeditform.php:226
+#: lib/applicationeditform.php:224
 msgid "Organization responsible for this application"
 msgstr ""
 
-#: lib/applicationeditform.php:232
+#: lib/applicationeditform.php:230
 #, fuzzy
 msgid "URL for the homepage of the organization"
 msgstr "그룹 혹은 토픽의 홈페이지나 블로그 URL"
 
-#: lib/applicationeditform.php:238
+#: lib/applicationeditform.php:236
 msgid "URL to redirect to after authentication"
 msgstr ""
 
-#: lib/applicationeditform.php:260
+#: lib/applicationeditform.php:258
 msgid "Browser"
 msgstr ""
 
-#: lib/applicationeditform.php:276
+#: lib/applicationeditform.php:274
 msgid "Desktop"
 msgstr ""
 
-#: lib/applicationeditform.php:277
+#: lib/applicationeditform.php:275
 msgid "Type of application, browser or desktop"
 msgstr ""
 
-#: lib/applicationeditform.php:299
+#: lib/applicationeditform.php:297
 msgid "Read-only"
 msgstr ""
 
-#: lib/applicationeditform.php:317
+#: lib/applicationeditform.php:315
 msgid "Read-write"
 msgstr ""
 
-#: lib/applicationeditform.php:318
+#: lib/applicationeditform.php:316
 msgid "Default access for this application: read-only, or read-write"
 msgstr ""
 
@@ -5704,15 +5706,15 @@ msgstr "내용이 없습니다!"
 msgid "Repeated by"
 msgstr "생성"
 
-#: lib/noticelist.php:585
+#: lib/noticelist.php:582
 msgid "Reply to this notice"
 msgstr "이 게시글에 대해 답장하기"
 
-#: lib/noticelist.php:586
+#: lib/noticelist.php:583
 msgid "Reply"
 msgstr "답장하기"
 
-#: lib/noticelist.php:628
+#: lib/noticelist.php:625
 #, fuzzy
 msgid "Notice repeated"
 msgstr "게시글이 등록되었습니다."

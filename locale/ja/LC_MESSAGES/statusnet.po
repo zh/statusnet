@@ -11,12 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-27 23:58+0000\n"
-"PO-Revision-Date: 2010-01-27 23:59:15+0000\n"
+"POT-Creation-Date: 2010-01-28 23:04+0000\n"
+"PO-Revision-Date: 2010-01-28 23:04:57+0000\n"
 "Language-Team: Japanese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61595); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61646); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ja\n"
 "X-Message-Group: out-statusnet\n"
@@ -27,12 +27,10 @@ msgid "Access"
 msgstr "アクセス"
 
 #: actions/accessadminpanel.php:65
-#, fuzzy
 msgid "Site access settings"
-msgstr "サイト設定の保存"
+msgstr "サイトアクセス設定"
 
 #: actions/accessadminpanel.php:158
-#, fuzzy
 msgid "Registration"
 msgstr "登録"
 
@@ -66,15 +64,14 @@ msgstr "新規登録を無効。"
 #: actions/profilesettings.php:174 actions/siteadminpanel.php:336
 #: actions/smssettings.php:181 actions/subscriptions.php:203
 #: actions/tagother.php:154 actions/useradminpanel.php:313
-#: lib/applicationeditform.php:335 lib/applicationeditform.php:336
+#: lib/applicationeditform.php:333 lib/applicationeditform.php:334
 #: lib/designsettings.php:256 lib/groupeditform.php:202
 msgid "Save"
 msgstr "保存"
 
 #: actions/accessadminpanel.php:189
-#, fuzzy
 msgid "Save access settings"
-msgstr "サイト設定の保存"
+msgstr "アクセス設定の保存"
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
 #: actions/showfavorites.php:137 actions/tag.php:51
@@ -184,7 +181,7 @@ msgstr "%2$s に %1$s と友人からの更新があります！"
 #: actions/apiaccountupdateprofilecolors.php:118
 #: actions/apidirectmessage.php:156 actions/apifavoritecreate.php:99
 #: actions/apifavoritedestroy.php:100 actions/apifriendshipscreate.php:100
-#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:129
+#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:128
 #: actions/apigroupcreate.php:136 actions/apigroupismember.php:114
 #: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
 #: actions/apigrouplist.php:132 actions/apigrouplistall.php:120
@@ -361,11 +358,11 @@ msgstr "自分自身をフォロー停止することはできません。"
 msgid "Two user ids or screen_names must be supplied."
 msgstr "ふたつのＩＤかスクリーンネームが必要です。"
 
-#: actions/apifriendshipsshow.php:135
+#: actions/apifriendshipsshow.php:134
 msgid "Could not determine source user."
 msgstr "ソースユーザーを決定できません。"
 
-#: actions/apifriendshipsshow.php:143
+#: actions/apifriendshipsshow.php:142
 msgid "Could not find target user."
 msgstr "ターゲットユーザーを見つけられません。"
 
@@ -507,11 +504,13 @@ msgid "Invalid nickname / password!"
 msgstr "不正なユーザ名またはパスワード。"
 
 #: actions/apioauthauthorize.php:170
-msgid "DB error deleting OAuth app user."
+#, fuzzy
+msgid "Database error deleting OAuth application user."
 msgstr "OAuth アプリユーザの削除時ＤＢエラー。"
 
 #: actions/apioauthauthorize.php:196
-msgid "DB error inserting OAuth app user."
+#, fuzzy
+msgid "Database error inserting OAuth application user."
 msgstr "OAuth アプリユーザの追加時ＤＢエラー。"
 
 #: actions/apioauthauthorize.php:231
@@ -544,13 +543,6 @@ msgstr "アプリケーションはあなたのアカウントに接続したい
 #: actions/apioauthauthorize.php:290
 msgid "Allow or deny access"
 msgstr "アクセスを許可または拒絶"
-
-#: actions/apioauthauthorize.php:306
-#, php-format
-msgid ""
-"The application <strong>%s</strong> by <strong>%s</strong> would like the "
-"ability to <strong>%s</strong> your account data."
-msgstr ""
 
 #: actions/apioauthauthorize.php:320 lib/action.php:441
 msgid "Account"
@@ -746,7 +738,7 @@ msgid "Preview"
 msgstr "プレビュー"
 
 #: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:611
+#: lib/noticelist.php:608
 msgid "Delete"
 msgstr "削除"
 
@@ -946,7 +938,7 @@ msgstr "本当にこのつぶやきを削除しますか？"
 msgid "Do not delete this notice"
 msgstr "このつぶやきを削除できません。"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:611
+#: actions/deletenotice.php:146 lib/noticelist.php:608
 msgid "Delete this notice"
 msgstr "このつぶやきを削除"
 
@@ -1091,12 +1083,11 @@ msgid "Add to favorites"
 msgstr "お気に入りに加える"
 
 #: actions/doc.php:155
-#, fuzzy, php-format
+#, php-format
 msgid "No such document \"%s\""
-msgstr "そのようなドキュメントはありません。"
+msgstr "そのようなドキュメントはありません。\"%s\""
 
 #: actions/editapplication.php:54
-#, fuzzy
 msgid "Edit Application"
 msgstr "アプリケーション編集"
 
@@ -1234,8 +1225,8 @@ msgstr ""
 "かれたメッセージが届いていないか確認してください。"
 
 #: actions/emailsettings.php:117 actions/imsettings.php:120
-#: actions/smssettings.php:126 lib/applicationeditform.php:333
-#: lib/applicationeditform.php:334
+#: actions/smssettings.php:126 lib/applicationeditform.php:331
+#: lib/applicationeditform.php:332
 msgid "Cancel"
 msgstr "中止"
 
@@ -1835,9 +1826,9 @@ msgid "That is not your Jabber ID."
 msgstr "その Jabber ID はあなたのものではありません。"
 
 #: actions/inbox.php:59
-#, fuzzy, php-format
+#, php-format
 msgid "Inbox for %1$s - page %2$d"
-msgstr "%s の受信箱"
+msgstr "%1$s の受信箱 - ページ %2$d"
 
 #: actions/inbox.php:62
 #, php-format
@@ -2083,7 +2074,6 @@ msgid "No current status"
 msgstr "現在のステータスはありません"
 
 #: actions/newapplication.php:52
-#, fuzzy
 msgid "New Application"
 msgstr "新しいアプリケーション"
 
@@ -2342,9 +2332,9 @@ msgid "Login token expired."
 msgstr "ログイントークンが期限切れです・"
 
 #: actions/outbox.php:58
-#, fuzzy, php-format
+#, php-format
 msgid "Outbox for %1$s - page %2$d"
-msgstr "%s の送信箱"
+msgstr "%1$s の送信箱 - ページ %2$d"
 
 #: actions/outbox.php:61
 #, php-format
@@ -2630,7 +2620,7 @@ msgid "Full name"
 msgstr "フルネーム"
 
 #: actions/profilesettings.php:115 actions/register.php:453
-#: lib/applicationeditform.php:230 lib/groupeditform.php:161
+#: lib/applicationeditform.php:228 lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "ホームページ"
 
@@ -3166,7 +3156,7 @@ msgstr "自分のつぶやきは繰り返せません。"
 msgid "You already repeated that notice."
 msgstr "すでにそのつぶやきを繰り返しています。"
 
-#: actions/repeat.php:114 lib/noticelist.php:629
+#: actions/repeat.php:114 lib/noticelist.php:626
 msgid "Repeated"
 msgstr "繰り返された"
 
@@ -3181,9 +3171,9 @@ msgid "Replies to %s"
 msgstr "%s への返信"
 
 #: actions/replies.php:127
-#, fuzzy, php-format
+#, php-format
 msgid "Replies to %1$s, page %2$d"
-msgstr "%2$s 上の %1$s への返信!"
+msgstr "%1$s への返信、ページ %2$s"
 
 #: actions/replies.php:144
 #, php-format
@@ -3248,21 +3238,21 @@ msgstr "!!アプリケーションを見るためにはログインしていな�
 msgid "Application profile"
 msgstr "アプリケーションプロファイル"
 
-#: actions/showapplication.php:160 lib/applicationeditform.php:182
+#: actions/showapplication.php:160 lib/applicationeditform.php:180
 msgid "Icon"
 msgstr "アイコン"
 
 #: actions/showapplication.php:170 actions/version.php:195
-#: lib/applicationeditform.php:197
+#: lib/applicationeditform.php:195
 msgid "Name"
 msgstr "名前"
 
-#: actions/showapplication.php:179 lib/applicationeditform.php:224
+#: actions/showapplication.php:179 lib/applicationeditform.php:222
 msgid "Organization"
 msgstr "組織"
 
 #: actions/showapplication.php:188 actions/version.php:198
-#: lib/applicationeditform.php:211 lib/groupeditform.php:172
+#: lib/applicationeditform.php:209 lib/groupeditform.php:172
 msgid "Description"
 msgstr "概要"
 
@@ -3317,9 +3307,9 @@ msgstr ""
 "ポートしません。"
 
 #: actions/showfavorites.php:79
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s's favorite notices, page %2$d"
-msgstr "%s のお気に入りのつぶやき"
+msgstr "%1$s のお気に入りのつぶやき、ページ %2$d"
 
 #: actions/showfavorites.php:132
 msgid "Could not retrieve favorite notices."
@@ -3379,9 +3369,9 @@ msgid "%s group"
 msgstr "%s グループ"
 
 #: actions/showgroup.php:84
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s group, page %2$d"
-msgstr "%1$s グループメンバー、ページ %2$d"
+msgstr "%1$s グループ、ページ %2$d"
 
 #: actions/showgroup.php:218
 msgid "Group profile"
@@ -3503,9 +3493,9 @@ msgid " tagged %s"
 msgstr "タグ付けされた %s"
 
 #: actions/showstream.php:79
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s, page %2$d"
-msgstr "%1$s と友人、ページ %2$d"
+msgstr "%1$s、ページ %2$d"
 
 #: actions/showstream.php:122
 #, php-format
@@ -3579,7 +3569,7 @@ msgstr ""
 "[StatusNet](http://status.net/)を基にした[マイクロブロギング] (http://en."
 "wikipedia.org/wiki/Micro-blogging) サービス。"
 
-#: actions/showstream.php:313
+#: actions/showstream.php:296
 #, php-format
 msgid "Repeat of %s"
 msgstr "%s の繰り返し"
@@ -3948,9 +3938,9 @@ msgid "SMS"
 msgstr "SMS"
 
 #: actions/tag.php:68
-#, fuzzy, php-format
+#, php-format
 msgid "Notices tagged with %1$s, page %2$d"
-msgstr "ユーザ自身がつけたタグ %1$s  - ページ %2$d"
+msgstr "%1$s とタグ付けされたつぶやき、ページ %2$d"
 
 #: actions/tag.php:86
 #, php-format
@@ -4252,9 +4242,9 @@ msgid "Enjoy your hotdog!"
 msgstr "あなたのhotdogを楽しんでください!"
 
 #: actions/usergroups.php:64
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s groups, page %2$d"
-msgstr "%1$s グループメンバー、ページ %2$d"
+msgstr "%1$s グループ、ページ %2$d"
 
 #: actions/usergroups.php:130
 msgid "Search for more groups"
@@ -4414,9 +4404,8 @@ msgid "Problem saving notice."
 msgstr "つぶやきを保存する際に問題が発生しました。"
 
 #: classes/Notice.php:790
-#, fuzzy
 msgid "Problem saving group inbox."
-msgstr "つぶやきを保存する際に問題が発生しました。"
+msgstr "グループ受信箱を保存する際に問題が発生しました。"
 
 #: classes/Notice.php:850
 #, php-format
@@ -4687,80 +4676,84 @@ msgid "Design configuration"
 msgstr "デザイン設定"
 
 #: lib/adminpanelaction.php:322
-#, fuzzy
 msgid "User configuration"
-msgstr "パス設定"
+msgstr "利用者設定"
 
 #: lib/adminpanelaction.php:327
-#, fuzzy
 msgid "Access configuration"
-msgstr "デザイン設定"
+msgstr "アクセス設定"
 
 #: lib/adminpanelaction.php:332
 msgid "Paths configuration"
 msgstr "パス設定"
 
+#: lib/apiauth.php:103
+msgid "API resource requires read-write access, but you only have read access."
+msgstr ""
+
+#: lib/apiauth.php:257
+#, php-format
+msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
+msgstr ""
+
 #: lib/applicationeditform.php:136
 msgid "Edit application"
 msgstr "アプリケーション編集"
 
-#: lib/applicationeditform.php:186
+#: lib/applicationeditform.php:184
 msgid "Icon for this application"
 msgstr "このアプリケーションのアイコン"
 
-#: lib/applicationeditform.php:206
-#, fuzzy, php-format
+#: lib/applicationeditform.php:204
+#, php-format
 msgid "Describe your application in %d characters"
-msgstr "グループやトピックを %d 字以内記述"
+msgstr "あなたのアプリケーションを %d 字以内記述"
 
-#: lib/applicationeditform.php:209
-#, fuzzy
+#: lib/applicationeditform.php:207
 msgid "Describe your application"
-msgstr "グループやトピックを記述"
+msgstr "あなたのアプリケーションを記述"
+
+#: lib/applicationeditform.php:216
+msgid "Source URL"
+msgstr "ソース URL"
 
 #: lib/applicationeditform.php:218
-#, fuzzy
-msgid "Source URL"
-msgstr "ソース"
-
-#: lib/applicationeditform.php:220
-#, fuzzy
 msgid "URL of the homepage of this application"
-msgstr "グループやトピックのホームページやブログの URL"
+msgstr "このアプリケーションのホームページの URL"
 
-#: lib/applicationeditform.php:226
+#: lib/applicationeditform.php:224
 msgid "Organization responsible for this application"
 msgstr "このアプリケーションに責任がある組織"
 
-#: lib/applicationeditform.php:232
+#: lib/applicationeditform.php:230
 msgid "URL for the homepage of the organization"
 msgstr "組織のホームページのURL"
 
-#: lib/applicationeditform.php:238
+#: lib/applicationeditform.php:236
 msgid "URL to redirect to after authentication"
 msgstr "認証の後にリダイレクトするURL"
 
-#: lib/applicationeditform.php:260
+#: lib/applicationeditform.php:258
 msgid "Browser"
 msgstr "ブラウザ"
 
-#: lib/applicationeditform.php:276
+#: lib/applicationeditform.php:274
 msgid "Desktop"
 msgstr "デスクトップ"
 
-#: lib/applicationeditform.php:277
+#: lib/applicationeditform.php:275
 msgid "Type of application, browser or desktop"
 msgstr "アプリケーション、ブラウザ、またはデスクトップのタイプ"
 
-#: lib/applicationeditform.php:299
+#: lib/applicationeditform.php:297
 msgid "Read-only"
 msgstr "リードオンリー"
 
-#: lib/applicationeditform.php:317
+#: lib/applicationeditform.php:315
 msgid "Read-write"
 msgstr "リードライト"
 
-#: lib/applicationeditform.php:318
+#: lib/applicationeditform.php:316
 msgid "Default access for this application: read-only, or read-write"
 msgstr ""
 "このアプリケーションのためのデフォルトアクセス: リードオンリー、またはリード"
@@ -5688,6 +5681,8 @@ msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
 msgstr ""
+"すみません、あなたの位置を検索するのが予想より長くかかっています、後でもう一"
+"度試みてください"
 
 #: lib/noticelist.php:428
 #, php-format
@@ -5726,15 +5721,15 @@ msgstr ""
 msgid "Repeated by"
 msgstr ""
 
-#: lib/noticelist.php:585
+#: lib/noticelist.php:582
 msgid "Reply to this notice"
 msgstr "このつぶやきへ返信"
 
-#: lib/noticelist.php:586
+#: lib/noticelist.php:583
 msgid "Reply"
 msgstr "返信"
 
-#: lib/noticelist.php:628
+#: lib/noticelist.php:625
 msgid "Notice repeated"
 msgstr "つぶやきを繰り返しました"
 
