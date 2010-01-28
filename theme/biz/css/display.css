@@ -40,24 +40,34 @@ border-color:#DDDDDD;
 background:none;
 }
 
-input.submit,
-#form_notice.warning #notice_text-count,
-.form_settings .form_note,
-.entity_remote_subscribe {
-background-color:#9BB43E;
-}
-
-input:focus, textarea:focus, select:focus,
-#form_notice.warning #notice_data-text {
-border-color:#9BB43E;
-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
--moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
--webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
-}
-input.submit,
-.entity_remote_subscribe,
-#site_nav_local_views a {
+input.submit {
 color:#FFFFFF;
+}
+.entity_actions input.submit {
+border-color:transparent;
+text-shadow:none;
+}
+.dialogbox .submit_dialogbox,
+input.submit,
+.form_notice input.submit {
+background:#AAAAAA url(../../base/images/illustrations/illu_pattern-01.png) 0 0 repeat-x;
+text-shadow:0 1px 0 #FFFFFF;
+color:#000000;
+border-color:#AAAAAA;
+border-top-color:#CCCCCC;
+border-left-color:#CCCCCC;
+}
+.dialogbox .submit_dialogbox:hover,
+input.submit:hover {
+background-position:0 -5px;
+}
+.dialogbox .submit_dialogbox:focus,
+input.submit:focus {
+background-position:0 -15px;
+box-shadow:3px 3px 3px rgba(194, 194, 194, 0.1);
+-moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.1);
+-webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.1);
+text-shadow:none;
 }
 
 .form_notice label[for=notice_data-geo] {
