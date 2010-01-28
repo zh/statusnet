@@ -326,9 +326,13 @@ class Notice extends Memcached_DataObject
         # XXX: someone clever could prepend instead of clearing the cache
         $notice->blowOnInsert();
 
-        $qm = QueueManager::get();
-
-        $qm->enqueue($notice, 'distrib');
+        if (common_config('queue', 'inboxes')) {
+            $qm = QueueManager::get();
+            $qm->enqueue($notice, 'distrib');
+        } else {
+            $handler = new DistribQueueHandler();
+            $handler->handle($notice);
+        }
 
         return $notice;
     }

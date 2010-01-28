@@ -87,6 +87,7 @@ $default =
               'monitor' => null, // URL to monitor ping endpoint (work in progress)
               'softlimit' => '90%', // total size or % of memory_limit at which to restart queue threads gracefully
               'debug_memory' => false, // true to spit memory usage to log
+              'inboxes' => true, // true to do inbox distribution & output queueing from in background via 'distrib' queue
               ),
         'license' =>
         array('type' => 'cc', # can be 'cc', 'allrightsreserved', 'private'
