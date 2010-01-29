@@ -48,6 +48,7 @@ class Profile_role extends Memcached_DataObject
         return Memcached_DataObject::pkeyGet('Profile_role', $kv);
     }
 
+    const OWNER         = 'owner';
     const MODERATOR     = 'moderator';
     const ADMINISTRATOR = 'administrator';
     const SANDBOXED     = 'sandboxed';
