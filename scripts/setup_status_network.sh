@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# live fast! die young!
+
+set -e
+
 source /etc/statusnet/setup.cfg
 
 # setup_status_net.sh mysite 'My Site' '1user' 'owner@example.com' 'Firsty McLastname'
