@@ -358,7 +358,7 @@ function jabber_broadcast_notice($notice)
         common_log(LOG_WARNING, 'Refusing to broadcast notice with ' .
                    'unknown profile ' . common_log_objstring($notice),
                    __FILE__);
-        return false;
+        return true; // not recoverable; discard.
     }
 
     $msg   = jabber_format_notice($profile, $notice);
@@ -437,7 +437,7 @@ function jabber_public_notice($notice)
             common_log(LOG_WARNING, 'Refusing to broadcast notice with ' .
                        'unknown profile ' . common_log_objstring($notice),
                        __FILE__);
-            return false;
+            return true; // not recoverable; discard.
         }
 
         $msg   = jabber_format_notice($profile, $notice);
