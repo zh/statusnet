@@ -96,7 +96,6 @@ class UseradminpanelAction extends AdminPanelAction
         );
 
         static $booleans = array(
-            'sessions' => array('handle', 'debug'),
             'invite' => array('enabled')
         );
 
@@ -261,26 +260,7 @@ class UserAdminPanelForm extends AdminForm
         $this->out->elementEnd('ul');
         $this->out->elementEnd('fieldset');
 
-        $this->out->elementStart('fieldset', array('id' => 'settings_user_sessions'));
-        $this->out->element('legend', null, _('Sessions'));
 
-        $this->out->elementStart('ul', 'form_data');
-
-        $this->li();
-        $this->out->checkbox('sessions-handle', _('Handle sessions'),
-                              (bool) $this->value('handle', 'sessions'),
-                              _('Whether to handle sessions ourselves.'));
-        $this->unli();
-
-        $this->li();
-        $this->out->checkbox('sessions-debug', _('Session debugging'),
-                              (bool) $this->value('debug', 'sessions'),
-                              _('Turn on debugging output for sessions.'));
-        $this->unli();
-
-        $this->out->elementEnd('ul');
-
-        $this->out->elementEnd('fieldset');
 
     }
 

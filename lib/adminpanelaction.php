@@ -327,9 +327,14 @@ class AdminPanelNav extends Widget
                                      _('Access configuration'), $action_name == 'accessadminpanel', 'nav_design_admin_panel');
             }
 
-	    if ($this->canAdmin('paths')) {
-		$this->out->menuItem(common_local_url('pathsadminpanel'), _('Paths'),
-				     _('Paths configuration'), $action_name == 'pathsadminpanel', 'nav_design_admin_panel');
+            if ($this->canAdmin('paths')) {
+                $this->out->menuItem(common_local_url('pathsadminpanel'), _('Paths'),
+                                    _('Paths configuration'), $action_name == 'pathsadminpanel', 'nav_design_admin_panel');
+            }
+
+            if ($this->canAdmin('sessions')) {
+                $this->out->menuItem(common_local_url('sessionsadminpanel'), _('Sessions'),
+                                     _('Sessions configuration'), $action_name == 'sessionsadminpanel', 'nav_design_admin_panel');
             }
 
             Event::handle('EndAdminPanelNav', array($this));
