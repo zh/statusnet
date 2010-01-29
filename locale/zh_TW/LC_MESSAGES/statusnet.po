@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-27 23:58+0000\n"
-"PO-Revision-Date: 2010-01-28 00:00:08+0000\n"
+"POT-Creation-Date: 2010-01-28 23:04+0000\n"
+"PO-Revision-Date: 2010-01-28 23:05:46+0000\n"
 "Language-Team: Traditional Chinese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61595); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61646); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hant\n"
 "X-Message-Group: out-statusnet\n"
@@ -64,7 +64,7 @@ msgstr ""
 #: actions/profilesettings.php:174 actions/siteadminpanel.php:336
 #: actions/smssettings.php:181 actions/subscriptions.php:203
 #: actions/tagother.php:154 actions/useradminpanel.php:313
-#: lib/applicationeditform.php:335 lib/applicationeditform.php:336
+#: lib/applicationeditform.php:333 lib/applicationeditform.php:334
 #: lib/designsettings.php:256 lib/groupeditform.php:202
 msgid "Save"
 msgstr ""
@@ -178,7 +178,7 @@ msgstr ""
 #: actions/apiaccountupdateprofilecolors.php:118
 #: actions/apidirectmessage.php:156 actions/apifavoritecreate.php:99
 #: actions/apifavoritedestroy.php:100 actions/apifriendshipscreate.php:100
-#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:129
+#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:128
 #: actions/apigroupcreate.php:136 actions/apigroupismember.php:114
 #: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
 #: actions/apigrouplist.php:132 actions/apigrouplistall.php:120
@@ -357,12 +357,12 @@ msgstr "無法更新使用者"
 msgid "Two user ids or screen_names must be supplied."
 msgstr ""
 
-#: actions/apifriendshipsshow.php:135
+#: actions/apifriendshipsshow.php:134
 #, fuzzy
 msgid "Could not determine source user."
 msgstr "無法更新使用者"
 
-#: actions/apifriendshipsshow.php:143
+#: actions/apifriendshipsshow.php:142
 #, fuzzy
 msgid "Could not find target user."
 msgstr "無法更新使用者"
@@ -507,12 +507,12 @@ msgstr "使用者名稱或密碼無效"
 
 #: actions/apioauthauthorize.php:170
 #, fuzzy
-msgid "DB error deleting OAuth app user."
+msgid "Database error deleting OAuth application user."
 msgstr "使用者設定發生錯誤"
 
 #: actions/apioauthauthorize.php:196
 #, fuzzy
-msgid "DB error inserting OAuth app user."
+msgid "Database error inserting OAuth application user."
 msgstr "增加回覆時,資料庫發生錯誤: %s"
 
 #: actions/apioauthauthorize.php:231
@@ -542,13 +542,6 @@ msgstr ""
 
 #: actions/apioauthauthorize.php:290
 msgid "Allow or deny access"
-msgstr ""
-
-#: actions/apioauthauthorize.php:306
-#, php-format
-msgid ""
-"The application <strong>%s</strong> by <strong>%s</strong> would like the "
-"ability to <strong>%s</strong> your account data."
 msgstr ""
 
 #: actions/apioauthauthorize.php:320 lib/action.php:441
@@ -752,7 +745,7 @@ msgid "Preview"
 msgstr ""
 
 #: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:611
+#: lib/noticelist.php:608
 msgid "Delete"
 msgstr ""
 
@@ -957,7 +950,7 @@ msgstr ""
 msgid "Do not delete this notice"
 msgstr "無此通知"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:611
+#: actions/deletenotice.php:146 lib/noticelist.php:608
 msgid "Delete this notice"
 msgstr ""
 
@@ -1260,8 +1253,8 @@ msgid ""
 msgstr ""
 
 #: actions/emailsettings.php:117 actions/imsettings.php:120
-#: actions/smssettings.php:126 lib/applicationeditform.php:333
-#: lib/applicationeditform.php:334
+#: actions/smssettings.php:126 lib/applicationeditform.php:331
+#: lib/applicationeditform.php:332
 msgid "Cancel"
 msgstr "取消"
 
@@ -2604,7 +2597,7 @@ msgid "Full name"
 msgstr "全名"
 
 #: actions/profilesettings.php:115 actions/register.php:453
-#: lib/applicationeditform.php:230 lib/groupeditform.php:161
+#: lib/applicationeditform.php:228 lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "個人首頁"
 
@@ -3104,7 +3097,7 @@ msgstr ""
 msgid "You already repeated that notice."
 msgstr "無此使用者"
 
-#: actions/repeat.php:114 lib/noticelist.php:629
+#: actions/repeat.php:114 lib/noticelist.php:626
 #, fuzzy
 msgid "Repeated"
 msgstr "新增"
@@ -3183,23 +3176,23 @@ msgstr ""
 msgid "Application profile"
 msgstr ""
 
-#: actions/showapplication.php:160 lib/applicationeditform.php:182
+#: actions/showapplication.php:160 lib/applicationeditform.php:180
 msgid "Icon"
 msgstr ""
 
 #: actions/showapplication.php:170 actions/version.php:195
-#: lib/applicationeditform.php:197
+#: lib/applicationeditform.php:195
 #, fuzzy
 msgid "Name"
 msgstr "暱稱"
 
-#: actions/showapplication.php:179 lib/applicationeditform.php:224
+#: actions/showapplication.php:179 lib/applicationeditform.php:222
 #, fuzzy
 msgid "Organization"
 msgstr "地點"
 
 #: actions/showapplication.php:188 actions/version.php:198
-#: lib/applicationeditform.php:211 lib/groupeditform.php:172
+#: lib/applicationeditform.php:209 lib/groupeditform.php:172
 #, fuzzy
 msgid "Description"
 msgstr "所有訂閱"
@@ -3490,7 +3483,7 @@ msgid ""
 "[StatusNet](http://status.net/) tool. "
 msgstr ""
 
-#: actions/showstream.php:313
+#: actions/showstream.php:296
 #, php-format
 msgid "Repeat of %s"
 msgstr ""
@@ -4602,65 +4595,74 @@ msgstr "確認信箱"
 msgid "Paths configuration"
 msgstr "確認信箱"
 
+#: lib/apiauth.php:103
+msgid "API resource requires read-write access, but you only have read access."
+msgstr ""
+
+#: lib/apiauth.php:257
+#, php-format
+msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
+msgstr ""
+
 #: lib/applicationeditform.php:136
 msgid "Edit application"
 msgstr ""
 
-#: lib/applicationeditform.php:186
+#: lib/applicationeditform.php:184
 msgid "Icon for this application"
 msgstr ""
 
-#: lib/applicationeditform.php:206
+#: lib/applicationeditform.php:204
 #, fuzzy, php-format
 msgid "Describe your application in %d characters"
 msgstr "請在140個字以內描述你自己與你的興趣"
 
-#: lib/applicationeditform.php:209
+#: lib/applicationeditform.php:207
 #, fuzzy
 msgid "Describe your application"
 msgstr "請在140個字以內描述你自己與你的興趣"
 
-#: lib/applicationeditform.php:218
+#: lib/applicationeditform.php:216
 msgid "Source URL"
 msgstr ""
 
-#: lib/applicationeditform.php:220
+#: lib/applicationeditform.php:218
 msgid "URL of the homepage of this application"
 msgstr ""
 
-#: lib/applicationeditform.php:226
+#: lib/applicationeditform.php:224
 msgid "Organization responsible for this application"
 msgstr ""
 
-#: lib/applicationeditform.php:232
+#: lib/applicationeditform.php:230
 msgid "URL for the homepage of the organization"
 msgstr ""
 
-#: lib/applicationeditform.php:238
+#: lib/applicationeditform.php:236
 msgid "URL to redirect to after authentication"
 msgstr ""
 
-#: lib/applicationeditform.php:260
+#: lib/applicationeditform.php:258
 msgid "Browser"
 msgstr ""
 
-#: lib/applicationeditform.php:276
+#: lib/applicationeditform.php:274
 msgid "Desktop"
 msgstr ""
 
-#: lib/applicationeditform.php:277
+#: lib/applicationeditform.php:275
 msgid "Type of application, browser or desktop"
 msgstr ""
 
-#: lib/applicationeditform.php:299
+#: lib/applicationeditform.php:297
 msgid "Read-only"
 msgstr ""
 
-#: lib/applicationeditform.php:317
+#: lib/applicationeditform.php:315
 msgid "Read-write"
 msgstr ""
 
-#: lib/applicationeditform.php:318
+#: lib/applicationeditform.php:316
 msgid "Default access for this application: read-only, or read-write"
 msgstr ""
 
@@ -5555,15 +5557,15 @@ msgstr "無內容"
 msgid "Repeated by"
 msgstr "新增"
 
-#: lib/noticelist.php:585
+#: lib/noticelist.php:582
 msgid "Reply to this notice"
 msgstr ""
 
-#: lib/noticelist.php:586
+#: lib/noticelist.php:583
 msgid "Reply"
 msgstr ""
 
-#: lib/noticelist.php:628
+#: lib/noticelist.php:625
 #, fuzzy
 msgid "Notice repeated"
 msgstr "更新個人圖像"

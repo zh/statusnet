@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-27 23:58+0000\n"
-"PO-Revision-Date: 2010-01-27 23:59:56+0000\n"
+"POT-Creation-Date: 2010-01-28 23:04+0000\n"
+"PO-Revision-Date: 2010-01-28 23:05:35+0000\n"
 "Language-Team: Ukrainian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61595); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61646); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: out-statusnet\n"
@@ -27,12 +27,10 @@ msgid "Access"
 msgstr "Погодитись"
 
 #: actions/accessadminpanel.php:65
-#, fuzzy
 msgid "Site access settings"
-msgstr "Зберегти налаштування сайту"
+msgstr "Параметри доступу на сайт"
 
 #: actions/accessadminpanel.php:158
-#, fuzzy
 msgid "Registration"
 msgstr "Реєстрація"
 
@@ -68,15 +66,14 @@ msgstr "Скасувати подальшу регістрацію."
 #: actions/profilesettings.php:174 actions/siteadminpanel.php:336
 #: actions/smssettings.php:181 actions/subscriptions.php:203
 #: actions/tagother.php:154 actions/useradminpanel.php:313
-#: lib/applicationeditform.php:335 lib/applicationeditform.php:336
+#: lib/applicationeditform.php:333 lib/applicationeditform.php:334
 #: lib/designsettings.php:256 lib/groupeditform.php:202
 msgid "Save"
 msgstr "Зберегти"
 
 #: actions/accessadminpanel.php:189
-#, fuzzy
 msgid "Save access settings"
-msgstr "Зберегти налаштування сайту"
+msgstr "Зберегти параметри доступу"
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
 #: actions/showfavorites.php:137 actions/tag.php:51
@@ -186,7 +183,7 @@ msgstr "Оновлення від %1$s та друзів на %2$s!"
 #: actions/apiaccountupdateprofilecolors.php:118
 #: actions/apidirectmessage.php:156 actions/apifavoritecreate.php:99
 #: actions/apifavoritedestroy.php:100 actions/apifriendshipscreate.php:100
-#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:129
+#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:128
 #: actions/apigroupcreate.php:136 actions/apigroupismember.php:114
 #: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
 #: actions/apigrouplist.php:132 actions/apigrouplistall.php:120
@@ -362,11 +359,11 @@ msgstr "Ви не можете відписатись від самого себ
 msgid "Two user ids or screen_names must be supplied."
 msgstr "Два ID або імені_у_мережі повинні підтримуватись."
 
-#: actions/apifriendshipsshow.php:135
+#: actions/apifriendshipsshow.php:134
 msgid "Could not determine source user."
 msgstr "Не вдалось встановити джерело користувача."
 
-#: actions/apifriendshipsshow.php:143
+#: actions/apifriendshipsshow.php:142
 msgid "Could not find target user."
 msgstr "Не вдалося знайти цільового користувача."
 
@@ -509,11 +506,13 @@ msgid "Invalid nickname / password!"
 msgstr "Недійсне ім’я / пароль!"
 
 #: actions/apioauthauthorize.php:170
-msgid "DB error deleting OAuth app user."
+#, fuzzy
+msgid "Database error deleting OAuth application user."
 msgstr "Помилка бази даних при видаленні OAuth користувача."
 
 #: actions/apioauthauthorize.php:196
-msgid "DB error inserting OAuth app user."
+#, fuzzy
+msgid "Database error inserting OAuth application user."
 msgstr "Помилка бази даних при додаванні OAuth користувача."
 
 #: actions/apioauthauthorize.php:231
@@ -546,13 +545,6 @@ msgstr "Запит на дозвіл під’єднатися до Вашого
 #: actions/apioauthauthorize.php:290
 msgid "Allow or deny access"
 msgstr "Дозволити або заборонити доступ"
-
-#: actions/apioauthauthorize.php:306
-#, php-format
-msgid ""
-"The application <strong>%s</strong> by <strong>%s</strong> would like the "
-"ability to <strong>%s</strong> your account data."
-msgstr ""
 
 #: actions/apioauthauthorize.php:320 lib/action.php:441
 msgid "Account"
@@ -750,7 +742,7 @@ msgid "Preview"
 msgstr "Перегляд"
 
 #: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:611
+#: lib/noticelist.php:608
 msgid "Delete"
 msgstr "Видалити"
 
@@ -947,7 +939,7 @@ msgstr "Ви впевненні, що бажаєте видалити цей д�
 msgid "Do not delete this notice"
 msgstr "Не видаляти цей допис"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:611
+#: actions/deletenotice.php:146 lib/noticelist.php:608
 msgid "Delete this notice"
 msgstr "Видалити допис"
 
@@ -1092,12 +1084,11 @@ msgid "Add to favorites"
 msgstr "Додати до обраних"
 
 #: actions/doc.php:155
-#, fuzzy, php-format
+#, php-format
 msgid "No such document \"%s\""
-msgstr "Такого документа немає."
+msgstr "Немає такого документа «%s»"
 
 #: actions/editapplication.php:54
-#, fuzzy
 msgid "Edit Application"
 msgstr "Керувати додатками"
 
@@ -1235,8 +1226,8 @@ msgstr ""
 "спамом також!), там має бути повідомлення з подальшими інструкціями."
 
 #: actions/emailsettings.php:117 actions/imsettings.php:120
-#: actions/smssettings.php:126 lib/applicationeditform.php:333
-#: lib/applicationeditform.php:334
+#: actions/smssettings.php:126 lib/applicationeditform.php:331
+#: lib/applicationeditform.php:332
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -1834,9 +1825,9 @@ msgid "That is not your Jabber ID."
 msgstr "Це не Ваш Jabber ID."
 
 #: actions/inbox.php:59
-#, fuzzy, php-format
+#, php-format
 msgid "Inbox for %1$s - page %2$d"
-msgstr "Вхідні для %s"
+msgstr "Вхідні для %1$s — сторінка %2$d"
 
 #: actions/inbox.php:62
 #, php-format
@@ -2086,7 +2077,6 @@ msgid "No current status"
 msgstr "Ніякого поточного статусу"
 
 #: actions/newapplication.php:52
-#, fuzzy
 msgid "New Application"
 msgstr "Новий додаток"
 
@@ -2345,9 +2335,9 @@ msgid "Login token expired."
 msgstr "Токен для входу втратив чинність."
 
 #: actions/outbox.php:58
-#, fuzzy, php-format
+#, php-format
 msgid "Outbox for %1$s - page %2$d"
-msgstr "Вихідні для %s"
+msgstr "Вихідні для %1$s — сторінка %2$d"
 
 #: actions/outbox.php:61
 #, php-format
@@ -2633,7 +2623,7 @@ msgid "Full name"
 msgstr "Повне ім’я"
 
 #: actions/profilesettings.php:115 actions/register.php:453
-#: lib/applicationeditform.php:230 lib/groupeditform.php:161
+#: lib/applicationeditform.php:228 lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "Веб-сторінка"
 
@@ -3172,7 +3162,7 @@ msgstr "Ви не можете вторувати своїм власним до
 msgid "You already repeated that notice."
 msgstr "Ви вже вторували цьому допису."
 
-#: actions/repeat.php:114 lib/noticelist.php:629
+#: actions/repeat.php:114 lib/noticelist.php:626
 msgid "Repeated"
 msgstr "Вторування"
 
@@ -3187,9 +3177,9 @@ msgid "Replies to %s"
 msgstr "Відповіді до %s"
 
 #: actions/replies.php:127
-#, fuzzy, php-format
+#, php-format
 msgid "Replies to %1$s, page %2$d"
-msgstr "Відповіді до %1$s на %2$s!"
+msgstr "Відповіді до %1$s, сторінка %2$d"
 
 #: actions/replies.php:144
 #, php-format
@@ -3254,21 +3244,21 @@ msgstr "Ви повинні спочатку увійти, аби перегля
 msgid "Application profile"
 msgstr "Профіль додатку"
 
-#: actions/showapplication.php:160 lib/applicationeditform.php:182
+#: actions/showapplication.php:160 lib/applicationeditform.php:180
 msgid "Icon"
 msgstr "Іконка"
 
 #: actions/showapplication.php:170 actions/version.php:195
-#: lib/applicationeditform.php:197
+#: lib/applicationeditform.php:195
 msgid "Name"
 msgstr "Ім’я"
 
-#: actions/showapplication.php:179 lib/applicationeditform.php:224
+#: actions/showapplication.php:179 lib/applicationeditform.php:222
 msgid "Organization"
 msgstr "Організація"
 
 #: actions/showapplication.php:188 actions/version.php:198
-#: lib/applicationeditform.php:211 lib/groupeditform.php:172
+#: lib/applicationeditform.php:209 lib/groupeditform.php:172
 msgid "Description"
 msgstr "Опис"
 
@@ -3323,9 +3313,9 @@ msgstr ""
 "шифрування підписів відкритим текстом."
 
 #: actions/showfavorites.php:79
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s's favorite notices, page %2$d"
-msgstr "Обрані дописи %s"
+msgstr "Обрані дописи %1$s, сторінка %2$d"
 
 #: actions/showfavorites.php:132
 msgid "Could not retrieve favorite notices."
@@ -3385,9 +3375,9 @@ msgid "%s group"
 msgstr "Група %s"
 
 #: actions/showgroup.php:84
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s group, page %2$d"
-msgstr "Учасники групи %1$s, сторінка %2$d"
+msgstr "Група %1$s, сторінка %2$d"
 
 #: actions/showgroup.php:218
 msgid "Group profile"
@@ -3509,9 +3499,9 @@ msgid " tagged %s"
 msgstr " позначено з %s"
 
 #: actions/showstream.php:79
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s, page %2$d"
-msgstr "%1$s та друзі, сторінка %2$d"
+msgstr "%1$s, сторінка %2$d"
 
 #: actions/showstream.php:122
 #, php-format
@@ -3585,7 +3575,7 @@ msgstr ""
 "(http://uk.wikipedia.org/wiki/Мікроблоґ), який працює на вільному "
 "програмному забезпеченні [StatusNet](http://status.net/). "
 
-#: actions/showstream.php:313
+#: actions/showstream.php:296
 #, php-format
 msgid "Repeat of %s"
 msgstr "Вторування %s"
@@ -3952,9 +3942,9 @@ msgid "SMS"
 msgstr "СМС"
 
 #: actions/tag.php:68
-#, fuzzy, php-format
+#, php-format
 msgid "Notices tagged with %1$s, page %2$d"
-msgstr "Користувачі з особистим теґом %1$s — сторінка %2$d"
+msgstr "Дописи з теґом %1$s, сторінка %2$d"
 
 #: actions/tag.php:86
 #, php-format
@@ -4256,9 +4246,9 @@ msgid "Enjoy your hotdog!"
 msgstr "Поласуйте бутербродом!"
 
 #: actions/usergroups.php:64
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s groups, page %2$d"
-msgstr "Учасники групи %1$s, сторінка %2$d"
+msgstr "Групи %1$s, сторінка %2$d"
 
 #: actions/usergroups.php:130
 msgid "Search for more groups"
@@ -4427,9 +4417,8 @@ msgid "Problem saving notice."
 msgstr "Проблема при збереженні допису."
 
 #: classes/Notice.php:790
-#, fuzzy
 msgid "Problem saving group inbox."
-msgstr "Проблема при збереженні допису."
+msgstr "Проблема при збереженні вхідних дописів для групи."
 
 #: classes/Notice.php:850
 #, php-format
@@ -4701,77 +4690,84 @@ msgid "Design configuration"
 msgstr "Конфігурація дизайну"
 
 #: lib/adminpanelaction.php:322
-#, fuzzy
 msgid "User configuration"
-msgstr "Конфігурація шляху"
+msgstr "Конфігурація користувача"
 
 #: lib/adminpanelaction.php:327
-#, fuzzy
 msgid "Access configuration"
-msgstr "Конфігурація дизайну"
+msgstr "Прийняти конфігурацію"
 
 #: lib/adminpanelaction.php:332
 msgid "Paths configuration"
 msgstr "Конфігурація шляху"
 
+#: lib/apiauth.php:103
+msgid "API resource requires read-write access, but you only have read access."
+msgstr ""
+
+#: lib/apiauth.php:257
+#, php-format
+msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
+msgstr ""
+
 #: lib/applicationeditform.php:136
 msgid "Edit application"
 msgstr "Керувати додатками"
 
-#: lib/applicationeditform.php:186
+#: lib/applicationeditform.php:184
 msgid "Icon for this application"
 msgstr "Іконка для цього додатку"
 
-#: lib/applicationeditform.php:206
+#: lib/applicationeditform.php:204
 #, php-format
 msgid "Describe your application in %d characters"
 msgstr "Опишіть додаток, вкладаючись у %d знаків"
 
-#: lib/applicationeditform.php:209
+#: lib/applicationeditform.php:207
 msgid "Describe your application"
 msgstr "Опишіть Ваш додаток"
 
-#: lib/applicationeditform.php:218
+#: lib/applicationeditform.php:216
 msgid "Source URL"
 msgstr "URL-адреса"
 
-#: lib/applicationeditform.php:220
+#: lib/applicationeditform.php:218
 msgid "URL of the homepage of this application"
 msgstr "URL-адреса веб-сторінки цього додатку"
 
-#: lib/applicationeditform.php:226
+#: lib/applicationeditform.php:224
 msgid "Organization responsible for this application"
 msgstr "Організація, відповідальна за цей додаток"
 
-#: lib/applicationeditform.php:232
+#: lib/applicationeditform.php:230
 msgid "URL for the homepage of the organization"
 msgstr "URL-адреса веб-сторінки організації"
 
-#: lib/applicationeditform.php:238
+#: lib/applicationeditform.php:236
 msgid "URL to redirect to after authentication"
 msgstr "URL-адреса, на яку перенаправляти після автентифікації"
 
-#: lib/applicationeditform.php:260
+#: lib/applicationeditform.php:258
 msgid "Browser"
 msgstr "Браузер"
 
-#: lib/applicationeditform.php:276
+#: lib/applicationeditform.php:274
 msgid "Desktop"
 msgstr "Десктоп"
 
-#: lib/applicationeditform.php:277
+#: lib/applicationeditform.php:275
 msgid "Type of application, browser or desktop"
 msgstr "Тип додатку, браузер або десктоп"
 
-#: lib/applicationeditform.php:299
+#: lib/applicationeditform.php:297
 msgid "Read-only"
 msgstr "Лише читання"
 
-#: lib/applicationeditform.php:317
+#: lib/applicationeditform.php:315
 msgid "Read-write"
 msgstr "Читати-писати"
 
-#: lib/applicationeditform.php:318
+#: lib/applicationeditform.php:316
 msgid "Default access for this application: read-only, or read-write"
 msgstr ""
 "Дозвіл за замовчуванням для цього додатку: лише читання або читати-писати"
@@ -5773,15 +5769,15 @@ msgstr "в контексті"
 msgid "Repeated by"
 msgstr "Вторуванні"
 
-#: lib/noticelist.php:585
+#: lib/noticelist.php:582
 msgid "Reply to this notice"
 msgstr "Відповісти на цей допис"
 
-#: lib/noticelist.php:586
+#: lib/noticelist.php:583
 msgid "Reply"
 msgstr "Відповісти"
 
-#: lib/noticelist.php:628
+#: lib/noticelist.php:625
 msgid "Notice repeated"
 msgstr "Допис вторували"
 

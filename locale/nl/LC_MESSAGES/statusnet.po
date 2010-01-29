@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-27 23:58+0000\n"
-"PO-Revision-Date: 2010-01-27 23:59:30+0000\n"
+"POT-Creation-Date: 2010-01-28 23:04+0000\n"
+"PO-Revision-Date: 2010-01-28 23:05:12+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61595); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61646); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: out-statusnet\n"
@@ -26,14 +26,12 @@ msgid "Access"
 msgstr "Toegang"
 
 #: actions/accessadminpanel.php:65
-#, fuzzy
 msgid "Site access settings"
-msgstr "Websiteinstellingen opslaan"
+msgstr "Instellingen voor sitetoegang"
 
 #: actions/accessadminpanel.php:158
-#, fuzzy
 msgid "Registration"
-msgstr "Registreren"
+msgstr "Registratie"
 
 #: actions/accessadminpanel.php:161
 msgid "Private"
@@ -65,15 +63,14 @@ msgstr "Nieuwe registraties uitschakelen."
 #: actions/profilesettings.php:174 actions/siteadminpanel.php:336
 #: actions/smssettings.php:181 actions/subscriptions.php:203
 #: actions/tagother.php:154 actions/useradminpanel.php:313
-#: lib/applicationeditform.php:335 lib/applicationeditform.php:336
+#: lib/applicationeditform.php:333 lib/applicationeditform.php:334
 #: lib/designsettings.php:256 lib/groupeditform.php:202
 msgid "Save"
 msgstr "Opslaan"
 
 #: actions/accessadminpanel.php:189
-#, fuzzy
 msgid "Save access settings"
-msgstr "Websiteinstellingen opslaan"
+msgstr "Toegangsinstellingen opslaan"
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
 #: actions/showfavorites.php:137 actions/tag.php:51
@@ -186,7 +183,7 @@ msgstr "Updates van %1$s en vrienden op %2$s."
 #: actions/apiaccountupdateprofilecolors.php:118
 #: actions/apidirectmessage.php:156 actions/apifavoritecreate.php:99
 #: actions/apifavoritedestroy.php:100 actions/apifriendshipscreate.php:100
-#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:129
+#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:128
 #: actions/apigroupcreate.php:136 actions/apigroupismember.php:114
 #: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
 #: actions/apigrouplist.php:132 actions/apigrouplistall.php:120
@@ -367,11 +364,11 @@ msgstr "U kunt het abonnement op uzelf niet opzeggen."
 msgid "Two user ids or screen_names must be supplied."
 msgstr "Er moeten twee gebruikersnamen of ID's opgegeven worden."
 
-#: actions/apifriendshipsshow.php:135
+#: actions/apifriendshipsshow.php:134
 msgid "Could not determine source user."
 msgstr "Het was niet mogelijk de brongebruiker te bepalen."
 
-#: actions/apifriendshipsshow.php:143
+#: actions/apifriendshipsshow.php:142
 msgid "Could not find target user."
 msgstr "Het was niet mogelijk de doelgebruiker te vinden."
 
@@ -516,13 +513,15 @@ msgid "Invalid nickname / password!"
 msgstr "Ongeldige gebruikersnaam of wachtwoord."
 
 #: actions/apioauthauthorize.php:170
-msgid "DB error deleting OAuth app user."
+#, fuzzy
+msgid "Database error deleting OAuth application user."
 msgstr ""
 "Er is een databasefout opgetreden tijdens het verwijderen van de OAuth "
 "applicatiegebruiker."
 
 #: actions/apioauthauthorize.php:196
-msgid "DB error inserting OAuth app user."
+#, fuzzy
+msgid "Database error inserting OAuth application user."
 msgstr ""
 "Er is een databasefout opgetreden tijdens het toevoegen van de OAuth "
 "applicatiegebruiker."
@@ -557,13 +556,6 @@ msgstr "Een applicatie vraagt toegang tot uw gebruikersgegevens"
 #: actions/apioauthauthorize.php:290
 msgid "Allow or deny access"
 msgstr "Toegang toestaan of ontzeggen"
-
-#: actions/apioauthauthorize.php:306
-#, php-format
-msgid ""
-"The application <strong>%s</strong> by <strong>%s</strong> would like the "
-"ability to <strong>%s</strong> your account data."
-msgstr ""
 
 #: actions/apioauthauthorize.php:320 lib/action.php:441
 msgid "Account"
@@ -762,7 +754,7 @@ msgid "Preview"
 msgstr "Voorvertoning"
 
 #: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:611
+#: lib/noticelist.php:608
 msgid "Delete"
 msgstr "Verwijderen"
 
@@ -962,7 +954,7 @@ msgstr "Weet u zeker dat u deze aankondiging wilt verwijderen?"
 msgid "Do not delete this notice"
 msgstr "Deze mededeling niet verwijderen"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:611
+#: actions/deletenotice.php:146 lib/noticelist.php:608
 msgid "Delete this notice"
 msgstr "Deze mededeling verwijderen"
 
@@ -1108,12 +1100,11 @@ msgid "Add to favorites"
 msgstr "Aan favorieten toevoegen"
 
 #: actions/doc.php:155
-#, fuzzy, php-format
+#, php-format
 msgid "No such document \"%s\""
-msgstr "Onbekend document."
+msgstr "Onbekend document \"%s\""
 
 #: actions/editapplication.php:54
-#, fuzzy
 msgid "Edit Application"
 msgstr "Applicatie bewerken"
 
@@ -1251,8 +1242,8 @@ msgstr ""
 "ongewenste berichten/spam) voor een bericht met nadere instructies."
 
 #: actions/emailsettings.php:117 actions/imsettings.php:120
-#: actions/smssettings.php:126 lib/applicationeditform.php:333
-#: lib/applicationeditform.php:334
+#: actions/smssettings.php:126 lib/applicationeditform.php:331
+#: lib/applicationeditform.php:332
 msgid "Cancel"
 msgstr "Annuleren"
 
@@ -1861,9 +1852,9 @@ msgid "That is not your Jabber ID."
 msgstr "Dit is niet uw Jabber-ID."
 
 #: actions/inbox.php:59
-#, fuzzy, php-format
+#, php-format
 msgid "Inbox for %1$s - page %2$d"
-msgstr "Postvak IN van %s"
+msgstr "Postvak IN van %s - pagina %2$d"
 
 #: actions/inbox.php:62
 #, php-format
@@ -2113,7 +2104,6 @@ msgid "No current status"
 msgstr "Geen huidige status"
 
 #: actions/newapplication.php:52
-#, fuzzy
 msgid "New Application"
 msgstr "Nieuwe applicatie"
 
@@ -2377,9 +2367,9 @@ msgid "Login token expired."
 msgstr "Het aanmeldtoken is verlopen."
 
 #: actions/outbox.php:58
-#, fuzzy, php-format
+#, php-format
 msgid "Outbox for %1$s - page %2$d"
-msgstr "Postvak UIT voor %s"
+msgstr "Postvak UIT voor %1$s - pagina %2$d"
 
 #: actions/outbox.php:61
 #, php-format
@@ -2665,7 +2655,7 @@ msgid "Full name"
 msgstr "Volledige naam"
 
 #: actions/profilesettings.php:115 actions/register.php:453
-#: lib/applicationeditform.php:230 lib/groupeditform.php:161
+#: lib/applicationeditform.php:228 lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "Thuispagina"
 
@@ -3212,7 +3202,7 @@ msgstr "U kunt uw eigen mededeling niet herhalen."
 msgid "You already repeated that notice."
 msgstr "U hent die mededeling al herhaald."
 
-#: actions/repeat.php:114 lib/noticelist.php:629
+#: actions/repeat.php:114 lib/noticelist.php:626
 msgid "Repeated"
 msgstr "Herhaald"
 
@@ -3227,9 +3217,9 @@ msgid "Replies to %s"
 msgstr "Antwoorden aan %s"
 
 #: actions/replies.php:127
-#, fuzzy, php-format
+#, php-format
 msgid "Replies to %1$s, page %2$d"
-msgstr "Antwoorden aan %1$s op %2$s."
+msgstr "Antwoorden aan %1$s, pagina %2$d"
 
 #: actions/replies.php:144
 #, php-format
@@ -3294,21 +3284,21 @@ msgstr "U moet aangemeld zijn om een applicatie te kunnen bekijken."
 msgid "Application profile"
 msgstr "Applicatieprofiel"
 
-#: actions/showapplication.php:160 lib/applicationeditform.php:182
+#: actions/showapplication.php:160 lib/applicationeditform.php:180
 msgid "Icon"
 msgstr "Icoon"
 
 #: actions/showapplication.php:170 actions/version.php:195
-#: lib/applicationeditform.php:197
+#: lib/applicationeditform.php:195
 msgid "Name"
 msgstr "Naam"
 
-#: actions/showapplication.php:179 lib/applicationeditform.php:224
+#: actions/showapplication.php:179 lib/applicationeditform.php:222
 msgid "Organization"
 msgstr "Organisatie"
 
 #: actions/showapplication.php:188 actions/version.php:198
-#: lib/applicationeditform.php:211 lib/groupeditform.php:172
+#: lib/applicationeditform.php:209 lib/groupeditform.php:172
 msgid "Description"
 msgstr "Beschrijving"
 
@@ -3363,9 +3353,9 @@ msgstr ""
 "platte tekst is niet mogelijk."
 
 #: actions/showfavorites.php:79
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s's favorite notices, page %2$d"
-msgstr "Favoriete mededelingen van %s"
+msgstr "Favoriete mededelingen van %1$s, pagina %2$d"
 
 #: actions/showfavorites.php:132
 msgid "Could not retrieve favorite notices."
@@ -3426,9 +3416,9 @@ msgid "%s group"
 msgstr "%s groep"
 
 #: actions/showgroup.php:84
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s group, page %2$d"
-msgstr "%1$s groeps leden, pagina %2$d"
+msgstr "Groep %1$s, pagina %2$d"
 
 #: actions/showgroup.php:218
 msgid "Group profile"
@@ -3551,9 +3541,9 @@ msgid " tagged %s"
 msgstr " met het label %s"
 
 #: actions/showstream.php:79
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s, page %2$d"
-msgstr "%1$s en vrienden, pagina %2$d"
+msgstr "%1$s, pagina %2$d"
 
 #: actions/showstream.php:122
 #, php-format
@@ -3628,7 +3618,7 @@ msgstr ""
 "(http://en.wikipedia.org/wiki/Micro-blogging) gebaseerd op de Vrije Software "
 "[StatusNet](http://status.net/). "
 
-#: actions/showstream.php:313
+#: actions/showstream.php:296
 #, php-format
 msgid "Repeat of %s"
 msgstr "Herhaald van %s"
@@ -3999,9 +3989,9 @@ msgid "SMS"
 msgstr "SMS"
 
 #: actions/tag.php:68
-#, fuzzy, php-format
+#, php-format
 msgid "Notices tagged with %1$s, page %2$d"
-msgstr "Gebruikers die zichzelf met %1$s hebben gelabeld - pagina %2$d"
+msgstr "Mededelingen met het label %1$s, pagina %2$d"
 
 #: actions/tag.php:86
 #, php-format
@@ -4307,9 +4297,9 @@ msgid "Enjoy your hotdog!"
 msgstr "Geniet van uw hotdog!"
 
 #: actions/usergroups.php:64
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s groups, page %2$d"
-msgstr "%1$s groeps leden, pagina %2$d"
+msgstr "Groepen voor %1$s, pagina %2$d"
 
 #: actions/usergroups.php:130
 msgid "Search for more groups"
@@ -4485,9 +4475,10 @@ msgid "Problem saving notice."
 msgstr "Er is een probleem opgetreden bij het opslaan van de mededeling."
 
 #: classes/Notice.php:790
-#, fuzzy
 msgid "Problem saving group inbox."
-msgstr "Er is een probleem opgetreden bij het opslaan van de mededeling."
+msgstr ""
+"Er is een probleem opgetreden bij het opslaan van het Postvak IN van de "
+"groep."
 
 #: classes/Notice.php:850
 #, php-format
@@ -4763,77 +4754,84 @@ msgid "Design configuration"
 msgstr "Instellingen vormgeving"
 
 #: lib/adminpanelaction.php:322
-#, fuzzy
 msgid "User configuration"
-msgstr "Padinstellingen"
+msgstr "Gebruikersinstellingen"
 
 #: lib/adminpanelaction.php:327
-#, fuzzy
 msgid "Access configuration"
-msgstr "Instellingen vormgeving"
+msgstr "Toegangsinstellingen"
 
 #: lib/adminpanelaction.php:332
 msgid "Paths configuration"
 msgstr "Padinstellingen"
 
+#: lib/apiauth.php:103
+msgid "API resource requires read-write access, but you only have read access."
+msgstr ""
+
+#: lib/apiauth.php:257
+#, php-format
+msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
+msgstr ""
+
 #: lib/applicationeditform.php:136
 msgid "Edit application"
 msgstr "Applicatie bewerken"
 
-#: lib/applicationeditform.php:186
+#: lib/applicationeditform.php:184
 msgid "Icon for this application"
 msgstr "Icoon voor deze applicatie"
 
-#: lib/applicationeditform.php:206
+#: lib/applicationeditform.php:204
 #, php-format
 msgid "Describe your application in %d characters"
 msgstr "Beschrijf uw applicatie in %d tekens"
 
-#: lib/applicationeditform.php:209
+#: lib/applicationeditform.php:207
 msgid "Describe your application"
 msgstr "Beschrijf uw applicatie"
 
-#: lib/applicationeditform.php:218
+#: lib/applicationeditform.php:216
 msgid "Source URL"
 msgstr "Bron-URL"
 
-#: lib/applicationeditform.php:220
+#: lib/applicationeditform.php:218
 msgid "URL of the homepage of this application"
 msgstr "De URL van de homepage van deze applicatie"
 
-#: lib/applicationeditform.php:226
+#: lib/applicationeditform.php:224
 msgid "Organization responsible for this application"
 msgstr "Organisatie verantwoordelijk voor deze applicatie"
 
-#: lib/applicationeditform.php:232
+#: lib/applicationeditform.php:230
 msgid "URL for the homepage of the organization"
 msgstr "De URL van de homepage van de organisatie"
 
-#: lib/applicationeditform.php:238
+#: lib/applicationeditform.php:236
 msgid "URL to redirect to after authentication"
 msgstr "URL om naar door te verwijzen na authenticatie"
 
-#: lib/applicationeditform.php:260
+#: lib/applicationeditform.php:258
 msgid "Browser"
 msgstr "Browser"
 
-#: lib/applicationeditform.php:276
+#: lib/applicationeditform.php:274
 msgid "Desktop"
 msgstr "Desktop"
 
-#: lib/applicationeditform.php:277
+#: lib/applicationeditform.php:275
 msgid "Type of application, browser or desktop"
 msgstr "Type applicatie; browser of desktop"
 
-#: lib/applicationeditform.php:299
+#: lib/applicationeditform.php:297
 msgid "Read-only"
 msgstr "Alleen-lezen"
 
-#: lib/applicationeditform.php:317
+#: lib/applicationeditform.php:315
 msgid "Read-write"
 msgstr "Lezen en schrijven"
 
-#: lib/applicationeditform.php:318
+#: lib/applicationeditform.php:316
 msgid "Default access for this application: read-only, or read-write"
 msgstr ""
 "Standaardtoegang voor deze applicatie: alleen-lezen of lezen en schrijven"
@@ -5848,15 +5846,15 @@ msgstr "in context"
 msgid "Repeated by"
 msgstr "Herhaald door"
 
-#: lib/noticelist.php:585
+#: lib/noticelist.php:582
 msgid "Reply to this notice"
 msgstr "Op deze mededeling antwoorden"
 
-#: lib/noticelist.php:586
+#: lib/noticelist.php:583
 msgid "Reply"
 msgstr "Antwoorden"
 
-#: lib/noticelist.php:628
+#: lib/noticelist.php:625
 msgid "Notice repeated"
 msgstr "Mededeling herhaald"
 
