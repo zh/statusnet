@@ -50,7 +50,7 @@ if (empty($sn)) {
 
 $tags = $sn->getTags();
 
-$i = array_search($tags, $tag);
+$i = array_search($tag, $tags);
 
 if ($i !== false) {
     if (have_option('d', 'delete')) { // Delete
