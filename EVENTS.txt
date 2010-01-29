@@ -699,3 +699,12 @@ StartShowContentLicense: Showing the default license for content
 
 EndShowContentLicense: Showing the default license for content
 - $action: the current action
+
+StartUserRegister: When a new user is being registered
+- &$profile: new profile data (no ID)
+- &$user: new user account (no ID or URI)
+
+EndUserRegister: When a new user has been registered
+- &$profile: new profile data
+- &$user: new user account
+
