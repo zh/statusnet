@@ -649,7 +649,16 @@ class Router
 
             if (common_config('singleuser', 'enabled')) {
 
-                $nickname = common_config('singleuser', 'nickname');
+                $user = User::siteOwner();
+
+                if (!empty($user)) {
+                    $nickname = $user->nickname;
+                } else {
+                    $nickname = common_config('singleuser', 'nickname');
+                    if (empty($nickname)) {
+                        throw new ServerException(_("No single user defined for single-user mode."));
+                    }
+                }
 
                 foreach (array('subscriptions', 'subscribers',
                                'all', 'foaf', 'xrds',
