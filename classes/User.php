@@ -925,4 +925,30 @@ class User extends Memcached_DataObject
             return $share;
         }
     }
+
+    static function siteOwner()
+    {
+        $owner = self::cacheGet('user:site_owner');
+
+        if ($owner === false) { // cache miss
+
+            $pr = new Profile_role();
+
+            $pr->role = Profile_role::OWNER;
+
+            $pr->orderBy('created');
+
+            $pr->limit(0, 1);
+
+            if ($pr->fetch($true)) {
+                $owner = User::staticGet('id', $pr->profile_id);
+            } else {
+                $owner = null;
+            }
+
+            self::cacheSet('user:site_owner', $owner);
+        }
+
+        return $owner;
+    }
 }
