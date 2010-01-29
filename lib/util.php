@@ -178,7 +178,6 @@ function common_ensure_session()
 	}
 	if (isset($id)) {
 	    session_id($id);
-	    setcookie(session_name(), $id);
 	}
         @session_start();
         if (!isset($_SESSION['started'])) {

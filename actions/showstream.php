@@ -76,7 +76,7 @@ class ShowstreamAction extends ProfileAction
         if ($this->page == 1) {
             return $base;
         } else {
-            return sprintf(_("%1$s, page %2$d"),
+            return sprintf(_('%1$s, page %2$d'),
                            $base,
                            $this->page);
         }
@@ -290,23 +290,6 @@ class ProfileNoticeListItem extends NoticeListItem
             }
 
             $this->out->elementStart('span', 'repeat');
-
-            $this->out->elementStart('a', $attrs);
-
-            $avatar = $this->profile->getAvatar(AVATAR_MINI_SIZE);
-
-            $this->out->element('img', array('src' => ($avatar) ?
-                                             $avatar->displayUrl() :
-                                             Avatar::defaultImage(AVATAR_MINI_SIZE),
-                                             'class' => 'avatar photo',
-                                             'width' => AVATAR_MINI_SIZE,
-                                             'height' => AVATAR_MINI_SIZE,
-                                             'alt' =>
-                                             ($this->profile->fullname) ?
-                                             $this->profile->fullname :
-                                             $this->profile->nickname));
-
-            $this->out->elementEnd('a');
 
             $text_link = XMLStringer::estring('a', $attrs, $this->profile->nickname);
 

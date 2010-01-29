@@ -38,6 +38,9 @@ abstract class IoMaster
     protected $pollTimeouts = array();
     protected $lastPoll = array();
 
+    public $shutdown = false; // Did we do a graceful shutdown?
+    public $respawn = true; // Should we respawn after shutdown?
+
     /**
      * @param string $id process ID to use in logging/monitoring
      */
@@ -144,7 +147,7 @@ abstract class IoMaster
         $this->logState('init');
         $this->start();
 
-        while (true) {
+        while (!$this->shutdown) {
             $timeouts = array_values($this->pollTimeouts);
             $timeouts[] = 60; // default max timeout
 
@@ -196,20 +199,29 @@ abstract class IoMaster
             $this->logState('idle');
             $this->idle();
 
-            $memoryLimit = $this->softMemoryLimit();
-            if ($memoryLimit > 0) {
-                $usage = memory_get_usage();
-                if ($usage > $memoryLimit) {
-                    common_log(LOG_INFO, "Queue thread hit soft memory limit ($usage > $memoryLimit); gracefully restarting.");
-                    break;
-                } else if (common_config('queue', 'debug_memory')) {
-                    common_log(LOG_DEBUG, "Memory usage $usage");
-                }
-            }
+            $this->checkMemory();
         }
 
         $this->logState('shutdown');
         $this->finish();
+    }
+
+    /**
+     * Check runtime memory usage, possibly triggering a graceful shutdown
+     * and thread respawn if we've crossed the soft limit.
+     */
+    protected function checkMemory()
+    {
+        $memoryLimit = $this->softMemoryLimit();
+        if ($memoryLimit > 0) {
+            $usage = memory_get_usage();
+            if ($usage > $memoryLimit) {
+                common_log(LOG_INFO, "Queue thread hit soft memory limit ($usage > $memoryLimit); gracefully restarting.");
+                $this->requestRestart();
+            } else if (common_config('queue', 'debug_memory')) {
+                common_log(LOG_DEBUG, "Memory usage $usage");
+            }
+        }
     }
 
     /**
@@ -354,5 +366,24 @@ abstract class IoMaster
         $owners[] = "thread:" . $this->id;
         $this->monitor->stats($key, $owners);
     }
+
+    /**
+     * For IoManagers to request a graceful shutdown at end of event loop.
+     */
+    public function requestShutdown()
+    {
+        $this->shutdown = true;
+        $this->respawn = false;
+    }
+
+    /**
+     * For IoManagers to request a graceful restart at end of event loop.
+     */
+    public function requestRestart()
+    {
+        $this->shutdown = true;
+        $this->respawn = true;
+    }
+
 }
 

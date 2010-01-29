@@ -56,10 +56,10 @@ class InboxAction extends MailboxAction
     function title()
     {
         if ($this->page > 1) {
-            return sprintf(_("Inbox for %1$s - page %2$d"), $this->user->nickname,
+            return sprintf(_('Inbox for %1$s - page %2$d'), $this->user->nickname,
                 $this->page);
         } else {
-            return sprintf(_("Inbox for %s"), $this->user->nickname);
+            return sprintf(_('Inbox for %s'), $this->user->nickname);
         }
     }
 

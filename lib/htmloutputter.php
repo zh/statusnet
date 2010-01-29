@@ -351,14 +351,40 @@ class HTMLOutputter extends XMLOutputter
     function script($src, $type='text/javascript')
     {
         if(Event::handle('StartScriptElement', array($this,&$src,&$type))) {
+
             $url = parse_url($src);
+
             if( empty($url['scheme']) && empty($url['host']) && empty($url['query']) && empty($url['fragment']))
             {
-                $src = common_path($src) . '?version=' . STATUSNET_VERSION;
+                $path = common_config('javascript', 'path');
+
+                if (empty($path)) {
+                    $path = common_config('site', 'path') . '/js/';
+                }
+
+                if ($path[strlen($path)-1] != '/') {
+                    $path .= '/';
+                }
+
+                if ($path[0] != '/') {
+                    $path = '/'.$path;
+                }
+
+                $server = common_config('javascript', 'server');
+
+                if (empty($server)) {
+                    $server = common_config('site', 'server');
+                }
+
+                // XXX: protocol
+
+                $src = 'http://'.$server.$path.$src . '?version=' . STATUSNET_VERSION;
             }
+
             $this->element('script', array('type' => $type,
                                                    'src' => $src),
                                    ' ');
+
             Event::handle('EndScriptElement', array($this,$src,$type));
         }
     }

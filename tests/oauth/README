@@ -1,0 +1,22 @@
+Some very rough test scripts for hitting up the OAuth endpoints.
+
+Note: this works best if you register an OAuth application, leaving
+the callback URL blank.
+
+Put your instance info and consumer key and secret in oauth.ini
+
+Example usage:
+--------------
+
+php getrequesttoken.php
+
+Gets a request token, token secret and a url to authorize it.  Once
+you authorize the request token you can exchange it for an access token...
+
+php exchangetokens.php --oauth_token=b9a79548a88c1aa9a5bea73103c6d41d --token_secret=4a47d9337fc0202a14ab552e17a3b657
+
+Once you have your access token, go ahead and try a protected API
+resource:
+
+php verifycreds.php --oauth_token=cf2de7665f0dda0a82c2dc39b01be7f9 --token_secret=4524c3b712200138e1a4cff2e9ca83d8
+

@@ -22,7 +22,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 //exit with 200 response, if this is checking fancy from the installer
 if (isset($_REQUEST['p']) && $_REQUEST['p'] == 'check-fancy') {  exit; }
 
-define('STATUSNET_VERSION', '0.9.0beta3');
+define('STATUSNET_VERSION', '0.9.0beta4');
 define('LACONICA_VERSION', STATUSNET_VERSION); // compatibility
 
 define('STATUSNET_CODENAME', 'Stand');
@@ -115,6 +115,10 @@ function __autoload($cls)
 require_once 'Validate.php';
 require_once 'markdown.php';
 
+// XXX: other formats here
+
+define('NICKNAME_FMT', VALIDATE_NUM.VALIDATE_ALPHA_LOWER);
+
 require_once INSTALLDIR.'/lib/util.php';
 require_once INSTALLDIR.'/lib/action.php';
 require_once INSTALLDIR.'/lib/mail.php';
@@ -136,6 +140,3 @@ try {
     exit;
 }
 
-// XXX: other formats here
-
-define('NICKNAME_FMT', VALIDATE_NUM.VALIDATE_ALPHA_LOWER);

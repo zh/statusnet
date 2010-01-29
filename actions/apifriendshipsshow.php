@@ -87,7 +87,6 @@ class ApiFriendshipsShowAction extends ApiBareAuthAction
         return true;
     }
 
-
     /**
      * Determines whether this API resource requires auth.  Overloaded to look
      * return true in case source_id and source_screen_name are both empty
@@ -163,6 +162,21 @@ class ApiFriendshipsShowAction extends ApiBareAuthAction
             break;
         }
 
+    }
+
+    /**
+     * Return true if read only.
+     *
+     * MAY override
+     *
+     * @param array $args other arguments
+     *
+     * @return boolean is read only action?
+     */
+
+    function isReadOnly($args)
+    {
+        return true;
     }
 
 }

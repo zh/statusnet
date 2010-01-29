@@ -66,7 +66,6 @@ class Memcached_DataObject extends DB_DataObject
         // Clear this out so we don't accidentally break global
         // state in *this* process.
         $this->_DB_resultid = null;
-
         // We don't have any local DBO refs, so clear these out.
         $this->_link_loaded = false;
     }
@@ -91,9 +90,7 @@ class Memcached_DataObject extends DB_DataObject
             unset($i);
         }
         $i = Memcached_DataObject::getcached($cls, $k, $v);
-        if ($i) {
-            return $i;
-        } else {
+        if ($i === false) { // false == cache miss
             $i = DB_DataObject::factory($cls);
             if (empty($i)) {
                 $i = false;
@@ -101,22 +98,34 @@ class Memcached_DataObject extends DB_DataObject
             }
             $result = $i->get($k, $v);
             if ($result) {
+                // Hit!
                 $i->encache();
-                return $i;
             } else {
+                // save the fact that no such row exists
+                $c = self::memcache();
+                if (!empty($c)) {
+                    $ck = self::cachekey($cls, $k, $v);
+                    $c->set($ck, null);
+                }
                 $i = false;
-                return $i;
             }
         }
+        return $i;
     }
 
-    function &pkeyGet($cls, $kv)
+    /**
+     * @fixme Should this return false on lookup fail to match staticGet?
+     */
+    function pkeyGet($cls, $kv)
     {
         $i = Memcached_DataObject::multicache($cls, $kv);
-        if ($i) {
+        if ($i !== false) { // false == cache miss
             return $i;
         } else {
-            $i = new $cls();
+            $i = DB_DataObject::factory($cls);
+            if (empty($i)) {
+                return false;
+            }
             foreach ($kv as $k => $v) {
                 $i->$k = $v;
             }
@@ -124,6 +133,11 @@ class Memcached_DataObject extends DB_DataObject
                 $i->encache();
             } else {
                 $i = null;
+                $c = self::memcache();
+                if (!empty($c)) {
+                    $ck = self::multicacheKey($cls, $kv);
+                    $c->set($ck, null);
+                }
             }
             return $i;
         }
@@ -132,6 +146,10 @@ class Memcached_DataObject extends DB_DataObject
     function insert()
     {
         $result = parent::insert();
+        if ($result) {
+            $this->fixupTimestamps();
+            $this->encache(); // in case of cached negative lookups
+        }
         return $result;
     }
 
@@ -142,6 +160,7 @@ class Memcached_DataObject extends DB_DataObject
         }
         $result = parent::update($orig);
         if ($result) {
+            $this->fixupTimestamps();
             $this->encache();
         }
         return $result;
@@ -186,6 +205,17 @@ class Memcached_DataObject extends DB_DataObject
 
     function keyTypes()
     {
+        // ini-based classes return number-indexed arrays. handbuilt
+        // classes return column => keytype. Make this uniform.
+
+        $keys = $this->keys();
+
+        $keyskeys = array_keys($keys);
+
+        if (is_string($keyskeys[0])) {
+            return $keys;
+        }
+
         global $_DB_DATAOBJECT;
         if (!isset($_DB_DATAOBJECT['INI'][$this->_database][$this->__table."__keys"])) {
             $this->databaseStructure();
@@ -197,6 +227,7 @@ class Memcached_DataObject extends DB_DataObject
     function encache()
     {
         $c = $this->memcache();
+
         if (!$c) {
             return false;
         } else if ($this->tableName() == 'user' && is_object($this->id)) {
@@ -206,62 +237,84 @@ class Memcached_DataObject extends DB_DataObject
                        str_replace("\n", " ", $e->getTraceAsString()));
             return false;
         } else {
-            $pkey = array();
-            $pval = array();
-            $types = $this->keyTypes();
-            ksort($types);
-            foreach ($types as $key => $type) {
-                if ($type == 'K') {
-                    $pkey[] = $key;
-                    $pval[] = $this->$key;
-                } else {
-                    $c->set($this->cacheKey($this->tableName(), $key, $this->$key), $this);
-                }
-            }
-            # XXX: should work for both compound and scalar pkeys
-            $pvals = implode(',', $pval);
-            $pkeys = implode(',', $pkey);
-            $c->set($this->cacheKey($this->tableName(), $pkeys, $pvals), $this);
+		$keys = $this->_allCacheKeys();
+
+		foreach ($keys as $key) {
+		    $c->set($key, $this);
+		}
         }
     }
 
     function decache()
     {
         $c = $this->memcache();
+
         if (!$c) {
             return false;
-        } else {
-            $pkey = array();
-            $pval = array();
-            $types = $this->keyTypes();
-            ksort($types);
-            foreach ($types as $key => $type) {
-                if ($type == 'K') {
-                    $pkey[] = $key;
-                    $pval[] = $this->$key;
-                } else {
-                    $c->delete($this->cacheKey($this->tableName(), $key, $this->$key));
-                }
-            }
-            # should work for both compound and scalar pkeys
-            # XXX: comma works for now but may not be safe separator for future keys
-            $pvals = implode(',', $pval);
-            $pkeys = implode(',', $pkey);
-            $c->delete($this->cacheKey($this->tableName(), $pkeys, $pvals));
         }
+
+        $keys = $this->_allCacheKeys();
+
+        foreach ($keys as $key) {
+            $c->delete($key, $this);
+        }
+    }
+
+    function _allCacheKeys()
+    {
+        $ckeys = array();
+
+        $types = $this->keyTypes();
+        ksort($types);
+
+        $pkey = array();
+        $pval = array();
+
+        foreach ($types as $key => $type) {
+
+            assert(!empty($key));
+
+            if ($type == 'U') {
+                if (empty($this->$key)) {
+                    continue;
+                }
+                $ckeys[] = $this->cacheKey($this->tableName(), $key, $this->$key);
+            } else if ($type == 'K' || $type == 'N') {
+                $pkey[] = $key;
+                $pval[] = $this->$key;
+            } else {
+                throw new Exception("Unknown key type $key => $type for " . $this->tableName());
+            }
+        }
+
+        assert(count($pkey) > 0);
+
+        // XXX: should work for both compound and scalar pkeys
+        $pvals = implode(',', $pval);
+        $pkeys = implode(',', $pkey);
+
+        $ckeys[] = $this->cacheKey($this->tableName(), $pkeys, $pvals);
+
+        return $ckeys;
     }
 
     function multicache($cls, $kv)
     {
         ksort($kv);
-        $c = Memcached_DataObject::memcache();
+        $c = self::memcache();
         if (!$c) {
             return false;
         } else {
-            $pkeys = implode(',', array_keys($kv));
-            $pvals = implode(',', array_values($kv));
-            return $c->get(Memcached_DataObject::cacheKey($cls, $pkeys, $pvals));
+            return $c->get(self::multicacheKey($cls, $kv));
         }
+    }
+
+    static function multicacheKey($cls, $kv)
+    {
+        ksort($kv);
+        $pkeys = implode(',', array_keys($kv));
+        $pvals = implode(',', array_values($kv));
+        return self::cacheKey($cls, $pkeys, $pvals);
     }
 
     function getSearchEngine($table)
@@ -298,7 +351,8 @@ class Memcached_DataObject extends DB_DataObject
         $key_part = common_keyize($cls).':'.md5($qry);
         $ckey = common_cache_key($key_part);
         $stored = $c->get($ckey);
-        if ($stored) {
+
+        if ($stored !== false) {
             return new ArrayWrapper($stored);
         }
 
@@ -311,6 +365,39 @@ class Memcached_DataObject extends DB_DataObject
         $inst->free();
         $c->set($ckey, $cached, MEMCACHE_COMPRESSED, $expiry);
         return new ArrayWrapper($cached);
+    }
+
+    /**
+     * sends query to database - this is the private one that must work
+     *   - internal functions use this rather than $this->query()
+     *
+     * Overridden to do logging.
+     *
+     * @param  string  $string
+     * @access private
+     * @return mixed none or PEAR_Error
+     */
+    function _query($string)
+    {
+        $start = microtime(true);
+        $result = parent::_query($string);
+        $delta = microtime(true) - $start;
+
+        $limit = common_config('db', 'log_slow_queries');
+        if (($limit > 0 && $delta >= $limit) || common_config('db', 'log_queries')) {
+            $clean = $this->sanitizeQuery($string);
+            common_log(LOG_DEBUG, sprintf("DB query (%0.3fs): %s", $delta, $clean));
+        }
+        return $result;
+    }
+
+    // Sanitize a query for logging
+    // @fixme don't trim spaces in string literals
+    function sanitizeQuery($string)
+    {
+        $string = preg_replace('/\s+/', ' ', $string);
+        $string = trim($string);
+        return $string;
     }
 
     // We overload so that 'SET NAMES "utf8"' is called for
@@ -343,7 +430,7 @@ class Memcached_DataObject extends DB_DataObject
         //
         // WARNING WARNING if we end up actually using multiple DBs at a time
         // we'll need some fancier logic here.
-        if (!$exists && !empty($_DB_DATAOBJECT['CONNECTIONS'])) {
+        if (!$exists && !empty($_DB_DATAOBJECT['CONNECTIONS']) && php_sapi_name() == 'cli') {
             foreach ($_DB_DATAOBJECT['CONNECTIONS'] as $index => $conn) {
                 if (!empty($conn)) {
                     $conn->disconnect();
@@ -443,5 +530,26 @@ class Memcached_DataObject extends DB_DataObject
         $cacheKey = common_cache_key($keyPart);
 
         return $c->delete($cacheKey);
+    }
+
+    function fixupTimestamps()
+    {
+        // Fake up timestamp columns
+        $columns = $this->table();
+        foreach ($columns as $name => $type) {
+            if ($type & DB_DATAOBJECT_MYSQLTIMESTAMP) {
+                $this->$name = common_sql_now();
+            }
+        }
+    }
+
+    function debugDump()
+    {
+        common_debug("debugDump: " . common_log_objstring($this));
+    }
+
+    function raiseError($message, $type = null, $behaviour = null)
+    {
+        throw new ServerException("DB_DataObject error [$type]: $message");
     }
 }

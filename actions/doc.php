@@ -45,11 +45,23 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  */
 class DocAction extends Action
 {
-    var $filename;
-    var $title;
+    var $output   = null;
+    var $filename = null;
+    var $title    = null;
+
+    function prepare($args)
+    {
+        parent::prepare($args);
+
+        $this->title  = $this->trimmed('title');
+        $this->output = null;
+
+        $this->loadDoc();
+        return true;
+    }
 
     /**
-     * Class handler.
+     * Handle a request
      *
      * @param array $args array of arguments
      *
@@ -58,51 +70,51 @@ class DocAction extends Action
     function handle($args)
     {
         parent::handle($args);
-
-        $this->title  = $this->trimmed('title');
-        $this->output = null;
-
-        if (Event::handle('StartLoadDoc', array(&$this->title, &$this->output))) {
-
-            $this->filename = INSTALLDIR.'/doc-src/'.$this->title;
-            if (!file_exists($this->filename)) {
-                $this->clientError(_('No such document.'));
-                return;
-            }
-
-            $c = file_get_contents($this->filename);
-            $this->output = common_markup_to_html($c);
-
-            Event::handle('EndLoadDoc', array($this->title, &$this->output));
-        }
-
         $this->showPage();
     }
 
-    // overrrided to add entry-title class
-    function showPageTitle() {
+    /**
+     * Page title
+     *
+     * Gives the page title of the document. Override default for hAtom entry.
+     *
+     * @return void
+     */
+
+    function showPageTitle()
+    {
         $this->element('h1', array('class' => 'entry-title'), $this->title());
     }
 
-    // overrided to add hentry, and content-inner classes
+    /**
+     * Block for content.
+     *
+     * Overrides default from Action to wrap everything in an hAtom entry.
+     *
+     * @return void.
+     */
+
     function showContentBlock()
-     {
-         $this->elementStart('div', array('id' => 'content', 'class' => 'hentry'));
-         $this->showPageTitle();
-         $this->showPageNoticeBlock();
-         $this->elementStart('div', array('id' => 'content_inner',
-             'class' => 'entry-content'));
-         // show the actual content (forms, lists, whatever)
-         $this->showContent();
-         $this->elementEnd('div');
-         $this->elementEnd('div');
-     }
+    {
+        $this->elementStart('div', array('id' => 'content', 'class' => 'hentry'));
+        $this->showPageTitle();
+        $this->showPageNoticeBlock();
+        $this->elementStart('div', array('id' => 'content_inner',
+                                         'class' => 'entry-content'));
+        // show the actual content (forms, lists, whatever)
+        $this->showContent();
+        $this->elementEnd('div');
+        $this->elementEnd('div');
+    }
 
     /**
      * Display content.
      *
-     * @return nothing
+     * Shows the content of the document.
+     *
+     * @return void
      */
+
     function showContent()
     {
         $this->raw($this->output);
@@ -111,6 +123,8 @@ class DocAction extends Action
     /**
      * Page title.
      *
+     * Uses the title of the document.
+     *
      * @return page title
      */
     function title()
@@ -118,8 +132,74 @@ class DocAction extends Action
         return ucfirst($this->title);
     }
 
+    /**
+     * These pages are read-only.
+     *
+     * @param array $args unused.
+     *
+     * @return boolean read-only flag (false)
+     */
+
     function isReadOnly($args)
     {
         return true;
+    }
+
+    function loadDoc()
+    {
+        if (Event::handle('StartLoadDoc', array(&$this->title, &$this->output))) {
+
+            $this->filename = $this->getFilename();
+
+            if (empty($this->filename)) {
+                throw new ClientException(sprintf(_('No such document "%s"'), $this->title), 404);
+            }
+
+            $c = file_get_contents($this->filename);
+
+            $this->output = common_markup_to_html($c);
+
+            Event::handle('EndLoadDoc', array($this->title, &$this->output));
+        }
+    }
+
+    function getFilename()
+    {
+        if (file_exists(INSTALLDIR.'/local/doc-src/'.$this->title)) {
+            $localDef = INSTALLDIR.'/local/doc-src/'.$this->title;
+        }
+
+        $local = glob(INSTALLDIR.'/local/doc-src/'.$this->title.'.*');
+
+        if (count($local) || isset($localDef)) {
+            return $this->negotiateLanguage($local, $localDef);
+        }
+
+        if (file_exists(INSTALLDIR.'/doc-src/'.$this->title)) {
+            $distDef = INSTALLDIR.'/doc-src/'.$this->title;
+        }
+
+        $dist = glob(INSTALLDIR.'/doc-src/'.$this->title.'.*');
+
+        if (count($dist) || isset($distDef)) {
+            return $this->negotiateLanguage($dist, $distDef);
+        }
+
+        return null;
+    }
+
+    function negotiateLanguage($filenames, $defaultFilename=null)
+    {
+        // XXX: do this better
+
+        $langcode = common_language();
+
+        foreach ($filenames as $filename) {
+            if (preg_match('/\.'.$langcode.'$/', $filename)) {
+                return $filename;
+            }
+        }
+
+        return $defaultFilename;
     }
 }
