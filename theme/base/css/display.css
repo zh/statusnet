@@ -1127,8 +1127,17 @@ top:3px;
 }
 
 .dialogbox .submit_dialogbox {
-text-indent:0;
 font-weight:bold;
+text-indent:0;
+min-width:46px;
+}
+
+#wrap form.processing input.submit,
+.entity_actions a.processing,
+.dialogbox.processing .submit_dialogbox {
+cursor:wait;
+outline:none;
+text-indent:-9999px;
 }
 
 .notice-options {
