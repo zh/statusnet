@@ -132,7 +132,7 @@ abstract class AuthenticationPlugin extends Plugin
                 //someone already exists with the suggested nickname
                 //not much else we can do
             }else{
-                $user = $this->autoregister($suggested_nickname);
+                $user = $this->autoRegister($nickname);
                 if($user){
                     User_username::register($user,$nickname,$this->provider_name);
                     return false;
