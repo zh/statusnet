@@ -64,8 +64,12 @@ class Session extends Memcached_DataObject
         $session = Session::staticGet('id', $id);
 
         if (empty($session)) {
+            self::logdeb("Couldn't find '$id'");
             return '';
         } else {
+            self::logdeb("Found '$id', returning " .
+                         strlen($session->session_data) .
+                         " chars of data");
             return (string)$session->session_data;
         }
     }
@@ -77,14 +81,24 @@ class Session extends Memcached_DataObject
         $session = Session::staticGet('id', $id);
 
         if (empty($session)) {
+            self::logdeb("'$id' doesn't yet exist; inserting.");
             $session = new Session();
 
             $session->id           = $id;
             $session->session_data = $session_data;
             $session->created      = common_sql_now();
 
-            return $session->insert();
+            $result = $session->insert();
+
+            if (!$result) {
+                common_log_db_error($session, 'INSERT', __FILE__);
+                self::logdeb("Failed to insert '$id'.");
+            } else {
+                self::logdeb("Successfully inserted '$id' (result = $result).");
+            }
+            return $result;
         } else {
+            self::logdeb("'$id' already exists; updating.");
             if (strcmp($session->session_data, $session_data) == 0) {
                 self::logdeb("Not writing session '$id'; unchanged");
                 return true;
@@ -95,7 +109,16 @@ class Session extends Memcached_DataObject
 
                 $session->session_data = $session_data;
 
-                return $session->update($orig);
+                $result = $session->update($orig);
+
+                if (!$result) {
+                    common_log_db_error($session, 'UPDATE', __FILE__);
+                    self::logdeb("Failed to update '$id'.");
+                } else {
+                    self::logdeb("Successfully updated '$id' (result = $result).");
+                }
+
+                return $result;
             }
         }
     }
@@ -106,8 +129,17 @@ class Session extends Memcached_DataObject
 
         $session = Session::staticGet('id', $id);
 
-        if (!empty($session)) {
-            return $session->delete();
+        if (empty($session)) {
+            self::logdeb("Can't find '$id' to delete.");
+        } else {
+            $result = $session->delete();
+            if (!$result) {
+                common_log_db_error($session, 'DELETE', __FILE__);
+                self::logdeb("Failed to delete '$id'.");
+            } else {
+                self::logdeb("Successfully deleted '$id' (result = $result).");
+            }
+            return $result;
         }
     }
 
@@ -132,7 +164,10 @@ class Session extends Memcached_DataObject
 
         $session->free();
 
+        self::logdeb("Found " . count($ids) . " ids to delete.");
+
         foreach ($ids as $id) {
+            self::logdeb("Destroying session '$id'.");
             self::destroy($id);
         }
     }

@@ -34,6 +34,22 @@ class LiberalStomp extends Stomp
     }
 
     /**
+     * Return the host we're currently connected to.
+     *
+     * @return string
+     */
+    function getServer()
+    {
+        $idx = $this->_currentHost;
+        if ($idx >= 0) {
+            $host = $this->_hosts[$idx];
+            return "$host[0]:$host[1]";
+        } else {
+            return '[unconnected]';
+        }
+    }
+
+    /**
      * Make socket connection to the server
      * We also set the stream to non-blocking mode, since we'll be
      * select'ing to wait for updates. In blocking mode it seems
@@ -71,10 +87,12 @@ class LiberalStomp extends Stomp
             // @fixme this sometimes hangs in blocking mode...
             // shouldn't we have been idle until we found there's more data?
             $read = fread($this->_socket, $rb);
-            if ($read === false) {
-                $this->_reconnect();
+            if ($read === false || ($read === '' && feof($this->_socket))) {
+                // @fixme possibly attempt an auto reconnect as old code?
+                throw new StompException("Error reading");
+                //$this->_reconnect();
                 // @fixme this will lose prior items
-                return $this->readFrames();
+                //return $this->readFrames();
             }
             $data .= $read;
             if (strpos($data, "\x00") !== false) {
