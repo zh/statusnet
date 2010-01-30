@@ -61,7 +61,7 @@ class PgsqlSchema extends Schema
 
     public function getTableDef($name)
     {
-        $res = $this->conn->query('DESCRIBE ' . $name);
+        $res = $this->conn->query("select *, column_default as default, is_nullable as Null, udt_name as Type, column_name AS Field from INFORMATION_SCHEMA.COLUMNS where table_name = '$name'");
 
         if (PEAR::isError($res)) {
             throw new Exception($res->getMessage());
@@ -75,12 +75,12 @@ class PgsqlSchema extends Schema
         $row = array();
 
         while ($res->fetchInto($row, DB_FETCHMODE_ASSOC)) {
-
+//             var_dump($row);
             $cd = new ColumnDef();
 
-            $cd->name = $row['Field'];
+            $cd->name = $row['field'];
 
-            $packed = $row['Type'];
+            $packed = $row['type'];
 
             if (preg_match('/^(\w+)\((\d+)\)$/', $packed, $match)) {
                 $cd->type = $match[1];
@@ -89,14 +89,13 @@ class PgsqlSchema extends Schema
                 $cd->type = $packed;
             }
 
-            $cd->nullable = ($row['Null'] == 'YES') ? true : false;
+            $cd->nullable = ($row['null'] == 'YES') ? true : false;
             $cd->key      = $row['Key'];
-            $cd->default  = $row['Default'];
+            $cd->default  = $row['default'];
             $cd->extra    = $row['Extra'];
 
             $td->columns[] = $cd;
         }
-
         return $td;
     }
 
