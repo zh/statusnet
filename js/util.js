@@ -189,9 +189,11 @@ var SN = { // StatusNet
                         form.addClass(SN.C.S.Warning);
                         return false;
                     }
-                    form.addClass(SN.C.S.Processing);
-                    form.find('#'+SN.C.S.NoticeActionSubmit).addClass(SN.C.S.Disabled);
-                    form.find('#'+SN.C.S.NoticeActionSubmit).attr(SN.C.S.Disabled, SN.C.S.Disabled);
+                    form
+                        .addClass(SN.C.S.Processing)
+                        .find('#'+SN.C.S.NoticeActionSubmit)
+                            .addClass(SN.C.S.Disabled)
+                            .attr(SN.C.S.Disabled, SN.C.S.Disabled);
 
                     NLat = $('#'+SN.C.S.NoticeLat).val();
                     NLon = $('#'+SN.C.S.NoticeLon).val();
@@ -220,9 +222,11 @@ var SN = { // StatusNet
                     return true;
                 },
                 error: function (xhr, textStatus, errorThrown) {
-                    form.removeClass(SN.C.S.Processing);
-                    form.find('#'+SN.C.S.NoticeActionSubmit).removeClass(SN.C.S.Disabled);
-                    form.find('#'+SN.C.S.NoticeActionSubmit).removeAttr(SN.C.S.Disabled, SN.C.S.Disabled);
+                    form
+                        .removeClass(SN.C.S.Processing)
+                        .find('#'+SN.C.S.NoticeActionSubmit)
+                            .removeClass(SN.C.S.Disabled)
+                            .removeAttr(SN.C.S.Disabled, SN.C.S.Disabled);
                     form.find('.form_response').remove();
                     if (textStatus == 'timeout') {
                         form.append('<p class="form_response error">Sorry! We had trouble sending your notice. The servers are overloaded. Please try again, and contact the site administrator if this problem persists.</p>');
@@ -233,8 +237,9 @@ var SN = { // StatusNet
                         }
                         else {
                             if (parseInt(xhr.status) === 0 || jQuery.inArray(parseInt(xhr.status), SN.C.I.HTTP20x30x) >= 0) {
-                                form.resetForm();
-                                form.find('#'+SN.C.S.NoticeDataAttachSelected).remove();
+                                form
+                                    .resetForm()
+                                    .find('#'+SN.C.S.NoticeDataAttachSelected).remove();
                                 SN.U.FormNoticeEnhancements(form);
                             }
                             else {
@@ -277,8 +282,9 @@ var SN = { // StatusNet
                                     else {
                                         notices.prepend(notice);
                                     }
-                                    $('#'+notice.id).css({display:'none'});
-                                    $('#'+notice.id).fadeIn(2500);
+                                    $('#'+notice.id)
+                                        .css({display:'none'})
+                                        .fadeIn(2500);
                                     SN.U.NoticeWithAttachment($('#'+notice.id));
                                     SN.U.NoticeReplyTo($('#'+notice.id));
                                     SN.U.FormXHR($('#'+notice.id+' .form_favor'));
@@ -297,9 +303,11 @@ var SN = { // StatusNet
                     }
                 },
                 complete: function(xhr, textStatus) {
-                    form.removeClass(SN.C.S.Processing);
-                    form.find('#'+SN.C.S.NoticeActionSubmit).removeAttr(SN.C.S.Disabled);
-                    form.find('#'+SN.C.S.NoticeActionSubmit).removeClass(SN.C.S.Disabled);
+                    form
+                        .removeClass(SN.C.S.Processing)
+                        .find('#'+SN.C.S.NoticeActionSubmit)
+                            .removeAttr(SN.C.S.Disabled)
+                            .removeClass(SN.C.S.Disabled);
 
                     $('#'+SN.C.S.NoticeLat).val(NLat);
                     $('#'+SN.C.S.NoticeLon).val(NLon);
