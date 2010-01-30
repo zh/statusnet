@@ -45,44 +45,8 @@ if (!defined('STATUSNET')) {
  * @link     http://status.net/
  */
 
-class Schema
+class PgsqlSchema extends Schema
 {
-    static $_single = null;
-    protected $conn = null;
-
-    /**
-     * Constructor. Only run once for singleton object.
-     */
-
-    protected function __construct()
-    {
-        // XXX: there should be an easier way to do this.
-        $user = new User();
-
-        $this->conn = $user->getDatabaseConnection();
-
-        $user->free();
-
-        unset($user);
-    }
-
-    /**
-     * Main public entry point. Use this to get
-     * the singleton object.
-     *
-     * @return Schema the (single) Schema object
-     */
-
-    static function get()
-    {
-        $type = common_config('db', 'type');
-        if (empty(self::$_single)) {
-            include "lib/schema.{$type}.php";
-            $class = $type.='Schema';
-            self::$_single = new $class();
-        }
-        return self::$_single;
-    }
 
     /**
      * Returns a TableDef object for the table

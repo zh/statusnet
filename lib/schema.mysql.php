@@ -45,7 +45,7 @@ if (!defined('STATUSNET')) {
  * @link     http://status.net/
  */
 
-class Schema
+class MysqlSchema extends Schema
 {
     static $_single = null;
     protected $conn = null;
@@ -75,11 +75,8 @@ class Schema
 
     static function get()
     {
-        $type = common_config('db', 'type');
         if (empty(self::$_single)) {
-            include "lib/schema.{$type}.php";
-            $class = $type.='Schema';
-            self::$_single = new $class();
+            self::$_single = new Schema();
         }
         return self::$_single;
     }
