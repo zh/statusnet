@@ -47,10 +47,13 @@ class ReverseUsernameAuthenticationPlugin extends AuthenticationPlugin
         return $username == strrev($password);
     }
 
-    function autoRegister($username)
+    function autoRegister($username, $nickname)
     {
+        if(is_null($nickname)){
+            $nickname = $username;
+        }
         $registration_data = array();
-        $registration_data['nickname'] = $username ;
+        $registration_data['nickname'] = $nickname ;
         return User::register($registration_data);
     }
 

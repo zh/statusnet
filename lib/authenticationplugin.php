@@ -69,13 +69,17 @@ abstract class AuthenticationPlugin extends Plugin
     /**
     * Automatically register a user when they attempt to login with valid credentials.
     * User::register($data) is a very useful method for this implementation
-    * @param username
+    * @param username username (that is used to login and find the user in the authentication provider) of the user to be registered
+    * @param nickname nickname of the user in the SN system. If nickname is null, then set nickname = username
     * @return mixed instance of User, or false (if user couldn't be created)
     */
-    function autoRegister($username)
+    function autoRegister($username, $nickname = null)
     {
+        if(is_null($nickname)){
+            $nickname = $username;
+        }
         $registration_data = array();
-        $registration_data['nickname'] = $username ;
+        $registration_data['nickname'] = $nickname ;
         return User::register($registration_data);
     }
 
@@ -132,7 +136,7 @@ abstract class AuthenticationPlugin extends Plugin
                 //someone already exists with the suggested nickname
                 //not much else we can do
             }else{
-                $user = $this->autoRegister($nickname);
+                $user = $this->autoRegister($nickname, $suggested_nickname);
                 if($user){
                     User_username::register($user,$nickname,$this->provider_name);
                     return false;

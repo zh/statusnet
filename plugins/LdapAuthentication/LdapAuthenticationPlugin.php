@@ -96,8 +96,11 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
         }
     }
 
-    function autoRegister($username)
+    function autoRegister($username, $nickname)
     {
+        if(is_null($nickname)){
+            $nickname = $username;
+        }
         $entry = $this->ldap_get_user($username,$this->attributes);
         if($entry){
             $registration_data = array();
@@ -107,6 +110,7 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
             if(isset($registration_data['email']) && !empty($registration_data['email'])){
                 $registration_data['email_confirmed']=true;
             }
+            $registration_data['nickname'] = $nickname;
             //set the database saved password to a random string.
             $registration_data['password']=common_good_rand(16);
             return User::register($registration_data);
