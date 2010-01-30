@@ -140,7 +140,7 @@ class Notice extends Memcached_DataObject
         foreach(array_unique($hashtags) as $hashtag) {
             /* elide characters we don't want in the tag */
             $this->saveTag($hashtag);
-            self::blow('profile:notice_ids_tagged:%d:%s', $this->profile_id, $tag->tag);
+            self::blow('profile:notice_ids_tagged:%d:%s', $this->profile_id, $hashtag);
         }
         return true;
     }
