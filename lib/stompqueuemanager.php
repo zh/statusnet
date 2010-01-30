@@ -31,7 +31,6 @@
 require_once 'Stomp.php';
 require_once 'Stomp/Exception.php';
 
-
 class StompQueueManager extends QueueManager
 {
     protected $servers;
@@ -41,7 +40,7 @@ class StompQueueManager extends QueueManager
     protected $control;
 
     protected $useTransactions = true;
-    
+
     protected $sites = array();
     protected $subscriptions = array();
 
@@ -182,7 +181,7 @@ class StompQueueManager extends QueueManager
         $this->_connect();
         return $this->_doEnqueue($object, $queue, $this->defaultIdx);
     }
-    
+
     /**
      * Saves a notice object reference into the queue item table
      * on the given connection.
@@ -354,7 +353,7 @@ class StompQueueManager extends QueueManager
         }
         return true;
     }
-    
+
     /**
      * Subscribe to all the queues we're going to need to handle...
      *
@@ -459,7 +458,7 @@ class StompQueueManager extends QueueManager
         if ($con) {
             $this->cons[$idx] = $con;
             $this->disconnect[$idx] = null;
-            
+
             // now we have to listen to everything...
             // @fixme refactor this nicer. :P
             $host = $con->getServer();
@@ -587,7 +586,15 @@ class StompQueueManager extends QueueManager
             return false;
         }
 
-        $ok = $handler->handle($item);
+        // If there's an exception when handling,
+        // log the error and let it get requeued.
+
+        try {
+            $ok = $handler->handle($item);
+        } catch (Exception $e) {
+            $this->_log(LOG_ERR, "Exception on queue $queue: " . $e->getMessage());
+            $ok = false;
+        }
 
         if (!$ok) {
             $this->_log(LOG_WARNING, "Failed handling $info");
@@ -646,7 +653,7 @@ class StompQueueManager extends QueueManager
         $this->begin($idx);
         return $shutdown;
     }
-    
+
     /**
      * Set us up with queue subscriptions for a new site added at runtime,
      * triggered by a broadcast to the 'statusnet-control' topic.
