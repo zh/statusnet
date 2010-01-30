@@ -178,7 +178,7 @@ var SN = { // StatusNet
         },
 
         FormNoticeXHR: function(form) {
-            var NDG, NLat, NLon, NLNS, NLID;
+            SN.C.I.NoticeDataGeo = {};
             form_id = form.attr('id');
             form.append('<input type="hidden" name="ajax" value="1"/>');
             form.ajaxForm({
@@ -195,28 +195,28 @@ var SN = { // StatusNet
                             .addClass(SN.C.S.Disabled)
                             .attr(SN.C.S.Disabled, SN.C.S.Disabled);
 
-                    NLat = $('#'+SN.C.S.NoticeLat).val();
-                    NLon = $('#'+SN.C.S.NoticeLon).val();
-                    NLNS = $('#'+SN.C.S.NoticeLocationNs).val();
-                    NLID = $('#'+SN.C.S.NoticeLocationId).val();
-                    NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked');
+                    SN.C.I.NoticeDataGeo.NLat = $('#'+SN.C.S.NoticeLat).val();
+                    SN.C.I.NoticeDataGeo.NLon = $('#'+SN.C.S.NoticeLon).val();
+                    SN.C.I.NoticeDataGeo.NLNS = $('#'+SN.C.S.NoticeLocationNs).val();
+                    SN.C.I.NoticeDataGeo.NLID = $('#'+SN.C.S.NoticeLocationId).val();
+                    SN.C.I.NoticeDataGeo.NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked');
 
                     cookieValue = $.cookie(SN.C.S.NoticeDataGeoCookie);
 
                     if (cookieValue !== null && cookieValue != 'disabled') {
                         cookieValue = JSON.parse(cookieValue);
-                        NLat = $('#'+SN.C.S.NoticeLat).val(cookieValue.NLat).val();
-                        NLon = $('#'+SN.C.S.NoticeLon).val(cookieValue.NLon).val();
+                        SN.C.I.NoticeDataGeo.NLat = $('#'+SN.C.S.NoticeLat).val(cookieValue.NLat).val();
+                        SN.C.I.NoticeDataGeo.NLon = $('#'+SN.C.S.NoticeLon).val(cookieValue.NLon).val();
                         if ($('#'+SN.C.S.NoticeLocationNs).val(cookieValue.NLNS)) {
-                            NLNS = $('#'+SN.C.S.NoticeLocationNs).val(cookieValue.NLNS).val();
-                            NLID = $('#'+SN.C.S.NoticeLocationId).val(cookieValue.NLID).val();
+                            SN.C.I.NoticeDataGeo.NLNS = $('#'+SN.C.S.NoticeLocationNs).val(cookieValue.NLNS).val();
+                            SN.C.I.NoticeDataGeo.NLID = $('#'+SN.C.S.NoticeLocationId).val(cookieValue.NLID).val();
                         }
                     }
                     if (cookieValue == 'disabled') {
-                        NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked', false).attr('checked');
+                        SN.C.I.NoticeDataGeo.NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked', false).attr('checked');
                     }
                     else {
-                        NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked', true).attr('checked');
+                        SN.C.I.NoticeDataGeo.NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked', true).attr('checked');
                     }
 
                     return true;
@@ -309,13 +309,13 @@ var SN = { // StatusNet
                             .removeAttr(SN.C.S.Disabled)
                             .removeClass(SN.C.S.Disabled);
 
-                    $('#'+SN.C.S.NoticeLat).val(NLat);
-                    $('#'+SN.C.S.NoticeLon).val(NLon);
+                    $('#'+SN.C.S.NoticeLat).val(SN.C.I.NoticeDataGeo.NLat);
+                    $('#'+SN.C.S.NoticeLon).val(SN.C.I.NoticeDataGeo.NLon);
                     if ($('#'+SN.C.S.NoticeLocationNs)) {
-                        $('#'+SN.C.S.NoticeLocationNs).val(NLNS);
-                        $('#'+SN.C.S.NoticeLocationId).val(NLID);
+                        $('#'+SN.C.S.NoticeLocationNs).val(SN.C.I.NoticeDataGeo.NLNS);
+                        $('#'+SN.C.S.NoticeLocationId).val(SN.C.I.NoticeDataGeo.NLID);
                     }
-                    $('#'+SN.C.S.NoticeDataGeo).attr('checked', NDG);
+                    $('#'+SN.C.S.NoticeDataGeo).attr('checked', SN.C.I.NoticeDataGeo.NDG);
                 }
             });
         },
