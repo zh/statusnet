@@ -42,6 +42,10 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  */
 class GeocodeAction extends Action
 {
+    var $lat = null;
+    var $lon = null;
+    var $location = null;
+
     function prepare($args)
     {
         parent::prepare($args);
@@ -90,4 +94,3 @@ class GeocodeAction extends Action
         return true;
     }
 }
-?>
