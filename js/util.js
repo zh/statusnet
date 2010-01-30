@@ -185,13 +185,13 @@ var SN = { // StatusNet
                 dataType: 'xml',
                 timeout: '60000',
                 beforeSend: function(formData) {
-                    if ($('#'+form_id+' #'+SN.C.S.NoticeDataText)[0].value.length === 0) {
+                    if (form.find('#'+SN.C.S.NoticeDataText)[0].value.length === 0) {
                         form.addClass(SN.C.S.Warning);
                         return false;
                     }
                     form.addClass(SN.C.S.Processing);
-                    $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).addClass(SN.C.S.Disabled);
-                    $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).attr(SN.C.S.Disabled, SN.C.S.Disabled);
+                    form.find('#'+SN.C.S.NoticeActionSubmit).addClass(SN.C.S.Disabled);
+                    form.find('#'+SN.C.S.NoticeActionSubmit).attr(SN.C.S.Disabled, SN.C.S.Disabled);
 
                     NLat = $('#'+SN.C.S.NoticeLat).val();
                     NLon = $('#'+SN.C.S.NoticeLon).val();
@@ -221,9 +221,9 @@ var SN = { // StatusNet
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     form.removeClass(SN.C.S.Processing);
-                    $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeClass(SN.C.S.Disabled);
-                    $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeAttr(SN.C.S.Disabled, SN.C.S.Disabled);
-                    $('#'+form_id+' .form_response').remove();
+                    form.find('#'+SN.C.S.NoticeActionSubmit).removeClass(SN.C.S.Disabled);
+                    form.find('#'+SN.C.S.NoticeActionSubmit).removeAttr(SN.C.S.Disabled, SN.C.S.Disabled);
+                    form.find('.form_response').remove();
                     if (textStatus == 'timeout') {
                         form.append('<p class="form_response error">Sorry! We had trouble sending your notice. The servers are overloaded. Please try again, and contact the site administrator if this problem persists.</p>');
                     }
@@ -233,9 +233,9 @@ var SN = { // StatusNet
                         }
                         else {
                             if (parseInt(xhr.status) === 0 || jQuery.inArray(parseInt(xhr.status), SN.C.I.HTTP20x30x) >= 0) {
-                                $('#'+form_id).resetForm();
-                                $('#'+form_id+' #'+SN.C.S.NoticeDataAttachSelected).remove();
-                                SN.U.FormNoticeEnhancements($('#'+form_id));
+                                form.resetForm();
+                                form.find('#'+SN.C.S.NoticeDataAttachSelected).remove();
+                                SN.U.FormNoticeEnhancements(form);
                             }
                             else {
                                 form.append('<p class="form_response error">(Sorry! We had trouble sending your notice ('+xhr.status+' '+xhr.statusText+'). Please report the problem to the site administrator if this happens again.</p>');
@@ -244,7 +244,7 @@ var SN = { // StatusNet
                     }
                 },
                 success: function(data, textStatus) {
-                    $('#'+form_id+' .form_response').remove();
+                    form.find('.form_response').remove();
                     var result;
                     if ($('#'+SN.C.S.Error, data).length > 0) {
                         result = document._importNode($('p', data)[0], true);
@@ -290,16 +290,16 @@ var SN = { // StatusNet
                                 form.append('<p class="form_response success">'+result_title+'</p>');
                             }
                         }
-                        $('#'+form_id).resetForm();
-                        $('#'+form_id+' #'+SN.C.S.NoticeInReplyTo).val('');
-                        $('#'+form_id+' #'+SN.C.S.NoticeDataAttachSelected).remove();
-                        SN.U.FormNoticeEnhancements($('#'+form_id));
+                        form.resetForm();
+                        form.find('#'+SN.C.S.NoticeInReplyTo).val('');
+                        form.find('#'+SN.C.S.NoticeDataAttachSelected).remove();
+                        SN.U.FormNoticeEnhancements(form);
                     }
                 },
                 complete: function(xhr, textStatus) {
                     form.removeClass(SN.C.S.Processing);
-                    $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeAttr(SN.C.S.Disabled);
-                    $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeClass(SN.C.S.Disabled);
+                    form.find('#'+SN.C.S.NoticeActionSubmit).removeAttr(SN.C.S.Disabled);
+                    form.find('#'+SN.C.S.NoticeActionSubmit).removeClass(SN.C.S.Disabled);
 
                     $('#'+SN.C.S.NoticeLat).val(NLat);
                     $('#'+SN.C.S.NoticeLon).val(NLon);
