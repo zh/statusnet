@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-28 23:04+0000\n"
-"PO-Revision-Date: 2010-01-28 23:05:12+0000\n"
+"POT-Creation-Date: 2010-01-30 23:41+0000\n"
+"PO-Revision-Date: 2010-01-30 23:42:26+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61646); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61734); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: out-statusnet\n"
@@ -60,11 +60,12 @@ msgstr "Nieuwe registraties uitschakelen."
 #: actions/accessadminpanel.php:189 actions/designadminpanel.php:586
 #: actions/emailsettings.php:195 actions/imsettings.php:163
 #: actions/othersettings.php:126 actions/pathsadminpanel.php:351
-#: actions/profilesettings.php:174 actions/siteadminpanel.php:336
-#: actions/smssettings.php:181 actions/subscriptions.php:203
-#: actions/tagother.php:154 actions/useradminpanel.php:313
-#: lib/applicationeditform.php:333 lib/applicationeditform.php:334
-#: lib/designsettings.php:256 lib/groupeditform.php:202
+#: actions/profilesettings.php:174 actions/sessionsadminpanel.php:199
+#: actions/siteadminpanel.php:336 actions/smssettings.php:181
+#: actions/subscriptions.php:203 actions/tagother.php:154
+#: actions/useradminpanel.php:293 lib/applicationeditform.php:333
+#: lib/applicationeditform.php:334 lib/designsettings.php:256
+#: lib/groupeditform.php:202
 msgid "Save"
 msgstr "Opslaan"
 
@@ -513,14 +514,12 @@ msgid "Invalid nickname / password!"
 msgstr "Ongeldige gebruikersnaam of wachtwoord."
 
 #: actions/apioauthauthorize.php:170
-#, fuzzy
 msgid "Database error deleting OAuth application user."
 msgstr ""
 "Er is een databasefout opgetreden tijdens het verwijderen van de OAuth "
 "applicatiegebruiker."
 
 #: actions/apioauthauthorize.php:196
-#, fuzzy
 msgid "Database error inserting OAuth application user."
 msgstr ""
 "Er is een databasefout opgetreden tijdens het toevoegen van de OAuth "
@@ -3276,6 +3275,37 @@ msgstr "Op deze website kunt u gebruikers niet in de zandbak plaatsen."
 msgid "User is already sandboxed."
 msgstr "Deze gebruiker is al in de zandbak geplaatst."
 
+#: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
+#: lib/adminpanelaction.php:336
+msgid "Sessions"
+msgstr "Sessies"
+
+#: actions/sessionsadminpanel.php:65
+#, fuzzy
+msgid "Session settings for this StatusNet site."
+msgstr "Instellingen voor de vormgeving van deze StatusNet-website."
+
+#: actions/sessionsadminpanel.php:175
+msgid "Handle sessions"
+msgstr "Sessieafhandeling"
+
+#: actions/sessionsadminpanel.php:177
+msgid "Whether to handle sessions ourselves."
+msgstr "Of sessies door de software zelf afgehandeld moeten worden."
+
+#: actions/sessionsadminpanel.php:181
+msgid "Session debugging"
+msgstr "Sessies debuggen"
+
+#: actions/sessionsadminpanel.php:183
+msgid "Turn on debugging output for sessions."
+msgstr "Debuguitvoer voor sessies inschakelen."
+
+#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:336
+#: actions/useradminpanel.php:293
+msgid "Save site settings"
+msgstr "Websiteinstellingen opslaan"
+
 #: actions/showapplication.php:82
 msgid "You must be logged in to view an application."
 msgstr "U moet aangemeld zijn om een applicatie te kunnen bekijken."
@@ -3780,10 +3810,6 @@ msgstr ""
 "Hoe lang gebruikers moeten wachten (in seconden) voor ze hetzelfde kunnen "
 "zenden."
 
-#: actions/siteadminpanel.php:336 actions/useradminpanel.php:313
-msgid "Save site settings"
-msgstr "Websiteinstellingen opslaan"
-
 #: actions/smssettings.php:58
 msgid "SMS settings"
 msgstr "SMS-instellingen"
@@ -4099,83 +4125,63 @@ msgstr "Gebruiker"
 msgid "User settings for this StatusNet site."
 msgstr "Gebruikersinstellingen voor deze StatusNet-website."
 
-#: actions/useradminpanel.php:149
+#: actions/useradminpanel.php:148
 msgid "Invalid bio limit. Must be numeric."
 msgstr "Ongeldige beschrijvingslimiet. Het moet een getal zijn."
 
-#: actions/useradminpanel.php:155
+#: actions/useradminpanel.php:154
 msgid "Invalid welcome text. Max length is 255 characters."
 msgstr "Ongeldige welkomsttekst. De maximale lengte is 255 tekens."
 
-#: actions/useradminpanel.php:165
+#: actions/useradminpanel.php:164
 #, php-format
 msgid "Invalid default subscripton: '%1$s' is not user."
 msgstr "Ongeldig standaardabonnement: \"%1$s\" is geen gebruiker."
 
-#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:108
+#: actions/useradminpanel.php:217 lib/accountsettingsaction.php:108
 #: lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr "Profiel"
 
-#: actions/useradminpanel.php:222
+#: actions/useradminpanel.php:221
 msgid "Bio Limit"
 msgstr "Profiellimiet"
 
-#: actions/useradminpanel.php:223
+#: actions/useradminpanel.php:222
 msgid "Maximum length of a profile bio in characters."
 msgstr "De maximale lengte van de profieltekst in tekens."
 
-#: actions/useradminpanel.php:231
+#: actions/useradminpanel.php:230
 msgid "New users"
 msgstr "Nieuwe gebruikers"
 
-#: actions/useradminpanel.php:235
+#: actions/useradminpanel.php:234
 msgid "New user welcome"
 msgstr "Welkom voor nieuwe gebruikers"
 
-#: actions/useradminpanel.php:236
+#: actions/useradminpanel.php:235
 msgid "Welcome text for new users (Max 255 chars)."
 msgstr "Welkomsttekst voor nieuwe gebruikers. Maximaal 255 tekens."
 
-#: actions/useradminpanel.php:241
+#: actions/useradminpanel.php:240
 msgid "Default subscription"
 msgstr "Standaardabonnement"
 
-#: actions/useradminpanel.php:242
+#: actions/useradminpanel.php:241
 msgid "Automatically subscribe new users to this user."
 msgstr "Nieuwe gebruikers automatisch op deze gebruiker abonneren"
 
-#: actions/useradminpanel.php:251
+#: actions/useradminpanel.php:250
 msgid "Invitations"
 msgstr "Uitnodigingen"
 
-#: actions/useradminpanel.php:256
+#: actions/useradminpanel.php:255
 msgid "Invitations enabled"
 msgstr "Uitnodigingen ingeschakeld"
 
-#: actions/useradminpanel.php:258
+#: actions/useradminpanel.php:257
 msgid "Whether to allow users to invite new users."
 msgstr "Of gebruikers nieuwe gebruikers kunnen uitnodigen."
-
-#: actions/useradminpanel.php:265
-msgid "Sessions"
-msgstr "Sessies"
-
-#: actions/useradminpanel.php:270
-msgid "Handle sessions"
-msgstr "Sessieafhandeling"
-
-#: actions/useradminpanel.php:272
-msgid "Whether to handle sessions ourselves."
-msgstr "Of sessies door de software zelf afgehandeld moeten worden."
-
-#: actions/useradminpanel.php:276
-msgid "Session debugging"
-msgstr "Sessies debuggen"
-
-#: actions/useradminpanel.php:278
-msgid "Turn on debugging output for sessions."
-msgstr "Debuguitvoer voor sessies inschakelen."
 
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
@@ -4765,14 +4771,22 @@ msgstr "Toegangsinstellingen"
 msgid "Paths configuration"
 msgstr "Padinstellingen"
 
-#: lib/apiauth.php:103
+#: lib/adminpanelaction.php:337
+#, fuzzy
+msgid "Sessions configuration"
+msgstr "Instellingen vormgeving"
+
+#: lib/apiauth.php:99
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
+"Het API-programma heeft lezen-en-schrijventoegang nodig, maar u hebt alleen "
+"maar leestoegang."
 
-#: lib/apiauth.php:257
+#: lib/apiauth.php:279
 #, php-format
 msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
 msgstr ""
+"De API-authenticatie is mislukt. nickname = %1$s, proxy - %2$s, ip = %3$s"
 
 #: lib/applicationeditform.php:136
 msgid "Edit application"
@@ -4860,11 +4874,11 @@ msgstr "Mededelingen die deze bijlage bevatten"
 msgid "Tags for this attachment"
 msgstr "Labels voor deze bijlage"
 
-#: lib/authenticationplugin.php:214 lib/authenticationplugin.php:219
+#: lib/authenticationplugin.php:218 lib/authenticationplugin.php:223
 msgid "Password changing failed"
 msgstr "Wachtwoord wijzigen is mislukt"
 
-#: lib/authenticationplugin.php:229
+#: lib/authenticationplugin.php:233
 msgid "Password changing is not allowed"
 msgstr "Wachtwoord wijzigen is niet toegestaan"
 

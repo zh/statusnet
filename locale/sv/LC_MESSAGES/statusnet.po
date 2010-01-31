@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-28 23:04+0000\n"
-"PO-Revision-Date: 2010-01-28 23:05:27+0000\n"
+"POT-Creation-Date: 2010-01-30 23:41+0000\n"
+"PO-Revision-Date: 2010-01-30 23:42:45+0000\n"
 "Language-Team: Swedish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61646); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61734); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: sv\n"
 "X-Message-Group: out-statusnet\n"
@@ -25,14 +25,12 @@ msgid "Access"
 msgstr "Åtkomst"
 
 #: actions/accessadminpanel.php:65
-#, fuzzy
 msgid "Site access settings"
-msgstr "Spara webbplatsinställningar"
+msgstr "Inställningar för webbplatsåtkomst"
 
 #: actions/accessadminpanel.php:158
-#, fuzzy
 msgid "Registration"
-msgstr "Registrera"
+msgstr "Registrering"
 
 #: actions/accessadminpanel.php:161
 msgid "Private"
@@ -62,18 +60,18 @@ msgstr "Inaktivera nya registreringar."
 #: actions/accessadminpanel.php:189 actions/designadminpanel.php:586
 #: actions/emailsettings.php:195 actions/imsettings.php:163
 #: actions/othersettings.php:126 actions/pathsadminpanel.php:351
-#: actions/profilesettings.php:174 actions/siteadminpanel.php:336
-#: actions/smssettings.php:181 actions/subscriptions.php:203
-#: actions/tagother.php:154 actions/useradminpanel.php:313
-#: lib/applicationeditform.php:333 lib/applicationeditform.php:334
-#: lib/designsettings.php:256 lib/groupeditform.php:202
+#: actions/profilesettings.php:174 actions/sessionsadminpanel.php:199
+#: actions/siteadminpanel.php:336 actions/smssettings.php:181
+#: actions/subscriptions.php:203 actions/tagother.php:154
+#: actions/useradminpanel.php:293 lib/applicationeditform.php:333
+#: lib/applicationeditform.php:334 lib/designsettings.php:256
+#: lib/groupeditform.php:202
 msgid "Save"
 msgstr "Spara"
 
 #: actions/accessadminpanel.php:189
-#, fuzzy
 msgid "Save access settings"
-msgstr "Spara webbplatsinställningar"
+msgstr "Spara inställningar för åtkomst"
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
 #: actions/showfavorites.php:137 actions/tag.php:51
@@ -503,12 +501,10 @@ msgid "Invalid nickname / password!"
 msgstr "Ogiltigt smeknamn / lösenord!"
 
 #: actions/apioauthauthorize.php:170
-#, fuzzy
 msgid "Database error deleting OAuth application user."
 msgstr "Databasfel vid borttagning av OAuth-applikationsanvändare."
 
 #: actions/apioauthauthorize.php:196
-#, fuzzy
 msgid "Database error inserting OAuth application user."
 msgstr "Databasfel vid infogning av OAuth-applikationsanvändare."
 
@@ -1081,12 +1077,11 @@ msgid "Add to favorites"
 msgstr "Lägg till i favoriter"
 
 #: actions/doc.php:155
-#, fuzzy, php-format
+#, php-format
 msgid "No such document \"%s\""
-msgstr "Inget sådant dokument."
+msgstr "Inget sådant dokument \"%s\""
 
 #: actions/editapplication.php:54
-#, fuzzy
 msgid "Edit Application"
 msgstr "Redigera applikation"
 
@@ -1823,9 +1818,9 @@ msgid "That is not your Jabber ID."
 msgstr "Detta är inte ditt Jabber-ID."
 
 #: actions/inbox.php:59
-#, fuzzy, php-format
+#, php-format
 msgid "Inbox for %1$s - page %2$d"
-msgstr "Inkorg för %s"
+msgstr "Inkorg för %1$s - sida %2$d"
 
 #: actions/inbox.php:62
 #, php-format
@@ -1949,6 +1944,32 @@ msgid ""
 "\n"
 "Sincerely, %2$s\n"
 msgstr ""
+"%1$s har bjudit in dig till dem på %2$s (%3$s).\n"
+"\n"
+"%2$s är en mikrobloggtjänst som låter dig hålla dig uppdaterad med folk du "
+"känner och folk som intresserar dig . \n"
+"\n"
+"Du kan också dela nyheter om dig själv, dina tankar, eller ditt liv online "
+"med folk som känner till dig. Det är också bra för att träffa nya människor "
+"som delar dina intressen.\n"
+"\n"
+"%1$s sa:\n"
+"\n"
+"%4$s\n"
+"\n"
+"Du kan se %1$ss profilsida på %2$s här: \n"
+"\n"
+"%5$s\n"
+"\n"
+"Om du vill prova tjänsten, klicka på länken nedan för att acceptera "
+"inbjudan. \n"
+"\n"
+"%6$s\n"
+"\n"
+"Om inte, kan du bortse från detta meddelande. Tack för ditt tålamod och din "
+"tid\n"
+"\n"
+"Vänliga hälsningar, %2$s\n"
 
 #: actions/joingroup.php:60
 msgid "You must be logged in to join a group."
@@ -2046,7 +2067,6 @@ msgid "No current status"
 msgstr "Ingen aktuell status"
 
 #: actions/newapplication.php:52
-#, fuzzy
 msgid "New Application"
 msgstr "Ny applikation"
 
@@ -2306,9 +2326,9 @@ msgid "Login token expired."
 msgstr "Inloggnings-token förfallen."
 
 #: actions/outbox.php:58
-#, fuzzy, php-format
+#, php-format
 msgid "Outbox for %1$s - page %2$d"
-msgstr "Utkorg för %s"
+msgstr "Utkorg för %1$s - sida %2$d"
 
 #: actions/outbox.php:61
 #, php-format
@@ -3037,6 +3057,20 @@ msgid ""
 "\n"
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
+"Grattis, %1$s! Och välkommen till %%%%site.name%%%%. Härifrån kan du...\n"
+"\n"
+"* Gå till [din profil](%2$s) och skicka ditt första meddelande.\n"
+"* Lägg till en [Jabber/GTalk-adress](%%%%action.imsettings%%%%) så att du "
+"kan skicka notiser via snabbmeddelanden.\n"
+"* [Söka efter personer](%%%%action.peoplesearch%%%%) som du kanske känner "
+"eller som delar dina intressen.  \n"
+"* Uppdatera dina [profilinställningar](%%%%action.profilesettings%%%%) för "
+"att berätta mer om dig.  \n"
+"* Läs igenom [online-dokumentationen](%%%%doc.help%%%%) för funktioner du "
+"kan ha missat.  \n"
+"\n"
+"Tack för att du anmält dig och vi hoppas att du kommer tycka om att använda "
+"denna tjänst."
 
 #: actions/register.php:562
 msgid ""
@@ -3136,9 +3170,9 @@ msgid "Replies to %s"
 msgstr "Svarat till %s"
 
 #: actions/replies.php:127
-#, fuzzy, php-format
+#, php-format
 msgid "Replies to %1$s, page %2$d"
-msgstr "Svar till %1$s på %2$s"
+msgstr "Svar till %1$s, sida %2$s"
 
 #: actions/replies.php:144
 #, php-format
@@ -3194,6 +3228,37 @@ msgstr "Du kan inte flytta användare till sandlådan på denna webbplats."
 #: actions/sandbox.php:72
 msgid "User is already sandboxed."
 msgstr "Användare är redan flyttad till sandlådan."
+
+#: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
+#: lib/adminpanelaction.php:336
+msgid "Sessions"
+msgstr "Sessioner"
+
+#: actions/sessionsadminpanel.php:65
+#, fuzzy
+msgid "Session settings for this StatusNet site."
+msgstr "Utseendeinställningar för denna StatusNet-webbplats."
+
+#: actions/sessionsadminpanel.php:175
+msgid "Handle sessions"
+msgstr "Hantera sessioner"
+
+#: actions/sessionsadminpanel.php:177
+msgid "Whether to handle sessions ourselves."
+msgstr "Hurvida sessioner skall hanteras av oss själva."
+
+#: actions/sessionsadminpanel.php:181
+msgid "Session debugging"
+msgstr "Sessionsfelsökning"
+
+#: actions/sessionsadminpanel.php:183
+msgid "Turn on debugging output for sessions."
+msgstr "Sätt på felsökningsutdata för sessioner."
+
+#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:336
+#: actions/useradminpanel.php:293
+msgid "Save site settings"
+msgstr "Spara webbplatsinställningar"
 
 #: actions/showapplication.php:82
 msgid "You must be logged in to view an application."
@@ -3272,9 +3337,9 @@ msgstr ""
 "klartextsignatur."
 
 #: actions/showfavorites.php:79
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s's favorite notices, page %2$d"
-msgstr "%ss favoritnotiser"
+msgstr "%1$ss favoritnotiser, sida %2$d"
 
 #: actions/showfavorites.php:132
 msgid "Could not retrieve favorite notices."
@@ -3334,9 +3399,9 @@ msgid "%s group"
 msgstr "%s grupp"
 
 #: actions/showgroup.php:84
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s group, page %2$d"
-msgstr "%1$s gruppmedlemmar, sida %2$d"
+msgstr "%1$s grupp, sida %2$d"
 
 #: actions/showgroup.php:218
 msgid "Group profile"
@@ -3458,9 +3523,9 @@ msgid " tagged %s"
 msgstr "taggade %s"
 
 #: actions/showstream.php:79
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s, page %2$d"
-msgstr "%1$s blockerade profiler, sida %2$d"
+msgstr "%1$s, sida %2$d"
 
 #: actions/showstream.php:122
 #, php-format
@@ -3688,10 +3753,6 @@ msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 "Hur länge användare måste vänta (i sekunder) för att posta samma sak igen."
 
-#: actions/siteadminpanel.php:336 actions/useradminpanel.php:313
-msgid "Save site settings"
-msgstr "Spara webbplatsinställningar"
-
 #: actions/smssettings.php:58
 msgid "SMS settings"
 msgstr "Inställningar för SMS"
@@ -3897,9 +3958,9 @@ msgid "SMS"
 msgstr "SMS"
 
 #: actions/tag.php:68
-#, fuzzy, php-format
+#, php-format
 msgid "Notices tagged with %1$s, page %2$d"
-msgstr "Användare som taggat sig själv med %1$s - sida %2$d"
+msgstr "Notiser taggade med %1$s, sida %2$d"
 
 #: actions/tag.php:86
 #, php-format
@@ -4006,85 +4067,65 @@ msgstr "Användare"
 msgid "User settings for this StatusNet site."
 msgstr "Användarinställningar för denna StatusNet-webbplats"
 
-#: actions/useradminpanel.php:149
+#: actions/useradminpanel.php:148
 msgid "Invalid bio limit. Must be numeric."
 msgstr "Ogiltig begränsning av biografi. Måste vara numerisk."
 
-#: actions/useradminpanel.php:155
+#: actions/useradminpanel.php:154
 msgid "Invalid welcome text. Max length is 255 characters."
 msgstr "Ogiltig välkomsttext. Maximal längd är 255 tecken."
 
-#: actions/useradminpanel.php:165
+#: actions/useradminpanel.php:164
 #, php-format
 msgid "Invalid default subscripton: '%1$s' is not user."
 msgstr "Ogiltig standardprenumeration: '%1$s' är inte användare."
 
-#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:108
+#: actions/useradminpanel.php:217 lib/accountsettingsaction.php:108
 #: lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr "Profil"
 
-#: actions/useradminpanel.php:222
+#: actions/useradminpanel.php:221
 msgid "Bio Limit"
 msgstr "Begränsning av biografi"
 
-#: actions/useradminpanel.php:223
+#: actions/useradminpanel.php:222
 msgid "Maximum length of a profile bio in characters."
 msgstr "Maximal teckenlängd av profilbiografi."
 
-#: actions/useradminpanel.php:231
+#: actions/useradminpanel.php:230
 msgid "New users"
 msgstr "Nya användare"
 
-#: actions/useradminpanel.php:235
+#: actions/useradminpanel.php:234
 msgid "New user welcome"
 msgstr "Välkomnande av ny användare"
 
-#: actions/useradminpanel.php:236
+#: actions/useradminpanel.php:235
 msgid "Welcome text for new users (Max 255 chars)."
 msgstr "Välkomsttext för nya användare (max 255 tecken)."
 
-#: actions/useradminpanel.php:241
+#: actions/useradminpanel.php:240
 msgid "Default subscription"
 msgstr "Standardprenumerationer"
 
-#: actions/useradminpanel.php:242
+#: actions/useradminpanel.php:241
 msgid "Automatically subscribe new users to this user."
 msgstr ""
 "Lägg automatiskt till en prenumeration på denna användare för alla nya "
 "användare."
 
-#: actions/useradminpanel.php:251
+#: actions/useradminpanel.php:250
 msgid "Invitations"
 msgstr "Inbjudningar"
 
-#: actions/useradminpanel.php:256
+#: actions/useradminpanel.php:255
 msgid "Invitations enabled"
 msgstr "Inbjudningar aktiverade"
 
-#: actions/useradminpanel.php:258
+#: actions/useradminpanel.php:257
 msgid "Whether to allow users to invite new users."
 msgstr "Hurvida användare skall tillåtas bjuda in nya användare."
-
-#: actions/useradminpanel.php:265
-msgid "Sessions"
-msgstr "Sessioner"
-
-#: actions/useradminpanel.php:270
-msgid "Handle sessions"
-msgstr "Hantera sessioner"
-
-#: actions/useradminpanel.php:272
-msgid "Whether to handle sessions ourselves."
-msgstr "Hurvida sessioner skall hanteras av oss själva."
-
-#: actions/useradminpanel.php:276
-msgid "Session debugging"
-msgstr "Sessionsfelsökning"
-
-#: actions/useradminpanel.php:278
-msgid "Turn on debugging output for sessions."
-msgstr "Sätt på felsökningsutdata för sessioner."
 
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
@@ -4204,9 +4245,9 @@ msgid "Enjoy your hotdog!"
 msgstr "Smaklig måltid!"
 
 #: actions/usergroups.php:64
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s groups, page %2$d"
-msgstr "%1$s gruppmedlemmar, sida %2$d"
+msgstr "%1$s grupper, sida %2$d"
 
 #: actions/usergroups.php:130
 msgid "Search for more groups"
@@ -4375,9 +4416,8 @@ msgid "Problem saving notice."
 msgstr "Problem med att spara notis."
 
 #: classes/Notice.php:790
-#, fuzzy
 msgid "Problem saving group inbox."
-msgstr "Problem med att spara notis."
+msgstr "Problem med att spara gruppinkorg."
 
 #: classes/Notice.php:850
 #, php-format
@@ -4568,7 +4608,7 @@ msgstr ""
 #: lib/action.php:784
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
-msgstr "**%%site.name%%** är en mikrobloggtjänst."
+msgstr "**%%site.name%%** är en mikrobloggtjänst. "
 
 #: lib/action.php:786
 #, php-format
@@ -4588,16 +4628,17 @@ msgstr "Licens för webbplatsinnehåll"
 #: lib/action.php:806
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
-msgstr ""
+msgstr "Innehåll och data av %1$s är privat och konfidensiell."
 
 #: lib/action.php:811
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
-msgstr ""
+msgstr "Innehåll och data copyright av %1$s. Alla rättigheter reserverade."
 
 #: lib/action.php:814
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
+"Innehåll och data copyright av medarbetare. Alla rättigheter reserverade."
 
 #: lib/action.php:826
 msgid "All "
@@ -4648,27 +4689,33 @@ msgid "Design configuration"
 msgstr "Konfiguration av utseende"
 
 #: lib/adminpanelaction.php:322
-#, fuzzy
 msgid "User configuration"
-msgstr "Konfiguration av sökvägar"
+msgstr "Konfiguration av användare"
 
 #: lib/adminpanelaction.php:327
-#, fuzzy
 msgid "Access configuration"
-msgstr "Konfiguration av utseende"
+msgstr "Konfiguration av åtkomst"
 
 #: lib/adminpanelaction.php:332
 msgid "Paths configuration"
 msgstr "Konfiguration av sökvägar"
 
-#: lib/apiauth.php:103
+#: lib/adminpanelaction.php:337
+#, fuzzy
+msgid "Sessions configuration"
+msgstr "Konfiguration av utseende"
+
+#: lib/apiauth.php:99
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
+"API-resursen kräver läs- och skrivrättigheter, men du har bara läsrättighet."
 
-#: lib/apiauth.php:257
+#: lib/apiauth.php:279
 #, php-format
 msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
 msgstr ""
+"Misslyckat försök till API-autentisering, smeknamn =%1$s, proxy =%2$s, ip =%3"
+"$s"
 
 #: lib/applicationeditform.php:136
 msgid "Edit application"
@@ -4756,11 +4803,11 @@ msgstr "Notiser där denna bilaga förekommer"
 msgid "Tags for this attachment"
 msgstr "Taggar för denna billaga"
 
-#: lib/authenticationplugin.php:214 lib/authenticationplugin.php:219
+#: lib/authenticationplugin.php:218 lib/authenticationplugin.php:223
 msgid "Password changing failed"
 msgstr "Byte av lösenord misslyckades"
 
-#: lib/authenticationplugin.php:229
+#: lib/authenticationplugin.php:233
 msgid "Password changing is not allowed"
 msgstr "Byte av lösenord är inte tillåtet"
 
@@ -5025,6 +5072,43 @@ msgid ""
 "tracks - not yet implemented.\n"
 "tracking - not yet implemented.\n"
 msgstr ""
+"Kommandon:\n"
+"on - sätt på notifikationer\n"
+"off - stäng av notifikationer\n"
+"help - visa denna hjälp\n"
+"follow <smeknamn> - prenumerera på användare\n"
+"groups - lista grupperna du tillhör\n"
+"subscriptions - lista personerna du följer\n"
+"subscribers - lista personerna som följer dig\n"
+"leave <smeknamn> - avsluta prenumeration på användare\n"
+"d <smeknamn> <text> - direktmeddelande till användare\n"
+"get <smeknamn> - hämta senaste notis från användare\n"
+"whois <smeknamn> - hämta profilinformation om användare\n"
+"fav <smeknamn> - lägg till användarens senaste notis som favorit\n"
+"fav #<notisid> - lägg till notis med given id som favorit\n"
+"repeat #<notisid> - upprepa en notis med en given id\n"
+"repeat <smeknamn> - upprepa den senaste notisen från användare\n"
+"reply #<notisid> - svara på notis med en given id\n"
+"reply <smeknamn> - svara på den senaste notisen från användare\n"
+"join <grupp> - gå med i grupp\n"
+"login - hämta en länk till webbgränssnittets inloggningssida\n"
+"drop <grupp> - lämna grupp\n"
+"stats - hämta din statistik\n"
+"stop - samma som 'off'\n"
+"quit - samma som 'off'\n"
+"sub <smeknamn> - samma som 'follow'\n"
+"unsub <smeknamn> - samma som 'leave'\n"
+"last <smeknamn> - samma som 'get'\n"
+"on <smeknamn> - inte implementerat än.\n"
+"off <smeknamn> - inte implementerat än.\n"
+"nudge <smeknamn> - påminn en användare om att uppdatera\n"
+"invite <telefonnummer> - inte implementerat än.\n"
+"track <ord> - inte implementerat än.\n"
+"untrack <ord> - inte implementerat än.\n"
+"track off - inte implementerat än.\n"
+"untrack all - inte implementerat än.\n"
+"tracks - inte implementerat än.\n"
+"tracking - inte implementerat än.\n"
 
 #: lib/common.php:131
 msgid "No configuration file found. "
@@ -5044,7 +5128,7 @@ msgstr "Gå till installeraren."
 
 #: lib/connectsettingsaction.php:110
 msgid "IM"
-msgstr "IM"
+msgstr "Snabbmeddelande"
 
 #: lib/connectsettingsaction.php:111
 msgid "Updates by instant messenger (IM)"
@@ -5292,6 +5376,18 @@ msgid ""
 "Thanks for your time, \n"
 "%s\n"
 msgstr ""
+"Hej %s!\n"
+"\n"
+"Någon la precis till den här e-postadressen på %s.\n"
+"\n"
+"Om det var du och du vill bekräfta det, använd webbadressen nedan:\n"
+"\n"
+"%s\n"
+"\n"
+"Om inte, ignorera bara det här meddelandet.\n"
+"\n"
+"Tack för din tid,  \n"
+"%s\n"
 
 #: lib/mail.php:236
 #, php-format
@@ -5312,6 +5408,16 @@ msgid ""
 "----\n"
 "Change your email address or notification options at %8$s\n"
 msgstr ""
+"%1$s lyssnar nu på dina notiser på %2$s.\n"
+"\n"
+"%3$s\n"
+"\n"
+"%4$s%5$s%6$s\n"
+"Med vänliga hälsningar,\n"
+"%7$s.\n"
+"\n"
+"----\n"
+"Ändra din e-postadress eller notiferingsinställningar på %8$s\n"
 
 #: lib/mail.php:258
 #, php-format
@@ -5373,6 +5479,17 @@ msgid ""
 "With kind regards,\n"
 "%4$s\n"
 msgstr ""
+"%1$s (%2$s) undrar vad du håller på med nuförtiden och inbjuder dig att "
+"lägga upp några nyheter.\n"
+"\n"
+"Så låt oss höra av dig :)\n"
+"\n"
+"%3$s\n"
+"\n"
+"Svara inte på det här e-postmeddelandet; det kommer inte komma fram.\n"
+"\n"
+"Med vänliga hälsningar,\n"
+"%4$s\n"
 
 #: lib/mail.php:510
 #, php-format
@@ -5397,6 +5514,20 @@ msgid ""
 "With kind regards,\n"
 "%5$s\n"
 msgstr ""
+"%1$s (%2$s) skickade ett privat meddelande till dig:\n"
+"\n"
+"------------------------------------------------------\n"
+"%3$s\n"
+"------------------------------------------------------\n"
+"\n"
+"Du kan svara på meddelandet här:\n"
+"\n"
+"%4$s\n"
+"\n"
+"Svara inte på detta e-postmeddelande; det kommer inte komma fram.\n"
+"\n"
+"Med vänliga hälsningar,\n"
+"%5$s\n"
 
 #: lib/mail.php:559
 #, php-format
@@ -5423,6 +5554,22 @@ msgid ""
 "Faithfully yours,\n"
 "%6$s\n"
 msgstr ""
+"%1$s (@%7$s) la precis till din notis från %2$s som en av sina favoriter.\n"
+"\n"
+"Webbadressen för din notis är:\n"
+"\n"
+"%3$s\n"
+"\n"
+"Texten i din notis är:\n"
+"\n"
+"%4$s\n"
+"\n"
+"Du kan se listan med %1$ss favoriter här:\n"
+"\n"
+"%5$s\n"
+"\n"
+"Med vänliga hälsningar,\n"
+"%6$s\n"
 
 #: lib/mail.php:624
 #, php-format
@@ -5443,6 +5590,17 @@ msgid ""
 "\t%4$s\n"
 "\n"
 msgstr ""
+"%1$s (@%9$s) skickade precis en notis för din uppmärksamhet (ett '@-svar') "
+"på %2$s.\n"
+"\n"
+"Notisen är här:\n"
+"\n"
+"%3$s\n"
+"\n"
+"Den lyder:\n"
+"\n"
+"%4$s\n"
+"\n"
 
 #: lib/mailbox.php:89
 msgid "Only the user can read their own mailboxes."

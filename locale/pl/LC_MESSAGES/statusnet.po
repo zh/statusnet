@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-28 23:04+0000\n"
-"PO-Revision-Date: 2010-01-28 23:05:15+0000\n"
+"POT-Creation-Date: 2010-01-30 23:41+0000\n"
+"PO-Revision-Date: 2010-01-30 23:42:30+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: MediaWiki 1.16alpha (r61646); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61734); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pl\n"
 "X-Message-Group: out-statusnet\n"
@@ -63,11 +63,12 @@ msgstr "Wyłączenie nowych rejestracji."
 #: actions/accessadminpanel.php:189 actions/designadminpanel.php:586
 #: actions/emailsettings.php:195 actions/imsettings.php:163
 #: actions/othersettings.php:126 actions/pathsadminpanel.php:351
-#: actions/profilesettings.php:174 actions/siteadminpanel.php:336
-#: actions/smssettings.php:181 actions/subscriptions.php:203
-#: actions/tagother.php:154 actions/useradminpanel.php:313
-#: lib/applicationeditform.php:333 lib/applicationeditform.php:334
-#: lib/designsettings.php:256 lib/groupeditform.php:202
+#: actions/profilesettings.php:174 actions/sessionsadminpanel.php:199
+#: actions/siteadminpanel.php:336 actions/smssettings.php:181
+#: actions/subscriptions.php:203 actions/tagother.php:154
+#: actions/useradminpanel.php:293 lib/applicationeditform.php:333
+#: lib/applicationeditform.php:334 lib/designsettings.php:256
+#: lib/groupeditform.php:202
 msgid "Save"
 msgstr "Zapisz"
 
@@ -508,12 +509,10 @@ msgid "Invalid nickname / password!"
 msgstr "Nieprawidłowy pseudonim/hasło."
 
 #: actions/apioauthauthorize.php:170
-#, fuzzy
 msgid "Database error deleting OAuth application user."
 msgstr "Błąd bazy danych podczas usuwania użytkownika aplikacji OAuth."
 
 #: actions/apioauthauthorize.php:196
-#, fuzzy
 msgid "Database error inserting OAuth application user."
 msgstr "Błąd bazy danych podczas wprowadzania użytkownika aplikacji OAuth."
 
@@ -3229,6 +3228,37 @@ msgstr "Nie można ograniczać użytkowników na tej stronie."
 msgid "User is already sandboxed."
 msgstr "Użytkownik jest już ograniczony."
 
+#: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
+#: lib/adminpanelaction.php:336
+msgid "Sessions"
+msgstr "Sesje"
+
+#: actions/sessionsadminpanel.php:65
+#, fuzzy
+msgid "Session settings for this StatusNet site."
+msgstr "Ustawienia wyglądu tej strony StatusNet."
+
+#: actions/sessionsadminpanel.php:175
+msgid "Handle sessions"
+msgstr "Obsługa sesji"
+
+#: actions/sessionsadminpanel.php:177
+msgid "Whether to handle sessions ourselves."
+msgstr "Czy samodzielnie obsługiwać sesje."
+
+#: actions/sessionsadminpanel.php:181
+msgid "Session debugging"
+msgstr "Debugowanie sesji"
+
+#: actions/sessionsadminpanel.php:183
+msgid "Turn on debugging output for sessions."
+msgstr "Włącza wyjście debugowania dla sesji."
+
+#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:336
+#: actions/useradminpanel.php:293
+msgid "Save site settings"
+msgstr "Zapisz ustawienia strony"
+
 #: actions/showapplication.php:82
 msgid "You must be logged in to view an application."
 msgstr "Musisz być zalogowany, aby wyświetlić aplikację."
@@ -3726,10 +3756,6 @@ msgstr ""
 "Ile czasu użytkownicy muszą czekać (w sekundach), aby ponownie wysłać to "
 "samo."
 
-#: actions/siteadminpanel.php:336 actions/useradminpanel.php:313
-msgid "Save site settings"
-msgstr "Zapisz ustawienia strony"
-
 #: actions/smssettings.php:58
 msgid "SMS settings"
 msgstr "Ustawienia SMS"
@@ -4044,83 +4070,63 @@ msgstr "Użytkownik"
 msgid "User settings for this StatusNet site."
 msgstr "Ustawienia użytkownika dla tej strony StatusNet."
 
-#: actions/useradminpanel.php:149
+#: actions/useradminpanel.php:148
 msgid "Invalid bio limit. Must be numeric."
 msgstr "Nieprawidłowe ograniczenie informacji o sobie. Musi być liczbowa."
 
-#: actions/useradminpanel.php:155
+#: actions/useradminpanel.php:154
 msgid "Invalid welcome text. Max length is 255 characters."
 msgstr "Nieprawidłowy tekst powitania. Maksymalna długość to 255 znaków."
 
-#: actions/useradminpanel.php:165
+#: actions/useradminpanel.php:164
 #, php-format
 msgid "Invalid default subscripton: '%1$s' is not user."
 msgstr "Nieprawidłowa domyślna subskrypcja: \"%1$s\" nie jest użytkownikiem."
 
-#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:108
+#: actions/useradminpanel.php:217 lib/accountsettingsaction.php:108
 #: lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr "Profil"
 
-#: actions/useradminpanel.php:222
+#: actions/useradminpanel.php:221
 msgid "Bio Limit"
 msgstr "Ograniczenie informacji o sobie"
 
-#: actions/useradminpanel.php:223
+#: actions/useradminpanel.php:222
 msgid "Maximum length of a profile bio in characters."
 msgstr "Maksymalna długość informacji o sobie jako liczba znaków."
 
-#: actions/useradminpanel.php:231
+#: actions/useradminpanel.php:230
 msgid "New users"
 msgstr "Nowi użytkownicy"
 
-#: actions/useradminpanel.php:235
+#: actions/useradminpanel.php:234
 msgid "New user welcome"
 msgstr "Powitanie nowego użytkownika"
 
-#: actions/useradminpanel.php:236
+#: actions/useradminpanel.php:235
 msgid "Welcome text for new users (Max 255 chars)."
 msgstr "Tekst powitania nowych użytkowników (maksymalnie 255 znaków)."
 
-#: actions/useradminpanel.php:241
+#: actions/useradminpanel.php:240
 msgid "Default subscription"
 msgstr "Domyślna subskrypcja"
 
-#: actions/useradminpanel.php:242
+#: actions/useradminpanel.php:241
 msgid "Automatically subscribe new users to this user."
 msgstr "Automatyczne subskrybowanie nowych użytkowników do tego użytkownika."
 
-#: actions/useradminpanel.php:251
+#: actions/useradminpanel.php:250
 msgid "Invitations"
 msgstr "Zaproszenia"
 
-#: actions/useradminpanel.php:256
+#: actions/useradminpanel.php:255
 msgid "Invitations enabled"
 msgstr "Zaproszenia są włączone"
 
-#: actions/useradminpanel.php:258
+#: actions/useradminpanel.php:257
 msgid "Whether to allow users to invite new users."
 msgstr "Czy zezwolić użytkownikom zapraszanie nowych użytkowników."
-
-#: actions/useradminpanel.php:265
-msgid "Sessions"
-msgstr "Sesje"
-
-#: actions/useradminpanel.php:270
-msgid "Handle sessions"
-msgstr "Obsługa sesji"
-
-#: actions/useradminpanel.php:272
-msgid "Whether to handle sessions ourselves."
-msgstr "Czy samodzielnie obsługiwać sesje."
-
-#: actions/useradminpanel.php:276
-msgid "Session debugging"
-msgstr "Debugowanie sesji"
-
-#: actions/useradminpanel.php:278
-msgid "Turn on debugging output for sessions."
-msgstr "Włącza wyjście debugowania dla sesji."
 
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
@@ -4700,14 +4706,23 @@ msgstr "Konfiguracja dostępu"
 msgid "Paths configuration"
 msgstr "Konfiguracja ścieżek"
 
-#: lib/apiauth.php:103
+#: lib/adminpanelaction.php:337
+#, fuzzy
+msgid "Sessions configuration"
+msgstr "Konfiguracja wyglądu"
+
+#: lib/apiauth.php:99
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
+"Zasób API wymaga dostępu do zapisu i do odczytu, ale powiadasz dostęp tylko "
+"do odczytu."
 
-#: lib/apiauth.php:257
+#: lib/apiauth.php:279
 #, php-format
 msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
 msgstr ""
+"Próba uwierzytelnienia API nie powiodła się, pseudonim = %1$s, pośrednik = %2"
+"$s, IP = %3$s"
 
 #: lib/applicationeditform.php:136
 msgid "Edit application"
@@ -4795,11 +4810,11 @@ msgstr "Powiadamia, kiedy pojawia się ten załącznik"
 msgid "Tags for this attachment"
 msgstr "Znaczniki dla tego załącznika"
 
-#: lib/authenticationplugin.php:214 lib/authenticationplugin.php:219
+#: lib/authenticationplugin.php:218 lib/authenticationplugin.php:223
 msgid "Password changing failed"
 msgstr "Zmiana hasła nie powiodła się"
 
-#: lib/authenticationplugin.php:229
+#: lib/authenticationplugin.php:233
 msgid "Password changing is not allowed"
 msgstr "Zmiana hasła nie jest dozwolona"
 
