@@ -77,13 +77,11 @@ class Schema
     {
         $type = common_config('db', 'type');
         if (empty(self::$_single)) {
-            include "lib/schema.{$type}.php";
-            $class = $type.='Schema';
-            self::$_single = new $class();
+            $schemaClass = ucfirst($type).'Schema';
+            self::$_single = new $schemaClass();
         }
         return self::$_single;
     }
-
 
     /**
      * Gets a ColumnDef object for a single column.
@@ -475,7 +473,7 @@ class Schema
         } else {
             $sql .= ($cd->nullable) ? "null " : "not null ";
         }
-        
+
         if (!empty($cd->auto_increment)) {
             $sql .= " auto_increment ";
         }
