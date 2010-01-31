@@ -708,3 +708,9 @@ EndUserRegister: When a new user has been registered
 - &$profile: new profile data
 - &$user: new user account
 
+StartRobotsTxt: Before outputting the robots.txt page
+- &$action: RobotstxtAction being shown
+
+EndRobotsTxt: After the default robots.txt page (good place for customization)
+- &$action: RobotstxtAction being shown
+

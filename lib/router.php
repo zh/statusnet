@@ -73,6 +73,8 @@ class Router
 
         if (Event::handle('StartInitializeRouter', array(&$m))) {
 
+            $m->connect('robots.txt', array('action' => 'robotstxt'));
+
             $m->connect('opensearch/people', array('action' => 'opensearch',
                                                    'type' => 'people'));
             $m->connect('opensearch/notice', array('action' => 'opensearch',
