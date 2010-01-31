@@ -178,7 +178,7 @@ RealtimeUpdate = {
 
           ni = ni+"</div>";
 
-               "</li>";
+          ni = ni+"</li>";
           return ni;
      },
 
