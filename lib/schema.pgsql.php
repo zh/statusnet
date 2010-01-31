@@ -45,45 +45,59 @@ if (!defined('STATUSNET')) {
  * @link     http://status.net/
  */
 
-class Schema
+class PgsqlSchema extends Schema
 {
-    static $_single = null;
-    protected $conn = null;
 
     /**
-     * Constructor. Only run once for singleton object.
-     */
-
-    protected function __construct()
-    {
-        // XXX: there should be an easier way to do this.
-        $user = new User();
-
-        $this->conn = $user->getDatabaseConnection();
-
-        $user->free();
-
-        unset($user);
-    }
-
-    /**
-     * Main public entry point. Use this to get
-     * the singleton object.
+     * Returns a TableDef object for the table
+     * in the schema with the given name.
      *
-     * @return Schema the (single) Schema object
+     * Throws an exception if the table is not found.
+     *
+     * @param string $name Name of the table to get
+     *
+     * @return TableDef tabledef for that table.
      */
 
-    static function get()
+    public function getTableDef($name)
     {
-        $type = common_config('db', 'type');
-        if (empty(self::$_single)) {
-            include "lib/schema.{$type}.php";
-            $class = $type.='Schema';
-            self::$_single = new $class();
-        }
-        return self::$_single;
-    }
+        $res = $this->conn->query("select *, column_default as default, is_nullable as Null, udt_name as Type, column_name AS Field from INFORMATION_SCHEMA.COLUMNS where table_name = '$name'");
 
+        if (PEAR::isError($res)) {
+            throw new Exception($res->getMessage());
+        }
+
+        $td = new TableDef();
+
+        $td->name    = $name;
+        $td->columns = array();
+
+        $row = array();
+
+        while ($res->fetchInto($row, DB_FETCHMODE_ASSOC)) {
+//             var_dump($row);
+            $cd = new ColumnDef();
+
+            $cd->name = $row['field'];
+
+            $packed = $row['type'];
+
+            if (preg_match('/^(\w+)\((\d+)\)$/', $packed, $match)) {
+                $cd->type = $match[1];
+                $cd->size = $match[2];
+            } else {
+                $cd->type = $packed;
+            }
+
+            $cd->nullable = ($row['null'] == 'YES') ? true : false;
+            $cd->key      = $row['Key'];
+            $cd->default  = $row['default'];
+            $cd->extra    = $row['Extra'];
+
+            $td->columns[] = $cd;
+        }
+        return $td;
+    }
 
     /**
      * Gets a ColumnDef object for a single column.

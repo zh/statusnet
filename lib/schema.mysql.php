@@ -45,7 +45,7 @@ if (!defined('STATUSNET')) {
  * @link     http://status.net/
  */
 
-class Schema
+class MysqlSchema extends Schema
 {
     static $_single = null;
     protected $conn = null;
@@ -75,15 +75,63 @@ class Schema
 
     static function get()
     {
-        $type = common_config('db', 'type');
         if (empty(self::$_single)) {
-            include "lib/schema.{$type}.php";
-            $class = $type.='Schema';
-            self::$_single = new $class();
+            self::$_single = new Schema();
         }
         return self::$_single;
     }
 
+    /**
+     * Returns a TableDef object for the table
+     * in the schema with the given name.
+     *
+     * Throws an exception if the table is not found.
+     *
+     * @param string $name Name of the table to get
+     *
+     * @return TableDef tabledef for that table.
+     */
+
+    public function getTableDef($name)
+    {
+        $res = $this->conn->query('DESCRIBE ' . $name);
+
+        if (PEAR::isError($res)) {
+            throw new Exception($res->getMessage());
+        }
+
+        $td = new TableDef();
+
+        $td->name    = $name;
+        $td->columns = array();
+
+        $row = array();
+
+        while ($res->fetchInto($row, DB_FETCHMODE_ASSOC)) {
+
+            $cd = new ColumnDef();
+
+            $cd->name = $row['Field'];
+
+            $packed = $row['Type'];
+
+            if (preg_match('/^(\w+)\((\d+)\)$/', $packed, $match)) {
+                $cd->type = $match[1];
+                $cd->size = $match[2];
+            } else {
+                $cd->type = $packed;
+            }
+
+            $cd->nullable = ($row['Null'] == 'YES') ? true : false;
+            $cd->key      = $row['Key'];
+            $cd->default  = $row['Default'];
+            $cd->extra    = $row['Extra'];
+
+            $td->columns[] = $cd;
+        }
+
+        return $td;
+    }
 
     /**
      * Gets a ColumnDef object for a single column.

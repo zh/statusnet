@@ -132,11 +132,11 @@ RealtimeUpdate = {
           user = data['user'];
           html = data['html'].replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&amp;/g,'&');
           source = data['source'].replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&amp;/g,'&');
-
+console.log(data);
           ni = "<li class=\"hentry notice\" id=\"notice-"+unique+"\">"+
                "<div class=\"entry-title\">"+
                "<span class=\"vcard author\">"+
-               "<a href=\""+user['profile_url']+"\" class=\"url\">"+
+               "<a href=\""+user['profile_url']+"\" class=\"url\" title=\""+user['name']+"\">"+
                "<img src=\""+user['profile_image_url']+"\" class=\"avatar photo\" width=\"48\" height=\"48\" alt=\""+user['screen_name']+"\"/>"+
                "<span class=\"nickname fn\">"+user['screen_name']+"</span>"+
                "</a>"+
