@@ -2,8 +2,8 @@
 README
 ------
 
-StatusNet 0.9.0 ("Stand") Beta 3
-20 Jan 2010
+StatusNet 0.9.0 ("Stand") Beta 4
+27 Jan 2010
 
 This is the README file for StatusNet (formerly Laconica), the Open
 Source microblogging platform. It includes installation instructions,
@@ -597,26 +597,19 @@ server is probably a good idea for high-volume sites.
    needs as a parameter the install path; if you run it from the
    StatusNet dir, "." should suffice.
 
-This will run eight (for now) queue handlers:
+This will run the queue handlers:
 
+* queuedaemon.php - polls for queued items for inbox processing and
+  pushing out to OMB, SMS, XMPP, etc.
 * xmppdaemon.php - listens for new XMPP messages from users and stores
-  them as notices in the database.
-* jabberqueuehandler.php - sends queued notices in the database to
-  registered users who should receive them.
-* publicqueuehandler.php - sends queued notices in the database to
-  public feed listeners.
-* ombqueuehandler.php - sends queued notices to OpenMicroBlogging
-  recipients on foreign servers.
-* smsqueuehandler.php - sends queued notices to SMS-over-email addresses
-  of registered users.
-* xmppconfirmhandler.php - sends confirmation messages to registered
-  users.
+  them as notices in the database; also pulls queued XMPP output from
+  queuedaemon.php to push out to clients.
 
-Note that these queue daemons are pretty raw, and need your care. In
-particular, they leak memory, and you may want to restart them on a
-regular (daily or so) basis with a cron job. Also, if they lose
-the connection to the XMPP server for too long, they'll simply die. It
-may be a good idea to use a daemon-monitoring service, like 'monit',
+These two daemons will automatically restart in most cases of failure
+including memory leaks (if a memory_limit is set), but may still die
+or behave oddly if they lose connections to the XMPP or queue servers.
+
+It may be a good idea to use a daemon-monitoring service, like 'monit',
 to check their status and keep them running.
 
 All the daemons write their process IDs (pids) to /var/run/ by
@@ -626,7 +619,7 @@ daemons.
 Since version 0.8.0, it's now possible to use a STOMP server instead of
 our kind of hacky home-grown DB-based queue solution. See the "queues"
 config section below for how to configure to use STOMP. As of this
-writing, the software has been tested with ActiveMQ (
+writing, the software has been tested with ActiveMQ.
 
 Sitemaps
 --------
@@ -712,9 +705,11 @@ subdirectory to add a new language to your system. You'll need to
 compile the ".po" files into ".mo" files, however.
 
 Contributions of translation information to StatusNet are very easy:
-you can use the Web interface at http://status.net/pootle/ to add one
+you can use the Web interface at TranslateWiki.net to add one
 or a few or lots of new translations -- or even new languages. You can
 also download more up-to-date .po files there, if you so desire.
+
+For info on helping with translations, see http://status.net/wiki/Translations
 
 Backups
 -------
@@ -1500,6 +1495,20 @@ interface. It also makes the user's profile the root URL.
 
 enabled: Whether to run in "single user mode". Default false.
 nickname: nickname of the single user.
+
+robotstxt
+---------
+
+We put out a default robots.txt file to guide the processing of
+Web crawlers. See http://www.robotstxt.org/ for more information
+on the format of this file.
+
+crawldelay: if non-empty, this value is provided as the Crawl-Delay:
+            for the robots.txt file. see http://ur1.ca/l5a0
+            for more information. Default is zero, no explicit delay.
+disallow: Array of (virtual) directories to disallow. Default is 'main',
+          'search', 'message', 'settings', 'admin'. Ignored when site
+          is private, in which case the entire site ('/') is disallowed.
 
 Plugins
 =======

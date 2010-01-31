@@ -303,8 +303,9 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
         $access = ($this->app->access_type & Oauth_application::$writeAccess) ?
           'access and update' : 'access';
 
-        $msg = _("The application <strong>%1$s</strong> by <strong>%2$s</strong> would like " .
-                 "the ability to <strong>%3$s</strong> your account data.");
+        $msg = _('The application <strong>%1$s</strong> by ' .
+                 '<strong>%2$s</strong> would like the ability ' .
+                 'to <strong>%3$s</strong> your account data.');
 
         $this->raw(sprintf($msg,
                            $this->app->name,

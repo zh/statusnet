@@ -40,7 +40,7 @@ class JabberQueueHandler extends QueueHandler
         try {
             return jabber_broadcast_notice($notice);
         } catch (XMPPHP_Exception $e) {
-            $this->log(LOG_ERR, "Got an XMPPHP_Exception: " . $e->getMessage());
+            common_log(LOG_ERR, "Got an XMPPHP_Exception: " . $e->getMessage());
             return false;
         }
     }

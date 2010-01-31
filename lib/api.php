@@ -299,7 +299,7 @@ class ApiAction extends Action
             }
         }
 
-        if ($include_user) {
+        if ($include_user && $profile) {
             # Don't get notice (recursive!)
             $twitter_user = $this->twitterUserArray($profile, false);
             $twitter_status['user'] = $twitter_user;

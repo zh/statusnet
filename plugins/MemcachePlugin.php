@@ -59,6 +59,8 @@ class MemcachePlugin extends Plugin
 
     public $persistent = null;
 
+    public $defaultExpiry = 86400; // 24h
+
     /**
      * Initialize the plugin
      *
@@ -110,6 +112,9 @@ class MemcachePlugin extends Plugin
     function onStartCacheSet(&$key, &$value, &$flag, &$expiry, &$success)
     {
         $this->_ensureConn();
+        if ($expiry === null) {
+            $expiry = $this->defaultExpiry;
+        }
         $success = $this->_conn->set($key, $value, $flag, $expiry);
         Event::handle('EndCacheSet', array($key, $value, $flag,
                                            $expiry));
