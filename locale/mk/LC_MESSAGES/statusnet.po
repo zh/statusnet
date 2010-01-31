@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-28 23:04+0000\n"
-"PO-Revision-Date: 2010-01-28 23:05:04+0000\n"
+"POT-Creation-Date: 2010-01-30 23:41+0000\n"
+"PO-Revision-Date: 2010-01-30 23:42:17+0000\n"
 "Language-Team: Macedonian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61646); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61734); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: out-statusnet\n"
@@ -61,11 +61,12 @@ msgstr "Оневозможи нови регистрации."
 #: actions/accessadminpanel.php:189 actions/designadminpanel.php:586
 #: actions/emailsettings.php:195 actions/imsettings.php:163
 #: actions/othersettings.php:126 actions/pathsadminpanel.php:351
-#: actions/profilesettings.php:174 actions/siteadminpanel.php:336
-#: actions/smssettings.php:181 actions/subscriptions.php:203
-#: actions/tagother.php:154 actions/useradminpanel.php:313
-#: lib/applicationeditform.php:333 lib/applicationeditform.php:334
-#: lib/designsettings.php:256 lib/groupeditform.php:202
+#: actions/profilesettings.php:174 actions/sessionsadminpanel.php:199
+#: actions/siteadminpanel.php:336 actions/smssettings.php:181
+#: actions/subscriptions.php:203 actions/tagother.php:154
+#: actions/useradminpanel.php:293 lib/applicationeditform.php:333
+#: lib/applicationeditform.php:334 lib/designsettings.php:256
+#: lib/groupeditform.php:202
 msgid "Save"
 msgstr "Зачувај"
 
@@ -507,12 +508,10 @@ msgid "Invalid nickname / password!"
 msgstr "Погрешен прекар / лозинка!"
 
 #: actions/apioauthauthorize.php:170
-#, fuzzy
 msgid "Database error deleting OAuth application user."
 msgstr "Грешка при бришењето на корисникот на OAuth-програмот."
 
 #: actions/apioauthauthorize.php:196
-#, fuzzy
 msgid "Database error inserting OAuth application user."
 msgstr ""
 "Грешка во базата на податоци при вметнувањето на корисникот на OAuth-"
@@ -3254,6 +3253,37 @@ msgstr "Не можете да ставате корисници во песоч
 msgid "User is already sandboxed."
 msgstr "Корисникот е веќе во песочен режим."
 
+#: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
+#: lib/adminpanelaction.php:336
+msgid "Sessions"
+msgstr "Сесии"
+
+#: actions/sessionsadminpanel.php:65
+#, fuzzy
+msgid "Session settings for this StatusNet site."
+msgstr "Нагодувања на изгледот на оваа StatusNet веб-страница."
+
+#: actions/sessionsadminpanel.php:175
+msgid "Handle sessions"
+msgstr "Раководење со сесии"
+
+#: actions/sessionsadminpanel.php:177
+msgid "Whether to handle sessions ourselves."
+msgstr "Дали самите да си раководиме со сесиите."
+
+#: actions/sessionsadminpanel.php:181
+msgid "Session debugging"
+msgstr "Поправка на грешки во сесија"
+
+#: actions/sessionsadminpanel.php:183
+msgid "Turn on debugging output for sessions."
+msgstr "Вклучи извод од поправка на грешки за сесии."
+
+#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:336
+#: actions/useradminpanel.php:293
+msgid "Save site settings"
+msgstr "Зачувај нагодувања на веб-страницата"
+
 #: actions/showapplication.php:82
 msgid "You must be logged in to view an application."
 msgstr "Мора да сте најавени за да можете да го видите програмот."
@@ -3754,10 +3784,6 @@ msgstr ""
 "Колку долго треба да почекаат корисниците (во секунди) за да можат повторно "
 "да го објават истото."
 
-#: actions/siteadminpanel.php:336 actions/useradminpanel.php:313
-msgid "Save site settings"
-msgstr "Зачувај нагодувања на веб-страницата"
-
 #: actions/smssettings.php:58
 msgid "SMS settings"
 msgstr "Нагодувања за СМС"
@@ -4070,83 +4096,63 @@ msgstr "Корисник"
 msgid "User settings for this StatusNet site."
 msgstr "Кориснички нагодувања за оваа StatusNet веб-страница."
 
-#: actions/useradminpanel.php:149
+#: actions/useradminpanel.php:148
 msgid "Invalid bio limit. Must be numeric."
 msgstr "Неважечко ограничување за биографијата. Мора да е бројчено."
 
-#: actions/useradminpanel.php:155
+#: actions/useradminpanel.php:154
 msgid "Invalid welcome text. Max length is 255 characters."
 msgstr "НЕважечки текст за добредојде. Дозволени се највеќе 255 знаци."
 
-#: actions/useradminpanel.php:165
+#: actions/useradminpanel.php:164
 #, php-format
 msgid "Invalid default subscripton: '%1$s' is not user."
 msgstr "Неважечки опис по основно: „%1$s“ не е корисник."
 
-#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:108
+#: actions/useradminpanel.php:217 lib/accountsettingsaction.php:108
 #: lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr "Профил"
 
-#: actions/useradminpanel.php:222
+#: actions/useradminpanel.php:221
 msgid "Bio Limit"
 msgstr "Ограничување за биографијата"
 
-#: actions/useradminpanel.php:223
+#: actions/useradminpanel.php:222
 msgid "Maximum length of a profile bio in characters."
 msgstr "Максимална големина на профилната биографија во знаци."
 
-#: actions/useradminpanel.php:231
+#: actions/useradminpanel.php:230
 msgid "New users"
 msgstr "Нови корисници"
 
-#: actions/useradminpanel.php:235
+#: actions/useradminpanel.php:234
 msgid "New user welcome"
 msgstr "Добредојде за нов корисник"
 
-#: actions/useradminpanel.php:236
+#: actions/useradminpanel.php:235
 msgid "Welcome text for new users (Max 255 chars)."
 msgstr "Текст за добредојде на нови корисници (највеќе до 255 знаци)."
 
-#: actions/useradminpanel.php:241
+#: actions/useradminpanel.php:240
 msgid "Default subscription"
 msgstr "Основно-зададена претплата"
 
-#: actions/useradminpanel.php:242
+#: actions/useradminpanel.php:241
 msgid "Automatically subscribe new users to this user."
 msgstr "Автоматски претплатувај нови корисници на овој корисник."
 
-#: actions/useradminpanel.php:251
+#: actions/useradminpanel.php:250
 msgid "Invitations"
 msgstr "Покани"
 
-#: actions/useradminpanel.php:256
+#: actions/useradminpanel.php:255
 msgid "Invitations enabled"
 msgstr "Поканите се овозможени"
 
-#: actions/useradminpanel.php:258
+#: actions/useradminpanel.php:257
 msgid "Whether to allow users to invite new users."
 msgstr "Дали да им е дозволено на корисниците да канат други корисници."
-
-#: actions/useradminpanel.php:265
-msgid "Sessions"
-msgstr "Сесии"
-
-#: actions/useradminpanel.php:270
-msgid "Handle sessions"
-msgstr "Раководење со сесии"
-
-#: actions/useradminpanel.php:272
-msgid "Whether to handle sessions ourselves."
-msgstr "Дали самите да си раководиме со сесиите."
-
-#: actions/useradminpanel.php:276
-msgid "Session debugging"
-msgstr "Поправка на грешки во сесија"
-
-#: actions/useradminpanel.php:278
-msgid "Turn on debugging output for sessions."
-msgstr "Вклучи извод од поправка на грешки за сесии."
 
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
@@ -4727,14 +4733,21 @@ msgstr "Конфигурација на пристапот"
 msgid "Paths configuration"
 msgstr "Конфигурација на патеки"
 
-#: lib/apiauth.php:103
+#: lib/adminpanelaction.php:337
+#, fuzzy
+msgid "Sessions configuration"
+msgstr "Конфигурација на изгледот"
+
+#: lib/apiauth.php:99
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
+"API-ресурсот бара да може и да чита и да запишува, а вие можете само да "
+"читате."
 
-#: lib/apiauth.php:257
+#: lib/apiauth.php:279
 #, php-format
 msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
-msgstr ""
+msgstr "Неуспешен обид за API-заверка, прекар = %1$s, прокси = %2$s, IP = %3$s"
 
 #: lib/applicationeditform.php:136
 msgid "Edit application"
@@ -4822,11 +4835,11 @@ msgstr "Забелешки кадешто се јавува овој прило�
 msgid "Tags for this attachment"
 msgstr "Ознаки за овој прилог"
 
-#: lib/authenticationplugin.php:214 lib/authenticationplugin.php:219
+#: lib/authenticationplugin.php:218 lib/authenticationplugin.php:223
 msgid "Password changing failed"
 msgstr "Менувањето на лозинката не успеа"
 
-#: lib/authenticationplugin.php:229
+#: lib/authenticationplugin.php:233
 msgid "Password changing is not allowed"
 msgstr "Менувањето на лозинка не е дозволено"
 

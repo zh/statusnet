@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-28 23:04+0000\n"
-"PO-Revision-Date: 2010-01-28 23:05:18+0000\n"
+"POT-Creation-Date: 2010-01-30 23:41+0000\n"
+"PO-Revision-Date: 2010-01-30 23:42:34+0000\n"
 "Language-Team: Portuguese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61646); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61734); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pt\n"
 "X-Message-Group: out-statusnet\n"
@@ -61,11 +61,12 @@ msgstr "Impossibilitar registos novos."
 #: actions/accessadminpanel.php:189 actions/designadminpanel.php:586
 #: actions/emailsettings.php:195 actions/imsettings.php:163
 #: actions/othersettings.php:126 actions/pathsadminpanel.php:351
-#: actions/profilesettings.php:174 actions/siteadminpanel.php:336
-#: actions/smssettings.php:181 actions/subscriptions.php:203
-#: actions/tagother.php:154 actions/useradminpanel.php:313
-#: lib/applicationeditform.php:333 lib/applicationeditform.php:334
-#: lib/designsettings.php:256 lib/groupeditform.php:202
+#: actions/profilesettings.php:174 actions/sessionsadminpanel.php:199
+#: actions/siteadminpanel.php:336 actions/smssettings.php:181
+#: actions/subscriptions.php:203 actions/tagother.php:154
+#: actions/useradminpanel.php:293 lib/applicationeditform.php:333
+#: lib/applicationeditform.php:334 lib/designsettings.php:256
+#: lib/groupeditform.php:202
 msgid "Save"
 msgstr "Gravar"
 
@@ -3263,6 +3264,37 @@ msgstr "Não pode impedir notas públicas neste site."
 msgid "User is already sandboxed."
 msgstr "Utilizador já está impedido de criar notas públicas."
 
+#: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
+#: lib/adminpanelaction.php:336
+msgid "Sessions"
+msgstr "Sessões"
+
+#: actions/sessionsadminpanel.php:65
+#, fuzzy
+msgid "Session settings for this StatusNet site."
+msgstr "Configurações do estilo deste site StatusNet."
+
+#: actions/sessionsadminpanel.php:175
+msgid "Handle sessions"
+msgstr "Gerir sessões"
+
+#: actions/sessionsadminpanel.php:177
+msgid "Whether to handle sessions ourselves."
+msgstr "Se devemos gerir sessões nós próprios."
+
+#: actions/sessionsadminpanel.php:181
+msgid "Session debugging"
+msgstr "Depuração de sessões"
+
+#: actions/sessionsadminpanel.php:183
+msgid "Turn on debugging output for sessions."
+msgstr "Ligar a impressão de dados de depuração, para sessões."
+
+#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:336
+#: actions/useradminpanel.php:293
+msgid "Save site settings"
+msgstr "Gravar configurações do site"
+
 #: actions/showapplication.php:82
 #, fuzzy
 msgid "You must be logged in to view an application."
@@ -3761,10 +3793,6 @@ msgstr ""
 "Quanto tempo os utilizadores terão de esperar (em segundos) para publicar a "
 "mesma coisa outra vez."
 
-#: actions/siteadminpanel.php:336 actions/useradminpanel.php:313
-msgid "Save site settings"
-msgstr "Gravar configurações do site"
-
 #: actions/smssettings.php:58
 msgid "SMS settings"
 msgstr "Configurações de SMS"
@@ -4079,83 +4107,63 @@ msgstr "Utilizador"
 msgid "User settings for this StatusNet site."
 msgstr "Configurações do utilizador para este site StatusNet."
 
-#: actions/useradminpanel.php:149
+#: actions/useradminpanel.php:148
 msgid "Invalid bio limit. Must be numeric."
 msgstr "Limite da biografia inválido. Tem de ser numérico."
 
-#: actions/useradminpanel.php:155
+#: actions/useradminpanel.php:154
 msgid "Invalid welcome text. Max length is 255 characters."
 msgstr "Texto de boas-vindas inválido. Tamanho máx. é 255 caracteres."
 
-#: actions/useradminpanel.php:165
+#: actions/useradminpanel.php:164
 #, php-format
 msgid "Invalid default subscripton: '%1$s' is not user."
 msgstr "Subscrição predefinida é inválida: '%1$s' não é utilizador."
 
-#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:108
+#: actions/useradminpanel.php:217 lib/accountsettingsaction.php:108
 #: lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr "Perfil"
 
-#: actions/useradminpanel.php:222
+#: actions/useradminpanel.php:221
 msgid "Bio Limit"
 msgstr "Limite da Biografia"
 
-#: actions/useradminpanel.php:223
+#: actions/useradminpanel.php:222
 msgid "Maximum length of a profile bio in characters."
 msgstr "Tamanho máximo de uma biografia em caracteres."
 
-#: actions/useradminpanel.php:231
+#: actions/useradminpanel.php:230
 msgid "New users"
 msgstr "Utilizadores novos"
 
-#: actions/useradminpanel.php:235
+#: actions/useradminpanel.php:234
 msgid "New user welcome"
 msgstr "Boas-vindas a utilizadores novos"
 
-#: actions/useradminpanel.php:236
+#: actions/useradminpanel.php:235
 msgid "Welcome text for new users (Max 255 chars)."
 msgstr "Texto de boas-vindas a utilizadores novos (máx. 255 caracteres)."
 
-#: actions/useradminpanel.php:241
+#: actions/useradminpanel.php:240
 msgid "Default subscription"
 msgstr "Subscrição predefinida"
 
-#: actions/useradminpanel.php:242
+#: actions/useradminpanel.php:241
 msgid "Automatically subscribe new users to this user."
 msgstr "Novos utilizadores subscrevem automaticamente este utilizador."
 
-#: actions/useradminpanel.php:251
+#: actions/useradminpanel.php:250
 msgid "Invitations"
 msgstr "Convites"
 
-#: actions/useradminpanel.php:256
+#: actions/useradminpanel.php:255
 msgid "Invitations enabled"
 msgstr "Convites habilitados"
 
-#: actions/useradminpanel.php:258
+#: actions/useradminpanel.php:257
 msgid "Whether to allow users to invite new users."
 msgstr "Permitir, ou não, que utilizadores convidem utilizadores novos."
-
-#: actions/useradminpanel.php:265
-msgid "Sessions"
-msgstr "Sessões"
-
-#: actions/useradminpanel.php:270
-msgid "Handle sessions"
-msgstr "Gerir sessões"
-
-#: actions/useradminpanel.php:272
-msgid "Whether to handle sessions ourselves."
-msgstr "Se devemos gerir sessões nós próprios."
-
-#: actions/useradminpanel.php:276
-msgid "Session debugging"
-msgstr "Depuração de sessões"
-
-#: actions/useradminpanel.php:278
-msgid "Turn on debugging output for sessions."
-msgstr "Ligar a impressão de dados de depuração, para sessões."
 
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
@@ -4735,11 +4743,16 @@ msgstr "Configuração do estilo"
 msgid "Paths configuration"
 msgstr "Configuração das localizações"
 
-#: lib/apiauth.php:103
+#: lib/adminpanelaction.php:337
+#, fuzzy
+msgid "Sessions configuration"
+msgstr "Configuração do estilo"
+
+#: lib/apiauth.php:99
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
 
-#: lib/apiauth.php:257
+#: lib/apiauth.php:279
 #, php-format
 msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
 msgstr ""
@@ -4834,11 +4847,11 @@ msgstr "Notas em que este anexo aparece"
 msgid "Tags for this attachment"
 msgstr "Categorias para este anexo"
 
-#: lib/authenticationplugin.php:214 lib/authenticationplugin.php:219
+#: lib/authenticationplugin.php:218 lib/authenticationplugin.php:223
 msgid "Password changing failed"
 msgstr "Não foi possível mudar a palavra-chave"
 
-#: lib/authenticationplugin.php:229
+#: lib/authenticationplugin.php:233
 msgid "Password changing is not allowed"
 msgstr "Não é permitido mudar a palavra-chave"
 

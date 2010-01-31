@@ -11,12 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-28 23:04+0000\n"
-"PO-Revision-Date: 2010-01-28 23:05:24+0000\n"
+"POT-Creation-Date: 2010-01-30 23:41+0000\n"
+"PO-Revision-Date: 2010-01-30 23:42:40+0000\n"
 "Language-Team: Russian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61646); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61734); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ru\n"
 "X-Message-Group: out-statusnet\n"
@@ -63,11 +63,12 @@ msgstr "Отключить новые регистрации."
 #: actions/accessadminpanel.php:189 actions/designadminpanel.php:586
 #: actions/emailsettings.php:195 actions/imsettings.php:163
 #: actions/othersettings.php:126 actions/pathsadminpanel.php:351
-#: actions/profilesettings.php:174 actions/siteadminpanel.php:336
-#: actions/smssettings.php:181 actions/subscriptions.php:203
-#: actions/tagother.php:154 actions/useradminpanel.php:313
-#: lib/applicationeditform.php:333 lib/applicationeditform.php:334
-#: lib/designsettings.php:256 lib/groupeditform.php:202
+#: actions/profilesettings.php:174 actions/sessionsadminpanel.php:199
+#: actions/siteadminpanel.php:336 actions/smssettings.php:181
+#: actions/subscriptions.php:203 actions/tagother.php:154
+#: actions/useradminpanel.php:293 lib/applicationeditform.php:333
+#: lib/applicationeditform.php:334 lib/designsettings.php:256
+#: lib/groupeditform.php:202
 msgid "Save"
 msgstr "Сохранить"
 
@@ -509,12 +510,10 @@ msgid "Invalid nickname / password!"
 msgstr "Неверное имя или пароль."
 
 #: actions/apioauthauthorize.php:170
-#, fuzzy
 msgid "Database error deleting OAuth application user."
 msgstr "Ошибка базы данных при удалении пользователя приложения OAuth."
 
 #: actions/apioauthauthorize.php:196
-#, fuzzy
 msgid "Database error inserting OAuth application user."
 msgstr "Ошибка базы данных при добавлении пользователя приложения OAuth."
 
@@ -3244,6 +3243,37 @@ msgstr ""
 msgid "User is already sandboxed."
 msgstr "Пользователь уже в режиме песочницы."
 
+#: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
+#: lib/adminpanelaction.php:336
+msgid "Sessions"
+msgstr "Сессии"
+
+#: actions/sessionsadminpanel.php:65
+#, fuzzy
+msgid "Session settings for this StatusNet site."
+msgstr "Настройки оформления для этого сайта StatusNet."
+
+#: actions/sessionsadminpanel.php:175
+msgid "Handle sessions"
+msgstr "Управление сессиями"
+
+#: actions/sessionsadminpanel.php:177
+msgid "Whether to handle sessions ourselves."
+msgstr "Управлять ли сессиями самостоятельно."
+
+#: actions/sessionsadminpanel.php:181
+msgid "Session debugging"
+msgstr "Отладка сессий"
+
+#: actions/sessionsadminpanel.php:183
+msgid "Turn on debugging output for sessions."
+msgstr "Включить отладочный вывод для сессий."
+
+#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:336
+#: actions/useradminpanel.php:293
+msgid "Save site settings"
+msgstr "Сохранить настройки сайта"
+
 #: actions/showapplication.php:82
 msgid "You must be logged in to view an application."
 msgstr "Вы должны авторизоваться, чтобы просматривать приложения."
@@ -3743,10 +3773,6 @@ msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 "Сколько нужно ждать пользователям (в секундах) для отправки того же ещё раз."
 
-#: actions/siteadminpanel.php:336 actions/useradminpanel.php:313
-msgid "Save site settings"
-msgstr "Сохранить настройки сайта"
-
 #: actions/smssettings.php:58
 msgid "SMS settings"
 msgstr "Установки СМС"
@@ -4062,84 +4088,64 @@ msgstr "Пользователь"
 msgid "User settings for this StatusNet site."
 msgstr "Пользовательские настройки для этого сайта StatusNet."
 
-#: actions/useradminpanel.php:149
+#: actions/useradminpanel.php:148
 msgid "Invalid bio limit. Must be numeric."
 msgstr "Неверное ограничение биографии. Должно быть числом."
 
-#: actions/useradminpanel.php:155
+#: actions/useradminpanel.php:154
 msgid "Invalid welcome text. Max length is 255 characters."
 msgstr ""
 "Неверный текст приветствия. Максимальная длина составляет 255 символов."
 
-#: actions/useradminpanel.php:165
+#: actions/useradminpanel.php:164
 #, php-format
 msgid "Invalid default subscripton: '%1$s' is not user."
 msgstr "Неверная подписка по умолчанию: «%1$s» не является пользователем."
 
-#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:108
+#: actions/useradminpanel.php:217 lib/accountsettingsaction.php:108
 #: lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr "Профиль"
 
-#: actions/useradminpanel.php:222
+#: actions/useradminpanel.php:221
 msgid "Bio Limit"
 msgstr "Ограничение биографии"
 
-#: actions/useradminpanel.php:223
+#: actions/useradminpanel.php:222
 msgid "Maximum length of a profile bio in characters."
 msgstr "Максимальная длина биографии профиля в символах."
 
-#: actions/useradminpanel.php:231
+#: actions/useradminpanel.php:230
 msgid "New users"
 msgstr "Новые пользователи"
 
-#: actions/useradminpanel.php:235
+#: actions/useradminpanel.php:234
 msgid "New user welcome"
 msgstr "Приветствие новым пользователям"
 
-#: actions/useradminpanel.php:236
+#: actions/useradminpanel.php:235
 msgid "Welcome text for new users (Max 255 chars)."
 msgstr "Текст приветствия для новых пользователей (максимум 255 символов)."
 
-#: actions/useradminpanel.php:241
+#: actions/useradminpanel.php:240
 msgid "Default subscription"
 msgstr "Подписка по умолчанию"
 
-#: actions/useradminpanel.php:242
+#: actions/useradminpanel.php:241
 msgid "Automatically subscribe new users to this user."
 msgstr "Автоматически подписывать новых пользователей на этого пользователя."
 
-#: actions/useradminpanel.php:251
+#: actions/useradminpanel.php:250
 msgid "Invitations"
 msgstr "Приглашения"
 
-#: actions/useradminpanel.php:256
+#: actions/useradminpanel.php:255
 msgid "Invitations enabled"
 msgstr "Приглашения включены"
 
-#: actions/useradminpanel.php:258
+#: actions/useradminpanel.php:257
 msgid "Whether to allow users to invite new users."
 msgstr "Разрешать ли пользователям приглашать новых пользователей."
-
-#: actions/useradminpanel.php:265
-msgid "Sessions"
-msgstr "Сессии"
-
-#: actions/useradminpanel.php:270
-msgid "Handle sessions"
-msgstr "Управление сессиями"
-
-#: actions/useradminpanel.php:272
-msgid "Whether to handle sessions ourselves."
-msgstr "Управлять ли сессиями самостоятельно."
-
-#: actions/useradminpanel.php:276
-msgid "Session debugging"
-msgstr "Отладка сессий"
-
-#: actions/useradminpanel.php:278
-msgid "Turn on debugging output for sessions."
-msgstr "Включить отладочный вывод для сессий."
 
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
@@ -4716,14 +4722,23 @@ msgstr "Конфигурация доступа"
 msgid "Paths configuration"
 msgstr "Конфигурация путей"
 
-#: lib/apiauth.php:103
+#: lib/adminpanelaction.php:337
+#, fuzzy
+msgid "Sessions configuration"
+msgstr "Конфигурация оформления"
+
+#: lib/apiauth.php:99
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
+"API ресурса требует доступ для чтения и записи, но у вас есть только доступ "
+"для чтения."
 
-#: lib/apiauth.php:257
+#: lib/apiauth.php:279
 #, php-format
 msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
 msgstr ""
+"Неудачная попытка авторизации через API, nickname = %1$s, proxy = %2$s, ip = "
+"%3$s"
 
 #: lib/applicationeditform.php:136
 msgid "Edit application"
@@ -4811,11 +4826,11 @@ msgstr "Сообщает, где появляется это вложение"
 msgid "Tags for this attachment"
 msgstr "Теги для этого вложения"
 
-#: lib/authenticationplugin.php:214 lib/authenticationplugin.php:219
+#: lib/authenticationplugin.php:218 lib/authenticationplugin.php:223
 msgid "Password changing failed"
 msgstr "Изменение пароля не удалось"
 
-#: lib/authenticationplugin.php:229
+#: lib/authenticationplugin.php:233
 msgid "Password changing is not allowed"
 msgstr "Смена пароля не разрешена"
 

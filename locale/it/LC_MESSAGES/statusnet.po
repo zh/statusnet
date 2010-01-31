@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-28 23:04+0000\n"
-"PO-Revision-Date: 2010-01-28 23:04:54+0000\n"
+"POT-Creation-Date: 2010-01-30 23:41+0000\n"
+"PO-Revision-Date: 2010-01-30 23:42:07+0000\n"
 "Language-Team: Italian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61646); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61734); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: it\n"
 "X-Message-Group: out-statusnet\n"
@@ -25,14 +25,12 @@ msgid "Access"
 msgstr "Accesso"
 
 #: actions/accessadminpanel.php:65
-#, fuzzy
 msgid "Site access settings"
-msgstr "Salva impostazioni"
+msgstr "Impostazioni di accesso al sito"
 
 #: actions/accessadminpanel.php:158
-#, fuzzy
 msgid "Registration"
-msgstr "Registra"
+msgstr "Registrazione"
 
 #: actions/accessadminpanel.php:161
 msgid "Private"
@@ -63,18 +61,18 @@ msgstr "Disabilita la creazione di nuovi account"
 #: actions/accessadminpanel.php:189 actions/designadminpanel.php:586
 #: actions/emailsettings.php:195 actions/imsettings.php:163
 #: actions/othersettings.php:126 actions/pathsadminpanel.php:351
-#: actions/profilesettings.php:174 actions/siteadminpanel.php:336
-#: actions/smssettings.php:181 actions/subscriptions.php:203
-#: actions/tagother.php:154 actions/useradminpanel.php:313
-#: lib/applicationeditform.php:333 lib/applicationeditform.php:334
-#: lib/designsettings.php:256 lib/groupeditform.php:202
+#: actions/profilesettings.php:174 actions/sessionsadminpanel.php:199
+#: actions/siteadminpanel.php:336 actions/smssettings.php:181
+#: actions/subscriptions.php:203 actions/tagother.php:154
+#: actions/useradminpanel.php:293 lib/applicationeditform.php:333
+#: lib/applicationeditform.php:334 lib/designsettings.php:256
+#: lib/groupeditform.php:202
 msgid "Save"
 msgstr "Salva"
 
 #: actions/accessadminpanel.php:189
-#, fuzzy
 msgid "Save access settings"
-msgstr "Salva impostazioni"
+msgstr "Salva impostazioni di accesso"
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
 #: actions/showfavorites.php:137 actions/tag.php:51
@@ -108,9 +106,9 @@ msgid "No such user."
 msgstr "Utente inesistente."
 
 #: actions/all.php:84
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s and friends, page %2$d"
-msgstr "Profili bloccati di %1$s, pagina %2$d"
+msgstr "%1$s e amici, pagina %2$d"
 
 #: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
 #: actions/apitimelinefriends.php:114 actions/apitimelinehome.php:115
@@ -484,7 +482,7 @@ msgstr "Gruppi su %s"
 
 #: actions/apioauthauthorize.php:108 actions/apioauthauthorize.php:114
 msgid "Bad request."
-msgstr ""
+msgstr "Richiesta non corretta."
 
 #: actions/apioauthauthorize.php:134 actions/avatarsettings.php:268
 #: actions/deletenotice.php:157 actions/disfavor.php:74
@@ -506,19 +504,16 @@ msgstr ""
 "Si è verificato un problema con il tuo token di sessione. Prova di nuovo."
 
 #: actions/apioauthauthorize.php:146
-#, fuzzy
 msgid "Invalid nickname / password!"
 msgstr "Nome utente o password non valido."
 
 #: actions/apioauthauthorize.php:170
-#, fuzzy
 msgid "Database error deleting OAuth application user."
-msgstr "Errore nell'impostare l'utente."
+msgstr "Errore nel database nell'eliminare l'applicazione utente OAuth."
 
 #: actions/apioauthauthorize.php:196
-#, fuzzy
 msgid "Database error inserting OAuth application user."
-msgstr "Errore del DB nell'inserire un hashtag: %s"
+msgstr "Errore nel database nell'inserire l'applicazione utente OAuth."
 
 #: actions/apioauthauthorize.php:231
 #, php-format
@@ -526,11 +521,13 @@ msgid ""
 "The request token %s has been authorized. Please exchange it for an access "
 "token."
 msgstr ""
+"Il token di richiesta %s è stato autorizzato. Scambiarlo con un token di "
+"accesso."
 
 #: actions/apioauthauthorize.php:241
 #, php-format
 msgid "The request token %s has been denied."
-msgstr ""
+msgstr "Il token di richiesta %s è stato rifiutato."
 
 #: actions/apioauthauthorize.php:246 actions/avatarsettings.php:281
 #: actions/designadminpanel.php:103 actions/editapplication.php:139
@@ -543,11 +540,11 @@ msgstr "Invio del modulo inaspettato."
 
 #: actions/apioauthauthorize.php:273
 msgid "An application would like to connect to your account"
-msgstr ""
+msgstr "Un'applicazione vorrebbe collegarsi al tuo account"
 
 #: actions/apioauthauthorize.php:290
 msgid "Allow or deny access"
-msgstr ""
+msgstr "Consenti o nega l'accesso"
 
 #: actions/apioauthauthorize.php:320 lib/action.php:441
 msgid "Account"
@@ -568,16 +565,16 @@ msgstr "Password"
 #: actions/apioauthauthorize.php:338
 #, fuzzy
 msgid "Deny"
-msgstr "Aspetto"
+msgstr "Nega"
 
 #: actions/apioauthauthorize.php:344
 #, fuzzy
 msgid "Allow"
-msgstr "Tutto"
+msgstr "Consenti"
 
 #: actions/apioauthauthorize.php:361
 msgid "Allow or deny access to your account information."
-msgstr ""
+msgstr "Consenti o nega l'accesso alle informazioni del tuo account."
 
 #: actions/apistatusesdestroy.php:107
 msgid "This method requires a POST or DELETE."
@@ -3269,6 +3266,37 @@ msgstr "Non puoi mettere in \"sandbox\" gli utenti su questo sito."
 msgid "User is already sandboxed."
 msgstr "L'utente è già nella \"sandbox\"."
 
+#: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
+#: lib/adminpanelaction.php:336
+msgid "Sessions"
+msgstr "Sessioni"
+
+#: actions/sessionsadminpanel.php:65
+#, fuzzy
+msgid "Session settings for this StatusNet site."
+msgstr "Impostazioni dell'aspetto per questo sito di StatusNet."
+
+#: actions/sessionsadminpanel.php:175
+msgid "Handle sessions"
+msgstr "Gestione sessioni"
+
+#: actions/sessionsadminpanel.php:177
+msgid "Whether to handle sessions ourselves."
+msgstr "Indica se gestire autonomamente le sessioni"
+
+#: actions/sessionsadminpanel.php:181
+msgid "Session debugging"
+msgstr "Debug delle sessioni"
+
+#: actions/sessionsadminpanel.php:183
+msgid "Turn on debugging output for sessions."
+msgstr "Abilita il debug per le sessioni"
+
+#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:336
+#: actions/useradminpanel.php:293
+msgid "Save site settings"
+msgstr "Salva impostazioni"
+
 #: actions/showapplication.php:82
 #, fuzzy
 msgid "You must be logged in to view an application."
@@ -3765,10 +3793,6 @@ msgstr ""
 "Quanto tempo gli utenti devono attendere (in secondi) prima di inviare "
 "nuovamente lo stesso messaggio"
 
-#: actions/siteadminpanel.php:336 actions/useradminpanel.php:313
-msgid "Save site settings"
-msgstr "Salva impostazioni"
-
 #: actions/smssettings.php:58
 msgid "SMS settings"
 msgstr "Impostazioni SMS"
@@ -4083,84 +4107,64 @@ msgstr "Utente"
 msgid "User settings for this StatusNet site."
 msgstr "Impostazioni utente per questo sito StatusNet."
 
-#: actions/useradminpanel.php:149
+#: actions/useradminpanel.php:148
 msgid "Invalid bio limit. Must be numeric."
 msgstr "Limite per la biografia non valido. Deve essere numerico."
 
-#: actions/useradminpanel.php:155
+#: actions/useradminpanel.php:154
 msgid "Invalid welcome text. Max length is 255 characters."
 msgstr ""
 "Testo di benvenuto non valido. La lunghezza massima è di 255 caratteri."
 
-#: actions/useradminpanel.php:165
+#: actions/useradminpanel.php:164
 #, php-format
 msgid "Invalid default subscripton: '%1$s' is not user."
 msgstr "Abbonamento predefinito non valido: \"%1$s\" non è un utente."
 
-#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:108
+#: actions/useradminpanel.php:217 lib/accountsettingsaction.php:108
 #: lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr "Profilo"
 
-#: actions/useradminpanel.php:222
+#: actions/useradminpanel.php:221
 msgid "Bio Limit"
 msgstr "Limite biografia"
 
-#: actions/useradminpanel.php:223
+#: actions/useradminpanel.php:222
 msgid "Maximum length of a profile bio in characters."
 msgstr "Lunghezza massima in caratteri della biografia"
 
-#: actions/useradminpanel.php:231
+#: actions/useradminpanel.php:230
 msgid "New users"
 msgstr "Nuovi utenti"
 
-#: actions/useradminpanel.php:235
+#: actions/useradminpanel.php:234
 msgid "New user welcome"
 msgstr "Messaggio per nuovi utenti"
 
-#: actions/useradminpanel.php:236
+#: actions/useradminpanel.php:235
 msgid "Welcome text for new users (Max 255 chars)."
 msgstr "Messaggio di benvenuto per nuovi utenti (max 255 caratteri)"
 
-#: actions/useradminpanel.php:241
+#: actions/useradminpanel.php:240
 msgid "Default subscription"
 msgstr "Abbonamento predefinito"
 
-#: actions/useradminpanel.php:242
+#: actions/useradminpanel.php:241
 msgid "Automatically subscribe new users to this user."
 msgstr "Abbonare automaticamente i nuovi utenti a questo utente"
 
-#: actions/useradminpanel.php:251
+#: actions/useradminpanel.php:250
 msgid "Invitations"
 msgstr "Inviti"
 
-#: actions/useradminpanel.php:256
+#: actions/useradminpanel.php:255
 msgid "Invitations enabled"
 msgstr "Inviti abilitati"
 
-#: actions/useradminpanel.php:258
+#: actions/useradminpanel.php:257
 msgid "Whether to allow users to invite new users."
 msgstr "Indica se consentire agli utenti di invitarne di nuovi"
-
-#: actions/useradminpanel.php:265
-msgid "Sessions"
-msgstr "Sessioni"
-
-#: actions/useradminpanel.php:270
-msgid "Handle sessions"
-msgstr "Gestione sessioni"
-
-#: actions/useradminpanel.php:272
-msgid "Whether to handle sessions ourselves."
-msgstr "Indica se gestire autonomamente le sessioni"
-
-#: actions/useradminpanel.php:276
-msgid "Session debugging"
-msgstr "Debug delle sessioni"
-
-#: actions/useradminpanel.php:278
-msgid "Turn on debugging output for sessions."
-msgstr "Abilita il debug per le sessioni"
 
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
@@ -4741,11 +4745,16 @@ msgstr "Configurazione aspetto"
 msgid "Paths configuration"
 msgstr "Configurazione percorsi"
 
-#: lib/apiauth.php:103
+#: lib/adminpanelaction.php:337
+#, fuzzy
+msgid "Sessions configuration"
+msgstr "Configurazione aspetto"
+
+#: lib/apiauth.php:99
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
 
-#: lib/apiauth.php:257
+#: lib/apiauth.php:279
 #, php-format
 msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
 msgstr ""
@@ -4840,11 +4849,11 @@ msgstr "Messaggi in cui appare questo allegato"
 msgid "Tags for this attachment"
 msgstr "Etichette per questo allegato"
 
-#: lib/authenticationplugin.php:214 lib/authenticationplugin.php:219
+#: lib/authenticationplugin.php:218 lib/authenticationplugin.php:223
 msgid "Password changing failed"
 msgstr "Modifica della password non riuscita"
 
-#: lib/authenticationplugin.php:229
+#: lib/authenticationplugin.php:233
 msgid "Password changing is not allowed"
 msgstr "La modifica della password non è permessa"
 

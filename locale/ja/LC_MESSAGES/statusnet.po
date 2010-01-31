@@ -11,12 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-28 23:04+0000\n"
-"PO-Revision-Date: 2010-01-28 23:04:57+0000\n"
+"POT-Creation-Date: 2010-01-30 23:41+0000\n"
+"PO-Revision-Date: 2010-01-30 23:42:10+0000\n"
 "Language-Team: Japanese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61646); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61734); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ja\n"
 "X-Message-Group: out-statusnet\n"
@@ -61,11 +61,12 @@ msgstr "新規登録を無効。"
 #: actions/accessadminpanel.php:189 actions/designadminpanel.php:586
 #: actions/emailsettings.php:195 actions/imsettings.php:163
 #: actions/othersettings.php:126 actions/pathsadminpanel.php:351
-#: actions/profilesettings.php:174 actions/siteadminpanel.php:336
-#: actions/smssettings.php:181 actions/subscriptions.php:203
-#: actions/tagother.php:154 actions/useradminpanel.php:313
-#: lib/applicationeditform.php:333 lib/applicationeditform.php:334
-#: lib/designsettings.php:256 lib/groupeditform.php:202
+#: actions/profilesettings.php:174 actions/sessionsadminpanel.php:199
+#: actions/siteadminpanel.php:336 actions/smssettings.php:181
+#: actions/subscriptions.php:203 actions/tagother.php:154
+#: actions/useradminpanel.php:293 lib/applicationeditform.php:333
+#: lib/applicationeditform.php:334 lib/designsettings.php:256
+#: lib/groupeditform.php:202
 msgid "Save"
 msgstr "保存"
 
@@ -3230,6 +3231,37 @@ msgstr "あなたはこのサイトのサンドボックスユーザができま
 msgid "User is already sandboxed."
 msgstr "利用者はすでにサンドボックスです。"
 
+#: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
+#: lib/adminpanelaction.php:336
+msgid "Sessions"
+msgstr "セッション"
+
+#: actions/sessionsadminpanel.php:65
+#, fuzzy
+msgid "Session settings for this StatusNet site."
+msgstr "この StatusNet サイトのデザイン設定。"
+
+#: actions/sessionsadminpanel.php:175
+msgid "Handle sessions"
+msgstr "セッションの扱い"
+
+#: actions/sessionsadminpanel.php:177
+msgid "Whether to handle sessions ourselves."
+msgstr "自分達でセッションを扱うのであるかどうか。"
+
+#: actions/sessionsadminpanel.php:181
+msgid "Session debugging"
+msgstr "セッションデバッグ"
+
+#: actions/sessionsadminpanel.php:183
+msgid "Turn on debugging output for sessions."
+msgstr "セッションのためのデバッグ出力をオン。"
+
+#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:336
+#: actions/useradminpanel.php:293
+msgid "Save site settings"
+msgstr "サイト設定の保存"
+
 #: actions/showapplication.php:82
 msgid "You must be logged in to view an application."
 msgstr "!!アプリケーションを見るためにはログインしていなければなりません。"
@@ -3431,7 +3463,7 @@ msgstr "全てのメンバー"
 
 #: actions/showgroup.php:432
 msgid "Created"
-msgstr "作成されました"
+msgstr "作成日"
 
 #: actions/showgroup.php:448
 #, php-format
@@ -3443,7 +3475,7 @@ msgid ""
 "of this group and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
 "**%s** は %%site.name%% 上のユーザグループです。フリーソフトウェアツール"
-"[StatusNet](http://status.net/)を基にした[マイクロブロギング] (http://en."
+"[StatusNet](http://status.net/)を基にした[マイクロブロギング](http://en."
 "wikipedia.org/wiki/Micro-blogging) サービス。メンバーは彼らの暮らしと興味に関"
 "する短いメッセージを共有します。[今すぐ参加](%%%%action.register%%%%) してこ"
 "のグループの一員になりましょう! ([もっと読む](%%%%doc.help%%%%))"
@@ -3553,7 +3585,7 @@ msgid ""
 "follow **%s**'s notices and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
 "**%s** は %%site.name%% 上のアカウントです。フリーソフトウェアツール"
-"[StatusNet](http://status.net/)を基にした[マイクロブロギング] (http://en."
+"[StatusNet](http://status.net/)を基にした[マイクロブロギング](http://en."
 "wikipedia.org/wiki/Micro-blogging) サービス。[今すぐ参加](%%%%action.register"
 "%%%%)して、**%s** のつぶやきなどをフォローしましょう! ([もっと読む](%%%%doc."
 "help%%%%))"
@@ -3566,7 +3598,7 @@ msgid ""
 "[StatusNet](http://status.net/) tool. "
 msgstr ""
 "**%s** は %%site.name%% 上のアカウントです。フリーソフトウェアツール"
-"[StatusNet](http://status.net/)を基にした[マイクロブロギング] (http://en."
+"[StatusNet](http://status.net/)を基にした[マイクロブロギング](http://en."
 "wikipedia.org/wiki/Micro-blogging) サービス。"
 
 #: actions/showstream.php:296
@@ -3727,10 +3759,6 @@ msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 "どれくらい長い間(秒)、ユーザは、再び同じものを投稿するのを待たなければならな"
 "いか。"
-
-#: actions/siteadminpanel.php:336 actions/useradminpanel.php:313
-msgid "Save site settings"
-msgstr "サイト設定の保存"
 
 #: actions/smssettings.php:58
 msgid "SMS settings"
@@ -4045,83 +4073,63 @@ msgstr "利用者"
 msgid "User settings for this StatusNet site."
 msgstr "この StatusNet サイトの利用者設定。"
 
-#: actions/useradminpanel.php:149
+#: actions/useradminpanel.php:148
 msgid "Invalid bio limit. Must be numeric."
 msgstr "不正な自己紹介制限。数字である必要があります。"
 
-#: actions/useradminpanel.php:155
+#: actions/useradminpanel.php:154
 msgid "Invalid welcome text. Max length is 255 characters."
 msgstr "不正なウェルカムテキスト。最大長は255字です。"
 
-#: actions/useradminpanel.php:165
+#: actions/useradminpanel.php:164
 #, php-format
 msgid "Invalid default subscripton: '%1$s' is not user."
 msgstr "不正なデフォルトフォローです: '%1$s'  は利用者ではありません。"
 
-#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:108
+#: actions/useradminpanel.php:217 lib/accountsettingsaction.php:108
 #: lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr "プロファイル"
 
-#: actions/useradminpanel.php:222
+#: actions/useradminpanel.php:221
 msgid "Bio Limit"
 msgstr "自己紹介制限"
 
-#: actions/useradminpanel.php:223
+#: actions/useradminpanel.php:222
 msgid "Maximum length of a profile bio in characters."
 msgstr "プロファイル自己紹介の最大文字長。"
 
-#: actions/useradminpanel.php:231
+#: actions/useradminpanel.php:230
 msgid "New users"
 msgstr "新しい利用者"
 
-#: actions/useradminpanel.php:235
+#: actions/useradminpanel.php:234
 msgid "New user welcome"
 msgstr "新しい利用者を歓迎"
 
-#: actions/useradminpanel.php:236
+#: actions/useradminpanel.php:235
 msgid "Welcome text for new users (Max 255 chars)."
 msgstr "新しい利用者へのウェルカムテキスト (最大255字)。"
 
-#: actions/useradminpanel.php:241
+#: actions/useradminpanel.php:240
 msgid "Default subscription"
 msgstr "デフォルトフォロー"
 
-#: actions/useradminpanel.php:242
+#: actions/useradminpanel.php:241
 msgid "Automatically subscribe new users to this user."
 msgstr "自動的にこの利用者に新しい利用者をフォローしてください。"
 
-#: actions/useradminpanel.php:251
+#: actions/useradminpanel.php:250
 msgid "Invitations"
 msgstr "招待"
 
-#: actions/useradminpanel.php:256
+#: actions/useradminpanel.php:255
 msgid "Invitations enabled"
 msgstr "招待が可能"
 
-#: actions/useradminpanel.php:258
+#: actions/useradminpanel.php:257
 msgid "Whether to allow users to invite new users."
 msgstr "利用者が新しい利用者を招待するのを許容するかどうか。"
-
-#: actions/useradminpanel.php:265
-msgid "Sessions"
-msgstr "セッション"
-
-#: actions/useradminpanel.php:270
-msgid "Handle sessions"
-msgstr "セッションの扱い"
-
-#: actions/useradminpanel.php:272
-msgid "Whether to handle sessions ourselves."
-msgstr "自分達でセッションを扱うのであるかどうか。"
-
-#: actions/useradminpanel.php:276
-msgid "Session debugging"
-msgstr "セッションデバッグ"
-
-#: actions/useradminpanel.php:278
-msgid "Turn on debugging output for sessions."
-msgstr "セッションのためのデバッグ出力をオン。"
 
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
@@ -4687,11 +4695,16 @@ msgstr "アクセス設定"
 msgid "Paths configuration"
 msgstr "パス設定"
 
-#: lib/apiauth.php:103
+#: lib/adminpanelaction.php:337
+#, fuzzy
+msgid "Sessions configuration"
+msgstr "デザイン設定"
+
+#: lib/apiauth.php:99
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
 
-#: lib/apiauth.php:257
+#: lib/apiauth.php:279
 #, php-format
 msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
 msgstr ""
@@ -4783,11 +4796,11 @@ msgstr "この添付が現れるつぶやき"
 msgid "Tags for this attachment"
 msgstr "この添付のタグ"
 
-#: lib/authenticationplugin.php:214 lib/authenticationplugin.php:219
+#: lib/authenticationplugin.php:218 lib/authenticationplugin.php:223
 msgid "Password changing failed"
 msgstr "パスワード変更に失敗しました"
 
-#: lib/authenticationplugin.php:229
+#: lib/authenticationplugin.php:233
 msgid "Password changing is not allowed"
 msgstr "パスワード変更は許可されていません"
 
@@ -5228,7 +5241,7 @@ msgstr "投稿が多いグループ"
 #: lib/grouptagcloudsection.php:56
 #, php-format
 msgid "Tags in %s group's notices"
-msgstr "%s グループの通知にあるタグ"
+msgstr "%s グループのつぶやきにあるタグ"
 
 #: lib/htmloutputter.php:103
 msgid "This page is not available in a media type you accept"
@@ -5828,7 +5841,7 @@ msgstr "利用者ＩＤ"
 
 #: lib/profileaction.php:183
 msgid "Member since"
-msgstr "からのメンバー"
+msgstr "利用開始日"
 
 #: lib/profileaction.php:245
 msgid "All groups"
@@ -6001,7 +6014,7 @@ msgstr "この利用者をアンサイレンス"
 
 #: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
 msgid "Unsubscribe from this user"
-msgstr "このユーザからのフォローを解除する"
+msgstr "この利用者からのフォローを解除する"
 
 #: lib/unsubscribeform.php:137
 msgid "Unsubscribe"
