@@ -146,7 +146,7 @@ function formatBacktraceLine($n, $line)
     return $out;
 }
 
-function checkMirror($action_obj, $args)
+function setupRW()
 {
     global $config;
 
@@ -161,6 +161,11 @@ function checkMirror($action_obj, $args)
     foreach ($alwaysRW as $table) {
         $config['db']['table_'.$table] = 'rw';
     }
+}
+
+function checkMirror($action_obj, $args)
+{
+    global $config;
 
     if (common_config('db', 'mirror') && $action_obj->isReadOnly($args)) {
         if (is_array(common_config('db', 'mirror'))) {
@@ -237,9 +242,13 @@ function main()
 
     PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 'handleError');
 
+    // Make sure RW database is setup
+
+    setupRW();
+
     // XXX: we need a little more structure in this script
 
-    // get and cache current user
+    // get and cache current user (may hit RW!)
 
     $user = common_current_user();
 
@@ -276,8 +285,9 @@ function main()
     if (!$user && common_config('site', 'private')
         && !isLoginAction($action)
         && !preg_match('/rss$/', $action)
-        && !preg_match('/^Api/', $action)
-    ) {
+        && $action != 'robotstxt'
+        && !preg_match('/^Api/', $action)) {
+
         // set returnto
         $rargs =& common_copy_args($args);
         unset($rargs['action']);

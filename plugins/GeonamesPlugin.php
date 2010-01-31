@@ -71,7 +71,7 @@ class GeonamesPlugin extends Plugin
         $loc = $this->getCache(array('name' => $name,
                                      'language' => $language));
 
-        if (!empty($loc)) {
+        if ($loc !== false) {
             $location = $loc;
             return false;
         }
@@ -87,12 +87,20 @@ class GeonamesPlugin extends Plugin
             return true;
         }
 
+        if (count($geonames) == 0) {
+            // no results
+            $this->setCache(array('name' => $name,
+                                  'language' => $language),
+                            null);
+            return true;
+        }
+
         $n = $geonames[0];
 
         $location = new Location();
 
-        $location->lat              = (string)$n->lat;
-        $location->lon              = (string)$n->lng;
+        $location->lat              = $this->canonical($n->lat);
+        $location->lon              = $this->canonical($n->lng);
         $location->names[$language] = (string)$n->name;
         $location->location_id      = (string)$n->geonameId;
         $location->location_ns      = self::LOCATION_NS;
@@ -125,7 +133,7 @@ class GeonamesPlugin extends Plugin
 
         $loc = $this->getCache(array('id' => $id));
 
-        if (!empty($loc)) {
+        if ($loc !== false) {
             $location = $loc;
             return false;
         }
@@ -157,8 +165,9 @@ class GeonamesPlugin extends Plugin
 
         $location->location_id      = (string)$last->geonameId;
         $location->location_ns      = self::LOCATION_NS;
-        $location->lat              = (string)$last->lat;
-        $location->lon              = (string)$last->lng;
+        $location->lat              = $this->canonical($last->lat);
+        $location->lon              = $this->canonical($last->lng);
+
         $location->names[$language] = implode(', ', array_reverse($parts));
 
         $this->setCache(array('id' => (string)$last->geonameId),
@@ -186,13 +195,15 @@ class GeonamesPlugin extends Plugin
 
     function onLocationFromLatLon($lat, $lon, $language, &$location)
     {
-        $lat = rtrim($lat, "0");
-        $lon = rtrim($lon, "0");
+        // Make sure they're canonical
+
+        $lat = $this->canonical($lat);
+        $lon = $this->canonical($lon);
 
         $loc = $this->getCache(array('lat' => $lat,
                                      'lon' => $lon));
 
-        if (!empty($loc)) {
+        if ($loc !== false) {
             $location = $loc;
             return false;
         }
@@ -204,6 +215,14 @@ class GeonamesPlugin extends Plugin
                                                'lang' => $language));
         } catch (Exception $e) {
             $this->log(LOG_WARNING, "Error for coords $lat, $lon: " . $e->getMessage());
+            return true;
+        }
+
+        if (count($geonames) == 0) {
+            // no results
+            $this->setCache(array('lat' => $lat,
+                                  'lon' => $lon),
+                            null);
             return true;
         }
 
@@ -225,8 +244,8 @@ class GeonamesPlugin extends Plugin
 
         $location->location_id = (string)$n->geonameId;
         $location->location_ns = self::LOCATION_NS;
-        $location->lat         = (string)$lat;
-        $location->lon         = (string)$lon;
+        $location->lat         = $this->canonical($n->lat);
+        $location->lon         = $this->canonical($n->lng);
 
         $location->names[$language] = implode(', ', $parts);
 
@@ -264,7 +283,7 @@ class GeonamesPlugin extends Plugin
         $n = $this->getCache(array('id' => $id,
                                    'language' => $language));
 
-        if (!empty($n)) {
+        if ($n !== false) {
             $name = $n;
             return false;
         }
@@ -275,6 +294,13 @@ class GeonamesPlugin extends Plugin
                                                  'lang' => $language));
         } catch (Exception $e) {
             $this->log(LOG_WARNING, "Error for ID $id: " . $e->getMessage());
+            return false;
+        }
+
+        if (count($geonames) == 0) {
+            $this->setCache(array('id' => $id,
+                                  'language' => $language),
+                            null);
             return false;
         }
 
@@ -412,17 +438,29 @@ class GeonamesPlugin extends Plugin
             throw new Exception("HTTP error code " . $result->code);
         }
 
-        $document = new SimpleXMLElement($result->getBody());
+        $body = $result->getBody();
 
-        if (empty($document)) {
-            throw new Exception("No results in response");
+        if (empty($body)) {
+            throw new Exception("Empty HTTP body in response");
+        }
+
+        // This will throw an exception if the XML is mal-formed
+
+        $document = new SimpleXMLElement($body);
+
+        // No children, usually no results
+
+        $children = $document->children();
+
+        if (count($children) == 0) {
+            return array();
         }
 
         if (isset($document->status)) {
             throw new Exception("Error #".$document->status['value']." ('".$document->status['message']."')");
         }
 
-        // Array of elements
+        // Array of elements, >0 elements
 
         return $document->geoname;
     }
@@ -437,5 +475,13 @@ class GeonamesPlugin extends Plugin
                             _m('Uses <a href="http://geonames.org/">Geonames</a> service to get human-readable '.
                                'names for locations based on user-provided lat/long pairs.'));
         return true;
+    }
+
+    function canonical($coord)
+    {
+        $coord = rtrim($coord, "0");
+        $coord = rtrim($coord, ".");
+
+        return $coord;
     }
 }

@@ -552,4 +552,30 @@ class Memcached_DataObject extends DB_DataObject
     {
         throw new ServerException("DB_DataObject error [$type]: $message");
     }
+
+    static function cacheGet($keyPart)
+    {
+        $c = self::memcache();
+
+        if (empty($c)) {
+            return false;
+        }
+
+        $cacheKey = common_cache_key($keyPart);
+
+        return $c->get($cacheKey);
+    }
+
+    static function cacheSet($keyPart, $value)
+    {
+        $c = self::memcache();
+
+        if (empty($c)) {
+            return false;
+        }
+
+        $cacheKey = common_cache_key($keyPart);
+
+        return $c->set($cacheKey, $value);
+    }
 }

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# live fast! die young!
+
+set -e
+
 source /etc/statusnet/setup.cfg
 
 export nickname=$1

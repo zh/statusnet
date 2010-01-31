@@ -270,4 +270,8 @@ $default =
         'singleuser' =>
         array('enabled' => false,
               'nickname' => null),
+        'robotstxt' =>
+        array('crawldelay' => 0,
+              'disallow' => array('main', 'settings', 'admin', 'search', 'message')
+              ),
         );
