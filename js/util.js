@@ -143,38 +143,32 @@ var SN = { // StatusNet
             SN.U.Counter(form);
         },
 
-        FormXHR: function(f) {
-            if (jQuery.data(f[0], "ElementData") === undefined) {
-                jQuery.data(f[0], "ElementData", {Bind:'submit'});
-                f.bind('submit', function(e) {
-                    form_id = $(this)[0].id;
-                    $.ajax({
-                        type: 'POST',
-                        dataType: 'xml',
-                        url: $(this)[0].action,
-                        data: $(this).serialize() + '&ajax=1',
-                        beforeSend: function(xhr) {
-                            $('#'+form_id).addClass(SN.C.S.Processing);
-                            $('#'+form_id+' .submit').addClass(SN.C.S.Disabled);
-                            $('#'+form_id+' .submit').attr(SN.C.S.Disabled, SN.C.S.Disabled);
-                        },
-                        error: function (xhr, textStatus, errorThrown) {
-                            alert(errorThrown || textStatus);
-                        },
-                        success: function(data, textStatus) {
-                            if (typeof($('form', data)[0]) != 'undefined') {
-                                form_new = document._importNode($('form', data)[0], true);
-                                $('#'+form_id).replaceWith(form_new);
-                                $('#'+form_new.id).each(function() { SN.U.FormXHR($(this)); });
-                            }
-                            else {
-                                $('#'+form_id).replaceWith(document._importNode($('p', data)[0], true));
-                            }
-                        }
-                    });
-                    return false;
-                });
-            }
+        FormXHR: function(form) {
+            $.ajax({
+                type: 'POST',
+                dataType: 'xml',
+                url: form.attr('action'),
+                data: form.serialize() + '&ajax=1',
+                beforeSend: function(xhr) {
+                    form
+                        .addClass(SN.C.S.Processing)
+                        .find('.submit')
+                            .addClass(SN.C.S.Disabled)
+                            .attr(SN.C.S.Disabled, SN.C.S.Disabled);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert(errorThrown || textStatus);
+                },
+                success: function(data, textStatus) {
+                    if (typeof($('form', data)[0]) != 'undefined') {
+                        form_new = document._importNode($('form', data)[0], true);
+                        form.replaceWith(form_new);
+                    }
+                    else {
+                        form.replaceWith(document._importNode($('p', data)[0], true));
+                    }
+                }
+            });
         },
 
         FormNoticeXHR: function(form) {
@@ -281,7 +275,6 @@ var SN = { // StatusNet
                                     $('#'+notice.id).fadeIn(2500);
                                     SN.U.NoticeWithAttachment($('#'+notice.id));
                                     SN.U.NoticeReplyTo($('#'+notice.id));
-                                    SN.U.FormXHR($('#'+notice.id+' .form_favor'));
                                 }
                             }
                             else {
@@ -350,14 +343,15 @@ var SN = { // StatusNet
         },
 
         NoticeFavor: function() {
-            $('.form_favor').each(function() { SN.U.FormXHR($(this)); });
-            $('.form_disfavor').each(function() { SN.U.FormXHR($(this)); });
+            $('.form_favor').live('click', function() { SN.U.FormXHR($(this)); return false; });
+            $('.form_disfavor').live('click', function() { SN.U.FormXHR($(this)); return false; });
         },
 
         NoticeRepeat: function() {
-            $('.form_repeat').each(function() {
+            $('.form_repeat').live('click', function() {
                 SN.U.FormXHR($(this));
                 SN.U.NoticeRepeatConfirmation($(this));
+                return false;
             });
         },
 
@@ -695,11 +689,11 @@ var SN = { // StatusNet
 
         EntityActions: function() {
             if ($('body.user_in').length > 0) {
-                $('.form_user_subscribe').each(function() { SN.U.FormXHR($(this)); });
-                $('.form_user_unsubscribe').each(function() { SN.U.FormXHR($(this)); });
-                $('.form_group_join').each(function() { SN.U.FormXHR($(this)); });
-                $('.form_group_leave').each(function() { SN.U.FormXHR($(this)); });
-                $('.form_user_nudge').each(function() { SN.U.FormXHR($(this)); });
+                $('.form_user_subscribe').live('click', function() { SN.U.FormXHR($(this)); return false; });
+                $('.form_user_unsubscribe').live('click', function() { SN.U.FormXHR($(this)); return false; });
+                $('.form_group_join').live('click', function() { SN.U.FormXHR($(this)); return false; });
+                $('.form_group_leave').live('click', function() { SN.U.FormXHR($(this)); return false; });
+                $('.form_user_nudge').live('click', function() { SN.U.FormXHR($(this)); return false; });
 
                 SN.U.NewDirectMessage();
             }

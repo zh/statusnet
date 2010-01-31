@@ -95,9 +95,7 @@ RealtimeUpdate = {
         $("#notices_primary .notice:first").css({display:"none"});
         $("#notices_primary .notice:first").fadeIn(1000);
 
-        SN.U.FormXHR($('#'+noticeItemID+' .form_favor'));
         SN.U.NoticeReplyTo($('#'+noticeItemID));
-        SN.U.FormXHR($('#'+noticeItemID+' .form_repeat'));
         SN.U.NoticeWithAttachment($('#'+noticeItemID));
      },
 
@@ -132,7 +130,7 @@ RealtimeUpdate = {
           user = data['user'];
           html = data['html'].replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&amp;/g,'&');
           source = data['source'].replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&amp;/g,'&');
-console.log(data);
+
           ni = "<li class=\"hentry notice\" id=\"notice-"+unique+"\">"+
                "<div class=\"entry-title\">"+
                "<span class=\"vcard author\">"+
