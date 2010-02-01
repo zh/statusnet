@@ -1496,6 +1496,20 @@ interface. It also makes the user's profile the root URL.
 enabled: Whether to run in "single user mode". Default false.
 nickname: nickname of the single user.
 
+robotstxt
+---------
+
+We put out a default robots.txt file to guide the processing of
+Web crawlers. See http://www.robotstxt.org/ for more information
+on the format of this file.
+
+crawldelay: if non-empty, this value is provided as the Crawl-Delay:
+            for the robots.txt file. see http://ur1.ca/l5a0
+            for more information. Default is zero, no explicit delay.
+disallow: Array of (virtual) directories to disallow. Default is 'main',
+          'search', 'message', 'settings', 'admin'. Ignored when site
+          is private, in which case the entire site ('/') is disallowed.
+
 Plugins
 =======
 

@@ -285,8 +285,9 @@ function main()
     if (!$user && common_config('site', 'private')
         && !isLoginAction($action)
         && !preg_match('/rss$/', $action)
-        && !preg_match('/^Api/', $action)
-    ) {
+        && $action != 'robotstxt'
+        && !preg_match('/^Api/', $action)) {
+
         // set returnto
         $rargs =& common_copy_args($args);
         unset($rargs['action']);
