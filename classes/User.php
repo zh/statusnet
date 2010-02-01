@@ -945,9 +945,9 @@ class User extends Memcached_DataObject
 
             $pr->orderBy('created');
 
-            $pr->limit(0, 1);
+            $pr->limit(1);
 
-            if ($pr->fetch($true)) {
+            if ($pr->find(true)) {
                 $owner = User::staticGet('id', $pr->profile_id);
             } else {
                 $owner = null;
