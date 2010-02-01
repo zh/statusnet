@@ -59,6 +59,10 @@ class DocAction extends Action
     {
         parent::handle($args);
         $this->title    = $this->trimmed('title');
+        // Prevent local file include
+        if (!preg_match('/^[a-zA-Z0-9_-]*$/', $this->title)) {
+            $this->title = 'help';
+        }
         $this->filename = INSTALLDIR.'/doc-src/'.$this->title;
         if (!file_exists($this->filename)) {
             $this->clientError(_('No such document.'));
