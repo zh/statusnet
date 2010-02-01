@@ -71,7 +71,7 @@ class GetfileAction extends Action
         $filename = $this->trimmed('filename');
         $path = null;
 
-        if ($filename) {
+        if ($filename && File::validFilename($filename)) {
             $path = File::path($filename);
         }
 
