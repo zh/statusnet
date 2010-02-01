@@ -208,8 +208,8 @@ class UserFlagPlugin extends Plugin
     function onEndShowScripts($action)
     {
         $action->inlineScript('if ($(".form_entity_flag").length > 0) { '.
-                              'SN.U.FormXHR($(".form_entity_flag")); '.
-                              '}');
+                              '$(".form_entity_flag").bind("click", function() {'.
+                              'SN.U.FormXHR($(this)); return false; }); }');
         return true;
     }
 
