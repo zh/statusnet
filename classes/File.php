@@ -176,8 +176,22 @@ class File extends Memcached_DataObject
         return "$nickname-$datestamp-$random.$ext";
     }
 
+    /**
+     * Validation for as-saved base filenames
+     */
+    static function validFilename($filename)
+    {
+        return preg_match('^/[A-Za-z0-9._-]+$/', $filename);
+    }
+
+    /**
+     * @throws ClientException on invalid filename
+     */
     static function path($filename)
     {
+        if (!self::validFilename($filename)) {
+            throw new ClientException("Invalid filename");
+        }
         $dir = common_config('attachments', 'dir');
 
         if ($dir[strlen($dir)-1] != '/') {
@@ -189,6 +203,9 @@ class File extends Memcached_DataObject
 
     static function url($filename)
     {
+        if (!self::validFilename($filename)) {
+            throw new ClientException("Invalid filename");
+        }
         if(common_config('site','private')) {
 
             return common_local_url('getfile',
