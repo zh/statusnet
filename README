@@ -2,8 +2,8 @@
 README
 ------
 
-StatusNet 0.9.0 ("Stand") Beta 4
-27 Jan 2010
+StatusNet 0.9.0 ("Stand") Beta 5
+1 Feb 2010
 
 This is the README file for StatusNet (formerly Laconica), the Open
 Source microblogging platform. It includes installation instructions,
@@ -78,6 +78,11 @@ New this version
 ================
 
 This is a major feature release since version 0.8.2, released Nov 1 2009.
+It is also a security release since 0.9.0beta4 January 27 2010. Beta
+users are strongly encouraged to upgrade to deal with a security alert.
+
+http://status.net/wiki/Security_alert_0000002
+
 Notable changes this version:
 
 - Records of deleted notices are stored without the notice content.
@@ -198,6 +203,77 @@ Notable changes this version:
 - Major refactoring of queue handlers to manage very
   large hosting site (like status.net)
 - SubscriptionThrottle plugin to prevent subscription spamming
+- Don't enqueue into plugin or SMS queues when disabled (breaks unqueuehandler if SMS queue isn't attached)
+- Improve name validation checks on local File references
+- fix local file include vulnerability in doc.php
+- Reusing fixed selector name for 'processing' in util.js
+- Removed hAtom pattern from registration page.
+- restructuring of User::registerNew() lost password munging
+- Add a script to clear the cache for a given key
+- buggy fetch for site owner
+- Added missing concat of </li> in Realtime response
+- Updated XHR binded events to work better in jQuery 1.4.1. Using .live() for event delegation instead of jQuery.data() and checking to see if an element was previously binded.
+- Updated jQuery Form Plugin from v2.17 to v2.36
+- Updated jQuery JavaScript Library from v1.3.2 to v1.4.1
+- move schema.type.php to typeschema.php like other files
+- Add Really Simple Discovery (RSD) support
+- Add a robots.txt URL to the site root
+- error clearing tags for profiles from memcached
+- on exceptions, stomp logs the error and reenqueues
+- add lat, lon, location and remove closing tag from geocode.php
+- Use passed-in lat long in geocode.php
+- better handling of null responses from geonames.org
+- Globalized form notice data geo values
+- Using jQuery chaining in FormNoticeXHR
+- Using form object instead of form_id and find(). Slightly faster and easier to read.
+- removed describeTable from base class, and fixed it up in pgsql
+- getTableDef() mostly working in postgres
+- move the schema DDL sql off into seperate files for each db we support
+- plugin to limit number of registered users
+- add hooks for user registration
+- live fast, die young in bash scripts
+- for single-user mode, retrieve either site owner or defined nickname
+- method to get the site owner
+- define a constant for the 'owner' role of a site
+- add simple cache getter/setter static functions to Memcached_DataObject
+- Adds notice author's name to @title in Realtime response
+- Hides .author from XHR response in showstream
+- Hides .author from XHR response in showstream
+- Fix more fatal errors in queue edge cases
+- Don't attempt to resend XMPP messages that can't be broadcast due to the profile being deleted.
+- Wrap each bit of distrib queue handler's saving operation in a try/catch; log exceptions but let everything else continue.
+- Log exceptions from queuedaemon.php if they're not already caught
+- Move sessions settings to its own panel
+- Fixes for status_network db object .ini and tag setter script
+- Add a script to set tags for sites
+- Adjust API authentication to also check for OAuth protocol params in the HTTP Authorization header, as defined in OAuth HTTP Authorization Scheme.
+- Last-chance distribution if enqueueing fails
+- Manual failover for stomp queues.
+- lost config in index.php made all traffic go to master
+- "Revert "move RW setup above user get in index.php so remember_me works""
+- Revert "move RW setup above user get in index.php so remember_me works"
+- move RW setup above user get in index.php so remember_me works
+- hide most DB_DataObject errors
+- always set up database_rw, regardless, so cached sessions work
+- update mysqltimestamps on insert and update
+- additional debugging data for Sessions
+- 'Sign in with Twitter' button img
+- Update to biz theme
+- Remove redundant session token field from form (was already being added by base class).
+- 'Sign in with Twitter' button img
+- Can now set $config['queue']['stomp_persistent'] = false; to explicitly disable persistence when we queue items
+- Showing processing indicator for form_repeat on submit instead of form
+- Removed avatar from repeat of username (matches noticelist)
+- Removed unused variable assignment for avatar URL and added missing fn
+- Don't preemptively close existing DB connections for web views (needed to keep # of conns from going insane on multi-site queue daemons, so just doing for CLI) May, or may not, help with mystery session problems
+- dropping the setcookie() call from common_ensure_session() since we're pretty sure it's unnecessary
+- append '/' on cookie path for now (may still need some refactoring)
+- set session cookie correctly
+- Fix for Mapstraction plugin's zoomed map links
+- debug log line for control channel sub
+- Move faceboookapp.js to the Facebook plugin
+- fix for fix for bad realtime JS load
+- default 24-hour expiry on Memcached objects where not specified.
 
 Prerequisites
 =============
