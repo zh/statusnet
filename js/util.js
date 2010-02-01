@@ -641,7 +641,7 @@ var SN = { // StatusNet
             NDM.bind('click', function() {
                 var NDMF = $('.entity_send-a-message form');
                 if (NDMF.length === 0) {
-                    $(this).addClass('processing');
+                    $(this).addClass(SN.C.S.Processing);
                     $.get(NDM.attr('href'), null, function(data) {
                         $('.entity_send-a-message').append(document._importNode($('form', data)[0], true));
                         NDMF = $('.entity_send-a-message .form_notice');
@@ -652,7 +652,7 @@ var SN = { // StatusNet
                             NDMF.hide();
                             return false;
                         });
-                        NDM.removeClass('processing');
+                        NDM.removeClass(SN.C.S.Processing);
                     });
                 }
                 else {
