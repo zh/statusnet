@@ -2,8 +2,8 @@
 README
 ------
 
-Laconica 0.7.4 ("Can't Get There From Here")
-29 May 2009
+Laconica 0.7.5 ("The Flowers of Guatemala")
+1 Feb 2010
 
 This is the README file for Laconica, the Open Source microblogging
 platform. It includes installation instructions, descriptions of
@@ -71,29 +71,13 @@ for additional terms.
 New this version
 ================
 
-This is a minor bug-fix and feature release since version 0.7.3,
-released Apr 4 2009. Notable changes this version:
+This is a security bug fix release of an old version of the software.
 
-- Improved handling of UTF-8 characters. The new code is *not* backwards
-  compatible by default; see "Upgrading" below for instructions on
-  converting existing databases to the correct character set.
-- Unroll joins for large queries. This greatly enhanced database
-  performance -- up to 50x for some queries -- at the expense of making
-  an extra DB hit for some queries.
-- Added an optional plugin to use WikiHashtags
-  (http://hashtags.wikia.com/) for the sidebar on hashtag pages.
-- Optimized Twitter friend synchronization.
-- Better error handling for Ajax posting of notices, including
-  HTTP errors and timeouts.
-- Experimental Comet plugin -- supports the cometd and the Bayeux
-  protocol. Using this plugin, you can show "real time" updates on the
-  public and tag pages. However, server configuration is complex.
-- If queues are enabled, update inboxes and memcached off-line. Speeds
-  up posting considerably.
-- Correctly shorten links posted through XMPP.
-- <link> elements for pagination, supported by some browsers like Opera.
-- Corrected date format in search API.
-- Made the public XRDS file work correctly.
+- Fixes a local file include vulnerability in doc.php. See
+  http://status.net/wiki/Security_alert_0000002 for details.
+- Fixes bug in blocking and unblocking users.
+- Fixes bug in error reporting in API.
+- Adds a site-wide URL length limit for URL shortening.
 
 Prerequisites
 =============
