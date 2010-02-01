@@ -143,87 +143,85 @@ var SN = { // StatusNet
             SN.U.Counter(form);
         },
 
-        FormXHR: function(f) {
-            if (jQuery.data(f[0], "ElementData") === undefined) {
-                jQuery.data(f[0], "ElementData", {Bind:'submit'});
-                f.bind('submit', function(e) {
-                    form_id = $(this)[0].id;
-                    $.ajax({
-                        type: 'POST',
-                        dataType: 'xml',
-                        url: $(this)[0].action,
-                        data: $(this).serialize() + '&ajax=1',
-                        beforeSend: function(xhr) {
-                            $('#'+form_id).addClass(SN.C.S.Processing);
-                            $('#'+form_id+' .submit').addClass(SN.C.S.Disabled);
-                            $('#'+form_id+' .submit').attr(SN.C.S.Disabled, SN.C.S.Disabled);
-                        },
-                        error: function (xhr, textStatus, errorThrown) {
-                            alert(errorThrown || textStatus);
-                        },
-                        success: function(data, textStatus) {
-                            if (typeof($('form', data)[0]) != 'undefined') {
-                                form_new = document._importNode($('form', data)[0], true);
-                                $('#'+form_id).replaceWith(form_new);
-                                $('#'+form_new.id).each(function() { SN.U.FormXHR($(this)); });
-                            }
-                            else {
-                                $('#'+form_id).replaceWith(document._importNode($('p', data)[0], true));
-                            }
-                        }
-                    });
-                    return false;
-                });
-            }
+        FormXHR: function(form) {
+            $.ajax({
+                type: 'POST',
+                dataType: 'xml',
+                url: form.attr('action'),
+                data: form.serialize() + '&ajax=1',
+                beforeSend: function(xhr) {
+                    form
+                        .addClass(SN.C.S.Processing)
+                        .find('.submit')
+                            .addClass(SN.C.S.Disabled)
+                            .attr(SN.C.S.Disabled, SN.C.S.Disabled);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert(errorThrown || textStatus);
+                },
+                success: function(data, textStatus) {
+                    if (typeof($('form', data)[0]) != 'undefined') {
+                        form_new = document._importNode($('form', data)[0], true);
+                        form.replaceWith(form_new);
+                    }
+                    else {
+                        form.replaceWith(document._importNode($('p', data)[0], true));
+                    }
+                }
+            });
         },
 
         FormNoticeXHR: function(form) {
-            var NDG, NLat, NLon, NLNS, NLID;
+            SN.C.I.NoticeDataGeo = {};
             form_id = form.attr('id');
             form.append('<input type="hidden" name="ajax" value="1"/>');
             form.ajaxForm({
                 dataType: 'xml',
                 timeout: '60000',
                 beforeSend: function(formData) {
-                    if ($('#'+form_id+' #'+SN.C.S.NoticeDataText)[0].value.length === 0) {
+                    if (form.find('#'+SN.C.S.NoticeDataText)[0].value.length === 0) {
                         form.addClass(SN.C.S.Warning);
                         return false;
                     }
-                    form.addClass(SN.C.S.Processing);
-                    $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).addClass(SN.C.S.Disabled);
-                    $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).attr(SN.C.S.Disabled, SN.C.S.Disabled);
+                    form
+                        .addClass(SN.C.S.Processing)
+                        .find('#'+SN.C.S.NoticeActionSubmit)
+                            .addClass(SN.C.S.Disabled)
+                            .attr(SN.C.S.Disabled, SN.C.S.Disabled);
 
-                    NLat = $('#'+SN.C.S.NoticeLat).val();
-                    NLon = $('#'+SN.C.S.NoticeLon).val();
-                    NLNS = $('#'+SN.C.S.NoticeLocationNs).val();
-                    NLID = $('#'+SN.C.S.NoticeLocationId).val();
-                    NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked');
+                    SN.C.I.NoticeDataGeo.NLat = $('#'+SN.C.S.NoticeLat).val();
+                    SN.C.I.NoticeDataGeo.NLon = $('#'+SN.C.S.NoticeLon).val();
+                    SN.C.I.NoticeDataGeo.NLNS = $('#'+SN.C.S.NoticeLocationNs).val();
+                    SN.C.I.NoticeDataGeo.NLID = $('#'+SN.C.S.NoticeLocationId).val();
+                    SN.C.I.NoticeDataGeo.NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked');
 
                     cookieValue = $.cookie(SN.C.S.NoticeDataGeoCookie);
 
                     if (cookieValue !== null && cookieValue != 'disabled') {
                         cookieValue = JSON.parse(cookieValue);
-                        NLat = $('#'+SN.C.S.NoticeLat).val(cookieValue.NLat).val();
-                        NLon = $('#'+SN.C.S.NoticeLon).val(cookieValue.NLon).val();
+                        SN.C.I.NoticeDataGeo.NLat = $('#'+SN.C.S.NoticeLat).val(cookieValue.NLat).val();
+                        SN.C.I.NoticeDataGeo.NLon = $('#'+SN.C.S.NoticeLon).val(cookieValue.NLon).val();
                         if ($('#'+SN.C.S.NoticeLocationNs).val(cookieValue.NLNS)) {
-                            NLNS = $('#'+SN.C.S.NoticeLocationNs).val(cookieValue.NLNS).val();
-                            NLID = $('#'+SN.C.S.NoticeLocationId).val(cookieValue.NLID).val();
+                            SN.C.I.NoticeDataGeo.NLNS = $('#'+SN.C.S.NoticeLocationNs).val(cookieValue.NLNS).val();
+                            SN.C.I.NoticeDataGeo.NLID = $('#'+SN.C.S.NoticeLocationId).val(cookieValue.NLID).val();
                         }
                     }
                     if (cookieValue == 'disabled') {
-                        NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked', false).attr('checked');
+                        SN.C.I.NoticeDataGeo.NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked', false).attr('checked');
                     }
                     else {
-                        NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked', true).attr('checked');
+                        SN.C.I.NoticeDataGeo.NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked', true).attr('checked');
                     }
 
                     return true;
                 },
                 error: function (xhr, textStatus, errorThrown) {
-                    form.removeClass(SN.C.S.Processing);
-                    $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeClass(SN.C.S.Disabled);
-                    $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeAttr(SN.C.S.Disabled, SN.C.S.Disabled);
-                    $('#'+form_id+' .form_response').remove();
+                    form
+                        .removeClass(SN.C.S.Processing)
+                        .find('#'+SN.C.S.NoticeActionSubmit)
+                            .removeClass(SN.C.S.Disabled)
+                            .removeAttr(SN.C.S.Disabled, SN.C.S.Disabled);
+                    form.find('.form_response').remove();
                     if (textStatus == 'timeout') {
                         form.append('<p class="form_response error">Sorry! We had trouble sending your notice. The servers are overloaded. Please try again, and contact the site administrator if this problem persists.</p>');
                     }
@@ -233,9 +231,10 @@ var SN = { // StatusNet
                         }
                         else {
                             if (parseInt(xhr.status) === 0 || jQuery.inArray(parseInt(xhr.status), SN.C.I.HTTP20x30x) >= 0) {
-                                $('#'+form_id).resetForm();
-                                $('#'+form_id+' #'+SN.C.S.NoticeDataAttachSelected).remove();
-                                SN.U.FormNoticeEnhancements($('#'+form_id));
+                                form
+                                    .resetForm()
+                                    .find('#'+SN.C.S.NoticeDataAttachSelected).remove();
+                                SN.U.FormNoticeEnhancements(form);
                             }
                             else {
                                 form.append('<p class="form_response error">(Sorry! We had trouble sending your notice ('+xhr.status+' '+xhr.statusText+'). Please report the problem to the site administrator if this happens again.</p>');
@@ -244,7 +243,7 @@ var SN = { // StatusNet
                     }
                 },
                 success: function(data, textStatus) {
-                    $('#'+form_id+' .form_response').remove();
+                    form.find('.form_response').remove();
                     var result;
                     if ($('#'+SN.C.S.Error, data).length > 0) {
                         result = document._importNode($('p', data)[0], true);
@@ -277,11 +276,11 @@ var SN = { // StatusNet
                                     else {
                                         notices.prepend(notice);
                                     }
-                                    $('#'+notice.id).css({display:'none'});
-                                    $('#'+notice.id).fadeIn(2500);
+                                    $('#'+notice.id)
+                                        .css({display:'none'})
+                                        .fadeIn(2500);
                                     SN.U.NoticeWithAttachment($('#'+notice.id));
                                     SN.U.NoticeReplyTo($('#'+notice.id));
-                                    SN.U.FormXHR($('#'+notice.id+' .form_favor'));
                                 }
                             }
                             else {
@@ -290,24 +289,26 @@ var SN = { // StatusNet
                                 form.append('<p class="form_response success">'+result_title+'</p>');
                             }
                         }
-                        $('#'+form_id).resetForm();
-                        $('#'+form_id+' #'+SN.C.S.NoticeInReplyTo).val('');
-                        $('#'+form_id+' #'+SN.C.S.NoticeDataAttachSelected).remove();
-                        SN.U.FormNoticeEnhancements($('#'+form_id));
+                        form.resetForm();
+                        form.find('#'+SN.C.S.NoticeInReplyTo).val('');
+                        form.find('#'+SN.C.S.NoticeDataAttachSelected).remove();
+                        SN.U.FormNoticeEnhancements(form);
                     }
                 },
                 complete: function(xhr, textStatus) {
-                    form.removeClass(SN.C.S.Processing);
-                    $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeAttr(SN.C.S.Disabled);
-                    $('#'+form_id+' #'+SN.C.S.NoticeActionSubmit).removeClass(SN.C.S.Disabled);
+                    form
+                        .removeClass(SN.C.S.Processing)
+                        .find('#'+SN.C.S.NoticeActionSubmit)
+                            .removeAttr(SN.C.S.Disabled)
+                            .removeClass(SN.C.S.Disabled);
 
-                    $('#'+SN.C.S.NoticeLat).val(NLat);
-                    $('#'+SN.C.S.NoticeLon).val(NLon);
+                    $('#'+SN.C.S.NoticeLat).val(SN.C.I.NoticeDataGeo.NLat);
+                    $('#'+SN.C.S.NoticeLon).val(SN.C.I.NoticeDataGeo.NLon);
                     if ($('#'+SN.C.S.NoticeLocationNs)) {
-                        $('#'+SN.C.S.NoticeLocationNs).val(NLNS);
-                        $('#'+SN.C.S.NoticeLocationId).val(NLID);
+                        $('#'+SN.C.S.NoticeLocationNs).val(SN.C.I.NoticeDataGeo.NLNS);
+                        $('#'+SN.C.S.NoticeLocationId).val(SN.C.I.NoticeDataGeo.NLID);
                     }
-                    $('#'+SN.C.S.NoticeDataGeo).attr('checked', NDG);
+                    $('#'+SN.C.S.NoticeDataGeo).attr('checked', SN.C.I.NoticeDataGeo.NDG);
                 }
             });
         },
@@ -350,14 +351,15 @@ var SN = { // StatusNet
         },
 
         NoticeFavor: function() {
-            $('.form_favor').each(function() { SN.U.FormXHR($(this)); });
-            $('.form_disfavor').each(function() { SN.U.FormXHR($(this)); });
+            $('.form_favor').live('click', function() { SN.U.FormXHR($(this)); return false; });
+            $('.form_disfavor').live('click', function() { SN.U.FormXHR($(this)); return false; });
         },
 
         NoticeRepeat: function() {
-            $('.form_repeat').each(function() {
+            $('.form_repeat').live('click', function() {
                 SN.U.FormXHR($(this));
                 SN.U.NoticeRepeatConfirmation($(this));
+                return false;
             });
         },
 
@@ -639,7 +641,7 @@ var SN = { // StatusNet
             NDM.bind('click', function() {
                 var NDMF = $('.entity_send-a-message form');
                 if (NDMF.length === 0) {
-                    $(this).addClass('processing');
+                    $(this).addClass(SN.C.S.Processing);
                     $.get(NDM.attr('href'), null, function(data) {
                         $('.entity_send-a-message').append(document._importNode($('form', data)[0], true));
                         NDMF = $('.entity_send-a-message .form_notice');
@@ -650,7 +652,7 @@ var SN = { // StatusNet
                             NDMF.hide();
                             return false;
                         });
-                        NDM.removeClass('processing');
+                        NDM.removeClass(SN.C.S.Processing);
                     });
                 }
                 else {
@@ -695,11 +697,11 @@ var SN = { // StatusNet
 
         EntityActions: function() {
             if ($('body.user_in').length > 0) {
-                $('.form_user_subscribe').each(function() { SN.U.FormXHR($(this)); });
-                $('.form_user_unsubscribe').each(function() { SN.U.FormXHR($(this)); });
-                $('.form_group_join').each(function() { SN.U.FormXHR($(this)); });
-                $('.form_group_leave').each(function() { SN.U.FormXHR($(this)); });
-                $('.form_user_nudge').each(function() { SN.U.FormXHR($(this)); });
+                $('.form_user_subscribe').live('click', function() { SN.U.FormXHR($(this)); return false; });
+                $('.form_user_unsubscribe').live('click', function() { SN.U.FormXHR($(this)); return false; });
+                $('.form_group_join').live('click', function() { SN.U.FormXHR($(this)); return false; });
+                $('.form_group_leave').live('click', function() { SN.U.FormXHR($(this)); return false; });
+                $('.form_user_nudge').live('click', function() { SN.U.FormXHR($(this)); return false; });
 
                 SN.U.NewDirectMessage();
             }

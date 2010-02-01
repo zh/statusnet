@@ -989,9 +989,14 @@ function common_enqueue_notice($notice)
     static $localTransports = array('omb',
                                     'ping');
 
-    static $allTransports = array('sms', 'plugin');
-
-    $transports = $allTransports;
+    $transports = array();
+    if (common_config('sms', 'enabled')) {
+        $transports[] = 'sms';
+    }
+    if (Event::hasHandler('HandleQueuedNotice')) {
+        $transports[] = 'plugin';
+    }
+    
 
     $xmpp = common_config('xmpp', 'enabled');
 
@@ -999,6 +1004,7 @@ function common_enqueue_notice($notice)
         $transports[] = 'jabber';
     }
 
+    // @fixme move these checks into QueueManager and/or individual handlers
     if ($notice->is_local == Notice::LOCAL_PUBLIC ||
         $notice->is_local == Notice::LOCAL_NONPUBLIC) {
         $transports = array_merge($transports, $localTransports);

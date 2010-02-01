@@ -250,10 +250,6 @@ class User extends Memcached_DataObject
 
         $user->nickname = $nickname;
 
-        if (!empty($password)) { // may not have a password for OpenID users
-            $user->password = common_munge_password($password, $id);
-        }
-
         // Users who respond to invite email have proven their ownership of that address
 
         if (!empty($code)) {
@@ -286,6 +282,9 @@ class User extends Memcached_DataObject
 
             $user->id = $id;
             $user->uri = common_user_uri($user);
+            if (!empty($password)) { // may not have a password for OpenID users
+                $user->password = common_munge_password($password, $id);
+            }
 
             $result = $user->insert();
 
@@ -945,9 +944,9 @@ class User extends Memcached_DataObject
 
             $pr->orderBy('created');
 
-            $pr->limit(0, 1);
+            $pr->limit(1);
 
-            if ($pr->fetch($true)) {
+            if ($pr->find(true)) {
                 $owner = User::staticGet('id', $pr->profile_id);
             } else {
                 $owner = null;
