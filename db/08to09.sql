@@ -110,6 +110,9 @@ insert into queue_item_new (frame,transport,created,claimed)
 alter table queue_item rename to queue_item_old;
 alter table queue_item_new rename to queue_item;
 
+alter table consumer
+    add column  consumer_secret varchar(255) not null comment 'secret value';
+
 create table oauth_application (
     id integer auto_increment primary key comment 'unique identifier',
     owner integer not null comment 'owner of the application' references profile (id),
