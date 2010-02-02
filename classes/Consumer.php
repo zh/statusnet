@@ -36,4 +36,34 @@ class Consumer extends Memcached_DataObject
         return $cons;
     }
 
+    /**
+     * Delete a Consumer and related tokens and nonces
+     *
+     * XXX: Should this happen in an OAuthDataStore instead?
+     *
+     */
+    function delete()
+    {
+        // XXX: Is there any reason NOT to do this kind of cleanup?
+
+        $this->_deleteTokens();
+        $this->_deleteNonces();
+
+        parent::delete();
+    }
+
+    function _deleteTokens()
+    {
+        $token = new Token();
+        $token->consumer_key = $this->consumer_key;
+        $token->delete();
+    }
+
+    function _deleteNonces()
+    {
+        $nonce = new Nonce();
+        $nonce->consumer_key = $this->consumer_key;
+        $nonce->delete();
+    }
+
 }
