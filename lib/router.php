@@ -152,6 +152,10 @@ class Router
                 array('action' => 'editapplication'),
                 array('id' => '[0-9]+')
             );
+            $m->connect('settings/oauthapps/delete/:id',
+                array('action' => 'deleteapplication'),
+                array('id' => '[0-9]+')
+            );
 
             // search
 
