@@ -67,8 +67,6 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
     {
         parent::prepare($args);
 
-        common_debug("apioauthauthorize");
-
         $this->nickname    = $this->trimmed('nickname');
         $this->password    = $this->arg('password');
         $this->oauth_token = $this->arg('oauth_token');
@@ -193,8 +191,6 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
             // A callback specified in the app setup overrides whatever
             // is passed in with the request.
 
-            common_debug("Req token is authorized - doing callback");
-
             if (!empty($this->app->callback_url)) {
                 $this->callback = $this->app->callback_url;
             }
@@ -295,12 +291,15 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
 
         $msg = _('The application <strong>%1$s</strong> by ' .
                  '<strong>%2$s</strong> would like the ability ' .
-                 'to <strong>%3$s</strong> your account data.');
+                 'to <strong>%3$s</strong> your %4$s account data. ' .
+                 'You should only give access to your %4$s account ' .
+                 'to third parties you trust.');
 
         $this->raw(sprintf($msg,
                            $this->app->name,
                            $this->app->organization,
-                           $access));
+                           $access,
+                           common_config('site', 'name')));
         $this->elementEnd('p');
         $this->elementEnd('li');
         $this->elementEnd('ul');
@@ -362,6 +361,31 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
 
     function showLocalNav()
     {
+        // NOP
+    }
+
+    /**
+     * Show site notice.
+     *
+     * @return nothing
+     */
+
+    function showSiteNotice()
+    {
+        // NOP
+    }
+
+    /**
+     * Show notice form.
+     *
+     * Show the form for posting a new notice
+     *
+     * @return nothing
+     */
+
+    function showNoticeForm()
+    {
+        // NOP
     }
 
 }
