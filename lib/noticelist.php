@@ -486,12 +486,28 @@ class NoticeListItem extends Widget
                 $this->out->element('span', 'device', $source_name);
                 break;
              default:
+
+                $name = null;
+                $url  = null;
+
                 $ns = Notice_source::staticGet($this->notice->source);
+
                 if ($ns) {
+                    $name = $ns->name;
+                    $url  = $ns->url;
+                } else {
+                    $app = Oauth_application::staticGet('name', $this->notice->source);
+                    if ($app) {
+                        $name = $app->name;
+                        $url  = $app->source_url;
+                    }
+                }
+
+                if (!empty($name) && !empty($url)) {
                     $this->out->elementStart('span', 'device');
-                    $this->out->element('a', array('href' => $ns->url,
+                    $this->out->element('a', array('href' => $url,
                                                    'rel' => 'external'),
-                                        $ns->name);
+                                        $name);
                     $this->out->elementEnd('span');
                 } else {
                     $this->out->element('span', 'device', $source_name);
