@@ -299,7 +299,7 @@ class ApiAction extends Action
             }
         }
 
-        if ($include_user) {
+        if ($include_user && $profile) {
             # Don't get notice (recursive!)
             $twitter_user = $this->twitterUserArray($profile, false);
             $twitter_status['user'] = $twitter_user;
@@ -1250,10 +1250,27 @@ class ApiAction extends Action
         case 'api':
             break;
         default:
+
+            $name = null;
+            $url  = null;
+
             $ns = Notice_source::staticGet($source);
+
             if ($ns) {
-                $source_name = '<a href="' . $ns->url . '">' . $ns->name . '</a>';
+                $name = $ns->name;
+                $url  = $ns->url;
+            } else {
+                $app = Oauth_application::staticGet('name', $source);
+                if ($app) {
+                    $name = $app->name;
+                    $url  = $app->source_url;
+                }
             }
+
+            if (!empty($name) && !empty($url)) {
+                $source_name = '<a href="' . $url . '">' . $name . '</a>';
+            }
+
             break;
         }
         return $source_name;

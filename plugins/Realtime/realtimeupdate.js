@@ -95,9 +95,7 @@ RealtimeUpdate = {
         $("#notices_primary .notice:first").css({display:"none"});
         $("#notices_primary .notice:first").fadeIn(1000);
 
-        SN.U.FormXHR($('#'+noticeItemID+' .form_favor'));
         SN.U.NoticeReplyTo($('#'+noticeItemID));
-        SN.U.FormXHR($('#'+noticeItemID+' .form_repeat'));
         SN.U.NoticeWithAttachment($('#'+noticeItemID));
      },
 
@@ -136,7 +134,7 @@ RealtimeUpdate = {
           ni = "<li class=\"hentry notice\" id=\"notice-"+unique+"\">"+
                "<div class=\"entry-title\">"+
                "<span class=\"vcard author\">"+
-               "<a href=\""+user['profile_url']+"\" class=\"url\">"+
+               "<a href=\""+user['profile_url']+"\" class=\"url\" title=\""+user['name']+"\">"+
                "<img src=\""+user['profile_image_url']+"\" class=\"avatar photo\" width=\"48\" height=\"48\" alt=\""+user['screen_name']+"\"/>"+
                "<span class=\"nickname fn\">"+user['screen_name']+"</span>"+
                "</a>"+
@@ -180,7 +178,7 @@ RealtimeUpdate = {
 
           ni = ni+"</div>";
 
-               "</li>";
+          ni = ni+"</li>";
           return ni;
      },
 

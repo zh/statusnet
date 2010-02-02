@@ -39,7 +39,7 @@ class OmbQueueHandler extends QueueHandler
     function handle($notice)
     {
         if ($this->is_remote($notice)) {
-            $this->log(LOG_DEBUG, 'Ignoring remote notice ' . $notice->id);
+            common_log(LOG_DEBUG, 'Ignoring remote notice ' . $notice->id);
             return true;
         } else {
             require_once(INSTALLDIR.'/lib/omb.php');

@@ -109,7 +109,13 @@ class QueueDaemon extends SpawningDaemon
 
         $master = new QueueMaster($this->get_id());
         $master->init($this->all);
-        $master->service();
+        try {
+            $master->service();
+        } catch (Exception $e) {
+            common_log(LOG_ERR, "Unhandled exception: " . $e->getMessage() . ' ' .
+                str_replace("\n", " ", $e->getTraceAsString()));
+            return self::EXIT_ERR;
+        }
 
         $this->log(LOG_INFO, 'finished servicing the queue');
 

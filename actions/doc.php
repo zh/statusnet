@@ -54,6 +54,9 @@ class DocAction extends Action
         parent::prepare($args);
 
         $this->title  = $this->trimmed('title');
+        if (!preg_match('/^[a-zA-Z0-9_-]*$/', $this->title)) {
+            $this->title = 'help';
+        }
         $this->output = null;
 
         $this->loadDoc();

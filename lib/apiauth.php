@@ -55,11 +55,10 @@ class ApiAuthAction extends ApiAction
 {
     var $auth_user_nickname = null;
     var $auth_user_password = null;
-    var $access_token       = null;
-    var $oauth_source       = null;
 
     /**
-     * Take arguments for running, and output basic auth header if needed
+     * Take arguments for running, looks for an OAuth request,
+     * and outputs basic auth header if needed
      *
      * @param array $args $_REQUEST args
      *
@@ -71,26 +70,23 @@ class ApiAuthAction extends ApiAction
     {
         parent::prepare($args);
 
-        $this->consumer_key = $this->arg('oauth_consumer_key');
-        $this->access_token = $this->arg('oauth_token');
-
         // NOTE: $this->auth_user has to get set in prepare(), not handle(),
         // because subclasses do stuff with it in their prepares.
 
         if ($this->requiresAuth()) {
-            if (!empty($this->access_token)) {
-                $this->checkOAuthRequest();
-            } else {
+
+            $oauthReq = $this->getOAuthRequest();
+
+            if (!$oauthReq) {
                 $this->checkBasicAuthUser(true);
+            } else {
+                $this->checkOAuthRequest($oauthReq);
             }
         } else {
 
             // Check to see if a basic auth user is there even
             // if one's not required
-
-            if (empty($this->access_token)) {
-                $this->checkBasicAuthUser(false);
-            }
+            $this->checkBasicAuthUser(false);
         }
 
         // Reject API calls with the wrong access level
@@ -110,12 +106,44 @@ class ApiAuthAction extends ApiAction
         return true;
     }
 
-    function handle($args)
+    /**
+     * Determine whether the request is an OAuth request.
+     * This is to avoid doign any unnecessary DB lookups.
+     *
+     * @return mixed the OAuthRequest or false
+     *
+     */
+
+    function getOAuthRequest()
     {
-        parent::handle($args);
+        ApiOauthAction::cleanRequest();
+
+        $req  = OAuthRequest::from_request();
+
+        $consumer    = $req->get_parameter('oauth_consumer_key');
+        $accessToken = $req->get_parameter('oauth_token');
+
+        // XXX: Is it good enough to assume it's not meant to be an
+        // OAuth request if there is no consumer or token? --Z
+
+        if (empty($consumer) || empty($accessToken)) {
+            return false;
+        }
+
+        return $req;
     }
 
-    function checkOAuthRequest()
+    /**
+     * Verifies the OAuth request signature, sets the auth user
+     * and access type (read-only or read-write)
+     *
+     * @param OAuthRequest $request the OAuth Request
+     *
+     * @return nothing
+     *
+     */
+
+    function checkOAuthRequest($request)
     {
         $datastore   = new ApiStatusNetOAuthDataStore();
         $server      = new OAuthServer($datastore);
@@ -123,22 +151,19 @@ class ApiAuthAction extends ApiAction
 
         $server->add_signature_method($hmac_method);
 
-        ApiOauthAction::cleanRequest();
-
         try {
 
-            $req  = OAuthRequest::from_request();
-            $server->verify_request($req);
+            $server->verify_request($request);
 
-            $app = Oauth_application::getByConsumerKey($this->consumer_key);
+            $consumer     = $request->get_parameter('oauth_consumer_key');
+            $access_token = $request->get_parameter('oauth_token');
+
+            $app = Oauth_application::getByConsumerKey($consumer);
 
             if (empty($app)) {
-
-                // this should probably not happen
                 common_log(LOG_WARNING,
                            'Couldn\'t find the OAuth app for consumer key: ' .
-                           $this->consumer_key);
-
+                           $consumer);
                 throw new OAuthException('No application for that consumer key.');
             }
 
@@ -146,11 +171,7 @@ class ApiAuthAction extends ApiAction
 
             $this->oauth_source = $app->name;
 
-            $appUser = Oauth_application_user::staticGet('token',
-                                                         $this->access_token);
-
-            // XXX: Check that app->id and appUser->application_id and consumer all
-            // match?
+            $appUser = Oauth_application_user::staticGet('token', $access_token);
 
             if (!empty($appUser)) {
 
@@ -163,6 +184,8 @@ class ApiAuthAction extends ApiAction
 
                     $this->access = ($appUser->access_type & Oauth_application::$writeAccess)
                       ? self::READ_WRITE : self::READ_ONLY;
+
+                    // Set the auth user
 
                     if (Event::handle('StartSetApiUser', array(&$user))) {
                         $this->auth_user = User::staticGet('id', $appUser->profile_id);
@@ -180,7 +203,6 @@ class ApiAuthAction extends ApiAction
                                                  ($this->access = self::READ_WRITE) ?
                                                  'read-write' : 'read-only'
                                                  ));
-                    return;
                 } else {
                     throw new OAuthException('Bad access token.');
                 }

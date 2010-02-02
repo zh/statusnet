@@ -178,7 +178,6 @@ function common_ensure_session()
 	}
 	if (isset($id)) {
 	    session_id($id);
-	    setcookie(session_name(), $id);
 	}
         @session_start();
         if (!isset($_SESSION['started'])) {
@@ -990,10 +989,16 @@ function common_enqueue_notice($notice)
     static $localTransports = array('omb',
                                     'ping');
 
-    static $allTransports = array('sms', 'plugin');
+    $transports = array();
+    if (common_config('sms', 'enabled')) {
+        $transports[] = 'sms';
+    }
+    if (Event::hasHandler('HandleQueuedNotice')) {
+        $transports[] = 'plugin';
+    }
+    
 
-    $transports = $allTransports;
-
+    // @fixme move these checks into QueueManager and/or individual handlers
     if ($notice->is_local == Notice::LOCAL_PUBLIC ||
         $notice->is_local == Notice::LOCAL_NONPUBLIC) {
         $transports = array_merge($transports, $localTransports);

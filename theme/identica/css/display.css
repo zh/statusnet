@@ -1,7 +1,7 @@
 /** theme: identica
  *
  * @package   StatusNet
- * @author Sarven Capadisli <csarven@status.net>
+ * @author    Sarven Capadisli <csarven@status.net>
  * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
@@ -189,18 +189,22 @@ button.close,
 .notice-options .repeated,
 .form_notice label[for=notice_data-geo],
 button.minimize,
-.form_reset_key input.submit {
+.form_reset_key input.submit,
+.entity_clear input.submit,
+.entity_flag input.submit,
+.entity_flag p {
 background-image:url(../../base/images/icons/icons-01.gif);
 background-repeat:no-repeat;
 background-color:transparent;
 }
 
 #wrap form.processing input.submit,
-.entity_actions a.processing {
+.entity_actions a.processing,
+.dialogbox.processing .submit_dialogbox {
 background:#FFFFFF url(../../base/images/icons/icon_processing.gif) no-repeat 47% 47%;
-cursor:wait;
-text-indent:-9999px;
-outline:none;
+}
+.notice-options .form_repeat.processing {
+background-image:none;
 }
 
 #content {
@@ -335,6 +339,13 @@ background-position: 5px -1511px;
 }
 .form_reset_key input.submit {
 background-position: 5px -1973px;
+}
+.entity_clear input.submit {
+background-position: 5px -2039px;
+}
+.entity_flag input.submit,
+.entity_flag p {
+background-position: 5px -2105px;
 }
 
 /* NOTICES */

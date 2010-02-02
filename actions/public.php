@@ -131,12 +131,20 @@ class PublicAction extends Action
             return _('Public timeline');
         }
     }
-    
+
     function extraHead()
     {
         parent::extraHead();
         $this->element('meta', array('http-equiv' => 'X-XRDS-Location',
                                            'content' => common_local_url('publicxrds')));
+
+        $rsd = common_local_url('rsd');
+
+        // RSD, http://tales.phrasewise.com/rfc/rsd
+
+        $this->element('link', array('rel' => 'EditURI',
+                                     'type' => 'application/rsd+xml',
+                                     'href' => $rsd));
     }
 
     /**

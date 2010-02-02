@@ -717,3 +717,17 @@ SendImConfirmationCode: Send a confirmation code to confirm a user owns an IM sc
 - $screenname: screenname being confirmed
 - $code: confirmation code for confirmation URL
 - $user: user requesting the confirmation
+
+StartUserRegister: When a new user is being registered
+- &$profile: new profile data (no ID)
+- &$user: new user account (no ID or URI)
+
+EndUserRegister: When a new user has been registered
+- &$profile: new profile data
+- &$user: new user account
+
+StartRobotsTxt: Before outputting the robots.txt page
+- &$action: RobotstxtAction being shown
+
+EndRobotsTxt: After the default robots.txt page (good place for customization)
+- &$action: RobotstxtAction being shown

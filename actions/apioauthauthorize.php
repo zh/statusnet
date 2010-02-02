@@ -67,8 +67,6 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
     {
         parent::prepare($args);
 
-        common_debug("apioauthauthorize");
-
         $this->nickname    = $this->trimmed('nickname');
         $this->password    = $this->arg('password');
         $this->oauth_token = $this->arg('oauth_token');
@@ -99,24 +97,17 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
 
         } else {
 
-            // XXX: make better error messages
-
             if (empty($this->oauth_token)) {
-
-                common_debug("No request token found.");
-
-                $this->clientError(_('Bad request.'));
+                $this->clientError(_('No oauth_token parameter provided.'));
                 return;
             }
 
             if (empty($this->app)) {
-                common_debug('No app for that token.');
-                $this->clientError(_('Bad request.'));
+                $this->clientError(_('Invalid token.'));
                 return;
             }
 
             $name = $this->app->name;
-            common_debug("Requesting auth for app: " . $name);
 
             $this->showForm();
         }
@@ -124,8 +115,6 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
 
     function handlePost()
     {
-        common_debug("handlePost()");
-
         // check session token for CSRF protection.
 
         $token = $this->trimmed('token');
@@ -202,20 +191,14 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
             // A callback specified in the app setup overrides whatever
             // is passed in with the request.
 
-            common_debug("Req token is authorized - doing callback");
-
             if (!empty($this->app->callback_url)) {
                 $this->callback = $this->app->callback_url;
             }
 
             if (!empty($this->callback)) {
 
-                // XXX: Need better way to build this redirect url.
-
                 $target_url = $this->getCallback($this->callback,
                                                  array('oauth_token' => $this->oauth_token));
-
-                common_debug("Doing callback to $target_url");
 
                 common_redirect($target_url, 303);
             } else {
@@ -236,9 +219,12 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
 
         } else if ($this->arg('deny')) {
 
+            $datastore = new ApiStatusNetOAuthDataStore();
+            $datastore->revoke_token($this->oauth_token, 0);
+
             $this->elementStart('p');
 
-            $this->raw(sprintf(_("The request token %s has been denied."),
+            $this->raw(sprintf(_("The request token %s has been denied and revoked."),
                                $this->oauth_token));
 
             $this->elementEnd('p');
@@ -303,13 +289,17 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
         $access = ($this->app->access_type & Oauth_application::$writeAccess) ?
           'access and update' : 'access';
 
-        $msg = _("The application <strong>%1$s</strong> by <strong>%2$s</strong> would like " .
-                 "the ability to <strong>%3$s</strong> your account data.");
+        $msg = _('The application <strong>%1$s</strong> by ' .
+                 '<strong>%2$s</strong> would like the ability ' .
+                 'to <strong>%3$s</strong> your %4$s account data. ' .
+                 'You should only give access to your %4$s account ' .
+                 'to third parties you trust.');
 
         $this->raw(sprintf($msg,
                            $this->app->name,
                            $this->app->organization,
-                           $access));
+                           $access,
+                           common_config('site', 'name')));
         $this->elementEnd('p');
         $this->elementEnd('li');
         $this->elementEnd('ul');
@@ -371,6 +361,31 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
 
     function showLocalNav()
     {
+        // NOP
+    }
+
+    /**
+     * Show site notice.
+     *
+     * @return nothing
+     */
+
+    function showSiteNotice()
+    {
+        // NOP
+    }
+
+    /**
+     * Show notice form.
+     *
+     * Show the form for posting a new notice
+     *
+     * @return nothing
+     */
+
+    function showNoticeForm()
+    {
+        // NOP
     }
 
 }

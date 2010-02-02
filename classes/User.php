@@ -204,8 +204,6 @@ class User extends Memcached_DataObject
 
         $profile = new Profile();
 
-        $profile->query('BEGIN');
-
         if(!empty($email))
         {
             $email = common_canonical_email($email);
@@ -215,7 +213,7 @@ class User extends Memcached_DataObject
         $profile->nickname = $nickname;
         if(! User::allowed_nickname($nickname)){
             common_log(LOG_WARNING, sprintf("Attempted to register a nickname that is not allowed: %s", $profile->nickname),
-                           __FILE__);
+                       __FILE__);
         }
         $profile->profileurl = common_profile_url($nickname);
 
@@ -243,21 +241,9 @@ class User extends Memcached_DataObject
 
         $profile->created = common_sql_now();
 
-        $id = $profile->insert();
-
-        if (empty($id)) {
-            common_log_db_error($profile, 'INSERT', __FILE__);
-            return false;
-        }
-
         $user = new User();
 
-        $user->id = $id;
         $user->nickname = $nickname;
-
-        if (!empty($password)) { // may not have a password for OpenID users
-            $user->password = common_munge_password($password, $id);
-        }
 
         // Users who respond to invite email have proven their ownership of that address
 
@@ -277,109 +263,129 @@ class User extends Memcached_DataObject
         $user->inboxed = 1;
 
         $user->created = common_sql_now();
-        $user->uri = common_user_uri($user);
 
-        $result = $user->insert();
+        if (Event::handle('StartUserRegister', array(&$user, &$profile))) {
 
-        if (!$result) {
-            common_log_db_error($user, 'INSERT', __FILE__);
-            return false;
-        }
+            $profile->query('BEGIN');
 
-        // Everyone gets an inbox
+            $id = $profile->insert();
 
-        $inbox = new Inbox();
-
-        $inbox->user_id = $user->id;
-        $inbox->notice_ids = '';
-
-        $result = $inbox->insert();
-
-        if (!$result) {
-            common_log_db_error($inbox, 'INSERT', __FILE__);
-            return false;
-        }
-
-        // Everyone is subscribed to themself
-
-        $subscription = new Subscription();
-        $subscription->subscriber = $user->id;
-        $subscription->subscribed = $user->id;
-        $subscription->created = $user->created;
-
-        $result = $subscription->insert();
-
-        if (!$result) {
-            common_log_db_error($subscription, 'INSERT', __FILE__);
-            return false;
-        }
-
-        if (!empty($email) && !$user->email) {
-
-            $confirm = new Confirm_address();
-            $confirm->code = common_confirmation_code(128);
-            $confirm->user_id = $user->id;
-            $confirm->address = $email;
-            $confirm->address_type = 'email';
-
-            $result = $confirm->insert();
-            if (!$result) {
-                common_log_db_error($confirm, 'INSERT', __FILE__);
+            if (empty($id)) {
+                common_log_db_error($profile, 'INSERT', __FILE__);
                 return false;
             }
-        }
 
-        if (!empty($code) && $user->email) {
-            $user->emailChanged();
-        }
+            $user->id = $id;
+            $user->uri = common_user_uri($user);
+            if (!empty($password)) { // may not have a password for OpenID users
+                $user->password = common_munge_password($password, $id);
+            }
 
-        // Default system subscription
+            $result = $user->insert();
 
-        $defnick = common_config('newuser', 'default');
+            if (!$result) {
+                common_log_db_error($user, 'INSERT', __FILE__);
+                return false;
+            }
 
-        if (!empty($defnick)) {
-            $defuser = User::staticGet('nickname', $defnick);
-            if (empty($defuser)) {
-                common_log(LOG_WARNING, sprintf("Default user %s does not exist.", $defnick),
-                           __FILE__);
-            } else {
-                $defsub = new Subscription();
-                $defsub->subscriber = $user->id;
-                $defsub->subscribed = $defuser->id;
-                $defsub->created = $user->created;
+            // Everyone gets an inbox
 
-                $result = $defsub->insert();
+            $inbox = new Inbox();
+
+            $inbox->user_id = $user->id;
+            $inbox->notice_ids = '';
+
+            $result = $inbox->insert();
+
+            if (!$result) {
+                common_log_db_error($inbox, 'INSERT', __FILE__);
+                return false;
+            }
+
+            // Everyone is subscribed to themself
+
+            $subscription = new Subscription();
+            $subscription->subscriber = $user->id;
+            $subscription->subscribed = $user->id;
+            $subscription->created = $user->created;
+
+            $result = $subscription->insert();
+
+            if (!$result) {
+                common_log_db_error($subscription, 'INSERT', __FILE__);
+                return false;
+            }
+
+            if (!empty($email) && !$user->email) {
+
+                $confirm = new Confirm_address();
+                $confirm->code = common_confirmation_code(128);
+                $confirm->user_id = $user->id;
+                $confirm->address = $email;
+                $confirm->address_type = 'email';
+
+                $result = $confirm->insert();
 
                 if (!$result) {
-                    common_log_db_error($defsub, 'INSERT', __FILE__);
+                    common_log_db_error($confirm, 'INSERT', __FILE__);
                     return false;
                 }
             }
-        }
 
-        $profile->query('COMMIT');
-
-        if (!empty($email) && !$user->email) {
-            mail_confirm_address($user, $confirm->code, $profile->nickname, $email);
-        }
-
-        // Welcome message
-
-        $welcome = common_config('newuser', 'welcome');
-
-        if (!empty($welcome)) {
-            $welcomeuser = User::staticGet('nickname', $welcome);
-            if (empty($welcomeuser)) {
-                common_log(LOG_WARNING, sprintf("Welcome user %s does not exist.", $defnick),
-                           __FILE__);
-            } else {
-                $notice = Notice::saveNew($welcomeuser->id,
-                                          sprintf(_('Welcome to %1$s, @%2$s!'),
-                                                  common_config('site', 'name'),
-                                                  $user->nickname),
-                                          'system');
-
+            if (!empty($code) && $user->email) {
+                $user->emailChanged();
             }
+
+            // Default system subscription
+
+            $defnick = common_config('newuser', 'default');
+
+            if (!empty($defnick)) {
+                $defuser = User::staticGet('nickname', $defnick);
+                if (empty($defuser)) {
+                    common_log(LOG_WARNING, sprintf("Default user %s does not exist.", $defnick),
+                               __FILE__);
+                } else {
+                    $defsub = new Subscription();
+                    $defsub->subscriber = $user->id;
+                    $defsub->subscribed = $defuser->id;
+                    $defsub->created = $user->created;
+
+                    $result = $defsub->insert();
+
+                    if (!$result) {
+                        common_log_db_error($defsub, 'INSERT', __FILE__);
+                        return false;
+                    }
+                }
+            }
+
+            $profile->query('COMMIT');
+
+            if (!empty($email) && !$user->email) {
+                mail_confirm_address($user, $confirm->code, $profile->nickname, $email);
+            }
+
+            // Welcome message
+
+            $welcome = common_config('newuser', 'welcome');
+
+            if (!empty($welcome)) {
+                $welcomeuser = User::staticGet('nickname', $welcome);
+                if (empty($welcomeuser)) {
+                    common_log(LOG_WARNING, sprintf("Welcome user %s does not exist.", $defnick),
+                               __FILE__);
+                } else {
+                    $notice = Notice::saveNew($welcomeuser->id,
+                                              sprintf(_('Welcome to %1$s, @%2$s!'),
+                                                      common_config('site', 'name'),
+                                                      $user->nickname),
+                                              'system');
+
+                }
+            }
+
+            Event::handle('EndUserRegister', array(&$profile, &$user));
         }
 
         return $user;
@@ -919,5 +925,31 @@ class User extends Memcached_DataObject
 
             return $share;
         }
+    }
+
+    static function siteOwner()
+    {
+        $owner = self::cacheGet('user:site_owner');
+
+        if ($owner === false) { // cache miss
+
+            $pr = new Profile_role();
+
+            $pr->role = Profile_role::OWNER;
+
+            $pr->orderBy('created');
+
+            $pr->limit(1);
+
+            if ($pr->find(true)) {
+                $owner = User::staticGet('id', $pr->profile_id);
+            } else {
+                $owner = null;
+            }
+
+            self::cacheSet('user:site_owner', $owner);
+        }
+
+        return $owner;
     }
 }

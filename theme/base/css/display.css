@@ -632,7 +632,8 @@ margin-bottom:18px;
 .entity_profile .entity_url,
 .entity_profile .entity_note,
 .entity_profile .entity_tags,
-.entity_profile .entity_aliases {
+.entity_profile .entity_aliases,
+.entity_profile .entity_statistics {
 margin-left:113px;
 margin-bottom:4px;
 }
@@ -995,6 +996,9 @@ padding-left:28px;
 .notice .author {
 margin-right:11px;
 }
+#showstream #content .notice .author {
+display:none;
+}
 
 .fn {
 overflow:hidden;
@@ -1127,8 +1131,17 @@ top:3px;
 }
 
 .dialogbox .submit_dialogbox {
-text-indent:0;
 font-weight:bold;
+text-indent:0;
+min-width:46px;
+}
+
+#wrap form.processing input.submit,
+.entity_actions a.processing,
+.dialogbox.processing .submit_dialogbox {
+cursor:wait;
+outline:none;
+text-indent:-9999px;
 }
 
 .notice-options {
@@ -1398,6 +1411,9 @@ margin-bottom:18px;
 }
 .hentry .entry-content li li {
 margin-left:18px;
+}
+.hentry .entry-content .form_settings ul {
+margin-left:0;
 }
 
 #content #plugin_authors {

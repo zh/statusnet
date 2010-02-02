@@ -158,6 +158,9 @@ class NewApplicationAction extends OwnerDesignAction
         if (empty($name)) {
              $this->showForm(_('Name is required.'));
              return;
+        } else if ($this->nameExists($name)) {
+            $this->showForm(_('Name already in use. Try another one.'));
+            return;
         } elseif (mb_strlen($name) > 255) {
             $this->showForm(_('Name is too long (max 255 chars).'));
             return;
@@ -271,6 +274,23 @@ class NewApplicationAction extends OwnerDesignAction
 
         common_redirect(common_local_url('oauthappssettings'), 303);
 
+    }
+
+    /**
+     * Does the app name already exist?
+     *
+     * Checks the DB to see someone has already registered and app
+     * with the same name.
+     *
+     * @param string $name app name to check
+     *
+     * @return boolean true if the name already exists
+     */
+
+    function nameExists($name)
+    {
+        $app = Oauth_application::staticGet('name', $name);
+        return ($app !== false);
     }
 
 }

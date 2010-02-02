@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-27 23:58+0000\n"
-"PO-Revision-Date: 2010-01-27 23:59:33+0000\n"
+"POT-Creation-Date: 2010-02-02 19:19+0000\n"
+"PO-Revision-Date: 2010-02-02 19:21:50+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: MediaWiki 1.16alpha (r61595); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61864); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pl\n"
 "X-Message-Group: out-statusnet\n"
@@ -29,14 +29,12 @@ msgid "Access"
 msgstr "Dostęp"
 
 #: actions/accessadminpanel.php:65
-#, fuzzy
 msgid "Site access settings"
-msgstr "Zapisz ustawienia strony"
+msgstr "Ustawienia dostępu witryny"
 
 #: actions/accessadminpanel.php:158
-#, fuzzy
 msgid "Registration"
-msgstr "Zarejestruj się"
+msgstr "Rejestracja"
 
 #: actions/accessadminpanel.php:161
 msgid "Private"
@@ -44,7 +42,7 @@ msgstr "Prywatna"
 
 #: actions/accessadminpanel.php:163
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
-msgstr "Zabronić anonimowym użytkownikom (niezalogowanym) przeglądać stronę?"
+msgstr "Zabronić anonimowym użytkownikom (niezalogowanym) przeglądać witrynę?"
 
 #: actions/accessadminpanel.php:167
 msgid "Invite only"
@@ -65,18 +63,18 @@ msgstr "Wyłączenie nowych rejestracji."
 #: actions/accessadminpanel.php:189 actions/designadminpanel.php:586
 #: actions/emailsettings.php:195 actions/imsettings.php:163
 #: actions/othersettings.php:126 actions/pathsadminpanel.php:351
-#: actions/profilesettings.php:174 actions/siteadminpanel.php:336
-#: actions/smssettings.php:181 actions/subscriptions.php:203
-#: actions/tagother.php:154 actions/useradminpanel.php:313
-#: lib/applicationeditform.php:335 lib/applicationeditform.php:336
-#: lib/designsettings.php:256 lib/groupeditform.php:202
+#: actions/profilesettings.php:174 actions/sessionsadminpanel.php:199
+#: actions/siteadminpanel.php:336 actions/smssettings.php:181
+#: actions/subscriptions.php:203 actions/tagother.php:154
+#: actions/useradminpanel.php:293 lib/applicationeditform.php:333
+#: lib/applicationeditform.php:334 lib/designsettings.php:256
+#: lib/groupeditform.php:202
 msgid "Save"
 msgstr "Zapisz"
 
 #: actions/accessadminpanel.php:189
-#, fuzzy
 msgid "Save access settings"
-msgstr "Zapisz ustawienia strony"
+msgstr "Zapisz ustawienia dostępu"
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
 #: actions/showfavorites.php:137 actions/tag.php:51
@@ -99,7 +97,7 @@ msgstr "Nie ma takiej strony"
 #: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
 #: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:76
 #: actions/remotesubscribe.php:145 actions/remotesubscribe.php:154
-#: actions/replies.php:73 actions/repliesrss.php:38
+#: actions/replies.php:73 actions/repliesrss.php:38 actions/rsd.php:116
 #: actions/showfavorites.php:105 actions/userbyid.php:74
 #: actions/usergroups.php:91 actions/userrss.php:38 actions/xrds.php:71
 #: lib/command.php:163 lib/command.php:302 lib/command.php:355
@@ -163,7 +161,7 @@ msgstr ""
 "[wysłać coś wymagającego jego uwagi](%%%%action.newnotice%%%%?"
 "status_textarea=%3$s)."
 
-#: actions/all.php:137 actions/replies.php:209 actions/showstream.php:202
+#: actions/all.php:137 actions/replies.php:209 actions/showstream.php:211
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
@@ -189,7 +187,7 @@ msgstr "Aktualizacje z %1$s i przyjaciół na %2$s."
 #: actions/apiaccountupdateprofilecolors.php:118
 #: actions/apidirectmessage.php:156 actions/apifavoritecreate.php:99
 #: actions/apifavoritedestroy.php:100 actions/apifriendshipscreate.php:100
-#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:129
+#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:128
 #: actions/apigroupcreate.php:136 actions/apigroupismember.php:114
 #: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
 #: actions/apigrouplist.php:132 actions/apigrouplistall.php:120
@@ -367,11 +365,11 @@ msgstr "Nie można zrezygnować z obserwacji samego siebie."
 msgid "Two user ids or screen_names must be supplied."
 msgstr "Należy dostarczyć dwa identyfikatory lub nazwy użytkowników."
 
-#: actions/apifriendshipsshow.php:135
+#: actions/apifriendshipsshow.php:134
 msgid "Could not determine source user."
 msgstr "Nie można określić użytkownika źródłowego."
 
-#: actions/apifriendshipsshow.php:143
+#: actions/apifriendshipsshow.php:142
 msgid "Could not find target user."
 msgstr "Nie można odnaleźć użytkownika docelowego."
 
@@ -393,8 +391,8 @@ msgstr "Pseudonim jest już używany. Spróbuj innego."
 msgid "Not a valid nickname."
 msgstr "To nie jest prawidłowy pseudonim."
 
-#: actions/apigroupcreate.php:196 actions/editapplication.php:212
-#: actions/editgroup.php:195 actions/newapplication.php:200
+#: actions/apigroupcreate.php:196 actions/editapplication.php:215
+#: actions/editgroup.php:195 actions/newapplication.php:203
 #: actions/newgroup.php:139 actions/profilesettings.php:222
 #: actions/register.php:217
 msgid "Homepage is not a valid URL."
@@ -406,8 +404,8 @@ msgstr "Strona domowa nie jest prawidłowym adresem URL."
 msgid "Full name is too long (max 255 chars)."
 msgstr "Imię i nazwisko jest za długie (maksymalnie 255 znaków)."
 
-#: actions/apigroupcreate.php:213 actions/editapplication.php:187
-#: actions/newapplication.php:169
+#: actions/apigroupcreate.php:213 actions/editapplication.php:190
+#: actions/newapplication.php:172
 #, php-format
 msgid "Description is too long (max %d chars)."
 msgstr "Opis jest za długi (maksymalnie %d znaków)."
@@ -484,18 +482,23 @@ msgstr "Grupy %s"
 msgid "groups on %s"
 msgstr "grupy na %s"
 
-#: actions/apioauthauthorize.php:108 actions/apioauthauthorize.php:114
-msgid "Bad request."
-msgstr "Błędne żądanie."
+#: actions/apioauthauthorize.php:101
+msgid "No oauth_token parameter provided."
+msgstr ""
 
-#: actions/apioauthauthorize.php:134 actions/avatarsettings.php:268
+#: actions/apioauthauthorize.php:106
+#, fuzzy
+msgid "Invalid token."
+msgstr "Nieprawidłowy rozmiar."
+
+#: actions/apioauthauthorize.php:123 actions/avatarsettings.php:268
 #: actions/deletenotice.php:157 actions/disfavor.php:74
-#: actions/emailsettings.php:238 actions/favor.php:75 actions/geocode.php:50
+#: actions/emailsettings.php:238 actions/favor.php:75 actions/geocode.php:54
 #: actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
 #: actions/invite.php:56 actions/login.php:115 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
-#: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:139
+#: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:135
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:194 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
@@ -506,19 +509,19 @@ msgstr "Błędne żądanie."
 msgid "There was a problem with your session token. Try again, please."
 msgstr "Wystąpił problem z tokenem sesji. Spróbuj ponownie."
 
-#: actions/apioauthauthorize.php:146
+#: actions/apioauthauthorize.php:135
 msgid "Invalid nickname / password!"
 msgstr "Nieprawidłowy pseudonim/hasło."
 
-#: actions/apioauthauthorize.php:170
-msgid "DB error deleting OAuth app user."
+#: actions/apioauthauthorize.php:159
+msgid "Database error deleting OAuth application user."
 msgstr "Błąd bazy danych podczas usuwania użytkownika aplikacji OAuth."
 
-#: actions/apioauthauthorize.php:196
-msgid "DB error inserting OAuth app user."
+#: actions/apioauthauthorize.php:185
+msgid "Database error inserting OAuth application user."
 msgstr "Błąd bazy danych podczas wprowadzania użytkownika aplikacji OAuth."
 
-#: actions/apioauthauthorize.php:231
+#: actions/apioauthauthorize.php:214
 #, php-format
 msgid ""
 "The request token %s has been authorized. Please exchange it for an access "
@@ -526,60 +529,61 @@ msgid ""
 msgstr ""
 "Token żądania %s został upoważniony. Proszę wymienić go na token dostępu."
 
-#: actions/apioauthauthorize.php:241
-#, php-format
-msgid "The request token %s has been denied."
+#: actions/apioauthauthorize.php:227
+#, fuzzy, php-format
+msgid "The request token %s has been denied and revoked."
 msgstr "Token żądania %s został odrzucony."
 
-#: actions/apioauthauthorize.php:246 actions/avatarsettings.php:281
+#: actions/apioauthauthorize.php:232 actions/avatarsettings.php:281
 #: actions/designadminpanel.php:103 actions/editapplication.php:139
 #: actions/emailsettings.php:256 actions/grouplogo.php:319
 #: actions/imsettings.php:220 actions/newapplication.php:121
-#: actions/oauthconnectionssettings.php:151 actions/recoverpassword.php:44
+#: actions/oauthconnectionssettings.php:147 actions/recoverpassword.php:44
 #: actions/smssettings.php:248 lib/designsettings.php:304
 msgid "Unexpected form submission."
 msgstr "Nieoczekiwane wysłanie formularza."
 
-#: actions/apioauthauthorize.php:273
+#: actions/apioauthauthorize.php:259
 msgid "An application would like to connect to your account"
 msgstr "Aplikacja chce połączyć się z kontem użytkownika"
 
-#: actions/apioauthauthorize.php:290
+#: actions/apioauthauthorize.php:276
 msgid "Allow or deny access"
 msgstr "Zezwolić czy odmówić dostęp"
 
-#: actions/apioauthauthorize.php:306
+#: actions/apioauthauthorize.php:292
 #, php-format
 msgid ""
-"The application <strong>%s</strong> by <strong>%s</strong> would like the "
-"ability to <strong>%s</strong> your account data."
+"The application <strong>%1$s</strong> by <strong>%2$s</strong> would like "
+"the ability to <strong>%3$s</strong> your %4$s account data. You should only "
+"give access to your %4$s account to third parties you trust."
 msgstr ""
 
-#: actions/apioauthauthorize.php:320 lib/action.php:441
+#: actions/apioauthauthorize.php:310 lib/action.php:441
 msgid "Account"
 msgstr "Konto"
 
-#: actions/apioauthauthorize.php:323 actions/login.php:230
+#: actions/apioauthauthorize.php:313 actions/login.php:230
 #: actions/profilesettings.php:106 actions/register.php:424
 #: actions/showgroup.php:236 actions/tagother.php:94 lib/groupeditform.php:152
 #: lib/userprofile.php:131
 msgid "Nickname"
 msgstr "Pseudonim"
 
-#: actions/apioauthauthorize.php:326 actions/login.php:233
+#: actions/apioauthauthorize.php:316 actions/login.php:233
 #: actions/register.php:429 lib/accountsettingsaction.php:116
 msgid "Password"
 msgstr "Hasło"
 
-#: actions/apioauthauthorize.php:338
+#: actions/apioauthauthorize.php:328
 msgid "Deny"
 msgstr "Odrzuć"
 
-#: actions/apioauthauthorize.php:344
+#: actions/apioauthauthorize.php:334
 msgid "Allow"
 msgstr "Zezwól"
 
-#: actions/apioauthauthorize.php:361
+#: actions/apioauthauthorize.php:351
 msgid "Allow or deny access to your account information."
 msgstr "Zezwól lub odmów dostęp do informacji konta."
 
@@ -748,8 +752,8 @@ msgstr "Oryginał"
 msgid "Preview"
 msgstr "Podgląd"
 
-#: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:611
+#: actions/avatarsettings.php:149 actions/showapplication.php:247
+#: lib/deleteuserform.php:66 lib/noticelist.php:624
 msgid "Delete"
 msgstr "Usuń"
 
@@ -799,8 +803,9 @@ msgstr ""
 "do ciebie zostanie usunięta, nie będzie mógł cię subskrybować w przyszłości "
 "i nie będziesz powiadamiany o żadnych odpowiedziach @ od niego."
 
-#: actions/block.php:143 actions/deletenotice.php:145
-#: actions/deleteuser.php:147 actions/groupblock.php:178
+#: actions/block.php:143 actions/deleteapplication.php:153
+#: actions/deletenotice.php:145 actions/deleteuser.php:147
+#: actions/groupblock.php:178
 msgid "No"
 msgstr "Nie"
 
@@ -808,9 +813,9 @@ msgstr "Nie"
 msgid "Do not block this user"
 msgstr "Nie blokuj tego użytkownika"
 
-#: actions/block.php:144 actions/deletenotice.php:146
-#: actions/deleteuser.php:148 actions/groupblock.php:179
-#: lib/repeatform.php:132
+#: actions/block.php:144 actions/deleteapplication.php:158
+#: actions/deletenotice.php:146 actions/deleteuser.php:148
+#: actions/groupblock.php:179 lib/repeatform.php:132
 msgid "Yes"
 msgstr "Tak"
 
@@ -914,6 +919,52 @@ msgstr "Rozmowa"
 msgid "Notices"
 msgstr "Wpisy"
 
+#: actions/deleteapplication.php:63
+#, fuzzy
+msgid "You must be logged in to delete an application."
+msgstr "Musisz być zalogowany, aby zmodyfikować aplikację."
+
+#: actions/deleteapplication.php:71
+#, fuzzy
+msgid "Application not found."
+msgstr "Informacje o aplikacji"
+
+#: actions/deleteapplication.php:78 actions/editapplication.php:77
+#: actions/showapplication.php:94
+msgid "You are not the owner of this application."
+msgstr "Nie jesteś właścicielem tej aplikacji."
+
+#: actions/deleteapplication.php:102 actions/editapplication.php:127
+#: actions/newapplication.php:110 actions/showapplication.php:118
+#: lib/action.php:1195
+msgid "There was a problem with your session token."
+msgstr "Wystąpił problem z tokenem sesji."
+
+#: actions/deleteapplication.php:123 actions/deleteapplication.php:147
+#, fuzzy
+msgid "Delete application"
+msgstr "Zmodyfikuj aplikację"
+
+#: actions/deleteapplication.php:149
+#, fuzzy
+msgid ""
+"Are you sure you want to delete this application? This will clear all data "
+"about the application from the database, including all existing user "
+"connections."
+msgstr ""
+"Na pewno usunąć tego użytkownika? Wyczyści to wszystkie dane o użytkowniku z "
+"bazy danych, bez utworzenia kopii zapasowej."
+
+#: actions/deleteapplication.php:156
+#, fuzzy
+msgid "Do not delete this application"
+msgstr "Nie usuwaj tego wpisu"
+
+#: actions/deleteapplication.php:160
+#, fuzzy
+msgid "Delete this application"
+msgstr "Ikona tej aplikacji"
+
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
@@ -948,7 +999,7 @@ msgstr "Jesteś pewien, że chcesz usunąć ten wpis?"
 msgid "Do not delete this notice"
 msgstr "Nie usuwaj tego wpisu"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:611
+#: actions/deletenotice.php:146 lib/noticelist.php:624
 msgid "Delete this notice"
 msgstr "Usuń ten wpis"
 
@@ -983,7 +1034,7 @@ msgstr "Wygląd"
 
 #: actions/designadminpanel.php:73
 msgid "Design settings for this StatusNet site."
-msgstr "Ustawienia wyglądu tej strony StatusNet."
+msgstr "Ustawienia wyglądu tej witryny StatusNet."
 
 #: actions/designadminpanel.php:275
 msgid "Invalid logo URL."
@@ -1000,7 +1051,7 @@ msgstr "Zmień logo"
 
 #: actions/designadminpanel.php:380
 msgid "Site logo"
-msgstr "Logo strony"
+msgstr "Logo witryny"
 
 #: actions/designadminpanel.php:387
 msgid "Change theme"
@@ -1008,11 +1059,11 @@ msgstr "Zmień motyw"
 
 #: actions/designadminpanel.php:404
 msgid "Site theme"
-msgstr "Motyw strony"
+msgstr "Motyw witryny"
 
 #: actions/designadminpanel.php:405
 msgid "Theme for the site."
-msgstr "Motyw strony."
+msgstr "Motyw witryny."
 
 #: actions/designadminpanel.php:417 lib/designsettings.php:101
 msgid "Change background image"
@@ -1028,7 +1079,7 @@ msgstr "Tło"
 msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
 "$s."
-msgstr "Można wysłać obraz tła dla strony. Maksymalny rozmiar pliku to %1$s."
+msgstr "Można wysłać obraz tła dla witryny. Maksymalny rozmiar pliku to %1$s."
 
 #: actions/designadminpanel.php:457 lib/designsettings.php:139
 msgid "On"
@@ -1090,13 +1141,12 @@ msgstr "Ten wpis nie jest ulubiony."
 msgid "Add to favorites"
 msgstr "Dodaj do ulubionych"
 
-#: actions/doc.php:155
-#, fuzzy, php-format
+#: actions/doc.php:158
+#, php-format
 msgid "No such document \"%s\""
-msgstr "Nie ma takiego dokumentu."
+msgstr "Nie ma takiego dokumentu \\\"%s\\\""
 
 #: actions/editapplication.php:54
-#, fuzzy
 msgid "Edit Application"
 msgstr "Zmodyfikuj aplikację"
 
@@ -1104,19 +1154,10 @@ msgstr "Zmodyfikuj aplikację"
 msgid "You must be logged in to edit an application."
 msgstr "Musisz być zalogowany, aby zmodyfikować aplikację."
 
-#: actions/editapplication.php:77 actions/showapplication.php:94
-msgid "You are not the owner of this application."
-msgstr "Nie jesteś właścicielem tej aplikacji."
-
-#: actions/editapplication.php:81 actions/oauthconnectionssettings.php:163
+#: actions/editapplication.php:81 actions/oauthconnectionssettings.php:166
 #: actions/showapplication.php:87
 msgid "No such application."
 msgstr "Nie ma takiej aplikacji."
-
-#: actions/editapplication.php:127 actions/newapplication.php:110
-#: actions/showapplication.php:118 lib/action.php:1195
-msgid "There was a problem with your session token."
-msgstr "Wystąpił problem z tokenem sesji."
 
 #: actions/editapplication.php:161
 msgid "Use this form to edit your application."
@@ -1126,43 +1167,48 @@ msgstr "Użyj tego formularza, aby zmodyfikować aplikację."
 msgid "Name is required."
 msgstr "Nazwa jest wymagana."
 
-#: actions/editapplication.php:180 actions/newapplication.php:162
+#: actions/editapplication.php:180 actions/newapplication.php:165
 msgid "Name is too long (max 255 chars)."
 msgstr "Nazwa jest za długa (maksymalnie 255 znaków)."
 
-#: actions/editapplication.php:183 actions/newapplication.php:165
+#: actions/editapplication.php:183 actions/newapplication.php:162
+#, fuzzy
+msgid "Name already in use. Try another one."
+msgstr "Pseudonim jest już używany. Spróbuj innego."
+
+#: actions/editapplication.php:186 actions/newapplication.php:168
 msgid "Description is required."
 msgstr "Opis jest wymagany."
 
-#: actions/editapplication.php:191
+#: actions/editapplication.php:194
 msgid "Source URL is too long."
 msgstr "Źródłowy adres URL jest za długi."
 
-#: actions/editapplication.php:197 actions/newapplication.php:182
+#: actions/editapplication.php:200 actions/newapplication.php:185
 msgid "Source URL is not valid."
 msgstr "Źródłowy adres URL jest nieprawidłowy."
 
-#: actions/editapplication.php:200 actions/newapplication.php:185
+#: actions/editapplication.php:203 actions/newapplication.php:188
 msgid "Organization is required."
 msgstr "Organizacja jest wymagana."
 
-#: actions/editapplication.php:203 actions/newapplication.php:188
+#: actions/editapplication.php:206 actions/newapplication.php:191
 msgid "Organization is too long (max 255 chars)."
 msgstr "Organizacja jest za długa (maksymalnie 255 znaków)."
 
-#: actions/editapplication.php:206 actions/newapplication.php:191
+#: actions/editapplication.php:209 actions/newapplication.php:194
 msgid "Organization homepage is required."
 msgstr "Strona domowa organizacji jest wymagana."
 
-#: actions/editapplication.php:215 actions/newapplication.php:203
+#: actions/editapplication.php:218 actions/newapplication.php:206
 msgid "Callback is too long."
 msgstr "Adres zwrotny jest za długi."
 
-#: actions/editapplication.php:222 actions/newapplication.php:212
+#: actions/editapplication.php:225 actions/newapplication.php:215
 msgid "Callback URL is not valid."
 msgstr "Adres zwrotny URL jest nieprawidłowy."
 
-#: actions/editapplication.php:255
+#: actions/editapplication.php:258
 msgid "Could not update application."
 msgstr "Nie można zaktualizować aplikacji."
 
@@ -1235,8 +1281,8 @@ msgstr ""
 "instrukcjami."
 
 #: actions/emailsettings.php:117 actions/imsettings.php:120
-#: actions/smssettings.php:126 lib/applicationeditform.php:333
-#: lib/applicationeditform.php:334
+#: actions/smssettings.php:126 lib/applicationeditform.php:331
+#: lib/applicationeditform.php:332
 msgid "Cancel"
 msgstr "Anuluj"
 
@@ -1402,7 +1448,7 @@ msgstr "Popularne wpisy, strona %d"
 
 #: actions/favorited.php:79
 msgid "The most popular notices on the site right now."
-msgstr "Najpopularniejsze wpisy na stronie w te chwili."
+msgstr "Najpopularniejsze wpisy na witrynie w te chwili."
 
 #: actions/favorited.php:150
 msgid "Favorite notices appear on this page but no one has favorited one yet."
@@ -1829,9 +1875,9 @@ msgid "That is not your Jabber ID."
 msgstr "To nie jest twój identyfikator Jabbera."
 
 #: actions/inbox.php:59
-#, fuzzy, php-format
+#, php-format
 msgid "Inbox for %1$s - page %2$d"
-msgstr "Odebrane wiadomości użytkownika %s"
+msgstr "Odebrane wiadomości użytkownika %1$s - strona %2$d"
 
 #: actions/inbox.php:62
 #, php-format
@@ -1891,7 +1937,7 @@ msgid ""
 "on the site. Thanks for growing the community!"
 msgstr ""
 "Zostaniesz powiadomiony, kiedy ktoś zaakceptuje zaproszenie i zarejestruje "
-"się na stronie. Dziękujemy za pomoc w zwiększaniu społeczności."
+"się na witrynie. Dziękujemy za pomoc w zwiększaniu społeczności."
 
 #: actions/invite.php:162
 msgid ""
@@ -2023,7 +2069,7 @@ msgstr "Zaloguj się"
 
 #: actions/login.php:227
 msgid "Login to site"
-msgstr "Zaloguj się na stronie"
+msgstr "Zaloguj się na witrynie"
 
 #: actions/login.php:236 actions/register.php:478
 msgid "Remember me"
@@ -2080,7 +2126,6 @@ msgid "No current status"
 msgstr "Brak obecnego stanu"
 
 #: actions/newapplication.php:52
-#, fuzzy
 msgid "New Application"
 msgstr "Nowa aplikacja"
 
@@ -2092,11 +2137,11 @@ msgstr "Musisz być zalogowany, aby zarejestrować aplikację."
 msgid "Use this form to register a new application."
 msgstr "Użyj tego formularza, aby zarejestrować aplikację."
 
-#: actions/newapplication.php:173
+#: actions/newapplication.php:176
 msgid "Source URL is required."
 msgstr "Źródłowy adres URL jest wymagany."
 
-#: actions/newapplication.php:255 actions/newapplication.php:264
+#: actions/newapplication.php:258 actions/newapplication.php:267
 msgid "Could not create application."
 msgstr "Nie można utworzyć aplikacji."
 
@@ -2230,28 +2275,28 @@ msgstr "Zarejestrowane aplikacje"
 msgid "You have not registered any applications yet."
 msgstr "Nie zarejestrowano jeszcze żadnych aplikacji."
 
-#: actions/oauthconnectionssettings.php:71
+#: actions/oauthconnectionssettings.php:72
 msgid "Connected applications"
 msgstr "Połączone aplikacje"
 
-#: actions/oauthconnectionssettings.php:87
+#: actions/oauthconnectionssettings.php:83
 msgid "You have allowed the following applications to access you account."
 msgstr "Zezwolono następującym aplikacjom na dostęp do konta."
 
-#: actions/oauthconnectionssettings.php:170
+#: actions/oauthconnectionssettings.php:175
 msgid "You are not a user of that application."
 msgstr "Nie jesteś użytkownikiem tej aplikacji."
 
-#: actions/oauthconnectionssettings.php:180
+#: actions/oauthconnectionssettings.php:186
 msgid "Unable to revoke access for app: "
 msgstr "Nie można unieważnić dostępu dla aplikacji: "
 
-#: actions/oauthconnectionssettings.php:192
+#: actions/oauthconnectionssettings.php:198
 #, php-format
 msgid "You have not authorized any applications to use your account."
 msgstr "Nie upoważniono żadnych aplikacji do używania konta."
 
-#: actions/oauthconnectionssettings.php:205
+#: actions/oauthconnectionssettings.php:211
 msgid "Developers can edit the registration settings for their applications "
 msgstr "Programiści mogą zmodyfikować ustawienia rejestracji swoich aplikacji "
 
@@ -2338,9 +2383,9 @@ msgid "Login token expired."
 msgstr "Token logowania wygasł."
 
 #: actions/outbox.php:58
-#, fuzzy, php-format
+#, php-format
 msgid "Outbox for %1$s - page %2$d"
-msgstr "Wysłane wiadomości użytkownika %s"
+msgstr "Wysłane wiadomości użytkownika %1$s - strona %2$d"
 
 #: actions/outbox.php:61
 #, php-format
@@ -2418,7 +2463,7 @@ msgstr "Ścieżki"
 
 #: actions/pathsadminpanel.php:70
 msgid "Path and server settings for this StatusNet site."
-msgstr "Ustawienia ścieżki i serwera dla tej strony StatusNet."
+msgstr "Ustawienia ścieżki i serwera dla tej witryny StatusNet."
 
 #: actions/pathsadminpanel.php:157
 #, php-format
@@ -2447,7 +2492,7 @@ msgstr "Nieprawidłowy serwer SSL. Maksymalna długość to 255 znaków."
 #: actions/pathsadminpanel.php:234 actions/siteadminpanel.php:58
 #: lib/adminpanelaction.php:311
 msgid "Site"
-msgstr "Strona"
+msgstr "Witryny"
 
 #: actions/pathsadminpanel.php:238
 msgid "Server"
@@ -2463,7 +2508,7 @@ msgstr "Ścieżka"
 
 #: actions/pathsadminpanel.php:242
 msgid "Site path"
-msgstr "Ścieżka do strony"
+msgstr "Ścieżka do witryny"
 
 #: actions/pathsadminpanel.php:246
 msgid "Path to locales"
@@ -2598,7 +2643,7 @@ msgstr "Nieprawidłowa zawartość wpisu"
 #: actions/postnotice.php:90
 #, php-format
 msgid "Notice license ‘%1$s’ is not compatible with site license ‘%2$s’."
-msgstr "Licencja wpisu \"%1$s\" nie jest zgodna z licencją strony \"%2$s\"."
+msgstr "Licencja wpisu \"%1$s\" nie jest zgodna z licencją witryny \"%2$s\"."
 
 #: actions/profilesettings.php:60
 msgid "Profile settings"
@@ -2626,13 +2671,13 @@ msgid "Full name"
 msgstr "Imię i nazwisko"
 
 #: actions/profilesettings.php:115 actions/register.php:453
-#: lib/applicationeditform.php:230 lib/groupeditform.php:161
+#: lib/applicationeditform.php:228 lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "Strona domowa"
 
 #: actions/profilesettings.php:117 actions/register.php:455
 msgid "URL of your homepage, blog, or profile on another site"
-msgstr "Adres URL strony domowej, bloga lub profilu na innej stronie"
+msgstr "Adres URL strony domowej, bloga lub profilu na innej witrynie"
 
 #: actions/profilesettings.php:122 actions/register.php:461
 #, php-format
@@ -2753,19 +2798,19 @@ msgstr "Publiczna oś czasu, strona %d"
 msgid "Public timeline"
 msgstr "Publiczna oś czasu"
 
-#: actions/public.php:151
+#: actions/public.php:159
 msgid "Public Stream Feed (RSS 1.0)"
 msgstr "Kanał publicznego strumienia (RSS 1.0)"
 
-#: actions/public.php:155
+#: actions/public.php:163
 msgid "Public Stream Feed (RSS 2.0)"
 msgstr "Kanał publicznego strumienia (RSS 2.0)"
 
-#: actions/public.php:159
+#: actions/public.php:167
 msgid "Public Stream Feed (Atom)"
 msgstr "Kanał publicznego strumienia (Atom)"
 
-#: actions/public.php:179
+#: actions/public.php:187
 #, php-format
 msgid ""
 "This is the public timeline for %%site.name%% but no one has posted anything "
@@ -2774,11 +2819,11 @@ msgstr ""
 "To jest publiczna oś czasu dla %%site.name%%, ale nikt jeszcze nic nie "
 "wysłał."
 
-#: actions/public.php:182
+#: actions/public.php:190
 msgid "Be the first to post!"
 msgstr "Zostań pierwszym, który coś wyśle."
 
-#: actions/public.php:186
+#: actions/public.php:194
 #, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post!"
@@ -2786,7 +2831,7 @@ msgstr ""
 "Dlaczego nie [zarejestrujesz konta](%%action.register%%) i zostaniesz "
 "pierwszym, który coś wyśle."
 
-#: actions/public.php:233
+#: actions/public.php:241
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -2799,7 +2844,7 @@ msgstr ""
 "[Dołącz teraz](%%action.register%%), aby dzielić się wpisami o sobie z "
 "przyjaciółmi, rodziną i kolegami. ([Przeczytaj więcej](%%doc.help%%))"
 
-#: actions/public.php:238
+#: actions/public.php:246
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -3099,7 +3144,7 @@ msgid ""
 msgstr ""
 "Aby subskrybować, można [zalogować się](%%action.login%%) lub [zarejestrować]"
 "(%%action.register%%) nowe konto. Jeśli już posiadasz konto na [zgodnej "
-"stronie mikroblogowania](%%doc.openmublog%%), podaj poniżej adres URL "
+"witrynie mikroblogowania](%%doc.openmublog%%), podaj poniżej adres URL "
 "profilu."
 
 #: actions/remotesubscribe.php:112
@@ -3165,7 +3210,7 @@ msgstr "Nie można powtórzyć własnego wpisu."
 msgid "You already repeated that notice."
 msgstr "Już powtórzono ten wpis."
 
-#: actions/repeat.php:114 lib/noticelist.php:629
+#: actions/repeat.php:114 lib/noticelist.php:642
 msgid "Repeated"
 msgstr "Powtórzono"
 
@@ -3180,9 +3225,9 @@ msgid "Replies to %s"
 msgstr "Odpowiedzi na %s"
 
 #: actions/replies.php:127
-#, fuzzy, php-format
+#, php-format
 msgid "Replies to %1$s, page %2$d"
-msgstr "odpowiedzi dla użytkownika %1$s na %2$s."
+msgstr "odpowiedzi dla użytkownika %1$s, strona %2$s"
 
 #: actions/replies.php:144
 #, php-format
@@ -3231,13 +3276,47 @@ msgstr ""
 msgid "Replies to %1$s on %2$s!"
 msgstr "odpowiedzi dla użytkownika %1$s na %2$s."
 
+#: actions/rsd.php:146 actions/version.php:157
+msgid "StatusNet"
+msgstr "StatusNet"
+
 #: actions/sandbox.php:65 actions/unsandbox.php:65
 msgid "You cannot sandbox users on this site."
-msgstr "Nie można ograniczać użytkowników na tej stronie."
+msgstr "Nie można ograniczać użytkowników na tej witrynie."
 
 #: actions/sandbox.php:72
 msgid "User is already sandboxed."
 msgstr "Użytkownik jest już ograniczony."
+
+#: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
+#: lib/adminpanelaction.php:336
+msgid "Sessions"
+msgstr "Sesje"
+
+#: actions/sessionsadminpanel.php:65
+msgid "Session settings for this StatusNet site."
+msgstr "Ustawienia sesji tej witryny StatusNet."
+
+#: actions/sessionsadminpanel.php:175
+msgid "Handle sessions"
+msgstr "Obsługa sesji"
+
+#: actions/sessionsadminpanel.php:177
+msgid "Whether to handle sessions ourselves."
+msgstr "Czy samodzielnie obsługiwać sesje."
+
+#: actions/sessionsadminpanel.php:181
+msgid "Session debugging"
+msgstr "Debugowanie sesji"
+
+#: actions/sessionsadminpanel.php:183
+msgid "Turn on debugging output for sessions."
+msgstr "Włącza wyjście debugowania dla sesji."
+
+#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:336
+#: actions/useradminpanel.php:293
+msgid "Save site settings"
+msgstr "Zapisz ustawienia witryny"
 
 #: actions/showapplication.php:82
 msgid "You must be logged in to view an application."
@@ -3247,21 +3326,21 @@ msgstr "Musisz być zalogowany, aby wyświetlić aplikację."
 msgid "Application profile"
 msgstr "Profil aplikacji"
 
-#: actions/showapplication.php:160 lib/applicationeditform.php:182
+#: actions/showapplication.php:160 lib/applicationeditform.php:180
 msgid "Icon"
 msgstr "Ikona"
 
 #: actions/showapplication.php:170 actions/version.php:195
-#: lib/applicationeditform.php:197
+#: lib/applicationeditform.php:195
 msgid "Name"
 msgstr "Nazwa"
 
-#: actions/showapplication.php:179 lib/applicationeditform.php:224
+#: actions/showapplication.php:179 lib/applicationeditform.php:222
 msgid "Organization"
 msgstr "Organizacja"
 
 #: actions/showapplication.php:188 actions/version.php:198
-#: lib/applicationeditform.php:211 lib/groupeditform.php:172
+#: lib/applicationeditform.php:209 lib/groupeditform.php:172
 msgid "Description"
 msgstr "Opis"
 
@@ -3271,43 +3350,43 @@ msgid "Statistics"
 msgstr "Statystyki"
 
 #: actions/showapplication.php:204
-#, php-format
-msgid "created by %1$s - %2$s access by default - %3$d users"
+#, fuzzy, php-format
+msgid "Created by %1$s - %2$s access by default - %3$d users"
 msgstr "utworzona przez %1$s - domyślny dostęp: %2$s - %3$d użytkowników"
 
 #: actions/showapplication.php:214
 msgid "Application actions"
 msgstr "Czynności aplikacji"
 
-#: actions/showapplication.php:233
+#: actions/showapplication.php:232
 msgid "Reset key & secret"
 msgstr "Przywrócenie klucza i sekretu"
 
-#: actions/showapplication.php:241
+#: actions/showapplication.php:256
 msgid "Application info"
 msgstr "Informacje o aplikacji"
 
-#: actions/showapplication.php:243
+#: actions/showapplication.php:258
 msgid "Consumer key"
 msgstr "Klucz klienta"
 
-#: actions/showapplication.php:248
+#: actions/showapplication.php:263
 msgid "Consumer secret"
 msgstr "Sekret klienta"
 
-#: actions/showapplication.php:253
+#: actions/showapplication.php:268
 msgid "Request token URL"
 msgstr "Adres URL tokenu żądania"
 
-#: actions/showapplication.php:258
+#: actions/showapplication.php:273
 msgid "Access token URL"
 msgstr "Adres URL tokenu żądania"
 
-#: actions/showapplication.php:263
+#: actions/showapplication.php:278
 msgid "Authorize URL"
 msgstr "Adres URL upoważnienia"
 
-#: actions/showapplication.php:268
+#: actions/showapplication.php:283
 msgid ""
 "Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
 "signature method."
@@ -3316,9 +3395,9 @@ msgstr ""
 "nie jest obsługiwana."
 
 #: actions/showfavorites.php:79
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s's favorite notices, page %2$d"
-msgstr "Ulubione wpisy użytkownika %s"
+msgstr "Ulubione wpisy użytkownika %1$s, strona %2$d"
 
 #: actions/showfavorites.php:132
 msgid "Could not retrieve favorite notices."
@@ -3378,9 +3457,9 @@ msgid "%s group"
 msgstr "Grupa %s"
 
 #: actions/showgroup.php:84
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s group, page %2$d"
-msgstr "Członkowie grupy %1$s, strona %2$d"
+msgstr "Grupa %1$s, strona %2$d"
 
 #: actions/showgroup.php:218
 msgid "Group profile"
@@ -3503,9 +3582,9 @@ msgid " tagged %s"
 msgstr " ze znacznikiem %s"
 
 #: actions/showstream.php:79
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s, page %2$d"
-msgstr "%1$s i przyjaciele, strona %2$d"
+msgstr "%1$s, strona %2$d"
 
 #: actions/showstream.php:122
 #, php-format
@@ -3532,13 +3611,13 @@ msgstr "Kanał wpisów dla %s (Atom)"
 msgid "FOAF for %s"
 msgstr "FOAF dla %s"
 
-#: actions/showstream.php:191
+#: actions/showstream.php:200
 #, php-format
 msgid "This is the timeline for %1$s but %2$s hasn't posted anything yet."
 msgstr ""
 "To jest oś czasu dla użytkownika %1$s, ale %2$s nie nic jeszcze nie wysłał."
 
-#: actions/showstream.php:196
+#: actions/showstream.php:205
 msgid ""
 "Seen anything interesting recently? You haven't posted any notices yet, now "
 "would be a good time to start :)"
@@ -3546,7 +3625,7 @@ msgstr ""
 "Widziałeś ostatnio coś interesującego? Nie wysłałeś jeszcze żadnych wpisów, "
 "teraz jest dobry czas, aby zacząć. :)"
 
-#: actions/showstream.php:198
+#: actions/showstream.php:207
 #, php-format
 msgid ""
 "You can try to nudge %1$s or [post something to his or her attention](%%%%"
@@ -3555,7 +3634,7 @@ msgstr ""
 "Można spróbować szturchnąć użytkownika %1$s lub [wysłać coś, co wymaga jego "
 "uwagi](%%%%action.newnotice%%%%?status_textarea=%2$s)."
 
-#: actions/showstream.php:234
+#: actions/showstream.php:243
 #, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3569,7 +3648,7 @@ msgstr ""
 "obserwować wpisy użytkownika **%s** i wiele więcej. ([Przeczytaj więcej](%%%%"
 "doc.help%%%%))"
 
-#: actions/showstream.php:239
+#: actions/showstream.php:248
 #, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3580,14 +3659,14 @@ msgstr ""
 "pl.wikipedia.org/wiki/Mikroblog) opartej na wolnym narzędziu [StatusNet]"
 "(http://status.net/). "
 
-#: actions/showstream.php:313
+#: actions/showstream.php:305
 #, php-format
 msgid "Repeat of %s"
 msgstr "Powtórzenia %s"
 
 #: actions/silence.php:65 actions/unsilence.php:65
 msgid "You cannot silence users on this site."
-msgstr "Nie można wyciszać użytkowników na tej stronie."
+msgstr "Nie można wyciszać użytkowników na tej witrynie."
 
 #: actions/silence.php:72
 msgid "User is already silenced."
@@ -3595,11 +3674,11 @@ msgstr "Użytkownik jest już wyciszony."
 
 #: actions/siteadminpanel.php:69
 msgid "Basic settings for this StatusNet site."
-msgstr "Podstawowe ustawienia tej strony StatusNet."
+msgstr "Podstawowe ustawienia tej witryny StatusNet."
 
 #: actions/siteadminpanel.php:132
 msgid "Site name must have non-zero length."
-msgstr "Nazwa strony nie może mieć zerową długość."
+msgstr "Nazwa witryny nie może mieć zerową długość."
 
 #: actions/siteadminpanel.php:140
 msgid "You must have a valid contact email address."
@@ -3636,7 +3715,7 @@ msgstr "Ogólne"
 
 #: actions/siteadminpanel.php:242
 msgid "Site name"
-msgstr "Nazwa strony"
+msgstr "Nazwa witryny"
 
 #: actions/siteadminpanel.php:243
 msgid "The name of your site, like \"Yourcompany Microblog\""
@@ -3660,7 +3739,7 @@ msgstr "Adres URL używany do odnośnika do zasług w stopce każdej strony"
 
 #: actions/siteadminpanel.php:257
 msgid "Contact email address for your site"
-msgstr "Kontaktowy adres e-mail strony"
+msgstr "Kontaktowy adres e-mail witryny"
 
 #: actions/siteadminpanel.php:263
 msgid "Local"
@@ -3672,11 +3751,11 @@ msgstr "Domyślna strefa czasowa"
 
 #: actions/siteadminpanel.php:275
 msgid "Default timezone for the site; usually UTC."
-msgstr "Domyśla strefa czasowa strony, zwykle UTC."
+msgstr "Domyśla strefa czasowa witryny, zwykle UTC."
 
 #: actions/siteadminpanel.php:281
 msgid "Default site language"
-msgstr "Domyślny język strony"
+msgstr "Domyślny język witryny"
 
 #: actions/siteadminpanel.php:289
 msgid "Snapshots"
@@ -3735,10 +3814,6 @@ msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 "Ile czasu użytkownicy muszą czekać (w sekundach), aby ponownie wysłać to "
 "samo."
-
-#: actions/siteadminpanel.php:336 actions/useradminpanel.php:313
-msgid "Save site settings"
-msgstr "Zapisz ustawienia strony"
 
 #: actions/smssettings.php:58
 msgid "SMS settings"
@@ -3945,9 +4020,9 @@ msgid "SMS"
 msgstr "SMS"
 
 #: actions/tag.php:68
-#, fuzzy, php-format
+#, php-format
 msgid "Notices tagged with %1$s, page %2$d"
-msgstr "Użytkownicy używający znacznika %1$s - strona %2$d"
+msgstr "Wpisy ze znacznikiem %1$s, strona %2$d"
 
 #: actions/tag.php:86
 #, php-format
@@ -4043,7 +4118,7 @@ msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr ""
 "Licencja nasłuchiwanego strumienia \"%1$s\" nie jest zgodna z licencją "
-"strony \"%2$s\"."
+"witryny \"%2$s\"."
 
 #: actions/useradminpanel.php:58 lib/adminpanelaction.php:321
 #: lib/personalgroupnav.php:115
@@ -4052,85 +4127,65 @@ msgstr "Użytkownik"
 
 #: actions/useradminpanel.php:69
 msgid "User settings for this StatusNet site."
-msgstr "Ustawienia użytkownika dla tej strony StatusNet."
+msgstr "Ustawienia użytkownika dla tej witryny StatusNet."
 
-#: actions/useradminpanel.php:149
+#: actions/useradminpanel.php:148
 msgid "Invalid bio limit. Must be numeric."
 msgstr "Nieprawidłowe ograniczenie informacji o sobie. Musi być liczbowa."
 
-#: actions/useradminpanel.php:155
+#: actions/useradminpanel.php:154
 msgid "Invalid welcome text. Max length is 255 characters."
 msgstr "Nieprawidłowy tekst powitania. Maksymalna długość to 255 znaków."
 
-#: actions/useradminpanel.php:165
+#: actions/useradminpanel.php:164
 #, php-format
 msgid "Invalid default subscripton: '%1$s' is not user."
 msgstr "Nieprawidłowa domyślna subskrypcja: \"%1$s\" nie jest użytkownikiem."
 
-#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:108
+#: actions/useradminpanel.php:217 lib/accountsettingsaction.php:108
 #: lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr "Profil"
 
-#: actions/useradminpanel.php:222
+#: actions/useradminpanel.php:221
 msgid "Bio Limit"
 msgstr "Ograniczenie informacji o sobie"
 
-#: actions/useradminpanel.php:223
+#: actions/useradminpanel.php:222
 msgid "Maximum length of a profile bio in characters."
 msgstr "Maksymalna długość informacji o sobie jako liczba znaków."
 
-#: actions/useradminpanel.php:231
+#: actions/useradminpanel.php:230
 msgid "New users"
 msgstr "Nowi użytkownicy"
 
-#: actions/useradminpanel.php:235
+#: actions/useradminpanel.php:234
 msgid "New user welcome"
 msgstr "Powitanie nowego użytkownika"
 
-#: actions/useradminpanel.php:236
+#: actions/useradminpanel.php:235
 msgid "Welcome text for new users (Max 255 chars)."
 msgstr "Tekst powitania nowych użytkowników (maksymalnie 255 znaków)."
 
-#: actions/useradminpanel.php:241
+#: actions/useradminpanel.php:240
 msgid "Default subscription"
 msgstr "Domyślna subskrypcja"
 
-#: actions/useradminpanel.php:242
+#: actions/useradminpanel.php:241
 msgid "Automatically subscribe new users to this user."
 msgstr "Automatyczne subskrybowanie nowych użytkowników do tego użytkownika."
 
-#: actions/useradminpanel.php:251
+#: actions/useradminpanel.php:250
 msgid "Invitations"
 msgstr "Zaproszenia"
 
-#: actions/useradminpanel.php:256
+#: actions/useradminpanel.php:255
 msgid "Invitations enabled"
 msgstr "Zaproszenia są włączone"
 
-#: actions/useradminpanel.php:258
+#: actions/useradminpanel.php:257
 msgid "Whether to allow users to invite new users."
 msgstr "Czy zezwolić użytkownikom zapraszanie nowych użytkowników."
-
-#: actions/useradminpanel.php:265
-msgid "Sessions"
-msgstr "Sesje"
-
-#: actions/useradminpanel.php:270
-msgid "Handle sessions"
-msgstr "Obsługa sesji"
-
-#: actions/useradminpanel.php:272
-msgid "Whether to handle sessions ourselves."
-msgstr "Czy samodzielnie obsługiwać sesje."
-
-#: actions/useradminpanel.php:276
-msgid "Session debugging"
-msgstr "Debugowanie sesji"
-
-#: actions/useradminpanel.php:278
-msgid "Turn on debugging output for sessions."
-msgstr "Włącza wyjście debugowania dla sesji."
 
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
@@ -4182,7 +4237,7 @@ msgid ""
 "subscription. Your subscription token is:"
 msgstr ""
 "Subskrypcja została upoważniona, ale nie przekazano zwrotnego adresu URL. "
-"Sprawdź w instrukcjach strony, jak upoważnić subskrypcję. Token subskrypcji:"
+"Sprawdź w instrukcjach witryny, jak upoważnić subskrypcję. Token subskrypcji:"
 
 #: actions/userauthorization.php:259
 msgid "Subscription rejected"
@@ -4195,7 +4250,7 @@ msgid ""
 "subscription."
 msgstr ""
 "Subskrypcja została odrzucona, ale nie przekazano zwrotnego adresu URL. "
-"Sprawdź w instrukcjach strony, jak w pełni odrzucić subskrypcję."
+"Sprawdź w instrukcjach witryny, jak w pełni odrzucić subskrypcję."
 
 #: actions/userauthorization.php:296
 #, php-format
@@ -4248,9 +4303,9 @@ msgid "Enjoy your hotdog!"
 msgstr "Smacznego hot-doga."
 
 #: actions/usergroups.php:64
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s groups, page %2$d"
-msgstr "Członkowie grupy %1$s, strona %2$d"
+msgstr "Grupy użytkownika %1$s, strona %2$d"
 
 #: actions/usergroups.php:130
 msgid "Search for more groups"
@@ -4277,12 +4332,8 @@ msgid ""
 "This site is powered by %1$s version %2$s, Copyright 2008-2010 StatusNet, "
 "Inc. and contributors."
 msgstr ""
-"Ta strona korzysta z oprogramowania %1$s w wersji %2$s, Copyright 2008-2010 "
+"Ta witryna korzysta z oprogramowania %1$s w wersji %2$s, Copyright 2008-2010 "
 "StatusNet, Inc. i współtwórcy."
-
-#: actions/version.php:157
-msgid "StatusNet"
-msgstr "StatusNet"
 
 #: actions/version.php:161
 msgid "Contributors"
@@ -4416,28 +4467,27 @@ msgstr ""
 
 #: classes/Notice.php:235
 msgid "You are banned from posting notices on this site."
-msgstr "Zabroniono ci wysyłania wpisów na tej stronie."
+msgstr "Zabroniono ci wysyłania wpisów na tej witrynie."
 
 #: classes/Notice.php:294 classes/Notice.php:319
 msgid "Problem saving notice."
 msgstr "Problem podczas zapisywania wpisu."
 
-#: classes/Notice.php:790
-#, fuzzy
+#: classes/Notice.php:788
 msgid "Problem saving group inbox."
-msgstr "Problem podczas zapisywania wpisu."
+msgstr "Problem podczas zapisywania skrzynki odbiorczej grupy."
 
-#: classes/Notice.php:850
+#: classes/Notice.php:848
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Błąd bazy danych podczas wprowadzania odpowiedzi: %s"
 
-#: classes/Notice.php:1233
+#: classes/Notice.php:1231
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
 
-#: classes/User.php:382
+#: classes/User.php:385
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Witaj w %1$s, @%2$s."
@@ -4489,7 +4539,7 @@ msgstr "Strona bez nazwy"
 
 #: lib/action.php:433
 msgid "Primary site navigation"
-msgstr "Główna nawigacja strony"
+msgstr "Główna nawigacja witryny"
 
 #: lib/action.php:439
 msgid "Home"
@@ -4513,7 +4563,7 @@ msgstr "Połącz z serwisami"
 
 #: lib/action.php:448
 msgid "Change site configuration"
-msgstr "Zmień konfigurację strony"
+msgstr "Zmień konfigurację witryny"
 
 #: lib/action.php:452 lib/subgroupnav.php:105
 msgid "Invite"
@@ -4530,7 +4580,7 @@ msgstr "Wyloguj się"
 
 #: lib/action.php:458
 msgid "Logout from the site"
-msgstr "Wyloguj się ze strony"
+msgstr "Wyloguj się z witryny"
 
 #: lib/action.php:463
 msgid "Create an account"
@@ -4538,7 +4588,7 @@ msgstr "Utwórz konto"
 
 #: lib/action.php:466
 msgid "Login to the site"
-msgstr "Zaloguj się na stronę"
+msgstr "Zaloguj się na witrynie"
 
 #: lib/action.php:469 lib/action.php:732
 msgid "Help"
@@ -4558,7 +4608,7 @@ msgstr "Wyszukaj osoby lub tekst"
 
 #: lib/action.php:493
 msgid "Site notice"
-msgstr "Wpis strony"
+msgstr "Wpis witryny"
 
 #: lib/action.php:559
 msgid "Local views"
@@ -4570,7 +4620,7 @@ msgstr "Wpis strony"
 
 #: lib/action.php:727
 msgid "Secondary site navigation"
-msgstr "Druga nawigacja strony"
+msgstr "Druga nawigacja witryny"
 
 #: lib/action.php:734
 msgid "About"
@@ -4631,7 +4681,7 @@ msgstr ""
 
 #: lib/action.php:801
 msgid "Site content license"
-msgstr "Licencja zawartości strony"
+msgstr "Licencja zawartości witryny"
 
 #: lib/action.php:806
 #, php-format
@@ -4673,7 +4723,7 @@ msgstr "Wcześniej"
 
 #: lib/adminpanelaction.php:96
 msgid "You cannot make changes to this site."
-msgstr "Nie można wprowadzić zmian strony."
+msgstr "Nie można wprowadzić zmian witryny."
 
 #: lib/adminpanelaction.php:107
 msgid "Changes to that panel are not allowed."
@@ -4693,84 +4743,99 @@ msgstr "Nie można usunąć ustawienia wyglądu."
 
 #: lib/adminpanelaction.php:312
 msgid "Basic site configuration"
-msgstr "Podstawowa konfiguracja strony"
+msgstr "Podstawowa konfiguracja witryny"
 
 #: lib/adminpanelaction.php:317
 msgid "Design configuration"
 msgstr "Konfiguracja wyglądu"
 
 #: lib/adminpanelaction.php:322
-#, fuzzy
 msgid "User configuration"
-msgstr "Konfiguracja ścieżek"
+msgstr "Konfiguracja użytkownika"
 
 #: lib/adminpanelaction.php:327
-#, fuzzy
 msgid "Access configuration"
-msgstr "Konfiguracja wyglądu"
+msgstr "Konfiguracja dostępu"
 
 #: lib/adminpanelaction.php:332
 msgid "Paths configuration"
 msgstr "Konfiguracja ścieżek"
 
+#: lib/adminpanelaction.php:337
+msgid "Sessions configuration"
+msgstr "Konfiguracja sesji"
+
+#: lib/apiauth.php:99
+msgid "API resource requires read-write access, but you only have read access."
+msgstr ""
+"Zasób API wymaga dostępu do zapisu i do odczytu, ale powiadasz dostęp tylko "
+"do odczytu."
+
+#: lib/apiauth.php:279
+#, php-format
+msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
+msgstr ""
+"Próba uwierzytelnienia API nie powiodła się, pseudonim = %1$s, pośrednik = %2"
+"$s, IP = %3$s"
+
 #: lib/applicationeditform.php:136
 msgid "Edit application"
 msgstr "Zmodyfikuj aplikację"
 
-#: lib/applicationeditform.php:186
+#: lib/applicationeditform.php:184
 msgid "Icon for this application"
 msgstr "Ikona tej aplikacji"
 
-#: lib/applicationeditform.php:206
+#: lib/applicationeditform.php:204
 #, php-format
 msgid "Describe your application in %d characters"
 msgstr "Opisz aplikację w %d znakach"
 
-#: lib/applicationeditform.php:209
+#: lib/applicationeditform.php:207
 msgid "Describe your application"
 msgstr "Opisz aplikację"
 
-#: lib/applicationeditform.php:218
+#: lib/applicationeditform.php:216
 msgid "Source URL"
 msgstr "Źródłowy adres URL"
 
-#: lib/applicationeditform.php:220
+#: lib/applicationeditform.php:218
 msgid "URL of the homepage of this application"
 msgstr "Adres URL strony domowej tej aplikacji"
 
-#: lib/applicationeditform.php:226
+#: lib/applicationeditform.php:224
 msgid "Organization responsible for this application"
 msgstr "Organizacja odpowiedzialna za tę aplikację"
 
-#: lib/applicationeditform.php:232
+#: lib/applicationeditform.php:230
 msgid "URL for the homepage of the organization"
 msgstr "Adres URL strony domowej organizacji"
 
-#: lib/applicationeditform.php:238
+#: lib/applicationeditform.php:236
 msgid "URL to redirect to after authentication"
 msgstr "Adres URL do przekierowania po uwierzytelnieniu"
 
-#: lib/applicationeditform.php:260
+#: lib/applicationeditform.php:258
 msgid "Browser"
 msgstr "Przeglądarka"
 
-#: lib/applicationeditform.php:276
+#: lib/applicationeditform.php:274
 msgid "Desktop"
 msgstr "Pulpit"
 
-#: lib/applicationeditform.php:277
+#: lib/applicationeditform.php:275
 msgid "Type of application, browser or desktop"
 msgstr "Typ aplikacji, przeglądarka lub pulpit"
 
-#: lib/applicationeditform.php:299
+#: lib/applicationeditform.php:297
 msgid "Read-only"
 msgstr "Tylko do odczytu"
 
-#: lib/applicationeditform.php:317
+#: lib/applicationeditform.php:315
 msgid "Read-write"
 msgstr "Odczyt i zapis"
 
-#: lib/applicationeditform.php:318
+#: lib/applicationeditform.php:316
 msgid "Default access for this application: read-only, or read-write"
 msgstr ""
 "Domyślny dostęp do tej aplikacji: tylko do odczytu lub do odczytu i zapisu"
@@ -4799,11 +4864,11 @@ msgstr "Powiadamia, kiedy pojawia się ten załącznik"
 msgid "Tags for this attachment"
 msgstr "Znaczniki dla tego załącznika"
 
-#: lib/authenticationplugin.php:214 lib/authenticationplugin.php:219
+#: lib/authenticationplugin.php:218 lib/authenticationplugin.php:223
 msgid "Password changing failed"
 msgstr "Zmiana hasła nie powiodła się"
 
-#: lib/authenticationplugin.php:229
+#: lib/authenticationplugin.php:233
 msgid "Password changing is not allowed"
 msgstr "Zmiana hasła nie jest dozwolona"
 
@@ -5112,19 +5177,19 @@ msgstr ""
 "tracks - jeszcze nie zaimplementowano\n"
 "tracking - jeszcze nie zaimplementowano\n"
 
-#: lib/common.php:131
+#: lib/common.php:135
 msgid "No configuration file found. "
 msgstr "Nie odnaleziono pliku konfiguracji."
 
-#: lib/common.php:132
+#: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
 msgstr "Szukano plików konfiguracji w następujących miejscach: "
 
-#: lib/common.php:134
+#: lib/common.php:138
 msgid "You may wish to run the installer to fix this."
 msgstr "Należy uruchomić instalator, aby to naprawić."
 
-#: lib/common.php:135
+#: lib/common.php:139
 msgid "Go to the installer."
 msgstr "Przejdź do instalatora."
 
@@ -5769,23 +5834,23 @@ msgstr "Zachód"
 msgid "at"
 msgstr "w"
 
-#: lib/noticelist.php:531
+#: lib/noticelist.php:547
 msgid "in context"
 msgstr "w rozmowie"
 
-#: lib/noticelist.php:556
+#: lib/noticelist.php:572
 msgid "Repeated by"
 msgstr "Powtórzone przez"
 
-#: lib/noticelist.php:585
+#: lib/noticelist.php:598
 msgid "Reply to this notice"
 msgstr "Odpowiedz na ten wpis"
 
-#: lib/noticelist.php:586
+#: lib/noticelist.php:599
 msgid "Reply"
 msgstr "Odpowiedz"
 
-#: lib/noticelist.php:628
+#: lib/noticelist.php:641
 msgid "Notice repeated"
 msgstr "Powtórzono wpis"
 
@@ -5926,6 +5991,10 @@ msgstr "Powtórzyć ten wpis?"
 msgid "Repeat this notice"
 msgstr "Powtórz ten wpis"
 
+#: lib/router.php:665
+msgid "No single user defined for single-user mode."
+msgstr ""
+
 #: lib/sandboxform.php:67
 msgid "Sandbox"
 msgstr "Ogranicz"
@@ -5936,7 +6005,7 @@ msgstr "Ogranicz tego użytkownika"
 
 #: lib/searchaction.php:120
 msgid "Search site"
-msgstr "Przeszukaj stronę"
+msgstr "Przeszukaj witrynę"
 
 #: lib/searchaction.php:126
 msgid "Keyword(s)"
@@ -5952,7 +6021,7 @@ msgstr "Osoby"
 
 #: lib/searchgroupnav.php:81
 msgid "Find people on this site"
-msgstr "Znajdź osoby na tej stronie"
+msgstr "Znajdź osoby na tej witrynie"
 
 #: lib/searchgroupnav.php:83
 msgid "Find content of notices"
@@ -5960,7 +6029,7 @@ msgstr "Przeszukaj zawartość wpisów"
 
 #: lib/searchgroupnav.php:85
 msgid "Find groups on this site"
-msgstr "Znajdź grupy na tej stronie"
+msgstr "Znajdź grupy na tej witrynie"
 
 #: lib/section.php:89
 msgid "Untitled section"
@@ -6091,47 +6160,47 @@ msgstr "Wiadomość"
 msgid "Moderate"
 msgstr "Moderuj"
 
-#: lib/util.php:868
+#: lib/util.php:867
 msgid "a few seconds ago"
 msgstr "kilka sekund temu"
 
-#: lib/util.php:870
+#: lib/util.php:869
 msgid "about a minute ago"
 msgstr "około minutę temu"
 
-#: lib/util.php:872
+#: lib/util.php:871
 #, php-format
 msgid "about %d minutes ago"
 msgstr "około %d minut temu"
 
-#: lib/util.php:874
+#: lib/util.php:873
 msgid "about an hour ago"
 msgstr "około godzinę temu"
 
-#: lib/util.php:876
+#: lib/util.php:875
 #, php-format
 msgid "about %d hours ago"
 msgstr "około %d godzin temu"
 
-#: lib/util.php:878
+#: lib/util.php:877
 msgid "about a day ago"
 msgstr "blisko dzień temu"
 
-#: lib/util.php:880
+#: lib/util.php:879
 #, php-format
 msgid "about %d days ago"
 msgstr "około %d dni temu"
 
-#: lib/util.php:882
+#: lib/util.php:881
 msgid "about a month ago"
 msgstr "około miesiąc temu"
 
-#: lib/util.php:884
+#: lib/util.php:883
 #, php-format
 msgid "about %d months ago"
 msgstr "około %d miesięcy temu"
 
-#: lib/util.php:886
+#: lib/util.php:885
 msgid "about a year ago"
 msgstr "około rok temu"
 

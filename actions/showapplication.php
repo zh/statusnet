@@ -201,7 +201,7 @@ class ShowApplicationAction extends OwnerDesignAction
         $userCnt = $appUsers->count();
 
         $this->raw(sprintf(
-            _('created by %1$s - %2$s access by default - %3$d users'),
+            _('Created by %1$s - %2$s access by default - %3$d users'),
               $profile->getBestName(),
               $defaultAccess,
               $userCnt
@@ -222,18 +222,33 @@ class ShowApplicationAction extends OwnerDesignAction
 
         $this->elementStart('li', 'entity_reset_keysecret');
         $this->elementStart('form', array(
-            'id' => 'forma_reset_key',
+            'id' => 'form_reset_key',
             'class' => 'form_reset_key',
             'method' => 'POST',
             'action' => common_local_url('showapplication',
                                          array('id' => $this->application->id))));
-
         $this->elementStart('fieldset');
         $this->hidden('token', common_session_token());
         $this->submit('reset', _('Reset key & secret'));
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
         $this->elementEnd('li');
+
+        $this->elementStart('li', 'entity_delete');
+        $this->elementStart('form', array(
+                                          'id' => 'form_delete_application',
+                                          'class' => 'form_delete_application',
+                                          'method' => 'POST',
+                                          'action' => common_local_url('deleteapplication',
+                                                                       array('id' => $this->application->id))));
+
+        $this->elementStart('fieldset');
+        $this->hidden('token', common_session_token());
+        $this->submit('delete', _('Delete'));
+        $this->elementEnd('fieldset');
+        $this->elementEnd('form');
+        $this->elementEnd('li');
+
         $this->elementEnd('ul');
         $this->elementEnd('div');
 

@@ -73,6 +73,8 @@ class Router
 
         if (Event::handle('StartInitializeRouter', array(&$m))) {
 
+            $m->connect('robots.txt', array('action' => 'robotstxt'));
+
             $m->connect('opensearch/people', array('action' => 'opensearch',
                                                    'type' => 'people'));
             $m->connect('opensearch/notice', array('action' => 'opensearch',
@@ -148,6 +150,10 @@ class Router
             );
             $m->connect('settings/oauthapps/edit/:id',
                 array('action' => 'editapplication'),
+                array('id' => '[0-9]+')
+            );
+            $m->connect('settings/oauthapps/delete/:id',
+                array('action' => 'deleteapplication'),
                 array('id' => '[0-9]+')
             );
 
@@ -637,8 +643,9 @@ class Router
             $m->connect('admin/site', array('action' => 'siteadminpanel'));
             $m->connect('admin/design', array('action' => 'designadminpanel'));
             $m->connect('admin/user', array('action' => 'useradminpanel'));
-	    $m->connect('admin/access', array('action' => 'accessadminpanel'));
+	        $m->connect('admin/access', array('action' => 'accessadminpanel'));
             $m->connect('admin/paths', array('action' => 'pathsadminpanel'));
+            $m->connect('admin/sessions', array('action' => 'sessionsadminpanel'));
 
             $m->connect('getfile/:filename',
                         array('action' => 'getfile'),
@@ -648,7 +655,16 @@ class Router
 
             if (common_config('singleuser', 'enabled')) {
 
-                $nickname = common_config('singleuser', 'nickname');
+                $user = User::siteOwner();
+
+                if (!empty($user)) {
+                    $nickname = $user->nickname;
+                } else {
+                    $nickname = common_config('singleuser', 'nickname');
+                    if (empty($nickname)) {
+                        throw new ServerException(_("No single user defined for single-user mode."));
+                    }
+                }
 
                 foreach (array('subscriptions', 'subscribers',
                                'all', 'foaf', 'xrds',
@@ -696,6 +712,10 @@ class Router
                                   'nickname' => $nickname),
                             array('tag' => '[a-zA-Z0-9]+'));
 
+                $m->connect('rsd.xml',
+                            array('action' => 'rsd',
+                                  'nickname' => $nickname));
+
                 $m->connect('',
                             array('action' => 'showstream',
                                   'nickname' => $nickname));
@@ -710,6 +730,7 @@ class Router
                 $m->connect('featured', array('action' => 'featured'));
                 $m->connect('favorited/', array('action' => 'favorited'));
                 $m->connect('favorited', array('action' => 'favorited'));
+                $m->connect('rsd.xml', array('action' => 'rsd'));
 
                 foreach (array('subscriptions', 'subscribers',
                                'nudge', 'all', 'foaf', 'xrds',
@@ -756,6 +777,10 @@ class Router
                             array('action' => 'showstream'),
                             array('nickname' => '[a-zA-Z0-9]{1,64}'),
                             array('tag' => '[a-zA-Z0-9]+'));
+
+                $m->connect(':nickname/rsd.xml',
+                            array('action' => 'rsd'),
+                            array('nickname' => '[a-zA-Z0-9]{1,64}'));
 
                 $m->connect(':nickname',
                             array('action' => 'showstream'),

@@ -172,6 +172,15 @@ class ShowstreamAction extends ProfileAction
         $this->element('link', array('rel' => 'microsummary',
                                      'href' => common_local_url('microsummary',
                                                                 array('nickname' => $this->profile->nickname))));
+
+        $rsd = common_local_url('rsd',
+                                array('nickname' => $this->profile->nickname));
+
+        // RSD, http://tales.phrasewise.com/rfc/rsd
+        $this->element('link', array('rel' => 'EditURI',
+                                     'type' => 'application/rsd+xml',
+                                     'href' => $rsd));
+
     }
 
     function showProfile()
