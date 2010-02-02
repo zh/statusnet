@@ -137,4 +137,21 @@ class Oauth_application extends Memcached_DataObject
         }
     }
 
+    function delete()
+    {
+        $this->_deleteAppUsers();
+
+        $consumer = $this->getConsumer();
+        $consumer->delete();
+
+        parent::delete();
+    }
+
+    function _deleteAppUsers()
+    {
+        $oauser = new Oauth_application_user();
+        $oauser->application_id = $this->id;
+        $oauser->delete();
+    }
+
 }
