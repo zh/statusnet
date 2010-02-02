@@ -189,7 +189,8 @@ button.close,
 .notice-options .repeated,
 .form_notice label[for=notice_data-geo],
 button.minimize,
-.form_reset_key input.submit {
+.form_reset_key input.submit,
+.entity_clear input.submit {
 background-image:url(../../base/images/icons/icons-01.gif);
 background-repeat:no-repeat;
 background-color:transparent;
@@ -337,6 +338,9 @@ background-position: 5px -1511px;
 }
 .form_reset_key input.submit {
 background-position: 5px -1973px;
+}
+.entity_clear input.submit {
+background-position: 5px -2039px;
 }
 
 /* NOTICES */
