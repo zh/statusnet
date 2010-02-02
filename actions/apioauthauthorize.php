@@ -99,24 +99,17 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
 
         } else {
 
-            // XXX: make better error messages
-
             if (empty($this->oauth_token)) {
-
-                common_debug("No request token found.");
-
-                $this->clientError(_('Bad request.'));
+                $this->clientError(_('No oauth_token parameter provided.'));
                 return;
             }
 
             if (empty($this->app)) {
-                common_debug('No app for that token.');
-                $this->clientError(_('Bad request.'));
+                $this->clientError(_('Invalid token.'));
                 return;
             }
 
             $name = $this->app->name;
-            common_debug("Requesting auth for app: " . $name);
 
             $this->showForm();
         }
@@ -124,8 +117,6 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
 
     function handlePost()
     {
-        common_debug("handlePost()");
-
         // check session token for CSRF protection.
 
         $token = $this->trimmed('token');
@@ -210,12 +201,8 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
 
             if (!empty($this->callback)) {
 
-                // XXX: Need better way to build this redirect url.
-
                 $target_url = $this->getCallback($this->callback,
                                                  array('oauth_token' => $this->oauth_token));
-
-                common_debug("Doing callback to $target_url");
 
                 common_redirect($target_url, 303);
             } else {
@@ -236,9 +223,12 @@ class ApiOauthAuthorizeAction extends ApiOauthAction
 
         } else if ($this->arg('deny')) {
 
+            $datastore = new ApiStatusNetOAuthDataStore();
+            $datastore->revoke_token($this->oauth_token, 0);
+
             $this->elementStart('p');
 
-            $this->raw(sprintf(_("The request token %s has been denied."),
+            $this->raw(sprintf(_("The request token %s has been denied and revoked."),
                                $this->oauth_token));
 
             $this->elementEnd('p');

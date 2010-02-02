@@ -230,7 +230,7 @@ create table oauth_application (
 create table oauth_application_user (
     profile_id integer not null comment 'user of the application' references profile (id),
     application_id integer not null comment 'id of the application' references oauth_application (id),
-    access_type tinyint default 0 comment 'access type, bit 1 = read, bit 2 = write, bit 3 = revoked',
+    access_type tinyint default 0 comment 'access type, bit 1 = read, bit 2 = write',
     token varchar(255) comment 'request or access token',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
