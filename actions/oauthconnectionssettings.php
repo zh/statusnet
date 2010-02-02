@@ -33,6 +33,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 
 require_once INSTALLDIR . '/lib/connectsettingsaction.php';
 require_once INSTALLDIR . '/lib/applicationlist.php';
+require_once INSTALLDIR . '/lib/apioauthstore.php';
 
 /**
  * Show connected OAuth applications
@@ -69,11 +70,6 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
     function title()
     {
         return _('Connected applications');
-    }
-
-    function isReadOnly($args)
-    {
-        return true;
     }
 
     /**
@@ -153,6 +149,13 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
         }
     }
 
+    /**
+     * Revoke access to an authorized OAuth application
+     *
+     * @param int $appId the ID of the application
+     *
+     */
+
     function revokeAccess($appId)
     {
         $cur = common_current_user();
@@ -164,6 +167,8 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
             return false;
         }
 
+        // XXX: Transaction here?
+
         $appUser = Oauth_application_user::getByKeys($cur, $app);
 
         if (empty($appUser)) {
@@ -171,12 +176,13 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
             return false;
         }
 
-        $orig = clone($appUser);
-        $appUser->access_type = 0;  // No access
-        $result = $appUser->update();
+        $datastore = new ApiStatusNetOAuthDataStore();
+        $datastore->revoke_token($appUser->token, 1);
+
+        $result = $appUser->delete();
 
         if (!$result) {
-            common_log_db_error($orig, 'UPDATE', __FILE__);
+            common_log_db_error($orig, 'DELETE', __FILE__);
             $this->clientError(_('Unable to revoke access for app: ' . $app->id));
             return false;
         }
