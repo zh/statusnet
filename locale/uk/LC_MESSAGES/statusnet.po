@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-30 23:41+0000\n"
-"PO-Revision-Date: 2010-01-30 23:42:53+0000\n"
+"POT-Creation-Date: 2010-02-02 19:19+0000\n"
+"PO-Revision-Date: 2010-02-02 19:22:16+0000\n"
 "Language-Team: Ukrainian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61734); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61864); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: out-statusnet\n"
@@ -97,7 +97,7 @@ msgstr "Немає такої сторінки"
 #: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
 #: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:76
 #: actions/remotesubscribe.php:145 actions/remotesubscribe.php:154
-#: actions/replies.php:73 actions/repliesrss.php:38
+#: actions/replies.php:73 actions/repliesrss.php:38 actions/rsd.php:116
 #: actions/showfavorites.php:105 actions/userbyid.php:74
 #: actions/usergroups.php:91 actions/userrss.php:38 actions/xrds.php:71
 #: lib/command.php:163 lib/command.php:302 lib/command.php:355
@@ -158,7 +158,7 @@ msgstr ""
 "Ви можете [«розштовхати» %1$s](../%2$s) зі сторінки його профілю або [щось "
 "йому написати](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 
-#: actions/all.php:137 actions/replies.php:209 actions/showstream.php:202
+#: actions/all.php:137 actions/replies.php:209 actions/showstream.php:211
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
@@ -388,8 +388,8 @@ msgstr "Це ім’я вже використовується. Спробуйт
 msgid "Not a valid nickname."
 msgstr "Це недійсне ім’я користувача."
 
-#: actions/apigroupcreate.php:196 actions/editapplication.php:212
-#: actions/editgroup.php:195 actions/newapplication.php:200
+#: actions/apigroupcreate.php:196 actions/editapplication.php:215
+#: actions/editgroup.php:195 actions/newapplication.php:203
 #: actions/newgroup.php:139 actions/profilesettings.php:222
 #: actions/register.php:217
 msgid "Homepage is not a valid URL."
@@ -401,8 +401,8 @@ msgstr "Веб-сторінка має недійсну URL-адресу."
 msgid "Full name is too long (max 255 chars)."
 msgstr "Повне ім’я задовге (255 знаків максимум)"
 
-#: actions/apigroupcreate.php:213 actions/editapplication.php:187
-#: actions/newapplication.php:169
+#: actions/apigroupcreate.php:213 actions/editapplication.php:190
+#: actions/newapplication.php:172
 #, php-format
 msgid "Description is too long (max %d chars)."
 msgstr "Опис надто довгий (%d знаків максимум)."
@@ -479,18 +479,23 @@ msgstr "%s групи"
 msgid "groups on %s"
 msgstr "групи на %s"
 
-#: actions/apioauthauthorize.php:108 actions/apioauthauthorize.php:114
-msgid "Bad request."
-msgstr "Невірний запит."
+#: actions/apioauthauthorize.php:101
+msgid "No oauth_token parameter provided."
+msgstr ""
 
-#: actions/apioauthauthorize.php:134 actions/avatarsettings.php:268
+#: actions/apioauthauthorize.php:106
+#, fuzzy
+msgid "Invalid token."
+msgstr "Недійсний розмір."
+
+#: actions/apioauthauthorize.php:123 actions/avatarsettings.php:268
 #: actions/deletenotice.php:157 actions/disfavor.php:74
-#: actions/emailsettings.php:238 actions/favor.php:75 actions/geocode.php:50
+#: actions/emailsettings.php:238 actions/favor.php:75 actions/geocode.php:54
 #: actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
 #: actions/invite.php:56 actions/login.php:115 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
-#: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:139
+#: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:135
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:194 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
@@ -502,19 +507,19 @@ msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 "Виникли певні проблеми з токеном поточної сесії. Спробуйте знов, будь ласка."
 
-#: actions/apioauthauthorize.php:146
+#: actions/apioauthauthorize.php:135
 msgid "Invalid nickname / password!"
 msgstr "Недійсне ім’я / пароль!"
 
-#: actions/apioauthauthorize.php:170
+#: actions/apioauthauthorize.php:159
 msgid "Database error deleting OAuth application user."
 msgstr "Помилка бази даних при видаленні користувача OAuth-додатку."
 
-#: actions/apioauthauthorize.php:196
+#: actions/apioauthauthorize.php:185
 msgid "Database error inserting OAuth application user."
 msgstr "Помилка бази даних при додаванні користувача OAuth-додатку."
 
-#: actions/apioauthauthorize.php:231
+#: actions/apioauthauthorize.php:214
 #, php-format
 msgid ""
 "The request token %s has been authorized. Please exchange it for an access "
@@ -523,53 +528,61 @@ msgstr ""
 "Токен запиту %s було авторизовано. Будь ласка, обміняйте його на токен "
 "доступу."
 
-#: actions/apioauthauthorize.php:241
-#, php-format
-msgid "The request token %s has been denied."
+#: actions/apioauthauthorize.php:227
+#, fuzzy, php-format
+msgid "The request token %s has been denied and revoked."
 msgstr "Токен запиту %s було відхилено."
 
-#: actions/apioauthauthorize.php:246 actions/avatarsettings.php:281
+#: actions/apioauthauthorize.php:232 actions/avatarsettings.php:281
 #: actions/designadminpanel.php:103 actions/editapplication.php:139
 #: actions/emailsettings.php:256 actions/grouplogo.php:319
 #: actions/imsettings.php:220 actions/newapplication.php:121
-#: actions/oauthconnectionssettings.php:151 actions/recoverpassword.php:44
+#: actions/oauthconnectionssettings.php:147 actions/recoverpassword.php:44
 #: actions/smssettings.php:248 lib/designsettings.php:304
 msgid "Unexpected form submission."
 msgstr "Несподіване представлення форми."
 
-#: actions/apioauthauthorize.php:273
+#: actions/apioauthauthorize.php:259
 msgid "An application would like to connect to your account"
 msgstr "Запит на дозвіл під’єднатися до Вашого облікового запису"
 
-#: actions/apioauthauthorize.php:290
+#: actions/apioauthauthorize.php:276
 msgid "Allow or deny access"
 msgstr "Дозволити або заборонити доступ"
 
-#: actions/apioauthauthorize.php:320 lib/action.php:441
+#: actions/apioauthauthorize.php:292
+#, php-format
+msgid ""
+"The application <strong>%1$s</strong> by <strong>%2$s</strong> would like "
+"the ability to <strong>%3$s</strong> your %4$s account data. You should only "
+"give access to your %4$s account to third parties you trust."
+msgstr ""
+
+#: actions/apioauthauthorize.php:310 lib/action.php:441
 msgid "Account"
 msgstr "Акаунт"
 
-#: actions/apioauthauthorize.php:323 actions/login.php:230
+#: actions/apioauthauthorize.php:313 actions/login.php:230
 #: actions/profilesettings.php:106 actions/register.php:424
 #: actions/showgroup.php:236 actions/tagother.php:94 lib/groupeditform.php:152
 #: lib/userprofile.php:131
 msgid "Nickname"
 msgstr "Ім’я користувача"
 
-#: actions/apioauthauthorize.php:326 actions/login.php:233
+#: actions/apioauthauthorize.php:316 actions/login.php:233
 #: actions/register.php:429 lib/accountsettingsaction.php:116
 msgid "Password"
 msgstr "Пароль"
 
-#: actions/apioauthauthorize.php:338
+#: actions/apioauthauthorize.php:328
 msgid "Deny"
 msgstr "Відхилити"
 
-#: actions/apioauthauthorize.php:344
+#: actions/apioauthauthorize.php:334
 msgid "Allow"
 msgstr "Дозволити"
 
-#: actions/apioauthauthorize.php:361
+#: actions/apioauthauthorize.php:351
 msgid "Allow or deny access to your account information."
 msgstr "Дозволити або заборонити доступ до Вашого облікового запису."
 
@@ -740,8 +753,8 @@ msgstr "Оригінал"
 msgid "Preview"
 msgstr "Перегляд"
 
-#: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:608
+#: actions/avatarsettings.php:149 actions/showapplication.php:247
+#: lib/deleteuserform.php:66 lib/noticelist.php:624
 msgid "Delete"
 msgstr "Видалити"
 
@@ -791,8 +804,9 @@ msgstr ""
 "відписано від Вас, він не зможе підписитасть до Вас у майбутньому і Ви "
 "більше не отримуватимете жодних дописів від нього."
 
-#: actions/block.php:143 actions/deletenotice.php:145
-#: actions/deleteuser.php:147 actions/groupblock.php:178
+#: actions/block.php:143 actions/deleteapplication.php:153
+#: actions/deletenotice.php:145 actions/deleteuser.php:147
+#: actions/groupblock.php:178
 msgid "No"
 msgstr "Ні"
 
@@ -800,9 +814,9 @@ msgstr "Ні"
 msgid "Do not block this user"
 msgstr "Не блокувати цього користувача"
 
-#: actions/block.php:144 actions/deletenotice.php:146
-#: actions/deleteuser.php:148 actions/groupblock.php:179
-#: lib/repeatform.php:132
+#: actions/block.php:144 actions/deleteapplication.php:158
+#: actions/deletenotice.php:146 actions/deleteuser.php:148
+#: actions/groupblock.php:179 lib/repeatform.php:132
 msgid "Yes"
 msgstr "Так"
 
@@ -906,6 +920,52 @@ msgstr "Розмова"
 msgid "Notices"
 msgstr "Дописи"
 
+#: actions/deleteapplication.php:63
+#, fuzzy
+msgid "You must be logged in to delete an application."
+msgstr "Ви маєте спочатку увійти, аби мати змогу керувати додатком."
+
+#: actions/deleteapplication.php:71
+#, fuzzy
+msgid "Application not found."
+msgstr "Інфо додатку"
+
+#: actions/deleteapplication.php:78 actions/editapplication.php:77
+#: actions/showapplication.php:94
+msgid "You are not the owner of this application."
+msgstr "Ви не є власником цього додатку."
+
+#: actions/deleteapplication.php:102 actions/editapplication.php:127
+#: actions/newapplication.php:110 actions/showapplication.php:118
+#: lib/action.php:1195
+msgid "There was a problem with your session token."
+msgstr "Виникли певні проблеми з токеном поточної сесії."
+
+#: actions/deleteapplication.php:123 actions/deleteapplication.php:147
+#, fuzzy
+msgid "Delete application"
+msgstr "Керувати додатками"
+
+#: actions/deleteapplication.php:149
+#, fuzzy
+msgid ""
+"Are you sure you want to delete this application? This will clear all data "
+"about the application from the database, including all existing user "
+"connections."
+msgstr ""
+"Впевнені, що бажаєте видалити цього користувача? Усі дані буде знищено без "
+"можливості відновлення."
+
+#: actions/deleteapplication.php:156
+#, fuzzy
+msgid "Do not delete this application"
+msgstr "Не видаляти цей допис"
+
+#: actions/deleteapplication.php:160
+#, fuzzy
+msgid "Delete this application"
+msgstr "Іконка для цього додатку"
+
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
@@ -938,7 +998,7 @@ msgstr "Ви впевненні, що бажаєте видалити цей д�
 msgid "Do not delete this notice"
 msgstr "Не видаляти цей допис"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:608
+#: actions/deletenotice.php:146 lib/noticelist.php:624
 msgid "Delete this notice"
 msgstr "Видалити допис"
 
@@ -1082,7 +1142,7 @@ msgstr "Цей допис не є обраним!"
 msgid "Add to favorites"
 msgstr "Додати до обраних"
 
-#: actions/doc.php:155
+#: actions/doc.php:158
 #, php-format
 msgid "No such document \"%s\""
 msgstr "Немає такого документа «%s»"
@@ -1095,19 +1155,10 @@ msgstr "Керувати додатками"
 msgid "You must be logged in to edit an application."
 msgstr "Ви маєте спочатку увійти, аби мати змогу керувати додатком."
 
-#: actions/editapplication.php:77 actions/showapplication.php:94
-msgid "You are not the owner of this application."
-msgstr "Ви не є власником цього додатку."
-
-#: actions/editapplication.php:81 actions/oauthconnectionssettings.php:163
+#: actions/editapplication.php:81 actions/oauthconnectionssettings.php:166
 #: actions/showapplication.php:87
 msgid "No such application."
 msgstr "Такого додатку немає."
-
-#: actions/editapplication.php:127 actions/newapplication.php:110
-#: actions/showapplication.php:118 lib/action.php:1195
-msgid "There was a problem with your session token."
-msgstr "Виникли певні проблеми з токеном поточної сесії."
 
 #: actions/editapplication.php:161
 msgid "Use this form to edit your application."
@@ -1117,43 +1168,48 @@ msgstr "Скористайтесь цією формою, щоб відреда�
 msgid "Name is required."
 msgstr "Потрібне ім’я."
 
-#: actions/editapplication.php:180 actions/newapplication.php:162
+#: actions/editapplication.php:180 actions/newapplication.php:165
 msgid "Name is too long (max 255 chars)."
 msgstr "Ім’я задовге (255 знаків максимум)."
 
-#: actions/editapplication.php:183 actions/newapplication.php:165
+#: actions/editapplication.php:183 actions/newapplication.php:162
+#, fuzzy
+msgid "Name already in use. Try another one."
+msgstr "Це ім’я вже використовується. Спробуйте інше."
+
+#: actions/editapplication.php:186 actions/newapplication.php:168
 msgid "Description is required."
 msgstr "Потрібен опис."
 
-#: actions/editapplication.php:191
+#: actions/editapplication.php:194
 msgid "Source URL is too long."
 msgstr "URL-адреса надто довга."
 
-#: actions/editapplication.php:197 actions/newapplication.php:182
+#: actions/editapplication.php:200 actions/newapplication.php:185
 msgid "Source URL is not valid."
 msgstr "URL-адреса не є дійсною."
 
-#: actions/editapplication.php:200 actions/newapplication.php:185
+#: actions/editapplication.php:203 actions/newapplication.php:188
 msgid "Organization is required."
 msgstr "Потрібна організація."
 
-#: actions/editapplication.php:203 actions/newapplication.php:188
+#: actions/editapplication.php:206 actions/newapplication.php:191
 msgid "Organization is too long (max 255 chars)."
 msgstr "Назва організації надто довга (255 знаків максимум)."
 
-#: actions/editapplication.php:206 actions/newapplication.php:191
+#: actions/editapplication.php:209 actions/newapplication.php:194
 msgid "Organization homepage is required."
 msgstr "Потрібна домашня сторінка організації."
 
-#: actions/editapplication.php:215 actions/newapplication.php:203
+#: actions/editapplication.php:218 actions/newapplication.php:206
 msgid "Callback is too long."
 msgstr "Форма зворотнього дзвінка надто довга."
 
-#: actions/editapplication.php:222 actions/newapplication.php:212
+#: actions/editapplication.php:225 actions/newapplication.php:215
 msgid "Callback URL is not valid."
 msgstr "URL-адреса для зворотнього дзвінка не є дійсною."
 
-#: actions/editapplication.php:255
+#: actions/editapplication.php:258
 msgid "Could not update application."
 msgstr "Не вдалося оновити додаток."
 
@@ -2087,11 +2143,11 @@ msgstr "Ви маєте спочатку увійти, аби мати змог�
 msgid "Use this form to register a new application."
 msgstr "Скористайтесь цією формою, щоб зареєструвати новий додаток."
 
-#: actions/newapplication.php:173
+#: actions/newapplication.php:176
 msgid "Source URL is required."
 msgstr "Потрібна URL-адреса."
 
-#: actions/newapplication.php:255 actions/newapplication.php:264
+#: actions/newapplication.php:258 actions/newapplication.php:267
 msgid "Could not create application."
 msgstr "Не вдалося створити додаток."
 
@@ -2225,29 +2281,29 @@ msgstr "Додатки, які Ви зареєстрували"
 msgid "You have not registered any applications yet."
 msgstr "Поки що Ви не зареєстрували жодних додатків."
 
-#: actions/oauthconnectionssettings.php:71
+#: actions/oauthconnectionssettings.php:72
 msgid "Connected applications"
 msgstr "Під’єднані додатки"
 
-#: actions/oauthconnectionssettings.php:87
+#: actions/oauthconnectionssettings.php:83
 msgid "You have allowed the following applications to access you account."
 msgstr ""
 "Ви маєте дозволити наступним додаткам доступ до Вашого облікового запису."
 
-#: actions/oauthconnectionssettings.php:170
+#: actions/oauthconnectionssettings.php:175
 msgid "You are not a user of that application."
 msgstr "Ви не є користувачем даного додатку."
 
-#: actions/oauthconnectionssettings.php:180
+#: actions/oauthconnectionssettings.php:186
 msgid "Unable to revoke access for app: "
 msgstr "Не вдалося скасувати доступ для додатку: "
 
-#: actions/oauthconnectionssettings.php:192
+#: actions/oauthconnectionssettings.php:198
 #, php-format
 msgid "You have not authorized any applications to use your account."
 msgstr "Ви не дозволили жодним додаткам використовувати Ваш акаунт."
 
-#: actions/oauthconnectionssettings.php:205
+#: actions/oauthconnectionssettings.php:211
 msgid "Developers can edit the registration settings for their applications "
 msgstr "Розробники можуть змінити налаштування реєстрації для їхніх додатків "
 
@@ -2749,19 +2805,19 @@ msgstr "Загальний стрічка, сторінка %d"
 msgid "Public timeline"
 msgstr "Загальна стрічка"
 
-#: actions/public.php:151
+#: actions/public.php:159
 msgid "Public Stream Feed (RSS 1.0)"
 msgstr "Стрічка публічних дописів (RSS 1.0)"
 
-#: actions/public.php:155
+#: actions/public.php:163
 msgid "Public Stream Feed (RSS 2.0)"
 msgstr "Стрічка публічних дописів (RSS 2.0)"
 
-#: actions/public.php:159
+#: actions/public.php:167
 msgid "Public Stream Feed (Atom)"
 msgstr "Стрічка публічних дописів (Atom)"
 
-#: actions/public.php:179
+#: actions/public.php:187
 #, php-format
 msgid ""
 "This is the public timeline for %%site.name%% but no one has posted anything "
@@ -2769,11 +2825,11 @@ msgid ""
 msgstr ""
 "Це публічна стрічка дописів сайту %%site.name%%, але вона поки що порожня."
 
-#: actions/public.php:182
+#: actions/public.php:190
 msgid "Be the first to post!"
 msgstr "Станьте першим! Напишіть щось!"
 
-#: actions/public.php:186
+#: actions/public.php:194
 #, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post!"
@@ -2781,7 +2837,7 @@ msgstr ""
 "Чому б не [зареєструватись](%%action.register%%) і не зробити свій перший "
 "допис!"
 
-#: actions/public.php:233
+#: actions/public.php:241
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -2795,7 +2851,7 @@ msgstr ""
 "розділити своє життя з друзями, родиною і колегами! ([Дізнатися більше](%%"
 "doc.help%%))"
 
-#: actions/public.php:238
+#: actions/public.php:246
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -3161,7 +3217,7 @@ msgstr "Ви не можете вторувати своїм власним до
 msgid "You already repeated that notice."
 msgstr "Ви вже вторували цьому допису."
 
-#: actions/repeat.php:114 lib/noticelist.php:626
+#: actions/repeat.php:114 lib/noticelist.php:642
 msgid "Repeated"
 msgstr "Вторування"
 
@@ -3227,6 +3283,10 @@ msgstr ""
 msgid "Replies to %1$s on %2$s!"
 msgstr "Відповіді до %1$s на %2$s!"
 
+#: actions/rsd.php:146 actions/version.php:157
+msgid "StatusNet"
+msgstr "StatusNet"
+
 #: actions/sandbox.php:65 actions/unsandbox.php:65
 msgid "You cannot sandbox users on this site."
 msgstr "Ви не можете нікого ізолювати на цьому сайті."
@@ -3241,9 +3301,8 @@ msgid "Sessions"
 msgstr "Сесії"
 
 #: actions/sessionsadminpanel.php:65
-#, fuzzy
 msgid "Session settings for this StatusNet site."
-msgstr "Налаштування дизайну для цього сайту StatusNet."
+msgstr "Налаштування сесії для цього сайту StatusNet."
 
 #: actions/sessionsadminpanel.php:175
 msgid "Handle sessions"
@@ -3298,43 +3357,43 @@ msgid "Statistics"
 msgstr "Статистика"
 
 #: actions/showapplication.php:204
-#, php-format
-msgid "created by %1$s - %2$s access by default - %3$d users"
+#, fuzzy, php-format
+msgid "Created by %1$s - %2$s access by default - %3$d users"
 msgstr "створено %1$s — %2$s доступ за замовч. — %3$d користувачів"
 
 #: actions/showapplication.php:214
 msgid "Application actions"
 msgstr "Можливості додатку"
 
-#: actions/showapplication.php:233
+#: actions/showapplication.php:232
 msgid "Reset key & secret"
 msgstr "Призначити новий ключ і таємне слово"
 
-#: actions/showapplication.php:241
+#: actions/showapplication.php:256
 msgid "Application info"
 msgstr "Інфо додатку"
 
-#: actions/showapplication.php:243
+#: actions/showapplication.php:258
 msgid "Consumer key"
 msgstr "Ключ споживача"
 
-#: actions/showapplication.php:248
+#: actions/showapplication.php:263
 msgid "Consumer secret"
 msgstr "Таємно слово споживача"
 
-#: actions/showapplication.php:253
+#: actions/showapplication.php:268
 msgid "Request token URL"
 msgstr "URL-адреса токена запиту"
 
-#: actions/showapplication.php:258
+#: actions/showapplication.php:273
 msgid "Access token URL"
 msgstr "URL-адреса токена дозволу"
 
-#: actions/showapplication.php:263
+#: actions/showapplication.php:278
 msgid "Authorize URL"
 msgstr "Авторизувати URL-адресу"
 
-#: actions/showapplication.php:268
+#: actions/showapplication.php:283
 msgid ""
 "Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
 "signature method."
@@ -3558,12 +3617,12 @@ msgstr "Стрічка дописів для %s (Atom)"
 msgid "FOAF for %s"
 msgstr "FOAF для %s"
 
-#: actions/showstream.php:191
+#: actions/showstream.php:200
 #, php-format
 msgid "This is the timeline for %1$s but %2$s hasn't posted anything yet."
 msgstr "Це стрічка дописів %1$s, але %2$s ще нічого не написав."
 
-#: actions/showstream.php:196
+#: actions/showstream.php:205
 msgid ""
 "Seen anything interesting recently? You haven't posted any notices yet, now "
 "would be a good time to start :)"
@@ -3571,7 +3630,7 @@ msgstr ""
 "Побачили щось цікаве нещодавно? Ви ще нічого не написали і це слушна нагода "
 "аби розпочати! :)"
 
-#: actions/showstream.php:198
+#: actions/showstream.php:207
 #, php-format
 msgid ""
 "You can try to nudge %1$s or [post something to his or her attention](%%%%"
@@ -3580,7 +3639,7 @@ msgstr ""
 "Ви можете «розштовхати» %1$s або [щось йому написати](%%%%action.newnotice%%%"
 "%?status_textarea=%2$s)."
 
-#: actions/showstream.php:234
+#: actions/showstream.php:243
 #, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3594,7 +3653,7 @@ msgstr ""
 "register%%) зараз і слідкуйте за дописами **%s**, також на Вас чекає багато "
 "іншого! ([Дізнатися більше](%%doc.help%%))"
 
-#: actions/showstream.php:239
+#: actions/showstream.php:248
 #, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3605,7 +3664,7 @@ msgstr ""
 "(http://uk.wikipedia.org/wiki/Мікроблоґ), який працює на вільному "
 "програмному забезпеченні [StatusNet](http://status.net/). "
 
-#: actions/showstream.php:296
+#: actions/showstream.php:305
 #, php-format
 msgid "Repeat of %s"
 msgstr "Вторування %s"
@@ -4285,10 +4344,6 @@ msgstr ""
 "Цей сайт працює на %1$s, версія %2$s. Авторські права 2008-2010 StatusNet, "
 "Inc. і розробники."
 
-#: actions/version.php:157
-msgid "StatusNet"
-msgstr "StatusNet"
-
 #: actions/version.php:161
 msgid "Contributors"
 msgstr "Розробники"
@@ -4422,21 +4477,21 @@ msgstr "Вам заборонено надсилати дописи до цьо�
 msgid "Problem saving notice."
 msgstr "Проблема при збереженні допису."
 
-#: classes/Notice.php:790
+#: classes/Notice.php:788
 msgid "Problem saving group inbox."
 msgstr "Проблема при збереженні вхідних дописів для групи."
 
-#: classes/Notice.php:850
+#: classes/Notice.php:848
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Помилка бази даних при додаванні відповіді: %s"
 
-#: classes/Notice.php:1233
+#: classes/Notice.php:1231
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
 
-#: classes/User.php:382
+#: classes/User.php:385
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Вітаємо на %1$s, @%2$s!"
@@ -4708,9 +4763,8 @@ msgid "Paths configuration"
 msgstr "Конфігурація шляху"
 
 #: lib/adminpanelaction.php:337
-#, fuzzy
 msgid "Sessions configuration"
-msgstr "Конфігурація дизайну"
+msgstr "Конфігурація сесій"
 
 #: lib/apiauth.php:99
 msgid "API resource requires read-write access, but you only have read access."
@@ -5118,19 +5172,19 @@ msgstr ""
 "tracks — наразі не виконується\n"
 "tracking — наразі не виконується\n"
 
-#: lib/common.php:131
+#: lib/common.php:135
 msgid "No configuration file found. "
 msgstr "Файлу конфігурації не знайдено. "
 
-#: lib/common.php:132
+#: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
 msgstr "Шукав файли конфігурації в цих місцях: "
 
-#: lib/common.php:134
+#: lib/common.php:138
 msgid "You may wish to run the installer to fix this."
 msgstr "Запустіть файл інсталяції, аби полагодити це."
 
-#: lib/common.php:135
+#: lib/common.php:139
 msgid "Go to the installer."
 msgstr "Іти до файлу інсталяції."
 
@@ -5775,23 +5829,23 @@ msgstr "Зах."
 msgid "at"
 msgstr "в"
 
-#: lib/noticelist.php:531
+#: lib/noticelist.php:547
 msgid "in context"
 msgstr "в контексті"
 
-#: lib/noticelist.php:556
+#: lib/noticelist.php:572
 msgid "Repeated by"
 msgstr "Вторуванні"
 
-#: lib/noticelist.php:582
+#: lib/noticelist.php:598
 msgid "Reply to this notice"
 msgstr "Відповісти на цей допис"
 
-#: lib/noticelist.php:583
+#: lib/noticelist.php:599
 msgid "Reply"
 msgstr "Відповісти"
 
-#: lib/noticelist.php:625
+#: lib/noticelist.php:641
 msgid "Notice repeated"
 msgstr "Допис вторували"
 
@@ -5931,6 +5985,10 @@ msgstr "Повторити цей допис?"
 #: lib/repeatform.php:132
 msgid "Repeat this notice"
 msgstr "Вторувати цьому допису"
+
+#: lib/router.php:665
+msgid "No single user defined for single-user mode."
+msgstr ""
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"
@@ -6097,47 +6155,47 @@ msgstr "Повідомлення"
 msgid "Moderate"
 msgstr "Модерувати"
 
-#: lib/util.php:868
+#: lib/util.php:867
 msgid "a few seconds ago"
 msgstr "мить тому"
 
-#: lib/util.php:870
+#: lib/util.php:869
 msgid "about a minute ago"
 msgstr "хвилину тому"
 
-#: lib/util.php:872
+#: lib/util.php:871
 #, php-format
 msgid "about %d minutes ago"
 msgstr "близько %d хвилин тому"
 
-#: lib/util.php:874
+#: lib/util.php:873
 msgid "about an hour ago"
 msgstr "годину тому"
 
-#: lib/util.php:876
+#: lib/util.php:875
 #, php-format
 msgid "about %d hours ago"
 msgstr "близько %d годин тому"
 
-#: lib/util.php:878
+#: lib/util.php:877
 msgid "about a day ago"
 msgstr "день тому"
 
-#: lib/util.php:880
+#: lib/util.php:879
 #, php-format
 msgid "about %d days ago"
 msgstr "близько %d днів тому"
 
-#: lib/util.php:882
+#: lib/util.php:881
 msgid "about a month ago"
 msgstr "місяць тому"
 
-#: lib/util.php:884
+#: lib/util.php:883
 #, php-format
 msgid "about %d months ago"
 msgstr "близько %d місяців тому"
 
-#: lib/util.php:886
+#: lib/util.php:885
 msgid "about a year ago"
 msgstr "рік тому"
 
