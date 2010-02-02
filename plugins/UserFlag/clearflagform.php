@@ -54,7 +54,7 @@ class ClearFlagForm extends ProfileActionForm
 
     function formClass()
     {
-        return 'form_entity_clearflag';
+        return 'form_user_clearflag';
     }
 
     /**

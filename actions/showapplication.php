@@ -201,7 +201,7 @@ class ShowApplicationAction extends OwnerDesignAction
         $userCnt = $appUsers->count();
 
         $this->raw(sprintf(
-            _('created by %1$s - %2$s access by default - %3$d users'),
+            _('Created by %1$s - %2$s access by default - %3$d users'),
               $profile->getBestName(),
               $defaultAccess,
               $userCnt

@@ -1,7 +1,7 @@
 /** theme: default
  *
  * @package   StatusNet
- * @author Sarven Capadisli <csarven@status.net>
+ * @author    Sarven Capadisli <csarven@status.net>
  * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
@@ -18,7 +18,7 @@ font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 font-size:1em;
 }
 address {
-margin-right:5.7%;
+margin-right:5.3%;
 }
 input, textarea, select {
 border-width:2px;
@@ -189,7 +189,10 @@ button.close,
 .notice-options .repeated,
 .form_notice label[for=notice_data-geo],
 button.minimize,
-.form_reset_key input.submit {
+.form_reset_key input.submit,
+.entity_clear input.submit,
+.entity_flag input.submit,
+.entity_flag p {
 background-image:url(../../base/images/icons/icons-01.gif);
 background-repeat:no-repeat;
 background-color:transparent;
@@ -337,6 +340,13 @@ background-position: 5px -1511px;
 }
 .form_reset_key input.submit {
 background-position: 5px -1973px;
+}
+.entity_clear input.submit {
+background-position: 5px -2039px;
+}
+.entity_flag input.submit,
+.entity_flag p {
+background-position: 5px -2105px;
 }
 
 /* NOTICES */
