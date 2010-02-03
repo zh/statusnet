@@ -1468,4 +1468,25 @@ class Notice extends Memcached_DataObject
             $handler->handle($this);
         }
     }
+
+    function insert()
+    {
+        $result = parent::insert();
+
+        if ($result) {
+            // Profile::hasRepeated() abuses pkeyGet(), so we
+            // have to clear manually
+            if (!empty($this->repeat_of)) {
+                $c = self::memcache();
+                if (!empty($c)) {
+                    $ck = self::multicacheKey('Notice',
+                                              array('profile_id' => $this->profile_id,
+                                                    'repeat_of' => $this->repeat_of));
+                    $c->delete($ck);
+                }
+            }
+        }
+
+        return $result;
+    }
 }
