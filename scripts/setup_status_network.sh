@@ -13,6 +13,11 @@ export sitename="$2"
 export tags="$3"
 export email="$4"
 export fullname="$5"
+export sitetype="$6"
+
+if [ "$sitetype" == '' ]; then
+    sitetype='single-user'
+fi
 
 # Fixme: if this is changed later we need to update profile URLs
 # for the created user.
@@ -71,6 +76,7 @@ then
       sed "s/\$nickname/$nickname/" | \
       sed "s/\$sitename/$sitename/" | \
       sed "s/\$userpass/$userpass/" | \
+      sed "s/\$sitetype/$sitetype/" | \
       php $PHPBASE/scripts/sendemail.php \
         -s"$server" \
         -n"$nickname" \
