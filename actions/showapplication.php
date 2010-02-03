@@ -149,7 +149,6 @@ class ShowApplicationAction extends OwnerDesignAction
 
     function showContent()
     {
-
         $cur = common_current_user();
 
         $consumer = $this->application->getConsumer();
@@ -229,7 +228,13 @@ class ShowApplicationAction extends OwnerDesignAction
                                          array('id' => $this->application->id))));
         $this->elementStart('fieldset');
         $this->hidden('token', common_session_token());
-        $this->submit('reset', _('Reset key & secret'));
+
+        $this->element('input', array('type' => 'submit',
+                                      'id' => 'reset',
+                                      'name' => 'reset',
+                                      'class' => 'submit',
+                                      'value' => _('Reset key & secret'),
+                                      'onClick' => 'return confirmReset()'));
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
         $this->elementEnd('li');
@@ -291,14 +296,53 @@ class ShowApplicationAction extends OwnerDesignAction
         $this->elementEnd('p');
     }
 
+    /**
+     * Add a confirm script for Consumer key/secret reset
+     *
+     * @return void
+     */
+
+    function showScripts()
+    {
+        parent::showScripts();
+
+        $msg = _('Are you sure you want to reset your consumer key and secret?');
+
+        $js  = 'function confirmReset() { ';
+        $js .= '    var agree = confirm("' . $msg . '"); ';
+        $js .= '    return agree;';
+        $js .= '}';
+
+        $this->inlineScript($js);
+    }
+
+    /**
+     * Reset an application's Consumer key and secret
+     *
+     * XXX: Should this be moved to its own page with a confirm?
+     *
+     */
+
     function resetKey()
     {
         $this->application->query('BEGIN');
 
+        $oauser = new Oauth_application_user();
+        $oauser->application_id = $this->application->id;
+        $result = $oauser->delete();
+
+        if ($result === false) {
+            common_log_db_error($oauser, 'DELETE', __FILE__);
+            $this->success = false;
+            $this->msg = ('Unable to reset consumer key and secret.');
+            $this->showPage();
+            return;
+        }
+
         $consumer = $this->application->getConsumer();
         $result = $consumer->delete();
 
-        if (!$result) {
+        if ($result === false) {
             common_log_db_error($consumer, 'DELETE', __FILE__);
             $this->success = false;
             $this->msg = ('Unable to reset consumer key and secret.');
@@ -310,7 +354,7 @@ class ShowApplicationAction extends OwnerDesignAction
 
         $result = $consumer->insert();
 
-        if (!$result) {
+        if (empty($result)) {
             common_log_db_error($consumer, 'INSERT', __FILE__);
             $this->application->query('ROLLBACK');
             $this->success = false;
@@ -323,7 +367,7 @@ class ShowApplicationAction extends OwnerDesignAction
         $this->application->consumer_key = $consumer->consumer_key;
         $result = $this->application->update($orig);
 
-        if (!$result) {
+        if ($result === false) {
             common_log_db_error($application, 'UPDATE', __FILE__);
             $this->application->query('ROLLBACK');
             $this->success = false;
