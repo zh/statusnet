@@ -55,6 +55,7 @@ class ApiAuthAction extends ApiAction
 {
     var $auth_user_nickname = null;
     var $auth_user_password = null;
+    var $oauth_source       = null;
 
     /**
      * Take arguments for running, looks for an OAuth request,
@@ -73,20 +74,18 @@ class ApiAuthAction extends ApiAction
         // NOTE: $this->auth_user has to get set in prepare(), not handle(),
         // because subclasses do stuff with it in their prepares.
 
-        if ($this->requiresAuth()) {
+        $oauthReq = $this->getOAuthRequest();
 
-            $oauthReq = $this->getOAuthRequest();
-
-            if (!$oauthReq) {
+        if (!$oauthReq) {
+            if ($this->requiresAuth()) {
                 $this->checkBasicAuthUser(true);
             } else {
-                $this->checkOAuthRequest($oauthReq);
+                // Check to see if a basic auth user is there even
+                // if one's not required
+                $this->checkBasicAuthUser(false);
             }
         } else {
-
-            // Check to see if a basic auth user is there even
-            // if one's not required
-            $this->checkBasicAuthUser(false);
+            $this->checkOAuthRequest($oauthReq);
         }
 
         // Reject API calls with the wrong access level
@@ -108,7 +107,6 @@ class ApiAuthAction extends ApiAction
      * This is to avoid doign any unnecessary DB lookups.
      *
      * @return mixed the OAuthRequest or false
-     *
      */
 
     function getOAuthRequest()
@@ -137,7 +135,6 @@ class ApiAuthAction extends ApiAction
      * @param OAuthRequest $request the OAuth Request
      *
      * @return nothing
-     *
      */
 
     function checkOAuthRequest($request)

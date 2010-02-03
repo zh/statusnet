@@ -159,5 +159,32 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
         }
     }
 
+    /**
+     * Revoke specified access token
+     *
+     * Revokes the token specified by $token_key.
+     * Throws exceptions in case of error.
+     *
+     * @param string $token_key the token to be revoked
+     * @param int    $type      type of token (0 = req, 1 = access)
+     *
+     * @access public
+     *
+     * @return void
+     */
+
+    public function revoke_token($token_key, $type = 0) {
+        $rt = new Token();
+        $rt->tok = $token_key;
+        $rt->type = $type;
+        $rt->state = 0;
+        if (!$rt->find(true)) {
+            throw new Exception('Tried to revoke unknown token');
+        }
+        if (!$rt->delete()) {
+            throw new Exception('Failed to delete revoked token');
+        }
+    }
+
 }
 

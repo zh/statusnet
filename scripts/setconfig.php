@@ -28,6 +28,7 @@ setconfig.php [options] [section] [setting] <value>
 With three args, set the setting to the value.
 With two args, just show the setting.
 With -d, delete the setting.
+With no args, lists all currently set values.
 
   [section]   section to use (required)
   [setting]   setting to use (required)
@@ -38,6 +39,21 @@ With -d, delete the setting.
 END_OF_SETCONFIG_HELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
+
+if (empty($args)) {
+    $count = 0;
+    $config = new Config();
+    $config->find();
+    while ($config->fetch()) {
+        $count++;
+        printf("%-20s %-20s %s\n", $config->section, $config->setting,
+               var_export($config->value, true));
+    }
+    if ($count == 0) {
+        print "No configuration set in database for this site.\n";
+    }
+    exit(0);
+}
 
 if (count($args) < 2 || count($args) > 3) {
     show_help();
