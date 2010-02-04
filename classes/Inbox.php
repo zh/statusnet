@@ -212,11 +212,9 @@ class Inbox extends Memcached_DataObject
 
         $wanted = count($firstChunk); // raw entry count in the inbox up to our $limit
         if ($notices->N >= $wanted) {
-            common_log(LOG_DEBUG, __METHOD__ . " ok got $wanted items");
             return $notices;
         }
 
-        common_log(LOG_DEBUG, __METHOD__ . " got $notices->N of $wanted items, getting more");
         // There were deleted notices, we'll need to look for more.
         assert($notices instanceof ArrayWrapper);
         $items = $notices->_items;
@@ -225,10 +223,8 @@ class Inbox extends Memcached_DataObject
         while (count($items) < $wanted && count($remainder) > 0) {
             $notice = Notice::staticGet(array_shift($remainder));
             if ($notice) {
-                common_log(LOG_DEBUG, __METHOD__ . " got another one");
                 $items[] = $notice;
             } else {
-                common_log(LOG_DEBUG, __METHOD__ . " skipping another deleted one");
             }
         }
         return new ArrayWrapper($items);
