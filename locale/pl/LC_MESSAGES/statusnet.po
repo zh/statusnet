@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-02 19:19+0000\n"
-"PO-Revision-Date: 2010-02-02 19:21:50+0000\n"
+"POT-Creation-Date: 2010-02-04 10:31+0000\n"
+"PO-Revision-Date: 2010-02-04 10:33:20+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: MediaWiki 1.16alpha (r61864); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61969); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pl\n"
 "X-Message-Group: out-statusnet\n"
@@ -484,12 +484,11 @@ msgstr "grupy na %s"
 
 #: actions/apioauthauthorize.php:101
 msgid "No oauth_token parameter provided."
-msgstr ""
+msgstr "Nie podano parametru oauth_token."
 
 #: actions/apioauthauthorize.php:106
-#, fuzzy
 msgid "Invalid token."
-msgstr "Nieprawidłowy rozmiar."
+msgstr "Nieprawidłowy token."
 
 #: actions/apioauthauthorize.php:123 actions/avatarsettings.php:268
 #: actions/deletenotice.php:157 actions/disfavor.php:74
@@ -530,9 +529,9 @@ msgstr ""
 "Token żądania %s został upoważniony. Proszę wymienić go na token dostępu."
 
 #: actions/apioauthauthorize.php:227
-#, fuzzy, php-format
+#, php-format
 msgid "The request token %s has been denied and revoked."
-msgstr "Token żądania %s został odrzucony."
+msgstr "Token żądania %s został odrzucony lub unieważniony."
 
 #: actions/apioauthauthorize.php:232 actions/avatarsettings.php:281
 #: actions/designadminpanel.php:103 actions/editapplication.php:139
@@ -558,6 +557,9 @@ msgid ""
 "the ability to <strong>%3$s</strong> your %4$s account data. You should only "
 "give access to your %4$s account to third parties you trust."
 msgstr ""
+"Aplikacja <strong>%1$s</strong> autorstwa <strong>%2$s</strong> chciałaby "
+"uzyskać możliwość <strong>%3$s</strong> danych konta %4$s. Dostęp do konta %4"
+"$s powinien być udostępniany tylko zaufanym osobom trzecim."
 
 #: actions/apioauthauthorize.php:310 lib/action.php:441
 msgid "Account"
@@ -752,7 +754,7 @@ msgstr "Oryginał"
 msgid "Preview"
 msgstr "Podgląd"
 
-#: actions/avatarsettings.php:149 actions/showapplication.php:247
+#: actions/avatarsettings.php:149 actions/showapplication.php:252
 #: lib/deleteuserform.php:66 lib/noticelist.php:624
 msgid "Delete"
 msgstr "Usuń"
@@ -920,14 +922,12 @@ msgid "Notices"
 msgstr "Wpisy"
 
 #: actions/deleteapplication.php:63
-#, fuzzy
 msgid "You must be logged in to delete an application."
-msgstr "Musisz być zalogowany, aby zmodyfikować aplikację."
+msgstr "Musisz być zalogowany, aby usunąć aplikację."
 
 #: actions/deleteapplication.php:71
-#, fuzzy
 msgid "Application not found."
-msgstr "Informacje o aplikacji"
+msgstr "Nie odnaleziono aplikacji."
 
 #: actions/deleteapplication.php:78 actions/editapplication.php:77
 #: actions/showapplication.php:94
@@ -941,29 +941,25 @@ msgid "There was a problem with your session token."
 msgstr "Wystąpił problem z tokenem sesji."
 
 #: actions/deleteapplication.php:123 actions/deleteapplication.php:147
-#, fuzzy
 msgid "Delete application"
-msgstr "Zmodyfikuj aplikację"
+msgstr "Usuń aplikację"
 
 #: actions/deleteapplication.php:149
-#, fuzzy
 msgid ""
 "Are you sure you want to delete this application? This will clear all data "
 "about the application from the database, including all existing user "
 "connections."
 msgstr ""
-"Na pewno usunąć tego użytkownika? Wyczyści to wszystkie dane o użytkowniku z "
-"bazy danych, bez utworzenia kopii zapasowej."
+"Na pewno usunąć tę aplikację? Wyczyści to wszystkie dane o aplikacji z bazy "
+"danych, w tym wszystkie istniejące połączenia użytkowników."
 
 #: actions/deleteapplication.php:156
-#, fuzzy
 msgid "Do not delete this application"
-msgstr "Nie usuwaj tego wpisu"
+msgstr "Nie usuwaj tej aplikacji"
 
 #: actions/deleteapplication.php:160
-#, fuzzy
 msgid "Delete this application"
-msgstr "Ikona tej aplikacji"
+msgstr "Usuń tę aplikację"
 
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
@@ -1172,9 +1168,8 @@ msgid "Name is too long (max 255 chars)."
 msgstr "Nazwa jest za długa (maksymalnie 255 znaków)."
 
 #: actions/editapplication.php:183 actions/newapplication.php:162
-#, fuzzy
 msgid "Name already in use. Try another one."
-msgstr "Pseudonim jest już używany. Spróbuj innego."
+msgstr "Nazwa jest już używana. Spróbuj innej."
 
 #: actions/editapplication.php:186 actions/newapplication.php:168
 msgid "Description is required."
@@ -3322,77 +3317,82 @@ msgstr "Zapisz ustawienia witryny"
 msgid "You must be logged in to view an application."
 msgstr "Musisz być zalogowany, aby wyświetlić aplikację."
 
-#: actions/showapplication.php:158
+#: actions/showapplication.php:157
 msgid "Application profile"
 msgstr "Profil aplikacji"
 
-#: actions/showapplication.php:160 lib/applicationeditform.php:180
+#: actions/showapplication.php:159 lib/applicationeditform.php:180
 msgid "Icon"
 msgstr "Ikona"
 
-#: actions/showapplication.php:170 actions/version.php:195
+#: actions/showapplication.php:169 actions/version.php:195
 #: lib/applicationeditform.php:195
 msgid "Name"
 msgstr "Nazwa"
 
-#: actions/showapplication.php:179 lib/applicationeditform.php:222
+#: actions/showapplication.php:178 lib/applicationeditform.php:222
 msgid "Organization"
 msgstr "Organizacja"
 
-#: actions/showapplication.php:188 actions/version.php:198
+#: actions/showapplication.php:187 actions/version.php:198
 #: lib/applicationeditform.php:209 lib/groupeditform.php:172
 msgid "Description"
 msgstr "Opis"
 
-#: actions/showapplication.php:193 actions/showgroup.php:429
+#: actions/showapplication.php:192 actions/showgroup.php:429
 #: lib/profileaction.php:174
 msgid "Statistics"
 msgstr "Statystyki"
 
-#: actions/showapplication.php:204
-#, fuzzy, php-format
+#: actions/showapplication.php:203
+#, php-format
 msgid "Created by %1$s - %2$s access by default - %3$d users"
-msgstr "utworzona przez %1$s - domyślny dostęp: %2$s - %3$d użytkowników"
+msgstr "Utworzona przez %1$s - domyślny dostęp: %2$s - %3$d użytkowników"
 
-#: actions/showapplication.php:214
+#: actions/showapplication.php:213
 msgid "Application actions"
 msgstr "Czynności aplikacji"
 
-#: actions/showapplication.php:232
+#: actions/showapplication.php:236
 msgid "Reset key & secret"
 msgstr "Przywrócenie klucza i sekretu"
 
-#: actions/showapplication.php:256
+#: actions/showapplication.php:261
 msgid "Application info"
 msgstr "Informacje o aplikacji"
 
-#: actions/showapplication.php:258
+#: actions/showapplication.php:263
 msgid "Consumer key"
 msgstr "Klucz klienta"
 
-#: actions/showapplication.php:263
+#: actions/showapplication.php:268
 msgid "Consumer secret"
 msgstr "Sekret klienta"
 
-#: actions/showapplication.php:268
+#: actions/showapplication.php:273
 msgid "Request token URL"
 msgstr "Adres URL tokenu żądania"
 
-#: actions/showapplication.php:273
+#: actions/showapplication.php:278
 msgid "Access token URL"
 msgstr "Adres URL tokenu żądania"
 
-#: actions/showapplication.php:278
+#: actions/showapplication.php:283
 msgid "Authorize URL"
 msgstr "Adres URL upoważnienia"
 
-#: actions/showapplication.php:283
+#: actions/showapplication.php:288
 msgid ""
 "Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
 "signature method."
 msgstr ""
 "Uwaga: obsługiwane są podpisy HMAC-SHA1. Metoda podpisu w zwykłym tekście "
 "nie jest obsługiwana."
+
+#: actions/showapplication.php:309
+#, fuzzy
+msgid "Are you sure you want to reset your consumer key and secret?"
+msgstr "Jesteś pewien, że chcesz usunąć ten wpis?"
 
 #: actions/showfavorites.php:79
 #, php-format
@@ -4765,13 +4765,13 @@ msgstr "Konfiguracja ścieżek"
 msgid "Sessions configuration"
 msgstr "Konfiguracja sesji"
 
-#: lib/apiauth.php:99
+#: lib/apiauth.php:95
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
 "Zasób API wymaga dostępu do zapisu i do odczytu, ale powiadasz dostęp tylko "
 "do odczytu."
 
-#: lib/apiauth.php:279
+#: lib/apiauth.php:273
 #, php-format
 msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
 msgstr ""
@@ -5994,6 +5994,7 @@ msgstr "Powtórz ten wpis"
 #: lib/router.php:665
 msgid "No single user defined for single-user mode."
 msgstr ""
+"Nie określono pojedynczego użytkownika dla trybu pojedynczego użytkownika."
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"

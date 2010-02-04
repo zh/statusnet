@@ -12,12 +12,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-02 19:19+0000\n"
-"PO-Revision-Date: 2010-02-02 19:20:28+0000\n"
+"POT-Creation-Date: 2010-02-04 10:31+0000\n"
+"PO-Revision-Date: 2010-02-04 10:32:29+0000\n"
 "Language-Team: Spanish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61864); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61969); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: es\n"
 "X-Message-Group: out-statusnet\n"
@@ -302,9 +302,9 @@ msgid "No message text!"
 msgstr "¡Sin texto de mensaje!"
 
 #: actions/apidirectmessagenew.php:135 actions/newmessage.php:150
-#, fuzzy, php-format
+#, php-format
 msgid "That's too long. Max message size is %d chars."
-msgstr "Demasiado largo. Máximo 140 caracteres.  "
+msgstr "Demasiado largo. Tamaño máx. de los mensajes es %d caracteres."
 
 #: actions/apidirectmessagenew.php:146
 msgid "Recipient user not found."
@@ -435,9 +435,8 @@ msgstr ""
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
-#, fuzzy
 msgid "Group not found!"
-msgstr "¡No se encontró el método de la API!"
+msgstr "¡No se ha encontrado el grupo!"
 
 #: actions/apigroupjoin.php:110 actions/joingroup.php:90
 msgid "You are already a member of that group."
@@ -445,7 +444,7 @@ msgstr "Ya eres miembro de ese grupo"
 
 #: actions/apigroupjoin.php:119 actions/joingroup.php:95 lib/command.php:221
 msgid "You have been blocked from that group by the admin."
-msgstr ""
+msgstr "Has sido bloqueado de ese grupo por el administrador."
 
 #: actions/apigroupjoin.php:138 actions/joingroup.php:124
 #, fuzzy, php-format
@@ -546,7 +545,7 @@ msgstr ""
 
 #: actions/apioauthauthorize.php:276
 msgid "Allow or deny access"
-msgstr ""
+msgstr "Permitir o denegar el acceso"
 
 #: actions/apioauthauthorize.php:292
 #, php-format
@@ -574,16 +573,15 @@ msgstr "Contraseña"
 
 #: actions/apioauthauthorize.php:328
 msgid "Deny"
-msgstr ""
+msgstr "Denegar"
 
 #: actions/apioauthauthorize.php:334
-#, fuzzy
 msgid "Allow"
-msgstr "Todo"
+msgstr "Permitir"
 
 #: actions/apioauthauthorize.php:351
 msgid "Allow or deny access to your account information."
-msgstr ""
+msgstr "Permitir o denegar el acceso a la información de tu cuenta."
 
 #: actions/apistatusesdestroy.php:107
 msgid "This method requires a POST or DELETE."
@@ -599,14 +597,12 @@ msgid "No such notice."
 msgstr "No existe ese aviso."
 
 #: actions/apistatusesretweet.php:83
-#, fuzzy
 msgid "Cannot repeat your own notice."
-msgstr "No se puede activar notificación."
+msgstr "No puedes repetir tus propias notificaciones."
 
 #: actions/apistatusesretweet.php:91
-#, fuzzy
 msgid "Already repeated that notice."
-msgstr "Borrar este aviso"
+msgstr "Esta notificación ya se ha repetido."
 
 #: actions/apistatusesshow.php:138
 msgid "Status deleted."
@@ -754,7 +750,7 @@ msgstr "Original"
 msgid "Preview"
 msgstr "Vista previa"
 
-#: actions/avatarsettings.php:149 actions/showapplication.php:247
+#: actions/avatarsettings.php:149 actions/showapplication.php:252
 #: lib/deleteuserform.php:66 lib/noticelist.php:624
 msgid "Delete"
 msgstr "Borrar"
@@ -3387,78 +3383,83 @@ msgstr "Configuración de Avatar"
 msgid "You must be logged in to view an application."
 msgstr "Debes estar conectado para dejar un grupo."
 
-#: actions/showapplication.php:158
+#: actions/showapplication.php:157
 #, fuzzy
 msgid "Application profile"
 msgstr "Aviso sin perfil"
 
-#: actions/showapplication.php:160 lib/applicationeditform.php:180
+#: actions/showapplication.php:159 lib/applicationeditform.php:180
 msgid "Icon"
 msgstr ""
 
-#: actions/showapplication.php:170 actions/version.php:195
+#: actions/showapplication.php:169 actions/version.php:195
 #: lib/applicationeditform.php:195
 #, fuzzy
 msgid "Name"
 msgstr "Apodo"
 
-#: actions/showapplication.php:179 lib/applicationeditform.php:222
+#: actions/showapplication.php:178 lib/applicationeditform.php:222
 #, fuzzy
 msgid "Organization"
 msgstr "Paginación"
 
-#: actions/showapplication.php:188 actions/version.php:198
+#: actions/showapplication.php:187 actions/version.php:198
 #: lib/applicationeditform.php:209 lib/groupeditform.php:172
 msgid "Description"
 msgstr "Descripción"
 
-#: actions/showapplication.php:193 actions/showgroup.php:429
+#: actions/showapplication.php:192 actions/showgroup.php:429
 #: lib/profileaction.php:174
 msgid "Statistics"
 msgstr "Estadísticas"
 
-#: actions/showapplication.php:204
+#: actions/showapplication.php:203
 #, php-format
 msgid "Created by %1$s - %2$s access by default - %3$d users"
 msgstr ""
 
-#: actions/showapplication.php:214
+#: actions/showapplication.php:213
 msgid "Application actions"
 msgstr ""
 
-#: actions/showapplication.php:232
+#: actions/showapplication.php:236
 msgid "Reset key & secret"
 msgstr ""
 
-#: actions/showapplication.php:256
+#: actions/showapplication.php:261
 msgid "Application info"
 msgstr ""
 
-#: actions/showapplication.php:258
+#: actions/showapplication.php:263
 msgid "Consumer key"
 msgstr ""
 
-#: actions/showapplication.php:263
+#: actions/showapplication.php:268
 msgid "Consumer secret"
 msgstr ""
 
-#: actions/showapplication.php:268
+#: actions/showapplication.php:273
 msgid "Request token URL"
 msgstr ""
 
-#: actions/showapplication.php:273
+#: actions/showapplication.php:278
 msgid "Access token URL"
 msgstr ""
 
-#: actions/showapplication.php:278
+#: actions/showapplication.php:283
 msgid "Authorize URL"
 msgstr ""
 
-#: actions/showapplication.php:283
+#: actions/showapplication.php:288
 msgid ""
 "Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
 "signature method."
 msgstr ""
+
+#: actions/showapplication.php:309
+#, fuzzy
+msgid "Are you sure you want to reset your consumer key and secret?"
+msgstr "¿Estás seguro de que quieres eliminar este aviso?"
 
 #: actions/showfavorites.php:79
 #, fuzzy, php-format
@@ -4828,11 +4829,11 @@ msgstr "SMS confirmación"
 msgid "Sessions configuration"
 msgstr "SMS confirmación"
 
-#: lib/apiauth.php:99
+#: lib/apiauth.php:95
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
 
-#: lib/apiauth.php:279
+#: lib/apiauth.php:273
 #, php-format
 msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
 msgstr ""

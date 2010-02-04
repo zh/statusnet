@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-02 19:19+0000\n"
-"PO-Revision-Date: 2010-02-02 19:22:16+0000\n"
+"POT-Creation-Date: 2010-02-04 10:31+0000\n"
+"PO-Revision-Date: 2010-02-04 10:33:43+0000\n"
 "Language-Team: Ukrainian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61864); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61969); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: out-statusnet\n"
@@ -481,12 +481,11 @@ msgstr "групи на %s"
 
 #: actions/apioauthauthorize.php:101
 msgid "No oauth_token parameter provided."
-msgstr ""
+msgstr "Жодного параметру oauth_token не забезпечено."
 
 #: actions/apioauthauthorize.php:106
-#, fuzzy
 msgid "Invalid token."
-msgstr "Недійсний розмір."
+msgstr "Невірний токен."
 
 #: actions/apioauthauthorize.php:123 actions/avatarsettings.php:268
 #: actions/deletenotice.php:157 actions/disfavor.php:74
@@ -529,9 +528,9 @@ msgstr ""
 "доступу."
 
 #: actions/apioauthauthorize.php:227
-#, fuzzy, php-format
+#, php-format
 msgid "The request token %s has been denied and revoked."
-msgstr "Токен запиту %s було відхилено."
+msgstr "Токен запиту %s було скасовано і відхилено."
 
 #: actions/apioauthauthorize.php:232 actions/avatarsettings.php:281
 #: actions/designadminpanel.php:103 actions/editapplication.php:139
@@ -557,6 +556,10 @@ msgid ""
 "the ability to <strong>%3$s</strong> your %4$s account data. You should only "
 "give access to your %4$s account to third parties you trust."
 msgstr ""
+"Додаток <strong>%1$s</strong>  від <strong>%2$s</strong> запитує дозвіл на "
+"<strong>%3$s</strong> дані Вашого акаунту %4$s. Ви повинні надавати дозвіл "
+"на доступ до Вашого акаунту %4$s лише тим стороннім додаткам, яким Ви "
+"довіряєте."
 
 #: actions/apioauthauthorize.php:310 lib/action.php:441
 msgid "Account"
@@ -753,7 +756,7 @@ msgstr "Оригінал"
 msgid "Preview"
 msgstr "Перегляд"
 
-#: actions/avatarsettings.php:149 actions/showapplication.php:247
+#: actions/avatarsettings.php:149 actions/showapplication.php:252
 #: lib/deleteuserform.php:66 lib/noticelist.php:624
 msgid "Delete"
 msgstr "Видалити"
@@ -921,14 +924,12 @@ msgid "Notices"
 msgstr "Дописи"
 
 #: actions/deleteapplication.php:63
-#, fuzzy
 msgid "You must be logged in to delete an application."
-msgstr "Ви маєте спочатку увійти, аби мати змогу керувати додатком."
+msgstr "Ви маєте спочатку увійти, аби мати змогу видалити додаток."
 
 #: actions/deleteapplication.php:71
-#, fuzzy
 msgid "Application not found."
-msgstr "Інфо додатку"
+msgstr "Додаток не виявлено."
 
 #: actions/deleteapplication.php:78 actions/editapplication.php:77
 #: actions/showapplication.php:94
@@ -942,29 +943,26 @@ msgid "There was a problem with your session token."
 msgstr "Виникли певні проблеми з токеном поточної сесії."
 
 #: actions/deleteapplication.php:123 actions/deleteapplication.php:147
-#, fuzzy
 msgid "Delete application"
-msgstr "Керувати додатками"
+msgstr "Видалити додаток"
 
 #: actions/deleteapplication.php:149
-#, fuzzy
 msgid ""
 "Are you sure you want to delete this application? This will clear all data "
 "about the application from the database, including all existing user "
 "connections."
 msgstr ""
-"Впевнені, що бажаєте видалити цього користувача? Усі дані буде знищено без "
-"можливості відновлення."
+"Впевнені, що бажаєте видалити цей додаток? У базі даних буде знищено всю "
+"інформацію стосовно нього, включно із даними про під’єднаних до цього "
+"додатку користувачів."
 
 #: actions/deleteapplication.php:156
-#, fuzzy
 msgid "Do not delete this application"
-msgstr "Не видаляти цей допис"
+msgstr "Не видаляти додаток"
 
 #: actions/deleteapplication.php:160
-#, fuzzy
 msgid "Delete this application"
-msgstr "Іконка для цього додатку"
+msgstr "Видалити додаток"
 
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
@@ -1173,7 +1171,6 @@ msgid "Name is too long (max 255 chars)."
 msgstr "Ім’я задовге (255 знаків максимум)."
 
 #: actions/editapplication.php:183 actions/newapplication.php:162
-#, fuzzy
 msgid "Name already in use. Try another one."
 msgstr "Це ім’я вже використовується. Спробуйте інше."
 
@@ -3329,77 +3326,82 @@ msgstr "Зберегти налаштування сайту"
 msgid "You must be logged in to view an application."
 msgstr "Ви повинні спочатку увійти, аби переглянути додаток."
 
-#: actions/showapplication.php:158
+#: actions/showapplication.php:157
 msgid "Application profile"
 msgstr "Профіль додатку"
 
-#: actions/showapplication.php:160 lib/applicationeditform.php:180
+#: actions/showapplication.php:159 lib/applicationeditform.php:180
 msgid "Icon"
 msgstr "Іконка"
 
-#: actions/showapplication.php:170 actions/version.php:195
+#: actions/showapplication.php:169 actions/version.php:195
 #: lib/applicationeditform.php:195
 msgid "Name"
 msgstr "Ім’я"
 
-#: actions/showapplication.php:179 lib/applicationeditform.php:222
+#: actions/showapplication.php:178 lib/applicationeditform.php:222
 msgid "Organization"
 msgstr "Організація"
 
-#: actions/showapplication.php:188 actions/version.php:198
+#: actions/showapplication.php:187 actions/version.php:198
 #: lib/applicationeditform.php:209 lib/groupeditform.php:172
 msgid "Description"
 msgstr "Опис"
 
-#: actions/showapplication.php:193 actions/showgroup.php:429
+#: actions/showapplication.php:192 actions/showgroup.php:429
 #: lib/profileaction.php:174
 msgid "Statistics"
 msgstr "Статистика"
 
-#: actions/showapplication.php:204
-#, fuzzy, php-format
+#: actions/showapplication.php:203
+#, php-format
 msgid "Created by %1$s - %2$s access by default - %3$d users"
-msgstr "створено %1$s — %2$s доступ за замовч. — %3$d користувачів"
+msgstr "Створено %1$s — %2$s доступ за замовч. — %3$d користувачів"
 
-#: actions/showapplication.php:214
+#: actions/showapplication.php:213
 msgid "Application actions"
 msgstr "Можливості додатку"
 
-#: actions/showapplication.php:232
+#: actions/showapplication.php:236
 msgid "Reset key & secret"
 msgstr "Призначити новий ключ і таємне слово"
 
-#: actions/showapplication.php:256
+#: actions/showapplication.php:261
 msgid "Application info"
 msgstr "Інфо додатку"
 
-#: actions/showapplication.php:258
+#: actions/showapplication.php:263
 msgid "Consumer key"
 msgstr "Ключ споживача"
 
-#: actions/showapplication.php:263
+#: actions/showapplication.php:268
 msgid "Consumer secret"
 msgstr "Таємно слово споживача"
 
-#: actions/showapplication.php:268
+#: actions/showapplication.php:273
 msgid "Request token URL"
 msgstr "URL-адреса токена запиту"
 
-#: actions/showapplication.php:273
+#: actions/showapplication.php:278
 msgid "Access token URL"
 msgstr "URL-адреса токена дозволу"
 
-#: actions/showapplication.php:278
+#: actions/showapplication.php:283
 msgid "Authorize URL"
 msgstr "Авторизувати URL-адресу"
 
-#: actions/showapplication.php:283
+#: actions/showapplication.php:288
 msgid ""
 "Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
 "signature method."
 msgstr ""
 "До уваги: Всі підписи шифруються за методом HMAC-SHA1. Ми не підтримуємо "
 "шифрування підписів відкритим текстом."
+
+#: actions/showapplication.php:309
+#, fuzzy
+msgid "Are you sure you want to reset your consumer key and secret?"
+msgstr "Ви впевненні, що бажаєте видалити цей допис?"
 
 #: actions/showfavorites.php:79
 #, php-format
@@ -4766,13 +4768,13 @@ msgstr "Конфігурація шляху"
 msgid "Sessions configuration"
 msgstr "Конфігурація сесій"
 
-#: lib/apiauth.php:99
+#: lib/apiauth.php:95
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
 "API-ресурс вимагає дозвіл типу «читання-запис», але у вас є лише доступ для "
 "читання."
 
-#: lib/apiauth.php:279
+#: lib/apiauth.php:273
 #, php-format
 msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
 msgstr ""
@@ -5988,7 +5990,7 @@ msgstr "Вторувати цьому допису"
 
 #: lib/router.php:665
 msgid "No single user defined for single-user mode."
-msgstr ""
+msgstr "Користувача для однокористувацького режиму не визначено."
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"

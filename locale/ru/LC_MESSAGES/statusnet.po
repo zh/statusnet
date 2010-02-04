@@ -1,6 +1,7 @@
 # Translation of StatusNet to Russian
 #
 # Author@translatewiki.net: Brion
+# Author@translatewiki.net: Kirill
 # Author@translatewiki.net: Lockal
 # Author@translatewiki.net: Rubin
 # Author@translatewiki.net: Александр Сигачёв
@@ -11,12 +12,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-02 19:19+0000\n"
-"PO-Revision-Date: 2010-02-02 19:22:02+0000\n"
+"POT-Creation-Date: 2010-02-04 10:31+0000\n"
+"PO-Revision-Date: 2010-02-04 10:33:30+0000\n"
 "Language-Team: Russian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61864); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61969); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ru\n"
 "X-Message-Group: out-statusnet\n"
@@ -485,12 +486,11 @@ msgstr "группы на %s"
 
 #: actions/apioauthauthorize.php:101
 msgid "No oauth_token parameter provided."
-msgstr ""
+msgstr "Не задан параметр oauth_token."
 
 #: actions/apioauthauthorize.php:106
-#, fuzzy
 msgid "Invalid token."
-msgstr "Неверный размер."
+msgstr "Неправильный токен"
 
 #: actions/apioauthauthorize.php:123 actions/avatarsettings.php:268
 #: actions/deletenotice.php:157 actions/disfavor.php:74
@@ -531,9 +531,9 @@ msgstr ""
 "Ключ запроса %s авторизован. Пожалуйста, обменяйте его на ключ доступа."
 
 #: actions/apioauthauthorize.php:227
-#, fuzzy, php-format
+#, php-format
 msgid "The request token %s has been denied and revoked."
-msgstr "Ключ запроса %s отклонён."
+msgstr "Запрос токена %s был запрещен и аннулирован."
 
 #: actions/apioauthauthorize.php:232 actions/avatarsettings.php:281
 #: actions/designadminpanel.php:103 actions/editapplication.php:139
@@ -559,6 +559,10 @@ msgid ""
 "the ability to <strong>%3$s</strong> your %4$s account data. You should only "
 "give access to your %4$s account to third parties you trust."
 msgstr ""
+"Приложение <strong>%1$s</strong> от <strong>%2$s</strong> просит разрешение "
+"на<strong>%3$s</strong> данных вашей учётной записи%4$s . Вы должны "
+"предоставлять разрешение на доступ к вашей учётной записи %4$s только тем "
+"сторонним приложениям, которым вы доверяете."
 
 #: actions/apioauthauthorize.php:310 lib/action.php:441
 msgid "Account"
@@ -754,7 +758,7 @@ msgstr "Оригинал"
 msgid "Preview"
 msgstr "Просмотр"
 
-#: actions/avatarsettings.php:149 actions/showapplication.php:247
+#: actions/avatarsettings.php:149 actions/showapplication.php:252
 #: lib/deleteuserform.php:66 lib/noticelist.php:624
 msgid "Delete"
 msgstr "Удалить"
@@ -922,14 +926,12 @@ msgid "Notices"
 msgstr "Записи"
 
 #: actions/deleteapplication.php:63
-#, fuzzy
 msgid "You must be logged in to delete an application."
-msgstr "Вы должны авторизоваться, чтобы изменить приложение."
+msgstr "Вы должны войти в систему, чтобы удалить приложение."
 
 #: actions/deleteapplication.php:71
-#, fuzzy
 msgid "Application not found."
-msgstr "Информация о приложении"
+msgstr "Приложение не найдено."
 
 #: actions/deleteapplication.php:78 actions/editapplication.php:77
 #: actions/showapplication.php:94
@@ -943,29 +945,26 @@ msgid "There was a problem with your session token."
 msgstr "Проблема с Вашей сессией. Попробуйте ещё раз, пожалуйста."
 
 #: actions/deleteapplication.php:123 actions/deleteapplication.php:147
-#, fuzzy
 msgid "Delete application"
-msgstr "Изменить приложение"
+msgstr "Удалить приложение"
 
 #: actions/deleteapplication.php:149
-#, fuzzy
 msgid ""
 "Are you sure you want to delete this application? This will clear all data "
 "about the application from the database, including all existing user "
 "connections."
 msgstr ""
-"Вы действительно хотите удалить этого пользователя? Это повлечёт удаление "
-"всех данных о пользователе из базы данных без возможности восстановления."
+"Вы уверены, что хотите удалить это приложение? Это очистит все данные о "
+"применении из базы данных, включая все существующие подключения "
+"пользователей."
 
 #: actions/deleteapplication.php:156
-#, fuzzy
 msgid "Do not delete this application"
-msgstr "Не удалять эту запись"
+msgstr "Не удаляйте это приложение"
 
 #: actions/deleteapplication.php:160
-#, fuzzy
 msgid "Delete this application"
-msgstr "Иконка для этого приложения"
+msgstr "Удалить это приложение"
 
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
@@ -1176,7 +1175,6 @@ msgid "Name is too long (max 255 chars)."
 msgstr "Имя слишком длинное (не больше 255 знаков)."
 
 #: actions/editapplication.php:183 actions/newapplication.php:162
-#, fuzzy
 msgid "Name already in use. Try another one."
 msgstr "Такое имя уже используется. Попробуйте какое-нибудь другое."
 
@@ -3337,77 +3335,82 @@ msgstr "Сохранить настройки сайта"
 msgid "You must be logged in to view an application."
 msgstr "Вы должны авторизоваться, чтобы просматривать приложения."
 
-#: actions/showapplication.php:158
+#: actions/showapplication.php:157
 msgid "Application profile"
 msgstr "Профиль приложения"
 
-#: actions/showapplication.php:160 lib/applicationeditform.php:180
+#: actions/showapplication.php:159 lib/applicationeditform.php:180
 msgid "Icon"
 msgstr "Иконка"
 
-#: actions/showapplication.php:170 actions/version.php:195
+#: actions/showapplication.php:169 actions/version.php:195
 #: lib/applicationeditform.php:195
 msgid "Name"
 msgstr "Имя"
 
-#: actions/showapplication.php:179 lib/applicationeditform.php:222
+#: actions/showapplication.php:178 lib/applicationeditform.php:222
 msgid "Organization"
 msgstr "Организация"
 
-#: actions/showapplication.php:188 actions/version.php:198
+#: actions/showapplication.php:187 actions/version.php:198
 #: lib/applicationeditform.php:209 lib/groupeditform.php:172
 msgid "Description"
 msgstr "Описание"
 
-#: actions/showapplication.php:193 actions/showgroup.php:429
+#: actions/showapplication.php:192 actions/showgroup.php:429
 #: lib/profileaction.php:174
 msgid "Statistics"
 msgstr "Статистика"
 
-#: actions/showapplication.php:204
-#, fuzzy, php-format
+#: actions/showapplication.php:203
+#, php-format
 msgid "Created by %1$s - %2$s access by default - %3$d users"
-msgstr "создано %1$s — %2$s доступ по умолчанию — %3$d польз."
+msgstr "Создано %1$s — доступ по умолчанию: %2$s — %3$d польз."
 
-#: actions/showapplication.php:214
+#: actions/showapplication.php:213
 msgid "Application actions"
 msgstr "Действия приложения"
 
-#: actions/showapplication.php:232
+#: actions/showapplication.php:236
 msgid "Reset key & secret"
 msgstr "Сбросить ключ и секретную фразу"
 
-#: actions/showapplication.php:256
+#: actions/showapplication.php:261
 msgid "Application info"
 msgstr "Информация о приложении"
 
-#: actions/showapplication.php:258
+#: actions/showapplication.php:263
 msgid "Consumer key"
 msgstr "Потребительский ключ"
 
-#: actions/showapplication.php:263
+#: actions/showapplication.php:268
 msgid "Consumer secret"
 msgstr "Секретная фраза потребителя"
 
-#: actions/showapplication.php:268
+#: actions/showapplication.php:273
 msgid "Request token URL"
 msgstr "URL ключа запроса"
 
-#: actions/showapplication.php:273
+#: actions/showapplication.php:278
 msgid "Access token URL"
 msgstr "URL ключа доступа"
 
-#: actions/showapplication.php:278
+#: actions/showapplication.php:283
 msgid "Authorize URL"
 msgstr "URL авторизации"
 
-#: actions/showapplication.php:283
+#: actions/showapplication.php:288
 msgid ""
 "Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
 "signature method."
 msgstr ""
 "Примечание: Мы поддерживаем подписи HMAC-SHA1. Мы не поддерживаем метод "
 "подписи открытым текстом."
+
+#: actions/showapplication.php:309
+#, fuzzy
+msgid "Are you sure you want to reset your consumer key and secret?"
+msgstr "Вы уверены, что хотите удалить эту запись?"
 
 #: actions/showfavorites.php:79
 #, php-format
@@ -4781,13 +4784,13 @@ msgstr "Конфигурация путей"
 msgid "Sessions configuration"
 msgstr "Конфигурация сессий"
 
-#: lib/apiauth.php:99
+#: lib/apiauth.php:95
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
 "API ресурса требует доступ для чтения и записи, но у вас есть только доступ "
 "для чтения."
 
-#: lib/apiauth.php:279
+#: lib/apiauth.php:273
 #, php-format
 msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
 msgstr ""
@@ -6006,7 +6009,7 @@ msgstr "Повторить эту запись"
 
 #: lib/router.php:665
 msgid "No single user defined for single-user mode."
-msgstr ""
+msgstr "Ни задан пользователь для однопользовательского режима."
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"
