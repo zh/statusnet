@@ -632,7 +632,8 @@ margin-bottom:18px;
 .entity_profile .entity_url,
 .entity_profile .entity_note,
 .entity_profile .entity_tags,
-.entity_profile .entity_aliases {
+.entity_profile .entity_aliases,
+.entity_profile .entity_statistics {
 margin-left:113px;
 margin-bottom:4px;
 }
@@ -1023,6 +1024,7 @@ float:none;
 }
 #content .notice .entry-title {
 margin-left:59px;
+margin-right:7px;
 }
 
 .vcard .url {
@@ -1130,8 +1132,17 @@ top:3px;
 }
 
 .dialogbox .submit_dialogbox {
-text-indent:0;
 font-weight:bold;
+text-indent:0;
+min-width:46px;
+}
+
+#wrap form.processing input.submit,
+.entity_actions a.processing,
+.dialogbox.processing .submit_dialogbox {
+cursor:wait;
+outline:none;
+text-indent:-9999px;
 }
 
 .notice-options {
@@ -1401,6 +1412,9 @@ margin-bottom:18px;
 }
 .hentry .entry-content li li {
 margin-left:18px;
+}
+.hentry .entry-content .form_settings ul {
+margin-left:0;
 }
 
 #content #plugin_authors {

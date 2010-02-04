@@ -62,23 +62,60 @@ class DistribQueueHandler
     {
         // XXX: do we need to change this for remote users?
 
-        $notice->saveTags();
+        try {
+            $notice->saveTags();
+        } catch (Exception $e) {
+            $this->logit($notice, $e);
+        }
 
-        $groups = $notice->saveGroups();
+        try {
+            $groups = $notice->saveGroups();
+        } catch (Exception $e) {
+            $this->logit($notice, $e);
+        }
 
-        $recipients = $notice->saveReplies();
+        try {
+            $recipients = $notice->saveReplies();
+        } catch (Exception $e) {
+            $this->logit($notice, $e);
+        }
 
-        $notice->addToInboxes($groups, $recipients);
+        try {
+            $notice->addToInboxes($groups, $recipients);
+        } catch (Exception $e) {
+            $this->logit($notice, $e);
+        }
 
-        $notice->saveUrls();
+        try {
+            $notice->saveUrls();
+        } catch (Exception $e) {
+            $this->logit($notice, $e);
+        }
 
-        Event::handle('EndNoticeSave', array($notice));
+        try {
+            Event::handle('EndNoticeSave', array($notice));
+            // Enqueue for other handlers
+        } catch (Exception $e) {
+            $this->logit($notice, $e);
+        }
 
-        // Enqueue for other handlers
-
-        common_enqueue_notice($notice);
+        try {
+            common_enqueue_notice($notice);
+        } catch (Exception $e) {
+            $this->logit($notice, $e);
+        }
 
         return true;
+    }
+    
+    protected function logit($notice, $e)
+    {
+        common_log(LOG_ERR, "Distrib queue exception saving notice $notice->id: " .
+            $e->getMessage() . ' ' .
+            str_replace("\n", " ", $e->getTraceAsString()));
+
+        // We'll still return true so we don't get stuck in a loop
+        // trying to run a bad insert over and over...
     }
 }
 

@@ -95,9 +95,7 @@ RealtimeUpdate = {
         $("#notices_primary .notice:first").css({display:"none"});
         $("#notices_primary .notice:first").fadeIn(1000);
 
-        SN.U.FormXHR($('#'+noticeItemID+' .form_favor'));
         SN.U.NoticeReplyTo($('#'+noticeItemID));
-        SN.U.FormXHR($('#'+noticeItemID+' .form_repeat'));
         SN.U.NoticeWithAttachment($('#'+noticeItemID));
      },
 
@@ -180,7 +178,7 @@ console.log(data);
 
           ni = ni+"</div>";
 
-               "</li>";
+          ni = ni+"</li>";
           return ni;
      },
 

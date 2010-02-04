@@ -84,9 +84,12 @@ $default =
               'control_channel' => '/topic/statusnet-control', // broadcasts to all queue daemons
               'stomp_username' => null,
               'stomp_password' => null,
+              'stomp_persistent' => true, // keep items across queue server restart, if persistence is enabled
+              'stomp_manual_failover' => true, // if multiple servers are listed, treat them as separate (enqueue on one randomly, listen on all)
               'monitor' => null, // URL to monitor ping endpoint (work in progress)
               'softlimit' => '90%', // total size or % of memory_limit at which to restart queue threads gracefully
               'debug_memory' => false, // true to spit memory usage to log
+              'inboxes' => true, // true to do inbox distribution & output queueing from in background via 'distrib' queue
               ),
         'license' =>
         array('type' => 'cc', # can be 'cc', 'allrightsreserved', 'private'
@@ -269,4 +272,8 @@ $default =
         'singleuser' =>
         array('enabled' => false,
               'nickname' => null),
+        'robotstxt' =>
+        array('crawldelay' => 0,
+              'disallow' => array('main', 'settings', 'admin', 'search', 'message')
+              ),
         );

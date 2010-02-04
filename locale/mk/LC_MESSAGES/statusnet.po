@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-30 23:41+0000\n"
-"PO-Revision-Date: 2010-01-30 23:42:17+0000\n"
+"POT-Creation-Date: 2010-02-04 10:31+0000\n"
+"PO-Revision-Date: 2010-02-04 10:33:08+0000\n"
 "Language-Team: Macedonian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61734); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61969); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: out-statusnet\n"
@@ -95,7 +95,7 @@ msgstr "Нема таква страница"
 #: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
 #: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:76
 #: actions/remotesubscribe.php:145 actions/remotesubscribe.php:154
-#: actions/replies.php:73 actions/repliesrss.php:38
+#: actions/replies.php:73 actions/repliesrss.php:38 actions/rsd.php:116
 #: actions/showfavorites.php:105 actions/userbyid.php:74
 #: actions/usergroups.php:91 actions/userrss.php:38 actions/xrds.php:71
 #: lib/command.php:163 lib/command.php:302 lib/command.php:355
@@ -158,7 +158,7 @@ msgstr ""
 "на корисникот или да [објавите нешто што сакате тој да го прочита](%%%%"
 "action.newnotice%%%%?status_textarea=%3$s)."
 
-#: actions/all.php:137 actions/replies.php:209 actions/showstream.php:202
+#: actions/all.php:137 actions/replies.php:209 actions/showstream.php:211
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
@@ -390,8 +390,8 @@ msgstr "Тој прекар е во употреба. Одберете друг.
 msgid "Not a valid nickname."
 msgstr "Неправилен прекар."
 
-#: actions/apigroupcreate.php:196 actions/editapplication.php:212
-#: actions/editgroup.php:195 actions/newapplication.php:200
+#: actions/apigroupcreate.php:196 actions/editapplication.php:215
+#: actions/editgroup.php:195 actions/newapplication.php:203
 #: actions/newgroup.php:139 actions/profilesettings.php:222
 #: actions/register.php:217
 msgid "Homepage is not a valid URL."
@@ -403,8 +403,8 @@ msgstr "Главната страница не е важечка URL-адрес�
 msgid "Full name is too long (max 255 chars)."
 msgstr "Целото име е предолго (максимум 255 знаци)"
 
-#: actions/apigroupcreate.php:213 actions/editapplication.php:187
-#: actions/newapplication.php:169
+#: actions/apigroupcreate.php:213 actions/editapplication.php:190
+#: actions/newapplication.php:172
 #, php-format
 msgid "Description is too long (max %d chars)."
 msgstr "Описот е предолг (дозволено е највеќе %d знаци)."
@@ -481,18 +481,22 @@ msgstr "%s групи"
 msgid "groups on %s"
 msgstr "групи на %s"
 
-#: actions/apioauthauthorize.php:108 actions/apioauthauthorize.php:114
-msgid "Bad request."
-msgstr "Лошо барање."
+#: actions/apioauthauthorize.php:101
+msgid "No oauth_token parameter provided."
+msgstr "Нема наведено oauth_token параметар."
 
-#: actions/apioauthauthorize.php:134 actions/avatarsettings.php:268
+#: actions/apioauthauthorize.php:106
+msgid "Invalid token."
+msgstr "Погрешен жетон."
+
+#: actions/apioauthauthorize.php:123 actions/avatarsettings.php:268
 #: actions/deletenotice.php:157 actions/disfavor.php:74
-#: actions/emailsettings.php:238 actions/favor.php:75 actions/geocode.php:50
+#: actions/emailsettings.php:238 actions/favor.php:75 actions/geocode.php:54
 #: actions/groupblock.php:66 actions/grouplogo.php:309
 #: actions/groupunblock.php:66 actions/imsettings.php:206
 #: actions/invite.php:56 actions/login.php:115 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
-#: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:139
+#: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:135
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:194 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
@@ -503,74 +507,85 @@ msgstr "Лошо барање."
 msgid "There was a problem with your session token. Try again, please."
 msgstr "Се поајви проблем со Вашиот сесиски жетон. Обидете се повторно."
 
-#: actions/apioauthauthorize.php:146
+#: actions/apioauthauthorize.php:135
 msgid "Invalid nickname / password!"
 msgstr "Погрешен прекар / лозинка!"
 
-#: actions/apioauthauthorize.php:170
+#: actions/apioauthauthorize.php:159
 msgid "Database error deleting OAuth application user."
 msgstr "Грешка при бришењето на корисникот на OAuth-програмот."
 
-#: actions/apioauthauthorize.php:196
+#: actions/apioauthauthorize.php:185
 msgid "Database error inserting OAuth application user."
 msgstr ""
 "Грешка во базата на податоци при вметнувањето на корисникот на OAuth-"
 "програмот."
 
-#: actions/apioauthauthorize.php:231
+#: actions/apioauthauthorize.php:214
 #, php-format
 msgid ""
 "The request token %s has been authorized. Please exchange it for an access "
 "token."
 msgstr "Жетонот на барањето %s е одобрен. Заменете го со жетон за пристап."
 
-#: actions/apioauthauthorize.php:241
+#: actions/apioauthauthorize.php:227
 #, php-format
-msgid "The request token %s has been denied."
-msgstr "Жетонот на барањето %s е одбиен."
+msgid "The request token %s has been denied and revoked."
+msgstr "Жетонот на барањето %s е одбиен и поништен."
 
-#: actions/apioauthauthorize.php:246 actions/avatarsettings.php:281
+#: actions/apioauthauthorize.php:232 actions/avatarsettings.php:281
 #: actions/designadminpanel.php:103 actions/editapplication.php:139
 #: actions/emailsettings.php:256 actions/grouplogo.php:319
 #: actions/imsettings.php:220 actions/newapplication.php:121
-#: actions/oauthconnectionssettings.php:151 actions/recoverpassword.php:44
+#: actions/oauthconnectionssettings.php:147 actions/recoverpassword.php:44
 #: actions/smssettings.php:248 lib/designsettings.php:304
 msgid "Unexpected form submission."
 msgstr "Неочекувано поднесување на образец."
 
-#: actions/apioauthauthorize.php:273
+#: actions/apioauthauthorize.php:259
 msgid "An application would like to connect to your account"
 msgstr "Има програм кој сака да се поврзе со Вашата сметка"
 
-#: actions/apioauthauthorize.php:290
+#: actions/apioauthauthorize.php:276
 msgid "Allow or deny access"
 msgstr "Дозволи или одбиј пристап"
 
-#: actions/apioauthauthorize.php:320 lib/action.php:441
+#: actions/apioauthauthorize.php:292
+#, php-format
+msgid ""
+"The application <strong>%1$s</strong> by <strong>%2$s</strong> would like "
+"the ability to <strong>%3$s</strong> your %4$s account data. You should only "
+"give access to your %4$s account to third parties you trust."
+msgstr ""
+"Програмот <strong>%1$s</strong> од <strong>%2$s</strong> би сакал да може да "
+"<strong>%3$s</strong> податоците за Вашата %4$s сметка. Треба да дозволувате "
+"пристап до Вашата %4$s сметка само на трети страни на кои им верувате."
+
+#: actions/apioauthauthorize.php:310 lib/action.php:441
 msgid "Account"
 msgstr "Сметка"
 
-#: actions/apioauthauthorize.php:323 actions/login.php:230
+#: actions/apioauthauthorize.php:313 actions/login.php:230
 #: actions/profilesettings.php:106 actions/register.php:424
 #: actions/showgroup.php:236 actions/tagother.php:94 lib/groupeditform.php:152
 #: lib/userprofile.php:131
 msgid "Nickname"
 msgstr "Прекар"
 
-#: actions/apioauthauthorize.php:326 actions/login.php:233
+#: actions/apioauthauthorize.php:316 actions/login.php:233
 #: actions/register.php:429 lib/accountsettingsaction.php:116
 msgid "Password"
 msgstr "Лозинка"
 
-#: actions/apioauthauthorize.php:338
+#: actions/apioauthauthorize.php:328
 msgid "Deny"
 msgstr "Одбиј"
 
-#: actions/apioauthauthorize.php:344
+#: actions/apioauthauthorize.php:334
 msgid "Allow"
 msgstr "Дозволи"
 
-#: actions/apioauthauthorize.php:361
+#: actions/apioauthauthorize.php:351
 msgid "Allow or deny access to your account information."
 msgstr "Дозволете или одбијте пристап до податоците за Вашата сметка."
 
@@ -743,8 +758,8 @@ msgstr "Оригинал"
 msgid "Preview"
 msgstr "Преглед"
 
-#: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:608
+#: actions/avatarsettings.php:149 actions/showapplication.php:252
+#: lib/deleteuserform.php:66 lib/noticelist.php:624
 msgid "Delete"
 msgstr "Бриши"
 
@@ -795,8 +810,9 @@ msgstr ""
 "претплати на Вас во иднина, и нема да бидете известени ако имате @-одговори "
 "од корисникот."
 
-#: actions/block.php:143 actions/deletenotice.php:145
-#: actions/deleteuser.php:147 actions/groupblock.php:178
+#: actions/block.php:143 actions/deleteapplication.php:153
+#: actions/deletenotice.php:145 actions/deleteuser.php:147
+#: actions/groupblock.php:178
 msgid "No"
 msgstr "Не"
 
@@ -804,9 +820,9 @@ msgstr "Не"
 msgid "Do not block this user"
 msgstr "Не го блокирај корисников"
 
-#: actions/block.php:144 actions/deletenotice.php:146
-#: actions/deleteuser.php:148 actions/groupblock.php:179
-#: lib/repeatform.php:132
+#: actions/block.php:144 actions/deleteapplication.php:158
+#: actions/deletenotice.php:146 actions/deleteuser.php:148
+#: actions/groupblock.php:179 lib/repeatform.php:132
 msgid "Yes"
 msgstr "Да"
 
@@ -910,6 +926,47 @@ msgstr "Разговор"
 msgid "Notices"
 msgstr "Забелешки"
 
+#: actions/deleteapplication.php:63
+msgid "You must be logged in to delete an application."
+msgstr "Мора да сте најавени за да можете да избришете програм."
+
+#: actions/deleteapplication.php:71
+msgid "Application not found."
+msgstr "Програмот не е пронајден."
+
+#: actions/deleteapplication.php:78 actions/editapplication.php:77
+#: actions/showapplication.php:94
+msgid "You are not the owner of this application."
+msgstr "Не сте сопственик на овој програм."
+
+#: actions/deleteapplication.php:102 actions/editapplication.php:127
+#: actions/newapplication.php:110 actions/showapplication.php:118
+#: lib/action.php:1195
+msgid "There was a problem with your session token."
+msgstr "Се појави проблем со Вашиот сесиски жетон."
+
+#: actions/deleteapplication.php:123 actions/deleteapplication.php:147
+msgid "Delete application"
+msgstr "Избриши програм"
+
+#: actions/deleteapplication.php:149
+msgid ""
+"Are you sure you want to delete this application? This will clear all data "
+"about the application from the database, including all existing user "
+"connections."
+msgstr ""
+"Дали се сигурни дека сакате да го избришете овој програм? Ова воедно ќе ги "
+"избрише сите податоци за програмот од базата, вклучувајќи ги сите постоечки "
+"поврзувања."
+
+#: actions/deleteapplication.php:156
+msgid "Do not delete this application"
+msgstr "Не го бриши овој програм"
+
+#: actions/deleteapplication.php:160
+msgid "Delete this application"
+msgstr "Избриши го програмов"
+
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
@@ -944,7 +1001,7 @@ msgstr "Дали сте сигурни дека сакате да ја избр�
 msgid "Do not delete this notice"
 msgstr "Не ја бриши оваа забелешка"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:608
+#: actions/deletenotice.php:146 lib/noticelist.php:624
 msgid "Delete this notice"
 msgstr "Бриши ја оваа забелешка"
 
@@ -1088,7 +1145,7 @@ msgstr "Оваа забелешка не Ви е омилена!"
 msgid "Add to favorites"
 msgstr "Додај во омилени"
 
-#: actions/doc.php:155
+#: actions/doc.php:158
 #, php-format
 msgid "No such document \"%s\""
 msgstr "Нема документ со наслов „%s“"
@@ -1101,19 +1158,10 @@ msgstr "Уреди програм"
 msgid "You must be logged in to edit an application."
 msgstr "Мора да сте најавени за да можете да уредувате програми."
 
-#: actions/editapplication.php:77 actions/showapplication.php:94
-msgid "You are not the owner of this application."
-msgstr "Не сте сопственик на овој програм."
-
-#: actions/editapplication.php:81 actions/oauthconnectionssettings.php:163
+#: actions/editapplication.php:81 actions/oauthconnectionssettings.php:166
 #: actions/showapplication.php:87
 msgid "No such application."
 msgstr "Нема таков програм."
-
-#: actions/editapplication.php:127 actions/newapplication.php:110
-#: actions/showapplication.php:118 lib/action.php:1195
-msgid "There was a problem with your session token."
-msgstr "Се појави проблем со Вашиот сесиски жетон."
 
 #: actions/editapplication.php:161
 msgid "Use this form to edit your application."
@@ -1123,43 +1171,47 @@ msgstr "Образецов служи за уредување на програ�
 msgid "Name is required."
 msgstr "Треба име."
 
-#: actions/editapplication.php:180 actions/newapplication.php:162
+#: actions/editapplication.php:180 actions/newapplication.php:165
 msgid "Name is too long (max 255 chars)."
 msgstr "Името е предолго (максимум 255 знаци)."
 
-#: actions/editapplication.php:183 actions/newapplication.php:165
+#: actions/editapplication.php:183 actions/newapplication.php:162
+msgid "Name already in use. Try another one."
+msgstr "Тоа име е во употреба. Одберете друго."
+
+#: actions/editapplication.php:186 actions/newapplication.php:168
 msgid "Description is required."
 msgstr "Треба опис."
 
-#: actions/editapplication.php:191
+#: actions/editapplication.php:194
 msgid "Source URL is too long."
 msgstr "Изворната URL-адреса е предолга."
 
-#: actions/editapplication.php:197 actions/newapplication.php:182
+#: actions/editapplication.php:200 actions/newapplication.php:185
 msgid "Source URL is not valid."
 msgstr "Изворната URL-адреса е неважечка."
 
-#: actions/editapplication.php:200 actions/newapplication.php:185
+#: actions/editapplication.php:203 actions/newapplication.php:188
 msgid "Organization is required."
 msgstr "Треба организација."
 
-#: actions/editapplication.php:203 actions/newapplication.php:188
+#: actions/editapplication.php:206 actions/newapplication.php:191
 msgid "Organization is too long (max 255 chars)."
 msgstr "Организацијата е предолга (максимумот е 255 знаци)."
 
-#: actions/editapplication.php:206 actions/newapplication.php:191
+#: actions/editapplication.php:209 actions/newapplication.php:194
 msgid "Organization homepage is required."
 msgstr "Треба домашна страница на организацијата."
 
-#: actions/editapplication.php:215 actions/newapplication.php:203
+#: actions/editapplication.php:218 actions/newapplication.php:206
 msgid "Callback is too long."
 msgstr "Повикувањето е предолго."
 
-#: actions/editapplication.php:222 actions/newapplication.php:212
+#: actions/editapplication.php:225 actions/newapplication.php:215
 msgid "Callback URL is not valid."
 msgstr "URL-адресата за повикување е неважечка."
 
-#: actions/editapplication.php:255
+#: actions/editapplication.php:258
 msgid "Could not update application."
 msgstr "Не можев да го подновам програмот."
 
@@ -2097,11 +2149,11 @@ msgstr "Мора да сте најавени за да можете да рег
 msgid "Use this form to register a new application."
 msgstr "Овој образец служи за регистрирање на нов програм."
 
-#: actions/newapplication.php:173
+#: actions/newapplication.php:176
 msgid "Source URL is required."
 msgstr "Треба изворна URL-адреса."
 
-#: actions/newapplication.php:255 actions/newapplication.php:264
+#: actions/newapplication.php:258 actions/newapplication.php:267
 msgid "Could not create application."
 msgstr "Не можеше да се создаде програмот."
 
@@ -2237,28 +2289,28 @@ msgstr "Програми што ги имате регистрирано"
 msgid "You have not registered any applications yet."
 msgstr "Сè уште немате регистрирано ниеден програм,"
 
-#: actions/oauthconnectionssettings.php:71
+#: actions/oauthconnectionssettings.php:72
 msgid "Connected applications"
 msgstr "Поврзани програми"
 
-#: actions/oauthconnectionssettings.php:87
+#: actions/oauthconnectionssettings.php:83
 msgid "You have allowed the following applications to access you account."
 msgstr "Им имате дозволено пристап до Вашата сметка на следните програми."
 
-#: actions/oauthconnectionssettings.php:170
+#: actions/oauthconnectionssettings.php:175
 msgid "You are not a user of that application."
 msgstr "Не сте корисник на тој програм."
 
-#: actions/oauthconnectionssettings.php:180
+#: actions/oauthconnectionssettings.php:186
 msgid "Unable to revoke access for app: "
 msgstr "Не можам да му го одземам пристапот на програмот: "
 
-#: actions/oauthconnectionssettings.php:192
+#: actions/oauthconnectionssettings.php:198
 #, php-format
 msgid "You have not authorized any applications to use your account."
 msgstr "Му немате дозволено пристап до Вашата сметка на ниеден програм."
 
-#: actions/oauthconnectionssettings.php:205
+#: actions/oauthconnectionssettings.php:211
 msgid "Developers can edit the registration settings for their applications "
 msgstr ""
 "Развивачите можат да ги нагодат регистрациските поставки за нивните програми "
@@ -2764,19 +2816,19 @@ msgstr "Јавна историја, стр. %d"
 msgid "Public timeline"
 msgstr "Јавна историја"
 
-#: actions/public.php:151
+#: actions/public.php:159
 msgid "Public Stream Feed (RSS 1.0)"
 msgstr "Канал на јавниот поток (RSS 1.0)"
 
-#: actions/public.php:155
+#: actions/public.php:163
 msgid "Public Stream Feed (RSS 2.0)"
 msgstr "Канал на јавниот поток (RSS 2.0)"
 
-#: actions/public.php:159
+#: actions/public.php:167
 msgid "Public Stream Feed (Atom)"
 msgstr "Канал на јавниот поток (Atom)"
 
-#: actions/public.php:179
+#: actions/public.php:187
 #, php-format
 msgid ""
 "This is the public timeline for %%site.name%% but no one has posted anything "
@@ -2784,11 +2836,11 @@ msgid ""
 msgstr ""
 "Ова е јавната историја за %%site.name%%, но досега никој ништо нема објавено."
 
-#: actions/public.php:182
+#: actions/public.php:190
 msgid "Be the first to post!"
 msgstr "Создајте ја првата забелешка!"
 
-#: actions/public.php:186
+#: actions/public.php:194
 #, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post!"
@@ -2796,7 +2848,7 @@ msgstr ""
 "Зошто не [регистрирате сметка](%%action.register%%) и станете првиот "
 "објавувач!"
 
-#: actions/public.php:233
+#: actions/public.php:241
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -2810,7 +2862,7 @@ msgstr ""
 "споделувате забелешки за себе со приајтелите, семејството и колегите! "
 "([Прочитајте повеќе](%%doc.help%%))"
 
-#: actions/public.php:238
+#: actions/public.php:246
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -3179,7 +3231,7 @@ msgstr "Не можете да повторувате сопствена заб�
 msgid "You already repeated that notice."
 msgstr "Веќе ја имате повторено таа забелешка."
 
-#: actions/repeat.php:114 lib/noticelist.php:626
+#: actions/repeat.php:114 lib/noticelist.php:642
 msgid "Repeated"
 msgstr "Повторено"
 
@@ -3245,6 +3297,10 @@ msgstr ""
 msgid "Replies to %1$s on %2$s!"
 msgstr "Одговори на %1$s на %2$s!"
 
+#: actions/rsd.php:146 actions/version.php:157
+msgid "StatusNet"
+msgstr "StatusNet"
+
 #: actions/sandbox.php:65 actions/unsandbox.php:65
 msgid "You cannot sandbox users on this site."
 msgstr "Не можете да ставате корисници во песочен режим на оваа веб-страница."
@@ -3259,9 +3315,8 @@ msgid "Sessions"
 msgstr "Сесии"
 
 #: actions/sessionsadminpanel.php:65
-#, fuzzy
 msgid "Session settings for this StatusNet site."
-msgstr "Нагодувања на изгледот на оваа StatusNet веб-страница."
+msgstr "Нагодувања на сесиите за оваа StatusNet веб-страница."
 
 #: actions/sessionsadminpanel.php:175
 msgid "Handle sessions"
@@ -3288,77 +3343,82 @@ msgstr "Зачувај нагодувања на веб-страницата"
 msgid "You must be logged in to view an application."
 msgstr "Мора да сте најавени за да можете да го видите програмот."
 
-#: actions/showapplication.php:158
+#: actions/showapplication.php:157
 msgid "Application profile"
 msgstr "Профил на програмот"
 
-#: actions/showapplication.php:160 lib/applicationeditform.php:180
+#: actions/showapplication.php:159 lib/applicationeditform.php:180
 msgid "Icon"
 msgstr "Икона"
 
-#: actions/showapplication.php:170 actions/version.php:195
+#: actions/showapplication.php:169 actions/version.php:195
 #: lib/applicationeditform.php:195
 msgid "Name"
 msgstr "Име"
 
-#: actions/showapplication.php:179 lib/applicationeditform.php:222
+#: actions/showapplication.php:178 lib/applicationeditform.php:222
 msgid "Organization"
 msgstr "Организација"
 
-#: actions/showapplication.php:188 actions/version.php:198
+#: actions/showapplication.php:187 actions/version.php:198
 #: lib/applicationeditform.php:209 lib/groupeditform.php:172
 msgid "Description"
 msgstr "Опис"
 
-#: actions/showapplication.php:193 actions/showgroup.php:429
+#: actions/showapplication.php:192 actions/showgroup.php:429
 #: lib/profileaction.php:174
 msgid "Statistics"
 msgstr "Статистики"
 
-#: actions/showapplication.php:204
+#: actions/showapplication.php:203
 #, php-format
-msgid "created by %1$s - %2$s access by default - %3$d users"
-msgstr "создал: %1$s - основен пристап: %2$s - %3$d корисници"
+msgid "Created by %1$s - %2$s access by default - %3$d users"
+msgstr "Создадено од %1$s - основен пристап: %2$s - %3$d корисници"
 
-#: actions/showapplication.php:214
+#: actions/showapplication.php:213
 msgid "Application actions"
 msgstr "Дејства на програмот"
 
-#: actions/showapplication.php:233
+#: actions/showapplication.php:236
 msgid "Reset key & secret"
 msgstr "Клуч за промена и тајна"
 
-#: actions/showapplication.php:241
+#: actions/showapplication.php:261
 msgid "Application info"
 msgstr "Инфо за програмот"
 
-#: actions/showapplication.php:243
+#: actions/showapplication.php:263
 msgid "Consumer key"
 msgstr "Потрошувачки клуч"
 
-#: actions/showapplication.php:248
+#: actions/showapplication.php:268
 msgid "Consumer secret"
 msgstr "Потрошувачка тајна"
 
-#: actions/showapplication.php:253
+#: actions/showapplication.php:273
 msgid "Request token URL"
 msgstr "URL на жетонот на барањето"
 
-#: actions/showapplication.php:258
+#: actions/showapplication.php:278
 msgid "Access token URL"
 msgstr "URL на пристапниот жетон"
 
-#: actions/showapplication.php:263
+#: actions/showapplication.php:283
 msgid "Authorize URL"
 msgstr "Одобри URL"
 
-#: actions/showapplication.php:268
+#: actions/showapplication.php:288
 msgid ""
 "Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
 "signature method."
 msgstr ""
 "Напомена: Поддржуваме HMAC-SHA1 потписи. Не поддржуваме потпишување со прост "
 "текст."
+
+#: actions/showapplication.php:309
+#, fuzzy
+msgid "Are you sure you want to reset your consumer key and secret?"
+msgstr "Дали сте сигурни дека сакате да ја избришете оваа заблешка?"
 
 #: actions/showfavorites.php:79
 #, php-format
@@ -3577,12 +3637,12 @@ msgstr "Канал со забелешки за %s (Atom)"
 msgid "FOAF for %s"
 msgstr "FOAF за %s"
 
-#: actions/showstream.php:191
+#: actions/showstream.php:200
 #, php-format
 msgid "This is the timeline for %1$s but %2$s hasn't posted anything yet."
 msgstr "Ова е историјата за %1$s, но %2$s сè уште нема објавено ништо."
 
-#: actions/showstream.php:196
+#: actions/showstream.php:205
 msgid ""
 "Seen anything interesting recently? You haven't posted any notices yet, now "
 "would be a good time to start :)"
@@ -3590,7 +3650,7 @@ msgstr ""
 "Имате видено нешто интересно во последно време? Сè уште немате објавено "
 "ниедна забелешка, но сега е добро време за да почнете :)"
 
-#: actions/showstream.php:198
+#: actions/showstream.php:207
 #, php-format
 msgid ""
 "You can try to nudge %1$s or [post something to his or her attention](%%%%"
@@ -3599,7 +3659,7 @@ msgstr ""
 "Можете да го подбуцнете корисникот %1$s или [да објавите нешто што сакате да "
 "го прочита](%%%%action.newnotice%%%%?status_textarea=%2$s)."
 
-#: actions/showstream.php:234
+#: actions/showstream.php:243
 #, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3613,7 +3673,7 @@ msgstr ""
 "register%%%%) за да можете да ги следите забелешките на **%s** и многу "
 "повеќе! ([Прочитајте повеќе](%%%%doc.help%%%%))"
 
-#: actions/showstream.php:239
+#: actions/showstream.php:248
 #, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3624,7 +3684,7 @@ msgstr ""
 "(http://mk.wikipedia.org/wiki/Микроблогирање) базирана на слободната "
 "програмска алатка [StatusNet](http://status.net/). "
 
-#: actions/showstream.php:296
+#: actions/showstream.php:305
 #, php-format
 msgid "Repeat of %s"
 msgstr "Повторувања на %s"
@@ -4307,10 +4367,6 @@ msgstr ""
 "Оваа веб-страница работи на %1$s верзија %2$s, Авторски права 2008-2010 "
 "StatusNet, Inc. и учесници."
 
-#: actions/version.php:157
-msgid "StatusNet"
-msgstr "StatusNet"
-
 #: actions/version.php:161
 msgid "Contributors"
 msgstr "Учесници"
@@ -4445,21 +4501,21 @@ msgstr "Забрането Ви е да објавувате забелешки 
 msgid "Problem saving notice."
 msgstr "Проблем во зачувувањето на белешката."
 
-#: classes/Notice.php:790
+#: classes/Notice.php:788
 msgid "Problem saving group inbox."
 msgstr "Проблем при зачувувањето на групното приемно сандаче."
 
-#: classes/Notice.php:850
+#: classes/Notice.php:848
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Одговор од внесот во базата: %s"
 
-#: classes/Notice.php:1233
+#: classes/Notice.php:1231
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
 
-#: classes/User.php:382
+#: classes/User.php:385
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Добредојдовте на %1$s, @%2$s!"
@@ -4734,17 +4790,16 @@ msgid "Paths configuration"
 msgstr "Конфигурација на патеки"
 
 #: lib/adminpanelaction.php:337
-#, fuzzy
 msgid "Sessions configuration"
-msgstr "Конфигурација на изгледот"
+msgstr "Конфигурација на сесиите"
 
-#: lib/apiauth.php:99
+#: lib/apiauth.php:95
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
 "API-ресурсот бара да може и да чита и да запишува, а вие можете само да "
 "читате."
 
-#: lib/apiauth.php:279
+#: lib/apiauth.php:273
 #, php-format
 msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
 msgstr "Неуспешен обид за API-заверка, прекар = %1$s, прокси = %2$s, IP = %3$s"
@@ -5144,19 +5199,19 @@ msgstr ""
 "tracks - сè уште не е имплементирано.\n"
 "tracking - сè уште не е имплементирано.\n"
 
-#: lib/common.php:131
+#: lib/common.php:135
 msgid "No configuration file found. "
 msgstr "Нема пронајдено конфигурациска податотека. "
 
-#: lib/common.php:132
+#: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
 msgstr "Побарав конфигурациони податотеки на следниве места: "
 
-#: lib/common.php:134
+#: lib/common.php:138
 msgid "You may wish to run the installer to fix this."
 msgstr "Препорачуваме да го пуштите инсталатерот за да го поправите ова."
 
-#: lib/common.php:135
+#: lib/common.php:139
 msgid "Go to the installer."
 msgstr "Оди на инсталаторот."
 
@@ -5807,23 +5862,23 @@ msgstr "З"
 msgid "at"
 msgstr "во"
 
-#: lib/noticelist.php:531
+#: lib/noticelist.php:547
 msgid "in context"
 msgstr "во контекст"
 
-#: lib/noticelist.php:556
+#: lib/noticelist.php:572
 msgid "Repeated by"
 msgstr "Повторено од"
 
-#: lib/noticelist.php:582
+#: lib/noticelist.php:598
 msgid "Reply to this notice"
 msgstr "Одговори на забелешкава"
 
-#: lib/noticelist.php:583
+#: lib/noticelist.php:599
 msgid "Reply"
 msgstr "Одговор"
 
-#: lib/noticelist.php:625
+#: lib/noticelist.php:641
 msgid "Notice repeated"
 msgstr "Забелешката е повторена"
 
@@ -5963,6 +6018,10 @@ msgstr "Да ја повторам белешкава?"
 #: lib/repeatform.php:132
 msgid "Repeat this notice"
 msgstr "Повтори ја забелешкава"
+
+#: lib/router.php:665
+msgid "No single user defined for single-user mode."
+msgstr "Не е зададен корисник за еднокорисничкиот режим."
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"
@@ -6130,47 +6189,47 @@ msgstr "Порака"
 msgid "Moderate"
 msgstr "Модерирај"
 
-#: lib/util.php:868
+#: lib/util.php:867
 msgid "a few seconds ago"
 msgstr "пред неколку секунди"
 
-#: lib/util.php:870
+#: lib/util.php:869
 msgid "about a minute ago"
 msgstr "пред една минута"
 
-#: lib/util.php:872
+#: lib/util.php:871
 #, php-format
 msgid "about %d minutes ago"
 msgstr "пред %d минути"
 
-#: lib/util.php:874
+#: lib/util.php:873
 msgid "about an hour ago"
 msgstr "пред еден час"
 
-#: lib/util.php:876
+#: lib/util.php:875
 #, php-format
 msgid "about %d hours ago"
 msgstr "пред %d часа"
 
-#: lib/util.php:878
+#: lib/util.php:877
 msgid "about a day ago"
 msgstr "пред еден ден"
 
-#: lib/util.php:880
+#: lib/util.php:879
 #, php-format
 msgid "about %d days ago"
 msgstr "пред %d денови"
 
-#: lib/util.php:882
+#: lib/util.php:881
 msgid "about a month ago"
 msgstr "пред еден месец"
 
-#: lib/util.php:884
+#: lib/util.php:883
 #, php-format
 msgid "about %d months ago"
 msgstr "пред %d месеца"
 
-#: lib/util.php:886
+#: lib/util.php:885
 msgid "about a year ago"
 msgstr "пред една година"
 

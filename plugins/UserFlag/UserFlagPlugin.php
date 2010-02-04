@@ -183,21 +183,6 @@ class UserFlagPlugin extends Plugin
     }
 
     /**
-     * Add our plugin's CSS to page output
-     *
-     * @param Action $action action being shown
-     *
-     * @return boolean hook result
-     */
-
-    function onEndShowStatusNetStyles($action)
-    {
-        $action->cssLink(common_path('plugins/UserFlag/userflag.css'),
-                         null, 'screen, projection, tv');
-        return true;
-    }
-
-    /**
      * Initialize any flagging buttons on the page
      *
      * @param Action $action action being shown
@@ -208,8 +193,8 @@ class UserFlagPlugin extends Plugin
     function onEndShowScripts($action)
     {
         $action->inlineScript('if ($(".form_entity_flag").length > 0) { '.
-                              'SN.U.FormXHR($(".form_entity_flag")); '.
-                              '}');
+                              '$(".form_entity_flag").bind("click", function() {'.
+                              'SN.U.FormXHR($(this)); return false; }); }');
         return true;
     }
 
