@@ -20,14 +20,14 @@
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 
-$shortoptions = "t:c:v:k:";
+$shortoptions = "t:l:v:k:";
 
 $helptext = <<<ENDOFHELP
 USAGE: showcache.php <args>
 shows the cached object based on the args
 
   -t table     Table to look up
-  -c column    Column to look up, default "id"
+  -l column    Column to look up, default "id"
   -v value     Value to look up
   -k key       Key to look up; other args are ignored
 
@@ -44,7 +44,7 @@ if (!empty($karg)) {
     if (empty($table)) {
         die("No table or key specified\n");
     }
-    $column = get_option_value('c');
+    $column = get_option_value('l');
     if (empty($column)) {
         $column = 'id';
     }
