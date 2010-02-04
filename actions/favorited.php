@@ -186,10 +186,13 @@ class FavoritedAction extends Action
     function showContent()
     {
         $weightexpr = common_sql_weight('fave.modified', common_config('popular', 'dropoff'));
+        $cutoff = sprintf("fave.modified > '%s'",
+                          common_sql_date(time() - common_config('popular', 'cutoff')));
 
         $qry = 'SELECT notice.*, '.
           $weightexpr . ' as weight ' .
           'FROM notice JOIN fave ON notice.id = fave.notice_id ' .
+          "WHERE $cutoff " .
           'GROUP BY id,profile_id,uri,content,rendered,url,created,notice.modified,reply_to,is_local,source,notice.conversation ' .
           'ORDER BY weight DESC';
 
