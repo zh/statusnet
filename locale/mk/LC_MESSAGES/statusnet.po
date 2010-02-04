@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-04 10:31+0000\n"
-"PO-Revision-Date: 2010-02-04 10:33:08+0000\n"
+"POT-Creation-Date: 2010-02-04 22:03+0000\n"
+"PO-Revision-Date: 2010-02-04 22:04:38+0000\n"
 "Language-Team: Macedonian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61969); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61992); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: out-statusnet\n"
@@ -567,7 +567,8 @@ msgstr "Сметка"
 
 #: actions/apioauthauthorize.php:313 actions/login.php:230
 #: actions/profilesettings.php:106 actions/register.php:424
-#: actions/showgroup.php:236 actions/tagother.php:94 lib/groupeditform.php:152
+#: actions/showgroup.php:236 actions/tagother.php:94
+#: actions/userauthorization.php:145 lib/groupeditform.php:152
 #: lib/userprofile.php:131
 msgid "Nickname"
 msgstr "Прекар"
@@ -1441,7 +1442,7 @@ msgstr "Оваа белешка е веќе омилена!"
 msgid "Disfavor favorite"
 msgstr "Тргни од омилени"
 
-#: actions/favorited.php:65 lib/popularnoticesection.php:88
+#: actions/favorited.php:65 lib/popularnoticesection.php:91
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
 msgstr "Популарни забелешки"
@@ -2711,7 +2712,7 @@ msgstr "Биографија"
 
 #: actions/profilesettings.php:132 actions/register.php:471
 #: actions/showgroup.php:256 actions/tagother.php:112
-#: actions/userauthorization.php:158 lib/groupeditform.php:177
+#: actions/userauthorization.php:166 lib/groupeditform.php:177
 #: lib/userprofile.php:164
 msgid "Location"
 msgstr "Локација"
@@ -2900,7 +2901,7 @@ msgstr ""
 "Зошто не [регистрирате сметка](%%action.register%%) и станете прв што ќе "
 "објави!"
 
-#: actions/publictagcloud.php:131
+#: actions/publictagcloud.php:134
 msgid "Tag cloud"
 msgstr "Облак од ознаки"
 
@@ -3416,9 +3417,10 @@ msgstr ""
 "текст."
 
 #: actions/showapplication.php:309
-#, fuzzy
 msgid "Are you sure you want to reset your consumer key and secret?"
-msgstr "Дали сте сигурни дека сакате да ја избришете оваа заблешка?"
+msgstr ""
+"Дали сте сигурни дека сакате да го смените вашиот кориснички клуч и тајната "
+"фраза?"
 
 #: actions/showfavorites.php:79
 #, php-format
@@ -3492,12 +3494,12 @@ msgid "Group profile"
 msgstr "Профил на група"
 
 #: actions/showgroup.php:263 actions/tagother.php:118
-#: actions/userauthorization.php:167 lib/userprofile.php:177
+#: actions/userauthorization.php:175 lib/userprofile.php:177
 msgid "URL"
 msgstr "URL"
 
 #: actions/showgroup.php:274 actions/tagother.php:128
-#: actions/userauthorization.php:179 lib/userprofile.php:194
+#: actions/userauthorization.php:187 lib/userprofile.php:194
 msgid "Note"
 msgstr "Забелешка"
 
@@ -4080,7 +4082,8 @@ msgstr "Означи %s"
 msgid "User profile"
 msgstr "Кориснички профил"
 
-#: actions/tagother.php:81 lib/userprofile.php:102
+#: actions/tagother.php:81 actions/userauthorization.php:132
+#: lib/userprofile.php:102
 msgid "Photo"
 msgstr "Фото"
 
@@ -4139,7 +4142,7 @@ msgstr "Во барањето нема id на профилот."
 msgid "Unsubscribed"
 msgstr "Претплатата е откажана"
 
-#: actions/updateprofile.php:62 actions/userauthorization.php:330
+#: actions/updateprofile.php:62 actions/userauthorization.php:337
 #, php-format
 msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
@@ -4228,36 +4231,36 @@ msgstr ""
 "за забелешките на овој корисник. Ако не сакате да се претплатите, едноставно "
 "кликнете на „Одбиј“"
 
-#: actions/userauthorization.php:188 actions/version.php:165
+#: actions/userauthorization.php:196 actions/version.php:165
 msgid "License"
 msgstr "Лиценца"
 
-#: actions/userauthorization.php:209
+#: actions/userauthorization.php:217
 msgid "Accept"
 msgstr "Прифати"
 
-#: actions/userauthorization.php:210 lib/subscribeform.php:115
+#: actions/userauthorization.php:218 lib/subscribeform.php:115
 #: lib/subscribeform.php:139
 msgid "Subscribe to this user"
 msgstr "Претплати се на корисников"
 
-#: actions/userauthorization.php:211
+#: actions/userauthorization.php:219
 msgid "Reject"
 msgstr "Одбиј"
 
-#: actions/userauthorization.php:212
+#: actions/userauthorization.php:220
 msgid "Reject this subscription"
 msgstr "Одбиј ја оваа претплата"
 
-#: actions/userauthorization.php:225
+#: actions/userauthorization.php:232
 msgid "No authorization request!"
 msgstr "Нема барање за проверка!"
 
-#: actions/userauthorization.php:247
+#: actions/userauthorization.php:254
 msgid "Subscription authorized"
 msgstr "Претплатата е одобрена"
 
-#: actions/userauthorization.php:249
+#: actions/userauthorization.php:256
 msgid ""
 "The subscription has been authorized, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to authorize the "
@@ -4267,11 +4270,11 @@ msgstr ""
 "инструкциите на веб-страницата за да дознаете како се одобрува претплата. "
 "Жетонот на Вашата претплата е:"
 
-#: actions/userauthorization.php:259
+#: actions/userauthorization.php:266
 msgid "Subscription rejected"
 msgstr "Претплатата е одбиена"
 
-#: actions/userauthorization.php:261
+#: actions/userauthorization.php:268
 msgid ""
 "The subscription has been rejected, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to fully reject the "
@@ -4281,37 +4284,37 @@ msgstr ""
 "инструкциите на веб-страницата за да дознаете како се одбива претплата во "
 "потполност."
 
-#: actions/userauthorization.php:296
+#: actions/userauthorization.php:303
 #, php-format
 msgid "Listener URI ‘%s’ not found here."
 msgstr "URI-то на следачот „%s“ не е пронајдено тука."
 
-#: actions/userauthorization.php:301
+#: actions/userauthorization.php:308
 #, php-format
 msgid "Listenee URI ‘%s’ is too long."
 msgstr "Следениот URI „%s“ е предолг."
 
-#: actions/userauthorization.php:307
+#: actions/userauthorization.php:314
 #, php-format
 msgid "Listenee URI ‘%s’ is a local user."
 msgstr "Следеното URI „%s“ е за локален корисник."
 
-#: actions/userauthorization.php:322
+#: actions/userauthorization.php:329
 #, php-format
 msgid "Profile URL ‘%s’ is for a local user."
 msgstr "Профилната URL-адреса „%s“ е за локален корисник."
 
-#: actions/userauthorization.php:338
+#: actions/userauthorization.php:345
 #, php-format
 msgid "Avatar URL ‘%s’ is not valid."
 msgstr "URL-адресата „%s“ за аватар е неважечка."
 
-#: actions/userauthorization.php:343
+#: actions/userauthorization.php:350
 #, php-format
 msgid "Can’t read avatar URL ‘%s’."
 msgstr "Не можам да ја прочитам URL на аватарот „%s“."
 
-#: actions/userauthorization.php:348
+#: actions/userauthorization.php:355
 #, php-format
 msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "Погрешен тип на слика за URL на аватарот „%s“."

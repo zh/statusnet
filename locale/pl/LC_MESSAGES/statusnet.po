@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-04 10:31+0000\n"
-"PO-Revision-Date: 2010-02-04 10:33:20+0000\n"
+"POT-Creation-Date: 2010-02-04 22:03+0000\n"
+"PO-Revision-Date: 2010-02-04 22:04:50+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: MediaWiki 1.16alpha (r61969); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61992); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pl\n"
 "X-Message-Group: out-statusnet\n"
@@ -567,7 +567,8 @@ msgstr "Konto"
 
 #: actions/apioauthauthorize.php:313 actions/login.php:230
 #: actions/profilesettings.php:106 actions/register.php:424
-#: actions/showgroup.php:236 actions/tagother.php:94 lib/groupeditform.php:152
+#: actions/showgroup.php:236 actions/tagother.php:94
+#: actions/userauthorization.php:145 lib/groupeditform.php:152
 #: lib/userprofile.php:131
 msgid "Nickname"
 msgstr "Pseudonim"
@@ -1431,7 +1432,7 @@ msgstr "Ten wpis jest już ulubiony."
 msgid "Disfavor favorite"
 msgstr "Usuń wpis z ulubionych"
 
-#: actions/favorited.php:65 lib/popularnoticesection.php:88
+#: actions/favorited.php:65 lib/popularnoticesection.php:91
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
 msgstr "Popularne wpisy"
@@ -2689,7 +2690,7 @@ msgstr "O mnie"
 
 #: actions/profilesettings.php:132 actions/register.php:471
 #: actions/showgroup.php:256 actions/tagother.php:112
-#: actions/userauthorization.php:158 lib/groupeditform.php:177
+#: actions/userauthorization.php:166 lib/groupeditform.php:177
 #: lib/userprofile.php:164
 msgid "Location"
 msgstr "Położenie"
@@ -2877,7 +2878,7 @@ msgstr ""
 "Dlaczego nie [zarejestrujesz konta](%%action.register%%) i zostaniesz "
 "pierwszym, który go wyśle."
 
-#: actions/publictagcloud.php:131
+#: actions/publictagcloud.php:134
 msgid "Tag cloud"
 msgstr "Chmura znaczników"
 
@@ -3466,12 +3467,12 @@ msgid "Group profile"
 msgstr "Profil grupy"
 
 #: actions/showgroup.php:263 actions/tagother.php:118
-#: actions/userauthorization.php:167 lib/userprofile.php:177
+#: actions/userauthorization.php:175 lib/userprofile.php:177
 msgid "URL"
 msgstr "Adres URL"
 
 #: actions/showgroup.php:274 actions/tagother.php:128
-#: actions/userauthorization.php:179 lib/userprofile.php:194
+#: actions/userauthorization.php:187 lib/userprofile.php:194
 msgid "Note"
 msgstr "Wpis"
 
@@ -4052,7 +4053,8 @@ msgstr "Znacznik %s"
 msgid "User profile"
 msgstr "Profil użytkownika"
 
-#: actions/tagother.php:81 lib/userprofile.php:102
+#: actions/tagother.php:81 actions/userauthorization.php:132
+#: lib/userprofile.php:102
 msgid "Photo"
 msgstr "Zdjęcie"
 
@@ -4112,7 +4114,7 @@ msgstr "Brak identyfikatora profilu w żądaniu."
 msgid "Unsubscribed"
 msgstr "Zrezygnowano z subskrypcji"
 
-#: actions/updateprofile.php:62 actions/userauthorization.php:330
+#: actions/updateprofile.php:62 actions/userauthorization.php:337
 #, php-format
 msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
@@ -4201,36 +4203,36 @@ msgstr ""
 "wpisy tego użytkownika. Jeżeli nie prosiłeś o subskrypcję czyichś wpisów, "
 "naciśnij \"Odrzuć\"."
 
-#: actions/userauthorization.php:188 actions/version.php:165
+#: actions/userauthorization.php:196 actions/version.php:165
 msgid "License"
 msgstr "Licencja"
 
-#: actions/userauthorization.php:209
+#: actions/userauthorization.php:217
 msgid "Accept"
 msgstr "Zaakceptuj"
 
-#: actions/userauthorization.php:210 lib/subscribeform.php:115
+#: actions/userauthorization.php:218 lib/subscribeform.php:115
 #: lib/subscribeform.php:139
 msgid "Subscribe to this user"
 msgstr "Subskrybuj tego użytkownika"
 
-#: actions/userauthorization.php:211
+#: actions/userauthorization.php:219
 msgid "Reject"
 msgstr "Odrzuć"
 
-#: actions/userauthorization.php:212
+#: actions/userauthorization.php:220
 msgid "Reject this subscription"
 msgstr "Odrzuć tę subskrypcję"
 
-#: actions/userauthorization.php:225
+#: actions/userauthorization.php:232
 msgid "No authorization request!"
 msgstr "Brak żądania upoważnienia."
 
-#: actions/userauthorization.php:247
+#: actions/userauthorization.php:254
 msgid "Subscription authorized"
 msgstr "Upoważniono subskrypcję"
 
-#: actions/userauthorization.php:249
+#: actions/userauthorization.php:256
 msgid ""
 "The subscription has been authorized, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to authorize the "
@@ -4239,11 +4241,11 @@ msgstr ""
 "Subskrypcja została upoważniona, ale nie przekazano zwrotnego adresu URL. "
 "Sprawdź w instrukcjach witryny, jak upoważnić subskrypcję. Token subskrypcji:"
 
-#: actions/userauthorization.php:259
+#: actions/userauthorization.php:266
 msgid "Subscription rejected"
 msgstr "Odrzucono subskrypcję"
 
-#: actions/userauthorization.php:261
+#: actions/userauthorization.php:268
 msgid ""
 "The subscription has been rejected, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to fully reject the "
@@ -4252,37 +4254,37 @@ msgstr ""
 "Subskrypcja została odrzucona, ale nie przekazano zwrotnego adresu URL. "
 "Sprawdź w instrukcjach witryny, jak w pełni odrzucić subskrypcję."
 
-#: actions/userauthorization.php:296
+#: actions/userauthorization.php:303
 #, php-format
 msgid "Listener URI ‘%s’ not found here."
 msgstr "Adres URI nasłuchującego \"%s\" nie został tutaj odnaleziony."
 
-#: actions/userauthorization.php:301
+#: actions/userauthorization.php:308
 #, php-format
 msgid "Listenee URI ‘%s’ is too long."
 msgstr "Adres URI nasłuchującego \"%s\" jest za długi."
 
-#: actions/userauthorization.php:307
+#: actions/userauthorization.php:314
 #, php-format
 msgid "Listenee URI ‘%s’ is a local user."
 msgstr "Adres URI nasłuchującego \"%s\" jest lokalnym użytkownikiem."
 
-#: actions/userauthorization.php:322
+#: actions/userauthorization.php:329
 #, php-format
 msgid "Profile URL ‘%s’ is for a local user."
 msgstr "Adres URL profilu \"%s\" jest dla lokalnego użytkownika."
 
-#: actions/userauthorization.php:338
+#: actions/userauthorization.php:345
 #, php-format
 msgid "Avatar URL ‘%s’ is not valid."
 msgstr "Adres URL \"%s\" jest nieprawidłowy."
 
-#: actions/userauthorization.php:343
+#: actions/userauthorization.php:350
 #, php-format
 msgid "Can’t read avatar URL ‘%s’."
 msgstr "Nie można odczytać adresu URL awatara \"%s\"."
 
-#: actions/userauthorization.php:348
+#: actions/userauthorization.php:355
 #, php-format
 msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "Błędny typ obrazu dla adresu URL awatara \"%s\"."

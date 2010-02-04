@@ -1,5 +1,6 @@
 # Translation of StatusNet to Italian
 #
+# Author@translatewiki.net: McDutchie
 # Author@translatewiki.net: Milocasagrande
 # Author@translatewiki.net: Nemo bis
 # --
@@ -9,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-04 10:31+0000\n"
-"PO-Revision-Date: 2010-02-04 10:32:58+0000\n"
+"POT-Creation-Date: 2010-02-04 22:03+0000\n"
+"PO-Revision-Date: 2010-02-04 22:04:29+0000\n"
 "Language-Team: Italian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61969); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61992); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: it\n"
 "X-Message-Group: out-statusnet\n"
@@ -565,7 +566,8 @@ msgstr "Account"
 
 #: actions/apioauthauthorize.php:313 actions/login.php:230
 #: actions/profilesettings.php:106 actions/register.php:424
-#: actions/showgroup.php:236 actions/tagother.php:94 lib/groupeditform.php:152
+#: actions/showgroup.php:236 actions/tagother.php:94
+#: actions/userauthorization.php:145 lib/groupeditform.php:152
 #: lib/userprofile.php:131
 msgid "Nickname"
 msgstr "Soprannome"
@@ -1458,7 +1460,7 @@ msgstr "Questo messaggio è già un preferito!"
 msgid "Disfavor favorite"
 msgstr "Rimuovi preferito"
 
-#: actions/favorited.php:65 lib/popularnoticesection.php:88
+#: actions/favorited.php:65 lib/popularnoticesection.php:91
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
 msgstr "Messaggi famosi"
@@ -2733,7 +2735,7 @@ msgstr "Biografia"
 
 #: actions/profilesettings.php:132 actions/register.php:471
 #: actions/showgroup.php:256 actions/tagother.php:112
-#: actions/userauthorization.php:158 lib/groupeditform.php:177
+#: actions/userauthorization.php:166 lib/groupeditform.php:177
 #: lib/userprofile.php:164
 msgid "Location"
 msgstr "Ubicazione"
@@ -2918,7 +2920,7 @@ msgid ""
 "one!"
 msgstr "Perché non [crei un accout](%%action.register%%) e ne scrivi uno tu!"
 
-#: actions/publictagcloud.php:131
+#: actions/publictagcloud.php:134
 msgid "Tag cloud"
 msgstr "Insieme delle etichette"
 
@@ -3307,7 +3309,7 @@ msgid ""
 "attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 "Puoi provare a [richiamare %1$s](../%2$s) o [scrivere qualche cosa alla sua "
-"attenzione](%%%%action.newnotice%%%%?status_textarea=%s)."
+"attenzione](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 
 #: actions/repliesrss.php:72
 #, php-format
@@ -3511,12 +3513,12 @@ msgid "Group profile"
 msgstr "Profilo del gruppo"
 
 #: actions/showgroup.php:263 actions/tagother.php:118
-#: actions/userauthorization.php:167 lib/userprofile.php:177
+#: actions/userauthorization.php:175 lib/userprofile.php:177
 msgid "URL"
 msgstr "URL"
 
 #: actions/showgroup.php:274 actions/tagother.php:128
-#: actions/userauthorization.php:179 lib/userprofile.php:194
+#: actions/userauthorization.php:187 lib/userprofile.php:194
 msgid "Note"
 msgstr "Nota"
 
@@ -4094,7 +4096,8 @@ msgstr "Etichetta %s"
 msgid "User profile"
 msgstr "Profilo utente"
 
-#: actions/tagother.php:81 lib/userprofile.php:102
+#: actions/tagother.php:81 actions/userauthorization.php:132
+#: lib/userprofile.php:102
 msgid "Photo"
 msgstr "Fotografia"
 
@@ -4155,7 +4158,7 @@ msgstr "Nessun ID di profilo nella richiesta."
 msgid "Unsubscribed"
 msgstr "Abbonamento annullato"
 
-#: actions/updateprofile.php:62 actions/userauthorization.php:330
+#: actions/updateprofile.php:62 actions/userauthorization.php:337
 #, php-format
 msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
@@ -4244,36 +4247,36 @@ msgstr ""
 "Controlla i dettagli seguenti per essere sicuro di volerti abbonare ai "
 "messaggi di questo utente. Se non hai richiesto ciò, fai clic su \"Rifiuta\"."
 
-#: actions/userauthorization.php:188 actions/version.php:165
+#: actions/userauthorization.php:196 actions/version.php:165
 msgid "License"
 msgstr "Licenza"
 
-#: actions/userauthorization.php:209
+#: actions/userauthorization.php:217
 msgid "Accept"
 msgstr "Accetta"
 
-#: actions/userauthorization.php:210 lib/subscribeform.php:115
+#: actions/userauthorization.php:218 lib/subscribeform.php:115
 #: lib/subscribeform.php:139
 msgid "Subscribe to this user"
 msgstr "Abbonati a questo utente"
 
-#: actions/userauthorization.php:211
+#: actions/userauthorization.php:219
 msgid "Reject"
 msgstr "Rifiuta"
 
-#: actions/userauthorization.php:212
+#: actions/userauthorization.php:220
 msgid "Reject this subscription"
 msgstr "Rifiuta questo abbonamento"
 
-#: actions/userauthorization.php:225
+#: actions/userauthorization.php:232
 msgid "No authorization request!"
 msgstr "Nessuna richiesta di autorizzazione!"
 
-#: actions/userauthorization.php:247
+#: actions/userauthorization.php:254
 msgid "Subscription authorized"
 msgstr "Abbonamento autorizzato"
 
-#: actions/userauthorization.php:249
+#: actions/userauthorization.php:256
 msgid ""
 "The subscription has been authorized, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to authorize the "
@@ -4283,11 +4286,11 @@ msgstr ""
 "richiamo. Controlla le istruzioni del sito per i dettagli su come "
 "autorizzare l'abbonamento. Il tuo token per l'abbonamento è:"
 
-#: actions/userauthorization.php:259
+#: actions/userauthorization.php:266
 msgid "Subscription rejected"
 msgstr "Abbonamento rifiutato"
 
-#: actions/userauthorization.php:261
+#: actions/userauthorization.php:268
 msgid ""
 "The subscription has been rejected, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to fully reject the "
@@ -4297,37 +4300,37 @@ msgstr ""
 "richiamo. Controlla le istruzioni del sito per i dettagli su come rifiutare "
 "completamente l'abbonamento."
 
-#: actions/userauthorization.php:296
+#: actions/userauthorization.php:303
 #, php-format
 msgid "Listener URI ‘%s’ not found here."
 msgstr "URL \"%s\" dell'ascoltatore non trovato qui."
 
-#: actions/userauthorization.php:301
+#: actions/userauthorization.php:308
 #, php-format
 msgid "Listenee URI ‘%s’ is too long."
 msgstr "L'URI \"%s\" di colui che si ascolta è troppo lungo."
 
-#: actions/userauthorization.php:307
+#: actions/userauthorization.php:314
 #, php-format
 msgid "Listenee URI ‘%s’ is a local user."
 msgstr "L'URI \"%s\" di colui che si ascolta è un utente locale."
 
-#: actions/userauthorization.php:322
+#: actions/userauthorization.php:329
 #, php-format
 msgid "Profile URL ‘%s’ is for a local user."
 msgstr "L'URL \"%s\" del profilo è per un utente locale."
 
-#: actions/userauthorization.php:338
+#: actions/userauthorization.php:345
 #, php-format
 msgid "Avatar URL ‘%s’ is not valid."
 msgstr "L'URL \"%s\" dell'immagine non è valido."
 
-#: actions/userauthorization.php:343
+#: actions/userauthorization.php:350
 #, php-format
 msgid "Can’t read avatar URL ‘%s’."
 msgstr "Impossibile leggere l'URL \"%s\" dell'immagine."
 
-#: actions/userauthorization.php:348
+#: actions/userauthorization.php:355
 #, php-format
 msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "Tipo di immagine errata per l'URL \"%s\"."

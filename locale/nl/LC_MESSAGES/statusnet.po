@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-04 10:31+0000\n"
-"PO-Revision-Date: 2010-02-04 10:33:17+0000\n"
+"POT-Creation-Date: 2010-02-04 22:03+0000\n"
+"PO-Revision-Date: 2010-02-04 22:04:47+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61969); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61992); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: out-statusnet\n"
@@ -577,7 +577,8 @@ msgstr "Gebruiker"
 
 #: actions/apioauthauthorize.php:313 actions/login.php:230
 #: actions/profilesettings.php:106 actions/register.php:424
-#: actions/showgroup.php:236 actions/tagother.php:94 lib/groupeditform.php:152
+#: actions/showgroup.php:236 actions/tagother.php:94
+#: actions/userauthorization.php:145 lib/groupeditform.php:152
 #: lib/userprofile.php:131
 msgid "Nickname"
 msgstr "Gebruikersnaam"
@@ -1300,7 +1301,7 @@ msgstr "Annuleren"
 
 #: actions/emailsettings.php:121
 msgid "Email address"
-msgstr "E-mailadressen"
+msgstr "E-mailadres"
 
 #: actions/emailsettings.php:123
 msgid "Email address, like \"UserName@example.org\""
@@ -1450,7 +1451,7 @@ msgstr "Deze mededeling staat al in uw favorietenlijst."
 msgid "Disfavor favorite"
 msgstr "Van favotietenlijst verwijderen"
 
-#: actions/favorited.php:65 lib/popularnoticesection.php:88
+#: actions/favorited.php:65 lib/popularnoticesection.php:91
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
 msgstr "Populaire mededelingen"
@@ -2729,7 +2730,7 @@ msgstr "Beschrijving"
 
 #: actions/profilesettings.php:132 actions/register.php:471
 #: actions/showgroup.php:256 actions/tagother.php:112
-#: actions/userauthorization.php:158 lib/groupeditform.php:177
+#: actions/userauthorization.php:166 lib/groupeditform.php:177
 #: lib/userprofile.php:164
 msgid "Location"
 msgstr "Locatie"
@@ -2921,7 +2922,7 @@ msgstr ""
 "U kunt een [gebruiker registeren](%%action.register%%) en dan de eerste zijn "
 "die er een plaatst!"
 
-#: actions/publictagcloud.php:131
+#: actions/publictagcloud.php:134
 msgid "Tag cloud"
 msgstr "Woordwolk"
 
@@ -3438,9 +3439,9 @@ msgstr ""
 "platte tekst is niet mogelijk."
 
 #: actions/showapplication.php:309
-#, fuzzy
 msgid "Are you sure you want to reset your consumer key and secret?"
-msgstr "Weet u zeker dat u deze aankondiging wilt verwijderen?"
+msgstr ""
+"Weet u zeker dat u uw gebruikerssleutel en geheime code wilt verwijderen?"
 
 #: actions/showfavorites.php:79
 #, php-format
@@ -3515,12 +3516,12 @@ msgid "Group profile"
 msgstr "Groepsprofiel"
 
 #: actions/showgroup.php:263 actions/tagother.php:118
-#: actions/userauthorization.php:167 lib/userprofile.php:177
+#: actions/userauthorization.php:175 lib/userprofile.php:177
 msgid "URL"
 msgstr "URL"
 
 #: actions/showgroup.php:274 actions/tagother.php:128
-#: actions/userauthorization.php:179 lib/userprofile.php:194
+#: actions/userauthorization.php:187 lib/userprofile.php:194
 msgid "Note"
 msgstr "Opmerking"
 
@@ -4107,7 +4108,8 @@ msgstr "Label %s"
 msgid "User profile"
 msgstr "Gebruikersprofiel"
 
-#: actions/tagother.php:81 lib/userprofile.php:102
+#: actions/tagother.php:81 actions/userauthorization.php:132
+#: lib/userprofile.php:102
 msgid "Photo"
 msgstr "Foto"
 
@@ -4168,7 +4170,7 @@ msgstr "Het profiel-ID was niet aanwezig in het verzoek."
 msgid "Unsubscribed"
 msgstr "Het abonnement is opgezegd"
 
-#: actions/updateprofile.php:62 actions/userauthorization.php:330
+#: actions/updateprofile.php:62 actions/userauthorization.php:337
 #, php-format
 msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
@@ -4258,36 +4260,36 @@ msgstr ""
 "aangegeven dat u zich op de mededelingen van een gebruiker wilt abonneren, "
 "klik dan op \"Afwijzen\"."
 
-#: actions/userauthorization.php:188 actions/version.php:165
+#: actions/userauthorization.php:196 actions/version.php:165
 msgid "License"
 msgstr "Licentie"
 
-#: actions/userauthorization.php:209
+#: actions/userauthorization.php:217
 msgid "Accept"
 msgstr "Aanvaarden"
 
-#: actions/userauthorization.php:210 lib/subscribeform.php:115
+#: actions/userauthorization.php:218 lib/subscribeform.php:115
 #: lib/subscribeform.php:139
 msgid "Subscribe to this user"
 msgstr "Abonnement geautoriseerd"
 
-#: actions/userauthorization.php:211
+#: actions/userauthorization.php:219
 msgid "Reject"
 msgstr "Afwijzen"
 
-#: actions/userauthorization.php:212
+#: actions/userauthorization.php:220
 msgid "Reject this subscription"
 msgstr "Dit abonnement weigeren"
 
-#: actions/userauthorization.php:225
+#: actions/userauthorization.php:232
 msgid "No authorization request!"
 msgstr "Geen autorisatieverzoek!"
 
-#: actions/userauthorization.php:247
+#: actions/userauthorization.php:254
 msgid "Subscription authorized"
 msgstr "Het abonnement is geautoriseerd"
 
-#: actions/userauthorization.php:249
+#: actions/userauthorization.php:256
 msgid ""
 "The subscription has been authorized, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to authorize the "
@@ -4297,11 +4299,11 @@ msgstr ""
 "Controleer de instructies van de site voor informatie over het volledig "
 "afwijzen van een abonnement. Uw abonnementstoken is:"
 
-#: actions/userauthorization.php:259
+#: actions/userauthorization.php:266
 msgid "Subscription rejected"
 msgstr "Het abonnement is afgewezen"
 
-#: actions/userauthorization.php:261
+#: actions/userauthorization.php:268
 msgid ""
 "The subscription has been rejected, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to fully reject the "
@@ -4311,37 +4313,37 @@ msgstr ""
 "Controleer de instructies van de site voor informatie over het volledig "
 "afwijzen van een abonnement."
 
-#: actions/userauthorization.php:296
+#: actions/userauthorization.php:303
 #, php-format
 msgid "Listener URI ‘%s’ not found here."
 msgstr "De abonnee-URI \"%s\" is hier niet te vinden."
 
-#: actions/userauthorization.php:301
+#: actions/userauthorization.php:308
 #, php-format
 msgid "Listenee URI ‘%s’ is too long."
 msgstr "De URI \"%s\" voor de stream is te lang."
 
-#: actions/userauthorization.php:307
+#: actions/userauthorization.php:314
 #, php-format
 msgid "Listenee URI ‘%s’ is a local user."
 msgstr "de URI \"%s\" voor de stream is een lokale gebruiker."
 
-#: actions/userauthorization.php:322
+#: actions/userauthorization.php:329
 #, php-format
 msgid "Profile URL ‘%s’ is for a local user."
 msgstr "De profiel-URL \"%s\" is niet geldig."
 
-#: actions/userauthorization.php:338
+#: actions/userauthorization.php:345
 #, php-format
 msgid "Avatar URL ‘%s’ is not valid."
 msgstr "De avatar-URL \"%s\" is niet geldig."
 
-#: actions/userauthorization.php:343
+#: actions/userauthorization.php:350
 #, php-format
 msgid "Can’t read avatar URL ‘%s’."
 msgstr "Het was niet mogelijk de avatar-URL \"%s\" te lezen."
 
-#: actions/userauthorization.php:348
+#: actions/userauthorization.php:355
 #, php-format
 msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "Er staat een verkeerd afbeeldingsttype op de avatar-URL \"%s\"."

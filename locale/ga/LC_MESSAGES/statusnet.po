@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-04 10:31+0000\n"
-"PO-Revision-Date: 2010-02-04 10:32:41+0000\n"
+"POT-Creation-Date: 2010-02-04 22:03+0000\n"
+"PO-Revision-Date: 2010-02-04 22:04:12+0000\n"
 "Language-Team: Irish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61969); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r61992); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ga\n"
 "X-Message-Group: out-statusnet\n"
@@ -575,7 +575,8 @@ msgstr "Sobre"
 
 #: actions/apioauthauthorize.php:313 actions/login.php:230
 #: actions/profilesettings.php:106 actions/register.php:424
-#: actions/showgroup.php:236 actions/tagother.php:94 lib/groupeditform.php:152
+#: actions/showgroup.php:236 actions/tagother.php:94
+#: actions/userauthorization.php:145 lib/groupeditform.php:152
 #: lib/userprofile.php:131
 msgid "Nickname"
 msgstr "Alcume"
@@ -1498,7 +1499,7 @@ msgstr "Este chío xa é un favorito!"
 msgid "Disfavor favorite"
 msgstr "Desactivar favorito"
 
-#: actions/favorited.php:65 lib/popularnoticesection.php:88
+#: actions/favorited.php:65 lib/popularnoticesection.php:91
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
 msgstr "Chíos populares"
@@ -2792,7 +2793,7 @@ msgstr "Bio"
 
 #: actions/profilesettings.php:132 actions/register.php:471
 #: actions/showgroup.php:256 actions/tagother.php:112
-#: actions/userauthorization.php:158 lib/groupeditform.php:177
+#: actions/userauthorization.php:166 lib/groupeditform.php:177
 #: lib/userprofile.php:164
 msgid "Location"
 msgstr "Localización"
@@ -2981,7 +2982,7 @@ msgid ""
 "one!"
 msgstr ""
 
-#: actions/publictagcloud.php:131
+#: actions/publictagcloud.php:134
 msgid "Tag cloud"
 msgstr ""
 
@@ -3574,12 +3575,12 @@ msgid "Group profile"
 msgstr "Non existe o perfil."
 
 #: actions/showgroup.php:263 actions/tagother.php:118
-#: actions/userauthorization.php:167 lib/userprofile.php:177
+#: actions/userauthorization.php:175 lib/userprofile.php:177
 msgid "URL"
 msgstr ""
 
 #: actions/showgroup.php:274 actions/tagother.php:128
-#: actions/userauthorization.php:179 lib/userprofile.php:194
+#: actions/userauthorization.php:187 lib/userprofile.php:194
 #, fuzzy
 msgid "Note"
 msgstr "Chíos"
@@ -4160,7 +4161,8 @@ msgstr "Tags"
 msgid "User profile"
 msgstr "O usuario non ten perfil."
 
-#: actions/tagother.php:81 lib/userprofile.php:102
+#: actions/tagother.php:81 actions/userauthorization.php:132
+#: lib/userprofile.php:102
 msgid "Photo"
 msgstr ""
 
@@ -4225,7 +4227,7 @@ msgstr "Non hai identificador de perfil na peticion."
 msgid "Unsubscribed"
 msgstr "De-suscribido"
 
-#: actions/updateprofile.php:62 actions/userauthorization.php:330
+#: actions/updateprofile.php:62 actions/userauthorization.php:337
 #, php-format
 msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
@@ -4320,38 +4322,38 @@ msgstr ""
 "user's notices. If you didn't just ask to subscribe to someone's notices, "
 "click \"Cancel\"."
 
-#: actions/userauthorization.php:188 actions/version.php:165
+#: actions/userauthorization.php:196 actions/version.php:165
 msgid "License"
 msgstr ""
 
-#: actions/userauthorization.php:209
+#: actions/userauthorization.php:217
 msgid "Accept"
 msgstr "Aceptar"
 
-#: actions/userauthorization.php:210 lib/subscribeform.php:115
+#: actions/userauthorization.php:218 lib/subscribeform.php:115
 #: lib/subscribeform.php:139
 #, fuzzy
 msgid "Subscribe to this user"
 msgstr "Suscrito a %s"
 
-#: actions/userauthorization.php:211
+#: actions/userauthorization.php:219
 msgid "Reject"
 msgstr "Rexeitar"
 
-#: actions/userauthorization.php:212
+#: actions/userauthorization.php:220
 #, fuzzy
 msgid "Reject this subscription"
 msgstr "Subscrición de autorización."
 
-#: actions/userauthorization.php:225
+#: actions/userauthorization.php:232
 msgid "No authorization request!"
 msgstr "Sen petición de autorización!"
 
-#: actions/userauthorization.php:247
+#: actions/userauthorization.php:254
 msgid "Subscription authorized"
 msgstr "Subscrición autorizada"
 
-#: actions/userauthorization.php:249
+#: actions/userauthorization.php:256
 #, fuzzy
 msgid ""
 "The subscription has been authorized, but no callback URL was passed. Check "
@@ -4362,11 +4364,11 @@ msgstr ""
 "proporcionada. Comproba coas instruccións do sitio para máis detalles en "
 "como autorizar subscricións. O teu token de subscrición é:"
 
-#: actions/userauthorization.php:259
+#: actions/userauthorization.php:266
 msgid "Subscription rejected"
 msgstr "Subscrición rexeitada"
 
-#: actions/userauthorization.php:261
+#: actions/userauthorization.php:268
 #, fuzzy
 msgid ""
 "The subscription has been rejected, but no callback URL was passed. Check "
@@ -4377,37 +4379,37 @@ msgstr ""
 "with the site's instructions for details on how to fully reject the "
 "subscription."
 
-#: actions/userauthorization.php:296
+#: actions/userauthorization.php:303
 #, php-format
 msgid "Listener URI ‘%s’ not found here."
 msgstr ""
 
-#: actions/userauthorization.php:301
+#: actions/userauthorization.php:308
 #, php-format
 msgid "Listenee URI ‘%s’ is too long."
 msgstr ""
 
-#: actions/userauthorization.php:307
+#: actions/userauthorization.php:314
 #, php-format
 msgid "Listenee URI ‘%s’ is a local user."
 msgstr ""
 
-#: actions/userauthorization.php:322
+#: actions/userauthorization.php:329
 #, php-format
 msgid "Profile URL ‘%s’ is for a local user."
 msgstr ""
 
-#: actions/userauthorization.php:338
+#: actions/userauthorization.php:345
 #, php-format
 msgid "Avatar URL ‘%s’ is not valid."
 msgstr ""
 
-#: actions/userauthorization.php:343
+#: actions/userauthorization.php:350
 #, fuzzy, php-format
 msgid "Can’t read avatar URL ‘%s’."
 msgstr "Non se pode ler a URL do avatar de '%s'"
 
-#: actions/userauthorization.php:348
+#: actions/userauthorization.php:355
 #, fuzzy, php-format
 msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "Tipo de imaxe incorrecto para '%s'"
