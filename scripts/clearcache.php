@@ -20,35 +20,35 @@
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 
-$shortoptions = "t:c:v:k:";
+$shortoptions = "t:l:v:k:";
 
-$helptext = <<<ENDOFHELP
+$helptext = <<<END_OF_CLEARCACHE_HELP
 USAGE: clearcache.php <args>
 clears the cached object based on the args
 
   -t table     Table to look up
-  -c column    Column to look up, default "id"
+  -l column    Column to look up, default "id"
   -v value     Value to look up
   -k key       Key to look up; other args are ignored
 
-ENDOFHELP;
+END_OF_CLEARCACHE_HELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
-$karg = get_option_value('k');
+$karg = get_option_value('k', 'key');
 
 if (!empty($karg)) {
     $k = common_cache_key($karg);
 } else {
-    $table = get_option_value('t');
+    $table = get_option_value('t', 'table');
     if (empty($table)) {
         die("No table or key specified\n");
     }
-    $column = get_option_value('c');
+    $column = get_option_value('l', 'column');
     if (empty($column)) {
         $column = 'id';
     }
-    $value = get_option_value('v');
+    $value = get_option_value('v', 'value');
 
     $k = Memcached_DataObject::cacheKey($table, $column, $value);
 }
