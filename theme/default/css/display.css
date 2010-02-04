@@ -192,7 +192,8 @@ button.minimize,
 .form_reset_key input.submit,
 .entity_clear input.submit,
 .entity_flag input.submit,
-.entity_flag p {
+.entity_flag p,
+.entity_subscribe input.submit {
 background-image:url(../../base/images/icons/icons-01.gif);
 background-repeat:no-repeat;
 background-color:transparent;
@@ -347,6 +348,12 @@ background-position: 5px -2039px;
 .entity_flag input.submit,
 .entity_flag p {
 background-position: 5px -2105px;
+}
+.entity_subscribe input.accept {
+background-position: 5px -2171px;
+}
+.entity_subscribe input.reject {
+background-position: 5px -2237px;
 }
 
 /* NOTICES */
