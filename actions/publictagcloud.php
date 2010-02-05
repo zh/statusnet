@@ -106,7 +106,10 @@ class PublictagcloudAction extends Action
         #Add the aggregated columns...
         $tags->selectAdd('max(notice_id) as last_notice_id');
         $calc = common_sql_weight('created', common_config('tag', 'dropoff'));
+        $cutoff = sprintf("notice_tag.created > '%s'",
+                          common_sql_date(time() - common_config('tag', 'cutoff')));
         $tags->selectAdd($calc . ' as weight');
+        $tags->addWhere($cutoff);
         $tags->groupBy('tag');
         $tags->orderBy('weight DESC');
 

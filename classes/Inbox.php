@@ -32,6 +32,7 @@ require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 class Inbox extends Memcached_DataObject
 {
     const BOXCAR = 128;
+    const MAX_NOTICES = 1024;
 
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -81,7 +82,7 @@ class Inbox extends Memcached_DataObject
         $ni->selectAdd();
         $ni->selectAdd('notice_id');
         $ni->orderBy('notice_id DESC');
-        $ni->limit(0, 1024);
+        $ni->limit(0, self::MAX_NOTICES);
 
         if ($ni->find()) {
             while($ni->fetch()) {
@@ -115,9 +116,11 @@ class Inbox extends Memcached_DataObject
 
         $result = $inbox->query(sprintf('UPDATE inbox '.
                                         'set notice_ids = concat(cast(0x%08x as binary(4)), '.
-                                        'substr(notice_ids, 1, 4092)) '.
+                                        'substr(notice_ids, 1, %d)) '.
                                         'WHERE user_id = %d',
-                                        $notice_id, $user_id));
+                                        $notice_id,
+                                        4 * (self::MAX_NOTICES - 1),
+                                        $user_id));
 
         if ($result) {
             self::blow('inbox:user_id:%d', $user_id);
@@ -172,5 +175,58 @@ class Inbox extends Memcached_DataObject
         $ids = array_slice($ids, $offset, $limit);
 
         return $ids;
+    }
+
+    /**
+     * Wrapper for Inbox::stream() and Notice::getStreamByIds() returning
+     * additional items up to the limit if we were short due to deleted
+     * notices still being listed in the inbox.
+     *
+     * The fast path (when no items are deleted) should be just as fast; the
+     * offset parameter is applied *before* lookups for maximum efficiency.
+     *
+     * This means offset-based paging may show duplicates, but similar behavior
+     * already exists when new notices are posted between page views, so we
+     * think people will be ok with this until id-based paging is introduced
+     * to the user interface.
+     *
+     * @param int $user_id
+     * @param int $offset skip past the most recent N notices (after since_id checks)
+     * @param int $limit
+     * @param mixed $since_id return only notices after but not including this id
+     * @param mixed $max_id return only notices up to and including this id
+     * @param mixed $since obsolete/ignored
+     * @param mixed $own ignored?
+     * @return array of Notice objects
+     *
+     * @todo consider repacking the inbox when this happens?
+     */
+    function streamNotices($user_id, $offset, $limit, $since_id, $max_id, $since, $own=false)
+    {
+        $ids = self::stream($user_id, $offset, self::MAX_NOTICES, $since_id, $max_id, $since, $own);
+
+        // Do a bulk lookup for the first $limit items
+        // Fast path when nothing's deleted.
+        $firstChunk = array_slice($ids, 0, $limit);
+        $notices = Notice::getStreamByIds($firstChunk);
+
+        $wanted = count($firstChunk); // raw entry count in the inbox up to our $limit
+        if ($notices->N >= $wanted) {
+            return $notices;
+        }
+
+        // There were deleted notices, we'll need to look for more.
+        assert($notices instanceof ArrayWrapper);
+        $items = $notices->_items;
+        $remainder = array_slice($ids, $limit);
+
+        while (count($items) < $wanted && count($remainder) > 0) {
+            $notice = Notice::staticGet(array_shift($remainder));
+            if ($notice) {
+                $items[] = $notice;
+            } else {
+            }
+        }
+        return new ArrayWrapper($items);
     }
 }

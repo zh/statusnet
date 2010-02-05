@@ -280,7 +280,7 @@ class RegisterAction extends Action
     function nicknameExists($nickname)
     {
         $user = User::staticGet('nickname', $nickname);
-        return ($user !== false);
+        return is_object($user);
     }
 
     /**
@@ -300,7 +300,7 @@ class RegisterAction extends Action
             return false;
         }
         $user = User::staticGet('email', $email);
-        return ($user !== false);
+        return is_object($user);
     }
 
     // overrrided to add entry-title class
