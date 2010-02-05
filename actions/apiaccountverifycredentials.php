@@ -66,18 +66,21 @@ class ApiAccountVerifyCredentialsAction extends ApiAuthAction
     {
         parent::handle($args);
 
-        switch ($this->format) {
-        case 'xml':
-        case 'json':
-            $args['id'] = $this->auth_user->id;
-            $action_obj = new ApiUserShowAction();
-            if ($action_obj->prepare($args)) {
-                $action_obj->handle($args);
-            }
-            break;
-        default:
-            header('Content-Type: text/html; charset=utf-8');
-            print 'Authorized';
+        if (!in_array($this->format, array('xml', 'json'))) {
+            $this->clientError(_('API method not found.'), $code = 404);
+            return;
+        }
+
+        $twitter_user = $this->twitterUserArray($this->auth_user->getProfile(), true);
+
+        if ($this->format == 'xml') {
+            $this->initDocument('xml');
+            $this->showTwitterXmlUser($twitter_user);
+            $this->endDocument('xml');
+        } elseif ($this->format == 'json') {
+            $this->initDocument('json');
+            $this->showJsonObjects($twitter_user);
+            $this->endDocument('json');
         }
 
     }
@@ -86,14 +89,14 @@ class ApiAccountVerifyCredentialsAction extends ApiAuthAction
      * Is this action read only?
      *
      * @param array $args other arguments
-     * 
+     *
      * @return boolean true
      *
      **/
-    
+
     function isReadOnly($args)
     {
         return true;
     }
-    
+
 }
