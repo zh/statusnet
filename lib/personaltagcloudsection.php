@@ -59,6 +59,7 @@ class PersonalTagCloudSection extends TagCloudSection
     function getTags()
     {
         $weightexpr = common_sql_weight('notice_tag.created', common_config('tag', 'dropoff'));
+        // @fixme should we use the cutoff too? Doesn't help with indexing per-user.
 
         $qry = 'SELECT notice_tag.tag, '.
           $weightexpr . ' as weight ' .

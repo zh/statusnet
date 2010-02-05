@@ -59,12 +59,15 @@ class PopularNoticeSection extends NoticeSection
             }
         }
         $weightexpr = common_sql_weight('fave.modified', common_config('popular', 'dropoff'));
+        $cutoff = sprintf("fave.modified > '%s'",
+                          common_sql_date(time() - common_config('popular', 'cutoff')));
         $qry = "SELECT notice.*, $weightexpr as weight ";
         if(isset($tag)) {
             $qry .= 'FROM notice_tag, notice JOIN fave ON notice.id = fave.notice_id ' .
-                    "WHERE notice.id = notice_tag.notice_id and '$tag' = notice_tag.tag";
+                    "WHERE $cutoff and notice.id = notice_tag.notice_id and '$tag' = notice_tag.tag";
         } else {
-            $qry .= 'FROM notice JOIN fave ON notice.id = fave.notice_id';
+            $qry .= 'FROM notice JOIN fave ON notice.id = fave.notice_id ' .
+                    "WHERE $cutoff";
         }
         $qry .= ' GROUP BY notice.id,notice.profile_id,notice.content,notice.uri,' .
                 'notice.rendered,notice.url,notice.created,notice.modified,' .
