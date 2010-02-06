@@ -47,18 +47,40 @@ class BlacklistPlugin extends Plugin
 
     public $nicknames = array();
     public $urls      = array();
+    public $canAdmin  = true;
 
     private $_nicknamePatterns = array();
-    private $_urlPatterns  = array();
+    private $_urlPatterns      = array();
+
+    /**
+     * Initialize the plugin
+     *
+     * @return void
+     */
 
     function initialize()
     {
+        $confNicknames = $this->_configArray('blacklist', 'nicknames')
+
         $this->_nicknamePatterns = array_merge($this->nicknames,
-                                               $this->_configArray('blacklist', 'nicknames'));
+                                               $confNicknames);
+
+        $confURLs = $this->_configArray('blacklist', 'urls')
 
         $this->_urlPatterns = array_merge($this->urls,
-                                          $this->_configArray('blacklist', 'urls'));
+                                          $confURLs);
     }
+
+    /**
+     * Retrieve an array from configuration
+     *
+     * Carefully checks a section.
+     *
+     * @param string $section Configuration section
+     * @param string $setting Configuration setting
+     *
+     * @return array configuration values
+     */
 
     function _configArray($section, $setting)
     {
@@ -69,7 +91,7 @@ class BlacklistPlugin extends Plugin
         } else if (is_array($config)) {
             return $config;
         } else if (is_string($config)) {
-            return explode("\t", $config);
+            return explode("\r\n", $config);
         } else {
             throw new Exception("Unknown data type for config $section + $setting");
         }
@@ -201,6 +223,7 @@ class BlacklistPlugin extends Plugin
     private function _checkUrl($url)
     {
         foreach ($this->_urlPatterns as $pattern) {
+            common_debug("Checking $url against $pattern");
             if (preg_match("/$pattern/", $url)) {
                 return false;
             }
@@ -222,6 +245,7 @@ class BlacklistPlugin extends Plugin
     private function _checkNickname($nickname)
     {
         foreach ($this->_nicknamePatterns as $pattern) {
+            common_debug("Checking $nickname against $pattern");
             if (preg_match("/$pattern/", $nickname)) {
                 return false;
             }
@@ -230,14 +254,102 @@ class BlacklistPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Add our actions to the URL router
+     *
+     * @param Net_URL_Mapper $m URL mapper for this hit
+     *
+     * @return boolean hook return
+     */
+
+    function onRouterInitialized($m)
+    {
+        $m->connect('admin/blacklist', array('action' => 'blacklistadminpanel'));
+        return true;
+    }
+
+    /**
+     * Auto-load our classes if called
+     *
+     * @param string $cls Class to load
+     *
+     * @return boolean hook return
+     */
+
+    function onAutoload($cls)
+    {
+        switch (strtolower($cls))
+        {
+        case 'blacklistadminpanelaction':
+            $base = strtolower(mb_substr($cls, 0, -6));
+            include_once INSTALLDIR.'/plugins/Blacklist/'.$base.'.php';
+            return false;
+        default:
+            return true;
+        }
+    }
+
+    /**
+     * Plugin version data
+     *
+     * @param array &$versions array of version blocks
+     *
+     * @return boolean hook value
+     */
+
     function onPluginVersion(&$versions)
     {
         $versions[] = array('name' => 'Blacklist',
                             'version' => self::VERSION,
                             'author' => 'Evan Prodromou',
-                            'homepage' => 'http://status.net/wiki/Plugin:Blacklist',
+                            'homepage' =>
+                            'http://status.net/wiki/Plugin:Blacklist',
                             'description' =>
-                            _m('Keep a blacklist of forbidden nickname and URL patterns.'));
+                            _m('Keep a blacklist of forbidden nickname '.
+                               'and URL patterns.'));
+        return true;
+    }
+
+    /**
+     * Determines if our admin panel can be shown
+     *
+     * @param string  $name  name of the admin panel
+     * @param boolean &$isOK result
+     *
+     * @return boolean hook value
+     */
+
+    function onAdminPanelCheck($name, &$isOK)
+    {
+        if ($name == 'blacklist') {
+            $isOK = $this->canAdmin;
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Add our tab to the admin panel
+     *
+     * @param Widget $nav Admin panel nav
+     *
+     * @return boolean hook value
+     */
+
+    function onEndAdminPanelNav($nav)
+    {
+        if (AdminPanelAction::canAdmin('blacklist')) {
+
+            $action_name = $nav->action->trimmed('action');
+
+            $nav->out->menuItem(common_local_url('blacklistadminpanel'),
+                                _('Blacklist'),
+                                _('Blacklist configuration'),
+                                $action_name == 'blacklistadminpanel',
+                                'nav_blacklist_admin_panel');
+        }
+
         return true;
     }
 }
