@@ -26,38 +26,6 @@ define('TWITTER_SERVICE', 1); // Twitter is foreign_service ID 1
 require_once INSTALLDIR . '/plugins/TwitterBridge/twitterbasicauthclient.php';
 require_once INSTALLDIR . '/plugins/TwitterBridge/twitteroauthclient.php';
 
-function updateTwitter_user($twitter_id, $screen_name)
-{
-    $uri = 'http://twitter.com/' . $screen_name;
-    $fuser = new Foreign_user();
-
-    $fuser->query('BEGIN');
-
-    // Dropping down to SQL because regular DB_DataObject udpate stuff doesn't seem
-    // to work so good with tables that have multiple column primary keys
-
-    // Any time we update the uri for a forein user we have to make sure there
-    // are no dupe entries first -- unique constraint on the uri column
-
-    $qry = 'UPDATE foreign_user set uri = \'\' WHERE uri = ';
-    $qry .= '\'' . $uri . '\'' . ' AND service = ' . TWITTER_SERVICE;
-
-    $fuser->query($qry);
-
-    // Update the user
-
-    $qry = 'UPDATE foreign_user SET nickname = ';
-    $qry .= '\'' . $screen_name . '\'' . ', uri = \'' . $uri . '\' ';
-    $qry .= 'WHERE id = ' . $twitter_id . ' AND service = ' . TWITTER_SERVICE;
-
-    $fuser->query('COMMIT');
-
-    $fuser->free();
-    unset($fuser);
-
-    return true;
-}
-
 function add_twitter_user($twitter_id, $screen_name)
 {
 
@@ -105,7 +73,6 @@ function add_twitter_user($twitter_id, $screen_name)
 // Creates or Updates a Twitter user
 function save_twitter_user($twitter_id, $screen_name)
 {
-
     // Check to see whether the Twitter user is already in the system,
     // and update its screen name and uri if so.
 
@@ -115,25 +82,20 @@ function save_twitter_user($twitter_id, $screen_name)
 
         $result = true;
 
-        // Only update if Twitter screen name has changed
+        // Delete old record if Twitter user changed screen name
 
         if ($fuser->nickname != $screen_name) {
-            $result = updateTwitter_user($twitter_id, $screen_name);
-
-            common_debug('Twitter bridge - Updated nickname (and URI) for Twitter user ' .
-                "$fuser->id to $screen_name, was $fuser->nickname");
+            $oldname = $fuser->nickname;
+            $fuser->delete();
+            common_log(LOG_INFO, sprintf('Twitter bridge - Updated nickname (and URI) ' .
+                                         'for Twitter user %1$d - %2$s, was %3$s.',
+                                         $fuser->id,
+                                         $screen_name,
+                                         $oldname));
         }
 
-        return $result;
-
-    } else {
         return add_twitter_user($twitter_id, $screen_name);
     }
-
-    $fuser->free();
-    unset($fuser);
-
-    return true;
 }
 
 function is_twitter_bound($notice, $flink) {
