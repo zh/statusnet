@@ -214,7 +214,7 @@ create table oauth_application (
     id integer auto_increment primary key comment 'unique identifier',
     owner integer not null comment 'owner of the application' references profile (id),
     consumer_key varchar(255) not null comment 'application consumer key' references consumer (consumer_key),
-    name varchar(255) unique key comment 'name of the application',
+    name varchar(255) not null unique key comment 'name of the application',
     description varchar(255) comment 'description of the application',
     icon varchar(255) not null comment 'application icon',
     source_url varchar(255) comment 'application homepage - used for source link',
