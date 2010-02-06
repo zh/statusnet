@@ -48,6 +48,33 @@ class BlacklistPlugin extends Plugin
     public $nicknames = array();
     public $urls      = array();
 
+    private $_nicknamePatterns = array();
+    private $_urlPatterns  = array();
+
+    function initialize()
+    {
+        $this->_nicknamePatterns = array_merge($this->nicknames,
+                                               $this->_configArray('blacklist', 'nicknames'));
+
+        $this->_urlPatterns = array_merge($this->urls,
+                                          $this->_configArray('blacklist', 'urls'));
+    }
+
+    function _configArray($section, $setting)
+    {
+        $config = common_config($section, $setting);
+
+        if (empty($config)) {
+            return array();
+        } else if (is_array($config)) {
+            return $config;
+        } else if (is_string($config)) {
+            return explode("\t", $config);
+        } else {
+            throw new Exception("Unknown data type for config $section + $setting");
+        }
+    }
+
     /**
      * Hook registration to prevent blacklisted homepages or nicknames
      *
@@ -173,7 +200,7 @@ class BlacklistPlugin extends Plugin
 
     private function _checkUrl($url)
     {
-        foreach ($this->urls as $pattern) {
+        foreach ($this->_urlPatterns as $pattern) {
             if (preg_match("/$pattern/", $url)) {
                 return false;
             }
@@ -194,7 +221,7 @@ class BlacklistPlugin extends Plugin
 
     private function _checkNickname($nickname)
     {
-        foreach ($this->nicknames as $pattern) {
+        foreach ($this->_nicknamePatterns as $pattern) {
             if (preg_match("/$pattern/", $nickname)) {
                 return false;
             }
