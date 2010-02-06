@@ -14,12 +14,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-04 22:03+0000\n"
-"PO-Revision-Date: 2010-02-04 22:04:09+0000\n"
+"POT-Creation-Date: 2010-02-05 23:53+0000\n"
+"PO-Revision-Date: 2010-02-05 23:54:09+0000\n"
 "Language-Team: French\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61992); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62048); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: out-statusnet\n"
@@ -186,20 +186,21 @@ msgstr "Statuts de %1$s et ses amis dans %2$s!"
 #: actions/apiaccountupdateprofile.php:97
 #: actions/apiaccountupdateprofilebackgroundimage.php:94
 #: actions/apiaccountupdateprofilecolors.php:118
-#: actions/apidirectmessage.php:156 actions/apifavoritecreate.php:99
-#: actions/apifavoritedestroy.php:100 actions/apifriendshipscreate.php:100
-#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:128
-#: actions/apigroupcreate.php:136 actions/apigroupismember.php:114
-#: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
-#: actions/apigrouplist.php:132 actions/apigrouplistall.php:120
-#: actions/apigroupmembership.php:106 actions/apigroupshow.php:115
-#: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
-#: actions/apistatusesretweets.php:112 actions/apistatusesshow.php:108
-#: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
-#: actions/apisubscriptions.php:111 actions/apitimelinefavorites.php:146
-#: actions/apitimelinefriends.php:155 actions/apitimelinegroup.php:150
-#: actions/apitimelinehome.php:156 actions/apitimelinementions.php:151
-#: actions/apitimelinepublic.php:131 actions/apitimelineretweetedtome.php:121
+#: actions/apiaccountverifycredentials.php:70 actions/apidirectmessage.php:156
+#: actions/apifavoritecreate.php:99 actions/apifavoritedestroy.php:100
+#: actions/apifriendshipscreate.php:100 actions/apifriendshipsdestroy.php:100
+#: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:136
+#: actions/apigroupismember.php:114 actions/apigroupjoin.php:155
+#: actions/apigroupleave.php:141 actions/apigrouplist.php:132
+#: actions/apigrouplistall.php:120 actions/apigroupmembership.php:106
+#: actions/apigroupshow.php:115 actions/apihelptest.php:88
+#: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
+#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:137
+#: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
+#: actions/apitimelinefavorites.php:146 actions/apitimelinefriends.php:155
+#: actions/apitimelinegroup.php:150 actions/apitimelinehome.php:156
+#: actions/apitimelinementions.php:151 actions/apitimelinepublic.php:131
+#: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
 #: actions/apitimelineuser.php:165 actions/apiusershow.php:101
 msgid "API method not found."
@@ -3444,9 +3445,8 @@ msgstr ""
 "méthode de signature en texte clair."
 
 #: actions/showapplication.php:309
-#, fuzzy
 msgid "Are you sure you want to reset your consumer key and secret?"
-msgstr "Voulez-vous vraiment supprimer cet avis ?"
+msgstr "Voulez-vous vraiment réinitialiser votre clé consommateur et secrète ?"
 
 #: actions/showfavorites.php:79
 #, php-format
@@ -5953,11 +5953,11 @@ msgstr "Erreur lors de l’insertion du profil distant"
 msgid "Duplicate notice"
 msgstr "Dupliquer l’avis"
 
-#: lib/oauthstore.php:466 lib/subs.php:48
+#: lib/oauthstore.php:465 lib/subs.php:48
 msgid "You have been banned from subscribing."
 msgstr "Il vous avez été interdit de vous abonner."
 
-#: lib/oauthstore.php:491
+#: lib/oauthstore.php:490
 msgid "Couldn't insert new subscription."
 msgstr "Impossible d’insérer un nouvel abonnement."
 
