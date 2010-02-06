@@ -219,7 +219,7 @@ class TwitterauthorizationAction extends Action
 
             $user = common_current_user();
             $this->saveForeignLink($user->id, $twitter_user->id, $atok);
-            save_twitter_user($twitter_user->id, $twitter_user->name);
+            save_twitter_user($twitter_user->id, $twitter_user->screen_name);
 
         } else {
 
