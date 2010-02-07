@@ -13,11 +13,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-05 23:53+0000\n"
-"PO-Revision-Date: 2010-02-05 23:53:59+0000\n"
+"PO-Revision-Date: 2010-02-07 20:31:54+0000\n"
 "Language-Team: Spanish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62048); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62096); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: es\n"
 "X-Message-Group: out-statusnet\n"
@@ -138,6 +138,8 @@ msgstr "Feed de los amigos de %s (Atom)"
 msgid ""
 "This is the timeline for %s and friends but no one has posted anything yet."
 msgstr ""
+"Esta es la línea temporal de %s y amistades, pero nadie ha publicado nada "
+"todavía."
 
 #: actions/all.php:132
 #, php-format
@@ -145,6 +147,8 @@ msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
 "something yourself."
 msgstr ""
+"Esta es la línea temporal de %s y amistades, pero nadie ha publicado nada "
+"todavía."
 
 #: actions/all.php:134
 #, php-format
@@ -152,6 +156,8 @@ msgid ""
 "You can try to [nudge %1$s](../%2$s) from his profile or [post something to "
 "his or her attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
+"Trata de suscribirte a más personas, [unirte a un grupo] (%%action.groups%%) "
+"o publicar algo."
 
 #: actions/all.php:137 actions/replies.php:209 actions/showstream.php:211
 #, php-format
@@ -159,6 +165,8 @@ msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
 "post a notice to his or her attention."
 msgstr ""
+"Puede intentar [guiñar a %1$s](../%2$s) desde su perfil o [publicar algo a "
+"su atención ](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 
 #: actions/all.php:165
 msgid "You and friends"
@@ -192,9 +200,8 @@ msgstr "¡Actualizaciones de %1$s y amigos en %2$s!"
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
 #: actions/apitimelineuser.php:165 actions/apiusershow.php:101
-#, fuzzy
 msgid "API method not found."
-msgstr "¡No se encontró el método de la API!"
+msgstr "Método de API no encontrado."
 
 #: actions/apiaccountupdatedeliverydevice.php:85
 #: actions/apiaccountupdateprofile.php:89
@@ -215,9 +222,10 @@ msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
 "none"
 msgstr ""
+"Tienes que especificar un parámetro llamdao 'dispositivo' con un valor a "
+"elegir entre: sms, im, ninguno"
 
 #: actions/apiaccountupdatedeliverydevice.php:132
-#, fuzzy
 msgid "Could not update user."
 msgstr "No se pudo actualizar el usuario."
 
@@ -231,7 +239,6 @@ msgid "User has no profile."
 msgstr "El usuario no tiene un perfil."
 
 #: actions/apiaccountupdateprofile.php:147
-#, fuzzy
 msgid "Could not save profile."
 msgstr "No se pudo guardar el perfil."
 
@@ -256,15 +263,13 @@ msgstr ""
 #: actions/groupdesignsettings.php:287 actions/groupdesignsettings.php:297
 #: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
 #: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
-#, fuzzy
 msgid "Unable to save your design settings."
-msgstr "¡No se pudo guardar tu configuración de Twitter!"
+msgstr "No se pudo grabar tu configuración de diseño."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:187
 #: actions/apiaccountupdateprofilecolors.php:142
-#, fuzzy
 msgid "Could not update your design."
-msgstr "No se pudo actualizar el usuario."
+msgstr "No se pudo actualizar tu diseño."
 
 #: actions/apiblockcreate.php:105
 msgid "You cannot block yourself!"
@@ -418,20 +423,20 @@ msgstr "¡Muchos seudónimos! El máximo es %d."
 
 #: actions/apigroupcreate.php:264 actions/editgroup.php:224
 #: actions/newgroup.php:168
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid alias: \"%s\""
-msgstr "Tag no válido: '%s' "
+msgstr "Alias inválido: \"%s\""
 
 #: actions/apigroupcreate.php:273 actions/editgroup.php:228
 #: actions/newgroup.php:172
-#, fuzzy, php-format
+#, php-format
 msgid "Alias \"%s\" already in use. Try another one."
-msgstr "El apodo ya existe. Prueba otro."
+msgstr "El alias \"%s\" ya está en uso. Intenta usar otro."
 
 #: actions/apigroupcreate.php:286 actions/editgroup.php:234
 #: actions/newgroup.php:178
 msgid "Alias can't be the same as nickname."
-msgstr ""
+msgstr "El alias no puede ser el mismo que el apodo."
 
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
@@ -448,18 +453,18 @@ msgid "You have been blocked from that group by the admin."
 msgstr "Has sido bloqueado de ese grupo por el administrador."
 
 #: actions/apigroupjoin.php:138 actions/joingroup.php:124
-#, fuzzy, php-format
+#, php-format
 msgid "Could not join user %1$s to group %2$s."
-msgstr "No se puede unir usuario %s a grupo %s"
+msgstr "No se pudo unir el usuario %s al grupo %s"
 
 #: actions/apigroupleave.php:114
 msgid "You are not a member of this group."
 msgstr "No eres miembro de este grupo."
 
 #: actions/apigroupleave.php:124 actions/leavegroup.php:119
-#, fuzzy, php-format
+#, php-format
 msgid "Could not remove user %1$s from group %2$s."
-msgstr "No se pudo eliminar a usuario %s de grupo %s"
+msgstr "No se pudo eliminar al usuario %1$s del grupo %2$s."
 
 #: actions/apigrouplist.php:95
 #, php-format
@@ -478,12 +483,11 @@ msgstr "Grupos en %s"
 
 #: actions/apioauthauthorize.php:101
 msgid "No oauth_token parameter provided."
-msgstr ""
+msgstr "No se ha provisto de un parámetro oauth_token."
 
 #: actions/apioauthauthorize.php:106
-#, fuzzy
 msgid "Invalid token."
-msgstr "Tamaño inválido."
+msgstr "Token inválido."
 
 #: actions/apioauthauthorize.php:123 actions/avatarsettings.php:268
 #: actions/deletenotice.php:157 actions/disfavor.php:74
@@ -505,19 +509,18 @@ msgstr ""
 "Hubo un problema con tu clave de sesión.  Por favor, intenta nuevamente."
 
 #: actions/apioauthauthorize.php:135
-#, fuzzy
 msgid "Invalid nickname / password!"
-msgstr "Usuario o contraseña inválidos."
+msgstr "¡Apodo o contraseña inválidos!"
 
 #: actions/apioauthauthorize.php:159
-#, fuzzy
 msgid "Database error deleting OAuth application user."
-msgstr "Error al configurar el usuario."
+msgstr ""
+"Error de la base de datos durante la eliminación del usuario de la "
+"aplicación OAuth."
 
 #: actions/apioauthauthorize.php:185
-#, fuzzy
 msgid "Database error inserting OAuth application user."
-msgstr "Error de la BD al insertar la etiqueta clave: %s"
+msgstr "Error de base de datos al insertar usuario de la aplicación OAuth."
 
 #: actions/apioauthauthorize.php:214
 #, php-format
@@ -525,11 +528,13 @@ msgid ""
 "The request token %s has been authorized. Please exchange it for an access "
 "token."
 msgstr ""
+"El token de solicitud %s ha sido autorizado. Por favor, cámbialo por un "
+"token de acceso."
 
 #: actions/apioauthauthorize.php:227
 #, php-format
 msgid "The request token %s has been denied and revoked."
-msgstr ""
+msgstr "El token de solicitud %2 ha sido denegado y revocado."
 
 #: actions/apioauthauthorize.php:232 actions/avatarsettings.php:281
 #: actions/designadminpanel.php:103 actions/editapplication.php:139
@@ -542,7 +547,7 @@ msgstr "Envío de formulario inesperado."
 
 #: actions/apioauthauthorize.php:259
 msgid "An application would like to connect to your account"
-msgstr ""
+msgstr "Una aplicación quisiera conectarse a tu cuenta"
 
 #: actions/apioauthauthorize.php:276
 msgid "Allow or deny access"
@@ -555,6 +560,9 @@ msgid ""
 "the ability to <strong>%3$s</strong> your %4$s account data. You should only "
 "give access to your %4$s account to third parties you trust."
 msgstr ""
+"La aplicación <strong>%1$s</strong> por <strong>%2$s</strong> solicita "
+"permiso para <strong>%3$s</strong> la información de tu cuenta %4$s. Sólo "
+"debes dar acceso a tu cuenta %4$s a terceras partes en las que confíes."
 
 #: actions/apioauthauthorize.php:310 lib/action.php:441
 msgid "Account"
@@ -616,9 +624,9 @@ msgstr "No hay estado para ese ID"
 
 #: actions/apistatusesupdate.php:161 actions/newnotice.php:155
 #: lib/mailhandler.php:60
-#, fuzzy, php-format
+#, php-format
 msgid "That's too long. Max notice size is %d chars."
-msgstr "Demasiado largo. La longitud máxima es de 140 caracteres. "
+msgstr "La entrada es muy larga. El tamaño máximo es de %d caracteres."
 
 #: actions/apistatusesupdate.php:202
 msgid "Not found"
@@ -628,20 +636,22 @@ msgstr "No encontrado"
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
+"El tamaño máximo de la notificación es %d caracteres, incluyendo el URL "
+"adjunto."
 
 #: actions/apisubscriptions.php:231 actions/apisubscriptions.php:261
 msgid "Unsupported format."
 msgstr "Formato no soportado."
 
 #: actions/apitimelinefavorites.php:108
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s / Favorites from %2$s"
-msgstr "%s / Favoritos desde %s"
+msgstr "%1$s / Favoritos de %2$s"
 
 #: actions/apitimelinefavorites.php:120
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s updates favorited by %2$s / %2$s."
-msgstr "%s actualizaciones favoritas por %s / %s."
+msgstr "%1$s actualizaciones favoritas de %2$s / %2$s."
 
 #: actions/apitimelinegroup.php:109 actions/apitimelineuser.php:118
 #: actions/grouprss.php:131 actions/userrss.php:90
@@ -656,9 +666,9 @@ msgid "Updates from %1$s on %2$s!"
 msgstr "¡Actualizaciones de %1$s en %2$s!"
 
 #: actions/apitimelinementions.php:117
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s / Updates mentioning %2$s"
-msgstr "%1$s / Actualizaciones en respuesta a %2$s"
+msgstr "%1$s / Actualizaciones que mencionan %2$s"
 
 #: actions/apitimelinementions.php:127
 #, php-format
@@ -676,14 +686,14 @@ msgid "%s updates from everyone!"
 msgstr "¡Actualizaciones de todos en %s!"
 
 #: actions/apitimelineretweetedtome.php:111
-#, fuzzy, php-format
+#, php-format
 msgid "Repeated to %s"
-msgstr "Respuestas a %s"
+msgstr "Repetido a %s"
 
 #: actions/apitimelineretweetsofme.php:112
-#, fuzzy, php-format
+#, php-format
 msgid "Repeats of %s"
-msgstr "Respuestas a %s"
+msgstr "Repeticiones de %s"
 
 #: actions/apitimelinetag.php:102 actions/tag.php:66
 #, php-format
@@ -691,19 +701,17 @@ msgid "Notices tagged with %s"
 msgstr "Avisos marcados con %s"
 
 #: actions/apitimelinetag.php:108 actions/tagrss.php:64
-#, fuzzy, php-format
+#, php-format
 msgid "Updates tagged with %1$s on %2$s!"
-msgstr "¡Actualizaciones de %1$s en %2$s!"
+msgstr "Actualizaciones etiquetadas con %1$s en %2$s!"
 
 #: actions/apiusershow.php:96
-#, fuzzy
 msgid "Not found."
-msgstr "No se encontró."
+msgstr "No encontrado."
 
 #: actions/attachment.php:73
-#, fuzzy
 msgid "No such attachment."
-msgstr "No existe ese documento."
+msgstr "No existe tal archivo adjunto."
 
 #: actions/avatarbynickname.php:59 actions/blockedfromgroup.php:73
 #: actions/editgroup.php:84 actions/groupdesignsettings.php:84
@@ -727,9 +735,9 @@ msgid "Avatar"
 msgstr "Avatar"
 
 #: actions/avatarsettings.php:78
-#, fuzzy, php-format
+#, php-format
 msgid "You can upload your personal avatar. The maximum file size is %s."
-msgstr "Puedes cargar tu avatar personal."
+msgstr "Puedes subir tu imagen personal. El tamaño máximo de archivo es %s."
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
 #: actions/remotesubscribe.php:191 actions/userauthorization.php:72
@@ -787,9 +795,8 @@ msgid "Avatar deleted."
 msgstr "Avatar actualizado"
 
 #: actions/block.php:69
-#, fuzzy
 msgid "You already blocked that user."
-msgstr "Ya has bloqueado este usuario."
+msgstr "Ya has bloqueado a este usuario."
 
 #: actions/block.php:105 actions/block.php:128 actions/groupblock.php:160
 msgid "Block user"
@@ -838,9 +845,9 @@ msgid "No such group."
 msgstr "No existe ese grupo."
 
 #: actions/blockedfromgroup.php:90
-#, fuzzy, php-format
+#, php-format
 msgid "%s blocked profiles"
-msgstr "Perfil de usuario"
+msgstr "%s perfiles bloqueados"
 
 #: actions/blockedfromgroup.php:93
 #, fuzzy, php-format
@@ -903,7 +910,6 @@ msgid "Couldn't delete email confirmation."
 msgstr "No se pudo eliminar la confirmación de correo electrónico."
 
 #: actions/confirmaddress.php:144
-#, fuzzy
 msgid "Confirm address"
 msgstr "Confirmar la dirección"
 
@@ -927,15 +933,13 @@ msgid "You must be logged in to delete an application."
 msgstr "Debes estar conectado para editar un grupo."
 
 #: actions/deleteapplication.php:71
-#, fuzzy
 msgid "Application not found."
-msgstr "Aviso sin perfil"
+msgstr "Aplicación no encontrada."
 
 #: actions/deleteapplication.php:78 actions/editapplication.php:77
 #: actions/showapplication.php:94
-#, fuzzy
 msgid "You are not the owner of this application."
-msgstr "No eres miembro de este grupo."
+msgstr "No eres el propietario de esta aplicación."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
@@ -944,9 +948,8 @@ msgid "There was a problem with your session token."
 msgstr "Hubo problemas con tu clave de sesión."
 
 #: actions/deleteapplication.php:123 actions/deleteapplication.php:147
-#, fuzzy
 msgid "Delete application"
-msgstr "No existe ese aviso."
+msgstr "Eliminar la aplicación"
 
 #: actions/deleteapplication.php:149
 msgid ""
@@ -961,9 +964,8 @@ msgid "Do not delete this application"
 msgstr "No se puede eliminar este aviso."
 
 #: actions/deleteapplication.php:160
-#, fuzzy
 msgid "Delete this application"
-msgstr "Borrar este aviso"
+msgstr "Borrar esta aplicación"
 
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
@@ -1052,9 +1054,8 @@ msgid "Change logo"
 msgstr "Cambiar logo"
 
 #: actions/designadminpanel.php:380
-#, fuzzy
 msgid "Site logo"
-msgstr "Invitar"
+msgstr "Logo del sitio"
 
 #: actions/designadminpanel.php:387
 #, fuzzy
@@ -1067,9 +1068,8 @@ msgid "Site theme"
 msgstr "Aviso de sitio"
 
 #: actions/designadminpanel.php:405
-#, fuzzy
 msgid "Theme for the site."
-msgstr "Salir de sitio"
+msgstr "Tema para el sitio."
 
 #: actions/designadminpanel.php:417 lib/designsettings.php:101
 msgid "Change background image"
@@ -3208,9 +3208,8 @@ msgid "Remote subscribe"
 msgstr "Subscripción remota"
 
 #: actions/remotesubscribe.php:124
-#, fuzzy
 msgid "Subscribe to a remote user"
-msgstr "Suscribirse a este usuario"
+msgstr "Suscribirse a un usuario remoto"
 
 #: actions/remotesubscribe.php:129
 msgid "User nickname"
@@ -3238,14 +3237,14 @@ msgid "Invalid profile URL (bad format)"
 msgstr "El URL del perfil es inválido (formato incorrecto)"
 
 #: actions/remotesubscribe.php:168
-#, fuzzy
 msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
-msgstr "URL de perfil no válido (ningún documento YADIS)."
+msgstr ""
+"No es un perfil válido URL (no se ha definido un documento YADIS o un XRDS "
+"inválido)."
 
 #: actions/remotesubscribe.php:176
-#, fuzzy
 msgid "That’s a local profile! Login to subscribe."
-msgstr "¡Es un perfil local! Ingresa para suscribirte"
+msgstr "¡Este es un perfil local! Ingresa para suscribirte"
 
 #: actions/remotesubscribe.php:183
 #, fuzzy
@@ -3273,14 +3272,12 @@ msgid "You already repeated that notice."
 msgstr "Ya has bloqueado este usuario."
 
 #: actions/repeat.php:114 lib/noticelist.php:642
-#, fuzzy
 msgid "Repeated"
-msgstr "Crear"
+msgstr "Repetido"
 
 #: actions/repeat.php:119
-#, fuzzy
 msgid "Repeated!"
-msgstr "Crear"
+msgstr "¡Repetido!"
 
 #: actions/replies.php:125 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
@@ -5162,8 +5159,8 @@ msgstr "No eres miembro de ningún grupo"
 #: lib/command.php:714
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
-msgstr[0] "No eres miembro de este grupo."
-msgstr[1] "No eres miembro de este grupo."
+msgstr[0] "Eres miembro de este grupo:"
+msgstr[1] "Eres miembro de estos grupos:"
 
 #: lib/command.php:728
 msgid ""

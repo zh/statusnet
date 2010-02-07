@@ -3,6 +3,7 @@
 # Author@translatewiki.net: Bavatar
 # Author@translatewiki.net: Lutzgh
 # Author@translatewiki.net: March
+# Author@translatewiki.net: McDutchie
 # Author@translatewiki.net: Pill
 # Author@translatewiki.net: Umherirrender
 # --
@@ -13,11 +14,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-05 23:53+0000\n"
-"PO-Revision-Date: 2010-02-05 23:53:50+0000\n"
+"PO-Revision-Date: 2010-02-07 20:31:45+0000\n"
 "Language-Team: German\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62048); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62096); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: out-statusnet\n"
@@ -2360,7 +2361,6 @@ msgid "Notice Search"
 msgstr "Nachrichtensuche"
 
 #: actions/othersettings.php:60
-#, fuzzy
 msgid "Other settings"
 msgstr "Andere Einstellungen"
 
@@ -2393,9 +2393,8 @@ msgid "URL shortening service is too long (max 50 chars)."
 msgstr "URL-Auto-Kürzungs-Dienst ist zu lang (max. 50 Zeichen)."
 
 #: actions/otp.php:69
-#, fuzzy
 msgid "No user ID specified."
-msgstr "Keine Gruppe angegeben"
+msgstr "Keine Benutzer ID angegeben"
 
 #: actions/otp.php:83
 #, fuzzy
@@ -2418,9 +2417,9 @@ msgid "Login token expired."
 msgstr "An Seite anmelden"
 
 #: actions/outbox.php:58
-#, fuzzy, php-format
+#, php-format
 msgid "Outbox for %1$s - page %2$d"
-msgstr "Postausgang von %s"
+msgstr "Postausgang für %1$s - Seite %2$d"
 
 #: actions/outbox.php:61
 #, php-format
@@ -2531,9 +2530,8 @@ msgid "Site"
 msgstr "Seite"
 
 #: actions/pathsadminpanel.php:238
-#, fuzzy
 msgid "Server"
-msgstr "Wiederherstellung"
+msgstr "Server"
 
 #: actions/pathsadminpanel.php:238
 msgid "Site's server hostname."
@@ -2616,9 +2614,8 @@ msgid "SSL"
 msgstr "SSL"
 
 #: actions/pathsadminpanel.php:323 actions/siteadminpanel.php:294
-#, fuzzy
 msgid "Never"
-msgstr "Wiederherstellung"
+msgstr "Nie"
 
 #: actions/pathsadminpanel.php:324
 msgid "Sometimes"
@@ -2637,7 +2634,6 @@ msgid "When to use SSL"
 msgstr "Wann soll SSL verwendet werden"
 
 #: actions/pathsadminpanel.php:335
-#, fuzzy
 msgid "SSL server"
 msgstr "SSL-Server"
 
@@ -2962,7 +2958,7 @@ msgstr ""
 
 #: actions/recoverpassword.php:191
 msgid "Nickname or email address"
-msgstr ""
+msgstr "Spitzname oder e-mail Adresse"
 
 #: actions/recoverpassword.php:193
 msgid "Your nickname on this server, or your registered email address."
@@ -3226,20 +3222,16 @@ msgid "Couldn’t get a request token."
 msgstr "Konnte keinen Anfrage-Token bekommen."
 
 #: actions/repeat.php:57
-#, fuzzy
 msgid "Only logged-in users can repeat notices."
-msgstr "Nur der Benutzer selbst kann seinen Posteingang lesen."
+msgstr "Nur angemeldete Nutzer können Nachrichten wiederholen."
 
 #: actions/repeat.php:64 actions/repeat.php:71
-#, fuzzy
 msgid "No notice specified."
-msgstr "Kein Profil angegeben."
+msgstr "Keine Nachricht angegeen."
 
 #: actions/repeat.php:76
-#, fuzzy
 msgid "You can't repeat your own notice."
-msgstr ""
-"Du kannst dich nicht registrieren, wenn du die Lizenz nicht akzeptierst."
+msgstr "Du kannst deine eigene Nachricht nicht wiederholen."
 
 #: actions/repeat.php:90
 #, fuzzy
@@ -3263,9 +3255,9 @@ msgid "Replies to %s"
 msgstr "Antworten an %s"
 
 #: actions/replies.php:127
-#, fuzzy, php-format
+#, php-format
 msgid "Replies to %1$s, page %2$d"
-msgstr "Antworten an %1$s auf %2$s!"
+msgstr "Antworten an %1$s, Seite %2$d"
 
 #: actions/replies.php:144
 #, php-format
@@ -3314,9 +3306,8 @@ msgid "Replies to %1$s on %2$s!"
 msgstr "Antworten an %1$s auf %2$s!"
 
 #: actions/rsd.php:146 actions/version.php:157
-#, fuzzy
 msgid "StatusNet"
-msgstr "Status gelöscht."
+msgstr "StatusNet"
 
 #: actions/sandbox.php:65 actions/unsandbox.php:65
 #, fuzzy
@@ -5137,8 +5128,8 @@ msgstr "Du bist in keiner Gruppe Mitglied."
 #: lib/command.php:714
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
-msgstr[0] "Du bist kein Mitglied dieser Gruppe."
-msgstr[1] "Du bist kein Mitglied dieser Gruppe."
+msgstr[0] "Du bist Mitglied dieser Gruppe:"
+msgstr[1] "Du bist Mitglied dieser Gruppen:"
 
 #: lib/command.php:728
 msgid ""

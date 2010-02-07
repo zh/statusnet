@@ -10,11 +10,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-05 23:53+0000\n"
-"PO-Revision-Date: 2010-02-05 23:53:40+0000\n"
+"PO-Revision-Date: 2010-02-07 20:31:37+0000\n"
 "Language-Team: Bulgarian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62048); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62096); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: bg\n"
 "X-Message-Group: out-statusnet\n"
@@ -30,7 +30,6 @@ msgid "Site access settings"
 msgstr "Запазване настройките на сайта"
 
 #: actions/accessadminpanel.php:158
-#, fuzzy
 msgid "Registration"
 msgstr "Регистриране"
 
@@ -107,9 +106,9 @@ msgid "No such user."
 msgstr "Няма такъв потребител"
 
 #: actions/all.php:84
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s and friends, page %2$d"
-msgstr "Блокирани за %s, страница %d"
+msgstr "%1$s и приятели, страница %2$d"
 
 #: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
 #: actions/apitimelinefriends.php:114 actions/apitimelinehome.php:115
@@ -425,9 +424,9 @@ msgstr "Неправилен псевдоним: \"%s\""
 
 #: actions/apigroupcreate.php:273 actions/editgroup.php:228
 #: actions/newgroup.php:172
-#, fuzzy, php-format
+#, php-format
 msgid "Alias \"%s\" already in use. Try another one."
-msgstr "Опитайте друг псевдоним, този вече е зает."
+msgstr "Псевдонимът \"%s\" вече е зает. Опитайте друг."
 
 #: actions/apigroupcreate.php:286 actions/editgroup.php:234
 #: actions/newgroup.php:178
@@ -902,9 +901,8 @@ msgid "Couldn't delete email confirmation."
 msgstr "Грешка при изтриване потвърждението по е-поща."
 
 #: actions/confirmaddress.php:144
-#, fuzzy
 msgid "Confirm address"
-msgstr "Потвърждаване на адреса"
+msgstr "Потвърждаване на адрес"
 
 #: actions/confirmaddress.php:159
 #, php-format
@@ -2057,9 +2055,9 @@ msgid "You are not a member of that group."
 msgstr "Не членувате в тази група."
 
 #: actions/leavegroup.php:127
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s left group %2$s"
-msgstr "%s напусна групата %s"
+msgstr "%1$s напусна групата %2$s"
 
 #: actions/login.php:80 actions/otp.php:62 actions/register.php:137
 msgid "Already logged in."
@@ -2343,7 +2341,6 @@ msgid "Notice Search"
 msgstr "Търсене на бележки"
 
 #: actions/othersettings.php:60
-#, fuzzy
 msgid "Other settings"
 msgstr "Други настройки"
 
@@ -2619,7 +2616,6 @@ msgid "When to use SSL"
 msgstr "Кога да се използва SSL"
 
 #: actions/pathsadminpanel.php:335
-#, fuzzy
 msgid "SSL server"
 msgstr "SSL-сървър"
 
@@ -3095,7 +3091,7 @@ msgid ""
 msgstr " освен тези лични данни: парола, е-поща, месинджър, телефон."
 
 #: actions/register.php:538
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
 "want to...\n"
@@ -3112,9 +3108,9 @@ msgid ""
 "\n"
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
-"Поздравления, %s! И добре дошли в %%%%site.name%%%%! от тук можете да...\n"
+"Поздравления, %1$s! И добре дошли в %%%%site.name%%%%! от тук можете да...\n"
 "\n"
-"* Отидете в [профила си](%s) и да публикувате първата си бележка.\n"
+"* Отидете в [профила си](%2$s) и да публикувате първата си бележка.\n"
 "* Добавите [адрес в Jabber/GTalk](%%%%action.imsettings%%%%), за да "
 "изпращате бележки от програмата си за моментни съобщения.\n"
 "* [Търсите хора](%%%%action.peoplesearch%%%%), които познавате или с които "
@@ -3328,18 +3324,16 @@ msgstr "Бележката няма профил"
 
 #: actions/showapplication.php:159 lib/applicationeditform.php:180
 msgid "Icon"
-msgstr ""
+msgstr "Икона"
 
 #: actions/showapplication.php:169 actions/version.php:195
 #: lib/applicationeditform.php:195
-#, fuzzy
 msgid "Name"
-msgstr "Псевдоним"
+msgstr "Име"
 
 #: actions/showapplication.php:178 lib/applicationeditform.php:222
-#, fuzzy
 msgid "Organization"
-msgstr "Страниране"
+msgstr "Организация"
 
 #: actions/showapplication.php:187 actions/version.php:198
 #: lib/applicationeditform.php:209 lib/groupeditform.php:172
@@ -3401,9 +3395,9 @@ msgid "Are you sure you want to reset your consumer key and secret?"
 msgstr "Наистина ли искате да изтриете тази бележка?"
 
 #: actions/showfavorites.php:79
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s's favorite notices, page %2$d"
-msgstr "Любими бележки на %s"
+msgstr "Любими бележки на %1$s, страница %2$d"
 
 #: actions/showfavorites.php:132
 msgid "Could not retrieve favorite notices."
@@ -3466,7 +3460,7 @@ msgstr "Профил на групата"
 #: actions/showgroup.php:263 actions/tagother.php:118
 #: actions/userauthorization.php:175 lib/userprofile.php:177
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: actions/showgroup.php:274 actions/tagother.php:128
 #: actions/userauthorization.php:187 lib/userprofile.php:194
@@ -3475,7 +3469,7 @@ msgstr "Бележка"
 
 #: actions/showgroup.php:284 lib/groupeditform.php:184
 msgid "Aliases"
-msgstr ""
+msgstr "Псевдоними"
 
 #: actions/showgroup.php:293
 msgid "Group actions"
@@ -3661,9 +3655,9 @@ msgid "You must have a valid contact email address."
 msgstr "Адресът на е-поща за контакт е задължителен"
 
 #: actions/siteadminpanel.php:158
-#, fuzzy, php-format
+#, php-format
 msgid "Unknown language \"%s\"."
-msgstr "Непознат език \"%s\""
+msgstr "Непознат език \"%s\"."
 
 #: actions/siteadminpanel.php:165
 msgid "Invalid snapshot report URL."
@@ -4300,9 +4294,9 @@ msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
 msgstr ""
 
 #: actions/version.php:73
-#, fuzzy, php-format
+#, php-format
 msgid "StatusNet %s"
-msgstr "Статистики"
+msgstr "StatusNet %s"
 
 #: actions/version.php:153
 #, php-format
@@ -4340,17 +4334,15 @@ msgstr ""
 
 #: actions/version.php:189
 msgid "Plugins"
-msgstr ""
+msgstr "Приставки"
 
 #: actions/version.php:196 lib/action.php:747
-#, fuzzy
 msgid "Version"
-msgstr "Сесии"
+msgstr "Версия"
 
 #: actions/version.php:197
-#, fuzzy
 msgid "Author(s)"
-msgstr "Автор"
+msgstr "Автор(и)"
 
 #: classes/File.php:144
 #, php-format
@@ -5418,11 +5410,9 @@ msgstr ""
 "Може да смените адреса и настройките за уведомяване по е-поща на %8$s\n"
 
 #: lib/mail.php:258
-#, fuzzy, php-format
+#, php-format
 msgid "Bio: %s"
-msgstr ""
-"Биография: %s\n"
-"\n"
+msgstr "Биография: %s"
 
 #: lib/mail.php:286
 #, php-format
