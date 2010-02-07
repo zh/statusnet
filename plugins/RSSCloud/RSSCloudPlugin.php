@@ -105,7 +105,7 @@ class RSSCloudPlugin extends Plugin
      * @return boolean hook return
      */
 
-    function onRouterInitialized(&$m)
+    function onRouterInitialized($m)
     {
         $m->connect('/main/rsscloud/request_notify',
                     array('action' => 'RSSCloudRequestNotify'));
