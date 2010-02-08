@@ -2,7 +2,7 @@
 <?php
 /**
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, StatusNet, Inc.
+ * Copyright (C) 2008-2010, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -262,7 +262,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             $notice->is_local   = Notice::GATEWAY;
 
             if (Event::handle('StartNoticeSave', array(&$notice))) {
-                $id = $notice->insert();
+                $notice->insert();
                 Event::handle('EndNoticeSave', array($notice));
             }
 
@@ -270,9 +270,33 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
         Inbox::insertNotice($flink->user_id, $notice->id);
 
-        $notice->blowCaches();
+        $notice->blowOnInsert();
 
         return $notice;
+    }
+
+    /**
+     * Look up a Profile by profileurl field.  Profile::staticGet() was
+     * not working consistently.
+     *
+     * @param string $url the profile url
+     *
+     * @return mixed the first profile with that url, or null
+     */
+
+    function getProfileByUrl($nickname, $profileurl)
+    {
+        $profile = new Profile();
+        $profile->nickname = $nickname;
+        $profile->profileurl = $profileurl;
+        $profile->limit(1);
+
+        if ($profile->find()) {
+            $profile->fetch();
+            return $profile;
+        }
+
+        return null;
     }
 
     function ensureProfile($user)
@@ -280,7 +304,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         // check to see if there's already a profile for this user
 
         $profileurl = 'http://twitter.com/' . $user->screen_name;
-        $profile = Profile::staticGet('profileurl', $profileurl);
+        $profile = $this->getProfileByUrl($user->screen_name, $profileurl);
 
         if (!empty($profile)) {
             common_debug($this->name() .
@@ -292,6 +316,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             return $profile->id;
 
         } else {
+
             common_debug($this->name() . ' - Adding profile and remote profile ' .
                          "for Twitter user: $profileurl.");
 
@@ -306,7 +331,11 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             $profile->profileurl = $profileurl;
             $profile->created = common_sql_now();
 
-            $id = $profile->insert();
+            try {
+                $id = $profile->insert();
+            } catch(Exception $e) {
+                common_log(LOG_WARNING, $this->name . ' Couldn\'t insert profile - ' . $e->getMessage());
+            }
 
             if (empty($id)) {
                 common_log_db_error($profile, 'INSERT', __FILE__);
@@ -326,7 +355,11 @@ class TwitterStatusFetcher extends ParallelizingDaemon
                 $remote_pro->uri = $profileurl;
                 $remote_pro->created = common_sql_now();
 
-                $rid = $remote_pro->insert();
+                try {
+                    $rid = $remote_pro->insert();
+                } catch (Exception $e) {
+                    common_log(LOG_WARNING, $this->name() . ' Couldn\'t save remote profile - ' . $e->getMessage());
+                }
 
                 if (empty($rid)) {
                     common_log_db_error($profile, 'INSERT', __FILE__);
@@ -446,7 +479,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             if ($this->fetchAvatar($url, $filename)) {
                 $this->newAvatar($id, $size, $mediatype, $filename);
             } else {
-                common_log(LOG_WARNING, $this->id() .
+                common_log(LOG_WARNING, $id() .
                            " - Problem fetching Avatar: $url");
             }
         }
@@ -507,7 +540,11 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
         $avatar->created = common_sql_now();
 
-        $id = $avatar->insert();
+        try {
+            $id = $avatar->insert();
+        } catch (Exception $e) {
+            common_log(LOG_WARNING, $this->name() . ' Couldn\'t insert avatar - ' . $e->getMessage());
+        }
 
         if (empty($id)) {
             common_log_db_error($avatar, 'INSERT', __FILE__);
