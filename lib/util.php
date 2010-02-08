@@ -665,6 +665,9 @@ function common_valid_profile_tag($str)
 function common_at_link($sender_id, $nickname)
 {
     $sender = Profile::staticGet($sender_id);
+    if (!$sender) {
+        return $nickname;
+    }
     $recipient = common_relative_profile($sender, common_canonical_nickname($nickname));
     if ($recipient) {
         $user = User::staticGet('id', $recipient->id);

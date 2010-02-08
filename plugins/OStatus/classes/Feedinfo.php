@@ -248,7 +248,7 @@ class Feedinfo extends Memcached_DataObject
         #$this->verify_token = $token;
         #$this->update(); // @fixme
         try {
-            $callback = common_local_url('feedsubcallback', array('feed' => $this->id));
+            $callback = common_local_url('pushcallback', array('feed' => $this->id));
             $headers = array('Content-Type: application/x-www-form-urlencoded');
             $post = array('hub.mode' => 'subscribe',
                           'hub.callback' => $callback,

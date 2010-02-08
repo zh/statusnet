@@ -235,34 +235,45 @@ class FeedMunger
      */
     function noticeFromEntry($entry)
     {
+        $max = Notice::maxContent();
+        $ellipsis = "\xe2\x80\xa6"; // U+2026 HORIZONTAL ELLIPSIS
         $title = $entry->title;
         $link = $entry->link;
-        
+
         // @todo We can get <category> entries like this:
         // $cats = $entry->getCategory('category', array(0, true));
         // but it feels like an awful hack. If it's accessible cleanly,
         // try adding #hashtags from the categories/tags on a post.
-        
-        // @todo Should we force a language here?
-        $format = _m('New post: "%1$s" %2$s');
+
         $title = $entry->title;
         $link = $this->getAltLink($entry);
-        $out = sprintf($format, $title, $link);
-        
-        // Trim link if needed...
-        $max = Notice::maxContent();
-        if (mb_strlen($out) > $max) {
-            $link = common_shorten_url($link);
+        if ($link) {
+            // Blog post or such...
+            // @todo Should we force a language here?
+            $format = _m('New post: "%1$s" %2$s');
             $out = sprintf($format, $title, $link);
-        }
 
-        // Trim title if needed...
-        if (mb_strlen($out) > $max) {
-            $ellipsis = "\xe2\x80\xa6"; // U+2026 HORIZONTAL ELLIPSIS
-            $used = mb_strlen($out) - mb_strlen($title);
-            $available = $max - $used - mb_strlen($ellipsis);
-            $title = mb_substr($title, 0, $available) . $ellipsis;
-            $out = sprintf($format, $title, $link);
+            // Trim link if needed...
+            if (mb_strlen($out) > $max) {
+                $link = common_shorten_url($link);
+                $out = sprintf($format, $title, $link);
+            }
+
+            // Trim title if needed...
+            if (mb_strlen($out) > $max) {
+                $used = mb_strlen($out) - mb_strlen($title);
+                $available = $max - $used - mb_strlen($ellipsis);
+                $title = mb_substr($title, 0, $available) . $ellipsis;
+                $out = sprintf($format, $title, $link);
+            }
+        } else {
+            // No link? Consider a bare status update.
+            if (mb_strlen($title) > $max) {
+                $available = $max - mb_strlen($ellipsis);
+                $out = mb_substr($title, 0, $available) . $ellipsis;
+            } else {
+                $out = $title;
+            }
         }
         
         return $out;
