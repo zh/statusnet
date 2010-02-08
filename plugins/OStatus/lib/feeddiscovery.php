@@ -48,6 +48,18 @@ class FeedSubNoFeedException extends FeedSubException
 {
 }
 
+/**
+ * Given a web page or feed URL, discover the final location of the feed
+ * and return its current contents.
+ *
+ * @example
+ *   $feed = new FeedDiscovery();
+ *   if ($feed->discoverFromURL($url)) {
+ *     print $feed->uri;
+ *     print $feed->type;
+ *     processFeed($feed->body);
+ *   }
+ */
 class FeedDiscovery
 {
     public $uri;
@@ -64,7 +76,7 @@ class FeedDiscovery
 
     /**
      * @param string $url
-     * @param bool $htmlOk
+     * @param bool $htmlOk pass false here if you don't want to follow web pages.
      * @return string with validated URL
      * @throws FeedSubBadURLException
      * @throws FeedSubBadHtmlException

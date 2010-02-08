@@ -30,8 +30,8 @@ class FeedSubPreviewNotice extends Notice
 
     function __construct($profile)
     {
-        //parent::__construct(); // uhhh?
         $this->profile = $profile;
+        $this->profile_id = 0;
     }
     
     function getProfile()
@@ -56,14 +56,19 @@ class FeedSubPreviewProfile extends Profile
 {
     function getAvatar($width, $height=null)
     {
-        return new FeedSubPreviewAvatar($width, $height);
+        return new FeedSubPreviewAvatar($width, $height, $this->avatar);
     }
 }
 
 class FeedSubPreviewAvatar extends Avatar
 {
+    function __construct($width, $height, $remote)
+    {
+        $this->remoteImage = $remote;
+    }
+
     function displayUrl() {
-        return common_path('plugins/FeedSub/images/48px-Feed-icon.svg.png');
+        return $this->remoteImage;
     }
 }
 
@@ -150,6 +155,23 @@ class FeedMunger
         return $this->getAtomLink($this->feed, array('rel' => 'hub'));
     }
 
+    /**
+     * Get an appropriate avatar image source URL, if available.
+     * @return mixed string or false
+     */
+    function getAvatar()
+    {
+        $logo = $this->feed->logo;
+        if ($logo) {
+            return $logo;
+        }
+        $icon = $this->feed->icon;
+        if ($icon) {
+            return $icon;
+        }
+        return common_path('plugins/OStatus/images/48px-Feed-icon.svg.png');
+    }
+
     function profile($preview=false)
     {
         if ($preview) {
@@ -164,6 +186,10 @@ class FeedMunger
         $profile->homepage   = $this->getAltLink($this->feed);
         $profile->bio        = $this->feed->description;
         $profile->profileurl = $this->getAltLink($this->feed);
+
+        if ($preview) {
+            $profile->avatar = $this->getAvatar();
+        }
         
         // @todo tags from categories
         // @todo lat/lon/location?
@@ -186,6 +212,12 @@ class FeedMunger
         }
 
         $link = $this->getAltLink($entry);
+        if (empty($link)) {
+            if (preg_match('!^https?://!', $entry->id)) {
+                $link = $entry->id;
+                common_log(LOG_DEBUG, "No link on entry, using URL from id: $link");
+            }
+        }
         $notice->uri = $link;
         $notice->url = $link;
         $notice->content = $this->noticeFromEntry($entry);

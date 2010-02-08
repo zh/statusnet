@@ -30,6 +30,7 @@ global $config, $_server, $_path;
 class StatusNet
 {
     protected static $have_config;
+    protected static $is_api;
 
     /**
      * Configure and instantiate a plugin into the current configuration.
@@ -63,7 +64,7 @@ class StatusNet
                 }
             }
             if (!class_exists($pluginclass)) {
-                throw new ServerException(500, "Plugin $name not found.");
+                throw new ServerException("Plugin $name not found.", 500);
             }
         }
 
@@ -145,6 +146,16 @@ class StatusNet
     public function haveConfig()
     {
         return self::$have_config;
+    }
+
+    public function isApi()
+    {
+        return self::$is_api;
+    }
+    
+    public function setApi($mode)
+    {
+        self::$is_api = $mode;
     }
 
     /**

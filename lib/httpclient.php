@@ -81,12 +81,13 @@ class HTTPResponse extends HTTP_Request2_Response
     }
 
     /**
-     * Check if the response is OK, generally a 200 status code.
+     * Check if the response is OK, generally a 200 or other 2xx status code.
      * @return bool
      */
     function isOk()
     {
-        return ($this->getStatus() == 200);
+        $status = $this->getStatus();
+        return ($status >= 200 && $status < 300);
     }
 }
 
