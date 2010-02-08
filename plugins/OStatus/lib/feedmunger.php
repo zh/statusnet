@@ -225,8 +225,43 @@ class FeedMunger
         $notice->created = common_sql_date($entry->updated); // @fixme
         $notice->is_local = Notice::GATEWAY;
         $notice->source = 'feed';
-        
+
+        $location = $this->getLocation($entry);
+        if ($location) {
+            if ($location->location_id) {
+                $notice->location_ns = $location->location_ns;
+                $notice->location_id = $location->location_id;
+            }
+            $notice->lat = $location->lat;
+            $notice->lon = $location->lon;
+        }
+
         return $notice;
+    }
+
+    /**
+     * @param feed item $entry
+     * @return mixed Location or false
+     */
+    function getLocation($entry)
+    {
+        $dom = $entry->model;
+        $points = $dom->getElementsByTagNameNS('http://www.georss.org/georss', 'point');
+        
+        for ($i = 0; $i < $points->length; $i++) {
+            $point = trim($points->item(0)->textContent);
+            $coords = explode(' ', $point);
+            if (count($coords) == 2) {
+                list($lat, $lon) = $coords;
+                if (is_numeric($lat) && is_numeric($lon)) {
+                    common_log(LOG_INFO, "Looking up location for $lat $lon from georss");
+                    return Location::fromLatLon($lat, $lon);
+                }
+            }
+            common_log(LOG_ERR, "Ignoring bogus georss:point value $point");
+        }
+
+        return false;
     }
 
     /**
