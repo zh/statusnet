@@ -716,6 +716,7 @@ class Profile extends Memcached_DataObject
             switch ($right)
             {
             case Right::DELETEOTHERSNOTICE:
+            case Right::MAKEGROUPADMIN:
             case Right::SANDBOXUSER:
             case Right::SILENCEUSER:
             case Right::DELETEUSER:

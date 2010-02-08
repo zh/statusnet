@@ -1176,6 +1176,10 @@ class Notice extends Memcached_DataObject
         // Figure out who that is.
 
         $sender = Profile::staticGet('id', $profile_id);
+        if (empty($sender)) {
+            return null;
+        }
+
         $recipient = common_relative_profile($sender, $nickname, common_sql_now());
 
         if (empty($recipient)) {

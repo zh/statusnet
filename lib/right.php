@@ -57,5 +57,6 @@ class Right
     const EMAILONREPLY       = 'emailonreply';
     const EMAILONSUBSCRIBE   = 'emailonsubscribe';
     const EMAILONFAVE        = 'emailonfave';
+    const MAKEGROUPADMIN     = 'makegroupadmin';
 }
 

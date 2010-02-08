@@ -145,10 +145,11 @@ class ApiTimelineUserAction extends ApiBareAuthAction
             );
             break;
         case 'atom':
-            if (isset($apidata['api_arg'])) {
+            $id = $this->arg('id');
+            if ($id) {
                 $selfuri = common_root_url() .
                     'api/statuses/user_timeline/' .
-                    $apidata['api_arg'] . '.atom';
+                    rawurlencode($id) . '.atom';
             } else {
                 $selfuri = common_root_url() .
                     'api/statuses/user_timeline.atom';

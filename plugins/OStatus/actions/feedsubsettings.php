@@ -184,7 +184,7 @@ class FeedSubSettingsAction extends ConnectSettingsAction
         $this->munger = $discover->feedMunger();
         $this->feedinfo = $this->munger->feedInfo();
 
-        if ($this->feedinfo->huburi == '') {
+        if ($this->feedinfo->huburi == '' && !common_config('feedsub', 'nohub')) {
             $this->showForm(_m('Feed is not PuSH-enabled; cannot subscribe.'));
             return false;
         }
@@ -213,7 +213,10 @@ class FeedSubSettingsAction extends ConnectSettingsAction
             // And subscribe the current user to the local profile
             $user = common_current_user();
             $profile = $this->feedinfo->getProfile();
-            
+            if (!$profile) {
+                throw new ServerException("Feed profile was not saved properly.");
+            }
+
             if ($user->isSubscribed($profile)) {
                 $this->showForm(_m('Already subscribed!'));
             } elseif ($user->subscribeTo($profile)) {
