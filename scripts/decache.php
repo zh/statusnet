@@ -24,6 +24,8 @@ $helptext = <<<ENDOFHELP
 USAGE: decache.php <table> <id> [<column>]
 Clears the cache for the object in table <table> with id <id>
 If <column> is specified, use that instead of 'id'
+
+
 ENDOFHELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
@@ -43,8 +45,10 @@ if (count($args) > 2) {
 $object = Memcached_DataObject::staticGet($table, $column, $id);
 
 if (!$object) {
-    print "No such '$table' with $column = '$id'.\n";
-    exit(1);
+    print "No such '$table' with $column = '$id'; it's possible some cache keys won't be cleared properly.\n";
+    $class = ucfirst($table);
+    $object = new $class();
+    $object->column = $id;
 }
 
 $result = $object->decache();
