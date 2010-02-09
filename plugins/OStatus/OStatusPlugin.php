@@ -53,6 +53,19 @@ class OStatusPlugin extends Plugin
      */
     function onRouterInitialized($m)
     {
+        $m->connect('.well-known/host-meta',
+                    array('action' => 'hostmeta'));
+        $m->connect('main/webfinger',
+                    array('action' => 'webfinger'));
+        $m->connect('main/ostatus',
+                    array('action' => 'ostatusinit'));
+        $m->connect('main/ostatus?nickname=:nickname',
+                  array('action' => 'ostatusinit'), array('nickname' => '[A-Za-z0-9_-]+'));
+        $m->connect('main/ostatussub',
+                    array('action' => 'ostatussub'));          
+        $m->connect('main/ostatussub',
+                    array('action' => 'ostatussub'), array('feed' => '[A-Za-z0-9\.\/\:]+'));          
+        
         $m->connect('main/push/hub', array('action' => 'pushhub'));
 
         $m->connect('main/push/callback/:feed',
@@ -148,6 +161,28 @@ class OStatusPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Add in an OStatus subscribe button
+     */
+    function onStartProfilePageActionsElements($output, $profile)
+    {
+        $cur = common_current_user();
+
+        if (empty($cur)) {
+            // Add an OStatus subscribe
+            $output->elementStart('li', 'entity_subscribe');
+            $url = common_local_url('ostatusinit',
+                                    array('nickname' => $profile->nickname));
+            $output->element('a', array('href' => $url,
+                                        'class' => 'entity_remote_subscribe'),
+                                _('OStatus'));
+            
+            $output->elementEnd('li');
+        }
+    }
+    
+
+    
     function onCheckSchema() {
         // warning: the autoincrement doesn't seem to set.
         // alter table feedinfo change column id id int(11) not null  auto_increment;
@@ -155,5 +190,5 @@ class OStatusPlugin extends Plugin
         $schema->ensureTable('feedinfo', Feedinfo::schemaDef());
         $schema->ensureTable('hubsub', HubSub::schemaDef());
         return true;
-    }
+    } 
 }
