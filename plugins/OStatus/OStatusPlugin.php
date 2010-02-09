@@ -53,6 +53,7 @@ class OStatusPlugin extends Plugin
      */
     function onRouterInitialized($m)
     {
+        // Discovery actions
         $m->connect('.well-known/host-meta',
                     array('action' => 'hostmeta'));
         $m->connect('main/webfinger',
@@ -65,7 +66,8 @@ class OStatusPlugin extends Plugin
                     array('action' => 'ostatussub'));          
         $m->connect('main/ostatussub',
                     array('action' => 'ostatussub'), array('feed' => '[A-Za-z0-9\.\/\:]+'));          
-        
+
+        // PuSH actions
         $m->connect('main/push/hub', array('action' => 'pushhub'));
 
         $m->connect('main/push/callback/:feed',
@@ -73,6 +75,11 @@ class OStatusPlugin extends Plugin
                     array('feed' => '[0-9]+'));
         $m->connect('settings/feedsub',
                     array('action' => 'feedsubsettings'));
+
+        // Salmon endpoint
+        $m->connect('salmon/user/:id',
+                    array('action' => 'salmon'),
+                    array('id' => '[0-9]+'));
         return true;
     }
 
@@ -111,11 +118,15 @@ class OStatusPlugin extends Plugin
                 // Updates will be handled for our internal PuSH hub.
                 $action->element('link', array('rel' => 'hub',
                                                'href' => common_local_url('pushhub')));
+
+                // Also, we'll add in the salmon link
+                $action->element('link', array('rel' => 'salmon',
+                                               'href' => common_local_url('salmon')));
             }
         }
         return true;
     }
-
+    
     /**
      * Add the feed settings page to the Connect Settings menu
      *
@@ -180,8 +191,51 @@ class OStatusPlugin extends Plugin
             $output->elementEnd('li');
         }
     }
-    
 
+    /**
+     * Check if we've got some Salmon stuff to send
+     */
+    function onEndNoticeSave($notice)
+    {
+        $count = preg_match_all('/(\w+\.)*\w+@(\w+\.)*\w+(\w+\-\w+)*\.\w+/', $notice->content, $matches);
+        if ($count) {
+            foreach ($matches[0] as $webfinger) {
+                // Check to see if we've got an actual webfinger
+                $w = new Webfinger;
+
+                $endpoint_uri = '';
+                
+                $result = $w->lookup($webfinger);
+                if (empty($result)) {
+                    continue;
+                }
+                
+                foreach ($result->links as $link) {
+                    if ($link['rel'] == 'salmon') {
+                        $endpoint_uri = $link['href'];
+                    }
+                }
+                
+                if (empty($endpoint_uri)) {
+                    continue;
+                }
+
+                $profile = $notice->getProfile();
+                
+                $acct = $profile->nickname .'@'. common_config('site', 'server');
+                
+                $xml = '<?xml version="1.0" encoding="UTF-8" ?>';
+                $xml .= $notice->asAtomEntry();
+                // TODO : need to set author/uri to webfinger acct. more cleanly
+                $xml = preg_replace('/<uri>([^<])*<\/uri>/i', '<uri>acct:'.$acct.'</uri>', $xml);
+
+               
+                $salmon = new Salmon();
+                $salmon->post($endpoint_uri, $xml);
+            }
+        }
+    }
+    
     
     function onCheckSchema() {
         // warning: the autoincrement doesn't seem to set.
