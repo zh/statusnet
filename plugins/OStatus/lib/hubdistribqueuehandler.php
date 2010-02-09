@@ -56,6 +56,7 @@ class HubDistribQueueHandler extends QueueHandler
         } else {
             common_log(LOG_INFO, "No PuSH subscribers for $feed");
         }
+        return true;
     }
 
     function pushGroup($notice, $group_id)

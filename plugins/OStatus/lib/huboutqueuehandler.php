@@ -43,7 +43,7 @@ class HubOutQueueHandler extends QueueHandler
             common_log(LOG_ERR, "Failed PuSH to $sub->callback for $sub->topic: " .
                                 $e->getMessage());
             // @fixme Reschedule a later delivery?
-            // Currently we have no way to do this other than 'send NOW'
+            return true;
         }
 
         return true;
