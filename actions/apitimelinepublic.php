@@ -74,6 +74,10 @@ class ApiTimelinePublicAction extends ApiPrivateAuthAction
         parent::prepare($args);
 
         $this->notices = $this->getNotices();
+        
+        if ($this->since) {
+            throw new ServerException("since parameter is disabled for performance; use since_id", 403);
+        }
 
         return true;
     }
@@ -145,7 +149,7 @@ class ApiTimelinePublicAction extends ApiPrivateAuthAction
 
         $notice = Notice::publicStream(
             ($this->page - 1) * $this->count, $this->count, $this->since_id,
-            $this->max_id, $this->since
+            $this->max_id
         );
 
         while ($notice->fetch()) {
