@@ -77,7 +77,7 @@ class OStatusPlugin extends Plugin
                     array('action' => 'feedsubsettings'));
 
         // Salmon endpoint
-        $m->connect('salmon/user/:id',
+        $m->connect('main/salmon/user/:id',
                     array('action' => 'salmon'),
                     array('id' => '[0-9]+'));
         return true;
