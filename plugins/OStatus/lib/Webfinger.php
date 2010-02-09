@@ -76,6 +76,10 @@ class Webfinger
     {
         $url = 'http://'. $domain .'/.well-known/host-meta';
         $content = $this->fetchURL($url);
+        if (empty($content)) {
+            common_log(LOG_DEBUG, 'Error fetching host-meta');
+            return false;
+        }
         $result = XRD::parse($content);
 
         // Ensure that the host == domain (spec may include signing later)
