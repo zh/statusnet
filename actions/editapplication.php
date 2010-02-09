@@ -277,7 +277,7 @@ class EditApplicationAction extends OwnerDesignAction
     function nameExists($name)
     {
         $newapp = Oauth_application::staticGet('name', $name);
-        if (!$newapp) {
+        if (empty($newapp)) {
             return false;
         } else {
             return $newapp->id != $this->app->id;
