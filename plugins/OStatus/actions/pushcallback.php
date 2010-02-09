@@ -25,7 +25,7 @@
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 
-class FeedSubCallbackAction extends Action
+class PushCallbackAction extends Action
 {
     function handle()
     {

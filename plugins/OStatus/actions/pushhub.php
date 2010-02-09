@@ -37,7 +37,7 @@ Things to consider...
 */
 
 
-class HubAction extends Action
+class PushHubAction extends Action
 {
     function arg($arg, $def=null)
     {

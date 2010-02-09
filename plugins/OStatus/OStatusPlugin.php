@@ -53,10 +53,10 @@ class OStatusPlugin extends Plugin
      */
     function onRouterInitialized($m)
     {
-        $m->connect('push/hub', array('action' => 'hub'));
+        $m->connect('main/push/hub', array('action' => 'pushhub'));
 
-        $m->connect('feedsub/callback/:feed',
-                    array('action' => 'feedsubcallback'),
+        $m->connect('main/push/callback/:feed',
+                    array('action' => 'pushcallback'),
                     array('feed' => '[0-9]+'));
         $m->connect('settings/feedsub',
                     array('action' => 'feedsubsettings'));
@@ -97,7 +97,7 @@ class OStatusPlugin extends Plugin
                 // Canonical form of id in URL?
                 // Updates will be handled for our internal PuSH hub.
                 $action->element('link', array('rel' => 'hub',
-                                               'href' => common_local_url('hub')));
+                                               'href' => common_local_url('pushhub')));
             }
         }
         return true;
