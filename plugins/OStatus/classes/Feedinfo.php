@@ -344,26 +344,31 @@ class Feedinfo extends Memcached_DataObject
         $hits = 0;
         foreach ($feed as $index => $entry) {
             // @fixme this might sort in wrong order if we get multiple updates
-            
+
             $notice = $munger->notice($index);
             $notice->profile_id = $this->profile_id;
-            
+
             // Double-check for oldies
             // @fixme this could explode horribly for multiple feeds on a blog. sigh
             $dupe = new Notice();
             $dupe->uri = $notice->uri;
             if ($dupe->find(true)) {
-                // @fixme we might have to do individual and group delivery separately!
                 common_log(LOG_WARNING, __METHOD__ . ": tried to save dupe notice for entry {$notice->uri} of feed {$this->feeduri}");
                 continue;
             }
 
-            if (Event::handle('StartNoticeSave', array(&$notice))) {
-                $id = $notice->insert();
-                Event::handle('EndNoticeSave', array($notice));
-            }
-            common_log(LOG_INFO, __METHOD__ . ": saved notice {$notice->id} for entry $index of update to \"{$this->feeduri}\"");
+            // @fixme need to ensure that groups get handled correctly
+            $saved = Notice::saveNew($this->profile_id,
+                                     $notice->content,
+                                     'ostatus',
+                                     array('is_local' => Notice::REMOTE_OMB,
+                                           'uri' => $notice->uri,
+                                           'lat' => $notice->lat,
+                                           'lon' => $notice->lon,
+                                           'location_ns' => $notice->location_ns,
+                                           'location_id' => $notice->location_id));
 
+            /*
             common_log(LOG_DEBUG, "going to check group delivery...");
             if ($this->group_id) {
                 $group = User_group::staticGet($this->group_id);
@@ -380,6 +385,7 @@ class Feedinfo extends Memcached_DataObject
             common_log(LOG_DEBUG, "going to add to inboxes...");
             $notice->addToInboxes($groups, array());
             common_log(LOG_DEBUG, "added to inboxes.");
+            */
 
             $hits++;
         }
