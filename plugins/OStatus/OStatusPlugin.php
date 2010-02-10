@@ -220,15 +220,8 @@ class OStatusPlugin extends Plugin
                     continue;
                 }
 
-                $profile = $notice->getProfile();
-                
-                $acct = $profile->nickname .'@'. common_config('site', 'server');
-                
                 $xml = '<?xml version="1.0" encoding="UTF-8" ?>';
                 $xml .= $notice->asAtomEntry();
-                // TODO : need to set author/uri to webfinger acct. more cleanly
-                $xml = preg_replace('/<uri>([^<])*<\/uri>/i', '<uri>acct:'.$acct.'</uri>', $xml);
-
                
                 $salmon = new Salmon();
                 $salmon->post($endpoint_uri, $xml);
