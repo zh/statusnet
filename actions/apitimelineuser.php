@@ -145,7 +145,26 @@ class ApiTimelineUserAction extends ApiBareAuthAction
             );
             break;
         case 'atom':
+
+            header('Content-Type: application/atom+xml; charset=utf-8');
+
+            $atom = new AtomNoticeFeed();
+
+            $atom->addLink(
+                common_local_url(
+                    'showstream',
+                    array('nickname' => $this->user->nickname)
+                )
+            );
+
+            $atom->setId($id);
+            $atom->setTitle($title);
+            $atom->setSubtitle($subtitle);
+            $atom->setLogo($logo);
+            $atom->setUpdated('now');
+
             $id = $this->arg('id');
+
             if ($id) {
                 $selfuri = common_root_url() .
                     'api/statuses/user_timeline/' .
@@ -154,10 +173,24 @@ class ApiTimelineUserAction extends ApiBareAuthAction
                 $selfuri = common_root_url() .
                     'api/statuses/user_timeline.atom';
             }
-            $this->showAtomTimeline(
-                $this->notices, $title, $id, $link,
-                $subtitle, $suplink, $selfuri, $logo
+
+            $atom->addLink(
+                $selfuri,
+                array('rel' => 'self', 'type' => 'application/atom+xml')
             );
+
+            $atom->addLink(
+                $suplink,
+                array(
+                    'rel' => 'http://api.friendfeed.com/2008/03#sup',
+                    'type' => 'application/json'
+                )
+            );
+
+            $atom->addEntryFromNotices($this->notices);
+
+            print $atom->getString();
+
             break;
         case 'json':
             $this->showJsonTimeline($this->notices);
