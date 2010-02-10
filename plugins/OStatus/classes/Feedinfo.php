@@ -160,7 +160,7 @@ class Feedinfo extends Memcached_DataObject
 
     function keyTypes()
     {
-        return array('id' => 'K'); // @fixme we'll need a profile_id key at least
+        return array('id' => 'K', 'feeduri' => 'U'); // @fixme we'll need a profile_id key at least
     }
 
     function sequenceKey()
@@ -323,7 +323,7 @@ class Feedinfo extends Memcached_DataObject
         if ($this->secret) {
             if (preg_match('/^sha1=([0-9a-fA-F]{40})$/', $hmac, $matches)) {
                 $their_hmac = strtolower($matches[1]);
-                $our_hmac = sha1($xml . $this->secret);
+                $our_hmac = hash_hmac('sha1', $xml, $this->secret);
                 if ($their_hmac !== $our_hmac) {
                     common_log(LOG_ERR, __METHOD__ . ": ignoring PuSH with bad SHA-1 HMAC: got $their_hmac, expected $our_hmac");
                     return;

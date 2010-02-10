@@ -114,10 +114,15 @@ class OStatusPlugin extends Plugin
         if ($action instanceof ApiTimelineUserAction || $action instanceof ApiTimelineGroupAction) {
             $id = $action->arg('id');
             if (strval(intval($id)) === strval($id)) {
-                // Canonical form of id in URL?
-                // Updates will be handled for our internal PuSH hub.
+                // Canonical form of id in URL? These are used for OStatus syndication.
+
+                $hub = common_config('ostatus', 'hub');
+                if (empty($hub)) {
+                    // Updates will be handled through our internal PuSH hub.
+                    $hub = common_local_url('pushhub');
+                }
                 $action->element('link', array('rel' => 'hub',
-                                               'href' => common_local_url('pushhub')));
+                                               'href' => $hub));
 
                 // Also, we'll add in the salmon link
                 $action->element('link', array('rel' => 'salmon',
