@@ -77,6 +77,7 @@ class ApiAction extends Action
 
     function prepare($args)
     {
+        StatusNet::setApi(true); // reduce exception reports to aid in debugging
         parent::prepare($args);
 
         $this->format   = $this->arg('format');

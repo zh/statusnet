@@ -102,7 +102,7 @@ class MemcachePlugin extends Plugin
      *
      * @param string  &$key     in; Key to use for lookups
      * @param mixed   &$value   in; Value to associate
-     * @param integer &$flag    in; Flag (passed through to Memcache)
+     * @param integer &$flag    in; Flag empty or Cache::COMPRESSED
      * @param integer &$expiry  in; Expiry (passed through to Memcache)
      * @param boolean &$success out; Whether the set was successful
      *
@@ -115,7 +115,7 @@ class MemcachePlugin extends Plugin
         if ($expiry === null) {
             $expiry = $this->defaultExpiry;
         }
-        $success = $this->_conn->set($key, $value, $flag, $expiry);
+        $success = $this->_conn->set($key, $value, $this->flag(intval($flag)), $expiry);
         Event::handle('EndCacheSet', array($key, $value, $flag,
                                            $expiry));
         return false;
@@ -195,6 +195,20 @@ class MemcachePlugin extends Plugin
             $this->_conn->setCompressThreshold($this->compressThreshold,
                                                $this->compressMinSaving);
         }
+    }
+
+    /**
+     * Translate general flags to Memcached-specific flags
+     * @param int $flag
+     * @return int
+     */
+    protected function flag($flag)
+    {
+        $out = 0;
+        if ($flag & Cache::COMPRESSED == Cache::COMPRESSED) {
+            $out |= MEMCACHE_COMPRESSED;
+        }
+        return $out;
     }
 
     function onPluginVersion(&$versions)

@@ -25,7 +25,7 @@
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 
-class FeedSubCallbackAction extends Action
+class PushCallbackAction extends Action
 {
     function handle()
     {
@@ -52,9 +52,14 @@ class FeedSubCallbackAction extends Action
         if (!$feedinfo) {
             throw new ServerException('Unknown feed id ' . $feedid, 400);
         }
-        
+
+        $hmac = '';
+        if (isset($_SERVER['HTTP_X_HUB_SIGNATURE'])) {
+            $hmac = $_SERVER['HTTP_X_HUB_SIGNATURE'];
+        }
+
         $post = file_get_contents('php://input');
-        $feedinfo->postUpdates($post);
+        $feedinfo->postUpdates($post, $hmac);
     }
     
     /**

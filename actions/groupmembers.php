@@ -192,7 +192,9 @@ class GroupMemberListItem extends ProfileListItem
     {
         $user = common_current_user();
 
-        if (!empty($user) && $user->id != $this->profile->id && $user->isAdmin($this->group) &&
+        if (!empty($user) &&
+            $user->id != $this->profile->id &&
+            ($user->isAdmin($this->group) || $user->hasRight(Right::MAKEGROUPADMIN)) &&
             !$this->profile->isAdmin($this->group)) {
             $this->out->elementStart('li', 'entity_make_admin');
             $maf = new MakeAdminForm($this->out, $this->profile, $this->group,

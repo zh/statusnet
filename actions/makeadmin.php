@@ -87,7 +87,8 @@ class MakeadminAction extends Action
             return false;
         }
         $user = common_current_user();
-        if (!$user->isAdmin($this->group)) {
+        if (!$user->isAdmin($this->group) &&
+            !$user->hasRight(Right::MAKEGROUPADMIN)) {
             $this->clientError(_('Only an admin can make another user an admin.'), 401);
             return false;
         }

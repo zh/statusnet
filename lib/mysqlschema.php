@@ -213,6 +213,7 @@ class MysqlSchema extends Schema
 
         $sql .= "); ";
 
+        common_log(LOG_INFO, $sql);
         $res = $this->conn->query($sql);
 
         if (PEAR::isError($res)) {

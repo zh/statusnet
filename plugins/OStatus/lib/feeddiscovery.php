@@ -48,6 +48,18 @@ class FeedSubNoFeedException extends FeedSubException
 {
 }
 
+/**
+ * Given a web page or feed URL, discover the final location of the feed
+ * and return its current contents.
+ *
+ * @example
+ *   $feed = new FeedDiscovery();
+ *   if ($feed->discoverFromURL($url)) {
+ *     print $feed->uri;
+ *     print $feed->type;
+ *     processFeed($feed->body);
+ *   }
+ */
 class FeedDiscovery
 {
     public $uri;
@@ -64,7 +76,7 @@ class FeedDiscovery
 
     /**
      * @param string $url
-     * @param bool $htmlOk
+     * @param bool $htmlOk pass false here if you don't want to follow web pages.
      * @return string with validated URL
      * @throws FeedSubBadURLException
      * @throws FeedSubBadHtmlException
@@ -156,7 +168,13 @@ class FeedDiscovery
         }
 
         // Ok... now on to the links!
+        // Types listed in order of priority -- we'll prefer Atom if available.
         // @fixme merge with the munger link checks
+        $feeds = array(
+            'application/atom+xml' => false,
+            'application/rss+xml' => false,
+        );
+        
         $nodes = $dom->getElementsByTagName('link');
         for ($i = 0; $i < $nodes->length; $i++) {
             $node = $nodes->item($i);
@@ -169,14 +187,18 @@ class FeedDiscovery
                     $type = trim($type->value);
                     $href = trim($href->value);
 
-                    $feedTypes = array(
-                        'application/rss+xml',
-                        'application/atom+xml',
-                    );
-                    if (trim($rel) == 'alternate' && in_array($type, $feedTypes)) {
-                        return $this->resolveURI($href, $base);
+                    if (trim($rel) == 'alternate' && array_key_exists($type, $feeds) && empty($feeds[$type])) {
+                        // Save the first feed found of each type...
+                        $feeds[$type] = $this->resolveURI($href, $base);
                     }
                 }
+            }
+        }
+
+        // Return the highest-priority feed found
+        foreach ($feeds as $type => $url) {
+            if ($url) {
+                return $url;
             }
         }
 
