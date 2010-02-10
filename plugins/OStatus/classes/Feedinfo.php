@@ -89,7 +89,8 @@ class Feedinfo extends Memcached_DataObject
     function table()
     {
         return array('id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
-                     'profile_id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+                     'profile_id' => DB_DATAOBJECT_INT,
+                     'group_id' => DB_DATAOBJECT_INT,
                      'feeduri' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
                      'homeuri' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
                      'huburi' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
@@ -111,7 +112,9 @@ class Feedinfo extends Memcached_DataObject
                                    /*extra*/ null,
                                    /*auto_increment*/ true),
                      new ColumnDef('profile_id', 'integer',
-                                   null, false),
+                                   null, true),
+                     new ColumnDef('group_id', 'integer',
+                                   null, true),
                      new ColumnDef('feeduri', 'varchar',
                                    255, false, 'UNI'),
                      new ColumnDef('homeuri', 'varchar',
@@ -176,6 +179,7 @@ class Feedinfo extends Memcached_DataObject
 
     /**
      * @param FeedMunger $munger
+     * @param boolean $isGroup is this a group record?
      * @return Feedinfo
      */
     public static function ensureProfile($munger)
@@ -217,6 +221,22 @@ class Feedinfo extends Memcached_DataObject
             }
 
             $feedinfo->profile_id = $profile->id;
+            if ($feedinfo->isGroup()) {
+                $group = new User_group();
+                $group->nickname = $profile->nickname . '@remote'; // @fixme
+                $group->fullname = $profile->fullname;
+                $group->homepage = $profile->homepage;
+                $group->location = $profile->location;
+                $group->created = $profile->created;
+                $group->insert();
+
+                if ($avatar) {
+                    $group->setOriginal($filename);
+                }
+
+                $feedinfo->group_id = $group->id;
+            }
+
             $result = $feedinfo->insert();
             if (empty($result)) {
                 throw new FeedDBException($feedinfo);
@@ -229,6 +249,14 @@ class Feedinfo extends Memcached_DataObject
             return false;
         }
         return $feedinfo;
+    }
+
+    /**
+     * Damn dirty hack!
+     */
+    function isGroup()
+    {
+        return (strpos($this->feeduri, '/groups/') !== false);
     }
 
     /**
@@ -325,17 +353,34 @@ class Feedinfo extends Memcached_DataObject
             $dupe = new Notice();
             $dupe->uri = $notice->uri;
             if ($dupe->find(true)) {
+                // @fixme we might have to do individual and group delivery separately!
                 common_log(LOG_WARNING, __METHOD__ . ": tried to save dupe notice for entry {$notice->uri} of feed {$this->feeduri}");
                 continue;
             }
-            
+
             if (Event::handle('StartNoticeSave', array(&$notice))) {
                 $id = $notice->insert();
                 Event::handle('EndNoticeSave', array($notice));
             }
-            $notice->addToInboxes();
-
             common_log(LOG_INFO, __METHOD__ . ": saved notice {$notice->id} for entry $index of update to \"{$this->feeduri}\"");
+
+            common_log(LOG_DEBUG, "going to check group delivery...");
+            if ($this->group_id) {
+                $group = User_group::staticGet($this->group_id);
+                if ($group) {
+                    common_log(LOG_INFO, __METHOD__ . ": saving to local shadow group $group->id $group->nickname");
+                    $groups = array($group);
+                } else {
+                    common_log(LOG_INFO, __METHOD__ . ": lost the local shadow group?");
+                }
+            } else {
+                common_log(LOG_INFO, __METHOD__ . ": no local shadow groups");
+                $groups = array();
+            }
+            common_log(LOG_DEBUG, "going to add to inboxes...");
+            $notice->addToInboxes($groups, array());
+            common_log(LOG_DEBUG, "added to inboxes.");
+
             $hits++;
         }
         if ($hits == 0) {

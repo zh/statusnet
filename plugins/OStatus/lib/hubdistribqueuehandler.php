@@ -34,6 +34,14 @@ class HubDistribQueueHandler extends QueueHandler
     {
         assert($notice instanceof Notice);
 
+        $this->pushUser($notice);
+        foreach ($notice->getGroups() as $group) {
+            $this->pushGroup($notice, $group->group_id);
+        }
+    }
+    
+    function pushUser($notice)
+    {
         // See if there's any PuSH subscriptions, including OStatus clients.
         // @fixme handle group subscriptions as well
         // http://identi.ca/api/statuses/user_timeline/1.atom
@@ -43,17 +51,39 @@ class HubDistribQueueHandler extends QueueHandler
         $sub = new HubSub();
         $sub->topic = $feed;
         if ($sub->find()) {
-            common_log(LOG_INFO, "Preparing $sub->N PuSH distribution(s) for $feed");
-            $qm = QueueManager::get();
             $atom = $this->userFeedForNotice($notice);
-            while ($sub->fetch()) {
-                common_log(LOG_INFO, "Prepping PuSH distribution to $sub->callback for $feed");
-                $data = array('sub' => clone($sub),
-                              'atom' => $atom);
-                $qm->enqueue($data, 'hubout');
-            }
+            $this->pushFeeds($atom, $sub);
         } else {
             common_log(LOG_INFO, "No PuSH subscribers for $feed");
+        }
+    }
+
+    function pushGroup($notice, $group_id)
+    {
+        $feed = common_local_url('ApiTimelineGroup',
+                                 array('id' => $group_id,
+                                       'format' => 'atom'));
+        $sub = new HubSub();
+        $sub->topic = $feed;
+        if ($sub->find()) {
+            common_log(LOG_INFO, "Building PuSH feed for $feed");
+            $atom = $this->groupFeedForNotice($group_id, $notice);
+            $this->pushFeeds($atom, $sub);
+        } else {
+            common_log(LOG_INFO, "No PuSH subscribers for $feed");
+        }
+    }
+
+    
+    function pushFeeds($atom, $sub)
+    {
+        common_log(LOG_INFO, "Preparing $sub->N PuSH distribution(s) for $sub->topic");
+        $qm = QueueManager::get();
+        while ($sub->fetch()) {
+            common_log(LOG_INFO, "Prepping PuSH distribution to $sub->callback for $sub->topic");
+            $data = array('sub' => clone($sub),
+                          'atom' => $atom);
+            $qm->enqueue($data, 'hubout');
         }
     }
 
@@ -83,5 +113,29 @@ class HubDistribQueueHandler extends QueueHandler
         common_log(LOG_DEBUG, $feed);
         return $feed;
     }
+
+    function groupFeedForNotice($group_id, $notice)
+    {
+        // @fixme this feels VERY hacky...
+        // should probably be a cleaner way to do it
+
+        ob_start();
+        $api = new ApiTimelineGroupAction();
+        $args = array('id' => $group_id,
+                      'format' => 'atom',
+                      'max_id' => $notice->id,
+                      'since_id' => $notice->id - 1);
+        $api->prepare($args);
+        $api->handle($args);
+        $feed = ob_get_clean();
+        
+        // ...and override the content-type back to something normal... eww!
+        // hope there's no other headers that got set while we weren't looking.
+        header('Content-Type: text/html; charset=utf-8');
+
+        common_log(LOG_DEBUG, $feed);
+        return $feed;
+    }
+
 }
 

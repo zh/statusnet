@@ -209,7 +209,7 @@ class FeedSubSettingsAction extends ConnectSettingsAction
                     return;
                 }
             }
-            
+
             // And subscribe the current user to the local profile
             $user = common_current_user();
             $profile = $this->feedinfo->getProfile();
@@ -217,12 +217,22 @@ class FeedSubSettingsAction extends ConnectSettingsAction
                 throw new ServerException("Feed profile was not saved properly.");
             }
 
-            if ($user->isSubscribed($profile)) {
-                $this->showForm(_m('Already subscribed!'));
-            } elseif ($user->subscribeTo($profile)) {
-                $this->showForm(_m('Feed subscribed!'));
+            if ($this->feedinfo->isGroup()) {
+                if ($user->isMember($profile)) {
+                    $this->showForm(_m('Already a member!'));
+                } elseif (Group_member::join($this->feedinfo->group_id, $user->id)) {
+                    $this->showForm(_m('Joined remote group!'));
+                } else {
+                    $this->showForm(_m('Remote group join failed!'));
+                }
             } else {
-                $this->showForm(_m('Feed subscription failed!'));
+                if ($user->isSubscribed($profile)) {
+                    $this->showForm(_m('Already subscribed!'));
+                } elseif ($user->subscribeTo($profile)) {
+                    $this->showForm(_m('Feed subscribed!'));
+                } else {
+                    $this->showForm(_m('Feed subscription failed!'));
+                }
             }
         }
     }

@@ -203,7 +203,7 @@ class FeedMunger
         if (!$entry) {
             return null;
         }
-        
+
         if ($preview) {
             $notice = new FeedSubPreviewNotice($this->profile(true));
             $notice->id = -1;
@@ -221,7 +221,7 @@ class FeedMunger
         $notice->uri = $link;
         $notice->url = $link;
         $notice->content = $this->noticeFromEntry($entry);
-        $notice->rendered = common_render_content($notice->content, $notice);
+        $notice->rendered = common_render_content($notice->content, $notice); // @fixme this is failing on group posts
         $notice->created = common_sql_date($entry->updated); // @fixme
         $notice->is_local = Notice::GATEWAY;
         $notice->source = 'feed';

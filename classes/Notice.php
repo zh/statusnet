@@ -783,7 +783,7 @@ class Notice extends Memcached_DataObject
 
             $result = $gi->insert();
 
-            if (!result) {
+            if (!$result) {
                 common_log_db_error($gi, 'INSERT', __FILE__);
                 throw new ServerException(_('Problem saving group inbox.'));
             }
@@ -917,7 +917,7 @@ class Notice extends Memcached_DataObject
     /**
      * Same calculation as saveGroups but without the saving
      * @fixme merge the functions
-     * @return array of Group objects
+     * @return array of Group_inbox objects
      */
     function getGroups()
     {

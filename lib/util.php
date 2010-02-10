@@ -697,7 +697,7 @@ function common_group_link($sender_id, $nickname)
 {
     $sender = Profile::staticGet($sender_id);
     $group = User_group::getForNickname($nickname);
-    if ($group && $sender->isMember($group)) {
+    if ($sender && $group && $sender->isMember($group)) {
         $attrs = array('href' => $group->permalink(),
                        'class' => 'url');
         if (!empty($group->fullname)) {

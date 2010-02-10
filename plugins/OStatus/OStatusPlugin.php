@@ -107,11 +107,11 @@ class OStatusPlugin extends Plugin
 
     /**
      * Set up a PuSH hub link to our internal link for canonical timeline
-     * Atom feeds for users.
+     * Atom feeds for users and groups.
      */
     function onStartApiAtom(Action $action)
     {
-        if ($action instanceof ApiTimelineUserAction) {
+        if ($action instanceof ApiTimelineUserAction || $action instanceof ApiTimelineGroupAction) {
             $id = $action->arg('id');
             if (strval(intval($id)) === strval($id)) {
                 // Canonical form of id in URL?

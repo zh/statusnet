@@ -130,7 +130,7 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
         case 'atom':
             $selfuri = common_root_url() .
                 'api/statusnet/groups/timeline/' .
-                    $this->group->nickname . '.atom';
+                    $this->group->id . '.atom';
             $this->showAtomTimeline(
                 $this->notices,
                 $title,

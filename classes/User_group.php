@@ -49,12 +49,12 @@ class User_group extends Memcached_DataObject
                                 array('id' => $this->id));
     }
 
-    function getNotices($offset, $limit)
+    function getNotices($offset, $limit, $since_id=null, $max_id=null)
     {
         $ids = Notice::stream(array($this, '_streamDirect'),
                               array(),
                               'user_group:notice_ids:' . $this->id,
-                              $offset, $limit);
+                              $offset, $limit, $since_id, $max_id);
 
         return Notice::getStreamByIds($ids);
     }
