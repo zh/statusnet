@@ -38,6 +38,7 @@ class HubDistribQueueHandler extends QueueHandler
         foreach ($notice->getGroups() as $group) {
             $this->pushGroup($notice, $group->group_id);
         }
+        return true;
     }
     
     function pushUser($notice)
