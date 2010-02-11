@@ -110,9 +110,9 @@ class Theme
                 $server = common_config('site', 'server');
             }
 
-            // XXX: protocol
+            $protocol = common_config('theme', 'ssl') ? 'https' : 'http';
 
-            $this->path = 'http://'.$server.$path.$name;
+            $this->path = $protocol . '://'.$server.$path.$name;
         }
     }
 
