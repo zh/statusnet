@@ -188,6 +188,7 @@ $default =
         array('server' => null,
               'dir' => INSTALLDIR . '/file/',
               'path' => $_path . '/file/',
+              'ssl' => null,
               'supported' => array('image/png',
                                    'image/jpeg',
                                    'image/gif',
