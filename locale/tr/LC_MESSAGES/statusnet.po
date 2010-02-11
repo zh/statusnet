@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-05 23:53+0000\n"
-"PO-Revision-Date: 2010-02-05 23:55:08+0000\n"
+"POT-Creation-Date: 2010-02-11 08:14+0000\n"
+"PO-Revision-Date: 2010-02-11 08:16:08+0000\n"
 "Language-Team: Turkish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62048); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62295); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tr\n"
 "X-Message-Group: out-statusnet\n"
@@ -196,7 +196,7 @@ msgstr ""
 #: actions/apitimelinementions.php:151 actions/apitimelinepublic.php:131
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
-#: actions/apitimelineuser.php:165 actions/apiusershow.php:101
+#: actions/apitimelineuser.php:166 actions/apiusershow.php:101
 #, fuzzy
 msgid "API method not found."
 msgstr "Onay kodu bulunamadı."
@@ -838,7 +838,7 @@ msgstr "Böyle bir kullanıcı yok."
 msgid "Yes"
 msgstr ""
 
-#: actions/block.php:144 actions/groupmembers.php:346 lib/blockform.php:80
+#: actions/block.php:144 actions/groupmembers.php:348 lib/blockform.php:80
 #, fuzzy
 msgid "Block this user"
 msgstr "Böyle bir kullanıcı yok."
@@ -1628,7 +1628,7 @@ msgstr "Kullanıcının profili yok."
 msgid "User is not a member of group."
 msgstr "Bize o profili yollamadınız"
 
-#: actions/groupblock.php:136 actions/groupmembers.php:314
+#: actions/groupblock.php:136 actions/groupmembers.php:316
 #, fuzzy
 msgid "Block user from group"
 msgstr "Böyle bir kullanıcı yok."
@@ -1732,19 +1732,19 @@ msgstr ""
 msgid "Admin"
 msgstr ""
 
-#: actions/groupmembers.php:346 lib/blockform.php:69
+#: actions/groupmembers.php:348 lib/blockform.php:69
 msgid "Block"
 msgstr ""
 
-#: actions/groupmembers.php:441
+#: actions/groupmembers.php:443
 msgid "Make user an admin of the group"
 msgstr ""
 
-#: actions/groupmembers.php:473
+#: actions/groupmembers.php:475
 msgid "Make Admin"
 msgstr ""
 
-#: actions/groupmembers.php:473
+#: actions/groupmembers.php:475
 msgid "Make this user an admin"
 msgstr ""
 
@@ -2120,21 +2120,21 @@ msgstr ""
 "duruyorsunuz, hemen bir [yeni hesap oluşturun](%%action.register%%) ya da "
 "[OpenID](%%action.openidlogin%%) ile giriş yapın."
 
-#: actions/makeadmin.php:91
+#: actions/makeadmin.php:92
 msgid "Only an admin can make another user an admin."
 msgstr ""
 
-#: actions/makeadmin.php:95
+#: actions/makeadmin.php:96
 #, fuzzy, php-format
 msgid "%1$s is already an admin for group \"%2$s\"."
 msgstr "Kullanıcının profili yok."
 
-#: actions/makeadmin.php:132
+#: actions/makeadmin.php:133
 #, fuzzy, php-format
 msgid "Can't get membership record for %1$s in group %2$s."
 msgstr "OpenID formu yaratılamadı: %s"
 
-#: actions/makeadmin.php:145
+#: actions/makeadmin.php:146
 #, fuzzy, php-format
 msgid "Can't make %1$s an admin for group %2$s."
 msgstr "Kullanıcının profili yok."
@@ -2333,8 +2333,8 @@ msgstr "Bağlan"
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1039
-#: lib/api.php:1067 lib/api.php:1177
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1040
+#: lib/api.php:1068 lib/api.php:1178
 msgid "Not a supported data format."
 msgstr ""
 
@@ -4452,7 +4452,7 @@ msgstr "Durum mesajını kaydederken hata oluştu."
 msgid "DB error inserting reply: %s"
 msgstr "Cevap eklenirken veritabanı hatası: %s"
 
-#: classes/Notice.php:1231
+#: classes/Notice.php:1235
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
@@ -6067,47 +6067,47 @@ msgstr ""
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:867
+#: lib/util.php:870
 msgid "a few seconds ago"
 msgstr "birkaç saniye önce"
 
-#: lib/util.php:869
+#: lib/util.php:872
 msgid "about a minute ago"
 msgstr "yaklaşık bir dakika önce"
 
-#: lib/util.php:871
+#: lib/util.php:874
 #, php-format
 msgid "about %d minutes ago"
 msgstr "yaklaşık %d dakika önce"
 
-#: lib/util.php:873
+#: lib/util.php:876
 msgid "about an hour ago"
 msgstr "yaklaşık bir saat önce"
 
-#: lib/util.php:875
+#: lib/util.php:878
 #, php-format
 msgid "about %d hours ago"
 msgstr "yaklaşık %d saat önce"
 
-#: lib/util.php:877
+#: lib/util.php:880
 msgid "about a day ago"
 msgstr "yaklaşık bir gün önce"
 
-#: lib/util.php:879
+#: lib/util.php:882
 #, php-format
 msgid "about %d days ago"
 msgstr "yaklaşık %d gün önce"
 
-#: lib/util.php:881
+#: lib/util.php:884
 msgid "about a month ago"
 msgstr "yaklaşık bir ay önce"
 
-#: lib/util.php:883
+#: lib/util.php:886
 #, php-format
 msgid "about %d months ago"
 msgstr "yaklaşık %d ay önce"
 
-#: lib/util.php:885
+#: lib/util.php:888
 msgid "about a year ago"
 msgstr "yaklaşık bir yıl önce"
 

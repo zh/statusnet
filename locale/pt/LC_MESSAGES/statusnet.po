@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-05 23:53+0000\n"
-"PO-Revision-Date: 2010-02-05 23:54:51+0000\n"
+"POT-Creation-Date: 2010-02-11 08:14+0000\n"
+"PO-Revision-Date: 2010-02-11 08:15:39+0000\n"
 "Language-Team: Portuguese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62048); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62295); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pt\n"
 "X-Message-Group: out-statusnet\n"
@@ -198,7 +198,7 @@ msgstr "Actualizações de %1$s e amigos no %2$s!"
 #: actions/apitimelinementions.php:151 actions/apitimelinepublic.php:131
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
-#: actions/apitimelineuser.php:165 actions/apiusershow.php:101
+#: actions/apitimelineuser.php:166 actions/apiusershow.php:101
 msgid "API method not found."
 msgstr "Método da API não encontrado."
 
@@ -821,7 +821,7 @@ msgstr "Não bloquear este utilizador"
 msgid "Yes"
 msgstr "Sim"
 
-#: actions/block.php:144 actions/groupmembers.php:346 lib/blockform.php:80
+#: actions/block.php:144 actions/groupmembers.php:348 lib/blockform.php:80
 msgid "Block this user"
 msgstr "Bloquear este utilizador"
 
@@ -1604,7 +1604,7 @@ msgstr "Acesso do utilizador ao grupo já foi bloqueado."
 msgid "User is not a member of group."
 msgstr "Utilizador não é membro do grupo."
 
-#: actions/groupblock.php:136 actions/groupmembers.php:314
+#: actions/groupblock.php:136 actions/groupmembers.php:316
 msgid "Block user from group"
 msgstr "Bloquear acesso do utilizador ao grupo"
 
@@ -1706,19 +1706,19 @@ msgstr "Uma lista dos utilizadores neste grupo."
 msgid "Admin"
 msgstr "Gestor"
 
-#: actions/groupmembers.php:346 lib/blockform.php:69
+#: actions/groupmembers.php:348 lib/blockform.php:69
 msgid "Block"
 msgstr "Bloquear"
 
-#: actions/groupmembers.php:441
+#: actions/groupmembers.php:443
 msgid "Make user an admin of the group"
 msgstr "Tornar utilizador o gestor do grupo"
 
-#: actions/groupmembers.php:473
+#: actions/groupmembers.php:475
 msgid "Make Admin"
 msgstr "Tornar Gestor"
 
-#: actions/groupmembers.php:473
+#: actions/groupmembers.php:475
 msgid "Make this user an admin"
 msgstr "Tornar este utilizador um gestor"
 
@@ -2126,21 +2126,21 @@ msgstr ""
 "Entrar com o seu nome de utilizador e senha. Ainda não está registado? "
 "[Registe](%%action.register%%) uma conta."
 
-#: actions/makeadmin.php:91
+#: actions/makeadmin.php:92
 msgid "Only an admin can make another user an admin."
 msgstr "Só um gestor pode tornar outro utilizador num gestor."
 
-#: actions/makeadmin.php:95
+#: actions/makeadmin.php:96
 #, php-format
 msgid "%1$s is already an admin for group \"%2$s\"."
 msgstr "%1$s já é um administrador do grupo \"%2$s\"."
 
-#: actions/makeadmin.php:132
+#: actions/makeadmin.php:133
 #, php-format
 msgid "Can't get membership record for %1$s in group %2$s."
 msgstr "Não existe registo de %1$s ter entrado no grupo %2$s."
 
-#: actions/makeadmin.php:145
+#: actions/makeadmin.php:146
 #, php-format
 msgid "Can't make %1$s an admin for group %2$s."
 msgstr "Não é possível tornar %1$s administrador do grupo %2$s."
@@ -2347,8 +2347,8 @@ msgstr "tipo de conteúdo "
 msgid "Only "
 msgstr "Apenas "
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1039
-#: lib/api.php:1067 lib/api.php:1177
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1040
+#: lib/api.php:1068 lib/api.php:1178
 msgid "Not a supported data format."
 msgstr "Formato de dados não suportado."
 
@@ -4530,7 +4530,7 @@ msgstr "Problema na gravação da nota."
 msgid "DB error inserting reply: %s"
 msgstr "Ocorreu um erro na base de dados ao inserir a resposta: %s"
 
-#: classes/Notice.php:1231
+#: classes/Notice.php:1235
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -6203,47 +6203,47 @@ msgstr "Mensagem"
 msgid "Moderate"
 msgstr "Moderar"
 
-#: lib/util.php:867
+#: lib/util.php:870
 msgid "a few seconds ago"
 msgstr "há alguns segundos"
 
-#: lib/util.php:869
+#: lib/util.php:872
 msgid "about a minute ago"
 msgstr "há cerca de um minuto"
 
-#: lib/util.php:871
+#: lib/util.php:874
 #, php-format
 msgid "about %d minutes ago"
 msgstr "há cerca de %d minutos"
 
-#: lib/util.php:873
+#: lib/util.php:876
 msgid "about an hour ago"
 msgstr "há cerca de uma hora"
 
-#: lib/util.php:875
+#: lib/util.php:878
 #, php-format
 msgid "about %d hours ago"
 msgstr "há cerca de %d horas"
 
-#: lib/util.php:877
+#: lib/util.php:880
 msgid "about a day ago"
 msgstr "há cerca de um dia"
 
-#: lib/util.php:879
+#: lib/util.php:882
 #, php-format
 msgid "about %d days ago"
 msgstr "há cerca de %d dias"
 
-#: lib/util.php:881
+#: lib/util.php:884
 msgid "about a month ago"
 msgstr "há cerca de um mês"
 
-#: lib/util.php:883
+#: lib/util.php:886
 #, php-format
 msgid "about %d months ago"
 msgstr "há cerca de %d meses"
 
-#: lib/util.php:885
+#: lib/util.php:888
 msgid "about a year ago"
 msgstr "há cerca de um ano"
 

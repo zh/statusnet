@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-05 23:53+0000\n"
-"PO-Revision-Date: 2010-02-07 20:32:58+0000\n"
+"POT-Creation-Date: 2010-02-11 08:14+0000\n"
+"PO-Revision-Date: 2010-02-11 08:15:32+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62096); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62295); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: out-statusnet\n"
@@ -198,7 +198,7 @@ msgstr "Updates van %1$s en vrienden op %2$s."
 #: actions/apitimelinementions.php:151 actions/apitimelinepublic.php:131
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
-#: actions/apitimelineuser.php:165 actions/apiusershow.php:101
+#: actions/apitimelineuser.php:166 actions/apiusershow.php:101
 msgid "API method not found."
 msgstr "De API-functie is niet aangetroffen."
 
@@ -837,7 +837,7 @@ msgstr "Gebruiker niet blokkeren"
 msgid "Yes"
 msgstr "Ja"
 
-#: actions/block.php:144 actions/groupmembers.php:346 lib/blockform.php:80
+#: actions/block.php:144 actions/groupmembers.php:348 lib/blockform.php:80
 msgid "Block this user"
 msgstr "Deze gebruiker blokkeren"
 
@@ -1605,7 +1605,7 @@ msgstr "Deze gebruiker is al de toegang tot de groep ontzegd."
 msgid "User is not a member of group."
 msgstr "De gebruiker is geen lid van de groep."
 
-#: actions/groupblock.php:136 actions/groupmembers.php:314
+#: actions/groupblock.php:136 actions/groupmembers.php:316
 msgid "Block user from group"
 msgstr "Gebruiker toegang tot de groep blokkeren"
 
@@ -1709,19 +1709,19 @@ msgstr "Ledenlijst van deze groep"
 msgid "Admin"
 msgstr "Beheerder"
 
-#: actions/groupmembers.php:346 lib/blockform.php:69
+#: actions/groupmembers.php:348 lib/blockform.php:69
 msgid "Block"
 msgstr "Blokkeren"
 
-#: actions/groupmembers.php:441
+#: actions/groupmembers.php:443
 msgid "Make user an admin of the group"
 msgstr "Deze gebruiker groepsbeheerder maken"
 
-#: actions/groupmembers.php:473
+#: actions/groupmembers.php:475
 msgid "Make Admin"
 msgstr "Beheerder maken"
 
-#: actions/groupmembers.php:473
+#: actions/groupmembers.php:475
 msgid "Make this user an admin"
 msgstr "Deze gebruiker beheerder maken"
 
@@ -2133,21 +2133,21 @@ msgstr ""
 "Meld u aan met uw gebruikersnaam en wachtwoord. Hebt u nog geen "
 "gebruikersnaam? [Registreer een nieuwe gebruiker](%%action.register%%)."
 
-#: actions/makeadmin.php:91
+#: actions/makeadmin.php:92
 msgid "Only an admin can make another user an admin."
 msgstr "Alleen beheerders kunnen andere gebruikers beheerder maken."
 
-#: actions/makeadmin.php:95
+#: actions/makeadmin.php:96
 #, php-format
 msgid "%1$s is already an admin for group \"%2$s\"."
 msgstr "%1$s is al beheerder van de groep \"%2$s\""
 
-#: actions/makeadmin.php:132
+#: actions/makeadmin.php:133
 #, php-format
 msgid "Can't get membership record for %1$s in group %2$s."
 msgstr "Het was niet mogelijk te bevestigen dat %1$s lid is van de groep %2$s."
 
-#: actions/makeadmin.php:145
+#: actions/makeadmin.php:146
 #, php-format
 msgid "Can't make %1$s an admin for group %2$s."
 msgstr "Het is niet mogelijk %1$s beheerder te maken van de groep %2$s."
@@ -2354,8 +2354,8 @@ msgstr "inhoudstype "
 msgid "Only "
 msgstr "Alleen "
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1039
-#: lib/api.php:1067 lib/api.php:1177
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1040
+#: lib/api.php:1068 lib/api.php:1178
 msgid "Not a supported data format."
 msgstr "Geen ondersteund gegevensformaat."
 
@@ -4551,7 +4551,7 @@ msgid "DB error inserting reply: %s"
 msgstr ""
 "Er is een databasefout opgetreden bij het invoegen van het antwoord: %s"
 
-#: classes/Notice.php:1231
+#: classes/Notice.php:1235
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -6237,47 +6237,47 @@ msgstr "Bericht"
 msgid "Moderate"
 msgstr "Modereren"
 
-#: lib/util.php:867
+#: lib/util.php:870
 msgid "a few seconds ago"
 msgstr "een paar seconden geleden"
 
-#: lib/util.php:869
+#: lib/util.php:872
 msgid "about a minute ago"
 msgstr "ongeveer een minuut geleden"
 
-#: lib/util.php:871
+#: lib/util.php:874
 #, php-format
 msgid "about %d minutes ago"
 msgstr "ongeveer %d minuten geleden"
 
-#: lib/util.php:873
+#: lib/util.php:876
 msgid "about an hour ago"
 msgstr "ongeveer een uur geleden"
 
-#: lib/util.php:875
+#: lib/util.php:878
 #, php-format
 msgid "about %d hours ago"
 msgstr "ongeveer %d uur geleden"
 
-#: lib/util.php:877
+#: lib/util.php:880
 msgid "about a day ago"
 msgstr "ongeveer een dag geleden"
 
-#: lib/util.php:879
+#: lib/util.php:882
 #, php-format
 msgid "about %d days ago"
 msgstr "ongeveer %d dagen geleden"
 
-#: lib/util.php:881
+#: lib/util.php:884
 msgid "about a month ago"
 msgstr "ongeveer een maand geleden"
 
-#: lib/util.php:883
+#: lib/util.php:886
 #, php-format
 msgid "about %d months ago"
 msgstr "ongeveer %d maanden geleden"
 
-#: lib/util.php:885
+#: lib/util.php:888
 msgid "about a year ago"
 msgstr "ongeveer een jaar geleden"
 

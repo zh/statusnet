@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-05 23:53+0000\n"
-"PO-Revision-Date: 2010-02-05 23:55:17+0000\n"
+"POT-Creation-Date: 2010-02-11 08:14+0000\n"
+"PO-Revision-Date: 2010-02-11 08:16:22+0000\n"
 "Language-Team: Simplified Chinese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62048); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62295); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: out-statusnet\n"
@@ -197,7 +197,7 @@ msgstr "来自%2$s 上 %1$s 和好友的更新！"
 #: actions/apitimelinementions.php:151 actions/apitimelinepublic.php:131
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
-#: actions/apitimelineuser.php:165 actions/apiusershow.php:101
+#: actions/apitimelineuser.php:166 actions/apiusershow.php:101
 #, fuzzy
 msgid "API method not found."
 msgstr "API 方法未实现！"
@@ -837,7 +837,7 @@ msgstr "取消阻止次用户"
 msgid "Yes"
 msgstr "是"
 
-#: actions/block.php:144 actions/groupmembers.php:346 lib/blockform.php:80
+#: actions/block.php:144 actions/groupmembers.php:348 lib/blockform.php:80
 #, fuzzy
 msgid "Block this user"
 msgstr "阻止该用户"
@@ -1646,7 +1646,7 @@ msgstr "用户没有个人信息。"
 msgid "User is not a member of group."
 msgstr "您未告知此个人信息"
 
-#: actions/groupblock.php:136 actions/groupmembers.php:314
+#: actions/groupblock.php:136 actions/groupmembers.php:316
 #, fuzzy
 msgid "Block user from group"
 msgstr "阻止用户"
@@ -1752,21 +1752,21 @@ msgstr "该组成员列表。"
 msgid "Admin"
 msgstr "admin管理员"
 
-#: actions/groupmembers.php:346 lib/blockform.php:69
+#: actions/groupmembers.php:348 lib/blockform.php:69
 msgid "Block"
 msgstr "阻止"
 
-#: actions/groupmembers.php:441
+#: actions/groupmembers.php:443
 #, fuzzy
 msgid "Make user an admin of the group"
 msgstr "只有admin才能编辑这个组"
 
-#: actions/groupmembers.php:473
+#: actions/groupmembers.php:475
 #, fuzzy
 msgid "Make Admin"
 msgstr "admin管理员"
 
-#: actions/groupmembers.php:473
+#: actions/groupmembers.php:475
 msgid "Make this user an admin"
 msgstr ""
 
@@ -2155,21 +2155,21 @@ msgstr ""
 "请使用你的帐号和密码登入。没有帐号？[注册](%%action.register%%) 一个新帐号, "
 "或使用 [OpenID](%%action.openidlogin%%). "
 
-#: actions/makeadmin.php:91
+#: actions/makeadmin.php:92
 msgid "Only an admin can make another user an admin."
 msgstr ""
 
-#: actions/makeadmin.php:95
+#: actions/makeadmin.php:96
 #, fuzzy, php-format
 msgid "%1$s is already an admin for group \"%2$s\"."
 msgstr "用户没有个人信息。"
 
-#: actions/makeadmin.php:132
+#: actions/makeadmin.php:133
 #, fuzzy, php-format
 msgid "Can't get membership record for %1$s in group %2$s."
 msgstr "无法订阅用户：未找到。"
 
-#: actions/makeadmin.php:145
+#: actions/makeadmin.php:146
 #, fuzzy, php-format
 msgid "Can't make %1$s an admin for group %2$s."
 msgstr "只有admin才能编辑这个组"
@@ -2372,8 +2372,8 @@ msgstr "连接"
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1039
-#: lib/api.php:1067 lib/api.php:1177
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1040
+#: lib/api.php:1068 lib/api.php:1178
 msgid "Not a supported data format."
 msgstr "不支持的数据格式。"
 
@@ -4530,7 +4530,7 @@ msgstr "保存通告时出错。"
 msgid "DB error inserting reply: %s"
 msgstr "添加回复时数据库出错：%s"
 
-#: classes/Notice.php:1231
+#: classes/Notice.php:1235
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -6174,47 +6174,47 @@ msgstr "新消息"
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:867
+#: lib/util.php:870
 msgid "a few seconds ago"
 msgstr "几秒前"
 
-#: lib/util.php:869
+#: lib/util.php:872
 msgid "about a minute ago"
 msgstr "一分钟前"
 
-#: lib/util.php:871
+#: lib/util.php:874
 #, php-format
 msgid "about %d minutes ago"
 msgstr "%d 分钟前"
 
-#: lib/util.php:873
+#: lib/util.php:876
 msgid "about an hour ago"
 msgstr "一小时前"
 
-#: lib/util.php:875
+#: lib/util.php:878
 #, php-format
 msgid "about %d hours ago"
 msgstr "%d 小时前"
 
-#: lib/util.php:877
+#: lib/util.php:880
 msgid "about a day ago"
 msgstr "一天前"
 
-#: lib/util.php:879
+#: lib/util.php:882
 #, php-format
 msgid "about %d days ago"
 msgstr "%d 天前"
 
-#: lib/util.php:881
+#: lib/util.php:884
 msgid "about a month ago"
 msgstr "一个月前"
 
-#: lib/util.php:883
+#: lib/util.php:886
 #, php-format
 msgid "about %d months ago"
 msgstr "%d 个月前"
 
-#: lib/util.php:885
+#: lib/util.php:888
 msgid "about a year ago"
 msgstr "一年前"
 

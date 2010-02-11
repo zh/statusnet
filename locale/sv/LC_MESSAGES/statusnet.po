@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-05 23:53+0000\n"
-"PO-Revision-Date: 2010-02-07 20:33:13+0000\n"
+"POT-Creation-Date: 2010-02-11 08:14+0000\n"
+"PO-Revision-Date: 2010-02-11 08:15:57+0000\n"
 "Language-Team: Swedish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62096); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62295); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: sv\n"
 "X-Message-Group: out-statusnet\n"
@@ -196,7 +196,7 @@ msgstr "Uppdateringar från %1$s och vänner på %2$s!"
 #: actions/apitimelinementions.php:151 actions/apitimelinepublic.php:131
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
-#: actions/apitimelineuser.php:165 actions/apiusershow.php:101
+#: actions/apitimelineuser.php:166 actions/apiusershow.php:101
 msgid "API method not found."
 msgstr "API-metod hittades inte."
 
@@ -815,7 +815,7 @@ msgstr "Blockera inte denna användare"
 msgid "Yes"
 msgstr "Ja"
 
-#: actions/block.php:144 actions/groupmembers.php:346 lib/blockform.php:80
+#: actions/block.php:144 actions/groupmembers.php:348 lib/blockform.php:80
 msgid "Block this user"
 msgstr "Blockera denna användare"
 
@@ -1577,7 +1577,7 @@ msgstr "Användaren är redan blockerad från grupp."
 msgid "User is not a member of group."
 msgstr "Användare är inte en gruppmedlem."
 
-#: actions/groupblock.php:136 actions/groupmembers.php:314
+#: actions/groupblock.php:136 actions/groupmembers.php:316
 msgid "Block user from group"
 msgstr "Blockera användare från grupp"
 
@@ -1678,19 +1678,19 @@ msgstr "En lista av användarna i denna grupp."
 msgid "Admin"
 msgstr "Administratör"
 
-#: actions/groupmembers.php:346 lib/blockform.php:69
+#: actions/groupmembers.php:348 lib/blockform.php:69
 msgid "Block"
 msgstr "Blockera"
 
-#: actions/groupmembers.php:441
+#: actions/groupmembers.php:443
 msgid "Make user an admin of the group"
 msgstr "Gör användare till en administratör för gruppen"
 
-#: actions/groupmembers.php:473
+#: actions/groupmembers.php:475
 msgid "Make Admin"
 msgstr "Gör till administratör"
 
-#: actions/groupmembers.php:473
+#: actions/groupmembers.php:475
 msgid "Make this user an admin"
 msgstr "Gör denna användare till administratör"
 
@@ -2097,21 +2097,21 @@ msgstr ""
 "Logga in med ditt användarnamn och lösenord. Har du inget användarnamn ännu? "
 "[Registrera](%%action.register%%) ett nytt konto."
 
-#: actions/makeadmin.php:91
+#: actions/makeadmin.php:92
 msgid "Only an admin can make another user an admin."
 msgstr "Bara en administratör kan göra en annan användare till administratör."
 
-#: actions/makeadmin.php:95
+#: actions/makeadmin.php:96
 #, php-format
 msgid "%1$s is already an admin for group \"%2$s\"."
 msgstr "%1$s är redan en administratör för grupp \"%2$s\"."
 
-#: actions/makeadmin.php:132
+#: actions/makeadmin.php:133
 #, php-format
 msgid "Can't get membership record for %1$s in group %2$s."
 msgstr "Kan inte hämta uppgift om medlemskap för %1$s i grupp %2$s."
 
-#: actions/makeadmin.php:145
+#: actions/makeadmin.php:146
 #, php-format
 msgid "Can't make %1$s an admin for group %2$s."
 msgstr "Kan inte göra %1$s till en administratör för grupp %2$s."
@@ -2314,8 +2314,8 @@ msgstr "innehållstyp "
 msgid "Only "
 msgstr "Bara "
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1039
-#: lib/api.php:1067 lib/api.php:1177
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1040
+#: lib/api.php:1068 lib/api.php:1178
 msgid "Not a supported data format."
 msgstr "Ett dataformat som inte stödjs"
 
@@ -3548,8 +3548,8 @@ msgid ""
 "[StatusNet](http://status.net/) tool. Its members share short messages about "
 "their life and interests. "
 msgstr ""
-"**%s** är en användargrupp på %%%%site.name%%%%, en [mikroblogg](http://en."
-"wikipedia.org/wiki/Micro-blogging)tjänst baserad den fria programvaran "
+"**%s** är en användargrupp på %%%%site.name%%%%, en [mikroblogg](http://sv."
+"wikipedia.org/wiki/Mikroblogg)tjänst baserad den fria programvaran "
 "[StatusNet](http://status.net/). Dess medlemmar delar korta meddelande om "
 "sina liv och intressen. "
 
@@ -3644,8 +3644,8 @@ msgid ""
 "[StatusNet](http://status.net/) tool. [Join now](%%%%action.register%%%%) to "
 "follow **%s**'s notices and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
-"**%s** har ett konto på %%%%site.name%%%%, en [mikroblogg](http://en."
-"wikipedia.org/wiki/Micro-blogging)tjänst baserad på den fria programvaran "
+"**%s** har ett konto på %%%%site.name%%%%, en [mikroblogg](http://sv."
+"wikipedia.org/wiki/Mikroblogg)tjänst baserad på den fria programvaran "
 "[StatusNet](http://status.net/). [Gå med nu](%%%%action.register%%%%) för "
 "att följa **%s**s notiser och många fler! ([Läs mer](%%%%doc.help%%%%))"
 
@@ -3656,8 +3656,8 @@ msgid ""
 "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
 "[StatusNet](http://status.net/) tool. "
 msgstr ""
-"**%s** har ett konto på %%%%site.name%%%%, en [mikroblogg](http://en."
-"wikipedia.org/wiki/Micro-blogging)tjänst baserad på den fria programvaran "
+"**%s** har ett konto på %%%%site.name%%%%, en [mikroblogg](http://sv."
+"wikipedia.org/wiki/Mikroblogg)tjänst baserad på den fria programvaran "
 "[StatusNet](http://status.net/). "
 
 #: actions/showstream.php:305
@@ -4483,7 +4483,7 @@ msgstr "Problem med att spara gruppinkorg."
 msgid "DB error inserting reply: %s"
 msgstr "Databasfel vid infogning av svar: %s"
 
-#: classes/Notice.php:1231
+#: classes/Notice.php:1235
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -6150,47 +6150,47 @@ msgstr "Meddelande"
 msgid "Moderate"
 msgstr "Moderera"
 
-#: lib/util.php:867
+#: lib/util.php:870
 msgid "a few seconds ago"
 msgstr "ett par sekunder sedan"
 
-#: lib/util.php:869
+#: lib/util.php:872
 msgid "about a minute ago"
 msgstr "för nån minut sedan"
 
-#: lib/util.php:871
+#: lib/util.php:874
 #, php-format
 msgid "about %d minutes ago"
 msgstr "för %d minuter sedan"
 
-#: lib/util.php:873
+#: lib/util.php:876
 msgid "about an hour ago"
 msgstr "för en timma sedan"
 
-#: lib/util.php:875
+#: lib/util.php:878
 #, php-format
 msgid "about %d hours ago"
 msgstr "för %d timmar sedan"
 
-#: lib/util.php:877
+#: lib/util.php:880
 msgid "about a day ago"
 msgstr "för en dag sedan"
 
-#: lib/util.php:879
+#: lib/util.php:882
 #, php-format
 msgid "about %d days ago"
 msgstr "för %d dagar sedan"
 
-#: lib/util.php:881
+#: lib/util.php:884
 msgid "about a month ago"
 msgstr "för en månad sedan"
 
-#: lib/util.php:883
+#: lib/util.php:886
 #, php-format
 msgid "about %d months ago"
 msgstr "för %d månader sedan"
 
-#: lib/util.php:885
+#: lib/util.php:888
 msgid "about a year ago"
 msgstr "för ett år sedan"
 
