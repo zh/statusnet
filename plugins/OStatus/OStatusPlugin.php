@@ -234,13 +234,30 @@ class OStatusPlugin extends Plugin
         }
     }
     
+
+    /**
+     * Garbage collect unused feeds on unsubscribe
+     */
+    function onEndUnsubscribe($user, $other)
+    {
+        $feed = Feedinfo::staticGet('profile_id', $other->id);
+        if ($feed) {
+            $sub = new Subscription();
+            $sub->subscribed = $other->id;
+            $sub->limit(1);
+            if (!$sub->find(true)) {
+                common_log(LOG_INFO, "Unsubscribing from now-unused feed $feed->feeduri on hub $feed->huburi");
+                $feed->unsubscribe();
+            }
+        }
+        return true;
+    }
+
     
     function onCheckSchema() {
-        // warning: the autoincrement doesn't seem to set.
-        // alter table feedinfo change column id id int(11) not null  auto_increment;
         $schema = Schema::get();
         $schema->ensureTable('feedinfo', Feedinfo::schemaDef());
         $schema->ensureTable('hubsub', HubSub::schemaDef());
         return true;
-    } 
+    }
 }

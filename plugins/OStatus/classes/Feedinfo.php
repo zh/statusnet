@@ -112,9 +112,9 @@ class Feedinfo extends Memcached_DataObject
                                    /*extra*/ null,
                                    /*auto_increment*/ true),
                      new ColumnDef('profile_id', 'integer',
-                                   null, true),
+                                   null, true, 'UNI'),
                      new ColumnDef('group_id', 'integer',
-                                   null, true),
+                                   null, true, 'UNI'),
                      new ColumnDef('feeduri', 'varchar',
                                    255, false, 'UNI'),
                      new ColumnDef('homeuri', 'varchar',
@@ -160,7 +160,7 @@ class Feedinfo extends Memcached_DataObject
 
     function keyTypes()
     {
-        return array('id' => 'K', 'feeduri' => 'U'); // @fixme we'll need a profile_id key at least
+        return array('id' => 'K', 'profile_id' => 'U', 'group_id' => 'U', 'feeduri' => 'U');
     }
 
     function sequenceKey()
@@ -261,11 +261,11 @@ class Feedinfo extends Memcached_DataObject
 
     /**
      * Send a subscription request to the hub for this feed.
-     * The hub will later send us a confirmation POST to /feedsub/callback.
+     * The hub will later send us a confirmation POST to /main/push/callback.
      *
      * @return bool true on success, false on failure
      */
-    public function subscribe()
+    public function subscribe($mode='subscribe')
     {
         if (common_config('feedsub', 'nohub')) {
             // Fake it! We're just testing remote feeds w/o hubs.
@@ -278,7 +278,7 @@ class Feedinfo extends Memcached_DataObject
         try {
             $callback = common_local_url('pushcallback', array('feed' => $this->id));
             $headers = array('Content-Type: application/x-www-form-urlencoded');
-            $post = array('hub.mode' => 'subscribe',
+            $post = array('hub.mode' => $mode,
                           'hub.callback' => $callback,
                           'hub.verify' => 'async',
                           'hub.verify_token' => $this->verify_token,
@@ -306,6 +306,16 @@ class Feedinfo extends Memcached_DataObject
             common_log(LOG_ERR, __METHOD__ . ": error \"{$e->getMessage()}\" hitting hub $this->huburi subscribing to $this->feeduri");
             return false;
         }
+    }
+
+    /**
+     * Send an unsubscription request to the hub for this feed.
+     * The hub will later send us a confirmation POST to /main/push/callback.
+     *
+     * @return bool true on success, false on failure
+     */
+    public function unsubscribe() {
+        return $this->subscribe('unsubscribe');
     }
 
     /**

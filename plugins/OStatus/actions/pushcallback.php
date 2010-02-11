@@ -91,15 +91,20 @@ class PushCallbackAction extends Action
         #}
         
         // OK!
-        common_log(LOG_INFO, __METHOD__ . ': sub confirmed');
-        $feedinfo->sub_start = common_sql_date(time());
-        if ($lease_seconds > 0) {
-            $feedinfo->sub_end = common_sql_date(time() + $lease_seconds);
+        if ($mode == 'subscribe') {
+            common_log(LOG_INFO, __METHOD__ . ': sub confirmed');
+            $feedinfo->sub_start = common_sql_date(time());
+            if ($lease_seconds > 0) {
+                $feedinfo->sub_end = common_sql_date(time() + $lease_seconds);
+            } else {
+                $feedinfo->sub_end = null;
+            }
+            $feedinfo->update();
         } else {
-            $feedinfo->sub_end = null;
+            common_log(LOG_INFO, __METHOD__ . ": unsub confirmed; deleting sub record for $topic");
+            $feedinfo->delete();
         }
-        $feedinfo->update();
-        
+
         print $challenge;
     }
 }
