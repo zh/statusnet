@@ -89,6 +89,10 @@ class FeedMunger
         $feedinfo->feeduri = $this->url;
         $feedinfo->homeuri = $this->feed->link;
         $feedinfo->huburi = $this->getHubLink();
+        $salmon = $this->getSalmonLink();
+        if ($salmon) {
+            $feedinfo->salmonuri = $salmon;
+        }
         return $feedinfo;
     }
 
@@ -154,7 +158,12 @@ class FeedMunger
     {
         return $this->getAtomLink($this->feed, array('rel' => 'hub'));
     }
-    
+
+    function getSalmonLink()
+    {
+        return $this->getAtomLink($this->feed, array('rel' => 'salmon'));
+    }
+
     function getSelfLink()
     {
         return $this->getAtomLink($this->feed, array('rel' => 'self'));
