@@ -154,6 +154,11 @@ class FeedMunger
     {
         return $this->getAtomLink($this->feed, array('rel' => 'hub'));
     }
+    
+    function getSelfLink()
+    {
+        return $this->getAtomLink($this->feed, array('rel' => 'self'));
+    }
 
     /**
      * Get an appropriate avatar image source URL, if available.
@@ -209,6 +214,7 @@ class FeedMunger
             $notice->id = -1;
         } else {
             $notice = new Notice();
+            $notice->profile_id = $this->profileIdForEntry($index);
         }
 
         $link = $this->getAltLink($entry);
@@ -237,6 +243,20 @@ class FeedMunger
         }
 
         return $notice;
+    }
+
+    function profileIdForEntry($index=1)
+    {
+        // hack hack hack
+        // should get profile for this entry's author...
+        $feed = new Feedinfo();
+        $feed->feeduri = $self;
+        $feed = Feedinfo::staticGet('feeduri', $this->getSelfLink());
+        if ($feed) {
+            return $feed->profile_id;
+        } else {
+            throw new Exception("Can't find feed profile");
+        }
     }
 
     /**

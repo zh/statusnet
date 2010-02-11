@@ -356,7 +356,6 @@ class Feedinfo extends Memcached_DataObject
             // @fixme this might sort in wrong order if we get multiple updates
 
             $notice = $munger->notice($index);
-            $notice->profile_id = $this->profile_id;
 
             // Double-check for oldies
             // @fixme this could explode horribly for multiple feeds on a blog. sigh
@@ -368,7 +367,7 @@ class Feedinfo extends Memcached_DataObject
             }
 
             // @fixme need to ensure that groups get handled correctly
-            $saved = Notice::saveNew($this->profile_id,
+            $saved = Notice::saveNew($notice->profile_id,
                                      $notice->content,
                                      'ostatus',
                                      array('is_local' => Notice::REMOTE_OMB,
