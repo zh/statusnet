@@ -27,7 +27,7 @@
  * @link      http://status.net/
  */
 
-if (!defined('STATUSNET')
+if (!defined('STATUSNET'))
 {
     exit(1);
 }
@@ -85,7 +85,7 @@ class AtomNoticeFeed extends Atom10Feed
             }
         } else {
             while ($notices->fetch()) {
-                $this->addEntryFromNotice($notice);
+                $this->addEntryFromNotice($notices);
             }
         }
     }

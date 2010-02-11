@@ -1321,4 +1321,22 @@ class ApiAction extends Action
         }
     }
 
+    function getSelfUri($action, $aargs)
+    {
+        parse_str($_SERVER['QUERY_STRING'], $params);
+        $pstring = '';
+        if (!empty($params)) {
+            unset($params['p']);
+            $pstring = http_build_query($params);
+        }
+
+        $uri = common_local_url($action, $aargs);
+
+        if (!empty($pstring)) {
+            $uri .= '?' . $pstring;
+        }
+
+        return $uri;
+    }
+
 }

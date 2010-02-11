@@ -27,7 +27,7 @@
  * @link      http://status.net/
  */
 
-if (!defined('STATUSNET')
+if (!defined('STATUSNET'))
 {
     exit(1);
 }
@@ -108,7 +108,11 @@ class Atom10Feed extends XMLStringer
         $this->element('id', null, $this->id);
         $this->element('title', null, $this->title);
         $this->element('subtitle', null, $this->subtitle);
-        $this->element('logo', null, $this->logo);
+
+        if (!empty($this->logo)) {
+            $this->element('logo', null, $this->logo);
+        }
+
         $this->element('updated', null, $this->updated);
 
         $this->renderLinks();

@@ -150,6 +150,12 @@ class ApiTimelineUserAction extends ApiBareAuthAction
 
             $atom = new AtomNoticeFeed();
 
+            $atom->setId($id);
+            $atom->setTitle($title);
+            $atom->setSubtitle($subtitle);
+            $atom->setLogo($logo);
+            $atom->setUpdated('now');
+
             $atom->addLink(
                 common_local_url(
                     'showstream',
@@ -157,25 +163,14 @@ class ApiTimelineUserAction extends ApiBareAuthAction
                 )
             );
 
-            $atom->setId($id);
-            $atom->setTitle($title);
-            $atom->setSubtitle($subtitle);
-            $atom->setLogo($logo);
-            $atom->setUpdated('now');
-
             $id = $this->arg('id');
-
-            if ($id) {
-                $selfuri = common_root_url() .
-                    'api/statuses/user_timeline/' .
-                    rawurlencode($id) . '.atom';
-            } else {
-                $selfuri = common_root_url() .
-                    'api/statuses/user_timeline.atom';
+            $aargs = array('format' => 'atom');
+            if (!empty($id)) {
+                $aargs['id'] = $id;
             }
 
             $atom->addLink(
-                $selfuri,
+                $this->getSelfUri('ApiTimelineUser', $aargs),
                 array('rel' => 'self', 'type' => 'application/atom+xml')
             );
 
