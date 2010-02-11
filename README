@@ -1521,6 +1521,8 @@ dir: directory to write backgrounds too. Default is '/background/'
      subdir of install dir.
 path: path to backgrounds. Default is sub-path of install path; note
       that you may need to change this if you change site-path too.
+ssl: Whether or not to use HTTPS for background files. Defaults to
+     null, meaning to guess from site-wide SSL settings.
 
 ping
 ----
