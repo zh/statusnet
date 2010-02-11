@@ -38,7 +38,11 @@ class UserrssAction extends Rss10Action
             $this->clientError(_('No such user.'));
             return false;
         } else {
-            $this->notices = $this->getNotices($this->limit);
+            if ($this->tag) {
+                $this->notices = $this->getTaggedNotices($tag, $this->limit);
+            } else {
+                $this->notices = $this->getNotices($this->limit);
+            }
             return true;
         }
     }
