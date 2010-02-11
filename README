@@ -1192,6 +1192,8 @@ server: If set, defines another server where avatars are stored in the
 	typically only make 2 connections to a single server at a
 	time <http://ur1.ca/6ih>, so this can parallelize the job.
 	Defaults to null.
+ssl:    Whether to access avatars using HTTPS. Defaults to null, meaning
+        to guess based on site-wide SSL settings.
 
 public
 ------
