@@ -1,9 +1,51 @@
 <?php
+/**
+ * StatusNet, the distributed open-source microblogging tool
+ *
+ * Class for building an Atom feed in memory
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Feed
+ * @package   StatusNet
+ * @author    Zach Copley <zach@status.net>
+ * @copyright 2010 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://status.net/
+ */
+
+if (!defined('STATUSNET')
+{
+    exit(1);
+}
 
 class Atom10FeedException extends Exception
 {
 }
 
+/**
+ * Class for building an Atom feed in memory.  Get the finished doc
+ * as a string with Atom10Feed::getString().
+ *
+ * @category Feed
+ * @package  StatusNet
+ * @author   Zach Copley <zach@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://status.net/
+ */
 class Atom10Feed extends XMLStringer
 {
     public  $xw;
@@ -23,12 +65,11 @@ class Atom10Feed extends XMLStringer
     private $entries;
 
     /**
-     * undocumented function
+     * Constructor
      *
-     * @param array $entries an array of FeedItems
+     * @param boolean $indent  flag to turn indenting on or off
      *
      * @return void
-     *
      */
     function __construct($indent = true) {
         parent::__construct($indent);
@@ -38,6 +79,14 @@ class Atom10Feed extends XMLStringer
         $this->addNamespace('xmlns', 'http://www.w3.org/2005/Atom');
     }
 
+    /**
+     * Add another namespace to the feed
+     *
+     * @param string $namespace the namespace
+     * @param string $uri       namspace uri
+     *
+     * @return void
+     */
     function addNamespace($namespace, $uri)
     {
         $ns = array($namespace => $uri);
@@ -172,6 +221,3 @@ class Atom10Feed extends XMLStringer
     }
 
 }
-
-
-
