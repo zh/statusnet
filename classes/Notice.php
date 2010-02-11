@@ -994,7 +994,7 @@ class Notice extends Memcached_DataObject
         $xs->element('summary', null, $this->content);
 
         $xs->raw($profile->asAtomAuthor());
-        $xs->raw($profile->asActivityActor($namespace));
+        $xs->raw($profile->asActivityActor());
 
         $xs->element('link', array('rel' => 'alternate',
                                    'href' => $this->bestUrl()));
@@ -1026,6 +1026,20 @@ class Notice extends Memcached_DataObject
                         )
                     )
                 );
+        }
+
+        $reply_ids = $this->getReplies();
+
+        foreach ($reply_ids as $id) {
+            $profile = Profile::staticGet('id', $id);
+            if (!empty($profile)) {
+                $xs->element(
+                    'link', array(
+                        'rel' => 'osatus:attention',
+                        'href' => $profile->getAcctUri()
+                    )
+                );
+            }
         }
 
         if (!empty($this->repeat_of)) {

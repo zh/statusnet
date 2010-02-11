@@ -803,4 +803,10 @@ class Profile extends Memcached_DataObject
 
         return $xs->getString();
     }
+
+    function getAcctUri()
+    {
+        return $this->nickname . '@' . common_config('site', 'server');
+    }
+
 }
