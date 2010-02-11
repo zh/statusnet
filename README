@@ -1226,6 +1226,17 @@ path:	Path part of theme URLs, before the theme name. Relative to the
 ssl:	Whether to use SSL for theme elements. Default is null, which means
 	guess based on site SSL settings.
 
+javascript
+----------
+
+server: You can speed up page loading by pointing the
+	theme file lookup to another server (virtual or real).
+	Defaults to NULL, meaning to use the site server.
+path:	Path part of Javascript URLs. Defaults to null,
+	which means to use the site path + '/js/'.
+ssl:	Whether to use SSL for JavaScript files. Default is null, which means
+	guess based on site SSL settings.
+
 xmpp
 ----
 
