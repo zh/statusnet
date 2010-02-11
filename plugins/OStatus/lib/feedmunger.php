@@ -269,6 +269,9 @@ class FeedMunger
     }
 
     /**
+     * Parse location given as a GeoRSS-simple point, if provided.
+     * http://www.georss.org/simple
+     *
      * @param feed item $entry
      * @return mixed Location or false
      */
@@ -278,7 +281,10 @@ class FeedMunger
         $points = $dom->getElementsByTagNameNS('http://www.georss.org/georss', 'point');
         
         for ($i = 0; $i < $points->length; $i++) {
-            $point = trim($points->item(0)->textContent);
+            $point = $points->item(0)->textContent;
+            $point = str_replace(',', ' ', $point); // per spec "treat commas as whitespace"
+            $point = preg_replace('/\s+/', ' ', $point);
+            $point = trim($point);
             $coords = explode(' ', $point);
             if (count($coords) == 2) {
                 list($lat, $lon) = $coords;
