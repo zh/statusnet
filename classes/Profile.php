@@ -754,4 +754,53 @@ class Profile extends Memcached_DataObject
 
         return !empty($notice);
     }
+
+    function asAtomAuthor()
+    {
+        $xs = new XMLStringer(true);
+
+        $xs->elementStart('author');
+        $xs->element('name', null, $this->nickname);
+        $xs->element('uri', null, $this->profileurl);
+        $xs->elementEnd('author');
+
+        return $xs->getString();
+    }
+
+    function asActivityActor()
+    {
+        $xs = new XMLStringer(true);
+
+        $xs->elementStart('activity:actor');
+        $xs->element(
+            'activity:object-type',
+            null,
+            'http://activitystrea.ms/schema/1.0/person'
+        );
+        $xs->element(
+            'id',
+            null,
+            common_local_url(
+                'userbyid',
+                array('id' => $this->id)
+                )
+            );
+        $xs->element('title', null, $this->getBestName());
+
+        $avatar = $this->getAvatar(AVATAR_PROFILE_SIZE);
+
+        $xs->element(
+            'link', array(
+                'type' => empty($avatar) ? 'image/png' : $avatar->mediatype,
+                'href' => empty($avatar)
+                ? Avatar::defaultImage(AVATAR_PROFILE_SIZE)
+                : $avatar->displayUrl()
+            ),
+            ''
+        );
+
+        $xs->elementEnd('activity:actor');
+
+        return $xs->getString();
+    }
 }

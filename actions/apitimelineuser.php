@@ -189,7 +189,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
 
             $atom->addEntryFromNotices($this->notices);
 
-            print $atom->getString();
+            $this->raw($atom->getString());
 
             break;
         case 'json':

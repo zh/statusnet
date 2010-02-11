@@ -153,7 +153,7 @@ class Atom10Feed extends XMLStringer
      * Assumes you want rel="alternate" and type="text/html" unless
      * you send in $otherAttrs.
      *
-     * @param string $uri            the uri the href need to point to
+     * @param string $uri            the uri the href needs to point to
      * @param array  $otherAttrs     other attributes to stick in
      *
      * @return void
