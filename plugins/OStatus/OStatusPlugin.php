@@ -80,6 +80,9 @@ class OStatusPlugin extends Plugin
         $m->connect('main/salmon/user/:id',
                     array('action' => 'salmon'),
                     array('id' => '[0-9]+'));
+        $m->connect('main/salmon/group/:id',
+                    array('action' => 'salmongroup'),
+                    array('id' => '[0-9]+'));
         return true;
     }
 
@@ -111,25 +114,31 @@ class OStatusPlugin extends Plugin
      */
     function onStartApiAtom(Action $action)
     {
-        if ($action instanceof ApiTimelineUserAction || $action instanceof ApiTimelineGroupAction) {
-            $id = $action->arg('id');
-            if (strval(intval($id)) === strval($id)) {
-                // Canonical form of id in URL? These are used for OStatus syndication.
-
-                $hub = common_config('ostatus', 'hub');
-                if (empty($hub)) {
-                    // Updates will be handled through our internal PuSH hub.
-                    $hub = common_local_url('pushhub');
-                }
-                $action->element('link', array('rel' => 'hub',
-                                               'href' => $hub));
-
-                // Also, we'll add in the salmon link
-                $action->element('link', array('rel' => 'salmon',
-                                               'href' => common_local_url('salmon')));
-            }
+        if ($action instanceof ApiTimelineUserAction) {
+            $salmonAction = 'salmon';
+        } else if ($action instanceof ApiTimelineGroupAction) {
+            $salmonAction = 'salmongroup';
+        } else {
+            return;
         }
-        return true;
+
+        $id = $action->arg('id');
+        if (strval(intval($id)) === strval($id)) {
+            // Canonical form of id in URL? These are used for OStatus syndication.
+
+            $hub = common_config('ostatus', 'hub');
+            if (empty($hub)) {
+                // Updates will be handled through our internal PuSH hub.
+                $hub = common_local_url('pushhub');
+            }
+            $action->element('link', array('rel' => 'hub',
+                                           'href' => $hub));
+
+            // Also, we'll add in the salmon link
+            $salmon = common_local_url($salmonAction, array('id' => $id));
+            $action->element('link', array('rel' => 'salmon',
+                                           'href' => $salmon));
+        }
     }
     
     /**
@@ -191,14 +200,17 @@ class OStatusPlugin extends Plugin
                                     array('nickname' => $profile->nickname));
             $output->element('a', array('href' => $url,
                                         'class' => 'entity_remote_subscribe'),
-                                _('OStatus'));
+                                _m('OStatus'));
             
             $output->elementEnd('li');
         }
     }
 
     /**
-     * Check if we've got some Salmon stuff to send
+     * Check if we've got remote replies to send via Salmon.
+     *
+     * @fixme push webfinger lookup & sending to a background queue
+     * @fixme also detect short-form name for remote subscribees where not ambiguous
      */
     function onEndNoticeSave($notice)
     {
@@ -233,7 +245,6 @@ class OStatusPlugin extends Plugin
             }
         }
     }
-    
 
     /**
      * Garbage collect unused feeds on unsubscribe
@@ -253,7 +264,9 @@ class OStatusPlugin extends Plugin
         return true;
     }
 
-    
+    /**
+     * Make sure necessary tables are filled out.
+     */
     function onCheckSchema() {
         $schema = Schema::get();
         $schema->ensureTable('feedinfo', Feedinfo::schemaDef());
