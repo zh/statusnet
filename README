@@ -1221,6 +1221,8 @@ path:	Path part of theme URLs, before the theme name. Relative to the
 	(using version numbers as the path) to make sure that all files are
 	reloaded by caching clients or proxies. Defaults to null,
 	which means to use the site path + '/theme'.
+ssl:	Whether to use SSL for theme elements. Default is null, which means
+	guess based on site SSL settings.
 
 xmpp
 ----
