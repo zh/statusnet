@@ -242,7 +242,7 @@ class HubSub extends Memcached_DataObject
     {
         $headers = array('Content-Type: application/atom+xml');
         if ($this->secret) {
-            $hmac = sha1($atom . $this->secret);
+            $hmac = hash_hmac('sha1', $atom, $this->secret);
             $headers[] = "X-Hub-Signature: sha1=$hmac";
         } else {
             $hmac = '(none)';

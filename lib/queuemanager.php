@@ -155,26 +155,26 @@ abstract class QueueManager extends IoManager
     }
 
     /**
-     * Encode an object for queued storage.
-     * Next gen may use serialization.
+     * Encode an object or variable for queued storage.
+     * Notice objects are currently stored as an id reference;
+     * other items are serialized.
      *
-     * @param mixed $object
+     * @param mixed $item
      * @return string
      */
-    protected function encode($object)
+    protected function encode($item)
     {
-        if ($object instanceof Notice) {
-            return $object->id;
-        } else if (is_string($object)) {
-            return $object;
+        if ($item instanceof Notice) {
+            // Backwards compat
+            return $item->id;
         } else {
-            throw new ServerException("Can't queue this type", 500);
+            return serialize($item);
         }
     }
 
     /**
      * Decode an object from queued storage.
-     * Accepts back-compat notice reference entries and strings for now.
+     * Accepts notice reference entries and serialized items.
      *
      * @param string
      * @return mixed
@@ -182,9 +182,23 @@ abstract class QueueManager extends IoManager
     protected function decode($frame)
     {
         if (is_numeric($frame)) {
+            // Back-compat for notices...
             return Notice::staticGet(intval($frame));
-        } else {
+        } elseif (substr($frame, 0, 1) == '<') {
+            // Back-compat for XML source
             return $frame;
+        } else {
+            // Deserialize!
+            #$old = error_reporting();
+            #error_reporting($old & ~E_NOTICE);
+            $out = unserialize($frame);
+            #error_reporting($old);
+
+            if ($out === false && $frame !== 'b:0;') {
+                common_log(LOG_ERR, "Couldn't unserialize queued frame: $frame");
+                return false;
+            }
+            return $out;
         }
     }
 

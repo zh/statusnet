@@ -83,13 +83,17 @@ class FeedMunger
         $this->url = $url;
     }
     
-    function feedinfo()
+    function ostatusProfile()
     {
-        $feedinfo = new Feedinfo();
-        $feedinfo->feeduri = $this->url;
-        $feedinfo->homeuri = $this->feed->link;
-        $feedinfo->huburi = $this->getHubLink();
-        return $feedinfo;
+        $profile = new Ostatus_profile();
+        $profile->feeduri = $this->url;
+        $profile->homeuri = $this->feed->link;
+        $profile->huburi = $this->getHubLink();
+        $salmon = $this->getSalmonLink();
+        if ($salmon) {
+            $profile->salmonuri = $salmon;
+        }
+        return $profile;
     }
 
     function getAtomLink($item, $attribs=array())
@@ -155,6 +159,16 @@ class FeedMunger
         return $this->getAtomLink($this->feed, array('rel' => 'hub'));
     }
 
+    function getSalmonLink()
+    {
+        return $this->getAtomLink($this->feed, array('rel' => 'salmon'));
+    }
+
+    function getSelfLink()
+    {
+        return $this->getAtomLink($this->feed, array('rel' => 'self'));
+    }
+
     /**
      * Get an appropriate avatar image source URL, if available.
      * @return mixed string or false
@@ -203,12 +217,13 @@ class FeedMunger
         if (!$entry) {
             return null;
         }
-        
+
         if ($preview) {
             $notice = new FeedSubPreviewNotice($this->profile(true));
             $notice->id = -1;
         } else {
             $notice = new Notice();
+            $notice->profile_id = $this->profileIdForEntry($index);
         }
 
         $link = $this->getAltLink($entry);
@@ -221,7 +236,7 @@ class FeedMunger
         $notice->uri = $link;
         $notice->url = $link;
         $notice->content = $this->noticeFromEntry($entry);
-        $notice->rendered = common_render_content($notice->content, $notice);
+        $notice->rendered = common_render_content($notice->content, $notice); // @fixme this is failing on group posts
         $notice->created = common_sql_date($entry->updated); // @fixme
         $notice->is_local = Notice::GATEWAY;
         $notice->source = 'feed';
@@ -239,7 +254,22 @@ class FeedMunger
         return $notice;
     }
 
+    function profileIdForEntry($index=1)
+    {
+        // hack hack hack
+        // should get profile for this entry's author...
+        $remote = Ostatus_profile::staticGet('feeduri', $this->getSelfLink());
+        if ($feed) {
+            return $feed->profile_id;
+        } else {
+            throw new Exception("Can't find feed profile");
+        }
+    }
+
     /**
+     * Parse location given as a GeoRSS-simple point, if provided.
+     * http://www.georss.org/simple
+     *
      * @param feed item $entry
      * @return mixed Location or false
      */
@@ -249,7 +279,10 @@ class FeedMunger
         $points = $dom->getElementsByTagNameNS('http://www.georss.org/georss', 'point');
         
         for ($i = 0; $i < $points->length; $i++) {
-            $point = trim($points->item(0)->textContent);
+            $point = $points->item(0)->textContent;
+            $point = str_replace(',', ' ', $point); // per spec "treat commas as whitespace"
+            $point = preg_replace('/\s+/', ' ', $point);
+            $point = trim($point);
             $coords = explode(' ', $point);
             if (count($coords) == 2) {
                 list($lat, $lon) = $coords;

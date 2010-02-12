@@ -783,7 +783,7 @@ class Notice extends Memcached_DataObject
 
             $result = $gi->insert();
 
-            if (!result) {
+            if (!$result) {
                 common_log_db_error($gi, 'INSERT', __FILE__);
                 throw new ServerException(_('Problem saving group inbox.'));
             }
@@ -917,7 +917,7 @@ class Notice extends Memcached_DataObject
     /**
      * Same calculation as saveGroups but without the saving
      * @fixme merge the functions
-     * @return array of Group objects
+     * @return array of Group_inbox objects
      */
     function getGroups()
     {
@@ -957,7 +957,10 @@ class Notice extends Memcached_DataObject
 
         if ($namespace) {
             $attrs = array('xmlns' => 'http://www.w3.org/2005/Atom',
-                           'xmlns:thr' => 'http://purl.org/syndication/thread/1.0');
+                           'xmlns:thr' => 'http://purl.org/syndication/thread/1.0',
+                           'xmlns:georss' => 'http://www.georss.org/georss',
+                           'xmlns:activity' => 'http://activitystrea.ms/spec/1.0/',
+                           'xmlns:ostatus' => 'http://ostatus.org/schema/1.0');
         } else {
             $attrs = array();
         }
@@ -983,17 +986,15 @@ class Notice extends Memcached_DataObject
             $xs->element('icon', null, $profile->avatarUrl(AVATAR_PROFILE_SIZE));
         }
 
-        $xs->elementStart('author');
-        $xs->element('name', null, $profile->nickname);
-        $xs->element('uri', null, $profile->profileurl);
-        $xs->elementEnd('author');
-
         if ($source) {
             $xs->elementEnd('source');
         }
 
         $xs->element('title', null, $this->content);
         $xs->element('summary', null, $this->content);
+
+        $xs->raw($profile->asAtomAuthor());
+        $xs->raw($profile->asActivityActor());
 
         $xs->element('link', array('rel' => 'alternate',
                                    'href' => $this->bestUrl()));
@@ -1011,6 +1012,43 @@ class Notice extends Memcached_DataObject
                 $xs->element('thr:in-reply-to',
                              array('ref' => $reply_notice->uri,
                                    'href' => $reply_notice->bestUrl()));
+            }
+        }
+
+        if (!empty($this->conversation)
+            && $this->conversation != $this->notice->id) {
+            $xs->element(
+                'link', array(
+                    'rel' => 'ostatus:conversation',
+                    'href' => common_local_url(
+                        'conversation',
+                        array('id' => $this->conversation)
+                        )
+                    )
+                );
+        }
+
+        $reply_ids = $this->getReplies();
+
+        foreach ($reply_ids as $id) {
+            $profile = Profile::staticGet('id', $id);
+            if (!empty($profile)) {
+                $xs->element(
+                    'link', array(
+                        'rel' => 'ostatus:attention',
+                        'href' => $profile->getAcctUri()
+                    )
+                );
+            }
+        }
+
+        if (!empty($this->repeat_of)) {
+            $repeat = Notice::staticGet('id', $this->repeat_of);
+            if (!empty($repeat)) {
+                $xs->element(
+                    'ostatus:forward',
+                     array('ref' => $repeat->uri, 'href' => $repeat->bestUrl())
+                );
             }
         }
 
@@ -1041,9 +1079,7 @@ class Notice extends Memcached_DataObject
         }
 
         if (!empty($this->lat) && !empty($this->lon)) {
-            $xs->elementStart('geo', array('xmlns:georss' => 'http://www.georss.org/georss'));
             $xs->element('georss:point', null, $this->lat . ' ' . $this->lon);
-            $xs->elementEnd('geo');
         }
 
         $xs->elementEnd('entry');

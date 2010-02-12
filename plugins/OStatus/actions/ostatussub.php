@@ -1,7 +1,7 @@
 <?php
 /*
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2009, StatusNet, Inc.
+ * Copyright (C) 2010, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -18,49 +18,38 @@
  */
 
 /**
- * @package FeedSubPlugin
- * @maintainer Brion Vibber <brion@status.net>
+ * @package OStatusPlugin
+ * @maintainer James Walker <james@status.net>
  */
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
-class FeedSubSettingsAction extends ConnectSettingsAction
+class OStatusSubAction extends Action
 {
+
     protected $feedurl;
-    protected $preview;
-    protected $munger;
-
-    /**
-     * Title of the page
-     *
-     * @return string Title of the page
-     */
-
+    
     function title()
     {
-        return _m('Feed subscriptions');
+        return _m("OStatus Subscribe");
     }
 
-    /**
-     * Instructions for use
-     *
-     * @return instructions for use
-     */
-
-    function getInstructions()
+    function handle($args)
     {
-        return _m('You can subscribe to feeds from other sites; ' .
-                  'updates will appear in your personal timeline.');
+        if ($this->validateFeed()) {
+            $this->showForm();
+        }
+
+        return true;
+
     }
 
-    /**
-     * Content area of the page
-     *
-     * Shows a form for associating a Twitter account with this
-     * StatusNet account. Also lets the user set preferences.
-     *
-     * @return void
-     */
+    function showForm($err = null)
+    {
+        $this->err = $err;
+        $this->showPage();
+    }
+
 
     function showContent()
     {
@@ -92,19 +81,13 @@ class FeedSubSettingsAction extends ConnectSettingsAction
         $this->elementEnd('li');
         $this->elementEnd('ul');
 
-        if ($this->preview) {
-            $this->submit('subscribe', _m('Subscribe'));
-        } else {
-            $this->submit('validate', _m('Continue'));
-        }
+        $this->submit('subscribe', _m('Subscribe'));
 
         $this->elementEnd('fieldset');
 
         $this->elementEnd('form');
 
-        if ($this->preview) {
-            $this->previewFeed();
-        }
+        $this->previewFeed();
     }
 
     /**
@@ -128,15 +111,14 @@ class FeedSubSettingsAction extends ConnectSettingsAction
             return;
         }
 
-        if ($this->arg('validate')) {
-            $this->validateAndPreview();
-        } else if ($this->arg('subscribe')) {
+        if ($this->arg('subscribe')) {
             $this->saveFeed();
         } else {
             $this->showForm(_('Unexpected form submission.'));
         }
     }
 
+    
     /**
      * Set up and add a feed
      *
@@ -145,7 +127,7 @@ class FeedSubSettingsAction extends ConnectSettingsAction
      */
     function validateFeed()
     {
-        $feedurl = trim($this->arg('feedurl'));
+        $feedurl = $this->trimmed('feed');
         
         if ($feedurl == '') {
             $this->showForm(_m('Empty feed URL!'));
@@ -184,7 +166,7 @@ class FeedSubSettingsAction extends ConnectSettingsAction
         $this->munger = $discover->feedMunger();
         $this->profile = $this->munger->ostatusProfile();
 
-        if ($this->profile->huburi == '' && !common_config('feedsub', 'nohub')) {
+        if ($this->profile->huburi == '') {
             $this->showForm(_m('Feed is not PuSH-enabled; cannot subscribe.'));
             return false;
         }
@@ -197,9 +179,6 @@ class FeedSubSettingsAction extends ConnectSettingsAction
         if ($this->validateFeed()) {
             $this->preview = true;
             $this->profile = Ostatus_profile::ensureProfile($this->munger);
-            if (!$this->profile) {
-                throw new ServerException("Feed profile was not saved properly.");
-            }
 
             // If not already in use, subscribe to updates via the hub
             if ($this->profile->sub_start) {
@@ -212,40 +191,22 @@ class FeedSubSettingsAction extends ConnectSettingsAction
                     return;
                 }
             }
-
+            
             // And subscribe the current user to the local profile
             $user = common_current_user();
-
-            if ($this->profile->isGroup()) {
-                $group = $this->profile->localGroup();
-                if ($user->isMember($group)) {
-                    $this->showForm(_m('Already a member!'));
-                } elseif (Group_member::join($this->profile->group_id, $user->id)) {
-                    $this->showForm(_m('Joined remote group!'));
-                } else {
-                    $this->showForm(_m('Remote group join failed!'));
-                }
+            $profile = $this->profile->getProfile();
+            
+            if ($user->isSubscribed($profile)) {
+                $this->showForm(_m('Already subscribed!'));
+            } elseif ($user->subscribeTo($profile)) {
+                $this->showForm(_m('Feed subscribed!'));
             } else {
-                $local = $this->profile->localProfile();
-                if ($user->isSubscribed($local)) {
-                    $this->showForm(_m('Already subscribed!'));
-                } elseif ($user->subscribeTo($local)) {
-                    $this->showForm(_m('Feed subscribed!'));
-                } else {
-                    $this->showForm(_m('Feed subscription failed!'));
-                }
+                $this->showForm(_m('Feed subscription failed!'));
             }
         }
     }
 
-    function validateAndPreview()
-    {
-        if ($this->validateFeed()) {
-            $this->preview = true;
-            $this->showForm(_m('Previewing feed:'));
-        }
-    }
-
+    
     function previewFeed()
     {
         $profile = $this->munger->ostatusProfile();
@@ -261,9 +222,5 @@ class FeedSubSettingsAction extends ConnectSettingsAction
         }
     }
 
-    function showScripts()
-    {
-        parent::showScripts();
-        $this->autofocus('feedurl');
-    }
+
 }

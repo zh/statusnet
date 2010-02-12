@@ -75,6 +75,10 @@ class ApiTimelinePublicAction extends ApiPrivateAuthAction
 
         $this->notices = $this->getNotices();
 
+        if ($this->since) {
+            throw new ServerException("since parameter is disabled for performance; use since_id", 403);
+        }
+
         return true;
     }
 
@@ -118,11 +122,28 @@ class ApiTimelinePublicAction extends ApiPrivateAuthAction
             $this->showRssTimeline($this->notices, $title, $link, $subtitle, null, $sitelogo);
             break;
         case 'atom':
-            $selfuri = common_root_url() . 'api/statuses/public_timeline.atom';
-            $this->showAtomTimeline(
-                $this->notices, $title, $id, $link,
-                $subtitle, null, $selfuri, $sitelogo
+
+            $atom = new AtomNoticeFeed();
+
+            $atom->setId($id);
+            $atom->setTitle($title);
+            $atom->setSubtitle($subtitle);
+            $atom->setLogo($sitelogo);
+            $atom->setUpdated('now');
+
+            $atom->addLink(common_local_url('public'));
+
+            $atom->addLink(
+                $this->getSelfUri(
+                    'ApiTimelinePublic', array('format' => 'atom')
+                ),
+                array('rel' => 'self', 'type' => 'application/atom+xml')
             );
+
+            $atom->addEntryFromNotices($this->notices);
+
+            $this->raw($atom->getString());
+
             break;
         case 'json':
             $this->showJsonTimeline($this->notices);
@@ -145,7 +166,7 @@ class ApiTimelinePublicAction extends ApiPrivateAuthAction
 
         $notice = Notice::publicStream(
             ($this->page - 1) * $this->count, $this->count, $this->since_id,
-            $this->max_id, $this->since
+            $this->max_id
         );
 
         while ($notice->fetch()) {

@@ -48,9 +48,9 @@ class PushCallbackAction extends Action
             throw new ServerException('Empty or invalid feed id', 400);
         }
 
-        $feedinfo = Feedinfo::staticGet('id', $feedid);
-        if (!$feedinfo) {
-            throw new ServerException('Unknown feed id ' . $feedid, 400);
+        $profile = Ostatus_profile::staticGet('id', $feedid);
+        if (!$profile) {
+            throw new ServerException('Unknown OStatus/PuSH feed id ' . $feedid, 400);
         }
 
         $hmac = '';
@@ -59,7 +59,7 @@ class PushCallbackAction extends Action
         }
 
         $post = file_get_contents('php://input');
-        $feedinfo->postUpdates($post, $hmac);
+        $profile->postUpdates($post, $hmac);
     }
     
     /**
@@ -78,28 +78,30 @@ class PushCallbackAction extends Action
             throw new ServerException("Bogus hub callback: bad mode", 404);
         }
         
-        $feedinfo = Feedinfo::staticGet('feeduri', $topic);
-        if (!$feedinfo) {
+        $profile = Ostatus_profile::staticGet('feeduri', $topic);
+        if (!$profile) {
             common_log(LOG_WARNING, __METHOD__ . ": bogus hub callback for unknown feed $topic");
             throw new ServerException("Bogus hub callback: unknown feed", 404);
         }
 
-        # Can't currently set the token in our sub api
-        #if ($feedinfo->verify_token !== $verify_token) {
-        #    common_log(LOG_WARNING, __METHOD__ . ": bogus hub callback with bad token \"$verify_token\" for feed $topic");
-        #    throw new ServerError("Bogus hub callback: bad token", 404);
-        #}
-        
-        // OK!
-        common_log(LOG_INFO, __METHOD__ . ': sub confirmed');
-        $feedinfo->sub_start = common_sql_date(time());
-        if ($lease_seconds > 0) {
-            $feedinfo->sub_end = common_sql_date(time() + $lease_seconds);
-        } else {
-            $feedinfo->sub_end = null;
+        if ($profile->verify_token !== $verify_token) {
+            common_log(LOG_WARNING, __METHOD__ . ": bogus hub callback with bad token \"$verify_token\" for feed $topic");
+            throw new ServerError("Bogus hub callback: bad token", 404);
         }
-        $feedinfo->update();
-        
+
+        if ($mode != $profile->sub_state) {
+            common_log(LOG_WARNING, __METHOD__ . ": bogus hub callback with bad mode \"$mode\" for feed $topic in state \"{$profile->sub_state}\"");
+            throw new ServerException("Bogus hub callback: mode doesn't match subscription state.", 404);
+        }
+
+        // OK!
+        if ($mode == 'subscribe') {
+            common_log(LOG_INFO, __METHOD__ . ': sub confirmed');
+            $profile->confirmSubscribe($lease_seconds);
+        } else {
+            common_log(LOG_INFO, __METHOD__ . ": unsub confirmed; deleting sub record for $topic");
+            $profile->confirmUnsubscribe();
+        }
         print $challenge;
     }
 }

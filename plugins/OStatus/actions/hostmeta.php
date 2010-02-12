@@ -18,35 +18,25 @@
  */
 
 /**
- * Send a raw PuSH atom update from our internal hub.
- * @package Hub
- * @author Brion Vibber <brion@status.net>
+ * @package OStatusPlugin
+ * @maintainer James Walker <james@status.net>
  */
-class HubOutQueueHandler extends QueueHandler
+
+if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
+
+class HostMetaAction extends Action
 {
-    function transport()
+
+    function handle()
     {
-        return 'hubout';
-    }
+        parent::handle();
 
-    function handle($data)
-    {
-        $sub = $data['sub'];
-        $atom = $data['atom'];
+        $w = new Webfinger();
 
-        assert($sub instanceof HubSub);
-        assert(is_string($atom));
 
-        try {
-            $sub->push($atom);
-        } catch (Exception $e) {
-            common_log(LOG_ERR, "Failed PuSH to $sub->callback for $sub->topic: " .
-                                $e->getMessage());
-            // @fixme Reschedule a later delivery?
-            return true;
-        }
-
-        return true;
+        $domain = common_config('site', 'server');
+        $url = common_local_url('webfinger');
+        $url.= '?uri={uri}';
+        print $w->getHostMeta($domain, $url);
     }
 }
-

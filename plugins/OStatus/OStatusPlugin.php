@@ -53,6 +53,21 @@ class OStatusPlugin extends Plugin
      */
     function onRouterInitialized($m)
     {
+        // Discovery actions
+        $m->connect('.well-known/host-meta',
+                    array('action' => 'hostmeta'));
+        $m->connect('main/webfinger',
+                    array('action' => 'webfinger'));
+        $m->connect('main/ostatus',
+                    array('action' => 'ostatusinit'));
+        $m->connect('main/ostatus?nickname=:nickname',
+                  array('action' => 'ostatusinit'), array('nickname' => '[A-Za-z0-9_-]+'));
+        $m->connect('main/ostatussub',
+                    array('action' => 'ostatussub'));          
+        $m->connect('main/ostatussub',
+                    array('action' => 'ostatussub'), array('feed' => '[A-Za-z0-9\.\/\:]+'));          
+
+        // PuSH actions
         $m->connect('main/push/hub', array('action' => 'pushhub'));
 
         $m->connect('main/push/callback/:feed',
@@ -60,6 +75,14 @@ class OStatusPlugin extends Plugin
                     array('feed' => '[0-9]+'));
         $m->connect('settings/feedsub',
                     array('action' => 'feedsubsettings'));
+
+        // Salmon endpoint
+        $m->connect('main/salmon/user/:id',
+                    array('action' => 'salmon'),
+                    array('id' => '[0-9]+'));
+        $m->connect('main/salmon/group/:id',
+                    array('action' => 'salmongroup'),
+                    array('id' => '[0-9]+'));
         return true;
     }
 
@@ -87,22 +110,37 @@ class OStatusPlugin extends Plugin
 
     /**
      * Set up a PuSH hub link to our internal link for canonical timeline
-     * Atom feeds for users.
+     * Atom feeds for users and groups.
      */
     function onStartApiAtom(Action $action)
     {
         if ($action instanceof ApiTimelineUserAction) {
-            $id = $action->arg('id');
-            if (strval(intval($id)) === strval($id)) {
-                // Canonical form of id in URL?
-                // Updates will be handled for our internal PuSH hub.
-                $action->element('link', array('rel' => 'hub',
-                                               'href' => common_local_url('pushhub')));
-            }
+            $salmonAction = 'salmon';
+        } else if ($action instanceof ApiTimelineGroupAction) {
+            $salmonAction = 'salmongroup';
+        } else {
+            return;
         }
-        return true;
-    }
 
+        $id = $action->arg('id');
+        if (strval(intval($id)) === strval($id)) {
+            // Canonical form of id in URL? These are used for OStatus syndication.
+
+            $hub = common_config('ostatus', 'hub');
+            if (empty($hub)) {
+                // Updates will be handled through our internal PuSH hub.
+                $hub = common_local_url('pushhub');
+            }
+            $action->element('link', array('rel' => 'hub',
+                                           'href' => $hub));
+
+            // Also, we'll add in the salmon link
+            $salmon = common_local_url($salmonAction, array('id' => $id));
+            $action->element('link', array('rel' => 'salmon',
+                                           'href' => $salmon));
+        }
+    }
+    
     /**
      * Add the feed settings page to the Connect Settings menu
      *
@@ -148,11 +186,90 @@ class OStatusPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Add in an OStatus subscribe button
+     */
+    function onStartProfilePageActionsElements($output, $profile)
+    {
+        $cur = common_current_user();
+
+        if (empty($cur)) {
+            // Add an OStatus subscribe
+            $output->elementStart('li', 'entity_subscribe');
+            $url = common_local_url('ostatusinit',
+                                    array('nickname' => $profile->nickname));
+            $output->element('a', array('href' => $url,
+                                        'class' => 'entity_remote_subscribe'),
+                                _m('OStatus'));
+            
+            $output->elementEnd('li');
+        }
+    }
+
+    /**
+     * Check if we've got remote replies to send via Salmon.
+     *
+     * @fixme push webfinger lookup & sending to a background queue
+     * @fixme also detect short-form name for remote subscribees where not ambiguous
+     */
+    function onEndNoticeSave($notice)
+    {
+        $count = preg_match_all('/(\w+\.)*\w+@(\w+\.)*\w+(\w+\-\w+)*\.\w+/', $notice->content, $matches);
+        if ($count) {
+            foreach ($matches[0] as $webfinger) {
+                // Check to see if we've got an actual webfinger
+                $w = new Webfinger;
+
+                $endpoint_uri = '';
+                
+                $result = $w->lookup($webfinger);
+                if (empty($result)) {
+                    continue;
+                }
+                
+                foreach ($result->links as $link) {
+                    if ($link['rel'] == 'salmon') {
+                        $endpoint_uri = $link['href'];
+                    }
+                }
+                
+                if (empty($endpoint_uri)) {
+                    continue;
+                }
+
+                $xml = '<?xml version="1.0" encoding="UTF-8" ?>';
+                $xml .= $notice->asAtomEntry();
+               
+                $salmon = new Salmon();
+                $salmon->post($endpoint_uri, $xml);
+            }
+        }
+    }
+
+    /**
+     * Garbage collect unused feeds on unsubscribe
+     */
+    function onEndUnsubscribe($user, $other)
+    {
+        $profile = Ostatus_profile::staticGet('profile_id', $other->id);
+        if ($feed) {
+            $sub = new Subscription();
+            $sub->subscribed = $other->id;
+            $sub->limit(1);
+            if (!$sub->find(true)) {
+                common_log(LOG_INFO, "Unsubscribing from now-unused feed $feed->feeduri on hub $feed->huburi");
+                $profile->unsubscribe();
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Make sure necessary tables are filled out.
+     */
     function onCheckSchema() {
-        // warning: the autoincrement doesn't seem to set.
-        // alter table feedinfo change column id id int(11) not null  auto_increment;
         $schema = Schema::get();
-        $schema->ensureTable('feedinfo', Feedinfo::schemaDef());
+        $schema->ensureTable('ostatus_profile', Ostatus_profile::schemaDef());
         $schema->ensureTable('hubsub', HubSub::schemaDef());
         return true;
     }
