@@ -197,6 +197,9 @@ class FeedSubSettingsAction extends ConnectSettingsAction
         if ($this->validateFeed()) {
             $this->preview = true;
             $this->profile = Ostatus_profile::ensureProfile($this->munger);
+            if (!$this->profile) {
+                throw new ServerException("Feed profile was not saved properly.");
+            }
 
             // If not already in use, subscribe to updates via the hub
             if ($this->profile->sub_start) {
@@ -212,13 +215,10 @@ class FeedSubSettingsAction extends ConnectSettingsAction
 
             // And subscribe the current user to the local profile
             $user = common_current_user();
-            $profile = $this->profile->getLocalProfile();
-            if (!$profile) {
-                throw new ServerException("Feed profile was not saved properly.");
-            }
 
             if ($this->profile->isGroup()) {
-                if ($user->isMember($profile)) {
+                $group = $this->profile->localGroup();
+                if ($user->isMember($group)) {
                     $this->showForm(_m('Already a member!'));
                 } elseif (Group_member::join($this->profile->group_id, $user->id)) {
                     $this->showForm(_m('Joined remote group!'));
@@ -226,9 +226,10 @@ class FeedSubSettingsAction extends ConnectSettingsAction
                     $this->showForm(_m('Remote group join failed!'));
                 }
             } else {
-                if ($user->isSubscribed($profile)) {
+                $local = $this->profile->localProfile();
+                if ($user->isSubscribed($local)) {
                     $this->showForm(_m('Already subscribed!'));
-                } elseif ($user->subscribeTo($profile)) {
+                } elseif ($user->subscribeTo($local)) {
                     $this->showForm(_m('Feed subscribed!'));
                 } else {
                     $this->showForm(_m('Feed subscription failed!'));

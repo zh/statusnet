@@ -84,27 +84,24 @@ class PushCallbackAction extends Action
             throw new ServerException("Bogus hub callback: unknown feed", 404);
         }
 
-        # Can't currently set the token in our sub api
-        #if ($feedinfo->verify_token !== $verify_token) {
-        #    common_log(LOG_WARNING, __METHOD__ . ": bogus hub callback with bad token \"$verify_token\" for feed $topic");
-        #    throw new ServerError("Bogus hub callback: bad token", 404);
-        #}
-        
+        if ($profile->verify_token !== $verify_token) {
+            common_log(LOG_WARNING, __METHOD__ . ": bogus hub callback with bad token \"$verify_token\" for feed $topic");
+            throw new ServerError("Bogus hub callback: bad token", 404);
+        }
+
+        if ($mode != $profile->sub_state) {
+            common_log(LOG_WARNING, __METHOD__ . ": bogus hub callback with bad mode \"$mode\" for feed $topic in state \"{$profile->sub_state}\"");
+            throw new ServerException("Bogus hub callback: mode doesn't match subscription state.", 404);
+        }
+
         // OK!
         if ($mode == 'subscribe') {
             common_log(LOG_INFO, __METHOD__ . ': sub confirmed');
-            $profile->sub_start = common_sql_date(time());
-            if ($lease_seconds > 0) {
-                $profile->sub_end = common_sql_date(time() + $lease_seconds);
-            } else {
-                $profile->sub_end = null;
-            }
-            $profile->update();
+            $profile->confirmSubscribe($lease_seconds);
         } else {
             common_log(LOG_INFO, __METHOD__ . ": unsub confirmed; deleting sub record for $topic");
-            $profile->delete();
+            $profile->confirmUnsubscribe();
         }
-
         print $challenge;
     }
 }

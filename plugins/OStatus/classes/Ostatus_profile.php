@@ -182,9 +182,24 @@ class Ostatus_profile extends Memcached_DataObject
      * Fetch the StatusNet-side profile for this feed
      * @return Profile
      */
-    public function getLocalProfile()
+    public function localProfile()
     {
-        return Profile::staticGet('id', $this->profile_id);
+        if ($this->profile_id) {
+            return Profile::staticGet('id', $this->profile_id);
+        }
+        return null;
+    }
+
+    /**
+     * Fetch the StatusNet-side profile for this feed
+     * @return Profile
+     */
+    public function localGroup()
+    {
+        if ($this->group_id) {
+            return User_group::staticGet('id', $this->group_id);
+        }
+        return null;
     }
 
     /**
@@ -194,62 +209,48 @@ class Ostatus_profile extends Memcached_DataObject
      */
     public static function ensureProfile($munger)
     {
-        $entity = $munger->ostatusProfile();
+        $profile = $munger->ostatusProfile();
 
-        $current = self::staticGet('feeduri', $entity->feeduri);
+        $current = self::staticGet('feeduri', $profile->feeduri);
         if ($current) {
             // @fixme we should probably update info as necessary
             return $current;
         }
 
-        $entity->query('BEGIN');
+        $profile->query('BEGIN');
 
         // Awful hack! Awful hack!
-        $entity->verify = common_good_rand(16);
-        $entity->secret = common_good_rand(32);
+        $profile->verify = common_good_rand(16);
+        $profile->secret = common_good_rand(32);
 
         try {
-            $profile = $munger->profile();
+            $local = $munger->profile();
+
+            if ($entity->isGroup()) {
+                $group = new User_group();
+                $group->nickname = $local->nickname . '@remote'; // @fixme
+                $group->fullname = $local->fullname;
+                $group->homepage = $local->homepage;
+                $group->location = $local->location;
+                $group->created = $local->created;
+                $group->insert();
+                if (empty($result)) {
+                    throw new FeedDBException($group);
+                }
+                $profile->group_id = $group->id;
+            } else {
+                $result = $local->insert();
+                if (empty($result)) {
+                    throw new FeedDBException($local);
+                }
+                $profile->profile_id = $local->id;
+            }
+
+            $profile->created = sql_common_date();
+            $profile->lastupdate = sql_common_date();
             $result = $profile->insert();
             if (empty($result)) {
                 throw new FeedDBException($profile);
-            }
-
-            $avatar = $munger->getAvatar();
-            if ($avatar) {
-                // @fixme this should be better encapsulated
-                // ripped from oauthstore.php (for old OMB client)
-                $temp_filename = tempnam(sys_get_temp_dir(), 'listener_avatar');
-                copy($avatar, $temp_filename);
-                $imagefile = new ImageFile($profile->id, $temp_filename);
-                $filename = Avatar::filename($profile->id,
-                                             image_type_to_extension($imagefile->type),
-                                             null,
-                                             common_timestamp());
-                rename($temp_filename, Avatar::path($filename));
-                $profile->setOriginal($filename);
-            }
-
-            $entity->profile_id = $profile->id;
-            if ($entity->isGroup()) {
-                $group = new User_group();
-                $group->nickname = $profile->nickname . '@remote'; // @fixme
-                $group->fullname = $profile->fullname;
-                $group->homepage = $profile->homepage;
-                $group->location = $profile->location;
-                $group->created = $profile->created;
-                $group->insert();
-
-                if ($avatar) {
-                    $group->setOriginal($filename);
-                }
-
-                $entity->group_id = $group->id;
-            }
-
-            $result = $entity->insert();
-            if (empty($result)) {
-                throw new FeedDBException($entity);
             }
 
             $entity->query('COMMIT');
@@ -258,7 +259,44 @@ class Ostatus_profile extends Memcached_DataObject
             $entity->query('ROLLBACK');
             return false;
         }
+
+        $avatar = $munger->getAvatar();
+        if ($avatar) {
+            try {
+                $this->updateAvatar($avatar);
+            } catch (Exception $e) {
+                common_log(LOG_ERR, "Exception setting OStatus avatar: " .
+                                    $e->getMessage());
+            }
+        }
+
         return $entity;
+    }
+
+    /**
+     * Download and update given avatar image
+     * @param string $url
+     * @throws Exception in various failure cases
+     */
+    public function updateAvatar($url)
+    {
+        // @fixme this should be better encapsulated
+        // ripped from oauthstore.php (for old OMB client)
+        $temp_filename = tempnam(sys_get_temp_dir(), 'listener_avatar');
+        copy($url, $temp_filename);
+        $imagefile = new ImageFile($profile->id, $temp_filename);
+        $filename = Avatar::filename($profile->id,
+                                     image_type_to_extension($imagefile->type),
+                                     null,
+                                     common_timestamp());
+        rename($temp_filename, Avatar::path($filename));
+        if ($this->isGroup()) {
+            $group = $this->localGroup();
+            $group->setOriginal($filename);
+        } else {
+            $profile = $this->localProfile();
+            $profile->setOriginal($filename);
+        }
     }
 
     /**
@@ -316,6 +354,46 @@ class Ostatus_profile extends Memcached_DataObject
             common_log(LOG_ERR, __METHOD__ . ": error \"{$e->getMessage()}\" hitting hub $this->huburi subscribing to $this->feeduri");
             return false;
         }
+    }
+
+    /**
+     * Save PuSH subscription confirmation.
+     * Sets approximate lease start and end times and finalizes state.
+     *
+     * @param int $lease_seconds provided hub.lease_seconds parameter, if given
+     */
+    public function confirmSubscribe($lease_seconds=0)
+    {
+        $original = clone($this);
+
+        $this->sub_state = 'active';
+        $this->sub_start = common_sql_date(time());
+        if ($lease_seconds > 0) {
+            $this->sub_end = common_sql_date(time() + $lease_seconds);
+        } else {
+            $this->sub_end = null;
+        }
+        $this->lastupdate = common_sql_date();
+
+        return $this->update($original);
+    }
+
+    /**
+     * Save PuSH unsubscription confirmation.
+     * Wipes active PuSH sub info and resets state.
+     */
+    public function confirmUnsubscribe()
+    {
+        $original = clone($this);
+
+        $this->verify_token = null;
+        $this->secret = null;
+        $this->sub_state = null;
+        $this->sub_start = null;
+        $this->sub_end = null;
+        $this->lastupdate = common_sql_date();
+
+        return $this->update($original);
     }
 
     /**
