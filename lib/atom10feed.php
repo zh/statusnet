@@ -51,6 +51,7 @@ class Atom10Feed extends XMLStringer
     public  $xw;
     private $namespaces;
     private $authors;
+    private $subject;
     private $categories;
     private $contributors;
     private $generator;
@@ -74,6 +75,7 @@ class Atom10Feed extends XMLStringer
     function __construct($indent = true) {
         parent::__construct($indent);
         $this->namespaces = array();
+        $this->authors    = array();
         $this->links      = array();
         $this->entries    = array();
         $this->addNamespace('xmlns', 'http://www.w3.org/2005/Atom');
@@ -91,6 +93,64 @@ class Atom10Feed extends XMLStringer
     {
         $ns = array($namespace => $uri);
         $this->namespaces = array_merge($this->namespaces, $ns);
+    }
+
+    function addAuthor($name, $uri = null, $email = null)
+    {
+        $xs = new XMLStringer(true);
+
+        $xs->elementStart('author');
+
+        if (!empty($name)) {
+            $xs->element('name', null, $name);
+        } else {
+            throw new Atom10FeedException(
+                'author element must contain a name element.'
+            );
+        }
+
+        if (!is_null($uri)) {
+            $xs->element('uri', null, $uri);
+        }
+
+        if (!is_null(email)) {
+            $xs->element('email', null, $email);
+        }
+
+        $xs->elementEnd('author');
+
+        array_push($this->authors, $xs->getString());
+    }
+
+    /**
+     * Add an Author to the feed via raw XML string
+     *
+     * @param string $xmlAuthor An XML string representation author
+     *
+     * @return void
+     */
+    function addAuthorRaw($xmlAuthor)
+    {
+        array_push($this->authors, $xmlAuthor);
+    }
+
+    function renderAuthors()
+    {
+        foreach ($this->authors as $author) {
+            $this->raw($author);
+        }
+    }
+
+    /**
+     * Add a activity feed subject via raw XML string
+     *
+     * @param string $xmlSubject An XML string representation of the subject
+     *
+     * @return void
+     */
+    function setActivitySubject($xmlSubject)
+    {
+        $this->subject = $xmlSubject;
     }
 
     function getNamespaces()
@@ -136,9 +196,9 @@ class Atom10Feed extends XMLStringer
         }
     }
 
-    function addEntryRaw($entry)
+    function addEntryRaw($xmlEntry)
     {
-        array_push($this->entries, $entry);
+        array_push($this->entries, $xmlEntry);
     }
 
     function addEntry($entry)
@@ -164,6 +224,12 @@ class Atom10Feed extends XMLStringer
         $this->validate();
 
         $this->initFeed();
+        $this->renderAuthors();
+
+        if (!empty($this->subject)) {
+            $this->raw($this->subject);
+        }
+
         $this->renderEntries();
         $this->endFeed();
 

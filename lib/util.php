@@ -367,7 +367,8 @@ function common_current_user()
 
     if ($_cur === false) {
 
-        if (isset($_REQUEST[session_name()]) || (isset($_SESSION['userid']) && $_SESSION['userid'])) {
+        if (isset($_COOKIE[session_name()]) || isset($_GET[session_name()])
+            || (isset($_SESSION['userid']) && $_SESSION['userid'])) {
             common_ensure_session();
             $id = isset($_SESSION['userid']) ? $_SESSION['userid'] : false;
             if ($id) {
