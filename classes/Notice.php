@@ -1019,7 +1019,7 @@ class Notice extends Memcached_DataObject
             && $this->conversation != $this->notice->id) {
             $xs->element(
                 'link', array(
-                    'rel' => 'osatus:conversation',
+                    'rel' => 'ostatus:conversation',
                     'href' => common_local_url(
                         'conversation',
                         array('id' => $this->conversation)
@@ -1035,7 +1035,7 @@ class Notice extends Memcached_DataObject
             if (!empty($profile)) {
                 $xs->element(
                     'link', array(
-                        'rel' => 'osatus:attention',
+                        'rel' => 'ostatus:attention',
                         'href' => $profile->getAcctUri()
                     )
                 );
