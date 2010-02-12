@@ -121,6 +121,7 @@ class MobileProfilePlugin extends WAP20Plugin
                     'philips',
                     'pocketpc',
                     'portalmmm',
+                    'pre',
                     'rover',
                     'samsung',
                     'sanyo',
