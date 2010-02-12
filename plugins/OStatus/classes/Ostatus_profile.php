@@ -300,6 +300,71 @@ class Ostatus_profile extends Memcached_DataObject
     }
 
     /**
+     * Returns an XML string fragment with profile information as an
+     * Activity Streams noun object with the given element type.
+     *
+     * Assumes that 'activity' namespace has been previously defined.
+     *
+     * @param string $element one of 'actor', 'subject', 'object', 'target'
+     * @return string
+     */
+    function asActivityNoun($element)
+    {
+        $xs = new XMLStringer(true);
+
+        $avatarHref = Avatar::defaultImage(AVATAR_PROFILE_SIZE);
+        $avatarType = 'image/png';
+        if ($this->isGroup()) {
+            $type = 'http://activitystrea.ms/schema/1.0/group';
+            $self = $this->localGroup();
+
+            // @fixme put a standard getAvatar() interface on groups too
+            if ($self->homepage_logo) {
+                $avatarHref = $self->homepage_logo;
+                $map = array('png' => 'image/png',
+                             'jpg' => 'image/jpeg',
+                             'jpeg' => 'image/jpeg',
+                             'gif' => 'image/gif');
+                $extension = pathinfo(parse_url($avatarHref, PHP_URL_PATH), PATHINFO_EXTENSION);
+                if (isset($map[$extension])) {
+                    $avatarType = $map[$extension];
+                }
+            }
+        } else {
+            $type = 'http://activitystrea.ms/schema/1.0/person';
+            $self = $this->localProfile();
+            $avatar = $self->getAvatar(AVATAR_PROFILE_SIZE);
+            if ($avatar) {
+                $avatarHref = $avatar->
+                $avatarType = $avatar->mediatype;
+            }
+        }
+        $xs->elementStart('activity:' . $element);
+        $xs->element(
+            'activity:object-type',
+            null,
+            $type
+        );
+        $xs->element(
+            'id',
+            null,
+            $this->homeuri); // ?
+        $xs->element('title', null, $self->getBestName());
+
+        $xs->element(
+            'link', array(
+                'type' => $avatarType,
+                'href' => $avatarHref
+            ),
+            ''
+        );
+
+        $xs->elementEnd('activity:' . $element);
+
+        return $xs->getString();
+    }
+
+    /**
      * Damn dirty hack!
      */
     function isGroup()
@@ -397,13 +462,99 @@ class Ostatus_profile extends Memcached_DataObject
     }
 
     /**
-     * Send an unsubscription request to the hub for this feed.
+     * Send a PuSH unsubscription request to the hub for this feed.
      * The hub will later send us a confirmation POST to /main/push/callback.
      *
      * @return bool true on success, false on failure
      */
     public function unsubscribe() {
         return $this->subscribe('unsubscribe');
+    }
+
+    /**
+     * Send an Activity Streams notification to the remote Salmon endpoint,
+     * if so configured.
+     *
+     * @param Profile $actor
+     * @param $verb eg Activity::SUBSCRIBE or Activity::JOIN
+     * @param $object object of the action; if null, the remote entity itself is assumed
+     */
+    public function notify(Profile $actor, $verb, $object=null)
+    {
+        if ($object == null) {
+            $object = $this;
+        }
+        if ($this->salmonuri) {
+            $text = 'update'; // @fixme
+            $id = 'tag:' . common_config('site', 'server') . 
+                ':' . $verb .
+                ':' . $actor->id .
+                ':' . time(); // @fixme
+
+            $entry = new Atom10Entry();
+            $entry->elementStart('entry');
+            $entry->element('id', null, $id);
+            $entry->element('title', null, $text);
+            $entry->element('summary', null, $text);
+            $entry->element('published', null, common_date_w3dtf());
+
+            $entry->element('activity:verb', null, $verb);
+            $entry->raw($profile->asAtomAuthor());
+            $entry->raw($profile->asActivityActor());
+            $entry->raw($object->asActivityNoun('object'));
+            $entry->elmentEnd('entry');
+
+            $feed = $this->atomFeed($actor);
+            $feed->initFeed();
+            $feed->addEntry($entry);
+            $feed->renderEntries();
+            $feed->endFeed();
+
+            $xml = $feed->getString();
+            common_log(LOG_INFO, "Posting to Salmon endpoint $salmon: $xml");
+
+            $salmon = new Salmon(); // ?
+            $salmon->post($this->salmonuri, $xml);
+        }
+    }
+
+    function getBestName()
+    {
+        if ($this->isGroup()) {
+            return $this->localGroup()->getBestName();
+        } else {
+            return $this->localProfile()->getBestName();
+        }
+    }
+
+    function atomFeed($actor)
+    {
+        $feed = new Atom10Feed();
+        // @fixme should these be set up somewhere else?
+        $feed->addNamespace('activity', 'http://activitystrea.ms/spec/1.0/');
+        $feed->addNamesapce('thr', 'http://purl.org/syndication/thread/1.0');
+        $feed->addNamespace('georss', 'http://www.georss.org/georss');
+        $feed->addNamespace('ostatus', 'http://ostatus.org/schema/1.0');
+
+        $taguribase = common_config('integration', 'taguri');
+        $feed->setId("tag:{$taguribase}:UserTimeline:{$actor->id}"); // ???
+
+        $feed->setTitle($actor->getBestName() . ' timeline'); // @fixme
+        $feed->setUpdated(time());
+        $feed->setPublished(time());
+
+        $feed->addLink(common_url('ApiTimelineUser',
+                                  array('id' => $actor->id,
+                                        'type' => 'atom')),
+                       array('rel' => 'self',
+                             'type' => 'application/atom+xml'));
+
+        $feed->addLink(common_url('userbyid',
+                                  array('id' => $actor->id)),
+                       array('rel' => 'alternate',
+                             'type' => 'text/html'));
+
+        return $feed;
     }
 
     /**
