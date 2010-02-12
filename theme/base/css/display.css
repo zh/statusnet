@@ -1104,8 +1104,8 @@ left:0;
 
 .dialogbox {
 position:absolute;
-top:0;
-right:0;
+top:-1px;
+right:-1px;
 z-index:9;
 float:none;
 padding:11px;
@@ -1119,6 +1119,7 @@ border-width:1px;
 .dialogbox legend {
 display:block !important;
 margin-right:18px;
+margin-bottom:18px;
 }
 
 .dialogbox button.close {
@@ -1127,10 +1128,21 @@ right:3px;
 top:3px;
 }
 
+.dialogbox .form_guide {
+font-weight:normal;
+padding:0;
+}
+
 .dialogbox .submit_dialogbox {
 font-weight:bold;
 text-indent:0;
 min-width:46px;
+}
+.dialogbox input {
+padding-left:4px;
+}
+.dialogbox fieldset {
+margin-bottom:0;
 }
 
 #wrap form.processing input.submit,
