@@ -1103,7 +1103,7 @@ class ApiAction extends Action
         }
     }
 
-    function serverError($msg, $code = 500, $content_type = 'json')
+    function serverError($msg, $code = 500, $content_type = 'xml')
     {
         $action = $this->trimmed('action');
 
