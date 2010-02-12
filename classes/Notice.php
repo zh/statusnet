@@ -1016,7 +1016,7 @@ class Notice extends Memcached_DataObject
         }
 
         if (!empty($this->conversation)
-            && $this->conversation != $this->notice->id) {
+            && $this->conversation != $this->id) {
             $xs->element(
                 'link', array(
                     'rel' => 'ostatus:conversation',
