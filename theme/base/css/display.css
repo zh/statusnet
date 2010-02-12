@@ -1104,10 +1104,9 @@ left:0;
 
 .dialogbox {
 position:absolute;
-top:-4px;
-right:29px;
+top:0;
+right:0;
 z-index:9;
-min-width:199px;
 float:none;
 padding:11px;
 border-radius:7px;
@@ -1140,6 +1139,12 @@ min-width:46px;
 cursor:wait;
 outline:none;
 text-indent:-9999px;
+}
+
+.form_repeat.dialogbox {
+top:-4px;
+right:29px;
+min-width:199px;
 }
 
 .notice-options {
