@@ -83,17 +83,17 @@ class FeedMunger
         $this->url = $url;
     }
     
-    function feedinfo()
+    function ostatusProfile()
     {
-        $feedinfo = new Feedinfo();
-        $feedinfo->feeduri = $this->url;
-        $feedinfo->homeuri = $this->feed->link;
-        $feedinfo->huburi = $this->getHubLink();
+        $profile = new Ostatus_profile();
+        $profile->feeduri = $this->url;
+        $profile->homeuri = $this->feed->link;
+        $profile->huburi = $this->getHubLink();
         $salmon = $this->getSalmonLink();
         if ($salmon) {
-            $feedinfo->salmonuri = $salmon;
+            $profile->salmonuri = $salmon;
         }
-        return $feedinfo;
+        return $profile;
     }
 
     function getAtomLink($item, $attribs=array())
@@ -258,9 +258,7 @@ class FeedMunger
     {
         // hack hack hack
         // should get profile for this entry's author...
-        $feed = new Feedinfo();
-        $feed->feeduri = $self;
-        $feed = Feedinfo::staticGet('feeduri', $this->getSelfLink());
+        $remote = Ostatus_profile::staticGet('feeduri', $this->getSelfLink());
         if ($feed) {
             return $feed->profile_id;
         } else {

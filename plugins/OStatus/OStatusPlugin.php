@@ -251,14 +251,14 @@ class OStatusPlugin extends Plugin
      */
     function onEndUnsubscribe($user, $other)
     {
-        $feed = Feedinfo::staticGet('profile_id', $other->id);
+        $profile = Ostatus_profile::staticGet('profile_id', $other->id);
         if ($feed) {
             $sub = new Subscription();
             $sub->subscribed = $other->id;
             $sub->limit(1);
             if (!$sub->find(true)) {
                 common_log(LOG_INFO, "Unsubscribing from now-unused feed $feed->feeduri on hub $feed->huburi");
-                $feed->unsubscribe();
+                $profile->unsubscribe();
             }
         }
         return true;
@@ -269,7 +269,7 @@ class OStatusPlugin extends Plugin
      */
     function onCheckSchema() {
         $schema = Schema::get();
-        $schema->ensureTable('feedinfo', Feedinfo::schemaDef());
+        $schema->ensureTable('ostatus_profile', Ostatus_profile::schemaDef());
         $schema->ensureTable('hubsub', HubSub::schemaDef());
         return true;
     }

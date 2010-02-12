@@ -182,9 +182,9 @@ class FeedSubSettingsAction extends ConnectSettingsAction
         }
         
         $this->munger = $discover->feedMunger();
-        $this->feedinfo = $this->munger->feedInfo();
+        $this->profile = $this->munger->ostatusProfile();
 
-        if ($this->feedinfo->huburi == '' && !common_config('feedsub', 'nohub')) {
+        if ($this->profile->huburi == '' && !common_config('feedsub', 'nohub')) {
             $this->showForm(_m('Feed is not PuSH-enabled; cannot subscribe.'));
             return false;
         }
@@ -196,13 +196,13 @@ class FeedSubSettingsAction extends ConnectSettingsAction
     {
         if ($this->validateFeed()) {
             $this->preview = true;
-            $this->feedinfo = Feedinfo::ensureProfile($this->munger);
+            $this->profile = Ostatus_profile::ensureProfile($this->munger);
 
             // If not already in use, subscribe to updates via the hub
-            if ($this->feedinfo->sub_start) {
-                common_log(LOG_INFO, __METHOD__ . ": double the fun! new sub for {$this->feedinfo->feeduri} last subbed {$this->feedinfo->sub_start}");
+            if ($this->profile->sub_start) {
+                common_log(LOG_INFO, __METHOD__ . ": double the fun! new sub for {$this->profile->feeduri} last subbed {$this->profile->sub_start}");
             } else {
-                $ok = $this->feedinfo->subscribe();
+                $ok = $this->profile->subscribe();
                 common_log(LOG_INFO, __METHOD__ . ": sub was $ok");
                 if (!$ok) {
                     $this->showForm(_m('Feed subscription failed! Bad response from hub.'));
@@ -212,15 +212,15 @@ class FeedSubSettingsAction extends ConnectSettingsAction
 
             // And subscribe the current user to the local profile
             $user = common_current_user();
-            $profile = $this->feedinfo->getProfile();
+            $profile = $this->profile->getLocalProfile();
             if (!$profile) {
                 throw new ServerException("Feed profile was not saved properly.");
             }
 
-            if ($this->feedinfo->isGroup()) {
+            if ($this->profile->isGroup()) {
                 if ($user->isMember($profile)) {
                     $this->showForm(_m('Already a member!'));
-                } elseif (Group_member::join($this->feedinfo->group_id, $user->id)) {
+                } elseif (Group_member::join($this->profile->group_id, $user->id)) {
                     $this->showForm(_m('Joined remote group!'));
                 } else {
                     $this->showForm(_m('Remote group join failed!'));
@@ -247,7 +247,7 @@ class FeedSubSettingsAction extends ConnectSettingsAction
 
     function previewFeed()
     {
-        $feedinfo = $this->munger->feedinfo();
+        $profile = $this->munger->ostatusProfile();
         $notice = $this->munger->notice(0, true); // preview
 
         if ($notice) {

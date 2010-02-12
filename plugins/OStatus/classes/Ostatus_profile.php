@@ -25,17 +25,17 @@
 /*
 PuSH subscription flow:
 
-    $feedinfo->subscribe()
+    $profile->subscribe()
         generate random verification token
             save to verify_token
         sends a sub request to the hub...
     
-    feedsub/callback
+    main/push/callback
         hub sends confirmation back to us via GET
         We verify the request, then echo back the challenge.
         On our end, we save the time we subscribed and the lease expiration
     
-    feedsub/callback
+    main/push/callback
         hub sends us updates via POST
     
 */
@@ -51,22 +51,26 @@ class FeedDBException extends FeedSubException
     }
 }
 
-class Feedinfo extends Memcached_DataObject
+class Ostatus_profile extends Memcached_DataObject
 {
-    public $__table = 'feedinfo';
+    public $__table = 'ostatus_profile';
 
     public $id;
     public $profile_id;
+    public $group_id;
 
     public $feeduri;
     public $homeuri;
-    public $huburi;
 
     // PuSH subscription data
+    public $huburi;
     public $secret;
     public $verify_token;
+    public $sub_state; // subscribe, active, unsubscribe
     public $sub_start;
     public $sub_end;
+
+    public $salmonuri;
 
     public $created;
     public $lastupdate;
@@ -96,6 +100,7 @@ class Feedinfo extends Memcached_DataObject
                      'huburi' =>  DB_DATAOBJECT_STR,
                      'secret' => DB_DATAOBJECT_STR,
                      'verify_token' => DB_DATAOBJECT_STR,
+                     'sub_state' => DB_DATAOBJECT_STR,
                      'sub_start' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME,
                      'sub_end' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME,
                      'salmonuri' =>  DB_DATAOBJECT_STR,
@@ -126,6 +131,8 @@ class Feedinfo extends Memcached_DataObject
                                    32, true),
                      new ColumnDef('secret', 'varchar',
                                    64, true),
+                     new ColumnDef('sub_state', "enum('subscribe','active','unsubscribe')",
+                                   null, true),
                      new ColumnDef('sub_start', 'datetime',
                                    null, true),
                      new ColumnDef('sub_end', 'datetime',
@@ -175,7 +182,7 @@ class Feedinfo extends Memcached_DataObject
      * Fetch the StatusNet-side profile for this feed
      * @return Profile
      */
-    public function getProfile()
+    public function getLocalProfile()
     {
         return Profile::staticGet('id', $this->profile_id);
     }
@@ -183,23 +190,23 @@ class Feedinfo extends Memcached_DataObject
     /**
      * @param FeedMunger $munger
      * @param boolean $isGroup is this a group record?
-     * @return Feedinfo
+     * @return Ostatus_profile
      */
     public static function ensureProfile($munger)
     {
-        $feedinfo = $munger->feedinfo();
+        $entity = $munger->ostatusProfile();
 
-        $current = self::staticGet('feeduri', $feedinfo->feeduri);
+        $current = self::staticGet('feeduri', $entity->feeduri);
         if ($current) {
             // @fixme we should probably update info as necessary
             return $current;
         }
 
-        $feedinfo->query('BEGIN');
+        $entity->query('BEGIN');
 
         // Awful hack! Awful hack!
-        $feedinfo->verify = common_good_rand(16);
-        $feedinfo->secret = common_good_rand(32);
+        $entity->verify = common_good_rand(16);
+        $entity->secret = common_good_rand(32);
 
         try {
             $profile = $munger->profile();
@@ -223,8 +230,8 @@ class Feedinfo extends Memcached_DataObject
                 $profile->setOriginal($filename);
             }
 
-            $feedinfo->profile_id = $profile->id;
-            if ($feedinfo->isGroup()) {
+            $entity->profile_id = $profile->id;
+            if ($entity->isGroup()) {
                 $group = new User_group();
                 $group->nickname = $profile->nickname . '@remote'; // @fixme
                 $group->fullname = $profile->fullname;
@@ -237,21 +244,21 @@ class Feedinfo extends Memcached_DataObject
                     $group->setOriginal($filename);
                 }
 
-                $feedinfo->group_id = $group->id;
+                $entity->group_id = $group->id;
             }
 
-            $result = $feedinfo->insert();
+            $result = $entity->insert();
             if (empty($result)) {
-                throw new FeedDBException($feedinfo);
+                throw new FeedDBException($entity);
             }
 
-            $feedinfo->query('COMMIT');
+            $entity->query('COMMIT');
         } catch (FeedDBException $e) {
             common_log_db_error($e->obj, 'INSERT', __FILE__);
-            $feedinfo->query('ROLLBACK');
+            $entity->query('ROLLBACK');
             return false;
         }
-        return $feedinfo;
+        return $entity;
     }
 
     /**
