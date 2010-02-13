@@ -279,4 +279,9 @@ class OStatusPlugin extends Plugin
         $action->cssLink(common_path('plugins/OStatus/theme/base/css/ostatus.css'));
         return true;
     }
+
+    function onEndShowStatusNetScripts($action) {
+        $action->script(common_path('plugins/OStatus/js/ostatus.js'));
+        return true;
+    }
 }
