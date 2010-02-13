@@ -238,9 +238,12 @@ class UserProfile extends Widget
 
             if (Event::handle('StartProfilePageActionsElements', array(&$this->out, $this->profile))) {
                 if (empty($cur)) { // not logged in
-                    $this->out->elementStart('li', 'entity_subscribe');
-                    $this->showRemoteSubscribeLink();
-                    $this->out->elementEnd('li');
+                    if (Event::handle('StartProfileRemoteSubscribe', array(&$this->out, $this->profile))) {
+                        $this->out->elementStart('li', 'entity_subscribe');
+                        $this->showRemoteSubscribeLink();
+                        $this->out->elementEnd('li');
+                        Event::handle('EndProfileRemoteSubscribe', array(&$this->out, $this->profile));
+                    }
                 } else {
                     if ($cur->id == $this->profile->id) { // your own page
                         $this->out->elementStart('li', 'entity_edit');
