@@ -274,4 +274,9 @@ class OStatusPlugin extends Plugin
         $schema->ensureTable('hubsub', HubSub::schemaDef());
         return true;
     }
+
+    function onEndShowStatusNetStyles($action) {
+        $action->cssLink(common_path('plugins/OStatus/theme/base/css/ostatus.css'));
+        return true;
+    }
 }
