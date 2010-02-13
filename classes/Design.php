@@ -155,9 +155,20 @@ class Design extends Memcached_DataObject
             $server = common_config('site', 'server');
         }
 
-        // XXX: protocol
+        $ssl = common_config('background', 'ssl');
 
-        return 'http://'.$server.$path.$filename;
+        if (is_null($ssl)) { // null -> guess
+            if (common_config('site', 'ssl') == 'always' &&
+                !common_config('background', 'server')) {
+                $ssl = true;
+            } else {
+                $ssl = false;
+            }
+        }
+
+        $protocol = ($ssl) ? 'https' : 'http';
+
+        return $protocol.'://'.$server.$path.$filename;
     }
 
     function setDisposition($on, $off, $tile)
