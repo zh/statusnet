@@ -67,9 +67,21 @@ class OStatusInitAction extends Action
     
     function showForm($err = null)
     {
-      $this->err = $err;
-      $this->showPage();
-
+        $this->err = $err;
+        if ($this->boolean('ajax')) {
+            header('Content-Type: text/xml;charset=utf-8');
+            $this->xw->startDocument('1.0', 'UTF-8');
+            $this->elementStart('html');
+            $this->elementStart('head');
+            $this->element('title', null, _('Subscribe to user'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
+            $this->showContent();
+            $this->elementEnd('body');
+            $this->elementEnd('html');
+        } else {
+            $this->showPage();
+        }
     }
 
     function showContent()
