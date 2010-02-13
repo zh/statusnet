@@ -63,9 +63,9 @@ class OStatusPlugin extends Plugin
         $m->connect('main/ostatus?nickname=:nickname',
                   array('action' => 'ostatusinit'), array('nickname' => '[A-Za-z0-9_-]+'));
         $m->connect('main/ostatussub',
-                    array('action' => 'ostatussub'));          
+                    array('action' => 'ostatussub'));
         $m->connect('main/ostatussub',
-                    array('action' => 'ostatussub'), array('feed' => '[A-Za-z0-9\.\/\:]+'));          
+                    array('action' => 'ostatussub'), array('feed' => '[A-Za-z0-9\.\/\:]+'));
 
         // PuSH actions
         $m->connect('main/push/hub', array('action' => 'pushhub'));
@@ -112,35 +112,34 @@ class OStatusPlugin extends Plugin
      * Set up a PuSH hub link to our internal link for canonical timeline
      * Atom feeds for users and groups.
      */
-    function onStartApiAtom(Action $action)
+    function onStartApiAtom(AtomNoticeFeed $feed)
     {
-        if ($action instanceof ApiTimelineUserAction) {
+        $id = null;
+
+        if ($feed instanceof AtomUserNoticeFeed) {
             $salmonAction = 'salmon';
-        } else if ($action instanceof ApiTimelineGroupAction) {
+            $id = $feed->getUser()->id;
+        } else if ($feed instanceof AtomGroupNoticeFeed) {
             $salmonAction = 'salmongroup';
+            $id = $feed->getGroup()->id;
         } else {
             return;
         }
 
-        $id = $action->arg('id');
-        if (strval(intval($id)) === strval($id)) {
-            // Canonical form of id in URL? These are used for OStatus syndication.
-
+       if (!empty($id)) {
             $hub = common_config('ostatus', 'hub');
             if (empty($hub)) {
                 // Updates will be handled through our internal PuSH hub.
                 $hub = common_local_url('pushhub');
             }
-            $action->element('link', array('rel' => 'hub',
-                                           'href' => $hub));
+            $feed->addLink($hub, array('rel' => 'hub'));
 
             // Also, we'll add in the salmon link
             $salmon = common_local_url($salmonAction, array('id' => $id));
-            $action->element('link', array('rel' => 'salmon',
-                                           'href' => $salmon));
+            $feed->addLink($salmon, array('rel' => 'salmon'));
         }
     }
-    
+
     /**
      * Add the feed settings page to the Connect Settings menu
      *
@@ -201,7 +200,7 @@ class OStatusPlugin extends Plugin
             $output->element('a', array('href' => $url,
                                         'class' => 'entity_remote_subscribe'),
                                 _m('OStatus'));
-            
+
             $output->elementEnd('li');
         }
     }
@@ -221,25 +220,25 @@ class OStatusPlugin extends Plugin
                 $w = new Webfinger;
 
                 $endpoint_uri = '';
-                
+
                 $result = $w->lookup($webfinger);
                 if (empty($result)) {
                     continue;
                 }
-                
+
                 foreach ($result->links as $link) {
                     if ($link['rel'] == 'salmon') {
                         $endpoint_uri = $link['href'];
                     }
                 }
-                
+
                 if (empty($endpoint_uri)) {
                     continue;
                 }
 
                 $xml = '<?xml version="1.0" encoding="UTF-8" ?>';
                 $xml .= $notice->asAtomEntry();
-               
+
                 $salmon = new Salmon();
                 $salmon->post($endpoint_uri, $xml);
             }

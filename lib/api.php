@@ -1154,7 +1154,6 @@ class ApiAction extends Action
         $this->elementStart('feed', array('xmlns' => 'http://www.w3.org/2005/Atom',
                                           'xml:lang' => 'en-US',
                                           'xmlns:thr' => 'http://purl.org/syndication/thread/1.0'));
-        Event::handle('StartApiAtom', array($this));
     }
 
     function endTwitterAtom()
