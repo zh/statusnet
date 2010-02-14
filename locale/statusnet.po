@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-11 08:14+0000\n"
+"POT-Creation-Date: 2010-02-14 20:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -158,8 +158,8 @@ msgstr ""
 msgid "You and friends"
 msgstr ""
 
-#: actions/allrss.php:119 actions/apitimelinefriends.php:121
-#: actions/apitimelinehome.php:122
+#: actions/allrss.php:119 actions/apitimelinefriends.php:119
+#: actions/apitimelinehome.php:120
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr ""
@@ -180,12 +180,12 @@ msgstr ""
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
 #: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:137
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
-#: actions/apitimelinefavorites.php:146 actions/apitimelinefriends.php:155
-#: actions/apitimelinegroup.php:150 actions/apitimelinehome.php:156
-#: actions/apitimelinementions.php:151 actions/apitimelinepublic.php:131
+#: actions/apitimelinefavorites.php:183 actions/apitimelinefriends.php:187
+#: actions/apitimelinegroup.php:182 actions/apitimelinehome.php:184
+#: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:152
 #: actions/apitimelineretweetedtome.php:121
-#: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
-#: actions/apitimelineuser.php:166 actions/apiusershow.php:101
+#: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:166
+#: actions/apitimelineuser.php:194 actions/apiusershow.php:101
 msgid "API method not found."
 msgstr ""
 
@@ -618,7 +618,7 @@ msgstr ""
 msgid "%1$s / Favorites from %2$s"
 msgstr ""
 
-#: actions/apitimelinefavorites.php:120
+#: actions/apitimelinefavorites.php:117
 #, php-format
 msgid "%1$s updates favorited by %2$s / %2$s."
 msgstr ""
@@ -629,7 +629,7 @@ msgstr ""
 msgid "%s timeline"
 msgstr ""
 
-#: actions/apitimelinegroup.php:117 actions/apitimelineuser.php:126
+#: actions/apitimelinegroup.php:114 actions/apitimelineuser.php:126
 #: actions/userrss.php:92
 #, php-format
 msgid "Updates from %1$s on %2$s!"
@@ -645,12 +645,12 @@ msgstr ""
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr ""
 
-#: actions/apitimelinepublic.php:107 actions/publicrss.php:103
+#: actions/apitimelinepublic.php:111 actions/publicrss.php:103
 #, php-format
 msgid "%s public timeline"
 msgstr ""
 
-#: actions/apitimelinepublic.php:111 actions/publicrss.php:105
+#: actions/apitimelinepublic.php:115 actions/publicrss.php:105
 #, php-format
 msgid "%s updates from everyone!"
 msgstr ""
@@ -660,7 +660,7 @@ msgstr ""
 msgid "Repeated to %s"
 msgstr ""
 
-#: actions/apitimelineretweetsofme.php:112
+#: actions/apitimelineretweetsofme.php:114
 #, php-format
 msgid "Repeats of %s"
 msgstr ""
@@ -670,7 +670,7 @@ msgstr ""
 msgid "Notices tagged with %s"
 msgstr ""
 
-#: actions/apitimelinetag.php:108 actions/tagrss.php:64
+#: actions/apitimelinetag.php:104 actions/tagrss.php:64
 #, php-format
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr ""
@@ -1201,7 +1201,7 @@ msgstr ""
 msgid "Could not update group."
 msgstr ""
 
-#: actions/editgroup.php:259 classes/User_group.php:390
+#: actions/editgroup.php:259 classes/User_group.php:423
 msgid "Could not create aliases."
 msgstr ""
 
@@ -4214,7 +4214,7 @@ msgstr ""
 msgid "DB error inserting reply: %s"
 msgstr ""
 
-#: classes/Notice.php:1235
+#: classes/Notice.php:1271
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
@@ -4224,11 +4224,11 @@ msgstr ""
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
 
-#: classes/User_group.php:380
+#: classes/User_group.php:413
 msgid "Could not create group."
 msgstr ""
 
-#: classes/User_group.php:409
+#: classes/User_group.php:442
 msgid "Could not set group membership."
 msgstr ""
 
@@ -5737,47 +5737,47 @@ msgstr ""
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:870
+#: lib/util.php:871
 msgid "a few seconds ago"
 msgstr ""
 
-#: lib/util.php:872
+#: lib/util.php:873
 msgid "about a minute ago"
 msgstr ""
 
-#: lib/util.php:874
+#: lib/util.php:875
 #, php-format
 msgid "about %d minutes ago"
 msgstr ""
 
-#: lib/util.php:876
+#: lib/util.php:877
 msgid "about an hour ago"
 msgstr ""
 
-#: lib/util.php:878
+#: lib/util.php:879
 #, php-format
 msgid "about %d hours ago"
 msgstr ""
 
-#: lib/util.php:880
+#: lib/util.php:881
 msgid "about a day ago"
 msgstr ""
 
-#: lib/util.php:882
+#: lib/util.php:883
 #, php-format
 msgid "about %d days ago"
 msgstr ""
 
-#: lib/util.php:884
+#: lib/util.php:885
 msgid "about a month ago"
 msgstr ""
 
-#: lib/util.php:886
+#: lib/util.php:887
 #, php-format
 msgid "about %d months ago"
 msgstr ""
 
-#: lib/util.php:888
+#: lib/util.php:889
 msgid "about a year ago"
 msgstr ""
 

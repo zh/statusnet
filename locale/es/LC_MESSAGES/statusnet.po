@@ -12,12 +12,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-11 08:14+0000\n"
-"PO-Revision-Date: 2010-02-11 08:14:36+0000\n"
+"POT-Creation-Date: 2010-02-14 20:05+0000\n"
+"PO-Revision-Date: 2010-02-14 20:06:23+0000\n"
 "Language-Team: Spanish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62295); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62476); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: es\n"
 "X-Message-Group: out-statusnet\n"
@@ -172,8 +172,8 @@ msgstr ""
 msgid "You and friends"
 msgstr "Tú y amigos"
 
-#: actions/allrss.php:119 actions/apitimelinefriends.php:121
-#: actions/apitimelinehome.php:122
+#: actions/allrss.php:119 actions/apitimelinefriends.php:119
+#: actions/apitimelinehome.php:120
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "¡Actualizaciones de %1$s y amigos en %2$s!"
@@ -194,12 +194,12 @@ msgstr "¡Actualizaciones de %1$s y amigos en %2$s!"
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
 #: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:137
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
-#: actions/apitimelinefavorites.php:146 actions/apitimelinefriends.php:155
-#: actions/apitimelinegroup.php:150 actions/apitimelinehome.php:156
-#: actions/apitimelinementions.php:151 actions/apitimelinepublic.php:131
+#: actions/apitimelinefavorites.php:183 actions/apitimelinefriends.php:187
+#: actions/apitimelinegroup.php:182 actions/apitimelinehome.php:184
+#: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:152
 #: actions/apitimelineretweetedtome.php:121
-#: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
-#: actions/apitimelineuser.php:166 actions/apiusershow.php:101
+#: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:166
+#: actions/apitimelineuser.php:194 actions/apiusershow.php:101
 msgid "API method not found."
 msgstr "Método de API no encontrado."
 
@@ -648,7 +648,7 @@ msgstr "Formato no soportado."
 msgid "%1$s / Favorites from %2$s"
 msgstr "%1$s / Favoritos de %2$s"
 
-#: actions/apitimelinefavorites.php:120
+#: actions/apitimelinefavorites.php:117
 #, php-format
 msgid "%1$s updates favorited by %2$s / %2$s."
 msgstr "%1$s actualizaciones favoritas de %2$s / %2$s."
@@ -659,7 +659,7 @@ msgstr "%1$s actualizaciones favoritas de %2$s / %2$s."
 msgid "%s timeline"
 msgstr "línea temporal de %s"
 
-#: actions/apitimelinegroup.php:117 actions/apitimelineuser.php:126
+#: actions/apitimelinegroup.php:114 actions/apitimelineuser.php:126
 #: actions/userrss.php:92
 #, php-format
 msgid "Updates from %1$s on %2$s!"
@@ -675,12 +675,12 @@ msgstr "%1$s / Actualizaciones que mencionan %2$s"
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr "actualizaciones de %1$s en respuesta a las de %2$s / %3$s"
 
-#: actions/apitimelinepublic.php:107 actions/publicrss.php:103
+#: actions/apitimelinepublic.php:111 actions/publicrss.php:103
 #, php-format
 msgid "%s public timeline"
 msgstr "línea temporal pública de %s"
 
-#: actions/apitimelinepublic.php:111 actions/publicrss.php:105
+#: actions/apitimelinepublic.php:115 actions/publicrss.php:105
 #, php-format
 msgid "%s updates from everyone!"
 msgstr "¡Actualizaciones de todos en %s!"
@@ -690,7 +690,7 @@ msgstr "¡Actualizaciones de todos en %s!"
 msgid "Repeated to %s"
 msgstr "Repetido a %s"
 
-#: actions/apitimelineretweetsofme.php:112
+#: actions/apitimelineretweetsofme.php:114
 #, php-format
 msgid "Repeats of %s"
 msgstr "Repeticiones de %s"
@@ -700,7 +700,7 @@ msgstr "Repeticiones de %s"
 msgid "Notices tagged with %s"
 msgstr "Avisos marcados con %s"
 
-#: actions/apitimelinetag.php:108 actions/tagrss.php:64
+#: actions/apitimelinetag.php:104 actions/tagrss.php:64
 #, php-format
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "Actualizaciones etiquetadas con %1$s en %2$s!"
@@ -1244,7 +1244,7 @@ msgstr "La descripción es muy larga (máx. %d caracteres)."
 msgid "Could not update group."
 msgstr "No se pudo actualizar el grupo."
 
-#: actions/editgroup.php:259 classes/User_group.php:390
+#: actions/editgroup.php:259 classes/User_group.php:423
 msgid "Could not create aliases."
 msgstr "No fue posible crear alias."
 
@@ -2380,9 +2380,8 @@ msgid "URL shortening service is too long (max 50 chars)."
 msgstr "El servicio de acortamiento de URL es muy largo (máx. 50 caracteres)."
 
 #: actions/otp.php:69
-#, fuzzy
 msgid "No user ID specified."
-msgstr "Grupo no especificado."
+msgstr "No se ha especificado ID de usuario."
 
 #: actions/otp.php:83
 msgid "No login token specified."
@@ -2393,18 +2392,17 @@ msgid "No login token requested."
 msgstr "Token de acceso solicitado."
 
 #: actions/otp.php:95
-#, fuzzy
 msgid "Invalid login token specified."
-msgstr "El contenido del aviso es inválido"
+msgstr "Token de acceso inválido especificado."
 
 #: actions/otp.php:104
 msgid "Login token expired."
 msgstr "Token de acceso caducado."
 
 #: actions/outbox.php:58
-#, fuzzy, php-format
+#, php-format
 msgid "Outbox for %1$s - page %2$d"
-msgstr "Bandeja de salida para %s"
+msgstr "Bandeja de salida de %1$s - página %2$d"
 
 #: actions/outbox.php:61
 #, php-format
@@ -2421,9 +2419,8 @@ msgid "Change password"
 msgstr "Cambiar contraseña"
 
 #: actions/passwordsettings.php:69
-#, fuzzy
 msgid "Change your password."
-msgstr "Cambia tu contraseña."
+msgstr "Cambia tu contraseña"
 
 #: actions/passwordsettings.php:96 actions/recoverpassword.php:231
 msgid "Password change"
@@ -2487,9 +2484,9 @@ msgid "Path and server settings for this StatusNet site."
 msgstr ""
 
 #: actions/pathsadminpanel.php:157
-#, fuzzy, php-format
+#, php-format
 msgid "Theme directory not readable: %s"
-msgstr "Esta página no está disponible en un "
+msgstr "Directorio de temas ilegible: %s"
 
 #: actions/pathsadminpanel.php:163
 #, php-format
@@ -2499,7 +2496,7 @@ msgstr ""
 #: actions/pathsadminpanel.php:169
 #, php-format
 msgid "Background directory not writable: %s"
-msgstr ""
+msgstr "Directorio de fondo ilegible: %s"
 
 #: actions/pathsadminpanel.php:177
 #, php-format
@@ -2508,7 +2505,7 @@ msgstr ""
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
-msgstr ""
+msgstr "Servidor SSL no válido. La longitud máxima es de 255 caracteres."
 
 #: actions/pathsadminpanel.php:234 actions/siteadminpanel.php:58
 #: lib/adminpanelaction.php:311
@@ -2516,9 +2513,8 @@ msgid "Site"
 msgstr "Sitio"
 
 #: actions/pathsadminpanel.php:238
-#, fuzzy
 msgid "Server"
-msgstr "Recuperar"
+msgstr "Servidor"
 
 #: actions/pathsadminpanel.php:238
 msgid "Site's server hostname."
@@ -2570,9 +2566,8 @@ msgid "Avatars"
 msgstr "Avatares"
 
 #: actions/pathsadminpanel.php:284
-#, fuzzy
 msgid "Avatar server"
-msgstr "Configuración de Avatar"
+msgstr "Servidor del avatar"
 
 #: actions/pathsadminpanel.php:288
 #, fuzzy
@@ -2580,13 +2575,12 @@ msgid "Avatar path"
 msgstr "Avatar actualizado"
 
 #: actions/pathsadminpanel.php:292
-#, fuzzy
 msgid "Avatar directory"
-msgstr "Avatar actualizado"
+msgstr "Directorio del avatar"
 
 #: actions/pathsadminpanel.php:301
 msgid "Backgrounds"
-msgstr ""
+msgstr "Fondos"
 
 #: actions/pathsadminpanel.php:305
 msgid "Background server"
@@ -2598,7 +2592,7 @@ msgstr ""
 
 #: actions/pathsadminpanel.php:313
 msgid "Background directory"
-msgstr ""
+msgstr "Directorio del fondo"
 
 #: actions/pathsadminpanel.php:320
 msgid "SSL"
@@ -2618,7 +2612,7 @@ msgstr "Siempre"
 
 #: actions/pathsadminpanel.php:329
 msgid "Use SSL"
-msgstr ""
+msgstr "Usar SSL"
 
 #: actions/pathsadminpanel.php:330
 msgid "When to use SSL"
@@ -2651,9 +2645,9 @@ msgid "People search"
 msgstr "Buscador de gente"
 
 #: actions/peopletag.php:70
-#, fuzzy, php-format
+#, php-format
 msgid "Not a valid people tag: %s"
-msgstr "No es un tag de personas válido: %s"
+msgstr "No es una etiqueta válida para personas: %s"
 
 #: actions/peopletag.php:144
 #, fuzzy, php-format
@@ -2780,9 +2774,9 @@ msgid "Language is too long (max 50 chars)."
 msgstr "Idioma es muy largo ( max 50 car.)"
 
 #: actions/profilesettings.php:253 actions/tagother.php:178
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid tag: \"%s\""
-msgstr "Tag no válido: '%s' "
+msgstr "Etiqueta inválida: \"% s\""
 
 #: actions/profilesettings.php:302
 msgid "Couldn't update user for autosubscribe."
@@ -2807,7 +2801,7 @@ msgstr "Se guardó configuración."
 #: actions/public.php:83
 #, php-format
 msgid "Beyond the page limit (%s)"
-msgstr ""
+msgstr "Más allá del límite de páginas (%s)"
 
 #: actions/public.php:92
 msgid "Could not retrieve public stream."
@@ -2891,7 +2885,7 @@ msgstr ""
 
 #: actions/publictagcloud.php:72
 msgid "Be the first to post one!"
-msgstr ""
+msgstr "¡Sé la primera persona en publicar!"
 
 #: actions/publictagcloud.php:75
 #, php-format
@@ -2943,14 +2937,16 @@ msgstr ""
 #: actions/recoverpassword.php:158
 msgid "You have been identified. Enter a new password below. "
 msgstr ""
+"Se te ha identificado. Por favor, escribe una nueva contraseña a "
+"continuación. "
 
 #: actions/recoverpassword.php:188
 msgid "Password recovery"
-msgstr ""
+msgstr "Recuperación de contraseña"
 
 #: actions/recoverpassword.php:191
 msgid "Nickname or email address"
-msgstr ""
+msgstr "Nombre de usuario o dirección de correo electrónico"
 
 #: actions/recoverpassword.php:193
 msgid "Your nickname on this server, or your registered email address."
@@ -3107,13 +3103,12 @@ msgid "Creative Commons Attribution 3.0"
 msgstr ""
 
 #: actions/register.php:497
-#, fuzzy
 msgid ""
 " except this private data: password, email address, IM address, and phone "
 "number."
 msgstr ""
-"excepto los siguientes datos privados: contraseña, dirección de correo "
-"electrónico, dirección de mensajería instantánea, número de teléfono."
+"con excepción de esta información privada: contraseña, dirección de correo "
+"electrónico, dirección de mensajería instantánea y número de teléfono."
 
 #: actions/register.php:538
 #, fuzzy, php-format
@@ -3212,29 +3207,24 @@ msgid "That’s a local profile! Login to subscribe."
 msgstr "¡Este es un perfil local! Ingresa para suscribirte"
 
 #: actions/remotesubscribe.php:183
-#, fuzzy
 msgid "Couldn’t get a request token."
-msgstr "No se pudo obtener la señal de petición."
+msgstr "No se pudo obtener un token de solicitud"
 
 #: actions/repeat.php:57
-#, fuzzy
 msgid "Only logged-in users can repeat notices."
-msgstr "Sólo el usuario puede leer sus bandejas de correo."
+msgstr "Sólo los usuarios que hayan accedido pueden repetir mensajes."
 
 #: actions/repeat.php:64 actions/repeat.php:71
-#, fuzzy
 msgid "No notice specified."
-msgstr "No se especificó perfil."
+msgstr "No se ha especificado un mensaje."
 
 #: actions/repeat.php:76
-#, fuzzy
 msgid "You can't repeat your own notice."
-msgstr "No puedes registrarte si no estás de acuerdo con la licencia."
+msgstr "No puedes repetir tus propios mensajes."
 
 #: actions/repeat.php:90
-#, fuzzy
 msgid "You already repeated that notice."
-msgstr "Ya has bloqueado este usuario."
+msgstr "Ya has repetido este mensaje."
 
 #: actions/repeat.php:114 lib/noticelist.php:642
 msgid "Repeated"
@@ -3251,9 +3241,9 @@ msgid "Replies to %s"
 msgstr "Respuestas a %s"
 
 #: actions/replies.php:127
-#, fuzzy, php-format
+#, php-format
 msgid "Replies to %1$s, page %2$d"
-msgstr "Respuestas a %1$s en %2$s!"
+msgstr "Respuestas a %1$s, página %2$d"
 
 #: actions/replies.php:144
 #, fuzzy, php-format
@@ -3297,9 +3287,8 @@ msgid "Replies to %1$s on %2$s!"
 msgstr "Respuestas a %1$s en %2$s!"
 
 #: actions/rsd.php:146 actions/version.php:157
-#, fuzzy
 msgid "StatusNet"
-msgstr "Status borrado."
+msgstr "StatusNet"
 
 #: actions/sandbox.php:65 actions/unsandbox.php:65
 #, fuzzy
@@ -3318,11 +3307,11 @@ msgstr "Sesiones"
 
 #: actions/sessionsadminpanel.php:65
 msgid "Session settings for this StatusNet site."
-msgstr ""
+msgstr "Configuración de sesión para este sitio StatusNet."
 
 #: actions/sessionsadminpanel.php:175
 msgid "Handle sessions"
-msgstr ""
+msgstr "Gestionar sesiones"
 
 #: actions/sessionsadminpanel.php:177
 msgid "Whether to handle sessions ourselves."
@@ -3348,13 +3337,12 @@ msgid "You must be logged in to view an application."
 msgstr "Debes estar conectado para dejar un grupo."
 
 #: actions/showapplication.php:157
-#, fuzzy
 msgid "Application profile"
-msgstr "Aviso sin perfil"
+msgstr "Perfil de la aplicación"
 
 #: actions/showapplication.php:159 lib/applicationeditform.php:180
 msgid "Icon"
-msgstr ""
+msgstr "Icono"
 
 #: actions/showapplication.php:169 actions/version.php:195
 #: lib/applicationeditform.php:195
@@ -3362,9 +3350,8 @@ msgid "Name"
 msgstr "Nombre"
 
 #: actions/showapplication.php:178 lib/applicationeditform.php:222
-#, fuzzy
 msgid "Organization"
-msgstr "Paginación"
+msgstr "Organización"
 
 #: actions/showapplication.php:187 actions/version.php:198
 #: lib/applicationeditform.php:209 lib/groupeditform.php:172
@@ -3383,7 +3370,7 @@ msgstr ""
 
 #: actions/showapplication.php:213
 msgid "Application actions"
-msgstr ""
+msgstr "Acciones de la aplicación"
 
 #: actions/showapplication.php:236
 msgid "Reset key & secret"
@@ -3391,7 +3378,7 @@ msgstr ""
 
 #: actions/showapplication.php:261
 msgid "Application info"
-msgstr ""
+msgstr "Información de la aplicación"
 
 #: actions/showapplication.php:263
 msgid "Consumer key"
@@ -3411,7 +3398,7 @@ msgstr ""
 
 #: actions/showapplication.php:283
 msgid "Authorize URL"
-msgstr ""
+msgstr "Autorizar URL"
 
 #: actions/showapplication.php:288
 msgid ""
@@ -3484,9 +3471,8 @@ msgid "%1$s group, page %2$d"
 msgstr "Miembros del grupo %s, página %d"
 
 #: actions/showgroup.php:218
-#, fuzzy
 msgid "Group profile"
-msgstr "Perfil de grupo"
+msgstr "Perfil del grupo"
 
 #: actions/showgroup.php:263 actions/tagother.php:118
 #: actions/userauthorization.php:175 lib/userprofile.php:177
@@ -3495,13 +3481,12 @@ msgstr "URL"
 
 #: actions/showgroup.php:274 actions/tagother.php:128
 #: actions/userauthorization.php:187 lib/userprofile.php:194
-#, fuzzy
 msgid "Note"
 msgstr "Nota"
 
 #: actions/showgroup.php:284 lib/groupeditform.php:184
 msgid "Aliases"
-msgstr ""
+msgstr "Alias"
 
 #: actions/showgroup.php:293
 msgid "Group actions"
@@ -3543,9 +3528,8 @@ msgid "All members"
 msgstr "Todos los miembros"
 
 #: actions/showgroup.php:432
-#, fuzzy
 msgid "Created"
-msgstr "Crear"
+msgstr "Creado"
 
 #: actions/showgroup.php:448
 #, php-format
@@ -3569,9 +3553,8 @@ msgstr ""
 "blogging](http://en.wikipedia.org/wiki/Micro-blogging) "
 
 #: actions/showgroup.php:482
-#, fuzzy
 msgid "Admins"
-msgstr "Admin"
+msgstr "Administradores"
 
 #: actions/showmessage.php:81
 msgid "No such message."
@@ -3596,14 +3579,14 @@ msgid "Notice deleted."
 msgstr "Aviso borrado"
 
 #: actions/showstream.php:73
-#, fuzzy, php-format
+#, php-format
 msgid " tagged %s"
-msgstr "Avisos marcados con %s"
+msgstr "%s etiquetados"
 
 #: actions/showstream.php:79
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s, page %2$d"
-msgstr "%s y amigos, página %d"
+msgstr "%1$s, página %2$d"
 
 #: actions/showstream.php:122
 #, fuzzy, php-format
@@ -3684,7 +3667,7 @@ msgstr "El usuario te ha bloqueado."
 
 #: actions/siteadminpanel.php:69
 msgid "Basic settings for this StatusNet site."
-msgstr ""
+msgstr "Configuración básica de este sitio StatusNet."
 
 #: actions/siteadminpanel.php:132
 msgid "Site name must have non-zero length."
@@ -3698,7 +3681,7 @@ msgstr "No es una dirección de correo electrónico válida"
 #: actions/siteadminpanel.php:158
 #, php-format
 msgid "Unknown language \"%s\"."
-msgstr ""
+msgstr "Idioma desconocido \"%s\"."
 
 #: actions/siteadminpanel.php:165
 msgid "Invalid snapshot report URL."
@@ -3722,12 +3705,11 @@ msgstr ""
 
 #: actions/siteadminpanel.php:239
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: actions/siteadminpanel.php:242
-#, fuzzy
 msgid "Site name"
-msgstr "Aviso de sitio"
+msgstr "Nombre del sitio"
 
 #: actions/siteadminpanel.php:243
 msgid "The name of your site, like \"Yourcompany Microblog\""
@@ -3761,11 +3743,11 @@ msgstr "Vistas locales"
 
 #: actions/siteadminpanel.php:274
 msgid "Default timezone"
-msgstr ""
+msgstr "Zona horaria predeterminada"
 
 #: actions/siteadminpanel.php:275
 msgid "Default timezone for the site; usually UTC."
-msgstr ""
+msgstr "Zona horaria predeterminada del sitio; generalmente UTC."
 
 #: actions/siteadminpanel.php:281
 #, fuzzy
@@ -3806,19 +3788,19 @@ msgstr ""
 
 #: actions/siteadminpanel.php:308
 msgid "Snapshots will be sent to this URL"
-msgstr ""
+msgstr "Las capturas se enviarán a este URL"
 
 #: actions/siteadminpanel.php:315
 msgid "Limits"
-msgstr ""
+msgstr "Límites"
 
 #: actions/siteadminpanel.php:318
 msgid "Text limit"
-msgstr ""
+msgstr "Límite de texto"
 
 #: actions/siteadminpanel.php:318
 msgid "Maximum number of characters for notices."
-msgstr ""
+msgstr "Cantidad máxima de caracteres para los mensajes."
 
 #: actions/siteadminpanel.php:322
 msgid "Dupe limit"
@@ -3829,9 +3811,8 @@ msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 
 #: actions/smssettings.php:58
-#, fuzzy
 msgid "SMS settings"
-msgstr "Preferencias SMS"
+msgstr "Configuración de SMS"
 
 #: actions/smssettings.php:69
 #, php-format
@@ -3860,9 +3841,8 @@ msgid "Enter the code you received on your phone."
 msgstr "Ingrese el código recibido en su teléfono"
 
 #: actions/smssettings.php:138
-#, fuzzy
 msgid "SMS phone number"
-msgstr "Número telefónico para sms"
+msgstr "Número de teléfono de SMS"
 
 #: actions/smssettings.php:140
 msgid "Phone number, no punctuation or spaces, with area code"
@@ -3911,9 +3891,8 @@ msgid "That is not your phone number."
 msgstr "Ese no es tu número telefónico"
 
 #: actions/smssettings.php:465
-#, fuzzy
 msgid "Mobile carrier"
-msgstr "Operador móvil"
+msgstr "Operador de telefonía móvil"
 
 #: actions/smssettings.php:469
 msgid "Select a carrier"
@@ -3949,7 +3928,6 @@ msgid "Not a local user."
 msgstr "No es usuario local."
 
 #: actions/subscribe.php:69
-#, fuzzy
 msgid "Subscribed"
 msgstr "Suscrito"
 
@@ -4064,7 +4042,6 @@ msgid "Tag %s"
 msgstr "%s tag"
 
 #: actions/tagother.php:77 lib/userprofile.php:75
-#, fuzzy
 msgid "User profile"
 msgstr "Perfil de usuario"
 
@@ -4092,9 +4069,8 @@ msgstr ""
 "suscritas a ti."
 
 #: actions/tagother.php:200
-#, fuzzy
 msgid "Could not save tags."
-msgstr "No se pudo guardar tags."
+msgstr "No se han podido guardar las etiquetas."
 
 #: actions/tagother.php:236
 msgid "Use this form to add tags to your subscribers or subscriptions."
@@ -4179,16 +4155,15 @@ msgstr "Nuevos usuarios"
 
 #: actions/useradminpanel.php:234
 msgid "New user welcome"
-msgstr ""
+msgstr "Bienvenida a nuevos usuarios"
 
 #: actions/useradminpanel.php:235
 msgid "Welcome text for new users (Max 255 chars)."
 msgstr ""
 
 #: actions/useradminpanel.php:240
-#, fuzzy
 msgid "Default subscription"
-msgstr "Todas las suscripciones"
+msgstr "Suscripción predeterminada"
 
 #: actions/useradminpanel.php:241
 #, fuzzy
@@ -4316,9 +4291,8 @@ msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "Tipo de imagen incorrecto para '%s'"
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
-#, fuzzy
 msgid "Profile design"
-msgstr "Configuración del perfil"
+msgstr "Diseño del perfil"
 
 #: actions/userdesignsettings.php:87 lib/designsettings.php:76
 msgid ""
@@ -4336,9 +4310,8 @@ msgid "%1$s groups, page %2$d"
 msgstr "Miembros del grupo %s, página %d"
 
 #: actions/usergroups.php:130
-#, fuzzy
 msgid "Search for more groups"
-msgstr "Buscar personas o texto"
+msgstr "Buscar más grupos"
 
 #: actions/usergroups.php:153
 #, fuzzy, php-format
@@ -4402,7 +4375,7 @@ msgstr "Sesiones"
 
 #: actions/version.php:197
 msgid "Author(s)"
-msgstr ""
+msgstr "Autor(es)"
 
 #: classes/File.php:144
 #, php-format
@@ -4427,9 +4400,8 @@ msgid "Group join failed."
 msgstr "Perfil de grupo"
 
 #: classes/Group_member.php:53
-#, fuzzy
 msgid "Not part of group."
-msgstr "No se pudo actualizar el grupo."
+msgstr "No es parte del grupo."
 
 #: classes/Group_member.php:60
 #, fuzzy
@@ -4460,14 +4432,12 @@ msgid "DB error inserting hashtag: %s"
 msgstr "Error de la BD al insertar la etiqueta clave: %s"
 
 #: classes/Notice.php:214
-#, fuzzy
 msgid "Problem saving notice. Too long."
-msgstr "Hubo un problema al guardar el aviso."
+msgstr "Ha habido un problema al guardar el mensaje. Es muy largo."
 
 #: classes/Notice.php:218
-#, fuzzy
 msgid "Problem saving notice. Unknown user."
-msgstr "Hubo problemas al guardar el aviso.  Usuario desconocido."
+msgstr "Ha habido un problema al guardar el mensaje. Usuario desconocido."
 
 #: classes/Notice.php:223
 msgid ""
@@ -4503,7 +4473,7 @@ msgstr "Hubo un problema al guardar el aviso."
 msgid "DB error inserting reply: %s"
 msgstr "Error de BD al insertar respuesta: %s"
 
-#: classes/Notice.php:1235
+#: classes/Notice.php:1271
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4513,11 +4483,11 @@ msgstr "RT @%1$s %2$s"
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Bienvenido a %1$s, @%2$s!"
 
-#: classes/User_group.php:380
+#: classes/User_group.php:413
 msgid "Could not create group."
 msgstr "No se pudo crear grupo."
 
-#: classes/User_group.php:409
+#: classes/User_group.php:442
 #, fuzzy
 msgid "Could not set group membership."
 msgstr "No se pudo configurar miembros de grupo."
@@ -4551,9 +4521,9 @@ msgid "Other options"
 msgstr "Otras opciones"
 
 #: lib/action.php:144
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s - %2$s"
-msgstr "%1$s (%2$s)"
+msgstr "%1$s - %2$s"
 
 #: lib/action.php:159
 msgid "Untitled page"
@@ -4584,9 +4554,8 @@ msgid "Connect to services"
 msgstr "Conectar a los servicios"
 
 #: lib/action.php:448
-#, fuzzy
 msgid "Change site configuration"
-msgstr "Navegación de sitio primario"
+msgstr "Cambiar la configuración del sitio"
 
 #: lib/action.php:452 lib/subgroupnav.php:105
 msgid "Invite"
@@ -4743,9 +4712,8 @@ msgid "Before"
 msgstr "Antes"
 
 #: lib/adminpanelaction.php:96
-#, fuzzy
 msgid "You cannot make changes to this site."
-msgstr "No puedes enviar mensaje a este usuario."
+msgstr "No puedes hacer cambios a este sitio."
 
 #: lib/adminpanelaction.php:107
 #, fuzzy
@@ -4783,9 +4751,8 @@ msgid "User configuration"
 msgstr "SMS confirmación"
 
 #: lib/adminpanelaction.php:327
-#, fuzzy
 msgid "Access configuration"
-msgstr "SMS confirmación"
+msgstr "Configuración de acceso"
 
 #: lib/adminpanelaction.php:332
 #, fuzzy
@@ -4793,9 +4760,8 @@ msgid "Paths configuration"
 msgstr "SMS confirmación"
 
 #: lib/adminpanelaction.php:337
-#, fuzzy
 msgid "Sessions configuration"
-msgstr "SMS confirmación"
+msgstr "Configuración de sesiones"
 
 #: lib/apiauth.php:95
 msgid "API resource requires read-write access, but you only have read access."
@@ -6103,47 +6069,47 @@ msgstr "Mensaje"
 msgid "Moderate"
 msgstr "Moderar"
 
-#: lib/util.php:870
+#: lib/util.php:871
 msgid "a few seconds ago"
 msgstr "hace unos segundos"
 
-#: lib/util.php:872
+#: lib/util.php:873
 msgid "about a minute ago"
 msgstr "hace un minuto"
 
-#: lib/util.php:874
+#: lib/util.php:875
 #, php-format
 msgid "about %d minutes ago"
 msgstr "hace %d minutos"
 
-#: lib/util.php:876
+#: lib/util.php:877
 msgid "about an hour ago"
 msgstr "hace una hora"
 
-#: lib/util.php:878
+#: lib/util.php:879
 #, php-format
 msgid "about %d hours ago"
 msgstr "hace %d horas"
 
-#: lib/util.php:880
+#: lib/util.php:881
 msgid "about a day ago"
 msgstr "hace un día"
 
-#: lib/util.php:882
+#: lib/util.php:883
 #, php-format
 msgid "about %d days ago"
 msgstr "hace %d días"
 
-#: lib/util.php:884
+#: lib/util.php:885
 msgid "about a month ago"
 msgstr "hace un mes"
 
-#: lib/util.php:886
+#: lib/util.php:887
 #, php-format
 msgid "about %d months ago"
 msgstr "hace %d meses"
 
-#: lib/util.php:888
+#: lib/util.php:889
 msgid "about a year ago"
 msgstr "hace un año"
 

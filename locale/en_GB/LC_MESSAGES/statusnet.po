@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-11 08:14+0000\n"
-"PO-Revision-Date: 2010-02-11 08:14:33+0000\n"
+"POT-Creation-Date: 2010-02-14 20:05+0000\n"
+"PO-Revision-Date: 2010-02-14 20:06:20+0000\n"
 "Language-Team: British English\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62295); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62476); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: en-gb\n"
 "X-Message-Group: out-statusnet\n"
@@ -169,8 +169,8 @@ msgstr ""
 msgid "You and friends"
 msgstr "You and friends"
 
-#: actions/allrss.php:119 actions/apitimelinefriends.php:121
-#: actions/apitimelinehome.php:122
+#: actions/allrss.php:119 actions/apitimelinefriends.php:119
+#: actions/apitimelinehome.php:120
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "Updates from %1$s and friends on %2$s!"
@@ -191,12 +191,12 @@ msgstr "Updates from %1$s and friends on %2$s!"
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
 #: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:137
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
-#: actions/apitimelinefavorites.php:146 actions/apitimelinefriends.php:155
-#: actions/apitimelinegroup.php:150 actions/apitimelinehome.php:156
-#: actions/apitimelinementions.php:151 actions/apitimelinepublic.php:131
+#: actions/apitimelinefavorites.php:183 actions/apitimelinefriends.php:187
+#: actions/apitimelinegroup.php:182 actions/apitimelinehome.php:184
+#: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:152
 #: actions/apitimelineretweetedtome.php:121
-#: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
-#: actions/apitimelineuser.php:166 actions/apiusershow.php:101
+#: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:166
+#: actions/apitimelineuser.php:194 actions/apiusershow.php:101
 msgid "API method not found."
 msgstr "API method not found."
 
@@ -640,7 +640,7 @@ msgstr "Unsupported format."
 msgid "%1$s / Favorites from %2$s"
 msgstr "%1$s / Favourites from %2$s"
 
-#: actions/apitimelinefavorites.php:120
+#: actions/apitimelinefavorites.php:117
 #, php-format
 msgid "%1$s updates favorited by %2$s / %2$s."
 msgstr "%1$s updates favourited by %2$s / %2$s."
@@ -651,7 +651,7 @@ msgstr "%1$s updates favourited by %2$s / %2$s."
 msgid "%s timeline"
 msgstr "%s timeline"
 
-#: actions/apitimelinegroup.php:117 actions/apitimelineuser.php:126
+#: actions/apitimelinegroup.php:114 actions/apitimelineuser.php:126
 #: actions/userrss.php:92
 #, php-format
 msgid "Updates from %1$s on %2$s!"
@@ -667,12 +667,12 @@ msgstr "%1$s / Updates mentioning %2$s"
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr "%1$s updates that reply to updates from %2$s / %3$s."
 
-#: actions/apitimelinepublic.php:107 actions/publicrss.php:103
+#: actions/apitimelinepublic.php:111 actions/publicrss.php:103
 #, php-format
 msgid "%s public timeline"
 msgstr "%s public timeline"
 
-#: actions/apitimelinepublic.php:111 actions/publicrss.php:105
+#: actions/apitimelinepublic.php:115 actions/publicrss.php:105
 #, php-format
 msgid "%s updates from everyone!"
 msgstr "%s updates from everyone!"
@@ -682,7 +682,7 @@ msgstr "%s updates from everyone!"
 msgid "Repeated to %s"
 msgstr "Repeated to %s"
 
-#: actions/apitimelineretweetsofme.php:112
+#: actions/apitimelineretweetsofme.php:114
 #, php-format
 msgid "Repeats of %s"
 msgstr "Repeats of %s"
@@ -692,7 +692,7 @@ msgstr "Repeats of %s"
 msgid "Notices tagged with %s"
 msgstr "Notices tagged with %s"
 
-#: actions/apitimelinetag.php:108 actions/tagrss.php:64
+#: actions/apitimelinetag.php:104 actions/tagrss.php:64
 #, php-format
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "Updates tagged with %1$s on %2$s!"
@@ -1235,7 +1235,7 @@ msgstr "description is too long (max %d chars)."
 msgid "Could not update group."
 msgstr "Could not update group."
 
-#: actions/editgroup.php:259 classes/User_group.php:390
+#: actions/editgroup.php:259 classes/User_group.php:423
 msgid "Could not create aliases."
 msgstr "Could not create aliases"
 
@@ -4501,7 +4501,7 @@ msgstr "Problem saving notice."
 msgid "DB error inserting reply: %s"
 msgstr "DB error inserting reply: %s"
 
-#: classes/Notice.php:1235
+#: classes/Notice.php:1271
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -4511,11 +4511,11 @@ msgstr "%1$s (%2$s)"
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Welcome to %1$s, @%2$s!"
 
-#: classes/User_group.php:380
+#: classes/User_group.php:413
 msgid "Could not create group."
 msgstr "Could not create group."
 
-#: classes/User_group.php:409
+#: classes/User_group.php:442
 msgid "Could not set group membership."
 msgstr "Could not set group membership."
 
@@ -6091,47 +6091,47 @@ msgstr "Message"
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:870
+#: lib/util.php:871
 msgid "a few seconds ago"
 msgstr "a few seconds ago"
 
-#: lib/util.php:872
+#: lib/util.php:873
 msgid "about a minute ago"
 msgstr "about a minute ago"
 
-#: lib/util.php:874
+#: lib/util.php:875
 #, php-format
 msgid "about %d minutes ago"
 msgstr "about %d minutes ago"
 
-#: lib/util.php:876
+#: lib/util.php:877
 msgid "about an hour ago"
 msgstr "about an hour ago"
 
-#: lib/util.php:878
+#: lib/util.php:879
 #, php-format
 msgid "about %d hours ago"
 msgstr "about %d hours ago"
 
-#: lib/util.php:880
+#: lib/util.php:881
 msgid "about a day ago"
 msgstr "about a day ago"
 
-#: lib/util.php:882
+#: lib/util.php:883
 #, php-format
 msgid "about %d days ago"
 msgstr "about %d days ago"
 
-#: lib/util.php:884
+#: lib/util.php:885
 msgid "about a month ago"
 msgstr "about a month ago"
 
-#: lib/util.php:886
+#: lib/util.php:887
 #, php-format
 msgid "about %d months ago"
 msgstr "about %d months ago"
 
-#: lib/util.php:888
+#: lib/util.php:889
 msgid "about a year ago"
 msgstr "about a year ago"
 

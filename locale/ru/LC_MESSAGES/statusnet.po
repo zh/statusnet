@@ -12,12 +12,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-11 08:14+0000\n"
-"PO-Revision-Date: 2010-02-11 08:15:46+0000\n"
+"POT-Creation-Date: 2010-02-14 20:05+0000\n"
+"PO-Revision-Date: 2010-02-14 20:07:23+0000\n"
 "Language-Team: Russian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62295); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62476); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ru\n"
 "X-Message-Group: out-statusnet\n"
@@ -173,8 +173,8 @@ msgstr ""
 msgid "You and friends"
 msgstr "Вы и друзья"
 
-#: actions/allrss.php:119 actions/apitimelinefriends.php:121
-#: actions/apitimelinehome.php:122
+#: actions/allrss.php:119 actions/apitimelinefriends.php:119
+#: actions/apitimelinehome.php:120
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "Обновлено от %1$s и его друзей на %2$s!"
@@ -195,12 +195,12 @@ msgstr "Обновлено от %1$s и его друзей на %2$s!"
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
 #: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:137
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
-#: actions/apitimelinefavorites.php:146 actions/apitimelinefriends.php:155
-#: actions/apitimelinegroup.php:150 actions/apitimelinehome.php:156
-#: actions/apitimelinementions.php:151 actions/apitimelinepublic.php:131
+#: actions/apitimelinefavorites.php:183 actions/apitimelinefriends.php:187
+#: actions/apitimelinegroup.php:182 actions/apitimelinehome.php:184
+#: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:152
 #: actions/apitimelineretweetedtome.php:121
-#: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
-#: actions/apitimelineuser.php:166 actions/apiusershow.php:101
+#: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:166
+#: actions/apitimelineuser.php:194 actions/apiusershow.php:101
 msgid "API method not found."
 msgstr "Метод API не найден."
 
@@ -647,7 +647,7 @@ msgstr "Неподдерживаемый формат."
 msgid "%1$s / Favorites from %2$s"
 msgstr "%1$s / Любимое от %2$s"
 
-#: actions/apitimelinefavorites.php:120
+#: actions/apitimelinefavorites.php:117
 #, php-format
 msgid "%1$s updates favorited by %2$s / %2$s."
 msgstr "Обновления %1$s, отмеченные как любимые %2$s / %2$s."
@@ -658,7 +658,7 @@ msgstr "Обновления %1$s, отмеченные как любимые %2
 msgid "%s timeline"
 msgstr "Лента %s"
 
-#: actions/apitimelinegroup.php:117 actions/apitimelineuser.php:126
+#: actions/apitimelinegroup.php:114 actions/apitimelineuser.php:126
 #: actions/userrss.php:92
 #, php-format
 msgid "Updates from %1$s on %2$s!"
@@ -674,12 +674,12 @@ msgstr "%1$s / Обновления, упоминающие %2$s"
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr "%1$s обновил этот ответ на сообщение: %2$s / %3$s."
 
-#: actions/apitimelinepublic.php:107 actions/publicrss.php:103
+#: actions/apitimelinepublic.php:111 actions/publicrss.php:103
 #, php-format
 msgid "%s public timeline"
 msgstr "Общая лента %s"
 
-#: actions/apitimelinepublic.php:111 actions/publicrss.php:105
+#: actions/apitimelinepublic.php:115 actions/publicrss.php:105
 #, php-format
 msgid "%s updates from everyone!"
 msgstr "Обновления %s от всех!"
@@ -689,7 +689,7 @@ msgstr "Обновления %s от всех!"
 msgid "Repeated to %s"
 msgstr "Повторено для %s"
 
-#: actions/apitimelineretweetsofme.php:112
+#: actions/apitimelineretweetsofme.php:114
 #, php-format
 msgid "Repeats of %s"
 msgstr "Повторы за %s"
@@ -699,7 +699,7 @@ msgstr "Повторы за %s"
 msgid "Notices tagged with %s"
 msgstr "Записи с тегом %s"
 
-#: actions/apitimelinetag.php:108 actions/tagrss.php:64
+#: actions/apitimelinetag.php:104 actions/tagrss.php:64
 #, php-format
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "Обновления с тегом %1$s на %2$s!"
@@ -1243,7 +1243,7 @@ msgstr "Слишком длинное описание (максимум %d си
 msgid "Could not update group."
 msgstr "Не удаётся обновить информацию о группе."
 
-#: actions/editgroup.php:259 classes/User_group.php:390
+#: actions/editgroup.php:259 classes/User_group.php:423
 msgid "Could not create aliases."
 msgstr "Не удаётся создать алиасы."
 
@@ -1743,7 +1743,7 @@ msgstr ""
 "общими интересами. После присоединения к группе и вы сможете отправлять "
 "сообщения до всех её участников, используя команду «!имягруппы». Не видите "
 "группу, которая вас интересует? Попробуйте [найти её](%%%%action.groupsearch%"
-"%%%) или [создайте собственную!](%%%%action.newgroup%%%%)"
+"%%%) или [создайте собственную](%%%%action.newgroup%%%%)!"
 
 #: actions/groups.php:107 actions/usergroups.php:124 lib/groupeditform.php:122
 msgid "Create a new group"
@@ -4504,7 +4504,7 @@ msgstr "Проблемы с сохранением входящих сообще
 msgid "DB error inserting reply: %s"
 msgstr "Ошибка баз данных при вставке ответа для %s"
 
-#: classes/Notice.php:1235
+#: classes/Notice.php:1271
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4514,11 +4514,11 @@ msgstr "RT @%1$s %2$s"
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Добро пожаловать на %1$s, @%2$s!"
 
-#: classes/User_group.php:380
+#: classes/User_group.php:413
 msgid "Could not create group."
 msgstr "Не удаётся создать группу."
 
-#: classes/User_group.php:409
+#: classes/User_group.php:442
 msgid "Could not set group membership."
 msgstr "Не удаётся назначить членство в группе."
 
@@ -6179,47 +6179,47 @@ msgstr "Сообщение"
 msgid "Moderate"
 msgstr "Модерировать"
 
-#: lib/util.php:870
+#: lib/util.php:871
 msgid "a few seconds ago"
 msgstr "пару секунд назад"
 
-#: lib/util.php:872
+#: lib/util.php:873
 msgid "about a minute ago"
 msgstr "около минуты назад"
 
-#: lib/util.php:874
+#: lib/util.php:875
 #, php-format
 msgid "about %d minutes ago"
 msgstr "около %d минут(ы) назад"
 
-#: lib/util.php:876
+#: lib/util.php:877
 msgid "about an hour ago"
 msgstr "около часа назад"
 
-#: lib/util.php:878
+#: lib/util.php:879
 #, php-format
 msgid "about %d hours ago"
 msgstr "около %d часа(ов) назад"
 
-#: lib/util.php:880
+#: lib/util.php:881
 msgid "about a day ago"
 msgstr "около дня назад"
 
-#: lib/util.php:882
+#: lib/util.php:883
 #, php-format
 msgid "about %d days ago"
 msgstr "около %d дня(ей) назад"
 
-#: lib/util.php:884
+#: lib/util.php:885
 msgid "about a month ago"
 msgstr "около месяца назад"
 
-#: lib/util.php:886
+#: lib/util.php:887
 #, php-format
 msgid "about %d months ago"
 msgstr "около %d месяца(ев) назад"
 
-#: lib/util.php:888
+#: lib/util.php:889
 msgid "about a year ago"
 msgstr "около года назад"
 
