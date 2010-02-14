@@ -25,6 +25,44 @@ class ActivityParseTests extends PHPUnit_Framework_TestCase
         $this->assertEquals($act->time, 1243860840);
         $this->assertEquals($act->verb, ActivityVerb::POST);
     }
+
+    public function testExample3()
+    {
+        global $_example3;
+        $dom = DOMDocument::loadXML($_example3);
+
+        $feed = $dom->documentElement;
+
+        $entries = $feed->getElementsByTagName('entry');
+
+        $entry = $entries->item(0);
+
+        $act = new Activity($entry, $feed);
+
+        $this->assertFalse(empty($act));
+        $this->assertEquals($act->time, 1071340202);
+        $this->assertEquals($act->link, 'http://example.org/2003/12/13/atom03.html');
+
+        $this->assertEquals($act->verb, ActivityVerb::POST);
+
+        $this->assertFalse(empty($act->actor));
+        $this->assertEquals($act->actor->type, ActivityObject::PERSON);
+        $this->assertEquals($act->actor->title, 'John Doe');
+        $this->assertEquals($act->actor->id, 'mailto:johndoe@example.com');
+
+        $this->assertFalse(empty($act->object));
+        $this->assertEquals($act->object->type, ActivityObject::NOTE);
+        $this->assertEquals($act->object->id, 'urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a');
+        $this->assertEquals($act->object->title, 'Atom-Powered Robots Run Amok');
+        $this->assertEquals($act->object->summary, 'Some text.');
+        $this->assertEquals($act->object->link, 'http://example.org/2003/12/13/atom03.html');
+
+        $this->assertTrue(empty($act->context));
+        $this->assertTrue(empty($act->target));
+
+        $this->assertEquals($act->entry, $entry);
+        $this->assertEquals($act->feed, $feed);
+    }
 }
 
 $_example1 = <<<EXAMPLE1
@@ -78,3 +116,32 @@ $_example2 = <<<EXAMPLE2
   </content>
 </entry>
 EXAMPLE2;
+
+$_example3 = <<<EXAMPLE3
+<?xml version="1.0" encoding="utf-8"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+	<title>Example Feed</title>
+	<subtitle>A subtitle.</subtitle>
+	<link href="http://example.org/feed/" rel="self" />
+	<link href="http://example.org/" />
+	<id>urn:uuid:60a76c80-d399-11d9-b91C-0003939e0af6</id>
+	<updated>2003-12-13T18:30:02Z</updated>
+	<author>
+		<name>John Doe</name>
+		<email>johndoe@example.com</email>
+	</author>
+
+	<entry>
+		<title>Atom-Powered Robots Run Amok</title>
+		<link href="http://example.org/2003/12/13/atom03" />
+		<link rel="alternate" type="text/html" href="http://example.org/2003/12/13/atom03.html"/>
+		<link rel="edit" href="http://example.org/2003/12/13/atom03/edit"/>
+		<id>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a</id>
+		<updated>2003-12-13T18:30:02Z</updated>
+		<summary>Some text.</summary>
+	</entry>
+
+</feed>
+EXAMPLE3;

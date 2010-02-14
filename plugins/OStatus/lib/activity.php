@@ -68,9 +68,12 @@ class ActivityUtils
         $links = $element->getElementsByTagnameNS(self::ATOM, self::LINK);
 
         foreach ($links as $link) {
-            if ($link->getAttributeNS(self::ATOM, self::REL) == 'alternate' &&
-                $link->getAttributeNS(self::ATOM, self::TYPE) == 'text/html') {
-                return $link->getAttributeNS(self::ATOM, self::HREF);
+
+            $rel = $link->getAttribute(self::REL);
+            $type = $link->getAttribute(self::TYPE);
+
+            if ($rel == 'alternate' && $type == 'text/html') {
+                return $link->getAttribute(self::HREF);
             }
         }
 
@@ -123,8 +126,9 @@ class ActivityObject
     const ID      = 'id';
     const SOURCE  = 'source';
 
-    const NAME = 'name';
-    const URI  = 'uri';
+    const NAME  = 'name';
+    const URI   = 'uri';
+    const EMAIL = 'email';
 
     public $type;
     public $id;
@@ -154,10 +158,22 @@ class ActivityObject
             $this->title = $this->_childContent($element, self::NAME);
             $this->id    = $this->_childContent($element, self::URI);
 
+            if (empty($this->id)) {
+                $email = $this->_childContent($element, self::EMAIL);
+                if (!empty($email)) {
+                    // XXX: acct: ?
+                    $this->id = 'mailto:'.$email;
+                }
+            }
+
         } else {
 
             $this->type = $this->_childContent($element, Activity::OBJECTTYPE,
                                                Activity::SPEC);
+
+            if (empty($this->type)) {
+                $this->type = ActivityObject::NOTE;
+            }
 
             $this->id      = $this->_childContent($element, self::ID);
             $this->title   = $this->_childContent($element, self::TITLE);
@@ -252,6 +268,7 @@ class Activity
 
     const AUTHOR    = 'author';
     const PUBLISHED = 'published';
+    const UPDATED   = 'updated';
 
     public $actor;   // an ActivityObject
     public $verb;    // a string (the URL)
@@ -281,7 +298,12 @@ class Activity
             $this->time = strtotime($pubEl->textContent);
         } else {
             // XXX technically an error; being liberal. Good idea...?
-            $this->time = null;
+            $updateEl = $this->_child($entry, self::UPDATED, self::ATOM);
+            if (!empty($updateEl)) {
+                $this->time = strtotime($updateEl->textContent);
+            } else {
+                $this->time = null;
+            }
         }
 
         $this->link = ActivityUtils::getLink($entry);
@@ -315,6 +337,11 @@ class Activity
             $this->actor = new ActivityObject($subjectEl);
 
         } else if ($authorEl = $this->_child($entry, self::AUTHOR, self::ATOM)) {
+
+            $this->actor = new ActivityObject($authorEl);
+
+        } else if (!empty($feed) && $authorEl = $this->_child($feed, self::AUTHOR,
+                                                              self::ATOM)) {
 
             $this->actor = new ActivityObject($authorEl);
         }
