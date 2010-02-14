@@ -61,7 +61,7 @@ class SalmonAction extends Action
         // XXX: check that document element is Atom entry
         // XXX: check the signature
 
-        $this->act = Activity::fromAtomEntry($dom->documentElement);
+        $this->act = new Activity($dom->documentElement);
     }
 
     function handle($args)
