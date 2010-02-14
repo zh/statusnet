@@ -188,7 +188,7 @@ class OStatusPlugin extends Plugin
     /**
      * Add in an OStatus subscribe button
      */
-    function onStartProfilePageActionsElements($output, $profile)
+    function onStartProfileRemoteSubscribe($output, $profile)
     {
         $cur = common_current_user();
 
@@ -199,10 +199,12 @@ class OStatusPlugin extends Plugin
                                     array('nickname' => $profile->nickname));
             $output->element('a', array('href' => $url,
                                         'class' => 'entity_remote_subscribe'),
-                                _m('OStatus'));
+                                _m('Subscribe'));
 
             $output->elementEnd('li');
         }
+
+        return false;
     }
 
     /**
@@ -270,6 +272,16 @@ class OStatusPlugin extends Plugin
         $schema = Schema::get();
         $schema->ensureTable('ostatus_profile', Ostatus_profile::schemaDef());
         $schema->ensureTable('hubsub', HubSub::schemaDef());
+        return true;
+    }
+
+    function onEndShowStatusNetStyles($action) {
+        $action->cssLink(common_path('plugins/OStatus/theme/base/css/ostatus.css'));
+        return true;
+    }
+
+    function onEndShowStatusNetScripts($action) {
+        $action->script(common_path('plugins/OStatus/js/ostatus.js'));
         return true;
     }
 }

@@ -1,0 +1,30 @@
+/** theme: base for OStatus
+ *
+ * @package   StatusNet
+ * @author    Sarven Capadisli <csarven@status.net>
+ * @copyright 2010 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://status.net/
+ */
+
+#form_ostatus_connect.dialogbox {
+width:70%;
+background-image:none;
+}
+#form_ostatus_connect.dialogbox .form_data label {
+width:34%;
+}
+#form_ostatus_connect.dialogbox .form_data input {
+width:57%;
+}
+#form_ostatus_connect.dialogbox .form_data .form_guide {
+margin-left:36%;
+}
+
+#form_ostatus_connect.dialogbox #ostatus_nickname {
+display:none;
+}
+
+#form_ostatus_connect.dialogbox .submit_dialogbox  {
+min-width:96px;
+}
