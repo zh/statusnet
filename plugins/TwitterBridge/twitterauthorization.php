@@ -89,11 +89,15 @@ class TwitterauthorizationAction extends Action
             $user  = common_current_user();
             $flink = Foreign_link::getByUserID($user->id, TWITTER_SERVICE);
 
-            // If there's already a foreign link record, it means we already
-            // have an access token, and this is unecessary. So go back.
+            // If there's already a foreign link record and a foreign user
+            // it means the accounts are already linked, and this is unecessary.
+            // So go back.
 
             if (isset($flink)) {
-                common_redirect(common_local_url('twittersettings'));
+                $fuser = $flink->getForeignUser();
+                if (!empty($fuser)) {
+                    common_redirect(common_local_url('twittersettings'));
+                }
             }
         }
 
@@ -253,6 +257,10 @@ class TwitterauthorizationAction extends Action
     function saveForeignLink($user_id, $twuid, $access_token)
     {
         $flink = new Foreign_link();
+
+        $flink->user_id = $user_id;
+        $flink->service = TWITTER_SERVICE;
+        $flink->delete(); // delete stale flink, if any
 
         $flink->user_id     = $user_id;
         $flink->foreign_id  = $twuid;
