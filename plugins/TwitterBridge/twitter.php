@@ -28,8 +28,6 @@ require_once INSTALLDIR . '/plugins/TwitterBridge/twitteroauthclient.php';
 
 function add_twitter_user($twitter_id, $screen_name)
 {
-    common_debug("Add Twitter user");
-
     $new_uri = 'http://twitter.com/' . $screen_name;
 
     // Clear out any bad old foreign_users with the new user's legit URL
@@ -42,8 +40,8 @@ function add_twitter_user($twitter_id, $screen_name)
     $result = $luser->delete();
 
     if ($result != false) {
-        common_log(LOG_WARNING,
-            "Twitter bridge - removed invalid Twitter user squatting on uri: $new_uri");
+        common_log(LOG_INFO,
+            "Twitter bridge - removed old Twitter user: $screen_name ($twitter_id).");
     }
 
     $luser->free();
@@ -65,7 +63,8 @@ function add_twitter_user($twitter_id, $screen_name)
             "Twitter bridge - failed to add new Twitter user: $twitter_id - $screen_name.");
         common_log_db_error($fuser, 'INSERT', __FILE__);
     } else {
-        common_debug("Twitter bridge - Added new Twitter user: $screen_name ($twitter_id).");
+        common_log(LOG_INFO,
+                   "Twitter bridge - Added new Twitter user: $screen_name ($twitter_id).");
     }
 
     return $result;
