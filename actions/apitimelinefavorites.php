@@ -100,11 +100,11 @@ class ApiTimelineFavoritesAction extends ApiBareAuthAction
 
     function showTimeline()
     {
-        $profile = $this->user->getProfile();
-        $avatar     = $profile->getAvatar(AVATAR_PROFILE_SIZE);
+        $profile  = $this->user->getProfile();
+        $avatar   = $profile->getAvatar(AVATAR_PROFILE_SIZE);
 
-        $sitename   = common_config('site', 'name');
-        $title      = sprintf(
+        $sitename = common_config('site', 'name');
+        $title    = sprintf(
             _('%1$s / Favorites from %2$s'),
             $sitename,
             $this->user->nickname
@@ -112,32 +112,69 @@ class ApiTimelineFavoritesAction extends ApiBareAuthAction
 
         $taguribase = common_config('integration', 'taguri');
         $id         = "tag:$taguribase:Favorites:" . $this->user->id;
-        $link       = common_local_url(
-            'favorites',
-            array('nickname' => $this->user->nickname)
-        );
-        $subtitle   = sprintf(
+
+        $subtitle = sprintf(
             _('%1$s updates favorited by %2$s / %2$s.'),
             $sitename,
             $profile->getBestName(),
             $this->user->nickname
         );
-        $logo = ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_PROFILE_SIZE);
+        $logo = !empty($avatar)
+            ? $avatar->displayUrl()
+            : Avatar::defaultImage(AVATAR_PROFILE_SIZE);
 
         switch($this->format) {
         case 'xml':
             $this->showXmlTimeline($this->notices);
             break;
         case 'rss':
-            $this->showRssTimeline($this->notices, $title, $link, $subtitle, null, $logo);
+            $link = common_local_url(
+                'showfavorites',
+                array('nickname' => $this->user->nickname)
+            );
+            $this->showRssTimeline(
+                $this->notices,
+                $title,
+                $link,
+                $subtitle,
+                null,
+                $logo
+            );
             break;
         case 'atom':
-            $selfuri = common_root_url() .
-                ltrim($_SERVER['QUERY_STRING'], 'p=');
-            $this->showAtomTimeline(
-                $this->notices, $title, $id, $link, $subtitle,
-                null, $selfuri, $logo
+
+            header('Content-Type: application/atom+xml; charset=utf-8');
+
+            $atom = new AtomNoticeFeed();
+
+            $atom->setId($id);
+            $atom->setTitle($title);
+            $atom->setSubtitle($subtitle);
+            $atom->setLogo($logo);
+            $atom->setUpdated('now');
+
+            $atom->addLink(
+                common_local_url(
+                    'showfavorites',
+                    array('nickname' => $this->user->nickname)
+                )
             );
+
+            $id = $this->arg('id');
+            $aargs = array('format' => 'atom');
+            if (!empty($id)) {
+                $aargs['id'] = $id;
+            }
+
+            $atom->addLink(
+                $this->getSelfUri('ApiTimelineFavorites', $aargs),
+                array('rel' => 'self', 'type' => 'application/atom+xml')
+            );
+
+            $atom->addEntryFromNotices($this->notices);
+
+            $this->raw($atom->getString());
+
             break;
         case 'json':
             $this->showJsonTimeline($this->notices);

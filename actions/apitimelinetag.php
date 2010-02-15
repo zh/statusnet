@@ -100,10 +100,6 @@ class ApiTimelineTagAction extends ApiPrivateAuthAction
         $sitename   = common_config('site', 'name');
         $sitelogo   = (common_config('site', 'logo')) ? common_config('site', 'logo') : Theme::path('logo.png');
         $title      = sprintf(_("Notices tagged with %s"), $this->tag);
-        $link       = common_local_url(
-            'tag',
-            array('tag' => $this->tag)
-        );
         $subtitle   = sprintf(
             _('Updates tagged with %1$s on %2$s!'),
             $this->tag,
@@ -117,22 +113,51 @@ class ApiTimelineTagAction extends ApiPrivateAuthAction
             $this->showXmlTimeline($this->notices);
             break;
         case 'rss':
-            $this->showRssTimeline($this->notices, $title, $link, $subtitle, null, $sitelogo);
-            break;
-        case 'atom':
-            $selfuri = common_root_url() .
-                'api/statusnet/tags/timeline/' .
-                    $this->tag . '.atom';
-            $this->showAtomTimeline(
+            $link = common_local_url(
+                'tag',
+                array('tag' => $this->tag)
+            );
+            $this->showRssTimeline(
                 $this->notices,
                 $title,
-                $id,
                 $link,
                 $subtitle,
                 null,
-                $selfuri,
                 $sitelogo
             );
+            break;
+        case 'atom':
+
+            header('Content-Type: application/atom+xml; charset=utf-8');
+
+            $atom = new AtomNoticeFeed();
+
+            $atom->setId($id);
+            $atom->setTitle($title);
+            $atom->setSubtitle($subtitle);
+            $atom->setLogo($logo);
+            $atom->setUpdated('now');
+
+            $atom->addLink(
+                common_local_url(
+                    'tag',
+                    array('tag' => $this->tag)
+                )
+            );
+
+            $aargs = array('format' => 'atom');
+            if (!empty($this->tag)) {
+                $aargs['tag'] = $this->tag;
+            }
+
+            $atom->addLink(
+                $this->getSelfUri('ApiTimelineTag', $aargs),
+                array('rel' => 'self', 'type' => 'application/atom+xml')
+            );
+
+            $atom->addEntryFromNotices($this->notices);
+            $this->raw($atom->getString());
+
             break;
         case 'json':
             $this->showJsonTimeline($this->notices);

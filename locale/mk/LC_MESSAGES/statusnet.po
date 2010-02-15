@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-05 23:53+0000\n"
-"PO-Revision-Date: 2010-02-05 23:54:36+0000\n"
+"POT-Creation-Date: 2010-02-11 08:14+0000\n"
+"PO-Revision-Date: 2010-02-11 08:15:23+0000\n"
 "Language-Team: Macedonian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62048); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62295); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: out-statusnet\n"
@@ -199,7 +199,7 @@ msgstr "Подновувања од %1$s и пријатели на %2$s!"
 #: actions/apitimelinementions.php:151 actions/apitimelinepublic.php:131
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
-#: actions/apitimelineuser.php:165 actions/apiusershow.php:101
+#: actions/apitimelineuser.php:166 actions/apiusershow.php:101
 msgid "API method not found."
 msgstr "API методот не е пронајден."
 
@@ -828,7 +828,7 @@ msgstr "Не го блокирај корисников"
 msgid "Yes"
 msgstr "Да"
 
-#: actions/block.php:144 actions/groupmembers.php:346 lib/blockform.php:80
+#: actions/block.php:144 actions/groupmembers.php:348 lib/blockform.php:80
 msgid "Block this user"
 msgstr "Блокирај го корисников"
 
@@ -1591,7 +1591,7 @@ msgstr "Корисникот е веќе блокиран од оваа груп
 msgid "User is not a member of group."
 msgstr "Корисникот не членува во групата."
 
-#: actions/groupblock.php:136 actions/groupmembers.php:314
+#: actions/groupblock.php:136 actions/groupmembers.php:316
 msgid "Block user from group"
 msgstr "Блокирај корисник од група"
 
@@ -1695,19 +1695,19 @@ msgstr "Листа на корисниците на овааг група."
 msgid "Admin"
 msgstr "Администратор"
 
-#: actions/groupmembers.php:346 lib/blockform.php:69
+#: actions/groupmembers.php:348 lib/blockform.php:69
 msgid "Block"
 msgstr "Блокирај"
 
-#: actions/groupmembers.php:441
+#: actions/groupmembers.php:443
 msgid "Make user an admin of the group"
 msgstr "Направи го корисникот администратор на групата"
 
-#: actions/groupmembers.php:473
+#: actions/groupmembers.php:475
 msgid "Make Admin"
 msgstr "Направи го/ја администратор"
 
-#: actions/groupmembers.php:473
+#: actions/groupmembers.php:475
 msgid "Make this user an admin"
 msgstr "Направи го корисникот администратор"
 
@@ -2093,7 +2093,8 @@ msgstr "Запамети ме"
 #: actions/login.php:237 actions/register.php:480
 msgid "Automatically login in the future; not for shared computers!"
 msgstr ""
-"Следниот пат најавете се автоматски; не за компјутери кои ги делите со други!"
+"Следниот пат најавете се автоматски; не е за компјутери кои ги делите со "
+"други!"
 
 #: actions/login.php:247
 msgid "Lost or forgotten password?"
@@ -2116,21 +2117,21 @@ msgstr ""
 "Најавете се со Вашето корисничко име и лозинка. Сè уште немате корисничко "
 "име? [Регистрирајте](%%action.register%%) нова сметка."
 
-#: actions/makeadmin.php:91
+#: actions/makeadmin.php:92
 msgid "Only an admin can make another user an admin."
 msgstr "Само администратор може да направи друг корисник администратор."
 
-#: actions/makeadmin.php:95
+#: actions/makeadmin.php:96
 #, php-format
 msgid "%1$s is already an admin for group \"%2$s\"."
 msgstr "%1$s веќе е администратор на групата „%2$s“."
 
-#: actions/makeadmin.php:132
+#: actions/makeadmin.php:133
 #, php-format
 msgid "Can't get membership record for %1$s in group %2$s."
 msgstr "Не можам да добијам евиденција за членство на %1$s во групата %2$s."
 
-#: actions/makeadmin.php:145
+#: actions/makeadmin.php:146
 #, php-format
 msgid "Can't make %1$s an admin for group %2$s."
 msgstr "Не можам да го направам корисникот %1$s администратор на групата %2$s."
@@ -2334,8 +2335,8 @@ msgstr "тип на содржини "
 msgid "Only "
 msgstr "Само "
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1039
-#: lib/api.php:1067 lib/api.php:1177
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1040
+#: lib/api.php:1068 lib/api.php:1178
 msgid "Not a supported data format."
 msgstr "Ова не е поддржан формат на податотека."
 
@@ -4514,7 +4515,7 @@ msgstr "Проблем при зачувувањето на групното п�
 msgid "DB error inserting reply: %s"
 msgstr "Одговор од внесот во базата: %s"
 
-#: classes/Notice.php:1231
+#: classes/Notice.php:1235
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -5251,8 +5252,8 @@ msgstr "Подигни податотека"
 msgid ""
 "You can upload your personal background image. The maximum file size is 2MB."
 msgstr ""
-"Не можете да подигнете личната позадинска слика. Максималната дозволена "
-"големина изнесува 2МБ."
+"Можете да подигнете лична позадинска слика. Максималната дозволена големина "
+"изнесува 2МБ."
 
 #: lib/designsettings.php:418
 msgid "Design defaults restored."
@@ -6193,47 +6194,47 @@ msgstr "Порака"
 msgid "Moderate"
 msgstr "Модерирај"
 
-#: lib/util.php:867
+#: lib/util.php:870
 msgid "a few seconds ago"
 msgstr "пред неколку секунди"
 
-#: lib/util.php:869
+#: lib/util.php:872
 msgid "about a minute ago"
 msgstr "пред една минута"
 
-#: lib/util.php:871
+#: lib/util.php:874
 #, php-format
 msgid "about %d minutes ago"
 msgstr "пред %d минути"
 
-#: lib/util.php:873
+#: lib/util.php:876
 msgid "about an hour ago"
 msgstr "пред еден час"
 
-#: lib/util.php:875
+#: lib/util.php:878
 #, php-format
 msgid "about %d hours ago"
 msgstr "пред %d часа"
 
-#: lib/util.php:877
+#: lib/util.php:880
 msgid "about a day ago"
 msgstr "пред еден ден"
 
-#: lib/util.php:879
+#: lib/util.php:882
 #, php-format
 msgid "about %d days ago"
 msgstr "пред %d денови"
 
-#: lib/util.php:881
+#: lib/util.php:884
 msgid "about a month ago"
 msgstr "пред еден месец"
 
-#: lib/util.php:883
+#: lib/util.php:886
 #, php-format
 msgid "about %d months ago"
 msgstr "пред %d месеца"
 
-#: lib/util.php:885
+#: lib/util.php:888
 msgid "about a year ago"
 msgstr "пред една година"
 

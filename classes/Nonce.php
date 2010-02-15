@@ -22,4 +22,19 @@ class Nonce extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+    /**
+     * Compatibility hack for PHP 5.3
+     *
+     * The statusnet.links.ini entry cannot be read because "," is no longer
+     * allowed in key names when read by parse_ini_file().
+     *
+     * @return   array
+     * @access   public
+     */
+    function links()
+    {
+        return array('consumer_key,token' => 'token:consumer_key,token');
+    }
+
 }

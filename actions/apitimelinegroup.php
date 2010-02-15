@@ -109,38 +109,70 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
         $title      = sprintf(_("%s timeline"), $this->group->nickname);
         $taguribase = common_config('integration', 'taguri');
         $id         = "tag:$taguribase:GroupTimeline:" . $this->group->id;
-        $link       = common_local_url(
-            'showgroup',
-            array('nickname' => $this->group->nickname)
-        );
+
         $subtitle   = sprintf(
             _('Updates from %1$s on %2$s!'),
             $this->group->nickname,
             $sitename
         );
-        $logo       = ($avatar) ? $avatar : User_group::defaultLogo(AVATAR_PROFILE_SIZE);
+
+        $logo = ($avatar) ? $avatar : User_group::defaultLogo(AVATAR_PROFILE_SIZE);
 
         switch($this->format) {
         case 'xml':
             $this->showXmlTimeline($this->notices);
             break;
         case 'rss':
-            $this->showRssTimeline($this->notices, $title, $link, $subtitle, null, $logo);
-            break;
-        case 'atom':
-            $selfuri = common_root_url() .
-                'api/statusnet/groups/timeline/' .
-                    $this->group->nickname . '.atom';
-            $this->showAtomTimeline(
+                $this->showRssTimeline(
                 $this->notices,
                 $title,
-                $id,
-                $link,
+                $this->group->homeUrl(),
                 $subtitle,
                 null,
-                $selfuri,
                 $logo
             );
+            break;
+        case 'atom':
+
+            header('Content-Type: application/atom+xml; charset=utf-8');
+
+            try {
+
+                $atom = new AtomNoticeFeed();
+
+                $atom->setId($id);
+                $atom->setTitle($title);
+                $atom->setSubtitle($subtitle);
+                $atom->setLogo($logo);
+                $atom->setUpdated('now');
+
+                $atom->addAuthorRaw($this->group->asAtomAuthor());
+                $atom->setActivitySubject($this->group->asActivitySubject());
+
+                $atom->addLink($this->group->homeUrl());
+
+                $id = $this->arg('id');
+                $aargs = array('format' => 'atom');
+                if (!empty($id)) {
+                    $aargs['id'] = $id;
+                }
+
+                $atom->addLink(
+                    $this->getSelfUri('ApiTimelineGroup', $aargs),
+                    array('rel' => 'self', 'type' => 'application/atom+xml')
+                );
+
+                $atom->addEntryFromNotices($this->notices);
+
+                $this->raw($atom->getString());
+
+            } catch (Atom10FeedException $e) {
+                $this->serverError(
+                    'Could not generate feed for group - ' . $e->getMessage()
+                );
+                return;
+            }
+
             break;
         case 'json':
             $this->showJsonTimeline($this->notices);

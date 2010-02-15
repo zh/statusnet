@@ -1104,25 +1104,22 @@ left:0;
 
 .dialogbox {
 position:absolute;
-top:-4px;
-right:29px;
+top:-1px;
+right:-1px;
 z-index:9;
-min-width:199px;
 float:none;
-background-color:#FFF;
 padding:11px;
 border-radius:7px;
 -moz-border-radius:7px;
 -webkit-border-radius:7px;
 border-style:solid;
 border-width:1px;
-border-color:#DDDDDD;
--moz-box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
 }
 
 .dialogbox legend {
 display:block !important;
 margin-right:18px;
+margin-bottom:18px;
 }
 
 .dialogbox button.close {
@@ -1131,10 +1128,21 @@ right:3px;
 top:3px;
 }
 
+.dialogbox .form_guide {
+font-weight:normal;
+padding:0;
+}
+
 .dialogbox .submit_dialogbox {
 font-weight:bold;
 text-indent:0;
 min-width:46px;
+}
+.dialogbox input {
+padding-left:4px;
+}
+.dialogbox fieldset {
+margin-bottom:0;
 }
 
 #wrap form.processing input.submit,
@@ -1143,6 +1151,12 @@ min-width:46px;
 cursor:wait;
 outline:none;
 text-indent:-9999px;
+}
+
+.form_repeat.dialogbox {
+top:-4px;
+right:29px;
+min-width:199px;
 }
 
 .notice-options {

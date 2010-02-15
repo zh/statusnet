@@ -1,5 +1,6 @@
 # Translation of StatusNet to Catalan
 #
+# Author@translatewiki.net: Aleator
 # Author@translatewiki.net: McDutchie
 # Author@translatewiki.net: Toniher
 # --
@@ -9,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-05 23:53+0000\n"
-"PO-Revision-Date: 2010-02-05 23:53:45+0000\n"
+"POT-Creation-Date: 2010-02-11 08:14+0000\n"
+"PO-Revision-Date: 2010-02-11 08:14:20+0000\n"
 "Language-Team: Catalan\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62048); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62295); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: out-statusnet\n"
@@ -195,7 +196,7 @@ msgstr "Actualitzacions de %1$s i amics a %2$s!"
 #: actions/apitimelinementions.php:151 actions/apitimelinepublic.php:131
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
-#: actions/apitimelineuser.php:165 actions/apiusershow.php:101
+#: actions/apitimelineuser.php:166 actions/apiusershow.php:101
 #, fuzzy
 msgid "API method not found."
 msgstr "No s'ha trobat el mètode API!"
@@ -833,7 +834,7 @@ msgstr "No bloquis l'usuari"
 msgid "Yes"
 msgstr "Sí"
 
-#: actions/block.php:144 actions/groupmembers.php:346 lib/blockform.php:80
+#: actions/block.php:144 actions/groupmembers.php:348 lib/blockform.php:80
 msgid "Block this user"
 msgstr "Bloquejar aquest usuari"
 
@@ -1613,7 +1614,7 @@ msgstr "Un usuari t'ha bloquejat."
 msgid "User is not a member of group."
 msgstr "L'usuari no és membre del grup."
 
-#: actions/groupblock.php:136 actions/groupmembers.php:314
+#: actions/groupblock.php:136 actions/groupmembers.php:316
 msgid "Block user from group"
 msgstr "Bloca l'usuari del grup"
 
@@ -1714,19 +1715,19 @@ msgstr "La llista dels usuaris d'aquest grup."
 msgid "Admin"
 msgstr "Admin"
 
-#: actions/groupmembers.php:346 lib/blockform.php:69
+#: actions/groupmembers.php:348 lib/blockform.php:69
 msgid "Block"
 msgstr "Bloca"
 
-#: actions/groupmembers.php:441
+#: actions/groupmembers.php:443
 msgid "Make user an admin of the group"
 msgstr "Fes l'usuari un administrador del grup"
 
-#: actions/groupmembers.php:473
+#: actions/groupmembers.php:475
 msgid "Make Admin"
 msgstr "Fes-lo administrador"
 
-#: actions/groupmembers.php:473
+#: actions/groupmembers.php:475
 msgid "Make this user an admin"
 msgstr "Fes l'usuari administrador"
 
@@ -2131,21 +2132,21 @@ msgstr ""
 "tens un nom d'usuari? [Crea](%%action.register%%) un nou compte o prova "
 "[OpenID] (%%action.openidlogin%%)."
 
-#: actions/makeadmin.php:91
+#: actions/makeadmin.php:92
 msgid "Only an admin can make another user an admin."
 msgstr "Només un administrador poc fer a un altre usuari administrador."
 
-#: actions/makeadmin.php:95
+#: actions/makeadmin.php:96
 #, fuzzy, php-format
 msgid "%1$s is already an admin for group \"%2$s\"."
 msgstr "%s ja és un administrador del grup «%s»."
 
-#: actions/makeadmin.php:132
+#: actions/makeadmin.php:133
 #, fuzzy, php-format
 msgid "Can't get membership record for %1$s in group %2$s."
 msgstr "No s'ha pogut eliminar l'usuari %s del grup %s"
 
-#: actions/makeadmin.php:145
+#: actions/makeadmin.php:146
 #, fuzzy, php-format
 msgid "Can't make %1$s an admin for group %2$s."
 msgstr "No es pot fer %s un administrador del grup %s"
@@ -2349,8 +2350,8 @@ msgstr "tipus de contingut "
 msgid "Only "
 msgstr "Només "
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1039
-#: lib/api.php:1067 lib/api.php:1177
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1040
+#: lib/api.php:1068 lib/api.php:1178
 msgid "Not a supported data format."
 msgstr "Format de data no suportat."
 
@@ -4502,7 +4503,7 @@ msgstr "Problema en guardar l'avís."
 msgid "DB error inserting reply: %s"
 msgstr "Error de BD en inserir resposta: %s"
 
-#: classes/Notice.php:1231
+#: classes/Notice.php:1235
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -5119,8 +5120,8 @@ msgstr "No sou membre de cap grup."
 #: lib/command.php:714
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
-msgstr[0] "No sou un membre del grup."
-msgstr[1] "No sou un membre del grup."
+msgstr[0] "Sou un membre d'aquest grup:"
+msgstr[1] "Sou un membre d'aquests grups:"
 
 #: lib/command.php:728
 msgid ""
@@ -6084,47 +6085,47 @@ msgstr "Missatge"
 msgid "Moderate"
 msgstr "Modera"
 
-#: lib/util.php:867
+#: lib/util.php:870
 msgid "a few seconds ago"
 msgstr "fa pocs segons"
 
-#: lib/util.php:869
+#: lib/util.php:872
 msgid "about a minute ago"
 msgstr "fa un minut"
 
-#: lib/util.php:871
+#: lib/util.php:874
 #, php-format
 msgid "about %d minutes ago"
 msgstr "fa %d minuts"
 
-#: lib/util.php:873
+#: lib/util.php:876
 msgid "about an hour ago"
 msgstr "fa una hora"
 
-#: lib/util.php:875
+#: lib/util.php:878
 #, php-format
 msgid "about %d hours ago"
 msgstr "fa %d hores"
 
-#: lib/util.php:877
+#: lib/util.php:880
 msgid "about a day ago"
 msgstr "fa un dia"
 
-#: lib/util.php:879
+#: lib/util.php:882
 #, php-format
 msgid "about %d days ago"
 msgstr "fa %d dies"
 
-#: lib/util.php:881
+#: lib/util.php:884
 msgid "about a month ago"
 msgstr "fa un mes"
 
-#: lib/util.php:883
+#: lib/util.php:886
 #, php-format
 msgid "about %d months ago"
 msgstr "fa %d mesos"
 
-#: lib/util.php:885
+#: lib/util.php:888
 msgid "about a year ago"
 msgstr "fa un any"
 

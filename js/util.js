@@ -356,42 +356,44 @@ var SN = { // StatusNet
         },
 
         NoticeRepeat: function() {
-            $('.form_repeat').live('click', function() {
-                SN.U.FormXHR($(this));
+            $('.form_repeat').live('click', function(e) {
+                e.preventDefault();
+
                 SN.U.NoticeRepeatConfirmation($(this));
                 return false;
             });
         },
 
         NoticeRepeatConfirmation: function(form) {
-            function NRC() {
-                form.closest('.notice-options').addClass('opaque');
-                form.addClass('dialogbox');
+            var submit_i = form.find('.submit');
 
-                form.append('<button class="close">&#215;</button>');
-                form.find('button.close').click(function(){
-                    $(this).remove();
+            var submit = submit_i.clone();
+            submit
+                .addClass('submit_dialogbox')
+                .removeClass('submit');
+            form.append(submit);
+            submit.bind('click', function() { SN.U.FormXHR(form); return false; });
 
-                    form.closest('.notice-options').removeClass('opaque');
-                    form.removeClass('dialogbox');
-                    form.find('.submit_dialogbox').remove();
-                    form.find('.submit').show();
+            submit_i.hide();
 
-                    return false;
-                });
-            };
+            form
+                .addClass('dialogbox')
+                .append('<button class="close">&#215;</button>')
+                .closest('.notice-options')
+                    .addClass('opaque');
 
-            form.find('.submit').bind('click', function(e) {
-                e.preventDefault();
+            form.find('button.close').click(function(){
+                $(this).remove();
 
-                var submit = form.find('.submit').clone();
-                submit.addClass('submit_dialogbox');
-                submit.removeClass('submit');
-                form.append(submit);
+                form
+                    .removeClass('dialogbox')
+                    .closest('.notice-options')
+                        .removeClass('opaque');
 
-                $(this).hide();
+                form.find('.submit_dialogbox').remove();
+                form.find('.submit').show();
 
-                NRC();
+                return false;
             });
         },
 

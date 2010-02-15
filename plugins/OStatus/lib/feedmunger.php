@@ -30,8 +30,8 @@ class FeedSubPreviewNotice extends Notice
 
     function __construct($profile)
     {
-        //parent::__construct(); // uhhh?
         $this->profile = $profile;
+        $this->profile_id = 0;
     }
     
     function getProfile()
@@ -56,14 +56,19 @@ class FeedSubPreviewProfile extends Profile
 {
     function getAvatar($width, $height=null)
     {
-        return new FeedSubPreviewAvatar($width, $height);
+        return new FeedSubPreviewAvatar($width, $height, $this->avatar);
     }
 }
 
 class FeedSubPreviewAvatar extends Avatar
 {
+    function __construct($width, $height, $remote)
+    {
+        $this->remoteImage = $remote;
+    }
+
     function displayUrl() {
-        return common_path('plugins/FeedSub/images/48px-Feed-icon.svg.png');
+        return $this->remoteImage;
     }
 }
 
@@ -78,13 +83,17 @@ class FeedMunger
         $this->url = $url;
     }
     
-    function feedinfo()
+    function ostatusProfile()
     {
-        $feedinfo = new Feedinfo();
-        $feedinfo->feeduri = $this->url;
-        $feedinfo->homeuri = $this->feed->link;
-        $feedinfo->huburi = $this->getHubLink();
-        return $feedinfo;
+        $profile = new Ostatus_profile();
+        $profile->feeduri = $this->url;
+        $profile->homeuri = $this->feed->link;
+        $profile->huburi = $this->getHubLink();
+        $salmon = $this->getSalmonLink();
+        if ($salmon) {
+            $profile->salmonuri = $salmon;
+        }
+        return $profile;
     }
 
     function getAtomLink($item, $attribs=array())
@@ -150,6 +159,33 @@ class FeedMunger
         return $this->getAtomLink($this->feed, array('rel' => 'hub'));
     }
 
+    function getSalmonLink()
+    {
+        return $this->getAtomLink($this->feed, array('rel' => 'salmon'));
+    }
+
+    function getSelfLink()
+    {
+        return $this->getAtomLink($this->feed, array('rel' => 'self'));
+    }
+
+    /**
+     * Get an appropriate avatar image source URL, if available.
+     * @return mixed string or false
+     */
+    function getAvatar()
+    {
+        $logo = $this->feed->logo;
+        if ($logo) {
+            return $logo;
+        }
+        $icon = $this->feed->icon;
+        if ($icon) {
+            return $icon;
+        }
+        return common_path('plugins/OStatus/images/48px-Feed-icon.svg.png');
+    }
+
     function profile($preview=false)
     {
         if ($preview) {
@@ -164,6 +200,10 @@ class FeedMunger
         $profile->homepage   = $this->getAltLink($this->feed);
         $profile->bio        = $this->feed->description;
         $profile->profileurl = $this->getAltLink($this->feed);
+
+        if ($preview) {
+            $profile->avatar = $this->getAvatar();
+        }
         
         // @todo tags from categories
         // @todo lat/lon/location?
@@ -177,24 +217,84 @@ class FeedMunger
         if (!$entry) {
             return null;
         }
-        
+
         if ($preview) {
             $notice = new FeedSubPreviewNotice($this->profile(true));
             $notice->id = -1;
         } else {
             $notice = new Notice();
+            $notice->profile_id = $this->profileIdForEntry($index);
         }
 
         $link = $this->getAltLink($entry);
+        if (empty($link)) {
+            if (preg_match('!^https?://!', $entry->id)) {
+                $link = $entry->id;
+                common_log(LOG_DEBUG, "No link on entry, using URL from id: $link");
+            }
+        }
         $notice->uri = $link;
         $notice->url = $link;
         $notice->content = $this->noticeFromEntry($entry);
-        $notice->rendered = common_render_content($notice->content, $notice);
+        $notice->rendered = common_render_content($notice->content, $notice); // @fixme this is failing on group posts
         $notice->created = common_sql_date($entry->updated); // @fixme
         $notice->is_local = Notice::GATEWAY;
         $notice->source = 'feed';
-        
+
+        $location = $this->getLocation($entry);
+        if ($location) {
+            if ($location->location_id) {
+                $notice->location_ns = $location->location_ns;
+                $notice->location_id = $location->location_id;
+            }
+            $notice->lat = $location->lat;
+            $notice->lon = $location->lon;
+        }
+
         return $notice;
+    }
+
+    function profileIdForEntry($index=1)
+    {
+        // hack hack hack
+        // should get profile for this entry's author...
+        $remote = Ostatus_profile::staticGet('feeduri', $this->getSelfLink());
+        if ($feed) {
+            return $feed->profile_id;
+        } else {
+            throw new Exception("Can't find feed profile");
+        }
+    }
+
+    /**
+     * Parse location given as a GeoRSS-simple point, if provided.
+     * http://www.georss.org/simple
+     *
+     * @param feed item $entry
+     * @return mixed Location or false
+     */
+    function getLocation($entry)
+    {
+        $dom = $entry->model;
+        $points = $dom->getElementsByTagNameNS('http://www.georss.org/georss', 'point');
+        
+        for ($i = 0; $i < $points->length; $i++) {
+            $point = $points->item(0)->textContent;
+            $point = str_replace(',', ' ', $point); // per spec "treat commas as whitespace"
+            $point = preg_replace('/\s+/', ' ', $point);
+            $point = trim($point);
+            $coords = explode(' ', $point);
+            if (count($coords) == 2) {
+                list($lat, $lon) = $coords;
+                if (is_numeric($lat) && is_numeric($lon)) {
+                    common_log(LOG_INFO, "Looking up location for $lat $lon from georss");
+                    return Location::fromLatLon($lat, $lon);
+                }
+            }
+            common_log(LOG_ERR, "Ignoring bogus georss:point value $point");
+        }
+
+        return false;
     }
 
     /**
@@ -203,34 +303,45 @@ class FeedMunger
      */
     function noticeFromEntry($entry)
     {
+        $max = Notice::maxContent();
+        $ellipsis = "\xe2\x80\xa6"; // U+2026 HORIZONTAL ELLIPSIS
         $title = $entry->title;
         $link = $entry->link;
-        
+
         // @todo We can get <category> entries like this:
         // $cats = $entry->getCategory('category', array(0, true));
         // but it feels like an awful hack. If it's accessible cleanly,
         // try adding #hashtags from the categories/tags on a post.
-        
-        // @todo Should we force a language here?
-        $format = _m('New post: "%1$s" %2$s');
+
         $title = $entry->title;
         $link = $this->getAltLink($entry);
-        $out = sprintf($format, $title, $link);
-        
-        // Trim link if needed...
-        $max = Notice::maxContent();
-        if (mb_strlen($out) > $max) {
-            $link = common_shorten_url($link);
+        if ($link) {
+            // Blog post or such...
+            // @todo Should we force a language here?
+            $format = _m('New post: "%1$s" %2$s');
             $out = sprintf($format, $title, $link);
-        }
 
-        // Trim title if needed...
-        if (mb_strlen($out) > $max) {
-            $ellipsis = "\xe2\x80\xa6"; // U+2026 HORIZONTAL ELLIPSIS
-            $used = mb_strlen($out) - mb_strlen($title);
-            $available = $max - $used - mb_strlen($ellipsis);
-            $title = mb_substr($title, 0, $available) . $ellipsis;
-            $out = sprintf($format, $title, $link);
+            // Trim link if needed...
+            if (mb_strlen($out) > $max) {
+                $link = common_shorten_url($link);
+                $out = sprintf($format, $title, $link);
+            }
+
+            // Trim title if needed...
+            if (mb_strlen($out) > $max) {
+                $used = mb_strlen($out) - mb_strlen($title);
+                $available = $max - $used - mb_strlen($ellipsis);
+                $title = mb_substr($title, 0, $available) . $ellipsis;
+                $out = sprintf($format, $title, $link);
+            }
+        } else {
+            // No link? Consider a bare status update.
+            if (mb_strlen($title) > $max) {
+                $available = $max - mb_strlen($ellipsis);
+                $out = mb_substr($title, 0, $available) . $ellipsis;
+            } else {
+                $out = $title;
+            }
         }
         
         return $out;

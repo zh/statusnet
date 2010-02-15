@@ -56,6 +56,7 @@ class ErrorAction extends Action
 
         $this->code = $code;
         $this->message = $message;
+        $this->minimal = StatusNet::isApi();
 
         // XXX: hack alert: usually we aren't going to
         // call this page directly, but because it's
@@ -102,7 +103,14 @@ class ErrorAction extends Action
 
     function showPage()
     {
-        parent::showPage();
+        if ($this->minimal) {
+            // Even more minimal -- we're in a machine API
+            // and don't want to flood the output.
+            $this->extraHeaders();
+            $this->showContent();
+        } else {
+            parent::showPage();
+        }
 
         // We don't want to have any more output after this
         exit();

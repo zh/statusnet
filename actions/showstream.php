@@ -131,14 +131,14 @@ class ShowstreamAction extends ProfileAction
                      new Feed(Feed::RSS2,
                               common_local_url('ApiTimelineUser',
                                                array(
-                                                    'id' => $this->user->nickname,
+                                                    'id' => $this->user->id,
                                                     'format' => 'rss')),
                               sprintf(_('Notice feed for %s (RSS 2.0)'),
                                       $this->user->nickname)),
                      new Feed(Feed::ATOM,
                               common_local_url('ApiTimelineUser',
                                                array(
-                                                    'id' => $this->user->nickname,
+                                                    'id' => $this->user->id,
                                                     'format' => 'atom')),
                               sprintf(_('Notice feed for %s (Atom)'),
                                       $this->user->nickname)),

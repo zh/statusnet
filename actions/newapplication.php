@@ -290,7 +290,7 @@ class NewApplicationAction extends OwnerDesignAction
     function nameExists($name)
     {
         $app = Oauth_application::staticGet('name', $name);
-        return ($app !== false);
+        return !empty($app);
     }
 
 }

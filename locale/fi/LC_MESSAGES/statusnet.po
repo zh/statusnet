@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-05 23:53+0000\n"
-"PO-Revision-Date: 2010-02-05 23:54:02+0000\n"
+"POT-Creation-Date: 2010-02-11 08:14+0000\n"
+"PO-Revision-Date: 2010-02-11 08:14:39+0000\n"
 "Language-Team: Finnish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62048); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62295); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fi\n"
 "X-Message-Group: out-statusnet\n"
@@ -202,7 +202,7 @@ msgstr "Käyttäjän %1$s ja kavereiden päivitykset palvelussa %2$s!"
 #: actions/apitimelinementions.php:151 actions/apitimelinepublic.php:131
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
-#: actions/apitimelineuser.php:165 actions/apiusershow.php:101
+#: actions/apitimelineuser.php:166 actions/apiusershow.php:101
 #, fuzzy
 msgid "API method not found."
 msgstr "API-metodia ei löytynyt!"
@@ -837,7 +837,7 @@ msgstr "Älä estä tätä käyttäjää"
 msgid "Yes"
 msgstr "Kyllä"
 
-#: actions/block.php:144 actions/groupmembers.php:346 lib/blockform.php:80
+#: actions/block.php:144 actions/groupmembers.php:348 lib/blockform.php:80
 msgid "Block this user"
 msgstr "Estä tämä käyttäjä"
 
@@ -1628,7 +1628,7 @@ msgstr "Käyttäjä on asettanut eston sinulle."
 msgid "User is not a member of group."
 msgstr "Käyttäjä ei kuulu tähän ryhmään."
 
-#: actions/groupblock.php:136 actions/groupmembers.php:314
+#: actions/groupblock.php:136 actions/groupmembers.php:316
 msgid "Block user from group"
 msgstr "Estä käyttäjä ryhmästä"
 
@@ -1726,19 +1726,19 @@ msgstr "Lista ryhmän käyttäjistä."
 msgid "Admin"
 msgstr "Ylläpito"
 
-#: actions/groupmembers.php:346 lib/blockform.php:69
+#: actions/groupmembers.php:348 lib/blockform.php:69
 msgid "Block"
 msgstr "Estä"
 
-#: actions/groupmembers.php:441
+#: actions/groupmembers.php:443
 msgid "Make user an admin of the group"
 msgstr "Tee tästä käyttäjästä ylläpitäjä"
 
-#: actions/groupmembers.php:473
+#: actions/groupmembers.php:475
 msgid "Make Admin"
 msgstr "Tee ylläpitäjäksi"
 
-#: actions/groupmembers.php:473
+#: actions/groupmembers.php:475
 msgid "Make this user an admin"
 msgstr "Tee tästä käyttäjästä ylläpitäjä"
 
@@ -2144,21 +2144,21 @@ msgstr ""
 "käyttäjätunnusta? [Rekisteröi](%%action.register%%) käyttäjätunnus tai "
 "kokeile [OpenID](%%action.openidlogin%%)-tunnuksella sisään kirjautumista. "
 
-#: actions/makeadmin.php:91
+#: actions/makeadmin.php:92
 msgid "Only an admin can make another user an admin."
 msgstr "Vain ylläpitäjä voi tehdä toisesta käyttäjästä ylläpitäjän."
 
-#: actions/makeadmin.php:95
+#: actions/makeadmin.php:96
 #, fuzzy, php-format
 msgid "%1$s is already an admin for group \"%2$s\"."
 msgstr "%s on jo ryhmän \"%s\" ylläpitäjä."
 
-#: actions/makeadmin.php:132
+#: actions/makeadmin.php:133
 #, fuzzy, php-format
 msgid "Can't get membership record for %1$s in group %2$s."
 msgstr "Ei saatu käyttäjän %s jäsenyystietoja ryhmästä %s"
 
-#: actions/makeadmin.php:145
+#: actions/makeadmin.php:146
 #, fuzzy, php-format
 msgid "Can't make %1$s an admin for group %2$s."
 msgstr "Ei voitu tehdä käyttäjästä %s ylläpitäjää ryhmään %s"
@@ -2365,8 +2365,8 @@ msgstr "Yhdistä"
 msgid "Only "
 msgstr "Vain "
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1039
-#: lib/api.php:1067 lib/api.php:1177
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1040
+#: lib/api.php:1068 lib/api.php:1178
 msgid "Not a supported data format."
 msgstr "Tuo ei ole tuettu tietomuoto."
 
@@ -4542,7 +4542,7 @@ msgstr "Ongelma päivityksen tallentamisessa."
 msgid "DB error inserting reply: %s"
 msgstr "Tietokantavirhe tallennettaessa vastausta: %s"
 
-#: classes/Notice.php:1231
+#: classes/Notice.php:1235
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -6159,47 +6159,47 @@ msgstr "Viesti"
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:867
+#: lib/util.php:870
 msgid "a few seconds ago"
 msgstr "muutama sekunti sitten"
 
-#: lib/util.php:869
+#: lib/util.php:872
 msgid "about a minute ago"
 msgstr "noin minuutti sitten"
 
-#: lib/util.php:871
+#: lib/util.php:874
 #, php-format
 msgid "about %d minutes ago"
 msgstr "noin %d minuuttia sitten"
 
-#: lib/util.php:873
+#: lib/util.php:876
 msgid "about an hour ago"
 msgstr "noin tunti sitten"
 
-#: lib/util.php:875
+#: lib/util.php:878
 #, php-format
 msgid "about %d hours ago"
 msgstr "noin %d tuntia sitten"
 
-#: lib/util.php:877
+#: lib/util.php:880
 msgid "about a day ago"
 msgstr "noin päivä sitten"
 
-#: lib/util.php:879
+#: lib/util.php:882
 #, php-format
 msgid "about %d days ago"
 msgstr "noin %d päivää sitten"
 
-#: lib/util.php:881
+#: lib/util.php:884
 msgid "about a month ago"
 msgstr "noin kuukausi sitten"
 
-#: lib/util.php:883
+#: lib/util.php:886
 #, php-format
 msgid "about %d months ago"
 msgstr "noin %d kuukautta sitten"
 
-#: lib/util.php:885
+#: lib/util.php:888
 msgid "about a year ago"
 msgstr "noin vuosi sitten"
 
