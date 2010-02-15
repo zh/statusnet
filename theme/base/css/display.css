@@ -288,7 +288,7 @@ margin-left:18px;
 }
 #site_nav_global_primary li {
 display:inline;
-margin-left:11px;
+margin-left:18px;
 }
 
 .system_notice dt {
@@ -370,7 +370,7 @@ margin-bottom:11px;
 
 #site_nav_global_secondary ul li {
 display:inline;
-margin-right:11px;
+margin-right:18px;
 }
 #export_data li a {
 padding-left:20px;
@@ -383,15 +383,13 @@ padding-left:28px;
 }
 
 #export_data ul {
-display:inline;
+width:100%;
+float:left;
 }
 #export_data li {
 list-style-type:none;
-display:inline;
-margin-left:11px;
-}
-#export_data li:first-child {
-margin-left:0;
+float:left;
+margin-right:11px;
 }
 
 #licenses {
@@ -801,8 +799,8 @@ list-style-type:none;
 display:inline;
 }
 .entity_tags li {
-display:inline;
-margin-right:4px;
+float:left;
+margin-right:11px;
 }
 
 .aside .section {
@@ -820,6 +818,7 @@ font-size:1em;
 #entity_statistics dt,
 #entity_statistics dd {
 display:inline;
+margin-right:11px;
 }
 #entity_statistics dt:after {
 content: ":";
@@ -1496,6 +1495,11 @@ display:inline;
 margin-right:7px;
 line-height:1.25;
 }
+
+.tag-cloud li:before {
+content:'\0009';
+}
+
 .aside .tag-cloud li {
 line-height:1.5;
 }
