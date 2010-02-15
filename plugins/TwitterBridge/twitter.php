@@ -28,26 +28,17 @@ require_once INSTALLDIR . '/plugins/TwitterBridge/twitteroauthclient.php';
 
 function add_twitter_user($twitter_id, $screen_name)
 {
-    $new_uri = 'http://twitter.com/' . $screen_name;
-
     // Clear out any bad old foreign_users with the new user's legit URL
     // This can happen when users move around or fakester accounts get
     // repoed, and things like that.
 
-    $luser = new Foreign_user();
-    $luser->id = $twitter_id;
-    $luser->service = TWITTER_SERVICE;
+    $luser = Foreign_user::getForeignUser($twitter_id, TWITTER_SERVICE);
     $result = $luser->delete();
 
     if ($result != false) {
         common_log(LOG_INFO,
             "Twitter bridge - removed old Twitter user: $screen_name ($twitter_id).");
     }
-
-    $luser->free();
-    unset($luser);
-
-    // Otherwise, create a new Twitter user
 
     $fuser = new Foreign_user();
 
