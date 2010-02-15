@@ -1103,7 +1103,7 @@ class ApiAction extends Action
         }
     }
 
-    function serverError($msg, $code = 500, $content_type = 'json')
+    function serverError($msg, $code = 500, $content_type = 'xml')
     {
         $action = $this->trimmed('action');
 
@@ -1154,7 +1154,6 @@ class ApiAction extends Action
         $this->elementStart('feed', array('xmlns' => 'http://www.w3.org/2005/Atom',
                                           'xml:lang' => 'en-US',
                                           'xmlns:thr' => 'http://purl.org/syndication/thread/1.0'));
-        Event::handle('StartApiAtom', array($this));
     }
 
     function endTwitterAtom()
@@ -1319,6 +1318,24 @@ class ApiAction extends Action
         } else {
             return $def;
         }
+    }
+
+    function getSelfUri($action, $aargs)
+    {
+        parse_str($_SERVER['QUERY_STRING'], $params);
+        $pstring = '';
+        if (!empty($params)) {
+            unset($params['p']);
+            $pstring = http_build_query($params);
+        }
+
+        $uri = common_local_url($action, $aargs);
+
+        if (!empty($pstring)) {
+            $uri .= '?' . $pstring;
+        }
+
+        return $uri;
     }
 
 }

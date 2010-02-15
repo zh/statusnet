@@ -145,19 +145,59 @@ class ApiTimelineUserAction extends ApiBareAuthAction
             );
             break;
         case 'atom':
+
+            header('Content-Type: application/atom+xml; charset=utf-8');
+
+            // If this was called using an integer ID, i.e.: using the canonical
+            // URL for this user's feed, then pass the User object into the feed,
+            // so the OStatus plugin, and possibly other plugins, can access it.
+            // Feels sorta hacky. -- Z
+
+            $atom = null;
             $id = $this->arg('id');
-            if ($id) {
-                $selfuri = common_root_url() .
-                    'api/statuses/user_timeline/' .
-                    rawurlencode($id) . '.atom';
+
+            if (strval(intval($id)) === strval($id)) {
+                $atom = new AtomUserNoticeFeed($this->user);
             } else {
-                $selfuri = common_root_url() .
-                    'api/statuses/user_timeline.atom';
+                $atom = new AtomUserNoticeFeed();
             }
-            $this->showAtomTimeline(
-                $this->notices, $title, $id, $link,
-                $subtitle, $suplink, $selfuri, $logo
+
+            $atom->setId($id);
+            $atom->setTitle($title);
+            $atom->setSubtitle($subtitle);
+            $atom->setLogo($logo);
+            $atom->setUpdated('now');
+
+            $atom->addLink(
+                common_local_url(
+                    'showstream',
+                    array('nickname' => $this->user->nickname)
+                )
             );
+
+            $id = $this->arg('id');
+            $aargs = array('format' => 'atom');
+            if (!empty($id)) {
+                $aargs['id'] = $id;
+            }
+
+            $atom->addLink(
+                $this->getSelfUri('ApiTimelineUser', $aargs),
+                array('rel' => 'self', 'type' => 'application/atom+xml')
+            );
+
+            $atom->addLink(
+                $suplink,
+                array(
+                    'rel' => 'http://api.friendfeed.com/2008/03#sup',
+                    'type' => 'application/json'
+                )
+            );
+
+            $atom->addEntryFromNotices($this->notices);
+
+            $this->raw($atom->getString());
+
             break;
         case 'json':
             $this->showJsonTimeline($this->notices);

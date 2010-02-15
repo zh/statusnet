@@ -63,9 +63,9 @@ class OStatusPlugin extends Plugin
         $m->connect('main/ostatus?nickname=:nickname',
                   array('action' => 'ostatusinit'), array('nickname' => '[A-Za-z0-9_-]+'));
         $m->connect('main/ostatussub',
-                    array('action' => 'ostatussub'));          
+                    array('action' => 'ostatussub'));
         $m->connect('main/ostatussub',
-                    array('action' => 'ostatussub'), array('feed' => '[A-Za-z0-9\.\/\:]+'));          
+                    array('action' => 'ostatussub'), array('feed' => '[A-Za-z0-9\.\/\:]+'));
 
         // PuSH actions
         $m->connect('main/push/hub', array('action' => 'pushhub'));
@@ -79,6 +79,9 @@ class OStatusPlugin extends Plugin
         // Salmon endpoint
         $m->connect('main/salmon/user/:id',
                     array('action' => 'salmon'),
+                    array('id' => '[0-9]+'));
+        $m->connect('main/salmon/group/:id',
+                    array('action' => 'salmongroup'),
                     array('id' => '[0-9]+'));
         return true;
     }
@@ -109,24 +112,34 @@ class OStatusPlugin extends Plugin
      * Set up a PuSH hub link to our internal link for canonical timeline
      * Atom feeds for users and groups.
      */
-    function onStartApiAtom(Action $action)
+    function onStartApiAtom(AtomNoticeFeed $feed)
     {
-        if ($action instanceof ApiTimelineUserAction || $action instanceof ApiTimelineGroupAction) {
-            $id = $action->arg('id');
-            if (strval(intval($id)) === strval($id)) {
-                // Canonical form of id in URL?
-                // Updates will be handled for our internal PuSH hub.
-                $action->element('link', array('rel' => 'hub',
-                                               'href' => common_local_url('pushhub')));
+        $id = null;
 
-                // Also, we'll add in the salmon link
-                $action->element('link', array('rel' => 'salmon',
-                                               'href' => common_local_url('salmon')));
-            }
+        if ($feed instanceof AtomUserNoticeFeed) {
+            $salmonAction = 'salmon';
+            $id = $feed->getUser()->id;
+        } else if ($feed instanceof AtomGroupNoticeFeed) {
+            $salmonAction = 'salmongroup';
+            $id = $feed->getGroup()->id;
+        } else {
+            return;
         }
-        return true;
+
+       if (!empty($id)) {
+            $hub = common_config('ostatus', 'hub');
+            if (empty($hub)) {
+                // Updates will be handled through our internal PuSH hub.
+                $hub = common_local_url('pushhub');
+            }
+            $feed->addLink($hub, array('rel' => 'hub'));
+
+            // Also, we'll add in the salmon link
+            $salmon = common_local_url($salmonAction, array('id' => $id));
+            $feed->addLink($salmon, array('rel' => 'salmon'));
+        }
     }
-    
+
     /**
      * Add the feed settings page to the Connect Settings menu
      *
@@ -175,7 +188,7 @@ class OStatusPlugin extends Plugin
     /**
      * Add in an OStatus subscribe button
      */
-    function onStartProfilePageActionsElements($output, $profile)
+    function onStartProfileRemoteSubscribe($output, $profile)
     {
         $cur = common_current_user();
 
@@ -186,14 +199,19 @@ class OStatusPlugin extends Plugin
                                     array('nickname' => $profile->nickname));
             $output->element('a', array('href' => $url,
                                         'class' => 'entity_remote_subscribe'),
-                                _('OStatus'));
-            
+                                _m('Subscribe'));
+
             $output->elementEnd('li');
         }
+
+        return false;
     }
 
     /**
-     * Check if we've got some Salmon stuff to send
+     * Check if we've got remote replies to send via Salmon.
+     *
+     * @fixme push webfinger lookup & sending to a background queue
+     * @fixme also detect short-form name for remote subscribees where not ambiguous
      */
     function onEndNoticeSave($notice)
     {
@@ -204,38 +222,66 @@ class OStatusPlugin extends Plugin
                 $w = new Webfinger;
 
                 $endpoint_uri = '';
-                
+
                 $result = $w->lookup($webfinger);
                 if (empty($result)) {
                     continue;
                 }
-                
+
                 foreach ($result->links as $link) {
                     if ($link['rel'] == 'salmon') {
                         $endpoint_uri = $link['href'];
                     }
                 }
-                
+
                 if (empty($endpoint_uri)) {
                     continue;
                 }
 
                 $xml = '<?xml version="1.0" encoding="UTF-8" ?>';
                 $xml .= $notice->asAtomEntry();
-               
+
                 $salmon = new Salmon();
                 $salmon->post($endpoint_uri, $xml);
             }
         }
     }
-    
-    
+
+    /**
+     * Garbage collect unused feeds on unsubscribe
+     */
+    function onEndUnsubscribe($user, $other)
+    {
+        $profile = Ostatus_profile::staticGet('profile_id', $other->id);
+        if ($feed) {
+            $sub = new Subscription();
+            $sub->subscribed = $other->id;
+            $sub->limit(1);
+            if (!$sub->find(true)) {
+                common_log(LOG_INFO, "Unsubscribing from now-unused feed $feed->feeduri on hub $feed->huburi");
+                $profile->unsubscribe();
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Make sure necessary tables are filled out.
+     */
     function onCheckSchema() {
-        // warning: the autoincrement doesn't seem to set.
-        // alter table feedinfo change column id id int(11) not null  auto_increment;
         $schema = Schema::get();
-        $schema->ensureTable('feedinfo', Feedinfo::schemaDef());
+        $schema->ensureTable('ostatus_profile', Ostatus_profile::schemaDef());
         $schema->ensureTable('hubsub', HubSub::schemaDef());
         return true;
-    } 
+    }
+
+    function onEndShowStatusNetStyles($action) {
+        $action->cssLink(common_path('plugins/OStatus/theme/base/css/ostatus.css'));
+        return true;
+    }
+
+    function onEndShowStatusNetScripts($action) {
+        $action->script(common_path('plugins/OStatus/js/ostatus.js'));
+        return true;
+    }
 }

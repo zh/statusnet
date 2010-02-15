@@ -22,28 +22,60 @@
  * @author James Walker <james@status.net>
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET')) {
+    exit(1);
+}
 
 class SalmonAction extends Action
 {
+    var $user     = null;
+    var $xml      = null;
+    var $activity = null;
 
-    function handle()
+    function prepare($args)
     {
-        parent::handle();
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->handlePost();
+        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            $this->clientError(_('This method requires a POST.'));
         }
-    }
 
+        if ($_SERVER['CONTENT_TYPE'] != 'application/atom+xml') {
+            $this->clientError(_('Salmon requires application/atom+xml'));
+        }
 
-    function handlePost()
-    {
-        $user_id = $this->arg('id');
-        common_log(LOG_DEBUG, 'Salmon: incoming post for user: '. $user_id);
+        $id = $this->trimmed('id');
+
+        if (!$id) {
+            $this->clientError(_('No ID.'));
+        }
+
+        $this->user = User::staticGet($id);
+
+        if (empty($this->user)) {
+            $this->clientError(_('No such user.'));
+        }
 
         $xml = file_get_contents('php://input');
 
+        $dom = DOMDocument::loadXML($xml);
+
+        // XXX: check that document element is Atom entry
+        // XXX: check the signature
+
+        $this->act = new Activity($dom->documentElement);
+    }
+
+    function handle($args)
+    {
+        common_log(LOG_DEBUG, 'Salmon: incoming post for user: '. $user_id);
+
         // TODO : Insert new $xml -> notice code
 
+        switch ($this->act->verb)
+        {
+        case Activity::POST:
+        case Activity::SHARE:
+        case Activity::FAVORITE:
+        case Activity::FOLLOW:
+        }
     }
 }

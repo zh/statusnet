@@ -754,4 +754,89 @@ class Profile extends Memcached_DataObject
 
         return !empty($notice);
     }
+
+    /**
+     * Returns an XML string fragment with limited profile information
+     * as an Atom <author> element.
+     *
+     * Assumes that Atom has been previously set up as the base namespace.
+     *
+     * @return string
+     */
+    function asAtomAuthor()
+    {
+        $xs = new XMLStringer(true);
+
+        $xs->elementStart('author');
+        $xs->element('name', null, $this->nickname);
+        $xs->element('uri', null, $this->profileurl);
+        $xs->elementEnd('author');
+
+        return $xs->getString();
+    }
+
+    /**
+     * Returns an XML string fragment with profile information as an
+     * Activity Streams <activity:actor> element.
+     *
+     * Assumes that 'activity' namespace has been previously defined.
+     *
+     * @return string
+     */
+    function asActivityActor()
+    {
+        return $this->asActivityNoun('actor');
+    }
+
+    /**
+     * Returns an XML string fragment with profile information as an
+     * Activity Streams noun object with the given element type.
+     *
+     * Assumes that 'activity' namespace has been previously defined.
+     *
+     * @param string $element one of 'actor', 'subject', 'object', 'target'
+     * @return string
+     */
+    function asActivityNoun($element)
+    {
+        $xs = new XMLStringer(true);
+
+        $xs->elementStart('activity:' . $element);
+        $xs->element(
+            'activity:object-type',
+            null,
+            'http://activitystrea.ms/schema/1.0/person'
+        );
+        $xs->element(
+            'id',
+            null,
+            common_local_url(
+                'userbyid',
+                array('id' => $this->id)
+                )
+            );
+        $xs->element('title', null, $this->getBestName());
+
+        $avatar = $this->getAvatar(AVATAR_PROFILE_SIZE);
+
+        $xs->element(
+            'link', array(
+                'type' => empty($avatar) ? 'image/png' : $avatar->mediatype,
+                'href' => empty($avatar)
+                ? Avatar::defaultImage(AVATAR_PROFILE_SIZE)
+                : $avatar->displayUrl()
+            ),
+            ''
+        );
+
+        $xs->elementEnd('activity:' . $element);
+
+        return $xs->getString();
+    }
+
+    function getAcctUri()
+    {
+        return $this->nickname . '@' . common_config('site', 'server');
+    }
+
 }

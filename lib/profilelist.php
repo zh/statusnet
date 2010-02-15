@@ -191,6 +191,7 @@ class ProfileListItem extends Widget
                                          'alt' =>
                                          ($this->profile->fullname) ? $this->profile->fullname :
                                          $this->profile->nickname));
+        $this->out->text(' ');
         $hasFN = (!empty($this->profile->fullname)) ? 'nickname' : 'fn nickname';
         $this->out->elementStart('span', $hasFN);
         $this->out->raw($this->highlight($this->profile->nickname));
@@ -201,6 +202,7 @@ class ProfileListItem extends Widget
     function showFullName()
     {
         if (!empty($this->profile->fullname)) {
+            $this->out->text(' ');
             $this->out->elementStart('span', 'fn');
             $this->out->raw($this->highlight($this->profile->fullname));
             $this->out->elementEnd('span');
@@ -210,6 +212,7 @@ class ProfileListItem extends Widget
     function showLocation()
     {
         if (!empty($this->profile->location)) {
+            $this->out->text(' ');
             $this->out->elementStart('span', 'location');
             $this->out->raw($this->highlight($this->profile->location));
             $this->out->elementEnd('span');
@@ -219,6 +222,7 @@ class ProfileListItem extends Widget
     function showHomepage()
     {
         if (!empty($this->profile->homepage)) {
+            $this->out->text(' ');
             $this->out->elementStart('a', array('href' => $this->profile->homepage,
                                                 'class' => 'url'));
             $this->out->raw($this->highlight($this->profile->homepage));

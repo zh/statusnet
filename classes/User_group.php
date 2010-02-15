@@ -355,6 +355,39 @@ class User_group extends Memcached_DataObject
         return $xs->getString();
     }
 
+    function asAtomAuthor()
+    {
+        $xs = new XMLStringer(true);
+
+        $xs->elementStart('author');
+        $xs->element('name', null, $this->nickname);
+        $xs->element('uri', null, $this->permalink());
+        $xs->elementEnd('author');
+
+        return $xs->getString();
+    }
+
+    function asActivitySubject()
+    {
+        $xs = new XMLStringer(true);
+
+        $xs->elementStart('activity:subject');
+        $xs->element('activity:object', null, 'http://activitystrea.ms/schema/1.0/group');
+        $xs->element('id', null, $this->permalink());
+        $xs->element('title', null, $this->getBestName());
+        $xs->element(
+            'link', array(
+                'rel'  => 'avatar',
+                'href' =>  empty($this->homepage_logo)
+                    ? User_group::defaultLogo(AVATAR_PROFILE_SIZE)
+                    : $this->homepage_logo
+            )
+        );
+        $xs->elementEnd('activity:subject');
+
+        return $xs->getString();
+    }
+
     static function register($fields) {
 
         // MAGICALLY put fields into current scope

@@ -67,9 +67,21 @@ class OStatusInitAction extends Action
     
     function showForm($err = null)
     {
-      $this->err = $err;
-      $this->showPage();
-
+        $this->err = $err;
+        if ($this->boolean('ajax')) {
+            header('Content-Type: text/xml;charset=utf-8');
+            $this->xw->startDocument('1.0', 'UTF-8');
+            $this->elementStart('html');
+            $this->elementStart('head');
+            $this->element('title', null, _('Subscribe to user'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
+            $this->showContent();
+            $this->elementEnd('body');
+            $this->elementEnd('html');
+        } else {
+            $this->showPage();
+        }
     }
 
     function showContent()
@@ -79,15 +91,15 @@ class OStatusInitAction extends Action
                                           'class' => 'form_settings',
                                           'action' => common_local_url('ostatusinit')));
         $this->elementStart('fieldset');
-        $this->element('legend', _('Subscribe to a remote user'));
+        $this->element('legend', null,  sprintf(_('Subscribe to %s'), $this->nickname));
         $this->hidden('token', common_session_token());
 
         $this->elementStart('ul', 'form_data');
-        $this->elementStart('li');
+        $this->elementStart('li', array('id' => 'ostatus_nickname'));
         $this->input('nickname', _('User nickname'), $this->nickname,
                      _('Nickname of the user you want to follow'));
         $this->elementEnd('li');
-        $this->elementStart('li');
+        $this->elementStart('li', array('id' => 'ostatus_profile'));
         $this->input('acct', _('Profile Account'), $this->acct,
                      _('Your account id (i.e. user@identi.ca)'));
         $this->elementEnd('li');
@@ -95,7 +107,7 @@ class OStatusInitAction extends Action
         $this->submit('submit', _('Subscribe'));
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
-    }        
+    }
 
     function ostatusConnect()
     {
