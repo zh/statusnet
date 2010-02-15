@@ -28,6 +28,7 @@ require_once INSTALLDIR . '/plugins/TwitterBridge/twitteroauthclient.php';
 
 function add_twitter_user($twitter_id, $screen_name)
 {
+    common_debug("Add Twitter user");
 
     $new_uri = 'http://twitter.com/' . $screen_name;
 
@@ -40,7 +41,7 @@ function add_twitter_user($twitter_id, $screen_name)
     $luser->service = TWITTER_SERVICE;
     $result = $luser->delete();
 
-    if (empty($result)) {
+    if ($result != false) {
         common_log(LOG_WARNING,
             "Twitter bridge - removed invalid Twitter user squatting on uri: $new_uri");
     }
@@ -93,9 +94,9 @@ function save_twitter_user($twitter_id, $screen_name)
                                          $screen_name,
                                          $oldname));
         }
-
-        return add_twitter_user($twitter_id, $screen_name);
     }
+
+    return add_twitter_user($twitter_id, $screen_name);
 }
 
 function is_twitter_bound($notice, $flink) {
