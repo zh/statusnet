@@ -35,7 +35,7 @@ function add_twitter_user($twitter_id, $screen_name)
     // repoed, and things like that.
 
     $luser = new Foreign_user();
-    $luser->uri = $new_uri;
+    $luser->id = $twitter_id;
     $luser->service = TWITTER_SERVICE;
     $result = $luser->delete();
 
