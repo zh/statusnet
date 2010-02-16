@@ -81,7 +81,7 @@ $default =
               'subsystem' => 'db', # default to database, or 'stomp'
               'stomp_server' => null,
               'queue_basename' => '/queue/statusnet/',
-              'control_channel' => '/topic/statusnet-control', // broadcasts to all queue daemons
+              'control_channel' => '/topic/statusnet/control', // broadcasts to all queue daemons
               'stomp_username' => null,
               'stomp_password' => null,
               'stomp_persistent' => true, // keep items across queue server restart, if persistence is enabled
@@ -91,6 +91,12 @@ $default =
               'spawndelay' => 1, // Wait at least N seconds between (re)spawns of child processes to avoid slamming the queue server with subscription startup
               'debug_memory' => false, // true to spit memory usage to log
               'inboxes' => true, // true to do inbox distribution & output queueing from in background via 'distrib' queue
+              'breakout' => array('*' => 'shared'), // set global or per-handler queue breakout
+                                      // 'shared': use a shared queue for all sites
+                                      // 'handler': share each/this handler over multiple sites
+                                      // 'site': break out for each/this handler on this site
+              'max_retries' => 10, // drop messages after N failed attempts to process (Stomp)
+              'dead_letter_dir' => false, // set to directory to save dropped messages into (Stomp)
               ),
         'license' =>
         array('type' => 'cc', # can be 'cc', 'allrightsreserved', 'private'

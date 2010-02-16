@@ -48,7 +48,7 @@ class XmppManager extends IoManager
     public static function get()
     {
         if (common_config('xmpp', 'enabled')) {
-            $site = common_config('site', 'server');
+            $site = StatusNet::currentSite();
             if (empty(self::$singletons[$site])) {
                 self::$singletons[$site] = new XmppManager();
             }
@@ -69,7 +69,7 @@ class XmppManager extends IoManager
 
     function __construct()
     {
-        $this->site = common_config('site', 'server');
+        $this->site = StatusNet::currentSite();
         $this->resource = common_config('xmpp', 'resource') . 'daemon';
     }
 
@@ -476,10 +476,10 @@ class XmppManager extends IoManager
      */
     protected function switchSite()
     {
-        if ($this->site != common_config('site', 'server')) {
+        if ($this->site != StatusNet::currentSite()) {
             common_log(LOG_DEBUG, __METHOD__ . ": switching to site $this->site");
             $this->stats('switch');
-            StatusNet::init($this->site);
+            StatusNet::switchSite($this->site);
         }
     }
 }
