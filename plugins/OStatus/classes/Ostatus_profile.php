@@ -262,7 +262,7 @@ class Ostatus_profile extends Memcached_DataObject
         $avatar = $munger->getAvatar();
         if ($avatar) {
             try {
-                $this->updateAvatar($avatar);
+                $profile->updateAvatar($avatar);
             } catch (Exception $e) {
                 common_log(LOG_ERR, "Exception setting OStatus avatar: " .
                                     $e->getMessage());
@@ -283,8 +283,10 @@ class Ostatus_profile extends Memcached_DataObject
         // ripped from oauthstore.php (for old OMB client)
         $temp_filename = tempnam(sys_get_temp_dir(), 'listener_avatar');
         copy($url, $temp_filename);
-        $imagefile = new ImageFile($profile->id, $temp_filename);
-        $filename = Avatar::filename($profile->id,
+        
+        // @fixme should we be using different ids?
+        $imagefile = new ImageFile($this->id, $temp_filename);
+        $filename = Avatar::filename($this->id,
                                      image_type_to_extension($imagefile->type),
                                      null,
                                      common_timestamp());
@@ -376,17 +378,56 @@ class Ostatus_profile extends Memcached_DataObject
      * The hub will later send us a confirmation POST to /main/push/callback.
      *
      * @return bool true on success, false on failure
+     * @throws ServerException if feed state is not valid
      */
     public function subscribe($mode='subscribe')
     {
-        if (common_config('feedsub', 'nohub')) {
-            // Fake it! We're just testing remote feeds w/o hubs.
-            return true;
+        if ($this->sub_state != '') {
+            throw new ServerException("Attempting to start PuSH subscription to feed in state $this->sub_state");
         }
-        // @fixme use the verification token
-        #$token = md5(mt_rand() . ':' . $this->feeduri);
-        #$this->verify_token = $token;
-        #$this->update(); // @fixme
+        if (empty($this->huburi)) {
+            if (common_config('feedsub', 'nohub')) {
+                // Fake it! We're just testing remote feeds w/o hubs.
+                return true;
+            } else {
+                throw new ServerException("Attempting to start PuSH subscription for feed with no hub");
+            }
+        }
+
+        return $this->doSubscribe('subscribe');
+    }
+
+    /**
+     * Send a PuSH unsubscription request to the hub for this feed.
+     * The hub will later send us a confirmation POST to /main/push/callback.
+     *
+     * @return bool true on success, false on failure
+     * @throws ServerException if feed state is not valid
+     */
+    public function unsubscribe() {
+        if ($this->sub_state != 'active') {
+            throw new ServerException("Attempting to end PuSH subscription to feed in state $this->sub_state");
+        }
+        if (empty($this->huburi)) {
+            if (common_config('feedsub', 'nohub')) {
+                // Fake it! We're just testing remote feeds w/o hubs.
+                return true;
+            } else {
+                throw new ServerException("Attempting to end PuSH subscription for feed with no hub");
+            }
+        }
+
+        return $this->doSubscribe('unsubscribe');
+    }
+
+    protected function doSubscribe($mode)
+    {
+        $orig = clone($this);
+        $this->verify_token = md5(mt_rand() . ':' . $this->feeduri);
+        $this->sub_state = $mode;
+        $this->update($orig);
+        unset($orig);
+
         try {
             $callback = common_local_url('pushcallback', array('feed' => $this->id));
             $headers = array('Content-Type: application/x-www-form-urlencoded');
@@ -416,6 +457,13 @@ class Ostatus_profile extends Memcached_DataObject
         } catch (Exception $e) {
             // wtf!
             common_log(LOG_ERR, __METHOD__ . ": error \"{$e->getMessage()}\" hitting hub $this->huburi subscribing to $this->feeduri");
+
+            $orig = clone($this);
+            $this->verify_token = null;
+            $this->sub_state = null;
+            $this->update($orig);
+            unset($orig);
+
             return false;
         }
     }
@@ -458,16 +506,6 @@ class Ostatus_profile extends Memcached_DataObject
         $this->lastupdate = common_sql_date();
 
         return $this->update($original);
-    }
-
-    /**
-     * Send a PuSH unsubscription request to the hub for this feed.
-     * The hub will later send us a confirmation POST to /main/push/callback.
-     *
-     * @return bool true on success, false on failure
-     */
-    public function unsubscribe() {
-        return $this->subscribe('unsubscribe');
     }
 
     /**
@@ -567,6 +605,11 @@ class Ostatus_profile extends Memcached_DataObject
     public function postUpdates($xml, $hmac)
     {
         common_log(LOG_INFO, __METHOD__ . ": packet for \"$this->feeduri\"! $hmac $xml");
+
+        if ($this->sub_state != 'active') {
+            common_log(LOG_ERR, __METHOD__ . ": ignoring PuSH for inactive feed $this->feeduri (in state '$this->sub_state')");
+            return;
+        }
 
         if ($this->secret) {
             if (preg_match('/^sha1=([0-9a-fA-F]{40})$/', $hmac, $matches)) {
