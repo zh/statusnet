@@ -438,49 +438,7 @@ class FinishopenidloginAction extends Action
 
     function urlToNickname($openid)
     {
-        static $bad = array('query', 'user', 'password', 'port', 'fragment');
-
-        $parts = parse_url($openid);
-
-        # If any of these parts exist, this won't work
-
-        foreach ($bad as $badpart) {
-            if (array_key_exists($badpart, $parts)) {
-                return null;
-            }
-        }
-
-        # We just have host and/or path
-
-        # If it's just a host...
-        if (array_key_exists('host', $parts) &&
-            (!array_key_exists('path', $parts) || strcmp($parts['path'], '/') == 0))
-        {
-            $hostparts = explode('.', $parts['host']);
-
-            # Try to catch common idiom of nickname.service.tld
-
-            if ((count($hostparts) > 2) &&
-                (strlen($hostparts[count($hostparts) - 2]) > 3) && # try to skip .co.uk, .com.au
-                (strcmp($hostparts[0], 'www') != 0))
-            {
-                return $this->nicknamize($hostparts[0]);
-            } else {
-                # Do the whole hostname
-                return $this->nicknamize($parts['host']);
-            }
-        } else {
-            if (array_key_exists('path', $parts)) {
-                # Strip starting, ending slashes
-                $path = preg_replace('@/$@', '', $parts['path']);
-                $path = preg_replace('@^/@', '', $path);
-                if (strpos($path, '/') === false) {
-                    return $this->nicknamize($path);
-                }
-            }
-        }
-
-        return null;
+        return common_url_to_nickname($openid);
     }
 
     function xriToNickname($xri)
@@ -510,7 +468,6 @@ class FinishopenidloginAction extends Action
 
     function nicknamize($str)
     {
-        $str = preg_replace('/\W/', '', $str);
-        return strtolower($str);
+        return common_nicknamize($str);
     }
 }

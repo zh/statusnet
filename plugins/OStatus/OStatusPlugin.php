@@ -218,6 +218,9 @@ class OStatusPlugin extends Plugin
         $count = preg_match_all('/(\w+\.)*\w+@(\w+\.)*\w+(\w+\-\w+)*\.\w+/', $notice->content, $matches);
         if ($count) {
             foreach ($matches[0] as $webfinger) {
+
+                // FIXME: look up locally first
+
                 // Check to see if we've got an actual webfinger
                 $w = new Webfinger;
 
@@ -237,6 +240,8 @@ class OStatusPlugin extends Plugin
                 if (empty($endpoint_uri)) {
                     continue;
                 }
+
+                // FIXME: this needs to go out in a queue handler
 
                 $xml = '<?xml version="1.0" encoding="UTF-8" ?>';
                 $xml .= $notice->asAtomEntry();
