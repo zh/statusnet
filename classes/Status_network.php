@@ -21,7 +21,7 @@
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
-class Status_network extends DB_DataObject
+class Status_network extends Safe_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -57,6 +57,7 @@ class Status_network extends DB_DataObject
     ###END_AUTOCODE
 
     static $cache = null;
+    static $cacheInitialized = false;
     static $base = null;
     static $wildcard = null;
 
@@ -78,11 +79,15 @@ class Status_network extends DB_DataObject
         if (class_exists('Memcache')) {
             self::$cache = new Memcache();
 
-            // Can't close persistent connections, making forking painful.
+            // If we're a parent command-line process we need
+            // to be able to close out the connection after
+            // forking, so disable persistence.
             //
-            // @fixme only do this in *parent* CLI processes.
-            // single-process and child-processes *should* use persistent.
-            $persist = php_sapi_name() != 'cli';
+            // We'll turn it back on again the second time
+            // through which will either be in a child process,
+            // or a single-process script which is switching
+            // configurations.
+            $persist = php_sapi_name() != 'cli' || self::$cacheInitialized;
             if (is_array($servers)) {
                 foreach($servers as $server) {
                     self::$cache->addServer($server, 11211, $persist);
@@ -90,6 +95,7 @@ class Status_network extends DB_DataObject
             } else {
                 self::$cache->addServer($servers, 11211, $persist);
             }
+            self::$cacheInitialized = true;
         }
 
         self::$base = $dbname;

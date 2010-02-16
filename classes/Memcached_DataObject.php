@@ -19,57 +19,8 @@
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
-class Memcached_DataObject extends DB_DataObject
+class Memcached_DataObject extends Safe_DataObject
 {
-    /**
-     * Destructor to free global memory resources associated with
-     * this data object when it's unset or goes out of scope.
-     * DB_DataObject doesn't do this yet by itself.
-     */
-
-    function __destruct()
-    {
-        $this->free();
-        if (method_exists('DB_DataObject', '__destruct')) {
-            parent::__destruct();
-        }
-    }
-
-    /**
-     * Magic function called at serialize() time.
-     *
-     * We use this to drop a couple process-specific references
-     * from DB_DataObject which can cause trouble in future
-     * processes.
-     *
-     * @return array of variable names to include in serialization.
-     */
-    function __sleep()
-    {
-        $vars = array_keys(get_object_vars($this));
-        $skip = array('_DB_resultid', '_link_loaded');
-        return array_diff($vars, $skip);
-    }
-
-    /**
-     * Magic function called at unserialize() time.
-     *
-     * Clean out some process-specific variables which might
-     * be floating around from a previous process's cached
-     * objects.
-     *
-     * Old cached objects may still have them.
-     */
-    function __wakeup()
-    {
-        // Refers to global state info from a previous process.
-        // Clear this out so we don't accidentally break global
-        // state in *this* process.
-        $this->_DB_resultid = null;
-        // We don't have any local DBO refs, so clear these out.
-        $this->_link_loaded = false;
-    }
-
     /**
      * Wrapper for DB_DataObject's static lookup using memcached
      * as backing instead of an in-process cache array.
@@ -579,3 +530,4 @@ class Memcached_DataObject extends DB_DataObject
         return $c->set($cacheKey, $value);
     }
 }
+
