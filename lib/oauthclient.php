@@ -90,20 +90,47 @@ class OAuthClient
     /**
      * Gets a request token from the given url
      *
-     * @param string $url OAuth endpoint for grabbing request tokens
+     * @param string $url      OAuth endpoint for grabbing request tokens
+     * @param string $callback authorized request token callback
      *
      * @return OAuthToken $token the request token
      */
-    function getRequestToken($url)
+    function getRequestToken($url, $callback = null)
     {
-        $response = $this->oAuthGet($url);
+        $params = null;
+
+        if (!is_null($callback)) {
+            $params['oauth_callback'] = $callback;
+        }
+
+        $response = $this->oAuthGet($url, $params);
+
         $arr = array();
         parse_str($response, $arr);
-        if (isset($arr['oauth_token']) && isset($arr['oauth_token_secret'])) {
-            $token = new OAuthToken($arr['oauth_token'], @$arr['oauth_token_secret']);
+
+        $token   = $arr['oauth_token'];
+        $secret  = $arr['oauth_token_secret'];
+        $confirm = $arr['oauth_callback_confirmed'];
+
+        if (isset($token) && isset($secret)) {
+
+            $token = new OAuthToken($token, $secret);
+
+            if (isset($confirm)) {
+                if ($confirm == 'true') {
+                    common_debug('Twitter bridge - callback confirmed.');
+                    return $token;
+                } else {
+                    throw new OAuthClientException(
+                        'Callback was not confirmed by Twitter.'
+                    );
+                }
+            }
             return $token;
         } else {
-            throw new OAuthClientException();
+            throw new OAuthClientException(
+                'Could not get a request token from Twitter.'
+            );
         }
     }
 
@@ -113,18 +140,13 @@ class OAuthClient
      *
      * @param string     $url            endpoint for authorizing request tokens
      * @param OAuthToken $request_token  the request token to be authorized
-     * @param string     $oauth_callback optional callback url
      *
      * @return string $authorize_url the url to redirect to
      */
-    function getAuthorizeLink($url, $request_token, $oauth_callback = null)
+    function getAuthorizeLink($url, $request_token)
     {
         $authorize_url = $url . '?oauth_token=' .
             $request_token->key;
-
-        if (isset($oauth_callback)) {
-            $authorize_url .= '&oauth_callback=' . urlencode($oauth_callback);
-        }
 
         return $authorize_url;
     }
@@ -132,30 +154,50 @@ class OAuthClient
     /**
      * Fetches an access token
      *
-     * @param string $url OAuth endpoint for exchanging authorized request tokens
-     *                     for access tokens
+     * @param string $url      OAuth endpoint for exchanging authorized request tokens
+     *                         for access tokens
+     * @param string $verifier 1.0a verifier
      *
      * @return OAuthToken $token the access token
      */
-    function getAccessToken($url)
+    function getAccessToken($url, $verifier = null)
     {
-        $response = $this->oAuthPost($url);
-        parse_str($response);
-        $token = new OAuthToken($oauth_token, $oauth_token_secret);
-        return $token;
+        $params = array();
+
+        if (!is_null($verifier)) {
+            $params['oauth_verifier'] = $verifier;
+        }
+
+        $response = $this->oAuthPost($url, $params);
+
+        $arr = array();
+        parse_str($response, $arr);
+
+        $token  = $arr['oauth_token'];
+        $secret = $arr['oauth_token_secret'];
+
+        if (isset($token) && isset($secret)) {
+            $token = new OAuthToken($token, $secret);
+            return $token;
+        } else {
+            throw new OAuthClientException(
+                'Could not get a access token from Twitter.'
+            );
+        }
     }
 
     /**
-     * Use HTTP GET to make a signed OAuth request
+     * Use HTTP GET to make a signed OAuth requesta
      *
-     * @param string $url OAuth endpoint
+     * @param string $url    OAuth request token endpoint
+     * @param array  $params additional parameters
      *
      * @return mixed the request
      */
-    function oAuthGet($url)
+    function oAuthGet($url, $params = null)
     {
         $request = OAuthRequest::from_consumer_and_token($this->consumer,
-            $this->token, 'GET', $url, null);
+            $this->token, 'GET', $url, $params);
         $request->sign_request($this->sha1_method,
             $this->consumer, $this->token);
 
