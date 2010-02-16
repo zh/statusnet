@@ -56,6 +56,7 @@ class TwitterauthorizationAction extends Action
     var $tw_fields    = null;
     var $access_token = null;
     var $signin       = null;
+    var $verifier     = null;
 
     /**
      * Initialize class members. Looks for 'oauth_token' parameter.
@@ -70,6 +71,7 @@ class TwitterauthorizationAction extends Action
 
         $this->signin      = $this->boolean('signin');
         $this->oauth_token = $this->arg('oauth_token');
+        $this->verifier    = $this->arg('oauth_verifier');
 
         return true;
     }
@@ -89,11 +91,15 @@ class TwitterauthorizationAction extends Action
             $user  = common_current_user();
             $flink = Foreign_link::getByUserID($user->id, TWITTER_SERVICE);
 
-            // If there's already a foreign link record, it means we already
-            // have an access token, and this is unecessary. So go back.
+            // If there's already a foreign link record and a foreign user
+            // it means the accounts are already linked, and this is unecessary.
+            // So go back.
 
             if (isset($flink)) {
-                common_redirect(common_local_url('twittersettings'));
+                $fuser = $flink->getForeignUser();
+                if (!empty($fuser)) {
+                    common_redirect(common_local_url('twittersettings'));
+                }
             }
         }
 
@@ -156,8 +162,7 @@ class TwitterauthorizationAction extends Action
             // Get a new request token and authorize it
 
             $client  = new TwitterOAuthClient();
-            $req_tok =
-              $client->getRequestToken(TwitterOAuthClient::$requestTokenURL);
+            $req_tok = $client->getRequestToken();
 
             // Sock the request token away in the session temporarily
 
@@ -167,7 +172,7 @@ class TwitterauthorizationAction extends Action
             $auth_link = $client->getAuthorizeLink($req_tok, $this->signin);
 
         } catch (OAuthClientException $e) {
-            $msg = sprintf('OAuth client cURL error - code: %1s, msg: %2s',
+            $msg = sprintf('OAuth client error - code: %1s, msg: %2s',
                            $e->getCode(), $e->getMessage());
             $this->serverError(_m('Couldn\'t link your Twitter account.'));
         }
@@ -183,7 +188,6 @@ class TwitterauthorizationAction extends Action
      */
     function saveAccessToken()
     {
-
         // Check to make sure Twitter returned the same request
         // token we sent them
 
@@ -200,7 +204,7 @@ class TwitterauthorizationAction extends Action
 
             // Exchange the request token for an access token
 
-            $atok = $client->getAccessToken(TwitterOAuthClient::$accessTokenURL);
+            $atok = $client->getAccessToken($this->verifier);
 
             // Test the access token and get the user's Twitter info
 
@@ -219,7 +223,7 @@ class TwitterauthorizationAction extends Action
 
             $user = common_current_user();
             $this->saveForeignLink($user->id, $twitter_user->id, $atok);
-            save_twitter_user($twitter_user->id, $twitter_user->name);
+            save_twitter_user($twitter_user->id, $twitter_user->screen_name);
 
         } else {
 
@@ -253,6 +257,10 @@ class TwitterauthorizationAction extends Action
     function saveForeignLink($user_id, $twuid, $access_token)
     {
         $flink = new Foreign_link();
+
+        $flink->user_id = $user_id;
+        $flink->service = TWITTER_SERVICE;
+        $flink->delete(); // delete stale flink, if any
 
         $flink->user_id     = $user_id;
         $flink->foreign_id  = $twuid;

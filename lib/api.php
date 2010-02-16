@@ -77,6 +77,7 @@ class ApiAction extends Action
 
     function prepare($args)
     {
+        StatusNet::setApi(true); // reduce exception reports to aid in debugging
         parent::prepare($args);
 
         $this->format   = $this->arg('format');
@@ -1103,7 +1104,7 @@ class ApiAction extends Action
         }
     }
 
-    function serverError($msg, $code = 500, $content_type = 'json')
+    function serverError($msg, $code = 500, $content_type = 'xml')
     {
         $action = $this->trimmed('action');
 
@@ -1319,6 +1320,24 @@ class ApiAction extends Action
         } else {
             return $def;
         }
+    }
+
+    function getSelfUri($action, $aargs)
+    {
+        parse_str($_SERVER['QUERY_STRING'], $params);
+        $pstring = '';
+        if (!empty($params)) {
+            unset($params['p']);
+            $pstring = http_build_query($params);
+        }
+
+        $uri = common_local_url($action, $aargs);
+
+        if (!empty($pstring)) {
+            $uri .= '?' . $pstring;
+        }
+
+        return $uri;
     }
 
 }

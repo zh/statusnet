@@ -266,7 +266,7 @@ class EditApplicationAction extends OwnerDesignAction
     /**
      * Does the app name already exist?
      *
-     * Checks the DB to see someone has already registered and app
+     * Checks the DB to see someone has already registered an app
      * with the same name.
      *
      * @param string $name app name to check
@@ -277,7 +277,7 @@ class EditApplicationAction extends OwnerDesignAction
     function nameExists($name)
     {
         $newapp = Oauth_application::staticGet('name', $name);
-        if (!$newapp) {
+        if (empty($newapp)) {
             return false;
         } else {
             return $newapp->id != $this->app->id;

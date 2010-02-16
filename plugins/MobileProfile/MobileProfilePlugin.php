@@ -240,6 +240,8 @@ class MobileProfilePlugin extends WAP20Plugin
             return true;
         }
 
+        $action->cssLink('css/display.css');
+
         if (file_exists(Theme::file('css/mp-screen.css'))) {
             $action->cssLink('css/mp-screen.css', null, 'screen');
         } else {
@@ -255,6 +257,14 @@ class MobileProfilePlugin extends WAP20Plugin
         return false;
     }
 
+
+    function onStartShowUAStyles($action) {
+        if (!$this->serveMobile) {
+            return true;
+        }
+
+        return false;
+    }
 
     function onStartShowHeader($action)
     {

@@ -367,7 +367,8 @@ function common_current_user()
 
     if ($_cur === false) {
 
-        if (isset($_REQUEST[session_name()]) || (isset($_SESSION['userid']) && $_SESSION['userid'])) {
+        if (isset($_COOKIE[session_name()]) || isset($_GET[session_name()])
+            || (isset($_SESSION['userid']) && $_SESSION['userid'])) {
             common_ensure_session();
             $id = isset($_SESSION['userid']) ? $_SESSION['userid'] : false;
             if ($id) {
@@ -658,6 +659,9 @@ function common_valid_profile_tag($str)
 function common_at_link($sender_id, $nickname)
 {
     $sender = Profile::staticGet($sender_id);
+    if (!$sender) {
+        return $nickname;
+    }
     $recipient = common_relative_profile($sender, common_canonical_nickname($nickname));
     if ($recipient) {
         $user = User::staticGet('id', $recipient->id);
@@ -687,7 +691,7 @@ function common_group_link($sender_id, $nickname)
 {
     $sender = Profile::staticGet($sender_id);
     $group = User_group::getForNickname($nickname);
-    if ($group && $sender->isMember($group)) {
+    if ($sender && $group && $sender->isMember($group)) {
         $attrs = array('href' => $group->permalink(),
                        'class' => 'url');
         if (!empty($group->fullname)) {

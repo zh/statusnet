@@ -14,12 +14,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-02 19:19+0000\n"
-"PO-Revision-Date: 2010-02-02 19:20:39+0000\n"
+"POT-Creation-Date: 2010-02-11 08:14+0000\n"
+"PO-Revision-Date: 2010-02-11 08:14:44+0000\n"
 "Language-Team: French\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61864); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62295); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: out-statusnet\n"
@@ -31,7 +31,7 @@ msgstr "Accès"
 
 #: actions/accessadminpanel.php:65
 msgid "Site access settings"
-msgstr "Paramètres d'accès au site"
+msgstr "Paramètres d’accès au site"
 
 #: actions/accessadminpanel.php:158
 msgid "Registration"
@@ -51,7 +51,7 @@ msgstr "Sur invitation uniquement"
 
 #: actions/accessadminpanel.php:169
 msgid "Make registration invitation only."
-msgstr "Rendre l’inscription sur invitation seulement."
+msgstr "Autoriser l’inscription sur invitation seulement."
 
 #: actions/accessadminpanel.php:173
 msgid "Closed"
@@ -75,7 +75,7 @@ msgstr "Enregistrer"
 
 #: actions/accessadminpanel.php:189
 msgid "Save access settings"
-msgstr "Sauvegarder les paramètres d'accès"
+msgstr "Sauvegarder les paramètres d’accès"
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
 #: actions/showfavorites.php:137 actions/tag.php:51
@@ -111,7 +111,7 @@ msgstr "Utilisateur non trouvé."
 #: actions/all.php:84
 #, php-format
 msgid "%1$s and friends, page %2$d"
-msgstr "!%1$s et amis, page %2$d"
+msgstr "%1$s et ses amis, page %2$d"
 
 #: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
 #: actions/apitimelinefriends.php:114 actions/apitimelinehome.php:115
@@ -186,22 +186,23 @@ msgstr "Statuts de %1$s et ses amis dans %2$s!"
 #: actions/apiaccountupdateprofile.php:97
 #: actions/apiaccountupdateprofilebackgroundimage.php:94
 #: actions/apiaccountupdateprofilecolors.php:118
-#: actions/apidirectmessage.php:156 actions/apifavoritecreate.php:99
-#: actions/apifavoritedestroy.php:100 actions/apifriendshipscreate.php:100
-#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:128
-#: actions/apigroupcreate.php:136 actions/apigroupismember.php:114
-#: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
-#: actions/apigrouplist.php:132 actions/apigrouplistall.php:120
-#: actions/apigroupmembership.php:106 actions/apigroupshow.php:115
-#: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
-#: actions/apistatusesretweets.php:112 actions/apistatusesshow.php:108
-#: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
-#: actions/apisubscriptions.php:111 actions/apitimelinefavorites.php:146
-#: actions/apitimelinefriends.php:155 actions/apitimelinegroup.php:150
-#: actions/apitimelinehome.php:156 actions/apitimelinementions.php:151
-#: actions/apitimelinepublic.php:131 actions/apitimelineretweetedtome.php:121
+#: actions/apiaccountverifycredentials.php:70 actions/apidirectmessage.php:156
+#: actions/apifavoritecreate.php:99 actions/apifavoritedestroy.php:100
+#: actions/apifriendshipscreate.php:100 actions/apifriendshipsdestroy.php:100
+#: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:136
+#: actions/apigroupismember.php:114 actions/apigroupjoin.php:155
+#: actions/apigroupleave.php:141 actions/apigrouplist.php:132
+#: actions/apigrouplistall.php:120 actions/apigroupmembership.php:106
+#: actions/apigroupshow.php:115 actions/apihelptest.php:88
+#: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
+#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:137
+#: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
+#: actions/apitimelinefavorites.php:146 actions/apitimelinefriends.php:155
+#: actions/apitimelinegroup.php:150 actions/apitimelinehome.php:156
+#: actions/apitimelinementions.php:151 actions/apitimelinepublic.php:131
+#: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
-#: actions/apitimelineuser.php:165 actions/apiusershow.php:101
+#: actions/apitimelineuser.php:166 actions/apiusershow.php:101
 msgid "API method not found."
 msgstr "Méthode API non trouvée !"
 
@@ -463,7 +464,7 @@ msgstr "Impossible de joindre l’utilisateur %1$s au groupe %2$s."
 
 #: actions/apigroupleave.php:114
 msgid "You are not a member of this group."
-msgstr "Vous n'êtes pas membre de ce groupe."
+msgstr "Vous n’êtes pas membre de ce groupe."
 
 #: actions/apigroupleave.php:124 actions/leavegroup.php:119
 #, php-format
@@ -487,12 +488,11 @@ msgstr "groupes sur %s"
 
 #: actions/apioauthauthorize.php:101
 msgid "No oauth_token parameter provided."
-msgstr ""
+msgstr "Paramètre oauth_token non fourni."
 
 #: actions/apioauthauthorize.php:106
-#, fuzzy
 msgid "Invalid token."
-msgstr "Taille incorrecte."
+msgstr "Jeton incorrect."
 
 #: actions/apioauthauthorize.php:123 actions/avatarsettings.php:268
 #: actions/deletenotice.php:157 actions/disfavor.php:74
@@ -516,18 +516,18 @@ msgstr ""
 
 #: actions/apioauthauthorize.php:135
 msgid "Invalid nickname / password!"
-msgstr "Identifiant ou mot de passe incorrect !"
+msgstr "Pseudo ou mot de passe incorrect !"
 
 #: actions/apioauthauthorize.php:159
 msgid "Database error deleting OAuth application user."
 msgstr ""
-"Erreur de la base de données lors de la suppression de l'utilisateur de "
-"l'application OAuth."
+"Erreur de la base de données lors de la suppression de l’utilisateur de "
+"l’application OAuth."
 
 #: actions/apioauthauthorize.php:185
 msgid "Database error inserting OAuth application user."
 msgstr ""
-"Erreur de base de donnée en insérant l'utilisateur de l'application OAuth"
+"Erreur de base de donnée en insérant l’utilisateur de l’application OAuth"
 
 #: actions/apioauthauthorize.php:214
 #, php-format
@@ -535,13 +535,13 @@ msgid ""
 "The request token %s has been authorized. Please exchange it for an access "
 "token."
 msgstr ""
-"Le jeton de connexion %s a été autorisé. Merci de l'échanger contre un jeton "
-"d'accès."
+"Le jeton de connexion %s a été autorisé. Merci de l’échanger contre un jeton "
+"d’accès."
 
 #: actions/apioauthauthorize.php:227
-#, fuzzy, php-format
+#, php-format
 msgid "The request token %s has been denied and revoked."
-msgstr "Le jeton de connexion %s a été refusé."
+msgstr "Le jeton de connexion %s a été refusé et révoqué."
 
 #: actions/apioauthauthorize.php:232 actions/avatarsettings.php:281
 #: actions/designadminpanel.php:103 actions/editapplication.php:139
@@ -555,11 +555,11 @@ msgstr "Soumission de formulaire inattendue."
 #: actions/apioauthauthorize.php:259
 msgid "An application would like to connect to your account"
 msgstr ""
-"Une application vous demande l'autorisation de se connecter à votre compte"
+"Une application vous demande l’autorisation de se connecter à votre compte"
 
 #: actions/apioauthauthorize.php:276
 msgid "Allow or deny access"
-msgstr "Autoriser ou refuser l'accès"
+msgstr "Autoriser ou refuser l’accès"
 
 #: actions/apioauthauthorize.php:292
 #, php-format
@@ -568,6 +568,10 @@ msgid ""
 "the ability to <strong>%3$s</strong> your %4$s account data. You should only "
 "give access to your %4$s account to third parties you trust."
 msgstr ""
+"L’application <strong>%1$s</strong> de <strong>%2$s</strong> voudrait "
+"pouvoir <strong>%3$s</strong> les données de votre compte %4$s. Vous ne "
+"devriez donner l’accès à votre compte %4$s qu’aux tiers à qui vous faites "
+"confiance."
 
 #: actions/apioauthauthorize.php:310 lib/action.php:441
 msgid "Account"
@@ -575,7 +579,8 @@ msgstr "Compte"
 
 #: actions/apioauthauthorize.php:313 actions/login.php:230
 #: actions/profilesettings.php:106 actions/register.php:424
-#: actions/showgroup.php:236 actions/tagother.php:94 lib/groupeditform.php:152
+#: actions/showgroup.php:236 actions/tagother.php:94
+#: actions/userauthorization.php:145 lib/groupeditform.php:152
 #: lib/userprofile.php:131
 msgid "Nickname"
 msgstr "Pseudo"
@@ -595,7 +600,7 @@ msgstr "Autoriser"
 
 #: actions/apioauthauthorize.php:351
 msgid "Allow or deny access to your account information."
-msgstr "Autoriser ou refuser l'accès à votre compte."
+msgstr "Autoriser ou refuser l’accès à votre compte."
 
 #: actions/apistatusesdestroy.php:107
 msgid "This method requires a POST or DELETE."
@@ -766,7 +771,7 @@ msgstr "Image originale"
 msgid "Preview"
 msgstr "Aperçu"
 
-#: actions/avatarsettings.php:149 actions/showapplication.php:247
+#: actions/avatarsettings.php:149 actions/showapplication.php:252
 #: lib/deleteuserform.php:66 lib/noticelist.php:624
 msgid "Delete"
 msgstr "Supprimer"
@@ -813,9 +818,9 @@ msgid ""
 "unsubscribed from you, unable to subscribe to you in the future, and you "
 "will not be notified of any @-replies from them."
 msgstr ""
-"Êtes-vous certain de vouloir bloquer cet utilisateur ? Après cela, il ne "
-"sera plus abonné à votre compte, ne pourra plus s’y abonner de nouveau, et "
-"vous ne serez pas informé des @-réponses de sa part."
+"Voulez-vous vraiment bloquer cet utilisateur ? Après cela, il ne sera plus "
+"abonné à votre compte, ne pourra plus s’y abonner de nouveau, et vous ne "
+"serez pas informé des @-réponses de sa part."
 
 #: actions/block.php:143 actions/deleteapplication.php:153
 #: actions/deletenotice.php:145 actions/deleteuser.php:147
@@ -833,7 +838,7 @@ msgstr "Ne pas bloquer cet utilisateur"
 msgid "Yes"
 msgstr "Oui"
 
-#: actions/block.php:144 actions/groupmembers.php:346 lib/blockform.php:80
+#: actions/block.php:144 actions/groupmembers.php:348 lib/blockform.php:80
 msgid "Block this user"
 msgstr "Bloquer cet utilisateur"
 
@@ -934,19 +939,17 @@ msgid "Notices"
 msgstr "Avis"
 
 #: actions/deleteapplication.php:63
-#, fuzzy
 msgid "You must be logged in to delete an application."
-msgstr "Vous devez être connecté pour modifier une application."
+msgstr "Vous devez être connecté pour supprimer une application."
 
 #: actions/deleteapplication.php:71
-#, fuzzy
 msgid "Application not found."
-msgstr "Informations sur l'application"
+msgstr "Application non trouvée."
 
 #: actions/deleteapplication.php:78 actions/editapplication.php:77
 #: actions/showapplication.php:94
 msgid "You are not the owner of this application."
-msgstr "Vous n'êtes pas le propriétaire de cette application."
+msgstr "Vous n’êtes pas le propriétaire de cette application."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
@@ -955,29 +958,26 @@ msgid "There was a problem with your session token."
 msgstr "Un problème est survenu avec votre jeton de session."
 
 #: actions/deleteapplication.php:123 actions/deleteapplication.php:147
-#, fuzzy
 msgid "Delete application"
-msgstr "Modifier votre application"
+msgstr "Supprimer l’application"
 
 #: actions/deleteapplication.php:149
-#, fuzzy
 msgid ""
 "Are you sure you want to delete this application? This will clear all data "
 "about the application from the database, including all existing user "
 "connections."
 msgstr ""
-"Êtes-vous certain de vouloir supprimer cet utilisateur ? Ceci effacera "
-"toutes les données à son propos de la base de données, sans sauvegarde."
+"Voulez-vous vraiment supprimer cette application ? Ceci effacera toutes les "
+"données à son propos de la base de données, y compris toutes les connexions "
+"utilisateur existantes."
 
 #: actions/deleteapplication.php:156
-#, fuzzy
 msgid "Do not delete this application"
-msgstr "Ne pas supprimer cet avis"
+msgstr "Ne pas supprimer cette application"
 
 #: actions/deleteapplication.php:160
-#, fuzzy
 msgid "Delete this application"
-msgstr "Icône pour cette application"
+msgstr "Supprimer cette application"
 
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
@@ -1007,7 +1007,7 @@ msgstr "Supprimer cet avis"
 
 #: actions/deletenotice.php:144
 msgid "Are you sure you want to delete this notice?"
-msgstr "Êtes-vous sûr(e) de vouloir supprimer cet avis ?"
+msgstr "Voulez-vous vraiment supprimer cet avis ?"
 
 #: actions/deletenotice.php:145
 msgid "Do not delete this notice"
@@ -1027,15 +1027,15 @@ msgstr "Vous pouvez seulement supprimer les utilisateurs locaux."
 
 #: actions/deleteuser.php:110 actions/deleteuser.php:133
 msgid "Delete user"
-msgstr "Supprimer l'utilsateur"
+msgstr "Supprimer l’utilisateur"
 
 #: actions/deleteuser.php:135
 msgid ""
 "Are you sure you want to delete this user? This will clear all data about "
 "the user from the database, without a backup."
 msgstr ""
-"Êtes-vous certain de vouloir supprimer cet utilisateur ? Ceci effacera "
-"toutes les données à son propos de la base de données, sans sauvegarde."
+"Voulez-vous vraiment supprimer cet utilisateur ? Ceci effacera toutes les "
+"données à son propos de la base de données, sans sauvegarde."
 
 #: actions/deleteuser.php:148 lib/deleteuserform.php:77
 msgid "Delete this user"
@@ -1057,7 +1057,7 @@ msgstr "URL du logo invalide."
 #: actions/designadminpanel.php:279
 #, php-format
 msgid "Theme not available: %s"
-msgstr "Le thème n'est pas disponible : %s"
+msgstr "Le thème n’est pas disponible : %s"
 
 #: actions/designadminpanel.php:375
 msgid "Change logo"
@@ -1094,7 +1094,7 @@ msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
 "$s."
 msgstr ""
-"Vous pouvez importer une image d'arrière plan pour ce site. La taille "
+"Vous pouvez importer une image d’arrière plan pour ce site. La taille "
 "maximale du fichier est de %1$s."
 
 #: actions/designadminpanel.php:457 lib/designsettings.php:139
@@ -1164,7 +1164,7 @@ msgstr "Document « %s » non trouvé."
 
 #: actions/editapplication.php:54
 msgid "Edit Application"
-msgstr "Modifier l'application"
+msgstr "Modifier l’application"
 
 #: actions/editapplication.php:66
 msgid "You must be logged in to edit an application."
@@ -1173,7 +1173,7 @@ msgstr "Vous devez être connecté pour modifier une application."
 #: actions/editapplication.php:81 actions/oauthconnectionssettings.php:166
 #: actions/showapplication.php:87
 msgid "No such application."
-msgstr "Pas d'application."
+msgstr "Application non trouvée."
 
 #: actions/editapplication.php:161
 msgid "Use this form to edit your application."
@@ -1188,45 +1188,44 @@ msgid "Name is too long (max 255 chars)."
 msgstr "Le nom est trop long (maximum de 255 caractères)."
 
 #: actions/editapplication.php:183 actions/newapplication.php:162
-#, fuzzy
 msgid "Name already in use. Try another one."
-msgstr "Pseudo déjà utilisé. Essayez-en un autre."
+msgstr "Ce nom est déjà utilisé. Essayez-en un autre."
 
 #: actions/editapplication.php:186 actions/newapplication.php:168
 msgid "Description is required."
-msgstr "Description requise."
+msgstr "La description est requise."
 
 #: actions/editapplication.php:194
 msgid "Source URL is too long."
-msgstr "L'URL source est trop longue."
+msgstr "L’URL source est trop longue."
 
 #: actions/editapplication.php:200 actions/newapplication.php:185
 msgid "Source URL is not valid."
-msgstr "URL source invalide."
+msgstr "L’URL source est invalide."
 
 #: actions/editapplication.php:203 actions/newapplication.php:188
 msgid "Organization is required."
-msgstr "Organisation requise."
+msgstr "L’organisation est requise."
 
 #: actions/editapplication.php:206 actions/newapplication.php:191
 msgid "Organization is too long (max 255 chars)."
-msgstr "Organisation trop longue (maximum de 255 caractères)."
+msgstr "L’organisation est trop longue (maximum de 255 caractères)."
 
 #: actions/editapplication.php:209 actions/newapplication.php:194
 msgid "Organization homepage is required."
-msgstr "La page d'accueil de l'organisation est requise."
+msgstr "La page d’accueil de l’organisation est requise."
 
 #: actions/editapplication.php:218 actions/newapplication.php:206
 msgid "Callback is too long."
-msgstr "Le Callback est trop long."
+msgstr "Le rappel (Callback) est trop long."
 
 #: actions/editapplication.php:225 actions/newapplication.php:215
 msgid "Callback URL is not valid."
-msgstr "URL de rappel invalide."
+msgstr "L’URL de rappel (Callback) est invalide."
 
 #: actions/editapplication.php:258
 msgid "Could not update application."
-msgstr "Impossible de mettre à jour l'application."
+msgstr "Impossible de mettre à jour l’application."
 
 #: actions/editgroup.php:56
 #, php-format
@@ -1452,7 +1451,7 @@ msgstr "Cet avis a déjà été ajouté à vos favoris !"
 msgid "Disfavor favorite"
 msgstr "Retirer ce favori"
 
-#: actions/favorited.php:65 lib/popularnoticesection.php:88
+#: actions/favorited.php:65 lib/popularnoticesection.php:91
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
 msgstr "Avis populaires"
@@ -1549,7 +1548,7 @@ msgstr "Cet utilisateur vous a empêché de vous inscrire."
 
 #: actions/finishremotesubscribe.php:110
 msgid "You are not authorized."
-msgstr "Vous n'êtes pas autorisé."
+msgstr "Vous n’êtes pas autorisé."
 
 #: actions/finishremotesubscribe.php:113
 msgid "Could not convert request token to access token."
@@ -1600,7 +1599,7 @@ msgstr "Cet utilisateur est déjà bloqué pour le groupe."
 msgid "User is not a member of group."
 msgstr "L’utilisateur n’est pas membre du groupe."
 
-#: actions/groupblock.php:136 actions/groupmembers.php:314
+#: actions/groupblock.php:136 actions/groupmembers.php:316
 msgid "Block user from group"
 msgstr "Bloquer cet utilisateur du groupe"
 
@@ -1703,19 +1702,19 @@ msgstr "Liste des utilisateurs inscrits à ce groupe."
 msgid "Admin"
 msgstr "Administrer"
 
-#: actions/groupmembers.php:346 lib/blockform.php:69
+#: actions/groupmembers.php:348 lib/blockform.php:69
 msgid "Block"
 msgstr "Bloquer"
 
-#: actions/groupmembers.php:441
+#: actions/groupmembers.php:443
 msgid "Make user an admin of the group"
 msgstr "Faire de cet utilisateur un administrateur du groupe"
 
-#: actions/groupmembers.php:473
+#: actions/groupmembers.php:475
 msgid "Make Admin"
 msgstr "Faire un administrateur"
 
-#: actions/groupmembers.php:473
+#: actions/groupmembers.php:475
 msgid "Make this user an admin"
 msgstr "Faire de cet utilisateur un administrateur"
 
@@ -2073,7 +2072,7 @@ msgstr "Vous devez ouvrir une session pour quitter un groupe."
 
 #: actions/leavegroup.php:90 lib/command.php:265
 msgid "You are not a member of that group."
-msgstr "Vous n'êtes pas membre de ce groupe."
+msgstr "Vous n’êtes pas membre de ce groupe."
 
 #: actions/leavegroup.php:127
 #, php-format
@@ -2135,24 +2134,24 @@ msgstr ""
 "pas encore d’identifiant ? [Créez-vous](%%action.register%%) un nouveau "
 "compte."
 
-#: actions/makeadmin.php:91
+#: actions/makeadmin.php:92
 msgid "Only an admin can make another user an admin."
 msgstr ""
 "Seul un administrateur peut faire d’un autre utilisateur un administrateur."
 
-#: actions/makeadmin.php:95
+#: actions/makeadmin.php:96
 #, php-format
 msgid "%1$s is already an admin for group \"%2$s\"."
 msgstr "%1$s est déjà administrateur du groupe « %2$s »."
 
-#: actions/makeadmin.php:132
+#: actions/makeadmin.php:133
 #, php-format
 msgid "Can't get membership record for %1$s in group %2$s."
 msgstr ""
 "Impossible d’obtenir les enregistrements d’appartenance pour %1$s dans le "
 "groupe %2$s."
 
-#: actions/makeadmin.php:145
+#: actions/makeadmin.php:146
 #, php-format
 msgid "Can't make %1$s an admin for group %2$s."
 msgstr "Impossible de rendre %1$s administrateur du groupe %2$s."
@@ -2175,11 +2174,11 @@ msgstr "Utilisez ce formulaire pour inscrire une nouvelle application."
 
 #: actions/newapplication.php:176
 msgid "Source URL is required."
-msgstr "URL source requise."
+msgstr "L’URL source est requise."
 
 #: actions/newapplication.php:258 actions/newapplication.php:267
 msgid "Could not create application."
-msgstr "Impossible de créer l'application."
+msgstr "Impossible de créer l’application."
 
 #: actions/newgroup.php:53
 msgid "New group"
@@ -2310,7 +2309,7 @@ msgstr "Applications que vous avez enregistré"
 #: actions/oauthappssettings.php:135
 #, php-format
 msgid "You have not registered any applications yet."
-msgstr "Vous n'avez encore enregistré aucune application."
+msgstr "Vous n’avez encore enregistré aucune application."
 
 #: actions/oauthconnectionssettings.php:72
 msgid "Connected applications"
@@ -2323,21 +2322,21 @@ msgstr ""
 
 #: actions/oauthconnectionssettings.php:175
 msgid "You are not a user of that application."
-msgstr "Vous n'êtes pas un utilisateur de cette application."
+msgstr "Vous n’êtes pas un utilisateur de cette application."
 
 #: actions/oauthconnectionssettings.php:186
 msgid "Unable to revoke access for app: "
-msgstr "Impossible d'annuler l'accès de l'application : "
+msgstr "Impossible d’annuler l’accès de l’application : "
 
 #: actions/oauthconnectionssettings.php:198
 #, php-format
 msgid "You have not authorized any applications to use your account."
-msgstr "Vous n'avez autorisé aucune application à utiliser votre compte."
+msgstr "Vous n’avez autorisé aucune application à utiliser votre compte."
 
 #: actions/oauthconnectionssettings.php:211
 msgid "Developers can edit the registration settings for their applications "
 msgstr ""
-"Les programmeurs peuvent modifier les paramètres d'enregistrement pour leurs "
+"Les programmeurs peuvent modifier les paramètres d’enregistrement pour leurs "
 "applications "
 
 #: actions/oembed.php:79 actions/shownotice.php:100
@@ -2357,8 +2356,8 @@ msgstr "type de contenu "
 msgid "Only "
 msgstr "Seulement "
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1039
-#: lib/api.php:1067 lib/api.php:1177
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1040
+#: lib/api.php:1068 lib/api.php:1178
 msgid "Not a supported data format."
 msgstr "Format de données non supporté."
 
@@ -2404,23 +2403,23 @@ msgstr "Le service de réduction d’URL est trop long (50 caractères maximum).
 
 #: actions/otp.php:69
 msgid "No user ID specified."
-msgstr "Aucun identifiant d'utilisateur n’a été spécifié."
+msgstr "Aucun identifiant d’utilisateur n’a été spécifié."
 
 #: actions/otp.php:83
 msgid "No login token specified."
-msgstr "Aucun jeton d'identification n’a été spécifié."
+msgstr "Aucun jeton d’identification n’a été spécifié."
 
 #: actions/otp.php:90
 msgid "No login token requested."
-msgstr "Aucune jeton d'identification requis."
+msgstr "Aucun jeton d’identification n’a été demandé."
 
 #: actions/otp.php:95
 msgid "Invalid login token specified."
-msgstr "Jeton d'identification invalide."
+msgstr "Jeton d’identification invalide."
 
 #: actions/otp.php:104
 msgid "Login token expired."
-msgstr "Jeton d'identification périmé."
+msgstr "Jeton d’identification périmé."
 
 #: actions/outbox.php:58
 #, php-format
@@ -2565,7 +2564,7 @@ msgstr "Jolies URL"
 
 #: actions/pathsadminpanel.php:252
 msgid "Use fancy (more readable and memorable) URLs?"
-msgstr "Utiliser des jolies URL (plus lisibles et mémorable) ?"
+msgstr "Utiliser des jolies URL (plus lisibles et faciles à mémoriser) ?"
 
 #: actions/pathsadminpanel.php:259
 msgid "Theme"
@@ -2735,7 +2734,7 @@ msgstr "Bio"
 
 #: actions/profilesettings.php:132 actions/register.php:471
 #: actions/showgroup.php:256 actions/tagother.php:112
-#: actions/userauthorization.php:158 lib/groupeditform.php:177
+#: actions/userauthorization.php:166 lib/groupeditform.php:177
 #: lib/userprofile.php:164
 msgid "Location"
 msgstr "Emplacement"
@@ -2925,7 +2924,7 @@ msgstr ""
 "Pourquoi ne pas [créer un compte](%%action.register%%) et être le premier à "
 "en poster un !"
 
-#: actions/publictagcloud.php:131
+#: actions/publictagcloud.php:134
 msgid "Tag cloud"
 msgstr "Nuage de marques"
 
@@ -3373,77 +3372,81 @@ msgstr "Sauvegarder les paramètres du site"
 msgid "You must be logged in to view an application."
 msgstr "Vous devez être connecté pour voir une application."
 
-#: actions/showapplication.php:158
+#: actions/showapplication.php:157
 msgid "Application profile"
-msgstr "Profil de l'application"
+msgstr "Profil de l’application"
 
-#: actions/showapplication.php:160 lib/applicationeditform.php:180
+#: actions/showapplication.php:159 lib/applicationeditform.php:180
 msgid "Icon"
 msgstr "Icône"
 
-#: actions/showapplication.php:170 actions/version.php:195
+#: actions/showapplication.php:169 actions/version.php:195
 #: lib/applicationeditform.php:195
 msgid "Name"
 msgstr "Nom"
 
-#: actions/showapplication.php:179 lib/applicationeditform.php:222
+#: actions/showapplication.php:178 lib/applicationeditform.php:222
 msgid "Organization"
 msgstr "Organisation"
 
-#: actions/showapplication.php:188 actions/version.php:198
+#: actions/showapplication.php:187 actions/version.php:198
 #: lib/applicationeditform.php:209 lib/groupeditform.php:172
 msgid "Description"
 msgstr "Description"
 
-#: actions/showapplication.php:193 actions/showgroup.php:429
+#: actions/showapplication.php:192 actions/showgroup.php:429
 #: lib/profileaction.php:174
 msgid "Statistics"
 msgstr "Statistiques"
 
-#: actions/showapplication.php:204
-#, fuzzy, php-format
+#: actions/showapplication.php:203
+#, php-format
 msgid "Created by %1$s - %2$s access by default - %3$d users"
-msgstr "créé par %1$s - accès %2$s par défaut - %3$d utilisateurs"
+msgstr "Créé par %1$s - accès %2$s par défaut - %3$d utilisateurs"
 
-#: actions/showapplication.php:214
+#: actions/showapplication.php:213
 msgid "Application actions"
-msgstr "Actions de l'application"
+msgstr "Actions de l’application"
 
-#: actions/showapplication.php:232
+#: actions/showapplication.php:236
 msgid "Reset key & secret"
 msgstr "Réinitialiser la clé et le secret"
 
-#: actions/showapplication.php:256
+#: actions/showapplication.php:261
 msgid "Application info"
-msgstr "Informations sur l'application"
-
-#: actions/showapplication.php:258
-msgid "Consumer key"
-msgstr "Clé de l'utilisateur"
+msgstr "Informations sur l’application"
 
 #: actions/showapplication.php:263
-msgid "Consumer secret"
-msgstr "Secret de l'utilisateur"
+msgid "Consumer key"
+msgstr "Clé de l’utilisateur"
 
 #: actions/showapplication.php:268
+msgid "Consumer secret"
+msgstr "Secret de l’utilisateur"
+
+#: actions/showapplication.php:273
 msgid "Request token URL"
 msgstr "URL du jeton de requête"
 
-#: actions/showapplication.php:273
-msgid "Access token URL"
-msgstr "URL du jeton d'accès"
-
 #: actions/showapplication.php:278
-msgid "Authorize URL"
-msgstr "Autoriser l'URL"
+msgid "Access token URL"
+msgstr "URL du jeton d’accès"
 
 #: actions/showapplication.php:283
+msgid "Authorize URL"
+msgstr "Autoriser l’URL"
+
+#: actions/showapplication.php:288
 msgid ""
 "Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
 "signature method."
 msgstr ""
-"Note : Nous utilisons les signatures HMAC-SHA1. Nous n'utilisons pas la "
+"Note : Nous utilisons les signatures HMAC-SHA1. Nous n’utilisons pas la "
 "méthode de signature en texte clair."
+
+#: actions/showapplication.php:309
+msgid "Are you sure you want to reset your consumer key and secret?"
+msgstr "Voulez-vous vraiment réinitialiser votre clé consommateur et secrète ?"
 
 #: actions/showfavorites.php:79
 #, php-format
@@ -3517,12 +3520,12 @@ msgid "Group profile"
 msgstr "Profil du groupe"
 
 #: actions/showgroup.php:263 actions/tagother.php:118
-#: actions/userauthorization.php:167 lib/userprofile.php:177
+#: actions/userauthorization.php:175 lib/userprofile.php:177
 msgid "URL"
 msgstr "URL"
 
 #: actions/showgroup.php:274 actions/tagother.php:128
-#: actions/userauthorization.php:179 lib/userprofile.php:194
+#: actions/userauthorization.php:187 lib/userprofile.php:194
 msgid "Note"
 msgstr "Note"
 
@@ -3973,7 +3976,7 @@ msgstr "Aucun code entré"
 
 #: actions/subedit.php:70
 msgid "You are not subscribed to that profile."
-msgstr "Vous n'êtes pas abonné(e) à ce profil."
+msgstr "Vous n’êtes pas abonné(e) à ce profil."
 
 #: actions/subedit.php:83
 msgid "Could not save subscription."
@@ -4109,7 +4112,8 @@ msgstr "Marque %s"
 msgid "User profile"
 msgstr "Profil de l’utilisateur"
 
-#: actions/tagother.php:81 lib/userprofile.php:102
+#: actions/tagother.php:81 actions/userauthorization.php:132
+#: lib/userprofile.php:102
 msgid "Photo"
 msgstr "Photo"
 
@@ -4169,7 +4173,7 @@ msgstr "Aucune identité de profil dans la requête."
 msgid "Unsubscribed"
 msgstr "Désabonné"
 
-#: actions/updateprofile.php:62 actions/userauthorization.php:330
+#: actions/updateprofile.php:62 actions/userauthorization.php:337
 #, php-format
 msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
@@ -4260,36 +4264,36 @@ msgstr ""
 "abonner aux avis de cet utilisateur. Si vous n’avez pas demandé à vous "
 "abonner aux avis de quelqu’un, cliquez « Rejeter »."
 
-#: actions/userauthorization.php:188 actions/version.php:165
+#: actions/userauthorization.php:196 actions/version.php:165
 msgid "License"
 msgstr "Licence"
 
-#: actions/userauthorization.php:209
+#: actions/userauthorization.php:217
 msgid "Accept"
 msgstr "Accepter"
 
-#: actions/userauthorization.php:210 lib/subscribeform.php:115
+#: actions/userauthorization.php:218 lib/subscribeform.php:115
 #: lib/subscribeform.php:139
 msgid "Subscribe to this user"
 msgstr "S’abonner à cet utilisateur"
 
-#: actions/userauthorization.php:211
+#: actions/userauthorization.php:219
 msgid "Reject"
 msgstr "Refuser"
 
-#: actions/userauthorization.php:212
+#: actions/userauthorization.php:220
 msgid "Reject this subscription"
 msgstr "Rejeter cet abonnement"
 
-#: actions/userauthorization.php:225
+#: actions/userauthorization.php:232
 msgid "No authorization request!"
 msgstr "Pas de requête d’autorisation !"
 
-#: actions/userauthorization.php:247
+#: actions/userauthorization.php:254
 msgid "Subscription authorized"
 msgstr "Abonnement autorisé"
 
-#: actions/userauthorization.php:249
+#: actions/userauthorization.php:256
 msgid ""
 "The subscription has been authorized, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to authorize the "
@@ -4299,11 +4303,11 @@ msgstr ""
 "Vérifiez les instructions du site pour savoir comment compléter "
 "l’autorisation de l’abonnement. Votre jeton d’abonnement est :"
 
-#: actions/userauthorization.php:259
+#: actions/userauthorization.php:266
 msgid "Subscription rejected"
 msgstr "Abonnement refusé"
 
-#: actions/userauthorization.php:261
+#: actions/userauthorization.php:268
 msgid ""
 "The subscription has been rejected, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to fully reject the "
@@ -4313,38 +4317,38 @@ msgstr ""
 "Vérifiez les instructions du site pour savoir comment refuser pleinement "
 "l’abonnement."
 
-#: actions/userauthorization.php:296
+#: actions/userauthorization.php:303
 #, php-format
 msgid "Listener URI ‘%s’ not found here."
 msgstr "L’URI de l’auditeur ‘%s’ n’a pas été trouvée ici."
 
-#: actions/userauthorization.php:301
+#: actions/userauthorization.php:308
 #, php-format
 msgid "Listenee URI ‘%s’ is too long."
 msgstr "L’URI à laquelle vous vous êtes abonné(e) ‘%s’ est trop longue."
 
-#: actions/userauthorization.php:307
+#: actions/userauthorization.php:314
 #, php-format
 msgid "Listenee URI ‘%s’ is a local user."
 msgstr ""
 "L’URI à laquelle vous vous êtes abonné(e) ‘%s’ est un utilisateur local."
 
-#: actions/userauthorization.php:322
+#: actions/userauthorization.php:329
 #, php-format
 msgid "Profile URL ‘%s’ is for a local user."
 msgstr "L’URL du profil ‘%s’ est pour un utilisateur local."
 
-#: actions/userauthorization.php:338
+#: actions/userauthorization.php:345
 #, php-format
 msgid "Avatar URL ‘%s’ is not valid."
 msgstr "L’URL de l’avatar ‘%s’ n’est pas valide."
 
-#: actions/userauthorization.php:343
+#: actions/userauthorization.php:350
 #, php-format
 msgid "Can’t read avatar URL ‘%s’."
 msgstr "Impossible de lire l’URL de l’avatar « %s »."
 
-#: actions/userauthorization.php:348
+#: actions/userauthorization.php:355
 #, php-format
 msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "Format d’image invalide pour l’URL de l’avatar « %s »."
@@ -4470,11 +4474,11 @@ msgstr "Un fichier aussi gros dépasserai votre quota mensuel de %d octets."
 
 #: classes/Group_member.php:41
 msgid "Group join failed."
-msgstr "L'inscription au groupe a échoué."
+msgstr "L’inscription au groupe a échoué."
 
 #: classes/Group_member.php:53
 msgid "Not part of group."
-msgstr "N'appartient pas au groupe."
+msgstr "N’appartient pas au groupe."
 
 #: classes/Group_member.php:60
 msgid "Group leave failed."
@@ -4483,7 +4487,7 @@ msgstr "La désinscription du groupe a échoué."
 #: classes/Login_token.php:76
 #, php-format
 msgid "Could not create login token for %s"
-msgstr "Impossible de créer le jeton d'ouverture de session pour %s"
+msgstr "Impossible de créer le jeton d’identification pour %s"
 
 #: classes/Message.php:45
 msgid "You are banned from sending direct messages."
@@ -4542,7 +4546,7 @@ msgstr "Problème lors de l’enregistrement de la boîte de réception du group
 msgid "DB error inserting reply: %s"
 msgstr "Erreur de base de donnée en insérant la réponse :%s"
 
-#: classes/Notice.php:1231
+#: classes/Notice.php:1235
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4558,7 +4562,7 @@ msgstr "Impossible de créer le groupe."
 
 #: classes/User_group.php:409
 msgid "Could not set group membership."
-msgstr "Impossible d'établir l’inscription au groupe."
+msgstr "Impossible d’établir l’inscription au groupe."
 
 #: lib/accountsettingsaction.php:108
 msgid "Change your profile settings"
@@ -4586,7 +4590,7 @@ msgstr "Autres "
 
 #: lib/accountsettingsaction.php:128
 msgid "Other options"
-msgstr "Autres options "
+msgstr "Autres options"
 
 #: lib/action.php:144
 #, php-format
@@ -4752,13 +4756,13 @@ msgstr "Le contenu et les données de %1$s sont privés et confidentiels."
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
-"Le contenu et les données sont sous le droit d'auteur de %1$s. Tous droits "
+"Le contenu et les données sont sous le droit d’auteur de %1$s. Tous droits "
 "réservés."
 
 #: lib/action.php:814
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
-"Le contenu et les données sont sous le droit d'auteur du contributeur. Tous "
+"Le contenu et les données sont sous le droit d’auteur du contributeur. Tous "
 "droits réservés."
 
 #: lib/action.php:826
@@ -4815,7 +4819,7 @@ msgstr "Configuration utilisateur"
 
 #: lib/adminpanelaction.php:327
 msgid "Access configuration"
-msgstr "Configuration d'accès"
+msgstr "Configuration d’accès"
 
 #: lib/adminpanelaction.php:332
 msgid "Paths configuration"
@@ -4825,18 +4829,18 @@ msgstr "Configuration des chemins"
 msgid "Sessions configuration"
 msgstr "Configuration des sessions"
 
-#: lib/apiauth.php:99
+#: lib/apiauth.php:95
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
-"La ressource de l'API a besoin de l'accès en lecture et en écriture, mais "
-"vous n'y avez accès qu'en lecture."
+"La ressource de l’API a besoin de l’accès en lecture et en écriture, mais "
+"vous n’y avez accès qu’en lecture."
 
-#: lib/apiauth.php:279
+#: lib/apiauth.php:273
 #, php-format
 msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
 msgstr ""
-"L'essai d'authentification de l'API a échoué ; identifiant = %1$s, proxy = %2"
-"$s, ip = %3$s"
+"L’essai d’authentification de l’API a échoué ; pseudo = %1$s, proxy = %2$s, "
+"ip = %3$s"
 
 #: lib/applicationeditform.php:136
 msgid "Edit application"
@@ -4853,7 +4857,7 @@ msgstr "Décrivez votre application en %d caractères"
 
 #: lib/applicationeditform.php:207
 msgid "Describe your application"
-msgstr "Décrivez votre applications"
+msgstr "Décrivez votre application"
 
 #: lib/applicationeditform.php:216
 msgid "Source URL"
@@ -4861,7 +4865,7 @@ msgstr "URL source"
 
 #: lib/applicationeditform.php:218
 msgid "URL of the homepage of this application"
-msgstr "URL de la page d'accueil de cette application"
+msgstr "URL de la page d’accueil de cette application"
 
 #: lib/applicationeditform.php:224
 msgid "Organization responsible for this application"
@@ -4869,11 +4873,11 @@ msgstr "Organisation responsable de cette application"
 
 #: lib/applicationeditform.php:230
 msgid "URL for the homepage of the organization"
-msgstr "URL de la page d'accueil de l'organisation"
+msgstr "URL de la page d’accueil de l’organisation"
 
 #: lib/applicationeditform.php:236
 msgid "URL to redirect to after authentication"
-msgstr "URL vers laquelle rediriger après l'authentification"
+msgstr "URL vers laquelle rediriger après l’authentification"
 
 #: lib/applicationeditform.php:258
 msgid "Browser"
@@ -4885,7 +4889,7 @@ msgstr "Bureau"
 
 #: lib/applicationeditform.php:275
 msgid "Type of application, browser or desktop"
-msgstr "Type d'application, navigateur ou bureau"
+msgstr "Type d’application, navigateur ou bureau"
 
 #: lib/applicationeditform.php:297
 msgid "Read-only"
@@ -4961,7 +4965,7 @@ msgstr "Ça n’a pas de sens de se faire un clin d’œil à soi-même !"
 #: lib/command.php:99
 #, php-format
 msgid "Nudge sent to %s"
-msgstr "Coup de code envoyé à %s"
+msgstr "Clin d’œil envoyé à %s"
 
 #: lib/command.php:126
 #, php-format
@@ -4999,7 +5003,7 @@ msgstr "Impossible d’inscrire l’utilisateur %s au groupe %s"
 #: lib/command.php:236
 #, php-format
 msgid "%s joined group %s"
-msgstr "%1$s a rejoint le groupe %2$s"
+msgstr "%s a rejoint le groupe %s"
 
 #: lib/command.php:275
 #, php-format
@@ -5009,7 +5013,7 @@ msgstr "Impossible de retirer l’utilisateur %s du groupe %s"
 #: lib/command.php:280
 #, php-format
 msgid "%s left group %s"
-msgstr "%1$s a quitté le groupe %2$s"
+msgstr "%s a quitté le groupe %s"
 
 #: lib/command.php:309
 #, php-format
@@ -5120,7 +5124,7 @@ msgstr "Impossible d’activer les avertissements."
 
 #: lib/command.php:641
 msgid "Login command is disabled"
-msgstr "La commande d'ouverture de session est désactivée"
+msgstr "La commande d’ouverture de session est désactivée"
 
 #: lib/command.php:652
 #, php-format
@@ -5131,7 +5135,7 @@ msgstr ""
 
 #: lib/command.php:668
 msgid "You are not subscribed to anyone."
-msgstr "Vous n'êtes pas abonné(e) à personne."
+msgstr "Vous n’êtes abonné(e) à personne."
 
 #: lib/command.php:670
 msgid "You are subscribed to this person:"
@@ -5415,7 +5419,7 @@ msgstr "Groupes avec le plus de membres"
 
 #: lib/groupsbypostssection.php:71
 msgid "Groups with most posts"
-msgstr "Groupes avec le plus d'éléments publiés"
+msgstr "Groupes avec le plus d’éléments publiés"
 
 #: lib/grouptagcloudsection.php:56
 #, php-format
@@ -5803,7 +5807,7 @@ msgstr "Un dossier temporaire est manquant."
 
 #: lib/mediafile.php:162
 msgid "Failed to write file to disk."
-msgstr "Impossible d'écrire sur le disque."
+msgstr "Impossible d’écrire sur le disque."
 
 #: lib/mediafile.php:165
 msgid "File upload stopped by extension."
@@ -5873,7 +5877,7 @@ msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
 msgstr ""
-"Désolé, l'obtention de votre localisation prend plus de temps que prévu. "
+"Désolé, l’obtention de votre localisation prend plus de temps que prévu. "
 "Veuillez réessayer plus tard."
 
 #: lib/noticelist.php:428
@@ -5949,11 +5953,11 @@ msgstr "Erreur lors de l’insertion du profil distant"
 msgid "Duplicate notice"
 msgstr "Dupliquer l’avis"
 
-#: lib/oauthstore.php:466 lib/subs.php:48
+#: lib/oauthstore.php:465 lib/subs.php:48
 msgid "You have been banned from subscribing."
 msgstr "Il vous avez été interdit de vous abonner."
 
-#: lib/oauthstore.php:491
+#: lib/oauthstore.php:490
 msgid "Couldn't insert new subscription."
 msgstr "Impossible d’insérer un nouvel abonnement."
 
@@ -6060,7 +6064,7 @@ msgstr "Reprendre cet avis"
 
 #: lib/router.php:665
 msgid "No single user defined for single-user mode."
-msgstr ""
+msgstr "Aucun utilisateur unique défini pour le mode mono-utilisateur."
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"
@@ -6227,47 +6231,47 @@ msgstr "Message"
 msgid "Moderate"
 msgstr "Modérer"
 
-#: lib/util.php:867
+#: lib/util.php:870
 msgid "a few seconds ago"
 msgstr "il y a quelques secondes"
 
-#: lib/util.php:869
+#: lib/util.php:872
 msgid "about a minute ago"
 msgstr "il y a 1 minute"
 
-#: lib/util.php:871
+#: lib/util.php:874
 #, php-format
 msgid "about %d minutes ago"
 msgstr "il y a %d minutes"
 
-#: lib/util.php:873
+#: lib/util.php:876
 msgid "about an hour ago"
 msgstr "il y a 1 heure"
 
-#: lib/util.php:875
+#: lib/util.php:878
 #, php-format
 msgid "about %d hours ago"
 msgstr "il y a %d heures"
 
-#: lib/util.php:877
+#: lib/util.php:880
 msgid "about a day ago"
 msgstr "il y a 1 jour"
 
-#: lib/util.php:879
+#: lib/util.php:882
 #, php-format
 msgid "about %d days ago"
 msgstr "il y a %d jours"
 
-#: lib/util.php:881
+#: lib/util.php:884
 msgid "about a month ago"
 msgstr "il y a 1 mois"
 
-#: lib/util.php:883
+#: lib/util.php:886
 #, php-format
 msgid "about %d months ago"
 msgstr "il y a %d mois"
 
-#: lib/util.php:885
+#: lib/util.php:888
 msgid "about a year ago"
 msgstr "il y a environ 1 an"
 

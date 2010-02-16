@@ -157,17 +157,17 @@ abstract class QueueManager extends IoManager
     /**
      * Encode an object for queued storage.
      *
-     * @param mixed $object
+     * @param mixed $item
      * @return string
      */
-    protected function encode($object)
+    protected function encode($item)
     {
         return serialize($object);
     }
 
     /**
      * Decode an object from queued storage.
-     * Accepts back-compat notice reference entries and strings for now.
+     * Accepts notice reference entries and serialized items.
      *
      * @param string
      * @return mixed

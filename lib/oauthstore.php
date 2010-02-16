@@ -65,7 +65,7 @@ class StatusNetOAuthDataStore extends OAuthDataStore
     {
         $n = new Nonce();
         $n->consumer_key = $consumer->key;
-        $n->ts = $timestamp;
+        $n->ts = common_sql_date($timestamp);
         $n->nonce = $nonce;
         if ($n->find(true)) {
             return true;
@@ -361,7 +361,6 @@ class StatusNetOAuthDataStore extends OAuthDataStore
                                   'omb',
                                   array('is_local' => Notice::REMOTE_OMB,
                                         'uri' => $omb_notice->getIdentifierURI()));
-
 
     }
 

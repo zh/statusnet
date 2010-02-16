@@ -83,6 +83,7 @@ abstract class SpawningDaemon extends Daemon
                 $this->log(LOG_INFO, "Spawned thread $i as pid $pid");
                 $children[$i] = $pid;
             }
+            sleep(common_config('queue', 'spawndelay'));
         }
         
         $this->log(LOG_INFO, "Waiting for children to complete.");
@@ -111,6 +112,7 @@ abstract class SpawningDaemon extends Daemon
                         $this->log(LOG_INFO, "Respawned thread $i as pid $pid");
                         $children[$i] = $pid;
                     }
+                    sleep(common_config('queue', 'spawndelay'));
                 } else {
                     $this->log(LOG_INFO, "Thread $i pid $pid exited with status $exitCode; closing out thread.");
                 }

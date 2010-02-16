@@ -107,9 +107,10 @@ class StompQueueManager extends QueueManager
             $message .= ':' . $param;
         }
         $this->_connect();
-        $result = $this->_send($this->control,
-                               $message,
-                               array ('created' => common_sql_now()));
+        $con = $this->cons[$this->defaultIdx];
+        $result = $con->send($this->control,
+                             $message,
+                             array ('created' => common_sql_now()));
         if ($result) {
             $this->_log(LOG_INFO, "Sent control ping to queue daemons: $message");
             return true;
@@ -368,16 +369,9 @@ class StompQueueManager extends QueueManager
         foreach ($this->cons as $i => $con) {
             if ($con) {
                 $this->rollback($i);
-                $con->unsubscribe($this->control);
+                $con->disconnect();
+                $this->cons[$i] = null;
             }
-        }
-        if ($this->sites) {
-            foreach ($this->sites as $server) {
-                StatusNet::init($server);
-                $this->doUnsubscribe();
-            }
-        } else {
-            $this->doUnsubscribe();
         }
         return true;
     }
@@ -555,26 +549,14 @@ class StompQueueManager extends QueueManager
         }
 
         $host = $this->cons[$idx]->getServer();
-        if (is_numeric($frame->body)) {
-            $id = intval($frame->body);
-            $info = "notice $id posted at {$frame->headers['created']} in queue $queue from $host";
-
-            $notice = Notice::staticGet('id', $id);
-            if (empty($notice)) {
-                $this->_log(LOG_WARNING, "Skipping missing $info");
-                $this->ack($idx, $frame);
-                $this->commit($idx);
-                $this->begin($idx);
-                $this->stats('badnotice', $queue);
-                return false;
-            }
-
-            $item = $notice;
-        } else {
-            // @fixme should we serialize, or json, or what here?
-            $info = "string posted at {$frame->headers['created']} in queue $queue from $host";
-            $item = $frame->body;
+        $item = $this->decode($frame->body);
+        if (empty($item)) {
+            $this->_log(LOG_ERR, "Skipping empty or deleted item in queue $queue from $host");
+            return true;
         }
+        $info = $this->logrep($item) . " posted at " .
+                $frame->headers['created'] . " in queue $queue from $host";
+        $this->_log(LOG_DEBUG, "Dequeued $info");
 
         $handler = $this->getHandler($queue);
         if (!$handler) {
