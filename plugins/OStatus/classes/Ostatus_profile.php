@@ -225,7 +225,7 @@ class Ostatus_profile extends Memcached_DataObject
         try {
             $local = $munger->profile();
 
-            if ($entity->isGroup()) {
+            if ($profile->isGroup()) {
                 $group = new User_group();
                 $group->nickname = $local->nickname . '@remote'; // @fixme
                 $group->fullname = $local->fullname;
@@ -245,17 +245,17 @@ class Ostatus_profile extends Memcached_DataObject
                 $profile->profile_id = $local->id;
             }
 
-            $profile->created = sql_common_date();
-            $profile->lastupdate = sql_common_date();
+            $profile->created = common_sql_now();
+            $profile->lastupdate = common_sql_now();
             $result = $profile->insert();
             if (empty($result)) {
                 throw new FeedDBException($profile);
             }
 
-            $entity->query('COMMIT');
+            $profile->query('COMMIT');
         } catch (FeedDBException $e) {
             common_log_db_error($e->obj, 'INSERT', __FILE__);
-            $entity->query('ROLLBACK');
+            $profile->query('ROLLBACK');
             return false;
         }
 
@@ -269,7 +269,7 @@ class Ostatus_profile extends Memcached_DataObject
             }
         }
 
-        return $entity;
+        return $profile;
     }
 
     /**
