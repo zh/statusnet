@@ -63,7 +63,7 @@ class Queued_XMPP extends XMPPHP_XMPP
      */
     public function send($msg, $timeout=NULL)
     {
-        $qm = QueueManager::get();
+        $qm = QueueManager::get('xmppout');
         $qm->enqueue(strval($msg), 'xmppout');
     }
 

@@ -74,8 +74,6 @@ require_once(INSTALLDIR.'/lib/daemon.php');
 require_once(INSTALLDIR.'/classes/Queue_item.php');
 require_once(INSTALLDIR.'/classes/Notice.php');
 
-define('CLAIM_TIMEOUT', 1200);
-
 /**
  * Queue handling daemon...
  *
@@ -92,7 +90,7 @@ class QueueDaemon extends SpawningDaemon
     function __construct($id=null, $daemonize=true, $threads=1, $allsites=false)
     {
         parent::__construct($id, $daemonize, $threads);
-        $this->all = $allsites;
+        $this->allsites = $allsites;
     }
 
     /**
@@ -108,7 +106,7 @@ class QueueDaemon extends SpawningDaemon
         $this->log(LOG_INFO, 'checking for queued notices');
 
         $master = new QueueMaster($this->get_id());
-        $master->init($this->all);
+        $master->init($this->allsites);
         try {
             $master->service();
         } catch (Exception $e) {
@@ -133,14 +131,16 @@ class QueueMaster extends IoMaster
      */
     function initManagers()
     {
-        $classes = array();
-        if (Event::handle('StartQueueDaemonIoManagers', array(&$classes))) {
-            $classes[] = 'QueueManager';
+        $managers = array();
+        if (Event::handle('StartQueueDaemonIoManagers', array(&$managers))) {
+            $qm = QueueManager::get();
+            $qm->setActiveGroup('main');
+            $managers[] = $qm;
         }
-        Event::handle('EndQueueDaemonIoManagers', array(&$classes));
+        Event::handle('EndQueueDaemonIoManagers', array(&$managers));
 
-        foreach ($classes as $class) {
-            $this->instantiate($class);
+        foreach ($managers as $manager) {
+            $this->instantiate($manager);
         }
     }
 }

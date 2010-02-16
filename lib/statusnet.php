@@ -102,6 +102,60 @@ class StatusNet
     }
 
     /**
+     * Get identifier of the currently active site configuration
+     * @return string
+     */
+    public static function currentSite()
+    {
+        return common_config('site', 'nickname');
+    }
+
+    /**
+     * Change site configuration to site specified by nickname,
+     * if set up via Status_network. If not, sites other than
+     * the current will fail horribly.
+     *
+     * May throw exception or trigger a fatal error if the given
+     * site is missing or configured incorrectly.
+     *
+     * @param string $nickname
+     */
+    public static function switchSite($nickname)
+    {
+        if ($nickname == StatusNet::currentSite()) {
+            return true;
+        }
+
+        $sn = Status_network::staticGet($nickname);
+        if (empty($sn)) {
+            return false;
+            throw new Exception("No such site nickname '$nickname'");
+        }
+
+        $server = $sn->getServerName();
+        StatusNet::init($server);
+    }
+
+    /**
+     * Pull all local sites from status_network table.
+     *
+     * Behavior undefined if site is not configured via Status_network.
+     *
+     * @return array of nicknames
+     */
+    public static function findAllSites()
+    {
+        $sites = array();
+        $sn = new Status_network();
+        $sn->find();
+        while ($sn->fetch()) {
+            $sites[] = $sn->nickname;
+        }
+        return $sites;
+    }
+
+
+    /**
      * Fire initialization events for all instantiated plugins.
      */
     protected static function initPlugins()
