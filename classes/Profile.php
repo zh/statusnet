@@ -807,8 +807,6 @@ class Profile extends Memcached_DataObject
             null,
             'http://activitystrea.ms/schema/1.0/person'
         );
-        // FIXME: this presupposes a local user -- not necessarily the case
-        // instead use User::uri or Remote_profile::uri or Ostatus_profile::homeuri
         $xs->element(
             'id',
             null,
@@ -824,6 +822,7 @@ class Profile extends Memcached_DataObject
         $xs->element(
             'link', array(
                 'type' => empty($avatar) ? 'image/png' : $avatar->mediatype,
+                'rel'  => 'avatar',
                 'href' => empty($avatar)
                 ? Avatar::defaultImage(AVATAR_PROFILE_SIZE)
                 : $avatar->displayUrl()
