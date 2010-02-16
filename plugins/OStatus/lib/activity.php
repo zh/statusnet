@@ -63,21 +63,77 @@ class ActivityUtils
      * @return string related link, if any
      */
 
-    static function getLink($element)
+    static function getPermalink($element)
+    {
+        return self::getLink($element, 'alternate', 'text/html');
+    }
+
+    /**
+     * Get the permalink for an Activity object
+     *
+     * @param DOMElement $element A DOM element
+     *
+     * @return string related link, if any
+     */
+
+    static function getLink($element, $rel, $type=null)
     {
         $links = $element->getElementsByTagnameNS(self::ATOM, self::LINK);
 
         foreach ($links as $link) {
 
-            $rel = $link->getAttribute(self::REL);
-            $type = $link->getAttribute(self::TYPE);
+            $linkRel = $link->getAttribute(self::REL);
+            $linkType = $link->getAttribute(self::TYPE);
 
-            if ($rel == 'alternate' && $type == 'text/html') {
+            if ($linkRel == $rel &&
+                (is_null($type) || $linkType == $type)) {
                 return $link->getAttribute(self::HREF);
             }
         }
 
         return null;
+    }
+
+    /**
+     * Gets the first child element with the given tag
+     *
+     * @param DOMElement $element   element to pick at
+     * @param string     $tag       tag to look for
+     * @param string     $namespace Namespace to look under
+     *
+     * @return DOMElement found element or null
+     */
+
+    static function child($element, $tag, $namespace=self::ATOM)
+    {
+        $els = $element->getElementsByTagnameNS($namespace, $tag);
+
+        if (empty($els) || $els->length == 0) {
+            return null;
+        } else {
+            return $els->item(0);
+        }
+    }
+
+    /**
+     * Grab the text content of a DOM element child of the current element
+     *
+     * @param DOMElement $element   Element whose children we examine
+     * @param string     $tag       Tag to look up
+     * @param string     $namespace Namespace to use, defaults to Atom
+     *
+     * @return string content of the child
+     */
+
+    static function childContent($element, $tag, $namespace=self::ATOM)
+    {
+        $el = self::child($element, $tag, $namespace);
+
+        if (empty($el)) {
+            return null;
+        } else {
+            return $el->textContent;
+        }
     }
 }
 
@@ -130,6 +186,7 @@ class ActivityObject
     const URI   = 'uri';
     const EMAIL = 'email';
 
+    public $element;
     public $type;
     public $id;
     public $title;
@@ -150,7 +207,7 @@ class ActivityObject
 
     function __construct($element)
     {
-        $this->source = $element;
+        $this->element = $element;
 
         if ($element->tagName == 'author') {
 
@@ -179,33 +236,35 @@ class ActivityObject
             $this->title   = $this->_childContent($element, self::TITLE);
             $this->summary = $this->_childContent($element, self::SUMMARY);
             $this->content = $this->_childContent($element, self::CONTENT);
-            $this->source  = $this->_childContent($element, self::SOURCE);
 
-            $this->link = ActivityUtils::getLink($element);
+            $this->source  = $this->_getSource($element);
+
+            $this->link = ActivityUtils::getPermalink($element);
 
             // XXX: grab PoCo stuff
         }
     }
 
-    /**
-     * Grab the text content of a DOM element child of the current element
-     *
-     * @param DOMElement $element   Element whose children we examine
-     * @param string     $tag       Tag to look up
-     * @param string     $namespace Namespace to use, defaults to Atom
-     *
-     * @return string content of the child
-     */
-
-    private function _childContent($element, $tag, $namespace=Activity::ATOM)
+    private function _childContent($element, $tag, $namespace=ActivityUtils::ATOM)
     {
-        $els = $element->getElementsByTagnameNS($namespace, $tag);
+        return ActivityUtils::childContent($element, $tag, $namespace);
+    }
 
-        if (empty($els) || $els->length == 0) {
+    // Try to get a unique id for the source feed
+
+    private function _getSource($element)
+    {
+        $sourceEl = ActivityUtils::child($element, 'source');
+
+        if (empty($sourceEl)) {
             return null;
         } else {
-            $el = $els->item(0);
-            return $el->textContent;
+            $href = ActivityUtils::getLink($sourceEl, 'self');
+            if (!empty($href)) {
+                return $href;
+            } else {
+                return ActivityUtils::childContent($sourceEl, 'id');
+            }
         }
     }
 }
@@ -306,7 +365,7 @@ class Activity
             }
         }
 
-        $this->link = ActivityUtils::getLink($entry);
+        $this->link = ActivityUtils::getPermalink($entry);
 
         $verbEl = $this->_child($entry, self::VERB);
 
@@ -370,24 +429,8 @@ class Activity
         return null;
     }
 
-    /**
-     * Gets the first child element with the given tag
-     *
-     * @param DOMElement $element   element to pick at
-     * @param string     $tag       tag to look for
-     * @param string     $namespace Namespace to look under
-     *
-     * @return DOMElement found element or null
-     */
-
     private function _child($element, $tag, $namespace=self::SPEC)
     {
-        $els = $element->getElementsByTagnameNS($namespace, $tag);
-
-        if (empty($els) || $els->length == 0) {
-            return null;
-        } else {
-            return $els->item(0);
-        }
+        return ActivityUtils::child($element, $tag, $namespace);
     }
 }
