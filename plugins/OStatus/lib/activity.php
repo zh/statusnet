@@ -106,12 +106,16 @@ class ActivityUtils
 
     static function child($element, $tag, $namespace=self::ATOM)
     {
-        $els = $element->getElementsByTagnameNS($namespace, $tag);
-
+        $els = $element->childNodes;
         if (empty($els) || $els->length == 0) {
             return null;
         } else {
-            return $els->item(0);
+            for ($i = 0; $i < $els->length; $i++) {
+                $el = $els->item($i);
+                if ($el->localName == $tag && $el->namespaceURI == $namespace) {
+                    return $el;
+                }
+            }
         }
     }
 
