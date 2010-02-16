@@ -599,89 +599,189 @@ class Ostatus_profile extends Memcached_DataObject
      * Currently assumes that all items in the feed are new,
      * coming from a PuSH hub.
      *
-     * @param string $xml source of Atom or RSS feed
+     * @param string $post source of Atom or RSS feed
      * @param string $hmac X-Hub-Signature header, if present
      */
-    public function postUpdates($xml, $hmac)
+    public function postUpdates($post, $hmac)
     {
-        common_log(LOG_INFO, __METHOD__ . ": packet for \"$this->feeduri\"! $hmac $xml");
+        common_log(LOG_INFO, __METHOD__ . ": packet for \"$this->feeduri\"! $hmac $post");
 
         if ($this->sub_state != 'active') {
             common_log(LOG_ERR, __METHOD__ . ": ignoring PuSH for inactive feed $this->feeduri (in state '$this->sub_state')");
             return;
         }
 
-        if ($this->secret) {
-            if (preg_match('/^sha1=([0-9a-fA-F]{40})$/', $hmac, $matches)) {
-                $their_hmac = strtolower($matches[1]);
-                $our_hmac = hash_hmac('sha1', $xml, $this->secret);
-                if ($their_hmac !== $our_hmac) {
-                    common_log(LOG_ERR, __METHOD__ . ": ignoring PuSH with bad SHA-1 HMAC: got $their_hmac, expected $our_hmac");
-                    return;
-                }
-            } else {
-                common_log(LOG_ERR, __METHOD__ . ": ignoring PuSH with bogus HMAC '$hmac'");
-                return;
-            }
-        } else if ($hmac) {
-            common_log(LOG_ERR, __METHOD__ . ": ignoring PuSH with unexpected HMAC '$hmac'");
+        if ($post === '') {
+            common_log(LOG_ERR, __METHOD__ . ": ignoring empty post");
             return;
         }
 
-        require_once "XML/Feed/Parser.php";
-        $feed = new XML_Feed_Parser($xml, false, false, true);
-        $munger = new FeedMunger($feed);
+        if (!$this->validatePushSig($post, $hmac)) {
+            // Per spec we silently drop input with a bad sig,
+            // while reporting receipt to the server.
+            return;
+        }
 
-        $hits = 0;
-        foreach ($feed as $index => $entry) {
-            // @fixme this might sort in wrong order if we get multiple updates
+        $feed = new DOMDocument();
+        if (!$feed->loadXML($post)) {
+            // @fixme might help to include the err message
+            common_log(LOG_ERR, __METHOD__ . ": ignoring invalid XML");
+            return;
+        }
 
-            $notice = $munger->notice($index);
+        $entries = $feed->getElementsByTagNameNS(Activity::ATOM, 'entry');
+        if ($entries->length == 0) {
+            common_log(LOG_ERR, __METHOD__ . ": no entries in feed update, ignoring");
+            return;
+        }
 
-            // Double-check for oldies
-            // @fixme this could explode horribly for multiple feeds on a blog. sigh
+        for ($i = 0; $i < $entries->length; $i++) {
+            $entry = $entries->item($i);
+            $this->processEntry($entry, $feed);
+        }
+    }
 
-            $dupe = Notice::staticGet('uri', $notice->uri);
-
-            if (!empty($dupe)) {
-                common_log(LOG_WARNING, __METHOD__ . ": tried to save dupe notice for entry {$notice->uri} of feed {$this->feeduri}");
-                continue;
-            }
-
-            // @fixme need to ensure that groups get handled correctly
-            $saved = Notice::saveNew($notice->profile_id,
-                                     $notice->content,
-                                     'ostatus',
-                                     array('is_local' => Notice::REMOTE_OMB,
-                                           'uri' => $notice->uri,
-                                           'lat' => $notice->lat,
-                                           'lon' => $notice->lon,
-                                           'location_ns' => $notice->location_ns,
-                                           'location_id' => $notice->location_id));
-
-            /*
-            common_log(LOG_DEBUG, "going to check group delivery...");
-            if ($this->group_id) {
-                $group = User_group::staticGet($this->group_id);
-                if ($group) {
-                    common_log(LOG_INFO, __METHOD__ . ": saving to local shadow group $group->id $group->nickname");
-                    $groups = array($group);
-                } else {
-                    common_log(LOG_INFO, __METHOD__ . ": lost the local shadow group?");
+    /**
+     * Validate the given Atom chunk and HMAC signature against our
+     * shared secret that was set up at subscription time.
+     *
+     * If we don't have a shared secret, there should be no signature.
+     * If we we do, our the calculated HMAC should match theirs.
+     *
+     * @param string $post raw XML source as POSTed to us
+     * @param string $hmac X-Hub-Signature HTTP header value, or empty
+     * @return boolean true for a match
+     */
+    protected function validatePushSig($post, $hmac)
+    {
+        if ($this->secret) {
+            if (preg_match('/^sha1=([0-9a-fA-F]{40})$/', $hmac, $matches)) {
+                $their_hmac = strtolower($matches[1]);
+                $our_hmac = hash_hmac('sha1', $post, $this->secret);
+                if ($their_hmac === $our_hmac) {
+                    return true;
                 }
+                common_log(LOG_ERR, __METHOD__ . ": ignoring PuSH with bad SHA-1 HMAC: got $their_hmac, expected $our_hmac");
             } else {
-                common_log(LOG_INFO, __METHOD__ . ": no local shadow groups");
-                $groups = array();
+                common_log(LOG_ERR, __METHOD__ . ": ignoring PuSH with bogus HMAC '$hmac'");
             }
-            common_log(LOG_DEBUG, "going to add to inboxes...");
-            $notice->addToInboxes($groups, array());
-            common_log(LOG_DEBUG, "added to inboxes.");
-            */
+        } else {
+            if (empty($hmac)) {
+                return true;
+            } else {
+                common_log(LOG_ERR, __METHOD__ . ": ignoring PuSH with unexpected HMAC '$hmac'");
+            }
+        }
+        return false;
+    }
 
-            $hits++;
+    /**
+     * Process a posted entry from this feed source.
+     *
+     * @param DOMElement $entry
+     * @param DOMElement $feed for context
+     */
+    protected function processEntry($entry, $feed)
+    {
+        $activity = new Activity($entry, $feed);
+
+        $debug = var_export($activity, true);
+        common_log(LOG_DEBUG, $debug);
+
+        if ($activity->verb == ActivityVerb::POST) {
+            $this->processPost($activity);
+        } else {
+            common_log(LOG_INFO, "Ignoring activity with unrecognized verb $activity->verb");
         }
-        if ($hits == 0) {
-            common_log(LOG_INFO, __METHOD__ . ": no updates in packet for \"$this->feeduri\"! $xml");
+    }
+
+    /**
+     * Process an incoming post activity from this remote feed.
+     * @param Activity $activity
+     */
+    protected function processPost($activity)
+    {
+        // @fixme pull profile reference from actor for group feeds
+        $actor = $this;
+        $localProfile = $actor->localProfile();
+        if (empty($localProfile)) {
+            common_log(LOG_INFO, "OStatus: ignoring post with invalid author");
+            return;
         }
+
+        if (empty($activity->object)) {
+            // This shouldn't happen!
+            common_log(LOG_INFO, "OStatus: ignoring post with missing post object.");
+            return;
+        }
+
+        if ($activity->object->link) {
+            $sourceUri = $activity->object->link;
+        } else if (preg_match('!^https?://!', $activity->object->id)) {
+            $sourceUri = $activity->object->id;
+        } else {
+            common_log(LOG_INFO, "OStatus: ignoring post with no source link: id $activity->object->id");
+            return;
+        }
+
+        $dupe = Notice::staticGet('uri', $sourceUri);
+        if ($dupe) {
+            common_log(LOG_INFO, "OStatus: ignoring duplicate post: $noticeLink");
+            return;
+        }
+
+        // @fixme sanitize and save HTML content if available
+        $content = $activity->object->title;
+
+        $params = array('is_local' => Notice::REMOTE_OMB,
+                        'uri' => $sourceUri);
+
+        $location = $this->getEntryLocation($activity->entry);
+        if ($location) {
+            $params['lat'] = $location->lat;
+            $params['lon'] = $location->lon;
+            if ($location->location_id) {
+                $params['location_ns'] = $location->location_ns;
+                $params['location_id'] = $location->location_id;
+            }
+        }
+
+        // @fixme save detailed ostatus source info
+        // @fixme ensure that groups get handled correctly
+
+        $saved = Notice::saveNew($localProfile->id,
+                                 $content,
+                                 'ostatus',
+                                 $params);
+    }
+
+    /**
+     * Parse location given as a GeoRSS-simple point, if provided.
+     * http://www.georss.org/simple
+     *
+     * @param feed item $entry
+     * @return mixed Location or false
+     */
+    function getLocation($dom)
+    {
+        $points = $dom->getElementsByTagNameNS('http://www.georss.org/georss', 'point');
+        
+        for ($i = 0; $i < $points->length; $i++) {
+            $point = $points->item(0)->textContent;
+            $point = str_replace(',', ' ', $point); // per spec "treat commas as whitespace"
+            $point = preg_replace('/\s+/', ' ', $point);
+            $point = trim($point);
+            $coords = explode(' ', $point);
+            if (count($coords) == 2) {
+                list($lat, $lon) = $coords;
+                if (is_numeric($lat) && is_numeric($lon)) {
+                    common_log(LOG_INFO, "Looking up location for $lat $lon from georss");
+                    return Location::fromLatLon($lat, $lon);
+                }
+            }
+            common_log(LOG_ERR, "Ignoring bogus georss:point value $point");
+        }
+
+        return false;
     }
 }
