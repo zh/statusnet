@@ -405,6 +405,7 @@ class Action extends HTMLOutputter // lawsuit
                                             'src' => (common_config('site', 'logo')) ? common_config('site', 'logo') : Theme::path('logo.png'),
                                             'alt' => common_config('site', 'name')));
             }
+            $this->text(' ');
             $this->element('span', array('class' => 'fn org'), common_config('site', 'name'));
             $this->elementEnd('a');
             Event::handle('EndAddressData', array($this));
@@ -822,12 +823,14 @@ class Action extends HTMLOutputter // lawsuit
                                             'alt' => common_config('license', 'title'),
                                             'width' => '80',
                                             'height' => '15'));
+                $this->text(' ');
                 //TODO: This is dirty: i18n
                 $this->text(_('All '.common_config('site', 'name').' content and data are available under the '));
                 $this->element('a', array('class' => 'license',
                                           'rel' => 'external license',
                                           'href' => common_config('license', 'url')),
                                common_config('license', 'title'));
+                $this->text(' ');
                 $this->text(_('license.'));
                 $this->elementEnd('p');
                 break;

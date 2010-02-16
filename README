@@ -1192,6 +1192,8 @@ server: If set, defines another server where avatars are stored in the
 	typically only make 2 connections to a single server at a
 	time <http://ur1.ca/6ih>, so this can parallelize the job.
 	Defaults to null.
+ssl:    Whether to access avatars using HTTPS. Defaults to null, meaning
+        to guess based on site-wide SSL settings.
 
 public
 ------
@@ -1221,6 +1223,19 @@ path:	Path part of theme URLs, before the theme name. Relative to the
 	(using version numbers as the path) to make sure that all files are
 	reloaded by caching clients or proxies. Defaults to null,
 	which means to use the site path + '/theme'.
+ssl:	Whether to use SSL for theme elements. Default is null, which means
+	guess based on site SSL settings.
+
+javascript
+----------
+
+server: You can speed up page loading by pointing the
+	theme file lookup to another server (virtual or real).
+	Defaults to NULL, meaning to use the site server.
+path:	Path part of Javascript URLs. Defaults to null,
+	which means to use the site path + '/js/'.
+ssl:	Whether to use SSL for JavaScript files. Default is null, which means
+	guess based on site SSL settings.
 
 xmpp
 ----
@@ -1447,6 +1462,8 @@ server: server name to use when creating URLs for uploaded files.
         a virtual server here can speed up Web performance.
 path: URL path, relative to the server, to find files. Defaults to
       main path + '/file/'.
+ssl: whether to use HTTPS for file URLs. Defaults to null, meaning to
+     guess based on other SSL settings.
 filecommand: command to use for determining the type of a file. May be
              skipped if fileinfo extension is installed. Defaults to
              '/usr/bin/file'.
@@ -1506,6 +1523,8 @@ dir: directory to write backgrounds too. Default is '/background/'
      subdir of install dir.
 path: path to backgrounds. Default is sub-path of install path; note
       that you may need to change this if you change site-path too.
+ssl: Whether or not to use HTTPS for background files. Defaults to
+     null, meaning to guess from site-wide SSL settings.
 
 ping
 ----

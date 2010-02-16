@@ -20,13 +20,15 @@
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 
-$shortoptions = 'fi::';
-$longoptions = array('id::', 'foreground');
+$shortoptions = 'fi::a';
+$longoptions = array('id::', 'foreground', 'all');
 
 $helptext = <<<END_OF_IM_HELP
 Daemon script for receiving new notices from IM users.
 
     -i --id           Identity (default none)
+    -a --all          Handle XMPP for all local sites
+                      (requires Stomp queue handler, status_network setup)
     -f --foreground   Stay in the foreground (default background)
 
 END_OF_IM_HELP;
@@ -35,13 +37,16 @@ require_once INSTALLDIR.'/scripts/commandline.inc';
 
 class ImDaemon extends SpawningDaemon
 {
-    function __construct($id=null, $daemonize=true, $threads=1)
+    protected $allsites = false;
+
+    function __construct($id=null, $daemonize=true, $threads=1, $allsites=false)
     {
         if ($threads != 1) {
             // This should never happen. :)
             throw new Exception("IMDaemon can must run single-threaded");
         }
         parent::__construct($id, $daemonize, $threads);
+        $this->allsites = $allsites;
     }
 
     function runThread()
@@ -49,7 +54,7 @@ class ImDaemon extends SpawningDaemon
         common_log(LOG_INFO, 'Waiting to listen to IM connections and queues');
 
         $master = new ImMaster($this->get_id());
-        $master->init();
+        $master->init($this->allsites);
         $master->service();
 
         common_log(LOG_INFO, 'terminating normally');
@@ -69,7 +74,9 @@ class ImMaster extends IoMaster
     {
         $classes = array();
         if (Event::handle('StartImDaemonIoManagers', array(&$classes))) {
-            $classes[] = 'QueueManager';
+            $qm = QueueManager::get();
+            $qm->setActiveGroup('im');
+            $classes[] = $qm;
         }
         Event::handle('EndImDaemonIoManagers', array(&$classes));
         foreach ($classes as $class) {
@@ -87,7 +94,8 @@ if (have_option('i', 'id')) {
 }
 
 $foreground = have_option('f', 'foreground');
+$all = have_option('a') || have_option('--all');
 
-$daemon = new ImDaemon($id, !$foreground);
+$daemon = new ImDaemon($id, !$foreground, 1, $all);
 
 $daemon->runOnce();

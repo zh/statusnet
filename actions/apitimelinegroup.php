@@ -138,7 +138,19 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
 
             try {
 
-                $atom = new AtomNoticeFeed();
+                // If this was called using an integer ID, i.e.: using the canonical
+                // URL for this group's feed, then pass the Group object into the feed, 
+                // so the OStatus plugin, and possibly other plugins, can access it. 
+                // Feels sorta hacky. -- Z
+
+                $atom = null;
+                $id = $this->arg('id');
+
+                if (strval(intval($id)) === strval($id)) {
+                    $atom = new AtomGroupNoticeFeed($this->group);
+                } else {
+                    $atom = new AtomGroupNoticeFeed();
+                }
 
                 $atom->setId($id);
                 $atom->setTitle($title);

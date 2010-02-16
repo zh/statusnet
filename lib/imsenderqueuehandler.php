@@ -25,10 +25,9 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 class ImSenderQueueHandler extends QueueHandler
 {
-    function __construct($plugin, $immanager)
+    function __construct($plugin)
     {
         $this->plugin = $plugin;
-        $this->immanager = $immanager;
     }
 
     /**
@@ -38,7 +37,7 @@ class ImSenderQueueHandler extends QueueHandler
      */
     function handle($data)
     {
-        return $this->immanager->send_raw_message($data);
+        return $this->plugin->imManager->send_raw_message($data);
     }
 }
 

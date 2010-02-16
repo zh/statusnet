@@ -56,9 +56,9 @@ abstract class IoMaster
             $this->multiSite = $multiSite;
         }
         if ($this->multiSite) {
-            $this->sites = $this->findAllSites();
+            $this->sites = StatusNet::findAllSites();
         } else {
-            $this->sites = array(common_config('site', 'server'));
+            $this->sites = array(StatusNet::currentSite());
         }
 
         if (empty($this->sites)) {
@@ -66,9 +66,7 @@ abstract class IoMaster
         }
 
         foreach ($this->sites as $site) {
-            if ($site != common_config('site', 'server')) {
-                StatusNet::init($site);
-            }
+            StatusNet::switchSite($site);
             $this->initManagers();
         }
     }
@@ -82,60 +80,30 @@ abstract class IoMaster
     abstract function initManagers();
 
     /**
-     * Pull all local sites from status_network table.
-     * @return array of hostnames
-     */
-    protected function findAllSites()
-    {
-        $hosts = array();
-        $sn = new Status_network();
-        $sn->find();
-        while ($sn->fetch()) {
-            $hosts[] = $sn->getServerName();
-        }
-        return $hosts;
-    }
-
-    /**
      * Instantiate an i/o manager class for the current site.
      * If a multi-site capable handler is already present,
      * we don't need to build a new one.
      *
-     * @param string $class
+     * @param mixed $manager class name (to run $class::get()) or object
      */
-    protected function instantiate($class)
+    protected function instantiate($manager)
     {
-        if (is_string($class) && isset($this->singletons[$class])) {
-            // Already instantiated a multi-site-capable handler.
-            // Just let it know it should listen to this site too!
-            $this->singletons[$class]->addSite(common_config('site', 'server'));
-            return;
+        if (is_string($manager)) {
+            $manager = call_user_func(array($class, 'get'));
         }
 
-        $manager = $this->getManager($class);
-
-        if ($this->multiSite) {
-            $caps = $manager->multiSite();
-            if ($caps == IoManager::SINGLE_ONLY) {
+        $caps = $manager->multiSite();
+        if ($caps == IoManager::SINGLE_ONLY) {
+            if ($this->multiSite) {
                 throw new Exception("$class can't run with --all; aborting.");
             }
-            if ($caps == IoManager::INSTANCE_PER_PROCESS) {
-                // Save this guy for later!
-                // We'll only need the one to cover multiple sites.
-                $this->singletons[$class] = $manager;
-                $manager->addSite(common_config('site', 'server'));
-            }
+        } else if ($caps == IoManager::INSTANCE_PER_PROCESS) {
+            $manager->addSite();
         }
 
-        $this->managers[] = $manager;
-    }
-    
-    protected function getManager($class)
-    {
-        if(is_object($class)){
-            return $class;
-        } else {
-            return call_user_func(array($class, 'get'));
+        if (!in_array($manager, $this->managers, true)) {
+            // Only need to save singletons once
+            $this->managers[] = $manager;
         }
     }
 
@@ -150,6 +118,7 @@ abstract class IoMaster
     {
         $this->logState('init');
         $this->start();
+        $this->checkMemory(false);
 
         while (!$this->shutdown) {
             $timeouts = array_values($this->pollTimeouts);
@@ -213,17 +182,24 @@ abstract class IoMaster
     /**
      * Check runtime memory usage, possibly triggering a graceful shutdown
      * and thread respawn if we've crossed the soft limit.
+     *
+     * @param boolean $respawn if false we'll shut down instead of respawning
      */
-    protected function checkMemory()
+    protected function checkMemory($respawn=true)
     {
         $memoryLimit = $this->softMemoryLimit();
         if ($memoryLimit > 0) {
             $usage = memory_get_usage();
             if ($usage > $memoryLimit) {
                 common_log(LOG_INFO, "Queue thread hit soft memory limit ($usage > $memoryLimit); gracefully restarting.");
-                $this->requestRestart();
+                if ($respawn) {
+                    $this->requestRestart();
+                } else {
+                    $this->requestShutdown();
+                }
             } else if (common_config('queue', 'debug_memory')) {
-                common_log(LOG_DEBUG, "Memory usage $usage");
+                $fmt = number_format($usage);
+                common_log(LOG_DEBUG, "Memory usage $fmt");
             }
         }
     }

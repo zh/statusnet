@@ -1,4 +1,4 @@
-InitializePlugin: a chance to initialize a plugin in a complete environment
+\InitializePlugin: a chance to initialize a plugin in a complete environment
 
 CleanupPlugin: a chance to cleanup a plugin at the end of a program
 
@@ -354,6 +354,14 @@ EndShowHeadElements: Right before the </head> tag; put <script>s here if you nee
 - $action: the current action
 
 CheckSchema: chance to check the schema
+
+StartProfileRemoteSubscribe: Before showing the link to remote subscription
+- $userprofile: UserProfile widget
+- &$profile: the profile being shown
+
+EndProfileRemoteSubscribe: After showing the link to remote subscription
+- $userprofile: UserProfile widget
+- &$profile: the profile being shown
 
 StartProfilePageProfileSection: Starting to show the section of the
                               profile page with the actual profile data;

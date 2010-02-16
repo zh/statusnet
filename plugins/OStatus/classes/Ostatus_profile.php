@@ -29,15 +29,15 @@ PuSH subscription flow:
         generate random verification token
             save to verify_token
         sends a sub request to the hub...
-    
+
     main/push/callback
         hub sends confirmation back to us via GET
         We verify the request, then echo back the challenge.
         On our end, we save the time we subscribed and the lease expiration
-    
+
     main/push/callback
         hub sends us updates via POST
-    
+
 */
 
 class FeedDBException extends FeedSubException
@@ -75,7 +75,6 @@ class Ostatus_profile extends Memcached_DataObject
     public $created;
     public $lastupdate;
 
-
     public /*static*/ function staticGet($k, $v=null)
     {
         return parent::staticGet(__CLASS__, $k, $v);
@@ -107,7 +106,7 @@ class Ostatus_profile extends Memcached_DataObject
                      'created' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
                      'lastupdate' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL);
     }
-    
+
     static function schemaDef()
     {
         return array(new ColumnDef('id', 'integer',
@@ -486,7 +485,7 @@ class Ostatus_profile extends Memcached_DataObject
         }
         if ($this->salmonuri) {
             $text = 'update'; // @fixme
-            $id = 'tag:' . common_config('site', 'server') . 
+            $id = 'tag:' . common_config('site', 'server') .
                 ':' . $verb .
                 ':' . $actor->id .
                 ':' . time(); // @fixme
@@ -589,7 +588,7 @@ class Ostatus_profile extends Memcached_DataObject
         require_once "XML/Feed/Parser.php";
         $feed = new XML_Feed_Parser($xml, false, false, true);
         $munger = new FeedMunger($feed);
-        
+
         $hits = 0;
         foreach ($feed as $index => $entry) {
             // @fixme this might sort in wrong order if we get multiple updates
@@ -598,9 +597,10 @@ class Ostatus_profile extends Memcached_DataObject
 
             // Double-check for oldies
             // @fixme this could explode horribly for multiple feeds on a blog. sigh
-            $dupe = new Notice();
-            $dupe->uri = $notice->uri;
-            if ($dupe->find(true)) {
+
+            $dupe = Notice::staticGet('uri', $notice->uri);
+
+            if (!empty($dupe)) {
                 common_log(LOG_WARNING, __METHOD__ . ": tried to save dupe notice for entry {$notice->uri} of feed {$this->feeduri}");
                 continue;
             }

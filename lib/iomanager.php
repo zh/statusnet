@@ -59,9 +59,10 @@ abstract class IoManager
      * your manager about each site you'll have to handle so you
      * can do any necessary per-site setup.
      *
-     * @param string $site target site server name
+     * The new site will be the currently live configuration during
+     * this call.
      */
-    public function addSite($site)
+    public function addSite()
     {
         /* no-op */
     }

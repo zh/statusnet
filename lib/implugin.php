@@ -507,8 +507,9 @@ abstract class ImPlugin extends Plugin
      */
     function onEndInitializeQueueManager($manager)
     {
-        $manager->connect($this->transport . '-in', new ImReceiverQueueHandler($this));
+        $manager->connect($this->transport . '-in', new ImReceiverQueueHandler($this), 'im');
         $manager->connect($this->transport, new ImQueueHandler($this));
+        $manager->connect($this->transport . '-out', new ImSenderQueueHandler($this), 'im');
         return true;
     }
 

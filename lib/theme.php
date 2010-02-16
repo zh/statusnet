@@ -110,9 +110,20 @@ class Theme
                 $server = common_config('site', 'server');
             }
 
-            // XXX: protocol
+            $ssl = common_config('theme', 'ssl');
 
-            $this->path = 'http://'.$server.$path.$name;
+            if (is_null($ssl)) { // null -> guess
+                if (common_config('site', 'ssl') == 'always' &&
+                    !common_config('theme', 'server')) {
+                    $ssl = true;
+                } else {
+                    $ssl = false;
+                }
+            }
+
+            $protocol = ($ssl) ? 'https' : 'http';
+
+            $this->path = $protocol . '://'.$server.$path.$name;
         }
     }
 

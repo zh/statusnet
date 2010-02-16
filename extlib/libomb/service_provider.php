@@ -285,6 +285,10 @@ class OMB_Service_Provider {
         list($consumer, $token) = $this->getOAuthServer()->verify_request($req);
     } catch (OAuthException $e) {
       header('HTTP/1.1 403 Forbidden');
+      // @debug hack
+      throw OMB_RemoteServiceException::forRequest($uri,
+                                   'Revoked accesstoken for ' . $listenee . ': ' . $e->getMessage());
+      // @end debug
       throw OMB_RemoteServiceException::forRequest($uri,
                                    'Revoked accesstoken for ' . $listenee);
     }

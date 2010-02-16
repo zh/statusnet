@@ -175,6 +175,8 @@ class Atom10Feed extends XMLStringer
 
         $this->element('updated', null, $this->updated);
 
+        $this->renderAuthors();
+
         $this->renderLinks();
     }
 
@@ -221,17 +223,20 @@ class Atom10Feed extends XMLStringer
 
     function getString()
     {
-        $this->validate();
+        if (Event::handle('StartApiAtom', array($this))) {
 
-        $this->initFeed();
-        $this->renderAuthors();
+            $this->validate();
+            $this->initFeed();
 
-        if (!empty($this->subject)) {
-            $this->raw($this->subject);
+            if (!empty($this->subject)) {
+                $this->raw($this->subject);
+            }
+
+            $this->renderEntries();
+            $this->endFeed();
+
+            Event::handle('EndApiAtom', array($this));
         }
-
-        $this->renderEntries();
-        $this->endFeed();
 
         return $this->xw->outputMemory();
     }

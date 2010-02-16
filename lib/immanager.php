@@ -42,8 +42,7 @@ abstract class ImManager extends IoManager
     function __construct($imPlugin)
     {
         $this->plugin = $imPlugin;
-        //TODO We only really want to register this event if this is the thread that runs the ImManager
-        Event::addHandler('EndInitializeQueueManager', array($this, 'onEndInitializeQueueManager'));
+        $this->plugin->imManager = $this;
     }
 
     /**
@@ -53,18 +52,5 @@ abstract class ImManager extends IoManager
     public static function get()
     {
         throw new Exception('ImManager should be created using it\'s constructor, not the static get method');
-    }
-
-    /**
-     * Register notice queue handler
-     *
-     * @param QueueManager $manager
-     *
-     * @return boolean hook return
-     */
-    function onEndInitializeQueueManager($manager)
-    {
-        $manager->connect($this->plugin->transport . '-out', new ImSenderQueueHandler($this->plugin, $this), 'imdaemon');
-        return true;
     }
 }

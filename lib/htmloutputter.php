@@ -376,9 +376,20 @@ class HTMLOutputter extends XMLOutputter
                     $server = common_config('site', 'server');
                 }
 
-                // XXX: protocol
+                $ssl = common_config('javascript', 'ssl');
 
-                $src = 'http://'.$server.$path.$src . '?version=' . STATUSNET_VERSION;
+                if (is_null($ssl)) { // null -> guess
+                    if (common_config('site', 'ssl') == 'always' &&
+                        !common_config('javascript', 'server')) {
+                        $ssl = true;
+                    } else {
+                        $ssl = false;
+                    }
+                }
+
+                $protocol = ($ssl) ? 'https' : 'http';
+
+                $src = $protocol.'://'.$server.$path.$src . '?version=' . STATUSNET_VERSION;
             }
 
             $this->element('script', array('type' => $type,
