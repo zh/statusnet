@@ -72,7 +72,7 @@ class DBQueueManager extends QueueManager
     public function poll()
     {
         $this->_log(LOG_DEBUG, 'Checking for notices...');
-        $qi = Queue_item::top($this->getQueues());
+        $qi = Queue_item::top($this->activeQueues());
         if (empty($qi)) {
             $this->_log(LOG_DEBUG, 'No notices waiting; idling.');
             return false;
@@ -141,10 +141,5 @@ class DBQueueManager extends QueueManager
         }
 
         $this->stats('error', $queue);
-    }
-
-    protected function _log($level, $msg)
-    {
-        common_log($level, 'DBQueueManager: '.$msg);
     }
 }

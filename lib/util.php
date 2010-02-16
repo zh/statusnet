@@ -1000,7 +1000,6 @@ function common_enqueue_notice($notice)
     if (Event::hasHandler('HandleQueuedNotice')) {
         $transports[] = 'plugin';
     }
-    
 
     $xmpp = common_config('xmpp', 'enabled');
 
@@ -1566,4 +1565,57 @@ function common_client_ip()
     }
 
     return array($proxy, $ip);
+}
+
+function common_url_to_nickname($url)
+{
+    static $bad = array('query', 'user', 'password', 'port', 'fragment');
+
+    $parts = parse_url($url);
+
+    # If any of these parts exist, this won't work
+
+    foreach ($bad as $badpart) {
+        if (array_key_exists($badpart, $parts)) {
+            return null;
+        }
+    }
+
+    # We just have host and/or path
+
+    # If it's just a host...
+    if (array_key_exists('host', $parts) &&
+        (!array_key_exists('path', $parts) || strcmp($parts['path'], '/') == 0))
+    {
+        $hostparts = explode('.', $parts['host']);
+
+        # Try to catch common idiom of nickname.service.tld
+
+        if ((count($hostparts) > 2) &&
+            (strlen($hostparts[count($hostparts) - 2]) > 3) && # try to skip .co.uk, .com.au
+            (strcmp($hostparts[0], 'www') != 0))
+        {
+            return common_nicknamize($hostparts[0]);
+        } else {
+            # Do the whole hostname
+            return common_nicknamize($parts['host']);
+        }
+    } else {
+        if (array_key_exists('path', $parts)) {
+            # Strip starting, ending slashes
+            $path = preg_replace('@/$@', '', $parts['path']);
+            $path = preg_replace('@^/@', '', $path);
+            if (strpos($path, '/') === false) {
+                return common_nicknamize($path);
+            }
+        }
+    }
+
+    return null;
+}
+
+function common_nicknamize($str)
+{
+    $str = preg_replace('/\W/', '', $str);
+    return strtolower($str);
 }

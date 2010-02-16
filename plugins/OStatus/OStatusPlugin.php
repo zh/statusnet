@@ -63,9 +63,9 @@ class OStatusPlugin extends Plugin
         $m->connect('main/ostatus?nickname=:nickname',
                   array('action' => 'ostatusinit'), array('nickname' => '[A-Za-z0-9_-]+'));
         $m->connect('main/ostatussub',
-                    array('action' => 'ostatussub'));          
+                    array('action' => 'ostatussub'));
         $m->connect('main/ostatussub',
-                    array('action' => 'ostatussub'), array('feed' => '[A-Za-z0-9\.\/\:]+'));          
+                    array('action' => 'ostatussub'), array('feed' => '[A-Za-z0-9\.\/\:]+'));
 
         // PuSH actions
         $m->connect('main/push/hub', array('action' => 'pushhub'));
@@ -112,35 +112,34 @@ class OStatusPlugin extends Plugin
      * Set up a PuSH hub link to our internal link for canonical timeline
      * Atom feeds for users and groups.
      */
-    function onStartApiAtom(Action $action)
+    function onStartApiAtom(AtomNoticeFeed $feed)
     {
-        if ($action instanceof ApiTimelineUserAction) {
+        $id = null;
+
+        if ($feed instanceof AtomUserNoticeFeed) {
             $salmonAction = 'salmon';
-        } else if ($action instanceof ApiTimelineGroupAction) {
+            $id = $feed->getUser()->id;
+        } else if ($feed instanceof AtomGroupNoticeFeed) {
             $salmonAction = 'salmongroup';
+            $id = $feed->getGroup()->id;
         } else {
             return;
         }
 
-        $id = $action->arg('id');
-        if (strval(intval($id)) === strval($id)) {
-            // Canonical form of id in URL? These are used for OStatus syndication.
-
+       if (!empty($id)) {
             $hub = common_config('ostatus', 'hub');
             if (empty($hub)) {
                 // Updates will be handled through our internal PuSH hub.
                 $hub = common_local_url('pushhub');
             }
-            $action->element('link', array('rel' => 'hub',
-                                           'href' => $hub));
+            $feed->addLink($hub, array('rel' => 'hub'));
 
             // Also, we'll add in the salmon link
             $salmon = common_local_url($salmonAction, array('id' => $id));
-            $action->element('link', array('rel' => 'salmon',
-                                           'href' => $salmon));
+            $feed->addLink($salmon, array('rel' => 'salmon'));
         }
     }
-    
+
     /**
      * Add the feed settings page to the Connect Settings menu
      *
@@ -189,7 +188,7 @@ class OStatusPlugin extends Plugin
     /**
      * Add in an OStatus subscribe button
      */
-    function onStartProfilePageActionsElements($output, $profile)
+    function onStartProfileRemoteSubscribe($output, $profile)
     {
         $cur = common_current_user();
 
@@ -200,10 +199,12 @@ class OStatusPlugin extends Plugin
                                     array('nickname' => $profile->nickname));
             $output->element('a', array('href' => $url,
                                         'class' => 'entity_remote_subscribe'),
-                                _m('OStatus'));
-            
+                                _m('Subscribe'));
+
             $output->elementEnd('li');
         }
+
+        return false;
     }
 
     /**
@@ -217,29 +218,34 @@ class OStatusPlugin extends Plugin
         $count = preg_match_all('/(\w+\.)*\w+@(\w+\.)*\w+(\w+\-\w+)*\.\w+/', $notice->content, $matches);
         if ($count) {
             foreach ($matches[0] as $webfinger) {
+
+                // FIXME: look up locally first
+
                 // Check to see if we've got an actual webfinger
                 $w = new Webfinger;
 
                 $endpoint_uri = '';
-                
+
                 $result = $w->lookup($webfinger);
                 if (empty($result)) {
                     continue;
                 }
-                
+
                 foreach ($result->links as $link) {
                     if ($link['rel'] == 'salmon') {
                         $endpoint_uri = $link['href'];
                     }
                 }
-                
+
                 if (empty($endpoint_uri)) {
                     continue;
                 }
 
+                // FIXME: this needs to go out in a queue handler
+
                 $xml = '<?xml version="1.0" encoding="UTF-8" ?>';
                 $xml .= $notice->asAtomEntry();
-               
+
                 $salmon = new Salmon();
                 $salmon->post($endpoint_uri, $xml);
             }
@@ -271,6 +277,16 @@ class OStatusPlugin extends Plugin
         $schema = Schema::get();
         $schema->ensureTable('ostatus_profile', Ostatus_profile::schemaDef());
         $schema->ensureTable('hubsub', HubSub::schemaDef());
+        return true;
+    }
+
+    function onEndShowStatusNetStyles($action) {
+        $action->cssLink(common_path('plugins/OStatus/theme/base/css/ostatus.css'));
+        return true;
+    }
+
+    function onEndShowStatusNetScripts($action) {
+        $action->script(common_path('plugins/OStatus/js/ostatus.js'));
         return true;
     }
 }

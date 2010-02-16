@@ -90,18 +90,24 @@ abstract class SpawningDaemon extends Daemon
         while (count($children) > 0) {
             $status = null;
             $pid = pcntl_wait($status);
-            if ($pid > 0 && pcntl_wifexited($status)) {
-                $exitCode = pcntl_wexitstatus($status);
-
+            if ($pid > 0) {
                 $i = array_search($pid, $children);
                 if ($i === false) {
-                    $this->log(LOG_ERR, "Unrecognized child pid $pid exited with status $exitCode");
+                    $this->log(LOG_ERR, "Ignoring exit of unrecognized child pid $pid");
                     continue;
+                }
+                if (pcntl_wifexited($status)) {
+                    $exitCode = pcntl_wexitstatus($status);
+                    $info = "status $exitCode";
+                } else if (pcntl_wifsignaled($status)) {
+                    $exitCode = self::EXIT_ERR;
+                    $signal = pcntl_wtermsig($status);
+                    $info = "signal $signal";
                 }
                 unset($children[$i]);
 
                 if ($this->shouldRespawn($exitCode)) {
-                    $this->log(LOG_INFO, "Thread $i pid $pid exited with status $exitCode; respawing.");
+                    $this->log(LOG_INFO, "Thread $i pid $pid exited with $info; respawing.");
 
                     $pid = pcntl_fork();
                     if ($pid < 0) {

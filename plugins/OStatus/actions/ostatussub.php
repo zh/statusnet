@@ -76,7 +76,7 @@ class OStatusSubAction extends Action
         $this->elementStart('fieldset', array('id' => 'settings_feeds'));
 
         $this->elementStart('ul', 'form_data');
-        $this->elementStart('li', array('id' => 'settings_twitter_login_button'));
+        $this->elementStart('li');
         $this->input('feedurl', _('Feed URL'), $this->feedurl, _('Enter the URL of a PubSubHubbub-enabled feed'));
         $this->elementEnd('li');
         $this->elementEnd('ul');

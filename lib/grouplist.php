@@ -105,6 +105,7 @@ class GroupList extends Widget
                                          'alt' =>
                                          ($this->group->fullname) ? $this->group->fullname :
                                          $this->group->nickname));
+        $this->out->text(' ');
         $hasFN = ($this->group->fullname) ? 'nickname' : 'fn org nickname';
         $this->out->elementStart('span', $hasFN);
         $this->out->raw($this->highlight($this->group->nickname));
@@ -112,16 +113,19 @@ class GroupList extends Widget
         $this->out->elementEnd('a');
 
         if ($this->group->fullname) {
+            $this->out->text(' ');
             $this->out->elementStart('span', 'fn org');
             $this->out->raw($this->highlight($this->group->fullname));
             $this->out->elementEnd('span');
         }
         if ($this->group->location) {
+            $this->out->text(' ');
             $this->out->elementStart('span', 'label');
             $this->out->raw($this->highlight($this->group->location));
             $this->out->elementEnd('span');
         }
         if ($this->group->homepage) {
+            $this->out->text(' ');
             $this->out->elementStart('a', array('href' => $this->group->homepage,
                                                 'class' => 'url'));
             $this->out->raw($this->highlight($this->group->homepage));

@@ -404,11 +404,9 @@ var SN = { // StatusNet
         },
 
         NoticeWithAttachment: function(notice) {
-            if ($('.attachment', notice).length === 0) {
+            if (notice.find('.attachment').length === 0) {
                 return;
             }
-
-            var notice_id = notice.attr('id');
 
             $.fn.jOverlay.options = {
                 method : 'GET',
@@ -429,35 +427,37 @@ var SN = { // StatusNet
                 css : {'max-width':'542px', 'top':'5%', 'left':'32.5%'}
             };
 
-            $('#'+notice_id+' a.attachment').click(function() {
+            notice.find('a.attachment').click(function() {
                 $().jOverlay({url: $('address .url')[0].href+'attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'});
                 return false;
             });
 
-            var t;
-            $("body:not(#shownotice) #"+notice_id+" a.thumbnail").hover(
-                function() {
-                    var anchor = $(this);
-                    $("a.thumbnail").children('img').hide();
-                    anchor.closest(".entry-title").addClass('ov');
+            if ($('#shownotice').length == 0) {
+                var t;
+                notice.find('a.thumbnail').hover(
+                    function() {
+                        var anchor = $(this);
+                        $('a.thumbnail').children('img').hide();
+                        anchor.closest(".entry-title").addClass('ov');
 
-                    if (anchor.children('img').length === 0) {
-                        t = setTimeout(function() {
-                            $.get($('address .url')[0].href+'attachment/' + (anchor.attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
-                                anchor.append(data);
-                            });
-                        }, 500);
+                        if (anchor.children('img').length === 0) {
+                            t = setTimeout(function() {
+                                $.get($('address .url')[0].href+'attachment/' + (anchor.attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
+                                    anchor.append(data);
+                                });
+                            }, 500);
+                        }
+                        else {
+                            anchor.children('img').show();
+                        }
+                    },
+                    function() {
+                        clearTimeout(t);
+                        $('a.thumbnail').children('img').hide();
+                        $(this).closest('.entry-title').removeClass('ov');
                     }
-                    else {
-                        anchor.children('img').show();
-                    }
-                },
-                function() {
-                    clearTimeout(t);
-                    $("a.thumbnail").children('img').hide();
-                    $(this).closest(".entry-title").removeClass('ov');
-                }
-            );
+                );
+            }
         },
 
         NoticeDataAttach: function() {

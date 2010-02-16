@@ -85,9 +85,9 @@ class GroupSection extends Section
                                             'href' => $group->homeUrl(),
                                             'rel' => 'contact group',
                                             'class' => 'url'));
+        $this->out->text(' ');
         $logo = ($group->stream_logo) ?
           $group->stream_logo : User_group::defaultLogo(AVATAR_STREAM_SIZE);
-
         $this->out->element('img', array('src' => $logo,
                                          'width' => AVATAR_MINI_SIZE,
                                          'height' => AVATAR_MINI_SIZE,
@@ -95,6 +95,7 @@ class GroupSection extends Section
                                          'alt' =>  ($group->fullname) ?
                                          $group->fullname :
                                          $group->nickname));
+        $this->out->text(' ');
         $this->out->element('span', 'fn org nickname', $group->nickname);
         $this->out->elementEnd('a');
         $this->out->elementEnd('span');

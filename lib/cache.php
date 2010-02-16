@@ -160,6 +160,32 @@ class Cache
     }
 
     /**
+     * Atomically increment an existing numeric value.
+     * Existing expiration time should remain unchanged, if any.
+     *
+     * @param string  $key    The key to use for lookups
+     * @param int     $step   Amount to increment (default 1)
+     *
+     * @return mixed incremented value, or false if not set.
+     */
+    function increment($key, $step=1)
+    {
+        $value = false;
+        if (Event::handle('StartCacheIncrement', array(&$key, &$step, &$value))) {
+            // Fallback is not guaranteed to be atomic,
+            // and may original expiry value.
+            $value = $this->get($key);
+            if ($value !== false) {
+                $value += $step;
+                $ok = $this->set($key, $value);
+                $got = $this->get($key);
+            }
+            Event::handle('EndCacheIncrement', array($key, $step, $value));
+        }
+        return $value;
+    }
+
+    /**
      * Delete the value associated with a key
      *
      * @param string $key Key to delete

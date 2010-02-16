@@ -148,7 +148,19 @@ class ApiTimelineUserAction extends ApiBareAuthAction
 
             header('Content-Type: application/atom+xml; charset=utf-8');
 
-            $atom = new AtomNoticeFeed();
+            // If this was called using an integer ID, i.e.: using the canonical
+            // URL for this user's feed, then pass the User object into the feed,
+            // so the OStatus plugin, and possibly other plugins, can access it.
+            // Feels sorta hacky. -- Z
+
+            $atom = null;
+            $id = $this->arg('id');
+
+            if (strval(intval($id)) === strval($id)) {
+                $atom = new AtomUserNoticeFeed($this->user);
+            } else {
+                $atom = new AtomUserNoticeFeed();
+            }
 
             $atom->setId($id);
             $atom->setTitle($title);

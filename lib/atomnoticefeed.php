@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Class for building and Atom feed from a collection of notices
+ * Class for building an Atom feed from a collection of notices
  *
  * PHP version 5
  *
@@ -101,3 +101,5 @@ class AtomNoticeFeed extends Atom10Feed
     }
 
 }
+
+
