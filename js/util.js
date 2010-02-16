@@ -404,11 +404,9 @@ var SN = { // StatusNet
         },
 
         NoticeWithAttachment: function(notice) {
-            if ($('.attachment', notice).length === 0) {
+            if (notice.find('.attachment').length === 0) {
                 return;
             }
-
-            var notice_id = notice.attr('id');
 
             $.fn.jOverlay.options = {
                 method : 'GET',
@@ -429,13 +427,13 @@ var SN = { // StatusNet
                 css : {'max-width':'542px', 'top':'5%', 'left':'32.5%'}
             };
 
-            $('#'+notice_id+' a.attachment').click(function() {
+            notice.find('a.attachment').click(function() {
                 $().jOverlay({url: $('address .url')[0].href+'attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'});
                 return false;
             });
 
             var t;
-            $("body:not(#shownotice) #"+notice_id+" a.thumbnail").hover(
+            $("body:not(#shownotice) .notice a.thumbnail").hover(
                 function() {
                     var anchor = $(this);
                     $("a.thumbnail").children('img').hide();
