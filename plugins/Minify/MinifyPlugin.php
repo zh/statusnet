@@ -96,7 +96,7 @@ class MinifyPlugin extends Plugin
             && is_null(common_config('theme', 'path'))
             && is_null(common_config('theme', 'server'));
         $url = parse_url($src);
-        if( empty($url->scheme) && empty($url->host) && empty($url->query) && empty($url->fragment))
+        if( empty($url['scheme']) && empty($url['host']) && empty($url['query']) && empty($url['fragment']))
         {
             if(!isset($theme)) {
                 $theme = common_config('site', 'theme');
