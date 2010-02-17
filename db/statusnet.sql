@@ -633,3 +633,11 @@ create table inbox (
     constraint primary key (user_id)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table conversation (
+    id integer auto_increment primary key comment 'unique identifier',
+    uri varchar(225) not null unique comment 'URI of the conversation',
+    created datetime not null comment 'date this record was created',
+    modified timestamp comment 'date this record was modified'
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
