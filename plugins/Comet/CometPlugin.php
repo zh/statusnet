@@ -68,7 +68,7 @@ class CometPlugin extends RealtimePlugin
         $ours = array('jquery.comet.js', 'cometupdate.js');
 
         foreach ($ours as $script) {
-            $scripts[] = common_path('plugins/Comet/'.$script);
+            $scripts[] = 'plugins/Comet/'.$script;
         }
 
         return $scripts;

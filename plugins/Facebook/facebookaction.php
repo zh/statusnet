@@ -89,7 +89,7 @@ class FacebookAction extends Action
 
     function showScripts()
     {
-        $this->script(common_path('plugins/Facebook/facebookapp.js'));
+        $this->script('plugins/Facebook/facebookapp.js');
     }
 
     /**

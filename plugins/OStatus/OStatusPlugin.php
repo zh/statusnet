@@ -281,12 +281,12 @@ class OStatusPlugin extends Plugin
     }
 
     function onEndShowStatusNetStyles($action) {
-        $action->cssLink(common_path('plugins/OStatus/theme/base/css/ostatus.css'));
+        $action->cssLink('plugins/OStatus/theme/base/css/ostatus.css');
         return true;
     }
 
     function onEndShowStatusNetScripts($action) {
-        $action->script(common_path('plugins/OStatus/js/ostatus.js'));
+        $action->script('plugins/OStatus/js/ostatus.js');
         return true;
     }
 }
