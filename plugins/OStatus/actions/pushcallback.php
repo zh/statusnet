@@ -59,6 +59,9 @@ class PushCallbackAction extends Action
         }
 
         $post = file_get_contents('php://input');
+
+        // @fixme Queue this to a background process; we should return
+        // as quickly as possible from a distribution POST.
         $profile->postUpdates($post, $hmac);
     }
     
