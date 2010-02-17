@@ -810,10 +810,7 @@ class Profile extends Memcached_DataObject
         $xs->element(
             'id',
             null,
-            common_local_url(
-                'userbyid',
-                array('id' => $this->id)
-                )
+            $this->getUri()
             );
         $xs->element('title', null, $this->getBestName());
 
@@ -835,9 +832,21 @@ class Profile extends Memcached_DataObject
         return $xs->getString();
     }
 
-    function getAcctUri()
+    function getUri()
     {
-        return $this->nickname . '@' . common_config('site', 'server');
+        if (Event::handle('GetProfileUri', array($this))) {
+
+            $remote = Remote_profile::staticGet('id', $this->id);
+
+            if (!empty($remote)) {
+                return $remote->uri;
+            } else {
+                return common_local_url(
+                    'userbyid',
+                    array('id' => $this->id)
+                );
+            }
+        }
     }
 
 }

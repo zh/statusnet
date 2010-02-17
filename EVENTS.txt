@@ -1,4 +1,4 @@
-\InitializePlugin: a chance to initialize a plugin in a complete environment
+InitializePlugin: a chance to initialize a plugin in a complete environment
 
 CleanupPlugin: a chance to cleanup a plugin at the end of a program
 
@@ -721,4 +721,7 @@ StartRobotsTxt: Before outputting the robots.txt page
 
 EndRobotsTxt: After the default robots.txt page (good place for customization)
 - &$action: RobotstxtAction being shown
+
+GetProfileUri: When determining the canonical URI for a given profile
+- &$profile: the current profile
 
