@@ -63,7 +63,7 @@ class StatusNet
                 }
             }
             if (!class_exists($pluginclass)) {
-                throw new ServerException(500, "Plugin $name not found.");
+                throw new ServerException("Plugin $name not found.", 500);
             }
         }
 
