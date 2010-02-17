@@ -439,7 +439,7 @@ class HTMLOutputter extends XMLOutputter
     {
         if(Event::handle('StartCssLinkElement', array($this,&$src,&$theme,&$media))) {
             $url = parse_url($src);
-            if( empty($url->scheme) && empty($url->host) && empty($url->query) && empty($url->fragment))
+            if( empty($url['scheme']) && empty($url['host']) && empty($url['query']) && empty($url['fragment']))
             {
                 if(file_exists(Theme::file($src,$theme))){
                    $src = Theme::path($src, $theme);
