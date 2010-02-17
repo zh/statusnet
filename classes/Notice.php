@@ -1036,7 +1036,7 @@ class Notice extends Memcached_DataObject
                 $xs->element(
                     'link', array(
                         'rel' => 'ostatus:attention',
-                        'href' => $profile->getAcctUri()
+                        'href' => $profile->getUri()
                     )
                 );
             }
