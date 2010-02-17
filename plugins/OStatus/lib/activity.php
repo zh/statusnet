@@ -247,6 +247,14 @@ class ActivityObject
 
             // XXX: grab PoCo stuff
         }
+
+        // Some per-type attributes...
+        if ($this->type == self::PERSON || $this->type == self::GROUP) {
+            $this->displayName = $this->title;
+
+            // @fixme we may have multiple avatars with different resolutions specified
+            $this->avatar = ActivityUtils::getLink($element, 'avatar');
+        }
     }
 
     private function _childContent($element, $tag, $namespace=ActivityUtils::ATOM)
