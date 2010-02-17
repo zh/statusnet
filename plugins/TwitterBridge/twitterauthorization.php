@@ -178,7 +178,7 @@ class TwitterauthorizationAction extends Action
             );
             common_log(LOG_INFO, 'Twitter bridge - ' . $msg);
             $this->serverError(
-                _m('Couldn\'t link your Twitter account: ') . $e->getMessage()
+                _m('Couldn\'t link your Twitter account.')
             );
         }
 
@@ -226,7 +226,7 @@ class TwitterauthorizationAction extends Action
             );
             common_log(LOG_INFO, 'Twitter bridge - ' . $msg);
             $this->serverError(
-                _m('Couldn\'t link your Twitter account: ') . $e-getMessage()
+                _m('Couldn\'t link your Twitter account.')
             );
         }
 
@@ -292,7 +292,7 @@ class TwitterauthorizationAction extends Action
 
         if (empty($flink_id)) {
             common_log_db_error($flink, 'INSERT', __FILE__);
-                $this->serverError(_('Couldn\'t link your Twitter account.'));
+            $this->serverError(_('Couldn\'t link your Twitter account.'));
         }
 
         return $flink_id;
