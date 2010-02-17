@@ -309,7 +309,8 @@ class Notice extends Memcached_DataObject
             // the beginning of a new conversation.
 
             if (empty($notice->conversation)) {
-                $notice->conversation = $notice->id;
+                $conv = Conversation::create();
+                $notice->conversation = $conv->id;
                 $changed = true;
             }
 
@@ -331,14 +332,15 @@ class Notice extends Memcached_DataObject
         return $notice;
     }
 
-    function blowOnInsert()
+    function blowOnInsert($conversation = false)
     {
         self::blow('profile:notice_ids:%d', $this->profile_id);
         self::blow('public');
 
-        if ($this->conversation != $this->id) {
-            self::blow('notice:conversation_ids:%d', $this->conversation);
-        }
+        // XXX: Before we were blowing the casche only if the notice id
+        // was not the root of the conversation.  What to do now?
+
+        self::blow('notice:conversation_ids:%d', $this->conversation);
 
         if (!empty($this->repeat_of)) {
             self::blow('notice:repeats:%d', $this->repeat_of);
@@ -1015,28 +1017,29 @@ class Notice extends Memcached_DataObject
             }
         }
 
-        if (!empty($this->conversation)
-            && $this->conversation != $this->id) {
-            $xs->element(
-                'link', array(
-                    'rel' => 'ostatus:conversation',
-                    'href' => common_local_url(
-                        'conversation',
-                        array('id' => $this->conversation)
-                        )
+        if (!empty($this->conversation)) {
+
+            $conv = Conversation::staticGet('id', $this->conversation);
+
+            if (!empty($conv)) {
+                $xs->element(
+                    'link', array(
+                        'rel' => 'ostatus:conversation',
+                        'href' => $conv->uri
                     )
                 );
+            }
         }
 
         $reply_ids = $this->getReplies();
 
         foreach ($reply_ids as $id) {
             $profile = Profile::staticGet('id', $id);
-            if (!empty($profile)) {
+           if (!empty($profile)) {
                 $xs->element(
                     'link', array(
                         'rel' => 'ostatus:attention',
-                        'href' => $profile->getAcctUri()
+                        'href' => $profile->getUri()
                     )
                 );
             }

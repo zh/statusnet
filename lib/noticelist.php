@@ -492,30 +492,34 @@ class NoticeListItem extends Widget
                 break;
              default:
 
-                $name = null;
+                $name = $source_name;
                 $url  = null;
 
-                $ns = Notice_source::staticGet($this->notice->source);
+                if (Event::handle('StartNoticeSourceLink', array($this->notice, &$name, &$url, &$title))) {
+                    $ns = Notice_source::staticGet($this->notice->source);
 
-                if ($ns) {
-                    $name = $ns->name;
-                    $url  = $ns->url;
-                } else {
-                    $app = Oauth_application::staticGet('name', $this->notice->source);
-                    if ($app) {
-                        $name = $app->name;
-                        $url  = $app->source_url;
+                    if ($ns) {
+                        $name = $ns->name;
+                        $url  = $ns->url;
+                    } else {
+                        $app = Oauth_application::staticGet('name', $this->notice->source);
+                        if ($app) {
+                            $name = $app->name;
+                            $url  = $app->source_url;
+                        }
                     }
                 }
+                Event::handle('EndNoticeSourceLink', array($this->notice, &$name, &$url, &$title));
 
                 if (!empty($name) && !empty($url)) {
                     $this->out->elementStart('span', 'device');
                     $this->out->element('a', array('href' => $url,
-                                                   'rel' => 'external'),
+                                                   'rel' => 'external',
+                                                   'title' => $title),
                                         $name);
                     $this->out->elementEnd('span');
                 } else {
-                    $this->out->element('span', 'device', $source_name);
+                    $this->out->element('span', 'device', $name);
                 }
                 break;
             }

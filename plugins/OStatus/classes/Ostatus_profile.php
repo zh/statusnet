@@ -218,14 +218,10 @@ class Ostatus_profile extends Memcached_DataObject
 
         $profile->query('BEGIN');
 
-        // Awful hack! Awful hack!
-        $profile->verify = common_good_rand(16);
-        $profile->secret = common_good_rand(32);
-
         try {
             $local = $munger->profile();
 
-            if ($entity->isGroup()) {
+            if ($profile->isGroup()) {
                 $group = new User_group();
                 $group->nickname = $local->nickname . '@remote'; // @fixme
                 $group->fullname = $local->fullname;
@@ -245,31 +241,31 @@ class Ostatus_profile extends Memcached_DataObject
                 $profile->profile_id = $local->id;
             }
 
-            $profile->created = sql_common_date();
-            $profile->lastupdate = sql_common_date();
+            $profile->created = common_sql_now();
+            $profile->lastupdate = common_sql_now();
             $result = $profile->insert();
             if (empty($result)) {
                 throw new FeedDBException($profile);
             }
 
-            $entity->query('COMMIT');
+            $profile->query('COMMIT');
         } catch (FeedDBException $e) {
             common_log_db_error($e->obj, 'INSERT', __FILE__);
-            $entity->query('ROLLBACK');
+            $profile->query('ROLLBACK');
             return false;
         }
 
         $avatar = $munger->getAvatar();
         if ($avatar) {
             try {
-                $this->updateAvatar($avatar);
+                $profile->updateAvatar($avatar);
             } catch (Exception $e) {
                 common_log(LOG_ERR, "Exception setting OStatus avatar: " .
                                     $e->getMessage());
             }
         }
 
-        return $entity;
+        return $profile;
     }
 
     /**
@@ -283,8 +279,10 @@ class Ostatus_profile extends Memcached_DataObject
         // ripped from oauthstore.php (for old OMB client)
         $temp_filename = tempnam(sys_get_temp_dir(), 'listener_avatar');
         copy($url, $temp_filename);
-        $imagefile = new ImageFile($profile->id, $temp_filename);
-        $filename = Avatar::filename($profile->id,
+        
+        // @fixme should we be using different ids?
+        $imagefile = new ImageFile($this->id, $temp_filename);
+        $filename = Avatar::filename($this->id,
                                      image_type_to_extension($imagefile->type),
                                      null,
                                      common_timestamp());
@@ -376,17 +374,59 @@ class Ostatus_profile extends Memcached_DataObject
      * The hub will later send us a confirmation POST to /main/push/callback.
      *
      * @return bool true on success, false on failure
+     * @throws ServerException if feed state is not valid
      */
     public function subscribe($mode='subscribe')
     {
-        if (common_config('feedsub', 'nohub')) {
-            // Fake it! We're just testing remote feeds w/o hubs.
-            return true;
+        if ($this->sub_state != '') {
+            throw new ServerException("Attempting to start PuSH subscription to feed in state $this->sub_state");
         }
-        // @fixme use the verification token
-        #$token = md5(mt_rand() . ':' . $this->feeduri);
-        #$this->verify_token = $token;
-        #$this->update(); // @fixme
+        if (empty($this->huburi)) {
+            if (common_config('feedsub', 'nohub')) {
+                // Fake it! We're just testing remote feeds w/o hubs.
+                return true;
+            } else {
+                throw new ServerException("Attempting to start PuSH subscription for feed with no hub");
+            }
+        }
+
+        return $this->doSubscribe('subscribe');
+    }
+
+    /**
+     * Send a PuSH unsubscription request to the hub for this feed.
+     * The hub will later send us a confirmation POST to /main/push/callback.
+     *
+     * @return bool true on success, false on failure
+     * @throws ServerException if feed state is not valid
+     */
+    public function unsubscribe() {
+        if ($this->sub_state != 'active') {
+            throw new ServerException("Attempting to end PuSH subscription to feed in state $this->sub_state");
+        }
+        if (empty($this->huburi)) {
+            if (common_config('feedsub', 'nohub')) {
+                // Fake it! We're just testing remote feeds w/o hubs.
+                return true;
+            } else {
+                throw new ServerException("Attempting to end PuSH subscription for feed with no hub");
+            }
+        }
+
+        return $this->doSubscribe('unsubscribe');
+    }
+
+    protected function doSubscribe($mode)
+    {
+        $orig = clone($this);
+        $this->verify_token = common_good_rand(16);
+        if ($mode == 'subscribe') {
+            $this->secret = common_good_rand(32);
+        }
+        $this->sub_state = $mode;
+        $this->update($orig);
+        unset($orig);
+
         try {
             $callback = common_local_url('pushcallback', array('feed' => $this->id));
             $headers = array('Content-Type: application/x-www-form-urlencoded');
@@ -416,6 +456,13 @@ class Ostatus_profile extends Memcached_DataObject
         } catch (Exception $e) {
             // wtf!
             common_log(LOG_ERR, __METHOD__ . ": error \"{$e->getMessage()}\" hitting hub $this->huburi subscribing to $this->feeduri");
+
+            $orig = clone($this);
+            $this->verify_token = null;
+            $this->sub_state = null;
+            $this->update($orig);
+            unset($orig);
+
             return false;
         }
     }
@@ -458,16 +505,6 @@ class Ostatus_profile extends Memcached_DataObject
         $this->lastupdate = common_sql_date();
 
         return $this->update($original);
-    }
-
-    /**
-     * Send a PuSH unsubscription request to the hub for this feed.
-     * The hub will later send us a confirmation POST to /main/push/callback.
-     *
-     * @return bool true on success, false on failure
-     */
-    public function unsubscribe() {
-        return $this->subscribe('unsubscribe');
     }
 
     /**
@@ -561,84 +598,339 @@ class Ostatus_profile extends Memcached_DataObject
      * Currently assumes that all items in the feed are new,
      * coming from a PuSH hub.
      *
-     * @param string $xml source of Atom or RSS feed
+     * @param string $post source of Atom or RSS feed
      * @param string $hmac X-Hub-Signature header, if present
      */
-    public function postUpdates($xml, $hmac)
+    public function postUpdates($post, $hmac)
     {
-        common_log(LOG_INFO, __METHOD__ . ": packet for \"$this->feeduri\"! $hmac $xml");
+        common_log(LOG_INFO, __METHOD__ . ": packet for \"$this->feeduri\"! $hmac $post");
 
-        if ($this->secret) {
-            if (preg_match('/^sha1=([0-9a-fA-F]{40})$/', $hmac, $matches)) {
-                $their_hmac = strtolower($matches[1]);
-                $our_hmac = hash_hmac('sha1', $xml, $this->secret);
-                if ($their_hmac !== $our_hmac) {
-                    common_log(LOG_ERR, __METHOD__ . ": ignoring PuSH with bad SHA-1 HMAC: got $their_hmac, expected $our_hmac");
-                    return;
-                }
-            } else {
-                common_log(LOG_ERR, __METHOD__ . ": ignoring PuSH with bogus HMAC '$hmac'");
-                return;
-            }
-        } else if ($hmac) {
-            common_log(LOG_ERR, __METHOD__ . ": ignoring PuSH with unexpected HMAC '$hmac'");
+        if ($this->sub_state != 'active') {
+            common_log(LOG_ERR, __METHOD__ . ": ignoring PuSH for inactive feed $this->feeduri (in state '$this->sub_state')");
             return;
         }
 
-        require_once "XML/Feed/Parser.php";
-        $feed = new XML_Feed_Parser($xml, false, false, true);
-        $munger = new FeedMunger($feed);
-
-        $hits = 0;
-        foreach ($feed as $index => $entry) {
-            // @fixme this might sort in wrong order if we get multiple updates
-
-            $notice = $munger->notice($index);
-
-            // Double-check for oldies
-            // @fixme this could explode horribly for multiple feeds on a blog. sigh
-
-            $dupe = Notice::staticGet('uri', $notice->uri);
-
-            if (!empty($dupe)) {
-                common_log(LOG_WARNING, __METHOD__ . ": tried to save dupe notice for entry {$notice->uri} of feed {$this->feeduri}");
-                continue;
-            }
-
-            // @fixme need to ensure that groups get handled correctly
-            $saved = Notice::saveNew($notice->profile_id,
-                                     $notice->content,
-                                     'ostatus',
-                                     array('is_local' => Notice::REMOTE_OMB,
-                                           'uri' => $notice->uri,
-                                           'lat' => $notice->lat,
-                                           'lon' => $notice->lon,
-                                           'location_ns' => $notice->location_ns,
-                                           'location_id' => $notice->location_id));
-
-            /*
-            common_log(LOG_DEBUG, "going to check group delivery...");
-            if ($this->group_id) {
-                $group = User_group::staticGet($this->group_id);
-                if ($group) {
-                    common_log(LOG_INFO, __METHOD__ . ": saving to local shadow group $group->id $group->nickname");
-                    $groups = array($group);
-                } else {
-                    common_log(LOG_INFO, __METHOD__ . ": lost the local shadow group?");
-                }
-            } else {
-                common_log(LOG_INFO, __METHOD__ . ": no local shadow groups");
-                $groups = array();
-            }
-            common_log(LOG_DEBUG, "going to add to inboxes...");
-            $notice->addToInboxes($groups, array());
-            common_log(LOG_DEBUG, "added to inboxes.");
-            */
-
-            $hits++;
+        if ($post === '') {
+            common_log(LOG_ERR, __METHOD__ . ": ignoring empty post");
+            return;
         }
-        if ($hits == 0) {
-            common_log(LOG_INFO, __METHOD__ . ": no updates in packet for \"$this->feeduri\"! $xml");
+
+        if (!$this->validatePushSig($post, $hmac)) {
+            // Per spec we silently drop input with a bad sig,
+            // while reporting receipt to the server.
+            return;
+        }
+
+        $feed = new DOMDocument();
+        if (!$feed->loadXML($post)) {
+            // @fixme might help to include the err message
+            common_log(LOG_ERR, __METHOD__ . ": ignoring invalid XML");
+            return;
+        }
+
+        $entries = $feed->getElementsByTagNameNS(Activity::ATOM, 'entry');
+        if ($entries->length == 0) {
+            common_log(LOG_ERR, __METHOD__ . ": no entries in feed update, ignoring");
+            return;
+        }
+
+        for ($i = 0; $i < $entries->length; $i++) {
+            $entry = $entries->item($i);
+            $this->processEntry($entry, $feed);
         }
     }
+
+    /**
+     * Validate the given Atom chunk and HMAC signature against our
+     * shared secret that was set up at subscription time.
+     *
+     * If we don't have a shared secret, there should be no signature.
+     * If we we do, our the calculated HMAC should match theirs.
+     *
+     * @param string $post raw XML source as POSTed to us
+     * @param string $hmac X-Hub-Signature HTTP header value, or empty
+     * @return boolean true for a match
+     */
+    protected function validatePushSig($post, $hmac)
+    {
+        if ($this->secret) {
+            if (preg_match('/^sha1=([0-9a-fA-F]{40})$/', $hmac, $matches)) {
+                $their_hmac = strtolower($matches[1]);
+                $our_hmac = hash_hmac('sha1', $post, $this->secret);
+                if ($their_hmac === $our_hmac) {
+                    return true;
+                }
+                common_log(LOG_ERR, __METHOD__ . ": ignoring PuSH with bad SHA-1 HMAC: got $their_hmac, expected $our_hmac");
+            } else {
+                common_log(LOG_ERR, __METHOD__ . ": ignoring PuSH with bogus HMAC '$hmac'");
+            }
+        } else {
+            if (empty($hmac)) {
+                return true;
+            } else {
+                common_log(LOG_ERR, __METHOD__ . ": ignoring PuSH with unexpected HMAC '$hmac'");
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Process a posted entry from this feed source.
+     *
+     * @param DOMElement $entry
+     * @param DOMElement $feed for context
+     */
+    protected function processEntry($entry, $feed)
+    {
+        $activity = new Activity($entry, $feed);
+
+        $debug = var_export($activity, true);
+        common_log(LOG_DEBUG, $debug);
+
+        if ($activity->verb == ActivityVerb::POST) {
+            $this->processPost($activity);
+        } else {
+            common_log(LOG_INFO, "Ignoring activity with unrecognized verb $activity->verb");
+        }
+    }
+
+    /**
+     * Process an incoming post activity from this remote feed.
+     * @param Activity $activity
+     */
+    protected function processPost($activity)
+    {
+        if ($this->isGroup()) {
+            // @fixme validate these profiles in some way!
+            $oprofile = $this->ensureActorProfile($activity);
+        } else {
+            $actorUri = $this->getActorProfileURI($activity);
+            if ($actorUri == $this->homeuri) {
+                // @fixme check if profile info has changed and update it
+            } else {
+                // @fixme drop or reject the messages once we've got the canonical profile URI recorded sanely
+                common_log(LOG_INFO, "OStatus: Warning: non-group post with unexpected author: $actorUri expected $this->homeuri");
+                //return;
+            }
+            $oprofile = $this;
+        }
+
+        if ($activity->object->link) {
+            $sourceUri = $activity->object->link;
+        } else if (preg_match('!^https?://!', $activity->object->id)) {
+            $sourceUri = $activity->object->id;
+        } else {
+            common_log(LOG_INFO, "OStatus: ignoring post with no source link: id $activity->object->id");
+            return;
+        }
+
+        $dupe = Notice::staticGet('uri', $sourceUri);
+        if ($dupe) {
+            common_log(LOG_INFO, "OStatus: ignoring duplicate post: $noticeLink");
+            return;
+        }
+
+        // @fixme sanitize and save HTML content if available
+        $content = $activity->object->title;
+
+        $params = array('is_local' => Notice::REMOTE_OMB,
+                        'uri' => $sourceUri);
+
+        $location = $this->getEntryLocation($activity->entry);
+        if ($location) {
+            $params['lat'] = $location->lat;
+            $params['lon'] = $location->lon;
+            if ($location->location_id) {
+                $params['location_ns'] = $location->location_ns;
+                $params['location_id'] = $location->location_id;
+            }
+        }
+
+        // @fixme save detailed ostatus source info
+        // @fixme ensure that groups get handled correctly
+
+        $saved = Notice::saveNew($oprofile->localProfile()->id,
+                                 $content,
+                                 'ostatus',
+                                 $params);
+    }
+
+    /**
+     * Parse location given as a GeoRSS-simple point, if provided.
+     * http://www.georss.org/simple
+     *
+     * @param feed item $entry
+     * @return mixed Location or false
+     */
+    function getLocation($dom)
+    {
+        $points = $dom->getElementsByTagNameNS('http://www.georss.org/georss', 'point');
+        
+        for ($i = 0; $i < $points->length; $i++) {
+            $point = $points->item(0)->textContent;
+            $point = str_replace(',', ' ', $point); // per spec "treat commas as whitespace"
+            $point = preg_replace('/\s+/', ' ', $point);
+            $point = trim($point);
+            $coords = explode(' ', $point);
+            if (count($coords) == 2) {
+                list($lat, $lon) = $coords;
+                if (is_numeric($lat) && is_numeric($lon)) {
+                    common_log(LOG_INFO, "Looking up location for $lat $lon from georss");
+                    return Location::fromLatLon($lat, $lon);
+                }
+            }
+            common_log(LOG_ERR, "Ignoring bogus georss:point value $point");
+        }
+
+        return false;
+    }
+
+    /**
+     * Get an appropriate avatar image source URL, if available.
+     *
+     * @param ActivityObject $actor
+     * @param DOMElement $feed
+     * @return string
+     */
+    function getAvatar($actor, $feed)
+    {
+        $url = '';
+        $icon = '';
+        if ($actor->avatar) {
+            $url = trim($actor->avatar);
+        }
+        if (!$url) {
+            // Check <atom:logo> and <atom:icon> on the feed
+            $els = $feed->childNodes();
+            if ($els && $els->length) {
+                for ($i = 0; $i < $els->length; $i++) {
+                    $el = $els->item($i);
+                    if ($el->namespaceURI == Activity::ATOM) {
+                        if (empty($url) && $el->localName == 'logo') {
+                            $url = trim($el->textContent);
+                            break;
+                        }
+                        if (empty($icon) && $el->localName == 'icon') {
+                            // Use as a fallback
+                            $icon = trim($el->textContent);
+                        }
+                    }
+                }
+            }
+            if ($icon && !$url) {
+                $url = $icon;
+            }
+        }
+        if ($url) {
+            $opts = array('allowed_schemes' => array('http', 'https'));
+            if (Validate::uri($url, $opts)) {
+                return $url;
+            }
+        }
+        return common_path('plugins/OStatus/images/96px-Feed-icon.svg.png');
+    }
+
+    /**
+     * @fixme move off of ostatus_profile or static?
+     */
+    function ensureActorProfile($activity)
+    {
+        $profile = $this->getActorProfile($activity);
+        if (!$profile) {
+            $profile = $this->createActorProfile($activity);
+        }
+        return $profile;
+    }
+
+    /**
+     * @param Activity $activity
+     * @return mixed matching Ostatus_profile or false if none known
+     */
+    function getActorProfile($activity)
+    {
+        $homeuri = $this->getActorProfileURI($activity);
+        return Ostatus_profile::staticGet('homeuri', $homeuri);
+    }
+
+    /**
+     * @param Activity $activity
+     * @return string
+     * @throws ServerException
+     */
+    function getActorProfileURI($activity)
+    {
+        $opts = array('allowed_schemes' => array('http', 'https'));
+        $actor = $activity->actor;
+        if ($actor->id && Validate::uri($actor->id, $opts)) {
+            return $actor->id;
+        }
+        if ($actor->link && Validate::uri($actor->link, $opts)) {
+            return $actor->link;
+        }
+        throw new ServerException("No author ID URI found");
+    }
+
+    /**
+     *
+     */
+    function createActorProfile($activity)
+    {
+        $actor = $activity->actor();
+        $homeuri = $this->getActivityProfileURI($activity);
+        $nickname = $this->getAuthorNick($activity);
+        $avatar = $this->getAvatar($actor, $feed);
+
+        $profile = new Profile();
+        $profile->nickname   = $nickname;
+        $profile->fullname   = $actor->displayName;
+        $profile->homepage   = $actor->link; // @fixme
+        $profile->profileurl = $homeuri;
+        // @fixme bio
+        // @fixme tags/categories
+        // @fixme location?
+        // @todo tags from categories
+        // @todo lat/lon/location?
+
+        $ok = $profile->insert();
+        if ($ok) {
+            $this->updateAvatar($profile, $avatar);
+        } else {
+            throw new ServerException("Can't save local profile");
+        }
+
+        // @fixme either need to do feed discovery here
+        // or need to split out some of the feed stuff
+        // so we can leave it empty until later.
+        $oprofile = new Ostatus_profile();
+        $oprofile->homeuri = $homeuri;
+        $oprofile->profile_id = $profile->id;
+
+        $ok = $oprofile->insert();
+        if ($ok) {
+            return $oprofile;
+        } else {
+            throw new ServerException("Can't save OStatus profile");
+        }
+    }
+
+    /**
+     * @fixme move this into Activity?
+     * @param Activity $activity
+     * @return string
+     */
+    function getAuthorNick($activity)
+    {
+        // @fixme not technically part of the actor?
+        foreach (array($activity->entry, $activity->feed) as $source) {
+            $author = ActivityUtil::child($source, 'author', Activity::ATOM);
+            if ($author) {
+                $name = ActivityUtil::child($author, 'name', Activity::ATOM);
+                if ($name) {
+                    return trim($name->textContent);
+                }
+            }
+        }
+        return false;
+    }
+
 }

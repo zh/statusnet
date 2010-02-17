@@ -289,4 +289,17 @@ class OStatusPlugin extends Plugin
         $action->script('plugins/OStatus/js/ostatus.js');
         return true;
     }
+
+    function onStartNoticeSourceLink($notice, &$name, &$url, &$title)
+    {
+        if ($notice->source == 'ostatus') {
+            $bits = parse_url($notice->uri);
+            $domain = $bits['host'];
+
+            $name = $domain;
+            $url = $notice->uri;
+            $title = sprintf(_m("Sent from %s via OStatus"), $domain);
+            return false;
+        }
+    }
 }
