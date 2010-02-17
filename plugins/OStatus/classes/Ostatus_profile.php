@@ -218,10 +218,6 @@ class Ostatus_profile extends Memcached_DataObject
 
         $profile->query('BEGIN');
 
-        // Awful hack! Awful hack!
-        $profile->verify = common_good_rand(16);
-        $profile->secret = common_good_rand(32);
-
         try {
             $local = $munger->profile();
 
@@ -423,7 +419,10 @@ class Ostatus_profile extends Memcached_DataObject
     protected function doSubscribe($mode)
     {
         $orig = clone($this);
-        $this->verify_token = md5(mt_rand() . ':' . $this->feeduri);
+        $this->verify_token = common_good_rand(16);
+        if ($mode == 'subscribe') {
+            $this->secret = common_good_rand(32);
+        }
         $this->sub_state = $mode;
         $this->update($orig);
         unset($orig);
@@ -701,18 +700,19 @@ class Ostatus_profile extends Memcached_DataObject
      */
     protected function processPost($activity)
     {
-        // @fixme pull profile reference from actor for group feeds
-        $actor = $this;
-        $localProfile = $actor->localProfile();
-        if (empty($localProfile)) {
-            common_log(LOG_INFO, "OStatus: ignoring post with invalid author");
-            return;
-        }
-
-        if (empty($activity->object)) {
-            // This shouldn't happen!
-            common_log(LOG_INFO, "OStatus: ignoring post with missing post object.");
-            return;
+        if ($this->isGroup()) {
+            // @fixme validate these profiles in some way!
+            $oprofile = $this->ensureActorProfile($activity);
+        } else {
+            $actorUri = $this->getActorProfileURI($activity);
+            if ($actorUri == $this->homeuri) {
+                // @fixme check if profile info has changed and update it
+            } else {
+                // @fixme drop or reject the messages once we've got the canonical profile URI recorded sanely
+                common_log(LOG_INFO, "OStatus: Warning: non-group post with unexpected author: $actorUri expected $this->homeuri");
+                //return;
+            }
+            $oprofile = $this;
         }
 
         if ($activity->object->link) {
@@ -749,7 +749,7 @@ class Ostatus_profile extends Memcached_DataObject
         // @fixme save detailed ostatus source info
         // @fixme ensure that groups get handled correctly
 
-        $saved = Notice::saveNew($localProfile->id,
+        $saved = Notice::saveNew($oprofile->localProfile()->id,
                                  $content,
                                  'ostatus',
                                  $params);
@@ -784,4 +784,153 @@ class Ostatus_profile extends Memcached_DataObject
 
         return false;
     }
+
+    /**
+     * Get an appropriate avatar image source URL, if available.
+     *
+     * @param ActivityObject $actor
+     * @param DOMElement $feed
+     * @return string
+     */
+    function getAvatar($actor, $feed)
+    {
+        $url = '';
+        $icon = '';
+        if ($actor->avatar) {
+            $url = trim($actor->avatar);
+        }
+        if (!$url) {
+            // Check <atom:logo> and <atom:icon> on the feed
+            $els = $feed->childNodes();
+            if ($els && $els->length) {
+                for ($i = 0; $i < $els->length; $i++) {
+                    $el = $els->item($i);
+                    if ($el->namespaceURI == Activity::ATOM) {
+                        if (empty($url) && $el->localName == 'logo') {
+                            $url = trim($el->textContent);
+                            break;
+                        }
+                        if (empty($icon) && $el->localName == 'icon') {
+                            // Use as a fallback
+                            $icon = trim($el->textContent);
+                        }
+                    }
+                }
+            }
+            if ($icon && !$url) {
+                $url = $icon;
+            }
+        }
+        if ($url) {
+            $opts = array('allowed_schemes' => array('http', 'https'));
+            if (Validate::uri($url, $opts)) {
+                return $url;
+            }
+        }
+        return common_path('plugins/OStatus/images/96px-Feed-icon.svg.png');
+    }
+
+    /**
+     * @fixme move off of ostatus_profile or static?
+     */
+    function ensureActorProfile($activity)
+    {
+        $profile = $this->getActorProfile($activity);
+        if (!$profile) {
+            $profile = $this->createActorProfile($activity);
+        }
+        return $profile;
+    }
+
+    /**
+     * @param Activity $activity
+     * @return mixed matching Ostatus_profile or false if none known
+     */
+    function getActorProfile($activity)
+    {
+        $homeuri = $this->getActorProfileURI($activity);
+        return Ostatus_profile::staticGet('homeuri', $homeuri);
+    }
+
+    /**
+     * @param Activity $activity
+     * @return string
+     * @throws ServerException
+     */
+    function getActorProfileURI($activity)
+    {
+        $opts = array('allowed_schemes' => array('http', 'https'));
+        $actor = $activity->actor;
+        if ($actor->id && Validate::uri($actor->id, $opts)) {
+            return $actor->id;
+        }
+        if ($actor->link && Validate::uri($actor->link, $opts)) {
+            return $actor->link;
+        }
+        throw new ServerException("No author ID URI found");
+    }
+
+    /**
+     *
+     */
+    function createActorProfile($activity)
+    {
+        $actor = $activity->actor();
+        $homeuri = $this->getActivityProfileURI($activity);
+        $nickname = $this->getAuthorNick($activity);
+        $avatar = $this->getAvatar($actor, $feed);
+
+        $profile = new Profile();
+        $profile->nickname   = $nickname;
+        $profile->fullname   = $actor->displayName;
+        $profile->homepage   = $actor->link; // @fixme
+        $profile->profileurl = $homeuri;
+        // @fixme bio
+        // @fixme tags/categories
+        // @fixme location?
+        // @todo tags from categories
+        // @todo lat/lon/location?
+
+        $ok = $profile->insert();
+        if ($ok) {
+            $this->updateAvatar($profile, $avatar);
+        } else {
+            throw new ServerException("Can't save local profile");
+        }
+
+        // @fixme either need to do feed discovery here
+        // or need to split out some of the feed stuff
+        // so we can leave it empty until later.
+        $oprofile = new Ostatus_profile();
+        $oprofile->homeuri = $homeuri;
+        $oprofile->profile_id = $profile->id;
+
+        $ok = $oprofile->insert();
+        if ($ok) {
+            return $oprofile;
+        } else {
+            throw new ServerException("Can't save OStatus profile");
+        }
+    }
+
+    /**
+     * @fixme move this into Activity?
+     * @param Activity $activity
+     * @return string
+     */
+    function getAuthorNick($activity)
+    {
+        // @fixme not technically part of the actor?
+        foreach (array($activity->entry, $activity->feed) as $source) {
+            $author = ActivityUtil::child($source, 'author', Activity::ATOM);
+            if ($author) {
+                $name = ActivityUtil::child($author, 'name', Activity::ATOM);
+                if ($name) {
+                    return trim($name->textContent);
+                }
+            }
+        }
+        return false;
+    }
+
 }
