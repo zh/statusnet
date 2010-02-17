@@ -51,6 +51,8 @@ if (!defined('STATUSNET')) {
 
 class MemcachePlugin extends Plugin
 {
+    static $cacheInitialized = false;
+
     private $_conn  = null;
     public $servers = array('127.0.0.1;11211');
 
@@ -71,10 +73,21 @@ class MemcachePlugin extends Plugin
 
     function onInitializePlugin()
     {
-        if (is_null($this->persistent)) {
+        if (self::$cacheInitialized) {
+            $this->persistent = true;
+        } else {
+            // If we're a parent command-line process we need
+            // to be able to close out the connection after
+            // forking, so disable persistence.
+            //
+            // We'll turn it back on again the second time
+            // through which will either be in a child process,
+            // or a single-process script which is switching
+            // configurations.
             $this->persistent = (php_sapi_name() == 'cli') ? false : true;
         }
         $this->_ensureConn();
+        self::$cacheInitialized = true;
         return true;
     }
 
@@ -118,6 +131,24 @@ class MemcachePlugin extends Plugin
         $success = $this->_conn->set($key, $value, $flag, $expiry);
         Event::handle('EndCacheSet', array($key, $value, $flag,
                                            $expiry));
+        return false;
+    }
+
+    /**
+     * Atomically increment an existing numeric key value.
+     * Existing expiration time will not be changed.
+     *
+     * @param string &$key    in; Key to use for lookups
+     * @param int    &$step   in; Amount to increment (default 1)
+     * @param mixed  &$value  out; Incremented value, or false if key not set.
+     *
+     * @return boolean hook success
+     */
+    function onStartCacheIncrement(&$key, &$step, &$value)
+    {
+        $this->_ensureConn();
+        $value = $this->_conn->increment($key, $step);
+        Event::handle('EndCacheIncrement', array($key, $step, $value));
         return false;
     }
 

@@ -39,9 +39,10 @@ abstract class QueueManager extends IoManager
 {
     static $qm = null;
 
-    public $master = null;
-    public $handlers = array();
-    public $groups = array();
+    protected $master = null;
+    protected $handlers = array();
+    protected $groups = array();
+    protected $activeGroups = array();
 
     /**
      * Factory function to pull the appropriate QueueManager object
@@ -155,26 +156,26 @@ abstract class QueueManager extends IoManager
     }
 
     /**
-     * Encode an object for queued storage.
-     * Next gen may use serialization.
+     * Encode an object or variable for queued storage.
+     * Notice objects are currently stored as an id reference;
+     * other items are serialized.
      *
-     * @param mixed $object
+     * @param mixed $item
      * @return string
      */
-    protected function encode($object)
+    protected function encode($item)
     {
-        if ($object instanceof Notice) {
-            return $object->id;
-        } else if (is_string($object)) {
-            return $object;
+        if ($item instanceof Notice) {
+            // Backwards compat
+            return $item->id;
         } else {
-            throw new ServerException("Can't queue this type", 500);
+            return serialize($item);
         }
     }
 
     /**
      * Decode an object from queued storage.
-     * Accepts back-compat notice reference entries and strings for now.
+     * Accepts notice reference entries and serialized items.
      *
      * @param string
      * @return mixed
@@ -182,9 +183,23 @@ abstract class QueueManager extends IoManager
     protected function decode($frame)
     {
         if (is_numeric($frame)) {
+            // Back-compat for notices...
             return Notice::staticGet(intval($frame));
-        } else {
+        } elseif (substr($frame, 0, 1) == '<') {
+            // Back-compat for XML source
             return $frame;
+        } else {
+            // Deserialize!
+            #$old = error_reporting();
+            #error_reporting($old & ~E_NOTICE);
+            $out = unserialize($frame);
+            #error_reporting($old);
+
+            if ($out === false && $frame !== 'b:0;') {
+                common_log(LOG_ERR, "Couldn't unserialize queued frame: $frame");
+                return false;
+            }
+            return $out;
         }
     }
 
@@ -201,55 +216,64 @@ abstract class QueueManager extends IoManager
             if (class_exists($class)) {
                 return new $class();
             } else {
-                common_log(LOG_ERR, "Nonexistent handler class '$class' for queue '$queue'");
+                $this->_log(LOG_ERR, "Nonexistent handler class '$class' for queue '$queue'");
             }
         } else {
-            common_log(LOG_ERR, "Requested handler for unkown queue '$queue'");
+            $this->_log(LOG_ERR, "Requested handler for unkown queue '$queue'");
         }
         return null;
     }
 
     /**
      * Get a list of registered queue transport names to be used
-     * for this daemon.
+     * for listening in this daemon.
      *
      * @return array of strings
      */
-    function getQueues()
+    function activeQueues()
     {
-        $group = $this->activeGroup();
-        return array_keys($this->groups[$group]);
+        $queues = array();
+        foreach ($this->activeGroups as $group) {
+            if (isset($this->groups[$group])) {
+                $queues = array_merge($queues, $this->groups[$group]);
+            }
+        }
+
+        return array_keys($queues);
     }
 
     /**
-     * Initialize the list of queue handlers
+     * Initialize the list of queue handlers for the current site.
      *
      * @event StartInitializeQueueManager
      * @event EndInitializeQueueManager
      */
     function initialize()
     {
-        // @fixme we'll want to be able to listen to particular queues...
+        $this->handlers = array();
+        $this->groups = array();
+        $this->groupsByTransport = array();
+
         if (Event::handle('StartInitializeQueueManager', array($this))) {
-            $this->connect('plugin', 'PluginQueueHandler');
+            $this->connect('distrib', 'DistribQueueHandler');
             $this->connect('omb', 'OmbQueueHandler');
             $this->connect('ping', 'PingQueueHandler');
-            $this->connect('distrib', 'DistribQueueHandler');
             if (common_config('sms', 'enabled')) {
                 $this->connect('sms', 'SmsQueueHandler');
             }
 
             // XMPP output handlers...
-            $this->connect('jabber', 'JabberQueueHandler');
-            $this->connect('public', 'PublicQueueHandler');
-            // @fixme this should get an actual queue
-            //$this->connect('confirm', 'XmppConfirmHandler');
+            if (common_config('xmpp', 'enabled')) {
+                // Delivery prep, read by queuedaemon.php:
+                $this->connect('jabber', 'JabberQueueHandler');
+                $this->connect('public', 'PublicQueueHandler');
+
+                // Raw output, read by xmppdaemon.php:
+                $this->connect('xmppout', 'XmppOutQueueHandler', 'xmpp');
+            }
 
             // For compat with old plugins not registering their own handlers.
             $this->connect('plugin', 'PluginQueueHandler');
-
-            $this->connect('xmppout', 'XmppOutQueueHandler', 'xmppdaemon');
-
         }
         Event::handle('EndInitializeQueueManager', array($this));
     }
@@ -262,25 +286,41 @@ abstract class QueueManager extends IoManager
      * @param string $class
      * @param string $group
      */
-    public function connect($transport, $class, $group='queuedaemon')
+    public function connect($transport, $class, $group='main')
     {
         $this->handlers[$transport] = $class;
         $this->groups[$group][$transport] = $class;
+        $this->groupsByTransport[$transport] = $group;
     }
 
     /**
-     * @return string queue group to use for this request
+     * Set the active group which will be used for listening.
+     * @param string $group
      */
-    function activeGroup()
+    function setActiveGroup($group)
     {
-        $group = 'queuedaemon';
-        if ($this->master) {
-            // hack hack
-            if ($this->master instanceof XmppMaster) {
-                return 'xmppdaemon';
-            }
+        $this->activeGroups = array($group);
+    }
+
+    /**
+     * Set the active group(s) which will be used for listening.
+     * @param array $groups
+     */
+    function setActiveGroups($groups)
+    {
+        $this->activeGroups = $groups;
+    }
+
+    /**
+     * @return string queue group for this queue
+     */
+    function queueGroup($queue)
+    {
+        if (isset($this->groupsByTransport[$queue])) {
+            return $this->groupsByTransport[$queue];
+        } else {
+            throw new Exception("Requested group for unregistered transport $queue");
         }
-        return $group;
     }
 
     /**
@@ -303,5 +343,16 @@ abstract class QueueManager extends IoManager
             $monitor = new QueueMonitor();
             $monitor->stats($key, $owners);
         }
+    }
+
+    protected function _log($level, $msg)
+    {
+        $class = get_class($this);
+        if ($this->activeGroups) {
+            $groups = ' (' . implode(',', $this->activeGroups) . ')';
+        } else {
+            $groups = '';
+        }
+        common_log($level, "$class$groups: $msg");
     }
 }
