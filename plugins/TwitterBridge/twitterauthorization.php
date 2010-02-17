@@ -131,8 +131,7 @@ class TwitterauthorizationAction extends Action
             } else if ($this->arg('connect')) {
                 $this->connectNewUser();
             } else {
-                common_debug('Twitter Connect Plugin - ' .
-                             print_r($this->args, true));
+                common_debug('Twitter bridge - ' . print_r($this->args, true));
                 $this->showForm(_('Something weird happened.'),
                                 $this->trimmed('newname'));
             }
@@ -172,9 +171,15 @@ class TwitterauthorizationAction extends Action
             $auth_link = $client->getAuthorizeLink($req_tok, $this->signin);
 
         } catch (OAuthClientException $e) {
-            $msg = sprintf('OAuth client error - code: %1s, msg: %2s',
-                           $e->getCode(), $e->getMessage());
-            $this->serverError(_m('Couldn\'t link your Twitter account.'));
+            $msg = sprintf(
+                'OAuth client error - code: %1s, msg: %2s',
+                $e->getCode(),
+                $e->getMessage()
+            );
+            common_log(LOG_INFO, 'Twitter bridge - ' . $msg);
+            $this->serverError(
+                _m('Couldn\'t link your Twitter account: ') . $e->getMessage()
+            );
         }
 
         common_redirect($auth_link);
@@ -192,7 +197,9 @@ class TwitterauthorizationAction extends Action
         // token we sent them
 
         if ($_SESSION['twitter_request_token'] != $this->oauth_token) {
-            $this->serverError(_m('Couldn\'t link your Twitter account.'));
+            $this->serverError(
+                _m('Couldn\'t link your Twitter account: oauth_token mismatch.')
+            );
         }
 
         $twitter_user = null;
@@ -212,9 +219,15 @@ class TwitterauthorizationAction extends Action
             $twitter_user = $client->verifyCredentials();
 
         } catch (OAuthClientException $e) {
-            $msg = sprintf('OAuth client error - code: %1$s, msg: %2$s',
-                           $e->getCode(), $e->getMessage());
-            $this->serverError(_m('Couldn\'t link your Twitter account.'));
+            $msg = sprintf(
+                'OAuth client error - code: %1$s, msg: %2$s',
+                $e->getCode(),
+                $e->getMessage()
+            );
+            common_log(LOG_INFO, 'Twitter bridge - ' . $msg);
+            $this->serverError(
+                _m('Couldn\'t link your Twitter account: ') . $e-getMessage()
+            );
         }
 
         if (common_logged_in()) {
