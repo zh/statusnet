@@ -769,7 +769,7 @@ class Profile extends Memcached_DataObject
 
         $xs->elementStart('author');
         $xs->element('name', null, $this->nickname);
-        $xs->element('uri', null, $this->profileurl);
+        $xs->element('uri', null, $this->getUri());
         $xs->elementEnd('author');
 
         return $xs->getString();
@@ -832,21 +832,40 @@ class Profile extends Memcached_DataObject
         return $xs->getString();
     }
 
+    /**
+     * Returns the best URI for a profile. Plugins may override.
+     *
+     * @return string $uri
+     */
     function getUri()
     {
-        if (Event::handle('GetProfileUri', array($this))) {
+        $uri = null;
 
-            $remote = Remote_profile::staticGet('id', $this->id);
+        // check for a local user first
+        $user = User::staticGet('id', $this->id);
 
-            if (!empty($remote)) {
-                return $remote->uri;
-            } else {
-                return common_local_url(
-                    'userbyid',
-                    array('id' => $this->id)
-                );
+        if (!empty($user)) {
+            $uri = common_local_url(
+                'userbyid',
+                array('id' => $user->id)
+            );
+        } else {
+
+            // give plugins a chance to set the URI
+            if (Event::handle('StartGetProfileUri', array($this, &$uri))) {
+
+                // return OMB profile if any
+                $remote = Remote_profile::staticGet('id', $this->id);
+
+                if (!empty($remote)) {
+                    $uri = $remote->uri;
+                }
+
+                Event::handle('EndGetProfileUri', array($this, &$uri));
             }
         }
+
+        return $uri;
     }
 
 }
