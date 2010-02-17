@@ -40,8 +40,8 @@ class InfiniteScrollPlugin extends Plugin
 
     function onEndShowScripts($action)
     {
-        $action->script('plugins/InfiniteScroll/jquery.infinitescroll.js');
-        $action->script('plugins/InfiniteScroll/infinitescroll.js');
+        $action->script(common_path('plugins/InfiniteScroll/jquery.infinitescroll.js'));
+        $action->script(common_path('plugins/InfiniteScroll/infinitescroll.js'));
     }
 
     function onPluginVersion(&$versions)
