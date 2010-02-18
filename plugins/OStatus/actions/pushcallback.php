@@ -89,7 +89,7 @@ class PushCallbackAction extends Action
 
         if ($profile->verify_token !== $verify_token) {
             common_log(LOG_WARNING, __METHOD__ . ": bogus hub callback with bad token \"$verify_token\" for feed $topic");
-            throw new ServerError("Bogus hub callback: bad token", 404);
+            throw new ServerException("Bogus hub callback: bad token", 404);
         }
 
         if ($mode != $profile->sub_state) {

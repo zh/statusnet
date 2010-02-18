@@ -303,6 +303,12 @@ class ActivityVerb
     const FRIEND   = 'http://activitystrea.ms/schema/1.0/make-friend';
     const JOIN     = 'http://activitystrea.ms/schema/1.0/join';
     const TAG      = 'http://activitystrea.ms/schema/1.0/tag';
+
+    // Custom OStatus verbs for the flipside until they're standardized
+    const DELETE     = 'http://ostatus.org/schema/1.0/unfollow';
+    const UNFAVORITE = 'http://ostatus.org/schema/1.0/unfavorite';
+    const UNFOLLOW   = 'http://ostatus.org/schema/1.0/unfollow';
+    const LEAVE      = 'http://ostatus.org/schema/1.0/leave';
 }
 
 /**

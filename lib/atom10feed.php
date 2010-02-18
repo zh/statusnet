@@ -78,7 +78,7 @@ class Atom10Feed extends XMLStringer
         $this->authors    = array();
         $this->links      = array();
         $this->entries    = array();
-        $this->addNamespace('xmlns', 'http://www.w3.org/2005/Atom');
+        $this->addNamespace('', 'http://www.w3.org/2005/Atom');
     }
 
     /**
@@ -162,7 +162,14 @@ class Atom10Feed extends XMLStringer
     {
         $this->xw->startDocument('1.0', 'UTF-8');
         $commonAttrs = array('xml:lang' => 'en-US');
-        $commonAttrs = array_merge($commonAttrs, $this->namespaces);
+        foreach ($this->namespaces as $prefix => $uri) {
+            if ($prefix == '') {
+                $attr = 'xmlns';
+            } else {
+                $attr = 'xmlns:' . $prefix;
+            }
+            $commonAttrs[$attr] = $uri;
+        }
         $this->elementStart('feed', $commonAttrs);
 
         $this->element('id', null, $this->id);

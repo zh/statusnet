@@ -112,7 +112,7 @@ class OStatusPlugin extends Plugin
      * Set up a PuSH hub link to our internal link for canonical timeline
      * Atom feeds for users and groups.
      */
-    function onStartApiAtom(AtomNoticeFeed $feed)
+    function onStartApiAtom($feed)
     {
         $id = null;
 
@@ -171,6 +171,12 @@ class OStatusPlugin extends Plugin
     {
         $base = dirname(__FILE__);
         $lower = strtolower($cls);
+        $map = array('activityverb' => 'activity',
+                     'activityobject' => 'activity',
+                     'activityutils' => 'activity');
+        if (isset($map[$lower])) {
+            $lower = $map[$lower];
+        }
         $files = array("$base/classes/$cls.php",
                        "$base/lib/$lower.php");
         if (substr($lower, -6) == 'action') {
@@ -253,18 +259,45 @@ class OStatusPlugin extends Plugin
     }
 
     /**
-     * Garbage collect unused feeds on unsubscribe
+     * Notify remote server when one of our users subscribes.
+     * @fixme Check and restart the PuSH subscription if needed
+     *
+     * @param User $user
+     * @param Profile $other
+     * @return hook return value
+     */
+    function onEndSubscribe($user, $other)
+    {
+        $oprofile = Ostatus_profile::staticGet('profile_id', $other->id);
+        if ($oprofile) {
+            // Notify the remote server of the unsub, if supported.
+            $oprofile->notify($user->getProfile(), ActivityVerb::FOLLOW, $oprofile);
+        }
+        return true;
+    }
+
+    /**
+     * Notify remote server and garbage collect unused feeds on unsubscribe.
+     * @fixme send these operations to background queues
+     *
+     * @param User $user
+     * @param Profile $other
+     * @return hook return value
      */
     function onEndUnsubscribe($user, $other)
     {
-        $profile = Ostatus_profile::staticGet('profile_id', $other->id);
-        if ($feed) {
+        $oprofile = Ostatus_profile::staticGet('profile_id', $other->id);
+        if ($oprofile) {
+            // Notify the remote server of the unsub, if supported.
+            $oprofile->notify($user->getProfile(), ActivityVerb::UNFOLLOW, $oprofile);
+
+            // Drop the PuSH subscription if there are no other subscribers.
             $sub = new Subscription();
             $sub->subscribed = $other->id;
             $sub->limit(1);
             if (!$sub->find(true)) {
-                common_log(LOG_INFO, "Unsubscribing from now-unused feed $feed->feeduri on hub $feed->huburi");
-                $profile->unsubscribe();
+                common_log(LOG_INFO, "Unsubscribing from now-unused feed $oprofile->feeduri on hub $oprofile->huburi");
+                $oprofile->unsubscribe();
             }
         }
         return true;
@@ -290,6 +323,16 @@ class OStatusPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Override the "from ostatus" bit in notice lists to link to the
+     * original post and show the domain it came from.
+     *
+     * @param Notice in $notice
+     * @param string out &$name
+     * @param string out &$url
+     * @param string out &$title
+     * @return mixed hook return code
+     */
     function onStartNoticeSourceLink($notice, &$name, &$url, &$title)
     {
         if ($notice->source == 'ostatus') {

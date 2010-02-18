@@ -34,6 +34,8 @@ class SalmonAction extends Action
 
     function prepare($args)
     {
+        parent::prepare($args);
+
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             $this->clientError(_('This method requires a POST.'));
         }

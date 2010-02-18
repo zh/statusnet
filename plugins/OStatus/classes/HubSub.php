@@ -30,7 +30,6 @@ class HubSub extends Memcached_DataObject
     public $topic;
     public $callback;
     public $secret;
-    public $verify_token;
     public $challenge;
     public $lease;
     public $sub_start;
@@ -62,7 +61,6 @@ class HubSub extends Memcached_DataObject
                      'topic' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
                      'callback' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
                      'secret' => DB_DATAOBJECT_STR,
-                     'verify_token' => DB_DATAOBJECT_STR,
                      'challenge' => DB_DATAOBJECT_STR,
                      'lease' =>  DB_DATAOBJECT_INT,
                      'sub_start' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME,
@@ -83,8 +81,6 @@ class HubSub extends Memcached_DataObject
                      new ColumnDef('callback', 'varchar',
                                    255, false),
                      new ColumnDef('secret', 'text',
-                                   null, true),
-                     new ColumnDef('verify_token', 'text',
                                    null, true),
                      new ColumnDef('challenge', 'varchar',
                                    32, true),
@@ -154,8 +150,9 @@ class HubSub extends Memcached_DataObject
     /**
      * Send a verification ping to subscriber
      * @param string $mode 'subscribe' or 'unsubscribe'
+     * @param string $token hub.verify_token value, if provided by client
      */
-    function verify($mode)
+    function verify($mode, $token=null)
     {
         assert($mode == 'subscribe' || $mode == 'unsubscribe');
 
@@ -172,8 +169,8 @@ class HubSub extends Memcached_DataObject
         if ($mode == 'subscribe') {
             $params['hub.lease_seconds'] = $this->lease;
         }
-        if ($this->verify_token) {
-            $params['hub.verify_token'] = $this->verify_token;
+        if ($token !== null) {
+            $params['hub.verify_token'] = $token;
         }
         $url = $this->callback . '?' . http_build_query($params, '', '&'); // @fixme ugly urls
 

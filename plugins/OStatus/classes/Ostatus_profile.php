@@ -484,7 +484,7 @@ class Ostatus_profile extends Memcached_DataObject
         } else {
             $this->sub_end = null;
         }
-        $this->lastupdate = common_sql_date();
+        $this->lastupdate = common_sql_now();
 
         return $this->update($original);
     }
@@ -497,12 +497,13 @@ class Ostatus_profile extends Memcached_DataObject
     {
         $original = clone($this);
 
-        $this->verify_token = null;
-        $this->secret = null;
-        $this->sub_state = null;
-        $this->sub_start = null;
-        $this->sub_end = null;
-        $this->lastupdate = common_sql_date();
+        // @fixme these should all be null, but DB_DataObject doesn't save null values...?????
+        $this->verify_token = '';
+        $this->secret = '';
+        $this->sub_state = '';
+        $this->sub_start = '';
+        $this->sub_end = '';
+        $this->lastupdate = common_sql_now();
 
         return $this->update($original);
     }
@@ -527,24 +528,25 @@ class Ostatus_profile extends Memcached_DataObject
                 ':' . $actor->id .
                 ':' . time(); // @fixme
 
-            $entry = new Atom10Entry();
+            //$entry = new Atom10Entry();
+            $entry = new XMLStringer();
             $entry->elementStart('entry');
             $entry->element('id', null, $id);
             $entry->element('title', null, $text);
             $entry->element('summary', null, $text);
-            $entry->element('published', null, common_date_w3dtf());
+            $entry->element('published', null, common_date_w3dtf(time()));
 
             $entry->element('activity:verb', null, $verb);
-            $entry->raw($profile->asAtomAuthor());
-            $entry->raw($profile->asActivityActor());
+            $entry->raw($actor->asAtomAuthor());
+            $entry->raw($actor->asActivityActor());
             $entry->raw($object->asActivityNoun('object'));
-            $entry->elmentEnd('entry');
+            $entry->elementEnd('entry');
 
             $feed = $this->atomFeed($actor);
-            $feed->initFeed();
+            #$feed->initFeed();
             $feed->addEntry($entry);
-            $feed->renderEntries();
-            $feed->endFeed();
+            #$feed->renderEntries();
+            #$feed->endFeed();
 
             $xml = $feed->getString();
             common_log(LOG_INFO, "Posting to Salmon endpoint $salmon: $xml");
@@ -568,7 +570,7 @@ class Ostatus_profile extends Memcached_DataObject
         $feed = new Atom10Feed();
         // @fixme should these be set up somewhere else?
         $feed->addNamespace('activity', 'http://activitystrea.ms/spec/1.0/');
-        $feed->addNamesapce('thr', 'http://purl.org/syndication/thread/1.0');
+        $feed->addNamespace('thr', 'http://purl.org/syndication/thread/1.0');
         $feed->addNamespace('georss', 'http://www.georss.org/georss');
         $feed->addNamespace('ostatus', 'http://ostatus.org/schema/1.0');
 
@@ -579,14 +581,14 @@ class Ostatus_profile extends Memcached_DataObject
         $feed->setUpdated(time());
         $feed->setPublished(time());
 
-        $feed->addLink(common_url('ApiTimelineUser',
-                                  array('id' => $actor->id,
-                                        'type' => 'atom')),
+        $feed->addLink(common_local_url('ApiTimelineUser',
+                                        array('id' => $actor->id,
+                                              'type' => 'atom')),
                        array('rel' => 'self',
                              'type' => 'application/atom+xml'));
 
-        $feed->addLink(common_url('userbyid',
-                                  array('id' => $actor->id)),
+        $feed->addLink(common_local_url('userbyid',
+                                        array('id' => $actor->id)),
                        array('rel' => 'alternate',
                              'type' => 'text/html'));
 
