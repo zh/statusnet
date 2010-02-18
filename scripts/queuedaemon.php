@@ -126,8 +126,7 @@ class QueueDaemon extends SpawningDaemon
 class QueueMaster extends IoMaster
 {
     /**
-     * Initialize IoManagers for the currently configured site
-     * which are appropriate to this instance.
+     * Initialize IoManagers which are appropriate to this instance.
      */
     function initManagers()
     {

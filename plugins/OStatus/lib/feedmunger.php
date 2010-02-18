@@ -258,11 +258,12 @@ class FeedMunger
     {
         // hack hack hack
         // should get profile for this entry's author...
-        $remote = Ostatus_profile::staticGet('feeduri', $this->getSelfLink());
-        if ($feed) {
-            return $feed->profile_id;
+        $feeduri = $this->getSelfLink();
+        $remote = Ostatus_profile::staticGet('feeduri', $feeduri);
+        if ($remote) {
+            return $remote->profile_id;
         } else {
-            throw new Exception("Can't find feed profile");
+            throw new Exception("Can't find feed profile for $feeduri");
         }
     }
 

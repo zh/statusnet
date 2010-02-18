@@ -1,7 +1,7 @@
 <?php
 /*
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, StatusNet, Inc.
+ * Copyright (C) 2008-2010 StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -33,11 +33,15 @@ function add_twitter_user($twitter_id, $screen_name)
     // repoed, and things like that.
 
     $luser = Foreign_user::getForeignUser($twitter_id, TWITTER_SERVICE);
-    $result = $luser->delete();
 
-    if ($result != false) {
-        common_log(LOG_INFO,
-            "Twitter bridge - removed old Twitter user: $screen_name ($twitter_id).");
+    if (!empty($luser)) {
+        $result = $luser->delete();
+        if ($result != false) {
+            common_log(
+                LOG_INFO,
+                "Twitter bridge - removed old Twitter user: $screen_name ($twitter_id)."
+            );
+        }
     }
 
     $fuser = new Foreign_user();

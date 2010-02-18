@@ -44,7 +44,7 @@ class PushHubAction extends Action
         // PHP converts '.'s in incoming var names to '_'s.
         // It also merges multiple values, which'll break hub.verify and hub.topic for publishing
         // @fixme handle multiple args
-        $arg = str_replace('.', '_', $arg);
+        $arg = str_replace('hub.', 'hub_', $arg);
         return parent::arg($arg, $def);
     }
 
@@ -96,7 +96,11 @@ class PushHubAction extends Action
         $sub = new HubSub();
         $sub->topic = $feed;
         $sub->callback = $callback;
+        $sub->verify_token = $this->arg('hub.verify_token', null);
         $sub->secret = $this->arg('hub.secret', null);
+        if (strlen($sub->secret) > 200) {
+            throw new ClientException("hub.secret must be no longer than 200 chars", 400);
+        }
         $sub->setLease(intval($this->arg('hub.lease_seconds')));
 
         // @fixme check for feeds we don't manage
