@@ -12,12 +12,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-14 20:05+0000\n"
-"PO-Revision-Date: 2010-02-14 20:07:23+0000\n"
+"POT-Creation-Date: 2010-02-18 22:55+0000\n"
+"PO-Revision-Date: 2010-02-18 22:57:13+0000\n"
 "Language-Team: Russian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62476); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62678); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ru\n"
 "X-Message-Group: out-statusnet\n"
@@ -196,11 +196,11 @@ msgstr "Обновлено от %1$s и его друзей на %2$s!"
 #: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:137
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
 #: actions/apitimelinefavorites.php:183 actions/apitimelinefriends.php:187
-#: actions/apitimelinegroup.php:182 actions/apitimelinehome.php:184
+#: actions/apitimelinegroup.php:194 actions/apitimelinehome.php:184
 #: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:152
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:166
-#: actions/apitimelineuser.php:194 actions/apiusershow.php:101
+#: actions/apitimelineuser.php:207 actions/apiusershow.php:101
 msgid "API method not found."
 msgstr "Метод API не найден."
 
@@ -565,7 +565,7 @@ msgstr ""
 "предоставлять разрешение на доступ к вашей учётной записи %4$s только тем "
 "сторонним приложениям, которым вы доверяете."
 
-#: actions/apioauthauthorize.php:310 lib/action.php:441
+#: actions/apioauthauthorize.php:310 lib/action.php:442
 msgid "Account"
 msgstr "Настройки"
 
@@ -761,7 +761,7 @@ msgid "Preview"
 msgstr "Просмотр"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:624
+#: lib/deleteuserform.php:66 lib/noticelist.php:636
 msgid "Delete"
 msgstr "Удалить"
 
@@ -942,7 +942,7 @@ msgstr "Вы не являетесь владельцем этого прило�
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1195
+#: lib/action.php:1198
 msgid "There was a problem with your session token."
 msgstr "Проблема с Вашей сессией. Попробуйте ещё раз, пожалуйста."
 
@@ -1002,7 +1002,7 @@ msgstr "Вы уверены, что хотите удалить эту запи�
 msgid "Do not delete this notice"
 msgstr "Не удалять эту запись"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:624
+#: actions/deletenotice.php:146 lib/noticelist.php:636
 msgid "Delete this notice"
 msgstr "Удалить эту запись"
 
@@ -1695,7 +1695,7 @@ msgstr "Участники группы %1$s, страница %2$d"
 msgid "A list of the users in this group."
 msgstr "Список пользователей, являющихся членами этой группы."
 
-#: actions/groupmembers.php:175 lib/action.php:448 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:449 lib/groupnav.php:107
 msgid "Admin"
 msgstr "Настройки"
 
@@ -2081,7 +2081,7 @@ msgstr "Некорректное имя или пароль."
 msgid "Error setting user. You are probably not authorized."
 msgstr "Ошибка установки пользователя. Вы, вероятно, не авторизованы."
 
-#: actions/login.php:188 actions/login.php:241 lib/action.php:466
+#: actions/login.php:188 actions/login.php:241 lib/action.php:467
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Вход"
@@ -2335,7 +2335,7 @@ msgid "Only "
 msgstr "Только "
 
 #: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1040
-#: lib/api.php:1068 lib/api.php:1178
+#: lib/api.php:1068 lib/api.php:1177
 msgid "Not a supported data format."
 msgstr "Неподдерживаемый формат данных."
 
@@ -3036,7 +3036,7 @@ msgstr "Извините, неверный пригласительный код
 msgid "Registration successful"
 msgstr "Регистрация успешна!"
 
-#: actions/register.php:114 actions/register.php:503 lib/action.php:463
+#: actions/register.php:114 actions/register.php:503 lib/action.php:464
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Регистрация"
@@ -3188,7 +3188,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "Адрес URL твоего профиля на другом подходящем сервисе микроблогинга"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:365
+#: lib/userprofile.php:368
 msgid "Subscribe"
 msgstr "Подписаться"
 
@@ -3224,7 +3224,7 @@ msgstr "Вы не можете повторить собственную зап�
 msgid "You already repeated that notice."
 msgstr "Вы уже повторили эту запись."
 
-#: actions/repeat.php:114 lib/noticelist.php:642
+#: actions/repeat.php:114 lib/noticelist.php:655
 msgid "Repeated"
 msgstr "Повторено"
 
@@ -4403,7 +4403,7 @@ msgstr ""
 msgid "Plugins"
 msgstr "Плагины"
 
-#: actions/version.php:196 lib/action.php:747
+#: actions/version.php:196 lib/action.php:748
 msgid "Version"
 msgstr "Версия"
 
@@ -4491,20 +4491,20 @@ msgstr ""
 msgid "You are banned from posting notices on this site."
 msgstr "Вам запрещено поститься на этом сайте (бан)"
 
-#: classes/Notice.php:294 classes/Notice.php:319
+#: classes/Notice.php:294 classes/Notice.php:320
 msgid "Problem saving notice."
 msgstr "Проблемы с сохранением записи."
 
-#: classes/Notice.php:788
+#: classes/Notice.php:790
 msgid "Problem saving group inbox."
 msgstr "Проблемы с сохранением входящих сообщений группы."
 
-#: classes/Notice.php:848
+#: classes/Notice.php:850
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Ошибка баз данных при вставке ответа для %s"
 
-#: classes/Notice.php:1271
+#: classes/Notice.php:1274
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4559,124 +4559,124 @@ msgstr "%1$s — %2$s"
 msgid "Untitled page"
 msgstr "Страница без названия"
 
-#: lib/action.php:433
+#: lib/action.php:434
 msgid "Primary site navigation"
 msgstr "Главная навигация"
 
-#: lib/action.php:439
+#: lib/action.php:440
 msgid "Home"
 msgstr "Моё"
 
-#: lib/action.php:439
+#: lib/action.php:440
 msgid "Personal profile and friends timeline"
 msgstr "Личный профиль и лента друзей"
 
-#: lib/action.php:441
+#: lib/action.php:442
 msgid "Change your email, avatar, password, profile"
 msgstr "Изменить ваш email, аватару, пароль, профиль"
 
-#: lib/action.php:444
+#: lib/action.php:445
 msgid "Connect"
 msgstr "Соединить"
 
-#: lib/action.php:444
+#: lib/action.php:445
 msgid "Connect to services"
 msgstr "Соединить с сервисами"
 
-#: lib/action.php:448
+#: lib/action.php:449
 msgid "Change site configuration"
 msgstr "Изменить конфигурацию сайта"
 
-#: lib/action.php:452 lib/subgroupnav.php:105
+#: lib/action.php:453 lib/subgroupnav.php:105
 msgid "Invite"
 msgstr "Пригласить"
 
-#: lib/action.php:453 lib/subgroupnav.php:106
+#: lib/action.php:454 lib/subgroupnav.php:106
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Пригласите друзей и коллег стать такими же как вы участниками %s"
 
-#: lib/action.php:458
+#: lib/action.php:459
 msgid "Logout"
 msgstr "Выход"
 
-#: lib/action.php:458
+#: lib/action.php:459
 msgid "Logout from the site"
 msgstr "Выйти"
 
-#: lib/action.php:463
+#: lib/action.php:464
 msgid "Create an account"
 msgstr "Создать новый аккаунт"
 
-#: lib/action.php:466
+#: lib/action.php:467
 msgid "Login to the site"
 msgstr "Войти"
 
-#: lib/action.php:469 lib/action.php:732
+#: lib/action.php:470 lib/action.php:733
 msgid "Help"
 msgstr "Помощь"
 
-#: lib/action.php:469
+#: lib/action.php:470
 msgid "Help me!"
 msgstr "Помощь"
 
-#: lib/action.php:472 lib/searchaction.php:127
+#: lib/action.php:473 lib/searchaction.php:127
 msgid "Search"
 msgstr "Поиск"
 
-#: lib/action.php:472
+#: lib/action.php:473
 msgid "Search for people or text"
 msgstr "Искать людей или текст"
 
-#: lib/action.php:493
+#: lib/action.php:494
 msgid "Site notice"
 msgstr "Новая запись"
 
-#: lib/action.php:559
+#: lib/action.php:560
 msgid "Local views"
 msgstr "Локальные виды"
 
-#: lib/action.php:625
+#: lib/action.php:626
 msgid "Page notice"
 msgstr "Новая запись"
 
-#: lib/action.php:727
+#: lib/action.php:728
 msgid "Secondary site navigation"
 msgstr "Навигация по подпискам"
 
-#: lib/action.php:734
+#: lib/action.php:735
 msgid "About"
 msgstr "О проекте"
 
-#: lib/action.php:736
+#: lib/action.php:737
 msgid "FAQ"
 msgstr "ЧаВо"
 
-#: lib/action.php:740
+#: lib/action.php:741
 msgid "TOS"
 msgstr "TOS"
 
-#: lib/action.php:743
+#: lib/action.php:744
 msgid "Privacy"
 msgstr "Пользовательское соглашение"
 
-#: lib/action.php:745
+#: lib/action.php:746
 msgid "Source"
 msgstr "Исходный код"
 
-#: lib/action.php:749
+#: lib/action.php:750
 msgid "Contact"
 msgstr "Контактная информация"
 
-#: lib/action.php:751
+#: lib/action.php:752
 msgid "Badge"
 msgstr "Бедж"
 
-#: lib/action.php:779
+#: lib/action.php:780
 msgid "StatusNet software license"
 msgstr "StatusNet лицензия"
 
-#: lib/action.php:782
+#: lib/action.php:783
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4685,12 +4685,12 @@ msgstr ""
 "**%%site.name%%** — это сервис микроблогинга, созданный для вас при помощи [%"
 "%site.broughtby%%](%%site.broughtbyurl%%). "
 
-#: lib/action.php:784
+#: lib/action.php:785
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** — сервис микроблогинга. "
 
-#: lib/action.php:786
+#: lib/action.php:787
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4702,44 +4702,44 @@ msgstr ""
 "лицензией [GNU Affero General Public License](http://www.fsf.org/licensing/"
 "licenses/agpl-3.0.html)."
 
-#: lib/action.php:801
+#: lib/action.php:802
 msgid "Site content license"
 msgstr "Лицензия содержимого сайта"
 
-#: lib/action.php:806
+#: lib/action.php:807
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr "Содержание и данные %1$s являются личными и конфиденциальными."
 
-#: lib/action.php:811
+#: lib/action.php:812
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 "Авторские права на содержание и данные принадлежат %1$s. Все права защищены."
 
-#: lib/action.php:814
+#: lib/action.php:815
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 "Авторские права на содержание и данные принадлежат разработчикам. Все права "
 "защищены."
 
-#: lib/action.php:826
+#: lib/action.php:828
 msgid "All "
 msgstr "All "
 
-#: lib/action.php:831
+#: lib/action.php:834
 msgid "license."
 msgstr "license."
 
-#: lib/action.php:1130
+#: lib/action.php:1133
 msgid "Pagination"
 msgstr "Разбиение на страницы"
 
-#: lib/action.php:1139
+#: lib/action.php:1142
 msgid "After"
 msgstr "Сюда"
 
-#: lib/action.php:1147
+#: lib/action.php:1150
 msgid "Before"
 msgstr "Туда"
 
@@ -5703,7 +5703,7 @@ msgstr ""
 "вовлечения других пользователей в разговор. Сообщения, получаемые от других "
 "людей, видите только вы."
 
-#: lib/mailbox.php:227 lib/noticelist.php:477
+#: lib/mailbox.php:227 lib/noticelist.php:481
 msgid "from"
 msgstr "от "
 
@@ -5828,48 +5828,48 @@ msgstr ""
 "К сожалению, получение информации о вашем местонахождении заняло больше "
 "времени, чем ожидалось; повторите попытку позже"
 
-#: lib/noticelist.php:428
+#: lib/noticelist.php:429
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr "%1$u°%2$u'%3$u\" %4$s %5$u°%6$u'%7$u\" %8$s"
 
-#: lib/noticelist.php:429
+#: lib/noticelist.php:430
 msgid "N"
 msgstr "с. ш."
 
-#: lib/noticelist.php:429
+#: lib/noticelist.php:430
 msgid "S"
 msgstr "ю. ш."
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "E"
 msgstr "в. д."
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "W"
 msgstr "з. д."
 
-#: lib/noticelist.php:436
+#: lib/noticelist.php:438
 msgid "at"
 msgstr "на"
 
-#: lib/noticelist.php:547
+#: lib/noticelist.php:557
 msgid "in context"
 msgstr "в контексте"
 
-#: lib/noticelist.php:572
+#: lib/noticelist.php:582
 msgid "Repeated by"
 msgstr "Повторено"
 
-#: lib/noticelist.php:598
+#: lib/noticelist.php:609
 msgid "Reply to this notice"
 msgstr "Ответить на эту запись"
 
-#: lib/noticelist.php:599
+#: lib/noticelist.php:610
 msgid "Reply"
 msgstr "Ответить"
 
-#: lib/noticelist.php:641
+#: lib/noticelist.php:654
 msgid "Notice repeated"
 msgstr "Запись повторена"
 
@@ -6159,23 +6159,23 @@ msgstr "Изменить аватару"
 msgid "User actions"
 msgstr "Действия пользователя"
 
-#: lib/userprofile.php:248
+#: lib/userprofile.php:251
 msgid "Edit profile settings"
 msgstr "Изменение настроек профиля"
 
-#: lib/userprofile.php:249
+#: lib/userprofile.php:252
 msgid "Edit"
 msgstr "Редактировать"
 
-#: lib/userprofile.php:272
+#: lib/userprofile.php:275
 msgid "Send a direct message to this user"
 msgstr "Послать приватное сообщение этому пользователю."
 
-#: lib/userprofile.php:273
+#: lib/userprofile.php:276
 msgid "Message"
 msgstr "Сообщение"
 
-#: lib/userprofile.php:311
+#: lib/userprofile.php:314
 msgid "Moderate"
 msgstr "Модерировать"
 

@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-11 08:14+0000\n"
-"PO-Revision-Date: 2010-02-11 08:15:39+0000\n"
+"POT-Creation-Date: 2010-02-18 22:55+0000\n"
+"PO-Revision-Date: 2010-02-18 22:57:07+0000\n"
 "Language-Team: Portuguese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62295); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62678); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pt\n"
 "X-Message-Group: out-statusnet\n"
@@ -171,8 +171,8 @@ msgstr ""
 msgid "You and friends"
 msgstr "Você e seus amigos"
 
-#: actions/allrss.php:119 actions/apitimelinefriends.php:121
-#: actions/apitimelinehome.php:122
+#: actions/allrss.php:119 actions/apitimelinefriends.php:119
+#: actions/apitimelinehome.php:120
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "Actualizações de %1$s e amigos no %2$s!"
@@ -193,12 +193,12 @@ msgstr "Actualizações de %1$s e amigos no %2$s!"
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
 #: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:137
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
-#: actions/apitimelinefavorites.php:146 actions/apitimelinefriends.php:155
-#: actions/apitimelinegroup.php:150 actions/apitimelinehome.php:156
-#: actions/apitimelinementions.php:151 actions/apitimelinepublic.php:131
+#: actions/apitimelinefavorites.php:183 actions/apitimelinefriends.php:187
+#: actions/apitimelinegroup.php:194 actions/apitimelinehome.php:184
+#: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:152
 #: actions/apitimelineretweetedtome.php:121
-#: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
-#: actions/apitimelineuser.php:166 actions/apiusershow.php:101
+#: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:166
+#: actions/apitimelineuser.php:207 actions/apiusershow.php:101
 msgid "API method not found."
 msgstr "Método da API não encontrado."
 
@@ -558,7 +558,7 @@ msgid ""
 "give access to your %4$s account to third parties you trust."
 msgstr ""
 
-#: actions/apioauthauthorize.php:310 lib/action.php:441
+#: actions/apioauthauthorize.php:310 lib/action.php:442
 msgid "Account"
 msgstr "Conta"
 
@@ -642,7 +642,7 @@ msgstr "Formato não suportado."
 msgid "%1$s / Favorites from %2$s"
 msgstr "%1$s / Favoritas de %2$s"
 
-#: actions/apitimelinefavorites.php:120
+#: actions/apitimelinefavorites.php:117
 #, php-format
 msgid "%1$s updates favorited by %2$s / %2$s."
 msgstr "%1$s actualizações preferidas por %2$s / %2$s."
@@ -653,7 +653,7 @@ msgstr "%1$s actualizações preferidas por %2$s / %2$s."
 msgid "%s timeline"
 msgstr "Notas de %s"
 
-#: actions/apitimelinegroup.php:117 actions/apitimelineuser.php:126
+#: actions/apitimelinegroup.php:114 actions/apitimelineuser.php:126
 #: actions/userrss.php:92
 #, php-format
 msgid "Updates from %1$s on %2$s!"
@@ -669,12 +669,12 @@ msgstr "%1$s / Actualizações que mencionam %2$s"
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr "%1$s actualizações em resposta a actualizações de %2$s / %3$s."
 
-#: actions/apitimelinepublic.php:107 actions/publicrss.php:103
+#: actions/apitimelinepublic.php:111 actions/publicrss.php:103
 #, php-format
 msgid "%s public timeline"
 msgstr "Notas públicas de %s"
 
-#: actions/apitimelinepublic.php:111 actions/publicrss.php:105
+#: actions/apitimelinepublic.php:115 actions/publicrss.php:105
 #, php-format
 msgid "%s updates from everyone!"
 msgstr "%s actualizações de todos!"
@@ -684,7 +684,7 @@ msgstr "%s actualizações de todos!"
 msgid "Repeated to %s"
 msgstr "Repetida para %s"
 
-#: actions/apitimelineretweetsofme.php:112
+#: actions/apitimelineretweetsofme.php:114
 #, php-format
 msgid "Repeats of %s"
 msgstr "Repetências de %s"
@@ -694,7 +694,7 @@ msgstr "Repetências de %s"
 msgid "Notices tagged with %s"
 msgstr "Notas categorizadas com %s"
 
-#: actions/apitimelinetag.php:108 actions/tagrss.php:64
+#: actions/apitimelinetag.php:104 actions/tagrss.php:64
 #, php-format
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "Actualizações categorizadas com %1$s em %2$s!"
@@ -755,7 +755,7 @@ msgid "Preview"
 msgstr "Antevisão"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:624
+#: lib/deleteuserform.php:66 lib/noticelist.php:636
 msgid "Delete"
 msgstr "Apagar"
 
@@ -940,7 +940,7 @@ msgstr "Não é membro deste grupo."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1195
+#: lib/action.php:1198
 msgid "There was a problem with your session token."
 msgstr "Ocorreu um problema com a sua sessão."
 
@@ -1003,7 +1003,7 @@ msgstr "Tem a certeza de que quer apagar esta nota?"
 msgid "Do not delete this notice"
 msgstr "Não apagar esta nota"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:624
+#: actions/deletenotice.php:146 lib/noticelist.php:636
 msgid "Delete this notice"
 msgstr "Apagar esta nota"
 
@@ -1256,7 +1256,7 @@ msgstr "descrição é demasiada extensa (máx. %d caracteres)."
 msgid "Could not update group."
 msgstr "Não foi possível actualizar o grupo."
 
-#: actions/editgroup.php:259 classes/User_group.php:390
+#: actions/editgroup.php:259 classes/User_group.php:423
 msgid "Could not create aliases."
 msgstr "Não foi possível criar sinónimos."
 
@@ -1702,7 +1702,7 @@ msgstr "Membros do grupo %1$s, página %2$d"
 msgid "A list of the users in this group."
 msgstr "Uma lista dos utilizadores neste grupo."
 
-#: actions/groupmembers.php:175 lib/action.php:448 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:449 lib/groupnav.php:107
 msgid "Admin"
 msgstr "Gestor"
 
@@ -2086,7 +2086,7 @@ msgstr "Nome de utilizador ou senha incorrectos."
 msgid "Error setting user. You are probably not authorized."
 msgstr "Erro ao preparar o utilizador. Provavelmente não está autorizado."
 
-#: actions/login.php:188 actions/login.php:241 lib/action.php:466
+#: actions/login.php:188 actions/login.php:241 lib/action.php:467
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Entrar"
@@ -2348,7 +2348,7 @@ msgid "Only "
 msgstr "Apenas "
 
 #: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1040
-#: lib/api.php:1068 lib/api.php:1178
+#: lib/api.php:1068 lib/api.php:1177
 msgid "Not a supported data format."
 msgstr "Formato de dados não suportado."
 
@@ -3061,7 +3061,7 @@ msgstr "Desculpe, código de convite inválido."
 msgid "Registration successful"
 msgstr "Registo efectuado"
 
-#: actions/register.php:114 actions/register.php:503 lib/action.php:463
+#: actions/register.php:114 actions/register.php:503 lib/action.php:464
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Registar"
@@ -3210,7 +3210,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "URL do seu perfil noutro serviço de microblogues compatível"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:365
+#: lib/userprofile.php:368
 msgid "Subscribe"
 msgstr "Subscrever"
 
@@ -3248,7 +3248,7 @@ msgstr "Não pode repetir a sua própria nota."
 msgid "You already repeated that notice."
 msgstr "Já repetiu essa nota."
 
-#: actions/repeat.php:114 lib/noticelist.php:642
+#: actions/repeat.php:114 lib/noticelist.php:655
 msgid "Repeated"
 msgstr "Repetida"
 
@@ -4424,7 +4424,7 @@ msgstr ""
 msgid "Plugins"
 msgstr "Plugins"
 
-#: actions/version.php:196 lib/action.php:747
+#: actions/version.php:196 lib/action.php:748
 msgid "Version"
 msgstr "Versão"
 
@@ -4516,21 +4516,21 @@ msgstr ""
 msgid "You are banned from posting notices on this site."
 msgstr "Está proibido de publicar notas neste site."
 
-#: classes/Notice.php:294 classes/Notice.php:319
+#: classes/Notice.php:294 classes/Notice.php:320
 msgid "Problem saving notice."
 msgstr "Problema na gravação da nota."
 
-#: classes/Notice.php:788
+#: classes/Notice.php:790
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "Problema na gravação da nota."
 
-#: classes/Notice.php:848
+#: classes/Notice.php:850
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Ocorreu um erro na base de dados ao inserir a resposta: %s"
 
-#: classes/Notice.php:1235
+#: classes/Notice.php:1274
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4540,11 +4540,11 @@ msgstr "RT @%1$s %2$s"
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "%1$s dá-lhe as boas-vindas, @%2$s!"
 
-#: classes/User_group.php:380
+#: classes/User_group.php:413
 msgid "Could not create group."
 msgstr "Não foi possível criar o grupo."
 
-#: classes/User_group.php:409
+#: classes/User_group.php:442
 msgid "Could not set group membership."
 msgstr "Não foi possível configurar membros do grupo."
 
@@ -4585,124 +4585,124 @@ msgstr "%1$s (%2$s)"
 msgid "Untitled page"
 msgstr "Página sem título"
 
-#: lib/action.php:433
+#: lib/action.php:434
 msgid "Primary site navigation"
 msgstr "Navegação primária deste site"
 
-#: lib/action.php:439
+#: lib/action.php:440
 msgid "Home"
 msgstr "Início"
 
-#: lib/action.php:439
+#: lib/action.php:440
 msgid "Personal profile and friends timeline"
 msgstr "Perfil pessoal e notas dos amigos"
 
-#: lib/action.php:441
+#: lib/action.php:442
 msgid "Change your email, avatar, password, profile"
 msgstr "Altere o seu endereço electrónico, avatar, senha, perfil"
 
-#: lib/action.php:444
+#: lib/action.php:445
 msgid "Connect"
 msgstr "Ligar"
 
-#: lib/action.php:444
+#: lib/action.php:445
 msgid "Connect to services"
 msgstr "Ligar aos serviços"
 
-#: lib/action.php:448
+#: lib/action.php:449
 msgid "Change site configuration"
 msgstr "Alterar a configuração do site"
 
-#: lib/action.php:452 lib/subgroupnav.php:105
+#: lib/action.php:453 lib/subgroupnav.php:105
 msgid "Invite"
 msgstr "Convidar"
 
-#: lib/action.php:453 lib/subgroupnav.php:106
+#: lib/action.php:454 lib/subgroupnav.php:106
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Convidar amigos e colegas para se juntarem a si em %s"
 
-#: lib/action.php:458
+#: lib/action.php:459
 msgid "Logout"
 msgstr "Sair"
 
-#: lib/action.php:458
+#: lib/action.php:459
 msgid "Logout from the site"
 msgstr "Terminar esta sessão"
 
-#: lib/action.php:463
+#: lib/action.php:464
 msgid "Create an account"
 msgstr "Criar uma conta"
 
-#: lib/action.php:466
+#: lib/action.php:467
 msgid "Login to the site"
 msgstr "Iniciar uma sessão"
 
-#: lib/action.php:469 lib/action.php:732
+#: lib/action.php:470 lib/action.php:733
 msgid "Help"
 msgstr "Ajuda"
 
-#: lib/action.php:469
+#: lib/action.php:470
 msgid "Help me!"
 msgstr "Ajudem-me!"
 
-#: lib/action.php:472 lib/searchaction.php:127
+#: lib/action.php:473 lib/searchaction.php:127
 msgid "Search"
 msgstr "Pesquisa"
 
-#: lib/action.php:472
+#: lib/action.php:473
 msgid "Search for people or text"
 msgstr "Procurar pessoas ou pesquisar texto"
 
-#: lib/action.php:493
+#: lib/action.php:494
 msgid "Site notice"
 msgstr "Aviso do site"
 
-#: lib/action.php:559
+#: lib/action.php:560
 msgid "Local views"
 msgstr "Vistas locais"
 
-#: lib/action.php:625
+#: lib/action.php:626
 msgid "Page notice"
 msgstr "Aviso da página"
 
-#: lib/action.php:727
+#: lib/action.php:728
 msgid "Secondary site navigation"
 msgstr "Navegação secundária deste site"
 
-#: lib/action.php:734
+#: lib/action.php:735
 msgid "About"
 msgstr "Sobre"
 
-#: lib/action.php:736
+#: lib/action.php:737
 msgid "FAQ"
 msgstr "FAQ"
 
-#: lib/action.php:740
+#: lib/action.php:741
 msgid "TOS"
 msgstr "Termos"
 
-#: lib/action.php:743
+#: lib/action.php:744
 msgid "Privacy"
 msgstr "Privacidade"
 
-#: lib/action.php:745
+#: lib/action.php:746
 msgid "Source"
 msgstr "Código"
 
-#: lib/action.php:749
+#: lib/action.php:750
 msgid "Contact"
 msgstr "Contacto"
 
-#: lib/action.php:751
+#: lib/action.php:752
 msgid "Badge"
 msgstr "Emblema"
 
-#: lib/action.php:779
+#: lib/action.php:780
 msgid "StatusNet software license"
 msgstr "Licença de software do StatusNet"
 
-#: lib/action.php:782
+#: lib/action.php:783
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4711,12 +4711,12 @@ msgstr ""
 "**%%site.name%%** é um serviço de microblogues disponibilizado por [%%site."
 "broughtby%%](%%site.broughtbyurl%%). "
 
-#: lib/action.php:784
+#: lib/action.php:785
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** é um serviço de microblogues. "
 
-#: lib/action.php:786
+#: lib/action.php:787
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4727,41 +4727,41 @@ msgstr ""
 "disponibilizado nos termos da [GNU Affero General Public License](http://www."
 "fsf.org/licensing/licenses/agpl-3.0.html)."
 
-#: lib/action.php:801
+#: lib/action.php:802
 msgid "Site content license"
 msgstr "Licença de conteúdos do site"
 
-#: lib/action.php:806
+#: lib/action.php:807
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr ""
 
-#: lib/action.php:811
+#: lib/action.php:812
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
-#: lib/action.php:814
+#: lib/action.php:815
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
-#: lib/action.php:826
+#: lib/action.php:828
 msgid "All "
 msgstr "Tudo "
 
-#: lib/action.php:831
+#: lib/action.php:834
 msgid "license."
 msgstr "licença."
 
-#: lib/action.php:1130
+#: lib/action.php:1133
 msgid "Pagination"
 msgstr "Paginação"
 
-#: lib/action.php:1139
+#: lib/action.php:1142
 msgid "After"
 msgstr "Posteriores"
 
-#: lib/action.php:1147
+#: lib/action.php:1150
 msgid "Before"
 msgstr "Anteriores"
 
@@ -5727,7 +5727,7 @@ msgstr ""
 "conversa com outros utilizadores. Outros podem enviar-lhe mensagens, a que "
 "só você terá acesso."
 
-#: lib/mailbox.php:227 lib/noticelist.php:477
+#: lib/mailbox.php:227 lib/noticelist.php:481
 msgid "from"
 msgstr "de"
 
@@ -5852,48 +5852,48 @@ msgid ""
 "try again later"
 msgstr ""
 
-#: lib/noticelist.php:428
+#: lib/noticelist.php:429
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 
-#: lib/noticelist.php:429
+#: lib/noticelist.php:430
 msgid "N"
 msgstr "N"
 
-#: lib/noticelist.php:429
+#: lib/noticelist.php:430
 msgid "S"
 msgstr "S"
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "E"
 msgstr "E"
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "W"
 msgstr "O"
 
-#: lib/noticelist.php:436
+#: lib/noticelist.php:438
 msgid "at"
 msgstr "coords."
 
-#: lib/noticelist.php:547
+#: lib/noticelist.php:557
 msgid "in context"
 msgstr "no contexto"
 
-#: lib/noticelist.php:572
+#: lib/noticelist.php:582
 msgid "Repeated by"
 msgstr "Repetida por"
 
-#: lib/noticelist.php:598
+#: lib/noticelist.php:609
 msgid "Reply to this notice"
 msgstr "Responder a esta nota"
 
-#: lib/noticelist.php:599
+#: lib/noticelist.php:610
 msgid "Reply"
 msgstr "Responder"
 
-#: lib/noticelist.php:641
+#: lib/noticelist.php:654
 msgid "Notice repeated"
 msgstr "Nota repetida"
 
@@ -6183,67 +6183,67 @@ msgstr "Editar Avatar"
 msgid "User actions"
 msgstr "Acções do utilizador"
 
-#: lib/userprofile.php:248
+#: lib/userprofile.php:251
 msgid "Edit profile settings"
 msgstr "Editar configurações do perfil"
 
-#: lib/userprofile.php:249
+#: lib/userprofile.php:252
 msgid "Edit"
 msgstr "Editar"
 
-#: lib/userprofile.php:272
+#: lib/userprofile.php:275
 msgid "Send a direct message to this user"
 msgstr "Enviar mensagem directa a este utilizador"
 
-#: lib/userprofile.php:273
+#: lib/userprofile.php:276
 msgid "Message"
 msgstr "Mensagem"
 
-#: lib/userprofile.php:311
+#: lib/userprofile.php:314
 msgid "Moderate"
 msgstr "Moderar"
 
-#: lib/util.php:870
+#: lib/util.php:871
 msgid "a few seconds ago"
 msgstr "há alguns segundos"
 
-#: lib/util.php:872
+#: lib/util.php:873
 msgid "about a minute ago"
 msgstr "há cerca de um minuto"
 
-#: lib/util.php:874
+#: lib/util.php:875
 #, php-format
 msgid "about %d minutes ago"
 msgstr "há cerca de %d minutos"
 
-#: lib/util.php:876
+#: lib/util.php:877
 msgid "about an hour ago"
 msgstr "há cerca de uma hora"
 
-#: lib/util.php:878
+#: lib/util.php:879
 #, php-format
 msgid "about %d hours ago"
 msgstr "há cerca de %d horas"
 
-#: lib/util.php:880
+#: lib/util.php:881
 msgid "about a day ago"
 msgstr "há cerca de um dia"
 
-#: lib/util.php:882
+#: lib/util.php:883
 #, php-format
 msgid "about %d days ago"
 msgstr "há cerca de %d dias"
 
-#: lib/util.php:884
+#: lib/util.php:885
 msgid "about a month ago"
 msgstr "há cerca de um mês"
 
-#: lib/util.php:886
+#: lib/util.php:887
 #, php-format
 msgid "about %d months ago"
 msgstr "há cerca de %d meses"
 
-#: lib/util.php:888
+#: lib/util.php:889
 msgid "about a year ago"
 msgstr "há cerca de um ano"
 

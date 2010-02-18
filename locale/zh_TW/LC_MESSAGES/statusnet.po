@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-11 08:14+0000\n"
-"PO-Revision-Date: 2010-02-11 08:16:25+0000\n"
+"POT-Creation-Date: 2010-02-18 22:55+0000\n"
+"PO-Revision-Date: 2010-02-18 22:57:35+0000\n"
 "Language-Team: Traditional Chinese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62295); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62678); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hant\n"
 "X-Message-Group: out-statusnet\n"
@@ -166,8 +166,8 @@ msgstr ""
 msgid "You and friends"
 msgstr "%s與好友"
 
-#: actions/allrss.php:119 actions/apitimelinefriends.php:121
-#: actions/apitimelinehome.php:122
+#: actions/allrss.php:119 actions/apitimelinefriends.php:119
+#: actions/apitimelinehome.php:120
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr ""
@@ -188,12 +188,12 @@ msgstr ""
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
 #: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:137
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
-#: actions/apitimelinefavorites.php:146 actions/apitimelinefriends.php:155
-#: actions/apitimelinegroup.php:150 actions/apitimelinehome.php:156
-#: actions/apitimelinementions.php:151 actions/apitimelinepublic.php:131
+#: actions/apitimelinefavorites.php:183 actions/apitimelinefriends.php:187
+#: actions/apitimelinegroup.php:194 actions/apitimelinehome.php:184
+#: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:152
 #: actions/apitimelineretweetedtome.php:121
-#: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
-#: actions/apitimelineuser.php:166 actions/apiusershow.php:101
+#: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:166
+#: actions/apitimelineuser.php:207 actions/apiusershow.php:101
 #, fuzzy
 msgid "API method not found."
 msgstr "確認碼遺失"
@@ -559,7 +559,7 @@ msgid ""
 "give access to your %4$s account to third parties you trust."
 msgstr ""
 
-#: actions/apioauthauthorize.php:310 lib/action.php:441
+#: actions/apioauthauthorize.php:310 lib/action.php:442
 #, fuzzy
 msgid "Account"
 msgstr "關於"
@@ -645,7 +645,7 @@ msgstr ""
 msgid "%1$s / Favorites from %2$s"
 msgstr "%1$s的狀態是%2$s"
 
-#: actions/apitimelinefavorites.php:120
+#: actions/apitimelinefavorites.php:117
 #, fuzzy, php-format
 msgid "%1$s updates favorited by %2$s / %2$s."
 msgstr "&s的微型部落格"
@@ -656,7 +656,7 @@ msgstr "&s的微型部落格"
 msgid "%s timeline"
 msgstr ""
 
-#: actions/apitimelinegroup.php:117 actions/apitimelineuser.php:126
+#: actions/apitimelinegroup.php:114 actions/apitimelineuser.php:126
 #: actions/userrss.php:92
 #, php-format
 msgid "Updates from %1$s on %2$s!"
@@ -672,12 +672,12 @@ msgstr "%1$s的狀態是%2$s"
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr ""
 
-#: actions/apitimelinepublic.php:107 actions/publicrss.php:103
+#: actions/apitimelinepublic.php:111 actions/publicrss.php:103
 #, php-format
 msgid "%s public timeline"
 msgstr ""
 
-#: actions/apitimelinepublic.php:111 actions/publicrss.php:105
+#: actions/apitimelinepublic.php:115 actions/publicrss.php:105
 #, php-format
 msgid "%s updates from everyone!"
 msgstr ""
@@ -687,7 +687,7 @@ msgstr ""
 msgid "Repeated to %s"
 msgstr ""
 
-#: actions/apitimelineretweetsofme.php:112
+#: actions/apitimelineretweetsofme.php:114
 #, php-format
 msgid "Repeats of %s"
 msgstr ""
@@ -697,7 +697,7 @@ msgstr ""
 msgid "Notices tagged with %s"
 msgstr ""
 
-#: actions/apitimelinetag.php:108 actions/tagrss.php:64
+#: actions/apitimelinetag.php:104 actions/tagrss.php:64
 #, fuzzy, php-format
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "&s的微型部落格"
@@ -761,7 +761,7 @@ msgid "Preview"
 msgstr ""
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:624
+#: lib/deleteuserform.php:66 lib/noticelist.php:636
 msgid "Delete"
 msgstr ""
 
@@ -952,7 +952,7 @@ msgstr "無法連結到伺服器:%s"
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1195
+#: lib/action.php:1198
 msgid "There was a problem with your session token."
 msgstr ""
 
@@ -1011,7 +1011,7 @@ msgstr ""
 msgid "Do not delete this notice"
 msgstr "無此通知"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:624
+#: actions/deletenotice.php:146 lib/noticelist.php:636
 msgid "Delete this notice"
 msgstr ""
 
@@ -1268,7 +1268,7 @@ msgstr "自我介紹過長(共140個字元)"
 msgid "Could not update group."
 msgstr "無法更新使用者"
 
-#: actions/editgroup.php:259 classes/User_group.php:390
+#: actions/editgroup.php:259 classes/User_group.php:423
 #, fuzzy
 msgid "Could not create aliases."
 msgstr "無法存取個人圖像資料"
@@ -1710,7 +1710,7 @@ msgstr ""
 msgid "A list of the users in this group."
 msgstr ""
 
-#: actions/groupmembers.php:175 lib/action.php:448 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:449 lib/groupnav.php:107
 msgid "Admin"
 msgstr ""
 
@@ -2048,7 +2048,7 @@ msgstr "使用者名稱或密碼錯誤"
 msgid "Error setting user. You are probably not authorized."
 msgstr ""
 
-#: actions/login.php:188 actions/login.php:241 lib/action.php:466
+#: actions/login.php:188 actions/login.php:241 lib/action.php:467
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "登入"
@@ -2293,7 +2293,7 @@ msgid "Only "
 msgstr ""
 
 #: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1040
-#: lib/api.php:1068 lib/api.php:1178
+#: lib/api.php:1068 lib/api.php:1177
 msgid "Not a supported data format."
 msgstr ""
 
@@ -2989,7 +2989,7 @@ msgstr "確認碼發生錯誤"
 msgid "Registration successful"
 msgstr ""
 
-#: actions/register.php:114 actions/register.php:503 lib/action.php:463
+#: actions/register.php:114 actions/register.php:503 lib/action.php:464
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr ""
@@ -3114,7 +3114,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr ""
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:365
+#: lib/userprofile.php:368
 msgid "Subscribe"
 msgstr ""
 
@@ -3153,7 +3153,7 @@ msgstr ""
 msgid "You already repeated that notice."
 msgstr "無此使用者"
 
-#: actions/repeat.php:114 lib/noticelist.php:642
+#: actions/repeat.php:114 lib/noticelist.php:655
 #, fuzzy
 msgid "Repeated"
 msgstr "新增"
@@ -4272,7 +4272,7 @@ msgstr ""
 msgid "Plugins"
 msgstr ""
 
-#: actions/version.php:196 lib/action.php:747
+#: actions/version.php:196 lib/action.php:748
 #, fuzzy
 msgid "Version"
 msgstr "地點"
@@ -4360,21 +4360,21 @@ msgstr ""
 msgid "You are banned from posting notices on this site."
 msgstr ""
 
-#: classes/Notice.php:294 classes/Notice.php:319
+#: classes/Notice.php:294 classes/Notice.php:320
 msgid "Problem saving notice."
 msgstr ""
 
-#: classes/Notice.php:788
+#: classes/Notice.php:790
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "儲存使用者發生錯誤"
 
-#: classes/Notice.php:848
+#: classes/Notice.php:850
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "增加回覆時,資料庫發生錯誤: %s"
 
-#: classes/Notice.php:1235
+#: classes/Notice.php:1274
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
@@ -4384,12 +4384,12 @@ msgstr ""
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
 
-#: classes/User_group.php:380
+#: classes/User_group.php:413
 #, fuzzy
 msgid "Could not create group."
 msgstr "無法存取個人圖像資料"
 
-#: classes/User_group.php:409
+#: classes/User_group.php:442
 #, fuzzy
 msgid "Could not set group membership."
 msgstr "註冊失敗"
@@ -4433,129 +4433,129 @@ msgstr "%1$s的狀態是%2$s"
 msgid "Untitled page"
 msgstr ""
 
-#: lib/action.php:433
+#: lib/action.php:434
 msgid "Primary site navigation"
 msgstr ""
 
-#: lib/action.php:439
+#: lib/action.php:440
 msgid "Home"
 msgstr "主頁"
 
-#: lib/action.php:439
+#: lib/action.php:440
 msgid "Personal profile and friends timeline"
 msgstr ""
 
-#: lib/action.php:441
+#: lib/action.php:442
 msgid "Change your email, avatar, password, profile"
 msgstr ""
 
-#: lib/action.php:444
+#: lib/action.php:445
 msgid "Connect"
 msgstr "連結"
 
-#: lib/action.php:444
+#: lib/action.php:445
 #, fuzzy
 msgid "Connect to services"
 msgstr "無法連結到伺服器:%s"
 
-#: lib/action.php:448
+#: lib/action.php:449
 msgid "Change site configuration"
 msgstr ""
 
-#: lib/action.php:452 lib/subgroupnav.php:105
+#: lib/action.php:453 lib/subgroupnav.php:105
 msgid "Invite"
 msgstr ""
 
-#: lib/action.php:453 lib/subgroupnav.php:106
+#: lib/action.php:454 lib/subgroupnav.php:106
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
 msgstr ""
 
-#: lib/action.php:458
+#: lib/action.php:459
 msgid "Logout"
 msgstr "登出"
 
-#: lib/action.php:458
+#: lib/action.php:459
 msgid "Logout from the site"
 msgstr ""
 
-#: lib/action.php:463
+#: lib/action.php:464
 #, fuzzy
 msgid "Create an account"
 msgstr "新增帳號"
 
-#: lib/action.php:466
+#: lib/action.php:467
 msgid "Login to the site"
 msgstr ""
 
-#: lib/action.php:469 lib/action.php:732
+#: lib/action.php:470 lib/action.php:733
 msgid "Help"
 msgstr "求救"
 
-#: lib/action.php:469
+#: lib/action.php:470
 #, fuzzy
 msgid "Help me!"
 msgstr "求救"
 
-#: lib/action.php:472 lib/searchaction.php:127
+#: lib/action.php:473 lib/searchaction.php:127
 msgid "Search"
 msgstr ""
 
-#: lib/action.php:472
+#: lib/action.php:473
 msgid "Search for people or text"
 msgstr ""
 
-#: lib/action.php:493
+#: lib/action.php:494
 #, fuzzy
 msgid "Site notice"
 msgstr "新訊息"
 
-#: lib/action.php:559
+#: lib/action.php:560
 msgid "Local views"
 msgstr ""
 
-#: lib/action.php:625
+#: lib/action.php:626
 #, fuzzy
 msgid "Page notice"
 msgstr "新訊息"
 
-#: lib/action.php:727
+#: lib/action.php:728
 msgid "Secondary site navigation"
 msgstr ""
 
-#: lib/action.php:734
+#: lib/action.php:735
 msgid "About"
 msgstr "關於"
 
-#: lib/action.php:736
+#: lib/action.php:737
 msgid "FAQ"
 msgstr "常見問題"
 
-#: lib/action.php:740
+#: lib/action.php:741
 msgid "TOS"
 msgstr ""
 
-#: lib/action.php:743
+#: lib/action.php:744
 msgid "Privacy"
 msgstr ""
 
-#: lib/action.php:745
+#: lib/action.php:746
 msgid "Source"
 msgstr ""
 
-#: lib/action.php:749
+#: lib/action.php:750
 msgid "Contact"
 msgstr "好友名單"
 
-#: lib/action.php:751
+#: lib/action.php:752
 msgid "Badge"
 msgstr ""
 
-#: lib/action.php:779
+#: lib/action.php:780
 msgid "StatusNet software license"
 msgstr ""
 
-#: lib/action.php:782
+#: lib/action.php:783
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4564,12 +4564,12 @@ msgstr ""
 "**%%site.name%%**是由[%%site.broughtby%%](%%site.broughtbyurl%%)所提供的微型"
 "部落格服務"
 
-#: lib/action.php:784
+#: lib/action.php:785
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%**是個微型部落格"
 
-#: lib/action.php:786
+#: lib/action.php:787
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4577,42 +4577,42 @@ msgid ""
 "org/licensing/licenses/agpl-3.0.html)."
 msgstr ""
 
-#: lib/action.php:801
+#: lib/action.php:802
 #, fuzzy
 msgid "Site content license"
 msgstr "新訊息"
 
-#: lib/action.php:806
+#: lib/action.php:807
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr ""
 
-#: lib/action.php:811
+#: lib/action.php:812
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
-#: lib/action.php:814
+#: lib/action.php:815
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
-#: lib/action.php:826
+#: lib/action.php:828
 msgid "All "
 msgstr ""
 
-#: lib/action.php:831
+#: lib/action.php:834
 msgid "license."
 msgstr ""
 
-#: lib/action.php:1130
+#: lib/action.php:1133
 msgid "Pagination"
 msgstr ""
 
-#: lib/action.php:1139
+#: lib/action.php:1142
 msgid "After"
 msgstr ""
 
-#: lib/action.php:1147
+#: lib/action.php:1150
 #, fuzzy
 msgid "Before"
 msgstr "之前的內容»"
@@ -5469,7 +5469,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:477
+#: lib/mailbox.php:227 lib/noticelist.php:481
 msgid "from"
 msgstr ""
 
@@ -5594,50 +5594,50 @@ msgid ""
 "try again later"
 msgstr ""
 
-#: lib/noticelist.php:428
+#: lib/noticelist.php:429
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr ""
 
-#: lib/noticelist.php:429
+#: lib/noticelist.php:430
 msgid "N"
 msgstr ""
 
-#: lib/noticelist.php:429
+#: lib/noticelist.php:430
 msgid "S"
 msgstr ""
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "E"
 msgstr ""
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "W"
 msgstr ""
 
-#: lib/noticelist.php:436
+#: lib/noticelist.php:438
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:547
+#: lib/noticelist.php:557
 #, fuzzy
 msgid "in context"
 msgstr "無內容"
 
-#: lib/noticelist.php:572
+#: lib/noticelist.php:582
 #, fuzzy
 msgid "Repeated by"
 msgstr "新增"
 
-#: lib/noticelist.php:598
+#: lib/noticelist.php:609
 msgid "Reply to this notice"
 msgstr ""
 
-#: lib/noticelist.php:599
+#: lib/noticelist.php:610
 msgid "Reply"
 msgstr ""
 
-#: lib/noticelist.php:641
+#: lib/noticelist.php:654
 #, fuzzy
 msgid "Notice repeated"
 msgstr "更新個人圖像"
@@ -5941,68 +5941,68 @@ msgstr "個人圖像"
 msgid "User actions"
 msgstr ""
 
-#: lib/userprofile.php:248
+#: lib/userprofile.php:251
 #, fuzzy
 msgid "Edit profile settings"
 msgstr "線上即時通設定"
 
-#: lib/userprofile.php:249
+#: lib/userprofile.php:252
 msgid "Edit"
 msgstr ""
 
-#: lib/userprofile.php:272
+#: lib/userprofile.php:275
 msgid "Send a direct message to this user"
 msgstr ""
 
-#: lib/userprofile.php:273
+#: lib/userprofile.php:276
 msgid "Message"
 msgstr ""
 
-#: lib/userprofile.php:311
+#: lib/userprofile.php:314
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:870
+#: lib/util.php:871
 msgid "a few seconds ago"
 msgstr ""
 
-#: lib/util.php:872
+#: lib/util.php:873
 msgid "about a minute ago"
 msgstr ""
 
-#: lib/util.php:874
+#: lib/util.php:875
 #, php-format
 msgid "about %d minutes ago"
 msgstr ""
 
-#: lib/util.php:876
+#: lib/util.php:877
 msgid "about an hour ago"
 msgstr ""
 
-#: lib/util.php:878
+#: lib/util.php:879
 #, php-format
 msgid "about %d hours ago"
 msgstr ""
 
-#: lib/util.php:880
+#: lib/util.php:881
 msgid "about a day ago"
 msgstr ""
 
-#: lib/util.php:882
+#: lib/util.php:883
 #, php-format
 msgid "about %d days ago"
 msgstr ""
 
-#: lib/util.php:884
+#: lib/util.php:885
 msgid "about a month ago"
 msgstr ""
 
-#: lib/util.php:886
+#: lib/util.php:887
 #, php-format
 msgid "about %d months ago"
 msgstr ""
 
-#: lib/util.php:888
+#: lib/util.php:889
 msgid "about a year ago"
 msgstr ""
 

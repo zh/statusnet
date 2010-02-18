@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-11 08:14+0000\n"
-"PO-Revision-Date: 2010-02-11 08:16:22+0000\n"
+"POT-Creation-Date: 2010-02-18 22:55+0000\n"
+"PO-Revision-Date: 2010-02-18 22:57:32+0000\n"
 "Language-Team: Simplified Chinese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62295); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62678); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: out-statusnet\n"
@@ -170,8 +170,8 @@ msgstr ""
 msgid "You and friends"
 msgstr "%s 及好友"
 
-#: actions/allrss.php:119 actions/apitimelinefriends.php:121
-#: actions/apitimelinehome.php:122
+#: actions/allrss.php:119 actions/apitimelinefriends.php:119
+#: actions/apitimelinehome.php:120
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "来自%2$s 上 %1$s 和好友的更新！"
@@ -192,12 +192,12 @@ msgstr "来自%2$s 上 %1$s 和好友的更新！"
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
 #: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:137
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
-#: actions/apitimelinefavorites.php:146 actions/apitimelinefriends.php:155
-#: actions/apitimelinegroup.php:150 actions/apitimelinehome.php:156
-#: actions/apitimelinementions.php:151 actions/apitimelinepublic.php:131
+#: actions/apitimelinefavorites.php:183 actions/apitimelinefriends.php:187
+#: actions/apitimelinegroup.php:194 actions/apitimelinehome.php:184
+#: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:152
 #: actions/apitimelineretweetedtome.php:121
-#: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
-#: actions/apitimelineuser.php:166 actions/apiusershow.php:101
+#: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:166
+#: actions/apitimelineuser.php:207 actions/apiusershow.php:101
 #, fuzzy
 msgid "API method not found."
 msgstr "API 方法未实现！"
@@ -567,7 +567,7 @@ msgid ""
 "give access to your %4$s account to third parties you trust."
 msgstr ""
 
-#: actions/apioauthauthorize.php:310 lib/action.php:441
+#: actions/apioauthauthorize.php:310 lib/action.php:442
 msgid "Account"
 msgstr "帐号"
 
@@ -654,7 +654,7 @@ msgstr "不支持这种图像格式。"
 msgid "%1$s / Favorites from %2$s"
 msgstr "%s 的收藏 / %s"
 
-#: actions/apitimelinefavorites.php:120
+#: actions/apitimelinefavorites.php:117
 #, fuzzy, php-format
 msgid "%1$s updates favorited by %2$s / %2$s."
 msgstr "%s 收藏了 %s 的 %s 通告。"
@@ -665,7 +665,7 @@ msgstr "%s 收藏了 %s 的 %s 通告。"
 msgid "%s timeline"
 msgstr "%s 时间表"
 
-#: actions/apitimelinegroup.php:117 actions/apitimelineuser.php:126
+#: actions/apitimelinegroup.php:114 actions/apitimelineuser.php:126
 #: actions/userrss.php:92
 #, php-format
 msgid "Updates from %1$s on %2$s!"
@@ -681,12 +681,12 @@ msgstr "%1$s / 回复 %2$s 的消息"
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr "回复 %2$s / %3$s 的 %1$s 更新。"
 
-#: actions/apitimelinepublic.php:107 actions/publicrss.php:103
+#: actions/apitimelinepublic.php:111 actions/publicrss.php:103
 #, php-format
 msgid "%s public timeline"
 msgstr "%s 公众时间表"
 
-#: actions/apitimelinepublic.php:111 actions/publicrss.php:105
+#: actions/apitimelinepublic.php:115 actions/publicrss.php:105
 #, php-format
 msgid "%s updates from everyone!"
 msgstr "来自所有人的 %s 消息！"
@@ -696,7 +696,7 @@ msgstr "来自所有人的 %s 消息！"
 msgid "Repeated to %s"
 msgstr "%s 的回复"
 
-#: actions/apitimelineretweetsofme.php:112
+#: actions/apitimelineretweetsofme.php:114
 #, fuzzy, php-format
 msgid "Repeats of %s"
 msgstr "%s 的回复"
@@ -706,7 +706,7 @@ msgstr "%s 的回复"
 msgid "Notices tagged with %s"
 msgstr "带 %s 标签的通告"
 
-#: actions/apitimelinetag.php:108 actions/tagrss.php:64
+#: actions/apitimelinetag.php:104 actions/tagrss.php:64
 #, fuzzy, php-format
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "%2$s 上 %1$s 的更新！"
@@ -769,7 +769,7 @@ msgid "Preview"
 msgstr "预览"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:624
+#: lib/deleteuserform.php:66 lib/noticelist.php:636
 #, fuzzy
 msgid "Delete"
 msgstr "删除"
@@ -962,7 +962,7 @@ msgstr "您未告知此个人信息"
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1195
+#: lib/action.php:1198
 #, fuzzy
 msgid "There was a problem with your session token."
 msgstr "会话标识有问题，请重试。"
@@ -1023,7 +1023,7 @@ msgstr "确定要删除这条消息吗？"
 msgid "Do not delete this notice"
 msgstr "无法删除通告。"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:624
+#: actions/deletenotice.php:146 lib/noticelist.php:636
 #, fuzzy
 msgid "Delete this notice"
 msgstr "删除通告"
@@ -1287,7 +1287,7 @@ msgstr "描述过长(不能超过140字符)。"
 msgid "Could not update group."
 msgstr "无法更新组"
 
-#: actions/editgroup.php:259 classes/User_group.php:390
+#: actions/editgroup.php:259 classes/User_group.php:423
 #, fuzzy
 msgid "Could not create aliases."
 msgstr "无法创建收藏。"
@@ -1748,7 +1748,7 @@ msgstr "%s 组成员, 第 %d 页"
 msgid "A list of the users in this group."
 msgstr "该组成员列表。"
 
-#: actions/groupmembers.php:175 lib/action.php:448 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:449 lib/groupnav.php:107
 msgid "Admin"
 msgstr "admin管理员"
 
@@ -2119,7 +2119,7 @@ msgstr "用户名或密码不正确。"
 msgid "Error setting user. You are probably not authorized."
 msgstr "未认证。"
 
-#: actions/login.php:188 actions/login.php:241 lib/action.php:466
+#: actions/login.php:188 actions/login.php:241 lib/action.php:467
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "登录"
@@ -2373,7 +2373,7 @@ msgid "Only "
 msgstr ""
 
 #: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1040
-#: lib/api.php:1068 lib/api.php:1178
+#: lib/api.php:1068 lib/api.php:1177
 msgid "Not a supported data format."
 msgstr "不支持的数据格式。"
 
@@ -3086,7 +3086,7 @@ msgstr "验证码出错。"
 msgid "Registration successful"
 msgstr "注册成功。"
 
-#: actions/register.php:114 actions/register.php:503 lib/action.php:463
+#: actions/register.php:114 actions/register.php:503 lib/action.php:464
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "注册"
@@ -3227,7 +3227,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "您在其他兼容的微博客服务的个人信息URL"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:365
+#: lib/userprofile.php:368
 msgid "Subscribe"
 msgstr "订阅"
 
@@ -3270,7 +3270,7 @@ msgstr "您必须同意此授权方可注册。"
 msgid "You already repeated that notice."
 msgstr "您已成功阻止该用户："
 
-#: actions/repeat.php:114 lib/noticelist.php:642
+#: actions/repeat.php:114 lib/noticelist.php:655
 #, fuzzy
 msgid "Repeated"
 msgstr "创建"
@@ -4426,7 +4426,7 @@ msgstr ""
 msgid "Plugins"
 msgstr ""
 
-#: actions/version.php:196 lib/action.php:747
+#: actions/version.php:196 lib/action.php:748
 #, fuzzy
 msgid "Version"
 msgstr "个人"
@@ -4516,21 +4516,21 @@ msgstr "你在短时间里发布了过多的消息，请深呼吸，过几分钟
 msgid "You are banned from posting notices on this site."
 msgstr "在这个网站你被禁止发布消息。"
 
-#: classes/Notice.php:294 classes/Notice.php:319
+#: classes/Notice.php:294 classes/Notice.php:320
 msgid "Problem saving notice."
 msgstr "保存通告时出错。"
 
-#: classes/Notice.php:788
+#: classes/Notice.php:790
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "保存通告时出错。"
 
-#: classes/Notice.php:848
+#: classes/Notice.php:850
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "添加回复时数据库出错：%s"
 
-#: classes/Notice.php:1235
+#: classes/Notice.php:1274
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -4540,11 +4540,11 @@ msgstr "%1$s (%2$s)"
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "发送给 %1$s 的 %2$s 消息"
 
-#: classes/User_group.php:380
+#: classes/User_group.php:413
 msgid "Could not create group."
 msgstr "无法创建组。"
 
-#: classes/User_group.php:409
+#: classes/User_group.php:442
 #, fuzzy
 msgid "Could not set group membership."
 msgstr "无法删除订阅。"
@@ -4587,133 +4587,133 @@ msgstr "%1$s (%2$s)"
 msgid "Untitled page"
 msgstr "无标题页"
 
-#: lib/action.php:433
+#: lib/action.php:434
 msgid "Primary site navigation"
 msgstr "主站导航"
 
-#: lib/action.php:439
+#: lib/action.php:440
 msgid "Home"
 msgstr "主页"
 
-#: lib/action.php:439
+#: lib/action.php:440
 msgid "Personal profile and friends timeline"
 msgstr "个人资料及朋友年表"
 
-#: lib/action.php:441
+#: lib/action.php:442
 #, fuzzy
 msgid "Change your email, avatar, password, profile"
 msgstr "修改资料"
 
-#: lib/action.php:444
+#: lib/action.php:445
 msgid "Connect"
 msgstr "连接"
 
-#: lib/action.php:444
+#: lib/action.php:445
 #, fuzzy
 msgid "Connect to services"
 msgstr "无法重定向到服务器：%s"
 
-#: lib/action.php:448
+#: lib/action.php:449
 #, fuzzy
 msgid "Change site configuration"
 msgstr "主站导航"
 
-#: lib/action.php:452 lib/subgroupnav.php:105
+#: lib/action.php:453 lib/subgroupnav.php:105
 msgid "Invite"
 msgstr "邀请"
 
-#: lib/action.php:453 lib/subgroupnav.php:106
+#: lib/action.php:454 lib/subgroupnav.php:106
 #, fuzzy, php-format
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "使用这个表单来邀请好友和同事加入。"
 
-#: lib/action.php:458
+#: lib/action.php:459
 msgid "Logout"
 msgstr "登出"
 
-#: lib/action.php:458
+#: lib/action.php:459
 msgid "Logout from the site"
 msgstr "登出本站"
 
-#: lib/action.php:463
+#: lib/action.php:464
 #, fuzzy
 msgid "Create an account"
 msgstr "创建新帐号"
 
-#: lib/action.php:466
+#: lib/action.php:467
 msgid "Login to the site"
 msgstr "登入本站"
 
-#: lib/action.php:469 lib/action.php:732
+#: lib/action.php:470 lib/action.php:733
 msgid "Help"
 msgstr "帮助"
 
-#: lib/action.php:469
+#: lib/action.php:470
 #, fuzzy
 msgid "Help me!"
 msgstr "帮助"
 
-#: lib/action.php:472 lib/searchaction.php:127
+#: lib/action.php:473 lib/searchaction.php:127
 msgid "Search"
 msgstr "搜索"
 
-#: lib/action.php:472
+#: lib/action.php:473
 msgid "Search for people or text"
 msgstr "检索人或文字"
 
-#: lib/action.php:493
+#: lib/action.php:494
 #, fuzzy
 msgid "Site notice"
 msgstr "新通告"
 
-#: lib/action.php:559
+#: lib/action.php:560
 msgid "Local views"
 msgstr "本地显示"
 
-#: lib/action.php:625
+#: lib/action.php:626
 #, fuzzy
 msgid "Page notice"
 msgstr "新通告"
 
-#: lib/action.php:727
+#: lib/action.php:728
 #, fuzzy
 msgid "Secondary site navigation"
 msgstr "次项站导航"
 
-#: lib/action.php:734
+#: lib/action.php:735
 msgid "About"
 msgstr "关于"
 
-#: lib/action.php:736
+#: lib/action.php:737
 msgid "FAQ"
 msgstr "常见问题FAQ"
 
-#: lib/action.php:740
+#: lib/action.php:741
 msgid "TOS"
 msgstr ""
 
-#: lib/action.php:743
+#: lib/action.php:744
 msgid "Privacy"
 msgstr "隐私"
 
-#: lib/action.php:745
+#: lib/action.php:746
 msgid "Source"
 msgstr "来源"
 
-#: lib/action.php:749
+#: lib/action.php:750
 msgid "Contact"
 msgstr "联系人"
 
-#: lib/action.php:751
+#: lib/action.php:752
 #, fuzzy
 msgid "Badge"
 msgstr "呼叫"
 
-#: lib/action.php:779
+#: lib/action.php:780
 msgid "StatusNet software license"
 msgstr "StatusNet软件注册证"
 
-#: lib/action.php:782
+#: lib/action.php:783
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4722,12 +4722,12 @@ msgstr ""
 "**%%site.name%%** 是一个微博客服务，提供者为 [%%site.broughtby%%](%%site."
 "broughtbyurl%%)。"
 
-#: lib/action.php:784
+#: lib/action.php:785
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** 是一个微博客服务。"
 
-#: lib/action.php:786
+#: lib/action.php:787
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4738,43 +4738,43 @@ msgstr ""
 "General Public License](http://www.fsf.org/licensing/licenses/agpl-3.0.html)"
 "授权。"
 
-#: lib/action.php:801
+#: lib/action.php:802
 #, fuzzy
 msgid "Site content license"
 msgstr "StatusNet软件注册证"
 
-#: lib/action.php:806
+#: lib/action.php:807
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr ""
 
-#: lib/action.php:811
+#: lib/action.php:812
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
-#: lib/action.php:814
+#: lib/action.php:815
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
-#: lib/action.php:826
+#: lib/action.php:828
 msgid "All "
 msgstr "全部"
 
-#: lib/action.php:831
+#: lib/action.php:834
 msgid "license."
 msgstr "注册证"
 
-#: lib/action.php:1130
+#: lib/action.php:1133
 msgid "Pagination"
 msgstr "分页"
 
-#: lib/action.php:1139
+#: lib/action.php:1142
 #, fuzzy
 msgid "After"
 msgstr "« 之后"
 
-#: lib/action.php:1147
+#: lib/action.php:1150
 #, fuzzy
 msgid "Before"
 msgstr "之前 »"
@@ -5659,7 +5659,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:477
+#: lib/mailbox.php:227 lib/noticelist.php:481
 #, fuzzy
 msgid "from"
 msgstr " 从 "
@@ -5786,53 +5786,53 @@ msgid ""
 "try again later"
 msgstr ""
 
-#: lib/noticelist.php:428
+#: lib/noticelist.php:429
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr ""
 
-#: lib/noticelist.php:429
+#: lib/noticelist.php:430
 #, fuzzy
 msgid "N"
 msgstr "否"
 
-#: lib/noticelist.php:429
+#: lib/noticelist.php:430
 msgid "S"
 msgstr ""
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "E"
 msgstr ""
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "W"
 msgstr ""
 
-#: lib/noticelist.php:436
+#: lib/noticelist.php:438
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:547
+#: lib/noticelist.php:557
 #, fuzzy
 msgid "in context"
 msgstr "没有内容！"
 
-#: lib/noticelist.php:572
+#: lib/noticelist.php:582
 #, fuzzy
 msgid "Repeated by"
 msgstr "创建"
 
-#: lib/noticelist.php:598
+#: lib/noticelist.php:609
 #, fuzzy
 msgid "Reply to this notice"
 msgstr "无法删除通告。"
 
-#: lib/noticelist.php:599
+#: lib/noticelist.php:610
 #, fuzzy
 msgid "Reply"
 msgstr "回复"
 
-#: lib/noticelist.php:641
+#: lib/noticelist.php:654
 #, fuzzy
 msgid "Notice repeated"
 msgstr "消息已发布。"
@@ -6151,70 +6151,70 @@ msgstr "头像"
 msgid "User actions"
 msgstr "未知动作"
 
-#: lib/userprofile.php:248
+#: lib/userprofile.php:251
 #, fuzzy
 msgid "Edit profile settings"
 msgstr "个人设置"
 
-#: lib/userprofile.php:249
+#: lib/userprofile.php:252
 msgid "Edit"
 msgstr ""
 
-#: lib/userprofile.php:272
+#: lib/userprofile.php:275
 #, fuzzy
 msgid "Send a direct message to this user"
 msgstr "无法向此用户发送消息。"
 
-#: lib/userprofile.php:273
+#: lib/userprofile.php:276
 #, fuzzy
 msgid "Message"
 msgstr "新消息"
 
-#: lib/userprofile.php:311
+#: lib/userprofile.php:314
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:870
+#: lib/util.php:871
 msgid "a few seconds ago"
 msgstr "几秒前"
 
-#: lib/util.php:872
+#: lib/util.php:873
 msgid "about a minute ago"
 msgstr "一分钟前"
 
-#: lib/util.php:874
+#: lib/util.php:875
 #, php-format
 msgid "about %d minutes ago"
 msgstr "%d 分钟前"
 
-#: lib/util.php:876
+#: lib/util.php:877
 msgid "about an hour ago"
 msgstr "一小时前"
 
-#: lib/util.php:878
+#: lib/util.php:879
 #, php-format
 msgid "about %d hours ago"
 msgstr "%d 小时前"
 
-#: lib/util.php:880
+#: lib/util.php:881
 msgid "about a day ago"
 msgstr "一天前"
 
-#: lib/util.php:882
+#: lib/util.php:883
 #, php-format
 msgid "about %d days ago"
 msgstr "%d 天前"
 
-#: lib/util.php:884
+#: lib/util.php:885
 msgid "about a month ago"
 msgstr "一个月前"
 
-#: lib/util.php:886
+#: lib/util.php:887
 #, php-format
 msgid "about %d months ago"
 msgstr "%d 个月前"
 
-#: lib/util.php:888
+#: lib/util.php:889
 msgid "about a year ago"
 msgstr "一年前"
 
