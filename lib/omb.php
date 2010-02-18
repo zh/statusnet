@@ -29,11 +29,9 @@ require_once 'Auth/Yadis/Yadis.php';
 
 function omb_oauth_consumer()
 {
-    static $con = null;
-    if (is_null($con)) {
-        $con = new OAuthConsumer(common_root_url(), '');
-    }
-    return $con;
+    // Don't try to make this static. Leads to issues in
+    // multi-site setups - Z
+    return new OAuthConsumer(common_root_url(), '');
 }
 
 function omb_oauth_server()
