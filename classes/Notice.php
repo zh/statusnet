@@ -681,7 +681,20 @@ class Notice extends Memcached_DataObject
     {
         $ni = $this->whoGets($groups, $recipients);
 
-        Inbox::bulkInsert($this->id, array_keys($ni));
+        $ids = array_keys($ni);
+
+        // We remove the author (if they're a local user),
+        // since we'll have already done this in distribute()
+
+        $i = array_search($this->profile_id, $ids);
+
+        if ($i !== false) {
+            unset($ids[$i]);
+        }
+
+        // Bulk insert
+
+        Inbox::bulkInsert($this->id, $ids);
 
         return;
     }
@@ -1487,6 +1500,14 @@ class Notice extends Memcached_DataObject
 
     function distribute()
     {
+        // We always insert for the author so they don't
+        // have to wait
+
+        $user = User::staticGet('id', $this->profile_id);
+        if (!empty($user)) {
+            Inbox::insertNotice($user->id, $this->id);
+        }
+
         if (common_config('queue', 'inboxes')) {
             // If there's a failure, we want to _force_
             // distribution at this point.
