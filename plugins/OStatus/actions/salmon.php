@@ -68,6 +68,9 @@ class SalmonAction extends Action
         return true;
     }
 
+    /**
+     * @fixme probably call Ostatus_profile::processFeed
+     */
     function handle($args)
     {
         common_log(LOG_INFO, 'Salmon: incoming post for user '. $this->user->id);
@@ -95,6 +98,9 @@ class SalmonAction extends Action
         }
     }
 
+    /**
+     * @fixme probably call Ostatus_profile::processFeed
+     */
     function handlePost()
     {
         switch ($this->act->object->type) {
@@ -111,14 +117,23 @@ class SalmonAction extends Action
         $profile = $this->ensureProfile();
     }
 
+    /**
+     * @fixme probably call Ostatus_profile::processFeed
+     */
     function handleFollow()
     {
     }
 
+    /**
+     * @fixme probably call Ostatus_profile::processFeed
+     */
     function handleFavorite()
     {
     }
 
+    /**
+     * @fixme probably call Ostatus_profile::processFeed
+     */
     function handleShare()
     {
     }
@@ -131,17 +146,13 @@ class SalmonAction extends Action
             throw new Exception("Received a salmon slap from unidentified actor.");
         }
 
-        $ostatusProfile = Ostatus_profile::staticGet('homeuri', $actor->id);
-
-        if (empty($ostatusProfile)) {
-            return $this->createProfile();
-        } else {
-            // XXX: can we receive a salmon slap from a group...?
-            assert(!empty($ostatusProfile->profile_id));
-            return Profile::staticGet($ostatusProfile->profile_id);
-        }
+        $ostatusProfile = Ostatus_profile::ensureActorProfile($this->act);
+        return $oprofile->localProfile();
     }
 
+    /**
+     * @fixme anything new in here probably should be merged into Ostatus_profile::ensureActorProfile and friends
+     */
     function createProfile()
     {
         $actor = $this->act->actor;
@@ -186,6 +197,9 @@ class SalmonAction extends Action
         return $profile;
     }
 
+    /**
+     * @fixme should be merged into Ostatus_profile
+     */
     function nicknameFromURI($uri)
     {
         preg_match('/(\w+):/', $uri, $matches);

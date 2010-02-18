@@ -1,17 +1,7 @@
 <?php
 /*
-StatusNet Plugin: 0.9
-Plugin Name: FeedSub
-Plugin URI: http://status.net/wiki/Feed_subscription
-Description: FeedSub allows subscribing to real-time updates from external feeds supporting PubHubSubbub protocol.
-Version: 0.1
-Author: Brion Vibber <brion@status.net>
-Author URI: http://status.net/
-*/
-
-/*
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2009, StatusNet, Inc.
+ * Copyright (C) 2009-2010, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -28,16 +18,11 @@ Author URI: http://status.net/
  */
 
 /**
- * @package FeedSubPlugin
+ * @package OStatusPlugin
  * @maintainer Brion Vibber <brion@status.net>
  */
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
-
-define('FEEDSUB_SERVICE', 100); // fixme -- avoid hardcoding these?
-
-// We bundle the XML_Parse_Feed library...
-set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/extlib');
 
 class FeedSubException extends Exception
 {
@@ -259,24 +244,6 @@ class OStatusPlugin extends Plugin
     }
 
     /**
-     * Notify remote server when one of our users subscribes.
-     * @fixme Check and restart the PuSH subscription if needed
-     *
-     * @param User $user
-     * @param Profile $other
-     * @return hook return value
-     */
-    function onEndSubscribe($user, $other)
-    {
-        $oprofile = Ostatus_profile::staticGet('profile_id', $other->id);
-        if ($oprofile) {
-            // Notify the remote server of the unsub, if supported.
-            $oprofile->notify($user->getProfile(), ActivityVerb::FOLLOW, $oprofile);
-        }
-        return true;
-    }
-
-    /**
      * Notify remote server and garbage collect unused feeds on unsubscribe.
      * @fixme send these operations to background queues
      *
@@ -309,6 +276,7 @@ class OStatusPlugin extends Plugin
     function onCheckSchema() {
         $schema = Schema::get();
         $schema->ensureTable('ostatus_profile', Ostatus_profile::schemaDef());
+        $schema->ensureTable('feedsub', FeedSub::schemaDef());
         $schema->ensureTable('hubsub', HubSub::schemaDef());
         return true;
     }
@@ -343,6 +311,21 @@ class OStatusPlugin extends Plugin
             $url = $notice->uri;
             $title = sprintf(_m("Sent from %s via OStatus"), $domain);
             return false;
+        }
+    }
+
+    /**
+     * Send incoming PuSH feeds for OStatus endpoints in for processing.
+     *
+     * @param FeedSub $feedsub
+     * @param DOMDocument $feed
+     * @return mixed hook return code
+     */
+    function onStartFeedSubReceive($feedsub, $feed)
+    {
+        $oprofile = Ostatus_profile::staticGet('feeduri', $feedsub->uri);
+        if ($oprofile) {
+            $oprofile->processFeed($feed);
         }
     }
 }

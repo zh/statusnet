@@ -26,7 +26,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 class FeedSubSettingsAction extends ConnectSettingsAction
 {
-    protected $feedurl;
+    protected $profile_uri;
     protected $preview;
     protected $munger;
 
@@ -88,7 +88,10 @@ class FeedSubSettingsAction extends ConnectSettingsAction
 
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li', array('id' => 'settings_twitter_login_button'));
-        $this->input('feedurl', _('Feed URL'), $this->feedurl, _('Enter the URL of a PubSubHubbub-enabled feed'));
+        $this->input('profile_uri',
+                     _m('Feed URL'),
+                     $this->profile_uri,
+                     _m('Enter the profile URL of a PubSubHubbub-enabled feed'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
 
@@ -145,79 +148,55 @@ class FeedSubSettingsAction extends ConnectSettingsAction
      */
     function validateFeed()
     {
-        $feedurl = trim($this->arg('feedurl'));
+        $profile_uri = trim($this->arg('profile_uri'));
         
-        if ($feedurl == '') {
-            $this->showForm(_m('Empty feed URL!'));
+        if ($profile_uri == '') {
+            $this->showForm(_m('Empty remote profile URL!'));
             return;
         }
-        $this->feedurl = $feedurl;
+        $this->profile_uri = $profile_uri;
         
-        // Get the canonical feed URI and check it
+        // @fixme validate, normalize bla bla
         try {
-            $discover = new FeedDiscovery();
-            $uri = $discover->discoverFromURL($feedurl);
+            $oprofile = Ostatus_profile::ensureProfile($this->profile_uri);
+            $this->oprofile = $oprofile;
+            return true;
         } catch (FeedSubBadURLException $e) {
-            $this->showForm(_m('Invalid URL or could not reach server.'));
-            return false;
+            $err = _m('Invalid URL or could not reach server.');
         } catch (FeedSubBadResponseException $e) {
-            $this->showForm(_m('Cannot read feed; server returned error.'));
-            return false;
+            $err = _m('Cannot read feed; server returned error.');
         } catch (FeedSubEmptyException $e) {
-            $this->showForm(_m('Cannot read feed; server returned an empty page.'));
-            return false;
+            $err = _m('Cannot read feed; server returned an empty page.');
         } catch (FeedSubBadHTMLException $e) {
-            $this->showForm(_m('Bad HTML, could not find feed link.'));
-            return false;
+            $err = _m('Bad HTML, could not find feed link.');
         } catch (FeedSubNoFeedException $e) {
-            $this->showForm(_m('Could not find a feed linked from this URL.'));
-            return false;
+            $err = _m('Could not find a feed linked from this URL.');
         } catch (FeedSubUnrecognizedTypeException $e) {
-            $this->showForm(_m('Not a recognized feed type.'));
-            return false;
+            $err = _m('Not a recognized feed type.');
         } catch (FeedSubException $e) {
             // Any new ones we forgot about
-            $this->showForm(_m('Bad feed URL.'));
-            return false;
+            $err = sprintf(_m('Bad feed URL: %s %s'), get_class($e), $e->getMessage());
         }
-        
-        $this->munger = $discover->feedMunger();
-        $this->profile = $this->munger->ostatusProfile();
 
-        if ($this->profile->huburi == '' && !common_config('feedsub', 'nohub')) {
-            $this->showForm(_m('Feed is not PuSH-enabled; cannot subscribe.'));
-            return false;
-        }
-        
-        return true;
+        $this->showForm($err);
+        return false;
     }
 
     function saveFeed()
     {
         if ($this->validateFeed()) {
             $this->preview = true;
-            $this->profile = Ostatus_profile::ensureProfile($this->munger);
-            if (!$this->profile) {
-                throw new ServerException("Feed profile was not saved properly.");
-            }
-
-            // If not already in use, subscribe to updates via the hub
-            if ($this->profile->sub_start) {
-                common_log(LOG_INFO, __METHOD__ . ": double the fun! new sub for {$this->profile->feeduri} last subbed {$this->profile->sub_start}");
-            } else {
-                $ok = $this->profile->subscribe();
-                common_log(LOG_INFO, __METHOD__ . ": sub was $ok");
-                if (!$ok) {
-                    $this->showForm(_m('Feed subscription failed! Bad response from hub.'));
-                    return;
-                }
-            }
 
             // And subscribe the current user to the local profile
             $user = common_current_user();
 
-            if ($this->profile->isGroup()) {
-                $group = $this->profile->localGroup();
+            if (!$this->oprofile->subscribe()) {
+                $this->showForm(_m("Failed to set up server-to-server subscription."));
+                return;
+            }
+
+            if ($this->oprofile->isGroup()) {
+                $group = $this->oprofile->localGroup();
                 if ($user->isMember($group)) {
                     $this->showForm(_m('Already a member!'));
                 } elseif (Group_member::join($this->profile->group_id, $user->id)) {
@@ -226,13 +205,13 @@ class FeedSubSettingsAction extends ConnectSettingsAction
                     $this->showForm(_m('Remote group join failed!'));
                 }
             } else {
-                $local = $this->profile->localProfile();
+                $local = $this->oprofile->localProfile();
                 if ($user->isSubscribed($local)) {
                     $this->showForm(_m('Already subscribed!'));
-                } elseif ($user->subscribeTo($local)) {
-                    $this->showForm(_m('Feed subscribed!'));
+                } elseif ($this->oprofile->subscribeLocalToRemote($user)) {
+                    $this->showForm(_m('Remote user subscribed!'));
                 } else {
-                    $this->showForm(_m('Feed subscription failed!'));
+                    $this->showForm(_m('Remote subscription failed!'));
                 }
             }
         }
@@ -248,17 +227,7 @@ class FeedSubSettingsAction extends ConnectSettingsAction
 
     function previewFeed()
     {
-        $profile = $this->munger->ostatusProfile();
-        $notice = $this->munger->notice(0, true); // preview
-
-        if ($notice) {
-            $this->element('b', null, 'Preview of latest post from this feed:');
-
-            $item = new NoticeList($notice, $this);
-            $item->show();
-        } else {
-            $this->element('b', null, 'No posts in this feed yet.');
-        }
+        $this->text('Profile preview should go here');
     }
 
     function showScripts()

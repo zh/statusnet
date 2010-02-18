@@ -48,9 +48,9 @@ class PushCallbackAction extends Action
             throw new ServerException('Empty or invalid feed id', 400);
         }
 
-        $profile = Ostatus_profile::staticGet('id', $feedid);
-        if (!$profile) {
-            throw new ServerException('Unknown OStatus/PuSH feed id ' . $feedid, 400);
+        $feedsub = FeedSub::staticGet('id', $feedid);
+        if (!$feedsub) {
+            throw new ServerException('Unknown PuSH feed id ' . $feedid, 400);
         }
 
         $hmac = '';
@@ -62,7 +62,7 @@ class PushCallbackAction extends Action
 
         // @fixme Queue this to a background process; we should return
         // as quickly as possible from a distribution POST.
-        $profile->postUpdates($post, $hmac);
+        $feedsub->receive($post, $hmac);
     }
     
     /**
@@ -81,29 +81,29 @@ class PushCallbackAction extends Action
             throw new ServerException("Bogus hub callback: bad mode", 404);
         }
         
-        $profile = Ostatus_profile::staticGet('feeduri', $topic);
-        if (!$profile) {
+        $feedsub = FeedSub::staticGet('uri', $topic);
+        if (!$feedsub) {
             common_log(LOG_WARNING, __METHOD__ . ": bogus hub callback for unknown feed $topic");
             throw new ServerException("Bogus hub callback: unknown feed", 404);
         }
 
-        if ($profile->verify_token !== $verify_token) {
+        if ($feedsub->verify_token !== $verify_token) {
             common_log(LOG_WARNING, __METHOD__ . ": bogus hub callback with bad token \"$verify_token\" for feed $topic");
             throw new ServerException("Bogus hub callback: bad token", 404);
         }
 
-        if ($mode != $profile->sub_state) {
-            common_log(LOG_WARNING, __METHOD__ . ": bogus hub callback with bad mode \"$mode\" for feed $topic in state \"{$profile->sub_state}\"");
+        if ($mode != $feedsub->sub_state) {
+            common_log(LOG_WARNING, __METHOD__ . ": bogus hub callback with bad mode \"$mode\" for feed $topic in state \"{$feedsub->sub_state}\"");
             throw new ServerException("Bogus hub callback: mode doesn't match subscription state.", 404);
         }
 
         // OK!
         if ($mode == 'subscribe') {
             common_log(LOG_INFO, __METHOD__ . ': sub confirmed');
-            $profile->confirmSubscribe($lease_seconds);
+            $feedsub->confirmSubscribe($lease_seconds);
         } else {
             common_log(LOG_INFO, __METHOD__ . ": unsub confirmed; deleting sub record for $topic");
-            $profile->confirmUnsubscribe();
+            $feedsub->confirmUnsubscribe();
         }
         print $challenge;
     }

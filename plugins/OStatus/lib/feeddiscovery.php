@@ -48,6 +48,14 @@ class FeedSubNoFeedException extends FeedSubException
 {
 }
 
+class FeedSubBadXmlException extends FeedSubException
+{
+}
+
+class FeedSubNoHubException extends FeedSubException
+{
+}
+
 /**
  * Given a web page or feed URL, discover the final location of the feed
  * and return its current contents.
@@ -57,21 +65,25 @@ class FeedSubNoFeedException extends FeedSubException
  *   if ($feed->discoverFromURL($url)) {
  *     print $feed->uri;
  *     print $feed->type;
- *     processFeed($feed->body);
+ *     processFeed($feed->feed); // DOMDocument
  *   }
  */
 class FeedDiscovery
 {
     public $uri;
     public $type;
-    public $body;
+    public $feed;
 
-
-    public function feedMunger()
+    /** Post-initialize query helper... */
+    public function getLink($rel, $type=null)
     {
-        require_once 'XML/Feed/Parser.php';
-        $feed = new XML_Feed_Parser($this->body, false, false, true); // @fixme
-        return new FeedMunger($feed, $this->uri);
+        // @fixme check for non-Atom links in RSS2 feeds as well
+        return self::getAtomLink($rel, $type);
+    }
+
+    public function getAtomLink($rel, $type=null)
+    {
+        return ActivityUtils::getLink($this->feed->documentElement, $rel, $type);
     }
 
     /**
@@ -90,6 +102,7 @@ class FeedDiscovery
             $client = new HTTPClient();
             $response = $client->get($url);
         } catch (HTTP_Request2_Exception $e) {
+            common_log(LOG_ERR, __METHOD__ . " Failure for $url - " . $e->getMessage());
             throw new FeedSubBadURLException($e);
         }
 
@@ -107,7 +120,12 @@ class FeedDiscovery
         
         return $this->initFromResponse($response);
     }
-    
+
+    function discoverFromFeedURL($url)
+    {
+        return $this->discoverFromURL($url, false);
+    }
+
     function initFromResponse($response)
     {
         if (!$response->isOk()) {
@@ -122,13 +140,23 @@ class FeedDiscovery
 
         $type = $response->getHeader('Content-Type');
         if (preg_match('!^(text/xml|application/xml|application/(rss|atom)\+xml)!i', $type)) {
-            $this->uri = $sourceurl;
-            $this->type = $type;
-            $this->body = $body;
-            return true;
+            return $this->init($sourceurl, $type, $body);
         } else {
             common_log(LOG_WARNING, "Unrecognized feed type $type for $sourceurl");
             throw new FeedSubUnrecognizedTypeException($type);
+        }
+    }
+
+    function init($sourceurl, $type, $body)
+    {
+        $feed = new DOMDocument();
+        if ($feed->loadXML($body)) {
+            $this->uri = $sourceurl;
+            $this->type = $type;
+            $this->feed = $feed;
+            return $this->uri;
+        } else {
+            throw new FeedSubBadXmlException($url);
         }
     }
 
