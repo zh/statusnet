@@ -55,27 +55,18 @@ abstract class IoMaster
         if ($multiSite !== null) {
             $this->multiSite = $multiSite;
         }
-        if ($this->multiSite) {
-            $this->sites = StatusNet::findAllSites();
-        } else {
-            $this->sites = array(StatusNet::currentSite());
-        }
 
-        if (empty($this->sites)) {
-            throw new Exception("Empty status_network table, cannot init");
-        }
-
-        foreach ($this->sites as $site) {
-            StatusNet::switchSite($site);
-            $this->initManagers();
-        }
+        $this->initManagers();
     }
 
     /**
-     * Initialize IoManagers for the currently configured site
-     * which are appropriate to this instance.
+     * Initialize IoManagers which are appropriate to this instance;
+     * pass class names or instances into $this->instantiate().
      *
-     * Pass class names into $this->instantiate()
+     * If setup and configuration may vary between sites in multi-site
+     * mode, it's the subclass's responsibility to set them up here.
+     *
+     * Switching site configurations is an acceptable side effect.
      */
     abstract function initManagers();
 

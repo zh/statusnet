@@ -56,6 +56,7 @@ class TwitterauthorizationAction extends Action
     var $tw_fields    = null;
     var $access_token = null;
     var $signin       = null;
+    var $verifier     = null;
 
     /**
      * Initialize class members. Looks for 'oauth_token' parameter.
@@ -70,6 +71,7 @@ class TwitterauthorizationAction extends Action
 
         $this->signin      = $this->boolean('signin');
         $this->oauth_token = $this->arg('oauth_token');
+        $this->verifier    = $this->arg('oauth_verifier');
 
         return true;
     }
@@ -129,8 +131,7 @@ class TwitterauthorizationAction extends Action
             } else if ($this->arg('connect')) {
                 $this->connectNewUser();
             } else {
-                common_debug('Twitter Connect Plugin - ' .
-                             print_r($this->args, true));
+                common_debug('Twitter bridge - ' . print_r($this->args, true));
                 $this->showForm(_('Something weird happened.'),
                                 $this->trimmed('newname'));
             }
@@ -160,8 +161,7 @@ class TwitterauthorizationAction extends Action
             // Get a new request token and authorize it
 
             $client  = new TwitterOAuthClient();
-            $req_tok =
-              $client->getRequestToken(TwitterOAuthClient::$requestTokenURL);
+            $req_tok = $client->getRequestToken();
 
             // Sock the request token away in the session temporarily
 
@@ -171,9 +171,15 @@ class TwitterauthorizationAction extends Action
             $auth_link = $client->getAuthorizeLink($req_tok, $this->signin);
 
         } catch (OAuthClientException $e) {
-            $msg = sprintf('OAuth client cURL error - code: %1s, msg: %2s',
-                           $e->getCode(), $e->getMessage());
-            $this->serverError(_m('Couldn\'t link your Twitter account.'));
+            $msg = sprintf(
+                'OAuth client error - code: %1s, msg: %2s',
+                $e->getCode(),
+                $e->getMessage()
+            );
+            common_log(LOG_INFO, 'Twitter bridge - ' . $msg);
+            $this->serverError(
+                _m('Couldn\'t link your Twitter account.')
+            );
         }
 
         common_redirect($auth_link);
@@ -187,12 +193,13 @@ class TwitterauthorizationAction extends Action
      */
     function saveAccessToken()
     {
-
         // Check to make sure Twitter returned the same request
         // token we sent them
 
         if ($_SESSION['twitter_request_token'] != $this->oauth_token) {
-            $this->serverError(_m('Couldn\'t link your Twitter account.'));
+            $this->serverError(
+                _m('Couldn\'t link your Twitter account: oauth_token mismatch.')
+            );
         }
 
         $twitter_user = null;
@@ -204,7 +211,7 @@ class TwitterauthorizationAction extends Action
 
             // Exchange the request token for an access token
 
-            $atok = $client->getAccessToken(TwitterOAuthClient::$accessTokenURL);
+            $atok = $client->getAccessToken($this->verifier);
 
             // Test the access token and get the user's Twitter info
 
@@ -212,9 +219,15 @@ class TwitterauthorizationAction extends Action
             $twitter_user = $client->verifyCredentials();
 
         } catch (OAuthClientException $e) {
-            $msg = sprintf('OAuth client error - code: %1$s, msg: %2$s',
-                           $e->getCode(), $e->getMessage());
-            $this->serverError(_m('Couldn\'t link your Twitter account.'));
+            $msg = sprintf(
+                'OAuth client error - code: %1$s, msg: %2$s',
+                $e->getCode(),
+                $e->getMessage()
+            );
+            common_log(LOG_INFO, 'Twitter bridge - ' . $msg);
+            $this->serverError(
+                _m('Couldn\'t link your Twitter account.')
+            );
         }
 
         if (common_logged_in()) {
@@ -279,7 +292,7 @@ class TwitterauthorizationAction extends Action
 
         if (empty($flink_id)) {
             common_log_db_error($flink, 'INSERT', __FILE__);
-                $this->serverError(_('Couldn\'t link your Twitter account.'));
+            $this->serverError(_('Couldn\'t link your Twitter account.'));
         }
 
         return $flink_id;

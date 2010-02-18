@@ -92,6 +92,19 @@ class TwitterOAuthClient extends OAuthClient
     }
 
     /**
+     * Gets a request token from Twitter
+     *
+     * @return OAuthToken $token the request token
+     */
+    function getRequestToken()
+    {
+        return parent::getRequestToken(
+            self::$requestTokenURL,
+            common_local_url('twitterauthorization')
+        );
+    }
+
+    /**
      * Builds a link to Twitter's endpoint for authorizing a request token
      *
      * @param OAuthToken $request_token token to authorize
@@ -105,6 +118,21 @@ class TwitterOAuthClient extends OAuthClient
         return parent::getAuthorizeLink($url,
                                         $request_token,
                                         common_local_url('twitterauthorization'));
+    }
+
+    /**
+     * Fetches an access token from Twitter
+     *
+     * @param string $verifier 1.0a verifier
+     *
+     * @return OAuthToken $token the access token
+     */
+    function getAccessToken($verifier = null)
+    {
+        return parent::getAccessToken(
+            self::$accessTokenURL,
+            $verifier
+        );
     }
 
     /**
