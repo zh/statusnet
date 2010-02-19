@@ -1012,6 +1012,7 @@ class Notice extends Memcached_DataObject
         $xs->raw($profile->asActivityActor());
 
         $xs->element('link', array('rel' => 'alternate',
+                                   'type' => 'text/html',
                                    'href' => $this->bestUrl()));
 
         $xs->element('id', null, $this->uri);
