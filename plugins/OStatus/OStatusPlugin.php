@@ -253,17 +253,22 @@ class OStatusPlugin extends Plugin
      */
     function onEndUnsubscribe($user, $other)
     {
+        if ($user instanceof Profile) {
+            $profile = $user;
+        } else if ($user instanceof Profile) {
+            $profile = $user->getProfile();
+        }
         $oprofile = Ostatus_profile::staticGet('profile_id', $other->id);
         if ($oprofile) {
             // Notify the remote server of the unsub, if supported.
-            $oprofile->notify($user->getProfile(), ActivityVerb::UNFOLLOW, $oprofile);
+            $oprofile->notify($profile, ActivityVerb::UNFOLLOW, $oprofile);
 
             // Drop the PuSH subscription if there are no other subscribers.
             $sub = new Subscription();
             $sub->subscribed = $other->id;
             $sub->limit(1);
             if (!$sub->find(true)) {
-                common_log(LOG_INFO, "Unsubscribing from now-unused feed $oprofile->feeduri on hub $oprofile->huburi");
+                common_log(LOG_INFO, "Unsubscribing from now-unused feed $oprofile->feeduri");
                 $oprofile->unsubscribe();
             }
         }

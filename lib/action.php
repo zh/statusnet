@@ -249,7 +249,7 @@ class Action extends HTMLOutputter // lawsuit
                 $this->script('jquery.min.js');
                 $this->script('jquery.form.js');
                 $this->script('jquery.cookie.js');
-                $this->script('json2.js');
+                $this->inlineScript('if (typeof window.JSON !== "object") { $.getScript("'.common_path('js/json2.js').'"); }');
                 $this->script('jquery.joverlay.min.js');
                 Event::handle('EndShowJQueryScripts', array($this));
             }
@@ -259,8 +259,7 @@ class Action extends HTMLOutputter // lawsuit
                 $this->script('util.js');
                 $this->script('geometa.js');
                 // Frame-busting code to avoid clickjacking attacks.
-                $this->element('script', array('type' => 'text/javascript'),
-                               'if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
+                $this->inlineScript('if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
                 Event::handle('EndShowStatusNetScripts', array($this));
                 Event::handle('EndShowLaconicaScripts', array($this));
             }

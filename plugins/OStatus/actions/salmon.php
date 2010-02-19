@@ -69,7 +69,7 @@ class SalmonAction extends Action
     }
 
     /**
-     * @fixme probably call Ostatus_profile::processFeed
+     * Check the posted activity type and break out to appropriate processing.
      */
 
     function handle($args)
@@ -94,13 +94,19 @@ class SalmonAction extends Action
             case ActivityVerb::FRIEND:
                 $this->handleFollow();
                 break;
+            case ActivityVerb::UNFOLLOW:
+                $this->handleUnfollow();
+                break;
             }
             Event::handle('EndHandleSalmon', array($this->user, $this->activity));
         }
     }
 
     /**
-     * @fixme probably call Ostatus_profile::processFeed
+     * We've gotten a post event on the Salmon backchannel, probably a reply.
+     *
+     * @todo validate if we need to handle this post, then call into
+     * ostatus_profile's general incoming-post handling.
      */
     function handlePost()
     {
@@ -137,38 +143,45 @@ class SalmonAction extends Action
         }
 
         $profile = $this->ensureProfile();
-
+        // @fixme do something with the post
     }
 
     /**
-     * @fixme probably call Ostatus_profile::processFeed
+     * We've gotten a follow/subscribe notification from a remote user.
+     * Save a subscription relationship for them.
      */
 
     function handleFollow()
     {
-        $object = $this->act->object;
-
-        if ($object->id != $this->user->uri) {
-            throw new ClientException("Subscription notice not for this user.");
+        $oprofile = $this->ensureProfile();
+        if ($oprofile) {
+            common_log(LOG_INFO, "Setting up subscription from remote {$oprofile->uri} to local {$this->user->nickname}");
+            $oprofile->subscribeRemoteToLocal($this->user);
+        } else {
+            common_log(LOG_INFO, "Can't set up subscription from remote; missing profile.");
         }
-
-        $profile = $this->ensureProfile();
-
-        $sub = Subscription::pkeyGet(array('subscriber' => $profile->id,
-                                           'subscribed' => $this->user->id));
-
-        if (!empty($sub)) {
-            throw new ClientException("Already subscribed.");
-        }
-
-        if ($this->user->hasBlocked($profile)) {
-            throw new ClientException("Already subscribed.");
-        }
-
     }
 
     /**
-     * @fixme probably call Ostatus_profile::processFeed
+     * We've gotten an unfollow/unsubscribe notification from a remote user.
+     * Check if we have a subscription relationship for them and kill it.
+     *
+     * @fixme probably catch exceptions on fail?
+     */
+    function handleUnfollow()
+    {
+        $oprofile = $this->ensureProfile();
+        if ($oprofile) {
+            common_log(LOG_INFO, "Canceling subscription from remote {$oprofile->uri} to local {$this->user->nickname}");
+            Subscription::cancel($oprofile->localProfile(), $this->user->getProfile());
+        } else {
+            common_log(LOG_ERR, "Can't cancel subscription from remote, didn't find the profile");
+        }
+    }
+
+    /**
+     * Remote user likes one of our posts.
+     * Confirm the post is ours, and save a local favorite event.
      */
 
     function handleFavorite()
@@ -221,26 +234,37 @@ class SalmonAction extends Action
     }
 
     /**
-     * @fixme probably call Ostatus_profile::processFeed
+     * Remote user doesn't like one of our posts after all!
+     * Confirm the post is ours, and save a local favorite event.
+     */
+    function handleUnfavorite()
+    {
+    }
+
+    /**
+     * Hmmmm
      */
     function handleShare()
     {
     }
 
+    /**
+     * @return Ostatus_profile
+     */
     function ensureProfile()
     {
         $actor = $this->act->actor;
-
+        common_log(LOG_DEBUG, "Received salmon bit: " . var_export($this->act, true));
         if (empty($actor->id)) {
+            common_log(LOG_ERR, "broken actor: " . var_export($actor, true));
             throw new Exception("Received a salmon slap from unidentified actor.");
         }
 
-        $ostatusProfile = Ostatus_profile::ensureActorProfile($this->act);
-        return $oprofile->localProfile();
+        return Ostatus_profile::ensureActorProfile($this->act);
     }
 
     /**
-     * @fixme anything new in here probably should be merged into Ostatus_profile::ensureActorProfile and friends
+     * @fixme merge into Ostatus_profile::ensureActorProfile and friends
      */
     function createProfile()
     {

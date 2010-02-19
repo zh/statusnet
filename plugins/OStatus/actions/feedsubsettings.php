@@ -68,14 +68,6 @@ class FeedSubSettingsAction extends ConnectSettingsAction
 
         $profile = $user->getProfile();
 
-        $fuser = null;
-
-        $flink = Foreign_link::getByUserID($user->id, FEEDSUB_SERVICE);
-
-        if (!empty($flink)) {
-            $fuser = $flink->getForeignUser();
-        }
-
         $this->elementStart('form', array('method' => 'post',
                                           'id' => 'form_settings_feedsub',
                                           'class' => 'form_settings',

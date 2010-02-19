@@ -310,8 +310,15 @@ class Ostatus_profile extends Memcached_DataObject
      * @param $verb eg Activity::SUBSCRIBE or Activity::JOIN
      * @param $object object of the action; if null, the remote entity itself is assumed
      */
-    public function notify(Profile $actor, $verb, $object=null)
+    public function notify($actor, $verb, $object=null)
     {
+        if (!($actor instanceof Profile)) {
+            $type = gettype($actor);
+            if ($type == 'object') {
+                $type = get_class($actor);
+            }
+            throw new ServerException("Invalid actor passed to " . __METHOD__ . ": " . $type);
+        }
         if ($object == null) {
             $object = $this;
         }
@@ -328,7 +335,7 @@ class Ostatus_profile extends Memcached_DataObject
             $entry->element('id', null, $id);
             $entry->element('title', null, $text);
             $entry->element('summary', null, $text);
-            $entry->element('published', null, common_date_w3dtf(time()));
+            $entry->element('published', null, common_date_w3dtf(common_sql_now()));
 
             $entry->element('activity:verb', null, $verb);
             $entry->raw($actor->asAtomAuthor());
@@ -340,7 +347,7 @@ class Ostatus_profile extends Memcached_DataObject
             $feed->addEntry($entry);
 
             $xml = $feed->getString();
-            common_log(LOG_INFO, "Posting to Salmon endpoint $salmon: $xml");
+            common_log(LOG_INFO, "Posting to Salmon endpoint $this->salmonuri: $xml");
 
             $salmon = new Salmon(); // ?
             $salmon->post($this->salmonuri, $xml);
@@ -516,7 +523,7 @@ class Ostatus_profile extends Memcached_DataObject
             throw new FeedSubException('empty feed');
         }
         $first = new Activity($entries->item(0), $discover->feed);
-        return self::ensureActorProfile($first, $feeduri);
+        return self::ensureActorProfile($first, $feeduri, $salmonuri);
     }
 
     /**
@@ -531,9 +538,14 @@ class Ostatus_profile extends Memcached_DataObject
         $temp_filename = tempnam(sys_get_temp_dir(), 'listener_avatar');
         copy($url, $temp_filename);
 
+        if ($this->isGroup()) {
+            $id = $this->group_id;
+        } else {
+            $id = $this->profile_id;
+        }
         // @fixme should we be using different ids?
-        $imagefile = new ImageFile($this->id, $temp_filename);
-        $filename = Avatar::filename($this->id,
+        $imagefile = new ImageFile($id, $temp_filename);
+        $filename = Avatar::filename($id,
                                      image_type_to_extension($imagefile->type),
                                      null,
                                      common_timestamp());
@@ -598,13 +610,14 @@ class Ostatus_profile extends Memcached_DataObject
      *
      * @param Activity $activity
      * @param string $feeduri if we already know the canonical feed URI!
+     * @param string $salmonuri if we already know the salmon return channel URI
      * @return Ostatus_profile
      */
-    public static function ensureActorProfile($activity, $feeduri=null)
+    public static function ensureActorProfile($activity, $feeduri=null, $salmonuri=null)
     {
         $profile = self::getActorProfile($activity);
         if (!$profile) {
-            $profile = self::createActorProfile($activity, $feeduri);
+            $profile = self::createActorProfile($activity, $feeduri, $salmonuri);
         }
         return $profile;
     }
@@ -640,12 +653,12 @@ class Ostatus_profile extends Memcached_DataObject
     /**
      * @fixme validate stuff somewhere
      */
-    protected static function createActorProfile($activity, $feeduri=null)
+    protected static function createActorProfile($activity, $feeduri=null, $salmonuri=null)
     {
         $actor = $activity->actor;
         $homeuri = self::getActorProfileURI($activity);
         $nickname = self::getAuthorNick($activity);
-        $avatar = self::getAvatar($actor, $feed);
+        $avatar = self::getAvatar($actor, $activity->feed);
 
         if (!$homeuri) {
             common_log(LOG_DEBUG, __METHOD__ . " empty actor profile URI: " . var_export($activity, true));
@@ -674,9 +687,16 @@ class Ostatus_profile extends Memcached_DataObject
         $oprofile = new Ostatus_profile();
         $oprofile->uri = $homeuri;
         if ($feeduri) {
+            // If we don't have these, we can look them up later.
             $oprofile->feeduri = $feeduri;
+            if ($salmonuri) {
+                $oprofile->salmonuri = $salmonuri;
+            }
         }
         $oprofile->profile_id = $profile->id;
+
+        $oprofile->created = common_sql_now();
+        $oprofile->modified = common_sql_now();
 
         $ok = $oprofile->insert();
         if ($ok) {
