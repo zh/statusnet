@@ -310,8 +310,15 @@ class Ostatus_profile extends Memcached_DataObject
      * @param $verb eg Activity::SUBSCRIBE or Activity::JOIN
      * @param $object object of the action; if null, the remote entity itself is assumed
      */
-    public function notify(Profile $actor, $verb, $object=null)
+    public function notify($actor, $verb, $object=null)
     {
+        if (!($actor instanceof Profile)) {
+            $type = gettype($actor);
+            if ($type == 'object') {
+                $type = get_class($actor);
+            }
+            throw new ServerException("Invalid actor passed to " . __METHOD__ . ": " . $type);
+        }
         if ($object == null) {
             $object = $this;
         }
@@ -340,7 +347,7 @@ class Ostatus_profile extends Memcached_DataObject
             $feed->addEntry($entry);
 
             $xml = $feed->getString();
-            common_log(LOG_INFO, "Posting to Salmon endpoint $salmon: $xml");
+            common_log(LOG_INFO, "Posting to Salmon endpoint $this->salmonuri: $xml");
 
             $salmon = new Salmon(); // ?
             $salmon->post($this->salmonuri, $xml);
@@ -531,9 +538,14 @@ class Ostatus_profile extends Memcached_DataObject
         $temp_filename = tempnam(sys_get_temp_dir(), 'listener_avatar');
         copy($url, $temp_filename);
 
+        if ($this->isGroup()) {
+            $id = $this->group_id;
+        } else {
+            $id = $this->profile_id;
+        }
         // @fixme should we be using different ids?
-        $imagefile = new ImageFile($this->id, $temp_filename);
-        $filename = Avatar::filename($this->id,
+        $imagefile = new ImageFile($id, $temp_filename);
+        $filename = Avatar::filename($id,
                                      image_type_to_extension($imagefile->type),
                                      null,
                                      common_timestamp());
@@ -646,7 +658,7 @@ class Ostatus_profile extends Memcached_DataObject
         $actor = $activity->actor;
         $homeuri = self::getActorProfileURI($activity);
         $nickname = self::getAuthorNick($activity);
-        $avatar = self::getAvatar($actor, $feed);
+        $avatar = self::getAvatar($actor, $activity->feed);
 
         if (!$homeuri) {
             common_log(LOG_DEBUG, __METHOD__ . " empty actor profile URI: " . var_export($activity, true));
