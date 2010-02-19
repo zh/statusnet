@@ -112,24 +112,112 @@ class SalmonAction extends Action
         case ActivityObject::COMMENT:
             break;
         default:
-            throw new Exception("Can't handle that kind of post.");
+            throw new ClientException("Can't handle that kind of post.");
+        }
+
+        // Notice must either be a) in reply to a notice by this user
+        // or b) to the attention of this user
+
+        $context = $this->act->context;
+
+        if (!empty($context->replyToID)) {
+            $notice = Notice::staticGet('uri', $context->replyToID);
+            if (empty($notice)) {
+                throw new ClientException("In reply to unknown notice");
+            }
+            if ($notice->profile_id != $this->user->id) {
+                throw new ClientException("In reply to a notice not by this user");
+            }
+        } else if (!empty($context->attention)) {
+            if (!in_array($context->attention, $this->user->uri)) {
+                throw new ClientException("To the attention of user(s) not including this one!");
+            }
+        } else {
+            throw new ClientException("Not to anyone in reply to anything!");
         }
 
         $profile = $this->ensureProfile();
+
     }
 
     /**
      * @fixme probably call Ostatus_profile::processFeed
      */
+
     function handleFollow()
     {
+        $object = $this->act->object;
+
+        if ($object->id != $this->user->uri) {
+            throw new ClientException("Subscription notice not for this user.");
+        }
+
+        $profile = $this->ensureProfile();
+
+        $sub = Subscription::pkeyGet(array('subscriber' => $profile->id,
+                                           'subscribed' => $this->user->id));
+
+        if (!empty($sub)) {
+            throw new ClientException("Already subscribed.");
+        }
+
+        if ($this->user->hasBlocked($profile)) {
+            throw new ClientException("Already subscribed.");
+        }
+
     }
 
     /**
      * @fixme probably call Ostatus_profile::processFeed
      */
+
     function handleFavorite()
     {
+        // WORST VARIABLE NAME EVER
+        $object = $this->act->object;
+
+        switch ($this->act->object->type) {
+        case ActivityObject::ARTICLE:
+        case ActivityObject::BLOGENTRY:
+        case ActivityObject::NOTE:
+        case ActivityObject::STATUS:
+        case ActivityObject::COMMENT:
+            break;
+        default:
+            throw new ClientException("Can't handle that kind of object for liking/faving.");
+        }
+
+        $notice = Notice::staticGet('uri', $object->id);
+
+        if (empty($notice)) {
+            throw new ClientException("Notice with ID $object->id unknown.");
+        }
+
+        if ($notice->profile_id != $this->user->id) {
+            throw new ClientException("Notice with ID $object->id not posted by $this->user->id.");
+        }
+
+        $profile = $this->ensureProfile();
+
+        $old = Fave::pkeyGet(array('user_id' => $profile->id,
+                                   'notice_id' => $notice->id));
+
+        if (!empty($old)) {
+            throw new ClientException("We already know that's a fave!");
+        }
+
+        $fave = new Fave();
+
+        // @fixme need to change this attribute name, maybe references
+        $fave->user_id   = $profile->id;
+        $fave->notice_id = $notice->id;
+
+        $result = $fave->insert();
+
+        if (!$result) {
+            common_log_db_error($fave, 'INSERT', __FILE__);
+            throw new ServerException('Could not save new favorite.');
+        }
     }
 
     /**
