@@ -142,7 +142,7 @@ class SalmonAction extends Action
     function ensureProfile()
     {
         $actor = $this->act->actor;
-
+        common_log(LOG_DEBUG, "Received salmon bit: " . var_export($this->act, true));
         if (empty($actor->id)) {
             throw new Exception("Received a salmon slap from unidentified actor.");
         }

@@ -328,7 +328,7 @@ class Ostatus_profile extends Memcached_DataObject
             $entry->element('id', null, $id);
             $entry->element('title', null, $text);
             $entry->element('summary', null, $text);
-            $entry->element('published', null, common_date_w3dtf(time()));
+            $entry->element('published', null, common_date_w3dtf(common_sql_now()));
 
             $entry->element('activity:verb', null, $verb);
             $entry->raw($actor->asAtomAuthor());
@@ -516,7 +516,7 @@ class Ostatus_profile extends Memcached_DataObject
             throw new FeedSubException('empty feed');
         }
         $first = new Activity($entries->item(0), $discover->feed);
-        return self::ensureActorProfile($first, $feeduri);
+        return self::ensureActorProfile($first, $feeduri, $salmonuri);
     }
 
     /**
@@ -598,13 +598,14 @@ class Ostatus_profile extends Memcached_DataObject
      *
      * @param Activity $activity
      * @param string $feeduri if we already know the canonical feed URI!
+     * @param string $salmonuri if we already know the salmon return channel URI
      * @return Ostatus_profile
      */
-    public static function ensureActorProfile($activity, $feeduri=null)
+    public static function ensureActorProfile($activity, $feeduri=null, $salmonuri=null)
     {
         $profile = self::getActorProfile($activity);
         if (!$profile) {
-            $profile = self::createActorProfile($activity, $feeduri);
+            $profile = self::createActorProfile($activity, $feeduri, $salmonuri);
         }
         return $profile;
     }
@@ -640,7 +641,7 @@ class Ostatus_profile extends Memcached_DataObject
     /**
      * @fixme validate stuff somewhere
      */
-    protected static function createActorProfile($activity, $feeduri=null)
+    protected static function createActorProfile($activity, $feeduri=null, $salmonuri=null)
     {
         $actor = $activity->actor;
         $homeuri = self::getActorProfileURI($activity);
@@ -674,9 +675,16 @@ class Ostatus_profile extends Memcached_DataObject
         $oprofile = new Ostatus_profile();
         $oprofile->uri = $homeuri;
         if ($feeduri) {
+            // If we don't have these, we can look them up later.
             $oprofile->feeduri = $feeduri;
+            if ($salmonuri) {
+                $oprofile->salmonuri = $salmonuri;
+            }
         }
         $oprofile->profile_id = $profile->id;
+
+        $oprofile->created = common_sql_now();
+        $oprofile->modified = common_sql_now();
 
         $ok = $oprofile->insert();
         if ($ok) {
