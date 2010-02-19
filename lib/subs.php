@@ -19,8 +19,6 @@
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
-require_once('XMPPHP/XMPP.php');
-
 /* Subscribe $user to nickname $other_nickname
   Returns true or an error message.
 */
@@ -44,72 +42,12 @@ function subs_subscribe_user($user, $other_nickname)
 
 function subs_subscribe_to($user, $other)
 {
-    if (!$user->hasRight(Right::SUBSCRIBE)) {
-        return _('You have been banned from subscribing.');
-    }
-
-    if ($user->isSubscribed($other)) {
-        return _('Already subscribed!');
-    }
-
-    if ($other->hasBlocked($user)) {
-        return _('User has blocked you.');
-    }
-
     try {
-        if (Event::handle('StartSubscribe', array($user, $other))) {
-
-            if (!$user->subscribeTo($other)) {
-                return _('Could not subscribe.');
-                return;
-            }
-
-            subs_notify($other, $user);
-
-            $cache = common_memcache();
-
-            if ($cache) {
-                $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
-            }
-
-            $profile = $user->getProfile();
-
-            $profile->blowSubscriptionsCount();
-            $other->blowSubscribersCount();
-
-            if ($other->autosubscribe && !$other->isSubscribed($user) && !$user->hasBlocked($other)) {
-                if (!$other->subscribeTo($user)) {
-                    return _('Could not subscribe other to you.');
-                }
-                $cache = common_memcache();
-
-                if ($cache) {
-                    $cache->delete(common_cache_key('user:notices_with_friends:' . $other->id));
-                }
-
-                subs_notify($user, $other);
-            }
-
-            Event::handle('EndSubscribe', array($user, $other));
-        }
+        Subscription::start($user->getProfile(), $other);
+        return true;
     } catch (Exception $e) {
         return $e->getMessage();
     }
-
-    return true;
-}
-
-function subs_notify($listenee, $listener)
-{
-    # XXX: add other notifications (Jabber, SMS) here
-    # XXX: queue this and handle it offline
-    # XXX: Whatever happens, do it in Twitter-like API, too
-    subs_notify_email($listenee, $listener);
-}
-
-function subs_notify_email($listenee, $listener)
-{
-    mail_subscribe_notify($listenee, $listener);
 }
 
 /* Unsubscribe $user from nickname $other_nickname
@@ -128,52 +66,12 @@ function subs_unsubscribe_user($user, $other_nickname)
     return subs_unsubscribe_to($user, $other->getProfile());
 }
 
-/* Unsubscribe user $user from profile $other
- * NB: other can be a remote user. */
-
 function subs_unsubscribe_to($user, $other)
 {
-    if (!$user->isSubscribed($other))
-        return _('Not subscribed!');
-
-    // Don't allow deleting self subs
-
-    if ($user->id == $other->id) {
-        return _('Couldn\'t delete self-subscription.');
-    }
-
     try {
-        if (Event::handle('StartUnsubscribe', array($user, $other))) {
-
-            $sub = DB_DataObject::factory('subscription');
-
-            $sub->subscriber = $user->id;
-            $sub->subscribed = $other->id;
-
-            $sub->find(true);
-
-            // note we checked for existence above
-
-            if (!$sub->delete())
-              return _('Couldn\'t delete subscription.');
-
-            $cache = common_memcache();
-
-            if ($cache) {
-                $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
-            }
-
-            $profile = $user->getProfile();
-
-            $profile->blowSubscriptionsCount();
-            $other->blowSubscribersCount();
-
-            Event::handle('EndUnsubscribe', array($user, $other));
-        }
+        Subscription::cancel($user->getProfile(), $other);
+        return true;
     } catch (Exception $e) {
         return $e->getMessage();
     }
-
-    return true;
 }
-

@@ -489,36 +489,6 @@ class Ostatus_profile extends Memcached_DataObject
     }
 
     /**
-     * Parse location given as a GeoRSS-simple point, if provided.
-     * http://www.georss.org/simple
-     *
-     * @param feed item $entry
-     * @return mixed Location or false
-     */
-    function getLocation($dom)
-    {
-        $points = $dom->getElementsByTagNameNS('http://www.georss.org/georss', 'point');
-        
-        for ($i = 0; $i < $points->length; $i++) {
-            $point = $points->item(0)->textContent;
-            $point = str_replace(',', ' ', $point); // per spec "treat commas as whitespace"
-            $point = preg_replace('/\s+/', ' ', $point);
-            $point = trim($point);
-            $coords = explode(' ', $point);
-            if (count($coords) == 2) {
-                list($lat, $lon) = $coords;
-                if (is_numeric($lat) && is_numeric($lon)) {
-                    common_log(LOG_INFO, "Looking up location for $lat $lon from georss");
-                    return Location::fromLatLon($lat, $lon);
-                }
-            }
-            common_log(LOG_ERR, "Ignoring bogus georss:point value $point");
-        }
-
-        return false;
-    }
-
-    /**
      * @param string $profile_url
      * @return Ostatus_profile
      * @throws FeedSubException
@@ -560,7 +530,7 @@ class Ostatus_profile extends Memcached_DataObject
         // ripped from oauthstore.php (for old OMB client)
         $temp_filename = tempnam(sys_get_temp_dir(), 'listener_avatar');
         copy($url, $temp_filename);
-        
+
         // @fixme should we be using different ids?
         $imagefile = new ImageFile($this->id, $temp_filename);
         $filename = Avatar::filename($this->id,

@@ -71,6 +71,7 @@ class SalmonAction extends Action
     /**
      * @fixme probably call Ostatus_profile::processFeed
      */
+
     function handle($args)
     {
         common_log(LOG_INFO, 'Salmon: incoming post for user '. $this->user->id);
