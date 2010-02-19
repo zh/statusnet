@@ -19,22 +19,6 @@
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
-/* Subscribe $user to nickname $other_nickname
-  Returns true or an error message.
-*/
-
-function subs_subscribe_user($user, $other_nickname)
-{
-
-    $other = User::staticGet('nickname', $other_nickname);
-
-    if (!$other) {
-        return _('No such user.');
-    }
-
-    return subs_subscribe_to($user, $other);
-}
-
 /* Subscribe user $user to other user $other.
  * Note: $other must be a local user, not a remote profile.
  * Because the other way is quite a bit more complicated.
@@ -48,22 +32,6 @@ function subs_subscribe_to($user, $other)
     } catch (Exception $e) {
         return $e->getMessage();
     }
-}
-
-/* Unsubscribe $user from nickname $other_nickname
-  Returns true or an error message.
-*/
-
-function subs_unsubscribe_user($user, $other_nickname)
-{
-
-    $other = User::staticGet('nickname', $other_nickname);
-
-    if (!$other) {
-        return _('No such user.');
-    }
-
-    return subs_unsubscribe_to($user, $other->getProfile());
 }
 
 function subs_unsubscribe_to($user, $other)
