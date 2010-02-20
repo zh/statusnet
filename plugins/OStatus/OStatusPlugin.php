@@ -357,4 +357,39 @@ class OStatusPlugin extends Plugin
 
         return true;
     }
+
+    /**
+     * Notify remote users when their notices get favorited.
+     *
+     * @param Profile or User $profile of local user doing the faving
+     * @param Notice $notice being favored
+     * @return hook return value
+     */
+    function onEndFavorNotice($profile, Notice $notice)
+    {
+        if ($profile instanceof User) {
+            // @fixme upstream function should clarify its parameters
+            $profile = $profile->getProfile();
+        }
+        $oprofile = Ostatus_profile::staticGet('profile_id', $notice->profile_id);
+        if ($oprofile) {
+            $oprofile->notify($profile, ActivityVerb::FAVORITE, $notice);
+        }
+    }
+
+    /**
+     * Notify remote users when their notices get de-favorited.
+     *
+     * @param Profile or User $profile of local user doing the de-faving
+     * @param Notice $notice being favored
+     * @return hook return value
+     */
+    function onEndDisfavorNotice(Profile $profile, Notice $notice)
+    {
+        $oprofile = Ostatus_profile::staticGet('profile_id', $notice->profile_id);
+        if ($oprofile) {
+            $oprofile->notify($profile, ActivityVerb::UNFAVORITE, $notice);
+        }
+    }
+
 }
