@@ -107,7 +107,7 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
         $sitename   = common_config('site', 'name');
         $avatar     = $this->group->homepage_logo;
         $title      = sprintf(_("%s timeline"), $this->group->nickname);
-        $taguribase = common_config('integration', 'taguri');
+        $taguribase = TagURI::base();
         $id         = "tag:$taguribase:GroupTimeline:" . $this->group->id;
 
         $subtitle   = sprintf(

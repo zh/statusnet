@@ -358,7 +358,7 @@ class ApiAction extends Action
         $entry['link'] = common_local_url('shownotice', array('notice' => $notice->id));
         $entry['published'] = common_date_iso8601($notice->created);
 
-        $taguribase = common_config('integration', 'taguri');
+        $taguribase = TagURI::base();
         $entry['id'] = "tag:$taguribase:$entry[link]";
 
         $entry['updated'] = $entry['published'];
@@ -802,7 +802,7 @@ class ApiAction extends Action
         $entry['link'] = common_local_url('showmessage', array('message' => $message->id));
         $entry['published'] = common_date_iso8601($message->created);
 
-        $taguribase = common_config('integration', 'taguri');
+        $taguribase = TagURI::base();
 
         $entry['id'] = "tag:$taguribase:$entry[link]";
         $entry['updated'] = $entry['published'];
