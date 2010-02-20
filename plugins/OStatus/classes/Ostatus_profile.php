@@ -56,7 +56,7 @@ class Ostatus_profile extends Memcached_DataObject
         return array('uri' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
                      'profile_id' => DB_DATAOBJECT_INT,
                      'group_id' => DB_DATAOBJECT_INT,
-                     'feeduri' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+                     'feeduri' => DB_DATAOBJECT_STR,
                      'salmonuri' =>  DB_DATAOBJECT_STR,
                      'created' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
                      'modified' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL);
@@ -71,7 +71,7 @@ class Ostatus_profile extends Memcached_DataObject
                      new ColumnDef('group_id', 'integer',
                                    null, true, 'UNI'),
                      new ColumnDef('feeduri', 'varchar',
-                                   255, false, 'UNI'),
+                                   255, true, 'UNI'),
                      new ColumnDef('salmonuri', 'text',
                                    null, true),
                      new ColumnDef('created', 'datetime',
@@ -272,7 +272,7 @@ class Ostatus_profile extends Memcached_DataObject
      * @return bool true on success, false on failure
      * @throws ServerException if feed state is not valid
      */
-    public function subscribe($mode='subscribe')
+    public function subscribe()
     {
         $feedsub = FeedSub::ensureFeed($this->feeduri);
         if ($feedsub->sub_state == 'active' || $feedsub->sub_state == 'subscribe') {
@@ -506,7 +506,7 @@ class Ostatus_profile extends Memcached_DataObject
         $discover = new FeedDiscovery();
         $feeduri = $discover->discoverFromURL($profile_uri);
 
-        $feedsub = FeedSub::ensureFeed($feeduri, $discover->feed);
+        //$feedsub = FeedSub::ensureFeed($feeduri, $discover->feed);
         $huburi = $discover->getAtomLink('hub');
         $salmonuri = $discover->getAtomLink('salmon');
 
@@ -665,6 +665,20 @@ class Ostatus_profile extends Memcached_DataObject
             throw new ServerException("No profile URI");
         }
 
+        if (!$feeduri || !$salmonuri) {
+            // Get the canonical feed URI and check it
+            $discover = new FeedDiscovery();
+            $feeduri = $discover->discoverFromURL($homeuri);
+    
+            $huburi = $discover->getAtomLink('hub');
+            $salmonuri = $discover->getAtomLink('salmon');
+    
+            if (!$huburi) {
+                // We can only deal with folks with a PuSH hub
+                throw new FeedSubNoHubException();
+            }
+        }
+
         $profile = new Profile();
         $profile->nickname   = $nickname;
         $profile->fullname   = $actor->displayName;
@@ -686,13 +700,8 @@ class Ostatus_profile extends Memcached_DataObject
         // so we can leave it empty until later.
         $oprofile = new Ostatus_profile();
         $oprofile->uri = $homeuri;
-        if ($feeduri) {
-            // If we don't have these, we can look them up later.
-            $oprofile->feeduri = $feeduri;
-            if ($salmonuri) {
-                $oprofile->salmonuri = $salmonuri;
-            }
-        }
+        $oprofile->feeduri = $feeduri;
+        $oprofile->salmonuri = $salmonuri;
         $oprofile->profile_id = $profile->id;
 
         $oprofile->created = common_sql_now();

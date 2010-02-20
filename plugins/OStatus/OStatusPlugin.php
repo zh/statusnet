@@ -331,6 +331,8 @@ class OStatusPlugin extends Plugin
         $oprofile = Ostatus_profile::staticGet('feeduri', $feedsub->uri);
         if ($oprofile) {
             $oprofile->processFeed($feed);
+        } else {
+            common_log(LOG_DEBUG, "No ostatus profile for incoming feed $feedsub->uri");
         }
     }
 }

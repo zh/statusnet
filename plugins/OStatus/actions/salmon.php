@@ -34,6 +34,8 @@ class SalmonAction extends Action
 
     function prepare($args)
     {
+        StatusNet::setApi(true); // Send smaller error pages
+
         parent::prepare($args);
 
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
@@ -63,8 +65,12 @@ class SalmonAction extends Action
         // XXX: check that document element is Atom entry
         // XXX: check the signature
 
-        $this->act = new Activity($dom->documentElement);
-
+        // We need to run an entry into Activity, so get the first one
+        $entries = $dom->getElementsByTagNameNS(Activity::ATOM, 'entry');
+        if ($entries && $entries->length) {
+            // @fixme is it legit to have multiple entries?
+            $this->act = new Activity($entries->item(0), $dom->documentElement);
+        }
         return true;
     }
 
@@ -74,7 +80,9 @@ class SalmonAction extends Action
 
     function handle($args)
     {
+        StatusNet::setApi(true); // Send smaller error pages
         common_log(LOG_INFO, 'Salmon: incoming post for user '. $this->user->id);
+        common_log(LOG_DEBUG, "Received salmon bit: " . var_export($this->act, true));
 
         // TODO : Insert new $xml -> notice code
 
@@ -254,7 +262,6 @@ class SalmonAction extends Action
     function ensureProfile()
     {
         $actor = $this->act->actor;
-        common_log(LOG_DEBUG, "Received salmon bit: " . var_export($this->act, true));
         if (empty($actor->id)) {
             common_log(LOG_ERR, "broken actor: " . var_export($actor, true));
             throw new Exception("Received a salmon slap from unidentified actor.");
