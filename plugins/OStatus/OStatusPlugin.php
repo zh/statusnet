@@ -63,10 +63,10 @@ class OStatusPlugin extends Plugin
 
         // Salmon endpoint
         $m->connect('main/salmon/user/:id',
-                    array('action' => 'salmon'),
+                    array('action' => 'usersalmon'),
                     array('id' => '[0-9]+'));
         $m->connect('main/salmon/group/:id',
-                    array('action' => 'salmongroup'),
+                    array('action' => 'groupsalmon'),
                     array('id' => '[0-9]+'));
         return true;
     }

@@ -28,7 +28,6 @@ if (!defined('STATUSNET')) {
 
 class SalmonAction extends Action
 {
-    var $user     = null;
     var $xml      = null;
     var $activity = null;
 
@@ -44,18 +43,6 @@ class SalmonAction extends Action
 
         if ($_SERVER['CONTENT_TYPE'] != 'application/atom+xml') {
             $this->clientError(_('Salmon requires application/atom+xml'));
-        }
-
-        $id = $this->trimmed('id');
-
-        if (!$id) {
-            $this->clientError(_('No ID.'));
-        }
-
-        $this->user = User::staticGet($id);
-
-        if (empty($this->user)) {
-            $this->clientError(_('No such user.'));
         }
 
         $xml = file_get_contents('php://input');
@@ -79,12 +66,10 @@ class SalmonAction extends Action
     function handle($args)
     {
         StatusNet::setApi(true); // Send smaller error pages
-        common_log(LOG_INFO, 'Salmon: incoming post for user '. $this->user->id);
-        common_log(LOG_DEBUG, "Received salmon bit: " . var_export($this->act, true));
 
         // TODO : Insert new $xml -> notice code
 
-        if (Event::handle('StartHandleSalmon', array($this->user, $this->activity))) {
+        if (Event::handle('StartHandleSalmon', array($this->activity))) {
             switch ($this->act->verb)
             {
             case ActivityVerb::POST:
@@ -103,148 +88,44 @@ class SalmonAction extends Action
             case ActivityVerb::UNFOLLOW:
                 $this->handleUnfollow();
                 break;
+            case ActivityVerb::JOIN:
+                $this->handleJoin();
+                break;
+            default:
+                throw new ClientException(_("Unimplemented."));
             }
-            Event::handle('EndHandleSalmon', array($this->user, $this->activity));
+            Event::handle('EndHandleSalmon', array($this->activity));
         }
     }
 
-    /**
-     * We've gotten a post event on the Salmon backchannel, probably a reply.
-     *
-     * @todo validate if we need to handle this post, then call into
-     * ostatus_profile's general incoming-post handling.
-     */
     function handlePost()
     {
-        switch ($this->act->object->type) {
-        case ActivityObject::ARTICLE:
-        case ActivityObject::BLOGENTRY:
-        case ActivityObject::NOTE:
-        case ActivityObject::STATUS:
-        case ActivityObject::COMMENT:
-            break;
-        default:
-            throw new ClientException("Can't handle that kind of post.");
-        }
-
-        // Notice must either be a) in reply to a notice by this user
-        // or b) to the attention of this user
-
-        $context = $this->act->context;
-
-        if (!empty($context->replyToID)) {
-            $notice = Notice::staticGet('uri', $context->replyToID);
-            if (empty($notice)) {
-                throw new ClientException("In reply to unknown notice");
-            }
-            if ($notice->profile_id != $this->user->id) {
-                throw new ClientException("In reply to a notice not by this user");
-            }
-        } else if (!empty($context->attention)) {
-            if (!in_array($context->attention, $this->user->uri)) {
-                throw new ClientException("To the attention of user(s) not including this one!");
-            }
-        } else {
-            throw new ClientException("Not to anyone in reply to anything!");
-        }
-
-        $profile = $this->ensureProfile();
-        // @fixme do something with the post
+        throw new ClientException(_("Unimplemented!"));
     }
-
-    /**
-     * We've gotten a follow/subscribe notification from a remote user.
-     * Save a subscription relationship for them.
-     */
 
     function handleFollow()
     {
-        $oprofile = $this->ensureProfile();
-        if ($oprofile) {
-            common_log(LOG_INFO, "Setting up subscription from remote {$oprofile->uri} to local {$this->user->nickname}");
-            $oprofile->subscribeRemoteToLocal($this->user);
-        } else {
-            common_log(LOG_INFO, "Can't set up subscription from remote; missing profile.");
-        }
+        throw new ClientException(_("Unimplemented!"));
     }
 
-    /**
-     * We've gotten an unfollow/unsubscribe notification from a remote user.
-     * Check if we have a subscription relationship for them and kill it.
-     *
-     * @fixme probably catch exceptions on fail?
-     */
     function handleUnfollow()
     {
-        $oprofile = $this->ensureProfile();
-        if ($oprofile) {
-            common_log(LOG_INFO, "Canceling subscription from remote {$oprofile->uri} to local {$this->user->nickname}");
-            Subscription::cancel($oprofile->localProfile(), $this->user->getProfile());
-        } else {
-            common_log(LOG_ERR, "Can't cancel subscription from remote, didn't find the profile");
-        }
+        throw new ClientException(_("Unimplemented!"));
     }
-
-    /**
-     * Remote user likes one of our posts.
-     * Confirm the post is ours, and save a local favorite event.
-     */
 
     function handleFavorite()
     {
-        // WORST VARIABLE NAME EVER
-        $object = $this->act->object;
-
-        switch ($this->act->object->type) {
-        case ActivityObject::ARTICLE:
-        case ActivityObject::BLOGENTRY:
-        case ActivityObject::NOTE:
-        case ActivityObject::STATUS:
-        case ActivityObject::COMMENT:
-            break;
-        default:
-            throw new ClientException("Can't handle that kind of object for liking/faving.");
-        }
-
-        $notice = Notice::staticGet('uri', $object->id);
-
-        if (empty($notice)) {
-            throw new ClientException("Notice with ID $object->id unknown.");
-        }
-
-        if ($notice->profile_id != $this->user->id) {
-            throw new ClientException("Notice with ID $object->id not posted by $this->user->id.");
-        }
-
-        $profile = $this->ensureProfile();
-
-        $old = Fave::pkeyGet(array('user_id' => $profile->id,
-                                   'notice_id' => $notice->id));
-
-        if (!empty($old)) {
-            throw new ClientException("We already know that's a fave!");
-        }
-
-        $fave = new Fave();
-
-        // @fixme need to change this attribute name, maybe references
-        $fave->user_id   = $profile->id;
-        $fave->notice_id = $notice->id;
-
-        $result = $fave->insert();
-
-        if (!$result) {
-            common_log_db_error($fave, 'INSERT', __FILE__);
-            throw new ServerException('Could not save new favorite.');
-        }
+        throw new ClientException(_("Unimplemented!"));
     }
 
     /**
      * Remote user doesn't like one of our posts after all!
-     * Confirm the post is ours, and save a local favorite event.
+     * Confirm the post is ours, and delete a local favorite event.
      */
+
     function handleUnfavorite()
     {
+        throw new ClientException(_("Unimplemented!"));
     }
 
     /**
@@ -252,6 +133,15 @@ class SalmonAction extends Action
      */
     function handleShare()
     {
+        throw new ClientException(_("Unimplemented!"));
+    }
+
+    /**
+     * Hmmmm
+     */
+    function handleJoin()
+    {
+        throw new ClientException(_("Unimplemented!"));
     }
 
     /**
