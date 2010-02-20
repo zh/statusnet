@@ -66,7 +66,7 @@ class WebfingerAction extends Action
                               'href' => $salmon_url);
         
         // TODO - finalize where the redirect should go on the publisher
-        $url = common_local_url('ostatussub') . '?feed={uri}';
+        $url = common_local_url('ostatussub') . '?profile={uri}';
         $xrd->links[] = array('rel' => 'http://ostatus.org/schema/1.0/subscribe',
                               'template' => $url );
 
