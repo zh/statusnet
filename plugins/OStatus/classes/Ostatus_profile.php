@@ -457,28 +457,33 @@ class Ostatus_profile extends Memcached_DataObject
             $oprofile = $this;
         }
 
-        if ($activity->object->link) {
-            $sourceUri = $activity->object->link;
-        } else if (preg_match('!^https?://!', $activity->object->id)) {
-            $sourceUri = $activity->object->id;
-        } else {
-            common_log(LOG_INFO, "OStatus: ignoring post with no source link: id $activity->object->id");
+        $sourceUri = $activity->object->id;
+
+        $dupe = Notice::staticGet('uri', $sourceUri);
+
+        if ($dupe) {
+            common_log(LOG_INFO, "OStatus: ignoring duplicate post: $sourceUri");
             return;
         }
 
-        $dupe = Notice::staticGet('uri', $sourceUri);
-        if ($dupe) {
-            common_log(LOG_INFO, "OStatus: ignoring duplicate post: $noticeLink");
-            return;
+        $sourceUrl = null;
+
+        if ($activity->object->link) {
+            $sourceUrl = $activity->object->link;
+        } else if (preg_match('!^https?://!', $activity->object->id)) {
+            $sourceUrl = $activity->object->id;
         }
 
         // @fixme sanitize and save HTML content if available
+
         $content = $activity->object->title;
 
         $params = array('is_local' => Notice::REMOTE_OMB,
+                        'url' => $sourceUrl,
                         'uri' => $sourceUri);
 
-        $location = $this->getEntryLocation($activity->entry);
+        $location = $activity->context->location;
+
         if ($location) {
             $params['lat'] = $location->lat;
             $params['lon'] = $location->lon;
