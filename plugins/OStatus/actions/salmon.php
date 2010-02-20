@@ -62,15 +62,13 @@ class SalmonAction extends Action
 
         $dom = DOMDocument::loadXML($xml);
 
-        // XXX: check that document element is Atom entry
+        if ($dom->documentElement->namespaceURI != Activity::ATOM ||
+            $dom->documentElement->localName != 'entry') {
+            $this->clientError(_m('Salmon post must be an Atom entry.'));
+        }
         // XXX: check the signature
 
-        // We need to run an entry into Activity, so get the first one
-        $entries = $dom->getElementsByTagNameNS(Activity::ATOM, 'entry');
-        if ($entries && $entries->length) {
-            // @fixme is it legit to have multiple entries?
-            $this->act = new Activity($entries->item(0), $dom->documentElement);
-        }
+        $this->act = new Activity($dom->documentElement);
         return true;
     }
 

@@ -329,9 +329,15 @@ class Ostatus_profile extends Memcached_DataObject
                 ':' . $actor->id .
                 ':' . time(); // @fixme
 
-            //$entry = new Atom10Entry();
+            // @fixme consolidate all these NS settings somewhere
+            $attributes = array('xmlns' => Activity::ATOM,
+                                'xmlns:activity' => 'http://activitystrea.ms/spec/1.0/',
+                                'xmlns:thr' => 'http://purl.org/syndication/thread/1.0',
+                                'xmlns:georss' => 'http://www.georss.org/georss',
+                                'xmlns:ostatus' => 'http://ostatus.org/schema/1.0');
+
             $entry = new XMLStringer();
-            $entry->elementStart('entry');
+            $entry->elementStart('entry', $attributes);
             $entry->element('id', null, $id);
             $entry->element('title', null, $text);
             $entry->element('summary', null, $text);
@@ -343,10 +349,7 @@ class Ostatus_profile extends Memcached_DataObject
             $entry->raw($object->asActivityNoun('object'));
             $entry->elementEnd('entry');
 
-            $feed = $this->atomFeed($actor);
-            $feed->addEntry($entry);
-
-            $xml = $feed->getString();
+            $xml = $entry->getString();
             common_log(LOG_INFO, "Posting to Salmon endpoint $this->salmonuri: $xml");
 
             $salmon = new Salmon(); // ?
