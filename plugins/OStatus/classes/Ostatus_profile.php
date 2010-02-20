@@ -149,7 +149,6 @@ class Ostatus_profile extends Memcached_DataObject
     function asActivityNoun($element)
     {
         $xs = new XMLStringer(true);
-
         $avatarHref = Avatar::defaultImage(AVATAR_PROFILE_SIZE);
         $avatarType = 'image/png';
         if ($this->isGroup()) {
@@ -173,8 +172,8 @@ class Ostatus_profile extends Memcached_DataObject
             $self = $this->localProfile();
             $avatar = $self->getAvatar(AVATAR_PROFILE_SIZE);
             if ($avatar) {
-                $avatarHref = $avatar->
-                $avatarType = $avatar->mediatype;
+                  $avatarHref = $avatar->url;
+                  $avatarType = $avatar->mediatype;
             }
         }
         $xs->elementStart('activity:' . $element);
@@ -672,10 +671,10 @@ class Ostatus_profile extends Memcached_DataObject
             // Get the canonical feed URI and check it
             $discover = new FeedDiscovery();
             $feeduri = $discover->discoverFromURL($homeuri);
-    
+
             $huburi = $discover->getAtomLink('hub');
             $salmonuri = $discover->getAtomLink('salmon');
-    
+
             if (!$huburi) {
                 // We can only deal with folks with a PuSH hub
                 throw new FeedSubNoHubException();
