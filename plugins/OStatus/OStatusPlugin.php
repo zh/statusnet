@@ -357,26 +357,4 @@ class OStatusPlugin extends Plugin
 
         return true;
     }
-
-    function onEndUnsubscribe($subscriber, $other)
-    {
-        $user = User::staticGet('id', $subscriber->id);
-
-        if (empty($user)) {
-            return true;
-        }
-
-        $oprofile = Ostatus_profile::staticGet('profile_id', $other->id);
-
-        if (empty($oprofile)) {
-            return true;
-        }
-
-        // We have a local user subscribing to a remote profile; make the
-        // magic happen!
-
-        $oprofile->notify($subscriber, ActivityVerb::UNFOLLOW);
-
-        return true;
-    }
 }

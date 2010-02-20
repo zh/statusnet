@@ -1,0 +1,189 @@
+<?php
+/*
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2010, StatusNet, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ * @package OStatusPlugin
+ * @author James Walker <james@status.net>
+ */
+
+if (!defined('STATUSNET')) {
+    exit(1);
+}
+
+class UsersalmonAction extends SalmonAction
+{
+    function prepare($args)
+    {
+        parent::prepare($args);
+
+        $id = $this->trimmed('id');
+
+        if (!$id) {
+            $this->clientError(_('No ID.'));
+        }
+
+        $this->user = User::staticGet('id', $id);
+
+        if (empty($this->user)) {
+            $this->clientError(_('No such user.'));
+        }
+
+        return true;
+    }
+
+    /**
+     * We've gotten a post event on the Salmon backchannel, probably a reply.
+     *
+     * @todo validate if we need to handle this post, then call into
+     * ostatus_profile's general incoming-post handling.
+     */
+    function handlePost()
+    {
+        switch ($this->act->object->type) {
+        case ActivityObject::ARTICLE:
+        case ActivityObject::BLOGENTRY:
+        case ActivityObject::NOTE:
+        case ActivityObject::STATUS:
+        case ActivityObject::COMMENT:
+            break;
+        default:
+            throw new ClientException("Can't handle that kind of post.");
+        }
+
+        // Notice must either be a) in reply to a notice by this user
+        // or b) to the attention of this user
+
+        $context = $this->act->context;
+
+        if (!empty($context->replyToID)) {
+            $notice = Notice::staticGet('uri', $context->replyToID);
+            if (empty($notice)) {
+                throw new ClientException("In reply to unknown notice");
+            }
+            if ($notice->profile_id != $this->user->id) {
+                throw new ClientException("In reply to a notice not by this user");
+            }
+        } else if (!empty($context->attention)) {
+            if (!in_array($context->attention, $this->user->uri)) {
+                throw new ClientException("To the attention of user(s) not including this one!");
+            }
+        } else {
+            throw new ClientException("Not to anyone in reply to anything!");
+        }
+
+        $profile = $this->ensureProfile();
+        // @fixme do something with the post
+    }
+
+    /**
+     * We've gotten a follow/subscribe notification from a remote user.
+     * Save a subscription relationship for them.
+     */
+
+    function handleFollow()
+    {
+        $oprofile = $this->ensureProfile();
+        if ($oprofile) {
+            common_log(LOG_INFO, "Setting up subscription from remote {$oprofile->uri} to local {$this->user->nickname}");
+            $oprofile->subscribeRemoteToLocal($this->user);
+        } else {
+            common_log(LOG_INFO, "Can't set up subscription from remote; missing profile.");
+        }
+    }
+
+    /**
+     * We've gotten an unfollow/unsubscribe notification from a remote user.
+     * Check if we have a subscription relationship for them and kill it.
+     *
+     * @fixme probably catch exceptions on fail?
+     */
+    function handleUnfollow()
+    {
+        $oprofile = $this->ensureProfile();
+        if ($oprofile) {
+            common_log(LOG_INFO, "Canceling subscription from remote {$oprofile->uri} to local {$this->user->nickname}");
+            Subscription::cancel($oprofile->localProfile(), $this->user->getProfile());
+        } else {
+            common_log(LOG_ERR, "Can't cancel subscription from remote, didn't find the profile");
+        }
+    }
+
+    /**
+     * Remote user likes one of our posts.
+     * Confirm the post is ours, and save a local favorite event.
+     */
+
+    function handleFavorite()
+    {
+        // WORST VARIABLE NAME EVER
+        $object = $this->act->object;
+
+        switch ($this->act->object->type) {
+        case ActivityObject::ARTICLE:
+        case ActivityObject::BLOGENTRY:
+        case ActivityObject::NOTE:
+        case ActivityObject::STATUS:
+        case ActivityObject::COMMENT:
+            break;
+        default:
+            throw new ClientException("Can't handle that kind of object for liking/faving.");
+        }
+
+        $notice = Notice::staticGet('uri', $object->id);
+
+        if (empty($notice)) {
+            throw new ClientException("Notice with ID $object->id unknown.");
+        }
+
+        if ($notice->profile_id != $this->user->id) {
+            throw new ClientException("Notice with ID $object->id not posted by $this->user->id.");
+        }
+
+        $profile = $this->ensureProfile();
+
+        $old = Fave::pkeyGet(array('user_id' => $profile->id,
+                                   'notice_id' => $notice->id));
+
+        if (!empty($old)) {
+            throw new ClientException("We already know that's a fave!");
+        }
+
+        $fave = new Fave();
+
+        // @fixme need to change this attribute name, maybe references
+        $fave->user_id   = $profile->id;
+        $fave->notice_id = $notice->id;
+
+        $result = $fave->insert();
+
+        if (!$result) {
+            common_log_db_error($fave, 'INSERT', __FILE__);
+            throw new ServerException('Could not save new favorite.');
+        }
+    }
+
+    /**
+     * Remote user doesn't like one of our posts after all!
+     * Confirm the post is ours, and save a local favorite event.
+     */
+    function handleUnfavorite()
+    {
+    }
+
+}
