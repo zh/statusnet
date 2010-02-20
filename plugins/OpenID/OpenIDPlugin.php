@@ -235,9 +235,14 @@ class OpenIDPlugin extends Plugin
         switch ($name)
         {
          case 'register':
-            $instr = '(Have an [OpenID](http://openid.net/)? ' .
-              'Try our [OpenID registration]'.
-              '(%%action.openidlogin%%)!)';
+            if (common_logged_in()) {
+                $instr = '(Have an [OpenID](http://openid.net/)? ' .
+                  '[Add an OpenID to your account](%%action.openidsettings%%)!';
+            } else {
+                $instr = '(Have an [OpenID](http://openid.net/)? ' .
+                  'Try our [OpenID registration]'.
+                  '(%%action.openidlogin%%)!)';
+            }
             break;
          case 'login':
             $instr = '(Have an [OpenID](http://openid.net/)? ' .
