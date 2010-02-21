@@ -54,9 +54,15 @@ class AtomUserNoticeFeed extends AtomNoticeFeed
      *
      * @return void
      */
+
     function __construct($user = null, $indent = true) {
         parent::__construct($indent);
         $this->user = $user;
+        if (!empty($user)) {
+            $profile = $user->getProfile();
+            $this->addAuthor($profile->getBestName(),
+                             $user->uri);
+        }
     }
 
     function getUser()
